@@ -1,5 +1,8 @@
 {
   "topics": [
+    "homotopy-theory",
+    "maass-forms",
+    "d-modules",
     "dirichlet-unit-theorem",
     "cobordism",
     "mmp-and-birational-geometry",
@@ -334,6 +337,9 @@
     "positivity-and-ample-line-bundles": "advanced",
     "dirichlet-unit-theorem": "advanced",
     "cobordism": "advanced",
-    "mmp-and-birational-geometry": "advanced"
+    "mmp-and-birational-geometry": "advanced",
+    "homotopy-theory": "advanced",
+    "maass-forms": "advanced",
+    "d-modules": "advanced"
   }
 }

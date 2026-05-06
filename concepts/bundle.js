@@ -4,6 +4,9 @@
 window.__MVConcepts = {
   "index": {
     "topics": [
+      "homotopy-theory",
+      "maass-forms",
+      "d-modules",
       "dirichlet-unit-theorem",
       "cobordism",
       "mmp-and-birational-geometry",
@@ -338,10 +341,285 @@ window.__MVConcepts = {
       "positivity-and-ample-line-bundles": "advanced",
       "dirichlet-unit-theorem": "advanced",
       "cobordism": "advanced",
-      "mmp-and-birational-geometry": "advanced"
+      "mmp-and-birational-geometry": "advanced",
+      "homotopy-theory": "advanced",
+      "maass-forms": "advanced",
+      "d-modules": "advanced"
     }
   },
   "topics": {
+    "homotopy-theory": {
+      "topic": "homotopy-theory",
+      "title": "Homotopy theory",
+      "page": "homotopy-theory.html",
+      "concepts": [
+        {
+          "id": "ht-pi-n",
+          "title": "Higher homotopy groups",
+          "anchor": "pi-n",
+          "prereqs": [
+            "fundamental-group",
+            "singular-homology"
+          ],
+          "blurb": "$\\pi_n(X,x_0)=[(S^n,*),(X,x_0)]$ — homotopy classes of based maps from the $n$-sphere. Eckmann–Hilton: $\\pi_n$ is abelian for $n\\ge 2$ because the two natural compositions on a double-loop space agree. Worked examples: $\\pi_n(S^n)=\\mathbb{Z}$ (Brouwer degree), $\\pi_3(S^2)=\\mathbb{Z}$ (Hopf invariant). The long exact sequence of a fibration $F\\to E\\to B$ relates $\\pi_*F$, $\\pi_*E$, and $\\pi_*B$, computing many homotopy groups by induction.",
+          "tags": [
+            "foundation",
+            "fibration",
+            "exact-sequence"
+          ]
+        },
+        {
+          "id": "ht-hurewicz-whitehead",
+          "title": "Hurewicz and Whitehead theorems",
+          "anchor": "hurewicz-whitehead",
+          "prereqs": [
+            "ht-pi-n",
+            "singular-homology"
+          ],
+          "blurb": "Hurewicz: for an $(n-1)$-connected space ($n\\ge 2$), the abelianisation map $h\\colon\\pi_n(X)\\to H_n(X;\\mathbb{Z})$ is an isomorphism — the first non-trivial homotopy group equals the first non-trivial homology group. Whitehead: a continuous map $f\\colon X\\to Y$ between connected CW complexes inducing isomorphisms on every $\\pi_n$ is a homotopy equivalence. The CW hypothesis is essential — for arbitrary spaces, isomorphism on $\\pi_*$ defines only weak equivalence, and CW-replacement (singular complex / geometric realization) is the standard fix.",
+          "tags": [
+            "foundation",
+            "refinement"
+          ]
+        },
+        {
+          "id": "ht-eilenberg-maclane",
+          "title": "Eilenberg–MacLane spaces and ordinary cohomology",
+          "anchor": "eilenberg-maclane",
+          "prereqs": [
+            "ht-hurewicz-whitehead",
+            "cd-cup-product"
+          ],
+          "blurb": "$K(G,n)$ is the (unique up to homotopy) CW complex with $\\pi_n=G$ and all other homotopy groups zero. The defining adjunction is $[X,K(G,n)]\\cong H^n(X;G)$ — singular cohomology with coefficients in $G$ is represented by $K(G,n)$. Examples: $K(\\mathbb{Z},1)=S^1$, $K(\\mathbb{Z}/2,1)=\\mathbb{RP}^\\infty$, $K(\\mathbb{Z},2)=\\mathbb{CP}^\\infty$. Postnikov tower: every connected space sits atop a tower of principal $K(\\pi_n,n)$ fibrations whose $k$-invariants live in $H^{n+1}(X_{n-1};\\pi_n)$.",
+          "tags": [
+            "cohomology",
+            "universal-property",
+            "classification"
+          ]
+        },
+        {
+          "id": "ht-stable",
+          "title": "Stable homotopy and spectra",
+          "anchor": "stable",
+          "prereqs": [
+            "ht-pi-n",
+            "ht-eilenberg-maclane"
+          ],
+          "blurb": "Freudenthal suspension: $\\Sigma\\colon\\pi_k(S^n)\\to\\pi_{k+1}(S^{n+1})$ is an iso for $k<2n-1$, so the colimit $\\pi_k^s=\\operatorname{colim}_n\\pi_{k+n}(S^n)$ stabilises. A spectrum is a sequence of pointed spaces $\\{E_n\\}$ with structure maps $\\Sigma E_n\\to E_{n+1}$; examples include $H\\mathbb{Z}$ (Eilenberg–MacLane), $MO,MU$ (Thom spectra), $KU$ (complex $K$-theory). Generalised cohomology theories $E^n(X)=[X,E_n]$ are equivalent to spectra (Brown representability).",
+          "tags": [
+            "cohomology",
+            "classification",
+            "foundation"
+          ]
+        },
+        {
+          "id": "ht-hopf-rational",
+          "title": "Hopf fibration and rational homotopy",
+          "anchor": "hopf-rational",
+          "prereqs": [
+            "ht-pi-n",
+            "cd-spectral-sequences"
+          ],
+          "blurb": "The Hopf fibration $S^1\\to S^3\\to S^2$ generates $\\pi_3(S^2)=\\mathbb{Z}$: its homotopy class is $1$ under the Hopf invariant. Serre's mod-$\\mathcal{C}$ theory localises away small primes; rationally, Serre proved $\\pi_*(S^{2n+1})\\otimes\\mathbb{Q}=\\mathbb{Q}$ in degree $2n+1$ and zero elsewhere, while $\\pi_*(S^{2n})\\otimes\\mathbb{Q}$ has $\\mathbb{Q}$ in degrees $2n$ and $4n-1$. Sullivan's rational homotopy theory: for a simply-connected $X$ of finite $\\mathbb{Q}$-type, $\\pi_*(X)\\otimes\\mathbb{Q}$ is computable from a minimal Sullivan model of the cdga $\\Omega^*(X;\\mathbb{Q})$ — the pro-Q-completion of homotopy is a piece of commutative algebra.",
+          "tags": [
+            "fibration",
+            "completion"
+          ]
+        },
+        {
+          "id": "ht-loop",
+          "title": "Loop spaces and Bott periodicity",
+          "anchor": "loop",
+          "prereqs": [
+            "ht-pi-n",
+            "ht-stable"
+          ],
+          "blurb": "$\\Omega X$ — the based loop space of $X$ — has $\\pi_n(\\Omega X)=\\pi_{n+1}(X)$ and an $A_\\infty$ multiplication from path concatenation; $\\Omega^n X$ is therefore an $E_n$-space, with $\\Omega^\\infty E$ the infinite loop space of a spectrum $E$. Bott periodicity: $\\Omega^8\\mathrm{O}\\simeq\\mathrm{O}$ for the stable orthogonal group and $\\Omega^2\\mathrm{U}\\simeq\\mathrm{U}$ for the stable unitary group — so the homotopy groups of $\\mathrm{O}$ and $\\mathrm{U}$ are $8$- and $2$-periodic, computing $KO^*(\\mathrm{pt})$ and $KU^*(\\mathrm{pt})$. James's splitting $\\Sigma\\Omega\\Sigma X\\simeq\\bigvee_n\\Sigma X^{\\wedge n}$ unpacks the loop-space structure of a suspension into wedge summands.",
+          "tags": [
+            "fibration",
+            "classification"
+          ]
+        }
+      ]
+    },
+    "maass-forms": {
+      "topic": "maass-forms",
+      "title": "Maass forms",
+      "page": "maass-forms.html",
+      "concepts": [
+        {
+          "id": "maa-definition",
+          "title": "Maass forms and the hyperbolic Laplacian",
+          "anchor": "definition",
+          "prereqs": [
+            "sl2z-on-H",
+            "hyperbolic-metric"
+          ],
+          "blurb": "A Maass form is a $\\Gamma$-invariant smooth function $f:\\mathbb{H}\\to\\mathbb{C}$ that is an eigenfunction of the hyperbolic Laplacian $\\Delta=-y^2(\\partial_x^2+\\partial_y^2)$ with eigenvalue $\\lambda=\\tfrac14+r^2$, and is of moderate growth at the cusp. Unlike a holomorphic modular form (which solves $\\partial_{\\bar z}f=0$), a Maass form solves a second-order elliptic PDE — it is real-analytic but not holomorphic.",
+          "tags": [
+            "foundation",
+            "group-action"
+          ]
+        },
+        {
+          "id": "maa-spectral",
+          "title": "Spectral decomposition of $L^2(\\Gamma\\backslash\\mathbb{H})$",
+          "anchor": "spectral",
+          "prereqs": [
+            "maa-definition"
+          ],
+          "blurb": "The Hilbert space $L^2(\\Gamma\\backslash\\mathbb{H})$ splits orthogonally as $L^2_{\\mathrm{cusp}}\\oplus L^2_{\\mathrm{Eis}}\\oplus L^2_{\\mathrm{res}}$. Cusp forms form a discrete countable family of Laplacian eigenfunctions; Eisenstein series $E(z,s)$ at $\\Re s=\\tfrac12$ supply the continuous spectrum; residues at simple poles in $(\\tfrac12,1]$ give the residual spectrum (constants and a few special exceptions).",
+          "tags": [
+            "completion",
+            "duality"
+          ]
+        },
+        {
+          "id": "maa-selberg-eigenvalue",
+          "title": "Selberg's eigenvalue conjecture",
+          "anchor": "selberg-eigenvalue",
+          "prereqs": [
+            "maa-spectral"
+          ],
+          "blurb": "Selberg conjectured that for any congruence subgroup the lowest non-zero Laplacian eigenvalue on cusp forms satisfies $\\lambda_1\\ge\\tfrac14$ — the Maass spectral parameter $r$ stays real. The current record is Kim–Sarnak's $\\lambda_1\\ge\\tfrac{975}{4096}$. For non-congruence groups exceptional eigenvalues below $\\tfrac14$ can and do occur.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "maa-eisenstein",
+          "title": "Eisenstein series and meromorphic continuation",
+          "anchor": "eisenstein",
+          "prereqs": [
+            "maa-definition",
+            "eisenstein-series-mf"
+          ],
+          "blurb": "For $\\Re s>1$ define $E(z,s)=\\sum_{\\gamma\\in\\Gamma_\\infty\\backslash\\Gamma}(\\Im\\gamma z)^s$. It is a Laplacian eigenfunction with eigenvalue $s(1-s)$. Selberg's continuation extends $E(\\cdot,s)$ meromorphically to $\\mathbb{C}$ with functional equation $E(z,s)=\\phi(s)E(z,1-s)$, and the constant term reproduces the analytic continuation of $\\zeta(s)$.",
+          "tags": [
+            "completion",
+            "duality"
+          ]
+        },
+        {
+          "id": "maa-l-function",
+          "title": "Maass $L$-functions and Ramanujan",
+          "anchor": "l-function",
+          "prereqs": [
+            "maa-definition",
+            "lfunction-prototype"
+          ],
+          "blurb": "A Maass cusp form has a Fourier–Whittaker expansion $f(z)=\\sum_{n\\ne 0}a_f(n)\\sqrt{y}\\,K_{ir}(2\\pi|n|y)e^{2\\pi i n x}$. The Dirichlet series $L(s,f)=\\sum_{n\\ge 1}a_f(n)n^{-s}$ has analytic continuation, an Euler product when $f$ is a Hecke eigenform, and a functional equation. Ramanujan–Petersson predicts $|a_f(p)|\\le 2$; Kim–Shahidi gives $|a_f(p)|\\le 2p^{7/64}$.",
+          "tags": [
+            "duality",
+            "functoriality"
+          ]
+        },
+        {
+          "id": "maa-trace-formula",
+          "title": "Selberg trace formula and the Weyl law",
+          "anchor": "trace-formula",
+          "prereqs": [
+            "maa-spectral",
+            "maa-eisenstein"
+          ],
+          "blurb": "The Selberg trace formula equates a spectral side $\\sum_j h(r_j)$ over Laplacian eigenvalues with a geometric side built from closed geodesics on $\\Gamma\\backslash\\mathbb{H}$. Choosing a suitable test function $h$ proves the Weyl law $\\#\\{\\lambda_j\\le T\\}\\sim\\mathrm{vol}(\\Gamma\\backslash\\mathbb{H})\\,T/(4\\pi)$ — the cusp form spectrum has the same density as eigenvalues on a compact surface of the same volume.",
+          "tags": [
+            "duality",
+            "equidistribution"
+          ]
+        }
+      ]
+    },
+    "d-modules": {
+      "topic": "d-modules",
+      "title": "D-modules and the Riemann-Hilbert correspondence",
+      "page": "d-modules.html",
+      "concepts": [
+        {
+          "id": "dm-weyl",
+          "title": "The Weyl algebra and D-modules on affine space",
+          "anchor": "weyl",
+          "prereqs": [
+            "modules-ca",
+            "noetherian-hilbert-ca"
+          ],
+          "blurb": "$D_n = \\mathbb{C}\\langle x_1, \\ldots, x_n, \\partial_1, \\ldots, \\partial_n \\rangle / ([\\partial_i, x_j] - \\delta_{ij})$ is the ring of polynomial differential operators on $\\mathbb{A}^n$. A D-module is a left $D_n$-module — packaging a PDE system $\\{P_i u = 0\\}$ as the cyclic module $D_n / \\sum D_n P_i$. The Bernstein filtration $F^k = \\{|\\alpha| + |\\beta| \\le k\\}$ has $\\mathrm{gr}^F D_n = \\mathbb{C}[x, \\xi]$, the coordinate ring of $T^*\\mathbb{A}^n$.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "dm-dx",
+          "title": "$\\mathcal{D}_X$-modules on a smooth variety",
+          "anchor": "dx",
+          "prereqs": [
+            "dm-weyl",
+            "ox-modules",
+            "kahler-differentials"
+          ],
+          "blurb": "On a smooth $X$, the sheaf $\\mathcal{D}_X$ is locally the Weyl algebra; $\\mathcal{D}_X$-modules are equivalently $\\mathcal{O}_X$-modules with a flat connection $\\nabla : M \\to M \\otimes \\Omega^1_X$. Coherent / quasi-coherent / good filtrations transport from commutative algebra. Functoriality is the six-functor formalism $f^!, f_+, \\otimes, \\mathbb{D}$, twisted by $\\omega_{X/Y}$; Kashiwara's theorem makes closed embeddings fully faithful.",
+          "tags": [
+            "foundation",
+            "functoriality"
+          ]
+        },
+        {
+          "id": "dm-holonomic",
+          "title": "Holonomic D-modules and characteristic varieties",
+          "anchor": "holonomic",
+          "prereqs": [
+            "dm-dx"
+          ],
+          "blurb": "The characteristic variety $\\mathrm{Char}(M) \\subset T^*X$ is the support of $\\mathrm{gr}^F M$ for any good filtration; it is independent of the filtration. Bernstein's inequality: every component of $\\mathrm{Char}(M)$ has dimension $\\ge \\dim X$. Holonomic = equality, equivalently $\\mathrm{Char}(M)$ is Lagrangian. Holonomic modules form a finite-length abelian subcategory closed under all six functors.",
+          "tags": [
+            "finiteness",
+            "classification"
+          ]
+        },
+        {
+          "id": "dm-riemann-hilbert",
+          "title": "The Riemann-Hilbert correspondence",
+          "anchor": "riemann-hilbert",
+          "prereqs": [
+            "dm-holonomic",
+            "de-rham-complex",
+            "presheaf-sheaf-axioms"
+          ],
+          "blurb": "Kashiwara-Mebkhout (1980): the de Rham functor $\\mathrm{DR}_X : M \\mapsto \\Omega^\\bullet_X \\otimes^L_{\\mathcal{D}_X} M[\\dim X]$ is an equivalence between regular holonomic D-modules on $X$ and perverse sheaves on $X^{\\mathrm{an}}$. Restricted to flat connections it recovers the classical bijection {flat connections} $\\leftrightarrow$ {local systems}, settling Hilbert's 21st problem. Compatible with all six functors.",
+          "tags": [
+            "duality",
+            "functoriality",
+            "cohomology"
+          ]
+        },
+        {
+          "id": "dm-pde",
+          "title": "D-modules and PDE: hypergeometric systems",
+          "anchor": "pde",
+          "prereqs": [
+            "dm-riemann-hilbert",
+            "pde-classification"
+          ],
+          "blurb": "A holonomic D-module repackages a system of linear PDEs; its solution sheaf in $\\mathcal{O}^{\\mathrm{an}}$ is a local system on the regular locus. The Gauss hypergeometric ODE $z(1-z)u'' + (c - (a+b+1)z)u' - abu = 0$ is the cyclic D-module on $\\mathbb{P}^1 \\setminus \\{0,1,\\infty\\}$ whose corresponding local system has rank 2, with monodromy eigenvalues read off the indicial roots at each singular point.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "dm-bs-polynomial",
+          "title": "The Bernstein-Sato polynomial",
+          "anchor": "bs-polynomial",
+          "prereqs": [
+            "dm-holonomic"
+          ],
+          "blurb": "For $f \\in \\mathbb{C}[x_1, \\ldots, x_n]$ non-constant, the $b$-function $b_f(s) \\in \\mathbb{C}[s]$ is the monic generator of the ideal $\\{b \\in \\mathbb{C}[s] : \\exists\\, P \\in D_n[s]\\text{ with } P f^{s+1} = b(s) f^s\\}$. Existence is forced by holonomicity of $D_n[s] \\cdot f^s$; Kashiwara's theorem says every root is a negative rational. Controls analytic continuation of $|f|^{2s}$, vanishing cycles, and the log canonical threshold of $\\{f = 0\\}$.",
+          "tags": [
+            "finiteness",
+            "classification"
+          ]
+        }
+      ]
+    },
     "dirichlet-unit-theorem": {
       "topic": "dirichlet-unit-theorem",
       "title": "Dirichlet unit theorem",
@@ -16385,7 +16663,8 @@ window.__MVConcepts = {
           "atiyah-singer-index-theorem",
           "mostow-rigidity",
           "cohomology-and-duality",
-          "cobordism"
+          "cobordism",
+          "homotopy-theory"
         ],
         "color": "v"
       },
@@ -16435,7 +16714,8 @@ window.__MVConcepts = {
           "modularity-and-flt",
           "modular-curves",
           "vertex-operator-algebras",
-          "langlands-program"
+          "langlands-program",
+          "maass-forms"
         ],
         "color": "c"
       },
@@ -16471,7 +16751,8 @@ window.__MVConcepts = {
           "toric-varieties",
           "abelian-varieties",
           "positivity-and-ample-line-bundles",
-          "mmp-and-birational-geometry"
+          "mmp-and-birational-geometry",
+          "d-modules"
         ],
         "color": "g"
       },
@@ -16769,7 +17050,10 @@ window.__MVConcepts = {
     "positivity-and-ample-line-bundles": "advanced",
     "dirichlet-unit-theorem": "advanced",
     "cobordism": "advanced",
-    "mmp-and-birational-geometry": "advanced"
+    "mmp-and-birational-geometry": "advanced",
+    "homotopy-theory": "advanced",
+    "maass-forms": "advanced",
+    "d-modules": "advanced"
   },
   "newArc": [
     "elementary-topos-theory",
@@ -16800,7 +17084,7 @@ window.__MVConcepts = {
       "concepts": 142,
       "intra": 212,
       "crossOut": 22,
-      "crossIn": 80,
+      "crossIn": 82,
       "density": 0.15492957746478872
     },
     "Higher categories & toposes": {
@@ -16814,7 +17098,7 @@ window.__MVConcepts = {
       "concepts": 191,
       "intra": 333,
       "crossOut": 31,
-      "crossIn": 63,
+      "crossIn": 64,
       "density": 0.16230366492146597
     },
     "Probability & statistics": {
@@ -16825,11 +17109,11 @@ window.__MVConcepts = {
       "density": 0.2545454545454545
     },
     "Geometry & topology": {
-      "concepts": 116,
-      "intra": 184,
+      "concepts": 122,
+      "intra": 196,
       "crossOut": 23,
       "crossIn": 94,
-      "density": 0.19827586206896552
+      "density": 0.1885245901639344
     },
     "Number theory": {
       "concepts": 116,
@@ -16839,18 +17123,18 @@ window.__MVConcepts = {
       "density": 0.3706896551724138
     },
     "Modular forms & L-functions": {
-      "concepts": 103,
-      "intra": 139,
+      "concepts": 109,
+      "intra": 149,
       "crossOut": 55,
       "crossIn": 16,
-      "density": 0.5339805825242718
+      "density": 0.5045871559633027
     },
     "Algebraic geometry": {
-      "concepts": 167,
-      "intra": 233,
-      "crossOut": 58,
+      "concepts": 173,
+      "intra": 242,
+      "crossOut": 61,
       "crossIn": 21,
-      "density": 0.3473053892215569
+      "density": 0.35260115606936415
     },
     "Combinatorics & graph theory": {
       "concepts": 51,

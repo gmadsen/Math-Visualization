@@ -1,0 +1,90 @@
+{
+  "topic": "d-modules",
+  "title": "D-modules and the Riemann-Hilbert correspondence",
+  "page": "d-modules.html",
+  "concepts": [
+    {
+      "id": "dm-weyl",
+      "title": "The Weyl algebra and D-modules on affine space",
+      "anchor": "weyl",
+      "prereqs": [
+        "modules-ca",
+        "noetherian-hilbert-ca"
+      ],
+      "blurb": "$D_n = \\mathbb{C}\\langle x_1, \\ldots, x_n, \\partial_1, \\ldots, \\partial_n \\rangle / ([\\partial_i, x_j] - \\delta_{ij})$ is the ring of polynomial differential operators on $\\mathbb{A}^n$. A D-module is a left $D_n$-module — packaging a PDE system $\\{P_i u = 0\\}$ as the cyclic module $D_n / \\sum D_n P_i$. The Bernstein filtration $F^k = \\{|\\alpha| + |\\beta| \\le k\\}$ has $\\mathrm{gr}^F D_n = \\mathbb{C}[x, \\xi]$, the coordinate ring of $T^*\\mathbb{A}^n$.",
+      "tags": [
+        "foundation"
+      ]
+    },
+    {
+      "id": "dm-dx",
+      "title": "$\\mathcal{D}_X$-modules on a smooth variety",
+      "anchor": "dx",
+      "prereqs": [
+        "dm-weyl",
+        "ox-modules",
+        "kahler-differentials"
+      ],
+      "blurb": "On a smooth $X$, the sheaf $\\mathcal{D}_X$ is locally the Weyl algebra; $\\mathcal{D}_X$-modules are equivalently $\\mathcal{O}_X$-modules with a flat connection $\\nabla : M \\to M \\otimes \\Omega^1_X$. Coherent / quasi-coherent / good filtrations transport from commutative algebra. Functoriality is the six-functor formalism $f^!, f_+, \\otimes, \\mathbb{D}$, twisted by $\\omega_{X/Y}$; Kashiwara's theorem makes closed embeddings fully faithful.",
+      "tags": [
+        "foundation",
+        "functoriality"
+      ]
+    },
+    {
+      "id": "dm-holonomic",
+      "title": "Holonomic D-modules and characteristic varieties",
+      "anchor": "holonomic",
+      "prereqs": [
+        "dm-dx"
+      ],
+      "blurb": "The characteristic variety $\\mathrm{Char}(M) \\subset T^*X$ is the support of $\\mathrm{gr}^F M$ for any good filtration; it is independent of the filtration. Bernstein's inequality: every component of $\\mathrm{Char}(M)$ has dimension $\\ge \\dim X$. Holonomic = equality, equivalently $\\mathrm{Char}(M)$ is Lagrangian. Holonomic modules form a finite-length abelian subcategory closed under all six functors.",
+      "tags": [
+        "finiteness",
+        "classification"
+      ]
+    },
+    {
+      "id": "dm-riemann-hilbert",
+      "title": "The Riemann-Hilbert correspondence",
+      "anchor": "riemann-hilbert",
+      "prereqs": [
+        "dm-holonomic",
+        "de-rham-complex",
+        "presheaf-sheaf-axioms"
+      ],
+      "blurb": "Kashiwara-Mebkhout (1980): the de Rham functor $\\mathrm{DR}_X : M \\mapsto \\Omega^\\bullet_X \\otimes^L_{\\mathcal{D}_X} M[\\dim X]$ is an equivalence between regular holonomic D-modules on $X$ and perverse sheaves on $X^{\\mathrm{an}}$. Restricted to flat connections it recovers the classical bijection {flat connections} $\\leftrightarrow$ {local systems}, settling Hilbert's 21st problem. Compatible with all six functors.",
+      "tags": [
+        "duality",
+        "functoriality",
+        "cohomology"
+      ]
+    },
+    {
+      "id": "dm-pde",
+      "title": "D-modules and PDE: hypergeometric systems",
+      "anchor": "pde",
+      "prereqs": [
+        "dm-riemann-hilbert",
+        "pde-classification"
+      ],
+      "blurb": "A holonomic D-module repackages a system of linear PDEs; its solution sheaf in $\\mathcal{O}^{\\mathrm{an}}$ is a local system on the regular locus. The Gauss hypergeometric ODE $z(1-z)u'' + (c - (a+b+1)z)u' - abu = 0$ is the cyclic D-module on $\\mathbb{P}^1 \\setminus \\{0,1,\\infty\\}$ whose corresponding local system has rank 2, with monodromy eigenvalues read off the indicial roots at each singular point.",
+      "tags": [
+        "foundation"
+      ]
+    },
+    {
+      "id": "dm-bs-polynomial",
+      "title": "The Bernstein-Sato polynomial",
+      "anchor": "bs-polynomial",
+      "prereqs": [
+        "dm-holonomic"
+      ],
+      "blurb": "For $f \\in \\mathbb{C}[x_1, \\ldots, x_n]$ non-constant, the $b$-function $b_f(s) \\in \\mathbb{C}[s]$ is the monic generator of the ideal $\\{b \\in \\mathbb{C}[s] : \\exists\\, P \\in D_n[s]\\text{ with } P f^{s+1} = b(s) f^s\\}$. Existence is forced by holonomicity of $D_n[s] \\cdot f^s$; Kashiwara's theorem says every root is a negative rational. Controls analytic continuation of $|f|^{2s}$, vanishing cycles, and the log canonical threshold of $\\{f = 0\\}$.",
+      "tags": [
+        "finiteness",
+        "classification"
+      ]
+    }
+  ]
+}

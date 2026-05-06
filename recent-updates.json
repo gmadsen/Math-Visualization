@@ -1,5 +1,5 @@
 {
-  "generated": "2026-05-06T08:14:23.732Z",
+  "generated": "2026-05-06T08:38:34.220Z",
   "entries": [
     {
       "slug": "abelian-varieties",
@@ -15,7 +15,7 @@
       "color": "v",
       "tag": "",
       "date": "2026-05-06",
-      "message": "Three more advanced topics: dirichlet-unit-theorem, cobordism, mmp"
+      "message": "3 more gap topics: dirichlet-unit-theorem, cobordism, MMP (#123)"
     },
     {
       "slug": "cohomology-and-duality",
@@ -39,7 +39,7 @@
       "color": "y",
       "tag": "",
       "date": "2026-05-06",
-      "message": "Three more advanced topics: dirichlet-unit-theorem, cobordism, mmp"
+      "message": "3 more gap topics: dirichlet-unit-theorem, cobordism, MMP (#123)"
     },
     {
       "slug": "iwasawa-theory",
@@ -55,7 +55,7 @@
       "color": "g",
       "tag": "",
       "date": "2026-05-06",
-      "message": "Three more advanced topics: dirichlet-unit-theorem, cobordism, mmp"
+      "message": "3 more gap topics: dirichlet-unit-theorem, cobordism, MMP (#123)"
     },
     {
       "slug": "positivity-and-ample-line-bundles",

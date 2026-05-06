@@ -611,9 +611,9 @@
     <h1>Interactive Mathematics Notebook</h1>
     <p class="sub">Interactive concepts across mathematics — from foundations to research-level topics — each a single-page explainer with live widgets and worked examples.</p>
     <div class="hero-tagline" aria-label="Notebook scope">
-      <span><span class="tg-num">157</span> topics</span>
+      <span><span class="tg-num">160</span> topics</span>
       <span class="dot">&middot;</span>
-      <span><span class="tg-num">1104</span> concepts</span>
+      <span><span class="tg-num">1122</span> concepts</span>
       <span class="dot">&middot;</span>
       <span>pathway-graph explorer</span>
     </div>
@@ -2367,6 +2367,26 @@
       </div>
     </a>
 
+
+    <a class="card v" href="./homotopy-theory.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <!-- Hopf fibration: S^3 → S^2 with two linked circle fibres -->
+        <g stroke="var(--violet)" stroke-width="1.4" fill="none">
+          <ellipse cx="38" cy="40" rx="20" ry="12" transform="rotate(-30 38 40)"/>
+          <ellipse cx="62" cy="40" rx="20" ry="12" transform="rotate(30 62 40)"/>
+        </g>
+        <g fill="var(--violet)" font-family="serif" font-size="7" font-style="italic" text-anchor="middle">
+          <text x="50" y="13">$\pi_3(S^2) = \mathbb Z$</text>
+          <text x="50" y="76">Hopf fibration</text>
+        </g>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Homotopy theory <span class="level advanced">advanced</span></div>
+        <div class="desc">Higher homotopy groups, Hurewicz + Whitehead, Eilenberg-MacLane spaces, stable homotopy and spectra, Hopf fibration, rational homotopy, Bott periodicity.</div>
+        <span class="tag">$\pi_n$ · spectra · stable · rational</span>
+      </div>
+    </a>
+
   </div>
 
   <div class="sec">Number theory</div>
@@ -3212,7 +3232,36 @@
     </a>
 
 
-    </div>
+    <a class="card c" href="./maass-forms.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <!-- Spectrum of the Laplacian: bound state (cusp) + continuous (Eisenstein) -->
+        <g stroke="var(--cyan)" stroke-width="1.0" fill="none" opacity="0.5">
+          <line x1="14" y1="58" x2="86" y2="58"/>
+        </g>
+        <!-- Discrete spectrum: vertical bars for cusp eigenvalues -->
+        <g stroke="var(--cyan)" stroke-width="1.6">
+          <line x1="22" y1="58" x2="22" y2="22"/>
+          <line x1="34" y1="58" x2="34" y2="32"/>
+          <line x1="44" y1="58" x2="44" y2="40"/>
+        </g>
+        <g fill="var(--cyan)">
+          <circle cx="22" cy="22" r="2"/>
+          <circle cx="34" cy="32" r="2"/>
+          <circle cx="44" cy="40" r="2"/>
+        </g>
+        <!-- Continuous spectrum: dashed line above the threshold -->
+        <line x1="50" y1="36" x2="86" y2="36" stroke="var(--cyan)" stroke-width="1.4" stroke-dasharray="3 3" opacity="0.85"/>
+        <text x="50" y="52" font-size="6.5" fill="var(--cyan)" font-style="italic" font-family="serif">$\tfrac14$</text>
+        <text x="50" y="76" text-anchor="middle" font-size="7.5" fill="var(--cyan)" font-style="italic" font-family="serif">spectrum of $\Delta$</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Maass forms <span class="level advanced">advanced</span></div>
+        <div class="desc">Non-holomorphic Laplacian eigenforms on $\mathbb H$, $L^2$ spectral decomposition, Selberg eigenvalue conjecture, Eisenstein series, Maass L-functions and Ramanujan, the Selberg trace formula and Weyl law.</div>
+        <span class="tag">$\Delta$ · Selberg · Eisenstein · trace</span>
+      </div>
+    </a>
+
+  </div>
 
   <div class="sec">Algebraic geometry</div>
   <div class="grid">
@@ -3875,6 +3924,28 @@
         <div class="tt">MMP and birational geometry <span class="level advanced">advanced</span></div>
         <div class="desc">Kodaira dimension, Mori's cone theorem and extremal rays, Castelnuovo / surface MMP, threefold flips and BCHM, klt/log-canonical singularities, the Sarkisov program.</div>
         <span class="tag">cone · flips · BCHM · klt · Sarkisov</span>
+      </div>
+    </a>
+
+
+    <a class="card g" href="./d-modules.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <!-- The Weyl algebra commutator [∂, x] = 1 -->
+        <g fill="var(--green)" font-family="serif" font-size="14" text-anchor="middle">
+          <text x="50" y="38">$[\partial, x] = 1$</text>
+        </g>
+        <g stroke="var(--green)" stroke-width="1.0" fill="none" opacity="0.8">
+          <path d="M 18 50 Q 50 60 82 50"/>
+          <path d="M 18 56 Q 50 70 82 56"/>
+        </g>
+        <g fill="var(--green)" font-family="serif" font-size="7" font-style="italic" text-anchor="middle">
+          <text x="50" y="73">RH: $\mathcal{D}_X$-mod $\leftrightarrow$ perv$(X)$</text>
+        </g>
+      </svg></div>
+      <div class="body">
+        <div class="tt">D-modules <span class="level advanced">advanced</span></div>
+        <div class="desc">Weyl algebra, $\mathcal{D}_X$-modules on smooth varieties, holonomicity and Bernstein's inequality, Riemann-Hilbert (Kashiwara-Mebkhout), Bernstein-Sato polynomials.</div>
+        <span class="tag">Weyl · holonomic · Riemann–Hilbert · b-fn</span>
       </div>
     </a>
 

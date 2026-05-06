@@ -1,0 +1,94 @@
+{
+  "topic": "homotopy-theory",
+  "title": "Homotopy theory",
+  "page": "homotopy-theory.html",
+  "concepts": [
+    {
+      "id": "ht-pi-n",
+      "title": "Higher homotopy groups",
+      "anchor": "pi-n",
+      "prereqs": [
+        "fundamental-group",
+        "singular-homology"
+      ],
+      "blurb": "$\\pi_n(X,x_0)=[(S^n,*),(X,x_0)]$ — homotopy classes of based maps from the $n$-sphere. Eckmann–Hilton: $\\pi_n$ is abelian for $n\\ge 2$ because the two natural compositions on a double-loop space agree. Worked examples: $\\pi_n(S^n)=\\mathbb{Z}$ (Brouwer degree), $\\pi_3(S^2)=\\mathbb{Z}$ (Hopf invariant). The long exact sequence of a fibration $F\\to E\\to B$ relates $\\pi_*F$, $\\pi_*E$, and $\\pi_*B$, computing many homotopy groups by induction.",
+      "tags": [
+        "foundation",
+        "fibration",
+        "exact-sequence"
+      ]
+    },
+    {
+      "id": "ht-hurewicz-whitehead",
+      "title": "Hurewicz and Whitehead theorems",
+      "anchor": "hurewicz-whitehead",
+      "prereqs": [
+        "ht-pi-n",
+        "singular-homology"
+      ],
+      "blurb": "Hurewicz: for an $(n-1)$-connected space ($n\\ge 2$), the abelianisation map $h\\colon\\pi_n(X)\\to H_n(X;\\mathbb{Z})$ is an isomorphism — the first non-trivial homotopy group equals the first non-trivial homology group. Whitehead: a continuous map $f\\colon X\\to Y$ between connected CW complexes inducing isomorphisms on every $\\pi_n$ is a homotopy equivalence. The CW hypothesis is essential — for arbitrary spaces, isomorphism on $\\pi_*$ defines only weak equivalence, and CW-replacement (singular complex / geometric realization) is the standard fix.",
+      "tags": [
+        "foundation",
+        "refinement"
+      ]
+    },
+    {
+      "id": "ht-eilenberg-maclane",
+      "title": "Eilenberg–MacLane spaces and ordinary cohomology",
+      "anchor": "eilenberg-maclane",
+      "prereqs": [
+        "ht-hurewicz-whitehead",
+        "cd-cup-product"
+      ],
+      "blurb": "$K(G,n)$ is the (unique up to homotopy) CW complex with $\\pi_n=G$ and all other homotopy groups zero. The defining adjunction is $[X,K(G,n)]\\cong H^n(X;G)$ — singular cohomology with coefficients in $G$ is represented by $K(G,n)$. Examples: $K(\\mathbb{Z},1)=S^1$, $K(\\mathbb{Z}/2,1)=\\mathbb{RP}^\\infty$, $K(\\mathbb{Z},2)=\\mathbb{CP}^\\infty$. Postnikov tower: every connected space sits atop a tower of principal $K(\\pi_n,n)$ fibrations whose $k$-invariants live in $H^{n+1}(X_{n-1};\\pi_n)$.",
+      "tags": [
+        "cohomology",
+        "universal-property",
+        "classification"
+      ]
+    },
+    {
+      "id": "ht-stable",
+      "title": "Stable homotopy and spectra",
+      "anchor": "stable",
+      "prereqs": [
+        "ht-pi-n",
+        "ht-eilenberg-maclane"
+      ],
+      "blurb": "Freudenthal suspension: $\\Sigma\\colon\\pi_k(S^n)\\to\\pi_{k+1}(S^{n+1})$ is an iso for $k<2n-1$, so the colimit $\\pi_k^s=\\operatorname{colim}_n\\pi_{k+n}(S^n)$ stabilises. A spectrum is a sequence of pointed spaces $\\{E_n\\}$ with structure maps $\\Sigma E_n\\to E_{n+1}$; examples include $H\\mathbb{Z}$ (Eilenberg–MacLane), $MO,MU$ (Thom spectra), $KU$ (complex $K$-theory). Generalised cohomology theories $E^n(X)=[X,E_n]$ are equivalent to spectra (Brown representability).",
+      "tags": [
+        "cohomology",
+        "classification",
+        "foundation"
+      ]
+    },
+    {
+      "id": "ht-hopf-rational",
+      "title": "Hopf fibration and rational homotopy",
+      "anchor": "hopf-rational",
+      "prereqs": [
+        "ht-pi-n",
+        "cd-spectral-sequences"
+      ],
+      "blurb": "The Hopf fibration $S^1\\to S^3\\to S^2$ generates $\\pi_3(S^2)=\\mathbb{Z}$: its homotopy class is $1$ under the Hopf invariant. Serre's mod-$\\mathcal{C}$ theory localises away small primes; rationally, Serre proved $\\pi_*(S^{2n+1})\\otimes\\mathbb{Q}=\\mathbb{Q}$ in degree $2n+1$ and zero elsewhere, while $\\pi_*(S^{2n})\\otimes\\mathbb{Q}$ has $\\mathbb{Q}$ in degrees $2n$ and $4n-1$. Sullivan's rational homotopy theory: for a simply-connected $X$ of finite $\\mathbb{Q}$-type, $\\pi_*(X)\\otimes\\mathbb{Q}$ is computable from a minimal Sullivan model of the cdga $\\Omega^*(X;\\mathbb{Q})$ — the pro-Q-completion of homotopy is a piece of commutative algebra.",
+      "tags": [
+        "fibration",
+        "completion"
+      ]
+    },
+    {
+      "id": "ht-loop",
+      "title": "Loop spaces and Bott periodicity",
+      "anchor": "loop",
+      "prereqs": [
+        "ht-pi-n",
+        "ht-stable"
+      ],
+      "blurb": "$\\Omega X$ — the based loop space of $X$ — has $\\pi_n(\\Omega X)=\\pi_{n+1}(X)$ and an $A_\\infty$ multiplication from path concatenation; $\\Omega^n X$ is therefore an $E_n$-space, with $\\Omega^\\infty E$ the infinite loop space of a spectrum $E$. Bott periodicity: $\\Omega^8\\mathrm{O}\\simeq\\mathrm{O}$ for the stable orthogonal group and $\\Omega^2\\mathrm{U}\\simeq\\mathrm{U}$ for the stable unitary group — so the homotopy groups of $\\mathrm{O}$ and $\\mathrm{U}$ are $8$- and $2$-periodic, computing $KO^*(\\mathrm{pt})$ and $KU^*(\\mathrm{pt})$. James's splitting $\\Sigma\\Omega\\Sigma X\\simeq\\bigvee_n\\Sigma X^{\\wedge n}$ unpacks the loop-space structure of a suspension into wedge summands.",
+      "tags": [
+        "fibration",
+        "classification"
+      ]
+    }
+  ]
+}

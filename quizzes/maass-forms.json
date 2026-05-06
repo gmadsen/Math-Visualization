@@ -1,0 +1,235 @@
+{
+  "topic": "maass-forms",
+  "quizzes": {
+    "maa-definition": {
+      "title": "Maass forms and the hyperbolic Laplacian",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which equation does a Maass form $f:\\mathbb{H}\\to\\mathbb{C}$ satisfy that a holomorphic modular form does NOT?",
+          "choices": [
+            "the Cauchy–Riemann equation $\\partial_{\\bar z}f=0$",
+            "the eigenvalue equation $\\Delta f=\\lambda f$ for the hyperbolic Laplacian $\\Delta=-y^2(\\partial_x^2+\\partial_y^2)$",
+            "the modular transformation law $f(\\gamma z)=(cz+d)^k f(z)$",
+            "Liouville's theorem"
+          ],
+          "answer": 1,
+          "explain": "Both share $\\Gamma$-invariance/automorphy, but the holomorphic side imposes $\\partial_{\\bar z}f=0$ while the Maass side imposes a second-order elliptic eigenvalue PDE. A weight-zero Maass form is real-analytic but generically NOT holomorphic — its $\\bar\\partial f$ is non-zero, balanced by $\\partial f$ to keep $\\Delta f=\\lambda f$."
+        },
+        {
+          "type": "numeric",
+          "q": "Maass eigenvalues are usually written $\\lambda=\\tfrac14+r^2$. If a Maass form has spectral parameter $r=4$, what is its Laplacian eigenvalue $\\lambda$?",
+          "answer": 16.25,
+          "tol": 0.01,
+          "explain": "$\\lambda=1/4+r^2=1/4+16=16.25$. The shift by $1/4$ is chosen so that the Selberg conjecture $\\lambda\\ge 1/4$ becomes the cleaner statement '$r$ is real'."
+        },
+        {
+          "type": "mcq",
+          "q": "A Maass cusp form on $\\mathrm{SL}_2(\\mathbb{Z})\\backslash\\mathbb{H}$ has Fourier expansion at the cusp $\\infty$ involving:",
+          "choices": [
+            "powers of $q=e^{2\\pi i\\tau}$ as in the holomorphic case",
+            "Bessel functions $K_{ir}(2\\pi|n|y)$ multiplied by $\\sqrt{y}\\,e^{2\\pi i n x}$",
+            "Hermite polynomials in $y$",
+            "Legendre polynomials $P_{ir}(\\cos x)$"
+          ],
+          "answer": 1,
+          "explain": "The Laplacian eigenvalue equation separates in $(x,y)$, and the only solution that decays at $y\\to\\infty$ for nonzero frequency is the modified Bessel function $K_{ir}(2\\pi|n|y)$. The expansion $f(z)=\\sum_{n\\ne 0}a_f(n)\\sqrt{y}\\,K_{ir}(2\\pi|n|y)e^{2\\pi i n x}$ replaces the holomorphic $q$-expansion."
+        }
+      ]
+    },
+    "maa-spectral": {
+      "title": "Spectral decomposition of $L^2(\\Gamma\\backslash\\mathbb{H})$",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The orthogonal decomposition of $L^2(\\Gamma\\backslash\\mathbb{H})$ for a non-cocompact congruence $\\Gamma$ has three pieces. Which one is parameterised by a continuous variable on the line $\\Re s=\\tfrac12$?",
+          "choices": [
+            "the cuspidal part $L^2_{\\mathrm{cusp}}$",
+            "the residual part $L^2_{\\mathrm{res}}$",
+            "the Eisenstein continuous spectrum $L^2_{\\mathrm{Eis}}$",
+            "all three are continuous"
+          ],
+          "answer": 2,
+          "explain": "$L^2_{\\mathrm{cusp}}$ is a discrete countable sum of Laplacian eigenspaces; $L^2_{\\mathrm{res}}$ is finite-dimensional (constants plus residues at simple poles in $(\\tfrac12,1]$); only $L^2_{\\mathrm{Eis}}$ is a direct integral of Eisenstein eigenpackets along $\\Re s=\\tfrac12$."
+        },
+        {
+          "type": "multi-select",
+          "q": "Which statements about cuspidal Maass forms are TRUE?",
+          "choices": [
+            "they are smooth $\\Gamma$-invariant Laplacian eigenfunctions",
+            "they vanish at every cusp (zeroth Fourier coefficient at each cusp is zero)",
+            "they form a finite-dimensional space",
+            "they are square-integrable on $\\Gamma\\backslash\\mathbb{H}$"
+          ],
+          "answer": [
+            0,
+            1,
+            3
+          ],
+          "explain": "Smoothness, $\\Delta$-eigen, cusp-vanishing, and $L^2$-ness are the defining package. Finite-dimensionality is FALSE: by the Weyl law there are infinitely many cuspidal eigenvalues, and their density is $\\sim\\mathrm{vol}/(4\\pi)\\cdot T$ as $T\\to\\infty$."
+        },
+        {
+          "type": "mcq",
+          "q": "On the modular surface $\\mathrm{SL}_2(\\mathbb{Z})\\backslash\\mathbb{H}$, the residual spectrum $L^2_{\\mathrm{res}}$ consists of:",
+          "choices": [
+            "all cusp forms with eigenvalue below $\\tfrac14$",
+            "the constant functions only",
+            "an infinite-dimensional space spanned by Eisenstein residues at every pole",
+            "the Bessel functions $K_{ir}$ for $r$ rational"
+          ],
+          "answer": 1,
+          "explain": "For $\\mathrm{SL}_2(\\mathbb{Z})$, $E(z,s)$ has a single simple pole in $\\Re s>\\tfrac12$ at $s=1$ with residue $3/\\pi$ (a constant). So $L^2_{\\mathrm{res}}$ is one-dimensional, spanned by $1$. Higher-rank groups can have richer residual spectra."
+        }
+      ]
+    },
+    "maa-selberg-eigenvalue": {
+      "title": "Selberg's eigenvalue conjecture",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Selberg's eigenvalue conjecture states that for any congruence subgroup $\\Gamma$ of $\\mathrm{SL}_2(\\mathbb{Z})$, the lowest non-zero Laplacian eigenvalue $\\lambda_1$ on cusp forms satisfies:",
+          "choices": [
+            "$\\lambda_1\\ge\\tfrac14$",
+            "$\\lambda_1=0$",
+            "$\\lambda_1\\ge 1$",
+            "$\\lambda_1\\ge\\tfrac12$"
+          ],
+          "answer": 0,
+          "explain": "The conjectured bound is $\\lambda_1\\ge 1/4$, equivalently the spectral parameter $r$ is real (no exceptional eigenvalues). Selberg himself proved $\\lambda_1\\ge 3/16$ in 1965."
+        },
+        {
+          "type": "numeric",
+          "q": "If a Maass cusp form on a non-congruence subgroup has eigenvalue $\\lambda=0.21$, what is its spectral parameter $r$ (in absolute value, taking $r\\in i\\mathbb{R}_{>0}$ as imaginary)? Give $|r|$ to 3 decimals.",
+          "answer": 0.2,
+          "tol": 0.01,
+          "explain": "$\\lambda=1/4+r^2=0.21$ gives $r^2=-0.04$, i.e. $r=\\pm 0.2 i$ — purely imaginary, an EXCEPTIONAL eigenvalue below $1/4$. Selberg conjectures these don't occur for congruence groups."
+        },
+        {
+          "type": "mcq",
+          "q": "The current best known unconditional bound on $\\lambda_1$ for congruence subgroups is:",
+          "choices": [
+            "Selberg's original $\\lambda_1\\ge 3/16$",
+            "Iwaniec's $\\lambda_1\\ge 21/100$",
+            "Kim–Sarnak's $\\lambda_1\\ge 975/4096$",
+            "the full conjecture $\\lambda_1\\ge 1/4$"
+          ],
+          "answer": 2,
+          "explain": "Kim–Sarnak (2003) gives $\\lambda_1\\ge 975/4096\\approx 0.2380$, derived from Kim–Shahidi's sym$^4$ functoriality result on $\\mathrm{GL}_2$. Still strictly below $1/4=0.25$; the conjecture itself is open."
+        }
+      ]
+    },
+    "maa-eisenstein": {
+      "title": "Eisenstein series and meromorphic continuation",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The non-holomorphic Eisenstein series $E(z,s)=\\sum_{\\gamma\\in\\Gamma_\\infty\\backslash\\Gamma}(\\Im\\gamma z)^s$ converges absolutely for:",
+          "choices": [
+            "all $s\\in\\mathbb{C}$",
+            "$\\Re s>0$",
+            "$\\Re s>1$",
+            "$\\Re s>1/2$"
+          ],
+          "answer": 2,
+          "explain": "The sum is essentially $\\sum_{(c,d)=1}|cz+d|^{-2s}$, dominated by $\\sum(c^2+d^2)^{-s}$, which converges for $\\Re s>1$. Selberg's analytic continuation extends $E(z,s)$ meromorphically to all of $\\mathbb{C}$."
+        },
+        {
+          "type": "mcq",
+          "q": "$E(z,s)$ is a Laplacian eigenfunction with eigenvalue:",
+          "choices": [
+            "$s$",
+            "$s(1-s)$",
+            "$1/4+s^2$",
+            "$s^2$"
+          ],
+          "answer": 1,
+          "explain": "Direct computation: $\\Delta y^s=-y^2\\partial_y^2(y^s)=-s(s-1)y^s=s(1-s)y^s$. The whole sum inherits the eigenvalue $s(1-s)$. Substituting $s=1/2+ir$ gives $s(1-s)=1/4+r^2$, matching the Maass-form normalization."
+        },
+        {
+          "type": "mcq",
+          "q": "The constant term in the Fourier expansion of $E(z,s)$ at $\\infty$ is $y^s+\\phi(s)y^{1-s}$. For $\\mathrm{SL}_2(\\mathbb{Z})$, the scattering coefficient $\\phi(s)$ equals:",
+          "choices": [
+            "$\\zeta(s)/\\zeta(s+1)$",
+            "$\\sqrt{\\pi}\\,\\Gamma(s-\\tfrac12)\\zeta(2s-1)/(\\Gamma(s)\\zeta(2s))$",
+            "$\\Gamma(s)\\zeta(s)$",
+            "$1/\\zeta(2s)$"
+          ],
+          "answer": 1,
+          "explain": "Unfolding the sum yields $\\phi(s)=\\sqrt{\\pi}\\Gamma(s-1/2)\\zeta(2s-1)/(\\Gamma(s)\\zeta(2s))$. The functional equation $E(z,s)=\\phi(s)E(z,1-s)$ then encodes the functional equation of $\\zeta(s)$ — historically Riemann's continuation re-derived spectrally."
+        }
+      ]
+    },
+    "maa-l-function": {
+      "title": "Maass $L$-functions and the Ramanujan conjecture",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "For a Hecke eigenform Maass cusp form $f$, the $L$-function $L(s,f)=\\sum_{n\\ge 1}a_f(n)n^{-s}$ has an Euler product. The local factor at an unramified prime $p$ is:",
+          "choices": [
+            "$(1-a_f(p)p^{-s})^{-1}$",
+            "$(1-a_f(p)p^{-s}+p^{-2s})^{-1}$",
+            "$(1-a_f(p)p^{-s}+p^{1-2s})^{-1}$",
+            "$1+a_f(p)p^{-s}$"
+          ],
+          "answer": 1,
+          "explain": "Just like a weight-$k$ holomorphic eigenform but with weight zero: $L_p(s,f)=(1-a_f(p)p^{-s}+p^{-2s})^{-1}$. The exponent on the $p^{-2s}$ tail is $0$ (vs. $k-1$ in the holomorphic case) — Maass forms have weight zero, no $p^{k-1}$ shift."
+        },
+        {
+          "type": "mcq",
+          "q": "The Ramanujan–Petersson conjecture for Maass cusp forms says $|a_f(p)|\\le ?$ at every unramified prime $p$:",
+          "choices": [
+            "$1$",
+            "$2$",
+            "$2\\sqrt{p}$",
+            "$p$"
+          ],
+          "answer": 1,
+          "explain": "$|a_f(p)|\\le 2$ — the same bound as Deligne's theorem for holomorphic eigenforms (where $|a_f(p)|\\le 2p^{(k-1)/2}$, so weight-zero gives $\\le 2$). For Maass forms the conjecture is OPEN; current record Kim–Sarnak gives $|a_f(p)|\\le 2p^{7/64}\\approx 2p^{0.109}$."
+        },
+        {
+          "type": "numeric",
+          "q": "The functional equation for a Maass cusp form $f$ on $\\mathrm{SL}_2(\\mathbb{Z})$ relates $\\Lambda(s,f)=\\pi^{-s}\\Gamma(\\tfrac{s+\\epsilon+ir}{2})\\Gamma(\\tfrac{s+\\epsilon-ir}{2})L(s,f)$ to $\\Lambda(1-s,f)$ (with $\\epsilon=0$ for an even form, $1$ for odd). The center of the critical strip is $s=?$",
+          "answer": 0.5,
+          "tol": 0.001,
+          "explain": "The functional equation is $\\Lambda(s,f)=\\pm\\Lambda(1-s,f)$, fixing the center at $s=1/2$. This is the same line on which the Eisenstein continuous spectrum lives — not a coincidence, since the Mellin transform of the Whittaker model produces $\\Lambda(s,f)$."
+        }
+      ]
+    },
+    "maa-trace-formula": {
+      "title": "Selberg trace formula and the Weyl law",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The Selberg trace formula is, schematically, an identity equating:",
+          "choices": [
+            "a sum over primes with a sum over zeros of $\\zeta$",
+            "a spectral sum $\\sum_j h(r_j)$ with a geometric sum over closed geodesics on $\\Gamma\\backslash\\mathbb{H}$",
+            "a sum over irreducible characters with a sum over conjugacy classes",
+            "a sum over modular forms with a sum over Hecke operators"
+          ],
+          "answer": 1,
+          "explain": "Spectral side: $\\sum_j h(r_j)$ over Laplacian eigenvalues $1/4+r_j^2$ (plus an Eisenstein integral). Geometric side: identity contribution + sum over $\\Gamma$-conjugacy classes, where hyperbolic classes contribute terms indexed by closed geodesics. Number-theoretic analog of Poisson summation."
+        },
+        {
+          "type": "numeric",
+          "q": "The Weyl law for the modular surface $\\mathrm{SL}_2(\\mathbb{Z})\\backslash\\mathbb{H}$ (volume $\\pi/3$) says $\\#\\{j:\\lambda_j\\le T\\}\\sim\\mathrm{vol}\\cdot T/(4\\pi)$. To three decimals, what is the leading coefficient $\\mathrm{vol}/(4\\pi)$?",
+          "answer": 0.0833,
+          "tol": 0.001,
+          "explain": "$\\mathrm{vol}(\\mathrm{SL}_2(\\mathbb{Z})\\backslash\\mathbb{H})=\\pi/3$, so $\\mathrm{vol}/(4\\pi)=1/12\\approx 0.0833$. The first cuspidal eigenvalue $\\lambda_1\\approx 91.14$ is consistent: by $T=91.14$ the Weyl count predicts $\\sim 7.6$ eigenvalues, in line with computation."
+        },
+        {
+          "type": "mcq",
+          "q": "An immediate Selberg-trace consequence is the prime geodesic theorem $\\#\\{\\gamma:\\ell(\\gamma)\\le X\\}\\sim ?$ as $X\\to\\infty$, where $\\ell(\\gamma)$ is the length of a primitive closed geodesic on $\\Gamma\\backslash\\mathbb{H}$.",
+          "choices": [
+            "$X$",
+            "$e^X/X$",
+            "$X/\\log X$",
+            "$\\log X$"
+          ],
+          "answer": 1,
+          "explain": "The prime geodesic theorem gives $\\#\\{\\gamma:\\ell(\\gamma)\\le X\\}\\sim e^X/X$ — exact analog of the prime number theorem $\\pi(N)\\sim N/\\log N$ under the substitution $N=e^X$. Closed geodesics on $\\Gamma\\backslash\\mathbb{H}$ play the role of primes; the trace formula is the spectral lever."
+        }
+      ]
+    }
+  }
+}
