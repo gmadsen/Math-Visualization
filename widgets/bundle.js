@@ -1954,6 +1954,132 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "cobordism-w1",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "cobordism-w1 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the cobordism topic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `cobordism` topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "cobordism-w2",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "cobordism-w2 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the cobordism topic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `cobordism` topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "cobordism-w3",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "cobordism-w3 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the cobordism topic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `cobordism` topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "cobordism-w4",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "cobordism-w4 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the cobordism topic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `cobordism` topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "cobordism-w5",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "cobordism-w5 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the cobordism topic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `cobordism` topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "cobordism-w6",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "cobordism-w6 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the cobordism topic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `cobordism` topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "cocartesian-fibrations-edge-scrubber",
     "family": "cocartesian-fibrations-edge-scrubber",
     "dimension": "2d",
@@ -3910,6 +4036,132 @@ window.__MVWidgets = [
       "bodyScript"
     ],
     "readmeExcerpt": "Bespoke verbatim slug for the \"Spinor under boosts: rest-frame spin-up boosted to a moving frame\" widget on `dirac-equation`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "dirichlet-unit-theorem-w1",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "dirichlet-unit-theorem-w1 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the dirichlet-unit-theorem topic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `dirichlet-unit-theorem` topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "dirichlet-unit-theorem-w2",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "dirichlet-unit-theorem-w2 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the dirichlet-unit-theorem topic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `dirichlet-unit-theorem` topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "dirichlet-unit-theorem-w3",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "dirichlet-unit-theorem-w3 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the dirichlet-unit-theorem topic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `dirichlet-unit-theorem` topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "dirichlet-unit-theorem-w4",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "dirichlet-unit-theorem-w4 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the dirichlet-unit-theorem topic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `dirichlet-unit-theorem` topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "dirichlet-unit-theorem-w5",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "dirichlet-unit-theorem-w5 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the dirichlet-unit-theorem topic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `dirichlet-unit-theorem` topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "dirichlet-unit-theorem-w6",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "dirichlet-unit-theorem-w6 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the dirichlet-unit-theorem topic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `dirichlet-unit-theorem` topic.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
@@ -8842,6 +9094,132 @@ window.__MVWidgets = [
       "bodyScript"
     ],
     "readmeExcerpt": "Bespoke verbatim slug for the \"Wavefront set: where × direction\" widget on `microlocal-analysis`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "mmp-and-birational-geometry-w1",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "mmp-and-birational-geometry-w1 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the mmp-and-birational-geometry topic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `mmp-and-birational-geometry` topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "mmp-and-birational-geometry-w2",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "mmp-and-birational-geometry-w2 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the mmp-and-birational-geometry topic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `mmp-and-birational-geometry` topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "mmp-and-birational-geometry-w3",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "mmp-and-birational-geometry-w3 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the mmp-and-birational-geometry topic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `mmp-and-birational-geometry` topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "mmp-and-birational-geometry-w4",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "mmp-and-birational-geometry-w4 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the mmp-and-birational-geometry topic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `mmp-and-birational-geometry` topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "mmp-and-birational-geometry-w5",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "mmp-and-birational-geometry-w5 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the mmp-and-birational-geometry topic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `mmp-and-birational-geometry` topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "mmp-and-birational-geometry-w6",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "mmp-and-birational-geometry-w6 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the mmp-and-birational-geometry topic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `mmp-and-birational-geometry` topic.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,

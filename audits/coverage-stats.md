@@ -2,12 +2,12 @@
 
 ## Corpus totals
 
-- Topics: **154**, concepts: **1086**
-- Widgets: **1111** (registry-driven: 1111, inline: 0)
-- Quizzes: **4452** (v1: 3216, hard: 1223, expert: 13)
-- Quiz types: mcq: 2947, numeric: 1098, multi-select: 180, matching: 82, ordering: 57, spot-the-error: 38, complex: 29, proof-completion: 17, construction: 2, guess-my-rule: 2
+- Topics: **157**, concepts: **1104**
+- Widgets: **1129** (registry-driven: 1129, inline: 0)
+- Quizzes: **4506** (v1: 3270, hard: 1223, expert: 13)
+- Quiz types: mcq: 2985, numeric: 1108, multi-select: 184, matching: 83, ordering: 58, spot-the-error: 38, complex: 29, proof-completion: 17, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their section: **148**
-- Concepts lacking a hard-tier quiz: **648**
+- Concepts lacking a hard-tier quiz: **666**
 
 ## Per-slug registry adoption
 
@@ -120,6 +120,12 @@ page has wired one in yet.
 | `cnt-mr` | verbatim | input | 2d | 1 | computational-number-theory |
 | `cnt-rho` | verbatim | input | 2d | 1 | computational-number-theory |
 | `cnt-sch` | verbatim | input | 2d | 1 | computational-number-theory |
+| `cobordism-w1` | verbatim | click | 2d | 1 | cobordism |
+| `cobordism-w2` | verbatim | click | 2d | 1 | cobordism |
+| `cobordism-w3` | verbatim | click | 2d | 1 | cobordism |
+| `cobordism-w4` | verbatim | click | 2d | 1 | cobordism |
+| `cobordism-w5` | verbatim | click | 2d | 1 | cobordism |
+| `cobordism-w6` | verbatim | click | 2d | 1 | cobordism |
 | `cocartesian-fibrations-edge-scrubber` | cocartesian-fibrations-edge-scrubber | interact | 2d | 1 | cocartesian-fibrations |
 | `cocartesian-fibrations-examples-graph` | cocartesian-fibrations-examples-graph | interact | 2d | 1 | cocartesian-fibrations |
 | `cocartesian-fibrations-fibration-clickable` | cocartesian-fibrations-fibration-clickable | interact | 2d | 1 | cocartesian-fibrations |
@@ -204,6 +210,12 @@ page has wired one in yet.
 | `dirac-pauli` | verbatim | slider | 2d | 1 | dirac-equation |
 | `dirac-sea` | verbatim | click | 2d | 1 | dirac-equation |
 | `dirac-spin` | verbatim | slider | 2d | 1 | dirac-equation |
+| `dirichlet-unit-theorem-w1` | verbatim | click | 2d | 1 | dirichlet-unit-theorem |
+| `dirichlet-unit-theorem-w2` | verbatim | click | 2d | 1 | dirichlet-unit-theorem |
+| `dirichlet-unit-theorem-w3` | verbatim | click | 2d | 1 | dirichlet-unit-theorem |
+| `dirichlet-unit-theorem-w4` | verbatim | click | 2d | 1 | dirichlet-unit-theorem |
+| `dirichlet-unit-theorem-w5` | verbatim | click | 2d | 1 | dirichlet-unit-theorem |
+| `dirichlet-unit-theorem-w6` | verbatim | click | 2d | 1 | dirichlet-unit-theorem |
 | `ec-disc` | verbatim | slider | 2d | 1 | elliptic-curves |
 | `ec-gl` | verbatim | slider | 2d | 1 | elliptic-curves |
 | `ec-j` | verbatim | slider | 2d | 1 | elliptic-curves |
@@ -439,6 +451,12 @@ page has wired one in yet.
 | `ml-radon` | verbatim | slider | 2d | 1 | microlocal-analysis |
 | `ml-symbol` | verbatim | slider | 2d | 1 | microlocal-analysis |
 | `ml-wf` | verbatim | select | 2d | 1 | microlocal-analysis |
+| `mmp-and-birational-geometry-w1` | verbatim | click | 2d | 1 | mmp-and-birational-geometry |
+| `mmp-and-birational-geometry-w2` | verbatim | click | 2d | 1 | mmp-and-birational-geometry |
+| `mmp-and-birational-geometry-w3` | verbatim | click | 2d | 1 | mmp-and-birational-geometry |
+| `mmp-and-birational-geometry-w4` | verbatim | click | 2d | 1 | mmp-and-birational-geometry |
+| `mmp-and-birational-geometry-w5` | verbatim | click | 2d | 1 | mmp-and-birational-geometry |
+| `mmp-and-birational-geometry-w6` | verbatim | click | 2d | 1 | mmp-and-birational-geometry |
 | `model-theory-ax-grothendieck` | model-theory-ax-grothendieck | step | 2d | 1 | model-theory-basics |
 | `model-theory-back-and-forth` | model-theory-back-and-forth | step | 2d | 1 | model-theory-basics |
 | `model-theory-ef-games` | model-theory-ef-games | step | 2d | 1 | model-theory-basics |
@@ -712,23 +730,23 @@ page has wired one in yet.
 
 ### Geometry & topology
 
-- Topics: **17**, concepts: **110**
-- Widgets: **114** (registry-driven: 114, inline: 0)
-  - by family: button-stepper: 34, verbatim: 10, surface-viewer: 6, clickable-diagram: 4, clickable-graph: 2, svg-illustration: 2, mostow-rigidity-dial: 1, mostow-h3-fundamental-domain: 1, mostow-boundary-extension: 1, mostow-boundary-orbit: 1, mostow-rank-tower: 1, mostow-volume-spectrum: 1, symplectic-form-pairing: 1, symplectic-darboux-moser: 1, symplectic-harmonic-portrait: 1, symplectic-dirac-ladder: 1, symplectic-cotangent-lagrangians: 1, symplectic-floer-intersections: 1, knot-polynomials-gallery: 1, knot-polynomials-reidemeister: 1, knot-polynomials-alexander: 1, knot-polynomials-bracket: 1, knot-polynomials-homfly: 1, knot-polynomials-rmatrix: 1, ricci-einstein-flows: 1, ricci-deturck-trick: 1, ricci-blowup-rates: 1, ricci-soliton-zoo: 1, ricci-neckpinch-surgery: 1, ricci-extinction-timeline: 1, k-theory-grothendieck-builder: 1, k-theory-ses-relations: 1, k-theory-bott-periodicity: 1, k-theory-chern-character: 1, k-theory-low-k-groups: 1, k-theory-index-theorem: 1, atiyah-singer-index-family: 1, atiyah-singer-symbol: 1, atiyah-singer-ch-td: 1, atiyah-singer-cases: 1, atiyah-singer-dirac-sphere: 1, atiyah-singer-anomaly: 1, counterexample-explorer: 1, proof-scrubber: 1, lattice-visualizer: 1, characteristic-classes-mobius-vs-cylinder: 1, characteristic-classes-w1-surfaces: 1, characteristic-classes-c1-clutching: 1, characteristic-classes-pontryagin-formulas: 1, characteristic-classes-poincare-hopf: 1, characteristic-classes-gauss-bonnet: 1, characteristic-classes-classifying-map: 1, characteristic-classes-signature-l-genus: 1, characteristic-classes-cpn-localisation: 1, morse-torus-height: 1, morse-handle-decomp: 1, morse-cw-cells: 1, morse-betti-counts: 1, morse-gradient-flow: 1, morse-sphere-vs-rp2: 1, morse-smale-saddle: 1, morse-cerf-birth-death: 1
-  - by dimension: 2d: 108, 3d: 6
-  - by gesture: click: 66, slider: 23, drag: 8, button-stepper: 6, step: 3, select: 3, pick: 2, static: 2, timeline: 1
-- Quizzes: **472** (v1: 330, hard: 142, expert: 0)
-  - by type: mcq: 324, numeric: 129, complex: 7, multi-select: 6, matching: 4, ordering: 1, proof-completion: 1
+- Topics: **18**, concepts: **116**
+- Widgets: **120** (registry-driven: 120, inline: 0)
+  - by family: button-stepper: 34, verbatim: 16, surface-viewer: 6, clickable-diagram: 4, clickable-graph: 2, svg-illustration: 2, mostow-rigidity-dial: 1, mostow-h3-fundamental-domain: 1, mostow-boundary-extension: 1, mostow-boundary-orbit: 1, mostow-rank-tower: 1, mostow-volume-spectrum: 1, symplectic-form-pairing: 1, symplectic-darboux-moser: 1, symplectic-harmonic-portrait: 1, symplectic-dirac-ladder: 1, symplectic-cotangent-lagrangians: 1, symplectic-floer-intersections: 1, knot-polynomials-gallery: 1, knot-polynomials-reidemeister: 1, knot-polynomials-alexander: 1, knot-polynomials-bracket: 1, knot-polynomials-homfly: 1, knot-polynomials-rmatrix: 1, ricci-einstein-flows: 1, ricci-deturck-trick: 1, ricci-blowup-rates: 1, ricci-soliton-zoo: 1, ricci-neckpinch-surgery: 1, ricci-extinction-timeline: 1, k-theory-grothendieck-builder: 1, k-theory-ses-relations: 1, k-theory-bott-periodicity: 1, k-theory-chern-character: 1, k-theory-low-k-groups: 1, k-theory-index-theorem: 1, atiyah-singer-index-family: 1, atiyah-singer-symbol: 1, atiyah-singer-ch-td: 1, atiyah-singer-cases: 1, atiyah-singer-dirac-sphere: 1, atiyah-singer-anomaly: 1, counterexample-explorer: 1, proof-scrubber: 1, lattice-visualizer: 1, characteristic-classes-mobius-vs-cylinder: 1, characteristic-classes-w1-surfaces: 1, characteristic-classes-c1-clutching: 1, characteristic-classes-pontryagin-formulas: 1, characteristic-classes-poincare-hopf: 1, characteristic-classes-gauss-bonnet: 1, characteristic-classes-classifying-map: 1, characteristic-classes-signature-l-genus: 1, characteristic-classes-cpn-localisation: 1, morse-torus-height: 1, morse-handle-decomp: 1, morse-cw-cells: 1, morse-betti-counts: 1, morse-gradient-flow: 1, morse-sphere-vs-rp2: 1, morse-smale-saddle: 1, morse-cerf-birth-death: 1
+  - by dimension: 2d: 114, 3d: 6
+  - by gesture: click: 72, slider: 23, drag: 8, button-stepper: 6, step: 3, select: 3, pick: 2, static: 2, timeline: 1
+- Quizzes: **490** (v1: 348, hard: 142, expert: 0)
+  - by type: mcq: 337, numeric: 133, multi-select: 7, complex: 7, matching: 4, ordering: 1, proof-completion: 1
 
 ### Number theory
 
-- Topics: **16**, concepts: **110**
-- Widgets: **131** (registry-driven: 131, inline: 0)
-  - by family: button-stepper: 66, verbatim: 21, clickable-diagram: 4, modular-arithmetic-clock: 4, input-form: 4, inline-code-cell: 4, declarative-host: 2, parametric-plot: 2, crypto-totient-units: 1, crypto-rsa-toy: 1, crypto-diffie-hellman: 1, crypto-ecc-points: 1, crypto-lwe-samples: 1, crypto-schnorr-protocol: 1, branching-proof-scrubber: 1, clickable-graph: 1, svg-illustration: 1, heights-naive-calculator: 1, heights-northcott-enumerator: 1, heights-weil-pullback: 1, heights-tate-averaging: 1, heights-mahler-measure: 1, heights-genus-growth: 1, heights-arakelov-decomposition: 1, counterexample-explorer: 1, ant-pnt-comparison: 1, ant-explicit-formula: 1, ant-zero-free-region: 1, ant-dirichlet-residue-wheel: 1, ant-sieve-truncation: 1, ant-bombieri-vinogradov: 1, proof-scrubber: 1
-  - by dimension: 2d: 131
-  - by gesture: click: 87, slider: 22, input: 8, edit: 4, interactive: 2, interact: 2, button: 1, static: 1, branching-timeline: 1, read: 1, select: 1, timeline: 1
-- Quizzes: **510** (v1: 327, hard: 183, expert: 0)
-  - by type: mcq: 343, numeric: 153, multi-select: 6, complex: 3, matching: 3, ordering: 1, guess-my-rule: 1
+- Topics: **17**, concepts: **116**
+- Widgets: **137** (registry-driven: 137, inline: 0)
+  - by family: button-stepper: 66, verbatim: 27, clickable-diagram: 4, modular-arithmetic-clock: 4, input-form: 4, inline-code-cell: 4, declarative-host: 2, parametric-plot: 2, crypto-totient-units: 1, crypto-rsa-toy: 1, crypto-diffie-hellman: 1, crypto-ecc-points: 1, crypto-lwe-samples: 1, crypto-schnorr-protocol: 1, branching-proof-scrubber: 1, clickable-graph: 1, svg-illustration: 1, heights-naive-calculator: 1, heights-northcott-enumerator: 1, heights-weil-pullback: 1, heights-tate-averaging: 1, heights-mahler-measure: 1, heights-genus-growth: 1, heights-arakelov-decomposition: 1, counterexample-explorer: 1, ant-pnt-comparison: 1, ant-explicit-formula: 1, ant-zero-free-region: 1, ant-dirichlet-residue-wheel: 1, ant-sieve-truncation: 1, ant-bombieri-vinogradov: 1, proof-scrubber: 1
+  - by dimension: 2d: 137
+  - by gesture: click: 93, slider: 22, input: 8, edit: 4, interactive: 2, interact: 2, button: 1, static: 1, branching-timeline: 1, read: 1, select: 1, timeline: 1
+- Quizzes: **528** (v1: 345, hard: 183, expert: 0)
+  - by type: mcq: 354, numeric: 158, multi-select: 8, complex: 3, matching: 3, ordering: 1, guess-my-rule: 1
 
 ### Modular forms & L-functions
 
@@ -742,13 +760,13 @@ page has wired one in yet.
 
 ### Algebraic geometry
 
-- Topics: **27**, concepts: **161**
-- Widgets: **168** (registry-driven: 168, inline: 0)
-  - by family: button-stepper: 61, verbatim: 24, clickable-diagram: 23, proof-scrubber: 7, clickable-graph: 6, declarative-host: 6, parametric-plot: 4, modular-arithmetic-clock: 2, svg-illustration: 2, calabi-yau-canonical-degree: 1, calabi-yau-hodge-diamond: 1, calabi-yau-hypersurface-zoo: 1, calabi-yau-periods: 1, calabi-yau-mirror-swap: 1, calabi-yau-syz-fibration: 1, mirror-hodge-diamond: 1, mirror-quintic-counts: 1, mirror-stable-map: 1, mirror-quintic-periods: 1, mirror-hms-pairing: 1, mirror-syz-fibration: 1, resolution-cusp-node-visualizer: 1, resolution-cuspidal-blowup: 1, resolution-tower-of-blowups: 1, resolution-curve-normalization: 1, resolution-ade-dynkin: 1, lattice-visualizer: 1, algebraic-curves-riemann-hurwitz-cover: 1, algebraic-curves-jacobian-lattice: 1, algebraic-curves-riemann-roch-scrubber: 1, algebraic-curves-canonical-embedding-scrubber: 1, algebraic-curves-hyperelliptic-cover: 1, algebraic-curves-moduli-boundary: 1, algebraic-de-rham-kahler-scrubber: 1, algebraic-de-rham-complex-scrubber: 1, algebraic-de-rham-betti-comparison-scrubber: 1, algebraic-de-rham-hodge-filtration-scrubber: 1, algebraic-de-rham-hodge-diamond-clickgraph: 1, algebraic-de-rham-hodge-pn-explorer: 1, algebraic-de-rham-curve-clickable: 1, algebraic-de-rham-hodge-sandbox: 1, counterexample-explorer: 1
-  - by dimension: 2d: 168
-  - by gesture: click: 117, interact: 16, slider: 13, scrub: 7, select: 6, inspect: 5, drag: 2, read: 1, slide: 1
-- Quizzes: **728** (v1: 483, hard: 245, expert: 0)
-  - by type: mcq: 473, numeric: 200, multi-select: 26, matching: 14, spot-the-error: 7, ordering: 4, complex: 3, proof-completion: 1
+- Topics: **28**, concepts: **167**
+- Widgets: **174** (registry-driven: 174, inline: 0)
+  - by family: button-stepper: 61, verbatim: 30, clickable-diagram: 23, proof-scrubber: 7, clickable-graph: 6, declarative-host: 6, parametric-plot: 4, modular-arithmetic-clock: 2, svg-illustration: 2, calabi-yau-canonical-degree: 1, calabi-yau-hodge-diamond: 1, calabi-yau-hypersurface-zoo: 1, calabi-yau-periods: 1, calabi-yau-mirror-swap: 1, calabi-yau-syz-fibration: 1, mirror-hodge-diamond: 1, mirror-quintic-counts: 1, mirror-stable-map: 1, mirror-quintic-periods: 1, mirror-hms-pairing: 1, mirror-syz-fibration: 1, resolution-cusp-node-visualizer: 1, resolution-cuspidal-blowup: 1, resolution-tower-of-blowups: 1, resolution-curve-normalization: 1, resolution-ade-dynkin: 1, lattice-visualizer: 1, algebraic-curves-riemann-hurwitz-cover: 1, algebraic-curves-jacobian-lattice: 1, algebraic-curves-riemann-roch-scrubber: 1, algebraic-curves-canonical-embedding-scrubber: 1, algebraic-curves-hyperelliptic-cover: 1, algebraic-curves-moduli-boundary: 1, algebraic-de-rham-kahler-scrubber: 1, algebraic-de-rham-complex-scrubber: 1, algebraic-de-rham-betti-comparison-scrubber: 1, algebraic-de-rham-hodge-filtration-scrubber: 1, algebraic-de-rham-hodge-diamond-clickgraph: 1, algebraic-de-rham-hodge-pn-explorer: 1, algebraic-de-rham-curve-clickable: 1, algebraic-de-rham-hodge-sandbox: 1, counterexample-explorer: 1
+  - by dimension: 2d: 174
+  - by gesture: click: 123, interact: 16, slider: 13, scrub: 7, select: 6, inspect: 5, drag: 2, read: 1, slide: 1
+- Quizzes: **746** (v1: 501, hard: 245, expert: 0)
+  - by type: mcq: 487, numeric: 201, multi-select: 27, matching: 15, spot-the-error: 7, ordering: 5, complex: 3, proof-completion: 1
 
 ### Combinatorics & graph theory
 
@@ -772,6 +790,9 @@ page has wired one in yet.
 
 ## Per-topic
 
+- `dirichlet-unit-theorem` (Number theory) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
+- `cobordism` (Geometry & topology) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
+- `mmp-and-birational-geometry` (Algebraic geometry) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `continued-fractions` (Number theory) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `abelian-varieties` (Algebraic geometry) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `positivity-and-ample-line-bundles` (Algebraic geometry) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
@@ -954,23 +975,23 @@ page has wired one in yet.
 
 ### Concepts missing a hard-tier quiz (top 20)
 
+- `du-log-embedding` (dirichlet-unit-theorem)
+- `du-statement` (dirichlet-unit-theorem)
+- `du-regulator` (dirichlet-unit-theorem)
+- `du-class-number-formula` (dirichlet-unit-theorem)
+- `du-pell-real-quadratic` (dirichlet-unit-theorem)
+- `du-s-units` (dirichlet-unit-theorem)
+- `cob-equivalence` (cobordism)
+- `cob-numbers` (cobordism)
+- `cob-thom` (cobordism)
+- `cob-oriented` (cobordism)
+- `cob-surgery` (cobordism)
+- `cob-tqft` (cobordism)
+- `mmp-kodaira-dimension` (mmp-and-birational-geometry)
+- `mmp-cone-theorem` (mmp-and-birational-geometry)
+- `mmp-surfaces` (mmp-and-birational-geometry)
+- `mmp-flips` (mmp-and-birational-geometry)
+- `mmp-singularities-of-pairs` (mmp-and-birational-geometry)
+- `mmp-sarkisov` (mmp-and-birational-geometry)
 - `cf-convergents` (continued-fractions)
 - `cf-hurwitz` (continued-fractions)
-- `cf-liouville` (continued-fractions)
-- `cf-roth` (continued-fractions)
-- `cf-markoff` (continued-fractions)
-- `cf-padic-roth` (continued-fractions)
-- `av-definition` (abelian-varieties)
-- `av-polarization` (abelian-varieties)
-- `av-tate-module` (abelian-varieties)
-- `av-jacobian` (abelian-varieties)
-- `av-neron-model` (abelian-varieties)
-- `av-mordell-weil-faltings` (abelian-varieties)
-- `pal-picard` (positivity-and-ample-line-bundles)
-- `pal-very-ample` (positivity-and-ample-line-bundles)
-- `pal-nakai` (positivity-and-ample-line-bundles)
-- `pal-nef-big` (positivity-and-ample-line-bundles)
-- `pal-kodaira-embedding` (positivity-and-ample-line-bundles)
-- `pal-vanishing` (positivity-and-ample-line-bundles)
-- `cohomology-zoo` (motives)
-- `algebraic-correspondences` (motives)

@@ -1,0 +1,98 @@
+{
+  "topic": "cobordism",
+  "title": "Cobordism",
+  "page": "cobordism.html",
+  "concepts": [
+    {
+      "id": "cob-equivalence",
+      "title": "Cobordism as an equivalence relation",
+      "anchor": "equivalence",
+      "prereqs": [
+        "smooth-manifold-definition",
+        "orientation",
+        "submanifolds-immersions"
+      ],
+      "blurb": "Two closed $n$-manifolds $M_0,M_1$ are cobordant when there is a compact $(n+1)$-manifold $W$ with $\\partial W = M_0\\sqcup M_1$. Cobordism is reflexive (use $M\\times[0,1]$), symmetric (flip ends), and transitive (glue along a common boundary). Disjoint union and Cartesian product give the set $\\Omega_n^{O}$ of classes the structure of a graded ring. Worked examples: every closed surface is null-cobordant, but $\\mathbb{RP}^2$ is not — its class generates $\\Omega_2^{O}=\\mathbb{Z}/2$.",
+      "tags": [
+        "classification",
+        "foundation"
+      ]
+    },
+    {
+      "id": "cob-numbers",
+      "title": "Stiefel–Whitney and Pontryagin numbers as obstructions",
+      "anchor": "numbers",
+      "prereqs": [
+        "cob-equivalence",
+        "cc-stiefel-whitney",
+        "cc-pontryagin"
+      ],
+      "blurb": "If $\\partial W = M$ then every Stiefel–Whitney number $\\langle w_{i_1}(TM)\\smile\\cdots\\smile w_{i_r}(TM),[M]\\rangle\\in\\mathbb{Z}/2$ vanishes — characteristic numbers are cobordism invariants. Pontryagin's converse: a closed $M^n$ is null-cobordant in $\\Omega_*^{O}$ iff all SW numbers vanish, and it is null-cobordant in $\\Omega_*^{SO}$ iff all SW <em>and</em> Pontryagin numbers vanish. The numbers are the entire obstruction.",
+      "tags": [
+        "cohomology",
+        "classification"
+      ]
+    },
+    {
+      "id": "cob-thom",
+      "title": "Thom's theorem and the Thom spectrum $MO$",
+      "anchor": "thom",
+      "prereqs": [
+        "cob-numbers",
+        "cc-classifying-spaces",
+        "fundamental-group"
+      ],
+      "blurb": "The Pontryagin–Thom construction sends a class $[M]\\in\\Omega_n^{O}$ to a homotopy class in $\\pi_n(MO)$, where $MO$ is the Thom spectrum of the universal real bundle over $BO$. The map is an iso $\\Omega_*^{O}\\cong\\pi_*(MO)$, converting a manifold problem into a problem about homotopy groups of a single space. Thom computed the answer: $\\pi_*(MO) = \\mathbb{F}_2[x_i : i\\ge 1,\\;i\\ne 2^k-1]$ — a polynomial ring on one generator in each degree not of the form $2^k-1$.",
+      "tags": [
+        "classification",
+        "functoriality"
+      ]
+    },
+    {
+      "id": "cob-oriented",
+      "title": "Oriented cobordism $\\Omega_*^{SO}$ and the signature theorem",
+      "anchor": "oriented",
+      "prereqs": [
+        "cob-thom",
+        "cc-signature-theorem",
+        "cd-poincare-duality"
+      ],
+      "blurb": "Restricting to oriented manifolds and oriented cobordisms gives $\\Omega_*^{SO}$. Rationally, $\\Omega_*^{SO}\\otimes\\mathbb{Q}\\cong\\mathbb{Q}[\\mathbb{CP}^2,\\mathbb{CP}^4,\\ldots]$ — a polynomial ring on the even-degree complex projective spaces. The Hirzebruch signature theorem gives the bridge to characteristic numbers: for a closed oriented $M^{4k}$, $\\sigma(M)=\\langle L_k(p_1,\\ldots,p_k),[M]\\rangle$, so the signature ring homomorphism $\\Omega_*^{SO}\\to\\mathbb{Z}$ is computed entirely from Pontryagin numbers.",
+      "tags": [
+        "classification",
+        "duality"
+      ]
+    },
+    {
+      "id": "cob-surgery",
+      "title": "Surgery and the $h$-cobordism theorem",
+      "anchor": "surgery",
+      "prereqs": [
+        "cob-equivalence",
+        "mt-handle-decomposition",
+        "mt-cerf-theory"
+      ],
+      "blurb": "Surgery on an embedded $S^p\\times D^{q}\\hookrightarrow M^{p+q}$ removes the interior and glues in $D^{p+1}\\times S^{q-1}$ along the common boundary $S^p\\times S^{q-1}$. The trace of a surgery is a cobordism, so surgery preserves cobordism class while changing the manifold. Smale's $h$-cobordism theorem (1962): for $\\dim M\\ge 5$ simply connected, every $h$-cobordism $W$ between $M_0$ and $M_1$ is diffeomorphic to $M_0\\times[0,1]$. The general $s$-cobordism theorem replaces simple connectivity with the vanishing of the Whitehead torsion $\\tau(W)\\in\\mathrm{Wh}(\\pi_1)$.",
+      "tags": [
+        "classification",
+        "foundation"
+      ]
+    },
+    {
+      "id": "cob-tqft",
+      "title": "TQFT and the cobordism category",
+      "anchor": "tqft",
+      "prereqs": [
+        "cob-equivalence",
+        "cd-cup-product",
+        "k-bott-periodicity"
+      ],
+      "blurb": "Atiyah's axioms package a $d$-dimensional topological quantum field theory as a symmetric monoidal functor $Z\\colon\\mathrm{Cob}_d\\to\\mathrm{Vect}_k$. Objects of $\\mathrm{Cob}_d$ are closed $(d-1)$-manifolds; morphisms are diffeomorphism classes of cobordisms; disjoint union is the monoidal product. $Z$ assigns a vector space to each closed $(d-1)$-manifold and a linear map to each cobordism; for a closed $d$-manifold $M$ (a cobordism $\\emptyset\\to\\emptyset$) the value $Z(M)\\in k$ is the partition function. The Baez–Dolan–Lurie cobordism hypothesis states that fully extended framed $d$-TQFTs valued in a symmetric monoidal $(\\infty,d)$-category $\\mathcal{C}$ are determined by their value on a point, which can be any fully dualizable object.",
+      "tags": [
+        "functoriality",
+        "duality",
+        "classification"
+      ]
+    }
+  ]
+}

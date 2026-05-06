@@ -1,5 +1,5 @@
 {
-  "generated": "2026-05-06T07:36:17.048Z",
+  "generated": "2026-05-06T08:14:23.732Z",
   "entries": [
     {
       "slug": "abelian-varieties",
@@ -7,7 +7,15 @@
       "color": "g",
       "tag": "",
       "date": "2026-05-06",
-      "message": "Three more advanced topics + condensed-mathematics card pin fix"
+      "message": "3 next-priority gap topics + condensed pin fix (#122)"
+    },
+    {
+      "slug": "cobordism",
+      "title": "Cobordism",
+      "color": "v",
+      "tag": "",
+      "date": "2026-05-06",
+      "message": "Three more advanced topics: dirichlet-unit-theorem, cobordism, mmp"
     },
     {
       "slug": "cohomology-and-duality",
@@ -23,7 +31,15 @@
       "color": "y",
       "tag": "",
       "date": "2026-05-06",
-      "message": "Three more advanced topics + condensed-mathematics card pin fix"
+      "message": "3 next-priority gap topics + condensed pin fix (#122)"
+    },
+    {
+      "slug": "dirichlet-unit-theorem",
+      "title": "Dirichlet unit theorem",
+      "color": "y",
+      "tag": "",
+      "date": "2026-05-06",
+      "message": "Three more advanced topics: dirichlet-unit-theorem, cobordism, mmp"
     },
     {
       "slug": "iwasawa-theory",
@@ -34,12 +50,20 @@
       "message": "3 advanced topics + map/mindmap UX + section pill UI + thumb-art (#121)"
     },
     {
+      "slug": "mmp-and-birational-geometry",
+      "title": "MMP and birational geometry",
+      "color": "g",
+      "tag": "",
+      "date": "2026-05-06",
+      "message": "Three more advanced topics: dirichlet-unit-theorem, cobordism, mmp"
+    },
+    {
       "slug": "positivity-and-ample-line-bundles",
       "title": "Positivity and ample line bundles",
       "color": "g",
       "tag": "",
       "date": "2026-05-06",
-      "message": "Three more advanced topics + condensed-mathematics card pin fix"
+      "message": "3 next-priority gap topics + condensed pin fix (#122)"
     },
     {
       "slug": "toric-varieties",

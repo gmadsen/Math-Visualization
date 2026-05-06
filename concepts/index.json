@@ -1,5 +1,8 @@
 {
   "topics": [
+    "dirichlet-unit-theorem",
+    "cobordism",
+    "mmp-and-birational-geometry",
     "continued-fractions",
     "abelian-varieties",
     "positivity-and-ample-line-bundles",
@@ -328,6 +331,9 @@
     "iwasawa-theory": "advanced",
     "continued-fractions": "advanced",
     "abelian-varieties": "advanced",
-    "positivity-and-ample-line-bundles": "advanced"
+    "positivity-and-ample-line-bundles": "advanced",
+    "dirichlet-unit-theorem": "advanced",
+    "cobordism": "advanced",
+    "mmp-and-birational-geometry": "advanced"
   }
 }

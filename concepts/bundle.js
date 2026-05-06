@@ -4,6 +4,9 @@
 window.__MVConcepts = {
   "index": {
     "topics": [
+      "dirichlet-unit-theorem",
+      "cobordism",
+      "mmp-and-birational-geometry",
       "continued-fractions",
       "abelian-varieties",
       "positivity-and-ample-line-bundles",
@@ -332,10 +335,289 @@ window.__MVConcepts = {
       "iwasawa-theory": "advanced",
       "continued-fractions": "advanced",
       "abelian-varieties": "advanced",
-      "positivity-and-ample-line-bundles": "advanced"
+      "positivity-and-ample-line-bundles": "advanced",
+      "dirichlet-unit-theorem": "advanced",
+      "cobordism": "advanced",
+      "mmp-and-birational-geometry": "advanced"
     }
   },
   "topics": {
+    "dirichlet-unit-theorem": {
+      "topic": "dirichlet-unit-theorem",
+      "title": "Dirichlet unit theorem",
+      "page": "dirichlet-unit-theorem.html",
+      "concepts": [
+        {
+          "id": "du-log-embedding",
+          "title": "Logarithmic embedding of units",
+          "anchor": "log-embedding",
+          "prereqs": [
+            "number-fields-integers",
+            "minkowski-bound"
+          ],
+          "blurb": "For a number field $K$ with signature $(r_1,r_2)$ and embeddings $\\sigma_1,\\ldots,\\sigma_{r_1}$ (real) and $\\tau_1,\\ldots,\\tau_{r_2}$ (one from each conjugate pair), the logarithmic embedding $\\ell\\colon\\mathcal{O}_K^\\times\\to\\mathbb{R}^{r_1+r_2}$ sends $u\\mapsto(\\log|\\sigma_i(u)|,\\,2\\log|\\tau_j(u)|)$. The product formula $\\prod|N(u)|=1$ forces $\\ell(u)$ to lie in the trace-zero hyperplane $H=\\{\\sum x_i=0\\}$, the kernel of $\\ell$ is the finite group $\\mu_K$ of roots of unity, and the image $\\ell(\\mathcal{O}_K^\\times)$ is a discrete subgroup of $H$.",
+          "tags": [
+            "foundation",
+            "group-action"
+          ]
+        },
+        {
+          "id": "du-statement",
+          "title": "Dirichlet's theorem and proof sketch",
+          "anchor": "statement",
+          "prereqs": [
+            "du-log-embedding",
+            "minkowski-bound"
+          ],
+          "blurb": "Dirichlet (1846): $\\mathcal{O}_K^\\times\\cong\\mu_K\\times\\mathbb{Z}^{r_1+r_2-1}$ as abelian groups. The free rank is one less than the number of archimedean places. The proof has two steps: discreteness of $\\ell(\\mathcal{O}_K^\\times)$ in $H$ (so the image is a lattice of rank $\\le r_1+r_2-1$), then full-rank via Minkowski's theorem applied to a rescaled fundamental domain for $K_\\mathbb{R}/\\mathcal{O}_K$ — repeatedly producing units of bounded norm forces enough independent log-vectors. A choice of $\\mathbb{Z}$-basis for the free part gives <em>fundamental units</em> $\\varepsilon_1,\\ldots,\\varepsilon_{r-1}$.",
+          "tags": [
+            "classification",
+            "finiteness"
+          ]
+        },
+        {
+          "id": "du-regulator",
+          "title": "The regulator $R_K$",
+          "anchor": "regulator",
+          "prereqs": [
+            "du-statement"
+          ],
+          "blurb": "Pick fundamental units $\\varepsilon_1,\\ldots,\\varepsilon_{r-1}$ ($r=r_1+r_2$) and form the $(r-1)\\times r$ matrix $M$ whose $(i,j)$-entry is the $j$-th log-coordinate of $\\varepsilon_i$. Delete any one column to get a square minor; its absolute determinant is the <strong>regulator</strong> $R_K$, independent of which column you drop and independent of the choice of fundamental units (different choices differ by a $\\mathrm{GL}_{r-1}(\\mathbb{Z})$ change of basis, which has determinant $\\pm 1$). Geometrically $R_K$ is the covolume of the unit lattice $\\ell(\\mathcal{O}_K^\\times)$ inside the trace-zero hyperplane $H$. Example: $K=\\mathbb{Q}(\\sqrt{2})$, fundamental unit $1+\\sqrt{2}$, $R_K=\\log(1+\\sqrt{2})\\approx 0.8814$.",
+          "tags": [
+            "foundation",
+            "classification"
+          ]
+        },
+        {
+          "id": "du-class-number-formula",
+          "title": "The analytic class number formula",
+          "anchor": "class-number-formula",
+          "prereqs": [
+            "du-regulator",
+            "class-group-units-ant"
+          ],
+          "blurb": "The Dedekind zeta function $\\zeta_K(s)=\\sum_{\\mathfrak{a}}\\,N(\\mathfrak{a})^{-s}$ has a simple pole at $s=1$, and its residue packages every coarse arithmetic invariant of $K$ at once: $\\displaystyle \\mathrm{Res}_{s=1}\\zeta_K(s)=\\frac{2^{r_1}(2\\pi)^{r_2}\\,h_K\\,R_K}{w_K\\sqrt{|\\Delta_K|}}$, where $h_K$ is the class number, $R_K$ the regulator, $w_K=|\\mu_K|$ the number of roots of unity, and $\\Delta_K$ the discriminant. The right-hand side is the product of the lattice covolumes that geometrically count the missing units (regulator) and the missing principal ideals (class number); the left-hand side is the analytic shadow of those geometries on $\\zeta_K$. The Iwasawa main conjecture and BSD generalise this template to towers and to elliptic curves.",
+          "tags": [
+            "duality",
+            "foundation"
+          ]
+        },
+        {
+          "id": "du-pell-real-quadratic",
+          "title": "Real quadratic units and Pell's equation",
+          "anchor": "pell",
+          "prereqs": [
+            "du-regulator",
+            "cf-convergents"
+          ],
+          "blurb": "For $K=\\mathbb{Q}(\\sqrt{d})$ with $d>0$ squarefree, signature $(r_1,r_2)=(2,0)$, so the unit rank is $1$ and $\\mathcal{O}_K^\\times=\\{\\pm 1\\}\\times\\langle\\varepsilon\\rangle$ for a unique fundamental unit $\\varepsilon>1$. Writing $\\varepsilon=x+y\\sqrt{d}$ with $x,y\\in\\mathbb{Z}$ (or $\\tfrac12\\mathbb{Z}$ when $d\\equiv 1\\bmod 4$), the norm equation $N(\\varepsilon)=x^2-dy^2=\\pm 1$ is <strong>Pell's equation</strong>. The continued-fraction expansion of $\\sqrt{d}$ is purely periodic past $a_0$, and the convergent $p_{n-1}/q_{n-1}$ at the end of the first period gives $(x,y)=(p_{n-1},q_{n-1})$ — the algorithm runs in time polynomial in $\\log d$ for the size of the period, and exponential in $\\log d$ for the size of $\\varepsilon$ itself.",
+          "tags": [
+            "classification",
+            "foundation"
+          ]
+        },
+        {
+          "id": "du-s-units",
+          "title": "$S$-units and the higher analogue",
+          "anchor": "s-units",
+          "prereqs": [
+            "du-statement",
+            "padic-norm-completion"
+          ],
+          "blurb": "Let $S$ be a finite set of places of $K$ containing all archimedean ones. The ring of <strong>$S$-integers</strong> $\\mathcal{O}_{K,S}=\\{x\\in K:v(x)\\ge 0\\text{ for all }v\\notin S\\}$ has unit group $\\mathcal{O}_{K,S}^\\times$ — the $S$-units. The $S$-unit theorem extends Dirichlet: $\\mathcal{O}_{K,S}^\\times\\cong\\mu_K\\times\\mathbb{Z}^{|S|-1}$, with each finite place in $S$ contributing one extra factor of $\\mathbb{Z}$ via valuation at that place. The proof reuses the log-embedding into $\\mathbb{R}^{|S|}$ with archimedean places contributing $\\log|\\sigma_v(\\cdot)|_v$ and finite places contributing $-v(\\cdot)\\log Nv$. Consequence: the $S$-unit equation $u+v=1$ has only finitely many solutions in $S$-units (Mahler, Evertse) — a key finiteness theorem behind Diophantine geometry.",
+          "tags": [
+            "finiteness",
+            "completion"
+          ]
+        }
+      ]
+    },
+    "cobordism": {
+      "topic": "cobordism",
+      "title": "Cobordism",
+      "page": "cobordism.html",
+      "concepts": [
+        {
+          "id": "cob-equivalence",
+          "title": "Cobordism as an equivalence relation",
+          "anchor": "equivalence",
+          "prereqs": [
+            "smooth-manifold-definition",
+            "orientation",
+            "submanifolds-immersions"
+          ],
+          "blurb": "Two closed $n$-manifolds $M_0,M_1$ are cobordant when there is a compact $(n+1)$-manifold $W$ with $\\partial W = M_0\\sqcup M_1$. Cobordism is reflexive (use $M\\times[0,1]$), symmetric (flip ends), and transitive (glue along a common boundary). Disjoint union and Cartesian product give the set $\\Omega_n^{O}$ of classes the structure of a graded ring. Worked examples: every closed surface is null-cobordant, but $\\mathbb{RP}^2$ is not — its class generates $\\Omega_2^{O}=\\mathbb{Z}/2$.",
+          "tags": [
+            "classification",
+            "foundation"
+          ]
+        },
+        {
+          "id": "cob-numbers",
+          "title": "Stiefel–Whitney and Pontryagin numbers as obstructions",
+          "anchor": "numbers",
+          "prereqs": [
+            "cob-equivalence",
+            "cc-stiefel-whitney",
+            "cc-pontryagin"
+          ],
+          "blurb": "If $\\partial W = M$ then every Stiefel–Whitney number $\\langle w_{i_1}(TM)\\smile\\cdots\\smile w_{i_r}(TM),[M]\\rangle\\in\\mathbb{Z}/2$ vanishes — characteristic numbers are cobordism invariants. Pontryagin's converse: a closed $M^n$ is null-cobordant in $\\Omega_*^{O}$ iff all SW numbers vanish, and it is null-cobordant in $\\Omega_*^{SO}$ iff all SW <em>and</em> Pontryagin numbers vanish. The numbers are the entire obstruction.",
+          "tags": [
+            "cohomology",
+            "classification"
+          ]
+        },
+        {
+          "id": "cob-thom",
+          "title": "Thom's theorem and the Thom spectrum $MO$",
+          "anchor": "thom",
+          "prereqs": [
+            "cob-numbers",
+            "cc-classifying-spaces",
+            "fundamental-group"
+          ],
+          "blurb": "The Pontryagin–Thom construction sends a class $[M]\\in\\Omega_n^{O}$ to a homotopy class in $\\pi_n(MO)$, where $MO$ is the Thom spectrum of the universal real bundle over $BO$. The map is an iso $\\Omega_*^{O}\\cong\\pi_*(MO)$, converting a manifold problem into a problem about homotopy groups of a single space. Thom computed the answer: $\\pi_*(MO) = \\mathbb{F}_2[x_i : i\\ge 1,\\;i\\ne 2^k-1]$ — a polynomial ring on one generator in each degree not of the form $2^k-1$.",
+          "tags": [
+            "classification",
+            "functoriality"
+          ]
+        },
+        {
+          "id": "cob-oriented",
+          "title": "Oriented cobordism $\\Omega_*^{SO}$ and the signature theorem",
+          "anchor": "oriented",
+          "prereqs": [
+            "cob-thom",
+            "cc-signature-theorem",
+            "cd-poincare-duality"
+          ],
+          "blurb": "Restricting to oriented manifolds and oriented cobordisms gives $\\Omega_*^{SO}$. Rationally, $\\Omega_*^{SO}\\otimes\\mathbb{Q}\\cong\\mathbb{Q}[\\mathbb{CP}^2,\\mathbb{CP}^4,\\ldots]$ — a polynomial ring on the even-degree complex projective spaces. The Hirzebruch signature theorem gives the bridge to characteristic numbers: for a closed oriented $M^{4k}$, $\\sigma(M)=\\langle L_k(p_1,\\ldots,p_k),[M]\\rangle$, so the signature ring homomorphism $\\Omega_*^{SO}\\to\\mathbb{Z}$ is computed entirely from Pontryagin numbers.",
+          "tags": [
+            "classification",
+            "duality"
+          ]
+        },
+        {
+          "id": "cob-surgery",
+          "title": "Surgery and the $h$-cobordism theorem",
+          "anchor": "surgery",
+          "prereqs": [
+            "cob-equivalence",
+            "mt-handle-decomposition",
+            "mt-cerf-theory"
+          ],
+          "blurb": "Surgery on an embedded $S^p\\times D^{q}\\hookrightarrow M^{p+q}$ removes the interior and glues in $D^{p+1}\\times S^{q-1}$ along the common boundary $S^p\\times S^{q-1}$. The trace of a surgery is a cobordism, so surgery preserves cobordism class while changing the manifold. Smale's $h$-cobordism theorem (1962): for $\\dim M\\ge 5$ simply connected, every $h$-cobordism $W$ between $M_0$ and $M_1$ is diffeomorphic to $M_0\\times[0,1]$. The general $s$-cobordism theorem replaces simple connectivity with the vanishing of the Whitehead torsion $\\tau(W)\\in\\mathrm{Wh}(\\pi_1)$.",
+          "tags": [
+            "classification",
+            "foundation"
+          ]
+        },
+        {
+          "id": "cob-tqft",
+          "title": "TQFT and the cobordism category",
+          "anchor": "tqft",
+          "prereqs": [
+            "cob-equivalence",
+            "cd-cup-product",
+            "k-bott-periodicity"
+          ],
+          "blurb": "Atiyah's axioms package a $d$-dimensional topological quantum field theory as a symmetric monoidal functor $Z\\colon\\mathrm{Cob}_d\\to\\mathrm{Vect}_k$. Objects of $\\mathrm{Cob}_d$ are closed $(d-1)$-manifolds; morphisms are diffeomorphism classes of cobordisms; disjoint union is the monoidal product. $Z$ assigns a vector space to each closed $(d-1)$-manifold and a linear map to each cobordism; for a closed $d$-manifold $M$ (a cobordism $\\emptyset\\to\\emptyset$) the value $Z(M)\\in k$ is the partition function. The Baez–Dolan–Lurie cobordism hypothesis states that fully extended framed $d$-TQFTs valued in a symmetric monoidal $(\\infty,d)$-category $\\mathcal{C}$ are determined by their value on a point, which can be any fully dualizable object.",
+          "tags": [
+            "functoriality",
+            "duality",
+            "classification"
+          ]
+        }
+      ]
+    },
+    "mmp-and-birational-geometry": {
+      "topic": "mmp-and-birational-geometry",
+      "title": "MMP and birational geometry",
+      "page": "mmp-and-birational-geometry.html",
+      "concepts": [
+        {
+          "id": "mmp-kodaira-dimension",
+          "title": "Kodaira dimension and the canonical ring",
+          "anchor": "kodaira-dimension",
+          "prereqs": [
+            "canonical-embedding",
+            "pal-very-ample"
+          ],
+          "blurb": "The canonical ring $R(X, K_X) = \\bigoplus_{m \\ge 0} H^0(X, K_X^{\\otimes m})$ records the growth of pluricanonical sections. The Kodaira dimension $\\kappa(X) \\in \\{-\\infty, 0, 1, \\ldots, \\dim X\\}$ measures it: $h^0(K_X^{\\otimes m}) \\sim m^{\\kappa(X)}$. It is a birational invariant — the coarsest classification of varieties $X$ by how positive $K_X$ is.",
+          "tags": [
+            "classification",
+            "foundation"
+          ]
+        },
+        {
+          "id": "mmp-cone-theorem",
+          "title": "The cone theorem and extremal contractions",
+          "anchor": "cone-theorem",
+          "prereqs": [
+            "mmp-kodaira-dimension",
+            "pal-nef-big",
+            "intersection-product"
+          ],
+          "blurb": "Mori (1982): the closed cone of curves decomposes as $\\overline{NE}(X) = \\overline{NE}(X)_{K_X \\ge 0} + \\sum \\mathbb{R}_{\\ge 0}[C_i]$, with the $K_X$-negative part locally polyhedral with countably many extremal rays $[C_i]$ generated by rational curves. Each extremal ray admits a contraction $\\phi : X \\to Y$ (fibre type, divisorial, or small) onto a normal projective variety, and any $K_X$-trivial curve is contracted iff its class lies in the ray.",
+          "tags": [
+            "classification",
+            "duality"
+          ]
+        },
+        {
+          "id": "mmp-surfaces",
+          "title": "Surface MMP: Castelnuovo and Enriques classification",
+          "anchor": "surfaces",
+          "prereqs": [
+            "mmp-cone-theorem",
+            "ros-blow-up"
+          ],
+          "blurb": "Castelnuovo's contractibility criterion: a curve $E \\subset X$ on a smooth surface contracts to a smooth point iff $E \\cong \\mathbb{P}^1$ and $E^2 = -1$. Iteratively contracting all $(-1)$-curves terminates at a minimal model — either $\\mathbb{P}^2$, a Hirzebruch surface $\\mathbb{F}_n$ ($n \\ne 1$), or a surface with $K_X$ nef. Enriques' table sorts these minimal surfaces by Kodaira dimension into rational, ruled, abelian, K3, Enriques, hyperelliptic (bielliptic), properly elliptic, and general type.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "mmp-flips",
+          "title": "Threefold MMP: small contractions and flips",
+          "anchor": "flips",
+          "prereqs": [
+            "mmp-cone-theorem",
+            "ros-resolution-statement"
+          ],
+          "blurb": "In dimension $\\ge 3$ a $K_X$-negative extremal contraction may be small: its exceptional locus has codimension $\\ge 2$, so $\\phi : X \\to Y$ is birational but $Y$ fails to be $\\mathbb{Q}$-Gorenstein. The MMP repairs this by a flip — a different small contraction $X^+ \\to Y$ on which the strict transform of the contracted ray now has positive intersection with $K_{X^+}$. Mori (1988) proved existence and termination of flips in dimension three; Birkar–Cascini–Hacon–McKernan (2010, Fields-medal cited) extended existence to all dimensions for klt pairs with big boundary, and proved finite generation of the canonical ring as a corollary.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "mmp-singularities-of-pairs",
+          "title": "Singularities of pairs and discrepancies",
+          "anchor": "singularities",
+          "prereqs": [
+            "mmp-flips",
+            "ros-surfaces"
+          ],
+          "blurb": "A log pair $(X, \\Delta)$ with $\\Delta = \\sum a_i D_i$ a $\\mathbb{Q}$-divisor and $K_X + \\Delta$ $\\mathbb{Q}$-Cartier has discrepancies $a_E(X, \\Delta) = \\mathrm{ord}_E(K_Y - f^*(K_X + \\Delta))$ along every prime divisor $E$ on every log resolution $f : Y \\to X$. Sorting by $\\inf_E a_E$ yields the singularity classes terminal $(>0)$, canonical $(\\ge 0)$, klt (Kawamata log terminal, $> -1$), and lc (log canonical, $\\ge -1$). Klt is the natural category in which the modern MMP and Kawamata–Viehweg vanishing run.",
+          "tags": [
+            "classification",
+            "foundation"
+          ]
+        },
+        {
+          "id": "mmp-sarkisov",
+          "title": "Mori fibre spaces and the Sarkisov program",
+          "anchor": "sarkisov",
+          "prereqs": [
+            "mmp-flips"
+          ],
+          "blurb": "If the MMP terminates with $\\kappa(X) = -\\infty$, the output is a Mori fibre space — a contraction $X \\to S$ with $\\dim X > \\dim S$, relative Picard rank one, and $-K_{X/S}$ relatively ample. The Sarkisov program (Corti, after Reid–Sarkisov) factorises any birational map between Mori fibre spaces into elementary links of four standard types, refining birational classification of Fano varieties. It frames open questions about birational rigidity (Iskovskikh–Manin) and the structure of $\\mathrm{Bir}(\\mathbb{P}^n)$.",
+          "tags": [
+            "classification"
+          ]
+        }
+      ]
+    },
     "continued-fractions": {
       "topic": "continued-fractions",
       "title": "Continued fractions",
@@ -16102,7 +16384,8 @@ window.__MVConcepts = {
           "ricci-flow",
           "atiyah-singer-index-theorem",
           "mostow-rigidity",
-          "cohomology-and-duality"
+          "cohomology-and-duality",
+          "cobordism"
         ],
         "color": "v"
       },
@@ -16126,7 +16409,8 @@ window.__MVConcepts = {
           "mathematics-and-cryptography",
           "computational-number-theory",
           "iwasawa-theory",
-          "continued-fractions"
+          "continued-fractions",
+          "dirichlet-unit-theorem"
         ],
         "color": "y"
       },
@@ -16186,7 +16470,8 @@ window.__MVConcepts = {
           "hodge-theory",
           "toric-varieties",
           "abelian-varieties",
-          "positivity-and-ample-line-bundles"
+          "positivity-and-ample-line-bundles",
+          "mmp-and-birational-geometry"
         ],
         "color": "g"
       },
@@ -16481,7 +16766,10 @@ window.__MVConcepts = {
     "iwasawa-theory": "advanced",
     "continued-fractions": "advanced",
     "abelian-varieties": "advanced",
-    "positivity-and-ample-line-bundles": "advanced"
+    "positivity-and-ample-line-bundles": "advanced",
+    "dirichlet-unit-theorem": "advanced",
+    "cobordism": "advanced",
+    "mmp-and-birational-geometry": "advanced"
   },
   "newArc": [
     "elementary-topos-theory",
@@ -16537,18 +16825,18 @@ window.__MVConcepts = {
       "density": 0.2545454545454545
     },
     "Geometry & topology": {
-      "concepts": 110,
-      "intra": 166,
+      "concepts": 116,
+      "intra": 184,
       "crossOut": 23,
       "crossIn": 94,
-      "density": 0.20909090909090908
+      "density": 0.19827586206896552
     },
     "Number theory": {
-      "concepts": 110,
-      "intra": 149,
+      "concepts": 116,
+      "intra": 160,
       "crossOut": 43,
       "crossIn": 27,
-      "density": 0.39090909090909093
+      "density": 0.3706896551724138
     },
     "Modular forms & L-functions": {
       "concepts": 103,
@@ -16558,11 +16846,11 @@ window.__MVConcepts = {
       "density": 0.5339805825242718
     },
     "Algebraic geometry": {
-      "concepts": 161,
-      "intra": 221,
+      "concepts": 167,
+      "intra": 233,
       "crossOut": 58,
       "crossIn": 21,
-      "density": 0.36024844720496896
+      "density": 0.3473053892215569
     },
     "Combinatorics & graph theory": {
       "concepts": 51,

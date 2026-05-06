@@ -120,7 +120,8 @@
         "ricci-flow",
         "atiyah-singer-index-theorem",
         "mostow-rigidity",
-        "cohomology-and-duality"
+        "cohomology-and-duality",
+        "cobordism"
       ],
       "color": "v"
     },
@@ -144,7 +145,8 @@
         "mathematics-and-cryptography",
         "computational-number-theory",
         "iwasawa-theory",
-        "continued-fractions"
+        "continued-fractions",
+        "dirichlet-unit-theorem"
       ],
       "color": "y"
     },
@@ -204,7 +206,8 @@
         "hodge-theory",
         "toric-varieties",
         "abelian-varieties",
-        "positivity-and-ample-line-bundles"
+        "positivity-and-ample-line-bundles",
+        "mmp-and-birational-geometry"
       ],
       "color": "g"
     },

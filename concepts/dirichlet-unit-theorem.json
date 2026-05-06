@@ -1,0 +1,90 @@
+{
+  "topic": "dirichlet-unit-theorem",
+  "title": "Dirichlet unit theorem",
+  "page": "dirichlet-unit-theorem.html",
+  "concepts": [
+    {
+      "id": "du-log-embedding",
+      "title": "Logarithmic embedding of units",
+      "anchor": "log-embedding",
+      "prereqs": [
+        "number-fields-integers",
+        "minkowski-bound"
+      ],
+      "blurb": "For a number field $K$ with signature $(r_1,r_2)$ and embeddings $\\sigma_1,\\ldots,\\sigma_{r_1}$ (real) and $\\tau_1,\\ldots,\\tau_{r_2}$ (one from each conjugate pair), the logarithmic embedding $\\ell\\colon\\mathcal{O}_K^\\times\\to\\mathbb{R}^{r_1+r_2}$ sends $u\\mapsto(\\log|\\sigma_i(u)|,\\,2\\log|\\tau_j(u)|)$. The product formula $\\prod|N(u)|=1$ forces $\\ell(u)$ to lie in the trace-zero hyperplane $H=\\{\\sum x_i=0\\}$, the kernel of $\\ell$ is the finite group $\\mu_K$ of roots of unity, and the image $\\ell(\\mathcal{O}_K^\\times)$ is a discrete subgroup of $H$.",
+      "tags": [
+        "foundation",
+        "group-action"
+      ]
+    },
+    {
+      "id": "du-statement",
+      "title": "Dirichlet's theorem and proof sketch",
+      "anchor": "statement",
+      "prereqs": [
+        "du-log-embedding",
+        "minkowski-bound"
+      ],
+      "blurb": "Dirichlet (1846): $\\mathcal{O}_K^\\times\\cong\\mu_K\\times\\mathbb{Z}^{r_1+r_2-1}$ as abelian groups. The free rank is one less than the number of archimedean places. The proof has two steps: discreteness of $\\ell(\\mathcal{O}_K^\\times)$ in $H$ (so the image is a lattice of rank $\\le r_1+r_2-1$), then full-rank via Minkowski's theorem applied to a rescaled fundamental domain for $K_\\mathbb{R}/\\mathcal{O}_K$ — repeatedly producing units of bounded norm forces enough independent log-vectors. A choice of $\\mathbb{Z}$-basis for the free part gives <em>fundamental units</em> $\\varepsilon_1,\\ldots,\\varepsilon_{r-1}$.",
+      "tags": [
+        "classification",
+        "finiteness"
+      ]
+    },
+    {
+      "id": "du-regulator",
+      "title": "The regulator $R_K$",
+      "anchor": "regulator",
+      "prereqs": [
+        "du-statement"
+      ],
+      "blurb": "Pick fundamental units $\\varepsilon_1,\\ldots,\\varepsilon_{r-1}$ ($r=r_1+r_2$) and form the $(r-1)\\times r$ matrix $M$ whose $(i,j)$-entry is the $j$-th log-coordinate of $\\varepsilon_i$. Delete any one column to get a square minor; its absolute determinant is the <strong>regulator</strong> $R_K$, independent of which column you drop and independent of the choice of fundamental units (different choices differ by a $\\mathrm{GL}_{r-1}(\\mathbb{Z})$ change of basis, which has determinant $\\pm 1$). Geometrically $R_K$ is the covolume of the unit lattice $\\ell(\\mathcal{O}_K^\\times)$ inside the trace-zero hyperplane $H$. Example: $K=\\mathbb{Q}(\\sqrt{2})$, fundamental unit $1+\\sqrt{2}$, $R_K=\\log(1+\\sqrt{2})\\approx 0.8814$.",
+      "tags": [
+        "foundation",
+        "classification"
+      ]
+    },
+    {
+      "id": "du-class-number-formula",
+      "title": "The analytic class number formula",
+      "anchor": "class-number-formula",
+      "prereqs": [
+        "du-regulator",
+        "class-group-units-ant"
+      ],
+      "blurb": "The Dedekind zeta function $\\zeta_K(s)=\\sum_{\\mathfrak{a}}\\,N(\\mathfrak{a})^{-s}$ has a simple pole at $s=1$, and its residue packages every coarse arithmetic invariant of $K$ at once: $\\displaystyle \\mathrm{Res}_{s=1}\\zeta_K(s)=\\frac{2^{r_1}(2\\pi)^{r_2}\\,h_K\\,R_K}{w_K\\sqrt{|\\Delta_K|}}$, where $h_K$ is the class number, $R_K$ the regulator, $w_K=|\\mu_K|$ the number of roots of unity, and $\\Delta_K$ the discriminant. The right-hand side is the product of the lattice covolumes that geometrically count the missing units (regulator) and the missing principal ideals (class number); the left-hand side is the analytic shadow of those geometries on $\\zeta_K$. The Iwasawa main conjecture and BSD generalise this template to towers and to elliptic curves.",
+      "tags": [
+        "duality",
+        "foundation"
+      ]
+    },
+    {
+      "id": "du-pell-real-quadratic",
+      "title": "Real quadratic units and Pell's equation",
+      "anchor": "pell",
+      "prereqs": [
+        "du-regulator",
+        "cf-convergents"
+      ],
+      "blurb": "For $K=\\mathbb{Q}(\\sqrt{d})$ with $d>0$ squarefree, signature $(r_1,r_2)=(2,0)$, so the unit rank is $1$ and $\\mathcal{O}_K^\\times=\\{\\pm 1\\}\\times\\langle\\varepsilon\\rangle$ for a unique fundamental unit $\\varepsilon>1$. Writing $\\varepsilon=x+y\\sqrt{d}$ with $x,y\\in\\mathbb{Z}$ (or $\\tfrac12\\mathbb{Z}$ when $d\\equiv 1\\bmod 4$), the norm equation $N(\\varepsilon)=x^2-dy^2=\\pm 1$ is <strong>Pell's equation</strong>. The continued-fraction expansion of $\\sqrt{d}$ is purely periodic past $a_0$, and the convergent $p_{n-1}/q_{n-1}$ at the end of the first period gives $(x,y)=(p_{n-1},q_{n-1})$ — the algorithm runs in time polynomial in $\\log d$ for the size of the period, and exponential in $\\log d$ for the size of $\\varepsilon$ itself.",
+      "tags": [
+        "classification",
+        "foundation"
+      ]
+    },
+    {
+      "id": "du-s-units",
+      "title": "$S$-units and the higher analogue",
+      "anchor": "s-units",
+      "prereqs": [
+        "du-statement",
+        "padic-norm-completion"
+      ],
+      "blurb": "Let $S$ be a finite set of places of $K$ containing all archimedean ones. The ring of <strong>$S$-integers</strong> $\\mathcal{O}_{K,S}=\\{x\\in K:v(x)\\ge 0\\text{ for all }v\\notin S\\}$ has unit group $\\mathcal{O}_{K,S}^\\times$ — the $S$-units. The $S$-unit theorem extends Dirichlet: $\\mathcal{O}_{K,S}^\\times\\cong\\mu_K\\times\\mathbb{Z}^{|S|-1}$, with each finite place in $S$ contributing one extra factor of $\\mathbb{Z}$ via valuation at that place. The proof reuses the log-embedding into $\\mathbb{R}^{|S|}$ with archimedean places contributing $\\log|\\sigma_v(\\cdot)|_v$ and finite places contributing $-v(\\cdot)\\log Nv$. Consequence: the $S$-unit equation $u+v=1$ has only finitely many solutions in $S$-units (Mahler, Evertse) — a key finiteness theorem behind Diophantine geometry.",
+      "tags": [
+        "finiteness",
+        "completion"
+      ]
+    }
+  ]
+}

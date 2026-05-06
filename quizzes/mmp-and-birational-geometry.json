@@ -1,0 +1,285 @@
+{
+  "topic": "mmp-and-birational-geometry",
+  "quizzes": {
+    "mmp-kodaira-dimension": {
+      "title": "Kodaira dimension and the canonical ring",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Let $X = \\mathbb{P}^n$ with canonical bundle $K_X = \\mathcal{O}(-n-1)$. What is the Kodaira dimension $\\kappa(\\mathbb{P}^n)$?",
+          "choices": [
+            "$-\\infty$",
+            "$0$",
+            "$1$",
+            "$n$"
+          ],
+          "answer": 0,
+          "explain": "$K_X^{\\otimes m} = \\mathcal{O}(-(n+1)m)$ has no global sections for $m \\ge 1$, so the pluricanonical sequence is identically zero, and by convention $\\kappa(\\mathbb{P}^n) = -\\infty$. This is the prototype: $\\kappa = -\\infty$ flags 'as far from canonically positive as possible' — the Fano case.",
+          "hint": "Count $h^0(\\mathcal{O}(-k))$ for $k > 0$."
+        },
+        {
+          "type": "mcq",
+          "q": "For a smooth projective curve $C$ of genus $g$, the Kodaira dimension is determined by $g$. Which line is correct?",
+          "choices": [
+            "$g = 0 \\Rightarrow \\kappa = 0$, $g = 1 \\Rightarrow \\kappa = 1$, $g \\ge 2 \\Rightarrow \\kappa = -\\infty$",
+            "$g = 0 \\Rightarrow \\kappa = -\\infty$, $g = 1 \\Rightarrow \\kappa = 0$, $g \\ge 2 \\Rightarrow \\kappa = 1$",
+            "$\\kappa = g$ in every case",
+            "$g = 0 \\Rightarrow \\kappa = 1$, $g = 1 \\Rightarrow \\kappa = 0$, $g \\ge 2 \\Rightarrow \\kappa = -\\infty$"
+          ],
+          "answer": 1,
+          "explain": "$\\deg K_C = 2g - 2$. For $g = 0$, $\\deg K_C = -2 < 0$ so all powers have no sections and $\\kappa = -\\infty$. For $g = 1$, $K_C \\cong \\mathcal{O}_C$ so $h^0(K_C^{\\otimes m}) = 1$ for every $m \\ge 0$ — constant growth gives $\\kappa = 0$. For $g \\ge 2$, $K_C$ is ample of degree $2g-2$, and Riemann–Roch gives $h^0(K_C^{\\otimes m}) = (2g-2)m - g + 1$ for $m \\ge 2$, linear growth so $\\kappa = 1 = \\dim C$.",
+          "hint": "When $\\dim X = 1$, $\\kappa(X) \\in \\{-\\infty, 0, 1\\}$ — and $\\kappa = \\dim X$ means $K_X$ is big."
+        },
+        {
+          "type": "mcq",
+          "q": "Why is the Kodaira dimension a birational invariant?",
+          "choices": [
+            "Because it is defined locally and birational maps are local isomorphisms",
+            "Because pluricanonical sections extend across codimension-$\\ge 2$ loci on smooth projective varieties, and birational maps between smooth projective varieties are isomorphisms outside such loci",
+            "Because $K_X$ itself is preserved under birational maps",
+            "Because every birational map factors through a single blow-up, and blow-ups don't change $h^0$"
+          ],
+          "answer": 1,
+          "explain": "On a smooth projective $X$ a section of $K_X^{\\otimes m}$ is a top-degree differential form (raised to the $m$-th tensor power) that extends across any codim-$\\ge 2$ subset by Hartogs. A birational map $\\varphi : X \\dashrightarrow X'$ between smooth projective varieties is an isomorphism on a common open subset whose complement has codimension $\\ge 2$ on each side, so pullback identifies $H^0(X, K_X^{\\otimes m}) \\cong H^0(X', K_{X'}^{\\otimes m})$ for every $m$. The growth rate, hence $\\kappa$, is a birational invariant.",
+          "hint": "Sections of $K_X^{\\otimes m}$ are top-degree pluricanonical forms; what extends across codim-$\\ge 2$ on a smooth variety?"
+        }
+      ]
+    },
+    "mmp-cone-theorem": {
+      "title": "The cone theorem and extremal contractions",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "An extremal ray $R = \\mathbb{R}_{\\ge 0}[C]$ in $\\overline{NE}(X)_{K_X < 0}$ admits a contraction $\\phi_R : X \\to Y$. Which property characterises a divisorial contraction?",
+          "choices": [
+            "$\\dim Y < \\dim X$",
+            "$\\dim Y = \\dim X$ and the exceptional locus has codimension exactly $1$",
+            "$\\dim Y = \\dim X$ and the exceptional locus has codimension $\\ge 2$",
+            "$\\phi_R$ is an isomorphism"
+          ],
+          "answer": 1,
+          "explain": "The three contraction types are sorted by exceptional locus: (a) fibre-type contractions have $\\dim Y < \\dim X$ — the extreme example is $\\mathbb{P}^1 \\to \\mathrm{pt}$; (b) divisorial contractions are birational with codimension-$1$ exceptional locus (e.g. blow-down of a $(-1)$-curve on a surface, or contraction of an exceptional divisor on a threefold); (c) small contractions are birational with exceptional locus of codimension $\\ge 2$, the source of the flip phenomenon in dimension $\\ge 3$.",
+          "hint": "The three types — fibre, divisorial, small — partition by dimension of fibre and codimension of exceptional locus."
+        },
+        {
+          "type": "mcq",
+          "q": "On a smooth projective surface $X$, every $K_X$-negative extremal contraction is either fibre-type or divisorial. Why does the small case not occur?",
+          "choices": [
+            "Because surfaces have no rational curves",
+            "Because the exceptional locus of a birational morphism between surfaces has dimension $\\ge 1$, hence codimension $\\le 1$",
+            "Because flips do not exist on surfaces",
+            "Because $K_X$ is always trivial on a surface"
+          ],
+          "answer": 1,
+          "explain": "If $\\phi : X \\to Y$ is birational between surfaces and the exceptional locus is non-empty, it has dimension $\\ge 1$ (a curve), hence codimension $1$ in $X$. So small contractions — codimension $\\ge 2$ exceptional locus — cannot exist on surfaces. The phenomenon (and the need for flips) only appears in dimension $\\ge 3$, where a contracted curve can have codimension $2$ in a threefold.",
+          "hint": "What is the smallest possible dimension of the exceptional locus of a birational morphism between two smooth surfaces?"
+        },
+        {
+          "type": "numeric",
+          "q": "Let $X$ be the blow-up of $\\mathbb{P}^2$ at one point, with exceptional curve $E$. Compute the self-intersection $E^2$.",
+          "answer": -1,
+          "tol": 0.0001,
+          "explain": "By the universal property of the blow-up, the exceptional curve $E$ is a $\\mathbb{P}^1$ with self-intersection $E^2 = -1$. This is the prototypical $(-1)$-curve, and Castelnuovo's criterion says it is exactly a $\\mathbb{P}^1$ with self-intersection $-1$ that can be contracted to a smooth point. The corresponding extremal ray $\\mathbb{R}_{\\ge 0}[E] \\subset \\overline{NE}(X)$ is $K_X$-negative ($K_X \\cdot E = -1$), and contracting it recovers $\\mathbb{P}^2$.",
+          "hint": "This is the canonical example of a $(-1)$-curve."
+        }
+      ]
+    },
+    "mmp-surfaces": {
+      "title": "Surface MMP: Castelnuovo and Enriques classification",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Castelnuovo's contractibility criterion states that a curve $E$ on a smooth projective surface $X$ contracts to a smooth point of a smooth surface iff:",
+          "choices": [
+            "$E$ is rational",
+            "$E \\cong \\mathbb{P}^1$ and $E^2 = -1$",
+            "$E^2 < 0$",
+            "$E^2 = 0$ and $E$ is irreducible"
+          ],
+          "answer": 1,
+          "explain": "Castelnuovo's criterion: a curve $E$ is contractible to a smooth point iff $E$ is a smooth rational curve ($E \\cong \\mathbb{P}^1$) with $E^2 = -1$. These are the so-called $(-1)$-curves. Adjunction gives $K_X \\cdot E = -2 - E^2 = -1 < 0$, so the corresponding extremal ray is automatically $K_X$-negative, and contracting it produces another smooth projective surface. This is exactly the surface MMP step.",
+          "hint": "Adjunction on a smooth surface: $2g(E) - 2 = E^2 + K_X \\cdot E$."
+        },
+        {
+          "type": "mcq",
+          "q": "Iteratively contracting $(-1)$-curves on a smooth projective surface always terminates because:",
+          "choices": [
+            "There are only finitely many curves on any surface",
+            "Each contraction decreases the Picard number $\\rho(X)$ by exactly $1$, and $\\rho \\ge 1$",
+            "The Kodaira dimension strictly decreases",
+            "The canonical class $K_X$ becomes ample after one step"
+          ],
+          "answer": 1,
+          "explain": "Each blow-down of a $(-1)$-curve drops the Picard number by $1$ (it removes one independent class from $N^1(X)$). Since $\\rho(X) \\ge 1$ on any projective surface and $\\rho$ takes values in $\\mathbb{Z}_{>0}$, the descent must stop after finitely many steps. The terminal model is a 'minimal' surface — either $\\mathbb{P}^2$, a Hirzebruch surface $\\mathbb{F}_n$ for $n \\ne 1$, or one with $K_X$ nef.",
+          "hint": "Picard number is a positive integer; a strictly decreasing sequence of positive integers must terminate."
+        },
+        {
+          "type": "matching",
+          "q": "Match each minimal surface class with its Kodaira dimension.",
+          "left": [
+            "$-\\infty$",
+            "$0$",
+            "$1$",
+            "$2$"
+          ],
+          "right": [
+            "Rational and ruled surfaces ($\\mathbb{P}^2$, $\\mathbb{F}_n$, $C \\times \\mathbb{P}^1$)",
+            "Abelian, K3, Enriques, hyperelliptic (bielliptic) surfaces",
+            "Properly elliptic surfaces (elliptic fibration with non-trivial $j$-invariant)",
+            "Surfaces of general type"
+          ],
+          "answer": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "explain": "Enriques' classification stratifies minimal surfaces by Kodaira dimension. $\\kappa = -\\infty$: rational and ruled — $K_X$ has no positive multiple with sections. $\\kappa = 0$: abelian, K3, Enriques, bielliptic — some power $K_X^{\\otimes m}$ is trivial, so $h^0(K_X^{\\otimes m}) = 1$ is constant. $\\kappa = 1$: properly elliptic — $h^0(K_X^{\\otimes m})$ grows linearly because the pluricanonical map factors through an elliptic fibration. $\\kappa = 2 = \\dim X$: general type — $K_X$ is big, and the canonical map is birational onto its image for $m \\gg 0$.",
+          "hint": "Match rate of growth of $h^0(K_X^{\\otimes m})$ to the dimension of the pluricanonical image."
+        }
+      ]
+    },
+    "mmp-flips": {
+      "title": "Threefold MMP: small contractions and flips",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A small contraction $\\phi : X \\to Y$ in dimension $\\ge 3$ is followed by a flip $\\phi^+ : X^+ \\to Y$. What is the defining numerical property of the flipped variety $X^+$?",
+          "choices": [
+            "$K_{X^+}$ is ample on $X^+$",
+            "The strict transform of any $\\phi$-contracted curve $C$ has $K_{X^+} \\cdot C^+ > 0$, while $K_X \\cdot C < 0$",
+            "$X^+ \\cong X$ as abstract varieties",
+            "The Picard number of $X^+$ is one less than that of $X$"
+          ],
+          "answer": 1,
+          "explain": "A flip is the unique birational replacement $\\phi^+ : X^+ \\to Y$ of $\\phi$ that exchanges the sign of $K \\cdot C$ on the contracted ray: the original contracted curves had $K_X \\cdot C < 0$, and on $X^+$ the strict transforms satisfy $K_{X^+} \\cdot C^+ > 0$. The Picard number is preserved (since both $X \\to Y$ and $X^+ \\to Y$ have relative Picard number $1$), and $X^+$ is generally not isomorphic to $X$. Iterating flips eventually produces a model on which $K$ is nef — provided flips terminate.",
+          "hint": "A flip flips the sign of the canonical class on the contracted curve class."
+        },
+        {
+          "type": "mcq",
+          "q": "Whose theorem established existence and termination of flips for klt threefolds, completing the threefold MMP?",
+          "choices": [
+            "Hironaka",
+            "Mori",
+            "Birkar–Cascini–Hacon–McKernan",
+            "Mumford"
+          ],
+          "answer": 1,
+          "explain": "Mori (1988) proved both the existence and termination of three-dimensional flips, completing the threefold MMP — work for which he received the 1990 Fields Medal. Birkar–Cascini–Hacon–McKernan (2010) generalised existence of flips to arbitrary dimension for klt pairs with big boundary, and as a corollary obtained finite generation of the canonical ring; Birkar received the 2018 Fields Medal partly for follow-up work on boundedness of Fano varieties. Termination of flips in dimension $\\ge 4$ remains open in general.",
+          "hint": "Threefold MMP: 1988, Fields Medal 1990. Higher-dimensional existence: 2010, Fields Medal 2018."
+        },
+        {
+          "type": "multi-select",
+          "q": "Select all statements that are true about flips. (Multiple correct.)",
+          "choices": [
+            "A flip is a small modification: both $\\phi$ and $\\phi^+$ have exceptional locus of codimension $\\ge 2$",
+            "Flips preserve the Picard number $\\rho$",
+            "Flips strictly decrease $\\rho$",
+            "Termination of flips in arbitrary dimension is a theorem (BCHM, 2010)",
+            "A flip exchanges the sign of $K \\cdot C$ on the contracted ray"
+          ],
+          "answer": [
+            0,
+            1,
+            4
+          ],
+          "explain": "True: flips are small (codim $\\ge 2$ exceptional locus on both sides), preserve the Picard number (both $X \\to Y$ and $X^+ \\to Y$ have relative Picard number $1$), and exchange the sign of $K \\cdot C$. False: $\\rho$ is preserved, not decreased — that is what divisorial contractions do. Also false: BCHM proved existence of flips in arbitrary dimension under klt+big assumptions, but termination of flips in dimension $\\ge 4$ is conjectural; what BCHM gives is termination only of certain MMP runs (e.g. with scaling), enough to obtain finite generation of the canonical ring.",
+          "hint": "Distinguish 'existence' (BCHM, 2010) from 'termination' (still open in dim $\\ge 4$)."
+        }
+      ]
+    },
+    "mmp-singularities-of-pairs": {
+      "title": "Singularities of pairs and discrepancies",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "For a smooth variety $X$ with $\\Delta = 0$, the discrepancy $a_E(X, 0)$ along any prime divisor $E$ on a log resolution satisfies:",
+          "choices": [
+            "$a_E \\ge 0$, with equality iff $E$ is exceptional",
+            "$a_E > 0$, so $(X, 0)$ is terminal",
+            "$a_E = 0$ for every $E$",
+            "$a_E < 0$, so $(X, 0)$ is log canonical but not klt"
+          ],
+          "answer": 1,
+          "explain": "On a smooth $X$ the discrepancy along any divisor $E$ on a sequence of blow-ups is strictly positive: blowing up a smooth point of dimension $d$ adds an exceptional $\\mathbb{P}^{d-1}$ with discrepancy $d - 1 \\ge 1$. So $\\inf_E a_E(X, 0) > 0$, meaning $(X, 0)$ is terminal. Smooth varieties are the prototype of terminal singularities, just as klt is the natural setting for the modern MMP and lc is the boundary class.",
+          "hint": "Blowing up the origin of $\\mathbb{A}^d$ produces an exceptional $\\mathbb{P}^{d-1}$ — what is its discrepancy?"
+        },
+        {
+          "type": "ordering",
+          "q": "Order the four singularity classes for log pairs from most restrictive (smallest class) to least restrictive (largest class).",
+          "items": [
+            "terminal",
+            "canonical",
+            "klt (Kawamata log terminal)",
+            "lc (log canonical)"
+          ],
+          "answer": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "explain": "The classes nest by lower bound on the infimum of discrepancies: terminal $\\inf a_E > 0$, canonical $\\inf a_E \\ge 0$, klt $\\inf a_E > -1$ (with $\\Delta$-coefficients $< 1$), lc $\\inf a_E \\ge -1$ (coefficients $\\le 1$). Smooth $\\subsetneq$ terminal $\\subsetneq$ canonical $\\subsetneq$ klt $\\subsetneq$ lc. Klt is the natural category for MMP — it allows the boundary $\\Delta$ a fractional coefficient, while preserving Kawamata–Viehweg vanishing.",
+          "hint": "Order by the lower bound on $\\inf_E a_E(X, \\Delta)$: $> 0$ vs $\\ge 0$ vs $> -1$ vs $\\ge -1$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which singularity class is the natural setting in which Kawamata–Viehweg vanishing applies and the modern MMP runs?",
+          "choices": [
+            "Smooth",
+            "Terminal",
+            "klt",
+            "lc but not klt"
+          ],
+          "answer": 2,
+          "explain": "Kawamata–Viehweg vanishing for log pairs holds for klt pairs $(X, \\Delta)$ — the class that allows fractional boundary coefficients $a_i < 1$ and discrepancies bounded strictly below by $-1$. Smooth and terminal are special cases of klt. The strictly larger class lc admits boundary coefficients equal to $1$ (with discrepancy exactly $-1$), and Kawamata–Viehweg fails on the strict lc–not–klt boundary; one needs Ambro's theorem and more delicate arguments. Klt is the sweet spot: large enough to be closed under MMP operations, small enough for the basic vanishing.",
+          "hint": "Look for the class that allows $\\mathbb{Q}$-divisor coefficients but stops short of the boundary value $1$."
+        }
+      ]
+    },
+    "mmp-sarkisov": {
+      "title": "Mori fibre spaces and the Sarkisov program",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "If a klt MMP terminates with $\\kappa(X) = -\\infty$, the resulting variety is a Mori fibre space $\\phi : X \\to S$. Which of the following holds?",
+          "choices": [
+            "$\\dim S = \\dim X$ and $K_X$ is ample",
+            "$\\dim S < \\dim X$, the relative Picard number is $1$, and $-K_{X/S}$ is relatively ample",
+            "$\\dim S = 0$ and $X$ is Calabi–Yau",
+            "$\\phi$ is birational and $X$ is smooth"
+          ],
+          "answer": 1,
+          "explain": "By definition a Mori fibre space is a contraction $\\phi : X \\to S$ with $\\dim S < \\dim X$, relative Picard rank $\\rho(X/S) = 1$, and $-K_X$ relatively ample (equivalently, $-K_{X/S}$ ample over $S$). When $\\dim S = 0$ this recovers a Fano variety (the case all of $X$ is the fibre); for $\\dim S > 0$ the general fibre is a Fano variety, and $X$ is a Fano fibration over $S$. This is the natural endpoint of the MMP for $\\kappa = -\\infty$.",
+          "hint": "The output is a Fano fibration; what does that mean for $K_X$ relative to $S$?"
+        },
+        {
+          "type": "mcq",
+          "q": "What does the Sarkisov program (Corti et al.) achieve?",
+          "choices": [
+            "It computes the Kodaira dimension algorithmically",
+            "It factorises any birational map between two Mori fibre spaces into a sequence of elementary 'Sarkisov links' of four standard types",
+            "It proves termination of flips in arbitrary dimension",
+            "It classifies all Fano varieties up to isomorphism"
+          ],
+          "answer": 1,
+          "explain": "The Sarkisov program decomposes a birational map $f : X/S \\dashrightarrow X'/S'$ between Mori fibre spaces into a finite chain of 'Sarkisov links' — elementary birational modifications of four standard types (Type I, II, III, IV), each obtained by running a relative MMP. Together with the cone-and-contraction theorem at the level of Mori fibre spaces, this gives a higher-dimensional analogue of Castelnuovo's surface theorem. It refines, not replaces, the basic MMP and is the main tool for studying birational rigidity questions like 'is $\\mathbb{P}^3$ the only smooth Fano threefold birational to itself only via automorphisms?'",
+          "hint": "It is a structure theorem for $\\mathrm{Bir}$ between MFS, not a classification."
+        },
+        {
+          "type": "mcq",
+          "q": "Iskovskikh–Manin (1971) proved a smooth quartic threefold $X_4 \\subset \\mathbb{P}^4$ is birationally rigid: every birational self-map is biregular, so $\\mathrm{Bir}(X_4) = \\mathrm{Aut}(X_4)$. In Sarkisov-program language, this says:",
+          "choices": [
+            "$X_4$ is rational",
+            "Every Sarkisov link starting from $X_4$ returns to $X_4$ itself, so $X_4$ is the unique Mori fibre space in its birational class",
+            "$X_4$ has Kodaira dimension $3$",
+            "$X_4$ admits no non-trivial automorphism"
+          ],
+          "answer": 1,
+          "explain": "Birational rigidity in the Sarkisov framework means: the only Mori fibre space birational to $X_4$ is $X_4 \\to \\mathrm{pt}$ itself, and every Sarkisov link starting from $X_4/\\mathrm{pt}$ ends at $X_4/\\mathrm{pt}$. Equivalently, the birational group $\\mathrm{Bir}(X_4)$ acts trivially on the set of Mori models, so $\\mathrm{Bir}(X_4) = \\mathrm{Aut}(X_4)$. This was the first negative answer to the Lüroth problem in dimension three: a smooth quartic threefold is unirational (a degree-2 cover of $\\mathbb{P}^3$ via projection from a line) but not rational. Higher Kodaira dimension is irrelevant — $X_4$ has $\\kappa = -\\infty$ as a Fano variety.",
+          "hint": "Birational rigidity = Mori fibre space is unique in its birational class."
+        }
+      ]
+    }
+  }
+}
