@@ -1,5 +1,8 @@
 {
   "topics": [
+    "continued-fractions",
+    "abelian-varieties",
+    "positivity-and-ample-line-bundles",
     "motives",
     "algebraic-k-theory-foundations",
     "model-categories",
@@ -322,6 +325,9 @@
     "langlands-program": "capstone",
     "cohomology-and-duality": "advanced",
     "toric-varieties": "advanced",
-    "iwasawa-theory": "advanced"
+    "iwasawa-theory": "advanced",
+    "continued-fractions": "advanced",
+    "abelian-varieties": "advanced",
+    "positivity-and-ample-line-bundles": "advanced"
   }
 }

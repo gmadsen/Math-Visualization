@@ -1,0 +1,617 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Positivity and ample line bundles</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false,
+      macros:{
+        '\\Spec':'\\operatorname{Spec}',
+        '\\Gal':'\\operatorname{Gal}',
+        '\\Hom':'\\operatorname{Hom}',
+        '\\tr':'\\operatorname{tr}',
+        '\\ad':'\\operatorname{ad}',
+        '\\ind':'\\operatorname{ind}'
+      }
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  /* sticky sidebar TOC (wide screens only; narrow screens fall back to top-nav) */
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+  /* callback-css-auto-begin */
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+/* callback-css-auto-end */
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
+  /* display-prefs-css-auto-begin */
+  html[data-hide-widgets] .widget { display: none !important; }
+  html[data-hide-quizzes] .quiz { display: none !important; }
+  html[data-hide-lineage] .lineage-strip { display: none !important; }
+  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }
+  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }
+  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }
+  .mv-display-toggle--off { opacity: 0.35; }
+  /* display-prefs-css-auto-end */
+</style>
+<!-- breadcrumb-head-auto-begin -->
+<script>window.__MV_SECTION_MAP = {"<topic>":{"next":null,"prev":null,"section":"Sections","title":"<topic>"},"L-functions":{"next":"sato-tate","prev":"moonshine","section":"Modular forms & L-functions","title":"L-functions"},"abelian-varieties":{"next":"positivity-and-ample-line-bundles","prev":"toric-varieties","section":"Algebraic geometry","title":"Abelian varieties"},"additive-number-theory":{"next":"heights-arithmetic-geometry","prev":"quadratic-forms-genus-theory","section":"Number theory","title":"Additive number theory"},"adeles-and-ideles":{"next":"frobenius-and-reciprocity","prev":"p-adic-numbers","section":"Number theory","title":"Adèles & idèles"},"advanced-complex-analysis":{"next":"microlocal-analysis","prev":"sobolev-spaces-distributions","section":"Analysis","title":"Advanced complex analysis"},"algebra":{"next":"representation-theory","prev":null,"section":"Algebra & homological","title":"Abstract algebra"},"algebraic-curves-higher-genus":{"next":"deformation-theory","prev":"mirror-symmetry","section":"Algebraic geometry","title":"Algebraic curves: higher genus"},"algebraic-de-rham-cohomology":{"next":"calabi-yau-manifolds","prev":"algebraic-spaces","section":"Algebraic geometry","title":"Algebraic de Rham cohomology"},"algebraic-k-theory-foundations":{"next":"model-categories","prev":"quantum-groups","section":"Algebra & homological","title":"Algebraic K-theory foundations"},"algebraic-number-theory":{"next":"p-adic-numbers","prev":"galois","section":"Number theory","title":"Algebraic number theory"},"algebraic-spaces":{"next":"algebraic-de-rham-cohomology","prev":"functor-of-points","section":"Algebraic geometry","title":"Algebraic spaces"},"algebraic-topology":{"next":"knot-polynomials","prev":"point-set-topology","section":"Geometry & topology","title":"Algebraic topology"},"analytic-continuation":{"next":"zeta-values","prev":"dirichlet-series-euler-products","section":"Modular forms & L-functions","title":"Analytic continuation"},"analytic-number-theory":{"next":"galois","prev":null,"section":"Number theory","title":"Analytic number theory"},"atiyah-singer-index-theorem":{"next":"riemannian-geometry","prev":"k-theory","section":"Geometry & topology","title":"Atiyah–Singer index theorem"},"automorphic-forms-adelic":{"next":"moonshine","prev":"hecke-operators","section":"Modular forms & L-functions","title":"Automorphic forms (adelic)"},"bezout":{"next":"schemes","prev":"elliptic-curves","section":"Algebraic geometry","title":"Bézout's theorem"},"bsd":{"next":"modularity-and-flt","prev":"sato-tate","section":"Modular forms & L-functions","title":"Birch & Swinnerton-Dyer"},"calabi-yau-manifolds":{"next":"mirror-symmetry","prev":"algebraic-de-rham-cohomology","section":"Algebraic geometry","title":"Calabi–Yau manifolds"},"category-theory":{"next":"commutative-algebra","prev":"derived-categories","section":"Algebra & homological","title":"Category theory"},"characteristic-classes":{"next":"k-theory","prev":"symplectic-manifolds","section":"Geometry & topology","title":"Characteristic classes"},"class-field-theory":{"next":"galois-representations","prev":"computational-number-theory","section":"Number theory","title":"Class field theory"},"cocartesian-fibrations":{"next":"infinity-categories","prev":"heyting-algebras-toposes","section":"Higher categories & toposes","title":"Cocartesian fibrations"},"cohomology-and-duality":{"next":null,"prev":"mostow-rigidity","section":"Geometry & topology","title":"Cohomology and duality"},"commutative-algebra":{"next":"homological","prev":"category-theory","section":"Algebra & homological","title":"Commutative algebra"},"complex-analysis":{"next":"measure-theory","prev":"real-analysis","section":"Analysis","title":"Complex analysis"},"complexity-theory":{"next":"type-theory-and-hott","prev":"computability-and-decidability","section":"Logic & Foundations","title":"Complexity theory"},"computability-and-decidability":{"next":"complexity-theory","prev":"model-theory-basics","section":"Logic & Foundations","title":"Computability and decidability"},"computational-number-theory":{"next":"class-field-theory","prev":"mathematics-and-cryptography","section":"Number theory","title":"Computational number theory"},"condensed-mathematics":{"next":null,"prev":"groebner-bases","section":"Algebra & homological","title":"Condensed mathematics"},"continued-fractions":{"next":null,"prev":"iwasawa-theory","section":"Number theory","title":"Continued fractions"},"deformation-theory":{"next":"resolution-of-singularities","prev":"algebraic-curves-higher-genus","section":"Algebraic geometry","title":"Deformation theory"},"derived-categories":{"next":"category-theory","prev":"model-categories","section":"Algebra & homological","title":"Derived categories"},"designs":{"next":"spectral-graph-theory","prev":"enumerative-combinatorics","section":"Combinatorics & graph theory","title":"Designs"},"differential-forms":{"next":"morse-theory","prev":"riemann-surfaces","section":"Geometry & topology","title":"Differential forms"},"differential-geometry":{"next":"riemann-surfaces","prev":"smooth-manifolds","section":"Geometry & topology","title":"Differential geometry"},"dirac-equation":{"next":"statistical-mechanics","prev":"klein-gordon-equation","section":"Mathematical physics","title":"Dirac equation"},"dirichlet-series-euler-products":{"next":"analytic-continuation","prev":null,"section":"Modular forms & L-functions","title":"Dirichlet series & Euler products"},"dynamical-systems":{"next":"semigroup-theory-evolution-equations","prev":"operator-algebras","section":"Analysis","title":"Dynamical systems"},"elementary-topos-theory":{"next":"grothendieck-topologies-sites","prev":"simplicial-sets-and-nerve","section":"Higher categories & toposes","title":"Elementary topos theory"},"elliptic-curves":{"next":"bezout","prev":"etale-fundamental-group","section":"Algebraic geometry","title":"Elliptic curves"},"enumerative-combinatorics":{"next":"designs","prev":"simplicial-complexes-combinatorial","section":"Combinatorics & graph theory","title":"Enumerative combinatorics"},"etale-cohomology":{"next":null,"prev":"stacks","section":"Algebraic geometry","title":"Étale cohomology"},"etale-fundamental-group":{"next":"elliptic-curves","prev":"projective-plane","section":"Algebraic geometry","title":"Étale fundamental group"},"expanders":{"next":null,"prev":"spectral-graph-theory","section":"Combinatorics & graph theory","title":"Expanders"},"extremal-combinatorics":{"next":"simplicial-complexes-combinatorial","prev":"probabilistic-method","section":"Combinatorics & graph theory","title":"Extremal combinatorics"},"first-order-logic-and-completeness":{"next":"zfc-and-ordinals","prev":"type-theory-and-hott","section":"Logic & Foundations","title":"First order logic and completeness"},"fixed-point-theorems":{"next":"harmonic-analysis-fourier","prev":"functional-analysis","section":"Analysis","title":"Fixed point theorems"},"forcing-and-independence":{"next":null,"prev":"zfc-and-ordinals","section":"Logic & Foundations","title":"Forcing and independence"},"frobenius-and-reciprocity":{"next":"quadratic-reciprocity","prev":"adeles-and-ideles","section":"Number theory","title":"Frobenius & reciprocity"},"functional-analysis":{"next":"fixed-point-theorems","prev":"harmonic-functions","section":"Analysis","title":"Functional analysis"},"functor-of-points":{"next":"algebraic-spaces","prev":"morphisms-fiber-products","section":"Algebraic geometry","title":"Functor of points"},"galois":{"next":"algebraic-number-theory","prev":"analytic-number-theory","section":"Number theory","title":"Galois theory & the quintic"},"galois-cohomology-and-brauer":{"next":"group-cohomology","prev":"geometric-and-combinatorial-group-theory","section":"Algebra & homological","title":"Galois cohomology and Brauer groups"},"galois-representations":{"next":"iwasawa-theory","prev":"class-field-theory","section":"Number theory","title":"Galois representations"},"gauge-theory":{"next":"string-theory","prev":"statistical-mechanics","section":"Mathematical physics","title":"Gauge theory"},"general-relativity":{"next":"schrodinger-equation","prev":"three-body-problem","section":"Mathematical physics","title":"General relativity & Einstein equations"},"geometric-and-combinatorial-group-theory":{"next":"galois-cohomology-and-brauer","prev":"quaternions-octonions-and-division-algebras","section":"Algebra & homological","title":"Geometric and combinatorial group theory"},"geometric-measure-theory":{"next":"operator-algebras","prev":"microlocal-analysis","section":"Analysis","title":"Geometric measure theory"},"groebner-bases":{"next":"condensed-mathematics","prev":"homological","section":"Algebra & homological","title":"Gröbner bases"},"grothendieck-topologies-sites":{"next":"infinity-topoi","prev":"elementary-topos-theory","section":"Higher categories & toposes","title":"Grothendieck topologies & sites"},"group-cohomology":{"next":"quantum-groups","prev":"galois-cohomology-and-brauer","section":"Algebra & homological","title":"Group cohomology"},"group-schemes":{"next":"morphisms-fiber-products","prev":"intersection-theory-chow","section":"Algebraic geometry","title":"Group schemes"},"hamiltonians-classical-mechanics":{"next":"special-relativity","prev":"schrodinger-equation","section":"Mathematical physics","title":"Hamiltonians & classical mechanics"},"harmonic-analysis-fourier":{"next":"wavelets","prev":"fixed-point-theorems","section":"Analysis","title":"Harmonic analysis & Fourier theory"},"harmonic-functions":{"next":"functional-analysis","prev":"measure-theory","section":"Analysis","title":"Harmonic functions"},"hecke-operators":{"next":"automorphic-forms-adelic","prev":"theta-functions","section":"Modular forms & L-functions","title":"Hecke operators"},"heights-arithmetic-geometry":{"next":"mathematics-and-cryptography","prev":"additive-number-theory","section":"Number theory","title":"Heights in arithmetic geometry"},"heyting-algebras-toposes":{"next":"cocartesian-fibrations","prev":null,"section":"Higher categories & toposes","title":"Heyting algebras & intuitionist logic"},"high-dimensional-geometry":{"next":"information-theory","prev":"large-deviations","section":"Probability & statistics","title":"High dimensional geometry"},"hodge-theory":{"next":"singular-cubics-reduction","prev":"motives","section":"Algebraic geometry","title":"Hodge theory"},"homological":{"next":"groebner-bases","prev":"commutative-algebra","section":"Algebra & homological","title":"Homological algebra"},"infinity-categories":{"next":"simplicial-sets-and-nerve","prev":"cocartesian-fibrations","section":"Higher categories & toposes","title":"∞-categories (quasi-categories)"},"infinity-topoi":{"next":null,"prev":"grothendieck-topologies-sites","section":"Higher categories & toposes","title":"∞-topoi"},"information-theory":{"next":"mathematical-statistics","prev":"high-dimensional-geometry","section":"Probability & statistics","title":"Information theory"},"intersection-theory-chow":{"next":"group-schemes","prev":"sheaves","section":"Algebraic geometry","title":"Intersection theory & Chow groups"},"iwasawa-theory":{"next":"continued-fractions","prev":"galois-representations","section":"Number theory","title":"Iwasawa theory"},"k-theory":{"next":"atiyah-singer-index-theorem","prev":"characteristic-classes","section":"Geometry & topology","title":"K-theory"},"klein-gordon-equation":{"next":"dirac-equation","prev":"special-relativity","section":"Mathematical physics","title":"Klein-Gordon equation"},"knot-polynomials":{"next":"smooth-manifolds","prev":"algebraic-topology","section":"Geometry & topology","title":"Knot polynomials"},"langlands-program":{"next":"theta-functions","prev":"vertex-operator-algebras","section":"Modular forms & L-functions","title":"Langlands program"},"large-deviations":{"next":"high-dimensional-geometry","prev":"random-walks-and-mixing","section":"Probability & statistics","title":"Large deviations"},"lie-algebras":{"next":"quaternions-octonions-and-division-algebras","prev":"representation-theory","section":"Algebra & homological","title":"Lie algebras"},"lie-groups":{"next":"mostow-rigidity","prev":"ricci-flow","section":"Geometry & topology","title":"Lie groups & algebras"},"mathematical-statistics":{"next":"probability-theory","prev":"information-theory","section":"Probability & statistics","title":"Mathematical statistics"},"mathematics-and-cryptography":{"next":"computational-number-theory","prev":"heights-arithmetic-geometry","section":"Number theory","title":"Mathematics and cryptography"},"matroid-theory":{"next":"probabilistic-method","prev":null,"section":"Combinatorics & graph theory","title":"Matroid theory"},"measure-theory":{"next":"harmonic-functions","prev":"complex-analysis","section":"Analysis","title":"Measure theory"},"microlocal-analysis":{"next":"geometric-measure-theory","prev":"advanced-complex-analysis","section":"Analysis","title":"Microlocal analysis"},"mirror-symmetry":{"next":"algebraic-curves-higher-genus","prev":"calabi-yau-manifolds","section":"Algebraic geometry","title":"Mirror symmetry"},"model-categories":{"next":"derived-categories","prev":"algebraic-k-theory-foundations","section":"Algebra & homological","title":"Model categories"},"model-theory-basics":{"next":"computability-and-decidability","prev":"naive-set-theory","section":"Logic & Foundations","title":"Model theory basics"},"modular-curves":{"next":"vertex-operator-algebras","prev":"partitions-generating-functions","section":"Modular forms & L-functions","title":"Modular curves"},"modular-forms":{"next":"partitions-generating-functions","prev":"upper-half-plane-hyperbolic","section":"Modular forms & L-functions","title":"Modular forms"},"modularity-and-flt":{"next":null,"prev":"bsd","section":"Modular forms & L-functions","title":"Modularity & FLT"},"moduli-spaces":{"next":"toric-varieties","prev":"sheaf-cohomology","section":"Algebraic geometry","title":"Moduli spaces"},"moonshine":{"next":"L-functions","prev":"automorphic-forms-adelic","section":"Modular forms & L-functions","title":"Monstrous moonshine"},"morphisms-fiber-products":{"next":"functor-of-points","prev":"group-schemes","section":"Algebraic geometry","title":"Morphisms & fiber products"},"morse-theory":{"next":"symplectic-manifolds","prev":"differential-forms","section":"Geometry & topology","title":"Morse theory"},"mostow-rigidity":{"next":"cohomology-and-duality","prev":"lie-groups","section":"Geometry & topology","title":"Mostow rigidity"},"motives":{"next":"hodge-theory","prev":"resolution-of-singularities","section":"Algebraic geometry","title":"Motives"},"naive-set-theory":{"next":"model-theory-basics","prev":null,"section":"Logic & Foundations","title":"Naive set theory"},"numerical-analysis":{"next":"variational-methods","prev":"spectral-theory","section":"Analysis","title":"Numerical analysis"},"operator-algebras":{"next":"dynamical-systems","prev":"geometric-measure-theory","section":"Analysis","title":"Operator algebras"},"p-adic-numbers":{"next":"adeles-and-ideles","prev":"algebraic-number-theory","section":"Number theory","title":"p-adic numbers"},"partial-differential-equations":{"next":"spectral-theory","prev":"wavelets","section":"Analysis","title":"Partial differential equations"},"partitions-generating-functions":{"next":"modular-curves","prev":"modular-forms","section":"Modular forms & L-functions","title":"Partitions & generating functions"},"point-set-topology":{"next":"algebraic-topology","prev":null,"section":"Geometry & topology","title":"Point-set topology"},"positivity-and-ample-line-bundles":{"next":"stacks","prev":"abelian-varieties","section":"Algebraic geometry","title":"Positivity and ample line bundles"},"probabilistic-method":{"next":"extremal-combinatorics","prev":"matroid-theory","section":"Combinatorics & graph theory","title":"Probabilistic method"},"probability-theory":{"next":null,"prev":"mathematical-statistics","section":"Probability & statistics","title":"Probability theory"},"projective-plane":{"next":"etale-fundamental-group","prev":null,"section":"Algebraic geometry","title":"Projective plane"},"quadratic-forms-genus-theory":{"next":"additive-number-theory","prev":"quadratic-reciprocity","section":"Number theory","title":"Quadratic forms & genus theory"},"quadratic-reciprocity":{"next":"quadratic-forms-genus-theory","prev":"frobenius-and-reciprocity","section":"Number theory","title":"Quadratic reciprocity"},"quantum-field-theory":{"next":null,"prev":"string-theory","section":"Mathematical physics","title":"Quantum field theory"},"quantum-groups":{"next":"algebraic-k-theory-foundations","prev":"group-cohomology","section":"Algebra & homological","title":"Quantum groups"},"quaternions-octonions-and-division-algebras":{"next":"geometric-and-combinatorial-group-theory","prev":"lie-algebras","section":"Algebra & homological","title":"Quaternions, octonions, and division algebras"},"random-walks-and-mixing":{"next":"large-deviations","prev":"stochastic-calculus","section":"Probability & statistics","title":"Random walks and mixing"},"real-analysis":{"next":"complex-analysis","prev":null,"section":"Analysis","title":"Real analysis"},"representation-theory":{"next":"lie-algebras","prev":"algebra","section":"Algebra & homological","title":"Representation theory"},"resolution-of-singularities":{"next":"motives","prev":"deformation-theory","section":"Algebraic geometry","title":"Resolution of singularities"},"ricci-flow":{"next":"lie-groups","prev":"riemannian-geometry","section":"Geometry & topology","title":"Ricci flow"},"riemann-surfaces":{"next":"differential-forms","prev":"differential-geometry","section":"Geometry & topology","title":"Riemann surfaces"},"riemannian-geometry":{"next":"ricci-flow","prev":"atiyah-singer-index-theorem","section":"Geometry & topology","title":"Riemannian geometry"},"sato-tate":{"next":"bsd","prev":"L-functions","section":"Modular forms & L-functions","title":"Sato–Tate"},"schemes":{"next":"sheaves","prev":"bezout","section":"Algebraic geometry","title":"Schemes"},"schrodinger-equation":{"next":"hamiltonians-classical-mechanics","prev":"general-relativity","section":"Mathematical physics","title":"Schrödinger equation"},"semigroup-theory-evolution-equations":{"next":null,"prev":"dynamical-systems","section":"Analysis","title":"Semigroup theory & evolution equations"},"sheaf-cohomology":{"next":"moduli-spaces","prev":"singular-cubics-reduction","section":"Algebraic geometry","title":"Sheaf cohomology"},"sheaves":{"next":"intersection-theory-chow","prev":"schemes","section":"Algebraic geometry","title":"Sheaves"},"simplicial-complexes-combinatorial":{"next":"enumerative-combinatorics","prev":"extremal-combinatorics","section":"Combinatorics & graph theory","title":"Simplicial complexes (combinatorial)"},"simplicial-sets-and-nerve":{"next":"elementary-topos-theory","prev":"infinity-categories","section":"Higher categories & toposes","title":"Simplicial sets & the nerve"},"singular-cubics-reduction":{"next":"sheaf-cohomology","prev":"hodge-theory","section":"Algebraic geometry","title":"Singular cubics & reduction"},"smooth-manifolds":{"next":"differential-geometry","prev":"knot-polynomials","section":"Geometry & topology","title":"Smooth manifolds"},"sobolev-spaces-distributions":{"next":"advanced-complex-analysis","prev":"variational-methods","section":"Analysis","title":"Sobolev spaces & distributions"},"special-relativity":{"next":"klein-gordon-equation","prev":"hamiltonians-classical-mechanics","section":"Mathematical physics","title":"Special relativity"},"spectral-graph-theory":{"next":"expanders","prev":"designs","section":"Combinatorics & graph theory","title":"Spectral graph theory"},"spectral-theory":{"next":"numerical-analysis","prev":"partial-differential-equations","section":"Analysis","title":"Spectral theory"},"stacks":{"next":"etale-cohomology","prev":"positivity-and-ample-line-bundles","section":"Algebraic geometry","title":"Stacks (Deligne–Mumford)"},"statistical-mechanics":{"next":"gauge-theory","prev":"dirac-equation","section":"Mathematical physics","title":"Statistical mechanics"},"stochastic-calculus":{"next":"random-walks-and-mixing","prev":"stochastic-processes-and-martingales","section":"Probability & statistics","title":"Stochastic calculus"},"stochastic-processes-and-martingales":{"next":"stochastic-calculus","prev":null,"section":"Probability & statistics","title":"Stochastic processes and martingales"},"string-theory":{"next":"quantum-field-theory","prev":"gauge-theory","section":"Mathematical physics","title":"String theory"},"symplectic-manifolds":{"next":"characteristic-classes","prev":"morse-theory","section":"Geometry & topology","title":"Symplectic manifolds"},"theta-functions":{"next":"hecke-operators","prev":"langlands-program","section":"Modular forms & L-functions","title":"Theta functions"},"three-body-problem":{"next":"general-relativity","prev":null,"section":"Mathematical physics","title":"The three-body problem"},"toric-varieties":{"next":"abelian-varieties","prev":"moduli-spaces","section":"Algebraic geometry","title":"Toric varieties"},"type-theory-and-hott":{"next":"first-order-logic-and-completeness","prev":"complexity-theory","section":"Logic & Foundations","title":"Type theory and HoTT"},"upper-half-plane-hyperbolic":{"next":"modular-forms","prev":"zeta-values","section":"Modular forms & L-functions","title":"Upper half-plane"},"variational-methods":{"next":"sobolev-spaces-distributions","prev":"numerical-analysis","section":"Analysis","title":"Variational methods"},"vertex-operator-algebras":{"next":"langlands-program","prev":"modular-curves","section":"Modular forms & L-functions","title":"Vertex operator algebras"},"wavelets":{"next":"partial-differential-equations","prev":"harmonic-analysis-fourier","section":"Analysis","title":"Wavelets"},"zeta-values":{"next":"upper-half-plane-hyperbolic","prev":"analytic-continuation","section":"Modular forms & L-functions","title":"Zeta values"},"zfc-and-ordinals":{"next":"forcing-and-independence","prev":"first-order-logic-and-completeness","section":"Logic & Foundations","title":"ZFC and ordinals"}};</script>
+<script src="./js/breadcrumb.js"></script>
+<script src="./js/glossary-popover.js" defer></script>
+<link rel="stylesheet" media="print" href="./css/print.css">
+<link rel="stylesheet" href="./css/theme-light.css">
+<script src="./js/theme-toggle.js"></script>
+<script src="./concepts/bundle.js" defer></script>
+<script src="./js/topic-hotkeys.js" defer></script>
+<script src="./js/topic-lineage.js" defer></script>
+<!-- breadcrumb-head-auto-end -->
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./js/katex-select.js"></script>
+<script src="./js/widget-diagram-editor.js"></script>
+<script src="./quizzes/bundle.js"></script>
+<script src="./js/sidetoc.js"></script>
+<!-- display-prefs-head-auto-begin -->
+<script src="./js/display-prefs.js"></script>
+<!-- display-prefs-head-auto-end -->
+</head>
+<body data-section="algebraic-geometry" data-level="advanced">
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+// draw an arrow marker def once per svg (idempotent)
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+// curved arrow between two pixel points, with optional label
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  // shorten endpoints
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><span class="nav-links"><a class="nav-link" href="./pathway.html">Pathway</a><a class="nav-link" href="./tours.html">Tours</a><a class="nav-link" href="./history.html">History</a><a class="nav-link" href="./tags.html">Themes</a><a class="nav-link" href="./mindmap.html">Mindmap</a><a class="nav-link" href="./search.html">Search</a></span><span class="mv-theme-slot"></span><!-- breadcrumb-nav-auto-end -->
+<!-- toc-auto-begin -->
+  <a href="#picard">1&nbsp;Divisors,&nbsp;line&nbsp;bundles,&nbsp;and&nbsp;the&nbsp;Picard&nbsp;group</a>
+  <a href="#ample">2&nbsp;Very&nbsp;ample,&nbsp;ample,&nbsp;and&nbsp;Serre's&nbsp;theorem</a>
+  <a href="#nakai">3&nbsp;Nakai–Moishezon&nbsp;and&nbsp;the&nbsp;ample&nbsp;cone</a>
+  <a href="#nef-big">4&nbsp;Nef,&nbsp;big,&nbsp;and&nbsp;the&nbsp;cone&nbsp;of&nbsp;curves</a>
+  <a href="#kodaira">5&nbsp;Kodaira&nbsp;embedding&nbsp;theorem</a>
+  <a href="#vanishing">6&nbsp;Kodaira&nbsp;and&nbsp;Kawamata–Viehweg&nbsp;vanishing</a>
+  <a href="#connections">7&nbsp;Connections</a>
+<!-- toc-auto-end -->
+</nav>
+<!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Positivity and ample line bundles</h1>
+  <p class="sub">Which line bundles embed a variety into projective space? The answer is a convex cone in $N^1(X)_\mathbb{R}$, and almost every theorem in algebraic geometry lives at one of its faces.</p>
+</section>
+
+<section id="picard">
+<h2>1. Divisors, line bundles, and the Picard group</h2>
+
+<p>Fix a smooth projective variety $X$ over an algebraically closed field $k$. A <strong>Weil divisor</strong> is a finite formal $\mathbb{Z}$-sum $D = \sum n_i [Y_i]$ of irreducible codimension-$1$ subvarieties $Y_i \subset X$. A divisor is <em>effective</em> if every $n_i \ge 0$. The most basic example is the principal divisor of a non-zero rational function: for $f \in k(X)^\times$,</p>
+$$\mathrm{div}(f) = \sum_{Y} \mathrm{ord}_Y(f) \cdot [Y]$$
+<p>where $\mathrm{ord}_Y(f)$ is the order of vanishing (positive at zeros, negative at poles). The total degree of $\mathrm{div}(f)$ on a smooth projective variety is always zero — what goes up must come down.</p>
+
+<p>The <strong>Picard group</strong> is</p>
+$$\mathrm{Pic}(X) \;=\; \frac{\{\text{Cartier divisors}\}}{\{\text{principal divisors}\}} \;\cong\; \frac{\{\text{line bundles on } X\}}{\text{isomorphism}}.$$
+<p>The two pictures — divisors modulo linear equivalence, and isomorphism classes of line bundles — coincide on smooth varieties via $D \mapsto \mathcal{O}(D)$. Sections of $\mathcal{O}(D)$ are exactly the rational functions whose pole orders are bounded by $D$:</p>
+$$H^0(X, \mathcal{O}_X(D)) \;=\; \{\, f \in k(X)^\times : \mathrm{div}(f) + D \ge 0 \,\} \cup \{0\}.$$
+<p>This is the dictionary that lets us trade <em>divisor questions</em> (where do these zeros and poles fit?) for <em>line-bundle questions</em> (how many global sections does this bundle have?). Every later definition in this page — ample, nef, big — is a property of the divisor class, equivalently of the corresponding line bundle.</p>
+
+<div class="widget" id="w-divisor-explorer">
+  <div class="hd"><div class="ttl">Linear systems on $\mathbb{P}^1$</div><div class="hint">drag the slider — count the sections of $\mathcal{O}(d)$</div></div>
+  <svg id="div-svg" viewBox="0 0 720 240" width="720" height="240"><title>Linear systems on the projective line</title></svg>
+  <div class="row">
+    <label for="div-d">$d$ =</label>
+    <input type="range" id="div-d" min="-3" max="6" step="1" value="2" />
+    <span id="div-d-val" class="pill">d = 2</span>
+  </div>
+  <div class="readout" id="div-out">Pick a degree $d$. The widget displays a basis of $H^0(\mathbb{P}^1, \mathcal{O}(d))$ and the divisor of a generic section.</div>
+</div>
+
+<p>The Picard group is the foundation: from here, every positivity notion is a constraint we can place on a class $[L] \in \mathrm{Pic}(X)$.</p>
+
+<div class="quiz" data-concept="pal-picard"></div><!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./algebraic-curves-higher-genus.html#riemann-roch">Riemann–Roch on curves</a></li>
+    <li><a href="./sheaf-cohomology.html#serre">Picard groups and Serre duality signals</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./positivity-and-ample-line-bundles.html#ample">Positivity and ample line bundles</a> · Very ample, ample, and Serre's theorem</div>
+</aside>
+<!-- backlinks-auto-end -->
+</section>
+
+<section id="ample">
+<h2>2. Very ample, ample, and Serre's theorem</h2>
+
+<p>The fundamental tension in algebraic geometry: most varieties are intrinsic (gluings of affine pieces), but the powerful tools all live in projective space. A line bundle that <em>embeds</em> $X$ into $\mathbb{P}^N$ is a bridge between the two.</p>
+
+<div class="note">
+<p style="margin:.2rem 0"><strong>Definition (very ample).</strong> A line bundle $L$ on a projective variety $X$ is <em>very ample</em> if the global sections $s_0, \ldots, s_N \in H^0(X, L)$ have no common zero, and the resulting map</p>
+$$\varphi_L\colon X \to \mathbb{P}^N, \qquad x \mapsto [s_0(x) : \cdots : s_N(x)]$$
+<p style="margin:.2rem 0">is a closed embedding.</p>
+</div>
+
+<p>Two pieces of geometric content are folded into "closed embedding": the map separates points (no two distinct $x, y$ share image) and separates tangent vectors (the differential is injective at every point). Both of these can fail for a line bundle that has lots of sections — what is needed is enough sections, and enough generic ones.</p>
+
+<div class="note">
+<p style="margin:.2rem 0"><strong>Definition (ample).</strong> $L$ is <em>ample</em> if $L^{\otimes n}$ is very ample for some $n \ge 1$.</p>
+</div>
+
+<p>Why the relaxation? Because very ampleness is genuinely fragile — even on an elliptic curve $E$, a degree-$1$ line bundle is ample but not very ample. (Two sections cannot separate the points $P, -P$; you need three.) Replacing $L$ by $L^{\otimes n}$ for $n$ large enough always cures the problem. The flexibility makes ampleness the right invariant: it is both intrinsic to the line bundle and stable under operations like tensoring with a power.</p>
+
+<h3>Serre's theorem: ampleness as a cohomological condition</h3>
+
+<p>The first miracle is that ampleness — defined geometrically by embeddings — is purely cohomological:</p>
+
+<div class="note">
+<p style="margin:.2rem 0"><strong>Serre's theorem.</strong> Let $X$ be projective. A line bundle $L$ on $X$ is ample if and only if for every coherent sheaf $\mathcal{F}$ on $X$, there exists $n_0 = n_0(\mathcal{F})$ such that</p>
+$$H^i(X, \mathcal{F} \otimes L^{\otimes n}) \;=\; 0 \quad \text{for all } i > 0 \text{ and all } n \ge n_0.$$
+<p style="margin:.2rem 0">Equivalently, $\mathcal{F} \otimes L^{\otimes n}$ is generated by global sections for $n \gg 0$.</p>
+</div>
+
+<p>This is a profound restatement. Ampleness is not really about how many sections $L$ has — it is about whether <em>twisting any sheaf by enough copies of $L$</em> kills its higher cohomology. The proof goes by induction: ample line bundles let you build an exact sequence for any $\mathcal{F}$ that resolves it by direct sums of $L^{\otimes -m}$, and the cohomology of those is computable on $\mathbb{P}^N$ via the embedding.</p>
+
+<div class="widget" id="w-serre-vanish">
+  <div class="hd"><div class="ttl">Serre vanishing on $\mathbb{P}^2$</div><div class="hint">choose $\mathcal{F}$ and $n$ — see the higher cohomology table</div></div>
+  <div class="row">
+    <label for="serre-sheaf">$\mathcal{F}$:</label>
+    <select id="serre-sheaf">
+      <option value="O">O (structure sheaf)</option>
+      <option value="O-1">O(-1)</option>
+      <option value="O-2">O(-2)</option>
+      <option value="O-3">O(-3)</option>
+      <option value="omega">Ω^1 (cotangent sheaf)</option>
+    </select>
+    <label for="serre-n">twist by $\mathcal{O}(1)^{\otimes n}$, $n =$</label>
+    <input type="range" id="serre-n" min="0" max="6" step="1" value="0" />
+    <span id="serre-n-val" class="pill">n = 0</span>
+  </div>
+  <svg id="serre-svg" viewBox="0 0 720 200" width="720" height="200"><title>Serre vanishing table for sheaves on the projective plane</title></svg>
+  <div class="readout" id="serre-out">As n grows, the higher cohomology H^i for i > 0 eventually vanishes — that's Serre. The threshold n_0 depends on the sheaf.</div>
+</div>
+
+<p>Watching the cohomology table go from filled to empty as $n$ grows is a vivid picture of what Serre's theorem promises: all the obstructions encoded in higher cohomology eventually disappear once we twist by enough copies of an ample line bundle.</p>
+
+<div class="quiz" data-concept="pal-very-ample"></div><!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./sheaf-cohomology.html#serre">Sheaf cohomology · Picard groups and Serre duality signals</a></li>
+    <li><a href="./sheaf-cohomology.html#derived">Sheaf cohomology · Derived functor sheaf cohomology</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./positivity-and-ample-line-bundles.html#vanishing">Positivity and ample line bundles</a> · Kodaira and Kawamata–Viehweg vanishing</div>
+    <div><a href="./positivity-and-ample-line-bundles.html#kodaira">Positivity and ample line bundles</a> · Kodaira embedding theorem</div>
+    <div><a href="./positivity-and-ample-line-bundles.html#nakai">Positivity and ample line bundles</a> · Nakai–Moishezon and the ample cone</div>
+</aside>
+<!-- backlinks-auto-end -->
+</section>
+
+<section id="nakai">
+<h2>3. Nakai–Moishezon and the ample cone</h2>
+
+<p>Serre's theorem is striking but not <em>computable</em>: to verify ampleness via "all coherent $\mathcal{F}$ have eventually-vanishing higher cohomology" you have to check infinitely many sheaves. The Nakai–Moishezon criterion replaces this with a finite, computable test based on intersection numbers.</p>
+
+<div class="note">
+<p style="margin:.2rem 0"><strong>Nakai–Moishezon criterion.</strong> Let $X$ be a projective variety and $L$ a line bundle on $X$. Then $L$ is ample if and only if</p>
+$$L^{\dim Y} \cdot Y \;>\; 0 \qquad \text{for every irreducible subvariety } Y \subseteq X \text{ of positive dimension.}$$
+</div>
+
+<p>Read the formula carefully: $L^{\dim Y}$ is the $(\dim Y)$-fold self-intersection, and $L^{\dim Y} \cdot Y$ is its restriction to $Y$ (equivalently, the top self-intersection of $L|_Y$ on $Y$). On $X$ itself this is $L^{\dim X} > 0$; on a curve $C \subset X$ it is the degree $\deg_C L|_C > 0$; on a divisor $D \subset X$ it is $L^{\dim X - 1} \cdot D > 0$, and so on.</p>
+
+<p>So: ampleness is checkable in linear algebra. The intersection products live in the Chow ring (or, for $X = \mathbb{P}^N$, in $\mathbb{Z}[h]/(h^{N+1})$), and the criterion just says all the relevant entries are positive.</p>
+
+<h3>The ample cone and the Néron–Severi group</h3>
+
+<p>Two divisors $D_1, D_2$ are <strong>numerically equivalent</strong> ($D_1 \equiv D_2$) if $D_1 \cdot C = D_2 \cdot C$ for every curve $C$. The quotient</p>
+$$N^1(X) \;=\; \mathrm{Pic}(X) / \!\equiv$$
+<p>is the <strong>Néron–Severi group</strong>. The Néron–Severi theorem says it has finite rank as an abelian group; its rank $\rho(X)$ is the <em>Picard number</em>. Tensor with $\mathbb{R}$ to get a finite-dimensional real vector space $N^1(X)_\mathbb{R}$ in which we can do convex geometry.</p>
+
+<p>Inside $N^1(X)_\mathbb{R}$ sits the <strong>ample cone</strong>:</p>
+$$\mathrm{Amp}(X) \;=\; \{\, [L] \in N^1(X)_\mathbb{R} : L \text{ ample}\,\}.$$
+<p>By Nakai–Moishezon, this is the locus where every "test polynomial" $L^{\dim Y} \cdot Y$ is strictly positive — an open convex cone. Real ampleness questions ("is this $\mathbb{Q}$-divisor in the closure of the ample cone?") become questions about a finite-dimensional polyhedral or semi-algebraic region.</p>
+
+<div class="widget" id="w-ample-cone">
+  <div class="hd"><div class="ttl">Ample cone of $\mathbb{P}^1 \times \mathbb{P}^1$</div><div class="hint">$N^1 = \mathbb{Z}[H_1] \oplus \mathbb{Z}[H_2]$ — drag a class</div></div>
+  <svg id="ac-svg" viewBox="0 0 600 360" width="600" height="360"><title>Ample cone of P^1 times P^1</title></svg>
+  <div class="readout" id="ac-out">Drag the dot. The class is $a H_1 + b H_2$ — ample iff $a > 0$ and $b > 0$.</div>
+</div>
+
+<p>The picture for $\mathbb{P}^1 \times \mathbb{P}^1$ is degenerate-friendly: the ample cone is just the first quadrant. On a blown-up surface, or a more general projective variety, the ample cone takes more interesting shape — sometimes only piecewise polyhedral, sometimes round. The Mori program below will give us systematic tools for tracking it.</p>
+
+<div class="quiz" data-concept="pal-nakai"></div><!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./intersection-theory-chow.html#intersection-product">Intersection theory · Intersection product on smooth $X$</a></li>
+    <li><a href="./intersection-theory-chow.html#chow-groups">Intersection theory · Chow groups</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./positivity-and-ample-line-bundles.html#nef-big">Positivity and ample line bundles</a> · Nef, big, and the cone of curves</div>
+</aside>
+<!-- backlinks-auto-end -->
+</section>
+
+<section id="nef-big">
+<h2>4. Nef, big, and the cone of curves</h2>
+
+<p>Two relaxations of ample sit just outside the ample cone — and both are essential to the modern toolkit.</p>
+
+<div class="note">
+<p style="margin:.2rem 0"><strong>Definition (nef).</strong> A line bundle $L$ on a projective $X$ is <em>nef</em> ("numerically eventually free") if $L \cdot C \ge 0$ for every irreducible curve $C \subset X$.</p>
+</div>
+
+<div class="note">
+<p style="margin:.2rem 0"><strong>Definition (big).</strong> $L$ is <em>big</em> if there exist $c > 0$ and $m_0$ with $h^0(X, L^{\otimes m}) \ge c \cdot m^{\dim X}$ for all $m \ge m_0$.</p>
+</div>
+
+<p>Bigness measures whether $L$ has the maximal-possible growth rate of sections — the same growth rate as an ample line bundle. Equivalently, by Kodaira's lemma, $L$ is big iff $L \equiv A + E$ for some ample $\mathbb{Q}$-divisor $A$ and effective $\mathbb{Q}$-divisor $E$.</p>
+
+<p>Inside $N^1(X)_\mathbb{R}$ we now have a chain of cones</p>
+$$\mathrm{Amp}(X) \;\subseteq\; \mathrm{Nef}(X) \;\subseteq\; N^1(X)_\mathbb{R}, \qquad \mathrm{Amp}(X) \;\subseteq\; \mathrm{Big}(X) \;\subseteq\; N^1(X)_\mathbb{R}.$$
+
+<h3>Kleiman's theorem and the Mori cone</h3>
+
+<p>The first deep structural result is that nef is exactly the topological closure of ample:</p>
+
+<div class="note">
+<p style="margin:.2rem 0"><strong>Kleiman (1966).</strong> $\mathrm{Nef}(X) = \overline{\mathrm{Amp}(X)}$, and $\mathrm{Amp}(X) = \mathrm{int}\,\mathrm{Nef}(X)$. Equivalently, $L$ is nef iff $L$ is the limit of ample $\mathbb{Q}$-classes.</p>
+</div>
+
+<p>The second is the duality. In $N_1(X)_\mathbb{R}$, the dual space, sits the <strong>Mori cone</strong> $\overline{NE}(X)$: the closed convex cone generated by classes of irreducible curves. The intersection pairing</p>
+$$N^1(X)_\mathbb{R} \times N_1(X)_\mathbb{R} \to \mathbb{R}, \qquad ([L], [C]) \mapsto L \cdot C$$
+<p>identifies them via a perfect pairing.</p>
+
+<div class="note">
+<p style="margin:.2rem 0"><strong>Kleiman duality.</strong> $\mathrm{Nef}(X)$ is the dual cone of $\overline{NE}(X)$:</p>
+$$\mathrm{Nef}(X) \;=\; \{\, [L] : L \cdot \alpha \ge 0 \text{ for all } \alpha \in \overline{NE}(X)\,\}.$$
+</div>
+
+<p>This duality is the bridge between divisors (codimension $1$) and curves (dimension $1$). Mori's contraction theorem then says the $K_X$-negative extremal rays of $\overline{NE}(X)$ admit geometric contractions, and these are the elementary moves of the <em>minimal model program</em>: for each extremal ray you contract a curve class, producing a new variety that is one step closer to "as positive as possible."</p>
+
+<div class="widget" id="w-cones">
+  <div class="hd"><div class="ttl">The chain of cones in $N^1(X)_\mathbb{R}$</div><div class="hint">a schematic of the four positivity classes</div></div>
+  <svg id="cones-svg" viewBox="0 0 760 320" width="760" height="320"><title>Schematic chain of positivity cones</title></svg>
+  <div class="readout" id="cones-out">Click a region to read its definition.</div>
+  <div class="row">
+    <button data-r="amp" class="active">Ample</button>
+    <button data-r="nef">Nef</button>
+    <button data-r="big">Big</button>
+    <button data-r="psef">Pseudo-effective</button>
+  </div>
+</div>
+
+<div class="quiz" data-concept="pal-nef-big"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./positivity-and-ample-line-bundles.html#vanishing">Positivity and ample line bundles</a> · Kodaira and Kawamata–Viehweg vanishing</div>
+</aside>
+<!-- backlinks-auto-end -->
+</section>
+
+<section id="kodaira">
+<h2>5. Kodaira embedding theorem</h2>
+
+<p>So far everything has been algebraic: divisors, intersection numbers, cohomology over a field. But the deepest justification of the ample = positive equation comes from <em>complex geometry</em>. Kodaira's embedding theorem is the bridge.</p>
+
+<p>Let $X$ be a compact complex manifold and $L$ a holomorphic line bundle equipped with a Hermitian metric $h$. The curvature form</p>
+$$\Theta(L, h) \;=\; -\partial\bar\partial \log h \;\in\; A^{1,1}(X)$$
+<p>is a real $(1,1)$-form. We say $(L, h)$ is <strong>positive</strong> if $\frac{i}{2\pi}\Theta(L, h)$ is a positive $(1,1)$-form — i.e., its associated Hermitian form is positive-definite at every point.</p>
+
+<p>A compact complex manifold $X$ is <strong>Kähler</strong> if it admits a Hermitian metric whose associated $(1,1)$-form $\omega$ is closed. The Kähler condition is mild: every projective complex manifold is Kähler (the Fubini–Study form restricts to one). The remarkable converse is the question Kodaira's theorem answers:</p>
+
+<div class="note">
+<p style="margin:.2rem 0"><strong>Kodaira embedding (1954).</strong> Let $X$ be a compact complex manifold. Then $X$ is projective if and only if $X$ admits a positive line bundle $L$. Concretely, for any positive $L$ and $n$ sufficiently large, the map</p>
+$$\varphi_{L^{\otimes n}}\colon X \to \mathbb{P}\bigl(H^0(X, L^{\otimes n})^\vee\bigr), \qquad x \mapsto [s \mapsto s(x)]$$
+<p style="margin:.2rem 0">is a holomorphic embedding.</p>
+</div>
+
+<p>Two consequences are worth pulling out. First, <em>positive line bundle = ample line bundle</em> on a projective manifold. The differential-geometric notion (curvature is a Kähler form) and the algebraic notion (some power has enough sections to embed) coincide. Second, Kodaira's theorem characterizes which Kähler manifolds are projective: those for which some integral Kähler class can be realized as the Chern class of a holomorphic line bundle.</p>
+
+<h3>The case of complex tori</h3>
+
+<p>The example is famously sharp. A complex torus $X = \mathbb{C}^g/\Lambda$ is automatically Kähler (the flat Hermitian metric on $\mathbb{C}^g$ descends). But $X$ is projective iff $\Lambda$ admits a <em>Riemann form</em>: a positive-definite Hermitian form on $\mathbb{C}^g$ whose imaginary part takes integer values on $\Lambda \times \Lambda$.</p>
+
+<ul>
+  <li>For $g = 1$, every lattice admits a Riemann form: every elliptic curve is projective (and the Weierstrass embedding is the explicit Kodaira map).</li>
+  <li>For $g \ge 2$, generic complex tori have <em>no</em> Riemann form. They are Kähler but not projective.</li>
+  <li>The ones that are projective — abelian varieties — form a meager subset of all complex tori, but they are exactly the ones with arithmetic and algebro-geometric content.</li>
+</ul>
+
+<div class="widget" id="w-kodaira">
+  <div class="hd"><div class="ttl">Kodaira map for $\mathbb{P}^1$</div><div class="hint">drag $n$ — see how high a power is needed for a clean embedding</div></div>
+  <svg id="kod-svg" viewBox="0 0 720 280" width="720" height="280"><title>Kodaira map for the projective line</title></svg>
+  <div class="row">
+    <label for="kod-n">$n =$</label>
+    <input type="range" id="kod-n" min="1" max="6" step="1" value="2" />
+    <span id="kod-n-val" class="pill">n = 2</span>
+  </div>
+  <div class="readout" id="kod-out">For $L = \mathcal{O}(1)$ on $\mathbb{P}^1$, the map $\varphi_{L^{\otimes n}}$ embeds $\mathbb{P}^1$ as a degree-$n$ curve in $\mathbb{P}^n$.</div>
+</div>
+
+<p>Kodaira's theorem is the deepest reason "ample" is the right notion. Algebraic ampleness was defined by counting sections; complex-analytic positivity was defined by curvature; both measure the same thing. The proof, originally Kodaira's, runs through the vanishing theorem of the next section: a positive line bundle has enough sections precisely because its higher cohomology can be killed.</p>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./hodge-theory.html#decomposition">Hodge theory · The Hodge decomposition theorem</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><div class="quiz" data-concept="pal-kodaira-embedding"></div>
+</section>
+
+<section id="vanishing">
+<h2>6. Kodaira and Kawamata–Viehweg vanishing</h2>
+
+<p>The technical engine that makes ampleness do its work is a vanishing theorem for higher cohomology. Serre's theorem said the cohomology of $\mathcal{F} \otimes L^{\otimes n}$ vanishes for $n \gg 0$, but did not say <em>which</em> $n$. Kodaira's theorem replaces "$n \gg 0$" with "$n = 1$" — at the price of a single twist by the canonical bundle.</p>
+
+<div class="note">
+<p style="margin:.2rem 0"><strong>Kodaira vanishing (1953).</strong> Let $X$ be a smooth projective variety over $\mathbb{C}$ of dimension $d$, with canonical bundle $K_X = \det \Omega^1_X$. If $L$ is an ample line bundle on $X$, then</p>
+$$H^i(X, K_X \otimes L) \;=\; 0 \quad \text{for all } i > 0.$$
+</div>
+
+<p>The factor of $K_X$ is essential. Without it, the cohomology $H^i(X, L)$ can be non-zero (e.g. $H^1(\mathbb{P}^1, \mathcal{O}(-2)) = \mathbb{C}$ since $K_{\mathbb{P}^1} = \mathcal{O}(-2)$ and Serre duality gives $H^1 \cong H^0(\mathcal{O})^\vee$). Kodaira vanishing says: tilt by $K_X$ first, then everything above $H^0$ vanishes for ample twists.</p>
+
+<p>The proof, in modern form, uses Hodge theory: harmonic representatives of $K_X \otimes L$-classes at degree $i$ would have to be holomorphic $(d, i)$-forms with values in $L$, but ampleness of $L$ rules these out via a Bochner-style positivity argument on the curvature. The argument fails — and the theorem fails — in positive characteristic. Raynaud constructed counterexamples in characteristic $p$.</p>
+
+<h3>Kawamata–Viehweg: the workhorse of MMP</h3>
+
+<p>Kodaira vanishing's killer feature in algebraic geometry is that it works for <em>nef and big</em> line bundles, not just ample ones. This relaxation is the entire reason the minimal model program is even possible.</p>
+
+<div class="note">
+<p style="margin:.2rem 0"><strong>Kawamata–Viehweg (1982).</strong> Let $X$ be a smooth projective variety over $\mathbb{C}$ and $L$ a $\mathbb{Q}$-divisor on $X$. If $L$ is nef and big, then</p>
+$$H^i(X, K_X + \lceil L \rceil) \;=\; 0 \quad \text{for all } i > 0.$$
+<p style="margin:.2rem 0">More generally, the same holds when the fractional part of $L$ has simple normal crossings support (allowing klt singularities downstream).</p>
+</div>
+
+<p>Why is this so much more useful than Kodaira? Because the basic operations of the MMP — contracting an extremal ray, performing a flip — preserve nef-ness of certain natural divisors but generally <em>destroy</em> ampleness. Without Kawamata–Viehweg, the cohomological control needed to push the program through every step would be lost.</p>
+
+<div class="widget" id="w-vanishing">
+  <div class="hd"><div class="ttl">Kodaira vanishing on $\mathbb{P}^n$</div><div class="hint">$K_{\mathbb{P}^n} = \mathcal{O}(-n-1)$ — pick $n, d$, see the table</div></div>
+  <div class="row">
+    <label for="v-n">dim $n$ =</label>
+    <input type="range" id="v-n" min="1" max="5" step="1" value="2" />
+    <span id="v-n-val" class="pill">n = 2</span>
+    <label for="v-d">degree $d$ =</label>
+    <input type="range" id="v-d" min="-3" max="6" step="1" value="1" />
+    <span id="v-d-val" class="pill">d = 1</span>
+  </div>
+  <svg id="van-svg" viewBox="0 0 720 200" width="720" height="200"><title>Kodaira vanishing table on projective space</title></svg>
+  <div class="readout" id="van-out">Choose $n$ and $d$. The cohomology $H^i(\mathbb{P}^n, K \otimes \mathcal{O}(d))$ is highlighted. Green means Kodaira applies and the entry vanishes.</div>
+</div>
+
+<p>The applications cascade. Kodaira's vanishing immediately implies: surjectivity of restriction maps for ample line bundles (reading off the long exact sequence of $0 \to L \otimes \mathcal{O}(-D) \to L \to L|_D \to 0$); base-point-freeness for sufficiently positive $L$ (Reider's theorem on surfaces, Fujita conjecture in higher dimensions); and the entire engine of the MMP, where every contraction step is justified by a vanishing application that controls how cohomology behaves under birational moves.</p>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./sheaf-cohomology.html#les">Sheaf cohomology · Long exact sequence in cohomology</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><div class="quiz" data-concept="pal-vanishing"></div>
+</section>
+
+<section id="connections">
+<h2>7. Connections</h2>
+
+<p>Positivity is the gate from cohomology to geometry. Once you know which line bundles are ample, you know which varieties are projective; once you know the ample cone, you know which embeddings exist; and once you have vanishing, you have the cohomological tools that make the minimal model program go. The frontier today is what happens at the boundary — birational geometry of the boundary of the nef and big cones (the foundational language of the MMP) and how positivity behaves under reduction modulo $p$, where Kodaira vanishing breaks and the geometry is still being mapped out.</p>
+
+<ul>
+  <li><a href="./sheaf-cohomology.html#serre">Sheaf cohomology — Picard groups and Serre duality signals</a> — the cohomological interpretation of $\mathrm{Pic}(X)$ that powers Serre's theorem.</li>
+  <li><a href="./intersection-theory-chow.html#intersection-product">Intersection theory — Intersection product</a> — the Nakai–Moishezon criterion lives in $A^*(X)$, and the ample cone is a convex region defined by intersection-positivity inequalities.</li>
+  <li><a href="./algebraic-curves-higher-genus.html#canonical-embedding">Algebraic curves: higher genus — The canonical embedding</a> — for $g \ge 2$ non-hyperelliptic curves, the canonical bundle $K_C$ is very ample, and $|K_C|$ realises the most natural projective model.</li>
+  <li><a href="./hodge-theory.html#decomposition">Hodge theory — Hodge decomposition</a> — Kodaira's positivity criterion lives downstream of Hodge symmetry; the proof of Kodaira vanishing uses harmonic representatives.</li>
+  <li><a href="./moduli-spaces.html">Moduli spaces</a> — projective embeddings of moduli spaces are the engine of the GIT construction; ample line bundles on $\overline{\mathcal{M}}_g$ are an active research frontier.</li>
+</ul>
+</section>
+
+</main>
+
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('positivity-and-ample-line-bundles'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+})();
+</script>
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-05-06</td><td>initial version</td></tr>
+    </tbody>
+  </table>
+</details>
+
+</body>
+</html>

@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/continued-fractions-w5/schema.json",
+  "title": "continued-fractions-w5 widget params",
+  "description": "Verbatim-renderer slug for an inline widget on the continued-fractions topic. Carries opaque bodyMarkup + bodyScript strings so byte-identical round-trip stays intact.",
+  "meta": {
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title",
+    "hint",
+    "bodyMarkup",
+    "bodyScript"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id."
+    },
+    "title": {
+      "type": "string",
+      "description": "Header title."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Header hint."
+    },
+    "bodyMarkup": {
+      "type": "string",
+      "description": "Verbatim markup.",
+      "x-artifact": true
+    },
+    "bodyScript": {
+      "type": "string",
+      "description": "Verbatim driving script.",
+      "x-artifact": true
+    }
+  }
+}

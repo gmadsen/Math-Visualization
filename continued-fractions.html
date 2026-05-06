@@ -1,0 +1,946 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Continued fractions</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false,
+      macros:{
+        '\\Spec':'\\operatorname{Spec}',
+        '\\Gal':'\\operatorname{Gal}',
+        '\\Hom':'\\operatorname{Hom}',
+        '\\tr':'\\operatorname{tr}',
+        '\\ad':'\\operatorname{ad}',
+        '\\ind':'\\operatorname{ind}'
+      }
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  /* sticky sidebar TOC (wide screens only; narrow screens fall back to top-nav) */
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+  /* callback-css-auto-begin */
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+/* callback-css-auto-end */
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
+  /* display-prefs-css-auto-begin */
+  html[data-hide-widgets] .widget { display: none !important; }
+  html[data-hide-quizzes] .quiz { display: none !important; }
+  html[data-hide-lineage] .lineage-strip { display: none !important; }
+  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }
+  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }
+  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }
+  .mv-display-toggle--off { opacity: 0.35; }
+  /* display-prefs-css-auto-end */
+</style>
+<!-- breadcrumb-head-auto-begin -->
+<script>window.__MV_SECTION_MAP = {"<topic>":{"next":null,"prev":null,"section":"Sections","title":"<topic>"},"L-functions":{"next":"sato-tate","prev":"moonshine","section":"Modular forms & L-functions","title":"L-functions"},"abelian-varieties":{"next":"positivity-and-ample-line-bundles","prev":"toric-varieties","section":"Algebraic geometry","title":"Abelian varieties"},"additive-number-theory":{"next":"heights-arithmetic-geometry","prev":"quadratic-forms-genus-theory","section":"Number theory","title":"Additive number theory"},"adeles-and-ideles":{"next":"frobenius-and-reciprocity","prev":"p-adic-numbers","section":"Number theory","title":"Adèles & idèles"},"advanced-complex-analysis":{"next":"microlocal-analysis","prev":"sobolev-spaces-distributions","section":"Analysis","title":"Advanced complex analysis"},"algebra":{"next":"representation-theory","prev":null,"section":"Algebra & homological","title":"Abstract algebra"},"algebraic-curves-higher-genus":{"next":"deformation-theory","prev":"mirror-symmetry","section":"Algebraic geometry","title":"Algebraic curves: higher genus"},"algebraic-de-rham-cohomology":{"next":"calabi-yau-manifolds","prev":"algebraic-spaces","section":"Algebraic geometry","title":"Algebraic de Rham cohomology"},"algebraic-k-theory-foundations":{"next":"model-categories","prev":"quantum-groups","section":"Algebra & homological","title":"Algebraic K-theory foundations"},"algebraic-number-theory":{"next":"p-adic-numbers","prev":"galois","section":"Number theory","title":"Algebraic number theory"},"algebraic-spaces":{"next":"algebraic-de-rham-cohomology","prev":"functor-of-points","section":"Algebraic geometry","title":"Algebraic spaces"},"algebraic-topology":{"next":"knot-polynomials","prev":"point-set-topology","section":"Geometry & topology","title":"Algebraic topology"},"analytic-continuation":{"next":"zeta-values","prev":"dirichlet-series-euler-products","section":"Modular forms & L-functions","title":"Analytic continuation"},"analytic-number-theory":{"next":"galois","prev":null,"section":"Number theory","title":"Analytic number theory"},"atiyah-singer-index-theorem":{"next":"riemannian-geometry","prev":"k-theory","section":"Geometry & topology","title":"Atiyah–Singer index theorem"},"automorphic-forms-adelic":{"next":"moonshine","prev":"hecke-operators","section":"Modular forms & L-functions","title":"Automorphic forms (adelic)"},"bezout":{"next":"schemes","prev":"elliptic-curves","section":"Algebraic geometry","title":"Bézout's theorem"},"bsd":{"next":"modularity-and-flt","prev":"sato-tate","section":"Modular forms & L-functions","title":"Birch & Swinnerton-Dyer"},"calabi-yau-manifolds":{"next":"mirror-symmetry","prev":"algebraic-de-rham-cohomology","section":"Algebraic geometry","title":"Calabi–Yau manifolds"},"category-theory":{"next":"commutative-algebra","prev":"derived-categories","section":"Algebra & homological","title":"Category theory"},"characteristic-classes":{"next":"k-theory","prev":"symplectic-manifolds","section":"Geometry & topology","title":"Characteristic classes"},"class-field-theory":{"next":"galois-representations","prev":"computational-number-theory","section":"Number theory","title":"Class field theory"},"cocartesian-fibrations":{"next":"infinity-categories","prev":"heyting-algebras-toposes","section":"Higher categories & toposes","title":"Cocartesian fibrations"},"cohomology-and-duality":{"next":null,"prev":"mostow-rigidity","section":"Geometry & topology","title":"Cohomology and duality"},"commutative-algebra":{"next":"homological","prev":"category-theory","section":"Algebra & homological","title":"Commutative algebra"},"complex-analysis":{"next":"measure-theory","prev":"real-analysis","section":"Analysis","title":"Complex analysis"},"complexity-theory":{"next":"type-theory-and-hott","prev":"computability-and-decidability","section":"Logic & Foundations","title":"Complexity theory"},"computability-and-decidability":{"next":"complexity-theory","prev":"model-theory-basics","section":"Logic & Foundations","title":"Computability and decidability"},"computational-number-theory":{"next":"class-field-theory","prev":"mathematics-and-cryptography","section":"Number theory","title":"Computational number theory"},"condensed-mathematics":{"next":null,"prev":"groebner-bases","section":"Algebra & homological","title":"Condensed mathematics"},"continued-fractions":{"next":null,"prev":"iwasawa-theory","section":"Number theory","title":"Continued fractions"},"deformation-theory":{"next":"resolution-of-singularities","prev":"algebraic-curves-higher-genus","section":"Algebraic geometry","title":"Deformation theory"},"derived-categories":{"next":"category-theory","prev":"model-categories","section":"Algebra & homological","title":"Derived categories"},"designs":{"next":"spectral-graph-theory","prev":"enumerative-combinatorics","section":"Combinatorics & graph theory","title":"Designs"},"differential-forms":{"next":"morse-theory","prev":"riemann-surfaces","section":"Geometry & topology","title":"Differential forms"},"differential-geometry":{"next":"riemann-surfaces","prev":"smooth-manifolds","section":"Geometry & topology","title":"Differential geometry"},"dirac-equation":{"next":"statistical-mechanics","prev":"klein-gordon-equation","section":"Mathematical physics","title":"Dirac equation"},"dirichlet-series-euler-products":{"next":"analytic-continuation","prev":null,"section":"Modular forms & L-functions","title":"Dirichlet series & Euler products"},"dynamical-systems":{"next":"semigroup-theory-evolution-equations","prev":"operator-algebras","section":"Analysis","title":"Dynamical systems"},"elementary-topos-theory":{"next":"grothendieck-topologies-sites","prev":"simplicial-sets-and-nerve","section":"Higher categories & toposes","title":"Elementary topos theory"},"elliptic-curves":{"next":"bezout","prev":"etale-fundamental-group","section":"Algebraic geometry","title":"Elliptic curves"},"enumerative-combinatorics":{"next":"designs","prev":"simplicial-complexes-combinatorial","section":"Combinatorics & graph theory","title":"Enumerative combinatorics"},"etale-cohomology":{"next":null,"prev":"stacks","section":"Algebraic geometry","title":"Étale cohomology"},"etale-fundamental-group":{"next":"elliptic-curves","prev":"projective-plane","section":"Algebraic geometry","title":"Étale fundamental group"},"expanders":{"next":null,"prev":"spectral-graph-theory","section":"Combinatorics & graph theory","title":"Expanders"},"extremal-combinatorics":{"next":"simplicial-complexes-combinatorial","prev":"probabilistic-method","section":"Combinatorics & graph theory","title":"Extremal combinatorics"},"first-order-logic-and-completeness":{"next":"zfc-and-ordinals","prev":"type-theory-and-hott","section":"Logic & Foundations","title":"First order logic and completeness"},"fixed-point-theorems":{"next":"harmonic-analysis-fourier","prev":"functional-analysis","section":"Analysis","title":"Fixed point theorems"},"forcing-and-independence":{"next":null,"prev":"zfc-and-ordinals","section":"Logic & Foundations","title":"Forcing and independence"},"frobenius-and-reciprocity":{"next":"quadratic-reciprocity","prev":"adeles-and-ideles","section":"Number theory","title":"Frobenius & reciprocity"},"functional-analysis":{"next":"fixed-point-theorems","prev":"harmonic-functions","section":"Analysis","title":"Functional analysis"},"functor-of-points":{"next":"algebraic-spaces","prev":"morphisms-fiber-products","section":"Algebraic geometry","title":"Functor of points"},"galois":{"next":"algebraic-number-theory","prev":"analytic-number-theory","section":"Number theory","title":"Galois theory & the quintic"},"galois-cohomology-and-brauer":{"next":"group-cohomology","prev":"geometric-and-combinatorial-group-theory","section":"Algebra & homological","title":"Galois cohomology and Brauer groups"},"galois-representations":{"next":"iwasawa-theory","prev":"class-field-theory","section":"Number theory","title":"Galois representations"},"gauge-theory":{"next":"string-theory","prev":"statistical-mechanics","section":"Mathematical physics","title":"Gauge theory"},"general-relativity":{"next":"schrodinger-equation","prev":"three-body-problem","section":"Mathematical physics","title":"General relativity & Einstein equations"},"geometric-and-combinatorial-group-theory":{"next":"galois-cohomology-and-brauer","prev":"quaternions-octonions-and-division-algebras","section":"Algebra & homological","title":"Geometric and combinatorial group theory"},"geometric-measure-theory":{"next":"operator-algebras","prev":"microlocal-analysis","section":"Analysis","title":"Geometric measure theory"},"groebner-bases":{"next":"condensed-mathematics","prev":"homological","section":"Algebra & homological","title":"Gröbner bases"},"grothendieck-topologies-sites":{"next":"infinity-topoi","prev":"elementary-topos-theory","section":"Higher categories & toposes","title":"Grothendieck topologies & sites"},"group-cohomology":{"next":"quantum-groups","prev":"galois-cohomology-and-brauer","section":"Algebra & homological","title":"Group cohomology"},"group-schemes":{"next":"morphisms-fiber-products","prev":"intersection-theory-chow","section":"Algebraic geometry","title":"Group schemes"},"hamiltonians-classical-mechanics":{"next":"special-relativity","prev":"schrodinger-equation","section":"Mathematical physics","title":"Hamiltonians & classical mechanics"},"harmonic-analysis-fourier":{"next":"wavelets","prev":"fixed-point-theorems","section":"Analysis","title":"Harmonic analysis & Fourier theory"},"harmonic-functions":{"next":"functional-analysis","prev":"measure-theory","section":"Analysis","title":"Harmonic functions"},"hecke-operators":{"next":"automorphic-forms-adelic","prev":"theta-functions","section":"Modular forms & L-functions","title":"Hecke operators"},"heights-arithmetic-geometry":{"next":"mathematics-and-cryptography","prev":"additive-number-theory","section":"Number theory","title":"Heights in arithmetic geometry"},"heyting-algebras-toposes":{"next":"cocartesian-fibrations","prev":null,"section":"Higher categories & toposes","title":"Heyting algebras & intuitionist logic"},"high-dimensional-geometry":{"next":"information-theory","prev":"large-deviations","section":"Probability & statistics","title":"High dimensional geometry"},"hodge-theory":{"next":"singular-cubics-reduction","prev":"motives","section":"Algebraic geometry","title":"Hodge theory"},"homological":{"next":"groebner-bases","prev":"commutative-algebra","section":"Algebra & homological","title":"Homological algebra"},"infinity-categories":{"next":"simplicial-sets-and-nerve","prev":"cocartesian-fibrations","section":"Higher categories & toposes","title":"∞-categories (quasi-categories)"},"infinity-topoi":{"next":null,"prev":"grothendieck-topologies-sites","section":"Higher categories & toposes","title":"∞-topoi"},"information-theory":{"next":"mathematical-statistics","prev":"high-dimensional-geometry","section":"Probability & statistics","title":"Information theory"},"intersection-theory-chow":{"next":"group-schemes","prev":"sheaves","section":"Algebraic geometry","title":"Intersection theory & Chow groups"},"iwasawa-theory":{"next":"continued-fractions","prev":"galois-representations","section":"Number theory","title":"Iwasawa theory"},"k-theory":{"next":"atiyah-singer-index-theorem","prev":"characteristic-classes","section":"Geometry & topology","title":"K-theory"},"klein-gordon-equation":{"next":"dirac-equation","prev":"special-relativity","section":"Mathematical physics","title":"Klein-Gordon equation"},"knot-polynomials":{"next":"smooth-manifolds","prev":"algebraic-topology","section":"Geometry & topology","title":"Knot polynomials"},"langlands-program":{"next":"theta-functions","prev":"vertex-operator-algebras","section":"Modular forms & L-functions","title":"Langlands program"},"large-deviations":{"next":"high-dimensional-geometry","prev":"random-walks-and-mixing","section":"Probability & statistics","title":"Large deviations"},"lie-algebras":{"next":"quaternions-octonions-and-division-algebras","prev":"representation-theory","section":"Algebra & homological","title":"Lie algebras"},"lie-groups":{"next":"mostow-rigidity","prev":"ricci-flow","section":"Geometry & topology","title":"Lie groups & algebras"},"mathematical-statistics":{"next":"probability-theory","prev":"information-theory","section":"Probability & statistics","title":"Mathematical statistics"},"mathematics-and-cryptography":{"next":"computational-number-theory","prev":"heights-arithmetic-geometry","section":"Number theory","title":"Mathematics and cryptography"},"matroid-theory":{"next":"probabilistic-method","prev":null,"section":"Combinatorics & graph theory","title":"Matroid theory"},"measure-theory":{"next":"harmonic-functions","prev":"complex-analysis","section":"Analysis","title":"Measure theory"},"microlocal-analysis":{"next":"geometric-measure-theory","prev":"advanced-complex-analysis","section":"Analysis","title":"Microlocal analysis"},"mirror-symmetry":{"next":"algebraic-curves-higher-genus","prev":"calabi-yau-manifolds","section":"Algebraic geometry","title":"Mirror symmetry"},"model-categories":{"next":"derived-categories","prev":"algebraic-k-theory-foundations","section":"Algebra & homological","title":"Model categories"},"model-theory-basics":{"next":"computability-and-decidability","prev":"naive-set-theory","section":"Logic & Foundations","title":"Model theory basics"},"modular-curves":{"next":"vertex-operator-algebras","prev":"partitions-generating-functions","section":"Modular forms & L-functions","title":"Modular curves"},"modular-forms":{"next":"partitions-generating-functions","prev":"upper-half-plane-hyperbolic","section":"Modular forms & L-functions","title":"Modular forms"},"modularity-and-flt":{"next":null,"prev":"bsd","section":"Modular forms & L-functions","title":"Modularity & FLT"},"moduli-spaces":{"next":"toric-varieties","prev":"sheaf-cohomology","section":"Algebraic geometry","title":"Moduli spaces"},"moonshine":{"next":"L-functions","prev":"automorphic-forms-adelic","section":"Modular forms & L-functions","title":"Monstrous moonshine"},"morphisms-fiber-products":{"next":"functor-of-points","prev":"group-schemes","section":"Algebraic geometry","title":"Morphisms & fiber products"},"morse-theory":{"next":"symplectic-manifolds","prev":"differential-forms","section":"Geometry & topology","title":"Morse theory"},"mostow-rigidity":{"next":"cohomology-and-duality","prev":"lie-groups","section":"Geometry & topology","title":"Mostow rigidity"},"motives":{"next":"hodge-theory","prev":"resolution-of-singularities","section":"Algebraic geometry","title":"Motives"},"naive-set-theory":{"next":"model-theory-basics","prev":null,"section":"Logic & Foundations","title":"Naive set theory"},"numerical-analysis":{"next":"variational-methods","prev":"spectral-theory","section":"Analysis","title":"Numerical analysis"},"operator-algebras":{"next":"dynamical-systems","prev":"geometric-measure-theory","section":"Analysis","title":"Operator algebras"},"p-adic-numbers":{"next":"adeles-and-ideles","prev":"algebraic-number-theory","section":"Number theory","title":"p-adic numbers"},"partial-differential-equations":{"next":"spectral-theory","prev":"wavelets","section":"Analysis","title":"Partial differential equations"},"partitions-generating-functions":{"next":"modular-curves","prev":"modular-forms","section":"Modular forms & L-functions","title":"Partitions & generating functions"},"point-set-topology":{"next":"algebraic-topology","prev":null,"section":"Geometry & topology","title":"Point-set topology"},"positivity-and-ample-line-bundles":{"next":"stacks","prev":"abelian-varieties","section":"Algebraic geometry","title":"Positivity and ample line bundles"},"probabilistic-method":{"next":"extremal-combinatorics","prev":"matroid-theory","section":"Combinatorics & graph theory","title":"Probabilistic method"},"probability-theory":{"next":null,"prev":"mathematical-statistics","section":"Probability & statistics","title":"Probability theory"},"projective-plane":{"next":"etale-fundamental-group","prev":null,"section":"Algebraic geometry","title":"Projective plane"},"quadratic-forms-genus-theory":{"next":"additive-number-theory","prev":"quadratic-reciprocity","section":"Number theory","title":"Quadratic forms & genus theory"},"quadratic-reciprocity":{"next":"quadratic-forms-genus-theory","prev":"frobenius-and-reciprocity","section":"Number theory","title":"Quadratic reciprocity"},"quantum-field-theory":{"next":null,"prev":"string-theory","section":"Mathematical physics","title":"Quantum field theory"},"quantum-groups":{"next":"algebraic-k-theory-foundations","prev":"group-cohomology","section":"Algebra & homological","title":"Quantum groups"},"quaternions-octonions-and-division-algebras":{"next":"geometric-and-combinatorial-group-theory","prev":"lie-algebras","section":"Algebra & homological","title":"Quaternions, octonions, and division algebras"},"random-walks-and-mixing":{"next":"large-deviations","prev":"stochastic-calculus","section":"Probability & statistics","title":"Random walks and mixing"},"real-analysis":{"next":"complex-analysis","prev":null,"section":"Analysis","title":"Real analysis"},"representation-theory":{"next":"lie-algebras","prev":"algebra","section":"Algebra & homological","title":"Representation theory"},"resolution-of-singularities":{"next":"motives","prev":"deformation-theory","section":"Algebraic geometry","title":"Resolution of singularities"},"ricci-flow":{"next":"lie-groups","prev":"riemannian-geometry","section":"Geometry & topology","title":"Ricci flow"},"riemann-surfaces":{"next":"differential-forms","prev":"differential-geometry","section":"Geometry & topology","title":"Riemann surfaces"},"riemannian-geometry":{"next":"ricci-flow","prev":"atiyah-singer-index-theorem","section":"Geometry & topology","title":"Riemannian geometry"},"sato-tate":{"next":"bsd","prev":"L-functions","section":"Modular forms & L-functions","title":"Sato–Tate"},"schemes":{"next":"sheaves","prev":"bezout","section":"Algebraic geometry","title":"Schemes"},"schrodinger-equation":{"next":"hamiltonians-classical-mechanics","prev":"general-relativity","section":"Mathematical physics","title":"Schrödinger equation"},"semigroup-theory-evolution-equations":{"next":null,"prev":"dynamical-systems","section":"Analysis","title":"Semigroup theory & evolution equations"},"sheaf-cohomology":{"next":"moduli-spaces","prev":"singular-cubics-reduction","section":"Algebraic geometry","title":"Sheaf cohomology"},"sheaves":{"next":"intersection-theory-chow","prev":"schemes","section":"Algebraic geometry","title":"Sheaves"},"simplicial-complexes-combinatorial":{"next":"enumerative-combinatorics","prev":"extremal-combinatorics","section":"Combinatorics & graph theory","title":"Simplicial complexes (combinatorial)"},"simplicial-sets-and-nerve":{"next":"elementary-topos-theory","prev":"infinity-categories","section":"Higher categories & toposes","title":"Simplicial sets & the nerve"},"singular-cubics-reduction":{"next":"sheaf-cohomology","prev":"hodge-theory","section":"Algebraic geometry","title":"Singular cubics & reduction"},"smooth-manifolds":{"next":"differential-geometry","prev":"knot-polynomials","section":"Geometry & topology","title":"Smooth manifolds"},"sobolev-spaces-distributions":{"next":"advanced-complex-analysis","prev":"variational-methods","section":"Analysis","title":"Sobolev spaces & distributions"},"special-relativity":{"next":"klein-gordon-equation","prev":"hamiltonians-classical-mechanics","section":"Mathematical physics","title":"Special relativity"},"spectral-graph-theory":{"next":"expanders","prev":"designs","section":"Combinatorics & graph theory","title":"Spectral graph theory"},"spectral-theory":{"next":"numerical-analysis","prev":"partial-differential-equations","section":"Analysis","title":"Spectral theory"},"stacks":{"next":"etale-cohomology","prev":"positivity-and-ample-line-bundles","section":"Algebraic geometry","title":"Stacks (Deligne–Mumford)"},"statistical-mechanics":{"next":"gauge-theory","prev":"dirac-equation","section":"Mathematical physics","title":"Statistical mechanics"},"stochastic-calculus":{"next":"random-walks-and-mixing","prev":"stochastic-processes-and-martingales","section":"Probability & statistics","title":"Stochastic calculus"},"stochastic-processes-and-martingales":{"next":"stochastic-calculus","prev":null,"section":"Probability & statistics","title":"Stochastic processes and martingales"},"string-theory":{"next":"quantum-field-theory","prev":"gauge-theory","section":"Mathematical physics","title":"String theory"},"symplectic-manifolds":{"next":"characteristic-classes","prev":"morse-theory","section":"Geometry & topology","title":"Symplectic manifolds"},"theta-functions":{"next":"hecke-operators","prev":"langlands-program","section":"Modular forms & L-functions","title":"Theta functions"},"three-body-problem":{"next":"general-relativity","prev":null,"section":"Mathematical physics","title":"The three-body problem"},"toric-varieties":{"next":"abelian-varieties","prev":"moduli-spaces","section":"Algebraic geometry","title":"Toric varieties"},"type-theory-and-hott":{"next":"first-order-logic-and-completeness","prev":"complexity-theory","section":"Logic & Foundations","title":"Type theory and HoTT"},"upper-half-plane-hyperbolic":{"next":"modular-forms","prev":"zeta-values","section":"Modular forms & L-functions","title":"Upper half-plane"},"variational-methods":{"next":"sobolev-spaces-distributions","prev":"numerical-analysis","section":"Analysis","title":"Variational methods"},"vertex-operator-algebras":{"next":"langlands-program","prev":"modular-curves","section":"Modular forms & L-functions","title":"Vertex operator algebras"},"wavelets":{"next":"partial-differential-equations","prev":"harmonic-analysis-fourier","section":"Analysis","title":"Wavelets"},"zeta-values":{"next":"upper-half-plane-hyperbolic","prev":"analytic-continuation","section":"Modular forms & L-functions","title":"Zeta values"},"zfc-and-ordinals":{"next":"forcing-and-independence","prev":"first-order-logic-and-completeness","section":"Logic & Foundations","title":"ZFC and ordinals"}};</script>
+<script src="./js/breadcrumb.js"></script>
+<script src="./js/glossary-popover.js" defer></script>
+<link rel="stylesheet" media="print" href="./css/print.css">
+<link rel="stylesheet" href="./css/theme-light.css">
+<script src="./js/theme-toggle.js"></script>
+<script src="./concepts/bundle.js" defer></script>
+<script src="./js/topic-hotkeys.js" defer></script>
+<script src="./js/topic-lineage.js" defer></script>
+<!-- breadcrumb-head-auto-end -->
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./js/katex-select.js"></script>
+<script src="./js/widget-diagram-editor.js"></script>
+<script src="./quizzes/bundle.js"></script>
+<script src="./js/sidetoc.js"></script>
+<!-- display-prefs-head-auto-begin -->
+<script src="./js/display-prefs.js"></script>
+<!-- display-prefs-head-auto-end -->
+</head>
+<body data-section="number-theory" data-level="advanced">
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+// draw an arrow marker def once per svg (idempotent)
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+// curved arrow between two pixel points, with optional label
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  // shorten endpoints
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><span class="nav-links"><a class="nav-link" href="./pathway.html">Pathway</a><a class="nav-link" href="./tours.html">Tours</a><a class="nav-link" href="./history.html">History</a><a class="nav-link" href="./tags.html">Themes</a><a class="nav-link" href="./mindmap.html">Mindmap</a><a class="nav-link" href="./search.html">Search</a></span><span class="mv-theme-slot"></span><!-- breadcrumb-nav-auto-end -->
+<!-- toc-auto-begin -->
+  <a href="#convergents">1&nbsp;Convergents&nbsp;and&nbsp;best&nbsp;approximations</a>
+  <a href="#hurwitz">2&nbsp;Hurwitz's&nbsp;theorem&nbsp;and&nbsp;the&nbsp;constant&nbsp;$\sqrt{5}$</a>
+  <a href="#liouville">3&nbsp;Liouville&nbsp;numbers&nbsp;and&nbsp;the&nbsp;first&nbsp;transcendence&nbsp;proof</a>
+  <a href="#roth">4&nbsp;Roth's&nbsp;theorem</a>
+  <a href="#markoff">5&nbsp;Markoff&nbsp;spectrum&nbsp;and&nbsp;Markoff&nbsp;numbers</a>
+  <a href="#padic-roth">6&nbsp;$p$-adic&nbsp;Roth&nbsp;and&nbsp;the&nbsp;Schmidt&nbsp;subspace&nbsp;theorem</a>
+  <a href="#connections">7&nbsp;Connections</a>
+<!-- toc-auto-end -->
+</nav>
+<!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Continued fractions and Diophantine approximation</h1>
+  <p class="sub">From $\pi\approx 355/113$ to Roth's theorem: how rational approximations to irrationals encode their arithmetic depth — and the gap between the best you can hope for and the best you can prove.</p>
+</section>
+
+<section id="convergents">
+<h2>1. Convergents and best approximations</h2>
+
+<p>Pick a real $\alpha$. Apply Euclid's algorithm in reverse: set $a_0=\lfloor\alpha\rfloor$, $\alpha_1=1/(\alpha-a_0)$, then $a_1=\lfloor\alpha_1\rfloor$, $\alpha_2=1/(\alpha_1-a_1)$, and so on. The expansion
+$$\alpha\;=\;a_0+\cfrac{1}{a_1+\cfrac{1}{a_2+\cfrac{1}{a_3+\cdots}}}\;=\;[a_0;\,a_1,a_2,a_3,\ldots]$$
+is the <strong>continued fraction</strong> of $\alpha$. Truncating at depth $n$ gives the $n$-th <strong>convergent</strong> $p_n/q_n$, which is computed by the recursion
+$$p_n=a_n p_{n-1}+p_{n-2},\qquad q_n=a_n q_{n-1}+q_{n-2},$$
+seeded by $p_{-1}=1,\,p_0=a_0$ and $q_{-1}=0,\,q_0=1$. Two basic identities follow at once:
+$$p_n q_{n-1}-p_{n-1}q_n=(-1)^{n-1},\qquad \alpha-\frac{p_n}{q_n}=\frac{(-1)^n}{q_n(q_{n+1}+q_n\beta_{n+2})}\;,$$
+where $\beta_k\in[0,1)$ is the tail. So consecutive convergents straddle $\alpha$ and the error decays at least as $1/(q_n q_{n+1})\le 1/q_n^2$.</p>
+
+<div class="note"><strong>Best-approximation property.</strong> The convergents $p_n/q_n$ are exactly the rationals $p/q$ such that no other rational with denominator $\le q$ is closer to $\alpha$. More precisely: if $0<q<q_{n+1}$ and $p/q\ne p_n/q_n$, then $|q\alpha-p|>|q_n\alpha-p_n|$. The recursion $p_n=a_n p_{n-1}+p_{n-2}$ is hill-climbing among rationals.</div>
+
+<p>The widget below builds the convergents for any real you type. Try $\pi$, $\sqrt{2}$, $e$, or the golden ratio $\varphi=(1+\sqrt{5})/2$; watch the partial quotients $a_n$ and the error $q_n^2|\alpha-p_n/q_n|$ side by side. For $\pi=[3;7,15,1,292,1,1,\ldots]$ the entry $a_4=292$ is what makes $355/113$ astonishingly accurate — a large partial quotient means the previous convergent is very close.</p>
+
+<div class="widget" id="w-cf">
+  <div class="hd"><div class="ttl">Continued-fraction calculator</div><div class="hint">type a real, see partial quotients &amp; convergents</div></div>
+  <div class="row">
+    <label for="cf-input">$\alpha$ =</label>
+    <input type="text" id="cf-input" value="pi" style="width:14em" />
+    <span class="small">try <code>pi</code>, <code>e</code>, <code>phi</code>, <code>sqrt2</code>, <code>sqrt7</code>, or any decimal</span>
+  </div>
+  <div class="row">
+    <label for="cf-depth">depth $n$</label>
+    <input type="range" id="cf-depth" min="1" max="12" step="1" value="6" />
+    <span class="readout" id="cf-depth-val" style="min-width:2em;display:inline-block">6</span>
+  </div>
+  <table class="plain" id="cf-tbl">
+    <thead><tr><th>$n$</th><th>$a_n$</th><th>$p_n/q_n$</th><th>error $|\alpha-p_n/q_n|$</th><th>$q_n^2\cdot|\alpha-p_n/q_n|$</th></tr></thead>
+    <tbody></tbody>
+  </table>
+  <div class="readout" id="cf-out">…</div>
+</div>
+
+<div class="ok"><strong>Lagrange (1770).</strong> The continued fraction of $\alpha\in\mathbb{R}$ is eventually periodic if and only if $\alpha$ is a real quadratic irrational, i.e. satisfies $a\alpha^2+b\alpha+c=0$ with $a,b,c\in\mathbb{Z}$ and $b^2-4ac>0$ not a square. Examples: $\sqrt{2}=[1;\overline{2}]$, $\sqrt{3}=[1;\overline{1,2}]$, $\varphi=[\overline{1}]$. The continued-fraction expansions of $\pi,\,e^2,\,\sqrt[3]{2}$ have no known pattern.</div>
+
+<p>The simplest case — purely periodic, with all $a_i=1$ — is the golden ratio. Its convergents $p_n/q_n=F_{n+1}/F_n$ are ratios of Fibonacci numbers. They are also the worst polynomial-rate approximations possible: $q_n^2\,|\varphi-p_n/q_n|\to 1/\sqrt{5}$, never lower. This is the punchline of section 2.</p>
+
+<div class="quiz" data-concept="cf-convergents"></div><!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./galois.html#field-extensions">Field extensions and minimal polynomials</a></li>
+    <li><a href="./algebraic-number-theory.html#examples">Number fields and rings of integers</a></li>
+    <li><a href="./galois.html#galois">Field extensions and automorphisms</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./continued-fractions.html#hurwitz">Continued fractions</a> · Hurwitz's theorem and the constant $\sqrt{5}$</div>
+    <div><a href="./continued-fractions.html#liouville">Continued fractions</a> · Liouville numbers and the first transcendence proof</div>
+</aside>
+<!-- backlinks-auto-end -->
+</section>
+
+<script>
+/* =============================== SECTION 1 widget =============================== */
+(function(){
+  const inp=$('#cf-input'), depth=$('#cf-depth'), depthVal=$('#cf-depth-val');
+  const tbody=$('#cf-tbl tbody'), out=$('#cf-out');
+  function parseAlpha(s){
+    s = (s||'').trim().toLowerCase();
+    if(s==='pi') return Math.PI;
+    if(s==='e')  return Math.E;
+    if(s==='phi'||s==='golden') return (1+Math.sqrt(5))/2;
+    if(s==='sqrt2') return Math.sqrt(2);
+    if(s==='sqrt3') return Math.sqrt(3);
+    if(s==='sqrt5') return Math.sqrt(5);
+    if(s==='sqrt7') return Math.sqrt(7);
+    if(s==='sqrt10') return Math.sqrt(10);
+    if(/^sqrt(\d+)$/.test(s)) return Math.sqrt(parseInt(s.slice(4),10));
+    const x = parseFloat(s);
+    return isNaN(x)?Math.PI:x;
+  }
+  function computeCF(alpha, n){
+    // returns [{a, p, q, err}]
+    const rows=[];
+    let x = alpha;
+    let pPrev=1, pCurr=Math.floor(x);
+    let qPrev=0, qCurr=1;
+    let a0 = Math.floor(x);
+    rows.push({n:0, a:a0, p:pCurr, q:qCurr, err:Math.abs(alpha-pCurr/qCurr)});
+    let frac = x - a0;
+    for(let k=1;k<=n;k++){
+      if(frac<1e-15) break;
+      const xk = 1/frac;
+      const a = Math.floor(xk);
+      const p = a*pCurr + pPrev;
+      const q = a*qCurr + qPrev;
+      rows.push({n:k, a, p, q, err:Math.abs(alpha-p/q)});
+      pPrev=pCurr; pCurr=p;
+      qPrev=qCurr; qCurr=q;
+      frac = xk - a;
+    }
+    return rows;
+  }
+  function fmt(x){
+    if(x===0) return '0';
+    if(Math.abs(x)<1e-12) return x.toExponential(2);
+    if(Math.abs(x)<1e-3) return x.toExponential(2);
+    return x.toPrecision(6);
+  }
+  function render(){
+    const alpha = parseAlpha(inp.value);
+    const n = parseInt(depth.value,10);
+    depthVal.textContent = n;
+    const rows = computeCF(alpha, n);
+    tbody.innerHTML = '';
+    for(const r of rows){
+      const tr = document.createElement('tr');
+      const ratio = r.q*r.q*r.err;
+      tr.innerHTML = `<td>${r.n}</td><td>${r.a}</td><td>${r.p}/${r.q}</td><td>${fmt(r.err)}</td><td>${fmt(ratio)}</td>`;
+      tbody.appendChild(tr);
+    }
+    out.textContent = `α ≈ ${alpha.toFixed(10)}.  last convergent: ${rows[rows.length-1].p}/${rows[rows.length-1].q}.\nfinal q_n^2|α - p/q| = ${fmt(rows[rows.length-1].q*rows[rows.length-1].q*rows[rows.length-1].err)}  (Hurwitz says infinitely many fall below 1/√5 ≈ 0.4472).`;
+  }
+  inp.addEventListener('input', render);
+  depth.addEventListener('input', render);
+  render();
+})();
+</script>
+
+<section id="hurwitz">
+<h2>2. Hurwitz's theorem and the constant $\sqrt{5}$</h2>
+
+<p>Dirichlet's pigeonhole argument shows: for every irrational $\alpha$, there are infinitely many $p/q\in\mathbb{Q}$ with $|\alpha-p/q|<1/q^2$. The convergents already achieve this. Can the constant $1$ in the numerator be improved?</p>
+
+<div class="ok"><strong>Hurwitz (1891).</strong> For every irrational $\alpha\in\mathbb{R}$,
+$$\Big|\alpha-\frac{p}{q}\Big|\;<\;\frac{1}{\sqrt{5}\,q^2}\qquad\text{has infinitely many rational solutions }p/q.$$
+Moreover the constant $\sqrt{5}$ is best possible: replacing it by any $C>\sqrt{5}$ fails for $\alpha=\varphi=(1+\sqrt{5})/2$.</div>
+
+<p><strong>Why the golden ratio is extremal.</strong> Recall $\varphi=[1;1,1,1,\ldots]$ and its convergents $p_n/q_n=F_{n+1}/F_n$. Then
+$$q_n^2\Big|\varphi-\frac{p_n}{q_n}\Big|\;=\;\frac{q_n}{q_{n+1}+q_n\beta_{n+2}}\;\longrightarrow\;\frac{1}{\varphi+1/\varphi}\;=\;\frac{1}{\sqrt{5}}.$$
+Every "1" in the continued fraction makes the next convergent only marginally better than the current one. Replace any $1$ by $\ge 2$ and the rate improves: the worst-approximable irrationals are exactly those with all-$1$ tails, i.e. those $\mathrm{GL}_2(\mathbb{Z})$-equivalent to $\varphi$.</p>
+
+<p>The widget shows the spectrum of approximation rates concretely. Pick an irrational; the chart plots $q_n^2|\alpha-p_n/q_n|$ versus $n$, with the Hurwitz floor $1/\sqrt{5}\approx 0.4472$ drawn as a horizontal line. The golden ratio sits exactly on it; everyone else dips below at least once.</p>
+
+<div class="widget" id="w-hur">
+  <div class="hd"><div class="ttl">Approximation rates vs. Hurwitz floor</div><div class="hint">$q_n^2|\alpha-p_n/q_n|$ along convergents</div></div>
+  <div class="row">
+    <label for="hur-pick">$\alpha$</label>
+    <select id="hur-pick">
+      <option value="phi" selected>$\varphi$ — golden ratio (extremal)</option>
+      <option value="sqrt2">$\sqrt{2}$</option>
+      <option value="sqrt3">$\sqrt{3}$</option>
+      <option value="sqrt5">$\sqrt{5}$</option>
+      <option value="e">$e$</option>
+      <option value="pi">$\pi$</option>
+    </select>
+  </div>
+  <svg id="hur-svg" viewBox="0 0 620 280" width="620" height="280"><title>Approximation rates vs. Hurwitz floor</title></svg>
+  <div class="readout" id="hur-out">…</div>
+</div>
+
+<div class="note"><strong>Beyond Hurwitz: the Markoff sequence.</strong> If you exclude $\varphi$ (and its $\mathrm{GL}_2(\mathbb{Z})$-orbit), the next worst irrational class is centred on $\sqrt{2}$, with limiting rate $1/\sqrt{8}$. Excluding that, you reach $\sqrt{221}/5$ centred on a quadratic irrational built from the Markoff number $5$, then $\sqrt{1517}/13$ from $m=13$, and so on. The Lagrange spectrum is the descending sequence of these rates — and below the value $3$ it is exactly the Markoff sequence (§5).</div>
+
+<div class="quiz" data-concept="cf-hurwitz"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./continued-fractions.html#markoff">Continued fractions</a> · Markoff spectrum and Markoff numbers</div>
+</aside>
+<!-- backlinks-auto-end -->
+</section>
+
+<script>
+/* =============================== SECTION 2 widget =============================== */
+(function(){
+  const pick=$('#hur-pick'), svg=$('#hur-svg'), out=$('#hur-out');
+  const NAMES = {
+    phi: ['φ (golden ratio)', (1+Math.sqrt(5))/2],
+    sqrt2:['√2', Math.sqrt(2)],
+    sqrt3:['√3', Math.sqrt(3)],
+    sqrt5:['√5', Math.sqrt(5)],
+    e:    ['e',     Math.E],
+    pi:   ['π', Math.PI]
+  };
+  function convergents(alpha, N){
+    const rows=[];
+    let x=alpha, pPrev=1, pCurr=Math.floor(x);
+    let qPrev=0, qCurr=1;
+    rows.push({a:Math.floor(x), p:pCurr, q:qCurr});
+    let frac = x - rows[0].a;
+    for(let k=1;k<N;k++){
+      if(frac<1e-14) break;
+      const xk=1/frac, a=Math.floor(xk);
+      const p=a*pCurr+pPrev, q=a*qCurr+qPrev;
+      rows.push({a, p, q});
+      pPrev=pCurr; pCurr=p;
+      qPrev=qCurr; qCurr=q;
+      frac = xk - a;
+    }
+    return rows;
+  }
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const [name, alpha] = NAMES[pick.value];
+    const rows = convergents(alpha, 12);
+    const W=620, H=280, padL=60, padR=20, padT=20, padB=40;
+    const N = rows.length-1; // we plot for n=1..N
+    const xmin=1, xmax=Math.max(N,2);
+    const ymin=0, ymax=1;
+    function X(n){ return padL + (n-xmin)/(xmax-xmin)*(W-padL-padR); }
+    function Y(v){ return padT + (1-(v-ymin)/(ymax-ymin))*(H-padT-padB); }
+    // axes
+    svg.appendChild(SVG('line',{x1:padL,y1:H-padB,x2:W-padR,y2:H-padB,stroke:'var(--mute)','stroke-width':1}));
+    svg.appendChild(SVG('line',{x1:padL,y1:padT,x2:padL,y2:H-padB,stroke:'var(--mute)','stroke-width':1}));
+    // y-grid 0, .25, .5, .75, 1
+    for(const v of [0,0.25,0.5,0.75,1]){
+      const y=Y(v);
+      svg.appendChild(SVG('line',{x1:padL,y1:y,x2:W-padR,y2:y,stroke:'var(--line)','stroke-dasharray':'2,3','stroke-width':0.7}));
+      const t=SVG('text',{x:padL-8,y:y+4,'text-anchor':'end','font-size':11,fill:'var(--mute)'});
+      t.textContent=v.toFixed(2);
+      svg.appendChild(t);
+    }
+    // x-ticks
+    for(let k=1;k<=N;k++){
+      const x=X(k);
+      const t=SVG('text',{x,y:H-padB+16,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+      t.textContent=k;
+      svg.appendChild(t);
+    }
+    // Hurwitz floor 1/sqrt5
+    const hur = 1/Math.sqrt(5);
+    svg.appendChild(SVG('line',{x1:padL,y1:Y(hur),x2:W-padR,y2:Y(hur),stroke:'var(--yellow)','stroke-width':1.5}));
+    const tFloor=SVG('text',{x:W-padR-4,y:Y(hur)-5,'text-anchor':'end','font-size':12,fill:'var(--yellow)','font-style':'italic'});
+    tFloor.textContent='1/√5  ≈ 0.4472  (Hurwitz)';
+    svg.appendChild(tFloor);
+    // plot points
+    let minVal=Infinity, sumVal=0, count=0;
+    let prevPt=null;
+    for(let k=1;k<=N;k++){
+      const r = rows[k];
+      const err = Math.abs(alpha - r.p/r.q);
+      const v = r.q*r.q*err;
+      const x = X(k), y = Y(Math.min(v,1));
+      svg.appendChild(SVG('circle',{cx:x,cy:y,r:4,fill:'var(--blue)'}));
+      if(prevPt) svg.appendChild(SVG('line',{x1:prevPt[0],y1:prevPt[1],x2:x,y2:y,stroke:'var(--blue)','stroke-width':1.5}));
+      prevPt=[x,y];
+      minVal = Math.min(minVal, v);
+      sumVal += v; count++;
+    }
+    // axis labels
+    const xl=SVG('text',{x:(W+padL)/2,y:H-6,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});
+    xl.textContent='convergent index n';
+    svg.appendChild(xl);
+    const yl=SVG('text',{x:14,y:(H+padT)/2,'text-anchor':'middle','font-size':12,fill:'var(--mute)',transform:`rotate(-90,14,${(H+padT)/2})`});
+    yl.textContent='q_n^2 |α - p_n/q_n|';
+    svg.appendChild(yl);
+    out.textContent = `α = ${name}.  min over plotted convergents: ${minVal.toFixed(4)}.  ${minVal<hur-1e-3?'dips strictly below the Hurwitz floor.':'never gets below 1/√5 — extremal class.'}`;
+  }
+  pick.addEventListener('change', render);
+  render();
+})();
+</script>
+
+<section id="liouville">
+<h2>3. Liouville numbers and the first transcendence proof</h2>
+
+<p>A number is <strong>algebraic</strong> if it is a root of some non-zero polynomial in $\mathbb{Z}[x]$; otherwise it is <strong>transcendental</strong>. Until 1844 nobody knew a single transcendental number existed concretely. Liouville's contribution was a clean inequality that any algebraic irrational must satisfy — followed by a counterexample, hence a transcendental.</p>
+
+<div class="ok"><strong>Liouville's inequality.</strong> Let $\alpha$ be a real algebraic number of degree $d\ge 2$ with minimal polynomial $m(x)\in\mathbb{Z}[x]$. Then there is a constant $C=C(\alpha)>0$ such that for every rational $p/q\ne\alpha$,
+$$\Big|\alpha-\frac{p}{q}\Big|\;>\;\frac{C}{q^d}.$$
+</div>
+
+<p><em>Proof in two lines.</em> Since $m(p/q)\ne 0$ and $q^d m(p/q)$ is a non-zero integer, $|m(p/q)|\ge 1/q^d$. By the mean value theorem $|m(p/q)|=|m(p/q)-m(\alpha)|\le M\cdot|p/q-\alpha|$ for $M=\sup_{|t-\alpha|\le 1}|m'(t)|$. Combine: $|\alpha-p/q|\ge 1/(M q^d)$. Take $C=\min(1, 1/M)$ — done.</p>
+
+<p>So algebraic numbers cannot be rationally approximated faster than polynomial rate $q^{-d}$. A real that <em>can</em> be approximated faster than $q^{-n}$ for every $n$ must be transcendental. Such reals exist explicitly:</p>
+
+<div class="note"><strong>Liouville's constant (1844).</strong> The number
+$$L\;=\;\sum_{k=1}^\infty 10^{-k!}\;=\;0.\underbrace{1}_{k=1}\underbrace{1}_{k=2}000\underbrace{1}_{k=3}000\cdots\underbrace{1}_{k=4}\cdots$$
+is transcendental. The truncations $L_n=\sum_{k=1}^n 10^{-k!}$ are rationals $p_n/q_n$ with $q_n=10^{n!}$, and
+$$\Big|L-\frac{p_n}{q_n}\Big|\;<\;2\cdot 10^{-(n+1)!}\;=\;2\,q_n^{-(n+1)}.$$
+For any algebraic degree $d$ this beats $q_n^{-d}$ once $n\ge d$, contradicting Liouville's inequality. Hence $L$ is transcendental.</div>
+
+<p>Liouville constants are now defined as any irrational $\alpha$ admitting infinitely many $p/q$ with $|\alpha-p/q|<q^{-n}$ for every $n\ge 1$. They form a comeagre but Lebesgue-null set in $\mathbb{R}$, so most reals are <em>not</em> Liouville — yet finding non-Liouville transcendentals (e.g. $e,\pi$) is a separate, harder problem that needs Hermite, Lindemann, and ultimately Roth.</p>
+
+<p>The widget builds a Liouville-style number with adjustable gap-rate. Set the exponent $\beta$; the construction $\alpha=\sum 10^{-\lfloor\beta^k\rfloor}$ produces an irrational with explicit good rational approximations. For $\beta\ge d$ the bound exceeds Liouville's threshold and forces transcendence over algebraic numbers of degree $\le d$.</p>
+
+<div class="widget" id="w-li">
+  <div class="hd"><div class="ttl">Liouville-style construction</div><div class="hint">tune the gap rate, watch the bound</div></div>
+  <div class="row">
+    <label for="li-beta">growth $\beta$ (gap doubles every step at $\beta=2$)</label>
+    <input type="range" id="li-beta" min="1.5" max="6" step="0.1" value="3" />
+    <span class="readout" id="li-beta-val" style="min-width:3em;display:inline-block">3.0</span>
+  </div>
+  <table class="plain" id="li-tbl">
+    <thead><tr><th>$k$</th><th>gap exponent $\lfloor\beta^k\rfloor$</th><th>denominator $q_k=10^{\lfloor\beta^k\rfloor}$</th><th>error bound $\le 2/q_k^\beta$</th></tr></thead>
+    <tbody></tbody>
+  </table>
+  <div class="readout" id="li-out">…</div>
+</div>
+
+<div class="quiz" data-concept="cf-liouville"></div><!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./algebraic-number-theory.html#examples">Number fields and algebraic integers</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./continued-fractions.html#roth">Continued fractions</a> · Roth's theorem</div>
+</aside>
+<!-- backlinks-auto-end -->
+</section>
+
+<script>
+/* =============================== SECTION 3 widget =============================== */
+(function(){
+  const slider=$('#li-beta'), valSpan=$('#li-beta-val'), tbody=$('#li-tbl tbody'), out=$('#li-out');
+  function render(){
+    const beta = parseFloat(slider.value);
+    valSpan.textContent = beta.toFixed(1);
+    tbody.innerHTML = '';
+    let firstBeats = null;
+    for(let k=1;k<=6;k++){
+      const exp = Math.floor(Math.pow(beta, k));
+      // we don't actually compute 10^exp for large exp; just print symbolically
+      const errExp = beta * exp; // 2/q^beta has p-adic exponent beta*exp
+      const tr = document.createElement('tr');
+      tr.innerHTML = `<td>${k}</td><td>${exp}</td><td>10^${exp}</td><td>2 / 10^${errExp.toFixed(0)}</td>`;
+      tbody.appendChild(tr);
+      if(firstBeats===null && beta > 2.001) firstBeats = k;
+    }
+    if(beta < 2 - 1e-6){
+      out.textContent = `β = ${beta.toFixed(2)} < 2: the bound 2/q^β does not yet violate Liouville for any algebraic degree d ≥ 2. The number is irrational but the construction is too slow to certify transcendence.`;
+    } else if(beta < 2 + 1e-6){
+      out.textContent = `β = ${beta.toFixed(2)} = 2: rate matches Dirichlet's bound. Still consistent with algebraic of degree 2 (a quadratic irrational could have this).`;
+    } else {
+      out.textContent = `β = ${beta.toFixed(2)} > 2: the bound 2/q^β beats Liouville's q^{-d} threshold once d < β. So this construction proves transcendence over the algebraic numbers of degree d ≤ ⌊β⌋. At β = 3 it kills all degree-2 algebraic candidates; at β → ∞ (gap exponent k!) it kills all algebraic candidates simultaneously.`;
+    }
+  }
+  slider.addEventListener('input', render);
+  render();
+})();
+</script>
+
+<section id="roth">
+<h2>4. Roth's theorem</h2>
+
+<p>Liouville says: an algebraic of degree $d$ is hard to approximate to rate $q^{-d}$. But the actual exponent of approximability is universally bounded — independently of degree.</p>
+
+<div class="ok"><strong>Roth (1955).</strong> Let $\alpha$ be a real algebraic irrational. For every $\varepsilon>0$, the inequality
+$$\Big|\alpha-\frac{p}{q}\Big|\;<\;\frac{1}{q^{2+\varepsilon}}$$
+has only finitely many solutions $p/q\in\mathbb{Q}$.</div>
+
+<p>This was awarded the Fields Medal in 1958. The exponent $2$ is sharp on the upper side because Dirichlet's pigeonhole argument always produces infinitely many $p/q$ with $|\alpha-p/q|<q^{-2}$ for any irrational. Roth shows the gap between Dirichlet (which is universal: trivial lower bound on approximability) and the actual approximability of algebraic numbers is the smallest possible.</p>
+
+<table class="plain">
+<thead><tr><th>theorem</th><th>year</th><th>exponent</th><th>effective?</th></tr></thead>
+<tbody>
+<tr><td>Liouville</td><td>1844</td><td>$d=\deg\alpha$</td><td>yes</td></tr>
+<tr><td>Thue</td><td>1909</td><td>$d/2+1+\varepsilon$</td><td>no</td></tr>
+<tr><td>Siegel</td><td>1921</td><td>$2\sqrt{d}$</td><td>no</td></tr>
+<tr><td>Dyson, Gelfond</td><td>1947</td><td>$\sqrt{2d}$</td><td>no</td></tr>
+<tr><td><strong>Roth</strong></td><td><strong>1955</strong></td><td>$\mathbf{2+\varepsilon}$</td><td><strong>no</strong></td></tr>
+<tr><td>Schmidt subspace</td><td>1972</td><td>(higher-dim sequel)</td><td>no</td></tr>
+<tr><td>Baker (effective)</td><td>1966</td><td>$d-\kappa(d)$ for explicit $\kappa$</td><td>yes</td></tr>
+</tbody>
+</table>
+
+<div class="bad"><strong>Ineffectiveness.</strong> The proof bounds the <em>number</em> of exceptional $p/q$ but not their size. Given $\alpha$ and $\varepsilon$, no algorithm extracts a $Q_0(\alpha,\varepsilon)$ such that the bound holds for $q\ge Q_0$. This obstructs algorithmic resolution of e.g. Thue equations $F(x,y)=k$ for higher-degree irreducible $F$. Effective Roth-type bounds (via Baker's theory of logarithmic forms) exist but with weaker exponents.</div>
+
+<p><strong>Why Liouville's exponent $d$ collapses to $2+\varepsilon$.</strong> The argument constructs an auxiliary polynomial $P(x_1,\ldots,x_m)\in\mathbb{Z}[x_1,\ldots,x_m]$ that vanishes to high order at $(\alpha,\ldots,\alpha)$ and whose evaluation at simultaneous good rational approximations forces a non-zero integer to be tiny — an extremal application of Liouville's "non-zero integers are big" trick across many variables at once. The "index" calibration is what lets the exponent be $2+\varepsilon$ instead of $d$.</p>
+
+<p>The widget compares the three exponents — Dirichlet (lower bound), Roth (upper bound), Liouville (per-degree upper bound) — on a log-log plot. Pick a degree $d$ for $\alpha$; the Liouville bound has slope $-d$, Roth's has slope $-2-\varepsilon$, Dirichlet's has slope $-2$. The shaded "Roth-finite" region is where only finitely many $p/q$ can land.</p>
+
+<div class="widget" id="w-roth">
+  <div class="hd"><div class="ttl">Liouville vs. Roth vs. Dirichlet</div><div class="hint">approximation regions on a log-log scale</div></div>
+  <div class="row">
+    <label for="rt-d">algebraic degree $d$ of $\alpha$</label>
+    <input type="range" id="rt-d" min="2" max="6" step="1" value="3" />
+    <span class="readout" id="rt-d-val" style="min-width:2em;display:inline-block">3</span>
+    <label for="rt-eps">$\varepsilon$ in Roth</label>
+    <input type="range" id="rt-eps" min="0.05" max="1" step="0.05" value="0.3" />
+    <span class="readout" id="rt-eps-val" style="min-width:3em;display:inline-block">0.30</span>
+  </div>
+  <svg id="rt-svg" viewBox="0 0 620 320" width="620" height="320"><title>Liouville vs. Roth vs. Dirichlet</title></svg>
+  <div class="readout" id="rt-out">…</div>
+</div>
+
+<div class="quiz" data-concept="cf-roth"></div><!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./heights-arithmetic-geometry.html#naive-height">Heights of rational points</a></li>
+    <li><a href="./algebraic-number-theory.html#examples">Number fields and minimal polynomials</a></li>
+    <li><a href="./heights-arithmetic-geometry.html#naive">Naive height on projective space</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./continued-fractions.html#padic-roth">Continued fractions</a> · $p$-adic Roth and the subspace theorem</div>
+</aside>
+<!-- backlinks-auto-end -->
+</section>
+
+<script>
+/* =============================== SECTION 4 widget =============================== */
+(function(){
+  const dSl=$('#rt-d'), epsSl=$('#rt-eps'), dVal=$('#rt-d-val'), epsVal=$('#rt-eps-val');
+  const svg=$('#rt-svg'), out=$('#rt-out');
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const d = parseInt(dSl.value,10);
+    const eps = parseFloat(epsSl.value);
+    dVal.textContent = d;
+    epsVal.textContent = eps.toFixed(2);
+    const W=620, H=320, padL=60, padR=20, padT=20, padB=44;
+    // x = log10(q), y = log10(|alpha-p/q|).
+    const xmin=0, xmax=6;       // q from 1 to 10^6
+    const ymin=-12, ymax=0;     // error from 1 down to 10^{-12}
+    function X(v){ return padL + (v-xmin)/(xmax-xmin)*(W-padL-padR); }
+    function Y(v){ return padT + (1-(v-ymin)/(ymax-ymin))*(H-padT-padB); }
+    // axes
+    svg.appendChild(SVG('line',{x1:padL,y1:H-padB,x2:W-padR,y2:H-padB,stroke:'var(--mute)','stroke-width':1}));
+    svg.appendChild(SVG('line',{x1:padL,y1:padT,x2:padL,y2:H-padB,stroke:'var(--mute)','stroke-width':1}));
+    // grid
+    for(let lq=0;lq<=6;lq++){
+      const x=X(lq);
+      svg.appendChild(SVG('line',{x1:x,y1:padT,x2:x,y2:H-padB,stroke:'var(--line)','stroke-dasharray':'2,4','stroke-width':0.5}));
+      const t=SVG('text',{x,y:H-padB+16,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+      t.textContent='10^'+lq;
+      svg.appendChild(t);
+    }
+    for(let le=ymin;le<=0;le+=2){
+      const y=Y(le);
+      svg.appendChild(SVG('line',{x1:padL,y1:y,x2:W-padR,y2:y,stroke:'var(--line)','stroke-dasharray':'2,4','stroke-width':0.5}));
+      const t=SVG('text',{x:padL-6,y:y+4,'text-anchor':'end','font-size':11,fill:'var(--mute)'});
+      t.textContent='10^'+le;
+      svg.appendChild(t);
+    }
+    // bounds: line y = -slope * x (intercept 0 for simplicity).
+    // Dirichlet: slope 2 (infinitely many BELOW this line).
+    // Roth:      slope 2+eps (only finitely many BELOW this line).
+    // Liouville: slope d (algebraic of degree d cannot be BELOW this line beyond a constant).
+    function plotLine(slope, color, dash, label, labelOffsetY){
+      const x1 = xmin, y1 = -slope*x1;
+      const x2 = xmax, y2 = Math.max(-slope*x2, ymin);
+      const path = SVG('line',{x1:X(x1), y1:Y(y1), x2:X(x2), y2:Y(y2),
+        stroke:color, 'stroke-width':1.8});
+      if(dash) path.setAttribute('stroke-dasharray', dash);
+      svg.appendChild(path);
+      // label near the right edge
+      const tx = X(xmax) - 6, ty = Y(Math.max(-slope*xmax, ymin)) + (labelOffsetY||-8);
+      const t = SVG('text',{x:tx, y:ty, 'text-anchor':'end', 'font-size':11, fill:color, 'font-style':'italic'});
+      t.textContent = label;
+      svg.appendChild(t);
+    }
+    plotLine(2,        'var(--cyan)',  '4,3',   'Dirichlet  q^{-2}',         -8);
+    plotLine(2+eps,    'var(--yellow)',null,    `Roth  q^{-2-ε}, ε=${eps.toFixed(2)}`, 14);
+    plotLine(d,        'var(--pink)',  '6,3',   `Liouville  q^{-d}, d=${d}`, 30);
+    // labels axes
+    const xl=SVG('text',{x:(W+padL)/2,y:H-6,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});
+    xl.textContent='denominator q (log scale)';
+    svg.appendChild(xl);
+    const yl=SVG('text',{x:14,y:(H+padT)/2,'text-anchor':'middle','font-size':12,fill:'var(--mute)',transform:`rotate(-90,14,${(H+padT)/2})`});
+    yl.textContent='|α - p/q| (log scale)';
+    svg.appendChild(yl);
+    out.textContent = `Roth (yellow) is the binding constraint for algebraic α once q is large: only finitely many p/q lie strictly below it. Liouville (pink) is the older and weaker per-degree bound; Dirichlet (cyan) is the lower envelope — every irrational has infinitely many p/q below this line.`;
+  }
+  dSl.addEventListener('input', render);
+  epsSl.addEventListener('input', render);
+  render();
+})();
+</script>
+
+<section id="markoff">
+<h2>5. Markoff spectrum and Markoff numbers</h2>
+
+<p>Section 2 left a hint: $\sqrt{5}$ in Hurwitz is followed by $\sqrt{8}$, $\sqrt{221}/5$, $\sqrt{1517}/13$, ... — a discrete sequence accumulating at $3$. The numbers $1,\,2,\,5,\,13,\,29,\,\ldots$ are Markoff numbers, and they parametrise the Lagrange spectrum below $3$.</p>
+
+<div class="ok"><strong>Lagrange constant.</strong> For irrational $\alpha$ define
+$$L(\alpha)\;=\;\limsup_{q\to\infty}\frac{1}{q^2|\alpha-p/q|}\quad\text{over }p/q\in\mathbb{Q}.$$
+This measures the eventual best approximation rate. The <strong>Lagrange spectrum</strong> $\mathcal{L}\subset[\sqrt{5},\infty]$ is the set of values $L(\alpha)$.</div>
+
+<p>The arithmetic of the Lagrange spectrum is governed by an integer Diophantine equation, the <strong>Markoff equation</strong>:</p>
+
+<div class="note"><strong>Markoff equation.</strong>
+$$x^2+y^2+z^2\;=\;3xyz,\qquad x,y,z\in\mathbb{Z}_{\ge 1}.$$
+Solutions form a tree: from a base solution $(x,y,z)$ the <em>Vieta jump</em> $(x,y,z)\mapsto(x,y,3xy-z)$ produces another solution (the third root of the quadratic in $z$ given the other two). The tree is rooted at $(1,1,1)$ and the largest coordinate of each triple is a <strong>Markoff number</strong>.</div>
+
+<p>The first triples and their Markoff coordinates:</p>
+
+<table class="plain">
+<thead><tr><th>triple $(x,y,z)$</th><th>Markoff number $m$</th><th>Lagrange value $\sqrt{9-4/m^2}$</th></tr></thead>
+<tbody>
+<tr><td>$(1,1,1)$</td><td>$1$</td><td>$\sqrt{5}\approx 2.2361$</td></tr>
+<tr><td>$(1,1,2)$</td><td>$2$</td><td>$\sqrt{8}\approx 2.8284$</td></tr>
+<tr><td>$(1,2,5)$</td><td>$5$</td><td>$\sqrt{221}/5\approx 2.9732$</td></tr>
+<tr><td>$(1,5,13)$</td><td>$13$</td><td>$\sqrt{1517}/13\approx 2.9959$</td></tr>
+<tr><td>$(2,5,29)$</td><td>$29$</td><td>$\sqrt{7565}/29\approx 2.9992$</td></tr>
+</tbody>
+</table>
+
+<div class="ok"><strong>Markoff (1879).</strong> The Lagrange spectrum below $3$ is exactly $\{\sqrt{9-4/m^2}\,:\,m\text{ a Markoff number}\}$, and these values accumulate at $3$ from below.</div>
+
+<p>Above $3$ the structure gets wilder. <strong>Hall's theorem (1947)</strong>: the Lagrange spectrum contains an entire half-line $[\mu,\infty)$ — Hall's ray — so it has positive Lebesgue measure. The exact start of Hall's ray was pinned down by Freiman (1975) at $\mu=2.221\,\!\cdots\!$ explicit, with the spectrum below $\mu$ a (very complicated) Cantor-like set known as Freiman's constant.</p>
+
+<p>Below the value $3$ the Vieta-jump tree organises everything. The widget builds the tree by clicking on a triple to apply a Vieta jump; the readout displays the Markoff number, its Lagrange value, and a simple proof-of-concept of the unicity conjecture: each Markoff number determines its triple uniquely up to permutation (still open in general, conjectured by Frobenius 1913).</p>
+
+<div class="widget" id="w-mk">
+  <div class="hd"><div class="ttl">Markoff tree explorer</div><div class="hint">click a triple to Vieta-jump from it</div></div>
+  <div class="row">
+    <span id="mk-current" class="readout" style="flex:1">current triple: (1, 1, 1)</span>
+    <button id="mk-reset">reset</button>
+  </div>
+  <div class="row">
+    <button data-mk-coord="0">jump on first coordinate</button>
+    <button data-mk-coord="1">jump on second coordinate</button>
+    <button data-mk-coord="2">jump on third coordinate</button>
+  </div>
+  <div class="readout" id="mk-out">starting triple is (1,1,1).</div>
+  <table class="plain" id="mk-tbl">
+    <thead><tr><th>step</th><th>triple</th><th>Markoff $m$</th><th>Lagrange $\sqrt{9-4/m^2}$</th></tr></thead>
+    <tbody></tbody>
+  </table>
+</div>
+
+<div class="quiz" data-concept="cf-markoff"></div>
+</section>
+
+<script>
+/* =============================== SECTION 5 widget =============================== */
+(function(){
+  const cur=$('#mk-current'), reset=$('#mk-reset'), out=$('#mk-out');
+  const tbody=$('#mk-tbl tbody');
+  let triple = [1,1,1];
+  let history = [];
+  function lagrange(m){ return Math.sqrt(9 - 4/(m*m)); }
+  function maxOf(t){ return Math.max(t[0], t[1], t[2]); }
+  function pushHistory(){
+    history.push(triple.slice());
+    const tr = document.createElement('tr');
+    const m = maxOf(triple);
+    tr.innerHTML = `<td>${history.length-1}</td><td>(${triple.join(', ')})</td><td>${m}</td><td>${lagrange(m).toFixed(4)}</td>`;
+    tbody.appendChild(tr);
+  }
+  function show(){
+    cur.textContent = `current triple: (${triple.join(', ')})`;
+    const m = maxOf(triple);
+    out.textContent = `Markoff number m = max = ${m}.  Lagrange constant L = √(9 - 4/m²) = ${lagrange(m).toFixed(6)}.`;
+  }
+  function jump(i){
+    // Vieta-jump on coordinate i: replace triple[i] by 3*p*q - triple[i] where p,q are the other two.
+    const others = [0,1,2].filter(j=>j!==i);
+    const p = triple[others[0]], q = triple[others[1]];
+    const newVal = 3*p*q - triple[i];
+    if(newVal <= 0){ out.textContent = 'jump produced a non-positive value — root reached, no smaller move from here.'; return; }
+    triple = triple.slice();
+    triple[i] = newVal;
+    triple.sort((a,b)=>a-b);  // canonical order: small to large
+    pushHistory();
+    show();
+  }
+  document.querySelectorAll('[data-mk-coord]').forEach(btn=>{
+    btn.addEventListener('click', ()=>jump(parseInt(btn.getAttribute('data-mk-coord'),10)));
+  });
+  reset.addEventListener('click', ()=>{
+    triple = [1,1,1];
+    history = [];
+    tbody.innerHTML = '';
+    pushHistory();
+    show();
+  });
+  pushHistory();
+  show();
+})();
+</script>
+
+<section id="padic-roth">
+<h2>6. $p$-adic Roth and the Schmidt subspace theorem</h2>
+
+<p>Roth's theorem is an archimedean statement: it controls the rate at which $|\alpha-p/q|$ can be small, where $|\cdot|$ is the usual real absolute value. The same machinery generalises to other absolute values on $\mathbb{Q}$.</p>
+
+<p>Recall: every absolute value on $\mathbb{Q}$ is equivalent to the archimedean $|\cdot|_\infty$ or to a $p$-adic $|\cdot|_p$ for some prime $p$ (Ostrowski). Algebraic $\alpha\in\overline{\mathbb{Q}}$ embeds into the completion $\mathbb{Q}_p$ along each chosen place above $p$.</p>
+
+<div class="ok"><strong>Mahler–Ridout $p$-adic Roth.</strong> Fix a prime $p$ and an algebraic $\alpha\in\mathbb{Q}_p\setminus\mathbb{Q}$. For every $\varepsilon>0$, the inequality
+$$\Big|\alpha-\frac{a}{b}\Big|_p\;<\;\frac{1}{H(a/b)^{\,2+\varepsilon}}$$
+has only finitely many solutions $a/b\in\mathbb{Q}$, where $H(a/b)=\max(|a|,|b|)$ is the naive height.</div>
+
+<p>One can do better: combine archimedean and finitely many $p$-adic places at once. Let $S=\{\infty, p_1,\ldots,p_k\}$ be a finite set of places of $\mathbb{Q}$. The <strong>$S$-unit version</strong> of Roth says: for algebraic $\alpha$ and $\varepsilon>0$,
+$$\prod_{v\in S}\,\min\big(1,\,|\alpha-p/q|_v\big)\;<\;H(p/q)^{-2-\varepsilon}$$
+has only finitely many $p/q\in\mathbb{Q}$. Specialising $S=\{\infty\}$ recovers Roth; $S=\{p\}$ recovers Mahler–Ridout.</p>
+
+<div class="ok"><strong>Schmidt's subspace theorem (1972).</strong> Let $L_1,\ldots,L_n$ be linearly independent linear forms on $\mathbb{Q}^n$ with algebraic coefficients in $\overline{\mathbb{Q}}$, and fix $\varepsilon>0$. The integer points $\mathbf{x}\in\mathbb{Z}^n\setminus\{0\}$ with
+$$|L_1(\mathbf{x})|\cdots|L_n(\mathbf{x})|\;<\;\|\mathbf{x}\|^{-\varepsilon}$$
+are contained in a finite union of proper rational subspaces of $\mathbb{Q}^n$.</div>
+
+<p>For $n=2$ — taking $L_1(x_1,x_2)=x_1-\alpha x_2$ and $L_2(x_1,x_2)=x_2$ — the inequality becomes $|x_1-\alpha x_2|\cdot|x_2|<\|\mathbf{x}\|^{-\varepsilon}$ which (after rearranging) is Roth's inequality. The "finite union of proper subspaces" reduces in dimension 2 to "a finite set of points" — i.e. finitely many exceptional $p/q$.</p>
+
+<div class="note"><strong>What Schmidt buys you in higher dimensions.</strong> Counting integer points on subvarieties of tori, finiteness of solutions of $S$-unit equations $u+v=1$ with $u,v\in\mathcal{O}_{K,S}^\times$, the Mordell–Lang conjecture for tori (Laurent, Schmidt) and finiteness of solutions of decomposable form equations all flow from the subspace theorem. Vojta's reformulation explicitly compares it to Faltings' proof of Mordell — they are conjecturally two faces of one diophantine inequality.</div>
+
+<p>The widget tabulates the $S$-unit form of Roth at each absolute value, picking $S$ from a small list. It demonstrates the surprising symmetry: archimedean and $p$-adic places enter Roth on equal footing once one passes through the multiplicative $\prod_v$ formulation.</p>
+
+<div class="widget" id="w-pa">
+  <div class="hd"><div class="ttl">Roth at multiple places</div><div class="hint">$\prod_{v\in S}\min(1,|\alpha-p/q|_v)<H(p/q)^{-2-\varepsilon}$</div></div>
+  <div class="row">
+    <label for="pa-S">place set $S$</label>
+    <select id="pa-S">
+      <option value="archimedean" selected>$S=\{\infty\}$ — classical Roth</option>
+      <option value="padic">$S=\{p\}$ — Mahler–Ridout for one $p$</option>
+      <option value="mixed">$S=\{\infty, 2, 3\}$ — mixed: Ridout combined</option>
+      <option value="big">$S=\{\infty, 2, 3, 5, 7\}$ — small $S$-units</option>
+    </select>
+    <label for="pa-eps">$\varepsilon$</label>
+    <input type="range" id="pa-eps" min="0.05" max="1" step="0.05" value="0.2" />
+    <span class="readout" id="pa-eps-val" style="min-width:3em;display:inline-block">0.20</span>
+  </div>
+  <div class="readout" id="pa-out">…</div>
+</div>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./p-adic-numbers.html#abs">$p$-adic absolute value</a></li>
+    <li><a href="./heights-arithmetic-geometry.html#naive-height">Heights of rational points</a></li>
+    <li><a href="./algebraic-number-theory.html#examples">Algebraic numbers and number fields</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><div class="quiz" data-concept="cf-padic-roth"></div>
+</section>
+
+<script>
+/* =============================== SECTION 6 widget =============================== */
+(function(){
+  const sSel=$('#pa-S'), eSl=$('#pa-eps'), eVal=$('#pa-eps-val'), out=$('#pa-out');
+  const PLACE_DESC = {
+    archimedean: ['classical archimedean', 'Roth (1955): finitely many p/q with |α - p/q|_∞ < q^{-2-ε}.'],
+    padic:       ['one finite prime', 'Mahler–Ridout: for fixed prime p and algebraic α ∈ Q_p, finitely many a/b with |α - a/b|_p < H(a/b)^{-2-ε}.'],
+    mixed:       ['mixed S = {∞, 2, 3}', 'Combined Roth: ∏v∈S min(1, |α - p/q|_v) < H^{-2-ε} has finitely many solutions. Each archimedean + p-adic factor enters symmetrically — no place is special.'],
+    big:         ['S = {∞, 2, 3, 5, 7}', 'Same theorem, more places. The exceptional set is still finite. As |S| grows, the constraint at any one place gets tighter (the product splits the slack).']
+  };
+  function render(){
+    const eps = parseFloat(eSl.value);
+    eVal.textContent = eps.toFixed(2);
+    const [name, desc] = PLACE_DESC[sSel.value];
+    const expo = (2+eps).toFixed(2);
+    out.textContent = `${name}.  ${desc}\n\nThe finite-exception conclusion holds with exponent 2+ε = ${expo} and any algebraic α. Schmidt's subspace theorem packages all such S-Roth statements (and their multidimensional generalisations) into one inequality on linear forms.`;
+  }
+  sSel.addEventListener('change', render);
+  eSl.addEventListener('input', render);
+  render();
+})();
+</script>
+
+<section id="connections">
+<h2>Connections</h2>
+
+<p>The frontier of the area: <em>effectivising</em> Roth and Schmidt — every modern Diophantine finiteness result (Mordell, Mordell–Lang, Vojta) carries the same defect, that the proof bounds the number of exceptions but not their size. Baker's logarithmic forms (1966; 1970 Fields Medal) made Liouville-style bounds effective at the cost of a weaker exponent; making the same trade-off work for Roth — let alone Schmidt — would algorithmically resolve every Thue equation, every $S$-unit equation, and via Faltings' isogeny step, every Mordell-type problem. The Markoff unicity conjecture (1913) — that each Markoff number $m$ determines its triple uniquely — remains open after a century, despite computer verification far into the tree.</p>
+
+<ul>
+<li><a href="./algebraic-number-theory.html#examples">Algebraic number theory — number fields</a> — Liouville's inequality lives entirely inside this language; algebraic degree is the exponent that Roth removes.</li>
+<li><a href="./p-adic-numbers.html#abs">$p$-adic numbers — absolute value and completion</a> — Mahler–Ridout works because $|\cdot|_p$ is just another absolute value on $\mathbb{Q}$, and Roth's proof barely notices.</li>
+<li><a href="./heights-arithmetic-geometry.html#naive-height">Heights in arithmetic geometry — naive height</a> — Schmidt's $\|\mathbf{x}\|$ <em>is</em> the naive height of a projective point; the subspace theorem is height-theoretic.</li>
+<li><a href="./analytic-number-theory.html#expsums">Analytic number theory — exponential sums &amp; equidistribution</a> — Weyl's equidistribution of $\{n\alpha\}$ is the equidistribution shadow of Diophantine approximation; cancellation in $\sum e(n\alpha)$ is dual to the smallness of $|n\alpha-m|$.</li>
+<li><a href="./bsd.html">Birch–Swinnerton-Dyer</a> — the analogous archimedean-vs-$p$-adic interplay (real period vs. $p$-adic $L$-value) sits at the heart of the BSD conjecture; Diophantine approximation is the toy version of those analytic obstructions.</li>
+</ul>
+</section>
+
+</main>
+
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('continued-fractions'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+})();
+</script>
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-05-06</td><td>initial version</td></tr>
+    </tbody>
+  </table>
+</details>
+
+</body>
+</html>

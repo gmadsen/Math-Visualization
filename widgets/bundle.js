@@ -3,6 +3,132 @@
 // Source of truth: widgets/<slug>/schema.json, README.md, optional example.json.
 window.__MVWidgets = [
   {
+    "slug": "abelian-varieties-w1",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "abelian-varieties-w1 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the abelian-varieties topic. Carries opaque bodyMarkup + bodyScript strings so byte-identical round-trip stays intact.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `abelian-varieties` topic. Uses the shared verbatim renderer at `widgets/_shared/verbatim-renderer.mjs`; `bodyMarkup` + `bodyScript` are full opaque strings.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "abelian-varieties-w2",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "abelian-varieties-w2 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the abelian-varieties topic. Carries opaque bodyMarkup + bodyScript strings so byte-identical round-trip stays intact.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `abelian-varieties` topic. Uses the shared verbatim renderer at `widgets/_shared/verbatim-renderer.mjs`; `bodyMarkup` + `bodyScript` are full opaque strings.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "abelian-varieties-w3",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "abelian-varieties-w3 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the abelian-varieties topic. Carries opaque bodyMarkup + bodyScript strings so byte-identical round-trip stays intact.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `abelian-varieties` topic. Uses the shared verbatim renderer at `widgets/_shared/verbatim-renderer.mjs`; `bodyMarkup` + `bodyScript` are full opaque strings.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "abelian-varieties-w4",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "abelian-varieties-w4 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the abelian-varieties topic. Carries opaque bodyMarkup + bodyScript strings so byte-identical round-trip stays intact.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `abelian-varieties` topic. Uses the shared verbatim renderer at `widgets/_shared/verbatim-renderer.mjs`; `bodyMarkup` + `bodyScript` are full opaque strings.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "abelian-varieties-w5",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "abelian-varieties-w5 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the abelian-varieties topic. Carries opaque bodyMarkup + bodyScript strings so byte-identical round-trip stays intact.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `abelian-varieties` topic. Uses the shared verbatim renderer at `widgets/_shared/verbatim-renderer.mjs`; `bodyMarkup` + `bodyScript` are full opaque strings.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "abelian-varieties-w6",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "abelian-varieties-w6 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the abelian-varieties topic. Carries opaque bodyMarkup + bodyScript strings so byte-identical round-trip stays intact.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `abelian-varieties` topic. Uses the shared verbatim renderer at `widgets/_shared/verbatim-renderer.mjs`; `bodyMarkup` + `bodyScript` are full opaque strings.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "aca-bergman-kernel-disk",
     "family": "aca-figure",
     "dimension": "2d",
@@ -2651,6 +2777,132 @@ window.__MVWidgets = [
     },
     "exampleMarkup": "<div class=\"widget\" id=\"w-constraint-bifurcation-saddle-pitchfork-example\"></div>",
     "exampleScript": "<script>\n(function(){\n  if(!window.MVConstraintBifurcationExplorer) return;\n  MVConstraintBifurcationExplorer.init('#w-constraint-bifurcation-saddle-pitchfork-example', {\n    kind: \"saddle-pitchfork\",\n    title: \"Saddle pitchfork: y² ≤ a·x² − x⁴\",\n    hint: \"drag a through 0 · one component splits into two\",\n    viewBox: \"0 0 360 360\",\n    params: {\"a\":0.5},\n    domain: {\"xRange\":[-1.6,1.6],\"yRange\":[-1.2,1.2]},\n  });\n})();\n</script>"
+  },
+  {
+    "slug": "continued-fractions-w1",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "continued-fractions-w1 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the continued-fractions topic. Carries opaque bodyMarkup + bodyScript strings so byte-identical round-trip stays intact.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `continued-fractions` topic. Uses the shared verbatim renderer at `widgets/_shared/verbatim-renderer.mjs`; `bodyMarkup` + `bodyScript` are full opaque strings.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "continued-fractions-w2",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "continued-fractions-w2 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the continued-fractions topic. Carries opaque bodyMarkup + bodyScript strings so byte-identical round-trip stays intact.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `continued-fractions` topic. Uses the shared verbatim renderer at `widgets/_shared/verbatim-renderer.mjs`; `bodyMarkup` + `bodyScript` are full opaque strings.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "continued-fractions-w3",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "continued-fractions-w3 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the continued-fractions topic. Carries opaque bodyMarkup + bodyScript strings so byte-identical round-trip stays intact.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `continued-fractions` topic. Uses the shared verbatim renderer at `widgets/_shared/verbatim-renderer.mjs`; `bodyMarkup` + `bodyScript` are full opaque strings.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "continued-fractions-w4",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "continued-fractions-w4 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the continued-fractions topic. Carries opaque bodyMarkup + bodyScript strings so byte-identical round-trip stays intact.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `continued-fractions` topic. Uses the shared verbatim renderer at `widgets/_shared/verbatim-renderer.mjs`; `bodyMarkup` + `bodyScript` are full opaque strings.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "continued-fractions-w5",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "continued-fractions-w5 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the continued-fractions topic. Carries opaque bodyMarkup + bodyScript strings so byte-identical round-trip stays intact.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `continued-fractions` topic. Uses the shared verbatim renderer at `widgets/_shared/verbatim-renderer.mjs`; `bodyMarkup` + `bodyScript` are full opaque strings.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "continued-fractions-w6",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "continued-fractions-w6 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the continued-fractions topic. Carries opaque bodyMarkup + bodyScript strings so byte-identical round-trip stays intact.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `continued-fractions` topic. Uses the shared verbatim renderer at `widgets/_shared/verbatim-renderer.mjs`; `bodyMarkup` + `bodyScript` are full opaque strings.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
   },
   {
     "slug": "counterexample-explorer",
@@ -9677,6 +9929,132 @@ window.__MVWidgets = [
       "bodyScript"
     ],
     "readmeExcerpt": "Bespoke widget for the partial-differential-equations topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "positivity-and-ample-line-bundles-w1",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "positivity-and-ample-line-bundles-w1 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the positivity-and-ample-line-bundles topic. Carries opaque bodyMarkup + bodyScript strings so byte-identical round-trip stays intact.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `positivity-and-ample-line-bundles` topic. Uses the shared verbatim renderer at `widgets/_shared/verbatim-renderer.mjs`; `bodyMarkup` + `bodyScript` are full opaque strings.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "positivity-and-ample-line-bundles-w2",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "positivity-and-ample-line-bundles-w2 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the positivity-and-ample-line-bundles topic. Carries opaque bodyMarkup + bodyScript strings so byte-identical round-trip stays intact.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `positivity-and-ample-line-bundles` topic. Uses the shared verbatim renderer at `widgets/_shared/verbatim-renderer.mjs`; `bodyMarkup` + `bodyScript` are full opaque strings.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "positivity-and-ample-line-bundles-w3",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "positivity-and-ample-line-bundles-w3 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the positivity-and-ample-line-bundles topic. Carries opaque bodyMarkup + bodyScript strings so byte-identical round-trip stays intact.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `positivity-and-ample-line-bundles` topic. Uses the shared verbatim renderer at `widgets/_shared/verbatim-renderer.mjs`; `bodyMarkup` + `bodyScript` are full opaque strings.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "positivity-and-ample-line-bundles-w4",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "positivity-and-ample-line-bundles-w4 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the positivity-and-ample-line-bundles topic. Carries opaque bodyMarkup + bodyScript strings so byte-identical round-trip stays intact.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `positivity-and-ample-line-bundles` topic. Uses the shared verbatim renderer at `widgets/_shared/verbatim-renderer.mjs`; `bodyMarkup` + `bodyScript` are full opaque strings.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "positivity-and-ample-line-bundles-w5",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "positivity-and-ample-line-bundles-w5 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the positivity-and-ample-line-bundles topic. Carries opaque bodyMarkup + bodyScript strings so byte-identical round-trip stays intact.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `positivity-and-ample-line-bundles` topic. Uses the shared verbatim renderer at `widgets/_shared/verbatim-renderer.mjs`; `bodyMarkup` + `bodyScript` are full opaque strings.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "positivity-and-ample-line-bundles-w6",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "positivity-and-ample-line-bundles-w6 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the positivity-and-ample-line-bundles topic. Carries opaque bodyMarkup + bodyScript strings so byte-identical round-trip stays intact.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `positivity-and-ample-line-bundles` topic. Uses the shared verbatim renderer at `widgets/_shared/verbatim-renderer.mjs`; `bodyMarkup` + `bodyScript` are full opaque strings.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,

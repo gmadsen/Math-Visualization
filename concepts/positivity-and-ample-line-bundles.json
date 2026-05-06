@@ -1,0 +1,91 @@
+{
+  "topic": "positivity-and-ample-line-bundles",
+  "title": "Positivity and ample line bundles",
+  "page": "positivity-and-ample-line-bundles.html",
+  "concepts": [
+    {
+      "id": "pal-picard",
+      "title": "Divisors, line bundles, and the Picard group",
+      "anchor": "picard",
+      "prereqs": [
+        "applications-picard-serre",
+        "riemann-roch-curves"
+      ],
+      "blurb": "A Cartier divisor $D = \\sum n_i [Y_i]$ on a smooth variety $X$ is a formal $\\mathbb{Z}$-sum of codim-$1$ subvarieties; $\\mathrm{div}(f)$ for $f \\in k(X)^\\times$ is principal. The Picard group $\\mathrm{Pic}(X) = \\mathrm{Div}(X)/\\sim_{\\mathrm{rat}}$ classifies line bundles up to isomorphism, and the global sections of $\\mathcal{O}(D)$ are the rational functions whose pole order is bounded by $D$.",
+      "tags": [
+        "foundation",
+        "classification"
+      ]
+    },
+    {
+      "id": "pal-very-ample",
+      "title": "Very ample, ample, and Serre's theorem",
+      "anchor": "ample",
+      "prereqs": [
+        "pal-picard",
+        "derived-functor-cohomology"
+      ],
+      "blurb": "$L$ is very ample on $X$ if its global sections embed $X \\hookrightarrow \\mathbb{P}^N$; $L$ is ample if some power $L^{\\otimes n}$ is very ample. Serre's theorem makes ampleness cohomological: $L$ ample iff for every coherent sheaf $\\mathcal{F}$ there exists $n_0$ such that $H^i(X, \\mathcal{F} \\otimes L^{\\otimes n}) = 0$ for all $i > 0$ and $n \\ge n_0$.",
+      "tags": [
+        "cohomology",
+        "foundation"
+      ]
+    },
+    {
+      "id": "pal-nakai",
+      "title": "Nakai–Moishezon and the ample cone",
+      "anchor": "nakai",
+      "prereqs": [
+        "pal-very-ample",
+        "intersection-product",
+        "chow-groups"
+      ],
+      "blurb": "Nakai–Moishezon: on a projective variety $X$, $L$ is ample iff $L^{\\dim Y} \\cdot Y > 0$ for every irreducible subvariety $Y \\subseteq X$ of positive dimension. Numerical equivalence collapses $\\mathrm{Pic}(X)$ to the Néron–Severi group $N^1(X)$; the ample cone $\\mathrm{Amp}(X) \\subset N^1(X)_\\mathbb{R}$ is open and convex.",
+      "tags": [
+        "classification"
+      ]
+    },
+    {
+      "id": "pal-nef-big",
+      "title": "Nef, big, and the cone of curves",
+      "anchor": "nef-big",
+      "prereqs": [
+        "pal-nakai"
+      ],
+      "blurb": "$L$ is nef if $L \\cdot C \\ge 0$ for every irreducible curve $C \\subset X$; $\\mathrm{Nef}(X)$ is the closure of $\\mathrm{Amp}(X)$. $L$ is big if $h^0(L^{\\otimes n}) \\ge c \\, n^{\\dim X}$ for some $c > 0$ and $n \\gg 0$. Kleiman's theorem identifies $\\mathrm{Nef}(X)$ as the dual of the closed cone of curves $\\overline{NE}(X)$, and Mori's cone theorem describes the $K_X$-negative part of $\\overline{NE}(X)$ as locally polyhedral.",
+      "tags": [
+        "duality",
+        "classification"
+      ]
+    },
+    {
+      "id": "pal-kodaira-embedding",
+      "title": "Kodaira embedding theorem",
+      "anchor": "kodaira",
+      "prereqs": [
+        "pal-very-ample",
+        "hodge-decomposition"
+      ],
+      "blurb": "Kodaira (1954): a compact Kähler manifold $X$ is projective iff it admits a positive line bundle $L$ — i.e. a holomorphic line bundle whose curvature form $\\frac{i}{2\\pi}\\Theta(L)$ is a Kähler form. The map $X \\to \\mathbb{P}(H^0(X, L^{\\otimes n})^\\vee)$ is then an embedding for $n \\gg 0$, identifying complex-analytic positivity with algebraic ampleness.",
+      "tags": [
+        "duality",
+        "foundation"
+      ]
+    },
+    {
+      "id": "pal-vanishing",
+      "title": "Kodaira and Kawamata–Viehweg vanishing",
+      "anchor": "vanishing",
+      "prereqs": [
+        "pal-very-ample",
+        "pal-nef-big",
+        "long-exact-sequence-cohomology"
+      ],
+      "blurb": "Kodaira vanishing: if $L$ is ample on a smooth projective $X/\\mathbb{C}$ with canonical bundle $K_X$, then $H^i(X, K_X \\otimes L) = 0$ for $i > 0$. Kawamata–Viehweg extends to $L$ nef and big with at worst rational singularities — the workhorse vanishing of the minimal model program and the engine behind base-point-freeness, contraction, and flips.",
+      "tags": [
+        "cohomology",
+        "exact-sequence"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,790 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Abelian varieties</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false,
+      macros:{
+        '\\Spec':'\\operatorname{Spec}',
+        '\\Gal':'\\operatorname{Gal}',
+        '\\Hom':'\\operatorname{Hom}',
+        '\\tr':'\\operatorname{tr}',
+        '\\ad':'\\operatorname{ad}',
+        '\\ind':'\\operatorname{ind}'
+      }
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  /* sticky sidebar TOC (wide screens only; narrow screens fall back to top-nav) */
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+  /* callback-css-auto-begin */
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+/* callback-css-auto-end */
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
+  /* display-prefs-css-auto-begin */
+  html[data-hide-widgets] .widget { display: none !important; }
+  html[data-hide-quizzes] .quiz { display: none !important; }
+  html[data-hide-lineage] .lineage-strip { display: none !important; }
+  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }
+  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }
+  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }
+  .mv-display-toggle--off { opacity: 0.35; }
+  /* display-prefs-css-auto-end */
+</style>
+<!-- breadcrumb-head-auto-begin -->
+<script>window.__MV_SECTION_MAP = {"<topic>":{"next":null,"prev":null,"section":"Sections","title":"<topic>"},"L-functions":{"next":"sato-tate","prev":"moonshine","section":"Modular forms & L-functions","title":"L-functions"},"abelian-varieties":{"next":"positivity-and-ample-line-bundles","prev":"toric-varieties","section":"Algebraic geometry","title":"Abelian varieties"},"additive-number-theory":{"next":"heights-arithmetic-geometry","prev":"quadratic-forms-genus-theory","section":"Number theory","title":"Additive number theory"},"adeles-and-ideles":{"next":"frobenius-and-reciprocity","prev":"p-adic-numbers","section":"Number theory","title":"Adèles & idèles"},"advanced-complex-analysis":{"next":"microlocal-analysis","prev":"sobolev-spaces-distributions","section":"Analysis","title":"Advanced complex analysis"},"algebra":{"next":"representation-theory","prev":null,"section":"Algebra & homological","title":"Abstract algebra"},"algebraic-curves-higher-genus":{"next":"deformation-theory","prev":"mirror-symmetry","section":"Algebraic geometry","title":"Algebraic curves: higher genus"},"algebraic-de-rham-cohomology":{"next":"calabi-yau-manifolds","prev":"algebraic-spaces","section":"Algebraic geometry","title":"Algebraic de Rham cohomology"},"algebraic-k-theory-foundations":{"next":"model-categories","prev":"quantum-groups","section":"Algebra & homological","title":"Algebraic K-theory foundations"},"algebraic-number-theory":{"next":"p-adic-numbers","prev":"galois","section":"Number theory","title":"Algebraic number theory"},"algebraic-spaces":{"next":"algebraic-de-rham-cohomology","prev":"functor-of-points","section":"Algebraic geometry","title":"Algebraic spaces"},"algebraic-topology":{"next":"knot-polynomials","prev":"point-set-topology","section":"Geometry & topology","title":"Algebraic topology"},"analytic-continuation":{"next":"zeta-values","prev":"dirichlet-series-euler-products","section":"Modular forms & L-functions","title":"Analytic continuation"},"analytic-number-theory":{"next":"galois","prev":null,"section":"Number theory","title":"Analytic number theory"},"atiyah-singer-index-theorem":{"next":"riemannian-geometry","prev":"k-theory","section":"Geometry & topology","title":"Atiyah–Singer index theorem"},"automorphic-forms-adelic":{"next":"moonshine","prev":"hecke-operators","section":"Modular forms & L-functions","title":"Automorphic forms (adelic)"},"bezout":{"next":"schemes","prev":"elliptic-curves","section":"Algebraic geometry","title":"Bézout's theorem"},"bsd":{"next":"modularity-and-flt","prev":"sato-tate","section":"Modular forms & L-functions","title":"Birch & Swinnerton-Dyer"},"calabi-yau-manifolds":{"next":"mirror-symmetry","prev":"algebraic-de-rham-cohomology","section":"Algebraic geometry","title":"Calabi–Yau manifolds"},"category-theory":{"next":"commutative-algebra","prev":"derived-categories","section":"Algebra & homological","title":"Category theory"},"characteristic-classes":{"next":"k-theory","prev":"symplectic-manifolds","section":"Geometry & topology","title":"Characteristic classes"},"class-field-theory":{"next":"galois-representations","prev":"computational-number-theory","section":"Number theory","title":"Class field theory"},"cocartesian-fibrations":{"next":"infinity-categories","prev":"heyting-algebras-toposes","section":"Higher categories & toposes","title":"Cocartesian fibrations"},"cohomology-and-duality":{"next":null,"prev":"mostow-rigidity","section":"Geometry & topology","title":"Cohomology and duality"},"commutative-algebra":{"next":"homological","prev":"category-theory","section":"Algebra & homological","title":"Commutative algebra"},"complex-analysis":{"next":"measure-theory","prev":"real-analysis","section":"Analysis","title":"Complex analysis"},"complexity-theory":{"next":"type-theory-and-hott","prev":"computability-and-decidability","section":"Logic & Foundations","title":"Complexity theory"},"computability-and-decidability":{"next":"complexity-theory","prev":"model-theory-basics","section":"Logic & Foundations","title":"Computability and decidability"},"computational-number-theory":{"next":"class-field-theory","prev":"mathematics-and-cryptography","section":"Number theory","title":"Computational number theory"},"condensed-mathematics":{"next":null,"prev":"groebner-bases","section":"Algebra & homological","title":"Condensed mathematics"},"continued-fractions":{"next":null,"prev":"iwasawa-theory","section":"Number theory","title":"Continued fractions"},"deformation-theory":{"next":"resolution-of-singularities","prev":"algebraic-curves-higher-genus","section":"Algebraic geometry","title":"Deformation theory"},"derived-categories":{"next":"category-theory","prev":"model-categories","section":"Algebra & homological","title":"Derived categories"},"designs":{"next":"spectral-graph-theory","prev":"enumerative-combinatorics","section":"Combinatorics & graph theory","title":"Designs"},"differential-forms":{"next":"morse-theory","prev":"riemann-surfaces","section":"Geometry & topology","title":"Differential forms"},"differential-geometry":{"next":"riemann-surfaces","prev":"smooth-manifolds","section":"Geometry & topology","title":"Differential geometry"},"dirac-equation":{"next":"statistical-mechanics","prev":"klein-gordon-equation","section":"Mathematical physics","title":"Dirac equation"},"dirichlet-series-euler-products":{"next":"analytic-continuation","prev":null,"section":"Modular forms & L-functions","title":"Dirichlet series & Euler products"},"dynamical-systems":{"next":"semigroup-theory-evolution-equations","prev":"operator-algebras","section":"Analysis","title":"Dynamical systems"},"elementary-topos-theory":{"next":"grothendieck-topologies-sites","prev":"simplicial-sets-and-nerve","section":"Higher categories & toposes","title":"Elementary topos theory"},"elliptic-curves":{"next":"bezout","prev":"etale-fundamental-group","section":"Algebraic geometry","title":"Elliptic curves"},"enumerative-combinatorics":{"next":"designs","prev":"simplicial-complexes-combinatorial","section":"Combinatorics & graph theory","title":"Enumerative combinatorics"},"etale-cohomology":{"next":null,"prev":"stacks","section":"Algebraic geometry","title":"Étale cohomology"},"etale-fundamental-group":{"next":"elliptic-curves","prev":"projective-plane","section":"Algebraic geometry","title":"Étale fundamental group"},"expanders":{"next":null,"prev":"spectral-graph-theory","section":"Combinatorics & graph theory","title":"Expanders"},"extremal-combinatorics":{"next":"simplicial-complexes-combinatorial","prev":"probabilistic-method","section":"Combinatorics & graph theory","title":"Extremal combinatorics"},"first-order-logic-and-completeness":{"next":"zfc-and-ordinals","prev":"type-theory-and-hott","section":"Logic & Foundations","title":"First order logic and completeness"},"fixed-point-theorems":{"next":"harmonic-analysis-fourier","prev":"functional-analysis","section":"Analysis","title":"Fixed point theorems"},"forcing-and-independence":{"next":null,"prev":"zfc-and-ordinals","section":"Logic & Foundations","title":"Forcing and independence"},"frobenius-and-reciprocity":{"next":"quadratic-reciprocity","prev":"adeles-and-ideles","section":"Number theory","title":"Frobenius & reciprocity"},"functional-analysis":{"next":"fixed-point-theorems","prev":"harmonic-functions","section":"Analysis","title":"Functional analysis"},"functor-of-points":{"next":"algebraic-spaces","prev":"morphisms-fiber-products","section":"Algebraic geometry","title":"Functor of points"},"galois":{"next":"algebraic-number-theory","prev":"analytic-number-theory","section":"Number theory","title":"Galois theory & the quintic"},"galois-cohomology-and-brauer":{"next":"group-cohomology","prev":"geometric-and-combinatorial-group-theory","section":"Algebra & homological","title":"Galois cohomology and Brauer groups"},"galois-representations":{"next":"iwasawa-theory","prev":"class-field-theory","section":"Number theory","title":"Galois representations"},"gauge-theory":{"next":"string-theory","prev":"statistical-mechanics","section":"Mathematical physics","title":"Gauge theory"},"general-relativity":{"next":"schrodinger-equation","prev":"three-body-problem","section":"Mathematical physics","title":"General relativity & Einstein equations"},"geometric-and-combinatorial-group-theory":{"next":"galois-cohomology-and-brauer","prev":"quaternions-octonions-and-division-algebras","section":"Algebra & homological","title":"Geometric and combinatorial group theory"},"geometric-measure-theory":{"next":"operator-algebras","prev":"microlocal-analysis","section":"Analysis","title":"Geometric measure theory"},"groebner-bases":{"next":"condensed-mathematics","prev":"homological","section":"Algebra & homological","title":"Gröbner bases"},"grothendieck-topologies-sites":{"next":"infinity-topoi","prev":"elementary-topos-theory","section":"Higher categories & toposes","title":"Grothendieck topologies & sites"},"group-cohomology":{"next":"quantum-groups","prev":"galois-cohomology-and-brauer","section":"Algebra & homological","title":"Group cohomology"},"group-schemes":{"next":"morphisms-fiber-products","prev":"intersection-theory-chow","section":"Algebraic geometry","title":"Group schemes"},"hamiltonians-classical-mechanics":{"next":"special-relativity","prev":"schrodinger-equation","section":"Mathematical physics","title":"Hamiltonians & classical mechanics"},"harmonic-analysis-fourier":{"next":"wavelets","prev":"fixed-point-theorems","section":"Analysis","title":"Harmonic analysis & Fourier theory"},"harmonic-functions":{"next":"functional-analysis","prev":"measure-theory","section":"Analysis","title":"Harmonic functions"},"hecke-operators":{"next":"automorphic-forms-adelic","prev":"theta-functions","section":"Modular forms & L-functions","title":"Hecke operators"},"heights-arithmetic-geometry":{"next":"mathematics-and-cryptography","prev":"additive-number-theory","section":"Number theory","title":"Heights in arithmetic geometry"},"heyting-algebras-toposes":{"next":"cocartesian-fibrations","prev":null,"section":"Higher categories & toposes","title":"Heyting algebras & intuitionist logic"},"high-dimensional-geometry":{"next":"information-theory","prev":"large-deviations","section":"Probability & statistics","title":"High dimensional geometry"},"hodge-theory":{"next":"singular-cubics-reduction","prev":"motives","section":"Algebraic geometry","title":"Hodge theory"},"homological":{"next":"groebner-bases","prev":"commutative-algebra","section":"Algebra & homological","title":"Homological algebra"},"infinity-categories":{"next":"simplicial-sets-and-nerve","prev":"cocartesian-fibrations","section":"Higher categories & toposes","title":"∞-categories (quasi-categories)"},"infinity-topoi":{"next":null,"prev":"grothendieck-topologies-sites","section":"Higher categories & toposes","title":"∞-topoi"},"information-theory":{"next":"mathematical-statistics","prev":"high-dimensional-geometry","section":"Probability & statistics","title":"Information theory"},"intersection-theory-chow":{"next":"group-schemes","prev":"sheaves","section":"Algebraic geometry","title":"Intersection theory & Chow groups"},"iwasawa-theory":{"next":"continued-fractions","prev":"galois-representations","section":"Number theory","title":"Iwasawa theory"},"k-theory":{"next":"atiyah-singer-index-theorem","prev":"characteristic-classes","section":"Geometry & topology","title":"K-theory"},"klein-gordon-equation":{"next":"dirac-equation","prev":"special-relativity","section":"Mathematical physics","title":"Klein-Gordon equation"},"knot-polynomials":{"next":"smooth-manifolds","prev":"algebraic-topology","section":"Geometry & topology","title":"Knot polynomials"},"langlands-program":{"next":"theta-functions","prev":"vertex-operator-algebras","section":"Modular forms & L-functions","title":"Langlands program"},"large-deviations":{"next":"high-dimensional-geometry","prev":"random-walks-and-mixing","section":"Probability & statistics","title":"Large deviations"},"lie-algebras":{"next":"quaternions-octonions-and-division-algebras","prev":"representation-theory","section":"Algebra & homological","title":"Lie algebras"},"lie-groups":{"next":"mostow-rigidity","prev":"ricci-flow","section":"Geometry & topology","title":"Lie groups & algebras"},"mathematical-statistics":{"next":"probability-theory","prev":"information-theory","section":"Probability & statistics","title":"Mathematical statistics"},"mathematics-and-cryptography":{"next":"computational-number-theory","prev":"heights-arithmetic-geometry","section":"Number theory","title":"Mathematics and cryptography"},"matroid-theory":{"next":"probabilistic-method","prev":null,"section":"Combinatorics & graph theory","title":"Matroid theory"},"measure-theory":{"next":"harmonic-functions","prev":"complex-analysis","section":"Analysis","title":"Measure theory"},"microlocal-analysis":{"next":"geometric-measure-theory","prev":"advanced-complex-analysis","section":"Analysis","title":"Microlocal analysis"},"mirror-symmetry":{"next":"algebraic-curves-higher-genus","prev":"calabi-yau-manifolds","section":"Algebraic geometry","title":"Mirror symmetry"},"model-categories":{"next":"derived-categories","prev":"algebraic-k-theory-foundations","section":"Algebra & homological","title":"Model categories"},"model-theory-basics":{"next":"computability-and-decidability","prev":"naive-set-theory","section":"Logic & Foundations","title":"Model theory basics"},"modular-curves":{"next":"vertex-operator-algebras","prev":"partitions-generating-functions","section":"Modular forms & L-functions","title":"Modular curves"},"modular-forms":{"next":"partitions-generating-functions","prev":"upper-half-plane-hyperbolic","section":"Modular forms & L-functions","title":"Modular forms"},"modularity-and-flt":{"next":null,"prev":"bsd","section":"Modular forms & L-functions","title":"Modularity & FLT"},"moduli-spaces":{"next":"toric-varieties","prev":"sheaf-cohomology","section":"Algebraic geometry","title":"Moduli spaces"},"moonshine":{"next":"L-functions","prev":"automorphic-forms-adelic","section":"Modular forms & L-functions","title":"Monstrous moonshine"},"morphisms-fiber-products":{"next":"functor-of-points","prev":"group-schemes","section":"Algebraic geometry","title":"Morphisms & fiber products"},"morse-theory":{"next":"symplectic-manifolds","prev":"differential-forms","section":"Geometry & topology","title":"Morse theory"},"mostow-rigidity":{"next":"cohomology-and-duality","prev":"lie-groups","section":"Geometry & topology","title":"Mostow rigidity"},"motives":{"next":"hodge-theory","prev":"resolution-of-singularities","section":"Algebraic geometry","title":"Motives"},"naive-set-theory":{"next":"model-theory-basics","prev":null,"section":"Logic & Foundations","title":"Naive set theory"},"numerical-analysis":{"next":"variational-methods","prev":"spectral-theory","section":"Analysis","title":"Numerical analysis"},"operator-algebras":{"next":"dynamical-systems","prev":"geometric-measure-theory","section":"Analysis","title":"Operator algebras"},"p-adic-numbers":{"next":"adeles-and-ideles","prev":"algebraic-number-theory","section":"Number theory","title":"p-adic numbers"},"partial-differential-equations":{"next":"spectral-theory","prev":"wavelets","section":"Analysis","title":"Partial differential equations"},"partitions-generating-functions":{"next":"modular-curves","prev":"modular-forms","section":"Modular forms & L-functions","title":"Partitions & generating functions"},"point-set-topology":{"next":"algebraic-topology","prev":null,"section":"Geometry & topology","title":"Point-set topology"},"positivity-and-ample-line-bundles":{"next":"stacks","prev":"abelian-varieties","section":"Algebraic geometry","title":"Positivity and ample line bundles"},"probabilistic-method":{"next":"extremal-combinatorics","prev":"matroid-theory","section":"Combinatorics & graph theory","title":"Probabilistic method"},"probability-theory":{"next":null,"prev":"mathematical-statistics","section":"Probability & statistics","title":"Probability theory"},"projective-plane":{"next":"etale-fundamental-group","prev":null,"section":"Algebraic geometry","title":"Projective plane"},"quadratic-forms-genus-theory":{"next":"additive-number-theory","prev":"quadratic-reciprocity","section":"Number theory","title":"Quadratic forms & genus theory"},"quadratic-reciprocity":{"next":"quadratic-forms-genus-theory","prev":"frobenius-and-reciprocity","section":"Number theory","title":"Quadratic reciprocity"},"quantum-field-theory":{"next":null,"prev":"string-theory","section":"Mathematical physics","title":"Quantum field theory"},"quantum-groups":{"next":"algebraic-k-theory-foundations","prev":"group-cohomology","section":"Algebra & homological","title":"Quantum groups"},"quaternions-octonions-and-division-algebras":{"next":"geometric-and-combinatorial-group-theory","prev":"lie-algebras","section":"Algebra & homological","title":"Quaternions, octonions, and division algebras"},"random-walks-and-mixing":{"next":"large-deviations","prev":"stochastic-calculus","section":"Probability & statistics","title":"Random walks and mixing"},"real-analysis":{"next":"complex-analysis","prev":null,"section":"Analysis","title":"Real analysis"},"representation-theory":{"next":"lie-algebras","prev":"algebra","section":"Algebra & homological","title":"Representation theory"},"resolution-of-singularities":{"next":"motives","prev":"deformation-theory","section":"Algebraic geometry","title":"Resolution of singularities"},"ricci-flow":{"next":"lie-groups","prev":"riemannian-geometry","section":"Geometry & topology","title":"Ricci flow"},"riemann-surfaces":{"next":"differential-forms","prev":"differential-geometry","section":"Geometry & topology","title":"Riemann surfaces"},"riemannian-geometry":{"next":"ricci-flow","prev":"atiyah-singer-index-theorem","section":"Geometry & topology","title":"Riemannian geometry"},"sato-tate":{"next":"bsd","prev":"L-functions","section":"Modular forms & L-functions","title":"Sato–Tate"},"schemes":{"next":"sheaves","prev":"bezout","section":"Algebraic geometry","title":"Schemes"},"schrodinger-equation":{"next":"hamiltonians-classical-mechanics","prev":"general-relativity","section":"Mathematical physics","title":"Schrödinger equation"},"semigroup-theory-evolution-equations":{"next":null,"prev":"dynamical-systems","section":"Analysis","title":"Semigroup theory & evolution equations"},"sheaf-cohomology":{"next":"moduli-spaces","prev":"singular-cubics-reduction","section":"Algebraic geometry","title":"Sheaf cohomology"},"sheaves":{"next":"intersection-theory-chow","prev":"schemes","section":"Algebraic geometry","title":"Sheaves"},"simplicial-complexes-combinatorial":{"next":"enumerative-combinatorics","prev":"extremal-combinatorics","section":"Combinatorics & graph theory","title":"Simplicial complexes (combinatorial)"},"simplicial-sets-and-nerve":{"next":"elementary-topos-theory","prev":"infinity-categories","section":"Higher categories & toposes","title":"Simplicial sets & the nerve"},"singular-cubics-reduction":{"next":"sheaf-cohomology","prev":"hodge-theory","section":"Algebraic geometry","title":"Singular cubics & reduction"},"smooth-manifolds":{"next":"differential-geometry","prev":"knot-polynomials","section":"Geometry & topology","title":"Smooth manifolds"},"sobolev-spaces-distributions":{"next":"advanced-complex-analysis","prev":"variational-methods","section":"Analysis","title":"Sobolev spaces & distributions"},"special-relativity":{"next":"klein-gordon-equation","prev":"hamiltonians-classical-mechanics","section":"Mathematical physics","title":"Special relativity"},"spectral-graph-theory":{"next":"expanders","prev":"designs","section":"Combinatorics & graph theory","title":"Spectral graph theory"},"spectral-theory":{"next":"numerical-analysis","prev":"partial-differential-equations","section":"Analysis","title":"Spectral theory"},"stacks":{"next":"etale-cohomology","prev":"positivity-and-ample-line-bundles","section":"Algebraic geometry","title":"Stacks (Deligne–Mumford)"},"statistical-mechanics":{"next":"gauge-theory","prev":"dirac-equation","section":"Mathematical physics","title":"Statistical mechanics"},"stochastic-calculus":{"next":"random-walks-and-mixing","prev":"stochastic-processes-and-martingales","section":"Probability & statistics","title":"Stochastic calculus"},"stochastic-processes-and-martingales":{"next":"stochastic-calculus","prev":null,"section":"Probability & statistics","title":"Stochastic processes and martingales"},"string-theory":{"next":"quantum-field-theory","prev":"gauge-theory","section":"Mathematical physics","title":"String theory"},"symplectic-manifolds":{"next":"characteristic-classes","prev":"morse-theory","section":"Geometry & topology","title":"Symplectic manifolds"},"theta-functions":{"next":"hecke-operators","prev":"langlands-program","section":"Modular forms & L-functions","title":"Theta functions"},"three-body-problem":{"next":"general-relativity","prev":null,"section":"Mathematical physics","title":"The three-body problem"},"toric-varieties":{"next":"abelian-varieties","prev":"moduli-spaces","section":"Algebraic geometry","title":"Toric varieties"},"type-theory-and-hott":{"next":"first-order-logic-and-completeness","prev":"complexity-theory","section":"Logic & Foundations","title":"Type theory and HoTT"},"upper-half-plane-hyperbolic":{"next":"modular-forms","prev":"zeta-values","section":"Modular forms & L-functions","title":"Upper half-plane"},"variational-methods":{"next":"sobolev-spaces-distributions","prev":"numerical-analysis","section":"Analysis","title":"Variational methods"},"vertex-operator-algebras":{"next":"langlands-program","prev":"modular-curves","section":"Modular forms & L-functions","title":"Vertex operator algebras"},"wavelets":{"next":"partial-differential-equations","prev":"harmonic-analysis-fourier","section":"Analysis","title":"Wavelets"},"zeta-values":{"next":"upper-half-plane-hyperbolic","prev":"analytic-continuation","section":"Modular forms & L-functions","title":"Zeta values"},"zfc-and-ordinals":{"next":"forcing-and-independence","prev":"first-order-logic-and-completeness","section":"Logic & Foundations","title":"ZFC and ordinals"}};</script>
+<script src="./js/breadcrumb.js"></script>
+<script src="./js/glossary-popover.js" defer></script>
+<link rel="stylesheet" media="print" href="./css/print.css">
+<link rel="stylesheet" href="./css/theme-light.css">
+<script src="./js/theme-toggle.js"></script>
+<script src="./concepts/bundle.js" defer></script>
+<script src="./js/topic-hotkeys.js" defer></script>
+<script src="./js/topic-lineage.js" defer></script>
+<!-- breadcrumb-head-auto-end -->
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./js/katex-select.js"></script>
+<script src="./js/widget-diagram-editor.js"></script>
+<script src="./quizzes/bundle.js"></script>
+<script src="./js/sidetoc.js"></script>
+<!-- display-prefs-head-auto-begin -->
+<script src="./js/display-prefs.js"></script>
+<!-- display-prefs-head-auto-end -->
+</head>
+<body data-section="algebraic-geometry" data-level="advanced">
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+// draw an arrow marker def once per svg (idempotent)
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+// curved arrow between two pixel points, with optional label
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  // shorten endpoints
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><span class="nav-links"><a class="nav-link" href="./pathway.html">Pathway</a><a class="nav-link" href="./tours.html">Tours</a><a class="nav-link" href="./history.html">History</a><a class="nav-link" href="./tags.html">Themes</a><a class="nav-link" href="./mindmap.html">Mindmap</a><a class="nav-link" href="./search.html">Search</a></span><span class="mv-theme-slot"></span><!-- breadcrumb-nav-auto-end -->
+<!-- toc-auto-begin -->
+  <a href="#definition">1&nbsp;Definition&nbsp;and&nbsp;complex&nbsp;tori</a>
+  <a href="#polarization">2&nbsp;Polarizations&nbsp;and&nbsp;the&nbsp;dual&nbsp;abelian&nbsp;variety</a>
+  <a href="#tate">3&nbsp;Isogenies,&nbsp;Tate&nbsp;modules,&nbsp;and&nbsp;Galois&nbsp;action</a>
+  <a href="#jacobian">4&nbsp;Jacobians&nbsp;of&nbsp;curves</a>
+  <a href="#neron">5&nbsp;Néron&nbsp;models&nbsp;and&nbsp;reduction</a>
+  <a href="#mordell-weil">6&nbsp;Mordell–Weil&nbsp;and&nbsp;Faltings&nbsp;finiteness</a>
+  <a href="#connections">7&nbsp;Connections</a>
+<!-- toc-auto-end -->
+</nav>
+<!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Abelian varieties</h1>
+  <p class="sub">A connected projective group variety. In dimension $1$ this is an elliptic curve; in dimension $g$ it is a $2g$-real-dimensional torus that happens to be cut out by polynomial equations. From complex tori and Riemann forms to Jacobians, Néron models, Mordell–Weil, and Faltings' finiteness theorem.</p>
+</section>
+
+<section id="definition">
+<h2>1. Definition and complex tori</h2>
+
+<p>An <strong>abelian variety</strong> over a field $k$ is a connected projective group variety $A/k$ — that is, a smooth projective variety equipped with $k$-morphisms $m\colon A\times A\to A$ and $\iota\colon A\to A$ and an identity section $e\colon\Spec k\to A$ that satisfy the group axioms. The dimension of $A$ as a variety is its <em>dimension as an abelian variety</em>; an elliptic curve is precisely an abelian variety of dimension $1$.</p>
+
+<div class="ok"><strong>Rigidity lemma + theorem of the cube.</strong> Every morphism of abelian varieties is the composition of a translation and a homomorphism; consequently the group law on $A(\bar k)$ is automatically <em>commutative</em>. Theorem of the cube further forces the existence of an isomorphism $\mathcal{L}_{x+y+z}\otimes\mathcal{L}_{x+y}^{-1}\otimes\mathcal{L}_{y+z}^{-1}\otimes\mathcal{L}_{x+z}^{-1}\otimes\mathcal{L}_x\otimes\mathcal{L}_y\otimes\mathcal{L}_z\cong\mathcal{O}_A$ for every line bundle $\mathcal{L}$ on $A$ — the "cube" relation that controls the entire theory of line bundles, polarizations, and Néron models.</div>
+
+<p>Over $\mathbb{C}$ there is a transparent description. Let $V=T_0A(\mathbb{C})\cong\mathbb{C}^g$ be the holomorphic tangent space at the identity and $\Lambda=\ker(\exp\colon V\to A(\mathbb{C}))$. Then</p>
+$$A(\mathbb{C})\;\cong\;V/\Lambda$$
+<p>as complex Lie groups, with $\Lambda$ a rank-$2g$ lattice in $V$. So as a manifold, $A(\mathbb{C})$ is a $2g$-real-dimensional torus.</p>
+
+<div class="bad"><strong>Caution.</strong> Not every complex torus $V/\Lambda$ is algebraic. For $g=1$ every torus is an elliptic curve (Weierstrass $\wp$-theory); for $g\ge 2$, a generic lattice produces a complex torus with no nonconstant meromorphic functions, hence not embeddable in projective space. The condition that picks out the algebraic ones — a positive Riemann form — is the subject of §2.</div>
+
+<p>The widget below visualises a $2$-dimensional complex torus by its lattice $\Lambda\subset\mathbb{C}^2$. Pick the period matrix; the readout reports whether the polarisation condition (Riemann's bilinear relations, §2) is satisfied — that is, whether the torus is an abelian surface.</p>
+
+<div class="widget" id="w-torus">
+  <div class="hd"><div class="ttl">Complex torus $\mathbb{C}^2/\Lambda$ — algebraic or not?</div><div class="hint">Riemann bilinear relations control projectivity</div></div>
+  <div class="row">
+    <label for="tor-tau11">$\tau_{11}$ (real)</label>
+    <input type="range" id="tor-tau11" min="-1" max="1" step="0.1" value="0">
+    <span class="readout" id="tor-tau11-val" style="min-width:3em;display:inline-block">0.0</span>
+    <label for="tor-tau12">$\tau_{12}=\tau_{21}$ (real, symmetric)</label>
+    <input type="range" id="tor-tau12" min="-1" max="1" step="0.1" value="0">
+    <span class="readout" id="tor-tau12-val" style="min-width:3em;display:inline-block">0.0</span>
+    <label for="tor-tau22">$\tau_{22}$ (real)</label>
+    <input type="range" id="tor-tau22" min="-1" max="1" step="0.1" value="0">
+    <span class="readout" id="tor-tau22-val" style="min-width:3em;display:inline-block">0.0</span>
+  </div>
+  <div class="row">
+    <label for="tor-y11">$\operatorname{Im}\tau_{11}>0$</label>
+    <input type="range" id="tor-y11" min="0.2" max="3" step="0.1" value="1.0">
+    <span class="readout" id="tor-y11-val" style="min-width:3em;display:inline-block">1.0</span>
+    <label for="tor-y12">$\operatorname{Im}\tau_{12}=\operatorname{Im}\tau_{21}$</label>
+    <input type="range" id="tor-y12" min="-1.5" max="1.5" step="0.1" value="0.0">
+    <span class="readout" id="tor-y12-val" style="min-width:3em;display:inline-block">0.0</span>
+    <label for="tor-y22">$\operatorname{Im}\tau_{22}>0$</label>
+    <input type="range" id="tor-y22" min="0.2" max="3" step="0.1" value="1.0">
+    <span class="readout" id="tor-y22-val" style="min-width:3em;display:inline-block">1.0</span>
+  </div>
+  <div class="readout" id="tor-out">…</div>
+</div>
+
+<p>Riemann's bilinear relations require the period matrix $\tau=X+iY$ to satisfy: $\tau$ is symmetric and $Y=\operatorname{Im}\tau$ is positive definite. Both conditions involve only the imaginary part. The widget computes $\tau-\tau^T$ (symmetry obstruction) and the eigenvalues of $Y$ (positivity); when both pass the torus is the period matrix of a principally polarized abelian surface in <em>Siegel upper half-space</em> $\mathfrak{H}_2$.</p>
+
+<div class="quiz" data-concept="av-definition"></div><!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./algebraic-curves-higher-genus.html#smooth-projective-curve">Smooth projective curves and their genus</a></li>
+    <li><a href="./elliptic-curves.html#intro">Elliptic curves and Weierstrass models</a></li>
+    <li><a href="./schemes.html#projective-scheme">Projective schemes and Proj</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./abelian-varieties.html#tate">Abelian varieties</a> · Isogenies, Tate modules, and Galois action</div>
+    <div><a href="./abelian-varieties.html#neron">Abelian varieties</a> · Néron models and reduction types</div>
+    <div><a href="./abelian-varieties.html#polarization">Abelian varieties</a> · Polarizations and the dual abelian variety</div>
+</aside>
+<!-- backlinks-auto-end -->
+</section>
+
+<section id="polarization">
+<h2>2. Polarizations and the dual abelian variety</h2>
+
+<p>The line bundles on an abelian variety split into two pieces. The connected component $\mathrm{Pic}^0(A)$ — line bundles with trivial first Chern class — is itself an abelian variety, the <strong>dual</strong>:</p>
+$$A^\vee \;=\; \mathrm{Pic}^0(A).$$
+
+<p>It has the same dimension as $A$. The remaining component $\mathrm{Pic}(A)/\mathrm{Pic}^0(A) = \mathrm{NS}(A)$, the Néron–Severi group, is finitely generated and counts polarisation classes.</p>
+
+<div class="ok"><strong>Polarization.</strong> A polarization on $A$ is an isogeny $\lambda\colon A\to A^\vee$ of the form $\lambda=\phi_{\mathcal{L}}$ where $\phi_{\mathcal{L}}(x)=t_x^*\mathcal{L}\otimes\mathcal{L}^{-1}\in\mathrm{Pic}^0(A)$ for an ample line bundle $\mathcal{L}$ on $A$. The polarization is <em>principal</em> iff $\lambda$ is an isomorphism — equivalently $\mathcal{L}$ has a single global section up to scaling, $h^0(A,\mathcal{L})=1$.</div>
+
+<p>Over $\mathbb{C}$ this rephrases as classical data on the lattice. A line bundle $\mathcal{L}$ on $V/\Lambda$ corresponds (Appell–Humbert) to a Hermitian form $H$ on $V$ with $\operatorname{Im}H(\Lambda,\Lambda)\subset\mathbb{Z}$, plus a semicharacter on $\Lambda$. $\mathcal{L}$ is ample iff $H$ is <strong>positive definite</strong>. The pair $(\Lambda,H)$ is then a <strong>polarized lattice</strong>; the elementary divisors $(d_1\mid d_2\mid\cdots\mid d_g)$ of $\operatorname{Im}H|_\Lambda$ are the polarization type, and $\deg\lambda=(d_1\cdots d_g)^2$.</p>
+
+<div class="note"><strong>Why $g\ge 2$ generically fails.</strong> A random Hermitian form on $\mathbb{C}^g$ generically has irrational entries on a random lattice; the rationality condition $\operatorname{Im}H(\Lambda,\Lambda)\subset\mathbb{Z}$ cuts out a positive-codimension locus inside $\mathrm{Mat}_g(\mathbb{C})$. So the moduli space $\mathcal{A}_g$ of polarized abelian varieties has dimension $g(g+1)/2$ — much smaller than the $g^2$ dimensions of generic complex tori.</div>
+
+<p>The widget tabulates the moduli dimensions and contrasts with elliptic curves $g=1$ (where every torus is automatically polarized).</p>
+
+<div class="widget" id="w-mod">
+  <div class="hd"><div class="ttl">$\dim\mathcal{A}_g$ vs. $\dim\{\text{complex }g\text{-tori}\}$</div><div class="hint">how rare are abelian varieties?</div></div>
+  <table class="plain" id="mod-tbl">
+    <thead><tr><th>$g$</th><th>complex tori (real dim)</th><th>p.p. abelian vars: $\dim\mathcal{A}_g=g(g+1)/2$</th><th>codim of $\mathcal{A}_g$ in tori</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>2 (real); 1 complex</td><td>1</td><td>0 — every torus is algebraic</td></tr>
+      <tr><td>2</td><td>4 complex</td><td>3</td><td>1 — most $g{=}2$ tori are not abelian</td></tr>
+      <tr><td>3</td><td>9 complex</td><td>6</td><td>3</td></tr>
+      <tr><td>4</td><td>16 complex</td><td>10</td><td>6</td></tr>
+      <tr><td>5</td><td>25 complex</td><td>15</td><td>10</td></tr>
+      <tr><td>$g$</td><td>$g^2$ complex</td><td>$g(g+1)/2$</td><td>$g(g-1)/2$</td></tr>
+    </tbody>
+  </table>
+  <div class="readout" id="mod-out">For $g=1$ every torus is an elliptic curve. For $g \ge 2$ the codimension grows quadratically — abelian varieties are special complex tori.</div>
+</div>
+
+<p>The Riemann–Roch theorem on $A$ gives the sharp dimension count: for a polarization $\mathcal{L}$ of type $(d_1,\dots,d_g)$,</p>
+$$h^0(A,\mathcal{L}) \;=\; d_1 d_2 \cdots d_g.$$
+<p>So principal polarizations are exactly those with a one-dimensional space of global sections — and a single (up to scaling) section vanishes on a divisor $\Theta$, the <em>theta divisor</em>. The pair $(A,\Theta)$ recovers the polarized abelian variety up to isomorphism.</p>
+
+<div class="quiz" data-concept="av-polarization"></div><!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./elliptic-curves.html#complex">Elliptic curves — complex uniformization</a></li>
+    <li><a href="./theta-functions.html">Theta functions</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./abelian-varieties.html#jacobian">Abelian varieties</a> · Jacobians of curves and Torelli</div>
+</aside>
+<!-- backlinks-auto-end -->
+</section>
+
+<section id="tate">
+<h2>3. Isogenies, Tate modules, and Galois action</h2>
+
+<p>An <strong>isogeny</strong> is a surjective morphism $\phi\colon A\to B$ of abelian varieties of the same dimension, with finite kernel. The most important examples are the multiplication-by-$n$ maps:</p>
+$$[n]\colon A\longrightarrow A,\qquad \deg[n] \;=\; n^{2g}.$$
+
+<p>When $n$ is invertible in $k$ (e.g. for any $n$ when $k$ has characteristic $0$), $[n]$ is étale and</p>
+$$A[n](\bar k) \;=\; \ker[n] \;\cong\; (\mathbb{Z}/n\mathbb{Z})^{2g}.$$
+
+<p>So $A$ has, geometrically, $n^{2g}$ points of order dividing $n$. In characteristic $p$ dividing $n$, $[p]$ is purely inseparable on a piece, and $A[p^\infty]$ acquires a Newton-polygon classification (ordinary, supersingular, etc.) — a story we leave to deformation theory.</p>
+
+<div class="ok"><strong>Tate module.</strong> Fix a prime $\ell\ne\mathrm{char}\,k$. Pass to the inverse limit:
+$$T_\ell A \;=\; \varprojlim_n A[\ell^n](\bar k) \;\cong\; \mathbb{Z}_\ell^{2g}.$$
+$T_\ell A$ is a free $\mathbb{Z}_\ell$-module of rank $2g$, and the absolute Galois group $G_k=\Gal(\bar k/k)$ acts continuously and $\mathbb{Z}_\ell$-linearly. We get a continuous representation
+$$\rho_{A,\ell}\colon G_k\longrightarrow\mathrm{GL}_{2g}(\mathbb{Z}_\ell).$$</div>
+
+<p>For an elliptic curve ($g=1$) this is the familiar $2$-dimensional $\ell$-adic Galois representation; for higher $g$ it is its $2g$-dimensional analogue. The Weil pairing makes $\rho_{A,\ell}$ symplectic (after a polarization): it factors through $\mathrm{GSp}_{2g}(\mathbb{Z}_\ell)$.</p>
+
+<div class="ok"><strong>Frobenius eigenvalues — the Weil conjectures (proved by Weil, 1948).</strong> Let $A/\mathbb{F}_q$ be an abelian variety of dimension $g$ and $\mathrm{Frob}_q\in G_{\mathbb{F}_q}$ the geometric Frobenius. The characteristic polynomial
+$$P_A(T) \;=\; \det\!\big(T - \mathrm{Frob}_q\bigm| T_\ell A\otimes\mathbb{Q}_\ell\big)\;\in\;\mathbb{Z}[T]$$
+has degree $2g$, integer coefficients independent of $\ell$, and roots $\alpha_1,\dots,\alpha_{2g}$ that are <strong>Weil $q$-numbers</strong>:
+$$|\alpha_i| \;=\; \sqrt{q}\quad\text{in every embedding }\bar{\mathbb{Q}}\hookrightarrow\mathbb{C}.$$
+The number of points satisfies $|A(\mathbb{F}_{q^n})|=\prod_i(1-\alpha_i^n)$, so $|A(\mathbb{F}_q)|=P_A(1)$.</div>
+
+<p>The widget reads off the point count given a Weil polynomial. Pick the eigenvalues (constrained to lie on the Weil circle $|z|=\sqrt q$) and watch the prediction match.</p>
+
+<div class="widget" id="w-weil">
+  <div class="hd"><div class="ttl">Weil polynomial → point count</div><div class="hint">$|A(\mathbb{F}_{q^n})|=\prod_i(1-\alpha_i^n)$</div></div>
+  <div class="row">
+    <label for="wl-q">$q$ (prime power)</label>
+    <select id="wl-q"><option value="2">2</option><option value="3">3</option><option value="5" selected>5</option><option value="7">7</option><option value="11">11</option></select>
+    <label for="wl-g">dim $g$</label>
+    <select id="wl-g"><option value="1">1 (elliptic)</option><option value="2" selected>2 (surface)</option></select>
+    <label for="wl-th1">$\arg\alpha_1\in[0,\pi]$</label>
+    <input type="range" id="wl-th1" min="0" max="3.14" step="0.05" value="1.0">
+    <span class="readout" id="wl-th1-val" style="min-width:3em;display:inline-block">1.00</span>
+    <label for="wl-th2">$\arg\alpha_2\in[0,\pi]$ ($g\ge 2$)</label>
+    <input type="range" id="wl-th2" min="0" max="3.14" step="0.05" value="2.0">
+    <span class="readout" id="wl-th2-val" style="min-width:3em;display:inline-block">2.00</span>
+  </div>
+  <div class="row">
+    <label for="wl-n">extension $\mathbb{F}_{q^n}$</label>
+    <input type="range" id="wl-n" min="1" max="10" step="1" value="1">
+    <span class="readout" id="wl-n-val" style="min-width:2em;display:inline-block">1</span>
+  </div>
+  <div class="readout" id="wl-out">…</div>
+</div>
+
+<p>Three deep theorems pin the structure down further. <strong>Tate's isogeny conjecture</strong> (proved by Tate over finite fields in 1966 and by Faltings over number fields in 1983): the natural map</p>
+$$\mathrm{Hom}(A,B)\otimes\mathbb{Z}_\ell \;\longrightarrow\; \mathrm{Hom}_{G_k}(T_\ell A, T_\ell B)$$
+<p>is an isomorphism. So the Galois module $T_\ell A$ recovers the abelian variety up to isogeny. <strong>Semisimplicity</strong>: the action on $V_\ell A=T_\ell A\otimes\mathbb{Q}_\ell$ is semisimple. <strong>Independence of $\ell$</strong>: the trace of $\mathrm{Frob}_v$ at any unramified place of a number field is the same integer for all good $\ell\ne\ell(v)$.</p>
+
+<div class="quiz" data-concept="av-tate-module"></div><!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./galois-representations.html#frob">Galois representations — Frobenius traces</a></li>
+    <li><a href="./elliptic-curves.html#mordell">Elliptic curves — Mordell–Weil</a></li>
+    <li><a href="./sato-tate.html">Sato–Tate</a> — the angles $\theta_v=\arg\alpha_v$ equidistribute</li>
+    <li><a href="./galois-representations.html#rep">Galois representations and examples</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./abelian-varieties.html#mordell-weil">Abelian varieties</a> · Mordell–Weil and Faltings finiteness</div>
+</aside>
+<!-- backlinks-auto-end -->
+</section>
+
+<section id="jacobian">
+<h2>4. Jacobians of curves</h2>
+
+<p>Where do principally polarized abelian varieties come from in the wild? The first, and historically the only, examples are <strong>Jacobians</strong>.</p>
+
+<div class="ok"><strong>Jacobian of a curve.</strong> Let $C$ be a smooth projective curve of genus $g$ over a field $k$. The Picard variety
+$$\mathrm{Jac}(C) \;=\; \mathrm{Pic}^0(C)$$
+is a $g$-dimensional abelian variety over $k$. Over $\mathbb{C}$,
+$$\mathrm{Jac}(C) \;\cong\; H^0(C,\Omega^1_{C})^\ast / H_1(C,\mathbb{Z}),$$
+i.e. holomorphic $1$-forms modulo periods.</div>
+
+<p>The integration map gives the lattice: a basis $\omega_1,\dots,\omega_g$ of $H^0(C,\Omega^1)$ and a symplectic basis $a_1,\dots,a_g,b_1,\dots,b_g$ of $H_1(C,\mathbb{Z})$ produce a $g\times 2g$ <em>period matrix</em></p>
+$$\Omega \;=\; \big(\textstyle\int_{a_j}\omega_i \;\big|\; \int_{b_j}\omega_i\big).$$
+<p>Choosing the $a$-periods to be the identity (always possible) gives $\Omega=(I_g\mid\tau)$ with $\tau\in\mathfrak{H}_g$ the Siegel upper half-space — exactly the polarised period matrices of §1.</p>
+
+<div class="ok"><strong>Abel–Jacobi map.</strong> Fix a basepoint $p_0\in C$. The map
+$$\mathrm{AJ}\colon C\hookrightarrow\mathrm{Jac}(C),\qquad p\mapsto[p-p_0]$$
+is a closed immersion (for $g\ge 1$) and embeds the curve in its Jacobian. Symmetric powers extend this to $\mathrm{Sym}^d(C)\to\mathrm{Pic}^d(C)$. The image of $\mathrm{Sym}^{g-1}(C)\to\mathrm{Pic}^{g-1}(C)\cong\mathrm{Jac}(C)$ (after a translation) is the <strong>theta divisor</strong> $\Theta\subset\mathrm{Jac}(C)$, providing the canonical principal polarization.</div>
+
+<p>The theta divisor distinguishes Jacobians among all p.p.a.v.'s.</p>
+
+<div class="ok"><strong>Torelli theorem (Torelli 1913, Andreotti 1958, Matsusaka 1958).</strong> The map
+$$\{\text{smooth projective curves of genus }g\}\,\big/\,\mathrm{iso}\;\longrightarrow\;\mathcal{A}_g(\mathbb{C}),\quad C\mapsto(\mathrm{Jac}(C),\Theta)$$
+is injective. So the polarized Jacobian determines the curve up to isomorphism.</div>
+
+<p>Counting dimensions reveals the <strong>Schottky problem</strong>. The image — the <em>Jacobian locus</em> $\mathcal{J}_g\subset\mathcal{A}_g$ — has dimension</p>
+<ul>
+  <li>$\dim\mathcal{M}_g = 3g-3$ for $g\ge 2$ (moduli of curves),</li>
+  <li>$\dim\mathcal{A}_g = g(g+1)/2$ (moduli of p.p.a.v.'s).</li>
+</ul>
+<p>For $g=2,3$ the two coincide: every p.p.a.v. is a Jacobian. For $g=4$, $3g-3=9$ vs. $g(g+1)/2=10$ — codimension $1$ — and the Schottky equation cuts out the closure of $\mathcal{J}_4$. For $g\ge 5$ the codimension grows quadratically, and characterising $\mathcal{J}_g$ remains an active problem (Riemann's theta-null relations, Fay's identities, the Buser–Sarnak–Krichever programs).</p>
+
+<div class="widget" id="w-jac">
+  <div class="hd"><div class="ttl">Jacobians inside $\mathcal{A}_g$ — the Schottky gap</div><div class="hint">when does a p.p.a.v. come from a curve?</div></div>
+  <table class="plain" id="jac-tbl">
+    <thead><tr><th>$g$</th><th>$\dim\mathcal{M}_g=3g-3$</th><th>$\dim\mathcal{A}_g=g(g+1)/2$</th><th>codim of $\mathcal{J}_g$ in $\mathcal{A}_g$</th><th>status</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>1 (just $j$)</td><td>1</td><td>0</td><td>every p.p.a.v. is an elliptic curve</td></tr>
+      <tr><td>2</td><td>3</td><td>3</td><td>0</td><td>every p.p.a.v. is a Jacobian</td></tr>
+      <tr><td>3</td><td>6</td><td>6</td><td>0</td><td>every irreducible p.p.a.v. is a Jacobian (or a product)</td></tr>
+      <tr><td>4</td><td>9</td><td>10</td><td>1</td><td>Schottky equation cuts out $\overline{\mathcal{J}_4}$</td></tr>
+      <tr><td>5</td><td>12</td><td>15</td><td>3</td><td>cut out by Andreotti–Mayer + further conditions</td></tr>
+      <tr><td>$g$</td><td>$3g-3$</td><td>$g(g+1)/2$</td><td>$\binom{g-2}{2}$</td><td>Schottky problem — active</td></tr>
+    </tbody>
+  </table>
+  <div class="readout" id="jac-out">For $g\le 3$, "abelian variety" and "Jacobian (or product)" coincide; for $g\ge 4$, most abelian varieties are not Jacobians.</div>
+</div>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./algebraic-curves-higher-genus.html#divisors">Higher-genus curves — divisors and Jacobian</a></li>
+    <li><a href="./algebraic-curves-higher-genus.html#moduli-of-curves-genus-g">Moduli of curves $\mathcal{M}_g$</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><div class="quiz" data-concept="av-jacobian"></div>
+</section>
+
+<section id="neron">
+<h2>5. Néron models and reduction</h2>
+
+<p>Now the arithmetic side. Let $K$ be a discretely-valued field with valuation ring $\mathcal{O}_K$ and residue field $k$. Given an abelian variety $A/K$, can we extend it to a smooth $\mathcal{O}_K$-scheme? The naive idea — clear denominators in defining equations — usually loses smoothness at the closed point.</p>
+
+<div class="ok"><strong>Néron's theorem (1964).</strong> There is a unique smooth separated $\mathcal{O}_K$-group scheme $\mathcal{A}/\mathcal{O}_K$ of finite type — the <strong>Néron model</strong> of $A$ — with generic fibre $\mathcal{A}_K=A$ and the following <em>Néron mapping property</em>: for every smooth $\mathcal{O}_K$-scheme $T$, every $K$-morphism $T_K\to A$ extends uniquely to a morphism $T\to\mathcal{A}$. Consequently $\mathcal{A}(\mathcal{O}_K)=A(K)$.</div>
+
+<p>The Néron model is rarely projective; it gives up properness in exchange for keeping smoothness. The interesting object is its special fibre.</p>
+
+<p>Decompose $\mathcal{A}_k=\mathcal{A}_k^0\sqcup(\mathcal{A}_k\setminus\mathcal{A}_k^0)$ into the connected component of identity and its complement. By a structure theorem of Chevalley (as refined by Grothendieck and Raynaud):</p>
+$$0\;\longrightarrow\;U\;\longrightarrow\;\mathcal{A}_k^0\;\longrightarrow\;G\;\longrightarrow\;0$$
+<p>with $U$ unipotent (a power of $\mathbb{G}_a$) and $G$ a semiabelian variety — that is, $G$ fits into</p>
+$$0\;\longrightarrow\;T\;\longrightarrow\;G\;\longrightarrow\;B\;\longrightarrow\;0$$
+<p>with $T$ a torus and $B$ an abelian variety over $k$. The component group</p>
+$$\Phi \;=\; \mathcal{A}_k/\mathcal{A}_k^0$$
+<p>is a finite étale group scheme over $k$.</p>
+
+<div class="widget" id="w-red">
+  <div class="hd"><div class="ttl">Reduction types — the dictionary</div><div class="hint">read off $U,T,B$ from the special fibre</div></div>
+  <table class="plain" id="red-tbl">
+    <thead><tr><th>type</th><th>$\dim B$</th><th>$\dim T$ (toric rank)</th><th>$\dim U$ (unipotent rank)</th><th>example for $E/K$ ($g=1$)</th></tr></thead>
+    <tbody>
+      <tr><td><strong>good</strong></td><td>$g$</td><td>$0$</td><td>$0$</td><td>$\mathcal{E}_k$ is again an elliptic curve</td></tr>
+      <tr><td><strong>multiplicative</strong> (semistable, $T\ne 0$)</td><td>$<g$</td><td>$>0$</td><td>$0$</td><td>Tate curve / Néron $n$-gon, type $I_n$</td></tr>
+      <tr><td><strong>additive</strong> (unstable)</td><td>$<g$</td><td>any</td><td>$>0$</td><td>cuspidal cubic, types $II,III,IV,I_n^*,II^*,III^*,IV^*$</td></tr>
+    </tbody>
+  </table>
+  <div class="readout" id="red-out">Good ↔ pure abelian; semistable ↔ no unipotent part (Grothendieck's terminology); additive ↔ everything else.</div>
+</div>
+
+<div class="ok"><strong>Grothendieck's semistable reduction theorem (SGA 7, 1972).</strong> For any $A/K$, there is a finite separable extension $K'/K$ such that $A_{K'}$ has semistable reduction. Equivalently: after extending the base, the unipotent rank vanishes.</div>
+
+<p>The <strong>Néron–Ogg–Shafarevich criterion</strong> connects reduction to Galois representations: $A/K$ has good reduction at $v$ iff the inertia group $I_v$ acts trivially on $T_\ell A$ for some (equivalently every) $\ell\ne\mathrm{char}\,k(v)$. So the local Galois representation knows the reduction type — and the conductor exponent $f_v$ measures the inertia invariants:</p>
+$$f_v \;=\; \dim T_\ell A \;-\; \dim(T_\ell A)^{I_v} \;+\; (\text{wild part}).$$
+
+<p>For elliptic curves the resulting <em>Kodaira–Néron classification</em> (Kodaira 1963, Néron 1964, Tate's algorithm 1975) lists exactly $10$ reduction types: $I_0$ (good), $I_n$ ($n\ge 1$, multiplicative), and seven additive types $II,III,IV,I_0^*,I_n^*,IV^*,III^*,II^*$. For $g\ge 2$ the analogous classification is more elaborate but follows the same pattern via the toric / unipotent / abelian rank triple.</p>
+
+<div class="quiz" data-concept="av-neron-model"></div><!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./singular-cubics-reduction.html">Singular cubics &amp; reduction</a></li>
+    <li><a href="./morphisms-fiber-products.html#fibers">Geometric fibers</a></li>
+    <li><a href="./galois-representations.html#ram">Galois representations — inertia and the conductor</a></li>
+    <li><a href="./morphisms-fiber-products.html#fiber">Fiber products and base change</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./abelian-varieties.html#mordell-weil">Abelian varieties</a> · Mordell–Weil and Faltings finiteness</div>
+</aside>
+<!-- backlinks-auto-end -->
+</section>
+
+<section id="mordell-weil">
+<h2>6. Mordell–Weil and Faltings finiteness</h2>
+
+<p>The two foundational finiteness theorems of arithmetic on abelian varieties.</p>
+
+<div class="ok"><strong>Mordell–Weil theorem (Mordell 1922 for elliptic curves over $\mathbb{Q}$; Weil 1929 in general).</strong> Let $A$ be an abelian variety over a number field $K$. Then $A(K)$ is a finitely generated abelian group:
+$$A(K) \;\cong\; \mathbb{Z}^r \;\oplus\; A(K)_{\mathrm{tors}}$$
+with $r=\mathrm{rank}\,A(K)$ finite and $A(K)_{\mathrm{tors}}$ finite.</div>
+
+<p>The proof has two halves, both visible already in the elliptic case.</p>
+<ul>
+  <li><strong>Weak Mordell–Weil:</strong> $A(K)/nA(K)$ is finite. The Kummer sequence $0\to A[n]\to A\xrightarrow{[n]}A\to 0$ gives an injection $A(K)/nA(K)\hookrightarrow H^1(G_K,A[n])$; selmer-style finite-ramification arguments bound the right-hand side using the unit group and class group of $K(A[n])$.</li>
+  <li><strong>Descent via heights:</strong> the Néron–Tate canonical height $\hat h\colon A(\bar K)\to\mathbb{R}$ is a positive-semidefinite quadratic form vanishing exactly on torsion. Coset representatives $Q_1,\dots,Q_m$ for $A(K)/nA(K)$ together with the inequality $\hat h(P')\le\tfrac{1}{n^2}\hat h(P)+C$ (where $P=nP'+Q_i$) iterate every point into a Northcott-finite ball.</li>
+</ul>
+
+<div class="ok"><strong>Faltings' theorem (1983, <em>Endlichkeitssätze für abelsche Varietäten</em>).</strong> Fix a number field $K$, an integer $g\ge 1$, and a finite set $S$ of places of $K$. Then there are only finitely many isomorphism classes of $g$-dimensional principally polarized abelian varieties over $K$ with good reduction outside $S$.</div>
+
+<p>Faltings' proof simultaneously establishes three deep statements that had been open for decades:</p>
+<ul>
+  <li><strong>Tate's isogeny conjecture</strong> over number fields: $\mathrm{Hom}(A,B)\otimes\mathbb{Z}_\ell\cong\mathrm{Hom}_{G_K}(T_\ell A, T_\ell B)$.</li>
+  <li><strong>Semisimplicity</strong> of $V_\ell A=T_\ell A\otimes\mathbb{Q}_\ell$ as a $G_K$-representation.</li>
+  <li><strong>Shafarevich's conjecture</strong> in the form stated above (only finitely many AVs with controlled reduction).</li>
+</ul>
+
+<div class="ok"><strong>Mordell's conjecture (Faltings 1983).</strong> Let $C$ be a smooth projective curve of genus $g\ge 2$ over a number field $K$. Then $C(K)$ is finite.</div>
+
+<p>The bridge from Faltings' Shafarevich-style theorem to Mordell is the <em>Kodaira–Parshin construction</em>: a $K$-rational point $P\in C(K)$ produces an abelian variety $A_P$ (Jacobian of an étale cover of $C$ branched at $P$) of fixed dimension and bounded reduction. Faltings' finiteness for abelian varieties bounds the $A_P$, hence bounds the points $P$.</p>
+
+<p>The widget below tracks what's known unconditionally vs. what's still open. Pick a curve type and a base field; the readout tells you which finiteness theorems apply.</p>
+
+<div class="widget" id="w-fin">
+  <div class="hd"><div class="ttl">What's finite, where?</div><div class="hint">Mordell–Weil, Mordell, Lang, …</div></div>
+  <div class="row">
+    <label for="fin-obj">object</label>
+    <select id="fin-obj">
+      <option value="ec-points">$E(K)$, $E$ elliptic / $K$ number field</option>
+      <option value="av-points" selected>$A(K)$, $A$ abelian / $K$ number field</option>
+      <option value="curve-points">$C(K)$, $C$ smooth projective genus $g$</option>
+      <option value="av-rep">isomorphism classes of $g$-dim p.p.a.v.'s / $K$ with good reduction outside $S$</option>
+    </select>
+    <label for="fin-cond">condition</label>
+    <select id="fin-cond">
+      <option value="g0">genus $0$</option>
+      <option value="g1">genus $1$ / dim $1$</option>
+      <option value="g2plus" selected>dim or genus $\ge 2$</option>
+    </select>
+  </div>
+  <div class="readout" id="fin-out">Choose object + condition to see the finiteness theorem that applies.</div>
+</div>
+
+<p>Beyond Faltings, several sharper finiteness statements remain conjectural. <strong>Effective Mordell</strong> (the bound on $|C(K)|$ Faltings produces is ineffective; Vojta–Bombieri sharpened the constants but no algorithm enumerates $C(K)$ in general). <strong>Uniform Mordell</strong> (Mazur conjectured $|C(K)|\le N(g,K)$; Dimitrov–Gao–Habegger 2021 proved $|C(K)|\le c(g)\cdot 7^{r_K+\mathrm{rank}\,\mathrm{Jac}(C)(K)}$). <strong>Lang's conjecture</strong>: rational points on a variety of general type are not Zariski dense — implies uniform Mordell and is wide open.</p>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./elliptic-curves.html#mordell">Elliptic curves — Mordell–Weil ($g=1$ case)</a></li>
+    <li><a href="./heights-arithmetic-geometry.html#descent">Mordell–Weil descent via heights</a></li>
+    <li><a href="./heights-arithmetic-geometry.html#mordell-faltings">Heights and Mordell–Faltings</a></li>
+    <li><a href="./heights-arithmetic-geometry.html#northcott">Logarithmic height and Northcott finiteness</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><div class="quiz" data-concept="av-mordell-weil-faltings"></div>
+</section>
+
+<section id="connections">
+<h2>Connections</h2>
+
+<p>Abelian varieties sit at the intersection of nearly every advanced topic in arithmetic geometry. The open frontiers a beginner most often meets are the <strong>Schottky problem</strong> (which p.p.a.v.'s are Jacobians, sharp for $g\ge 4$), the <strong>BSD conjecture</strong> (the analytic rank of $L(A,s)$ controls the Mordell–Weil rank — known only in restricted cases via Iwasawa-theoretic Euler systems), <strong>uniform/effective Mordell</strong> (the bound on $|C(K)|$ remains qualitatively Faltings-style), and <strong>$p$-adic uniformization</strong> in characteristic $p$ (Drinfeld and Mumford curves, $p$-divisible groups, the Newton stratification of $\mathcal{A}_g$ in characteristic $p$).</p>
+
+<ul>
+<li><a href="./elliptic-curves.html">Elliptic curves</a> — the dimension-$1$ case; everything here specialises and many statements ($g=1$) become classical.</li>
+<li><a href="./algebraic-curves-higher-genus.html#divisors">Higher-genus curves</a> — Jacobians live here; the Abel–Jacobi map and Torelli are the bridge to §4.</li>
+<li><a href="./galois-representations.html#frob">Galois representations</a> — the $\ell$-adic Galois representation on $T_\ell A$ is the Tate module of §3, with Frobenius eigenvalues controlled by Weil.</li>
+<li><a href="./heights-arithmetic-geometry.html#canonical">Heights — Néron–Tate canonical height</a> — runs the descent step in Mordell–Weil and produces the regulator that appears in BSD.</li>
+<li><a href="./bsd.html">Birch–Swinnerton-Dyer</a> — the conjectural rank formula generalises from elliptic curves to abelian varieties; Iwasawa theory provides the strongest unconditional partial results.</li>
+<li><a href="./moduli-spaces.html">Moduli spaces</a> — $\mathcal{A}_g$ is the moduli space of principally polarized abelian varieties, embedding the Jacobian locus $\mathcal{J}_g$ via Torelli.</li>
+<li><a href="./theta-functions.html">Theta functions</a> — the global sections of the line bundle giving the polarization; theta-null relations encode the polarization data.</li>
+</ul>
+</section>
+
+</main>
+
+<script>
+// ============================================================
+// Widget drivers
+// ============================================================
+(function(){
+  // ----- §1: complex torus + Riemann bilinear relations -----
+  function torusWidget(){
+    const ids = ['tau11','tau12','tau22','y11','y12','y22'];
+    const inputs = {};
+    const labels = {};
+    for(const id of ids){
+      inputs[id] = document.getElementById('tor-'+id);
+      labels[id] = document.getElementById('tor-'+id+'-val');
+    }
+    const out = document.getElementById('tor-out');
+    if(!out) return;
+    function update(){
+      const v = {};
+      for(const id of ids){ v[id] = parseFloat(inputs[id].value); labels[id].textContent = v[id].toFixed(1); }
+      // tau is symmetric automatically (we tied tau12 = tau21 via a single slider).
+      // Build Y = Im tau
+      const Y = [[v.y11, v.y12],[v.y12, v.y22]];
+      // positivity: principal minors > 0
+      const det = Y[0][0]*Y[1][1] - Y[0][1]*Y[1][0];
+      const tr = Y[0][0]+Y[1][1];
+      const positive = (Y[0][0] > 0) && (det > 0);
+      // (the symmetric input enforces symmetry exactly)
+      const symmetric = true;
+      let msg;
+      if(symmetric && positive){
+        msg = 'algebraic ✓ — period matrix lies in $\\mathfrak{H}_2$. Trace(Y)='+tr.toFixed(2)+', det(Y)='+det.toFixed(2)+'. This is the period matrix of a principally polarized abelian surface.';
+      } else if(symmetric && !positive){
+        msg = 'NOT algebraic ✗ — Im(τ) is not positive definite (det='+det.toFixed(2)+', need > 0 with Y₁₁>0). The complex torus exists, but it is not projective and admits no nonconstant meromorphic functions.';
+      } else {
+        msg = 'NOT algebraic ✗ — period matrix is not symmetric, so no Hermitian polarization on V/Λ.';
+      }
+      out.innerHTML = msg;
+      if(window.renderMathInElement) window.renderMathInElement(out,{throwOnError:false,delimiters:[{left:'$',right:'$',display:false}]});
+    }
+    for(const id of ids) inputs[id].addEventListener('input', update);
+    update();
+  }
+  // ----- §3: Weil polynomial → point count -----
+  function weilWidget(){
+    const sel = id => document.getElementById(id);
+    const q = sel('wl-q'), g = sel('wl-g');
+    const th1 = sel('wl-th1'), th2 = sel('wl-th2'), n = sel('wl-n');
+    const th1v = sel('wl-th1-val'), th2v = sel('wl-th2-val'), nv = sel('wl-n-val');
+    const out = sel('wl-out');
+    if(!out) return;
+    function update(){
+      const Q = parseInt(q.value,10), G = parseInt(g.value,10);
+      const T1 = parseFloat(th1.value), T2 = parseFloat(th2.value);
+      const N = parseInt(n.value,10);
+      th1v.textContent = T1.toFixed(2);
+      th2v.textContent = T2.toFixed(2);
+      nv.textContent = N;
+      const sqrtq = Math.sqrt(Q);
+      // Eigenvalues come in conjugate pairs on |z|=sqrt q.
+      // For g=1: alpha, alpha* with arg = T1.
+      // For g=2: alpha_1, alpha_1*, alpha_2, alpha_2* with args T1, T2.
+      const angles = G === 1 ? [T1, -T1] : [T1, -T1, T2, -T2];
+      // |A(F_{q^n})| = prod_i (1 - alpha_i^n)
+      // alpha_i = sqrt q * exp(i * angle)
+      let real = 1, imag = 0;
+      for(const a of angles){
+        const re = 1 - Math.pow(sqrtq, N) * Math.cos(N*a);
+        const im = -Math.pow(sqrtq, N) * Math.sin(N*a);
+        const nr = real*re - imag*im;
+        const ni = real*im + imag*re;
+        real = nr; imag = ni;
+      }
+      const pts = Math.round(real);
+      const hasse = Math.pow(sqrtq, N);
+      const bound = G === 1 ? 'Hasse: $|N - (q^n+1)| \\le 2\\sqrt{q^n}$' : 'Weil: $|N - (q^n+1)^g| \\le \\binom{2g}{g}\\,q^{ng/2}$';
+      out.innerHTML = `For $A/\\mathbb{F}_${Q}$ of dim $g=${G}$ with chosen Frobenius angles, $|A(\\mathbb{F}_{${Q}^{${N}}})| = ${pts}$. Imag residue $\\approx ${imag.toFixed(3)}$ (numerically $0$ — eigenvalues come in conjugate pairs). ${bound}.`;
+      if(window.renderMathInElement) window.renderMathInElement(out,{throwOnError:false,delimiters:[{left:'$',right:'$',display:false},{left:'$$',right:'$$',display:true}]});
+    }
+    for(const el of [q,g,th1,th2,n]) el.addEventListener('input', update);
+    update();
+  }
+  // ----- §6: finiteness lookup -----
+  function finWidget(){
+    const obj = document.getElementById('fin-obj');
+    const cond = document.getElementById('fin-cond');
+    const out = document.getElementById('fin-out');
+    if(!out) return;
+    const table = {
+      'ec-points': {
+        'g0': '$E$ doesn\'t exist for genus $0$ (an elliptic curve has genus $1$). For $\\mathbb{P}^1(K)$, the points are infinite — there\'s no finiteness here.',
+        'g1': '<strong>Mordell–Weil (1922).</strong> $E(K) \\cong \\mathbb{Z}^r \\oplus E(K)_{\\mathrm{tors}}$, finitely generated. By Mazur (1977), $E(\\mathbb{Q})_{\\mathrm{tors}}$ is one of $15$ explicit groups; Merel (1996) bounds $|E(K)_{\\mathrm{tors}}|$ uniformly in $[K:\\mathbb{Q}]$.',
+        'g2plus': 'genus $\\ge 2$ doesn\'t apply to elliptic curves (they have genus $1$).'
+      },
+      'av-points': {
+        'g0': '$A$ doesn\'t exist in dim $0$ (it would be a point).',
+        'g1': '<strong>Mordell–Weil for $g=1$:</strong> classical, $E(K)$ finitely generated. See the elliptic case.',
+        'g2plus': '<strong>Mordell–Weil (Weil 1929).</strong> $A(K)$ is finitely generated for any $g$. The proof is the same descent + heights argument.'
+      },
+      'curve-points': {
+        'g0': 'A genus-$0$ curve $C/K$ with $C(K)\\ne\\emptyset$ is $\\mathbb{P}^1$ — points form an infinite set $\\mathbb{P}^1(K)$.',
+        'g1': '<strong>Mordell–Weil:</strong> $C(K) = E(K)$ if $C$ has a rational point (it\'s an elliptic curve); finitely generated. Otherwise $C(K)$ is a torsor under $E(K)$ — same finiteness theory.',
+        'g2plus': '<strong>Faltings\' theorem (Mordell\'s conjecture, 1983).</strong> $C(K)$ is <em>finite</em>. The bound is ineffective — no algorithm to enumerate $C(K)$ in general. Vojta\'s height inequality gives a different (still ineffective) proof.'
+      },
+      'av-rep': {
+        'g0': 'doesn\'t apply (no $0$-dim AVs).',
+        'g1': '<strong>Shafarevich\'s theorem (Faltings 1983).</strong> Finite for elliptic curves with good reduction outside $S$. Originally Shafarevich\'s conjecture; proved as a special case of the higher-dim theorem.',
+        'g2plus': '<strong>Faltings (1983).</strong> Finite. This is the main theorem of <em>Endlichkeitssätze für abelsche Varietäten</em> — and it implies Mordell.'
+      }
+    };
+    function update(){
+      const o = obj.value, c = cond.value;
+      out.innerHTML = (table[o] && table[o][c]) || 'No data for this combination.';
+      if(window.renderMathInElement) window.renderMathInElement(out,{throwOnError:false,delimiters:[{left:'$',right:'$',display:false},{left:'$$',right:'$$',display:true}]});
+    }
+    obj.addEventListener('change', update);
+    cond.addEventListener('change', update);
+    update();
+  }
+  function init(){
+    torusWidget();
+    weilWidget();
+    finWidget();
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
+
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('abelian-varieties'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+})();
+</script>
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-05-06</td><td>initial version</td></tr>
+    </tbody>
+  </table>
+</details>
+
+</body>
+</html>
