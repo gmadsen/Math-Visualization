@@ -74,14 +74,21 @@
   .node{cursor:pointer}
   .node circle.bg{stroke:var(--line);stroke-width:1.2;
     transition:stroke 120ms ease, stroke-width 120ms ease}
-  .node text.lbl{fill:var(--ink);font-size:10.5px;pointer-events:none;
-    font-family:inherit;dominant-baseline:central;text-anchor:start}
-  /* By default only capstone nodes ship labels — at the default zoom,
-     1000+ labels would be illegible noise. When the user zooms in past
-     k=1.6 (`.stage.zoomed`), reveal labels on every node so individual
-     concepts can be picked. JS toggles `.stage.zoomed` based on viewT.k. */
-  .node:not(.cap) text.lbl{display:none}
-  .stage.zoomed .node text.lbl{display:initial}
+  /* Labels are inside the panned/zoomed <g>, so SVG font-size is multiplied
+     by the stage's `scale(k)`. To keep labels visually at ~10.5px on screen
+     regardless of zoom, font-size is divided by --zk (set on the stage in
+     applyView). At k=4, SVG font-size = 10.5/4 = 2.6px → 4·2.6 = 10.5px on
+     screen. */
+  .node text.lbl{fill:var(--ink);font-size:calc(10.5px / var(--zk, 1));
+    pointer-events:none;font-family:inherit;dominant-baseline:central;
+    text-anchor:start}
+  /* Default rule: hide all labels. The cullLabels() pass in JS toggles
+     `.show-lbl` on the nodes whose labels are large enough on screen AND
+     don't overlap a higher-priority neighbor. Capstones get
+     priority-zero so they always make the cut as long as space allows.
+     Without this, ~1050 labels at high zoom paint as a wall of overlap. */
+  .node text.lbl{display:none}
+  .node.show-lbl text.lbl{display:initial}
   .node.cap circle.bg{stroke-width:2.2}
   .node.dim circle.bg{opacity:.18}
   .node.dim text.lbl{opacity:.18}
@@ -826,14 +833,91 @@
 
   // ---------- pan + zoom ----------
   let viewT = { x: 0, y: 0, k: 1 };
-  // Threshold above which we reveal labels on every node (vs only
-  // capstones). 1.6 was picked by eye — capstone-only labels stay
-  // legible up to about 1.5x; past that the user has zoomed in deep
-  // enough that they want to see what's around them.
+  // Below this zoom we don't even bother considering non-capstone labels —
+  // there are ~1050 nodes and at k<1.6 capstones-plus-decimation already
+  // shows everything that fits.
   const LABEL_REVEAL_K = 1.6;
+
+  // Greedy screen-space decimation: at any zoom, paint labels for the
+  // highest-priority nodes first (capstone < focused < match < others) and
+  // skip any subsequent label whose screen-space bounding box overlaps an
+  // already-painted one. This is what stops the "wall of text" the
+  // older approach produced (which simply revealed all labels at k>=1.6).
+  // O(N) for sorting + visibility filter, O(M^2) worst case for the
+  // overlap check where M is the count of viewport-visible high-priority
+  // candidates — in practice ~30-200, comfortably under a frame budget.
+  function cullLabels(){
+    const k = viewT.k;
+    const fontPx = 10.5; // target screen-space size, matches CSS calc()
+    // Visible-on-screen filter using the current stage transform; `vb` is
+    // the SVG viewBox the canvas projects to (STAGE_W × STAGE_H).
+    const visible = [];
+    for (let i = 0; i < nodes.length; i++) {
+      const n = nodes[i];
+      const sx = n.x * k + viewT.x, sy = n.y * k + viewT.y;
+      // Soft margin so labels just off the edge still get a chance.
+      if (sx < -120 || sx > STAGE_W + 60 || sy < -40 || sy > STAGE_H + 40) continue;
+      visible.push({ n, i, sx, sy });
+    }
+    // Below the reveal threshold we still want capstones labeled, but
+    // others stay off — `visible` is filtered to capstones only.
+    const candidates = (k < LABEL_REVEAL_K)
+      ? visible.filter(o => o.n.isCap)
+      : visible;
+    // Priority: lower number wins. Capstones first so they're never
+    // outranked. Focused/match next so the user's current target is
+    // never elided. Then ordinary nodes by index (stable).
+    candidates.sort((a, b) => {
+      // `match` lives on the DOM element (set by applySearch), not on the
+      // data object — read from the class list. This matches the same
+      // mechanism `.match` uses in CSS to highlight search hits.
+      const aMatch = nodeEls[a.i].classList.contains('match');
+      const bMatch = nodeEls[b.i].classList.contains('match');
+      const pa = a.n.isCap ? 0 : (focusIdx === a.i ? 1 : (aMatch ? 2 : 3));
+      const pb = b.n.isCap ? 0 : (focusIdx === b.i ? 1 : (bMatch ? 2 : 3));
+      return pa - pb || a.i - b.i;
+    });
+    const placed = []; // {x0,y0,x1,y1} screen-space rects
+    const labelOffsetX = 6; // matches SVG x-offset = nodeRadius+3 ≈ 6 at k≈1
+    const padX = 4, padY = 3;
+    for (const o of candidates) {
+      const text = o.n.title || '';
+      // Approximate width: 0.55em char width is a reasonable Inter/system
+      // average for an A-Z mix at our font.
+      const w = Math.min(160, text.length * fontPx * 0.55);
+      const h = fontPx;
+      const x0 = o.sx + labelOffsetX, y0 = o.sy - h * 0.5;
+      const x1 = x0 + w, y1 = y0 + h;
+      let collides = false;
+      for (let p = 0; p < placed.length; p++) {
+        const r = placed[p];
+        if (x0 < r.x1 + padX && x1 + padX > r.x0 && y0 < r.y1 + padY && y1 + padY > r.y0) {
+          collides = true;
+          break;
+        }
+      }
+      if (collides) {
+        nodeEls[o.i].classList.remove('show-lbl');
+      } else {
+        placed.push({ x0, y0, x1, y1 });
+        nodeEls[o.i].classList.add('show-lbl');
+      }
+    }
+    // Clear `show-lbl` on every node that wasn't in the candidate set
+    // (off-screen, or non-capstone below the reveal threshold) so a
+    // previously-painted label doesn't linger after the user pans/zooms
+    // away from it.
+    const candIdx = new Set(candidates.map(o => o.i));
+    for (let i = 0; i < nodeEls.length; i++) {
+      if (!candIdx.has(i)) nodeEls[i].classList.remove('show-lbl');
+    }
+  }
+
   function applyView(){
     root.setAttribute('transform', `translate(${viewT.x},${viewT.y}) scale(${viewT.k})`);
+    stage.style.setProperty('--zk', viewT.k);
     stage.classList.toggle('zoomed', viewT.k >= LABEL_REVEAL_K);
+    cullLabels();
   }
   (function wirePanZoom(){
     let dragging = false, sx = 0, sy = 0, ox = 0, oy = 0;
@@ -1261,6 +1345,7 @@
     if(!q){
       nodes.forEach((_, i) => nodeEls[i].classList.remove('match'));
       matchInfo.textContent = '';
+      cullLabels();
       return;
     }
     let n = 0;
@@ -1272,6 +1357,8 @@
       if(hit) n++;
     });
     matchInfo.textContent = n + ' match' + (n === 1 ? '' : 'es');
+    // Re-cull so search hits are prioritised in the label-decimation pass.
+    cullLabels();
   }
   searchEl.addEventListener('input', applySearch);
 
@@ -1663,6 +1750,11 @@
   syncNodePositions();
   applyMasteryClasses();
   document.getElementById('loading').style.display = 'none';
+
+  // Initial label cull — without this, `cullLabels` only runs after the
+  // first user interaction (pan/zoom/click), so the page would load with
+  // every label hidden by the default CSS rule.
+  applyView();
 
   // Restore focus from URL (?focus=<concept-id>) if present.
   (function restoreFocusFromUrl(){

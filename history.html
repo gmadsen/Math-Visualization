@@ -345,12 +345,27 @@
    * the ambient scrubber dim (.scrub-out). Source order matters: ties on
    * specificity (0,2,1) → later rule wins. */
   .map .pin.scrub-out.dim{opacity:.10}
-  /* When any era / lineage filter is active, give the non-dim pins a soft
-     halo in the era's color so the active set pops against the ocean and
-     continents alike. Mirrors the timeline's `.tl[data-era-filter]` rule. */
+  /* Era-filter highlighting on the map. Per-ring rather than per-pin: each
+     concentric circle in a multi-event cluster is tagged with `data-era` at
+     construction (widget-history-map.js); applyState() then adds `era-match`
+     to rings whose era is in the active filter set and `era-fade` to the
+     rest. The matching ring glows in its own color; non-matching rings fade
+     out, so the city's relevant event stands out even when the city has
+     many events from other eras.
+       The plain `.map[data-era-filter] .pin circle` rule is the fallback
+     for any defensive-shouldn't-happen path where rings lack the tag. */
   .map[data-era-filter] .pin:not(.dim) circle{
+    transition:filter 220ms ease, opacity 220ms ease;
+  }
+  .map[data-era-filter] .pin:not(.dim) circle:not(.era-fade):not(.era-match){
     filter:drop-shadow(0 0 4px var(--era-color,var(--yellow)));
   }
+  .map .pin circle.era-match{
+    filter:drop-shadow(0 0 6px var(--era-color,var(--yellow)))
+           drop-shadow(0 0 14px var(--era-color,var(--yellow)));
+    stroke:var(--ink);stroke-width:1.4;stroke-opacity:0.75;
+  }
+  .map .pin circle.era-fade{opacity:0.16}
   .map .pin{transition:opacity 200ms ease}
   /* Scrubber styling */
   .tl .tl-scrubber{cursor:ew-resize}
