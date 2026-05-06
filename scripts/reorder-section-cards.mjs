@@ -1,9 +1,10 @@
 #!/usr/bin/env node
 // Re-orders <a class="card"> blocks inside each <div class="grid"> in
 // index.html by pedagogical tier — prereq → (intermediate, no badge) →
-// advanced → capstone. Within each tier, preserves the original order
-// (stable sort) so subject matter that is already logically sequenced
-// stays put.
+// advanced → capstone. Within each tier, applies a topological sort
+// over the topic-level dependency graph restricted to the same section
+// so a topic that is a within-section prereq for another topic comes
+// first.
 //
 // Tier is detected via the level-badge span class:
 //   <span class="level prereq">     → tier 0
@@ -11,12 +12,19 @@
 //   <span class="level advanced">   → tier 2
 //   <span class="level capstone">   → tier 3
 //
+// Topic dependency: topic A depends on topic B if any concept in A has
+// a prereq concept owned by B. Cross-topic edges from the content model
+// are aggregated to the topic level; within-tier ties (no edge between
+// the two topics) fall back to the original document order so already-
+// logical sequencing stays put.
+//
 // Idempotent: running twice produces the same output. Run via:
 //   node scripts/reorder-section-cards.mjs
 
 import { readFileSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { loadContentModel } from './lib/content-model.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const repoRoot = resolve(dirname(__filename), '..');
@@ -27,6 +35,73 @@ const TIERS = { prereq: 0, default: 1, advanced: 2, capstone: 3 };
 function tierOf(cardHtml) {
   const m = cardHtml.match(/<span class="level\s+(prereq|advanced|capstone)">/);
   return m ? TIERS[m[1]] : TIERS.default;
+}
+
+function slugOf(cardHtml) {
+  // <a class="card …" href="./<slug>.html"> — pull the slug for graph lookup.
+  const m = cardHtml.match(/href="\.\/([\w-]+)\.html/);
+  return m ? m[1] : null;
+}
+
+// Builds the topic-level dependency adjacency restricted to a candidate set.
+// Returns a Map<topic, Set<topic>> of `topic → topics it depends on`. Used
+// by toposortWithFallback to drive the tier-internal ordering.
+function topicDepsForSubset(crossTopicEdges, subsetSlugs) {
+  const subset = new Set(subsetSlugs);
+  const deps = new Map();
+  for (const slug of subsetSlugs) deps.set(slug, new Set());
+  for (const e of crossTopicEdges) {
+    // edge: e.fromTopic owns the prereq, e.toTopic owns the consumer.
+    // So e.toTopic depends on e.fromTopic.
+    if (!subset.has(e.fromTopic) || !subset.has(e.toTopic)) continue;
+    if (e.fromTopic === e.toTopic) continue;
+    deps.get(e.toTopic).add(e.fromTopic);
+  }
+  return deps;
+}
+
+// Khan-style topological sort with a stable original-order tiebreak. Cycles
+// (which the concept graph normally precludes via validate-concepts) get
+// broken by the tiebreak rather than throwing — the worst case is a
+// suboptimal-but-determinstic order, never a corrupted index.
+function toposortWithFallback(items, deps) {
+  // items: array of { slug, idx } in original order. deps: Map<slug,Set<slug>>.
+  const remaining = new Map(items.map((it) => [it.slug, it]));
+  const inDegree = new Map();
+  for (const it of items) {
+    let d = 0;
+    for (const dep of deps.get(it.slug) || []) {
+      if (remaining.has(dep)) d++;
+    }
+    inDegree.set(it.slug, d);
+  }
+  const out = [];
+  while (remaining.size > 0) {
+    // Pick the lowest-original-index item among those with in-degree 0.
+    // If none have in-degree 0 (cycle), fall back to the lowest-original-
+    // index item overall to make progress.
+    let best = null;
+    for (const it of remaining.values()) {
+      if (inDegree.get(it.slug) === 0) {
+        if (!best || it.idx < best.idx) best = it;
+      }
+    }
+    if (!best) {
+      // Cycle / orphan — pick lowest index unconditionally.
+      for (const it of remaining.values()) {
+        if (!best || it.idx < best.idx) best = it;
+      }
+    }
+    out.push(best);
+    remaining.delete(best.slug);
+    // Decrement in-degree of items that depended on `best`.
+    for (const it of remaining.values()) {
+      if ((deps.get(it.slug) || new Set()).has(best.slug)) {
+        inDegree.set(it.slug, inDegree.get(it.slug) - 1);
+      }
+    }
+  }
+  return out;
 }
 
 // Walks the body of one .grid block and returns { head, cards, tail } where
@@ -51,19 +126,40 @@ function parseGrid(gridBody) {
   return { head, cards, tail };
 }
 
-function reorderGrid(gridBody) {
+function reorderGrid(gridBody, crossTopicEdges) {
   const parsed = parseGrid(gridBody);
   if (!parsed.cards.length) return gridBody;
-  // Stable sort by tier, preserving in-tier order.
+  // Indexed view of cards with tier + slug.
   const indexed = parsed.cards.map((c, i) => ({
     leading: c.leading,
     body: c.body,
+    slug: slugOf(c.body),
     tier: tierOf(c.body),
     idx: i,
   }));
-  indexed.sort((a, b) => (a.tier - b.tier) || (a.idx - b.idx));
-  // Reassemble: re-stitch each card with its captured leading whitespace.
-  const reassembled = indexed.map((c) => c.leading + c.body).join('');
+  // Group by tier, topo-sort within each tier on the within-section
+  // dependency subgraph, then concatenate.
+  const allSlugs = indexed.map((it) => it.slug).filter(Boolean);
+  const tierBuckets = new Map(); // tier → array of items in original order
+  for (const it of indexed) {
+    if (!tierBuckets.has(it.tier)) tierBuckets.set(it.tier, []);
+    tierBuckets.get(it.tier).push(it);
+  }
+  const sortedTiers = Array.from(tierBuckets.keys()).sort((a, b) => a - b);
+  const final = [];
+  for (const t of sortedTiers) {
+    const tierItems = tierBuckets.get(t);
+    // Slugs in THIS tier — that's the subset we topo-sort over so
+    // cross-tier edges (e.g. an advanced topic that depends on a prereq
+    // tier topic) don't constrain the tier-internal ordering. The tier
+    // sort itself already encodes the prereq → advanced gradient.
+    const tierSlugs = tierItems.map((it) => it.slug).filter(Boolean);
+    const deps = topicDepsForSubset(crossTopicEdges, tierSlugs);
+    const ordered = toposortWithFallback(tierItems, deps);
+    for (const it of ordered) final.push(it);
+  }
+  // Reassemble — preserving each card's captured leading whitespace.
+  const reassembled = final.map((c) => c.leading + c.body).join('');
   return parsed.head + reassembled + parsed.tail;
 }
 
@@ -90,7 +186,7 @@ function findMatchingDivClose(html, openIdx) {
   return -1;
 }
 
-function transform(html) {
+function transform(html, crossTopicEdges) {
   let count = 0;
   let cursor = 0;
   const openTag = '<div class="grid">';
@@ -114,7 +210,7 @@ function transform(html) {
       );
     }
     const body = html.slice(openIdx + openTag.length, closeIdx);
-    const next = reorderGrid(body);
+    const next = reorderGrid(body, crossTopicEdges);
     if (next !== body) count++;
     out += next;
     cursor = closeIdx;
@@ -122,8 +218,9 @@ function transform(html) {
   return { out, count };
 }
 
+const model = await loadContentModel();
 const original = readFileSync(path, 'utf8');
-const { out, count } = transform(original);
+const { out, count } = transform(original, model.crossTopicEdges);
 if (out === original) {
   console.log('reorder-section-cards: no changes');
   process.exit(0);
