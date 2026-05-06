@@ -1,0 +1,88 @@
+{
+  "topic": "continued-fractions",
+  "title": "Continued fractions",
+  "page": "continued-fractions.html",
+  "concepts": [
+    {
+      "id": "cf-convergents",
+      "title": "Convergents and best approximations",
+      "anchor": "convergents",
+      "prereqs": [
+        "field-extensions-galois"
+      ],
+      "blurb": "The continued-fraction algorithm $\\alpha=a_0+1/(a_1+1/(a_2+\\cdots))$ produces partial quotients $a_n=\\lfloor\\alpha_n\\rfloor$ and convergents $p_n/q_n$ via the recursion $p_n=a_n p_{n-1}+p_{n-2}$, $q_n=a_n q_{n-1}+q_{n-2}$. Each convergent is a best rational approximation: no $p/q$ with $q<q_n$ comes closer to $\\alpha$. Lagrange's theorem characterises real quadratic irrationals as exactly those whose continued fraction is eventually periodic.",
+      "tags": [
+        "foundation",
+        "classification"
+      ]
+    },
+    {
+      "id": "cf-hurwitz",
+      "title": "Hurwitz's theorem and the constant $\\sqrt{5}$",
+      "anchor": "hurwitz",
+      "prereqs": [
+        "cf-convergents"
+      ],
+      "blurb": "For every irrational $\\alpha$ there are infinitely many $p/q\\in\\mathbb{Q}$ with $|\\alpha-p/q|<1/(\\sqrt{5}\\,q^2)$, and the constant $\\sqrt{5}$ cannot be improved: the golden ratio $\\varphi=(1+\\sqrt{5})/2$ is the extremal irrational, and the worst-approximable numbers are exactly the noble numbers (continued fraction tail $[\\dots;1,1,1,\\dots]$).",
+      "tags": [
+        "density",
+        "classification"
+      ]
+    },
+    {
+      "id": "cf-liouville",
+      "title": "Liouville numbers and the first transcendence proof",
+      "anchor": "liouville",
+      "prereqs": [
+        "cf-convergents",
+        "number-fields-integers"
+      ],
+      "blurb": "If $\\alpha$ is algebraic of degree $d\\ge 2$ then $|\\alpha-p/q|>C/q^d$ for some $C=C(\\alpha)>0$. So any irrational that admits rational approximations $p/q$ with $|\\alpha-p/q|<1/q^n$ for arbitrary $n$ must be transcendental — Liouville (1844) used this to exhibit $\\sum 10^{-k!}$ as the first explicitly proven transcendental number.",
+      "tags": [
+        "foundation",
+        "density"
+      ]
+    },
+    {
+      "id": "cf-roth",
+      "title": "Roth's theorem",
+      "anchor": "roth",
+      "prereqs": [
+        "cf-liouville",
+        "naive-height-projective"
+      ],
+      "blurb": "Roth (1955, Fields Medal) sharpened Liouville: for every algebraic irrational $\\alpha$ and $\\varepsilon>0$, there are only finitely many $p/q\\in\\mathbb{Q}$ with $|\\alpha-p/q|<q^{-2-\\varepsilon}$. The exponent $2$ is best possible by Dirichlet. The proof is famously ineffective — it gives no bound on the number or size of the exceptional $p/q$. The Schmidt subspace theorem is the multidimensional generalisation.",
+      "tags": [
+        "finiteness",
+        "density"
+      ]
+    },
+    {
+      "id": "cf-markoff",
+      "title": "Markoff spectrum and Markoff numbers",
+      "anchor": "markoff",
+      "prereqs": [
+        "cf-hurwitz"
+      ],
+      "blurb": "The Lagrange spectrum collects the limsup constants $L(\\alpha)=\\limsup_q\\,1/(q^2|\\alpha-p/q|)$ as $\\alpha$ ranges over irrationals. Below $3$ the spectrum is discrete: it consists exactly of $\\sqrt{9-4/m^2}$ for Markoff numbers $m\\in\\{1,2,5,13,29,\\dots\\}$ — the $m$-coordinates of integer solutions to $x^2+y^2+z^2=3xyz$. Above $3$ the spectrum has positive measure (Hall's ray).",
+      "tags": [
+        "classification",
+        "density"
+      ]
+    },
+    {
+      "id": "cf-padic-roth",
+      "title": "$p$-adic Roth and the subspace theorem",
+      "anchor": "padic-roth",
+      "prereqs": [
+        "cf-roth",
+        "padic-norm-completion"
+      ],
+      "blurb": "Mahler and Ridout extended Roth to $p$-adic absolute values: for algebraic $\\alpha\\in\\mathbb{Q}_p$ the analogous bound $|\\alpha-p/q|_p>q^{-2-\\varepsilon}$ holds with finitely many exceptions, and one can mix archimedean with finitely many $p$-adic places simultaneously. Schmidt's subspace theorem (1972) packages all of this: integer points on $L_1(x)\\cdots L_n(x)\\le\\|x\\|^{-\\varepsilon}$ for linearly independent linear forms $L_i$ lie on finitely many proper subspaces.",
+      "tags": [
+        "completion",
+        "finiteness"
+      ]
+    }
+  ]
+}

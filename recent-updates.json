@@ -1,13 +1,29 @@
 {
-  "generated": "2026-05-06T06:58:22.844Z",
+  "generated": "2026-05-06T07:24:59.941Z",
   "entries": [
     {
       "slug": "cohomology-and-duality",
       "title": "Cohomology and duality",
       "color": "v",
       "tag": "",
-      "date": "2026-05-05",
-      "message": "Three new topics: cohomology-and-duality, toric-varieties, iwasawa-theory"
+      "date": "2026-05-06",
+      "message": "3 advanced topics + map/mindmap UX + section pill UI + thumb-art (#121)"
+    },
+    {
+      "slug": "iwasawa-theory",
+      "title": "Iwasawa theory",
+      "color": "y",
+      "tag": "",
+      "date": "2026-05-06",
+      "message": "3 advanced topics + map/mindmap UX + section pill UI + thumb-art (#121)"
+    },
+    {
+      "slug": "toric-varieties",
+      "title": "Toric varieties",
+      "color": "g",
+      "tag": "",
+      "date": "2026-05-06",
+      "message": "3 advanced topics + map/mindmap UX + section pill UI + thumb-art (#121)"
     },
     {
       "slug": "condensed-mathematics",
@@ -16,22 +32,6 @@
       "tag": "",
       "date": "2026-05-05",
       "message": "Condensed mathematics capstone + tour expansion + home UI polish (#118)"
-    },
-    {
-      "slug": "iwasawa-theory",
-      "title": "Iwasawa theory",
-      "color": "y",
-      "tag": "",
-      "date": "2026-05-05",
-      "message": "Three new topics: cohomology-and-duality, toric-varieties, iwasawa-theory"
-    },
-    {
-      "slug": "toric-varieties",
-      "title": "Toric varieties",
-      "color": "g",
-      "tag": "",
-      "date": "2026-05-05",
-      "message": "Three new topics: cohomology-and-duality, toric-varieties, iwasawa-theory"
     },
     {
       "slug": "algebraic-k-theory-foundations",

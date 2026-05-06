@@ -143,7 +143,8 @@
         "analytic-number-theory",
         "mathematics-and-cryptography",
         "computational-number-theory",
-        "iwasawa-theory"
+        "iwasawa-theory",
+        "continued-fractions"
       ],
       "color": "y"
     },
@@ -201,7 +202,9 @@
         "resolution-of-singularities",
         "motives",
         "hodge-theory",
-        "toric-varieties"
+        "toric-varieties",
+        "abelian-varieties",
+        "positivity-and-ample-line-bundles"
       ],
       "color": "g"
     },

@@ -1,0 +1,93 @@
+{
+  "topic": "abelian-varieties",
+  "title": "Abelian varieties",
+  "page": "abelian-varieties.html",
+  "concepts": [
+    {
+      "id": "av-definition",
+      "title": "Abelian varieties and complex tori",
+      "anchor": "definition",
+      "prereqs": [
+        "elliptic-curve-definition",
+        "smooth-projective-curve",
+        "projective-scheme"
+      ],
+      "blurb": "An abelian variety is a connected projective group variety over a field $k$. Over $\\mathbb{C}$ every $g$-dimensional abelian variety is a complex torus $V/\\Lambda$ with $V\\cong\\mathbb{C}^g$ and $\\Lambda$ a rank-$2g$ lattice — but a generic complex torus is not algebraic. The theorem of the cube and the rigidity lemma make the group law commutative and force projectivity from a single Riemann form.",
+      "tags": [
+        "foundation",
+        "group-action"
+      ]
+    },
+    {
+      "id": "av-polarization",
+      "title": "Polarizations and the dual abelian variety",
+      "anchor": "polarization",
+      "prereqs": [
+        "av-definition",
+        "complex-multiplication"
+      ],
+      "blurb": "The dual abelian variety $A^\\vee = \\mathrm{Pic}^0(A)$ parameterizes degree-zero line bundles. A polarization is an isogeny $\\lambda\\colon A\\to A^\\vee$ coming from an ample line bundle; it is principal when $\\lambda$ is an isomorphism. Over $\\mathbb{C}$ a polarization is a positive Riemann form on $V$, and exhibiting one is exactly what upgrades a complex torus to a projective variety.",
+      "tags": [
+        "duality",
+        "classification"
+      ]
+    },
+    {
+      "id": "av-tate-module",
+      "title": "Isogenies, Tate modules, and Galois action",
+      "anchor": "tate",
+      "prereqs": [
+        "av-definition",
+        "galois-rep-definition"
+      ],
+      "blurb": "For an abelian variety of dimension $g$ the multiplication-by-$n$ map $[n]\\colon A\\to A$ has degree $n^{2g}$, so $A[n](\\bar k)\\cong (\\mathbb{Z}/n)^{2g}$ when $n$ is invertible in $k$. The Tate module $T_\\ell A=\\varprojlim A[\\ell^n]$ is a free $\\mathbb{Z}_\\ell$-module of rank $2g$ on which $\\mathrm{Gal}(\\bar k/k)$ acts continuously; for $A/\\mathbb{F}_q$ the Frobenius eigenvalues on $T_\\ell A$ are Weil numbers of absolute value $\\sqrt q$.",
+      "tags": [
+        "group-action",
+        "completion"
+      ]
+    },
+    {
+      "id": "av-jacobian",
+      "title": "Jacobians of curves and Torelli",
+      "anchor": "jacobian",
+      "prereqs": [
+        "av-polarization",
+        "divisors-on-curves"
+      ],
+      "blurb": "For a smooth projective curve $C$ of genus $g$ the Jacobian $\\mathrm{Jac}(C)=\\mathrm{Pic}^0(C)$ is a $g$-dimensional abelian variety with a canonical principal polarization given by the theta divisor. The Abel–Jacobi map $C\\hookrightarrow\\mathrm{Jac}(C)$ embeds the curve once we fix a basepoint, and Torelli's theorem says the polarized Jacobian determines $C$ up to isomorphism.",
+      "tags": [
+        "moduli",
+        "duality"
+      ]
+    },
+    {
+      "id": "av-neron-model",
+      "title": "Néron models and reduction types",
+      "anchor": "neron",
+      "prereqs": [
+        "av-definition",
+        "fiber-products"
+      ],
+      "blurb": "Over a DVR $\\mathcal{O}_K$ with residue field $k$, the Néron model $\\mathcal{A}/\\mathcal{O}_K$ is the unique smooth separated group scheme satisfying $\\mathcal{A}(\\mathcal{O}_K)=A(K)$. Its special fiber $\\mathcal{A}_k$ has a connected component $\\mathcal{A}_k^0$ (an extension of an abelian variety by a torus and a unipotent group) and a finite component group $\\Phi=\\mathcal{A}_k/\\mathcal{A}_k^0$. Good, semistable, and additive reduction correspond to the unipotent rank being $0$, $0$ with no abelian part lost, or positive.",
+      "tags": [
+        "fibration",
+        "classification"
+      ]
+    },
+    {
+      "id": "av-mordell-weil-faltings",
+      "title": "Mordell–Weil and Faltings finiteness",
+      "anchor": "mordell-weil",
+      "prereqs": [
+        "av-tate-module",
+        "av-neron-model",
+        "logarithmic-height-northcott"
+      ],
+      "blurb": "Mordell–Weil: for any abelian variety $A$ over a number field $K$, the group $A(K)$ is finitely generated. Faltings (1983): for fixed $K$, dimension $g\\ge 1$, and finite set of places $S$, only finitely many isomorphism classes of $g$-dimensional principally polarized abelian varieties over $K$ have good reduction outside $S$. Specialised to Jacobians of genus-$\\ge 2$ curves, the same machine proves Mordell's conjecture: $C(K)$ is finite.",
+      "tags": [
+        "finiteness",
+        "moduli"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,240 @@
+{
+  "topic": "continued-fractions",
+  "quizzes": {
+    "cf-convergents": {
+      "title": "Convergents and best approximations",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "Compute the first few partial quotients of $\\pi=3.14159265\\ldots$ The expansion begins $[a_0;a_1,a_2,a_3,\\ldots]$ with $a_0=3$, $a_1=7$, $a_2=15$, $a_3=1$. What is the convergent $p_3/q_3$ as a fraction (enter the numerator $p_3$)?",
+          "answer": 355,
+          "tol": 0.5,
+          "explain": "The recursion $p_n=a_n p_{n-1}+p_{n-2}$, $q_n=a_n q_{n-1}+q_{n-2}$ with $p_{-1}=1, p_0=3$ and $q_{-1}=0, q_0=1$ gives $p_1=22, q_1=7$ (so $22/7$), then $p_2=333, q_2=106$, then $p_3=355, q_3=113$. The famous approximation $355/113$ is accurate to seven decimal places — far better than $q^{-2}$ would predict, because $a_4=292$ is large."
+        },
+        {
+          "type": "mcq",
+          "q": "Lagrange's theorem characterises which real numbers as having an eventually periodic continued fraction?",
+          "choices": [
+            "exactly the rationals",
+            "exactly the algebraic numbers",
+            "exactly the real quadratic irrationals (degree-2 algebraic over $\\mathbb{Q}$)",
+            "exactly the transcendental numbers"
+          ],
+          "answer": 2,
+          "explain": "Rationals have terminating expansions; transcendental numbers have aperiodic expansions of unknown structure (no pattern is known for $\\pi$ or $e^2$). The continued fraction of $\\alpha$ is eventually periodic iff $\\alpha$ satisfies a quadratic equation over $\\mathbb{Q}$ — for example $\\sqrt{2}=[1;\\overline{2}]$ and $\\varphi=[\\overline{1}]$."
+        },
+        {
+          "type": "mcq",
+          "q": "Why are convergents called 'best approximations'?",
+          "choices": [
+            "They minimise $|\\alpha-p/q|$ among all rationals.",
+            "If $p/q$ is any rational with $0<q<q_n$, then $|q\\alpha-p|>|q_n\\alpha-p_n|$ — no rational of smaller denominator gets closer in the weighted sense.",
+            "They are the only rationals with $|\\alpha-p/q|<1/q^2$.",
+            "They are the unique rationals $p/q$ with $q$ a Fibonacci number."
+          ],
+          "answer": 1,
+          "explain": "The 'best approximation' property is in the weighted form $|q\\alpha-p|$: no rational with denominator strictly smaller than $q_n$ comes closer in this sense. This is stronger than option 0 — any non-convergent fraction with comparable denominator is strictly further away."
+        }
+      ]
+    },
+    "cf-hurwitz": {
+      "title": "Hurwitz's theorem and $\\sqrt{5}$",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Hurwitz's theorem (1891) states: for every irrational $\\alpha$, there are infinitely many $p/q\\in\\mathbb{Q}$ with $|\\alpha-p/q|<C/q^2$. What is the optimal constant $C$?",
+          "choices": [
+            "$C=1$",
+            "$C=1/2$",
+            "$C=1/\\sqrt{5}$",
+            "$C=1/\\sqrt{8}$"
+          ],
+          "answer": 2,
+          "explain": "Hurwitz's constant is $1/\\sqrt{5}\\approx 0.4472$. Replacing it by anything smaller fails for the golden ratio $\\varphi=(1+\\sqrt{5})/2$, which is the extremal irrational. Restricting to irrationals not equivalent to $\\varphi$ (i.e. without $1$s in the tail) lets you push the constant down to $1/\\sqrt{8}$ (Markoff)."
+        },
+        {
+          "type": "numeric",
+          "q": "The golden ratio $\\varphi=(1+\\sqrt{5})/2$ has the slowest possible convergent approximation. For its $n$-th convergent $p_n/q_n=F_{n+1}/F_n$ (Fibonacci ratios), the error satisfies $q_n^2|\\varphi-p_n/q_n|\\to 1/\\sqrt{5}$. What is this limit numerically (3 decimals)?",
+          "answer": 0.447,
+          "tol": 0.005,
+          "explain": "$1/\\sqrt{5}\\approx 0.4472$. So $q_n^2|\\varphi-p_n/q_n|$ never drops far below $0.447$ — pictorially the golden ratio sits exactly on the boundary of Hurwitz's bound. Every other irrational has at least one tail value of $a_i\\ge 2$ in its continued fraction, which lets it occasionally do better."
+        },
+        {
+          "type": "multi-select",
+          "q": "Which of the following continued-fraction tails describe an irrational that achieves the worst-case Hurwitz bound (constant $\\sqrt{5}$)?",
+          "choices": [
+            "$[\\overline{1}]$ — the golden ratio $\\varphi$",
+            "$[1;\\overline{2}]=\\sqrt{2}$",
+            "$[2;1,1,1,1,\\ldots]$ — eventually all $1$s, equivalent to $\\varphi$ under $\\mathrm{GL}_2(\\mathbb{Z})$",
+            "$[3;\\overline{6}]=\\sqrt{10}$"
+          ],
+          "answer": [
+            0,
+            2
+          ],
+          "explain": "Hurwitz's constant $\\sqrt{5}$ is achieved exactly on the $\\mathrm{GL}_2(\\mathbb{Z})$-orbit of $\\varphi$ — i.e. irrationals whose continued-fraction tail is eventually $1,1,1,\\ldots$. Quadratic irrationals like $\\sqrt{2}$ and $\\sqrt{10}$ have tails containing $a_i\\ge 2$, so they enjoy infinitely many approximations strictly better than $1/(\\sqrt{5}q^2)$."
+        }
+      ]
+    },
+    "cf-liouville": {
+      "title": "Liouville numbers",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Liouville's bound says: if $\\alpha$ is algebraic of degree $d$ with minimal polynomial $m(x)\\in\\mathbb{Z}[x]$, then for every $p/q\\ne\\alpha$,",
+          "choices": [
+            "$|\\alpha-p/q|=0$ for some $p/q$",
+            "$|\\alpha-p/q|>C/q^d$ for some constant $C=C(\\alpha)>0$",
+            "$|\\alpha-p/q|>C/q^2$ regardless of degree",
+            "$|\\alpha-p/q|>1$ for all but finitely many $p/q$"
+          ],
+          "answer": 1,
+          "explain": "The proof uses $|m(p/q)|\\ge 1/q^d$ (since $q^d m(p/q)\\in\\mathbb{Z}$ is non-zero) combined with the mean-value bound $|m(p/q)|\\le M\\cdot|\\alpha-p/q|$ for $M=\\sup|m'|$ near $\\alpha$. So $|\\alpha-p/q|\\ge 1/(M q^d)$. The key feature: the exponent $d$ is the algebraic degree."
+        },
+        {
+          "type": "numeric",
+          "q": "Liouville's constant is the explicit transcendental $L=\\sum_{n=1}^\\infty 10^{-n!}$. Its truncation $L_k=\\sum_{n=1}^k 10^{-n!}$ has the form $p_k/q_k$ with $q_k=10^{k!}$. What is the rational error exponent $r_k$ defined by $|L-L_k|<q_k^{-r_k}$, in the limit $k\\to\\infty$? (Enter $\\infty$ as a large number, say 999.)",
+          "answer": 999,
+          "tol": 1,
+          "explain": "$|L-L_k|<2\\cdot 10^{-(k+1)!}$ and $q_k^n=10^{n\\cdot k!}$. So $|L-L_k|<q_k^{-r_k}$ holds iff $r_k\\le (k+1)!/k!-\\epsilon = k+1-\\epsilon$. The rational exponent $r_k\\to\\infty$, violating Liouville's bound for any algebraic degree $d$. So $L$ is transcendental — the first known transcendental, exhibited by Liouville in 1844, three decades before Hermite's $e$."
+        },
+        {
+          "type": "mcq",
+          "q": "What is the contradiction Liouville extracts from a number $\\alpha$ admitting infinitely many rationals with $|\\alpha-p/q|<q^{-n}$ for arbitrary $n$?",
+          "choices": [
+            "It contradicts Roth's theorem.",
+            "If $\\alpha$ were algebraic of degree $d$, then $|\\alpha-p/q|>C/q^d$, but the assumption gives $|\\alpha-p/q|<q^{-n}<C/q^d$ for $n>d$ and $q$ large — contradiction. So $\\alpha$ is transcendental.",
+            "It implies $\\alpha\\in\\mathbb{Q}$.",
+            "It contradicts Hurwitz's theorem."
+          ],
+          "answer": 1,
+          "explain": "The whole proof is a clean contrapositive of Liouville's bound. Algebraic numbers cannot be approximated arbitrarily well in the polynomial-rate sense; any $\\alpha$ that beats every polynomial rate must be transcendental. This was the first transcendence proof — predating Hermite ($e$, 1873) and Lindemann ($\\pi$, 1882)."
+        }
+      ]
+    },
+    "cf-roth": {
+      "title": "Roth's theorem",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Roth's theorem (1955) states: for every algebraic irrational $\\alpha$ and every $\\varepsilon>0$, there are only finitely many $p/q\\in\\mathbb{Q}$ with",
+          "choices": [
+            "$|\\alpha-p/q|<q^{-d-\\varepsilon}$ where $d=\\deg\\alpha$",
+            "$|\\alpha-p/q|<q^{-2-\\varepsilon}$",
+            "$|\\alpha-p/q|<q^{-2}$",
+            "$|\\alpha-p/q|<q^{-3-\\varepsilon}$"
+          ],
+          "answer": 1,
+          "explain": "Roth replaced Liouville's exponent $d$ by the universal $2+\\varepsilon$, independent of degree. The exponent $2$ is sharp: Dirichlet's theorem produces infinitely many $p/q$ with $|\\alpha-p/q|<q^{-2}$ for every irrational. So Roth's bound is the best possible polynomial-rate statement."
+        },
+        {
+          "type": "mcq",
+          "q": "Why is Roth's theorem called 'ineffective'?",
+          "choices": [
+            "Because the proof uses non-constructive logic (axiom of choice).",
+            "Because the proof yields a bound on the NUMBER of exceptional $p/q$ but not on their SIZE — given $\\alpha$ and $\\varepsilon$, no algorithm currently produces a $Q_0(\\alpha,\\varepsilon)$ such that the bound holds for $q\\ge Q_0$.",
+            "Because Roth could not compute a single example.",
+            "Because the theorem is conjectural."
+          ],
+          "answer": 1,
+          "explain": "Roth's index argument bounds the count of exceptional approximations but cannot pin down where they lie. Effective versions (e.g. Baker's logarithmic forms) give weaker exponents but explicit $Q_0$. This trade-off is structural: Roth's theorem and Faltings' theorem on Mordell share the same effectiveness gap."
+        },
+        {
+          "type": "multi-select",
+          "q": "Which of the following are TRUE about Roth's theorem and its descendants?",
+          "choices": [
+            "The Schmidt subspace theorem (1972) generalises Roth to systems of linear forms in several variables.",
+            "Roth's theorem implies that the equation $x^n-2y^n=k$ has only finitely many integer solutions for $n\\ge 3$, $k\\ne 0$ (Thue–Roth).",
+            "Roth's theorem gives an effective algorithm to list all integer solutions of a Thue equation.",
+            "Roth's theorem applies to transcendental $\\alpha$ as well as algebraic ones."
+          ],
+          "answer": [
+            0,
+            1
+          ],
+          "explain": "Schmidt's subspace theorem is the higher-dimensional sequel; Thue equations $F(x,y)=k$ for irreducible $F$ of degree $\\ge 3$ have finitely many integer solutions by Roth. The theorem is ineffective (no algorithm — option 2 false), and transcendental $\\alpha$ can be approximated to arbitrary order, so Roth fails for them (e.g. Liouville numbers — option 3 false)."
+        }
+      ]
+    },
+    "cf-markoff": {
+      "title": "Markoff spectrum",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The Markoff equation is",
+          "choices": [
+            "$x^2+y^2=z^2$",
+            "$x^2+y^2+z^2=3xyz$",
+            "$x^3+y^3=z^3$",
+            "$x^2+y^2+z^2+w^2=4xyzw$"
+          ],
+          "answer": 1,
+          "explain": "The Markoff equation $x^2+y^2+z^2=3xyz$ has integer solutions $(1,1,1)$, $(1,1,2)$, $(1,2,5)$, $(1,5,13)$, $(2,5,29)$, ... All solutions form a tree generated by Vieta jumps $(x,y,z)\\mapsto(x,y,3xy-z)$ from $(1,1,1)$. The Markoff numbers are the largest coordinates: $1,2,5,13,29,34,89,\\ldots$"
+        },
+        {
+          "type": "mcq",
+          "q": "Below the value $3$, the Lagrange spectrum is:",
+          "choices": [
+            "an interval $[\\sqrt{5},3)$",
+            "a discrete set, namely $\\{\\sqrt{9-4/m^2}\\}$ as $m$ runs over Markoff numbers",
+            "empty",
+            "a Cantor set of measure zero"
+          ],
+          "answer": 1,
+          "explain": "The spectrum starts at $\\sqrt{5}$ (golden ratio), then jumps to $\\sqrt{8}$ ($m=2$), $\\sqrt{221}/5$ ($m=5$), $\\sqrt{1517}/13$ ($m=13$), $\\ldots$ accumulating at $3$. Above $3$, Hall (1947) showed the spectrum contains a half-line (\"Hall's ray\"), i.e. has positive Lebesgue measure."
+        },
+        {
+          "type": "numeric",
+          "q": "The smallest three Markoff numbers are $1, 2, 5$. What is the next one?",
+          "answer": 13,
+          "tol": 0.5,
+          "explain": "From $(1,2,5)$ the Vieta jump gives $(1,5, 3\\cdot 1\\cdot 5-2)=(1,5,13)$. The Markoff numbers $1,2,5,13,29,34,89,169,\\ldots$ form OEIS sequence A002559. The famous open question is the unicity conjecture: each Markoff number determines its triple uniquely up to permutation."
+        }
+      ]
+    },
+    "cf-padic-roth": {
+      "title": "$p$-adic Roth & subspace theorem",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The Mahler–Ridout theorem extends Roth to which setting?",
+          "choices": [
+            "Approximating algebraic $\\alpha\\in\\mathbb{R}$ by elements of $\\mathbb{Z}[i]$.",
+            "Replacing the archimedean absolute value $|\\cdot|_\\infty$ by a $p$-adic absolute value $|\\cdot|_p$, or mixing several places at once.",
+            "Replacing $\\mathbb{Q}$ by $\\mathbb{C}$ on the approximator side.",
+            "Removing the irrationality hypothesis on $\\alpha$."
+          ],
+          "answer": 1,
+          "explain": "If $\\alpha\\in\\mathbb{Q}_p$ is algebraic over $\\mathbb{Q}$ and $\\varepsilon>0$, then $|\\alpha-p/q|_p>q^{-2-\\varepsilon}$ for all but finitely many $p/q\\in\\mathbb{Q}$. The statement combines naturally with the archimedean Roth: one can demand simultaneous good approximation at finitely many places of $\\mathbb{Q}$, and the count of exceptions is still finite."
+        },
+        {
+          "type": "mcq",
+          "q": "Schmidt's subspace theorem (1972) packages Roth in $n$ dimensions. The conclusion: for linearly independent linear forms $L_1,\\ldots,L_n$ with algebraic coefficients and $\\varepsilon>0$, the integer solutions of $|L_1(x)\\cdots L_n(x)|<\\|x\\|^{-\\varepsilon}$ in $\\mathbb{Z}^n$ are",
+          "choices": [
+            "finite in number",
+            "contained in a finite union of proper rational subspaces of $\\mathbb{Q}^n$",
+            "dense in $\\mathbb{R}^n$",
+            "always lie on a single line"
+          ],
+          "answer": 1,
+          "explain": "The conclusion is geometric: solutions concentrate on finitely many proper subspaces, each of which can be analysed inductively. The case $n=2$ recovers Roth (one form is $x_1-\\alpha x_2$, the other is $x_2$); the higher-dimensional version proves finiteness of integer points on many varieties — the modern proof of Mordell's conjecture (Faltings) and the proof of the Mordell–Lang conjecture (Vojta, Faltings) ride on subspace-theorem-style ideas."
+        },
+        {
+          "type": "multi-select",
+          "q": "Which problems are settled (or substantially attacked) by the subspace theorem?",
+          "choices": [
+            "Finiteness of integral points on hyperbolic curves of genus $\\ge 1$ (Siegel + refinements).",
+            "Effective bounds on solutions of Thue equations.",
+            "The Mordell–Lang conjecture for subvarieties of semiabelian varieties (Faltings, Vojta).",
+            "The Riemann Hypothesis."
+          ],
+          "answer": [
+            0,
+            2
+          ],
+          "explain": "The subspace theorem is fundamentally non-effective (just like Roth), so option 1 is false. It powers Siegel-style finiteness results and Vojta–Faltings on Mordell–Lang. The Riemann hypothesis lives in a different world (analytic continuation, $\\zeta$-zeros) and has no known link to Diophantine approximation."
+        }
+      ]
+    }
+  }
+}

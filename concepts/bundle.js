@@ -4,6 +4,9 @@
 window.__MVConcepts = {
   "index": {
     "topics": [
+      "continued-fractions",
+      "abelian-varieties",
+      "positivity-and-ample-line-bundles",
       "motives",
       "algebraic-k-theory-foundations",
       "model-categories",
@@ -326,10 +329,285 @@ window.__MVConcepts = {
       "langlands-program": "capstone",
       "cohomology-and-duality": "advanced",
       "toric-varieties": "advanced",
-      "iwasawa-theory": "advanced"
+      "iwasawa-theory": "advanced",
+      "continued-fractions": "advanced",
+      "abelian-varieties": "advanced",
+      "positivity-and-ample-line-bundles": "advanced"
     }
   },
   "topics": {
+    "continued-fractions": {
+      "topic": "continued-fractions",
+      "title": "Continued fractions",
+      "page": "continued-fractions.html",
+      "concepts": [
+        {
+          "id": "cf-convergents",
+          "title": "Convergents and best approximations",
+          "anchor": "convergents",
+          "prereqs": [
+            "field-extensions-galois"
+          ],
+          "blurb": "The continued-fraction algorithm $\\alpha=a_0+1/(a_1+1/(a_2+\\cdots))$ produces partial quotients $a_n=\\lfloor\\alpha_n\\rfloor$ and convergents $p_n/q_n$ via the recursion $p_n=a_n p_{n-1}+p_{n-2}$, $q_n=a_n q_{n-1}+q_{n-2}$. Each convergent is a best rational approximation: no $p/q$ with $q<q_n$ comes closer to $\\alpha$. Lagrange's theorem characterises real quadratic irrationals as exactly those whose continued fraction is eventually periodic.",
+          "tags": [
+            "foundation",
+            "classification"
+          ]
+        },
+        {
+          "id": "cf-hurwitz",
+          "title": "Hurwitz's theorem and the constant $\\sqrt{5}$",
+          "anchor": "hurwitz",
+          "prereqs": [
+            "cf-convergents"
+          ],
+          "blurb": "For every irrational $\\alpha$ there are infinitely many $p/q\\in\\mathbb{Q}$ with $|\\alpha-p/q|<1/(\\sqrt{5}\\,q^2)$, and the constant $\\sqrt{5}$ cannot be improved: the golden ratio $\\varphi=(1+\\sqrt{5})/2$ is the extremal irrational, and the worst-approximable numbers are exactly the noble numbers (continued fraction tail $[\\dots;1,1,1,\\dots]$).",
+          "tags": [
+            "density",
+            "classification"
+          ]
+        },
+        {
+          "id": "cf-liouville",
+          "title": "Liouville numbers and the first transcendence proof",
+          "anchor": "liouville",
+          "prereqs": [
+            "cf-convergents",
+            "number-fields-integers"
+          ],
+          "blurb": "If $\\alpha$ is algebraic of degree $d\\ge 2$ then $|\\alpha-p/q|>C/q^d$ for some $C=C(\\alpha)>0$. So any irrational that admits rational approximations $p/q$ with $|\\alpha-p/q|<1/q^n$ for arbitrary $n$ must be transcendental — Liouville (1844) used this to exhibit $\\sum 10^{-k!}$ as the first explicitly proven transcendental number.",
+          "tags": [
+            "foundation",
+            "density"
+          ]
+        },
+        {
+          "id": "cf-roth",
+          "title": "Roth's theorem",
+          "anchor": "roth",
+          "prereqs": [
+            "cf-liouville",
+            "naive-height-projective"
+          ],
+          "blurb": "Roth (1955, Fields Medal) sharpened Liouville: for every algebraic irrational $\\alpha$ and $\\varepsilon>0$, there are only finitely many $p/q\\in\\mathbb{Q}$ with $|\\alpha-p/q|<q^{-2-\\varepsilon}$. The exponent $2$ is best possible by Dirichlet. The proof is famously ineffective — it gives no bound on the number or size of the exceptional $p/q$. The Schmidt subspace theorem is the multidimensional generalisation.",
+          "tags": [
+            "finiteness",
+            "density"
+          ]
+        },
+        {
+          "id": "cf-markoff",
+          "title": "Markoff spectrum and Markoff numbers",
+          "anchor": "markoff",
+          "prereqs": [
+            "cf-hurwitz"
+          ],
+          "blurb": "The Lagrange spectrum collects the limsup constants $L(\\alpha)=\\limsup_q\\,1/(q^2|\\alpha-p/q|)$ as $\\alpha$ ranges over irrationals. Below $3$ the spectrum is discrete: it consists exactly of $\\sqrt{9-4/m^2}$ for Markoff numbers $m\\in\\{1,2,5,13,29,\\dots\\}$ — the $m$-coordinates of integer solutions to $x^2+y^2+z^2=3xyz$. Above $3$ the spectrum has positive measure (Hall's ray).",
+          "tags": [
+            "classification",
+            "density"
+          ]
+        },
+        {
+          "id": "cf-padic-roth",
+          "title": "$p$-adic Roth and the subspace theorem",
+          "anchor": "padic-roth",
+          "prereqs": [
+            "cf-roth",
+            "padic-norm-completion"
+          ],
+          "blurb": "Mahler and Ridout extended Roth to $p$-adic absolute values: for algebraic $\\alpha\\in\\mathbb{Q}_p$ the analogous bound $|\\alpha-p/q|_p>q^{-2-\\varepsilon}$ holds with finitely many exceptions, and one can mix archimedean with finitely many $p$-adic places simultaneously. Schmidt's subspace theorem (1972) packages all of this: integer points on $L_1(x)\\cdots L_n(x)\\le\\|x\\|^{-\\varepsilon}$ for linearly independent linear forms $L_i$ lie on finitely many proper subspaces.",
+          "tags": [
+            "completion",
+            "finiteness"
+          ]
+        }
+      ]
+    },
+    "abelian-varieties": {
+      "topic": "abelian-varieties",
+      "title": "Abelian varieties",
+      "page": "abelian-varieties.html",
+      "concepts": [
+        {
+          "id": "av-definition",
+          "title": "Abelian varieties and complex tori",
+          "anchor": "definition",
+          "prereqs": [
+            "elliptic-curve-definition",
+            "smooth-projective-curve",
+            "projective-scheme"
+          ],
+          "blurb": "An abelian variety is a connected projective group variety over a field $k$. Over $\\mathbb{C}$ every $g$-dimensional abelian variety is a complex torus $V/\\Lambda$ with $V\\cong\\mathbb{C}^g$ and $\\Lambda$ a rank-$2g$ lattice — but a generic complex torus is not algebraic. The theorem of the cube and the rigidity lemma make the group law commutative and force projectivity from a single Riemann form.",
+          "tags": [
+            "foundation",
+            "group-action"
+          ]
+        },
+        {
+          "id": "av-polarization",
+          "title": "Polarizations and the dual abelian variety",
+          "anchor": "polarization",
+          "prereqs": [
+            "av-definition",
+            "complex-multiplication"
+          ],
+          "blurb": "The dual abelian variety $A^\\vee = \\mathrm{Pic}^0(A)$ parameterizes degree-zero line bundles. A polarization is an isogeny $\\lambda\\colon A\\to A^\\vee$ coming from an ample line bundle; it is principal when $\\lambda$ is an isomorphism. Over $\\mathbb{C}$ a polarization is a positive Riemann form on $V$, and exhibiting one is exactly what upgrades a complex torus to a projective variety.",
+          "tags": [
+            "duality",
+            "classification"
+          ]
+        },
+        {
+          "id": "av-tate-module",
+          "title": "Isogenies, Tate modules, and Galois action",
+          "anchor": "tate",
+          "prereqs": [
+            "av-definition",
+            "galois-rep-definition"
+          ],
+          "blurb": "For an abelian variety of dimension $g$ the multiplication-by-$n$ map $[n]\\colon A\\to A$ has degree $n^{2g}$, so $A[n](\\bar k)\\cong (\\mathbb{Z}/n)^{2g}$ when $n$ is invertible in $k$. The Tate module $T_\\ell A=\\varprojlim A[\\ell^n]$ is a free $\\mathbb{Z}_\\ell$-module of rank $2g$ on which $\\mathrm{Gal}(\\bar k/k)$ acts continuously; for $A/\\mathbb{F}_q$ the Frobenius eigenvalues on $T_\\ell A$ are Weil numbers of absolute value $\\sqrt q$.",
+          "tags": [
+            "group-action",
+            "completion"
+          ]
+        },
+        {
+          "id": "av-jacobian",
+          "title": "Jacobians of curves and Torelli",
+          "anchor": "jacobian",
+          "prereqs": [
+            "av-polarization",
+            "divisors-on-curves"
+          ],
+          "blurb": "For a smooth projective curve $C$ of genus $g$ the Jacobian $\\mathrm{Jac}(C)=\\mathrm{Pic}^0(C)$ is a $g$-dimensional abelian variety with a canonical principal polarization given by the theta divisor. The Abel–Jacobi map $C\\hookrightarrow\\mathrm{Jac}(C)$ embeds the curve once we fix a basepoint, and Torelli's theorem says the polarized Jacobian determines $C$ up to isomorphism.",
+          "tags": [
+            "moduli",
+            "duality"
+          ]
+        },
+        {
+          "id": "av-neron-model",
+          "title": "Néron models and reduction types",
+          "anchor": "neron",
+          "prereqs": [
+            "av-definition",
+            "fiber-products"
+          ],
+          "blurb": "Over a DVR $\\mathcal{O}_K$ with residue field $k$, the Néron model $\\mathcal{A}/\\mathcal{O}_K$ is the unique smooth separated group scheme satisfying $\\mathcal{A}(\\mathcal{O}_K)=A(K)$. Its special fiber $\\mathcal{A}_k$ has a connected component $\\mathcal{A}_k^0$ (an extension of an abelian variety by a torus and a unipotent group) and a finite component group $\\Phi=\\mathcal{A}_k/\\mathcal{A}_k^0$. Good, semistable, and additive reduction correspond to the unipotent rank being $0$, $0$ with no abelian part lost, or positive.",
+          "tags": [
+            "fibration",
+            "classification"
+          ]
+        },
+        {
+          "id": "av-mordell-weil-faltings",
+          "title": "Mordell–Weil and Faltings finiteness",
+          "anchor": "mordell-weil",
+          "prereqs": [
+            "av-tate-module",
+            "av-neron-model",
+            "logarithmic-height-northcott"
+          ],
+          "blurb": "Mordell–Weil: for any abelian variety $A$ over a number field $K$, the group $A(K)$ is finitely generated. Faltings (1983): for fixed $K$, dimension $g\\ge 1$, and finite set of places $S$, only finitely many isomorphism classes of $g$-dimensional principally polarized abelian varieties over $K$ have good reduction outside $S$. Specialised to Jacobians of genus-$\\ge 2$ curves, the same machine proves Mordell's conjecture: $C(K)$ is finite.",
+          "tags": [
+            "finiteness",
+            "moduli"
+          ]
+        }
+      ]
+    },
+    "positivity-and-ample-line-bundles": {
+      "topic": "positivity-and-ample-line-bundles",
+      "title": "Positivity and ample line bundles",
+      "page": "positivity-and-ample-line-bundles.html",
+      "concepts": [
+        {
+          "id": "pal-picard",
+          "title": "Divisors, line bundles, and the Picard group",
+          "anchor": "picard",
+          "prereqs": [
+            "applications-picard-serre",
+            "riemann-roch-curves"
+          ],
+          "blurb": "A Cartier divisor $D = \\sum n_i [Y_i]$ on a smooth variety $X$ is a formal $\\mathbb{Z}$-sum of codim-$1$ subvarieties; $\\mathrm{div}(f)$ for $f \\in k(X)^\\times$ is principal. The Picard group $\\mathrm{Pic}(X) = \\mathrm{Div}(X)/\\sim_{\\mathrm{rat}}$ classifies line bundles up to isomorphism, and the global sections of $\\mathcal{O}(D)$ are the rational functions whose pole order is bounded by $D$.",
+          "tags": [
+            "foundation",
+            "classification"
+          ]
+        },
+        {
+          "id": "pal-very-ample",
+          "title": "Very ample, ample, and Serre's theorem",
+          "anchor": "ample",
+          "prereqs": [
+            "pal-picard",
+            "derived-functor-cohomology"
+          ],
+          "blurb": "$L$ is very ample on $X$ if its global sections embed $X \\hookrightarrow \\mathbb{P}^N$; $L$ is ample if some power $L^{\\otimes n}$ is very ample. Serre's theorem makes ampleness cohomological: $L$ ample iff for every coherent sheaf $\\mathcal{F}$ there exists $n_0$ such that $H^i(X, \\mathcal{F} \\otimes L^{\\otimes n}) = 0$ for all $i > 0$ and $n \\ge n_0$.",
+          "tags": [
+            "cohomology",
+            "foundation"
+          ]
+        },
+        {
+          "id": "pal-nakai",
+          "title": "Nakai–Moishezon and the ample cone",
+          "anchor": "nakai",
+          "prereqs": [
+            "pal-very-ample",
+            "intersection-product",
+            "chow-groups"
+          ],
+          "blurb": "Nakai–Moishezon: on a projective variety $X$, $L$ is ample iff $L^{\\dim Y} \\cdot Y > 0$ for every irreducible subvariety $Y \\subseteq X$ of positive dimension. Numerical equivalence collapses $\\mathrm{Pic}(X)$ to the Néron–Severi group $N^1(X)$; the ample cone $\\mathrm{Amp}(X) \\subset N^1(X)_\\mathbb{R}$ is open and convex.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "pal-nef-big",
+          "title": "Nef, big, and the cone of curves",
+          "anchor": "nef-big",
+          "prereqs": [
+            "pal-nakai"
+          ],
+          "blurb": "$L$ is nef if $L \\cdot C \\ge 0$ for every irreducible curve $C \\subset X$; $\\mathrm{Nef}(X)$ is the closure of $\\mathrm{Amp}(X)$. $L$ is big if $h^0(L^{\\otimes n}) \\ge c \\, n^{\\dim X}$ for some $c > 0$ and $n \\gg 0$. Kleiman's theorem identifies $\\mathrm{Nef}(X)$ as the dual of the closed cone of curves $\\overline{NE}(X)$, and Mori's cone theorem describes the $K_X$-negative part of $\\overline{NE}(X)$ as locally polyhedral.",
+          "tags": [
+            "duality",
+            "classification"
+          ]
+        },
+        {
+          "id": "pal-kodaira-embedding",
+          "title": "Kodaira embedding theorem",
+          "anchor": "kodaira",
+          "prereqs": [
+            "pal-very-ample",
+            "hodge-decomposition"
+          ],
+          "blurb": "Kodaira (1954): a compact Kähler manifold $X$ is projective iff it admits a positive line bundle $L$ — i.e. a holomorphic line bundle whose curvature form $\\frac{i}{2\\pi}\\Theta(L)$ is a Kähler form. The map $X \\to \\mathbb{P}(H^0(X, L^{\\otimes n})^\\vee)$ is then an embedding for $n \\gg 0$, identifying complex-analytic positivity with algebraic ampleness.",
+          "tags": [
+            "duality",
+            "foundation"
+          ]
+        },
+        {
+          "id": "pal-vanishing",
+          "title": "Kodaira and Kawamata–Viehweg vanishing",
+          "anchor": "vanishing",
+          "prereqs": [
+            "pal-very-ample",
+            "pal-nef-big",
+            "long-exact-sequence-cohomology"
+          ],
+          "blurb": "Kodaira vanishing: if $L$ is ample on a smooth projective $X/\\mathbb{C}$ with canonical bundle $K_X$, then $H^i(X, K_X \\otimes L) = 0$ for $i > 0$. Kawamata–Viehweg extends to $L$ nef and big with at worst rational singularities — the workhorse vanishing of the minimal model program and the engine behind base-point-freeness, contraction, and flips.",
+          "tags": [
+            "cohomology",
+            "exact-sequence"
+          ]
+        }
+      ]
+    },
     "motives": {
       "topic": "motives",
       "title": "Motives",
@@ -15847,7 +16125,8 @@ window.__MVConcepts = {
           "analytic-number-theory",
           "mathematics-and-cryptography",
           "computational-number-theory",
-          "iwasawa-theory"
+          "iwasawa-theory",
+          "continued-fractions"
         ],
         "color": "y"
       },
@@ -15905,7 +16184,9 @@ window.__MVConcepts = {
           "resolution-of-singularities",
           "motives",
           "hodge-theory",
-          "toric-varieties"
+          "toric-varieties",
+          "abelian-varieties",
+          "positivity-and-ample-line-bundles"
         ],
         "color": "g"
       },
@@ -16197,7 +16478,10 @@ window.__MVConcepts = {
     "langlands-program": "capstone",
     "cohomology-and-duality": "advanced",
     "toric-varieties": "advanced",
-    "iwasawa-theory": "advanced"
+    "iwasawa-theory": "advanced",
+    "continued-fractions": "advanced",
+    "abelian-varieties": "advanced",
+    "positivity-and-ample-line-bundles": "advanced"
   },
   "newArc": [
     "elementary-topos-theory",
@@ -16260,11 +16544,11 @@ window.__MVConcepts = {
       "density": 0.20909090909090908
     },
     "Number theory": {
-      "concepts": 104,
-      "intra": 140,
+      "concepts": 110,
+      "intra": 149,
       "crossOut": 43,
-      "crossIn": 25,
-      "density": 0.41346153846153844
+      "crossIn": 27,
+      "density": 0.39090909090909093
     },
     "Modular forms & L-functions": {
       "concepts": 103,
@@ -16274,11 +16558,11 @@ window.__MVConcepts = {
       "density": 0.5339805825242718
     },
     "Algebraic geometry": {
-      "concepts": 149,
-      "intra": 196,
-      "crossOut": 56,
+      "concepts": 161,
+      "intra": 221,
+      "crossOut": 58,
       "crossIn": 21,
-      "density": 0.37583892617449666
+      "density": 0.36024844720496896
     },
     "Combinatorics & graph theory": {
       "concepts": 51,
