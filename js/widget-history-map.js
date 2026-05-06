@@ -500,7 +500,19 @@
       });
     });
     allBtn.addEventListener('click', () => {
-      state.activeEras.clear();
+      // Three-state toggle — clicking "All eras" cycles between
+      //   (a) no filter (every pin in its natural color)
+      //   (b) all-eras-active (every pin glows in its newest-era color
+      //       with the strong era-match halo)
+      // depending on the current state. From any partial selection the
+      // first click clears; from cleared state the click activates all
+      // 9 eras at once so the user can compare the full geographic
+      // distribution of activity.
+      if (state.activeEras.size === 0) {
+        for (const era of eras) state.activeEras.add(era.id);
+      } else {
+        state.activeEras.clear();
+      }
       applyState();
     });
     svg.addEventListener('dblclick', e => {
