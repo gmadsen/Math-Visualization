@@ -1,0 +1,637 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>MMP and birational geometry</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false,
+      macros:{
+        '\\Spec':'\\operatorname{Spec}',
+        '\\Gal':'\\operatorname{Gal}',
+        '\\Hom':'\\operatorname{Hom}',
+        '\\tr':'\\operatorname{tr}',
+        '\\ad':'\\operatorname{ad}',
+        '\\ind':'\\operatorname{ind}'
+      }
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  /* sticky sidebar TOC (wide screens only; narrow screens fall back to top-nav) */
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+  /* callback-css-auto-begin */
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+/* callback-css-auto-end */
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
+  /* display-prefs-css-auto-begin */
+  html[data-hide-widgets] .widget { display: none !important; }
+  html[data-hide-quizzes] .quiz { display: none !important; }
+  html[data-hide-lineage] .lineage-strip { display: none !important; }
+  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }
+  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }
+  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }
+  .mv-display-toggle--off { opacity: 0.35; }
+  /* display-prefs-css-auto-end */
+</style>
+<!-- breadcrumb-head-auto-begin -->
+<script>window.__MV_SECTION_MAP = {"<topic>":{"next":null,"prev":null,"section":"Sections","title":"<topic>"},"L-functions":{"next":"sato-tate","prev":"moonshine","section":"Modular forms & L-functions","title":"L-functions"},"abelian-varieties":{"next":"positivity-and-ample-line-bundles","prev":"toric-varieties","section":"Algebraic geometry","title":"Abelian varieties"},"additive-number-theory":{"next":"heights-arithmetic-geometry","prev":"quadratic-forms-genus-theory","section":"Number theory","title":"Additive number theory"},"adeles-and-ideles":{"next":"frobenius-and-reciprocity","prev":"p-adic-numbers","section":"Number theory","title":"Adèles & idèles"},"advanced-complex-analysis":{"next":"microlocal-analysis","prev":"sobolev-spaces-distributions","section":"Analysis","title":"Advanced complex analysis"},"algebra":{"next":"representation-theory","prev":null,"section":"Algebra & homological","title":"Abstract algebra"},"algebraic-curves-higher-genus":{"next":"deformation-theory","prev":"mirror-symmetry","section":"Algebraic geometry","title":"Algebraic curves: higher genus"},"algebraic-de-rham-cohomology":{"next":"calabi-yau-manifolds","prev":"algebraic-spaces","section":"Algebraic geometry","title":"Algebraic de Rham cohomology"},"algebraic-k-theory-foundations":{"next":"model-categories","prev":"quantum-groups","section":"Algebra & homological","title":"Algebraic K-theory foundations"},"algebraic-number-theory":{"next":"p-adic-numbers","prev":"galois","section":"Number theory","title":"Algebraic number theory"},"algebraic-spaces":{"next":"algebraic-de-rham-cohomology","prev":"functor-of-points","section":"Algebraic geometry","title":"Algebraic spaces"},"algebraic-topology":{"next":"knot-polynomials","prev":"point-set-topology","section":"Geometry & topology","title":"Algebraic topology"},"analytic-continuation":{"next":"zeta-values","prev":"dirichlet-series-euler-products","section":"Modular forms & L-functions","title":"Analytic continuation"},"analytic-number-theory":{"next":"galois","prev":null,"section":"Number theory","title":"Analytic number theory"},"atiyah-singer-index-theorem":{"next":"riemannian-geometry","prev":"k-theory","section":"Geometry & topology","title":"Atiyah–Singer index theorem"},"automorphic-forms-adelic":{"next":"moonshine","prev":"hecke-operators","section":"Modular forms & L-functions","title":"Automorphic forms (adelic)"},"bezout":{"next":"schemes","prev":"elliptic-curves","section":"Algebraic geometry","title":"Bézout's theorem"},"bsd":{"next":"modularity-and-flt","prev":"sato-tate","section":"Modular forms & L-functions","title":"Birch & Swinnerton-Dyer"},"calabi-yau-manifolds":{"next":"mirror-symmetry","prev":"algebraic-de-rham-cohomology","section":"Algebraic geometry","title":"Calabi–Yau manifolds"},"category-theory":{"next":"commutative-algebra","prev":"derived-categories","section":"Algebra & homological","title":"Category theory"},"characteristic-classes":{"next":"k-theory","prev":"symplectic-manifolds","section":"Geometry & topology","title":"Characteristic classes"},"class-field-theory":{"next":"galois-representations","prev":"computational-number-theory","section":"Number theory","title":"Class field theory"},"cobordism":{"next":null,"prev":"cohomology-and-duality","section":"Geometry & topology","title":"Cobordism"},"cocartesian-fibrations":{"next":"infinity-categories","prev":"heyting-algebras-toposes","section":"Higher categories & toposes","title":"Cocartesian fibrations"},"cohomology-and-duality":{"next":"cobordism","prev":"mostow-rigidity","section":"Geometry & topology","title":"Cohomology and duality"},"commutative-algebra":{"next":"homological","prev":"category-theory","section":"Algebra & homological","title":"Commutative algebra"},"complex-analysis":{"next":"measure-theory","prev":"real-analysis","section":"Analysis","title":"Complex analysis"},"complexity-theory":{"next":"type-theory-and-hott","prev":"computability-and-decidability","section":"Logic & Foundations","title":"Complexity theory"},"computability-and-decidability":{"next":"complexity-theory","prev":"model-theory-basics","section":"Logic & Foundations","title":"Computability and decidability"},"computational-number-theory":{"next":"class-field-theory","prev":"mathematics-and-cryptography","section":"Number theory","title":"Computational number theory"},"condensed-mathematics":{"next":null,"prev":"groebner-bases","section":"Algebra & homological","title":"Condensed mathematics"},"continued-fractions":{"next":"dirichlet-unit-theorem","prev":"iwasawa-theory","section":"Number theory","title":"Continued fractions"},"deformation-theory":{"next":"resolution-of-singularities","prev":"algebraic-curves-higher-genus","section":"Algebraic geometry","title":"Deformation theory"},"derived-categories":{"next":"category-theory","prev":"model-categories","section":"Algebra & homological","title":"Derived categories"},"designs":{"next":"spectral-graph-theory","prev":"enumerative-combinatorics","section":"Combinatorics & graph theory","title":"Designs"},"differential-forms":{"next":"morse-theory","prev":"riemann-surfaces","section":"Geometry & topology","title":"Differential forms"},"differential-geometry":{"next":"riemann-surfaces","prev":"smooth-manifolds","section":"Geometry & topology","title":"Differential geometry"},"dirac-equation":{"next":"statistical-mechanics","prev":"klein-gordon-equation","section":"Mathematical physics","title":"Dirac equation"},"dirichlet-series-euler-products":{"next":"analytic-continuation","prev":null,"section":"Modular forms & L-functions","title":"Dirichlet series & Euler products"},"dirichlet-unit-theorem":{"next":null,"prev":"continued-fractions","section":"Number theory","title":"Dirichlet unit theorem"},"dynamical-systems":{"next":"semigroup-theory-evolution-equations","prev":"operator-algebras","section":"Analysis","title":"Dynamical systems"},"elementary-topos-theory":{"next":"grothendieck-topologies-sites","prev":"simplicial-sets-and-nerve","section":"Higher categories & toposes","title":"Elementary topos theory"},"elliptic-curves":{"next":"bezout","prev":"etale-fundamental-group","section":"Algebraic geometry","title":"Elliptic curves"},"enumerative-combinatorics":{"next":"designs","prev":"simplicial-complexes-combinatorial","section":"Combinatorics & graph theory","title":"Enumerative combinatorics"},"etale-cohomology":{"next":"mmp-and-birational-geometry","prev":"stacks","section":"Algebraic geometry","title":"Étale cohomology"},"etale-fundamental-group":{"next":"elliptic-curves","prev":"projective-plane","section":"Algebraic geometry","title":"Étale fundamental group"},"expanders":{"next":null,"prev":"spectral-graph-theory","section":"Combinatorics & graph theory","title":"Expanders"},"extremal-combinatorics":{"next":"simplicial-complexes-combinatorial","prev":"probabilistic-method","section":"Combinatorics & graph theory","title":"Extremal combinatorics"},"first-order-logic-and-completeness":{"next":"zfc-and-ordinals","prev":"type-theory-and-hott","section":"Logic & Foundations","title":"First order logic and completeness"},"fixed-point-theorems":{"next":"harmonic-analysis-fourier","prev":"functional-analysis","section":"Analysis","title":"Fixed point theorems"},"forcing-and-independence":{"next":null,"prev":"zfc-and-ordinals","section":"Logic & Foundations","title":"Forcing and independence"},"frobenius-and-reciprocity":{"next":"quadratic-reciprocity","prev":"adeles-and-ideles","section":"Number theory","title":"Frobenius & reciprocity"},"functional-analysis":{"next":"fixed-point-theorems","prev":"harmonic-functions","section":"Analysis","title":"Functional analysis"},"functor-of-points":{"next":"algebraic-spaces","prev":"morphisms-fiber-products","section":"Algebraic geometry","title":"Functor of points"},"galois":{"next":"algebraic-number-theory","prev":"analytic-number-theory","section":"Number theory","title":"Galois theory & the quintic"},"galois-cohomology-and-brauer":{"next":"group-cohomology","prev":"geometric-and-combinatorial-group-theory","section":"Algebra & homological","title":"Galois cohomology and Brauer groups"},"galois-representations":{"next":"iwasawa-theory","prev":"class-field-theory","section":"Number theory","title":"Galois representations"},"gauge-theory":{"next":"string-theory","prev":"statistical-mechanics","section":"Mathematical physics","title":"Gauge theory"},"general-relativity":{"next":"schrodinger-equation","prev":"three-body-problem","section":"Mathematical physics","title":"General relativity & Einstein equations"},"geometric-and-combinatorial-group-theory":{"next":"galois-cohomology-and-brauer","prev":"quaternions-octonions-and-division-algebras","section":"Algebra & homological","title":"Geometric and combinatorial group theory"},"geometric-measure-theory":{"next":"operator-algebras","prev":"microlocal-analysis","section":"Analysis","title":"Geometric measure theory"},"groebner-bases":{"next":"condensed-mathematics","prev":"homological","section":"Algebra & homological","title":"Gröbner bases"},"grothendieck-topologies-sites":{"next":"infinity-topoi","prev":"elementary-topos-theory","section":"Higher categories & toposes","title":"Grothendieck topologies & sites"},"group-cohomology":{"next":"quantum-groups","prev":"galois-cohomology-and-brauer","section":"Algebra & homological","title":"Group cohomology"},"group-schemes":{"next":"morphisms-fiber-products","prev":"intersection-theory-chow","section":"Algebraic geometry","title":"Group schemes"},"hamiltonians-classical-mechanics":{"next":"special-relativity","prev":"schrodinger-equation","section":"Mathematical physics","title":"Hamiltonians & classical mechanics"},"harmonic-analysis-fourier":{"next":"wavelets","prev":"fixed-point-theorems","section":"Analysis","title":"Harmonic analysis & Fourier theory"},"harmonic-functions":{"next":"functional-analysis","prev":"measure-theory","section":"Analysis","title":"Harmonic functions"},"hecke-operators":{"next":"automorphic-forms-adelic","prev":"theta-functions","section":"Modular forms & L-functions","title":"Hecke operators"},"heights-arithmetic-geometry":{"next":"mathematics-and-cryptography","prev":"additive-number-theory","section":"Number theory","title":"Heights in arithmetic geometry"},"heyting-algebras-toposes":{"next":"cocartesian-fibrations","prev":null,"section":"Higher categories & toposes","title":"Heyting algebras & intuitionist logic"},"high-dimensional-geometry":{"next":"information-theory","prev":"large-deviations","section":"Probability & statistics","title":"High dimensional geometry"},"hodge-theory":{"next":"singular-cubics-reduction","prev":"motives","section":"Algebraic geometry","title":"Hodge theory"},"homological":{"next":"groebner-bases","prev":"commutative-algebra","section":"Algebra & homological","title":"Homological algebra"},"infinity-categories":{"next":"simplicial-sets-and-nerve","prev":"cocartesian-fibrations","section":"Higher categories & toposes","title":"∞-categories (quasi-categories)"},"infinity-topoi":{"next":null,"prev":"grothendieck-topologies-sites","section":"Higher categories & toposes","title":"∞-topoi"},"information-theory":{"next":"mathematical-statistics","prev":"high-dimensional-geometry","section":"Probability & statistics","title":"Information theory"},"intersection-theory-chow":{"next":"group-schemes","prev":"sheaves","section":"Algebraic geometry","title":"Intersection theory & Chow groups"},"iwasawa-theory":{"next":"continued-fractions","prev":"galois-representations","section":"Number theory","title":"Iwasawa theory"},"k-theory":{"next":"atiyah-singer-index-theorem","prev":"characteristic-classes","section":"Geometry & topology","title":"K-theory"},"klein-gordon-equation":{"next":"dirac-equation","prev":"special-relativity","section":"Mathematical physics","title":"Klein-Gordon equation"},"knot-polynomials":{"next":"smooth-manifolds","prev":"algebraic-topology","section":"Geometry & topology","title":"Knot polynomials"},"langlands-program":{"next":"theta-functions","prev":"vertex-operator-algebras","section":"Modular forms & L-functions","title":"Langlands program"},"large-deviations":{"next":"high-dimensional-geometry","prev":"random-walks-and-mixing","section":"Probability & statistics","title":"Large deviations"},"lie-algebras":{"next":"quaternions-octonions-and-division-algebras","prev":"representation-theory","section":"Algebra & homological","title":"Lie algebras"},"lie-groups":{"next":"mostow-rigidity","prev":"ricci-flow","section":"Geometry & topology","title":"Lie groups & algebras"},"mathematical-statistics":{"next":"probability-theory","prev":"information-theory","section":"Probability & statistics","title":"Mathematical statistics"},"mathematics-and-cryptography":{"next":"computational-number-theory","prev":"heights-arithmetic-geometry","section":"Number theory","title":"Mathematics and cryptography"},"matroid-theory":{"next":"probabilistic-method","prev":null,"section":"Combinatorics & graph theory","title":"Matroid theory"},"measure-theory":{"next":"harmonic-functions","prev":"complex-analysis","section":"Analysis","title":"Measure theory"},"microlocal-analysis":{"next":"geometric-measure-theory","prev":"advanced-complex-analysis","section":"Analysis","title":"Microlocal analysis"},"mirror-symmetry":{"next":"algebraic-curves-higher-genus","prev":"calabi-yau-manifolds","section":"Algebraic geometry","title":"Mirror symmetry"},"mmp-and-birational-geometry":{"next":null,"prev":"etale-cohomology","section":"Algebraic geometry","title":"MMP and birational geometry"},"model-categories":{"next":"derived-categories","prev":"algebraic-k-theory-foundations","section":"Algebra & homological","title":"Model categories"},"model-theory-basics":{"next":"computability-and-decidability","prev":"naive-set-theory","section":"Logic & Foundations","title":"Model theory basics"},"modular-curves":{"next":"vertex-operator-algebras","prev":"partitions-generating-functions","section":"Modular forms & L-functions","title":"Modular curves"},"modular-forms":{"next":"partitions-generating-functions","prev":"upper-half-plane-hyperbolic","section":"Modular forms & L-functions","title":"Modular forms"},"modularity-and-flt":{"next":null,"prev":"bsd","section":"Modular forms & L-functions","title":"Modularity & FLT"},"moduli-spaces":{"next":"toric-varieties","prev":"sheaf-cohomology","section":"Algebraic geometry","title":"Moduli spaces"},"moonshine":{"next":"L-functions","prev":"automorphic-forms-adelic","section":"Modular forms & L-functions","title":"Monstrous moonshine"},"morphisms-fiber-products":{"next":"functor-of-points","prev":"group-schemes","section":"Algebraic geometry","title":"Morphisms & fiber products"},"morse-theory":{"next":"symplectic-manifolds","prev":"differential-forms","section":"Geometry & topology","title":"Morse theory"},"mostow-rigidity":{"next":"cohomology-and-duality","prev":"lie-groups","section":"Geometry & topology","title":"Mostow rigidity"},"motives":{"next":"hodge-theory","prev":"resolution-of-singularities","section":"Algebraic geometry","title":"Motives"},"naive-set-theory":{"next":"model-theory-basics","prev":null,"section":"Logic & Foundations","title":"Naive set theory"},"numerical-analysis":{"next":"variational-methods","prev":"spectral-theory","section":"Analysis","title":"Numerical analysis"},"operator-algebras":{"next":"dynamical-systems","prev":"geometric-measure-theory","section":"Analysis","title":"Operator algebras"},"p-adic-numbers":{"next":"adeles-and-ideles","prev":"algebraic-number-theory","section":"Number theory","title":"p-adic numbers"},"partial-differential-equations":{"next":"spectral-theory","prev":"wavelets","section":"Analysis","title":"Partial differential equations"},"partitions-generating-functions":{"next":"modular-curves","prev":"modular-forms","section":"Modular forms & L-functions","title":"Partitions & generating functions"},"point-set-topology":{"next":"algebraic-topology","prev":null,"section":"Geometry & topology","title":"Point-set topology"},"positivity-and-ample-line-bundles":{"next":"stacks","prev":"abelian-varieties","section":"Algebraic geometry","title":"Positivity and ample line bundles"},"probabilistic-method":{"next":"extremal-combinatorics","prev":"matroid-theory","section":"Combinatorics & graph theory","title":"Probabilistic method"},"probability-theory":{"next":null,"prev":"mathematical-statistics","section":"Probability & statistics","title":"Probability theory"},"projective-plane":{"next":"etale-fundamental-group","prev":null,"section":"Algebraic geometry","title":"Projective plane"},"quadratic-forms-genus-theory":{"next":"additive-number-theory","prev":"quadratic-reciprocity","section":"Number theory","title":"Quadratic forms & genus theory"},"quadratic-reciprocity":{"next":"quadratic-forms-genus-theory","prev":"frobenius-and-reciprocity","section":"Number theory","title":"Quadratic reciprocity"},"quantum-field-theory":{"next":null,"prev":"string-theory","section":"Mathematical physics","title":"Quantum field theory"},"quantum-groups":{"next":"algebraic-k-theory-foundations","prev":"group-cohomology","section":"Algebra & homological","title":"Quantum groups"},"quaternions-octonions-and-division-algebras":{"next":"geometric-and-combinatorial-group-theory","prev":"lie-algebras","section":"Algebra & homological","title":"Quaternions, octonions, and division algebras"},"random-walks-and-mixing":{"next":"large-deviations","prev":"stochastic-calculus","section":"Probability & statistics","title":"Random walks and mixing"},"real-analysis":{"next":"complex-analysis","prev":null,"section":"Analysis","title":"Real analysis"},"representation-theory":{"next":"lie-algebras","prev":"algebra","section":"Algebra & homological","title":"Representation theory"},"resolution-of-singularities":{"next":"motives","prev":"deformation-theory","section":"Algebraic geometry","title":"Resolution of singularities"},"ricci-flow":{"next":"lie-groups","prev":"riemannian-geometry","section":"Geometry & topology","title":"Ricci flow"},"riemann-surfaces":{"next":"differential-forms","prev":"differential-geometry","section":"Geometry & topology","title":"Riemann surfaces"},"riemannian-geometry":{"next":"ricci-flow","prev":"atiyah-singer-index-theorem","section":"Geometry & topology","title":"Riemannian geometry"},"sato-tate":{"next":"bsd","prev":"L-functions","section":"Modular forms & L-functions","title":"Sato–Tate"},"schemes":{"next":"sheaves","prev":"bezout","section":"Algebraic geometry","title":"Schemes"},"schrodinger-equation":{"next":"hamiltonians-classical-mechanics","prev":"general-relativity","section":"Mathematical physics","title":"Schrödinger equation"},"semigroup-theory-evolution-equations":{"next":null,"prev":"dynamical-systems","section":"Analysis","title":"Semigroup theory & evolution equations"},"sheaf-cohomology":{"next":"moduli-spaces","prev":"singular-cubics-reduction","section":"Algebraic geometry","title":"Sheaf cohomology"},"sheaves":{"next":"intersection-theory-chow","prev":"schemes","section":"Algebraic geometry","title":"Sheaves"},"simplicial-complexes-combinatorial":{"next":"enumerative-combinatorics","prev":"extremal-combinatorics","section":"Combinatorics & graph theory","title":"Simplicial complexes (combinatorial)"},"simplicial-sets-and-nerve":{"next":"elementary-topos-theory","prev":"infinity-categories","section":"Higher categories & toposes","title":"Simplicial sets & the nerve"},"singular-cubics-reduction":{"next":"sheaf-cohomology","prev":"hodge-theory","section":"Algebraic geometry","title":"Singular cubics & reduction"},"smooth-manifolds":{"next":"differential-geometry","prev":"knot-polynomials","section":"Geometry & topology","title":"Smooth manifolds"},"sobolev-spaces-distributions":{"next":"advanced-complex-analysis","prev":"variational-methods","section":"Analysis","title":"Sobolev spaces & distributions"},"special-relativity":{"next":"klein-gordon-equation","prev":"hamiltonians-classical-mechanics","section":"Mathematical physics","title":"Special relativity"},"spectral-graph-theory":{"next":"expanders","prev":"designs","section":"Combinatorics & graph theory","title":"Spectral graph theory"},"spectral-theory":{"next":"numerical-analysis","prev":"partial-differential-equations","section":"Analysis","title":"Spectral theory"},"stacks":{"next":"etale-cohomology","prev":"positivity-and-ample-line-bundles","section":"Algebraic geometry","title":"Stacks (Deligne–Mumford)"},"statistical-mechanics":{"next":"gauge-theory","prev":"dirac-equation","section":"Mathematical physics","title":"Statistical mechanics"},"stochastic-calculus":{"next":"random-walks-and-mixing","prev":"stochastic-processes-and-martingales","section":"Probability & statistics","title":"Stochastic calculus"},"stochastic-processes-and-martingales":{"next":"stochastic-calculus","prev":null,"section":"Probability & statistics","title":"Stochastic processes and martingales"},"string-theory":{"next":"quantum-field-theory","prev":"gauge-theory","section":"Mathematical physics","title":"String theory"},"symplectic-manifolds":{"next":"characteristic-classes","prev":"morse-theory","section":"Geometry & topology","title":"Symplectic manifolds"},"theta-functions":{"next":"hecke-operators","prev":"langlands-program","section":"Modular forms & L-functions","title":"Theta functions"},"three-body-problem":{"next":"general-relativity","prev":null,"section":"Mathematical physics","title":"The three-body problem"},"toric-varieties":{"next":"abelian-varieties","prev":"moduli-spaces","section":"Algebraic geometry","title":"Toric varieties"},"type-theory-and-hott":{"next":"first-order-logic-and-completeness","prev":"complexity-theory","section":"Logic & Foundations","title":"Type theory and HoTT"},"upper-half-plane-hyperbolic":{"next":"modular-forms","prev":"zeta-values","section":"Modular forms & L-functions","title":"Upper half-plane"},"variational-methods":{"next":"sobolev-spaces-distributions","prev":"numerical-analysis","section":"Analysis","title":"Variational methods"},"vertex-operator-algebras":{"next":"langlands-program","prev":"modular-curves","section":"Modular forms & L-functions","title":"Vertex operator algebras"},"wavelets":{"next":"partial-differential-equations","prev":"harmonic-analysis-fourier","section":"Analysis","title":"Wavelets"},"zeta-values":{"next":"upper-half-plane-hyperbolic","prev":"analytic-continuation","section":"Modular forms & L-functions","title":"Zeta values"},"zfc-and-ordinals":{"next":"forcing-and-independence","prev":"first-order-logic-and-completeness","section":"Logic & Foundations","title":"ZFC and ordinals"}};</script>
+<script src="./js/breadcrumb.js"></script>
+<script src="./js/glossary-popover.js" defer></script>
+<link rel="stylesheet" media="print" href="./css/print.css">
+<link rel="stylesheet" href="./css/theme-light.css">
+<script src="./js/theme-toggle.js"></script>
+<script src="./concepts/bundle.js" defer></script>
+<script src="./js/topic-hotkeys.js" defer></script>
+<script src="./js/topic-lineage.js" defer></script>
+<!-- breadcrumb-head-auto-end -->
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./js/katex-select.js"></script>
+<script src="./js/widget-diagram-editor.js"></script>
+<script src="./quizzes/bundle.js"></script>
+<script src="./js/sidetoc.js"></script>
+<!-- display-prefs-head-auto-begin -->
+<script src="./js/display-prefs.js"></script>
+<!-- display-prefs-head-auto-end -->
+</head>
+<body data-section="algebraic-geometry" data-level="advanced">
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+// draw an arrow marker def once per svg (idempotent)
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+// curved arrow between two pixel points, with optional label
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  // shorten endpoints
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><span class="nav-links"><a class="nav-link" href="./pathway.html">Pathway</a><a class="nav-link" href="./tours.html">Tours</a><a class="nav-link" href="./history.html">History</a><a class="nav-link" href="./tags.html">Themes</a><a class="nav-link" href="./mindmap.html">Mindmap</a><a class="nav-link" href="./search.html">Search</a></span><span class="mv-theme-slot"></span><!-- breadcrumb-nav-auto-end -->
+<!-- toc-auto-begin -->
+  <a href="#kodaira-dimension">1&nbsp;Kodaira&nbsp;dimension&nbsp;and&nbsp;the&nbsp;canonical&nbsp;ring</a>
+  <a href="#cone-theorem">2&nbsp;The&nbsp;cone&nbsp;theorem&nbsp;and&nbsp;extremal&nbsp;contractions</a>
+  <a href="#surfaces">3&nbsp;Surface&nbsp;MMP:&nbsp;Castelnuovo&nbsp;and&nbsp;Enriques&nbsp;classification</a>
+  <a href="#flips">4&nbsp;Threefold&nbsp;MMP:&nbsp;small&nbsp;contractions&nbsp;and&nbsp;flips</a>
+  <a href="#singularities">5&nbsp;Singularities&nbsp;of&nbsp;pairs&nbsp;and&nbsp;discrepancies</a>
+  <a href="#sarkisov">6&nbsp;Mori&nbsp;fibre&nbsp;spaces&nbsp;and&nbsp;the&nbsp;Sarkisov&nbsp;program</a>
+  <a href="#connections">7&nbsp;Connections</a>
+<!-- toc-auto-end -->
+</nav>
+<!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>MMP and birational geometry</h1>
+  <p class="sub">Two birational varieties differ by a sequence of blow-ups, flips, and contractions. The Minimal Model Program is the algorithm that walks this birational web toward the simplest representative — and the canonical bundle is its compass.</p>
+</section>
+
+<section id="kodaira-dimension">
+<h2>1. Kodaira dimension and the canonical ring</h2>
+
+<p>Birational geometry classifies varieties up to the relation generated by isomorphisms on a dense open subset. From the inside this looks vast — even $\mathbb{P}^2$ admits a six-parameter family of birational self-maps (the Cremona group). The first task is to extract a numerical invariant that survives every birational move. The natural candidate is built out of the canonical bundle.</p>
+
+<p>Let $X$ be a smooth projective variety over an algebraically closed field of characteristic zero. The <strong>canonical ring</strong> is the graded ring of pluricanonical sections,</p>
+$$R(X, K_X) \;=\; \bigoplus_{m \ge 0} H^0(X, K_X^{\otimes m}).$$
+<p>It is a $\mathbb{Z}_{\ge 0}$-graded $k$-algebra, and one of the central theorems of birational geometry — finite generation of the canonical ring (BCHM 2010) — says it is finitely generated whenever $X$ is of general type. The growth rate of its graded pieces is recorded by a single invariant.</p>
+
+<div class="note">
+<p style="margin:.2rem 0"><strong>Definition (Kodaira dimension).</strong> The <em>Kodaira dimension</em> of $X$ is</p>
+$$\kappa(X) \;=\; \begin{cases} -\infty & \text{if } h^0(X, K_X^{\otimes m}) = 0 \text{ for every } m \ge 1, \\ \limsup_{m \to \infty} \dfrac{\log h^0(X, K_X^{\otimes m})}{\log m} & \text{otherwise.} \end{cases}$$
+<p style="margin:.2rem 0">Equivalently, $\kappa(X) \in \{-\infty, 0, 1, \ldots, \dim X\}$ is the dimension of the image of the pluricanonical map $\varphi_{|mK_X|} : X \dashrightarrow \mathbb{P}(H^0(K_X^{\otimes m})^\vee)$ for $m \gg 0$.</p>
+</div>
+
+<p>So $\kappa(X)$ measures how positive $K_X$ is, on a coarse $\{-\infty, 0, 1, \ldots, \dim X\}$ scale. The extremes are familiar:</p>
+
+<ul>
+  <li><strong>$\kappa = -\infty$</strong> ("Fano-like"). $K_X$ has no positive multiple with sections. Examples: $\mathbb{P}^n$, smooth Fano hypersurfaces of degree $\le n$ in $\mathbb{P}^n$, ruled surfaces.</li>
+  <li><strong>$\kappa = 0$</strong> ("Calabi-Yau-like"). Some power $K_X^{\otimes m}$ is trivial. Examples: abelian varieties, K3 surfaces, Calabi–Yau threefolds.</li>
+  <li><strong>$\kappa = \dim X$</strong> ("general type"). $K_X$ is big — pluricanonical sections grow at the maximal rate $m^{\dim X}$. Generic varieties of large degree are general type.</li>
+</ul>
+
+<p>The intermediate values $0 < \kappa < \dim X$ correspond to varieties that fibre over a base of dimension $\kappa$ (the Iitaka fibration), with general fibre of $\kappa = 0$.</p>
+
+<div class="widget" id="w-kodaira-curves">
+  <div class="hd"><div class="ttl">Kodaira dimension of curves</div><div class="hint">slide $g$ — see $h^0(K^{\otimes m})$ growth</div></div>
+  <svg id="kc-svg" viewBox="0 0 720 280" width="720" height="280"><title>Pluricanonical growth on a smooth projective curve</title></svg>
+  <div class="row">
+    <label for="kc-g">genus $g$ =</label>
+    <input type="range" id="kc-g" min="0" max="6" step="1" value="2" />
+    <span id="kc-gv" class="pill">g = 2</span>
+  </div>
+  <div class="readout" id="kc-out">Pick a genus. The plot shows $h^0(C, K_C^{\otimes m})$ as a function of $m$ for $m = 0, 1, \ldots, 8$, and reads off the Kodaira dimension from the growth rate.</div>
+</div>
+
+<div class="note">
+<p style="margin:.2rem 0"><strong>Birational invariance.</strong> If $X \dashrightarrow X'$ is a birational map of smooth projective varieties, then $\kappa(X) = \kappa(X')$.</p>
+</div>
+
+<p>The proof is the standard "Hartogs across codim $\ge 2$" argument. Pluricanonical forms are top-dimensional differentials raised to a tensor power, and on a smooth variety they extend uniquely across any subset of codimension $\ge 2$. A birational map of smooth projective varieties is an isomorphism on a common open whose complement has codimension $\ge 2$ on each side, so pullback identifies pluricanonical sections in both directions. The <strong>Iitaka conjecture</strong> ($C_{n,m}$) — that for a fibration $X \to Y$, $\kappa(X) \ge \kappa(Y) + \kappa(\text{generic fibre})$ — is a deeper birational-invariance statement that remains open in full generality.</p>
+
+<div class="quiz" data-concept="mmp-kodaira-dimension"></div><!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./algebraic-curves-higher-genus.html#canonical-embedding">The canonical embedding</a></li>
+    <li><a href="./positivity-and-ample-line-bundles.html#ample">Very ample, ample, and Serre's theorem</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./mmp-and-birational-geometry.html#cone-theorem">MMP and birational geometry</a> · The cone theorem and extremal contractions</div>
+</aside>
+<!-- backlinks-auto-end -->
+</section>
+
+<section id="cone-theorem">
+<h2>2. The cone theorem and extremal contractions</h2>
+
+<p>To run the MMP, we need a well-defined "next move" at every step: contract some piece of $X$ that is interfering with $K_X$ being positive. Mori's cone theorem identifies these pieces precisely. The setting is the closed cone of curves $\overline{NE}(X) \subset N_1(X)_\mathbb{R}$ — the closed convex cone generated by classes $[C]$ of irreducible curves on $X$, sitting in the $\mathbb{R}$-vector space dual to the Néron–Severi group $N^1(X)_\mathbb{R}$.</p>
+
+<div class="note">
+<p style="margin:.2rem 0"><strong>Cone theorem (Mori 1982, Kawamata–Reid–Shokurov).</strong> Let $X$ be a smooth projective variety. Then</p>
+$$\overline{NE}(X) \;=\; \overline{NE}(X)_{K_X \ge 0} \;+\; \sum_{i \in I} \mathbb{R}_{\ge 0}\,[C_i],$$
+<p style="margin:.2rem 0">where the $\overline{NE}(X)_{K_X \ge 0}$ piece is the half where $K_X \cdot \alpha \ge 0$, and the $C_i$ are rational curves with $0 < -K_X \cdot C_i \le \dim X + 1$. The set $\{[C_i]\}$ is locally finite in the open half-space $\{K_X < 0\}$: any compact subset meets only finitely many. Each ray $R_i = \mathbb{R}_{\ge 0}[C_i]$ is called a <em>$K_X$-negative extremal ray</em>.</p>
+</div>
+
+<p>The picture is striking: the $K_X$-positive half of $\overline{NE}(X)$ is allowed to be wild, but the $K_X$-negative half is a locally polyhedral (countable) cone whose extremal rays are spanned by rational curves — all of bounded "negativity" against $K_X$. This rigidity is the input to every MMP step.</p>
+
+<div class="widget" id="w-cone">
+  <div class="hd"><div class="ttl">Mori cone of a surface</div><div class="hint">click an extremal ray to see its contraction</div></div>
+  <svg id="cone-svg" viewBox="0 0 720 360" width="720" height="360"><title>Mori cone of a blown-up surface</title></svg>
+  <div class="row">
+    <label for="cone-ex">example:</label>
+    <select id="cone-ex">
+      <option value="bp1">$\mathbb{P}^2$ blown up at 1 point</option>
+      <option value="bp2">$\mathbb{P}^2$ blown up at 2 points</option>
+      <option value="p1p1">$\mathbb{P}^1 \times \mathbb{P}^1$</option>
+    </select>
+  </div>
+  <div class="readout" id="cone-out">Pick a surface. The shaded region is $\overline{NE}(X)$ in $N_1(X)_\mathbb{R} \cong \mathbb{R}^2$. Click an extremal ray to read its contraction type.</div>
+</div>
+
+<h3>Extremal contractions</h3>
+
+<p>The companion theorem says every $K_X$-negative extremal ray is geometrically realisable: there is a contraction morphism that crushes precisely the curves whose class lies on the ray.</p>
+
+<div class="note">
+<p style="margin:.2rem 0"><strong>Contraction theorem.</strong> For each $K_X$-negative extremal ray $R \subset \overline{NE}(X)$, there is a unique morphism $\phi_R : X \to Y$ to a normal projective variety $Y$ with $\phi_{R, *} \mathcal{O}_X = \mathcal{O}_Y$, such that an irreducible curve $C \subset X$ is contracted by $\phi_R$ (i.e. $\phi_R(C)$ is a point) iff $[C] \in R$.</p>
+</div>
+
+<p>The contractions come in three flavours, sorted by the geometry of the exceptional locus $\mathrm{Exc}(\phi_R)$:</p>
+
+<table class="plain">
+<thead><tr><th>Type</th><th>$\dim Y$</th><th>codim of $\mathrm{Exc}$</th><th>example</th></tr></thead>
+<tbody>
+<tr><td>fibre type</td><td>$< \dim X$</td><td>—</td><td>$\mathbb{P}^1$-bundle $\to$ base; $\mathbb{P}^n \to \mathrm{pt}$</td></tr>
+<tr><td>divisorial</td><td>$= \dim X$</td><td>$1$</td><td>blow-down of a $(-1)$-curve on a surface</td></tr>
+<tr><td>small</td><td>$= \dim X$</td><td>$\ge 2$</td><td>contracting a $\mathbb{P}^1$ in a smooth threefold (only in $\dim \ge 3$)</td></tr>
+</tbody>
+</table>
+
+<p>For surfaces only the first two types occur — a birational morphism between smooth surfaces has exceptional locus of dimension $\ge 1$, hence codimension $\le 1$, ruling out the small case. The small case is precisely the obstruction that forces the introduction of flips in dimension $\ge 3$ (next section).</p>
+
+<div class="quiz" data-concept="mmp-cone-theorem"></div><!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./intersection-theory-chow.html#intersection-product">Intersection product on smooth $X$</a></li>
+    <li><a href="./positivity-and-ample-line-bundles.html#nef-big">Nef, big, and the cone of curves</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./mmp-and-birational-geometry.html#surfaces">MMP and birational geometry</a> · Surface MMP: Castelnuovo and Enriques classification</div>
+    <div><a href="./mmp-and-birational-geometry.html#flips">MMP and birational geometry</a> · Threefold MMP: small contractions and flips</div>
+</aside>
+<!-- backlinks-auto-end -->
+</section>
+
+<section id="surfaces">
+<h2>3. Surface MMP: Castelnuovo and Enriques classification</h2>
+
+<p>In dimension two the MMP is classical and complete. The basic move is contracting a $(-1)$-curve, and the algorithm always terminates at one of a small list of minimal surfaces. The output is the Enriques–Kodaira classification.</p>
+
+<div class="note">
+<p style="margin:.2rem 0"><strong>Castelnuovo's contractibility criterion.</strong> Let $X$ be a smooth projective surface and $E \subset X$ an irreducible curve. Then $E$ contracts to a smooth point of a smooth projective surface iff $E \cong \mathbb{P}^1$ and $E^2 = -1$.</p>
+</div>
+
+<p>Adjunction on a smooth surface gives $2g(E) - 2 = E^2 + K_X \cdot E$, so a $(-1)$-curve has $K_X \cdot E = -1 < 0$ — its class lies on a $K_X$-negative extremal ray. Castelnuovo's theorem says these are exactly the rays admitting <em>divisorial</em> contractions to smooth surfaces, and that the resulting variety is again smooth and projective. So one MMP step on a smooth surface is "find a $(-1)$-curve and blow it down."</p>
+
+<p>Why does this terminate? Each blow-down decreases the Picard number $\rho(X) = \mathrm{rk}\,N^1(X)$ by exactly $1$, since it removes the class $[E]$ from $N^1(X)$. The Picard number is a positive integer, so any descending sequence stops.</p>
+
+<div class="widget" id="w-castelnuovo">
+  <div class="hd"><div class="ttl">Iterated $(-1)$-contractions on $\mathrm{Bl}_p\mathbb{P}^2$</div><div class="hint">click a $(-1)$-curve to contract it</div></div>
+  <svg id="cv-svg" viewBox="0 0 720 320" width="720" height="320"><title>Iterated blow-downs of a surface</title></svg>
+  <div class="row">
+    <button id="cv-reset">reset</button>
+    <span id="cv-rho" class="pill">$\rho(X) = 4$</span>
+  </div>
+  <div class="readout" id="cv-out">Start: $\mathbb{P}^2$ blown up at three points. Click a $(-1)$-curve (yellow) to contract it. Watch $\rho$ drop until the surface is minimal.</div>
+</div>
+
+<h3>The Enriques–Kodaira classification</h3>
+
+<p>Once no $(-1)$-curves remain, $X$ is a <em>minimal surface</em>. There are essentially three families:</p>
+
+<ul>
+  <li><strong>$\mathbb{P}^2$</strong> — Picard number $1$, $K_X = -3H$.</li>
+  <li><strong>The Hirzebruch surfaces $\mathbb{F}_n$</strong> for $n = 0$ or $n \ge 2$ — $\mathbb{P}^1$-bundles over $\mathbb{P}^1$, with $\mathbb{F}_0 = \mathbb{P}^1 \times \mathbb{P}^1$. ($\mathbb{F}_1$ is excluded because it has a $(-1)$-curve.)</li>
+  <li><strong>Surfaces with $K_X$ nef</strong> — the "real" minimal models. These are sorted further by Kodaira dimension.</li>
+</ul>
+
+<p>For the third class, Enriques' table gives a complete list:</p>
+
+<table class="plain">
+<thead><tr><th>$\kappa(X)$</th><th>class of minimal $X$</th><th>character</th></tr></thead>
+<tbody>
+<tr><td>$-\infty$</td><td>rational, ruled</td><td>$X \to \text{curve}$ a $\mathbb{P}^1$-bundle</td></tr>
+<tr><td>$0$</td><td>abelian, K3, Enriques, hyperelliptic (bielliptic)</td><td>$mK_X = 0$ for some $m$, distinguished by $b_1$ and torsion of $K_X$</td></tr>
+<tr><td>$1$</td><td>properly elliptic surfaces</td><td>$X \to C$ an elliptic fibration with non-trivial $j$-invariant</td></tr>
+<tr><td>$2$</td><td>surfaces of general type</td><td>$K_X$ big — vast and not classified case-by-case</td></tr>
+</tbody>
+</table>
+
+<p>The dichotomy at $\kappa = -\infty$ (ruled and rational) versus $\kappa \ge 0$ has a sharp criterion: $X$ is birational to $C \times \mathbb{P}^1$ for some curve $C$ (or to $\mathbb{P}^2$) iff $h^0(X, K_X^{\otimes m}) = 0$ for some $m \ge 1$, iff $K_X$ is not pseudo-effective. The $\kappa = 0$ family has a famous fourfold split — abelian, K3, Enriques, hyperelliptic — distinguished by the Betti number $b_1$ and the order of the canonical class in $\mathrm{Pic}(X)$. The $\kappa = 2$ class is enormous and remains an active subject of moduli theory.</p>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./resolution-of-singularities.html#blowup">Blowing up a subvariety</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><div class="quiz" data-concept="mmp-surfaces"></div>
+</section>
+
+<section id="flips">
+<h2>4. Threefold MMP: small contractions and flips</h2>
+
+<p>Move to dimension three and the surface program almost works — but with a twist. The contraction theorem still produces $\phi_R : X \to Y$ for every $K_X$-negative extremal ray. Two of the three contraction types (fibre and divisorial) behave as in the surface case: $X$ becomes simpler, $\rho$ drops or the dimension drops, and we continue. The third type, <em>small contractions</em>, is genuinely new.</p>
+
+<div class="note">
+<p style="margin:.2rem 0"><strong>The small-contraction problem.</strong> A small contraction $\phi : X \to Y$ has $\dim X = \dim Y$ but exceptional locus of codimension $\ge 2$ — for a threefold, the contracted curves are isolated. Then $Y$ is no longer $\mathbb{Q}$-Gorenstein at the image points: the canonical class $K_Y$ is not even a $\mathbb{Q}$-Cartier divisor, so $\phi^* K_Y$ does not make sense. Without a well-defined canonical divisor on $Y$, the MMP cannot iterate — we cannot ask "is the new $K_Y$ nef?"</p>
+</div>
+
+<p>The solution, due to Mori, is to replace the small contraction with a different small modification on the other side.</p>
+
+<div class="note">
+<p style="margin:.2rem 0"><strong>Definition (flip).</strong> Let $\phi : X \to Y$ be a small contraction with $-K_X$ $\phi$-ample. A <em>flip</em> of $\phi$ is a small birational morphism $\phi^+ : X^+ \to Y$ from a different normal projective variety $X^+$ such that $K_{X^+}$ is $\phi^+$-ample.</p>
+</div>
+
+<p>The composition $X \dashrightarrow X^+$ is birational, an isomorphism away from the contracted locus, and exchanges the sign of $K \cdot C$ on the contracted ray: where $K_X \cdot C < 0$ on the original side, $K_{X^+} \cdot C^+ > 0$ on the flipped side. The Picard number is preserved (both $\phi$ and $\phi^+$ have relative Picard rank $1$), so a flip is genuinely "the same complexity, but with $K$ now positive on the contracted ray."</p>
+
+<div class="widget" id="w-flip">
+  <div class="hd"><div class="ttl">Threefold flip schematic</div><div class="hint">drag the slider — watch the contracted curve change sides</div></div>
+  <svg id="fl-svg" viewBox="0 0 720 320" width="720" height="320"><title>Schematic of a 3-fold flip</title></svg>
+  <div class="row">
+    <label for="fl-t">flip parameter $t$ =</label>
+    <input type="range" id="fl-t" min="0" max="1" step="0.01" value="0" />
+    <span id="fl-tv" class="pill">t = 0</span>
+  </div>
+  <div class="readout" id="fl-out">$t = 0$: original $X$ with curve $C$ ($K_X \cdot C < 0$). $t \in (0,1)$: contraction to singular $Y$. $t = 1$: flipped $X^+$ with $K_{X^+} \cdot C^+ > 0$.</div>
+</div>
+
+<h3>Existence and termination</h3>
+
+<p>Two questions emerge: (1) does the flip $X^+$ always exist? (2) does the flip game ever terminate, or could we flip forever?</p>
+
+<div class="note">
+<p style="margin:.2rem 0"><strong>Mori (1988).</strong> Flips exist and terminate for klt threefolds. The threefold MMP runs.</p>
+</div>
+
+<p>This was Mori's Fields-Medal work (1990). Existence is proved by an explicit local analysis at the singular point of $Y$ — there is a finite list of analytic types of threefold flipping contractions, classified by Kollár and Mori. Termination is the assertion that no infinite sequence of flips can occur, which Shokurov proved using the "difficulty" — a non-negative integer-valued invariant of the pair $(X, \Delta)$ that strictly decreases under flips.</p>
+
+<div class="note">
+<p style="margin:.2rem 0"><strong>BCHM (2010).</strong> For klt pairs $(X, \Delta)$ with $K_X + \Delta$ big and $\Delta$ big, flips exist in arbitrary dimension, the MMP with scaling terminates, and as a consequence, the canonical ring $R(X, K_X + \Delta) = \bigoplus_{m \ge 0} H^0(X, \lfloor m(K_X + \Delta) \rfloor)$ is finitely generated.</p>
+</div>
+
+<p>Birkar, Cascini, Hacon, and McKernan's 2010 theorem is the high-water mark of higher-dimensional MMP. It does not prove general termination of flips in dimension $\ge 4$ — this remains an outstanding conjecture — but it gives existence and termination of one specific flavor (MMP with scaling) which is enough for finite generation of the canonical ring. Birkar received the 2018 Fields Medal partly for further work in this circle on boundedness of Fano varieties.</p>
+
+<div class="quiz" data-concept="mmp-flips"></div><!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./resolution-of-singularities.html#statement">Hironaka's theorem</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./mmp-and-birational-geometry.html#sarkisov">MMP and birational geometry</a> · Mori fibre spaces and the Sarkisov program</div>
+    <div><a href="./mmp-and-birational-geometry.html#singularities">MMP and birational geometry</a> · Singularities of pairs and discrepancies</div>
+</aside>
+<!-- backlinks-auto-end -->
+</section>
+
+<section id="singularities">
+<h2>5. Singularities of pairs and discrepancies</h2>
+
+<p>BCHM does not run on smooth varieties — it requires klt singularities. Worse, the MMP itself <em>creates</em> singularities: contracting an extremal divisor or performing a flip generally produces a non-smooth output. To run the program, we must pre-emptively widen our category to admit certain mild singularities, and we must measure how mild they are. The numerical measurement is the <em>discrepancy</em>.</p>
+
+<div class="note">
+<p style="margin:.2rem 0"><strong>Setup.</strong> Let $(X, \Delta)$ be a <em>log pair</em>: $X$ is a normal variety, $\Delta = \sum a_i D_i$ a $\mathbb{Q}$-divisor with $0 \le a_i \le 1$, and $K_X + \Delta$ a $\mathbb{Q}$-Cartier divisor. Let $f : Y \to X$ be a log resolution: $Y$ is smooth, $f$ is proper birational, and $f^{-1}(\Delta) \cup \mathrm{Exc}(f)$ is a simple normal crossing divisor. The <em>discrepancies</em> are the rational numbers $a_E(X, \Delta) \in \mathbb{Q}$ defined by</p>
+$$K_Y \;=\; f^*(K_X + \Delta) \;+\; \sum_E a_E(X, \Delta)\, E,$$
+<p style="margin:.2rem 0">summed over prime divisors $E$ on $Y$ (with $a_E = -a_i$ if $E$ is the strict transform of $D_i$ and $E$ is not exceptional).</p>
+</div>
+
+<p>The discrepancy $a_E$ measures how much $K_Y$ exceeds the pullback of $K_X + \Delta$ along $E$. Bigger discrepancies mean milder singularities. The infimum $\inf_E a_E(X, \Delta)$ over all divisors on all log resolutions is the key invariant; varying the resolution does not change the infimum, so it is a property of the pair.</p>
+
+<div class="widget" id="w-discrep">
+  <div class="hd"><div class="ttl">Discrepancy of $\mathbb{A}^2/\mathbb{Z}_n$ ($A_{n-1}$ singularity)</div><div class="hint">slide $n$ — see the discrepancies of the resolved chain of $\mathbb{P}^1$'s</div></div>
+  <svg id="dc-svg" viewBox="0 0 720 280" width="720" height="280"><title>Discrepancies of an A_n singularity</title></svg>
+  <div class="row">
+    <label for="dc-n">$n$ =</label>
+    <input type="range" id="dc-n" min="2" max="8" step="1" value="3" />
+    <span id="dc-nv" class="pill">n = 3</span>
+  </div>
+  <div class="readout" id="dc-out">$\mathbb{A}^2/\mathbb{Z}_n$ resolves to a chain of $n-1$ exceptional $\mathbb{P}^1$'s with self-intersection $-2$ each. All discrepancies are $0$ — these are the canonical singularities.</div>
+</div>
+
+<h3>The four singularity classes</h3>
+
+<table class="plain">
+<thead><tr><th>class</th><th>condition on $\inf a_E$</th><th>$\Delta$ coefficients</th></tr></thead>
+<tbody>
+<tr><td><strong>terminal</strong></td><td>$> 0$</td><td>(usually $\Delta = 0$)</td></tr>
+<tr><td><strong>canonical</strong></td><td>$\ge 0$</td><td>(usually $\Delta = 0$)</td></tr>
+<tr><td><strong>klt</strong> (Kawamata log terminal)</td><td>$> -1$</td><td>$a_i < 1$</td></tr>
+<tr><td><strong>lc</strong> (log canonical)</td><td>$\ge -1$</td><td>$a_i \le 1$</td></tr>
+</tbody>
+</table>
+
+<p>The classes nest: smooth $\subsetneq$ terminal $\subsetneq$ canonical $\subsetneq$ klt $\subsetneq$ lc. Two-dimensional canonical singularities are exactly the rational double points (Du Val ADE), so the classification on surfaces is concrete. In higher dimensions, terminal singularities are rare and rigid; klt is the natural category for the modern MMP.</p>
+
+<div class="note">
+<p style="margin:.2rem 0"><strong>Why klt?</strong> Kawamata–Viehweg vanishing — the cohomological engine driving every MMP step — holds for klt pairs but fails on the boundary lc-but-not-klt. Closing klt under MMP operations (cone theorem, contractions, flips) requires care: extremal contractions of klt pairs again produce klt pairs (after replacing $\Delta$ with $\phi_*\Delta$), and flips preserve klt — but a step out of klt into lc would lose the vanishing theorem and the program would stall.</p>
+</div>
+
+<h3>The adjunction formula</h3>
+
+<p>The other technical pillar is adjunction for log pairs. If $S$ is a normal prime divisor on $X$ with coefficient $1$ in $\Delta$, then</p>
+$$(K_X + S + \Delta')|_S \;=\; K_S + \mathrm{Diff}_S(\Delta'),$$
+<p>where $\Delta' = \Delta - S$ and $\mathrm{Diff}_S(\Delta')$ is the "different" — a boundary $\mathbb{Q}$-divisor on $S$ encoding how $\Delta'$ meets $S$ and how $S$ wraps into the singularities of $X$ along $S$. Iterated adjunction lets us run an MMP on the boundary itself, and is what makes induction on dimension viable.</p>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./resolution-of-singularities.html#surfaces">Surfaces and ADE</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><div class="quiz" data-concept="mmp-singularities-of-pairs"></div>
+</section>
+
+<section id="sarkisov">
+<h2>6. Mori fibre spaces and the Sarkisov program</h2>
+
+<p>The MMP terminates with one of two possible outputs. If $\kappa(X) \ge 0$, the program produces a <em>minimal model</em>: a klt variety $X_{\min}$ with $K_{X_{\min}}$ nef. If $\kappa(X) = -\infty$, then $K_X$ stays negative at every step, and the program ends with a fibration whose general fibre is Fano.</p>
+
+<div class="note">
+<p style="margin:.2rem 0"><strong>Definition (Mori fibre space).</strong> A <em>Mori fibre space</em> is a contraction $\phi : X \to S$ from a $\mathbb{Q}$-factorial klt projective variety $X$ to a normal projective $S$ with $\dim S < \dim X$, $\rho(X/S) = 1$ (relative Picard rank one), and $-K_X$ relatively ample over $S$.</p>
+</div>
+
+<p>When $\dim S = 0$, $X$ is itself a Fano variety. When $0 < \dim S < \dim X$, $\phi$ is a Fano fibration: the general fibre $X_s$ is a smooth Fano variety, and the relative Picard group $\mathrm{Pic}(X/S)$ has rank $1$. Surface examples are $\mathbb{P}^2 \to \mathrm{pt}$ (Fano case) and $\mathbb{F}_n \to \mathbb{P}^1$ (the Hirzebruch fibration).</p>
+
+<h3>Birational classification of Mori fibre spaces</h3>
+
+<p>If $X$ has $\kappa = -\infty$, the MMP gives <em>some</em> Mori fibre space birational to $X$, but typically not a unique one. Two Mori fibre spaces in the same birational class are related by a sequence of birational moves; the question is whether these moves can be standardised.</p>
+
+<div class="note">
+<p style="margin:.2rem 0"><strong>Sarkisov program (Corti 1995, Hacon–McKernan 2013).</strong> Any birational map $f : X/S \dashrightarrow X'/S'$ between Mori fibre spaces factors as a finite chain of <em>Sarkisov links</em>, each of one of four types (I, II, III, IV) determined by the comparative dimensions of $S, S'$ and the contraction structure of the link.</p>
+</div>
+
+<p>A Sarkisov link is the simplest possible birational modification between Mori fibre spaces: it is obtained by running a relative MMP, and consists of an extremal divisorial contraction or flip on one side, then an inverse step on the other. Together with Castelnuovo's surface theorem (which is the dimension-2 case), the Sarkisov program gives a structure theorem for the birational geometry of varieties with $\kappa = -\infty$.</p>
+
+<div class="widget" id="w-sarkisov">
+  <div class="hd"><div class="ttl">Sarkisov links between Mori fibre spaces</div><div class="hint">click a link type — see the geometric pattern</div></div>
+  <svg id="sk-svg" viewBox="0 0 720 320" width="720" height="320"><title>Schematic of the four Sarkisov link types</title></svg>
+  <div class="row">
+    <button data-link="I" class="active">Type I</button>
+    <button data-link="II">Type II</button>
+    <button data-link="III">Type III</button>
+    <button data-link="IV">Type IV</button>
+  </div>
+  <div class="readout" id="sk-out">Type I: $\dim S' = \dim S + 1$; the link goes "up" in base dimension. Type II: $\dim S' = \dim S$; bilateral move. Type III: inverse of Type I. Type IV: $\dim S' = \dim S$ but the bases are different.</div>
+</div>
+
+<h3>Birational rigidity</h3>
+
+<p>The Sarkisov program frames a deep classification question: given a Fano variety $X$, how many distinct Mori fibre spaces are birational to $X$? The extreme answer is "only $X$ itself," in which case $X$ is called <em>birationally rigid</em>. By the Sarkisov framework, $X$ is rigid iff every Sarkisov link from $X/\mathrm{pt}$ comes back to $X/\mathrm{pt}$, which forces $\mathrm{Bir}(X) = \mathrm{Aut}(X)$.</p>
+
+<p>The first non-trivial example is Iskovskikh–Manin's 1971 theorem: a smooth quartic threefold $X_4 \subset \mathbb{P}^4$ is birationally rigid. This was a landmark — $X_4$ is unirational (covered by a degree-2 map from $\mathbb{P}^3$ via projection from a line) but not rational, the first negative answer to the Lüroth problem in dimension three. Birational rigidity of smooth Fano hypersurfaces $X_n \subset \mathbb{P}^n$ for $n \ge 4$ was extended to all degrees $n$ by Pukhlikov, de Fernex, and others; the picture for moderate-degree hypersurfaces and complete intersections is still a frontier.</p>
+
+<div class="quiz" data-concept="mmp-sarkisov"></div>
+</section>
+
+<section id="connections">
+<h2>7. Connections</h2>
+
+<p>The MMP is the spine of higher-dimensional algebraic geometry. The threefold case is closed (Mori 1988, Kollár–Mori survey 1998); the higher-dimensional case is open in two crucial places — termination of flips in dimension $\ge 4$ and the abundance conjecture (that every nef minimal model has $|mK|$ basepoint-free for some $m$). In characteristic $p$ the analogue is largely missing: Kawamata–Viehweg vanishing fails (Raynaud), and the modern framework only began to take shape in dimension three with the work of Hacon–Witaszek and Kawakami in the 2020s.</p>
+
+<ul>
+  <li><a href="./positivity-and-ample-line-bundles.html#nef-big">Positivity and ample line bundles — Nef, big, and the cone of curves</a> — the convex-geometric language ($\mathrm{Amp}, \mathrm{Nef}, \overline{NE}$) in which the cone theorem is stated.</li>
+  <li><a href="./resolution-of-singularities.html#applications">Resolution of singularities — Applications and frontiers</a> — log resolutions are the input format for every discrepancy computation; resolution is the entry point to the program.</li>
+  <li><a href="./algebraic-curves-higher-genus.html#canonical-embedding">Algebraic curves: higher genus — The canonical embedding</a> — the dimension-1 story: $K_C$ ample iff $g \ge 2$, the canonical map embeds non-hyperelliptic curves, $\kappa = 1 = \dim C$.</li>
+  <li><a href="./hodge-theory.html#decomposition">Hodge theory — Hodge decomposition</a> — Kodaira dimension is part of the Hodge-theoretic classification of varieties; pluricanonical sections are $H^0(X, \Omega^d_X)^{\otimes m}$.</li>
+  <li><a href="./toric-varieties.html#dictionary">Toric varieties — The toric dictionary</a> — toric MMP is fully algorithmic: subdividing the fan corresponds to MMP steps, and toric varieties are the ground truth on which combinatorial intuitions are tested.</li>
+  <li><a href="./moduli-spaces.html">Moduli spaces</a> — birational geometry of moduli spaces ($\overline{\mathcal{M}}_g$, K-moduli of Fanos) is an active frontier where MMP techniques meet GIT.</li>
+</ul>
+</section>
+
+</main>
+
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('mmp-and-birational-geometry'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+})();
+</script>
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-05-06</td><td>initial version</td></tr>
+    </tbody>
+  </table>
+</details>
+
+</body>
+</html>

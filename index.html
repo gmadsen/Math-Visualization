@@ -611,9 +611,9 @@
     <h1>Interactive Mathematics Notebook</h1>
     <p class="sub">Interactive concepts across mathematics — from foundations to research-level topics — each a single-page explainer with live widgets and worked examples.</p>
     <div class="hero-tagline" aria-label="Notebook scope">
-      <span><span class="tg-num">154</span> topics</span>
+      <span><span class="tg-num">157</span> topics</span>
       <span class="dot">&middot;</span>
-      <span><span class="tg-num">1086</span> concepts</span>
+      <span><span class="tg-num">1104</span> concepts</span>
       <span class="dot">&middot;</span>
       <span>pathway-graph explorer</span>
     </div>
@@ -2341,6 +2341,32 @@
       </div>
     </a>
 
+
+    <a class="card v" href="./cobordism.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <!-- A pair-of-pants cobordism: two circles joining into one -->
+        <g stroke="var(--violet)" stroke-width="1.4" fill="none">
+          <ellipse cx="28" cy="20" rx="9" ry="3.5"/>
+          <ellipse cx="72" cy="20" rx="9" ry="3.5"/>
+          <ellipse cx="50" cy="64" rx="14" ry="4"/>
+          <path d="M 19 20 Q 22 50 36 64"/>
+          <path d="M 37 20 Q 38 40 44 64"/>
+          <path d="M 63 20 Q 62 40 56 64"/>
+          <path d="M 81 20 Q 78 50 64 64"/>
+        </g>
+        <g fill="var(--violet)" font-family="serif" font-size="7" font-style="italic" text-anchor="middle">
+          <text x="28" y="11">M₀</text>
+          <text x="72" y="11">M₁</text>
+          <text x="50" y="78">M₂ = M₀ ⊔ M₁</text>
+        </g>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Cobordism <span class="level advanced">advanced</span></div>
+        <div class="desc">Cobordism rings, Stiefel-Whitney + Pontryagin numbers, the Thom spectrum and Pontryagin-Thom, Hirzebruch signature, surgery, $h$-cobordism, Atiyah TQFT axioms.</div>
+        <span class="tag">Thom · surgery · TQFT · signature</span>
+      </div>
+    </a>
+
   </div>
 
   <div class="sec">Number theory</div>
@@ -2761,6 +2787,33 @@
         <div class="tt">Continued fractions <span class="level advanced">advanced</span></div>
         <div class="desc">Convergents and best approximations, Hurwitz's $\sqrt 5$ constant, Liouville and Roth, the Markoff spectrum, and a glimpse at the Schmidt subspace theorem.</div>
         <span class="tag">convergents · Hurwitz · Roth · Markoff</span>
+      </div>
+    </a>
+
+
+    <a class="card y" href="./dirichlet-unit-theorem.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <!-- Log embedding: lattice in the trace-zero hyperplane -->
+        <g stroke="var(--yellow)" stroke-width="0.5" opacity="0.45" fill="none">
+          <line x1="14" y1="44" x2="86" y2="44"/>
+          <line x1="50" y1="14" x2="50" y2="74"/>
+        </g>
+        <!-- Trace-zero hyperplane (a line in 2D since r1+r2 = 2) -->
+        <line x1="14" y1="62" x2="86" y2="26" stroke="var(--yellow)" stroke-width="1.6" opacity="0.85"/>
+        <!-- Lattice points along it -->
+        <g fill="var(--yellow)">
+          <circle cx="26" cy="56" r="2.0"/>
+          <circle cx="50" cy="44" r="2.6"/>
+          <circle cx="74" cy="32" r="2.0"/>
+          <circle cx="38" cy="50" r="1.5" opacity="0.6"/>
+          <circle cx="62" cy="38" r="1.5" opacity="0.6"/>
+        </g>
+        <text x="50" y="78" text-anchor="middle" font-size="7.5" fill="var(--yellow)" font-style="italic" font-family="serif">log $|u|$ on $\sum = 0$</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Dirichlet unit theorem <span class="level advanced">advanced</span></div>
+        <div class="desc">Logarithmic embedding, $\mathcal{O}_K^\times \cong \mu(K) \times \mathbb{Z}^{r_1+r_2-1}$, the regulator, the class number formula, real-quadratic units via Pell, and $S$-units.</div>
+        <span class="tag">log · regulator · CNF · Pell</span>
       </div>
     </a>
 
@@ -3799,7 +3852,33 @@
     </a>
 
 
-    </div>
+    <a class="card g" href="./mmp-and-birational-geometry.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <!-- A flip diagram: X+ ← W → X- with the curve C contracted -->
+        <g fill="none" stroke="var(--green)" stroke-width="1.0">
+          <path d="M 22 18 L 28 60 L 16 60 Z" opacity="0.85"/>
+          <path d="M 78 18 L 72 60 L 84 60 Z" opacity="0.85"/>
+          <path d="M 50 12 Q 30 28 22 18" stroke-width="1.4" marker-end="url(#mmpA)"/>
+          <path d="M 50 12 Q 70 28 78 18" stroke-width="1.4" marker-end="url(#mmpA)"/>
+        </g>
+        <g fill="var(--green)" font-family="serif" font-size="7.5" font-style="italic" text-anchor="middle">
+          <text x="22" y="74">X⁻</text>
+          <text x="78" y="74">X⁺</text>
+          <text x="50" y="11">W</text>
+          <text x="50" y="50" opacity="0.75">flip</text>
+        </g>
+        <defs><marker id="mmpA" viewBox="0 0 6 6" refX="5" refY="3" markerWidth="4" markerHeight="4" orient="auto">
+          <path d="M0 0 L6 3 L0 6 z" fill="var(--green)"/>
+        </marker></defs>
+      </svg></div>
+      <div class="body">
+        <div class="tt">MMP and birational geometry <span class="level advanced">advanced</span></div>
+        <div class="desc">Kodaira dimension, Mori's cone theorem and extremal rays, Castelnuovo / surface MMP, threefold flips and BCHM, klt/log-canonical singularities, the Sarkisov program.</div>
+        <span class="tag">cone · flips · BCHM · klt · Sarkisov</span>
+      </div>
+    </a>
+
+  </div>
 
   <div class="sec">Combinatorics &amp; graph theory</div>
   <div class="grid"><a class="card g" href="./matroid-theory.html">
