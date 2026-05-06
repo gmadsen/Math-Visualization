@@ -36,6 +36,7 @@ A systematic pass: for each section, compare against a canonical reference (PCM,
 - **Card ordering: tier → DAG topological.** `scripts/reorder-section-cards.mjs` does tier-then-stable today (prereq → intermediate → advanced → capstone). A topological pass over each section's prereq sub-DAG inside each tier would propagate "what depends on what" to the visible reading order.
 - **Tour 10 (Millennium Prizes) bridge prose.** The other 9 tours have ~150-word `<p class="bridge">` paragraphs per stop; Tour 10 currently uses a one-paragraph framing per problem. Expand to bridge-style if the long-form essay isn't enough.
 - **Sato–Tate has a story page but no tour.** `capstone-satotate-story.html` is reachable from the satotate index card and the topic page but has no `<button class="tour-card">` entry. Add a Tour 11 if the gap matters; otherwise leave it as the only "story without a tour" inversion.
+- **Section progress bar empty state.** `index.html` `.sec-progress` (PR #118) renders a faded track for fresh visitors with no `mvnb.progress.v1` localStorage. The faded data-empty styling reads more as "loading" than "you haven't started". Options: hide entirely when `mastered === 0`, or accompany with a small `0/N` label so it's obvious the bar tracks the visitor's progress, not corpus completeness.
 
 ## Three.js / Pyodide / alt frontends (long-running)
 
