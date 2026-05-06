@@ -51,19 +51,25 @@ function topicDepsForSubset(crossTopicEdges, subsetSlugs) {
   const deps = new Map();
   for (const slug of subsetSlugs) deps.set(slug, new Set());
   for (const e of crossTopicEdges) {
-    // edge: e.fromTopic owns the prereq, e.toTopic owns the consumer.
-    // So e.toTopic depends on e.fromTopic.
+    // Edge schema (content-model.mjs L211-216): fromTopic = topic of the
+    // CONSUMER concept (the one carrying the prereq), toTopic = topic of
+    // the PREREQ-OWNER concept. The consumer depends on the prereq owner,
+    // so deps[fromTopic] gains toTopic.
     if (!subset.has(e.fromTopic) || !subset.has(e.toTopic)) continue;
     if (e.fromTopic === e.toTopic) continue;
-    deps.get(e.toTopic).add(e.fromTopic);
+    deps.get(e.fromTopic).add(e.toTopic);
   }
   return deps;
 }
 
-// Khan-style topological sort with a stable original-order tiebreak. Cycles
-// (which the concept graph normally precludes via validate-concepts) get
-// broken by the tiebreak rather than throwing — the worst case is a
-// suboptimal-but-determinstic order, never a corrupted index.
+// Khan-style topological sort with a stable original-order tiebreak. The
+// concept graph as a whole is a DAG (validate-concepts enforces it), but
+// the TOPIC-level projection is not — there are corpus-level pairs like
+// (homological, category-theory) that share concepts in both directions
+// across topic boundaries. When the cycle path triggers, we fall back to
+// the original-index tiebreak rather than throwing (so a 2-cycle inside
+// one tier doesn't corrupt the entire index.html), but we warn so the
+// signal is visible.
 function toposortWithFallback(items, deps) {
   // items: array of { slug, idx } in original order. deps: Map<slug,Set<slug>>.
   const remaining = new Map(items.map((it) => [it.slug, it]));
@@ -76,6 +82,7 @@ function toposortWithFallback(items, deps) {
     inDegree.set(it.slug, d);
   }
   const out = [];
+  const cycleVictims = [];
   while (remaining.size > 0) {
     // Pick the lowest-original-index item among those with in-degree 0.
     // If none have in-degree 0 (cycle), fall back to the lowest-original-
@@ -91,6 +98,7 @@ function toposortWithFallback(items, deps) {
       for (const it of remaining.values()) {
         if (!best || it.idx < best.idx) best = it;
       }
+      cycleVictims.push(best.slug);
     }
     out.push(best);
     remaining.delete(best.slug);
@@ -100,6 +108,11 @@ function toposortWithFallback(items, deps) {
         inDegree.set(it.slug, inDegree.get(it.slug) - 1);
       }
     }
+  }
+  if (cycleVictims.length > 0) {
+    console.warn(
+      `reorder-section-cards: topic-level cycle detected; tiebreak fired on: ${cycleVictims.join(', ')}`
+    );
   }
   return out;
 }

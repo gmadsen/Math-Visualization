@@ -868,8 +868,13 @@
     // outranked. Focused/match next so the user's current target is
     // never elided. Then ordinary nodes by index (stable).
     candidates.sort((a, b) => {
-      const pa = a.n.isCap ? 0 : (focusIdx === a.i ? 1 : (a.n.match ? 2 : 3));
-      const pb = b.n.isCap ? 0 : (focusIdx === b.i ? 1 : (b.n.match ? 2 : 3));
+      // `match` lives on the DOM element (set by applySearch), not on the
+      // data object — read from the class list. This matches the same
+      // mechanism `.match` uses in CSS to highlight search hits.
+      const aMatch = nodeEls[a.i].classList.contains('match');
+      const bMatch = nodeEls[b.i].classList.contains('match');
+      const pa = a.n.isCap ? 0 : (focusIdx === a.i ? 1 : (aMatch ? 2 : 3));
+      const pb = b.n.isCap ? 0 : (focusIdx === b.i ? 1 : (bMatch ? 2 : 3));
       return pa - pb || a.i - b.i;
     });
     const placed = []; // {x0,y0,x1,y1} screen-space rects
@@ -1340,6 +1345,7 @@
     if(!q){
       nodes.forEach((_, i) => nodeEls[i].classList.remove('match'));
       matchInfo.textContent = '';
+      cullLabels();
       return;
     }
     let n = 0;
@@ -1351,6 +1357,8 @@
       if(hit) n++;
     });
     matchInfo.textContent = n + ' match' + (n === 1 ? '' : 'es');
+    // Re-cull so search hits are prioritised in the label-decimation pass.
+    cullLabels();
   }
   searchEl.addEventListener('input', applySearch);
 
