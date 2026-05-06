@@ -121,7 +121,8 @@
         "atiyah-singer-index-theorem",
         "mostow-rigidity",
         "cohomology-and-duality",
-        "cobordism"
+        "cobordism",
+        "homotopy-theory"
       ],
       "color": "v"
     },
@@ -171,7 +172,8 @@
         "modularity-and-flt",
         "modular-curves",
         "vertex-operator-algebras",
-        "langlands-program"
+        "langlands-program",
+        "maass-forms"
       ],
       "color": "c"
     },
@@ -207,7 +209,8 @@
         "toric-varieties",
         "abelian-varieties",
         "positivity-and-ample-line-bundles",
-        "mmp-and-birational-geometry"
+        "mmp-and-birational-geometry",
+        "d-modules"
       ],
       "color": "g"
     },

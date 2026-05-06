@@ -1,0 +1,88 @@
+{
+  "topic": "maass-forms",
+  "title": "Maass forms",
+  "page": "maass-forms.html",
+  "concepts": [
+    {
+      "id": "maa-definition",
+      "title": "Maass forms and the hyperbolic Laplacian",
+      "anchor": "definition",
+      "prereqs": [
+        "sl2z-on-H",
+        "hyperbolic-metric"
+      ],
+      "blurb": "A Maass form is a $\\Gamma$-invariant smooth function $f:\\mathbb{H}\\to\\mathbb{C}$ that is an eigenfunction of the hyperbolic Laplacian $\\Delta=-y^2(\\partial_x^2+\\partial_y^2)$ with eigenvalue $\\lambda=\\tfrac14+r^2$, and is of moderate growth at the cusp. Unlike a holomorphic modular form (which solves $\\partial_{\\bar z}f=0$), a Maass form solves a second-order elliptic PDE — it is real-analytic but not holomorphic.",
+      "tags": [
+        "foundation",
+        "group-action"
+      ]
+    },
+    {
+      "id": "maa-spectral",
+      "title": "Spectral decomposition of $L^2(\\Gamma\\backslash\\mathbb{H})$",
+      "anchor": "spectral",
+      "prereqs": [
+        "maa-definition"
+      ],
+      "blurb": "The Hilbert space $L^2(\\Gamma\\backslash\\mathbb{H})$ splits orthogonally as $L^2_{\\mathrm{cusp}}\\oplus L^2_{\\mathrm{Eis}}\\oplus L^2_{\\mathrm{res}}$. Cusp forms form a discrete countable family of Laplacian eigenfunctions; Eisenstein series $E(z,s)$ at $\\Re s=\\tfrac12$ supply the continuous spectrum; residues at simple poles in $(\\tfrac12,1]$ give the residual spectrum (constants and a few special exceptions).",
+      "tags": [
+        "completion",
+        "duality"
+      ]
+    },
+    {
+      "id": "maa-selberg-eigenvalue",
+      "title": "Selberg's eigenvalue conjecture",
+      "anchor": "selberg-eigenvalue",
+      "prereqs": [
+        "maa-spectral"
+      ],
+      "blurb": "Selberg conjectured that for any congruence subgroup the lowest non-zero Laplacian eigenvalue on cusp forms satisfies $\\lambda_1\\ge\\tfrac14$ — the Maass spectral parameter $r$ stays real. The current record is Kim–Sarnak's $\\lambda_1\\ge\\tfrac{975}{4096}$. For non-congruence groups exceptional eigenvalues below $\\tfrac14$ can and do occur.",
+      "tags": [
+        "classification"
+      ]
+    },
+    {
+      "id": "maa-eisenstein",
+      "title": "Eisenstein series and meromorphic continuation",
+      "anchor": "eisenstein",
+      "prereqs": [
+        "maa-definition",
+        "eisenstein-series-mf"
+      ],
+      "blurb": "For $\\Re s>1$ define $E(z,s)=\\sum_{\\gamma\\in\\Gamma_\\infty\\backslash\\Gamma}(\\Im\\gamma z)^s$. It is a Laplacian eigenfunction with eigenvalue $s(1-s)$. Selberg's continuation extends $E(\\cdot,s)$ meromorphically to $\\mathbb{C}$ with functional equation $E(z,s)=\\phi(s)E(z,1-s)$, and the constant term reproduces the analytic continuation of $\\zeta(s)$.",
+      "tags": [
+        "completion",
+        "duality"
+      ]
+    },
+    {
+      "id": "maa-l-function",
+      "title": "Maass $L$-functions and Ramanujan",
+      "anchor": "l-function",
+      "prereqs": [
+        "maa-definition",
+        "lfunction-prototype"
+      ],
+      "blurb": "A Maass cusp form has a Fourier–Whittaker expansion $f(z)=\\sum_{n\\ne 0}a_f(n)\\sqrt{y}\\,K_{ir}(2\\pi|n|y)e^{2\\pi i n x}$. The Dirichlet series $L(s,f)=\\sum_{n\\ge 1}a_f(n)n^{-s}$ has analytic continuation, an Euler product when $f$ is a Hecke eigenform, and a functional equation. Ramanujan–Petersson predicts $|a_f(p)|\\le 2$; Kim–Shahidi gives $|a_f(p)|\\le 2p^{7/64}$.",
+      "tags": [
+        "duality",
+        "functoriality"
+      ]
+    },
+    {
+      "id": "maa-trace-formula",
+      "title": "Selberg trace formula and the Weyl law",
+      "anchor": "trace-formula",
+      "prereqs": [
+        "maa-spectral",
+        "maa-eisenstein"
+      ],
+      "blurb": "The Selberg trace formula equates a spectral side $\\sum_j h(r_j)$ over Laplacian eigenvalues with a geometric side built from closed geodesics on $\\Gamma\\backslash\\mathbb{H}$. Choosing a suitable test function $h$ proves the Weyl law $\\#\\{\\lambda_j\\le T\\}\\sim\\mathrm{vol}(\\Gamma\\backslash\\mathbb{H})\\,T/(4\\pi)$ — the cusp form spectrum has the same density as eigenvalues on a compact surface of the same volume.",
+      "tags": [
+        "duality",
+        "equidistribution"
+      ]
+    }
+  ]
+}
