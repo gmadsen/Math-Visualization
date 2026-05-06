@@ -13,7 +13,7 @@ From `audits/coverage-stats.md` and `audits/starter-concepts.md`:
 - 1035 widgets, 100% registry-driven (PR #70 zero-baseline sweep — `audit-no-inline-widgets` now hard-fails on any non-registry widget)
 - Quiz tiers: v1 = 3108, hard = 1223, expert = 13 (intentionally bottom-of-list — see "Out of scope")
 - Tag coverage: **99.1%** across all 11 sections after PRs #84–#88 + #94–#98. The intentionally-untagged concepts are catalog/TOC blurbs (`*-applications`), single-result rigidity (Apéry's $\zeta(3)$ irrationality), or observation-shaped concepts (lem-failure, algebraic-connectivity Fiedler). Vocabulary expanded in PR #94 with `equidistribution`, `density`, `cancellation`, `refinement` to cover analytic-NT methods and $\infty$-topos refinement properties. Tagging effort effectively complete.
-- 11 narrative-tour story pages on disk: BSD, FLT, Sato–Tate (no tour entry — see "Authoring polish" below), the seven new ones from this session (Cohomology, Sets→∞-topoi, Sound→Wavelets, Local–Global, Solvability, Hodge, Langlands), plus Millennium Prizes (Tour 10).
+- 11 narrative-tour story pages on disk, all wired into Tours 1–11: BSD, FLT, Sato–Tate (Tour 11), Cohomology (Tour 3), Sets→∞-topoi (Tour 4), Sound→Wavelets (Tour 5), Local–Global (Tour 6), Solvability (Tour 7), Hodge (Tour 8), Langlands (Tour 9), Millennium Prizes (Tour 10).
 
 ## Near-term tasks
 
@@ -23,7 +23,13 @@ Items below come out of the algebra/analysis comparative audit shipped in PR #49
 
 ## Bigger missing-topic candidates (from the comparative audit)
 
-The original list flagged `model-categories` (algebra), `microlocal-analysis` / `geometric-measure-theory` / `semigroup-theory-evolution-equations` (analysis), and `klein-gordon-equation` / `dirac-equation` / `quantum-field-theory` (math-physics) as the major gaps surfaced by the comparative audit. **All three sections have now drained.** With the algebra-side `model-categories` topic shipped (this session), the bigger-missing-topic list is empty. Future gap candidates would surface from a renewed sweep on number theory / algebraic geometry / geometry-and-topology / modular forms — see "Content-gap audit" below.
+A topic-gap audit on the four uncovered sections (number theory, algebraic geometry, geometry-and-topology, modular forms & L-functions) shipped at [`audits/topic-gap-analysis.md`](./audits/topic-gap-analysis.md). Top recommendations from that pass, in priority order:
+
+1. **Cohomology + Poincaré duality + spectral sequences** (Geometry & topology). Highest leverage — every page in algebraic geometry, modular forms, and higher-categories silently presupposes them, but the existing `algebraic-topology` topic stops at singular homology with no cup products, no duality, and no spectral sequences. Filling this gap would unlock cleaner downstream coverage.
+2. **Toric varieties** (Algebraic geometry). Most visualisable AG gap; bridges intersection theory, Calabi-Yau, mirror symmetry, and combinatorics. Strong fit for the notebook's interactive aesthetic.
+3. **Iwasawa theory / p-adic L-functions** (closes a gap in both Number theory and Modular forms with one page). Honourable mention — the natural sequel to `p-adic-numbers` + `class-field-theory`.
+
+Other ranked gaps per section in the audit report. Older candidates (`model-categories`, `microlocal-analysis`, `geometric-measure-theory`, `klein-gordon-equation`, `dirac-equation`, `quantum-field-theory`, etc.) all shipped earlier and are no longer outstanding.
 
 ## Content-gap audit — long-running
 
@@ -31,11 +37,9 @@ A systematic pass: for each section, compare against a canonical reference (PCM,
 
 ## Authoring polish — small
 
-- **Index-card thumb art.** `new-topic.mjs` leaves placeholder colored thumbs in `index.html`; could replace with motif-appropriate SVGs.
+- **Index-card thumb art (continuing).** A first curation pass replaced the 12 visually weakest thumbs with motif-appropriate SVGs; ~15 cards were explicitly judged already-strong. Subsequent passes can pick from the unflagged middle on a per-section basis.
 - **Hoist semantic params out of verbatim slugs.** PR #70 banked the inline-widget zero-baseline by minting 77 per-widget verbatim slugs that share `widgets/_shared/verbatim-renderer.mjs` — schemas just carry opaque `bodyMarkup`/`bodyScript` strings. The deeper migration is to convert these to bespoke renderers with semantic params (slider ranges, color tokens, etc.) so AJV validation and the React frontend can actually inspect each widget. Worth doing in batches by topic rather than corpus-wide.
-- **Card ordering: tier → DAG topological.** `scripts/reorder-section-cards.mjs` does tier-then-stable today (prereq → intermediate → advanced → capstone). A topological pass over each section's prereq sub-DAG inside each tier would propagate "what depends on what" to the visible reading order.
-- **Tour 10 (Millennium Prizes) bridge prose.** The other 9 tours have ~150-word `<p class="bridge">` paragraphs per stop; Tour 10 currently uses a one-paragraph framing per problem. Expand to bridge-style if the long-form essay isn't enough.
-- **Sato–Tate has a story page but no tour.** `capstone-satotate-story.html` is reachable from the satotate index card and the topic page but has no `<button class="tour-card">` entry. Add a Tour 11 if the gap matters; otherwise leave it as the only "story without a tour" inversion.
+- **Section progress bar empty state.** `index.html` `.sec-progress` renders a faded track for fresh visitors with no `mvnb.progress.v1` localStorage. The faded `data-empty` styling reads more as "loading" than "you haven't started". Options: hide entirely when `mastered === 0`, or accompany with a small `0/N` label so it's obvious the bar tracks the visitor's progress, not corpus completeness.
 
 ## Three.js / Pyodide / alt frontends (long-running)
 
