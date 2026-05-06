@@ -269,14 +269,22 @@
       // Pin size: scales with sqrt(count), capped at 11px outer radius.
       const rOuter = Math.min(11, 4.5 + Math.sqrt(cl.events.length) * 1.6);
       if(cl.events.length === 1){
-        // Single-event cluster: one filled disc, classic pin look.
-        g.appendChild(el('circle', { r: rOuter, cx: 0, cy: 0, fill: newestColor }));
+        // Single-event cluster: one filled disc, classic pin look. Tagged
+        // with `data-era` so era-filter highlighting can target it the same
+        // way it targets the rings of multi-event clusters.
+        g.appendChild(el('circle', {
+          r: rOuter, cx: 0, cy: 0, fill: newestColor,
+          'data-era': newestEra,
+        }));
       } else {
         // Multi-event cluster: render concentric discs, oldest era at the
         // centre, each newer event painted as a slightly larger ring.
         // Distinct eras only — duplicates (e.g. Paris with 4 enlightenment
         // events) collapse to one band so the pin shows era diversity not
-        // event count.
+        // event count. Each ring carries `data-era` so a single-era filter
+        // can light up the matching ring while fading the rest, instead of
+        // relying on a per-pin halo (which leaves multi-era clusters
+        // visually indistinguishable on filter).
         const distinctEras = [];
         for(const ev of oldestFirst){
           if(!distinctEras.length || distinctEras[distinctEras.length-1] !== ev.era){
@@ -291,7 +299,10 @@
           const eraObj = eraById.get(distinctEras[k]);
           const c = eraObj ? eraObj.color : 'var(--mute)';
           const r = rInnerMin + step * (k + 1);
-          g.appendChild(el('circle', { r: r, cx: 0, cy: 0, fill: c }));
+          g.appendChild(el('circle', {
+            r: r, cx: 0, cy: 0, fill: c,
+            'data-era': distinctEras[k],
+          }));
         }
       }
       // tiny event-count badge under multi-event clusters
@@ -386,6 +397,24 @@
           p.style.setProperty('--era-color', singleEra.color);
         } else {
           p.style.setProperty('--era-color', p.dataset.naturalColor || 'var(--mute)');
+        }
+        // Per-ring highlighting: in filter mode, light up the rings that
+        // match an active era and fade the rest, so a 5-era city under
+        // "ancient" filter shows just the ancient ring popping. Without
+        // this, the per-pin halo paints every concentric ring the same
+        // and the user can't tell which event is the relevant one.
+        const circles = p.querySelectorAll('circle[data-era]');
+        if(filterActive && visible){
+          circles.forEach(c => {
+            const ce = c.getAttribute('data-era');
+            const isMatch = state.activeEras.has(ce);
+            c.classList.toggle('era-match', isMatch);
+            c.classList.toggle('era-fade', !isMatch);
+          });
+        } else {
+          circles.forEach(c => {
+            c.classList.remove('era-match', 'era-fade');
+          });
         }
       });
       // Mark the SVG itself when a filter is active so the
