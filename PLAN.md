@@ -13,7 +13,7 @@ From `audits/coverage-stats.md` and `audits/starter-concepts.md`:
 - 1035 widgets, 100% registry-driven (PR #70 zero-baseline sweep — `audit-no-inline-widgets` now hard-fails on any non-registry widget)
 - Quiz tiers: v1 = 3108, hard = 1223, expert = 13 (intentionally bottom-of-list — see "Out of scope")
 - Tag coverage: **99.1%** across all 11 sections after PRs #84–#88 + #94–#98. The intentionally-untagged concepts are catalog/TOC blurbs (`*-applications`), single-result rigidity (Apéry's $\zeta(3)$ irrationality), or observation-shaped concepts (lem-failure, algebraic-connectivity Fiedler). Vocabulary expanded in PR #94 with `equidistribution`, `density`, `cancellation`, `refinement` to cover analytic-NT methods and $\infty$-topos refinement properties. Tagging effort effectively complete.
-- 10 narrative-tour story pages: BSD, FLT, Sato–Tate (no tour entry), and the six new ones from this session (Cohomology, Sets→∞-topoi, Sound→Wavelets, Local–Global, Solvability, Hodge, Langlands) plus Millennium Prizes (Tour 10).
+- 11 narrative-tour story pages on disk: BSD, FLT, Sato–Tate (no tour entry — see "Authoring polish" below), the seven new ones from this session (Cohomology, Sets→∞-topoi, Sound→Wavelets, Local–Global, Solvability, Hodge, Langlands), plus Millennium Prizes (Tour 10).
 
 ## Near-term tasks
 

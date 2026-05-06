@@ -24,7 +24,9 @@ const repoRoot = resolve(dirname(__filename), '..');
 function loadCardMeta() {
   const html = readFileSync(join(repoRoot, 'index.html'), 'utf8');
   // Topic cards: <a class="card <color>" href="./<slug>.html"> ... <div class="tt">Title</div> ... <div class="tag">tag1 · tag2</div>
-  const re = /<a\s+class="card\s+([ybgpvco])"[^>]*href="\.\/([a-z0-9-]+)\.html[^"]*"[^>]*>([\s\S]*?)<\/a>/g;
+  // [A-Za-z0-9-]+ instead of [a-z0-9-]+ so capitalised slugs like
+  // "L-functions" don't silently fall out of the manifest.
+  const re = /<a\s+class="card\s+([ybgpvco])"[^>]*href="\.\/([A-Za-z0-9-]+)\.html[^"]*"[^>]*>([\s\S]*?)<\/a>/g;
   const map = new Map();
   let m;
   while ((m = re.exec(html))) {
@@ -45,22 +47,42 @@ function loadCardMeta() {
 }
 
 function lastCommitFor(file) {
-  // git log -1 --format='%ad|%s' --date=short -- <file>
+  // git log -1 --format='%ad\t%s' --date=short -- <file>
+  // Empty stdout (no history yet for this file) is normal — return null. A
+  // non-zero git exit (corrupt repo, not a git checkout, permissions) is
+  // not — log a warning so we don't quietly emit an empty manifest. Throws
+  // are also surfaced for the same reason.
   try {
     const out = execSync(
       `git log -1 --format=%ad%x09%s --date=short -- "${file}"`,
-      { cwd: repoRoot, encoding: 'utf8' }
+      { cwd: repoRoot, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] }
     ).trim();
     if (!out) return null;
     const tab = out.indexOf('\t');
     if (tab < 0) return { date: out, message: '' };
     return { date: out.slice(0, tab), message: out.slice(tab + 1) };
-  } catch {
+  } catch (err) {
+    console.warn(`build-recent-updates: git log failed for ${file}: ${err.message}`);
     return null;
   }
 }
 
 function main() {
+  // Up-front sanity: confirm we're inside a real git checkout. Without this,
+  // tarball / release-archive consumers would silently emit an empty manifest
+  // and the home page would render an empty "Recently updated" strip with
+  // no clue what went wrong.
+  try {
+    execSync('git rev-parse --is-inside-work-tree', {
+      cwd: repoRoot, stdio: ['ignore', 'ignore', 'pipe'],
+    });
+  } catch (err) {
+    console.error(
+      'build-recent-updates: not in a git checkout — cannot derive timestamps. ' +
+        'Aborting. (' + err.message.split('\n')[0] + ')'
+    );
+    process.exit(1);
+  }
   const cardMeta = loadCardMeta();
   const quizDir = join(repoRoot, 'quizzes');
   const files = readdirSync(quizDir).filter((f) => f.endsWith('.json') && f !== 'bundle.js');

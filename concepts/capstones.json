@@ -234,9 +234,9 @@
     {
       "id": "capstone-condensed-mathematics",
       "section": "Algebra & homological",
-      "title": "Condensed mathematics and the Liquid Tensor Experiment",
-      "goal": "cm-liquid-tensor-experiment",
-      "blurb": "Clausen–Scholze's condensed mathematics replaces topological spaces with sheaves on the pro-étale site of a point, recovering an honest abelian category for completed topological abelian groups. The Liquid Tensor Experiment — Scholze's December 2020 challenge to formalise the homological cornerstone of liquid theory in Lean — was completed by Commelin's mathlib team in 2022/2023, marking the first formalisation of a research-frontier theorem its authors themselves doubted."
+      "title": "Condensed mathematics: from condensed sets to liquid $\\mathbb{R}$-vector spaces",
+      "goal": "cm-liquid-vector-spaces",
+      "blurb": "Clausen–Scholze's reframing of topology: replace topological spaces with sheaves on the pro-étale site of a point, recovering an honest abelian category for completed topological abelian groups. Walk the arc from condensed sets through solid abelian groups to liquid $\\mathbb{R}$-vector spaces — the construction whose homological cornerstone (the Liquid Tensor theorem) became the first research-frontier result formalised in Lean. The narrower formalisation-event capstone is `capstone-liquid-tensor-experiment`."
     }
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "generated": "2026-05-05T15:04:06.113Z",
+  "generated": "2026-05-06T04:56:28.073Z",
   "entries": [
     {
       "slug": "algebraic-k-theory-foundations",
@@ -829,6 +829,14 @@
       "slug": "intersection-theory-chow",
       "title": "Intersection theory & Chow groups",
       "color": "g",
+      "tag": "",
+      "date": "2026-04-26",
+      "message": "Content + structure expansion: 22 new topics, 156 new concepts, full review pass (#35)"
+    },
+    {
+      "slug": "L-functions",
+      "title": "L-functions",
+      "color": "y",
       "tag": "",
       "date": "2026-04-26",
       "message": "Content + structure expansion: 22 new topics, 156 new concepts, full review pass (#35)"

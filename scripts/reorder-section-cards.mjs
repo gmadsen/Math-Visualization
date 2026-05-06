@@ -104,8 +104,14 @@ function transform(html) {
     out += html.slice(cursor, openIdx + openTag.length);
     const closeIdx = findMatchingDivClose(html, openIdx);
     if (closeIdx < 0) {
-      out += html.slice(openIdx + openTag.length);
-      break;
+      // Unbalanced HTML beyond this grid — refusing to write a partial /
+      // truncated index.html because it would corrupt the file silently.
+      // This is a hard structural invariant violation; bail.
+      const lineNum = html.slice(0, openIdx).split('\n').length;
+      throw new Error(
+        `reorder-section-cards: unbalanced <div> after <div class="grid"> at line ${lineNum}; ` +
+        `aborting without writing to keep index.html intact.`
+      );
     }
     const body = html.slice(openIdx + openTag.length, closeIdx);
     const next = reorderGrid(body);
