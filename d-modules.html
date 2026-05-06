@@ -452,7 +452,7 @@ $$\mathrm{Char}(M) \;=\; \mathrm{Supp}(\mathrm{gr}^F M) \;\subset\; T^*X.$$
 <section id="riemann-hilbert">
 <h2>4. Regular holonomic D-modules and the Riemann-Hilbert correspondence</h2>
 
-<p>Hilbert's 21st problem (1900) asked: given a finite set of points $S \subset \mathbb{C}$ and a representation $\rho : \pi_1(\mathbb{C} \setminus S) \to \mathrm{GL}_n(\mathbb{C})$, is there a Fuchsian system of linear ODEs on $\mathbb{C}$ with regular singularities exactly at $S$ whose monodromy is $\rho$? The answer is yes (with corrections by Plemelj, Bolibrukh, Beilinson-Bernstein, Deligne, et al.), and the modern statement — the <strong>Riemann-Hilbert correspondence</strong> — generalises it to higher dimension and replaces "Fuchsian system with regular singularities" by <em>regular holonomic D-module</em>, "representation of $\pi_1$" by <em>perverse sheaf</em>.</p>
+<p>Hilbert's 21st problem (1900) asked: given a finite set of points $S \subset \mathbb{C}$ and a representation $\rho : \pi_1(\mathbb{C} \setminus S) \to \mathrm{GL}_n(\mathbb{C})$, is there a Fuchsian system of linear ODEs on $\mathbb{C}$ with regular singularities exactly at $S$ whose monodromy is $\rho$? Plemelj's 1908 argument had a gap, and Bolibrukh (1989) found an explicit counterexample to Hilbert's strict Fuchsian formulation — there exist representations that cannot be realised by any Fuchsian system with poles exactly in $S$. The modern <strong>Riemann-Hilbert correspondence</strong> — Deligne (1970) for regular meromorphic connections, Kashiwara and Mebkhout (1980) for regular holonomic D-modules — replaces "Fuchsian system with regular singularities" by <em>regular holonomic D-module</em> and "representation of $\pi_1$" by <em>perverse sheaf</em>, generalising to arbitrary dimension and answering a richer version of the question with a clean yes.</p>
 
 <p>The first step is to pin down "regular singularity" globally.</p>
 
@@ -564,7 +564,7 @@ $$M_{a,b,c} \;=\; \mathcal{D}_U / \mathcal{D}_U \cdot P_{a,b,c},$$
 <p>One of the most striking applications of D-module theory is the existence of a universal polynomial functional equation for any polynomial $f$.</p>
 
 <div class="note">
-<p style="margin:.2rem 0"><strong>Theorem (Bernstein 1972, Sato).</strong> Let $f \in \mathbb{C}[x_1, \ldots, x_n]$ be non-constant. There exists a non-zero polynomial $b(s) \in \mathbb{C}[s]$ and a differential operator $P(s) \in D_n[s]$ such that</p>
+<p style="margin:.2rem 0"><strong>Theorem (Bernstein 1971; Sato, early 1970s).</strong> Let $f \in \mathbb{C}[x_1, \ldots, x_n]$ be non-constant. There exists a non-zero polynomial $b(s) \in \mathbb{C}[s]$ and a differential operator $P(s) \in D_n[s]$ such that</p>
 $$P(s) \cdot f^{s+1} \;=\; b(s) \cdot f^s$$
 <p style="margin:.2rem 0">as an identity in the $D_n[s]$-module $\mathbb{C}[x, s, f^{-1}] \cdot f^s$. The monic generator of the ideal of all such $b(s)$ is the <em>Bernstein-Sato polynomial</em> (or <em>$b$-function</em>) $b_f(s)$.</p>
 </div>
@@ -624,7 +624,7 @@ $$P(s) \cdot f^{s+1} \;=\; b(s) \cdot f^s$$
 <section id="connections">
 <h2>7. Connections</h2>
 
-<p>D-module theory is the "linear" half of microlocal analysis: a holonomic D-module is a Lagrangian object in $T^*X$ together with a flat connection on its smooth locus, and Riemann-Hilbert says that data is the same as a perverse sheaf. The frontier is on three sides: irregular Riemann-Hilbert in higher dimensions (D'Agnolo-Kashiwara, 2016, settled the surface case but higher dimensions remain open), arithmetic D-modules and the $p$-adic Riemann-Hilbert (Berthelot, Caro, Abe), and geometric Langlands, where the relevant category is the derived category of D-modules on the moduli stack of $G$-bundles on a curve and Riemann-Hilbert is replaced by Beilinson-Drinfeld's geometric Satake.</p>
+<p>D-module theory is the "linear" half of microlocal analysis: a holonomic D-module is a Lagrangian object in $T^*X$ together with a flat connection on its smooth locus, and Riemann-Hilbert says that data is the same as a perverse sheaf. The frontier is on three sides: irregular Riemann-Hilbert in higher dimensions, where the general higher-dimensional irregular correspondence was established by D'Agnolo-Kashiwara (2016) building on Mochizuki and Kedlaya's structure theorems for irregular meromorphic connections; arithmetic D-modules and the $p$-adic Riemann-Hilbert (Berthelot, Caro, Abe), and geometric Langlands, where the relevant category is the derived category of D-modules on the moduli stack of $G$-bundles on a curve and Riemann-Hilbert is replaced by Beilinson-Drinfeld's geometric Satake.</p>
 
 <ul>
   <li><a href="./algebraic-de-rham-cohomology.html#de-rham-complex">Algebraic de Rham cohomology — The de Rham complex</a> — the de Rham functor of Riemann-Hilbert is exactly tensoring with $\Omega^\bullet_X$ over $\mathcal{D}_X$, recovering algebraic de Rham cohomology when $M = \mathcal{O}_X$.</li>
@@ -921,7 +921,7 @@ $$P(s) \cdot f^{s+1} \;=\; b(s) \cdot f^s$$
   const lba = document.getElementById('hg-av');
   const lbc = document.getElementById('hg-cv');
   if (!root || !svg || !out || !sla || !slc || !lba || !lbc) {
-    console.warn('[d-modules] missing widget DOM:', {root:!!root, svg:!!svg, out:!!out, sla:!!sla, slc:!!slc});
+    console.warn('[d-modules] missing widget DOM:', {root:!!root, svg:!!svg, out:!!out, sla:!!sla, slc:!!slc, lba:!!lba, lbc:!!lbc});
     return;
   }
   const b_param = 0.5; // fixed

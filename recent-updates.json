@@ -1,5 +1,5 @@
 {
-  "generated": "2026-05-06T08:38:34.220Z",
+  "generated": "2026-05-06T08:54:28.262Z",
   "entries": [
     {
       "slug": "abelian-varieties",
@@ -34,6 +34,14 @@
       "message": "3 next-priority gap topics + condensed pin fix (#122)"
     },
     {
+      "slug": "d-modules",
+      "title": "D-modules",
+      "color": "g",
+      "tag": "",
+      "date": "2026-05-06",
+      "message": "Three more advanced topics: homotopy-theory, maass-forms, d-modules"
+    },
+    {
       "slug": "dirichlet-unit-theorem",
       "title": "Dirichlet unit theorem",
       "color": "y",
@@ -42,12 +50,28 @@
       "message": "3 more gap topics: dirichlet-unit-theorem, cobordism, MMP (#123)"
     },
     {
+      "slug": "homotopy-theory",
+      "title": "Homotopy theory",
+      "color": "v",
+      "tag": "",
+      "date": "2026-05-06",
+      "message": "Three more advanced topics: homotopy-theory, maass-forms, d-modules"
+    },
+    {
       "slug": "iwasawa-theory",
       "title": "Iwasawa theory",
       "color": "y",
       "tag": "",
       "date": "2026-05-06",
       "message": "3 advanced topics + map/mindmap UX + section pill UI + thumb-art (#121)"
+    },
+    {
+      "slug": "maass-forms",
+      "title": "Maass forms",
+      "color": "c",
+      "tag": "",
+      "date": "2026-05-06",
+      "message": "Three more advanced topics: homotopy-theory, maass-forms, d-modules"
     },
     {
       "slug": "mmp-and-birational-geometry",

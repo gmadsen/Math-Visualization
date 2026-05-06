@@ -582,6 +582,12 @@ the exact analog of the prime number theorem under the substitution $N=e^X$. Clo
     return;
   }
   const W=640, H=240, pad=42;
+  // Clamp slider range per mode: exceptional t ∈ [0, 0.5) keeps λ = 1/4 - t² ≥ 0.
+  function applyModeRange(){
+    const useR = mode.value === 'r';
+    slider.max = useR ? '6' : '0.5';
+    if (+slider.value > +slider.max) slider.value = String(+slider.max);
+  }
   function render(){
     svg.innerHTML='<title>Laplacian eigenvalue λ vs spectral parameter</title>';
     const v = +slider.value;
@@ -629,7 +635,8 @@ the exact analog of the prime number theorem under the substitution $N=e^X$. Clo
     }
   }
   slider.addEventListener('input', render);
-  mode.addEventListener('change', render);
+  mode.addEventListener('change', () => { applyModeRange(); render(); });
+  applyModeRange();
   render();
 })();
 
