@@ -36,7 +36,7 @@
     --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
     --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
     /* era palette — derived from accents but distinct enough to be readable as bands */
-    --era-prehistory:#7d6b56;
+    --era-prehistory:#c19a5a;
     --era-ancient:#d8a657;
     --era-classical:#7daea3;
     --era-asian-islamic:#a9b665;
@@ -349,23 +349,42 @@
      concentric circle in a multi-event cluster is tagged with `data-era` at
      construction (widget-history-map.js); applyState() then adds `era-match`
      to rings whose era is in the active filter set and `era-fade` to the
-     rest. The matching ring glows in its own color; non-matching rings fade
-     out, so the city's relevant event stands out even when the city has
-     many events from other eras.
+     rest. The matching ring grows AND glows in its own color; non-matching
+     rings fade nearly to invisibility, so the active era stands out
+     dramatically — matching the timeline's "dim everything except this era"
+     visual contract.
        The plain `.map[data-era-filter] .pin circle` rule is the fallback
      for any defensive-shouldn't-happen path where rings lack the tag. */
   .map[data-era-filter] .pin:not(.dim) circle{
-    transition:filter 220ms ease, opacity 220ms ease;
+    transition:filter 220ms ease, opacity 220ms ease, transform 220ms ease,
+               r 220ms ease, stroke-width 220ms ease;
   }
   .map[data-era-filter] .pin:not(.dim) circle:not(.era-fade):not(.era-match){
     filter:drop-shadow(0 0 4px var(--era-color,var(--yellow)));
   }
   .map .pin circle.era-match{
-    filter:drop-shadow(0 0 6px var(--era-color,var(--yellow)))
-           drop-shadow(0 0 14px var(--era-color,var(--yellow)));
-    stroke:var(--ink);stroke-width:1.4;stroke-opacity:0.75;
+    /* Bigger + multiple stacked drop-shadows for a strong signal even at
+       small pin sizes (4-11px) on a world map projected to ~675px wide.
+       transform-box=fill-box scales the circle around its own centre so
+       the cx/cy=0 anchor stays put. The stroke is contrast-against-ink
+       at full opacity so low-saturation eras (prehistory's caramel,
+       medieval's tan) get a hard outline that pops independently of
+       the era's fill — the drop-shadow alone isn't enough for a sepia
+       palette.  */
+    transform-box:fill-box;transform-origin:center;transform:scale(1.55);
+    filter:drop-shadow(0 0 4px var(--era-color,var(--yellow)))
+           drop-shadow(0 0 10px var(--era-color,var(--yellow)))
+           drop-shadow(0 0 20px var(--era-color,var(--yellow)));
+    stroke:var(--ink);stroke-width:1.4;stroke-opacity:1;
   }
-  .map .pin circle.era-fade{opacity:0.16}
+  /* Non-matching rings inside an active pin: nearly invisible so the
+     matching ring isn't visually crowded. */
+  .map .pin circle.era-fade{opacity:0.06}
+  /* Pins with NO events in the active era set are dimmed — kept very faint
+     so the active set is the only visual focus, mirroring the timeline's
+     `.event-dot.dim {opacity:.18}` pattern but pushed further because map
+     pin density is so much higher. */
+  .map[data-era-filter] .pin.dim{opacity:0.06}
   .map .pin{transition:opacity 200ms ease}
   /* Scrubber styling */
   .tl .tl-scrubber{cursor:ew-resize}
@@ -1094,7 +1113,7 @@ $$\partial_t g_{ij} = -2 R_{ij},$$
 <script id="history-data" type="application/json">
 {
   "eras": [
-    { "id":"prehistory",    "label":"Prehistory",          "yearStart":-50000, "yearEnd":-3000, "color":"#7d6b56", "blurb":"Tally bones and the first abstraction: that 'three' is a property shared by three antelopes and three suns." },
+    { "id":"prehistory",    "label":"Prehistory",          "yearStart":-50000, "yearEnd":-3000, "color":"#c19a5a", "blurb":"Tally bones and the first abstraction: that 'three' is a property shared by three antelopes and three suns." },
     { "id":"ancient",       "label":"Ancient",             "yearStart":-3000,  "yearEnd":-500,  "color":"#d8a657", "blurb":"Egypt and Mesopotamia, then India and China: writing-down arithmetic for taxes, calendars, and surveying." },
     { "id":"classical",     "label":"Classical",           "yearStart":-600,   "yearEnd":400,   "color":"#7daea3", "blurb":"Greek geometry, the invention of proof, conic sections, the first careful infinity." },
     { "id":"asian-islamic", "label":"Asian & Islamic",     "yearStart":200,    "yearEnd":1300,  "color":"#a9b665", "blurb":"India invents zero and place value; China cracks numerical algorithms; the House of Wisdom in Baghdad gives us 'algebra'." },

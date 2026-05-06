@@ -11,6 +11,7 @@
 <script src="../js/theme-toggle.js"></script>
 <script defer src="../js/progress.js"></script>
 <script defer src="../concepts/bundle.js"></script>
+<script defer src="../recent-updates.js"></script>
 <script src="../js/onboarding.js" defer></script>
 <script>
 (function(){
@@ -273,7 +274,7 @@
   .pathway-banner .pb-eyebrow{color:var(--cyan)}
   .tours-banner .pb-eyebrow{color:var(--yellow)}
   .history-banner .pb-eyebrow{color:var(--violet)}
-  .pathway-banner .pb-title,.tours-banner .pb-title,.history-banner .pb-title{font-size:1.15rem;font-weight:600;color:#fff;margin:0 0 3px}
+  .pathway-banner .pb-title,.tours-banner .pb-title,.history-banner .pb-title{font-size:1.15rem;font-weight:600;color:var(--ink);margin:0 0 3px}
   .pathway-banner .pb-desc,.tours-banner .pb-desc,.history-banner .pb-desc{color:var(--mute);font-size:0.92rem;margin:0;line-height:1.45}
   .pathway-banner .pb-arrow,.tours-banner .pb-arrow,.history-banner .pb-arrow{font-size:1.6rem;flex-shrink:0}
   .pathway-banner .pb-arrow{color:var(--cyan)}
@@ -300,7 +301,7 @@
   .featured-card .fc-eyebrow{font-size:0.7rem;letter-spacing:0.16em;
     text-transform:uppercase;color:var(--violet);font-weight:500;margin:0 0 2px}
   .featured-card.fc-continue .fc-eyebrow{color:var(--green)}
-  .featured-card .fc-title{font-size:1.05rem;font-weight:600;color:#fff;margin:0;
+  .featured-card .fc-title{font-size:1.05rem;font-weight:600;color:var(--ink);margin:0;
     line-height:1.35}
   .featured-card .fc-desc{color:var(--mute);font-size:0.9rem;margin:2px 0 0;
     line-height:1.45;flex:1;
@@ -314,7 +315,7 @@
   @media (max-width:640px){
     .featured-rail{grid-template-columns:1fr}
   }
-  h1{font-size:2.6rem;margin:0 0 0.6rem;letter-spacing:-0.02em;color:#fff}
+  h1{font-size:2.6rem;margin:0 0 0.6rem;letter-spacing:-0.02em;color:var(--ink)}
   .sub{color:var(--mute);margin:0 auto;max-width:640px;font-size:1.02rem}
   /* Section header: was a tiny muted eyebrow label; now a distinctive title
      row with a colored left-border marker, larger mixed-case type, and an
@@ -323,40 +324,70 @@
      (color goes on data-color, id goes separately) so the section-index
      builder regex (scripts/build-section-indexes.mjs) keeps matching section
      divs and picks up the title text cleanly. */
-  .sec{position:relative;margin:3rem 0 1rem;padding:0.35rem 0 0.55rem 0.85rem;
+  .sec{position:relative;margin:3rem 0 1rem;padding:0.4rem 0.75rem 0.6rem 0.95rem;
     border-left:3px solid var(--line);border-bottom:1px solid var(--line);
-    display:flex;align-items:baseline;justify-content:space-between;gap:1rem;
-    font-size:1.18rem;font-weight:600;color:#fff;letter-spacing:-0.005em;
+    border-radius:0 6px 0 0;
+    display:flex;align-items:center;justify-content:space-between;gap:1rem;
+    font-size:1.18rem;font-weight:600;color:var(--ink);letter-spacing:-0.005em;
     text-transform:none;scroll-margin-top:1.2rem;
     /* Click target for collapse/expand — pointer + subtle hover feedback. */
     cursor:pointer;user-select:none;
-    transition:border-bottom-color 180ms ease, padding-left 180ms ease}
-  .sec:hover{border-bottom-color:color-mix(in srgb, currentColor 50%, var(--line))}
+    transition:background 180ms ease, border-bottom-color 180ms ease,
+      border-left-width 180ms ease, padding-left 180ms ease}
+  .sec:hover{
+    border-bottom-color:color-mix(in srgb, currentColor 60%, var(--line));
+    background:color-mix(in srgb, currentColor 7%, transparent);
+    border-left-width:5px;padding-left:0.85rem}
+  .sec:focus-visible{outline:2px solid currentColor;outline-offset:2px}
   /* Chevron prefix — rotates when collapsed. Sits inside the heading text
      just before the section name; renders via ::before so the section-index
      builder regex still matches the bare text node. */
   .sec::before{
-    content:"";display:inline-block;width:8px;height:8px;margin-right:0.55rem;
+    content:"";display:inline-block;width:9px;height:9px;margin-right:0.6rem;
     border-right:2px solid currentColor;border-bottom:2px solid currentColor;
     transform:rotate(45deg) translateY(-2px);
-    transition:transform 220ms cubic-bezier(0.4,0,0.2,1);
-    opacity:0.7}
-  .sec.is-collapsed::before{transform:rotate(-45deg) translateY(0)}
-  .sec.is-collapsed{margin-bottom:0.4rem;border-bottom-color:transparent}
+    transition:transform 240ms cubic-bezier(0.4,0,0.2,1), opacity 180ms ease;
+    opacity:0.65}
+  .sec:hover::before{opacity:1}
+  .sec.is-collapsed::before{transform:rotate(-45deg) translateY(0);opacity:1}
+  /* Collapsed sections have a much more distinct pill-like presence than
+     the expanded ones — accent-tinted background, rounded right edge,
+     bumped left border, and the chevron reads as a clear "click to
+     expand" affordance. They feel like card stubs, not flat rows. */
+  .sec.is-collapsed{
+    margin-bottom:0.5rem;
+    border-bottom-color:transparent;
+    border-left-width:5px;
+    border-radius:0 10px 10px 0;
+    background:color-mix(in srgb, currentColor 9%, transparent);
+    box-shadow:inset 0 0 0 1px color-mix(in srgb, currentColor 18%, transparent);
+  }
+  .sec.is-collapsed:hover{
+    background:color-mix(in srgb, currentColor 14%, transparent);
+    box-shadow:inset 0 0 0 1px color-mix(in srgb, currentColor 36%, transparent);
+  }
+  /* Collapsed-state hint: when collapsed, swap the topic count's neutral
+     mute color for a faint accent so the row reads as "I'm tinted in
+     this section's color, click me." */
+  .sec.is-collapsed .sec-count{color:color-mix(in srgb, currentColor 65%, var(--ink))}
   /* Collapsed state — hide the next .grid sibling and the section-end
      spacing. Use display:none so the page actually shrinks. */
   .sec.is-collapsed + .grid{display:none}
   .sec .sec-count{font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;
     color:var(--mute);font-family:ui-monospace,Menlo,monospace;font-weight:500;
     white-space:nowrap}
-  /* Right-aligned stats group: topic count only. The 18px mastery ring used
-     to live here too but was too small to register and added chromatic
-     clutter on top of 130+ colored card thumbs; it was removed in the
-     audit-driven palette pass. The full mastery picture lives on
-     pathway.html. The .sec-ring rules are retained as no-ops so any
-     previously cached SVG attached at runtime stays invisible rather
-     than breaking layout. */
-  .sec .sec-stats{display:inline-flex;align-items:center;gap:8px;flex-shrink:0}
+  /* Right-aligned stats group: progress bar + count. The .sec-progress is a
+     thin horizontal mastery bar populated by the script block at the bottom
+     of body. It's keyed off MVProgress so it reflects v1-tier mastery for
+     every concept inside every topic in the section. */
+  .sec .sec-stats{display:inline-flex;align-items:center;gap:10px;flex-shrink:0}
+  .sec .sec-progress{position:relative;width:84px;height:4px;border-radius:2px;
+    background:var(--line);overflow:hidden;flex-shrink:0;
+    box-shadow:inset 0 0 0 1px color-mix(in srgb, currentColor 12%, transparent)}
+  .sec .sec-progress .fill{position:absolute;inset:0 auto 0 0;height:100%;
+    background:currentColor;border-radius:2px;
+    transition:width 360ms cubic-bezier(0.4,0,0.2,1)}
+  .sec .sec-progress[data-empty="1"]{opacity:0.42}
   .sec .sec-ring{display:none}
   /* Section accent via data-color attribute (not a class) so the class
      attribute stays exactly "sec" and the section-index builder's regex
@@ -470,7 +501,7 @@
   .mvdrawer.open{transform:translateX(0)}
   .mvdrawer .mvd-head{display:flex;align-items:flex-start;justify-content:space-between;
     gap:12px;padding:1.1rem 1.2rem 0.8rem;border-bottom:1px solid var(--line)}
-  .mvdrawer .mvd-title{margin:0;font-size:1.08rem;color:#fff;font-weight:600;line-height:1.3}
+  .mvdrawer .mvd-title{margin:0;font-size:1.08rem;color:var(--ink);font-weight:600;line-height:1.3}
   .mvdrawer .mvd-sub{margin:4px 0 0;color:var(--mute);font-size:0.8rem;
     font-family:ui-monospace,Menlo,monospace;letter-spacing:0.02em}
   .mvdrawer .mvd-close{background:transparent;border:1px solid var(--line);
@@ -492,7 +523,7 @@
     transition:background 150ms ease}
   .mvdrawer .mvd-item:hover{background:var(--panel2)}
   .mvdrawer .mvd-item .mvd-t{flex:1;min-width:0}
-  .mvdrawer .mvd-item .mvd-tlabel{color:#fff;font-weight:500}
+  .mvdrawer .mvd-item .mvd-tlabel{color:var(--ink);font-weight:500}
   .mvdrawer .mvd-item .mvd-state{display:block;font-size:0.72rem;color:var(--mute);
     font-family:ui-monospace,Menlo,monospace;letter-spacing:0.02em;margin-top:2px}
   .mvdrawer .mvd-item.locked .mvd-tlabel{color:var(--mute)}
@@ -516,10 +547,12 @@
       transform:translateY(100%)}
     .mvdrawer.open{transform:translateY(0)}
   }
-  /* "Recently updated" strip: populated by the script block at the bottom of <body>.
-     The #recently-updated container is hidden by default and only revealed once the
-     script successfully fetches and parses at least one topic's changelog footer.
-     Under file:// the script bails early so the strip stays hidden — no empty header. */
+  /* "Recently updated" strip: populated by the script block at the bottom of <body>
+     from `window.MV_RECENT_UPDATES` (see ./recent-updates.js, generated by
+     scripts/build-recent-updates.mjs from `git log -1 -- quizzes/<slug>.json`).
+     The container stays `display:none` until the script confirms the manifest
+     has at least one entry, then sets `.ready` to reveal. Works under file://
+     since recent-updates.js is loaded as a <script> tag, no fetch needed. */
   #recently-updated{display:none;margin:0 0 0.4rem}
   #recently-updated.ready{display:block}
   #recently-updated .ru-head{font-size:0.78rem;letter-spacing:0.16em;text-transform:uppercase;
@@ -534,7 +567,7 @@
   .ru-card .ru-date{font-size:0.72rem;font-family:ui-monospace,Menlo,monospace;
     color:var(--mute);white-space:nowrap;font-variant-numeric:tabular-nums;flex-shrink:0;
     min-width:6.2em}
-  .ru-card .ru-title{font-weight:600;font-size:0.95rem;color:#fff;flex:1;min-width:0;
+  .ru-card .ru-title{font-weight:600;font-size:0.95rem;color:var(--ink);flex:1;min-width:0;
     overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .ru-card .ru-tag{font-size:0.7rem;padding:1px 8px;border-radius:999px;
     background:var(--panel2);color:var(--mute);border:1px solid var(--line);
@@ -546,6 +579,7 @@
   .ru-card.p .ru-title{color:var(--pink)}   .ru-card.p:hover{border-color:var(--pink)}
   .ru-card.v .ru-title{color:var(--violet)} .ru-card.v:hover{border-color:var(--violet)}
   .ru-card.c .ru-title{color:var(--cyan)}   .ru-card.c:hover{border-color:var(--cyan)}
+  .ru-card.o .ru-title{color:var(--orange)} .ru-card.o:hover{border-color:var(--orange)}
   @media (max-width:520px){
     .ru-card{padding:0.5rem 0.65rem;gap:8px}
     .ru-card .ru-date{font-size:0.68rem;min-width:5.6em}
@@ -571,9 +605,7 @@
 
   <div class="sec">Geometry & topology</div>
   <div class="grid">
-
-
-  <a class="card v" href="../point-set-topology.html">
+<a class="card v" href="../point-set-topology.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <!-- nested open balls with a compact cover -->
         <circle cx="35" cy="42" r="22" fill="none" stroke="var(--violet)" stroke-width="1.3" stroke-dasharray="3 3"/>
@@ -599,10 +631,15 @@
 
   <a class="card c" href="../algebraic-topology.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <ellipse cx="50" cy="40" rx="34" ry="20" fill="none" stroke="var(--cyan)" stroke-width="1.5"/>
-        <path d="M 30 37 Q 50 28 70 37" fill="none" stroke="var(--cyan)" stroke-width="1.3"/>
-        <path d="M 34 41 Q 50 47 66 41" fill="none" stroke="var(--cyan)" stroke-width="1.3"/>
-        <ellipse cx="50" cy="40" rx="7" ry="17" fill="none" stroke="var(--yellow)" stroke-width="1.2" stroke-dasharray="3 2"/>
+        <!-- torus with the two generating cycles α (meridian) and β (longitude) -->
+        <ellipse cx="50" cy="42" rx="36" ry="22" fill="none" stroke="var(--cyan)" stroke-width="1.5"/>
+        <path d="M 30 39 Q 50 30 70 39" fill="none" stroke="var(--cyan)" stroke-width="1.3"/>
+        <path d="M 34 43 Q 50 49 66 43" fill="none" stroke="var(--cyan)" stroke-width="1.3"/>
+        <ellipse cx="50" cy="42" rx="7" ry="18" fill="none" stroke="var(--yellow)" stroke-width="1.3"/>
+        <ellipse cx="50" cy="42" rx="36" ry="22" fill="none" stroke="var(--pink)" stroke-width="1.2" stroke-dasharray="3 2" transform="rotate(0 50 42)" opacity="0"/>
+        <path d="M 14 42 Q 50 60 86 42" fill="none" stroke="var(--pink)" stroke-width="1.3"/>
+        <text x="58" y="22" font-size="8" font-style="italic" font-family="serif" fill="var(--yellow)">α</text>
+        <text x="22" y="50" font-size="8" font-style="italic" font-family="serif" fill="var(--pink)">β</text>
       </svg></div>
       <div class="body">
         <div class="tt">Algebraic topology <span class="level prereq">prereq</span></div>
@@ -612,7 +649,28 @@
     </a>
 
 
-  <a class="card y" href="../smooth-manifolds.html">
+  
+
+  <a class="card v" href="../knot-polynomials.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+<g stroke="var(--violet)" stroke-width="2" fill="none">
+          <path d="M 35 24 C 25 30, 25 50, 35 56 C 45 62, 65 62, 75 56 C 85 50, 85 30, 75 24 C 65 18, 45 18, 35 24"/>
+          <line x1="44" y1="38" x2="56" y2="48" stroke-width="3" stroke="var(--bg)"/>
+          <line x1="44" y1="38" x2="56" y2="48"/>
+          <line x1="56" y1="38" x2="44" y2="48" stroke-width="3" stroke="var(--bg)"/>
+          <line x1="56" y1="38" x2="44" y2="48"/>
+        </g>
+        <text x="50" y="76" text-anchor="middle" font-family="serif" font-size="10" font-style="italic" fill="var(--violet)">V(q)</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Knot polynomials</div>
+        <div class="desc">Reidemeister moves preserve isotopy class; Alexander, Jones, HOMFLY polynomials extract integer / Laurent invariants; Reshetikhin–Turaev links knots to R-matrices.</div>
+        <span class="tag">Alexander · Jones · HOMFLY · R-matrix</span>
+      </div>
+    </a>
+
+
+    <a class="card y" href="../smooth-manifolds.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <!-- sphere with two chart patches overlapping -->
         <circle cx="50" cy="40" r="26" fill="none" stroke="var(--yellow)" stroke-width="1.3"/>
@@ -629,33 +687,6 @@
         <div class="tt">Smooth manifolds</div>
         <div class="desc">Charts and atlases, transition maps, the tangent space three ways, the differential, immersions vs. embeddings, vector fields and the Lie bracket via flows.</div>
         <span class="tag">(U, φ) · T_pM · [X,Y]</span>
-      </div>
-    </a>
-
-
-  <a class="card b" href="../differential-forms.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <!-- 1-form as a stack of parallel lines (level sets / "rulings") -->
-        <g stroke="var(--blue)" stroke-width="1.2" opacity="0.75">
-          <line x1="14" y1="20" x2="86" y2="20"/>
-          <line x1="14" y1="32" x2="86" y2="32"/>
-          <line x1="14" y1="44" x2="86" y2="44"/>
-          <line x1="14" y1="56" x2="86" y2="56"/>
-          <line x1="14" y1="68" x2="86" y2="68"/>
-        </g>
-        <!-- a vector piercing the stack -->
-        <line x1="30" y1="62" x2="72" y2="22" stroke="var(--yellow)" stroke-width="1.6" marker-end="url(#df1)"/>
-        <!-- basepoint -->
-        <circle cx="30" cy="62" r="2" fill="#fff"/>
-        <text x="78" y="14" font-size="8" fill="var(--yellow)" font-style="italic" font-family="serif">ω(v)</text>
-        <defs>
-          <marker id="df1" viewBox="0 0 8 8" refX="6" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L6,4 L0,8 z" fill="var(--yellow)"/></marker>
-        </defs>
-      </svg></div>
-      <div class="body">
-        <div class="tt">Differential forms</div>
-        <div class="desc">$k$-forms as oriented volume-eaters, wedge and exterior derivative, Stokes's theorem as the master identity, and de Rham cohomology on the annulus.</div>
-        <span class="tag">ω · d · ∫∂ = ∫d</span>
       </div>
     </a>
 
@@ -684,53 +715,6 @@
     </a>
 
 
-  <a class="card p" href="../riemannian-geometry.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <!-- sphere with a geodesic triangle on it -->
-        <circle cx="50" cy="40" r="26" fill="none" stroke="var(--pink)" stroke-width="1.3"/>
-        <!-- inner latitude ellipse -->
-        <ellipse cx="50" cy="40" rx="26" ry="9" fill="none" stroke="var(--pink)" stroke-width="0.8" opacity="0.45"/>
-        <!-- geodesic triangle: north pole and two equator points -->
-        <g stroke="var(--yellow)" stroke-width="1.3" fill="none">
-          <path d="M 50 14 Q 36 26 28 45"/>
-          <path d="M 50 14 Q 64 26 72 45"/>
-          <path d="M 28 45 Q 50 55 72 45"/>
-        </g>
-        <g fill="var(--yellow)"><circle cx="50" cy="14" r="2"/><circle cx="28" cy="45" r="2"/><circle cx="72" cy="45" r="2"/></g>
-        <text x="50" y="76" text-anchor="middle" font-size="7" fill="var(--pink)" font-style="italic" font-family="serif">K &gt; 0 ⇒ ∑α &gt; π</text>
-      </svg></div>
-      <div class="body">
-        <div class="tt">Riemannian geometry</div>
-        <div class="desc">The metric $g$, Levi-Civita connection, parallel transport, geodesics via exponential map, sectional/Ricci curvature, Jacobi fields, and Bonnet–Myers.</div>
-        <span class="tag">g · ∇ · R · exp</span>
-      </div>
-    </a>
-
-
-  <a class="card c" href="../lie-groups.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <!-- great circle on S^3 / matrix group with tangent at identity -->
-        <ellipse cx="50" cy="40" rx="30" ry="26" fill="none" stroke="var(--cyan)" stroke-width="1.4"/>
-        <!-- identity point -->
-        <circle cx="80" cy="40" r="2.8" fill="var(--yellow)"/>
-        <text x="80" y="55" text-anchor="middle" font-size="8" fill="var(--yellow)" font-style="italic" font-family="serif">e</text>
-        <!-- tangent vector at identity: T_e G = g -->
-        <line x1="80" y1="40" x2="94" y2="20" stroke="var(--yellow)" stroke-width="1.4" marker-end="url(#lg1)"/>
-        <!-- one-parameter subgroup: a second point along the curve -->
-        <circle cx="66" cy="20" r="2.2" fill="var(--cyan)"/>
-        <text x="66" y="14" text-anchor="middle" font-size="7" fill="var(--cyan)" font-style="italic" font-family="serif">exp(tX)</text>
-        <defs>
-          <marker id="lg1" viewBox="0 0 8 8" refX="6" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L6,4 L0,8 z" fill="var(--yellow)"/></marker>
-        </defs>
-      </svg></div>
-      <div class="body">
-        <div class="tt">Lie groups &amp; algebras</div>
-        <div class="desc">Classical matrix groups as manifolds, $\mathfrak{g}=T_eG$, the exponential map, brackets, $\mathrm{SU}(2)\!\to\!\mathrm{SO}(3)$ double cover, and $A_1,A_2$ root systems.</div>
-        <span class="tag">exp · [·,·] · roots</span>
-      </div>
-    </a>
-
-
   <a class="card c" href="../riemann-surfaces.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <!-- fundamental parallelogram with side identifications -->
@@ -754,28 +738,34 @@
     </a>
 
 
-    <a class="card v" href="../characteristic-classes.html">
+    <a class="card b" href="../differential-forms.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-<g stroke="var(--violet)" stroke-width="1.4" fill="none">
+        <!-- 1-form as a stack of parallel lines (level sets / "rulings") -->
+        <g stroke="var(--blue)" stroke-width="1.2" opacity="0.75">
+          <line x1="14" y1="20" x2="86" y2="20"/>
+          <line x1="14" y1="32" x2="86" y2="32"/>
+          <line x1="14" y1="44" x2="86" y2="44"/>
           <line x1="14" y1="56" x2="86" y2="56"/>
-          <line x1="14" y1="56" x2="14" y2="20"/>
-          <line x1="32" y1="56" x2="32" y2="20"/>
-          <line x1="50" y1="56" x2="50" y2="20"/>
-          <line x1="68" y1="56" x2="68" y2="20"/>
-          <line x1="86" y1="56" x2="86" y2="20"/>
+          <line x1="14" y1="68" x2="86" y2="68"/>
         </g>
-        <ellipse cx="50" cy="14" rx="38" ry="6" stroke="var(--violet)" stroke-width="1.4" fill="none"/>
-        <text x="50" y="72" text-anchor="middle" font-family="serif" font-size="9" font-style="italic" fill="var(--violet)">E → X</text>
+        <!-- a vector piercing the stack -->
+        <line x1="30" y1="62" x2="72" y2="22" stroke="var(--yellow)" stroke-width="1.6" marker-end="url(#df1)"/>
+        <!-- basepoint -->
+        <circle cx="30" cy="62" r="2" fill="#fff"/>
+        <text x="78" y="14" font-size="8" fill="var(--yellow)" font-style="italic" font-family="serif">ω(v)</text>
+        <defs>
+          <marker id="df1" viewBox="0 0 8 8" refX="6" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L6,4 L0,8 z" fill="var(--yellow)"/></marker>
+        </defs>
       </svg></div>
       <div class="body">
-        <div class="tt">Characteristic classes</div>
-        <div class="desc">Vector bundles, Stiefel–Whitney, Chern and Pontryagin classes, the Euler class via Poincaré–Hopf, Chern–Weil curvature.</div>
-        <span class="tag">Chern · Euler · Chern–Weil</span>
+        <div class="tt">Differential forms</div>
+        <div class="desc">$k$-forms as oriented volume-eaters, wedge and exterior derivative, Stokes's theorem as the master identity, and de Rham cohomology on the annulus.</div>
+        <span class="tag">ω · d · ∫∂ = ∫d</span>
       </div>
     </a>
 
 
-    <a class="card v" href="../morse-theory.html">
+  <a class="card v" href="../morse-theory.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
 <ellipse cx="50" cy="40" rx="36" ry="20" stroke="var(--violet)" stroke-width="1.4" fill="none"/>
         <ellipse cx="50" cy="40" rx="14" ry="8" stroke="var(--violet)" stroke-width="1.0" fill="none"/>
@@ -821,42 +811,23 @@
     </a>
 
 
-    <a class="card v" href="../knot-polynomials.html">
+    <a class="card v" href="../characteristic-classes.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-<g stroke="var(--violet)" stroke-width="2" fill="none">
-          <path d="M 35 24 C 25 30, 25 50, 35 56 C 45 62, 65 62, 75 56 C 85 50, 85 30, 75 24 C 65 18, 45 18, 35 24"/>
-          <line x1="44" y1="38" x2="56" y2="48" stroke-width="3" stroke="var(--bg)"/>
-          <line x1="44" y1="38" x2="56" y2="48"/>
-          <line x1="56" y1="38" x2="44" y2="48" stroke-width="3" stroke="var(--bg)"/>
-          <line x1="56" y1="38" x2="44" y2="48"/>
+<g stroke="var(--violet)" stroke-width="1.4" fill="none">
+          <line x1="14" y1="56" x2="86" y2="56"/>
+          <line x1="14" y1="56" x2="14" y2="20"/>
+          <line x1="32" y1="56" x2="32" y2="20"/>
+          <line x1="50" y1="56" x2="50" y2="20"/>
+          <line x1="68" y1="56" x2="68" y2="20"/>
+          <line x1="86" y1="56" x2="86" y2="20"/>
         </g>
-        <text x="50" y="76" text-anchor="middle" font-family="serif" font-size="10" font-style="italic" fill="var(--violet)">V(q)</text>
+        <ellipse cx="50" cy="14" rx="38" ry="6" stroke="var(--violet)" stroke-width="1.4" fill="none"/>
+        <text x="50" y="72" text-anchor="middle" font-family="serif" font-size="9" font-style="italic" fill="var(--violet)">E → X</text>
       </svg></div>
       <div class="body">
-        <div class="tt">Knot polynomials</div>
-        <div class="desc">Reidemeister moves preserve isotopy class; Alexander, Jones, HOMFLY polynomials extract integer / Laurent invariants; Reshetikhin–Turaev links knots to R-matrices.</div>
-        <span class="tag">Alexander · Jones · HOMFLY · R-matrix</span>
-      </div>
-    </a>
-
-
-    <a class="card v" href="../ricci-flow.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-<g stroke="var(--violet)" stroke-width="1.3" fill="none">
-          <ellipse cx="30" cy="40" rx="14" ry="20"/>
-          <ellipse cx="50" cy="40" rx="11" ry="16"/>
-          <ellipse cx="70" cy="40" rx="8" ry="12"/>
-        </g>
-        <g stroke="var(--violet)" stroke-width="0.9" fill="none" stroke-dasharray="2 1" opacity="0.5">
-          <line x1="44" y1="40" x2="56" y2="40" marker-end=""/>
-          <line x1="61" y1="40" x2="74" y2="40"/>
-        </g>
-        <text x="50" y="76" text-anchor="middle" font-family="serif" font-size="9" font-style="italic" fill="var(--violet)">∂_t g = −2 Ric</text>
-      </svg></div>
-      <div class="body">
-        <div class="tt">Ricci flow</div>
-        <div class="desc">$\partial_t g_{ij} = -2 R_{ij}$: Hamilton's curvature-driven evolution. Surgery handles singularities; Perelman's program proves Poincaré and geometrisation.</div>
-        <span class="tag">∂_t g = −2 Ric · soliton · surgery</span>
+        <div class="tt">Characteristic classes</div>
+        <div class="desc">Vector bundles, Stiefel–Whitney, Chern and Pontryagin classes, the Euler class via Poincaré–Hopf, Chern–Weil curvature.</div>
+        <span class="tag">Chern · Euler · Chern–Weil</span>
       </div>
     </a>
 
@@ -905,7 +876,75 @@
     </a>
 
 
-    <a class="card v" href="../mostow-rigidity.html">
+    <a class="card p" href="../riemannian-geometry.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <!-- sphere with a geodesic triangle on it -->
+        <circle cx="50" cy="40" r="26" fill="none" stroke="var(--pink)" stroke-width="1.3"/>
+        <!-- inner latitude ellipse -->
+        <ellipse cx="50" cy="40" rx="26" ry="9" fill="none" stroke="var(--pink)" stroke-width="0.8" opacity="0.45"/>
+        <!-- geodesic triangle: north pole and two equator points -->
+        <g stroke="var(--yellow)" stroke-width="1.3" fill="none">
+          <path d="M 50 14 Q 36 26 28 45"/>
+          <path d="M 50 14 Q 64 26 72 45"/>
+          <path d="M 28 45 Q 50 55 72 45"/>
+        </g>
+        <g fill="var(--yellow)"><circle cx="50" cy="14" r="2"/><circle cx="28" cy="45" r="2"/><circle cx="72" cy="45" r="2"/></g>
+        <text x="50" y="76" text-anchor="middle" font-size="7" fill="var(--pink)" font-style="italic" font-family="serif">K &gt; 0 ⇒ ∑α &gt; π</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Riemannian geometry</div>
+        <div class="desc">The metric $g$, Levi-Civita connection, parallel transport, geodesics via exponential map, sectional/Ricci curvature, Jacobi fields, and Bonnet–Myers.</div>
+        <span class="tag">g · ∇ · R · exp</span>
+      </div>
+    </a>
+
+
+  <a class="card v" href="../ricci-flow.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+<g stroke="var(--violet)" stroke-width="1.3" fill="none">
+          <ellipse cx="30" cy="40" rx="14" ry="20"/>
+          <ellipse cx="50" cy="40" rx="11" ry="16"/>
+          <ellipse cx="70" cy="40" rx="8" ry="12"/>
+        </g>
+        <g stroke="var(--violet)" stroke-width="0.9" fill="none" stroke-dasharray="2 1" opacity="0.5">
+          <line x1="44" y1="40" x2="56" y2="40" marker-end=""/>
+          <line x1="61" y1="40" x2="74" y2="40"/>
+        </g>
+        <text x="50" y="76" text-anchor="middle" font-family="serif" font-size="9" font-style="italic" fill="var(--violet)">∂_t g = −2 Ric</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Ricci flow</div>
+        <div class="desc">$\partial_t g_{ij} = -2 R_{ij}$: Hamilton's curvature-driven evolution. Surgery handles singularities; Perelman's program proves Poincaré and geometrisation.</div>
+        <span class="tag">∂_t g = −2 Ric · soliton · surgery</span>
+      </div>
+    </a>
+
+
+    <a class="card c" href="../lie-groups.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <!-- great circle on S^3 / matrix group with tangent at identity -->
+        <ellipse cx="50" cy="40" rx="30" ry="26" fill="none" stroke="var(--cyan)" stroke-width="1.4"/>
+        <!-- identity point -->
+        <circle cx="80" cy="40" r="2.8" fill="var(--yellow)"/>
+        <text x="80" y="55" text-anchor="middle" font-size="8" fill="var(--yellow)" font-style="italic" font-family="serif">e</text>
+        <!-- tangent vector at identity: T_e G = g -->
+        <line x1="80" y1="40" x2="94" y2="20" stroke="var(--yellow)" stroke-width="1.4" marker-end="url(#lg1)"/>
+        <!-- one-parameter subgroup: a second point along the curve -->
+        <circle cx="66" cy="20" r="2.2" fill="var(--cyan)"/>
+        <text x="66" y="14" text-anchor="middle" font-size="7" fill="var(--cyan)" font-style="italic" font-family="serif">exp(tX)</text>
+        <defs>
+          <marker id="lg1" viewBox="0 0 8 8" refX="6" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L6,4 L0,8 z" fill="var(--yellow)"/></marker>
+        </defs>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Lie groups &amp; algebras</div>
+        <div class="desc">Classical matrix groups as manifolds, $\mathfrak{g}=T_eG$, the exponential map, brackets, $\mathrm{SU}(2)\!\to\!\mathrm{SO}(3)$ double cover, and $A_1,A_2$ root systems.</div>
+        <span class="tag">exp · [·,·] · roots</span>
+      </div>
+    </a>
+
+
+  <a class="card v" href="../mostow-rigidity.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
 <circle cx="50" cy="40" r="26" stroke="var(--violet)" stroke-width="1.4" fill="none"/>
         <g stroke="var(--violet)" stroke-width="1" fill="none" opacity="0.7">
@@ -920,6 +959,50 @@
         <div class="tt">Mostow rigidity</div>
         <div class="desc">Closed hyperbolic $n$-manifolds for $n \ge 3$ are rigid: $\pi_1$-isomorphism implies isometry. Quasi-conformal extension, Gromov norm, Margulis arithmeticity.</div>
         <span class="tag">rigidity · π₁ · qi · Gromov</span>
+      </div>
+    </a>
+
+
+    <a class="card v" href="../cohomology-and-duality.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <!-- Spectral sequence E_2 page: a 4x3 grid with the d_2 differentials -->
+        <g stroke="var(--violet)" stroke-width="0.9" fill="none" opacity="0.45">
+          <line x1="14" y1="14" x2="14" y2="66"/>
+          <line x1="86" y1="14" x2="86" y2="66"/>
+          <line x1="14" y1="14" x2="86" y2="14"/>
+          <line x1="14" y1="66" x2="86" y2="66"/>
+        </g>
+        <g fill="var(--violet)">
+          <circle cx="22" cy="58" r="2.2"/>
+          <circle cx="40" cy="58" r="2.2"/>
+          <circle cx="58" cy="58" r="2.2"/>
+          <circle cx="76" cy="58" r="2.2"/>
+          <circle cx="22" cy="40" r="2.2"/>
+          <circle cx="40" cy="40" r="2.2"/>
+          <circle cx="58" cy="40" r="2.2"/>
+          <circle cx="22" cy="22" r="2.2"/>
+          <circle cx="40" cy="22" r="2.2"/>
+        </g>
+        <defs>
+          <marker id="cd-arr" viewBox="0 0 6 6" refX="5" refY="3" markerWidth="4" markerHeight="4" orient="auto">
+            <path d="M 0 0 L 6 3 L 0 6 z" fill="var(--violet)"/>
+          </marker>
+        </defs>
+        <g stroke="var(--violet)" stroke-width="1.2" fill="none">
+          <path d="M 22 58 Q 32 50 42 40" marker-end="url(#cd-arr)"/>
+          <path d="M 40 58 Q 50 50 60 40" marker-end="url(#cd-arr)"/>
+          <path d="M 22 40 Q 32 32 42 22" marker-end="url(#cd-arr)"/>
+        </g>
+        <g fill="var(--violet)" font-family="serif" font-size="7" font-style="italic">
+          <text x="92" y="62">p</text>
+          <text x="14" y="11" text-anchor="middle">q</text>
+          <text x="50" y="76" text-anchor="middle" opacity="0.7">E₂</text>
+        </g>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Cohomology and duality <span class="level advanced">advanced</span></div>
+        <div class="desc">Cup products, Mayer-Vietoris, Künneth, Poincaré duality, de Rham theorem, and a first encounter with spectral sequences.</div>
+        <span class="tag">cup · duality · spectral · Künneth</span>
       </div>
     </a>
   </div>

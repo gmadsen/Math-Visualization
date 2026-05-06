@@ -11,6 +11,7 @@
 <script src="../js/theme-toggle.js"></script>
 <script defer src="../js/progress.js"></script>
 <script defer src="../concepts/bundle.js"></script>
+<script defer src="../recent-updates.js"></script>
 <script src="../js/onboarding.js" defer></script>
 <script>
 (function(){
@@ -273,7 +274,7 @@
   .pathway-banner .pb-eyebrow{color:var(--cyan)}
   .tours-banner .pb-eyebrow{color:var(--yellow)}
   .history-banner .pb-eyebrow{color:var(--violet)}
-  .pathway-banner .pb-title,.tours-banner .pb-title,.history-banner .pb-title{font-size:1.15rem;font-weight:600;color:#fff;margin:0 0 3px}
+  .pathway-banner .pb-title,.tours-banner .pb-title,.history-banner .pb-title{font-size:1.15rem;font-weight:600;color:var(--ink);margin:0 0 3px}
   .pathway-banner .pb-desc,.tours-banner .pb-desc,.history-banner .pb-desc{color:var(--mute);font-size:0.92rem;margin:0;line-height:1.45}
   .pathway-banner .pb-arrow,.tours-banner .pb-arrow,.history-banner .pb-arrow{font-size:1.6rem;flex-shrink:0}
   .pathway-banner .pb-arrow{color:var(--cyan)}
@@ -300,7 +301,7 @@
   .featured-card .fc-eyebrow{font-size:0.7rem;letter-spacing:0.16em;
     text-transform:uppercase;color:var(--violet);font-weight:500;margin:0 0 2px}
   .featured-card.fc-continue .fc-eyebrow{color:var(--green)}
-  .featured-card .fc-title{font-size:1.05rem;font-weight:600;color:#fff;margin:0;
+  .featured-card .fc-title{font-size:1.05rem;font-weight:600;color:var(--ink);margin:0;
     line-height:1.35}
   .featured-card .fc-desc{color:var(--mute);font-size:0.9rem;margin:2px 0 0;
     line-height:1.45;flex:1;
@@ -314,7 +315,7 @@
   @media (max-width:640px){
     .featured-rail{grid-template-columns:1fr}
   }
-  h1{font-size:2.6rem;margin:0 0 0.6rem;letter-spacing:-0.02em;color:#fff}
+  h1{font-size:2.6rem;margin:0 0 0.6rem;letter-spacing:-0.02em;color:var(--ink)}
   .sub{color:var(--mute);margin:0 auto;max-width:640px;font-size:1.02rem}
   /* Section header: was a tiny muted eyebrow label; now a distinctive title
      row with a colored left-border marker, larger mixed-case type, and an
@@ -323,40 +324,70 @@
      (color goes on data-color, id goes separately) so the section-index
      builder regex (scripts/build-section-indexes.mjs) keeps matching section
      divs and picks up the title text cleanly. */
-  .sec{position:relative;margin:3rem 0 1rem;padding:0.35rem 0 0.55rem 0.85rem;
+  .sec{position:relative;margin:3rem 0 1rem;padding:0.4rem 0.75rem 0.6rem 0.95rem;
     border-left:3px solid var(--line);border-bottom:1px solid var(--line);
-    display:flex;align-items:baseline;justify-content:space-between;gap:1rem;
-    font-size:1.18rem;font-weight:600;color:#fff;letter-spacing:-0.005em;
+    border-radius:0 6px 0 0;
+    display:flex;align-items:center;justify-content:space-between;gap:1rem;
+    font-size:1.18rem;font-weight:600;color:var(--ink);letter-spacing:-0.005em;
     text-transform:none;scroll-margin-top:1.2rem;
     /* Click target for collapse/expand — pointer + subtle hover feedback. */
     cursor:pointer;user-select:none;
-    transition:border-bottom-color 180ms ease, padding-left 180ms ease}
-  .sec:hover{border-bottom-color:color-mix(in srgb, currentColor 50%, var(--line))}
+    transition:background 180ms ease, border-bottom-color 180ms ease,
+      border-left-width 180ms ease, padding-left 180ms ease}
+  .sec:hover{
+    border-bottom-color:color-mix(in srgb, currentColor 60%, var(--line));
+    background:color-mix(in srgb, currentColor 7%, transparent);
+    border-left-width:5px;padding-left:0.85rem}
+  .sec:focus-visible{outline:2px solid currentColor;outline-offset:2px}
   /* Chevron prefix — rotates when collapsed. Sits inside the heading text
      just before the section name; renders via ::before so the section-index
      builder regex still matches the bare text node. */
   .sec::before{
-    content:"";display:inline-block;width:8px;height:8px;margin-right:0.55rem;
+    content:"";display:inline-block;width:9px;height:9px;margin-right:0.6rem;
     border-right:2px solid currentColor;border-bottom:2px solid currentColor;
     transform:rotate(45deg) translateY(-2px);
-    transition:transform 220ms cubic-bezier(0.4,0,0.2,1);
-    opacity:0.7}
-  .sec.is-collapsed::before{transform:rotate(-45deg) translateY(0)}
-  .sec.is-collapsed{margin-bottom:0.4rem;border-bottom-color:transparent}
+    transition:transform 240ms cubic-bezier(0.4,0,0.2,1), opacity 180ms ease;
+    opacity:0.65}
+  .sec:hover::before{opacity:1}
+  .sec.is-collapsed::before{transform:rotate(-45deg) translateY(0);opacity:1}
+  /* Collapsed sections have a much more distinct pill-like presence than
+     the expanded ones — accent-tinted background, rounded right edge,
+     bumped left border, and the chevron reads as a clear "click to
+     expand" affordance. They feel like card stubs, not flat rows. */
+  .sec.is-collapsed{
+    margin-bottom:0.5rem;
+    border-bottom-color:transparent;
+    border-left-width:5px;
+    border-radius:0 10px 10px 0;
+    background:color-mix(in srgb, currentColor 9%, transparent);
+    box-shadow:inset 0 0 0 1px color-mix(in srgb, currentColor 18%, transparent);
+  }
+  .sec.is-collapsed:hover{
+    background:color-mix(in srgb, currentColor 14%, transparent);
+    box-shadow:inset 0 0 0 1px color-mix(in srgb, currentColor 36%, transparent);
+  }
+  /* Collapsed-state hint: when collapsed, swap the topic count's neutral
+     mute color for a faint accent so the row reads as "I'm tinted in
+     this section's color, click me." */
+  .sec.is-collapsed .sec-count{color:color-mix(in srgb, currentColor 65%, var(--ink))}
   /* Collapsed state — hide the next .grid sibling and the section-end
      spacing. Use display:none so the page actually shrinks. */
   .sec.is-collapsed + .grid{display:none}
   .sec .sec-count{font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;
     color:var(--mute);font-family:ui-monospace,Menlo,monospace;font-weight:500;
     white-space:nowrap}
-  /* Right-aligned stats group: topic count only. The 18px mastery ring used
-     to live here too but was too small to register and added chromatic
-     clutter on top of 130+ colored card thumbs; it was removed in the
-     audit-driven palette pass. The full mastery picture lives on
-     pathway.html. The .sec-ring rules are retained as no-ops so any
-     previously cached SVG attached at runtime stays invisible rather
-     than breaking layout. */
-  .sec .sec-stats{display:inline-flex;align-items:center;gap:8px;flex-shrink:0}
+  /* Right-aligned stats group: progress bar + count. The .sec-progress is a
+     thin horizontal mastery bar populated by the script block at the bottom
+     of body. It's keyed off MVProgress so it reflects v1-tier mastery for
+     every concept inside every topic in the section. */
+  .sec .sec-stats{display:inline-flex;align-items:center;gap:10px;flex-shrink:0}
+  .sec .sec-progress{position:relative;width:84px;height:4px;border-radius:2px;
+    background:var(--line);overflow:hidden;flex-shrink:0;
+    box-shadow:inset 0 0 0 1px color-mix(in srgb, currentColor 12%, transparent)}
+  .sec .sec-progress .fill{position:absolute;inset:0 auto 0 0;height:100%;
+    background:currentColor;border-radius:2px;
+    transition:width 360ms cubic-bezier(0.4,0,0.2,1)}
+  .sec .sec-progress[data-empty="1"]{opacity:0.42}
   .sec .sec-ring{display:none}
   /* Section accent via data-color attribute (not a class) so the class
      attribute stays exactly "sec" and the section-index builder's regex
@@ -470,7 +501,7 @@
   .mvdrawer.open{transform:translateX(0)}
   .mvdrawer .mvd-head{display:flex;align-items:flex-start;justify-content:space-between;
     gap:12px;padding:1.1rem 1.2rem 0.8rem;border-bottom:1px solid var(--line)}
-  .mvdrawer .mvd-title{margin:0;font-size:1.08rem;color:#fff;font-weight:600;line-height:1.3}
+  .mvdrawer .mvd-title{margin:0;font-size:1.08rem;color:var(--ink);font-weight:600;line-height:1.3}
   .mvdrawer .mvd-sub{margin:4px 0 0;color:var(--mute);font-size:0.8rem;
     font-family:ui-monospace,Menlo,monospace;letter-spacing:0.02em}
   .mvdrawer .mvd-close{background:transparent;border:1px solid var(--line);
@@ -492,7 +523,7 @@
     transition:background 150ms ease}
   .mvdrawer .mvd-item:hover{background:var(--panel2)}
   .mvdrawer .mvd-item .mvd-t{flex:1;min-width:0}
-  .mvdrawer .mvd-item .mvd-tlabel{color:#fff;font-weight:500}
+  .mvdrawer .mvd-item .mvd-tlabel{color:var(--ink);font-weight:500}
   .mvdrawer .mvd-item .mvd-state{display:block;font-size:0.72rem;color:var(--mute);
     font-family:ui-monospace,Menlo,monospace;letter-spacing:0.02em;margin-top:2px}
   .mvdrawer .mvd-item.locked .mvd-tlabel{color:var(--mute)}
@@ -516,10 +547,12 @@
       transform:translateY(100%)}
     .mvdrawer.open{transform:translateY(0)}
   }
-  /* "Recently updated" strip: populated by the script block at the bottom of <body>.
-     The #recently-updated container is hidden by default and only revealed once the
-     script successfully fetches and parses at least one topic's changelog footer.
-     Under file:// the script bails early so the strip stays hidden — no empty header. */
+  /* "Recently updated" strip: populated by the script block at the bottom of <body>
+     from `window.MV_RECENT_UPDATES` (see ./recent-updates.js, generated by
+     scripts/build-recent-updates.mjs from `git log -1 -- quizzes/<slug>.json`).
+     The container stays `display:none` until the script confirms the manifest
+     has at least one entry, then sets `.ready` to reveal. Works under file://
+     since recent-updates.js is loaded as a <script> tag, no fetch needed. */
   #recently-updated{display:none;margin:0 0 0.4rem}
   #recently-updated.ready{display:block}
   #recently-updated .ru-head{font-size:0.78rem;letter-spacing:0.16em;text-transform:uppercase;
@@ -534,7 +567,7 @@
   .ru-card .ru-date{font-size:0.72rem;font-family:ui-monospace,Menlo,monospace;
     color:var(--mute);white-space:nowrap;font-variant-numeric:tabular-nums;flex-shrink:0;
     min-width:6.2em}
-  .ru-card .ru-title{font-weight:600;font-size:0.95rem;color:#fff;flex:1;min-width:0;
+  .ru-card .ru-title{font-weight:600;font-size:0.95rem;color:var(--ink);flex:1;min-width:0;
     overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .ru-card .ru-tag{font-size:0.7rem;padding:1px 8px;border-radius:999px;
     background:var(--panel2);color:var(--mute);border:1px solid var(--line);
@@ -546,6 +579,7 @@
   .ru-card.p .ru-title{color:var(--pink)}   .ru-card.p:hover{border-color:var(--pink)}
   .ru-card.v .ru-title{color:var(--violet)} .ru-card.v:hover{border-color:var(--violet)}
   .ru-card.c .ru-title{color:var(--cyan)}   .ru-card.c:hover{border-color:var(--cyan)}
+  .ru-card.o .ru-title{color:var(--orange)} .ru-card.o:hover{border-color:var(--orange)}
   @media (max-width:520px){
     .ru-card{padding:0.5rem 0.65rem;gap:8px}
     .ru-card .ru-date{font-size:0.68rem;min-width:5.6em}
@@ -571,9 +605,25 @@
 
   <div class="sec">Number theory</div>
   <div class="grid">
+<a class="card y" href="../analytic-number-theory.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+<g stroke="var(--yellow)" stroke-width="1.4" fill="none">
+          <polyline points="10,62 22,62 22,52 36,52 36,42 50,42 50,32 70,32 70,22 90,22"/>
+          <path d="M 10 62 Q 30 56 50 40 Q 70 28 90 18" opacity="0.55"/>
+        </g>
+        <g fill="var(--mute)" font-size="8" font-family="serif" font-style="italic">
+          <text x="14" y="74">π(x)</text>
+        </g>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Analytic number theory</div>
+        <div class="desc">π(x) and the prime number theorem, ζ(s) and the explicit formula, Dirichlet on primes in AP, sieve methods, Bombieri–Vinogradov.</div>
+        <span class="tag">PNT · ζ-zeros · sieves</span>
+      </div>
+    </a>
 
 
-  <a class="card v" href="../galois.html">
+    <a class="card v" href="../galois.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <g fill="var(--violet)">
           <circle cx="50" cy="12" r="3.3"/>
@@ -589,89 +639,6 @@
         <div class="tt">Galois theory &amp; the quintic</div>
         <div class="desc">From compass-and-straightedge to the Galois correspondence to the unsolvability of the quintic — anchored by the simplicity of $A_5$.</div>
         <span class="tag">constructibility · A₅ · solvability</span>
-      </div>
-    </a>
-
-
-  <a class="card y" href="../quadratic-reciprocity.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <!-- two primes with a flipping arrow between Legendre symbols -->
-        <g font-family="serif" font-style="italic" fill="var(--yellow)">
-          <text x="26" y="34" text-anchor="middle" font-size="16">(p/q)</text>
-          <text x="74" y="58" text-anchor="middle" font-size="16">(q/p)</text>
-        </g>
-        <!-- double-headed reciprocity arrow -->
-        <path d="M 42 40 Q 50 50 58 52" fill="none" stroke="var(--blue)" stroke-width="1.3" marker-end="url(#qr1)" marker-start="url(#qr2)"/>
-        <defs>
-          <marker id="qr1" viewBox="0 0 8 8" refX="6" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L6,4 L0,8 z" fill="var(--blue)"/></marker>
-          <marker id="qr2" viewBox="0 0 8 8" refX="2" refY="4" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L6,4 L0,8 z" fill="var(--blue)"/></marker>
-        </defs>
-        <text x="50" y="75" text-anchor="middle" font-size="7" fill="var(--yellow)" font-style="italic" font-family="serif">± depending on p,q mod 4</text>
-      </svg></div>
-      <div class="body">
-        <div class="tt">Quadratic reciprocity</div>
-        <div class="desc">Legendre symbol, Euler's criterion, Gauss's lemma, the reciprocity law $\left(\tfrac{p}{q}\right)\left(\tfrac{q}{p}\right) = (-1)^{\frac{p-1}{2}\frac{q-1}{2}}$, and the supplementary laws for $-1$ and $2$.</div>
-        <span class="tag">(a/p) · Gauss · ± 1</span>
-      </div>
-    </a>
-  <a class="card y" href="../additive-number-theory.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <!-- Composite: Gaussian-integer lattice (sums of squares) + unit circle (Waring/circle method) + Faulhaber bars (Bernoulli) -->
-        <!-- background lattice dots (additive representations) -->
-        <g fill="var(--yellow)" opacity="0.4">
-          <circle cx="14" cy="14" r="1.4"/><circle cx="28" cy="14" r="1.4"/><circle cx="42" cy="14" r="1.4"/><circle cx="56" cy="14" r="1.4"/><circle cx="70" cy="14" r="1.4"/><circle cx="84" cy="14" r="1.4"/>
-          <circle cx="14" cy="28" r="1.4"/><circle cx="28" cy="28" r="1.4"/><circle cx="42" cy="28" r="1.4"/><circle cx="56" cy="28" r="1.4"/><circle cx="70" cy="28" r="1.4"/><circle cx="84" cy="28" r="1.4"/>
-          <circle cx="14" cy="42" r="1.4"/><circle cx="28" cy="42" r="1.4"/><circle cx="42" cy="42" r="1.4"/><circle cx="56" cy="42" r="1.4"/><circle cx="70" cy="42" r="1.4"/><circle cx="84" cy="42" r="1.4"/>
-        </g>
-        <!-- unit circle (circle method / sums of squares) -->
-        <circle cx="50" cy="36" r="22" fill="none" stroke="var(--yellow)" stroke-width="1.4"/>
-        <!-- highlighted lattice points on the circle (representations of n as sum of squares) -->
-        <g fill="var(--pink)">
-          <circle cx="50" cy="14" r="2.2"/><circle cx="72" cy="36" r="2.2"/>
-          <circle cx="50" cy="58" r="2.2"/><circle cx="28" cy="36" r="2.2"/>
-        </g>
-        <!-- Faulhaber bar staircase along the bottom -->
-        <g fill="var(--blue)" opacity="0.85">
-          <rect x="14" y="74" width="6" height="3"/>
-          <rect x="22" y="71" width="6" height="6"/>
-          <rect x="30" y="68" width="6" height="9"/>
-          <rect x="38" y="64" width="6" height="13"/>
-          <rect x="46" y="60" width="6" height="17"/>
-          <rect x="54" y="55" width="6" height="22"/>
-          <rect x="62" y="50" width="6" height="27"/>
-          <rect x="70" y="44" width="6" height="33"/>
-          <rect x="78" y="38" width="6" height="39"/>
-        </g>
-      </svg></div>
-      <div class="body">
-        <div class="tt">Additive number theory</div>
-        <div class="desc">Sums of squares (Fermat / Lagrange), Waring's problem and the circle method, power sums and Bernoulli numbers, $\zeta$-special-values via Euler–Maclaurin.</div>
-        <span class="tag">sum-of-squares · Waring · Bernoulli · circle-method</span>
-      </div>
-    </a>
-
-
-  <a class="card y" href="../quadratic-forms-genus-theory.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <!-- binary quadratic form level curves + reduced region -->
-        <g fill="none" stroke="var(--yellow)" stroke-width="1" opacity="0.7">
-          <ellipse cx="50" cy="40" rx="30" ry="12"/>
-          <ellipse cx="50" cy="40" rx="22" ry="9"/>
-          <ellipse cx="50" cy="40" rx="14" ry="6"/>
-        </g>
-        <!-- reduction strip |b|<=a<=c sketched as a trapezoid -->
-        <path d="M 34 20 L 66 20 L 74 60 L 26 60 Z" fill="var(--blue)" opacity="0.15" stroke="var(--blue)" stroke-width="0.8"/>
-        <!-- a few reduced forms as dots -->
-        <g fill="var(--pink)">
-          <circle cx="45" cy="30" r="1.8"/><circle cx="55" cy="30" r="1.8"/>
-          <circle cx="40" cy="50" r="1.8"/><circle cx="60" cy="50" r="1.8"/>
-        </g>
-        <text x="50" y="74" text-anchor="middle" font-size="7" fill="var(--yellow)" font-style="italic" font-family="serif">ax²+bxy+cy²</text>
-      </svg></div>
-      <div class="body">
-        <div class="tt">Quadratic forms &amp; genus theory</div>
-        <div class="desc">Gauss's binary forms $ax^2+bxy+cy^2$, reduction theory, the form class group under composition, genus characters, and the bijection with the ideal class group of $\mathbb{Q}(\sqrt{D})$.</div>
-        <span class="tag">h(D) · genus · Gauss composition</span>
       </div>
     </a>
 
@@ -699,6 +666,8 @@
       </div>
     </a>
 
+
+  
 
   <a class="card c" href="../p-adic-numbers.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
@@ -793,34 +762,85 @@
     </a>
 
 
-  <a class="card v" href="../class-field-theory.html">
+  <a class="card y" href="../quadratic-reciprocity.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <g fill="none" stroke="var(--violet)" stroke-width="1.2">
-          <circle cx="32" cy="26" r="12"/><circle cx="68" cy="26" r="12"/><circle cx="50" cy="54" r="14"/>
-          <path d="M42 32 L50 42 L58 32"/>
+        <!-- two primes with a flipping arrow between Legendre symbols -->
+        <g font-family="serif" font-style="italic" fill="var(--yellow)">
+          <text x="26" y="34" text-anchor="middle" font-size="16">(p/q)</text>
+          <text x="74" y="58" text-anchor="middle" font-size="16">(q/p)</text>
         </g>
-        <g fill="var(--violet)"><circle cx="32" cy="26" r="2.6"/><circle cx="68" cy="26" r="2.6"/><circle cx="50" cy="54" r="2.6"/></g>
+        <!-- double-headed reciprocity arrow -->
+        <path d="M 42 40 Q 50 50 58 52" fill="none" stroke="var(--blue)" stroke-width="1.3" marker-end="url(#qr1)" marker-start="url(#qr2)"/>
+        <defs>
+          <marker id="qr1" viewBox="0 0 8 8" refX="6" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L6,4 L0,8 z" fill="var(--blue)"/></marker>
+          <marker id="qr2" viewBox="0 0 8 8" refX="2" refY="4" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L6,4 L0,8 z" fill="var(--blue)"/></marker>
+        </defs>
+        <text x="50" y="75" text-anchor="middle" font-size="7" fill="var(--yellow)" font-style="italic" font-family="serif">± depending on p,q mod 4</text>
       </svg></div>
       <div class="body">
-        <div class="tt">Class field theory <span class="level advanced">advanced</span></div>
-        <div class="desc">Abelian extensions of number fields via ideals and ideles: Artin reciprocity, local-global compatibility, and explicit splitting behavior of primes.</div>
-        <span class="tag">Artin map · ideles · reciprocity</span>
+        <div class="tt">Quadratic reciprocity</div>
+        <div class="desc">Legendre symbol, Euler's criterion, Gauss's lemma, the reciprocity law $\left(\tfrac{p}{q}\right)\left(\tfrac{q}{p}\right) = (-1)^{\frac{p-1}{2}\frac{q-1}{2}}$, and the supplementary laws for $-1$ and $2$.</div>
+        <span class="tag">(a/p) · Gauss · ± 1</span>
+      </div>
+    </a>
+  <a class="card y" href="../quadratic-forms-genus-theory.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <!-- binary quadratic form level curves + reduced region -->
+        <g fill="none" stroke="var(--yellow)" stroke-width="1" opacity="0.7">
+          <ellipse cx="50" cy="40" rx="30" ry="12"/>
+          <ellipse cx="50" cy="40" rx="22" ry="9"/>
+          <ellipse cx="50" cy="40" rx="14" ry="6"/>
+        </g>
+        <!-- reduction strip |b|<=a<=c sketched as a trapezoid -->
+        <path d="M 34 20 L 66 20 L 74 60 L 26 60 Z" fill="var(--blue)" opacity="0.15" stroke="var(--blue)" stroke-width="0.8"/>
+        <!-- a few reduced forms as dots -->
+        <g fill="var(--pink)">
+          <circle cx="45" cy="30" r="1.8"/><circle cx="55" cy="30" r="1.8"/>
+          <circle cx="40" cy="50" r="1.8"/><circle cx="60" cy="50" r="1.8"/>
+        </g>
+        <text x="50" y="74" text-anchor="middle" font-size="7" fill="var(--yellow)" font-style="italic" font-family="serif">ax²+bxy+cy²</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Quadratic forms &amp; genus theory</div>
+        <div class="desc">Gauss's binary forms $ax^2+bxy+cy^2$, reduction theory, the form class group under composition, genus characters, and the bijection with the ideal class group of $\mathbb{Q}(\sqrt{D})$.</div>
+        <span class="tag">h(D) · genus · Gauss composition</span>
       </div>
     </a>
 
 
-  <a class="card y" href="../galois-representations.html">
+  <a class="card y" href="../additive-number-theory.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <g stroke="var(--yellow)" fill="none" stroke-width="1.2">
-          <rect x="16" y="16" width="26" height="20" rx="2"/><rect x="58" y="16" width="26" height="20" rx="2"/>
-          <rect x="37" y="46" width="26" height="20" rx="2"/>
-          <path d="M42 26 L58 26 M29 36 L45 46 M71 36 L55 46"/>
+        <!-- Composite: Gaussian-integer lattice (sums of squares) + unit circle (Waring/circle method) + Faulhaber bars (Bernoulli) -->
+        <!-- background lattice dots (additive representations) -->
+        <g fill="var(--yellow)" opacity="0.4">
+          <circle cx="14" cy="14" r="1.4"/><circle cx="28" cy="14" r="1.4"/><circle cx="42" cy="14" r="1.4"/><circle cx="56" cy="14" r="1.4"/><circle cx="70" cy="14" r="1.4"/><circle cx="84" cy="14" r="1.4"/>
+          <circle cx="14" cy="28" r="1.4"/><circle cx="28" cy="28" r="1.4"/><circle cx="42" cy="28" r="1.4"/><circle cx="56" cy="28" r="1.4"/><circle cx="70" cy="28" r="1.4"/><circle cx="84" cy="28" r="1.4"/>
+          <circle cx="14" cy="42" r="1.4"/><circle cx="28" cy="42" r="1.4"/><circle cx="42" cy="42" r="1.4"/><circle cx="56" cy="42" r="1.4"/><circle cx="70" cy="42" r="1.4"/><circle cx="84" cy="42" r="1.4"/>
+        </g>
+        <!-- unit circle (circle method / sums of squares) -->
+        <circle cx="50" cy="36" r="22" fill="none" stroke="var(--yellow)" stroke-width="1.4"/>
+        <!-- highlighted lattice points on the circle (representations of n as sum of squares) -->
+        <g fill="var(--pink)">
+          <circle cx="50" cy="14" r="2.2"/><circle cx="72" cy="36" r="2.2"/>
+          <circle cx="50" cy="58" r="2.2"/><circle cx="28" cy="36" r="2.2"/>
+        </g>
+        <!-- Faulhaber bar staircase along the bottom -->
+        <g fill="var(--blue)" opacity="0.85">
+          <rect x="14" y="74" width="6" height="3"/>
+          <rect x="22" y="71" width="6" height="6"/>
+          <rect x="30" y="68" width="6" height="9"/>
+          <rect x="38" y="64" width="6" height="13"/>
+          <rect x="46" y="60" width="6" height="17"/>
+          <rect x="54" y="55" width="6" height="22"/>
+          <rect x="62" y="50" width="6" height="27"/>
+          <rect x="70" y="44" width="6" height="33"/>
+          <rect x="78" y="38" width="6" height="39"/>
         </g>
       </svg></div>
       <div class="body">
-        <div class="tt">Galois representations <span class="level advanced">advanced</span></div>
-        <div class="desc">Encode arithmetic symmetries as linear actions of Galois groups, linking field extensions to modular forms, Frobenius traces, and modern reciprocity.</div>
-        <span class="tag">Gal(ℚ̄/ℚ) · Frobenius · modularity</span>
+        <div class="tt">Additive number theory</div>
+        <div class="desc">Sums of squares (Fermat / Lagrange), Waring's problem and the circle method, power sums and Bernoulli numbers, $\zeta$-special-values via Euler–Maclaurin.</div>
+        <span class="tag">sum-of-squares · Waring · Bernoulli · circle-method</span>
       </div>
     </a>
 
@@ -846,35 +866,21 @@
     </a>
 
 
-    <a class="card y" href="../analytic-number-theory.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-<g stroke="var(--yellow)" stroke-width="1.4" fill="none">
-          <polyline points="10,62 22,62 22,52 36,52 36,42 50,42 50,32 70,32 70,22 90,22"/>
-          <path d="M 10 62 Q 30 56 50 40 Q 70 28 90 18" opacity="0.55"/>
-        </g>
-        <g fill="var(--mute)" font-size="8" font-family="serif" font-style="italic">
-          <text x="14" y="74">π(x)</text>
-        </g>
-      </svg></div>
-      <div class="body">
-        <div class="tt">Analytic number theory</div>
-        <div class="desc">π(x) and the prime number theorem, ζ(s) and the explicit formula, Dirichlet on primes in AP, sieve methods, Bombieri–Vinogradov.</div>
-        <span class="tag">PNT · ζ-zeros · sieves</span>
-      </div>
-    </a>
-
-
     <a class="card y" href="../mathematics-and-cryptography.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-<g stroke="var(--yellow)" stroke-width="1.4" fill="none">
-          <rect x="32" y="34" width="36" height="28" rx="3"/>
-          <path d="M 38 34 V 26 a 12 12 0 0 1 24 0 V 34"/>
-        </g>
+        <!-- discrete log on an elliptic curve: g, 2g, 3g … points scattered along the cubic -->
+        <path d="M 14 56 C 14 38, 30 22, 50 22 C 70 22, 86 38, 86 56" fill="none" stroke="var(--yellow)" stroke-width="1.4"/>
+        <path d="M 14 56 C 18 70, 28 70, 36 60 C 44 50, 56 50, 64 60 C 72 70, 82 70, 86 56" fill="none" stroke="var(--yellow)" stroke-width="1.4"/>
+        <line x1="22" y1="48" x2="78" y2="32" stroke="var(--yellow)" stroke-width="0.8" stroke-dasharray="2 2" opacity="0.55"/>
         <g fill="var(--yellow)">
-          <circle cx="50" cy="46" r="3"/>
-          <line x1="50" y1="49" x2="50" y2="56" stroke="var(--yellow)" stroke-width="2"/>
+          <circle cx="22" cy="48" r="2.4"/>
+          <circle cx="42" cy="28" r="2.4"/>
+          <circle cx="62" cy="24" r="2.4"/>
+          <circle cx="78" cy="32" r="2.4"/>
         </g>
-        <text x="50" y="74" text-anchor="middle" font-family="serif" font-size="10" font-style="italic" fill="var(--yellow)">m^e mod n</text>
+        <text x="22" y="68" font-size="7" font-family="serif" font-style="italic" fill="var(--mute)">P</text>
+        <text x="42" y="22" font-size="7" font-family="serif" font-style="italic" fill="var(--mute)">2P</text>
+        <text x="78" y="26" font-size="7" font-family="serif" font-style="italic" fill="var(--mute)">kP</text>
       </svg></div>
       <div class="body">
         <div class="tt">Mathematics and cryptography</div>
@@ -906,6 +912,86 @@
         <div class="tt">Computational number theory</div>
         <div class="desc">Primality testing (Miller–Rabin, AKS), factoring (Pollard ρ, quadratic / number-field sieves), LLL lattice reduction, Schoof point counting, class-group computation.</div>
         <span class="tag">Miller–Rabin · ρ · LLL · Schoof</span>
+      </div>
+    </a>
+
+  <a class="card v" href="../class-field-theory.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <g fill="none" stroke="var(--violet)" stroke-width="1.2">
+          <circle cx="32" cy="26" r="12"/><circle cx="68" cy="26" r="12"/><circle cx="50" cy="54" r="14"/>
+          <path d="M42 32 L50 42 L58 32"/>
+        </g>
+        <g fill="var(--violet)"><circle cx="32" cy="26" r="2.6"/><circle cx="68" cy="26" r="2.6"/><circle cx="50" cy="54" r="2.6"/></g>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Class field theory <span class="level advanced">advanced</span></div>
+        <div class="desc">Abelian extensions of number fields via ideals and ideles: Artin reciprocity, local-global compatibility, and explicit splitting behavior of primes.</div>
+        <span class="tag">Artin map · ideles · reciprocity</span>
+      </div>
+    </a>
+
+
+  <a class="card y" href="../galois-representations.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <!-- ρ : Gal(Q̄/Q) → GL₂(Z_ℓ): a tower-of-fields icon mapping to a 2×2 matrix -->
+        <g stroke="var(--yellow)" fill="none" stroke-width="1.2">
+          <line x1="14" y1="62" x2="14" y2="18"/>
+          <line x1="11" y1="58" x2="17" y2="58"/>
+          <line x1="11" y1="44" x2="17" y2="44"/>
+          <line x1="11" y1="30" x2="17" y2="30"/>
+          <line x1="11" y1="18" x2="17" y2="18"/>
+        </g>
+        <text x="22" y="61" font-size="7" font-family="serif" font-style="italic" fill="var(--mute)">Q</text>
+        <text x="22" y="21" font-size="7" font-family="serif" font-style="italic" fill="var(--mute)">Q̄</text>
+        <line x1="32" y1="40" x2="56" y2="40" stroke="var(--yellow)" stroke-width="1.3" marker-end="url(#gr-arr)"/>
+        <text x="44" y="34" text-anchor="middle" font-size="7" font-family="serif" font-style="italic" fill="var(--yellow)">ρ</text>
+        <g stroke="var(--yellow)" fill="none" stroke-width="1.3">
+          <path d="M 64 22 L 60 22 L 60 58 L 64 58"/>
+          <path d="M 86 22 L 90 22 L 90 58 L 86 58"/>
+        </g>
+        <g font-size="8" font-family="serif" fill="var(--yellow)" text-anchor="middle">
+          <text x="70" y="36">a</text><text x="82" y="36">b</text>
+          <text x="70" y="50">c</text><text x="82" y="50">d</text>
+        </g>
+        <defs><marker id="gr-arr" viewBox="0 0 8 8" refX="6" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L6,4 L0,8 z" fill="var(--yellow)"/></marker></defs>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Galois representations <span class="level advanced">advanced</span></div>
+        <div class="desc">Encode arithmetic symmetries as linear actions of Galois groups, linking field extensions to modular forms, Frobenius traces, and modern reciprocity.</div>
+        <span class="tag">Gal(ℚ̄/ℚ) · Frobenius · modularity</span>
+      </div>
+    </a>
+
+
+    <a class="card y" href="../iwasawa-theory.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <!-- The Z_p tower of fields, climbing up; field labels K_n at each rung -->
+        <g stroke="var(--yellow)" stroke-width="1.0" fill="none">
+          <line x1="32" y1="14" x2="68" y2="14"/>
+          <line x1="32" y1="28" x2="68" y2="28"/>
+          <line x1="32" y1="42" x2="68" y2="42"/>
+          <line x1="32" y1="56" x2="68" y2="56"/>
+          <line x1="50" y1="14" x2="50" y2="28"/>
+          <line x1="50" y1="28" x2="50" y2="42"/>
+          <line x1="50" y1="42" x2="50" y2="56"/>
+        </g>
+        <g fill="var(--yellow)" font-family="serif" font-size="7.5" font-style="italic" text-anchor="middle">
+          <text x="50" y="11">K∞</text>
+          <text x="50" y="25">K₂</text>
+          <text x="50" y="39">K₁</text>
+          <text x="50" y="53">K₀</text>
+        </g>
+        <g fill="var(--yellow)" font-family="serif" font-size="6" text-anchor="middle" opacity="0.7">
+          <text x="76" y="22">p</text>
+          <text x="76" y="36">p</text>
+          <text x="76" y="50">p</text>
+        </g>
+        <text x="50" y="74" text-anchor="middle" font-size="8" font-family="serif" font-style="italic" fill="var(--yellow)" opacity="0.85">Λ = ℤp[[T]]</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Iwasawa theory <span class="level advanced">advanced</span></div>
+        <div class="desc">$\mathbb{Z}_p$-extensions, the Iwasawa algebra $\Lambda = \mathbb{Z}_p[[T]]$, p-adic L-functions, the main conjecture (Mazur-Wiles), and elliptic Iwasawa theory.</div>
+        <span class="tag">Z_p-tower · Λ · p-adic L · main</span>
       </div>
     </a>
   </div>

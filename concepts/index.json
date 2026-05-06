@@ -1,32 +1,21 @@
 {
   "topics": [
-
     "motives",
     "algebraic-k-theory-foundations",
     "model-categories",
     "condensed-mathematics",
-
     "hodge-theory",
-
     "langlands-program",
     "microlocal-analysis",
     "geometric-measure-theory",
     "semigroup-theory-evolution-equations",
-
     "special-relativity",
-
     "klein-gordon-equation",
-
+    "cohomology-and-duality",
     "dirac-equation",
-
+    "iwasawa-theory",
     "quantum-field-theory",
-
-
-
-
-
-
-
+    "toric-varieties",
     "statistical-mechanics",
     "advanced-complex-analysis",
     "groebner-bases",
@@ -330,6 +319,9 @@
     "string-theory": "capstone",
     "motives": "capstone",
     "hodge-theory": "capstone",
-    "langlands-program": "capstone"
+    "langlands-program": "capstone",
+    "cohomology-and-duality": "advanced",
+    "toric-varieties": "advanced",
+    "iwasawa-theory": "advanced"
   }
 }

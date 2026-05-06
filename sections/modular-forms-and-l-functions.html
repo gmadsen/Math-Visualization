@@ -11,6 +11,7 @@
 <script src="../js/theme-toggle.js"></script>
 <script defer src="../js/progress.js"></script>
 <script defer src="../concepts/bundle.js"></script>
+<script defer src="../recent-updates.js"></script>
 <script src="../js/onboarding.js" defer></script>
 <script>
 (function(){
@@ -273,7 +274,7 @@
   .pathway-banner .pb-eyebrow{color:var(--cyan)}
   .tours-banner .pb-eyebrow{color:var(--yellow)}
   .history-banner .pb-eyebrow{color:var(--violet)}
-  .pathway-banner .pb-title,.tours-banner .pb-title,.history-banner .pb-title{font-size:1.15rem;font-weight:600;color:#fff;margin:0 0 3px}
+  .pathway-banner .pb-title,.tours-banner .pb-title,.history-banner .pb-title{font-size:1.15rem;font-weight:600;color:var(--ink);margin:0 0 3px}
   .pathway-banner .pb-desc,.tours-banner .pb-desc,.history-banner .pb-desc{color:var(--mute);font-size:0.92rem;margin:0;line-height:1.45}
   .pathway-banner .pb-arrow,.tours-banner .pb-arrow,.history-banner .pb-arrow{font-size:1.6rem;flex-shrink:0}
   .pathway-banner .pb-arrow{color:var(--cyan)}
@@ -300,7 +301,7 @@
   .featured-card .fc-eyebrow{font-size:0.7rem;letter-spacing:0.16em;
     text-transform:uppercase;color:var(--violet);font-weight:500;margin:0 0 2px}
   .featured-card.fc-continue .fc-eyebrow{color:var(--green)}
-  .featured-card .fc-title{font-size:1.05rem;font-weight:600;color:#fff;margin:0;
+  .featured-card .fc-title{font-size:1.05rem;font-weight:600;color:var(--ink);margin:0;
     line-height:1.35}
   .featured-card .fc-desc{color:var(--mute);font-size:0.9rem;margin:2px 0 0;
     line-height:1.45;flex:1;
@@ -314,7 +315,7 @@
   @media (max-width:640px){
     .featured-rail{grid-template-columns:1fr}
   }
-  h1{font-size:2.6rem;margin:0 0 0.6rem;letter-spacing:-0.02em;color:#fff}
+  h1{font-size:2.6rem;margin:0 0 0.6rem;letter-spacing:-0.02em;color:var(--ink)}
   .sub{color:var(--mute);margin:0 auto;max-width:640px;font-size:1.02rem}
   /* Section header: was a tiny muted eyebrow label; now a distinctive title
      row with a colored left-border marker, larger mixed-case type, and an
@@ -323,40 +324,70 @@
      (color goes on data-color, id goes separately) so the section-index
      builder regex (scripts/build-section-indexes.mjs) keeps matching section
      divs and picks up the title text cleanly. */
-  .sec{position:relative;margin:3rem 0 1rem;padding:0.35rem 0 0.55rem 0.85rem;
+  .sec{position:relative;margin:3rem 0 1rem;padding:0.4rem 0.75rem 0.6rem 0.95rem;
     border-left:3px solid var(--line);border-bottom:1px solid var(--line);
-    display:flex;align-items:baseline;justify-content:space-between;gap:1rem;
-    font-size:1.18rem;font-weight:600;color:#fff;letter-spacing:-0.005em;
+    border-radius:0 6px 0 0;
+    display:flex;align-items:center;justify-content:space-between;gap:1rem;
+    font-size:1.18rem;font-weight:600;color:var(--ink);letter-spacing:-0.005em;
     text-transform:none;scroll-margin-top:1.2rem;
     /* Click target for collapse/expand — pointer + subtle hover feedback. */
     cursor:pointer;user-select:none;
-    transition:border-bottom-color 180ms ease, padding-left 180ms ease}
-  .sec:hover{border-bottom-color:color-mix(in srgb, currentColor 50%, var(--line))}
+    transition:background 180ms ease, border-bottom-color 180ms ease,
+      border-left-width 180ms ease, padding-left 180ms ease}
+  .sec:hover{
+    border-bottom-color:color-mix(in srgb, currentColor 60%, var(--line));
+    background:color-mix(in srgb, currentColor 7%, transparent);
+    border-left-width:5px;padding-left:0.85rem}
+  .sec:focus-visible{outline:2px solid currentColor;outline-offset:2px}
   /* Chevron prefix — rotates when collapsed. Sits inside the heading text
      just before the section name; renders via ::before so the section-index
      builder regex still matches the bare text node. */
   .sec::before{
-    content:"";display:inline-block;width:8px;height:8px;margin-right:0.55rem;
+    content:"";display:inline-block;width:9px;height:9px;margin-right:0.6rem;
     border-right:2px solid currentColor;border-bottom:2px solid currentColor;
     transform:rotate(45deg) translateY(-2px);
-    transition:transform 220ms cubic-bezier(0.4,0,0.2,1);
-    opacity:0.7}
-  .sec.is-collapsed::before{transform:rotate(-45deg) translateY(0)}
-  .sec.is-collapsed{margin-bottom:0.4rem;border-bottom-color:transparent}
+    transition:transform 240ms cubic-bezier(0.4,0,0.2,1), opacity 180ms ease;
+    opacity:0.65}
+  .sec:hover::before{opacity:1}
+  .sec.is-collapsed::before{transform:rotate(-45deg) translateY(0);opacity:1}
+  /* Collapsed sections have a much more distinct pill-like presence than
+     the expanded ones — accent-tinted background, rounded right edge,
+     bumped left border, and the chevron reads as a clear "click to
+     expand" affordance. They feel like card stubs, not flat rows. */
+  .sec.is-collapsed{
+    margin-bottom:0.5rem;
+    border-bottom-color:transparent;
+    border-left-width:5px;
+    border-radius:0 10px 10px 0;
+    background:color-mix(in srgb, currentColor 9%, transparent);
+    box-shadow:inset 0 0 0 1px color-mix(in srgb, currentColor 18%, transparent);
+  }
+  .sec.is-collapsed:hover{
+    background:color-mix(in srgb, currentColor 14%, transparent);
+    box-shadow:inset 0 0 0 1px color-mix(in srgb, currentColor 36%, transparent);
+  }
+  /* Collapsed-state hint: when collapsed, swap the topic count's neutral
+     mute color for a faint accent so the row reads as "I'm tinted in
+     this section's color, click me." */
+  .sec.is-collapsed .sec-count{color:color-mix(in srgb, currentColor 65%, var(--ink))}
   /* Collapsed state — hide the next .grid sibling and the section-end
      spacing. Use display:none so the page actually shrinks. */
   .sec.is-collapsed + .grid{display:none}
   .sec .sec-count{font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;
     color:var(--mute);font-family:ui-monospace,Menlo,monospace;font-weight:500;
     white-space:nowrap}
-  /* Right-aligned stats group: topic count only. The 18px mastery ring used
-     to live here too but was too small to register and added chromatic
-     clutter on top of 130+ colored card thumbs; it was removed in the
-     audit-driven palette pass. The full mastery picture lives on
-     pathway.html. The .sec-ring rules are retained as no-ops so any
-     previously cached SVG attached at runtime stays invisible rather
-     than breaking layout. */
-  .sec .sec-stats{display:inline-flex;align-items:center;gap:8px;flex-shrink:0}
+  /* Right-aligned stats group: progress bar + count. The .sec-progress is a
+     thin horizontal mastery bar populated by the script block at the bottom
+     of body. It's keyed off MVProgress so it reflects v1-tier mastery for
+     every concept inside every topic in the section. */
+  .sec .sec-stats{display:inline-flex;align-items:center;gap:10px;flex-shrink:0}
+  .sec .sec-progress{position:relative;width:84px;height:4px;border-radius:2px;
+    background:var(--line);overflow:hidden;flex-shrink:0;
+    box-shadow:inset 0 0 0 1px color-mix(in srgb, currentColor 12%, transparent)}
+  .sec .sec-progress .fill{position:absolute;inset:0 auto 0 0;height:100%;
+    background:currentColor;border-radius:2px;
+    transition:width 360ms cubic-bezier(0.4,0,0.2,1)}
+  .sec .sec-progress[data-empty="1"]{opacity:0.42}
   .sec .sec-ring{display:none}
   /* Section accent via data-color attribute (not a class) so the class
      attribute stays exactly "sec" and the section-index builder's regex
@@ -470,7 +501,7 @@
   .mvdrawer.open{transform:translateX(0)}
   .mvdrawer .mvd-head{display:flex;align-items:flex-start;justify-content:space-between;
     gap:12px;padding:1.1rem 1.2rem 0.8rem;border-bottom:1px solid var(--line)}
-  .mvdrawer .mvd-title{margin:0;font-size:1.08rem;color:#fff;font-weight:600;line-height:1.3}
+  .mvdrawer .mvd-title{margin:0;font-size:1.08rem;color:var(--ink);font-weight:600;line-height:1.3}
   .mvdrawer .mvd-sub{margin:4px 0 0;color:var(--mute);font-size:0.8rem;
     font-family:ui-monospace,Menlo,monospace;letter-spacing:0.02em}
   .mvdrawer .mvd-close{background:transparent;border:1px solid var(--line);
@@ -492,7 +523,7 @@
     transition:background 150ms ease}
   .mvdrawer .mvd-item:hover{background:var(--panel2)}
   .mvdrawer .mvd-item .mvd-t{flex:1;min-width:0}
-  .mvdrawer .mvd-item .mvd-tlabel{color:#fff;font-weight:500}
+  .mvdrawer .mvd-item .mvd-tlabel{color:var(--ink);font-weight:500}
   .mvdrawer .mvd-item .mvd-state{display:block;font-size:0.72rem;color:var(--mute);
     font-family:ui-monospace,Menlo,monospace;letter-spacing:0.02em;margin-top:2px}
   .mvdrawer .mvd-item.locked .mvd-tlabel{color:var(--mute)}
@@ -516,10 +547,12 @@
       transform:translateY(100%)}
     .mvdrawer.open{transform:translateY(0)}
   }
-  /* "Recently updated" strip: populated by the script block at the bottom of <body>.
-     The #recently-updated container is hidden by default and only revealed once the
-     script successfully fetches and parses at least one topic's changelog footer.
-     Under file:// the script bails early so the strip stays hidden — no empty header. */
+  /* "Recently updated" strip: populated by the script block at the bottom of <body>
+     from `window.MV_RECENT_UPDATES` (see ./recent-updates.js, generated by
+     scripts/build-recent-updates.mjs from `git log -1 -- quizzes/<slug>.json`).
+     The container stays `display:none` until the script confirms the manifest
+     has at least one entry, then sets `.ready` to reveal. Works under file://
+     since recent-updates.js is loaded as a <script> tag, no fetch needed. */
   #recently-updated{display:none;margin:0 0 0.4rem}
   #recently-updated.ready{display:block}
   #recently-updated .ru-head{font-size:0.78rem;letter-spacing:0.16em;text-transform:uppercase;
@@ -534,7 +567,7 @@
   .ru-card .ru-date{font-size:0.72rem;font-family:ui-monospace,Menlo,monospace;
     color:var(--mute);white-space:nowrap;font-variant-numeric:tabular-nums;flex-shrink:0;
     min-width:6.2em}
-  .ru-card .ru-title{font-weight:600;font-size:0.95rem;color:#fff;flex:1;min-width:0;
+  .ru-card .ru-title{font-weight:600;font-size:0.95rem;color:var(--ink);flex:1;min-width:0;
     overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .ru-card .ru-tag{font-size:0.7rem;padding:1px 8px;border-radius:999px;
     background:var(--panel2);color:var(--mute);border:1px solid var(--line);
@@ -546,6 +579,7 @@
   .ru-card.p .ru-title{color:var(--pink)}   .ru-card.p:hover{border-color:var(--pink)}
   .ru-card.v .ru-title{color:var(--violet)} .ru-card.v:hover{border-color:var(--violet)}
   .ru-card.c .ru-title{color:var(--cyan)}   .ru-card.c:hover{border-color:var(--cyan)}
+  .ru-card.o .ru-title{color:var(--orange)} .ru-card.o:hover{border-color:var(--orange)}
   @media (max-width:520px){
     .ru-card{padding:0.5rem 0.65rem;gap:8px}
     .ru-card .ru-date{font-size:0.68rem;min-width:5.6em}
@@ -571,99 +605,7 @@
 
   <div class="sec">Modular forms & L-functions</div>
   <div class="grid">
-
-
-  <a class="card p" href="../upper-half-plane-hyperbolic.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <!-- upper half-plane with fundamental domain of SL_2(Z) -->
-        <line x1="6" y1="66" x2="94" y2="66" stroke="var(--pink)" stroke-width="1.3"/>
-        <!-- unit semicircle |z|=1 -->
-        <path d="M 20 66 A 30 30 0 0 1 80 66" fill="none" stroke="var(--pink)" stroke-width="1" opacity="0.55"/>
-        <!-- fundamental domain: -1/2 <= Re z <= 1/2 above |z|=1 -->
-        <path d="M 40 66 L 40 14 L 60 14 L 60 66" fill="none" stroke="var(--yellow)" stroke-width="0.9" opacity="0.85"/>
-        <path d="M 40 52 A 15 15 0 0 1 60 52" fill="var(--yellow)" opacity="0.18" stroke="var(--yellow)" stroke-width="1.3"/>
-        <!-- sample geodesic (vertical and semicircular) -->
-        <line x1="25" y1="66" x2="25" y2="22" stroke="var(--blue)" stroke-width="1" opacity="0.7"/>
-        <path d="M 68 66 A 12 12 0 0 1 88 66" fill="none" stroke="var(--blue)" stroke-width="1" opacity="0.7"/>
-        <text x="50" y="78" text-anchor="middle" font-size="7" fill="var(--pink)" font-style="italic" font-family="serif">ℋ = { Im z &gt; 0 }</text>
-      </svg></div>
-      <div class="body">
-        <div class="tt">Upper half-plane</div>
-        <div class="desc">Hyperbolic geometry on $\mathcal{H}$, the metric $ds^2 = (dx^2+dy^2)/y^2$, $\mathrm{SL}_2(\mathbb{R})$ as isometries, Möbius transformations, and the $\mathrm{SL}_2(\mathbb{Z})$ fundamental domain.</div>
-        <span class="tag">ℋ · SL₂(ℝ) · Möbius</span>
-      </div>
-    </a>
-
-
-  <a class="card v" href="../modular-forms.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <!-- fundamental domain with T-tile neighbors -->
-        <line x1="6" y1="66" x2="94" y2="66" stroke="var(--violet)" stroke-width="1.2"/>
-        <!-- fundamental F domain shaded -->
-        <path d="M 42 52 L 42 18 L 58 18 L 58 52 A 12 12 0 0 1 42 52 Z" fill="var(--violet)" opacity="0.25" stroke="var(--violet)" stroke-width="1.2"/>
-        <!-- T-neighbors (dashed outlines) -->
-        <path d="M 26 52 L 26 18 L 42 18 L 42 52 A 12 12 0 0 1 26 52 Z" fill="none" stroke="var(--violet)" stroke-width="0.7" stroke-dasharray="2 2" opacity="0.6"/>
-        <path d="M 58 52 L 58 18 L 74 18 L 74 52 A 12 12 0 0 1 58 52 Z" fill="none" stroke="var(--violet)" stroke-width="0.7" stroke-dasharray="2 2" opacity="0.6"/>
-        <!-- S-image below |τ|=1 -->
-        <path d="M 42 66 A 12 12 0 0 1 58 66 A 6 6 0 0 1 42 66 Z" fill="none" stroke="var(--yellow)" stroke-width="0.9" stroke-dasharray="2 2" opacity="0.75"/>
-        <text x="50" y="34" text-anchor="middle" font-size="9" fill="var(--violet)" font-style="italic" font-family="serif">ℱ</text>
-        <text x="50" y="78" text-anchor="middle" font-size="7" fill="var(--violet)" font-style="italic" font-family="serif">SL₂(ℤ)\ℋ</text>
-      </svg></div>
-      <div class="body">
-        <div class="tt">Modular forms</div>
-        <div class="desc">$\mathrm{SL}_2(\mathbb{Z})$ action on $\mathcal{H}$, fundamental domain, weight-$k$ forms and their $q$-expansions, Eisenstein series $E_k$, the discriminant $\Delta$, and $j(\tau) = E_4^3/\Delta$.</div>
-        <span class="tag">Eₖ · Δ · j · q-expansion</span>
-      </div>
-    </a>
-
-
-  <a class="card b" href="../theta-functions.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <path d="M12 50 Q26 24 40 50 T68 50 T92 50" fill="none" stroke="var(--blue)" stroke-width="1.5"/>
-        <g fill="var(--blue)"><circle cx="20" cy="50" r="2.3"/><circle cx="48" cy="50" r="2.3"/><circle cx="76" cy="50" r="2.3"/></g>
-      </svg></div>
-      <div class="body">
-        <div class="tt">Theta functions <span class="level advanced">advanced</span></div>
-        <div class="desc">Jacobi theta series on the upper half-plane, transformation laws, and bridges between lattices, modular forms, and counting problems.</div>
-        <span class="tag">θ(τ) · q-series · modular transforms</span>
-      </div>
-    </a>
-
-
-  <a class="card v" href="../partitions-generating-functions.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <!-- pentagonal scaffolding + growth curve of p(n) -->
-        <g stroke="var(--violet)" stroke-width="1.1" fill="none" opacity="0.85">
-          <polygon points="50,14 72,28 64,54 36,54 28,28"/>
-          <polygon points="50,26 62,34 58,48 42,48 38,34"/>
-        </g>
-        <path d="M 12 64 Q 48 64 86 18" fill="none" stroke="var(--yellow)" stroke-width="1.4"/>
-        <text x="50" y="76" text-anchor="middle" font-size="7" fill="var(--violet)" font-style="italic" font-family="serif">p(n) via ∏ 1/(1−qⁿ)</text>
-      </svg></div>
-      <div class="body">
-        <div class="tt">Partitions &amp; generating functions</div>
-        <div class="desc">The partition function $p(n)$, Euler's pentagonal number theorem, the Jacobi triple product, Dedekind $\eta$, and Ramanujan's mysterious congruences.</div>
-        <span class="tag">p(n) · η(τ) · pentagonal</span>
-      </div>
-    </a>
-
-
-  <a class="card c" href="../hecke-operators.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <g fill="none" stroke="var(--cyan)" stroke-width="1.2">
-          <rect x="16" y="18" width="24" height="16"/><rect x="44" y="18" width="24" height="16"/><rect x="30" y="46" width="24" height="16"/>
-          <path d="M40 26 L44 26 M54 34 L42 46 M58 34 L54 46"/>
-        </g>
-      </svg></div>
-      <div class="body">
-        <div class="tt">Hecke operators <span class="level advanced">advanced</span></div>
-        <div class="desc">Commuting correspondences on modular forms with eigenbases, multiplicative relations, and Fourier coefficients that package deep arithmetic information.</div>
-        <span class="tag">T_n · eigenforms · multiplicativity</span>
-      </div>
-    </a>
-
-
-  <a class="card y" href="../dirichlet-series-euler-products.html">
+<a class="card y" href="../dirichlet-series-euler-products.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <!-- sigma notation and product -->
         <text x="22" y="42" text-anchor="middle" font-size="22" fill="var(--yellow)" font-family="serif">∑</text>
@@ -742,16 +684,181 @@
     </a>
 
 
-  <a class="card y" href="../L-functions.html">
+  <a class="card p" href="../upper-half-plane-hyperbolic.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <path d="M10 56 C28 22, 42 66, 58 30 S86 24, 92 50" fill="none" stroke="var(--yellow)" stroke-width="1.6"/>
-        <line x1="12" y1="60" x2="92" y2="60" stroke="var(--yellow)" stroke-opacity="0.45"/>
-        <line x1="50" y1="12" x2="50" y2="68" stroke="var(--yellow)" stroke-opacity="0.35"/>
+        <!-- upper half-plane with fundamental domain of SL_2(Z) -->
+        <line x1="6" y1="66" x2="94" y2="66" stroke="var(--pink)" stroke-width="1.3"/>
+        <!-- unit semicircle |z|=1 -->
+        <path d="M 20 66 A 30 30 0 0 1 80 66" fill="none" stroke="var(--pink)" stroke-width="1" opacity="0.55"/>
+        <!-- fundamental domain: -1/2 <= Re z <= 1/2 above |z|=1 -->
+        <path d="M 40 66 L 40 14 L 60 14 L 60 66" fill="none" stroke="var(--yellow)" stroke-width="0.9" opacity="0.85"/>
+        <path d="M 40 52 A 15 15 0 0 1 60 52" fill="var(--yellow)" opacity="0.18" stroke="var(--yellow)" stroke-width="1.3"/>
+        <!-- sample geodesic (vertical and semicircular) -->
+        <line x1="25" y1="66" x2="25" y2="22" stroke="var(--blue)" stroke-width="1" opacity="0.7"/>
+        <path d="M 68 66 A 12 12 0 0 1 88 66" fill="none" stroke="var(--blue)" stroke-width="1" opacity="0.7"/>
+        <text x="50" y="78" text-anchor="middle" font-size="7" fill="var(--pink)" font-style="italic" font-family="serif">ℋ = { Im z &gt; 0 }</text>
       </svg></div>
       <div class="body">
-        <div class="tt">L-functions <span class="level capstone">capstone</span></div>
-        <div class="desc">A capstone view of Dirichlet series, Euler products, functional equations, and analytic continuation as one unified language across arithmetic and geometry.</div>
-        <span class="tag">Euler product · FE · continuation</span>
+        <div class="tt">Upper half-plane</div>
+        <div class="desc">Hyperbolic geometry on $\mathcal{H}$, the metric $ds^2 = (dx^2+dy^2)/y^2$, $\mathrm{SL}_2(\mathbb{R})$ as isometries, Möbius transformations, and the $\mathrm{SL}_2(\mathbb{Z})$ fundamental domain.</div>
+        <span class="tag">ℋ · SL₂(ℝ) · Möbius</span>
+      </div>
+    </a>
+
+
+  <a class="card v" href="../modular-forms.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <!-- fundamental domain with T-tile neighbors -->
+        <line x1="6" y1="66" x2="94" y2="66" stroke="var(--violet)" stroke-width="1.2"/>
+        <!-- fundamental F domain shaded -->
+        <path d="M 42 52 L 42 18 L 58 18 L 58 52 A 12 12 0 0 1 42 52 Z" fill="var(--violet)" opacity="0.25" stroke="var(--violet)" stroke-width="1.2"/>
+        <!-- T-neighbors (dashed outlines) -->
+        <path d="M 26 52 L 26 18 L 42 18 L 42 52 A 12 12 0 0 1 26 52 Z" fill="none" stroke="var(--violet)" stroke-width="0.7" stroke-dasharray="2 2" opacity="0.6"/>
+        <path d="M 58 52 L 58 18 L 74 18 L 74 52 A 12 12 0 0 1 58 52 Z" fill="none" stroke="var(--violet)" stroke-width="0.7" stroke-dasharray="2 2" opacity="0.6"/>
+        <!-- S-image below |τ|=1 -->
+        <path d="M 42 66 A 12 12 0 0 1 58 66 A 6 6 0 0 1 42 66 Z" fill="none" stroke="var(--yellow)" stroke-width="0.9" stroke-dasharray="2 2" opacity="0.75"/>
+        <text x="50" y="34" text-anchor="middle" font-size="9" fill="var(--violet)" font-style="italic" font-family="serif">ℱ</text>
+        <text x="50" y="78" text-anchor="middle" font-size="7" fill="var(--violet)" font-style="italic" font-family="serif">SL₂(ℤ)\ℋ</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Modular forms</div>
+        <div class="desc">$\mathrm{SL}_2(\mathbb{Z})$ action on $\mathcal{H}$, fundamental domain, weight-$k$ forms and their $q$-expansions, Eisenstein series $E_k$, the discriminant $\Delta$, and $j(\tau) = E_4^3/\Delta$.</div>
+        <span class="tag">Eₖ · Δ · j · q-expansion</span>
+      </div>
+    </a>
+
+
+  
+
+  <a class="card v" href="../partitions-generating-functions.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <!-- pentagonal scaffolding + growth curve of p(n) -->
+        <g stroke="var(--violet)" stroke-width="1.1" fill="none" opacity="0.85">
+          <polygon points="50,14 72,28 64,54 36,54 28,28"/>
+          <polygon points="50,26 62,34 58,48 42,48 38,34"/>
+        </g>
+        <path d="M 12 64 Q 48 64 86 18" fill="none" stroke="var(--yellow)" stroke-width="1.4"/>
+        <text x="50" y="76" text-anchor="middle" font-size="7" fill="var(--violet)" font-style="italic" font-family="serif">p(n) via ∏ 1/(1−qⁿ)</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Partitions &amp; generating functions</div>
+        <div class="desc">The partition function $p(n)$, Euler's pentagonal number theorem, the Jacobi triple product, Dedekind $\eta$, and Ramanujan's mysterious congruences.</div>
+        <span class="tag">p(n) · η(τ) · pentagonal</span>
+      </div>
+    </a>
+
+
+  <a class="card c" href="../modular-curves.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+<g stroke="var(--cyan)" stroke-width="1.4" fill="none">
+          <line x1="36" y1="14" x2="36" y2="64"/>
+          <line x1="64" y1="14" x2="64" y2="64"/>
+          <path d="M 36 64 Q 50 50 64 64"/>
+          <line x1="50" y1="14" x2="50" y2="50"/>
+        </g>
+        <g fill="var(--cyan)"><circle cx="50" cy="50" r="2"/><circle cx="36" cy="64" r="2"/><circle cx="64" cy="64" r="2"/></g>
+        <text x="50" y="76" text-anchor="middle" font-family="serif" font-size="9" font-style="italic" fill="var(--cyan)">𝓗/Γ</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Modular curves</div>
+        <div class="desc">The modular curves Y₀(N) and X₀(N) as moduli of (E, C), Hecke correspondences, the Jacobian J₀(N), genus formulas, cusps.</div>
+        <span class="tag">Y₀(N) · moduli · Hecke</span>
+      </div>
+    </a>
+
+
+    <a class="card c" href="../vertex-operator-algebras.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+<circle cx="50" cy="38" r="22" stroke="var(--cyan)" stroke-width="1.4" fill="none"/>
+        <g fill="var(--cyan)">
+          <circle cx="50" cy="16" r="2.5"/>
+          <text x="62" y="20" font-family="serif" font-size="10" font-style="italic">z</text>
+        </g>
+        <line x1="50" y1="38" x2="72" y2="38" stroke="var(--cyan)" stroke-width="1" stroke-dasharray="2 2"/>
+        <text x="50" y="42" text-anchor="middle" font-family="serif" font-size="10" font-style="italic" fill="var(--cyan)">|0⟩</text>
+        <text x="50" y="74" text-anchor="middle" font-family="serif" font-size="10" font-style="italic" fill="var(--cyan)">Y(a,z)</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Vertex operator algebras</div>
+        <div class="desc">Vertex operators $Y(a, z)$ on a state space, Virasoro central charge, modular invariance of trace functions, Frenkel–Lepowsky–Meurman moonshine module.</div>
+        <span class="tag">Y(a,z) · Virasoro · moonshine</span>
+      </div>
+    </a>
+
+
+    <a class="card c" href="../langlands-program.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <!-- two columns: Galois reps (left) and automorphic reps (right), bridged by L-functions -->
+        <g stroke="var(--cyan)" fill="none" stroke-width="1.2">
+          <rect x="14" y="20" width="22" height="40" rx="2"/>
+          <rect x="64" y="20" width="22" height="40" rx="2"/>
+          <path d="M36 40 H64" stroke-width="1.4" marker-end="url(#larrL)"/>
+          <path d="M64 50 H36" stroke-width="1.4" marker-end="url(#larrR)"/>
+        </g>
+        <g fill="var(--cyan)" font-size="7" font-family="serif" font-style="italic" text-anchor="middle">
+          <text x="25" y="32">ρ</text>
+          <text x="75" y="32">π</text>
+          <text x="50" y="38" font-size="6">L(s)</text>
+        </g>
+        <defs>
+          <marker id="larrL" viewBox="0 0 8 6" refX="7" refY="3" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L8 3 L0 6 Z" fill="var(--cyan)"/></marker>
+          <marker id="larrR" viewBox="0 0 8 6" refX="7" refY="3" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L8 3 L0 6 Z" fill="var(--cyan)"/></marker>
+        </defs>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Langlands program</div>
+        <div class="desc">Galois reps on one side, automorphic reps on the other, bridged by matching L-functions. CFT, modularity, and Sato-Tate as proven corners.</div>
+        <span class="tag">capstone · automorphy · L-functions · reciprocity</span>
+      </div>
+    </a>
+
+  <a class="card b" href="../theta-functions.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <!-- θ-series as a sum of Gaussian-bump translates over a 1D lattice -->
+        <line x1="10" y1="58" x2="90" y2="58" stroke="var(--mute)" stroke-width="0.6"/>
+        <g fill="none" stroke="var(--blue)" stroke-width="1.0" opacity="0.55">
+          <path d="M 6 58 Q 18 32 30 58"/>
+          <path d="M 22 58 Q 34 24 46 58"/>
+          <path d="M 38 58 Q 50 18 62 58"/>
+          <path d="M 54 58 Q 66 24 78 58"/>
+          <path d="M 70 58 Q 82 32 94 58"/>
+        </g>
+        <path d="M 6 58 C 14 50, 18 36, 30 30 C 42 24, 50 16, 62 24 C 74 32, 78 46, 94 58"
+              fill="none" stroke="var(--blue)" stroke-width="1.6"/>
+        <g fill="var(--blue)">
+          <circle cx="14" cy="58" r="1.7"/><circle cx="30" cy="58" r="1.7"/>
+          <circle cx="46" cy="58" r="1.7"/><circle cx="62" cy="58" r="1.7"/>
+          <circle cx="78" cy="58" r="1.7"/>
+        </g>
+        <text x="50" y="74" text-anchor="middle" font-size="8" font-style="italic" font-family="serif" fill="var(--blue)">θ(τ) = Σ q^{n²}</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Theta functions <span class="level advanced">advanced</span></div>
+        <div class="desc">Jacobi theta series on the upper half-plane, transformation laws, and bridges between lattices, modular forms, and counting problems.</div>
+        <span class="tag">θ(τ) · q-series · modular transforms</span>
+      </div>
+    </a>
+
+
+  <a class="card c" href="../hecke-operators.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <!-- T_p correspondence: Y₀(p) sitting between two copies of Y(1), p+1 sublattices -->
+        <g fill="var(--cyan)"><circle cx="20" cy="20" r="2.6"/><circle cx="80" cy="20" r="2.6"/><circle cx="50" cy="58" r="2.8"/></g>
+        <g stroke="var(--cyan)" stroke-width="1.2" fill="none" marker-end="url(#hk-arr)">
+          <line x1="48" y1="54" x2="22" y2="24"/>
+          <line x1="52" y1="54" x2="78" y2="24"/>
+        </g>
+        <text x="20" y="14" text-anchor="middle" font-size="7" font-family="serif" font-style="italic" fill="var(--cyan)">Y(1)</text>
+        <text x="80" y="14" text-anchor="middle" font-size="7" font-family="serif" font-style="italic" fill="var(--cyan)">Y(1)</text>
+        <text x="50" y="72" text-anchor="middle" font-size="7" font-family="serif" font-style="italic" fill="var(--cyan)">Y₀(p)</text>
+        <text x="32" y="44" font-size="7" font-family="serif" font-style="italic" fill="var(--mute)">α</text>
+        <text x="62" y="44" font-size="7" font-family="serif" font-style="italic" fill="var(--mute)">β</text>
+        <defs><marker id="hk-arr" viewBox="0 0 8 8" refX="6" refY="4" markerWidth="4.5" markerHeight="4.5" orient="auto"><path d="M0,0 L6,4 L0,8 z" fill="var(--cyan)"/></marker></defs>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Hecke operators <span class="level advanced">advanced</span></div>
+        <div class="desc">Commuting correspondences on modular forms with eigenbases, multiplicative relations, and Fourier coefficients that package deep arithmetic information.</div>
+        <span class="tag">T_n · eigenforms · multiplicativity</span>
       </div>
     </a>
 
@@ -801,6 +908,30 @@
         <div class="tt">Monstrous moonshine <span class="level advanced">advanced</span></div>
         <div class="desc">The Fourier coefficients of $j(\tau)$ are sums of Monster irrep dimensions. Conway–Norton's McKay–Thompson series and Borcherds' Fields-medal proof.</div>
         <span class="tag">j(τ) · 𝕄 · Borcherds</span>
+      </div>
+    </a>
+
+
+  <a class="card y" href="../L-functions.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <!-- critical strip 0 ≤ Re(s) ≤ 1 with critical line Re(s) = 1/2 and zeros -->
+        <rect x="22" y="10" width="56" height="60" fill="color-mix(in srgb, var(--yellow) 10%, transparent)" stroke="var(--mute)" stroke-width="0.6"/>
+        <line x1="50" y1="10" x2="50" y2="70" stroke="var(--yellow)" stroke-width="1.4" stroke-dasharray="3 2"/>
+        <line x1="10" y1="40" x2="90" y2="40" stroke="var(--mute)" stroke-width="0.6"/>
+        <g fill="var(--yellow)">
+          <circle cx="50" cy="18" r="2.3"/>
+          <circle cx="50" cy="28" r="2.3"/>
+          <circle cx="50" cy="50" r="2.3"/>
+          <circle cx="50" cy="60" r="2.3"/>
+        </g>
+        <text x="22" y="78" font-size="7" font-family="serif" font-style="italic" fill="var(--mute)">0</text>
+        <text x="50" y="78" text-anchor="middle" font-size="7" font-family="serif" font-style="italic" fill="var(--yellow)">½</text>
+        <text x="78" y="78" text-anchor="end" font-size="7" font-family="serif" font-style="italic" fill="var(--mute)">1</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">L-functions <span class="level capstone">capstone</span></div>
+        <div class="desc">A capstone view of Dirichlet series, Euler products, functional equations, and analytic continuation as one unified language across arithmetic and geometry.</div>
+        <span class="tag">Euler product · FE · continuation</span>
       </div>
     </a>
 
@@ -862,71 +993,6 @@
         <div class="tt">Modularity & FLT <span class="level capstone">capstone</span></div>
         <div class="desc">Frey + Ribet + Wiles: a solution to $a^p + b^p = c^p$ would give a newform of level $2$, but $S_2(\Gamma_0(2)) = 0$ — contradiction.</div>
         <span class="tag">Frey · Ribet · Taylor–Wiles</span>
-      </div>
-    </a>
-
-
-    <a class="card c" href="../modular-curves.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-<g stroke="var(--cyan)" stroke-width="1.4" fill="none">
-          <line x1="36" y1="14" x2="36" y2="64"/>
-          <line x1="64" y1="14" x2="64" y2="64"/>
-          <path d="M 36 64 Q 50 50 64 64"/>
-          <line x1="50" y1="14" x2="50" y2="50"/>
-        </g>
-        <g fill="var(--cyan)"><circle cx="50" cy="50" r="2"/><circle cx="36" cy="64" r="2"/><circle cx="64" cy="64" r="2"/></g>
-        <text x="50" y="76" text-anchor="middle" font-family="serif" font-size="9" font-style="italic" fill="var(--cyan)">𝓗/Γ</text>
-      </svg></div>
-      <div class="body">
-        <div class="tt">Modular curves</div>
-        <div class="desc">The modular curves Y₀(N) and X₀(N) as moduli of (E, C), Hecke correspondences, the Jacobian J₀(N), genus formulas, cusps.</div>
-        <span class="tag">Y₀(N) · moduli · Hecke</span>
-      </div>
-    </a>
-
-
-    <a class="card c" href="../vertex-operator-algebras.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-<circle cx="50" cy="38" r="22" stroke="var(--cyan)" stroke-width="1.4" fill="none"/>
-        <g fill="var(--cyan)">
-          <circle cx="50" cy="16" r="2.5"/>
-          <text x="62" y="20" font-family="serif" font-size="10" font-style="italic">z</text>
-        </g>
-        <line x1="50" y1="38" x2="72" y2="38" stroke="var(--cyan)" stroke-width="1" stroke-dasharray="2 2"/>
-        <text x="50" y="42" text-anchor="middle" font-family="serif" font-size="10" font-style="italic" fill="var(--cyan)">|0⟩</text>
-        <text x="50" y="74" text-anchor="middle" font-family="serif" font-size="10" font-style="italic" fill="var(--cyan)">Y(a,z)</text>
-      </svg></div>
-      <div class="body">
-        <div class="tt">Vertex operator algebras</div>
-        <div class="desc">Vertex operators $Y(a, z)$ on a state space, Virasoro central charge, modular invariance of trace functions, Frenkel–Lepowsky–Meurman moonshine module.</div>
-        <span class="tag">Y(a,z) · Virasoro · moonshine</span>
-      </div>
-    </a>
-
-
-    <a class="card c" href="../langlands-program.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <!-- two columns: Galois reps (left) and automorphic reps (right), bridged by L-functions -->
-        <g stroke="var(--cyan)" fill="none" stroke-width="1.2">
-          <rect x="14" y="20" width="22" height="40" rx="2"/>
-          <rect x="64" y="20" width="22" height="40" rx="2"/>
-          <path d="M36 40 H64" stroke-width="1.4" marker-end="url(#larrL)"/>
-          <path d="M64 50 H36" stroke-width="1.4" marker-end="url(#larrR)"/>
-        </g>
-        <g fill="var(--cyan)" font-size="7" font-family="serif" font-style="italic" text-anchor="middle">
-          <text x="25" y="32">ρ</text>
-          <text x="75" y="32">π</text>
-          <text x="50" y="38" font-size="6">L(s)</text>
-        </g>
-        <defs>
-          <marker id="larrL" viewBox="0 0 8 6" refX="7" refY="3" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L8 3 L0 6 Z" fill="var(--cyan)"/></marker>
-          <marker id="larrR" viewBox="0 0 8 6" refX="7" refY="3" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L8 3 L0 6 Z" fill="var(--cyan)"/></marker>
-        </defs>
-      </svg></div>
-      <div class="body">
-        <div class="tt">Langlands program</div>
-        <div class="desc">Galois reps on one side, automorphic reps on the other, bridged by matching L-functions. CFT, modularity, and Sato-Tate as proven corners.</div>
-        <span class="tag">capstone · automorphy · L-functions · reciprocity</span>
       </div>
     </a>
   </div>

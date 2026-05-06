@@ -1,0 +1,236 @@
+{
+  "topic": "iwasawa-theory",
+  "quizzes": {
+    "iw-cyclotomic": {
+      "title": "Cyclotomic $\\mathbb{Z}_p$-extension",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A $\\mathbb{Z}_p$-extension of a number field $K$ is a Galois extension $K_\\infty/K$ with Galois group:",
+          "choices": [
+            "the finite cyclic group $\\mathbb{Z}/p\\mathbb{Z}$",
+            "the additive group of $p$-adic integers $\\mathbb{Z}_p$",
+            "the unit group $\\mathbb{Z}_p^\\times$",
+            "the procyclic group $\\widehat{\\mathbb{Z}}$"
+          ],
+          "answer": 1,
+          "explain": "By definition $\\Gal(K_\\infty/K)\\cong\\mathbb{Z}_p$ as topological groups; equivalently, $K_\\infty=\\bigcup_n K_n$ is a tower with $\\Gal(K_n/K)\\cong\\mathbb{Z}/p^n\\mathbb{Z}$."
+        },
+        {
+          "type": "mcq",
+          "q": "How is the cyclotomic $\\mathbb{Z}_p$-extension $\\mathbb{Q}_\\infty$ of $\\mathbb{Q}$ obtained?",
+          "choices": [
+            "as the full cyclotomic tower $\\mathbb{Q}(\\zeta_{p^\\infty})$",
+            "as the maximal real subfield of $\\mathbb{Q}(\\zeta_{p^\\infty})$ for $p$ odd",
+            "as the fixed field of the torsion subgroup of $\\Gal(\\mathbb{Q}(\\zeta_{p^\\infty})/\\mathbb{Q})$",
+            "as the Hilbert class field of $\\mathbb{Q}$"
+          ],
+          "answer": 2,
+          "explain": "$\\Gal(\\mathbb{Q}(\\zeta_{p^\\infty})/\\mathbb{Q})\\cong\\mathbb{Z}_p^\\times\\cong(\\mathbb{Z}/p\\mathbb{Z})^\\times\\times(1+p\\mathbb{Z}_p)$ for odd $p$. The torsion part $(\\mathbb{Z}/p\\mathbb{Z})^\\times$ has order $p-1$; the fixed field is the unique $\\mathbb{Z}_p$-extension."
+        },
+        {
+          "type": "numeric",
+          "q": "Iwasawa's growth formula gives $|A_n|=p^{e(n)}$ with $e(n)=\\mu p^n+\\lambda n+\\nu$ for large $n$. If $\\mu=0$, $\\lambda=2$, $\\nu=1$, what is $e(n)$ at $n=5$?",
+          "answer": 11,
+          "tol": 0.000001,
+          "explain": "$e(5)=0\\cdot p^5+2\\cdot 5+1=11$. This is the linear growth regime of $\\log_p|A_n|$ once $\\mu=0$."
+        }
+      ]
+    },
+    "iw-algebra": {
+      "title": "Iwasawa algebra $\\Lambda$",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The Iwasawa algebra is, by definition,",
+          "choices": [
+            "the group ring $\\mathbb{Z}_p[\\Gamma]$ where $\\Gamma\\cong\\mathbb{Z}_p$",
+            "the inverse limit $\\Lambda=\\varprojlim_n\\mathbb{Z}_p[\\Gamma/\\Gamma^{p^n}]$ — the completed group algebra",
+            "the polynomial ring $\\mathbb{Z}_p[T]$",
+            "the $p$-adic completion of $\\mathbb{Z}[T]$"
+          ],
+          "answer": 1,
+          "explain": "$\\Lambda=\\mathbb{Z}_p[[\\Gamma]]$ is the completed group algebra. Picking a topological generator $\\gamma$ of $\\Gamma$ and sending $\\gamma\\mapsto 1+T$ identifies it with the formal power series ring $\\mathbb{Z}_p[[T]]$."
+        },
+        {
+          "type": "mcq",
+          "q": "The structure theorem says every finitely generated $\\Lambda$-module $M$ is pseudo-isomorphic to a direct sum of cyclics. The right hand side has the form:",
+          "choices": [
+            "$\\Lambda^r\\oplus\\bigoplus_i\\Lambda/(p^{a_i})\\oplus\\bigoplus_j\\Lambda/(f_j(T)^{m_j})$ with $f_j$ distinguished irreducible",
+            "$\\Lambda^r$ alone (every finitely generated module is free up to pseudo-isomorphism)",
+            "$\\Lambda/(g(T))$ for a single $g$",
+            "a finite direct sum of $\\mathbb{Z}_p$'s"
+          ],
+          "answer": 0,
+          "explain": "A finitely generated $\\Lambda$-module is pseudo-isomorphic (kernel and cokernel finite) to $\\Lambda^r\\oplus(\\bigoplus\\Lambda/(p^{a_i}))\\oplus(\\bigoplus\\Lambda/(f_j^{m_j}))$. The torsion part lives in the latter two summands; the characteristic ideal is $(\\prod p^{a_i}\\cdot\\prod f_j^{m_j})$."
+        },
+        {
+          "type": "multi-select",
+          "q": "Which of the following are TRUE about $\\Lambda=\\mathbb{Z}_p[[T]]$?",
+          "choices": [
+            "$\\Lambda$ is a complete local ring with maximal ideal $(p,T)$",
+            "$\\Lambda$ is a unique factorization domain",
+            "$\\Lambda$ is a principal ideal domain",
+            "$\\Lambda$ is a regular local ring of Krull dimension 2"
+          ],
+          "answer": [0, 1, 3],
+          "explain": "$\\mathbb{Z}_p[[T]]$ is a 2-dimensional regular local ring (so a UFD by Auslander–Buchsbaum), local with maximal ideal $(p,T)$. It is NOT a PID — the ideal $(p,T)$ is not principal."
+        }
+      ]
+    },
+    "iw-class-groups": {
+      "title": "Class groups along the tower",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "For a $\\mathbb{Z}_p$-tower $K_\\infty/K$, the inverse limit $X_\\infty=\\varprojlim A_n$ of $p$-class groups is:",
+          "choices": [
+            "a finite group",
+            "a finitely generated torsion $\\Lambda$-module",
+            "a free $\\Lambda$-module of finite rank",
+            "always isomorphic to $\\Lambda$ itself"
+          ],
+          "answer": 1,
+          "explain": "The transition maps $A_{n+1}\\to A_n$ make $X_\\infty$ a $\\Lambda$-module via $\\Gamma$-action; Iwasawa proved it is finitely generated and torsion. Its characteristic ideal $\\operatorname{char}_\\Lambda X_\\infty$ is the central object of the main conjecture."
+        },
+        {
+          "type": "numeric",
+          "q": "By Iwasawa's growth formula, $|A_n|=p^{\\mu p^n+\\lambda n+\\nu}$ for $n$ large. With $\\mu=1$, $\\lambda=0$, $\\nu=0$ and $p=3$, what is $|A_2|$?",
+          "answer": 19683,
+          "tol": 0.5,
+          "explain": "$\\log_3|A_2|=1\\cdot 3^2+0\\cdot 2+0=9$, so $|A_2|=3^9=19683$. Nonzero $\\mu$ would mean class numbers blow up at $p$-adic exponential rate — Ferrero–Washington rules this out for cyclotomic extensions of $\\mathbb{Q}$."
+        },
+        {
+          "type": "mcq",
+          "q": "The Ferrero–Washington theorem (1979) asserts that for the cyclotomic $\\mathbb{Z}_p$-extension of an abelian number field:",
+          "choices": [
+            "$\\lambda = 0$",
+            "$\\mu = 0$",
+            "$\\nu = 0$",
+            "$X_\\infty$ is finite"
+          ],
+          "answer": 1,
+          "explain": "Ferrero and Washington showed the $\\mu$-invariant of the minus part of $X_\\infty$ vanishes for cyclotomic extensions of abelian fields. Whether $\\lambda=0$ (Greenberg's conjecture, totally real case) is still open."
+        }
+      ]
+    },
+    "iw-padic-l": {
+      "title": "Kubota–Leopoldt $p$-adic $L$-function",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The Kubota–Leopoldt $p$-adic $L$-function $L_p(s,\\chi)$ interpolates which classical values?",
+          "choices": [
+            "$L(s,\\chi)$ at $s=1$ only",
+            "$L(1-n,\\chi\\omega^{-n})$ at non-positive integers, multiplied by an Euler factor at $p$",
+            "$L(s,\\chi)$ at the central critical point $s=1/2$",
+            "the Dedekind zeta values $\\zeta_K(s)$ at integers"
+          ],
+          "answer": 1,
+          "explain": "$L_p(1-n,\\chi)=(1-\\chi\\omega^{-n}(p)p^{n-1})\\,L(1-n,\\chi\\omega^{-n})$ for $n\\ge 1$. The Euler factor at $p$ is removed; the Teichmüller character $\\omega$ corrects between archimedean and $p$-adic worlds."
+        },
+        {
+          "type": "mcq",
+          "q": "Why is the existence of $L_p(s,\\chi)$ essentially the Kummer congruences for Bernoulli numbers?",
+          "choices": [
+            "Because $L_p(s,\\chi)$ is defined as the Mellin transform of a Bernoulli generating function",
+            "Because the special values $L(1-n,\\chi)$ are essentially generalized Bernoulli numbers $-B_{n,\\chi}/n$, and $p$-adic continuity is the Kummer congruences saying $B_{n,\\chi}/n\\equiv B_{m,\\chi}/m\\pmod{p^k}$ when $n\\equiv m\\pmod{(p-1)p^{k-1}}$",
+            "Because $L_p$ has no relation to Bernoulli numbers — only to class numbers",
+            "Because the Riemann hypothesis for $L_p$ is equivalent to the irrationality of $\\zeta(3)$"
+          ],
+          "answer": 1,
+          "explain": "Kummer's classical congruences exactly say the values $L(1-n,\\chi)$ vary $p$-adically continuously in $n$ (after fixing the residue class mod $p-1$). Patching this continuity is what defines the $p$-adic $L$-function."
+        },
+        {
+          "type": "numeric",
+          "q": "Take the trivial character $\\chi$ and the special value $\\zeta(-1)=-1/12$. The interpolation factor at $p=5$, $n=2$ is $(1-p^{n-1})=(1-5)= -4$. What is $L_p(-1)\\cdot(\\text{normalisation})=(1-p)\\zeta(-1)$ for $p=5$? Enter as a decimal.",
+          "answer": 0.3333333333,
+          "tol": 0.001,
+          "explain": "$(1-5)(-1/12)=(-4)(-1/12)=4/12=1/3\\approx 0.3333$. The factor of $(1-p^{n-1})$ removes the Euler factor at $p$; the result is the $p$-adic interpolation of $\\zeta(1-n)$ at $n=2$ for the trivial character (Riemann case)."
+        }
+      ]
+    },
+    "iw-main-conjecture": {
+      "title": "Iwasawa main conjecture",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Mazur–Wiles (1984) is the statement that — for an even Dirichlet character $\\chi$ — in $\\Lambda\\otimes\\mathbb{Q}_p$,",
+          "choices": [
+            "$\\operatorname{char}_\\Lambda X_\\infty(\\chi^{-1}\\omega) = (L_p(\\chi,T))$",
+            "$L_p(s,\\chi)=L(s,\\chi)$ identically",
+            "$X_\\infty$ is always trivial",
+            "every $\\Lambda$-module is free"
+          ],
+          "answer": 0,
+          "explain": "The main conjecture is the equality of two ideals in $\\Lambda$: the characteristic ideal of the appropriate eigenspace of the Iwasawa module, and the ideal generated by the Kubota–Leopoldt $L_p$. Mazur–Wiles proved it for abelian $\\mathbb{Q}$; Wiles for totally real fields."
+        },
+        {
+          "type": "mcq",
+          "q": "Why is the main conjecture called a 'main' conjecture?",
+          "choices": [
+            "It uniformly upgrades every refined class-number formula (Stickelberger, Herbrand–Ribet, Kummer–Vandiver evidence) to a single identity of $\\Lambda$-ideals.",
+            "Iwasawa happened to write it on the main blackboard at Princeton.",
+            "It is the only conjecture in Iwasawa theory.",
+            "It implies the Riemann hypothesis."
+          ],
+          "answer": 0,
+          "explain": "Class-number formulas, Herbrand–Ribet on irregular primes, and many refined formulas are corollaries: specialising the equality of ideals at $T=0$ (or appropriate twists) recovers them. The conjecture is 'main' because everything else is a slice of it."
+        },
+        {
+          "type": "multi-select",
+          "q": "Which corollaries follow from the main conjecture?",
+          "choices": [
+            "Herbrand–Ribet: for $p$ irregular, $p\\mid B_k$ implies the $\\omega^{1-k}$-eigenspace of $X_\\infty$ is non-trivial",
+            "the leading-term formula $\\zeta_p(K,1-n)\\doteq h_n^-/(\\text{regulator})$ relating $p$-adic $L$-values to class numbers",
+            "the analytic continuation of the classical Riemann zeta to $\\mathbb{C}$",
+            "Fermat's last theorem"
+          ],
+          "answer": [0, 1],
+          "explain": "Herbrand–Ribet and refined class-number formulas drop out; analytic continuation of $\\zeta(s)$ predates Iwasawa theory and FLT requires the modularity theorem (a different machine, although Iwasawa-flavoured deformation theory plays a role)."
+        }
+      ]
+    },
+    "iw-elliptic": {
+      "title": "Elliptic Iwasawa theory and BSD",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "For an elliptic curve $E/\\mathbb{Q}$ with good ordinary reduction at $p$, the elliptic Iwasawa main conjecture predicts:",
+          "choices": [
+            "$\\operatorname{char}_\\Lambda(\\mathrm{Sel}_{p^\\infty}(E/\\mathbb{Q}_\\infty)^\\vee)=(L_p(E,T))$",
+            "$E(\\mathbb{Q})$ is always finite",
+            "$L(E,1)=0$ for every $E$",
+            "$\\Lambda$ acts trivially on the Selmer group"
+          ],
+          "answer": 0,
+          "explain": "The dual Selmer group is a finitely generated torsion $\\Lambda$-module; the main conjecture equates its characteristic ideal with the ideal generated by the $p$-adic $L$-function $L_p(E,T)$ of Mazur–Swinnerton-Dyer."
+        },
+        {
+          "type": "mcq",
+          "q": "The Coates–Wiles theorem (1977) was the first major application of Iwasawa methods to BSD; it states:",
+          "choices": [
+            "If $E$ has CM by an imaginary quadratic field and $L(E,1)\\ne 0$, then $E(\\mathbb{Q})$ is finite.",
+            "$L(E,s)$ has a pole at $s=1$.",
+            "Every elliptic curve over $\\mathbb{Q}$ is modular.",
+            "The rank of $E(\\mathbb{Q})$ is unbounded."
+          ],
+          "answer": 0,
+          "explain": "Coates–Wiles: if $E/\\mathbb{Q}$ has complex multiplication and $L(E,1)\\ne 0$, then $E(\\mathbb{Q})$ has rank zero. This is one direction of weak BSD in the CM case, proved by descent along the cyclotomic $\\mathbb{Z}_p$-extension."
+        },
+        {
+          "type": "multi-select",
+          "q": "Which contributions form the modern proof of (one direction of) the elliptic main conjecture for many ordinary $E/\\mathbb{Q}$?",
+          "choices": [
+            "Kato's Euler system, giving one divisibility $\\operatorname{char}\\mid L_p$",
+            "Skinner–Urban's converse via Eisenstein congruences on $\\mathrm{GU}(2,2)$, giving $L_p\\mid\\operatorname{char}$",
+            "the modularity theorem (Wiles, Breuil–Conrad–Diamond–Taylor) supplying the modular forms input",
+            "the Riemann hypothesis"
+          ],
+          "answer": [0, 1, 2],
+          "explain": "Kato (Euler systems on Beilinson elements), Skinner–Urban (Eisenstein-congruence side), and modularity (so that $E$ corresponds to a newform feeding into the construction) together give $p$-part BSD for many curves of analytic rank $\\le 1$. RH plays no role."
+        }
+      ]
+    }
+  }
+}

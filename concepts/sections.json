@@ -119,7 +119,8 @@
         "knot-polynomials",
         "ricci-flow",
         "atiyah-singer-index-theorem",
-        "mostow-rigidity"
+        "mostow-rigidity",
+        "cohomology-and-duality"
       ],
       "color": "v"
     },
@@ -141,7 +142,8 @@
         "heights-arithmetic-geometry",
         "analytic-number-theory",
         "mathematics-and-cryptography",
-        "computational-number-theory"
+        "computational-number-theory",
+        "iwasawa-theory"
       ],
       "color": "y"
     },
@@ -198,7 +200,8 @@
         "mirror-symmetry",
         "resolution-of-singularities",
         "motives",
-        "hodge-theory"
+        "hodge-theory",
+        "toric-varieties"
       ],
       "color": "g"
     },

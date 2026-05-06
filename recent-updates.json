@@ -1,6 +1,38 @@
 {
-  "generated": "2026-05-06T04:56:28.073Z",
+  "generated": "2026-05-06T06:58:22.844Z",
   "entries": [
+    {
+      "slug": "cohomology-and-duality",
+      "title": "Cohomology and duality",
+      "color": "v",
+      "tag": "",
+      "date": "2026-05-05",
+      "message": "Three new topics: cohomology-and-duality, toric-varieties, iwasawa-theory"
+    },
+    {
+      "slug": "condensed-mathematics",
+      "title": "Condensed mathematics",
+      "color": "y",
+      "tag": "",
+      "date": "2026-05-05",
+      "message": "Condensed mathematics capstone + tour expansion + home UI polish (#118)"
+    },
+    {
+      "slug": "iwasawa-theory",
+      "title": "Iwasawa theory",
+      "color": "y",
+      "tag": "",
+      "date": "2026-05-05",
+      "message": "Three new topics: cohomology-and-duality, toric-varieties, iwasawa-theory"
+    },
+    {
+      "slug": "toric-varieties",
+      "title": "Toric varieties",
+      "color": "g",
+      "tag": "",
+      "date": "2026-05-05",
+      "message": "Three new topics: cohomology-and-duality, toric-varieties, iwasawa-theory"
+    },
     {
       "slug": "algebraic-k-theory-foundations",
       "title": "Algebraic K-theory foundations",
@@ -8,14 +40,6 @@
       "tag": "",
       "date": "2026-05-04",
       "message": "Algebraic K-theory foundations topic (K0/K1/K2 + Q-construction + localization + applications) (#112)"
-    },
-    {
-      "slug": "condensed-mathematics",
-      "title": "Condensed mathematics",
-      "color": "y",
-      "tag": "",
-      "date": "2026-05-04",
-      "message": "Condensed mathematics topic (capstone) — Clausen-Scholze condensed/solid/liquid + LTE"
     },
     {
       "slug": "dirac-equation",
