@@ -148,8 +148,19 @@
 
   // === init ===
   function init(host, data){
-    if(!host || !data) return;
-    const eras = data.eras || [];
+    if(!host){
+      console.warn('widget-history-map: init called with no host element');
+      return;
+    }
+    if(!data || !Array.isArray(data.eras) || data.eras.length === 0){
+      // Surface a visible failure rather than rendering a dead chip row +
+      // toggle that no-ops silently. The "All eras" three-state toggle in
+      // particular degrades to a permanent no-op if `eras` is empty.
+      console.warn('widget-history-map: data.eras missing or empty; widget cannot render');
+      host.innerHTML = '<div class="bad" role="alert">World-map data unavailable: era palette missing.</div>';
+      return;
+    }
+    const eras = data.eras;
     const events = (data.events || []).filter(e => Number.isFinite(e.lat) && Number.isFinite(e.lng));
     const eraById = new Map(eras.map(e => [e.id, e]));
     const personById = new Map((data.people||[]).map(p => [p.id, p]));

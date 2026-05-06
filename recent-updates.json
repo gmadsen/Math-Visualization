@@ -1,6 +1,14 @@
 {
-  "generated": "2026-05-06T06:39:05.045Z",
+  "generated": "2026-05-06T06:58:22.844Z",
   "entries": [
+    {
+      "slug": "cohomology-and-duality",
+      "title": "Cohomology and duality",
+      "color": "v",
+      "tag": "",
+      "date": "2026-05-05",
+      "message": "Three new topics: cohomology-and-duality, toric-varieties, iwasawa-theory"
+    },
     {
       "slug": "condensed-mathematics",
       "title": "Condensed mathematics",
@@ -8,6 +16,22 @@
       "tag": "",
       "date": "2026-05-05",
       "message": "Condensed mathematics capstone + tour expansion + home UI polish (#118)"
+    },
+    {
+      "slug": "iwasawa-theory",
+      "title": "Iwasawa theory",
+      "color": "y",
+      "tag": "",
+      "date": "2026-05-05",
+      "message": "Three new topics: cohomology-and-duality, toric-varieties, iwasawa-theory"
+    },
+    {
+      "slug": "toric-varieties",
+      "title": "Toric varieties",
+      "color": "g",
+      "tag": "",
+      "date": "2026-05-05",
+      "message": "Three new topics: cohomology-and-duality, toric-varieties, iwasawa-theory"
     },
     {
       "slug": "algebraic-k-theory-foundations",

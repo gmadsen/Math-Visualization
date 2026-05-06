@@ -1979,6 +1979,111 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "cohomology-and-duality-w1",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "cohomology-and-duality-w1 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the cohomology-and-duality topic. Carries opaque bodyMarkup + bodyScript strings so the byte-identical round-trip stays intact.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `cohomology-and-duality` topic. Uses the shared verbatim renderer at `widgets/_shared/verbatim-renderer.mjs`; `bodyMarkup` and `bodyScript` are the full widget body and the driving script extracted as opaque strings so the byte-identical round-trip stays intact.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "cohomology-and-duality-w2",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "cohomology-and-duality-w2 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the cohomology-and-duality topic. Carries opaque bodyMarkup + bodyScript strings so the byte-identical round-trip stays intact.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `cohomology-and-duality` topic. Uses the shared verbatim renderer at `widgets/_shared/verbatim-renderer.mjs`; `bodyMarkup` and `bodyScript` are the full widget body and the driving script extracted as opaque strings so the byte-identical round-trip stays intact.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "cohomology-and-duality-w3",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "cohomology-and-duality-w3 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the cohomology-and-duality topic. Carries opaque bodyMarkup + bodyScript strings so the byte-identical round-trip stays intact.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `cohomology-and-duality` topic. Uses the shared verbatim renderer at `widgets/_shared/verbatim-renderer.mjs`; `bodyMarkup` and `bodyScript` are the full widget body and the driving script extracted as opaque strings so the byte-identical round-trip stays intact.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "cohomology-and-duality-w4",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "cohomology-and-duality-w4 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the cohomology-and-duality topic. Carries opaque bodyMarkup + bodyScript strings so the byte-identical round-trip stays intact.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `cohomology-and-duality` topic. Uses the shared verbatim renderer at `widgets/_shared/verbatim-renderer.mjs`; `bodyMarkup` and `bodyScript` are the full widget body and the driving script extracted as opaque strings so the byte-identical round-trip stays intact.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "cohomology-and-duality-w5",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "cohomology-and-duality-w5 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the cohomology-and-duality topic. Carries opaque bodyMarkup + bodyScript strings so the byte-identical round-trip stays intact.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `cohomology-and-duality` topic. Uses the shared verbatim renderer at `widgets/_shared/verbatim-renderer.mjs`; `bodyMarkup` and `bodyScript` are the full widget body and the driving script extracted as opaque strings so the byte-identical round-trip stays intact.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "commutative-algebra-artinian-local",
     "family": "parametric-plot",
     "dimension": "2d",
@@ -7145,6 +7250,132 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "iwasawa-theory-w1",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "iwasawa-theory-w1 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the iwasawa-theory topic. Carries opaque bodyMarkup + bodyScript strings so the byte-identical round-trip stays intact.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `iwasawa-theory` topic. Uses the shared verbatim renderer at `widgets/_shared/verbatim-renderer.mjs`; `bodyMarkup` and `bodyScript` are the full widget body and the driving script extracted as opaque strings so the byte-identical round-trip stays intact.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "iwasawa-theory-w2",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "iwasawa-theory-w2 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the iwasawa-theory topic. Carries opaque bodyMarkup + bodyScript strings so the byte-identical round-trip stays intact.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `iwasawa-theory` topic. Uses the shared verbatim renderer at `widgets/_shared/verbatim-renderer.mjs`; `bodyMarkup` and `bodyScript` are the full widget body and the driving script extracted as opaque strings so the byte-identical round-trip stays intact.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "iwasawa-theory-w3",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "iwasawa-theory-w3 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the iwasawa-theory topic. Carries opaque bodyMarkup + bodyScript strings so the byte-identical round-trip stays intact.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `iwasawa-theory` topic. Uses the shared verbatim renderer at `widgets/_shared/verbatim-renderer.mjs`; `bodyMarkup` and `bodyScript` are the full widget body and the driving script extracted as opaque strings so the byte-identical round-trip stays intact.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "iwasawa-theory-w4",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "iwasawa-theory-w4 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the iwasawa-theory topic. Carries opaque bodyMarkup + bodyScript strings so the byte-identical round-trip stays intact.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `iwasawa-theory` topic. Uses the shared verbatim renderer at `widgets/_shared/verbatim-renderer.mjs`; `bodyMarkup` and `bodyScript` are the full widget body and the driving script extracted as opaque strings so the byte-identical round-trip stays intact.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "iwasawa-theory-w5",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "iwasawa-theory-w5 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the iwasawa-theory topic. Carries opaque bodyMarkup + bodyScript strings so the byte-identical round-trip stays intact.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `iwasawa-theory` topic. Uses the shared verbatim renderer at `widgets/_shared/verbatim-renderer.mjs`; `bodyMarkup` and `bodyScript` are the full widget body and the driving script extracted as opaque strings so the byte-identical round-trip stays intact.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "iwasawa-theory-w6",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "iwasawa-theory-w6 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the iwasawa-theory topic. Carries opaque bodyMarkup + bodyScript strings so the byte-identical round-trip stays intact.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `iwasawa-theory` topic. Uses the shared verbatim renderer at `widgets/_shared/verbatim-renderer.mjs`; `bodyMarkup` and `bodyScript` are the full widget body and the driving script extracted as opaque strings so the byte-identical round-trip stays intact.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "julia-playground",
     "family": "julia-playground",
     "dimension": "2d",
@@ -12245,6 +12476,111 @@ window.__MVWidgets = [
       "bodyScript"
     ],
     "readmeExcerpt": "Bespoke widget for the §3 special-solutions choreography demo on the [`three-body-problem`](../../three-body-problem.html#special) topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "toric-varieties-w1",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "toric-varieties-w1 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the toric-varieties topic. Carries opaque bodyMarkup + bodyScript strings so the byte-identical round-trip stays intact.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `toric-varieties` topic. Uses the shared verbatim renderer at `widgets/_shared/verbatim-renderer.mjs`; `bodyMarkup` and `bodyScript` are the full widget body and the driving script extracted as opaque strings so the byte-identical round-trip stays intact.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "toric-varieties-w2",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "toric-varieties-w2 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the toric-varieties topic. Carries opaque bodyMarkup + bodyScript strings so the byte-identical round-trip stays intact.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `toric-varieties` topic. Uses the shared verbatim renderer at `widgets/_shared/verbatim-renderer.mjs`; `bodyMarkup` and `bodyScript` are the full widget body and the driving script extracted as opaque strings so the byte-identical round-trip stays intact.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "toric-varieties-w3",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "toric-varieties-w3 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the toric-varieties topic. Carries opaque bodyMarkup + bodyScript strings so the byte-identical round-trip stays intact.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `toric-varieties` topic. Uses the shared verbatim renderer at `widgets/_shared/verbatim-renderer.mjs`; `bodyMarkup` and `bodyScript` are the full widget body and the driving script extracted as opaque strings so the byte-identical round-trip stays intact.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "toric-varieties-w4",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "toric-varieties-w4 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the toric-varieties topic. Carries opaque bodyMarkup + bodyScript strings so the byte-identical round-trip stays intact.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `toric-varieties` topic. Uses the shared verbatim renderer at `widgets/_shared/verbatim-renderer.mjs`; `bodyMarkup` and `bodyScript` are the full widget body and the driving script extracted as opaque strings so the byte-identical round-trip stays intact.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "toric-varieties-w5",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "toric-varieties-w5 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the toric-varieties topic. Carries opaque bodyMarkup + bodyScript strings so the byte-identical round-trip stays intact.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `toric-varieties` topic. Uses the shared verbatim renderer at `widgets/_shared/verbatim-renderer.mjs`; `bodyMarkup` and `bodyScript` are the full widget body and the driving script extracted as opaque strings so the byte-identical round-trip stays intact.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
