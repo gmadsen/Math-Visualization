@@ -291,6 +291,48 @@ for all $\gamma$ in the level subgroup, plus growth conditions at cusps.</div>
   <div class="small">A 1-cocycle says $j(\gamma_1\gamma_2,\tau)=j(\gamma_1,\gamma_2\tau)\cdot j(\gamma_2,\tau)$. Under $(c\tau+d)^k$ this holds on the nose. Under $\sqrt{c\tau+d}$ it holds only on the metaplectic cover; on $\mathrm{SL}_2(\mathbb{Z})$ it fails by a sign $\pm 1$.</div>
 </div>
 
+<script>
+/* =============================== SECTION 1 widget =============================== */
+(function(){
+  const svg = document.getElementById('cocycle-svg');
+  const out = document.getElementById('cocycle-out');
+  const btns = document.querySelectorAll('#w-cocycle button[data-w]');
+  if (!svg || !out || btns.length === 0) {
+    console.warn('[half-integral-weight-forms] missing widget DOM:', {svg:!!svg, out:!!out, btns:btns.length});
+    return;
+  }
+  let mode = 'int';
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    drawNode(svg, 110, 110, '$\\tau$', {r:24, stroke:'var(--blue)'});
+    drawNode(svg, 310, 110, '$\\gamma_2\\tau$', {r:30, stroke:'var(--blue)'});
+    drawNode(svg, 510, 110, '$\\gamma_1\\gamma_2\\tau$', {r:36, stroke:'var(--blue)'});
+    drawArrow(svg, [110,110], [310,110], {color:'var(--yellow)', label:'$\\gamma_2$', markerId:'arr-c-1', curve:-30});
+    drawArrow(svg, [310,110], [510,110], {color:'var(--yellow)', label:'$\\gamma_1$', markerId:'arr-c-2', curve:-30});
+    drawArrow(svg, [110,110], [510,110], {color:'var(--pink)', label:'$\\gamma_1\\gamma_2$', markerId:'arr-c-3', curve:55});
+    if(mode === 'int'){
+      out.innerHTML = '<strong>integer weight:</strong> $j(\\gamma,\\tau) = (c\\tau+d)$. <br>' +
+        '$\\;j(\\gamma_1\\gamma_2,\\tau) = j(\\gamma_1,\\gamma_2\\tau)\\cdot j(\\gamma_2,\\tau)$  — exact equality.<br>' +
+        'Cocycle holds on $\\mathrm{SL}_2(\\mathbb{Z})$. Modular forms of weight $k$ form a clean theory.';
+    } else {
+      out.innerHTML = '<strong>half-integer weight:</strong> $j(\\gamma,\\tau) = \\sqrt{c\\tau+d}$. <br>' +
+        '$\\;j(\\gamma_1\\gamma_2,\\tau) = \\pm\\, j(\\gamma_1,\\gamma_2\\tau)\\cdot j(\\gamma_2,\\tau)$  — sign ambiguity!<br>' +
+        'The sign-tracking enlarges $\\mathrm{SL}_2(\\mathbb{Z})$ to its double cover $\\widetilde{\\mathrm{SL}_2(\\mathbb{Z})}$. On $\\Gamma_0(4)$, the theta multiplier $j(\\gamma,\\tau)=\\theta(\\gamma\\tau)/\\theta(\\tau)$ is a genuine cocycle.';
+    }
+    if(typeof renderMathInElement === 'function'){
+      renderMathInElement(out, {delimiters:[{left:'$',right:'$',display:false}], throwOnError:false});
+    }
+  }
+  btns.forEach(b => b.addEventListener('click', () => {
+    btns.forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+    mode = b.dataset.w;
+    render();
+  }));
+  render();
+})();
+</script>
+
 <div class="quiz" data-concept="hiw-metaplectic-cocycle"></div><!-- callback-auto-begin -->
 <aside class="callback">
   <div class="ttl">See also</div>
@@ -338,6 +380,118 @@ for all $\gamma$ in the level subgroup, plus growth conditions at cusps.</div>
   <div class="readout" id="rk-out"></div>
   <svg id="rk-svg" viewBox="0 0 620 160" width="620" height="160"><title>r_k(n) bar chart</title></svg>
 </div>
+
+<script>
+/* =============================== SECTION 2 widget =============================== */
+(function(){
+  const inp = document.getElementById('rk-n');
+  const out = document.getElementById('rk-out');
+  const svg = document.getElementById('rk-svg');
+  if (!inp || !out || !svg) {
+    console.warn('[half-integral-weight-forms] missing widget DOM:', {inp:!!inp, out:!!out, svg:!!svg});
+    return;
+  }
+  function sigma(n){
+    if(n<=0) return 0;
+    let s = 0;
+    for(let d=1; d*d<=n; d++){
+      if(n%d===0){ s += d; if(d*d !== n) s += n/d; }
+    }
+    return s;
+  }
+  function dmod4(n){
+    let a=0, b=0;
+    for(let d=1; d<=n; d++){
+      if(n%d===0){
+        if(d%4===1) a++;
+        if(d%4===3) b++;
+      }
+    }
+    return [a,b];
+  }
+  function r2(n){
+    if(n===0) return 1;
+    let c = 0;
+    const B = Math.floor(Math.sqrt(n));
+    for(let a=-B; a<=B; a++){
+      const rem = n - a*a;
+      if(rem<0) continue;
+      const b = Math.round(Math.sqrt(rem));
+      if(b*b===rem) c += (b===0 ? 1 : 2);
+    }
+    return c;
+  }
+  function r3(n){
+    if(n===0) return 1;
+    let c = 0;
+    const B = Math.floor(Math.sqrt(n));
+    for(let a=-B; a<=B; a++){
+      const r = n - a*a; if(r<0) continue;
+      c += r2(r);
+    }
+    return c;
+  }
+  function r4(n){
+    if(n===0) return 1;
+    let c = 0;
+    const B = Math.floor(Math.sqrt(n));
+    for(let a=-B; a<=B; a++){
+      const r = n - a*a; if(r<0) continue;
+      c += r3(r);
+    }
+    return c;
+  }
+  function render(){
+    let n = parseInt(inp.value, 10);
+    if(!Number.isFinite(n)) n = 1;
+    n = Math.max(1, Math.min(60, n));
+    inp.value = n;
+    const R2 = r2(n), R3 = r3(n), R4 = r4(n);
+    const sig = sigma(n), sigQ = (n%4===0) ? sigma(n/4) : 0;
+    const rhs2pair = dmod4(n);
+    const rhs2 = 4*(rhs2pair[0] - rhs2pair[1]);
+    const rhs4 = 8*sig - 32*sigQ;
+    const lines = [];
+    lines.push(`n = ${n}`);
+    lines.push(`r_2(n) = ${R2}    4(d_1 - d_3) = 4(${rhs2pair[0]} - ${rhs2pair[1]}) = ${rhs2}    ${R2===rhs2?'OK':'???'}`);
+    lines.push(`r_3(n) = ${R3}    (no simple closed form; Gauss class number link)`);
+    lines.push(`r_4(n) = ${R4}    8sigma(n) - 32sigma(n/4) = 8*${sig} - 32*${sigQ} = ${rhs4}    ${R4===rhs4?'OK':'???'}`);
+    out.textContent = lines.join('\n');
+
+    // bar chart
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const W=620, H=160, pad={l:50,r:16,t:18,b:30};
+    const ks = [1,2,3,4];
+    const r1n = (function(){ const rt = Math.round(Math.sqrt(n)); return rt*rt===n ? 2 : 0; })();
+    const vals = [r1n, R2, R3, R4];
+    const maxV = Math.max(1, ...vals);
+    const scale = v => (v>0) ? Math.log(1+v)/Math.log(1+maxV) : 0;
+    const bw = (W-pad.l-pad.r)/ks.length;
+    svg.appendChild(SVG('line',{x1:pad.l,y1:H-pad.b,x2:W-pad.r,y2:H-pad.b,stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:pad.l,y1:pad.t,x2:pad.l,y2:H-pad.b,stroke:'var(--line)'}));
+    const COLORS = ['var(--blue)','var(--yellow)','var(--green)','var(--cyan)'];
+    for(let i=0;i<ks.length;i++){
+      const v = vals[i];
+      const x = pad.l + i*bw;
+      const h = scale(v) * (H-pad.t-pad.b);
+      if(h>0){
+        svg.appendChild(SVG('rect',{x:x+bw*0.22, y:H-pad.b-h, width:bw*0.56, height:h, fill:COLORS[i], opacity:0.9}));
+      }
+      const lab = SVG('text',{x:x+bw/2, y:H-pad.b+18, 'text-anchor':'middle', 'font-size':12, fill:'var(--mute)'});
+      lab.textContent = 'k='+ks[i];
+      svg.appendChild(lab);
+      const vlab = SVG('text',{x:x+bw/2, y:H-pad.b-h-6, 'text-anchor':'middle', 'font-size':12, fill:'var(--ink)'});
+      vlab.textContent = v;
+      svg.appendChild(vlab);
+    }
+    const ttl = SVG('text',{x:pad.l, y:pad.t-2, 'font-size':12, fill:'var(--blue)', 'font-style':'italic'});
+    ttl.textContent = 'r_k('+n+') for k = 1, 2, 3, 4';
+    svg.appendChild(ttl);
+  }
+  inp.addEventListener('input', render);
+  render();
+})();
+</script>
 
 <p>Notice that the modular-form-of-half-integer-weight package <em>generates</em> the divisor-sum formulas — they are not coincidences. The theta-functions topic walks through the elementary side; this page treats $\theta$ as the inaugural specimen of a much larger zoo.</p>
 
@@ -390,6 +544,61 @@ $$\boxed{\;\;a_F(p) \;=\; a_f(p^2) \;+\; \chi(p)\,p^{k-1}.\;\;}$$</div>
   <svg id="shi-svg" viewBox="0 0 620 220" width="620" height="220"><title>Shimura correspondence diagram</title></svg>
   <div class="small">Default: $k=6$, $p=11$, $a_f(p^2)=-72$ corresponds to $\Delta$'s $a_\Delta(11)=534612$ via the inverse — playing forward gives $a_F(11)=-72+11^5=160979$, not $\Delta$'s value. (Shimura is not the literal-coefficient inverse for $\Delta$; it's the right correspondence at the eigenvalue level for the right normalization.)</div>
 </div>
+
+<script>
+/* =============================== SECTION 3 widget =============================== */
+(function(){
+  const k = document.getElementById('shi-k');
+  const p = document.getElementById('shi-p');
+  const afp2 = document.getElementById('shi-afp2');
+  const chi = document.getElementById('shi-chi');
+  const out = document.getElementById('shi-out');
+  const svg = document.getElementById('shi-svg');
+  if (!k || !p || !afp2 || !chi || !out || !svg) {
+    console.warn('[half-integral-weight-forms] missing widget DOM:', {k:!!k, p:!!p, afp2:!!afp2, chi:!!chi, out:!!out, svg:!!svg});
+    return;
+  }
+  function ipow(b, e){ let r = 1; for(let i=0;i<e;i++) r *= b; return r; }
+  function render(){
+    const kv = parseInt(k.value, 10) | 0;
+    const pv = parseInt(p.value, 10) | 0;
+    const a = parseFloat(afp2.value);
+    const c = parseInt(chi.value, 10) | 0;
+    const pk = ipow(pv, kv-1);
+    const aF = a + c * pk;
+    const wHalf = kv + 0.5;
+    const wInt = 2 * kv;
+    out.textContent =
+      `weight on half-integral side: ${wHalf}\n` +
+      `weight on integer side:        ${wInt}\n` +
+      `\n` +
+      `a_F(p) = a_f(p^2) + chi(p) * p^(k-1)\n` +
+      `       = ${a}    +  ${c}      *   ${pv}^${kv-1}\n` +
+      `       = ${a} + ${c*pk}\n` +
+      `       = ${aF}`;
+    // diagram: f -> F via Shimura
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    drawNode(svg, 130, 70, 'f', {r:30, stroke:'var(--cyan)'});
+    drawNode(svg, 490, 70, 'F', {r:30, stroke:'var(--yellow)'});
+    drawArrow(svg, [130,70], [490,70], {color:'var(--violet)', label:'Shimura', markerId:'arr-shi-1', curve:0});
+    const t1 = SVG('text',{x:130, y:128, 'text-anchor':'middle', 'font-size':12, fill:'var(--mute)'});
+    t1.textContent = `weight ${wHalf}, level Γ₀(4N)`;
+    svg.appendChild(t1);
+    const t2 = SVG('text',{x:490, y:128, 'text-anchor':'middle', 'font-size':12, fill:'var(--mute)'});
+    t2.textContent = `weight ${wInt}, level Γ₀(2N)`;
+    svg.appendChild(t2);
+    const t3 = SVG('text',{x:310, y:170, 'text-anchor':'middle', 'font-size':13, fill:'var(--ink)'});
+    t3.textContent = `at prime p = ${pv}:`;
+    svg.appendChild(t3);
+    const t4 = SVG('text',{x:310, y:194, 'text-anchor':'middle', 'font-size':13, fill:'var(--yellow)', 'font-style':'italic'});
+    t4.textContent = `a_F(${pv}) = a_f(${pv}²) + χ(${pv})·${pv}^${kv-1} = ${aF}`;
+    svg.appendChild(t4);
+  }
+  [k,p,afp2,chi].forEach(el => el.addEventListener('input', render));
+  [k,p,afp2,chi].forEach(el => el.addEventListener('change', render));
+  render();
+})();
+</script>
 
 <p>The Shimura lift is a <em>functor</em>, not a coincidence: it commutes with all Hecke operators, takes eigenforms to eigenforms, and the integer-weight image $F$ has all the modular-form structure (Petersson product, Atkin-Lehner involutions, $L$-function) that you already know. The half-integral side becomes a controlled mirror.</p>
 
@@ -452,6 +661,57 @@ Every level-1 newform of weight $2k$ has a unique (up to scalar) preimage in the
   <div class="readout" id="ks-out"></div>
 </div>
 
+<script>
+/* =============================== SECTION 4 widget =============================== */
+(function(){
+  const sel = document.getElementById('ks-k');
+  const svg = document.getElementById('ks-svg');
+  const out = document.getElementById('ks-out');
+  if (!sel || !svg || !out) {
+    console.warn('[half-integral-weight-forms] missing widget DOM:', {sel:!!sel, svg:!!svg, out:!!out});
+    return;
+  }
+  const N = 24;
+  function passes(k, n){
+    // (-1)^k n mod 4 in {0, 1}
+    const v = (k % 2 === 0) ? (n % 4) : ((-n % 4 + 4) % 4);
+    return (v === 0) || (v === 1);
+  }
+  function render(){
+    const k = parseInt(sel.value, 10);
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const W = 620, H = 110, pad = {l:30, r:10, t:30, b:30};
+    const cw = (W - pad.l - pad.r) / N;
+    const allowed = [];
+    for(let n=1; n<=N; n++){
+      const x = pad.l + (n-1) * cw;
+      const ok = passes(k, n);
+      const col = ok ? 'var(--green)' : 'var(--bad,#5a2a2a)';
+      svg.appendChild(SVG('rect', {
+        x: x+cw*0.12, y: pad.t,
+        width: cw*0.76, height: H - pad.t - pad.b,
+        fill: ok ? col : 'transparent',
+        stroke: 'var(--line)', 'stroke-width': 1
+      }));
+      const t = SVG('text',{x:x+cw/2, y:H-pad.b+16, 'text-anchor':'middle', 'font-size':10,
+        fill: ok ? 'var(--ink)' : 'var(--mute)'});
+      t.textContent = n;
+      svg.appendChild(t);
+      if(ok) allowed.push(n);
+    }
+    const ttl = SVG('text',{x:pad.l, y:18, 'font-size':12, fill:'var(--blue)', 'font-style':'italic'});
+    ttl.textContent = `Allowed Fourier indices for k=${k} (green = a(n) can be nonzero)`;
+    svg.appendChild(ttl);
+    out.textContent = `k = ${k}    weight = ${k}+1/2 = ${k+0.5}\n` +
+      `plus-space condition:  (-1)^k · n  ≡  0 or 1  (mod 4)\n` +
+      `allowed n in [1, ${N}]:  ${allowed.join(', ')}\n` +
+      `(${allowed.length} of ${N} pass the filter — roughly half)`;
+  }
+  sel.addEventListener('change', render);
+  render();
+})();
+</script>
+
 <p>The coefficient filter is the geometric content. Discriminants of imaginary (or real) quadratic fields $\mathbb{Q}(\sqrt{D})$ satisfy exactly the congruence $D \equiv 0$ or $1\pmod 4$. The plus-space condition says: only Fourier coefficients indexed by genuine quadratic discriminants matter. This sets up Waldspurger.</p>
 
 <div class="quiz" data-concept="hiw-kohnen-plus-space"></div><!-- callback-auto-begin -->
@@ -495,6 +755,58 @@ where $\chi_D$ is the quadratic character of conductor $|D|$, $L(F\otimes\chi_D,
   <div class="readout" id="wald-out">A canonical computation: <span style="color:var(--cyan)">half-integral Fourier coefficient</span> ⟶ <span style="color:var(--yellow)">central twisted L-value</span>, no analytic continuation needed at the user level.</div>
 </div>
 
+<script>
+/* =============================== SECTION 5 widget =============================== */
+(function(){
+  const svg = document.getElementById('wald-svg');
+  const out = document.getElementById('wald-out');
+  if (!svg || !out) {
+    console.warn('[half-integral-weight-forms] missing widget DOM:', {svg:!!svg, out:!!out});
+    return;
+  }
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    // top row: f and F
+    drawNode(svg, 130, 60, 'f', {r:30, stroke:'var(--cyan)'});
+    drawNode(svg, 510, 60, 'F', {r:30, stroke:'var(--yellow)'});
+    drawArrow(svg, [130,60], [510,60], {color:'var(--violet)', label:'Shimura', markerId:'arr-w-1', curve:0});
+    const t1 = SVG('text',{x:130, y:108, 'text-anchor':'middle', 'font-size':12, fill:'var(--mute)'});
+    t1.textContent = 'wt k+1/2, plus space';
+    svg.appendChild(t1);
+    const t2 = SVG('text',{x:510, y:108, 'text-anchor':'middle', 'font-size':12, fill:'var(--mute)'});
+    t2.textContent = 'wt 2k, level 1';
+    svg.appendChild(t2);
+    // bottom row: |a_f(|D|)|^2 and L(F ⊗ χ_D, k)
+    const fbox = SVG('rect',{x:30, y:170, width:200, height:60, fill:'var(--panel2)', stroke:'var(--cyan)', 'stroke-width':1.5, rx:8});
+    svg.appendChild(fbox);
+    const ft = SVG('text',{x:130, y:200, 'text-anchor':'middle', 'font-size':14, fill:'var(--cyan)', 'font-weight':600});
+    ft.textContent = '|a_f(|D|)|²';
+    svg.appendChild(ft);
+    const fts = SVG('text',{x:130, y:218, 'text-anchor':'middle', 'font-size':11, fill:'var(--mute)'});
+    fts.textContent = 'a Fourier coefficient — finite combinatorial count';
+    svg.appendChild(fts);
+
+    const Lbox = SVG('rect',{x:410, y:170, width:200, height:60, fill:'var(--panel2)', stroke:'var(--yellow)', 'stroke-width':1.5, rx:8});
+    svg.appendChild(Lbox);
+    const Lt = SVG('text',{x:510, y:200, 'text-anchor':'middle', 'font-size':14, fill:'var(--yellow)', 'font-weight':600});
+    Lt.textContent = 'L(F ⊗ χ_D, k)';
+    svg.appendChild(Lt);
+    const Lts = SVG('text',{x:510, y:218, 'text-anchor':'middle', 'font-size':11, fill:'var(--mute)'});
+    Lts.textContent = 'central value — analytically hard';
+    svg.appendChild(Lts);
+    // vertical arrows down
+    drawArrow(svg, [130,90], [130,170], {color:'var(--cyan)', markerId:'arr-w-2', curve:0});
+    drawArrow(svg, [510,90], [510,170], {color:'var(--yellow)', markerId:'arr-w-3', curve:0});
+    // bottom equality
+    drawArrow(svg, [230,200], [410,200], {color:'var(--green)', label:'Waldspurger ≃', markerId:'arr-w-4', curve:0, width:2.2});
+    const teq = SVG('text',{x:320, y:262, 'text-anchor':'middle', 'font-size':12, fill:'var(--mute)', 'font-style':'italic'});
+    teq.textContent = '(equality up to explicit |D|^(k-1/2) and Petersson norm)';
+    svg.appendChild(teq);
+  }
+  render();
+})();
+</script>
+
 <div class="quiz" data-concept="hiw-waldspurger"></div><!-- callback-auto-begin -->
 <aside class="callback">
   <div class="ttl">See also</div>
@@ -514,7 +826,7 @@ where $\chi_D$ is the quadratic character of conductor $|D|$, $L(F\otimes\chi_D,
 <section id="tunnell">
 <h2>6. Application: Tunnell's theorem and the congruent number problem</h2>
 
-<p>The <strong>congruent number problem</strong> asks: for which positive integers $n$ does there exist a right triangle with rational sides whose area equals $n$? The first few congruent numbers are $5, 6, 7, 13, 14, 15, 20, 21, 22, 23, 24, \ldots$. The non-congruent ones are $1, 2, 3, 4, 8, 9, 10, 11, 12, 16, 17, 18, 19, \ldots$. There is no obvious pattern. The problem dates to the 10th century (Arab manuscripts, then Fibonacci); the connection to elliptic curves was made by Mordell.</p>
+<p>The <strong>congruent number problem</strong> asks: for which positive integers $n$ does there exist a right triangle with rational sides whose area equals $n$? The first few congruent numbers are $5, 6, 7, 13, 14, 15, 20, 21, 22, 23, 24, \ldots$. The non-congruent ones are $1, 2, 3, 4, 8, 9, 10, 11, 12, 16, 17, 18, 19, \ldots$. There is no obvious pattern. The problem dates to the 10th century (Arab manuscripts, then Fibonacci); the elliptic-curve formulation $E_n: y^2 = x^3 - n^2 x$ is essentially classical, and Mordell's 1922 finite-generation theorem makes the rank a meaningful invariant.</p>
 
 <p>The translation: $n$ is congruent iff the elliptic curve</p>
 <p style="text-align:center">$E_n \;:\; y^2 \;=\; x^3 - n^2 x$</p>
@@ -537,6 +849,107 @@ By BSD, this would imply: <strong>$n$ is non-congruent iff $B(n) \ne 2A(n)$</str
   <div class="readout" id="tn-out"></div>
   <svg id="tn-svg" viewBox="0 0 620 130" width="620" height="130"><title>Tunnell A vs 2B</title></svg>
 </div>
+
+<script>
+/* =============================== SECTION 6 widget =============================== */
+(function(){
+  const inp = document.getElementById('tn-n');
+  const out = document.getElementById('tn-out');
+  const svg = document.getElementById('tn-svg');
+  if (!inp || !out || !svg) {
+    console.warn('[half-integral-weight-forms] missing widget DOM:', {inp:!!inp, out:!!out, svg:!!svg});
+    return;
+  }
+  function countTernary(n, a, b, c){
+    // count integer triples (x,y,z) with a*x^2 + b*y^2 + c*z^2 = n
+    let total = 0;
+    const Bx = Math.floor(Math.sqrt(n/a));
+    for(let x=-Bx; x<=Bx; x++){
+      const r1 = n - a*x*x;
+      if(r1 < 0) continue;
+      const By = Math.floor(Math.sqrt(r1/b));
+      for(let y=-By; y<=By; y++){
+        const r2 = r1 - b*y*y;
+        if(r2 < 0) continue;
+        if(r2 % c !== 0) continue;
+        const zsq = r2 / c;
+        const z = Math.round(Math.sqrt(zsq));
+        if(z*z === zsq) total += (z===0 ? 1 : 2);
+      }
+    }
+    return total;
+  }
+  function squarefreeOdd(n){
+    if(n%2 === 0) return false;
+    for(let p=3; p*p<=n; p++){
+      if(n % (p*p) === 0) return false;
+    }
+    return true;
+  }
+  // hard-coded answer (as far as known/BSD-conditional) for small odd squarefree n in [1, 61]
+  // sources: standard tables (Koblitz, Tunnell, OEIS A003273)
+  const KNOWN_CONGRUENT = new Set([5,7,13,15,21,23,29,30,31,34,37,38,39,41,45,46,47,52,53,55,56,60,61]);
+  function render(){
+    let n = parseInt(inp.value, 10);
+    if(!Number.isFinite(n)) n = 1;
+    n = Math.max(1, Math.min(61, n));
+    inp.value = n;
+    if(!squarefreeOdd(n)){
+      out.textContent =
+        `n = ${n} is not odd-squarefree. Tunnell's odd case requires n odd, squarefree.\n` +
+        `Try n = 1, 3, 5, 7, 11, 13, 15, 17, 19, 21, 23, ...`;
+      while(svg.firstChild) svg.removeChild(svg.firstChild);
+      return;
+    }
+    // odd: A = #{2x^2 + y^2 + 32z^2 = n},  B = #{2x^2 + y^2 + 8z^2 = n}
+    const A = countTernary(n, 2, 1, 32);
+    const B = countTernary(n, 2, 1, 8);
+    const cong = KNOWN_CONGRUENT.has(n);
+    const tunnellSays = (B === 2*A) ? 'L(E_n,1) = 0  →  n IS likely congruent (by BSD)'
+                                    : 'L(E_n,1) ≠ 0  →  n is NOT congruent (unconditional via Waldspurger)';
+    const verdict = cong ? 'congruent (known)' : 'non-congruent (known/conjectured)';
+    out.textContent =
+      `n = ${n}\n` +
+      `A(n) = #{2x²+y²+32z² = n}  =  ${A}\n` +
+      `B(n) = #{2x²+y²+8z²  = n}  =  ${B}\n` +
+      `2·A(n) = ${2*A}\n` +
+      `B(n) - 2·A(n) = ${B - 2*A}    →    ${B === 2*A ? 'EQUAL  →  L = 0' : 'NOT EQUAL  →  L ≠ 0'}\n` +
+      `\n` +
+      `Tunnell's verdict:  ${tunnellSays}\n` +
+      `Independent table:   n = ${n} is ${verdict}`;
+    // bar plot
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const W=620, H=130, pad={l:60, r:16, t:24, b:30};
+    const items = [
+      {k:'A(n)',  v:A,    color:'var(--cyan)'},
+      {k:'2·A(n)',v:2*A,  color:'var(--blue)'},
+      {k:'B(n)',  v:B,    color:'var(--yellow)'}
+    ];
+    const maxV = Math.max(1, ...items.map(o=>o.v));
+    const bw = (W-pad.l-pad.r) / items.length;
+    svg.appendChild(SVG('line',{x1:pad.l,y1:H-pad.b,x2:W-pad.r,y2:H-pad.b,stroke:'var(--line)'}));
+    for(let i=0;i<items.length;i++){
+      const x = pad.l + i*bw;
+      const o = items[i];
+      const h = (o.v / maxV) * (H - pad.t - pad.b);
+      if(h>0){
+        svg.appendChild(SVG('rect',{x:x+bw*0.22, y:H-pad.b-h, width:bw*0.56, height:h, fill:o.color, opacity:0.9}));
+      }
+      const lab = SVG('text',{x:x+bw/2, y:H-pad.b+18, 'text-anchor':'middle','font-size':12,fill:'var(--mute)'});
+      lab.textContent = o.k;
+      svg.appendChild(lab);
+      const vlab = SVG('text',{x:x+bw/2, y:H-pad.b-h-6, 'text-anchor':'middle','font-size':12,fill:'var(--ink)'});
+      vlab.textContent = o.v;
+      svg.appendChild(vlab);
+    }
+    const ttl = SVG('text',{x:pad.l, y:18, 'font-size':12, fill:'var(--blue)', 'font-style':'italic'});
+    ttl.textContent = `Tunnell at n = ${n}:  L(E_n, 1) ${B === 2*A ? '= 0' : '≠ 0'}`;
+    svg.appendChild(ttl);
+  }
+  inp.addEventListener('input', render);
+  render();
+})();
+</script>
 
 <p>Tunnell's test runs in polynomial time in $\log n$: the ternary forms $A(n)$ and $B(n)$ are finite sums whose terms can be enumerated quickly. Modulo BSD, this is the cleanest known algorithm for the millennium-old congruent number problem — and the cleanest example of Waldspurger's formula at work. The half-integral world is not a curiosity; it is the engine.</p>
 

@@ -195,7 +195,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./etale-cohomology.html#comparison\">Étale cohomology</a> · Comparison theorems: étale vs. singular, de Rham, crystalline</div>\n    <div><a href=\"./etale-cohomology.html#lefschetz\">Étale cohomology</a> · Grothendieck–Lefschetz fixed-point formula</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./crystalline-cohomology.html#motivation\">Crystalline cohomology</a> · Why crystalline? — the $\\ell=p$ gap</div>\n    <div><a href=\"./etale-cohomology.html#comparison\">Étale cohomology</a> · Comparison theorems: étale vs. singular, de Rham, crystalline</div>\n    <div><a href=\"./etale-cohomology.html#lefschetz\">Étale cohomology</a> · Grothendieck–Lefschetz fixed-point formula</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -413,6 +413,10 @@
         },
         {
           "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./crystalline-cohomology.html#frobenius\">Crystalline cohomology</a> · Frobenius action and the Katz–Messing theorem</div>\n</aside>\n<!-- backlinks-auto-end -->"
+        },
+        {
+          "type": "raw",
           "html": "\n</section>\n\n"
         }
       ]
@@ -462,6 +466,10 @@
         {
           "type": "raw",
           "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./algebraic-topology.html#homology\">Singular homology</a></li>\n    <li><a href=\"./differential-forms.html#deRham\">Stokes theorem and de Rham cohomology</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./crystalline-cohomology.html#p-adic-hodge\">Crystalline cohomology</a> · Period rings $B_{\\mathrm{cris}},B_{\\mathrm{dR}}$ and Fontaine's comparison</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

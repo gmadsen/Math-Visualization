@@ -55,7 +55,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./adeles-and-ideles.html#places\">Adèles and idèles</a> · Places and local fields</div>\n    <div><a href=\"./continued-fractions.html#padic-roth\">Continued fractions</a> · $p$-adic Roth and the subspace theorem</div>\n    <div><a href=\"./dirichlet-unit-theorem.html#s-units\">Dirichlet unit theorem</a> · $S$-units and the higher analogue</div>\n    <div><a href=\"./galois-representations.html#ram\">Galois representations</a> · Inertia, ramification, and the conductor</div>\n    <div><a href=\"./iwasawa-theory.html#cyclotomic\">Iwasawa theory</a> · Cyclotomic $\\mathbb{Z}_p$-extension</div>\n    <div><a href=\"./p-adic-numbers.html#newton-polygons\">p-adic numbers</a> · Newton polygons</div>\n    <div class=\"more\">… and 3 more.</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./adeles-and-ideles.html#places\">Adèles and idèles</a> · Places and local fields</div>\n    <div><a href=\"./continued-fractions.html#padic-roth\">Continued fractions</a> · $p$-adic Roth and the subspace theorem</div>\n    <div><a href=\"./crystalline-cohomology.html#motivation\">Crystalline cohomology</a> · Why crystalline? — the $\\ell=p$ gap</div>\n    <div><a href=\"./dirichlet-unit-theorem.html#s-units\">Dirichlet unit theorem</a> · $S$-units and the higher analogue</div>\n    <div><a href=\"./galois-representations.html#ram\">Galois representations</a> · Inertia, ramification, and the conductor</div>\n    <div><a href=\"./iwasawa-theory.html#cyclotomic\">Iwasawa theory</a> · Cyclotomic $\\mathbb{Z}_p$-extension</div>\n    <div class=\"more\">… and 4 more.</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -435,7 +435,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./p-adic-numbers.html#padic-ramification\">p-adic numbers</a> · Extensions of Q_p and ramification</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./crystalline-cohomology.html#f-isocrystals\">Crystalline cohomology</a> · F-isocrystals, Newton above Hodge</div>\n    <div><a href=\"./p-adic-numbers.html#padic-ramification\">p-adic numbers</a> · Extensions of Q_p and ramification</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

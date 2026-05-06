@@ -104,7 +104,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./etale-cohomology.html#ladic\">Étale cohomology</a> · ℓ-adic cohomology</div>\n    <div><a href=\"./positivity-and-ample-line-bundles.html#ample\">Positivity and ample line bundles</a> · Very ample, ample, and Serre's theorem</div>\n    <div><a href=\"./sheaf-cohomology.html#serre\">Sheaf cohomology</a> · Picard groups and Serre duality signals</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./crystalline-cohomology.html#divided-powers\">Crystalline cohomology</a> · Divided powers and the crystalline site</div>\n    <div><a href=\"./etale-cohomology.html#ladic\">Étale cohomology</a> · ℓ-adic cohomology</div>\n    <div><a href=\"./positivity-and-ample-line-bundles.html#ample\">Positivity and ample line bundles</a> · Very ample, ample, and Serre's theorem</div>\n    <div><a href=\"./sheaf-cohomology.html#serre\">Sheaf cohomology</a> · Picard groups and Serre duality signals</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

@@ -293,10 +293,54 @@ function drawNode(svg, x, y, label, opts={}){
   </div>
   <div class="readout" id="zoo-out">…</div>
 </div>
+<script>
+(function(){
+  const sel=document.getElementById('zoo-p'), kind=document.getElementById('zoo-l'), out=document.getElementById('zoo-out');
+  if (!sel || !kind || !out) {
+    console.warn('[crystalline-cohomology] missing widget DOM:', {sel, kind, out});
+    return;
+  }
+  function render(){
+    const p=+sel.value, k=kind.value;
+    const inChar0 = (p===0);
+    const verdict = (()=>{
+      if(k==='betti') return inChar0
+        ? 'OK · classical singular cohomology with $\\mathbb{Q}$-coefficients, Betti numbers $b_i$.'
+        : 'NOT AVAILABLE · no underlying complex topology over $\\overline{\\mathbb{F}_p}$.';
+      if(k==='dr') return inChar0
+        ? 'OK · algebraic de Rham over $\\mathbb{C}$ matches Betti by Grothendieck.'
+        : 'OK over $k=\\overline{\\mathbb{F}_p}$ but pathological on affines and only computes the *correct* answer for liftable smooth proper $X_0$ — even then ranks can disagree without the Witt-vector enhancement.';
+      if(k==='ladic') return inChar0
+        ? `OK · matches Betti by Artin's comparison; pick any $\\ell$.`
+        : `OK iff $\\ell\\ne p=${p}$ · Weil cohomology with rank $b_i$ for any prime $\\ell\\ne ${p}$.`;
+      if(k==='padic') return inChar0
+        ? 'OK · $p$-adic étale agrees with Betti $\\otimes\\mathbb{Q}_p$ over $\\mathbb{C}$.'
+        : `BROKEN · with $\\ell=p=${p}$: $H^*_{\\text{ét}}(X_0,\\mathbb{Q}_p)$ misses Betti rank, sees Frobenius-kernel pathology. The motivation for crystalline.`;
+      if(k==='cris') return inChar0
+        ? 'OK as $H^*_{dR}(X/W)$ in lift-independent form; agrees with Betti by Berthelot–Ogus.'
+        : `OK · $H^*_{\\mathrm{cris}}(X_0/W(k))$ is free of rank $b_i$, and $\\otimes K=\\mathrm{Frac}\\,W$ gives a $\\mathbb{Q}_p$-Weil cohomology with $\\sigma$-semilinear Frobenius.`;
+      return '';
+    })();
+    out.textContent = `char ${p===0?'0':p} · ${ {betti:'Betti',dr:'de Rham',ladic:'ℓ-adic ét.',padic:'p-adic ét.',cris:'crystalline'}[k] } · ${verdict}`;
+  }
+  sel.addEventListener('change', render);
+  kind.addEventListener('change', render);
+  render();
+})();
+</script>
 
 <p>The Frobenius is genuinely new content — it is the algebraic shadow of "what changes when $X_0$ has only finitely many points over each finite extension of $\mathbb{F}_q$". Over $\mathbb{C}$ there is no Frobenius and no Newton polygon; the same de Rham cohomology, viewed over $W$, exposes both.</p>
 
-<div class="quiz" data-concept="cc-motivation"></div><!-- backlinks-auto-begin -->
+<div class="quiz" data-concept="cc-motivation"></div><!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./algebraic-de-rham-cohomology.html#de-rham-complex">The algebraic de Rham complex $\Omega^\bullet_{X/k}$</a></li>
+    <li><a href="./etale-cohomology.html#ladic">ℓ-adic cohomology</a></li>
+    <li><a href="./p-adic-numbers.html#abs">p-adic norm and completion</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
 <aside class="related">
   <div class="ttl">Used in</div>
     <div><a href="./crystalline-cohomology.html#divided-powers">Crystalline cohomology</a> · Divided powers and the crystalline site</div>
@@ -329,6 +373,58 @@ In characteristic 0 these all hold uniquely with $\gamma_n(x)=x^n/n!$; in charac
   <svg id="pd-svg" viewBox="0 0 580 220" width="580" height="220"><title>$p$-adic valuation of $p^n/n!$</title></svg>
   <div class="readout" id="pd-out">…</div>
 </div>
+<script>
+(function(){
+  const pSel=document.getElementById('pd-p'), nSl=document.getElementById('pd-n'),
+    nVal=document.getElementById('pd-n-val'), svg=document.getElementById('pd-svg'),
+    out=document.getElementById('pd-out');
+  if (!pSel || !nSl || !svg || !out) {
+    console.warn('[crystalline-cohomology] missing widget DOM:', {pSel, nSl, svg, out});
+    return;
+  }
+  function vp(n, p){
+    // Legendre: v_p(n!) = (n - s_p(n))/(p-1) where s_p is digit sum
+    let s = 0, m = n;
+    while (m > 0) { s += m % p; m = Math.floor(m / p); }
+    return (n - s) / (p - 1);
+  }
+  function render(){
+    const p=+pSel.value, n=+nSl.value;
+    nVal.textContent = String(n);
+    svg.innerHTML='';
+    const W=480, H=140, x0=60, y0=170;
+    // axis
+    svg.appendChild(SVG('line',{x1:x0, y1:y0, x2:x0+W, y2:y0, stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:x0, y1:y0, x2:x0, y2:y0-H, stroke:'var(--line)'}));
+    const xLabel = SVG('text',{x:x0+W/2, y:y0+24,'text-anchor':'middle','font-size':12, fill:'var(--mute)'}); xLabel.textContent='n'; svg.appendChild(xLabel);
+    const yLabel = SVG('text',{x:x0-30, y:y0-H/2,'text-anchor':'middle','font-size':12, fill:'var(--mute)','transform':`rotate(-90 ${x0-30} ${y0-H/2})`}); yLabel.textContent='v_p(p^n/n!)'; svg.appendChild(yLabel);
+    let maxV = 1;
+    for(let k=1;k<=20;k++){ maxV = Math.max(maxV, k - vp(k, p)); }
+    const dx = W/20, dy = H/maxV;
+    // n - v_p(n!) line, and bars
+    let cur = null;
+    for(let k=1;k<=20;k++){
+      const v = k - vp(k, p);
+      const x = x0 + (k-0.5)*dx, y = y0 - v*dy;
+      const fill = (k===n) ? 'var(--yellow)' : (k<=n ? 'var(--cyan)' : 'var(--panel2)');
+      svg.appendChild(SVG('rect',{x: x0 + (k-1)*dx + 2, y, width: dx-4, height: y0-y, rx:2, fill, opacity: k===n? 0.95 : 0.55}));
+      if(k % 5 === 0 || k === 1){
+        const lbl = SVG('text',{x: x0 + (k-0.5)*dx, y: y0+14,'text-anchor':'middle','font-size':10, fill:'var(--mute)'});
+        lbl.textContent = String(k); svg.appendChild(lbl);
+      }
+    }
+    // line v=1 (the floor for "stays in pW")
+    const yFloor = y0 - 1*dy;
+    svg.appendChild(SVG('line',{x1:x0, y1:yFloor, x2:x0+W, y2:yFloor, stroke:'var(--green)','stroke-dasharray':'4 3','stroke-width':1}));
+    const fl = SVG('text',{x: x0+W-4, y: yFloor-4, 'text-anchor':'end','font-size':10, fill:'var(--green)'}); fl.textContent='v_p ≥ 1 → stays in pW'; svg.appendChild(fl);
+    const v = n - vp(n, p);
+    out.textContent = `p=${p}, n=${n} · v_p(n!)=${vp(n,p)} · v_p(p^n/n!) = n − v_p(n!) = ${v} · so γ_${n}(p) = p^${n}/${n}! ∈ p^${v}·W ⊂ pW ✓`;
+  }
+  pSel.addEventListener('change', render);
+  nSl.addEventListener('input', render);
+  render();
+})();
+</script>
 
 <p>Move the slider: at $n=p$ exactly one factor of $p$ is "eaten" by the denominator $p!$, but two factors of $p$ are produced by the numerator $p^p$; net valuation is $p-1\ge 1$, and the divided power stays inside $pW$. The dashed green floor is the requirement for $\gamma_n$ to land in the ideal at all — the calculation is what makes the "standard" PD-structure on $pW$ exist.</p>
 
@@ -349,10 +445,44 @@ $$H^i_{\mathrm{cris}}(X_0/W) \;:=\; H^i\big((X_0/W)_{\mathrm{cris}},\,\mathcal{O
   <svg id="thick-svg" viewBox="0 0 580 240" width="580" height="240"><title>A PD-thickening, schematically</title></svg>
   <div class="readout" id="thick-out">$X_0\hookrightarrow T$, kernel $\mathcal{I}$ with PD γ; $\mathcal{O}_{X/W}(T)=\mathcal{O}_T$.</div>
 </div>
+<script>
+(function(){
+  const svg=document.getElementById('thick-svg'), out=document.getElementById('thick-out');
+  if (!svg) {
+    console.warn('[crystalline-cohomology] missing widget DOM:', {svg, out});
+    return;
+  }
+  // Static schematic: a small ellipse X_0 inside a larger T, with PD label and arrow to W.
+  svg.innerHTML='';
+  // T (outer)
+  svg.appendChild(SVG('ellipse',{cx:200,cy:120,rx:140,ry:80, fill:'var(--panel2)', stroke:'var(--violet)','stroke-width':1.6, opacity:0.65}));
+  // X_0 (inner)
+  svg.appendChild(SVG('ellipse',{cx:200,cy:120,rx:80,ry:40, fill:'var(--panel)', stroke:'var(--blue)','stroke-width':1.6}));
+  // labels
+  const lblT = SVG('text',{x:200, y:50, 'text-anchor':'middle','font-size':14, fill:'var(--violet)'}); lblT.textContent='T'; svg.appendChild(lblT);
+  const lblX = SVG('text',{x:200, y:124, 'text-anchor':'middle','font-size':14, fill:'var(--blue)'}); lblX.textContent='X₀'; svg.appendChild(lblX);
+  const lblI = SVG('text',{x:300, y:120, 'text-anchor':'middle','font-size':12, fill:'var(--yellow)'}); lblI.textContent='ideal 𝓘 with PD γ'; svg.appendChild(lblI);
+  const dash = SVG('path',{d:'M 200 90 C 240 90, 280 105, 290 115', fill:'none', stroke:'var(--yellow)','stroke-dasharray':'3 3','stroke-width':1.3}); svg.appendChild(dash);
+  // base
+  svg.appendChild(SVG('rect',{x:420, y:60, width:120, height:130, rx:8, fill:'var(--panel)', stroke:'var(--green)','stroke-width':1.6}));
+  const sw = SVG('text',{x:480, y:90,'text-anchor':'middle','font-size':14, fill:'var(--green)'}); sw.textContent='Spf W'; svg.appendChild(sw);
+  const swsub = SVG('text',{x:480, y:110,'text-anchor':'middle','font-size':10, fill:'var(--mute)'}); swsub.textContent='W = W(k)'; svg.appendChild(swsub);
+  const spk = SVG('text',{x:480, y:170,'text-anchor':'middle','font-size':12, fill:'var(--mute)'}); spk.textContent='Spec k'; svg.appendChild(spk);
+  // arrow T → Spf W
+  drawArrow(svg, [340, 120], [420, 120], {color:'var(--mute)', markerId:'thick-arr', label:'over Spf W', labelSide:1});
+})();
+</script>
 
 <p>This packaging looks ornate; its payoff is that <em>everything is intrinsic to $X_0$</em>. Different choices of local lift become different objects of the same site, and the structure sheaf treats them uniformly. Sections 3 and 4 cash this out into a computable invariant.</p>
 
-<div class="quiz" data-concept="cc-divided-powers"></div><!-- backlinks-auto-begin -->
+<div class="quiz" data-concept="cc-divided-powers"></div><!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./sheaf-cohomology.html#derived">Derived functor sheaf cohomology</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
 <aside class="related">
   <div class="ttl">Used in</div>
     <div><a href="./crystalline-cohomology.html#de-rham-comparison">Crystalline cohomology</a> · Comparison with de Rham of a lift</div>
@@ -371,7 +501,7 @@ and the right-hand side is independent of the choice of lift (any two smooth pro
 
 <p>The proof sketch: a smooth lift $X$ provides a global PD-thickening of $X_0$ in the crystalline site, and the structure sheaf $\mathcal{O}_{X/W}$ on that thickening is the de Rham complex (up to a quasi-isomorphism that uses divided powers to make the Poincaré lemma work in characteristic $p$). Two different lifts get connected by a third, and the PD-structure on overlapping kernels makes the comparison <em>canonical</em>, not just up to isomorphism.</p>
 
-<p><strong>Non-liftable case.</strong> Smooth lifts to $W$ are <em>not</em> guaranteed. A famous example is the supersingular elliptic curve: it has a $W_2(k)=W/p^2$-lift (Deligne–Illusie use only this), but lifting all the way to $W$ requires extra Hodge-data choices that may fail. The crystalline site handles this gracefully: cover $X_0$ by Zariski opens that <em>do</em> lift smoothly (they always do, locally on any smooth scheme), compute de Rham of each, and let the PD-structure on the kernels of the local thickenings glue the pieces canonically. The cohomology one obtains is intrinsic to $X_0$ and independent of every choice. The Berthelot–Ogus theorem above is the global form of this gluing principle.</p>
+<p><strong>Non-liftable case.</strong> Smooth lifts to $W$ are <em>not</em> guaranteed for arbitrary $X_0/k$ — Hirokado (1999) and Schröer (2003) constructed smooth proper varieties in characteristic $2$ and $3$ that admit no smooth lift to characteristic zero. Many natural examples only admit a $W_2(k)=W/p^2$-lift (Deligne–Illusie use only this); elliptic curves always lift to $W$ via Serre–Tate, though for supersingular $E_0/k$ the lift is non-canonical. The crystalline site handles non-liftability gracefully: cover $X_0$ by Zariski opens that <em>do</em> lift smoothly (they always do, locally on any smooth scheme), compute de Rham of each, and let the PD-structure on the kernels of the local thickenings glue the pieces canonically. The cohomology one obtains is intrinsic to $X_0$ and independent of every choice. The Berthelot–Ogus theorem above is the global form of this gluing principle.</p>
 
 <div class="widget" id="w-comp">
   <div class="hd"><div class="ttl">Compare with the Witt-vector enhancement</div><div class="hint">pick a smooth proper $X_0$ over $\mathbb{F}_q$</div></div>
@@ -391,10 +521,45 @@ and the right-hand side is independent of the choice of lift (any two smooth pro
   </table>
   <div class="readout" id="cmp-out">…</div>
 </div>
+<script>
+(function(){
+  const sel=document.getElementById('cmp-x'), tbody=document.querySelector('#cmp-tbl tbody'), out=document.getElementById('cmp-out');
+  if (!sel || !tbody || !out) {
+    console.warn('[crystalline-cohomology] missing widget DOM:', {sel, tbody, out});
+    return;
+  }
+  const data = {
+    'point':   { name:'Spec 𝔽_q', betti:[1], lift:'yes (canonical lift Spec W)', note:'point cohomology is W in degree 0.' },
+    'proj1':   { name:'ℙ¹', betti:[1,0,1], lift:'yes (the projective line lifts canonically)', note:'two W summands; H¹ = 0; matches Betti (1,0,1).' },
+    'ec-ord':  { name:'ordinary E₀', betti:[1,2,1], lift:'yes (canonical Serre–Tate lift)', note:'H¹ free of rank 2; F-isocrystal slopes (0,1) — see §5.' },
+    'ec-ss':   { name:'supersingular E₀', betti:[1,2,1], lift:'no global W-lift in general (only W₂)', note:'H¹ still free of rank 2; the crystalline site glues local lifts. Slopes (½,½).' },
+    'proj2':   { name:'ℙ²', betti:[1,0,1,0,1], lift:'yes', note:'H^{2i}=W; H^{odd}=0; pure Tate type.' }
+  };
+  function render(){
+    const d = data[sel.value];
+    tbody.innerHTML = '';
+    d.betti.forEach((b, i) => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `<td>${i}</td><td>${b}</td><td>${b>0?'<span class="pill" style="color:var(--green)">✓</span>':'<span class="pill">trivial</span>'}</td>${i===0?`<td rowspan="${d.betti.length}">${d.lift}</td>`:''}`;
+      tbody.appendChild(tr);
+    });
+    out.textContent = `${d.name} · Betti = (${d.betti.join(', ')}) · ${d.note}`;
+  }
+  sel.addEventListener('change', render);
+  render();
+})();
+</script>
 
 <p>Even on the supersingular elliptic curve — the textbook case where global lifts fail — crystalline cohomology gives a <em>free</em> rank-$2$ $W$-module $H^1_{\mathrm{cris}}(E_0/W)$. The crystalline site does the gluing the lift cannot. This is a feature: the theory exists wherever de Rham would, even when lifts do not.</p>
 
-<div class="quiz" data-concept="cc-de-rham-comparison"></div><!-- backlinks-auto-begin -->
+<div class="quiz" data-concept="cc-de-rham-comparison"></div><!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./algebraic-de-rham-cohomology.html#de-rham-complex">The algebraic de Rham complex $\Omega^\bullet_{X/k}$</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
 <aside class="related">
   <div class="ttl">Used in</div>
     <div><a href="./crystalline-cohomology.html#frobenius">Crystalline cohomology</a> · Frobenius action and the Katz–Messing theorem</div>
@@ -432,10 +597,54 @@ $$Z(X_0/\mathbb{F}_q,\,t) \;=\; \prod_{i=0}^{2\dim X_0}\det(1-t\cdot\mathrm{Frob
   </div>
   <div class="readout" id="frob-out">…</div>
 </div>
+<script>
+(function(){
+  const sel=document.getElementById('frob-x'), out=document.getElementById('frob-out');
+  if (!sel || !out) {
+    console.warn('[crystalline-cohomology] missing widget DOM:', {sel, out});
+    return;
+  }
+  function render(){
+    const v = sel.value;
+    if (v === 'proj1') {
+      out.textContent = 'ℙ¹/𝔽_p · Frobenius char poly (1-t) on H⁰, (1-pt) on H². Same eigenvalues {1, p} for every ℓ-adic, p-adic crystalline. Z(t) = 1/((1-t)(1-pt)).';
+      return;
+    }
+    if (v === 'ec3') {
+      const p = 3, a = 2;
+      // roots of t^2 - a t + p
+      const disc = a*a - 4*p;
+      const re = a/2, imSq = -disc/4;
+      const im = Math.sqrt(imSq);
+      const absVal = Math.sqrt(re*re + im*im);
+      out.textContent = `E₀/𝔽_3, a_3 = 2 · char poly on H¹: t² − 2t + 3 · roots α, ᾱ = ${re.toFixed(2)} ± ${im.toFixed(2)}i · |α| = √3 ≈ ${absVal.toFixed(3)} = q^{1/2} ✓ (weight 1, Weil bound). Same eigenvalues on étale H¹_ℓ for every ℓ ≠ 3, AND on crystalline H¹⊗K (Katz–Messing).`;
+      return;
+    }
+    if (v === 'ec5') {
+      const p = 5, a = -3;
+      const disc = a*a - 4*p;
+      const re = a/2, imSq = -disc/4;
+      const im = Math.sqrt(imSq);
+      const absVal = Math.sqrt(re*re + im*im);
+      out.textContent = `E₀/𝔽_5, a_5 = -3 · char poly on H¹: t² + 3t + 5 · roots ${re.toFixed(2)} ± ${im.toFixed(2)}i · |α| = √5 ≈ ${absVal.toFixed(3)} = q^{1/2} ✓. Crystalline at ℓ=5 sees the same pair, matching every ℓ-adic ét. cohomology with ℓ ≠ 5.`;
+      return;
+    }
+  }
+  sel.addEventListener('change', render);
+  render();
+})();
+</script>
 
 <p>The number $a_p$ — the Frobenius trace on $H^1$ — is the same whether computed by counting points (étale, with $\ell\ne p$) or by reading off the trace of $\varphi$ on $H^1_{\mathrm{cris}}\otimes K$. Pre-Katz–Messing this was a conjecture; their proof was a major synthesis of Berthelot's foundations with Grothendieck-style methods.</p>
 
-<div class="quiz" data-concept="cc-frobenius"></div><!-- backlinks-auto-begin -->
+<div class="quiz" data-concept="cc-frobenius"></div><!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./etale-cohomology.html#weil">Weil conjectures and Frobenius trace</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
 <aside class="related">
   <div class="ttl">Used in</div>
     <div><a href="./crystalline-cohomology.html#f-isocrystals">Crystalline cohomology</a> · F-isocrystals, Newton above Hodge</div>
@@ -468,10 +677,77 @@ $$Z(X_0/\mathbb{F}_q,\,t) \;=\; \prod_{i=0}^{2\dim X_0}\det(1-t\cdot\mathrm{Frob
   <svg id="nw-svg" viewBox="0 0 560 300" width="560" height="300"><title>Newton above Hodge for $H^1$ of an elliptic curve</title></svg>
   <div class="readout" id="nw-out">…</div>
 </div>
+<script>
+(function(){
+  const sel=document.getElementById('nw-kind'), svg=document.getElementById('nw-svg'), out=document.getElementById('nw-out');
+  if (!sel || !svg || !out) {
+    console.warn('[crystalline-cohomology] missing widget DOM:', {sel, svg, out});
+    return;
+  }
+  function poly(slopes){
+    // returns array of points (x,y) for the polygon starting at (0,0)
+    let x=0, y=0; const pts=[[0,0]];
+    for(const s of slopes){ x+=1; y+=s; pts.push([x,y]); }
+    return pts;
+  }
+  function render(){
+    const kind=sel.value;
+    svg.innerHTML='';
+    const W=480, H=200, x0=60, y0=240;
+    // axes
+    svg.appendChild(SVG('line',{x1:x0, y1:y0, x2:x0+W, y2:y0, stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:x0, y1:y0, x2:x0, y2:y0-H, stroke:'var(--line)'}));
+    // labels
+    const xL=SVG('text',{x:x0+W-2,y:y0+18,'text-anchor':'end','font-size':12,fill:'var(--mute)'}); xL.textContent='dim'; svg.appendChild(xL);
+    const yL=SVG('text',{x:x0-32,y:y0-H+10,'font-size':12,fill:'var(--mute)'}); yL.textContent='Σ slope'; svg.appendChild(yL);
+    // gridlines at integer dims and integer Σ-slope
+    const dx = W/3, dy = H/2;
+    for(let k=0;k<=2;k++){ const x=x0+k*dx; svg.appendChild(SVG('line',{x1:x, y1:y0, x2:x, y2:y0-H,stroke:'var(--line)','stroke-dasharray':'2 4'})); }
+    for(let k=0;k<=2;k++){ const y=y0-k*dy; svg.appendChild(SVG('line',{x1:x0, y1:y, x2:x0+W, y2:y,stroke:'var(--line)','stroke-dasharray':'2 4'})); }
+    // Tick labels
+    [0,1,2].forEach(k=>{ const t=SVG('text',{x:x0+k*dx, y:y0+14,'text-anchor':'middle','font-size':10,fill:'var(--mute)'}); t.textContent=String(k); svg.appendChild(t); });
+    [0,1,2].forEach(k=>{ const t=SVG('text',{x:x0-8, y:y0-k*dy+4,'text-anchor':'end','font-size':10,fill:'var(--mute)'}); t.textContent=String(k); svg.appendChild(t); });
+    // Hodge polygon: slopes (0,1) always for H^1 of elliptic curve
+    const hodge = poly([0,1]);
+    // Newton polygon
+    const newton = (kind==='ord') ? poly([0,1]) : poly([0.5,0.5]);
+    function path(pts, color, dash, width){
+      const d = pts.map((p,i)=>`${i===0?'M':'L'} ${x0+p[0]*dx} ${y0-p[1]*dy}`).join(' ');
+      const el = SVG('path',{d, fill:'none', stroke:color, 'stroke-width':width||2});
+      if(dash) el.setAttribute('stroke-dasharray', dash);
+      svg.appendChild(el);
+    }
+    path(hodge, 'var(--mute)', '5 4', 1.6);
+    path(newton, kind==='ord'?'var(--green)':'var(--yellow)', null, 2.4);
+    // dots
+    [...hodge].forEach(p=> svg.appendChild(SVG('circle',{cx:x0+p[0]*dx, cy:y0-p[1]*dy, r:3, fill:'var(--mute)'})));
+    [...newton].forEach(p=> svg.appendChild(SVG('circle',{cx:x0+p[0]*dx, cy:y0-p[1]*dy, r:4, fill:kind==='ord'?'var(--green)':'var(--yellow)'})));
+    // legend
+    const lg = SVG('g',{}); svg.appendChild(lg);
+    const lh = SVG('rect',{x:380, y:30, width:160, height:46, rx:6, fill:'var(--panel2)', stroke:'var(--line)'}); svg.appendChild(lh);
+    svg.appendChild(SVG('line',{x1:392, y1:46, x2:420, y2:46, stroke:'var(--mute)','stroke-dasharray':'5 4','stroke-width':1.6}));
+    const t1=SVG('text',{x:428, y:50, 'font-size':11, fill:'var(--mute)'}); t1.textContent='Hodge polygon'; svg.appendChild(t1);
+    svg.appendChild(SVG('line',{x1:392, y1:64, x2:420, y2:64, stroke:kind==='ord'?'var(--green)':'var(--yellow)','stroke-width':2.4}));
+    const t2=SVG('text',{x:428, y:68, 'font-size':11, fill:kind==='ord'?'var(--green)':'var(--yellow)'}); t2.textContent='Newton polygon'; svg.appendChild(t2);
+    out.textContent = kind==='ord'
+      ? 'ordinary: Newton = Hodge, slopes (0,1). Frobenius eigenvalues α, β with v_p(α)=0, v_p(β)=1; canonical Serre–Tate lift exists.'
+      : 'supersingular: Newton STRICTLY above Hodge, slopes (½,½). Frobenius eigenvalues α, ᾱ with v_p(α)=v_p(ᾱ)=½ (both factors of √p); no global W-lift.';
+  }
+  sel.addEventListener('change', render);
+  render();
+})();
+</script>
 
 <p>The endpoints $(0,0)$ and $(2,1)$ are forced — total Frobenius determinant is $p^1$ and total dimension is $2$ — so the only freedom is the shape of the climb. Ordinary, supersingular, and (for higher-dimensional varieties) a discrete <em>Newton stratification</em> of the moduli space of $X_0$'s appear: in each stratum the Newton polygon is constant, and Mazur's inequality plus the $p$-adic monodromy theorem pin down the discrete invariants of the Frobenius dynamics.</p>
 
-<div class="quiz" data-concept="cc-f-isocrystals"></div><!-- backlinks-auto-begin -->
+<div class="quiz" data-concept="cc-f-isocrystals"></div><!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./p-adic-numbers.html#newton-polygons">Newton polygons</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
 <aside class="related">
   <div class="ttl">Used in</div>
     <div><a href="./crystalline-cohomology.html#p-adic-hodge">Crystalline cohomology</a> · Period rings $B_{\mathrm{cris}},B_{\mathrm{dR}}$ and Fontaine's comparison</div>
@@ -516,12 +792,36 @@ and the isomorphism is compatible with Frobenius, the filtration coming from de 
   </div>
   <div class="readout" id="ft-out">…</div>
 </div>
+<script>
+(function(){
+  const sel=document.getElementById('ft-ring'), out=document.getElementById('ft-out');
+  if (!sel || !out) {
+    console.warn('[crystalline-cohomology] missing widget DOM:', {sel, out});
+    return;
+  }
+  const data = {
+    'HT':   'D_HT(V) = (V ⊗_{ℚ_p} B_HT)^{G_K}, a graded K-vector space. Recovers the Hodge–Tate decomposition: ⊕_i C_p(−i)^{h^{i,n−i}}. Coarsest realisation: only sees Hodge numbers.',
+    'cris': 'D_cris(V) = (V ⊗_{ℚ_p} B_cris)^{G_K}, a finite-dimensional K_0-vector space (K_0=Frac W) carrying a Frobenius. For V = H^i_ét(X_{bar K}, ℚ_p) of a good-reduction X, recovers H^i_cris(X_0/W) ⊗ K_0 with its Frobenius. The crystalline comparison.',
+    'dR':   'D_dR(V) = (V ⊗_{ℚ_p} B_dR)^{G_K}, a filtered K-vector space. For X with good reduction, recovers H^i_dR(X/K) with its Hodge filtration. Finest realisation: filtration + Frobenius (via D_cris ⊂ D_dR).'
+  };
+  function render(){ out.textContent = data[sel.value]; }
+  sel.addEventListener('change', render);
+  render();
+})();
+</script>
 
 <p>One Galois representation $V=H^i_{\text{ét}}(X_{\bar K},\mathbb{Q}_p)$, three ways to extract structure: $D_{\mathrm{HT}}(V)$ recovers the Hodge–Tate decomposition; $D_{\mathrm{cris}}(V)$ recovers crystalline cohomology; $D_{\mathrm{dR}}(V)$ recovers de Rham with its Hodge filtration. A Galois representation $V$ is called <em>crystalline</em> when $\dim_{K_0}D_{\mathrm{cris}}(V)=\dim_{\mathbb{Q}_p}V$ — equivalently, when it comes from the cohomology of a good-reduction variety.</p>
 
 <p>This is the framework that lets one say "the $p$-adic Galois representation attached to a modular form is crystalline at $p$" — a statement that has no analogue in $\ell$-adic land, and that powers Wiles's modularity proof, Iwasawa-theoretic main conjectures for elliptic curves, and the local Langlands correspondence in the $p$-adic direction.</p>
 
-<div class="quiz" data-concept="cc-p-adic-hodge"></div>
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./etale-cohomology.html#comparison">Comparison theorems: étale vs. singular, de Rham, crystalline</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><div class="quiz" data-concept="cc-p-adic-hodge"></div>
 </section>
 
 <section id="connections">

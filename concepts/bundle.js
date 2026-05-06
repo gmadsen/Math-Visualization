@@ -551,9 +551,9 @@ window.__MVConcepts = {
           "title": "Why crystalline? — the $\\ell=p$ gap",
           "anchor": "motivation",
           "prereqs": [
-            "etale-cohomology:l-adic-cohomology",
-            "p-adic-numbers:padic-norm-completion",
-            "algebraic-de-rham-cohomology:de-rham-complex"
+            "l-adic-cohomology",
+            "padic-norm-completion",
+            "de-rham-complex"
           ],
           "blurb": "$\\ell$-adic étale cohomology $H^*_{\\mathrm{\\acute{e}t}}(X,\\mathbb{Q}_\\ell)$ behaves like singular cohomology only for $\\ell\\ne p=\\mathrm{char}(k)$. Constant $\\mathbb{Z}/p^n$ coefficients on a smooth variety in characteristic $p$ pick up Frobenius-kernel pathology. Crystalline cohomology $H^*_{\\mathrm{cris}}(X/W)$ with values in the Witt vectors $W=W(k)$ is the missing $p$-adic Weil cohomology — a free $W$-module whose rank equals the Betti number of any lift.",
           "tags": [
@@ -568,7 +568,7 @@ window.__MVConcepts = {
           "anchor": "divided-powers",
           "prereqs": [
             "cc-motivation",
-            "sheaf-cohomology:derived-functor-cohomology"
+            "derived-functor-cohomology"
           ],
           "blurb": "A PD-structure on an ideal $I\\subset A$ is a system of operations $\\gamma_n\\colon I\\to A$ formally behaving like $x^n/n!$ — divided powers — and rescuing the missing factorials in characteristic $p$. The crystalline site $(X/W)_{\\mathrm{cris}}$ has objects PD-thickenings $X_0\\hookrightarrow U\\subset T$ over $\\mathrm{Spf}\\,W$. The structure sheaf $\\mathcal{O}_{X/W}$ assigns the ring of $T$, and $H^i_{\\mathrm{cris}}(X_0/W) := H^i((X_0/W)_{\\mathrm{cris}}, \\mathcal{O}_{X/W})$.",
           "tags": [
@@ -582,7 +582,7 @@ window.__MVConcepts = {
           "anchor": "de-rham-comparison",
           "prereqs": [
             "cc-divided-powers",
-            "algebraic-de-rham-cohomology:de-rham-complex"
+            "de-rham-complex"
           ],
           "blurb": "If $X_0/k$ admits a smooth lift $X/W$, then $H^*_{\\mathrm{cris}}(X_0/W) \\cong H^*_{\\mathrm{dR}}(X/W)$ — the algebraic de Rham cohomology of the lift, computed by hypercohomology of $\\Omega^\\bullet_{X/W}$. Berthelot–Ogus prove the answer is independent of the lift, and on non-liftable $X_0$ one covers by liftable affines and glues. Crystalline cohomology is therefore the right characteristic-$p$ shadow of de Rham.",
           "tags": [
@@ -596,7 +596,7 @@ window.__MVConcepts = {
           "anchor": "frobenius",
           "prereqs": [
             "cc-de-rham-comparison",
-            "etale-cohomology:weil-frobenius-trace"
+            "weil-frobenius-trace"
           ],
           "blurb": "The absolute Frobenius $F\\colon X_0\\to X_0$ induces a $\\sigma$-semilinear endomorphism $\\varphi$ on $H^*_{\\mathrm{cris}}(X_0/W)$, where $\\sigma$ is the Witt-vector lift of the residue Frobenius. For $X_0$ smooth proper over $\\mathbb{F}_q$, Katz–Messing prove the characteristic polynomial of $\\varphi^{\\log_p q}$ on crystalline cohomology equals the one of geometric Frobenius on $\\ell$-adic étale cohomology. Both compute the same zeta function — crystalline closes the Weil-conjectures package at $\\ell=p$.",
           "tags": [
@@ -610,7 +610,7 @@ window.__MVConcepts = {
           "anchor": "f-isocrystals",
           "prereqs": [
             "cc-frobenius",
-            "p-adic-numbers:newton-polygons"
+            "newton-polygons"
           ],
           "blurb": "Tensoring with $K=\\mathrm{Frac}(W)$ turns $(H^i_{\\mathrm{cris}}(X_0/W),\\varphi)$ into an F-isocrystal: a finite-dimensional $K$-vector space with a $\\sigma$-semilinear bijection. Its Newton polygon plots the $p$-adic valuations of the eigenvalues of $\\varphi$. Mazur's inequality: the Newton polygon lies on or above the Hodge polygon (built from $h^{p,q}$) and shares the same endpoints. An ordinary elliptic curve has slopes $\\{0,1\\}$; a supersingular one has slopes $\\{1/2,1/2\\}$.",
           "tags": [
@@ -624,7 +624,7 @@ window.__MVConcepts = {
           "anchor": "p-adic-hodge",
           "prereqs": [
             "cc-f-isocrystals",
-            "etale-cohomology:comparison-theorems-etale"
+            "comparison-theorems-etale"
           ],
           "blurb": "Fontaine's period rings $B_{\\mathrm{cris}}\\subset B_{\\mathrm{dR}}$ are big topological $\\mathbb{Q}_p$-algebras carrying Frobenius, filtration, and a $\\Gal(\\bar K/K)$-action. For $X/K$ smooth proper with good reduction $X_0$ at the residue level (Faltings, Tsuji), $H^*_{\\mathrm{\\acute{e}t}}(X_{\\bar K},\\mathbb{Q}_p)\\otimes_{\\mathbb{Q}_p} B_{\\mathrm{cris}} \\cong H^*_{\\mathrm{cris}}(X_0/W)\\otimes_W B_{\\mathrm{cris}}$ compatibly with all extra structure. Crystalline, de Rham, and Hodge–Tate cohomologies are recovered as different filtrations on a single period algebra.",
           "tags": [
@@ -17412,7 +17412,7 @@ window.__MVConcepts = {
       "concepts": 116,
       "intra": 160,
       "crossOut": 43,
-      "crossIn": 27,
+      "crossIn": 29,
       "density": 0.3706896551724138
     },
     "Modular forms & L-functions": {
@@ -17424,10 +17424,10 @@ window.__MVConcepts = {
     },
     "Algebraic geometry": {
       "concepts": 179,
-      "intra": 247,
-      "crossOut": 61,
+      "intra": 253,
+      "crossOut": 63,
       "crossIn": 24,
-      "density": 0.3407821229050279
+      "density": 0.35195530726256985
     },
     "Combinatorics & graph theory": {
       "concepts": 51,
