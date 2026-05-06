@@ -64,7 +64,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<p>Watching the cohomology table go from filled to empty as $n$ grows is a vivid picture of what Serre's theorem promises: all the obstructions encoded in higher cohomology eventually disappear once we twist by enough copies of an ample line bundle.</p>\n\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./sheaf-cohomology.html#serre\">Sheaf cohomology · Picard groups and Serre duality signals</a></li>\n    <li><a href=\"./sheaf-cohomology.html#derived\">Sheaf cohomology · Derived functor sheaf cohomology</a></li>\n  </ul>\n</aside>\n\n"
+          "html": "\n\n<p>Watching the cohomology table go from filled to empty as $n$ grows is a vivid picture of what Serre's theorem promises: all the obstructions encoded in higher cohomology eventually disappear once we twist by enough copies of an ample line bundle.</p>\n\n"
         },
         {
           "type": "quiz",
@@ -105,7 +105,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<p>The picture for $\\mathbb{P}^1 \\times \\mathbb{P}^1$ is degenerate-friendly: the ample cone is just the first quadrant. On a blown-up surface, or a more general projective variety, the ample cone takes more interesting shape — sometimes only piecewise polyhedral, sometimes round. The Mori program below will give us systematic tools for tracking it.</p>\n\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./intersection-theory-chow.html#intersection-product\">Intersection theory · Intersection product on smooth $X$</a></li>\n    <li><a href=\"./intersection-theory-chow.html#chow-groups\">Intersection theory · Chow groups</a></li>\n  </ul>\n</aside>\n\n"
+          "html": "\n\n<p>The picture for $\\mathbb{P}^1 \\times \\mathbb{P}^1$ is degenerate-friendly: the ample cone is just the first quadrant. On a blown-up surface, or a more general projective variety, the ample cone takes more interesting shape — sometimes only piecewise polyhedral, sometimes round. The Mori program below will give us systematic tools for tracking it.</p>\n\n"
         },
         {
           "type": "quiz",
@@ -146,7 +146,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./intersection-theory-chow.html#chern-classes\">Intersection theory · Chern classes</a></li>\n  </ul>\n</aside>\n\n"
+          "html": "\n\n"
         },
         {
           "type": "quiz",
@@ -183,7 +183,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<p>Kodaira's theorem is the deepest reason \"ample\" is the right notion. Algebraic ampleness was defined by counting sections; complex-analytic positivity was defined by curvature; both measure the same thing. The proof, originally Kodaira's, runs through the vanishing theorem of the next section: a positive line bundle has enough sections precisely because its higher cohomology can be killed.</p>\n\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./hodge-theory.html#decomposition\">Hodge theory · The Hodge decomposition theorem</a></li>\n  </ul>\n</aside>\n\n"
+          "html": "\n\n<p>Kodaira's theorem is the deepest reason \"ample\" is the right notion. Algebraic ampleness was defined by counting sections; complex-analytic positivity was defined by curvature; both measure the same thing. The proof, originally Kodaira's, runs through the vanishing theorem of the next section: a positive line bundle has enough sections precisely because its higher cohomology can be killed.</p>\n\n"
         },
         {
           "type": "raw",
@@ -220,7 +220,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<p>The applications cascade. Kodaira's vanishing immediately implies: surjectivity of restriction maps for ample line bundles (reading off the long exact sequence of $0 \\to L \\otimes \\mathcal{O}(-D) \\to L \\to L|_D \\to 0$); base-point-freeness for sufficiently positive $L$ (Reider's theorem on surfaces, Fujita conjecture in higher dimensions); and the entire engine of the MMP, where every contraction step is justified by a vanishing application that controls how cohomology behaves under birational moves.</p>\n\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./sheaf-cohomology.html#les\">Sheaf cohomology · Long exact sequence in cohomology</a></li>\n  </ul>\n</aside>\n\n"
+          "html": "\n\n<p>The applications cascade. Kodaira's vanishing immediately implies: surjectivity of restriction maps for ample line bundles (reading off the long exact sequence of $0 \\to L \\otimes \\mathcal{O}(-D) \\to L \\to L|_D \\to 0$); base-point-freeness for sufficiently positive $L$ (Reider's theorem on surfaces, Fujita conjecture in higher dimensions); and the entire engine of the MMP, where every contraction step is justified by a vanishing application that controls how cohomology behaves under birational moves.</p>\n\n"
         },
         {
           "type": "raw",

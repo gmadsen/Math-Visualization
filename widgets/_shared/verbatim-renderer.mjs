@@ -24,6 +24,16 @@ export function renderMarkup(params) {
       (params?.bodyMarkup === undefined ? 'undefined' : typeof params.bodyMarkup),
     );
   }
+  // Empty bodyMarkup would render an invisible widget that still counts
+  // toward audit-no-inline-widgets / stats-coverage — the exact silent-
+  // failure pattern CLAUDE.md forbids. bodyScript can be empty (static-
+  // table widgets need no script) but markup cannot.
+  if (params.bodyMarkup.trim() === '') {
+    throw new Error(
+      'verbatim-renderer: params.bodyMarkup is empty. Empty markup would ' +
+      'render an invisible widget while still counting in registry audits.',
+    );
+  }
   return params.bodyMarkup;
 }
 

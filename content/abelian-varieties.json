@@ -64,7 +64,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<p>The Riemann–Roch theorem on $A$ gives the sharp dimension count: for a polarization $\\mathcal{L}$ of type $(d_1,\\dots,d_g)$,</p>\n$$h^0(A,\\mathcal{L}) \\;=\\; d_1 d_2 \\cdots d_g.$$\n<p>So principal polarizations are exactly those with a one-dimensional space of global sections — and a single (up to scaling) section vanishes on a divisor $\\Theta$, the <em>theta divisor</em>. The pair $(A,\\Theta)$ recovers the polarized abelian variety up to isomorphism.</p>\n\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./elliptic-curves.html#complex\">Elliptic curves — complex uniformization</a></li>\n    <li><a href=\"./theta-functions.html\">Theta functions</a></li>\n  </ul>\n</aside>\n\n"
+          "html": "\n\n<p>The Riemann–Roch theorem on $A$ gives the sharp dimension count: for a polarization $\\mathcal{L}$ of type $(d_1,\\dots,d_g)$,</p>\n$$h^0(A,\\mathcal{L}) \\;=\\; d_1 d_2 \\cdots d_g.$$\n<p>So principal polarizations are exactly those with a one-dimensional space of global sections — and a single (up to scaling) section vanishes on a divisor $\\Theta$, the <em>theta divisor</em>. The pair $(A,\\Theta)$ recovers the polarized abelian variety up to isomorphism.</p>\n\n"
         },
         {
           "type": "quiz",
@@ -105,7 +105,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<p>Three deep theorems pin the structure down further. <strong>Tate's isogeny conjecture</strong> (proved by Tate over finite fields in 1966 and by Faltings over number fields in 1983): the natural map</p>\n$$\\mathrm{Hom}(A,B)\\otimes\\mathbb{Z}_\\ell \\;\\longrightarrow\\; \\mathrm{Hom}_{G_k}(T_\\ell A, T_\\ell B)$$\n<p>is an isomorphism. So the Galois module $T_\\ell A$ recovers the abelian variety up to isogeny. <strong>Semisimplicity</strong>: the action on $V_\\ell A=T_\\ell A\\otimes\\mathbb{Q}_\\ell$ is semisimple. <strong>Independence of $\\ell$</strong>: the trace of $\\mathrm{Frob}_v$ at any unramified place of a number field is the same integer for all good $\\ell\\ne\\ell(v)$.</p>\n\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./galois-representations.html#frob\">Galois representations — Frobenius traces</a></li>\n    <li><a href=\"./elliptic-curves.html#mordell\">Elliptic curves — Mordell–Weil</a></li>\n    <li><a href=\"./sato-tate.html\">Sato–Tate</a> — the angles $\\theta_v=\\arg\\alpha_v$ equidistribute</li>\n  </ul>\n</aside>\n\n"
+          "html": "\n\n<p>Three deep theorems pin the structure down further. <strong>Tate's isogeny conjecture</strong> (proved by Tate over finite fields in 1966 and by Faltings over number fields in 1983): the natural map</p>\n$$\\mathrm{Hom}(A,B)\\otimes\\mathbb{Z}_\\ell \\;\\longrightarrow\\; \\mathrm{Hom}_{G_k}(T_\\ell A, T_\\ell B)$$\n<p>is an isomorphism. So the Galois module $T_\\ell A$ recovers the abelian variety up to isogeny. <strong>Semisimplicity</strong>: the action on $V_\\ell A=T_\\ell A\\otimes\\mathbb{Q}_\\ell$ is semisimple. <strong>Independence of $\\ell$</strong>: the trace of $\\mathrm{Frob}_v$ at any unramified place of a number field is the same integer for all good $\\ell\\ne\\ell(v)$.</p>\n\n"
         },
         {
           "type": "quiz",
@@ -146,7 +146,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./algebraic-curves-higher-genus.html#divisors\">Higher-genus curves — divisors and Jacobian</a></li>\n    <li><a href=\"./algebraic-curves-higher-genus.html#moduli-of-curves-genus-g\">Moduli of curves $\\mathcal{M}_g$</a></li>\n  </ul>\n</aside>\n\n"
+          "html": "\n\n"
         },
         {
           "type": "raw",
@@ -183,7 +183,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<div class=\"ok\"><strong>Grothendieck's semistable reduction theorem (SGA 7, 1972).</strong> For any $A/K$, there is a finite separable extension $K'/K$ such that $A_{K'}$ has semistable reduction. Equivalently: after extending the base, the unipotent rank vanishes.</div>\n\n<p>The <strong>Néron–Ogg–Shafarevich criterion</strong> connects reduction to Galois representations: $A/K$ has good reduction at $v$ iff the inertia group $I_v$ acts trivially on $T_\\ell A$ for some (equivalently every) $\\ell\\ne\\mathrm{char}\\,k(v)$. So the local Galois representation knows the reduction type — and the conductor exponent $f_v$ measures the inertia invariants:</p>\n$$f_v \\;=\\; \\dim T_\\ell A \\;-\\; \\dim(T_\\ell A)^{I_v} \\;+\\; (\\text{wild part}).$$\n\n<p>For elliptic curves the resulting <em>Kodaira–Néron classification</em> (Kodaira 1963, Néron 1964, Tate's algorithm 1975) lists exactly $10$ reduction types: $I_0$ (good), $I_n$ ($n\\ge 1$, multiplicative), and seven additive types $II,III,IV,I_0^*,I_n^*,IV^*,III^*,II^*$. For $g\\ge 2$ the analogous classification is more elaborate but follows the same pattern via the toric / unipotent / abelian rank triple.</p>\n\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./singular-cubics-reduction.html\">Singular cubics &amp; reduction</a></li>\n    <li><a href=\"./morphisms-fiber-products.html#fibers\">Geometric fibers</a></li>\n    <li><a href=\"./galois-representations.html#ram\">Galois representations — inertia and the conductor</a></li>\n  </ul>\n</aside>\n\n"
+          "html": "\n\n<div class=\"ok\"><strong>Grothendieck's semistable reduction theorem (SGA 7, 1972).</strong> For any $A/K$, there is a finite separable extension $K'/K$ such that $A_{K'}$ has semistable reduction. Equivalently: after extending the base, the unipotent rank vanishes.</div>\n\n<p>The <strong>Néron–Ogg–Shafarevich criterion</strong> connects reduction to Galois representations: $A/K$ has good reduction at $v$ iff the inertia group $I_v$ acts trivially on $T_\\ell A$ for some (equivalently every) $\\ell\\ne\\mathrm{char}\\,k(v)$. So the local Galois representation knows the reduction type — and the conductor exponent $f_v$ measures the inertia invariants:</p>\n$$f_v \\;=\\; \\dim T_\\ell A \\;-\\; \\dim(T_\\ell A)^{I_v} \\;+\\; (\\text{wild part}).$$\n\n<p>For elliptic curves the resulting <em>Kodaira–Néron classification</em> (Kodaira 1963, Néron 1964, Tate's algorithm 1975) lists exactly $10$ reduction types: $I_0$ (good), $I_n$ ($n\\ge 1$, multiplicative), and seven additive types $II,III,IV,I_0^*,I_n^*,IV^*,III^*,II^*$. For $g\\ge 2$ the analogous classification is more elaborate but follows the same pattern via the toric / unipotent / abelian rank triple.</p>\n\n"
         },
         {
           "type": "quiz",
@@ -224,7 +224,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<p>Beyond Faltings, several sharper finiteness statements remain conjectural. <strong>Effective Mordell</strong> (the bound on $|C(K)|$ Faltings produces is ineffective; Vojta–Bombieri sharpened the constants but no algorithm enumerates $C(K)$ in general). <strong>Uniform Mordell</strong> (Mazur conjectured $|C(K)|\\le N(g,K)$; Dimitrov–Gao–Habegger 2021 proved $|C(K)|\\le c(g)\\cdot 7^{r_K+\\mathrm{rank}\\,\\mathrm{Jac}(C)(K)}$). <strong>Lang's conjecture</strong>: rational points on a variety of general type are not Zariski dense — implies uniform Mordell and is wide open.</p>\n\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./elliptic-curves.html#mordell\">Elliptic curves — Mordell–Weil ($g=1$ case)</a></li>\n    <li><a href=\"./heights-arithmetic-geometry.html#descent\">Mordell–Weil descent via heights</a></li>\n    <li><a href=\"./heights-arithmetic-geometry.html#mordell-faltings\">Heights and Mordell–Faltings</a></li>\n  </ul>\n</aside>\n\n"
+          "html": "\n\n<p>Beyond Faltings, several sharper finiteness statements remain conjectural. <strong>Effective Mordell</strong> (the bound on $|C(K)|$ Faltings produces is ineffective; Vojta–Bombieri sharpened the constants but no algorithm enumerates $C(K)$ in general). <strong>Uniform Mordell</strong> (Mazur conjectured $|C(K)|\\le N(g,K)$; Dimitrov–Gao–Habegger 2021 proved $|C(K)|\\le c(g)\\cdot 7^{r_K+\\mathrm{rank}\\,\\mathrm{Jac}(C)(K)}$). <strong>Lang's conjecture</strong>: rational points on a variety of general type are not Zariski dense — implies uniform Mordell and is wide open.</p>\n\n"
         },
         {
           "type": "raw",

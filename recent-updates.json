@@ -1,6 +1,14 @@
 {
-  "generated": "2026-05-06T07:24:59.941Z",
+  "generated": "2026-05-06T07:36:17.048Z",
   "entries": [
+    {
+      "slug": "abelian-varieties",
+      "title": "Abelian varieties",
+      "color": "g",
+      "tag": "",
+      "date": "2026-05-06",
+      "message": "Three more advanced topics + condensed-mathematics card pin fix"
+    },
     {
       "slug": "cohomology-and-duality",
       "title": "Cohomology and duality",
@@ -10,12 +18,28 @@
       "message": "3 advanced topics + map/mindmap UX + section pill UI + thumb-art (#121)"
     },
     {
+      "slug": "continued-fractions",
+      "title": "Continued fractions",
+      "color": "y",
+      "tag": "",
+      "date": "2026-05-06",
+      "message": "Three more advanced topics + condensed-mathematics card pin fix"
+    },
+    {
       "slug": "iwasawa-theory",
       "title": "Iwasawa theory",
       "color": "y",
       "tag": "",
       "date": "2026-05-06",
       "message": "3 advanced topics + map/mindmap UX + section pill UI + thumb-art (#121)"
+    },
+    {
+      "slug": "positivity-and-ample-line-bundles",
+      "title": "Positivity and ample line bundles",
+      "color": "g",
+      "tag": "",
+      "date": "2026-05-06",
+      "message": "Three more advanced topics + condensed-mathematics card pin fix"
     },
     {
       "slug": "toric-varieties",
