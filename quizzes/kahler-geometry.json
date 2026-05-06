@@ -1,0 +1,231 @@
+{
+  "topic": "kahler-geometry",
+  "quizzes": {
+    "kg-complex-structure": {
+      "title": "Almost complex structure and integrability",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "An almost complex structure on a smooth manifold $M$ is a bundle endomorphism $J\\colon TM \\to TM$ satisfying which identity?",
+          "choices": [
+            "$J^2 = +\\mathrm{id}$",
+            "$J^2 = -\\mathrm{id}$",
+            "$J = J^*$ (self-adjoint with respect to some metric)",
+            "$\\nabla J = 0$ for some torsion-free connection"
+          ],
+          "answer": 1,
+          "explain": "$J^2 = -\\mathrm{id}$ is the algebraic shadow of multiplication by $i$ on each tangent space. Self-adjointness and parallel-ness are extra structures (compatibility with a metric, integrability, Kähler condition) layered on top."
+        },
+        {
+          "type": "mcq",
+          "q": "Newlander–Nirenberg says an almost complex structure $J$ comes from honest holomorphic charts (i.e. $M$ is a complex manifold with this $J$) iff:",
+          "choices": [
+            "$J$ is parallel for some Riemannian metric",
+            "the Nijenhuis tensor $N_J$ vanishes",
+            "$M$ admits a Kähler metric",
+            "$J$ has constant rank"
+          ],
+          "answer": 1,
+          "explain": "$N_J = 0$ is the integrability condition. A non-zero Nijenhuis tensor is the obstruction to finding holomorphic coordinate charts in which $J$ becomes ordinary multiplication by $i$. Kähler is strictly stronger; metric-parallel-ness is a different kind of compatibility."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $M$ be a complex manifold of complex dimension $n$. The space $\\Omega^k(M;\\mathbb{C})$ of complex-valued $k$-forms decomposes by bidegree as $\\bigoplus_{p+q=k} \\Omega^{p,q}(M)$. For $n = 3$ and $k = 2$, how many summands does this give?",
+          "answer": 3,
+          "tol": 0.000001,
+          "explain": "Pairs $(p,q)$ with $p+q=2$ and $0\\le p,q\\le n=3$ are $(2,0), (1,1), (0,2)$ — three summands. For general $n \\ge k$ the count is $k+1$."
+        }
+      ]
+    },
+    "kg-kahler-form": {
+      "title": "Hermitian metric and the Kähler form",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Given a Hermitian metric $h$ on $(M,J)$, the associated $(1,1)$-form $\\omega$ is defined by $\\omega(X,Y) = h(JX, Y)$. The manifold is Kähler when:",
+          "choices": [
+            "$\\omega$ is non-degenerate",
+            "$\\omega$ is closed: $d\\omega = 0$",
+            "$\\omega = h$",
+            "$\\omega$ is exact: $\\omega = d\\alpha$ globally"
+          ],
+          "answer": 1,
+          "explain": "Closedness $d\\omega = 0$ is the defining Kähler condition. Non-degeneracy of $\\omega$ is automatic from the Hermitian-plus-$J$ data. Globally exact $\\omega$ would force $H^2(M)$ to lose the Kähler class, which fails on every compact Kähler manifold of positive dimension."
+        },
+        {
+          "type": "mcq",
+          "q": "On a Kähler manifold, the Kähler condition $d\\omega = 0$ is equivalent to which of the following statements about the Levi-Civita connection $\\nabla$?",
+          "choices": [
+            "$\\nabla h = 0$",
+            "$\\nabla J = 0$",
+            "$\\nabla \\omega = -d\\omega$",
+            "the connection has trivial holonomy"
+          ],
+          "answer": 1,
+          "explain": "$d\\omega = 0$ is equivalent to $\\nabla J = 0$: parallel transport by Levi-Civita commutes with the complex structure. $\\nabla h = 0$ is the defining property of Levi-Civita itself, not the Kähler condition. Trivial holonomy is a far stronger flatness property."
+        },
+        {
+          "type": "mcq",
+          "q": "Which of the following is NOT a Kähler manifold (with its standard structure)?",
+          "choices": [
+            "$\\mathbb{C}^n$ with the Euclidean metric",
+            "$\\mathbb{CP}^n$ with the Fubini–Study metric",
+            "any compact Riemann surface",
+            "the Hopf surface $S^1 \\times S^3$"
+          ],
+          "answer": 3,
+          "explain": "$S^1 \\times S^3$ is a complex manifold (Hopf surface) but its second Betti number is $b_2 = 0$, so it carries no closed non-trivial $(1,1)$-form and cannot be Kähler. The other three are the textbook Kähler examples — and Riemann surfaces are Kähler trivially since every $2$-form is closed in real dimension $2$."
+        }
+      ]
+    },
+    "kg-kahler-identities": {
+      "title": "Kähler identities and Hodge decomposition",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "On a compact Kähler manifold, the three Laplacians $\\Delta_d$, $\\Delta_\\partial$, $\\Delta_{\\bar\\partial}$ satisfy which relation?",
+          "choices": [
+            "$\\Delta_d = \\Delta_\\partial = \\Delta_{\\bar\\partial}$",
+            "$\\Delta_d = 2\\Delta_\\partial = 2\\Delta_{\\bar\\partial}$",
+            "$\\Delta_d = \\Delta_\\partial + \\Delta_{\\bar\\partial}$ but $\\Delta_\\partial \\ne \\Delta_{\\bar\\partial}$",
+            "they only agree on $\\Omega^{p,p}$"
+          ],
+          "answer": 1,
+          "explain": "The Kähler identities $[\\Lambda,\\partial]=i\\bar\\partial^{\\,*}$ etc. force $\\Delta_d = 2\\Delta_\\partial = 2\\Delta_{\\bar\\partial}$. The factor of $2$ is real — $\\partial$ and $\\bar\\partial$ each see only half of $d = \\partial + \\bar\\partial$."
+        },
+        {
+          "type": "mcq",
+          "q": "Hodge symmetry on a compact Kähler manifold says $h^{p,q} = h^{q,p}$. The deeper origin of this equality is:",
+          "choices": [
+            "the conjugation $\\overline{H^{p,q}} = H^{q,p}$ on harmonic forms",
+            "Poincaré duality",
+            "Serre duality",
+            "Stokes' theorem"
+          ],
+          "answer": 0,
+          "explain": "Complex conjugation swaps $(p,q)$ with $(q,p)$, and harmonic representatives respect this because the Laplacian is real. Poincaré and Serre duality give a different identity, $h^{p,q} = h^{n-p,n-q}$. Both halve the Hodge diamond into a quarter."
+        },
+        {
+          "type": "numeric",
+          "q": "A compact Kähler $4$-fold has Hodge numbers $h^{p,q}$ with $0\\le p,q\\le 4$. Apply Hodge symmetry $h^{p,q}=h^{q,p}$ AND Serre duality $h^{p,q}=h^{n-p,n-q}$ (with $n=4$). How many independent entries does the resulting Hodge diamond have?",
+          "answer": 9,
+          "tol": 0.000001,
+          "explain": "The two symmetries identify $(p,q)$ with $(q,p)$ and $(4-p,4-q)$. Orbit representatives can be taken with $p\\le q$ and $p+q\\le 4$. Listing them: $(0,0),(0,1),(0,2),(0,3),(0,4),(1,1),(1,2),(1,3),(2,2)$ — nine entries."
+        }
+      ]
+    },
+    "kg-lefschetz": {
+      "title": "Lefschetz operator and hard Lefschetz",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "On a compact Kähler manifold $M$ of complex dimension $n$, the hard Lefschetz theorem says that for $0\\le k \\le n$ the map",
+          "choices": [
+            "$L\\colon H^k(M) \\to H^{k+2}(M)$ is injective",
+            "$L^k\\colon H^{n-k}(M;\\mathbb{R}) \\to H^{n+k}(M;\\mathbb{R})$ is an isomorphism",
+            "$L^k\\colon H^0(M) \\to H^{2k}(M)$ is surjective",
+            "$L\\colon H^{n}(M) \\to H^{n+2}(M)$ is the zero map"
+          ],
+          "answer": 1,
+          "explain": "Hard Lefschetz: $k$-fold wedging with the Kähler class gives an isomorphism between cohomology in symmetric degrees about the middle. This is a sharp non-trivial statement; the other choices either fail (option 1 fails in general) or are only special cases."
+        },
+        {
+          "type": "mcq",
+          "q": "Primitive cohomology in degree $n-k$ of a compact Kähler $n$-manifold is defined as:",
+          "choices": [
+            "$\\ker L\\colon H^{n-k} \\to H^{n-k+2}$",
+            "$\\ker L^{k+1}\\colon H^{n-k} \\to H^{n+k+2}$",
+            "$\\mathrm{im}\\,L^k\\colon H^{n-k} \\to H^{n+k}$",
+            "harmonic forms of bidegree $(k,k)$"
+          ],
+          "answer": 1,
+          "explain": "Primitive classes in $H^{n-k}$ are those killed by $L^{k+1}$, equivalently those of $\\Lambda$-degree zero. They span the highest-weight part of the $\\mathfrak{sl}_2$-triple $(L,\\Lambda,H)$ acting on $H^*(M)$."
+        },
+        {
+          "type": "numeric",
+          "q": "For a compact Kähler manifold of complex dimension $n=3$, hard Lefschetz gives an isomorphism between $H^{n-1}$ and $H^{n+1}$. With $n=3$, what is $n+1$?",
+          "answer": 4,
+          "tol": 0.000001,
+          "explain": "For $n=3$, $k=1$: $L^1\\colon H^2 \\to H^4$ is an isomorphism. The middle dimension is $n=3$ and the symmetric pairings are $H^2 \\leftrightarrow H^4$ and $H^1 \\leftrightarrow H^5$ via $L$ and $L^2$ respectively."
+        }
+      ]
+    },
+    "kg-calabi-yau": {
+      "title": "Ricci-flat Kähler and the Calabi conjecture",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "On a Kähler manifold, the Ricci form $\\rho(\\omega)$ represents which cohomology class?",
+          "choices": [
+            "$0 \\in H^2$",
+            "$2\\pi c_1(M) \\in H^{1,1}(M;\\mathbb{R})$",
+            "$[\\omega] \\in H^{1,1}(M;\\mathbb{R})$",
+            "the Euler class $e(M)$"
+          ],
+          "answer": 1,
+          "explain": "The Chern–Weil identity $[\\rho] = 2\\pi c_1(M)$ is the bridge between curvature and topology. In particular Ricci-flat ($\\rho \\equiv 0$) forces $c_1(M) = 0$ — the topological obstruction to Calabi–Yau."
+        },
+        {
+          "type": "mcq",
+          "q": "Yau's theorem (the Calabi conjecture) states that on a compact Kähler manifold $M$ with $c_1(M) = 0$:",
+          "choices": [
+            "every smooth real $(1,1)$-form is the Ricci form of some metric",
+            "every Kähler class contains a unique Ricci-flat representative",
+            "the manifold is automatically a complex torus",
+            "the canonical bundle has a Hermitian–Einstein metric"
+          ],
+          "answer": 1,
+          "explain": "Yau (1977) proved that within each Kähler class there is exactly one metric whose Ricci form vanishes. Existence and uniqueness — the heart of the proof is a Monge–Ampère equation. K3 surfaces and the quintic threefold are not tori, so option 2 is wrong."
+        },
+        {
+          "type": "numeric",
+          "q": "The quintic Calabi–Yau threefold $\\{f_5(x_0,\\ldots,x_4)=0\\}\\subset\\mathbb{CP}^4$ has $h^{1,1}=1$ and $h^{2,1}=101$. Compute its Euler characteristic $\\chi = 2(h^{1,1}-h^{2,1})$.",
+          "answer": -200,
+          "tol": 0.000001,
+          "explain": "$\\chi = 2(1 - 101) = -200$. This number — and its mirror counterpart $+200$ on the mirror quintic — is the famous topological invariant from Candelas–de la Ossa–Green–Parkes."
+        }
+      ]
+    },
+    "kg-kahler-einstein": {
+      "title": "Kähler–Einstein and K-stability",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A Kähler–Einstein metric on $(M,J)$ satisfies $\\mathrm{Ric}(\\omega) = c\\,\\omega$ for some real constant $c$. The sign of $c$ is determined by:",
+          "choices": [
+            "the dimension of $M$",
+            "the sign of the first Chern class $c_1(M)$",
+            "whether $M$ is simply connected",
+            "the value of the scalar curvature at one point"
+          ],
+          "answer": 1,
+          "explain": "Since $[\\rho] = 2\\pi c_1$ and $\\mathrm{Ric}(\\omega) = c\\,\\omega$, the cohomology class of $c_1(M)$ is $\\frac{c}{2\\pi}[\\omega]$. So $c > 0 \\iff c_1 > 0$ (Fano), $c=0\\iff c_1=0$ (Calabi–Yau), $c<0\\iff c_1<0$ (general type)."
+        },
+        {
+          "type": "mcq",
+          "q": "The existence of a Kähler–Einstein metric is currently understood by sign of $c_1$. In which case is existence still controlled by an algebro-geometric stability condition rather than a purely analytic theorem?",
+          "choices": [
+            "$c_1 < 0$ (general type) — Aubin–Yau",
+            "$c_1 = 0$ (Calabi–Yau) — Yau",
+            "$c_1 > 0$ (Fano) — Yau–Tian–Donaldson",
+            "$c_1 = 0$ on tori only"
+          ],
+          "answer": 2,
+          "explain": "Aubin and Yau (independently, 1976–78) settled $c_1<0$ and Yau (1977) settled $c_1=0$ analytically. The Fano case $c_1 > 0$ has obstructions (Matsushima, Futaki) and existence is equivalent to K-polystability, proved by Chen–Donaldson–Sun in 2015 — the Yau–Tian–Donaldson conjecture."
+        },
+        {
+          "type": "mcq",
+          "q": "Which Fano manifold is K-polystable and admits a Kähler–Einstein metric?",
+          "choices": [
+            "the blow-up of $\\mathbb{CP}^2$ at one point",
+            "$\\mathbb{CP}^n$ with the Fubini–Study metric",
+            "the blow-up of $\\mathbb{CP}^2$ at two points",
+            "the Hirzebruch surface $\\mathbb{F}_1$"
+          ],
+          "answer": 1,
+          "explain": "$\\mathbb{CP}^n$ with the Fubini–Study metric is the canonical Kähler–Einstein Fano: $\\mathrm{Ric}(\\omega_{FS}) = (n+1)\\,\\omega_{FS}$. The blow-up of $\\mathbb{CP}^2$ at one or two points is the standard non-K-stable example (Matsushima obstruction); $\\mathbb{F}_1$ is the same blow-up under another name."
+        }
+      ]
+    }
+  }
+}

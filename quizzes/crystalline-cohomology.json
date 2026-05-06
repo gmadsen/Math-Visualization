@@ -1,0 +1,246 @@
+{
+  "topic": "crystalline-cohomology",
+  "quizzes": {
+    "cc-motivation": {
+      "title": "Why crystalline? — the $\\ell=p$ gap",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Let $X_0$ be a smooth proper variety over $k=\\overline{\\mathbb{F}_p}$. Why does $H^i_{\\mathrm{\\acute{e}t}}(X_0,\\mathbb{Z}_p)$ fail to be the right $p$-adic cohomology theory?",
+          "choices": [
+            "It is uncountable.",
+            "Étale $\\mathbb{Z}/p^n$-coefficients on a characteristic-$p$ scheme see Frobenius-kernel pathology, so the inverse limit is too small (often vanishes in middle degrees) and the comparison with Betti dimensions breaks down.",
+            "It coincides with $H^i_{\\mathrm{dR}}(X_0/k)$, which has the wrong rank.",
+            "It is well-defined only for affine $X_0$."
+          ],
+          "answer": 1,
+          "explain": "On a $p$-torsion étale site over $\\mathrm{char}\\,p$, the constant sheaf $\\mathbb{Z}/p$ is too floppy: $H^i_{\\mathrm{\\acute{e}t}}(X_0,\\mathbb{Z}/p)$ can vanish in degrees where the Betti numbers do not. Crystalline cohomology $H^i_{\\mathrm{cris}}(X_0/W)$ — a free $W$-module of the expected rank — is the correct $p$-adic Weil cohomology."
+        },
+        {
+          "type": "mcq",
+          "q": "What ring of coefficients does crystalline cohomology naturally take values in?",
+          "choices": [
+            "$\\mathbb{F}_p$",
+            "$\\mathbb{Q}_\\ell$ for $\\ell\\ne p$",
+            "$W=W(k)$, the ring of Witt vectors of the residue field $k$",
+            "$\\mathbb{C}$"
+          ],
+          "answer": 2,
+          "explain": "Crystalline cohomology $H^*_{\\mathrm{cris}}(X_0/W)$ takes values in $W(k)$ (a complete DVR with residue field $k$ and uniformizer $p$). One typically tensors with $K=\\mathrm{Frac}\\,W$ to get a $\\mathbb{Q}_p$-vector space."
+        },
+        {
+          "type": "mcq",
+          "q": "For a smooth proper $X_0/\\mathbb{F}_p$ that admits a smooth lift $X/W$, what is the rank of $H^i_{\\mathrm{cris}}(X_0/W)$ as a $W$-module?",
+          "choices": [
+            "Zero for $i\\ne 0$.",
+            "Equal to the $i$-th Betti number $b_i$ of $X(\\mathbb{C})$ for any complex lift.",
+            "Equal to $\\dim X_0$.",
+            "Always 1."
+          ],
+          "answer": 1,
+          "explain": "Crystalline cohomology computes the same Betti numbers as singular / $\\ell$-adic / de Rham cohomology — that is the whole point of being a Weil cohomology. Concretely, $H^i_{\\mathrm{cris}}(X_0/W)$ is free of rank $b_i$, independent of the lift."
+        }
+      ]
+    },
+    "cc-divided-powers": {
+      "title": "Divided powers and the crystalline site",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Why are <em>divided powers</em> $\\gamma_n(x)$ — formally $x^n/n!$ — needed in characteristic $p$?",
+          "choices": [
+            "They make the integers into a field.",
+            "The denominator $n!$ becomes non-invertible (and eventually zero in $\\mathbb{F}_p$) once $n\\ge p$, so $x^n/n!$ is not literally defined; PD-structures supply the operation $\\gamma_n$ axiomatically while preserving the formal identities.",
+            "They eliminate the need for cohomology.",
+            "They make every nilpotent element a unit."
+          ],
+          "answer": 1,
+          "explain": "The Taylor expansion $\\exp(x)=\\sum x^n/n!$ uses denominators $n!$ that are zero in characteristic $p$. PD-structures axiomatize the operations $\\gamma_n$ satisfying the same combinatorial identities (e.g.\\ $\\gamma_m(x)\\gamma_n(x)=\\binom{m+n}{m}\\gamma_{m+n}(x)$) without dividing — letting one carry out de Rham–like computations on infinitesimal thickenings in characteristic $p$."
+        },
+        {
+          "type": "mcq",
+          "q": "An object of the crystalline site $(X_0/W)_{\\mathrm{cris}}$ is, in essence:",
+          "choices": [
+            "A quasi-coherent sheaf on $X_0$.",
+            "A PD-thickening $U\\hookrightarrow T$ over $\\mathrm{Spf}\\,W$ where $U\\subset X_0$ is open and the kernel of $\\mathcal{O}_T\\twoheadrightarrow\\mathcal{O}_U$ carries a PD-structure compatible with the standard one on $pW$.",
+            "A finite étale cover of $X_0$.",
+            "A pair $(L,\\nabla)$ of line bundle plus connection."
+          ],
+          "answer": 1,
+          "explain": "The crystalline site has as objects PD-thickenings $(U,T,\\delta)$: $U$ is a Zariski-open of $X_0$, $T$ is a $W$-scheme on which $U$ embeds as a closed subscheme, and the kernel of $\\mathcal{O}_T\\to\\mathcal{O}_U$ has divided powers compatible with those on $pW$. Morphisms are commuting squares respecting the PD-structures."
+        },
+        {
+          "type": "mcq",
+          "q": "Crystalline cohomology of $X_0$ over $W$ is defined as:",
+          "choices": [
+            "$H^i_{\\mathrm{cris}}(X_0/W) := H^i((X_0/W)_{\\mathrm{cris}}, \\mathcal{O}_{X/W})$, the cohomology of the structure sheaf on the crystalline site.",
+            "$H^i_{\\mathrm{cris}}(X_0/W) := \\varprojlim_n H^i_{\\mathrm{\\acute{e}t}}(X_0,\\mathbb{Z}/p^n)$.",
+            "$H^i_{\\mathrm{cris}}(X_0/W) := H^i(X_0,\\mathcal{O}_{X_0})\\otimes_k W$.",
+            "$H^i_{\\mathrm{cris}}(X_0/W) := H^i(X_0(\\mathbb{C}),\\mathbb{Z})\\otimes W$ for any complex lift."
+          ],
+          "answer": 0,
+          "explain": "The definition is the sheaf cohomology of the structure sheaf $\\mathcal{O}_{X/W}$ on the crystalline site $(X_0/W)_{\\mathrm{cris}}$. The other options are either nonsensical (option 1: gives the wrong answer in $p$-torsion), too naive (option 2: misses the Frobenius and the complex), or relies on a complex lift (option 3) which need not exist."
+        }
+      ]
+    },
+    "cc-de-rham-comparison": {
+      "title": "Comparison with de Rham of a lift",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Suppose $X_0/k$ admits a smooth proper lift $X/W$. The Berthelot–Ogus comparison says:",
+          "choices": [
+            "$H^*_{\\mathrm{cris}}(X_0/W)$ depends on the choice of lift $X$.",
+            "$H^*_{\\mathrm{cris}}(X_0/W) \\cong H^*_{\\mathrm{dR}}(X/W)$, canonically and independently of the chosen lift.",
+            "$H^*_{\\mathrm{cris}}(X_0/W) \\cong H^*_{\\mathrm{Zar}}(X_0,\\mathcal{O}_{X_0})$.",
+            "Crystalline cohomology only exists when a lift does."
+          ],
+          "answer": 1,
+          "explain": "Berthelot–Ogus: for any smooth proper lift $X/W$ of $X_0/k$, there is a canonical isomorphism $H^*_{\\mathrm{cris}}(X_0/W)\\cong H^*_{\\mathrm{dR}}(X/W)$. The right-hand side is hypercohomology of $\\Omega^\\bullet_{X/W}$. Different lifts produce canonically isomorphic answers — that is what justifies the definition."
+        },
+        {
+          "type": "mcq",
+          "q": "What does one do when $X_0$ does <strong>not</strong> admit a global lift to $W$?",
+          "choices": [
+            "Crystalline cohomology is undefined.",
+            "Cover $X_0$ by Zariski opens that <em>do</em> lift, compute de Rham cohomology of each, and glue using the PD-structure on the overlaps — the crystalline site is precisely the bookkeeping that makes this glue work canonically.",
+            "Reduce mod $p^2$ instead.",
+            "Pass to an étale cover."
+          ],
+          "answer": 1,
+          "explain": "Locally every smooth $X_0/k$ admits a lift (any affine smooth scheme lifts smoothly). The crystalline site organizes the ambiguity of these local lifts: PD-structures on the kernels of the thickenings make the local de Rham complexes canonically comparable, so the glued cohomology is intrinsic to $X_0$."
+        },
+        {
+          "type": "numeric",
+          "q": "For a supersingular elliptic curve $E_0/\\mathbb{F}_p$, what is the rank of $H^1_{\\mathrm{cris}}(E_0/W)$ as a $W$-module?",
+          "answer": 2,
+          "tol": 0.0001,
+          "explain": "Crystalline cohomology of a smooth proper variety has the same rank as the Betti number of any complex lift. For an elliptic curve $b_1=2g=2$. Independence of the (existence of a) lift is exactly the Berthelot–Ogus theorem; the rank stays $2$ even though supersingular elliptic curves do not lift to characteristic $0$ canonically."
+        }
+      ]
+    },
+    "cc-frobenius": {
+      "title": "Frobenius action and the Katz–Messing theorem",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The Frobenius-induced map $\\varphi$ on $H^*_{\\mathrm{cris}}(X_0/W)$ is:",
+          "choices": [
+            "$W$-linear.",
+            "$\\sigma$-semilinear, where $\\sigma\\colon W\\to W$ is the Witt-vector lift of the $p$-power Frobenius on $k$.",
+            "Anti-linear.",
+            "Defined only after tensoring with $\\mathbb{Q}_p$."
+          ],
+          "answer": 1,
+          "explain": "The absolute Frobenius $F\\colon X_0\\to X_0$ does not lift $W$-linearly; it induces a $\\sigma$-semilinear endomorphism $\\varphi$ of $H^*_{\\mathrm{cris}}$, meaning $\\varphi(a\\cdot v)=\\sigma(a)\\cdot\\varphi(v)$ for $a\\in W$. Semilinearity is essential — it is what makes the Newton polygon a non-trivial invariant."
+        },
+        {
+          "type": "mcq",
+          "q": "Katz–Messing (1974) compares the characteristic polynomial of Frobenius on crystalline cohomology with the analogous one on $\\ell$-adic étale cohomology ($\\ell\\ne p$) for $X_0$ smooth proper over $\\mathbb{F}_q$. They prove:",
+          "choices": [
+            "The two characteristic polynomials are different in general.",
+            "The two characteristic polynomials are equal as polynomials with integer coefficients — both compute the local zeta function $Z(X_0/\\mathbb{F}_q,t)$.",
+            "Crystalline Frobenius has only real eigenvalues, étale Frobenius does not.",
+            "Both eigenvalue sets are empty."
+          ],
+          "answer": 1,
+          "explain": "Katz–Messing: the characteristic polynomial of geometric Frobenius on $H^i_{\\mathrm{cris}}(X_0/W)\\otimes K$ has integer coefficients and equals the characteristic polynomial on $H^i_{\\mathrm{\\acute{e}t}}(X_{0,\\bar k},\\mathbb{Q}_\\ell)$ for any $\\ell\\ne p$. Both factor the same alternating product yielding the local zeta function — crystalline cohomology completes the Weil-conjectures package across all primes."
+        },
+        {
+          "type": "mcq",
+          "q": "For $X_0/\\mathbb{F}_q$ smooth proper of dimension $d$ and an eigenvalue $\\alpha$ of geometric Frobenius on $H^i_{\\mathrm{cris}}(X_0/W)\\otimes K$, what does Deligne–Katz–Messing-style purity assert?",
+          "choices": [
+            "$\\alpha=q$.",
+            "$|\\alpha|=q^{i/2}$ under every complex embedding (i.e. $\\alpha$ is a Weil $q$-number of weight $i$), matching the étale-side Riemann hypothesis.",
+            "$\\alpha\\in\\mathbb{Z}$.",
+            "$\\alpha$ is a root of unity."
+          ],
+          "answer": 1,
+          "explain": "The crystalline eigenvalues of geometric Frobenius are Weil numbers of weight $i$: algebraic integers all of whose complex absolute values equal $q^{i/2}$. This is the same Riemann-hypothesis-style purity Deligne proved on the étale side — so Katz–Messing's identification of characteristic polynomials propagates the purity statement to the crystalline picture."
+        }
+      ]
+    },
+    "cc-f-isocrystals": {
+      "title": "F-isocrystals, Newton above Hodge",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "An F-isocrystal over $k=\\overline{\\mathbb{F}_p}$ is:",
+          "choices": [
+            "A finite-dimensional $K=\\mathrm{Frac}\\,W$-vector space $V$ together with a $\\sigma$-semilinear bijection $\\varphi\\colon V\\to V$.",
+            "A free $W$-module $M$ together with a $W$-linear automorphism.",
+            "A finite-dimensional $\\mathbb{Q}_\\ell$-vector space.",
+            "A graded ring."
+          ],
+          "answer": 0,
+          "explain": "By definition, an F-isocrystal is a pair $(V,\\varphi)$: $V$ a finite-dimensional $K$-vector space, $\\varphi\\colon V\\to V$ $\\sigma$-semilinear and bijective. They form a $\\mathbb{Q}_p$-linear Tannakian category whose simple objects are classified by their Newton slopes (Dieudonné–Manin)."
+        },
+        {
+          "type": "mcq",
+          "q": "Mazur's inequality, applied to $H^i_{\\mathrm{cris}}(X_0/W)\\otimes K$ for a smooth proper $X_0/k$, says:",
+          "choices": [
+            "The Newton polygon (slopes of $\\varphi$) lies on or above the Hodge polygon (built from $h^{p,q}=\\dim H^q(X_0,\\Omega^p)$ in degree $p+q=i$), and the two polygons share the same endpoints.",
+            "Newton lies below Hodge.",
+            "Newton equals Hodge in every case.",
+            "Newton is unrelated to Hodge."
+          ],
+          "answer": 0,
+          "explain": "Mazur (1973): for a smooth proper $X_0$ in characteristic $p$, the Newton polygon of Frobenius on $H^i_{\\mathrm{cris}}$ lies on or above the Hodge polygon $\\sum_{p}h^{p,i-p}\\cdot[\\text{slope }p]$ and shares its endpoints (so the same total height and total width). The case Newton $=$ Hodge is the <em>ordinary</em> stratum; otherwise the variety is non-ordinary."
+        },
+        {
+          "type": "mcq",
+          "q": "What are the Newton slopes of the F-isocrystal $H^1_{\\mathrm{cris}}(E_0/W)\\otimes K$ in the two cases of an elliptic curve $E_0/\\overline{\\mathbb{F}_p}$?",
+          "choices": [
+            "$\\{0,1\\}$ in both cases.",
+            "Ordinary: $\\{0,1\\}$. Supersingular: $\\{1/2,1/2\\}$.",
+            "Ordinary: $\\{1/2,1/2\\}$. Supersingular: $\\{0,1\\}$.",
+            "$\\{0,2\\}$ in both cases."
+          ],
+          "answer": 1,
+          "explain": "An elliptic curve has $h^{1,0}=h^{0,1}=1$, so the Hodge polygon on $H^1$ has slopes $0$ and $1$. Mazur forces Newton above with the same endpoints — only two options. Ordinary $E_0$ realizes Newton $=$ Hodge, slopes $\\{0,1\\}$; supersingular $E_0$ has Frobenius eigenvalues both of $p$-adic valuation $1/2$, slopes $\\{1/2,1/2\\}$ (coalesced into a single ascent of slope $1/2$ over width $2$)."
+        }
+      ]
+    },
+    "cc-p-adic-hodge": {
+      "title": "Period rings $B_{\\mathrm{cris}},B_{\\mathrm{dR}}$ and Fontaine's comparison",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Fontaine's period ring $B_{\\mathrm{dR}}$ is, roughly:",
+          "choices": [
+            "A finite extension of $\\mathbb{Q}_p$.",
+            "A complete discrete valuation field with residue field $\\mathbb{C}_p$ (the $p$-adic completion of $\\bar{\\mathbb{Q}_p}$), built so as to carry both a $G_K$-action and a filtration; it serves as the $p$-adic counterpart of the field of complex periods.",
+            "A subring of $\\mathbb{Q}_\\ell$.",
+            "The polynomial ring $\\mathbb{Q}_p[T]$."
+          ],
+          "answer": 1,
+          "explain": "$B_{\\mathrm{dR}}$ is a complete DVF (with uniformizer 'log of a $p$-power root of unity') whose residue field is $\\mathbb{C}_p$. It carries a continuous action of $G_K=\\mathrm{Gal}(\\bar K/K)$ and a decreasing filtration. The smaller ring $B_{\\mathrm{cris}}\\subset B_{\\mathrm{dR}}$ adds a Frobenius compatible with crystalline cohomology."
+        },
+        {
+          "type": "mcq",
+          "q": "For $X/K$ smooth proper with good reduction $X_0/k$, the crystalline comparison conjecture (Faltings–Tsuji) asserts:",
+          "choices": [
+            "$H^*_{\\mathrm{\\acute{e}t}}(X_{\\bar K},\\mathbb{Q}_p) \\cong H^*_{\\mathrm{cris}}(X_0/W)$ as $\\mathbb{Q}_p$-vector spaces.",
+            "$H^*_{\\mathrm{\\acute{e}t}}(X_{\\bar K},\\mathbb{Q}_p)\\otimes_{\\mathbb{Q}_p}B_{\\mathrm{cris}} \\cong H^*_{\\mathrm{cris}}(X_0/W)\\otimes_W B_{\\mathrm{cris}}$ compatibly with Frobenius, filtration, and Galois action.",
+            "$H^*_{\\mathrm{cris}}$ is independent of $X$.",
+            "Crystalline and étale cohomology agree as Galois representations."
+          ],
+          "answer": 1,
+          "explain": "After base-change to $B_{\\mathrm{cris}}$, the $p$-adic étale cohomology of $X_{\\bar K}$ becomes isomorphic to the crystalline cohomology of the special fibre $X_0$, compatibly with Frobenius, filtration, and Galois action. Without the base change the two sides carry different structures (one is a $G_K$-representation, the other is an F-isocrystal with filtration); $B_{\\mathrm{cris}}$ is engineered to translate between them."
+        },
+        {
+          "type": "mcq",
+          "q": "Which slogan best summarises Fontaine's strategy?",
+          "choices": [
+            "Replace cohomology with $K$-theory.",
+            "Construct period rings $B_*$ that absorb all the different extra structures (Frobenius, filtration, Galois action), so that crystalline / de Rham / Hodge–Tate cohomologies are recovered as $G_K$-invariants of suitable twists of $p$-adic étale cohomology — a single algebra unifies the realisations.",
+            "Reduce everything to characteristic 0.",
+            "Replace $B_{\\mathrm{cris}}$ with a finite extension of $\\mathbb{Q}_p$."
+          ],
+          "answer": 1,
+          "explain": "Fontaine's period rings $B_{\\mathrm{HT}}\\subset B_{\\mathrm{cris}}\\subset B_{\\mathrm{dR}}$ each carry a particular extra structure (graded, Frobenius+filtration, filtration). For a suitable $p$-adic representation $V=H^*_{\\mathrm{\\acute{e}t}}(X_{\\bar K},\\mathbb{Q}_p)$ the functors $D_*(V):=(V\\otimes B_*)^{G_K}$ recover the corresponding cohomology with its structures — turning crystalline, de Rham, and Hodge–Tate into different views of one $p$-adic étale representation."
+        }
+      ]
+    }
+  }
+}

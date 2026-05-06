@@ -1,0 +1,1011 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Half-integral weight forms — metaplectic, Shimura, Waldspurger</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false,
+      macros:{
+        '\\Spec':'\\operatorname{Spec}',
+        '\\Gal':'\\operatorname{Gal}',
+        '\\Hom':'\\operatorname{Hom}',
+        '\\tr':'\\operatorname{tr}',
+        '\\ad':'\\operatorname{ad}',
+        '\\ind':'\\operatorname{ind}'
+      }
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  /* sticky sidebar TOC (wide screens only; narrow screens fall back to top-nav) */
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+  /* callback-css-auto-begin */
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+/* callback-css-auto-end */
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
+  /* display-prefs-css-auto-begin */
+  html[data-hide-widgets] .widget { display: none !important; }
+  html[data-hide-quizzes] .quiz { display: none !important; }
+  html[data-hide-lineage] .lineage-strip { display: none !important; }
+  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }
+  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }
+  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }
+  .mv-display-toggle--off { opacity: 0.35; }
+  /* display-prefs-css-auto-end */
+</style>
+<!-- breadcrumb-head-auto-begin -->
+<script>window.__MV_SECTION_MAP = {"<topic>":{"next":null,"prev":null,"section":"Sections","title":"<topic>"},"L-functions":{"next":"sato-tate","prev":"moonshine","section":"Modular forms & L-functions","title":"L-functions"},"abelian-varieties":{"next":"positivity-and-ample-line-bundles","prev":"toric-varieties","section":"Algebraic geometry","title":"Abelian varieties"},"additive-number-theory":{"next":"heights-arithmetic-geometry","prev":"quadratic-forms-genus-theory","section":"Number theory","title":"Additive number theory"},"adeles-and-ideles":{"next":"frobenius-and-reciprocity","prev":"p-adic-numbers","section":"Number theory","title":"Adèles & idèles"},"advanced-complex-analysis":{"next":"microlocal-analysis","prev":"sobolev-spaces-distributions","section":"Analysis","title":"Advanced complex analysis"},"algebra":{"next":"representation-theory","prev":null,"section":"Algebra & homological","title":"Abstract algebra"},"algebraic-curves-higher-genus":{"next":"deformation-theory","prev":"mirror-symmetry","section":"Algebraic geometry","title":"Algebraic curves: higher genus"},"algebraic-de-rham-cohomology":{"next":"calabi-yau-manifolds","prev":"algebraic-spaces","section":"Algebraic geometry","title":"Algebraic de Rham cohomology"},"algebraic-k-theory-foundations":{"next":"model-categories","prev":"quantum-groups","section":"Algebra & homological","title":"Algebraic K-theory foundations"},"algebraic-number-theory":{"next":"p-adic-numbers","prev":"galois","section":"Number theory","title":"Algebraic number theory"},"algebraic-spaces":{"next":"algebraic-de-rham-cohomology","prev":"functor-of-points","section":"Algebraic geometry","title":"Algebraic spaces"},"algebraic-topology":{"next":"knot-polynomials","prev":"point-set-topology","section":"Geometry & topology","title":"Algebraic topology"},"analytic-continuation":{"next":"zeta-values","prev":"dirichlet-series-euler-products","section":"Modular forms & L-functions","title":"Analytic continuation"},"analytic-number-theory":{"next":"galois","prev":null,"section":"Number theory","title":"Analytic number theory"},"atiyah-singer-index-theorem":{"next":"riemannian-geometry","prev":"k-theory","section":"Geometry & topology","title":"Atiyah–Singer index theorem"},"automorphic-forms-adelic":{"next":"moonshine","prev":"hecke-operators","section":"Modular forms & L-functions","title":"Automorphic forms (adelic)"},"bezout":{"next":"schemes","prev":"elliptic-curves","section":"Algebraic geometry","title":"Bézout's theorem"},"bsd":{"next":"modularity-and-flt","prev":"sato-tate","section":"Modular forms & L-functions","title":"Birch & Swinnerton-Dyer"},"calabi-yau-manifolds":{"next":"mirror-symmetry","prev":"algebraic-de-rham-cohomology","section":"Algebraic geometry","title":"Calabi–Yau manifolds"},"category-theory":{"next":"commutative-algebra","prev":"derived-categories","section":"Algebra & homological","title":"Category theory"},"characteristic-classes":{"next":"k-theory","prev":"symplectic-manifolds","section":"Geometry & topology","title":"Characteristic classes"},"class-field-theory":{"next":"galois-representations","prev":"computational-number-theory","section":"Number theory","title":"Class field theory"},"cobordism":{"next":"homotopy-theory","prev":"cohomology-and-duality","section":"Geometry & topology","title":"Cobordism"},"cocartesian-fibrations":{"next":"infinity-categories","prev":"heyting-algebras-toposes","section":"Higher categories & toposes","title":"Cocartesian fibrations"},"cohomology-and-duality":{"next":"cobordism","prev":"mostow-rigidity","section":"Geometry & topology","title":"Cohomology and duality"},"commutative-algebra":{"next":"homological","prev":"category-theory","section":"Algebra & homological","title":"Commutative algebra"},"complex-analysis":{"next":"measure-theory","prev":"real-analysis","section":"Analysis","title":"Complex analysis"},"complexity-theory":{"next":"type-theory-and-hott","prev":"computability-and-decidability","section":"Logic & Foundations","title":"Complexity theory"},"computability-and-decidability":{"next":"complexity-theory","prev":"model-theory-basics","section":"Logic & Foundations","title":"Computability and decidability"},"computational-number-theory":{"next":"class-field-theory","prev":"mathematics-and-cryptography","section":"Number theory","title":"Computational number theory"},"condensed-mathematics":{"next":null,"prev":"groebner-bases","section":"Algebra & homological","title":"Condensed mathematics"},"continued-fractions":{"next":"dirichlet-unit-theorem","prev":"iwasawa-theory","section":"Number theory","title":"Continued fractions"},"crystalline-cohomology":{"next":null,"prev":"d-modules","section":"Algebraic geometry","title":"Crystalline cohomology"},"d-modules":{"next":"crystalline-cohomology","prev":"mmp-and-birational-geometry","section":"Algebraic geometry","title":"D-modules"},"deformation-theory":{"next":"resolution-of-singularities","prev":"algebraic-curves-higher-genus","section":"Algebraic geometry","title":"Deformation theory"},"derived-categories":{"next":"category-theory","prev":"model-categories","section":"Algebra & homological","title":"Derived categories"},"designs":{"next":"spectral-graph-theory","prev":"enumerative-combinatorics","section":"Combinatorics & graph theory","title":"Designs"},"differential-forms":{"next":"morse-theory","prev":"riemann-surfaces","section":"Geometry & topology","title":"Differential forms"},"differential-geometry":{"next":"riemann-surfaces","prev":"smooth-manifolds","section":"Geometry & topology","title":"Differential geometry"},"dirac-equation":{"next":"statistical-mechanics","prev":"klein-gordon-equation","section":"Mathematical physics","title":"Dirac equation"},"dirichlet-series-euler-products":{"next":"analytic-continuation","prev":null,"section":"Modular forms & L-functions","title":"Dirichlet series & Euler products"},"dirichlet-unit-theorem":{"next":null,"prev":"continued-fractions","section":"Number theory","title":"Dirichlet unit theorem"},"dynamical-systems":{"next":"semigroup-theory-evolution-equations","prev":"operator-algebras","section":"Analysis","title":"Dynamical systems"},"elementary-topos-theory":{"next":"grothendieck-topologies-sites","prev":"simplicial-sets-and-nerve","section":"Higher categories & toposes","title":"Elementary topos theory"},"elliptic-curves":{"next":"bezout","prev":"etale-fundamental-group","section":"Algebraic geometry","title":"Elliptic curves"},"enumerative-combinatorics":{"next":"designs","prev":"simplicial-complexes-combinatorial","section":"Combinatorics & graph theory","title":"Enumerative combinatorics"},"etale-cohomology":{"next":"mmp-and-birational-geometry","prev":"stacks","section":"Algebraic geometry","title":"Étale cohomology"},"etale-fundamental-group":{"next":"elliptic-curves","prev":"projective-plane","section":"Algebraic geometry","title":"Étale fundamental group"},"expanders":{"next":null,"prev":"spectral-graph-theory","section":"Combinatorics & graph theory","title":"Expanders"},"extremal-combinatorics":{"next":"simplicial-complexes-combinatorial","prev":"probabilistic-method","section":"Combinatorics & graph theory","title":"Extremal combinatorics"},"first-order-logic-and-completeness":{"next":"zfc-and-ordinals","prev":"type-theory-and-hott","section":"Logic & Foundations","title":"First order logic and completeness"},"fixed-point-theorems":{"next":"harmonic-analysis-fourier","prev":"functional-analysis","section":"Analysis","title":"Fixed point theorems"},"forcing-and-independence":{"next":null,"prev":"zfc-and-ordinals","section":"Logic & Foundations","title":"Forcing and independence"},"frobenius-and-reciprocity":{"next":"quadratic-reciprocity","prev":"adeles-and-ideles","section":"Number theory","title":"Frobenius & reciprocity"},"functional-analysis":{"next":"fixed-point-theorems","prev":"harmonic-functions","section":"Analysis","title":"Functional analysis"},"functor-of-points":{"next":"algebraic-spaces","prev":"morphisms-fiber-products","section":"Algebraic geometry","title":"Functor of points"},"galois":{"next":"algebraic-number-theory","prev":"analytic-number-theory","section":"Number theory","title":"Galois theory & the quintic"},"galois-cohomology-and-brauer":{"next":"group-cohomology","prev":"geometric-and-combinatorial-group-theory","section":"Algebra & homological","title":"Galois cohomology and Brauer groups"},"galois-representations":{"next":"iwasawa-theory","prev":"class-field-theory","section":"Number theory","title":"Galois representations"},"gauge-theory":{"next":"string-theory","prev":"statistical-mechanics","section":"Mathematical physics","title":"Gauge theory"},"general-relativity":{"next":"schrodinger-equation","prev":"three-body-problem","section":"Mathematical physics","title":"General relativity & Einstein equations"},"geometric-and-combinatorial-group-theory":{"next":"galois-cohomology-and-brauer","prev":"quaternions-octonions-and-division-algebras","section":"Algebra & homological","title":"Geometric and combinatorial group theory"},"geometric-measure-theory":{"next":"operator-algebras","prev":"microlocal-analysis","section":"Analysis","title":"Geometric measure theory"},"groebner-bases":{"next":"condensed-mathematics","prev":"homological","section":"Algebra & homological","title":"Gröbner bases"},"grothendieck-topologies-sites":{"next":"infinity-topoi","prev":"elementary-topos-theory","section":"Higher categories & toposes","title":"Grothendieck topologies & sites"},"group-cohomology":{"next":"quantum-groups","prev":"galois-cohomology-and-brauer","section":"Algebra & homological","title":"Group cohomology"},"group-schemes":{"next":"morphisms-fiber-products","prev":"intersection-theory-chow","section":"Algebraic geometry","title":"Group schemes"},"half-integral-weight-forms":{"next":null,"prev":"maass-forms","section":"Modular forms & L-functions","title":"Half-integral weight forms"},"hamiltonians-classical-mechanics":{"next":"special-relativity","prev":"schrodinger-equation","section":"Mathematical physics","title":"Hamiltonians & classical mechanics"},"harmonic-analysis-fourier":{"next":"wavelets","prev":"fixed-point-theorems","section":"Analysis","title":"Harmonic analysis & Fourier theory"},"harmonic-functions":{"next":"functional-analysis","prev":"measure-theory","section":"Analysis","title":"Harmonic functions"},"hecke-operators":{"next":"automorphic-forms-adelic","prev":"theta-functions","section":"Modular forms & L-functions","title":"Hecke operators"},"heights-arithmetic-geometry":{"next":"mathematics-and-cryptography","prev":"additive-number-theory","section":"Number theory","title":"Heights in arithmetic geometry"},"heyting-algebras-toposes":{"next":"cocartesian-fibrations","prev":null,"section":"Higher categories & toposes","title":"Heyting algebras & intuitionist logic"},"high-dimensional-geometry":{"next":"information-theory","prev":"large-deviations","section":"Probability & statistics","title":"High dimensional geometry"},"hodge-theory":{"next":"singular-cubics-reduction","prev":"motives","section":"Algebraic geometry","title":"Hodge theory"},"homological":{"next":"groebner-bases","prev":"commutative-algebra","section":"Algebra & homological","title":"Homological algebra"},"homotopy-theory":{"next":"kahler-geometry","prev":"cobordism","section":"Geometry & topology","title":"Homotopy theory"},"infinity-categories":{"next":"simplicial-sets-and-nerve","prev":"cocartesian-fibrations","section":"Higher categories & toposes","title":"∞-categories (quasi-categories)"},"infinity-topoi":{"next":null,"prev":"grothendieck-topologies-sites","section":"Higher categories & toposes","title":"∞-topoi"},"information-theory":{"next":"mathematical-statistics","prev":"high-dimensional-geometry","section":"Probability & statistics","title":"Information theory"},"intersection-theory-chow":{"next":"group-schemes","prev":"sheaves","section":"Algebraic geometry","title":"Intersection theory & Chow groups"},"iwasawa-theory":{"next":"continued-fractions","prev":"galois-representations","section":"Number theory","title":"Iwasawa theory"},"k-theory":{"next":"atiyah-singer-index-theorem","prev":"characteristic-classes","section":"Geometry & topology","title":"K-theory"},"kahler-geometry":{"next":null,"prev":"homotopy-theory","section":"Geometry & topology","title":"Kähler geometry"},"klein-gordon-equation":{"next":"dirac-equation","prev":"special-relativity","section":"Mathematical physics","title":"Klein-Gordon equation"},"knot-polynomials":{"next":"smooth-manifolds","prev":"algebraic-topology","section":"Geometry & topology","title":"Knot polynomials"},"langlands-program":{"next":"theta-functions","prev":"vertex-operator-algebras","section":"Modular forms & L-functions","title":"Langlands program"},"large-deviations":{"next":"high-dimensional-geometry","prev":"random-walks-and-mixing","section":"Probability & statistics","title":"Large deviations"},"lie-algebras":{"next":"quaternions-octonions-and-division-algebras","prev":"representation-theory","section":"Algebra & homological","title":"Lie algebras"},"lie-groups":{"next":"mostow-rigidity","prev":"ricci-flow","section":"Geometry & topology","title":"Lie groups & algebras"},"maass-forms":{"next":"half-integral-weight-forms","prev":"modularity-and-flt","section":"Modular forms & L-functions","title":"Maass forms"},"mathematical-statistics":{"next":"probability-theory","prev":"information-theory","section":"Probability & statistics","title":"Mathematical statistics"},"mathematics-and-cryptography":{"next":"computational-number-theory","prev":"heights-arithmetic-geometry","section":"Number theory","title":"Mathematics and cryptography"},"matroid-theory":{"next":"probabilistic-method","prev":null,"section":"Combinatorics & graph theory","title":"Matroid theory"},"measure-theory":{"next":"harmonic-functions","prev":"complex-analysis","section":"Analysis","title":"Measure theory"},"microlocal-analysis":{"next":"geometric-measure-theory","prev":"advanced-complex-analysis","section":"Analysis","title":"Microlocal analysis"},"mirror-symmetry":{"next":"algebraic-curves-higher-genus","prev":"calabi-yau-manifolds","section":"Algebraic geometry","title":"Mirror symmetry"},"mmp-and-birational-geometry":{"next":"d-modules","prev":"etale-cohomology","section":"Algebraic geometry","title":"MMP and birational geometry"},"model-categories":{"next":"derived-categories","prev":"algebraic-k-theory-foundations","section":"Algebra & homological","title":"Model categories"},"model-theory-basics":{"next":"computability-and-decidability","prev":"naive-set-theory","section":"Logic & Foundations","title":"Model theory basics"},"modular-curves":{"next":"vertex-operator-algebras","prev":"partitions-generating-functions","section":"Modular forms & L-functions","title":"Modular curves"},"modular-forms":{"next":"partitions-generating-functions","prev":"upper-half-plane-hyperbolic","section":"Modular forms & L-functions","title":"Modular forms"},"modularity-and-flt":{"next":"maass-forms","prev":"bsd","section":"Modular forms & L-functions","title":"Modularity & FLT"},"moduli-spaces":{"next":"toric-varieties","prev":"sheaf-cohomology","section":"Algebraic geometry","title":"Moduli spaces"},"moonshine":{"next":"L-functions","prev":"automorphic-forms-adelic","section":"Modular forms & L-functions","title":"Monstrous moonshine"},"morphisms-fiber-products":{"next":"functor-of-points","prev":"group-schemes","section":"Algebraic geometry","title":"Morphisms & fiber products"},"morse-theory":{"next":"symplectic-manifolds","prev":"differential-forms","section":"Geometry & topology","title":"Morse theory"},"mostow-rigidity":{"next":"cohomology-and-duality","prev":"lie-groups","section":"Geometry & topology","title":"Mostow rigidity"},"motives":{"next":"hodge-theory","prev":"resolution-of-singularities","section":"Algebraic geometry","title":"Motives"},"naive-set-theory":{"next":"model-theory-basics","prev":null,"section":"Logic & Foundations","title":"Naive set theory"},"numerical-analysis":{"next":"variational-methods","prev":"spectral-theory","section":"Analysis","title":"Numerical analysis"},"operator-algebras":{"next":"dynamical-systems","prev":"geometric-measure-theory","section":"Analysis","title":"Operator algebras"},"p-adic-numbers":{"next":"adeles-and-ideles","prev":"algebraic-number-theory","section":"Number theory","title":"p-adic numbers"},"partial-differential-equations":{"next":"spectral-theory","prev":"wavelets","section":"Analysis","title":"Partial differential equations"},"partitions-generating-functions":{"next":"modular-curves","prev":"modular-forms","section":"Modular forms & L-functions","title":"Partitions & generating functions"},"point-set-topology":{"next":"algebraic-topology","prev":null,"section":"Geometry & topology","title":"Point-set topology"},"positivity-and-ample-line-bundles":{"next":"stacks","prev":"abelian-varieties","section":"Algebraic geometry","title":"Positivity and ample line bundles"},"probabilistic-method":{"next":"extremal-combinatorics","prev":"matroid-theory","section":"Combinatorics & graph theory","title":"Probabilistic method"},"probability-theory":{"next":null,"prev":"mathematical-statistics","section":"Probability & statistics","title":"Probability theory"},"projective-plane":{"next":"etale-fundamental-group","prev":null,"section":"Algebraic geometry","title":"Projective plane"},"quadratic-forms-genus-theory":{"next":"additive-number-theory","prev":"quadratic-reciprocity","section":"Number theory","title":"Quadratic forms & genus theory"},"quadratic-reciprocity":{"next":"quadratic-forms-genus-theory","prev":"frobenius-and-reciprocity","section":"Number theory","title":"Quadratic reciprocity"},"quantum-field-theory":{"next":null,"prev":"string-theory","section":"Mathematical physics","title":"Quantum field theory"},"quantum-groups":{"next":"algebraic-k-theory-foundations","prev":"group-cohomology","section":"Algebra & homological","title":"Quantum groups"},"quaternions-octonions-and-division-algebras":{"next":"geometric-and-combinatorial-group-theory","prev":"lie-algebras","section":"Algebra & homological","title":"Quaternions, octonions, and division algebras"},"random-walks-and-mixing":{"next":"large-deviations","prev":"stochastic-calculus","section":"Probability & statistics","title":"Random walks and mixing"},"real-analysis":{"next":"complex-analysis","prev":null,"section":"Analysis","title":"Real analysis"},"representation-theory":{"next":"lie-algebras","prev":"algebra","section":"Algebra & homological","title":"Representation theory"},"resolution-of-singularities":{"next":"motives","prev":"deformation-theory","section":"Algebraic geometry","title":"Resolution of singularities"},"ricci-flow":{"next":"lie-groups","prev":"riemannian-geometry","section":"Geometry & topology","title":"Ricci flow"},"riemann-surfaces":{"next":"differential-forms","prev":"differential-geometry","section":"Geometry & topology","title":"Riemann surfaces"},"riemannian-geometry":{"next":"ricci-flow","prev":"atiyah-singer-index-theorem","section":"Geometry & topology","title":"Riemannian geometry"},"sato-tate":{"next":"bsd","prev":"L-functions","section":"Modular forms & L-functions","title":"Sato–Tate"},"schemes":{"next":"sheaves","prev":"bezout","section":"Algebraic geometry","title":"Schemes"},"schrodinger-equation":{"next":"hamiltonians-classical-mechanics","prev":"general-relativity","section":"Mathematical physics","title":"Schrödinger equation"},"semigroup-theory-evolution-equations":{"next":null,"prev":"dynamical-systems","section":"Analysis","title":"Semigroup theory & evolution equations"},"sheaf-cohomology":{"next":"moduli-spaces","prev":"singular-cubics-reduction","section":"Algebraic geometry","title":"Sheaf cohomology"},"sheaves":{"next":"intersection-theory-chow","prev":"schemes","section":"Algebraic geometry","title":"Sheaves"},"simplicial-complexes-combinatorial":{"next":"enumerative-combinatorics","prev":"extremal-combinatorics","section":"Combinatorics & graph theory","title":"Simplicial complexes (combinatorial)"},"simplicial-sets-and-nerve":{"next":"elementary-topos-theory","prev":"infinity-categories","section":"Higher categories & toposes","title":"Simplicial sets & the nerve"},"singular-cubics-reduction":{"next":"sheaf-cohomology","prev":"hodge-theory","section":"Algebraic geometry","title":"Singular cubics & reduction"},"smooth-manifolds":{"next":"differential-geometry","prev":"knot-polynomials","section":"Geometry & topology","title":"Smooth manifolds"},"sobolev-spaces-distributions":{"next":"advanced-complex-analysis","prev":"variational-methods","section":"Analysis","title":"Sobolev spaces & distributions"},"special-relativity":{"next":"klein-gordon-equation","prev":"hamiltonians-classical-mechanics","section":"Mathematical physics","title":"Special relativity"},"spectral-graph-theory":{"next":"expanders","prev":"designs","section":"Combinatorics & graph theory","title":"Spectral graph theory"},"spectral-theory":{"next":"numerical-analysis","prev":"partial-differential-equations","section":"Analysis","title":"Spectral theory"},"stacks":{"next":"etale-cohomology","prev":"positivity-and-ample-line-bundles","section":"Algebraic geometry","title":"Stacks (Deligne–Mumford)"},"statistical-mechanics":{"next":"gauge-theory","prev":"dirac-equation","section":"Mathematical physics","title":"Statistical mechanics"},"stochastic-calculus":{"next":"random-walks-and-mixing","prev":"stochastic-processes-and-martingales","section":"Probability & statistics","title":"Stochastic calculus"},"stochastic-processes-and-martingales":{"next":"stochastic-calculus","prev":null,"section":"Probability & statistics","title":"Stochastic processes and martingales"},"string-theory":{"next":"quantum-field-theory","prev":"gauge-theory","section":"Mathematical physics","title":"String theory"},"symplectic-manifolds":{"next":"characteristic-classes","prev":"morse-theory","section":"Geometry & topology","title":"Symplectic manifolds"},"theta-functions":{"next":"hecke-operators","prev":"langlands-program","section":"Modular forms & L-functions","title":"Theta functions"},"three-body-problem":{"next":"general-relativity","prev":null,"section":"Mathematical physics","title":"The three-body problem"},"toric-varieties":{"next":"abelian-varieties","prev":"moduli-spaces","section":"Algebraic geometry","title":"Toric varieties"},"type-theory-and-hott":{"next":"first-order-logic-and-completeness","prev":"complexity-theory","section":"Logic & Foundations","title":"Type theory and HoTT"},"upper-half-plane-hyperbolic":{"next":"modular-forms","prev":"zeta-values","section":"Modular forms & L-functions","title":"Upper half-plane"},"variational-methods":{"next":"sobolev-spaces-distributions","prev":"numerical-analysis","section":"Analysis","title":"Variational methods"},"vertex-operator-algebras":{"next":"langlands-program","prev":"modular-curves","section":"Modular forms & L-functions","title":"Vertex operator algebras"},"wavelets":{"next":"partial-differential-equations","prev":"harmonic-analysis-fourier","section":"Analysis","title":"Wavelets"},"zeta-values":{"next":"upper-half-plane-hyperbolic","prev":"analytic-continuation","section":"Modular forms & L-functions","title":"Zeta values"},"zfc-and-ordinals":{"next":"forcing-and-independence","prev":"first-order-logic-and-completeness","section":"Logic & Foundations","title":"ZFC and ordinals"}};</script>
+<script src="./js/breadcrumb.js"></script>
+<script src="./js/glossary-popover.js" defer></script>
+<link rel="stylesheet" media="print" href="./css/print.css">
+<link rel="stylesheet" href="./css/theme-light.css">
+<script src="./js/theme-toggle.js"></script>
+<script src="./concepts/bundle.js" defer></script>
+<script src="./js/topic-hotkeys.js" defer></script>
+<script src="./js/topic-lineage.js" defer></script>
+<!-- breadcrumb-head-auto-end -->
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./js/katex-select.js"></script>
+<script src="./js/widget-diagram-editor.js"></script>
+<script src="./quizzes/bundle.js"></script>
+<script src="./js/sidetoc.js"></script>
+<!-- display-prefs-head-auto-begin -->
+<script src="./js/display-prefs.js"></script>
+<!-- display-prefs-head-auto-end -->
+</head>
+<body data-section="modular-forms-and-l-functions" data-level="advanced">
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+// draw an arrow marker def once per svg (idempotent)
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+// curved arrow between two pixel points, with optional label
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  // shorten endpoints
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><span class="nav-links"><a class="nav-link" href="./pathway.html">Pathway</a><a class="nav-link" href="./tours.html">Tours</a><a class="nav-link" href="./history.html">History</a><a class="nav-link" href="./tags.html">Themes</a><a class="nav-link" href="./mindmap.html">Mindmap</a><a class="nav-link" href="./search.html">Search</a></span><span class="mv-theme-slot"></span><!-- breadcrumb-nav-auto-end -->
+<!-- toc-auto-begin -->
+  <a href="#metaplectic">1&nbsp;The&nbsp;metaplectic&nbsp;group&nbsp;and&nbsp;the&nbsp;modular&nbsp;cocycle</a>
+  <a href="#theta">2&nbsp;Theta&nbsp;functions&nbsp;as&nbsp;the&nbsp;prototype</a>
+  <a href="#shimura-lift">3&nbsp;The&nbsp;Shimura&nbsp;lift</a>
+  <a href="#plus-space">4&nbsp;Kohnen's&nbsp;plus&nbsp;space</a>
+  <a href="#waldspurger">5&nbsp;Waldspurger's&nbsp;formula</a>
+  <a href="#tunnell">6&nbsp;Application:&nbsp;Tunnell's&nbsp;theorem&nbsp;and&nbsp;the&nbsp;congruent&nbsp;number&nbsp;problem</a>
+  <a href="#connections">7&nbsp;Connections</a>
+<!-- toc-auto-end -->
+</nav>
+<!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Half-integral weight forms</h1>
+  <p class="sub">A controlled mirror of classical modular forms, accessed through theta. Half-integral weight needs a metaplectic double cover; the Shimura lift packages it back as integral weight; Kohnen's plus space picks out a canonical preimage; and Waldspurger turns Fourier coefficients into central $L$-values — culminating in Tunnell's polynomial-time test for the congruent number problem.</p>
+</section>
+
+<section id="metaplectic">
+<h2>1. The metaplectic group and the modular cocycle</h2>
+
+<p>Modular forms of integer weight $k$ transform by</p>
+<p style="text-align:center">$f(\gamma\tau) = (c\tau+d)^k\,f(\tau), \qquad \gamma=\begin{pmatrix}a&amp;b\\c&amp;d\end{pmatrix}\in\mathrm{SL}_2(\mathbb{Z}).$</p>
+<p>What if you want $k$ to be a half-integer like $\tfrac12$? You need a square root of $c\tau+d$. But the square root has two branches, and as $\gamma$ varies the branch choice does not glue together consistently — the cocycle relation</p>
+<p style="text-align:center">$\sqrt{c_{12}\tau+d_{12}} \;\stackrel{?}{=}\; \sqrt{c_1(\gamma_2\tau)+d_1}\;\sqrt{c_2\tau+d_2}$</p>
+<p>fails by a sign. The fix: pass to a <em>double cover</em> $\widetilde{\mathrm{SL}_2(\mathbb{Z})}$ — the <strong>metaplectic group</strong> — whose elements are pairs $(\gamma,\,\varepsilon)$ with $\varepsilon\in\{+1,-1\}$ a chosen sign of the square root. The composition law builds in the missing sign; the cocycle becomes genuine on the cover.</p>
+
+<div class="note"><strong>The theta multiplier.</strong> Rather than wrestle with abstract square roots, Shimura defined a concrete cocycle by ratio:
+$$j(\gamma,\tau) \;=\; \frac{\theta(\gamma\tau)}{\theta(\tau)}, \qquad \theta(\tau)=\sum_{n\in\mathbb{Z}} q^{n^2},\;\; q=e^{2\pi i\tau}.$$
+This $j(\gamma,\tau)$ is well-defined as a function of $\tau$ for $\gamma\in\Gamma_0(4)$, and behaves like a square root of $c\tau+d$ up to an explicit eighth root of unity. A half-integer-weight form of weight $k+\tfrac12$ on $\Gamma_0(4N)$ is then a holomorphic function $f\colon \mathcal{H}\to\mathbb{C}$ satisfying
+$$f(\gamma\tau) \;=\; \chi(\gamma)\, j(\gamma,\tau)^{2k+1}\, f(\tau)$$
+for all $\gamma$ in the level subgroup, plus growth conditions at cusps.</div>
+
+<h3>Why level $\Gamma_0(4)$?</h3>
+
+<p>The theta function $\theta(\tau)$ does not transform nicely under all of $\mathrm{SL}_2(\mathbb{Z})$ — it transforms cleanly only under matrices whose lower-left entry $c$ is divisible by $4$. (Equivalently: under $\Gamma_0(4)$.) Below level $4$, branch ambiguities in $\sqrt{c\tau+d}$ propagate sign or fourth-root inconsistencies that no honest function can absorb. So $\Gamma_0(4)$ is the canonical home of weight-$\tfrac12$ modular forms.</p>
+
+<div class="widget" id="w-cocycle">
+  <div class="hd"><div class="ttl">Cocycle: integer vs. half-integer weight</div><div class="hint">flip a sign and watch the failure</div></div>
+  <div class="row">
+    <label>weight</label>
+    <button data-w="int" class="active">integer $k$</button>
+    <button data-w="half">half-integer $k+\tfrac12$</button>
+  </div>
+  <svg id="cocycle-svg" viewBox="0 0 620 220" width="620" height="220"><title>Cocycle composition law</title></svg>
+  <div class="readout" id="cocycle-out">click a weight mode…</div>
+  <div class="small">A 1-cocycle says $j(\gamma_1\gamma_2,\tau)=j(\gamma_1,\gamma_2\tau)\cdot j(\gamma_2,\tau)$. Under $(c\tau+d)^k$ this holds on the nose. Under $\sqrt{c\tau+d}$ it holds only on the metaplectic cover; on $\mathrm{SL}_2(\mathbb{Z})$ it fails by a sign $\pm 1$.</div>
+</div>
+
+<script>
+/* =============================== SECTION 1 widget =============================== */
+(function(){
+  const svg = document.getElementById('cocycle-svg');
+  const out = document.getElementById('cocycle-out');
+  const btns = document.querySelectorAll('#w-cocycle button[data-w]');
+  if (!svg || !out || btns.length === 0) {
+    console.warn('[half-integral-weight-forms] missing widget DOM:', {svg:!!svg, out:!!out, btns:btns.length});
+    return;
+  }
+  let mode = 'int';
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    drawNode(svg, 110, 110, '$\\tau$', {r:24, stroke:'var(--blue)'});
+    drawNode(svg, 310, 110, '$\\gamma_2\\tau$', {r:30, stroke:'var(--blue)'});
+    drawNode(svg, 510, 110, '$\\gamma_1\\gamma_2\\tau$', {r:36, stroke:'var(--blue)'});
+    drawArrow(svg, [110,110], [310,110], {color:'var(--yellow)', label:'$\\gamma_2$', markerId:'arr-c-1', curve:-30});
+    drawArrow(svg, [310,110], [510,110], {color:'var(--yellow)', label:'$\\gamma_1$', markerId:'arr-c-2', curve:-30});
+    drawArrow(svg, [110,110], [510,110], {color:'var(--pink)', label:'$\\gamma_1\\gamma_2$', markerId:'arr-c-3', curve:55});
+    if(mode === 'int'){
+      out.innerHTML = '<strong>integer weight:</strong> $j(\\gamma,\\tau) = (c\\tau+d)$. <br>' +
+        '$\\;j(\\gamma_1\\gamma_2,\\tau) = j(\\gamma_1,\\gamma_2\\tau)\\cdot j(\\gamma_2,\\tau)$  — exact equality.<br>' +
+        'Cocycle holds on $\\mathrm{SL}_2(\\mathbb{Z})$. Modular forms of weight $k$ form a clean theory.';
+    } else {
+      out.innerHTML = '<strong>half-integer weight:</strong> $j(\\gamma,\\tau) = \\sqrt{c\\tau+d}$. <br>' +
+        '$\\;j(\\gamma_1\\gamma_2,\\tau) = \\pm\\, j(\\gamma_1,\\gamma_2\\tau)\\cdot j(\\gamma_2,\\tau)$  — sign ambiguity!<br>' +
+        'The sign-tracking enlarges $\\mathrm{SL}_2(\\mathbb{Z})$ to its double cover $\\widetilde{\\mathrm{SL}_2(\\mathbb{Z})}$. On $\\Gamma_0(4)$, the theta multiplier $j(\\gamma,\\tau)=\\theta(\\gamma\\tau)/\\theta(\\tau)$ is a genuine cocycle.';
+    }
+    if(typeof renderMathInElement === 'function'){
+      renderMathInElement(out, {delimiters:[{left:'$',right:'$',display:false}], throwOnError:false});
+    }
+  }
+  btns.forEach(b => b.addEventListener('click', () => {
+    btns.forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+    mode = b.dataset.w;
+    render();
+  }));
+  render();
+})();
+</script>
+
+<div class="quiz" data-concept="hiw-metaplectic-cocycle"></div><!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./modular-forms.html#forms">Definition of modular forms</a></li>
+    <li><a href="./modular-forms.html#sl2z">SL2(Z) action on the upper half-plane</a></li>
+    <li><a href="./theta-functions.html#trans">Theta transformation law</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./half-integral-weight-forms.html#theta">Half integral weight forms</a> · Theta as the prototypical weight-1/2 form</div>
+</aside>
+<!-- backlinks-auto-end -->
+</section>
+
+<section id="theta">
+<h2>2. Theta functions as the prototype</h2>
+
+<p>The Jacobi theta series</p>
+<p style="text-align:center">$\theta(\tau) \;=\; \sum_{n\in\mathbb{Z}} q^{n^2}, \qquad q = e^{2\pi i \tau},$</p>
+<p>is the <em>canonical</em> weight-$\tfrac12$ modular form on $\Gamma_0(4)$. It transforms by the theta multiplier $j(\gamma,\tau)$ defined above; in fact $j(\gamma,\tau)$ <em>is</em> $\theta(\gamma\tau)/\theta(\tau)$.</p>
+
+<p>The pedagogical magic of $\theta$ is that taking powers $\theta^k$ gives weight-$k/2$ modular forms whose Fourier coefficients are the <strong>sums-of-squares counts</strong>:</p>
+<p style="text-align:center">$\theta(\tau)^k \;=\; \sum_{n\ge 0} r_k(n)\, q^n, \qquad r_k(n) = \#\{(a_1,\ldots,a_k)\in\mathbb{Z}^k : a_1^2+\cdots+a_k^2 = n\}.$</p>
+
+<h3>Classical formulas, from modular-form spaces of low dimension</h3>
+
+<p>Because the spaces $M_{k/2}(\Gamma_0(4))$ are finite-dimensional and explicit, $\theta^k$ can be matched against an Eisenstein basis to extract closed-form $r_k(n)$ formulas:</p>
+
+<ul>
+  <li><strong>$k=2$ (Jacobi-Gauss):</strong> $r_2(n) = 4(d_1(n) - d_3(n))$, where $d_j(n)$ counts divisors of $n$ congruent to $j\pmod 4$.</li>
+  <li><strong>$k=4$ (Jacobi):</strong> $r_4(n) = 8\sigma(n) - 32\sigma(n/4)$, where $\sigma(n) = \sum_{d\mid n} d$ and $\sigma(n/4) = 0$ if $4\nmid n$.</li>
+  <li><strong>$k=8$:</strong> $\theta^8$ is a weight-$4$ form on $\Gamma_0(4)$; matched against $E_4$ and twists, one finds $r_8(n) = 16\sum_{d\mid n}(-1)^{n-d}\,d^3$.</li>
+</ul>
+
+<div class="widget" id="w-rk-checker">
+  <div class="hd"><div class="ttl">$r_k(n)$ vs. closed-form</div><div class="hint">verify Jacobi's formulas for $k=2,4$</div></div>
+  <div class="row">
+    <label for="rk-n">$n$</label>
+    <input type="number" id="rk-n" min="1" max="60" step="1" value="12">
+    <span class="small" id="rk-h">try $n = 25$, $32$, $48$ — note the divisibility-by-4 effect.</span>
+  </div>
+  <div class="readout" id="rk-out"></div>
+  <svg id="rk-svg" viewBox="0 0 620 160" width="620" height="160"><title>r_k(n) bar chart</title></svg>
+</div>
+
+<script>
+/* =============================== SECTION 2 widget =============================== */
+(function(){
+  const inp = document.getElementById('rk-n');
+  const out = document.getElementById('rk-out');
+  const svg = document.getElementById('rk-svg');
+  if (!inp || !out || !svg) {
+    console.warn('[half-integral-weight-forms] missing widget DOM:', {inp:!!inp, out:!!out, svg:!!svg});
+    return;
+  }
+  function sigma(n){
+    if(n<=0) return 0;
+    let s = 0;
+    for(let d=1; d*d<=n; d++){
+      if(n%d===0){ s += d; if(d*d !== n) s += n/d; }
+    }
+    return s;
+  }
+  function dmod4(n){
+    let a=0, b=0;
+    for(let d=1; d<=n; d++){
+      if(n%d===0){
+        if(d%4===1) a++;
+        if(d%4===3) b++;
+      }
+    }
+    return [a,b];
+  }
+  function r2(n){
+    if(n===0) return 1;
+    let c = 0;
+    const B = Math.floor(Math.sqrt(n));
+    for(let a=-B; a<=B; a++){
+      const rem = n - a*a;
+      if(rem<0) continue;
+      const b = Math.round(Math.sqrt(rem));
+      if(b*b===rem) c += (b===0 ? 1 : 2);
+    }
+    return c;
+  }
+  function r3(n){
+    if(n===0) return 1;
+    let c = 0;
+    const B = Math.floor(Math.sqrt(n));
+    for(let a=-B; a<=B; a++){
+      const r = n - a*a; if(r<0) continue;
+      c += r2(r);
+    }
+    return c;
+  }
+  function r4(n){
+    if(n===0) return 1;
+    let c = 0;
+    const B = Math.floor(Math.sqrt(n));
+    for(let a=-B; a<=B; a++){
+      const r = n - a*a; if(r<0) continue;
+      c += r3(r);
+    }
+    return c;
+  }
+  function render(){
+    let n = parseInt(inp.value, 10);
+    if(!Number.isFinite(n)) n = 1;
+    n = Math.max(1, Math.min(60, n));
+    inp.value = n;
+    const R2 = r2(n), R3 = r3(n), R4 = r4(n);
+    const sig = sigma(n), sigQ = (n%4===0) ? sigma(n/4) : 0;
+    const rhs2pair = dmod4(n);
+    const rhs2 = 4*(rhs2pair[0] - rhs2pair[1]);
+    const rhs4 = 8*sig - 32*sigQ;
+    const lines = [];
+    lines.push(`n = ${n}`);
+    lines.push(`r_2(n) = ${R2}    4(d_1 - d_3) = 4(${rhs2pair[0]} - ${rhs2pair[1]}) = ${rhs2}    ${R2===rhs2?'OK':'???'}`);
+    lines.push(`r_3(n) = ${R3}    (no simple closed form; Gauss class number link)`);
+    lines.push(`r_4(n) = ${R4}    8sigma(n) - 32sigma(n/4) = 8*${sig} - 32*${sigQ} = ${rhs4}    ${R4===rhs4?'OK':'???'}`);
+    out.textContent = lines.join('\n');
+
+    // bar chart
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const W=620, H=160, pad={l:50,r:16,t:18,b:30};
+    const ks = [1,2,3,4];
+    const r1n = (function(){ const rt = Math.round(Math.sqrt(n)); return rt*rt===n ? 2 : 0; })();
+    const vals = [r1n, R2, R3, R4];
+    const maxV = Math.max(1, ...vals);
+    const scale = v => (v>0) ? Math.log(1+v)/Math.log(1+maxV) : 0;
+    const bw = (W-pad.l-pad.r)/ks.length;
+    svg.appendChild(SVG('line',{x1:pad.l,y1:H-pad.b,x2:W-pad.r,y2:H-pad.b,stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:pad.l,y1:pad.t,x2:pad.l,y2:H-pad.b,stroke:'var(--line)'}));
+    const COLORS = ['var(--blue)','var(--yellow)','var(--green)','var(--cyan)'];
+    for(let i=0;i<ks.length;i++){
+      const v = vals[i];
+      const x = pad.l + i*bw;
+      const h = scale(v) * (H-pad.t-pad.b);
+      if(h>0){
+        svg.appendChild(SVG('rect',{x:x+bw*0.22, y:H-pad.b-h, width:bw*0.56, height:h, fill:COLORS[i], opacity:0.9}));
+      }
+      const lab = SVG('text',{x:x+bw/2, y:H-pad.b+18, 'text-anchor':'middle', 'font-size':12, fill:'var(--mute)'});
+      lab.textContent = 'k='+ks[i];
+      svg.appendChild(lab);
+      const vlab = SVG('text',{x:x+bw/2, y:H-pad.b-h-6, 'text-anchor':'middle', 'font-size':12, fill:'var(--ink)'});
+      vlab.textContent = v;
+      svg.appendChild(vlab);
+    }
+    const ttl = SVG('text',{x:pad.l, y:pad.t-2, 'font-size':12, fill:'var(--blue)', 'font-style':'italic'});
+    ttl.textContent = 'r_k('+n+') for k = 1, 2, 3, 4';
+    svg.appendChild(ttl);
+  }
+  inp.addEventListener('input', render);
+  render();
+})();
+</script>
+
+<p>Notice that the modular-form-of-half-integer-weight package <em>generates</em> the divisor-sum formulas — they are not coincidences. The theta-functions topic walks through the elementary side; this page treats $\theta$ as the inaugural specimen of a much larger zoo.</p>
+
+<div class="quiz" data-concept="hiw-theta-prototype"></div><!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./modular-forms.html#eisen">Eisenstein series</a></li>
+    <li><a href="./theta-functions.html#conv">q-expansion and convergence</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./half-integral-weight-forms.html#shimura-lift">Half integral weight forms</a> · Shimura's lift to integral weight</div>
+</aside>
+<!-- backlinks-auto-end -->
+</section>
+
+<section id="shimura-lift">
+<h2>3. The Shimura lift</h2>
+
+<p>So far the half-integral world looks like an unwieldy curiosity: irregular factor of $\sqrt{c\tau+d}$, level $\Gamma_0(4N)$ forced on you, character squared everywhere. Shimura (1973) made it tractable by constructing a <em>lift</em> from this strange world back to the familiar integer-weight world.</p>
+
+<div class="note"><strong>Shimura's theorem (1973).</strong> Let $f$ be a Hecke eigenform of weight $k+\tfrac12$ on $\Gamma_0(4N)$ with character $\chi$. There exists an integer-weight Hecke eigenform $F$ of weight $2k$ on $\Gamma_0(2N)$ with character $\chi^2$ such that the eigenvalues match: at every prime $p\nmid 4N$, the Hecke eigenvalue $a_F(p)$ of $F$ at $p$ is determined by the Hecke eigenvalue $a_f(p^2)$ of $f$ at $p^2$ via
+$$\boxed{\;\;a_F(p) \;=\; a_f(p^2) \;+\; \chi(p)\,p^{k-1}.\;\;}$$</div>
+
+<p>Two surprises packaged into one formula:</p>
+
+<ul>
+  <li><strong>The weight doubles.</strong> Half-integer $k+\tfrac12$ goes to integer $2k$ — exactly twice the "fractional part-free" weight. The level halves: $\Gamma_0(4N) \to \Gamma_0(2N)$.</li>
+  <li><strong>The Hecke side squares.</strong> On half-integral forms, Hecke operators are most naturally indexed by $T_{p^2}$ (acting at $p^2$, not $p$). Squaring on Hecke indices matches doubling on weights.</li>
+</ul>
+
+<div class="widget" id="w-shimura">
+  <div class="hd"><div class="ttl">Shimura recipe calculator</div><div class="hint">turn $a_f(p^2)$ into $a_F(p)$</div></div>
+  <div class="row">
+    <label for="shi-k">$k$</label>
+    <input type="number" id="shi-k" min="1" max="10" step="1" value="6">
+    <label for="shi-p">$p$</label>
+    <select id="shi-p">
+      <option>3</option><option>5</option><option>7</option><option selected>11</option><option>13</option>
+    </select>
+    <label for="shi-afp2">$a_f(p^2)$</label>
+    <input type="number" id="shi-afp2" step="any" value="-72">
+    <label for="shi-chi">$\chi(p)$</label>
+    <select id="shi-chi"><option value="1" selected>+1</option><option value="-1">−1</option><option value="0">0</option></select>
+  </div>
+  <div class="readout" id="shi-out"></div>
+  <svg id="shi-svg" viewBox="0 0 620 220" width="620" height="220"><title>Shimura correspondence diagram</title></svg>
+  <div class="small">Default: $k=6$, $p=11$, $a_f(p^2)=-72$ corresponds to $\Delta$'s $a_\Delta(11)=534612$ via the inverse — playing forward gives $a_F(11)=-72+11^5=160979$, not $\Delta$'s value. (Shimura is not the literal-coefficient inverse for $\Delta$; it's the right correspondence at the eigenvalue level for the right normalization.)</div>
+</div>
+
+<script>
+/* =============================== SECTION 3 widget =============================== */
+(function(){
+  const k = document.getElementById('shi-k');
+  const p = document.getElementById('shi-p');
+  const afp2 = document.getElementById('shi-afp2');
+  const chi = document.getElementById('shi-chi');
+  const out = document.getElementById('shi-out');
+  const svg = document.getElementById('shi-svg');
+  if (!k || !p || !afp2 || !chi || !out || !svg) {
+    console.warn('[half-integral-weight-forms] missing widget DOM:', {k:!!k, p:!!p, afp2:!!afp2, chi:!!chi, out:!!out, svg:!!svg});
+    return;
+  }
+  function ipow(b, e){ let r = 1; for(let i=0;i<e;i++) r *= b; return r; }
+  function render(){
+    const kv = parseInt(k.value, 10) | 0;
+    const pv = parseInt(p.value, 10) | 0;
+    const a = parseFloat(afp2.value);
+    const c = parseInt(chi.value, 10) | 0;
+    const pk = ipow(pv, kv-1);
+    const aF = a + c * pk;
+    const wHalf = kv + 0.5;
+    const wInt = 2 * kv;
+    out.textContent =
+      `weight on half-integral side: ${wHalf}\n` +
+      `weight on integer side:        ${wInt}\n` +
+      `\n` +
+      `a_F(p) = a_f(p^2) + chi(p) * p^(k-1)\n` +
+      `       = ${a}    +  ${c}      *   ${pv}^${kv-1}\n` +
+      `       = ${a} + ${c*pk}\n` +
+      `       = ${aF}`;
+    // diagram: f -> F via Shimura
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    drawNode(svg, 130, 70, 'f', {r:30, stroke:'var(--cyan)'});
+    drawNode(svg, 490, 70, 'F', {r:30, stroke:'var(--yellow)'});
+    drawArrow(svg, [130,70], [490,70], {color:'var(--violet)', label:'Shimura', markerId:'arr-shi-1', curve:0});
+    const t1 = SVG('text',{x:130, y:128, 'text-anchor':'middle', 'font-size':12, fill:'var(--mute)'});
+    t1.textContent = `weight ${wHalf}, level Γ₀(4N)`;
+    svg.appendChild(t1);
+    const t2 = SVG('text',{x:490, y:128, 'text-anchor':'middle', 'font-size':12, fill:'var(--mute)'});
+    t2.textContent = `weight ${wInt}, level Γ₀(2N)`;
+    svg.appendChild(t2);
+    const t3 = SVG('text',{x:310, y:170, 'text-anchor':'middle', 'font-size':13, fill:'var(--ink)'});
+    t3.textContent = `at prime p = ${pv}:`;
+    svg.appendChild(t3);
+    const t4 = SVG('text',{x:310, y:194, 'text-anchor':'middle', 'font-size':13, fill:'var(--yellow)', 'font-style':'italic'});
+    t4.textContent = `a_F(${pv}) = a_f(${pv}²) + χ(${pv})·${pv}^${kv-1} = ${aF}`;
+    svg.appendChild(t4);
+  }
+  [k,p,afp2,chi].forEach(el => el.addEventListener('input', render));
+  [k,p,afp2,chi].forEach(el => el.addEventListener('change', render));
+  render();
+})();
+</script>
+
+<p>The Shimura lift is a <em>functor</em>, not a coincidence: it commutes with all Hecke operators, takes eigenforms to eigenforms, and the integer-weight image $F$ has all the modular-form structure (Petersson product, Atkin-Lehner involutions, $L$-function) that you already know. The half-integral side becomes a controlled mirror.</p>
+
+<div class="quiz" data-concept="hiw-shimura-lift"></div><!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./hecke-operators.html#algebra">Commuting Hecke algebra</a></li>
+    <li><a href="./hecke-operators.html#eigen">Eigenforms and Euler factors</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./half-integral-weight-forms.html#plus-space">Half integral weight forms</a> · Kohnen's plus space</div>
+</aside>
+<!-- backlinks-auto-end -->
+</section>
+
+<section id="plus-space">
+<h2>4. Kohnen's plus space</h2>
+
+<p>Shimura's lift packages half-integral data as integer data. But the lift is not bijective on the nose — many half-integral eigenforms share a Shimura image. Kohnen (1980-82) found a <em>canonical section</em>: a distinguished subspace on which Shimura becomes an honest isomorphism.</p>
+
+<div class="note"><strong>Kohnen's plus space.</strong> Define
+$$S^+_{k+1/2}(\Gamma_0(4)) \;=\; \bigl\{ f \in S_{k+1/2}(\Gamma_0(4)) \,:\, a_f(n) = 0 \text{ unless } (-1)^k n \equiv 0\text{ or }1 \pmod 4 \bigr\}.$$
+This is the subspace whose nonzero Fourier coefficients are concentrated on $n$ for which $(-1)^k n$ is a discriminant of a quadratic field (or a perfect square / zero).</div>
+
+<p>The condition looks ad hoc, but it is exactly the condition needed to align with discriminants of binary quadratic forms — the inputs to Waldspurger's formula in the next section.</p>
+
+<div class="note"><strong>Kohnen-Zagier (1981).</strong> The Shimura correspondence restricts to a <em>Hecke-equivariant isomorphism</em>
+$$S^+_{k+1/2}(\Gamma_0(4)) \;\xrightarrow{\;\;\sim\;\;}\; S_{2k}(\mathrm{SL}_2(\mathbb{Z})).$$
+Every level-1 newform of weight $2k$ has a unique (up to scalar) preimage in the plus space.</div>
+
+<p>So the dictionary is:</p>
+
+<table class="plain">
+<thead><tr><th>weight $2k$ on $\mathrm{SL}_2(\mathbb{Z})$</th><th>↔</th><th>weight $k+\tfrac12$ on $\Gamma_0(4)$, plus condition</th></tr></thead>
+<tbody>
+<tr><td>$\Delta$, weight 12</td><td>↔</td><td>a unique cusp form in $S^+_{13/2}(\Gamma_0(4))$</td></tr>
+<tr><td>$E_4$ in $M_4$, weight 4</td><td>↔</td><td>a unique form in $M^+_{5/2}(\Gamma_0(4))$</td></tr>
+<tr><td>weight 16, 18, 20: 1-dim each</td><td>↔</td><td>weight 17/2, 19/2, 21/2 plus space: 1-dim each</td></tr>
+</tbody>
+</table>
+
+<div class="widget" id="w-plusfilter">
+  <div class="hd"><div class="ttl">Plus-space coefficient filter</div><div class="hint">which $n$'s pass the cutoff?</div></div>
+  <div class="row">
+    <label for="ks-k">$k$</label>
+    <select id="ks-k">
+      <option value="1">k=1 (wt 3/2: $-n \equiv 0,1$ mod 4)</option>
+      <option value="2" selected>k=2 (wt 5/2: $n \equiv 0,1$ mod 4)</option>
+      <option value="3">k=3 (wt 7/2: $-n \equiv 0,1$ mod 4)</option>
+      <option value="4">k=4 (wt 9/2: $n \equiv 0,1$ mod 4)</option>
+      <option value="6">k=6 (wt 13/2: $n \equiv 0,1$ mod 4)</option>
+    </select>
+    <span class="small">Even $k$ keeps $n\equiv 0,1\pmod 4$. Odd $k$ keeps $n\equiv 0,3\pmod 4$ (after sign flip).</span>
+  </div>
+  <svg id="ks-svg" viewBox="0 0 620 110" width="620" height="110"><title>Plus space coefficient filter</title></svg>
+  <div class="readout" id="ks-out"></div>
+</div>
+
+<script>
+/* =============================== SECTION 4 widget =============================== */
+(function(){
+  const sel = document.getElementById('ks-k');
+  const svg = document.getElementById('ks-svg');
+  const out = document.getElementById('ks-out');
+  if (!sel || !svg || !out) {
+    console.warn('[half-integral-weight-forms] missing widget DOM:', {sel:!!sel, svg:!!svg, out:!!out});
+    return;
+  }
+  const N = 24;
+  function passes(k, n){
+    // (-1)^k n mod 4 in {0, 1}
+    const v = (k % 2 === 0) ? (n % 4) : ((-n % 4 + 4) % 4);
+    return (v === 0) || (v === 1);
+  }
+  function render(){
+    const k = parseInt(sel.value, 10);
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const W = 620, H = 110, pad = {l:30, r:10, t:30, b:30};
+    const cw = (W - pad.l - pad.r) / N;
+    const allowed = [];
+    for(let n=1; n<=N; n++){
+      const x = pad.l + (n-1) * cw;
+      const ok = passes(k, n);
+      const col = ok ? 'var(--green)' : 'var(--bad,#5a2a2a)';
+      svg.appendChild(SVG('rect', {
+        x: x+cw*0.12, y: pad.t,
+        width: cw*0.76, height: H - pad.t - pad.b,
+        fill: ok ? col : 'transparent',
+        stroke: 'var(--line)', 'stroke-width': 1
+      }));
+      const t = SVG('text',{x:x+cw/2, y:H-pad.b+16, 'text-anchor':'middle', 'font-size':10,
+        fill: ok ? 'var(--ink)' : 'var(--mute)'});
+      t.textContent = n;
+      svg.appendChild(t);
+      if(ok) allowed.push(n);
+    }
+    const ttl = SVG('text',{x:pad.l, y:18, 'font-size':12, fill:'var(--blue)', 'font-style':'italic'});
+    ttl.textContent = `Allowed Fourier indices for k=${k} (green = a(n) can be nonzero)`;
+    svg.appendChild(ttl);
+    out.textContent = `k = ${k}    weight = ${k}+1/2 = ${k+0.5}\n` +
+      `plus-space condition:  (-1)^k · n  ≡  0 or 1  (mod 4)\n` +
+      `allowed n in [1, ${N}]:  ${allowed.join(', ')}\n` +
+      `(${allowed.length} of ${N} pass the filter — roughly half)`;
+  }
+  sel.addEventListener('change', render);
+  render();
+})();
+</script>
+
+<p>The coefficient filter is the geometric content. Discriminants of imaginary (or real) quadratic fields $\mathbb{Q}(\sqrt{D})$ satisfy exactly the congruence $D \equiv 0$ or $1\pmod 4$. The plus-space condition says: only Fourier coefficients indexed by genuine quadratic discriminants matter. This sets up Waldspurger.</p>
+
+<div class="quiz" data-concept="hiw-kohnen-plus-space"></div><!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./hecke-operators.html#petersson">Self-adjointness of $T_p$</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./half-integral-weight-forms.html#waldspurger">Half integral weight forms</a> · Waldspurger's formula</div>
+</aside>
+<!-- backlinks-auto-end -->
+</section>
+
+<section id="waldspurger">
+<h2>5. Waldspurger's formula</h2>
+
+<p>The Shimura lift gives an integer-weight twin $F$ for every half-integral eigenform $f$. Waldspurger (1981) added the breakthrough: <em>the Fourier coefficients of $f$ are not just abstract data — they encode central $L$-values of $F$.</em></p>
+
+<div class="note"><strong>Waldspurger's formula (in Kohnen-Zagier form).</strong> Let $f \in S^+_{k+1/2}(\Gamma_0(4))$ be a Hecke eigenform corresponding under Shimura to $F \in S_{2k}(\mathrm{SL}_2(\mathbb{Z}))$. For $D$ a fundamental discriminant with $(-1)^k D > 0$,
+$$\bigl| a_f(|D|) \bigr|^2 \;=\; C_{f,F} \cdot |D|^{k-1/2} \cdot L\bigl(F \otimes \chi_D,\, k\bigr),$$
+where $\chi_D$ is the quadratic character of conductor $|D|$, $L(F\otimes\chi_D, s)$ is the twisted $L$-function, and $C_{f,F}$ is an explicit constant involving Petersson norms. The central value is at $s = k$ — the centre of the functional equation for the weight-$2k$ form $F$.</div>
+
+<p>Read this both directions:</p>
+
+<ul>
+  <li><strong>Forward (analytic to combinatorial).</strong> $L$-values are hard to compute analytically — the Dirichlet series $\sum a_F(n)\chi_D(n)/n^s$ does not converge at $s=k$, the centre. Waldspurger says: take a Fourier coefficient (a finite combinatorial count) and square it. That gives the central $L$-value modulo an explicit normalization.</li>
+  <li><strong>Backward (combinatorial to analytic).</strong> The integers $a_f(|D|)$ for varying $D$ are constrained by a non-trivial equality with $L$-values — they must all be non-negative (or zero), they obey distribution laws inherited from the analytic theory, and their non-vanishing is governed by the central $L$-values.</li>
+</ul>
+
+<h3>Why squared?</h3>
+
+<p>The Fourier coefficient $a_f(|D|)$ depends on a choice of normalization (a sign), but the central value $L(F\otimes\chi_D, k)$ is intrinsic — and conjecturally non-negative. The square $|a_f(|D|)|^2$ is the unsigned, normalization-free invariant.</p>
+
+<div class="widget" id="w-wald">
+  <div class="hd"><div class="ttl">Waldspurger correspondence diagram</div><div class="hint">trace the data flow</div></div>
+  <svg id="wald-svg" viewBox="0 0 640 280" width="640" height="280"><title>Waldspurger data flow</title></svg>
+  <div class="readout" id="wald-out">A canonical computation: <span style="color:var(--cyan)">half-integral Fourier coefficient</span> ⟶ <span style="color:var(--yellow)">central twisted L-value</span>, no analytic continuation needed at the user level.</div>
+</div>
+
+<script>
+/* =============================== SECTION 5 widget =============================== */
+(function(){
+  const svg = document.getElementById('wald-svg');
+  const out = document.getElementById('wald-out');
+  if (!svg || !out) {
+    console.warn('[half-integral-weight-forms] missing widget DOM:', {svg:!!svg, out:!!out});
+    return;
+  }
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    // top row: f and F
+    drawNode(svg, 130, 60, 'f', {r:30, stroke:'var(--cyan)'});
+    drawNode(svg, 510, 60, 'F', {r:30, stroke:'var(--yellow)'});
+    drawArrow(svg, [130,60], [510,60], {color:'var(--violet)', label:'Shimura', markerId:'arr-w-1', curve:0});
+    const t1 = SVG('text',{x:130, y:108, 'text-anchor':'middle', 'font-size':12, fill:'var(--mute)'});
+    t1.textContent = 'wt k+1/2, plus space';
+    svg.appendChild(t1);
+    const t2 = SVG('text',{x:510, y:108, 'text-anchor':'middle', 'font-size':12, fill:'var(--mute)'});
+    t2.textContent = 'wt 2k, level 1';
+    svg.appendChild(t2);
+    // bottom row: |a_f(|D|)|^2 and L(F ⊗ χ_D, k)
+    const fbox = SVG('rect',{x:30, y:170, width:200, height:60, fill:'var(--panel2)', stroke:'var(--cyan)', 'stroke-width':1.5, rx:8});
+    svg.appendChild(fbox);
+    const ft = SVG('text',{x:130, y:200, 'text-anchor':'middle', 'font-size':14, fill:'var(--cyan)', 'font-weight':600});
+    ft.textContent = '|a_f(|D|)|²';
+    svg.appendChild(ft);
+    const fts = SVG('text',{x:130, y:218, 'text-anchor':'middle', 'font-size':11, fill:'var(--mute)'});
+    fts.textContent = 'a Fourier coefficient — finite combinatorial count';
+    svg.appendChild(fts);
+
+    const Lbox = SVG('rect',{x:410, y:170, width:200, height:60, fill:'var(--panel2)', stroke:'var(--yellow)', 'stroke-width':1.5, rx:8});
+    svg.appendChild(Lbox);
+    const Lt = SVG('text',{x:510, y:200, 'text-anchor':'middle', 'font-size':14, fill:'var(--yellow)', 'font-weight':600});
+    Lt.textContent = 'L(F ⊗ χ_D, k)';
+    svg.appendChild(Lt);
+    const Lts = SVG('text',{x:510, y:218, 'text-anchor':'middle', 'font-size':11, fill:'var(--mute)'});
+    Lts.textContent = 'central value — analytically hard';
+    svg.appendChild(Lts);
+    // vertical arrows down
+    drawArrow(svg, [130,90], [130,170], {color:'var(--cyan)', markerId:'arr-w-2', curve:0});
+    drawArrow(svg, [510,90], [510,170], {color:'var(--yellow)', markerId:'arr-w-3', curve:0});
+    // bottom equality
+    drawArrow(svg, [230,200], [410,200], {color:'var(--green)', label:'Waldspurger ≃', markerId:'arr-w-4', curve:0, width:2.2});
+    const teq = SVG('text',{x:320, y:262, 'text-anchor':'middle', 'font-size':12, fill:'var(--mute)', 'font-style':'italic'});
+    teq.textContent = '(equality up to explicit |D|^(k-1/2) and Petersson norm)';
+    svg.appendChild(teq);
+  }
+  render();
+})();
+</script>
+
+<div class="quiz" data-concept="hiw-waldspurger"></div><!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./L-functions.html#modularity">Arithmetic data and modularity links</a></li>
+    <li><a href="./L-functions.html#special-values">Special values and arithmetic</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./half-integral-weight-forms.html#tunnell">Half integral weight forms</a> · Tunnell's theorem and the congruent number problem</div>
+</aside>
+<!-- backlinks-auto-end -->
+</section>
+
+<section id="tunnell">
+<h2>6. Application: Tunnell's theorem and the congruent number problem</h2>
+
+<p>The <strong>congruent number problem</strong> asks: for which positive integers $n$ does there exist a right triangle with rational sides whose area equals $n$? The first few congruent numbers are $5, 6, 7, 13, 14, 15, 20, 21, 22, 23, 24, \ldots$. The non-congruent ones are $1, 2, 3, 4, 8, 9, 10, 11, 12, 16, 17, 18, 19, \ldots$. There is no obvious pattern. The problem dates to the 10th century (Arab manuscripts, then Fibonacci); the elliptic-curve formulation $E_n: y^2 = x^3 - n^2 x$ is essentially classical, and Mordell's 1922 finite-generation theorem makes the rank a meaningful invariant.</p>
+
+<p>The translation: $n$ is congruent iff the elliptic curve</p>
+<p style="text-align:center">$E_n \;:\; y^2 \;=\; x^3 - n^2 x$</p>
+<p>has positive Mordell-Weil rank over $\mathbb{Q}$. (Each rational point with $x\ne 0, \pm n$ produces a rational right triangle of area $n$.)</p>
+
+<p>BSD predicts: $E_n$ has positive rank iff $L(E_n, 1) = 0$. So congruent number theory becomes a question about central $L$-values. Waldspurger's formula then turns it into a question about Fourier coefficients of an explicit half-integral weight form.</p>
+
+<div class="note"><strong>Tunnell's theorem (1983).</strong> Let $n$ be an odd squarefree positive integer. Define
+$$A(n) = \#\{(x,y,z)\in\mathbb{Z}^3 : 2x^2+y^2+32z^2 = n\}, \qquad B(n) = \#\{(x,y,z)\in\mathbb{Z}^3 : 2x^2+y^2+8z^2 = n\}.$$
+Then $L(E_n, 1) \ne 0$ iff $B(n) \ne 2A(n)$.<br><br>
+By BSD, this would imply: <strong>$n$ is non-congruent iff $B(n) \ne 2A(n)$</strong>. There is an analogous statement for even squarefree $n$ (with different ternary forms). One direction (vanishing $\Rightarrow$ nonzero $A(n)/B(n)$ identity, i.e. positive rank $\Rightarrow$ Tunnell sums match) is unconditional via Waldspurger; the converse rests on BSD for $E_n$.</div>
+
+<div class="widget" id="w-tunnell">
+  <div class="hd"><div class="ttl">Tunnell test (small $n$)</div><div class="hint">enter odd squarefree $n$ and compare $A(n)$ vs $2B(n)$</div></div>
+  <div class="row">
+    <label for="tn-n">$n$</label>
+    <input type="number" id="tn-n" min="1" max="61" step="1" value="5">
+    <span class="small">Try $n = 1, 5, 6, 7, 13, 21, 23, 41$ — note that $n = 6, 14, 15$ are even, this widget handles odd $n$.</span>
+  </div>
+  <div class="readout" id="tn-out"></div>
+  <svg id="tn-svg" viewBox="0 0 620 130" width="620" height="130"><title>Tunnell A vs 2B</title></svg>
+</div>
+
+<script>
+/* =============================== SECTION 6 widget =============================== */
+(function(){
+  const inp = document.getElementById('tn-n');
+  const out = document.getElementById('tn-out');
+  const svg = document.getElementById('tn-svg');
+  if (!inp || !out || !svg) {
+    console.warn('[half-integral-weight-forms] missing widget DOM:', {inp:!!inp, out:!!out, svg:!!svg});
+    return;
+  }
+  function countTernary(n, a, b, c){
+    // count integer triples (x,y,z) with a*x^2 + b*y^2 + c*z^2 = n
+    let total = 0;
+    const Bx = Math.floor(Math.sqrt(n/a));
+    for(let x=-Bx; x<=Bx; x++){
+      const r1 = n - a*x*x;
+      if(r1 < 0) continue;
+      const By = Math.floor(Math.sqrt(r1/b));
+      for(let y=-By; y<=By; y++){
+        const r2 = r1 - b*y*y;
+        if(r2 < 0) continue;
+        if(r2 % c !== 0) continue;
+        const zsq = r2 / c;
+        const z = Math.round(Math.sqrt(zsq));
+        if(z*z === zsq) total += (z===0 ? 1 : 2);
+      }
+    }
+    return total;
+  }
+  function squarefreeOdd(n){
+    if(n%2 === 0) return false;
+    for(let p=3; p*p<=n; p++){
+      if(n % (p*p) === 0) return false;
+    }
+    return true;
+  }
+  // hard-coded answer (as far as known/BSD-conditional) for small odd squarefree n in [1, 61]
+  // sources: standard tables (Koblitz, Tunnell, OEIS A003273)
+  const KNOWN_CONGRUENT = new Set([5,7,13,15,21,23,29,30,31,34,37,38,39,41,45,46,47,52,53,55,56,60,61]);
+  function render(){
+    let n = parseInt(inp.value, 10);
+    if(!Number.isFinite(n)) n = 1;
+    n = Math.max(1, Math.min(61, n));
+    inp.value = n;
+    if(!squarefreeOdd(n)){
+      out.textContent =
+        `n = ${n} is not odd-squarefree. Tunnell's odd case requires n odd, squarefree.\n` +
+        `Try n = 1, 3, 5, 7, 11, 13, 15, 17, 19, 21, 23, ...`;
+      while(svg.firstChild) svg.removeChild(svg.firstChild);
+      return;
+    }
+    // odd: A = #{2x^2 + y^2 + 32z^2 = n},  B = #{2x^2 + y^2 + 8z^2 = n}
+    const A = countTernary(n, 2, 1, 32);
+    const B = countTernary(n, 2, 1, 8);
+    const cong = KNOWN_CONGRUENT.has(n);
+    const tunnellSays = (B === 2*A) ? 'L(E_n,1) = 0  →  n IS likely congruent (by BSD)'
+                                    : 'L(E_n,1) ≠ 0  →  n is NOT congruent (unconditional via Waldspurger)';
+    const verdict = cong ? 'congruent (known)' : 'non-congruent (known/conjectured)';
+    out.textContent =
+      `n = ${n}\n` +
+      `A(n) = #{2x²+y²+32z² = n}  =  ${A}\n` +
+      `B(n) = #{2x²+y²+8z²  = n}  =  ${B}\n` +
+      `2·A(n) = ${2*A}\n` +
+      `B(n) - 2·A(n) = ${B - 2*A}    →    ${B === 2*A ? 'EQUAL  →  L = 0' : 'NOT EQUAL  →  L ≠ 0'}\n` +
+      `\n` +
+      `Tunnell's verdict:  ${tunnellSays}\n` +
+      `Independent table:   n = ${n} is ${verdict}`;
+    // bar plot
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const W=620, H=130, pad={l:60, r:16, t:24, b:30};
+    const items = [
+      {k:'A(n)',  v:A,    color:'var(--cyan)'},
+      {k:'2·A(n)',v:2*A,  color:'var(--blue)'},
+      {k:'B(n)',  v:B,    color:'var(--yellow)'}
+    ];
+    const maxV = Math.max(1, ...items.map(o=>o.v));
+    const bw = (W-pad.l-pad.r) / items.length;
+    svg.appendChild(SVG('line',{x1:pad.l,y1:H-pad.b,x2:W-pad.r,y2:H-pad.b,stroke:'var(--line)'}));
+    for(let i=0;i<items.length;i++){
+      const x = pad.l + i*bw;
+      const o = items[i];
+      const h = (o.v / maxV) * (H - pad.t - pad.b);
+      if(h>0){
+        svg.appendChild(SVG('rect',{x:x+bw*0.22, y:H-pad.b-h, width:bw*0.56, height:h, fill:o.color, opacity:0.9}));
+      }
+      const lab = SVG('text',{x:x+bw/2, y:H-pad.b+18, 'text-anchor':'middle','font-size':12,fill:'var(--mute)'});
+      lab.textContent = o.k;
+      svg.appendChild(lab);
+      const vlab = SVG('text',{x:x+bw/2, y:H-pad.b-h-6, 'text-anchor':'middle','font-size':12,fill:'var(--ink)'});
+      vlab.textContent = o.v;
+      svg.appendChild(vlab);
+    }
+    const ttl = SVG('text',{x:pad.l, y:18, 'font-size':12, fill:'var(--blue)', 'font-style':'italic'});
+    ttl.textContent = `Tunnell at n = ${n}:  L(E_n, 1) ${B === 2*A ? '= 0' : '≠ 0'}`;
+    svg.appendChild(ttl);
+  }
+  inp.addEventListener('input', render);
+  render();
+})();
+</script>
+
+<p>Tunnell's test runs in polynomial time in $\log n$: the ternary forms $A(n)$ and $B(n)$ are finite sums whose terms can be enumerated quickly. Modulo BSD, this is the cleanest known algorithm for the millennium-old congruent number problem — and the cleanest example of Waldspurger's formula at work. The half-integral world is not a curiosity; it is the engine.</p>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./bsd.html#bsd-rank-equality">BSD rank equality</a></li>
+    <li><a href="./elliptic-curves.html#intro">Elliptic curves and Weierstrass models</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><div class="quiz" data-concept="hiw-tunnell-congruent"></div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     Connections outro — pedagogy reviewer's templated closure pattern.
+     Strong-corpus topics (measure-theory, functional-analysis, elliptic-
+     curves, commutative-algebra) all end with a short "where this leads"
+     section. Bottom-quartile topics tend to skip it; the scaffolder now
+     emits this stub so the no-closure habit doesn't recur on new topics.
+     Authoring agents: replace the bullet list with 3-5 real cross-topic
+     pointers and write 1-2 sentences naming open frontiers.
+═══════════════════════════════════════════════════════════════════ -->
+<section id="connections">
+<h2>Connections</h2>
+
+<p>Half-integral weight forms are still actively researched: Goldfeld's effective lower bounds for class numbers go through them; non-vanishing of central twisted $L$-values (Bump-Friedberg-Hoffstein, Murty-Murty) is partially controlled by Waldspurger; and the higher-rank generalization (Shimura's lift to $\mathrm{Sp}_{2k}$) and the geometric Langlands counterpart are open questions. The plus space's role inside the larger automorphic-forms-on-the-metaplectic-cover story remains a frontier.</p>
+
+<ul>
+  <li><a href="./theta-functions.html#sos">Theta functions — sums of squares from $\theta^k$</a> — the elementary entry point that this page recasts as the inaugural specimen of half-integral weight.</li>
+  <li><a href="./modular-forms.html#forms">Modular forms — definition</a> — the integer-weight sibling that Shimura's lift maps into.</li>
+  <li><a href="./hecke-operators.html#eigen">Hecke operators — eigenforms and Euler factors</a> — the Hecke compatibility is what makes the Shimura correspondence meaningful.</li>
+  <li><a href="./L-functions.html#special-values">L-functions — special values and arithmetic</a> — Waldspurger's formula realizes central $L$-values as squared Fourier coefficients.</li>
+  <li><a href="./bsd.html#bsd-rank-equality">Birch &amp; Swinnerton-Dyer — rank equality</a> — Tunnell's theorem is conditional on BSD for $E_n: y^2 = x^3 - n^2 x$.</li>
+  <li><a href="./automorphic-forms-adelic.html#whittaker-newform">Automorphic forms (adelic) — Whittaker newforms</a> — the modern adelic framework that subsumes the classical metaplectic picture.</li>
+</ul>
+</section>
+
+</main>
+
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('half-integral-weight-forms'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+})();
+</script>
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-05-06</td><td>initial version</td></tr>
+    </tbody>
+  </table>
+</details>
+
+</body>
+</html>

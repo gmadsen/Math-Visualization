@@ -1,5 +1,5 @@
 {
-  "generated": "2026-05-06T08:54:28.262Z",
+  "generated": "2026-05-06T09:33:36.170Z",
   "entries": [
     {
       "slug": "abelian-varieties",
@@ -34,12 +34,20 @@
       "message": "3 next-priority gap topics + condensed pin fix (#122)"
     },
     {
+      "slug": "crystalline-cohomology",
+      "title": "Crystalline cohomology",
+      "color": "g",
+      "tag": "",
+      "date": "2026-05-06",
+      "message": "Three more advanced topics: kahler-geometry, half-integral-weight-forms, crystalline-cohomology"
+    },
+    {
       "slug": "d-modules",
       "title": "D-modules",
       "color": "g",
       "tag": "",
       "date": "2026-05-06",
-      "message": "Three more advanced topics: homotopy-theory, maass-forms, d-modules"
+      "message": "3 more gap topics: homotopy-theory, maass-forms, d-modules (#124)"
     },
     {
       "slug": "dirichlet-unit-theorem",
@@ -50,12 +58,20 @@
       "message": "3 more gap topics: dirichlet-unit-theorem, cobordism, MMP (#123)"
     },
     {
+      "slug": "half-integral-weight-forms",
+      "title": "Half-integral weight forms",
+      "color": "c",
+      "tag": "",
+      "date": "2026-05-06",
+      "message": "Three more advanced topics: kahler-geometry, half-integral-weight-forms, crystalline-cohomology"
+    },
+    {
       "slug": "homotopy-theory",
       "title": "Homotopy theory",
       "color": "v",
       "tag": "",
       "date": "2026-05-06",
-      "message": "Three more advanced topics: homotopy-theory, maass-forms, d-modules"
+      "message": "3 more gap topics: homotopy-theory, maass-forms, d-modules (#124)"
     },
     {
       "slug": "iwasawa-theory",
@@ -66,12 +82,20 @@
       "message": "3 advanced topics + map/mindmap UX + section pill UI + thumb-art (#121)"
     },
     {
+      "slug": "kahler-geometry",
+      "title": "Kähler geometry",
+      "color": "v",
+      "tag": "",
+      "date": "2026-05-06",
+      "message": "Three more advanced topics: kahler-geometry, half-integral-weight-forms, crystalline-cohomology"
+    },
+    {
       "slug": "maass-forms",
       "title": "Maass forms",
       "color": "c",
       "tag": "",
       "date": "2026-05-06",
-      "message": "Three more advanced topics: homotopy-theory, maass-forms, d-modules"
+      "message": "3 more gap topics: homotopy-theory, maass-forms, d-modules (#124)"
     },
     {
       "slug": "mmp-and-birational-geometry",

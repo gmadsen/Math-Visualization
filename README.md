@@ -23,7 +23,7 @@ Alongside each handwritten `<topic>.html`, the repo also carries a structured `c
 
 ## Learning pathways
 
-Start from [`pathway.html`](./pathway.html) to explore prerequisite graphs for capstone goals — pick any of the 34 capstones and the DAG layers every prereq concept by depth. For free-form exploration over the entire 1122-concept graph (no goal required), [`mindmap.html`](./mindmap.html) renders a section-clustered force-directed layout: click a node to focus its k-hop neighborhood, filter by section/level/mastery, and a structural-stats panel surfaces uneven prereq density across the eleven sections. Both views read the same concept graph; pathway is goal-targeted, mindmap is free-explore.
+Start from [`pathway.html`](./pathway.html) to explore prerequisite graphs for capstone goals — pick any of the 34 capstones and the DAG layers every prereq concept by depth. For free-form exploration over the entire 1140-concept graph (no goal required), [`mindmap.html`](./mindmap.html) renders a section-clustered force-directed layout: click a node to focus its k-hop neighborhood, filter by section/level/mastery, and a structural-stats panel surfaces uneven prereq density across the eleven sections. Both views read the same concept graph; pathway is goal-targeted, mindmap is free-explore.
 
 Each concept carries up to three quiz tiers — v1 (required), hard (unlocked after v1), and expert (unlocked after hard). Mastery is tracked in `localStorage` and lights up downstream concepts `locked → ready → mastered`, Brilliant-style. Topic cards on the index may carry a level badge: `prereq`, `advanced`, or `capstone`.
 
@@ -117,6 +117,7 @@ Each concept carries up to three quiz tiers — v1 (required), hard (unlocked af
 - [Cohomology and duality](./cohomology-and-duality.html) — draft — fill in once the page has real content
 - [Cobordism](./cobordism.html) — draft — fill in once the page has real content
 - [Homotopy theory](./homotopy-theory.html) — draft — fill in once the page has real content
+- [Kahler geometry](./kahler-geometry.html) — draft — fill in once the page has real content
 
 ### Number theory
 - [Galois theory & the quintic](./galois.html) — constructibility, correspondence, unsolvability
@@ -156,6 +157,7 @@ Each concept carries up to three quiz tiers — v1 (required), hard (unlocked af
 - [Vertex operator algebras](./vertex-operator-algebras.html) — chiral algebras, the Monster VOA, Borcherds proof of moonshine
 - [Langlands program](./langlands-program.html) — capstone of modular forms / L-functions: arithmetic side (Galois reps from cohomology) and analytic side (cuspidal automorphic reps of $\mathrm{GL}_n$) bridged by L-function matching. CFT as the proven $\mathrm{GL}_1$ case, modularity + Sato-Tate as proven $\mathrm{GL}_2$ corners, functoriality and the Langlands group $L_F$, universal reciprocity
 - [Maass forms](./maass-forms.html) — draft — fill in once the page has real content
+- [Half integral weight forms](./half-integral-weight-forms.html) — draft — fill in once the page has real content
 
 ### Algebraic geometry
 - [Projective plane](./projective-plane.html) — homogeneous coordinates, points at infinity, affine patches
@@ -187,6 +189,7 @@ Each concept carries up to three quiz tiers — v1 (required), hard (unlocked af
 - [Positivity and ample line bundles](./positivity-and-ample-line-bundles.html) — draft — fill in once the page has real content
 - [Mmp and birational geometry](./mmp-and-birational-geometry.html) — draft — fill in once the page has real content
 - [D modules](./d-modules.html) — draft — fill in once the page has real content
+- [Crystalline cohomology](./crystalline-cohomology.html) — draft — fill in once the page has real content
 
 ### Combinatorics & graph theory
 - [Spectral graph theory](./spectral-graph-theory.html) — adjacency, Laplacian, Cheeger inequality, expanders — graphs as discrete differential geometry

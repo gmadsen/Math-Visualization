@@ -1,0 +1,90 @@
+{
+  "topic": "kahler-geometry",
+  "title": "Kähler geometry",
+  "page": "kahler-geometry.html",
+  "concepts": [
+    {
+      "id": "kg-complex-structure",
+      "title": "Almost complex structure and integrability",
+      "anchor": "complex-structure",
+      "prereqs": [
+        "smooth-manifold-definition",
+        "tangent-space-manifolds"
+      ],
+      "blurb": "An almost complex structure is a bundle map $J\\colon TM \\to TM$ with $J^2 = -\\mathrm{id}$. Its $\\pm i$-eigenspaces split the complexified tangent bundle as $TM\\otimes\\mathbb{C} = T^{1,0} \\oplus T^{0,1}$ and induce a bigrading on forms $\\Omega^k = \\bigoplus_{p+q=k} \\Omega^{p,q}$ with operators $\\partial$ and $\\bar\\partial$. The Newlander–Nirenberg theorem says $J$ comes from honest holomorphic charts iff its Nijenhuis tensor $N_J$ vanishes — integrability is the only obstruction.",
+      "tags": [
+        "foundation",
+        "classification"
+      ]
+    },
+    {
+      "id": "kg-kahler-form",
+      "title": "Hermitian metric and the Kähler form",
+      "anchor": "kahler-form",
+      "prereqs": [
+        "kg-complex-structure",
+        "riemannian-metrics",
+        "forms-and-wedge"
+      ],
+      "blurb": "A Hermitian metric $h$ on $(M,J)$ is a Riemannian metric satisfying $h(JX, JY) = h(X,Y)$. Its imaginary part is a real $(1,1)$-form $\\omega(X,Y) = h(JX, Y)$. The Kähler condition $d\\omega = 0$ is equivalent to $\\nabla J = 0$ for the Levi-Civita connection, and locally to $\\omega = i\\,\\partial\\bar\\partial K$ for a Kähler potential $K$. Examples: $\\mathbb{C}^n$ Euclidean, $\\mathbb{CP}^n$ Fubini–Study, flat tori, every Riemann surface, and products.",
+      "tags": [
+        "foundation"
+      ]
+    },
+    {
+      "id": "kg-kahler-identities",
+      "title": "Kähler identities and Hodge decomposition",
+      "anchor": "kahler-identities",
+      "prereqs": [
+        "kg-kahler-form",
+        "stokes-derham",
+        "hodge-decomposition"
+      ],
+      "blurb": "On a compact Kähler manifold the commutators $[\\Lambda, \\partial] = i\\bar\\partial^{\\,*}$ and $[\\Lambda, \\bar\\partial] = -i\\partial^{\\,*}$ collapse the three Laplacians: $\\Delta_d = 2\\Delta_\\partial = 2\\Delta_{\\bar\\partial}$. As a corollary, harmonic representatives respect the bigrading and we get $H^k(M;\\mathbb{C}) = \\bigoplus_{p+q=k} H^{p,q}(M)$ with Hodge symmetry $h^{p,q} = h^{q,p}$ and Serre duality $h^{p,q} = h^{n-p,n-q}$.",
+      "tags": [
+        "cohomology",
+        "duality"
+      ]
+    },
+    {
+      "id": "kg-lefschetz",
+      "title": "Lefschetz operator and hard Lefschetz",
+      "anchor": "lefschetz",
+      "prereqs": [
+        "kg-kahler-identities"
+      ],
+      "blurb": "Wedging with the Kähler form gives the Lefschetz operator $L\\colon \\Omega^k \\to \\Omega^{k+2}$, $\\alpha \\mapsto \\alpha \\wedge \\omega$. The hard Lefschetz theorem says $L^k\\colon H^{n-k}(M;\\mathbb{R}) \\to H^{n+k}(M;\\mathbb{R})$ is an isomorphism for compact Kähler $M$ of complex dimension $n$. Primitive cohomology $P^{n-k} = \\ker L^{k+1}$ refines this into the Lefschetz decomposition, and the Riemann bilinear relations make every Hodge structure on $H^k(M)$ polarised.",
+      "tags": [
+        "duality",
+        "cohomology"
+      ]
+    },
+    {
+      "id": "kg-calabi-yau",
+      "title": "Ricci-flat Kähler and the Calabi conjecture",
+      "anchor": "calabi-yau",
+      "prereqs": [
+        "kg-kahler-form",
+        "ricci-curvature",
+        "cy-definition"
+      ],
+      "blurb": "The Ricci form $\\rho(\\omega)$ of a Kähler metric represents $2\\pi c_1(M)$ in $H^{1,1}(M;\\mathbb{R})$. So $c_1(M) = 0$ is necessary for a Ricci-flat metric. Yau (1977) proved the Calabi conjecture: it is also sufficient — every Kähler class on a compact Kähler manifold with $c_1 = 0$ contains a unique Ricci-flat representative. The quintic threefold $\\{f_5 = 0\\} \\subset \\mathbb{CP}^4$ is the canonical example.",
+      "tags": [
+        "classification",
+        "moduli"
+      ]
+    },
+    {
+      "id": "kg-kahler-einstein",
+      "title": "Kähler–Einstein and K-stability",
+      "anchor": "kahler-einstein",
+      "prereqs": [
+        "kg-calabi-yau"
+      ],
+      "blurb": "A Kähler–Einstein metric satisfies $\\mathrm{Ric}(\\omega) = c\\,\\omega$ for a constant $c$. The sign of $c$ tracks $c_1(M)$: $c = 0$ is Yau's Calabi–Yau case, $c < 0$ is the general-type case (Aubin–Yau, 1976–78). The Fano case $c > 0$ has obstructions — Matsushima, Futaki — and is now controlled by the Yau–Tian–Donaldson conjecture: a Fano manifold admits a Kähler–Einstein metric iff it is K-polystable (Chen–Donaldson–Sun, 2015).",
+      "tags": [
+        "classification"
+      ]
+    }
+  ]
+}

@@ -3295,6 +3295,153 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "crystalline-cohomology-w1",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "crystalline-cohomology-w1 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the crystalline-cohomology topic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `crystalline-cohomology` topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "crystalline-cohomology-w2",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "crystalline-cohomology-w2 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the crystalline-cohomology topic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `crystalline-cohomology` topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "crystalline-cohomology-w3",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "crystalline-cohomology-w3 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the crystalline-cohomology topic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `crystalline-cohomology` topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "crystalline-cohomology-w4",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "crystalline-cohomology-w4 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the crystalline-cohomology topic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `crystalline-cohomology` topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "crystalline-cohomology-w5",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "crystalline-cohomology-w5 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the crystalline-cohomology topic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `crystalline-cohomology` topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "crystalline-cohomology-w6",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "crystalline-cohomology-w6 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the crystalline-cohomology topic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `crystalline-cohomology` topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "crystalline-cohomology-w7",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "crystalline-cohomology-w7 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the crystalline-cohomology topic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `crystalline-cohomology` topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "d-modules-w1",
     "family": "verbatim",
     "dimension": "2d",
@@ -6657,6 +6804,132 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "half-integral-weight-forms-w1",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "half-integral-weight-forms-w1 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the half-integral-weight-forms topic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `half-integral-weight-forms` topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "half-integral-weight-forms-w2",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "half-integral-weight-forms-w2 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the half-integral-weight-forms topic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `half-integral-weight-forms` topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "half-integral-weight-forms-w3",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "half-integral-weight-forms-w3 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the half-integral-weight-forms topic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `half-integral-weight-forms` topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "half-integral-weight-forms-w4",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "half-integral-weight-forms-w4 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the half-integral-weight-forms topic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `half-integral-weight-forms` topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "half-integral-weight-forms-w5",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "half-integral-weight-forms-w5 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the half-integral-weight-forms topic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `half-integral-weight-forms` topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "half-integral-weight-forms-w6",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "half-integral-weight-forms-w6 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the half-integral-weight-forms topic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `half-integral-weight-forms` topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "hamiltonians-figure",
     "family": "hamiltonians-figure",
     "dimension": "2d",
@@ -8283,6 +8556,132 @@ window.__MVWidgets = [
       "bodyScript"
     ],
     "readmeExcerpt": "Bespoke widget for the k-theory topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "kahler-geometry-w1",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "kahler-geometry-w1 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the kahler-geometry topic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `kahler-geometry` topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "kahler-geometry-w2",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "kahler-geometry-w2 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the kahler-geometry topic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `kahler-geometry` topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "kahler-geometry-w3",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "kahler-geometry-w3 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the kahler-geometry topic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `kahler-geometry` topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "kahler-geometry-w4",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "kahler-geometry-w4 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the kahler-geometry topic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `kahler-geometry` topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "kahler-geometry-w5",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "kahler-geometry-w5 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the kahler-geometry topic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `kahler-geometry` topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "kahler-geometry-w6",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "kahler-geometry-w6 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the kahler-geometry topic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `kahler-geometry` topic.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
