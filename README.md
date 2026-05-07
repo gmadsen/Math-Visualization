@@ -85,7 +85,7 @@ Each concept carries up to three quiz tiers — v1 (required), hard (unlocked af
 - [Fixed-point theorems](./fixed-point-theorems.html) — Banach, Brouwer, Schauder, Kakutani, Caristi, KKM
 - [Microlocal analysis](./microlocal-analysis.html) — wavefront sets, pseudodifferential and Fourier integral operators, Hörmander's propagation of singularities, parametrices, applications to scattering and X-ray transforms
 - [Geometric measure theory](./geometric-measure-theory.html) — BV functions, sets of finite perimeter, rectifiable sets, area / coarea formulas, currents, Federer-Fleming compactness, Plateau's problem, Mumford-Shah image segmentation
-- [Semigroup theory evolution equations](./semigroup-theory-evolution-equations.html) — draft — fill in once the page has real content
+- [Semigroup theory & evolution equations](./semigroup-theory-evolution-equations.html) — $C_0$ semigroups, Hille–Yosida, analytic semigroups, abstract Cauchy problems, applications to nonlinear PDE / control / stochastic flows
 
 ### Probability & statistics
 - [Probability theory](./probability-theory.html) — measure-theoretic foundations, expectation, independence, limit theorems, characteristic functions
@@ -114,10 +114,10 @@ Each concept carries up to three quiz tiers — v1 (required), hard (unlocked af
 - [Ricci flow](./ricci-flow.html) — Hamilton's equation, neckpinches, Perelman entropy, geometrization
 - [Atiyah–Singer index theorem](./atiyah-singer-index-theorem.html) — Dirac operators, analytic vs topological index, heat-kernel proof
 - [Mostow rigidity](./mostow-rigidity.html) — hyperbolic $n\ge 3$ lattices are rigid; quasiconformal maps on the boundary
-- [Cohomology and duality](./cohomology-and-duality.html) — draft — fill in once the page has real content
-- [Cobordism](./cobordism.html) — draft — fill in once the page has real content
-- [Homotopy theory](./homotopy-theory.html) — draft — fill in once the page has real content
-- [Kahler geometry](./kahler-geometry.html) — draft — fill in once the page has real content
+- [Cohomology and duality](./cohomology-and-duality.html) — singular cohomology, cup product, Mayer–Vietoris, Künneth, Poincaré duality, de Rham, spectral sequences
+- [Cobordism](./cobordism.html) — cobordism as equivalence relation, Stiefel–Whitney/Pontryagin numbers, Thom spectrum $MO$, $\Omega_*^{SO}$, surgery, $h$-cobordism, TQFT
+- [Homotopy theory](./homotopy-theory.html) — higher homotopy groups, Hurewicz/Whitehead, Eilenberg–MacLane spaces, stable homotopy and spectra, loop spaces, Bott periodicity
+- [Kähler geometry](./kahler-geometry.html) — almost complex structures, Hermitian metrics, Kähler identities and Hodge decomposition, hard Lefschetz, Calabi conjecture, K-stability
 
 ### Number theory
 - [Galois theory & the quintic](./galois.html) — constructibility, correspondence, unsolvability
@@ -133,9 +133,9 @@ Each concept carries up to three quiz tiers — v1 (required), hard (unlocked af
 - [Analytic number theory](./analytic-number-theory.html) — prime counting, Dirichlet's theorem, sieves, $\zeta$-zeros, prime number theorem
 - [Mathematics and cryptography](./mathematics-and-cryptography.html) — RSA, elliptic-curve cryptography, lattice-based / post-quantum schemes
 - [Computational number theory](./computational-number-theory.html) — primality testing, factorization, $L^3$ lattice reduction, point-counting
-- [Iwasawa theory](./iwasawa-theory.html) — draft — fill in once the page has real content
-- [Continued fractions](./continued-fractions.html) — draft — fill in once the page has real content
-- [Dirichlet unit theorem](./dirichlet-unit-theorem.html) — draft — fill in once the page has real content
+- [Iwasawa theory](./iwasawa-theory.html) — cyclotomic $\mathbb{Z}_p$-extensions, Iwasawa algebra $\Lambda$, class groups along the tower, Kubota–Leopoldt $p$-adic $L$-function, Iwasawa main conjecture
+- [Continued fractions & Diophantine approximation](./continued-fractions.html) — convergents, Hurwitz, Liouville, Roth's theorem, Markoff spectrum, $p$-adic Roth and the subspace theorem
+- [Dirichlet's unit theorem](./dirichlet-unit-theorem.html) — logarithmic embedding of units, the regulator $R_K$, analytic class number formula, real quadratic units & Pell, $S$-units
 
 ### Modular forms & L-functions
 - [Upper half-plane](./upper-half-plane-hyperbolic.html) — hyperbolic geometry and Möbius action
@@ -156,8 +156,8 @@ Each concept carries up to three quiz tiers — v1 (required), hard (unlocked af
 - [Automorphic forms (adelic)](./automorphic-forms-adelic.html) — $\mathrm{GL}_2$ over adèles, automorphic representations, Tate's thesis full sketch
 - [Vertex operator algebras](./vertex-operator-algebras.html) — chiral algebras, the Monster VOA, Borcherds proof of moonshine
 - [Langlands program](./langlands-program.html) — capstone of modular forms / L-functions: arithmetic side (Galois reps from cohomology) and analytic side (cuspidal automorphic reps of $\mathrm{GL}_n$) bridged by L-function matching. CFT as the proven $\mathrm{GL}_1$ case, modularity + Sato-Tate as proven $\mathrm{GL}_2$ corners, functoriality and the Langlands group $L_F$, universal reciprocity
-- [Maass forms](./maass-forms.html) — draft — fill in once the page has real content
-- [Half integral weight forms](./half-integral-weight-forms.html) — draft — fill in once the page has real content
+- [Maass forms](./maass-forms.html) — Maass forms and the hyperbolic Laplacian, spectral decomposition of $L^2(\Gamma\backslash\mathbb{H})$, Selberg eigenvalue conjecture, Eisenstein series, Selberg trace formula, Weyl law
+- [Half-integral weight forms](./half-integral-weight-forms.html) — metaplectic group and theta cocycle, Shimura's lift, Kohnen's plus space, Waldspurger's formula, Tunnell and the congruent number problem
 
 ### Algebraic geometry
 - [Projective plane](./projective-plane.html) — homogeneous coordinates, points at infinity, affine patches
@@ -184,12 +184,12 @@ Each concept carries up to three quiz tiers — v1 (required), hard (unlocked af
 - [Resolution of singularities](./resolution-of-singularities.html) — Hironaka in characteristic 0, blowups, log resolution
 - [Motives](./motives.html) — capstone of cohomology fanout: Tannakian categories, the motivic Galois group, realizations (Betti / de Rham / $\ell$-adic / crystalline), Tate twists, the standard conjectures and how Grothendieck's vision unifies the cohomology theories
 - [Hodge theory](./hodge-theory.html) — capstone of complex algebraic geometry: pure Hodge decomposition for smooth projective varieties, the Hodge filtration as a structure in its own right, mixed Hodge structures (Deligne), period domains, the Hodge conjecture
-- [Toric varieties](./toric-varieties.html) — draft — fill in once the page has real content
-- [Abelian varieties](./abelian-varieties.html) — draft — fill in once the page has real content
-- [Positivity and ample line bundles](./positivity-and-ample-line-bundles.html) — draft — fill in once the page has real content
-- [Mmp and birational geometry](./mmp-and-birational-geometry.html) — draft — fill in once the page has real content
-- [D modules](./d-modules.html) — draft — fill in once the page has real content
-- [Crystalline cohomology](./crystalline-cohomology.html) — draft — fill in once the page has real content
+- [Toric varieties](./toric-varieties.html) — lattices/cones/fans, affine $U_\sigma$, the toric dictionary, $\mathbb{P}^n$ / $\mathbb{P}^1\times\mathbb{P}^1$ / blowups, Cox ring, reflexive polytopes and Batyrev mirrors
+- [Abelian varieties](./abelian-varieties.html) — complex tori, polarizations and the dual, isogenies & Tate modules, Jacobians and Torelli, Néron models, Mordell–Weil & Faltings
+- [Positivity & ample line bundles](./positivity-and-ample-line-bundles.html) — divisors, Picard, very ample / ample / nef / big, Nakai–Moishezon, the cone of curves, Kodaira embedding, Kawamata–Viehweg vanishing
+- [MMP & birational geometry](./mmp-and-birational-geometry.html) — Kodaira dimension, the cone theorem, surface MMP (Castelnuovo / Enriques), threefold MMP and flips, singularities of pairs, Mori fibre spaces and Sarkisov
+- [D-modules & the Riemann–Hilbert correspondence](./d-modules.html) — the Weyl algebra, $\mathcal{D}_X$-modules, holonomicity and characteristic varieties, hypergeometric systems, the Bernstein–Sato polynomial
+- [Crystalline cohomology](./crystalline-cohomology.html) — the $\ell=p$ gap, divided powers and the crystalline site, comparison with de Rham of a lift, Frobenius and Katz–Messing, F-isocrystals, period rings $B_{\mathrm{cris}} / B_{\mathrm{dR}}$
 
 ### Combinatorics & graph theory
 - [Spectral graph theory](./spectral-graph-theory.html) — adjacency, Laplacian, Cheeger inequality, expanders — graphs as discrete differential geometry
@@ -209,10 +209,10 @@ Each concept carries up to three quiz tiers — v1 (required), hard (unlocked af
 - [Statistical mechanics](./statistical-mechanics.html) — capstone of equilibrium statistical mechanics: phase-space ensembles, the Boltzmann/Gibbs distribution, free energy from $\log Z$, the grand canonical with chemical potential, Ising phase transitions and the renormalization group, large-deviations fluctuations and the Legendre bridge to thermodynamics.
 - [Gauge theory](./gauge-theory.html) — capstone of differential gauge theory: connections on principal bundles, curvature and Yang-Mills, gauge transformations and Wilson loops, BPST instantons and Chern-Simons, lattice gauge theory and confinement, the Donaldson and Seiberg-Witten 4-manifold invariants.
 - [String theory](./string-theory.html) — capstone of mathematical string theory: world-sheet action and 2D CFT, bosonic critical dimension $D=26$, superstrings in $D=10$, Calabi-Yau compactification, T-duality and mirror symmetry, branes and AdS/CFT, and the math output (mirror symmetry, monstrous moonshine, geometric Langlands).
-- [Special relativity](./special-relativity.html) — draft — fill in once the page has real content
-- [Klein gordon equation](./klein-gordon-equation.html) — draft — fill in once the page has real content
-- [Dirac equation](./dirac-equation.html) — draft — fill in once the page has real content
-- [Quantum field theory](./quantum-field-theory.html) — draft — fill in once the page has real content
+- [Special relativity](./special-relativity.html) — Einstein's postulates, Lorentz transformations, Minkowski metric and the spacetime interval, time dilation, relativistic energy-momentum, light cones and causality
+- [Klein–Gordon equation](./klein-gordon-equation.html) — from $E^2=p^2+m^2$ to a wave operator, plane-wave solutions, negative-energy / antiparticle interpretation, conserved current, non-relativistic limit
+- [Dirac equation](./dirac-equation.html) — first-order operator from $E^2=p^2+m^2$, covariant form, spin-½, positive-definite probability current, Dirac sea & antimatter, Pauli equation as the non-relativistic limit
+- [Quantum field theory](./quantum-field-theory.html) — operator-valued distributions, Fock space, Feynman path integral, Feynman diagrams, renormalization and running couplings, gauge fields and the Standard Model
 
 ## Resetting progress
 
