@@ -387,7 +387,6 @@
   .sec .sec-progress .fill{position:absolute;inset:0 auto 0 0;height:100%;
     background:currentColor;border-radius:2px;
     transition:width 360ms cubic-bezier(0.4,0,0.2,1)}
-  .sec .sec-progress[data-empty="1"]{opacity:0.42}
   .sec .sec-ring{display:none}
   /* Section accent via data-color attribute (not a class) so the class
      attribute stays exactly "sec" and the section-index builder's regex
@@ -4595,12 +4594,16 @@
       }
     }
     if(total === 0) return null;
+    // Hide the bar entirely when the visitor has zero mastered concepts.
+    // A faded track ambiguously reads as "loading" or as corpus completeness;
+    // absence makes it clear nothing is being tracked yet. The bar reappears
+    // (with progress visible) the moment they master their first concept.
+    if(mastered === 0) return null;
     var pct = mastered / total;
     var bar = document.createElement('span');
     bar.className = 'sec-progress';
     bar.setAttribute('aria-label', mastered + ' of ' + total + ' concepts mastered');
     bar.title = mastered + ' / ' + total + ' concept' + (total === 1 ? '' : 's') + ' mastered';
-    if(mastered === 0) bar.setAttribute('data-empty', '1');
     var fill = document.createElement('span');
     fill.className = 'fill';
     fill.style.width = (pct * 100).toFixed(1) + '%';
