@@ -90,7 +90,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./intersection-theory-chow.html#intersection-product\">Intersection theory and Chow groups</a> · Intersection product on smooth $X$</div>\n    <div><a href=\"./positivity-and-ample-line-bundles.html#nakai\">Positivity and ample line bundles</a> · Nakai–Moishezon and the ample cone</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./hodge-theory.html#hodge-conjecture\">Hodge theory</a> · The Hodge conjecture</div>\n    <div><a href=\"./intersection-theory-chow.html#intersection-product\">Intersection theory and Chow groups</a> · Intersection product on smooth $X$</div>\n    <div><a href=\"./motives.html#correspondences\">Motives</a> · Correspondences as morphisms</div>\n    <div><a href=\"./positivity-and-ample-line-bundles.html#nakai\">Positivity and ample line bundles</a> · Nakai–Moishezon and the ample cone</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

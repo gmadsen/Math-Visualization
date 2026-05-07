@@ -35,7 +35,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./analytic-number-theory.html#pnt\">Analytic number theory</a> · $\\pi(x)$ and the prime number theorem</div>\n    <div><a href=\"./category-theory.html#cat\">Category theory</a> · Categories and morphisms</div>\n    <div><a href=\"./designs.html#block-designs\">Designs</a> · Balanced incomplete block designs</div>\n    <div><a href=\"./enumerative-combinatorics.html#basics\">Enumerative combinatorics</a> · Binomial coefficients, multinomials, and stars-and-bars</div>\n    <div><a href=\"./expanders.html#definition\">Expanders</a> · Combinatorial expansion</div>\n    <div><a href=\"./extremal-combinatorics.html#sperner\">Extremal combinatorics</a> · Sperner's theorem and the LYM inequality</div>\n    <div class=\"more\">… and 9 more.</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./analytic-number-theory.html#pnt\">Analytic number theory</a> · $\\pi(x)$ and the prime number theorem</div>\n    <div><a href=\"./category-theory.html#cat\">Category theory</a> · Categories and morphisms</div>\n    <div><a href=\"./computability-and-decidability.html#turing\">Computability theory</a> · Turing machines</div>\n    <div><a href=\"./designs.html#block-designs\">Designs</a> · Balanced incomplete block designs</div>\n    <div><a href=\"./enumerative-combinatorics.html#basics\">Enumerative combinatorics</a> · Binomial coefficients, multinomials, and stars-and-bars</div>\n    <div><a href=\"./expanders.html#definition\">Expanders</a> · Combinatorial expansion</div>\n    <div class=\"more\">… and 12 more.</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -214,7 +214,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./first-order-logic-and-completeness.html#lowenheim-skolem\">First-order logic and completeness</a> · Löwenheim–Skolem and Skolem's paradox</div>\n    <div><a href=\"./naive-set-theory.html#choice\">Naive set theory</a> · Axiom of choice</div>\n    <div><a href=\"./zfc-and-ordinals.html#cardinals\">ZFC and ordinals</a> · Cardinals and cofinality</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./computability-and-decidability.html#halting\">Computability theory</a> · The halting problem</div>\n    <div><a href=\"./first-order-logic-and-completeness.html#lowenheim-skolem\">First-order logic and completeness</a> · Löwenheim–Skolem and Skolem's paradox</div>\n    <div><a href=\"./naive-set-theory.html#choice\">Naive set theory</a> · Axiom of choice</div>\n    <div><a href=\"./zfc-and-ordinals.html#cardinals\">ZFC and ordinals</a> · Cardinals and cofinality</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

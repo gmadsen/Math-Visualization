@@ -33,6 +33,10 @@
         },
         {
           "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./computability-and-decidability.html#turing\">Turing machines</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "raw",
           "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./complexity-theory.html#p-np\">Complexity theory</a> · P and NP</div>\n    <div><a href=\"./complexity-theory.html#space\">Complexity theory</a> · Space complexity and PSPACE</div>\n    <div><a href=\"./complexity-theory.html#hierarchy\">Complexity theory</a> · Time and space hierarchy theorems</div>\n    <div><a href=\"./computational-number-theory.html#lll\">Computational number theory</a> · LLL &amp; lattice reduction</div>\n    <div><a href=\"./computational-number-theory.html#primality\">Computational number theory</a> · Primality testing</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
@@ -83,7 +87,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./complexity-theory.html#np-complete\">Complexity theory</a> · NP-completeness and Cook–Levin</div>\n    <div><a href=\"./computational-number-theory.html#factoring\">Computational number theory</a> · Integer factoring</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./complexity-theory.html#np-complete\">Complexity theory</a> · NP-completeness and Cook–Levin</div>\n    <div><a href=\"./computational-number-theory.html#factoring\">Computational number theory</a> · Integer factoring</div>\n    <div><a href=\"./mathematics-and-cryptography.html#dlog\">Mathematics and cryptography</a> · Discrete logarithm and Diffie–Hellman</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -133,7 +137,11 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./complexity-theory.html#reductions\">Complexity theory</a> · Karp reductions and complete problems</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./computability-and-decidability.html#reductions\">Undecidability via reduction</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./complexity-theory.html#reductions\">Complexity theory</a> · Karp reductions and complete problems</div>\n    <div><a href=\"./mathematics-and-cryptography.html#lattice\">Mathematics and cryptography</a> · Lattice-based and post-quantum cryptography</div>\n    <div><a href=\"./mathematics-and-cryptography.html#zk\">Mathematics and cryptography</a> · Zero-knowledge proofs</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

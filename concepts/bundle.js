@@ -4,7 +4,6 @@
 window.__MVConcepts = {
   "index": {
     "topics": [
-      "several-complex-variables",
       "kahler-geometry",
       "half-integral-weight-forms",
       "crystalline-cohomology",
@@ -220,7 +219,6 @@ window.__MVConcepts = {
       "geometric-measure-theory": "advanced",
       "semigroup-theory-evolution-equations": "advanced",
       "advanced-complex-analysis": "advanced",
-      "several-complex-variables": "advanced",
       "point-set-topology": "prereq",
       "algebraic-topology": "prereq",
       "smooth-manifolds": "standard",
@@ -356,98 +354,6 @@ window.__MVConcepts = {
     }
   },
   "topics": {
-    "several-complex-variables": {
-      "topic": "several-complex-variables",
-      "title": "Several complex variables & Stein manifolds",
-      "page": "several-complex-variables.html",
-      "concepts": [
-        {
-          "id": "scv-hartogs",
-          "title": "Hartogs phenomenon",
-          "anchor": "hartogs",
-          "prereqs": [
-            "holomorphic-function",
-            "cauchy-integral-formula",
-            "laurent-series"
-          ],
-          "blurb": "In $\\mathbb{C}^n$ for $n\\ge 2$, every holomorphic function on the polydisk shell (Hartogs figure) extends uniquely to the full polydisk, so isolated singularities cannot exist. The proof uses one-variable Laurent expansions in each slice: the negative-power coefficients are forced to vanish on a larger set by the connectivity hypothesis. Reinhardt domains are domains of holomorphy iff their log-image is convex.",
-          "tags": [
-            "foundation",
-            "classification"
-          ]
-        },
-        {
-          "id": "scv-psh",
-          "title": "Plurisubharmonic functions and the Levi form",
-          "anchor": "psh",
-          "prereqs": [
-            "scv-hartogs",
-            "hf-subharmonic"
-          ],
-          "blurb": "An upper-semicontinuous $u$ on $\\Omega\\subset\\mathbb{C}^n$ is plurisubharmonic if its restriction to every complex line is subharmonic; equivalently the complex Hessian $\\bigl[\\partial^2 u/\\partial z_j\\partial\\bar z_k\\bigr]$ is positive semidefinite. The Levi form of a smooth boundary $\\partial\\Omega$ is $\\partial\\bar\\partial\\rho|_p$ restricted to the complex tangent $T^{1,0}\\partial\\Omega$, and its sign is the boundary version of plurisubharmonicity.",
-          "tags": [
-            "foundation"
-          ]
-        },
-        {
-          "id": "scv-dbar",
-          "title": "The $\\bar\\partial$-equation and Hörmander's $L^2$ estimates",
-          "anchor": "dbar",
-          "prereqs": [
-            "scv-psh",
-            "lp-spaces",
-            "sobolev-spaces-wkp"
-          ],
-          "blurb": "On a pseudoconvex domain with a strictly plurisubharmonic weight $\\varphi$, every $\\bar\\partial$-closed $(0,1)$-form $\\alpha$ admits a solution $\\bar\\partial u = \\alpha$ with the weighted estimate $\\int |u|^2 e^{-\\varphi}\\,dV \\le \\int |\\alpha|^2_{i\\partial\\bar\\partial\\varphi} e^{-\\varphi}\\,dV$ (Hörmander 1965). The flexibility of choosing $\\varphi$ powers extension theorems (Ohsawa-Takegoshi), approximation theorems, and the proof of Cartan's Theorem B for Stein manifolds.",
-          "tags": [
-            "foundation",
-            "duality"
-          ]
-        },
-        {
-          "id": "scv-pseudoconvex",
-          "title": "Domains of holomorphy and Levi pseudoconvexity",
-          "anchor": "pseudoconvex",
-          "prereqs": [
-            "scv-psh",
-            "scv-hartogs"
-          ],
-          "blurb": "A domain $\\Omega\\subset\\mathbb{C}^n$ is a domain of holomorphy (= holomorphically convex) iff it is pseudoconvex — equivalently admits a continuous PSH exhaustion, or for smooth boundary has positive semidefinite Levi form. This Levi problem (Oka 1942 + Bremermann/Norguet) is the SCV analog of the Riemann mapping theorem. The Diederich-Fornæss exponent $\\eta(\\Omega)\\in(0,1]$ measures how robustly pseudoconvex $\\Omega$ is.",
-          "tags": [
-            "classification"
-          ]
-        },
-        {
-          "id": "scv-stein",
-          "title": "Stein manifolds and Cartan's Theorems A and B",
-          "anchor": "stein",
-          "prereqs": [
-            "scv-pseudoconvex",
-            "scv-dbar",
-            "presheaf-sheaf-axioms"
-          ],
-          "blurb": "A Stein manifold is holomorphically convex, holomorphically separable, and admits holomorphic local coordinates — equivalently, a closed complex submanifold of some $\\mathbb{C}^N$ (Remmert-Bishop-Narasimhan). Cartan's Theorem B says coherent analytic sheaf cohomology vanishes in positive degrees on a Stein manifold; Theorem A says global sections generate every stalk. The proof globalizes Hörmander's $\\bar\\partial$-estimate over a strictly PSH exhaustion. Stein is to complex manifolds as affine is to schemes.",
-          "tags": [
-            "classification",
-            "cohomology"
-          ]
-        },
-        {
-          "id": "scv-cousin",
-          "title": "Cousin problems and applications",
-          "anchor": "cousin",
-          "prereqs": [
-            "scv-stein",
-            "cech-cohomology"
-          ],
-          "blurb": "The first Cousin problem (additive, Mittag-Leffler-style) is solvable on $\\Omega$ iff $H^1(\\Omega,\\mathcal{O}) = 0$; the second (multiplicative, Weierstrass-style) is solvable iff the divisor's Chern class in $H^2(\\Omega,\\mathbb{Z})$ vanishes. The exponential exact sequence $0\\to\\mathbb{Z}\\to\\mathcal{O}\\to\\mathcal{O}^\\times\\to 0$ identifies $\\mathrm{Pic}(\\Omega)$ with $H^2(\\Omega,\\mathbb{Z})$ on a Stein manifold via Cartan B. Both Cousin problems are the SCV analogs of the one-variable Mittag-Leffler and Weierstrass theorems.",
-          "tags": [
-            "cohomology",
-            "duality"
-          ]
-        }
-      ]
-    },
     "kahler-geometry": {
       "topic": "kahler-geometry",
       "title": "Kähler geometry",
@@ -1560,8 +1466,8 @@ window.__MVConcepts = {
           "anchor": "cohomology-zoo",
           "blurb": "Betti, de Rham, ℓ-adic, and crystalline cohomology take values in different categories yet share parallel Künneth, Poincaré-duality, and Lefschetz formulas. Grothendieck's vision: a universal h: SmProj/k → Mot(k) through which every realization factors.",
           "prereqs": [
-            "etale-cohomology:l-adic-cohomology",
-            "algebraic-de-rham-cohomology:comparison-betti"
+            "l-adic-cohomology",
+            "comparison-betti"
           ],
           "tags": [
             "cohomology"
@@ -1574,7 +1480,7 @@ window.__MVConcepts = {
           "blurb": "Morphisms in Mot(k) are elements of CH*(X×Y) ⊗ Q — algebraic cycles modulo rational equivalence — composed via pushforward/pullback on the triple product. Graphs of morphisms embed varieties; the diagonal acts as identity.",
           "prereqs": [
             "cohomology-zoo",
-            "intersection-theory-chow:chow-groups"
+            "chow-groups"
           ],
           "tags": [
             "functoriality"
@@ -1610,9 +1516,9 @@ window.__MVConcepts = {
           "anchor": "tannakian",
           "blurb": "A neutral Tannakian category T over k is k-linear rigid abelian symmetric monoidal with a faithful exact tensor fiber functor ω: T → Vect_k, such that T ≃ Rep_k(Aut⊗(ω)). Solving the category = solving the group.",
           "prereqs": [
-            "category-theory:functors-natural-transformations",
-            "category-theory:monoidal-categories",
-            "representation-theory:group-representations"
+            "functors-natural-transformations",
+            "monoidal-categories",
+            "group-representations"
           ],
           "tags": [
             "duality"
@@ -1626,7 +1532,7 @@ window.__MVConcepts = {
           "prereqs": [
             "tannakian-categories",
             "tate-twist",
-            "galois-representations:galois-rep-definition"
+            "galois-rep-definition"
           ],
           "tags": [
             "group-action",
@@ -1941,8 +1847,8 @@ window.__MVConcepts = {
           "anchor": "why-hodge",
           "blurb": "For a smooth projective $X/\\mathbb{C}$, $H^n(X;\\mathbb{Q})$ is a $\\mathbb{Q}$-vector space, but Kähler structure refines it: harmonic forms decompose by type. The pair (rational vector space + Hodge decomposition of its complexification) is what we abstract into a Hodge structure.",
           "prereqs": [
-            "complex-analysis:holomorphic-function",
-            "algebraic-de-rham-cohomology:de-rham-complex"
+            "holomorphic-function",
+            "de-rham-complex"
           ],
           "tags": [
             "foundation"
@@ -1967,7 +1873,7 @@ window.__MVConcepts = {
           "blurb": "$F^p H^n = \\bigoplus_{p' \\ge p} H^{p',n-p'}$. Decreasing filtration; $H^n_\\mathbb{C} = F^p \\oplus \\overline{F^{n-p+1}}$ recovers the decomposition. Algebraic via the stupid filtration on $\\Omega^\\bullet$ + the $E_1$-degeneration of Hodge-to-de-Rham.",
           "prereqs": [
             "hodge-decomposition",
-            "algebraic-de-rham-cohomology:hodge-filtration"
+            "hodge-filtration"
           ],
           "tags": [
             "foundation"
@@ -1980,7 +1886,7 @@ window.__MVConcepts = {
           "blurb": "A pure $\\mathbb{Q}$-Hodge structure of weight $n$ is $V_\\mathbb{Q}$ + a decomposition $V_\\mathbb{C} = \\bigoplus_{p+q=n} V^{p,q}$ with $\\overline{V^{p,q}} = V^{q,p}$. Polarised HS form a semisimple Tannakian category; Tate twist $\\mathbb{Q}(1)$ has weight $-2$.",
           "prereqs": [
             "hodge-filtration-structure",
-            "motives:tannakian-categories"
+            "tannakian-categories"
           ],
           "tags": [
             "classification"
@@ -2005,9 +1911,9 @@ window.__MVConcepts = {
           "blurb": "Every rational class of pure Hodge type $(p,p)$ on a smooth projective $X/\\mathbb{C}$ is the cycle class of an algebraic codim-$p$ cycle. Open since 1950, Clay Millennium prize. Known for $p=1$ (Lefschetz $(1,1)$) and on abelian varieties of dim $\\le 4$.",
           "prereqs": [
             "mixed-hodge-structure",
-            "intersection-theory-chow:chow-groups",
-            "motives:motivic-galois-group",
-            "motives:realization-functors"
+            "chow-groups",
+            "motivic-galois-group",
+            "realization-functors"
           ],
           "tags": [
             "classification"
@@ -2020,7 +1926,7 @@ window.__MVConcepts = {
           "blurb": "A family $\\mathcal{X} \\to S$ produces a variation of Hodge structure: flat $\\mathbb{Q}$-bundle + holomorphically-varying Hodge filtration mapped to a period domain $D$. Griffiths transversality: $\\nabla F^p \\subset F^{p-1} \\otimes \\Omega^1_S$. Drives Torelli theorems.",
           "prereqs": [
             "pure-hodge-structure",
-            "moduli-spaces:moduli-problem"
+            "moduli-problem"
           ],
           "tags": [
             "moduli"
@@ -2033,8 +1939,8 @@ window.__MVConcepts = {
           "blurb": "The Hodge realization $R_\\mathrm{Hdg}\\colon \\mathsf{Mot}_\\mathbb{Q} \\to \\mathsf{HS}_\\mathbb{Q}$ is one of the four classical realizations of motives. Hodge conjecture rephrases as surjectivity of $G_\\mathrm{mot}(\\mathbb{Q}) \\twoheadrightarrow \\mathrm{MT}(X)$. Mixed Tate Hodge unconditionally captures multiple zeta values.",
           "prereqs": [
             "hodge-conjecture",
-            "motives:realization-functors",
-            "motives:motivic-galois-group"
+            "realization-functors",
+            "motivic-galois-group"
           ],
           "tags": [
             "functoriality"
@@ -2053,8 +1959,8 @@ window.__MVConcepts = {
           "anchor": "philosophy",
           "blurb": "Two columns. Arithmetic: $n$-dim Galois reps from cohomology of varieties. Analytic: cuspidal automorphic reps of $\\GL_n(\\mathbb{A}_\\mathbb{Q})$. Conjecture: bijection mediated by L-functions, $L(\\rho,s) = L(\\pi,s)$.",
           "prereqs": [
-            "galois-representations:galois-rep-definition",
-            "automorphic-forms-adelic:automorphic-form-definition"
+            "galois-rep-definition",
+            "automorphic-form-definition"
           ],
           "tags": [
             "duality",
@@ -2068,8 +1974,8 @@ window.__MVConcepts = {
           "blurb": "Both sides produce L-functions. From Galois rep: Euler product over Frobenius char polynomials. From automorphic rep: Euler product over Satake parameters. Matching is testable: Jacquet-Shalika strong multiplicity one + automatic functional equations on the automorphic side.",
           "prereqs": [
             "langlands-philosophy",
-            "L-functions:lfunction-prototype",
-            "L-functions:functional-equation-completion"
+            "lfunction-prototype",
+            "functional-equation-completion"
           ],
           "tags": [
             "duality"
@@ -2109,7 +2015,7 @@ window.__MVConcepts = {
           "blurb": "The abelian case. Artin reciprocity gives a continuous surjection $\\mathbb{A}_\\mathbb{Q}^\\times / \\mathbb{Q}^\\times \\twoheadrightarrow \\Gal(\\overline{\\mathbb{Q}}/\\mathbb{Q})^{\\mathrm{ab}}$. Galois characters $\\leftrightarrow$ Hecke characters; Artin L-functions = Hecke L-functions. Historical prototype Langlands generalised.",
           "prereqs": [
             "global-langlands-gl-n",
-            "class-field-theory:artin-map-cft"
+            "artin-map-cft"
           ],
           "tags": [
             "classification",
@@ -2123,7 +2029,7 @@ window.__MVConcepts = {
           "blurb": "Wiles + Taylor-Wiles + BCDT: every elliptic curve $E/\\mathbb{Q}$ has $L(E,s) = L(f,s)$ for a weight-2 cusp form $f$ of level $\\mathrm{cond}(E)$. Khare-Wintenberger (Serre's conjecture): every odd irreducible mod-$\\ell$ Galois rep is modular.",
           "prereqs": [
             "global-langlands-gl-n",
-            "modularity-and-flt:modularity-theorem"
+            "modularity-theorem"
           ],
           "tags": [
             "classification"
@@ -2150,7 +2056,7 @@ window.__MVConcepts = {
             "functoriality-langlands-group",
             "gl2-modularity",
             "cft-as-langlands",
-            "sato-tate:symmetric-power-l-functions"
+            "symmetric-power-l-functions"
           ],
           "tags": [
             "duality"
@@ -5388,8 +5294,8 @@ window.__MVConcepts = {
           "title": "Modular arithmetic and Euler's theorem",
           "anchor": "mod-arith",
           "prereqs": [
-            "algebra:algebraic-structures",
-            "algebra:quotients-homomorphisms"
+            "algebraic-structures",
+            "quotients-homomorphisms"
           ],
           "blurb": "Public-key cryptography lives in the multiplicative group $(\\mathbb{Z}/n)^\\times$. Its order is Euler's totient $\\phi(n)$, and Fermat–Euler gives $a^{\\phi(n)} \\equiv 1 \\pmod n$ whenever $\\gcd(a,n)=1$. When $n=p$ is prime the group is cyclic of order $p-1$ and admits a primitive root $g$; powers of $g$ enumerate every residue. This algebraic substrate — the finite cyclic group with a hard inverse — is what every classical cryptosystem rents.",
           "tags": [
@@ -5415,7 +5321,7 @@ window.__MVConcepts = {
           "anchor": "dlog",
           "prereqs": [
             "crypto-modular-arithmetic",
-            "complexity-theory:cx-p-and-np"
+            "cx-p-and-np"
           ],
           "blurb": "Fix a prime $p$ and primitive root $g\\in(\\mathbb{Z}/p)^\\times$. The discrete log $\\log_g h$ is the exponent $x$ with $g^x\\equiv h \\pmod p$ — easy to verify, conjecturally hard to invert. Diffie–Hellman key exchange (1976) leverages the asymmetry: Alice sends $g^a$, Bob sends $g^b$, both compute $g^{ab}$. The best classical attack is the index calculus, sub-exponential $L_p[1/3,c]$. The DLP underpins ElGamal encryption, DSA signatures, and the entire pre-elliptic public-key stack.",
           "tags": [
@@ -5428,7 +5334,7 @@ window.__MVConcepts = {
           "anchor": "ecc",
           "prereqs": [
             "crypto-discrete-log",
-            "elliptic-curves:elliptic-curve-definition"
+            "elliptic-curve-definition"
           ],
           "blurb": "Replace $(\\mathbb{Z}/p)^\\times$ with $E(\\mathbb{F}_p)$ — points of an elliptic curve over a prime field. The chord-tangent group law gives a finite abelian group of order $\\approx p$ (Hasse bound), and on suitable curves the only known DLP attack is Pollard's $\\rho$ in $O(\\sqrt{p})$ — no index calculus. So 256-bit ECC matches 3072-bit RSA. ECDH and ECDSA are the elliptic analogues of Diffie–Hellman and DSA. Pitfalls: weak curves where the MOV attack pulls the DLP into $\\mathbb{F}_{p^k}^\\times$, or anomalous curves where the lift to $\\mathbb{Z}_p$ is linear. NIST P-256, Curve25519, and secp256k1 (Bitcoin) are the standard hardened choices.",
           "tags": [
@@ -5442,7 +5348,7 @@ window.__MVConcepts = {
           "anchor": "lattice",
           "prereqs": [
             "crypto-discrete-log",
-            "complexity-theory:cx-np-completeness"
+            "cx-np-completeness"
           ],
           "blurb": "Shor's algorithm (1994) breaks factoring and discrete log on a quantum computer in polynomial time, dragging RSA, DH, and ECC down with it. The leading replacement is lattice cryptography. The Shortest Vector Problem (SVP) and Closest Vector Problem (CVP) on a lattice $\\Lambda\\subset\\mathbb{R}^n$ are NP-hard in worst case; Regev's Learning With Errors (LWE, 2005) reduces average-case LWE to worst-case lattice problems via a quantum reduction. CRYSTALS-Kyber, the NIST PQC KEM standard (FIPS 203, 2024), is built on Module-LWE. Signatures (Dilithium / FIPS 204) follow the same blueprint: encode a secret as a short lattice vector, hide it under a noisy linear map.",
           "tags": [
@@ -5456,7 +5362,7 @@ window.__MVConcepts = {
           "anchor": "zk",
           "prereqs": [
             "crypto-discrete-log",
-            "complexity-theory:cx-np-completeness"
+            "cx-np-completeness"
           ],
           "blurb": "An interactive proof for a language $L$ is a protocol between prover $P$ and verifier $V$ such that (a) <strong>completeness</strong>: $x\\in L$ ⇒ honest $P$ convinces $V$ with probability $\\ge 2/3$; (b) <strong>soundness</strong>: $x\\notin L$ ⇒ no $P^*$ convinces $V$ with probability $> 1/3$; (c) <strong>zero-knowledge</strong>: the verifier's transcript is simulatable from $x$ alone. Schnorr's protocol (1989) is the canonical example for the discrete-log relation. Modern zk-SNARKs (Groth16, PLONK) compile arbitrary NP statements into a few-kilobyte non-interactive proof — the engine behind Zcash, zk-Rollups, and verifiable computation.",
           "tags": [
@@ -5944,7 +5850,7 @@ window.__MVConcepts = {
           "title": "Syntax: languages, terms, formulas",
           "anchor": "syntax",
           "prereqs": [
-            "naive-set-theory:sets-functions"
+            "sets-functions"
           ],
           "blurb": "A first-order language $\\mathcal{L}$ is a triple of constant, function, and relation symbols (with arities). Terms are built from variables, constants, and function applications; formulas from atomic predicates by Boolean connectives and quantifiers $\\forall, \\exists$. Free vs bound variables; sentences are formulas with no free variables.",
           "tags": [
@@ -6137,8 +6043,8 @@ window.__MVConcepts = {
           "title": "Structures and signatures",
           "anchor": "structures",
           "prereqs": [
-            "first-order-logic-and-completeness:fol-syntax",
-            "first-order-logic-and-completeness:fol-semantics"
+            "fol-syntax",
+            "fol-semantics"
           ],
           "blurb": "A signature $\\sigma$ is a list of constant, function, and relation symbols with arities. A $\\sigma$-structure $\\mathfrak{A}=(A;c^{\\mathfrak{A}},f^{\\mathfrak{A}},R^{\\mathfrak{A}},\\ldots)$ interprets each symbol on a non-empty domain. Groups, ordered sets, graphs, and fields are all structures over the appropriate signature; model theory is the study of what first-order sentences see in them.",
           "tags": [
@@ -6151,7 +6057,7 @@ window.__MVConcepts = {
           "anchor": "elementary-equivalence",
           "prereqs": [
             "mt-structures",
-            "first-order-logic-and-completeness:fol-semantics"
+            "fol-semantics"
           ],
           "blurb": "Two $\\sigma$-structures $\\mathfrak{A},\\mathfrak{B}$ are <em>elementarily equivalent</em>, written $\\mathfrak{A}\\equiv\\mathfrak{B}$, when they satisfy exactly the same first-order $\\sigma$-sentences. Elementary equivalence is much coarser than isomorphism: $(\\mathbb{Q},<)$ and $(\\mathbb{R},<)$ are elementarily equivalent but not isomorphic; $\\mathbb{N}$ and any non-standard model of arithmetic are elementarily equivalent by construction.",
           "tags": [
@@ -6177,7 +6083,7 @@ window.__MVConcepts = {
           "anchor": "types",
           "prereqs": [
             "mt-elementary-equivalence",
-            "first-order-logic-and-completeness:fol-compactness"
+            "fol-compactness"
           ],
           "blurb": "An $n$-<em>type</em> over a parameter set $A$ is a maximal consistent set of formulas $p(x_1,\\ldots,x_n)$ with parameters from $A$ — a complete first-order description of an $n$-tuple. By compactness every type is realised in some elementary extension; a structure is $\\omega$-<em>saturated</em> if every type over a finite parameter set is already realised in it. Saturation is the model-theoretic analogue of compactness for spaces.",
           "tags": [
@@ -6224,7 +6130,7 @@ window.__MVConcepts = {
           "title": "Turing machines",
           "anchor": "turing",
           "prereqs": [
-            "naive-set-theory:sets-functions"
+            "sets-functions"
           ],
           "blurb": "A Turing machine is a finite-state controller scanning a two-way infinite tape. A configuration is a triple (state, tape contents, head position); the transition function $\\delta\\colon Q\\times\\Sigma\\to Q\\times\\Sigma\\times\\{L,R\\}$ rewrites a cell, moves the head, and updates state. Acceptance is by halting in a designated accept state. Variants — multitape, nondeterministic, two-counter — all simulate one another with at most polynomial overhead, which is the empirical content of the Church–Turing thesis.",
           "tags": [
@@ -6249,7 +6155,7 @@ window.__MVConcepts = {
           "anchor": "halting",
           "prereqs": [
             "comp-turing-machines",
-            "naive-set-theory:countability"
+            "countability"
           ],
           "blurb": "Let $H = \\{ \\langle M,w\\rangle : M \\text{ halts on } w\\}$. Suppose $h$ decides $H$. Build $D(\\langle M\\rangle)$ which runs $h$ on $\\langle M, \\langle M\\rangle\\rangle$ and loops if $h$ says \"halts\", halts otherwise. Then $D$ on its own code halts iff it doesn't — contradiction. The argument is Cantor's diagonal applied to the countable list of Turing machines. Halting is the prototype undecidable problem; everything else reduces to it.",
           "tags": [
@@ -6287,7 +6193,7 @@ window.__MVConcepts = {
           "anchor": "godel",
           "prereqs": [
             "comp-halting-problem",
-            "first-order-logic-and-completeness:fol-completeness"
+            "fol-completeness"
           ],
           "blurb": "Any consistent, recursively axiomatised theory $T$ extending Robinson arithmetic can express \"$M$ halts on $w$\" as a $\\Sigma_1$ formula. If $T$ proved every true halting fact and refuted every false one, halting would be decidable — contradicting the halting theorem. So $T$ is incomplete: some true $\\Sigma_1$ sentence is unprovable. Strengthening from <em>ω-consistency</em> to plain consistency (Rosser's trick) gives Gödel's first theorem; the second theorem ($T\\not\\vdash\\mathrm{Con}(T)$) follows by formalising the proof inside $T$.",
           "tags": [
@@ -6306,7 +6212,7 @@ window.__MVConcepts = {
           "title": "Time complexity and big-O",
           "anchor": "time",
           "prereqs": [
-            "computability-and-decidability:comp-turing-machines"
+            "comp-turing-machines"
           ],
           "blurb": "Fix a (multitape) Turing-machine model and let $t_M(x)$ be the number of steps $M$ runs on input $x$. The class $\\mathrm{DTIME}(f(n))$ is the languages decided by some $M$ with $t_M(x)\\le f(|x|)$ for all $x$. Asymptotic notation hides constants and lower-order terms: $f=O(g)$ if $\\exists c, n_0$ with $f(n)\\le c\\,g(n)$ for $n\\ge n_0$. The polynomial-time class $\\mathsf{P}=\\bigcup_k \\mathrm{DTIME}(n^k)$ is the working notion of \"feasible\". The exponential gap $n^k$ vs $2^n$ is the central drama.",
           "tags": [
@@ -6333,7 +6239,7 @@ window.__MVConcepts = {
           "anchor": "np-complete",
           "prereqs": [
             "cx-p-and-np",
-            "computability-and-decidability:comp-undecidability"
+            "comp-undecidability"
           ],
           "blurb": "A language $L$ is <strong>NP-hard</strong> if every $A\\in\\mathsf{NP}$ admits a polynomial-time many-one (Karp) reduction $A\\le_p L$. It is <strong>NP-complete</strong> if additionally $L\\in\\mathsf{NP}$. <strong>Cook–Levin (1971/73):</strong> SAT is NP-complete. The proof builds, from any NP machine $M$ and input $x$, a polynomial-size CNF whose satisfying assignments encode accepting computations of $M$ on $x$ — the tableau of cell values across configuration $\\times$ time, with consistency clauses for the transition function. Hardness then propagates: SAT $\\le_p$ 3-SAT $\\le_p$ everything else.",
           "tags": [
@@ -6393,7 +6299,7 @@ window.__MVConcepts = {
           "title": "Judgments and contexts",
           "anchor": "judgments",
           "prereqs": [
-            "naive-set-theory:sets-functions"
+            "sets-functions"
           ],
           "blurb": "A judgment is a primitive assertion of the theory: $\\Gamma\\vdash a:A$ ('in context $\\Gamma$, the term $a$ has type $A$'). The four basic forms — $A\\;\\mathsf{type}$, $a:A$, $A\\equiv B$, $a\\equiv b:A$ — replace 'membership' with a structured deduction system. Contexts $\\Gamma=(x_1:A_1,\\ldots,x_n:A_n)$ track free variables; well-formedness is itself a derivable judgment.",
           "tags": [
@@ -6431,7 +6337,7 @@ window.__MVConcepts = {
           "anchor": "univalence",
           "prereqs": [
             "tt-identity-types",
-            "category-theory:categories-morphisms"
+            "categories-morphisms"
           ],
           "blurb": "Univalence asserts that the canonical map $(A=B)\\to(A\\simeq B)$ from identifications of types to equivalences is itself an equivalence. Operationally: isomorphic structures are identifiable, and any property invariant under one is invariant under the other. Voevodsky's axiom turns 'equivalence' into 'equality' and forces the universe to be a higher groupoid rather than a discrete set of types.",
           "tags": [
@@ -16996,7 +16902,6 @@ window.__MVConcepts = {
           "geometric-measure-theory",
           "semigroup-theory-evolution-equations",
           "advanced-complex-analysis",
-          "several-complex-variables",
           "partial-differential-equations",
           "harmonic-functions",
           "spectral-theory",
@@ -17310,7 +17215,6 @@ window.__MVConcepts = {
     "geometric-measure-theory": "advanced",
     "semigroup-theory-evolution-equations": "advanced",
     "advanced-complex-analysis": "advanced",
-    "several-complex-variables": "advanced",
     "point-set-topology": "prereq",
     "algebraic-topology": "prereq",
     "smooth-manifolds": "standard",
@@ -17464,16 +17368,16 @@ window.__MVConcepts = {
   "sectionStats": {
     "Logic & Foundations": {
       "concepts": 49,
-      "intra": 56,
-      "crossOut": 5,
-      "crossIn": 18,
-      "density": 0.10204081632653061
+      "intra": 67,
+      "crossOut": 6,
+      "crossIn": 21,
+      "density": 0.12244897959183673
     },
     "Algebra & homological": {
       "concepts": 142,
       "intra": 212,
       "crossOut": 22,
-      "crossIn": 82,
+      "crossIn": 88,
       "density": 0.15492957746478872
     },
     "Higher categories & toposes": {
@@ -17484,11 +17388,11 @@ window.__MVConcepts = {
       "density": 0.5111111111111111
     },
     "Analysis": {
-      "concepts": 197,
-      "intra": 346,
-      "crossOut": 33,
-      "crossIn": 64,
-      "density": 0.16751269035532995
+      "concepts": 191,
+      "intra": 333,
+      "crossOut": 31,
+      "crossIn": 65,
+      "density": 0.16230366492146597
     },
     "Probability & statistics": {
       "concepts": 55,
@@ -17507,23 +17411,23 @@ window.__MVConcepts = {
     "Number theory": {
       "concepts": 116,
       "intra": 160,
-      "crossOut": 43,
-      "crossIn": 29,
-      "density": 0.3706896551724138
+      "crossOut": 49,
+      "crossIn": 32,
+      "density": 0.4224137931034483
     },
     "Modular forms & L-functions": {
       "concepts": 115,
-      "intra": 165,
-      "crossOut": 56,
+      "intra": 170,
+      "crossOut": 58,
       "crossIn": 16,
-      "density": 0.48695652173913045
+      "density": 0.5043478260869565
     },
     "Algebraic geometry": {
       "concepts": 179,
-      "intra": 253,
-      "crossOut": 63,
-      "crossIn": 26,
-      "density": 0.35195530726256985
+      "intra": 265,
+      "crossOut": 68,
+      "crossIn": 25,
+      "density": 0.37988826815642457
     },
     "Combinatorics & graph theory": {
       "concepts": 51,

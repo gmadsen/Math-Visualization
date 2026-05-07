@@ -140,7 +140,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./automorphic-forms-adelic.html#dictionary\">Automorphic forms (adelic)</a> · Classical-to-adelic dictionary</div>\n    <div><a href=\"./automorphic-forms-adelic.html#spectral\">Automorphic forms (adelic)</a> · Eisenstein series and the spectral decomposition</div>\n    <div><a href=\"./automorphic-forms-adelic.html#satake\">Automorphic forms (adelic)</a> · Spherical Hecke algebra and Satake</div>\n    <div><a href=\"./automorphic-forms-adelic.html#whittaker\">Automorphic forms (adelic)</a> · Whittaker model and the new-form</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./automorphic-forms-adelic.html#dictionary\">Automorphic forms (adelic)</a> · Classical-to-adelic dictionary</div>\n    <div><a href=\"./automorphic-forms-adelic.html#spectral\">Automorphic forms (adelic)</a> · Eisenstein series and the spectral decomposition</div>\n    <div><a href=\"./automorphic-forms-adelic.html#satake\">Automorphic forms (adelic)</a> · Spherical Hecke algebra and Satake</div>\n    <div><a href=\"./automorphic-forms-adelic.html#whittaker\">Automorphic forms (adelic)</a> · Whittaker model and the new-form</div>\n    <div><a href=\"./langlands-program.html#philosophy\">The Langlands program</a> · Philosophy: arithmetic vs. analytic columns</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "quiz",

@@ -17,6 +17,10 @@
         },
         {
           "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./algebraic-de-rham-cohomology.html#comparison-betti\">Comparison with Betti cohomology</a></li>\n    <li><a href=\"./etale-cohomology.html#ladic\">ℓ-adic cohomology</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "raw",
           "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./motives.html#correspondences\">Motives</a> · Correspondences as morphisms</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
@@ -36,6 +40,10 @@
           "type": "quiz",
           "concept": "algebraic-correspondences",
           "html": "<div class=\"quiz\" data-concept=\"algebraic-correspondences\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./intersection-theory-chow.html#chow-groups\">Chow groups $A_*(X)$</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {
           "type": "raw",
@@ -105,7 +113,11 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./motives.html#motivic-galois\">Motives</a> · The motivic Galois group</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./category-theory.html#mon\">Monoidal categories</a></li>\n    <li><a href=\"./category-theory.html#nat\">Functors and natural transformations</a></li>\n    <li><a href=\"./representation-theory.html#def\">Group representations</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./hodge-theory.html#pure-hodge\">Hodge theory</a> · Pure Hodge structures as a category</div>\n    <div><a href=\"./motives.html#motivic-galois\">Motives</a> · The motivic Galois group</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -127,7 +139,11 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./motives.html#realizations\">Motives</a> · Realizations: how Betti, de Rham, ℓ-adic, crystalline all come from one motive</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./galois-representations.html#rep\">Galois representations and examples</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./hodge-theory.html#motivic-realization\">Hodge theory</a> · Hodge as a motivic realization</div>\n    <div><a href=\"./hodge-theory.html#hodge-conjecture\">Hodge theory</a> · The Hodge conjecture</div>\n    <div><a href=\"./motives.html#realizations\">Motives</a> · Realizations: how Betti, de Rham, ℓ-adic, crystalline all come from one motive</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -149,7 +165,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./motives.html#standard-conjectures\">Motives</a> · The standard conjectures and the road forward</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./hodge-theory.html#motivic-realization\">Hodge theory</a> · Hodge as a motivic realization</div>\n    <div><a href=\"./hodge-theory.html#hodge-conjecture\">Hodge theory</a> · The Hodge conjecture</div>\n    <div><a href=\"./motives.html#standard-conjectures\">Motives</a> · The standard conjectures and the road forward</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

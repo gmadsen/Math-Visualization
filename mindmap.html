@@ -368,7 +368,23 @@
         {left:'$', right:'$', display:false},
         {left:'\\(', right:'\\)', display:false}
       ],
-      throwOnError: false
+      throwOnError: false,
+      // Mirror the macro set used by topic pages + tours.html so concept
+      // blurbs that use \tr, \Hom, \ad, \GL, etc. render as operators in
+      // the focus-card popup instead of leaking raw \backslash-name text.
+      macros: {
+        '\\Spec': '\\operatorname{Spec}',
+        '\\Gal': '\\operatorname{Gal}',
+        '\\Hom': '\\operatorname{Hom}',
+        '\\hom': '\\operatorname{hom}',
+        '\\tr': '\\operatorname{tr}',
+        '\\ad': '\\operatorname{ad}',
+        '\\ind': '\\operatorname{ind}',
+        '\\Sha': '\\text{Ш}',
+        '\\GL': '\\operatorname{GL}',
+        '\\SL': '\\operatorname{SL}',
+        '\\Frob': '\\operatorname{Frob}',
+      }
     });
   }
   function whenKatexReady(fn){

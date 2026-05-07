@@ -88,7 +88,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./algebraic-de-rham-cohomology.html#comparison-betti\">Algebraic de Rham cohomology</a> · Comparison with Betti cohomology</div>\n    <div><a href=\"./algebraic-de-rham-cohomology.html#hodge-filtration\">Algebraic de Rham cohomology</a> · The Hodge filtration $F^\\bullet$</div>\n    <div><a href=\"./calabi-yau-manifolds.html#period\">Calabi–Yau manifolds</a> · Periods and Picard–Fuchs</div>\n    <div><a href=\"./crystalline-cohomology.html#de-rham-comparison\">Crystalline cohomology</a> · Comparison with de Rham of a lift</div>\n    <div><a href=\"./crystalline-cohomology.html#motivation\">Crystalline cohomology</a> · Why crystalline? — the $\\ell=p$ gap</div>\n    <div><a href=\"./d-modules.html#riemann-hilbert\">D-modules and the Riemann-Hilbert correspondence</a> · The Riemann-Hilbert correspondence</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./algebraic-de-rham-cohomology.html#comparison-betti\">Algebraic de Rham cohomology</a> · Comparison with Betti cohomology</div>\n    <div><a href=\"./algebraic-de-rham-cohomology.html#hodge-filtration\">Algebraic de Rham cohomology</a> · The Hodge filtration $F^\\bullet$</div>\n    <div><a href=\"./calabi-yau-manifolds.html#period\">Calabi–Yau manifolds</a> · Periods and Picard–Fuchs</div>\n    <div><a href=\"./crystalline-cohomology.html#de-rham-comparison\">Crystalline cohomology</a> · Comparison with de Rham of a lift</div>\n    <div><a href=\"./crystalline-cohomology.html#motivation\">Crystalline cohomology</a> · Why crystalline? — the $\\ell=p$ gap</div>\n    <div><a href=\"./d-modules.html#riemann-hilbert\">D-modules and the Riemann-Hilbert correspondence</a> · The Riemann-Hilbert correspondence</div>\n    <div class=\"more\">… and 1 more.</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -132,6 +132,10 @@
         {
           "type": "raw",
           "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./complex-analysis.html\">Poincaré lemma — the analytic input</a></li>\n    <li><a href=\"./sheaves.html\">GAGA: Zariski coherent vs. analytic coherent</a></li>\n    <li><a href=\"./algebraic-topology.html\">Singular cohomology with $\\mathbb{C}$-coefficients</a></li>\n    <li><a href=\"./algebraic-topology.html#homology\">Singular homology</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./motives.html#cohomology-zoo\">Motives</a> · The cohomology zoo and the realization problem</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -182,7 +186,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./algebraic-de-rham-cohomology.html#hodge-numbers\">Algebraic de Rham cohomology</a> · Hodge numbers $h^{p,q}(X)$</div>\n    <div><a href=\"./algebraic-de-rham-cohomology.html#de-rham-curves\">Algebraic de Rham cohomology</a> · Worked example: de Rham of a smooth curve</div>\n    <div><a href=\"./mirror-symmetry.html#periods\">Mirror symmetry</a> · B-model: periods and Picard–Fuchs</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./algebraic-de-rham-cohomology.html#hodge-numbers\">Algebraic de Rham cohomology</a> · Hodge numbers $h^{p,q}(X)$</div>\n    <div><a href=\"./algebraic-de-rham-cohomology.html#de-rham-curves\">Algebraic de Rham cohomology</a> · Worked example: de Rham of a smooth curve</div>\n    <div><a href=\"./hodge-theory.html#filtration\">Hodge theory</a> · The Hodge filtration $F^\\bullet$ — algebraic incarnation</div>\n    <div><a href=\"./mirror-symmetry.html#periods\">Mirror symmetry</a> · B-model: periods and Picard–Fuchs</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

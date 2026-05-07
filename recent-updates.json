@@ -1,5 +1,5 @@
 {
-  "generated": "2026-05-07T03:45:23.656Z",
+  "generated": "2026-05-07T03:13:37.854Z",
   "entries": [
     {
       "slug": "abelian-varieties",
@@ -112,14 +112,6 @@
       "tag": "",
       "date": "2026-05-06",
       "message": "3 next-priority gap topics + condensed pin fix (#122)"
-    },
-    {
-      "slug": "several-complex-variables",
-      "title": "Several complex variables",
-      "color": "p",
-      "tag": "",
-      "date": "2026-05-06",
-      "message": "New topic: Several complex variables & Stein manifolds (Analysis)"
     },
     {
       "slug": "toric-varieties",

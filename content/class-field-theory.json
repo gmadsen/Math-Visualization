@@ -269,7 +269,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./class-field-theory.html#cond-disc\">Class field theory</a> · Conductor-discriminant formula</div>\n    <div><a href=\"./class-field-theory.html#ray\">Class field theory</a> · Local and global class field theory</div>\n    <div><a href=\"./iwasawa-theory.html#cyclotomic\">Iwasawa theory</a> · Cyclotomic $\\mathbb{Z}_p$-extension</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./class-field-theory.html#cond-disc\">Class field theory</a> · Conductor-discriminant formula</div>\n    <div><a href=\"./class-field-theory.html#ray\">Class field theory</a> · Local and global class field theory</div>\n    <div><a href=\"./iwasawa-theory.html#cyclotomic\">Iwasawa theory</a> · Cyclotomic $\\mathbb{Z}_p$-extension</div>\n    <div><a href=\"./langlands-program.html#cft-as-gl1\">The Langlands program</a> · Class field theory as Langlands for $\\GL_1$</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

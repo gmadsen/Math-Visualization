@@ -33,7 +33,11 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./computability-and-decidability.html#recursive\">Computability theory</a> · Recursive and partial-recursive functions</div>\n    <div><a href=\"./computability-and-decidability.html#halting\">Computability theory</a> · The halting problem</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./naive-set-theory.html#sets\">Sets and functions</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./complexity-theory.html#time\">Complexity theory</a> · Time complexity and big-O</div>\n    <div><a href=\"./computability-and-decidability.html#recursive\">Computability theory</a> · Recursive and partial-recursive functions</div>\n    <div><a href=\"./computability-and-decidability.html#halting\">Computability theory</a> · The halting problem</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -129,7 +133,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- callback-auto-begin --><aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li>Naive set theory · <a href=\"./naive-set-theory.html#countable\">Countability</a></li>\n  </ul>\n</aside><!-- callback-auto-end -->"
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li>Naive set theory · <a href=\"./naive-set-theory.html#countable\">Countability</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {
           "type": "raw",
@@ -229,6 +233,10 @@
         },
         {
           "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./complexity-theory.html#np-complete\">Complexity theory</a> · NP-completeness and Cook–Levin</div>\n</aside>\n<!-- backlinks-auto-end -->"
+        },
+        {
+          "type": "raw",
           "html": ""
         },
         {
@@ -275,7 +283,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- callback-auto-begin --><aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li>First-order logic and completeness · <a href=\"./first-order-logic-and-completeness.html#completeness\">Gödel's completeness theorem</a></li>\n  </ul>\n</aside><!-- callback-auto-end -->"
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li>First-order logic and completeness · <a href=\"./first-order-logic-and-completeness.html#completeness\">Gödel's completeness theorem</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {
           "type": "widget-script",
