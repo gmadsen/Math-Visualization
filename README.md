@@ -23,7 +23,7 @@ Alongside each handwritten `<topic>.html`, the repo also carries a structured `c
 
 ## Learning pathways
 
-Start from [`pathway.html`](./pathway.html) to explore prerequisite graphs for capstone goals — pick any of the 34 capstones and the DAG layers every prereq concept by depth. For free-form exploration over the entire 1146-concept graph (no goal required), [`mindmap.html`](./mindmap.html) renders a section-clustered force-directed layout: click a node to focus its k-hop neighborhood, filter by section/level/mastery, and a structural-stats panel surfaces uneven prereq density across the eleven sections. Both views read the same concept graph; pathway is goal-targeted, mindmap is free-explore.
+Start from [`pathway.html`](./pathway.html) to explore prerequisite graphs for capstone goals — pick any of the 34 capstones and the DAG layers every prereq concept by depth. For free-form exploration over the entire 1152-concept graph (no goal required), [`mindmap.html`](./mindmap.html) renders a section-clustered force-directed layout: click a node to focus its k-hop neighborhood, filter by section/level/mastery, and a structural-stats panel surfaces uneven prereq density across the eleven sections. Both views read the same concept graph; pathway is goal-targeted, mindmap is free-explore.
 
 Each concept carries up to three quiz tiers — v1 (required), hard (unlocked after v1), and expert (unlocked after hard). Mastery is tracked in `localStorage` and lights up downstream concepts `locked → ready → mastered`, Brilliant-style. Topic cards on the index may carry a level badge: `prereq`, `advanced`, or `capstone`.
 
@@ -56,6 +56,7 @@ Each concept carries up to three quiz tiers — v1 (required), hard (unlocked af
 - [Algebraic K-theory foundations](./algebraic-k-theory-foundations.html) — $K_0$ / $K_1$ / $K_2$ of a ring, Steinberg symbols and Matsumoto, Quillen's Q-construction, the localization long exact sequence, and applications: Bass-Quillen, Wall finiteness obstruction, motivic K-theory
 - [Model categories](./model-categories.html) — Quillen's axioms ($W$, $F$, $C$ + 2-of-3, retracts, factorization, lifting), standard examples on $\mathrm{Top}$ / $\mathrm{sSet}$ / $\mathrm{Ch}(R)$, cofibrant–fibrant replacement, Quillen functors and equivalences ($|\cdot|\dashv\mathrm{Sing}$ as the prototype), monoidal model structures and the pushout-product axiom, and the simplicial nerve $N_\Delta(\mathcal{M}^{cf})$ that bridges to $\infty$-categories
 - [Condensed mathematics](./condensed-mathematics.html) — Clausen–Scholze: condensed sets, solid + liquid abelian groups, the Liquid Tensor Experiment, applications to $p$-adic Hodge theory and analytic stacks (capstone)
+- [Cluster algebras](./cluster-algebras.html) — quivers and seeds, mutation and the exchange relation, the Laurent phenomenon, ADE classification of finite type, cluster categories and τ-tilting, applications to Grassmannians and Teichmüller theory
 
 ### Higher categories & toposes
 - [Elementary topos theory](./elementary-topos-theory.html) — finitely complete cartesian closed + subobject classifier $\Omega$

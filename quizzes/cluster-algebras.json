@@ -1,0 +1,227 @@
+{
+  "topic": "cluster-algebras",
+  "quizzes": {
+    "ca-quivers-and-seeds": {
+      "title": "Quivers and seeds",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which of the following best describes a seed in a cluster algebra of rank $n$?",
+          "choices": [
+            "An $n$-tuple of complex numbers together with a polynomial.",
+            "An $n$-tuple $\\mathbf{x}=(x_1,\\dots,x_n)$ of algebraically independent elements together with a skew-symmetrizable integer matrix $B$.",
+            "A finitely generated $\\mathbb{Z}$-algebra with a chosen presentation.",
+            "An ordered set of polynomials together with a Gröbner basis."
+          ],
+          "answer": 1,
+          "explain": "A seed is the data $(\\mathbf{x},B)$: the cluster $\\mathbf{x}$ is a transcendence basis of the ambient field of fractions, and $B$ encodes the exchange relations as a skew-symmetrizable integer matrix. Equivalently, when $B$ is skew-symmetric, draw the quiver $Q$ with $b_{ij}$ arrows $i\\to j$ when $b_{ij}>0$."
+        },
+        {
+          "type": "numeric",
+          "q": "Consider the quiver $1 \\to 2 \\to 3$ on three vertices (the type $A_3$ linear quiver). What is $b_{13}$ in its exchange matrix $B$?",
+          "answer": 0,
+          "tol": 1e-9,
+          "explain": "There is no arrow between vertices $1$ and $3$ in the linear quiver, so $b_{13}=0$. The non-zero entries are $b_{12}=1, b_{21}=-1, b_{23}=1, b_{32}=-1$."
+        },
+        {
+          "type": "multi-select",
+          "q": "Select every property the exchange matrix $B$ of a seed $(\\mathbf{x},B)$ in a (skew-symmetric) cluster algebra of geometric type must satisfy.",
+          "choices": [
+            "$B$ is square of size $n\\times n$ where $n$ is the rank of the cluster.",
+            "$B$ has entries in $\\mathbb{Z}$.",
+            "$B$ is symmetric: $B = B^T$.",
+            "$B$ is skew-symmetric: $B = -B^T$.",
+            "$B$ is invertible over $\\mathbb{Z}$."
+          ],
+          "answer": [0, 1, 3],
+          "explain": "The exchange matrix is skew-symmetric (equivalently, encodes a quiver) with integer entries. It need not be invertible — type $A_2$ already has $\\det B = 1$ but type $A_3$ has $\\det B = 0$ in some orientations."
+        }
+      ]
+    },
+    "ca-mutation": {
+      "title": "Mutation and the exchange relation",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "In type $A_2$ with quiver $1\\to 2$ and initial cluster $(x_1,x_2)$, mutation $\\mu_1$ at vertex $1$ produces $x_1'$ satisfying which exchange relation?",
+          "choices": [
+            "$x_1\\,x_1' = x_2 + 1$",
+            "$x_1\\,x_1' = x_2$",
+            "$x_1\\,x_1' = x_2^2 + 1$",
+            "$x_1' = x_1\\,x_2$"
+          ],
+          "answer": 0,
+          "explain": "Vertex $1$ has no incoming arrows and one outgoing arrow $1\\to 2$, so $b_{21}=-1<0$. The exchange relation is $x_1x_1' = \\prod_{b_{i1}>0}x_i^{b_{i1}}+\\prod_{b_{i1}<0}x_i^{-b_{i1}} = (\\text{empty product}=1) + x_2^1 = 1 + x_2$."
+        },
+        {
+          "type": "numeric",
+          "q": "Mutation is an involution: applying $\\mu_k$ twice at the same vertex returns the original seed. What is the smallest positive integer $m$ with $\\mu_k^m = \\mathrm{id}$?",
+          "answer": 2,
+          "tol": 1e-9,
+          "explain": "Direct check: $\\mu_k$ swaps $x_k$ with $x_k'$ (defined by the same binomial), and the matrix mutation rule is its own inverse on $B$. So $\\mu_k^2=\\mathrm{id}$."
+        },
+        {
+          "type": "ordering",
+          "q": "Order the steps of mutation $\\mu_k$ at vertex $k$ as Fomin and Zelevinsky define it.",
+          "items": [
+            "Replace cluster variable $x_k$ by $x_k'$, where $x_kx_k' = \\prod_{b_{ik}>0}x_i^{b_{ik}}+\\prod_{b_{ik}<0}x_i^{-b_{ik}}$.",
+            "Identify vertex $k$ and read off the signs of the entries in column $k$ of the exchange matrix $B$.",
+            "Update the exchange matrix $B\\mapsto B'$ by negating row $k$ and column $k$, and adjusting all other entries by $b'_{ij}=b_{ij}+\\mathrm{sgn}(b_{ik})\\max(b_{ik}b_{kj},0)$."
+          ],
+          "answer": [1, 0, 2],
+          "explain": "Mutation is a recipe in three movements: locate the vertex, exchange the cluster variable via the binomial relation, then update the exchange matrix. Doing the matrix step before the variable step is an equally valid presentation, but the canonical order is read $B$ → exchange variable → update $B$."
+        }
+      ]
+    },
+    "ca-laurent": {
+      "title": "Laurent phenomenon and positivity",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The Laurent phenomenon (Fomin–Zelevinsky 2002) asserts that every cluster variable, after any number of mutations, lies in which ring?",
+          "choices": [
+            "$\\mathbb{Z}[x_1,\\ldots,x_n]$ — the polynomial ring in the initial cluster.",
+            "$\\mathbb{Z}[x_1^{\\pm 1},\\ldots,x_n^{\\pm 1}]$ — the Laurent polynomial ring in the initial cluster.",
+            "$\\mathbb{Q}(x_1,\\ldots,x_n)$ — the rational function field, with no further constraint.",
+            "$\\mathbb{Z}[x_1^{1/2},\\ldots,x_n^{1/2}]$ — the half-integer power ring."
+          ],
+          "answer": 1,
+          "explain": "Although a generic mutation sequence appears to produce a rational function with arbitrarily complicated denominator, the denominator is always a monomial in the initial cluster. So every cluster variable is a Laurent polynomial in $\\mathbf{x}=(x_1,\\dots,x_n)$ — and conjecturally with non-negative integer coefficients (proved by Lee–Schiffler in the skew-symmetric case)."
+        },
+        {
+          "type": "numeric",
+          "q": "Type $A_2$ Markov-like recurrence. Start with $(x_1,x_2)$ on the quiver $1\\to 2$ and mutate alternately at $1,2,1,2,\\dots$. The cluster variables that appear, in order, are $x_1,x_2,x_3=\\frac{1+x_2}{x_1},x_4=\\frac{1+x_1+x_2}{x_1x_2},x_5=\\frac{1+x_1}{x_2},x_6=x_1,\\dots$. What is the period of this sequence?",
+          "answer": 5,
+          "tol": 1e-9,
+          "explain": "The cluster variables in $A_2$ form a 5-cycle: $x_1,x_2,x_3,x_4,x_5,x_1,x_2,\\dots$. This is the smallest non-trivial example of finite-type periodicity, and the corresponding cluster algebra has exactly $5$ clusters and $5$ cluster variables — recovering the pentagonal symmetry of the associahedron $K_4$."
+        },
+        {
+          "type": "spot-the-error",
+          "q": "Below is an attempted argument that every cluster variable is a polynomial (not merely Laurent) in the initial cluster. Spot the flawed step.",
+          "steps": [
+            "Step 1: By induction on the depth of the mutation sequence, suppose every cluster variable obtained in $\\le k$ mutations lies in $\\mathbb{Z}[x_1,\\ldots,x_n]$.",
+            "Step 2: A new cluster variable $x_j'$ obtained by one further mutation satisfies $x_j x_j' = M_+ + M_-$ for monomials $M_\\pm$ in the previous cluster.",
+            "Step 3: Solving for $x_j'$ gives $x_j' = (M_+ + M_-)/x_j$, which has $x_j$ in the denominator and so is generally not a polynomial in the initial cluster.",
+            "Step 4: Therefore $x_j'$ is a polynomial in the initial cluster, contradicting the existence of $A_2$-type recursion."
+          ],
+          "answer": 3,
+          "explain": "Step 4 is the flawed step — it draws the opposite of what step 3 just established. Steps 1–3 are correct: the division by $x_j$ generally produces a Laurent polynomial, not a polynomial. The Laurent phenomenon is the surprising fact that no $x_i$ ever appears with negative exponent worse than what one mutation produces — the arbitrary cancellations needed to keep everything Laurent at every depth are non-trivial."
+        }
+      ]
+    },
+    "ca-finite-type": {
+      "title": "Finite type and the ADE classification",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A cluster algebra $\\mathcal{A}$ has finite type — only finitely many cluster variables — if and only if its exchange matrix $B$ is mutation-equivalent to a matrix of which form?",
+          "choices": [
+            "An identity matrix.",
+            "A skew-symmetric matrix with all entries in $\\{-1,0,1\\}$.",
+            "A Cartan matrix of a finite-type root system (i.e. an ADE / BCFG diagram).",
+            "An invertible integer matrix."
+          ],
+          "answer": 2,
+          "explain": "Fomin–Zelevinsky (2003) classify finite-type cluster algebras by Cartan–Killing finite root systems: types $A_n$, $B_n$, $C_n$, $D_n$, plus $E_6,E_7,E_8,F_4,G_2$. So 'finitely many cluster variables' translates exactly into the same classification that classifies finite-dimensional simple complex Lie algebras."
+        },
+        {
+          "type": "numeric",
+          "q": "In type $A_n$, clusters correspond bijectively to triangulations of a convex $(n+3)$-gon by non-crossing diagonals. How many triangulations does the convex hexagon ($n=3$) have?",
+          "answer": 14,
+          "tol": 1e-9,
+          "explain": "Catalan number $C_4 = 14$. In general the convex $(n+3)$-gon has $C_{n+1}=\\frac{1}{n+2}\\binom{2(n+1)}{n+1}$ triangulations: $C_2=2$ for $n=1$ (square), $C_3=5$ for $n=2$ (pentagon), $C_4=14$ for $n=3$ (hexagon), $C_5=42$ for $n=4$, etc."
+        },
+        {
+          "type": "matching",
+          "q": "Match each finite-type cluster algebra with its geometric realization or natural model.",
+          "left": [
+            "Type $A_n$",
+            "Type $D_n$",
+            "Type $E_6, E_7, E_8$"
+          ],
+          "right": [
+            "Triangulations of a convex $(n+3)$-gon by non-crossing diagonals; the exchange graph is the Stasheff associahedron.",
+            "Triangulations of a punctured $n$-gon (one tagged interior point); exchange graph is the cyclohedron.",
+            "Exceptional cluster algebras with no surface model; first defined by Fomin–Zelevinsky from the corresponding Dynkin diagrams; finite cluster sets of sizes $42, 70, 128$ respectively."
+          ],
+          "answer": [0, 1, 2],
+          "explain": "Type $A_n$ ↔ unpunctured polygon (associahedron). Type $D_n$ ↔ punctured polygon (cyclohedron-like, with tagged arcs). The exceptional types $E_{6,7,8}$ admit no surface model and their clusters are enumerated combinatorially via the corresponding root system."
+        }
+      ]
+    },
+    "ca-categories": {
+      "title": "Cluster categories and τ-tilting",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Buan, Marsh, Reineke, Reiten and Todorov defined the cluster category $\\mathcal{C}_Q$ associated with a Dynkin quiver $Q$ as which quotient?",
+          "choices": [
+            "$D^b(\\mathrm{mod}\\,kQ)/\\langle \\tau \\rangle$, the quotient by the Auslander–Reiten translation.",
+            "$D^b(\\mathrm{mod}\\,kQ)/\\tau^{-1}[1]$, the orbit category by the autoequivalence $\\tau^{-1}[1]$.",
+            "$D^b(\\mathrm{mod}\\,kQ)/[2]$, the orbit category by the shift squared.",
+            "The bounded homotopy category $K^b(\\mathrm{proj}\\,kQ)$ of finitely generated projective $kQ$-modules."
+          ],
+          "answer": 1,
+          "explain": "$\\mathcal{C}_Q := D^b(\\mathrm{mod}\\,kQ)/\\tau^{-1}[1]$ is the orbit category by the autoequivalence $\\tau^{-1}\\circ[1]$ where $\\tau$ is the AR-translation and $[1]$ is the suspension. Keller showed this orbit category is again triangulated; it is moreover 2-Calabi–Yau, and indecomposable rigid objects biject with cluster variables of the corresponding $\\mathcal{A}_Q$."
+        },
+        {
+          "type": "numeric",
+          "q": "For the type $A_3$ cluster category, how many indecomposable objects are there (counting up to isomorphism)?",
+          "answer": 9,
+          "tol": 1e-9,
+          "explain": "Type $A_n$ has $n(n+3)/2$ cluster variables (= indecomposable rigid objects) and $n$ shifted projectives = $n$ extra indecomposables. The $A_3$ cluster category has $\\binom{n+3}{2}$ indecomposables total when $n=3$: $9$ indecomposable rigid objects. Equivalently: each diagonal AND each side of the hexagon represents one indecomposable, giving $9 = \\binom{6}{2}-6/?$; concretely the $9$ are the $n(n+3)/2 = 9$ diagonals/sides of the hexagon when $n=3$."
+        },
+        {
+          "type": "multi-select",
+          "q": "Select every property of the cluster category $\\mathcal{C}_Q$ for $Q$ a Dynkin quiver.",
+          "choices": [
+            "$\\mathcal{C}_Q$ is triangulated.",
+            "$\\mathcal{C}_Q$ is $2$-Calabi–Yau: $\\mathrm{Ext}^1_{\\mathcal{C}}(X,Y)\\cong D\\,\\mathrm{Ext}^1_{\\mathcal{C}}(Y,X)$ functorially.",
+            "Indecomposable rigid objects (those with $\\mathrm{Ext}^1(X,X)=0$) biject with cluster variables of $\\mathcal{A}_Q$.",
+            "Cluster-tilting objects biject with seeds of $\\mathcal{A}_Q$.",
+            "$\\mathcal{C}_Q$ is hereditary (every short exact sequence splits)."
+          ],
+          "answer": [0, 1, 2, 3],
+          "explain": "All four are theorems of Buan–Marsh–Reineke–Reiten–Todorov / Keller. The cluster category is NOT hereditary — it is triangulated 2-CY, and almost-split triangles (Iyama–Yoshino exchange triangles) play the role of mutation."
+        }
+      ]
+    },
+    "ca-applications": {
+      "title": "Grassmannians, surfaces, and total positivity",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "On the Grassmannian $\\mathrm{Gr}(2,n)$ of $2$-planes in $n$-space, the cluster algebra structure has which Plücker-coordinate description?",
+          "choices": [
+            "Cluster variables are the Plücker coordinates $p_{ij}$ for all $1\\le i<j\\le n$; clusters are the maximal sets of pairwise non-crossing $p_{ij}$, equivalently triangulations of the $n$-gon.",
+            "Cluster variables are the determinants of all $2\\times 2$ minors of an $n\\times n$ matrix; clusters are bases of those minors.",
+            "Cluster variables correspond to the Schubert varieties of $\\mathrm{Gr}(2,n)$.",
+            "Cluster variables are the symmetric functions in $n$ variables."
+          ],
+          "answer": 0,
+          "explain": "On $\\mathrm{Gr}(2,n)$, two Plücker coordinates $p_{ij}$ and $p_{k\\ell}$ commute in the cluster sense exactly when the chords $\\{i,j\\}$ and $\\{k,\\ell\\}$ of the $n$-gon don't cross. Triangulations are maximal non-crossing sets of chords (with all $n$ sides $p_{i,i+1}$ as frozen variables), giving $C_{n-2}$ clusters."
+        },
+        {
+          "type": "numeric",
+          "q": "How many cluster variables does the cluster algebra structure on $\\mathrm{Gr}(2,5)$ have, including the frozen variables?",
+          "answer": 10,
+          "tol": 1e-9,
+          "explain": "$\\mathrm{Gr}(2,n)$ has $\\binom{n}{2}$ Plücker coordinates; $n$ of them are frozen (the sides of the $n$-gon), the other $n(n-3)/2$ are mutable. For $n=5$ that's $\\binom{5}{2}=10$ Plückers total: $5$ frozen sides plus $5$ mutable diagonals. The mutable cluster algebra has type $A_2$, with its $5$ clusters of $2$ variables each."
+        },
+        {
+          "type": "multi-select",
+          "q": "Select every area where cluster algebras have provided a unifying combinatorial framework.",
+          "choices": [
+            "The total positivity of $\\mathrm{GL}_n$ and its flag varieties (Lusztig, Fomin–Zelevinsky).",
+            "Decorated Teichmüller theory of bordered surfaces (Fock–Goncharov).",
+            "Scattering diagrams and theta functions (Gross–Hacking–Keel–Kontsevich).",
+            "Donaldson–Thomas invariants of quivers and the wall-crossing formulas of Kontsevich–Soibelman.",
+            "The classification of finite simple groups."
+          ],
+          "answer": [0, 1, 2, 3],
+          "explain": "Cluster combinatorics surface across total positivity, higher Teichmüller theory, scattering diagrams / mirror symmetry, and DT-theory wall-crossing. They have NOT (so far!) entered the classification of finite simple groups in any essential way."
+        }
+      ]
+    }
+  }
+}

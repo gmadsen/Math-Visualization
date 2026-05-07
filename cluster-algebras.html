@@ -1,0 +1,1219 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Cluster algebras</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false,
+      macros:{
+        '\\Spec':'\\operatorname{Spec}',
+        '\\Gal':'\\operatorname{Gal}',
+        '\\Hom':'\\operatorname{Hom}',
+        '\\tr':'\\operatorname{tr}',
+        '\\ad':'\\operatorname{ad}',
+        '\\ind':'\\operatorname{ind}'
+      }
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  /* sticky sidebar TOC (wide screens only; narrow screens fall back to top-nav) */
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+  /* callback-css-auto-begin */
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+/* callback-css-auto-end */
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
+  /* display-prefs-css-auto-begin */
+  html[data-hide-widgets] .widget { display: none !important; }
+  html[data-hide-quizzes] .quiz { display: none !important; }
+  html[data-hide-lineage] .lineage-strip { display: none !important; }
+  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }
+  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }
+  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }
+  .mv-display-toggle--off { opacity: 0.35; }
+  /* display-prefs-css-auto-end */
+</style>
+<script src="./js/breadcrumb.js"></script>
+<script src="./js/glossary-popover.js" defer></script>
+<link rel="stylesheet" media="print" href="./css/print.css">
+<link rel="stylesheet" href="./css/theme-light.css">
+<script src="./js/theme-toggle.js"></script>
+<script src="./concepts/bundle.js" defer></script>
+<script src="./js/topic-hotkeys.js" defer></script>
+<script src="./js/topic-lineage.js" defer></script>
+<!-- breadcrumb-head-auto-begin -->
+<script>window.__MV_SECTION_MAP = {"<topic>":{"next":null,"prev":null,"section":"Sections","title":"<topic>"},"L-functions":{"next":"sato-tate","prev":"moonshine","section":"Modular forms & L-functions","title":"L-functions"},"abelian-varieties":{"next":"positivity-and-ample-line-bundles","prev":"toric-varieties","section":"Algebraic geometry","title":"Abelian varieties"},"additive-number-theory":{"next":"heights-arithmetic-geometry","prev":"quadratic-forms-genus-theory","section":"Number theory","title":"Additive number theory"},"adeles-and-ideles":{"next":"frobenius-and-reciprocity","prev":"p-adic-numbers","section":"Number theory","title":"Adèles & idèles"},"advanced-complex-analysis":{"next":"microlocal-analysis","prev":"sobolev-spaces-distributions","section":"Analysis","title":"Advanced complex analysis"},"algebra":{"next":"representation-theory","prev":null,"section":"Algebra & homological","title":"Abstract algebra"},"algebraic-curves-higher-genus":{"next":"deformation-theory","prev":"mirror-symmetry","section":"Algebraic geometry","title":"Algebraic curves: higher genus"},"algebraic-de-rham-cohomology":{"next":"calabi-yau-manifolds","prev":"algebraic-spaces","section":"Algebraic geometry","title":"Algebraic de Rham cohomology"},"algebraic-k-theory-foundations":{"next":"model-categories","prev":"quantum-groups","section":"Algebra & homological","title":"Algebraic K-theory foundations"},"algebraic-number-theory":{"next":"p-adic-numbers","prev":"galois","section":"Number theory","title":"Algebraic number theory"},"algebraic-spaces":{"next":"algebraic-de-rham-cohomology","prev":"functor-of-points","section":"Algebraic geometry","title":"Algebraic spaces"},"algebraic-topology":{"next":"knot-polynomials","prev":"point-set-topology","section":"Geometry & topology","title":"Algebraic topology"},"analytic-continuation":{"next":"zeta-values","prev":"dirichlet-series-euler-products","section":"Modular forms & L-functions","title":"Analytic continuation"},"analytic-number-theory":{"next":"galois","prev":null,"section":"Number theory","title":"Analytic number theory"},"atiyah-singer-index-theorem":{"next":"riemannian-geometry","prev":"k-theory","section":"Geometry & topology","title":"Atiyah–Singer index theorem"},"automorphic-forms-adelic":{"next":"moonshine","prev":"hecke-operators","section":"Modular forms & L-functions","title":"Automorphic forms (adelic)"},"bezout":{"next":"schemes","prev":"elliptic-curves","section":"Algebraic geometry","title":"Bézout's theorem"},"bsd":{"next":"modularity-and-flt","prev":"sato-tate","section":"Modular forms & L-functions","title":"Birch & Swinnerton-Dyer"},"calabi-yau-manifolds":{"next":"mirror-symmetry","prev":"algebraic-de-rham-cohomology","section":"Algebraic geometry","title":"Calabi–Yau manifolds"},"category-theory":{"next":"commutative-algebra","prev":"derived-categories","section":"Algebra & homological","title":"Category theory"},"characteristic-classes":{"next":"k-theory","prev":"symplectic-manifolds","section":"Geometry & topology","title":"Characteristic classes"},"class-field-theory":{"next":"galois-representations","prev":"computational-number-theory","section":"Number theory","title":"Class field theory"},"cluster-algebras":{"next":"galois-cohomology-and-brauer","prev":"geometric-and-combinatorial-group-theory","section":"Algebra & homological","title":"Cluster algebras"},"cobordism":{"next":"homotopy-theory","prev":"cohomology-and-duality","section":"Geometry & topology","title":"Cobordism"},"cocartesian-fibrations":{"next":"infinity-categories","prev":"heyting-algebras-toposes","section":"Higher categories & toposes","title":"Cocartesian fibrations"},"cohomology-and-duality":{"next":"cobordism","prev":"mostow-rigidity","section":"Geometry & topology","title":"Cohomology and duality"},"commutative-algebra":{"next":"homological","prev":"category-theory","section":"Algebra & homological","title":"Commutative algebra"},"complex-analysis":{"next":"measure-theory","prev":"real-analysis","section":"Analysis","title":"Complex analysis"},"complexity-theory":{"next":"type-theory-and-hott","prev":"computability-and-decidability","section":"Logic & Foundations","title":"Complexity theory"},"computability-and-decidability":{"next":"complexity-theory","prev":"model-theory-basics","section":"Logic & Foundations","title":"Computability and decidability"},"computational-number-theory":{"next":"class-field-theory","prev":"mathematics-and-cryptography","section":"Number theory","title":"Computational number theory"},"condensed-mathematics":{"next":null,"prev":"groebner-bases","section":"Algebra & homological","title":"Condensed mathematics"},"continued-fractions":{"next":"dirichlet-unit-theorem","prev":"iwasawa-theory","section":"Number theory","title":"Continued fractions"},"crystalline-cohomology":{"next":null,"prev":"d-modules","section":"Algebraic geometry","title":"Crystalline cohomology"},"d-modules":{"next":"crystalline-cohomology","prev":"mmp-and-birational-geometry","section":"Algebraic geometry","title":"D-modules"},"deformation-theory":{"next":"resolution-of-singularities","prev":"algebraic-curves-higher-genus","section":"Algebraic geometry","title":"Deformation theory"},"derived-categories":{"next":"category-theory","prev":"model-categories","section":"Algebra & homological","title":"Derived categories"},"designs":{"next":"spectral-graph-theory","prev":"enumerative-combinatorics","section":"Combinatorics & graph theory","title":"Designs"},"differential-forms":{"next":"morse-theory","prev":"riemann-surfaces","section":"Geometry & topology","title":"Differential forms"},"differential-geometry":{"next":"riemann-surfaces","prev":"smooth-manifolds","section":"Geometry & topology","title":"Differential geometry"},"dirac-equation":{"next":"statistical-mechanics","prev":"klein-gordon-equation","section":"Mathematical physics","title":"Dirac equation"},"dirichlet-series-euler-products":{"next":"analytic-continuation","prev":null,"section":"Modular forms & L-functions","title":"Dirichlet series & Euler products"},"dirichlet-unit-theorem":{"next":null,"prev":"continued-fractions","section":"Number theory","title":"Dirichlet unit theorem"},"dynamical-systems":{"next":"semigroup-theory-evolution-equations","prev":"operator-algebras","section":"Analysis","title":"Dynamical systems"},"elementary-topos-theory":{"next":"grothendieck-topologies-sites","prev":"simplicial-sets-and-nerve","section":"Higher categories & toposes","title":"Elementary topos theory"},"elliptic-curves":{"next":"bezout","prev":"etale-fundamental-group","section":"Algebraic geometry","title":"Elliptic curves"},"enumerative-combinatorics":{"next":"designs","prev":"simplicial-complexes-combinatorial","section":"Combinatorics & graph theory","title":"Enumerative combinatorics"},"etale-cohomology":{"next":"mmp-and-birational-geometry","prev":"stacks","section":"Algebraic geometry","title":"Étale cohomology"},"etale-fundamental-group":{"next":"elliptic-curves","prev":"projective-plane","section":"Algebraic geometry","title":"Étale fundamental group"},"expanders":{"next":null,"prev":"spectral-graph-theory","section":"Combinatorics & graph theory","title":"Expanders"},"extremal-combinatorics":{"next":"simplicial-complexes-combinatorial","prev":"probabilistic-method","section":"Combinatorics & graph theory","title":"Extremal combinatorics"},"first-order-logic-and-completeness":{"next":"zfc-and-ordinals","prev":"type-theory-and-hott","section":"Logic & Foundations","title":"First order logic and completeness"},"fixed-point-theorems":{"next":"harmonic-analysis-fourier","prev":"functional-analysis","section":"Analysis","title":"Fixed point theorems"},"forcing-and-independence":{"next":null,"prev":"zfc-and-ordinals","section":"Logic & Foundations","title":"Forcing and independence"},"frobenius-and-reciprocity":{"next":"quadratic-reciprocity","prev":"adeles-and-ideles","section":"Number theory","title":"Frobenius & reciprocity"},"functional-analysis":{"next":"fixed-point-theorems","prev":"harmonic-functions","section":"Analysis","title":"Functional analysis"},"functor-of-points":{"next":"algebraic-spaces","prev":"morphisms-fiber-products","section":"Algebraic geometry","title":"Functor of points"},"galois":{"next":"algebraic-number-theory","prev":"analytic-number-theory","section":"Number theory","title":"Galois theory & the quintic"},"galois-cohomology-and-brauer":{"next":"group-cohomology","prev":"cluster-algebras","section":"Algebra & homological","title":"Galois cohomology and Brauer groups"},"galois-representations":{"next":"iwasawa-theory","prev":"class-field-theory","section":"Number theory","title":"Galois representations"},"gauge-theory":{"next":"string-theory","prev":"statistical-mechanics","section":"Mathematical physics","title":"Gauge theory"},"general-relativity":{"next":"schrodinger-equation","prev":"three-body-problem","section":"Mathematical physics","title":"General relativity & Einstein equations"},"geometric-and-combinatorial-group-theory":{"next":"cluster-algebras","prev":"quaternions-octonions-and-division-algebras","section":"Algebra & homological","title":"Geometric and combinatorial group theory"},"geometric-measure-theory":{"next":"operator-algebras","prev":"microlocal-analysis","section":"Analysis","title":"Geometric measure theory"},"groebner-bases":{"next":"condensed-mathematics","prev":"homological","section":"Algebra & homological","title":"Gröbner bases"},"grothendieck-topologies-sites":{"next":"infinity-topoi","prev":"elementary-topos-theory","section":"Higher categories & toposes","title":"Grothendieck topologies & sites"},"group-cohomology":{"next":"quantum-groups","prev":"galois-cohomology-and-brauer","section":"Algebra & homological","title":"Group cohomology"},"group-schemes":{"next":"morphisms-fiber-products","prev":"intersection-theory-chow","section":"Algebraic geometry","title":"Group schemes"},"half-integral-weight-forms":{"next":null,"prev":"maass-forms","section":"Modular forms & L-functions","title":"Half-integral weight forms"},"hamiltonians-classical-mechanics":{"next":"special-relativity","prev":"schrodinger-equation","section":"Mathematical physics","title":"Hamiltonians & classical mechanics"},"harmonic-analysis-fourier":{"next":"wavelets","prev":"fixed-point-theorems","section":"Analysis","title":"Harmonic analysis & Fourier theory"},"harmonic-functions":{"next":"functional-analysis","prev":"measure-theory","section":"Analysis","title":"Harmonic functions"},"hecke-operators":{"next":"automorphic-forms-adelic","prev":"theta-functions","section":"Modular forms & L-functions","title":"Hecke operators"},"heights-arithmetic-geometry":{"next":"mathematics-and-cryptography","prev":"additive-number-theory","section":"Number theory","title":"Heights in arithmetic geometry"},"heyting-algebras-toposes":{"next":"cocartesian-fibrations","prev":null,"section":"Higher categories & toposes","title":"Heyting algebras & intuitionist logic"},"high-dimensional-geometry":{"next":"information-theory","prev":"large-deviations","section":"Probability & statistics","title":"High dimensional geometry"},"hodge-theory":{"next":"singular-cubics-reduction","prev":"motives","section":"Algebraic geometry","title":"Hodge theory"},"homological":{"next":"groebner-bases","prev":"commutative-algebra","section":"Algebra & homological","title":"Homological algebra"},"homotopy-theory":{"next":"kahler-geometry","prev":"cobordism","section":"Geometry & topology","title":"Homotopy theory"},"infinity-categories":{"next":"simplicial-sets-and-nerve","prev":"cocartesian-fibrations","section":"Higher categories & toposes","title":"∞-categories (quasi-categories)"},"infinity-topoi":{"next":null,"prev":"grothendieck-topologies-sites","section":"Higher categories & toposes","title":"∞-topoi"},"information-theory":{"next":"mathematical-statistics","prev":"high-dimensional-geometry","section":"Probability & statistics","title":"Information theory"},"intersection-theory-chow":{"next":"group-schemes","prev":"sheaves","section":"Algebraic geometry","title":"Intersection theory & Chow groups"},"iwasawa-theory":{"next":"continued-fractions","prev":"galois-representations","section":"Number theory","title":"Iwasawa theory"},"k-theory":{"next":"atiyah-singer-index-theorem","prev":"characteristic-classes","section":"Geometry & topology","title":"K-theory"},"kahler-geometry":{"next":null,"prev":"homotopy-theory","section":"Geometry & topology","title":"Kähler geometry"},"klein-gordon-equation":{"next":"dirac-equation","prev":"special-relativity","section":"Mathematical physics","title":"Klein-Gordon equation"},"knot-polynomials":{"next":"smooth-manifolds","prev":"algebraic-topology","section":"Geometry & topology","title":"Knot polynomials"},"langlands-program":{"next":"theta-functions","prev":"vertex-operator-algebras","section":"Modular forms & L-functions","title":"Langlands program"},"large-deviations":{"next":"high-dimensional-geometry","prev":"random-walks-and-mixing","section":"Probability & statistics","title":"Large deviations"},"lie-algebras":{"next":"quaternions-octonions-and-division-algebras","prev":"representation-theory","section":"Algebra & homological","title":"Lie algebras"},"lie-groups":{"next":"mostow-rigidity","prev":"ricci-flow","section":"Geometry & topology","title":"Lie groups & algebras"},"maass-forms":{"next":"half-integral-weight-forms","prev":"modularity-and-flt","section":"Modular forms & L-functions","title":"Maass forms"},"mathematical-statistics":{"next":"probability-theory","prev":"information-theory","section":"Probability & statistics","title":"Mathematical statistics"},"mathematics-and-cryptography":{"next":"computational-number-theory","prev":"heights-arithmetic-geometry","section":"Number theory","title":"Mathematics and cryptography"},"matroid-theory":{"next":"probabilistic-method","prev":null,"section":"Combinatorics & graph theory","title":"Matroid theory"},"measure-theory":{"next":"harmonic-functions","prev":"complex-analysis","section":"Analysis","title":"Measure theory"},"microlocal-analysis":{"next":"geometric-measure-theory","prev":"advanced-complex-analysis","section":"Analysis","title":"Microlocal analysis"},"mirror-symmetry":{"next":"algebraic-curves-higher-genus","prev":"calabi-yau-manifolds","section":"Algebraic geometry","title":"Mirror symmetry"},"mmp-and-birational-geometry":{"next":"d-modules","prev":"etale-cohomology","section":"Algebraic geometry","title":"MMP and birational geometry"},"model-categories":{"next":"derived-categories","prev":"algebraic-k-theory-foundations","section":"Algebra & homological","title":"Model categories"},"model-theory-basics":{"next":"computability-and-decidability","prev":"naive-set-theory","section":"Logic & Foundations","title":"Model theory basics"},"modular-curves":{"next":"vertex-operator-algebras","prev":"partitions-generating-functions","section":"Modular forms & L-functions","title":"Modular curves"},"modular-forms":{"next":"partitions-generating-functions","prev":"upper-half-plane-hyperbolic","section":"Modular forms & L-functions","title":"Modular forms"},"modularity-and-flt":{"next":"maass-forms","prev":"bsd","section":"Modular forms & L-functions","title":"Modularity & FLT"},"moduli-spaces":{"next":"toric-varieties","prev":"sheaf-cohomology","section":"Algebraic geometry","title":"Moduli spaces"},"moonshine":{"next":"L-functions","prev":"automorphic-forms-adelic","section":"Modular forms & L-functions","title":"Monstrous moonshine"},"morphisms-fiber-products":{"next":"functor-of-points","prev":"group-schemes","section":"Algebraic geometry","title":"Morphisms & fiber products"},"morse-theory":{"next":"symplectic-manifolds","prev":"differential-forms","section":"Geometry & topology","title":"Morse theory"},"mostow-rigidity":{"next":"cohomology-and-duality","prev":"lie-groups","section":"Geometry & topology","title":"Mostow rigidity"},"motives":{"next":"hodge-theory","prev":"resolution-of-singularities","section":"Algebraic geometry","title":"Motives"},"naive-set-theory":{"next":"model-theory-basics","prev":null,"section":"Logic & Foundations","title":"Naive set theory"},"numerical-analysis":{"next":"variational-methods","prev":"spectral-theory","section":"Analysis","title":"Numerical analysis"},"operator-algebras":{"next":"dynamical-systems","prev":"geometric-measure-theory","section":"Analysis","title":"Operator algebras"},"p-adic-numbers":{"next":"adeles-and-ideles","prev":"algebraic-number-theory","section":"Number theory","title":"p-adic numbers"},"partial-differential-equations":{"next":"spectral-theory","prev":"wavelets","section":"Analysis","title":"Partial differential equations"},"partitions-generating-functions":{"next":"modular-curves","prev":"modular-forms","section":"Modular forms & L-functions","title":"Partitions & generating functions"},"point-set-topology":{"next":"algebraic-topology","prev":null,"section":"Geometry & topology","title":"Point-set topology"},"positivity-and-ample-line-bundles":{"next":"stacks","prev":"abelian-varieties","section":"Algebraic geometry","title":"Positivity and ample line bundles"},"probabilistic-method":{"next":"extremal-combinatorics","prev":"matroid-theory","section":"Combinatorics & graph theory","title":"Probabilistic method"},"probability-theory":{"next":null,"prev":"mathematical-statistics","section":"Probability & statistics","title":"Probability theory"},"projective-plane":{"next":"etale-fundamental-group","prev":null,"section":"Algebraic geometry","title":"Projective plane"},"quadratic-forms-genus-theory":{"next":"additive-number-theory","prev":"quadratic-reciprocity","section":"Number theory","title":"Quadratic forms & genus theory"},"quadratic-reciprocity":{"next":"quadratic-forms-genus-theory","prev":"frobenius-and-reciprocity","section":"Number theory","title":"Quadratic reciprocity"},"quantum-field-theory":{"next":null,"prev":"string-theory","section":"Mathematical physics","title":"Quantum field theory"},"quantum-groups":{"next":"algebraic-k-theory-foundations","prev":"group-cohomology","section":"Algebra & homological","title":"Quantum groups"},"quaternions-octonions-and-division-algebras":{"next":"geometric-and-combinatorial-group-theory","prev":"lie-algebras","section":"Algebra & homological","title":"Quaternions, octonions, and division algebras"},"random-walks-and-mixing":{"next":"large-deviations","prev":"stochastic-calculus","section":"Probability & statistics","title":"Random walks and mixing"},"real-analysis":{"next":"complex-analysis","prev":null,"section":"Analysis","title":"Real analysis"},"representation-theory":{"next":"lie-algebras","prev":"algebra","section":"Algebra & homological","title":"Representation theory"},"resolution-of-singularities":{"next":"motives","prev":"deformation-theory","section":"Algebraic geometry","title":"Resolution of singularities"},"ricci-flow":{"next":"lie-groups","prev":"riemannian-geometry","section":"Geometry & topology","title":"Ricci flow"},"riemann-surfaces":{"next":"differential-forms","prev":"differential-geometry","section":"Geometry & topology","title":"Riemann surfaces"},"riemannian-geometry":{"next":"ricci-flow","prev":"atiyah-singer-index-theorem","section":"Geometry & topology","title":"Riemannian geometry"},"sato-tate":{"next":"bsd","prev":"L-functions","section":"Modular forms & L-functions","title":"Sato–Tate"},"schemes":{"next":"sheaves","prev":"bezout","section":"Algebraic geometry","title":"Schemes"},"schrodinger-equation":{"next":"hamiltonians-classical-mechanics","prev":"general-relativity","section":"Mathematical physics","title":"Schrödinger equation"},"semigroup-theory-evolution-equations":{"next":"several-complex-variables","prev":"dynamical-systems","section":"Analysis","title":"Semigroup theory & evolution equations"},"several-complex-variables":{"next":null,"prev":"semigroup-theory-evolution-equations","section":"Analysis","title":"Several complex variables"},"sheaf-cohomology":{"next":"moduli-spaces","prev":"singular-cubics-reduction","section":"Algebraic geometry","title":"Sheaf cohomology"},"sheaves":{"next":"intersection-theory-chow","prev":"schemes","section":"Algebraic geometry","title":"Sheaves"},"simplicial-complexes-combinatorial":{"next":"enumerative-combinatorics","prev":"extremal-combinatorics","section":"Combinatorics & graph theory","title":"Simplicial complexes (combinatorial)"},"simplicial-sets-and-nerve":{"next":"elementary-topos-theory","prev":"infinity-categories","section":"Higher categories & toposes","title":"Simplicial sets & the nerve"},"singular-cubics-reduction":{"next":"sheaf-cohomology","prev":"hodge-theory","section":"Algebraic geometry","title":"Singular cubics & reduction"},"smooth-manifolds":{"next":"differential-geometry","prev":"knot-polynomials","section":"Geometry & topology","title":"Smooth manifolds"},"sobolev-spaces-distributions":{"next":"advanced-complex-analysis","prev":"variational-methods","section":"Analysis","title":"Sobolev spaces & distributions"},"special-relativity":{"next":"klein-gordon-equation","prev":"hamiltonians-classical-mechanics","section":"Mathematical physics","title":"Special relativity"},"spectral-graph-theory":{"next":"expanders","prev":"designs","section":"Combinatorics & graph theory","title":"Spectral graph theory"},"spectral-theory":{"next":"numerical-analysis","prev":"partial-differential-equations","section":"Analysis","title":"Spectral theory"},"stacks":{"next":"etale-cohomology","prev":"positivity-and-ample-line-bundles","section":"Algebraic geometry","title":"Stacks (Deligne–Mumford)"},"statistical-mechanics":{"next":"gauge-theory","prev":"dirac-equation","section":"Mathematical physics","title":"Statistical mechanics"},"stochastic-calculus":{"next":"random-walks-and-mixing","prev":"stochastic-processes-and-martingales","section":"Probability & statistics","title":"Stochastic calculus"},"stochastic-processes-and-martingales":{"next":"stochastic-calculus","prev":null,"section":"Probability & statistics","title":"Stochastic processes and martingales"},"string-theory":{"next":"quantum-field-theory","prev":"gauge-theory","section":"Mathematical physics","title":"String theory"},"symplectic-manifolds":{"next":"characteristic-classes","prev":"morse-theory","section":"Geometry & topology","title":"Symplectic manifolds"},"theta-functions":{"next":"hecke-operators","prev":"langlands-program","section":"Modular forms & L-functions","title":"Theta functions"},"three-body-problem":{"next":"general-relativity","prev":null,"section":"Mathematical physics","title":"The three-body problem"},"toric-varieties":{"next":"abelian-varieties","prev":"moduli-spaces","section":"Algebraic geometry","title":"Toric varieties"},"type-theory-and-hott":{"next":"first-order-logic-and-completeness","prev":"complexity-theory","section":"Logic & Foundations","title":"Type theory and HoTT"},"upper-half-plane-hyperbolic":{"next":"modular-forms","prev":"zeta-values","section":"Modular forms & L-functions","title":"Upper half-plane"},"variational-methods":{"next":"sobolev-spaces-distributions","prev":"numerical-analysis","section":"Analysis","title":"Variational methods"},"vertex-operator-algebras":{"next":"langlands-program","prev":"modular-curves","section":"Modular forms & L-functions","title":"Vertex operator algebras"},"wavelets":{"next":"partial-differential-equations","prev":"harmonic-analysis-fourier","section":"Analysis","title":"Wavelets"},"zeta-values":{"next":"upper-half-plane-hyperbolic","prev":"analytic-continuation","section":"Modular forms & L-functions","title":"Zeta values"},"zfc-and-ordinals":{"next":"forcing-and-independence","prev":"first-order-logic-and-completeness","section":"Logic & Foundations","title":"ZFC and ordinals"}};</script>
+<script src="./js/breadcrumb.js"></script>
+<script src="./js/glossary-popover.js" defer></script>
+<link rel="stylesheet" media="print" href="./css/print.css">
+<link rel="stylesheet" href="./css/theme-light.css">
+<script src="./js/theme-toggle.js"></script>
+<script src="./concepts/bundle.js" defer></script>
+<script src="./js/topic-hotkeys.js" defer></script>
+<script src="./js/topic-lineage.js" defer></script>
+<!-- breadcrumb-head-auto-end -->
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./quizzes/bundle.js"></script>
+<script src="./js/sidetoc.js"></script>
+<!-- display-prefs-head-auto-begin -->
+<script src="./js/display-prefs.js"></script>
+<!-- display-prefs-head-auto-end -->
+</head>
+<body data-section="algebra-and-homological" data-level="intermediate">
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><span class="nav-links"><a class="nav-link" href="./pathway.html">Pathway</a><a class="nav-link" href="./tours.html">Tours</a><a class="nav-link" href="./history.html">History</a><a class="nav-link" href="./tags.html">Themes</a><a class="nav-link" href="./mindmap.html">Mindmap</a><a class="nav-link" href="./search.html">Search</a></span><span class="mv-theme-slot"></span><!-- breadcrumb-nav-auto-end -->
+<!-- toc-auto-begin -->
+  <a href="#seeds">1&nbsp;Quivers&nbsp;and&nbsp;seeds</a>
+  <a href="#mutation">2&nbsp;Mutation&nbsp;and&nbsp;the&nbsp;exchange&nbsp;relation</a>
+  <a href="#laurent">3&nbsp;The&nbsp;Laurent&nbsp;phenomenon&nbsp;and&nbsp;positivity</a>
+  <a href="#finite-type">4&nbsp;Finite&nbsp;type&nbsp;and&nbsp;the&nbsp;ADE&nbsp;classification</a>
+  <a href="#categories">5&nbsp;Cluster&nbsp;categories&nbsp;and&nbsp;τ-tilting</a>
+  <a href="#applications">6&nbsp;Grassmannians,&nbsp;surfaces,&nbsp;and&nbsp;total&nbsp;positivity</a>
+  <a href="#connections">7&nbsp;Connections</a>
+<!-- toc-auto-end -->
+</nav>
+<!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Cluster algebras</h1>
+  <p class="sub">A combinatorial machine, invented by Fomin and Zelevinsky in 2000, that turns a quiver and an $n$-tuple of indeterminates into an unending tree of Laurent polynomials. The recursion looks artificial — until exactly the same tree drops out of triangulations of polygons, of Plücker coordinates on Grassmannians, of Auslander–Reiten quivers in representation theory, and of total positivity in Lie groups. The same combinatorial object explains why all of those phenomena fit together.</p>
+</section>
+
+<section id="seeds">
+<h2>1. Quivers and seeds</h2>
+<p>Fix a positive integer $n$. A <strong>quiver</strong> $Q$ is a finite directed multigraph on vertices $\{1,\dots,n\}$ with no loops and no oriented $2$-cycles. The data of $Q$ is captured by an $n\times n$ skew-symmetric integer matrix $B = (b_{ij})$, the <strong>exchange matrix</strong>: $b_{ij}$ is the number of arrows $i\to j$ minus the number of arrows $j\to i$. Skew-symmetry $b_{ij}=-b_{ji}$ is the no-2-cycle condition.</p>
+<p>A <strong>seed</strong> is a pair $(\mathbf{x},B)$ where $\mathbf{x}=(x_1,\dots,x_n)$ is an $n$-tuple of algebraically independent generators of the rational function field $\mathcal{F}=\mathbb{Q}(x_1,\dots,x_n)$ (the <em>cluster</em>) and $B$ is the exchange matrix. We will draw the quiver with each vertex labelled by its cluster variable $x_i$.</p>
+<p>The cluster variables and the quiver carry equal weight. The variables tell you which polynomial generators of $\mathcal{F}$ are currently "in scope"; the quiver tells you how to obtain new generators by mutation. A single seed is one chart of an atlas; the cluster algebra $\mathcal{A}\subset\mathcal{F}$ is generated by all cluster variables of all seeds reachable from the starting one, but each individual seed only knows about its own $n$ variables.</p>
+
+<div class="widget" id="cl-seed">
+  <div class="hd"><div class="ttl">Seed inspector — type $A_3$</div><div class="hint">click a vertex to highlight its column of $B$</div></div>
+  <svg id="cl-seed-svg" viewBox="0 0 720 240" width="720" height="240" aria-label="quiver of type A3 with exchange matrix"><title>Seed inspector</title></svg>
+  <div class="readout" id="cl-seed-out"></div>
+  <p class="small">The quiver $1\to 2\to 3$ on three vertices: linear, no 2-cycles. Skew-symmetric $3\times 3$ exchange matrix has $b_{12}=1$, $b_{23}=1$, all others zero (or their negatives).</p>
+</div>
+<script>
+(function(){
+  const svg = document.querySelector('#cl-seed-svg');
+  const out = document.querySelector('#cl-seed-out');
+  if(!svg || !out) return;
+  // Quiver layout: three vertices in a row, two arrows
+  const verts = [
+    {i:1, x:200, y:90, label:'x₁'},
+    {i:2, x:360, y:90, label:'x₂'},
+    {i:3, x:520, y:90, label:'x₃'}
+  ];
+  const arrows = [
+    {a:0, b:1, mark:'cl-seed-arr-12'},
+    {a:1, b:2, mark:'cl-seed-arr-23'}
+  ];
+  // exchange matrix B for 1 -> 2 -> 3:
+  const B = [[0,1,0],[-1,0,1],[0,-1,0]];
+
+  let highlight = null;
+
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    // arrows first, then nodes on top
+    arrows.forEach(a => {
+      const v1 = verts[a.a], v2 = verts[a.b];
+      drawArrow(svg, [v1.x, v1.y], [v2.x, v2.y], {
+        color:'var(--yellow)', markerId:a.mark, width:2, pad1:24, pad2:24
+      });
+    });
+    verts.forEach((v,idx) => {
+      const isHi = highlight === idx;
+      const stroke = isHi ? 'var(--cyan)' : 'var(--blue)';
+      const fill = isHi ? 'var(--panel2)' : 'var(--panel2)';
+      svg.appendChild(SVG('circle',{cx:v.x, cy:v.y, r:24,
+        fill, stroke, 'stroke-width':isHi?3:1.5,
+        'data-vertex': idx, style:'cursor:pointer'}));
+      const t = SVG('text',{x:v.x, y:v.y+5, 'text-anchor':'middle',
+        'font-size':16, fill: isHi?'var(--cyan)':'#fff', 'font-weight':600,
+        'pointer-events':'none'});
+      t.textContent = v.label;
+      svg.appendChild(t);
+    });
+    // exchange matrix on the right
+    const mx = 600, my = 30;
+    const rowH = 32, colW = 36;
+    const t0 = SVG('text',{x:mx, y:my-2, 'font-size':12, fill:'var(--mute)'});
+    t0.textContent = 'B =';
+    svg.appendChild(t0);
+    for(let r=0;r<3;r++){
+      for(let c=0;c<3;c++){
+        const v = B[r][c];
+        const cell = SVG('rect',{x:mx + c*colW, y:my + r*rowH, width:colW-2, height:rowH-2,
+          fill: highlight===c ? 'rgba(125,224,214,0.15)' : 'rgba(0,0,0,0.18)',
+          stroke: highlight===c ? 'var(--cyan)' : 'var(--line)',
+          'stroke-width':1});
+        svg.appendChild(cell);
+        const tt = SVG('text',{x:mx + c*colW + (colW-2)/2, y:my + r*rowH + rowH/2 + 4,
+          'text-anchor':'middle','font-size':14,
+          fill: v===0 ? 'var(--mute)' : (v>0?'var(--yellow)':'var(--pink)')});
+        tt.textContent = String(v);
+        svg.appendChild(tt);
+      }
+    }
+    // row/col labels
+    for(let i=0;i<3;i++){
+      const lr = SVG('text',{x:mx-12, y:my + i*rowH + rowH/2 + 4, 'text-anchor':'end',
+        'font-size':11, fill:'var(--mute)'});
+      lr.textContent = String(i+1);
+      svg.appendChild(lr);
+      const lc = SVG('text',{x:mx + i*colW + (colW-2)/2, y:my-6, 'text-anchor':'middle',
+        'font-size':11, fill: highlight===i?'var(--cyan)':'var(--mute)'});
+      lc.textContent = String(i+1);
+      svg.appendChild(lc);
+    }
+    // wire click handlers (re-bound after each render)
+    svg.querySelectorAll('circle[data-vertex]').forEach(c => {
+      c.addEventListener('click', () => {
+        const idx = parseInt(c.getAttribute('data-vertex'),10);
+        highlight = (highlight === idx) ? null : idx;
+        update();
+      });
+    });
+  }
+
+  function update(){
+    render();
+    if(highlight === null){
+      out.textContent = 'Click a vertex (x₁, x₂, or x₃) to highlight its column of B and read the exchange relation that mutation at that vertex would produce.';
+      return;
+    }
+    const k = highlight;
+    const col = [B[0][k], B[1][k], B[2][k]];
+    const pos = [], neg = [];
+    col.forEach((v,i) => {
+      if(v>0) pos.push(`x${i+1}^${v}`.replace('^1',''));
+      if(v<0) neg.push(`x${i+1}^${-v}`.replace('^1',''));
+    });
+    const left = pos.length ? pos.join('·') : '1';
+    const right = neg.length ? neg.join('·') : '1';
+    out.textContent =
+      `Vertex ${k+1}: column ${k+1} of B is (${col.join(', ')}).\n` +
+      `Mutation μ_${k+1} would give the new variable x'${k+1} with\n` +
+      `   x_${k+1} · x'_${k+1} = ${left} + ${right}.`;
+  }
+
+  update();
+})();
+</script>
+
+<div class="note">When the quiver has a 2-cycle $i\rightleftarrows j$ — say $b_{ij}=2,\,b_{ji}=-2$ — the corresponding cluster algebra is also defined, but mutation no longer behaves combinatorially the same way. Banning 2-cycles is the right normalisation: any quiver-with-2-cycles can be reduced to a 2-cycle-free one by absorbing the cycles into multiplicity, which is what the skew-symmetric matrix records.</div>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./algebra.html#intro">Groups, rings, and fields</a></li>
+    <li><a href="./algebra.html#polyrings">Polynomial rings and irreducibility</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./cluster-algebras.html#mutation">Cluster algebras</a> · Mutation and the exchange relation</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="ca-quivers-and-seeds"></div>
+
+</section>
+
+<section id="mutation">
+<h2>2. Mutation and the exchange relation</h2>
+<p>Fix a vertex $k\in\{1,\dots,n\}$. <strong>Mutation</strong> at $k$ is a transformation $\mu_k\colon (\mathbf{x},B)\mapsto (\mathbf{x}',B')$ defined as follows.</p>
+<p>The new cluster $\mathbf{x}'$ replaces only $x_k$, leaving the other entries unchanged: $x_i'=x_i$ for $i\ne k$. The new $x_k'$ satisfies the <strong>exchange relation</strong></p>
+<p>$$x_k\,x_k' \;=\; \prod_{i:\,b_{ik}>0} x_i^{\,b_{ik}} \;+\; \prod_{i:\,b_{ik}<0} x_i^{\,-b_{ik}}.$$</p>
+<p>The new exchange matrix $B'$ is given by the <strong>matrix mutation rule</strong>:</p>
+<p>$$b'_{ij} \;=\; \begin{cases} -b_{ij} & \text{if } i=k \text{ or } j=k,\\ b_{ij} + \dfrac{|b_{ik}|\,b_{kj} + b_{ik}\,|b_{kj}|}{2} & \text{otherwise.}\end{cases}$$</p>
+<p>The matrix rule is involutive ($\mu_k(\mu_k(B))=B$) and a short check shows the variable rule is too — so $\mu_k$ is its own inverse and the set of seeds carries an action of the free product of $n$ copies of $\mathbb{Z}/2$.</p>
+
+<h3>The simplest example</h3>
+<p>Take $n=2$ with quiver $1\to 2$, exchange matrix $\begin{pmatrix}0 & 1 \\ -1 & 0\end{pmatrix}$, cluster $(x_1,x_2)$. Mutation at $1$:</p>
+<p>$$x_1\,x_1' = 1 + x_2,\qquad B' = \begin{pmatrix}0 & -1\\ 1 & 0\end{pmatrix}\;\;(\text{quiver flipped to } 2\to 1).$$</p>
+<p>So $x_1' = (1+x_2)/x_1$, and the new seed is $\big((x_1',x_2),\; 2\to 1\big)$. Continue mutating alternately at $1$ then $2$ then $1$, and a remarkable thing happens: after five mutations, you return to the starting seed (with the variables permuted). Type $A_2$ is <em>periodic</em>.</p>
+
+<div class="widget" id="cl-mutate">
+  <div class="hd"><div class="ttl">Type $A_2$ pentagon — mutate alternately at 1 then 2</div><div class="hint">click "mutate at 1" or "mutate at 2"; trace the 5-cycle</div></div>
+  <div class="row">
+    <button id="cl-mut-1">mutate at 1</button>
+    <button id="cl-mut-2">mutate at 2</button>
+    <button id="cl-mut-reset">reset</button>
+  </div>
+  <svg id="cl-mut-svg" viewBox="0 0 720 280" width="720" height="280" aria-label="A2 mutation pentagon"><title>Mutation pentagon</title></svg>
+  <div class="readout" id="cl-mut-out"></div>
+</div>
+<script>
+(function(){
+  const svg = document.querySelector('#cl-mut-svg');
+  const out = document.querySelector('#cl-mut-out');
+  const b1 = document.querySelector('#cl-mut-1');
+  const b2 = document.querySelector('#cl-mut-2');
+  const br = document.querySelector('#cl-mut-reset');
+  if(!svg || !out) return;
+  // Pre-computed five seeds of A2 starting at (x1, x2) with quiver 1->2.
+  // Mutation alternates direction of the arrow.
+  const seeds = [
+    {x:['x_1','x_2'],            arrow:'→', label:'(x_1, x_2)'},
+    {x:['(1+x_2)/x_1','x_2'],    arrow:'←', label:'((1+x_2)/x_1, x_2)'},
+    {x:['(1+x_2)/x_1','(1+x_1+x_2)/(x_1 x_2)'], arrow:'→', label:'((1+x_2)/x_1, (1+x_1+x_2)/(x_1 x_2))'},
+    {x:['(1+x_1)/x_2','(1+x_1+x_2)/(x_1 x_2)'], arrow:'←', label:'((1+x_1)/x_2, (1+x_1+x_2)/(x_1 x_2))'},
+    {x:['(1+x_1)/x_2','x_1'],    arrow:'→', label:'((1+x_1)/x_2, x_1)'}
+  ];
+  // Vertices of the pentagon for the seed graph
+  const cx = 360, cy = 145, R = 95;
+  const pent = [];
+  for(let k=0;k<5;k++){
+    const ang = -Math.PI/2 + 2*Math.PI*k/5;
+    pent.push({x:cx + R*Math.cos(ang), y:cy + R*Math.sin(ang)});
+  }
+  let cur = 0;
+
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    // edges of the pentagon (each is a mutation step)
+    for(let k=0;k<5;k++){
+      const a = pent[k], b = pent[(k+1)%5];
+      const isCur = (cur===k);
+      svg.appendChild(SVG('line',{x1:a.x, y1:a.y, x2:b.x, y2:b.y,
+        stroke: isCur ? 'var(--yellow)' : 'var(--line)', 'stroke-width': isCur?3:1.4}));
+      // label the edge with which vertex was mutated
+      const mx = (a.x+b.x)/2, my = (a.y+b.y)/2;
+      const lbl = SVG('text',{x:mx + 8*Math.sign(mx-cx)*0.7, y:my + 8*Math.sign(my-cy)*0.7,
+        'text-anchor':'middle','font-size':12, fill:'var(--mute)'});
+      lbl.textContent = (k%2===0) ? 'μ₁' : 'μ₂';
+      svg.appendChild(lbl);
+    }
+    // pentagon vertices
+    pent.forEach((p,k) => {
+      const isCur = (k===cur);
+      svg.appendChild(SVG('circle',{cx:p.x, cy:p.y, r: isCur?14:10,
+        fill: isCur ? 'var(--yellow)' : 'var(--panel2)',
+        stroke: isCur ? 'var(--yellow)' : 'var(--blue)', 'stroke-width':2}));
+      const t = SVG('text',{x:p.x, y:p.y+4, 'text-anchor':'middle',
+        'font-size':12, fill: isCur?'#111':'var(--ink)','font-weight':600});
+      t.textContent = String(k+1);
+      svg.appendChild(t);
+    });
+    // legend / current seed
+    const lg = SVG('text',{x:24, y:28, 'font-size':13, fill:'var(--mute)'});
+    lg.textContent = 'Cluster sequence: each vertex of the pentagon is a seed; each edge is one mutation.';
+    svg.appendChild(lg);
+  }
+
+  function update(){
+    draw();
+    const s = seeds[cur];
+    out.textContent =
+      `Seed #${cur+1}\n` +
+      `   cluster:  (${s.x[0]},  ${s.x[1]})\n` +
+      `   quiver:   1 ${s.arrow} 2`;
+  }
+
+  b1.addEventListener('click', () => {
+    // mutate at 1: this is the edge taken at even steps; the arrow points 1->2 there
+    cur = (cur + 1) % 5;
+    if(cur % 2 === 0) cur = (cur + 4) % 5; // step back if we'd take the wrong edge
+    // simplest: alternate buttons; just always advance and see — actually
+    // for A2 with this seed labeling, μ1 advances when current arrow is →, μ2 when ←
+    // but we want the user to feel both buttons; let's force the rule:
+    // (rebuild cur from the button press)
+    update();
+  });
+  // Cleanest impl: just alternate and let either button advance; force 5-cycle.
+  b1.replaceWith(b1.cloneNode(true));
+  b2.replaceWith(b2.cloneNode(true));
+  const nb1 = document.querySelector('#cl-mut-1');
+  const nb2 = document.querySelector('#cl-mut-2');
+  function step(which){
+    const expected = (cur % 2 === 0) ? 1 : 2;
+    if(which !== expected){
+      out.textContent = `At seed #${cur+1} the next mutation is μ${expected}, not μ${which}. (Mutating at the same vertex twice in a row would just go back where you came from.)`;
+      return;
+    }
+    cur = (cur + 1) % 5;
+    update();
+  }
+  nb1.addEventListener('click', () => step(1));
+  nb2.addEventListener('click', () => step(2));
+  br.addEventListener('click', () => { cur = 0; update(); });
+
+  update();
+})();
+</script>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./quantum-groups.html#uq-sl2">Quantum groups — Drinfeld–Jimbo $U_q(\mathfrak{sl}_2)$</a> for a parallel "deformation by a single parameter" story.</li>
+  </ul>
+</aside>
+
+<div class="quiz" data-concept="ca-mutation"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./cluster-algebras.html#laurent">Cluster algebras</a> · Laurent phenomenon and positivity</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+</section>
+
+<section id="laurent">
+<h2>3. The Laurent phenomenon and positivity</h2>
+<p>Computing a cluster variable directly from the recursion produces an arbitrary rational function in $(x_1,\dots,x_n)$ — a quotient of polynomials with potentially huge denominators. Yet:</p>
+<p class="ok"><strong>Theorem (Fomin–Zelevinsky, 2002).</strong> Every cluster variable, after any sequence of mutations, is a Laurent polynomial in the initial cluster $\mathbf{x}=(x_1,\dots,x_n)$. That is, every cluster variable lies in $\mathbb{Z}[x_1^{\pm 1},\dots,x_n^{\pm 1}]$.</p>
+<p>This is the <strong>Laurent phenomenon</strong>. The denominator of any cluster variable, no matter how deep the mutation tree, is always a single monomial in the initial $x_i$'s. For type $A_2$ that is visible directly in the five seeds: $x_3=(1+x_2)/x_1$, $x_4=(1+x_1+x_2)/(x_1x_2)$, $x_5=(1+x_1)/x_2$ — all denominators monomial in $\{x_1,x_2\}$.</p>
+
+<h3>Positivity</h3>
+<p>A stronger conjecture, proved in many cases:</p>
+<p class="ok"><strong>Theorem (Lee–Schiffler 2015 for skew-symmetric type; Gross–Hacking–Keel–Kontsevich 2018 in general).</strong> The Laurent polynomials in the previous theorem have non-negative integer coefficients.</p>
+<p>So every cluster variable $x = \frac{P(x_1,\dots,x_n)}{x_1^{d_1}\cdots x_n^{d_n}}$ has $P\in\mathbb{Z}_{\ge 0}[x_1,\dots,x_n]$. The non-negative integer coefficients are not just a curiosity: they count <em>something</em> — Caldero–Chapoton expressed them as Euler characteristics of quiver Grassmannians, and Gross–Hacking–Keel–Kontsevich realised them as counts of broken lines in scattering diagrams.</p>
+
+<div class="widget" id="cl-laurent">
+  <div class="hd"><div class="ttl">Laurent expansion in type $A_2$</div><div class="hint">step through the five cluster variables; watch the denominator stay monomial</div></div>
+  <div class="row">
+    <button id="cl-l-prev">←</button>
+    <span id="cl-l-step" style="color:var(--mute);font-size:.92rem">step 1 / 5</span>
+    <button id="cl-l-next">→</button>
+  </div>
+  <svg id="cl-l-svg" viewBox="0 0 720 200" width="720" height="200" aria-label="Laurent expansion display"><title>Laurent expansion</title></svg>
+  <div class="readout" id="cl-l-out"></div>
+</div>
+<script>
+(function(){
+  const svg = document.querySelector('#cl-l-svg');
+  const out = document.querySelector('#cl-l-out');
+  const bp = document.querySelector('#cl-l-prev');
+  const bn = document.querySelector('#cl-l-next');
+  const lab = document.querySelector('#cl-l-step');
+  if(!svg || !out) return;
+  // The five cluster variables of A2 with their Laurent forms.
+  const cv = [
+    {name:'x₁',  num:'x_1',                den:'1',     coeffs:[1],        d1:0, d2:0,  color:'var(--blue)'},
+    {name:'x₂',  num:'x_2',                den:'1',     coeffs:[1],        d1:0, d2:0,  color:'var(--blue)'},
+    {name:'x₃',  num:'1 + x_2',            den:'x_1',   coeffs:[1,1],      d1:1, d2:0,  color:'var(--cyan)'},
+    {name:'x₄',  num:'1 + x_1 + x_2',      den:'x_1·x_2', coeffs:[1,1,1],  d1:1, d2:1,  color:'var(--green)'},
+    {name:'x₅',  num:'1 + x_1',            den:'x_2',   coeffs:[1,1],      d1:0, d2:1,  color:'var(--cyan)'}
+  ];
+  let i = 0;
+
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    // The big formula box on the left
+    const c = cv[i];
+    const fx = 80, fy = 90;
+    // numerator
+    const t1 = SVG('text',{x:fx+220, y:fy-14, 'text-anchor':'middle','font-size':22, fill:'var(--ink)'});
+    t1.textContent = c.num;
+    svg.appendChild(t1);
+    // fraction line
+    svg.appendChild(SVG('line',{x1:fx+90, y1:fy, x2:fx+360, y2:fy, stroke:'var(--mute)', 'stroke-width':1.5}));
+    // denominator
+    const t2 = SVG('text',{x:fx+220, y:fy+24, 'text-anchor':'middle','font-size':20, fill:c.color});
+    t2.textContent = c.den;
+    svg.appendChild(t2);
+    // x_n = label on left
+    const t3 = SVG('text',{x:fx+30, y:fy+6, 'text-anchor':'middle','font-size':22, fill:'var(--yellow)','font-weight':600});
+    t3.textContent = c.name + ' =';
+    svg.appendChild(t3);
+    // coefficient bar chart on the right
+    const bx = 510, by0 = 50, by1 = 150;
+    const t4 = SVG('text',{x:bx + 80, y:by0-12, 'text-anchor':'middle','font-size':12,fill:'var(--mute)'});
+    t4.textContent = 'numerator coefficients';
+    svg.appendChild(t4);
+    const cn = c.coeffs.length;
+    const bw = Math.min(28, 160/Math.max(cn,1));
+    c.coeffs.forEach((coef, k) => {
+      const x0 = bx + k*(bw+8);
+      const h = (by1 - by0) * coef / Math.max(...c.coeffs, 1);
+      svg.appendChild(SVG('rect',{x:x0, y:by1-h, width:bw, height:h, fill:c.color, opacity:0.85}));
+      const tt = SVG('text',{x:x0+bw/2, y:by1-h-4, 'text-anchor':'middle','font-size':11,fill:'var(--ink)'});
+      tt.textContent = String(coef);
+      svg.appendChild(tt);
+    });
+    // exponents box
+    const t5 = SVG('text',{x:bx + 80, y:by1+22, 'text-anchor':'middle','font-size':12,fill:'var(--mute)'});
+    t5.textContent = `denom = x₁^${c.d1} · x₂^${c.d2} (always monomial)`;
+    svg.appendChild(t5);
+  }
+
+  function update(){
+    render();
+    lab.textContent = `step ${i+1} / 5`;
+    const c = cv[i];
+    out.textContent =
+      `${c.name} = (${c.num}) / (${c.den})\n` +
+      `Numerator: positive integer combination of monomials in (x₁, x₂).\n` +
+      `Denominator: a single monomial x₁^${c.d1} · x₂^${c.d2}. ` +
+      (c.d1+c.d2===0 ? '(initial generator — degree 0 denominator)' : '(Laurent monomial — guaranteed by the FZ theorem)');
+  }
+  bp.addEventListener('click', () => { i = (i + cv.length - 1) % cv.length; update(); });
+  bn.addEventListener('click', () => { i = (i + 1) % cv.length; update(); });
+
+  update();
+})();
+</script>
+
+<div class="note">The proof of the Laurent phenomenon is a clever induction on the depth of mutation: one shows that any two cluster variables are <em>coprime</em> in the appropriate Laurent ring — so when a new variable is created by exchange, the only $x_i$ that can appear in the denominator is the one being mutated. Positivity is much harder; for ages, the only known cases were the surface-type cluster algebras (where Musiker–Schiffler–Williams gave a manifest formula counting perfect matchings of an associated snake graph).</div>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./algebra.html#polyrings">Polynomial rings and irreducibility</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./cluster-algebras.html#finite-type">Cluster algebras</a> · Finite type and the ADE classification</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="ca-laurent"></div>
+
+</section>
+
+<section id="finite-type">
+<h2>4. Finite type and the ADE classification</h2>
+<p>Most cluster algebras have <em>infinitely</em> many cluster variables. The exception is when the recursion terminates after finitely many distinct seeds — a <strong>finite type</strong> cluster algebra.</p>
+<p class="ok"><strong>Theorem (Fomin–Zelevinsky 2003).</strong> A cluster algebra has finite type if and only if it has a seed whose quiver, after possibly orienting edges, is a Dynkin diagram of finite type — i.e. one of the simply-laced $A_n$, $D_n$, $E_6$, $E_7$, $E_8$, or (with non-trivial multiplicities permitted) $B_n$, $C_n$, $F_4$, $G_2$.</p>
+<p>The number of cluster variables in each finite type matches the count of <em>almost positive roots</em> (positive roots plus negative simple roots) of the corresponding root system. For $A_n$ that count is $n(n+3)/2$. For $E_8$ it is $128$. The cluster algebra contains exactly that many distinct cluster variables, and exactly $\frac{1}{n+2}\binom{2(n+1)}{n+1}=C_{n+1}$ clusters in type $A_n$ — the Catalan numbers.</p>
+
+<h3>The polygon model for type $A_n$</h3>
+<p>For type $A_n$, the cluster combinatorics has a beautiful classical realisation: take a convex $(n+3)$-gon $P_{n+3}$. Then</p>
+<ul>
+  <li><strong>Cluster variables</strong> ↔ diagonals of $P_{n+3}$ (sides are <em>frozen</em> variables).</li>
+  <li><strong>Clusters</strong> ↔ triangulations of $P_{n+3}$ by non-crossing diagonals.</li>
+  <li><strong>Mutation</strong> ↔ flipping one diagonal of a triangulation: the diagonal sits inside a unique quadrilateral and gets replaced by the other diagonal of that quadrilateral.</li>
+</ul>
+<p>The number of triangulations of $P_{n+3}$ is the Catalan number $C_{n+1}$, matching the cluster count above. The exchange relation $x_kx_k' = M_+ + M_-$ becomes <em>Ptolemy's theorem</em> for the relevant quadrilateral: the product of the two diagonals equals the sum of products of opposite sides.</p>
+
+<div class="widget" id="cl-flip">
+  <div class="hd"><div class="ttl">Polygon flip explorer — type $A_n$</div><div class="hint">click a diagonal to flip it to the other diagonal of its quadrilateral</div></div>
+  <div class="row">
+    <label for="cl-flip-n">$(n+3)$-gon: $n=$ </label>
+    <select id="cl-flip-n">
+      <option value="2">2 (pentagon, $A_2$)</option>
+      <option value="3" selected>3 (hexagon, $A_3$)</option>
+      <option value="4">4 (heptagon, $A_4$)</option>
+      <option value="5">5 (octagon, $A_5$)</option>
+    </select>
+    <button id="cl-flip-reset">reset triangulation</button>
+  </div>
+  <svg id="cl-flip-svg" viewBox="0 0 720 360" width="720" height="360" aria-label="polygon triangulation"><title>Polygon flip explorer</title></svg>
+  <div class="readout" id="cl-flip-out"></div>
+</div>
+<script>
+(function(){
+  const svg = document.querySelector('#cl-flip-svg');
+  const out = document.querySelector('#cl-flip-out');
+  const sel = document.querySelector('#cl-flip-n');
+  const rst = document.querySelector('#cl-flip-reset');
+  if(!svg || !out) return;
+
+  let n = 3;
+  let N = n+3;
+  const cx = 360, cy = 180, R = 130;
+  // verts and triangulation diagonals as pairs (i,j) with j > i+1
+  let verts = [];
+  let diags = []; // array of [i,j]
+  let flipCount = 0;
+
+  function buildPolygon(){
+    N = n+3;
+    verts = [];
+    for(let k=0;k<N;k++){
+      const a = -Math.PI/2 + 2*Math.PI*k/N;
+      verts.push({x:cx + R*Math.cos(a), y:cy + R*Math.sin(a)});
+    }
+    // initial triangulation: fan from vertex 0
+    diags = [];
+    for(let k=2;k<N-1;k++) diags.push([0,k]);
+    flipCount = 0;
+  }
+
+  function neighbors(i,j){
+    // For diagonal (i,j) in current triangulation, find the two vertices
+    // forming the unique quadrilateral with (i,j) as one diagonal.
+    // i.e. the two triangles containing (i,j) — find their third vertices.
+    // Build adjacency: for each vertex v, the diagonals/sides at v.
+    // sides of polygon: (k, (k+1)%N) for all k.
+    // We find vertices p,q such that both (i,p) or (p,i) and (j,p) or (p,j)
+    // are edges of the triangulation (= diagonals or sides), and p ≠ i,j.
+    const isEdge = (a,b) => {
+      if(a>b){ const t=a; a=b; b=t; }
+      if(b===a+1) return true;            // adjacent on polygon
+      if(a===0 && b===N-1) return true;   // wrap-around side
+      return diags.some(d => (d[0]===a && d[1]===b) || (d[0]===b && d[1]===a));
+    };
+    const ps = [];
+    for(let p=0;p<N;p++){
+      if(p===i || p===j) continue;
+      if(isEdge(i,p) && isEdge(j,p)) ps.push(p);
+    }
+    return ps;
+  }
+
+  function flip(idx){
+    const [i,j] = diags[idx];
+    const ps = neighbors(i,j);
+    if(ps.length !== 2) return null;
+    const [p,q] = ps;
+    // Replace (i,j) with (p,q)
+    diags[idx] = [Math.min(p,q), Math.max(p,q)];
+    flipCount++;
+    return [p,q];
+  }
+
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    // sides of polygon
+    for(let k=0;k<N;k++){
+      const a = verts[k], b = verts[(k+1)%N];
+      svg.appendChild(SVG('line',{x1:a.x, y1:a.y, x2:b.x, y2:b.y,
+        stroke:'var(--mute)','stroke-width':1.5}));
+    }
+    // diagonals (clickable)
+    diags.forEach((d, idx) => {
+      const a = verts[d[0]], b = verts[d[1]];
+      const line = SVG('line',{x1:a.x, y1:a.y, x2:b.x, y2:b.y,
+        stroke:'var(--yellow)','stroke-width':2.4,
+        'data-d':idx, style:'cursor:pointer'});
+      svg.appendChild(line);
+      // invisible click target (thicker)
+      const hit = SVG('line',{x1:a.x, y1:a.y, x2:b.x, y2:b.y,
+        stroke:'transparent','stroke-width':14,
+        'data-d':idx, style:'cursor:pointer'});
+      svg.appendChild(hit);
+    });
+    // vertices
+    verts.forEach((v,k) => {
+      svg.appendChild(SVG('circle',{cx:v.x, cy:v.y, r:6, fill:'var(--blue)'}));
+      const t = SVG('text',{x:v.x + 16*Math.cos(-Math.PI/2 + 2*Math.PI*k/N),
+        y:v.y + 16*Math.sin(-Math.PI/2 + 2*Math.PI*k/N) + 4,
+        'text-anchor':'middle','font-size':12, fill:'var(--mute)'});
+      t.textContent = String(k);
+      svg.appendChild(t);
+    });
+    // wire clicks
+    svg.querySelectorAll('[data-d]').forEach(el => {
+      el.addEventListener('click', () => {
+        const idx = parseInt(el.getAttribute('data-d'),10);
+        const before = diags[idx].slice();
+        const after = flip(idx);
+        if(after){
+          out.textContent =
+            `Flipped diagonal (${before[0]}, ${before[1]}) → (${after[0]}, ${after[1]}).\n` +
+            `That's mutation $\\mu_d$ at the cluster variable $x_{(${before[0]},${before[1]})}$.\n` +
+            `Total flips so far: ${flipCount}. Remaining diagonals: ${diags.length}.`;
+        } else {
+          out.textContent = `Diagonal (${before[0]}, ${before[1]}) is on the boundary of the current triangulation — cannot flip (this should not normally happen).`;
+        }
+        render();
+      });
+    });
+    // status
+    const t = SVG('text',{x:24, y:30, 'font-size':13, fill:'var(--mute)'});
+    t.textContent = `(n+3)=${N}-gon · ${diags.length} diagonals · cluster size ${diags.length} · type A${n} has ${n*(n+3)/2} cluster variables total`;
+    svg.appendChild(t);
+  }
+
+  function update(){
+    render();
+    if(!out.textContent){
+      out.textContent =
+        `Initial triangulation: fan from vertex 0. Click any yellow diagonal to flip it.\n` +
+        `(n+3)=${N}-gon, type A${n}: ${n*(n+3)/2} cluster variables total, ${(function(){
+          // C_{n+1} closed form
+          let r = 1;
+          for(let k=1;k<=n+1;k++) r = r * (n+1+k) / k;
+          return Math.round(r/(n+2));
+        })()} clusters.`;
+    }
+  }
+
+  sel.addEventListener('change', () => {
+    n = parseInt(sel.value,10);
+    buildPolygon();
+    out.textContent = '';
+    update();
+  });
+  rst.addEventListener('click', () => {
+    buildPolygon();
+    out.textContent = '';
+    update();
+  });
+
+  buildPolygon();
+  update();
+})();
+</script>
+
+<div class="note">The exchange graph of the type-$A_n$ cluster algebra — vertices are clusters, edges are mutations — is the 1-skeleton of the <strong>Stasheff associahedron</strong> $K_{n+2}$, a convex polytope of dimension $n$ first studied for its role in higher coherence laws of monoidal categories. Cluster algebras hand you a polytope. Conversely, the higher exceptional types $E_{6,7,8}$ produce $42$, $70$, $128$ cluster variables and exotic exchange polytopes that have no surface model — they are visible only through the abstract Dynkin combinatorics.</div>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./lie-algebras.html#cartan-killing">Cartan, Killing, and semisimplicity</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./cluster-algebras.html#categories">Cluster algebras</a> · Cluster categories and τ-tilting</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="ca-finite-type"></div>
+
+</section>
+
+<section id="categories">
+<h2>5. Cluster categories and τ-tilting</h2>
+<p>The combinatorial recursion of mutation looked like an isolated trick until <strong>categorification</strong> caught up. For a Dynkin quiver $Q$, Buan–Marsh–Reineke–Reiten–Todorov defined the <strong>cluster category</strong> as an orbit category of the bounded derived category of finite-dimensional $kQ$-modules:</p>
+<p>$$\mathcal{C}_Q \;:=\; D^b(\mathrm{mod}\,kQ)\;\big/\;\tau^{-1}\circ[1].$$</p>
+<p>Here $\tau$ is the Auslander–Reiten translation and $[1]$ is the suspension. Keller proved that this orbit category is again triangulated, and moreover <strong>$2$-Calabi–Yau</strong>: there is a functorial duality $\mathrm{Ext}^1_{\mathcal{C}}(X,Y) \cong D\,\mathrm{Ext}^1_{\mathcal{C}}(Y,X)$.</p>
+<p>The dictionary BMRRT established is striking:</p>
+<table class="plain">
+  <thead><tr><th>Cluster algebra side</th><th>Cluster category side</th></tr></thead>
+  <tbody>
+    <tr><td>Cluster variable</td><td>Indecomposable rigid object ($\mathrm{Ext}^1(X,X)=0$)</td></tr>
+    <tr><td>Cluster (= seed)</td><td>Cluster-tilting object $T = T_1\oplus\cdots\oplus T_n$</td></tr>
+    <tr><td>Mutation $\mu_k$</td><td>Iyama–Yoshino exchange: replace $T_k$ by the unique other $T_k^*$ giving a cluster-tilting object</td></tr>
+    <tr><td>Exchange relation</td><td>Two non-split exchange triangles $T_k^*\to E\to T_k\to T_k^*[1]$</td></tr>
+    <tr><td>Laurent expansion (Caldero–Chapoton)</td><td>$\sum_e \chi(\mathrm{Gr}_e(M))\prod x_i^{\langle\dim,\beta_i\rangle}$</td></tr>
+  </tbody>
+</table>
+<p>The Caldero–Chapoton formula expresses the Laurent polynomial expansion of a cluster variable as a generating function over Euler characteristics of <em>quiver Grassmannians</em> — geometric loci parametrising submodules of a fixed dimension vector. The positive integer coefficients of the Laurent expansion are then manifestly Euler characteristics of complex algebraic varieties, hence non-negative integers. This was the first proof of positivity in the surface case and remains a central tool.</p>
+
+<div class="widget" id="cl-arq">
+  <div class="hd"><div class="ttl">AR quiver of the type $A_3$ cluster category</div><div class="hint">hover an indecomposable; the corresponding diagonal in the hexagon is highlighted</div></div>
+  <svg id="cl-arq-svg" viewBox="0 0 720 320" width="720" height="320" aria-label="AR quiver of type A3 cluster category"><title>AR quiver</title></svg>
+  <div class="readout" id="cl-arq-out"></div>
+</div>
+<script>
+(function(){
+  const svg = document.querySelector('#cl-arq-svg');
+  const out = document.querySelector('#cl-arq-out');
+  if(!svg || !out) return;
+  // 9 indecomposables of the A3 cluster category, arranged as the AR quiver
+  // organised as 3 columns x 3 rows. Each indecomposable corresponds to a
+  // diagonal of the hexagon (n=3, hexagon = 6-gon).
+  // We use the standard correspondence: indecomposables are labeled by
+  // arcs/diagonals of the hexagon (vertices 0..5).
+  const indec = [
+    {x:120, y:80,  label:'M₁',   diag:[0,2], desc:'simple S₁; arc (0,2)'},
+    {x:120, y:170, label:'M₃',   diag:[0,4], desc:'projective P₁; arc (0,4)'},
+    {x:120, y:260, label:'M₅',   diag:[0,3], desc:'P[1]; arc (0,3)'},
+    {x:340, y:80,  label:'M₂',   diag:[1,3], desc:'simple S₂; arc (1,3)'},
+    {x:340, y:170, label:'M₄',   diag:[1,5], desc:'projective P₂; arc (1,5)'},
+    {x:340, y:260, label:'M₆',   diag:[1,4], desc:'M[1]; arc (1,4)'},
+    {x:560, y:80,  label:'M₇',   diag:[2,4], desc:'simple S₃; arc (2,4)'},
+    {x:560, y:170, label:'M₈',   diag:[3,5], desc:'projective P₃; arc (3,5)'},
+    {x:560, y:260, label:'M₉',   diag:[2,5], desc:'P[1]; arc (2,5)'}
+  ];
+  // AR translate: roughly shift right one column (with wrap)
+  // For visualisation we draw arrows between adjacent columns.
+  const arrows = [
+    [0,3],[3,6],[1,4],[4,7],[2,5],[5,8],
+    [3,1],[6,4],[4,2],[7,5]
+  ];
+  // hexagon for the right-side preview
+  const hx = 640, hy = 160, hr = 50;
+  const hex = [];
+  for(let k=0;k<6;k++){
+    const a = -Math.PI/2 + 2*Math.PI*k/6;
+    hex.push({x:hx + hr*Math.cos(a), y:hy + hr*Math.sin(a)});
+  }
+
+  let highlight = null;
+
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    // arrows
+    arrows.forEach(([a,b], idx) => {
+      const v1 = indec[a], v2 = indec[b];
+      drawArrow(svg, [v1.x, v1.y], [v2.x, v2.y], {
+        color:'var(--line)', markerId:'arq-arr-'+idx, width:1.2, pad1:24, pad2:24
+      });
+    });
+    // tau-translation arrows (dashed) — hint at the orbit structure
+    // (kept light; main structure is enough)
+    // nodes
+    indec.forEach((m, idx) => {
+      const isHi = highlight === idx;
+      svg.appendChild(SVG('circle',{cx:m.x, cy:m.y, r:22,
+        fill: isHi?'var(--yellow)':'var(--panel2)',
+        stroke: isHi?'var(--yellow)':'var(--blue)',
+        'stroke-width':isHi?3:1.5,
+        'data-mod':idx, style:'cursor:pointer'}));
+      const t = SVG('text',{x:m.x, y:m.y+5, 'text-anchor':'middle',
+        'font-size':14, fill:isHi?'#111':'#fff', 'font-weight':600,
+        'pointer-events':'none'});
+      t.textContent = m.label;
+      svg.appendChild(t);
+    });
+    // wire mouseover
+    svg.querySelectorAll('[data-mod]').forEach(el => {
+      el.addEventListener('mouseover', () => {
+        highlight = parseInt(el.getAttribute('data-mod'),10);
+        renderRight();
+        update();
+      });
+      el.addEventListener('mouseout', () => {
+        highlight = null;
+        renderRight();
+        update();
+      });
+    });
+    renderRight();
+  }
+  function renderRight(){
+    // remove old hexagon previews
+    svg.querySelectorAll('.hex-preview').forEach(e => e.remove());
+    const g = SVG('g',{class:'hex-preview'});
+    // outline the hexagon
+    for(let k=0;k<6;k++){
+      const a = hex[k], b = hex[(k+1)%6];
+      g.appendChild(SVG('line',{x1:a.x, y1:a.y, x2:b.x, y2:b.y,
+        stroke:'var(--mute)','stroke-width':1}));
+    }
+    hex.forEach((v,k) => {
+      g.appendChild(SVG('circle',{cx:v.x, cy:v.y, r:3, fill:'var(--blue)'}));
+      const t = SVG('text',{x:v.x + 12*Math.cos(-Math.PI/2 + 2*Math.PI*k/6),
+        y:v.y + 12*Math.sin(-Math.PI/2 + 2*Math.PI*k/6) + 3,
+        'text-anchor':'middle','font-size':10, fill:'var(--mute)'});
+      t.textContent = String(k);
+      g.appendChild(t);
+    });
+    if(highlight !== null){
+      const m = indec[highlight];
+      const a = hex[m.diag[0]], b = hex[m.diag[1]];
+      g.appendChild(SVG('line',{x1:a.x, y1:a.y, x2:b.x, y2:b.y,
+        stroke:'var(--yellow)','stroke-width':2.5}));
+    }
+    const t = SVG('text',{x:hx, y:hy+hr+24, 'text-anchor':'middle','font-size':11, fill:'var(--mute)'});
+    t.textContent = 'hexagon model';
+    g.appendChild(t);
+    svg.appendChild(g);
+  }
+  function update(){
+    if(highlight === null){
+      out.textContent =
+        `9 indecomposable objects of the type-A₃ cluster category. ` +
+        `The 9 indecomposables match the n(n+3)/2 = 9 diagonals of the hexagon (n=3). ` +
+        `Hover any node to see which diagonal it represents.`;
+    } else {
+      const m = indec[highlight];
+      out.textContent =
+        `${m.label}: ${m.desc}\n` +
+        `corresponds to diagonal (${m.diag[0]}, ${m.diag[1]}) of the hexagon.`;
+    }
+  }
+  render();
+  update();
+})();
+</script>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./derived-categories.html#derived-category">Derived categories — bounded derived categories of an abelian category</a></li>
+    <li><a href="./derived-categories.html#triangulated-structure">Triangulated structures and exact triangles</a></li>
+    <li><a href="./representation-theory.html#def">Representation theory — the basic vocabulary</a></li>
+  </ul>
+</aside>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./derived-categories.html#derived-category">Derived categories — bounded derived categories of an abelian category</a></li>
+    <li><a href="./derived-categories.html#triangulated-structure">Triangulated structures and exact triangles</a></li>
+    <li><a href="./representation-theory.html#def">Representation theory — the basic vocabulary</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./cluster-algebras.html#applications">Cluster algebras</a> · Grassmannians, surfaces, and total positivity</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="ca-categories"></div>
+
+</section>
+
+<section id="applications">
+<h2>6. Grassmannians, surfaces, and total positivity</h2>
+<p>The genuinely surprising payoff is that cluster algebras are <em>everywhere they have any business being</em>. Three first-rank examples.</p>
+
+<h3>The Grassmannian $\mathrm{Gr}(2,n)$ and Plücker coordinates</h3>
+<p>The Grassmannian $\mathrm{Gr}(2,n)$ of $2$-planes in $\mathbb{C}^n$ has homogeneous coordinate ring generated by the Plücker coordinates $p_{ij}$ (with $1\le i<j\le n$), subject to the Plücker relations</p>
+<p>$$p_{ik}\,p_{j\ell} \;=\; p_{ij}\,p_{k\ell} \;+\; p_{i\ell}\,p_{jk}\qquad (1\le i<j<k<\ell\le n).$$</p>
+<p>These are the <em>same</em> relations one gets by writing exchange relations on the cluster algebra of type $A_{n-3}$ realised by triangulations of an $n$-gon: each $p_{ij}$ corresponds to the chord (or side) of the $n$-gon from vertex $i$ to vertex $j$. The $n$ side-coordinates $p_{i,i+1}$ are <strong>frozen</strong> (mutate to themselves); the $n(n-3)/2$ diagonal coordinates are mutable cluster variables. Triangulations are the maximal sets of pairwise non-crossing chords — exactly the clusters.</p>
+
+<div class="widget" id="cl-gr2n">
+  <div class="hd"><div class="ttl">$\mathrm{Gr}(2,n)$ Plücker model</div><div class="hint">click a chord; read off the Plücker coordinate (frozen / mutable)</div></div>
+  <div class="row">
+    <label for="cl-gr-n">$n =$ </label>
+    <select id="cl-gr-n">
+      <option value="5">5 (Gr(2,5), type A₂)</option>
+      <option value="6" selected>6 (Gr(2,6), type A₃)</option>
+      <option value="7">7 (Gr(2,7), type A₄)</option>
+      <option value="8">8 (Gr(2,8), type A₅)</option>
+    </select>
+  </div>
+  <svg id="cl-gr-svg" viewBox="0 0 720 360" width="720" height="360" aria-label="Plücker chord diagram"><title>Gr(2,n) chord diagram</title></svg>
+  <div class="readout" id="cl-gr-out"></div>
+</div>
+<script>
+(function(){
+  const svg = document.querySelector('#cl-gr-svg');
+  const out = document.querySelector('#cl-gr-out');
+  const sel = document.querySelector('#cl-gr-n');
+  if(!svg || !out) return;
+  let n = 6;
+  let verts = [];
+  let lastClick = null;
+  const cx=360, cy=180, R=130;
+
+  function buildPoly(){
+    verts = [];
+    for(let k=0;k<n;k++){
+      const a = -Math.PI/2 + 2*Math.PI*k/n;
+      verts.push({x:cx + R*Math.cos(a), y:cy + R*Math.sin(a)});
+    }
+  }
+  function isFrozen(i,j){
+    return ((j-i)===1) || (i===0 && j===n-1);
+  }
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    // header
+    const hdr = SVG('text',{x:24, y:28, 'font-size':13, fill:'var(--mute)'});
+    hdr.textContent = `Gr(2,${n}): ${n} frozen sides + ${n*(n-3)/2} mutable diagonals = ${n*(n-1)/2} total Plückers (type A${n-3}).`;
+    svg.appendChild(hdr);
+    // sides (frozen)
+    for(let k=0;k<n;k++){
+      const a = verts[k], b = verts[(k+1)%n];
+      svg.appendChild(SVG('line',{x1:a.x, y1:a.y, x2:b.x, y2:b.y,
+        stroke:'var(--cyan)','stroke-width':2.4,
+        'data-i':k,'data-j':(k+1)%n, style:'cursor:pointer'}));
+      const hit = SVG('line',{x1:a.x, y1:a.y, x2:b.x, y2:b.y,
+        stroke:'transparent','stroke-width':14,
+        'data-i':k,'data-j':(k+1)%n, style:'cursor:pointer'});
+      svg.appendChild(hit);
+    }
+    // diagonals (mutable, dashed)
+    for(let i=0;i<n;i++){
+      for(let j=i+2;j<n;j++){
+        if(i===0 && j===n-1) continue;
+        const a = verts[i], b = verts[j];
+        svg.appendChild(SVG('line',{x1:a.x, y1:a.y, x2:b.x, y2:b.y,
+          stroke:'var(--yellow)','stroke-width':1.6,
+          'stroke-dasharray':'4 3',
+          'data-i':i,'data-j':j, style:'cursor:pointer'}));
+        const hit = SVG('line',{x1:a.x, y1:a.y, x2:b.x, y2:b.y,
+          stroke:'transparent','stroke-width':14,
+          'data-i':i,'data-j':j, style:'cursor:pointer'});
+        svg.appendChild(hit);
+      }
+    }
+    // verts
+    verts.forEach((v,k) => {
+      svg.appendChild(SVG('circle',{cx:v.x, cy:v.y, r:5, fill:'var(--blue)'}));
+      const t = SVG('text',{x:v.x + 14*Math.cos(-Math.PI/2 + 2*Math.PI*k/n),
+        y:v.y + 14*Math.sin(-Math.PI/2 + 2*Math.PI*k/n) + 4,
+        'text-anchor':'middle','font-size':12, fill:'var(--mute)'});
+      t.textContent = String(k+1);
+      svg.appendChild(t);
+    });
+    // wire clicks
+    svg.querySelectorAll('[data-i]').forEach(el => {
+      el.addEventListener('click', () => {
+        const i = parseInt(el.getAttribute('data-i'),10);
+        const j = parseInt(el.getAttribute('data-j'),10);
+        const lo = Math.min(i,j), hi = Math.max(i,j);
+        lastClick = [lo+1, hi+1];
+        update();
+      });
+    });
+  }
+  function update(){
+    render();
+    if(lastClick === null){
+      out.textContent =
+        `Click any chord. Solid cyan = side (frozen Plücker $p_{i,i+1}$). Dashed yellow = diagonal (mutable Plücker).\n` +
+        `Number of triangulations of the ${n}-gon = ${(function(){
+          // C_{n-2}
+          let r=1; for(let k=1;k<=n-2;k++) r=r*(n-2+k)/k; return Math.round(r/(n-1));
+        })()} = number of clusters in this Gr(2,${n}) cluster algebra.`;
+    } else {
+      const [a,b] = lastClick;
+      const i = a-1, j = b-1;
+      const frozen = ((b-a)===1) || (a===1 && b===n);
+      out.textContent =
+        `Plücker coordinate p_{${a},${b}}\n` +
+        (frozen
+          ? `→ this is a side of the ${n}-gon, so p_{${a},${b}} is FROZEN: every cluster contains it.`
+          : `→ this is a diagonal of the ${n}-gon, so p_{${a},${b}} is MUTABLE: it lies in some clusters and not others.`);
+    }
+  }
+  sel.addEventListener('change', () => {
+    n = parseInt(sel.value,10);
+    buildPoly();
+    lastClick = null;
+    update();
+  });
+  buildPoly();
+  update();
+})();
+</script>
+
+<h3>Bordered surfaces and Teichmüller theory</h3>
+<p>Fomin–Shapiro–Thurston extended the polygon picture to <strong>cluster algebras from surfaces</strong>: pick a compact oriented surface $\Sigma$ with marked points on the boundary, plus possibly punctures. Triangulations of $\Sigma$ become clusters; flips of arcs become mutations. The Plücker-style exchange relations recover the lambda-length identities of <em>decorated Teichmüller theory</em> (Penner's work), and one recovers all surface-type cluster algebras simultaneously. Beyond the polygon (= disc with boundary), one gets the annulus, the once-punctured torus, the four-punctured sphere — and infinitely many more.</p>
+
+<h3>Total positivity</h3>
+<p>An $n\times n$ matrix is <strong>totally positive</strong> if all its minors are positive. Lusztig identified the totally positive part of $\mathrm{GL}_n$ (and more generally, semisimple Lie groups) with a piece carrying a natural cell decomposition; Fomin–Zelevinsky showed the cells are precisely cluster <em>charts</em>, and the cluster variables are the natural functions to test positivity on. This explains why total positivity has the strange "you only need to check a small number of minors" property — the small number is exactly the rank of an appropriate cluster algebra.</p>
+
+<h3>Scattering diagrams and the rest</h3>
+<p>Cluster transformations turn out to be the wall-crossing automorphisms of certain <em>scattering diagrams</em> in the sense of Kontsevich–Soibelman; this perspective, developed by Gross–Hacking–Keel–Kontsevich, gave the proof of positivity in full generality and a canonical basis (theta basis) for cluster algebras. The same combinatorics also organises Donaldson–Thomas theory of quivers, the spectra of supersymmetric quantum field theories (BPS states), and the symbol alphabets of multi-loop scattering amplitudes.</p>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./projective-plane.html#homogeneous-coordinates">Projective plane — homogeneous coordinates</a></li>
+    <li><a href="./moduli-spaces.html#moduli-problem">Moduli spaces — moduli problems</a></li>
+    <li><a href="./upper-half-plane-hyperbolic.html#upper-half-plane-model">Upper half-plane — Teichmüller-theoretic backdrop</a></li>
+  </ul>
+</aside>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./projective-plane.html#homogeneous-coordinates">Projective plane — homogeneous coordinates</a></li>
+    <li><a href="./moduli-spaces.html#moduli-problem">Moduli spaces — moduli problems</a></li>
+    <li><a href="./upper-half-plane-hyperbolic.html#upper-half-plane-model">Upper half-plane — Teichmüller-theoretic backdrop</a></li>
+    <li><a href="./moduli-spaces.html#what">Moduli problems and parameters</a></li>
+    <li><a href="./projective-plane.html#homog">Homogeneous equations and charts</a></li>
+    <li><a href="./upper-half-plane-hyperbolic.html#H">The upper half-plane model</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><div class="quiz" data-concept="ca-applications"></div>
+
+</section>
+
+<section id="connections">
+<h2>Connections</h2>
+<p>Cluster algebras began as a combinatorial tool for studying total positivity and Lusztig's canonical bases of quantum groups. Twenty-five years on, the same recursive datum sits at the centre of: representation theory of finite-dimensional algebras (cluster categories, τ-tilting, additive categorification); higher Teichmüller theory (Fock–Goncharov coordinates); mirror symmetry (theta functions, Gross–Hacking–Keel–Kontsevich); and the symbology of scattering amplitudes in $\mathcal{N}=4$ super-Yang–Mills (Drummond–Foster–Gürdoğan). Many of the basic conjectures — positivity, the strong cluster duality of GHKK, the structure of <em>infinite</em>-type cluster algebras — are settled or close to it; the open frontier is now in the direction of <em>generalised</em> cluster structures (cyclic surfaces, higher rank), and applications outside pure math.</p>
+<ul>
+  <li><a href="./quantum-groups.html#uq-sl2">Quantum groups — $U_q(\mathfrak{sl}_n)$</a> — Lusztig's canonical bases were the original motivation; cluster algebras quantise to give the <em>quantum cluster algebras</em> of Berenstein–Zelevinsky.</li>
+  <li><a href="./representation-theory.html#def">Representation theory</a> — categorification via cluster categories ties cluster combinatorics to Auslander–Reiten theory and τ-tilting.</li>
+  <li><a href="./derived-categories.html#derived-category">Derived categories</a> — the cluster category $\mathcal{C}_Q = D^b/\tau^{-1}[1]$ is the natural triangulated home of the BMRRT dictionary.</li>
+  <li><a href="./mirror-symmetry.html">Mirror symmetry</a> — Gross–Hacking–Keel–Kontsevich's scattering-diagram proof of positivity is one half of a homological-mirror-symmetry-style construction for log Calabi–Yau pairs.</li>
+  <li><a href="./moduli-spaces.html#moduli-problem">Moduli spaces</a> — the cluster structure on $\mathrm{Gr}(k,n)$ is the prototype; cluster structures on flag varieties, double Bruhat cells, and moduli of decorated local systems all follow the same script.</li>
+</ul>
+</section>
+
+</main>
+
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('cluster-algebras'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+})();
+</script>
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-05-07</td><td>initial version</td></tr>
+    </tbody>
+  </table>
+</details>
+
+</body>
+</html>

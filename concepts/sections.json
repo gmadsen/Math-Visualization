@@ -37,7 +37,8 @@
         "galois-cohomology-and-brauer",
         "quaternions-octonions-and-division-algebras",
         "quantum-groups",
-        "geometric-and-combinatorial-group-theory"
+        "geometric-and-combinatorial-group-theory",
+        "cluster-algebras"
       ],
       "color": "y"
     },

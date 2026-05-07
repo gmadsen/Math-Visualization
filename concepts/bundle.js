@@ -55,6 +55,7 @@ window.__MVConcepts = {
       "quantum-groups",
       "quaternions-octonions-and-division-algebras",
       "geometric-and-combinatorial-group-theory",
+      "cluster-algebras",
       "wavelets",
       "vertex-operator-algebras",
       "schrodinger-equation",
@@ -311,6 +312,7 @@ window.__MVConcepts = {
       "schrodinger-equation": "standard",
       "ricci-flow": "advanced",
       "geometric-and-combinatorial-group-theory": "advanced",
+      "cluster-algebras": "advanced",
       "atiyah-singer-index-theorem": "capstone",
       "mathematical-statistics": "standard",
       "numerical-analysis": "standard",
@@ -5094,6 +5096,76 @@ window.__MVConcepts = {
             "classification",
             "group-action"
           ]
+        }
+      ]
+    },
+    "cluster-algebras": {
+      "topic": "cluster-algebras",
+      "title": "Cluster algebras",
+      "page": "cluster-algebras.html",
+      "concepts": [
+        {
+          "id": "ca-quivers-and-seeds",
+          "title": "Quivers and seeds",
+          "anchor": "seeds",
+          "prereqs": [
+            "algebraic-structures",
+            "polynomial-rings-irreducibility"
+          ],
+          "blurb": "A seed is a pair $(\\mathbf{x},B)$ of an $n$-tuple of cluster variables and a skew-symmetric $n\\times n$ exchange matrix; equivalently a quiver $Q$ on $n$ vertices labelled by indeterminates. The seed packages all the data needed to describe one chart of a cluster algebra."
+        },
+        {
+          "id": "ca-mutation",
+          "title": "Mutation and the exchange relation",
+          "anchor": "mutation",
+          "prereqs": [
+            "ca-quivers-and-seeds"
+          ],
+          "blurb": "Mutation $\\mu_k$ replaces the cluster variable $x_k$ by $x_k'$ via the binomial exchange relation $x_kx_k'=\\prod_{b_{ik}>0}x_i^{b_{ik}}+\\prod_{b_{ik}<0}x_i^{-b_{ik}}$ and updates the exchange matrix by the Fomin–Zelevinsky rule; mutations are involutions and generate a groupoid acting on seeds."
+        },
+        {
+          "id": "ca-laurent",
+          "title": "Laurent phenomenon and positivity",
+          "anchor": "laurent",
+          "prereqs": [
+            "ca-mutation",
+            "polynomial-rings-irreducibility"
+          ],
+          "blurb": "Theorem (Fomin–Zelevinsky 2002): every cluster variable obtained by any sequence of mutations is a Laurent polynomial in the initial cluster $\\mathbf{x}$. The Laurent expression has positive integer coefficients (Lee–Schiffler 2015 for skew-symmetric, Gross–Hacking–Keel–Kontsevich more generally)."
+        },
+        {
+          "id": "ca-finite-type",
+          "title": "Finite type and the ADE classification",
+          "anchor": "finite-type",
+          "prereqs": [
+            "ca-laurent",
+            "la-cartan-killing-classification"
+          ],
+          "blurb": "A cluster algebra has finite type iff its exchange matrix is mutation-equivalent to a Cartan matrix of finite type — exactly the simply-laced ADE plus BCFG diagrams. Type $A_n$ realises clusters as triangulations of an $(n+3)$-gon with mutations as diagonal flips; the exchange graph is the $n$-dimensional associahedron."
+        },
+        {
+          "id": "ca-categories",
+          "title": "Cluster categories and τ-tilting",
+          "anchor": "categories",
+          "prereqs": [
+            "ca-finite-type",
+            "derived-category",
+            "triangulated-structure",
+            "group-representations"
+          ],
+          "blurb": "The cluster category $\\mathcal{C}_Q=D^b(\\mathrm{mod}\\,kQ)/\\tau^{-1}[1]$ of Buan–Marsh–Reineke–Reiten–Todorov is a 2-Calabi–Yau triangulated category whose indecomposable rigid objects biject with cluster variables and whose cluster-tilting objects biject with seeds; mutation is replaced by the Iyama–Yoshino exchange triangle."
+        },
+        {
+          "id": "ca-applications",
+          "title": "Grassmannians, surfaces, and total positivity",
+          "anchor": "applications",
+          "prereqs": [
+            "ca-categories",
+            "homogeneous-coordinates",
+            "upper-half-plane-model",
+            "moduli-problem"
+          ],
+          "blurb": "The homogeneous coordinate ring of $\\mathrm{Gr}(2,n)$ is a cluster algebra whose clusters are the triangulations of an $n$-gon and whose cluster variables are the Plücker coordinates; Fock–Goncharov upgrade the construction to decorated Teichmüller theory of bordered surfaces, and the same combinatorics governs total positivity and scattering diagrams."
         }
       ]
     },
@@ -16960,7 +17032,8 @@ window.__MVConcepts = {
           "galois-cohomology-and-brauer",
           "quaternions-octonions-and-division-algebras",
           "quantum-groups",
-          "geometric-and-combinatorial-group-theory"
+          "geometric-and-combinatorial-group-theory",
+          "cluster-algebras"
         ],
         "color": "y"
       },
@@ -17401,6 +17474,7 @@ window.__MVConcepts = {
     "schrodinger-equation": "standard",
     "ricci-flow": "advanced",
     "geometric-and-combinatorial-group-theory": "advanced",
+    "cluster-algebras": "advanced",
     "atiyah-singer-index-theorem": "capstone",
     "mathematical-statistics": "standard",
     "numerical-analysis": "standard",
@@ -17470,11 +17544,11 @@ window.__MVConcepts = {
       "density": 0.12244897959183673
     },
     "Algebra & homological": {
-      "concepts": 142,
-      "intra": 212,
-      "crossOut": 22,
+      "concepts": 148,
+      "intra": 224,
+      "crossOut": 25,
       "crossIn": 88,
-      "density": 0.15492957746478872
+      "density": 0.16891891891891891
     },
     "Higher categories & toposes": {
       "concepts": 45,
@@ -17515,14 +17589,14 @@ window.__MVConcepts = {
       "concepts": 115,
       "intra": 170,
       "crossOut": 58,
-      "crossIn": 16,
+      "crossIn": 17,
       "density": 0.5043478260869565
     },
     "Algebraic geometry": {
       "concepts": 179,
       "intra": 265,
       "crossOut": 68,
-      "crossIn": 27,
+      "crossIn": 29,
       "density": 0.37988826815642457
     },
     "Combinatorics & graph theory": {
