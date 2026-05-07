@@ -52604,6 +52604,286 @@ window.MVQuizBank = {
       }
     }
   },
+  "several-complex-variables": {
+    "topic": "several-complex-variables",
+    "quizzes": {
+      "scv-hartogs": {
+        "title": "Hartogs phenomenon",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which of the following is the sharpest statement of the Hartogs extension theorem in $\\mathbb{C}^n$ for $n\\ge 2$?",
+            "choices": [
+              "Every bounded holomorphic function on $\\Omega\\subset\\mathbb{C}^n$ extends to a polynomial.",
+              "Every holomorphic function on $\\Omega\\setminus K$ — where $K\\subset\\Omega$ is compact and $\\Omega\\setminus K$ is connected — extends uniquely to a holomorphic function on $\\Omega$.",
+              "Every domain $\\Omega\\subset\\mathbb{C}^n$ is pseudoconvex.",
+              "Every holomorphic function on $\\Omega\\subset\\mathbb{C}^n$ extends to all of $\\mathbb{C}^n$."
+            ],
+            "answer": 1,
+            "explain": "Hartogs's theorem says compact holes are removable obstructions for holomorphic functions when $n\\ge 2$ and the complement remains connected. Boundedness is not required, the theorem does not promise extension to all of $\\mathbb{C}^n$, and most domains are not pseudoconvex (the Hartogs figure itself is not).",
+            "hint": "Look for the statement that includes both a compactness hypothesis on the obstruction and a connectivity hypothesis on the complement."
+          },
+          {
+            "type": "mcq",
+            "q": "Why does Hartogs's theorem fail in one variable ($n=1$)?",
+            "choices": [
+              "Holomorphic functions of one variable do not have Laurent expansions.",
+              "The connectivity hypothesis $\\Omega\\setminus K$ connected fails: removing a compact set from a planar domain typically disconnects an inner component.",
+              "The Cauchy integral formula does not apply.",
+              "$\\mathbb{C}$ is not a complex manifold of dimension $\\ge 2$."
+            ],
+            "answer": 1,
+            "explain": "In $n=1$, removing a compact $K\\subset\\Omega$ generally disconnects $\\Omega\\setminus K$ into the inside and outside of $K$. The connectivity hypothesis is what lets the negative-power Laurent coefficients of $f$ in slices be controlled across the hole. In $n\\ge 2$ a compact hole leaves the complement connected because the boundary has codimension $\\ge 2$."
+          },
+          {
+            "type": "multi-select",
+            "q": "Select all statements that are TRUE for the Hartogs figure in $\\mathbb{C}^2$.",
+            "choices": [
+              "Every holomorphic function on the Hartogs figure extends to the full bidisk.",
+              "The Hartogs figure is a domain of holomorphy.",
+              "The Hartogs figure is pseudoconvex.",
+              "The bidisk $\\mathbb{D}^2$ is the smallest open superset to which every holomorphic function on the Hartogs figure extends."
+            ],
+            "answer": [
+              0,
+              3
+            ],
+            "explain": "The first statement is exactly the test case of Hartogs. The fourth says the bidisk is the holomorphic envelope. The Hartogs figure is NOT a domain of holomorphy (every function extends!), and it is NOT pseudoconvex (no PSH exhaustion exists because the boundary has the wrong sign of the Levi form on the inner edge of the hole)."
+          }
+        ]
+      },
+      "scv-psh": {
+        "title": "Plurisubharmonic functions and the Levi form",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A $C^2$ function $u\\colon\\Omega\\to\\mathbb{R}$ on $\\Omega\\subset\\mathbb{C}^n$ is plurisubharmonic if and only if:",
+            "choices": [
+              "$\\Delta u \\ge 0$ pointwise.",
+              "the complex Hessian $\\bigl[\\partial^2 u/\\partial z_j\\,\\partial\\bar z_k\\bigr]$ is Hermitian positive semidefinite at every point.",
+              "$u$ is convex as a function of the real coordinates.",
+              "$\\partial u = \\bar\\partial u$."
+            ],
+            "answer": 1,
+            "explain": "Plurisubharmonicity for $C^2$ functions IS exactly the positivity of the complex Hessian (the matrix of mixed second partials in $z_j$ and $\\bar z_k$). $\\Delta u\\ge 0$ is just subharmonicity (the trace) — strictly weaker. Convexity in real coordinates is yet another, much stronger condition."
+          },
+          {
+            "type": "mcq",
+            "q": "Which of the following is plurisubharmonic on $\\mathbb{C}^n\\setminus\\{0\\}$?",
+            "choices": [
+              "$u(z) = \\log|z_1|$ alone (depending only on the first coordinate)",
+              "$u(z) = |z_1|^2 - |z_2|^2$",
+              "$u(z) = -|z|^2$",
+              "$u(z) = \\mathrm{Re}(z_1 \\bar z_2)$"
+            ],
+            "answer": 0,
+            "explain": "$\\log|z_1|$ is the pullback of $\\log|w|$ (subharmonic in one variable) by the projection $z\\mapsto z_1$, so its restriction to every complex line is subharmonic — that's PSH. The other options have Hessians with mixed signs ($|z_1|^2 - |z_2|^2$ has eigenvalues $\\pm 1$), or are concave ($-|z|^2$), or are pluriharmonic but not PSH ($\\mathrm{Re}(z_1\\bar z_2)$)."
+          },
+          {
+            "type": "matching",
+            "q": "Match each smooth bounded domain in $\\mathbb{C}^n$ to its Levi-form description on the boundary.",
+            "left": [
+              "Strictly Levi pseudoconvex",
+              "Weakly (semi-)pseudoconvex",
+              "Not pseudoconvex"
+            ],
+            "right": [
+              "polydisk $\\mathbb{D}^n$ — Levi form vanishes on the edge components but is $\\ge 0$",
+              "ball $\\mathbb{B}^n$ — Levi form is everywhere strictly positive on the boundary",
+              "Hartogs figure — Levi form has a negative direction on the inner edge"
+            ],
+            "answer": [
+              1,
+              0,
+              2
+            ],
+            "explain": "Strict pseudoconvexity is the ball — the Levi form is $\\partial\\bar\\partial(|z|^2 - 1) = $ identity, restricted to the tangent. The polydisk is weakly pseudoconvex: along the smooth faces the Levi form is non-negative but it degenerates on the edges. The Hartogs figure is not pseudoconvex precisely because the inner-edge boundary curves the wrong way."
+          }
+        ]
+      },
+      "scv-dbar": {
+        "title": "The $\\bar\\partial$-equation and Hörmander's $L^2$ estimates",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Hörmander's $L^2$ estimate solves $\\bar\\partial u = \\alpha$ on a pseudoconvex $\\Omega\\subset\\mathbb{C}^n$ with a control of the form $\\int |u|^2 e^{-\\varphi}\\,dV \\le \\int |\\alpha|^2_{i\\partial\\bar\\partial\\varphi} e^{-\\varphi}\\,dV$. The crucial hypothesis on the weight $\\varphi$ is:",
+            "choices": [
+              "$\\varphi$ is real-analytic.",
+              "$\\varphi$ is plurisubharmonic and the metric $i\\partial\\bar\\partial\\varphi$ is non-degenerate (i.e. $\\varphi$ is strictly PSH).",
+              "$\\varphi\\in L^2(\\Omega)$.",
+              "$\\varphi$ vanishes on $\\partial\\Omega$."
+            ],
+            "answer": 1,
+            "explain": "Strict plurisubharmonicity of $\\varphi$ is what makes the metric $i\\partial\\bar\\partial\\varphi$ non-degenerate, which in turn is what makes the right-hand-side norm finite for non-zero $\\alpha$. The estimate fails or becomes vacuous if $\\varphi$ is merely PSH; analyticity / $L^2$-ness / boundary vanishing are not relevant."
+          },
+          {
+            "type": "numeric",
+            "q": "Take the weight $\\varphi(z) = c\\,|z|^2$ with $c=4$ on a bounded pseudoconvex $\\Omega\\subset\\mathbb{C}^n$. Hörmander's estimate gives $\\int_\\Omega |u|^2 e^{-\\varphi}\\,dV \\le C \\int_\\Omega |\\alpha|^2 e^{-\\varphi}\\,dV$ where the form-norm on $\\alpha$ uses the standard Hermitian metric (not the $i\\partial\\bar\\partial\\varphi$ metric). Compute the optimal $C$.",
+            "answer": 0.25,
+            "tol": 0.0001,
+            "explain": "With $\\varphi = c|z|^2$, the Hessian metric $i\\partial\\bar\\partial\\varphi$ is $c$ times the standard Hermitian metric, so $|\\alpha|^2_{i\\partial\\bar\\partial\\varphi} = |\\alpha|^2_{\\mathrm{std}} / c$. The Hörmander estimate $\\int |u|^2 e^{-\\varphi} \\le \\int |\\alpha|^2_{i\\partial\\bar\\partial\\varphi} e^{-\\varphi}$ then becomes $\\int |u|^2 e^{-\\varphi} \\le (1/c) \\int |\\alpha|^2_{\\mathrm{std}} e^{-\\varphi}$. With $c = 4$ this gives $C = 1/4 = 0.25$."
+          },
+          {
+            "type": "ordering",
+            "q": "Arrange the steps of the standard Hörmander-style proof of $\\bar\\partial$-solvability on a pseudoconvex domain in their canonical order.",
+            "items": [
+              "Solve $\\bar\\partial u = \\alpha$ as the orthogonal projection of $0$ onto $\\bar\\partial^* \\circ$ closed range",
+              "Choose a strictly PSH weight $\\varphi$ adapted to $\\alpha$",
+              "Set up the weighted Hilbert space $L^2(\\Omega, e^{-\\varphi}\\,dV)$",
+              "Apply the Bochner-Kodaira-Nakano identity for the lower bound on $\\|\\bar\\partial^* v\\|^2$",
+              "Conclude the existence of $u$ with the required $L^2$ bound"
+            ],
+            "answer": [
+              1,
+              2,
+              3,
+              0,
+              4
+            ],
+            "explain": "The canonical proof: pick the weight (1), set up the weighted $L^2$-Hilbert space (2), prove the lower bound on $\\bar\\partial^*$ via the Bochner-Kodaira-Nakano integration-by-parts identity (3), use that to invert $\\bar\\partial$ on the orthogonal complement of the kernel (4), then conclude (5)."
+          }
+        ]
+      },
+      "scv-pseudoconvex": {
+        "title": "Domains of holomorphy and Levi pseudoconvexity",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "On a domain $\\Omega\\subset\\mathbb{C}^n$ with smooth $C^2$ boundary, which of the following is equivalent to $\\Omega$ being a domain of holomorphy?",
+            "choices": [
+              "$\\Omega$ is bounded.",
+              "$\\Omega$ has connected boundary.",
+              "$\\Omega$ is Levi pseudoconvex (the Levi form is $\\ge 0$ on $T^{1,0}\\partial\\Omega$ at every boundary point).",
+              "$\\Omega$ admits a holomorphic embedding into $\\mathbb{C}^N$ for some $N$."
+            ],
+            "answer": 2,
+            "explain": "Levi's problem (Oka-Bremermann-Norguet): for smooth domains, domain of holomorphy $\\Leftrightarrow$ pseudoconvex $\\Leftrightarrow$ Levi pseudoconvex (with smooth boundary). Boundedness and boundary connectedness are unrelated, and Stein manifolds embed into $\\mathbb{C}^N$ but the embedding alone doesn't characterize domains of holomorphy."
+          },
+          {
+            "type": "mcq",
+            "q": "A domain $\\Omega\\subset\\mathbb{C}^2$ has Diederich-Fornæss exponent $\\eta(\\Omega) = 1$. Which is the most accurate consequence?",
+            "choices": [
+              "$\\Omega$ is biholomorphic to the unit ball $\\mathbb{B}^2$.",
+              "$\\Omega$ admits a defining function $r$ with $-(-r)$ itself plurisubharmonic — for smooth domains, this includes strictly pseudoconvex domains.",
+              "$\\Omega$ is unbounded.",
+              "$\\Omega = \\mathbb{C}^2$."
+            ],
+            "answer": 1,
+            "explain": "$\\eta(\\Omega) = 1$ means $-(-r)^1 = r$ is PSH up to the boundary, which is true for strictly pseudoconvex domains. It does NOT force $\\Omega$ to be a ball (many strictly pseudoconvex domains exist) or to be unbounded. Worm domains have $\\eta < 1$, and they are bounded smooth pseudoconvex domains."
+          },
+          {
+            "type": "spot-the-error",
+            "q": "Find the planted error in this argument that 'every domain $\\Omega\\subset\\mathbb{C}^2$ is a domain of holomorphy'.",
+            "steps": [
+              "Let $\\Omega\\subset\\mathbb{C}^2$ be any domain.",
+              "By Hartogs's theorem, every holomorphic function on $\\Omega$ extends across compact sets.",
+              "Therefore the holomorphic envelope of $\\Omega$ is $\\Omega$ itself.",
+              "Hence $\\Omega$ is a domain of holomorphy."
+            ],
+            "answer": 1,
+            "explain": "Step 2 has the planted error. Hartogs's theorem says holomorphic functions on $\\Omega\\setminus K$ extend across $K$ — that is, removing a compact hole and putting it back. It does NOT say functions on $\\Omega$ extend across the boundary of $\\Omega$ to a larger domain. The Hartogs figure is exactly the witness: it is a domain $\\Omega$ where every function on $\\Omega$ extends to a strictly larger domain (the bidisk), so $\\Omega$ is NOT a domain of holomorphy."
+          }
+        ]
+      },
+      "scv-stein": {
+        "title": "Stein manifolds and Cartan's Theorems A and B",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Cartan's Theorem B states that on a Stein manifold $X$, for every coherent analytic sheaf $\\mathcal{F}$:",
+            "choices": [
+              "$H^q(X,\\mathcal{F}) = 0$ for $q \\ge 1$.",
+              "$H^q(X,\\mathcal{F}) = \\mathbb{C}$ for $q \\ge 1$.",
+              "$\\mathcal{F}$ is constant on $X$.",
+              "the global sections $H^0(X,\\mathcal{F})$ generate every stalk."
+            ],
+            "answer": 0,
+            "explain": "Theorem B is the vanishing of higher coherent cohomology on a Stein manifold — exactly the analog of Serre's vanishing theorem on affine schemes. Option 4 is Theorem A, also true; Theorem B is specifically the cohomology-vanishing statement."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which of the following are Stein manifolds?",
+            "choices": [
+              "$\\mathbb{C}^n$ for any $n\\ge 0$",
+              "the unit polydisk $\\mathbb{D}^n$",
+              "the projective plane $\\mathbb{CP}^2$",
+              "every open Riemann surface",
+              "the Hopf surface $S^1\\times S^3$"
+            ],
+            "answer": [
+              0,
+              1,
+              3
+            ],
+            "explain": "$\\mathbb{C}^n$ is the canonical Stein manifold; bounded pseudoconvex domains like the polydisk are Stein; every open (i.e. non-compact) Riemann surface is Stein (Behnke-Stein 1949). Compact complex manifolds of positive dimension can never be Stein (their global holomorphic functions are constant — fails point separation), so $\\mathbb{CP}^2$ and the Hopf surface are not Stein."
+          },
+          {
+            "type": "ordering",
+            "q": "The standard proof of Cartan's Theorem B for $\\mathcal{F} = \\mathcal{O}_X$ on a Stein manifold $X$ proceeds in this order:",
+            "items": [
+              "Use Runge-style approximation to extend solutions across $X_c \\subset X_{c'}$ and pass to the limit",
+              "Solve the $\\bar\\partial$-equation on each $X_c$ via the Hörmander $L^2$ estimate",
+              "Choose a smooth strictly plurisubharmonic exhaustion $\\rho\\colon X\\to\\mathbb{R}$ and form the sublevel sets $X_c = \\{\\rho < c\\}$",
+              "Conclude $H^q(X,\\mathcal{O}_X) = 0$ for $q \\ge 1$"
+            ],
+            "answer": [
+              2,
+              1,
+              0,
+              3
+            ],
+            "explain": "The exhaustion-then-Hörmander-then-Runge-then-conclude order is the canonical Hörmander/Grauert proof of Theorem B: build sublevel sets of a strictly PSH exhaustion, solve $\\bar\\partial$ on each (via Hörmander's estimate), glue solutions across sublevels with Runge approximation, and pass to the limit."
+          }
+        ]
+      },
+      "scv-cousin": {
+        "title": "Cousin problems and applications",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The first Cousin problem on $\\Omega\\subset\\mathbb{C}^n$ is solvable for every choice of cover and matching local data iff:",
+            "choices": [
+              "$\\Omega$ is simply connected.",
+              "$H^1(\\Omega, \\mathcal{O}) = 0$.",
+              "$H^2(\\Omega, \\mathbb{Z}) = 0$.",
+              "$\\Omega$ has connected boundary."
+            ],
+            "answer": 1,
+            "explain": "The first Cousin problem asks whether a Čech 1-cocycle in $\\mathcal{O}$ is a coboundary; this is exactly $H^1(\\Omega, \\mathcal{O}) = 0$. By Cartan's Theorem B this holds on every Stein manifold. The second Cousin problem (multiplicative) connects to $H^2(\\Omega, \\mathbb{Z})$ via the exponential exact sequence, but the first does not."
+          },
+          {
+            "type": "mcq",
+            "q": "On a Stein manifold $\\Omega$, the Picard group is canonically isomorphic to:",
+            "choices": [
+              "$H^1(\\Omega, \\mathcal{O})$",
+              "$H^2(\\Omega, \\mathbb{Z})$",
+              "$H^0(\\Omega, \\mathcal{O}^\\times)$",
+              "$\\mathbb{Z}$"
+            ],
+            "answer": 1,
+            "explain": "On a Stein manifold $H^k(\\Omega,\\mathcal{O}) = 0$ for $k\\ge 1$ (Cartan B), so the long exact sequence from $0\\to\\mathbb{Z}\\to\\mathcal{O}\\to\\mathcal{O}^\\times\\to 0$ collapses the connecting map to give $H^1(\\Omega,\\mathcal{O}^\\times) \\cong H^2(\\Omega,\\mathbb{Z})$, and $H^1(\\Omega,\\mathcal{O}^\\times)$ is the Picard group."
+          },
+          {
+            "type": "proof-completion",
+            "q": "We are proving that on $\\mathbb{C}^n$ every second Cousin problem is solvable. The proof so far reads:",
+            "steps": [
+              "$\\mathbb{C}^n$ is a Stein manifold (it is a domain of holomorphy and admits a strictly PSH exhaustion $\\rho = |z|^2$).",
+              "By Cartan's Theorem B, $H^k(\\mathbb{C}^n, \\mathcal{O}) = 0$ for $k \\ge 1$.",
+              "From the exponential exact sequence $0\\to\\mathbb{Z}\\to\\mathcal{O}\\to\\mathcal{O}^\\times\\to 0$ and the long exact cohomology sequence, $\\mathrm{Pic}(\\mathbb{C}^n) = H^1(\\mathbb{C}^n,\\mathcal{O}^\\times) \\cong H^2(\\mathbb{C}^n,\\mathbb{Z})$."
+            ],
+            "choices": [
+              "Therefore $\\mathrm{Pic}(\\mathbb{C}^n)$ is the Picard group of complex projective space $\\mathbb{CP}^n$.",
+              "Since $\\mathbb{C}^n$ is contractible, $H^2(\\mathbb{C}^n, \\mathbb{Z}) = 0$, hence $\\mathrm{Pic}(\\mathbb{C}^n) = 0$ and every second Cousin problem on $\\mathbb{C}^n$ is solvable.",
+              "Hence every holomorphic function on $\\mathbb{C}^n$ has a logarithm.",
+              "Therefore every divisor on $\\mathbb{C}^n$ has degree zero."
+            ],
+            "answer": 1,
+            "explain": "$\\mathbb{C}^n$ is contractible (it deformation retracts to a point), so all its singular cohomology in positive degree vanishes — in particular $H^2(\\mathbb{C}^n,\\mathbb{Z}) = 0$. Combined with the previous step, $\\mathrm{Pic}(\\mathbb{C}^n) = 0$ — every line bundle is trivial — and every second Cousin problem is solvable."
+          }
+        ]
+      }
+    }
+  },
   "sheaf-cohomology": {
     "topic": "sheaf-cohomology",
     "quizzes": {
