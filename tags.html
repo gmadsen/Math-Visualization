@@ -27,7 +27,20 @@ window.MVRenderMath = function(el){
       {left:'\\(',right:'\\)',display:false},
       {left:'\\[',right:'\\]',display:true}
     ],
-    throwOnError:false
+    throwOnError:false,
+    macros: {
+      '\\Spec': '\\operatorname{Spec}',
+      '\\Gal': '\\operatorname{Gal}',
+      '\\Hom': '\\operatorname{Hom}',
+      '\\hom': '\\operatorname{hom}',
+      '\\tr': '\\operatorname{tr}',
+      '\\ad': '\\operatorname{ad}',
+      '\\ind': '\\operatorname{ind}',
+      '\\Sha': '\\text{Ш}',
+      '\\GL': '\\operatorname{GL}',
+      '\\SL': '\\operatorname{SL}',
+      '\\Frob': '\\operatorname{Frob}',
+    }
   });
 };
 (function(){
