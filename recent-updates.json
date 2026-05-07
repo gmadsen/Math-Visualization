@@ -1,5 +1,5 @@
 {
-  "generated": "2026-05-07T04:28:02.049Z",
+  "generated": "2026-05-07T04:37:12.887Z",
   "entries": [
     {
       "slug": "abelian-varieties",
@@ -96,6 +96,14 @@
       "tag": "",
       "date": "2026-05-06",
       "message": "3 more gap topics: homotopy-theory, maass-forms, d-modules (#124)"
+    },
+    {
+      "slug": "mapping-class-groups",
+      "title": "Mapping class groups &amp; 4-manifolds",
+      "color": "v",
+      "tag": "",
+      "date": "2026-05-06",
+      "message": "New topic: Mapping class groups & 4-manifolds (Geometry & topology)"
     },
     {
       "slug": "mmp-and-birational-geometry",
