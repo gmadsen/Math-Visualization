@@ -2,12 +2,12 @@
 
 ## Corpus totals
 
-- Topics: **165**, concepts: **1152**
-- Widgets: **1177** (registry-driven: 1177, inline: 0)
-- Quizzes: **4650** (v1: 3414, hard: 1223, expert: 13)
-- Quiz types: mcq: 3089, numeric: 1131, multi-select: 193, matching: 85, ordering: 61, spot-the-error: 40, complex: 29, proof-completion: 18, construction: 2, guess-my-rule: 2
+- Topics: **166**, concepts: **1158**
+- Widgets: **1183** (registry-driven: 1183, inline: 0)
+- Quizzes: **4668** (v1: 3432, hard: 1223, expert: 13)
+- Quiz types: mcq: 3097, numeric: 1135, multi-select: 195, matching: 86, ordering: 62, spot-the-error: 41, complex: 29, proof-completion: 19, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their section: **149**
-- Concepts lacking a hard-tier quiz: **714**
+- Concepts lacking a hard-tier quiz: **720**
 
 ## Per-slug registry adoption
 
@@ -482,6 +482,12 @@ page has wired one in yet.
 | `mc-pushout` | verbatim | select | 2d | 1 | model-categories |
 | `mc-quillen` | verbatim | click | 2d | 1 | model-categories |
 | `mc-replace` | verbatim | slider | 2d | 1 | model-categories |
+| `mcg-w1` | verbatim | select | 2d | 1 | mapping-class-groups |
+| `mcg-w2` | verbatim | drag | 2d | 1 | mapping-class-groups |
+| `mcg-w3` | verbatim | drag | 2d | 1 | mapping-class-groups |
+| `mcg-w4` | verbatim | drag | 2d | 1 | mapping-class-groups |
+| `mcg-w5` | verbatim | input | 2d | 1 | mapping-class-groups |
+| `mcg-w6` | verbatim | click | 2d | 1 | mapping-class-groups |
 | `mirror-hms-pairing` | mirror-hms-pairing | click | 2d | 1 | mirror-symmetry |
 | `mirror-hodge-diamond` | mirror-hodge-diamond | select | 2d | 1 | mirror-symmetry |
 | `mirror-quintic-counts` | mirror-quintic-counts | click | 2d | 1 | mirror-symmetry |
@@ -778,13 +784,13 @@ page has wired one in yet.
 
 ### Geometry & topology
 
-- Topics: **20**, concepts: **128**
-- Widgets: **132** (registry-driven: 132, inline: 0)
-  - by family: button-stepper: 34, verbatim: 28, surface-viewer: 6, clickable-diagram: 4, clickable-graph: 2, svg-illustration: 2, mostow-rigidity-dial: 1, mostow-h3-fundamental-domain: 1, mostow-boundary-extension: 1, mostow-boundary-orbit: 1, mostow-rank-tower: 1, mostow-volume-spectrum: 1, symplectic-form-pairing: 1, symplectic-darboux-moser: 1, symplectic-harmonic-portrait: 1, symplectic-dirac-ladder: 1, symplectic-cotangent-lagrangians: 1, symplectic-floer-intersections: 1, knot-polynomials-gallery: 1, knot-polynomials-reidemeister: 1, knot-polynomials-alexander: 1, knot-polynomials-bracket: 1, knot-polynomials-homfly: 1, knot-polynomials-rmatrix: 1, ricci-einstein-flows: 1, ricci-deturck-trick: 1, ricci-blowup-rates: 1, ricci-soliton-zoo: 1, ricci-neckpinch-surgery: 1, ricci-extinction-timeline: 1, k-theory-grothendieck-builder: 1, k-theory-ses-relations: 1, k-theory-bott-periodicity: 1, k-theory-chern-character: 1, k-theory-low-k-groups: 1, k-theory-index-theorem: 1, atiyah-singer-index-family: 1, atiyah-singer-symbol: 1, atiyah-singer-ch-td: 1, atiyah-singer-cases: 1, atiyah-singer-dirac-sphere: 1, atiyah-singer-anomaly: 1, counterexample-explorer: 1, proof-scrubber: 1, lattice-visualizer: 1, characteristic-classes-mobius-vs-cylinder: 1, characteristic-classes-w1-surfaces: 1, characteristic-classes-c1-clutching: 1, characteristic-classes-pontryagin-formulas: 1, characteristic-classes-poincare-hopf: 1, characteristic-classes-gauss-bonnet: 1, characteristic-classes-classifying-map: 1, characteristic-classes-signature-l-genus: 1, characteristic-classes-cpn-localisation: 1, morse-torus-height: 1, morse-handle-decomp: 1, morse-cw-cells: 1, morse-betti-counts: 1, morse-gradient-flow: 1, morse-sphere-vs-rp2: 1, morse-smale-saddle: 1, morse-cerf-birth-death: 1
-  - by dimension: 2d: 126, 3d: 6
-  - by gesture: click: 84, slider: 23, drag: 8, button-stepper: 6, step: 3, select: 3, pick: 2, static: 2, timeline: 1
-- Quizzes: **526** (v1: 384, hard: 142, expert: 0)
-  - by type: mcq: 363, numeric: 140, multi-select: 10, complex: 7, matching: 4, ordering: 1, proof-completion: 1
+- Topics: **21**, concepts: **134**
+- Widgets: **138** (registry-driven: 138, inline: 0)
+  - by family: verbatim: 34, button-stepper: 34, surface-viewer: 6, clickable-diagram: 4, clickable-graph: 2, svg-illustration: 2, mostow-rigidity-dial: 1, mostow-h3-fundamental-domain: 1, mostow-boundary-extension: 1, mostow-boundary-orbit: 1, mostow-rank-tower: 1, mostow-volume-spectrum: 1, symplectic-form-pairing: 1, symplectic-darboux-moser: 1, symplectic-harmonic-portrait: 1, symplectic-dirac-ladder: 1, symplectic-cotangent-lagrangians: 1, symplectic-floer-intersections: 1, knot-polynomials-gallery: 1, knot-polynomials-reidemeister: 1, knot-polynomials-alexander: 1, knot-polynomials-bracket: 1, knot-polynomials-homfly: 1, knot-polynomials-rmatrix: 1, ricci-einstein-flows: 1, ricci-deturck-trick: 1, ricci-blowup-rates: 1, ricci-soliton-zoo: 1, ricci-neckpinch-surgery: 1, ricci-extinction-timeline: 1, k-theory-grothendieck-builder: 1, k-theory-ses-relations: 1, k-theory-bott-periodicity: 1, k-theory-chern-character: 1, k-theory-low-k-groups: 1, k-theory-index-theorem: 1, atiyah-singer-index-family: 1, atiyah-singer-symbol: 1, atiyah-singer-ch-td: 1, atiyah-singer-cases: 1, atiyah-singer-dirac-sphere: 1, atiyah-singer-anomaly: 1, counterexample-explorer: 1, proof-scrubber: 1, lattice-visualizer: 1, characteristic-classes-mobius-vs-cylinder: 1, characteristic-classes-w1-surfaces: 1, characteristic-classes-c1-clutching: 1, characteristic-classes-pontryagin-formulas: 1, characteristic-classes-poincare-hopf: 1, characteristic-classes-gauss-bonnet: 1, characteristic-classes-classifying-map: 1, characteristic-classes-signature-l-genus: 1, characteristic-classes-cpn-localisation: 1, morse-torus-height: 1, morse-handle-decomp: 1, morse-cw-cells: 1, morse-betti-counts: 1, morse-gradient-flow: 1, morse-sphere-vs-rp2: 1, morse-smale-saddle: 1, morse-cerf-birth-death: 1
+  - by dimension: 2d: 132, 3d: 6
+  - by gesture: click: 85, slider: 23, drag: 11, button-stepper: 6, select: 4, step: 3, pick: 2, static: 2, input: 1, timeline: 1
+- Quizzes: **544** (v1: 402, hard: 142, expert: 0)
+  - by type: mcq: 371, numeric: 144, multi-select: 12, complex: 7, matching: 5, ordering: 2, proof-completion: 2, spot-the-error: 1
 
 ### Number theory
 
@@ -840,6 +846,7 @@ page has wired one in yet.
 
 - `several-complex-variables` (Analysis) — concepts=6, widgets=5 (slug=5), quiz=18 (v1=18, hard=0, expert=0)
 - `kahler-geometry` (Geometry & topology) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
+- `mapping-class-groups` (Geometry & topology) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `half-integral-weight-forms` (Modular forms & L-functions) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `crystalline-cohomology` (Algebraic geometry) — concepts=6, widgets=7 (slug=7), quiz=18 (v1=18, hard=0, expert=0)
 - `homotopy-theory` (Geometry & topology) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
@@ -1043,11 +1050,11 @@ page has wired one in yet.
 - `kg-lefschetz` (kahler-geometry)
 - `kg-calabi-yau` (kahler-geometry)
 - `kg-kahler-einstein` (kahler-geometry)
+- `mcg-modular` (mapping-class-groups)
+- `mcg-dehn` (mapping-class-groups)
+- `mcg-nielsen-thurston` (mapping-class-groups)
+- `mcg-teichmuller` (mapping-class-groups)
+- `mcg-4manifolds` (mapping-class-groups)
+- `mcg-casson` (mapping-class-groups)
 - `hiw-metaplectic-cocycle` (half-integral-weight-forms)
 - `hiw-theta-prototype` (half-integral-weight-forms)
-- `hiw-shimura-lift` (half-integral-weight-forms)
-- `hiw-kohnen-plus-space` (half-integral-weight-forms)
-- `hiw-waldspurger` (half-integral-weight-forms)
-- `hiw-tunnell-congruent` (half-integral-weight-forms)
-- `cc-motivation` (crystalline-cohomology)
-- `cc-divided-powers` (crystalline-cohomology)

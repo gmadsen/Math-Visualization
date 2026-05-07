@@ -23,6 +23,7 @@
 
 
     "kahler-geometry",
+    "mapping-class-groups",
     "half-integral-weight-forms",
     "crystalline-cohomology",
     "homotopy-theory",
@@ -370,6 +371,7 @@
     "maass-forms": "advanced",
     "d-modules": "advanced",
     "kahler-geometry": "advanced",
+    "mapping-class-groups": "advanced",
     "half-integral-weight-forms": "advanced",
     "crystalline-cohomology": "advanced"
   }
