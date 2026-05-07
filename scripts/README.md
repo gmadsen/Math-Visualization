@@ -19,7 +19,7 @@ Longest-prefix match, so multi-word names work either `inject used-in-backlinks`
 
 ## Orchestration
 
-[`rebuild.mjs`](./rebuild.mjs) runs the full 38-step chain. `--no-fix` mirrors CI; `--only <step>` runs one step. It invokes the individual scripts directly (not through `cli.mjs`) so no CLI dependency is forced on CI.
+[`rebuild.mjs`](./rebuild.mjs) runs the full 40-step chain. `--no-fix` mirrors CI; `--only <step>` runs one step. It invokes the individual scripts directly (not through `cli.mjs`) so no CLI dependency is forced on CI.
 
 ## Builders (derived files)
 
@@ -30,6 +30,8 @@ Longest-prefix match, so multi-word names work either `inject used-in-backlinks`
 | [`build-widgets-bundle.mjs`](./build-widgets-bundle.mjs) | `widgets/<slug>/schema.json` → `widgets/bundle.js` (registry snapshot for `file://` consumers, React POC, stats). |
 | [`build-search-index.mjs`](./build-search-index.mjs) | Concepts + sections + quizzes → `search-index.json` for `search.html`. |
 | [`build-section-indexes.mjs`](./build-section-indexes.mjs) | Generate `sections/<id>.html` per subject group. |
+| [`build-recent-updates.mjs`](./build-recent-updates.mjs) | `git log` → `recent-updates.json` manifest consumed by the home page's "recently updated" rail. Replaces fragile changelog scraping. |
+| [`reorder-section-cards.mjs`](./reorder-section-cards.mjs) | One-shot home-page card-ordering pass (pedagogical sequence within each section). Idempotent; safe to re-run. |
 | [`extract-topic.mjs`](./extract-topic.mjs) | `<topic>.html` → `content/<topic>.json` (block decomposition, widget-script auto-pairing). |
 | [`render-topic.mjs`](./render-topic.mjs) | `content/<topic>.json` → stdout HTML (resolves widget slugs via registry). |
 | [`read-prose.mjs`](./read-prose.mjs) | `content/<topic>.json` → stdout prose-only view, with widget bodies and `<script>` blocks stripped to single-line `[widget]` / `[quiz: id]` markers. Optional second arg scopes to one concept's section. Quality-pass tooling for cross-topic notation/style/blurb passes. |
@@ -140,7 +142,7 @@ Longest-prefix match, so multi-word names work either `inject used-in-backlinks`
 Default path after any content edit:
 
 ```bash
-node scripts/rebuild.mjs           # 38 steps, fix-mode; bails on first failure
+node scripts/rebuild.mjs           # 40 steps, fix-mode; bails on first failure
 node scripts/rebuild.mjs --no-fix  # CI mirror (read-only; fails if anything drifted)
 node scripts/rebuild.mjs --only <step>
 ```
@@ -156,42 +158,44 @@ CI ([`.github/workflows/verify.yml`](../.github/workflows/verify.yml)) runs `reb
 3. `build-widgets-bundle.mjs`
 4. `build-search-index.mjs`
 5. `build-section-indexes.mjs`
-6. `validate-schema.mjs`
-7. `validate-widget-params.mjs`
-8. `test-widget-renderers.mjs`
-9. `test-widget-hydration.mjs`
-10. `test-multi-iife-split.mjs`
-11. `test-html-walk.mjs`
-12. `test-find-matching-div.mjs`
-13. `test-ajv.mjs`
-14. `test-doc-drift.mjs`
-15. `test-audit-accessibility.mjs`
-16. `validate-concepts.mjs`
-17. `audit-concept-latex.mjs`
-18. `validate-katex.mjs`
-19. `audit-no-inline-widgets.mjs`
-20. `audit-callbacks.mjs --fix`
-21. `inject-used-in-backlinks.mjs --fix`
-22. `inject-breadcrumb.mjs --fix`
-23. `inject-display-prefs.mjs --fix`
-24. `inject-index-stats.mjs --fix`
-25. `inject-page-metadata.mjs --fix`
-26. `inject-toc.mjs --fix`
-27. `fix-a11y.mjs --fix`
-28. `test-roundtrip.mjs --fix`
-29. `smoke-test.mjs`
-30. `test-topic-jsdom.mjs`
-31. `stats-coverage.mjs`
-32. `audit-notation.mjs`
-33. `audit-draft-index-cards.mjs`
-34. `audit-starter-concepts.mjs`
-35. `audit-worked-examples.mjs`
-36. `audit-blurb-question-alignment.mjs`
-37. `audit-hint-leakage.mjs`
-38. `audit-doc-drift.mjs`
+6. `build-recent-updates.mjs`
+7. `validate-schema.mjs`
+8. `validate-widget-params.mjs`
+9. `test-widget-renderers.mjs`
+10. `test-widget-hydration.mjs`
+11. `test-multi-iife-split.mjs`
+12. `test-html-walk.mjs`
+13. `test-find-matching-div.mjs`
+14. `test-ajv.mjs`
+15. `test-doc-drift.mjs`
+16. `test-audit-accessibility.mjs`
+17. `validate-concepts.mjs`
+18. `audit-concept-latex.mjs`
+19. `validate-katex.mjs`
+20. `audit-no-inline-widgets.mjs`
+21. `audit-callbacks.mjs --fix`
+22. `inject-used-in-backlinks.mjs --fix`
+23. `inject-breadcrumb.mjs --fix`
+24. `inject-display-prefs.mjs --fix`
+25. `inject-index-stats.mjs --fix`
+26. `inject-page-metadata.mjs --fix`
+27. `inject-toc.mjs --fix`
+28. `fix-a11y.mjs --fix`
+29. `test-roundtrip.mjs --fix`
+30. `smoke-test.mjs`
+31. `test-topic-jsdom.mjs`
+32. `stats-coverage.mjs`
+33. `audit-notation.mjs`
+34. `audit-draft-index-cards.mjs`
+35. `audit-starter-concepts.mjs`
+36. `audit-worked-examples.mjs`
+37. `audit-blurb-question-alignment.mjs`
+38. `audit-hint-leakage.mjs`
+39. `audit-widget-interactivity.mjs --strict`
+40. `audit-doc-drift.mjs`
 
 Round-trip is intentionally first among the post-injector steps so that smoke and topic-jsdom check the regenerated HTML, not stale on-disk HTML — otherwise a content/json edit that broke a topic page would pass its first rebuild and only fail the next one.
 
-`--only <step>` runs one step. Valid names: `concepts`, `quizzes`, `widgets-bundle`, `search`, `section-indexes`, `schema`, `widget-params`, `widget-renderers`, `widget-hydration`, `multi-iife-split`, `html-walk`, `find-matching-div`, `ajv`, `doc-drift-unit`, `a11y-unit`, `validate`, `concept-latex`, `katex`, `no-inline-widgets`, `callbacks`, `backlinks`, `breadcrumb`, `display-prefs`, `index-stats`, `page-metadata`, `toc`, `a11y`, `roundtrip`, `smoke`, `topic-jsdom`, `stats`, `notation`, `draft-cards`, `starter`, `worked-examples`, `blurb-question`, `hint-leakage`, `doc-drift`.
+`--only <step>` runs one step. Valid names: `concepts`, `quizzes`, `widgets-bundle`, `search`, `section-indexes`, `recent-updates`, `schema`, `widget-params`, `widget-renderers`, `widget-hydration`, `multi-iife-split`, `html-walk`, `find-matching-div`, `ajv`, `doc-drift-unit`, `a11y-unit`, `validate`, `concept-latex`, `katex`, `no-inline-widgets`, `callbacks`, `backlinks`, `breadcrumb`, `display-prefs`, `index-stats`, `page-metadata`, `toc`, `a11y`, `roundtrip`, `smoke`, `topic-jsdom`, `stats`, `notation`, `draft-cards`, `starter`, `worked-examples`, `blurb-question`, `hint-leakage`, `widget-interactivity`, `doc-drift`.
 
 `inject-changelog-footer.mjs` is intentionally **not** in the rebuild chain — its output references "latest commit touching this page", but the commit that refreshes the changelog can't reference itself, so every post-commit audit would flag one-commit-behind drift forever. Run it manually (`node scripts/inject-changelog-footer.mjs`) before publishing or cutting a release; `--audit` mode reports stale pages without writing.

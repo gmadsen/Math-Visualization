@@ -19,14 +19,32 @@
 //
 // CLI:
 //   node scripts/audit-widget-interactivity.mjs
-//       Print one-line totals per page and a grand total.
+//       Print one-line totals per page and a grand total. Exit 0 (advisory).
 //
 //   node scripts/audit-widget-interactivity.mjs --only-static
 //       Same, plus list every static widget individually (page:line :: id/snippet).
 //
-// Exit 0 always (advisory — not a CI gate). Zero dependencies.
+//   node scripts/audit-widget-interactivity.mjs --strict
+//       Compare per-page static counts against audits/static-widgets-baseline.json.
+//       Exit 1 if any page's static count grew, or if any page absent from the
+//       baseline gained a static widget. Improvements (counts shrinking) pass
+//       silently and are not auto-recorded — the baseline must be refreshed
+//       deliberately. This is the CI gate.
+//
+//   node scripts/audit-widget-interactivity.mjs --update-baseline
+//       Overwrite audits/static-widgets-baseline.json with the current per-page
+//       static counts. Run after deliberately landing interactivity backfill or
+//       after a topic deletion that drops a baseline entry.
+//
+// Why a baseline rather than a strict zero-static gate: there are 100 static
+// widgets across 39 pages today, mostly intentional SVG illustrations or
+// long-tail interactivity backlog. Promoting to zero would require a corpus-
+// wide backfill before this audit could be CI-enforced. The baseline pattern
+// captures today's state, then fails only on growth — which is what catches
+// regressions like PR #125's bodyScript-storage bug (13 widgets shipped inert
+// until review). Mirrors the inline-widgets baseline pattern from PR #70.
 
-import { readFileSync } from 'node:fs';
+import { readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -37,6 +55,9 @@ const repoRoot = resolve(dirname(__filename), '..');
 
 const argv = process.argv.slice(2);
 const ONLY_STATIC = argv.includes('--only-static');
+const STRICT = argv.includes('--strict');
+const UPDATE_BASELINE = argv.includes('--update-baseline');
+const BASELINE_PATH = join(repoRoot, 'audits', 'static-widgets-baseline.json');
 
 // ─────────────────────────────────────────────────────────────────────────
 // Widget extraction — depth-balanced <div class="widget"> scan.
@@ -445,5 +466,89 @@ if (topStatic.length > 0) {
   console.log('');
 }
 
-// Advisory — always exit 0.
+// ─────────────────────────────────────────────────────────────────────────
+// Baseline gate (--strict / --update-baseline).
+//
+// Baseline file format:
+//   {
+//     "_note": "…regen instructions…",
+//     "totalStatic": <int>,
+//     "perPage": { "<file>.html": <static-count>, … }   // only pages with ≥1 static
+//   }
+//
+// `--strict` fails iff any current page's static count exceeds its baseline
+// (or 0 if absent). `--update-baseline` writes the current state.
+
+if (UPDATE_BASELINE) {
+  const baselinePerPage = {};
+  for (const p of perPage) {
+    if (p.static > 0) baselinePerPage[p.file] = p.static;
+  }
+  const payload = {
+    _note:
+      'Per-page static-widget baseline. Regenerate with ' +
+      '`node scripts/audit-widget-interactivity.mjs --update-baseline`. ' +
+      'CI runs `--strict` and fails if any per-page count grows.',
+    totalStatic,
+    perPage: baselinePerPage,
+  };
+  writeFileSync(BASELINE_PATH, JSON.stringify(payload, null, 2) + '\n');
+  console.log(
+    `audit-widget-interactivity: wrote baseline (${totalStatic} static across ` +
+      `${Object.keys(baselinePerPage).length} page(s)) → audits/static-widgets-baseline.json`
+  );
+  process.exit(0);
+}
+
+if (STRICT) {
+  let baseline;
+  try {
+    baseline = JSON.parse(readFileSync(BASELINE_PATH, 'utf8'));
+  } catch (err) {
+    console.error(
+      `audit-widget-interactivity --strict: cannot read ${BASELINE_PATH}: ${err.message}`
+    );
+    console.error(
+      'Run `node scripts/audit-widget-interactivity.mjs --update-baseline` to seed it.'
+    );
+    process.exit(1);
+  }
+  const baselinePerPage = baseline.perPage || {};
+  const regressions = [];
+  for (const p of perPage) {
+    const allowed = baselinePerPage[p.file] || 0;
+    if (p.static > allowed) {
+      regressions.push({ file: p.file, baseline: allowed, current: p.static });
+    }
+  }
+  if (regressions.length > 0) {
+    console.error('');
+    console.error(
+      `FAIL: static-widget count grew on ${regressions.length} page(s).`
+    );
+    for (const r of regressions) {
+      console.error(
+        `  ${r.file}: baseline ${r.baseline} → current ${r.current} ` +
+          `(+${r.current - r.baseline})`
+      );
+    }
+    console.error('');
+    console.error('A widget that should be interactive is shipping inert. Either:');
+    console.error('  1. Add the missing event-handler script to the page (preferred), or');
+    console.error(
+      '  2. If the new widget is genuinely a static SVG illustration, run'
+    );
+    console.error(
+      '     `node scripts/audit-widget-interactivity.mjs --update-baseline` to refresh.'
+    );
+    process.exit(1);
+  }
+  console.log(
+    `OK: every page's static-widget count is at or below baseline ` +
+      `(total static: ${totalStatic}, baseline total: ${baseline.totalStatic || 0}).`
+  );
+  process.exit(0);
+}
+
+// Advisory — exit 0 when no flag is given.
 process.exit(0);
