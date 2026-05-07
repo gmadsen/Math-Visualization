@@ -486,22 +486,14 @@
         });
       });
 
-      // Scrub-year: fade pins to 18% opacity unless their cluster contains
-      // an event within ±SCRUB_WINDOW years of the cursor. year=null
-      // restores everything.
-      const SCRUB_WINDOW = 60;
-      window.MVHistoryBus.on('scrub-year', e => {
-        const yr = e.detail && e.detail.year;
-        pinNodes.forEach((p, i) => {
-          if(yr == null){
-            p.classList.remove('scrub-out');
-            return;
-          }
-          const cl = clusters[i];
-          const hit = cl.events.some(ev => Math.abs(ev.year - yr) <= SCRUB_WINDOW);
-          p.classList.toggle('scrub-out', !hit);
-        });
-      });
+      // Note: previously the map listened for `scrub-year` and faded pins
+      // outside ±SCRUB_WINDOW of the timeline cursor. That cross-widget
+      // coupling was confusing — moving the timeline scrubber visibly
+      // recoloured the world map even when the user wasn't looking at the
+      // timeline. The map is now independent of the timeline scrubber;
+      // person-selection still bridges the two via `select-person` above
+      // so a click on a person's name in the timeline still highlights
+      // them on the map.
     }
     eraChips.forEach((c, id) => {
       c.addEventListener('click', () => {
@@ -511,19 +503,11 @@
       });
     });
     allBtn.addEventListener('click', () => {
-      // Three-state toggle — clicking "All eras" cycles between
-      //   (a) no filter (every pin in its natural color)
-      //   (b) all-eras-active (every pin glows in its newest-era color
-      //       with the strong era-match halo)
-      // depending on the current state. From any partial selection the
-      // first click clears; from cleared state the click activates all
-      // 9 eras at once so the user can compare the full geographic
-      // distribution of activity.
-      if (state.activeEras.size === 0) {
-        for (const era of eras) state.activeEras.add(era.id);
-      } else {
-        state.activeEras.clear();
-      }
+      // "All eras" means "no era filter active" — clear the selection
+      // back to the default state where every pin shows in its natural
+      // (newest-era) color with no halo or fade. Don't auto-activate
+      // every era chip, which felt like a bug to the user.
+      state.activeEras.clear();
       applyState();
     });
     svg.addEventListener('dblclick', e => {
