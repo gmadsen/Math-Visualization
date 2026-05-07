@@ -33,6 +33,10 @@
         },
         {
           "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./first-order-logic-and-completeness.html#semantics\">Tarski semantics and structures</a></li>\n    <li><a href=\"./first-order-logic-and-completeness.html#syntax\">Syntax: languages, terms, formulas</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "raw",
           "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./model-theory-basics.html#elementary-equivalence\">Model theory</a> · Elementary equivalence</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
@@ -80,6 +84,10 @@
           "type": "quiz",
           "concept": "mt-elementary-equivalence",
           "html": "<div class=\"quiz\" data-concept=\"mt-elementary-equivalence\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./first-order-logic-and-completeness.html#semantics\">Tarski semantics and structures</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {
           "type": "raw",
@@ -176,6 +184,10 @@
           "type": "quiz",
           "concept": "mt-types-and-saturation",
           "html": "<div class=\"quiz\" data-concept=\"mt-types-and-saturation\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./first-order-logic-and-completeness.html#compactness\">Compactness and non-standard models</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {
           "type": "raw",

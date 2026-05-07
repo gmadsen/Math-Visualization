@@ -17,6 +17,10 @@
         },
         {
           "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./automorphic-forms-adelic.html#auto-form\">Adelic automorphic forms</a></li>\n    <li><a href=\"./galois-representations.html#rep\">Galois representations and examples</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "raw",
           "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./langlands-program.html#l-bridge\">The Langlands program</a> · L-functions: the bridge</div>\n    <div><a href=\"./langlands-program.html#local\">The Langlands program</a> · Local Langlands for $\\GL_n$</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
@@ -36,6 +40,10 @@
           "type": "quiz",
           "concept": "l-functions-langlands-bridge",
           "html": "<div class=\"quiz\" data-concept=\"l-functions-langlands-bridge\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./L-functions.html#functional-equation-completion\">Completed L-function and the functional equation</a> — the analytic backdrop.</li>\n    <li><a href=\"./modular-forms.html#petersson-inner-product\">Hecke eigenvalues</a> — the spherical-Hecke side.</li>\n    <li><a href=\"./L-functions.html#completed\">Completion and functional equations</a></li>\n    <li><a href=\"./L-functions.html#unified\">Prototype L-functions</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {
           "type": "raw",
@@ -105,6 +113,10 @@
         },
         {
           "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./class-field-theory.html#artin\">Artin reciprocity map</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "raw",
           "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./langlands-program.html#capstone\">The Langlands program</a> · Universal reciprocity — the philosophy realised</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
@@ -124,6 +136,10 @@
           "type": "quiz",
           "concept": "gl2-modularity",
           "html": "<div class=\"quiz\" data-concept=\"gl2-modularity\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./modularity-and-flt.html#modularity\">Modularity theorem</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {
           "type": "raw",
@@ -163,6 +179,10 @@
         {
           "type": "raw",
           "html": "<section id=\"capstone\">\n<h2>8. Universal reciprocity — the philosophy realised</h2>\n\n<p>The Langlands program is conjecturally the unique unification of:</p>\n\n<ul>\n  <li><b>Class field theory</b> — the abelian case ($n = 1$), proven by Artin in the 1920s.</li>\n  <li><b>Modularity of elliptic curves</b> — the $n = 2$ case for one specific class of Galois reps, proven by Wiles + Taylor-Wiles + BCDT (1995-2001).</li>\n  <li><b>The Sato-Tate conjecture</b> — the corresponding statement for $\\Sym^k \\rho_E$, proven for elliptic curves over totally real fields (Taylor et al., 2008+).</li>\n  <li><b>The Hodge / Tate / motivic conjectures</b> — the predicted compatibility with the <a href=\"./motives.html\">motivic Galois group</a>.</li>\n  <li><b>The Riemann hypothesis (and its generalisations)</b> — through the Galois-rep side: GRH for L-functions of automorphic forms is part of the Langlands package.</li>\n</ul>\n\n<p>The framework is also what extends the analogy between number theory and geometry. Geometric Langlands (Drinfeld, Beilinson, Mukai) replaces the field $\\mathbb{Q}$ with the function field $\\mathbb{F}_q(C)$ of a curve $C$, and the resulting correspondence sends $\\ell$-adic local systems on $C$ to D-modules on $\\mathrm{Bun}_G(C)$. This geometric mirror is fully proven for $\\GL_2$ (Drinfeld) and substantially proven for general groups — the geometric side is in some ways the most accessible window into the program.</p>\n\n<aside class=\"bad\"><b>Status (number-theoretic side).</b> Most of the program remains conjectural. Local Langlands for $\\GL_n$ over $p$-adic fields is proven (Harris-Taylor, Henniart 2001). Global Langlands is proven for $n = 1$ (CFT), substantially for $n = 2$ (modular elliptic curves + Serre's conjecture), and only fragmentarily for $n \\ge 3$. The Langlands group $L_F$ does not provably exist; the predicted compatibilities with the motivic Galois group are open. <em>This is the largest open program in modern number theory</em>, and most of what can be proven about specific arithmetic objects (modularity, Sato-Tate, L-function meromorphic continuation) is a partial increment of the full picture.</aside>\n\n<p>And yet the framework already organises an enormous chunk of arithmetic. Every L-function of arithmetic significance — Riemann zeta, Dirichlet, Hecke, Artin, Hasse-Weil, Sato-Tate symmetric powers — fits inside the picture, and the matching with automorphic L-functions is the testable evidence at every step.</p>\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./sato-tate.html#symn\">Symmetric-power L-functions</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {
           "type": "quiz",

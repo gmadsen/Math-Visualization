@@ -36,6 +36,10 @@
         },
         {
           "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./algebra.html#finite\">Quotients and finite fields</a></li>\n    <li><a href=\"./algebra.html#intro\">Groups, rings, and fields</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "raw",
           "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./computational-number-theory.html#mod-arith\">Computational number theory</a> · Modular arithmetic algorithms</div>\n    <div><a href=\"./computational-number-theory.html#primality\">Computational number theory</a> · Primality testing</div>\n    <div><a href=\"./mathematics-and-cryptography.html#dlog\">Mathematics and cryptography</a> · Discrete logarithm and Diffie–Hellman</div>\n    <div><a href=\"./mathematics-and-cryptography.html#rsa\">Mathematics and cryptography</a> · RSA</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
@@ -118,6 +122,10 @@
         },
         {
           "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./complexity-theory.html#p-np\">P and NP</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "raw",
           "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./mathematics-and-cryptography.html#ecc\">Mathematics and cryptography</a> · Elliptic-curve cryptography</div>\n    <div><a href=\"./mathematics-and-cryptography.html#lattice\">Mathematics and cryptography</a> · Lattice-based and post-quantum cryptography</div>\n    <div><a href=\"./mathematics-and-cryptography.html#zk\">Mathematics and cryptography</a> · Zero-knowledge proofs</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
@@ -151,6 +159,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./elliptic-curves.html#intro\">Elliptic curves and Weierstrass models</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {
           "type": "quiz",
@@ -196,6 +208,10 @@
         },
         {
           "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./complexity-theory.html#np-complete\">NP-completeness and Cook–Levin</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "raw",
           "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./computational-number-theory.html#lll\">Computational number theory</a> · LLL &amp; lattice reduction</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
@@ -229,6 +245,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./complexity-theory.html#np-complete\">NP-completeness and Cook–Levin</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {
           "type": "quiz",

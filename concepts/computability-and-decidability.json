@@ -8,7 +8,7 @@
       "title": "Turing machines",
       "anchor": "turing",
       "prereqs": [
-        "naive-set-theory:sets-functions"
+        "sets-functions"
       ],
       "blurb": "A Turing machine is a finite-state controller scanning a two-way infinite tape. A configuration is a triple (state, tape contents, head position); the transition function $\\delta\\colon Q\\times\\Sigma\\to Q\\times\\Sigma\\times\\{L,R\\}$ rewrites a cell, moves the head, and updates state. Acceptance is by halting in a designated accept state. Variants — multitape, nondeterministic, two-counter — all simulate one another with at most polynomial overhead, which is the empirical content of the Church–Turing thesis.",
       "tags": [
@@ -33,7 +33,7 @@
       "anchor": "halting",
       "prereqs": [
         "comp-turing-machines",
-        "naive-set-theory:countability"
+        "countability"
       ],
       "blurb": "Let $H = \\{ \\langle M,w\\rangle : M \\text{ halts on } w\\}$. Suppose $h$ decides $H$. Build $D(\\langle M\\rangle)$ which runs $h$ on $\\langle M, \\langle M\\rangle\\rangle$ and loops if $h$ says \"halts\", halts otherwise. Then $D$ on its own code halts iff it doesn't — contradiction. The argument is Cantor's diagonal applied to the countable list of Turing machines. Halting is the prototype undecidable problem; everything else reduces to it.",
       "tags": [
@@ -71,7 +71,7 @@
       "anchor": "godel",
       "prereqs": [
         "comp-halting-problem",
-        "first-order-logic-and-completeness:fol-completeness"
+        "fol-completeness"
       ],
       "blurb": "Any consistent, recursively axiomatised theory $T$ extending Robinson arithmetic can express \"$M$ halts on $w$\" as a $\\Sigma_1$ formula. If $T$ proved every true halting fact and refuted every false one, halting would be decidable — contradicting the halting theorem. So $T$ is incomplete: some true $\\Sigma_1$ sentence is unprovable. Strengthening from <em>ω-consistency</em> to plain consistency (Rosser's trick) gives Gödel's first theorem; the second theorem ($T\\not\\vdash\\mathrm{Con}(T)$) follows by formalising the proof inside $T$.",
       "tags": [
