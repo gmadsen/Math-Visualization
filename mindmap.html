@@ -352,7 +352,7 @@
   </div>
 
   <p class="footer-note">
-    Layout is force-directed and cached in <code>localStorage.mvnb.mindmap.layout.v1</code> (keyed to a content hash) — first visit takes a second, subsequent visits are instant. <b>Reseed</b> drops the cache and recomputes. Edges in <span style="color:var(--mute)">grey</span> are intra-topic; edges in <span style="color:var(--ink)">white-ish</span> cross topic boundaries (those are the spine of <a href="./pathway.html">pathway</a>). The "suspected gaps" panel surfaces capstones whose ancestor closure looks suspiciously thin — meant as a guide for cross-topic prereq passes, not a hard signal.
+    Layout is force-directed and cached in <code>localStorage</code> (keyed to a content hash) — first visit takes a second, subsequent visits are instant. <b>Reseed</b> drops the cache and recomputes. Edges in <span style="color:var(--mute)">grey</span> are intra-topic; edges in <span style="color:var(--ink)">white-ish</span> cross topic boundaries (those are the spine of <a href="./pathway.html">pathway</a>). The "suspected gaps" panel surfaces capstones whose ancestor closure looks suspiciously thin — meant as a guide for cross-topic prereq passes, not a hard signal.
   </p>
 </main>
 
@@ -567,20 +567,12 @@
   // bottom (Combinatorics → Analysis → Probability), G&T closes the loop.
   const SECTION_ANCHOR = (() => {
     const cx = STAGE_W / 2, cy = STAGE_H / 2 + 20;
-    // v4: section anchors are placed on an ELLIPTICAL ring sized to the
-    // actual canvas (2000×1200). The previous circular ring of radius
-    // `min(STAGE_W, STAGE_H) * 0.34` collapsed to the height, leaving
-    // ~50% of the horizontal space empty. The elliptical version gives
-    // the 11 sections their own distinct horizontal real estate, so the
-    // whole 2000×1200 viewBox actually gets used.
-    // Aspect ratio of the canvas is 2000/1200 ≈ 1.67. To get the natural
-    // cluster bbox close to that aspect (so the post-force `normalizePositions`
-    // scaler doesn't have to shrink one dimension), the anchor ring is widened
-    // horizontally and tightened vertically. Without this, ry ≈ rx made the
-    // cluster nearly circular, the Y-span maxed out the scaler, and ~37% of
-    // the horizontal canvas stayed empty.
-    const rx = STAGE_W * 0.48;   // 960px horizontal radius
-    const ry = STAGE_H * 0.30;   // 360px vertical radius
+    // Anchor ring is elliptical, sized so the natural cluster bbox matches
+    // the canvas aspect (≈1.67). A circular ring would force
+    // `normalizePositions` below to clamp the wider dimension, leaving
+    // ~30–40% of horizontal canvas empty. Keep rx:ry ≈ 1.6:1 when retuning.
+    const rx = STAGE_W * 0.48;
+    const ry = STAGE_H * 0.30;
     const order = [
       'Logic & Foundations',           // 0° (top)
       'Algebra & homological',         // ~33°
@@ -674,13 +666,11 @@
   //   - A per-node anchor pull holds each node near its section's home.
   async function forceLayout(progressCb){
     const STEPS = 260;
-    // v4: REPEL_BASE 2200 → 3500 + SPRING_LEN_INTRA 50 → 75 +
-    // SPRING_LEN_CROSS 180 → 260 + ANCHOR 0.014 → 0.010 so the corpus
-    // (now 1140 concepts) genuinely fills the 2000×1200 viewBox instead
-    // of clustering tightly in the centre. The user explicitly asked
-    // for more spread; the previous v3 settings still left ~40% of the
-    // canvas as empty margin. Cache version bumped to v4 to invalidate
-    // prior caches that rendered with the tighter spacing.
+    // Force constants are tuned to spread the corpus across the full
+    // 2000×1200 viewBox. Bump REPEL_BASE / SPRING_LEN_INTRA together when
+    // increasing spread; lowering ANCHOR loosens the per-section home-pull.
+    // Any change here must bump the cache version in `layoutKey` to
+    // invalidate stale layouts cached under the old constants.
     const REPEL_BASE = 3500;
     const REPEL_CROSS = 1.7;     // cross-section pairs repel harder
     const SPRING = 0.022;
@@ -1490,8 +1480,8 @@
       <span class="stat"><b>${capCount}</b> capstones</span>
       <span class="stat"><b>${masteredCount}</b> mastered</span>
     `;
-    const subEl = document.getElementById('sub-summary');
-    if(subEl) subEl.textContent = `${totalNodes} across ${topicCount} topics`;
+    document.getElementById('sub-summary').textContent =
+      `${totalNodes} across ${topicCount} topics`;
   }
 
   // Surface two structural signals that suggest incomplete prereq wiring:
@@ -1728,12 +1718,11 @@
     const EPS = 1;
     if(w < EPS && h < EPS) return;
     const pad = 60;
-    // No `1.0` cap on the upscale: the v4 force constants intentionally
-    // produce a wide cluster, and capping at 1.0 was leaving ~30% of the
-    // horizontal canvas empty whenever the natural Y-span happened to be
-    // the binding dimension. Scale up freely to fill whichever dimension
-    // is the closer fit; the other dimension is then guaranteed to be
-    // ≤ canvas size by the `min` over both.
+    // Scale freely in both directions: the force constants leave the
+    // natural cluster bbox smaller than the canvas, so a `1.0` upscale cap
+    // would waste whichever axis isn't the binding dimension. The min()
+    // over both axes already guarantees the post-scale cluster fits inside
+    // (STAGE_W, STAGE_H) minus padding.
     const scale = Math.min((STAGE_W - pad*2) / Math.max(EPS, w),
                            (STAGE_H - pad*2) / Math.max(EPS, h));
     const cxSrc = (xMin + xMax) / 2, cySrc = (yMin + yMax) / 2;

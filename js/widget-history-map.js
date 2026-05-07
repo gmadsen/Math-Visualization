@@ -154,8 +154,8 @@
     }
     if(!data || !Array.isArray(data.eras) || data.eras.length === 0){
       // Surface a visible failure rather than rendering a dead chip row +
-      // toggle that no-ops silently. The "All eras" three-state toggle in
-      // particular degrades to a permanent no-op if `eras` is empty.
+      // "All eras" button that no-ops silently when there are no eras to
+      // clear from the filter.
       console.warn('widget-history-map: data.eras missing or empty; widget cannot render');
       host.innerHTML = '<div class="bad" role="alert">World-map data unavailable: era palette missing.</div>';
       return;
@@ -486,14 +486,10 @@
         });
       });
 
-      // Note: previously the map listened for `scrub-year` and faded pins
-      // outside ±SCRUB_WINDOW of the timeline cursor. That cross-widget
-      // coupling was confusing — moving the timeline scrubber visibly
-      // recoloured the world map even when the user wasn't looking at the
-      // timeline. The map is now independent of the timeline scrubber;
-      // person-selection still bridges the two via `select-person` above
-      // so a click on a person's name in the timeline still highlights
-      // them on the map.
+      // The map is decoupled from the timeline scrubber: scrub-year events
+      // do not affect pin opacity. The only bridge between the two widgets
+      // is `select-person` (handled above), so clicking a person's name in
+      // the timeline still highlights them on the map.
     }
     eraChips.forEach((c, id) => {
       c.addEventListener('click', () => {
@@ -503,10 +499,9 @@
       });
     });
     allBtn.addEventListener('click', () => {
-      // "All eras" means "no era filter active" — clear the selection
-      // back to the default state where every pin shows in its natural
-      // (newest-era) color with no halo or fade. Don't auto-activate
-      // every era chip, which felt like a bug to the user.
+      // "All eras" means "no era filter active" — clear the selection back
+      // to the default state where every pin shows in its natural
+      // (newest-era) color with no halo or fade.
       state.activeEras.clear();
       applyState();
     });
