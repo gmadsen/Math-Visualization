@@ -21,15 +21,25 @@ Items below come out of the algebra/analysis comparative audit shipped in PR #49
 
 - **Math physics has no `hard` tier and Combinatorics has no `hard` tier.** 702 concepts lack a hard tier corpus-wide; 13 topics in those two sections × ~6 concepts × 2-3 questions each ≈ ~150 of the missing questions. Per "Out of scope", de-prioritized — listed here so the gap is visible, not actioned.
 
-## Bigger missing-topic candidates (from the comparative audit)
+## Bigger missing-topic candidates
 
-A topic-gap audit on the four uncovered sections (number theory, algebraic geometry, geometry-and-topology, modular forms & L-functions) shipped at [`audits/topic-gap-analysis.md`](./audits/topic-gap-analysis.md). Top recommendations from that pass, in priority order:
+The original [`audits/topic-gap-analysis.md`](./audits/topic-gap-analysis.md) recommendations (cohomology-and-duality, toric-varieties, iwasawa-theory) all shipped in PRs #121–#125, along with 18 other gap-audit topics. The next-generation candidates below come from a comparison against the **Harvard math grad course catalog** (https://www.math.harvard.edu/graduate/) — courses listed there for which our corpus has no dedicated page.
 
-1. **Cohomology + Poincaré duality + spectral sequences** (Geometry & topology). Highest leverage — every page in algebraic geometry, modular forms, and higher-categories silently presupposes them, but the existing `algebraic-topology` topic stops at singular homology with no cup products, no duality, and no spectral sequences. Filling this gap would unlock cleaner downstream coverage.
-2. **Toric varieties** (Algebraic geometry). Most visualisable AG gap; bridges intersection theory, Calabi-Yau, mirror symmetry, and combinatorics. Strong fit for the notebook's interactive aesthetic.
-3. **Iwasawa theory / p-adic L-functions** (closes a gap in both Number theory and Modular forms with one page). Honourable mention — the natural sequel to `p-adic-numbers` + `class-field-theory`.
+In priority order:
 
-Other ranked gaps per section in the audit report. Older candidates (`model-categories`, `microlocal-analysis`, `geometric-measure-theory`, `klein-gordon-equation`, `dirac-equation`, `quantum-field-theory`, etc.) all shipped earlier and are no longer outstanding.
+1. **Several complex variables & Stein manifolds** (Analysis / Algebraic geometry bridge). Hartogs phenomenon, plurisubharmonic functions, the ∂̄-equation, Stein manifolds, Levi pseudoconvexity, sheaf cohomology of $\mathcal{O}_X$. Currently `advanced-complex-analysis` mentions Hartogs in passing but the subject is one-variable; SCV is a distinct discipline that bridges to Kähler geometry, deformation theory, and crystalline / D-module work. Highly visualizable (boundary geometry, Reinhardt domains, Hartogs figures).
+
+2. **Cluster algebras** (Combinatorics / Algebra bridge). Fomin–Zelevinsky theory, mutations and exchange relations, Y-systems, cluster categories, examples on the Grassmannian and Teichmüller space. Currently mentioned only in `enumerative-combinatorics` and `quantum-groups`; Harvard's Math 264Y is a full graduate course. Strong fit for the notebook's interactive aesthetic — mutations are click-by-click animations of quivers.
+
+3. **Mapping class groups & low-dimensional topology** (Geometry & topology). Dehn twists, the Nielsen–Thurston classification, the Teichmüller-space link, 4-manifold fundamentals (smooth vs topological structures, Freedman, Casson invariant). Pairs nicely with `gauge-theory` (Donaldson / Seiberg–Witten 4-manifold invariants). Currently spread across `geometric-and-combinatorial-group-theory` and `riemann-surfaces` but no dedicated topology page.
+
+4. **Khovanov homology & link homology** (Geometry & topology). Categorification of the Jones polynomial, Khovanov's chain complex, slice-genus and the Rasmussen invariant, Lee/Bar-Natan deformation, the foam category, applications to topology. Harvard runs three courses here (253Z, 254Z); we mention "Khovanov categorification" as a one-line bullet inside `knot-polynomials` but the actual subject is its own page. Strong category-theory tie-in.
+
+5. **Mathematical biology / population genetics** (potentially a new 12th section). Wright–Fisher model, Moran process, coalescent theory, evolutionary game theory, replicator and replicator–mutator dynamics, Lotka–Volterra; Harvard's Math 242/243 is a recurring research-active line. Zero coverage today. Could open as a new section *Mathematical biology* (orange/green accent) or fold under *Probability & statistics* — section question is the architectural decision worth discussing before drafting.
+
+6. **Arithmetic statistics** (Number theory). Bhargava-style results: density of binary cubic / quartic / quintic forms, average rank of elliptic curves, function-field analogues (Harvard 251Z). Bridges `algebraic-number-theory`, `heights-arithmetic-geometry`, and `analytic-number-theory`. Currently no dedicated page; bits live across those three.
+
+Honourable mention: **Positive characteristic AG** (Math 260Z) — partially covered by `crystalline-cohomology` but a standalone topic on Frobenius splittings, $F$-singularities, and char-$p$ specific phenomena would close that gap.
 
 ## Content-gap audit — long-running
 
