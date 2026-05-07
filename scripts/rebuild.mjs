@@ -111,6 +111,14 @@ const STEPS = [
   // captures today's per-page static count and `--strict` fails if any
   // page's count grows. This catches regressions like PR #125's bodyScript
   // bug where 13 widgets shipped inert until human review.
+  //
+  // Strict in BOTH local fix-mode and --no-fix CI mode — that's intentional.
+  // The point is to catch regressions on the developer's machine before
+  // they push. After deliberately landing a static widget (genuine SVG
+  // illustration), run `node scripts/audit-widget-interactivity.mjs
+  // --update-baseline` to refresh; the script previews per-page bumps and
+  // gates ≥2 increases behind --force so this can't silently absorb a real
+  // regression.
   { name: 'widget-interactivity', script: 'audit-widget-interactivity.mjs',
     fix: false, extraArgs: ['--strict'] },
   { name: 'doc-drift',  script: 'audit-doc-drift.mjs',          fix: false },
@@ -136,7 +144,6 @@ function runStep(n, total, step) {
   banner(n, total, step);
   const args = [join(scriptsDir, step.script)];
   if (step.fix && !NO_FIX) args.push('--fix');
-  else if (step.fix && NO_FIX && step.auditArg) args.push(step.auditArg);
   if (step.extraArgs) args.push(...step.extraArgs);
   const r = spawnSync(process.execPath, args, {
     cwd: repoRoot,

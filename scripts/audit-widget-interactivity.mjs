@@ -44,7 +44,7 @@
 // regressions like PR #125's bodyScript-storage bug (13 widgets shipped inert
 // until review). Mirrors the inline-widgets baseline pattern from PR #70.
 
-import { readFileSync, writeFileSync } from 'node:fs';
+import { readFileSync, writeFileSync, renameSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -57,6 +57,7 @@ const argv = process.argv.slice(2);
 const ONLY_STATIC = argv.includes('--only-static');
 const STRICT = argv.includes('--strict');
 const UPDATE_BASELINE = argv.includes('--update-baseline');
+const FORCE = argv.includes('--force');
 const BASELINE_PATH = join(repoRoot, 'audits', 'static-widgets-baseline.json');
 
 // ─────────────────────────────────────────────────────────────────────────
@@ -65,7 +66,13 @@ const BASELINE_PATH = join(repoRoot, 'audits', 'static-widgets-baseline.json');
 // Walks <div …> / </div> token stream starting at each widget-open match,
 // counts depth, records the widget's outer span. Returns [{ start, end, body }].
 
-function extractWidgets(html) {
+// Module-level flag: any extractor bail-out flips this so `--strict` can
+// refuse to gate on a possibly-under-counted corpus. Bail-outs were silent
+// when this audit was advisory; once it gates CI, an under-count masks a
+// real regression as "at or below baseline".
+let parseErrors = 0;
+
+function extractWidgets(html, fileLabel) {
   const widgets = [];
   const widgetOpenRe =
     /<div\b[^>]*\bclass=["'][^"']*\bwidget\b[^"']*["'][^>]*>/gi;
@@ -82,12 +89,28 @@ function extractWidgets(html) {
     let end = html.length;
     let safety = 0;
     while (depth > 0) {
-      if (++safety > 100000) break;
+      if (++safety > 100000) {
+        console.error(
+          `extractWidgets: safety bail at depth ${depth} parsing widget at ` +
+            `${fileLabel}:offset ${openStart} — page may have unbalanced <div> ` +
+            `markup; static count for this page will be under-reported.`
+        );
+        parseErrors++;
+        break;
+      }
       const savedOpen = divOpenRe.lastIndex;
       const savedClose = divCloseRe.lastIndex;
       const o = divOpenRe.exec(html);
       const c = divCloseRe.exec(html);
-      if (!c) break;
+      if (!c) {
+        console.error(
+          `extractWidgets: ran out of </div> tokens for widget at ` +
+            `${fileLabel}:offset ${openStart} — page has unbalanced <div> ` +
+            `markup; static count for this page will be under-reported.`
+        );
+        parseErrors++;
+        break;
+      }
       if (o && o.index < c.index) {
         depth++;
         // don't let close re lag behind new open
@@ -302,8 +325,8 @@ function lineOf(html, offset) {
 // ─────────────────────────────────────────────────────────────────────────
 // Per-page classification.
 
-function classifyPage(html) {
-  const widgets = extractWidgets(html);
+function classifyPage(html, fileLabel) {
+  const widgets = extractWidgets(html, fileLabel);
   const scripts = extractScriptBodies(html);
 
   const results = [];
@@ -383,7 +406,7 @@ const perPage = []; // { file, interactive, static, widgets: [{...}] }
 for (const file of htmlFiles) {
   const abs = join(repoRoot, file);
   const html = readFileSync(abs, 'utf8');
-  const results = classifyPage(html);
+  const results = classifyPage(html, file);
   const interactiveN = results.filter((r) => r.interactive).length;
   const staticN = results.length - interactiveN;
   totalInteractive += interactiveN;
@@ -472,30 +495,103 @@ if (topStatic.length > 0) {
 // Baseline file format:
 //   {
 //     "_note": "…regen instructions…",
-//     "totalStatic": <int>,
 //     "perPage": { "<file>.html": <static-count>, … }   // only pages with ≥1 static
 //   }
 //
 // `--strict` fails iff any current page's static count exceeds its baseline
-// (or 0 if absent). `--update-baseline` writes the current state.
+// (or 0 if absent). `--update-baseline` writes the current state, with
+// per-page-bump preview and a `--force` gate on sizable increases so a
+// reflexive "fix CI" rerun can't silently launder a regression into the
+// baseline.
+
+function readBaselineForCompare() {
+  try {
+    return JSON.parse(readFileSync(BASELINE_PATH, 'utf8'));
+  } catch (err) {
+    if (err.code === 'ENOENT') return null; // first-time seed
+    throw err; // surfaces in --update-baseline as a hard error
+  }
+}
 
 if (UPDATE_BASELINE) {
-  const baselinePerPage = {};
-  for (const p of perPage) {
-    if (p.static > 0) baselinePerPage[p.file] = p.static;
+  if (parseErrors > 0) {
+    console.error(
+      `audit-widget-interactivity --update-baseline: refusing to write — ` +
+        `${parseErrors} parser bail-out(s) above mean static counts may be ` +
+        `under-reported, which would persist as the new ground truth.`
+    );
+    process.exit(1);
   }
+
+  // Sort keys explicitly so the on-disk file's diff stability doesn't depend
+  // on an unrelated upstream sort surviving future refactors.
+  const baselinePerPage = {};
+  const sortedPages = [...perPage]
+    .filter((p) => p.static > 0)
+    .sort((a, b) => a.file.localeCompare(b.file));
+  for (const p of sortedPages) baselinePerPage[p.file] = p.static;
+
+  // Diff vs current baseline (if any) so the developer sees what's about to
+  // change. `--force` is required on per-page bumps of ≥2 to keep muscle-
+  // memory `--update-baseline` from absorbing a fresh regression silently.
+  const prior = readBaselineForCompare();
+  const priorPerPage = (prior && prior.perPage) || {};
+  const bumps = [];
+  const drops = [];
+  for (const [file, count] of Object.entries(baselinePerPage)) {
+    const before = priorPerPage[file] || 0;
+    if (count > before) bumps.push({ file, before, after: count });
+  }
+  for (const [file, before] of Object.entries(priorPerPage)) {
+    const after = baselinePerPage[file] || 0;
+    if (after < before) drops.push({ file, before, after });
+  }
+  if (bumps.length > 0 || drops.length > 0) {
+    console.log('');
+    if (bumps.length > 0) {
+      console.log(`Baseline increases (${bumps.length} page(s)):`);
+      for (const b of bumps) {
+        console.log(
+          `  ${b.file}: ${b.before} → ${b.after} (+${b.after - b.before})`
+        );
+      }
+    }
+    if (drops.length > 0) {
+      console.log(`Baseline decreases (${drops.length} page(s)):`);
+      for (const d of drops) {
+        console.log(
+          `  ${d.file}: ${d.before} → ${d.after} (${d.after - d.before})`
+        );
+      }
+    }
+    console.log('');
+  }
+  const bigBumps = bumps.filter((b) => b.after - b.before >= 2);
+  if (bigBumps.length > 0 && !FORCE) {
+    console.error(
+      `Refusing to write — ${bigBumps.length} page(s) increase by ≥ 2 static ` +
+        `widget(s). Re-run with --force after confirming each bump is ` +
+        `intentional (genuine SVG illustration, not a missing event handler).`
+    );
+    process.exit(1);
+  }
+
+  // Atomic write (.tmp + rename) so a Ctrl-C / OOM mid-write can't leave the
+  // baseline truncated and unparseable for the next strict run.
   const payload = {
     _note:
       'Per-page static-widget baseline. Regenerate with ' +
       '`node scripts/audit-widget-interactivity.mjs --update-baseline`. ' +
       'CI runs `--strict` and fails if any per-page count grows.',
-    totalStatic,
     perPage: baselinePerPage,
   };
-  writeFileSync(BASELINE_PATH, JSON.stringify(payload, null, 2) + '\n');
+  const tmp = BASELINE_PATH + '.tmp';
+  writeFileSync(tmp, JSON.stringify(payload, null, 2) + '\n');
+  renameSync(tmp, BASELINE_PATH);
+  const total = sortedPages.reduce((acc, p) => acc + p.static, 0);
   console.log(
-    `audit-widget-interactivity: wrote baseline (${totalStatic} static across ` +
-      `${Object.keys(baselinePerPage).length} page(s)) → audits/static-widgets-baseline.json`
+    `audit-widget-interactivity: wrote baseline (${total} static across ` +
+      `${sortedPages.length} page(s)) → audits/static-widgets-baseline.json`
   );
   process.exit(0);
 }
@@ -505,15 +601,77 @@ if (STRICT) {
   try {
     baseline = JSON.parse(readFileSync(BASELINE_PATH, 'utf8'));
   } catch (err) {
+    if (err.code === 'ENOENT') {
+      console.error(
+        `audit-widget-interactivity --strict: baseline missing at ${BASELINE_PATH}.`
+      );
+      console.error(
+        'Run `node scripts/audit-widget-interactivity.mjs --update-baseline` to seed it.'
+      );
+    } else if (err instanceof SyntaxError) {
+      console.error(
+        `audit-widget-interactivity --strict: baseline at ${BASELINE_PATH} ` +
+          `is malformed JSON: ${err.message}`
+      );
+      console.error(
+        'Inspect the file for merge-conflict markers or partial writes; do NOT ' +
+          'blindly --update-baseline (that would erase the corruption signal).'
+      );
+    } else {
+      console.error(
+        `audit-widget-interactivity --strict: cannot read ${BASELINE_PATH}: ${err.message}`
+      );
+      console.error('Filesystem error — check permissions and path.');
+    }
+    process.exit(1);
+  }
+
+  // Validate the baseline schema explicitly so a hand-edit typo (`pages` vs
+  // `perPage`) surfaces as one actionable schema error instead of a flood of
+  // false-positive regressions.
+  if (!baseline || typeof baseline !== 'object' || Array.isArray(baseline)) {
     console.error(
-      `audit-widget-interactivity --strict: cannot read ${BASELINE_PATH}: ${err.message}`
-    );
-    console.error(
-      'Run `node scripts/audit-widget-interactivity.mjs --update-baseline` to seed it.'
+      `audit-widget-interactivity --strict: ${BASELINE_PATH} did not parse to an object.`
     );
     process.exit(1);
   }
-  const baselinePerPage = baseline.perPage || {};
+  if (
+    !baseline.perPage ||
+    typeof baseline.perPage !== 'object' ||
+    Array.isArray(baseline.perPage)
+  ) {
+    console.error(
+      `audit-widget-interactivity --strict: ${BASELINE_PATH} is missing required ` +
+        `field "perPage" (or it's not an object).`
+    );
+    console.error(
+      'Expected shape: { "perPage": { "<file>.html": <int>, … } }'
+    );
+    process.exit(1);
+  }
+  for (const [file, count] of Object.entries(baseline.perPage)) {
+    if (!Number.isInteger(count) || count < 0) {
+      console.error(
+        `audit-widget-interactivity --strict: baseline value for "${file}" is ` +
+          `not a non-negative integer (got ${JSON.stringify(count)}).`
+      );
+      process.exit(1);
+    }
+  }
+
+  // Refuse to gate when the parser silently dropped widgets — a real
+  // regression would slip through as "at or below baseline" otherwise.
+  if (parseErrors > 0) {
+    console.error(
+      `\naudit-widget-interactivity --strict: ${parseErrors} parser bail-out(s) ` +
+        `above. Static counts may be under-reported, which would mask a real ` +
+        `regression as 'at or below baseline'. Fix the unbalanced markup before ` +
+        `gating CI on this audit.`
+    );
+    process.exit(1);
+  }
+
+  const baselinePerPage = baseline.perPage;
   const regressions = [];
   for (const p of perPage) {
     const allowed = baselinePerPage[p.file] || 0;
@@ -543,9 +701,13 @@ if (STRICT) {
     );
     process.exit(1);
   }
+  const baselineTotal = Object.values(baselinePerPage).reduce(
+    (a, b) => a + b,
+    0
+  );
   console.log(
     `OK: every page's static-widget count is at or below baseline ` +
-      `(total static: ${totalStatic}, baseline total: ${baseline.totalStatic || 0}).`
+      `(total static: ${totalStatic}, baseline total: ${baselineTotal}).`
   );
   process.exit(0);
 }

@@ -1,6 +1,5 @@
 {
   "_note": "Per-page static-widget baseline. Regenerate with `node scripts/audit-widget-interactivity.mjs --update-baseline`. CI runs `--strict` and fails if any per-page count grows.",
-  "totalStatic": 100,
   "perPage": {
     "abelian-varieties.html": 4,
     "additive-number-theory.html": 3,
