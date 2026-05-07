@@ -23,7 +23,7 @@ Alongside each handwritten `<topic>.html`, the repo also carries a structured `c
 
 ## Learning pathways
 
-Start from [`pathway.html`](./pathway.html) to explore prerequisite graphs for capstone goals — pick any of the 34 capstones and the DAG layers every prereq concept by depth. For free-form exploration over the entire 1146-concept graph (no goal required), [`mindmap.html`](./mindmap.html) renders a section-clustered force-directed layout: click a node to focus its k-hop neighborhood, filter by section/level/mastery, and a structural-stats panel surfaces uneven prereq density across the eleven sections. Both views read the same concept graph; pathway is goal-targeted, mindmap is free-explore.
+Start from [`pathway.html`](./pathway.html) to explore prerequisite graphs for capstone goals — pick any of the 34 capstones and the DAG layers every prereq concept by depth. For free-form exploration over the entire 1152-concept graph (no goal required), [`mindmap.html`](./mindmap.html) renders a section-clustered force-directed layout: click a node to focus its k-hop neighborhood, filter by section/level/mastery, and a structural-stats panel surfaces uneven prereq density across the eleven sections. Both views read the same concept graph; pathway is goal-targeted, mindmap is free-explore.
 
 Each concept carries up to three quiz tiers — v1 (required), hard (unlocked after v1), and expert (unlocked after hard). Mastery is tracked in `localStorage` and lights up downstream concepts `locked → ready → mastered`, Brilliant-style. Topic cards on the index may carry a level badge: `prereq`, `advanced`, or `capstone`.
 
@@ -119,6 +119,7 @@ Each concept carries up to three quiz tiers — v1 (required), hard (unlocked af
 - [Cobordism](./cobordism.html) — cobordism as equivalence relation, Stiefel–Whitney/Pontryagin numbers, Thom spectrum $MO$, $\Omega_*^{SO}$, surgery, $h$-cobordism, TQFT
 - [Homotopy theory](./homotopy-theory.html) — higher homotopy groups, Hurewicz/Whitehead, Eilenberg–MacLane spaces, stable homotopy and spectra, loop spaces, Bott periodicity
 - [Kähler geometry](./kahler-geometry.html) — almost complex structures, Hermitian metrics, Kähler identities and Hodge decomposition, hard Lefschetz, Calabi conjecture, K-stability
+- [Mapping class groups & 4-manifolds](./mapping-class-groups.html) — $\mathrm{Mod}(S)$ and Dehn twists, Nielsen–Thurston classification, Teichmüller space and Fenchel–Nielsen coordinates, smooth vs topological 4-manifolds and intersection forms, Casson invariant
 
 ### Number theory
 - [Galois theory & the quintic](./galois.html) — constructibility, correspondence, unsolvability

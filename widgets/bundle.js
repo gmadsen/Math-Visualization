@@ -9625,6 +9625,132 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "mcg-w1",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "select",
+    "role": "interactive",
+    "title": "mcg-w1 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the mapping-class-groups topic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an interactive widget on the mapping-class-groups topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "mcg-w2",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "drag",
+    "role": "interactive",
+    "title": "mcg-w2 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the mapping-class-groups topic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an interactive widget on the mapping-class-groups topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "mcg-w3",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "drag",
+    "role": "interactive",
+    "title": "mcg-w3 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the mapping-class-groups topic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an interactive widget on the mapping-class-groups topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "mcg-w4",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "drag",
+    "role": "interactive",
+    "title": "mcg-w4 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the mapping-class-groups topic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an interactive widget on the mapping-class-groups topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "mcg-w5",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "input",
+    "role": "interactive",
+    "title": "mcg-w5 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the mapping-class-groups topic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an interactive widget on the mapping-class-groups topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "mcg-w6",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "mcg-w6 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the mapping-class-groups topic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an interactive widget on the mapping-class-groups topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "mirror-hms-pairing",
     "family": "mirror-hms-pairing",
     "dimension": "2d",

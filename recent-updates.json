@@ -1,5 +1,5 @@
 {
-  "generated": "2026-05-07T04:01:23.644Z",
+  "generated": "2026-05-07T04:28:02.049Z",
   "entries": [
     {
       "slug": "abelian-varieties",
@@ -119,7 +119,7 @@
       "color": "p",
       "tag": "",
       "date": "2026-05-06",
-      "message": "New topic: Several complex variables & Stein manifolds (Analysis)"
+      "message": "New topic: Several complex variables & Stein manifolds (#131)"
     },
     {
       "slug": "toric-varieties",
