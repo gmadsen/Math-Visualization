@@ -253,7 +253,7 @@
   <a class="back" href="./index.html">← Notebook</a><span class="nav-links"><a class="nav-link" href="./pathway.html">Pathway</a><a class="nav-link" href="./tours.html">Tours</a><a class="nav-link" href="./history.html">History</a><a class="nav-link" href="./tags.html">Themes</a><a class="nav-link accent" href="./mindmap.html">Mindmap</a><a class="nav-link" href="./search.html">Search</a></span>
   <h1>Mindmap</h1>
   <p class="sub">
-    Every concept in the notebook (505 across 73 topics), laid out as one connected graph. Sections cluster by force; cross-section edges are the bridges. Click a node to focus its neighborhood; <kbd>/</kbd> to search; <kbd>?</kbd> for the full key map. The capstone-targeted view lives at <a href="./pathway.html">pathway</a> — this page is for free exploration and for spotting structural gaps.
+    Every concept in the notebook (<span id="sub-summary">…</span>), laid out as one connected graph. Sections cluster by force; cross-section edges are the bridges. Click a node to focus its neighborhood; <kbd>/</kbd> to search; <kbd>?</kbd> for the full key map. The capstone-targeted view lives at <a href="./pathway.html">pathway</a> — this page is for free exploration and for spotting structural gaps.
   </p>
 
   <div class="bar" role="toolbar" aria-label="Mindmap controls">
@@ -318,7 +318,7 @@
   <div class="stage" id="stage" tabindex="0" role="application" aria-label="Concept-graph mindmap. Click a node to focus its neighborhood; pan with drag, zoom with mouse wheel.">
     <svg class="map" id="map" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="mindmap-title mindmap-desc">
       <title id="mindmap-title">Concept dependency graph</title>
-      <desc id="mindmap-desc">Force-clustered layout of all 505 concepts in the notebook, colored by section. Edges connect prereqs to consumers.</desc>
+      <desc id="mindmap-desc">Force-clustered layout of every concept in the notebook, colored by section. Edges connect prereqs to consumers.</desc>
     </svg>
     <div class="focus-card" id="focus-card" hidden role="region" aria-label="Focused concept details" aria-live="polite"></div>
     <div class="loading" id="loading" role="status" aria-live="polite"><div>computing layout…</div><div class="bar-fill"><div id="loading-bar"></div></div></div>
@@ -352,7 +352,7 @@
   </div>
 
   <p class="footer-note">
-    Layout is force-directed and cached in <code>localStorage.mvnb.mindmap.layout.v1</code> (keyed to a content hash) — first visit takes a second, subsequent visits are instant. <b>Reseed</b> drops the cache and recomputes. Edges in <span style="color:var(--mute)">grey</span> are intra-topic; edges in <span style="color:var(--ink)">white-ish</span> cross topic boundaries (those are the spine of <a href="./pathway.html">pathway</a>). The "suspected gaps" panel surfaces capstones whose ancestor closure looks suspiciously thin — meant as a guide for cross-topic prereq passes, not a hard signal.
+    Layout is force-directed and cached in <code>localStorage</code> (keyed to a content hash) — first visit takes a second, subsequent visits are instant. <b>Reseed</b> drops the cache and recomputes. Edges in <span style="color:var(--mute)">grey</span> are intra-topic; edges in <span style="color:var(--ink)">white-ish</span> cross topic boundaries (those are the spine of <a href="./pathway.html">pathway</a>). The "suspected gaps" panel surfaces capstones whose ancestor closure looks suspiciously thin — meant as a guide for cross-topic prereq passes, not a hard signal.
   </p>
 </main>
 
@@ -567,7 +567,12 @@
   // bottom (Combinatorics → Analysis → Probability), G&T closes the loop.
   const SECTION_ANCHOR = (() => {
     const cx = STAGE_W / 2, cy = STAGE_H / 2 + 20;
-    const r = Math.min(STAGE_W, STAGE_H) * 0.34;
+    // Anchor ring is elliptical, sized so the natural cluster bbox matches
+    // the canvas aspect (≈1.67). A circular ring would force
+    // `normalizePositions` below to clamp the wider dimension, leaving
+    // ~30–40% of horizontal canvas empty. Keep rx:ry ≈ 1.6:1 when retuning.
+    const rx = STAGE_W * 0.48;
+    const ry = STAGE_H * 0.30;
     const order = [
       'Logic & Foundations',           // 0° (top)
       'Algebra & homological',         // ~33°
@@ -585,8 +590,8 @@
     for (let i = 0; i < order.length; i++) {
       const angle = (2 * Math.PI * i) / order.length;
       anchors[order[i]] = {
-        x: cx + r * 1.0 * Math.sin(angle),
-        y: cy - r * 1.0 * Math.cos(angle),
+        x: cx + rx * Math.sin(angle),
+        y: cy - ry * Math.cos(angle),
       };
     }
     return anchors;
@@ -626,9 +631,10 @@
     for(const id of sortedIds) parts.push(id);
     const sortedEdges = edges.map(e => nodes[e.from].id + '>' + nodes[e.to].id).sort();
     for(const e of sortedEdges) parts.push(e);
-    // v3: REPEL_BASE bumped from 1400 → 2200 + SPRING_LEN_INTRA 32 → 50
-    // for more spread; existing v2 caches invalidate.
-    return 'mvnb.mindmap.layout.v3.' + fnv1a(parts.join('|'));
+    // v4: REPEL_BASE 2200 → 3500, SPRING_LEN_INTRA 50 → 75,
+    // SPRING_LEN_CROSS 180 → 260, ANCHOR 0.014 → 0.010 — much more
+    // canvas-filling spread; existing v3 caches invalidate.
+    return 'mvnb.mindmap.layout.v4.' + fnv1a(parts.join('|'));
   })();
 
   function loadCachedLayout(){
@@ -660,17 +666,17 @@
   //   - A per-node anchor pull holds each node near its section's home.
   async function forceLayout(progressCb){
     const STEPS = 260;
-    // Bumped from 1400 → 2200 (and intra-link from 32 → 50) so the corpus
-    // at ~1050 concepts has room to breathe. Previous params produced
-    // dense clusters where individual concepts were unpickable even at
-    // moderate zoom. Cache version bumped to v3 to invalidate prior
-    // cached layouts that rendered with the tighter spacing.
-    const REPEL_BASE = 2200;
+    // Force constants are tuned to spread the corpus across the full
+    // 2000×1200 viewBox. Bump REPEL_BASE / SPRING_LEN_INTRA together when
+    // increasing spread; lowering ANCHOR loosens the per-section home-pull.
+    // Any change here must bump the cache version in `layoutKey` to
+    // invalidate stale layouts cached under the old constants.
+    const REPEL_BASE = 3500;
     const REPEL_CROSS = 1.7;     // cross-section pairs repel harder
     const SPRING = 0.022;
-    const SPRING_LEN_INTRA = 50;
-    const SPRING_LEN_CROSS = 180;
-    const ANCHOR = 0.014;        // home-anchor pull; lowered slightly to allow more spread
+    const SPRING_LEN_INTRA = 75;
+    const SPRING_LEN_CROSS = 260;
+    const ANCHOR = 0.010;        // home-anchor pull; lowered to allow even more spread
     const DAMP = 0.85;
     const MAX_V = 9;
 
@@ -967,7 +973,7 @@
         // Pinch: rescale around the initial midpoint in viewBox coords.
         const dist = pointerDist();
         if(dist > 0){
-          const newK = Math.min(6, Math.max(0.35, pinchStartK * (dist / pinchStartDist)));
+          const newK = Math.min(12, Math.max(0.35, pinchStartK * (dist / pinchStartDist)));
           const c = pointerCenter();
           if(c){
             const vb = clientToViewbox(c.x, c.y);
@@ -1002,7 +1008,7 @@
       const vx = (px * sxr - viewT.x) / viewT.k;
       const vy = (py * syr - viewT.y) / viewT.k;
       const factor = Math.exp(-ev.deltaY * 0.0014);
-      const newK = Math.min(6, Math.max(0.35, viewT.k * factor));
+      const newK = Math.min(12, Math.max(0.35, viewT.k * factor));
       viewT.x = px * sxr - vx * newK;
       viewT.y = py * syr - vy * newK;
       viewT.k = newK;
@@ -1464,6 +1470,7 @@
     const totalEdges = edges.length;
     const crossEdges = edges.filter(e => e.cross).length;
     const capCount = nodes.filter(n => n.isCap).length;
+    const topicCount = new Set(nodes.map(n => n.topicId)).size;
     const masteredCount = window.MVProgress
       ? nodes.filter(n => MVProgress.isMastered(n.id, 'v1')).length : 0;
     document.getElementById('stats-row').innerHTML = `
@@ -1473,6 +1480,8 @@
       <span class="stat"><b>${capCount}</b> capstones</span>
       <span class="stat"><b>${masteredCount}</b> mastered</span>
     `;
+    document.getElementById('sub-summary').textContent =
+      `${totalNodes} across ${topicCount} topics`;
   }
 
   // Surface two structural signals that suggest incomplete prereq wiring:
@@ -1708,9 +1717,14 @@
     // unreachable, but the safety net is cheap.
     const EPS = 1;
     if(w < EPS && h < EPS) return;
-    const pad = 90;
+    const pad = 60;
+    // Scale freely in both directions: the force constants leave the
+    // natural cluster bbox smaller than the canvas, so a `1.0` upscale cap
+    // would waste whichever axis isn't the binding dimension. The min()
+    // over both axes already guarantees the post-scale cluster fits inside
+    // (STAGE_W, STAGE_H) minus padding.
     const scale = Math.min((STAGE_W - pad*2) / Math.max(EPS, w),
-                           (STAGE_H - pad*2) / Math.max(EPS, h), 1.0);
+                           (STAGE_H - pad*2) / Math.max(EPS, h));
     const cxSrc = (xMin + xMax) / 2, cySrc = (yMin + yMax) / 2;
     const cxDst = STAGE_W / 2,        cyDst = STAGE_H / 2;
     for(const n of nodes){
