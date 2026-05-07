@@ -1,5 +1,27 @@
 {
   "topics": [
+
+
+
+
+
+    "several-complex-variables",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     "kahler-geometry",
     "half-integral-weight-forms",
     "crystalline-cohomology",
@@ -215,6 +237,7 @@
     "geometric-measure-theory": "advanced",
     "semigroup-theory-evolution-equations": "advanced",
     "advanced-complex-analysis": "advanced",
+    "several-complex-variables": "advanced",
     "point-set-topology": "prereq",
     "algebraic-topology": "prereq",
     "smooth-manifolds": "standard",

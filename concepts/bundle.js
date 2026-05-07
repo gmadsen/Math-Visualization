@@ -4,6 +4,7 @@
 window.__MVConcepts = {
   "index": {
     "topics": [
+      "several-complex-variables",
       "kahler-geometry",
       "half-integral-weight-forms",
       "crystalline-cohomology",
@@ -219,6 +220,7 @@ window.__MVConcepts = {
       "geometric-measure-theory": "advanced",
       "semigroup-theory-evolution-equations": "advanced",
       "advanced-complex-analysis": "advanced",
+      "several-complex-variables": "advanced",
       "point-set-topology": "prereq",
       "algebraic-topology": "prereq",
       "smooth-manifolds": "standard",
@@ -354,6 +356,98 @@ window.__MVConcepts = {
     }
   },
   "topics": {
+    "several-complex-variables": {
+      "topic": "several-complex-variables",
+      "title": "Several complex variables & Stein manifolds",
+      "page": "several-complex-variables.html",
+      "concepts": [
+        {
+          "id": "scv-hartogs",
+          "title": "Hartogs phenomenon",
+          "anchor": "hartogs",
+          "prereqs": [
+            "holomorphic-function",
+            "cauchy-integral-formula",
+            "laurent-series"
+          ],
+          "blurb": "In $\\mathbb{C}^n$ for $n\\ge 2$, every holomorphic function on the polydisk shell (Hartogs figure) extends uniquely to the full polydisk, so isolated singularities cannot exist. The proof uses one-variable Laurent expansions in each slice: the negative-power coefficients are forced to vanish on a larger set by the connectivity hypothesis. Reinhardt domains are domains of holomorphy iff their log-image is convex.",
+          "tags": [
+            "foundation",
+            "classification"
+          ]
+        },
+        {
+          "id": "scv-psh",
+          "title": "Plurisubharmonic functions and the Levi form",
+          "anchor": "psh",
+          "prereqs": [
+            "scv-hartogs",
+            "hf-subharmonic"
+          ],
+          "blurb": "An upper-semicontinuous $u$ on $\\Omega\\subset\\mathbb{C}^n$ is plurisubharmonic if its restriction to every complex line is subharmonic; equivalently the complex Hessian $\\bigl[\\partial^2 u/\\partial z_j\\partial\\bar z_k\\bigr]$ is positive semidefinite. The Levi form of a smooth boundary $\\partial\\Omega$ is $\\partial\\bar\\partial\\rho|_p$ restricted to the complex tangent $T^{1,0}\\partial\\Omega$, and its sign is the boundary version of plurisubharmonicity.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "scv-dbar",
+          "title": "The $\\bar\\partial$-equation and Hörmander's $L^2$ estimates",
+          "anchor": "dbar",
+          "prereqs": [
+            "scv-psh",
+            "lp-spaces",
+            "sobolev-spaces-wkp"
+          ],
+          "blurb": "On a pseudoconvex domain with a strictly plurisubharmonic weight $\\varphi$, every $\\bar\\partial$-closed $(0,1)$-form $\\alpha$ admits a solution $\\bar\\partial u = \\alpha$ with the weighted estimate $\\int |u|^2 e^{-\\varphi}\\,dV \\le \\int |\\alpha|^2_{i\\partial\\bar\\partial\\varphi} e^{-\\varphi}\\,dV$ (Hörmander 1965). The flexibility of choosing $\\varphi$ powers extension theorems (Ohsawa-Takegoshi), approximation theorems, and the proof of Cartan's Theorem B for Stein manifolds.",
+          "tags": [
+            "foundation",
+            "duality"
+          ]
+        },
+        {
+          "id": "scv-pseudoconvex",
+          "title": "Domains of holomorphy and Levi pseudoconvexity",
+          "anchor": "pseudoconvex",
+          "prereqs": [
+            "scv-psh",
+            "scv-hartogs"
+          ],
+          "blurb": "A domain $\\Omega\\subset\\mathbb{C}^n$ is a domain of holomorphy (= holomorphically convex) iff it is pseudoconvex — equivalently admits a continuous PSH exhaustion, or for smooth boundary has positive semidefinite Levi form. This Levi problem (Oka 1942 + Bremermann/Norguet) is the SCV analog of the Riemann mapping theorem. The Diederich-Fornæss exponent $\\eta(\\Omega)\\in(0,1]$ measures how robustly pseudoconvex $\\Omega$ is.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "scv-stein",
+          "title": "Stein manifolds and Cartan's Theorems A and B",
+          "anchor": "stein",
+          "prereqs": [
+            "scv-pseudoconvex",
+            "scv-dbar",
+            "presheaf-sheaf-axioms"
+          ],
+          "blurb": "A Stein manifold is holomorphically convex, holomorphically separable, and admits holomorphic local coordinates — equivalently, a closed complex submanifold of some $\\mathbb{C}^N$ (Remmert-Bishop-Narasimhan). Cartan's Theorem B says coherent analytic sheaf cohomology vanishes in positive degrees on a Stein manifold; Theorem A says global sections generate every stalk. The proof globalizes Hörmander's $\\bar\\partial$-estimate over a strictly PSH exhaustion. Stein is to complex manifolds as affine is to schemes.",
+          "tags": [
+            "classification",
+            "cohomology"
+          ]
+        },
+        {
+          "id": "scv-cousin",
+          "title": "Cousin problems and applications",
+          "anchor": "cousin",
+          "prereqs": [
+            "scv-stein",
+            "cech-cohomology"
+          ],
+          "blurb": "The first Cousin problem (additive, Mittag-Leffler-style) is solvable on $\\Omega$ iff $H^1(\\Omega,\\mathcal{O}) = 0$; the second (multiplicative, Weierstrass-style) is solvable iff the divisor's Chern class in $H^2(\\Omega,\\mathbb{Z})$ vanishes. The exponential exact sequence $0\\to\\mathbb{Z}\\to\\mathcal{O}\\to\\mathcal{O}^\\times\\to 0$ identifies $\\mathrm{Pic}(\\Omega)$ with $H^2(\\Omega,\\mathbb{Z})$ on a Stein manifold via Cartan B. Both Cousin problems are the SCV analogs of the one-variable Mittag-Leffler and Weierstrass theorems.",
+          "tags": [
+            "cohomology",
+            "duality"
+          ]
+        }
+      ]
+    },
     "kahler-geometry": {
       "topic": "kahler-geometry",
       "title": "Kähler geometry",
@@ -16902,6 +16996,7 @@ window.__MVConcepts = {
           "geometric-measure-theory",
           "semigroup-theory-evolution-equations",
           "advanced-complex-analysis",
+          "several-complex-variables",
           "partial-differential-equations",
           "harmonic-functions",
           "spectral-theory",
@@ -17215,6 +17310,7 @@ window.__MVConcepts = {
     "geometric-measure-theory": "advanced",
     "semigroup-theory-evolution-equations": "advanced",
     "advanced-complex-analysis": "advanced",
+    "several-complex-variables": "advanced",
     "point-set-topology": "prereq",
     "algebraic-topology": "prereq",
     "smooth-manifolds": "standard",
@@ -17388,11 +17484,11 @@ window.__MVConcepts = {
       "density": 0.5111111111111111
     },
     "Analysis": {
-      "concepts": 191,
-      "intra": 333,
-      "crossOut": 31,
+      "concepts": 197,
+      "intra": 346,
+      "crossOut": 33,
       "crossIn": 65,
-      "density": 0.16230366492146597
+      "density": 0.16751269035532995
     },
     "Probability & statistics": {
       "concepts": 55,
@@ -17426,7 +17522,7 @@ window.__MVConcepts = {
       "concepts": 179,
       "intra": 265,
       "crossOut": 68,
-      "crossIn": 25,
+      "crossIn": 27,
       "density": 0.37988826815642457
     },
     "Combinatorics & graph theory": {

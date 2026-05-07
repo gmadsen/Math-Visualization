@@ -2,12 +2,12 @@
 
 ## Corpus totals
 
-- Topics: **163**, concepts: **1140**
-- Widgets: **1166** (registry-driven: 1166, inline: 0)
-- Quizzes: **4614** (v1: 3378, hard: 1223, expert: 13)
-- Quiz types: mcq: 3073, numeric: 1124, multi-select: 188, matching: 83, ordering: 58, spot-the-error: 38, complex: 29, proof-completion: 17, construction: 2, guess-my-rule: 2
-- Concepts lacking a widget in their section: **148**
-- Concepts lacking a hard-tier quiz: **702**
+- Topics: **164**, concepts: **1146**
+- Widgets: **1171** (registry-driven: 1171, inline: 0)
+- Quizzes: **4632** (v1: 3396, hard: 1223, expert: 13)
+- Quiz types: mcq: 3083, numeric: 1125, multi-select: 190, matching: 84, ordering: 60, spot-the-error: 39, complex: 29, proof-completion: 18, construction: 2, guess-my-rule: 2
+- Concepts lacking a widget in their section: **149**
+- Concepts lacking a hard-tier quiz: **708**
 
 ## Per-slug registry adoption
 
@@ -591,6 +591,11 @@ page has wired one in yet.
 | `ricci-extinction-timeline` | ricci-extinction-timeline | button-stepper | 2d | 1 | ricci-flow |
 | `ricci-neckpinch-surgery` | ricci-neckpinch-surgery | button-stepper | 2d | 1 | ricci-flow |
 | `ricci-soliton-zoo` | ricci-soliton-zoo | button-stepper | 2d | 1 | ricci-flow |
+| `scv-w1` | verbatim | click | 2d | 1 | several-complex-variables |
+| `scv-w2` | verbatim | click | 2d | 1 | several-complex-variables |
+| `scv-w3` | verbatim | click | 2d | 1 | several-complex-variables |
+| `scv-w4` | verbatim | click | 2d | 1 | several-complex-variables |
+| `scv-w5` | verbatim | click | 2d | 1 | several-complex-variables |
 | `sg-analytic` | verbatim | select | 2d | 1 | semigroup-theory-evolution-equations |
 | `sg-c0` | verbatim | select | 2d | 1 | semigroup-theory-evolution-equations |
 | `sg-cauchy` | verbatim | select | 2d | 1 | semigroup-theory-evolution-equations |
@@ -747,13 +752,13 @@ page has wired one in yet.
 
 ### Analysis
 
-- Topics: **19**, concepts: **191**
-- Widgets: **161** (registry-driven: 161, inline: 0)
-  - by family: clickable-diagram: 41, verbatim: 39, button-stepper: 37, aca-figure: 5, numerical-fp-cancellation: 1, numerical-newton-iteration: 1, numerical-quadrature-error: 1, numerical-hilbert-conditioning: 1, numerical-ftcs-stability: 1, numerical-fem-hat-basis: 1, variational-fdiff: 1, variational-brachistochrone: 1, variational-direct-method: 1, variational-mountain-pass: 1, variational-isoperimetric: 1, variational-sphere-geodesic: 1, constraint-bifurcation-explorer: 1, recurrence-plotter: 1, julia-playground: 1, sobolev-pairing: 1, sobolev-weak-derivative: 1, sobolev-fractional-power: 1, sobolev-embedding-exponent: 1, sobolev-trace: 1, sobolev-newtonian-potential: 1, sobolev-variational: 1, harmonic-partial-sum: 1, harmonic-tent-transform: 1, harmonic-convolution: 1, harmonic-uncertainty: 1, harmonic-heat-evolution: 1, pde-classifier: 1, pde-heat-kernel: 1, pde-wave-dalembert: 1, pde-poisson-disk: 1, pde-weak-test: 1, pde-sobolev-embedding: 1, harmonic-functions-laplacian-heatmap: 1, harmonic-functions-mvp-circle: 1, harmonic-functions-maximum-locator: 1, harmonic-functions-poisson-extension: 1, harmonic-functions-harnack-corridor: 1, harmonic-functions-perron-supremum: 1
-  - by dimension: 2d: 160, 3d: 1
-  - by gesture: click: 88, slider: 55, select: 10, drag: 6, step: 1, static: 1
-- Quizzes: **717** (v1: 532, hard: 185, expert: 0)
-  - by type: mcq: 444, numeric: 158, multi-select: 35, matching: 27, ordering: 19, complex: 14, spot-the-error: 9, proof-completion: 9, construction: 1, guess-my-rule: 1
+- Topics: **20**, concepts: **197**
+- Widgets: **166** (registry-driven: 166, inline: 0)
+  - by family: verbatim: 44, clickable-diagram: 41, button-stepper: 37, aca-figure: 5, numerical-fp-cancellation: 1, numerical-newton-iteration: 1, numerical-quadrature-error: 1, numerical-hilbert-conditioning: 1, numerical-ftcs-stability: 1, numerical-fem-hat-basis: 1, variational-fdiff: 1, variational-brachistochrone: 1, variational-direct-method: 1, variational-mountain-pass: 1, variational-isoperimetric: 1, variational-sphere-geodesic: 1, constraint-bifurcation-explorer: 1, recurrence-plotter: 1, julia-playground: 1, sobolev-pairing: 1, sobolev-weak-derivative: 1, sobolev-fractional-power: 1, sobolev-embedding-exponent: 1, sobolev-trace: 1, sobolev-newtonian-potential: 1, sobolev-variational: 1, harmonic-partial-sum: 1, harmonic-tent-transform: 1, harmonic-convolution: 1, harmonic-uncertainty: 1, harmonic-heat-evolution: 1, pde-classifier: 1, pde-heat-kernel: 1, pde-wave-dalembert: 1, pde-poisson-disk: 1, pde-weak-test: 1, pde-sobolev-embedding: 1, harmonic-functions-laplacian-heatmap: 1, harmonic-functions-mvp-circle: 1, harmonic-functions-maximum-locator: 1, harmonic-functions-poisson-extension: 1, harmonic-functions-harnack-corridor: 1, harmonic-functions-perron-supremum: 1
+  - by dimension: 2d: 165, 3d: 1
+  - by gesture: click: 93, slider: 55, select: 10, drag: 6, step: 1, static: 1
+- Quizzes: **735** (v1: 550, hard: 185, expert: 0)
+  - by type: mcq: 454, numeric: 159, multi-select: 37, matching: 28, ordering: 21, complex: 14, spot-the-error: 10, proof-completion: 10, construction: 1, guess-my-rule: 1
 
 ### Probability & statistics
 
@@ -827,6 +832,7 @@ page has wired one in yet.
 
 ## Per-topic
 
+- `several-complex-variables` (Analysis) — concepts=6, widgets=5 (slug=5), quiz=18 (v1=18, hard=0, expert=0)
 - `kahler-geometry` (Geometry & topology) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `half-integral-weight-forms` (Modular forms & L-functions) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `crystalline-cohomology` (Algebraic geometry) — concepts=6, widgets=7 (slug=7), quiz=18 (v1=18, hard=0, expert=0)
@@ -995,6 +1001,7 @@ page has wired one in yet.
 
 ### Concepts missing a widget in their owning section (top 20)
 
+- `scv-pseudoconvex` (several-complex-variables)
 - `cohomology-zoo` (motives)
 - `algebraic-correspondences` (motives)
 - `pure-chow-motives` (motives)
@@ -1014,10 +1021,15 @@ page has wired one in yet.
 - `langlands-philosophy` (langlands-program)
 - `l-functions-langlands-bridge` (langlands-program)
 - `local-langlands-gl-n` (langlands-program)
-- `global-langlands-gl-n` (langlands-program)
 
 ### Concepts missing a hard-tier quiz (top 20)
 
+- `scv-hartogs` (several-complex-variables)
+- `scv-psh` (several-complex-variables)
+- `scv-dbar` (several-complex-variables)
+- `scv-pseudoconvex` (several-complex-variables)
+- `scv-stein` (several-complex-variables)
+- `scv-cousin` (several-complex-variables)
 - `kg-complex-structure` (kahler-geometry)
 - `kg-kahler-form` (kahler-geometry)
 - `kg-kahler-identities` (kahler-geometry)
@@ -1032,9 +1044,3 @@ page has wired one in yet.
 - `hiw-tunnell-congruent` (half-integral-weight-forms)
 - `cc-motivation` (crystalline-cohomology)
 - `cc-divided-powers` (crystalline-cohomology)
-- `cc-de-rham-comparison` (crystalline-cohomology)
-- `cc-frobenius` (crystalline-cohomology)
-- `cc-f-isocrystals` (crystalline-cohomology)
-- `cc-p-adic-hodge` (crystalline-cohomology)
-- `ht-pi-n` (homotopy-theory)
-- `ht-hurewicz-whitehead` (homotopy-theory)

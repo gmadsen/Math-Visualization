@@ -12202,6 +12202,111 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "scv-w1",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "scv-w1 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the several-complex-variables topic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for one inline widget on `several-complex-variables.html`. Body markup and script are stored opaquely in `params.bodyMarkup`/`params.bodyScript`; future migration could hoist semantic params (slider ranges, color tokens) out of the strings.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "scv-w2",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "scv-w2 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the several-complex-variables topic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for one inline widget on `several-complex-variables.html`. Body markup and script are stored opaquely in `params.bodyMarkup`/`params.bodyScript`; future migration could hoist semantic params (slider ranges, color tokens) out of the strings.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "scv-w3",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "scv-w3 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the several-complex-variables topic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for one inline widget on `several-complex-variables.html`. Body markup and script are stored opaquely in `params.bodyMarkup`/`params.bodyScript`; future migration could hoist semantic params (slider ranges, color tokens) out of the strings.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "scv-w4",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "scv-w4 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the several-complex-variables topic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for one inline widget on `several-complex-variables.html`. Body markup and script are stored opaquely in `params.bodyMarkup`/`params.bodyScript`; future migration could hoist semantic params (slider ranges, color tokens) out of the strings.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "scv-w5",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "scv-w5 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the several-complex-variables topic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for one inline widget on `several-complex-variables.html`. Body markup and script are stored opaquely in `params.bodyMarkup`/`params.bodyScript`; future migration could hoist semantic params (slider ranges, color tokens) out of the strings.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "sg-analytic",
     "family": "verbatim",
     "dimension": "2d",
