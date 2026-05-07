@@ -322,7 +322,15 @@ function drawNode(svg, x, y, label, opts={}){
 
 <p>The dashed arrows are realization functors; the goal of the next several sections is to make the middle box rigorous. The unifying observation is that <em>every cohomology theory people care about (ordinary, $K$-theory, cobordism, étale, motivic) fits this template, with the Eilenberg–MacLane spectrum replaced by some other ring spectrum.</em> Motives are the universal target.</p>
 
-<div class="quiz" data-concept="cohomology-zoo"></div><!-- backlinks-auto-begin -->
+<div class="quiz" data-concept="cohomology-zoo"></div><!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./algebraic-de-rham-cohomology.html#comparison-betti">Comparison with Betti cohomology</a></li>
+    <li><a href="./etale-cohomology.html#ladic">ℓ-adic cohomology</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
 <aside class="related">
   <div class="ttl">Used in</div>
     <div><a href="./motives.html#correspondences">Motives</a> · Correspondences as morphisms</div>
@@ -354,7 +362,14 @@ $$\beta \circ \alpha := (p_{XZ})_*\bigl((p_{XY})^*\alpha \cdot (p_{YZ})^*\beta\b
 
 <p>The crucial generalisation over morphisms: every cohomology theory turns a correspondence $\alpha \in \mathrm{Corr}^r(X, Y)$ into a linear map $\alpha_*\colon H^*(X) \to H^{*+2r}(Y)$ by $\alpha_*(\xi) = (p_Y)_*(\mathrm{cl}(\alpha) \cdot p_X^*\xi)$ where $\mathrm{cl}$ is the cycle-class map. <em>That</em> is what motives need: a class of "morphisms" each cohomology theory can interpret consistently.</p>
 
-<div class="quiz" data-concept="algebraic-correspondences"></div><!-- backlinks-auto-begin -->
+<div class="quiz" data-concept="algebraic-correspondences"></div><!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./intersection-theory-chow.html#chow-groups">Chow groups $A_*(X)$</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
 <aside class="related">
   <div class="ttl">Used in</div>
     <div><a href="./motives.html#chow-motives">Motives</a> · Pure Chow motives</div>
@@ -442,9 +457,19 @@ $$\mathcal{T} \;\simeq\; \mathsf{Rep}_k\bigl(\underline{\mathrm{Aut}}^\otimes(\o
   <li>Finite-dimensional $D$-modules with regular singularities on a complex variety — Tannakian, with $G$ a differential-Galois group.</li>
 </ul>
 
-<div class="quiz" data-concept="tannakian-categories"></div><!-- backlinks-auto-begin -->
+<div class="quiz" data-concept="tannakian-categories"></div><!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./category-theory.html#mon">Monoidal categories</a></li>
+    <li><a href="./category-theory.html#nat">Functors and natural transformations</a></li>
+    <li><a href="./representation-theory.html#def">Group representations</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
 <aside class="related">
   <div class="ttl">Used in</div>
+    <div><a href="./hodge-theory.html#pure-hodge">Hodge theory</a> · Pure Hodge structures as a category</div>
     <div><a href="./motives.html#motivic-galois">Motives</a> · The motivic Galois group</div>
 </aside>
 <!-- backlinks-auto-end -->
@@ -504,9 +529,18 @@ $$G_{\mathrm{mot}}(k) \;:=\; \underline{\mathrm{Aut}}^\otimes(\omega_B).$$
 
 <p>The motivic Galois group is to varieties what the Galois group $\Gal(\overline{\mathbb{Q}}/\mathbb{Q})$ is to fields — but one categorical level up. Where classical Galois theory studied the symmetries of <em>algebraic numbers</em>, motivic Galois theory studies the symmetries of <em>algebraic-geometric cohomology in all theories at once</em>.</p>
 
-<div class="quiz" data-concept="motivic-galois-group"></div><!-- backlinks-auto-begin -->
+<div class="quiz" data-concept="motivic-galois-group"></div><!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./galois-representations.html#rep">Galois representations and examples</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
 <aside class="related">
   <div class="ttl">Used in</div>
+    <div><a href="./hodge-theory.html#motivic-realization">Hodge theory</a> · Hodge as a motivic realization</div>
+    <div><a href="./hodge-theory.html#hodge-conjecture">Hodge theory</a> · The Hodge conjecture</div>
     <div><a href="./motives.html#realizations">Motives</a> · Realizations: how Betti, de Rham, ℓ-adic, crystalline all come from one motive</div>
 </aside>
 <!-- backlinks-auto-end -->
@@ -538,6 +572,8 @@ $$H^*_{\mathrm{dR}}(X/\mathbb{Q}) \otimes_\mathbb{Q} \mathbb{C} \;\cong\; H^*_B(
 <div class="quiz" data-concept="realization-functors"></div><!-- backlinks-auto-begin -->
 <aside class="related">
   <div class="ttl">Used in</div>
+    <div><a href="./hodge-theory.html#motivic-realization">Hodge theory</a> · Hodge as a motivic realization</div>
+    <div><a href="./hodge-theory.html#hodge-conjecture">Hodge theory</a> · The Hodge conjecture</div>
     <div><a href="./motives.html#standard-conjectures">Motives</a> · The standard conjectures and the road forward</div>
 </aside>
 <!-- backlinks-auto-end -->

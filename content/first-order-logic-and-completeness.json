@@ -33,7 +33,11 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./first-order-logic-and-completeness.html#deduction\">First-order logic and completeness</a> · Deduction: proof systems and soundness</div>\n    <div><a href=\"./first-order-logic-and-completeness.html#semantics\">First-order logic and completeness</a> · Tarski semantics and structures</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./naive-set-theory.html#sets\">Sets and functions</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./first-order-logic-and-completeness.html#deduction\">First-order logic and completeness</a> · Deduction: proof systems and soundness</div>\n    <div><a href=\"./first-order-logic-and-completeness.html#semantics\">First-order logic and completeness</a> · Tarski semantics and structures</div>\n    <div><a href=\"./model-theory-basics.html#structures\">Model theory</a> · Structures and signatures</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -83,7 +87,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./first-order-logic-and-completeness.html#completeness\">First-order logic and completeness</a> · Gödel's completeness theorem</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./first-order-logic-and-completeness.html#completeness\">First-order logic and completeness</a> · Gödel's completeness theorem</div>\n    <div><a href=\"./model-theory-basics.html#elementary-equivalence\">Model theory</a> · Elementary equivalence</div>\n    <div><a href=\"./model-theory-basics.html#structures\">Model theory</a> · Structures and signatures</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -183,7 +187,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./first-order-logic-and-completeness.html#compactness\">First-order logic and completeness</a> · Compactness and non-standard models</div>\n    <div><a href=\"./first-order-logic-and-completeness.html#decidable\">First-order logic and completeness</a> · Decidable theories and quantifier elimination</div>\n    <div><a href=\"./first-order-logic-and-completeness.html#lowenheim-skolem\">First-order logic and completeness</a> · Löwenheim–Skolem and Skolem's paradox</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./computability-and-decidability.html#godel\">Computability theory</a> · Gödel incompleteness — computability lens</div>\n    <div><a href=\"./first-order-logic-and-completeness.html#compactness\">First-order logic and completeness</a> · Compactness and non-standard models</div>\n    <div><a href=\"./first-order-logic-and-completeness.html#decidable\">First-order logic and completeness</a> · Decidable theories and quantifier elimination</div>\n    <div><a href=\"./first-order-logic-and-completeness.html#lowenheim-skolem\">First-order logic and completeness</a> · Löwenheim–Skolem and Skolem's paradox</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -229,6 +233,10 @@
         {
           "type": "raw",
           "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./point-set-topology.html#compact\">Compactness</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./model-theory-basics.html#types\">Model theory</a> · Types and saturation</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "quiz",

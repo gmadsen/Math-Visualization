@@ -17,6 +17,10 @@
         },
         {
           "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./algebraic-de-rham-cohomology.html#de-rham-complex\">The algebraic de Rham complex $\\Omega^\\bullet_{X/k}$</a></li>\n    <li><a href=\"./complex-analysis.html#holomorphic-function\">Holomorphic functions</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "raw",
           "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./hodge-theory.html#decomposition\">Hodge theory</a> · The Hodge decomposition theorem</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
@@ -61,6 +65,10 @@
         },
         {
           "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./algebraic-de-rham-cohomology.html#hodge-filtration\">algebraic de Rham cohomology · Hodge filtration</a> — the spectral-sequence story in detail.</li>\n    <li><a href=\"./algebraic-de-rham-cohomology.html#hodge-numbers\">Hodge numbers</a> — the dimensions $h^{p,q}$ as basic invariants.</li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "raw",
           "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./hodge-theory.html#pure-hodge\">Hodge theory</a> · Pure Hodge structures as a category</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
@@ -80,6 +88,10 @@
           "type": "quiz",
           "concept": "pure-hodge-structure",
           "html": "<div class=\"quiz\" data-concept=\"pure-hodge-structure\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./motives.html#tannakian\">Tannakian categories — representations of an invisible group</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {
           "type": "raw",
@@ -127,6 +139,10 @@
         },
         {
           "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./intersection-theory-chow.html#chow-groups\">Chow groups $A_*(X)$</a></li>\n    <li><a href=\"./motives.html#motivic-galois\">The motivic Galois group</a></li>\n    <li><a href=\"./motives.html#realizations\">Realizations: how Betti, de Rham, ℓ-adic, crystalline all come from one motive</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "raw",
           "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./hodge-theory.html#motivic-realization\">Hodge theory</a> · Hodge as a motivic realization</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
@@ -141,6 +157,10 @@
         {
           "type": "raw",
           "html": "<section id=\"period-domains\">\n<h2>7. Period domains and variations of Hodge structure</h2>\n\n<p>A <em>family</em> of varieties $\\pi\\colon \\mathcal{X} \\to S$ over a base $S$ produces, for each $s \\in S$, a Hodge structure on $H^n(\\mathcal{X}_s; \\mathbb{Q})$. As $s$ varies, the $\\mathbb{Q}$-vector space stays constant locally (over a simply-connected base) but the Hodge filtration $F^\\bullet$ moves. The resulting object is a <b>variation of Hodge structure</b> (VHS) — a flat $\\mathbb{Q}$-bundle plus a holomorphically-varying Hodge filtration.</p>\n\n<p>The receiving space is the <b>period domain</b> $D$ — a complex manifold parametrising all polarised Hodge structures of the given type (weight, dimension, polarisation). For weight-$1$ Hodge structures of dimension $2g$ with the standard symplectic polarisation, $D$ is the Siegel upper half-space $\\mathfrak{H}_g$ — and the period domain for an abelian variety's $H^1$ is exactly this. For higher weight the period domain is no longer Hermitian symmetric in general, which is a major source of the difficulty.</p>\n\n<p><b>Griffiths transversality.</b> The derivative of the period map $S \\to D$ is constrained: $\\nabla F^p \\subset F^{p-1} \\otimes \\Omega^1_S$. So the period map cannot move freely — its differential drops at most one step in the Hodge filtration per direction. This is what makes the period map <em>locally injective</em> on most families, and what makes the global period map (after taking a quotient by the monodromy) often algebraic.</p>\n\n<aside class=\"note\"><b>Key examples.</b> The period map for elliptic curves $\\mathcal{E} \\to \\mathcal{M}_{1,1}$ recovers the classical <em>j</em>-line via the Weierstrass <em>℘</em>-function. The period map for K3 surfaces lands in a 20-dimensional period domain and is generically a local isomorphism (Torelli theorem for K3s). For a generic Calabi-Yau threefold the period map is dominant onto its image but with Griffiths transversality as the binding constraint.</aside>\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./moduli-spaces.html#what\">Moduli problems and parameters</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {
           "type": "quiz",
@@ -159,6 +179,10 @@
         {
           "type": "raw",
           "html": "<section id=\"motivic-realization\">\n<h2>8. Hodge as a motivic realization</h2>\n\n<p>The Hodge realization functor $R_\\Hdg\\colon \\mathsf{Mot}_\\mathbb{Q} \\to \\HS_\\mathbb{Q}$ sends a motive to its Hodge structure. It is one of the four classical realizations from <a href=\"./motives.html#realizations\">§7 of motives</a>; the others are Betti, $\\ell$-adic étale, and crystalline.</p>\n\n<p>The Hodge-realization quotient $G_{\\mathrm{mot}}(\\mathbb{Q}) \\twoheadrightarrow \\MT$ is exactly what the Hodge conjecture asks to be surjective. So the conjecture is the statement: <em>every Hodge-theoretic symmetry of cohomology lifts to a motivic symmetry.</em> Modulo the standard conjectures + Hodge, motives over $\\mathbb{Q}$ would be entirely determined by their Hodge realizations — the Tannakian formalism would collapse to \"studying motives is studying their Hodge structures.\"</p>\n\n<p>The unconditional bridge is more modest but already powerful: the category $\\MHS_\\mathbb{Q}$ of mixed Hodge structures is unconditionally Tannakian, and Voevodsky's $\\mathsf{DM}(\\mathbb{Q})$ has a Hodge realization $\\mathsf{DM}(\\mathbb{Q}) \\to D^b(\\MHS_\\mathbb{Q})$ (Huber, Bondarko). So mixed motives — at least in their triangulated avatar — already factor through mixed Hodge structures, even without the standard conjectures.</p>\n\n<aside class=\"note\"><b>Mixed Tate Hodge.</b> The Hodge realization restricts to a fully faithful functor on mixed Tate motives over $\\mathbb{Z}$ (Deligne–Goncharov, Brown). This is the unconditionally-true motivic Galois group story: the category of mixed Tate Hodge structures captures multiple zeta values, and the explicit motivic Galois group acting on them is computed.</aside>\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./motives.html#motivic-galois\">The motivic Galois group</a></li>\n    <li><a href=\"./motives.html#realizations\">Realizations: how Betti, de Rham, ℓ-adic, crystalline all come from one motive</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {
           "type": "quiz",

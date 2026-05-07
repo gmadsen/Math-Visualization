@@ -283,16 +283,17 @@ for (const [id, entries] of conceptsById) {
   }
 }
 
-// Prereq resolution. Support bare id and "topic:id".
+// Prereq resolution. Bare ids only — concept ids are globally unique by the
+// duplicate-id check above, so the legacy "topic:id" colon form is redundant
+// and was a silent-data-loss source: the model's `crossTopicEdges` only looks
+// up bare ids via `ownerOf.get(prereqId)`, so colon-form prereqs were silently
+// dropped from the cross-topic graph (rendering as zero in pathway / mindmap)
+// while the validator accepted them. PR #130 migrated the 9 colon-form topics
+// and added this hard refusal so the form can't reappear.
 function resolvePrereq(p) {
   if (typeof p !== 'string' || !p) return { kind: 'bad', reason: 'non-string prereq' };
   if (p.includes(':')) {
-    const [t, rawId] = p.split(':', 2);
-    const entries = conceptsById.get(rawId);
-    if (!entries) return { kind: 'missing' };
-    const match = entries.find((e) => e.topic === t);
-    if (!match) return { kind: 'missing' };
-    return { kind: 'ok', id: rawId, topic: t };
+    return { kind: 'bad', reason: `colon-form prereq "${p}" not allowed; use the bare concept id` };
   }
   const entries = conceptsById.get(p);
   if (!entries || entries.length === 0) return { kind: 'missing' };

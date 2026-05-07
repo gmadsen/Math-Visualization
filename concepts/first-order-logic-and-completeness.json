@@ -8,7 +8,7 @@
       "title": "Syntax: languages, terms, formulas",
       "anchor": "syntax",
       "prereqs": [
-        "naive-set-theory:sets-functions"
+        "sets-functions"
       ],
       "blurb": "A first-order language $\\mathcal{L}$ is a triple of constant, function, and relation symbols (with arities). Terms are built from variables, constants, and function applications; formulas from atomic predicates by Boolean connectives and quantifiers $\\forall, \\exists$. Free vs bound variables; sentences are formulas with no free variables.",
       "tags": [

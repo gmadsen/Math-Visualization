@@ -33,6 +33,10 @@
         },
         {
           "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./naive-set-theory.html#sets\">Sets and functions</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "raw",
           "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./type-theory-and-hott.html#pi-sigma\">Type theory and HoTT</a> · Π and Σ types</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
@@ -180,6 +184,10 @@
           "type": "quiz",
           "concept": "tt-univalence",
           "html": "<div class=\"quiz\" data-concept=\"tt-univalence\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./category-theory.html#cat\">Categories and morphisms</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {
           "type": "raw",

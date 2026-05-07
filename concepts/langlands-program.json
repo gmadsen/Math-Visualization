@@ -9,8 +9,8 @@
       "anchor": "philosophy",
       "blurb": "Two columns. Arithmetic: $n$-dim Galois reps from cohomology of varieties. Analytic: cuspidal automorphic reps of $\\GL_n(\\mathbb{A}_\\mathbb{Q})$. Conjecture: bijection mediated by L-functions, $L(\\rho,s) = L(\\pi,s)$.",
       "prereqs": [
-        "galois-representations:galois-rep-definition",
-        "automorphic-forms-adelic:automorphic-form-definition"
+        "galois-rep-definition",
+        "automorphic-form-definition"
       ],
       "tags": [
         "duality",
@@ -24,8 +24,8 @@
       "blurb": "Both sides produce L-functions. From Galois rep: Euler product over Frobenius char polynomials. From automorphic rep: Euler product over Satake parameters. Matching is testable: Jacquet-Shalika strong multiplicity one + automatic functional equations on the automorphic side.",
       "prereqs": [
         "langlands-philosophy",
-        "L-functions:lfunction-prototype",
-        "L-functions:functional-equation-completion"
+        "lfunction-prototype",
+        "functional-equation-completion"
       ],
       "tags": [
         "duality"
@@ -65,7 +65,7 @@
       "blurb": "The abelian case. Artin reciprocity gives a continuous surjection $\\mathbb{A}_\\mathbb{Q}^\\times / \\mathbb{Q}^\\times \\twoheadrightarrow \\Gal(\\overline{\\mathbb{Q}}/\\mathbb{Q})^{\\mathrm{ab}}$. Galois characters $\\leftrightarrow$ Hecke characters; Artin L-functions = Hecke L-functions. Historical prototype Langlands generalised.",
       "prereqs": [
         "global-langlands-gl-n",
-        "class-field-theory:artin-map-cft"
+        "artin-map-cft"
       ],
       "tags": [
         "classification",
@@ -79,7 +79,7 @@
       "blurb": "Wiles + Taylor-Wiles + BCDT: every elliptic curve $E/\\mathbb{Q}$ has $L(E,s) = L(f,s)$ for a weight-2 cusp form $f$ of level $\\mathrm{cond}(E)$. Khare-Wintenberger (Serre's conjecture): every odd irreducible mod-$\\ell$ Galois rep is modular.",
       "prereqs": [
         "global-langlands-gl-n",
-        "modularity-and-flt:modularity-theorem"
+        "modularity-theorem"
       ],
       "tags": [
         "classification"
@@ -106,7 +106,7 @@
         "functoriality-langlands-group",
         "gl2-modularity",
         "cft-as-langlands",
-        "sato-tate:symmetric-power-l-functions"
+        "symmetric-power-l-functions"
       ],
       "tags": [
         "duality"

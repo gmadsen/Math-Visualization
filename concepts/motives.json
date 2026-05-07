@@ -9,8 +9,8 @@
       "anchor": "cohomology-zoo",
       "blurb": "Betti, de Rham, ℓ-adic, and crystalline cohomology take values in different categories yet share parallel Künneth, Poincaré-duality, and Lefschetz formulas. Grothendieck's vision: a universal h: SmProj/k → Mot(k) through which every realization factors.",
       "prereqs": [
-        "etale-cohomology:l-adic-cohomology",
-        "algebraic-de-rham-cohomology:comparison-betti"
+        "l-adic-cohomology",
+        "comparison-betti"
       ],
       "tags": [
         "cohomology"
@@ -23,7 +23,7 @@
       "blurb": "Morphisms in Mot(k) are elements of CH*(X×Y) ⊗ Q — algebraic cycles modulo rational equivalence — composed via pushforward/pullback on the triple product. Graphs of morphisms embed varieties; the diagonal acts as identity.",
       "prereqs": [
         "cohomology-zoo",
-        "intersection-theory-chow:chow-groups"
+        "chow-groups"
       ],
       "tags": [
         "functoriality"
@@ -59,9 +59,9 @@
       "anchor": "tannakian",
       "blurb": "A neutral Tannakian category T over k is k-linear rigid abelian symmetric monoidal with a faithful exact tensor fiber functor ω: T → Vect_k, such that T ≃ Rep_k(Aut⊗(ω)). Solving the category = solving the group.",
       "prereqs": [
-        "category-theory:functors-natural-transformations",
-        "category-theory:monoidal-categories",
-        "representation-theory:group-representations"
+        "functors-natural-transformations",
+        "monoidal-categories",
+        "group-representations"
       ],
       "tags": [
         "duality"
@@ -75,7 +75,7 @@
       "prereqs": [
         "tannakian-categories",
         "tate-twist",
-        "galois-representations:galois-rep-definition"
+        "galois-rep-definition"
       ],
       "tags": [
         "group-action",

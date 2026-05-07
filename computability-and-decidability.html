@@ -292,9 +292,17 @@ function drawNode(svg, x, y, label, opts={}){
   <div class="readout" id="tm-out"></div>
 </div>
 
-<div class="quiz" data-concept="comp-turing-machines"></div><!-- backlinks-auto-begin -->
+<div class="quiz" data-concept="comp-turing-machines"></div><!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./naive-set-theory.html#sets">Sets and functions</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
 <aside class="related">
   <div class="ttl">Used in</div>
+    <div><a href="./complexity-theory.html#time">Complexity theory</a> · Time complexity and big-O</div>
     <div><a href="./computability-and-decidability.html#recursive">Computability theory</a> · Recursive and partial-recursive functions</div>
     <div><a href="./computability-and-decidability.html#halting">Computability theory</a> · The halting problem</div>
 </aside>
@@ -602,12 +610,14 @@ function drawNode(svg, x, y, label, opts={}){
   <div class="readout" id="diag-out"></div>
 </div>
 
-<div class="quiz" data-concept="comp-halting-problem"></div><!-- callback-auto-begin --><aside class="callback">
+<div class="quiz" data-concept="comp-halting-problem"></div><!-- callback-auto-begin -->
+<aside class="callback">
   <div class="ttl">See also</div>
   <ul>
     <li>Naive set theory · <a href="./naive-set-theory.html#countable">Countability</a></li>
   </ul>
-</aside><!-- callback-auto-end --><!-- backlinks-auto-begin -->
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
 <aside class="related">
   <div class="ttl">Used in</div>
     <div><a href="./computability-and-decidability.html#godel">Computability theory</a> · Gödel incompleteness — computability lens</div>
@@ -842,7 +852,12 @@ function drawNode(svg, x, y, label, opts={}){
   <div class="readout" id="red-out"></div>
 </div>
 
-<div class="quiz" data-concept="comp-undecidability"></div><script>
+<div class="quiz" data-concept="comp-undecidability"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./complexity-theory.html#np-complete">Complexity theory</a> · NP-completeness and Cook–Levin</div>
+</aside>
+<!-- backlinks-auto-end --><script>
 /* =========================== Reduction-graph widget =========================== */
 (function(){
   const svg=$('#red-svg'), out=$('#red-out');
@@ -950,12 +965,14 @@ function drawNode(svg, x, y, label, opts={}){
   <div class="readout" id="godel-out"></div>
 </div>
 
-<div class="quiz" data-concept="comp-godel-incompleteness"></div><!-- callback-auto-begin --><aside class="callback">
+<div class="quiz" data-concept="comp-godel-incompleteness"></div><!-- callback-auto-begin -->
+<aside class="callback">
   <div class="ttl">See also</div>
   <ul>
     <li>First-order logic and completeness · <a href="./first-order-logic-and-completeness.html#completeness">Gödel's completeness theorem</a></li>
   </ul>
-</aside><!-- callback-auto-end --><script>
+</aside>
+<!-- callback-auto-end --><script>
 /* =========================== Gödel-encoding widget =========================== */
 (function(){
   const svg=$('#godel-svg'), out=$('#godel-out');

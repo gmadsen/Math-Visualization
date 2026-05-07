@@ -8,7 +8,7 @@
       "title": "Judgments and contexts",
       "anchor": "judgments",
       "prereqs": [
-        "naive-set-theory:sets-functions"
+        "sets-functions"
       ],
       "blurb": "A judgment is a primitive assertion of the theory: $\\Gamma\\vdash a:A$ ('in context $\\Gamma$, the term $a$ has type $A$'). The four basic forms — $A\\;\\mathsf{type}$, $a:A$, $A\\equiv B$, $a\\equiv b:A$ — replace 'membership' with a structured deduction system. Contexts $\\Gamma=(x_1:A_1,\\ldots,x_n:A_n)$ track free variables; well-formedness is itself a derivable judgment.",
       "tags": [
@@ -46,7 +46,7 @@
       "anchor": "univalence",
       "prereqs": [
         "tt-identity-types",
-        "category-theory:categories-morphisms"
+        "categories-morphisms"
       ],
       "blurb": "Univalence asserts that the canonical map $(A=B)\\to(A\\simeq B)$ from identifications of types to equivalences is itself an equivalence. Operationally: isomorphic structures are identifiable, and any property invariant under one is invariant under the other. Voevodsky's axiom turns 'equivalence' into 'equality' and forces the universe to be a higher groupoid rather than a discrete set of types.",
       "tags": [
