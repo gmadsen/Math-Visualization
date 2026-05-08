@@ -23,7 +23,7 @@ Alongside each handwritten `<topic>.html`, the repo also carries a structured `c
 
 ## Learning pathways
 
-Start from [`pathway.html`](./pathway.html) to explore prerequisite graphs for capstone goals — pick any of the 34 capstones and the DAG layers every prereq concept by depth. For free-form exploration over the entire 1170-concept graph (no goal required), [`mindmap.html`](./mindmap.html) renders a section-clustered force-directed layout: click a node to focus its k-hop neighborhood, filter by section/level/mastery, and a structural-stats panel surfaces uneven prereq density across the eleven sections. Both views read the same concept graph; pathway is goal-targeted, mindmap is free-explore.
+Start from [`pathway.html`](./pathway.html) to explore prerequisite graphs for capstone goals — pick any of the 34 capstones and the DAG layers every prereq concept by depth. For free-form exploration over the entire 1176-concept graph (no goal required), [`mindmap.html`](./mindmap.html) renders a section-clustered force-directed layout: click a node to focus its k-hop neighborhood, filter by section/level/mastery, and a structural-stats panel surfaces uneven prereq density across the eleven sections. Both views read the same concept graph; pathway is goal-targeted, mindmap is free-explore.
 
 Each concept carries up to three quiz tiers — v1 (required), hard (unlocked after v1), and expert (unlocked after hard). Mastery is tracked in `localStorage` and lights up downstream concepts `locked → ready → mastered`, Brilliant-style. Topic cards on the index may carry a level badge: `prereq`, `advanced`, or `capstone`.
 
@@ -195,6 +195,7 @@ Each concept carries up to three quiz tiers — v1 (required), hard (unlocked af
 - [MMP & birational geometry](./mmp-and-birational-geometry.html) — Kodaira dimension, the cone theorem, surface MMP (Castelnuovo / Enriques), threefold MMP and flips, singularities of pairs, Mori fibre spaces and Sarkisov
 - [D-modules & the Riemann–Hilbert correspondence](./d-modules.html) — the Weyl algebra, $\mathcal{D}_X$-modules, holonomicity and characteristic varieties, hypergeometric systems, the Bernstein–Sato polynomial
 - [Crystalline cohomology](./crystalline-cohomology.html) — the $\ell=p$ gap, divided powers and the crystalline site, comparison with de Rham of a lift, Frobenius and Katz–Messing, F-isocrystals, period rings $B_{\mathrm{cris}} / B_{\mathrm{dR}}$
+- [Tropical geometry](./tropical-geometry.html) — draft — fill in once the page has real content
 
 ### Combinatorics & graph theory
 - [Spectral graph theory](./spectral-graph-theory.html) — adjacency, Laplacian, Cheeger inequality, expanders — graphs as discrete differential geometry
