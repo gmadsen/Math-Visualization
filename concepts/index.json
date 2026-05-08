@@ -14,6 +14,9 @@
 
 
 
+    "complex-multiplication",
+
+
 
 
 
@@ -368,6 +371,7 @@
     "abelian-varieties": "advanced",
     "positivity-and-ample-line-bundles": "advanced",
     "dirichlet-unit-theorem": "advanced",
+    "complex-multiplication": "advanced",
     "cobordism": "advanced",
     "mmp-and-birational-geometry": "advanced",
     "homotopy-theory": "advanced",

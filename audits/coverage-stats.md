@@ -5,7 +5,7 @@
 - Topics: **168**, concepts: **1170**
 - Widgets: **1195** (registry-driven: 1195, inline: 0)
 - Quizzes: **4704** (v1: 3468, hard: 1223, expert: 13)
-- Quiz types: mcq: 3115, numeric: 1146, multi-select: 198, matching: 88, ordering: 64, spot-the-error: 41, complex: 29, proof-completion: 19, construction: 2, guess-my-rule: 2
+- Quiz types: mcq: 3117, numeric: 1140, multi-select: 199, matching: 89, ordering: 65, spot-the-error: 42, complex: 29, proof-completion: 19, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their section: **149**
 - Concepts lacking a hard-tier quiz: **732**
 
@@ -158,6 +158,12 @@ page has wired one in yet.
 | `commutative-algebra-tensor` | clickable-diagram | click | 2d | 1 | commutative-algebra |
 | `commutative-algebra-transcendence-degree` | parametric-plot | select | 2d | 1 | commutative-algebra |
 | `commutative-algebra-zariski-spec` | clickable-diagram | click | 2d | 1 | commutative-algebra |
+| `complex-multiplication-w1` | verbatim | drag | 2d | 1 | complex-multiplication |
+| `complex-multiplication-w2` | verbatim | select | 2d | 1 | complex-multiplication |
+| `complex-multiplication-w3` | verbatim | click | 2d | 1 | complex-multiplication |
+| `complex-multiplication-w4` | verbatim | select | 2d | 1 | complex-multiplication |
+| `complex-multiplication-w5` | verbatim | select | 2d | 1 | complex-multiplication |
+| `complex-multiplication-w6` | verbatim | select | 2d | 1 | complex-multiplication |
 | `complexity-cook-levin-tableau` | complexity-cook-levin-tableau | step | 2d | 1 | complexity-theory |
 | `complexity-growth-rates` | complexity-growth-rates | slider | 2d | 1 | complexity-theory |
 | `complexity-hierarchy-diagonal` | complexity-hierarchy-diagonal | toggle | 2d | 1 | complexity-theory |
@@ -704,12 +710,6 @@ page has wired one in yet.
 | `toric-varieties-w3` | verbatim | click | 2d | 1 | toric-varieties |
 | `toric-varieties-w4` | verbatim | click | 2d | 1 | toric-varieties |
 | `toric-varieties-w5` | verbatim | click | 2d | 1 | toric-varieties |
-| `trop-w1` | verbatim | slider | 2d | 1 | tropical-geometry |
-| `trop-w2` | verbatim | select | 2d | 1 | tropical-geometry |
-| `trop-w3` | verbatim | slider | 2d | 1 | tropical-geometry |
-| `trop-w4` | verbatim | slider | 2d | 1 | tropical-geometry |
-| `trop-w5` | verbatim | select | 2d | 1 | tropical-geometry |
-| `trop-w6` | verbatim | slider | 2d | 1 | tropical-geometry |
 | `type-theory-circle-winding` | type-theory-circle-winding | click | 2d | 1 | type-theory-and-hott |
 | `type-theory-context-builder` | type-theory-context-builder | click | 2d | 1 | type-theory-and-hott |
 | `type-theory-infty-groupoid` | type-theory-infty-groupoid | click | 2d | 1 | type-theory-and-hott |
@@ -806,13 +806,13 @@ page has wired one in yet.
 
 ### Number theory
 
-- Topics: **17**, concepts: **116**
-- Widgets: **137** (registry-driven: 137, inline: 0)
-  - by family: button-stepper: 66, verbatim: 27, clickable-diagram: 4, modular-arithmetic-clock: 4, input-form: 4, inline-code-cell: 4, declarative-host: 2, parametric-plot: 2, crypto-totient-units: 1, crypto-rsa-toy: 1, crypto-diffie-hellman: 1, crypto-ecc-points: 1, crypto-lwe-samples: 1, crypto-schnorr-protocol: 1, branching-proof-scrubber: 1, clickable-graph: 1, svg-illustration: 1, heights-naive-calculator: 1, heights-northcott-enumerator: 1, heights-weil-pullback: 1, heights-tate-averaging: 1, heights-mahler-measure: 1, heights-genus-growth: 1, heights-arakelov-decomposition: 1, counterexample-explorer: 1, ant-pnt-comparison: 1, ant-explicit-formula: 1, ant-zero-free-region: 1, ant-dirichlet-residue-wheel: 1, ant-sieve-truncation: 1, ant-bombieri-vinogradov: 1, proof-scrubber: 1
-  - by dimension: 2d: 137
-  - by gesture: click: 93, slider: 22, input: 8, edit: 4, interactive: 2, interact: 2, button: 1, static: 1, branching-timeline: 1, read: 1, select: 1, timeline: 1
-- Quizzes: **528** (v1: 345, hard: 183, expert: 0)
-  - by type: mcq: 354, numeric: 158, multi-select: 8, complex: 3, matching: 3, ordering: 1, guess-my-rule: 1
+- Topics: **18**, concepts: **122**
+- Widgets: **143** (registry-driven: 143, inline: 0)
+  - by family: button-stepper: 66, verbatim: 33, clickable-diagram: 4, modular-arithmetic-clock: 4, input-form: 4, inline-code-cell: 4, declarative-host: 2, parametric-plot: 2, crypto-totient-units: 1, crypto-rsa-toy: 1, crypto-diffie-hellman: 1, crypto-ecc-points: 1, crypto-lwe-samples: 1, crypto-schnorr-protocol: 1, branching-proof-scrubber: 1, clickable-graph: 1, svg-illustration: 1, heights-naive-calculator: 1, heights-northcott-enumerator: 1, heights-weil-pullback: 1, heights-tate-averaging: 1, heights-mahler-measure: 1, heights-genus-growth: 1, heights-arakelov-decomposition: 1, counterexample-explorer: 1, ant-pnt-comparison: 1, ant-explicit-formula: 1, ant-zero-free-region: 1, ant-dirichlet-residue-wheel: 1, ant-sieve-truncation: 1, ant-bombieri-vinogradov: 1, proof-scrubber: 1
+  - by dimension: 2d: 143
+  - by gesture: click: 94, slider: 22, input: 8, select: 5, edit: 4, interactive: 2, interact: 2, drag: 1, button: 1, static: 1, branching-timeline: 1, read: 1, timeline: 1
+- Quizzes: **546** (v1: 363, hard: 183, expert: 0)
+  - by type: mcq: 365, numeric: 161, multi-select: 9, matching: 4, complex: 3, ordering: 2, spot-the-error: 1, guess-my-rule: 1
 
 ### Modular forms & L-functions
 
@@ -826,13 +826,13 @@ page has wired one in yet.
 
 ### Algebraic geometry
 
-- Topics: **31**, concepts: **185**
-- Widgets: **193** (registry-driven: 193, inline: 0)
-  - by family: button-stepper: 61, verbatim: 49, clickable-diagram: 23, proof-scrubber: 7, clickable-graph: 6, declarative-host: 6, parametric-plot: 4, modular-arithmetic-clock: 2, svg-illustration: 2, calabi-yau-canonical-degree: 1, calabi-yau-hodge-diamond: 1, calabi-yau-hypersurface-zoo: 1, calabi-yau-periods: 1, calabi-yau-mirror-swap: 1, calabi-yau-syz-fibration: 1, mirror-hodge-diamond: 1, mirror-quintic-counts: 1, mirror-stable-map: 1, mirror-quintic-periods: 1, mirror-hms-pairing: 1, mirror-syz-fibration: 1, resolution-cusp-node-visualizer: 1, resolution-cuspidal-blowup: 1, resolution-tower-of-blowups: 1, resolution-curve-normalization: 1, resolution-ade-dynkin: 1, lattice-visualizer: 1, algebraic-curves-riemann-hurwitz-cover: 1, algebraic-curves-jacobian-lattice: 1, algebraic-curves-riemann-roch-scrubber: 1, algebraic-curves-canonical-embedding-scrubber: 1, algebraic-curves-hyperelliptic-cover: 1, algebraic-curves-moduli-boundary: 1, algebraic-de-rham-kahler-scrubber: 1, algebraic-de-rham-complex-scrubber: 1, algebraic-de-rham-betti-comparison-scrubber: 1, algebraic-de-rham-hodge-filtration-scrubber: 1, algebraic-de-rham-hodge-diamond-clickgraph: 1, algebraic-de-rham-hodge-pn-explorer: 1, algebraic-de-rham-curve-clickable: 1, algebraic-de-rham-hodge-sandbox: 1, counterexample-explorer: 1
-  - by dimension: 2d: 193
-  - by gesture: click: 136, slider: 17, interact: 16, select: 8, scrub: 7, inspect: 5, drag: 2, read: 1, slide: 1
-- Quizzes: **800** (v1: 555, hard: 245, expert: 0)
-  - by type: mcq: 531, numeric: 211, multi-select: 27, matching: 15, spot-the-error: 7, ordering: 5, complex: 3, proof-completion: 1
+- Topics: **30**, concepts: **179**
+- Widgets: **187** (registry-driven: 187, inline: 0)
+  - by family: button-stepper: 61, verbatim: 43, clickable-diagram: 23, proof-scrubber: 7, clickable-graph: 6, declarative-host: 6, parametric-plot: 4, modular-arithmetic-clock: 2, svg-illustration: 2, calabi-yau-canonical-degree: 1, calabi-yau-hodge-diamond: 1, calabi-yau-hypersurface-zoo: 1, calabi-yau-periods: 1, calabi-yau-mirror-swap: 1, calabi-yau-syz-fibration: 1, mirror-hodge-diamond: 1, mirror-quintic-counts: 1, mirror-stable-map: 1, mirror-quintic-periods: 1, mirror-hms-pairing: 1, mirror-syz-fibration: 1, resolution-cusp-node-visualizer: 1, resolution-cuspidal-blowup: 1, resolution-tower-of-blowups: 1, resolution-curve-normalization: 1, resolution-ade-dynkin: 1, lattice-visualizer: 1, algebraic-curves-riemann-hurwitz-cover: 1, algebraic-curves-jacobian-lattice: 1, algebraic-curves-riemann-roch-scrubber: 1, algebraic-curves-canonical-embedding-scrubber: 1, algebraic-curves-hyperelliptic-cover: 1, algebraic-curves-moduli-boundary: 1, algebraic-de-rham-kahler-scrubber: 1, algebraic-de-rham-complex-scrubber: 1, algebraic-de-rham-betti-comparison-scrubber: 1, algebraic-de-rham-hodge-filtration-scrubber: 1, algebraic-de-rham-hodge-diamond-clickgraph: 1, algebraic-de-rham-hodge-pn-explorer: 1, algebraic-de-rham-curve-clickable: 1, algebraic-de-rham-hodge-sandbox: 1, counterexample-explorer: 1
+  - by dimension: 2d: 187
+  - by gesture: click: 136, interact: 16, slider: 13, scrub: 7, select: 6, inspect: 5, drag: 2, read: 1, slide: 1
+- Quizzes: **782** (v1: 537, hard: 245, expert: 0)
+  - by type: mcq: 522, numeric: 202, multi-select: 27, matching: 15, spot-the-error: 7, ordering: 5, complex: 3, proof-completion: 1
 
 ### Combinatorics & graph theory
 
@@ -858,7 +858,7 @@ page has wired one in yet.
 
 - `several-complex-variables` (Analysis) — concepts=6, widgets=5 (slug=5), quiz=18 (v1=18, hard=0, expert=0)
 - `khovanov-homology` (Geometry & topology) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `tropical-geometry` (Algebraic geometry) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
+- `complex-multiplication` (Number theory) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `kahler-geometry` (Geometry & topology) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `mapping-class-groups` (Geometry & topology) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `half-integral-weight-forms` (Modular forms & L-functions) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
@@ -1064,11 +1064,11 @@ page has wired one in yet.
 - `khov-rasmussen` (khovanov-homology)
 - `khov-foams` (khovanov-homology)
 - `khov-applications` (khovanov-homology)
-- `trop-semiring` (tropical-geometry)
-- `trop-curves` (tropical-geometry)
-- `trop-tropicalization` (tropical-geometry)
-- `trop-bezout` (tropical-geometry)
-- `trop-moduli` (tropical-geometry)
-- `trop-applications` (tropical-geometry)
+- `cm-elliptic-c` (complex-multiplication)
+- `cm-class-poly` (complex-multiplication)
+- `cm-heegner` (complex-multiplication)
+- `cm-main-theorem` (complex-multiplication)
+- `cm-abelian` (complex-multiplication)
+- `cm-stark-heegner` (complex-multiplication)
 - `kg-complex-structure` (kahler-geometry)
 - `kg-kahler-form` (kahler-geometry)

@@ -17,13 +17,13 @@ reach into upstream foundations or stay within their own cluster.
 | Analysis | 197 | 346 | 33 | 65 | 0.168 |
 | Probability & statistics | 55 | 92 | 14 | 13 | 0.255 |
 | Geometry & topology | 140 | 233 | 29 | 94 | 0.207 |
-| Number theory | 116 | 160 | 49 | 33 | 0.422 |
-| Modular forms & L-functions | 115 | 170 | 58 | 18 | 0.504 |
-| Algebraic geometry | 185 | 275 | 69 | 29 | 0.373 |
+| Number theory | 122 | 169 | 54 | 32 | 0.443 |
+| Modular forms & L-functions | 115 | 170 | 58 | 21 | 0.504 |
+| Algebraic geometry | 179 | 265 | 68 | 31 | 0.380 |
 | Combinatorics & graph theory | 51 | 50 | 24 | 2 | 0.471 |
 | Mathematical physics | 69 | 75 | 40 | 0 | 0.580 |
 
-## EMPTY — concepts with no prereqs (2)
+## EMPTY — concepts with no prereqs (1)
 
 Concepts whose `prereqs` field is `[]` and whose owning topic is *not*
 a foundation/prereq topic. Almost always indicates a missing cross-
@@ -34,7 +34,6 @@ at brand-new progress alongside genuine entry points like
 | topic | concept | title |
 |---|---|---|
 | advanced-complex-analysis | `aca-overview` | The graduate landscape |
-| tropical-geometry | `trop-semiring` | The tropical semiring |
 
 ## THIN-NEW — new-arc concepts with intra-topic-only prereqs (13)
 

@@ -140,6 +140,7 @@ Each concept carries up to three quiz tiers — v1 (required), hard (unlocked af
 - [Iwasawa theory](./iwasawa-theory.html) — cyclotomic $\mathbb{Z}_p$-extensions, Iwasawa algebra $\Lambda$, class groups along the tower, Kubota–Leopoldt $p$-adic $L$-function, Iwasawa main conjecture
 - [Continued fractions & Diophantine approximation](./continued-fractions.html) — convergents, Hurwitz, Liouville, Roth's theorem, Markoff spectrum, $p$-adic Roth and the subspace theorem
 - [Dirichlet's unit theorem](./dirichlet-unit-theorem.html) — logarithmic embedding of units, the regulator $R_K$, analytic class number formula, real quadratic units & Pell, $S$-units
+- [Complex multiplication of elliptic curves](./complex-multiplication.html) — CM elliptic curves, Hilbert class polynomial, Heegner points on modular curves, the main theorem of CM (explicit CFT for imaginary quadratic), CM abelian varieties (Shimura–Taniyama), Heegner numbers and Gross–Zagier
 
 ### Modular forms & L-functions
 - [Upper half-plane](./upper-half-plane-hyperbolic.html) — hyperbolic geometry and Möbius action

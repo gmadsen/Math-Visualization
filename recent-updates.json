@@ -1,6 +1,14 @@
 {
-  "generated": "2026-05-08T03:17:51.274Z",
+  "generated": "2026-05-08T03:23:30.359Z",
   "entries": [
+    {
+      "slug": "complex-multiplication",
+      "title": "Complex multiplication",
+      "color": "y",
+      "tag": "",
+      "date": "2026-05-07",
+      "message": "New topic: Complex multiplication of elliptic curves (Number theory)"
+    },
     {
       "slug": "khovanov-homology",
       "title": "Khovanov homology",
@@ -8,14 +16,6 @@
       "tag": "",
       "date": "2026-05-07",
       "message": "New topic: Khovanov homology & link homology (#135)"
-    },
-    {
-      "slug": "tropical-geometry",
-      "title": "Tropical geometry",
-      "color": "g",
-      "tag": "",
-      "date": "2026-05-07",
-      "message": "New topic: Tropical geometry (Algebraic geometry)"
     },
     {
       "slug": "abelian-varieties",

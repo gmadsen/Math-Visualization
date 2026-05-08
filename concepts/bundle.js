@@ -6,7 +6,7 @@ window.__MVConcepts = {
     "topics": [
       "several-complex-variables",
       "khovanov-homology",
-      "tropical-geometry",
+      "complex-multiplication",
       "kahler-geometry",
       "mapping-class-groups",
       "half-integral-weight-forms",
@@ -351,6 +351,7 @@ window.__MVConcepts = {
       "abelian-varieties": "advanced",
       "positivity-and-ample-line-bundles": "advanced",
       "dirichlet-unit-theorem": "advanced",
+      "complex-multiplication": "advanced",
       "cobordism": "advanced",
       "mmp-and-birational-geometry": "advanced",
       "homotopy-theory": "advanced",
@@ -359,8 +360,7 @@ window.__MVConcepts = {
       "kahler-geometry": "advanced",
       "mapping-class-groups": "advanced",
       "half-integral-weight-forms": "advanced",
-      "crystalline-cohomology": "advanced",
-      "tropical-geometry": "advanced"
+      "crystalline-cohomology": "advanced"
     }
   },
   "topics": {
@@ -554,86 +554,95 @@ window.__MVConcepts = {
         }
       ]
     },
-    "tropical-geometry": {
-      "topic": "tropical-geometry",
-      "title": "Tropical geometry",
-      "page": "tropical-geometry.html",
+    "complex-multiplication": {
+      "topic": "complex-multiplication",
+      "title": "Complex multiplication",
+      "page": "complex-multiplication.html",
       "concepts": [
         {
-          "id": "trop-semiring",
-          "title": "The tropical semiring",
-          "anchor": "trop-semiring",
-          "prereqs": [],
-          "blurb": "The tropical semiring $(\\mathbb{R} \\cup \\{\\infty\\}, \\min, +)$ replaces $(+, \\cdot)$ with $a \\oplus b := \\min(a,b)$ and $a \\otimes b := a + b$. Tropical polynomials $f(x) = \\min_i (a_i + i\\,x)$ are piecewise-linear concave functions; their corner locus — the points where the minimum is attained at least twice — is the tropical hypersurface $V(f)$.",
+          "id": "cm-elliptic-c",
+          "title": "CM elliptic curves over $\\mathbb{C}$",
+          "anchor": "cm-elliptic-c",
+          "prereqs": [
+            "elliptic-curve-definition",
+            "j-invariant-classification",
+            "class-group-units-ant"
+          ],
+          "blurb": "An elliptic curve $E = \\mathbb{C}/\\Lambda$ has complex multiplication when $\\mathrm{End}(E)$ is strictly larger than $\\mathbb{Z}$ — equivalently, when $\\Lambda$ admits a quadratic-irrational scaling. Then $\\mathrm{End}(E)$ is an order in an imaginary quadratic field $K$, and $j(E) \\in \\overline{\\mathbb{Q}}$ is an algebraic integer.",
           "tags": [
-            "foundation"
+            "foundation",
+            "classification"
           ]
         },
         {
-          "id": "trop-curves",
-          "title": "Tropical curves and the balancing condition",
-          "anchor": "trop-curves",
+          "id": "cm-class-poly",
+          "title": "Hilbert class polynomial",
+          "anchor": "cm-class-poly",
           "prereqs": [
-            "trop-semiring"
+            "cm-elliptic-c",
+            "hilbert-class-field"
           ],
-          "blurb": "A tropical curve in $\\mathbb{R}^2$ is the corner locus of a tropical polynomial in two variables: a piecewise-linear graph with rational edge slopes and integer weights. At every vertex the weighted sum of outgoing primitive edge directions vanishes (the balancing condition) — the combinatorial fingerprint of a 1-dimensional algebraic cycle.",
+          "blurb": "$H_K(X) = \\prod_{[\\mathfrak{a}]}(X - j(E_\\mathfrak{a})) \\in \\mathbb{Z}[X]$ has degree the class number $h_K$, and $K(j(E))$ is the Hilbert class field of $K$ — the maximal unramified abelian extension. Explicit class field theory for imaginary quadratic $K$ via a single transcendental function evaluated at one quadratic irrationality.",
           "tags": [
-            "foundation"
+            "foundation",
+            "classification"
           ]
         },
         {
-          "id": "trop-tropicalization",
-          "title": "Tropicalization and the valuation map",
-          "anchor": "trop-tropicalization",
+          "id": "cm-heegner",
+          "title": "Heegner points on modular curves",
+          "anchor": "cm-heegner",
           "prereqs": [
-            "trop-curves",
-            "newton-polygons"
+            "cm-class-poly",
+            "mc-y0-x0",
+            "mc-heegner-points"
           ],
-          "blurb": "For $X \\subset (K^*)^n$ over a non-archimedean valued field $K$ (e.g. Puiseux series $\\mathbb{C}\\{\\!\\{t\\}\\!\\}$), the tropicalization $\\mathrm{Trop}(X) = \\overline{\\mathrm{val}(X(\\bar K))}$ is a polyhedral complex of dimension $\\dim X$ (Bieri–Groves). Newton polytopes appear as duals to tropical zero loci, providing the bridge from algebra to combinatorics.",
+          "blurb": "A Heegner point on $X_0(N)$ is a pair $(E, C)$ where $E$ and $E/C$ both have CM by the same order $\\mathcal{O}_K$ — equivalently a $\\Gamma_0(N)$-class of $\\tau \\in \\mathbb{H}$ with both $\\tau$ and $N\\tau$ on the CM locus. Existence requires the Heegner hypothesis (every $p \\mid N$ splits in $K$); under modular parametrization $\\varphi : X_0(N) \\to E$ they yield non-torsion points on $E(K)$ when $L'(E/K, 1) \\ne 0$.",
           "tags": [
-            "duality"
-          ]
-        },
-        {
-          "id": "trop-bezout",
-          "title": "Bernstein's theorem and stable intersection",
-          "anchor": "trop-bezout",
-          "prereqs": [
-            "trop-curves",
-            "bezout-theorem-core",
-            "intersection-multiplicity"
-          ],
-          "blurb": "Tropical Bézout: two tropical curves intersect transversely in a number of points (counted with multiplicity) equal to the mixed volume of their Newton polytopes. Generic translation makes the count stable — even when the curves overlap, the stable intersection recovers the classical Bernstein–Kushnirenko count of solutions in $(\\mathbb{C}^*)^2$.",
-          "tags": [
-            "duality"
-          ]
-        },
-        {
-          "id": "trop-moduli",
-          "title": "Tropical moduli and Riemann–Roch",
-          "anchor": "trop-moduli",
-          "prereqs": [
-            "trop-curves",
-            "higher-genus-moduli"
-          ],
-          "blurb": "$M^{\\mathrm{trop}}_{g,n}$ is a polyhedral complex parametrizing stable tropical curves of genus $g$ with $n$ marked points; it is the skeleton of the Berkovich analytification of $\\overline{\\mathcal{M}}_{g,n}$. The Baker–Norine Riemann–Roch theorem on a metric graph $\\Gamma$ states $r(D) - r(K_\\Gamma - D) = \\deg D - g + 1$ — the same formula as for curves, with rank defined via chip-firing.",
-          "tags": [
-            "moduli",
-            "duality"
-          ]
-        },
-        {
-          "id": "trop-applications",
-          "title": "Mikhalkin's correspondence and mirror symmetry",
-          "anchor": "trop-applications",
-          "prereqs": [
-            "trop-bezout",
-            "ms-syz",
-            "ms-gromov-witten"
-          ],
-          "blurb": "Mikhalkin's correspondence theorem: counting tropical curves of degree $d$ and genus $g$ through $3d-1+g$ generic points (with explicit lattice multiplicities) equals the number of complex algebraic curves through the same configuration — i.e. Gromov–Witten invariants of $\\mathbb{P}^2$. Tropicalization also models the SYZ Lagrangian fibration and underpins the Gross–Siebert reconstruction of mirror pairs.",
-          "tags": [
+            "duality",
             "moduli"
+          ]
+        },
+        {
+          "id": "cm-main-theorem",
+          "title": "Main theorem of complex multiplication",
+          "anchor": "cm-main-theorem",
+          "prereqs": [
+            "cm-class-poly",
+            "artin-map-cft"
+          ],
+          "blurb": "The ray class field $K(\\mathfrak{f})$ of an imaginary quadratic $K$ is generated over $K$ by $j(E)$ together with the Weber function applied to $\\mathfrak{f}$-torsion of a CM curve $E$. Artin reciprocity describes Galois action explicitly: $\\sigma_\\mathfrak{a} \\cdot j(\\mathbb{C}/\\mathfrak{b}) = j(\\mathbb{C}/\\mathfrak{a}^{-1}\\mathfrak{b})$, $\\sigma_\\mathfrak{a} \\cdot P = \\mathfrak{a}^{-1} \\cdot P$ on torsion. Explicit class field theory for imaginary quadratic $K$.",
+          "tags": [
+            "duality",
+            "foundation"
+          ]
+        },
+        {
+          "id": "cm-abelian",
+          "title": "CM abelian varieties (Shimura–Taniyama)",
+          "anchor": "cm-abelian",
+          "prereqs": [
+            "cm-main-theorem",
+            "galois-rep-definition"
+          ],
+          "blurb": "An abelian variety $A$ of dimension $g$ has CM by a CM field $L$ (totally imaginary quadratic over a totally real $L_0$, $[L:\\mathbb{Q}]=2g$) when $L \\hookrightarrow \\mathrm{End}^0(A)$ as a maximal commutative subalgebra. The CM type $\\Phi$ + reflex field $L^*$ determine the field of definition; Shimura–Taniyama: $\\mathrm{Frob}_\\mathfrak{p} = N_{\\Phi^*}(\\mathfrak{p})$ via the reflex norm.",
+          "tags": [
+            "classification",
+            "duality"
+          ]
+        },
+        {
+          "id": "cm-stark-heegner",
+          "title": "Applications: Heegner numbers, Gross–Zagier, Stark",
+          "anchor": "cm-applications",
+          "prereqs": [
+            "cm-heegner",
+            "bsd-rank-equality"
+          ],
+          "blurb": "Three landmarks: Heegner's $h_K = 1$ theorem (only nine imaginary quadratic fields have class number $1$, ending with $d = -163$); the near-integer $e^{\\pi\\sqrt{163}} \\approx 262{,}537{,}412{,}640{,}768{,}744$ explained by the $q$-expansion of $j$ at the CM point $(1+\\sqrt{-163})/2$; the Gross–Zagier formula relating $L'(E/K,1)$ to Néron–Tate heights of Heegner points, which combined with Kolyvagin proves BSD's rank conjecture for analytic rank $\\le 1$.",
+          "tags": [
+            "density",
+            "duality"
           ]
         }
       ]
@@ -17405,7 +17414,8 @@ window.__MVConcepts = {
           "computational-number-theory",
           "iwasawa-theory",
           "continued-fractions",
-          "dirichlet-unit-theorem"
+          "dirichlet-unit-theorem",
+          "complex-multiplication"
         ],
         "color": "y"
       },
@@ -17470,8 +17480,7 @@ window.__MVConcepts = {
           "positivity-and-ample-line-bundles",
           "mmp-and-birational-geometry",
           "d-modules",
-          "crystalline-cohomology",
-          "tropical-geometry"
+          "crystalline-cohomology"
         ],
         "color": "g"
       },
@@ -17771,6 +17780,7 @@ window.__MVConcepts = {
     "abelian-varieties": "advanced",
     "positivity-and-ample-line-bundles": "advanced",
     "dirichlet-unit-theorem": "advanced",
+    "complex-multiplication": "advanced",
     "cobordism": "advanced",
     "mmp-and-birational-geometry": "advanced",
     "homotopy-theory": "advanced",
@@ -17779,8 +17789,7 @@ window.__MVConcepts = {
     "kahler-geometry": "advanced",
     "mapping-class-groups": "advanced",
     "half-integral-weight-forms": "advanced",
-    "crystalline-cohomology": "advanced",
-    "tropical-geometry": "advanced"
+    "crystalline-cohomology": "advanced"
   },
   "newArc": [
     "elementary-topos-theory",
@@ -17843,25 +17852,25 @@ window.__MVConcepts = {
       "density": 0.20714285714285716
     },
     "Number theory": {
-      "concepts": 116,
-      "intra": 160,
-      "crossOut": 49,
-      "crossIn": 33,
-      "density": 0.4224137931034483
+      "concepts": 122,
+      "intra": 169,
+      "crossOut": 54,
+      "crossIn": 32,
+      "density": 0.4426229508196721
     },
     "Modular forms & L-functions": {
       "concepts": 115,
       "intra": 170,
       "crossOut": 58,
-      "crossIn": 18,
+      "crossIn": 21,
       "density": 0.5043478260869565
     },
     "Algebraic geometry": {
-      "concepts": 185,
-      "intra": 275,
-      "crossOut": 69,
-      "crossIn": 29,
-      "density": 0.372972972972973
+      "concepts": 179,
+      "intra": 265,
+      "crossOut": 68,
+      "crossIn": 31,
+      "density": 0.37988826815642457
     },
     "Combinatorics & graph theory": {
       "concepts": 51,
