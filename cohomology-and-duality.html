@@ -298,6 +298,94 @@ function drawNode(svg, x, y, label, opts={}){
   </div>
 </div>
 
+<script>
+/* Section 1 widget — cup product table on T² */
+(function(){
+  const svg = $('#cup-svg'), out = $('#cup-out'), resetBtn = $('#cup-reset');
+  if(!svg) return;
+  // classes: id → {label, deg}
+  const CLASSES = [
+    {id:'one', label:'1',  deg:0, x: 60, y:140},
+    {id:'a',   label:'α',  deg:1, x:200, y: 80},
+    {id:'b',   label:'β',  deg:1, x:200, y:200},
+    {id:'ab',  label:'α∪β',deg:2, x:380, y:140},
+  ];
+  const POS = Object.fromEntries(CLASSES.map(c=>[c.id,c]));
+  // multiplication table on the (free) part of H*(T^2;Z)
+  // we work modulo αα = ββ = 0, βα = -αβ. We display product as a string.
+  function prod(a,b){
+    if(a==='one') return {label: POS[b].label, id:b};
+    if(b==='one') return {label: POS[a].label, id:a};
+    if(a==='a' && b==='a') return {label:'0',  id:null};
+    if(a==='b' && b==='b') return {label:'0',  id:null};
+    if(a==='a' && b==='b') return {label:'α∪β',id:'ab'};
+    if(a==='b' && b==='a') return {label:'−α∪β',id:'ab',neg:true};
+    if(a==='ab' || b==='ab') return {label:'0', id:null}; // top-degree × anything else = 0 in H*(T^2)
+    return {label:'?', id:null};
+  }
+  let picks = [];
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    // axis hints by degree column
+    for(let d=0; d<=2; d++){
+      const xCol = 60 + 160*d;
+      const t = SVG('text',{x:xCol+30, y:32, 'text-anchor':'middle','font-size':12,fill:'var(--mute)'});
+      t.textContent = `H^${d}`;
+      svg.appendChild(t);
+      svg.appendChild(SVG('line',{x1:xCol-12,y1:46,x2:xCol-12,y2:260,stroke:'var(--line)','stroke-dasharray':'3 4'}));
+    }
+    for(const c of CLASSES){
+      const highlight = picks.includes(c.id);
+      const fill = highlight ? 'var(--yellow)' : (c.deg===2 ? 'var(--bg)' : 'var(--panel2)');
+      const stroke = highlight ? 'var(--yellow)' : (c.deg===0 ? 'var(--green)' : c.deg===1 ? 'var(--blue)' : 'var(--pink)');
+      const r = 26;
+      const circ = SVG('circle',{cx:c.x,cy:c.y,r,fill,stroke,'stroke-width':1.8,
+        style:'cursor:pointer','data-id':c.id});
+      svg.appendChild(circ);
+      const t = SVG('text',{x:c.x,y:c.y+5,'text-anchor':'middle','font-size':16,fill:'var(--ink)','font-weight':700,'pointer-events':'none'});
+      t.textContent = c.label;
+      svg.appendChild(t);
+      const dt = SVG('text',{x:c.x,y:c.y+r+18,'text-anchor':'middle','font-size':10,fill:'var(--mute)','pointer-events':'none'});
+      dt.textContent = `deg ${c.deg}`;
+      svg.appendChild(dt);
+    }
+    // if exactly two picked, draw an arrow indicating the product
+    if(picks.length===2){
+      const a = POS[picks[0]], b = POS[picks[1]];
+      const r = prod(picks[0], picks[1]);
+      // draw a curved tag at the bottom
+      const cap = SVG('text',{x:540,y:140,'text-anchor':'middle','font-size':18,fill:'var(--cyan)','font-weight':700});
+      cap.textContent = `${a.label} ∪ ${b.label} = ${r.label}`;
+      svg.appendChild(cap);
+    }
+  }
+  function update(){
+    if(picks.length===0){
+      out.textContent = 'click a class to start. Two clicks multiply them under the cup product.';
+    } else if(picks.length===1){
+      out.textContent = `picked ${POS[picks[0]].label} (degree ${POS[picks[0]].deg}). pick another to compute its cup product.`;
+    } else if(picks.length===2){
+      const a = POS[picks[0]], b = POS[picks[1]];
+      const r = prod(picks[0], picks[1]);
+      let msg = `${a.label} ∪ ${b.label}  =  ${r.label}\n`;
+      msg += `degrees: ${a.deg} + ${b.deg} = ${a.deg+b.deg}\n`;
+      msg += `graded-commutativity: ${a.label} ∪ ${b.label} = (-1)^{${a.deg}·${b.deg}} ${b.label} ∪ ${a.label}`;
+      out.textContent = msg;
+    }
+    render();
+  }
+  svg.addEventListener('click', e=>{
+    const id = e.target && e.target.getAttribute && e.target.getAttribute('data-id');
+    if(!id) return;
+    if(picks.length>=2) picks = [];
+    picks.push(id);
+    update();
+  });
+  resetBtn.addEventListener('click', ()=>{ picks = []; update(); });
+  update();
+})();
+</script>
+
 <div class="ok"><strong>Take-away.</strong> The cup product turns the additive cohomology groups $H^n(X;\mathbb{Z})$ into a graded ring $H^*(X;\mathbb{Z})$. Computing this ring is what cohomology calculations <em>are</em> — bare ranks rarely tell topological spaces apart, but ring structures do.</div>
 
 <p>The next two sections give you tools to compute these rings.</p>
@@ -383,6 +471,81 @@ the exterior algebra on $n$ degree-1 generators (one per circle factor). $\dim_{
   <svg id="kn-svg" viewBox="0 0 720 280" width="720" height="280"><title>Künneth tensor table</title></svg>
   <div class="readout" id="kn-out"></div>
 </div>
+
+<script>
+/* Section 2 widget — Künneth tensor table over Q */
+(function(){
+  const xS = $('#kn-x'), yS = $('#kn-y'), svg = $('#kn-svg'), out = $('#kn-out');
+  if(!svg) return;
+  // each space: array of Betti numbers, indexed by degree
+  const SPACES = {
+    pt:  {label:'pt',  b:[1]},
+    s1:  {label:'S^1', b:[1,1]},
+    s2:  {label:'S^2', b:[1,0,1]},
+    t2:  {label:'T^2', b:[1,2,1]},
+    cp1: {label:'CP^1',b:[1,0,1]},
+  };
+  function compute(){
+    const X = SPACES[xS.value], Y = SPACES[yS.value];
+    // tensor table: T[p][q] = b_p(X) * b_q(Y)
+    const T = X.b.map(bp => Y.b.map(bq => bp*bq));
+    // total cohomology: B[n] = sum over p+q=n of T[p][q]
+    const N = X.b.length + Y.b.length - 1;
+    const B = new Array(N).fill(0);
+    for(let p=0;p<X.b.length;p++) for(let q=0;q<Y.b.length;q++) B[p+q]+=T[p][q];
+    // render table
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const cell = 38, ox = 100, oy = 60;
+    // headers
+    svg.appendChild(textT(ox-50, oy+cell*Math.max(1,X.b.length)/2+5, X.label, 'var(--blue)'));
+    svg.appendChild(textT(ox+cell*Y.b.length/2, oy-30, Y.label, 'var(--violet)'));
+    svg.appendChild(textT(ox+cell*Y.b.length/2, oy-12, '(degrees q →)', 'var(--mute)', 11));
+    // q-axis labels
+    for(let q=0;q<Y.b.length;q++){
+      svg.appendChild(textT(ox+cell*(q+0.5), oy-2, 'q='+q, 'var(--mute)', 11));
+    }
+    for(let p=0;p<X.b.length;p++){
+      svg.appendChild(textT(ox-22, oy+cell*(p+0.5)+5, 'p='+p, 'var(--mute)', 11));
+      for(let q=0;q<Y.b.length;q++){
+        const v = T[p][q];
+        const x = ox+cell*q, y=oy+cell*p;
+        svg.appendChild(SVG('rect',{x,y,width:cell-2,height:cell-2,
+          fill: v===0 ? 'var(--panel)' : 'var(--panel2)',
+          stroke: v===0 ? 'var(--line)' : 'var(--cyan)','stroke-width':1.2}));
+        svg.appendChild(textT(x+cell/2-1, y+cell/2+4, String(v),
+          v===0?'var(--mute)':'var(--ink)', 14, v>0));
+      }
+    }
+    // Right side: total Betti b_n(X×Y) along antidiagonals
+    const tx = ox + cell*Y.b.length + 60;
+    svg.appendChild(textT(tx+50, oy-30, 'b_n(X×Y) = Σ_{p+q=n} b_p(X)·b_q(Y)', 'var(--yellow)', 12));
+    for(let n=0;n<B.length;n++){
+      svg.appendChild(textT(tx, oy+cell*(n+0.5), 'n='+n, 'var(--mute)', 11));
+      // sum decomposition
+      const parts = [];
+      for(let p=0;p<X.b.length;p++) {
+        const q = n - p;
+        if(q>=0 && q<Y.b.length) parts.push(`${T[p][q]}`);
+      }
+      svg.appendChild(textT(tx+50, oy+cell*(n+0.5)+5, parts.join(' + ') + ' = ' + B[n],
+        B[n]===0?'var(--mute)':'var(--yellow)', 13, B[n]>0));
+    }
+    // readout
+    let msg = `H^*(${X.label} × ${Y.label}; Q):\n`;
+    for(let n=0;n<B.length;n++) msg += `   b_${n} = ${B[n]}\n`;
+    msg += `   χ = ${B.reduce((a,b,i)=>a+(i%2?-b:b),0)}    (= χ(${X.label})·χ(${Y.label}))`;
+    out.textContent = msg;
+  }
+  function textT(x,y,s,fill,size=13,bold=false){
+    const t = SVG('text',{x,y,'text-anchor':'middle','font-size':size,fill,
+      ...(bold?{'font-weight':600}:{})});
+    t.textContent = s; return t;
+  }
+  xS.addEventListener('change',compute);
+  yS.addEventListener('change',compute);
+  compute();
+})();
+</script>
 <!-- callback-auto-begin -->
 <aside class="callback">
   <div class="ttl">See also</div>
@@ -451,6 +614,79 @@ the exterior algebra on $n$ degree-1 generators (one per circle factor). $\dim_{
   <div class="readout" id="pd-out"></div>
 </div>
 
+<script>
+/* Section 3 widget — palindromic Betti */
+(function(){
+  const pick = $('#pd-pick'), out = $('#pd-out'), svg = $('#pd-svg');
+  if(!svg) return;
+  const M = {
+    s1:  {label:'S^1',          n:1, b:[1,1]},
+    s2:  {label:'S^2',          n:2, b:[1,0,1]},
+    s3:  {label:'S^3',          n:3, b:[1,0,0,1]},
+    t2:  {label:'T^2',          n:2, b:[1,2,1]},
+    t3:  {label:'T^3',          n:3, b:[1,3,3,1]},
+    g2:  {label:'Σ_2 (genus 2)',n:2, b:[1,4,1]},
+    cp2: {label:'CP^2',         n:4, b:[1,0,1,0,1]},
+    cp3: {label:'CP^3',         n:6, b:[1,0,1,0,1,0,1]},
+    s2xs2:{label:'S^2 × S^2',   n:4, b:[1,0,2,0,1]},
+    hopf:{label:'S^3 (Hopf)',   n:3, b:[1,0,0,1]},
+  };
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const k = pick.value, S = M[k];
+    const N = S.b.length, n = S.n;
+    const W = 720, H = 240;
+    const ox = 60, oy = 200, bw = Math.min(64, (W-2*ox)/N);
+    const max = Math.max(...S.b, 1);
+    const sc = 130/max;
+    // axis
+    svg.appendChild(SVG('line',{x1:ox-10,y1:oy,x2:ox + N*bw + 10,y2:oy,stroke:'var(--line)'}));
+    // title
+    const tt = SVG('text',{x:W/2,y:30,'text-anchor':'middle','font-size':14,fill:'var(--cyan)','font-weight':600});
+    tt.textContent = `b_k of ${S.label} (palindromic ⇒ b_k = b_{${n}−k})`;
+    svg.appendChild(tt);
+    for(let k=0;k<N;k++){
+      const v = S.b[k];
+      const bx = ox + k*bw + 4, bh = v*sc;
+      const dual = S.b[n-k];
+      const matched = (v === dual);
+      // fill: cyan if matched (Poincaré duality holds and is visible), pink otherwise
+      svg.appendChild(SVG('rect',{x:bx,y:oy-bh,width:bw-8,height:bh,
+        fill: v===0 ? 'var(--panel)' : (matched?'var(--cyan)':'var(--pink)'),
+        'fill-opacity':0.7,
+        stroke: v===0 ? 'var(--line)' : (matched?'var(--cyan)':'var(--pink)'),'stroke-width':1.4}));
+      svg.appendChild(textTT(bx+(bw-8)/2, oy+18, 'k='+k, 'var(--mute)', 11));
+      svg.appendChild(textTT(bx+(bw-8)/2, oy-bh-6, String(v), v===0?'var(--mute)':'var(--ink)', 12, true));
+    }
+    // arc connecting k and n-k for all valid pairs
+    for(let k=0;k<=n/2;k++){
+      const k2 = n-k;
+      if(k===k2) continue;
+      const x1 = ox + k*bw + bw/2, x2 = ox + k2*bw + bw/2;
+      const yArc = 50;
+      svg.appendChild(SVG('path',{d:`M ${x1} ${oy-S.b[k]*sc-12} Q ${(x1+x2)/2} ${yArc} ${x2} ${oy-S.b[k2]*sc-12}`,
+        fill:'none',stroke:'var(--violet)','stroke-width':1.2,'stroke-dasharray':'4 3'}));
+    }
+    // readout
+    let msg = `${S.label}, dim n = ${n}\n  Betti numbers: ${S.b.join(', ')}\n`;
+    msg += `  χ = ${S.b.reduce((a,b,i)=>a+(i%2?-b:b),0)}\n`;
+    msg += `  Poincaré duality check b_k = b_{n−k}:\n`;
+    for(let k=0;k<=n;k++){
+      const ok = S.b[k]===S.b[n-k];
+      msg += `    k=${k}: b_${k}=${S.b[k]}, b_${n-k}=${S.b[n-k]}   ${ok?'✓':'✗'}\n`;
+    }
+    out.textContent = msg;
+  }
+  function textTT(x,y,s,fill,size=13,bold=false){
+    const t = SVG('text',{x,y,'text-anchor':'middle','font-size':size,fill,
+      ...(bold?{'font-weight':600}:{})});
+    t.textContent = s; return t;
+  }
+  pick.addEventListener('change',draw);
+  draw();
+})();
+</script>
+
 <div class="ok"><strong>Slogan.</strong> "Closed oriented $n$-manifold" is exactly what you need to make the cup product pairing into a perfect duality. The data is "manifold" + "orientation"; the conclusion is a structural symmetry of the ring $H^*$.</div>
 
 <aside class="callback">
@@ -510,6 +746,86 @@ a contradiction. So $[d\theta]\ne 0\in H^1_{\mathrm{dR}}(S^1)$, and integration 
   <svg id="dr-svg" viewBox="0 0 620 240" width="620" height="240"><title>Integration of forms on S¹</title></svg>
   <div class="readout" id="dr-out"></div>
 </div>
+
+<script>
+/* Section 4 widget — integrate 1-forms on S^1 */
+(function(){
+  const sel = $('#dr-form'), svg = $('#dr-svg'), out = $('#dr-out');
+  if(!svg) return;
+  // each form: function f(θ) such that ω = f(θ) dθ.
+  const FORMS = {
+    dtheta:    {label:'dθ',          f: θ=>1,             cls:'closed, not exact (generator of H^1_dR)'},
+    cosdtheta: {label:'cos(θ) dθ',   f: θ=>Math.cos(θ),   cls:'exact: ω = d(sinθ)'},
+    sindtheta: {label:'sin(θ) dθ',   f: θ=>Math.sin(θ),   cls:'exact: ω = d(−cosθ)'},
+    '2dtheta': {label:'2 dθ',        f: θ=>2,             cls:'twice the generator: ∫=4π'},
+  };
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const F = FORMS[sel.value];
+    const W = 620, H = 240;
+    // left half: S^1 with form values shown as colored ticks; right half: graph of f(θ) and integral
+    const cx = 150, cy = 120, R = 80;
+    svg.appendChild(SVG('circle',{cx,cy,r:R,fill:'none',stroke:'var(--line)','stroke-width':1.5}));
+    // ticks colored by sign/magnitude of f(θ)
+    const NT = 64;
+    let maxAbs = 0;
+    for(let i=0;i<NT;i++){
+      const θ = 2*Math.PI*i/NT;
+      maxAbs = Math.max(maxAbs, Math.abs(F.f(θ)));
+    }
+    if(maxAbs<1e-9) maxAbs = 1;
+    for(let i=0;i<NT;i++){
+      const θ = 2*Math.PI*i/NT;
+      const v = F.f(θ);
+      const r0 = R, r1 = R + 4 + (v/maxAbs)*16;
+      const x0 = cx + r0*Math.cos(θ), y0 = cy - r0*Math.sin(θ);
+      const x1 = cx + r1*Math.cos(θ), y1 = cy - r1*Math.sin(θ);
+      const col = v>0 ? 'var(--cyan)' : (v<0 ? 'var(--pink)' : 'var(--mute)');
+      svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x1,y2:y1,stroke:col,'stroke-width':1.5}));
+    }
+    svg.appendChild(textT(cx, cy+R+34, 'S^1 (color = sign of f(θ))', 'var(--mute)', 11));
+    svg.appendChild(textT(cx, 22, F.label, 'var(--cyan)', 14, true));
+
+    // right half: f(θ) as a graph from 0 to 2π
+    const gx = 290, gy = 50, gw = 290, gh = 140;
+    svg.appendChild(SVG('rect',{x:gx,y:gy,width:gw,height:gh,fill:'var(--bg)',stroke:'var(--line)'}));
+    const N = 200;
+    let pathPos = '', pathNeg = '';
+    for(let i=0;i<=N;i++){
+      const θ = 2*Math.PI*i/N;
+      const v = F.f(θ);
+      const x = gx + (i/N)*gw;
+      const y = gy + gh/2 - (v/maxAbs)*(gh/2 - 8);
+      pathPos += (i===0?'M':'L') + x + ' ' + y + ' ';
+    }
+    svg.appendChild(SVG('path',{d:pathPos,fill:'none',stroke:'var(--cyan)','stroke-width':1.8}));
+    // axis line
+    svg.appendChild(SVG('line',{x1:gx,y1:gy+gh/2,x2:gx+gw,y2:gy+gh/2,stroke:'var(--line)','stroke-dasharray':'3 3'}));
+    svg.appendChild(textT(gx+gw/2, gy-6, 'graph of f(θ) on [0, 2π]', 'var(--mute)', 11));
+
+    // numerical integral
+    let I = 0;
+    const Nint = 4000;
+    for(let i=0;i<Nint;i++){
+      const θ = 2*Math.PI*(i+0.5)/Nint;
+      I += F.f(θ) * (2*Math.PI/Nint);
+    }
+    let msg = `ω = ${F.label}\n`;
+    msg += `  ∮_{S^1} ω = ${I.toFixed(6)}\n`;
+    msg += `  ${F.cls}\n`;
+    if(Math.abs(I)<1e-6) msg += `\nω is exact (integral over closed loop = 0). [ω] = 0 in H^1_dR.`;
+    else msg += `\nω is closed but ∮ ≠ 0 ⇒ ω is NOT exact. [ω] generates a non-trivial class in H^1_dR(S^1) ≅ R.`;
+    out.textContent = msg;
+  }
+  function textT(x,y,s,fill,size=13,bold=false){
+    const t = SVG('text',{x,y,'text-anchor':'middle','font-size':size,fill,
+      ...(bold?{'font-weight':600}:{})});
+    t.textContent = s; return t;
+  }
+  sel.addEventListener('change',draw);
+  draw();
+})();
+</script>
 
 <h3>How de Rham meets Poincaré duality</h3>
 <p>For a closed oriented $n$-manifold $M$, the de Rham version of Poincaré duality is the statement that the pairing</p>
@@ -573,6 +889,90 @@ a contradiction. So $[d\theta]\ne 0\in H^1_{\mathrm{dR}}(S^1)$, and integration 
   </div>
   <div class="readout" id="ss-out"></div>
 </div>
+
+<script>
+/* Section 5 widget — Hopf SS pages */
+(function(){
+  const svg = $('#ss-svg'), out = $('#ss-out'), prev = $('#ss-prev'), next = $('#ss-next'), pageLab = $('#ss-page');
+  if(!svg) return;
+  // grid: p horizontal 0..3, q vertical 0..2. pages 2, 3 (=∞ for this fibration).
+  const PAGES = [
+    { // E_2
+      r:2,
+      vals:{ '0,0':1, '0,1':1, '2,0':1, '2,1':1 },
+      diff:{ from:'0,1', to:'2,0' },  // d_2 of bidegree (2,-1)
+      note:'E_2^{p,q} = H^p(S^2;H^q(S^1)) = H^p(S^2)⊗H^q(S^1). Only 4 entries. d_2 hits.',
+    },
+    { // E_3 = E_∞
+      r:3,
+      vals:{ '0,0':1, '2,1':1 },
+      diff:null,
+      note:'After d_2: E_2^{0,1} and E_2^{2,0} both kill each other. Only (0,0) and (2,1) survive. E_3 = E_∞.',
+    },
+  ];
+  let page = 0;
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const W=560, H=360;
+    const ox = 80, oy = 280;  // origin (p=0, q=0)
+    const cell = 70;
+    // axes
+    svg.appendChild(SVG('line',{x1:ox-10,y1:oy+10,x2:ox+4*cell,y2:oy+10,stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:ox-10,y1:oy+10,x2:ox-10,y2:oy+10-3.5*cell,stroke:'var(--line)'}));
+    for(let p=0;p<=3;p++) svg.appendChild(textT(ox+p*cell, oy+30, 'p='+p, 'var(--mute)', 11));
+    for(let q=0;q<=2;q++) svg.appendChild(textT(ox-30, oy+10-q*cell, 'q='+q, 'var(--mute)', 11));
+    // grid cells
+    const P = PAGES[page];
+    for(let p=0;p<=3;p++){
+      for(let q=0;q<=2;q++){
+        const key = p+','+q;
+        const v = P.vals[key] || 0;
+        const x = ox+p*cell - cell/2 + 8, y = oy + 10 - q*cell - cell/2 - 4;
+        svg.appendChild(SVG('rect',{x,y,width:cell-16,height:cell-16,
+          fill: v===0 ? 'var(--panel)' : 'var(--panel2)',
+          stroke: v===0 ? 'var(--line)' : 'var(--cyan)','stroke-width':1.4}));
+        svg.appendChild(textT(ox+p*cell, oy+10-q*cell, v===0?'0':'ℤ', v===0?'var(--mute)':'var(--ink)', 14, v>0));
+      }
+    }
+    // differential arrow if any
+    if(P.diff){
+      const [p1q1] = [P.diff.from.split(',').map(Number)];
+      const [p2q2] = [P.diff.to.split(',').map(Number)];
+      const [p1,q1] = p1q1, [p2,q2] = p2q2;
+      const x1 = ox+p1*cell + 14, y1 = oy + 10 - q1*cell - 4;
+      const x2 = ox+p2*cell - 14, y2 = oy + 10 - q2*cell - 4;
+      ensureArrow(svg, 'ssarr', 'var(--yellow)');
+      svg.appendChild(SVG('path',{d:`M ${x1} ${y1} Q ${(x1+x2)/2} ${y1-30} ${x2} ${y2}`,
+        fill:'none',stroke:'var(--yellow)','stroke-width':1.8,'marker-end':'url(#ssarr)'}));
+      svg.appendChild(textT((x1+x2)/2, y1-46, 'd_'+P.r+' (iso)', 'var(--yellow)', 12, true));
+    }
+    // page label
+    svg.appendChild(textT(W/2, 30, `page E_${P.r}${P.r>=3?'  =  E_∞':''}`, 'var(--cyan)', 14, true));
+
+    pageLab.textContent = `page E_${P.r}${P.r>=3?' = E_∞':''}`;
+    // total cohomology by total degree n = p+q (only meaningful at E_∞)
+    let tot = '';
+    if(P.r>=3){
+      const totals = {};
+      for(const k of Object.keys(P.vals)){
+        const [p,q] = k.split(',').map(Number);
+        totals[p+q] = (totals[p+q]||0) + P.vals[k];
+      }
+      const ks = Object.keys(totals).map(Number).sort((a,b)=>a-b);
+      tot = '\nabutment: ' + ks.map(k=>`H^${k}(S^3)=${totals[k]>0?'ℤ'+(totals[k]>1?'^'+totals[k]:''):'0'}`).join(', ');
+    }
+    out.textContent = P.note + tot;
+  }
+  function textT(x,y,s,fill,size=13,bold=false){
+    const t = SVG('text',{x,y,'text-anchor':'middle','font-size':size,fill,
+      ...(bold?{'font-weight':600}:{})});
+    t.textContent = s; return t;
+  }
+  prev.addEventListener('click', ()=>{ page = Math.max(0, page-1); draw(); });
+  next.addEventListener('click', ()=>{ page = Math.min(PAGES.length-1, page+1); draw(); });
+  draw();
+})();
+</script>
 
 <div class="note"><strong>Why spectral sequences feel hard.</strong> Three sources of friction. (1) The data is not a single complex but a tower of them, and convergence is a separate axiom you check (boundedness suffices). (2) Differentials $d_r$ for $r\ge 2$ are typically not described by a closed formula — you compute them by reasoning from what they must do (degrees, naturality, multiplicativity). (3) The associated graded $E_\infty$ recovers $H^*$ only up to extensions; resolving the extension problem is a separate task. Despite these caveats, spectral sequences are how 80% of explicit cohomology calculations actually get done in modern algebraic topology, sheaf theory, and arithmetic geometry.</div>
 
