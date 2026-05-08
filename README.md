@@ -23,7 +23,7 @@ Alongside each handwritten `<topic>.html`, the repo also carries a structured `c
 
 ## Learning pathways
 
-Start from [`pathway.html`](./pathway.html) to explore prerequisite graphs for capstone goals — pick any of the 34 capstones and the DAG layers every prereq concept by depth. For free-form exploration over the entire 1188-concept graph (no goal required), [`mindmap.html`](./mindmap.html) renders a section-clustered force-directed layout: click a node to focus its k-hop neighborhood, filter by section/level/mastery, and a structural-stats panel surfaces uneven prereq density across the eleven sections. Both views read the same concept graph; pathway is goal-targeted, mindmap is free-explore.
+Start from [`pathway.html`](./pathway.html) to explore prerequisite graphs for capstone goals — pick any of the 34 capstones and the DAG layers every prereq concept by depth. For free-form exploration over the entire 1194-concept graph (no goal required), [`mindmap.html`](./mindmap.html) renders a section-clustered force-directed layout: click a node to focus its k-hop neighborhood, filter by section/level/mastery, and a structural-stats panel surfaces uneven prereq density across the eleven sections. Both views read the same concept graph; pathway is goal-targeted, mindmap is free-explore.
 
 Each concept carries up to three quiz tiers — v1 (required), hard (unlocked after v1), and expert (unlocked after hard). Mastery is tracked in `localStorage` and lights up downstream concepts `locked → ready → mastered`, Brilliant-style. Topic cards on the index may carry a level badge: `prereq`, `advanced`, or `capstone`.
 
@@ -164,6 +164,7 @@ Each concept carries up to three quiz tiers — v1 (required), hard (unlocked af
 - [Langlands program](./langlands-program.html) — capstone of modular forms / L-functions: arithmetic side (Galois reps from cohomology) and analytic side (cuspidal automorphic reps of $\mathrm{GL}_n$) bridged by L-function matching. CFT as the proven $\mathrm{GL}_1$ case, modularity + Sato-Tate as proven $\mathrm{GL}_2$ corners, functoriality and the Langlands group $L_F$, universal reciprocity
 - [Maass forms](./maass-forms.html) — Maass forms and the hyperbolic Laplacian, spectral decomposition of $L^2(\Gamma\backslash\mathbb{H})$, Selberg eigenvalue conjecture, Eisenstein series, Selberg trace formula, Weyl law
 - [Half-integral weight forms](./half-integral-weight-forms.html) — metaplectic group and theta cocycle, Shimura's lift, Kohnen's plus space, Waldspurger's formula, Tunnell and the congruent number problem
+- [Shimura varieties](./shimura-varieties.html) — draft — fill in once the page has real content
 
 ### Algebraic geometry
 - [Projective plane](./projective-plane.html) — homogeneous coordinates, points at infinity, affine patches

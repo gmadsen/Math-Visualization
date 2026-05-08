@@ -8,10 +8,10 @@ When something ships, delete its bullet here. Don't keep a "Shipped recently" lo
 
 From `audits/coverage-stats.md` and `audits/starter-concepts.md`:
 
-- 171 topics, 1188 concepts, 34 capstones
+- 172 topics, 1194 concepts, 34 capstones
 - 177 concepts lack a widget in their owning section
 - 1035 widgets, 100% registry-driven (PR #70 zero-baseline sweep — `audit-no-inline-widgets` now hard-fails on any non-registry widget)
-- Quiz tiers: v1 = 3522, hard = 1223, expert = 13 (intentionally bottom-of-list — see "Out of scope")
+- Quiz tiers: v1 = 3540, hard = 1223, expert = 13 (intentionally bottom-of-list — see "Out of scope")
 - Tag coverage: **99.1%** across all 11 sections after PRs #84–#88 + #94–#98. The intentionally-untagged concepts are catalog/TOC blurbs (`*-applications`), single-result rigidity (Apéry's $\zeta(3)$ irrationality), or observation-shaped concepts (lem-failure, algebraic-connectivity Fiedler). Vocabulary expanded in PR #94 with `equidistribution`, `density`, `cancellation`, `refinement` to cover analytic-NT methods and $\infty$-topos refinement properties. Tagging effort effectively complete.
 - 11 narrative-tour story pages on disk, all wired into Tours 1–11: BSD, FLT, Sato–Tate (Tour 11), Cohomology (Tour 3), Sets→∞-topoi (Tour 4), Sound→Wavelets (Tour 5), Local–Global (Tour 6), Solvability (Tour 7), Hodge (Tour 8), Langlands (Tour 9), Millennium Prizes (Tour 10).
 
@@ -19,7 +19,7 @@ From `audits/coverage-stats.md` and `audits/starter-concepts.md`:
 
 Items below come out of the algebra/analysis comparative audit shipped in PR #49.
 
-- **Math physics has no `hard` tier and Combinatorics has no `hard` tier.** 750 concepts lack a hard tier corpus-wide; 13 topics in those two sections × ~6 concepts × 2-3 questions each ≈ ~150 of the missing questions. Per "Out of scope", de-prioritized — listed here so the gap is visible, not actioned.
+- **Math physics has no `hard` tier and Combinatorics has no `hard` tier.** 756 concepts lack a hard tier corpus-wide; 13 topics in those two sections × ~6 concepts × 2-3 questions each ≈ ~150 of the missing questions. Per "Out of scope", de-prioritized — listed here so the gap is visible, not actioned.
 
 ## Bigger missing-topic candidates
 
@@ -40,6 +40,31 @@ In priority order:
 6. **Arithmetic statistics** (Number theory). Bhargava-style results: density of binary cubic / quartic / quintic forms, average rank of elliptic curves, function-field analogues (Harvard 251Z). Bridges `algebraic-number-theory`, `heights-arithmetic-geometry`, and `analytic-number-theory`. Currently no dedicated page; bits live across those three.
 
 Honourable mention: **Positive characteristic AG** (Math 260Z) — partially covered by `crystalline-cohomology` but a standalone topic on Frobenius splittings, $F$-singularities, and char-$p$ specific phenomena would close that gap.
+
+## Princeton / MIT / Berkeley / Caltech catalog audit (2026-05-08)
+
+A second comparative pass against four more graduate catalogs (Princeton, MIT, Berkeley, Caltech) surfaced these gaps. Most Harvard candidates (cluster algebras, mapping class groups, Khovanov, complex multiplication, Shimura varieties, tropical geometry, surgery, arithmetic statistics) shipped in PRs #131–#140; the residual list below is the next-priority batch.
+
+**Tier 2 (broad multi-university coverage)**:
+
+1. **Random matrix theory & free probability** — MIT 18.338. Wigner semi-circle, Marchenko–Pastur, Tracy–Widom, free probability and free convolution. Bridges probability + representation theory + spectral theory + statistical mechanics + analytic number theory (Katz–Sarnak symmetry). Currently only hinted at in `high-dimensional-geometry`.
+2. **Geometric Invariant Theory (GIT)** — connects moduli-spaces, representation-theory, AG. Standard graduate fare across all four universities; lots of moduli payoff (Kempf–Ness, stability conditions). Currently absent.
+3. **Heegaard Floer / knot Floer homology** — Princeton MAT568, multiple universities. Bridges `knot-polynomials` (now extended via Khovanov) to `symplectic-manifolds` and 3-manifold topology. Companion to surgery theory.
+4. **Coding theory & error-correcting codes** — Caltech Ma 127. Hamming, Reed–Solomon, BCH, low-density parity-check; lattice codes. Bridges `information-theory`, `additive-number-theory`, `mathematics-and-cryptography`. Highly visualizable.
+5. **Conformal & CR geometry** — Princeton MAT558/559. Bridges `complex-analysis`, `several-complex-variables` (just shipped), `differential-geometry`. Q-curvature and conformally covariant operators.
+
+**Tier 3 (specialty but valuable)**:
+
+6. **Combinatorial optimization** — Princeton MAT572. Min-max theorems, network flows, linear programming, perfect graphs, polyhedral combinatorics. Foundational for the proposed *Optimization* section.
+7. **Mathematical finance & stochastic control** — Caltech Ma 214. Itô stochastic calculus applied to derivatives pricing, optimal portfolio selection, HJB equations. Bridges `stochastic-calculus` to the proposed *Optimization* / *Control theory* sections.
+8. **Brill–Noether theory (standalone)** — Princeton MAT539. Currently a sub-bullet in `algebraic-curves-higher-genus`; deserves its own page given how often it's cited downstream.
+9. **Spectral methods for massive data sets** — Princeton MAT585. SVD, PCA, PageRank, spectral clustering. Bridges `spectral-graph-theory`, `high-dimensional-geometry`, `random-walks-and-mixing`. Practical applications anchor.
+10. **Model categories of $\infty$-stacks / DT invariants** — Princeton MAT566/567 mentions Donaldson–Thomas. The DT/GW correspondence is hinted at in `mirror-symmetry` and `gauge-theory` but a dedicated page on Donaldson–Thomas / GW invariants would close the enumerative-AG gap.
+
+**Specialty / deferred**:
+- **Microlocal sheaves and $\mathcal{D}$-modules connections** — Princeton MAT539-style; partially covered by `d-modules` + `microlocal-analysis`.
+- **Computational molecular biology** (MIT 18.417/418), **mathematical chaos** (Caltech Ma 104) — would fit naturally inside the proposed *Mathematical biology* section.
+- **Topological data analysis / persistent homology** — currently a sub-bullet in `simplicial-complexes-combinatorial`; deserves its own page if the corpus pursues an applied-topology direction.
 
 ## Content-gap audit — long-running
 
@@ -76,7 +101,7 @@ Items raised by the review-team agents that were deferred at merge time. **All q
 
 Items the user has explicitly de-prioritized. **Don't suggest these as "what next" without prompting.**
 
-- **Hard-tier quiz authoring** (750 concepts lack hard tier).
+- **Hard-tier quiz authoring** (756 concepts lack hard tier).
 - **Expert-tier authoring** (13 questions corpus-wide).
 
 These are real coverage gaps but not where the user wants to spend time. Per-session feedback memory: lowest-leverage direction, structural/architectural improvements come first.

@@ -1,5 +1,5 @@
 {
-  "generated": "2026-05-08T04:42:33.523Z",
+  "generated": "2026-05-08T05:18:16.122Z",
   "entries": [
     {
       "slug": "complex-multiplication",
@@ -16,6 +16,14 @@
       "tag": "",
       "date": "2026-05-07",
       "message": "New topic: Khovanov homology & link homology (#135)"
+    },
+    {
+      "slug": "shimura-varieties",
+      "title": "Shimura varieties",
+      "color": "c",
+      "tag": "",
+      "date": "2026-05-07",
+      "message": "New topic: Shimura varieties (Modular forms & L-functions)"
     },
     {
       "slug": "surgery-theory",

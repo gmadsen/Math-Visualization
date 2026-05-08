@@ -6,6 +6,7 @@ window.__MVConcepts = {
     "topics": [
       "several-complex-variables",
       "khovanov-homology",
+      "shimura-varieties",
       "arithmetic-statistics",
       "complex-multiplication",
       "tropical-geometry",
@@ -366,7 +367,8 @@ window.__MVConcepts = {
       "crystalline-cohomology": "advanced",
       "tropical-geometry": "advanced",
       "surgery-theory": "advanced",
-      "arithmetic-statistics": "advanced"
+      "arithmetic-statistics": "advanced",
+      "shimura-varieties": "capstone"
     }
   },
   "topics": {
@@ -556,6 +558,103 @@ window.__MVConcepts = {
             "classification",
             "duality",
             "finiteness"
+          ]
+        }
+      ]
+    },
+    "shimura-varieties": {
+      "topic": "shimura-varieties",
+      "title": "Shimura varieties",
+      "page": "shimura-varieties.html",
+      "concepts": [
+        {
+          "id": "shim-datum",
+          "title": "The Shimura datum $(G, X)$",
+          "anchor": "datum",
+          "prereqs": [
+            "lie-group-definition",
+            "upper-half-plane-model"
+          ],
+          "blurb": "A Shimura datum is a connected reductive $\\mathbb{Q}$-group $G$ together with a $G(\\mathbb{R})$-conjugacy class $X$ of homomorphisms $\\mathbb{S}\\to G_\\mathbb{R}$ from the Deligne torus, satisfying Deligne's axioms (SV1)–(SV3): (SV1) the induced Hodge structure on $\\mathfrak{g}$ has type $\\{(-1,1),(0,0),(1,-1)\\}$; (SV2) $\\mathrm{ad}(h(i))$ is a Cartan involution on $G^{\\mathrm{ad}}_\\mathbb{R}$, forcing $X$ to be Hermitian symmetric; (SV3) no $\\mathbb{Q}$-factor of $G^{\\mathrm{ad}}$ is trivial under $h$. Examples: $(\\mathrm{GL}_2,\\mathbb{H}^\\pm)$ gives modular curves; $(\\mathrm{GSp}_{2g}, \\mathfrak{H}_g)$ gives Siegel varieties; $(\\mathrm{GU}(p,q), B^{p,q})$ gives unitary Shimura varieties.",
+          "tags": [
+            "foundation",
+            "classification"
+          ]
+        },
+        {
+          "id": "shim-canonical-model",
+          "title": "Adelic double quotient and canonical models",
+          "anchor": "canonical-model",
+          "prereqs": [
+            "shim-datum",
+            "automorphic-form-definition",
+            "spherical-hecke-satake"
+          ],
+          "blurb": "For compact open $K\\subset G(\\mathbb{A}_f)$, the Shimura variety at level $K$ is the adelic double quotient $\\mathrm{Sh}_K(G,X) = G(\\mathbb{Q})\\backslash X\\times G(\\mathbb{A}_f)/K$, a finite disjoint union of arithmetic quotients $\\Gamma_i\\backslash X^+$ via strong approximation. Baily–Borel makes it a quasi-projective variety over $\\mathbb{C}$; Shimura's reciprocity law / Deligne's canonical model theorem descends it to the reflex field $E(G,X) = $ field of definition of $\\{\\mu_h\\}$. Hecke correspondences come from right multiplication by $G(\\mathbb{A}_f)$ on the second factor, making $H^*(\\mathrm{Sh})$ a module for both Galois and the adelic Hecke algebra simultaneously.",
+          "tags": [
+            "foundation",
+            "duality"
+          ]
+        },
+        {
+          "id": "shim-siegel",
+          "title": "Siegel modular varieties $\\mathcal{A}_g$",
+          "anchor": "siegel",
+          "prereqs": [
+            "shim-canonical-model",
+            "av-polarization",
+            "mc-moduli-of-elliptic-curves"
+          ],
+          "blurb": "$\\mathcal{A}_g(N) = \\Gamma(N)\\backslash\\mathfrak{H}_g$ where $\\mathfrak{H}_g = \\{\\tau\\in M_g(\\mathbb{C}) : \\tau=\\tau^\\top, \\mathrm{Im}\\,\\tau>0\\}$ is the Siegel upper half-space. Complex points parametrize principally polarized abelian $g$-folds with level-$N$ structure; the moduli interpretation extends Mumford's theory and gives an integral model over $\\mathbb{Z}[1/N]$. Faltings–Chai's toroidal compactifications $\\overline{\\mathcal{A}_g}$ glue in lower-dimensional Siegel varieties along the boundary; Hodge bundle $\\omega = \\det\\mathrm{Lie}(\\mathcal{A})^\\vee$ has sections = Siegel modular forms of weight $k$.",
+          "tags": [
+            "moduli",
+            "compactness"
+          ]
+        },
+        {
+          "id": "shim-hilbert",
+          "title": "Hilbert and quaternionic Shimura varieties",
+          "anchor": "hilbert",
+          "prereqs": [
+            "shim-canonical-model",
+            "mc-y0-x0",
+            "av-definition"
+          ],
+          "blurb": "For totally real $F$ of degree $d$, $G = \\mathrm{Res}_{F/\\mathbb{Q}}\\mathrm{GL}_2$ has $X = \\mathbb{H}^d$; the resulting $d$-dimensional <em>Hilbert modular variety</em> parametrizes abelian $d$-folds with real multiplication by $\\mathcal{O}_F$. Replacing $\\mathrm{GL}_2$ by $B^\\times$ for a quaternion algebra $B/F$ split at exactly one infinite place produces a <em>Shimura curve</em> $X^B$ — compact (no cusps) when $B$ is non-split, with moduli interpretation in fake elliptic curves (abelian surfaces with QM). Jacquet–Langlands transfers Galois representations between modular curves and Shimura curves; this is essential to Ribet's level-lowering and the proof of FLT.",
+          "tags": [
+            "moduli",
+            "duality"
+          ]
+        },
+        {
+          "id": "shim-cohomology",
+          "title": "Étale cohomology and Galois representations",
+          "anchor": "cohomology",
+          "prereqs": [
+            "shim-siegel",
+            "shim-hilbert",
+            "l-adic-cohomology",
+            "galois-rep-definition"
+          ],
+          "blurb": "The $\\ell$-adic étale cohomology $H^i_{\\mathrm{ét}}(\\mathrm{Sh}_K\\times\\overline{E},\\overline{\\mathbb{Q}}_\\ell)$ carries commuting actions of $\\mathrm{Gal}(\\overline{E}/E)$ (functoriality) and the adelic Hecke algebra $\\mathcal{H}(G(\\mathbb{A}_f)/\\!/K)$ (Hecke correspondences). Isotypic decomposition gives Galois representations $\\rho_{\\pi,\\ell}$ attached to automorphic representations $\\pi$ of $G$. Eichler–Shimura realises weight-$2$ newforms on $\\mathrm{GL}_2/\\mathbb{Q}$ in $H^1(X_0(N))$; Carayol does Hilbert modular forms via Shimura curves; Brylinski–Labesse and Kottwitz handle Siegel and unitary cases via the stable trace formula. The Hodge cocharacter $\\mu_h$ controls Hodge–Tate weights of $\\rho_{\\pi,\\ell}$.",
+          "tags": [
+            "duality",
+            "foundation"
+          ]
+        },
+        {
+          "id": "shim-langlands-kottwitz",
+          "title": "The Langlands–Kottwitz program",
+          "anchor": "langlands-kottwitz",
+          "prereqs": [
+            "shim-cohomology",
+            "frobenius-traces",
+            "av-tate-module"
+          ],
+          "blurb": "Counting $\\mathbb{F}_q$-points on integral models of Shimura varieties via Honda–Tate theory (isogeny classes of abelian varieties over $\\mathbb{F}_q$ ↔ Weil $q$-numbers) and grouping by Kottwitz triples $(\\gamma_0;\\gamma,\\delta)$ produces the Langlands–Kottwitz formula $|\\mathrm{Sh}_K(\\mathbb{F}_q)| = \\sum c(\\gamma_0;\\gamma,\\delta)\\cdot\\mathrm{O}_\\gamma(\\mathbf{1}_K^p)\\cdot\\mathrm{TO}_\\delta(\\phi_p)$. After Kottwitz stabilisation, comparison with the Arthur–Selberg trace formula proves local-global compatibility for the automorphic Galois representations of §5 and provides the technical engine for modern proofs of automorphy lifting (Wiles–Taylor, Caraiani, Shin, Scholze).",
+          "tags": [
+            "duality",
+            "density"
           ]
         }
       ]
@@ -17728,7 +17827,8 @@ window.__MVConcepts = {
           "vertex-operator-algebras",
           "langlands-program",
           "maass-forms",
-          "half-integral-weight-forms"
+          "half-integral-weight-forms",
+          "shimura-varieties"
         ],
         "color": "c"
       },
@@ -18079,7 +18179,8 @@ window.__MVConcepts = {
     "crystalline-cohomology": "advanced",
     "tropical-geometry": "advanced",
     "surgery-theory": "advanced",
-    "arithmetic-statistics": "advanced"
+    "arithmetic-statistics": "advanced",
+    "shimura-varieties": "capstone"
   },
   "newArc": [
     "elementary-topos-theory",
@@ -18138,28 +18239,28 @@ window.__MVConcepts = {
       "concepts": 146,
       "intra": 248,
       "crossOut": 31,
-      "crossIn": 94,
+      "crossIn": 95,
       "density": 0.21232876712328766
     },
     "Number theory": {
       "concepts": 128,
       "intra": 180,
       "crossOut": 57,
-      "crossIn": 33,
+      "crossIn": 35,
       "density": 0.4453125
     },
     "Modular forms & L-functions": {
-      "concepts": 115,
-      "intra": 170,
-      "crossOut": 58,
+      "concepts": 121,
+      "intra": 181,
+      "crossOut": 65,
       "crossIn": 24,
-      "density": 0.5043478260869565
+      "density": 0.5371900826446281
     },
     "Algebraic geometry": {
       "concepts": 185,
       "intra": 275,
       "crossOut": 69,
-      "crossIn": 31,
+      "crossIn": 35,
       "density": 0.372972972972973
     },
     "Combinatorics & graph theory": {
