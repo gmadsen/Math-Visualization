@@ -152,7 +152,8 @@
         "computational-number-theory",
         "iwasawa-theory",
         "continued-fractions",
-        "dirichlet-unit-theorem"
+        "dirichlet-unit-theorem",
+        "complex-multiplication"
       ],
       "color": "y"
     },
