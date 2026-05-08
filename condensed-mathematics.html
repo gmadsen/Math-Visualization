@@ -352,7 +352,7 @@ $$\underline T(S) \;:=\; \mathrm{Cont}(S, T),$$
     }
     if(s === 'zp'){
       const tnotes = {
-        circ: 'Cont(Z_p, S^1): every continuous map factors through some Z/p^n (Z_p is profinite, S^1 has only finite-image continuous quotients away from the identity component), giving Hom_cts(Z_p, S^1) = colim_n mu_{p^n} = mu_{p^infty}, the Pruefer p-group inside S^1.',
+        circ: 'Cont(Z_p, S^1) = continuous maps from Z_p to S^1; Z_p is profinite and S^1 is path-connected, so each map is determined by its restriction to a finite quotient Z/p^n composed with a continuous map Z/p^n -> S^1. The continuous *homomorphisms* form a much smaller subspace: Hom_cts(Z_p, S^1) = colim_n mu_{p^n} = mu_{p^infty}, the Pruefer p-group (the Pontryagin dual of Z_p).',
         zp:   'Cont(Z_p, Z_p) = continuous self-maps. By Mahler theorem the explicit basis is the binomial-coefficient functions binom(x,n); locally constant elements correspond to maps factoring through finite Z/p^k quotients.',
         r:    'Cont(Z_p, R) = continuous functions from a profinite space to R. By Stone-Weierstrass dense in C(Z_p, R); concretely uniform limits of locally constant functions.',
         disc: 'Cont(Z_p, {0,1,2}) = locally constant maps = colim_n Hom(Z/p^n, {0,1,2}). Discrete target collapses every continuous map to a finite-quotient datum.'
@@ -363,7 +363,13 @@ $$\underline T(S) \;:=\; \mathrm{Cont}(S, T),$$
         notes: tnotes[t]
       };
     }
-    return {size:'',formula:'',notes:''};
+    // Unknown probe: surface as a visible readout error rather than
+    // a silent empty-string render that looks like a layout bug.
+    return {
+      size: '(unknown probe "' + s + '")',
+      formula: '(no description for this probe)',
+      notes: 'A probe was selected that this widget does not enumerate. Add a branch to describe(t, s) for s="' + s + '".'
+    };
   }
   function draw(){
     while(svg.firstChild) svg.removeChild(svg.firstChild);
@@ -823,10 +829,9 @@ $$\mu\colon \mathcal{M}_p(V) \;\to\; V$$
     if(p < 0.7) return 'liquid_p tensor in the design sweet spot: exact monoidal structure; matches projective tensor on Banach spaces up to a quantified continuity correction.';
     return 'liquid_p with p close to 1: very close to projective; just barely enough p < 1 to gain exactness over the classical case. The strict inequality p < 1 is essential -- p = 1 reverts to the failed projective case.';
   }
-  function exactness(V, W, p){
+  function exactness(V, W){
     if(V === 'r' || W === 'r') return 'EXACT (1-d tensor is always exact in any reasonable setting)';
-    if(p < 1) return 'liquid_p tensor is EXACT; classical pi-tensor is NOT (this is the whole point)';
-    return 'p = 1 not allowed in the liquid sense; exactness fails';
+    return 'liquid_p tensor is EXACT for 0 < p < 1; classical pi-tensor is NOT (this is the whole point)';
   }
   function refresh(){ pOut.textContent = 'p = ' + (+pIn.value).toFixed(2); draw(); }
   vSel.addEventListener('change', refresh);
@@ -855,7 +860,7 @@ $$\mu\colon \mathcal{M}_p(V) \;\to\; V$$
     lines.push('Classical projective tensor V piTensor W:  ' + classical(V, W));
     lines.push('Liquid_p tensor V liquidTensor_p W:        ' + liquid(V, W, p));
     lines.push('');
-    lines.push('Exactness as a bifunctor of variables: ' + exactness(V, W, p));
+    lines.push('Exactness as a bifunctor of variables: ' + exactness(V, W));
     lines.push('');
     if(V === 'ell2' && W === 'ell2') lines.push('Special case ell^2 tensor ell^2: classical pi-tensor gives the trace-class operators -- exactness fails because the inclusion of finite-rank into trace-class is not split. Liquid_p restores exactness, and the comparison piTensor -> liquid_p Tensor differs by a controlled correction.');
     if(p > 0.95) lines.push('p approaching 1 from below: the liquid tensor smoothly approaches the projective tensor, but at p = 1 the gain disappears. The strict inequality 0 < p < 1 is what buys exactness.');
@@ -929,7 +934,7 @@ $$\mathrm{Ext}^i_{\mathrm{Cond}(\mathbb R)}\bigl(M_{p'}(S),\, V\bigr) \;=\; 0 \q
       date: 'December 5, 2020',
       title: 'The challenge',
       who: 'Peter Scholze posts on Kevin Buzzard Xena blog',
-      body: 'Scholze publishes his liquid-vector-space theorem in unrefereed-preprint form; in the post he says explicitly that he is not confident the proof is right. Asks the formal-methods community whether Lean can verify it. None of his collaborators believed the proof was correct; the LTE was launched on the bet that a formal check would either confirm or expose the error.'
+      body: 'Scholze publishes his liquid-vector-space theorem in unrefereed-preprint form and asks publicly whether Lean can verify it. He frames the request as a way to check a manuscript he is not yet fully confident in -- some technical steps are sketched -- and the formal-methods community responds. The LTE is launched on the premise that a formal check would either confirm or expose any gaps.'
     },
     {
       date: 'March 2021',
@@ -944,10 +949,10 @@ $$\mathrm{Ext}^i_{\mathrm{Cond}(\mathbb R)}\bigl(M_{p'}(S),\, V\bigr) \;=\; 0 \q
       body: 'The technical preliminaries -- p-summable measures on profinite sets, the long-exact-sequence machinery in Cond(Ab), the basic homological algebra in mathlib (Ext, derived functors, profinite Z-modules) -- come online. Mathlib grows substantially in homological algebra and topology to accommodate the project.'
     },
     {
-      date: 'May 28, 2022',
+      date: 'May 28, 2021',
       title: 'The main theorem (induction core)',
       who: 'Commelin announces successful Lean proof of the inductive theorem',
-      body: 'After 17 months of community work, the main inductive statement -- the technical heart of the liquid Ext-vanishing -- is verified. Scholze blogs that the proof stands up. The formalisation discovers that one specific step in the original manuscript was sketched in a way that did not type-check; Commelin and Scholze collaboratively patch it.'
+      body: 'After about six months of community work, the main inductive statement -- the technical heart of the liquid Ext-vanishing -- is verified. Scholze blogs ("Half a year of LTE") that the proof stands up. The formalisation surfaces one step in the original manuscript that was sketched in a way that did not type-check; Commelin and Scholze collaboratively patch it.'
     },
     {
       date: 'July 14, 2022',
@@ -959,7 +964,7 @@ $$\mathrm{Ext}^i_{\mathrm{Cond}(\mathbb R)}\bigl(M_{p'}(S),\, V\bigr) \;=\; 0 \q
       date: '2023',
       title: 'Generalisations and downstream',
       who: 'Continued work on mathlib4 port, integration into broader formalisation efforts',
-      body: 'The infrastructure built for the LTE -- particularly the homological-algebra framework, the condensed-sets formalisation, and the technique of blueprint-driven community formalisation -- becomes a template for subsequent ambitious projects: a full BSD formalisation, parts of the Langlands programme, and the ongoing FLT formalisation effort. The cultural shift -- mathematicians using Lean to gain confidence in their own work -- is the LTE most lasting consequence.'
+      body: 'The infrastructure built for the LTE -- particularly the homological-algebra framework, the condensed-sets formalisation, and the blueprint-driven community-formalisation technique -- becomes a template for subsequent ambitious projects, including parts of the Langlands programme and the ongoing FLT formalisation effort. The cultural shift -- mathematicians using Lean to gain confidence in their own work -- is the LTE most lasting consequence.'
     }
   ];
   function set(k){ active = k;
