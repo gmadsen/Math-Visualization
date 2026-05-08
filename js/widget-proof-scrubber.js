@@ -57,6 +57,24 @@
     return e;
   }
 
+  // Mirrors the macro set installed by topic-page <head> blocks (see
+  // CLAUDE.md "House conventions"). Without these, \Spec / \Gal / \Hom etc.
+  // are unknown to KaTeX inside scrubber-rendered nodes since the page-level
+  // renderMathInElement call has already finished.
+  var SCRUBBER_MACROS = {
+    '\\Spec': '\\operatorname{Spec}',
+    '\\Gal':  '\\operatorname{Gal}',
+    '\\Hom':  '\\operatorname{Hom}',
+    '\\hom':  '\\operatorname{hom}',
+    '\\tr':   '\\operatorname{tr}',
+    '\\ad':   '\\operatorname{ad}',
+    '\\ind':  '\\operatorname{ind}',
+    '\\GL':   '\\operatorname{GL}',
+    '\\SL':   '\\operatorname{SL}',
+    '\\Frob': '\\operatorname{Frob}',
+    '\\Sha':  '\\text{Ш}'
+  };
+
   function typesetMath(node){
     if(global.renderMathInElement){
       try {
@@ -66,7 +84,9 @@
             {left:'$',  right:'$',  display:false},
             {left:'\\(', right:'\\)', display:false},
             {left:'\\[', right:'\\]', display:true}
-          ]
+          ],
+          throwOnError: false,
+          macros: SCRUBBER_MACROS
         });
       } catch(_){ /* swallow */ }
     }

@@ -4069,7 +4069,8 @@ window.__MVWidgets = [
     "description": "Bespoke static SVG diagram of Schlessinger's axioms (H1)–(H4) for a deformation functor $F: \\mathrm{Art}_k \\to \\mathrm{Set}$, used in deformation-theory.html §4 (#deformation-functor). No driving script.",
     "requiredParams": [
       "widgetId",
-      "bodyMarkup"
+      "bodyMarkup",
+      "bodyScript"
     ],
     "readmeExcerpt": "Bespoke static SVG diagram of Schlessinger's axioms (H1)–(H4) for a deformation functor $F: \\mathrm{Art}_k \\to \\mathrm{Set}$, used in deformation-theory.html §4 (#deformation-functor). No driving script.",
     "hasExample": false,
