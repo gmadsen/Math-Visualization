@@ -154,7 +154,8 @@
         "iwasawa-theory",
         "continued-fractions",
         "dirichlet-unit-theorem",
-        "complex-multiplication"
+        "complex-multiplication",
+        "arithmetic-statistics"
       ],
       "color": "y"
     },

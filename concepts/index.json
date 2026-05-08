@@ -3,6 +3,7 @@
     "several-complex-variables",
     "khovanov-homology",
     "shimura-varieties",
+    "arithmetic-statistics",
     "complex-multiplication",
     "tropical-geometry",
     "surgery-theory",
@@ -362,6 +363,7 @@
     "crystalline-cohomology": "advanced",
     "tropical-geometry": "advanced",
     "surgery-theory": "advanced",
+    "arithmetic-statistics": "advanced",
     "shimura-varieties": "capstone"
   }
 }

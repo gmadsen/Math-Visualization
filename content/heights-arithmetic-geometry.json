@@ -78,7 +78,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./abelian-varieties.html#mordell-weil\">Abelian varieties</a> · Mordell–Weil and Faltings finiteness</div>\n    <div><a href=\"./heights-arithmetic-geometry.html#mordell-faltings\">Heights in arithmetic geometry</a> · Heights and Mordell–Faltings</div>\n    <div><a href=\"./heights-arithmetic-geometry.html#weil\">Heights in arithmetic geometry</a> · Weil heights from line bundles</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./abelian-varieties.html#mordell-weil\">Abelian varieties</a> · Mordell–Weil and Faltings finiteness</div>\n    <div><a href=\"./arithmetic-statistics.html#counting-fields\">Arithmetic statistics</a> · Counting number fields</div>\n    <div><a href=\"./heights-arithmetic-geometry.html#mordell-faltings\">Heights in arithmetic geometry</a> · Heights and Mordell–Faltings</div>\n    <div><a href=\"./heights-arithmetic-geometry.html#weil\">Heights in arithmetic geometry</a> · Weil heights from line bundles</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "quiz",
@@ -166,7 +166,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./heights-arithmetic-geometry.html#arakelov\">Heights in arithmetic geometry</a> · Arakelov heights — a glimpse</div>\n    <div><a href=\"./heights-arithmetic-geometry.html#bogomolov\">Heights in arithmetic geometry</a> · Bogomolov, equidistribution, and small points</div>\n    <div><a href=\"./heights-arithmetic-geometry.html#mordell-faltings\">Heights in arithmetic geometry</a> · Heights and Mordell–Faltings</div>\n    <div><a href=\"./heights-arithmetic-geometry.html#descent\">Heights in arithmetic geometry</a> · Mordell–Weil descent: heights into finite generation</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./arithmetic-statistics.html#selmer-averages\">Arithmetic statistics</a> · Bhargava's Selmer averages</div>\n    <div><a href=\"./heights-arithmetic-geometry.html#arakelov\">Heights in arithmetic geometry</a> · Arakelov heights — a glimpse</div>\n    <div><a href=\"./heights-arithmetic-geometry.html#bogomolov\">Heights in arithmetic geometry</a> · Bogomolov, equidistribution, and small points</div>\n    <div><a href=\"./heights-arithmetic-geometry.html#mordell-faltings\">Heights in arithmetic geometry</a> · Heights and Mordell–Faltings</div>\n    <div><a href=\"./heights-arithmetic-geometry.html#descent\">Heights in arithmetic geometry</a> · Mordell–Weil descent: heights into finite generation</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "quiz",

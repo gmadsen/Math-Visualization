@@ -7,6 +7,7 @@ window.__MVConcepts = {
       "several-complex-variables",
       "khovanov-homology",
       "shimura-varieties",
+      "arithmetic-statistics",
       "complex-multiplication",
       "tropical-geometry",
       "surgery-theory",
@@ -366,6 +367,7 @@ window.__MVConcepts = {
       "crystalline-cohomology": "advanced",
       "tropical-geometry": "advanced",
       "surgery-theory": "advanced",
+      "arithmetic-statistics": "advanced",
       "shimura-varieties": "capstone"
     }
   },
@@ -651,6 +653,104 @@ window.__MVConcepts = {
           ],
           "blurb": "Counting $\\mathbb{F}_q$-points on integral models of Shimura varieties via Honda–Tate theory (isogeny classes of abelian varieties over $\\mathbb{F}_q$ ↔ Weil $q$-numbers) and grouping by Kottwitz triples $(\\gamma_0;\\gamma,\\delta)$ produces the Langlands–Kottwitz formula $|\\mathrm{Sh}_K(\\mathbb{F}_q)| = \\sum c(\\gamma_0;\\gamma,\\delta)\\cdot\\mathrm{O}_\\gamma(\\mathbf{1}_K^p)\\cdot\\mathrm{TO}_\\delta(\\phi_p)$. After Kottwitz stabilisation, comparison with the Arthur–Selberg trace formula proves local-global compatibility for the automorphic Galois representations of §5 and provides the technical engine for modern proofs of automorphy lifting (Wiles–Taylor, Caraiani, Shin, Scholze).",
           "tags": [
+            "duality",
+            "density"
+          ]
+        }
+      ]
+    },
+    "arithmetic-statistics": {
+      "topic": "arithmetic-statistics",
+      "title": "Arithmetic statistics",
+      "page": "arithmetic-statistics.html",
+      "concepts": [
+        {
+          "id": "as-counting-fields",
+          "title": "Counting number fields",
+          "anchor": "counting-fields",
+          "prereqs": [
+            "discriminant-ant",
+            "logarithmic-height-northcott"
+          ],
+          "blurb": "Order number fields $K/\\mathbb{Q}$ of degree $n$ by absolute discriminant: $N_n(X)=\\#\\{K:|\\mathrm{disc}\\,K|\\le X\\}$. Davenport–Heilbronn (1971): $N_3(X)\\sim X/(3\\zeta(3))$. Bhargava extended this via parametrizations of quartic and quintic rings by integral binary forms (Delone–Faddeev for cubics, $\\mathrm{GL}_2\\times\\mathrm{SL}_3$-orbits on pairs of ternary quadratics for quartics, etc.). For $n\\ge 6$ Malle's conjecture predicts $N_n(X)\\sim cX^{1/a(G)}(\\log X)^{b(G)-1}$ in terms of the Galois closure's group $G$.",
+          "tags": [
+            "density",
+            "classification",
+            "foundation"
+          ]
+        },
+        {
+          "id": "as-cohen-lenstra",
+          "title": "Cohen–Lenstra heuristics",
+          "anchor": "cohen-lenstra",
+          "prereqs": [
+            "as-counting-fields",
+            "class-group-units-ant"
+          ],
+          "blurb": "For imaginary quadratic $K=\\mathbb{Q}(\\sqrt{-d})$ ordered by $|d|$, Cohen–Lenstra (1983) predict that the $p$-part of the class group $\\mathrm{Cl}(K)[p^\\infty]$ is distributed as a random finite abelian $p$-group $A$ with probability $\\propto 1/|\\mathrm{Aut}(A)|$. Marginals: $\\Pr(p\\nmid h(K))=\\prod_{k\\ge 1}(1-p^{-k})$. For real quadratic fields the unit-rank correction gives $\\Pr(p\\nmid h)=\\prod_{k\\ge 2}(1-p^{-k})$. Ellenberg–Venkatesh–Westerland proved the function-field analogue unconditionally via Hurwitz-scheme cohomology.",
+          "tags": [
+            "density",
+            "moduli",
+            "classification"
+          ]
+        },
+        {
+          "id": "as-selmer-averages",
+          "title": "Bhargava's Selmer averages",
+          "anchor": "selmer-averages",
+          "prereqs": [
+            "as-counting-fields",
+            "mordell-weil",
+            "neron-tate-canonical-height"
+          ],
+          "blurb": "Order $E/\\mathbb{Q}$ by naive height $H(E)=\\max(|A|^3,|B|^2)$. Bhargava–Shankar computed the average size of $\\ell$-Selmer groups: $\\mathbb{E}[|\\mathrm{Sel}_\\ell|]=\\ell+1$ for $\\ell=2,3,5$ and $\\mathbb{E}[|\\mathrm{Sel}_4|]=7$. Each is a hard theorem reduced to counting integer-orbit invariants on a representation: $\\mathrm{PGL}_2\\curvearrowright$ binary quartic forms for $\\ell=2$, $\\mathrm{PGL}_3\\curvearrowright$ ternary cubic forms for $\\ell=3$, etc. Consequence: a positive proportion of $E$ have rank $\\le 1$; combined with Skinner–Urban, BSD holds on positive density.",
+          "tags": [
+            "density",
+            "exact-sequence",
+            "group-action"
+          ]
+        },
+        {
+          "id": "as-average-rank",
+          "title": "Average rank of elliptic curves",
+          "anchor": "average-rank",
+          "prereqs": [
+            "as-selmer-averages",
+            "bsd-rank-equality"
+          ],
+          "blurb": "Goldfeld (1979) conjectured: $50\\%$ of $E/\\mathbb{Q}$ have rank $0$, $50\\%$ have rank $1$, average rank $=\\tfrac12$. The parity heuristic says the global root number $w(E)=\\pm 1$ with equal density, forcing parity-of-$\\mathrm{rk}$ to be $0/1$ at minimum. Bhargava–Skinner–Zhang proved $\\ge 66.48\\%$ of $E$ satisfy BSD with rank $\\le 1$. Empirical small-height tables show inflated average rank ($\\sim 0.85$); the descent toward $\\tfrac12$ as $H\\to\\infty$ is logarithmically slow.",
+          "tags": [
+            "density",
+            "equidistribution"
+          ]
+        },
+        {
+          "id": "as-function-fields",
+          "title": "Function-field analogues",
+          "anchor": "function-fields",
+          "prereqs": [
+            "as-cohen-lenstra",
+            "as-selmer-averages"
+          ],
+          "blurb": "Replace $\\mathbb{Q}$ by $\\mathbb{F}_q(t)$. $L$-functions become polynomials in $T=q^{-s}$ with roots on $|T|=q^{-1/2}$. Katz–Sarnak (1999): for a curve $C/\\mathbb{F}_q$ of genus $g$, normalized Frobenius angles $\\theta_i$ become $\\mathrm{USp}(2g)$-equidistributed as $q\\to\\infty$. Cohen–Lenstra over $\\mathbb{F}_q(t)$ is a theorem (Ellenberg–Venkatesh–Westerland) computed via $H^*$ of Hurwitz moduli — geometric topology supplies the heuristic that was conjectural over $\\mathbb{Q}$.",
+          "tags": [
+            "equidistribution",
+            "moduli",
+            "cohomology"
+          ]
+        },
+        {
+          "id": "as-l-symmetry",
+          "title": "L-functions and symmetry types",
+          "anchor": "l-symmetry",
+          "prereqs": [
+            "as-function-fields",
+            "lfunction-prototype",
+            "chebotarev-density"
+          ],
+          "blurb": "Katz–Sarnak philosophy: every natural family of $L$-functions has a symmetry type — unitary $U$, orthogonal $O^\\pm$, or symplectic $\\mathrm{USp}$ — and low-lying zeros follow the eigenvalue statistics of that random-matrix ensemble. $\\zeta$ alone: $U$. Quadratic Dirichlet $\\{L(s,\\chi_d)\\}$: $\\mathrm{USp}$. Elliptic-curve $L$-functions: $O$ split by root number. Soundararajan: $\\ge 87.5\\%$ of $L(\\tfrac12,\\chi_d)$ are non-zero; the symmetry-type prediction is a uniform engine for proportion-rank arithmetic.",
+          "tags": [
+            "equidistribution",
             "duality",
             "density"
           ]
@@ -17699,7 +17799,8 @@ window.__MVConcepts = {
           "iwasawa-theory",
           "continued-fractions",
           "dirichlet-unit-theorem",
-          "complex-multiplication"
+          "complex-multiplication",
+          "arithmetic-statistics"
         ],
         "color": "y"
       },
@@ -18078,6 +18179,7 @@ window.__MVConcepts = {
     "crystalline-cohomology": "advanced",
     "tropical-geometry": "advanced",
     "surgery-theory": "advanced",
+    "arithmetic-statistics": "advanced",
     "shimura-varieties": "capstone"
   },
   "newArc": [
@@ -18141,17 +18243,17 @@ window.__MVConcepts = {
       "density": 0.21232876712328766
     },
     "Number theory": {
-      "concepts": 122,
-      "intra": 169,
-      "crossOut": 54,
+      "concepts": 128,
+      "intra": 180,
+      "crossOut": 57,
       "crossIn": 35,
-      "density": 0.4426229508196721
+      "density": 0.4453125
     },
     "Modular forms & L-functions": {
       "concepts": 121,
       "intra": 181,
       "crossOut": 65,
-      "crossIn": 21,
+      "crossIn": 24,
       "density": 0.5371900826446281
     },
     "Algebraic geometry": {
