@@ -5,6 +5,7 @@ window.__MVConcepts = {
   "index": {
     "topics": [
       "several-complex-variables",
+      "complex-multiplication",
       "kahler-geometry",
       "mapping-class-groups",
       "half-integral-weight-forms",
@@ -348,6 +349,7 @@ window.__MVConcepts = {
       "abelian-varieties": "advanced",
       "positivity-and-ample-line-bundles": "advanced",
       "dirichlet-unit-theorem": "advanced",
+      "complex-multiplication": "advanced",
       "cobordism": "advanced",
       "mmp-and-birational-geometry": "advanced",
       "homotopy-theory": "advanced",
@@ -447,6 +449,99 @@ window.__MVConcepts = {
           "blurb": "The first Cousin problem (additive, Mittag-Leffler-style) is solvable on $\\Omega$ iff $H^1(\\Omega,\\mathcal{O}) = 0$; the second (multiplicative, Weierstrass-style) is solvable iff the divisor's Chern class in $H^2(\\Omega,\\mathbb{Z})$ vanishes. The exponential exact sequence $0\\to\\mathbb{Z}\\to\\mathcal{O}\\to\\mathcal{O}^\\times\\to 0$ identifies $\\mathrm{Pic}(\\Omega)$ with $H^2(\\Omega,\\mathbb{Z})$ on a Stein manifold via Cartan B. Both Cousin problems are the SCV analogs of the one-variable Mittag-Leffler and Weierstrass theorems.",
           "tags": [
             "cohomology",
+            "duality"
+          ]
+        }
+      ]
+    },
+    "complex-multiplication": {
+      "topic": "complex-multiplication",
+      "title": "Complex multiplication",
+      "page": "complex-multiplication.html",
+      "concepts": [
+        {
+          "id": "cm-elliptic-c",
+          "title": "CM elliptic curves over $\\mathbb{C}$",
+          "anchor": "cm-elliptic-c",
+          "prereqs": [
+            "elliptic-curve-definition",
+            "j-invariant-classification",
+            "class-group-units-ant"
+          ],
+          "blurb": "An elliptic curve $E = \\mathbb{C}/\\Lambda$ has complex multiplication when $\\mathrm{End}(E)$ is strictly larger than $\\mathbb{Z}$ — equivalently, when $\\Lambda$ admits a quadratic-irrational scaling. Then $\\mathrm{End}(E)$ is an order in an imaginary quadratic field $K$, and $j(E) \\in \\overline{\\mathbb{Q}}$ is an algebraic integer.",
+          "tags": [
+            "foundation",
+            "classification"
+          ]
+        },
+        {
+          "id": "cm-class-poly",
+          "title": "Hilbert class polynomial",
+          "anchor": "cm-class-poly",
+          "prereqs": [
+            "cm-elliptic-c",
+            "hilbert-class-field"
+          ],
+          "blurb": "$H_K(X) = \\prod_{[\\mathfrak{a}]}(X - j(E_\\mathfrak{a})) \\in \\mathbb{Z}[X]$ has degree the class number $h_K$, and $K(j(E))$ is the Hilbert class field of $K$ — the maximal unramified abelian extension. Explicit class field theory for imaginary quadratic $K$ via a single transcendental function evaluated at one quadratic irrationality.",
+          "tags": [
+            "foundation",
+            "classification"
+          ]
+        },
+        {
+          "id": "cm-heegner",
+          "title": "Heegner points on modular curves",
+          "anchor": "cm-heegner",
+          "prereqs": [
+            "cm-class-poly",
+            "mc-y0-x0",
+            "mc-heegner-points"
+          ],
+          "blurb": "A Heegner point on $X_0(N)$ is a pair $(E, C)$ where $E$ and $E/C$ both have CM by the same order $\\mathcal{O}_K$ — equivalently a $\\Gamma_0(N)$-class of $\\tau \\in \\mathbb{H}$ with both $\\tau$ and $N\\tau$ on the CM locus. Existence requires the Heegner hypothesis (every $p \\mid N$ splits in $K$); under modular parametrization $\\varphi : X_0(N) \\to E$ they yield non-torsion points on $E(K)$ when $L'(E/K, 1) \\ne 0$.",
+          "tags": [
+            "duality",
+            "moduli"
+          ]
+        },
+        {
+          "id": "cm-main-theorem",
+          "title": "Main theorem of complex multiplication",
+          "anchor": "cm-main-theorem",
+          "prereqs": [
+            "cm-class-poly",
+            "artin-map-cft"
+          ],
+          "blurb": "The ray class field $K(\\mathfrak{f})$ of an imaginary quadratic $K$ is generated over $K$ by $j(E)$ together with the Weber function applied to $\\mathfrak{f}$-torsion of a CM curve $E$. Artin reciprocity describes Galois action explicitly: $\\sigma_\\mathfrak{a} \\cdot j(\\mathbb{C}/\\mathfrak{b}) = j(\\mathbb{C}/\\mathfrak{a}^{-1}\\mathfrak{b})$, $\\sigma_\\mathfrak{a} \\cdot P = \\mathfrak{a}^{-1} \\cdot P$ on torsion. Explicit class field theory for imaginary quadratic $K$.",
+          "tags": [
+            "duality",
+            "foundation"
+          ]
+        },
+        {
+          "id": "cm-abelian",
+          "title": "CM abelian varieties (Shimura–Taniyama)",
+          "anchor": "cm-abelian",
+          "prereqs": [
+            "cm-main-theorem",
+            "galois-rep-definition"
+          ],
+          "blurb": "An abelian variety $A$ of dimension $g$ has CM by a CM field $L$ (totally imaginary quadratic over a totally real $L_0$, $[L:\\mathbb{Q}]=2g$) when $L \\hookrightarrow \\mathrm{End}^0(A)$ as a maximal commutative subalgebra. The CM type $\\Phi$ + reflex field $L^*$ determine the field of definition; Shimura–Taniyama: $\\mathrm{Frob}_\\mathfrak{p} = N_{\\Phi^*}(\\mathfrak{p})$ via the reflex norm.",
+          "tags": [
+            "classification",
+            "duality"
+          ]
+        },
+        {
+          "id": "cm-stark-heegner",
+          "title": "Applications: Heegner numbers, Gross–Zagier, Stark",
+          "anchor": "cm-applications",
+          "prereqs": [
+            "cm-heegner",
+            "bsd-rank-equality"
+          ],
+          "blurb": "Three landmarks: Heegner's $h_K = 1$ theorem (only nine imaginary quadratic fields have class number $1$, ending with $d = -163$); the near-integer $e^{\\pi\\sqrt{163}} \\approx 262{,}537{,}412{,}640{,}768{,}744$ explained by the $q$-expansion of $j$ at the CM point $(1+\\sqrt{-163})/2$; the Gross–Zagier formula relating $L'(E/K,1)$ to Néron–Tate heights of Heegner points, which combined with Kolyvagin proves BSD's rank conjecture for analytic rank $\\le 1$.",
+          "tags": [
+            "density",
             "duality"
           ]
         }
@@ -17218,7 +17313,8 @@ window.__MVConcepts = {
           "computational-number-theory",
           "iwasawa-theory",
           "continued-fractions",
-          "dirichlet-unit-theorem"
+          "dirichlet-unit-theorem",
+          "complex-multiplication"
         ],
         "color": "y"
       },
@@ -17582,6 +17678,7 @@ window.__MVConcepts = {
     "abelian-varieties": "advanced",
     "positivity-and-ample-line-bundles": "advanced",
     "dirichlet-unit-theorem": "advanced",
+    "complex-multiplication": "advanced",
     "cobordism": "advanced",
     "mmp-and-birational-geometry": "advanced",
     "homotopy-theory": "advanced",
@@ -17653,24 +17750,24 @@ window.__MVConcepts = {
       "density": 0.20149253731343283
     },
     "Number theory": {
-      "concepts": 116,
-      "intra": 160,
-      "crossOut": 49,
+      "concepts": 122,
+      "intra": 169,
+      "crossOut": 54,
       "crossIn": 32,
-      "density": 0.4224137931034483
+      "density": 0.4426229508196721
     },
     "Modular forms & L-functions": {
       "concepts": 115,
       "intra": 170,
       "crossOut": 58,
-      "crossIn": 18,
+      "crossIn": 21,
       "density": 0.5043478260869565
     },
     "Algebraic geometry": {
       "concepts": 179,
       "intra": 265,
       "crossOut": 68,
-      "crossIn": 29,
+      "crossIn": 31,
       "density": 0.37988826815642457
     },
     "Combinatorics & graph theory": {

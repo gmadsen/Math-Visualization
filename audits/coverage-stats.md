@@ -2,12 +2,12 @@
 
 ## Corpus totals
 
-- Topics: **166**, concepts: **1158**
-- Widgets: **1183** (registry-driven: 1183, inline: 0)
-- Quizzes: **4668** (v1: 3432, hard: 1223, expert: 13)
-- Quiz types: mcq: 3097, numeric: 1135, multi-select: 195, matching: 86, ordering: 62, spot-the-error: 41, complex: 29, proof-completion: 19, construction: 2, guess-my-rule: 2
+- Topics: **167**, concepts: **1164**
+- Widgets: **1189** (registry-driven: 1189, inline: 0)
+- Quizzes: **4686** (v1: 3450, hard: 1223, expert: 13)
+- Quiz types: mcq: 3108, numeric: 1138, multi-select: 196, matching: 87, ordering: 63, spot-the-error: 42, complex: 29, proof-completion: 19, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their section: **149**
-- Concepts lacking a hard-tier quiz: **720**
+- Concepts lacking a hard-tier quiz: **726**
 
 ## Per-slug registry adoption
 
@@ -158,6 +158,12 @@ page has wired one in yet.
 | `commutative-algebra-tensor` | clickable-diagram | click | 2d | 1 | commutative-algebra |
 | `commutative-algebra-transcendence-degree` | parametric-plot | select | 2d | 1 | commutative-algebra |
 | `commutative-algebra-zariski-spec` | clickable-diagram | click | 2d | 1 | commutative-algebra |
+| `complex-multiplication-w1` | verbatim | drag | 2d | 1 | complex-multiplication |
+| `complex-multiplication-w2` | verbatim | select | 2d | 1 | complex-multiplication |
+| `complex-multiplication-w3` | verbatim | click | 2d | 1 | complex-multiplication |
+| `complex-multiplication-w4` | verbatim | select | 2d | 1 | complex-multiplication |
+| `complex-multiplication-w5` | verbatim | select | 2d | 1 | complex-multiplication |
+| `complex-multiplication-w6` | verbatim | select | 2d | 1 | complex-multiplication |
 | `complexity-cook-levin-tableau` | complexity-cook-levin-tableau | step | 2d | 1 | complexity-theory |
 | `complexity-growth-rates` | complexity-growth-rates | slider | 2d | 1 | complexity-theory |
 | `complexity-hierarchy-diagonal` | complexity-hierarchy-diagonal | toggle | 2d | 1 | complexity-theory |
@@ -794,13 +800,13 @@ page has wired one in yet.
 
 ### Number theory
 
-- Topics: **17**, concepts: **116**
-- Widgets: **137** (registry-driven: 137, inline: 0)
-  - by family: button-stepper: 66, verbatim: 27, clickable-diagram: 4, modular-arithmetic-clock: 4, input-form: 4, inline-code-cell: 4, declarative-host: 2, parametric-plot: 2, crypto-totient-units: 1, crypto-rsa-toy: 1, crypto-diffie-hellman: 1, crypto-ecc-points: 1, crypto-lwe-samples: 1, crypto-schnorr-protocol: 1, branching-proof-scrubber: 1, clickable-graph: 1, svg-illustration: 1, heights-naive-calculator: 1, heights-northcott-enumerator: 1, heights-weil-pullback: 1, heights-tate-averaging: 1, heights-mahler-measure: 1, heights-genus-growth: 1, heights-arakelov-decomposition: 1, counterexample-explorer: 1, ant-pnt-comparison: 1, ant-explicit-formula: 1, ant-zero-free-region: 1, ant-dirichlet-residue-wheel: 1, ant-sieve-truncation: 1, ant-bombieri-vinogradov: 1, proof-scrubber: 1
-  - by dimension: 2d: 137
-  - by gesture: click: 93, slider: 22, input: 8, edit: 4, interactive: 2, interact: 2, button: 1, static: 1, branching-timeline: 1, read: 1, select: 1, timeline: 1
-- Quizzes: **528** (v1: 345, hard: 183, expert: 0)
-  - by type: mcq: 354, numeric: 158, multi-select: 8, complex: 3, matching: 3, ordering: 1, guess-my-rule: 1
+- Topics: **18**, concepts: **122**
+- Widgets: **143** (registry-driven: 143, inline: 0)
+  - by family: button-stepper: 66, verbatim: 33, clickable-diagram: 4, modular-arithmetic-clock: 4, input-form: 4, inline-code-cell: 4, declarative-host: 2, parametric-plot: 2, crypto-totient-units: 1, crypto-rsa-toy: 1, crypto-diffie-hellman: 1, crypto-ecc-points: 1, crypto-lwe-samples: 1, crypto-schnorr-protocol: 1, branching-proof-scrubber: 1, clickable-graph: 1, svg-illustration: 1, heights-naive-calculator: 1, heights-northcott-enumerator: 1, heights-weil-pullback: 1, heights-tate-averaging: 1, heights-mahler-measure: 1, heights-genus-growth: 1, heights-arakelov-decomposition: 1, counterexample-explorer: 1, ant-pnt-comparison: 1, ant-explicit-formula: 1, ant-zero-free-region: 1, ant-dirichlet-residue-wheel: 1, ant-sieve-truncation: 1, ant-bombieri-vinogradov: 1, proof-scrubber: 1
+  - by dimension: 2d: 143
+  - by gesture: click: 94, slider: 22, input: 8, select: 5, edit: 4, interactive: 2, interact: 2, drag: 1, button: 1, static: 1, branching-timeline: 1, read: 1, timeline: 1
+- Quizzes: **546** (v1: 363, hard: 183, expert: 0)
+  - by type: mcq: 365, numeric: 161, multi-select: 9, matching: 4, complex: 3, ordering: 2, spot-the-error: 1, guess-my-rule: 1
 
 ### Modular forms & L-functions
 
@@ -845,6 +851,7 @@ page has wired one in yet.
 ## Per-topic
 
 - `several-complex-variables` (Analysis) — concepts=6, widgets=5 (slug=5), quiz=18 (v1=18, hard=0, expert=0)
+- `complex-multiplication` (Number theory) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `kahler-geometry` (Geometry & topology) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `mapping-class-groups` (Geometry & topology) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `half-integral-weight-forms` (Modular forms & L-functions) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
@@ -1044,6 +1051,12 @@ page has wired one in yet.
 - `scv-pseudoconvex` (several-complex-variables)
 - `scv-stein` (several-complex-variables)
 - `scv-cousin` (several-complex-variables)
+- `cm-elliptic-c` (complex-multiplication)
+- `cm-class-poly` (complex-multiplication)
+- `cm-heegner` (complex-multiplication)
+- `cm-main-theorem` (complex-multiplication)
+- `cm-abelian` (complex-multiplication)
+- `cm-stark-heegner` (complex-multiplication)
 - `kg-complex-structure` (kahler-geometry)
 - `kg-kahler-form` (kahler-geometry)
 - `kg-kahler-identities` (kahler-geometry)
@@ -1052,9 +1065,3 @@ page has wired one in yet.
 - `kg-kahler-einstein` (kahler-geometry)
 - `mcg-modular` (mapping-class-groups)
 - `mcg-dehn` (mapping-class-groups)
-- `mcg-nielsen-thurston` (mapping-class-groups)
-- `mcg-teichmuller` (mapping-class-groups)
-- `mcg-4manifolds` (mapping-class-groups)
-- `mcg-casson` (mapping-class-groups)
-- `hiw-metaplectic-cocycle` (half-integral-weight-forms)
-- `hiw-theta-prototype` (half-integral-weight-forms)

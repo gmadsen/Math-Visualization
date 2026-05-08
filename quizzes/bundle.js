@@ -12551,6 +12551,265 @@ window.MVQuizBank = {
       }
     }
   },
+  "complex-multiplication": {
+    "topic": "complex-multiplication",
+    "quizzes": {
+      "cm-elliptic-c": {
+        "title": "CM elliptic curves over $\\mathbb{C}$",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Let $E = \\mathbb{C}/\\Lambda$ be an elliptic curve over $\\mathbb{C}$ with $\\Lambda = \\mathbb{Z} + \\mathbb{Z}\\tau$. Which condition on $\\tau$ makes $E$ have complex multiplication?",
+            "choices": [
+              "$\\tau$ is transcendental",
+              "$\\tau$ is a real number",
+              "$\\tau$ is a quadratic irrationality with $\\Im(\\tau) > 0$",
+              "$\\tau$ has rational real and imaginary parts"
+            ],
+            "answer": 2,
+            "explain": "$E$ has CM iff some non-integer $\\alpha \\in \\mathbb{C}$ satisfies $\\alpha\\Lambda \\subseteq \\Lambda$, equivalently iff $\\tau$ generates a quadratic extension of $\\mathbb{Q}$. Since $\\Im(\\tau) > 0$, that extension is imaginary quadratic."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which of the following are TRUE for an elliptic curve $E/\\mathbb{C}$ with complex multiplication by $\\mathcal{O}_K$?",
+            "choices": [
+              "$\\mathrm{End}(E)$ is an order in an imaginary quadratic field $K$",
+              "$j(E) \\in \\overline{\\mathbb{Q}}$ is an algebraic integer",
+              "$E$ is defined over $\\mathbb{Q}$ for every CM order",
+              "$\\mathrm{End}(E) \\otimes \\mathbb{Q} \\cong K$"
+            ],
+            "answer": [
+              0,
+              1,
+              3
+            ],
+            "explain": "Items 0, 1, 3 are core CM facts. Item 2 fails: $j(E) \\in \\mathbb{Q}$ only when $h_K = 1$ (there are exactly nine such $K$), so most CM curves are defined only over the Hilbert class field $H \\supsetneq \\mathbb{Q}$."
+          },
+          {
+            "type": "numeric",
+            "q": "What is $j(E)$ for $E = \\mathbb{C}/\\mathbb{Z}[i]$ (the lattice of Gaussian integers, CM by $\\mathbb{Z}[i]$)?",
+            "answer": 1728,
+            "tol": 0.5,
+            "explain": "$j(i) = 1728$. The Weierstrass model is $y^2 = x^3 - x$, with $a = -1$, $b = 0$, so $j = 1728 \\cdot 4a^3 / (4a^3 + 27b^2) = 1728$."
+          }
+        ]
+      },
+      "cm-class-poly": {
+        "title": "Hilbert class polynomial",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The Hilbert class polynomial $H_K(X) = \\prod_{[\\mathfrak{a}]} (X - j(E_\\mathfrak{a}))$ has coefficients in:",
+            "choices": [
+              "$K$ (the imaginary quadratic field itself)",
+              "$\\mathcal{O}_K$ (the ring of integers of $K$)",
+              "$\\mathbb{Z}$ (the rational integers)",
+              "$\\overline{\\mathbb{Q}}$ but generally not $\\mathbb{Q}$"
+            ],
+            "answer": 2,
+            "explain": "Galois conjugation over $\\mathbb{Q}$ permutes the $j(E_\\mathfrak{a})$ — they are the full Galois orbit of $j(E_{\\mathcal{O}_K})$ — so the elementary symmetric functions, and hence the coefficients of $H_K$, lie in $\\mathbb{Q}$. Algebraic integrality forces them into $\\mathbb{Z}$."
+          },
+          {
+            "type": "matching",
+            "q": "Match each discriminant $D$ to its class number $h_K$ (using Gauss's tables for imaginary quadratic $K = \\mathbb{Q}(\\sqrt{D})$).",
+            "left": [
+              "$h = 1$",
+              "$h = 2$",
+              "$h = 3$",
+              "$h = 4$"
+            ],
+            "right": [
+              "$D = -7$",
+              "$D = -15$",
+              "$D = -23$",
+              "$D = -39$"
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "explain": "$h(-7) = 1$, $h(-15) = 2$, $h(-23) = 3$, $h(-39) = 4$. The Hilbert class polynomial degrees are $1, 2, 3, 4$ respectively, so $H_{Q(\\sqrt{-7})}$ is linear, $H_{Q(\\sqrt{-15})}$ quadratic, etc."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is $K(j(E)) = H$, the Hilbert class field of $K$?",
+            "choices": [
+              "$j(E)$ is rational, so $K(j(E)) = K$ itself",
+              "Galois action factors through the class group via $\\sigma_\\mathfrak{a} \\cdot j(\\mathbb{C}/\\mathfrak{b}) = j(\\mathbb{C}/\\mathfrak{a}^{-1}\\mathfrak{b})$, giving $\\Gal(K(j)/K) \\cong \\mathrm{Cl}(\\mathcal{O}_K)$",
+              "$K(j(E))/K$ is wildly ramified at $\\mathfrak{p} = (j(E))$",
+              "$j(E)$ is transcendental over $K$, so the extension is infinite"
+            ],
+            "answer": 1,
+            "explain": "By the main theorem of CM, the action of an ideal $\\mathfrak{a}$ on $j$-values factors through the class group. So $\\Gal(K(j)/K)$ surjects onto $\\mathrm{Cl}(\\mathcal{O}_K)$; degree count shows it is an isomorphism. Adjoining $j$ to $K$ gives a Galois extension whose group is the class group — that's the defining property of the Hilbert class field."
+          }
+        ]
+      },
+      "cm-heegner": {
+        "title": "Heegner points on modular curves",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the Heegner hypothesis for an imaginary quadratic field $K$ relative to a level $N$?",
+            "choices": [
+              "$N$ is prime in $\\mathcal{O}_K$",
+              "Every prime $p \\mid N$ splits in $K$",
+              "$N$ divides the discriminant of $K$",
+              "$N$ is coprime to the class number $h_K$"
+            ],
+            "answer": 1,
+            "explain": "The Heegner hypothesis is that every prime $p \\mid N$ splits in $\\mathcal{O}_K$. This guarantees the existence of an ideal $\\mathfrak{n} \\subset \\mathcal{O}_K$ with $\\mathcal{O}_K / \\mathfrak{n} \\cong \\mathbb{Z}/N$ — the data needed for a Heegner pair $(E_\\mathfrak{a}, \\mathfrak{a}/\\mathfrak{n})$ on $X_0(N)$."
+          },
+          {
+            "type": "mcq",
+            "q": "For a modular elliptic curve $E/\\mathbb{Q}$ of conductor $N$ and an imaginary quadratic $K$ satisfying the Heegner hypothesis, what does the Gross–Zagier formula compute?",
+            "choices": [
+              "The order of $\\Sha(E/\\mathbb{Q})$",
+              "The Néron–Tate height $\\hat h(y_K)$ of the trace of a Heegner point, in terms of $L'(E/K, 1)$",
+              "The number of rational torsion points of $E$",
+              "The leading Taylor coefficient of $L(E, s)$ at $s = 0$"
+            ],
+            "answer": 1,
+            "explain": "Gross–Zagier (1986): $L'(E/K, 1)$ equals an explicit positive multiple of $\\hat h(y_K)$, where $y_K \\in E(K)$ is the trace of a Heegner point under the modular parametrization. Combined with Kolyvagin's Euler-system, this proves BSD's rank-1 case."
+          },
+          {
+            "type": "spot-the-error",
+            "q": "Below is an attempted proof that $E/\\mathbb{Q}$ has rank $\\ge 1$ over $K$ whenever the Heegner hypothesis holds. Find the unjustified step.",
+            "steps": [
+              "Pick an imaginary quadratic $K$ satisfying the Heegner hypothesis for the conductor $N$ of $E$",
+              "Construct a Heegner point $P_K \\in X_0(N)(H)$ where $H$ is the Hilbert class field of $K$",
+              "Push $P_K$ through the modular parametrization $\\varphi : X_0(N) \\to E$ and trace down to get $y_K = \\mathrm{Tr}_{H/K}\\varphi(P_K) \\in E(K)$",
+              "By Gross–Zagier, $\\hat h(y_K)$ is a positive multiple of $L'(E/K, 1)$, so $y_K$ is non-torsion",
+              "Hence $E(K)$ has positive rank"
+            ],
+            "answer": 3,
+            "explain": "Step 3 is wrong as stated: $\\hat h(y_K)$ equals a positive multiple of $L'(E/K, 1)$, which only forces $y_K$ to be non-torsion when $L'(E/K, 1) \\ne 0$. If $\\mathrm{ord}_{s=1} L(E/K, s) \\ne 1$ then $y_K$ may be torsion. The full theorem requires the analytic rank to be exactly $1$."
+          }
+        ]
+      },
+      "cm-main-theorem": {
+        "title": "Main theorem of complex multiplication",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Let $E/\\mathbb{C}$ have CM by $\\mathcal{O}_K$. According to the main theorem of CM, the ray class field $K(\\mathfrak{f})$ of conductor $\\mathfrak{f}$ is generated over $K$ by:",
+            "choices": [
+              "$j(E)$ alone, for any $\\mathfrak{f}$",
+              "$j(E)$ and the values $h(P)$ of the Weber function on $\\mathfrak{f}$-torsion $P \\in E[\\mathfrak{f}]$",
+              "The trace $\\mathrm{Tr}(\\mathrm{Frob}_\\mathfrak{p})$ as $\\mathfrak{p}$ ranges over primes",
+              "A primitive root of unity of order $|\\mathcal{O}_K / \\mathfrak{f}|$"
+            ],
+            "answer": 1,
+            "explain": "$K(j(E))$ is the Hilbert class field $H$ — it sees only the unramified abelian extension. To capture ramified abelian extensions of conductor $\\mathfrak{f}$, one adjoins the Weber function (essentially $x$-coordinates) at $\\mathfrak{f}$-torsion. Together they generate $K(\\mathfrak{f})$, and as $\\mathfrak{f}$ varies, $K^{\\mathrm{ab}}$."
+          },
+          {
+            "type": "mcq",
+            "q": "How does an ideal $\\mathfrak{a} \\subset \\mathcal{O}_K$ (via Artin reciprocity) act on $j$-values of CM curves?",
+            "choices": [
+              "Trivially — $j$ is invariant under all of $\\Gal(\\bar K / K)$",
+              "$\\sigma_\\mathfrak{a} \\cdot j(\\mathbb{C}/\\mathfrak{b}) = j(\\mathbb{C}/\\mathfrak{a}\\mathfrak{b})$",
+              "$\\sigma_\\mathfrak{a} \\cdot j(\\mathbb{C}/\\mathfrak{b}) = j(\\mathbb{C}/\\mathfrak{a}^{-1}\\mathfrak{b})$",
+              "$\\sigma_\\mathfrak{a} \\cdot j(\\mathbb{C}/\\mathfrak{b}) = j(\\mathbb{C}/(\\mathfrak{a} + \\mathfrak{b}))$"
+            ],
+            "answer": 2,
+            "explain": "The classical formula is $\\sigma_\\mathfrak{a} \\cdot j(\\mathbb{C}/\\mathfrak{b}) = j(\\mathbb{C}/\\mathfrak{a}^{-1}\\mathfrak{b})$. The inverse appears because Artin reciprocity sends $\\mathfrak{a}$ to a Frobenius element acting on lattices by ideal multiplication on the dual side. The minus sign is the same as the convention $\\mathrm{Frob}_p$ vs. $\\mathrm{Frob}_p^{-1}$ in algebraic geometry."
+          },
+          {
+            "type": "ordering",
+            "q": "Order these statements logically, starting from a CM curve and ending at the maximal abelian extension $K^{\\mathrm{ab}}$.",
+            "items": [
+              "$j(E) \\in H$, the Hilbert class field of $K$",
+              "$K(\\mathfrak{f}) = K(j(E), h(E[\\mathfrak{f}]))$ for the ray class field of conductor $\\mathfrak{f}$",
+              "$E = \\mathbb{C}/\\mathcal{O}_K$ has CM by $\\mathcal{O}_K$",
+              "$K^{\\mathrm{ab}} = \\bigcup_\\mathfrak{f} K(\\mathfrak{f})$"
+            ],
+            "answer": [
+              2,
+              0,
+              1,
+              3
+            ],
+            "explain": "The logical chain: start with the CM curve (item 2), get its $j$-invariant in the Hilbert class field (0), include torsion to climb to ray class fields (1), exhaust the maximal abelian extension as conductor grows (3)."
+          }
+        ]
+      },
+      "cm-abelian": {
+        "title": "CM abelian varieties",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A CM field $L$ (in the sense of Shimura–Taniyama) is, by definition:",
+            "choices": [
+              "Any imaginary quadratic field",
+              "Any totally imaginary number field",
+              "A totally imaginary quadratic extension of a totally real number field",
+              "A field $L$ such that $\\Gal(L/\\mathbb{Q})$ is abelian"
+            ],
+            "answer": 2,
+            "explain": "A CM field is by definition a totally imaginary quadratic extension of a totally real subfield $L_0$. Equivalently, complex conjugation lies in the centre of $\\Gal(\\bar L / L_0)$ and acts non-trivially on $L$. Examples: $\\mathbb{Q}(i)$, $\\mathbb{Q}(\\zeta_n)$ for $n \\ge 3$, biquadratic $\\mathbb{Q}(\\sqrt{-2}, \\sqrt{-7})$."
+          },
+          {
+            "type": "numeric",
+            "q": "If $A$ is an abelian variety of dimension $g$ with CM by a number field $L$ (acting as a maximal commutative subalgebra of $\\mathrm{End}^0(A)$), what must $[L : \\mathbb{Q}]$ equal?",
+            "answer": 6,
+            "tol": 0.0001,
+            "tol_note": "For the specific case g = 3, asked in the prompt below.",
+            "hint": "Take $g = 3$; recall $[L:\\mathbb{Q}] = 2g$ for a CM type to make sense.",
+            "explain": "For a CM type $\\Phi$ to give an embedding $\\mathbb{C}^g / \\Phi(\\mathcal{O}_L) \\cong A$, one needs $|\\Phi| = g$ embeddings out of the total $|\\mathrm{Hom}(L, \\mathbb{C})| = [L:\\mathbb{Q}]$, with $\\Phi \\sqcup \\bar\\Phi$ exhausting them. So $[L:\\mathbb{Q}] = 2g = 6$ for $g = 3$. (In general, $[L:\\mathbb{Q}] = 2g$.)"
+          },
+          {
+            "type": "mcq",
+            "q": "What does the Shimura–Taniyama formula compute?",
+            "choices": [
+              "The dimension of the moduli space of CM abelian varieties",
+              "Frobenius at a prime $\\mathfrak{p}$ of the reflex field $L^*$, in terms of the reflex norm",
+              "The genus of a CM curve",
+              "The L-function of a CM elliptic curve"
+            ],
+            "answer": 1,
+            "explain": "Shimura–Taniyama: for a CM abelian variety of type $(L, \\Phi)$, $\\mathrm{Frob}_\\mathfrak{p}$ acts on $A$ via $N_{\\Phi^*}(\\mathfrak{p})$, the reflex norm of $\\mathfrak{p}$ from $L^*$ to $L$. This recovers $\\mathrm{Frob} = \\pi$ for CM elliptic curves and underpins the dictionary between CM abelian varieties and algebraic Hecke characters."
+          }
+        ]
+      },
+      "cm-stark-heegner": {
+        "title": "Heegner numbers, Gross–Zagier, Stark",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "How many imaginary quadratic fields $K = \\mathbb{Q}(\\sqrt{D})$ (with $D < 0$ squarefree) have class number $h_K = 1$? (Heegner's theorem)",
+            "answer": 9,
+            "tol": 0.5,
+            "explain": "Exactly nine: $D \\in \\{-3, -4, -7, -8, -11, -19, -43, -67, -163\\}$. Heegner proved this in 1952; the gaps were filled by Birch and Stark. The largest is $-163$, source of the famous Heegner number $e^{\\pi\\sqrt{163}}$."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is $e^{\\pi\\sqrt{163}}$ very close to an integer?",
+            "choices": [
+              "Coincidence — the result of $\\pi$ and $\\sqrt{163}$ being incommensurable",
+              "Because $j((1+\\sqrt{-163})/2) = -640320^3$ is an integer (since $h_K(\\mathbb{Q}(\\sqrt{-163})) = 1$), and the $q$-expansion of $j$ forces $e^{\\pi\\sqrt{163}}$ near $744 - j$",
+              "Because $163$ is prime",
+              "Because $e^{\\pi\\sqrt{|D|}}$ is approximately integer for every imaginary quadratic discriminant $D$"
+            ],
+            "answer": 1,
+            "explain": "The mechanism: $j(\\tau) = q^{-1} + 744 + O(q)$ with $q = e^{2\\pi i\\tau}$. At $\\tau = (1+\\sqrt{-163})/2$ we get $q = -e^{-\\pi\\sqrt{163}}$, so $j = -e^{\\pi\\sqrt{163}} + 744 + O(e^{-\\pi\\sqrt{163}})$. Class number $1$ forces $j$ to be the rational integer $-640320^3$, so $e^{\\pi\\sqrt{163}} \\approx 744 + 640320^3$ to within $10^{-12}$."
+          },
+          {
+            "type": "mcq",
+            "q": "What does the combination Gross–Zagier (1986) + Kolyvagin (1989) yield for a modular elliptic curve $E/\\mathbb{Q}$?",
+            "choices": [
+              "A proof of the full BSD conjecture for all $E$",
+              "A proof of BSD's rank conjecture when $\\mathrm{ord}_{s=1} L(E,s) \\le 1$, and finiteness of $\\Sha$ in those cases",
+              "A proof of the Riemann hypothesis for $L(E, s)$",
+              "A proof of the modularity theorem"
+            ],
+            "answer": 1,
+            "explain": "Gross–Zagier expresses $L'(E/K, 1)$ as a height of a Heegner point; Kolyvagin's Euler-system argument then bounds the rank and Sha. Together they prove BSD's rank conjecture (rank = analytic rank) when the analytic rank is $0$ or $1$, plus finiteness of $\\Sha$ in those cases. Higher rank remains open."
+          }
+        ]
+      }
+    }
+  },
   "complexity-theory": {
     "topic": "complexity-theory",
     "quizzes": {

@@ -17,9 +17,9 @@ reach into upstream foundations or stay within their own cluster.
 | Analysis | 197 | 346 | 33 | 65 | 0.168 |
 | Probability & statistics | 55 | 92 | 14 | 13 | 0.255 |
 | Geometry & topology | 134 | 220 | 27 | 94 | 0.201 |
-| Number theory | 116 | 160 | 49 | 32 | 0.422 |
-| Modular forms & L-functions | 115 | 170 | 58 | 18 | 0.504 |
-| Algebraic geometry | 179 | 265 | 68 | 29 | 0.380 |
+| Number theory | 122 | 169 | 54 | 32 | 0.443 |
+| Modular forms & L-functions | 115 | 170 | 58 | 21 | 0.504 |
+| Algebraic geometry | 179 | 265 | 68 | 31 | 0.380 |
 | Combinatorics & graph theory | 51 | 50 | 24 | 2 | 0.471 |
 | Mathematical physics | 69 | 75 | 40 | 0 | 0.580 |
 
