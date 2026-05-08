@@ -41,6 +41,10 @@
         {
           "type": "raw",
           "html": "\n</section>\n\n"
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-fan-builder"
         }
       ]
     },
@@ -86,6 +90,10 @@
         {
           "type": "raw",
           "html": "\n</section>\n\n"
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-cone-table"
         }
       ]
     },
@@ -127,6 +135,10 @@
         {
           "type": "raw",
           "html": "\n</section>\n\n"
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-orbit-cone"
         }
       ]
     },
@@ -168,6 +180,10 @@
         {
           "type": "raw",
           "html": "\n</section>\n\n"
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-examples"
         }
       ]
     },
@@ -213,6 +229,10 @@
         {
           "type": "raw",
           "html": "\n</section>\n\n"
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-int"
         }
       ]
     },
