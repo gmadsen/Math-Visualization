@@ -5,7 +5,7 @@ window.__MVConcepts = {
   "index": {
     "topics": [
       "several-complex-variables",
-      "tropical-geometry",
+      "khovanov-homology",
       "kahler-geometry",
       "mapping-class-groups",
       "half-integral-weight-forms",
@@ -306,6 +306,7 @@ window.__MVConcepts = {
       "k-theory": "advanced",
       "symplectic-manifolds": "advanced",
       "knot-polynomials": "standard",
+      "khovanov-homology": "advanced",
       "quaternions-octonions-and-division-algebras": "standard",
       "wavelets": "standard",
       "mathematics-and-cryptography": "standard",
@@ -357,8 +358,7 @@ window.__MVConcepts = {
       "kahler-geometry": "advanced",
       "mapping-class-groups": "advanced",
       "half-integral-weight-forms": "advanced",
-      "crystalline-cohomology": "advanced",
-      "tropical-geometry": "advanced"
+      "crystalline-cohomology": "advanced"
     }
   },
   "topics": {
@@ -454,86 +454,100 @@ window.__MVConcepts = {
         }
       ]
     },
-    "tropical-geometry": {
-      "topic": "tropical-geometry",
-      "title": "Tropical geometry",
-      "page": "tropical-geometry.html",
+    "khovanov-homology": {
+      "topic": "khovanov-homology",
+      "title": "Khovanov homology",
+      "page": "khovanov-homology.html",
       "concepts": [
         {
-          "id": "trop-semiring",
-          "title": "The tropical semiring",
-          "anchor": "trop-semiring",
-          "prereqs": [],
-          "blurb": "The tropical semiring $(\\mathbb{R} \\cup \\{\\infty\\}, \\min, +)$ replaces $(+, \\cdot)$ with $a \\oplus b := \\min(a,b)$ and $a \\otimes b := a + b$. Tropical polynomials $f(x) = \\min_i (a_i + i\\,x)$ are piecewise-linear concave functions; their corner locus — the points where the minimum is attained at least twice — is the tropical hypersurface $V(f)$.",
+          "id": "khov-cube",
+          "title": "The cube of resolutions",
+          "anchor": "cube",
+          "prereqs": [
+            "kp-jones-polynomial",
+            "kp-reidemeister-moves"
+          ],
+          "blurb": "Given an oriented diagram with $n$ crossings, smooth each crossing in two ways — the $0$-resolution and the $1$-resolution — to obtain $2^n$ planar tangles, each a disjoint union of circles. Indexing resolutions by vertices of $\\{0,1\\}^n$ turns the diagram into a hypercube whose edges flip a single resolution; this combinatorial cube is the geometric scaffold underneath Khovanov homology.",
           "tags": [
+            "foundation",
+            "classification"
+          ]
+        },
+        {
+          "id": "khov-complex",
+          "title": "Khovanov chain complex",
+          "anchor": "complex",
+          "prereqs": [
+            "khov-cube",
+            "chain-complexes",
+            "monoidal-categories"
+          ],
+          "blurb": "Attach to each vertex of the cube the graded module $A^{\\otimes k}$, where $A=\\mathbb{Z}[X]/(X^2)$ is the rank-$2$ Frobenius algebra and $k$ is the number of circles in that resolution. Cube edges become saddle cobordisms whose induced maps are either the multiplication $m:A\\otimes A\\to A$ or comultiplication $\\Delta:A\\to A\\otimes A$. After a homological shift by $n_-$ and a quantum shift by $n_+ - 2n_-$, the signed sum of edges squares to zero, giving a bigraded complex $C^{i,j}(D)$.",
+          "tags": [
+            "cohomology",
             "foundation"
           ]
         },
         {
-          "id": "trop-curves",
-          "title": "Tropical curves and the balancing condition",
-          "anchor": "trop-curves",
+          "id": "khov-jones-categorification",
+          "title": "Categorification of the Jones polynomial",
+          "anchor": "jones-categorification",
           "prereqs": [
-            "trop-semiring"
+            "khov-complex",
+            "kp-jones-polynomial",
+            "cd-cup-product"
           ],
-          "blurb": "A tropical curve in $\\mathbb{R}^2$ is the corner locus of a tropical polynomial in two variables: a piecewise-linear graph with rational edge slopes and integer weights. At every vertex the weighted sum of outgoing primitive edge directions vanishes (the balancing condition) — the combinatorial fingerprint of a 1-dimensional algebraic cycle.",
+          "blurb": "The bigraded Khovanov homology $Kh^{i,j}(L)$ is invariant under all three Reidemeister moves and recovers the (unnormalised) Jones polynomial as a graded Euler characteristic: $\\sum_{i,j} (-1)^i q^j \\dim Kh^{i,j}(L) = (q+q^{-1}) V_L(q^2)$. Because each ingredient is functorial under cobordisms, oriented link cobordisms induce maps on $Kh$ — a structure the Jones polynomial cannot see.",
           "tags": [
+            "functoriality",
+            "cohomology",
+            "classification"
+          ]
+        },
+        {
+          "id": "khov-rasmussen",
+          "title": "Lee deformation and the Rasmussen invariant",
+          "anchor": "rasmussen",
+          "prereqs": [
+            "khov-complex",
+            "khov-jones-categorification"
+          ],
+          "blurb": "Replace $A=\\mathbb{Z}[X]/(X^2)$ by the Lee algebra $A_{Lee}=\\mathbb{Q}[X]/(X^2-1)$ (or the Bar-Natan algebra $\\mathbb{Z}[X,h]/(X^2-hX)$). The deformed homology $Kh_{Lee}(K)$ of a knot is two-dimensional, generated by canonical classes assigned to the two orientations. Their average quantum grading $s(K)\\in 2\\mathbb{Z}$ is the Rasmussen invariant; it satisfies $|s(K)|\\le 2g_4(K)$, providing a slice-genus bound that is purely combinatorial.",
+          "tags": [
+            "duality",
+            "classification",
             "foundation"
           ]
         },
         {
-          "id": "trop-tropicalization",
-          "title": "Tropicalization and the valuation map",
-          "anchor": "trop-tropicalization",
+          "id": "khov-foams",
+          "title": "Foams and $sl_n$ link homology",
+          "anchor": "foams",
           "prereqs": [
-            "trop-curves",
-            "newton-polygons"
+            "khov-complex",
+            "kp-quantum-invariants"
           ],
-          "blurb": "For $X \\subset (K^*)^n$ over a non-archimedean valued field $K$ (e.g. Puiseux series $\\mathbb{C}\\{\\!\\{t\\}\\!\\}$), the tropicalization $\\mathrm{Trop}(X) = \\overline{\\mathrm{val}(X(\\bar K))}$ is a polyhedral complex of dimension $\\dim X$ (Bieri–Groves). Newton polytopes appear as duals to tropical zero loci, providing the bridge from algebra to combinatorics.",
+          "blurb": "Replacing circles by foams — branched surfaces with marked seams — and saddles by surface cobordisms modulo Kuperberg-style spider relations gives the Khovanov–Rozansky $sl_n$ link homology, which categorifies the Reshetikhin–Turaev $sl_n$ invariant. Triply-graded HOMFLY-PT homology refines all $sl_n$ towers into one homology theory, and matrix-factorisation models recast the construction in singularity-theoretic language.",
           "tags": [
+            "functoriality",
+            "foundation",
             "duality"
           ]
         },
         {
-          "id": "trop-bezout",
-          "title": "Bernstein's theorem and stable intersection",
-          "anchor": "trop-bezout",
+          "id": "khov-applications",
+          "title": "Applications and open problems",
+          "anchor": "applications",
           "prereqs": [
-            "trop-curves",
-            "bezout-theorem-core",
-            "intersection-multiplicity"
+            "khov-rasmussen",
+            "khov-foams",
+            "kp-khovanov-homology"
           ],
-          "blurb": "Tropical Bézout: two tropical curves intersect transversely in a number of points (counted with multiplicity) equal to the mixed volume of their Newton polytopes. Generic translation makes the count stable — even when the curves overlap, the stable intersection recovers the classical Bernstein–Kushnirenko count of solutions in $(\\mathbb{C}^*)^2$.",
+          "blurb": "Rasmussen's combinatorial proof of the Milnor conjecture computes $g_4(T_{p,q})=(p-1)(q-1)/2$ without gauge theory. Khovanov homology detects the unknot (Kronheimer–Mrowka, via a spectral sequence to instanton homology), the trefoils, and the Hopf link. Open frontiers include the relation to symplectic Khovanov homology and to Heegaard Floer's link Floer homology, the search for an integer-lift of $s$, and whether $Kh$ detects all knots.",
           "tags": [
-            "duality"
-          ]
-        },
-        {
-          "id": "trop-moduli",
-          "title": "Tropical moduli and Riemann–Roch",
-          "anchor": "trop-moduli",
-          "prereqs": [
-            "trop-curves",
-            "higher-genus-moduli"
-          ],
-          "blurb": "$M^{\\mathrm{trop}}_{g,n}$ is a polyhedral complex parametrizing stable tropical curves of genus $g$ with $n$ marked points; it is the skeleton of the Berkovich analytification of $\\overline{\\mathcal{M}}_{g,n}$. The Baker–Norine Riemann–Roch theorem on a metric graph $\\Gamma$ states $r(D) - r(K_\\Gamma - D) = \\deg D - g + 1$ — the same formula as for curves, with rank defined via chip-firing.",
-          "tags": [
-            "moduli",
-            "duality"
-          ]
-        },
-        {
-          "id": "trop-applications",
-          "title": "Mikhalkin's correspondence and mirror symmetry",
-          "anchor": "trop-applications",
-          "prereqs": [
-            "trop-bezout",
-            "ms-syz",
-            "ms-gromov-witten"
-          ],
-          "blurb": "Mikhalkin's correspondence theorem: counting tropical curves of degree $d$ and genus $g$ through $3d-1+g$ generic points (with explicit lattice multiplicities) equals the number of complex algebraic curves through the same configuration — i.e. Gromov–Witten invariants of $\\mathbb{P}^2$. Tropicalization also models the SYZ Lagrangian fibration and underpins the Gross–Siebert reconstruction of mirror pairs.",
-          "tags": [
-            "moduli"
+            "classification",
+            "duality",
+            "finiteness"
           ]
         }
       ]
@@ -17272,6 +17286,7 @@ window.__MVConcepts = {
           "k-theory",
           "symplectic-manifolds",
           "knot-polynomials",
+          "khovanov-homology",
           "ricci-flow",
           "atiyah-singer-index-theorem",
           "mostow-rigidity",
@@ -17369,8 +17384,7 @@ window.__MVConcepts = {
           "positivity-and-ample-line-bundles",
           "mmp-and-birational-geometry",
           "d-modules",
-          "crystalline-cohomology",
-          "tropical-geometry"
+          "crystalline-cohomology"
         ],
         "color": "g"
       },
@@ -17626,6 +17640,7 @@ window.__MVConcepts = {
     "k-theory": "advanced",
     "symplectic-manifolds": "advanced",
     "knot-polynomials": "standard",
+    "khovanov-homology": "advanced",
     "quaternions-octonions-and-division-algebras": "standard",
     "wavelets": "standard",
     "mathematics-and-cryptography": "standard",
@@ -17677,8 +17692,7 @@ window.__MVConcepts = {
     "kahler-geometry": "advanced",
     "mapping-class-groups": "advanced",
     "half-integral-weight-forms": "advanced",
-    "crystalline-cohomology": "advanced",
-    "tropical-geometry": "advanced"
+    "crystalline-cohomology": "advanced"
   },
   "newArc": [
     "elementary-topos-theory",
@@ -17709,7 +17723,7 @@ window.__MVConcepts = {
       "concepts": 148,
       "intra": 224,
       "crossOut": 25,
-      "crossIn": 89,
+      "crossIn": 91,
       "density": 0.16891891891891891
     },
     "Higher categories & toposes": {
@@ -17734,17 +17748,17 @@ window.__MVConcepts = {
       "density": 0.2545454545454545
     },
     "Geometry & topology": {
-      "concepts": 134,
-      "intra": 220,
-      "crossOut": 27,
+      "concepts": 140,
+      "intra": 233,
+      "crossOut": 29,
       "crossIn": 94,
-      "density": 0.20149253731343283
+      "density": 0.20714285714285716
     },
     "Number theory": {
       "concepts": 116,
       "intra": 160,
       "crossOut": 49,
-      "crossIn": 33,
+      "crossIn": 32,
       "density": 0.4224137931034483
     },
     "Modular forms & L-functions": {
@@ -17755,11 +17769,11 @@ window.__MVConcepts = {
       "density": 0.5043478260869565
     },
     "Algebraic geometry": {
-      "concepts": 185,
-      "intra": 275,
-      "crossOut": 69,
+      "concepts": 179,
+      "intra": 265,
+      "crossOut": 68,
       "crossIn": 29,
-      "density": 0.372972972972973
+      "density": 0.37988826815642457
     },
     "Combinatorics & graph theory": {
       "concepts": 51,
