@@ -4,7 +4,7 @@
     "khovanov-homology",
     "complex-multiplication",
     "tropical-geometry",
-    "shimura-varieties",
+    "surgery-theory",
     "kahler-geometry",
     "mapping-class-groups",
     "half-integral-weight-forms",
@@ -360,6 +360,6 @@
     "half-integral-weight-forms": "advanced",
     "crystalline-cohomology": "advanced",
     "tropical-geometry": "advanced",
-    "shimura-varieties": "capstone"
+    "surgery-theory": "advanced"
   }
 }

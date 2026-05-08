@@ -8,7 +8,7 @@ window.__MVConcepts = {
       "khovanov-homology",
       "complex-multiplication",
       "tropical-geometry",
-      "shimura-varieties",
+      "surgery-theory",
       "kahler-geometry",
       "mapping-class-groups",
       "half-integral-weight-forms",
@@ -364,7 +364,7 @@ window.__MVConcepts = {
       "half-integral-weight-forms": "advanced",
       "crystalline-cohomology": "advanced",
       "tropical-geometry": "advanced",
-      "shimura-varieties": "capstone"
+      "surgery-theory": "advanced"
     }
   },
   "topics": {
@@ -735,99 +735,98 @@ window.__MVConcepts = {
         }
       ]
     },
-    "shimura-varieties": {
-      "topic": "shimura-varieties",
-      "title": "Shimura varieties",
-      "page": "shimura-varieties.html",
+    "surgery-theory": {
+      "topic": "surgery-theory",
+      "title": "Surgery theory & high-dimensional manifolds",
+      "page": "surgery-theory.html",
       "concepts": [
         {
-          "id": "shim-datum",
-          "title": "The Shimura datum $(G, X)$",
-          "anchor": "datum",
+          "id": "surg-handles",
+          "title": "Handle decompositions and surgery",
+          "anchor": "handles",
           "prereqs": [
-            "lie-group-definition",
-            "upper-half-plane-model"
+            "cob-equivalence",
+            "mt-handle-decomposition"
           ],
-          "blurb": "A Shimura datum is a connected reductive $\\mathbb{Q}$-group $G$ together with a $G(\\mathbb{R})$-conjugacy class $X$ of homomorphisms $\\mathbb{S}\\to G_\\mathbb{R}$ from the Deligne torus, satisfying Deligne's axioms (SV1)–(SV3): (SV1) the induced Hodge structure on $\\mathfrak{g}$ has type $\\{(-1,1),(0,0),(1,-1)\\}$; (SV2) $\\mathrm{ad}(h(i))$ is a Cartan involution on $G^{\\mathrm{ad}}_\\mathbb{R}$, forcing $X$ to be Hermitian symmetric; (SV3) no $\\mathbb{Q}$-factor of $G^{\\mathrm{ad}}$ is trivial under $h$. Examples: $(\\mathrm{GL}_2,\\mathbb{H}^\\pm)$ gives modular curves; $(\\mathrm{GSp}_{2g}, \\mathfrak{H}_g)$ gives Siegel varieties; $(\\mathrm{GU}(p,q), B^{p,q})$ gives unitary Shimura varieties.",
+          "blurb": "A $k$-<strong>handle</strong> is a copy of $D^k\\times D^{n-k}$ glued to $\\partial M^n$ along an embedded $S^{k-1}\\times D^{n-k}$ via the <em>attaching map</em>. Morse-theoretically, a $k$-handle is what gets added when $f$ crosses an index-$k$ critical value; surgery is the same operation viewed from the boundary. A <strong>surgery</strong> on $S^{k-1}\\times D^{n-k}\\hookrightarrow M$ removes that tube and glues in $D^k\\times S^{n-k-1}$ along the common boundary $S^{k-1}\\times S^{n-k-1}$ — a different manifold $M'$, related to $M$ by the trace cobordism $W = M\\times[0,1]\\cup\\text{handle}$.",
           "tags": [
             "foundation",
             "classification"
           ]
         },
         {
-          "id": "shim-canonical-model",
-          "title": "Adelic double quotient and canonical models",
-          "anchor": "canonical-model",
+          "id": "surg-h-cobordism",
+          "title": "The $h$-cobordism theorem",
+          "anchor": "h-cobordism",
           "prereqs": [
-            "shim-datum",
-            "automorphic-form-definition",
-            "spherical-hecke-satake"
+            "surg-handles",
+            "simply-connected",
+            "ht-hurewicz-whitehead"
           ],
-          "blurb": "For compact open $K\\subset G(\\mathbb{A}_f)$, the Shimura variety at level $K$ is the adelic double quotient $\\mathrm{Sh}_K(G,X) = G(\\mathbb{Q})\\backslash X\\times G(\\mathbb{A}_f)/K$, a finite disjoint union of arithmetic quotients $\\Gamma_i\\backslash X^+$ via strong approximation. Baily–Borel makes it a quasi-projective variety over $\\mathbb{C}$; Shimura's reciprocity law / Deligne's canonical model theorem descends it to the reflex field $E(G,X) = $ field of definition of $\\{\\mu_h\\}$. Hecke correspondences come from right multiplication by $G(\\mathbb{A}_f)$ on the second factor, making $H^*(\\mathrm{Sh})$ a module for both Galois and the adelic Hecke algebra simultaneously.",
+          "blurb": "Smale (1962): if $W^{n+1}$ is a compact <strong>$h$-cobordism</strong> between simply-connected closed $n$-manifolds with $n\\ge 5$ — i.e. both inclusions $M_0,M_1\\hookrightarrow W$ are homotopy equivalences — then $W \\cong M_0\\times[0,1]$. The proof cancels handles in matching index pairs using the Whitney trick (which needs $n\\ge 5$ to produce embedded Whitney disks). The corollary is the <strong>generalized Poincaré conjecture</strong> in dimensions $\\ge 5$: a homotopy $n$-sphere is homeomorphic to $S^n$.",
           "tags": [
-            "foundation",
-            "duality"
-          ]
-        },
-        {
-          "id": "shim-siegel",
-          "title": "Siegel modular varieties $\\mathcal{A}_g$",
-          "anchor": "siegel",
-          "prereqs": [
-            "shim-canonical-model",
-            "av-polarization",
-            "mc-moduli-of-elliptic-curves"
-          ],
-          "blurb": "$\\mathcal{A}_g(N) = \\Gamma(N)\\backslash\\mathfrak{H}_g$ where $\\mathfrak{H}_g = \\{\\tau\\in M_g(\\mathbb{C}) : \\tau=\\tau^\\top, \\mathrm{Im}\\,\\tau>0\\}$ is the Siegel upper half-space. Complex points parametrize principally polarized abelian $g$-folds with level-$N$ structure; the moduli interpretation extends Mumford's theory and gives an integral model over $\\mathbb{Z}[1/N]$. Faltings–Chai's toroidal compactifications $\\overline{\\mathcal{A}_g}$ glue in lower-dimensional Siegel varieties along the boundary; Hodge bundle $\\omega = \\det\\mathrm{Lie}(\\mathcal{A})^\\vee$ has sections = Siegel modular forms of weight $k$.",
-          "tags": [
-            "moduli",
-            "compactness"
-          ]
-        },
-        {
-          "id": "shim-hilbert",
-          "title": "Hilbert and quaternionic Shimura varieties",
-          "anchor": "hilbert",
-          "prereqs": [
-            "shim-canonical-model",
-            "mc-y0-x0",
-            "av-definition"
-          ],
-          "blurb": "For totally real $F$ of degree $d$, $G = \\mathrm{Res}_{F/\\mathbb{Q}}\\mathrm{GL}_2$ has $X = \\mathbb{H}^d$; the resulting $d$-dimensional <em>Hilbert modular variety</em> parametrizes abelian $d$-folds with real multiplication by $\\mathcal{O}_F$. Replacing $\\mathrm{GL}_2$ by $B^\\times$ for a quaternion algebra $B/F$ split at exactly one infinite place produces a <em>Shimura curve</em> $X^B$ — compact (no cusps) when $B$ is non-split, with moduli interpretation in fake elliptic curves (abelian surfaces with QM). Jacquet–Langlands transfers Galois representations between modular curves and Shimura curves; this is essential to Ribet's level-lowering and the proof of FLT.",
-          "tags": [
-            "moduli",
-            "duality"
-          ]
-        },
-        {
-          "id": "shim-cohomology",
-          "title": "Étale cohomology and Galois representations",
-          "anchor": "cohomology",
-          "prereqs": [
-            "shim-siegel",
-            "shim-hilbert",
-            "l-adic-cohomology",
-            "galois-rep-definition"
-          ],
-          "blurb": "The $\\ell$-adic étale cohomology $H^i_{\\mathrm{ét}}(\\mathrm{Sh}_K\\times\\overline{E},\\overline{\\mathbb{Q}}_\\ell)$ carries commuting actions of $\\mathrm{Gal}(\\overline{E}/E)$ (functoriality) and the adelic Hecke algebra $\\mathcal{H}(G(\\mathbb{A}_f)/\\!/K)$ (Hecke correspondences). Isotypic decomposition gives Galois representations $\\rho_{\\pi,\\ell}$ attached to automorphic representations $\\pi$ of $G$. Eichler–Shimura realises weight-$2$ newforms on $\\mathrm{GL}_2/\\mathbb{Q}$ in $H^1(X_0(N))$; Carayol does Hilbert modular forms via Shimura curves; Brylinski–Labesse and Kottwitz handle Siegel and unitary cases via the stable trace formula. The Hodge cocharacter $\\mu_h$ controls Hodge–Tate weights of $\\rho_{\\pi,\\ell}$.",
-          "tags": [
-            "duality",
+            "classification",
             "foundation"
           ]
         },
         {
-          "id": "shim-langlands-kottwitz",
-          "title": "The Langlands–Kottwitz program",
-          "anchor": "langlands-kottwitz",
+          "id": "surg-s-cobordism",
+          "title": "The $s$-cobordism theorem and the Whitehead group",
+          "anchor": "s-cobordism",
           "prereqs": [
-            "shim-cohomology",
-            "frobenius-traces",
-            "av-tate-module"
+            "surg-h-cobordism",
+            "fundamental-group",
+            "chain-complexes"
           ],
-          "blurb": "Counting $\\mathbb{F}_q$-points on integral models of Shimura varieties via Honda–Tate theory (isogeny classes of abelian varieties over $\\mathbb{F}_q$ ↔ Weil $q$-numbers) and grouping by Kottwitz triples $(\\gamma_0;\\gamma,\\delta)$ produces the Langlands–Kottwitz formula $|\\mathrm{Sh}_K(\\mathbb{F}_q)| = \\sum c(\\gamma_0;\\gamma,\\delta)\\cdot\\mathrm{O}_\\gamma(\\mathbf{1}_K^p)\\cdot\\mathrm{TO}_\\delta(\\phi_p)$. After Kottwitz stabilisation, comparison with the Arthur–Selberg trace formula proves local-global compatibility for the automorphic Galois representations of §5 and provides the technical engine for modern proofs of automorphy lifting (Wiles–Taylor, Caraiani, Shin, Scholze).",
+          "blurb": "Without simple connectivity the obstruction to triviality of an $h$-cobordism is the <strong>Whitehead torsion</strong> $\\tau(W)\\in\\mathrm{Wh}(\\pi_1 M):=K_1(\\mathbb{Z}\\pi_1)/(\\pm\\pi_1)$. Mazur–Stallings–Barden: $W$ is trivial iff $\\tau(W)=0$. For finite cyclic $\\pi_1=\\mathbb{Z}/n$, $\\mathrm{Wh}(\\mathbb{Z}/n)$ is computable: it vanishes for $n\\le 4$ and $n=6$, has rank $1$ for $n=5$, etc. The Whitehead group is thus the algebraic obstruction tracking how $\\pi_1$ enriches the $h$-cobordism story.",
           "tags": [
-            "duality",
-            "density"
+            "foundation",
+            "classification"
+          ]
+        },
+        {
+          "id": "surg-exact-sequence",
+          "title": "The surgery exact sequence",
+          "anchor": "surgery-exact-sequence",
+          "prereqs": [
+            "surg-h-cobordism",
+            "cob-numbers",
+            "singular-homology"
+          ],
+          "blurb": "Browder–Novikov–Sullivan–Wall: for a closed $n$-manifold $M$ with $n\\ge 5$, the <strong>structure set</strong> $\\mathcal{S}(M)$ — homotopy-equivalence classes of manifolds in $M$'s homotopy type — fits into $$\\dots \\to L_{n+1}(\\mathbb{Z}\\pi_1 M) \\to \\mathcal{S}(M) \\to \\mathcal{N}(M) \\to L_n(\\mathbb{Z}\\pi_1 M),$$ where $\\mathcal{N}(M)=[M,G/O]$ is <strong>normal invariants</strong> (degree-1 normal maps mod cobordism) and the $L$-groups are Wall's algebraic surgery obstructions. The sequence converts manifold classification into one homotopy computation $\\mathcal{N}(M)$ and one algebraic computation in $L_*(\\mathbb{Z}\\pi)$.",
+          "tags": [
+            "classification",
+            "exact-sequence"
+          ]
+        },
+        {
+          "id": "surg-l-theory",
+          "title": "$L$-theory and the Wall obstruction",
+          "anchor": "l-theory",
+          "prereqs": [
+            "surg-exact-sequence",
+            "chain-complexes",
+            "cob-numbers"
+          ],
+          "blurb": "The <strong>Wall $L$-groups</strong> $L_n(\\mathbb{Z}\\pi)$ classify quadratic forms (or formations) on finitely-generated stably-free $\\mathbb{Z}\\pi$-modules, modulo hyperbolic (or boundary) ones. For trivial $\\pi$ the answer is 4-periodic: $L_0=L_4=\\dots=\\mathbb{Z}$ (signature$/8$), $L_2=L_6=\\dots=\\mathbb{Z}/2$ (Arf invariant), $L_1=L_3=\\dots=0$. Browder's <strong>surgery theorem</strong>: a normal map $f\\colon M\\to X$ of degree 1 is normally cobordant to a homotopy equivalence iff its <strong>Wall obstruction</strong> $\\sigma(f)\\in L_n(\\mathbb{Z}\\pi_1 X)$ vanishes. Rokhlin's signature-mod-16 theorem is the smooth analogue at the prime 2.",
+          "tags": [
+            "classification",
+            "cohomology"
+          ]
+        },
+        {
+          "id": "surg-exotic-spheres",
+          "title": "Exotic spheres and dimensions $3,4$",
+          "anchor": "exotic-spheres",
+          "prereqs": [
+            "surg-l-theory",
+            "mcg-4manifolds",
+            "mcg-casson"
+          ],
+          "blurb": "Kervaire–Milnor (1963) computed $\\Theta_n$, the group of $h$-cobordism classes of homotopy $n$-spheres, by surgery: $\\Theta_n$ fits in an exact sequence involving the stable homotopy of spheres and the cokernel of the $J$-homomorphism. Highlights: $\\Theta_7\\cong\\mathbb{Z}/28$ — Milnor's exotic 7-spheres, the first proven smooth-versus-topological gap. $\\Theta_n$ is finite for every $n\\ge 5$. The $h$-cobordism machinery breaks in low dimensions: $n=3$ needed Perelman's Ricci-flow proof of the Poincaré conjecture, $n=4$ has Freedman's topological classification but the smooth Poincaré conjecture remains open — Donaldson and Seiberg–Witten show smooth 4-manifolds carry invariants invisible to surgery alone.",
+          "tags": [
+            "classification",
+            "foundation"
           ]
         }
       ]
@@ -17574,7 +17573,8 @@ window.__MVConcepts = {
           "cobordism",
           "homotopy-theory",
           "kahler-geometry",
-          "mapping-class-groups"
+          "mapping-class-groups",
+          "surgery-theory"
         ],
         "color": "v"
       },
@@ -17627,8 +17627,7 @@ window.__MVConcepts = {
           "vertex-operator-algebras",
           "langlands-program",
           "maass-forms",
-          "half-integral-weight-forms",
-          "shimura-varieties"
+          "half-integral-weight-forms"
         ],
         "color": "c"
       },
@@ -17978,7 +17977,7 @@ window.__MVConcepts = {
     "half-integral-weight-forms": "advanced",
     "crystalline-cohomology": "advanced",
     "tropical-geometry": "advanced",
-    "shimura-varieties": "capstone"
+    "surgery-theory": "advanced"
   },
   "newArc": [
     "elementary-topos-theory",
@@ -18009,7 +18008,7 @@ window.__MVConcepts = {
       "concepts": 148,
       "intra": 224,
       "crossOut": 25,
-      "crossIn": 91,
+      "crossIn": 93,
       "density": 0.16891891891891891
     },
     "Higher categories & toposes": {
@@ -18034,31 +18033,31 @@ window.__MVConcepts = {
       "density": 0.2545454545454545
     },
     "Geometry & topology": {
-      "concepts": 140,
-      "intra": 233,
-      "crossOut": 29,
-      "crossIn": 95,
-      "density": 0.20714285714285716
+      "concepts": 146,
+      "intra": 248,
+      "crossOut": 31,
+      "crossIn": 94,
+      "density": 0.21232876712328766
     },
     "Number theory": {
       "concepts": 122,
       "intra": 169,
       "crossOut": 54,
-      "crossIn": 35,
+      "crossIn": 33,
       "density": 0.4426229508196721
     },
     "Modular forms & L-functions": {
-      "concepts": 121,
-      "intra": 181,
-      "crossOut": 65,
+      "concepts": 115,
+      "intra": 170,
+      "crossOut": 58,
       "crossIn": 21,
-      "density": 0.5371900826446281
+      "density": 0.5043478260869565
     },
     "Algebraic geometry": {
       "concepts": 185,
       "intra": 275,
       "crossOut": 69,
-      "crossIn": 35,
+      "crossIn": 31,
       "density": 0.372972972972973
     },
     "Combinatorics & graph theory": {

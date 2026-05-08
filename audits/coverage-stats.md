@@ -5,7 +5,7 @@
 - Topics: **170**, concepts: **1182**
 - Widgets: **1207** (registry-driven: 1207, inline: 0)
 - Quizzes: **4740** (v1: 3504, hard: 1223, expert: 13)
-- Quiz types: mcq: 3132, numeric: 1153, multi-select: 204, matching: 90, ordering: 66, spot-the-error: 43, complex: 29, proof-completion: 19, construction: 2, guess-my-rule: 2
+- Quiz types: mcq: 3136, numeric: 1152, multi-select: 200, matching: 91, ordering: 67, spot-the-error: 42, complex: 29, proof-completion: 19, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their section: **149**
 - Concepts lacking a hard-tier quiz: **744**
 
@@ -626,12 +626,6 @@ page has wired one in yet.
 | `sg-control` | verbatim | select | 2d | 1 | semigroup-theory-evolution-equations |
 | `sg-gen` | verbatim | select | 2d | 1 | semigroup-theory-evolution-equations |
 | `sg-hy` | verbatim | select | 2d | 1 | semigroup-theory-evolution-equations |
-| `shim-w1` | verbatim | click | 2d | 1 | shimura-varieties |
-| `shim-w2` | verbatim | click | 2d | 1 | shimura-varieties |
-| `shim-w3` | verbatim | click | 2d | 1 | shimura-varieties |
-| `shim-w4` | verbatim | click | 2d | 1 | shimura-varieties |
-| `shim-w5` | verbatim | click | 2d | 1 | shimura-varieties |
-| `shim-w6` | verbatim | click | 2d | 1 | shimura-varieties |
 | `simplicial-complexes-combinatorial-faces` | simplicial-complexes-combinatorial-faces | click | 2d | 1 | simplicial-complexes-combinatorial |
 | `simplicial-complexes-combinatorial-fh` | simplicial-complexes-combinatorial-fh | click | 2d | 1 | simplicial-complexes-combinatorial |
 | `simplicial-complexes-combinatorial-nerve` | simplicial-complexes-combinatorial-nerve | slider | 2d | 1 | simplicial-complexes-combinatorial |
@@ -699,6 +693,12 @@ page has wired one in yet.
 | `stochastic-calc-girsanov-density` | stochastic-calc-girsanov-density | slider | 2d | 1 | stochastic-calculus |
 | `stochastic-calc-ito-formula-bsq` | stochastic-calc-ito-formula-bsq | button | 2d | 1 | stochastic-calculus |
 | `stochastic-calc-ito-riemann-sums` | stochastic-calc-ito-riemann-sums | slider | 2d | 1 | stochastic-calculus |
+| `surg-w1` | verbatim | select | 2d | 1 | surgery-theory |
+| `surg-w2` | verbatim | select | 2d | 1 | surgery-theory |
+| `surg-w3` | verbatim | select | 2d | 1 | surgery-theory |
+| `surg-w4` | verbatim | select | 2d | 1 | surgery-theory |
+| `surg-w5` | verbatim | select | 2d | 1 | surgery-theory |
+| `surg-w6` | verbatim | select | 2d | 1 | surgery-theory |
 | `symplectic-cotangent-lagrangians` | symplectic-cotangent-lagrangians | click | 2d | 1 | symplectic-manifolds |
 | `symplectic-darboux-moser` | symplectic-darboux-moser | slider | 2d | 1 | symplectic-manifolds |
 | `symplectic-dirac-ladder` | symplectic-dirac-ladder | click | 2d | 1 | symplectic-manifolds |
@@ -808,13 +808,13 @@ page has wired one in yet.
 
 ### Geometry & topology
 
-- Topics: **22**, concepts: **140**
-- Widgets: **144** (registry-driven: 144, inline: 0)
-  - by family: verbatim: 40, button-stepper: 34, surface-viewer: 6, clickable-diagram: 4, clickable-graph: 2, svg-illustration: 2, mostow-rigidity-dial: 1, mostow-h3-fundamental-domain: 1, mostow-boundary-extension: 1, mostow-boundary-orbit: 1, mostow-rank-tower: 1, mostow-volume-spectrum: 1, symplectic-form-pairing: 1, symplectic-darboux-moser: 1, symplectic-harmonic-portrait: 1, symplectic-dirac-ladder: 1, symplectic-cotangent-lagrangians: 1, symplectic-floer-intersections: 1, knot-polynomials-gallery: 1, knot-polynomials-reidemeister: 1, knot-polynomials-alexander: 1, knot-polynomials-bracket: 1, knot-polynomials-homfly: 1, knot-polynomials-rmatrix: 1, ricci-einstein-flows: 1, ricci-deturck-trick: 1, ricci-blowup-rates: 1, ricci-soliton-zoo: 1, ricci-neckpinch-surgery: 1, ricci-extinction-timeline: 1, k-theory-grothendieck-builder: 1, k-theory-ses-relations: 1, k-theory-bott-periodicity: 1, k-theory-chern-character: 1, k-theory-low-k-groups: 1, k-theory-index-theorem: 1, atiyah-singer-index-family: 1, atiyah-singer-symbol: 1, atiyah-singer-ch-td: 1, atiyah-singer-cases: 1, atiyah-singer-dirac-sphere: 1, atiyah-singer-anomaly: 1, counterexample-explorer: 1, proof-scrubber: 1, lattice-visualizer: 1, characteristic-classes-mobius-vs-cylinder: 1, characteristic-classes-w1-surfaces: 1, characteristic-classes-c1-clutching: 1, characteristic-classes-pontryagin-formulas: 1, characteristic-classes-poincare-hopf: 1, characteristic-classes-gauss-bonnet: 1, characteristic-classes-classifying-map: 1, characteristic-classes-signature-l-genus: 1, characteristic-classes-cpn-localisation: 1, morse-torus-height: 1, morse-handle-decomp: 1, morse-cw-cells: 1, morse-betti-counts: 1, morse-gradient-flow: 1, morse-sphere-vs-rp2: 1, morse-smale-saddle: 1, morse-cerf-birth-death: 1
-  - by dimension: 2d: 138, 3d: 6
-  - by gesture: click: 91, slider: 23, drag: 11, button-stepper: 6, select: 4, step: 3, pick: 2, static: 2, input: 1, timeline: 1
-- Quizzes: **562** (v1: 420, hard: 142, expert: 0)
-  - by type: mcq: 380, numeric: 146, multi-select: 15, matching: 7, complex: 7, ordering: 4, proof-completion: 2, spot-the-error: 1
+- Topics: **23**, concepts: **146**
+- Widgets: **150** (registry-driven: 150, inline: 0)
+  - by family: verbatim: 46, button-stepper: 34, surface-viewer: 6, clickable-diagram: 4, clickable-graph: 2, svg-illustration: 2, mostow-rigidity-dial: 1, mostow-h3-fundamental-domain: 1, mostow-boundary-extension: 1, mostow-boundary-orbit: 1, mostow-rank-tower: 1, mostow-volume-spectrum: 1, symplectic-form-pairing: 1, symplectic-darboux-moser: 1, symplectic-harmonic-portrait: 1, symplectic-dirac-ladder: 1, symplectic-cotangent-lagrangians: 1, symplectic-floer-intersections: 1, knot-polynomials-gallery: 1, knot-polynomials-reidemeister: 1, knot-polynomials-alexander: 1, knot-polynomials-bracket: 1, knot-polynomials-homfly: 1, knot-polynomials-rmatrix: 1, ricci-einstein-flows: 1, ricci-deturck-trick: 1, ricci-blowup-rates: 1, ricci-soliton-zoo: 1, ricci-neckpinch-surgery: 1, ricci-extinction-timeline: 1, k-theory-grothendieck-builder: 1, k-theory-ses-relations: 1, k-theory-bott-periodicity: 1, k-theory-chern-character: 1, k-theory-low-k-groups: 1, k-theory-index-theorem: 1, atiyah-singer-index-family: 1, atiyah-singer-symbol: 1, atiyah-singer-ch-td: 1, atiyah-singer-cases: 1, atiyah-singer-dirac-sphere: 1, atiyah-singer-anomaly: 1, counterexample-explorer: 1, proof-scrubber: 1, lattice-visualizer: 1, characteristic-classes-mobius-vs-cylinder: 1, characteristic-classes-w1-surfaces: 1, characteristic-classes-c1-clutching: 1, characteristic-classes-pontryagin-formulas: 1, characteristic-classes-poincare-hopf: 1, characteristic-classes-gauss-bonnet: 1, characteristic-classes-classifying-map: 1, characteristic-classes-signature-l-genus: 1, characteristic-classes-cpn-localisation: 1, morse-torus-height: 1, morse-handle-decomp: 1, morse-cw-cells: 1, morse-betti-counts: 1, morse-gradient-flow: 1, morse-sphere-vs-rp2: 1, morse-smale-saddle: 1, morse-cerf-birth-death: 1
+  - by dimension: 2d: 144, 3d: 6
+  - by gesture: click: 91, slider: 23, drag: 11, select: 10, button-stepper: 6, step: 3, pick: 2, static: 2, input: 1, timeline: 1
+- Quizzes: **580** (v1: 438, hard: 142, expert: 0)
+  - by type: mcq: 390, numeric: 149, multi-select: 16, matching: 9, complex: 7, ordering: 6, proof-completion: 2, spot-the-error: 1
 
 ### Number theory
 
@@ -828,13 +828,13 @@ page has wired one in yet.
 
 ### Modular forms & L-functions
 
-- Topics: **20**, concepts: **121**
-- Widgets: **145** (registry-driven: 145, inline: 0)
-  - by family: button-stepper: 92, verbatim: 18, parametric-plot: 5, svg-illustration: 4, lattice-visualizer: 2, voa-mode-bookkeeping: 1, voa-axiom-map: 1, voa-virasoro-bracket: 1, voa-character-coeffs: 1, voa-mckay-thompson: 1, voa-construction-zoo: 1, automorphic-restricted-product: 1, automorphic-strong-approximation: 1, automorphic-three-conditions: 1, automorphic-dictionary: 1, automorphic-satake-parameters: 1, automorphic-conductor-ladder: 1, automorphic-local-factor-builder: 1, automorphic-eisenstein-residue: 1, automorphic-functoriality-transfers: 1, modular-curves-fundamental-domain: 1, modular-curves-lattice-cyclic-subgroup: 1, modular-curves-hecke-summands: 1, modular-curves-eichler-shimura: 1, modular-curves-genus-growth: 1, modular-curves-cusps-and-wn: 1, modular-curves-atkin-lehner-newforms: 1, modular-curves-heegner-hypothesis: 1, modular-curves-mazur-torsion: 1
-  - by dimension: 2d: 145
-  - by gesture: click: 118, slider: 13, step: 8, static: 4, select: 2
-- Quizzes: **558** (v1: 363, hard: 195, expert: 0)
-  - by type: mcq: 369, numeric: 170, multi-select: 12, matching: 4, ordering: 2, spot-the-error: 1
+- Topics: **19**, concepts: **115**
+- Widgets: **139** (registry-driven: 139, inline: 0)
+  - by family: button-stepper: 92, verbatim: 12, parametric-plot: 5, svg-illustration: 4, lattice-visualizer: 2, voa-mode-bookkeeping: 1, voa-axiom-map: 1, voa-virasoro-bracket: 1, voa-character-coeffs: 1, voa-mckay-thompson: 1, voa-construction-zoo: 1, automorphic-restricted-product: 1, automorphic-strong-approximation: 1, automorphic-three-conditions: 1, automorphic-dictionary: 1, automorphic-satake-parameters: 1, automorphic-conductor-ladder: 1, automorphic-local-factor-builder: 1, automorphic-eisenstein-residue: 1, automorphic-functoriality-transfers: 1, modular-curves-fundamental-domain: 1, modular-curves-lattice-cyclic-subgroup: 1, modular-curves-hecke-summands: 1, modular-curves-eichler-shimura: 1, modular-curves-genus-growth: 1, modular-curves-cusps-and-wn: 1, modular-curves-atkin-lehner-newforms: 1, modular-curves-heegner-hypothesis: 1, modular-curves-mazur-torsion: 1
+  - by dimension: 2d: 139
+  - by gesture: click: 112, slider: 13, step: 8, static: 4, select: 2
+- Quizzes: **540** (v1: 345, hard: 195, expert: 0)
+  - by type: mcq: 363, numeric: 166, multi-select: 7, matching: 3, ordering: 1
 
 ### Algebraic geometry
 
@@ -872,7 +872,7 @@ page has wired one in yet.
 - `khovanov-homology` (Geometry & topology) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `complex-multiplication` (Number theory) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `tropical-geometry` (Algebraic geometry) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `shimura-varieties` (Modular forms & L-functions) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
+- `surgery-theory` (Geometry & topology) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `kahler-geometry` (Geometry & topology) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `mapping-class-groups` (Geometry & topology) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `half-integral-weight-forms` (Modular forms & L-functions) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
