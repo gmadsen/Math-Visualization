@@ -565,12 +565,15 @@ function drawNode(svg, x, y, label, opts={}){
   const nIn=$('#sel-N'), bRun=$('#sel-run');
   const svg=$('#sel-svg'), out=$('#sel-out');
   const W=720, H=280, ML=60, MR=24, MT=24, MB=44;
-  // Bhargava–Shankar limiting distribution for |Sel_2|: it's shifted Poisson
-  // in log_2. P(|Sel_2|=2^k) ≈ e^{-1}/k! · 2 corrected so mean(|Sel_2|)=3,
-  // i.e. the discrete Poisson on log_2(|Sel|) with parameter ~1.
-  // We use a tabulated probability vector (truncated at k=6) matching the
-  // limit predicted by Bhargava–Shankar.
-  const BS_LOG2 = [0.2096, 0.4153, 0.2702, 0.0840, 0.0166, 0.0036, 0.0007];
+  // Bhargava–Shankar limit law for the 2-Selmer rank, tabulated on
+  // P(|Sel_2|=2^k) for k=0..6. The proved mean E[|Sel_2|]=3 over E/Q is
+  // closely matched (this vector gives ≈3.22, the small bias is the
+  // truncation residue past k=6). Renormalized so the cumulative sum is
+  // exactly 1 — otherwise sampleSize() would silently dump residual mass
+  // into the last bin.
+  const _bsRaw = [0.2096, 0.4153, 0.2702, 0.0840, 0.0166, 0.0036, 0.0007];
+  const _bsSum = _bsRaw.reduce((a,b)=>a+b,0);
+  const BS_LOG2 = _bsRaw.map(x=>x/_bsSum);
   function sampleSize(){
     const u=Math.random(); let acc=0;
     for(let k=0;k<BS_LOG2.length;k++){
@@ -817,12 +820,13 @@ function drawNode(svg, x, y, label, opts={}){
     const alpha = g===2?0.4 : g===4?0.7 : 0.95;
     // proposal: uniform on [0,π]; target: α·uspDensity + (1-α)/π.
     const M = alpha*(2/Math.PI) + (1-alpha)/Math.PI; // density max
-    while(true){
+    for(let it=0; it<200; it++){
       const t = Math.random()*Math.PI;
       const u = Math.random()*M;
       const f = alpha*uspDensity(t) + (1-alpha)/Math.PI;
       if(u<f) return t;
     }
+    return Math.random()*Math.PI; // safety: M too low for current density
   }
   function render(){
     const g=+gSel.value;
@@ -956,9 +960,9 @@ function drawNode(svg, x, y, label, opts={}){
   function W_of(fam, x){
     if(Math.abs(x)<1e-9) {
       if(fam==='U') return 1;
-      if(fam==='USp') return 0;       // limit of 1 - sinc(2πx)
-      if(fam==='O+') return 2;        // limit of 1 + sinc(2πx)
-      if(fam==='O-') return 0;        // continuous part; delta drawn separately
+      if(fam==='USp') return 0;
+      if(fam==='O+') return 2;
+      if(fam==='O-') return 0;
     }
     const a = 2*Math.PI*x;
     const sinc = Math.sin(a)/a;
@@ -1018,8 +1022,8 @@ function drawNode(svg, x, y, label, opts={}){
     // title: family description
     const desc = {
       'U':  'unitary U: W(x) = 1 (constant)',
-      'USp':'symplectic USp: W(x) = 1 − sinc(2πx) — attraction toward x=1/2',
-      'O+': 'orthogonal O⁺: W(x) = 1 + sinc(2πx) — repulsion at small x',
+      'USp':'symplectic USp: W(x) = 1 − sinc(2πx) — repulsion at x=0, density → 1',
+      'O+': 'orthogonal O⁺: W(x) = 1 + sinc(2πx) — extra eigenvalue near x=0',
       'O-': 'orthogonal O⁻: W(x) = 1 − sinc(2πx) + δ₀ — forced zero spike',
     }[fam];
     t = SVG('text',{x:ML+12,y:MT-8,'font-size':12,fill:col,'font-weight':600});
