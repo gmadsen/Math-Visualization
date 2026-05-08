@@ -22,6 +22,10 @@
           }
         },
         {
+          "type": "widget-script",
+          "ref": "w-kodaira-curves"
+        },
+        {
           "type": "raw",
           "html": "\n\n<div class=\"note\">\n<p style=\"margin:.2rem 0\"><strong>Birational invariance.</strong> If $X \\dashrightarrow X'$ is a birational map of smooth projective varieties, then $\\kappa(X) = \\kappa(X')$.</p>\n</div>\n\n<p>The proof is the standard \"Hartogs across codim $\\ge 2$\" argument. Pluricanonical forms are top-dimensional differentials raised to a tensor power, and on a smooth variety they extend uniquely across any subset of codimension $\\ge 2$. A birational map of smooth projective varieties is an isomorphism on a common open whose complement has codimension $\\ge 2$ on each side, so pullback identifies pluricanonical sections in both directions. The <strong>Iitaka conjecture</strong> ($C_{n,m}$) — that for a fibration $X \\to Y$, $\\kappa(X) \\ge \\kappa(Y) + \\kappa(\\text{generic fibre})$ — is a deeper birational-invariance statement that remains open in full generality.</p>\n\n"
         },
@@ -61,6 +65,10 @@
             "title": "Mori cone of a surface",
             "hint": "click an extremal ray to see its contraction"
           }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-cone"
         },
         {
           "type": "raw",
@@ -104,6 +112,10 @@
           }
         },
         {
+          "type": "widget-script",
+          "ref": "w-castelnuovo"
+        },
+        {
           "type": "raw",
           "html": "\n\n<h3>The Enriques–Kodaira classification</h3>\n\n<p>Once no $(-1)$-curves remain, $X$ is a <em>minimal surface</em>. There are essentially three families:</p>\n\n<ul>\n  <li><strong>$\\mathbb{P}^2$</strong> — Picard number $1$, $K_X = -3H$.</li>\n  <li><strong>The Hirzebruch surfaces $\\mathbb{F}_n$</strong> for $n = 0$ or $n \\ge 2$ — $\\mathbb{P}^1$-bundles over $\\mathbb{P}^1$, with $\\mathbb{F}_0 = \\mathbb{P}^1 \\times \\mathbb{P}^1$. ($\\mathbb{F}_1$ is excluded because it has a $(-1)$-curve.)</li>\n  <li><strong>Surfaces with $K_X$ nef</strong> — the \"real\" minimal models. These are sorted further by Kodaira dimension.</li>\n</ul>\n\n<p>For the third class, Enriques' table gives a complete list:</p>\n\n<table class=\"plain\">\n<thead><tr><th>$\\kappa(X)$</th><th>class of minimal $X$</th><th>character</th></tr></thead>\n<tbody>\n<tr><td>$-\\infty$</td><td>rational, ruled</td><td>$X \\to \\text{curve}$ a $\\mathbb{P}^1$-bundle</td></tr>\n<tr><td>$0$</td><td>abelian, K3, Enriques, hyperelliptic (bielliptic)</td><td>$mK_X = 0$ for some $m$, distinguished by $b_1$ and torsion of $K_X$</td></tr>\n<tr><td>$1$</td><td>properly elliptic surfaces</td><td>$X \\to C$ an elliptic fibration with non-trivial $j$-invariant</td></tr>\n<tr><td>$2$</td><td>surfaces of general type</td><td>$K_X$ big — vast and not classified case-by-case</td></tr>\n</tbody>\n</table>\n\n<p>The dichotomy at $\\kappa = -\\infty$ (ruled and rational) versus $\\kappa \\ge 0$ has a sharp criterion: $X$ is birational to $C \\times \\mathbb{P}^1$ for some curve $C$ (or to $\\mathbb{P}^2$) iff $h^0(X, K_X^{\\otimes m}) = 0$ for some $m \\ge 1$, iff $K_X$ is not pseudo-effective. The $\\kappa = 0$ family has a famous fourfold split — abelian, K3, Enriques, hyperelliptic — distinguished by the Betti number $b_1$ and the order of the canonical class in $\\mathrm{Pic}(X)$. The $\\kappa = 2$ class is enormous and remains an active subject of moduli theory.</p>\n\n"
         },
@@ -139,6 +151,10 @@
             "title": "Threefold flip schematic",
             "hint": "drag the slider — watch the contracted curve change sides"
           }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-flip"
         },
         {
           "type": "raw",
@@ -182,6 +198,10 @@
           }
         },
         {
+          "type": "widget-script",
+          "ref": "w-discrep"
+        },
+        {
           "type": "raw",
           "html": "\n\n<h3>The four singularity classes</h3>\n\n<table class=\"plain\">\n<thead><tr><th>class</th><th>condition on $\\inf a_E$</th><th>$\\Delta$ coefficients</th></tr></thead>\n<tbody>\n<tr><td><strong>terminal</strong></td><td>$> 0$</td><td>(usually $\\Delta = 0$)</td></tr>\n<tr><td><strong>canonical</strong></td><td>$\\ge 0$</td><td>(usually $\\Delta = 0$)</td></tr>\n<tr><td><strong>klt</strong> (Kawamata log terminal)</td><td>$> -1$</td><td>$a_i < 1$</td></tr>\n<tr><td><strong>lc</strong> (log canonical)</td><td>$\\ge -1$</td><td>$a_i \\le 1$</td></tr>\n</tbody>\n</table>\n\n<p>The classes nest: smooth $\\subsetneq$ terminal $\\subsetneq$ canonical $\\subsetneq$ klt $\\subsetneq$ lc. Two-dimensional canonical singularities are exactly the rational double points (Du Val ADE), so the classification on surfaces is concrete. In higher dimensions, terminal singularities are rare and rigid; klt is the natural category for the modern MMP.</p>\n\n<div class=\"note\">\n<p style=\"margin:.2rem 0\"><strong>Why klt?</strong> Kawamata–Viehweg vanishing — the cohomological engine driving every MMP step — holds for klt pairs but fails on the boundary lc-but-not-klt. Closing klt under MMP operations (cone theorem, contractions, flips) requires care: extremal contractions of klt pairs again produce klt pairs (after replacing $\\Delta$ with $\\phi_*\\Delta$), and flips preserve klt — but a step out of klt into lc would lose the vanishing theorem and the program would stall.</p>\n</div>\n\n<h3>The adjunction formula</h3>\n\n<p>The other technical pillar is adjunction for log pairs. If $S$ is a normal prime divisor on $X$ with coefficient $1$ in $\\Delta$, then</p>\n$$(K_X + S + \\Delta')|_S \\;=\\; K_S + \\mathrm{Diff}_S(\\Delta'),$$\n<p>where $\\Delta' = \\Delta - S$ and $\\mathrm{Diff}_S(\\Delta')$ is the \"different\" — a boundary $\\mathbb{Q}$-divisor on $S$ encoding how $\\Delta'$ meets $S$ and how $S$ wraps into the singularities of $X$ along $S$. Iterated adjunction lets us run an MMP on the boundary itself, and is what makes induction on dimension viable.</p>\n\n"
         },
@@ -217,6 +237,10 @@
             "title": "Sarkisov links between Mori fibre spaces",
             "hint": "click a link type — see the geometric pattern"
           }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-sarkisov"
         },
         {
           "type": "raw",
