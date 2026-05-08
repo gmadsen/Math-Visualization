@@ -41,6 +41,31 @@ In priority order:
 
 Honourable mention: **Positive characteristic AG** (Math 260Z) — partially covered by `crystalline-cohomology` but a standalone topic on Frobenius splittings, $F$-singularities, and char-$p$ specific phenomena would close that gap.
 
+## Princeton / MIT / Berkeley / Caltech catalog audit (2026-05-08)
+
+A second comparative pass against four more graduate catalogs (Princeton, MIT, Berkeley, Caltech) surfaced these gaps. Most Harvard candidates (cluster algebras, mapping class groups, Khovanov, complex multiplication, Shimura varieties, tropical geometry, surgery, arithmetic statistics) shipped in PRs #131–#140; the residual list below is the next-priority batch.
+
+**Tier 2 (broad multi-university coverage)**:
+
+1. **Random matrix theory & free probability** — MIT 18.338. Wigner semi-circle, Marchenko–Pastur, Tracy–Widom, free probability and free convolution. Bridges probability + representation theory + spectral theory + statistical mechanics + analytic number theory (Katz–Sarnak symmetry). Currently only hinted at in `high-dimensional-geometry`.
+2. **Geometric Invariant Theory (GIT)** — connects moduli-spaces, representation-theory, AG. Standard graduate fare across all four universities; lots of moduli payoff (Kempf–Ness, stability conditions). Currently absent.
+3. **Heegaard Floer / knot Floer homology** — Princeton MAT568, multiple universities. Bridges `knot-polynomials` (now extended via Khovanov) to `symplectic-manifolds` and 3-manifold topology. Companion to surgery theory.
+4. **Coding theory & error-correcting codes** — Caltech Ma 127. Hamming, Reed–Solomon, BCH, low-density parity-check; lattice codes. Bridges `information-theory`, `additive-number-theory`, `mathematics-and-cryptography`. Highly visualizable.
+5. **Conformal & CR geometry** — Princeton MAT558/559. Bridges `complex-analysis`, `several-complex-variables` (just shipped), `differential-geometry`. Q-curvature and conformally covariant operators.
+
+**Tier 3 (specialty but valuable)**:
+
+6. **Combinatorial optimization** — Princeton MAT572. Min-max theorems, network flows, linear programming, perfect graphs, polyhedral combinatorics. Foundational for the proposed *Optimization* section.
+7. **Mathematical finance & stochastic control** — Caltech Ma 214. Itô stochastic calculus applied to derivatives pricing, optimal portfolio selection, HJB equations. Bridges `stochastic-calculus` to the proposed *Optimization* / *Control theory* sections.
+8. **Brill–Noether theory (standalone)** — Princeton MAT539. Currently a sub-bullet in `algebraic-curves-higher-genus`; deserves its own page given how often it's cited downstream.
+9. **Spectral methods for massive data sets** — Princeton MAT585. SVD, PCA, PageRank, spectral clustering. Bridges `spectral-graph-theory`, `high-dimensional-geometry`, `random-walks-and-mixing`. Practical applications anchor.
+10. **Model categories of $\infty$-stacks / DT invariants** — Princeton MAT566/567 mentions Donaldson–Thomas. The DT/GW correspondence is hinted at in `mirror-symmetry` and `gauge-theory` but a dedicated page on Donaldson–Thomas / GW invariants would close the enumerative-AG gap.
+
+**Specialty / deferred**:
+- **Microlocal sheaves and $\mathcal{D}$-modules connections** — Princeton MAT539-style; partially covered by `d-modules` + `microlocal-analysis`.
+- **Computational molecular biology** (MIT 18.417/418), **mathematical chaos** (Caltech Ma 104) — would fit naturally inside the proposed *Mathematical biology* section.
+- **Topological data analysis / persistent homology** — currently a sub-bullet in `simplicial-complexes-combinatorial`; deserves its own page if the corpus pursues an applied-topology direction.
+
 ## Content-gap audit — long-running
 
 A systematic pass: for each section, compare against a canonical reference (PCM, nLab, Wikipedia) and flag the missing standard topics. The sub-bullets above (algebra/analysis/math-physics) are partial outputs of such a pass; a more thorough sweep would surface gaps in number theory, algebraic geometry, geometry-and-topology, and modular forms too. Not actioned per session — the right cadence is one section at a time, after a topic-drafting batch lands.
