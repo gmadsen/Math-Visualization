@@ -1,6 +1,14 @@
 {
-  "generated": "2026-05-08T02:57:14.083Z",
+  "generated": "2026-05-08T03:06:29.819Z",
   "entries": [
+    {
+      "slug": "complex-multiplication",
+      "title": "Complex multiplication",
+      "color": "y",
+      "tag": "",
+      "date": "2026-05-07",
+      "message": "New topic: Complex multiplication of elliptic curves (Number theory)"
+    },
     {
       "slug": "abelian-varieties",
       "title": "Abelian varieties",
