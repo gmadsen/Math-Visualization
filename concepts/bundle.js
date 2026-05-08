@@ -5,7 +5,7 @@ window.__MVConcepts = {
   "index": {
     "topics": [
       "several-complex-variables",
-      "complex-multiplication",
+      "khovanov-homology",
       "kahler-geometry",
       "mapping-class-groups",
       "half-integral-weight-forms",
@@ -306,6 +306,7 @@ window.__MVConcepts = {
       "k-theory": "advanced",
       "symplectic-manifolds": "advanced",
       "knot-polynomials": "standard",
+      "khovanov-homology": "advanced",
       "quaternions-octonions-and-division-algebras": "standard",
       "wavelets": "standard",
       "mathematics-and-cryptography": "standard",
@@ -349,7 +350,6 @@ window.__MVConcepts = {
       "abelian-varieties": "advanced",
       "positivity-and-ample-line-bundles": "advanced",
       "dirichlet-unit-theorem": "advanced",
-      "complex-multiplication": "advanced",
       "cobordism": "advanced",
       "mmp-and-birational-geometry": "advanced",
       "homotopy-theory": "advanced",
@@ -454,95 +454,100 @@ window.__MVConcepts = {
         }
       ]
     },
-    "complex-multiplication": {
-      "topic": "complex-multiplication",
-      "title": "Complex multiplication",
-      "page": "complex-multiplication.html",
+    "khovanov-homology": {
+      "topic": "khovanov-homology",
+      "title": "Khovanov homology",
+      "page": "khovanov-homology.html",
       "concepts": [
         {
-          "id": "cm-elliptic-c",
-          "title": "CM elliptic curves over $\\mathbb{C}$",
-          "anchor": "cm-elliptic-c",
+          "id": "khov-cube",
+          "title": "The cube of resolutions",
+          "anchor": "cube",
           "prereqs": [
-            "elliptic-curve-definition",
-            "j-invariant-classification",
-            "class-group-units-ant"
+            "kp-jones-polynomial",
+            "kp-reidemeister-moves"
           ],
-          "blurb": "An elliptic curve $E = \\mathbb{C}/\\Lambda$ has complex multiplication when $\\mathrm{End}(E)$ is strictly larger than $\\mathbb{Z}$ — equivalently, when $\\Lambda$ admits a quadratic-irrational scaling. Then $\\mathrm{End}(E)$ is an order in an imaginary quadratic field $K$, and $j(E) \\in \\overline{\\mathbb{Q}}$ is an algebraic integer.",
+          "blurb": "Given an oriented diagram with $n$ crossings, smooth each crossing in two ways — the $0$-resolution and the $1$-resolution — to obtain $2^n$ planar tangles, each a disjoint union of circles. Indexing resolutions by vertices of $\\{0,1\\}^n$ turns the diagram into a hypercube whose edges flip a single resolution; this combinatorial cube is the geometric scaffold underneath Khovanov homology.",
           "tags": [
             "foundation",
             "classification"
           ]
         },
         {
-          "id": "cm-class-poly",
-          "title": "Hilbert class polynomial",
-          "anchor": "cm-class-poly",
+          "id": "khov-complex",
+          "title": "Khovanov chain complex",
+          "anchor": "complex",
           "prereqs": [
-            "cm-elliptic-c",
-            "hilbert-class-field"
+            "khov-cube",
+            "chain-complexes",
+            "monoidal-categories"
           ],
-          "blurb": "$H_K(X) = \\prod_{[\\mathfrak{a}]}(X - j(E_\\mathfrak{a})) \\in \\mathbb{Z}[X]$ has degree the class number $h_K$, and $K(j(E))$ is the Hilbert class field of $K$ — the maximal unramified abelian extension. Explicit class field theory for imaginary quadratic $K$ via a single transcendental function evaluated at one quadratic irrationality.",
+          "blurb": "Attach to each vertex of the cube the graded module $A^{\\otimes k}$, where $A=\\mathbb{Z}[X]/(X^2)$ is the rank-$2$ Frobenius algebra and $k$ is the number of circles in that resolution. Cube edges become saddle cobordisms whose induced maps are either the multiplication $m:A\\otimes A\\to A$ or comultiplication $\\Delta:A\\to A\\otimes A$. After a homological shift by $n_-$ and a quantum shift by $n_+ - 2n_-$, the signed sum of edges squares to zero, giving a bigraded complex $C^{i,j}(D)$.",
           "tags": [
-            "foundation",
-            "classification"
-          ]
-        },
-        {
-          "id": "cm-heegner",
-          "title": "Heegner points on modular curves",
-          "anchor": "cm-heegner",
-          "prereqs": [
-            "cm-class-poly",
-            "mc-y0-x0",
-            "mc-heegner-points"
-          ],
-          "blurb": "A Heegner point on $X_0(N)$ is a pair $(E, C)$ where $E$ and $E/C$ both have CM by the same order $\\mathcal{O}_K$ — equivalently a $\\Gamma_0(N)$-class of $\\tau \\in \\mathbb{H}$ with both $\\tau$ and $N\\tau$ on the CM locus. Existence requires the Heegner hypothesis (every $p \\mid N$ splits in $K$); under modular parametrization $\\varphi : X_0(N) \\to E$ they yield non-torsion points on $E(K)$ when $L'(E/K, 1) \\ne 0$.",
-          "tags": [
-            "duality",
-            "moduli"
-          ]
-        },
-        {
-          "id": "cm-main-theorem",
-          "title": "Main theorem of complex multiplication",
-          "anchor": "cm-main-theorem",
-          "prereqs": [
-            "cm-class-poly",
-            "artin-map-cft"
-          ],
-          "blurb": "The ray class field $K(\\mathfrak{f})$ of an imaginary quadratic $K$ is generated over $K$ by $j(E)$ together with the Weber function applied to $\\mathfrak{f}$-torsion of a CM curve $E$. Artin reciprocity describes Galois action explicitly: $\\sigma_\\mathfrak{a} \\cdot j(\\mathbb{C}/\\mathfrak{b}) = j(\\mathbb{C}/\\mathfrak{a}^{-1}\\mathfrak{b})$, $\\sigma_\\mathfrak{a} \\cdot P = \\mathfrak{a}^{-1} \\cdot P$ on torsion. Explicit class field theory for imaginary quadratic $K$.",
-          "tags": [
-            "duality",
+            "cohomology",
             "foundation"
           ]
         },
         {
-          "id": "cm-abelian",
-          "title": "CM abelian varieties (Shimura–Taniyama)",
-          "anchor": "cm-abelian",
+          "id": "khov-jones-categorification",
+          "title": "Categorification of the Jones polynomial",
+          "anchor": "jones-categorification",
           "prereqs": [
-            "cm-main-theorem",
-            "galois-rep-definition"
+            "khov-complex",
+            "kp-jones-polynomial",
+            "cd-cup-product"
           ],
-          "blurb": "An abelian variety $A$ of dimension $g$ has CM by a CM field $L$ (totally imaginary quadratic over a totally real $L_0$, $[L:\\mathbb{Q}]=2g$) when $L \\hookrightarrow \\mathrm{End}^0(A)$ as a maximal commutative subalgebra. The CM type $\\Phi$ + reflex field $L^*$ determine the field of definition; Shimura–Taniyama: $\\mathrm{Frob}_\\mathfrak{p} = N_{\\Phi^*}(\\mathfrak{p})$ via the reflex norm.",
+          "blurb": "The bigraded Khovanov homology $Kh^{i,j}(L)$ is invariant under all three Reidemeister moves and recovers the (unnormalised) Jones polynomial as a graded Euler characteristic: $\\sum_{i,j} (-1)^i q^j \\dim Kh^{i,j}(L) = (q+q^{-1}) V_L(q^2)$. Because each ingredient is functorial under cobordisms, oriented link cobordisms induce maps on $Kh$ — a structure the Jones polynomial cannot see.",
           "tags": [
+            "functoriality",
+            "cohomology",
+            "classification"
+          ]
+        },
+        {
+          "id": "khov-rasmussen",
+          "title": "Lee deformation and the Rasmussen invariant",
+          "anchor": "rasmussen",
+          "prereqs": [
+            "khov-complex",
+            "khov-jones-categorification"
+          ],
+          "blurb": "Replace $A=\\mathbb{Z}[X]/(X^2)$ by the Lee algebra $A_{Lee}=\\mathbb{Q}[X]/(X^2-1)$ (or the Bar-Natan algebra $\\mathbb{Z}[X,h]/(X^2-hX)$). The deformed homology $Kh_{Lee}(K)$ of a knot is two-dimensional, generated by canonical classes assigned to the two orientations. Their average quantum grading $s(K)\\in 2\\mathbb{Z}$ is the Rasmussen invariant; it satisfies $|s(K)|\\le 2g_4(K)$, providing a slice-genus bound that is purely combinatorial.",
+          "tags": [
+            "duality",
             "classification",
+            "foundation"
+          ]
+        },
+        {
+          "id": "khov-foams",
+          "title": "Foams and $sl_n$ link homology",
+          "anchor": "foams",
+          "prereqs": [
+            "khov-complex",
+            "kp-quantum-invariants"
+          ],
+          "blurb": "Replacing circles by foams — branched surfaces with marked seams — and saddles by surface cobordisms modulo Kuperberg-style spider relations gives the Khovanov–Rozansky $sl_n$ link homology, which categorifies the Reshetikhin–Turaev $sl_n$ invariant. Triply-graded HOMFLY-PT homology refines all $sl_n$ towers into one homology theory, and matrix-factorisation models recast the construction in singularity-theoretic language.",
+          "tags": [
+            "functoriality",
+            "foundation",
             "duality"
           ]
         },
         {
-          "id": "cm-stark-heegner",
-          "title": "Applications: Heegner numbers, Gross–Zagier, Stark",
-          "anchor": "cm-applications",
+          "id": "khov-applications",
+          "title": "Applications and open problems",
+          "anchor": "applications",
           "prereqs": [
-            "cm-heegner",
-            "bsd-rank-equality"
+            "khov-rasmussen",
+            "khov-foams",
+            "kp-khovanov-homology"
           ],
-          "blurb": "Three landmarks: Heegner's $h_K = 1$ theorem (only nine imaginary quadratic fields have class number $1$, ending with $d = -163$); the near-integer $e^{\\pi\\sqrt{163}} \\approx 262{,}537{,}412{,}640{,}768{,}744$ explained by the $q$-expansion of $j$ at the CM point $(1+\\sqrt{-163})/2$; the Gross–Zagier formula relating $L'(E/K,1)$ to Néron–Tate heights of Heegner points, which combined with Kolyvagin proves BSD's rank conjecture for analytic rank $\\le 1$.",
+          "blurb": "Rasmussen's combinatorial proof of the Milnor conjecture computes $g_4(T_{p,q})=(p-1)(q-1)/2$ without gauge theory. Khovanov homology detects the unknot (Kronheimer–Mrowka, via a spectral sequence to instanton homology), the trefoils, and the Hopf link. Open frontiers include the relation to symplectic Khovanov homology and to Heegaard Floer's link Floer homology, the search for an integer-lift of $s$, and whether $Kh$ detects all knots.",
           "tags": [
-            "density",
-            "duality"
+            "classification",
+            "duality",
+            "finiteness"
           ]
         }
       ]
@@ -17281,6 +17286,7 @@ window.__MVConcepts = {
           "k-theory",
           "symplectic-manifolds",
           "knot-polynomials",
+          "khovanov-homology",
           "ricci-flow",
           "atiyah-singer-index-theorem",
           "mostow-rigidity",
@@ -17313,8 +17319,7 @@ window.__MVConcepts = {
           "computational-number-theory",
           "iwasawa-theory",
           "continued-fractions",
-          "dirichlet-unit-theorem",
-          "complex-multiplication"
+          "dirichlet-unit-theorem"
         ],
         "color": "y"
       },
@@ -17635,6 +17640,7 @@ window.__MVConcepts = {
     "k-theory": "advanced",
     "symplectic-manifolds": "advanced",
     "knot-polynomials": "standard",
+    "khovanov-homology": "advanced",
     "quaternions-octonions-and-division-algebras": "standard",
     "wavelets": "standard",
     "mathematics-and-cryptography": "standard",
@@ -17678,7 +17684,6 @@ window.__MVConcepts = {
     "abelian-varieties": "advanced",
     "positivity-and-ample-line-bundles": "advanced",
     "dirichlet-unit-theorem": "advanced",
-    "complex-multiplication": "advanced",
     "cobordism": "advanced",
     "mmp-and-birational-geometry": "advanced",
     "homotopy-theory": "advanced",
@@ -17718,7 +17723,7 @@ window.__MVConcepts = {
       "concepts": 148,
       "intra": 224,
       "crossOut": 25,
-      "crossIn": 89,
+      "crossIn": 91,
       "density": 0.16891891891891891
     },
     "Higher categories & toposes": {
@@ -17743,31 +17748,31 @@ window.__MVConcepts = {
       "density": 0.2545454545454545
     },
     "Geometry & topology": {
-      "concepts": 134,
-      "intra": 220,
-      "crossOut": 27,
+      "concepts": 140,
+      "intra": 233,
+      "crossOut": 29,
       "crossIn": 94,
-      "density": 0.20149253731343283
+      "density": 0.20714285714285716
     },
     "Number theory": {
-      "concepts": 122,
-      "intra": 169,
-      "crossOut": 54,
+      "concepts": 116,
+      "intra": 160,
+      "crossOut": 49,
       "crossIn": 32,
-      "density": 0.4426229508196721
+      "density": 0.4224137931034483
     },
     "Modular forms & L-functions": {
       "concepts": 115,
       "intra": 170,
       "crossOut": 58,
-      "crossIn": 21,
+      "crossIn": 18,
       "density": 0.5043478260869565
     },
     "Algebraic geometry": {
       "concepts": 179,
       "intra": 265,
       "crossOut": 68,
-      "crossIn": 31,
+      "crossIn": 29,
       "density": 0.37988826815642457
     },
     "Combinatorics & graph theory": {

@@ -1,13 +1,13 @@
 {
-  "generated": "2026-05-08T03:06:29.819Z",
+  "generated": "2026-05-08T02:38:07.095Z",
   "entries": [
     {
-      "slug": "complex-multiplication",
-      "title": "Complex multiplication",
-      "color": "y",
+      "slug": "khovanov-homology",
+      "title": "Khovanov homology",
+      "color": "v",
       "tag": "",
       "date": "2026-05-07",
-      "message": "New topic: Complex multiplication of elliptic curves (Number theory)"
+      "message": "New topic: Khovanov homology & link homology"
     },
     {
       "slug": "abelian-varieties",

@@ -9,6 +9,9 @@
 
 
 
+    "khovanov-homology",
+
+
 
 
     "complex-multiplication",
@@ -321,6 +324,7 @@
     "k-theory": "advanced",
     "symplectic-manifolds": "advanced",
     "knot-polynomials": "standard",
+    "khovanov-homology": "advanced",
     "quaternions-octonions-and-division-algebras": "standard",
     "wavelets": "standard",
     "mathematics-and-cryptography": "standard",

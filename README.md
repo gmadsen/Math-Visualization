@@ -121,6 +121,7 @@ Each concept carries up to three quiz tiers — v1 (required), hard (unlocked af
 - [Homotopy theory](./homotopy-theory.html) — higher homotopy groups, Hurewicz/Whitehead, Eilenberg–MacLane spaces, stable homotopy and spectra, loop spaces, Bott periodicity
 - [Kähler geometry](./kahler-geometry.html) — almost complex structures, Hermitian metrics, Kähler identities and Hodge decomposition, hard Lefschetz, Calabi conjecture, K-stability
 - [Mapping class groups & 4-manifolds](./mapping-class-groups.html) — $\mathrm{Mod}(S)$ and Dehn twists, Nielsen–Thurston classification, Teichmüller space and Fenchel–Nielsen coordinates, smooth vs topological 4-manifolds and intersection forms, Casson invariant
+- [Khovanov homology](./khovanov-homology.html) — draft — fill in once the page has real content
 
 ### Number theory
 - [Galois theory & the quintic](./galois.html) — constructibility, correspondence, unsolvability
