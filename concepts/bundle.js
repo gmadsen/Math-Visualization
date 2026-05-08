@@ -6,9 +6,9 @@ window.__MVConcepts = {
     "topics": [
       "several-complex-variables",
       "khovanov-homology",
-      "arithmetic-statistics",
       "complex-multiplication",
       "tropical-geometry",
+      "surgery-theory",
       "kahler-geometry",
       "mapping-class-groups",
       "half-integral-weight-forms",
@@ -364,7 +364,7 @@ window.__MVConcepts = {
       "half-integral-weight-forms": "advanced",
       "crystalline-cohomology": "advanced",
       "tropical-geometry": "advanced",
-      "arithmetic-statistics": "advanced"
+      "surgery-theory": "advanced"
     }
   },
   "topics": {
@@ -558,104 +558,6 @@ window.__MVConcepts = {
         }
       ]
     },
-    "arithmetic-statistics": {
-      "topic": "arithmetic-statistics",
-      "title": "Arithmetic statistics",
-      "page": "arithmetic-statistics.html",
-      "concepts": [
-        {
-          "id": "as-counting-fields",
-          "title": "Counting number fields",
-          "anchor": "counting-fields",
-          "prereqs": [
-            "discriminant-ant",
-            "logarithmic-height-northcott"
-          ],
-          "blurb": "Order number fields $K/\\mathbb{Q}$ of degree $n$ by absolute discriminant: $N_n(X)=\\#\\{K:|\\mathrm{disc}\\,K|\\le X\\}$. Davenport–Heilbronn (1971): $N_3(X)\\sim X/(3\\zeta(3))$. Bhargava extended this via parametrizations of quartic and quintic rings by integral binary forms (Delone–Faddeev for cubics, $\\mathrm{GL}_2\\times\\mathrm{SL}_3$-orbits on pairs of ternary quadratics for quartics, etc.). For $n\\ge 6$ Malle's conjecture predicts $N_n(X)\\sim cX^{1/a(G)}(\\log X)^{b(G)-1}$ in terms of the Galois closure's group $G$.",
-          "tags": [
-            "density",
-            "classification",
-            "foundation"
-          ]
-        },
-        {
-          "id": "as-cohen-lenstra",
-          "title": "Cohen–Lenstra heuristics",
-          "anchor": "cohen-lenstra",
-          "prereqs": [
-            "as-counting-fields",
-            "class-group-units-ant"
-          ],
-          "blurb": "For imaginary quadratic $K=\\mathbb{Q}(\\sqrt{-d})$ ordered by $|d|$, Cohen–Lenstra (1983) predict that the $p$-part of the class group $\\mathrm{Cl}(K)[p^\\infty]$ is distributed as a random finite abelian $p$-group $A$ with probability $\\propto 1/|\\mathrm{Aut}(A)|$. Marginals: $\\Pr(p\\nmid h(K))=\\prod_{k\\ge 1}(1-p^{-k})$. For real quadratic fields the unit-rank correction gives $\\Pr(p\\nmid h)=\\prod_{k\\ge 2}(1-p^{-k})$. Ellenberg–Venkatesh–Westerland proved the function-field analogue unconditionally via Hurwitz-scheme cohomology.",
-          "tags": [
-            "density",
-            "moduli",
-            "classification"
-          ]
-        },
-        {
-          "id": "as-selmer-averages",
-          "title": "Bhargava's Selmer averages",
-          "anchor": "selmer-averages",
-          "prereqs": [
-            "as-counting-fields",
-            "mordell-weil",
-            "neron-tate-canonical-height"
-          ],
-          "blurb": "Order $E/\\mathbb{Q}$ by naive height $H(E)=\\max(|A|^3,|B|^2)$. Bhargava–Shankar computed the average size of $\\ell$-Selmer groups: $\\mathbb{E}[|\\mathrm{Sel}_\\ell|]=\\ell+1$ for $\\ell=2,3,5$ and $\\mathbb{E}[|\\mathrm{Sel}_4|]=7$. Each is a hard theorem reduced to counting integer-orbit invariants on a representation: $\\mathrm{PGL}_2\\curvearrowright$ binary quartic forms for $\\ell=2$, $\\mathrm{PGL}_3\\curvearrowright$ ternary cubic forms for $\\ell=3$, etc. Consequence: a positive proportion of $E$ have rank $\\le 1$; combined with Skinner–Urban, BSD holds on positive density.",
-          "tags": [
-            "density",
-            "exact-sequence",
-            "group-action"
-          ]
-        },
-        {
-          "id": "as-average-rank",
-          "title": "Average rank of elliptic curves",
-          "anchor": "average-rank",
-          "prereqs": [
-            "as-selmer-averages",
-            "bsd-rank-equality"
-          ],
-          "blurb": "Goldfeld (1979) conjectured: $50\\%$ of $E/\\mathbb{Q}$ have rank $0$, $50\\%$ have rank $1$, average rank $=\\tfrac12$. The parity heuristic says the global root number $w(E)=\\pm 1$ with equal density, forcing parity-of-$\\mathrm{rk}$ to be $0/1$ at minimum. Bhargava–Skinner–Zhang proved $\\ge 66.48\\%$ of $E$ satisfy BSD with rank $\\le 1$. Empirical small-height tables show inflated average rank ($\\sim 0.85$); the descent toward $\\tfrac12$ as $H\\to\\infty$ is logarithmically slow.",
-          "tags": [
-            "density",
-            "equidistribution"
-          ]
-        },
-        {
-          "id": "as-function-fields",
-          "title": "Function-field analogues",
-          "anchor": "function-fields",
-          "prereqs": [
-            "as-cohen-lenstra",
-            "as-selmer-averages"
-          ],
-          "blurb": "Replace $\\mathbb{Q}$ by $\\mathbb{F}_q(t)$. $L$-functions become polynomials in $T=q^{-s}$ with roots on $|T|=q^{-1/2}$. Katz–Sarnak (1999): for a curve $C/\\mathbb{F}_q$ of genus $g$, normalized Frobenius angles $\\theta_i$ become $\\mathrm{USp}(2g)$-equidistributed as $q\\to\\infty$. Cohen–Lenstra over $\\mathbb{F}_q(t)$ is a theorem (Ellenberg–Venkatesh–Westerland) computed via $H^*$ of Hurwitz moduli — geometric topology supplies the heuristic that was conjectural over $\\mathbb{Q}$.",
-          "tags": [
-            "equidistribution",
-            "moduli",
-            "cohomology"
-          ]
-        },
-        {
-          "id": "as-l-symmetry",
-          "title": "L-functions and symmetry types",
-          "anchor": "l-symmetry",
-          "prereqs": [
-            "as-function-fields",
-            "lfunction-prototype",
-            "chebotarev-density"
-          ],
-          "blurb": "Katz–Sarnak philosophy: every natural family of $L$-functions has a symmetry type — unitary $U$, orthogonal $O^\\pm$, or symplectic $\\mathrm{USp}$ — and low-lying zeros follow the eigenvalue statistics of that random-matrix ensemble. $\\zeta$ alone: $U$. Quadratic Dirichlet $\\{L(s,\\chi_d)\\}$: $\\mathrm{USp}$. Elliptic-curve $L$-functions: $O$ split by root number. Soundararajan: $\\ge 87.5\\%$ of $L(\\tfrac12,\\chi_d)$ are non-zero; the symmetry-type prediction is a uniform engine for proportion-rank arithmetic.",
-          "tags": [
-            "equidistribution",
-            "duality",
-            "density"
-          ]
-        }
-      ]
-    },
     "complex-multiplication": {
       "topic": "complex-multiplication",
       "title": "Complex multiplication",
@@ -829,6 +731,102 @@ window.__MVConcepts = {
           "blurb": "Mikhalkin's correspondence theorem: counting tropical curves of degree $d$ and genus $g$ through $3d-1+g$ generic points (with explicit lattice multiplicities) equals the number of complex algebraic curves through the same configuration — i.e. Gromov–Witten invariants of $\\mathbb{P}^2$. Tropicalization also models the SYZ Lagrangian fibration and underpins the Gross–Siebert reconstruction of mirror pairs.",
           "tags": [
             "moduli"
+          ]
+        }
+      ]
+    },
+    "surgery-theory": {
+      "topic": "surgery-theory",
+      "title": "Surgery theory & high-dimensional manifolds",
+      "page": "surgery-theory.html",
+      "concepts": [
+        {
+          "id": "surg-handles",
+          "title": "Handle decompositions and surgery",
+          "anchor": "handles",
+          "prereqs": [
+            "cob-equivalence",
+            "mt-handle-decomposition"
+          ],
+          "blurb": "A $k$-<strong>handle</strong> is a copy of $D^k\\times D^{n-k}$ glued to $\\partial M^n$ along an embedded $S^{k-1}\\times D^{n-k}$ via the <em>attaching map</em>. Morse-theoretically, a $k$-handle is what gets added when $f$ crosses an index-$k$ critical value; surgery is the same operation viewed from the boundary. A <strong>surgery</strong> on $S^{k-1}\\times D^{n-k}\\hookrightarrow M$ removes that tube and glues in $D^k\\times S^{n-k-1}$ along the common boundary $S^{k-1}\\times S^{n-k-1}$ — a different manifold $M'$, related to $M$ by the trace cobordism $W = M\\times[0,1]\\cup\\text{handle}$.",
+          "tags": [
+            "foundation",
+            "classification"
+          ]
+        },
+        {
+          "id": "surg-h-cobordism",
+          "title": "The $h$-cobordism theorem",
+          "anchor": "h-cobordism",
+          "prereqs": [
+            "surg-handles",
+            "simply-connected",
+            "ht-hurewicz-whitehead"
+          ],
+          "blurb": "Smale (1962): if $W^{n+1}$ is a compact <strong>$h$-cobordism</strong> between simply-connected closed $n$-manifolds with $n\\ge 5$ — i.e. both inclusions $M_0,M_1\\hookrightarrow W$ are homotopy equivalences — then $W \\cong M_0\\times[0,1]$. The proof cancels handles in matching index pairs using the Whitney trick (which needs $n\\ge 5$ to produce embedded Whitney disks). The corollary is the <strong>generalized Poincaré conjecture</strong> in dimensions $\\ge 5$: a homotopy $n$-sphere is homeomorphic to $S^n$.",
+          "tags": [
+            "classification",
+            "foundation"
+          ]
+        },
+        {
+          "id": "surg-s-cobordism",
+          "title": "The $s$-cobordism theorem and the Whitehead group",
+          "anchor": "s-cobordism",
+          "prereqs": [
+            "surg-h-cobordism",
+            "fundamental-group",
+            "chain-complexes"
+          ],
+          "blurb": "Without simple connectivity the obstruction to triviality of an $h$-cobordism is the <strong>Whitehead torsion</strong> $\\tau(W)\\in\\mathrm{Wh}(\\pi_1 M):=K_1(\\mathbb{Z}\\pi_1)/(\\pm\\pi_1)$. Mazur–Stallings–Barden: $W$ is trivial iff $\\tau(W)=0$. For finite cyclic $\\pi_1=\\mathbb{Z}/n$, $\\mathrm{Wh}(\\mathbb{Z}/n)$ is computable: it vanishes for $n\\le 4$ and $n=6$, has rank $1$ for $n=5$, etc. The Whitehead group is thus the algebraic obstruction tracking how $\\pi_1$ enriches the $h$-cobordism story.",
+          "tags": [
+            "foundation",
+            "classification"
+          ]
+        },
+        {
+          "id": "surg-exact-sequence",
+          "title": "The surgery exact sequence",
+          "anchor": "surgery-exact-sequence",
+          "prereqs": [
+            "surg-h-cobordism",
+            "cob-numbers",
+            "singular-homology"
+          ],
+          "blurb": "Browder–Novikov–Sullivan–Wall: for a closed $n$-manifold $M$ with $n\\ge 5$, the <strong>structure set</strong> $\\mathcal{S}(M)$ — homotopy-equivalence classes of manifolds in $M$'s homotopy type — fits into $$\\dots \\to L_{n+1}(\\mathbb{Z}\\pi_1 M) \\to \\mathcal{S}(M) \\to \\mathcal{N}(M) \\to L_n(\\mathbb{Z}\\pi_1 M),$$ where $\\mathcal{N}(M)=[M,G/O]$ is <strong>normal invariants</strong> (degree-1 normal maps mod cobordism) and the $L$-groups are Wall's algebraic surgery obstructions. The sequence converts manifold classification into one homotopy computation $\\mathcal{N}(M)$ and one algebraic computation in $L_*(\\mathbb{Z}\\pi)$.",
+          "tags": [
+            "classification",
+            "exact-sequence"
+          ]
+        },
+        {
+          "id": "surg-l-theory",
+          "title": "$L$-theory and the Wall obstruction",
+          "anchor": "l-theory",
+          "prereqs": [
+            "surg-exact-sequence",
+            "chain-complexes",
+            "cob-numbers"
+          ],
+          "blurb": "The <strong>Wall $L$-groups</strong> $L_n(\\mathbb{Z}\\pi)$ classify quadratic forms (or formations) on finitely-generated stably-free $\\mathbb{Z}\\pi$-modules, modulo hyperbolic (or boundary) ones. For trivial $\\pi$ the answer is 4-periodic: $L_0=L_4=\\dots=\\mathbb{Z}$ (signature$/8$), $L_2=L_6=\\dots=\\mathbb{Z}/2$ (Arf invariant), $L_1=L_3=\\dots=0$. Browder's <strong>surgery theorem</strong>: a normal map $f\\colon M\\to X$ of degree 1 is normally cobordant to a homotopy equivalence iff its <strong>Wall obstruction</strong> $\\sigma(f)\\in L_n(\\mathbb{Z}\\pi_1 X)$ vanishes. Rokhlin's signature-mod-16 theorem is the smooth analogue at the prime 2.",
+          "tags": [
+            "classification",
+            "cohomology"
+          ]
+        },
+        {
+          "id": "surg-exotic-spheres",
+          "title": "Exotic spheres and dimensions $3,4$",
+          "anchor": "exotic-spheres",
+          "prereqs": [
+            "surg-l-theory",
+            "mcg-4manifolds",
+            "mcg-casson"
+          ],
+          "blurb": "Kervaire–Milnor (1963) computed $\\Theta_n$, the group of $h$-cobordism classes of homotopy $n$-spheres, by surgery: $\\Theta_n$ fits in an exact sequence involving the stable homotopy of spheres and the cokernel of the $J$-homomorphism. Highlights: $\\Theta_7\\cong\\mathbb{Z}/28$ — Milnor's exotic 7-spheres, the first proven smooth-versus-topological gap. $\\Theta_n$ is finite for every $n\\ge 5$. The $h$-cobordism machinery breaks in low dimensions: $n=3$ needed Perelman's Ricci-flow proof of the Poincaré conjecture, $n=4$ has Freedman's topological classification but the smooth Poincaré conjecture remains open — Donaldson and Seiberg–Witten show smooth 4-manifolds carry invariants invisible to surgery alone.",
+          "tags": [
+            "classification",
+            "foundation"
           ]
         }
       ]
@@ -17575,7 +17573,8 @@ window.__MVConcepts = {
           "cobordism",
           "homotopy-theory",
           "kahler-geometry",
-          "mapping-class-groups"
+          "mapping-class-groups",
+          "surgery-theory"
         ],
         "color": "v"
       },
@@ -17601,8 +17600,7 @@ window.__MVConcepts = {
           "iwasawa-theory",
           "continued-fractions",
           "dirichlet-unit-theorem",
-          "complex-multiplication",
-          "arithmetic-statistics"
+          "complex-multiplication"
         ],
         "color": "y"
       },
@@ -17979,7 +17977,7 @@ window.__MVConcepts = {
     "half-integral-weight-forms": "advanced",
     "crystalline-cohomology": "advanced",
     "tropical-geometry": "advanced",
-    "arithmetic-statistics": "advanced"
+    "surgery-theory": "advanced"
   },
   "newArc": [
     "elementary-topos-theory",
@@ -18010,7 +18008,7 @@ window.__MVConcepts = {
       "concepts": 148,
       "intra": 224,
       "crossOut": 25,
-      "crossIn": 91,
+      "crossIn": 93,
       "density": 0.16891891891891891
     },
     "Higher categories & toposes": {
@@ -18035,24 +18033,24 @@ window.__MVConcepts = {
       "density": 0.2545454545454545
     },
     "Geometry & topology": {
-      "concepts": 140,
-      "intra": 233,
-      "crossOut": 29,
+      "concepts": 146,
+      "intra": 248,
+      "crossOut": 31,
       "crossIn": 94,
-      "density": 0.20714285714285716
+      "density": 0.21232876712328766
     },
     "Number theory": {
-      "concepts": 128,
-      "intra": 180,
-      "crossOut": 57,
+      "concepts": 122,
+      "intra": 169,
+      "crossOut": 54,
       "crossIn": 33,
-      "density": 0.4453125
+      "density": 0.4426229508196721
     },
     "Modular forms & L-functions": {
       "concepts": 115,
       "intra": 170,
       "crossOut": 58,
-      "crossIn": 24,
+      "crossIn": 21,
       "density": 0.5043478260869565
     },
     "Algebraic geometry": {

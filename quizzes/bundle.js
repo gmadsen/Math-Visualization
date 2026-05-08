@@ -59411,6 +59411,272 @@ window.MVQuizBank = {
       }
     }
   },
+  "surgery-theory": {
+    "topic": "surgery-theory",
+    "quizzes": {
+      "surg-handles": {
+        "title": "Handle decompositions and surgery",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A $k$-handle attached to a manifold $M^n$ is a copy of which space, glued along which boundary piece?",
+            "choices": [
+              "$D^k\\times D^{n-k}$, glued along $S^{k-1}\\times D^{n-k}$",
+              "$D^k\\times S^{n-k}$, glued along $S^{k-1}\\times S^{n-k-1}$",
+              "$S^k\\times D^{n-k}$, glued along $S^k\\times S^{n-k-1}$",
+              "$D^n$, glued along its full boundary $S^{n-1}$"
+            ],
+            "answer": 0,
+            "explain": "A $k$-handle has core $D^k\\times\\{0\\}$ and cocore $\\{0\\}\\times D^{n-k}$; its attaching region is the boundary piece $S^{k-1}\\times D^{n-k}$, embedded in $\\partial M$. After attachment, the new boundary piece $D^k\\times S^{n-k-1}$ replaces the old tube $S^{k-1}\\times D^{n-k}$ — that swap is exactly a surgery."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which statements about the surgery $M\\rightsquigarrow M'$ along an embedding $S^{k-1}\\times D^{n-k}\\hookrightarrow M$ are true? Select all.",
+            "choices": [
+              "$M$ and $M'$ are diffeomorphic in general",
+              "$M$ and $M'$ are cobordant via the trace cobordism",
+              "Surgery on $S^0\\times D^{n}$ in a connected $M$ takes the connected sum with $S^{n-1}\\times S^0$ — i.e. produces a 1-handle attachment",
+              "If $M = S^n$, surgery on a trivially embedded $S^{k-1}\\times D^{n-k+1}$ produces $S^{k-1}\\times S^{n-k}\\#\\,(\\text{stuff})$"
+            ],
+            "answer": [
+              1,
+              2,
+              3
+            ],
+            "explain": "Surgery does not preserve diffeomorphism type — that is the whole point. It does preserve cobordism class (the trace is a cobordism). 0-surgery is the connected-sum / 1-handle perspective. Surgery on a trivial $S^{k-1}\\hookrightarrow S^n$ produces $S^{k-1}\\times S^{n-k}$ up to handle stabilization."
+          },
+          {
+            "type": "numeric",
+            "q": "On $M=S^3$, surgery along an unknot $S^1\\hookrightarrow S^3$ (so $k=2$, $n=3$) with the $0$-framing produces $S^p\\times S^q$ for some $p,q\\ge 0$. What is $p+q$?",
+            "answer": 3,
+            "tol": 0.0001,
+            "explain": "Removing $S^1\\times D^2$ (a solid-torus neighbourhood of the unknot) from $S^3$ leaves another solid torus $D^2\\times S^1$; gluing in $D^2\\times S^1$ along $S^1\\times S^1$ via the $0$-framing produces $S^2\\times S^1$. So $(p,q)=(2,1)$ and $p+q=3$. (The $0$-framing identifies the meridian of the new handle with the longitude of the old.)"
+          }
+        ]
+      },
+      "surg-h-cobordism": {
+        "title": "The $h$-cobordism theorem",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Smale's $h$-cobordism theorem proves that every $h$-cobordism $W^{n+1}$ between simply-connected manifolds is trivial — i.e. $W\\cong M_0\\times[0,1]$ — provided which dimensional hypothesis?",
+            "choices": [
+              "$n\\ge 2$",
+              "$n\\ge 3$",
+              "$n\\ge 5$",
+              "$n\\ge 7$"
+            ],
+            "answer": 2,
+            "explain": "The proof requires the Whitney trick — replacing a pair of intersection points of complementary-dimensional submanifolds with a clean isotopy via an embedded Whitney disk. Embedding the disk needs the ambient dimension to be at least 5 (so $W^{n+1}$ has $n+1\\ge 6$, hence $n\\ge 5$). In dimension 4 the Whitney trick fails smoothly; this is the source of the smooth Poincaré gap."
+          },
+          {
+            "type": "ordering",
+            "q": "Order the steps of the standard $h$-cobordism handle-cancellation argument.",
+            "items": [
+              "Apply the Whitney trick to make the geometric intersection number of complementary-dimension handles equal to the algebraic count",
+              "Choose a Morse function $f\\colon W\\to[0,1]$ with $f^{-1}(0)=M_0$, $f^{-1}(1)=M_1$, no boundary critical points",
+              "Cancel each $(k,k+1)$ pair of geometrically dual handles via Smale's cancellation lemma",
+              "Use $H_*(W,M_0)=0$ to make the algebraic intersection numbers between index-$k$ and index-$(k+1)$ handles into matrices that can be diagonalized to $\\pm 1$"
+            ],
+            "answer": [
+              1,
+              3,
+              0,
+              2
+            ],
+            "explain": "First produce a Morse function (a handle decomposition of $W$). Vanishing relative homology forces matching counts of handles in adjacent indices, with intersection matrix invertible over $\\mathbb{Z}$. Whitney's trick converts an algebraic count to a clean geometric one, after which Smale's cancellation lemma erases each matched pair."
+          },
+          {
+            "type": "mcq",
+            "q": "An immediate corollary of the $h$-cobordism theorem in dimensions $n\\ge 5$ is:",
+            "choices": [
+              "The Hauptvermutung in dimension $n$",
+              "The smooth Poincaré conjecture: every homotopy $n$-sphere is diffeomorphic to $S^n$",
+              "The topological Poincaré conjecture: every homotopy $n$-sphere is homeomorphic to $S^n$",
+              "Whitney's embedding theorem in dimension $n$"
+            ],
+            "answer": 2,
+            "explain": "If $\\Sigma^n$ is a homotopy sphere, removing two open disks gives an $h$-cobordism between two copies of $S^{n-1}$; Smale's theorem says this is trivial, so $\\Sigma$ is the union of two disks — homeomorphic to $S^n$. The smooth version is FALSE: Milnor's $\\Theta_7\\ne 0$ already exhibits exotic smooth spheres, so the corollary is the topological / PL one (modulo the smooth-vs-PL gap)."
+          }
+        ]
+      },
+      "surg-s-cobordism": {
+        "title": "The $s$-cobordism theorem and the Whitehead group",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The Whitehead group $\\mathrm{Wh}(\\pi)$ is defined as which quotient of $K_1(\\mathbb{Z}\\pi)$?",
+            "choices": [
+              "$K_1(\\mathbb{Z}\\pi)/\\mathrm{SL}(\\mathbb{Z}\\pi)$",
+              "$K_1(\\mathbb{Z}\\pi)/\\,(\\pm\\pi)$, killing the units $\\pm g$ for $g\\in\\pi$",
+              "$K_1(\\mathbb{Z}\\pi)\\otimes\\mathbb{Q}$",
+              "$K_1(\\mathbb{Z}\\pi)/\\mathrm{torsion}$"
+            ],
+            "answer": 1,
+            "explain": "$\\mathrm{Wh}(\\pi):=K_1(\\mathbb{Z}\\pi)/(\\pm\\pi)$. Every $g\\in\\pi$ gives a unit $g\\in(\\mathbb{Z}\\pi)^\\times$ and hence a $1\\times 1$ class in $K_1$; we mod out these `obvious' units (the $\\pm$ accounts for the sign automorphism). The quotient detects the genuine `combinatorial' torsion of an $h$-cobordism."
+          },
+          {
+            "type": "matching",
+            "q": "Match each fundamental group $\\pi$ on the left with the (rank or order of) $\\mathrm{Wh}(\\pi)$ on the right.",
+            "left": [
+              "$\\pi=1$ (trivial)",
+              "$\\pi=\\mathbb{Z}$",
+              "$\\pi=\\mathbb{Z}/5$"
+            ],
+            "right": [
+              "$\\mathrm{Wh}(\\pi)$ is infinite cyclic ($\\mathbb{Z}$)",
+              "$\\mathrm{Wh}(\\pi)=0$",
+              "$\\mathrm{Wh}(\\pi)=0$ (Bass–Heller–Swan: $K_1$ of $\\mathbb{Z}[t,t^{-1}]$ contributes no Whitehead torsion)"
+            ],
+            "answer": [
+              2,
+              0,
+              1
+            ],
+            "explain": "$\\mathrm{Wh}(1)=0$ since $K_1(\\mathbb{Z})=\\{\\pm 1\\}$ is exactly $\\pm\\pi$. $\\mathrm{Wh}(\\mathbb{Z})=0$ by the Bass–Heller–Swan formula. $\\mathrm{Wh}(\\mathbb{Z}/5)\\cong\\mathbb{Z}$ — generated by the class of the cyclotomic unit $1+t+t^2$ in $\\mathbb{Z}[\\mathbb{Z}/5]$. (Higman: $\\mathrm{Wh}(\\mathbb{Z}/n)=0$ for $n\\le 4$ and $n=6$, but already $\\ne 0$ for $n=5$.)"
+          },
+          {
+            "type": "mcq",
+            "q": "An $s$-cobordism $W$ between $M_0,M_1$ is a non-trivial $h$-cobordism iff:",
+            "choices": [
+              "$\\pi_1(W)$ is non-abelian",
+              "Whitehead torsion $\\tau(W)\\in\\mathrm{Wh}(\\pi_1 W)$ is non-zero",
+              "The signature of $W$ is non-zero",
+              "Some Stiefel–Whitney class of $W$ is non-zero"
+            ],
+            "answer": 1,
+            "explain": "An '$s$-cobordism' by definition has $\\tau(W)=0$, so the $s$-cobordism theorem says: $h$-cobordisms with simply-connected case extend to all $\\pi_1$ exactly when the torsion vanishes. Conversely $\\tau(W)\\ne 0$ exhibits a non-trivial $h$-cobordism — for example the Mazur manifold's relatives in dimension $\\ge 5$."
+          }
+        ]
+      },
+      "surg-exact-sequence": {
+        "title": "The surgery exact sequence",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "In the surgery exact sequence $\\dots\\to L_{n+1}(\\mathbb{Z}\\pi)\\to\\mathcal{S}(M)\\to\\mathcal{N}(M)\\to L_n(\\mathbb{Z}\\pi)$, the structure set $\\mathcal{S}(M)$ classifies:",
+            "choices": [
+              "Closed $n$-manifolds homeomorphic to $M$",
+              "Pairs $(N,h)$ of a closed manifold $N$ and a homotopy equivalence $h\\colon N\\to M$, modulo $h$-cobordism",
+              "Embeddings $M\\hookrightarrow\\mathbb{R}^{n+k}$ up to isotopy",
+              "Smooth structures on $M$ modulo diffeomorphism"
+            ],
+            "answer": 1,
+            "explain": "$\\mathcal{S}(M)$ is the set of equivalence classes of homotopy structures: a manifold $N$ together with a homotopy equivalence $N\\to M$, modulo $h$-cobordism (or $s$-cobordism — choices vary). Vanishing of $\\mathcal{S}(M)$ would mean $M$ is rigid: every homotopy-equivalent manifold is already $h$-cobordant to it."
+          },
+          {
+            "type": "mcq",
+            "q": "Normal invariants $\\mathcal{N}(M)$ correspond to homotopy classes of maps into which space?",
+            "choices": [
+              "$BO$",
+              "$G/O$ (or $G/\\mathrm{Top}$ in the topological category)",
+              "$BG$",
+              "$K(\\mathbb{Z},n)$"
+            ],
+            "answer": 1,
+            "explain": "$\\mathcal{N}(M)=[M,G/O]$ — homotopy classes of maps from $M$ into the homotopy fibre of $BO\\to BG$. Equivalently, $\\mathcal{N}(M)$ is the set of degree-1 normal maps $f\\colon N\\to M$ modulo normal cobordism. The space $G/O$ (Sullivan) carries a deep characteristic-class structure: $\\pi_*(G/O)\\otimes\\mathbb{Q}\\cong L_*(\\mathbb{Z})\\otimes\\mathbb{Q}$, the classical surgery obstruction map."
+          },
+          {
+            "type": "ordering",
+            "q": "Trace the path of a single homotopy structure $[N\\to M]$ through the surgery exact sequence by ordering these conceptual steps.",
+            "items": [
+              "Choose a degree-1 normal map underlying the homotopy equivalence — landing in $\\mathcal{N}(M)$",
+              "Compute its surgery obstruction in $L_n(\\mathbb{Z}\\pi_1 M)$",
+              "If the obstruction vanishes, do surgery on $N$ to get a homotopy equivalence; if not, the structure does not lift",
+              "Recognise that two normal cobordant maps differ by an action of $L_{n+1}$"
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "explain": "Forward: a structure projects to a normal invariant; that invariant has an algebraic surgery obstruction in $L_n$; vanishing lets us produce a manifold $N$ in the homotopy class. Backward: $L_{n+1}$ acts on the structure set by 'plumbing' a quadratic form's worth of new manifold pieces — an exact-sequence statement, not just a sequence-of-sets statement."
+          }
+        ]
+      },
+      "surg-l-theory": {
+        "title": "$L$-theory and the Wall obstruction",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For trivial $\\pi$, the Wall $L$-groups $L_n(\\mathbb{Z})$ are $4$-periodic. The values $(L_0,L_1,L_2,L_3)$ are:",
+            "choices": [
+              "$(\\mathbb{Z},\\,0,\\,\\mathbb{Z}/2,\\,0)$",
+              "$(\\mathbb{Z}/8,\\,\\mathbb{Z}/2,\\,0,\\,0)$",
+              "$(\\mathbb{Z},\\,\\mathbb{Z}/2,\\,\\mathbb{Z},\\,\\mathbb{Z}/2)$",
+              "$(0,\\,\\mathbb{Z},\\,0,\\,\\mathbb{Z}/2)$"
+            ],
+            "answer": 0,
+            "explain": "$L_0(\\mathbb{Z})=\\mathbb{Z}$ via the signature$/8$ of the symmetric form (Hirzebruch / Milnor). $L_2(\\mathbb{Z})=\\mathbb{Z}/2$ via the Arf–Kervaire invariant of a non-degenerate quadratic refinement on a $\\mathbb{Z}/2$-symplectic form. The odd-dimensional groups $L_1,L_3$ vanish for trivial $\\pi$ because every formation is hyperbolic."
+          },
+          {
+            "type": "numeric",
+            "q": "By Rokhlin's theorem, for a closed smooth simply-connected oriented $4$-manifold $M$ with even intersection form (i.e., $w_2=0$), the signature $\\sigma(M)$ is divisible by which integer?",
+            "answer": 16,
+            "tol": 0.0001,
+            "explain": "Rokhlin (1952): a closed smooth spin $4$-manifold has $\\sigma\\equiv 0\\pmod{16}$. The unimodular even form $E_8$ has signature 8 but is not realised smoothly — Freedman's $|E_8|$-manifold is topological only. Donaldson's diagonalizability theorem forbids smooth realisation of any negative-definite non-diagonalizable form."
+          },
+          {
+            "type": "mcq",
+            "q": "Browder's surgery theorem says that a degree-1 normal map $f\\colon M^n\\to X$ is normally cobordant to a homotopy equivalence iff a single algebraic obstruction $\\sigma(f)$ vanishes — provided $n$ satisfies which condition?",
+            "choices": [
+              "$n=4$",
+              "$n\\ge 4$ for any $\\pi_1$",
+              "$n\\ge 5$",
+              "$n$ is even and $\\ge 6$"
+            ],
+            "answer": 2,
+            "explain": "The argument folds into the surgery exact sequence and uses the Whitney trick to do middle-dimensional surgery, which requires the ambient dimension to be at least 5. In dimension $4$ surgery below the middle dimension still works but middle-dimensional surgery does not, and the algebraic obstruction is no longer the only obstruction (gauge-theoretic invariants enter)."
+          }
+        ]
+      },
+      "surg-exotic-spheres": {
+        "title": "Exotic spheres and dimensions $3,4$",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "What is the order of the group $\\Theta_7$ of $h$-cobordism classes of homotopy 7-spheres (Kervaire–Milnor 1963)?",
+            "answer": 28,
+            "tol": 0.0001,
+            "explain": "$\\Theta_7\\cong\\mathbb{Z}/28$. Milnor (1956) constructed the first exotic 7-sphere as a $3$-sphere bundle over $S^4$ with non-standard Pontryagin number; Kervaire–Milnor's surgery computation gave the full count. $\\Theta_7$ comes entirely from the $\\mathrm{bP}_8$ subgroup (boundaries of parallelizable 8-manifolds)."
+          },
+          {
+            "type": "matching",
+            "q": "Match each dimension to the resolution status of the smooth Poincaré conjecture there.",
+            "left": [
+              "Dimension 3",
+              "Dimension 4",
+              "Dimension 7"
+            ],
+            "right": [
+              "False — Milnor's exotic 7-spheres ($\\Theta_7=\\mathbb{Z}/28$) imply 28 distinct smooth structures on the topological 7-sphere",
+              "True — proved via Ricci flow with surgery (Perelman, 2003)",
+              "Open — there are no known exotic smooth 4-spheres, but the conjecture has resisted both gauge-theory and surgery attacks"
+            ],
+            "answer": [
+              1,
+              2,
+              0
+            ],
+            "explain": "Dim 3: Perelman finished Hamilton's program. Dim 4: smooth Poincaré is open — neither construction nor obstruction is known. Dim 7: false; $\\Theta_7\\cong\\mathbb{Z}/28$ exhibits 27 exotic smooth structures distinct from the round sphere. Dim 5,6: smooth Poincaré is true (Smale plus the fact that $\\Theta_5=\\Theta_6=0$). Dim $\\ge 7$: typically false because $\\Theta_n$ is generally nonzero."
+          },
+          {
+            "type": "mcq",
+            "q": "Why does the surgery program break in dimension 4 but succeed in dimension 5 and above?",
+            "choices": [
+              "Because $\\pi_1$ becomes more complicated in low dimensions",
+              "Because the Whitney trick — used to convert algebraic intersection counts into clean geometric ones — needs the ambient dimension to be at least 5 to embed a Whitney disk",
+              "Because $L$-groups vanish in dimension 4",
+              "Because cobordism is not an equivalence relation in dimension 4"
+            ],
+            "answer": 1,
+            "explain": "The Whitney trick eliminates a pair of canceling double points by an isotopy through an embedded 2-disk; in 4-manifolds the disk's interior may self-intersect, with no room to push the intersection off. Freedman recovered topologically embedded disks (so the topological surgery program succeeds in dim 4 for `good' fundamental groups), but smoothly the obstruction is genuine — Donaldson's invariants detect it."
+          }
+        ]
+      }
+    }
+  },
   "symplectic-manifolds": {
     "topic": "symplectic-manifolds",
     "quizzes": {
