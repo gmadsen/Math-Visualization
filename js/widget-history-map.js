@@ -135,13 +135,32 @@
     return d;
   }
 
-  // === pin clustering: events at same city → one pin ===
+  // === pin clustering: events at the same (lat, lng) → one pin ===
+  // Cluster by coordinates only, not by city name. Otherwise events at the
+  // same physical location with different historical city names (e.g. Edo
+  // 1683 → Tokyo 1955, both at 35.68/139.69) render as two pins stacked on
+  // top of each other at the same pixel, which the eye reads as a single
+  // node mysteriously lighting up under two different era filters.
+  // The cluster's display label uses the most recent event's city name.
   function clusterEvents(events){
     const map = new Map();
     for(const ev of events){
-      const key = `${(ev.city||'').toLowerCase()}|${ev.lat||0}|${ev.lng||0}`;
+      const key = `${ev.lat||0}|${ev.lng||0}`;
       if(!map.has(key)) map.set(key, { city:ev.city, region:ev.region, lat:ev.lat, lng:ev.lng, events:[] });
-      map.get(key).events.push(ev);
+      const cluster = map.get(key);
+      cluster.events.push(ev);
+      // Use the most recent event's city/region as the cluster label —
+      // visitors expect "Tokyo" for the modern pin, not "Edo".
+      if(!cluster.events.length || ev.year > cluster.events[0].year){
+        cluster.city = ev.city;
+        cluster.region = ev.region;
+      }
+    }
+    // Final pass: each cluster picks the city/region of its newest event.
+    for(const cluster of map.values()){
+      const newest = cluster.events.reduce((a, b) => (a.year >= b.year ? a : b));
+      cluster.city = newest.city;
+      cluster.region = newest.region;
     }
     return [...map.values()];
   }
