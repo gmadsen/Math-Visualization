@@ -864,6 +864,132 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "as-w1",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "as-w1 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the arithmetic-statistics topic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `arithmetic-statistics` topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "as-w2",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "as-w2 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the arithmetic-statistics topic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `arithmetic-statistics` topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "as-w3",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "as-w3 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the arithmetic-statistics topic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `arithmetic-statistics` topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "as-w4",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "as-w4 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the arithmetic-statistics topic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `arithmetic-statistics` topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "as-w5",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "as-w5 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the arithmetic-statistics topic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `arithmetic-statistics` topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "as-w6",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "as-w6 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the arithmetic-statistics topic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `arithmetic-statistics` topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "atiyah-singer-anomaly",
     "family": "atiyah-singer-anomaly",
     "dimension": "2d",

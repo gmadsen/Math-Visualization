@@ -144,7 +144,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./bsd.html#point-counting-heuristic\">Birch and Swinnerton-Dyer</a> · Birch–Swinnerton-Dyer heuristic</div>\n    <div><a href=\"./bsd.html#regulator\">Birch and Swinnerton-Dyer</a> · Néron–Tate height and the regulator</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./arithmetic-statistics.html#selmer-averages\">Arithmetic statistics</a> · Bhargava's Selmer averages</div>\n    <div><a href=\"./bsd.html#point-counting-heuristic\">Birch and Swinnerton-Dyer</a> · Birch–Swinnerton-Dyer heuristic</div>\n    <div><a href=\"./bsd.html#regulator\">Birch and Swinnerton-Dyer</a> · Néron–Tate height and the regulator</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -369,7 +369,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./bsd.html#sha-tate-shafarevich\">Birch and Swinnerton-Dyer</a> · The Tate–Shafarevich group Ш</div>\n    <div><a href=\"./complex-multiplication.html#cm-applications\">Complex multiplication</a> · Applications: Heegner numbers, Gross–Zagier, Stark</div>\n    <div><a href=\"./half-integral-weight-forms.html#tunnell\">Half integral weight forms</a> · Tunnell's theorem and the congruent number problem</div>\n    <div><a href=\"./iwasawa-theory.html#elliptic-iwasawa\">Iwasawa theory</a> · Elliptic Iwasawa theory and BSD</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./arithmetic-statistics.html#average-rank\">Arithmetic statistics</a> · Average rank of elliptic curves</div>\n    <div><a href=\"./bsd.html#sha-tate-shafarevich\">Birch and Swinnerton-Dyer</a> · The Tate–Shafarevich group Ш</div>\n    <div><a href=\"./complex-multiplication.html#cm-applications\">Complex multiplication</a> · Applications: Heegner numbers, Gross–Zagier, Stark</div>\n    <div><a href=\"./half-integral-weight-forms.html#tunnell\">Half integral weight forms</a> · Tunnell's theorem and the congruent number problem</div>\n    <div><a href=\"./iwasawa-theory.html#elliptic-iwasawa\">Iwasawa theory</a> · Elliptic Iwasawa theory and BSD</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
