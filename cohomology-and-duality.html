@@ -302,7 +302,10 @@ function drawNode(svg, x, y, label, opts={}){
 /* Section 1 widget — cup product table on T² */
 (function(){
   const svg = $('#cup-svg'), out = $('#cup-out'), resetBtn = $('#cup-reset');
-  if(!svg) return;
+  if (!svg || !out || !resetBtn) {
+    console.warn('w-cup: missing DOM ids — skipping init');
+    return;
+  }
   // classes: id → {label, deg}
   const CLASSES = [
     {id:'one', label:'1',  deg:0, x: 60, y:140},
@@ -476,7 +479,10 @@ the exterior algebra on $n$ degree-1 generators (one per circle factor). $\dim_{
 /* Section 2 widget — Künneth tensor table over Q */
 (function(){
   const xS = $('#kn-x'), yS = $('#kn-y'), svg = $('#kn-svg'), out = $('#kn-out');
-  if(!svg) return;
+  if (!xS || !yS || !svg || !out) {
+    console.warn('w-kunneth: missing DOM ids — skipping init');
+    return;
+  }
   // each space: array of Betti numbers, indexed by degree
   const SPACES = {
     pt:  {label:'pt',  b:[1]},
@@ -618,7 +624,10 @@ the exterior algebra on $n$ degree-1 generators (one per circle factor). $\dim_{
 /* Section 3 widget — palindromic Betti */
 (function(){
   const pick = $('#pd-pick'), out = $('#pd-out'), svg = $('#pd-svg');
-  if(!svg) return;
+  if (!pick || !out || !svg) {
+    console.warn('w-pd: missing DOM ids — skipping init');
+    return;
+  }
   const M = {
     s1:  {label:'S^1',          n:1, b:[1,1]},
     s2:  {label:'S^2',          n:2, b:[1,0,1]},
@@ -751,7 +760,10 @@ a contradiction. So $[d\theta]\ne 0\in H^1_{\mathrm{dR}}(S^1)$, and integration 
 /* Section 4 widget — integrate 1-forms on S^1 */
 (function(){
   const sel = $('#dr-form'), svg = $('#dr-svg'), out = $('#dr-out');
-  if(!svg) return;
+  if (!sel || !svg || !out) {
+    console.warn('w-derham: missing DOM ids — skipping init');
+    return;
+  }
   // each form: function f(θ) such that ω = f(θ) dθ.
   const FORMS = {
     dtheta:    {label:'dθ',          f: θ=>1,             cls:'closed, not exact (generator of H^1_dR)'},
@@ -894,7 +906,10 @@ a contradiction. So $[d\theta]\ne 0\in H^1_{\mathrm{dR}}(S^1)$, and integration 
 /* Section 5 widget — Hopf SS pages */
 (function(){
   const svg = $('#ss-svg'), out = $('#ss-out'), prev = $('#ss-prev'), next = $('#ss-next'), pageLab = $('#ss-page');
-  if(!svg) return;
+  if (!svg || !out || !prev || !next || !pageLab) {
+    console.warn('w-ss: missing DOM ids — skipping init');
+    return;
+  }
   // grid: p horizontal 0..3, q vertical 0..2. pages 2, 3 (=∞ for this fibration).
   const PAGES = [
     { // E_2
