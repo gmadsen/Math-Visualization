@@ -528,7 +528,7 @@ $$\mathbb{C}[S_\sigma] \;=\; \mathbb{C}[\chi^{e_1^*}, \chi^{e_2^*}] \;=\; \mathb
     {label:'σ = {0}', rays:[], dualGens:'all of M', ring:'\\mathbb{C}[x^{\\pm 1}, y^{\\pm 1}]', uvar:'T = (\\mathbb{C}^\\times)^2'},
     {label:'σ = ⟨e₁⟩', rays:[[1,0]], dualGens:'⟨e₁*, ±e₂*⟩', ring:'\\mathbb{C}[x, y^{\\pm 1}]', uvar:'\\mathbb{A}^1 \\times \\mathbb{C}^\\times'},
     {label:'σ = ⟨e₁, e₂⟩', rays:[[1,0],[0,1]], dualGens:'⟨e₁*, e₂*⟩', ring:'\\mathbb{C}[x, y]', uvar:'\\mathbb{A}^2'},
-    {label:'σ = ⟨2e₁−e₂, e₂⟩', rays:[[2,-1],[0,1]], dualGens:'⟨e₁*, e₁*+2e₂*⟩', ring:'\\mathbb{C}[x, xy^2]', uvar:'A_1 \\text{ singularity (cone over conic)}'},
+    {label:'σ = ⟨2e₁−e₂, e₂⟩', rays:[[2,-1],[0,1]], dualGens:'⟨e₁*, e₁*+2e₂*⟩', ring:'\\mathbb{C}[x, xy, xy^2]', uvar:'A_1 \\text{ singularity (cone over conic)}'},
   ];
   let active = 2;
   const cellW = W/4, cellH = H;
@@ -847,7 +847,7 @@ $$X_\Sigma \;=\; \bigcup_{\sigma \in \Sigma} U_\sigma,$$
              desc:'Product fan: two rays for each ℙ¹ factor, four maximal cones (the four quadrants). Four toric divisors; four fixed points; smooth and projective.', n:2},
     'F2':   {rays:[[1,0],[0,1],[-1,2],[0,-1]], maxcones:[[0,1],[1,2],[2,3],[3,0]],
              lbl:'F₂: tilt one ray of ℙ¹×ℙ¹',
-             desc:'The Hirzebruch surface F_n: replace the ray (-e₁) of ℙ¹×ℙ¹ with (-e₁ + n·e₂). For n=2, the divisor opposite to (0,1) becomes a (-2)-curve. Smooth, projective; not isomorphic to ℙ¹×ℙ¹.', n:2},
+             desc:'The Hirzebruch surface F_n: replace the ray (-e₁) of ℙ¹×ℙ¹ with (-e₁ + n·e₂). For n=2, D_{(0,1)} (the section at infinity) becomes a (-2)-curve while D_{(0,-1)} stays a (+2)-curve. Smooth, projective; not isomorphic to ℙ¹×ℙ¹.', n:2},
     'Bl0':  {rays:[[1,0],[1,1],[0,1]], maxcones:[[0,1],[1,2]],
              lbl:'Bl₀ 𝔸²: subdivide the first quadrant',
              desc:'Star subdivision of ⟨e₁, e₂⟩ inserting the new ray (1,1). The new ray gives the exceptional divisor E (a copy of ℙ¹). E·E = -1: Bl₀ 𝔸² is the smooth blowup of 𝔸² at the origin.', n:2},
@@ -1006,7 +1006,7 @@ Concretely it is the polynomial ring $\mathbb{C}[x_\rho \,:\, \rho \in \Sigma^{(
       note: 'D₂ is a (-2)-curve: u₁+u₃ = (1,0)+(-1,2) = (0,2) = -(-2)·(0,1) ⇒ a₂ = -2. D₄ is a (+2)-curve, the section at infinity.'
     },
     'Bl0P2': {
-      title: 'Bl₀ ℙ²:  rays e₁, e₂, e₀=-e₁-e₂, e=(1,1)... wait, Bl₀ 𝔸²',
+      title: 'Bl₀ 𝔸² (chart): rays e₁, e₂, e=(1,1) — affine model of the blowup at the origin',
       labels: ['D_e₁', 'E', 'D_e₂'],
       table: [[ 0, 1, 0],
               [ 1,-1, 1],
