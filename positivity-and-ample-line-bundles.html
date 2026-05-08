@@ -302,7 +302,101 @@ $$H^0(X, \mathcal{O}_X(D)) \;=\; \{\, f \in k(X)^\times : \mathrm{div}(f) + D \g
 <!-- backlinks-auto-end -->
 </section>
 
-<section id="ample">
+
+
+<script>
+(function(){
+  const svg = document.getElementById('div-svg');
+  const slider = document.getElementById('div-d');
+  const dval = document.getElementById('div-d-val');
+  const out = document.getElementById('div-out');
+
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const d = parseInt(slider.value, 10);
+    dval.textContent = 'd = ' + d;
+
+    // axis: real line representing P^1 minus a point
+    const W = 720, H = 240, y0 = 140;
+    svg.appendChild(SVG('line', {x1:60, y1:y0, x2:660, y2:y0, stroke:'var(--line)', 'stroke-width':1.5}));
+    // tick marks at 5 sample points
+    for(let k=0;k<=10;k++){
+      const x = 60 + k*60;
+      svg.appendChild(SVG('line', {x1:x, y1:y0-4, x2:x, y2:y0+4, stroke:'var(--mute)'}));
+    }
+    const lab = SVG('text', {x:680, y:y0+5, 'font-size':14, fill:'var(--mute)'});
+    lab.textContent = '∞';
+    svg.appendChild(lab);
+
+    // section count
+    let h0;
+    if(d < 0){
+      h0 = 0;
+    } else {
+      h0 = d + 1;
+    }
+
+    // header text
+    const t1 = SVG('text', {x:60, y:40, 'font-size':16, fill:'var(--ink)', 'font-weight':600});
+    t1.textContent = 'Line bundle: O(' + d + ')';
+    svg.appendChild(t1);
+
+    const t2 = SVG('text', {x:60, y:64, 'font-size':14, fill:'var(--cyan)'});
+    t2.textContent = 'h^0 = dim H^0(P^1, O(' + d + ')) = ' + h0;
+    svg.appendChild(t2);
+
+    // Display sections list (homogeneous monomials of degree d in two vars)
+    if(d >= 0){
+      const t3 = SVG('text', {x:60, y:90, 'font-size':13, fill:'var(--mute)'});
+      let basis = [];
+      for(let i=0;i<=d;i++){
+        if(i === 0) basis.push('y^' + d);
+        else if(i === d) basis.push('x^' + d);
+        else basis.push('x^' + i + ' y^' + (d-i));
+      }
+      // reduce visual clutter:
+      let label = 'basis: ' + basis.join(', ').replace(/\^1\b/g,'').replace(/y\^0/g,'').replace(/x\^0/g,'');
+      // simpler: just show the count
+      if(d <= 3){
+        if(d === 0) label = 'basis: 1';
+        else if(d === 1) label = 'basis: x, y';
+        else if(d === 2) label = 'basis: x^2, xy, y^2';
+        else if(d === 3) label = 'basis: x^3, x^2 y, x y^2, y^3';
+      } else {
+        label = 'basis: x^' + d + ', x^' + (d-1) + 'y, ..., y^' + d + '  (' + h0 + ' monomials)';
+      }
+      t3.textContent = label;
+      svg.appendChild(t3);
+    }
+
+    // Effective divisor of a generic section: d distinct points (if d >= 0)
+    const t4 = SVG('text', {x:60, y:y0-22, 'font-size':12, fill:'var(--yellow)', 'font-style':'italic'});
+    t4.textContent = d >= 0
+      ? 'div(generic section) = sum of ' + d + ' point' + (d===1?'':'s') + ' (effective, degree ' + d + ')'
+      : 'no nonzero sections — every effective divisor of degree ' + d + ' would have negative degree';
+    svg.appendChild(t4);
+
+    if(d > 0){
+      // place d roots evenly along the visible line
+      const xs = [];
+      for(let k=0;k<d;k++){
+        const x = 100 + (k+0.5) * (520 / d);
+        xs.push(x);
+        svg.appendChild(SVG('circle', {cx:x, cy:y0, r:6, fill:'var(--yellow)', stroke:'var(--bg)', 'stroke-width':1}));
+      }
+    }
+
+    let msg;
+    if(d < 0) msg = 'Negative-degree line bundles on P^1 have no nonzero sections: O(d) is "smaller" than O — there\'s no room for any function.';
+    else if(d === 0) msg = 'O(0) = O is trivial: the only sections are constants. h^0 = 1.';
+    else msg = 'O(' + d + ') is very ample for every d ≥ 1 on P^1 — the sections embed P^1 into P^' + d + ' as a rational normal curve of degree ' + d + '.';
+    out.textContent = msg;
+  }
+
+  slider.addEventListener('input', render);
+  render();
+})();
+</script><section id="ample">
 <h2>2. Very ample, ample, and Serre's theorem</h2>
 
 <p>The fundamental tension in algebraic geometry: most varieties are intrinsic (gluings of affine pieces), but the powerful tools all live in projective space. A line bundle that <em>embeds</em> $X$ into $\mathbb{P}^N$ is a bridge between the two.</p>
@@ -373,7 +467,122 @@ $$H^i(X, \mathcal{F} \otimes L^{\otimes n}) \;=\; 0 \quad \text{for all } i > 0 
 <!-- backlinks-auto-end -->
 </section>
 
-<section id="nakai">
+
+
+<script>
+(function(){
+  const select = document.getElementById('serre-sheaf');
+  const slider = document.getElementById('serre-n');
+  const nval = document.getElementById('serre-n-val');
+  const svg = document.getElementById('serre-svg');
+  const out = document.getElementById('serre-out');
+
+  // Cohomology of O_{P^2}(d):
+  // h^0 = max(0, (d+1)(d+2)/2)  for d >= 0
+  // h^2 = max(0, (-d-1)(-d-2)/2) for d <= -3
+  // h^1 = 0 always (by Serre vanishing in disguise — explicit Cech computation)
+  function hO(d){
+    let h0 = 0, h1 = 0, h2 = 0;
+    if(d >= 0) h0 = (d+1)*(d+2)/2;
+    if(d <= -3) h2 = (-d-1)*(-d-2)/2;
+    return [h0, h1, h2];
+  }
+  // Cohomology of Omega^1 on P^2:
+  // h^0(Omega) = 0, h^1(Omega) = 1, h^2(Omega) = 0
+  // Twist Omega^1 by O(d). Use Euler sequence: 0 -> Omega^1 -> O(-1)^3 -> O -> 0
+  // So h^i(Omega(d)) computed from the LES.
+  function hOmega(d){
+    // From the Euler sequence 0 -> Omega(d) -> O(d-1)^3 -> O(d) -> 0
+    // we get LES; for d != 0, -3 the result is computable.
+    // Simpler: known formulas:
+    //   h^0(Omega(d)) = 3*max(0,d*(d+1)/2) - max(0,(d+1)(d+2)/2) for d >= 0; check small cases
+    // Use brute force from Euler:
+    const A = hO(d-1).map(x=>3*x); // O(d-1)^3
+    const B = hO(d);
+    // 0 -> Omega(d) -> A -> B -> 0  (exact)
+    // h^0(Omega(d)) = ker(A^0 -> B^0); if d>=0, A^0 -> B^0 is surjective (Euler sequence sections)
+    // h^i(Omega(d)) sits in LES:
+    // 0 -> H^0(Om) -> H^0(A) -> H^0(B) -> H^1(Om) -> H^1(A) -> H^1(B) -> H^2(Om) -> H^2(A) -> H^2(B) -> 0
+    // H^1(A) = H^1(B) = 0, so:
+    //   H^1(Om) = H^0(B)/im(H^0(A) -> H^0(B))   = coker
+    //   H^2(Om) = H^2(A)
+    //   H^0(Om) = ker
+    // For d>=0: dim ker = A^0 - B^0 + 1 if d=0 (Euler sequence: H^0 -> H^0 has image of codim 1) -> actually
+    // I'll just hard-code small d:
+    if(d === 0) return [0,1,0];
+    if(d === 1) return [0,0,0];
+    if(d === 2) return [3,0,0]; // h^0(Omega(2)) = 3
+    if(d === 3) return [8,0,0];
+    if(d === 4) return [15,0,0];
+    if(d === 5) return [24,0,0];
+    if(d === 6) return [35,0,0];
+    if(d === 7) return [48,0,0];
+    if(d === 8) return [63,0,0];
+    if(d === -1) return [0,0,1];
+    if(d === -2) return [0,0,3];
+    if(d === -3) return [0,0,8];
+    if(d === -4) return [0,0,15];
+    // generic large negative d: use Serre duality K_{P^2} = O(-3), so h^2(Omega(d)) = h^0(T(- d - 3))
+    return [0,0,Math.max(0, -3*((-d-1)*(-d-2)/2 - (-d)*(-d-1)/2)) ];
+  }
+
+  function getCohomology(label, n){
+    let dShift = 0;
+    let f;
+    if(label === 'O'){ dShift = 0; f = hO; }
+    else if(label === 'O-1'){ dShift = -1; f = hO; }
+    else if(label === 'O-2'){ dShift = -2; f = hO; }
+    else if(label === 'O-3'){ dShift = -3; f = hO; }
+    else if(label === 'omega'){ dShift = 0; f = hOmega; }
+    return f(dShift + n);
+  }
+
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const sheaf = select.value;
+    const n = parseInt(slider.value, 10);
+    nval.textContent = 'n = ' + n;
+
+    const h = getCohomology(sheaf, n);
+    const labelMap = {
+      'O':'O', 'O-1':'O(-1)', 'O-2':'O(-2)', 'O-3':'O(-3)', 'omega':'Ω^1'
+    };
+    const sheafName = labelMap[sheaf];
+
+    const t = SVG('text', {x:30, y:40, 'font-size':16, fill:'var(--ink)', 'font-weight':600});
+    t.textContent = 'F ⊗ O(n) = ' + sheafName + (n===0?'':' ⊗ O('+n+')');
+    svg.appendChild(t);
+
+    // 3 columns for h^0, h^1, h^2
+    const colX = [180, 360, 540];
+    const colLab = ['H^0', 'H^1', 'H^2'];
+    for(let i=0;i<3;i++){
+      const headerY = 80;
+      const lab = SVG('text', {x:colX[i], y:headerY, 'font-size':14, fill:'var(--mute)', 'text-anchor':'middle'});
+      lab.textContent = colLab[i];
+      svg.appendChild(lab);
+
+      const valY = 130;
+      const isHigher = i > 0;
+      const isVanishing = h[i] === 0;
+      const fillCol = isHigher ? (isVanishing ? 'var(--green)' : 'var(--pink)') : 'var(--cyan)';
+      svg.appendChild(SVG('rect', {x:colX[i]-50, y:valY-22, width:100, height:32, rx:6, fill:'var(--panel2)', stroke:fillCol, 'stroke-width':2}));
+      const valTxt = SVG('text', {x:colX[i], y:valY-1, 'font-size':18, fill:fillCol, 'text-anchor':'middle', 'font-weight':600});
+      valTxt.textContent = h[i];
+      svg.appendChild(valTxt);
+    }
+
+    const verdict = (h[1] === 0 && h[2] === 0)
+      ? 'Past the threshold n_0 — all higher H^i vanish. Serre vanishing has kicked in.'
+      : 'Higher cohomology not yet zero. Try a larger n.';
+    out.textContent = verdict;
+  }
+
+  select.addEventListener('change', render);
+  slider.addEventListener('input', render);
+  render();
+})();
+</script><section id="nakai">
 <h2>3. Nakai–Moishezon and the ample cone</h2>
 
 <p>Serre's theorem is striking but not <em>computable</em>: to verify ampleness via "all coherent $\mathcal{F}$ have eventually-vanishing higher cohomology" you have to check infinitely many sheaves. The Nakai–Moishezon criterion replaces this with a finite, computable test based on intersection numbers.</p>
@@ -421,7 +630,105 @@ $$\mathrm{Amp}(X) \;=\; \{\, [L] \in N^1(X)_\mathbb{R} : L \text{ ample}\,\}.$$
 <!-- backlinks-auto-end -->
 </section>
 
-<section id="nef-big">
+
+
+<script>
+(function(){
+  const svg = document.getElementById('ac-svg');
+  const out = document.getElementById('ac-out');
+
+  // coordinate frame: origin (300,180), x positive right (b), y positive up (a)
+  const ox = 300, oy = 180, scale = 60;
+
+  // initial point
+  let cls = {a: 1, b: 1};
+
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+
+    // shaded ample region: first quadrant of (a,b)
+    svg.appendChild(SVG('rect', {x:ox, y:oy-scale*5, width:scale*5, height:scale*5,
+      fill: 'var(--cyan)', 'fill-opacity': 0.10}));
+    // boundary lines (nef boundary)
+    svg.appendChild(SVG('line', {x1:ox, y1:oy-scale*5, x2:ox, y2:oy+10,
+      stroke:'var(--violet)', 'stroke-width':2, 'stroke-dasharray':'5,4'}));
+    svg.appendChild(SVG('line', {x1:ox-10, y1:oy, x2:ox+scale*5, y2:oy,
+      stroke:'var(--violet)', 'stroke-width':2, 'stroke-dasharray':'5,4'}));
+
+    // axes
+    svg.appendChild(SVG('line', {x1:30, y1:oy, x2:570, y2:oy, stroke:'var(--line)', 'stroke-width':1}));
+    svg.appendChild(SVG('line', {x1:ox, y1:20, x2:ox, y2:340, stroke:'var(--line)', 'stroke-width':1}));
+
+    // ticks
+    for(let k=-4;k<=4;k++){
+      if(k===0) continue;
+      svg.appendChild(SVG('line', {x1:ox+k*scale, y1:oy-3, x2:ox+k*scale, y2:oy+3, stroke:'var(--mute)'}));
+      svg.appendChild(SVG('line', {x1:ox-3, y1:oy-k*scale, x2:ox+3, y2:oy-k*scale, stroke:'var(--mute)'}));
+    }
+
+    // labels
+    const lx = SVG('text', {x:560, y:oy-8, 'font-size':14, fill:'var(--mute)', 'text-anchor':'end'});
+    lx.textContent = 'b (coefficient of H_2)';
+    svg.appendChild(lx);
+    const ly = SVG('text', {x:ox+8, y:30, 'font-size':14, fill:'var(--mute)'});
+    ly.textContent = 'a (coefficient of H_1)';
+    svg.appendChild(ly);
+
+    // nef boundary label
+    const nefLab = SVG('text', {x:ox+scale*5+5, y:oy-3, 'font-size':12, fill:'var(--violet)'});
+    nefLab.textContent = 'Nef ∂';
+    svg.appendChild(nefLab);
+
+    // ample cone label
+    const ampLab = SVG('text', {x:ox+scale*1.6, y:oy-scale*2.2, 'font-size':14, fill:'var(--cyan)', 'font-style':'italic'});
+    ampLab.textContent = 'Amp(X)';
+    svg.appendChild(ampLab);
+
+    // dragable dot
+    const px = ox + cls.b * scale;
+    const py = oy - cls.a * scale;
+    const dot = SVG('circle', {cx:px, cy:py, r:9, fill:'var(--yellow)', stroke:'var(--bg)', 'stroke-width':2, cursor:'grab'});
+    dot.id = 'ac-dot';
+    svg.appendChild(dot);
+
+    // readout
+    const ample = (cls.a > 0 && cls.b > 0);
+    const nef = (cls.a >= 0 && cls.b >= 0);
+    const big = ample || (cls.a > 0 && cls.b > 0); // big = positive top self-int + effective; on P^1 x P^1 same as ample cone closure interior
+    const sq = 2 * cls.a * cls.b; // (aH_1 + bH_2)^2 = 2ab
+
+    let verdict;
+    if(ample) verdict = 'AMPLE — by Nakai–Moishezon: L^2 = ' + sq.toFixed(2) + ' > 0, L · F_1 = b = ' + cls.b.toFixed(2) + ' > 0, L · F_2 = a = ' + cls.a.toFixed(2) + ' > 0.';
+    else if(nef) verdict = 'NEF (boundary of ample cone): L · F_1 = ' + cls.b.toFixed(2) + ' ≥ 0, L · F_2 = ' + cls.a.toFixed(2) + ' ≥ 0. Not ample because some intersection is zero.';
+    else verdict = 'NOT NEF — fails L · F_i ≥ 0 on at least one of the two ruling fibers.';
+
+    out.textContent = 'Class L = ' + cls.a.toFixed(2) + ' H_1 + ' + cls.b.toFixed(2) + ' H_2 → ' + verdict;
+  }
+
+  // drag logic
+  let dragging = false;
+  svg.addEventListener('pointerdown', (e)=>{
+    if(e.target.id === 'ac-dot'){
+      dragging = true;
+      svg.setPointerCapture(e.pointerId);
+    }
+  });
+  svg.addEventListener('pointermove', (e)=>{
+    if(!dragging) return;
+    const r = svg.getBoundingClientRect();
+    const px = (e.clientX - r.left) * (600/r.width);
+    const py = (e.clientY - r.top) * (360/r.height);
+    cls.b = Math.round(((px - ox) / scale) * 4) / 4;
+    cls.a = Math.round(((oy - py) / scale) * 4) / 4;
+    cls.a = Math.max(-4, Math.min(4, cls.a));
+    cls.b = Math.max(-4, Math.min(4, cls.b));
+    render();
+  });
+  svg.addEventListener('pointerup', (e)=>{ dragging = false; svg.releasePointerCapture(e.pointerId); });
+
+  render();
+})();
+</script><section id="nef-big">
 <h2>4. Nef, big, and the cone of curves</h2>
 
 <p>Two relaxations of ample sit just outside the ample cone — and both are essential to the modern toolkit.</p>
@@ -479,7 +786,97 @@ $$\mathrm{Nef}(X) \;=\; \{\, [L] : L \cdot \alpha \ge 0 \text{ for all } \alpha 
 <!-- backlinks-auto-end -->
 </section>
 
-<section id="kodaira">
+
+
+<script>
+(function(){
+  const svg = document.getElementById('cones-svg');
+  const out = document.getElementById('cones-out');
+  const buttons = svg.parentElement.querySelectorAll('button[data-r]');
+
+  // Schematic: four nested regions — pseudoeff outer, big = interior of pseudoeff
+  // nef independent, ample = nef ∩ big interior
+  function render(active){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+
+    const cx = 380, cy = 160;
+
+    // pseudo-effective (largest) — colored grayish
+    const psef = SVG('path', {
+      d: 'M 130 280 L 200 30 L 560 30 L 630 280 Z',
+      fill: 'var(--violet)', 'fill-opacity': active==='psef' ? 0.30 : 0.10,
+      stroke: 'var(--violet)', 'stroke-width': active==='psef'?3:1.5
+    });
+    svg.appendChild(psef);
+
+    // big (subset of pseudo-effective interior)
+    const big = SVG('path', {
+      d: 'M 180 270 L 230 60 L 530 60 L 580 270 Z',
+      fill: 'var(--yellow)', 'fill-opacity': active==='big' ? 0.30 : 0.10,
+      stroke: 'var(--yellow)', 'stroke-width': active==='big'?3:1.5
+    });
+    svg.appendChild(big);
+
+    // nef (overlapping with big)
+    const nef = SVG('path', {
+      d: 'M 220 280 L 290 80 L 560 80 L 600 280 Z',
+      fill: 'var(--cyan)', 'fill-opacity': active==='nef' ? 0.30 : 0.10,
+      stroke: 'var(--cyan)', 'stroke-width': active==='nef'?3:1.5
+    });
+    svg.appendChild(nef);
+
+    // ample (interior of nef)
+    const amp = SVG('path', {
+      d: 'M 260 270 L 320 110 L 530 110 L 570 270 Z',
+      fill: 'var(--green)', 'fill-opacity': active==='amp' ? 0.40 : 0.18,
+      stroke: 'var(--green)', 'stroke-width': active==='amp'?3:1.5
+    });
+    svg.appendChild(amp);
+
+    // labels
+    const labels = [
+      {x:115, y:300, t:'Pseudo-effective', col:'var(--violet)'},
+      {x:170, y:50, t:'Big', col:'var(--yellow)'},
+      {x:235, y:75, t:'Nef', col:'var(--cyan)'},
+      {x:295, y:135, t:'Ample', col:'var(--green)'}
+    ];
+    labels.forEach(L => {
+      const t = SVG('text', {x:L.x, y:L.y, 'font-size':13, fill:L.col, 'font-weight':600});
+      t.textContent = L.t;
+      svg.appendChild(t);
+    });
+
+    // text on the right: hierarchy
+    const explain = [
+      'Ample ⊂ Nef',
+      'Ample ⊂ Big',
+      'Nef ∩ Big = Nef-and-big',
+      'Big ⊂ Pseudo-effective'
+    ];
+    explain.forEach((s, i) => {
+      const t = SVG('text', {x:30, y:30 + i*22, 'font-size':12, fill:'var(--mute)'});
+      t.textContent = s;
+      svg.appendChild(t);
+    });
+  }
+
+  const desc = {
+    amp: 'AMPLE: L^{dim Y} · Y > 0 for all subvarieties Y ⊆ X (Nakai–Moishezon). Equivalently: some L^⊗n is very ample. The interior of Nef.',
+    nef: 'NEF: L · C ≥ 0 for every curve C. Closure of Amp(X) (Kleiman). Dual to the Mori cone NE(X)-bar.',
+    big: 'BIG: h^0(X, L^⊗m) grows like m^{dim X}. Equivalently L = A + E with A ample Q-divisor and E effective (Kodaira lemma).',
+    psef: 'PSEUDO-EFFECTIVE: closure of the cone of effective divisor classes. The largest positivity class — every nonzero element has positive degree against some moving curve.'
+  };
+
+  function setActive(r){
+    buttons.forEach(b => b.classList.toggle('active', b.dataset.r === r));
+    render(r);
+    out.textContent = desc[r];
+  }
+
+  buttons.forEach(b => b.addEventListener('click', () => setActive(b.dataset.r)));
+  setActive('amp');
+})();
+</script><section id="kodaira">
 <h2>5. Kodaira embedding theorem</h2>
 
 <p>So far everything has been algebraic: divisors, intersection numbers, cohomology over a field. But the deepest justification of the ample = positive equation comes from <em>complex geometry</em>. Kodaira's embedding theorem is the bridge.</p>
@@ -531,7 +928,85 @@ $$\varphi_{L^{\otimes n}}\colon X \to \mathbb{P}\bigl(H^0(X, L^{\otimes n})^\vee
 <!-- callback-auto-end --><div class="quiz" data-concept="pal-kodaira-embedding"></div>
 </section>
 
-<section id="vanishing">
+
+
+<script>
+(function(){
+  const svg = document.getElementById('kod-svg');
+  const slider = document.getElementById('kod-n');
+  const nval = document.getElementById('kod-n-val');
+  const out = document.getElementById('kod-out');
+
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const n = parseInt(slider.value, 10);
+    nval.textContent = 'n = ' + n;
+
+    // h^0 = n+1 sections
+    const h0 = n + 1;
+
+    const t1 = SVG('text', {x:30, y:40, 'font-size':14, fill:'var(--ink)'});
+    t1.textContent = 'L = O(1) on P^1, twist L^⊗' + n + ' = O(' + n + ')';
+    svg.appendChild(t1);
+
+    const t2 = SVG('text', {x:30, y:65, 'font-size':14, fill:'var(--cyan)'});
+    t2.textContent = 'h^0 = ' + h0 + '   →   φ: P^1 → P^' + n;
+    svg.appendChild(t2);
+
+    // Draw n+1 sections as basis vectors
+    const t3 = SVG('text', {x:30, y:100, 'font-size':13, fill:'var(--mute)'});
+    let sects = [];
+    for(let k=0;k<=n;k++){
+      if(k===0) sects.push('y^' + n);
+      else if(k===n) sects.push('x^' + n);
+      else sects.push('x^' + k + 'y^' + (n-k));
+    }
+    if(n <= 4){
+      t3.textContent = 'sections: ' + sects.join(', ');
+    } else {
+      t3.textContent = 'sections: x^' + n + ', x^' + (n-1) + 'y, ..., y^' + n + '   (' + h0 + ' total)';
+    }
+    svg.appendChild(t3);
+
+    // Draw a parametric curve (rational normal curve) — schematic projection to 2D
+    // For n=1 it's a line; n=2 a conic; n=3 a twisted cubic; etc.
+    const cx = 460, cy = 160, R = 90;
+    const path = [];
+    const NPTS = 80;
+    for(let k=0;k<=NPTS;k++){
+      const t = k/NPTS;
+      const u = (t - 0.5) * 2.5;
+      // schematic projection: x = u, y = u^n (clamped)
+      const x = cx + R * u * 0.8;
+      const sgn = (u<0 && n%2===0) ? -1 : 1;  // make symmetric for even n
+      let yv = Math.pow(Math.abs(u), n);
+      if(u < 0) yv *= (n%2===0 ? 1 : -1);
+      const y = cy - R * Math.max(-1.2, Math.min(1.2, yv * 0.7));
+      path.push(`${k===0?'M':'L'} ${x.toFixed(1)} ${y.toFixed(1)}`);
+    }
+    svg.appendChild(SVG('path', {d:path.join(' '), fill:'none', stroke:'var(--yellow)', 'stroke-width':2.5}));
+
+    // axes
+    svg.appendChild(SVG('line', {x1:cx-R*1.2, y1:cy, x2:cx+R*1.3, y2:cy, stroke:'var(--line)'}));
+    svg.appendChild(SVG('line', {x1:cx, y1:cy-R*1.2, x2:cx, y2:cy+R*1.2, stroke:'var(--line)'}));
+
+    const lab = SVG('text', {x:cx+R*1.4, y:cy+5, 'font-size':12, fill:'var(--mute)'});
+    lab.textContent = 'image in P^' + n + ' (schematic 2D)';
+    svg.appendChild(lab);
+
+    // verdict
+    let msg;
+    if(n === 1) msg = 'φ: P^1 → P^1 is the identity. Degree-1 rational normal curve = a line.';
+    else if(n === 2) msg = 'φ: P^1 → P^2 is the Veronese embedding as the conic xz = y^2.';
+    else if(n === 3) msg = 'φ: P^1 → P^3 is the twisted cubic — minimal-degree non-planar curve.';
+    else msg = 'φ: P^1 → P^' + n + ' is the rational normal curve of degree ' + n + ' — image of all monomial sections.';
+    out.textContent = msg;
+  }
+
+  slider.addEventListener('input', render);
+  render();
+})();
+</script><section id="vanishing">
 <h2>6. Kodaira and Kawamata–Viehweg vanishing</h2>
 
 <p>The technical engine that makes ampleness do its work is a vanishing theorem for higher cohomology. Serre's theorem said the cohomology of $\mathcal{F} \otimes L^{\otimes n}$ vanishes for $n \gg 0$, but did not say <em>which</em> $n$. Kodaira's theorem replaces "$n \gg 0$" with "$n = 1$" — at the price of a single twist by the canonical bundle.</p>
@@ -583,7 +1058,98 @@ $$H^i(X, K_X + \lceil L \rceil) \;=\; 0 \quad \text{for all } i > 0.$$
 <!-- callback-auto-end --><div class="quiz" data-concept="pal-vanishing"></div>
 </section>
 
-<section id="connections">
+
+
+<script>
+(function(){
+  const sn = document.getElementById('v-n');
+  const sd = document.getElementById('v-d');
+  const lN = document.getElementById('v-n-val');
+  const lD = document.getElementById('v-d-val');
+  const svg = document.getElementById('van-svg');
+  const out = document.getElementById('van-out');
+
+  // Cohomology of O_{P^n}(k):
+  // h^0(O(k)) = binom(k+n, n) for k >= 0, else 0
+  // h^n(O(k)) = binom(-k-1, n) for k <= -n-1, else 0  [via Serre duality]
+  // h^i = 0 otherwise
+  function bc(a, b){
+    if(b < 0 || a < b) return 0;
+    let r = 1;
+    for(let k=0;k<b;k++) r = r * (a - k) / (k + 1);
+    return Math.round(r);
+  }
+  function hPn(n, k){
+    const arr = new Array(n+1).fill(0);
+    if(k >= 0) arr[0] = bc(k + n, n);
+    if(k <= -n - 1) arr[n] = bc(-k - 1, n);
+    return arr;
+  }
+
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const n = parseInt(sn.value, 10);
+    const d = parseInt(sd.value, 10);
+    lN.textContent = 'n = ' + n;
+    lD.textContent = 'd = ' + d;
+
+    // K_{P^n} = O(-n-1), so K + O(d) = O(d - n - 1)
+    const k = d - n - 1;
+    const h = hPn(n, k);
+    const ample = d >= 1;
+
+    // Header
+    const t1 = SVG('text', {x:30, y:30, 'font-size':14, fill:'var(--ink)'});
+    t1.textContent = 'X = P^' + n + ',  L = O(' + d + ')' + (ample?' ✓ ample':' ✗ NOT ample (need d ≥ 1)');
+    svg.appendChild(t1);
+
+    const t2 = SVG('text', {x:30, y:54, 'font-size':14, fill:'var(--mute)'});
+    t2.textContent = 'K_X ⊗ L = O(-' + (n+1) + ' + ' + d + ') = O(' + k + ')';
+    svg.appendChild(t2);
+
+    // Cohomology row
+    const startX = 90;
+    const colW = (720 - 2*startX) / (n + 1);
+    for(let i=0;i<=n;i++){
+      const cx = startX + i * colW + colW/2;
+      // header
+      const head = SVG('text', {x:cx, y:90, 'font-size':13, fill:'var(--mute)', 'text-anchor':'middle'});
+      head.textContent = 'H^' + i;
+      svg.appendChild(head);
+
+      const v = h[i];
+      const isKodaira = ample && i > 0;  // green if Kodaira applies
+      const isVanishing = v === 0;
+      const fillCol = isKodaira
+        ? (isVanishing ? 'var(--green)' : 'var(--pink)')
+        : (i > 0 && isVanishing ? 'var(--cyan)' : i === 0 ? 'var(--cyan)' : 'var(--violet)');
+
+      svg.appendChild(SVG('rect', {x:cx-30, y:115, width:60, height:36, rx:5,
+        fill:'var(--panel2)', stroke:fillCol, 'stroke-width':2}));
+      const txt = SVG('text', {x:cx, y:139, 'font-size':16, fill:fillCol, 'text-anchor':'middle', 'font-weight':600});
+      txt.textContent = v;
+      svg.appendChild(txt);
+    }
+
+    // Verdict
+    let msg;
+    if(ample){
+      const allHigherZero = h.slice(1).every(v => v === 0);
+      if(allHigherZero) msg = 'L = O(' + d + ') is ample (d ≥ 1). Kodaira: H^i(X, K + L) = 0 for i > 0. ✓ confirmed in the table.';
+      else msg = 'INTERNAL CONSISTENCY BUG — Kodaira should give 0.';
+    } else {
+      const violation = h.slice(1).some(v => v !== 0);
+      if(violation) msg = 'L is NOT ample, and indeed Kodaira can fail: there is nonzero higher cohomology in the table.';
+      else msg = 'L is not ample, but the cohomology happens to vanish anyway. (Kodaira is sufficient but not necessary.)';
+    }
+    out.textContent = msg;
+  }
+
+  sn.addEventListener('input', render);
+  sd.addEventListener('input', render);
+  render();
+})();
+</script><section id="connections">
 <h2>7. Connections</h2>
 
 <p>Positivity is the gate from cohomology to geometry. Once you know which line bundles are ample, you know which varieties are projective; once you know the ample cone, you know which embeddings exist; and once you have vanishing, you have the cohomological tools that make the minimal model program go. The frontier today is what happens at the boundary — birational geometry of the boundary of the nef and big cones (the foundational language of the MMP) and how positivity behaves under reduction modulo $p$, where Kodaira vanishing breaks and the geometry is still being mapped out.</p>
