@@ -1,5 +1,5 @@
 {
-  "generated": "2026-05-08T02:38:07.095Z",
+  "generated": "2026-05-08T03:17:51.274Z",
   "entries": [
     {
       "slug": "khovanov-homology",
@@ -7,7 +7,15 @@
       "color": "v",
       "tag": "",
       "date": "2026-05-07",
-      "message": "New topic: Khovanov homology & link homology"
+      "message": "New topic: Khovanov homology & link homology (#135)"
+    },
+    {
+      "slug": "tropical-geometry",
+      "title": "Tropical geometry",
+      "color": "g",
+      "tag": "",
+      "date": "2026-05-07",
+      "message": "New topic: Tropical geometry (Algebraic geometry)"
     },
     {
       "slug": "abelian-varieties",

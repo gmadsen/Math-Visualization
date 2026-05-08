@@ -6,6 +6,7 @@ window.__MVConcepts = {
     "topics": [
       "several-complex-variables",
       "khovanov-homology",
+      "tropical-geometry",
       "kahler-geometry",
       "mapping-class-groups",
       "half-integral-weight-forms",
@@ -358,7 +359,8 @@ window.__MVConcepts = {
       "kahler-geometry": "advanced",
       "mapping-class-groups": "advanced",
       "half-integral-weight-forms": "advanced",
-      "crystalline-cohomology": "advanced"
+      "crystalline-cohomology": "advanced",
+      "tropical-geometry": "advanced"
     }
   },
   "topics": {
@@ -548,6 +550,90 @@ window.__MVConcepts = {
             "classification",
             "duality",
             "finiteness"
+          ]
+        }
+      ]
+    },
+    "tropical-geometry": {
+      "topic": "tropical-geometry",
+      "title": "Tropical geometry",
+      "page": "tropical-geometry.html",
+      "concepts": [
+        {
+          "id": "trop-semiring",
+          "title": "The tropical semiring",
+          "anchor": "trop-semiring",
+          "prereqs": [],
+          "blurb": "The tropical semiring $(\\mathbb{R} \\cup \\{\\infty\\}, \\min, +)$ replaces $(+, \\cdot)$ with $a \\oplus b := \\min(a,b)$ and $a \\otimes b := a + b$. Tropical polynomials $f(x) = \\min_i (a_i + i\\,x)$ are piecewise-linear concave functions; their corner locus — the points where the minimum is attained at least twice — is the tropical hypersurface $V(f)$.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "trop-curves",
+          "title": "Tropical curves and the balancing condition",
+          "anchor": "trop-curves",
+          "prereqs": [
+            "trop-semiring"
+          ],
+          "blurb": "A tropical curve in $\\mathbb{R}^2$ is the corner locus of a tropical polynomial in two variables: a piecewise-linear graph with rational edge slopes and integer weights. At every vertex the weighted sum of outgoing primitive edge directions vanishes (the balancing condition) — the combinatorial fingerprint of a 1-dimensional algebraic cycle.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "trop-tropicalization",
+          "title": "Tropicalization and the valuation map",
+          "anchor": "trop-tropicalization",
+          "prereqs": [
+            "trop-curves",
+            "newton-polygons"
+          ],
+          "blurb": "For $X \\subset (K^*)^n$ over a non-archimedean valued field $K$ (e.g. Puiseux series $\\mathbb{C}\\{\\!\\{t\\}\\!\\}$), the tropicalization $\\mathrm{Trop}(X) = \\overline{\\mathrm{val}(X(\\bar K))}$ is a polyhedral complex of dimension $\\dim X$ (Bieri–Groves). Newton polytopes appear as duals to tropical zero loci, providing the bridge from algebra to combinatorics.",
+          "tags": [
+            "duality"
+          ]
+        },
+        {
+          "id": "trop-bezout",
+          "title": "Bernstein's theorem and stable intersection",
+          "anchor": "trop-bezout",
+          "prereqs": [
+            "trop-curves",
+            "bezout-theorem-core",
+            "intersection-multiplicity"
+          ],
+          "blurb": "Tropical Bézout: two tropical curves intersect transversely in a number of points (counted with multiplicity) equal to the mixed volume of their Newton polytopes. Generic translation makes the count stable — even when the curves overlap, the stable intersection recovers the classical Bernstein–Kushnirenko count of solutions in $(\\mathbb{C}^*)^2$.",
+          "tags": [
+            "duality"
+          ]
+        },
+        {
+          "id": "trop-moduli",
+          "title": "Tropical moduli and Riemann–Roch",
+          "anchor": "trop-moduli",
+          "prereqs": [
+            "trop-curves",
+            "higher-genus-moduli"
+          ],
+          "blurb": "$M^{\\mathrm{trop}}_{g,n}$ is a polyhedral complex parametrizing stable tropical curves of genus $g$ with $n$ marked points; it is the skeleton of the Berkovich analytification of $\\overline{\\mathcal{M}}_{g,n}$. The Baker–Norine Riemann–Roch theorem on a metric graph $\\Gamma$ states $r(D) - r(K_\\Gamma - D) = \\deg D - g + 1$ — the same formula as for curves, with rank defined via chip-firing.",
+          "tags": [
+            "moduli",
+            "duality"
+          ]
+        },
+        {
+          "id": "trop-applications",
+          "title": "Mikhalkin's correspondence and mirror symmetry",
+          "anchor": "trop-applications",
+          "prereqs": [
+            "trop-bezout",
+            "ms-syz",
+            "ms-gromov-witten"
+          ],
+          "blurb": "Mikhalkin's correspondence theorem: counting tropical curves of degree $d$ and genus $g$ through $3d-1+g$ generic points (with explicit lattice multiplicities) equals the number of complex algebraic curves through the same configuration — i.e. Gromov–Witten invariants of $\\mathbb{P}^2$. Tropicalization also models the SYZ Lagrangian fibration and underpins the Gross–Siebert reconstruction of mirror pairs.",
+          "tags": [
+            "moduli"
           ]
         }
       ]
@@ -17384,7 +17470,8 @@ window.__MVConcepts = {
           "positivity-and-ample-line-bundles",
           "mmp-and-birational-geometry",
           "d-modules",
-          "crystalline-cohomology"
+          "crystalline-cohomology",
+          "tropical-geometry"
         ],
         "color": "g"
       },
@@ -17692,7 +17779,8 @@ window.__MVConcepts = {
     "kahler-geometry": "advanced",
     "mapping-class-groups": "advanced",
     "half-integral-weight-forms": "advanced",
-    "crystalline-cohomology": "advanced"
+    "crystalline-cohomology": "advanced",
+    "tropical-geometry": "advanced"
   },
   "newArc": [
     "elementary-topos-theory",
@@ -17758,7 +17846,7 @@ window.__MVConcepts = {
       "concepts": 116,
       "intra": 160,
       "crossOut": 49,
-      "crossIn": 32,
+      "crossIn": 33,
       "density": 0.4224137931034483
     },
     "Modular forms & L-functions": {
@@ -17769,11 +17857,11 @@ window.__MVConcepts = {
       "density": 0.5043478260869565
     },
     "Algebraic geometry": {
-      "concepts": 179,
-      "intra": 265,
-      "crossOut": 68,
+      "concepts": 185,
+      "intra": 275,
+      "crossOut": 69,
       "crossIn": 29,
-      "density": 0.37988826815642457
+      "density": 0.372972972972973
     },
     "Combinatorics & graph theory": {
       "concepts": 51,
