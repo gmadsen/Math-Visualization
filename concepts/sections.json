@@ -1,5 +1,5 @@
 {
-  "_description": "Canonical topic -> subject mapping. Every registered topic in concepts/index.json must appear in exactly one section's topics array. Section ids match the filenames under sections/<id>.html. Each section also carries a `color` letter from the seven accent palette (b=blue, y=yellow, p=pink, v=violet, g=green, c=cyan, o=orange) — single source of truth used by index.html section headers + section-jump pills, tags.html detail-panel section-group accents, and mindmap.html node colors. Loaded via scripts/lib/content-model.mjs; exposed as model.sectionOf(topicId). The `description` field is the one-sentence blurb used by scripts/build-section-indexes.mjs when generating sections/<id>.html — keep it short (a single sentence).",
+  "_description": "Canonical topic -> subject mapping. Every registered topic in concepts/index.json must appear in exactly one section's topics array. Section ids match the filenames under sections/<id>.html. Each section also carries a `color` letter from the seven accent palette (b=blue, y=yellow, p=pink, v=violet, g=green, c=cyan, o=orange) \u2014 single source of truth used by index.html section headers + section-jump pills, tags.html detail-panel section-group accents, and mindmap.html node colors. Loaded via scripts/lib/content-model.mjs; exposed as model.sectionOf(topicId). The `description` field is the one-sentence blurb used by scripts/build-section-indexes.mjs when generating sections/<id>.html \u2014 keep it short (a single sentence).",
   "sections": [
     {
       "id": "logic-and-foundations",
@@ -20,7 +20,7 @@
     {
       "id": "algebra",
       "title": "Algebra & homological",
-      "description": "Groups, rings, fields, categories, and the homological machinery that connects them — derived categories, group cohomology, Lie algebras, division algebras, quantum groups.",
+      "description": "Groups, rings, fields, categories, and the homological machinery that connects them \u2014 derived categories, group cohomology, Lie algebras, division algebras, quantum groups.",
       "topics": [
         "algebra",
         "category-theory",
@@ -45,7 +45,7 @@
     {
       "id": "higher-categories-and-toposes",
       "title": "Higher categories & toposes",
-      "description": "Topoi, Grothendieck sites, simplicial sets, ∞-categories and ∞-topoi — the homotopical refinement of structure-preserving language.",
+      "description": "Topoi, Grothendieck sites, simplicial sets, \u221e-categories and \u221e-topoi \u2014 the homotopical refinement of structure-preserving language.",
       "topics": [
         "elementary-topos-theory",
         "heyting-algebras-toposes",
@@ -127,7 +127,8 @@
         "cobordism",
         "homotopy-theory",
         "kahler-geometry",
-        "mapping-class-groups"
+        "mapping-class-groups",
+        "surgery-theory"
       ],
       "color": "v"
     },
@@ -160,7 +161,7 @@
     {
       "id": "modular-forms-and-l-functions",
       "title": "Modular forms & L-functions",
-      "description": "Automorphic forms on the upper half-plane, Hecke algebras, L-function continuation, Galois representations, and the automorphic–arithmetic dictionary.",
+      "description": "Automorphic forms on the upper half-plane, Hecke algebras, L-function continuation, Galois representations, and the automorphic\u2013arithmetic dictionary.",
       "topics": [
         "upper-half-plane-hyperbolic",
         "modular-forms",
@@ -242,7 +243,7 @@
     {
       "id": "mathematical-physics",
       "title": "Mathematical physics",
-      "description": "Symplectic mechanics, the Schrödinger equation, general relativity, and the few-body / chaotic dynamics that test classical predictability.",
+      "description": "Symplectic mechanics, the Schr\u00f6dinger equation, general relativity, and the few-body / chaotic dynamics that test classical predictability.",
       "topics": [
         "schrodinger-equation",
         "hamiltonians-classical-mechanics",
