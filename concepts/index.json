@@ -2,6 +2,7 @@
   "topics": [
     "several-complex-variables",
     "khovanov-homology",
+    "arithmetic-statistics",
     "complex-multiplication",
     "tropical-geometry",
     "surgery-theory",
@@ -360,6 +361,7 @@
     "half-integral-weight-forms": "advanced",
     "crystalline-cohomology": "advanced",
     "tropical-geometry": "advanced",
-    "surgery-theory": "advanced"
+    "surgery-theory": "advanced",
+    "arithmetic-statistics": "advanced"
   }
 }

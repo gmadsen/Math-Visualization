@@ -2,12 +2,12 @@
 
 ## Corpus totals
 
-- Topics: **170**, concepts: **1182**
-- Widgets: **1207** (registry-driven: 1207, inline: 0)
-- Quizzes: **4740** (v1: 3504, hard: 1223, expert: 13)
-- Quiz types: mcq: 3136, numeric: 1152, multi-select: 200, matching: 91, ordering: 67, spot-the-error: 42, complex: 29, proof-completion: 19, construction: 2, guess-my-rule: 2
+- Topics: **171**, concepts: **1188**
+- Widgets: **1213** (registry-driven: 1213, inline: 0)
+- Quizzes: **4758** (v1: 3522, hard: 1223, expert: 13)
+- Quiz types: mcq: 3147, numeric: 1155, multi-select: 201, matching: 92, ordering: 69, spot-the-error: 42, complex: 29, proof-completion: 19, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their section: **149**
-- Concepts lacking a hard-tier quiz: **744**
+- Concepts lacking a hard-tier quiz: **750**
 
 ## Per-slug registry adoption
 
@@ -76,6 +76,12 @@ page has wired one in yet.
 | `ant-pnt-comparison` | ant-pnt-comparison | slider | 2d | 1 | analytic-number-theory |
 | `ant-sieve-truncation` | ant-sieve-truncation | slider | 2d | 1 | analytic-number-theory |
 | `ant-zero-free-region` | ant-zero-free-region | slider | 2d | 1 | analytic-number-theory |
+| `as-w1` | verbatim | click | 2d | 1 | arithmetic-statistics |
+| `as-w2` | verbatim | click | 2d | 1 | arithmetic-statistics |
+| `as-w3` | verbatim | click | 2d | 1 | arithmetic-statistics |
+| `as-w4` | verbatim | click | 2d | 1 | arithmetic-statistics |
+| `as-w5` | verbatim | click | 2d | 1 | arithmetic-statistics |
+| `as-w6` | verbatim | click | 2d | 1 | arithmetic-statistics |
 | `atiyah-singer-anomaly` | atiyah-singer-anomaly | slider | 2d | 1 | atiyah-singer-index-theorem |
 | `atiyah-singer-cases` | atiyah-singer-cases | pick | 2d | 1 | atiyah-singer-index-theorem |
 | `atiyah-singer-ch-td` | atiyah-singer-ch-td | slider | 2d | 1 | atiyah-singer-index-theorem |
@@ -818,13 +824,13 @@ page has wired one in yet.
 
 ### Number theory
 
-- Topics: **18**, concepts: **122**
-- Widgets: **143** (registry-driven: 143, inline: 0)
-  - by family: button-stepper: 66, verbatim: 33, clickable-diagram: 4, modular-arithmetic-clock: 4, input-form: 4, inline-code-cell: 4, declarative-host: 2, parametric-plot: 2, crypto-totient-units: 1, crypto-rsa-toy: 1, crypto-diffie-hellman: 1, crypto-ecc-points: 1, crypto-lwe-samples: 1, crypto-schnorr-protocol: 1, branching-proof-scrubber: 1, clickable-graph: 1, svg-illustration: 1, heights-naive-calculator: 1, heights-northcott-enumerator: 1, heights-weil-pullback: 1, heights-tate-averaging: 1, heights-mahler-measure: 1, heights-genus-growth: 1, heights-arakelov-decomposition: 1, counterexample-explorer: 1, ant-pnt-comparison: 1, ant-explicit-formula: 1, ant-zero-free-region: 1, ant-dirichlet-residue-wheel: 1, ant-sieve-truncation: 1, ant-bombieri-vinogradov: 1, proof-scrubber: 1
-  - by dimension: 2d: 143
-  - by gesture: click: 94, slider: 22, input: 8, select: 5, edit: 4, interactive: 2, interact: 2, drag: 1, button: 1, static: 1, branching-timeline: 1, read: 1, timeline: 1
-- Quizzes: **546** (v1: 363, hard: 183, expert: 0)
-  - by type: mcq: 365, numeric: 161, multi-select: 9, matching: 4, complex: 3, ordering: 2, spot-the-error: 1, guess-my-rule: 1
+- Topics: **19**, concepts: **128**
+- Widgets: **149** (registry-driven: 149, inline: 0)
+  - by family: button-stepper: 66, verbatim: 39, clickable-diagram: 4, modular-arithmetic-clock: 4, input-form: 4, inline-code-cell: 4, declarative-host: 2, parametric-plot: 2, crypto-totient-units: 1, crypto-rsa-toy: 1, crypto-diffie-hellman: 1, crypto-ecc-points: 1, crypto-lwe-samples: 1, crypto-schnorr-protocol: 1, branching-proof-scrubber: 1, clickable-graph: 1, svg-illustration: 1, heights-naive-calculator: 1, heights-northcott-enumerator: 1, heights-weil-pullback: 1, heights-tate-averaging: 1, heights-mahler-measure: 1, heights-genus-growth: 1, heights-arakelov-decomposition: 1, counterexample-explorer: 1, ant-pnt-comparison: 1, ant-explicit-formula: 1, ant-zero-free-region: 1, ant-dirichlet-residue-wheel: 1, ant-sieve-truncation: 1, ant-bombieri-vinogradov: 1, proof-scrubber: 1
+  - by dimension: 2d: 149
+  - by gesture: click: 100, slider: 22, input: 8, select: 5, edit: 4, interactive: 2, interact: 2, drag: 1, button: 1, static: 1, branching-timeline: 1, read: 1, timeline: 1
+- Quizzes: **564** (v1: 381, hard: 183, expert: 0)
+  - by type: mcq: 376, numeric: 164, multi-select: 10, matching: 5, ordering: 4, complex: 3, spot-the-error: 1, guess-my-rule: 1
 
 ### Modular forms & L-functions
 
@@ -870,6 +876,7 @@ page has wired one in yet.
 
 - `several-complex-variables` (Analysis) — concepts=6, widgets=5 (slug=5), quiz=18 (v1=18, hard=0, expert=0)
 - `khovanov-homology` (Geometry & topology) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
+- `arithmetic-statistics` (Number theory) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `complex-multiplication` (Number theory) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `tropical-geometry` (Algebraic geometry) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `surgery-theory` (Geometry & topology) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
@@ -1078,11 +1085,11 @@ page has wired one in yet.
 - `khov-rasmussen` (khovanov-homology)
 - `khov-foams` (khovanov-homology)
 - `khov-applications` (khovanov-homology)
+- `as-counting-fields` (arithmetic-statistics)
+- `as-cohen-lenstra` (arithmetic-statistics)
+- `as-selmer-averages` (arithmetic-statistics)
+- `as-average-rank` (arithmetic-statistics)
+- `as-function-fields` (arithmetic-statistics)
+- `as-l-symmetry` (arithmetic-statistics)
 - `cm-elliptic-c` (complex-multiplication)
 - `cm-class-poly` (complex-multiplication)
-- `cm-heegner` (complex-multiplication)
-- `cm-main-theorem` (complex-multiplication)
-- `cm-abelian` (complex-multiplication)
-- `cm-stark-heegner` (complex-multiplication)
-- `trop-semiring` (tropical-geometry)
-- `trop-curves` (tropical-geometry)
