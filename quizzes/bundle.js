@@ -6227,6 +6227,266 @@ window.MVQuizBank = {
       }
     }
   },
+  "arithmetic-statistics": {
+    "topic": "arithmetic-statistics",
+    "quizzes": {
+      "as-counting-fields": {
+        "title": "Counting number fields",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Davenport–Heilbronn (1971) gave the asymptotic count of cubic fields ordered by absolute discriminant. What is $N_3(X)\\sim\\,$?",
+            "choices": [
+              "$X^2 / (3\\zeta(3))$",
+              "$X / (3\\zeta(3))$",
+              "$X\\log X$",
+              "$X / \\log X$"
+            ],
+            "answer": 1,
+            "explain": "$N_3(X)\\sim X/(3\\zeta(3))$. The proof reduces to $\\mathrm{GL}_2(\\mathbb{Z})$-orbits of binary cubic forms via Delone–Faddeev plus geometry-of-numbers in a fundamental domain plus a sieve to discard reducible / non-maximal orders."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which higher-degree counting results were unlocked by Bhargava's parametrizations? Select all that apply.",
+            "choices": [
+              "$N_4(X)\\sim c_4 X$ via $\\mathrm{GL}_2\\times\\mathrm{SL}_3$-orbits on pairs of integer ternary quadratic forms",
+              "$N_5(X)\\sim c_5 X$ via orbits on quadruples of $5\\times 5$ skew-symmetric matrices",
+              "$N_6(X)\\sim c_6 X$ via orbits on a representation of $\\mathrm{Spin}(6)$",
+              "Malle's conjecture for general $n$"
+            ],
+            "answer": [
+              0,
+              1
+            ],
+            "explain": "Bhargava parametrized quartic and quintic rings exactly as listed. For $n=6$ no analogous orbit-counting parametrization is known; Malle's conjecture remains conjectural for $n\\ge 6$."
+          },
+          {
+            "type": "numeric",
+            "q": "The Davenport–Heilbronn constant in $N_3(X)\\sim cX$ is $c=1/(3\\zeta(3))$. Numerically, what is $c$ to three decimal places? Use $\\zeta(3)\\approx 1.20206$.",
+            "answer": 0.277,
+            "tol": 0.005,
+            "explain": "$1/(3\\cdot 1.20206)=1/3.60618\\approx 0.2773$. So $N_3(X)\\approx 0.277\\,X$ — about $277$ cubic fields with $|\\mathrm{disc}|\\le 1000$ (LMFDB confirms $\\approx 280$ when reducible/non-maximal cubics are excluded properly)."
+          }
+        ]
+      },
+      "as-cohen-lenstra": {
+        "title": "Cohen–Lenstra heuristics",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The Cohen–Lenstra measure assigns each finite abelian $p$-group $A$ probability proportional to:",
+            "choices": [
+              "$1/|A|$",
+              "$1/|\\mathrm{Aut}(A)|$",
+              "$|A|$",
+              "$|\\mathrm{Aut}(A)|$"
+            ],
+            "answer": 1,
+            "explain": "The CL weighting is $1/|\\mathrm{Aut}(A)|$. Heuristic justification: $A$ should be \"as random as possible\" subject to whatever symmetry it has — a finite group that has many automorphisms is correspondingly less likely to appear because the underlying random-matrix-style sample is more likely to land on a less symmetric group."
+          },
+          {
+            "type": "numeric",
+            "q": "Cohen–Lenstra predicts $\\Pr(p\\nmid h(K))=\\prod_{k\\ge 1}(1-p^{-k})$ for imaginary quadratic $K$. For $p=3$, what is this probability to three decimal places? Use the first 6 factors.",
+            "answer": 0.56,
+            "tol": 0.01,
+            "explain": "$\\prod_{k\\ge 1}(1-3^{-k})=(1-1/3)(1-1/9)(1-1/27)\\cdots\\approx 0.6667\\cdot 0.8889\\cdot 0.9630\\cdot 0.9877\\cdot 0.9959\\cdot 0.9986\\approx 0.5601$. Tabulated data for imaginary quadratic class numbers up to $|d|=10^9$ matches this $\\approx 56\\%$ figure to within sampling error."
+          },
+          {
+            "type": "ordering",
+            "q": "Order these milestones in the development of Cohen–Lenstra-type heuristics chronologically (earliest to latest).",
+            "items": [
+              "Cohen–Lenstra heuristic for imaginary quadratic class groups (1983)",
+              "Friedman–Washington heuristic for real quadratic fields (1989)",
+              "Garton–Wood refinements with more general moments (2010s)",
+              "Ellenberg–Venkatesh–Westerland: function-field CL theorem (2016)"
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "explain": "Cohen–Lenstra (1983) → Friedman–Washington (1989) corrected for unit rank → Garton–Wood and others refined moments and to higher-degree fields → Ellenberg–Venkatesh–Westerland (2016) proved the function-field version using stable Hurwitz cohomology. The function-field theorem is a posteriori justification for the original number-field heuristic."
+          }
+        ]
+      },
+      "as-selmer-averages": {
+        "title": "Bhargava's Selmer averages",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Bhargava–Shankar proved the average size of the $2$-Selmer group of $E/\\mathbb{Q}$, ordered by naive height, is:",
+            "choices": [
+              "$2$",
+              "$3$",
+              "$4$",
+              "$5$"
+            ],
+            "answer": 1,
+            "explain": "$\\mathbb{E}[|\\mathrm{Sel}_2(E)|]=3$. Pattern: for $\\ell=2,3,5$ the average is $\\ell+1$; for $\\ell=4$ it is $7$ (a non-prime exception). Each result follows from counting $\\mathrm{PGL}_n$-orbits on the appropriate representation by geometry of numbers."
+          },
+          {
+            "type": "mcq",
+            "q": "Why does $\\mathbb{E}[|\\mathrm{Sel}_5|]=6$ imply that a positive proportion of elliptic curves have rank $\\le 1$?",
+            "choices": [
+              "Because rank $\\ge 2$ would require $|\\mathrm{Sel}_5|\\ge 5^2=25$ for a positive proportion, which would force the average $\\ge 1+25\\cdot\\Pr(\\mathrm{rk}\\ge 2)$",
+              "Because $|\\mathrm{Sel}_5|$ is always either $1$, $5$, or $25$",
+              "Because the average uniquely determines the distribution",
+              "Because Goldfeld's conjecture is proved"
+            ],
+            "answer": 0,
+            "explain": "If $\\mathrm{rk}(E)\\ge 2$ then $|E(\\mathbb{Q})/5E(\\mathbb{Q})|\\ge 25$, so $|\\mathrm{Sel}_5(E)|\\ge 25$. If a proportion $\\delta>0$ of curves had rank $\\ge 2$, then $\\mathbb{E}[|\\mathrm{Sel}_5|]\\ge 25\\delta+(1-\\delta)\\ge 1+24\\delta$. Setting this $\\le 6$ forces $\\delta\\le 5/24<1$ — leaving a positive density with rank $\\le 1$."
+          },
+          {
+            "type": "numeric",
+            "q": "Suppose $\\mathbb{E}[|\\mathrm{Sel}_3(E)|]=4$ and (heuristically) $|\\mathrm{Sel}_3|\\in\\{1,3,9,27,\\ldots\\}$. What upper bound on the density of $E$ with $\\mathrm{rk}\\ge 2$ does the average alone provide? (i.e. enter the largest $\\delta$ consistent with $\\mathbb{E}\\le 4$ in the worst-case model where $\\delta$-fraction has $|\\mathrm{Sel}_3|=9$ and the rest has $|\\mathrm{Sel}_3|=1$.)",
+            "answer": 0.375,
+            "tol": 0.01,
+            "explain": "If a fraction $\\delta$ has $|\\mathrm{Sel}_3|\\ge 9$ and the rest is $\\ge 1$, then $\\mathbb{E}\\ge 9\\delta+(1-\\delta)=1+8\\delta$. Setting $1+8\\delta\\le 4$ gives $\\delta\\le 3/8=0.375$. So at most $37.5\\%$ of $E$ have $3$-Selmer rank $\\ge 2$, hence at least $62.5\\%$ have $\\mathrm{rk}\\le 1$ as a Selmer-rank bound."
+          }
+        ]
+      },
+      "as-average-rank": {
+        "title": "Average rank of elliptic curves",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Goldfeld's conjecture (1979) predicts that, ordered by naive height, the proportion of $E/\\mathbb{Q}$ of rank $0$ and rank $1$ are:",
+            "choices": [
+              "$1/3$ each, with $1/3$ of higher rank",
+              "$50\\%$ each, with density-zero exceptions of rank $\\ge 2$",
+              "$25\\%$ rank $0$, $75\\%$ rank $\\ge 1$",
+              "$100\\%$ rank $0$"
+            ],
+            "answer": 1,
+            "explain": "Goldfeld: $50\\%$ rank $0$ ($w=+1$, no forced zero), $50\\%$ rank $1$ ($w=-1$, one forced zero, no extra), and density zero with rank $\\ge 2$ ('accidental' extra zeros). Average analytic rank is $\\tfrac12$ exactly. Unconditionally Bhargava–Skinner–Zhang prove average $\\le 1.17$ and at least $66.48\\%$ have rank $\\le 1$."
+          },
+          {
+            "type": "mcq",
+            "q": "The parity heuristic for ranks of $E/\\mathbb{Q}$ is driven by which arithmetic invariant?",
+            "choices": [
+              "The $j$-invariant",
+              "The conductor $N$",
+              "The global root number $w(E)\\in\\{\\pm 1\\}$",
+              "The Tamagawa number"
+            ],
+            "answer": 2,
+            "explain": "$w(E)=\\pm 1$ in the functional equation $\\Lambda(E,s)=w(E)\\Lambda(E,2-s)$ controls the parity of $\\mathrm{ord}_{s=1}L(E,s)$: $w=-1$ forces an odd-order zero (rank $\\ge 1$), $w=+1$ forces an even-order zero (rank $\\ge 0$, generically $0$). Empirically $w$ is $\\pm 1$ with density $\\tfrac12$ each in the height ordering."
+          },
+          {
+            "type": "mcq",
+            "q": "A student writes: 'The Cremona elliptic-curve database shows average rank $\\approx 0.85$ in the first $10^5$ curves, contradicting Goldfeld's $\\tfrac12$.' What is the error in the student's reasoning?",
+            "choices": [
+              "Cremona's database is wrong",
+              "The Goldfeld conjecture is about analytic rank, but Cremona lists algebraic rank — they differ for high-rank curves",
+              "Goldfeld is an asymptotic claim as height $\\to\\infty$; small-height tables systematically overrepresent high rank because high-rank curves are concentrated at small conductor",
+              "The average rank is undefined for finite samples"
+            ],
+            "answer": 2,
+            "explain": "Goldfeld is asymptotic: as $H\\to\\infty$, the average rank tends to $\\tfrac12$. Small-height tables are biased upward because rank-$\\ge 2$ curves are overrepresented at small conductor; the average descends only logarithmically as one expands the height range. Watkins' computation up to height $10^{14}$ shows the average descending past $0.7$ but still well above $\\tfrac12$ — consistent with Goldfeld holding only in the limit."
+          }
+        ]
+      },
+      "as-function-fields": {
+        "title": "Function-field analogues",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For a curve $C/\\mathbb{F}_q$ of genus $g$, the Frobenius eigenvalues on $H^1$ have absolute value:",
+            "choices": [
+              "$1$",
+              "$q$",
+              "$q^{1/2}$",
+              "$q^{2g}$"
+            ],
+            "answer": 2,
+            "explain": "Weil's Riemann hypothesis for curves: the eigenvalues $\\alpha_i$ satisfy $|\\alpha_i|=q^{1/2}$. Equivalently, the reciprocal roots of $L(C,T)$ lie on $|T|=q^{-1/2}$. The normalized angles $\\theta_i=\\arg(\\alpha_i/q^{1/2})\\in[0,\\pi]$ are what Katz–Sarnak studies."
+          },
+          {
+            "type": "mcq",
+            "q": "Katz–Sarnak proved that, as $q\\to\\infty$, the normalized Frobenius angles of curves of genus $g$ over $\\mathbb{F}_q$ become equidistributed with respect to which measure?",
+            "choices": [
+              "Lebesgue on $[0,\\pi]$ (uniform)",
+              "Eigenvalue measure of $\\mathrm{USp}(2g)$",
+              "Eigenvalue measure of $\\mathrm{U}(g)$",
+              "Sato–Tate $(2/\\pi)\\sin^2\\theta$ for each individual angle"
+            ],
+            "answer": 1,
+            "explain": "The full $2g$-tuple of angles equidistributes against the eigenvalue measure of $\\mathrm{USp}(2g)$ — the unitary symplectic group of rank $g$. As $g\\to\\infty$, the marginal of one angle limits to $(2/\\pi)\\sin^2\\theta$ (Sato–Tate), but the joint distribution carries finer information (level repulsion, $n$-point correlations)."
+          },
+          {
+            "type": "matching",
+            "q": "Match each function-field statistical phenomenon to the proof technique that established it.",
+            "left": [
+              "Cohen–Lenstra over $\\mathbb{F}_q(t)$",
+              "Frobenius equidistribution as $q\\to\\infty$",
+              "Davenport–Heilbronn over $\\mathbb{F}_q(t)$",
+              "Average rank of elliptic curves over $\\mathbb{F}_q(t)$"
+            ],
+            "right": [
+              "Cohomology of Hurwitz schemes (Ellenberg–Venkatesh–Westerland)",
+              "Deligne's Weil II + character variety equidistribution (Katz)",
+              "Counting cubic Galois covers (Bhargava–Shankar–Tsimerman)",
+              "Bhargava-style orbit counting transplanted to $\\mathbb{F}_q[t]$ (Thorne–others)"
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "explain": "Each function-field result has a distinct topological/geometric heart: EVW use Hurwitz-scheme cohomology; Katz uses Deligne's Weil II to get equidistribution from purity; cubic-field counts in $\\mathbb{F}_q[t]$ use the Bhargava parametrization translated; elliptic-curve averages are Bhargava's orbit count adapted to function fields."
+          }
+        ]
+      },
+      "as-l-symmetry": {
+        "title": "L-functions and symmetry types",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "In the Katz–Sarnak philosophy, the family of quadratic Dirichlet $L$-functions $\\{L(s,\\chi_d)\\}_d$ has which symmetry type?",
+            "choices": [
+              "Unitary $U$",
+              "Symplectic $\\mathrm{USp}$",
+              "Orthogonal $O^+$",
+              "Orthogonal $O^-$"
+            ],
+            "answer": 1,
+            "explain": "Quadratic Dirichlet $L$-functions form a symplectic family. Heuristic: $\\chi_d$ is real (self-dual), the functional equation pins zeros to be real on the critical line in pairs, and the family-averaged $1$-level density is $1+\\sin(2\\pi x)/(2\\pi x)-\\cos(2\\pi x)$, the symplectic eigenvalue density."
+          },
+          {
+            "type": "mcq",
+            "q": "Which family-symmetry pairing predicts that the $1$-level density at $x=0$ has a delta function (forced zero from odd root number)?",
+            "choices": [
+              "Unitary $U$ — $\\zeta(s)$",
+              "Symplectic $\\mathrm{USp}$ — quadratic Dirichlet",
+              "Orthogonal $O^+$ — even root number subfamily",
+              "Orthogonal $O^-$ — odd root number subfamily"
+            ],
+            "answer": 3,
+            "explain": "$O^-$ corresponds to families where the global root number is $-1$, forcing every $L$-function in the family to have a zero of odd order at $s=\\tfrac12$. The $1$-level density therefore has a delta at the central point on top of the smooth orthogonal piece."
+          },
+          {
+            "type": "ordering",
+            "q": "Soundararajan and Conrey–Soundararajan proved that at least $87.5\\%$ of $L(\\tfrac12,\\chi_d)$ are non-vanishing. Order the steps of the moment-method argument.",
+            "items": [
+              "Compute the first moment $\\sum_d L(\\tfrac12,\\chi_d)$ by Selberg–Tate or the approximate functional equation",
+              "Compute the second moment $\\sum_d L(\\tfrac12,\\chi_d)^2$ — harder, requires shifted convolution sums",
+              "Apply Cauchy–Schwarz: $\\#\\{d:L(\\tfrac12,\\chi_d)\\ne 0\\}\\ge (\\sum L)^2 / \\sum L^2$",
+              "Conclude $\\ge 87.5\\%$ non-vanishing — the constant is the Katz–Sarnak symplectic ratio of moments"
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "explain": "The mollifier-style Cauchy–Schwarz lower bound is the standard approach: first and second moments give a non-vanishing density, with the precise constant $87.5\\%$ being the Katz–Sarnak symplectic ratio. Better bounds (97%) come from using ratios conjectures and longer mollifiers."
+          }
+        ]
+      }
+    }
+  },
   "atiyah-singer-index-theorem": {
     "topic": "atiyah-singer-index-theorem",
     "quizzes": {
@@ -54793,6 +55053,289 @@ window.MVQuizBank = {
             "answer": 1,
             "hint": "Coherent means finitely generated with finitely presented kernel on opens.",
             "explain": "Coherence requires local finite generation (and, for non-Noetherian rings, also that the kernel of any map from a free finite-rank sheaf is finitely generated). On a Noetherian scheme, local finite generation suffices."
+          }
+        ]
+      }
+    }
+  },
+  "shimura-varieties": {
+    "topic": "shimura-varieties",
+    "quizzes": {
+      "shim-datum": {
+        "title": "The Shimura datum",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The Deligne torus $\\mathbb{S} = \\mathrm{Res}_{\\mathbb{C}/\\mathbb{R}}\\mathbb{G}_m$ has which group of real points?",
+            "choices": [
+              "$\\mathbb{R}^\\times$",
+              "$\\mathbb{C}^\\times$",
+              "$S^1$ (unit circle)",
+              "$\\mathbb{R}^\\times \\times S^1$"
+            ],
+            "answer": 1,
+            "hint": "Weil restriction along $\\mathbb{C}/\\mathbb{R}$ remembers the multiplicative group of $\\mathbb{C}$, viewed as a real algebraic group.",
+            "explain": "By definition $\\mathbb{S}(\\mathbb{R}) = \\mathbb{G}_m(\\mathbb{C}) = \\mathbb{C}^\\times$, while $\\mathbb{S}(\\mathbb{C}) = \\mathbb{C}^\\times \\times \\mathbb{C}^\\times$ via the embedding $\\mathbb{S}_\\mathbb{C} \\cong \\mathbb{G}_m \\times \\mathbb{G}_m$. A homomorphism $h\\colon\\mathbb{S}\\to G_\\mathbb{R}$ thus packages a real Hodge structure on $\\mathfrak{g}$ via $\\mathrm{Ad}\\circ h$."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which of the following are Deligne's axioms (SV1)–(SV3) for a Shimura datum $(G, X)$?",
+            "choices": [
+              "The Hodge structure $\\mathrm{Ad}\\circ h$ on $\\mathfrak{g}$ has type contained in $\\{(-1,1),(0,0),(1,-1)\\}$",
+              "$\\mathrm{ad}(h(i))$ is a Cartan involution on $G^{\\mathrm{ad}}_\\mathbb{R}$",
+              "$G^{\\mathrm{ad}}$ has no $\\mathbb{Q}$-factor on which $h$ projects trivially",
+              "$G$ is simply connected over $\\mathbb{Q}$"
+            ],
+            "answer": [
+              0,
+              1,
+              2
+            ],
+            "hint": "Deligne lists exactly three axioms; one of the choices is a stronger non-required hypothesis.",
+            "explain": "(SV1)–(SV3) are exactly items 0, 1, 2. Simple connectivity of $G$ is NOT required: $\\mathrm{GL}_2$ itself is not simply connected (its derived group $\\mathrm{SL}_2$ is), yet it's a perfectly good Shimura datum. (SV2) is what forces $X$ to be a Hermitian symmetric domain."
+          },
+          {
+            "type": "numeric",
+            "q": "For the Siegel datum $(\\mathrm{GSp}_{2g}, \\mathfrak{H}_g)$, the complex dimension of the Hermitian symmetric space $\\mathfrak{H}_g$ is $\\binom{g+1}{2}$. What is this dimension for $g = 4$?",
+            "answer": 10,
+            "tol": 0.001,
+            "hint": "Symmetric $g\\times g$ complex matrices have $\\binom{g+1}{2}$ independent entries.",
+            "explain": "$\\binom{5}{2} = 10$. So $\\mathfrak{H}_4$ has complex dimension $10$; $\\mathcal{A}_4$ is a $10$-dimensional Shimura variety, parametrising principally polarised abelian fourfolds."
+          }
+        ]
+      },
+      "shim-canonical-model": {
+        "title": "Adelic double quotient and canonical models",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The Shimura variety at level $K$ is built as the double quotient $\\mathrm{Sh}_K(G,X) = G(\\mathbb{Q})\\backslash X\\times G(\\mathbb{A}_f)/K$. What replaces this for the classical $G = \\mathrm{GL}_2/\\mathbb{Q}$ at level $K = K_0(N)$?",
+            "choices": [
+              "The upper half-plane $\\mathcal{H}$ alone",
+              "The modular curve $Y_0(N)$",
+              "The full modular tower $\\varprojlim Y(N)$",
+              "The set of cusps of $X(N)$"
+            ],
+            "answer": 1,
+            "hint": "Strong approximation collapses the adelic double quotient at level $K_0(N)$ to a single connected arithmetic quotient.",
+            "explain": "Strong approximation for $\\mathrm{SL}_2/\\mathbb{Q}$ gives $\\mathrm{GL}_2(\\mathbb{A}_f) = \\mathrm{GL}_2(\\mathbb{Q})^+ K_0(N)$ (since $\\det K_0(N) = \\widehat{\\mathbb{Z}}^\\times$), so the double quotient reduces to $\\Gamma_0(N)\\backslash\\mathcal{H} = Y_0(N)$. This is the foundational worked example."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which of the following are TRUE about the reflex field $E(G,X)$ of a Shimura datum?",
+            "choices": [
+              "It is the field of definition of the conjugacy class $\\{\\mu_h\\}$ over $\\mathbb{C}$",
+              "It is always equal to $\\mathbb{Q}$",
+              "$E(\\mathrm{GL}_2, \\mathbb{H}^\\pm) = \\mathbb{Q}$",
+              "$E(\\mathrm{GU}(p,q), \\cdot) = K$ for the CM field $K$ defining $G$"
+            ],
+            "answer": [
+              0,
+              2,
+              3
+            ],
+            "hint": "Item 1 over-claims; some unitary Shimura data have a non-trivial reflex.",
+            "explain": "0, 2, 3 are correct. The reflex $E$ is the smallest number field over which the cocharacter conjugacy class $\\{\\mu_h\\}$ is defined; for $\\mathrm{GL}_2$ and $\\mathrm{GSp}_{2g}$ it is $\\mathbb{Q}$, but for unitary groups defined by a CM field $K$ the reflex is generally $K$ (or its reflex CM field). The canonical model lives over $E$."
+          },
+          {
+            "type": "ordering",
+            "q": "Order these steps in constructing the canonical model $\\mathrm{Sh}_K(G,X)_E$ over the reflex field, from earliest to latest in Deligne's setup.",
+            "items": [
+              "Fix the Shimura datum $(G,X)$",
+              "Compute the Hodge cocharacter $\\mu_h$ and its reflex field $E = E(G,X)$",
+              "Form the complex variety $\\mathrm{Sh}_K(G,X)(\\mathbb{C}) = G(\\mathbb{Q})\\backslash X\\times G(\\mathbb{A}_f)/K$",
+              "Use Shimura's reciprocity law on special points to pin down the $E$-rational structure"
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "hint": "The reflex is computed before complex points are constructed; descent to $E$ comes last.",
+            "explain": "Datum first → reflex field next → complex Shimura variety → descent via reciprocity on special (CM) points. Special points are the rigidifiers: the canonical model is uniquely characterised by how Galois acts on them, expressed by the reflex norm."
+          }
+        ]
+      },
+      "shim-siegel": {
+        "title": "Siegel modular varieties",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A point $\\tau \\in \\mathfrak{H}_g$ — symmetric $g\\times g$ complex matrix with $\\mathrm{Im}\\,\\tau > 0$ — encodes which moduli object?",
+            "choices": [
+              "An elliptic curve with a level-$g$ structure",
+              "A principally polarised abelian variety of dimension $g$ (with level structure)",
+              "A $g$-dimensional complex torus, no polarisation needed",
+              "A hyperelliptic curve of genus $g$"
+            ],
+            "answer": 1,
+            "hint": "The positivity of $\\mathrm{Im}\\,\\tau$ is exactly Riemann's bilinear relation for a principal polarisation.",
+            "explain": "$\\tau \\in \\mathfrak{H}_g$ defines the lattice $\\Lambda_\\tau = \\mathbb{Z}^g + \\tau\\mathbb{Z}^g \\subset \\mathbb{C}^g$, the abelian variety $A_\\tau = \\mathbb{C}^g/\\Lambda_\\tau$, and a principal polarisation given by the standard symplectic form $E(v_1+\\tau v_2, w_1+\\tau w_2) = v_1\\cdot w_2 - v_2\\cdot w_1$. The Torelli theorem says $\\tau \\bmod \\mathrm{Sp}_{2g}(\\mathbb{Z})$ is the moduli."
+          },
+          {
+            "type": "numeric",
+            "q": "What is the complex dimension of $\\mathcal{A}_2 = \\mathrm{Sp}_4(\\mathbb{Z})\\backslash\\mathfrak{H}_2$, the Siegel modular variety of genus $2$?",
+            "answer": 3,
+            "tol": 0.001,
+            "hint": "$\\dim_\\mathbb{C}\\mathfrak{H}_g = \\binom{g+1}{2}$.",
+            "explain": "$\\dim_\\mathbb{C}\\mathfrak{H}_2 = \\binom{3}{2} = 3$. So $\\mathcal{A}_2$ is a $3$-dimensional algebraic variety over $\\mathbb{Q}$ — the moduli space of principally polarised abelian surfaces. Its $\\mathbb{Q}$-points come from genus-$2$ curves (via the Jacobian) or from products of elliptic curves."
+          },
+          {
+            "type": "spot-the-error",
+            "q": "A student presents the following argument: \"Every complex torus $\\mathbb{C}^g/\\Lambda$ defines a point of $\\mathcal{A}_g$.\" Identify the flawed step.",
+            "steps": [
+              "$\\mathbb{C}^g/\\Lambda$ is a compact complex Lie group of dimension $g$.",
+              "Therefore it is automatically projective algebraic.",
+              "Hence it carries a principal polarisation, defining a point of $\\mathcal{A}_g$."
+            ],
+            "answer": 1,
+            "hint": "For $g \\ge 2$, a generic lattice produces a complex torus with NO nonconstant meromorphic functions.",
+            "explain": "Step 1 is fine — it's just the definition of a complex torus. Step 2 is the false step: a generic $g\\ge 2$ complex torus has no nonconstant meromorphic functions and is not algebraic at all. The condition picking out abelian varieties (and Siegel points) is the existence of a positive Riemann form — a polarisation. Step 3 then evaporates because the torus may not have any polarisation, let alone a principal one."
+          }
+        ]
+      },
+      "shim-hilbert": {
+        "title": "Hilbert and quaternionic Shimura varieties",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Let $F$ be a totally real number field of degree $d = [F:\\mathbb{Q}]$ and consider $G = \\mathrm{Res}_{F/\\mathbb{Q}}\\mathrm{GL}_2$. The Hermitian symmetric space attached to this Shimura datum is:",
+            "choices": [
+              "$\\mathbb{H}$ (a single upper half-plane)",
+              "$\\mathbb{H}^d$ (a product of $d$ upper half-planes)",
+              "$\\mathfrak{H}_d$ (Siegel space of genus $d$)",
+              "The complex hyperbolic ball $B^d$"
+            ],
+            "answer": 1,
+            "hint": "$G(\\mathbb{R}) = \\prod_{\\sigma\\colon F\\hookrightarrow\\mathbb{R}} \\mathrm{GL}_2(\\mathbb{R})$.",
+            "explain": "Each real embedding $\\sigma$ of $F$ contributes a copy of $\\mathrm{GL}_2(\\mathbb{R})$, and hence a copy of $\\mathbb{H}^\\pm$. So $X = \\prod\\mathbb{H}^\\pm$ and the connected component is $\\mathbb{H}^d$. The resulting Hilbert modular variety has complex dimension $d$."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which statements about Shimura curves $X^B$ for a quaternion algebra $B/F$ split at exactly one infinite place are TRUE?",
+            "choices": [
+              "$X^B$ is a complex curve (1-dimensional)",
+              "$X^B$ is compact when $B$ is non-split (i.e. $B \\ne M_2(F)$)",
+              "When $B = M_2(\\mathbb{Q})$, $X^B$ specialises to a Hilbert modular surface",
+              "Jacquet–Langlands relates $H^1(X^B)$ to a subspace of newforms on the modular curve $X_0(N_B)$"
+            ],
+            "answer": [
+              0,
+              1,
+              3
+            ],
+            "hint": "Item 2 confuses dimensions; Shimura curves are always $1$-dimensional.",
+            "explain": "0, 1, 3 hold. Item 2 is wrong: when $B = M_2(\\mathbb{Q})$ ($F = \\mathbb{Q}$), the construction gives back $Y_0(N)$, a modular curve — still $1$-dimensional. Hilbert modular surfaces require $F$ of degree $\\ge 2$ AND $B = M_2(F)$ split everywhere. The compactness of non-split $X^B$ (no cusps) makes their cohomology especially clean."
+          },
+          {
+            "type": "numeric",
+            "q": "For $F = \\mathbb{Q}(\\sqrt{5})$ and $G = \\mathrm{Res}_{F/\\mathbb{Q}}\\mathrm{GL}_2$, what is the complex dimension of the resulting Hilbert modular variety?",
+            "answer": 2,
+            "tol": 0.001,
+            "hint": "Dimension equals $[F:\\mathbb{Q}]$.",
+            "explain": "$[\\mathbb{Q}(\\sqrt{5}):\\mathbb{Q}] = 2$, so $X = \\mathbb{H}^2$ and the Hilbert modular variety is a $2$-dimensional surface — a Hilbert modular surface, parametrising abelian surfaces with real multiplication by $\\mathcal{O}_F = \\mathbb{Z}[\\frac{1+\\sqrt{5}}{2}]$. These are the simplest non-classical Shimura varieties beyond modular curves."
+          }
+        ]
+      },
+      "shim-cohomology": {
+        "title": "Étale cohomology and Galois representations",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "On the étale cohomology $H^i_{\\mathrm{ét}}(\\mathrm{Sh}_K\\times\\overline{E}, \\overline{\\mathbb{Q}}_\\ell)$, what two algebras act commutingly?",
+            "choices": [
+              "Two copies of the Galois group $\\mathrm{Gal}(\\overline{E}/E)$",
+              "$\\mathrm{Gal}(\\overline{E}/E)$ and the adelic Hecke algebra of $G$",
+              "The adelic Hecke algebra of $G$ and the universal cover deck group",
+              "$\\mathrm{Gal}(\\overline{E}/E)$ and $\\pi_1^{\\text{ét}}(\\mathrm{Sh}_K)$"
+            ],
+            "answer": 1,
+            "hint": "One side is automatic from étale cohomology; the other comes from Hecke correspondences as algebraic cycles on $\\mathrm{Sh}_K\\times\\mathrm{Sh}_K$.",
+            "explain": "The Galois action is functorial; the Hecke action comes from the moduli interpretation (correspondences $\\mathrm{Sh}_K \\leftarrow \\mathrm{Sh}_{K\\cap gKg^{-1}} \\to \\mathrm{Sh}_K$). They commute because Hecke correspondences are defined over $E$. Eigensystem decomposition under the commutative spherical Hecke algebra produces the Galois representations."
+          },
+          {
+            "type": "multi-select",
+            "q": "For a weight-$2$ newform $f \\in S_2(\\Gamma_0(N))$ with $T_p$-eigenvalue $a_p$, and $\\rho_{f,\\ell}\\colon \\mathrm{Gal}(\\overline{\\mathbb{Q}}/\\mathbb{Q})\\to\\mathrm{GL}_2(\\overline{\\mathbb{Q}}_\\ell)$ the Eichler–Shimura representation, which TRUE for $p \\nmid N\\ell$?",
+            "choices": [
+              "$\\mathrm{tr}\\,\\rho_{f,\\ell}(\\mathrm{Frob}_p) = a_p$",
+              "$\\det\\,\\rho_{f,\\ell}(\\mathrm{Frob}_p) = p$",
+              "$\\rho_{f,\\ell}$ is unramified at $p$",
+              "$\\rho_{f,\\ell}$ is realised inside $H^2_{\\mathrm{ét}}(X_0(N))$"
+            ],
+            "answer": [
+              0,
+              1,
+              2
+            ],
+            "hint": "Modular curves are $1$-dimensional, so the interesting cohomology is in degree $1$, not $2$.",
+            "explain": "0–2 are textbook Eichler–Shimura. Item 3 is wrong: $X_0(N)$ is a curve (dimension $1$), so the Galois rep lives in $H^1_{\\mathrm{ét}}$, not $H^2$. Higher-weight cusp forms appear in higher étale cohomology of the universal elliptic curve over $X_0(N)$ (Deligne's construction)."
+          },
+          {
+            "type": "matching",
+            "q": "Match each constructor of automorphic Galois representations to the Shimura-variety setting they used.",
+            "left": [
+              "Eichler–Shimura",
+              "Deligne",
+              "Carayol",
+              "Kottwitz / Brylinski–Labesse"
+            ],
+            "right": [
+              "Modular curves $X_0(N)$, weight-$2$ newforms, $\\mathrm{GL}_2/\\mathbb{Q}$",
+              "Higher-weight cusp forms via étale sheaves on the universal elliptic curve",
+              "Shimura curves over totally real $F$, Hilbert modular forms",
+              "Siegel and unitary Shimura varieties via the stable trace formula"
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "hint": "Match historical generality: from $\\mathrm{GL}_2/\\mathbb{Q}$ weight $2$ outward.",
+            "explain": "Eichler–Shimura: $X_0(N)$ + $\\mathrm{GL}_2/\\mathbb{Q}$ weight 2. Deligne: extends to higher weights via universal elliptic curve. Carayol: Hilbert/quaternionic via Shimura curves over totally real $F$. Kottwitz / Brylinski–Labesse (and many others): Siegel + unitary Shimura varieties, requiring the stable trace formula and the Langlands–Kottwitz method of §6."
+          }
+        ]
+      },
+      "shim-langlands-kottwitz": {
+        "title": "The Langlands–Kottwitz program",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Honda–Tate theory classifies isogeny classes of abelian varieties over $\\mathbb{F}_q$ by what kind of algebraic numbers?",
+            "choices": [
+              "Roots of unity in $\\mathbb{C}^\\times$",
+              "Algebraic integers of absolute value $1$",
+              "Weil $q$-numbers — algebraic integers all of whose archimedean conjugates have absolute value $\\sqrt{q}$",
+              "Elements of $\\mathbb{Z}_\\ell^\\times$ for some prime $\\ell$"
+            ],
+            "answer": 2,
+            "hint": "The condition that picks them out is the Weil bound: Frobenius eigenvalues on $H^1$ have absolute value $\\sqrt{q}$.",
+            "explain": "Weil $q$-numbers are algebraic integers $\\pi$ with $|\\sigma(\\pi)| = \\sqrt{q}$ for every embedding $\\sigma$ into $\\mathbb{C}$. Honda–Tate (1969) bijects these (modulo conjugation) with $\\mathbb{F}_q$-isogeny classes of abelian varieties. The classification feeds directly into the Langlands–Kottwitz formula."
+          },
+          {
+            "type": "multi-select",
+            "q": "What does the Langlands–Kottwitz formula relate?",
+            "choices": [
+              "$|\\mathrm{Sh}_K(\\mathbb{F}_q)|$ on the geometric side",
+              "Twisted orbital integrals on the Hecke side, after stabilization",
+              "The Hodge–Tate weights of the Galois representation",
+              "Volumes of fundamental domains in $\\mathfrak{H}_g$"
+            ],
+            "answer": [
+              0,
+              1
+            ],
+            "hint": "It's a point-counting/trace formula identity, not a Hodge-theoretic or volume statement.",
+            "explain": "$|\\mathrm{Sh}_K(\\mathbb{F}_q)| = \\sum c(\\gamma_0;\\gamma,\\delta)\\,\\mathrm{O}_\\gamma(\\mathbf{1}_K^p)\\,\\mathrm{TO}_\\delta(\\phi_p)$. After Kottwitz stabilization, comparing with the Arthur–Selberg trace formula on the automorphic side gives local-global compatibility. Hodge–Tate weights are fixed by the cocharacter $\\mu_h$ (§1) and aren't an output of Langlands–Kottwitz."
+          },
+          {
+            "type": "numeric",
+            "q": "If $|X_0(11)(\\mathbb{F}_p)| = p + 1 - a_p$ and $a_2 = -2$ for the modular elliptic curve $E_{11}$, what is $|X_0(11)(\\mathbb{F}_2)|$?",
+            "answer": 5,
+            "tol": 0.001,
+            "hint": "Plug $p = 2$, $a_p = -2$ into $p + 1 - a_p$.",
+            "explain": "$|X_0(11)(\\mathbb{F}_2)| = 2 + 1 - (-2) = 5$. The Eichler–Shimura side identifies $a_p$ with the trace of $\\mathrm{Frob}_p$ on $\\rho_{11}$ and with the $T_p$-eigenvalue of the unique normalised newform of level $11$; Langlands–Kottwitz at $p = 2$ recovers exactly this count from the geometric side."
           }
         ]
       }

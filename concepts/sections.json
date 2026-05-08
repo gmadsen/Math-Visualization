@@ -154,7 +154,8 @@
         "iwasawa-theory",
         "continued-fractions",
         "dirichlet-unit-theorem",
-        "complex-multiplication"
+        "complex-multiplication",
+        "arithmetic-statistics"
       ],
       "color": "y"
     },
@@ -181,7 +182,8 @@
         "vertex-operator-algebras",
         "langlands-program",
         "maass-forms",
-        "half-integral-weight-forms"
+        "half-integral-weight-forms",
+        "shimura-varieties"
       ],
       "color": "c"
     },
