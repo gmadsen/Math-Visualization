@@ -2,12 +2,12 @@
 
 ## Corpus totals
 
-- Topics: **169**, concepts: **1176**
-- Widgets: **1201** (registry-driven: 1201, inline: 0)
-- Quizzes: **4722** (v1: 3486, hard: 1223, expert: 13)
-- Quiz types: mcq: 3126, numeric: 1149, multi-select: 199, matching: 89, ordering: 65, spot-the-error: 42, complex: 29, proof-completion: 19, construction: 2, guess-my-rule: 2
+- Topics: **170**, concepts: **1182**
+- Widgets: **1207** (registry-driven: 1207, inline: 0)
+- Quizzes: **4740** (v1: 3504, hard: 1223, expert: 13)
+- Quiz types: mcq: 3132, numeric: 1153, multi-select: 204, matching: 90, ordering: 66, spot-the-error: 43, complex: 29, proof-completion: 19, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their section: **149**
-- Concepts lacking a hard-tier quiz: **738**
+- Concepts lacking a hard-tier quiz: **744**
 
 ## Per-slug registry adoption
 
@@ -626,6 +626,12 @@ page has wired one in yet.
 | `sg-control` | verbatim | select | 2d | 1 | semigroup-theory-evolution-equations |
 | `sg-gen` | verbatim | select | 2d | 1 | semigroup-theory-evolution-equations |
 | `sg-hy` | verbatim | select | 2d | 1 | semigroup-theory-evolution-equations |
+| `shim-w1` | verbatim | click | 2d | 1 | shimura-varieties |
+| `shim-w2` | verbatim | click | 2d | 1 | shimura-varieties |
+| `shim-w3` | verbatim | click | 2d | 1 | shimura-varieties |
+| `shim-w4` | verbatim | click | 2d | 1 | shimura-varieties |
+| `shim-w5` | verbatim | click | 2d | 1 | shimura-varieties |
+| `shim-w6` | verbatim | click | 2d | 1 | shimura-varieties |
 | `simplicial-complexes-combinatorial-faces` | simplicial-complexes-combinatorial-faces | click | 2d | 1 | simplicial-complexes-combinatorial |
 | `simplicial-complexes-combinatorial-fh` | simplicial-complexes-combinatorial-fh | click | 2d | 1 | simplicial-complexes-combinatorial |
 | `simplicial-complexes-combinatorial-nerve` | simplicial-complexes-combinatorial-nerve | slider | 2d | 1 | simplicial-complexes-combinatorial |
@@ -822,13 +828,13 @@ page has wired one in yet.
 
 ### Modular forms & L-functions
 
-- Topics: **19**, concepts: **115**
-- Widgets: **139** (registry-driven: 139, inline: 0)
-  - by family: button-stepper: 92, verbatim: 12, parametric-plot: 5, svg-illustration: 4, lattice-visualizer: 2, voa-mode-bookkeeping: 1, voa-axiom-map: 1, voa-virasoro-bracket: 1, voa-character-coeffs: 1, voa-mckay-thompson: 1, voa-construction-zoo: 1, automorphic-restricted-product: 1, automorphic-strong-approximation: 1, automorphic-three-conditions: 1, automorphic-dictionary: 1, automorphic-satake-parameters: 1, automorphic-conductor-ladder: 1, automorphic-local-factor-builder: 1, automorphic-eisenstein-residue: 1, automorphic-functoriality-transfers: 1, modular-curves-fundamental-domain: 1, modular-curves-lattice-cyclic-subgroup: 1, modular-curves-hecke-summands: 1, modular-curves-eichler-shimura: 1, modular-curves-genus-growth: 1, modular-curves-cusps-and-wn: 1, modular-curves-atkin-lehner-newforms: 1, modular-curves-heegner-hypothesis: 1, modular-curves-mazur-torsion: 1
-  - by dimension: 2d: 139
-  - by gesture: click: 112, slider: 13, step: 8, static: 4, select: 2
-- Quizzes: **540** (v1: 345, hard: 195, expert: 0)
-  - by type: mcq: 363, numeric: 166, multi-select: 7, matching: 3, ordering: 1
+- Topics: **20**, concepts: **121**
+- Widgets: **145** (registry-driven: 145, inline: 0)
+  - by family: button-stepper: 92, verbatim: 18, parametric-plot: 5, svg-illustration: 4, lattice-visualizer: 2, voa-mode-bookkeeping: 1, voa-axiom-map: 1, voa-virasoro-bracket: 1, voa-character-coeffs: 1, voa-mckay-thompson: 1, voa-construction-zoo: 1, automorphic-restricted-product: 1, automorphic-strong-approximation: 1, automorphic-three-conditions: 1, automorphic-dictionary: 1, automorphic-satake-parameters: 1, automorphic-conductor-ladder: 1, automorphic-local-factor-builder: 1, automorphic-eisenstein-residue: 1, automorphic-functoriality-transfers: 1, modular-curves-fundamental-domain: 1, modular-curves-lattice-cyclic-subgroup: 1, modular-curves-hecke-summands: 1, modular-curves-eichler-shimura: 1, modular-curves-genus-growth: 1, modular-curves-cusps-and-wn: 1, modular-curves-atkin-lehner-newforms: 1, modular-curves-heegner-hypothesis: 1, modular-curves-mazur-torsion: 1
+  - by dimension: 2d: 145
+  - by gesture: click: 118, slider: 13, step: 8, static: 4, select: 2
+- Quizzes: **558** (v1: 363, hard: 195, expert: 0)
+  - by type: mcq: 369, numeric: 170, multi-select: 12, matching: 4, ordering: 2, spot-the-error: 1
 
 ### Algebraic geometry
 
@@ -866,6 +872,7 @@ page has wired one in yet.
 - `khovanov-homology` (Geometry & topology) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `complex-multiplication` (Number theory) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `tropical-geometry` (Algebraic geometry) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
+- `shimura-varieties` (Modular forms & L-functions) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `kahler-geometry` (Geometry & topology) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `mapping-class-groups` (Geometry & topology) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `half-integral-weight-forms` (Modular forms & L-functions) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)

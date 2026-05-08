@@ -1,0 +1,1008 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Shimura varieties</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false,
+      macros:{
+        '\\Spec':'\\operatorname{Spec}',
+        '\\Gal':'\\operatorname{Gal}',
+        '\\Hom':'\\operatorname{Hom}',
+        '\\tr':'\\operatorname{tr}',
+        '\\ad':'\\operatorname{ad}',
+        '\\ind':'\\operatorname{ind}'
+      }
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  /* sticky sidebar TOC (wide screens only; narrow screens fall back to top-nav) */
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+  /* callback-css-auto-begin */
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+/* callback-css-auto-end */
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
+  /* display-prefs-css-auto-begin */
+  html[data-hide-widgets] .widget { display: none !important; }
+  html[data-hide-quizzes] .quiz { display: none !important; }
+  html[data-hide-lineage] .lineage-strip { display: none !important; }
+  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }
+  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }
+  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }
+  .mv-display-toggle--off { opacity: 0.35; }
+  /* display-prefs-css-auto-end */
+</style>
+<!-- breadcrumb-head-auto-begin -->
+<script>window.__MV_SECTION_MAP = {"<topic>":{"next":null,"prev":null,"section":"Sections","title":"<topic>"},"L-functions":{"next":"sato-tate","prev":"moonshine","section":"Modular forms & L-functions","title":"L-functions"},"abelian-varieties":{"next":"positivity-and-ample-line-bundles","prev":"toric-varieties","section":"Algebraic geometry","title":"Abelian varieties"},"additive-number-theory":{"next":"heights-arithmetic-geometry","prev":"quadratic-forms-genus-theory","section":"Number theory","title":"Additive number theory"},"adeles-and-ideles":{"next":"frobenius-and-reciprocity","prev":"p-adic-numbers","section":"Number theory","title":"Adèles & idèles"},"advanced-complex-analysis":{"next":"microlocal-analysis","prev":"sobolev-spaces-distributions","section":"Analysis","title":"Advanced complex analysis"},"algebra":{"next":"representation-theory","prev":null,"section":"Algebra & homological","title":"Abstract algebra"},"algebraic-curves-higher-genus":{"next":"deformation-theory","prev":"mirror-symmetry","section":"Algebraic geometry","title":"Algebraic curves: higher genus"},"algebraic-de-rham-cohomology":{"next":"calabi-yau-manifolds","prev":"algebraic-spaces","section":"Algebraic geometry","title":"Algebraic de Rham cohomology"},"algebraic-k-theory-foundations":{"next":"model-categories","prev":"quantum-groups","section":"Algebra & homological","title":"Algebraic K-theory foundations"},"algebraic-number-theory":{"next":"p-adic-numbers","prev":"galois","section":"Number theory","title":"Algebraic number theory"},"algebraic-spaces":{"next":"algebraic-de-rham-cohomology","prev":"functor-of-points","section":"Algebraic geometry","title":"Algebraic spaces"},"algebraic-topology":{"next":"knot-polynomials","prev":"point-set-topology","section":"Geometry & topology","title":"Algebraic topology"},"analytic-continuation":{"next":"zeta-values","prev":"dirichlet-series-euler-products","section":"Modular forms & L-functions","title":"Analytic continuation"},"analytic-number-theory":{"next":"galois","prev":null,"section":"Number theory","title":"Analytic number theory"},"atiyah-singer-index-theorem":{"next":"riemannian-geometry","prev":"k-theory","section":"Geometry & topology","title":"Atiyah–Singer index theorem"},"automorphic-forms-adelic":{"next":"moonshine","prev":"hecke-operators","section":"Modular forms & L-functions","title":"Automorphic forms (adelic)"},"bezout":{"next":"schemes","prev":"elliptic-curves","section":"Algebraic geometry","title":"Bézout's theorem"},"bsd":{"next":"modularity-and-flt","prev":"sato-tate","section":"Modular forms & L-functions","title":"Birch & Swinnerton-Dyer"},"calabi-yau-manifolds":{"next":"mirror-symmetry","prev":"algebraic-de-rham-cohomology","section":"Algebraic geometry","title":"Calabi–Yau manifolds"},"category-theory":{"next":"commutative-algebra","prev":"derived-categories","section":"Algebra & homological","title":"Category theory"},"characteristic-classes":{"next":"k-theory","prev":"symplectic-manifolds","section":"Geometry & topology","title":"Characteristic classes"},"class-field-theory":{"next":"galois-representations","prev":"computational-number-theory","section":"Number theory","title":"Class field theory"},"cluster-algebras":{"next":"galois-cohomology-and-brauer","prev":"geometric-and-combinatorial-group-theory","section":"Algebra & homological","title":"Cluster algebras"},"cobordism":{"next":"homotopy-theory","prev":"cohomology-and-duality","section":"Geometry & topology","title":"Cobordism"},"cocartesian-fibrations":{"next":"infinity-categories","prev":"heyting-algebras-toposes","section":"Higher categories & toposes","title":"Cocartesian fibrations"},"cohomology-and-duality":{"next":"cobordism","prev":"mostow-rigidity","section":"Geometry & topology","title":"Cohomology and duality"},"commutative-algebra":{"next":"homological","prev":"category-theory","section":"Algebra & homological","title":"Commutative algebra"},"complex-analysis":{"next":"measure-theory","prev":"real-analysis","section":"Analysis","title":"Complex analysis"},"complex-multiplication":{"next":null,"prev":"dirichlet-unit-theorem","section":"Number theory","title":"Complex multiplication"},"complexity-theory":{"next":"type-theory-and-hott","prev":"computability-and-decidability","section":"Logic & Foundations","title":"Complexity theory"},"computability-and-decidability":{"next":"complexity-theory","prev":"model-theory-basics","section":"Logic & Foundations","title":"Computability and decidability"},"computational-number-theory":{"next":"class-field-theory","prev":"mathematics-and-cryptography","section":"Number theory","title":"Computational number theory"},"condensed-mathematics":{"next":null,"prev":"groebner-bases","section":"Algebra & homological","title":"Condensed mathematics"},"continued-fractions":{"next":"dirichlet-unit-theorem","prev":"iwasawa-theory","section":"Number theory","title":"Continued fractions"},"crystalline-cohomology":{"next":"tropical-geometry","prev":"d-modules","section":"Algebraic geometry","title":"Crystalline cohomology"},"d-modules":{"next":"crystalline-cohomology","prev":"mmp-and-birational-geometry","section":"Algebraic geometry","title":"D-modules"},"deformation-theory":{"next":"resolution-of-singularities","prev":"algebraic-curves-higher-genus","section":"Algebraic geometry","title":"Deformation theory"},"derived-categories":{"next":"category-theory","prev":"model-categories","section":"Algebra & homological","title":"Derived categories"},"designs":{"next":"spectral-graph-theory","prev":"enumerative-combinatorics","section":"Combinatorics & graph theory","title":"Designs"},"differential-forms":{"next":"morse-theory","prev":"riemann-surfaces","section":"Geometry & topology","title":"Differential forms"},"differential-geometry":{"next":"riemann-surfaces","prev":"smooth-manifolds","section":"Geometry & topology","title":"Differential geometry"},"dirac-equation":{"next":"statistical-mechanics","prev":"klein-gordon-equation","section":"Mathematical physics","title":"Dirac equation"},"dirichlet-series-euler-products":{"next":"analytic-continuation","prev":null,"section":"Modular forms & L-functions","title":"Dirichlet series & Euler products"},"dirichlet-unit-theorem":{"next":"complex-multiplication","prev":"continued-fractions","section":"Number theory","title":"Dirichlet unit theorem"},"dynamical-systems":{"next":"semigroup-theory-evolution-equations","prev":"operator-algebras","section":"Analysis","title":"Dynamical systems"},"elementary-topos-theory":{"next":"grothendieck-topologies-sites","prev":"simplicial-sets-and-nerve","section":"Higher categories & toposes","title":"Elementary topos theory"},"elliptic-curves":{"next":"bezout","prev":"etale-fundamental-group","section":"Algebraic geometry","title":"Elliptic curves"},"enumerative-combinatorics":{"next":"designs","prev":"simplicial-complexes-combinatorial","section":"Combinatorics & graph theory","title":"Enumerative combinatorics"},"etale-cohomology":{"next":"mmp-and-birational-geometry","prev":"stacks","section":"Algebraic geometry","title":"Étale cohomology"},"etale-fundamental-group":{"next":"elliptic-curves","prev":"projective-plane","section":"Algebraic geometry","title":"Étale fundamental group"},"expanders":{"next":null,"prev":"spectral-graph-theory","section":"Combinatorics & graph theory","title":"Expanders"},"extremal-combinatorics":{"next":"simplicial-complexes-combinatorial","prev":"probabilistic-method","section":"Combinatorics & graph theory","title":"Extremal combinatorics"},"first-order-logic-and-completeness":{"next":"zfc-and-ordinals","prev":"type-theory-and-hott","section":"Logic & Foundations","title":"First order logic and completeness"},"fixed-point-theorems":{"next":"harmonic-analysis-fourier","prev":"functional-analysis","section":"Analysis","title":"Fixed point theorems"},"forcing-and-independence":{"next":null,"prev":"zfc-and-ordinals","section":"Logic & Foundations","title":"Forcing and independence"},"frobenius-and-reciprocity":{"next":"quadratic-reciprocity","prev":"adeles-and-ideles","section":"Number theory","title":"Frobenius & reciprocity"},"functional-analysis":{"next":"fixed-point-theorems","prev":"harmonic-functions","section":"Analysis","title":"Functional analysis"},"functor-of-points":{"next":"algebraic-spaces","prev":"morphisms-fiber-products","section":"Algebraic geometry","title":"Functor of points"},"galois":{"next":"algebraic-number-theory","prev":"analytic-number-theory","section":"Number theory","title":"Galois theory & the quintic"},"galois-cohomology-and-brauer":{"next":"group-cohomology","prev":"cluster-algebras","section":"Algebra & homological","title":"Galois cohomology and Brauer groups"},"galois-representations":{"next":"iwasawa-theory","prev":"class-field-theory","section":"Number theory","title":"Galois representations"},"gauge-theory":{"next":"string-theory","prev":"statistical-mechanics","section":"Mathematical physics","title":"Gauge theory"},"general-relativity":{"next":"schrodinger-equation","prev":"three-body-problem","section":"Mathematical physics","title":"General relativity & Einstein equations"},"geometric-and-combinatorial-group-theory":{"next":"cluster-algebras","prev":"quaternions-octonions-and-division-algebras","section":"Algebra & homological","title":"Geometric and combinatorial group theory"},"geometric-measure-theory":{"next":"operator-algebras","prev":"microlocal-analysis","section":"Analysis","title":"Geometric measure theory"},"groebner-bases":{"next":"condensed-mathematics","prev":"homological","section":"Algebra & homological","title":"Gröbner bases"},"grothendieck-topologies-sites":{"next":"infinity-topoi","prev":"elementary-topos-theory","section":"Higher categories & toposes","title":"Grothendieck topologies & sites"},"group-cohomology":{"next":"quantum-groups","prev":"galois-cohomology-and-brauer","section":"Algebra & homological","title":"Group cohomology"},"group-schemes":{"next":"morphisms-fiber-products","prev":"intersection-theory-chow","section":"Algebraic geometry","title":"Group schemes"},"half-integral-weight-forms":{"next":"shimura-varieties","prev":"maass-forms","section":"Modular forms & L-functions","title":"Half-integral weight forms"},"hamiltonians-classical-mechanics":{"next":"special-relativity","prev":"schrodinger-equation","section":"Mathematical physics","title":"Hamiltonians & classical mechanics"},"harmonic-analysis-fourier":{"next":"wavelets","prev":"fixed-point-theorems","section":"Analysis","title":"Harmonic analysis & Fourier theory"},"harmonic-functions":{"next":"functional-analysis","prev":"measure-theory","section":"Analysis","title":"Harmonic functions"},"hecke-operators":{"next":"automorphic-forms-adelic","prev":"theta-functions","section":"Modular forms & L-functions","title":"Hecke operators"},"heights-arithmetic-geometry":{"next":"mathematics-and-cryptography","prev":"additive-number-theory","section":"Number theory","title":"Heights in arithmetic geometry"},"heyting-algebras-toposes":{"next":"cocartesian-fibrations","prev":null,"section":"Higher categories & toposes","title":"Heyting algebras & intuitionist logic"},"high-dimensional-geometry":{"next":"information-theory","prev":"large-deviations","section":"Probability & statistics","title":"High dimensional geometry"},"hodge-theory":{"next":"singular-cubics-reduction","prev":"motives","section":"Algebraic geometry","title":"Hodge theory"},"homological":{"next":"groebner-bases","prev":"commutative-algebra","section":"Algebra & homological","title":"Homological algebra"},"homotopy-theory":{"next":"kahler-geometry","prev":"cobordism","section":"Geometry & topology","title":"Homotopy theory"},"infinity-categories":{"next":"simplicial-sets-and-nerve","prev":"cocartesian-fibrations","section":"Higher categories & toposes","title":"∞-categories (quasi-categories)"},"infinity-topoi":{"next":null,"prev":"grothendieck-topologies-sites","section":"Higher categories & toposes","title":"∞-topoi"},"information-theory":{"next":"mathematical-statistics","prev":"high-dimensional-geometry","section":"Probability & statistics","title":"Information theory"},"intersection-theory-chow":{"next":"group-schemes","prev":"sheaves","section":"Algebraic geometry","title":"Intersection theory & Chow groups"},"iwasawa-theory":{"next":"continued-fractions","prev":"galois-representations","section":"Number theory","title":"Iwasawa theory"},"k-theory":{"next":"atiyah-singer-index-theorem","prev":"characteristic-classes","section":"Geometry & topology","title":"K-theory"},"kahler-geometry":{"next":"mapping-class-groups","prev":"homotopy-theory","section":"Geometry & topology","title":"Kähler geometry"},"khovanov-homology":{"next":null,"prev":"mapping-class-groups","section":"Geometry & topology","title":"Khovanov homology"},"klein-gordon-equation":{"next":"dirac-equation","prev":"special-relativity","section":"Mathematical physics","title":"Klein-Gordon equation"},"knot-polynomials":{"next":"smooth-manifolds","prev":"algebraic-topology","section":"Geometry & topology","title":"Knot polynomials"},"langlands-program":{"next":"theta-functions","prev":"vertex-operator-algebras","section":"Modular forms & L-functions","title":"Langlands program"},"large-deviations":{"next":"high-dimensional-geometry","prev":"random-walks-and-mixing","section":"Probability & statistics","title":"Large deviations"},"lie-algebras":{"next":"quaternions-octonions-and-division-algebras","prev":"representation-theory","section":"Algebra & homological","title":"Lie algebras"},"lie-groups":{"next":"mostow-rigidity","prev":"ricci-flow","section":"Geometry & topology","title":"Lie groups & algebras"},"maass-forms":{"next":"half-integral-weight-forms","prev":"modularity-and-flt","section":"Modular forms & L-functions","title":"Maass forms"},"mapping-class-groups":{"next":"khovanov-homology","prev":"kahler-geometry","section":"Geometry & topology","title":"Mapping class groups & 4-manifolds"},"mathematical-statistics":{"next":"probability-theory","prev":"information-theory","section":"Probability & statistics","title":"Mathematical statistics"},"mathematics-and-cryptography":{"next":"computational-number-theory","prev":"heights-arithmetic-geometry","section":"Number theory","title":"Mathematics and cryptography"},"matroid-theory":{"next":"probabilistic-method","prev":null,"section":"Combinatorics & graph theory","title":"Matroid theory"},"measure-theory":{"next":"harmonic-functions","prev":"complex-analysis","section":"Analysis","title":"Measure theory"},"microlocal-analysis":{"next":"geometric-measure-theory","prev":"advanced-complex-analysis","section":"Analysis","title":"Microlocal analysis"},"mirror-symmetry":{"next":"algebraic-curves-higher-genus","prev":"calabi-yau-manifolds","section":"Algebraic geometry","title":"Mirror symmetry"},"mmp-and-birational-geometry":{"next":"d-modules","prev":"etale-cohomology","section":"Algebraic geometry","title":"MMP and birational geometry"},"model-categories":{"next":"derived-categories","prev":"algebraic-k-theory-foundations","section":"Algebra & homological","title":"Model categories"},"model-theory-basics":{"next":"computability-and-decidability","prev":"naive-set-theory","section":"Logic & Foundations","title":"Model theory basics"},"modular-curves":{"next":"vertex-operator-algebras","prev":"partitions-generating-functions","section":"Modular forms & L-functions","title":"Modular curves"},"modular-forms":{"next":"partitions-generating-functions","prev":"upper-half-plane-hyperbolic","section":"Modular forms & L-functions","title":"Modular forms"},"modularity-and-flt":{"next":"maass-forms","prev":"bsd","section":"Modular forms & L-functions","title":"Modularity & FLT"},"moduli-spaces":{"next":"toric-varieties","prev":"sheaf-cohomology","section":"Algebraic geometry","title":"Moduli spaces"},"moonshine":{"next":"L-functions","prev":"automorphic-forms-adelic","section":"Modular forms & L-functions","title":"Monstrous moonshine"},"morphisms-fiber-products":{"next":"functor-of-points","prev":"group-schemes","section":"Algebraic geometry","title":"Morphisms & fiber products"},"morse-theory":{"next":"symplectic-manifolds","prev":"differential-forms","section":"Geometry & topology","title":"Morse theory"},"mostow-rigidity":{"next":"cohomology-and-duality","prev":"lie-groups","section":"Geometry & topology","title":"Mostow rigidity"},"motives":{"next":"hodge-theory","prev":"resolution-of-singularities","section":"Algebraic geometry","title":"Motives"},"naive-set-theory":{"next":"model-theory-basics","prev":null,"section":"Logic & Foundations","title":"Naive set theory"},"numerical-analysis":{"next":"variational-methods","prev":"spectral-theory","section":"Analysis","title":"Numerical analysis"},"operator-algebras":{"next":"dynamical-systems","prev":"geometric-measure-theory","section":"Analysis","title":"Operator algebras"},"p-adic-numbers":{"next":"adeles-and-ideles","prev":"algebraic-number-theory","section":"Number theory","title":"p-adic numbers"},"partial-differential-equations":{"next":"spectral-theory","prev":"wavelets","section":"Analysis","title":"Partial differential equations"},"partitions-generating-functions":{"next":"modular-curves","prev":"modular-forms","section":"Modular forms & L-functions","title":"Partitions & generating functions"},"point-set-topology":{"next":"algebraic-topology","prev":null,"section":"Geometry & topology","title":"Point-set topology"},"positivity-and-ample-line-bundles":{"next":"stacks","prev":"abelian-varieties","section":"Algebraic geometry","title":"Positivity and ample line bundles"},"probabilistic-method":{"next":"extremal-combinatorics","prev":"matroid-theory","section":"Combinatorics & graph theory","title":"Probabilistic method"},"probability-theory":{"next":null,"prev":"mathematical-statistics","section":"Probability & statistics","title":"Probability theory"},"projective-plane":{"next":"etale-fundamental-group","prev":null,"section":"Algebraic geometry","title":"Projective plane"},"quadratic-forms-genus-theory":{"next":"additive-number-theory","prev":"quadratic-reciprocity","section":"Number theory","title":"Quadratic forms & genus theory"},"quadratic-reciprocity":{"next":"quadratic-forms-genus-theory","prev":"frobenius-and-reciprocity","section":"Number theory","title":"Quadratic reciprocity"},"quantum-field-theory":{"next":null,"prev":"string-theory","section":"Mathematical physics","title":"Quantum field theory"},"quantum-groups":{"next":"algebraic-k-theory-foundations","prev":"group-cohomology","section":"Algebra & homological","title":"Quantum groups"},"quaternions-octonions-and-division-algebras":{"next":"geometric-and-combinatorial-group-theory","prev":"lie-algebras","section":"Algebra & homological","title":"Quaternions, octonions, and division algebras"},"random-walks-and-mixing":{"next":"large-deviations","prev":"stochastic-calculus","section":"Probability & statistics","title":"Random walks and mixing"},"real-analysis":{"next":"complex-analysis","prev":null,"section":"Analysis","title":"Real analysis"},"representation-theory":{"next":"lie-algebras","prev":"algebra","section":"Algebra & homological","title":"Representation theory"},"resolution-of-singularities":{"next":"motives","prev":"deformation-theory","section":"Algebraic geometry","title":"Resolution of singularities"},"ricci-flow":{"next":"lie-groups","prev":"riemannian-geometry","section":"Geometry & topology","title":"Ricci flow"},"riemann-surfaces":{"next":"differential-forms","prev":"differential-geometry","section":"Geometry & topology","title":"Riemann surfaces"},"riemannian-geometry":{"next":"ricci-flow","prev":"atiyah-singer-index-theorem","section":"Geometry & topology","title":"Riemannian geometry"},"sato-tate":{"next":"bsd","prev":"L-functions","section":"Modular forms & L-functions","title":"Sato–Tate"},"schemes":{"next":"sheaves","prev":"bezout","section":"Algebraic geometry","title":"Schemes"},"schrodinger-equation":{"next":"hamiltonians-classical-mechanics","prev":"general-relativity","section":"Mathematical physics","title":"Schrödinger equation"},"semigroup-theory-evolution-equations":{"next":"several-complex-variables","prev":"dynamical-systems","section":"Analysis","title":"Semigroup theory & evolution equations"},"several-complex-variables":{"next":null,"prev":"semigroup-theory-evolution-equations","section":"Analysis","title":"Several complex variables"},"sheaf-cohomology":{"next":"moduli-spaces","prev":"singular-cubics-reduction","section":"Algebraic geometry","title":"Sheaf cohomology"},"sheaves":{"next":"intersection-theory-chow","prev":"schemes","section":"Algebraic geometry","title":"Sheaves"},"shimura-varieties":{"next":null,"prev":"half-integral-weight-forms","section":"Modular forms & L-functions","title":"Shimura varieties"},"simplicial-complexes-combinatorial":{"next":"enumerative-combinatorics","prev":"extremal-combinatorics","section":"Combinatorics & graph theory","title":"Simplicial complexes (combinatorial)"},"simplicial-sets-and-nerve":{"next":"elementary-topos-theory","prev":"infinity-categories","section":"Higher categories & toposes","title":"Simplicial sets & the nerve"},"singular-cubics-reduction":{"next":"sheaf-cohomology","prev":"hodge-theory","section":"Algebraic geometry","title":"Singular cubics & reduction"},"smooth-manifolds":{"next":"differential-geometry","prev":"knot-polynomials","section":"Geometry & topology","title":"Smooth manifolds"},"sobolev-spaces-distributions":{"next":"advanced-complex-analysis","prev":"variational-methods","section":"Analysis","title":"Sobolev spaces & distributions"},"special-relativity":{"next":"klein-gordon-equation","prev":"hamiltonians-classical-mechanics","section":"Mathematical physics","title":"Special relativity"},"spectral-graph-theory":{"next":"expanders","prev":"designs","section":"Combinatorics & graph theory","title":"Spectral graph theory"},"spectral-theory":{"next":"numerical-analysis","prev":"partial-differential-equations","section":"Analysis","title":"Spectral theory"},"stacks":{"next":"etale-cohomology","prev":"positivity-and-ample-line-bundles","section":"Algebraic geometry","title":"Stacks (Deligne–Mumford)"},"statistical-mechanics":{"next":"gauge-theory","prev":"dirac-equation","section":"Mathematical physics","title":"Statistical mechanics"},"stochastic-calculus":{"next":"random-walks-and-mixing","prev":"stochastic-processes-and-martingales","section":"Probability & statistics","title":"Stochastic calculus"},"stochastic-processes-and-martingales":{"next":"stochastic-calculus","prev":null,"section":"Probability & statistics","title":"Stochastic processes and martingales"},"string-theory":{"next":"quantum-field-theory","prev":"gauge-theory","section":"Mathematical physics","title":"String theory"},"symplectic-manifolds":{"next":"characteristic-classes","prev":"morse-theory","section":"Geometry & topology","title":"Symplectic manifolds"},"theta-functions":{"next":"hecke-operators","prev":"langlands-program","section":"Modular forms & L-functions","title":"Theta functions"},"three-body-problem":{"next":"general-relativity","prev":null,"section":"Mathematical physics","title":"The three-body problem"},"toric-varieties":{"next":"abelian-varieties","prev":"moduli-spaces","section":"Algebraic geometry","title":"Toric varieties"},"tropical-geometry":{"next":null,"prev":"crystalline-cohomology","section":"Algebraic geometry","title":"Tropical geometry"},"type-theory-and-hott":{"next":"first-order-logic-and-completeness","prev":"complexity-theory","section":"Logic & Foundations","title":"Type theory and HoTT"},"upper-half-plane-hyperbolic":{"next":"modular-forms","prev":"zeta-values","section":"Modular forms & L-functions","title":"Upper half-plane"},"variational-methods":{"next":"sobolev-spaces-distributions","prev":"numerical-analysis","section":"Analysis","title":"Variational methods"},"vertex-operator-algebras":{"next":"langlands-program","prev":"modular-curves","section":"Modular forms & L-functions","title":"Vertex operator algebras"},"wavelets":{"next":"partial-differential-equations","prev":"harmonic-analysis-fourier","section":"Analysis","title":"Wavelets"},"zeta-values":{"next":"upper-half-plane-hyperbolic","prev":"analytic-continuation","section":"Modular forms & L-functions","title":"Zeta values"},"zfc-and-ordinals":{"next":"forcing-and-independence","prev":"first-order-logic-and-completeness","section":"Logic & Foundations","title":"ZFC and ordinals"}};</script>
+<script src="./js/breadcrumb.js"></script>
+<script src="./js/glossary-popover.js" defer></script>
+<link rel="stylesheet" media="print" href="./css/print.css">
+<link rel="stylesheet" href="./css/theme-light.css">
+<script src="./js/theme-toggle.js"></script>
+<script src="./concepts/bundle.js" defer></script>
+<script src="./js/topic-hotkeys.js" defer></script>
+<script src="./js/topic-lineage.js" defer></script>
+<!-- breadcrumb-head-auto-end -->
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./js/katex-select.js"></script>
+<script src="./js/widget-diagram-editor.js"></script>
+<script src="./quizzes/bundle.js"></script>
+<script src="./js/sidetoc.js"></script>
+<!-- display-prefs-head-auto-begin -->
+<script src="./js/display-prefs.js"></script>
+<!-- display-prefs-head-auto-end -->
+</head>
+<body data-section="modular-forms-and-l-functions" data-level="intermediate">
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+// draw an arrow marker def once per svg (idempotent)
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+// curved arrow between two pixel points, with optional label
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  // shorten endpoints
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><span class="nav-links"><a class="nav-link" href="./pathway.html">Pathway</a><a class="nav-link" href="./tours.html">Tours</a><a class="nav-link" href="./history.html">History</a><a class="nav-link" href="./tags.html">Themes</a><a class="nav-link" href="./mindmap.html">Mindmap</a><a class="nav-link" href="./search.html">Search</a></span><span class="mv-theme-slot"></span><!-- breadcrumb-nav-auto-end -->
+<!-- toc-auto-begin -->
+  <a href="#datum">1&nbsp;The&nbsp;Shimura&nbsp;datum</a>
+  <a href="#canonical-model">2&nbsp;Adelic&nbsp;double&nbsp;quotient&nbsp;and&nbsp;canonical&nbsp;models</a>
+  <a href="#siegel">3&nbsp;Siegel&nbsp;modular&nbsp;varieties</a>
+  <a href="#hilbert">4&nbsp;Hilbert&nbsp;and&nbsp;quaternionic&nbsp;Shimura&nbsp;varieties</a>
+  <a href="#cohomology">5&nbsp;Étale&nbsp;cohomology&nbsp;and&nbsp;Galois&nbsp;representations</a>
+  <a href="#langlands-kottwitz">6&nbsp;The&nbsp;Langlands–Kottwitz&nbsp;program</a>
+  <a href="#connections">7&nbsp;Connections</a>
+<!-- toc-auto-end -->
+</nav>
+<!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Shimura varieties</h1>
+  <p class="sub">Higher-dimensional generalizations of modular curves: locally symmetric quasi-projective varieties whose points parametrize Hodge structures, whose canonical models live over arithmetic number fields, and whose étale cohomology realizes the automorphic-to-Galois bridge of the Langlands program.</p>
+</section>
+
+<section id="datum">
+<h2>1. The Shimura datum</h2>
+
+<p>A Shimura variety is built not from a Lie group alone but from a <strong>Shimura datum</strong> $(G, X)$: a connected reductive algebraic group $G$ over $\mathbb{Q}$ together with a $G(\mathbb{R})$-conjugacy class $X$ of homomorphisms
+$$h \colon \mathbb{S} \;\longrightarrow\; G_\mathbb{R},$$
+where $\mathbb{S} = \mathrm{Res}_{\mathbb{C}/\mathbb{R}} \mathbb{G}_m$ is the <em>Deligne torus</em> — the algebraic group whose real points are $\mathbb{C}^\times$. Each $h$ encodes a real Hodge structure: composing with the adjoint representation $G_\mathbb{R} \to \mathrm{GL}(\mathfrak{g}_\mathbb{R})$ gives a Hodge decomposition of the Lie algebra.</p>
+
+<p>Deligne's three axioms <strong>(SV1), (SV2), (SV3)</strong> single out the geometrically meaningful data:</p>
+
+<ul>
+<li><strong>(SV1)</strong> The Hodge structure on $\mathfrak{g}$ defined by $\mathrm{Ad}\circ h$ has type $\{(-1,1), (0,0), (1,-1)\}$. Equivalently, $\mathfrak{g}_\mathbb{C} = \mathfrak{g}^{-1,1} \oplus \mathfrak{g}^{0,0} \oplus \mathfrak{g}^{1,-1}$.</li>
+<li><strong>(SV2)</strong> $\mathrm{ad}(h(i))$ is a Cartan involution on $G^{\mathrm{ad}}_\mathbb{R}$ (so the centralizer $K_h \subset G(\mathbb{R})$ is compact modulo center). This forces $X$ to be a Hermitian symmetric domain.</li>
+<li><strong>(SV3)</strong> $G^{\mathrm{ad}}$ has no $\mathbb{Q}$-factor on which $h$ becomes trivial — there are no $\mathbb{Q}$-rational redundancies.</li>
+</ul>
+
+<p>Under (SV1)–(SV3), the conjugacy class $X = G(\mathbb{R})/K_h$ is a finite disjoint union of <strong>Hermitian symmetric domains</strong>; the connected component $X^+$ is one of the bounded symmetric domains classified by Cartan. The two foundational examples make the abstract data concrete:</p>
+
+<table class="plain">
+<tr><th>$G$</th><th>$X$</th><th>Resulting variety</th></tr>
+<tr><td>$\mathrm{GL}_2$</td><td>$\mathbb{H}^\pm = \mathbb{C} \setminus \mathbb{R}$</td><td>modular curve $Y_0(N)$ and its variants</td></tr>
+<tr><td>$\mathrm{GSp}_{2g}$</td><td>Siegel upper half-space $\mathfrak{H}_g$</td><td>Siegel modular variety $\mathcal{A}_g$</td></tr>
+<tr><td>$\mathrm{Res}_{F/\mathbb{Q}} \mathrm{GL}_2$, $F$ tot.&nbsp;real</td><td>$\mathbb{H}^{[F:\mathbb{Q}]}$</td><td>Hilbert modular variety</td></tr>
+<tr><td>$\mathrm{GO}(2,n)$</td><td>type IV domain</td><td>orthogonal Shimura variety (e.g.&nbsp;$K3$ moduli)</td></tr>
+<tr><td>$\mathrm{GU}(p,q)$</td><td>complex hyperbolic ball</td><td>unitary Shimura variety</td></tr>
+</table>
+
+<p>The widget below lets you walk through these classical $(G, X)$ pairs and read off the Hodge cocharacter $\mu_h \colon \mathbb{G}_{m,\mathbb{C}} \to G_\mathbb{C}$ — the half of $h_\mathbb{C}$ that picks out the holomorphic tangent direction and determines the <strong>reflex field</strong> $E(G,X)$ as the field of definition of the conjugacy class of $\mu_h$.</p>
+
+<div class="widget" id="w-datum">
+  <div class="hd"><div class="ttl">Widget 1 · Shimura datum explorer</div><div class="hint">classical $(G,X)$ pairs, their Hodge type, dimension, and reflex field</div></div>
+  <div class="row">
+    <label for="w-datum-pick">datum:</label>
+    <select id="w-datum-pick">
+      <option value="gl2" selected>(GL₂, ℋ±) — modular curves</option>
+      <option value="gsp4">(GSp₄, ℋ₂) — Siegel surfaces</option>
+      <option value="gsp6">(GSp₆, ℋ₃) — Siegel threefolds</option>
+      <option value="hilb2">(Res_{F/ℚ}GL₂, ℋ²) — Hilbert, [F:ℚ]=2</option>
+      <option value="hilb3">(Res_{F/ℚ}GL₂, ℋ³) — Hilbert, [F:ℚ]=3</option>
+      <option value="gu21">(GU(2,1), B²) — unitary ball, signature (2,1)</option>
+      <option value="go23">(GO(2,3), type-IV dom.) — orthogonal</option>
+    </select>
+  </div>
+  <svg id="w-datum-svg" viewBox="0 0 720 280" width="720" height="280" aria-label="Shimura datum diagram"></svg>
+  <div class="readout" id="w-datum-out">Pick a datum.</div>
+</div>
+<script>
+(function(){
+  const data = {
+    gl2: { G:"GL_2", X:"\\mathbb{H}^\\pm", dim:1, mu:"z\\mapsto\\mathrm{diag}(z,1)", reflex:"\\mathbb{Q}", herm:"complex upper half-plane (rank 1)", note:"The classical case: a modular curve. (SV1)–(SV3) all hold trivially.", weight:"weight-1 Hodge str. (elliptic curve)"},
+    gsp4: { G:"GSp_4", X:"\\mathfrak{H}_2", dim:3, mu:"z\\mapsto\\mathrm{diag}(z,z,1,1)", reflex:"\\mathbb{Q}", herm:"Siegel upper half-space, rank 2", note:"Moduli of principally polarized abelian surfaces.", weight:"weight-1 Hodge str., g=2"},
+    gsp6: { G:"GSp_6", X:"\\mathfrak{H}_3", dim:6, mu:"z\\mapsto\\mathrm{diag}(z,z,z,1,1,1)", reflex:"\\mathbb{Q}", herm:"Siegel upper half-space, rank 3", note:"Abelian threefolds with principal polarization.", weight:"weight-1 Hodge str., g=3"},
+    hilb2: { G:"\\mathrm{Res}_{F/\\mathbb{Q}}\\mathrm{GL}_2", X:"\\mathbb{H}^2", dim:2, mu:"z\\mapsto(\\mathrm{diag}(z,1),\\mathrm{diag}(z,1))", reflex:"\\mathbb{Q}", herm:"product of two upper half-planes", note:"$F$ real quadratic; parametrizes abelian surfaces with real multiplication by $\\mathcal{O}_F$.", weight:"weight-1, $F$-type"},
+    hilb3: { G:"\\mathrm{Res}_{F/\\mathbb{Q}}\\mathrm{GL}_2", X:"\\mathbb{H}^3", dim:3, mu:"\\text{diagonal in each factor}", reflex:"\\mathbb{Q}", herm:"product of three upper half-planes", note:"$F$ totally real cubic; abelian threefolds with $\\mathrm{RM}$ by $\\mathcal{O}_F$.", weight:"weight-1, $F$-type"},
+    gu21: { G:"GU(2,1)", X:"B^2\\subset\\mathbb{C}^2", dim:2, mu:"\\mathrm{diag}(z,z,1)", reflex:"\\mathbb{Q}(\\sqrt{-d})", herm:"complex hyperbolic ball, rank 1", note:"Picard modular surfaces; CM field $E$ defines $G$ over $\\mathbb{Q}$.", weight:"weight-1, signature (2,1)"},
+    go23: { G:"GO(2,3)", X:"\\text{type IV dom.}", dim:3, mu:"\\text{(see Deligne)}", reflex:"\\mathbb{Q}", herm:"type-IV symmetric domain", note:"Orthogonal Shimura variety; relates to $K3$ surfaces and lattice-polarized moduli.", weight:"weight-2 (e.g. $H^2$ of $K3$)"}
+  };
+  const sel = document.getElementById("w-datum-pick");
+  const svg = document.getElementById("w-datum-svg");
+  const out = document.getElementById("w-datum-out");
+  function render(){
+    const d = data[sel.value];
+    svg.innerHTML = "";
+    // diagram: S --h--> G_R, with mu_h on the right
+    const W=720,H=280;
+    // boxes
+    function box(x,y,w,h,fill,stroke){
+      svg.appendChild(SVG("rect",{x,y,width:w,height:h,rx:6,fill,stroke,"stroke-width":1.4}));
+    }
+    function txt(x,y,s,opts={}){
+      const t = SVG("text",Object.assign({x,y,"font-size":opts.fs||13,"text-anchor":opts.anchor||"middle",fill:opts.color||"var(--ink)"},opts.attrs||{}));
+      t.textContent = s; svg.appendChild(t);
+    }
+    box(40,80,140,60,"var(--panel2)","var(--cyan)");
+    txt(110,108,"𝕊 = Res_{ℂ/ℝ}𝔾_m",{fs:14,color:"var(--cyan)"});
+    txt(110,128,"(Deligne torus)",{fs:11,color:"var(--mute)"});
+
+    box(290,80,180,60,"var(--panel2)","var(--yellow)");
+    txt(380,108,d.G+"_ℝ",{fs:15,color:"var(--yellow)"});
+    txt(380,128,"reductive over ℝ",{fs:11,color:"var(--mute)"});
+
+    drawArrow(svg,[180,110],[290,110],{color:"var(--ink)",label:"h",markerId:"arr-h",pad1:6,pad2:6});
+
+    box(540,80,150,60,"var(--panel2)","var(--violet)");
+    txt(615,104,"𝔾_{m,ℂ}",{fs:13,color:"var(--violet)"});
+    txt(615,124,"μ_h: "+d.mu,{fs:10,color:"var(--mute)"});
+
+    drawArrow(svg,[470,100],[540,100],{color:"var(--violet)",label:"μ_h",markerId:"arr-mu",pad1:6,pad2:6,curve:0});
+
+    // bottom-row: domain X, dim, reflex
+    box(40,180,200,72,"var(--panel)","var(--green)");
+    txt(140,202,"X (Hermitian)",{fs:12,color:"var(--green)"});
+    txt(140,224,d.herm,{fs:11,color:"var(--mute)"});
+    txt(140,244,"dim_ℂ = "+d.dim,{fs:11,color:"var(--ink)"});
+
+    box(290,180,180,72,"var(--panel)","var(--pink)");
+    txt(380,202,"Hodge type",{fs:12,color:"var(--pink)"});
+    txt(380,224,d.weight,{fs:11,color:"var(--mute)"});
+
+    box(500,180,190,72,"var(--panel)","var(--blue)");
+    txt(595,202,"Reflex field E(G,X)",{fs:12,color:"var(--blue)"});
+    txt(595,224,d.reflex,{fs:13,color:"var(--blue)",attrs:{"font-weight":600}});
+    txt(595,244,"= field of def. of [μ_h]",{fs:10,color:"var(--mute)"});
+
+    out.textContent = d.note;
+  }
+  sel.addEventListener("change",render);
+  render();
+})();
+</script>
+
+<p>Concretely, the Hodge cocharacter $\mu_h$ controls the <em>tangent space at a point of $X$</em>: the $(0,1)$-part of the Hodge decomposition gives the antiholomorphic directions. The conjugacy class $\{\mu_h\}$ over $\mathbb{C}$ is in general defined over a number field — the <strong>reflex field</strong> $E = E(G,X)$ — which will be the field of definition of the canonical model. For $\mathrm{GL}_2$ and $\mathrm{GSp}_{2g}$ one has $E = \mathbb{Q}$; for unitary groups $\mathrm{GU}(p,q)$ attached to a CM field $K$ the reflex is $K$ or its reflex CM field; for orthogonal groups the reflex is $\mathbb{Q}$ but the canonical model still encodes deep arithmetic.</p>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./lie-groups.html#intro">Lie groups and matrix examples</a></li>
+    <li><a href="./upper-half-plane-hyperbolic.html#H">The upper half-plane model</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./shimura-varieties.html#canonical-model">Shimura varieties</a> · Adelic double quotient and canonical models</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="shim-datum"></div>
+</section>
+
+<section id="canonical-model">
+<h2>2. Adelic double quotient and canonical models</h2>
+
+<p>Once the datum $(G,X)$ is fixed, choose a <strong>compact open subgroup</strong> $K \subset G(\mathbb{A}_f)$ of the finite adèles. The associated <strong>Shimura variety at level $K$</strong> is the double quotient
+$$\mathrm{Sh}_K(G,X) \;=\; G(\mathbb{Q}) \,\backslash\, \bigl( X \times G(\mathbb{A}_f) / K \bigr).$$
+Strong approximation gives a finite decomposition $G(\mathbb{A}_f) = \bigsqcup_i G(\mathbb{Q})^+ g_i K$, so concretely
+$$\mathrm{Sh}_K(G,X)(\mathbb{C}) \;=\; \bigsqcup_i \Gamma_i \backslash X^+,$$
+a <em>finite</em> disjoint union of arithmetic quotients of the connected Hermitian domain $X^+$, indexed by the double coset $G(\mathbb{Q})^+ \backslash G(\mathbb{A}_f) / K$. Here $\Gamma_i = g_i K g_i^{-1} \cap G(\mathbb{Q})^+$ is an arithmetic congruence subgroup of $G(\mathbb{Q})^+$.</p>
+
+<p>For $G = \mathrm{GL}_2$ and $K = K_0(N) = \prod_p K_{0,p}$ (the standard congruence-$\Gamma_0(N)$ adèlic level), the double quotient gives back the modular curve $Y_0(N)$ studied in §<a href="./modular-curves.html#y0-x0">modular curves</a>. The whole formalism is engineered so that <em>varying $K$</em> traces out a <strong>tower</strong> $\{\mathrm{Sh}_K\}_K$ with $G(\mathbb{A}_f)$ acting on the inverse limit through Hecke correspondences.</p>
+
+<div class="ok"><strong>Theorem (Baily–Borel).</strong> For neat $K$, $\mathrm{Sh}_K(G,X)$ is a smooth quasi-projective complex algebraic variety. Adding the <em>Baily–Borel boundary</em> compactifies it to a normal projective variety; smoother toroidal compactifications of Ash–Mumford–Rapoport–Tai refine this with explicit local fan data.</div>
+
+<p>The deeper miracle is that this complex variety descends to a number field. <strong>Shimura's reciprocity law / Deligne's canonical model theorem</strong> asserts: there is a canonical $E$-model $\mathrm{Sh}_K(G,X)_E$ over the reflex field $E = E(G,X)$, characterized by how it interacts with <strong>special points</strong> — points where the homomorphism $h$ factors through a maximal $\mathbb{Q}$-torus. Special points correspond to CM Hodge structures, and on them the Galois action of $\mathrm{Gal}(\overline{E}/E)$ is described explicitly by the reflex norm and class field theory of $E$.</p>
+
+<div class="widget" id="w-canon">
+  <div class="hd"><div class="ttl">Widget 2 · Adelic double-quotient counter</div><div class="hint">how many connected components does $\mathrm{Sh}_K$ have?</div></div>
+  <div class="row">
+    <label for="w-canon-G">G:</label>
+    <select id="w-canon-G">
+      <option value="gl2" selected>GL₂/ℚ</option>
+      <option value="gsp4">GSp₄/ℚ</option>
+    </select>
+    <label for="w-canon-N">level N:</label>
+    <input type="number" id="w-canon-N" min="1" max="200" step="1" value="11" style="width:5em">
+    <label for="w-canon-type">$K$ type:</label>
+    <select id="w-canon-type">
+      <option value="K0" selected>$K_0(N)$</option>
+      <option value="K1">$K_1(N)$</option>
+      <option value="K">$K(N)$</option>
+    </select>
+  </div>
+  <div class="readout" id="w-canon-out">…</div>
+</div>
+<script>
+(function(){
+  const Gsel = document.getElementById("w-canon-G");
+  const Nin = document.getElementById("w-canon-N");
+  const Tsel = document.getElementById("w-canon-type");
+  const out = document.getElementById("w-canon-out");
+  function eulerphi(n){
+    let r=n;
+    for(let p=2;p*p<=n;p++){
+      if(n%p===0){ while(n%p===0) n/=p; r-=r/p; }
+    }
+    if(n>1) r-=r/n;
+    return Math.round(r);
+  }
+  function indexGL2(N,type){
+    // [SL2(Z): Gamma_0(N)] = N * prod (1+1/p)
+    // [SL2(Z): Gamma_1(N)] = N^2 * prod (1-1/p^2) = phi(N)*N* prod(1+1/p) ... we use direct formula
+    // [SL2(Z): Gamma(N)]   = N^3 * prod (1-1/p^2) (for N>=3)
+    let prod = 1, m = N;
+    for(let p=2;p*p<=m;p++){
+      if(m%p===0){
+        if(type==="K0") prod *= (1 + 1/p);
+        else if(type==="K1") prod *= (1 - 1/(p*p));
+        else if(type==="K")  prod *= (1 - 1/(p*p));
+        while(m%p===0) m/=p;
+      }
+    }
+    if(m>1){
+      const p = m;
+      if(type==="K0") prod *= (1 + 1/p);
+      else if(type==="K1") prod *= (1 - 1/(p*p));
+      else if(type==="K")  prod *= (1 - 1/(p*p));
+    }
+    if(type==="K0") return Math.round(N*prod);
+    if(type==="K1") return Math.round(N*N*prod);
+    return Math.round(N*N*N*prod);
+  }
+  function components(N,type){
+    if(type==="K0") return 1;
+    if(type==="K1") return 1;
+    // K(N) full level: components = phi(N) (over Q; over Q(zeta_N) one component)
+    return eulerphi(N);
+  }
+  function render(){
+    const N = Math.max(1, Math.min(200, parseInt(Nin.value,10)||1));
+    const t = Tsel.value;
+    const G = Gsel.value;
+    let lines = [];
+    if(G==="gl2"){
+      const ix = indexGL2(N,t);
+      const cc = components(N,t);
+      const dimC = 1;
+      const reflex = (t==="K"||t==="K1") ? "ℚ(ζ_N)" : "ℚ";
+      lines.push(`G = GL₂, dim_ℂ Sh_K = ${dimC}`);
+      lines.push(`level type ${t}, N = ${N}`);
+      lines.push(`[SL₂(ℤ) : Γ] = ${ix}`);
+      lines.push(`# connected components / ℂ = ${cc}`);
+      lines.push(`reflex E(G,X) = ℚ;  Sh_K is over ${reflex}.`);
+      if(t==="K0") lines.push(`Each component is X_0(${N}) (analytically Y_0(${N})).`);
+    } else {
+      // GSp_4 — use approximation: index_principal(N) = N^{10} prod(1-1/p^2)(1-1/p^4) for principal
+      // we just report dimension and components qualitatively
+      lines.push(`G = GSp₄, dim_ℂ Sh_K = 3 (Siegel threefold).`);
+      lines.push(`level type ${t}, N = ${N}.`);
+      lines.push(`Strong approximation ⇒ 1 component over ℂ for principal level N≥1.`);
+      lines.push(`reflex E(G,X) = ℚ.`);
+      lines.push(`Galois group  Gal(ℚ(ζ_N)/ℚ) acts on the geometric components.`);
+    }
+    out.textContent = lines.join("\n");
+  }
+  Gsel.addEventListener("change",render);
+  Nin.addEventListener("input",render);
+  Tsel.addEventListener("change",render);
+  render();
+})();
+</script>
+
+<p>The adelic packaging is not cosmetic. Hecke correspondences come from <em>right multiplication by $g \in G(\mathbb{A}_f)$</em> on the second factor; the action of an unramified Hecke algebra at $p \nmid N$ becomes the obvious commuting algebra on the inverse system $\{\mathrm{Sh}_K\}$. This is what makes $H^*_{\mathrm{ét}}(\mathrm{Sh})$ a module for both $\mathrm{Gal}(\overline{E}/E)$ and the (adelic) Hecke algebra simultaneously — the seed of §5.</p>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./automorphic-forms-adelic.html#auto-form">Adelic automorphic forms</a></li>
+    <li><a href="./automorphic-forms-adelic.html#satake">Spherical Hecke algebra and Satake</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./shimura-varieties.html#hilbert">Shimura varieties</a> · Hilbert and quaternionic Shimura varieties</div>
+    <div><a href="./shimura-varieties.html#siegel">Shimura varieties</a> · Siegel modular varieties $\mathcal{A}_g$</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="shim-canonical-model"></div>
+</section>
+
+<section id="siegel">
+<h2>3. Siegel modular varieties</h2>
+
+<p>The most important infinite family is $\mathcal{A}_g = \mathrm{Sh}_{K}(\mathrm{GSp}_{2g}, \mathfrak{H}_g)$, the <strong>Siegel modular variety of genus $g$</strong>. Its complex points parametrize <em>principally polarized abelian varieties of dimension $g$</em> (with level structure determined by $K$).</p>
+
+<p>The Siegel upper half-space is
+$$\mathfrak{H}_g \;=\; \{\, \tau \in M_g(\mathbb{C}) \,:\, \tau = \tau^\top,\ \mathrm{Im}\,\tau > 0 \,\},$$
+a complex Hermitian symmetric domain of dimension $\binom{g+1}{2}$. The symplectic group $\mathrm{Sp}_{2g}(\mathbb{R})$ acts by generalized fractional-linear transformations:
+$$\begin{pmatrix} A & B \\ C & D \end{pmatrix} \cdot \tau \;=\; (A\tau + B)(C\tau + D)^{-1}.$$
+For the principal congruence subgroup $\Gamma(N) \subset \mathrm{Sp}_{2g}(\mathbb{Z})$, the quotient
+$$\mathcal{A}_g(N) \;=\; \Gamma(N) \backslash \mathfrak{H}_g$$
+is the moduli space of principally polarized abelian $g$-folds with full level-$N$ structure.</p>
+
+<div class="note"><strong>Why polarization matters.</strong> A complex torus $V/\Lambda$ comes from an abelian variety iff $\Lambda$ admits a <em>positive Riemann form</em> — this is the Hodge–Riemann condition that promotes a torus to projective. A principal polarization is the simplest such datum (alternating, $\det = 1$); $\mathfrak{H}_g$ parametrizes pairs $(A, \lambda)$ with $\lambda$ principal. See <a href="./abelian-varieties.html#polarization">abelian varieties §2</a>.</div>
+
+<p>For $g = 2$ the Siegel space $\mathfrak{H}_2 \subset \mathbb{C}^3$ has complex dimension $3$, and a point $\tau = \begin{pmatrix} \tau_1 & z \\ z & \tau_2 \end{pmatrix}$ is determined by three complex parameters with constraints $\mathrm{Im}\,\tau_1 > 0$, $\mathrm{Im}\,\tau_2 > 0$, $\mathrm{Im}(\tau_1 \tau_2 - z^2) > 0$. Drag in the widget below to feel the geometry — the boundary stratification corresponds to <em>degenerations</em> of the abelian surface (rank drops; the surface becomes a product of elliptic curves, or a torus times a $\mathbb{G}_m$, etc.).</p>
+
+<div class="widget" id="w-siegel">
+  <div class="hd"><div class="ttl">Widget 3 · Siegel upper half-space ($g=2$)</div><div class="hint">drag the cursor; see Im τ positivity and degenerations</div></div>
+  <div class="row">
+    <label for="w-siegel-y1">$\mathrm{Im}\,\tau_1$</label>
+    <input type="range" id="w-siegel-y1" min="0.1" max="3" step="0.05" value="1.2">
+    <span class="readout" id="w-siegel-y1-v" style="min-width:3em;display:inline-block">1.20</span>
+    <label for="w-siegel-y2">$\mathrm{Im}\,\tau_2$</label>
+    <input type="range" id="w-siegel-y2" min="0.1" max="3" step="0.05" value="1.2">
+    <span class="readout" id="w-siegel-y2-v" style="min-width:3em;display:inline-block">1.20</span>
+    <label for="w-siegel-yz">$\mathrm{Im}\,z$</label>
+    <input type="range" id="w-siegel-yz" min="-1.5" max="1.5" step="0.05" value="0.0">
+    <span class="readout" id="w-siegel-yz-v" style="min-width:3em;display:inline-block">0.00</span>
+  </div>
+  <svg id="w-siegel-svg" viewBox="0 0 720 320" width="720" height="320" aria-label="Siegel upper half-space slice"></svg>
+  <div class="readout" id="w-siegel-out">…</div>
+</div>
+<script>
+(function(){
+  const y1in = document.getElementById("w-siegel-y1");
+  const y2in = document.getElementById("w-siegel-y2");
+  const yzin = document.getElementById("w-siegel-yz");
+  const y1v = document.getElementById("w-siegel-y1-v");
+  const y2v = document.getElementById("w-siegel-y2-v");
+  const yzv = document.getElementById("w-siegel-yz-v");
+  const svg = document.getElementById("w-siegel-svg");
+  const out = document.getElementById("w-siegel-out");
+  function render(){
+    const y1 = parseFloat(y1in.value), y2 = parseFloat(y2in.value), yz = parseFloat(yzin.value);
+    y1v.textContent = y1.toFixed(2);
+    y2v.textContent = y2.toFixed(2);
+    yzv.textContent = yz.toFixed(2);
+    const det = y1*y2 - yz*yz;
+    svg.innerHTML = "";
+    const W=720,H=320,cx=W/2,cy=H/2;
+    // axes
+    svg.appendChild(SVG("line",{x1:40,y1:cy,x2:W-40,y2:cy,stroke:"var(--mute)","stroke-width":1.2}));
+    svg.appendChild(SVG("line",{x1:cx,y1:30,x2:cx,y2:H-30,stroke:"var(--mute)","stroke-width":1.2}));
+    // boundary curve y1*y2 = yz^2 in (y1,y2) plane for fixed yz
+    // for each y1 in [0.1, 3], boundary y2 = yz^2 / y1
+    const pts = [];
+    for(let xy1=0.1; xy1<=3; xy1+=0.02){
+      const xy2 = yz*yz / Math.max(xy1, 1e-6);
+      if(xy2 < 3 && xy2 > 0.05){
+        const X = 40 + (xy1/3)*(W-80);
+        const Y = (H-30) - (xy2/3)*(H-60);
+        pts.push([X,Y]);
+      }
+    }
+    if(pts.length>1){
+      let d = `M ${pts[0][0].toFixed(1)} ${pts[0][1].toFixed(1)}`;
+      for(let i=1;i<pts.length;i++) d += ` L ${pts[i][0].toFixed(1)} ${pts[i][1].toFixed(1)}`;
+      svg.appendChild(SVG("path",{d,fill:"none",stroke:"var(--pink)","stroke-width":1.6,"stroke-dasharray":"4 3"}));
+    }
+    // shaded region above boundary (interior)
+    // current point
+    const pX = 40 + (y1/3)*(W-80);
+    const pY = (H-30) - (y2/3)*(H-60);
+    const inside = det > 0;
+    svg.appendChild(SVG("circle",{cx:pX,cy:pY,r:7,fill: inside?"var(--green)":"var(--pink)",stroke:"#000","stroke-width":1.2}));
+    const lbl = SVG("text",{x:pX+10,y:pY-6,"font-size":12,fill:"var(--ink)"});
+    lbl.textContent = `(Im τ₁, Im τ₂) = (${y1.toFixed(2)}, ${y2.toFixed(2)})`; svg.appendChild(lbl);
+    // axis labels
+    const lx = SVG("text",{x:W-50,y:cy-8,"font-size":12,fill:"var(--mute)"}); lx.textContent="Im τ₁"; svg.appendChild(lx);
+    const ly = SVG("text",{x:cx+8,y:40,"font-size":12,fill:"var(--mute)"}); ly.textContent="Im τ₂"; svg.appendChild(ly);
+    const lc = SVG("text",{x:60,y:50,"font-size":12,fill:"var(--pink)"}); lc.textContent="boundary: Im τ₁·Im τ₂ = (Im z)²"; svg.appendChild(lc);
+    if(inside){
+      out.textContent = `det Im τ = ${det.toFixed(3)} > 0  ✓\nτ ∈ 𝓗₂; principally polarized abelian surface, generic.`;
+    } else if(Math.abs(det) < 0.01){
+      out.textContent = `det Im τ ≈ 0  (boundary)\nDegeneration: abelian surface decomposes (rank-drop locus).`;
+    } else {
+      out.textContent = `det Im τ = ${det.toFixed(3)} ≤ 0  ✗\nτ ∉ 𝓗₂ — outside Siegel space; not a polarized AV.`;
+    }
+  }
+  y1in.addEventListener("input",render);
+  y2in.addEventListener("input",render);
+  yzin.addEventListener("input",render);
+  render();
+})();
+</script>
+
+<p>The Siegel variety carries the <strong>Hodge bundle</strong> $\omega = \det(\mathrm{Lie}\,\mathcal{A})^\vee$ where $\mathcal{A} \to \mathcal{A}_g$ is the universal abelian scheme; sections of $\omega^{\otimes k}$ are <em>Siegel modular forms of weight $k$</em>. The compactification theory due to Mumford and Faltings–Chai gives <strong>toroidal compactifications</strong> $\overline{\mathcal{A}_g}$ whose boundary parametrizes degenerations $A \rightsquigarrow \text{(semi-abelian)}$; the resulting <em>minimal compactification</em> $\mathcal{A}_g^*$ (Baily–Borel) glues in lower-dimensional Siegel varieties $\mathcal{A}_{g'}$ for $g' < g$ along the boundary — a recursive arithmetic structure.</p>
+
+<p>Concretely, $\mathcal{A}_2$ has dimension $3$ over $\mathbb{Q}$; its $\mathbb{Q}$-points classify principally polarized abelian surfaces over $\mathbb{Q}$, which (by Torelli) come either from genus-$2$ curves or are products of elliptic curves. Vector-valued Siegel modular forms on $\mathcal{A}_2$ feed into the conjectural automorphic spectrum for $\mathrm{GSp}_4$ and contribute to (e.g.) Yoshida's lifts and the Saito–Kurokawa correspondence.</p>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./abelian-varieties.html#polarization">Polarizations and the dual abelian variety</a></li>
+    <li><a href="./modular-curves.html#moduli">$Y_0(N)$ as a moduli space</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./shimura-varieties.html#cohomology">Shimura varieties</a> · Étale cohomology and Galois representations</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="shim-siegel"></div>
+</section>
+
+<section id="hilbert">
+<h2>4. Hilbert and quaternionic Shimura varieties</h2>
+
+<p>Replacing $\mathrm{GL}_2/\mathbb{Q}$ by a Weil restriction or an inner form generates two further familiar families. Both extend the modular-curve story to a totally real or quaternionic base.</p>
+
+<h3>Hilbert modular varieties</h3>
+
+<p>Let $F$ be a totally real number field with $[F:\mathbb{Q}] = d$ and ring of integers $\mathcal{O}_F$. The group
+$$G \;=\; \mathrm{Res}_{F/\mathbb{Q}}\,\mathrm{GL}_2$$
+satisfies $G(\mathbb{Q}) = \mathrm{GL}_2(F)$ and $G(\mathbb{R}) = \prod_{\sigma \colon F \hookrightarrow \mathbb{R}} \mathrm{GL}_2(\mathbb{R})$. Its Hermitian symmetric space is the product
+$$X^+ \;=\; \mathbb{H}^d,$$
+one upper half-plane per real embedding of $F$. The resulting Shimura variety $\mathrm{Sh}_K(G,X)$ is the <strong>Hilbert modular variety</strong> $Y_F(K)$, a $d$-dimensional algebraic variety over $\mathbb{Q}$. Its $\mathbb{C}$-points parametrize abelian varieties of dimension $d$ with <em>real multiplication</em> by $\mathcal{O}_F$ (an injection $\mathcal{O}_F \hookrightarrow \mathrm{End}(A)$ such that $\mathrm{Lie}(A)$ becomes a free $F \otimes_{\mathbb{Q}} \mathbb{R}$-module of rank $1$).</p>
+
+<p>For $F = \mathbb{Q}(\sqrt{5})$ ($d = 2$) one gets a Hilbert modular surface; its Hirzebruch–Zagier divisors come from embedded Shimura subvarieties of "smaller signature" — a structure that produces explicit relations among $L$-values.</p>
+
+<h3>Quaternionic Shimura varieties (Shimura curves)</h3>
+
+<p>Let $B$ be a quaternion algebra over a totally real field $F$, split at exactly one infinite place (so $B \otimes_F \mathbb{R} \cong M_2(\mathbb{R}) \times \mathbb{H}^{d-1}$). The reductive group $G$ obtained from $B^\times$ has Hermitian symmetric space $\mathbb{H}$ (the single split place); the resulting Shimura variety is a curve — a <strong>Shimura curve</strong> $X^B(K)$. When $B = M_2(F)$ this collapses to a Hilbert modular curve; for non-split $B$ the curve has <em>no cusps</em> (compact!) and its moduli interpretation is in terms of <em>fake elliptic curves</em>: abelian surfaces with quaternionic multiplication by an order $\mathcal{O}_B \subset B$.</p>
+
+<div class="ok"><strong>Compact vs non-compact.</strong> $X^B$ is compact iff $B$ is non-split. This subtle change makes Shimura curves attractive: no cusps means cleaner trace formulas, no Eisenstein contribution, and the Jacquet–Langlands correspondence relates $H^1$ of $X^B$ to certain newforms on the modular curve $X_0(N_B)$ where $N_B$ is the discriminant of $B$.</div>
+
+<div class="widget" id="w-hilb">
+  <div class="hd"><div class="ttl">Widget 4 · Hilbert vs quaternionic comparison</div><div class="hint">pick $F$, then split or non-split $B/F$</div></div>
+  <div class="row">
+    <label for="w-hilb-F">field $F$:</label>
+    <select id="w-hilb-F">
+      <option value="Q" selected>F = ℚ (d=1)</option>
+      <option value="Qsqrt5">F = ℚ(√5) (d=2)</option>
+      <option value="Qsqrt2">F = ℚ(√2) (d=2)</option>
+      <option value="Qsqrt6">F = ℚ(√6) (d=2)</option>
+      <option value="cubic">F = totally real cubic (d=3)</option>
+    </select>
+    <label for="w-hilb-B">algebra $B/F$:</label>
+    <select id="w-hilb-B">
+      <option value="split" selected>B = M₂(F) (split everywhere)</option>
+      <option value="nonsplit2">B ramified at 2 places (non-split)</option>
+      <option value="nonsplit4">B ramified at 4 places (non-split)</option>
+    </select>
+  </div>
+  <div class="readout" id="w-hilb-out">…</div>
+</div>
+<script>
+(function(){
+  const F = document.getElementById("w-hilb-F");
+  const B = document.getElementById("w-hilb-B");
+  const out = document.getElementById("w-hilb-out");
+  const data = {
+    Q:      { d:1, name:"ℚ", disc:1 },
+    Qsqrt5: { d:2, name:"ℚ(√5)", disc:5 },
+    Qsqrt2: { d:2, name:"ℚ(√2)", disc:8 },
+    Qsqrt6: { d:2, name:"ℚ(√6)", disc:24 },
+    cubic:  { d:3, name:"totally real cubic (e.g. ℚ(α), α³−α−1=0)", disc:23 }
+  };
+  function render(){
+    const f = data[F.value];
+    const b = B.value;
+    const lines = [];
+    lines.push(`F = ${f.name},  d = [F:ℚ] = ${f.d}`);
+    if(b === "split"){
+      lines.push(`B = M₂(F) — split at every place of F`);
+      lines.push(`G = Res_{F/ℚ} GL₂  ⇒  Hilbert modular variety`);
+      lines.push(`X = ℋ^${f.d},  dim_ℂ Sh_K = ${f.d}`);
+      lines.push(`compact? ${f.d===0?"":"no"}  (cusps present, indexed by the cl(F))`);
+      lines.push(`moduli: abelian d-folds with RM by 𝒪_F  (d = ${f.d})`);
+      lines.push(`reflex: E(G,X) = ℚ`);
+    } else {
+      const ramif = (b === "nonsplit2") ? 2 : 4;
+      const splitInf = Math.max(0, f.d - ramif/2 + 0); // heuristic
+      const splitAtOneInfPlace = (f.d >= 1);
+      lines.push(`B/F quaternion algebra ramified at ${ramif} places of F`);
+      lines.push(`(# infinite places of F = ${f.d}; split at exactly 1 ⇒ Shimura curve)`);
+      if(f.d === 1){
+        lines.push(`F = ℚ:  B is non-split ⇒ compact Shimura curve X^B (dim 1)`);
+        lines.push(`moduli: abelian surfaces with QM by an order in B (fake elliptic curves)`);
+      } else {
+        lines.push(`F totally real of degree ${f.d}, B split at one ∞-place`);
+        lines.push(`⇒ Shimura curve X^B over reflex E ⊂ F·ℚ^{ab}`);
+        lines.push(`Jacquet–Langlands: H¹(X^B) ↔ subspace of S₂(N_B) on the GL₂/F side`);
+      }
+      lines.push(`compact? yes (no cusps for non-split B)`);
+    }
+    out.textContent = lines.join("\n");
+  }
+  F.addEventListener("change",render);
+  B.addEventListener("change",render);
+  render();
+})();
+</script>
+
+<p>The arithmetic payoff: any classical newform $f \in S_2(\Gamma_0(N))$ such that $N$ has an even number of prime divisors with $\mathrm{ord}_p(N) = 1$ has, by Jacquet–Langlands, a quaternionic counterpart $f^B$ on a Shimura curve $X^B$; the Galois representation of $f$ is realized in $H^1(X^B \otimes_\mathbb{Q} \overline{\mathbb{Q}}, \overline{\mathbb{Q}}_\ell)$ instead of $H^1(X_0(N))$. This is essential to <em>level-lowering</em> arguments in the proof of <a href="./modularity-and-flt.html#level-lowering">Fermat's Last Theorem</a> — see Ribet's theorem.</p>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./abelian-varieties.html#definition">Abelian varieties and complex tori</a></li>
+    <li><a href="./modular-curves.html#y0-x0">Y0(N), X0(N), and the cusps</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./shimura-varieties.html#cohomology">Shimura varieties</a> · Étale cohomology and Galois representations</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="shim-hilbert"></div>
+</section>
+
+<section id="cohomology">
+<h2>5. Étale cohomology and Galois representations</h2>
+
+<p>Now the arithmetic harvest. Fix a prime $\ell$ different from any residue characteristic that will appear, choose a level $K$, and consider the $\ell$-adic <strong>étale cohomology</strong>
+$$H^i_{\mathrm{ét}}\bigl( \mathrm{Sh}_K(G,X) \times_E \overline{E},\ \overline{\mathbb{Q}}_\ell \bigr).$$
+This finite-dimensional $\overline{\mathbb{Q}}_\ell$-vector space carries <em>two commuting actions</em>:</p>
+
+<ul>
+<li>A continuous action of $\mathrm{Gal}(\overline{E}/E)$, by functoriality of étale cohomology.</li>
+<li>An action of the (adelic) Hecke algebra $\mathcal{H}(G(\mathbb{A}_f) /\!/ K)$, induced by the Hecke correspondences on the Shimura variety.</li>
+</ul>
+
+<p>Because the Hecke algebra is commutative on its spherical part (away from $\mathrm{ramif}(K)$), the étale cohomology decomposes as a direct sum over Hecke eigensystems. For each automorphic representation $\pi$ of $G(\mathbb{A})$ contributing to $H^i_{\mathrm{ét}}$, the $\pi$-isotypic component is a Galois representation:
+$$H^i_{\mathrm{ét}}\bigl( \mathrm{Sh}_K(G,X) \times \overline{E},\ \overline{\mathbb{Q}}_\ell \bigr)_\pi \;=\; \pi_f^K \otimes \rho_{\pi,\ell}.$$
+This is the canonical mechanism by which automorphic forms produce Galois representations.</p>
+
+<div class="ok"><strong>Eichler–Shimura ($\mathrm{GL}_2/\mathbb{Q}$).</strong> For a weight-$2$ newform $f \in S_2(\Gamma_0(N))$ with $q$-expansion $\sum a_n q^n$, the eigensystem $T_p \mapsto a_p$ singles out a $2$-dimensional Galois representation $\rho_{f,\ell} \colon \mathrm{Gal}(\overline{\mathbb{Q}}/\mathbb{Q}) \to \mathrm{GL}_2(\overline{\mathbb{Q}}_\ell)$ inside $H^1_{\mathrm{ét}}(X_0(N) \times \overline{\mathbb{Q}}, \overline{\mathbb{Q}}_\ell)$, with $\mathrm{tr}\,\rho_{f,\ell}(\mathrm{Frob}_p) = a_p$ for $p \nmid N\ell$.</div>
+
+<p>For higher rank and weight, this picture was generalized by Deligne (weight $\ge 2$ holomorphic), Carayol (Hilbert modular forms via Shimura curves, level-by-level), Brylinski–Labesse (totally real fields), Kottwitz (Siegel and unitary cases via the "stable trace formula on Shimura varieties"), and many others — culminating in Shin–Caraiani–Scholze for unitary groups and the modern derived-category approach of Fargues–Scholze on the Fargues–Fontaine curve.</p>
+
+<p>The widget below shows the <em>Hecke action on $H^1$ of $X_0(11)$</em> — a $1$-dimensional Hecke eigenspace, hence a single $2$-dim Galois representation, hence a single weight-$2$ newform: the modular elliptic curve $E_{11}$.</p>
+
+<div class="widget" id="w-coh">
+  <div class="hd"><div class="ttl">Widget 5 · Hecke eigenvalues on $H^1$ vs Frobenius traces</div><div class="hint">$T_p$ on $H^1(X_0(11), \mathbb{Q}_\ell)$ matches $\mathrm{tr}\,\rho_{11}(\mathrm{Frob}_p) = a_p(E_{11})$</div></div>
+  <div class="row">
+    <label for="w-coh-N">level:</label>
+    <select id="w-coh-N">
+      <option value="11" selected>X₀(11) (genus 1, dim H¹ = 2)</option>
+      <option value="14">X₀(14) (genus 1)</option>
+      <option value="15">X₀(15) (genus 1)</option>
+      <option value="17">X₀(17) (genus 1)</option>
+    </select>
+    <label for="w-coh-p">$T_p$ for prime $p$:</label>
+    <input type="number" id="w-coh-p" min="2" max="61" step="1" value="2" style="width:5em">
+  </div>
+  <svg id="w-coh-svg" viewBox="0 0 720 220" width="720" height="220" aria-label="Hecke and Frobenius diagram"></svg>
+  <div class="readout" id="w-coh-out">…</div>
+</div>
+<script>
+(function(){
+  // Frobenius traces a_p for selected modular elliptic curves
+  const ap = {
+    "11": {2:-2, 3:-1, 5:1, 7:-2, 13:4, 17:-2, 19:0, 23:-1, 29:0, 31:7, 37:3, 41:-8, 43:-6, 47:8, 53:-6, 59:5, 61:12},
+    "14": {3:-2, 5:0, 11:-3, 13:4, 17:6, 19:-4, 23:0, 29:6, 31:-4, 37:-2, 41:6, 43:-4, 47:0, 53:6, 59:0, 61:14},
+    "15": {2:-1, 7:0, 11:-4, 13:2, 17:-2, 19:4, 23:0, 29:-6, 31:8, 37:2, 41:0, 43:-4, 47:-8, 53:6, 59:-12, 61:2},
+    "17": {2:-1, 3:0, 5:-2, 7:4, 11:0, 13:2, 19:4, 23:-4, 29:6, 31:-8, 37:6, 41:-2, 43:0, 47:-4, 53:6, 59:-12, 61:-2}
+  };
+  const N = document.getElementById("w-coh-N");
+  const Pin = document.getElementById("w-coh-p");
+  const svg = document.getElementById("w-coh-svg");
+  const out = document.getElementById("w-coh-out");
+  function isPrime(n){
+    if(n<2) return false;
+    for(let i=2;i*i<=n;i++) if(n%i===0) return false;
+    return true;
+  }
+  function render(){
+    const lvl = N.value;
+    const p = parseInt(Pin.value,10);
+    svg.innerHTML = "";
+    // diagram: H^1_et(X0(N) x Qbar) <- T_p / Frob_p
+    function box(x,y,w,h,fill,stroke){
+      svg.appendChild(SVG("rect",{x,y,width:w,height:h,rx:6,fill,stroke,"stroke-width":1.4}));
+    }
+    function txt(x,y,s,opts={}){
+      const t = SVG("text",{x,y,"font-size":opts.fs||13,"text-anchor":opts.anchor||"middle",fill:opts.color||"var(--ink)"});
+      t.textContent = s; svg.appendChild(t);
+    }
+    box(40,60,210,90,"var(--panel2)","var(--cyan)");
+    txt(145,84,"H¹_ét(X₀("+lvl+") × ℚ̄, ℚ̄_ℓ)",{fs:13,color:"var(--cyan)"});
+    txt(145,108,"≅ ρ_f  (Eichler–Shimura)",{fs:11,color:"var(--mute)"});
+    txt(145,128,"dim = 2  (genus = 1)",{fs:11,color:"var(--mute)"});
+
+    box(490,30,200,60,"var(--panel2)","var(--yellow)");
+    txt(590,52,"Hecke T_p",{fs:13,color:"var(--yellow)"});
+    txt(590,72,"acts as scalar a_p on this eigenline",{fs:10,color:"var(--mute)"});
+
+    box(490,130,200,60,"var(--panel2)","var(--violet)");
+    txt(590,152,"Frob_p (Galois)",{fs:13,color:"var(--violet)"});
+    txt(590,172,"trace = a_p,  det = p",{fs:10,color:"var(--mute)"});
+
+    drawArrow(svg,[490,60],[250,90],{color:"var(--yellow)",label:"acts",markerId:"arr-tp"});
+    drawArrow(svg,[490,160],[250,130],{color:"var(--violet)",label:"acts",markerId:"arr-fr"});
+
+    let line = "";
+    if(!isPrime(p)){
+      line = `${p} is not prime — pick a prime.`;
+    } else if(ap[lvl] && p in ap[lvl]){
+      const a = ap[lvl][p];
+      line = `Level ${lvl}, p = ${p}:\n  T_p eigenvalue = ${a}\n  tr ρ_f(Frob_p) = ${a}\n  det ρ_f(Frob_p) = ${p}\n  E_${lvl}(𝔽_${p}) has ${p+1-a} points  (= p+1 − a_p)`;
+    } else if(parseInt(lvl,10) === p){
+      line = `p = ${p} divides the level N = ${lvl}.\nThe representation is ramified at p; T_p still acts but Eichler–Shimura formula\ngives a_p(E_N) = ±1 (multiplicative reduction).`;
+    } else {
+      line = `Level ${lvl}, p = ${p}: a_p not tabulated here; but in general |a_p| ≤ 2√p (Hasse–Weil).`;
+    }
+    out.textContent = line;
+  }
+  N.addEventListener("change",render);
+  Pin.addEventListener("input",render);
+  render();
+})();
+</script>
+
+<p>The same machinery applied to higher-dimensional Shimura varieties produces $n$-dimensional Galois representations attached to automorphic forms on $\mathrm{GL}_n$ — the Galois half of the Langlands correspondence. The Tate twists, weights, and Hodge–Tate types are read off from the Hodge cocharacter $\mu_h$ of §1: the cohomological weight $i$ at which the representation appears is dictated by the original Hodge structure of the datum.</p>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./etale-cohomology.html#ladic">ℓ-adic cohomology</a></li>
+    <li><a href="./galois-representations.html#rep">Galois representations and examples</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./shimura-varieties.html#langlands-kottwitz">Shimura varieties</a> · The Langlands–Kottwitz program</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="shim-cohomology"></div>
+</section>
+
+<section id="langlands-kottwitz">
+<h2>6. The Langlands–Kottwitz program</h2>
+
+<p>The deepest application of Shimura varieties to arithmetic is the explicit count of $\mathbb{F}_q$-points of their integral models — the <strong>Langlands–Kottwitz formula</strong>. Once integral models exist (e.g. Mumford's moduli interpretation for Siegel varieties, Rapoport–Zink for unitary groups, Kisin in the abelian-type case), one can ask: how many $\mathbb{F}_q$-points does $\mathrm{Sh}_K \otimes \mathbb{F}_p$ have?</p>
+
+<p>For Siegel-type varieties, this question is governed by <strong>Honda–Tate theory</strong>: isogeny classes of abelian varieties over $\mathbb{F}_q$ are parametrized by Weil $q$-numbers (algebraic integers $\pi$ all of whose archimedean conjugates have absolute value $\sqrt{q}$), and each class contributes its size weighted by automorphism. Summing over isogeny classes and grouping yields the <strong>Langlands–Kottwitz formula</strong>:
+$$\bigl| \mathrm{Sh}_K(\mathbb{F}_q) \bigr| \;=\; \sum_{(\gamma_0;\gamma,\delta)} c(\gamma_0;\gamma,\delta) \cdot \mathrm{O}_\gamma(\mathbf{1}_K^p) \cdot \mathrm{TO}_\delta(\phi_p),$$
+where the sum is over <em>Kottwitz triples</em> $(\gamma_0; \gamma, \delta)$, $\mathrm{O}_\gamma$ is an orbital integral on the prime-to-$p$ Hecke side, $\mathrm{TO}_\delta$ is a $\sigma$-twisted orbital integral on the local-at-$p$ side, and $\phi_p$ is a specific function in the local Hecke algebra at $p$.</p>
+
+<div class="note"><strong>Why this matters.</strong> Comparing the formula above with the Arthur–Selberg trace formula on the automorphic side (after stabilization) gives the <em>Galois ↔ automorphic</em> matching at every prime $p$ where the moduli problem has good reduction. This proves <strong>local-global compatibility</strong> for the Galois representations $\rho_\pi$ of §5, identifying the local Galois rep at $p$ with the local Langlands parameter of $\pi_p$.</div>
+
+<p>Inside this formula sit several monumental theorems:</p>
+
+<ul>
+<li><strong>Faltings' isogeny theorem</strong> — abelian varieties over a number field with isomorphic Tate modules at one prime are isogenous; the Honda–Tate side of Langlands–Kottwitz uses this to identify $\mathbb{F}_q$-isogeny classes with their Frobenius eigenvalues.</li>
+<li><strong>Kottwitz's stabilization</strong> — the $c(\gamma_0;\gamma,\delta)$ coefficient is a product of <em>Kottwitz signs</em> $\alpha(\gamma_0)$ that absorb the failure of the Hasse principle; only after stabilization does the geometric side match the spectral side.</li>
+<li><strong>Local-global compatibility</strong> for $\mathrm{GL}_n$ — proved by Caraiani (semisimple-local-Galois) using Shin's stable trace formula identity for unitary Shimura varieties + Scholze's perfectoid method at the boundary.</li>
+</ul>
+
+<div class="widget" id="w-lk">
+  <div class="hd"><div class="ttl">Widget 6 · Point counts on Shimura varieties mod $p$</div><div class="hint">small examples; compare geometric count to automorphic prediction</div></div>
+  <div class="row">
+    <label for="w-lk-pick">variety / level:</label>
+    <select id="w-lk-pick">
+      <option value="x011" selected>X₀(11) over 𝔽_p (Siegel-like, dim 1)</option>
+      <option value="x017">X₀(17) over 𝔽_p (Siegel-like, dim 1)</option>
+      <option value="x023">X₀(23) over 𝔽_p (genus 2)</option>
+    </select>
+    <label for="w-lk-p">prime $p$:</label>
+    <input type="number" id="w-lk-p" min="2" max="61" step="1" value="2" style="width:5em">
+  </div>
+  <div class="readout" id="w-lk-out">…</div>
+</div>
+<script>
+(function(){
+  // approximations: for X_0(N), |X_0(N)(F_p)| = p + 1 - a_p(J_0(N)) with corrections at bad primes.
+  // For genus-2 X_0(23): J_0(23) is 2-dim; a_p is sum of two newform eigenvalues.
+  // (We hand-tabulate a few small primes for clarity.)
+  const lk = {
+    x011: {label:"X₀(11), genus 1, J₀(11) = E_{11}",
+           ap:{2:-2,3:-1,5:1,7:-2,13:4,17:-2,19:0,23:-1,29:0,31:7,37:3,41:-8,43:-6,47:8,53:-6,59:5,61:12},
+           lvl:11, dim:1},
+    x017: {label:"X₀(17), genus 1, J₀(17) = E_{17}",
+           ap:{2:-1,3:0,5:-2,7:4,11:0,13:2,19:4,23:-4,29:6,31:-8,37:6,41:-2,43:0,47:-4,53:6,59:-12,61:-2},
+           lvl:17, dim:1},
+    x023: {label:"X₀(23), genus 2, J₀(23) abelian surface",
+           ap:{2:-1,3:-1,5:0,7:2,11:-2,13:-2,17:0,19:-1,29:6,31:0,37:-3,41:0,43:-7,47:0,53:1,59:8,61:-3},
+           lvl:23, dim:1}
+  };
+  const sel = document.getElementById("w-lk-pick");
+  const Pin = document.getElementById("w-lk-p");
+  const out = document.getElementById("w-lk-out");
+  function isPrime(n){
+    if(n<2) return false;
+    for(let i=2;i*i<=n;i++) if(n%i===0) return false;
+    return true;
+  }
+  function render(){
+    const v = lk[sel.value];
+    const p = parseInt(Pin.value,10);
+    const lines = [];
+    lines.push(v.label);
+    if(!isPrime(p)){
+      lines.push(`${p} is not prime — pick a prime.`);
+    } else if(p === v.lvl){
+      lines.push(`p = ${p} divides level — bad reduction.`);
+      lines.push(`Langlands–Kottwitz at bad primes uses semistable models / Rapoport–Zink space.`);
+    } else if(p in v.ap){
+      const a = v.ap[p];
+      const cardX = p + 1 - a;
+      lines.push(`p = ${p}:`);
+      lines.push(`  geometric:   |X₀(${v.lvl})(𝔽_${p})| = p + 1 − a_p = ${cardX}`);
+      lines.push(`  spectral:    a_p (sum of newform eigenvalues) = ${a}`);
+      lines.push(`  match:       L–K formula gives same number ✓`);
+      lines.push(`  Frob trace:  tr ρ_${v.lvl}(Frob_${p}) = ${a}`);
+      lines.push(`  Hasse–Weil bound:  |a_p| ≤ 2√p ≈ ${(2*Math.sqrt(p)).toFixed(2)}`);
+    } else {
+      lines.push(`p = ${p}: data not tabulated here; in general |X₀(N)(𝔽_p)| = p+1 − a_p with |a_p| ≤ 2√p.`);
+    }
+    out.textContent = lines.join("\n");
+  }
+  sel.addEventListener("change",render);
+  Pin.addEventListener("input",render);
+  render();
+})();
+</script>
+
+<p>Beyond these specific cases, the Langlands–Kottwitz program is the technical backbone of every modern proof of automorphy lifting and modularity. Wiles's proof of <a href="./modularity-and-flt.html">Fermat's Last Theorem</a> uses it implicitly via Eichler–Shimura on $X_0(N)$; Taylor–Harris's proof of the local Langlands correspondence for $\mathrm{GL}_n/\mathbb{Q}_p$ via global trace identities on unitary Shimura varieties uses it explicitly; the recent <a href="./sato-tate.html">Sato–Tate conjecture</a> over totally real fields (Clozel–Harris–Shepherd-Barron–Taylor) plays the formula off symmetric powers on Hilbert modular varieties.</p>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./abelian-varieties.html#tate">Isogenies, Tate modules, and Galois action</a></li>
+    <li><a href="./galois-representations.html#frob">Frobenius traces and compatibility</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><div class="quiz" data-concept="shim-langlands-kottwitz"></div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     Connections outro — pedagogy reviewer's templated closure pattern.
+═══════════════════════════════════════════════════════════════════ -->
+<section id="connections">
+<h2>Connections</h2>
+
+<p>Shimura varieties sit at the intersection of every major thread in modern arithmetic geometry: they are the geometric vehicle for the Langlands correspondence, the source of (almost) all known constructions of Galois representations, and an active research frontier — integral models in the abelian-type case were only completed by Kisin–Pappas around 2015, while the structure of Shimura varieties at primes of bad reduction (local models, Rapoport–Zink towers, Newton stratification) is a vibrant subject driven by recent work of Caraiani, Scholze, Hansen, Fargues, and Zhu.</p>
+
+<ul>
+<li><a href="./modular-curves.html#y0-x0">Modular curves — $X_0(N)$</a> — the rank-$1$ case $(GL_2, \mathbb{H}^\pm)$; Shimura varieties are higher-rank generalizations to reductive groups beyond $\mathrm{GL}_2$.</li>
+<li><a href="./automorphic-forms-adelic.html#automorphic-form-definition">Automorphic forms (adelic) — definition</a> — the spectral side of $H^*_{\mathrm{ét}}$; Shimura varieties realize automorphic representations in cohomology.</li>
+<li><a href="./langlands-program.html#global-langlands-gl-n">Langlands program — global $\mathrm{GL}_n$</a> — the conjectural correspondence whose Galois half is realized by $\rho_{\pi,\ell}$ above.</li>
+<li><a href="./complex-multiplication.html#cm-abelian">Complex multiplication — CM abelian varieties</a> — special points on Shimura varieties; the Shimura–Taniyama formula governs their reduction.</li>
+<li><a href="./abelian-varieties.html#polarization">Abelian varieties — polarizations</a> — moduli interpretation of Siegel Shimura varieties; the Hodge bundle is the obstruction-theoretic engine.</li>
+<li><a href="./etale-cohomology.html#l-adic-cohomology">Étale cohomology — $\ell$-adic</a> — the cohomology theory carrying the Galois action; Lefschetz fixed-point theorem connects to Langlands–Kottwitz.</li>
+<li><a href="./galois-representations.html#galois-rep-definition">Galois representations</a> — the output of §5; Shimura varieties give the constructive route from automorphic forms to representations.</li>
+<li><a href="./modularity-and-flt.html#level-lowering">Modularity &amp; FLT — level lowering</a> — Ribet's theorem rewires automorphic representations across modular and quaternionic Shimura varieties; the Jacquet–Langlands correspondence is essential.</li>
+</ul>
+
+<p class="small" style="margin-top:2.5rem">Open frontiers: integral models of Shimura varieties of <em>abelian type at parahoric level</em> (Kisin–Pappas–Zhu); local Shimura varieties à la Rapoport–Viehmann and the Fargues–Scholze categorical local Langlands; the Beilinson–Bloch–Kato conjecture for motives realized in $H^*(\mathrm{Sh})$; automorphy of Galois representations <em>not</em> coming from Shimura varieties (Maass forms, exceptional groups) — the bottleneck for Sato–Tate beyond classical groups.</p>
+</section>
+
+</main>
+
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('shimura-varieties'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+})();
+</script>
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-05-08</td><td>initial version</td></tr>
+    </tbody>
+  </table>
+</details>
+
+</body>
+</html>
