@@ -2,12 +2,12 @@
 
 ## Corpus totals
 
-- Topics: **166**, concepts: **1158**
-- Widgets: **1183** (registry-driven: 1183, inline: 0)
-- Quizzes: **4668** (v1: 3432, hard: 1223, expert: 13)
-- Quiz types: mcq: 3097, numeric: 1135, multi-select: 195, matching: 86, ordering: 62, spot-the-error: 41, complex: 29, proof-completion: 19, construction: 2, guess-my-rule: 2
+- Topics: **167**, concepts: **1164**
+- Widgets: **1189** (registry-driven: 1189, inline: 0)
+- Quizzes: **4686** (v1: 3450, hard: 1223, expert: 13)
+- Quiz types: mcq: 3106, numeric: 1144, multi-select: 195, matching: 86, ordering: 62, spot-the-error: 41, complex: 29, proof-completion: 19, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their section: **149**
-- Concepts lacking a hard-tier quiz: **720**
+- Concepts lacking a hard-tier quiz: **726**
 
 ## Per-slug registry adoption
 
@@ -698,6 +698,12 @@ page has wired one in yet.
 | `toric-varieties-w3` | verbatim | click | 2d | 1 | toric-varieties |
 | `toric-varieties-w4` | verbatim | click | 2d | 1 | toric-varieties |
 | `toric-varieties-w5` | verbatim | click | 2d | 1 | toric-varieties |
+| `trop-w1` | verbatim | slider | 2d | 1 | tropical-geometry |
+| `trop-w2` | verbatim | select | 2d | 1 | tropical-geometry |
+| `trop-w3` | verbatim | slider | 2d | 1 | tropical-geometry |
+| `trop-w4` | verbatim | slider | 2d | 1 | tropical-geometry |
+| `trop-w5` | verbatim | select | 2d | 1 | tropical-geometry |
+| `trop-w6` | verbatim | slider | 2d | 1 | tropical-geometry |
 | `type-theory-circle-winding` | type-theory-circle-winding | click | 2d | 1 | type-theory-and-hott |
 | `type-theory-context-builder` | type-theory-context-builder | click | 2d | 1 | type-theory-and-hott |
 | `type-theory-infty-groupoid` | type-theory-infty-groupoid | click | 2d | 1 | type-theory-and-hott |
@@ -814,13 +820,13 @@ page has wired one in yet.
 
 ### Algebraic geometry
 
-- Topics: **30**, concepts: **179**
-- Widgets: **187** (registry-driven: 187, inline: 0)
-  - by family: button-stepper: 61, verbatim: 43, clickable-diagram: 23, proof-scrubber: 7, clickable-graph: 6, declarative-host: 6, parametric-plot: 4, modular-arithmetic-clock: 2, svg-illustration: 2, calabi-yau-canonical-degree: 1, calabi-yau-hodge-diamond: 1, calabi-yau-hypersurface-zoo: 1, calabi-yau-periods: 1, calabi-yau-mirror-swap: 1, calabi-yau-syz-fibration: 1, mirror-hodge-diamond: 1, mirror-quintic-counts: 1, mirror-stable-map: 1, mirror-quintic-periods: 1, mirror-hms-pairing: 1, mirror-syz-fibration: 1, resolution-cusp-node-visualizer: 1, resolution-cuspidal-blowup: 1, resolution-tower-of-blowups: 1, resolution-curve-normalization: 1, resolution-ade-dynkin: 1, lattice-visualizer: 1, algebraic-curves-riemann-hurwitz-cover: 1, algebraic-curves-jacobian-lattice: 1, algebraic-curves-riemann-roch-scrubber: 1, algebraic-curves-canonical-embedding-scrubber: 1, algebraic-curves-hyperelliptic-cover: 1, algebraic-curves-moduli-boundary: 1, algebraic-de-rham-kahler-scrubber: 1, algebraic-de-rham-complex-scrubber: 1, algebraic-de-rham-betti-comparison-scrubber: 1, algebraic-de-rham-hodge-filtration-scrubber: 1, algebraic-de-rham-hodge-diamond-clickgraph: 1, algebraic-de-rham-hodge-pn-explorer: 1, algebraic-de-rham-curve-clickable: 1, algebraic-de-rham-hodge-sandbox: 1, counterexample-explorer: 1
-  - by dimension: 2d: 187
-  - by gesture: click: 136, interact: 16, slider: 13, scrub: 7, select: 6, inspect: 5, drag: 2, read: 1, slide: 1
-- Quizzes: **782** (v1: 537, hard: 245, expert: 0)
-  - by type: mcq: 522, numeric: 202, multi-select: 27, matching: 15, spot-the-error: 7, ordering: 5, complex: 3, proof-completion: 1
+- Topics: **31**, concepts: **185**
+- Widgets: **193** (registry-driven: 193, inline: 0)
+  - by family: button-stepper: 61, verbatim: 49, clickable-diagram: 23, proof-scrubber: 7, clickable-graph: 6, declarative-host: 6, parametric-plot: 4, modular-arithmetic-clock: 2, svg-illustration: 2, calabi-yau-canonical-degree: 1, calabi-yau-hodge-diamond: 1, calabi-yau-hypersurface-zoo: 1, calabi-yau-periods: 1, calabi-yau-mirror-swap: 1, calabi-yau-syz-fibration: 1, mirror-hodge-diamond: 1, mirror-quintic-counts: 1, mirror-stable-map: 1, mirror-quintic-periods: 1, mirror-hms-pairing: 1, mirror-syz-fibration: 1, resolution-cusp-node-visualizer: 1, resolution-cuspidal-blowup: 1, resolution-tower-of-blowups: 1, resolution-curve-normalization: 1, resolution-ade-dynkin: 1, lattice-visualizer: 1, algebraic-curves-riemann-hurwitz-cover: 1, algebraic-curves-jacobian-lattice: 1, algebraic-curves-riemann-roch-scrubber: 1, algebraic-curves-canonical-embedding-scrubber: 1, algebraic-curves-hyperelliptic-cover: 1, algebraic-curves-moduli-boundary: 1, algebraic-de-rham-kahler-scrubber: 1, algebraic-de-rham-complex-scrubber: 1, algebraic-de-rham-betti-comparison-scrubber: 1, algebraic-de-rham-hodge-filtration-scrubber: 1, algebraic-de-rham-hodge-diamond-clickgraph: 1, algebraic-de-rham-hodge-pn-explorer: 1, algebraic-de-rham-curve-clickable: 1, algebraic-de-rham-hodge-sandbox: 1, counterexample-explorer: 1
+  - by dimension: 2d: 193
+  - by gesture: click: 136, slider: 17, interact: 16, select: 8, scrub: 7, inspect: 5, drag: 2, read: 1, slide: 1
+- Quizzes: **800** (v1: 555, hard: 245, expert: 0)
+  - by type: mcq: 531, numeric: 211, multi-select: 27, matching: 15, spot-the-error: 7, ordering: 5, complex: 3, proof-completion: 1
 
 ### Combinatorics & graph theory
 
@@ -845,6 +851,7 @@ page has wired one in yet.
 ## Per-topic
 
 - `several-complex-variables` (Analysis) — concepts=6, widgets=5 (slug=5), quiz=18 (v1=18, hard=0, expert=0)
+- `tropical-geometry` (Algebraic geometry) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `kahler-geometry` (Geometry & topology) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `mapping-class-groups` (Geometry & topology) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `half-integral-weight-forms` (Modular forms & L-functions) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
@@ -1044,6 +1051,12 @@ page has wired one in yet.
 - `scv-pseudoconvex` (several-complex-variables)
 - `scv-stein` (several-complex-variables)
 - `scv-cousin` (several-complex-variables)
+- `trop-semiring` (tropical-geometry)
+- `trop-curves` (tropical-geometry)
+- `trop-tropicalization` (tropical-geometry)
+- `trop-bezout` (tropical-geometry)
+- `trop-moduli` (tropical-geometry)
+- `trop-applications` (tropical-geometry)
 - `kg-complex-structure` (kahler-geometry)
 - `kg-kahler-form` (kahler-geometry)
 - `kg-kahler-identities` (kahler-geometry)
@@ -1052,9 +1065,3 @@ page has wired one in yet.
 - `kg-kahler-einstein` (kahler-geometry)
 - `mcg-modular` (mapping-class-groups)
 - `mcg-dehn` (mapping-class-groups)
-- `mcg-nielsen-thurston` (mapping-class-groups)
-- `mcg-teichmuller` (mapping-class-groups)
-- `mcg-4manifolds` (mapping-class-groups)
-- `mcg-casson` (mapping-class-groups)
-- `hiw-metaplectic-cocycle` (half-integral-weight-forms)
-- `hiw-theta-prototype` (half-integral-weight-forms)

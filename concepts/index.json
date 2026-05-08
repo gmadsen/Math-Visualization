@@ -1,10 +1,6 @@
 {
   "topics": [
 
-
-
-
-
     "several-complex-variables",
 
 
@@ -17,6 +13,9 @@
 
 
 
+
+
+    "tropical-geometry",
 
 
 
@@ -373,6 +372,7 @@
     "kahler-geometry": "advanced",
     "mapping-class-groups": "advanced",
     "half-integral-weight-forms": "advanced",
-    "crystalline-cohomology": "advanced"
+    "crystalline-cohomology": "advanced",
+    "tropical-geometry": "advanced"
   }
 }

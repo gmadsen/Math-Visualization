@@ -14477,6 +14477,132 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "trop-w1",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "interactive",
+    "title": "trop-w1 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the tropical-geometry topic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Tropical polynomial corner-locus plotter for `tropical-geometry` §1. Slider-driven coefficients of the tropical polynomial $f(x,y)=\\min(x,y,c_0)$ trace the resulting tropical line / hypersurface live in $\\mathbb{R}^2$.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "trop-w2",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "select",
+    "role": "interactive",
+    "title": "trop-w2 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the tropical-geometry topic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Balancing-condition checker for `tropical-geometry` §2. Pick a tropical curve from a menu (line, conic, cubic, unbalanced); inspect each vertex's primitive edge directions and see the balancing residual.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "trop-w3",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "interactive",
+    "title": "trop-w3 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the tropical-geometry topic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Newton-polytope ↔ tropical-curve duality scrubber for `tropical-geometry` §3. Adjust the tropical coefficients of a degree-$d$ polynomial; the regular subdivision of its Newton polytope shifts in lockstep with the dual tropical curve.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "trop-w4",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "interactive",
+    "title": "trop-w4 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the tropical-geometry topic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Tropical Bézout / mixed-volume calculator for `tropical-geometry` §4. Pick degrees $(d_1,d_2)$ for two tropical curves; read off $\\mathrm{MV}(\\Delta_{d_1},\\Delta_{d_2}) = d_1 d_2$ and watch the stable intersection points emerge under translation.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "trop-w5",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "select",
+    "role": "interactive",
+    "title": "trop-w5 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the tropical-geometry topic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Baker–Norine chip-firing explorer for `tropical-geometry` §5. Pick a metric graph (theta, banana, dumbbell, $K_4$); fire chips at vertices and watch the divisor's tropical rank update against the Riemann–Roch identity $r(D) - r(K - D) = \\deg D - g + 1$.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "trop-w6",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "interactive",
+    "title": "trop-w6 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the tropical-geometry topic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Mikhalkin correspondence counter for `tropical-geometry` §6. Slide the degree $d$ from $1$ to $4$; the widget displays the number $3d-1$ of generic points required, the matching tropical curve count $N_d^{\\mathrm{trop}}$, and confirms agreement with the Gromov–Witten invariant of $\\mathbb{P}^2$.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "type-theory-circle-winding",
     "family": "type-theory-circle-winding",
     "dimension": "2d",
