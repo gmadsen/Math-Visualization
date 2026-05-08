@@ -1,6 +1,14 @@
 {
-  "generated": "2026-05-08T02:30:14.935Z",
+  "generated": "2026-05-08T02:38:07.095Z",
   "entries": [
+    {
+      "slug": "khovanov-homology",
+      "title": "Khovanov homology",
+      "color": "v",
+      "tag": "",
+      "date": "2026-05-07",
+      "message": "New topic: Khovanov homology & link homology"
+    },
     {
       "slug": "abelian-varieties",
       "title": "Abelian varieties",
