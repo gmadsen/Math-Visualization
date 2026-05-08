@@ -295,7 +295,6 @@ The slogan: $p$-class numbers grow at a rate dictated by an exponential ($\mu$),
   <svg id="g-svg" viewBox="0 0 620 280" width="620" height="280"><title>Iwasawa growth formula</title></svg>
   <div class="readout" id="g-out">drag sliders…</div>
 </div>
-
 <script>
 /* =========== SECTION 1: Iwasawa growth formula widget =========== */
 (function(){
@@ -311,25 +310,28 @@ The slogan: $p$-class numbers grow at a rate dictated by an exponential ($\mu$),
     while(svg.firstChild) svg.removeChild(svg.firstChild);
     const W=620,H=280, padL=60,padR=24,padT=24,padB=44;
     const Nmax=8;
-    let yMax=1;
-    for(let n=0;n<=Nmax;n++) yMax=Math.max(yMax,Math.abs(exp(n,mu,lam,nu,p)));
-    yMax=Math.max(yMax, 1);
-    const x = n => padL + (W-padL-padR)*n/Nmax;
-    const y = v => padT + (H-padT-padB)*(1 - v/yMax);
-    // axes
-    svg.appendChild(SVG('line',{x1:padL,y1:H-padB,x2:W-padR,y2:H-padB,stroke:'var(--mute)','stroke-width':1}));
-    svg.appendChild(SVG('line',{x1:padL,y1:padT,x2:padL,y2:H-padB,stroke:'var(--mute)','stroke-width':1}));
-    // axis labels + ticks
+    let yMin=0, yMax=1;
     for(let n=0;n<=Nmax;n++){
-      svg.appendChild(SVG('line',{x1:x(n),y1:H-padB,x2:x(n),y2:H-padB+4,stroke:'var(--mute)'}));
-      const t=SVG('text',{x:x(n),y:H-padB+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+      const v=exp(n,mu,lam,nu,p);
+      if(v<yMin) yMin=v;
+      if(v>yMax) yMax=v;
+    }
+    if(yMax-yMin < 1) yMax = yMin + 1;
+    const x = n => padL + (W-padL-padR)*n/Nmax;
+    const y = v => padT + (H-padT-padB)*(yMax - v)/(yMax - yMin);
+    // axes
+    const yZero = y(0);
+    svg.appendChild(SVG('line',{x1:padL,y1:yZero,x2:W-padR,y2:yZero,stroke:'var(--mute)','stroke-width':1}));
+    svg.appendChild(SVG('line',{x1:padL,y1:padT,x2:padL,y2:H-padB,stroke:'var(--mute)','stroke-width':1}));
+    for(let n=0;n<=Nmax;n++){
+      svg.appendChild(SVG('line',{x1:x(n),y1:yZero,x2:x(n),y2:yZero+4,stroke:'var(--mute)'}));
+      const t=SVG('text',{x:x(n),y:yZero+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
       t.textContent=n; svg.appendChild(t);
     }
     const xl=SVG('text',{x:(W+padL-padR)/2,y:H-8,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});
     xl.textContent='layer index n'; svg.appendChild(xl);
     const yl=SVG('text',{x:padL-44,y:padT+12,'text-anchor':'start','font-size':12,fill:'var(--mute)'});
     yl.textContent='log_p |A_n|'; svg.appendChild(yl);
-    // points + line
     let path='';
     const pts=[];
     for(let n=0;n<=Nmax;n++){
@@ -342,7 +344,6 @@ The slogan: $p$-class numbers grow at a rate dictated by an exponential ($\mu$),
     for(const [n,v,cx,cy] of pts){
       svg.appendChild(SVG('circle',{cx,cy,r:4,fill:'var(--yellow)'}));
     }
-    // readout
     const lines=[];
     for(let n=0;n<=4;n++){
       const v=exp(n,mu,lam,nu,p);
@@ -355,6 +356,7 @@ The slogan: $p$-class numbers grow at a rate dictated by an exponential ($\mu$),
   render();
 })();
 </script>
+
 
 <p>For a general number field $K$, the number of independent $\mathbb{Z}_p$-extensions of $K$ is $r_2(K)+1+\delta$ where $\delta\ge 0$ is the <em>Leopoldt defect</em>. Leopoldt's conjecture (still open in general) says $\delta=0$, so $K$ has exactly $r_2(K)+1$ independent towers — and the cyclotomic one is one of them.</p>
 
@@ -618,28 +620,31 @@ Equivalently $B_n/n\equiv B_m/m\pmod{p^k}$ in this regime — the values that $L
   </table>
   <div class="readout" id="kc-out">picking values $n\equiv n_0\pmod{p-1}$ aligns the values $p$-adically.</div>
 </div>
-
 <script>
 /* =========== SECTION 4: Kummer congruence widget =========== */
 (function(){
   const pS=$('#kc-p'), rS=$('#kc-r'), tbody=$('#kc-tbl tbody'), out=$('#kc-out');
-  // hard-coded Bernoulli numerators / denominators for B_n, n>=2 even
-  // values: B_n as fractions [num,den] (Bn for n=2..30 even)
+  // Bernoulli numerators / denominators for B_n, n=2..30 even, stored as BigInt
+  // because B_26 .. B_30 multiplied by p^{n-1} overflow Number (past 2^53) for the
+  // small primes we expose (p=5,7,11,13).
   const B = {
-    2:[1,6], 4:[-1,30], 6:[1,42], 8:[-1,30], 10:[5,66],
-    12:[-691,2730], 14:[7,6], 16:[-3617,510], 18:[43867,798],
-    20:[-174611,330], 22:[854513,138], 24:[-236364091,2730],
-    26:[8553103,6], 28:[-23749461029,870], 30:[8615841276005,14322]
+    2:[1n,6n], 4:[-1n,30n], 6:[1n,42n], 8:[-1n,30n], 10:[5n,66n],
+    12:[-691n,2730n], 14:[7n,6n], 16:[-3617n,510n], 18:[43867n,798n],
+    20:[-174611n,330n], 22:[854513n,138n], 24:[-236364091n,2730n],
+    26:[8553103n,6n], 28:[-23749461029n,870n], 30:[8615841276005n,14322n]
   };
 
-  // p-adic valuation v_p(num/den) (assumes p doesn't divide denom — true for all our small p,n where Bn/n is p-integral except when n divisible by p-1; we filter)
-  function vp(num,den,p){
-    if(num===0) return Infinity;
-    let v=0; let n = Math.abs(num);
-    while(n%p===0){ n/=p; v++; if(v>30) break; }
-    let d = Math.abs(den); let dv=0;
-    while(d%p===0){ d/=p; dv++; if(dv>30) break; }
-    return v - dv;
+  function bipow(a, e){ let r=1n; for(let i=0n;i<e;i++) r*=a; return r; }
+  function biabs(a){ return a<0n ? -a : a; }
+  // p-adic valuation of an exact rational num/den (num,den BigInt).
+  function vp(num, den, p){
+    if(num === 0n) return Infinity;
+    const P = BigInt(p);
+    let v = 0n, n = biabs(num);
+    while(n % P === 0n){ n /= P; v++; }
+    let d = biabs(den), dv = 0n;
+    while(d % P === 0n){ d /= P; dv++; }
+    return Number(v - dv);
   }
 
   function buildResidues(){
@@ -654,8 +659,8 @@ Equivalently $B_n/n\equiv B_m/m\pmod{p^k}$ in this regime — the values that $L
 
   function render(){
     const p=+pS.value, r=+rS.value;
+    const P=BigInt(p);
     tbody.innerHTML='';
-    // gather n's in {2,...,30} with n ≡ r (mod p-1) and n even and not divisible by p-1
     const ns=[];
     for(let n=2;n<=30;n+=2){
       if(((n - r) % (p-1)) === 0) ns.push(n);
@@ -664,29 +669,25 @@ Equivalently $B_n/n\equiv B_m/m\pmod{p^k}$ in this regime — the values that $L
     let prev=null;
     for(const n of ns){
       if(!B[n]) continue;
-      // ζ(1-n) = -B_n/n
       const [bn,bd] = B[n];
-      // value as fraction: -bn/(bd*n)
-      const num = -bn, den = bd*n;
-      // (1-p^{n-1}) ζ(1-n)  — keep symbolic via fractions
-      // factor (p^{n-1}-1)/1 multiplied: numerator becomes num*(1) - num*p^{n-1} = num*(1-p^{n-1})
-      const factor = 1 - Math.pow(p, n-1);
-      // compute fraction num*factor / den
+      // ζ(1-n) = -B_n/n  → numerator -bn, denominator bd*n
+      const num = -bn, den = bd * BigInt(n);
+      // (1 - p^{n-1}) · ζ(1-n)
+      const factor = 1n - bipow(P, BigInt(n-1));
       const num2 = num * factor;
       const v = vp(num2, den, p);
-      const tr=document.createElement('tr');
       let diffStr='—';
       if(prev !== null){
-        // compare prev and current as p-adics: diff = current - prev = num2/den - prev.num/prev.den
-        // = (num2*prev.den - prev.num*den) / (den*prev.den)
-        const dn = num2*prev.den - prev.num*den;
-        const dd = den*prev.den;
+        // diff = num2/den - prev.num/prev.den = (num2·prev.den − prev.num·den)/(den·prev.den)
+        const dn = num2 * prev.den - prev.num * den;
+        const dd = den * prev.den;
         const dv = vp(dn, dd, p);
-        diffStr = isFinite(dv) ? `v_${p} ≥ ${dv}` : `(equal!)`;
+        diffStr = (dn === 0n) ? '(equal!)' : `v_${p} ≥ ${dv}`;
       }
-      tr.innerHTML=`<td>${n}</td><td>−${bn}/${bd*n}</td><td>(1−${p}^${n-1})·−${bn}/${bd*n}</td><td>${diffStr}</td>`;
+      const tr=document.createElement('tr');
+      tr.innerHTML=`<td>${n}</td><td>−${bn}/${bd*BigInt(n)}</td><td>(1−${p}^${n-1})·−${bn}/${bd*BigInt(n)}</td><td>${diffStr}</td>`;
       tbody.appendChild(tr);
-      prev={num:num2,den:den};
+      prev={num:num2, den:den};
     }
     out.textContent =
       `congruence: differences in column 4 grow with the spacing in n (Δn=${p-1}, ${(p-1)*p}, …). Two consecutive rows agree to v_${p}≥1; three rows mod (p-1)·p, etc. This is exactly what L_${p}(s,χ) interpolates.`;
@@ -696,6 +697,7 @@ Equivalently $B_n/n\equiv B_m/m\pmod{p^k}$ in this regime — the values that $L
   buildResidues(); render();
 })();
 </script>
+
 
 <p>A second packaging is closer to the main-conjecture statement. Via Mahler's theorem there is a power series $L_p(\chi,T)\in\Lambda\otimes\mathbb{Q}_p$, the <strong>Iwasawa power series</strong> attached to $\chi$, such that
 $$L_p(s,\chi)\;=\;L_p(\chi,\,\langle\kappa\rangle^{s}-1)$$
