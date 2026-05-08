@@ -214,7 +214,7 @@ page has wired one in yet.
 | `deformation-theory-first-order-scrubber` | proof-scrubber | scrub | 2d | 1 | deformation-theory |
 | `deformation-theory-genus-tangent` | parametric-plot | slide | 2d | 1 | deformation-theory |
 | `deformation-theory-obstruction-graph` | clickable-graph | click | 2d | 1 | deformation-theory |
-| `deformation-theory-schlessinger-diagram` | svg-illustration | read | 2d | 1 | deformation-theory |
+| `deformation-theory-schlessinger-diagram` | svg-illustration | click | 2d | 1 | deformation-theory |
 | `deformation-theory-tangent-clickable` | clickable-diagram | click | 2d | 1 | deformation-theory |
 | `derived-categories-chain-homotopy` | clickable-diagram | click | 2d | 1 | derived-categories |
 | `derived-categories-derived-functor-scrubber` | proof-scrubber | scrub | 2d | 1 | derived-categories |
@@ -854,7 +854,7 @@ page has wired one in yet.
 - Widgets: **193** (registry-driven: 193, inline: 0)
   - by family: button-stepper: 61, verbatim: 49, clickable-diagram: 23, proof-scrubber: 7, clickable-graph: 6, declarative-host: 6, parametric-plot: 4, modular-arithmetic-clock: 2, svg-illustration: 2, calabi-yau-canonical-degree: 1, calabi-yau-hodge-diamond: 1, calabi-yau-hypersurface-zoo: 1, calabi-yau-periods: 1, calabi-yau-mirror-swap: 1, calabi-yau-syz-fibration: 1, mirror-hodge-diamond: 1, mirror-quintic-counts: 1, mirror-stable-map: 1, mirror-quintic-periods: 1, mirror-hms-pairing: 1, mirror-syz-fibration: 1, resolution-cusp-node-visualizer: 1, resolution-cuspidal-blowup: 1, resolution-tower-of-blowups: 1, resolution-curve-normalization: 1, resolution-ade-dynkin: 1, lattice-visualizer: 1, algebraic-curves-riemann-hurwitz-cover: 1, algebraic-curves-jacobian-lattice: 1, algebraic-curves-riemann-roch-scrubber: 1, algebraic-curves-canonical-embedding-scrubber: 1, algebraic-curves-hyperelliptic-cover: 1, algebraic-curves-moduli-boundary: 1, algebraic-de-rham-kahler-scrubber: 1, algebraic-de-rham-complex-scrubber: 1, algebraic-de-rham-betti-comparison-scrubber: 1, algebraic-de-rham-hodge-filtration-scrubber: 1, algebraic-de-rham-hodge-diamond-clickgraph: 1, algebraic-de-rham-hodge-pn-explorer: 1, algebraic-de-rham-curve-clickable: 1, algebraic-de-rham-hodge-sandbox: 1, counterexample-explorer: 1
   - by dimension: 2d: 193
-  - by gesture: click: 136, slider: 17, interact: 16, select: 8, scrub: 7, inspect: 5, drag: 2, read: 1, slide: 1
+  - by gesture: click: 137, slider: 17, interact: 16, select: 8, scrub: 7, inspect: 5, drag: 2, slide: 1
 - Quizzes: **800** (v1: 555, hard: 245, expert: 0)
   - by type: mcq: 531, numeric: 211, multi-select: 27, matching: 15, spot-the-error: 7, ordering: 5, complex: 3, proof-completion: 1
 

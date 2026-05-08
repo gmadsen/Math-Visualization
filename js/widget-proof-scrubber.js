@@ -88,7 +88,16 @@
           throwOnError: false,
           macros: SCRUBBER_MACROS
         });
-      } catch(_){ /* swallow */ }
+      } catch(err){
+        // throwOnError:false neutralizes the narrow KaTeX-parse threat, so
+        // anything reaching this catch is a different failure class —
+        // detached node, library load race, malformed macros — none of
+        // which the user can recover from. Surface to devtools rather
+        // than swallowing.
+        if(global.console && global.console.warn){
+          global.console.warn('widget-proof-scrubber: typesetMath failed', err);
+        }
+      }
     }
   }
 
