@@ -1,5 +1,5 @@
 {
-  "generated": "2026-05-08T04:12:50.986Z",
+  "generated": "2026-05-08T04:48:26.259Z",
   "entries": [
     {
       "slug": "complex-multiplication",
@@ -16,6 +16,22 @@
       "tag": "",
       "date": "2026-05-07",
       "message": "New topic: Khovanov homology & link homology (#135)"
+    },
+    {
+      "slug": "shimura-varieties",
+      "title": "Shimura varieties",
+      "color": "c",
+      "tag": "",
+      "date": "2026-05-07",
+      "message": "New topic: Shimura varieties (Modular forms & L-functions)"
+    },
+    {
+      "slug": "surgery-theory",
+      "title": "Surgery theory",
+      "color": "v",
+      "tag": "",
+      "date": "2026-05-07",
+      "message": "New topic: Surgery theory & high-dimensional manifolds (Geometry & topology) (#138)"
     },
     {
       "slug": "tropical-geometry",
