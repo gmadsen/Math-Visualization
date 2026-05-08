@@ -301,6 +301,41 @@ $$A(\mathbb{C})\;\cong\;V/\Lambda$$
   </div>
   <div class="readout" id="tor-out">…</div>
 </div>
+<script>
+(function(){
+  const ids = ['tau11','tau12','tau22','y11','y12','y22'];
+  const inputs = {};
+  const labels = {};
+  for(const id of ids){
+    inputs[id] = document.getElementById('tor-'+id);
+    labels[id] = document.getElementById('tor-'+id+'-val');
+  }
+  const out = document.getElementById('tor-out');
+  if(!out || !inputs.tau11) return;
+  function update(){
+    const v = {};
+    for(const id of ids){
+      v[id] = parseFloat(inputs[id].value);
+      labels[id].textContent = v[id].toFixed(1);
+    }
+    // Y = Im tau, symmetric by construction (one slider for tau12 = tau21).
+    const Y = [[v.y11, v.y12],[v.y12, v.y22]];
+    const det = Y[0][0]*Y[1][1] - Y[0][1]*Y[1][0];
+    const tr = Y[0][0]+Y[1][1];
+    const positive = (Y[0][0] > 0) && (det > 0);
+    let msg;
+    if(positive){
+      msg = 'algebraic ✓ — period matrix lies in $\\mathfrak{H}_2$. Trace(Y)='+tr.toFixed(2)+', det(Y)='+det.toFixed(2)+'. This is the period matrix of a principally polarized abelian surface.';
+    } else {
+      msg = 'NOT algebraic ✗ — Im(τ) is not positive definite (det='+det.toFixed(2)+', need > 0 with Y₁₁ > 0). The complex torus exists, but it is not projective and admits no nonconstant meromorphic functions.';
+    }
+    out.innerHTML = msg;
+    if(window.renderMathInElement) window.renderMathInElement(out,{throwOnError:false,delimiters:[{left:'$',right:'$',display:false}]});
+  }
+  for(const id of ids) inputs[id].addEventListener('input', update);
+  update();
+})();
+</script>
 
 <p>Riemann's bilinear relations require the period matrix $\tau=X+iY$ to satisfy: $\tau$ is symmetric and $Y=\operatorname{Im}\tau$ is positive definite. Both conditions involve only the imaginary part. The widget computes $\tau-\tau^T$ (symmetry obstruction) and the eigenvalues of $Y$ (positivity); when both pass the torus is the period matrix of a principally polarized abelian surface in <em>Siegel upper half-space</em> $\mathfrak{H}_2$.</p>
 
@@ -355,6 +390,36 @@ $$A^\vee \;=\; \mathrm{Pic}^0(A).$$
   </table>
   <div class="readout" id="mod-out">For $g=1$ every torus is an elliptic curve. For $g \ge 2$ the codimension grows quadratically — abelian varieties are special complex tori.</div>
 </div>
+<script>
+(function(){
+  const tbl = document.getElementById('mod-tbl');
+  const out = document.getElementById('mod-out');
+  if(!tbl || !out) return;
+  const rows = tbl.querySelectorAll('tbody tr');
+  // descriptions keyed by row index 0..5
+  const desc = [
+    'g = 1 — every complex torus is automatically polarized (Weierstrass ℘ supplies the embedding into $\\mathbb{P}^2$). Torus dim = $\\mathcal{A}_1$ dim = $1$, codim $= 0$.',
+    'g = 2 — torus moduli are $4$-complex-dim, but $\\mathcal{A}_2$ is only $3$-complex-dim. Codim $1$: a generic complex 2-torus is NOT abelian, and the locus of polarized tori is cut out inside the period domain by Riemann\'s rationality condition $\\operatorname{Im}H(\\Lambda,\\Lambda)\\subset\\mathbb{Z}$.',
+    'g = 3 — torus dim $9$, $\\mathcal{A}_3$ dim $6$, codim $3$. Algebraic 3-tori are a 3-codimensional locus.',
+    'g = 4 — torus dim $16$, $\\mathcal{A}_4$ dim $10$, codim $6$. The Schottky locus $\\mathcal{J}_4 \\subset \\mathcal{A}_4$ is itself a single Schottky relation away.',
+    'g = 5 — torus dim $25$, $\\mathcal{A}_5$ dim $15$, codim $10$. Codimension grows like $g(g-1)/2$.',
+    'general $g$ — torus dim $g^2$ (real $2g \\cdot g = 2g^2$), $\\mathcal{A}_g$ dim $g(g+1)/2$, codim $g(g-1)/2$. So abelian varieties are a vanishingly small slice of complex tori as $g \\to \\infty$.'
+  ];
+  function select(i){
+    rows.forEach((r,k)=>{
+      r.style.background = (k===i) ? 'color-mix(in srgb, var(--yellow) 14%, transparent)' : '';
+      r.style.cursor = 'pointer';
+    });
+    out.innerHTML = desc[i] || desc[desc.length-1];
+    if(window.renderMathInElement) window.renderMathInElement(out,{throwOnError:false,delimiters:[{left:'$',right:'$',display:false}]});
+  }
+  rows.forEach((r,i)=>{
+    r.addEventListener('click', ()=>select(i));
+  });
+  // initial: highlight g=2 row (the most pedagogically interesting case).
+  select(1);
+})();
+</script>
 
 <p>The Riemann–Roch theorem on $A$ gives the sharp dimension count: for a polarization $\mathcal{L}$ of type $(d_1,\dots,d_g)$,</p>
 $$h^0(A,\mathcal{L}) \;=\; d_1 d_2 \cdots d_g.$$
@@ -424,6 +489,55 @@ The number of points satisfies $|A(\mathbb{F}_{q^n})|=\prod_i(1-\alpha_i^n)$, so
   </div>
   <div class="readout" id="wl-out">…</div>
 </div>
+<script>
+(function(){
+  const q = document.getElementById('wl-q');
+  const g = document.getElementById('wl-g');
+  const th1 = document.getElementById('wl-th1');
+  const th2 = document.getElementById('wl-th2');
+  const n = document.getElementById('wl-n');
+  const th1v = document.getElementById('wl-th1-val');
+  const th2v = document.getElementById('wl-th2-val');
+  const nv = document.getElementById('wl-n-val');
+  const out = document.getElementById('wl-out');
+  if(!out || !q) return;
+  function update(){
+    const Q = parseInt(q.value,10), G = parseInt(g.value,10);
+    const T1 = parseFloat(th1.value), T2 = parseFloat(th2.value);
+    const N = parseInt(n.value,10);
+    th1v.textContent = T1.toFixed(2);
+    th2v.textContent = T2.toFixed(2);
+    nv.textContent = N;
+    const sqrtq = Math.sqrt(Q);
+    // Frobenius eigenvalues lie on |z| = sqrt(q) in conjugate pairs.
+    // g=1: alpha, conj(alpha) at angle T1.
+    // g=2: alpha_1, conj(alpha_1), alpha_2, conj(alpha_2) at angles T1, T2.
+    const angles = G === 1 ? [T1, -T1] : [T1, -T1, T2, -T2];
+    // |A(F_{q^n})| = prod_i (1 - alpha_i^n).
+    // alpha_i = sqrt(q) * exp(i * angle); alpha_i^n = q^{n/2} * exp(i * n * angle).
+    let real = 1, imag = 0;
+    for(const a of angles){
+      const re = 1 - Math.pow(sqrtq, N) * Math.cos(N*a);
+      const im = -Math.pow(sqrtq, N) * Math.sin(N*a);
+      const nr = real*re - imag*im;
+      const ni = real*im + imag*re;
+      real = nr; imag = ni;
+    }
+    const pts = Math.round(real);
+    const bound = G === 1
+      ? 'Hasse: $|N - (q^n+1)| \\le 2\\sqrt{q^n}$'
+      : 'Weil: $|N - (q^n+1)^g| \\le \\binom{2g}{g}\\,q^{ng/2}$';
+    out.innerHTML =
+      'For $A/\\mathbb{F}_'+Q+'$ of dim $g='+G+'$ with chosen Frobenius angles, '+
+      '$|A(\\mathbb{F}_{'+Q+'^{'+N+'}})| = '+pts+'$. '+
+      'Imag residue $\\approx '+imag.toFixed(3)+'$ (numerically $0$ — eigenvalues come in conjugate pairs). '+
+      bound+'.';
+    if(window.renderMathInElement) window.renderMathInElement(out,{throwOnError:false,delimiters:[{left:'$',right:'$',display:false},{left:'$$',right:'$$',display:true}]});
+  }
+  for(const el of [q, g, th1, th2, n]) el.addEventListener('input', update);
+  update();
+})();
+</script>
 
 <p>Three deep theorems pin the structure down further. <strong>Tate's isogeny conjecture</strong> (proved by Tate over finite fields in 1966 and by Faltings over number fields in 1983): the natural map</p>
 $$\mathrm{Hom}(A,B)\otimes\mathbb{Z}_\ell \;\longrightarrow\; \mathrm{Hom}_{G_k}(T_\ell A, T_\ell B)$$
@@ -495,6 +609,35 @@ is injective. So the polarized Jacobian determines the curve up to isomorphism.<
   </table>
   <div class="readout" id="jac-out">For $g\le 3$, "abelian variety" and "Jacobian (or product)" coincide; for $g\ge 4$, most abelian varieties are not Jacobians.</div>
 </div>
+<script>
+(function(){
+  const tbl = document.getElementById('jac-tbl');
+  const out = document.getElementById('jac-out');
+  if(!tbl || !out) return;
+  const rows = tbl.querySelectorAll('tbody tr');
+  const desc = [
+    'g = 1 — $\\mathcal{M}_1 = \\mathcal{A}_1$, both $1$-dim. Every elliptic curve is its own Jacobian; codim $0$.',
+    'g = 2 — $\\dim\\mathcal{M}_2 = 3 = \\dim\\mathcal{A}_2$. Every p.p.a.v. of dim $2$ is the Jacobian of a smooth genus-$2$ curve (or, in degenerate cases, a product of elliptic curves with the product polarization).',
+    'g = 3 — $\\dim\\mathcal{M}_3 = 6 = \\dim\\mathcal{A}_3$. Every irreducible p.p.a.v. of dim $3$ is the Jacobian of a smooth genus-$3$ curve; reducible p.p.a.v.\'s are products of Jacobians.',
+    'g = 4 — first nontrivial Schottky gap. $\\dim\\mathcal{M}_4 = 9$, $\\dim\\mathcal{A}_4 = 10$, codim $1$. The Schottky equation (a single modular form on $\\mathfrak{H}_4$) cuts out the closure $\\overline{\\mathcal{J}_4}$.',
+    'g = 5 — codim $3$. Andreotti–Mayer cuts out a divisor containing $\\overline{\\mathcal{J}_5}$ but not equal to it; further conditions (vanishing of theta nulls, Krichever\'s trisecant) refine the cut.',
+    'general $g$ — codim $\\binom{g-2}{2}$. The Schottky problem — characterise $\\mathcal{J}_g$ inside $\\mathcal{A}_g$ — is open. Programs: theta-null relations (Riemann), Fay\'s identities, KP/integrable hierarchies (Novikov conjecture, proved by Shiota), Buser–Sarnak length-spectrum bounds.'
+  ];
+  function select(i){
+    rows.forEach((r,k)=>{
+      r.style.background = (k===i) ? 'color-mix(in srgb, var(--cyan) 14%, transparent)' : '';
+      r.style.cursor = 'pointer';
+    });
+    out.innerHTML = desc[i] || desc[desc.length-1];
+    if(window.renderMathInElement) window.renderMathInElement(out,{throwOnError:false,delimiters:[{left:'$',right:'$',display:false}]});
+  }
+  rows.forEach((r,i)=>{
+    r.addEventListener('click', ()=>select(i));
+  });
+  // initial: highlight g=4 row (first Schottky gap).
+  select(3);
+})();
+</script>
 
 <!-- callback-auto-begin -->
 <aside class="callback">
@@ -536,6 +679,32 @@ $$\Phi \;=\; \mathcal{A}_k/\mathcal{A}_k^0$$
   </table>
   <div class="readout" id="red-out">Good ↔ pure abelian; semistable ↔ no unipotent part (Grothendieck's terminology); additive ↔ everything else.</div>
 </div>
+<script>
+(function(){
+  const tbl = document.getElementById('red-tbl');
+  const out = document.getElementById('red-out');
+  if(!tbl || !out) return;
+  const rows = tbl.querySelectorAll('tbody tr');
+  const desc = [
+    'good reduction — $\\mathcal{A}_k^0 = B$ is itself an abelian variety of full dim $g$. Néron–Ogg–Shafarevich criterion: $A/K$ has good reduction at $v$ iff the inertia $I_v \\subset G_K$ acts trivially on $T_\\ell A$ (for any $\\ell \\ne \\mathrm{char}\\,k_v$). For $E/K$: ord_v($\\Delta$) $= 0$ in a minimal model.',
+    'multiplicative / semistable reduction — $T \\ne 0$ but $U = 0$. The toric part $T$ is a $\\mathbb{G}_m^{\\dim T}$, so over $\\bar k$ the special fibre is an extension of an abelian variety by a torus — algebraically a "Néron $n$-gon" for $E$ (type $I_n$, $n = \\mathrm{ord}_v(\\Delta)$). The Tate uniformization $E(\\bar K) \\cong \\bar K^\\times / q^{\\mathbb{Z}}$ realises this analytically.',
+    'additive / unstable reduction — $U \\ne 0$, the unipotent radical is a power of $\\mathbb{G}_a$. Reduction passes to additive type only after a finite base change makes it semistable (Grothendieck\'s semistable reduction theorem). Kodaira classification for $E$: types $II, III, IV, I_n^*, II^*, III^*, IV^*$ — read off from the Newton polygon of a minimal Weierstrass model.'
+  ];
+  function select(i){
+    rows.forEach((r,k)=>{
+      r.style.background = (k===i) ? 'color-mix(in srgb, var(--green) 14%, transparent)' : '';
+      r.style.cursor = 'pointer';
+    });
+    out.innerHTML = desc[i] || desc[desc.length-1];
+    if(window.renderMathInElement) window.renderMathInElement(out,{throwOnError:false,delimiters:[{left:'$',right:'$',display:false}]});
+  }
+  rows.forEach((r,i)=>{
+    r.addEventListener('click', ()=>select(i));
+  });
+  // initial: highlight semistable (the most theoretically central case).
+  select(1);
+})();
+</script>
 
 <div class="ok"><strong>Grothendieck's semistable reduction theorem (SGA 7, 1972).</strong> For any $A/K$, there is a finite separable extension $K'/K$ such that $A_{K'}$ has semistable reduction. Equivalently: after extending the base, the unipotent rank vanishes.</div>
 
@@ -611,6 +780,44 @@ with $r=\mathrm{rank}\,A(K)$ finite and $A(K)_{\mathrm{tors}}$ finite.</div>
   </div>
   <div class="readout" id="fin-out">Choose object + condition to see the finiteness theorem that applies.</div>
 </div>
+<script>
+(function(){
+  const obj = document.getElementById('fin-obj');
+  const cond = document.getElementById('fin-cond');
+  const out = document.getElementById('fin-out');
+  if(!out || !obj || !cond) return;
+  const table = {
+    'ec-points': {
+      'g0': '$E$ doesn\'t exist for genus $0$ (an elliptic curve has genus $1$). For $\\mathbb{P}^1(K)$, the points are infinite — there\'s no finiteness here.',
+      'g1': '<strong>Mordell–Weil (1922).</strong> $E(K) \\cong \\mathbb{Z}^r \\oplus E(K)_{\\mathrm{tors}}$, finitely generated. By Mazur (1977), $E(\\mathbb{Q})_{\\mathrm{tors}}$ is one of $15$ explicit groups; Merel (1996) bounds $|E(K)_{\\mathrm{tors}}|$ uniformly in $[K:\\mathbb{Q}]$.',
+      'g2plus': 'Genus $\\ge 2$ doesn\'t apply to elliptic curves (they have genus $1$).'
+    },
+    'av-points': {
+      'g0': '$A$ doesn\'t exist in dim $0$ (it would be a point).',
+      'g1': '<strong>Mordell–Weil for $g=1$:</strong> classical, $E(K)$ finitely generated. See the elliptic case.',
+      'g2plus': '<strong>Mordell–Weil (Weil 1929).</strong> $A(K)$ is finitely generated for any $g$. The proof is the same descent + heights argument.'
+    },
+    'curve-points': {
+      'g0': 'A genus-$0$ curve $C/K$ with $C(K)\\ne\\emptyset$ is $\\mathbb{P}^1$ — points form an infinite set $\\mathbb{P}^1(K)$.',
+      'g1': '<strong>Mordell–Weil:</strong> $C(K) = E(K)$ if $C$ has a rational point (it\'s an elliptic curve); finitely generated. Otherwise $C(K)$ is a torsor under $E(K)$ — same finiteness theory.',
+      'g2plus': '<strong>Faltings\' theorem (Mordell\'s conjecture, 1983).</strong> $C(K)$ is <em>finite</em>. The bound is ineffective — no algorithm to enumerate $C(K)$ in general. Vojta\'s height inequality gives a different (still ineffective) proof.'
+    },
+    'av-rep': {
+      'g0': 'Doesn\'t apply (no $0$-dim AVs).',
+      'g1': '<strong>Shafarevich\'s theorem (Faltings 1983).</strong> Finite for elliptic curves with good reduction outside $S$. Originally Shafarevich\'s conjecture; proved as a special case of the higher-dim theorem.',
+      'g2plus': '<strong>Faltings (1983).</strong> Finite. This is the main theorem of <em>Endlichkeitssätze für abelsche Varietäten</em> — and it implies Mordell.'
+    }
+  };
+  function update(){
+    const o = obj.value, c = cond.value;
+    out.innerHTML = (table[o] && table[o][c]) || 'No data for this combination.';
+    if(window.renderMathInElement) window.renderMathInElement(out,{throwOnError:false,delimiters:[{left:'$',right:'$',display:false},{left:'$$',right:'$$',display:true}]});
+  }
+  obj.addEventListener('change', update);
+  cond.addEventListener('change', update);
+  update();
+})();
+</script>
 
 <p>Beyond Faltings, several sharper finiteness statements remain conjectural. <strong>Effective Mordell</strong> (the bound on $|C(K)|$ Faltings produces is ineffective; Vojta–Bombieri sharpened the constants but no algorithm enumerates $C(K)$ in general). <strong>Uniform Mordell</strong> (Mazur conjectured $|C(K)|\le N(g,K)$; Dimitrov–Gao–Habegger 2021 proved $|C(K)|\le c(g)\cdot 7^{r_K+\mathrm{rank}\,\mathrm{Jac}(C)(K)}$). <strong>Lang's conjecture</strong>: rational points on a variety of general type are not Zariski dense — implies uniform Mordell and is wide open.</p>
 
@@ -644,134 +851,6 @@ with $r=\mathrm{rank}\,A(K)$ finite and $A(K)_{\mathrm{tors}}$ finite.</div>
 </section>
 
 </main>
-
-<script>
-// ============================================================
-// Widget drivers
-// ============================================================
-(function(){
-  // ----- §1: complex torus + Riemann bilinear relations -----
-  function torusWidget(){
-    const ids = ['tau11','tau12','tau22','y11','y12','y22'];
-    const inputs = {};
-    const labels = {};
-    for(const id of ids){
-      inputs[id] = document.getElementById('tor-'+id);
-      labels[id] = document.getElementById('tor-'+id+'-val');
-    }
-    const out = document.getElementById('tor-out');
-    if(!out) return;
-    function update(){
-      const v = {};
-      for(const id of ids){ v[id] = parseFloat(inputs[id].value); labels[id].textContent = v[id].toFixed(1); }
-      // tau is symmetric automatically (we tied tau12 = tau21 via a single slider).
-      // Build Y = Im tau
-      const Y = [[v.y11, v.y12],[v.y12, v.y22]];
-      // positivity: principal minors > 0
-      const det = Y[0][0]*Y[1][1] - Y[0][1]*Y[1][0];
-      const tr = Y[0][0]+Y[1][1];
-      const positive = (Y[0][0] > 0) && (det > 0);
-      // (the symmetric input enforces symmetry exactly)
-      const symmetric = true;
-      let msg;
-      if(symmetric && positive){
-        msg = 'algebraic ✓ — period matrix lies in $\\mathfrak{H}_2$. Trace(Y)='+tr.toFixed(2)+', det(Y)='+det.toFixed(2)+'. This is the period matrix of a principally polarized abelian surface.';
-      } else if(symmetric && !positive){
-        msg = 'NOT algebraic ✗ — Im(τ) is not positive definite (det='+det.toFixed(2)+', need > 0 with Y₁₁>0). The complex torus exists, but it is not projective and admits no nonconstant meromorphic functions.';
-      } else {
-        msg = 'NOT algebraic ✗ — period matrix is not symmetric, so no Hermitian polarization on V/Λ.';
-      }
-      out.innerHTML = msg;
-      if(window.renderMathInElement) window.renderMathInElement(out,{throwOnError:false,delimiters:[{left:'$',right:'$',display:false}]});
-    }
-    for(const id of ids) inputs[id].addEventListener('input', update);
-    update();
-  }
-  // ----- §3: Weil polynomial → point count -----
-  function weilWidget(){
-    const sel = id => document.getElementById(id);
-    const q = sel('wl-q'), g = sel('wl-g');
-    const th1 = sel('wl-th1'), th2 = sel('wl-th2'), n = sel('wl-n');
-    const th1v = sel('wl-th1-val'), th2v = sel('wl-th2-val'), nv = sel('wl-n-val');
-    const out = sel('wl-out');
-    if(!out) return;
-    function update(){
-      const Q = parseInt(q.value,10), G = parseInt(g.value,10);
-      const T1 = parseFloat(th1.value), T2 = parseFloat(th2.value);
-      const N = parseInt(n.value,10);
-      th1v.textContent = T1.toFixed(2);
-      th2v.textContent = T2.toFixed(2);
-      nv.textContent = N;
-      const sqrtq = Math.sqrt(Q);
-      // Eigenvalues come in conjugate pairs on |z|=sqrt q.
-      // For g=1: alpha, alpha* with arg = T1.
-      // For g=2: alpha_1, alpha_1*, alpha_2, alpha_2* with args T1, T2.
-      const angles = G === 1 ? [T1, -T1] : [T1, -T1, T2, -T2];
-      // |A(F_{q^n})| = prod_i (1 - alpha_i^n)
-      // alpha_i = sqrt q * exp(i * angle)
-      let real = 1, imag = 0;
-      for(const a of angles){
-        const re = 1 - Math.pow(sqrtq, N) * Math.cos(N*a);
-        const im = -Math.pow(sqrtq, N) * Math.sin(N*a);
-        const nr = real*re - imag*im;
-        const ni = real*im + imag*re;
-        real = nr; imag = ni;
-      }
-      const pts = Math.round(real);
-      const hasse = Math.pow(sqrtq, N);
-      const bound = G === 1 ? 'Hasse: $|N - (q^n+1)| \\le 2\\sqrt{q^n}$' : 'Weil: $|N - (q^n+1)^g| \\le \\binom{2g}{g}\\,q^{ng/2}$';
-      out.innerHTML = `For $A/\\mathbb{F}_${Q}$ of dim $g=${G}$ with chosen Frobenius angles, $|A(\\mathbb{F}_{${Q}^{${N}}})| = ${pts}$. Imag residue $\\approx ${imag.toFixed(3)}$ (numerically $0$ — eigenvalues come in conjugate pairs). ${bound}.`;
-      if(window.renderMathInElement) window.renderMathInElement(out,{throwOnError:false,delimiters:[{left:'$',right:'$',display:false},{left:'$$',right:'$$',display:true}]});
-    }
-    for(const el of [q,g,th1,th2,n]) el.addEventListener('input', update);
-    update();
-  }
-  // ----- §6: finiteness lookup -----
-  function finWidget(){
-    const obj = document.getElementById('fin-obj');
-    const cond = document.getElementById('fin-cond');
-    const out = document.getElementById('fin-out');
-    if(!out) return;
-    const table = {
-      'ec-points': {
-        'g0': '$E$ doesn\'t exist for genus $0$ (an elliptic curve has genus $1$). For $\\mathbb{P}^1(K)$, the points are infinite — there\'s no finiteness here.',
-        'g1': '<strong>Mordell–Weil (1922).</strong> $E(K) \\cong \\mathbb{Z}^r \\oplus E(K)_{\\mathrm{tors}}$, finitely generated. By Mazur (1977), $E(\\mathbb{Q})_{\\mathrm{tors}}$ is one of $15$ explicit groups; Merel (1996) bounds $|E(K)_{\\mathrm{tors}}|$ uniformly in $[K:\\mathbb{Q}]$.',
-        'g2plus': 'genus $\\ge 2$ doesn\'t apply to elliptic curves (they have genus $1$).'
-      },
-      'av-points': {
-        'g0': '$A$ doesn\'t exist in dim $0$ (it would be a point).',
-        'g1': '<strong>Mordell–Weil for $g=1$:</strong> classical, $E(K)$ finitely generated. See the elliptic case.',
-        'g2plus': '<strong>Mordell–Weil (Weil 1929).</strong> $A(K)$ is finitely generated for any $g$. The proof is the same descent + heights argument.'
-      },
-      'curve-points': {
-        'g0': 'A genus-$0$ curve $C/K$ with $C(K)\\ne\\emptyset$ is $\\mathbb{P}^1$ — points form an infinite set $\\mathbb{P}^1(K)$.',
-        'g1': '<strong>Mordell–Weil:</strong> $C(K) = E(K)$ if $C$ has a rational point (it\'s an elliptic curve); finitely generated. Otherwise $C(K)$ is a torsor under $E(K)$ — same finiteness theory.',
-        'g2plus': '<strong>Faltings\' theorem (Mordell\'s conjecture, 1983).</strong> $C(K)$ is <em>finite</em>. The bound is ineffective — no algorithm to enumerate $C(K)$ in general. Vojta\'s height inequality gives a different (still ineffective) proof.'
-      },
-      'av-rep': {
-        'g0': 'doesn\'t apply (no $0$-dim AVs).',
-        'g1': '<strong>Shafarevich\'s theorem (Faltings 1983).</strong> Finite for elliptic curves with good reduction outside $S$. Originally Shafarevich\'s conjecture; proved as a special case of the higher-dim theorem.',
-        'g2plus': '<strong>Faltings (1983).</strong> Finite. This is the main theorem of <em>Endlichkeitssätze für abelsche Varietäten</em> — and it implies Mordell.'
-      }
-    };
-    function update(){
-      const o = obj.value, c = cond.value;
-      out.innerHTML = (table[o] && table[o][c]) || 'No data for this combination.';
-      if(window.renderMathInElement) window.renderMathInElement(out,{throwOnError:false,delimiters:[{left:'$',right:'$',display:false},{left:'$$',right:'$$',display:true}]});
-    }
-    obj.addEventListener('change', update);
-    cond.addEventListener('change', update);
-    update();
-  }
-  function init(){
-    torusWidget();
-    weilWidget();
-    finWidget();
-  }
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
-  else init();
-})();
-</script>
 
 <script>
 (function(){
