@@ -22,6 +22,10 @@
           }
         },
         {
+          "type": "widget-script",
+          "ref": "w-grow"
+        },
+        {
           "type": "raw",
           "html": "\n\n<p>For a general number field $K$, the number of independent $\\mathbb{Z}_p$-extensions of $K$ is $r_2(K)+1+\\delta$ where $\\delta\\ge 0$ is the <em>Leopoldt defect</em>. Leopoldt's conjecture (still open in general) says $\\delta=0$, so $K$ has exactly $r_2(K)+1$ independent towers — and the cyclotomic one is one of them.</p>\n\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./class-field-theory.html#artin\">Artin reciprocity map</a></li>\n    <li><a href=\"./p-adic-numbers.html#abs\">p-adic norm and completion</a></li>\n  </ul>\n</aside>\n\n"
         },
@@ -61,6 +65,10 @@
             "title": "Build a $\\Lambda$-module summand",
             "hint": "pick a cyclic factor and read its invariants"
           }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-lam"
         },
         {
           "type": "raw",
@@ -104,6 +112,10 @@
           }
         },
         {
+          "type": "widget-script",
+          "ref": "w-fw"
+        },
+        {
           "type": "raw",
           "html": "\n\n<p>An elegant consequence: the $\\Gamma$-coinvariants $X_\\infty/(T-(\\gamma-1))X_\\infty$ recover $A_0=A=\\operatorname{Cl}(K)_p$. Specialising the characteristic ideal at $T=0$ therefore reads off (a multiple of) the class number. This is the first hint of the main conjecture: a single power-series-valued invariant of the tower secretly encodes every level's class number.</p>\n\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./class-field-theory.html#hcf\">Hilbert class field</a></li>\n  </ul>\n</aside>\n\n"
         },
@@ -143,6 +155,10 @@
             "title": "Kummer congruence checker",
             "hint": "interpolation made elementary"
           }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-kc"
         },
         {
           "type": "raw",
@@ -186,6 +202,10 @@
           }
         },
         {
+          "type": "widget-script",
+          "ref": "w-mc"
+        },
+        {
           "type": "raw",
           "html": "\n\n"
         },
@@ -221,6 +241,10 @@
             "title": "What's proved for which curve?",
             "hint": "CM / non-CM, ordinary / supersingular at $p$"
           }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-ell"
         },
         {
           "type": "raw",
