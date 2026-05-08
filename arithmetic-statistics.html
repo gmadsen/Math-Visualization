@@ -1,0 +1,571 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Arithmetic statistics</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false,
+      macros:{
+        '\\Spec':'\\operatorname{Spec}',
+        '\\Gal':'\\operatorname{Gal}',
+        '\\Hom':'\\operatorname{Hom}',
+        '\\tr':'\\operatorname{tr}',
+        '\\ad':'\\operatorname{ad}',
+        '\\ind':'\\operatorname{ind}'
+      }
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  /* sticky sidebar TOC (wide screens only; narrow screens fall back to top-nav) */
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
+  /* display-prefs-css-auto-begin */
+  html[data-hide-widgets] .widget { display: none !important; }
+  html[data-hide-quizzes] .quiz { display: none !important; }
+  html[data-hide-lineage] .lineage-strip { display: none !important; }
+  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }
+  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }
+  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }
+  .mv-display-toggle--off { opacity: 0.35; }
+  /* display-prefs-css-auto-end */
+</style>
+<!-- breadcrumb-head-auto-begin -->
+<script>window.__MV_SECTION_MAP = {"<topic>":{"next":null,"prev":null,"section":"Sections","title":"<topic>"},"L-functions":{"next":"sato-tate","prev":"moonshine","section":"Modular forms & L-functions","title":"L-functions"},"abelian-varieties":{"next":"positivity-and-ample-line-bundles","prev":"toric-varieties","section":"Algebraic geometry","title":"Abelian varieties"},"additive-number-theory":{"next":"heights-arithmetic-geometry","prev":"quadratic-forms-genus-theory","section":"Number theory","title":"Additive number theory"},"adeles-and-ideles":{"next":"frobenius-and-reciprocity","prev":"p-adic-numbers","section":"Number theory","title":"Adèles & idèles"},"advanced-complex-analysis":{"next":"microlocal-analysis","prev":"sobolev-spaces-distributions","section":"Analysis","title":"Advanced complex analysis"},"algebra":{"next":"representation-theory","prev":null,"section":"Algebra & homological","title":"Abstract algebra"},"algebraic-curves-higher-genus":{"next":"deformation-theory","prev":"mirror-symmetry","section":"Algebraic geometry","title":"Algebraic curves: higher genus"},"algebraic-de-rham-cohomology":{"next":"calabi-yau-manifolds","prev":"algebraic-spaces","section":"Algebraic geometry","title":"Algebraic de Rham cohomology"},"algebraic-k-theory-foundations":{"next":"model-categories","prev":"quantum-groups","section":"Algebra & homological","title":"Algebraic K-theory foundations"},"algebraic-number-theory":{"next":"p-adic-numbers","prev":"galois","section":"Number theory","title":"Algebraic number theory"},"algebraic-spaces":{"next":"algebraic-de-rham-cohomology","prev":"functor-of-points","section":"Algebraic geometry","title":"Algebraic spaces"},"algebraic-topology":{"next":"knot-polynomials","prev":"point-set-topology","section":"Geometry & topology","title":"Algebraic topology"},"analytic-continuation":{"next":"zeta-values","prev":"dirichlet-series-euler-products","section":"Modular forms & L-functions","title":"Analytic continuation"},"analytic-number-theory":{"next":"galois","prev":null,"section":"Number theory","title":"Analytic number theory"},"atiyah-singer-index-theorem":{"next":"riemannian-geometry","prev":"k-theory","section":"Geometry & topology","title":"Atiyah–Singer index theorem"},"automorphic-forms-adelic":{"next":"moonshine","prev":"hecke-operators","section":"Modular forms & L-functions","title":"Automorphic forms (adelic)"},"bezout":{"next":"schemes","prev":"elliptic-curves","section":"Algebraic geometry","title":"Bézout's theorem"},"bsd":{"next":"modularity-and-flt","prev":"sato-tate","section":"Modular forms & L-functions","title":"Birch & Swinnerton-Dyer"},"calabi-yau-manifolds":{"next":"mirror-symmetry","prev":"algebraic-de-rham-cohomology","section":"Algebraic geometry","title":"Calabi–Yau manifolds"},"category-theory":{"next":"commutative-algebra","prev":"derived-categories","section":"Algebra & homological","title":"Category theory"},"characteristic-classes":{"next":"k-theory","prev":"symplectic-manifolds","section":"Geometry & topology","title":"Characteristic classes"},"class-field-theory":{"next":"galois-representations","prev":"computational-number-theory","section":"Number theory","title":"Class field theory"},"cluster-algebras":{"next":"galois-cohomology-and-brauer","prev":"geometric-and-combinatorial-group-theory","section":"Algebra & homological","title":"Cluster algebras"},"cobordism":{"next":"homotopy-theory","prev":"cohomology-and-duality","section":"Geometry & topology","title":"Cobordism"},"cocartesian-fibrations":{"next":"infinity-categories","prev":"heyting-algebras-toposes","section":"Higher categories & toposes","title":"Cocartesian fibrations"},"cohomology-and-duality":{"next":"cobordism","prev":"mostow-rigidity","section":"Geometry & topology","title":"Cohomology and duality"},"commutative-algebra":{"next":"homological","prev":"category-theory","section":"Algebra & homological","title":"Commutative algebra"},"complex-analysis":{"next":"measure-theory","prev":"real-analysis","section":"Analysis","title":"Complex analysis"},"complex-multiplication":{"next":null,"prev":"dirichlet-unit-theorem","section":"Number theory","title":"Complex multiplication"},"complexity-theory":{"next":"type-theory-and-hott","prev":"computability-and-decidability","section":"Logic & Foundations","title":"Complexity theory"},"computability-and-decidability":{"next":"complexity-theory","prev":"model-theory-basics","section":"Logic & Foundations","title":"Computability and decidability"},"computational-number-theory":{"next":"class-field-theory","prev":"mathematics-and-cryptography","section":"Number theory","title":"Computational number theory"},"condensed-mathematics":{"next":null,"prev":"groebner-bases","section":"Algebra & homological","title":"Condensed mathematics"},"continued-fractions":{"next":"dirichlet-unit-theorem","prev":"iwasawa-theory","section":"Number theory","title":"Continued fractions"},"crystalline-cohomology":{"next":"tropical-geometry","prev":"d-modules","section":"Algebraic geometry","title":"Crystalline cohomology"},"d-modules":{"next":"crystalline-cohomology","prev":"mmp-and-birational-geometry","section":"Algebraic geometry","title":"D-modules"},"deformation-theory":{"next":"resolution-of-singularities","prev":"algebraic-curves-higher-genus","section":"Algebraic geometry","title":"Deformation theory"},"derived-categories":{"next":"category-theory","prev":"model-categories","section":"Algebra & homological","title":"Derived categories"},"designs":{"next":"spectral-graph-theory","prev":"enumerative-combinatorics","section":"Combinatorics & graph theory","title":"Designs"},"differential-forms":{"next":"morse-theory","prev":"riemann-surfaces","section":"Geometry & topology","title":"Differential forms"},"differential-geometry":{"next":"riemann-surfaces","prev":"smooth-manifolds","section":"Geometry & topology","title":"Differential geometry"},"dirac-equation":{"next":"statistical-mechanics","prev":"klein-gordon-equation","section":"Mathematical physics","title":"Dirac equation"},"dirichlet-series-euler-products":{"next":"analytic-continuation","prev":null,"section":"Modular forms & L-functions","title":"Dirichlet series & Euler products"},"dirichlet-unit-theorem":{"next":"complex-multiplication","prev":"continued-fractions","section":"Number theory","title":"Dirichlet unit theorem"},"dynamical-systems":{"next":"semigroup-theory-evolution-equations","prev":"operator-algebras","section":"Analysis","title":"Dynamical systems"},"elementary-topos-theory":{"next":"grothendieck-topologies-sites","prev":"simplicial-sets-and-nerve","section":"Higher categories & toposes","title":"Elementary topos theory"},"elliptic-curves":{"next":"bezout","prev":"etale-fundamental-group","section":"Algebraic geometry","title":"Elliptic curves"},"enumerative-combinatorics":{"next":"designs","prev":"simplicial-complexes-combinatorial","section":"Combinatorics & graph theory","title":"Enumerative combinatorics"},"etale-cohomology":{"next":"mmp-and-birational-geometry","prev":"stacks","section":"Algebraic geometry","title":"Étale cohomology"},"etale-fundamental-group":{"next":"elliptic-curves","prev":"projective-plane","section":"Algebraic geometry","title":"Étale fundamental group"},"expanders":{"next":null,"prev":"spectral-graph-theory","section":"Combinatorics & graph theory","title":"Expanders"},"extremal-combinatorics":{"next":"simplicial-complexes-combinatorial","prev":"probabilistic-method","section":"Combinatorics & graph theory","title":"Extremal combinatorics"},"first-order-logic-and-completeness":{"next":"zfc-and-ordinals","prev":"type-theory-and-hott","section":"Logic & Foundations","title":"First order logic and completeness"},"fixed-point-theorems":{"next":"harmonic-analysis-fourier","prev":"functional-analysis","section":"Analysis","title":"Fixed point theorems"},"forcing-and-independence":{"next":null,"prev":"zfc-and-ordinals","section":"Logic & Foundations","title":"Forcing and independence"},"frobenius-and-reciprocity":{"next":"quadratic-reciprocity","prev":"adeles-and-ideles","section":"Number theory","title":"Frobenius & reciprocity"},"functional-analysis":{"next":"fixed-point-theorems","prev":"harmonic-functions","section":"Analysis","title":"Functional analysis"},"functor-of-points":{"next":"algebraic-spaces","prev":"morphisms-fiber-products","section":"Algebraic geometry","title":"Functor of points"},"galois":{"next":"algebraic-number-theory","prev":"analytic-number-theory","section":"Number theory","title":"Galois theory & the quintic"},"galois-cohomology-and-brauer":{"next":"group-cohomology","prev":"cluster-algebras","section":"Algebra & homological","title":"Galois cohomology and Brauer groups"},"galois-representations":{"next":"iwasawa-theory","prev":"class-field-theory","section":"Number theory","title":"Galois representations"},"gauge-theory":{"next":"string-theory","prev":"statistical-mechanics","section":"Mathematical physics","title":"Gauge theory"},"general-relativity":{"next":"schrodinger-equation","prev":"three-body-problem","section":"Mathematical physics","title":"General relativity & Einstein equations"},"geometric-and-combinatorial-group-theory":{"next":"cluster-algebras","prev":"quaternions-octonions-and-division-algebras","section":"Algebra & homological","title":"Geometric and combinatorial group theory"},"geometric-measure-theory":{"next":"operator-algebras","prev":"microlocal-analysis","section":"Analysis","title":"Geometric measure theory"},"groebner-bases":{"next":"condensed-mathematics","prev":"homological","section":"Algebra & homological","title":"Gröbner bases"},"grothendieck-topologies-sites":{"next":"infinity-topoi","prev":"elementary-topos-theory","section":"Higher categories & toposes","title":"Grothendieck topologies & sites"},"group-cohomology":{"next":"quantum-groups","prev":"galois-cohomology-and-brauer","section":"Algebra & homological","title":"Group cohomology"},"group-schemes":{"next":"morphisms-fiber-products","prev":"intersection-theory-chow","section":"Algebraic geometry","title":"Group schemes"},"half-integral-weight-forms":{"next":null,"prev":"maass-forms","section":"Modular forms & L-functions","title":"Half-integral weight forms"},"hamiltonians-classical-mechanics":{"next":"special-relativity","prev":"schrodinger-equation","section":"Mathematical physics","title":"Hamiltonians & classical mechanics"},"harmonic-analysis-fourier":{"next":"wavelets","prev":"fixed-point-theorems","section":"Analysis","title":"Harmonic analysis & Fourier theory"},"harmonic-functions":{"next":"functional-analysis","prev":"measure-theory","section":"Analysis","title":"Harmonic functions"},"hecke-operators":{"next":"automorphic-forms-adelic","prev":"theta-functions","section":"Modular forms & L-functions","title":"Hecke operators"},"heights-arithmetic-geometry":{"next":"mathematics-and-cryptography","prev":"additive-number-theory","section":"Number theory","title":"Heights in arithmetic geometry"},"heyting-algebras-toposes":{"next":"cocartesian-fibrations","prev":null,"section":"Higher categories & toposes","title":"Heyting algebras & intuitionist logic"},"high-dimensional-geometry":{"next":"information-theory","prev":"large-deviations","section":"Probability & statistics","title":"High dimensional geometry"},"hodge-theory":{"next":"singular-cubics-reduction","prev":"motives","section":"Algebraic geometry","title":"Hodge theory"},"homological":{"next":"groebner-bases","prev":"commutative-algebra","section":"Algebra & homological","title":"Homological algebra"},"homotopy-theory":{"next":"kahler-geometry","prev":"cobordism","section":"Geometry & topology","title":"Homotopy theory"},"infinity-categories":{"next":"simplicial-sets-and-nerve","prev":"cocartesian-fibrations","section":"Higher categories & toposes","title":"∞-categories (quasi-categories)"},"infinity-topoi":{"next":null,"prev":"grothendieck-topologies-sites","section":"Higher categories & toposes","title":"∞-topoi"},"information-theory":{"next":"mathematical-statistics","prev":"high-dimensional-geometry","section":"Probability & statistics","title":"Information theory"},"intersection-theory-chow":{"next":"group-schemes","prev":"sheaves","section":"Algebraic geometry","title":"Intersection theory & Chow groups"},"iwasawa-theory":{"next":"continued-fractions","prev":"galois-representations","section":"Number theory","title":"Iwasawa theory"},"k-theory":{"next":"atiyah-singer-index-theorem","prev":"characteristic-classes","section":"Geometry & topology","title":"K-theory"},"kahler-geometry":{"next":"mapping-class-groups","prev":"homotopy-theory","section":"Geometry & topology","title":"Kähler geometry"},"khovanov-homology":{"next":"surgery-theory","prev":"mapping-class-groups","section":"Geometry & topology","title":"Khovanov homology"},"klein-gordon-equation":{"next":"dirac-equation","prev":"special-relativity","section":"Mathematical physics","title":"Klein-Gordon equation"},"knot-polynomials":{"next":"smooth-manifolds","prev":"algebraic-topology","section":"Geometry & topology","title":"Knot polynomials"},"langlands-program":{"next":"theta-functions","prev":"vertex-operator-algebras","section":"Modular forms & L-functions","title":"Langlands program"},"large-deviations":{"next":"high-dimensional-geometry","prev":"random-walks-and-mixing","section":"Probability & statistics","title":"Large deviations"},"lie-algebras":{"next":"quaternions-octonions-and-division-algebras","prev":"representation-theory","section":"Algebra & homological","title":"Lie algebras"},"lie-groups":{"next":"mostow-rigidity","prev":"ricci-flow","section":"Geometry & topology","title":"Lie groups & algebras"},"maass-forms":{"next":"half-integral-weight-forms","prev":"modularity-and-flt","section":"Modular forms & L-functions","title":"Maass forms"},"mapping-class-groups":{"next":"khovanov-homology","prev":"kahler-geometry","section":"Geometry & topology","title":"Mapping class groups & 4-manifolds"},"mathematical-statistics":{"next":"probability-theory","prev":"information-theory","section":"Probability & statistics","title":"Mathematical statistics"},"mathematics-and-cryptography":{"next":"computational-number-theory","prev":"heights-arithmetic-geometry","section":"Number theory","title":"Mathematics and cryptography"},"matroid-theory":{"next":"probabilistic-method","prev":null,"section":"Combinatorics & graph theory","title":"Matroid theory"},"measure-theory":{"next":"harmonic-functions","prev":"complex-analysis","section":"Analysis","title":"Measure theory"},"microlocal-analysis":{"next":"geometric-measure-theory","prev":"advanced-complex-analysis","section":"Analysis","title":"Microlocal analysis"},"mirror-symmetry":{"next":"algebraic-curves-higher-genus","prev":"calabi-yau-manifolds","section":"Algebraic geometry","title":"Mirror symmetry"},"mmp-and-birational-geometry":{"next":"d-modules","prev":"etale-cohomology","section":"Algebraic geometry","title":"MMP and birational geometry"},"model-categories":{"next":"derived-categories","prev":"algebraic-k-theory-foundations","section":"Algebra & homological","title":"Model categories"},"model-theory-basics":{"next":"computability-and-decidability","prev":"naive-set-theory","section":"Logic & Foundations","title":"Model theory basics"},"modular-curves":{"next":"vertex-operator-algebras","prev":"partitions-generating-functions","section":"Modular forms & L-functions","title":"Modular curves"},"modular-forms":{"next":"partitions-generating-functions","prev":"upper-half-plane-hyperbolic","section":"Modular forms & L-functions","title":"Modular forms"},"modularity-and-flt":{"next":"maass-forms","prev":"bsd","section":"Modular forms & L-functions","title":"Modularity & FLT"},"moduli-spaces":{"next":"toric-varieties","prev":"sheaf-cohomology","section":"Algebraic geometry","title":"Moduli spaces"},"moonshine":{"next":"L-functions","prev":"automorphic-forms-adelic","section":"Modular forms & L-functions","title":"Monstrous moonshine"},"morphisms-fiber-products":{"next":"functor-of-points","prev":"group-schemes","section":"Algebraic geometry","title":"Morphisms & fiber products"},"morse-theory":{"next":"symplectic-manifolds","prev":"differential-forms","section":"Geometry & topology","title":"Morse theory"},"mostow-rigidity":{"next":"cohomology-and-duality","prev":"lie-groups","section":"Geometry & topology","title":"Mostow rigidity"},"motives":{"next":"hodge-theory","prev":"resolution-of-singularities","section":"Algebraic geometry","title":"Motives"},"naive-set-theory":{"next":"model-theory-basics","prev":null,"section":"Logic & Foundations","title":"Naive set theory"},"numerical-analysis":{"next":"variational-methods","prev":"spectral-theory","section":"Analysis","title":"Numerical analysis"},"operator-algebras":{"next":"dynamical-systems","prev":"geometric-measure-theory","section":"Analysis","title":"Operator algebras"},"p-adic-numbers":{"next":"adeles-and-ideles","prev":"algebraic-number-theory","section":"Number theory","title":"p-adic numbers"},"partial-differential-equations":{"next":"spectral-theory","prev":"wavelets","section":"Analysis","title":"Partial differential equations"},"partitions-generating-functions":{"next":"modular-curves","prev":"modular-forms","section":"Modular forms & L-functions","title":"Partitions & generating functions"},"point-set-topology":{"next":"algebraic-topology","prev":null,"section":"Geometry & topology","title":"Point-set topology"},"positivity-and-ample-line-bundles":{"next":"stacks","prev":"abelian-varieties","section":"Algebraic geometry","title":"Positivity and ample line bundles"},"probabilistic-method":{"next":"extremal-combinatorics","prev":"matroid-theory","section":"Combinatorics & graph theory","title":"Probabilistic method"},"probability-theory":{"next":null,"prev":"mathematical-statistics","section":"Probability & statistics","title":"Probability theory"},"projective-plane":{"next":"etale-fundamental-group","prev":null,"section":"Algebraic geometry","title":"Projective plane"},"quadratic-forms-genus-theory":{"next":"additive-number-theory","prev":"quadratic-reciprocity","section":"Number theory","title":"Quadratic forms & genus theory"},"quadratic-reciprocity":{"next":"quadratic-forms-genus-theory","prev":"frobenius-and-reciprocity","section":"Number theory","title":"Quadratic reciprocity"},"quantum-field-theory":{"next":null,"prev":"string-theory","section":"Mathematical physics","title":"Quantum field theory"},"quantum-groups":{"next":"algebraic-k-theory-foundations","prev":"group-cohomology","section":"Algebra & homological","title":"Quantum groups"},"quaternions-octonions-and-division-algebras":{"next":"geometric-and-combinatorial-group-theory","prev":"lie-algebras","section":"Algebra & homological","title":"Quaternions, octonions, and division algebras"},"random-walks-and-mixing":{"next":"large-deviations","prev":"stochastic-calculus","section":"Probability & statistics","title":"Random walks and mixing"},"real-analysis":{"next":"complex-analysis","prev":null,"section":"Analysis","title":"Real analysis"},"representation-theory":{"next":"lie-algebras","prev":"algebra","section":"Algebra & homological","title":"Representation theory"},"resolution-of-singularities":{"next":"motives","prev":"deformation-theory","section":"Algebraic geometry","title":"Resolution of singularities"},"ricci-flow":{"next":"lie-groups","prev":"riemannian-geometry","section":"Geometry & topology","title":"Ricci flow"},"riemann-surfaces":{"next":"differential-forms","prev":"differential-geometry","section":"Geometry & topology","title":"Riemann surfaces"},"riemannian-geometry":{"next":"ricci-flow","prev":"atiyah-singer-index-theorem","section":"Geometry & topology","title":"Riemannian geometry"},"sato-tate":{"next":"bsd","prev":"L-functions","section":"Modular forms & L-functions","title":"Sato–Tate"},"schemes":{"next":"sheaves","prev":"bezout","section":"Algebraic geometry","title":"Schemes"},"schrodinger-equation":{"next":"hamiltonians-classical-mechanics","prev":"general-relativity","section":"Mathematical physics","title":"Schrödinger equation"},"semigroup-theory-evolution-equations":{"next":"several-complex-variables","prev":"dynamical-systems","section":"Analysis","title":"Semigroup theory & evolution equations"},"several-complex-variables":{"next":null,"prev":"semigroup-theory-evolution-equations","section":"Analysis","title":"Several complex variables"},"sheaf-cohomology":{"next":"moduli-spaces","prev":"singular-cubics-reduction","section":"Algebraic geometry","title":"Sheaf cohomology"},"sheaves":{"next":"intersection-theory-chow","prev":"schemes","section":"Algebraic geometry","title":"Sheaves"},"simplicial-complexes-combinatorial":{"next":"enumerative-combinatorics","prev":"extremal-combinatorics","section":"Combinatorics & graph theory","title":"Simplicial complexes (combinatorial)"},"simplicial-sets-and-nerve":{"next":"elementary-topos-theory","prev":"infinity-categories","section":"Higher categories & toposes","title":"Simplicial sets & the nerve"},"singular-cubics-reduction":{"next":"sheaf-cohomology","prev":"hodge-theory","section":"Algebraic geometry","title":"Singular cubics & reduction"},"smooth-manifolds":{"next":"differential-geometry","prev":"knot-polynomials","section":"Geometry & topology","title":"Smooth manifolds"},"sobolev-spaces-distributions":{"next":"advanced-complex-analysis","prev":"variational-methods","section":"Analysis","title":"Sobolev spaces & distributions"},"special-relativity":{"next":"klein-gordon-equation","prev":"hamiltonians-classical-mechanics","section":"Mathematical physics","title":"Special relativity"},"spectral-graph-theory":{"next":"expanders","prev":"designs","section":"Combinatorics & graph theory","title":"Spectral graph theory"},"spectral-theory":{"next":"numerical-analysis","prev":"partial-differential-equations","section":"Analysis","title":"Spectral theory"},"stacks":{"next":"etale-cohomology","prev":"positivity-and-ample-line-bundles","section":"Algebraic geometry","title":"Stacks (Deligne–Mumford)"},"statistical-mechanics":{"next":"gauge-theory","prev":"dirac-equation","section":"Mathematical physics","title":"Statistical mechanics"},"stochastic-calculus":{"next":"random-walks-and-mixing","prev":"stochastic-processes-and-martingales","section":"Probability & statistics","title":"Stochastic calculus"},"stochastic-processes-and-martingales":{"next":"stochastic-calculus","prev":null,"section":"Probability & statistics","title":"Stochastic processes and martingales"},"string-theory":{"next":"quantum-field-theory","prev":"gauge-theory","section":"Mathematical physics","title":"String theory"},"surgery-theory":{"next":null,"prev":"khovanov-homology","section":"Geometry & topology","title":"Surgery theory"},"symplectic-manifolds":{"next":"characteristic-classes","prev":"morse-theory","section":"Geometry & topology","title":"Symplectic manifolds"},"theta-functions":{"next":"hecke-operators","prev":"langlands-program","section":"Modular forms & L-functions","title":"Theta functions"},"three-body-problem":{"next":"general-relativity","prev":null,"section":"Mathematical physics","title":"The three-body problem"},"toric-varieties":{"next":"abelian-varieties","prev":"moduli-spaces","section":"Algebraic geometry","title":"Toric varieties"},"tropical-geometry":{"next":null,"prev":"crystalline-cohomology","section":"Algebraic geometry","title":"Tropical geometry"},"type-theory-and-hott":{"next":"first-order-logic-and-completeness","prev":"complexity-theory","section":"Logic & Foundations","title":"Type theory and HoTT"},"upper-half-plane-hyperbolic":{"next":"modular-forms","prev":"zeta-values","section":"Modular forms & L-functions","title":"Upper half-plane"},"variational-methods":{"next":"sobolev-spaces-distributions","prev":"numerical-analysis","section":"Analysis","title":"Variational methods"},"vertex-operator-algebras":{"next":"langlands-program","prev":"modular-curves","section":"Modular forms & L-functions","title":"Vertex operator algebras"},"wavelets":{"next":"partial-differential-equations","prev":"harmonic-analysis-fourier","section":"Analysis","title":"Wavelets"},"zeta-values":{"next":"upper-half-plane-hyperbolic","prev":"analytic-continuation","section":"Modular forms & L-functions","title":"Zeta values"},"zfc-and-ordinals":{"next":"forcing-and-independence","prev":"first-order-logic-and-completeness","section":"Logic & Foundations","title":"ZFC and ordinals"}};</script>
+<script src="./js/breadcrumb.js"></script>
+<script src="./js/glossary-popover.js" defer></script>
+<link rel="stylesheet" media="print" href="./css/print.css">
+<link rel="stylesheet" href="./css/theme-light.css">
+<script src="./js/theme-toggle.js"></script>
+<script src="./concepts/bundle.js" defer></script>
+<script src="./js/topic-hotkeys.js" defer></script>
+<script src="./js/topic-lineage.js" defer></script>
+<!-- breadcrumb-head-auto-end -->
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./js/katex-select.js"></script>
+<script src="./quizzes/bundle.js"></script>
+<script src="./js/sidetoc.js"></script>
+<!-- display-prefs-head-auto-begin -->
+<script src="./js/display-prefs.js"></script>
+<!-- display-prefs-head-auto-end -->
+</head>
+<body data-section="number-theory" data-level="intermediate">
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+// draw an arrow marker def once per svg (idempotent)
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+// curved arrow between two pixel points, with optional label
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  // shorten endpoints
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><span class="nav-links"><a class="nav-link" href="./pathway.html">Pathway</a><a class="nav-link" href="./tours.html">Tours</a><a class="nav-link" href="./history.html">History</a><a class="nav-link" href="./tags.html">Themes</a><a class="nav-link" href="./mindmap.html">Mindmap</a><a class="nav-link" href="./search.html">Search</a></span><span class="mv-theme-slot"></span><!-- breadcrumb-nav-auto-end -->
+<!-- toc-auto-begin -->
+  <a href="#counting-fields">1&nbsp;Counting&nbsp;number&nbsp;fields</a>
+  <a href="#cohen-lenstra">2&nbsp;Cohen–Lenstra&nbsp;heuristics</a>
+  <a href="#selmer-averages">3&nbsp;Bhargava's&nbsp;Selmer&nbsp;averages</a>
+  <a href="#average-rank">4&nbsp;Average&nbsp;rank&nbsp;of&nbsp;elliptic&nbsp;curves</a>
+  <a href="#function-fields">5&nbsp;Function-field&nbsp;analogues</a>
+  <a href="#l-symmetry">6&nbsp;Connections&nbsp;to&nbsp;$L$-functions&nbsp;and&nbsp;zeros</a>
+  <a href="#connections">7&nbsp;Connections</a>
+<!-- toc-auto-end -->
+</nav>
+<!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Arithmetic statistics</h1>
+  <p class="sub">Number-theoretic objects — number fields, class groups, elliptic curves, $L$-functions — when ordered by some height become statistical populations. Davenport–Heilbronn, Cohen–Lenstra, Bhargava: the slogan is that arithmetic, viewed in bulk, has shape, and that shape is computable.</p>
+</section>
+
+<p class="small"><em>Reader's note.</em> This page assumes comfort with class groups and discriminants from <a href="./algebraic-number-theory.html">algebraic number theory</a>, with the height machine of <a href="./heights-arithmetic-geometry.html">heights in arithmetic geometry</a> (Northcott finiteness gives the very notion of "ordering by $X$"), and with the rank/$L$-function dictionary of <a href="./bsd.html">BSD</a> and <a href="./L-functions.html">$L$-functions</a>. The bend that distinguishes arithmetic statistics from analytic number theory is that we want <em>distributions</em>, not just averages — Cohen–Lenstra and Katz–Sarnak each predict a specific limiting measure.</p>
+
+<section id="counting-fields">
+<h2>1. Counting number fields</h2>
+
+<p>Order number fields $K/\mathbb{Q}$ of degree $n$ by absolute discriminant: $|\mathrm{disc}(K)|\le X$. The basic counting function is</p>
+
+<p style="text-align:center">$N_n(X) \;=\; \#\{K/\mathbb{Q}\text{ of degree }n\;:\;|\mathrm{disc}\,K|\le X\}.$</p>
+
+<p>For $n=2$ the answer is classical: every quadratic field is $\mathbb{Q}(\sqrt{d})$ with $d$ squarefree, $\mathrm{disc}=d$ or $4d$, so $N_2(X)\sim \frac{6}{\pi^2}X$. For $n=3$ the answer is the <strong>Davenport–Heilbronn theorem</strong> (1971):</p>
+
+<p style="text-align:center">$N_3(X) \;\sim\; \dfrac{1}{3\,\zeta(3)}\,X.$</p>
+
+<p>The proof reduces to counting $\mathrm{GL}_2(\mathbb{Z})$-orbits of binary cubic forms via the Delone–Faddeev correspondence (cubic rings $\leftrightarrow$ integer binary cubic forms), then applying a geometry-of-numbers count of lattice points in a fundamental domain — with a delicate sieve to discard reducible / non-maximal orbits.</p>
+
+<h3>Bhargava's parametrizations</h3>
+
+<p>Higher degrees were stuck for thirty years until Manjul Bhargava reframed the problem. Bhargava's PhD work and follow-ups extended the Delone–Faddeev recipe to a tower of "higher composition laws":</p>
+
+<ul>
+  <li><strong>Quartic rings</strong> $\leftrightarrow$ $\mathrm{GL}_2(\mathbb{Z})\times\mathrm{SL}_3(\mathbb{Z})$-orbits on pairs of integer ternary quadratic forms.</li>
+  <li><strong>Quintic rings</strong> $\leftrightarrow$ $\mathrm{GL}_4(\mathbb{Z})\times\mathrm{SL}_5(\mathbb{Z})$-orbits on quadruples of integer $5\times 5$ skew-symmetric matrices.</li>
+</ul>
+
+<p>Each parametrization plus a geometry-of-numbers count gives an asymptotic $N_n(X)\sim c_n X$ for $n=4,5$. For $n\ge 6$ no such parametrization is known and we are guided by the conjecture of Malle: $N_n(X)\sim c_n X^{1/a(G)}(\log X)^{b(G)-1}$ where $G\le S_n$ is the Galois group of the Galois closure and $a(G),b(G)$ are explicit invariants of $G$.</p>
+
+<div class="widget" id="w-cubic">
+  <div class="hd"><div class="ttl">Cubic field counter</div><div class="hint">slide $X$, watch the count vs Davenport–Heilbronn</div></div>
+  <div class="row">
+    <label for="cubic-x">$X = $ <span id="cubic-xv">1000</span></label>
+    <input type="range" id="cubic-x" min="100" max="10000" step="100" value="1000">
+  </div>
+  <svg id="cubic-svg" viewBox="0 0 720 320" width="720" height="320"><title>Cubic field counter</title></svg>
+  <div class="readout" id="cubic-out"></div>
+  <p class="small">Empirical curve uses tabulated counts of cubic fields by $|\mathrm{disc}|$ (LMFDB-style data, smoothed). Predicted line is $X/(3\zeta(3))\approx X/3.606$. Davenport–Heilbronn says the ratio $N_3(X)\cdot 3\zeta(3)/X\to 1$; the convergence is logarithmically slow.</p>
+</div>
+
+<div class="ok"><strong>Take-away.</strong> The discriminant ordering is a height: Northcott finiteness over $\mathbb{Q}$ guarantees only finitely many fields below any cap. Asymptotic density inside that finite population is what arithmetic statistics measures.</div>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./algebraic-number-theory.html#discriminant">Discriminant of a number field</a></li>
+    <li><a href="./heights-arithmetic-geometry.html#northcott">Logarithmic height and Northcott finiteness</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./arithmetic-statistics.html#selmer-averages">Arithmetic statistics</a> · Bhargava's Selmer averages</div>
+    <div><a href="./arithmetic-statistics.html#cohen-lenstra">Arithmetic statistics</a> · Cohen–Lenstra heuristics</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="as-counting-fields"></div>
+
+</section>
+
+<section id="cohen-lenstra">
+<h2>2. Cohen–Lenstra heuristics</h2>
+
+<p>The class group $\mathrm{Cl}(K)$ measures the failure of unique factorization in $\mathcal{O}_K$. For imaginary quadratic $K=\mathbb{Q}(\sqrt{-d})$ ($d>0$ squarefree), what does $\mathrm{Cl}(K)$ look like as $d$ varies? Class numbers $h(K)=|\mathrm{Cl}(K)|$ are notoriously erratic — Gauss conjectured (proved by Heilbronn) only that $h(K)\to\infty$ — but Cohen and Lenstra (1983) found that the <em>structure</em> of $\mathrm{Cl}(K)$ at each odd prime $p$ is governed by a clean random-matrix-style measure.</p>
+
+<h3>The CL measure</h3>
+
+<p>Fix an odd prime $p$. The Cohen–Lenstra heuristic asserts: as $K$ ranges over imaginary quadratic fields ordered by $|d|$, the $p$-part $\mathrm{Cl}(K)[p^\infty]$ is distributed as a random finite abelian $p$-group $A$ with probability proportional to $1/|\mathrm{Aut}(A)|$. Concretely, the probability that $\mathrm{Cl}(K)[p^\infty]=A$ tends to</p>
+
+<p style="text-align:center">$\Pr_{\mathrm{CL}}(A) \;=\; \dfrac{1}{|\mathrm{Aut}(A)|}\cdot\prod_{k=1}^{\infty}\bigl(1-p^{-k}\bigr).$</p>
+
+<p>Several testable consequences:</p>
+
+<ul>
+  <li><strong>Probability $p\nmid h(K)$:</strong> $\prod_{k\ge 1}(1-p^{-k})$. For $p=3$ this is $\approx 0.5601$, matching tabulated data strikingly well.</li>
+  <li><strong>$p$-rank is mostly $0$:</strong> the chance the $p$-rank is $\ge 1$ is $1-\prod(1-p^{-k})\approx p^{-1}+p^{-2}+\cdots$ for large $p$.</li>
+  <li><strong>Cyclic-on-average:</strong> $\Pr(\mathrm{Cl}_p\text{ cyclic})$ is $\prod_{k\ge 2}(1-p^{-k})/\prod_{k\ge 1}(1-p^{-k})$.</li>
+</ul>
+
+<h3>Real fields and function fields</h3>
+
+<p>For real quadratic $K=\mathbb{Q}(\sqrt{d})$ ($d>0$), Cohen–Lenstra–Friedman–Washington predict a different measure — twisted by the rank of the unit group — because $\mathcal{O}_K^\times$ has rank one and contributes a factor $|\mathrm{Aut}(A)|^{-1}\cdot |A|^{-1}$. The real heuristic predicts $p\nmid h$ with probability $\prod_{k\ge 2}(1-p^{-k})$, which for $p=3$ is $\approx 0.7544$.</p>
+
+<p>For $\mathbb{F}_q(t)$ replacing $\mathbb{Q}$, Ellenberg–Venkatesh–Westerland (2016) proved a Cohen–Lenstra-type theorem unconditionally by computing the cohomology of Hurwitz moduli spaces — the function-field analogue of CL is a <em>theorem</em>, not a heuristic.</p>
+
+<div class="widget" id="w-cl">
+  <div class="hd"><div class="ttl">Cohen–Lenstra simulator</div><div class="hint">draw a random $p$-group, see the empirical histogram converge</div></div>
+  <div class="row">
+    <label for="cl-p">prime $p$:</label>
+    <select id="cl-p">
+      <option value="3" selected>$p=3$</option>
+      <option value="5">$p=5$</option>
+      <option value="7">$p=7$</option>
+    </select>
+    <button id="cl-draw">draw 1000</button>
+    <button id="cl-reset">reset</button>
+  </div>
+  <svg id="cl-svg" viewBox="0 0 720 280" width="720" height="280"><title>Cohen–Lenstra simulator</title></svg>
+  <div class="readout" id="cl-out"></div>
+  <p class="small">We sample finite abelian $p$-groups $A$ of size $\le p^4$ with probability $\propto 1/|\mathrm{Aut}(A)|$ (Cohen–Lenstra weighting) and bin them by $p$-rank. Bars are empirical fractions; ticks are the CL prediction.</p>
+</div>
+
+<div class="note"><strong>What CL is and is not.</strong> The full distribution on isomorphism classes of $p$-groups requires more than the rank — but the rank marginal already determines the class-number divisibility frequencies. The widget collapses the distribution to its rank marginal, computed via the Cohen–Lenstra–Heine identity $\Pr(\text{rank}=k)=p^{-k^2}\prod_{i\ge 1}(1-p^{-i})\cdot\prod_{i=1}^{k}(1-p^{-i})^{-2}$.</div>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./algebraic-number-theory.html#units">Class group and units</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./arithmetic-statistics.html#function-fields">Arithmetic statistics</a> · Function-field analogues</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="as-cohen-lenstra"></div>
+
+</section>
+
+<section id="selmer-averages">
+<h2>3. Bhargava's Selmer averages</h2>
+
+<p>Order elliptic curves $E:\,y^2=x^3+Ax+B$ over $\mathbb{Q}$ by naive height $H(E)=\max(|A|^3,|B|^2)$ (this is a "discriminant-flavored" height: see <a href="./heights-arithmetic-geometry.html#naive-height">naive heights</a>). For each prime $\ell$, the <strong>$\ell$-Selmer group</strong> $\mathrm{Sel}_\ell(E)$ sits in the exact sequence</p>
+
+<p style="text-align:center">$0\to E(\mathbb{Q})/\ell E(\mathbb{Q})\to\mathrm{Sel}_\ell(E)\to\sha(E)[\ell]\to 0,$</p>
+
+<p>so its size bounds $E(\mathbb{Q})$'s Mordell–Weil rank: $\mathrm{rk}\,E(\mathbb{Q})\le \log_\ell|\mathrm{Sel}_\ell(E)|$. Bhargava and Shankar (2010, 2013, 2014) computed the <em>average</em> size of $\mathrm{Sel}_\ell$ over the height-ordered family, for $\ell=2,3,4,5$.</p>
+
+<h3>The averages</h3>
+
+<table class="plain">
+<thead><tr><th>$\ell$</th><th>$\mathbb{E}[|\mathrm{Sel}_\ell(E)|]$</th></tr></thead>
+<tbody>
+<tr><td>$2$</td><td>$3$</td></tr>
+<tr><td>$3$</td><td>$4$</td></tr>
+<tr><td>$4$</td><td>$7$</td></tr>
+<tr><td>$5$</td><td>$6$</td></tr>
+</tbody>
+</table>
+
+<p>Each row is a hard theorem. The proofs run through orbit-counting: $2$-Selmer elements correspond to $\mathrm{PGL}_2(\mathbb{Z})$-orbits on integer binary quartic forms with appropriate invariants; $3$-Selmer to $\mathrm{PGL}_3$-orbits on ternary cubic forms; etc. Geometry of numbers in fundamental domains plus a delicate sieve do the bulk.</p>
+
+<h3>Density consequences</h3>
+
+<p>Here is the dazzling payoff: take $\ell=5$. Then $\mathbb{E}[|\mathrm{Sel}_5|]=6$. If the $5$-Selmer rank were always $\ge 2$, the average would be $\ge 1+5^2=26$. Since it is $6$, a positive proportion of $E$ have $5$-Selmer rank $\le 1$, hence $\mathrm{rk}\,E(\mathbb{Q})\le 1$ for that proportion. Sharpening this: <strong>at least $\tfrac{20.62}{100}$ of $E/\mathbb{Q}$ have rank $0$, and at least $\tfrac{83.75}{100}$ have rank $\le 1$</strong> (Bhargava–Shankar–Skinner–Zhang).</p>
+
+<div class="widget" id="w-selmer">
+  <div class="hd"><div class="ttl">Selmer-size histogram</div><div class="hint">simulate $|\mathrm{Sel}_2|$ in a quadratic-twist family</div></div>
+  <div class="row">
+    <label for="sel-N">family size:</label>
+    <input type="number" id="sel-N" min="100" max="5000" step="100" value="2000">
+    <button id="sel-run">simulate</button>
+  </div>
+  <svg id="sel-svg" viewBox="0 0 720 280" width="720" height="280"><title>Selmer-size histogram</title></svg>
+  <div class="readout" id="sel-out"></div>
+  <p class="small">Quadratic-twist families $E_d:y^2=x^3-dx$ have $|\mathrm{Sel}_2(E_d)|$ controlled by the $2$-Selmer group of $\mathbb{Q}(\sqrt{d})$ — sizes are powers of $2$. We sample $|\mathrm{Sel}_2|\in\{2^k\}$ from the Bhargava–Shankar limiting distribution (Poisson-like in $\log_2$). Empirical mean should approach $3$.</p>
+</div>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./bsd.html#mordell-weil">Mordell–Weil theorem</a></li>
+    <li><a href="./heights-arithmetic-geometry.html#canonical">Néron–Tate canonical height</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./arithmetic-statistics.html#average-rank">Arithmetic statistics</a> · Average rank of elliptic curves</div>
+    <div><a href="./arithmetic-statistics.html#function-fields">Arithmetic statistics</a> · Function-field analogues</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="as-selmer-averages"></div>
+
+</section>
+
+<section id="average-rank">
+<h2>4. Average rank of elliptic curves</h2>
+
+<p>Order $E/\mathbb{Q}$ by naive height as before. The <strong>Goldfeld conjecture</strong> (1979) predicts: $50\%$ of $E$ have rank $0$, $50\%$ have rank $1$, and a density-zero exceptional set has rank $\ge 2$. In particular the average analytic rank is exactly $\tfrac12$.</p>
+
+<p>Goldfeld's prediction was the natural reading of the parity heuristic — $\mathrm{ord}_{s=1}L(E,s)$ is a non-negative integer, the parity is governed by the global root number $w(E)$ which is $\pm 1$ with density $\tfrac12$ each, and "minimal" means $\mathrm{rk}=0$ when $w=+1$, $\mathrm{rk}=1$ when $w=-1$. Higher rank costs additional "accidental" zeros.</p>
+
+<h3>Unconditional averages</h3>
+
+<p>Bhargava–Skinner–Zhang (2014) proved: at least $66.48\%$ of $E/\mathbb{Q}$ have analytic rank $\le 1$ and satisfy BSD. The argument combines:</p>
+
+<ul>
+  <li>Bhargava–Shankar Selmer averages (last section).</li>
+  <li>The Skinner–Urban / Skinner converse to BSD: if $\mathrm{rk}_\mathrm{an}\le 1$ and certain $p$-adic conditions, then $\mathrm{rk}_\mathrm{an}=\mathrm{rk}_\mathrm{alg}$ and $\sha$ is finite.</li>
+  <li>Parity considerations from the global root number.</li>
+</ul>
+
+<p>The analytic average rank is thus provably $\le \tfrac{1}{2} + \epsilon$ for an explicit $\epsilon$. Goldfeld conjectures equality.</p>
+
+<div class="widget" id="w-rank">
+  <div class="hd"><div class="ttl">Average rank tracker</div><div class="hint">slide $H$, see the running average</div></div>
+  <div class="row">
+    <label for="rank-h">$H = $ <span id="rank-hv">10000</span></label>
+    <input type="range" id="rank-h" min="100" max="100000" step="100" value="10000">
+  </div>
+  <svg id="rank-svg" viewBox="0 0 720 300" width="720" height="300"><title>Average rank tracker</title></svg>
+  <div class="readout" id="rank-out"></div>
+  <p class="small">Empirical curve: running average rank in samples drawn from a parity-biased Goldfeld model (rank 0/1 with prob $1/2$, plus a small density of higher rank decreasing in $H$). The observed crossover from $\sim 0.85$ (small height) toward $\tfrac12$ (Goldfeld) is real: small-height tables (Cremona) overrepresent high rank, and the average descends as $H$ grows.</p>
+</div>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./bsd.html#bsd-rank-equality">BSD rank equality</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><div class="quiz" data-concept="as-average-rank"></div>
+
+</section>
+
+<section id="function-fields">
+<h2>5. Function-field analogues</h2>
+
+<p>Replace $\mathbb{Q}$ by $\mathbb{F}_q(t)$. Number fields become finite extensions of $\mathbb{F}_q(t)$; class groups of imaginary quadratic fields become Picard groups of hyperelliptic curves over $\mathbb{F}_q$; $L$-functions become rational functions whose zeros are eigenvalues of Frobenius. Two surprising features emerge.</p>
+
+<h3>Random-matrix prediction</h3>
+
+<p>For a curve $C/\mathbb{F}_q$ of genus $g$, $L(C,T)=\det(1-T\,\mathrm{Frob}\mid H^1)$ is a polynomial of degree $2g$ with roots on the circle $|T|=q^{-1/2}$. Katz–Sarnak (1999) proved: the normalized angles $\theta_i\in[0,\pi]$ (where roots are $q^{-1/2}e^{i\theta_i}$) become equidistributed as $q\to\infty$ with respect to the eigenvalue measure of the unitary symplectic group $\mathrm{USp}(2g)$. So the Frobenius eigenvalue statistics of <em>families</em> of curves match the eigenvalue statistics of <em>random matrices</em> from a classical compact group.</p>
+
+<h3>Cohen–Lenstra over $\mathbb{F}_q(t)$</h3>
+
+<p>For hyperelliptic $C:y^2=f(t)$ over $\mathbb{F}_q$ (large $q$), Ellenberg–Venkatesh–Westerland (2016) proved the function-field Cohen–Lenstra distribution by computing the cohomology of the Hurwitz schemes $\mathcal{H}_n^G$ — moduli of $G$-covers of $\mathbb{A}^1$ branched at $n$ points. The proof <em>discovers</em> the Cohen–Lenstra weighting from a topological computation, where the original heuristic was numerical-experimental.</p>
+
+<div class="widget" id="w-katz">
+  <div class="hd"><div class="ttl">Frobenius angles in a family</div><div class="hint">sample $L$-zeros, compare to USp Sato–Tate</div></div>
+  <div class="row">
+    <label for="kat-g">genus $g$:</label>
+    <select id="kat-g">
+      <option value="2">$g=2$</option>
+      <option value="4" selected>$g=4$</option>
+      <option value="8">$g=8$</option>
+    </select>
+    <button id="kat-draw">draw 200 curves</button>
+    <button id="kat-reset">reset</button>
+  </div>
+  <svg id="kat-svg" viewBox="0 0 720 280" width="720" height="280"><title>Frobenius-angle histogram</title></svg>
+  <div class="readout" id="kat-out"></div>
+  <p class="small">Each "curve" contributes $2g$ angles $\theta_i\in[0,\pi]$. As $g$ grows, the histogram approaches the $\mathrm{USp}$ density $\tfrac{2}{\pi}\sin^2\theta$ (Sato–Tate measure).</p>
+</div>
+
+<div class="quiz" data-concept="as-function-fields"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./arithmetic-statistics.html#l-symmetry">Arithmetic statistics</a> · L-functions and symmetry types</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+</section>
+
+<section id="l-symmetry">
+<h2>6. Connections to $L$-functions and zeros</h2>
+
+<p>The Katz–Sarnak philosophy posits that <strong>every natural family of $L$-functions has a symmetry type</strong> — unitary $U$, orthogonal $O$, or symplectic $\mathrm{USp}$ — such that low-lying zeros (zeros near the central point $s=\tfrac12$) follow the eigenvalue statistics of the corresponding random-matrix ensemble. Empirically and conjecturally:</p>
+
+<table class="plain">
+<thead><tr><th>family</th><th>symmetry type</th><th>density of $1$st zero near $\tfrac12$</th></tr></thead>
+<tbody>
+<tr><td>$\zeta(s)$ alone</td><td>$U$ (unitary)</td><td>$1-\sin(\pi x)/(\pi x)$ (Montgomery)</td></tr>
+<tr><td>$\{L(s,\chi_d)\}_{d}$ Dirichlet quadratic</td><td>$\mathrm{USp}$ (symplectic)</td><td>$1+\sin(2\pi x)/(2\pi x) - \cos(2\pi x)$</td></tr>
+<tr><td>$\{L(s,E)\}_E$ elliptic-curve</td><td>$O$ (orthogonal)</td><td>repels at $x=0$</td></tr>
+<tr><td>$\{L(s,f)\}_f$ holomorphic forms of fixed weight</td><td>$O$ split by sign</td><td>$O^+$ vs $O^-$ density</td></tr>
+</tbody>
+</table>
+
+<h3>Why this matters arithmetically</h3>
+
+<p>Zero statistics encode arithmetic averages. For example, the $1$-level density of zeros of $L(s,\chi_d)$ near $s=\tfrac12$ predicts the proportion of $d$ for which $L(\tfrac12,\chi_d)\ne 0$ — a non-vanishing question equivalent to the BSD-on-average problem for quadratic twists. Soundararajan and Conrey–Soundararajan proved $\ge 87.5\%$ non-vanishing using moments + ratios, matching the Katz–Sarnak prediction.</p>
+
+<p>Average-rank conjectures, the Iwaniec–Luo–Sarnak family-orthogonality results, and the Bhargava–Shankar Selmer averages all converge on the same picture: $L$-function families look like random-matrix ensembles, and <em>which</em> ensemble is dictated by the symmetry of the underlying motive.</p>
+
+<div class="widget" id="w-symmetry">
+  <div class="hd"><div class="ttl">Symmetry-type explorer</div><div class="hint">pick a family, see the $1$-level zero density</div></div>
+  <div class="row">
+    <label for="sym-fam">family:</label>
+    <select id="sym-fam">
+      <option value="U" selected>unitary $U$ — $\zeta(s)$</option>
+      <option value="USp">symplectic $\mathrm{USp}$ — $\{L(s,\chi_d)\}$</option>
+      <option value="O+">orthogonal $O^+$ — even root number</option>
+      <option value="O-">orthogonal $O^-$ — odd root number</option>
+    </select>
+  </div>
+  <svg id="sym-svg" viewBox="0 0 720 280" width="720" height="280"><title>Symmetry-type explorer</title></svg>
+  <div class="readout" id="sym-out"></div>
+  <p class="small">Plot of the conjectural / proven $1$-level density $W(x)$ of low-lying zeros, plotted at scaled height $x$. $U$ has constant density; $\mathrm{USp}$ rises ("attraction" to $\tfrac12$); $O^-$ has a delta at $0$ (forced zero from odd root number); $O^+$ repels.</p>
+</div>
+
+<div class="ok"><strong>Take-away.</strong> The bridge from arithmetic statistics to random matrices is not metaphor — it's a precise dictionary. Choose a family, identify its symmetry type, and the eigenvalue statistics of the matching random-matrix ensemble predict every reasonable family-average about the $L$-functions: zero locations, moments, non-vanishing proportions, $L'(\tfrac12)$ statistics, and (Bhargava–Shankar) the underlying Selmer / rank averages.</p>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./frobenius-and-reciprocity.html#chebotarev">Chebotarev density</a></li>
+    <li><a href="./L-functions.html#unified">Prototype L-functions</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><div class="quiz" data-concept="as-l-symmetry"></div>
+
+</section>
+
+<section id="connections">
+<h2>Connections</h2>
+
+<p>Arithmetic statistics is open at every frontier: Malle's conjecture is wide open for $n\ge 6$, the Cohen–Lenstra heuristics for cubic and higher-degree fields are largely conjectural, the elliptic-curve average rank is conjecturally $\tfrac12$ but only proved $\le 1.17$ unconditionally, and the Katz–Sarnak symmetry assignment for high-rank automorphic families is in flux.</p>
+
+<ul>
+  <li><a href="./algebraic-number-theory.html#class-group">Algebraic number theory — class groups</a> — the populations whose distribution Cohen–Lenstra describes.</li>
+  <li><a href="./heights-arithmetic-geometry.html#northcott">Heights — Northcott finiteness</a> — the height ordering is what makes "average" meaningful.</li>
+  <li><a href="./bsd.html#bsd-conjecture">BSD</a> — Bhargava–Skinner–Zhang prove BSD on average using Selmer averages.</li>
+  <li><a href="./L-functions.html">$L$-functions</a> and <a href="./sato-tate.html">Sato–Tate</a> — the random-matrix endpoint of the symmetry-type story.</li>
+  <li><a href="./analytic-number-theory.html">Analytic number theory</a> — moments of $\zeta$ and $L$-functions feed every density theorem.</li>
+</ul>
+</section>
+
+</main>
+
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('arithmetic-statistics'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+})();
+</script>
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-05-08</td><td>initial version — six concepts: counting fields, Cohen–Lenstra, Selmer averages, average rank, function-field analogues, $L$-symmetry</td></tr>
+    </tbody>
+  </table>
+</details>
+
+</body>
+</html>

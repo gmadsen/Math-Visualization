@@ -21,7 +21,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./algebraic-number-theory.html#ramification\">Algebraic number theory</a> · Ideal factorization and ramification</div>\n    <div><a href=\"./algebraic-number-theory.html#minkowski\">Algebraic number theory</a> · Minkowski bound and geometry of numbers</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./algebraic-number-theory.html#ramification\">Algebraic number theory</a> · Ideal factorization and ramification</div>\n    <div><a href=\"./algebraic-number-theory.html#minkowski\">Algebraic number theory</a> · Minkowski bound and geometry of numbers</div>\n    <div><a href=\"./arithmetic-statistics.html#counting-fields\">Arithmetic statistics</a> · Counting number fields</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -433,7 +433,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./class-field-theory.html#hcf\">Class field theory</a> · Hilbert class field</div>\n    <div><a href=\"./complex-multiplication.html#cm-elliptic-c\">Complex multiplication</a> · CM elliptic curves over $\\mathbb{C}$</div>\n    <div><a href=\"./computational-number-theory.html#class-group\">Computational number theory</a> · Class &amp; unit group computation</div>\n    <div><a href=\"./dirichlet-unit-theorem.html#class-number-formula\">Dirichlet unit theorem</a> · The analytic class number formula</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./arithmetic-statistics.html#cohen-lenstra\">Arithmetic statistics</a> · Cohen–Lenstra heuristics</div>\n    <div><a href=\"./class-field-theory.html#hcf\">Class field theory</a> · Hilbert class field</div>\n    <div><a href=\"./complex-multiplication.html#cm-elliptic-c\">Complex multiplication</a> · CM elliptic curves over $\\mathbb{C}$</div>\n    <div><a href=\"./computational-number-theory.html#class-group\">Computational number theory</a> · Class &amp; unit group computation</div>\n    <div><a href=\"./dirichlet-unit-theorem.html#class-number-formula\">Dirichlet unit theorem</a> · The analytic class number formula</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
