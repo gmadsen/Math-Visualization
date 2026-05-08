@@ -408,9 +408,9 @@ is an honest $1$-category with composition induced by $\Lambda^2_1$-fillers — 
     equiv: document.getElementById('hc2-btn-equiv'),
   };
   const text = {
-    witness: 'A 2-simplex $\\sigma \\in C_2$ with $\\partial_2\\sigma = f$, $\\partial_0\\sigma = \\mathrm{id}_y$, $\\partial_1\\sigma = g$ <em>is</em> the witness $f \\simeq g$. In the nerve of an ordinary category, such σ exists iff $g \\circ \\mathrm{id}_y = f$ — i.e. $f = g$. In a quasi-category there can be many distinct such σ, encoding higher homotopical data.',
+    witness: 'A 2-simplex $\\sigma \\in C_2$ with $\\partial_2\\sigma = f$, $\\partial_0\\sigma = \\mathrm{id}_y$, $\\partial_1\\sigma = g$ <em>is</em> the witness $f \\simeq g$. In the nerve of an ordinary category, such σ exists iff $\\mathrm{id}_y \\circ f = g$ — i.e. $f = g$. In a quasi-category there can be many distinct such σ, encoding higher homotopical data.',
     degeneracy: 'The dashed edge is the degenerate 1-simplex $s_0(y) = \\mathrm{id}_y$. Its degeneracy is what lets the 2-simplex relate two arrows that share both endpoints — without a degenerate face, the 2-simplex $\\Delta^2$ would only express composition $g \\circ h = f$ for some non-trivial $h$.',
-    equiv: 'Symmetric: swap $f \\leftrightarrow g$ and use the inner-horn filler $\\Lambda^2_1 \\to \\Delta^2$ that exists in any quasi-category. Transitive: given σ for $f \\simeq g$ and $\\tau$ for $g \\simeq h$, glue them along their shared $g$-edge into a $\\Lambda^2_1$ horn, fill it, and the new face is a witness $f \\simeq h$. Reflexive: the constant 2-simplex $s_1(f)$.',
+    equiv: 'Symmetric: build a $\\Lambda^3_2$ horn from σ (a $f \\simeq g$ witness), the degenerate $s_0(\\mathrm{id}_x)$, and a degenerate face; fill it to a 3-simplex and the missing face $\\partial_2$ is a witness $g \\simeq f$. Transitive: from σ for $f \\simeq g$ and τ for $g \\simeq h$, build a $\\Lambda^3_1$ horn (the three non-$\\partial_3$ faces); fill to a 3-simplex and read off $\\partial_3$ as the witness $f \\simeq h$. Reflexive: the degenerate 2-simplex $s_1(f)$. (See `w-h-construction` Step 3 for the full Joyal proof.)',
   };
   function select(key){
     out.innerHTML = text[key];

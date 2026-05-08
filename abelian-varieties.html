@@ -688,7 +688,7 @@ $$\Phi \;=\; \mathcal{A}_k/\mathcal{A}_k^0$$
   const desc = [
     'good reduction — $\\mathcal{A}_k^0 = B$ is itself an abelian variety of full dim $g$. Néron–Ogg–Shafarevich criterion: $A/K$ has good reduction at $v$ iff the inertia $I_v \\subset G_K$ acts trivially on $T_\\ell A$ (for any $\\ell \\ne \\mathrm{char}\\,k_v$). For $E/K$: ord_v($\\Delta$) $= 0$ in a minimal model.',
     'multiplicative / semistable reduction — $T \\ne 0$ but $U = 0$. The toric part $T$ is a $\\mathbb{G}_m^{\\dim T}$, so over $\\bar k$ the special fibre is an extension of an abelian variety by a torus — algebraically a "Néron $n$-gon" for $E$ (type $I_n$, $n = \\mathrm{ord}_v(\\Delta)$). The Tate uniformization $E(\\bar K) \\cong \\bar K^\\times / q^{\\mathbb{Z}}$ realises this analytically.',
-    'additive / unstable reduction — $U \\ne 0$, the unipotent radical is a power of $\\mathbb{G}_a$. Reduction passes to additive type only after a finite base change makes it semistable (Grothendieck\'s semistable reduction theorem). Kodaira classification for $E$: types $II, III, IV, I_n^*, II^*, III^*, IV^*$ — read off from the Newton polygon of a minimal Weierstrass model.'
+    'additive / unstable reduction — $U \\ne 0$, the unipotent radical is a power of $\\mathbb{G}_a$. After a finite base change, additive reduction becomes semistable (Grothendieck\'s semistable reduction theorem). Kodaira classification for $E$: types $II, III, IV, I_0^*, I_n^*, IV^*, III^*, II^*$ — determined via Tate\'s algorithm on a minimal Weierstrass model.'
   ];
   function select(i){
     rows.forEach((r,k)=>{
