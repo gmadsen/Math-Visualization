@@ -282,12 +282,12 @@ function drawNode(svg, x, y, label, opts={}){
 <div class="widget" id="w-bn-linear-series">
   <div class="hd"><div class="ttl">Effective divisors in a linear series</div><div class="hint">drag the slider; the section moves through $|D|$ and its zeros trace a $g^r_d$</div></div>
   <div class="row">
-    <label>$\dim V = r+1$:</label>
+    <label for="ls-dim">$\dim V = r+1$:</label>
     <input id="ls-dim" type="range" min="1" max="4" step="1" value="2">
     <span id="ls-dimval" class="pill">r+1 = 2</span>
   </div>
   <div class="row">
-    <label>parameter $\lambda$:</label>
+    <label for="ls-lambda">parameter $\lambda$:</label>
     <input id="ls-lambda" type="range" min="-2" max="2" step="0.04" value="0.3">
     <span id="ls-lamval" class="pill">λ = 0.30</span>
   </div>
@@ -425,12 +425,12 @@ function drawNode(svg, x, y, label, opts={}){
 <div class="widget" id="w-bn-rr">
   <div class="hd"><div class="ttl">Riemann–Roch dimension explorer</div><div class="hint">slide $d$; the bars compare the forced floor $d-g+1$ against actual $h^0$ for a typical $D$</div></div>
   <div class="row">
-    <label>genus $g$:</label>
+    <label for="rr-g">genus $g$:</label>
     <input id="rr-g" type="range" min="2" max="10" step="1" value="5">
     <span id="rr-gval" class="pill">g = 5</span>
   </div>
   <div class="row">
-    <label>degree $d$:</label>
+    <label for="rr-d">degree $d$:</label>
     <input id="rr-d" type="range" min="0" max="20" step="1" value="6">
     <span id="rr-dval" class="pill">d = 6</span>
   </div>
@@ -567,17 +567,17 @@ function drawNode(svg, x, y, label, opts={}){
 <div class="widget" id="w-bn-rho">
   <div class="hd"><div class="ttl">Brill–Noether number $\rho(g,r,d)$ explorer</div><div class="hint">slide $g,r,d$; positive $\rho$ predicts existence, negative predicts emptiness</div></div>
   <div class="row">
-    <label>genus $g$:</label>
+    <label for="rho-g">genus $g$:</label>
     <input id="rho-g" type="range" min="2" max="20" step="1" value="6">
     <span id="rho-gval" class="pill">g = 6</span>
   </div>
   <div class="row">
-    <label>rank $r$:</label>
+    <label for="rho-r">rank $r$:</label>
     <input id="rho-r" type="range" min="1" max="6" step="1" value="1">
     <span id="rho-rval" class="pill">r = 1</span>
   </div>
   <div class="row">
-    <label>degree $d$:</label>
+    <label for="rho-d">degree $d$:</label>
     <input id="rho-d" type="range" min="1" max="30" step="1" value="4">
     <span id="rho-dval" class="pill">d = 4</span>
   </div>
@@ -705,12 +705,12 @@ function drawNode(svg, x, y, label, opts={}){
 <div class="widget" id="w-bn-wrd">
   <div class="hd"><div class="ttl">Determinantal stratification of $\Pic^d(C)$</div><div class="hint">click a stratum; see the nested $W^0\supset W^1\supset W^2\supset\cdots$ filtration</div></div>
   <div class="row">
-    <label>genus $g$:</label>
+    <label for="wrd-g">genus $g$:</label>
     <input id="wrd-g" type="range" min="3" max="10" step="1" value="6">
     <span id="wrd-gval" class="pill">g = 6</span>
   </div>
   <div class="row">
-    <label>degree $d$:</label>
+    <label for="wrd-d">degree $d$:</label>
     <input id="wrd-d" type="range" min="2" max="15" step="1" value="5">
     <span id="wrd-dval" class="pill">d = 5</span>
   </div>
@@ -951,17 +951,17 @@ function drawNode(svg, x, y, label, opts={}){
 <div class="widget" id="w-bn-petri">
   <div class="hd"><div class="ttl">The Petri map $\mu_0$</div><div class="hint">vary the genus and degree; watch $\dim$ domain vs codomain — and the tangent space to $W^r_d$</div></div>
   <div class="row">
-    <label>genus $g$:</label>
+    <label for="pe-g">genus $g$:</label>
     <input id="pe-g" type="range" min="3" max="12" step="1" value="6">
     <span id="pe-gval" class="pill">g = 6</span>
   </div>
   <div class="row">
-    <label>degree $d$:</label>
+    <label for="pe-d">degree $d$:</label>
     <input id="pe-d" type="range" min="2" max="20" step="1" value="5">
     <span id="pe-dval" class="pill">d = 5</span>
   </div>
   <div class="row">
-    <label>rank $r$:</label>
+    <label for="pe-r">rank $r$:</label>
     <input id="pe-r" type="range" min="1" max="5" step="1" value="1">
     <span id="pe-rval" class="pill">r = 1</span>
   </div>
