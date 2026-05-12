@@ -311,7 +311,170 @@ function drawNode(svg, x, y, label, opts={}){
 <!-- backlinks-auto-end -->
 </section>
 
-<section id="affine">
+<script>
+/* =============================== SECTION 1 widget: fan builder =============================== */
+(function(){
+  const svg = $('#fan-svg'), out = $('#fan-out'), snapBtn=$('#fan-snap'), resetBtn=$('#fan-reset'), status=$('#fan-status');
+  const W=760, H=320;
+  // two panes: left N_R, right M_R
+  const padX = 30;
+  const paneW = (W - 3*padX) / 2;
+  const cxL = padX + paneW/2, cyL = H/2;
+  const cxR = padX*2 + paneW + paneW/2, cyR = H/2;
+  const scale = 38;
+  // state: two ray generators in lattice coords
+  let v1 = [1, 0], v2 = [0, 1];
+  let dragIdx = null;
+
+  function lat2pix(p, cx, cy){ return [cx + p[0]*scale, cy - p[1]*scale]; }
+  function pix2lat(px, cx, cy){ return [(px[0] - cx)/scale, -(px[1]-cy)/scale]; }
+
+  function drawGrid(cx, cy, label){
+    // axes
+    svg.appendChild(SVG('line',{x1:cx-paneW/2,y1:cy,x2:cx+paneW/2,y2:cy,stroke:'var(--line)','stroke-width':1}));
+    svg.appendChild(SVG('line',{x1:cx,y1:cy-H*0.42,x2:cx,y2:cy+H*0.42,stroke:'var(--line)','stroke-width':1}));
+    // lattice dots (integer points)
+    for(let i=-3;i<=3;i++) for(let j=-3;j<=3;j++){
+      const [x,y] = lat2pix([i,j], cx, cy);
+      if(Math.abs(x-cx)<paneW/2 && Math.abs(y-cy)<H*0.42){
+        svg.appendChild(SVG('circle',{cx:x,cy:y,r:1.4,fill:'var(--mute)','fill-opacity':0.5}));
+      }
+    }
+    const lab = SVG('text',{x:cx,y:cy-H*0.42-6,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});
+    lab.textContent = label;
+    svg.appendChild(lab);
+  }
+
+  function shadeCone(rays, cx, cy, color){
+    // rays = list of lattice vectors v; we shade their non-negative real span (assume two generators)
+    const [a, b] = rays;
+    // Make a big polygon: 0 -> far*v1 -> far*(v1+v2 average) -> far*v2 -> 0
+    const far = 6;
+    const pts = [
+      lat2pix([0,0], cx, cy),
+      lat2pix([a[0]*far, a[1]*far], cx, cy),
+      lat2pix([(a[0]+b[0])*far, (a[1]+b[1])*far], cx, cy),
+      lat2pix([b[0]*far, b[1]*far], cx, cy),
+    ];
+    svg.appendChild(SVG('polygon',{
+      points: pts.map(p=>p.join(',')).join(' '),
+      fill: color, 'fill-opacity':0.18, stroke:'none'
+    }));
+  }
+
+  function drawRay(v, cx, cy, color, idx, draggable){
+    const [x,y] = lat2pix([v[0]*5, v[1]*5], cx, cy);
+    const [x0,y0] = lat2pix([0,0], cx, cy);
+    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x,y2:y,stroke:color,'stroke-width':2.2,'stroke-linecap':'round'}));
+    // generator marker
+    const [gx,gy] = lat2pix(v, cx, cy);
+    const c = SVG('circle',{cx:gx,cy:gy,r:7,fill:color,stroke:'#fff','stroke-width':1.5,
+      style: draggable?'cursor:grab':'cursor:default','data-ray':idx});
+    svg.appendChild(c);
+    // label
+    const lab = SVG('text',{x:gx+10, y:gy-10,'font-size':12,fill:color,'font-weight':600});
+    lab.textContent = `(${v[0].toFixed(v[0]===Math.round(v[0])?0:2)}, ${v[1].toFixed(v[1]===Math.round(v[1])?0:2)})`;
+    svg.appendChild(lab);
+  }
+
+  // Compute dual cone generators (for two-ray case in R^2): rotate each by ±90° inwards
+  function dualGens(v1, v2){
+    // dual cone = {u : u . v1 ≥ 0 and u . v2 ≥ 0}
+    // its bounding rays are perpendiculars to v1 and v2 chosen to point into the dual cone
+    function perp(v, other){
+      // candidates +/- 90 rotation
+      const a = [-v[1], v[0]], b = [v[1], -v[0]];
+      // pick the one that has nonneg dot with `other`
+      return (a[0]*other[0]+a[1]*other[1] >= 0) ? a : b;
+    }
+    const u1 = perp(v2, v1);  // dual to ray v2, lying along the v1-side
+    const u2 = perp(v1, v2);
+    return [u1, u2];
+  }
+
+  function isStronglyConvex(v1, v2){
+    // strongly convex iff v1 and v2 are linearly independent and the angle between them is < 180°
+    const cross = v1[0]*v2[1] - v1[1]*v2[0];
+    if (Math.abs(cross) < 1e-6) return false; // parallel
+    return true;
+  }
+
+  function isSmooth(v1, v2){
+    // smooth iff {v1, v2} is a Z-basis, i.e. det = ±1, and entries are integers
+    if (!Number.isInteger(v1[0]) || !Number.isInteger(v1[1])) return false;
+    if (!Number.isInteger(v2[0]) || !Number.isInteger(v2[1])) return false;
+    const d = v1[0]*v2[1] - v1[1]*v2[0];
+    return Math.abs(d) === 1;
+  }
+
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    drawGrid(cxL, cyL, 'N_R  (cone σ)');
+    drawGrid(cxR, cyR, 'M_R  (dual cone σ∨)');
+    if (isStronglyConvex(v1, v2)){
+      shadeCone([v1,v2], cxL, cyL, 'var(--blue)');
+      const [u1, u2] = dualGens(v1, v2);
+      shadeCone([u1, u2], cxR, cyR, 'var(--yellow)');
+      // draw dual rays (not draggable)
+      drawRay(u1, cxR, cyR, 'var(--yellow)', 'd1', false);
+      drawRay(u2, cxR, cyR, 'var(--yellow)', 'd2', false);
+    } else {
+      const tx = SVG('text',{x:cxL,y:cyL,'text-anchor':'middle','font-size':14,fill:'var(--pink)'});
+      tx.textContent = 'rays parallel — not strongly convex';
+      svg.appendChild(tx);
+    }
+    drawRay(v1, cxL, cyL, 'var(--blue)', 0, true);
+    drawRay(v2, cxL, cyL, 'var(--green)', 1, true);
+    // status: smooth/non-smooth/non-rational
+    const integer = Number.isInteger(v1[0]) && Number.isInteger(v1[1]) && Number.isInteger(v2[0]) && Number.isInteger(v2[1]);
+    if (!isStronglyConvex(v1,v2)){
+      status.textContent = '';
+    } else if (!integer){
+      status.textContent = 'rays not at lattice points — try "snap"';
+      status.style.color = 'var(--mute)';
+    } else if (isSmooth(v1, v2)){
+      status.textContent = '✓ smooth: {v₁, v₂} is a ℤ-basis';
+      status.style.color = 'var(--green)';
+    } else {
+      const d = v1[0]*v2[1] - v1[1]*v2[0];
+      status.textContent = `singular (det = ${d}); the toric variety has a quotient singularity`;
+      status.style.color = 'var(--pink)';
+    }
+  }
+
+  svg.addEventListener('pointerdown', e=>{
+    const idx = e.target && e.target.getAttribute && e.target.getAttribute('data-ray');
+    if(idx !== null && idx !== undefined && (idx === '0' || idx === '1')){
+      dragIdx = parseInt(idx, 10);
+      svg.setPointerCapture(e.pointerId);
+    }
+  });
+  svg.addEventListener('pointermove', e=>{
+    if(dragIdx === null) return;
+    const rect = svg.getBoundingClientRect();
+    const sx = (e.clientX - rect.left) * (W / rect.width);
+    const sy = (e.clientY - rect.top) * (H / rect.height);
+    const lat = pix2lat([sx, sy], cxL, cyL);
+    // clamp to a reasonable range
+    lat[0] = Math.max(-3, Math.min(3, lat[0]));
+    lat[1] = Math.max(-3, Math.min(3, lat[1]));
+    if(dragIdx === 0) v1 = lat; else v2 = lat;
+    render();
+  });
+  svg.addEventListener('pointerup', e=>{ dragIdx = null; });
+  svg.addEventListener('pointercancel', e=>{ dragIdx = null; });
+
+  snapBtn.addEventListener('click', ()=>{
+    v1 = [Math.round(v1[0]), Math.round(v1[1])];
+    v2 = [Math.round(v2[0]), Math.round(v2[1])];
+    if (v1[0]===0 && v1[1]===0) v1 = [1,0];
+    if (v2[0]===0 && v2[1]===0) v2 = [0,1];
+    render();
+  });
+  resetBtn.addEventListener('click', ()=>{ v1=[1,0]; v2=[0,1]; render(); });
+  render();
+})();
+</script><section id="affine">
 <h2>2. Affine toric varieties $U_\sigma$</h2>
 <p>Now the bridge: how does a single cone $\sigma \subset N_\mathbb{R}$ become an actual variety?</p>
 
@@ -357,7 +520,75 @@ $$\mathbb{C}[S_\sigma] \;=\; \mathbb{C}[\chi^{e_1^*}, \chi^{e_2^*}] \;=\; \mathb
 <!-- backlinks-auto-end --><div class="quiz" data-concept="tv-affine"></div>
 </section>
 
-<section id="dictionary">
+<script>
+(function(){
+  const svg = $('#cone-svg'), out = $('#cone-out');
+  const W=760, H=220;
+  const CONES = [
+    {label:'σ = {0}', rays:[], dualGens:'all of M', ring:'\\mathbb{C}[x^{\\pm 1}, y^{\\pm 1}]', uvar:'T = (\\mathbb{C}^\\times)^2'},
+    {label:'σ = ⟨e₁⟩', rays:[[1,0]], dualGens:'⟨e₁*, ±e₂*⟩', ring:'\\mathbb{C}[x, y^{\\pm 1}]', uvar:'\\mathbb{A}^1 \\times \\mathbb{C}^\\times'},
+    {label:'σ = ⟨e₁, e₂⟩', rays:[[1,0],[0,1]], dualGens:'⟨e₁*, e₂*⟩', ring:'\\mathbb{C}[x, y]', uvar:'\\mathbb{A}^2'},
+    {label:'σ = ⟨2e₁−e₂, e₂⟩', rays:[[2,-1],[0,1]], dualGens:'⟨e₁*, e₁*+2e₂*⟩', ring:'\\mathbb{C}[x, xy, xy^2]', uvar:'A_1 \\text{ singularity (cone over conic)}'},
+  ];
+  let active = 2;
+  const cellW = W/4, cellH = H;
+  const scale = 30;
+
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    CONES.forEach((c, i)=>{
+      const cx = i*cellW + cellW/2;
+      const cy = cellH/2 + 6;
+      // background pane
+      svg.appendChild(SVG('rect',{
+        x: i*cellW + 6, y: 6, width: cellW-12, height: cellH-12,
+        rx: 6, fill: i===active? 'rgba(255,216,102,0.08)' : 'transparent',
+        stroke: i===active? 'var(--yellow)' : 'var(--line)', 'stroke-width':1,
+        style:'cursor:pointer','data-idx':i
+      }));
+      // axes
+      svg.appendChild(SVG('line',{x1:cx-cellW/2+22,y1:cy,x2:cx+cellW/2-22,y2:cy,stroke:'var(--line)','stroke-width':1}));
+      svg.appendChild(SVG('line',{x1:cx,y1:18,x2:cx,y2:cellH-30,stroke:'var(--line)','stroke-width':1}));
+      // shade cone (if any)
+      if(c.rays.length === 1){
+        // halfline starting at 0 — shade a thin strip
+        const v = c.rays[0];
+        svg.appendChild(SVG('line',{x1:cx,y1:cy,x2:cx+v[0]*scale*2.5,y2:cy-v[1]*scale*2.5,
+          stroke:'var(--blue)','stroke-width':3,'stroke-linecap':'round'}));
+      } else if (c.rays.length === 2){
+        const [a, b] = c.rays;
+        const far = 3;
+        const pts = [
+          [cx, cy],
+          [cx+a[0]*scale*far, cy-a[1]*scale*far],
+          [cx+(a[0]+b[0])*scale*far, cy-(a[1]+b[1])*scale*far],
+          [cx+b[0]*scale*far, cy-b[1]*scale*far]
+        ];
+        svg.appendChild(SVG('polygon',{
+          points: pts.map(p=>p.join(',')).join(' '),
+          fill:'var(--blue)','fill-opacity':0.22, stroke:'var(--blue)','stroke-width':1.2
+        }));
+      }
+      // tip dot
+      svg.appendChild(SVG('circle',{cx:cx,cy:cy,r:3,fill:'var(--ink)'}));
+      // label
+      const tx = SVG('text',{x:cx,y:cellH-12,'text-anchor':'middle','font-size':12,fill:'var(--ink)'});
+      tx.textContent = c.label;
+      svg.appendChild(tx);
+    });
+    const c = CONES[active];
+    out.innerHTML = `cone ${c.label}    →    dual ${c.dualGens}\n` +
+                    `ring  𝒪(U_σ) = ${c.ring.replace(/\\mathbb\{C\}/g,'ℂ').replace(/\\pm/g,'±')}\n` +
+                    `U_σ = ${c.uvar.replace(/\\mathbb\{C\}/g,'ℂ').replace(/\\mathbb\{A\}/g,'𝔸').replace(/\\times/g,'×').replace(/\\text\{([^}]*)\}/g,'$1')}`;
+  }
+
+  svg.addEventListener('click', e=>{
+    const idx = e.target && e.target.getAttribute && e.target.getAttribute('data-idx');
+    if (idx !== null && idx !== undefined){ active = parseInt(idx, 10); render(); }
+  });
+  render();
+})();
+</script><section id="dictionary">
 <h2>3. The toric dictionary</h2>
 <p>Now we glue. Given a fan $\Sigma$, take the disjoint union of the affine pieces $U_\sigma$ for $\sigma \in \Sigma$ and identify $U_\sigma$ with $U_\tau$ along $U_{\sigma \cap \tau}$. The face condition makes the gluings consistent. The result is one variety</p>
 $$X_\Sigma \;=\; \bigcup_{\sigma \in \Sigma} U_\sigma,$$
@@ -414,7 +645,143 @@ $$X_\Sigma \;=\; \bigcup_{\sigma \in \Sigma} U_\sigma,$$
 <!-- backlinks-auto-end -->
 </section>
 
-<section id="examples">
+<script>
+(function(){
+  const svg = $('#oc-svg'), out = $('#oc-out');
+  const W=760, H=320;
+  // left pane: fan of P^2
+  const cxL = 180, cyL = 160, scale = 50;
+  // right pane: schematic P^2 with the three coordinate lines + 3 fixed points + open torus
+  const cxR = 540, cyR = 160;
+  // rays of P^2 fan
+  const rays = [[1,0], [0,1], [-1,-1]];
+  const rayLabels = ['ρ₁ = e₁', 'ρ₂ = e₂', 'ρ₃ = -e₁-e₂'];
+  // cones (dim, indices into rays for those that have them)
+  const CONES = [
+    {key:'zero', dim:0, label:'σ = {0}',          orbit:'open torus T ⊂ ℙ²', dimO:2},
+    {key:'r0',   dim:1, label:'ρ₁ (ray e₁)',       orbit:'divisor D_ρ₁ = {x₀ = 0}', dimO:1, ray:0},
+    {key:'r1',   dim:1, label:'ρ₂ (ray e₂)',       orbit:'divisor D_ρ₂ = {x₁ = 0}', dimO:1, ray:1},
+    {key:'r2',   dim:1, label:'ρ₃ (ray -e₁-e₂)',   orbit:'divisor D_ρ₃ = {x₂ = 0}', dimO:1, ray:2},
+    {key:'c01',  dim:2, label:'σ_{12} = ⟨ρ₁, ρ₂⟩', orbit:'fixed point [0:0:1]',     dimO:0, conePair:[0,1]},
+    {key:'c12',  dim:2, label:'σ_{23} = ⟨ρ₂, ρ₃⟩', orbit:'fixed point [1:0:0]',     dimO:0, conePair:[1,2]},
+    {key:'c20',  dim:2, label:'σ_{13} = ⟨ρ₁, ρ₃⟩', orbit:'fixed point [0:1:0]',     dimO:0, conePair:[0,2]},
+  ];
+  let active = 'zero';
+
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+
+    // ---------- left pane: fan
+    // pane border
+    svg.appendChild(SVG('rect',{x:20,y:20,width:320,height:280,rx:6,fill:'transparent',stroke:'var(--line)'}));
+    const tL = SVG('text',{x:cxL,y:36,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});
+    tL.textContent = 'Σ ⊂ N_R'; svg.appendChild(tL);
+    // shade three maximal cones
+    function shade(rayA, rayB, key){
+      const a = rays[rayA], b = rays[rayB], far=3.5;
+      const pts=[[cxL,cyL],
+        [cxL+a[0]*scale*far, cyL-a[1]*scale*far],
+        [cxL+(a[0]+b[0])*scale*far/2, cyL-(a[1]+b[1])*scale*far/2],
+        [cxL+b[0]*scale*far, cyL-b[1]*scale*far]];
+      const isActive = (active===key);
+      svg.appendChild(SVG('polygon',{points:pts.map(p=>p.join(',')).join(' '),
+        fill:isActive?'var(--yellow)':'var(--blue)','fill-opacity':isActive?0.32:0.14,
+        stroke:isActive?'var(--yellow)':'var(--blue)','stroke-width':1,
+        style:'cursor:pointer','data-key':key}));
+    }
+    shade(0,1,'c01'); shade(1,2,'c12'); shade(0,2,'c20');
+    // shade open zero cone with a small disk + label
+    {
+      const isActive = (active==='zero');
+      svg.appendChild(SVG('circle',{cx:cxL,cy:cyL,r:11,fill:isActive?'var(--yellow)':'var(--violet)','fill-opacity':isActive?0.8:0.55,
+        stroke:isActive?'var(--yellow)':'var(--violet)','stroke-width':1.5,
+        style:'cursor:pointer','data-key':'zero'}));
+    }
+    // draw rays
+    rays.forEach((v,i)=>{
+      const key = 'r'+i;
+      const isActive = (active===key);
+      const x2 = cxL + v[0]*scale*3, y2 = cyL - v[1]*scale*3;
+      svg.appendChild(SVG('line',{x1:cxL,y1:cyL,x2,y2,
+        stroke:isActive?'var(--yellow)':'var(--ink)','stroke-width':isActive?3.2:2,'stroke-linecap':'round',
+        style:'cursor:pointer','data-key':key}));
+      // dot at lattice generator
+      const gx=cxL+v[0]*scale, gy=cyL-v[1]*scale;
+      svg.appendChild(SVG('circle',{cx:gx,cy:gy,r:5,fill:isActive?'var(--yellow)':'var(--ink)',
+        style:'cursor:pointer','data-key':key}));
+      // label
+      const lab = SVG('text',{x:cxL+v[0]*scale*1.65, y:cyL-v[1]*scale*1.65+4,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+      lab.textContent = rayLabels[i];
+      svg.appendChild(lab);
+    });
+
+    // ---------- right pane: P^2 schematic
+    svg.appendChild(SVG('rect',{x:380,y:20,width:360,height:280,rx:6,fill:'transparent',stroke:'var(--line)'}));
+    const tR = SVG('text',{x:cxR,y:36,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});
+    tR.textContent = 'ℙ² with its three coordinate lines'; svg.appendChild(tR);
+    // three vertices of a triangle
+    const Pa=[cxR-110, cyR+80], Pb=[cxR+110, cyR+80], Pc=[cxR, cyR-110];
+    // vertex order: Pa = [0:0:1], Pb = [0:1:0], Pc = [1:0:0]?
+    // We'll just label by which divisor we mean.
+    const fixedPts = {
+      'c01': {p:[cxR, cyR+82], lbl:'[0:0:1]'},
+      'c20': {p:[cxR-110, cyR-30], lbl:'[0:1:0]'},
+      'c12': {p:[cxR+110, cyR-30], lbl:'[1:0:0]'}
+    };
+    // edges of triangle = three coordinate lines
+    const edges = [
+      {key:'r0', p:[Pb[0], Pb[1]], q:[Pc[0], Pc[1]], lbl:'D_ρ₁'},
+      {key:'r1', p:[Pa[0], Pa[1]], q:[Pc[0], Pc[1]], lbl:'D_ρ₂'},
+      {key:'r2', p:[Pa[0], Pa[1]], q:[Pb[0], Pb[1]], lbl:'D_ρ₃'},
+    ];
+    // open torus = interior of triangle
+    {
+      const isActive = (active==='zero');
+      svg.appendChild(SVG('polygon',{points:`${Pa[0]},${Pa[1]} ${Pb[0]},${Pb[1]} ${Pc[0]},${Pc[1]}`,
+        fill:isActive?'var(--yellow)':'var(--violet)','fill-opacity':isActive?0.32:0.10,
+        stroke:'none'}));
+      if(isActive){
+        const tt=SVG('text',{x:cxR, y:cyR+15,'text-anchor':'middle','font-size':12,fill:'var(--yellow)','font-weight':600});
+        tt.textContent='T (open dense)'; svg.appendChild(tt);
+      }
+    }
+    // edges
+    edges.forEach(e=>{
+      const isActive = (active===e.key);
+      svg.appendChild(SVG('line',{x1:e.p[0],y1:e.p[1],x2:e.q[0],y2:e.q[1],
+        stroke:isActive?'var(--yellow)':'var(--blue)','stroke-width':isActive?4:2.2,'stroke-linecap':'round'}));
+      // edge label
+      const mx=(e.p[0]+e.q[0])/2, my=(e.p[1]+e.q[1])/2;
+      const tx = SVG('text',{x:mx + (e.key==='r0'?8:e.key==='r1'?-8:0), y: my + (e.key==='r2'?-6:6),'font-size':11,
+        fill:isActive?'var(--yellow)':'var(--blue)'});
+      tx.textContent=e.lbl;
+      svg.appendChild(tx);
+    });
+    // fixed points
+    Object.entries(fixedPts).forEach(([k, v])=>{
+      const isActive = (active===k);
+      svg.appendChild(SVG('circle',{cx:v.p[0],cy:v.p[1],r:isActive?7:5,
+        fill:isActive?'var(--yellow)':'var(--ink)',stroke:'#fff','stroke-width':1.5}));
+      const tx = SVG('text',{x:v.p[0] + (k==='c20'?-14:k==='c12'?14:0), y: v.p[1] + (k==='c01'?16:-12),'font-size':11,
+        fill:isActive?'var(--yellow)':'var(--mute)','text-anchor':k==='c01'?'middle':k==='c20'?'end':'start'});
+      tx.textContent=v.lbl; svg.appendChild(tx);
+    });
+
+    // readout
+    const c = CONES.find(c=>c.key===active);
+    out.textContent =
+      `cone:  ${c.label}   (dim ${c.dim})\n` +
+      `orbit: ${c.orbit}   (dim ${c.dimO})\n` +
+      `dim O = n - dim σ = 2 - ${c.dim} = ${c.dimO}.   ✓`;
+  }
+
+  svg.addEventListener('click', e=>{
+    const k = e.target && e.target.getAttribute && e.target.getAttribute('data-key');
+    if(k){ active = k; render(); }
+  });
+  render();
+})();
+</script><section id="examples">
 <h2>4. Worked examples</h2>
 <p>Now the parade. Each fan below builds a familiar variety.</p>
 
@@ -463,7 +830,93 @@ $$X_\Sigma \;=\; \bigcup_{\sigma \in \Sigma} U_\sigma,$$
 <!-- backlinks-auto-end -->
 </section>
 
-<section id="cox">
+<script>
+(function(){
+  const svg = $('#ex-svg'), out = $('#ex-out');
+  const buttons = $$('#w-examples button[data-ex]');
+  const cx = 380, cy = 165, scale = 50;
+  const EX = {
+    'A2':   {rays:[[1,0],[0,1]],          maxcones:[[0,1]], lbl:'𝔸² = U_σ for σ = ⟨e₁, e₂⟩',
+             desc:'Two rays, one maximal cone (the first quadrant). The "boundary" is the two coordinate axes; their intersection is the origin (the fixed point).', n:2},
+    'P1':   {rays:[[1,0],[-1,0]],         maxcones:[[0],[1]], lbl:'ℙ¹: two rays ±e in ℝ',
+             desc:'Two rays going in opposite directions; two maximal cones (each a ray). Two affine charts 𝔸¹ ∪ 𝔸¹ glued along 𝔾_m. Two fixed points: 0 and ∞.', n:1},
+    'P2':   {rays:[[1,0],[0,1],[-1,-1]],  maxcones:[[0,1],[1,2],[0,2]], lbl:'ℙ²: rays e₁, e₂, -e₁-e₂',
+             desc:'Three rays summing to zero, three maximal smooth cones. Three coordinate lines (rays) meeting in three fixed points (max cones). The bone-stock projective plane.', n:2},
+    'P1xP1':{rays:[[1,0],[0,1],[-1,0],[0,-1]], maxcones:[[0,1],[1,2],[2,3],[3,0]],
+             lbl:'ℙ¹×ℙ¹: four rays ±e₁, ±e₂',
+             desc:'Product fan: two rays for each ℙ¹ factor, four maximal cones (the four quadrants). Four toric divisors; four fixed points; smooth and projective.', n:2},
+    'F2':   {rays:[[1,0],[0,1],[-1,2],[0,-1]], maxcones:[[0,1],[1,2],[2,3],[3,0]],
+             lbl:'F₂: tilt one ray of ℙ¹×ℙ¹',
+             desc:'The Hirzebruch surface F_n: replace the ray (-e₁) of ℙ¹×ℙ¹ with (-e₁ + n·e₂). For n=2, D_{(0,1)} (the section at infinity) becomes a (-2)-curve while D_{(0,-1)} stays a (+2)-curve. Smooth, projective; not isomorphic to ℙ¹×ℙ¹.', n:2},
+    'Bl0':  {rays:[[1,0],[1,1],[0,1]], maxcones:[[0,1],[1,2]],
+             lbl:'Bl₀ 𝔸²: subdivide the first quadrant',
+             desc:'Star subdivision of ⟨e₁, e₂⟩ inserting the new ray (1,1). The new ray gives the exceptional divisor E (a copy of ℙ¹). E·E = -1: Bl₀ 𝔸² is the smooth blowup of 𝔸² at the origin.', n:2},
+  };
+  let active = 'A2';
+
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const ex = EX[active];
+    // grid + axes
+    svg.appendChild(SVG('line',{x1:80,y1:cy,x2:680,y2:cy,stroke:'var(--line)','stroke-width':1}));
+    if(ex.n === 2){
+      svg.appendChild(SVG('line',{x1:cx,y1:30,x2:cx,y2:300,stroke:'var(--line)','stroke-width':1}));
+      // lattice dots
+      for(let i=-4;i<=4;i++) for(let j=-2;j<=2;j++){
+        svg.appendChild(SVG('circle',{cx:cx+i*scale, cy:cy-j*scale, r:1.4,fill:'var(--mute)','fill-opacity':0.4}));
+      }
+    } else {
+      for(let i=-5;i<=5;i++){
+        svg.appendChild(SVG('circle',{cx:cx+i*scale, cy:cy, r:1.6,fill:'var(--mute)','fill-opacity':0.4}));
+      }
+    }
+    // shade max cones
+    ex.maxcones.forEach((mc, i)=>{
+      const color = ['var(--blue)','var(--green)','var(--pink)','var(--cyan)'][i % 4];
+      if(mc.length === 1){
+        // 1d max cone: thick segment
+        const v = ex.rays[mc[0]];
+        svg.appendChild(SVG('line',{x1:cx, y1:cy, x2:cx+v[0]*scale*2.2, y2:cy-v[1]*scale*2.2,
+          stroke:color,'stroke-width':6,'stroke-opacity':0.45,'stroke-linecap':'round'}));
+      } else {
+        const a = ex.rays[mc[0]], b = ex.rays[mc[1]], far = 4;
+        const pts=[[cx,cy],
+          [cx+a[0]*scale*far, cy-a[1]*scale*far],
+          [cx+(a[0]+b[0])*scale*far/2, cy-(a[1]+b[1])*scale*far/2],
+          [cx+b[0]*scale*far, cy-b[1]*scale*far]];
+        svg.appendChild(SVG('polygon',{points:pts.map(p=>p.join(',')).join(' '),
+          fill:color,'fill-opacity':0.18, stroke:color,'stroke-width':1}));
+      }
+    });
+    // rays
+    ex.rays.forEach((v,i)=>{
+      const x2 = cx + v[0]*scale*2.5, y2 = cy - v[1]*scale*2.5;
+      svg.appendChild(SVG('line',{x1:cx,y1:cy,x2,y2,stroke:'var(--ink)','stroke-width':2,'stroke-linecap':'round'}));
+      // generator dot
+      svg.appendChild(SVG('circle',{cx:cx+v[0]*scale, cy:cy-v[1]*scale, r:5,
+        fill:'var(--yellow)',stroke:'#fff','stroke-width':1.5}));
+      const tx = SVG('text',{x:cx+v[0]*scale*1.6 + 4*Math.sign(v[0]||0.1), y:cy-v[1]*scale*1.6 + 4,
+        'font-size':11,fill:'var(--yellow)','text-anchor': v[0]>0?'start':v[0]<0?'end':'middle'});
+      tx.textContent = `(${v[0]},${v[1]})`;
+      svg.appendChild(tx);
+    });
+    // tip
+    svg.appendChild(SVG('circle',{cx:cx, cy:cy, r:3.5, fill:'var(--ink)'}));
+    const lab = SVG('text',{x:cx, y:38,'text-anchor':'middle','font-size':13,fill:'var(--ink)','font-weight':600});
+    lab.textContent = ex.lbl;
+    svg.appendChild(lab);
+    // readout
+    out.textContent = ex.desc;
+  }
+
+  buttons.forEach(b => b.addEventListener('click', ()=>{
+    active = b.getAttribute('data-ex');
+    buttons.forEach(x => x.classList.toggle('active', x === b));
+    render();
+  }));
+  render();
+})();
+</script><section id="cox">
 <h2>5. Cox ring and intersection numbers</h2>
 <p>The character ring $\mathbb{C}[M]$ is the ring of functions on the open torus. To go to global functions on $X_\Sigma$ — and in fact to the <em>total</em> coordinate ring — we package together the line bundles on $X_\Sigma$.</p>
 
@@ -520,7 +973,71 @@ Concretely it is the polynomial ring $\mathbb{C}[x_\rho \,:\, \rho \in \Sigma^{(
 <!-- backlinks-auto-end --><div class="quiz" data-concept="tv-cox"></div>
 </section>
 
-<section id="mirror">
+<script>
+(function(){
+  const out = $('#int-out');
+  const buttons = $$('#w-int button[data-srf]');
+  // intersection tables
+  const SURFACES = {
+    'P2': {
+      title: 'ℙ²:  rays e₁, e₂, e₀ = -e₁-e₂',
+      labels: ['D₁', 'D₂', 'D₀'],
+      table: [[1, 1, 1],
+              [1, 1, 1],
+              [1, 1, 1]],
+      note: 'All three Dᵢ represent the hyperplane class H. Self-intersection = 1: smoothness rel ⇒ aᵢ = -1. Off-diag = 1 since adjacent. ⇒  H · H = 1. ✓'
+    },
+    'P1xP1': {
+      title: 'ℙ¹×ℙ¹:  rays ±e₁, ±e₂',
+      labels: ['D_e₁', 'D_e₂', 'D_-e₁', 'D_-e₂'],
+      table: [[ 0, 1, 0, 1],
+              [ 1, 0, 1, 0],
+              [ 0, 1, 0, 1],
+              [ 1, 0, 1, 0]],
+      note: 'Two divisor classes f₁ = [D_e₁] = [D_-e₁] and f₂ = [D_e₂] = [D_-e₂]. f₁² = 0, f₂² = 0, f₁·f₂ = 1 (the two rulings).'
+    },
+    'F2': {
+      title: 'F₂:  rays e₁, e₂, -e₁+2e₂, -e₂',
+      labels: ['D₁', 'D₂', 'D₃', 'D₄'],
+      table: [[ 0, 1, 0, 1],
+              [ 1,-2, 1, 0],
+              [ 0, 1, 0, 1],
+              [ 1, 0, 1, 2]],
+      note: 'D₂ is a (-2)-curve: u₁+u₃ = (1,0)+(-1,2) = (0,2) = -(-2)·(0,1) ⇒ a₂ = -2. D₄ is a (+2)-curve, the section at infinity.'
+    },
+    'Bl0P2': {
+      title: 'Bl₀ 𝔸² (chart): rays e₁, e₂, e=(1,1) — affine model of the blowup at the origin',
+      labels: ['D_e₁', 'E', 'D_e₂'],
+      table: [[ 0, 1, 0],
+              [ 1,-1, 1],
+              [ 0, 1, 0]],
+      note: 'For Bl₀ 𝔸² (chart only): exceptional E = D_(1,1) has E² = -1 from u_{e₁}+u_{e₂} = (1,1) = 1·u_E ⇒ a = 1. ✓ The hallmark (-1)-curve of a blowup.'
+    }
+  };
+  function render(srf){
+    const data = SURFACES[srf];
+    let s = data.title + '\n\n';
+    // header
+    s += '       ' + data.labels.map(l => l.padStart(7)).join('') + '\n';
+    for(let i=0;i<data.labels.length;i++){
+      s += data.labels[i].padEnd(7);
+      for(let j=0;j<data.labels.length;j++){
+        const v = data.table[i][j];
+        const cell = (v >= 0 ? ' ' + v : '' + v);
+        s += cell.padStart(7);
+      }
+      s += '\n';
+    }
+    s += '\n' + data.note;
+    out.textContent = s;
+  }
+  buttons.forEach(b => b.addEventListener('click', ()=>{
+    buttons.forEach(x => x.classList.toggle('active', x === b));
+    render(b.getAttribute('data-srf'));
+  }));
+  render('P2');
+})();
+</script><section id="mirror">
 <h2>6. Mirror symmetry preview</h2>
 <p>The most striking application of toric varieties to "exotic" geometry is Batyrev's construction of mirror Calabi-Yau pairs. The ingredients are mostly polytopes, and the output is two families of CY hypersurfaces whose Hodge numbers are <em>swapped</em> in a way that string theorists predicted on physical grounds.</p>
 
