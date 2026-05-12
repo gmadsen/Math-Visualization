@@ -1,0 +1,331 @@
+{
+  "topic": "conformal-and-cr-geometry",
+  "quizzes": {
+    "ccr-conformal-class": {
+      "title": "Conformal class of a Riemannian metric",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Two Riemannian metrics $g$ and $\\tilde g$ on $M$ are conformally related if:",
+          "choices": [
+            "$\\tilde g = u\\, g$ for some smooth $u\\in C^\\infty(M)$.",
+            "$\\tilde g = e^{2u}\\, g$ for some smooth $u\\in C^\\infty(M)$.",
+            "$\\tilde g - g$ is a closed 2-form.",
+            "$\\tilde g$ and $g$ have the same Levi-Civita connection."
+          ],
+          "answer": 1,
+          "explain": "The conformal class is $[g] = \\{e^{2u}g : u\\in C^\\infty(M)\\}$. The exponential factor guarantees positive-definiteness of $\\tilde g$ regardless of the sign of $u$; writing it as $e^{2u}$ rather than $e^{u}$ is the convention that produces clean transformation laws.",
+          "hint": "The factor must be positive everywhere; a smooth $u$ in the exponent achieves that automatically."
+        },
+        {
+          "type": "multi-select",
+          "q": "Select all quantities that are preserved by a conformal change $\\tilde g = e^{2u}g$.",
+          "choices": [
+            "angles between tangent vectors",
+            "lengths of curves",
+            "the conformal class $[g]$ itself",
+            "the Levi-Civita connection",
+            "the ratio of two tangent-vector lengths at the same point"
+          ],
+          "answer": [
+            0,
+            2,
+            4
+          ],
+          "explain": "Conformal change rescales the inner product by a positive scalar at each point. Ratios of lengths AT A POINT are unchanged (the rescaling cancels), so angles are preserved. The conformal class is by definition preserved. Lengths of curves and the Levi-Civita connection change — the connection picks up explicit $du$ correction terms.",
+          "hint": "Think about what 'angle-preserving' means infinitesimally: an inner-product rescaling by $e^{2u(p)}$ at $p$ doesn't change the cosine $g(X,Y)/\\sqrt{g(X,X)g(Y,Y)}$."
+        },
+        {
+          "type": "numeric",
+          "q": "On a 4-dimensional manifold with $R_g = 6$ and a conformal change $\\tilde g = e^{2u}g$ with $u\\equiv 0$ (so $\\tilde g = g$ identically), the scalar curvature transformation law $R_{\\tilde g} = e^{-2u}(R_g - 2(n-1)\\Delta_g u - (n-1)(n-2)|\\nabla u|^2)$ should evaluate to $R_{\\tilde g}$. Compute $R_{\\tilde g}$.",
+          "answer": 6,
+          "tol": 0.0001,
+          "explain": "When $u\\equiv 0$, $\\Delta_g u = 0$, $|\\nabla u|^2 = 0$, and $e^{-2u} = 1$. The formula gives $R_{\\tilde g} = 1\\cdot(R_g - 0 - 0) = R_g = 6$. This sanity-checks that the transformation law correctly reduces to the identity when no conformal change is applied.",
+          "hint": "If $u\\equiv 0$ then every derivative of $u$ vanishes and $e^{-2u} = 1$."
+        }
+      ]
+    },
+    "ccr-conformal-laplacian": {
+      "title": "The conformal Laplacian",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "On $(M^n,g)$ with $n\\ge 3$, the conformal Laplacian is:",
+          "choices": [
+            "$L_g = \\Delta_g$",
+            "$L_g = -\\Delta_g + \\tfrac{n-2}{4(n-1)}R_g$",
+            "$L_g = -\\Delta_g + R_g$",
+            "$L_g = \\Delta_g^2 + \\tfrac{n-4}{2}Q_g$"
+          ],
+          "answer": 1,
+          "explain": "$L_g = -\\Delta_g + \\tfrac{n-2}{4(n-1)}R_g$ — the curvature term is calibrated exactly so the operator is conformally covariant. The 4th-order operator in the last option is Paneitz, not the conformal Laplacian.",
+          "hint": "The coefficient of $R_g$ depends on $n$ and is what makes the conformal covariance work out."
+        },
+        {
+          "type": "numeric",
+          "q": "On a 6-dimensional manifold, the conformal-Laplacian curvature coefficient $c_n = \\tfrac{n-2}{4(n-1)}$ equals (give as a decimal to 3 places):",
+          "answer": 0.2,
+          "tol": 0.001,
+          "explain": "With $n=6$: $c_6 = (6-2)/(4(6-1)) = 4/20 = 1/5 = 0.2$. The coefficient grows from $1/8$ at $n=3$ toward $1/4$ as $n\\to\\infty$, asymptotically matching the conformal weight ratio.",
+          "hint": "Plug $n=6$ into $(n-2)/(4(n-1))$."
+        },
+        {
+          "type": "mcq",
+          "q": "The conformal covariance formula $L_{\\tilde g}(\\phi) = e^{-(n+2)u/2}\\,L_g(e^{(n-2)u/2}\\phi)$ — for $\\tilde g = e^{2u}g$ — uses weights $(n-2)/2$ and $(n+2)/2$. What is special about their sum?",
+          "choices": [
+            "It equals $n$, the dimension.",
+            "It equals $2n$, twice the dimension.",
+            "Their difference equals $2$, matching the order of the operator.",
+            "They are the conformal weights $w_1, w_2$ with $w_1 + w_2 = n$ corresponding to the critical exponent $2^* = 2n/(n-2)$."
+          ],
+          "answer": 3,
+          "explain": "Both choices that say $w_1+w_2 = n$ are arithmetically true ($(n-2)/2 + (n+2)/2 = n$), but the deep point is the connection to the critical Sobolev exponent: the conformal weights are tuned exactly so that the Yamabe equation $L_g u = \\lambda u^{(n+2)/(n-2)}$ uses the critical exponent $2^* = 2n/(n-2)$, which is what makes the Yamabe problem hard (borderline non-compact). Option 2 is just arithmetic; option 3 also contains it but names the deeper structural fact.",
+          "hint": "The connection runs $w_1 = (n-2)/2 \\Leftrightarrow$ the Sobolev critical exponent $2^* = 2 + 2/w_1$."
+        }
+      ]
+    },
+    "ccr-yamabe-problem": {
+      "title": "The Yamabe problem and the Yamabe equation",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Writing $\\tilde g = u^{4/(n-2)} g$ for $u>0$, the constant-scalar-curvature condition $R_{\\tilde g} = \\lambda$ becomes:",
+          "choices": [
+            "$\\Delta_g u = \\lambda u$",
+            "$L_g u = \\lambda u$",
+            "$L_g u = \\lambda u^{(n+2)/(n-2)}$",
+            "$L_g u = \\lambda u^{(n-2)/(n+2)}$"
+          ],
+          "answer": 2,
+          "explain": "Substituting $\\tilde g = u^{4/(n-2)}g$ into the scalar-curvature transformation law gives $L_g u = \\tfrac{n-2}{4(n-1)} R_{\\tilde g}\\, u^{(n+2)/(n-2)}$, so absorbing constants $\\lambda = \\tfrac{n-2}{4(n-1)} R_{\\tilde g}$ yields the Yamabe equation. The exponent $(n+2)/(n-2)$ is the critical Sobolev exponent's reflected version — the right-hand side has degree matching the conformal weight $(n+2)/2$ of $L_g$.",
+          "hint": "Match the conformal weights: $L_g$ raises weight by $2$, so the right side must raise the power of $u$ by $4/(n-2)$ to balance."
+        },
+        {
+          "type": "mcq",
+          "q": "What is the critical Sobolev exponent appearing on the right side of the Yamabe equation?",
+          "choices": [
+            "$2 = 2$, no actual nonlinearity",
+            "$(n+2)/(n-2) = 2^* - 1$, where $2^* = 2n/(n-2)$ is the critical Sobolev exponent",
+            "$n/(n-2)$, the Hölder conjugate exponent",
+            "$2n/(n+2)$, the dual exponent"
+          ],
+          "answer": 1,
+          "explain": "The exponent is $(n+2)/(n-2)$. This is exactly $2^* - 1$ where $2^* = 2n/(n-2)$ is the critical Sobolev exponent (the largest $p$ for which $H^1(M)\\hookrightarrow L^p(M)$). The criticality of this embedding — it is continuous but NOT compact — is precisely what makes the Yamabe problem hard.",
+          "hint": "It's the exponent that corresponds to $H^1\\hookrightarrow L^p$ being borderline."
+        },
+        {
+          "type": "ordering",
+          "q": "Order the historical contributions to the Yamabe problem from earliest to latest.",
+          "items": [
+            "Yamabe (1960): proposes the problem and gives an incorrect proof",
+            "Trudinger (1968): identifies the gap and resolves the case of negative Yamabe invariant",
+            "Aubin (1976): resolves cases $n\\ge 6$ with non-locally-conformally-flat metrics",
+            "Schoen (1984): closes the remaining cases using the positive mass theorem"
+          ],
+          "answer": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "explain": "Yamabe (1960) opened the question and provided a proposed proof; Trudinger (1968) identified that the original argument had a gap at the critical exponent and resolved the easier (negative) cases; Aubin (1976) handled most of the high-dimensional positive cases using local conformal-coordinate computations; Schoen (1984) completed the program by handling the borderline case (round-sphere conformal class and locally conformally flat with the right sign) via the positive mass theorem from general relativity.",
+          "hint": "Yamabe came first with the original (flawed) proof; the resolution took 24 years."
+        }
+      ]
+    },
+    "ccr-q-curvature": {
+      "title": "Q-curvature and the Paneitz operator",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The Paneitz operator $P_g$ is a conformally covariant differential operator of what order?",
+          "choices": [
+            "Order 2 (it's the same as the conformal Laplacian)",
+            "Order 3",
+            "Order 4",
+            "Order $n$ (matches the manifold dimension)"
+          ],
+          "answer": 2,
+          "explain": "Paneitz's operator is a 4th-order operator: its leading term is $\\Delta_g^2$. The GJMS construction extends this to a sequence $P_{2k}$ of conformally covariant operators of every even order, with $P_2 = L_g$ (conformal Laplacian) and $P_4 = P$ (Paneitz).",
+          "hint": "The leading symbol involves the Laplacian raised to a power."
+        },
+        {
+          "type": "mcq",
+          "q": "On a closed 4-manifold $(M^4,g)$, $\\int_M Q_g\\,dV_g$ equals:",
+          "choices": [
+            "$0$ (Q-curvature has vanishing total integral)",
+            "$8\\pi^2\\chi(M) - \\tfrac{1}{4}\\int_M |W|^2\\,dV_g$ — a topological piece plus a conformally-invariant Weyl piece",
+            "$\\mathrm{vol}(M)$",
+            "$\\int R_g\\,dV_g$"
+          ],
+          "answer": 1,
+          "explain": "In dimension 4, $\\int Q\\,dV$ is a conformal invariant equal to $8\\pi^2\\chi(M)$ minus the Weyl-curvature integral — a Chern-Gauss-Bonnet-style identity. So $\\int Q\\,dV$ measures topology shifted by a conformally-invariant geometric defect.",
+          "hint": "The answer ties Q-curvature to the Euler characteristic via a Chern-Gauss-Bonnet identity."
+        },
+        {
+          "type": "multi-select",
+          "q": "Which of the following are true of Q-curvature in dimension 4?",
+          "choices": [
+            "$Q_g$ transforms under conformal change like $\\tilde g = e^{2u}g$ by $Q_{\\tilde g} = e^{-4u}(Q_g + P_g u)$ — note the additive (not multiplicative) shift by $P_g u$.",
+            "$\\int Q\\, dV$ is a conformal invariant of $(M,[g])$.",
+            "$Q_g$ is conformally covariant in the same way the scalar curvature is in the conformal Laplacian — by simple weight scaling.",
+            "When $(M^4,g)$ is locally conformally flat, $\\int Q\\,dV = 8\\pi^2\\chi(M)$."
+          ],
+          "answer": [
+            0,
+            1,
+            3
+          ],
+          "explain": "The conformal transformation of Q in dimension 4 is ADDITIVE in $P_g u$ — it's not a simple multiplicative rescaling like the scalar curvature in $L_g$. This is what makes Q-prescription a nonlinear PDE for $u$. The integral $\\int Q\\,dV$ is conformally invariant (the conformal anomaly integrates to zero). When the Weyl tensor vanishes, the Chern-Gauss-Bonnet formula reduces to $\\int Q\\,dV = 8\\pi^2\\chi(M)$.",
+          "hint": "The transformation law is $Q_{\\tilde g} = e^{-4u}(Q_g + P_g u)$ in dimension 4 — note the additive piece."
+        }
+      ]
+    },
+    "ccr-cr-structure": {
+      "title": "CR structures and the Heisenberg model",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A CR manifold of CR-dimension $n$ has real dimension:",
+          "choices": [
+            "$n$",
+            "$2n$",
+            "$2n+1$",
+            "$2n+2$"
+          ],
+          "answer": 2,
+          "explain": "A CR manifold $(M^{2n+1}, H, J)$ carries a rank-$2n$ horizontal distribution $H$ (= rank-$n$ complex, after applying $J$), and one real direction transverse to $H$ — so total real dimension $2n+1$. The model is a real hypersurface in $\\mathbb{C}^{n+1}$, which has real dimension $2(n+1) - 1 = 2n+1$.",
+          "hint": "Real hypersurfaces in $\\mathbb{C}^{n+1}$ are the model; subtract 1 from $\\mathrm{dim}_{\\mathbb{R}}\\mathbb{C}^{n+1}$."
+        },
+        {
+          "type": "mcq",
+          "q": "The Heisenberg group $\\mathbb{H}^n = \\mathbb{C}^n \\times\\mathbb{R}$ carries multiplication $(z,t)\\cdot(z',t') = (z+z', t+t'+2\\,\\mathrm{Im}\\langle z,z'\\rangle)$. The 'CR-flat' role of $\\mathbb{H}^n$ is analogous to the role of:",
+          "choices": [
+            "$\\mathbb{R}^n$ as the flat Riemannian model",
+            "the round sphere $S^n$ as the constant-curvature Riemannian model",
+            "$\\mathbb{C}^n$ as the complex-flat model",
+            "the hyperbolic ball $\\mathbb{B}^n$ as the negatively curved model"
+          ],
+          "answer": 0,
+          "explain": "$\\mathbb{H}^n$ plays the role of flat space in CR / sub-Riemannian geometry: it has identically zero Webster curvature and is the (unique up to scale) tangent cone to every strictly pseudoconvex CR manifold at any point. The sphere $S^{2n+1}\\subset\\mathbb{C}^{n+1}$ is the constant-curvature CR analog, related to $\\mathbb{H}^n$ by Cayley transform.",
+          "hint": "The Heisenberg group has zero Webster scalar curvature — what's the Riemannian analog?"
+        },
+        {
+          "type": "spot-the-error",
+          "q": "Where does this argument first go wrong? 'Let $M^{2n+1}$ be a CR manifold. Then $M$ has an integrable almost-complex structure on its tangent bundle $TM$. By Newlander–Nirenberg, $M$ is therefore a complex manifold of complex dimension $n + 1/2$.'",
+          "steps": [
+            "Let $M^{2n+1}$ be a CR manifold.",
+            "Then $M$ has an integrable almost-complex structure on its tangent bundle $TM$.",
+            "By Newlander–Nirenberg, $M$ is therefore a complex manifold of complex dimension $n + 1/2$."
+          ],
+          "answer": 1,
+          "explain": "Step 1 is fine. Step 2 is the error: a CR structure puts an almost-complex structure only on the rank-$2n$ horizontal subbundle $H\\subset TM$, NOT on the full tangent bundle. An odd-dimensional real manifold cannot have an almost-complex structure on all of $TM$ (an almost-complex structure forces even real dimension). Step 3 is consequently incoherent: 'complex dimension $n+1/2$' is not a thing.",
+          "hint": "$\\mathrm{dim}_{\\mathbb{R}}(M)$ is ODD — can $TM$ even have an almost-complex structure?"
+        }
+      ]
+    },
+    "ccr-levi-form": {
+      "title": "The Levi form and strict pseudoconvexity",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "For a real hypersurface $M = \\{\\rho = 0\\}\\subset\\mathbb{C}^{n+1}$, the Levi form at $p\\in M$ is most naturally defined as:",
+          "choices": [
+            "the full complex Hessian $\\partial\\bar\\partial\\rho|_p$ on $T^{1,0}_p\\mathbb{C}^{n+1}$",
+            "the restriction of $\\partial\\bar\\partial\\rho|_p$ to the complex tangent $T^{1,0}_p M$",
+            "the gradient $d\\rho|_p$",
+            "the Hessian of $|\\rho|^2$ at $p$"
+          ],
+          "answer": 1,
+          "explain": "The Levi form is the complex Hessian of a defining function restricted to the COMPLEX TANGENT space $T^{1,0}_p M$ (which is $T^{1,0}\\mathbb{C}^{n+1}\\cap \\ker\\partial\\rho$, a complex subspace of complex dimension $n$). Restricting matters: the full Hessian on $T^{1,0}\\mathbb{C}^{n+1}$ depends on the choice of defining function, but the restricted Levi form's sign is intrinsic.",
+          "hint": "Strict pseudoconvexity is a condition on the tangential directions, not on the radial direction perpendicular to $M$."
+        },
+        {
+          "type": "mcq",
+          "q": "A real hypersurface $M\\subset\\mathbb{C}^{n+1}$ is STRICTLY Levi pseudoconvex at $p$ when:",
+          "choices": [
+            "the Levi form at $p$ is positive semidefinite",
+            "the Levi form at $p$ is positive definite",
+            "the Levi form at $p$ has at least one positive eigenvalue",
+            "the Levi form at $p$ has signature $(n,1)$ or better"
+          ],
+          "answer": 1,
+          "explain": "Strict pseudoconvexity demands positive DEFINITE Levi form — every eigenvalue strictly positive. Positive semidefinite (with potentially zero eigenvalues) is only weak pseudoconvexity. The unit ball in $\\mathbb{C}^{n+1}$ is the model: its defining function $|z|^2 - 1$ has Levi form $= \\mathrm{Id}$, strictly positive on every tangent direction.",
+          "hint": "'Strictly' is the math word for 'no zero eigenvalues allowed.'"
+        },
+        {
+          "type": "multi-select",
+          "q": "Which of these standard domains in $\\mathbb{C}^{n+1}$ have strictly pseudoconvex boundary?",
+          "choices": [
+            "the unit ball $\\mathbb{B}^{n+1}$",
+            "the unit polydisk $\\mathbb{D}^{n+1}$ (which has corners)",
+            "ellipsoids $\\{\\sum |z_j|^2/a_j^2 < 1\\}$ with all $a_j>0$",
+            "the Siegel half-space $\\{\\mathrm{Im}\\, z_{n+1} > |z_1|^2 + \\cdots + |z_n|^2\\}$"
+          ],
+          "answer": [
+            0,
+            2,
+            3
+          ],
+          "explain": "Balls and ellipsoids have smooth, uniformly positive-definite Levi form — strictly pseudoconvex. The Siegel half-space is biholomorphic to the ball (Cayley transform), so its boundary inherits strict pseudoconvexity. The polydisk has corners and is only weakly pseudoconvex on its smooth faces.",
+          "hint": "Smoothness of the boundary is necessary; corners disqualify the polydisk."
+        }
+      ]
+    },
+    "ccr-cr-yamabe": {
+      "title": "The Webster connection and the CR Yamabe problem",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The CR Yamabe equation on a $(2n+1)$-dimensional strictly pseudoconvex CR manifold is $L_b u = \\lambda u^{Q/(Q-2)}$. The 'homogeneous dimension' $Q$ equals:",
+          "choices": [
+            "$2n+1$ (the real dimension)",
+            "$2n$ (the CR-horizontal dimension)",
+            "$2n+2$ (the real dimension plus 1)",
+            "$n+1$ (the complex dimension of the ambient space)"
+          ],
+          "answer": 2,
+          "explain": "The homogeneous dimension is $Q = 2n+2$, which accounts for the Heisenberg dilation $(z,t)\\mapsto(rz, r^2 t)$ — the $t$-direction scales with weight 2, so the metric ball of radius $r$ has volume $\\sim r^Q = r^{2n+2}$. This is the right exponent to use in the CR Yamabe equation in place of the Riemannian dimension $n$.",
+          "hint": "The Heisenberg dilation weights $z$ with $1$ and $t$ with $2$ — and there are $2n$ z-coordinates plus one t-coordinate."
+        },
+        {
+          "type": "mcq",
+          "q": "Webster's CR conformal Laplacian on a strictly pseudoconvex pseudo-Hermitian manifold of CR dimension $n$ is:",
+          "choices": [
+            "$L_b = \\Delta_b$ (the sublaplacian alone)",
+            "$L_b = -(2 + 2/n)\\Delta_b + R^W$ where $\\Delta_b$ is the sublaplacian and $R^W$ is the Webster scalar curvature",
+            "$L_b = \\Delta_g + R$ (just the ordinary Riemannian conformal Laplacian)",
+            "$L_b = \\bar\\partial_b^* \\bar\\partial_b$ (the Kohn Laplacian)"
+          ],
+          "answer": 1,
+          "explain": "Webster's $L_b = -(2 + 2/n)\\Delta_b + R^W$ uses the SUBLAPLACIAN $\\Delta_b$ (the sum-of-squares of horizontal vector fields, $\\sum X_j^2 + Y_j^2$ in Heisenberg coordinates) and the Webster scalar curvature $R^W$ from the Webster connection. The Kohn Laplacian $\\Box_b$ is a related but different operator (acting on $(0,q)$-forms), and the sublaplacian alone is not conformally covariant.",
+          "hint": "Two ingredients: a CR-flavored Laplacian (not the Riemannian one), and a CR-flavored scalar curvature (Webster's)."
+        },
+        {
+          "type": "matching",
+          "q": "Match Riemannian Yamabe ingredients on the left to their CR Yamabe analogs on the right.",
+          "left": [
+            "Conformal Laplacian $L_g = -\\Delta_g + c_n R_g$",
+            "Scalar curvature $R_g$",
+            "Dimension $n$",
+            "Round sphere $S^n$ (model with constant curvature)"
+          ],
+          "right": [
+            "Webster scalar curvature $R^W$",
+            "CR sublaplacian conformal operator $L_b = -(2+2/n)\\Delta_b + R^W$",
+            "Heisenberg group $\\mathbb{H}^n$ (flat CR model) / sphere $S^{2n+1}\\subset\\mathbb{C}^{n+1}$",
+            "Homogeneous dimension $Q = 2n+2$"
+          ],
+          "answer": [
+            1,
+            0,
+            3,
+            2
+          ],
+          "explain": "The dictionary: conformal Laplacian → CR conformal Laplacian; scalar curvature → Webster scalar curvature; Riemannian dimension → CR homogeneous dimension (with the extra '+2' from the Heisenberg t-direction weight); round sphere → either Heisenberg flat model or the sphere $S^{2n+1}$ via Cayley transform.",
+          "hint": "The CR analog of 'dimension' in scaling laws is the homogeneous dimension Q, not the real dimension."
+        }
+      ]
+    }
+  }
+}
