@@ -1,0 +1,283 @@
+{
+  "topic": "mathematical-biology",
+  "quizzes": {
+    "mb-wright-fisher": {
+      "title": "The Wright–Fisher model",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "In the Wright–Fisher model with $2N$ alleles, what is the transition distribution $X_{n+1}\\mid X_n=k$?",
+          "choices": [
+            "$\\mathrm{Binomial}\\!\\left(2N,\\,k/(2N)\\right)$",
+            "$\\mathrm{Poisson}\\!\\left(k\\right)$",
+            "$\\mathrm{Uniform}\\!\\left\\{0,\\dots,2N\\right\\}$",
+            "$\\mathrm{NegBin}\\!\\left(k,\\,1/(2N)\\right)$"
+          ],
+          "answer": 0,
+          "explain": "Each of the $2N$ offspring picks a parent uniformly from the $2N$ alleles of the previous generation. So the count of <em>A</em>-offspring is a sum of $2N$ i.i.d.\\ Bernoulli$(k/(2N))$ variables — exactly $\\mathrm{Binomial}(2N, k/(2N))$.",
+          "hint": "Count the number of offspring that inherit the focal allele; each offspring picks a parent independently with probability proportional to the current frequency."
+        },
+        {
+          "type": "numeric",
+          "q": "A new neutral mutation arises as a single copy in a Wright–Fisher population of $2N=1000$ alleles. What is its probability of eventually fixing?",
+          "answer": 0.001,
+          "tol": 1e-6,
+          "explain": "Allele frequency is a martingale ($\\mathbb{E}[X_{n+1}\\mid X_n]=X_n$), and the only bounded martingales on $\\{0,1,\\dots,2N\\}$ that are absorbed at the endpoints satisfy $\\mathbb{P}_k[\\text{fix}]=k/(2N)$. With $k=1$ and $2N=1000$, that's $1/1000 = 0.001$.",
+          "hint": "Optional stopping: the martingale $X_n$ stops at $0$ or $2N$, and its starting value $k$ must equal the expected stopping value."
+        },
+        {
+          "type": "multi-select",
+          "q": "Select every statement that is true of the Wright–Fisher Markov chain.",
+          "choices": [
+            "The states $0$ and $2N$ are absorbing.",
+            "The chain is reversible with respect to a uniform stationary distribution.",
+            "The heterozygosity $\\mathbb{E}[2 p_n(1-p_n)]$ decays by a factor of $1-1/(2N)$ per generation.",
+            "Conditional on non-absorption, the chain has a quasi-stationary distribution."
+          ],
+          "answer": [0, 2, 3],
+          "explain": "Endpoints are absorbing; heterozygosity decays geometrically at rate $1/(2N)$ (an exercise via $\\mathbb{E}[p_{n+1}(1-p_{n+1})\\mid p_n]$); and there's a quasi-stationary distribution conditional on non-absorption (Yaglom limit). The chain is <em>not</em> reversible — once you hit $0$ or $2N$ you stay there, breaking detailed balance.",
+          "hint": "Anything reversible has a non-trivial stationary distribution on the interior, but our chain bleeds variation into the absorbing endpoints."
+        }
+      ]
+    },
+    "mb-moran": {
+      "title": "The Moran process",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "In the Moran model with relative fitness $r=2$ for the focal allele and $2N=10$ individuals, what is the probability that a single mutant ($k=1$) fixes? Use $\\rho_k = (1 - r^{-k})/(1 - r^{-2N})$.",
+          "answer": 0.500488758,
+          "tol": 1e-4,
+          "explain": "$\\rho_1 = (1 - 2^{-1})/(1 - 2^{-10}) = 0.5/0.999023 \\approx 0.50049$. A single mutant with twice the fitness has almost exactly $1/2$ probability of fixing — Haldane's approximation $\\rho_1 \\approx s/(1+s) = 1/2$ is excellent here.",
+          "hint": "Plug $r=2$, $k=1$, $2N=10$ into the closed-form fixation probability."
+        },
+        {
+          "type": "mcq",
+          "q": "Haldane's approximation for the fixation probability of a single beneficial mutant with small selection coefficient $s$ in a large Moran population is:",
+          "choices": [
+            "$\\rho_1 \\approx s$",
+            "$\\rho_1 \\approx 1/(2N)$",
+            "$\\rho_1 \\approx e^{-2Ns}$",
+            "$\\rho_1 \\approx s/(2N)$"
+          ],
+          "answer": 0,
+          "explain": "From $\\rho_1=(1-r^{-1})/(1-r^{-2N})$ with $r=1+s$ and $2N$ large, $\\rho_1 \\to 1 - r^{-1} = s/(1+s) \\approx s$. Heuristic: a beneficial mutation has probability $s$ of escaping early stochastic loss, after which it's effectively guaranteed to fix.",
+          "hint": "The denominator $1-r^{-2N}$ is essentially $1$ for large $2N$ and $r>1$, so the formula collapses to $1 - r^{-1}$."
+        },
+        {
+          "type": "spot-the-error",
+          "q": "A student argues that the Moran chain $X_n$ on $\\{0,\\dots,2N\\}$ is a simple symmetric random walk with no holding probability. Find the planted flaw.",
+          "steps": [
+            "At each event one individual (uniform among $2N$) is chosen to die.",
+            "Independently, one individual (uniform among $2N$) is chosen to reproduce.",
+            "The pair-of-types is uniform on $\\{A,a\\}^2$, so $X_n$ changes by exactly $+1$ or $-1$ on every step.",
+            "Hence $X_n$ is a simple symmetric random walk on the integers, with $\\mathbb{P}[\\Delta X_n=\\pm 1]=1/2$ each."
+          ],
+          "answer": 2,
+          "hint": "What fraction of death/birth pairs actually change the count?",
+          "explain": "Step 2 onward is fine in its own right, but step 3 is wrong. The pair of <em>types</em> is NOT uniform on $\\{A,a\\}^2$ — it depends on the current count $k$. When the chosen pair has the same type (both A or both a), $X_n$ doesn't change. The change-probability is $k(2N-k)/(2N)^2$ in each direction, so with probability $1 - 2k(2N-k)/(2N)^2$ the chain stays put. The Moran chain is a <em>lazy</em> symmetric random walk."
+        }
+      ]
+    },
+    "mb-kimura-diffusion": {
+      "title": "Kimura's diffusion limit",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The Kimura diffusion $dp_t = \\sigma p(1-p)\\,dt + \\sqrt{p(1-p)}\\,dW_t$ is the diffusion limit of which discrete chain, under which rescaling?",
+          "choices": [
+            "Wright–Fisher with $s = \\sigma/(2N)$, time rescaled by $2N$ generations.",
+            "Wright–Fisher with $s$ fixed and time rescaled by $N^2$ generations.",
+            "Moran with $r = e^\\sigma$ and time unchanged.",
+            "Brownian motion on $\\mathbb{R}$, restricted to $[0,1]$."
+          ],
+          "answer": 0,
+          "explain": "Selection has to scale as $s=\\sigma/(2N)$ to survive in the limit (any finite $s$ would dominate drift); time has to be rescaled by a factor of $2N$ so the discrete CLT-style $\\sqrt{p(1-p)/(2N)}$ jump becomes the Itô differential $\\sqrt{p(1-p)}\\,dW_t$.",
+          "hint": "What scaling of $s$ keeps the product $2Ns$ of order $1$?"
+        },
+        {
+          "type": "numeric",
+          "q": "Using Kimura's formula $u(p) = (1 - e^{-2\\sigma p})/(1 - e^{-2\\sigma})$, what is the fixation probability of an allele at frequency $p=0.05$ in a population with $\\sigma = 2Ns = 4$? Round to 4 decimal places.",
+          "answer": 0.3300,
+          "tol": 1e-3,
+          "explain": "$u(0.05) = (1 - e^{-0.4})/(1 - e^{-8}) = (1 - 0.6703)/(1 - 0.000335) = 0.3297/0.99966 \\approx 0.3298$. With $\\sigma=4$, an allele at frequency $5\\%$ has $\\sim 33\\%$ chance of fixing — compared to $5\\%$ in the neutral case.",
+          "hint": "$e^{-0.4} \\approx 0.6703$; $e^{-8}$ is negligibly small."
+        },
+        {
+          "type": "matching",
+          "q": "Match each value of $\\sigma=2Ns$ to the qualitative regime of allele-frequency evolution.",
+          "left": ["$|\\sigma| \\ll 1$", "$\\sigma \\approx 0$", "$|\\sigma| \\sim 1$", "$|\\sigma| \\gg 1$"],
+          "right": [
+            "drift indistinguishable from selection — Ohta's <em>nearly neutral</em>",
+            "neutral martingale, $u(p) = p$",
+            "deterministic, $u(p)\\to 1$ ($\\sigma>0$) or $0$ ($\\sigma<0$)",
+            "selection dominates drift only at intermediate frequencies"
+          ],
+          "answer": [0, 1, 3, 2],
+          "explain": "The dimensionless product $\\sigma=2Ns$ controls everything: drift wins for $|\\sigma|\\ll 1$; the exactly neutral case is $\\sigma=0$; the nearly-neutral regime (Ohta) sits near $|\\sigma|\\sim 1$; and large $|\\sigma|$ recovers deterministic dynamics with fixation probability stepping from $0$ to $1$.",
+          "hint": "Remember: $|2Ns|\\ll 1$ means drift erases selection's signal; $|2Ns|\\gg 1$ means selection wins decisively."
+        }
+      ]
+    },
+    "mb-coalescent": {
+      "title": "Kingman's coalescent",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "In Kingman's coalescent, when $k$ lineages remain the next coalescence event happens after an exponential waiting time. What is the expected waiting time (in units of $2N$ generations) when $k=4$ lineages remain?",
+          "answer": 0.16666667,
+          "tol": 1e-4,
+          "explain": "The coalescence rate when $k$ lineages remain is $\\binom{k}{2}$, so the mean wait is $1/\\binom{k}{2}$. For $k=4$: $1/\\binom{4}{2} = 1/6 \\approx 0.167$.",
+          "hint": "Each pair coalesces at rate 1 in the rescaled time, and there are $\\binom{k}{2}$ pairs."
+        },
+        {
+          "type": "numeric",
+          "q": "For a sample of $n=10$ lineages, what is the expected time to the most recent common ancestor (TMRCA) in units of $2N$ generations? Use $\\mathbb{E}[T_{\\mathrm{MRCA}}] = 2(1-1/n)$.",
+          "answer": 1.8,
+          "tol": 1e-4,
+          "explain": "$\\mathbb{E}[T_{\\mathrm{MRCA}}] = 2(1 - 1/10) = 1.8$. The TMRCA approaches $2$ as $n\\to\\infty$; the additional contribution from the last few coalescences (large $k$) is exponentially small.",
+          "hint": "Plug $n=10$ into the closed form $2(1-1/n)$."
+        },
+        {
+          "type": "ordering",
+          "q": "Order the steps of the standard derivation of the coalescent waiting time from the Wright–Fisher model (forward to backward).",
+          "items": [
+            "Two distinct sampled lineages share a parent in the previous Wright–Fisher generation with probability $1/(2N)$.",
+            "Rescale time by $2N$ and take $N\\to\\infty$.",
+            "With $k$ lineages, the probability that some pair coalesces in one generation is $\\binom{k}{2}/(2N) + O(1/N^2)$.",
+            "The geometric waiting time becomes exponential with rate $\\binom{k}{2}$."
+          ],
+          "answer": [0, 2, 1, 3],
+          "explain": "Standard order: single-pair coincidence probability ($1/(2N)$); $\\binom{k}{2}$ pairs give the $k$-lineage rate; rescaling time by $2N$ converts the discrete geometric clock into a Poisson clock; the limit waiting time is exponential.",
+          "hint": "Start from a single pair, count pairs, take the limit."
+        }
+      ]
+    },
+    "mb-lotka-volterra": {
+      "title": "Lotka–Volterra predator-prey",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "For the Lotka–Volterra system $\\dot x = ax - bxy$, $\\dot y = -cy + dxy$, where is the non-trivial fixed point?",
+          "choices": [
+            "$(c/d,\\,a/b)$",
+            "$(a/b,\\,c/d)$",
+            "$(\\sqrt{a/c},\\,\\sqrt{b/d})$",
+            "$(a-c,\\,b-d)$"
+          ],
+          "answer": 0,
+          "explain": "Set $\\dot x = x(a - by) = 0$ with $x\\ne 0$: $y = a/b$. Similarly $\\dot y = y(-c + dx) = 0$ with $y\\ne 0$: $x = c/d$. So the non-trivial fixed point is $(c/d, a/b)$.",
+          "hint": "Solve the two nullcline equations $a - by = 0$ and $-c + dx = 0$."
+        },
+        {
+          "type": "mcq",
+          "q": "Linearizing the Lotka–Volterra system at the non-trivial fixed point gives eigenvalues $\\pm i\\sqrt{ac}$. What does this say about the fixed point?",
+          "choices": [
+            "It is a centre: orbits are closed periodic curves of period $\\approx 2\\pi/\\sqrt{ac}$ (in the linearization).",
+            "It is a stable spiral.",
+            "It is a saddle point.",
+            "It is structurally stable under generic perturbation."
+          ],
+          "answer": 0,
+          "explain": "Purely imaginary eigenvalues mean the linearization is a centre — concentric ellipses, period $2\\pi/\\sqrt{ac}$. The conservation of $H(x,y) = dx - c\\ln x + by - a\\ln y$ makes the centre survive the linearization in the full nonlinear system, but only because of this special structure. Generic perturbations destroy the centre, so it is <em>not</em> structurally stable.",
+          "hint": "A centre is the canonical 'imaginary eigenvalue pair' fixed point — but structural stability is a separate question."
+        },
+        {
+          "type": "numeric",
+          "q": "Compute the value of the conserved quantity $H(x,y) = dx - c\\ln x + by - a\\ln y$ at the parameters $a=1.2, b=1, c=0.8, d=1$ with initial condition $(x_0,y_0) = (1, 1)$. Round to 3 decimal places.",
+          "answer": 2.0,
+          "tol": 1e-3,
+          "explain": "$H(1,1) = 1\\cdot 1 - 0.8\\ln 1 + 1\\cdot 1 - 1.2\\ln 1 = 1 + 0 + 1 + 0 = 2.000$. Trivial because $\\ln 1 = 0$; the conserved quantity reduces to $dx_0 + by_0$ at $(1,1)$.",
+          "hint": "$\\ln 1 = 0$ kills both logarithmic terms."
+        }
+      ]
+    },
+    "mb-replicator": {
+      "title": "The replicator equation",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "On the simplex $\\Delta^{m-1}$, the replicator equation $\\dot x_i = x_i(f_i(x) - \\bar f(x))$ has which set of interior fixed points?",
+          "choices": [
+            "Exactly the Nash equilibria of the payoff matrix.",
+            "Only the barycentre $(1/m, \\dots, 1/m)$.",
+            "Every point of the simplex.",
+            "The eigenvectors of $A$ that lie in the positive orthant."
+          ],
+          "answer": 0,
+          "explain": "An interior fixed point of replicator dynamics requires $f_i(x) = \\bar f(x)$ for every $i$ with $x_i > 0$ — every strategy in the support has equal fitness — which is exactly the definition of a Nash equilibrium of $A$. Boundary fixed points exist too (any face is invariant), but they are not Nash unless they also satisfy the Nash inequality against missing strategies.",
+          "hint": "The replicator interior fixed-point condition is 'all in-support strategies have equal fitness' — write down what that means for Nash."
+        },
+        {
+          "type": "multi-select",
+          "q": "Select every statement true of replicator dynamics with the rock-paper-scissors payoff matrix $A = \\begin{pmatrix}0 & -1 & 1\\\\1 & 0 & -1\\\\-1 & 1 & 0\\end{pmatrix}$.",
+          "choices": [
+            "The barycentre $(1/3, 1/3, 1/3)$ is an interior fixed point.",
+            "The quantity $H(x) = -\\sum_i \\ln x_i$ is conserved along trajectories.",
+            "The barycentre is a local attractor: nearby orbits spiral inward.",
+            "Linearization at the barycentre gives purely imaginary eigenvalues."
+          ],
+          "answer": [0, 1, 3],
+          "explain": "Yes to (a), (b), (d): the antisymmetric payoff matrix yields conserved $H$, the barycentre is the unique interior fixed point with eigenvalues $\\pm i/\\sqrt{3}$. But (c) is false — the conservation law forces closed orbits, NOT inward spiral. Adding any payoff asymmetry breaks the conservation and can produce either an inward (ESS) or outward (heteroclinic boundary cycle) spiral.",
+          "hint": "Conservation laws and asymptotic stability are incompatible — if $H$ is conserved, no orbit can approach a fixed point."
+        },
+        {
+          "type": "proof-completion",
+          "q": "We are showing the simplex is invariant under the replicator equation $\\dot x_i = x_i(f_i(x) - \\bar f(x))$ — i.e. $\\sum_i \\dot x_i = 0$. Pick the correct next step.",
+          "steps": [
+            "Sum over $i$: $\\sum_i \\dot x_i = \\sum_i x_i f_i(x) - \\sum_i x_i\\,\\bar f(x)$.",
+            "By the definition of the population average $\\bar f(x) = \\sum_i x_i f_i(x)$, the first sum equals $\\bar f(x)$."
+          ],
+          "choices": [
+            "Factor the constant: $\\sum_i x_i\\,\\bar f(x) = \\bar f(x)\\sum_i x_i = \\bar f(x)\\cdot 1 = \\bar f(x)$ (since $x$ lies on the simplex), so $\\sum_i \\dot x_i = \\bar f(x) - \\bar f(x) = 0$.",
+            "Apply the chain rule to $\\bar f(x) = x^\\top A x$ and integrate by parts.",
+            "Invoke Liouville's theorem on Hamiltonian flow.",
+            "Conclude that the replicator is gradient flow on the simplex, so the simplex is invariant by the Lagrange multiplier $\\lambda=\\bar f$."
+          ],
+          "answer": 0,
+          "explain": "The simplex constraint $\\sum_i x_i = 1$ lets you pull $\\bar f(x)$ out of the second sum, after which the two terms cancel.",
+          "hint": "The constraint is $\\sum x_i = 1$; that lets you factor a constant out of the second sum."
+        }
+      ]
+    },
+    "mb-mutation-selection": {
+      "title": "Mutation–selection balance",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "Compute the equilibrium frequency $\\hat q$ of a deleterious allele with selection coefficient $s = 0.01$ and per-generation mutation rate $u = 10^{-5}$, using the Haldane–Muller approximation $\\hat q \\approx u/s$.",
+          "answer": 0.001,
+          "tol": 1e-7,
+          "explain": "$\\hat q \\approx u/s = 10^{-5}/10^{-2} = 10^{-3} = 0.001$. So the deleterious allele sits at about one in a thousand at equilibrium, sustained against selection by mutation.",
+          "hint": "Just divide $u$ by $s$."
+        },
+        {
+          "type": "mcq",
+          "q": "The Haldane–Muller principle says mutational load $L = s\\hat q$ at equilibrium equals:",
+          "choices": [
+            "$u$ (the mutation rate alone)",
+            "$s$ (the selection coefficient alone)",
+            "$u s$",
+            "$\\sqrt{u/s}$"
+          ],
+          "answer": 0,
+          "explain": "$L = s \\hat q = s \\cdot (u/s) = u$. The selection coefficient drops out — the mutation load is determined entirely by the mutation rate, not by how harmful each mutation is. Strongly deleterious mutations are kept rarer; weakly deleterious ones accumulate; but the cumulative cost is the same.",
+          "hint": "Multiply $s$ by $\\hat q = u/s$ and watch the $s$'s cancel."
+        },
+        {
+          "type": "spot-the-error",
+          "q": "A student argues that small populations are safe from mutational load. Find the planted flaw.",
+          "steps": [
+            "At mutation–selection balance, the equilibrium frequency of a deleterious allele is $\\hat q\\approx u/s$.",
+            "Mutation load $L = s\\hat q = u$ is independent of the selection coefficient $s$.",
+            "So $L$ depends only on the per-locus mutation rate $u$, which is a molecular constant, not on the population size $N$.",
+            "Therefore arbitrarily small populations can sustain the same mutational input as large ones without going extinct."
+          ],
+          "answer": 3,
+          "hint": "What happens when the population is so small that selection can't keep up with drift?",
+          "explain": "Steps 1–3 are correct in the deterministic ($N\\to\\infty$) limit. Step 4 forgets that the derivation assumed selection efficiently culls deleterious mutants before drift fixes them. When $Ns\\ll 1$, drift dominates, deleterious mutations fix at rate $\\sim u$ (regardless of $s$), and average fitness decays — Muller's ratchet, and Lynch's mutational meltdown — driving small populations to extinction. The principle $L=u$ is robust only for $Ns\\gg 1$."
+        }
+      ]
+    }
+  }
+}
