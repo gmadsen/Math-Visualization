@@ -166,7 +166,14 @@
   }
 
   function init(host, data){
-    if(!host || !data) return;
+    if(!host){
+      console.warn('[MVHistoryLineage] init called with no host element');
+      return;
+    }
+    if(!data){
+      console.warn('[MVHistoryLineage] init called with no data');
+      return;
+    }
     const lineages = data.lineages || [];
     const personById = new Map((data.people || []).map(p => [p.id, p]));
     const eraById = new Map((data.eras || []).map(e => [e.id, e]));
