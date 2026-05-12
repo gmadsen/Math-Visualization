@@ -29,6 +29,7 @@
 
     "brill-noether",
     "coding-theory",
+    "conformal-and-cr-geometry",
 
 
 
@@ -403,6 +404,7 @@
     "geometric-invariant-theory": "advanced",
     "heegaard-floer": "advanced",
     "brill-noether": "advanced",
-    "coding-theory": "standard"
+    "coding-theory": "standard",
+    "conformal-and-cr-geometry": "advanced"
   }
 }

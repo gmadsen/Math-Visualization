@@ -80,7 +80,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./several-complex-variables.html#pseudoconvex\">Several complex variables &amp; Stein manifolds</a> · Domains of holomorphy and Levi pseudoconvexity</div>\n    <div><a href=\"./several-complex-variables.html#dbar\">Several complex variables &amp; Stein manifolds</a> · The $\\bar\\partial$-equation and Hörmander's $L^2$ estimates</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./conformal-and-cr-geometry.html#levi-form\">Conformal and CR geometry</a> · The Levi form and strict pseudoconvexity</div>\n    <div><a href=\"./several-complex-variables.html#pseudoconvex\">Several complex variables &amp; Stein manifolds</a> · Domains of holomorphy and Levi pseudoconvexity</div>\n    <div><a href=\"./several-complex-variables.html#dbar\">Several complex variables &amp; Stein manifolds</a> · The $\\bar\\partial$-equation and Hörmander's $L^2$ estimates</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "quiz",
@@ -152,7 +152,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./several-complex-variables.html#stein\">Several complex variables &amp; Stein manifolds</a> · Stein manifolds and Cartan's Theorems A and B</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./conformal-and-cr-geometry.html#cr-structure\">Conformal and CR geometry</a> · CR structures and the Heisenberg model</div>\n    <div><a href=\"./several-complex-variables.html#stein\">Several complex variables &amp; Stein manifolds</a> · Stein manifolds and Cartan's Theorems A and B</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

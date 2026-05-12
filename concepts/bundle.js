@@ -9,6 +9,7 @@ window.__MVConcepts = {
       "heegaard-floer",
       "brill-noether",
       "coding-theory",
+      "conformal-and-cr-geometry",
       "several-complex-variables",
       "khovanov-homology",
       "shimura-varieties",
@@ -378,7 +379,8 @@ window.__MVConcepts = {
       "geometric-invariant-theory": "advanced",
       "heegaard-floer": "advanced",
       "brill-noether": "advanced",
-      "coding-theory": "standard"
+      "coding-theory": "standard",
+      "conformal-and-cr-geometry": "advanced"
     }
   },
   "topics": {
@@ -890,6 +892,111 @@ window.__MVConcepts = {
           "blurb": "A lattice $\\Lambda\\subset\\mathbb{R}^n$ packs spheres of radius $\\lambda_1/2$ with center density $(\\lambda_1/2)^n/\\det\\Lambda$. Construction A lifts a binary linear code to a lattice; the extended Hamming $[8,4,4]$ gives $E_8$ and the binary Golay $[24,12,8]$ gives the Leech lattice. Viazovska's 2016 proof that $E_8$ and (with collaborators) the Leech lattice are optimal closed two long-standing problems.",
           "tags": [
             "classification"
+          ]
+        }
+      ]
+    },
+    "conformal-and-cr-geometry": {
+      "topic": "conformal-and-cr-geometry",
+      "title": "Conformal and CR geometry",
+      "page": "conformal-and-cr-geometry.html",
+      "concepts": [
+        {
+          "id": "ccr-conformal-class",
+          "title": "Conformal class of a Riemannian metric",
+          "anchor": "conformal-class",
+          "prereqs": [
+            "riemannian-metrics",
+            "levi-civita-connection"
+          ],
+          "blurb": "Two Riemannian metrics are conformally related if $\\tilde g = e^{2u} g$ for some smooth $u\\in C^\\infty(M)$; the equivalence class $[g]$ records only angles, not lengths. Conformal change rescales geodesic balls and produces explicit transformation laws for the Levi-Civita connection, the Riemann tensor, and the scalar curvature — in dimension $n$ the scalar curvature obeys $R_{\\tilde g} = e^{-2u}\\bigl(R_g - 2(n-1)\\Delta_g u - (n-1)(n-2)|\\nabla u|^2\\bigr)$.",
+          "tags": [
+            "foundation",
+            "group-action"
+          ]
+        },
+        {
+          "id": "ccr-conformal-laplacian",
+          "title": "The conformal Laplacian",
+          "anchor": "conformal-laplacian",
+          "prereqs": [
+            "ccr-conformal-class",
+            "pde-laplace-equation"
+          ],
+          "blurb": "On $(M^n,g)$ with $n\\ge 3$, the conformal Laplacian $L_g = -\\Delta_g + \\tfrac{n-2}{4(n-1)}R_g$ is conformally covariant: under $\\tilde g = e^{2u}g$ one has $L_{\\tilde g}(\\phi) = e^{-(n+2)u/2}\\,L_g\\!\\bigl(e^{(n-2)u/2}\\phi\\bigr)$. The pair of conformal weights $(n-2)/2$ and $(n+2)/2$ exactly fits the critical Sobolev exponent $2^* = 2n/(n-2)$, foreshadowing the Yamabe equation's critical nonlinearity.",
+          "tags": [
+            "foundation",
+            "duality"
+          ]
+        },
+        {
+          "id": "ccr-yamabe-problem",
+          "title": "The Yamabe problem and the Yamabe equation",
+          "anchor": "yamabe-problem",
+          "prereqs": [
+            "ccr-conformal-laplacian",
+            "pde-existence-and-regularity",
+            "sobolev-spaces-wkp"
+          ],
+          "blurb": "Yamabe (1960) asked: in every conformal class on a compact $M^n$ with $n\\ge 3$, does there exist a metric of constant scalar curvature? Writing $\\tilde g = u^{4/(n-2)} g$ reduces the question to $L_g u = \\lambda u^{(n+2)/(n-2)}$ — a critical-exponent semilinear PDE whose Sobolev embedding $H^1\\hookrightarrow L^{2^*}$ is borderline non-compact. Trudinger, Aubin, and Schoen (1984) completed the affirmative answer; Schoen's positive mass theorem closed the case where the Yamabe invariant equals that of the round sphere.",
+          "tags": [
+            "classification",
+            "compactness"
+          ]
+        },
+        {
+          "id": "ccr-q-curvature",
+          "title": "Q-curvature and the Paneitz operator",
+          "anchor": "q-curvature",
+          "prereqs": [
+            "ccr-conformal-laplacian"
+          ],
+          "blurb": "Paneitz's 4th-order operator $P_g = \\Delta_g^2 + \\delta(a_n R_g\\, g - b_n \\mathrm{Ric}_g)\\,d + \\tfrac{n-4}{2}Q_g$ is conformally covariant with weights $(n-4)/2$ and $(n+4)/2$, and $Q$-curvature is its conformal-prescription invariant: in dimension $4$, $\\int Q\\,dV$ is a conformal invariant equal to $8\\pi^2\\chi(M) - \\int |W|^2\\,dV$, tying Q-curvature to topology via Chern-Gauss-Bonnet. The GJMS construction extends this to conformally covariant operators of every even order $2k$.",
+          "tags": [
+            "duality",
+            "classification"
+          ]
+        },
+        {
+          "id": "ccr-cr-structure",
+          "title": "CR structures and the Heisenberg model",
+          "anchor": "cr-structure",
+          "prereqs": [
+            "scv-pseudoconvex",
+            "lie-group-definition"
+          ],
+          "blurb": "A CR manifold $(M^{2n+1}, H, J)$ is a real $(2n+1)$-manifold equipped with a rank-$2n$ subbundle $H\\subset TM$ (the horizontal distribution) and a smooth complex structure $J\\colon H\\to H$ with $J^2 = -\\mathrm{id}$, satisfying the integrability condition that $[H^{1,0}, H^{1,0}]\\subset H^{1,0}\\otimes\\mathbb{C}$. Real hypersurfaces $M\\subset\\mathbb{C}^{n+1}$ inherit a canonical CR structure from $H = TM\\cap J_{\\mathbb{C}^{n+1}}(TM)$. The flat model is the Heisenberg group $\\mathbb{H}^n = \\mathbb{C}^n\\times\\mathbb{R}$ with multiplication $(z,t)\\cdot(z',t') = (z+z', t+t'+2\\,\\mathrm{Im}\\langle z,z'\\rangle)$.",
+          "tags": [
+            "foundation",
+            "lifting"
+          ]
+        },
+        {
+          "id": "ccr-levi-form",
+          "title": "The Levi form and strict pseudoconvexity",
+          "anchor": "levi-form",
+          "prereqs": [
+            "ccr-cr-structure",
+            "scv-psh"
+          ],
+          "blurb": "Pick a contact 1-form $\\theta$ annihilating $H$ — the Levi form is the Hermitian form $\\mathcal{L}_\\theta(X,\\bar Y) = -i\\,d\\theta(X,\\bar Y)$ on $H^{1,0}$. It is the CR analog of the second fundamental form of a real hypersurface: when $M = \\{\\rho = 0\\}\\subset\\mathbb{C}^{n+1}$, $\\mathcal{L}_\\theta$ is the restriction of the complex Hessian $\\partial\\bar\\partial\\rho$ to $T^{1,0}M$. A CR manifold is strictly pseudoconvex when $\\mathcal{L}$ is positive definite; this picks out the well-behaved end of the CR universe and the only category where the CR Yamabe problem has the right shape.",
+          "tags": [
+            "foundation",
+            "classification"
+          ]
+        },
+        {
+          "id": "ccr-cr-yamabe",
+          "title": "The Webster connection and the CR Yamabe problem",
+          "anchor": "cr-yamabe",
+          "prereqs": [
+            "ccr-levi-form",
+            "ccr-yamabe-problem"
+          ],
+          "blurb": "Webster (1978) built the CR analog of the Levi-Civita connection: on a strictly pseudoconvex pseudo-Hermitian manifold $(M^{2n+1},\\theta)$ there is a unique connection compatible with $H$, $J$, and $d\\theta$, with prescribed torsion. Its scalar curvature $R^W$ obeys the CR conformal Laplacian $L_b = -(2 + 2/n)\\Delta_b + R^W$ — the sublaplacian-based analog of the conformal Laplacian. The CR Yamabe equation $L_b u = \\lambda u^{Q/(Q-2)}$ uses homogeneous dimension $Q = 2n+2$ in place of $n$; Jerison and Lee (1987-89) proved the analog of Trudinger–Aubin–Schoen using the Heisenberg group as the model space.",
+          "tags": [
+            "duality",
+            "lifting"
           ]
         }
       ]
@@ -18242,6 +18349,7 @@ window.__MVConcepts = {
           "semigroup-theory-evolution-equations",
           "advanced-complex-analysis",
           "several-complex-variables",
+          "conformal-and-cr-geometry",
           "partial-differential-equations",
           "harmonic-functions",
           "spectral-theory",
@@ -18712,7 +18820,8 @@ window.__MVConcepts = {
     "geometric-invariant-theory": "advanced",
     "heegaard-floer": "advanced",
     "brill-noether": "advanced",
-    "coding-theory": "standard"
+    "coding-theory": "standard",
+    "conformal-and-cr-geometry": "advanced"
   },
   "newArc": [
     "elementary-topos-theory",
@@ -18754,11 +18863,11 @@ window.__MVConcepts = {
       "density": 0.5111111111111111
     },
     "Analysis": {
-      "concepts": 197,
-      "intra": 346,
-      "crossOut": 33,
+      "concepts": 204,
+      "intra": 357,
+      "crossOut": 36,
       "crossIn": 66,
-      "density": 0.16751269035532995
+      "density": 0.17647058823529413
     },
     "Probability & statistics": {
       "concepts": 62,
@@ -18771,7 +18880,7 @@ window.__MVConcepts = {
       "concepts": 153,
       "intra": 260,
       "crossOut": 31,
-      "crossIn": 97,
+      "crossIn": 100,
       "density": 0.20261437908496732
     },
     "Number theory": {

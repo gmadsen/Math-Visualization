@@ -1,0 +1,1074 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Conformal and CR geometry — angles, Q-curvature, and the Levi form</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false,
+      macros:{
+        '\\Spec':'\\operatorname{Spec}',
+        '\\Gal':'\\operatorname{Gal}',
+        '\\Hom':'\\operatorname{Hom}',
+        '\\tr':'\\operatorname{tr}',
+        '\\ad':'\\operatorname{ad}',
+        '\\ind':'\\operatorname{ind}'
+      }
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  /* sticky sidebar TOC (wide screens only; narrow screens fall back to top-nav) */
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+  /* callback-css-auto-begin */
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+/* callback-css-auto-end */
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
+  /* display-prefs-css-auto-begin */
+  html[data-hide-widgets] .widget { display: none !important; }
+  html[data-hide-quizzes] .quiz { display: none !important; }
+  html[data-hide-lineage] .lineage-strip { display: none !important; }
+  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }
+  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }
+  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }
+  .mv-display-toggle--off { opacity: 0.35; }
+  /* display-prefs-css-auto-end */
+</style>
+<script src="./js/breadcrumb.js"></script>
+<script src="./js/glossary-popover.js" defer></script>
+<link rel="stylesheet" media="print" href="./css/print.css">
+<link rel="stylesheet" href="./css/theme-light.css">
+<script src="./js/theme-toggle.js"></script>
+<script src="./concepts/bundle.js" defer></script>
+<script src="./js/topic-hotkeys.js" defer></script>
+<script src="./js/topic-lineage.js" defer></script>
+<!-- breadcrumb-head-auto-begin -->
+<script>window.__MV_SECTION_MAP = {"<topic>":{"next":null,"prev":null,"section":"Sections","title":"<topic>"},"L-functions":{"next":"sato-tate","prev":"moonshine","section":"Modular forms & L-functions","title":"L-functions"},"abelian-varieties":{"next":"positivity-and-ample-line-bundles","prev":"toric-varieties","section":"Algebraic geometry","title":"Abelian varieties"},"additive-number-theory":{"next":"heights-arithmetic-geometry","prev":"quadratic-forms-genus-theory","section":"Number theory","title":"Additive number theory"},"adeles-and-ideles":{"next":"frobenius-and-reciprocity","prev":"p-adic-numbers","section":"Number theory","title":"Adèles & idèles"},"advanced-complex-analysis":{"next":"microlocal-analysis","prev":"sobolev-spaces-distributions","section":"Analysis","title":"Advanced complex analysis"},"algebra":{"next":"representation-theory","prev":null,"section":"Algebra & homological","title":"Abstract algebra"},"algebraic-curves-higher-genus":{"next":"deformation-theory","prev":"mirror-symmetry","section":"Algebraic geometry","title":"Algebraic curves: higher genus"},"algebraic-de-rham-cohomology":{"next":"calabi-yau-manifolds","prev":"algebraic-spaces","section":"Algebraic geometry","title":"Algebraic de Rham cohomology"},"algebraic-k-theory-foundations":{"next":"model-categories","prev":"quantum-groups","section":"Algebra & homological","title":"Algebraic K-theory foundations"},"algebraic-number-theory":{"next":"p-adic-numbers","prev":"galois","section":"Number theory","title":"Algebraic number theory"},"algebraic-spaces":{"next":"algebraic-de-rham-cohomology","prev":"functor-of-points","section":"Algebraic geometry","title":"Algebraic spaces"},"algebraic-topology":{"next":"knot-polynomials","prev":"point-set-topology","section":"Geometry & topology","title":"Algebraic topology"},"analytic-continuation":{"next":"zeta-values","prev":"dirichlet-series-euler-products","section":"Modular forms & L-functions","title":"Analytic continuation"},"analytic-number-theory":{"next":"galois","prev":null,"section":"Number theory","title":"Analytic number theory"},"atiyah-singer-index-theorem":{"next":"riemannian-geometry","prev":"k-theory","section":"Geometry & topology","title":"Atiyah–Singer index theorem"},"automorphic-forms-adelic":{"next":"moonshine","prev":"hecke-operators","section":"Modular forms & L-functions","title":"Automorphic forms (adelic)"},"bezout":{"next":"schemes","prev":"elliptic-curves","section":"Algebraic geometry","title":"Bézout's theorem"},"bsd":{"next":"modularity-and-flt","prev":"sato-tate","section":"Modular forms & L-functions","title":"Birch & Swinnerton-Dyer"},"calabi-yau-manifolds":{"next":"mirror-symmetry","prev":"algebraic-de-rham-cohomology","section":"Algebraic geometry","title":"Calabi–Yau manifolds"},"category-theory":{"next":"commutative-algebra","prev":"derived-categories","section":"Algebra & homological","title":"Category theory"},"characteristic-classes":{"next":"k-theory","prev":"symplectic-manifolds","section":"Geometry & topology","title":"Characteristic classes"},"class-field-theory":{"next":"galois-representations","prev":"computational-number-theory","section":"Number theory","title":"Class field theory"},"cluster-algebras":{"next":"galois-cohomology-and-brauer","prev":"geometric-and-combinatorial-group-theory","section":"Algebra & homological","title":"Cluster algebras"},"cobordism":{"next":"homotopy-theory","prev":"cohomology-and-duality","section":"Geometry & topology","title":"Cobordism"},"cocartesian-fibrations":{"next":"infinity-categories","prev":"heyting-algebras-toposes","section":"Higher categories & toposes","title":"Cocartesian fibrations"},"cohomology-and-duality":{"next":"cobordism","prev":"mostow-rigidity","section":"Geometry & topology","title":"Cohomology and duality"},"commutative-algebra":{"next":"homological","prev":"category-theory","section":"Algebra & homological","title":"Commutative algebra"},"complex-analysis":{"next":"measure-theory","prev":"real-analysis","section":"Analysis","title":"Complex analysis"},"complex-multiplication":{"next":null,"prev":"dirichlet-unit-theorem","section":"Number theory","title":"Complex multiplication"},"complexity-theory":{"next":"type-theory-and-hott","prev":"computability-and-decidability","section":"Logic & Foundations","title":"Complexity theory"},"computability-and-decidability":{"next":"complexity-theory","prev":"model-theory-basics","section":"Logic & Foundations","title":"Computability and decidability"},"computational-number-theory":{"next":"class-field-theory","prev":"mathematics-and-cryptography","section":"Number theory","title":"Computational number theory"},"condensed-mathematics":{"next":null,"prev":"groebner-bases","section":"Algebra & homological","title":"Condensed mathematics"},"conformal-and-cr-geometry":{"next":null,"prev":"several-complex-variables","section":"Analysis","title":"Conformal & CR geometry"},"continued-fractions":{"next":"dirichlet-unit-theorem","prev":"iwasawa-theory","section":"Number theory","title":"Continued fractions"},"crystalline-cohomology":{"next":"tropical-geometry","prev":"d-modules","section":"Algebraic geometry","title":"Crystalline cohomology"},"d-modules":{"next":"crystalline-cohomology","prev":"mmp-and-birational-geometry","section":"Algebraic geometry","title":"D-modules"},"deformation-theory":{"next":"resolution-of-singularities","prev":"algebraic-curves-higher-genus","section":"Algebraic geometry","title":"Deformation theory"},"derived-categories":{"next":"category-theory","prev":"model-categories","section":"Algebra & homological","title":"Derived categories"},"designs":{"next":"spectral-graph-theory","prev":"enumerative-combinatorics","section":"Combinatorics & graph theory","title":"Designs"},"differential-forms":{"next":"morse-theory","prev":"riemann-surfaces","section":"Geometry & topology","title":"Differential forms"},"differential-geometry":{"next":"riemann-surfaces","prev":"smooth-manifolds","section":"Geometry & topology","title":"Differential geometry"},"dirac-equation":{"next":"statistical-mechanics","prev":"klein-gordon-equation","section":"Mathematical physics","title":"Dirac equation"},"dirichlet-series-euler-products":{"next":"analytic-continuation","prev":null,"section":"Modular forms & L-functions","title":"Dirichlet series & Euler products"},"dirichlet-unit-theorem":{"next":"complex-multiplication","prev":"continued-fractions","section":"Number theory","title":"Dirichlet unit theorem"},"dynamical-systems":{"next":"semigroup-theory-evolution-equations","prev":"operator-algebras","section":"Analysis","title":"Dynamical systems"},"elementary-topos-theory":{"next":"grothendieck-topologies-sites","prev":"simplicial-sets-and-nerve","section":"Higher categories & toposes","title":"Elementary topos theory"},"elliptic-curves":{"next":"bezout","prev":"etale-fundamental-group","section":"Algebraic geometry","title":"Elliptic curves"},"enumerative-combinatorics":{"next":"designs","prev":"simplicial-complexes-combinatorial","section":"Combinatorics & graph theory","title":"Enumerative combinatorics"},"etale-cohomology":{"next":"mmp-and-birational-geometry","prev":"stacks","section":"Algebraic geometry","title":"Étale cohomology"},"etale-fundamental-group":{"next":"elliptic-curves","prev":"projective-plane","section":"Algebraic geometry","title":"Étale fundamental group"},"expanders":{"next":null,"prev":"spectral-graph-theory","section":"Combinatorics & graph theory","title":"Expanders"},"extremal-combinatorics":{"next":"simplicial-complexes-combinatorial","prev":"probabilistic-method","section":"Combinatorics & graph theory","title":"Extremal combinatorics"},"first-order-logic-and-completeness":{"next":"zfc-and-ordinals","prev":"type-theory-and-hott","section":"Logic & Foundations","title":"First order logic and completeness"},"fixed-point-theorems":{"next":"harmonic-analysis-fourier","prev":"functional-analysis","section":"Analysis","title":"Fixed point theorems"},"forcing-and-independence":{"next":null,"prev":"zfc-and-ordinals","section":"Logic & Foundations","title":"Forcing and independence"},"frobenius-and-reciprocity":{"next":"quadratic-reciprocity","prev":"adeles-and-ideles","section":"Number theory","title":"Frobenius & reciprocity"},"functional-analysis":{"next":"fixed-point-theorems","prev":"harmonic-functions","section":"Analysis","title":"Functional analysis"},"functor-of-points":{"next":"algebraic-spaces","prev":"morphisms-fiber-products","section":"Algebraic geometry","title":"Functor of points"},"galois":{"next":"algebraic-number-theory","prev":"analytic-number-theory","section":"Number theory","title":"Galois theory & the quintic"},"galois-cohomology-and-brauer":{"next":"group-cohomology","prev":"cluster-algebras","section":"Algebra & homological","title":"Galois cohomology and Brauer groups"},"galois-representations":{"next":"iwasawa-theory","prev":"class-field-theory","section":"Number theory","title":"Galois representations"},"gauge-theory":{"next":"string-theory","prev":"statistical-mechanics","section":"Mathematical physics","title":"Gauge theory"},"general-relativity":{"next":"schrodinger-equation","prev":"three-body-problem","section":"Mathematical physics","title":"General relativity & Einstein equations"},"geometric-and-combinatorial-group-theory":{"next":"cluster-algebras","prev":"quaternions-octonions-and-division-algebras","section":"Algebra & homological","title":"Geometric and combinatorial group theory"},"geometric-invariant-theory":{"next":null,"prev":"tropical-geometry","section":"Algebraic geometry","title":"Geometric invariant theory"},"geometric-measure-theory":{"next":"operator-algebras","prev":"microlocal-analysis","section":"Analysis","title":"Geometric measure theory"},"groebner-bases":{"next":"condensed-mathematics","prev":"homological","section":"Algebra & homological","title":"Gröbner bases"},"grothendieck-topologies-sites":{"next":"infinity-topoi","prev":"elementary-topos-theory","section":"Higher categories & toposes","title":"Grothendieck topologies & sites"},"group-cohomology":{"next":"quantum-groups","prev":"galois-cohomology-and-brauer","section":"Algebra & homological","title":"Group cohomology"},"group-schemes":{"next":"morphisms-fiber-products","prev":"intersection-theory-chow","section":"Algebraic geometry","title":"Group schemes"},"half-integral-weight-forms":{"next":"shimura-varieties","prev":"maass-forms","section":"Modular forms & L-functions","title":"Half-integral weight forms"},"hamiltonians-classical-mechanics":{"next":"special-relativity","prev":"schrodinger-equation","section":"Mathematical physics","title":"Hamiltonians & classical mechanics"},"harmonic-analysis-fourier":{"next":"wavelets","prev":"fixed-point-theorems","section":"Analysis","title":"Harmonic analysis & Fourier theory"},"harmonic-functions":{"next":"functional-analysis","prev":"measure-theory","section":"Analysis","title":"Harmonic functions"},"hecke-operators":{"next":"automorphic-forms-adelic","prev":"theta-functions","section":"Modular forms & L-functions","title":"Hecke operators"},"heights-arithmetic-geometry":{"next":"mathematics-and-cryptography","prev":"additive-number-theory","section":"Number theory","title":"Heights in arithmetic geometry"},"heyting-algebras-toposes":{"next":"cocartesian-fibrations","prev":null,"section":"Higher categories & toposes","title":"Heyting algebras & intuitionist logic"},"high-dimensional-geometry":{"next":"information-theory","prev":"large-deviations","section":"Probability & statistics","title":"High dimensional geometry"},"hodge-theory":{"next":"singular-cubics-reduction","prev":"motives","section":"Algebraic geometry","title":"Hodge theory"},"homological":{"next":"groebner-bases","prev":"commutative-algebra","section":"Algebra & homological","title":"Homological algebra"},"homotopy-theory":{"next":"kahler-geometry","prev":"cobordism","section":"Geometry & topology","title":"Homotopy theory"},"infinity-categories":{"next":"simplicial-sets-and-nerve","prev":"cocartesian-fibrations","section":"Higher categories & toposes","title":"∞-categories (quasi-categories)"},"infinity-topoi":{"next":null,"prev":"grothendieck-topologies-sites","section":"Higher categories & toposes","title":"∞-topoi"},"information-theory":{"next":"mathematical-statistics","prev":"high-dimensional-geometry","section":"Probability & statistics","title":"Information theory"},"intersection-theory-chow":{"next":"group-schemes","prev":"sheaves","section":"Algebraic geometry","title":"Intersection theory & Chow groups"},"iwasawa-theory":{"next":"continued-fractions","prev":"galois-representations","section":"Number theory","title":"Iwasawa theory"},"k-theory":{"next":"atiyah-singer-index-theorem","prev":"characteristic-classes","section":"Geometry & topology","title":"K-theory"},"kahler-geometry":{"next":"mapping-class-groups","prev":"homotopy-theory","section":"Geometry & topology","title":"Kähler geometry"},"khovanov-homology":{"next":"surgery-theory","prev":"mapping-class-groups","section":"Geometry & topology","title":"Khovanov homology"},"klein-gordon-equation":{"next":"dirac-equation","prev":"special-relativity","section":"Mathematical physics","title":"Klein-Gordon equation"},"knot-polynomials":{"next":"smooth-manifolds","prev":"algebraic-topology","section":"Geometry & topology","title":"Knot polynomials"},"langlands-program":{"next":"theta-functions","prev":"vertex-operator-algebras","section":"Modular forms & L-functions","title":"Langlands program"},"large-deviations":{"next":"high-dimensional-geometry","prev":"random-walks-and-mixing","section":"Probability & statistics","title":"Large deviations"},"lie-algebras":{"next":"quaternions-octonions-and-division-algebras","prev":"representation-theory","section":"Algebra & homological","title":"Lie algebras"},"lie-groups":{"next":"mostow-rigidity","prev":"ricci-flow","section":"Geometry & topology","title":"Lie groups & algebras"},"maass-forms":{"next":"half-integral-weight-forms","prev":"modularity-and-flt","section":"Modular forms & L-functions","title":"Maass forms"},"mapping-class-groups":{"next":"khovanov-homology","prev":"kahler-geometry","section":"Geometry & topology","title":"Mapping class groups & 4-manifolds"},"mathematical-statistics":{"next":"probability-theory","prev":"information-theory","section":"Probability & statistics","title":"Mathematical statistics"},"mathematics-and-cryptography":{"next":"computational-number-theory","prev":"heights-arithmetic-geometry","section":"Number theory","title":"Mathematics and cryptography"},"matroid-theory":{"next":"probabilistic-method","prev":null,"section":"Combinatorics & graph theory","title":"Matroid theory"},"measure-theory":{"next":"harmonic-functions","prev":"complex-analysis","section":"Analysis","title":"Measure theory"},"microlocal-analysis":{"next":"geometric-measure-theory","prev":"advanced-complex-analysis","section":"Analysis","title":"Microlocal analysis"},"mirror-symmetry":{"next":"algebraic-curves-higher-genus","prev":"calabi-yau-manifolds","section":"Algebraic geometry","title":"Mirror symmetry"},"mmp-and-birational-geometry":{"next":"d-modules","prev":"etale-cohomology","section":"Algebraic geometry","title":"MMP and birational geometry"},"model-categories":{"next":"derived-categories","prev":"algebraic-k-theory-foundations","section":"Algebra & homological","title":"Model categories"},"model-theory-basics":{"next":"computability-and-decidability","prev":"naive-set-theory","section":"Logic & Foundations","title":"Model theory basics"},"modular-curves":{"next":"vertex-operator-algebras","prev":"partitions-generating-functions","section":"Modular forms & L-functions","title":"Modular curves"},"modular-forms":{"next":"partitions-generating-functions","prev":"upper-half-plane-hyperbolic","section":"Modular forms & L-functions","title":"Modular forms"},"modularity-and-flt":{"next":"maass-forms","prev":"bsd","section":"Modular forms & L-functions","title":"Modularity & FLT"},"moduli-spaces":{"next":"toric-varieties","prev":"sheaf-cohomology","section":"Algebraic geometry","title":"Moduli spaces"},"moonshine":{"next":"L-functions","prev":"automorphic-forms-adelic","section":"Modular forms & L-functions","title":"Monstrous moonshine"},"morphisms-fiber-products":{"next":"functor-of-points","prev":"group-schemes","section":"Algebraic geometry","title":"Morphisms & fiber products"},"morse-theory":{"next":"symplectic-manifolds","prev":"differential-forms","section":"Geometry & topology","title":"Morse theory"},"mostow-rigidity":{"next":"cohomology-and-duality","prev":"lie-groups","section":"Geometry & topology","title":"Mostow rigidity"},"motives":{"next":"hodge-theory","prev":"resolution-of-singularities","section":"Algebraic geometry","title":"Motives"},"naive-set-theory":{"next":"model-theory-basics","prev":null,"section":"Logic & Foundations","title":"Naive set theory"},"numerical-analysis":{"next":"variational-methods","prev":"spectral-theory","section":"Analysis","title":"Numerical analysis"},"operator-algebras":{"next":"dynamical-systems","prev":"geometric-measure-theory","section":"Analysis","title":"Operator algebras"},"p-adic-numbers":{"next":"adeles-and-ideles","prev":"algebraic-number-theory","section":"Number theory","title":"p-adic numbers"},"partial-differential-equations":{"next":"spectral-theory","prev":"wavelets","section":"Analysis","title":"Partial differential equations"},"partitions-generating-functions":{"next":"modular-curves","prev":"modular-forms","section":"Modular forms & L-functions","title":"Partitions & generating functions"},"point-set-topology":{"next":"algebraic-topology","prev":null,"section":"Geometry & topology","title":"Point-set topology"},"positivity-and-ample-line-bundles":{"next":"stacks","prev":"abelian-varieties","section":"Algebraic geometry","title":"Positivity and ample line bundles"},"probabilistic-method":{"next":"extremal-combinatorics","prev":"matroid-theory","section":"Combinatorics & graph theory","title":"Probabilistic method"},"probability-theory":{"next":"random-matrix-theory","prev":"mathematical-statistics","section":"Probability & statistics","title":"Probability theory"},"projective-plane":{"next":"etale-fundamental-group","prev":null,"section":"Algebraic geometry","title":"Projective plane"},"quadratic-forms-genus-theory":{"next":"additive-number-theory","prev":"quadratic-reciprocity","section":"Number theory","title":"Quadratic forms & genus theory"},"quadratic-reciprocity":{"next":"quadratic-forms-genus-theory","prev":"frobenius-and-reciprocity","section":"Number theory","title":"Quadratic reciprocity"},"quantum-field-theory":{"next":null,"prev":"string-theory","section":"Mathematical physics","title":"Quantum field theory"},"quantum-groups":{"next":"algebraic-k-theory-foundations","prev":"group-cohomology","section":"Algebra & homological","title":"Quantum groups"},"quaternions-octonions-and-division-algebras":{"next":"geometric-and-combinatorial-group-theory","prev":"lie-algebras","section":"Algebra & homological","title":"Quaternions, octonions, and division algebras"},"random-matrix-theory":{"next":null,"prev":"probability-theory","section":"Probability & statistics","title":"Random matrix theory"},"random-walks-and-mixing":{"next":"large-deviations","prev":"stochastic-calculus","section":"Probability & statistics","title":"Random walks and mixing"},"real-analysis":{"next":"complex-analysis","prev":null,"section":"Analysis","title":"Real analysis"},"representation-theory":{"next":"lie-algebras","prev":"algebra","section":"Algebra & homological","title":"Representation theory"},"resolution-of-singularities":{"next":"motives","prev":"deformation-theory","section":"Algebraic geometry","title":"Resolution of singularities"},"ricci-flow":{"next":"lie-groups","prev":"riemannian-geometry","section":"Geometry & topology","title":"Ricci flow"},"riemann-surfaces":{"next":"differential-forms","prev":"differential-geometry","section":"Geometry & topology","title":"Riemann surfaces"},"riemannian-geometry":{"next":"ricci-flow","prev":"atiyah-singer-index-theorem","section":"Geometry & topology","title":"Riemannian geometry"},"sato-tate":{"next":"bsd","prev":"L-functions","section":"Modular forms & L-functions","title":"Sato–Tate"},"schemes":{"next":"sheaves","prev":"bezout","section":"Algebraic geometry","title":"Schemes"},"schrodinger-equation":{"next":"hamiltonians-classical-mechanics","prev":"general-relativity","section":"Mathematical physics","title":"Schrödinger equation"},"semigroup-theory-evolution-equations":{"next":"several-complex-variables","prev":"dynamical-systems","section":"Analysis","title":"Semigroup theory & evolution equations"},"several-complex-variables":{"next":"conformal-and-cr-geometry","prev":"semigroup-theory-evolution-equations","section":"Analysis","title":"Several complex variables"},"sheaf-cohomology":{"next":"moduli-spaces","prev":"singular-cubics-reduction","section":"Algebraic geometry","title":"Sheaf cohomology"},"sheaves":{"next":"intersection-theory-chow","prev":"schemes","section":"Algebraic geometry","title":"Sheaves"},"shimura-varieties":{"next":null,"prev":"half-integral-weight-forms","section":"Modular forms & L-functions","title":"Shimura varieties"},"simplicial-complexes-combinatorial":{"next":"enumerative-combinatorics","prev":"extremal-combinatorics","section":"Combinatorics & graph theory","title":"Simplicial complexes (combinatorial)"},"simplicial-sets-and-nerve":{"next":"elementary-topos-theory","prev":"infinity-categories","section":"Higher categories & toposes","title":"Simplicial sets & the nerve"},"singular-cubics-reduction":{"next":"sheaf-cohomology","prev":"hodge-theory","section":"Algebraic geometry","title":"Singular cubics & reduction"},"smooth-manifolds":{"next":"differential-geometry","prev":"knot-polynomials","section":"Geometry & topology","title":"Smooth manifolds"},"sobolev-spaces-distributions":{"next":"advanced-complex-analysis","prev":"variational-methods","section":"Analysis","title":"Sobolev spaces & distributions"},"special-relativity":{"next":"klein-gordon-equation","prev":"hamiltonians-classical-mechanics","section":"Mathematical physics","title":"Special relativity"},"spectral-graph-theory":{"next":"expanders","prev":"designs","section":"Combinatorics & graph theory","title":"Spectral graph theory"},"spectral-theory":{"next":"numerical-analysis","prev":"partial-differential-equations","section":"Analysis","title":"Spectral theory"},"stacks":{"next":"etale-cohomology","prev":"positivity-and-ample-line-bundles","section":"Algebraic geometry","title":"Stacks (Deligne–Mumford)"},"statistical-mechanics":{"next":"gauge-theory","prev":"dirac-equation","section":"Mathematical physics","title":"Statistical mechanics"},"stochastic-calculus":{"next":"random-walks-and-mixing","prev":"stochastic-processes-and-martingales","section":"Probability & statistics","title":"Stochastic calculus"},"stochastic-processes-and-martingales":{"next":"stochastic-calculus","prev":null,"section":"Probability & statistics","title":"Stochastic processes and martingales"},"string-theory":{"next":"quantum-field-theory","prev":"gauge-theory","section":"Mathematical physics","title":"String theory"},"surgery-theory":{"next":null,"prev":"khovanov-homology","section":"Geometry & topology","title":"Surgery theory"},"symplectic-manifolds":{"next":"characteristic-classes","prev":"morse-theory","section":"Geometry & topology","title":"Symplectic manifolds"},"theta-functions":{"next":"hecke-operators","prev":"langlands-program","section":"Modular forms & L-functions","title":"Theta functions"},"three-body-problem":{"next":"general-relativity","prev":null,"section":"Mathematical physics","title":"The three-body problem"},"toric-varieties":{"next":"abelian-varieties","prev":"moduli-spaces","section":"Algebraic geometry","title":"Toric varieties"},"tropical-geometry":{"next":"geometric-invariant-theory","prev":"crystalline-cohomology","section":"Algebraic geometry","title":"Tropical geometry"},"type-theory-and-hott":{"next":"first-order-logic-and-completeness","prev":"complexity-theory","section":"Logic & Foundations","title":"Type theory and HoTT"},"upper-half-plane-hyperbolic":{"next":"modular-forms","prev":"zeta-values","section":"Modular forms & L-functions","title":"Upper half-plane"},"variational-methods":{"next":"sobolev-spaces-distributions","prev":"numerical-analysis","section":"Analysis","title":"Variational methods"},"vertex-operator-algebras":{"next":"langlands-program","prev":"modular-curves","section":"Modular forms & L-functions","title":"Vertex operator algebras"},"wavelets":{"next":"partial-differential-equations","prev":"harmonic-analysis-fourier","section":"Analysis","title":"Wavelets"},"zeta-values":{"next":"upper-half-plane-hyperbolic","prev":"analytic-continuation","section":"Modular forms & L-functions","title":"Zeta values"},"zfc-and-ordinals":{"next":"forcing-and-independence","prev":"first-order-logic-and-completeness","section":"Logic & Foundations","title":"ZFC and ordinals"}};</script>
+<script src="./js/breadcrumb.js"></script>
+<script src="./js/glossary-popover.js" defer></script>
+<link rel="stylesheet" media="print" href="./css/print.css">
+<link rel="stylesheet" href="./css/theme-light.css">
+<script src="./js/theme-toggle.js"></script>
+<script src="./concepts/bundle.js" defer></script>
+<script src="./js/topic-hotkeys.js" defer></script>
+<script src="./js/topic-lineage.js" defer></script>
+<!-- breadcrumb-head-auto-end -->
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./js/katex-select.js"></script>
+<script src="./js/widget-diagram-editor.js"></script>
+<script src="./quizzes/bundle.js"></script>
+<script src="./js/sidetoc.js"></script>
+<script src="./js/display-prefs.js"></script>
+</head>
+<body data-section="analysis" data-level="intermediate">
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><span class="nav-links"><a class="nav-link" href="./pathway.html">Pathway</a><a class="nav-link" href="./tours.html">Tours</a><a class="nav-link" href="./history.html">History</a><a class="nav-link" href="./tags.html">Themes</a><a class="nav-link" href="./mindmap.html">Mindmap</a><a class="nav-link" href="./search.html">Search</a></span><span class="mv-theme-slot"></span><!-- breadcrumb-nav-auto-end -->
+<!-- toc-auto-begin -->
+  <a href="#conformal-class">1&nbsp;Conformal&nbsp;class&nbsp;of&nbsp;a&nbsp;Riemannian&nbsp;metric</a>
+  <a href="#conformal-laplacian">2&nbsp;The&nbsp;conformal&nbsp;Laplacian</a>
+  <a href="#yamabe-problem">3&nbsp;The&nbsp;Yamabe&nbsp;problem&nbsp;and&nbsp;the&nbsp;Yamabe&nbsp;equation</a>
+  <a href="#q-curvature">4&nbsp;Q-curvature&nbsp;and&nbsp;the&nbsp;Paneitz&nbsp;operator</a>
+  <a href="#cr-structure">5&nbsp;CR&nbsp;structures&nbsp;and&nbsp;the&nbsp;Heisenberg&nbsp;model</a>
+  <a href="#levi-form">6&nbsp;The&nbsp;Levi&nbsp;form&nbsp;and&nbsp;strict&nbsp;pseudoconvexity</a>
+  <a href="#cr-yamabe">7&nbsp;The&nbsp;Webster&nbsp;connection&nbsp;and&nbsp;the&nbsp;CR&nbsp;Yamabe&nbsp;problem</a>
+  <a href="#connections">8&nbsp;Connections</a>
+<!-- toc-auto-end -->
+</nav>
+<!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Conformal &amp; CR geometry</h1>
+  <p class="sub">Riemannian geometry, but you only get to keep angles. The story splits in two: in dimension $n\ge 3$ the conformal class $[g] = \{e^{2u}g\}$ produces the Yamabe equation $L_g u = \lambda u^{(n+2)/(n-2)}$, a critical-exponent PDE with the wrong embedding for compactness — solved by Trudinger, Aubin, and Schoen across 24 years. On odd-dimensional cousins — real hypersurfaces in $\mathbb{C}^{n+1}$ — the CR analog runs in parallel: contact 1-forms in place of metrics, the sublaplacian in place of the Laplacian, the Heisenberg group in place of Euclidean space, and the Levi form in place of the second fundamental form.</p>
+</section>
+
+<section id="conformal-class">
+<h2>1. Conformal class of a Riemannian metric</h2>
+
+<p>Fix a smooth manifold $M^n$ with a Riemannian metric $g$. The <strong>conformal class</strong> of $g$ is</p>
+$$[g] \;=\; \bigl\{\,\tilde g \;:\; \tilde g = e^{2u}\,g \;\;\text{for some } u\in C^\infty(M)\,\bigr\}.$$
+<p>Geometrically, two metrics in the same conformal class agree on <em>angles</em> but disagree on <em>lengths</em>. At a point $p$, the rescaling $g_p \to e^{2u(p)} g_p$ is just a positive scalar multiple of an inner product — so cosines $g(X,Y)/\sqrt{g(X,X)g(Y,Y)}$ survive unchanged while individual norms $\sqrt{g(X,X)}$ multiply by $e^{u(p)}$.</p>
+
+<div class="note"><strong>Why exponentiate?</strong> Writing $\tilde g = e^{2u}g$ rather than $\tilde g = \omega^2 g$ (with $\omega>0$) is the convention that makes the curvature transformation laws look cleanest. The factor of $2$ aligns with the convention that conformal factors on a Hermitian inner product correspond to logarithms with the right sign for the heat-equation / sub-elliptic estimates downstream.</div>
+
+<h3>How curvature transforms</h3>
+
+<p>The Levi-Civita connection is metric-compatible and torsion-free, but it is <em>not</em> conformally invariant. Under $\tilde g = e^{2u}g$, the connection picks up explicit correction terms in $du$:</p>
+$$\tilde\nabla_X Y \;=\; \nabla_X Y + (Xu)Y + (Yu)X - g(X,Y)\,\mathrm{grad}_g\, u.$$
+<p>Iterating this through the Riemann curvature tensor (a tedious but mechanical computation) produces the conformal transformation law for the <em>scalar curvature</em> in dimension $n\ge 3$:</p>
+$$R_{\tilde g} \;=\; e^{-2u}\Bigl(R_g \;-\; 2(n-1)\,\Delta_g u \;-\; (n-1)(n-2)\,|\nabla_g u|^2\Bigr).$$
+<p>Two observations. First, the $|\nabla u|^2$ term is genuinely nonlinear in $u$ — this is the entire reason conformal geometry is hard. Second, in dimension $n=2$ this $|\nabla u|^2$ coefficient vanishes ($n-2 = 0$), so the formula linearizes: $R_{\tilde g} = e^{-2u}(R_g - 2\Delta_g u)$. The 2-dimensional case is qualitatively easier — every closed surface admits a constant-curvature metric in its conformal class (uniformization).</p>
+
+<div class="widget" id="w-conformal-stretch">
+  <div class="hd"><div class="ttl">Conformal stretch</div><div class="hint">slide the conformal factor; watch angles stay fixed while a unit circle deforms</div></div>
+  <div class="row">
+    <label for="cs-u">conformal factor $u(p)$:</label>
+    <input type="range" id="cs-u" min="-0.8" max="0.8" step="0.02" value="0.35" />
+    <span class="readout" id="cs-u-out" style="min-width:3em;display:inline-block">0.35</span>
+  </div>
+  <svg id="cs-svg" viewBox="0 0 620 320" width="620" height="320"><title>Conformal stretch: original unit ball and the rescaled e^{u(p)} ball with two tangent vectors</title></svg>
+  <div class="readout" id="cs-out"></div>
+</div>
+<script>
+(function(){
+  const svg = $('#cs-svg'), uIn = $('#cs-u'), uOut = $('#cs-u-out'), out = $('#cs-out');
+  const W = 620, H = 320;
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    svg.appendChild(SVG('rect',{x:0,y:0,width:W,height:H,fill:'var(--bg)'}));
+    const u = +uIn.value;
+    uOut.textContent = u.toFixed(2);
+    const factor = Math.exp(u);
+    // Two side-by-side panels: g and tilde g.
+    const cx1 = 160, cx2 = 460, cy = 170, baseR = 60;
+    svg.appendChild(SVG('text',{x:cx1-44, y:60, 'font-size':13, fill:'var(--mute)'})).textContent = 'metric $g$';
+    svg.appendChild(SVG('text',{x:cx2-78, y:60, 'font-size':13, fill:'var(--mute)'})).textContent = 'metric $\\tilde g = e^{2u}g$';
+    // Panel 1: original
+    svg.appendChild(SVG('circle',{cx:cx1, cy:cy, r:baseR, fill:'none', stroke:'var(--cyan)', 'stroke-width':1.4}));
+    // Tangent vectors X (along +x) and Y (at 60deg).
+    const theta = Math.PI / 3;
+    const vx1 = cx1 + baseR, vy1 = cy;
+    const wx1 = cx1 + baseR*Math.cos(theta), wy1 = cy - baseR*Math.sin(theta);
+    drawArrow(svg, [cx1,cy], [vx1, vy1], {color:'var(--yellow)', markerId:'cs-a1'});
+    drawArrow(svg, [cx1,cy], [wx1, wy1], {color:'var(--pink)', markerId:'cs-a2'});
+    // Angle arc
+    svg.appendChild(SVG('path',{d:`M ${cx1+baseR*0.6} ${cy} A ${baseR*0.6} ${baseR*0.6} 0 0 0 ${cx1+baseR*0.6*Math.cos(theta)} ${cy-baseR*0.6*Math.sin(theta)}`, fill:'none', stroke:'var(--mute)', 'stroke-width':1}));
+    svg.appendChild(SVG('text',{x:cx1+baseR*0.7, y:cy-12, 'font-size':12, fill:'var(--mute)'})).textContent = '60°';
+    // Panel 2: rescaled (visualizing as the same vectors with rescaled norm)
+    const rescR = baseR * factor;
+    svg.appendChild(SVG('circle',{cx:cx2, cy:cy, r:rescR, fill:'none', stroke:'var(--green)', 'stroke-width':1.4}));
+    // Also draw faint baseline for comparison
+    svg.appendChild(SVG('circle',{cx:cx2, cy:cy, r:baseR, fill:'none', stroke:'var(--mute)', 'stroke-width':0.8, 'stroke-dasharray':'4 3', opacity:0.6}));
+    const vx2 = cx2 + rescR, vy2 = cy;
+    const wx2 = cx2 + rescR*Math.cos(theta), wy2 = cy - rescR*Math.sin(theta);
+    drawArrow(svg, [cx2,cy], [vx2, vy2], {color:'var(--yellow)', markerId:'cs-b1'});
+    drawArrow(svg, [cx2,cy], [wx2, wy2], {color:'var(--pink)', markerId:'cs-b2'});
+    svg.appendChild(SVG('path',{d:`M ${cx2+rescR*0.6} ${cy} A ${rescR*0.6} ${rescR*0.6} 0 0 0 ${cx2+rescR*0.6*Math.cos(theta)} ${cy-rescR*0.6*Math.sin(theta)}`, fill:'none', stroke:'var(--mute)', 'stroke-width':1}));
+    svg.appendChild(SVG('text',{x:cx2+rescR*0.7, y:cy-12, 'font-size':12, fill:'var(--mute)'})).textContent = '60°';
+    out.textContent =
+      `u(p) = ${u.toFixed(2)}    e^u = ${factor.toFixed(3)}\n` +
+      `length scaling factor at p: e^{u(p)} = ${factor.toFixed(3)}  (every g-length multiplies by this)\n` +
+      `angle between yellow and pink vectors: 60° in BOTH metrics — invariant.\n` +
+      `volume scaling on n-dim manifold: e^{nu(p)} (radial cube)`;
+  }
+  uIn.addEventListener('input', render);
+  render();
+})();
+</script>
+
+<h3>Why dimension 2 is special</h3>
+<p>In two dimensions, the conformal class on a Riemann surface is the <em>complex structure</em>. The Riemann mapping theorem and uniformization both come from the rigidity of $[g]$ in dimension $2$ — a conformal class is the same as a holomorphic atlas. Above dimension $2$ the conformal class no longer determines a complex structure (there are too few conformal vector fields for the dimension count to work), and conformal geometry becomes its own discipline of nonlinear PDE for $u\in C^\infty(M)$.</p>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./riemannian-geometry.html#geodesics">Levi-Civita connection and geodesics</a></li>
+    <li><a href="./riemannian-geometry.html#metric">Riemannian metrics</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./conformal-and-cr-geometry.html#conformal-laplacian">Conformal and CR geometry</a> · The conformal Laplacian</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="ccr-conformal-class"></div>
+</section>
+
+<section id="conformal-laplacian">
+<h2>2. The conformal Laplacian</h2>
+
+<p>The transformation law for scalar curvature has a $\Delta_g u$ term in it. The natural question is whether there is a single differential operator $L_g$ — depending on $g$ — that linearizes this transformation in a clean way. There is.</p>
+
+<div class="note"><strong>Definition.</strong> On $(M^n,g)$ with $n\ge 3$, the <em>conformal Laplacian</em> is
+$$L_g \;=\; -\Delta_g + \frac{n-2}{4(n-1)}\,R_g.$$
+(Some conventions take $+\Delta_g$; the present sign aligns $L_g$ with the convention that $-\Delta$ is a positive operator — its principal symbol is $|\xi|^2$, not $-|\xi|^2$.)</div>
+
+<p>The miracle is that $L_g$ is <strong>conformally covariant</strong>: under $\tilde g = e^{2u} g$ one has</p>
+$$L_{\tilde g}\bigl(\phi\bigr) \;=\; e^{-(n+2)u/2}\,L_g\!\bigl(e^{(n-2)u/2}\,\phi\bigr).$$
+<p>The pair of weights $(n-2)/2$ on the input and $(n+2)/2$ on the output is calibrated exactly. Their sum is $n$ (the dimension), their difference is $2$ (the order of $L_g$). Both facts are reflections of a deeper structural pattern: conformally covariant operators of order $2k$ always have input/output weights $(n-2k)/2$ and $(n+2k)/2$. The Paneitz operator (order $4$, §4) uses weights $(n-4)/2$ and $(n+4)/2$; the GJMS operators of order $2k$ use $(n-2k)/2$ and $(n+2k)/2$.</p>
+
+<div class="widget" id="w-conformal-laplacian">
+  <div class="hd"><div class="ttl">Conformal Laplacian — weight calibration</div><div class="hint">vary the dimension; watch how the curvature coefficient and the critical exponent slide</div></div>
+  <div class="row">
+    <label for="cl-n">dimension $n$:</label>
+    <input type="range" id="cl-n" min="3" max="12" step="1" value="4" />
+    <span class="readout" id="cl-n-out" style="min-width:3em;display:inline-block">4</span>
+  </div>
+  <svg id="cl-svg" viewBox="0 0 620 320" width="620" height="320"><title>Conformal Laplacian coefficient and critical Sobolev exponent vs dimension</title></svg>
+  <div class="readout" id="cl-out"></div>
+</div>
+<script>
+(function(){
+  const svg = $('#cl-svg'), nIn = $('#cl-n'), nOut = $('#cl-n-out'), out = $('#cl-out');
+  const W = 620, H = 320;
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    svg.appendChild(SVG('rect',{x:0,y:0,width:W,height:H,fill:'var(--bg)'}));
+    const n = +nIn.value;
+    nOut.textContent = n;
+    const c_n = (n-2)/(4*(n-1));
+    const w_in = (n-2)/2;
+    const w_out = (n+2)/2;
+    const crit = 2*n/(n-2);  // 2^* Sobolev exponent
+    const expR = (n+2)/(n-2);  // Yamabe RHS exponent = 2^* - 1
+    // Plot c_n versus n on the left, critical exponent versus n on the right.
+    const padL = 60, padR = 60, padT = 60, padB = 60;
+    const plotW = (W - padL - padR - 20) / 2;
+    const plotH = H - padT - padB;
+    // Plot 1: c_n
+    const xs = [];
+    for (let k = 3; k <= 12; k++) {
+      const ck = (k-2)/(4*(k-1));
+      xs.push([k, ck]);
+    }
+    const x1 = padL, y1 = padT;
+    svg.appendChild(SVG('line',{x1:x1, y1:y1+plotH, x2:x1+plotW, y2:y1+plotH, stroke:'var(--mute)', 'stroke-width':1}));
+    svg.appendChild(SVG('line',{x1:x1, y1:y1, x2:x1, y2:y1+plotH, stroke:'var(--mute)', 'stroke-width':1}));
+    svg.appendChild(SVG('text',{x:x1+plotW/2-30, y:y1-12, 'font-size':12, fill:'var(--cyan)'})).textContent = 'c_n = (n−2)/(4(n−1))';
+    // axis labels
+    svg.appendChild(SVG('text',{x:x1+plotW/2-10, y:y1+plotH+34, 'font-size':11, fill:'var(--mute)'})).textContent = 'dimension n';
+    // ticks
+    for (let k = 3; k <= 12; k+=2) {
+      const px = x1 + (k-3)/9 * plotW;
+      svg.appendChild(SVG('line',{x1:px, y1:y1+plotH, x2:px, y2:y1+plotH+5, stroke:'var(--mute)'}));
+      svg.appendChild(SVG('text',{x:px-4, y:y1+plotH+18, 'font-size':10, fill:'var(--mute)'})).textContent = k;
+    }
+    // dashed limit at 0.25
+    const yLim = y1 + plotH - (0.25/0.3) * plotH;
+    svg.appendChild(SVG('line',{x1:x1, y1:yLim, x2:x1+plotW, y2:yLim, stroke:'var(--mute)', 'stroke-width':0.8, 'stroke-dasharray':'4 4'}));
+    svg.appendChild(SVG('text',{x:x1+plotW-46, y:yLim-4, 'font-size':10, fill:'var(--mute)'})).textContent = '→ 1/4';
+    // curve
+    let path = 'M ';
+    for (let i = 0; i < xs.length; i++) {
+      const [k, ck] = xs[i];
+      const px = x1 + (k-3)/9 * plotW;
+      const py = y1 + plotH - (ck/0.3) * plotH;
+      path += (i===0 ? '' : 'L ') + px + ' ' + py + ' ';
+    }
+    svg.appendChild(SVG('path',{d:path, fill:'none', stroke:'var(--cyan)', 'stroke-width':1.8}));
+    // current marker
+    const px = x1 + (n-3)/9 * plotW;
+    const py = y1 + plotH - (c_n/0.3) * plotH;
+    svg.appendChild(SVG('circle',{cx:px, cy:py, r:5, fill:'var(--yellow)'}));
+    svg.appendChild(SVG('text',{x:px+8, y:py-6, 'font-size':12, fill:'var(--yellow)'})).textContent = `c_${n} = ${c_n.toFixed(3)}`;
+
+    // Plot 2: critical exponent 2^*
+    const x2 = padL + plotW + 20, y2 = padT;
+    svg.appendChild(SVG('line',{x1:x2, y1:y2+plotH, x2:x2+plotW, y2:y2+plotH, stroke:'var(--mute)', 'stroke-width':1}));
+    svg.appendChild(SVG('line',{x1:x2, y1:y2, x2:x2, y2:y2+plotH, stroke:'var(--mute)', 'stroke-width':1}));
+    svg.appendChild(SVG('text',{x:x2+plotW/2-50, y:y2-12, 'font-size':12, fill:'var(--pink)'})).textContent = '2^* = 2n/(n−2)';
+    svg.appendChild(SVG('text',{x:x2+plotW/2-10, y:y2+plotH+34, 'font-size':11, fill:'var(--mute)'})).textContent = 'dimension n';
+    for (let k = 3; k <= 12; k+=2) {
+      const cx = x2 + (k-3)/9 * plotW;
+      svg.appendChild(SVG('line',{x1:cx, y1:y2+plotH, x2:cx, y2:y2+plotH+5, stroke:'var(--mute)'}));
+      svg.appendChild(SVG('text',{x:cx-4, y:y2+plotH+18, 'font-size':10, fill:'var(--mute)'})).textContent = k;
+    }
+    // dashed limit at 2
+    const yLim2 = y2 + plotH - ((2-2)/8) * plotH - 4;
+    svg.appendChild(SVG('line',{x1:x2, y1:y2+plotH-2, x2:x2+plotW, y2:y2+plotH-2, stroke:'var(--mute)', 'stroke-width':0.8, 'stroke-dasharray':'4 4'}));
+    svg.appendChild(SVG('text',{x:x2+plotW-30, y:y2+plotH-6, 'font-size':10, fill:'var(--mute)'})).textContent = '→ 2';
+    let path2 = 'M ';
+    for (let k = 3; k <= 12; k++) {
+      const ck = 2*k/(k-2);
+      const cx = x2 + (k-3)/9 * plotW;
+      const cy = y2 + plotH - ((ck-2)/8) * plotH;
+      path2 += (k===3 ? '' : 'L ') + cx + ' ' + cy + ' ';
+    }
+    svg.appendChild(SVG('path',{d:path2, fill:'none', stroke:'var(--pink)', 'stroke-width':1.8}));
+    const px2 = x2 + (n-3)/9 * plotW;
+    const py2 = y2 + plotH - ((crit-2)/8) * plotH;
+    svg.appendChild(SVG('circle',{cx:px2, cy:py2, r:5, fill:'var(--yellow)'}));
+    svg.appendChild(SVG('text',{x:px2+8, y:py2-6, 'font-size':12, fill:'var(--yellow)'})).textContent = `2^* = ${crit.toFixed(3)}`;
+    out.textContent =
+      `dimension n = ${n}\n` +
+      `conformal Laplacian: L_g = −Δ_g + ${c_n.toFixed(4)} · R_g\n` +
+      `conformal weights: input (n−2)/2 = ${w_in.toFixed(1)},  output (n+2)/2 = ${w_out.toFixed(1)}\n` +
+      `critical Sobolev exponent 2^* = 2n/(n−2) = ${crit.toFixed(3)}\n` +
+      `Yamabe RHS exponent (n+2)/(n−2) = ${expR.toFixed(3)} = 2^* − 1`;
+  }
+  nIn.addEventListener('input', render);
+  render();
+})();
+</script>
+
+<h3>Conformal change of metric to constant scalar curvature</h3>
+<p>The conformal-covariance identity has a striking practical use. Write $\tilde g = u^{4/(n-2)}g$ for some $u>0$, which is the same as $e^{2v}g$ with $v = \tfrac{2}{n-2}\log u$. Apply $L_{\tilde g}$ to the constant function $1$:</p>
+$$L_{\tilde g}(1) \;=\; \frac{n-2}{4(n-1)}\,R_{\tilde g}.$$
+<p>By conformal covariance, $L_{\tilde g}(1) = u^{-(n+2)/(n-2)}\,L_g(u)$. So requiring $R_{\tilde g}\equiv\mathrm{const}=\tilde R$ in the new conformal metric becomes the equation</p>
+$$L_g\, u \;=\; \frac{n-2}{4(n-1)}\,\tilde R\cdot u^{(n+2)/(n-2)}.$$
+<p>This is the <strong>Yamabe equation</strong> — a single semilinear elliptic PDE for the conformal factor $u$. The right-hand side has the critical exponent $(n+2)/(n-2) = 2^* - 1$, where $2^* = 2n/(n-2)$ is the critical Sobolev exponent. That criticality is what makes Yamabe a celebrated test case for nonlinear elliptic PDE.</p>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./partial-differential-equations.html#laplace">Laplace equation and the Dirichlet problem</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./conformal-and-cr-geometry.html#q-curvature">Conformal and CR geometry</a> · Q-curvature and the Paneitz operator</div>
+    <div><a href="./conformal-and-cr-geometry.html#yamabe-problem">Conformal and CR geometry</a> · The Yamabe problem and the Yamabe equation</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+<div class="quiz" data-concept="ccr-conformal-laplacian"></div>
+</section>
+
+<section id="yamabe-problem">
+<h2>3. The Yamabe problem and the Yamabe equation</h2>
+
+<p>Yamabe (1960) asked the question that names the field:</p>
+
+<div class="note"><strong>The Yamabe problem.</strong> Given a closed Riemannian manifold $(M^n,g)$ with $n\ge 3$, does there exist a metric $\tilde g\in[g]$ in the same conformal class with constant scalar curvature $R_{\tilde g}\equiv\mathrm{const}$?</div>
+
+<p>The previous section reduced this to the existence of a positive smooth solution $u\in C^\infty(M)$ to the <strong>Yamabe equation</strong></p>
+$$L_g\, u \;=\; -\Delta_g u + \frac{n-2}{4(n-1)}\,R_g\, u \;=\; \lambda\, u^{(n+2)/(n-2)},$$
+<p>where $\lambda\in\mathbb{R}$ is the (a priori unknown) constant. The equation has a variational formulation: solutions are critical points of the <em>Yamabe functional</em></p>
+$$Y_g(u) \;=\; \frac{\int_M u\,L_g u\,dV_g}{\Bigl(\int_M u^{2^*}\,dV_g\Bigr)^{2/2^*}}\,, \qquad 2^* = \frac{2n}{n-2}.$$
+<p>This functional is scale-invariant under $u\mapsto cu$, and its infimum over positive smooth functions (the <em>Yamabe invariant</em> $Y(M,[g])$) is a conformal invariant of $(M,[g])$.</p>
+
+<h3>Why this is hard</h3>
+
+<p>The Yamabe equation is a critical-exponent elliptic PDE. The Sobolev embedding $H^1(M)\hookrightarrow L^{2^*}(M)$ is <em>continuous</em> but <strong>not compact</strong> at the borderline exponent $2^*$. A minimizing sequence for $Y_g$ in $H^1$ can converge weakly to $u_\infty$ but the $L^{2^*}$-norm can <em>concentrate</em> — bubbles of mass can escape to a point. Whether the limiting $u_\infty$ is itself a solution depends on whether bubble formation is ruled out.</p>
+
+<div class="widget" id="w-yamabe-scrubber">
+  <div class="hd"><div class="ttl">Yamabe — the four-step program</div><div class="hint">scrub through the stages of the Trudinger–Aubin–Schoen proof</div></div>
+  <div class="row">
+    <label for="ys-step">step:</label>
+    <input type="range" id="ys-step" min="1" max="5" step="1" value="1" />
+    <span class="readout" id="ys-step-out" style="min-width:3em;display:inline-block">1</span>
+  </div>
+  <svg id="ys-svg" viewBox="0 0 620 340" width="620" height="340"><title>Yamabe problem: scrubbable four-step proof program</title></svg>
+  <div class="readout" id="ys-out"></div>
+</div>
+<script>
+(function(){
+  const svg = $('#ys-svg'), sIn = $('#ys-step'), sOut = $('#ys-step-out'), out = $('#ys-out');
+  const W = 620, H = 340;
+  const steps = [
+    {
+      label: 'Step 1 — Subcritical compactness',
+      detail: 'Replace $u^{2^*-1}$ by $u^{p-1}$ for $p<2^*$. The embedding $H^1\\hookrightarrow L^p$ is compact, so minimizers $u_p$ exist by direct method.',
+      colour: 'var(--cyan)',
+    },
+    {
+      label: 'Step 2 — The Yamabe constant',
+      detail: 'Define $Y(M,[g]) = \\inf_{u>0} Y_g(u)$. Yamabe / Aubin: $Y(M,[g]) \\le Y(S^n,[g_{\\mathrm{round}}])$ with equality only on the round sphere; if strict, take $p\\to 2^*$ and minimisers $u_p$ converge to a Yamabe solution.',
+      colour: 'var(--yellow)',
+    },
+    {
+      label: 'Step 3 — Aubin\'s test functions (n ≥ 6, non-LCF)',
+      detail: 'Aubin (1976): on $(M^n,g)$ with $n\\ge 6$ and Weyl tensor $W\\not\\equiv 0$, plug a localised bubble $u_\\varepsilon$ centered at a Weyl-tensor max into $Y_g$. The lower-order curvature corrections beat $Y(S^n)$, giving strict inequality and the Yamabe solution.',
+      colour: 'var(--green)',
+    },
+    {
+      label: 'Step 4 — Positive mass theorem (Schoen, remaining cases)',
+      detail: 'Schoen (1984): cases $n\\in\\{3,4,5\\}$ or LCF $\\Rightarrow$ use the conformal Green\'s function near a point as test function. The Aubin-type strict inequality follows from the positive mass theorem (Schoen-Yau) applied to the asymptotically flat metric $G_p^{4/(n-2)} g$.',
+      colour: 'var(--pink)',
+    },
+    {
+      label: 'Done — every conformal class has constant-scalar-curvature representative',
+      detail: 'Combining Steps 1–4 establishes existence in all cases. Multiplicity (when is the solution unique?) and analytic regularity (smoothness of $u$) are downstream by elliptic-regularity bootstrap.',
+      colour: 'var(--violet)',
+    },
+  ];
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    svg.appendChild(SVG('rect',{x:0,y:0,width:W,height:H,fill:'var(--bg)'}));
+    const s = +sIn.value;
+    sOut.textContent = s;
+    const step = steps[s-1];
+    // Stage bar
+    const barY = 36, barW = 540, barX = 40;
+    for (let i = 0; i < steps.length; i++) {
+      const segW = barW / steps.length;
+      const x0 = barX + i * segW;
+      svg.appendChild(SVG('rect',{x:x0+2, y:barY, width:segW-4, height:14, fill: i+1<=s ? steps[i].colour : 'var(--panel2)', stroke:'var(--line)', 'stroke-width':1, opacity: i+1===s ? 1.0 : 0.55}));
+      svg.appendChild(SVG('text',{x:x0+segW/2, y:barY+26, 'font-size':10, fill:'var(--mute)', 'text-anchor':'middle'})).textContent = `S${i+1}`;
+    }
+    // Visual: a curve under a bubble that flares for steps >=2.
+    const cx = W/2, cy = 200;
+    const baseR = 38;
+    const flare = Math.min(1, (s-1) / 4);
+    svg.appendChild(SVG('path',{d:`M ${cx-160} ${cy} Q ${cx} ${cy + 50 + 40*flare} ${cx+160} ${cy}`, fill:'none', stroke:steps[s-1].colour, 'stroke-width':1.6}));
+    if (s >= 3) {
+      // bubble
+      svg.appendChild(SVG('circle',{cx:cx, cy:cy-38, r:baseR*(1+0.2*flare), fill:steps[s-1].colour, opacity:0.18}));
+      svg.appendChild(SVG('text',{x:cx-10, y:cy-32, 'font-size':12, fill:steps[s-1].colour})).textContent = 'u_ε';
+    }
+    if (s >= 4) {
+      svg.appendChild(SVG('text',{x:cx-90, y:cy+95, 'font-size':12, fill:steps[s-1].colour, 'font-style':'italic'})).textContent = '+ positive mass correction';
+    }
+    // Title
+    svg.appendChild(SVG('text',{x:40, y:20, 'font-size':13, fill:'var(--ink)', 'font-weight':600})).textContent = step.label;
+    out.textContent = step.detail.replace(/\\le/g,'≤').replace(/\\ge/g,'≥').replace(/\\inf/g,'inf').replace(/\\Rightarrow/g,'⇒');
+  }
+  sIn.addEventListener('input', render);
+  render();
+})();
+</script>
+
+<h3>The four-step program</h3>
+<p>The Trudinger–Aubin–Schoen resolution proceeds in four logical steps:</p>
+<ol>
+<li><strong>Subcritical compactness.</strong> Replace the exponent $2^*$ with $p<2^*$. The Sobolev embedding $H^1\hookrightarrow L^p$ is compact, so a minimizer $u_p$ of the perturbed functional exists by the direct method.</li>
+<li><strong>The Yamabe inequality.</strong> Define the Yamabe constant $Y(M,[g]) = \inf Y_g(u)$ over positive smooth $u$. <em>Aubin's inequality</em> says $Y(M,[g]) \le Y(S^n) = \tfrac{n(n-2)}{4}\omega_n^{2/n}$, with equality iff $(M,[g]) = (S^n,[g_{\mathrm{round}}])$. If strict, taking $p\to 2^*$ in step 1 produces an honest Yamabe solution.</li>
+<li><strong>Strict inequality via Aubin's test functions ($n\ge 6$, non-LCF).</strong> When $n\ge 6$ and the Weyl tensor $W_g$ is not identically zero, Aubin (1976) constructed explicit test functions (localized bubbles centered at a point where $|W|\ne 0$) showing $Y(M,[g]) < Y(S^n)$.</li>
+<li><strong>Strict inequality via the positive mass theorem ($n\in\{3,4,5\}$ or LCF).</strong> In the remaining cases — small dimension or locally conformally flat — Schoen (1984) replaced Aubin's test function with the conformal Green's function and identified the strict inequality with the <em>positive mass theorem</em> of Schoen–Yau (which had just been proved in the GR context).</li>
+</ol>
+
+<div class="ok"><strong>Slogan.</strong> Yamabe = subcritical compactness + Aubin's inequality + a strict-inequality argument that depends on the dimension and the locally-conformally-flat property. The deepest case (positive mass theorem) is the one most beautifully tied to general relativity.</div>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./partial-differential-equations.html#regularity">Lax–Milgram, elliptic regularity, embedding</a></li>
+    <li><a href="./sobolev-spaces-distributions.html#sobolev-spaces-wkp">Sobolev spaces $W^{k,p}$</a></li>
+    <li><a href="./sobolev-spaces-distributions.html#sobolev">Sobolev spaces $W^{k,p}$ and $H^s$</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./conformal-and-cr-geometry.html#cr-yamabe">Conformal and CR geometry</a> · The Webster connection and the CR Yamabe problem</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+<div class="quiz" data-concept="ccr-yamabe-problem"></div>
+</section>
+
+<section id="q-curvature">
+<h2>4. Q-curvature and the Paneitz operator</h2>
+
+<p>The conformal Laplacian $L_g$ is the order-$2$ conformally covariant operator on $(M^n,g)$. Paneitz (1983) discovered its 4th-order sibling.</p>
+
+<div class="note"><strong>The Paneitz operator.</strong> On $(M^n,g)$ with $n\ge 5$,
+$$P_g \;=\; \Delta_g^2 \;+\; \delta\!\bigl((n-2)J_g\,g - 4\,\mathrm{Ric}_g\bigr)\,d \;+\; \frac{n-4}{2}\,Q_g,$$
+where $J_g = R_g/(2(n-1))$ is the (normalized) trace of the Schouten tensor, $\mathrm{Ric}_g$ is the Ricci tensor acting on 1-forms, and $Q_g$ is the <em>Q-curvature</em> of $g$.</div>
+
+<p>$P_g$ is conformally covariant in exactly the same sense as $L_g$, but with weights $(n-4)/2$ and $(n+4)/2$:</p>
+$$P_{\tilde g}(\phi) \;=\; e^{-(n+4)u/2}\,P_g\!\bigl(e^{(n-4)u/2}\phi\bigr), \qquad \tilde g = e^{2u}g, \;\;n\ge 5.$$
+<p>The pattern repeats. The <strong>GJMS construction</strong> (Graham–Jenne–Mason–Sparling 1992) shows there is a conformally covariant operator $P_{2k}$ of order $2k$ for every $k\ge 1$ when $n\ge 2k+1$, with weights $(n-2k)/2$ and $(n+2k)/2$.</p>
+
+<h3>Dimension 4 is the critical dimension for Q-curvature</h3>
+
+<p>Just as Yamabe is hard in the critical dimension $n=2$ where the formula degenerates, Q-curvature has a critical dimension at $n=4$. When $n=4$, the prefactor $\tfrac{n-4}{2} = 0$ vanishes — so $Q$ no longer appears <em>multiplicatively</em> in $P_g$, but only <em>additively</em> in the transformation law:</p>
+$$Q_{\tilde g} \;=\; e^{-4u}\bigl(Q_g + P_g u\bigr), \qquad \tilde g = e^{2u}g, \;\;n = 4.$$
+<p>So $\int_M Q_g\,dV_g$ is a <em>conformal invariant</em>: integrating both sides against $dV_{\tilde g} = e^{4u}\,dV_g$ collapses the $e^{-4u}$ and the term $\int_M P_g u\,dV_g$ vanishes when $M$ is closed (integration by parts, $P_g$ is self-adjoint).</p>
+
+<div class="widget" id="w-q-curvature">
+  <div class="hd"><div class="ttl">GJMS operators — the order-2k family</div><div class="hint">step through the conformally covariant operator family from L_g up to P_{2k}</div></div>
+  <div class="row">
+    <button id="qc-step-1" type="button" class="active">k=1 (L_g)</button>
+    <button id="qc-step-2" type="button">k=2 (Paneitz)</button>
+    <button id="qc-step-3" type="button">k=3</button>
+    <button id="qc-step-k" type="button">k=k</button>
+  </div>
+  <svg id="qc-svg" viewBox="0 0 620 280" width="620" height="280"><title>GJMS conformally covariant operators — weights and critical dimensions</title></svg>
+  <div class="readout" id="qc-out"></div>
+</div>
+<script>
+(function(){
+  const svg = $('#qc-svg'), out = $('#qc-out');
+  const btns = [$('#qc-step-1'), $('#qc-step-2'), $('#qc-step-3'), $('#qc-step-k')];
+  const data = [
+    {k:1, name:'L_g (conformal Laplacian)', order:2, sym:'−Δ', curv:'R_g (scalar curvature)', crit:'n=2 (linearizes)', invariant:'Yamabe constant'},
+    {k:2, name:'P_g (Paneitz)', order:4, sym:'Δ²', curv:'Q_g (Q-curvature)', crit:'n=4 (∫Q dV is conformal invariant)', invariant:'∫Q dV = 8π²χ(M) − ∫|W|² (n=4)'},
+    {k:3, name:'P_6 (Branson-Gover)', order:6, sym:'Δ³', curv:'Q_6', crit:'n=6', invariant:'∫Q_6 dV (n=6)'},
+    {k:'k', name:'P_{2k} (GJMS)', order:'2k', sym:'Δ^k', curv:'Q_{2k}', crit:'n=2k', invariant:'∫Q_{2k} dV (n=2k)'},
+  ];
+  let active = 0;
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    svg.appendChild(SVG('rect',{x:0,y:0,width:620,height:280,fill:'var(--bg)'}));
+    btns.forEach((b,i)=>b.classList.toggle('active', i===active));
+    const d = data[active];
+    // Visualize order and weights as a number line.
+    const cx = 60, cy = 80;
+    svg.appendChild(SVG('text',{x:cx, y:30, 'font-size':13, fill:'var(--ink)', 'font-weight':600})).textContent = d.name;
+    svg.appendChild(SVG('text',{x:cx, y:50, 'font-size':12, fill:'var(--mute)'})).textContent = `order: ${d.order}    leading symbol: ${d.sym}`;
+    // weight diagram
+    const wY = 130;
+    svg.appendChild(SVG('line',{x1:60, y1:wY, x2:560, y2:wY, stroke:'var(--mute)', 'stroke-width':1}));
+    svg.appendChild(SVG('text',{x:50, y:wY+4, 'font-size':10, fill:'var(--mute)'})).textContent = '0';
+    svg.appendChild(SVG('text',{x:560, y:wY+4, 'font-size':10, fill:'var(--mute)'})).textContent = 'n';
+    // input weight (n-2k)/2  vs  output weight (n+2k)/2 — schematic on a normalized [0,n] axis
+    const inputFrac = 0.30;
+    const outputFrac = 0.70;
+    const inX = 60 + inputFrac*500;
+    const outX = 60 + outputFrac*500;
+    svg.appendChild(SVG('circle',{cx:inX, cy:wY, r:6, fill:'var(--cyan)'}));
+    svg.appendChild(SVG('text',{x:inX-32, y:wY-12, 'font-size':11, fill:'var(--cyan)'})).textContent = `(n−${d.order})/2`;
+    svg.appendChild(SVG('text',{x:inX-20, y:wY+22, 'font-size':10, fill:'var(--cyan)'})).textContent = 'input weight';
+    svg.appendChild(SVG('circle',{cx:outX, cy:wY, r:6, fill:'var(--pink)'}));
+    svg.appendChild(SVG('text',{x:outX-32, y:wY-12, 'font-size':11, fill:'var(--pink)'})).textContent = `(n+${d.order})/2`;
+    svg.appendChild(SVG('text',{x:outX-22, y:wY+22, 'font-size':10, fill:'var(--pink)'})).textContent = 'output weight';
+    // bracket below
+    svg.appendChild(SVG('path',{d:`M ${inX} ${wY+38} Q ${(inX+outX)/2} ${wY+58} ${outX} ${wY+38}`, fill:'none', stroke:'var(--yellow)', 'stroke-width':1.4}));
+    svg.appendChild(SVG('text',{x:(inX+outX)/2-32, y:wY+70, 'font-size':11, fill:'var(--yellow)'})).textContent = `difference = ${d.order}`;
+
+    // Critical dimension
+    svg.appendChild(SVG('text',{x:60, y:230, 'font-size':12, fill:'var(--violet)'})).textContent = 'critical dimension: ' + d.crit;
+    svg.appendChild(SVG('text',{x:60, y:250, 'font-size':12, fill:'var(--green)'})).textContent = 'conformal invariant: ' + d.invariant;
+
+    out.textContent =
+      `${d.name}\n` +
+      `  order = ${d.order}\n` +
+      `  conformal weights:   input (n−${d.order})/2,   output (n+${d.order})/2\n` +
+      `  critical dimension: ${d.crit}\n` +
+      `  associated curvature: ${d.curv}\n` +
+      `  associated conformal invariant: ${d.invariant}`;
+  }
+  btns.forEach((b,i)=>b.addEventListener('click', ()=>{ active = i; render(); }));
+  render();
+})();
+</script>
+
+<h3>The Chern–Gauss–Bonnet identity in dimension 4</h3>
+
+<p>The integral $\int Q\,dV$ is more than a conformal invariant — it has a topological interpretation. On a closed 4-manifold:</p>
+$$\int_M Q_g\,dV_g \;+\; \frac{1}{4}\int_M |W_g|^2\,dV_g \;=\; 8\pi^2\,\chi(M),$$
+<p>where $W_g$ is the Weyl tensor (the conformally invariant piece of the Riemann curvature) and $\chi(M)$ is the Euler characteristic. The Weyl-tensor integral is itself a conformal invariant, so this is a relation between two conformal invariants and a topological invariant.</p>
+
+<p>The Chern–Gauss–Bonnet formula in dimension 4 says $\chi(M) = \tfrac{1}{32\pi^2}\int_M (|W|^2 + Q\cdot 8) \,dV$ (in appropriate normalisations) — the same identity rearranged. Q-curvature is, in this sense, the conformally invariant <em>part</em> of the dimension-4 Gauss–Bonnet integrand.</p>
+
+<div class="quiz" data-concept="ccr-q-curvature"></div>
+</section>
+
+<section id="cr-structure">
+<h2>5. CR structures and the Heisenberg model</h2>
+
+<p>Real hypersurfaces in $\mathbb{C}^{n+1}$ — boundaries of pseudoconvex domains, for instance — inherit a peculiar mixed structure. They have a real tangent bundle (so they admit real differentiation), but their tangent spaces also remember the complex structure of the ambient $\mathbb{C}^{n+1}$. CR geometry abstracts that mixed structure.</p>
+
+<div class="note"><strong>Definition.</strong> A <em>CR structure</em> on a real $(2n+1)$-manifold $M$ is a pair $(H, J)$ where
+<ul>
+<li>$H\subset TM$ is a smooth real rank-$2n$ subbundle (the <em>horizontal distribution</em>);</li>
+<li>$J\colon H\to H$ is a smooth bundle endomorphism with $J^2 = -\mathrm{id}_H$ (an almost-complex structure on $H$);</li>
+</ul>
+satisfying the <em>integrability condition</em>: $[H^{1,0}, H^{1,0}]\subset H^{1,0}\otimes\mathbb{C}$, where $H^{1,0}\subset H\otimes\mathbb{C}$ is the $+i$-eigenspace of $J$.</div>
+
+<p>Equivalently, the integrability condition demands $[X-iJX, Y-iJY]$ is again in $H\otimes\mathbb{C}$ as a section of the $+i$-eigenspace, for all sections $X, Y$ of $H$. This is the CR analog of the integrability of an almost-complex structure (Newlander–Nirenberg), but with one important difference: it only applies to $H$ (not all of $TM$), so the conclusion is <em>not</em> that $M$ is a complex manifold. Indeed $M$ has odd real dimension and cannot be one.</p>
+
+<h3>Real hypersurfaces are the model examples</h3>
+
+<p>Let $M = \{\rho = 0\}\subset\mathbb{C}^{n+1}$ be a smooth real hypersurface with $d\rho\ne 0$ on $M$. The horizontal distribution is</p>
+$$H_p \;=\; T_pM \cap J_{\mathbb{C}^{n+1}}(T_pM),$$
+<p>where $J_{\mathbb{C}^{n+1}}$ is the standard complex structure on $\mathbb{C}^{n+1}$. This $H_p$ has real dimension $2n$ — it is the largest $J_{\mathbb{C}^{n+1}}$-invariant subspace of $T_pM$. The complex structure $J$ on $H_p$ is just the restriction of $J_{\mathbb{C}^{n+1}}$. The integrability condition holds automatically.</p>
+
+<p>The transverse direction is supplied by the <em>characteristic vector field</em> $T$ — the unique real vector field on $M$ that points in the imaginary normal direction. In coordinates, if $\rho$ is the defining function then $T = J_{\mathbb{C}^{n+1}}(\mathrm{grad}\,\rho)|_M$.</p>
+
+<h3>The Heisenberg group: the flat CR model</h3>
+
+<p>The <strong>Heisenberg group</strong> $\mathbb{H}^n = \mathbb{C}^n\times\mathbb{R}$ with multiplication</p>
+$$(z,t)\cdot(z',t') \;=\; (z+z',\; t+t'+2\,\mathrm{Im}\,\langle z,z'\rangle), \qquad \langle z,z'\rangle = \sum z_j\bar z'_j,$$
+<p>carries a canonical CR structure: the horizontal distribution $H$ is spanned by the left-invariant vector fields</p>
+$$X_j \;=\; \frac{\partial}{\partial x_j} + 2y_j\frac{\partial}{\partial t}, \qquad Y_j \;=\; \frac{\partial}{\partial y_j} - 2x_j\frac{\partial}{\partial t}, \qquad j = 1,\ldots,n,$$
+<p>where $z_j = x_j + iy_j$, and $J$ sends $X_j\to Y_j$, $Y_j\to -X_j$. The characteristic direction is $T = \partial/\partial t$.</p>
+
+<p>The Heisenberg group plays the role of <em>Euclidean space</em> in CR geometry: it is the model of zero Webster curvature, the tangent cone at any point of a CR manifold, and the homogeneous space for the natural dilation group $\delta_\lambda(z,t) = (\lambda z, \lambda^2 t)$.</p>
+
+<div class="widget" id="w-heisenberg">
+  <div class="hd"><div class="ttl">Heisenberg multiplication</div><div class="hint">multiply two points; watch the t-component pick up the symplectic area</div></div>
+  <div class="row">
+    <label for="hb-az">a.z (Re):</label>
+    <input type="range" id="hb-az" min="-1" max="1" step="0.05" value="0.6" />
+    <label for="hb-bz">b.z (Im):</label>
+    <input type="range" id="hb-bz" min="-1" max="1" step="0.05" value="0.4" />
+  </div>
+  <svg id="hb-svg" viewBox="0 0 620 320" width="620" height="320"><title>Heisenberg group multiplication: two horizontal points and their symplectic area</title></svg>
+  <div class="readout" id="hb-out"></div>
+</div>
+<script>
+(function(){
+  const svg = $('#hb-svg'), azIn = $('#hb-az'), bzIn = $('#hb-bz'), out = $('#hb-out');
+  const W = 620, H = 320;
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    svg.appendChild(SVG('rect',{x:0,y:0,width:W,height:H,fill:'var(--bg)'}));
+    const a = +azIn.value;
+    const b = +bzIn.value;
+    // a = (a, 0) in C, b = (0, b) in C - simple test case
+    // Im<a,b> = Im(a*conj(b)) = Im(a*(0-bi)) = -ab. Heisenberg: t = 2 Im<a,b> = -2ab
+    // We'll show in C-plane (xy) the two horizontal points and the parallelogram area.
+    const cx = 200, cy = 170;
+    const sc = 100;
+    // Axes
+    svg.appendChild(SVG('line',{x1:cx-110, y1:cy, x2:cx+110, y2:cy, stroke:'var(--mute)', 'stroke-width':1}));
+    svg.appendChild(SVG('line',{x1:cx, y1:cy-110, x2:cx, y2:cy+110, stroke:'var(--mute)', 'stroke-width':1}));
+    svg.appendChild(SVG('text',{x:cx+102, y:cy+16, 'font-size':12, fill:'var(--mute)'})).textContent = 'Re z';
+    svg.appendChild(SVG('text',{x:cx+4, y:cy-100, 'font-size':12, fill:'var(--mute)'})).textContent = 'Im z';
+    // a = (a, 0), b = (0, b) — two horizontal slices of two points in H^1
+    const ax = cx + sc*a, ay = cy;
+    const bx = cx, by = cy - sc*b;
+    drawArrow(svg, [cx,cy], [ax,ay], {color:'var(--cyan)', markerId:'hb-a'});
+    drawArrow(svg, [cx,cy], [bx,by], {color:'var(--pink)', markerId:'hb-b'});
+    svg.appendChild(SVG('text',{x:ax+6, y:ay-6, 'font-size':12, fill:'var(--cyan)'})).textContent = 'a = (a,0)';
+    svg.appendChild(SVG('text',{x:bx+6, y:by-2, 'font-size':12, fill:'var(--pink)'})).textContent = 'b = (0,b)';
+    // Parallelogram (just rectangle here since a, b are along axes)
+    svg.appendChild(SVG('polygon',{points:`${cx},${cy} ${ax},${ay} ${cx+sc*a},${cy-sc*b} ${bx},${by}`, fill:'var(--yellow)', opacity:0.18, stroke:'var(--yellow)', 'stroke-width':1}));
+    svg.appendChild(SVG('text',{x:cx + sc*a/2 - 18, y:cy - sc*b/2, 'font-size':11, fill:'var(--yellow)'})).textContent = 'Im⟨a,b⟩';
+    // t-axis (the central vertical direction, dropped down on right)
+    const tx = 460;
+    svg.appendChild(SVG('line',{x1:tx, y1:50, x2:tx, y2:290, stroke:'var(--mute)', 'stroke-width':1}));
+    svg.appendChild(SVG('text',{x:tx-6, y:42, 'font-size':12, fill:'var(--mute)'})).textContent = 't';
+    svg.appendChild(SVG('circle',{cx:tx, cy:170, r:3, fill:'var(--mute)'}));
+    svg.appendChild(SVG('text',{x:tx+8, y:174, 'font-size':11, fill:'var(--mute)'})).textContent = '0';
+    // Heisenberg multiplication shifts t by 2 Im<a,b> = -2 a b for the test geometry
+    const dt = -2*a*b;
+    const ty = 170 - dt*60;  // 60px per unit t
+    svg.appendChild(SVG('line',{x1:tx-12, y1:ty, x2:tx+12, y2:ty, stroke:'var(--yellow)', 'stroke-width':2}));
+    svg.appendChild(SVG('text',{x:tx+14, y:ty+4, 'font-size':12, fill:'var(--yellow)'})).textContent = `t(a·b) = ${dt.toFixed(3)}`;
+    // legend
+    svg.appendChild(SVG('text',{x:30, y:34, 'font-size':12, fill:'var(--ink)', 'font-weight':600})).textContent = `Heisenberg test: a = (${a.toFixed(2)},0,0),  b = (0,${b.toFixed(2)},0)`;
+    out.textContent =
+      `a = (${a.toFixed(2)} + 0i,  0),    b = (0 + ${b.toFixed(2)}i,  0)\n` +
+      `a · b = (a + b·i,  t)  with  t = 2 Im⟨a, b⟩ = ${dt.toFixed(3)}\n` +
+      `→ Heisenberg multiplication picks up the symplectic area Im⟨a,b⟩ in the t-direction.\n` +
+      `→ When a and b are aligned along the Re-axis (or Im-axis), Im⟨a,b⟩ = 0 and the t-component is preserved.`;
+  }
+  azIn.addEventListener('input', render);
+  bzIn.addEventListener('input', render);
+  render();
+})();
+</script>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./several-complex-variables.html#pseudoconvex">Domains of holomorphy and Levi pseudoconvexity</a></li>
+    <li><a href="./lie-groups.html#intro">Lie groups and matrix examples</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./conformal-and-cr-geometry.html#levi-form">Conformal and CR geometry</a> · The Levi form and strict pseudoconvexity</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+<div class="quiz" data-concept="ccr-cr-structure"></div>
+</section>
+
+<section id="levi-form">
+<h2>6. The Levi form and strict pseudoconvexity</h2>
+
+<p>The intrinsic data of a CR structure $(H, J)$ does not — by itself — pick out a notion of <em>positivity</em> or <em>convexity</em>. To get that you choose a contact 1-form.</p>
+
+<div class="note"><strong>Definition.</strong> A <em>contact 1-form</em> on a CR manifold $(M^{2n+1}, H, J)$ is a real 1-form $\theta$ with $\ker\theta = H$ and $\theta\wedge(d\theta)^n\ne 0$ everywhere (the contact condition). The associated <em>Levi form</em> at $p\in M$ is the Hermitian form
+$$\mathcal{L}_\theta(X, \bar Y) \;=\; -i\,d\theta(X,\bar Y) \quad\text{for}\;\; X, Y \in H^{1,0}_p.$$</div>
+
+<p>Two contact 1-forms on the same CR structure differ by a positive real function: $\tilde\theta = e^{2u}\theta$. The Levi form rescales accordingly: $\mathcal{L}_{\tilde\theta} = e^{2u}\mathcal{L}_\theta$. So <em>the sign</em> of $\mathcal{L}_\theta$ — its definiteness, signature, signature distribution — is independent of the choice of contact form. This is the CR analog of the conformal class on a Riemannian manifold: pseudoconvexity is a structural property of $(M, H, J)$, not of any particular $\theta$.</p>
+
+<h3>Levi form on a real hypersurface</h3>
+
+<p>When $M = \{\rho = 0\}\subset\mathbb{C}^{n+1}$ has $\rho$ as a defining function, take $\theta = -\mathrm{Im}\,\partial\rho|_M$ as a contact 1-form (up to sign). Then the Levi form on $T^{1,0}M$ is exactly the restriction of the complex Hessian:</p>
+$$\mathcal{L}_\theta(X,\bar Y) \;=\; \sum_{j,k}\frac{\partial^2 \rho}{\partial z_j\partial\bar z_k}\,X_j\bar Y_k, \qquad X, Y\in T^{1,0}_pM.$$
+<p>So the Levi form on a real hypersurface is exactly what we used in §6 of <a href="./several-complex-variables.html#psh">Several complex variables</a>: the complex Hessian of the defining function, restricted to the complex-tangential directions.</p>
+
+<div class="widget" id="w-levi-sphere">
+  <div class="hd"><div class="ttl">Levi form of an ellipsoid in $\mathbb{C}^2$</div><div class="hint">slide the eccentricity; watch the Levi eigenvalues at a boundary point</div></div>
+  <div class="row">
+    <label for="le-e">eccentricity $e$:</label>
+    <input type="range" id="le-e" min="0.1" max="3" step="0.05" value="1" />
+    <span class="readout" id="le-e-out" style="min-width:3em;display:inline-block">1.00</span>
+  </div>
+  <svg id="le-svg" viewBox="0 0 620 320" width="620" height="320"><title>Levi form eigenvalues for ellipsoid hypersurfaces in C^2</title></svg>
+  <div class="readout" id="le-out"></div>
+</div>
+<script>
+(function(){
+  const svg = $('#le-svg'), eIn = $('#le-e'), eOut = $('#le-e-out'), out = $('#le-out');
+  const W = 620, H = 320;
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    svg.appendChild(SVG('rect',{x:0,y:0,width:W,height:H,fill:'var(--bg)'}));
+    const e = +eIn.value;
+    eOut.textContent = e.toFixed(2);
+    // Ellipsoid in C^2: |z_1|^2 + |z_2|^2 / e^2 = 1.
+    // Defining function rho(z) = |z_1|^2 + |z_2|^2 / e^2 - 1.
+    // Complex Hessian = diag(1, 1/e^2).
+    // Restrict to the tangent T^{1,0} - at the boundary point (1, 0), the tangent is (0, *).
+    // So the Levi form at (1,0) is the single eigenvalue 1/e^2.
+    // At (0, e), the tangent is (*, 0), Levi eigenvalue 1.
+    // Two-eigenvalue scenario: probe a generic point.
+    // We'll display: the ellipsoid (slice in R^4 -> R^2), the chosen boundary point, and the Levi eigenvalue.
+    const cx = W/2, cy = H/2;
+    const rx = 110, ry = 110/e;
+    svg.appendChild(SVG('ellipse',{cx:cx, cy:cy, rx:rx, ry:ry, fill:'none', stroke:'var(--cyan)', 'stroke-width':1.4}));
+    // Mark two boundary points: (1,0) at right, (0, e) at top
+    svg.appendChild(SVG('circle',{cx:cx+rx, cy:cy, r:5, fill:'var(--yellow)'}));
+    svg.appendChild(SVG('text',{x:cx+rx+6, y:cy+18, 'font-size':12, fill:'var(--yellow)'})).textContent = 'p = (1, 0)';
+    svg.appendChild(SVG('text',{x:cx+rx+6, y:cy+34, 'font-size':10, fill:'var(--yellow)'})).textContent = `L = 1/e² = ${(1/(e*e)).toFixed(3)}`;
+    svg.appendChild(SVG('circle',{cx:cx, cy:cy-ry, r:5, fill:'var(--pink)'}));
+    svg.appendChild(SVG('text',{x:cx+10, y:cy-ry-6, 'font-size':12, fill:'var(--pink)'})).textContent = 'p = (0, e)';
+    svg.appendChild(SVG('text',{x:cx+10, y:cy-ry+10, 'font-size':10, fill:'var(--pink)'})).textContent = 'L = 1';
+    // axes labels
+    svg.appendChild(SVG('text',{x:30, y:30, 'font-size':12, fill:'var(--ink)', 'font-weight':600})).textContent = 'Ellipsoid |z₁|² + |z₂|²/e² = 1 in C²';
+    svg.appendChild(SVG('text',{x:30, y:48, 'font-size':12, fill:'var(--mute)'})).textContent = 'Defining function ρ(z) = |z₁|² + |z₂|²/e² − 1';
+    svg.appendChild(SVG('text',{x:30, y:66, 'font-size':12, fill:'var(--mute)'})).textContent = 'Complex Hessian = diag(1, 1/e²)  — both eigenvalues > 0 ⇒ strictly pseudoconvex';
+    const minEv = Math.min(1, 1/(e*e));
+    svg.appendChild(SVG('text',{x:30, y:280, 'font-size':12, fill:minEv > 0.01 ? 'var(--green)' : 'var(--pink)'})).textContent = `min Levi eigenvalue = ${minEv.toFixed(3)} > 0 ⇒ STRICTLY pseudoconvex everywhere`;
+    out.textContent =
+      `eccentricity e = ${e.toFixed(2)}\n` +
+      `defining function: ρ(z) = |z₁|² + |z₂|²/e² − 1\n` +
+      `complex Hessian = diag(1, 1/e²)\n` +
+      `Levi eigenvalues at (1,0): 1/e² = ${(1/(e*e)).toFixed(3)}   (only the tangent direction matters)\n` +
+      `Levi eigenvalues at (0,e): 1.000  (single tangent direction, fixed)\n` +
+      `→ For every e > 0 the ellipsoid is strictly pseudoconvex — the Levi form is uniformly positive.\n` +
+      `→ The eccentricity e controls the QUANTITATIVE bound on pseudoconvexity but not its qualitative property.`;
+  }
+  eIn.addEventListener('input', render);
+  render();
+})();
+</script>
+
+<h3>Signature changes the analysis</h3>
+
+<p>The most studied case is <em>strictly pseudoconvex</em>: $\mathcal{L}_\theta$ positive definite (signature $(n, 0)$ on $T^{1,0}$). The CR Yamabe problem and the embeddability of abstract CR manifolds into $\mathbb{C}^N$ are both best understood in this category. <em>Levi-flat</em> ($\mathcal{L}_\theta\equiv 0$) hypersurfaces foliate by complex hypersurfaces — they are the CR analog of integrable foliations. <em>Indefinite</em> Levi form (signature $(p,q)$ with $p,q\ge 1$) appears on boundaries of unbounded Reinhardt-style domains and connects to representation theory of indefinite unitary groups $U(p,q)$.</p>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./several-complex-variables.html#psh">Plurisubharmonic functions and the Levi form</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./conformal-and-cr-geometry.html#cr-yamabe">Conformal and CR geometry</a> · The Webster connection and the CR Yamabe problem</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+<div class="quiz" data-concept="ccr-levi-form"></div>
+</section>
+
+<section id="cr-yamabe">
+<h2>7. The Webster connection and the CR Yamabe problem</h2>
+
+<p>The Riemannian Yamabe story has four pieces: a conformally covariant operator (the conformal Laplacian $L_g$), an associated curvature (scalar curvature $R_g$), a model space (the round sphere $S^n$), and a critical-exponent PDE. The CR Yamabe story copies all four into pseudo-Hermitian geometry.</p>
+
+<h3>The Webster connection</h3>
+
+<p>A <em>pseudo-Hermitian structure</em> on a CR manifold is a choice of contact 1-form $\theta$ — equivalently, a choice within the CR conformal class. Webster (1978) proved the CR analog of the Levi-Civita uniqueness theorem:</p>
+
+<div class="note"><strong>Theorem (Webster).</strong> On a strictly pseudoconvex pseudo-Hermitian manifold $(M^{2n+1}, \theta)$, there is a unique linear connection $\nabla^W$ on $TM$ such that
+<ol>
+<li>$\nabla^W$ is compatible with $H$ ($\nabla^W$ preserves the splitting $TM = H\oplus\mathbb{R}T$);</li>
+<li>$\nabla^W J = 0$ on $H$;</li>
+<li>$\nabla^W$ has prescribed torsion (the <em>Tanaka-Webster torsion</em> $\tau$, which captures the non-integrability of the contact distribution as a tensor).</li>
+</ol></div>
+
+<p>The Webster connection is the CR analog of the Levi-Civita connection: it specializes the choice of $\theta$ (instead of the choice of metric) into a canonical differential calculus. The <em>Webster scalar curvature</em> $R^W$ is the analog of $R_g$.</p>
+
+<h3>The sublaplacian</h3>
+
+<p>The natural Laplacian in CR geometry is not the Riemannian one but the <em>sublaplacian</em> $\Delta_b$, built from the Webster connection's horizontal derivatives only:</p>
+$$\Delta_b u \;=\; \mathrm{tr}_{H}\bigl(\nabla^W d^bu\bigr) \;=\; \sum_{j=1}^n (X_j^2 + Y_j^2)\,u \quad\text{(in Heisenberg coords)}.$$
+<p>Unlike $\Delta_g$, the sublaplacian is <em>sub-elliptic</em>: its principal symbol vanishes on the characteristic direction $T$. By Hörmander's bracket-generating theorem, however, $\Delta_b$ is hypoelliptic — solutions of $\Delta_b u = f$ are smooth wherever $f$ is.</p>
+
+<h3>The CR conformal Laplacian and the CR Yamabe equation</h3>
+
+<p>Jerison and Lee (1987) defined the CR conformal Laplacian</p>
+$$L_b \;=\; -\!\left(2 + \frac{2}{n}\right)\Delta_b \;+\; R^W,$$
+<p>and proved it is conformally covariant: under $\tilde\theta = e^{2u/n}\theta$,</p>
+$$L_{\tilde b}(\phi) \;=\; e^{-(n+1)u/n}\,L_b\!\bigl(e^{(n-1)u/n}\phi\bigr).$$
+<p>(Different sources use different normalizations; the structural fact is what matters: weight $(n-1)/n$ in, weight $(n+1)/n$ out, difference $2/n$ matching the order $2$ of $L_b$ up to the homogeneous-dimension rescaling.)</p>
+
+<div class="note"><strong>The CR Yamabe problem.</strong> On a closed strictly pseudoconvex CR manifold $(M^{2n+1}, H, J)$, does there exist a pseudo-Hermitian structure $\theta$ with constant Webster scalar curvature $R^W\equiv\mathrm{const}$?</div>
+
+<p>By exactly the same computation as in the Riemannian case (write $\tilde\theta = u^{2/n}\theta$ and apply conformal covariance), this reduces to the <em>CR Yamabe equation</em></p>
+$$L_b\, u \;=\; \lambda\, u^{(n+1)/(n-1)} \;=\; \lambda\, u^{Q/(Q-2)},$$
+<p>where $Q = 2n + 2$ is the <strong>homogeneous dimension</strong> of $\mathbb{H}^n$. The exponent $Q/(Q-2)$ takes the place of the Riemannian $(n+2)/(n-2)$. The reason: the Heisenberg dilation $\delta_\lambda(z,t) = (\lambda z, \lambda^2 t)$ weights $z$ with $1$ and $t$ with $2$, so the metric ball of radius $\lambda$ has volume $\sim\lambda^{2n+2} = \lambda^Q$.</p>
+
+<h3>Jerison–Lee's resolution</h3>
+
+<p>Jerison and Lee (1987-89) proved the CR Yamabe problem for all closed strictly pseudoconvex CR manifolds — the precise analog of Trudinger–Aubin–Schoen. The architecture is the same: subcritical compactness, a CR Yamabe inequality $Y_{\mathrm{CR}}(M) \le Y_{\mathrm{CR}}(S^{2n+1})$ with equality only on the CR sphere, and a strict-inequality argument using the Heisenberg group's invariant Green's function and a CR analog of the positive mass theorem.</p>
+
+<div class="widget" id="w-cr-dictionary">
+  <div class="hd"><div class="ttl">Riemannian ↔ CR dictionary</div><div class="hint">click an item on the left to highlight its CR analog</div></div>
+  <svg id="cd-svg" viewBox="0 0 620 380" width="620" height="380"><title>Dictionary mapping Riemannian Yamabe ingredients to CR Yamabe analogs</title></svg>
+  <div class="readout" id="cd-out">Click a row in the left column to see its CR analog and the structural mapping.</div>
+</div>
+<script>
+(function(){
+  const svg = $('#cd-svg'), out = $('#cd-out');
+  const rows = [
+    {l:'metric $g$', r:'contact 1-form $\\theta$', m:'A choice of metric in the Riemannian conformal class corresponds to a choice of $\\theta$ in the CR conformal class. Both are infinite-dimensional rescaling spaces.'},
+    {l:'$\\Delta_g$ (Laplacian)', r:'$\\Delta_b$ (sublaplacian)', m:'$\\Delta_g$ is elliptic on the full tangent bundle; $\\Delta_b$ is sub-elliptic, missing the characteristic direction $T$. Hörmander hypoellipticity replaces ellipticity.'},
+    {l:'$R_g$ (scalar curvature)', r:'$R^W$ (Webster scalar curvature)', m:'Built from the Levi-Civita / Webster connection by tracing the curvature. Both are conformal-invariant after the right weight scaling.'},
+    {l:'$L_g = -\\Delta_g + c_n R_g$', r:'$L_b = -(2+2/n)\\Delta_b + R^W$', m:'Both are the order-2 conformally covariant operators in their geometries. Their conformal weights are calibrated to the respective Sobolev critical exponents.'},
+    {l:'dimension $n$', r:'homogeneous dim. $Q=2n+2$', m:'The Heisenberg dilation $(z,t)\\mapsto(\\lambda z,\\lambda^2 t)$ weights $t$ with 2, so metric balls have volume $\\sim\\lambda^Q$. In every formula where Riemannian uses $n$, CR uses $Q$.'},
+    {l:'critical $(n+2)/(n-2)$', r:'critical $Q/(Q-2) = (n+1)/n$', m:'Same role in the Yamabe equation: the exponent that makes $H^1\\hookrightarrow L^p$ borderline non-compact.'},
+    {l:'round sphere $S^n$', r:'CR sphere $S^{2n+1}\\subset\\mathbb{C}^{n+1}$', m:'Both have the maximal symmetry group in their conformal classes ($O(n+1,1)$ vs $SU(n+1,1)$) and serve as the universal upper bound for the Yamabe constant.'},
+    {l:'flat model $\\mathbb{R}^n$', r:'Heisenberg group $\\mathbb{H}^n$', m:'The non-compact, simply-connected, zero-curvature homogeneous model. The role of Euclidean space in each geometry.'},
+  ];
+  const W = 620, H = 380;
+  const padX = 30, padY = 50;
+  const colW = 220;
+  function render(active=-1){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    svg.appendChild(SVG('rect',{x:0,y:0,width:W,height:H,fill:'var(--bg)'}));
+    svg.appendChild(SVG('text',{x:padX, y:30, 'font-size':12, fill:'var(--cyan)', 'font-weight':600})).textContent = 'Riemannian';
+    svg.appendChild(SVG('text',{x:padX+colW+80, y:30, 'font-size':12, fill:'var(--pink)', 'font-weight':600})).textContent = 'CR';
+    rows.forEach((row, i)=>{
+      const y = padY + i*38;
+      const hot = i === active;
+      svg.appendChild(SVG('rect',{x:padX-4, y:y-16, width:colW, height:30, fill:hot ? 'var(--cyan)' : 'var(--panel2)', opacity:hot ? 0.25 : 0.55, stroke:'var(--line)', 'stroke-width':1, rx:5, style:'cursor:pointer'}))
+        .addEventListener('click', ()=>{ render(i); });
+      const lt = SVG('text',{x:padX+4, y:y+4, 'font-size':12, fill:'var(--ink)', style:'cursor:pointer'});
+      lt.textContent = row.l;
+      lt.addEventListener('click', ()=>{ render(i); });
+      svg.appendChild(lt);
+      // arrow
+      svg.appendChild(SVG('path',{d:`M ${padX+colW+8} ${y-2} L ${padX+colW+70} ${y-2}`, fill:'none', stroke:hot ? 'var(--yellow)' : 'var(--mute)', 'stroke-width':hot ? 1.6 : 1}));
+      const rt = SVG('text',{x:padX+colW+78, y:y+4, 'font-size':12, fill: hot ? 'var(--yellow)' : 'var(--ink)'});
+      rt.textContent = row.r;
+      svg.appendChild(rt);
+    });
+    if (active >= 0) {
+      out.textContent = `${rows[active].l}  ⟷  ${rows[active].r}\n\n${rows[active].m.replace(/\\Delta/g,'Δ').replace(/\\mathbb{H}/g,'H').replace(/\\mapsto/g,'↦').replace(/\\le/g,'≤').replace(/\\sim/g,'∼').replace(/\\hookrightarrow/g,'↪').replace(/\\theta/g,'θ').replace(/\\lambda/g,'λ').replace(/[\\$]/g,'').replace(/\\mathrm{[a-z]*}/g,'')}`;
+    } else {
+      out.textContent = 'Click a row on the left to see its CR analog and the structural mapping.';
+    }
+  }
+  render(-1);
+})();
+</script>
+
+<div class="ok"><strong>The bigger picture.</strong> The conformal–CR dictionary is one of the cleanest analogies in modern geometry. Every theorem in Riemannian conformal geometry has a CR cousin — sometimes harder (the CR positive mass theorem is harder than the Riemannian one because the sublaplacian is sub-elliptic), sometimes nearly identical. The unifying perspective comes from <em>parabolic geometry</em> — both conformal and CR structures are examples of Cartan geometries modeled on homogeneous spaces $G/P$ where $P\subset G$ is a parabolic subgroup. The Fefferman-Graham ambient construction makes this connection precise: a CR manifold is the boundary at infinity of an ambient asymptotically hyperbolic Kähler manifold, and conformal geometry is the boundary at infinity of an asymptotically hyperbolic Einstein manifold.</div>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./several-complex-variables.html#pseudoconvex">Domains of holomorphy and Levi pseudoconvexity</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end -->
+
+<div class="quiz" data-concept="ccr-cr-yamabe"></div>
+</section>
+
+<section id="connections">
+<h2>Connections</h2>
+
+<p>Conformal and CR geometry sit at a busy intersection of analysis, differential geometry, and several complex variables. The Yamabe problem and its CR analog opened the door to a parallel theory of nonlinear elliptic PDE for higher-order conformally covariant operators (the GJMS family) — Q-curvature prescription on closed $4$-manifolds is one open frontier, and the analogous Q-prescription on CR manifolds in arbitrary dimension is still being worked out. The Fefferman–Graham ambient metric construction connects conformal geometry to asymptotically hyperbolic Einstein manifolds (the AdS/CFT correspondence in physics), and the parallel ambient-Kähler construction for CR manifolds underlies recent advances in the holomorphic geometry of strictly pseudoconvex domains. Three contemporary open problems: the <em>full</em> Yamabe problem on noncompact manifolds with prescribed asymptotics; the analytic embeddability of abstract three-dimensional CR manifolds (the only dimension where embeddability can fail); and the development of Q-curvature on metric measure spaces beyond the smooth-manifold setting.</p>
+
+<ul>
+<li><a href="./riemannian-geometry.html#ricci">Riemannian geometry — Ricci curvature and Einstein manifolds</a> — Einstein metrics are critical points of the Hilbert action; in a fixed conformal class, the Yamabe problem produces representatives that are Einstein up to a constant scalar curvature constraint.</li>
+<li><a href="./several-complex-variables.html#pseudoconvex">Several complex variables — domains of holomorphy and Levi pseudoconvexity</a> — strict pseudoconvexity is the boundary condition that makes the CR Yamabe analog well-posed; the Levi form is the same object in both settings.</li>
+<li><a href="./partial-differential-equations.html#regularity">PDE — Lax–Milgram, elliptic regularity, embedding</a> — the Yamabe equation is a critical-exponent semilinear elliptic PDE; the regularity bootstrap that produces smooth solutions from $H^1$ weak solutions runs through Sobolev embedding and elliptic regularity.</li>
+<li><a href="./sobolev-spaces-distributions.html#sobolev-spaces-wkp">Sobolev spaces $W^{k,p}$</a> — the critical exponent $2^* = 2n/(n-2)$ for the Sobolev embedding is exactly the borderline that makes Yamabe hard; its lack of compactness drives the entire technical story.</li>
+<li><a href="./lie-groups.html#intro">Lie groups</a> — the Heisenberg group is the CR-flat model and the simplest example of a non-abelian nilpotent Lie group; the Webster connection's invariance group is $SU(n+1,1)$ on the CR sphere.</li>
+<li><a href="./ricci-flow.html">Ricci flow</a> — Yamabe flow $\partial_t g = -(R_g - \bar R)g$ is a conformal-class-preserving heat flow whose stationary points are the Yamabe metrics; convergence theory parallels Ricci flow's.</li>
+</ul>
+</section>
+
+</main>
+
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('conformal-and-cr-geometry'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+})();
+</script>
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-05-12</td><td>initial version</td></tr>
+    </tbody>
+  </table>
+</details>
+
+</body>
+</html>

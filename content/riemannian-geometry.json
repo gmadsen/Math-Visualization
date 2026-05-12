@@ -54,7 +54,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./general-relativity.html#spacetime\">General relativity</a> · Spacetime as a Lorentzian manifold</div>\n    <div><a href=\"./kahler-geometry.html#kahler-form\">Kähler geometry</a> · Hermitian metric and the Kähler form</div>\n    <div><a href=\"./mostow-rigidity.html#statement\">Mostow rigidity</a> · Mostow's rigidity theorem</div>\n    <div><a href=\"./riemannian-geometry.html#geodesics\">Riemannian geometry</a> · Levi-Civita connection and geodesics</div>\n    <div><a href=\"./riemannian-geometry.html#volume\">Riemannian geometry</a> · Riemannian volume form and divergence</div>\n    <div><a href=\"./special-relativity.html#minkowski\">Special relativity</a> · Minkowski metric and the spacetime interval</div>\n    <div class=\"more\">… and 1 more.</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./conformal-and-cr-geometry.html#conformal-class\">Conformal and CR geometry</a> · Conformal class of a Riemannian metric</div>\n    <div><a href=\"./general-relativity.html#spacetime\">General relativity</a> · Spacetime as a Lorentzian manifold</div>\n    <div><a href=\"./kahler-geometry.html#kahler-form\">Kähler geometry</a> · Hermitian metric and the Kähler form</div>\n    <div><a href=\"./mostow-rigidity.html#statement\">Mostow rigidity</a> · Mostow's rigidity theorem</div>\n    <div><a href=\"./riemannian-geometry.html#geodesics\">Riemannian geometry</a> · Levi-Civita connection and geodesics</div>\n    <div><a href=\"./riemannian-geometry.html#volume\">Riemannian geometry</a> · Riemannian volume form and divergence</div>\n    <div class=\"more\">… and 2 more.</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -197,7 +197,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./general-relativity.html#einstein-eq\">General relativity</a> · Einstein field equations</div>\n    <div><a href=\"./general-relativity.html#schwarzschild\">General relativity</a> · Schwarzschild solution and event horizons</div>\n    <div><a href=\"./riemannian-geometry.html#comparison\">Riemannian geometry</a> · Curvature tensor and comparison</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./conformal-and-cr-geometry.html#conformal-class\">Conformal and CR geometry</a> · Conformal class of a Riemannian metric</div>\n    <div><a href=\"./general-relativity.html#einstein-eq\">General relativity</a> · Einstein field equations</div>\n    <div><a href=\"./general-relativity.html#schwarzschild\">General relativity</a> · Schwarzschild solution and event horizons</div>\n    <div><a href=\"./riemannian-geometry.html#comparison\">Riemannian geometry</a> · Curvature tensor and comparison</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
