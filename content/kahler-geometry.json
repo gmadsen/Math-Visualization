@@ -15,7 +15,7 @@
           "slug": "kahler-geometry-w1",
           "params": {
             "widgetId": "w-bigrading",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-bigrading\">\n  <div class=\"hd\"><div class=\"ttl\">$(p,q)$-bigrading explorer</div><div class=\"hint\">pick complex dimension $n$ and total degree $k$ · count $\\Omega^{p,q}$ summands</div></div>\n  <div class=\"row\">\n    <label>$n$ (complex dim)</label>\n    <input type=\"range\" id=\"bg-n\" min=\"1\" max=\"6\" step=\"1\" value=\"3\">\n    <span id=\"bg-n-val\">3</span>\n    <label>$k$ (form degree)</label>\n    <input type=\"range\" id=\"bg-k\" min=\"0\" max=\"12\" step=\"1\" value=\"2\">\n    <span id=\"bg-k-val\">2</span>\n  </div>\n  <svg id=\"bg-svg\" viewBox=\"0 0 560 200\" width=\"560\" height=\"200\"><title>bidegree summands</title></svg>\n  <div class=\"readout\" id=\"bg-out\"></div>\n</div>",
+            "bodyMarkup": "<div class=\"widget\" id=\"w-bigrading\">\n  <div class=\"hd\"><div class=\"ttl\">$(p,q)$-bigrading explorer</div><div class=\"hint\">pick complex dimension $n$ and total degree $k$ · count $\\Omega^{p,q}$ summands</div></div>\n  <div class=\"row\">\n    <label for=\"bg-n\">$n$ (complex dim)</label>\n    <input type=\"range\" id=\"bg-n\" min=\"1\" max=\"6\" step=\"1\" value=\"3\">\n    <span id=\"bg-n-val\">3</span>\n    <label for=\"bg-k\">$k$ (form degree)</label>\n    <input type=\"range\" id=\"bg-k\" min=\"0\" max=\"12\" step=\"1\" value=\"2\">\n    <span id=\"bg-k-val\">2</span>\n  </div>\n  <svg id=\"bg-svg\" viewBox=\"0 0 560 200\" width=\"560\" height=\"200\"><title>bidegree summands</title></svg>\n  <div class=\"readout\" id=\"bg-out\"></div>\n</div>",
             "bodyScript": "",
             "title": "$(p,q)$-bigrading explorer",
             "hint": "pick complex dimension $n$ and total degree $k$ · count $\\Omega^{p,q}$ summands"
@@ -65,7 +65,7 @@
           "slug": "kahler-geometry-w2",
           "params": {
             "widgetId": "w-fubini",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-fubini\">\n  <div class=\"hd\"><div class=\"ttl\">Fubini–Study potential on $\\mathbb{CP}^1$</div><div class=\"hint\">slide $|z|$ · watch $K = \\log(1+|z|^2)$ and its second derivative</div></div>\n  <div class=\"row\">\n    <label>$|z|$</label>\n    <input type=\"range\" id=\"fs-z\" min=\"0\" max=\"3\" step=\"0.05\" value=\"1\">\n    <span id=\"fs-z-val\">1.00</span>\n  </div>\n  <svg id=\"fs-svg\" viewBox=\"0 0 560 220\" width=\"560\" height=\"220\"><title>Fubini–Study potential</title></svg>\n  <div class=\"readout\" id=\"fs-out\"></div>\n</div>",
+            "bodyMarkup": "<div class=\"widget\" id=\"w-fubini\">\n  <div class=\"hd\"><div class=\"ttl\">Fubini–Study potential on $\\mathbb{CP}^1$</div><div class=\"hint\">slide $|z|$ · watch $K = \\log(1+|z|^2)$ and its second derivative</div></div>\n  <div class=\"row\">\n    <label for=\"fs-z\">$|z|$</label>\n    <input type=\"range\" id=\"fs-z\" min=\"0\" max=\"3\" step=\"0.05\" value=\"1\">\n    <span id=\"fs-z-val\">1.00</span>\n  </div>\n  <svg id=\"fs-svg\" viewBox=\"0 0 560 220\" width=\"560\" height=\"220\"><title>Fubini–Study potential</title></svg>\n  <div class=\"readout\" id=\"fs-out\"></div>\n</div>",
             "bodyScript": "",
             "title": "Fubini–Study potential on $\\mathbb{CP}^1$",
             "hint": "slide $|z|$ · watch $K = \\log(1+|z|^2)$ and its second derivative"
@@ -115,7 +115,7 @@
           "slug": "kahler-geometry-w3",
           "params": {
             "widgetId": "w-diamond",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-diamond\">\n  <div class=\"hd\"><div class=\"ttl\">Hodge diamond explorer</div><div class=\"hint\">pick complex dimension $n$ · independent entries highlighted</div></div>\n  <div class=\"row\">\n    <label>$n$</label>\n    <input type=\"range\" id=\"hd-n\" min=\"1\" max=\"4\" step=\"1\" value=\"3\">\n    <span id=\"hd-n-val\">3</span>\n  </div>\n  <svg id=\"hd-svg\" viewBox=\"0 0 560 360\" width=\"560\" height=\"360\"><title>Hodge diamond</title></svg>\n  <div class=\"readout\" id=\"hd-out\"></div>\n</div>",
+            "bodyMarkup": "<div class=\"widget\" id=\"w-diamond\">\n  <div class=\"hd\"><div class=\"ttl\">Hodge diamond explorer</div><div class=\"hint\">pick complex dimension $n$ · independent entries highlighted</div></div>\n  <div class=\"row\">\n    <label for=\"hd-n\">$n$</label>\n    <input type=\"range\" id=\"hd-n\" min=\"1\" max=\"4\" step=\"1\" value=\"3\">\n    <span id=\"hd-n-val\">3</span>\n  </div>\n  <svg id=\"hd-svg\" viewBox=\"0 0 560 360\" width=\"560\" height=\"360\"><title>Hodge diamond</title></svg>\n  <div class=\"readout\" id=\"hd-out\"></div>\n</div>",
             "bodyScript": "",
             "title": "Hodge diamond explorer",
             "hint": "pick complex dimension $n$ · independent entries highlighted"
@@ -165,7 +165,7 @@
           "slug": "kahler-geometry-w4",
           "params": {
             "widgetId": "w-lefschetz",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-lefschetz\">\n  <div class=\"hd\"><div class=\"ttl\">Hard Lefschetz pairings</div><div class=\"hint\">pick $n$ · trace which Betti numbers $L^k$ matches up</div></div>\n  <div class=\"row\">\n    <label>$n$</label>\n    <input type=\"range\" id=\"lf-n\" min=\"1\" max=\"5\" step=\"1\" value=\"3\">\n    <span id=\"lf-n-val\">3</span>\n  </div>\n  <svg id=\"lf-svg\" viewBox=\"0 0 560 220\" width=\"560\" height=\"220\"><title>hard Lefschetz pairings</title></svg>\n  <div class=\"readout\" id=\"lf-out\"></div>\n</div>",
+            "bodyMarkup": "<div class=\"widget\" id=\"w-lefschetz\">\n  <div class=\"hd\"><div class=\"ttl\">Hard Lefschetz pairings</div><div class=\"hint\">pick $n$ · trace which Betti numbers $L^k$ matches up</div></div>\n  <div class=\"row\">\n    <label for=\"lf-n\">$n$</label>\n    <input type=\"range\" id=\"lf-n\" min=\"1\" max=\"5\" step=\"1\" value=\"3\">\n    <span id=\"lf-n-val\">3</span>\n  </div>\n  <svg id=\"lf-svg\" viewBox=\"0 0 560 220\" width=\"560\" height=\"220\"><title>hard Lefschetz pairings</title></svg>\n  <div class=\"readout\" id=\"lf-out\"></div>\n</div>",
             "bodyScript": "",
             "title": "Hard Lefschetz pairings",
             "hint": "pick $n$ · trace which Betti numbers $L^k$ matches up"
@@ -207,7 +207,7 @@
           "slug": "kahler-geometry-w5",
           "params": {
             "widgetId": "w-monge",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-monge\">\n  <div class=\"hd\"><div class=\"ttl\">Complex Monge–Ampère cartoon</div><div class=\"hint\">prescribed volume $e^{f}\\omega^n$ vs. attained volume $(\\omega + i\\partial\\bar\\partial\\varphi)^n$</div></div>\n  <div class=\"row\">\n    <label>$f$</label>\n    <input type=\"range\" id=\"mc-f\" min=\"-1.5\" max=\"1.5\" step=\"0.05\" value=\"0.6\">\n    <span id=\"mc-f-val\">0.60</span>\n  </div>\n  <svg id=\"mc-svg\" viewBox=\"0 0 560 200\" width=\"560\" height=\"200\"><title>Monge–Ampère balance</title></svg>\n  <div class=\"readout\" id=\"mc-out\"></div>\n</div>",
+            "bodyMarkup": "<div class=\"widget\" id=\"w-monge\">\n  <div class=\"hd\"><div class=\"ttl\">Complex Monge–Ampère cartoon</div><div class=\"hint\">prescribed volume $e^{f}\\omega^n$ vs. attained volume $(\\omega + i\\partial\\bar\\partial\\varphi)^n$</div></div>\n  <div class=\"row\">\n    <label for=\"mc-f\">$f$</label>\n    <input type=\"range\" id=\"mc-f\" min=\"-1.5\" max=\"1.5\" step=\"0.05\" value=\"0.6\">\n    <span id=\"mc-f-val\">0.60</span>\n  </div>\n  <svg id=\"mc-svg\" viewBox=\"0 0 560 200\" width=\"560\" height=\"200\"><title>Monge–Ampère balance</title></svg>\n  <div class=\"readout\" id=\"mc-out\"></div>\n</div>",
             "bodyScript": "",
             "title": "Complex Monge–Ampère cartoon",
             "hint": "prescribed volume $e^{f}\\omega^n$ vs. attained volume $(\\omega + i\\partial\\bar\\partial\\varphi)^n$"
@@ -257,7 +257,7 @@
           "slug": "kahler-geometry-w6",
           "params": {
             "widgetId": "w-ke",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-ke\">\n  <div class=\"hd\"><div class=\"ttl\">Kähler–Einstein sign chart</div><div class=\"hint\">slide $c_1(M)$ · read off the existence regime</div></div>\n  <div class=\"row\">\n    <label>$c_1(M)$ sign</label>\n    <input type=\"range\" id=\"ke-c\" min=\"-1\" max=\"1\" step=\"0.01\" value=\"0\">\n    <span id=\"ke-c-val\">0</span>\n  </div>\n  <svg id=\"ke-svg\" viewBox=\"0 0 560 180\" width=\"560\" height=\"180\"><title>KE existence by c_1 sign</title></svg>\n  <div class=\"readout\" id=\"ke-out\"></div>\n</div>",
+            "bodyMarkup": "<div class=\"widget\" id=\"w-ke\">\n  <div class=\"hd\"><div class=\"ttl\">Kähler–Einstein sign chart</div><div class=\"hint\">slide $c_1(M)$ · read off the existence regime</div></div>\n  <div class=\"row\">\n    <label for=\"ke-c\">$c_1(M)$ sign</label>\n    <input type=\"range\" id=\"ke-c\" min=\"-1\" max=\"1\" step=\"0.01\" value=\"0\">\n    <span id=\"ke-c-val\">0</span>\n  </div>\n  <svg id=\"ke-svg\" viewBox=\"0 0 560 180\" width=\"560\" height=\"180\"><title>KE existence by c_1 sign</title></svg>\n  <div class=\"readout\" id=\"ke-out\"></div>\n</div>",
             "bodyScript": "",
             "title": "Kähler–Einstein sign chart",
             "hint": "slide $c_1(M)$ · read off the existence regime"
