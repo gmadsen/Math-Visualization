@@ -42,8 +42,7 @@
   .hero h1{font-size:2.2rem;letter-spacing:-0.01em;margin:0 0 0.5rem;color:var(--ink)}
   .hero p.sub{color:var(--mute);margin:0;font-size:1.02rem;max-width:64ch}
 
-  /* Filter chips: one per section, plus "All". Click toggles which entries
-     are visible. Active chip uses the section accent color as fill. */
+  /* Active chip fills with its section accent via currentColor. */
   .filters{display:flex;flex-wrap:wrap;gap:0.4rem;margin:1.3rem 0 1.8rem}
   .filters .chip{background:var(--panel);border:1px solid var(--line);
     color:var(--mute);font-size:0.82rem;padding:0.35rem 0.8rem;
@@ -64,9 +63,6 @@
     font-size:0.74rem;color:var(--mute);margin-left:0.45rem}
   .filters .chip.active .count{color:color-mix(in srgb, var(--ink) 70%, transparent)}
 
-  /* Month group: a header row + a vertical list of entries below. The list
-     uses the same .ru-card chip vocabulary as index.html's recently-updated
-     strip so the visual rhythm is identical. */
   .month-group{margin:0 0 2rem}
   .month-group h2{font-size:0.78rem;letter-spacing:0.16em;text-transform:uppercase;
     color:var(--mute);font-family:ui-monospace,Menlo,monospace;font-weight:500;
@@ -114,7 +110,7 @@
     .ru-card .ru-section{font-size:0.66rem}
   }
 
-  .empty-state{padding:2rem;text-align:center;color:var(--mute);
+  .empty-state,.list-empty{padding:2rem;text-align:center;color:var(--mute);
     border:1px dashed var(--line);border-radius:10px;margin:1.5rem 0}
 
   footer{color:var(--mute);font-size:0.85rem;text-align:center;margin-top:4rem;
@@ -131,7 +127,9 @@
       <a class="nav-link" href="./index.html">← Notebook</a>
       <a class="nav-link" href="./pathway.html">Pathway</a>
       <a class="nav-link" href="./tours.html">Tours</a>
+      <a class="nav-link" href="./history.html">History</a>
       <a class="nav-link" href="./tags.html">Themes</a>
+      <a class="nav-link" href="./mindmap.html">Mindmap</a>
       <a class="nav-link" href="./search.html">Search</a>
       <span class="mv-theme-slot"></span>
     </div>
@@ -142,7 +140,7 @@
     <p class="sub">Every topic, sorted by its most recent meaningful edit. Dates come from <code>git log</code> on each <code>quizzes/&lt;slug&gt;.json</code>, which is touched only by content commits — no injector or build script writes to it.</p>
   </section>
 
-  <div class="filters" id="filters" role="navigation" aria-label="Filter by section"></div>
+  <div class="filters" id="filters" role="toolbar" aria-label="Filter by section"></div>
 
   <div id="list"></div>
 
@@ -156,18 +154,11 @@
 </main>
 
 <script>
-// Renders the full timeline from `window.MV_RECENT_UPDATES` (populated by
-// recent-updates.js), enriched with section metadata from
-// `window.__MVConcepts.sections.sections`. Grouped by Year-Month; filterable
-// by section via the chip row. All inline — no fetch — so it works under
-// file://.
 (function(){
   var MONTH_NAMES = ['January','February','March','April','May','June',
                      'July','August','September','October','November','December'];
 
   function buildSlugSectionMap(){
-    // Map<slug, { id, title, color }> from the bundled sections.json.
-    // Each section's `topics` array enumerates its slugs; one section per slug.
     var bundle = window.__MVConcepts;
     var sections = bundle && bundle.sections && Array.isArray(bundle.sections.sections)
       ? bundle.sections.sections : [];
@@ -183,11 +174,9 @@
   }
 
   function monthKey(iso){
-    // YYYY-MM-DD → "YYYY-MM". Stable lexicographic order matches chronological.
-    return iso.slice(0, 7);
+    return typeof iso === 'string' ? iso.slice(0, 7) : 'unknown';
   }
   function monthLabel(key){
-    // "YYYY-MM" → "May 2026"
     var parts = key.split('-');
     var y = parts[0], m = parseInt(parts[1], 10) - 1;
     if(isNaN(m) || m < 0 || m > 11) return key;
@@ -195,18 +184,17 @@
   }
 
   function render(entries, sectionMap, sections){
-    // Per-section count for the chip badges.
     var counts = { __all__: entries.length };
     for(var i=0;i<entries.length;i++){
       var meta = sectionMap.get(entries[i].slug);
       if(!meta) continue;
       counts[meta.id] = (counts[meta.id] || 0) + 1;
     }
-    // Filter chip row.
     var filters = document.getElementById('filters');
     filters.innerHTML = '';
     var allChip = makeChip('__all__', 'All', null, counts.__all__);
     allChip.classList.add('active');
+    allChip.setAttribute('aria-pressed', 'true');
     filters.appendChild(allChip);
     for(var k=0;k<sections.length;k++){
       var s = sections[k];
@@ -220,8 +208,12 @@
       var chip = ev.target.closest('.chip');
       if(!chip) return;
       var prev = filters.querySelector('.chip.active');
-      if(prev) prev.classList.remove('active');
+      if(prev){
+        prev.classList.remove('active');
+        prev.setAttribute('aria-pressed', 'false');
+      }
       chip.classList.add('active');
+      chip.setAttribute('aria-pressed', 'true');
       renderList(entries, sectionMap, chip.dataset.sectionId);
     });
   }
@@ -232,6 +224,7 @@
     b.className = 'chip';
     b.dataset.sectionId = sectionId;
     if(color) b.dataset.color = color;
+    b.setAttribute('aria-pressed', 'false');
     b.textContent = label;
     var c = document.createElement('span');
     c.className = 'count';
@@ -243,7 +236,7 @@
   function renderList(entries, sectionMap, sectionId){
     var list = document.getElementById('list');
     list.innerHTML = '';
-    // Group by month, preserving the date-descending order of entries.
+    // Entries arrive date-descending; insertion order into `groups` preserves that.
     var groups = [];
     var byKey = new Map();
     for(var i=0;i<entries.length;i++){
@@ -261,7 +254,7 @@
     }
     if(groups.length === 0){
       var empty = document.createElement('div');
-      empty.className = 'empty-state';
+      empty.className = 'list-empty';
       empty.textContent = 'No updates in this section yet.';
       list.appendChild(empty);
       return;
@@ -290,7 +283,7 @@
   function makeRow(e, section){
     var a = document.createElement('a');
     a.className = 'ru-card' + (e.color ? ' ' + e.color : '');
-    a.href = './' + e.slug + '.html';
+    a.href = './' + encodeURIComponent(e.slug) + '.html';
     a.title = e.message ? (e.date + ' — ' + e.message) : e.date;
     var date = document.createElement('span');
     date.className = 'ru-date';
