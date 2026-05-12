@@ -87,7 +87,10 @@
 
   function init(selector, opts) {
     const root = typeof selector === 'string' ? document.querySelector(selector) : selector;
-    if (!root) return null;
+    if (!root) {
+      console.warn('[MVCounterexampleExplorer] no host for', selector);
+      return null;
+    }
     if (!opts || !Array.isArray(opts.hypotheses) || !opts.hypotheses.length) {
       root.textContent = 'counterexample-explorer: no hypotheses';
       return null;

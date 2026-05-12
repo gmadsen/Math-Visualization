@@ -294,7 +294,10 @@ self.onmessage = function(ev){
     const root = typeof selector === 'string'
       ? document.querySelector(selector)
       : selector;
-    if (!root) return null;
+    if (!root) {
+      console.warn('[MVInlineCodeCell] no host for', selector);
+      return null;
+    }
 
     opts = opts || {};
     const title = opts.title || 'Inline code cell';

@@ -180,7 +180,10 @@
       var el = typeof selector === 'string'
         ? document.querySelector(selector)
         : selector;
-      if (!el) return null;
+      if (!el) {
+        console.warn('[MVSonify] no host for', selector);
+        return null;
+      }
       render(el, opts || {});
       return el;
     },

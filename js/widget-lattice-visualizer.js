@@ -70,7 +70,10 @@
 
   function init(selector, opts) {
     const root = typeof selector === 'string' ? document.querySelector(selector) : selector;
-    if (!root) return null;
+    if (!root) {
+      console.warn('[MVLatticeVisualizer] no host for', selector);
+      return null;
+    }
 
     opts = opts || {};
     const title = opts.title || 'Lattice';
