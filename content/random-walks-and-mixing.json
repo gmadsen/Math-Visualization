@@ -41,7 +41,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./random-walks-and-mixing.html#stationary\">Random walks and mixing</a> · Stationary distributions</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./random-walks-and-mixing.html#stationary\">Random walks and mixing</a> · Stationary distributions</div>\n    <div><a href=\"./spectral-methods-data.html#pagerank\">Spectral methods for massive data sets</a> · PageRank</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -99,7 +99,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./random-walks-and-mixing.html#mixing\">Random walks and mixing</a> · Mixing time</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./random-walks-and-mixing.html#mixing\">Random walks and mixing</a> · Mixing time</div>\n    <div><a href=\"./spectral-methods-data.html#pagerank\">Spectral methods for massive data sets</a> · PageRank</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

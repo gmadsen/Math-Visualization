@@ -141,7 +141,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./high-dimensional-geometry.html#applications\">High-dimensional geometry</a> · Applications</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./high-dimensional-geometry.html#applications\">High-dimensional geometry</a> · Applications</div>\n    <div><a href=\"./spectral-methods-data.html#randomized-svd\">Spectral methods for massive data sets</a> · Randomized SVD and Johnson–Lindenstrauss</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

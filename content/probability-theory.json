@@ -249,7 +249,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./high-dimensional-geometry.html#jl\">High-dimensional geometry</a> · Johnson–Lindenstrauss</div>\n    <div><a href=\"./information-theory.html#entropy\">Information theory</a> · Shannon entropy</div>\n    <div><a href=\"./mathematical-statistics.html#estimators\">Mathematical statistics</a> · Point estimators: bias, consistency, MSE, sufficiency</div>\n    <div><a href=\"./probability-theory.html#expectation\">Probability theory</a> · Expectation, variance, and moments</div>\n    <div><a href=\"./probability-theory.html#conv\">Probability theory</a> · Modes of convergence</div>\n    <div><a href=\"./probability-theory.html#supports\">Probability theory</a> · Supports, distributions, and densities</div>\n    <div class=\"more\">… and 2 more.</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./high-dimensional-geometry.html#jl\">High-dimensional geometry</a> · Johnson–Lindenstrauss</div>\n    <div><a href=\"./information-theory.html#entropy\">Information theory</a> · Shannon entropy</div>\n    <div><a href=\"./mathematical-biology.html#wright-fisher\">Mathematical biology</a> · The Wright–Fisher model</div>\n    <div><a href=\"./mathematical-statistics.html#estimators\">Mathematical statistics</a> · Point estimators: bias, consistency, MSE, sufficiency</div>\n    <div><a href=\"./probability-theory.html#expectation\">Probability theory</a> · Expectation, variance, and moments</div>\n    <div><a href=\"./probability-theory.html#conv\">Probability theory</a> · Modes of convergence</div>\n    <div class=\"more\">… and 3 more.</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -735,7 +735,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./random-walks-and-mixing.html#markov\">Random walks and mixing</a> · Markov chains and transition matrices</div>\n    <div><a href=\"./spectral-graph-theory.html#random-walks\">Spectral graph theory</a> · Random walks and the spectral gap</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./mathematical-biology.html#coalescent\">Mathematical biology</a> · Kingman's coalescent</div>\n    <div><a href=\"./mathematical-biology.html#wright-fisher\">Mathematical biology</a> · The Wright–Fisher model</div>\n    <div><a href=\"./random-walks-and-mixing.html#markov\">Random walks and mixing</a> · Markov chains and transition matrices</div>\n    <div><a href=\"./spectral-graph-theory.html#random-walks\">Spectral graph theory</a> · Random walks and the spectral gap</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -829,7 +829,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./stochastic-calculus.html#ito-integral\">Stochastic calculus</a> · Itô integral</div>\n    <div><a href=\"./stochastic-processes-and-martingales.html#continuous-martingales\">Stochastic processes and martingales</a> · Continuous-time martingales and Brownian motion</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./mathematical-biology.html#kimura\">Mathematical biology</a> · Genetic drift and the Kimura diffusion</div>\n    <div><a href=\"./stochastic-calculus.html#ito-integral\">Stochastic calculus</a> · Itô integral</div>\n    <div><a href=\"./stochastic-processes-and-martingales.html#continuous-martingales\">Stochastic processes and martingales</a> · Continuous-time martingales and Brownian motion</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

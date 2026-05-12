@@ -149,7 +149,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./stochastic-calculus.html#feynman-kac\">Stochastic calculus</a> · Feynman–Kac formula</div>\n    <div><a href=\"./stochastic-calculus.html#girsanov\">Stochastic calculus</a> · Girsanov's theorem</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./mathematical-biology.html#kimura\">Mathematical biology</a> · Genetic drift and the Kimura diffusion</div>\n    <div><a href=\"./stochastic-calculus.html#feynman-kac\">Stochastic calculus</a> · Feynman–Kac formula</div>\n    <div><a href=\"./stochastic-calculus.html#girsanov\">Stochastic calculus</a> · Girsanov's theorem</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
