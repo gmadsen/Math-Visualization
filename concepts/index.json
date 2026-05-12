@@ -1,12 +1,6 @@
 {
   "topics": [
 
-
-
-
-
-
-
     "random-matrix-theory",
 
 
@@ -17,6 +11,11 @@
 
 
 
+
+
+
+
+    "geometric-invariant-theory",
 
 
 
@@ -387,6 +386,7 @@
     "surgery-theory": "advanced",
     "arithmetic-statistics": "advanced",
     "random-matrix-theory": "advanced",
-    "shimura-varieties": "capstone"
+    "shimura-varieties": "capstone",
+    "geometric-invariant-theory": "advanced"
   }
 }

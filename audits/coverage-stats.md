@@ -2,12 +2,12 @@
 
 ## Corpus totals
 
-- Topics: **173**, concepts: **1201**
-- Widgets: **1226** (registry-driven: 1226, inline: 0)
-- Quizzes: **4797** (v1: 3561, hard: 1223, expert: 13)
-- Quiz types: mcq: 3164, numeric: 1164, multi-select: 209, matching: 94, ordering: 71, spot-the-error: 43, complex: 29, proof-completion: 19, construction: 2, guess-my-rule: 2
+- Topics: **174**, concepts: **1208**
+- Widgets: **1233** (registry-driven: 1233, inline: 0)
+- Quizzes: **4818** (v1: 3582, hard: 1223, expert: 13)
+- Quiz types: mcq: 3178, numeric: 1166, multi-select: 211, matching: 96, ordering: 72, spot-the-error: 43, complex: 29, proof-completion: 19, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their section: **149**
-- Concepts lacking a hard-tier quiz: **763**
+- Concepts lacking a hard-tier quiz: **770**
 
 ## Per-slug registry adoption
 
@@ -329,6 +329,13 @@ page has wired one in yet.
 | `general-relativity-kerr` | general-relativity-kerr | slider | 2d | 1 | general-relativity |
 | `general-relativity-light-cones` | general-relativity-light-cones | drag | 2d | 1 | general-relativity |
 | `general-relativity-schwarzschild` | general-relativity-schwarzschild | slider | 2d | 1 | general-relativity |
+| `git-w1` | verbatim | click | 2d | 1 | geometric-invariant-theory |
+| `git-w2` | verbatim | click | 2d | 1 | geometric-invariant-theory |
+| `git-w3` | verbatim | click | 2d | 1 | geometric-invariant-theory |
+| `git-w4` | verbatim | click | 2d | 1 | geometric-invariant-theory |
+| `git-w5` | verbatim | click | 2d | 1 | geometric-invariant-theory |
+| `git-w6` | verbatim | click | 2d | 1 | geometric-invariant-theory |
+| `git-w7` | verbatim | click | 2d | 1 | geometric-invariant-theory |
 | `gmt-bv` | verbatim | slider | 2d | 1 | geometric-measure-theory |
 | `gmt-coarea` | verbatim | slider | 2d | 1 | geometric-measure-theory |
 | `gmt-currents` | verbatim | click | 2d | 1 | geometric-measure-theory |
@@ -857,13 +864,13 @@ page has wired one in yet.
 
 ### Algebraic geometry
 
-- Topics: **31**, concepts: **185**
-- Widgets: **193** (registry-driven: 193, inline: 0)
-  - by family: button-stepper: 61, verbatim: 49, clickable-diagram: 23, proof-scrubber: 7, clickable-graph: 6, declarative-host: 6, parametric-plot: 4, modular-arithmetic-clock: 2, svg-illustration: 2, calabi-yau-canonical-degree: 1, calabi-yau-hodge-diamond: 1, calabi-yau-hypersurface-zoo: 1, calabi-yau-periods: 1, calabi-yau-mirror-swap: 1, calabi-yau-syz-fibration: 1, mirror-hodge-diamond: 1, mirror-quintic-counts: 1, mirror-stable-map: 1, mirror-quintic-periods: 1, mirror-hms-pairing: 1, mirror-syz-fibration: 1, resolution-cusp-node-visualizer: 1, resolution-cuspidal-blowup: 1, resolution-tower-of-blowups: 1, resolution-curve-normalization: 1, resolution-ade-dynkin: 1, lattice-visualizer: 1, algebraic-curves-riemann-hurwitz-cover: 1, algebraic-curves-jacobian-lattice: 1, algebraic-curves-riemann-roch-scrubber: 1, algebraic-curves-canonical-embedding-scrubber: 1, algebraic-curves-hyperelliptic-cover: 1, algebraic-curves-moduli-boundary: 1, algebraic-de-rham-kahler-scrubber: 1, algebraic-de-rham-complex-scrubber: 1, algebraic-de-rham-betti-comparison-scrubber: 1, algebraic-de-rham-hodge-filtration-scrubber: 1, algebraic-de-rham-hodge-diamond-clickgraph: 1, algebraic-de-rham-hodge-pn-explorer: 1, algebraic-de-rham-curve-clickable: 1, algebraic-de-rham-hodge-sandbox: 1, counterexample-explorer: 1
-  - by dimension: 2d: 193
-  - by gesture: click: 137, slider: 17, interact: 16, select: 8, scrub: 7, inspect: 5, drag: 2, slide: 1
-- Quizzes: **800** (v1: 555, hard: 245, expert: 0)
-  - by type: mcq: 531, numeric: 211, multi-select: 27, matching: 15, spot-the-error: 7, ordering: 5, complex: 3, proof-completion: 1
+- Topics: **32**, concepts: **192**
+- Widgets: **200** (registry-driven: 200, inline: 0)
+  - by family: button-stepper: 61, verbatim: 56, clickable-diagram: 23, proof-scrubber: 7, clickable-graph: 6, declarative-host: 6, parametric-plot: 4, modular-arithmetic-clock: 2, svg-illustration: 2, calabi-yau-canonical-degree: 1, calabi-yau-hodge-diamond: 1, calabi-yau-hypersurface-zoo: 1, calabi-yau-periods: 1, calabi-yau-mirror-swap: 1, calabi-yau-syz-fibration: 1, mirror-hodge-diamond: 1, mirror-quintic-counts: 1, mirror-stable-map: 1, mirror-quintic-periods: 1, mirror-hms-pairing: 1, mirror-syz-fibration: 1, resolution-cusp-node-visualizer: 1, resolution-cuspidal-blowup: 1, resolution-tower-of-blowups: 1, resolution-curve-normalization: 1, resolution-ade-dynkin: 1, lattice-visualizer: 1, algebraic-curves-riemann-hurwitz-cover: 1, algebraic-curves-jacobian-lattice: 1, algebraic-curves-riemann-roch-scrubber: 1, algebraic-curves-canonical-embedding-scrubber: 1, algebraic-curves-hyperelliptic-cover: 1, algebraic-curves-moduli-boundary: 1, algebraic-de-rham-kahler-scrubber: 1, algebraic-de-rham-complex-scrubber: 1, algebraic-de-rham-betti-comparison-scrubber: 1, algebraic-de-rham-hodge-filtration-scrubber: 1, algebraic-de-rham-hodge-diamond-clickgraph: 1, algebraic-de-rham-hodge-pn-explorer: 1, algebraic-de-rham-curve-clickable: 1, algebraic-de-rham-hodge-sandbox: 1, counterexample-explorer: 1
+  - by dimension: 2d: 200
+  - by gesture: click: 144, slider: 17, interact: 16, select: 8, scrub: 7, inspect: 5, drag: 2, slide: 1
+- Quizzes: **821** (v1: 576, hard: 245, expert: 0)
+  - by type: mcq: 545, numeric: 213, multi-select: 29, matching: 17, spot-the-error: 7, ordering: 6, complex: 3, proof-completion: 1
 
 ### Combinatorics & graph theory
 
@@ -888,6 +895,7 @@ page has wired one in yet.
 ## Per-topic
 
 - `random-matrix-theory` (Probability & statistics) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
+- `geometric-invariant-theory` (Algebraic geometry) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
 - `several-complex-variables` (Analysis) — concepts=6, widgets=5 (slug=5), quiz=18 (v1=18, hard=0, expert=0)
 - `khovanov-homology` (Geometry & topology) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `shimura-varieties` (Modular forms & L-functions) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
@@ -1095,16 +1103,16 @@ page has wired one in yet.
 - `rmt-free-probability` (random-matrix-theory)
 - `rmt-universality` (random-matrix-theory)
 - `rmt-katz-sarnak` (random-matrix-theory)
+- `git-invariants` (geometric-invariant-theory)
+- `git-reductive` (geometric-invariant-theory)
+- `git-quotient` (geometric-invariant-theory)
+- `git-hilbert-mumford` (geometric-invariant-theory)
+- `git-kempf-ness` (geometric-invariant-theory)
+- `git-vgit` (geometric-invariant-theory)
+- `git-moduli-applications` (geometric-invariant-theory)
 - `scv-hartogs` (several-complex-variables)
 - `scv-psh` (several-complex-variables)
 - `scv-dbar` (several-complex-variables)
 - `scv-pseudoconvex` (several-complex-variables)
 - `scv-stein` (several-complex-variables)
 - `scv-cousin` (several-complex-variables)
-- `khov-cube` (khovanov-homology)
-- `khov-complex` (khovanov-homology)
-- `khov-jones-categorification` (khovanov-homology)
-- `khov-rasmussen` (khovanov-homology)
-- `khov-foams` (khovanov-homology)
-- `khov-applications` (khovanov-homology)
-- `shim-datum` (shimura-varieties)
