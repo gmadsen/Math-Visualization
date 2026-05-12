@@ -278,10 +278,10 @@ vanishes identically. Equivalently $\bar\partial^2 = 0$, equivalently $T^{0,1}$ 
 <div class="widget" id="w-bigrading">
   <div class="hd"><div class="ttl">$(p,q)$-bigrading explorer</div><div class="hint">pick complex dimension $n$ and total degree $k$ · count $\Omega^{p,q}$ summands</div></div>
   <div class="row">
-    <label>$n$ (complex dim)</label>
+    <label for="bg-n">$n$ (complex dim)</label>
     <input type="range" id="bg-n" min="1" max="6" step="1" value="3">
     <span id="bg-n-val">3</span>
-    <label>$k$ (form degree)</label>
+    <label for="bg-k">$k$ (form degree)</label>
     <input type="range" id="bg-k" min="0" max="12" step="1" value="2">
     <span id="bg-k-val">2</span>
   </div>
@@ -393,7 +393,7 @@ Three conditions on three different geometric structures collapse into one close
 <div class="widget" id="w-fubini">
   <div class="hd"><div class="ttl">Fubini–Study potential on $\mathbb{CP}^1$</div><div class="hint">slide $|z|$ · watch $K = \log(1+|z|^2)$ and its second derivative</div></div>
   <div class="row">
-    <label>$|z|$</label>
+    <label for="fs-z">$|z|$</label>
     <input type="range" id="fs-z" min="0" max="3" step="0.05" value="1">
     <span id="fs-z-val">1.00</span>
   </div>
@@ -505,7 +505,7 @@ $$H^k(M;\mathbb{C}) \;=\; \bigoplus_{p+q=k} H^{p,q}(M), \qquad H^{p,q}(M) \cong 
 <div class="widget" id="w-diamond">
   <div class="hd"><div class="ttl">Hodge diamond explorer</div><div class="hint">pick complex dimension $n$ · independent entries highlighted</div></div>
   <div class="row">
-    <label>$n$</label>
+    <label for="hd-n">$n$</label>
     <input type="range" id="hd-n" min="1" max="4" step="1" value="3">
     <span id="hd-n-val">3</span>
   </div>
@@ -592,7 +592,7 @@ Combined with Hodge theory this is the source of the <strong>Hodge–Riemann bil
 <div class="widget" id="w-lefschetz">
   <div class="hd"><div class="ttl">Hard Lefschetz pairings</div><div class="hint">pick $n$ · trace which Betti numbers $L^k$ matches up</div></div>
   <div class="row">
-    <label>$n$</label>
+    <label for="lf-n">$n$</label>
     <input type="range" id="lf-n" min="1" max="5" step="1" value="3">
     <span id="lf-n-val">3</span>
   </div>
@@ -694,7 +694,7 @@ with $\omega + i\,\partial\bar\partial\varphi$ positive — uniqueness is straig
 <div class="widget" id="w-monge">
   <div class="hd"><div class="ttl">Complex Monge–Ampère cartoon</div><div class="hint">prescribed volume $e^{f}\omega^n$ vs. attained volume $(\omega + i\partial\bar\partial\varphi)^n$</div></div>
   <div class="row">
-    <label>$f$</label>
+    <label for="mc-f">$f$</label>
     <input type="range" id="mc-f" min="-1.5" max="1.5" step="0.05" value="0.6">
     <span id="mc-f-val">0.60</span>
   </div>
@@ -788,7 +788,7 @@ for a constant $c \in \mathbb{R}$. Taking cohomology classes, $2\pi c_1(M) = c\,
 <div class="widget" id="w-ke">
   <div class="hd"><div class="ttl">Kähler–Einstein sign chart</div><div class="hint">slide $c_1(M)$ · read off the existence regime</div></div>
   <div class="row">
-    <label>$c_1(M)$ sign</label>
+    <label for="ke-c">$c_1(M)$ sign</label>
     <input type="range" id="ke-c" min="-1" max="1" step="0.01" value="0">
     <span id="ke-c-val">0</span>
   </div>
