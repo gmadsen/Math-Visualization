@@ -44,7 +44,6 @@ A systematic pass: for each section, compare against a canonical reference (PCM,
 - **Index-card thumb art.** First curation pass replaced the 12 weakest thumbs; new topic-batch PRs ship motif art on every new card. Remaining surface is the pre-existing midbody.
 - **Hoist semantic params out of verbatim slugs.** Roughly 175 per-widget verbatim slugs share `widgets/_shared/verbatim-renderer.mjs` with opaque `bodyMarkup`/`bodyScript` strings. Migrating them to bespoke renderers with semantic params (slider ranges, color tokens, etc.) lets AJV validation and alt frontends actually inspect each widget. Worth doing in batches by topic.
 - **Recently-updated: full-history page.** Wire a "full history →" link from `index.html` `#recently-updated` to a new `updates.html` that renders the complete timeline. Today `recent-updates.json` only keeps the most-recent slice for the homepage — the generator (`scripts/build-recent-updates.mjs`) needs extending to retain the full timeline, or the page can read `git log --follow` at build time. Date grouping (month headers) and per-section filtering help once the list grows past a screen.
-- **Section progress bar empty state.** `index.html` `.sec-progress` renders a faded track for fresh visitors with no `mvnb.progress.v1` localStorage. The faded `data-empty` styling reads as "loading" rather than "you haven't started". Either hide when `mastered === 0`, or add a `0/N` label so it's obvious the bar tracks the visitor's progress, not corpus completeness.
 
 ## Three.js / Pyodide / alt frontends (long-running)
 
