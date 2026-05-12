@@ -218,7 +218,9 @@ function extractSelectors(widgetHtml) {
 //   - the widget tree itself contains an inline on* handler (onclick, oninput,
 //     onpointerdown, onchange, onpointermove, onpointerup, onmouseover, …)
 //   - a later <script> block references the widget's id or class AND uses
-//     one of the event-binding verbs (addEventListener, make3DDraggable, …),
+//     one of the event-binding verbs (addEventListener, make3DDraggable, …)
+//     or delegates to a shared-library `MV*.init(...)` helper (the helper
+//     does the actual event wiring inside `js/widget-*.js`),
 //     OR it references the selector through $(' #id ') / $('.class') /
 //     document.getElementById('id') / document.querySelector('…') — these
 //     are almost always followed by a handler in this codebase.
@@ -228,7 +230,7 @@ function extractSelectors(widgetHtml) {
 // "static" list beat a noisy false-positive tide.
 
 const EVENT_VERBS_RE =
-  /\b(addEventListener|removeEventListener|make3DDraggable|requestAnimationFrame)\b/;
+  /\b(addEventListener|removeEventListener|make3DDraggable|requestAnimationFrame|MV[A-Z][A-Za-z]+\.init)\b/;
 const INLINE_HANDLER_ATTR_RE =
   /\bon(?:click|input|change|pointerdown|pointermove|pointerup|pointercancel|mousedown|mousemove|mouseup|mouseover|mouseout|mouseenter|mouseleave|keydown|keyup|keypress|wheel|touchstart|touchmove|touchend|focus|blur|submit|dblclick|contextmenu)\s*=\s*["']/i;
 
