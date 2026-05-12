@@ -295,6 +295,69 @@ $$\kappa(X) \;=\; \begin{cases} -\infty & \text{if } h^0(X, K_X^{\otimes m}) = 0
   </div>
   <div class="readout" id="kc-out">Pick a genus. The plot shows $h^0(C, K_C^{\otimes m})$ as a function of $m$ for $m = 0, 1, \ldots, 8$, and reads off the Kodaira dimension from the growth rate.</div>
 </div>
+<script>
+(function(){
+  const G = $("#kc-g"), Gv = $("#kc-gv"), svg = $("#kc-svg"), out = $("#kc-out");
+  const W = 720, H = 280;
+  const PADL = 60, PADR = 40, PADT = 24, PADB = 50;
+  const M_MAX = 8;
+  function render(){
+    const g = +G.value;
+    Gv.textContent = "g = " + g;
+    svg.innerHTML = "";
+    // h^0(K^m) on a curve of genus g: by RR, deg(mK) = m(2g-2). For m = 0, h^0 = 1.
+    // For m >= 1: if 2g-2 < 0, h^0 = 0; if 2g-2 = 0 (g=1), h^0 = 1; if 2g-2 > 0, h^0 = m(2g-2) - g + 1 for m large; for m=1, h^0(K) = g.
+    const vals = [];
+    for(let m = 0; m <= M_MAX; m++){
+      let h;
+      if(m === 0) h = 1;
+      else if(g === 0) h = 0;
+      else if(g === 1) h = 1;
+      else if(m === 1) h = g;
+      else h = m * (2 * g - 2) - g + 1;
+      vals.push(h);
+    }
+    const yMax = Math.max(8, ...vals);
+    const sx = m => PADL + (W - PADL - PADR) * m / M_MAX;
+    const sy = v => H - PADB - (H - PADT - PADB) * v / yMax;
+    // axes
+    svg.appendChild(SVG("line", {x1: PADL, y1: H - PADB, x2: W - PADR, y2: H - PADB, stroke: "var(--mute)"}));
+    svg.appendChild(SVG("line", {x1: PADL, y1: H - PADB, x2: PADL, y2: PADT, stroke: "var(--mute)"}));
+    // axis labels
+    const xl = SVG("text", {x: (PADL + W - PADR)/2, y: H - 14, "text-anchor": "middle", "font-size": 13, fill: "var(--mute)"});
+    xl.textContent = "m"; svg.appendChild(xl);
+    const yl = SVG("text", {x: 16, y: (PADT + H - PADB)/2, "text-anchor": "middle", "font-size": 13, fill: "var(--mute)", transform: `rotate(-90 16 ${(PADT + H - PADB)/2})`});
+    yl.textContent = "h^0(K^m)"; svg.appendChild(yl);
+    // ticks
+    for(let m = 0; m <= M_MAX; m++){
+      const t = SVG("text", {x: sx(m), y: H - PADB + 16, "text-anchor": "middle", "font-size": 11, fill: "var(--mute)"});
+      t.textContent = m; svg.appendChild(t);
+    }
+    // bars
+    for(let m = 0; m <= M_MAX; m++){
+      const v = vals[m];
+      if(v <= 0){
+        // mark as zero
+        svg.appendChild(SVG("circle", {cx: sx(m), cy: H - PADB, r: 3, fill: "var(--pink)"}));
+        continue;
+      }
+      const x1 = sx(m) - 12, x2 = sx(m) + 12;
+      const y1 = sy(v), y2 = H - PADB;
+      svg.appendChild(SVG("rect", {x: x1, y: y1, width: x2-x1, height: y2-y1, fill: "var(--yellow)", opacity: .85}));
+      const lbl = SVG("text", {x: sx(m), y: y1 - 4, "text-anchor": "middle", "font-size": 11, fill: "var(--ink)"});
+      lbl.textContent = v; svg.appendChild(lbl);
+    }
+    // verdict
+    let kappa, regime;
+    if(g === 0){ kappa = "−∞"; regime = "rational curve — no pluricanonical sections."; }
+    else if(g === 1){ kappa = "0"; regime = "elliptic curve — K is trivial, h^0 constant at 1."; }
+    else { kappa = "1"; regime = `genus ${g} — h^0(K^m) grows linearly: m·(2g-2) − g + 1.`; }
+    out.textContent = `g = ${g}: κ(C) = ${kappa}. ${regime}`;
+  }
+  G.addEventListener("input", render);
+  render();
+})();
+</script>
 
 <div class="note">
 <p style="margin:.2rem 0"><strong>Birational invariance.</strong> If $X \dashrightarrow X'$ is a birational map of smooth projective varieties, then $\kappa(X) = \kappa(X')$.</p>
@@ -344,6 +407,88 @@ $$\overline{NE}(X) \;=\; \overline{NE}(X)_{K_X \ge 0} \;+\; \sum_{i \in I} \math
   </div>
   <div class="readout" id="cone-out">Pick a surface. The shaded region is $\overline{NE}(X)$ in $N_1(X)_\mathbb{R} \cong \mathbb{R}^2$. Click an extremal ray to read its contraction type.</div>
 </div>
+<script>
+(function(){
+  const sel = $("#cone-ex"), svg = $("#cone-svg"), out = $("#cone-out");
+  const W = 720, H = 360;
+  const CX = 240, CY = 280;
+  // Use a cleaner explicit description
+  const data = {
+    bp1: {
+      desc: "Bl_p ℙ² = Hirzebruch surface 𝔽_1, ρ = 2. Mori cone has two K-negative extremal rays of different geometric character: [E], the unique (-1)-curve, and [ℓ̃], the fibre class of the ruling 𝔽_1 → ℙ¹.",
+      rays: [
+        {dir: [1.0, 0.1], col: "var(--yellow)", name: "[E]", info: "The exceptional (-1)-curve. E² = -1, K·E = -1. Contraction: divisorial → ℙ². This is the inverse of blowing up p."},
+        {dir: [0.1, 1.0], col: "var(--cyan)", name: "[ℓ̃]", info: "Proper transform of a line through p — fibre class of 𝔽_1 → ℙ¹: ℓ̃² = 0, K·ℓ̃ = -2. Contraction: fibre-type → ℙ¹ (sweeping out the rulings)."},
+      ]
+    },
+    bp2: {
+      desc: "Bl_{p,q} ℙ² has ρ = 3 — but for visualisation we project to a 2-plane. Three K-negative extremal rays: the two exceptional curves E_1, E_2 and the line ℓ̃_{pq} through both points (a -1-curve once contracted).",
+      rays: [
+        {dir: [1.0, 0.0], col: "var(--yellow)", name: "[E_1]", info: "Exceptional (-1)-curve over p. K-negative; divisorial contraction."},
+        {dir: [0.5, 0.87], col: "var(--cyan)", name: "[E_2]", info: "Exceptional (-1)-curve over q. K-negative; divisorial contraction."},
+        {dir: [-0.5, 0.87], col: "var(--green)", name: "[ℓ̃_{pq}]", info: "Proper transform of the line through p and q — has self-intersection -1. Contracting it produces ℙ¹ × ℙ¹."},
+      ]
+    },
+    p1p1: {
+      desc: "ℙ¹ × ℙ¹ has ρ = 2. Mori cone is spanned by the two ruling classes [F_1] = pt × ℙ¹ and [F_2] = ℙ¹ × pt; both rays are extremal and K-negative (each fibre class has K·F = -2).",
+      rays: [
+        {dir: [1.0, 0.0], col: "var(--yellow)", name: "[F_1]", info: "Fibre of the projection to the second factor. K·F_1 = -2. Contraction: fibre type → ℙ¹ (the second factor)."},
+        {dir: [0.0, 1.0], col: "var(--cyan)", name: "[F_2]", info: "Fibre of the projection to the first factor. K·F_2 = -2. Contraction: fibre type → ℙ¹."},
+      ]
+    }
+  };
+  function render(){
+    const k = sel.value, d = data[k];
+    svg.innerHTML = "";
+    // background half-plane
+    svg.appendChild(SVG("rect", {x: 30, y: 30, width: 420, height: 300, fill: "var(--panel2)", opacity: .35, rx: 6}));
+    // axes
+    svg.appendChild(SVG("line", {x1: 50, y1: CY, x2: 460, y2: CY, stroke: "var(--mute)"}));
+    svg.appendChild(SVG("line", {x1: CX, y1: 40, x2: CX, y2: 320, stroke: "var(--mute)"}));
+    // shade Mori cone (approx) as union of rays
+    // collect ray endpoints
+    const tips = d.rays.map(r => [CX + r.dir[0]*180, CY - r.dir[1]*180]);
+    // polygon: origin + tips in angular order
+    const tipsSorted = [...tips].sort((a,b) => Math.atan2(-(a[1]-CY), a[0]-CX) - Math.atan2(-(b[1]-CY), b[0]-CX));
+    const pts = [`${CX},${CY}`, ...tipsSorted.map(t => `${t[0]},${t[1]}`)].join(" ");
+    svg.appendChild(SVG("polygon", {points: pts, fill: "var(--violet)", opacity: .15, stroke: "var(--violet)", "stroke-dasharray": "4,3", "stroke-width": 1}));
+    // draw rays
+    d.rays.forEach((r, i) => {
+      const x2 = CX + r.dir[0]*180, y2 = CY - r.dir[1]*180;
+      const line = SVG("line", {x1: CX, y1: CY, x2, y2, stroke: r.col, "stroke-width": 3, style: "cursor:pointer"});
+      line.addEventListener("click", () => { out.textContent = r.name + ": " + r.info; tag.forEach(t => t.classList.remove("on")); tag[i].classList.add("on"); });
+      svg.appendChild(line);
+      const lbl = SVG("text", {x: x2 + r.dir[0]*14, y: y2 - r.dir[1]*14 + 5, "text-anchor": "middle", "font-size": 13, fill: r.col, "font-weight": 600, style: "cursor:pointer"});
+      lbl.textContent = r.name;
+      lbl.addEventListener("click", () => { out.textContent = r.name + ": " + r.info; tag.forEach(t => t.classList.remove("on")); tag[i].classList.add("on"); });
+      svg.appendChild(lbl);
+    });
+    // origin
+    svg.appendChild(SVG("circle", {cx: CX, cy: CY, r: 4, fill: "var(--ink)"}));
+    // axis hints
+    const xh = SVG("text", {x: 470, y: CY + 5, "font-size": 12, fill: "var(--mute)"});
+    xh.textContent = "N_1(X)_ℝ"; svg.appendChild(xh);
+    // legend on right
+    let yy = 60;
+    const tg = SVG("text", {x: 490, y: yy, "font-size": 13, fill: "var(--ink)", "font-weight": 600});
+    tg.textContent = "K-negative rays:"; svg.appendChild(tg); yy += 20;
+    const tag = [];
+    d.rays.forEach((r, i) => {
+      const sw = SVG("rect", {x: 490, y: yy - 10, width: 16, height: 4, fill: r.col, rx: 2});
+      svg.appendChild(sw);
+      const t = SVG("text", {x: 512, y: yy, "font-size": 12, fill: r.col, style: "cursor:pointer"});
+      t.textContent = r.name;
+      t.addEventListener("click", () => { out.textContent = r.name + ": " + r.info; });
+      svg.appendChild(t);
+      tag.push(t);
+      yy += 20;
+    });
+    out.textContent = d.desc;
+  }
+  sel.addEventListener("change", render);
+  render();
+})();
+</script>
 
 <h3>Extremal contractions</h3>
 
@@ -405,6 +550,84 @@ $$\overline{NE}(X) \;=\; \overline{NE}(X)_{K_X \ge 0} \;+\; \sum_{i \in I} \math
   </div>
   <div class="readout" id="cv-out">Start: $\mathbb{P}^2$ blown up at three points. Click a $(-1)$-curve (yellow) to contract it. Watch $\rho$ drop until the surface is minimal.</div>
 </div>
+<script>
+(function(){
+  const svg = $("#cv-svg"), out = $("#cv-out"), rho = $("#cv-rho"), reset = $("#cv-reset");
+  // Model: an ordered list of (-1)-curves on the current surface, plus the (+) ample line. Contracting one removes it from the list and lowers ρ by 1.
+  // Initial state: Bl_{p1,p2,p3} ℙ² has 6 distinguished (-1)-curves: 3 exceptional E_i and 3 line transforms ℓ_{ij}̃.
+  // For simplicity: track ρ and the set of named (-1)-curves; contracting removes that curve and any curves that "depended on it".
+  const initial = {
+    rho: 4,
+    curves: [
+      {name: "E_1", x: 120, y: 80, kind: "exceptional"},
+      {name: "E_2", x: 360, y: 80, kind: "exceptional"},
+      {name: "E_3", x: 600, y: 80, kind: "exceptional"},
+      {name: "ℓ̃_{12}", x: 240, y: 200, kind: "line", deps: ["E_1", "E_2"]},
+      {name: "ℓ̃_{13}", x: 360, y: 240, kind: "line", deps: ["E_1", "E_3"]},
+      {name: "ℓ̃_{23}", x: 480, y: 200, kind: "line", deps: ["E_2", "E_3"]},
+    ]
+  };
+  let state = JSON.parse(JSON.stringify(initial));
+  function render(){
+    svg.innerHTML = "";
+    rho.textContent = "ρ(X) = " + state.rho;
+    // surface label
+    const t = SVG("text", {x: 360, y: 30, "text-anchor":"middle", "font-size": 14, fill: "var(--mute)"});
+    t.textContent = state.rho === 1 ? "Minimal: ℙ²" : `Surface with ρ = ${state.rho}, (-1)-curves remaining: ${state.curves.length}`;
+    svg.appendChild(t);
+    // dotted box representing the surface
+    svg.appendChild(SVG("rect", {x: 50, y: 50, width: 620, height: 240, fill: "var(--panel2)", opacity: .3, stroke: "var(--mute)", "stroke-dasharray": "4,3", rx: 8}));
+    if(state.curves.length === 0){
+      // we are at ℙ² (assuming all blown-down)
+      const lbl = SVG("text", {x: 360, y: 170, "text-anchor":"middle", "font-size": 22, fill: "var(--green)"});
+      lbl.textContent = "ℙ² — no (-1)-curves remain"; svg.appendChild(lbl);
+    } else {
+      state.curves.forEach((c) => {
+        const isExc = c.kind === "exceptional";
+        svg.appendChild(SVG("circle", {cx: c.x, cy: c.y, r: 26, fill: "var(--yellow)", opacity: .85, stroke: "var(--ink)", "stroke-width": 1.2, style:"cursor:pointer"}));
+        const ttxt = SVG("text", {x: c.x, y: c.y + 5, "text-anchor":"middle", "font-size": 12, fill: "var(--bg)", "font-weight": 600, style:"cursor:pointer"});
+        ttxt.textContent = c.name;
+        const click = () => contract(c.name);
+        svg.lastChild.addEventListener("click", click);
+        ttxt.addEventListener("click", click);
+        svg.appendChild(ttxt);
+      });
+    }
+    // legend
+    const lg = SVG("text", {x: 60, y: 304, "font-size": 11, fill: "var(--mute)"});
+    lg.textContent = "yellow disks = (-1)-curves; click to contract"; svg.appendChild(lg);
+  }
+  function contract(name){
+    const idx = state.curves.findIndex(c => c.name === name);
+    if(idx < 0) return;
+    const c = state.curves[idx];
+    state.curves.splice(idx, 1);
+    state.rho -= 1;
+    // contract: any "line" curve depending on this E_i: its self-intersection rises (was -1, now becomes 0 after contraction).
+    // After contracting E_i, the lines through p_i (i.e. ℓ̃ depending on E_i) acquire self-intersection 0 and are no longer (-1)-curves.
+    // After contracting all three E_i (going to ℙ²), nothing remains. Also: contracting a line ℓ̃_{ij} sends Bl_{p1,p2,p3}ℙ² to ℙ¹×ℙ¹ blown up at one point.
+    if(c.kind === "exceptional"){
+      // remove dependent lines
+      state.curves = state.curves.filter(d => !(d.deps && d.deps.includes(c.name)));
+    }
+    if(c.kind === "line"){
+      // contracting a line of the form ℓ̃_{ij}: the two exceptional curves that "lay above" this line get merged and the surface becomes Bl_p (ℙ¹×ℙ¹) — for our cartoon, just remove it and keep the E's.
+      // No additional removals.
+    }
+    let msg = `Contracted ${c.name}. ρ now = ${state.rho}. `;
+    if(state.curves.length === 0){
+      if(state.rho === 1) msg += "Reached ℙ² — minimal model.";
+      else msg += "No more (-1)-curves; surface is minimal.";
+    } else {
+      msg += `${state.curves.length} (-1)-curve(s) remain — keep contracting.`;
+    }
+    out.textContent = msg;
+    render();
+  }
+  reset.addEventListener("click", () => { state = JSON.parse(JSON.stringify(initial)); out.textContent = "Reset to Bl_{p1,p2,p3} ℙ². Click a yellow (-1)-curve to begin."; render(); });
+  render();
+})();
+</script>
 
 <h3>The Enriques–Kodaira classification</h3>
 
@@ -467,6 +690,68 @@ $$\overline{NE}(X) \;=\; \overline{NE}(X)_{K_X \ge 0} \;+\; \sum_{i \in I} \math
   </div>
   <div class="readout" id="fl-out">$t = 0$: original $X$ with curve $C$ ($K_X \cdot C < 0$). $t \in (0,1)$: contraction to singular $Y$. $t = 1$: flipped $X^+$ with $K_{X^+} \cdot C^+ > 0$.</div>
 </div>
+<script>
+(function(){
+  const T = $("#fl-t"), Tv = $("#fl-tv"), svg = $("#fl-svg"), out = $("#fl-out");
+  const W = 720, H = 320;
+  function render(){
+    const t = +T.value;
+    Tv.textContent = "t = " + t.toFixed(2);
+    svg.innerHTML = "";
+    // three blobs: X (left), Y (centre, possibly singular), X+ (right)
+    const blob = (cx, cy, fill, label, sub) => {
+      svg.appendChild(SVG("ellipse", {cx, cy, rx: 90, ry: 60, fill, opacity: .35, stroke: "var(--ink)", "stroke-width": 1}));
+      const t1 = SVG("text", {x: cx, y: cy - 6, "text-anchor": "middle", "font-size": 18, fill: "var(--ink)", "font-weight": 600});
+      t1.textContent = label; svg.appendChild(t1);
+      const t2 = SVG("text", {x: cx, y: cy + 14, "text-anchor": "middle", "font-size": 11, fill: "var(--mute)"});
+      t2.textContent = sub; svg.appendChild(t2);
+    };
+    blob(120, 160, "var(--cyan)", "X", "smooth");
+    blob(360, 160, "var(--violet)", "Y", t > 0.05 && t < 0.95 ? "singular" : "");
+    blob(600, 160, "var(--green)", "X⁺", "smooth (flipped)");
+    // contracted curve in X (a small loop) — opacity decreases as t -> 1
+    const opL = Math.max(0, 1 - 2*t);
+    const opR = Math.max(0, 2*t - 1);
+    if(opL > 0){
+      svg.appendChild(SVG("ellipse", {cx: 120, cy: 195, rx: 35, ry: 8, fill: "none", stroke: "var(--yellow)", "stroke-width": 2.5, opacity: opL}));
+      const cl = SVG("text", {x: 120, y: 222, "text-anchor": "middle", "font-size": 12, fill: "var(--yellow)", opacity: opL});
+      cl.textContent = "C  (K·C < 0)"; svg.appendChild(cl);
+    }
+    // singular point in Y — visible 0 < t < 1
+    const opY = (t > 0.05 && t < 0.95) ? 1 : 0;
+    if(opY > 0){
+      svg.appendChild(SVG("polygon", {points: "356,168 360,160 364,168 368,160 372,168", stroke: "var(--pink)", fill: "none", "stroke-width": 2, opacity: opY}));
+      const yl = SVG("text", {x: 360, y: 222, "text-anchor": "middle", "font-size": 12, fill: "var(--pink)", opacity: opY});
+      yl.textContent = "image of C"; svg.appendChild(yl);
+    }
+    // contracted curve in X+ (a small loop in different orientation) — opacity increases
+    if(opR > 0){
+      svg.appendChild(SVG("ellipse", {cx: 600, cy: 145, rx: 8, ry: 35, fill: "none", stroke: "var(--green)", "stroke-width": 2.5, opacity: opR}));
+      const cr = SVG("text", {x: 600, y: 222, "text-anchor": "middle", "font-size": 12, fill: "var(--green)", opacity: opR});
+      cr.textContent = "C⁺  (K·C⁺ > 0)"; svg.appendChild(cr);
+    }
+    // arrows
+    drawArrow(svg, [210, 160], [270, 160], {color: "var(--mute)", markerId:"flarr1", label: "φ", labelSide: 1});
+    drawArrow(svg, [510, 160], [450, 160], {color: "var(--mute)", markerId:"flarr2", label: "φ⁺", labelSide: 0});
+    // dashed birational arrow X --> X+
+    drawArrow(svg, [210, 80], [510, 80], {color: "var(--yellow)", curve: -28, markerId:"flarr3", label: "flip", dash: "5,4"});
+    // panel labels
+    const pn = SVG("text", {x: 120, y: 50, "text-anchor": "middle", "font-size": 12, fill: "var(--cyan)", "font-weight": 600});
+    pn.textContent = "K_X · C < 0"; svg.appendChild(pn);
+    const pn2 = SVG("text", {x: 600, y: 50, "text-anchor": "middle", "font-size": 12, fill: "var(--green)", "font-weight": 600});
+    pn2.textContent = "K_{X⁺} · C⁺ > 0"; svg.appendChild(pn2);
+    // narration
+    let msg;
+    if(t < 0.05) msg = "Initial state: smooth X with K_X-negative extremal curve C (yellow loop). The contraction φ : X → Y is small.";
+    else if(t > 0.95) msg = "Flipped state: X⁺ has the same singular contraction target Y, but the strict transform C⁺ now has K_{X⁺} · C⁺ > 0. The Picard number is preserved.";
+    else if(t < 0.5) msg = "Contracting: the curve C shrinks to a singular point of Y. K_Y is not Q-Cartier here — that is why we can't simply continue the MMP on Y.";
+    else msg = "Resolving the singular Y on the right: replace the contraction by φ⁺ : X⁺ → Y, with a different small modification on top.";
+    out.textContent = msg;
+  }
+  T.addEventListener("input", render);
+  render();
+})();
+</script>
 
 <h3>Existence and termination</h3>
 
@@ -523,6 +808,58 @@ $$K_Y \;=\; f^*(K_X + \Delta) \;+\; \sum_E a_E(X, \Delta)\, E,$$
   </div>
   <div class="readout" id="dc-out">$\mathbb{A}^2/\mathbb{Z}_n$ resolves to a chain of $n-1$ exceptional $\mathbb{P}^1$'s with self-intersection $-2$ each. All discrepancies are $0$ — these are the canonical singularities.</div>
 </div>
+<script>
+(function(){
+  const N = $("#dc-n"), Nv = $("#dc-nv"), svg = $("#dc-svg"), out = $("#dc-out");
+  const W = 720, H = 280;
+  function render(){
+    const n = +N.value;
+    Nv.textContent = "n = " + n;
+    svg.innerHTML = "";
+    // Top: image of singularity (a cone tip).
+    // Bottom: chain of n-1 ℙ¹'s, each labelled with discrepancy 0 (canonical).
+    // header
+    const ht = SVG("text", {x: 360, y: 30, "text-anchor": "middle", "font-size": 14, fill: "var(--mute)"});
+    ht.textContent = `A_{${n-1}} singularity: 𝔸²/ℤ_${n} (cyclic quotient of order ${n})`;
+    svg.appendChild(ht);
+    // bottom: n-1 circles for exceptional ℙ¹'s
+    const k = n - 1;
+    const startX = 80, endX = 640;
+    const cy = 170;
+    const xs = [];
+    for(let i = 0; i < k; i++){
+      const x = k === 1 ? (startX + endX)/2 : startX + (endX - startX) * i / (k - 1);
+      xs.push(x);
+    }
+    // chain segments
+    for(let i = 0; i < k - 1; i++){
+      svg.appendChild(SVG("line", {x1: xs[i], y1: cy, x2: xs[i+1], y2: cy, stroke: "var(--violet)", "stroke-width": 2, opacity: 0.5}));
+    }
+    // circles
+    for(let i = 0; i < k; i++){
+      svg.appendChild(SVG("circle", {cx: xs[i], cy, r: 18, fill: "var(--violet)", opacity: .4, stroke: "var(--violet)", "stroke-width": 1.5}));
+      const lbl = SVG("text", {x: xs[i], y: cy + 5, "text-anchor": "middle", "font-size": 11, fill: "var(--ink)"});
+      lbl.textContent = `E_${i+1}`; svg.appendChild(lbl);
+      // discrepancy below
+      const d = SVG("text", {x: xs[i], y: cy + 38, "text-anchor": "middle", "font-size": 12, fill: "var(--green)"});
+      d.textContent = "a = 0"; svg.appendChild(d);
+      const sq = SVG("text", {x: xs[i], y: cy + 56, "text-anchor": "middle", "font-size": 10, fill: "var(--mute)"});
+      sq.textContent = "E² = −2"; svg.appendChild(sq);
+    }
+    // headers
+    const ht2 = SVG("text", {x: 360, y: 95, "text-anchor": "middle", "font-size": 12, fill: "var(--mute)"});
+    ht2.textContent = `Resolution Y → X: chain of ${k} exceptional ℙ¹'s with intersection graph A_${k} (Dynkin)`;
+    svg.appendChild(ht2);
+    // verdict
+    const verdict = SVG("text", {x: 360, y: 252, "text-anchor": "middle", "font-size": 13, fill: "var(--cyan)", "font-weight": 600});
+    verdict.textContent = "All discrepancies = 0 ⇒ canonical singularity ⇒ klt.";
+    svg.appendChild(verdict);
+    out.textContent = `A_${k} = 𝔸²/ℤ_${n} (cyclic quotient of order ${n}). Resolution: ${k} exceptional ℙ¹'s, each E_i² = -2. K_Y = π* K_X (no correction term — pluricanonical sections lift), so a_{E_i} = 0 for every i. Class: canonical (in particular klt). On surfaces, canonical = ADE = rational double point.`;
+  }
+  N.addEventListener("input", render);
+  render();
+})();
+</script>
 
 <h3>The four singularity classes</h3>
 
@@ -590,6 +927,79 @@ $$(K_X + S + \Delta')|_S \;=\; K_S + \mathrm{Diff}_S(\Delta'),$$
   </div>
   <div class="readout" id="sk-out">Type I: $\dim S' = \dim S + 1$; the link goes "up" in base dimension. Type II: $\dim S' = \dim S$; bilateral move. Type III: inverse of Type I. Type IV: $\dim S' = \dim S$ but the bases are different.</div>
 </div>
+<script>
+(function(){
+  const svg = $("#sk-svg"), out = $("#sk-out");
+  const btns = $$("#w-sarkisov button[data-link]");
+  const links = {
+    I: {
+      desc: "Type I: dim S' = dim S + 1. The link starts with a divisorial extraction X ←- Z (a blow-up) on the source, then runs a relative MMP, ending in a Mori fibre space X'/S' with strictly bigger base.",
+      diagram: [
+        {x: 120, y: 90, label: "X", sub: "MFS / S"},
+        {x: 360, y: 90, label: "Z", sub: "extraction"},
+        {x: 600, y: 90, label: "X'", sub: "MFS / S'"},
+        {x: 120, y: 240, label: "S", sub: "base"},
+        {x: 600, y: 240, label: "S'", sub: "bigger base"},
+      ],
+      arrows: [["X","Z","blow-up"], ["Z","X'","MMP/relative"], ["X","S","φ"], ["X'","S'","φ'"]]
+    },
+    II: {
+      desc: "Type II: dim S' = dim S. The link consists of a divisorial extraction over S followed by a divisorial contraction back down. The bases match. Example: a quadratic transformation between two ℙ¹-bundles over the same base.",
+      diagram: [
+        {x: 120, y: 90, label: "X", sub: "MFS / S"},
+        {x: 360, y: 90, label: "Z", sub: "extraction + flips"},
+        {x: 600, y: 90, label: "X'", sub: "MFS / S"},
+        {x: 360, y: 240, label: "S", sub: "shared base"},
+      ],
+      arrows: [["X","Z","blow-up"], ["Z","X'","contract"], ["X","S","φ"], ["X'","S","φ'"]]
+    },
+    III: {
+      desc: "Type III: dim S' = dim S - 1. Inverse of Type I. The link goes 'down' in base dimension via a divisorial contraction on the source.",
+      diagram: [
+        {x: 120, y: 90, label: "X", sub: "MFS / S"},
+        {x: 360, y: 90, label: "Z", sub: "contraction"},
+        {x: 600, y: 90, label: "X'", sub: "MFS / S'"},
+        {x: 120, y: 240, label: "S", sub: "bigger base"},
+        {x: 600, y: 240, label: "S'", sub: "smaller base"},
+      ],
+      arrows: [["X","Z","contract"], ["Z","X'","extract"], ["X","S","φ"], ["X'","S'","φ'"]]
+    },
+    IV: {
+      desc: "Type IV: dim S' = dim S but S and S' differ. The relative MMP changes the base structure entirely. Example: an elliptic fibration on a Calabi–Yau threefold may admit two distinct base ℙ¹'s related by Type IV.",
+      diagram: [
+        {x: 120, y: 90, label: "X", sub: "MFS / S"},
+        {x: 360, y: 90, label: "Z", sub: "MMP/no extraction"},
+        {x: 600, y: 90, label: "X'", sub: "MFS / S'"},
+        {x: 120, y: 240, label: "S", sub: "base"},
+        {x: 600, y: 240, label: "S'", sub: "different base"},
+      ],
+      arrows: [["X","Z","flip"], ["Z","X'","contract'"], ["X","S","φ"], ["X'","S'","φ'"]]
+    }
+  };
+  function render(which){
+    const d = links[which];
+    svg.innerHTML = "";
+    const nodes = {};
+    d.diagram.forEach(n => {
+      svg.appendChild(SVG("rect", {x: n.x - 40, y: n.y - 22, width: 80, height: 44, fill: "var(--panel2)", stroke: "var(--cyan)", "stroke-width": 1.5, rx: 8}));
+      const t1 = SVG("text", {x: n.x, y: n.y - 2, "text-anchor": "middle", "font-size": 16, fill: "var(--ink)", "font-weight": 600});
+      t1.textContent = n.label; svg.appendChild(t1);
+      const t2 = SVG("text", {x: n.x, y: n.y + 14, "text-anchor": "middle", "font-size": 10, fill: "var(--mute)"});
+      t2.textContent = n.sub; svg.appendChild(t2);
+      nodes[n.label] = n;
+    });
+    d.arrows.forEach(([a, b, lbl], i) => {
+      const A = nodes[a], B = nodes[b];
+      if(!A || !B){ console.warn('w-sarkisov: arrow refers to unknown node label ('+a+' -> '+b+')'); return; }
+      drawArrow(svg, [A.x, A.y], [B.x, B.y], {color: "var(--mute)", markerId: "skarr-" + which + "-" + i, label: lbl, labelSide: 1, pad1: 42, pad2: 42});
+    });
+    out.textContent = d.desc;
+    btns.forEach(b => b.classList.toggle("active", b.dataset.link === which));
+  }
+  btns.forEach(b => b.addEventListener("click", () => render(b.dataset.link)));
+  render("I");
+})();
+</script>
 
 <h3>Birational rigidity</h3>
 
