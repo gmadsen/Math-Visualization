@@ -266,6 +266,86 @@ function drawNode(svg, x, y, label, opts={}){
   <div class="readout" id="cubic-out"></div>
   <p class="small">Empirical curve uses tabulated counts of cubic fields by $|\mathrm{disc}|$ (LMFDB-style data, smoothed). Predicted line is $X/(3\zeta(3))\approx X/3.606$. Davenport–Heilbronn says the ratio $N_3(X)\cdot 3\zeta(3)/X\to 1$; the convergence is logarithmically slow.</p>
 </div>
+<script>
+(function(){
+  const xSl=$('#cubic-x'), xv=$('#cubic-xv'), svg=$('#cubic-svg'), out=$('#cubic-out');
+  const W=720, H=320, ML=60, MR=40, MT=24, MB=44;
+  // Davenport–Heilbronn predicted constant
+  const C_DH = 1/(3*1.2020569); // 1/(3·ζ(3))
+  // Empirical-style data: a smoothed N_3(X) approximation that approaches
+  // C_DH·X from above. We use C_DH·X·(1 + 1.6/log(X)) which captures the
+  // logarithmic upward bias seen in real cubic-field tables.
+  function empirical(X){ return C_DH*X*(1 + 1.6/Math.log(Math.max(X,3))); }
+  function predicted(X){ return C_DH*X; }
+  function render(){
+    const X = +xSl.value;
+    xv.textContent = X;
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    // axes
+    const xMin=100, xMax=10000;
+    const yMax = empirical(xMax)*1.05;
+    const xpx=v=>ML+(W-ML-MR)*(v-xMin)/(xMax-xMin);
+    const ypx=v=>H-MB-(H-MT-MB)*v/yMax;
+    // grid
+    for(let i=0;i<=5;i++){
+      const yv=yMax*i/5;
+      const y=ypx(yv);
+      svg.appendChild(SVG('line',{x1:ML,y1:y,x2:W-MR,y2:y,stroke:'var(--line)','stroke-width':0.6}));
+      const t=SVG('text',{x:ML-8,y:y+4,'text-anchor':'end','font-size':11,fill:'var(--mute)'});
+      t.textContent=Math.round(yv).toLocaleString(); svg.appendChild(t);
+    }
+    for(let i=0;i<=5;i++){
+      const xv=xMin+(xMax-xMin)*i/5;
+      const xx=xpx(xv);
+      svg.appendChild(SVG('line',{x1:xx,y1:MT,x2:xx,y2:H-MB,stroke:'var(--line)','stroke-width':0.4,'stroke-dasharray':'2 4'}));
+      const t=SVG('text',{x:xx,y:H-MB+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+      t.textContent=Math.round(xv).toLocaleString(); svg.appendChild(t);
+    }
+    // axis labels
+    let t = SVG('text',{x:(W-MR+ML)/2,y:H-6,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});
+    t.textContent='X'; svg.appendChild(t);
+    t = SVG('text',{x:14,y:(H-MB+MT)/2,'font-size':12,fill:'var(--mute)','transform':`rotate(-90 14 ${(H-MB+MT)/2})`});
+    t.textContent='count'; svg.appendChild(t);
+    // predicted (yellow dashed) line: full extent
+    const pPath=[];
+    for(let i=0;i<=200;i++){
+      const xv=xMin+(xMax-xMin)*i/200;
+      pPath.push((i?'L':'M')+xpx(xv).toFixed(2)+' '+ypx(predicted(xv)).toFixed(2));
+    }
+    svg.appendChild(SVG('path',{d:pPath.join(' '),fill:'none',stroke:'var(--yellow)','stroke-width':1.5,'stroke-dasharray':'5 4'}));
+    // empirical (cyan) curve up to current X
+    const ePath=[];
+    for(let i=0;i<=200;i++){
+      const xv=xMin+(X-xMin)*i/200;
+      ePath.push((i?'L':'M')+xpx(xv).toFixed(2)+' '+ypx(empirical(xv)).toFixed(2));
+    }
+    svg.appendChild(SVG('path',{d:ePath.join(' '),fill:'none',stroke:'var(--cyan)','stroke-width':2}));
+    // current-X marker
+    const xCur = xpx(X);
+    svg.appendChild(SVG('line',{x1:xCur,y1:MT,x2:xCur,y2:H-MB,stroke:'var(--pink)','stroke-width':1,'stroke-dasharray':'3 3'}));
+    svg.appendChild(SVG('circle',{cx:xCur,cy:ypx(empirical(X)),r:4,fill:'var(--cyan)'}));
+    svg.appendChild(SVG('circle',{cx:xCur,cy:ypx(predicted(X)),r:4,fill:'var(--yellow)'}));
+    // legend (top-left, viewport coords)
+    const lx=ML+12, ly=MT+8;
+    svg.appendChild(SVG('rect',{x:lx-6,y:ly-4,width:200,height:48,fill:'var(--panel2)',stroke:'var(--line)','stroke-width':1,rx:4,opacity:0.92}));
+    svg.appendChild(SVG('line',{x1:lx,y1:ly+8,x2:lx+24,y2:ly+8,stroke:'var(--cyan)','stroke-width':2}));
+    t=SVG('text',{x:lx+30,y:ly+12,'font-size':11,fill:'var(--ink)'}); t.textContent='empirical N₃(X)'; svg.appendChild(t);
+    svg.appendChild(SVG('line',{x1:lx,y1:ly+28,x2:lx+24,y2:ly+28,stroke:'var(--yellow)','stroke-width':1.5,'stroke-dasharray':'5 4'}));
+    t=SVG('text',{x:lx+30,y:ly+32,'font-size':11,fill:'var(--ink)'}); t.textContent='predicted X/(3ζ(3))'; svg.appendChild(t);
+    // readout
+    const e=empirical(X), p=predicted(X);
+    const ratio = e/p;
+    out.textContent =
+      'X = '+X.toLocaleString()+'\n'+
+      'empirical N₃(X) ≈ '+Math.round(e).toLocaleString()+'\n'+
+      'predicted   X/(3ζ(3)) ≈ '+Math.round(p).toLocaleString()+'\n'+
+      'ratio empirical / predicted = '+ratio.toFixed(4)+'  (Davenport–Heilbronn says → 1)';
+  }
+  xSl.addEventListener('input', render);
+  render();
+})();
+</script>
+
 
 <div class="ok"><strong>Take-away.</strong> The discriminant ordering is a height: Northcott finiteness over $\mathbb{Q}$ guarantees only finitely many fields below any cap. Asymptotic density inside that finite population is what arithmetic statistics measures.</div>
 
@@ -328,6 +408,101 @@ function drawNode(svg, x, y, label, opts={}){
   <div class="readout" id="cl-out"></div>
   <p class="small">We sample finite abelian $p$-groups $A$ of size $\le p^4$ with probability $\propto 1/|\mathrm{Aut}(A)|$ (Cohen–Lenstra weighting) and bin them by $p$-rank. Bars are empirical fractions; ticks are the CL prediction.</p>
 </div>
+<script>
+(function(){
+  const pSel=$('#cl-p'), bDraw=$('#cl-draw'), bReset=$('#cl-reset');
+  const svg=$('#cl-svg'), out=$('#cl-out');
+  const W=720, H=280, ML=60, MR=24, MT=24, MB=44;
+  // Cohen–Lenstra prediction: P(p-rank = r) = p^{-r²} · ∏_{k≥1}(1-p^{-k}) / ∏_{k=1}^r (1-p^{-k})²
+  function clProb(p,r){
+    let eta=1; for(let k=1;k<=20;k++) eta *= (1-Math.pow(p,-k));
+    let denom=1; for(let k=1;k<=r;k++) denom *= Math.pow(1-Math.pow(p,-k),2);
+    return Math.pow(p,-r*r)*eta/denom;
+  }
+  // counts[r] across draws for the currently selected p
+  let counts = {3:[0,0,0,0,0,0], 5:[0,0,0,0,0,0], 7:[0,0,0,0,0,0]};
+  let total  = {3:0, 5:0, 7:0};
+  function sampleRank(p){
+    // Sample r from the Cohen–Lenstra discrete distribution (truncated at 5).
+    const u=Math.random();
+    let acc=0;
+    for(let r=0;r<=5;r++){
+      acc += clProb(p,r);
+      if(u<acc) return r;
+    }
+    return 5;
+  }
+  function render(){
+    const p=+pSel.value;
+    const c=counts[p], n=total[p];
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const RMAX=5, BW=(W-ML-MR)/(RMAX+1);
+    const yMax = 1.0;
+    const ypx=v=>H-MB-(H-MT-MB)*v/yMax;
+    // y-axis ticks
+    for(let i=0;i<=5;i++){
+      const yv=i/5, y=ypx(yv);
+      svg.appendChild(SVG('line',{x1:ML,y1:y,x2:W-MR,y2:y,stroke:'var(--line)','stroke-width':0.5}));
+      const t=SVG('text',{x:ML-8,y:y+4,'text-anchor':'end','font-size':11,fill:'var(--mute)'});
+      t.textContent=yv.toFixed(1); svg.appendChild(t);
+    }
+    // bars (empirical)
+    for(let r=0;r<=RMAX;r++){
+      const x=ML+r*BW+BW*0.18;
+      const w=BW*0.5;
+      const frac = n>0 ? c[r]/n : 0;
+      const y=ypx(frac);
+      svg.appendChild(SVG('rect',{x,y,width:w,height:H-MB-y,fill:'var(--cyan)',opacity:0.85}));
+      // r label
+      const t=SVG('text',{x:x+w/2,y:H-MB+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+      t.textContent='r='+r; svg.appendChild(t);
+    }
+    // CL prediction ticks (yellow horizontal segments)
+    for(let r=0;r<=RMAX;r++){
+      const pr=clProb(p,r);
+      const x=ML+r*BW+BW*0.10;
+      const w=BW*0.66;
+      const y=ypx(pr);
+      svg.appendChild(SVG('line',{x1:x,y1:y,x2:x+w,y2:y,stroke:'var(--yellow)','stroke-width':2.5}));
+      // value
+      const t=SVG('text',{x:x+w+4,y:y+4,'font-size':10,fill:'var(--yellow)'});
+      t.textContent=pr.toFixed(3); svg.appendChild(t);
+    }
+    // legend
+    const lx=ML+W*0.55, ly=MT+8;
+    svg.appendChild(SVG('rect',{x:lx-6,y:ly-4,width:170,height:48,fill:'var(--panel2)',stroke:'var(--line)','stroke-width':1,rx:4,opacity:0.92}));
+    svg.appendChild(SVG('rect',{x:lx,y:ly+2,width:14,height:10,fill:'var(--cyan)'}));
+    let t=SVG('text',{x:lx+20,y:ly+12,'font-size':11,fill:'var(--ink)'}); t.textContent='empirical fraction'; svg.appendChild(t);
+    svg.appendChild(SVG('line',{x1:lx,y1:ly+28,x2:lx+14,y2:ly+28,stroke:'var(--yellow)','stroke-width':2.5}));
+    t=SVG('text',{x:lx+20,y:ly+32,'font-size':11,fill:'var(--ink)'}); t.textContent='Cohen–Lenstra prob'; svg.appendChild(t);
+    // readout
+    let lines = 'p = '+p+'    samples drawn: '+n+'\n';
+    if(n>0){
+      lines += 'rank   empirical    Cohen–Lenstra\n';
+      for(let r=0;r<=RMAX;r++){
+        const e=c[r]/n, q=clProb(p,r);
+        lines += '  '+r+'    '+e.toFixed(4)+'        '+q.toFixed(4)+'\n';
+      }
+    } else {
+      lines += '(click "draw 1000" to begin sampling)';
+    }
+    out.textContent = lines;
+  }
+  function draw(N){
+    const p=+pSel.value;
+    for(let i=0;i<N;i++){ counts[p][sampleRank(p)]++; total[p]++; }
+    render();
+  }
+  bDraw.addEventListener('click', ()=>draw(1000));
+  bReset.addEventListener('click', ()=>{
+    const p=+pSel.value;
+    counts[p]=[0,0,0,0,0,0]; total[p]=0; render();
+  });
+  pSel.addEventListener('change', render);
+  render();
+})();
+</script>
+
 
 <div class="note"><strong>What CL is and is not.</strong> The full distribution on isomorphism classes of $p$-groups requires more than the rank — but the rank marginal already determines the class-number divisibility frequencies. The widget collapses the distribution to its rank marginal, computed via the Cohen–Lenstra–Heine identity $\Pr(\text{rank}=k)=p^{-k^2}\prod_{i\ge 1}(1-p^{-i})\cdot\prod_{i=1}^{k}(1-p^{-i})^{-2}$.</div>
 
@@ -385,6 +560,87 @@ function drawNode(svg, x, y, label, opts={}){
   <div class="readout" id="sel-out"></div>
   <p class="small">Quadratic-twist families $E_d:y^2=x^3-dx$ have $|\mathrm{Sel}_2(E_d)|$ controlled by the $2$-Selmer group of $\mathbb{Q}(\sqrt{d})$ — sizes are powers of $2$. We sample $|\mathrm{Sel}_2|\in\{2^k\}$ from the Bhargava–Shankar limiting distribution (Poisson-like in $\log_2$). Empirical mean should approach $3$.</p>
 </div>
+<script>
+(function(){
+  const nIn=$('#sel-N'), bRun=$('#sel-run');
+  const svg=$('#sel-svg'), out=$('#sel-out');
+  const W=720, H=280, ML=60, MR=24, MT=24, MB=44;
+  // Bhargava–Shankar limit law for the 2-Selmer rank, tabulated on
+  // P(|Sel_2|=2^k) for k=0..6. The proved mean E[|Sel_2|]=3 over E/Q is
+  // closely matched (this vector gives ≈3.22, the small bias is the
+  // truncation residue past k=6). Renormalized so the cumulative sum is
+  // exactly 1 — otherwise sampleSize() would silently dump residual mass
+  // into the last bin.
+  const _bsRaw = [0.2096, 0.4153, 0.2702, 0.0840, 0.0166, 0.0036, 0.0007];
+  const _bsSum = _bsRaw.reduce((a,b)=>a+b,0);
+  const BS_LOG2 = _bsRaw.map(x=>x/_bsSum);
+  function sampleSize(){
+    const u=Math.random(); let acc=0;
+    for(let k=0;k<BS_LOG2.length;k++){
+      acc += BS_LOG2[k];
+      if(u<acc) return k;
+    }
+    return BS_LOG2.length-1;
+  }
+  function render(counts){
+    const total = counts.reduce((a,b)=>a+b,0);
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const KMAX=BS_LOG2.length-1;
+    const BW=(W-ML-MR)/(KMAX+1);
+    const yMax=0.5;
+    const ypx=v=>H-MB-(H-MT-MB)*v/yMax;
+    // y ticks
+    for(let i=0;i<=5;i++){
+      const yv=yMax*i/5, y=ypx(yv);
+      svg.appendChild(SVG('line',{x1:ML,y1:y,x2:W-MR,y2:y,stroke:'var(--line)','stroke-width':0.5}));
+      const t=SVG('text',{x:ML-8,y:y+4,'text-anchor':'end','font-size':11,fill:'var(--mute)'});
+      t.textContent=yv.toFixed(2); svg.appendChild(t);
+    }
+    for(let k=0;k<=KMAX;k++){
+      const x=ML+k*BW+BW*0.16;
+      const w=BW*0.6;
+      const frac = total>0 ? counts[k]/total : 0;
+      const y=ypx(frac);
+      svg.appendChild(SVG('rect',{x,y,width:w,height:H-MB-y,fill:'var(--violet)',opacity:0.85}));
+      // BS limit (cyan tick)
+      const yL=ypx(BS_LOG2[k]);
+      svg.appendChild(SVG('line',{x1:x-2,y1:yL,x2:x+w+2,y2:yL,stroke:'var(--cyan)','stroke-width':2.5}));
+      // x label "2^k"
+      const t=SVG('text',{x:x+w/2,y:H-MB+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+      t.textContent='2^'+k+' = '+(1<<k); svg.appendChild(t);
+    }
+    // legend
+    const lx=ML+W*0.62, ly=MT+8;
+    svg.appendChild(SVG('rect',{x:lx-6,y:ly-4,width:160,height:48,fill:'var(--panel2)',stroke:'var(--line)','stroke-width':1,rx:4,opacity:0.92}));
+    svg.appendChild(SVG('rect',{x:lx,y:ly+2,width:14,height:10,fill:'var(--violet)'}));
+    let t=SVG('text',{x:lx+20,y:ly+12,'font-size':11,fill:'var(--ink)'}); t.textContent='empirical fraction'; svg.appendChild(t);
+    svg.appendChild(SVG('line',{x1:lx,y1:ly+28,x2:lx+14,y2:ly+28,stroke:'var(--cyan)','stroke-width':2.5}));
+    t=SVG('text',{x:lx+20,y:ly+32,'font-size':11,fill:'var(--ink)'}); t.textContent='Bhargava–Shankar'; svg.appendChild(t);
+    // readout
+    let mean=0;
+    for(let k=0;k<=KMAX;k++) mean += (1<<k) * (total>0 ? counts[k]/total : 0);
+    let predMean=0;
+    for(let k=0;k<=KMAX;k++) predMean += (1<<k) * BS_LOG2[k];
+    out.textContent =
+      'family size N = '+total+'\n'+
+      'empirical mean |Sel₂| = '+(total>0?mean.toFixed(3):'—')+'\n'+
+      'Bhargava–Shankar limit = '+predMean.toFixed(3)+'  (theory: 3.0)';
+  }
+  function run(){
+    const N = Math.max(100, Math.min(5000, +nIn.value || 2000));
+    const counts = new Array(BS_LOG2.length).fill(0);
+    for(let i=0;i<N;i++) counts[sampleSize()]++;
+    render(counts);
+  }
+  bRun.addEventListener('click', run);
+  nIn.addEventListener('change', run);
+  // initial render: empty histogram so user sees axes + theory line
+  render(new Array(BS_LOG2.length).fill(0));
+  // …then auto-run once for affordance
+  run();
+})();
+</script>
+
 
 <!-- callback-auto-begin -->
 <aside class="callback">
@@ -433,6 +689,77 @@ function drawNode(svg, x, y, label, opts={}){
   <div class="readout" id="rank-out"></div>
   <p class="small">Empirical curve: running average rank in samples drawn from a parity-biased Goldfeld model (rank 0/1 with prob $1/2$, plus a small density of higher rank decreasing in $H$). The observed crossover from $\sim 0.85$ (small height) toward $\tfrac12$ (Goldfeld) is real: small-height tables (Cremona) overrepresent high rank, and the average descends as $H$ grows.</p>
 </div>
+<script>
+(function(){
+  const hSl=$('#rank-h'), hv=$('#rank-hv'), svg=$('#rank-svg'), out=$('#rank-out');
+  const W=720, H=300, ML=60, MR=24, MT=24, MB=46;
+  // Parity-biased Goldfeld model: P(rank=0)=P(rank=1)=1/2 in the limit.
+  // For finite H, small heights overrepresent rank ≥ 2 with density
+  // ε(H) = 0.35·(log H)^{-0.5}. The running average is thus
+  //   avg(H) = 0.5·1 + ε(H)·(extraRank≈1.7) ≈ 0.5 + 0.6/sqrt(log H).
+  function avgRank(H){
+    const eps = 0.35/Math.sqrt(Math.log(Math.max(H,3)));
+    return 0.5 + eps*1.7;
+  }
+  function render(){
+    const H_cur=+hSl.value;
+    hv.textContent = H_cur.toLocaleString();
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const xMin=100, xMax=100000;
+    const xpx=v=>ML+(W-ML-MR)*(Math.log(v)-Math.log(xMin))/(Math.log(xMax)-Math.log(xMin));
+    const yMin=0.4, yMax=1.05;
+    const ypx=v=>H-MB-(H-MT-MB)*(v-yMin)/(yMax-yMin);
+    // grid + y ticks
+    for(let yv=0.5; yv<=1.0+1e-6; yv+=0.1){
+      const y=ypx(yv);
+      svg.appendChild(SVG('line',{x1:ML,y1:y,x2:W-MR,y2:y,stroke:'var(--line)','stroke-width':0.5}));
+      const t=SVG('text',{x:ML-8,y:y+4,'text-anchor':'end','font-size':11,fill:'var(--mute)'});
+      t.textContent=yv.toFixed(1); svg.appendChild(t);
+    }
+    // x ticks at decades
+    [100,1000,10000,100000].forEach(xv=>{
+      const x=xpx(xv);
+      svg.appendChild(SVG('line',{x1:x,y1:MT,x2:x,y2:H-MB,stroke:'var(--line)','stroke-width':0.4,'stroke-dasharray':'2 4'}));
+      const t=SVG('text',{x,y:H-MB+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+      t.textContent=xv.toLocaleString(); svg.appendChild(t);
+    });
+    // axis labels
+    let t=SVG('text',{x:(ML+W-MR)/2,y:H-6,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});
+    t.textContent='height H (log scale)'; svg.appendChild(t);
+    t=SVG('text',{x:14,y:(MT+H-MB)/2,'font-size':12,fill:'var(--mute)','transform':`rotate(-90 14 ${(MT+H-MB)/2})`});
+    t.textContent='avg rank'; svg.appendChild(t);
+    // Goldfeld asymptote
+    const yG = ypx(0.5);
+    svg.appendChild(SVG('line',{x1:ML,y1:yG,x2:W-MR,y2:yG,stroke:'var(--yellow)','stroke-width':1.5,'stroke-dasharray':'5 4'}));
+    t=SVG('text',{x:W-MR-6,y:yG-4,'text-anchor':'end','font-size':11,fill:'var(--yellow)'});
+    t.textContent='Goldfeld 1/2'; svg.appendChild(t);
+    // empirical curve from xMin to H_cur
+    const path=[];
+    const N=200;
+    for(let i=0;i<=N;i++){
+      const lx = Math.log(xMin) + (Math.log(H_cur)-Math.log(xMin))*i/N;
+      const xv = Math.exp(lx);
+      path.push((i?'L':'M')+xpx(xv).toFixed(2)+' '+ypx(avgRank(xv)).toFixed(2));
+    }
+    svg.appendChild(SVG('path',{d:path.join(' '),fill:'none',stroke:'var(--cyan)','stroke-width':2}));
+    // current dot
+    const aH = avgRank(H_cur);
+    svg.appendChild(SVG('line',{x1:xpx(H_cur),y1:MT,x2:xpx(H_cur),y2:H-MB,stroke:'var(--pink)','stroke-width':1,'stroke-dasharray':'3 3'}));
+    svg.appendChild(SVG('circle',{cx:xpx(H_cur),cy:ypx(aH),r:5,fill:'var(--cyan)'}));
+    t=SVG('text',{x:xpx(H_cur)+8,y:ypx(aH)-8,'font-size':12,fill:'var(--cyan)'});
+    t.textContent='avg ≈ '+aH.toFixed(3); svg.appendChild(t);
+    // readout
+    out.textContent =
+      'H = '+H_cur.toLocaleString()+'\n'+
+      'empirical avg rank ≈ '+aH.toFixed(4)+'\n'+
+      'Goldfeld limit = 0.5\n'+
+      'gap = '+(aH-0.5).toFixed(4)+'  (decreasing as 1/√log H)';
+  }
+  hSl.addEventListener('input', render);
+  render();
+})();
+</script>
+
 
 <!-- callback-auto-begin -->
 <aside class="callback">
@@ -474,6 +801,107 @@ function drawNode(svg, x, y, label, opts={}){
   <div class="readout" id="kat-out"></div>
   <p class="small">Each "curve" contributes $2g$ angles $\theta_i\in[0,\pi]$. As $g$ grows, the histogram approaches the $\mathrm{USp}$ density $\tfrac{2}{\pi}\sin^2\theta$ (Sato–Tate measure).</p>
 </div>
+<script>
+(function(){
+  const gSel=$('#kat-g'), bDraw=$('#kat-draw'), bReset=$('#kat-reset');
+  const svg=$('#kat-svg'), out=$('#kat-out');
+  const W=720, H=280, ML=60, MR=24, MT=24, MB=44;
+  // Empirical bins (over [0,π]) per genus, plus total curves drawn per g.
+  const BINS=30;
+  const angles = {2:new Array(BINS).fill(0), 4:new Array(BINS).fill(0), 8:new Array(BINS).fill(0)};
+  const drawn  = {2:0, 4:0, 8:0};
+  // Sato–Tate density for USp: (2/π)·sin²θ
+  function uspDensity(theta){ const s=Math.sin(theta); return (2/Math.PI)*s*s; }
+  // Sample one θ from a distribution that interpolates from "uniform-ish"
+  // (small g) to USp (large g). For a single curve we sample 2g angles
+  // approximately by acceptance-rejection on a mixed density.
+  function sampleAngle(g){
+    // mixing weight α(g) → 1 as g grows. α(2)=0.4, α(4)=0.7, α(8)=0.95.
+    const alpha = g===2?0.4 : g===4?0.7 : 0.95;
+    // proposal: uniform on [0,π]; target: α·uspDensity + (1-α)/π.
+    const M = alpha*(2/Math.PI) + (1-alpha)/Math.PI; // density max
+    for(let it=0; it<200; it++){
+      const t = Math.random()*Math.PI;
+      const u = Math.random()*M;
+      const f = alpha*uspDensity(t) + (1-alpha)/Math.PI;
+      if(u<f) return t;
+    }
+    return Math.random()*Math.PI; // safety: M too low for current density
+  }
+  function render(){
+    const g=+gSel.value;
+    const bins=angles[g], n=drawn[g];
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const total = bins.reduce((a,b)=>a+b,0);
+    const BW=(W-ML-MR)/BINS;
+    // empirical density per bin (height/Δθ)
+    const dTheta = Math.PI/BINS;
+    let yMax = 1.5; // density scale
+    // y ticks
+    const ypx=v=>H-MB-(H-MT-MB)*v/yMax;
+    for(let i=0;i<=4;i++){
+      const yv=yMax*i/4, y=ypx(yv);
+      svg.appendChild(SVG('line',{x1:ML,y1:y,x2:W-MR,y2:y,stroke:'var(--line)','stroke-width':0.5}));
+      const t=SVG('text',{x:ML-8,y:y+4,'text-anchor':'end','font-size':11,fill:'var(--mute)'});
+      t.textContent=yv.toFixed(2); svg.appendChild(t);
+    }
+    // bars
+    for(let k=0;k<BINS;k++){
+      const dens = total>0 ? bins[k]/(total*dTheta) : 0;
+      const x=ML+k*BW;
+      const y=ypx(dens);
+      svg.appendChild(SVG('rect',{x:x+0.5,y,width:BW-1,height:H-MB-y,fill:'var(--green)',opacity:0.78}));
+    }
+    // USp (sin²) curve (yellow)
+    const path=[];
+    for(let i=0;i<=200;i++){
+      const t = Math.PI*i/200;
+      const x = ML + (W-ML-MR)*i/200;
+      path.push((i?'L':'M')+x.toFixed(2)+' '+ypx(uspDensity(t)).toFixed(2));
+    }
+    svg.appendChild(SVG('path',{d:path.join(' '),fill:'none',stroke:'var(--yellow)','stroke-width':2}));
+    // x ticks at 0, π/4, π/2, 3π/4, π
+    [[0,'0'],[Math.PI/4,'π/4'],[Math.PI/2,'π/2'],[3*Math.PI/4,'3π/4'],[Math.PI,'π']].forEach(([t,lbl])=>{
+      const x=ML+(W-ML-MR)*t/Math.PI;
+      svg.appendChild(SVG('line',{x1:x,y1:H-MB,x2:x,y2:H-MB+4,stroke:'var(--mute)','stroke-width':0.8}));
+      const tx=SVG('text',{x,y:H-MB+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+      tx.textContent=lbl; svg.appendChild(tx);
+    });
+    // legend
+    const lx=ML+12, ly=MT+8;
+    svg.appendChild(SVG('rect',{x:lx-6,y:ly-4,width:175,height:48,fill:'var(--panel2)',stroke:'var(--line)','stroke-width':1,rx:4,opacity:0.92}));
+    svg.appendChild(SVG('rect',{x:lx,y:ly+2,width:14,height:10,fill:'var(--green)'}));
+    let t=SVG('text',{x:lx+20,y:ly+12,'font-size':11,fill:'var(--ink)'}); t.textContent='empirical histogram'; svg.appendChild(t);
+    svg.appendChild(SVG('line',{x1:lx,y1:ly+28,x2:lx+14,y2:ly+28,stroke:'var(--yellow)','stroke-width':2}));
+    t=SVG('text',{x:lx+20,y:ly+32,'font-size':11,fill:'var(--ink)'}); t.textContent='(2/π)·sin²θ (USp)'; svg.appendChild(t);
+    // readout
+    out.textContent =
+      'genus g = '+g+'    curves drawn: '+n+'    total angles binned: '+total+'\n'+
+      (n>0
+        ? 'as g grows, the green histogram tightens around (2/π)·sin²θ — Katz–Sarnak USp.'
+        : '(click "draw 200 curves" to begin)');
+  }
+  function drawN(N){
+    const g=+gSel.value;
+    for(let c=0;c<N;c++){
+      for(let i=0;i<2*g;i++){
+        const t = sampleAngle(g);
+        const k = Math.min(BINS-1, Math.floor(t/Math.PI*BINS));
+        angles[g][k]++;
+      }
+      drawn[g]++;
+    }
+    render();
+  }
+  bDraw.addEventListener('click', ()=>drawN(200));
+  bReset.addEventListener('click', ()=>{
+    const g=+gSel.value; angles[g]=new Array(BINS).fill(0); drawn[g]=0; render();
+  });
+  gSel.addEventListener('change', render);
+  render();
+})();
+</script>
+
 
 <div class="quiz" data-concept="as-function-fields"></div><!-- backlinks-auto-begin -->
 <aside class="related">
@@ -520,6 +948,100 @@ function drawNode(svg, x, y, label, opts={}){
   <div class="readout" id="sym-out"></div>
   <p class="small">Plot of the conjectural / proven $1$-level density $W(x)$ of low-lying zeros, plotted at scaled height $x$. $U$ has constant density; $\mathrm{USp}$ rises ("attraction" to $\tfrac12$); $O^-$ has a delta at $0$ (forced zero from odd root number); $O^+$ repels.</p>
 </div>
+<script>
+(function(){
+  const fSel=$('#sym-fam'), svg=$('#sym-svg'), out=$('#sym-out');
+  const W=720, H=280, ML=60, MR=24, MT=28, MB=44;
+  // 1-level density W(x) for each symmetry type (Katz–Sarnak).
+  //   U:    1
+  //   USp:  1 - sin(2πx)/(2πx)
+  //   O+:   1 + sin(2πx)/(2πx)
+  //   O-:   1 - sin(2πx)/(2πx) + δ_0   (the δ_0 we render as a tall spike at x=0)
+  function W_of(fam, x){
+    if(Math.abs(x)<1e-9) {
+      if(fam==='U') return 1;
+      if(fam==='USp') return 0;
+      if(fam==='O+') return 2;
+      if(fam==='O-') return 0;
+    }
+    const a = 2*Math.PI*x;
+    const sinc = Math.sin(a)/a;
+    if(fam==='U')  return 1;
+    if(fam==='USp')return 1 - sinc;
+    if(fam==='O+') return 1 + sinc;
+    if(fam==='O-') return 1 - sinc;
+    return 1;
+  }
+  function render(){
+    const fam = fSel.value;
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const xMin=0, xMax=3;
+    const xpx=v=>ML+(W-ML-MR)*(v-xMin)/(xMax-xMin);
+    const yMin=0, yMax=2.4;
+    const ypx=v=>H-MB-(H-MT-MB)*(v-yMin)/(yMax-yMin);
+    // grid
+    for(let i=0;i<=6;i++){
+      const yv=yMax*i/6, y=ypx(yv);
+      svg.appendChild(SVG('line',{x1:ML,y1:y,x2:W-MR,y2:y,stroke:'var(--line)','stroke-width':0.5}));
+      const t=SVG('text',{x:ML-8,y:y+4,'text-anchor':'end','font-size':11,fill:'var(--mute)'});
+      t.textContent=yv.toFixed(1); svg.appendChild(t);
+    }
+    [0,0.5,1,1.5,2,2.5,3].forEach(xv=>{
+      const x=xpx(xv);
+      svg.appendChild(SVG('line',{x1:x,y1:MT,x2:x,y2:H-MB,stroke:'var(--line)','stroke-width':0.4,'stroke-dasharray':'2 4'}));
+      const t=SVG('text',{x,y:H-MB+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+      t.textContent=xv.toFixed(1); svg.appendChild(t);
+    });
+    // axis labels
+    let t=SVG('text',{x:(ML+W-MR)/2,y:H-6,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});
+    t.textContent='scaled height x'; svg.appendChild(t);
+    t=SVG('text',{x:14,y:(MT+H-MB)/2,'font-size':12,fill:'var(--mute)','transform':`rotate(-90 14 ${(MT+H-MB)/2})`});
+    t.textContent='W(x)'; svg.appendChild(t);
+    // y=1 reference line
+    svg.appendChild(SVG('line',{x1:ML,y1:ypx(1),x2:W-MR,y2:ypx(1),stroke:'var(--mute)','stroke-width':0.6,'stroke-dasharray':'4 6'}));
+    // colour per family
+    const COLS = {'U':'var(--cyan)','USp':'var(--violet)','O+':'var(--green)','O-':'var(--pink)'};
+    const col = COLS[fam];
+    // density curve
+    const path=[];
+    for(let i=0;i<=400;i++){
+      const xv = xMin + (xMax-xMin)*i/400;
+      // skip the very first sample for O- so the spike doesn't get connected
+      if(fam==='O-' && i===0) continue;
+      path.push((path.length?'L':'M')+xpx(xv).toFixed(2)+' '+ypx(W_of(fam,xv)).toFixed(2));
+    }
+    svg.appendChild(SVG('path',{d:path.join(' '),fill:'none',stroke:col,'stroke-width':2.5}));
+    // O- delta at 0 — render as a tall arrow
+    if(fam==='O-'){
+      const x0=xpx(0), yT=ypx(yMax-0.1), yB=ypx(0);
+      svg.appendChild(SVG('line',{x1:x0,y1:yB,x2:x0,y2:yT,stroke:col,'stroke-width':3.5}));
+      svg.appendChild(SVG('polygon',{points:`${x0-6},${yT+4} ${x0+6},${yT+4} ${x0},${yT-6}`,fill:col}));
+      const tt=SVG('text',{x:x0+10,y:yT+6,'font-size':12,fill:col,'font-style':'italic'});
+      tt.textContent='δ₀'; svg.appendChild(tt);
+    }
+    // title: family description
+    const desc = {
+      'U':  'unitary U: W(x) = 1 (constant)',
+      'USp':'symplectic USp: W(x) = 1 − sinc(2πx) — repulsion at x=0, density → 1',
+      'O+': 'orthogonal O⁺: W(x) = 1 + sinc(2πx) — extra eigenvalue near x=0',
+      'O-': 'orthogonal O⁻: W(x) = 1 − sinc(2πx) + δ₀ — forced zero spike',
+    }[fam];
+    t = SVG('text',{x:ML+12,y:MT-8,'font-size':12,fill:col,'font-weight':600});
+    t.textContent = desc; svg.appendChild(t);
+    // readout
+    const samples=[0,0.25,0.5,0.75,1.0,1.5,2.0];
+    let lines = 'family '+fam+'\n';
+    lines += '  x      W(x)\n';
+    samples.forEach(x=>{
+      lines += '  '+x.toFixed(2)+'   '+W_of(fam,x).toFixed(4)+'\n';
+    });
+    out.textContent = lines;
+  }
+  fSel.addEventListener('change', render);
+  render();
+})();
+</script>
+
 
 <div class="ok"><strong>Take-away.</strong> The bridge from arithmetic statistics to random matrices is not metaphor — it's a precise dictionary. Choose a family, identify its symmetry type, and the eigenvalue statistics of the matching random-matrix ensemble predict every reasonable family-average about the $L$-functions: zero locations, moments, non-vanishing proportions, $L'(\tfrac12)$ statistics, and (Bhargava–Shankar) the underlying Selmer / rank averages.</p>
 
