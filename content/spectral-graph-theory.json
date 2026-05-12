@@ -36,7 +36,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./expanders.html#spectral-gap\">Expanders</a> · Spectral expansion</div>\n    <div><a href=\"./geometric-and-combinatorial-group-theory.html#applications\">Geometric and combinatorial group theory</a> · Applications and frontiers</div>\n    <div><a href=\"./random-walks-and-mixing.html#spectral\">Random walks and mixing</a> · Spectral gap and rapid mixing</div>\n    <div><a href=\"./spectral-graph-theory.html#kernel-components\">Spectral graph theory</a> · Kernel multiplicity = number of components</div>\n    <div><a href=\"./spectral-graph-theory.html#random-walks\">Spectral graph theory</a> · Random walks and the spectral gap</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./expanders.html#spectral-gap\">Expanders</a> · Spectral expansion</div>\n    <div><a href=\"./geometric-and-combinatorial-group-theory.html#applications\">Geometric and combinatorial group theory</a> · Applications and frontiers</div>\n    <div><a href=\"./random-walks-and-mixing.html#spectral\">Random walks and mixing</a> · Spectral gap and rapid mixing</div>\n    <div><a href=\"./spectral-graph-theory.html#kernel-components\">Spectral graph theory</a> · Kernel multiplicity = number of components</div>\n    <div><a href=\"./spectral-graph-theory.html#random-walks\">Spectral graph theory</a> · Random walks and the spectral gap</div>\n    <div><a href=\"./spectral-methods-data.html#graph-laplacian\">Spectral methods for massive data sets</a> · The graph Laplacian</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -183,7 +183,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./expanders.html#cheeger\">Expanders</a> · Cheeger inequality (graph version)</div>\n    <div><a href=\"./spectral-graph-theory.html#spectral-clustering\">Spectral graph theory</a> · Spectral clustering</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./expanders.html#cheeger\">Expanders</a> · Cheeger inequality (graph version)</div>\n    <div><a href=\"./spectral-graph-theory.html#spectral-clustering\">Spectral graph theory</a> · Spectral clustering</div>\n    <div><a href=\"./spectral-methods-data.html#spectral-clustering\">Spectral methods for massive data sets</a> · Spectral clustering (Ng–Jordan–Weiss)</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

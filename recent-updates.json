@@ -1,6 +1,54 @@
 {
-  "generated": "2026-05-12T12:16:14.092Z",
+  "generated": "2026-05-12T14:43:56.988Z",
   "entries": [
+    {
+      "slug": "brill-noether",
+      "title": "Brill–Noether theory",
+      "color": "g",
+      "tag": "",
+      "date": "2026-05-12",
+      "message": "New topic: Brill–Noether theory (Algebraic geometry) (#159)"
+    },
+    {
+      "slug": "coding-theory",
+      "title": "Coding theory",
+      "color": "g",
+      "tag": "",
+      "date": "2026-05-12",
+      "message": "New topic: Coding theory & error-correcting codes (Combinatorics & graph theory) (#160)"
+    },
+    {
+      "slug": "conformal-and-cr-geometry",
+      "title": "Conformal &amp; CR geometry",
+      "color": "p",
+      "tag": "",
+      "date": "2026-05-12",
+      "message": "New topic: Conformal & CR geometry (Analysis) (#161)"
+    },
+    {
+      "slug": "heegaard-floer",
+      "title": "Heegaard Floer &amp; knot Floer",
+      "color": "v",
+      "tag": "",
+      "date": "2026-05-12",
+      "message": "topic/heegaard-floer: fix self-contradictory d-invariant quiz answer"
+    },
+    {
+      "slug": "mathematical-biology",
+      "title": "Mathematical biology",
+      "color": "c",
+      "tag": "",
+      "date": "2026-05-12",
+      "message": "New topic: Mathematical biology & population genetics (Probability & statistics) (#162)"
+    },
+    {
+      "slug": "spectral-methods-data",
+      "title": "Spectral methods for massive data sets",
+      "color": "c",
+      "tag": "",
+      "date": "2026-05-12",
+      "message": "New topic: Spectral methods for massive data sets (Probability & statistics) (#163)"
+    },
     {
       "slug": "geometric-invariant-theory",
       "title": "Geometric invariant theory",
