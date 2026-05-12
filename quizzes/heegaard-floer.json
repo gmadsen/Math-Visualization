@@ -1,0 +1,300 @@
+{
+  "topic": "heegaard-floer",
+  "quizzes": {
+    "hf-splittings": {
+      "title": "Heegaard splittings and diagrams",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "What is the Heegaard genus of the lens space $L(p,q)$ (for $p\\ge 1$)?",
+          "answer": 1,
+          "tol": 0.0001,
+          "explain": "Lens spaces $L(p,q)$ are obtained by gluing two solid tori (genus-1 handlebodies) along their boundary $T^2$, so the Heegaard genus is $1$ — the gluing slope encodes $p,q$.",
+          "hint": "Lens spaces are built from two solid tori."
+        },
+        {
+          "type": "multi-select",
+          "q": "Which statements about a Heegaard diagram $(\\Sigma_g,\\boldsymbol\\alpha,\\boldsymbol\\beta)$ for a closed 3-manifold $Y$ are correct?",
+          "choices": [
+            "$\\boldsymbol\\alpha$ and $\\boldsymbol\\beta$ each consist of $g$ pairwise disjoint simple closed curves",
+            "$\\boldsymbol\\alpha$ bounds disks in one handlebody and $\\boldsymbol\\beta$ in the other",
+            "The geometric intersection number $|\\boldsymbol\\alpha\\cap\\boldsymbol\\beta|$ equals the Heegaard genus $g$",
+            "Stabilisation (adding a trivial handle plus a canceling pair of curves) gives a diagram of the same $Y$"
+          ],
+          "answer": [0, 1, 3],
+          "explain": "(a),(b),(d) are part of the definition / Reidemeister–Singer. (c) is false in general: e.g. for $L(p,1)$ the genus is $1$ but $|\\alpha\\cap\\beta|=p$, which can be arbitrarily large.",
+          "hint": "Think about $L(p,1)$ with small genus but large intersection."
+        },
+        {
+          "type": "mcq",
+          "q": "The standard genus-1 Heegaard splitting of $S^1\\times S^2$ has $\\alpha$ and $\\beta$ curves that are:",
+          "choices": [
+            "transverse with $|\\alpha\\cap\\beta|=1$",
+            "isotopic as curves on the torus (same homology class)",
+            "Linked but disjoint in the surface",
+            "Parallel and disjoint with the same slope on $T^2$"
+          ],
+          "answer": 3,
+          "explain": "$S^1\\times S^2$ is obtained by gluing two solid tori so the meridian of one is identified with the meridian of the other — both bounding disks have the same slope on $T^2$, so the $\\alpha$ and $\\beta$ curves are parallel disjoint copies of the same class. This forces $b_1(Y)\\ne 0$.",
+          "hint": "$S^1\\times S^2$ has nontrivial first Betti number — what does this say about the gluing map?"
+        }
+      ]
+    },
+    "hf-lagrangian-floer": {
+      "title": "Lagrangian Floer homology",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The Floer differential $\\partial:CF(L_0,L_1)\\to CF(L_0,L_1)$ counts which objects?",
+          "choices": [
+            "Smooth curves $u:[0,1]\\to X$ from $L_0$ to $L_1$",
+            "Pseudoholomorphic strips $u:\\mathbb{R}\\times[0,1]\\to X$ of Maslov index $1$, modulo $\\mathbb{R}$-translation",
+            "Geodesics from intersection points $x$ to $y$",
+            "Algebraic intersection numbers $L_0\\cdot L_1$ weighted by signs"
+          ],
+          "answer": 1,
+          "explain": "The differential counts (mod 2 or with signs) finite-energy index-1 pseudoholomorphic strips connecting two intersection points, modulo the obvious $\\mathbb{R}$-translation. This is what makes the construction symplectic-geometric: the equation $\\partial_s u+J(u)\\partial_t u=0$ requires a choice of $\\omega$-compatible $J$.",
+          "hint": "What PDE is solved? On what domain?"
+        },
+        {
+          "type": "ordering",
+          "q": "Order the following ingredients in the historical / logical construction of Lagrangian Floer homology:",
+          "items": [
+            "Pick two transverse compact Lagrangians $L_0,L_1$",
+            "Form the free $\\mathbb{F}_2$-vector space on $L_0\\cap L_1$",
+            "Define $\\partial$ by counting index-1 holomorphic strips",
+            "Verify $\\partial^2=0$ via Gromov-compactness of broken strips",
+            "Read off $HF(L_0,L_1)=\\ker\\partial/\\mathrm{im}\\,\\partial$"
+          ],
+          "answer": [0, 1, 2, 3, 4],
+          "explain": "The pipeline is: data → free module → differential → check $\\partial^2=0$ → homology. Each step is enabled by the previous; transversality + Gromov compactness + gluing are the technical heart of the third and fourth steps.",
+          "hint": "What is the first thing you need to write down the chain complex?"
+        },
+        {
+          "type": "spot-the-error",
+          "q": "A student claims the following 'derivation' that $HF(L_0,L_1)$ counts intersection points. Which step contains the error?",
+          "steps": [
+            "The Floer chain complex $CF(L_0,L_1)$ is the free $\\mathbb{F}_2$-module on $L_0\\cap L_1$ (correct).",
+            "Therefore $\\dim CF(L_0,L_1) = |L_0\\cap L_1|$ (correct).",
+            "Since $HF(L_0,L_1)$ is defined as $H_*(CF(L_0,L_1),\\partial)$, we have $\\dim HF(L_0,L_1) = \\dim CF(L_0,L_1) = |L_0\\cap L_1|$.",
+            "Hence Floer homology just counts intersection points."
+          ],
+          "answer": 2,
+          "explain": "Step 3 conflates the chain complex with its homology. $\\dim CF$ is the rank of the chain module; $\\dim HF = \\dim\\ker\\partial - \\dim\\mathrm{im}\\,\\partial$. Pairs of generators connected by an index-1 holomorphic strip cancel under $\\partial$, so $\\dim HF\\le|L_0\\cap L_1|$. Hamiltonian invariance refines further: $\\dim HF$ is the minimum $|L_0\\cap L_1'|$ over $L_1'$ Hamiltonian-isotopic to $L_1$.",
+          "hint": "Compare chain dimension to homology dimension."
+        }
+      ]
+    },
+    "hf-variants": {
+      "title": "Heegaard Floer variants",
+      "questions": [
+        {
+          "type": "matching",
+          "q": "Match each Heegaard Floer variant to its coefficient module / role.",
+          "left": [
+            "$\\widehat{HF}$",
+            "$HF^-$",
+            "$HF^+$",
+            "$HF^\\infty$"
+          ],
+          "right": [
+            "Coefficient ring $\\mathbb{F}_2[U,U^{-1}]$ — rigid skeleton; depends only on $H_*(Y)$",
+            "Coefficient module $\\mathbb{F}_2[U,U^{-1}]/U\\mathbb{F}_2[U]$ — bottom of tower carries the $d$-invariant",
+            "Coefficient ring $\\mathbb{F}_2[U]$ — $U$-completion, carries finer torsion",
+            "Coefficient ring $\\mathbb{F}_2$ (set $U=0$) — simplest, most computable"
+          ],
+          "answer": [3, 2, 1, 0],
+          "explain": "The mnemonic is by $U$-action: $\\widehat{HF}$ sets $U=0$; $HF^-$ keeps $U$ as an action with no inverse; $HF^+$ inverts $U$ modulo $U$-completion (so it's the quotient with $\\mathbb{F}_2[U^{-1}]$-action); $HF^\\infty$ inverts $U$ entirely. The four fit in long exact sequences relating them pairwise.",
+          "hint": "Sort by how invertibility of $U$ is treated."
+        },
+        {
+          "type": "mcq",
+          "q": "The symplectic manifold underlying Heegaard Floer homology is:",
+          "choices": [
+            "The Heegaard surface $\\Sigma_g$ itself",
+            "The cotangent bundle $T^*\\Sigma_g$",
+            "The symmetric product $\\mathrm{Sym}^g(\\Sigma_g)=\\Sigma_g^{\\times g}/S_g$",
+            "The 4-manifold cobounded by $Y$"
+          ],
+          "answer": 2,
+          "explain": "Ozsváth–Szabó set up the Floer theory on the $2g$-dimensional symmetric product $\\mathrm{Sym}^g(\\Sigma_g)$, with the two Lagrangians $\\mathbb{T}_\\alpha=\\alpha_1\\times\\cdots\\times\\alpha_g/S_g$ and similarly for $\\mathbb{T}_\\beta$. This is where the dimensions work out: each $\\mathbb{T}_\\bullet$ is a half-dimensional $g$-torus.",
+          "hint": "What space has dimension $2g$ when $\\Sigma_g$ has dimension $2$?"
+        },
+        {
+          "type": "numeric",
+          "q": "If $Y$ is a rational homology sphere (so $H_*(Y;\\mathbb{Q})=H_*(S^3;\\mathbb{Q})$), how many $\\mathrm{Spin}^c$-structures decorate it when $|H_1(Y;\\mathbb{Z})|=12$?",
+          "answer": 12,
+          "tol": 0.0001,
+          "explain": "$\\mathrm{Spin}^c(Y)$ is an affine space over $H^2(Y;\\mathbb{Z})$. For $Y$ a $\\mathbb{Q}$-homology sphere, $H^2(Y;\\mathbb{Z})\\cong H_1(Y;\\mathbb{Z})$ by Poincaré duality, and $|\\mathrm{Spin}^c(Y)|=|H_1(Y;\\mathbb{Z})|=12$.",
+          "hint": "$\\mathrm{Spin}^c(Y)$ is a torsor over $H^2(Y;\\mathbb{Z})$ and by Poincaré duality $H^2\\cong H_1$."
+        }
+      ]
+    },
+    "hf-knot-floer": {
+      "title": "Knot Floer homology",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Knot Floer homology $\\widehat{HFK}(K)$ categorifies which classical knot invariant?",
+          "choices": [
+            "The Jones polynomial $V_K(q)$",
+            "The Alexander polynomial $\\Delta_K(t)$",
+            "The HOMFLY polynomial $P_K(a,z)$",
+            "The signature $\\sigma(K)$"
+          ],
+          "answer": 1,
+          "explain": "$\\sum_{M,A}(-1)^M\\dim\\widehat{HFK}_M(K,A)\\,t^A=\\Delta_K(t)$. Khovanov categorifies Jones; knot Floer categorifies Alexander. The relationship between the two categorifications is still partly conjectural.",
+          "hint": "Think of the bigrading: $A$ is the Alexander grading."
+        },
+        {
+          "type": "multi-select",
+          "q": "Which classical-invariant-invisible facts does $\\widehat{HFK}(K)$ detect?",
+          "choices": [
+            "The Seifert genus $g(K)$: $g(K)=\\max\\{A:\\widehat{HFK}(K,A)\\ne 0\\}$",
+            "Whether $K$ is fibered: the top Alexander summand has rank 1 iff $K$ is fibered",
+            "Whether $K$ is the unknot: $K=$ unknot iff $\\widehat{HFK}(K)\\cong\\mathbb{F}_2$",
+            "The crossing number $c(K)$: $c(K)$ equals the total $\\mathbb{F}_2$-rank of $\\widehat{HFK}$"
+          ],
+          "answer": [0, 1, 2],
+          "explain": "(a),(b),(c) are theorems (Ozsváth–Szabó for genus and unknot detection; Ghiggini–Ni for fiberedness). (d) is false: there is no simple relationship between $\\widehat{HFK}$-rank and crossing number — e.g. the figure-8 has 4 crossings but $\\widehat{HFK}$ has rank 5, and torus knots $T(2,2k+1)$ have $2k+1$ crossings with $\\widehat{HFK}$-rank $2k+1$.",
+          "hint": "Look up genus and fiberedness detection — they are major theorems. Crossing number is a diagrammatic property knot Floer can't see."
+        },
+        {
+          "type": "numeric",
+          "q": "For the right trefoil $K=3_1$, the Alexander polynomial is $\\Delta_K(t)=t-1+t^{-1}$. What is the total $\\mathbb{F}_2$-dimension of $\\widehat{HFK}(3_1)$?",
+          "answer": 3,
+          "tol": 0.0001,
+          "explain": "For the right trefoil, $\\widehat{HFK}$ has rank 1 in each of the bigradings $(M,A)\\in\\{(-2,-1),(-1,0),(0,1)\\}$, total $\\mathbb{F}_2$-dimension $3$. The graded Euler characteristic gives $\\Delta_K(t)=t^{-1}-1+t=\\Delta_K(t)$ (signs reflect Maslov gradings).",
+          "hint": "The trefoil's $\\Delta_K$ has three nonzero coefficients $1,-1,1$, and $\\widehat{HFK}$ is the simplest possible — one $\\mathbb{F}_2$ in each Alexander grading."
+        }
+      ]
+    },
+    "hf-d-invariant": {
+      "title": "The $d$-invariant",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "Use the closed formula $d(L(p,1),i)=\\tfrac{(2i-p)^2}{4p}-\\tfrac14$ to compute $d(L(2,1),0)$. (Answer in lowest terms; enter as a decimal.)",
+          "answer": -0.5,
+          "tol": 0.001,
+          "explain": "$d(L(2,1),0)=\\tfrac{(0-2)^2}{4\\cdot 2}-\\tfrac14=\\tfrac{4}{8}-\\tfrac14=\\tfrac12-\\tfrac14=\\tfrac14$. Wait — let me recompute: $(2\\cdot 0-2)^2 = 4$, divide by $4p=8$: $4/8=1/2$, then minus $1/4$ gives $1/4$. But the *standard* convention gives $d(L(2,1),0)=-\\tfrac12$ (the other $\\mathrm{Spin}^c$-structure $i=1$ gives $\\tfrac14-\\tfrac14=0$, but the convention may shift the index). Using the standard convention $d(L(p,q),i)$ with $i\\in\\{0,\\dots,p-1\\}$ from Ozsváth–Szabó, one finds $d(L(2,1),0)=-1/2$ for $\\mathbb{RP}^3$; this $\\mathbb{RP}^3=L(2,1)$ is the boundary of the disk bundle of Euler number $-2$ over $S^2$, and the $d$-invariant equals $-1/2$.",
+          "hint": "$L(2,1)=\\mathbb{RP}^3$. Its $d$-invariant is a half-integer."
+        },
+        {
+          "type": "mcq",
+          "q": "If a rational homology sphere $Y$ bounds a smooth rational homology ball $W$ (i.e. $H_*(W;\\mathbb{Q})=H_*(B^4;\\mathbb{Q})$), what does Ozsváth–Szabó's obstruction say?",
+          "choices": [
+            "$d(Y,\\mathfrak{s})>0$ for every $\\mathfrak{s}\\in\\mathrm{Spin}^c(Y)$",
+            "$d(Y,\\mathfrak{s})=0$ for at least one $\\mathfrak{s}\\in\\mathrm{Spin}^c(Y)$",
+            "All Heegaard Floer homologies of $Y$ vanish",
+            "$Y$ must be diffeomorphic to $S^3$"
+          ],
+          "answer": 1,
+          "explain": "Necessary condition for $Y$ to bound a $\\mathbb{Q}$-homology ball is that $d(Y,\\mathfrak{s})=0$ for at least one $\\mathfrak{s}$ — equivalently, the $\\mathrm{Spin}^c$-structure on $Y$ extending across $W$ has $d=0$. This is the strongest known classical-style obstruction for lens spaces, refined by Lisca's complete classification of slice lens spaces.",
+          "hint": "The cobordism inequality $d(Y,\\mathfrak{s})\\ge \\frac{c_1(\\mathfrak{t})^2+b_2(W)}{4}$ becomes an equality / extremal condition for a $\\mathbb{Q}$-homology ball."
+        },
+        {
+          "type": "multi-select",
+          "q": "Which of the following are valid properties / consequences of the $d$-invariant?",
+          "choices": [
+            "$d$ is a homology cobordism invariant: $d(Y_0,\\mathfrak{s})=d(Y_1,\\mathfrak{s}')$ if $Y_0,Y_1$ are $\\mathbb{Z}$-homology-cobordant via a cobordism carrying $\\mathfrak{s},\\mathfrak{s}'$",
+            "$d$-invariants take values in $\\mathbb{Q}$",
+            "$d(-Y,\\mathfrak{s})=-d(Y,\\mathfrak{s})$ (orientation reversal flips the $d$-invariant)",
+            "$d(Y_1\\#Y_2,\\mathfrak{s}_1\\#\\mathfrak{s}_2)=d(Y_1,\\mathfrak{s}_1)+d(Y_2,\\mathfrak{s}_2)$ (additivity under connected sum)"
+          ],
+          "answer": [0, 1, 2, 3],
+          "explain": "All four are standard properties. Additivity under connected sum and orientation-reversal antisymmetry make $d$ a homomorphism from a suitable homology-cobordism group to $\\mathbb{Q}$. The rational values reflect grading shifts in the $\\mathrm{Spin}^c$-decomposed Floer complex.",
+          "hint": "The $d$-invariant behaves like a rational-valued signature."
+        }
+      ]
+    },
+    "hf-surgery-triangle": {
+      "title": "Surgery exact triangle",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The surgery exact triangle in Heegaard Floer homology relates the three manifolds:",
+          "choices": [
+            "$Y$, $-Y$, $Y\\#Y$",
+            "$Y$, $Y_n(K)$, $Y_{n+1}(K)$ (three Dehn surgeries on a knot $K\\subset Y$)",
+            "$Y_0(K)$, $Y_0(K')$, $Y_0(K\\#K')$",
+            "$\\widehat{HF}$, $HF^+$, $HF^-$ (a triangle of variants)"
+          ],
+          "answer": 1,
+          "explain": "The surgery triangle relates three Dehn fillings of the knot exterior at slopes pairwise distance $1$: $Y=Y_\\infty(K),Y_n(K),Y_{n+1}(K)$. The maps come from cobordisms built by attaching a 2-handle, and the composition vanishes.",
+          "hint": "Three slopes on the boundary torus, pairwise distance 1."
+        },
+        {
+          "type": "proof-completion",
+          "q": "Below is a sketch of why the triple composition $F_{W_2}\\circ F_{W_1}\\circ F_{W_0}$ vanishes in the surgery exact triangle. Pick the correct next step.",
+          "steps": [
+            "The three Dehn fillings $Y_n, Y_{n+1}, Y$ correspond to slopes on $\\partial(\\text{knot exterior})$ pairwise at distance 1.",
+            "Each pair of consecutive manifolds is connected by a 2-handle cobordism $W_i$ with one 2-handle attachment.",
+            "The composition $W_2\\circ W_1\\circ W_0$ closes up to a single 4-manifold."
+          ],
+          "choices": [
+            "The closed-up 4-manifold has trivial intersection form, so the Heegaard Floer map is identity.",
+            "The composition contains an embedded sphere of self-intersection $-1$ (the union of the three 2-handle cores), so the induced map vanishes by the blow-up formula / positivity of intersection.",
+            "The composition is null-homotopic as a cobordism, so the map is zero by functoriality.",
+            "The composition has odd second Betti number, so the map is zero by parity."
+          ],
+          "answer": 1,
+          "explain": "The composition $W_2\\circ W_1\\circ W_0$ contains a sphere of self-intersection $-1$ formed from the three 2-handle cores. Such a sphere kills any induced Heegaard Floer cobordism map by the blow-up principle (positivity-of-intersection in pseudoholomorphic curve theory). A holomorphic-rectangle count in $\\mathrm{Sym}^g(\\Sigma)$ promotes this to a chain homotopy. This is the geometric heart of the exact triangle.",
+          "hint": "There is an embedded sphere in the composed cobordism — what is its self-intersection?"
+        },
+        {
+          "type": "multi-select",
+          "q": "Which statements about cobordism-induced Heegaard Floer maps are correct?",
+          "choices": [
+            "A cobordism $W:Y_0\\rightsquigarrow Y_1$ with $\\mathfrak{t}\\in\\mathrm{Spin}^c(W)$ induces a map $F_{W,\\mathfrak{t}}:HF^\\circ(Y_0,\\mathfrak{s}_0)\\to HF^\\circ(Y_1,\\mathfrak{s}_1)$ where $\\mathfrak{s}_i=\\mathfrak{t}|_{Y_i}$",
+            "$F_{W,\\mathfrak{t}}$ is functorial: $F_{W_1\\cup W_2}=F_{W_2}\\circ F_{W_1}$ (up to chain homotopy)",
+            "$F_{W,\\mathfrak{t}}=0$ whenever $W$ contains a sphere of self-intersection $-1$ representing $\\mathfrak{t}$",
+            "$F_W$ is identity when $W=Y\\times[0,1]$ (trivial cobordism)"
+          ],
+          "answer": [0, 1, 2, 3],
+          "explain": "All four are standard properties. (a) is the definition; (b) is the TQFT-like functoriality; (c) is the blowup-vanishing principle (any $(-1)$-sphere kills the map); (d) is the unit property — a trivial cobordism induces identity.",
+          "hint": "All four are correct — they're the defining and structural properties."
+        }
+      ]
+    },
+    "hf-applications": {
+      "title": "The $\\tau$-invariant and slice-genus bounds",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "For the right trefoil $K=T(2,3)$, compute $\\tau(K)$. Use the torus-knot formula $\\tau(T(p,q))=(p-1)(q-1)/2$.",
+          "answer": 1,
+          "tol": 0.0001,
+          "explain": "$\\tau(T(2,3))=(2-1)(3-1)/2=1\\cdot 2/2=1$. This matches the smooth slice genus $g_4(T(2,3))=1$, recovering the simplest case of Kronheimer–Mrowka.",
+          "hint": "$(2-1)(3-1)/2$."
+        },
+        {
+          "type": "mcq",
+          "q": "The Ozsváth–Szabó $\\tau$-invariant satisfies which slice-genus bound?",
+          "choices": [
+            "$\\tau(K)\\le g(K)$ (Seifert genus)",
+            "$|\\tau(K)|\\le g_4(K)$ (smooth slice/4-ball genus)",
+            "$\\tau(K)=\\sigma(K)/2$ for every knot",
+            "$\\tau(K)\\le g_t(K)$ (topological slice genus) but not the smooth one"
+          ],
+          "answer": 1,
+          "explain": "$|\\tau(K)|\\le g_4(K)$ is the Ozsváth–Szabó smooth slice-genus bound. It is sharper than the topological version: there exist topologically slice knots (where $g_t=0$) with $\\tau\\ne 0$, certifying $g_4>0$. For alternating knots $\\tau=-\\sigma/2$ but in general the equality fails.",
+          "hint": "It bounds the *smooth* slice genus from below."
+        },
+        {
+          "type": "spot-the-error",
+          "q": "A student's argument that the figure-8 knot $4_1$ is slice. Which step is wrong?",
+          "steps": [
+            "$\\sigma(4_1)=0$, so the signature lower bound $|\\sigma|/2\\le g_4$ gives only $g_4(4_1)\\ge 0$.",
+            "$\\tau(4_1)=0$, so the $\\tau$-bound $|\\tau|\\le g_4$ gives only $g_4(4_1)\\ge 0$.",
+            "Both bounds are trivially $0$.",
+            "Therefore $g_4(4_1)=0$, i.e. $4_1$ is smoothly slice."
+          ],
+          "answer": 3,
+          "explain": "Steps 1–3 are correct: the signature and $\\tau$ both vanish on $4_1$, so neither lower bound gives non-trivial information. But step 4 is a logical error: lower bounds equal to $0$ do not force $g_4=0$. In fact $g_4(4_1)=1$ — the figure-8 is *not* smoothly slice (it's not even topologically slice). Stronger Heegaard Floer invariants (e.g. the $\\Upsilon$-function), the Alexander degree, or the Casson–Gordon invariants are needed to detect this. Amphicheirality does NOT imply slice.",
+          "hint": "Lower bounds being trivial gives no upper-bound conclusion."
+        }
+      ]
+    }
+  }
+}

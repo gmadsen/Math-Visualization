@@ -129,7 +129,8 @@
         "homotopy-theory",
         "kahler-geometry",
         "mapping-class-groups",
-        "surgery-theory"
+        "surgery-theory",
+        "heegaard-floer"
       ],
       "color": "v"
     },

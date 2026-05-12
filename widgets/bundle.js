@@ -8095,6 +8095,153 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "hf-applications",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "hf-applications widget params",
+    "description": "Bespoke verbatim-renderer slug for the \"$\\tau$ vs $g_4$ · knot table\" widget on the heegaard-floer topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke verbatim slug for the \"$\\tau$ vs $g_4$ · knot table\" widget on `heegaard-floer`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "hf-d-invariant",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "interactive",
+    "title": "hf-d-invariant widget params",
+    "description": "Bespoke verbatim-renderer slug for the \"$d$-invariants of $L(p,1)$\" widget on the heegaard-floer topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke verbatim slug for the \"$d$-invariants of $L(p,1)$\" widget on `heegaard-floer`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "hf-knot-floer",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "select",
+    "role": "interactive",
+    "title": "hf-knot-floer widget params",
+    "description": "Bespoke verbatim-renderer slug for the \"Knot Floer bigrading lattice\" widget on the heegaard-floer topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke verbatim slug for the \"Knot Floer bigrading lattice\" widget on `heegaard-floer`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "hf-lagrangian-floer",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "interactive",
+    "title": "hf-lagrangian-floer widget params",
+    "description": "Bespoke verbatim-renderer slug for the \"Lagrangian Floer · annulus model\" widget on the heegaard-floer topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke verbatim slug for the \"Lagrangian Floer · annulus model\" widget on `heegaard-floer`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "hf-splittings",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "select",
+    "role": "interactive",
+    "title": "hf-splittings widget params",
+    "description": "Bespoke verbatim-renderer slug for the \"Heegaard splittings · genus selector\" widget on the heegaard-floer topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke verbatim slug for the \"Heegaard splittings · genus selector\" widget on `heegaard-floer`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "hf-surgery-triangle",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "hf-surgery-triangle widget params",
+    "description": "Bespoke verbatim-renderer slug for the \"Surgery triangle · proof scrubber\" widget on the heegaard-floer topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke verbatim slug for the \"Surgery triangle · proof scrubber\" widget on `heegaard-floer`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "hf-variants",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "interactive",
+    "title": "hf-variants widget params",
+    "description": "Bespoke verbatim-renderer slug for the \"The four flavors · click for definition\" widget on the heegaard-floer topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke verbatim slug for the \"The four flavors · click for definition\" widget on `heegaard-floer`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "homotopy-theory-w1",
     "family": "verbatim",
     "dimension": "2d",

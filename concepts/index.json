@@ -3,19 +3,19 @@
 
     "random-matrix-theory",
 
-
-
-
-
-
-
-
-
-
-
-
-
     "geometric-invariant-theory",
+
+
+
+
+
+    "heegaard-floer",
+
+
+
+
+
+
 
 
 
@@ -387,6 +387,7 @@
     "arithmetic-statistics": "advanced",
     "random-matrix-theory": "advanced",
     "shimura-varieties": "capstone",
-    "geometric-invariant-theory": "advanced"
+    "geometric-invariant-theory": "advanced",
+    "heegaard-floer": "advanced"
   }
 }
