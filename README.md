@@ -98,6 +98,7 @@ Each concept carries up to three quiz tiers — v1 (required), hard (unlocked af
 - [Large deviations](./large-deviations.html) — Cramér, Sanov, Varadhan's lemma, rate functions
 - [Mathematical statistics](./mathematical-statistics.html) — sufficiency, MLE, Cramér–Rao, asymptotic normality, hypothesis tests
 - [High-dimensional geometry](./high-dimensional-geometry.html) — concentration of measure, Johnson–Lindenstrauss, isoperimetry, random projections
+- [Random matrix theory](./random-matrix-theory.html) — draft — fill in once the page has real content
 
 ### Geometry & topology
 - [Point-set topology](./point-set-topology.html) — metric spaces, open sets, continuity, compactness, connectedness, separation axioms
