@@ -1,0 +1,321 @@
+{
+  "topic": "brill-noether",
+  "quizzes": {
+    "special-divisors-linear-series": {
+      "title": "Special divisors and linear series",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A $g^r_d$ on a smooth projective curve $C$ is, by definition:",
+          "choices": [
+            "A degree-$d$ divisor on $C$.",
+            "A pair $(L,V)$ with $L$ a line bundle of degree $d$ and $V\\subset H^0(C,L)$ an $(r+1)$-dimensional subspace.",
+            "Any morphism $C\\to\\mathbb{P}^r$ of degree $d$.",
+            "A holomorphic differential vanishing to order $d$ at $r$ points."
+          ],
+          "answer": 1,
+          "hint": "The $r$ in $g^r_d$ is one less than the dimension of the section space $V$.",
+          "explain": "A $g^r_d$ is a pair $(L,V)$ with $\\deg L=d$ and $\\dim V=r+1$. Equivalently it is an $r$-dimensional linear family of effective degree-$d$ divisors on $C$. When $V$ has no base points it defines a morphism $C\\to\\mathbb{P}(V^*)\\cong\\mathbb{P}^r$. The distinction matters: a $g^r_d$ is the section-space data, not the morphism (a $g^r_d$ may have base points, in which case it is only rational)."
+        },
+        {
+          "type": "mcq",
+          "q": "A divisor $D$ on $C$ is called <em>special</em> when:",
+          "choices": [
+            "$\\deg D > 2g - 2$.",
+            "$h^1(C,\\mathcal{O}(D)) > 0$, equivalently $h^0(C,K-D)>0$.",
+            "$D$ is effective.",
+            "$h^0(C,\\mathcal{O}(D)) = 0$."
+          ],
+          "answer": 1,
+          "hint": "Specialness is about extra sections — beyond what Riemann–Roch forces.",
+          "explain": "Specialness means $h^1(D) > 0$, equivalently (by Serre duality) $h^0(K-D) > 0$. In the Riemann–Roch formula $h^0(D)-h^1(D)=d-g+1$, a special divisor is one where the correction term $h^1$ is non-zero — i.e. there are <em>extra sections</em> beyond the Riemann–Roch floor. Brill–Noether theory measures how special divisors can be."
+        },
+        {
+          "type": "multi-select",
+          "q": "Select every statement that is correct about the linear series $|D|=\\mathbb{P}(H^0(C,\\mathcal{O}(D)))$.",
+          "choices": [
+            "$|D|$ parametrises effective divisors linearly equivalent to $D$.",
+            "$\\dim|D| = h^0(C,\\mathcal{O}(D)) - 1$.",
+            "If $|D|$ has no base points, then a choice of basis of $H^0(\\mathcal{O}(D))$ defines a morphism $C\\to\\mathbb{P}^r$.",
+            "$|D|$ is always non-empty.",
+            "$|D|$ is independent of $g$ when $d\\ge 2g-2$."
+          ],
+          "answer": [
+            0,
+            1,
+            2
+          ],
+          "hint": "Two of the five are simply false — $|D|$ can be empty (when $h^0=0$), and its size depends on $g$ even for large $d$.",
+          "explain": "The first three are core definitions: $|D|$ is the projectivisation of the section space, has projective dimension $h^0-1$, and (when basepoint-free) defines a morphism. The fourth is false: $|D|=\\emptyset$ whenever $h^0(\\mathcal{O}(D))=0$ — for example any negative-degree $D$. The fifth is false: for $d>2g-2$ we have $h^0(D)=d-g+1$, which depends on both $d$ and $g$."
+        }
+      ]
+    },
+    "riemann-roch-bn": {
+      "title": "Riemann–Roch as the dimension-counting tool",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "On a smooth projective curve of genus $g=5$, what is $h^0(\\mathcal{O}(D))$ for a generic divisor $D$ of degree $d=10$?",
+          "answer": 6,
+          "tol": 1e-9,
+          "hint": "$d>2g-2$, so Serre vanishing makes $D$ non-special.",
+          "explain": "We have $d=10$ and $2g-2=8$, so $d>2g-2$ and Serre vanishing gives $h^1(D)=h^0(K-D)=0$. Riemann–Roch then forces $h^0(D)=d-g+1=10-5+1=6$ exactly. In the non-special range, Riemann–Roch is an equality, not just a lower bound."
+        },
+        {
+          "type": "mcq",
+          "q": "For a smooth projective curve of genus $g$ and the canonical divisor $K$, $h^0(K)$ equals:",
+          "choices": [
+            "$g-1$.",
+            "$g$.",
+            "$g+1$.",
+            "$2g-2$."
+          ],
+          "answer": 1,
+          "hint": "$\\Omega^1_C$ is the canonical bundle and $H^0(C,\\Omega^1_C)$ has dimension $g$ by definition.",
+          "explain": "By definition of the genus, $H^0(C,\\Omega^1_C) = H^0(C,K)$ has dimension $g$. Riemann–Roch with $D=K$ reads $h^0(K)-h^0(0)=(2g-2)-g+1=g-1$, so $h^0(K)=g+h^0(0)-1$. With $h^0(\\mathcal{O}_C)=1$ this gives $h^0(K)=g$, consistent. The canonical divisor is the universal example of a special divisor with maximal $h^1$."
+        },
+        {
+          "type": "mcq",
+          "q": "Consider the following Riemann–Roch computation for $D$ a degree-$3$ divisor on a smooth curve of genus $g=4$: 'Since $d=3<2g-2=6$, $D$ is special. By Riemann–Roch, $h^0(D)=d-g+1=0$. So $|D|$ is empty.' Where does the argument go wrong?",
+          "choices": [
+            "$d=3$ is not in the special range for $g=4$.",
+            "Riemann–Roch gives $h^0(D)-h^1(D)=d-g+1=0$, but the conclusion $h^0=0$ ignores $h^1\\ge 0$. In the special range, $h^1(D)>0$ is possible, and $h^0=h^1$ above the Riemann–Roch floor — RR is a lower bound on $h^0$, not an equality, when $D$ is special.",
+            "$h^0$ is always at least $1$ for any divisor.",
+            "The canonical divisor has degree $2g$, not $2g-2$."
+          ],
+          "answer": 1,
+          "hint": "Riemann–Roch is $h^0-h^1=d-g+1$, not $h^0=d-g+1$.",
+          "explain": "In the special range, $h^1(D)>0$ is exactly the phenomenon that lets $h^0$ exceed the Riemann–Roch floor. For a degree-$3$ divisor on a genus-$4$ curve, the trigonal pencil example has $h^0(D)=2$ (a $g^1_3$) and $h^1(D)=2$, so $h^0-h^1=0=d-g+1$ — but $h^0$ is $2$, not $0$. Riemann–Roch alone bounds $h^0\\ge \\max(0,d-g+1)$; you need to actually compute $h^1$ (or invoke Brill–Noether) to know $h^0$."
+        }
+      ]
+    },
+    "brill-noether-number": {
+      "title": "The Brill–Noether number $\\rho(g,r,d)$",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "Compute $\\rho(g,r,d)$ for $(g,r,d)=(7,1,4)$.",
+          "answer": -1,
+          "tol": 1e-9,
+          "hint": "$\\rho = g - (r+1)(g-d+r)$. Plug in $g=7$, $r=1$, $d=4$.",
+          "explain": "$g - d + r = 7 - 4 + 1 = 4$, so $(r+1)(g-d+r) = 2\\cdot 4 = 8$, and $\\rho = 7 - 8 = -1$. Since $\\rho<0$, a general genus-$7$ curve has no $g^1_4$ (degree-4 map to $\\mathbb{P}^1$). The locus $\\mathcal{M}^1_{7,4}\\subset\\mathcal{M}_7$ of <em>tetragonal</em> curves of genus $7$ is then a Brill–Noether divisor — codimension exactly $|\\rho|=1$ in $\\mathcal{M}_7$."
+        },
+        {
+          "type": "mcq",
+          "q": "On a general smooth projective curve of genus $g$, the Brill–Noether number $\\rho(g,r,d)$ tells you:",
+          "choices": [
+            "The exact number of $g^r_d$'s on $C$.",
+            "The expected dimension of the variety of $g^r_d$'s; positive $\\rho$ predicts existence, negative $\\rho$ predicts emptiness.",
+            "The genus of the image curve in $\\mathbb{P}^r$.",
+            "The degree of the canonical embedding."
+          ],
+          "answer": 1,
+          "hint": "$\\rho$ is the <em>dimension</em> of $W^r_d$, not its cardinality.",
+          "explain": "$\\rho(g,r,d)$ is the expected (and on a general curve, actual) dimension of $W^r_d(C)$. When $\\rho<0$ this means $W^r_d(C)=\\emptyset$ on a general curve; when $\\rho\\ge 0$, the Brill–Noether theorem (Kempf, Kleiman–Laksov) says it is non-empty. The actual count of $g^r_d$'s (when $\\rho=0$) is given by a Castelnuovo number — a specific Schubert intersection — but $\\rho$ itself is the dimension."
+        },
+        {
+          "type": "matching",
+          "q": "Match each $(g,r,d)$ triple to the geometric reading of $\\rho(g,r,d)$ on a general curve.",
+          "left": [
+            "$(2,1,2)$",
+            "$(3,1,2)$",
+            "$(4,1,3)$",
+            "$(5,1,4)$"
+          ],
+          "right": [
+            "$\\rho=0$: unique $g^1_2$; every genus-2 curve is hyperelliptic.",
+            "$\\rho=1$: every curve has a 1-parameter family of $g^1_4$'s.",
+            "$\\rho=0$: a $g^1_3$ exists (trigonal pencil), with finitely many on a general curve.",
+            "$\\rho=-1$: a general genus-3 curve has no $g^1_2$ — the hyperelliptic locus is a divisor in $\\mathcal{M}_3$."
+          ],
+          "answer": [
+            0,
+            3,
+            2,
+            1
+          ],
+          "hint": "Compute $\\rho$ for each: $(2,1,2)$: $\\rho=0$. $(3,1,2)$: $\\rho=-1$. $(4,1,3)$: $\\rho=0$. $(5,1,4)$: $\\rho=1$.",
+          "explain": "$\\rho(2,1,2)=2-2\\cdot 1=0$ (unique $g^1_2$; every genus-2 curve is hyperelliptic). $\\rho(3,1,2)=3-2\\cdot 2=-1$ (the hyperelliptic locus is a divisor in $\\mathcal{M}_3$). $\\rho(4,1,3)=4-2\\cdot 2=0$ (every genus-4 curve has a $g^1_3$, with a 2-element family on a general curve, by Castelnuovo). $\\rho(5,1,4)=5-2\\cdot 2=1$ (every curve has a 1-parameter family of $g^1_4$'s)."
+        }
+      ]
+    },
+    "wrd-locus": {
+      "title": "$W^r_d(C)$ — the Brill–Noether locus",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "$W^r_d(C)$ is defined as a subset of which ambient variety?",
+          "choices": [
+            "The moduli space $\\mathcal{M}_g$.",
+            "The Picard variety $\\Pic^d(C)$.",
+            "The projective space $\\mathbb{P}^r$.",
+            "The symmetric product $C^{(d)}$."
+          ],
+          "answer": 1,
+          "hint": "$W^r_d$ is a locus inside the space of degree-$d$ line bundles on $C$.",
+          "explain": "$W^r_d(C)\\subseteq\\Pic^d(C)$ is the set of line bundles $L$ of degree $d$ on $C$ with $h^0(L)\\ge r+1$. The Picard variety has dimension $g$, and $W^r_d$ cuts out a subvariety of expected codimension $(r+1)(g-d+r)$. The closely related space $G^r_d(C)$ — pairs $(L,V)$ rather than just $L$ — sits over $W^r_d$ and parametrises the actual $g^r_d$'s; the projection $G^r_d\\to W^r_d$ is birational outside $W^{r+1}_d$."
+        },
+        {
+          "type": "numeric",
+          "q": "The expected codimension of $W^r_d(C)$ in $\\Pic^d(C)$ is $(r+1)(g-d+r)$. For $(g,r,d)=(8,2,7)$, what is this codimension?",
+          "answer": 9,
+          "tol": 1e-9,
+          "hint": "Plug in: $(2+1)(8-7+2)=3\\cdot 3$.",
+          "explain": "$(r+1)(g-d+r)=(2+1)(8-7+2)=3\\cdot 3=9$. So the expected codimension is $9$, but $\\dim\\Pic^d=g=8$ — the codimension exceeds the dimension, so $W^2_7(C)=\\emptyset$ on a general genus-$8$ curve. Consistently, $\\rho(8,2,7)=8-9=-1$."
+        },
+        {
+          "type": "mcq",
+          "q": "$W^r_d(C)$ has a natural scheme structure because it is:",
+          "choices": [
+            "A homogeneous space under a Lie group action.",
+            "A determinantal subscheme — cut out by a rank condition on a map of vector bundles $\\gamma\\colon\\mathcal{F}\\to\\mathcal{G}$ on $\\Pic^d(C)$.",
+            "A complete intersection of explicit polynomials.",
+            "A toric variety."
+          ],
+          "answer": 1,
+          "hint": "$h^0(L)\\ge r+1$ is a rank-drop condition on an evaluation-of-sections map.",
+          "explain": "Choose a Poincaré bundle on $C\\times\\Pic^d(C)$ and a sufficiently positive effective divisor $E$ on $C$. Pushforward along the second projection gives a map of vector bundles $\\gamma\\colon\\mathcal{F}\\to\\mathcal{G}$ on $\\Pic^d(C)$, and the fibre rank-drop of $\\gamma$ at $L$ measures $h^0(L)$. The locus where $\\operatorname{rk}\\gamma\\le\\operatorname{rk}\\mathcal{F}-(r+1)$ — i.e. $h^0(L)\\ge r+1$ — is then a determinantal subscheme, cut by $(r+1)\\times(r+1)$ minors. This is how Macaulay/Porteous gives the expected codimension."
+        }
+      ]
+    },
+    "brill-noether-theorem": {
+      "title": "The Brill–Noether theorem",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The Brill–Noether existence theorem (Kempf 1971 / Kleiman–Laksov 1972) asserts that $W^r_d(C)$ is non-empty:",
+          "choices": [
+            "Only for generic curves $C$.",
+            "For every smooth projective curve $C$, whenever $\\rho(g,r,d)\\ge 0$.",
+            "Only when $r=0$ and $d\\ge 0$.",
+            "Only when $C$ is hyperelliptic."
+          ],
+          "answer": 1,
+          "hint": "Existence is unconditional — it holds for <em>any</em> curve once $\\rho\\ge 0$.",
+          "explain": "The non-emptiness half of Brill–Noether is unconditional: <em>every</em> smooth projective curve of genus $g$ carries a $g^r_d$ whenever $\\rho(g,r,d)\\ge 0$. The proof is a Schubert / Chern-class computation: the class of $W^r_d$ in $H^*(\\Pic^d)$ is a positive Schur polynomial, hence non-zero. The 'general curve' refinement is for the <em>dimension</em>: $\\dim W^r_d=\\rho$ on a general curve, but on a special curve the dimension can jump."
+        },
+        {
+          "type": "ordering",
+          "q": "Arrange the steps of the Kempf / Kleiman–Laksov existence proof in the standard order.",
+          "items": [
+            "Construct the Poincaré bundle $\\mathcal{P}$ on $C\\times\\Pic^d(C)$.",
+            "Push $\\mathcal{P}$ (twisted) forward along $\\pi_2$ to get a map $\\gamma\\colon\\mathcal{F}\\to\\mathcal{G}$ on $\\Pic^d(C)$.",
+            "Identify $W^r_d$ as the determinantal locus where $\\operatorname{rk}\\gamma$ drops by $\\ge r+1$.",
+            "Apply Macaulay/Porteous to express $[W^r_d]\\in H^*(\\Pic^d)$ as a Schur polynomial in Chern classes.",
+            "Verify the Schur polynomial is non-zero (positive coefficients) whenever $\\rho\\ge 0$, hence $W^r_d\\ne\\emptyset$."
+          ],
+          "answer": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "hint": "Build the universal object, push forward, identify the locus, compute the class, then evaluate.",
+          "explain": "The five steps form the proof in order: (1) Build a universal degree-$d$ line bundle parametrised over $\\Pic^d$. (2) Pushforward gives a comparison map of bundles whose fibre rank is $h^0$. (3) The determinantal locus is set-theoretically $W^r_d$. (4) Macaulay/Porteous gives an explicit class — a Schur polynomial — in cohomology. (5) Positivity of the Schur polynomial coefficients (when $\\rho\\ge 0$) forces the class to be non-zero, which forces the locus to be non-empty. The argument is Chern-class machinery applied universally; the geometric input is just 'a Poincaré bundle exists'."
+        },
+        {
+          "type": "mcq",
+          "q": "On a general smooth projective curve $C$ of genus $g$, what is $\\dim W^r_d(C)$ when $\\rho(g,r,d)\\ge 0$?",
+          "choices": [
+            "$g-1$.",
+            "$\\rho(g,r,d)$ — the Brill–Noether number.",
+            "Always $0$.",
+            "$g$."
+          ],
+          "answer": 1,
+          "hint": "On a general curve, the expected dimension is the actual dimension.",
+          "explain": "Griffiths–Harris (1980) sharpened existence: on a general curve, $\\dim W^r_d(C)=\\rho(g,r,d)$ exactly when $\\rho\\ge 0$. The 'expected' dimension matches the actual one. On special curves, $\\dim W^r_d$ can exceed $\\rho$ — those are the curves living in proper subvarieties of $\\mathcal{M}_g$, and they include the classical loci (hyperelliptic, trigonal, etc.)."
+        }
+      ]
+    },
+    "petri": {
+      "title": "Petri's theorem (smoothness)",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The Petri map $\\mu_0(L)$ at $L\\in W^r_d(C)$ is:",
+          "choices": [
+            "The evaluation map $H^0(L)\\to L_p$ at a point $p$.",
+            "The cup-product $H^0(L)\\otimes H^0(K\\otimes L^{-1})\\to H^0(K)$.",
+            "The dual of the Abel–Jacobi map.",
+            "The restriction of a line bundle to a subcurve."
+          ],
+          "answer": 1,
+          "hint": "Multiply a section of $L$ by a section of $K\\otimes L^{-1}$ to get a section of $K$.",
+          "explain": "The Petri map $\\mu_0(L)\\colon H^0(C,L)\\otimes H^0(C,K\\otimes L^{-1})\\to H^0(C,K)$ is the cup-product (multiplication of sections, valued in the canonical bundle since $L\\otimes(K\\otimes L^{-1})=K$). Its cokernel is the Zariski cotangent space to $W^r_d$ at $L$, and Petri's theorem asserts $\\mu_0$ is injective on a general curve."
+        },
+        {
+          "type": "mcq",
+          "q": "Petri's theorem (Gieseker 1982) says: on a general smooth projective curve $C$, for $L$ in the open stratum $W^r_d\\setminus W^{r+1}_d$, the Petri map $\\mu_0(L)$ is injective. The consequence is:",
+          "choices": [
+            "$W^r_d(C)$ is irreducible.",
+            "$W^r_d(C)$ is smooth at $L$ of dimension exactly $\\rho(g,r,d)$.",
+            "$W^r_d(C)$ has only one connected component.",
+            "$C$ is hyperelliptic."
+          ],
+          "answer": 1,
+          "hint": "The cokernel of $\\mu_0$ is the cotangent space to $W^r_d$; injectivity makes cotangent dimension minimal.",
+          "explain": "The Zariski cotangent space $T^*_L W^r_d=\\operatorname{coker}\\mu_0(L)^*$, so $\\dim T_L W^r_d=\\dim\\operatorname{coker}\\mu_0$. When $\\mu_0$ is injective (rank = $\\dim\\operatorname{domain}=(r+1)(g-d+r)$), $\\dim\\operatorname{coker}=g-(r+1)(g-d+r)=\\rho$. So $W^r_d$ is smooth of dimension exactly $\\rho$ at $L$. Petri (proved by Gieseker, then more cleanly by Eisenbud–Harris via limit linear series) says this happens generically."
+        },
+        {
+          "type": "numeric",
+          "q": "On a general smooth projective curve of genus $g=8$, what is the dimension of $W^2_7$? (Compute $\\rho$.)",
+          "answer": -1,
+          "tol": 1e-9,
+          "hint": "$\\rho(8,2,7) = 8 - 3(8-7+2) = ?$",
+          "explain": "$\\rho(8,2,7) = 8 - 3\\cdot(8-7+2) = 8 - 3\\cdot 3 = -1$. Since $\\rho<0$, $W^2_7(C)$ is empty on a general curve. The locus $\\{C\\in\\mathcal{M}_8:W^2_7(C)\\ne\\emptyset\\}$ — curves of genus 8 with a $g^2_7$ (a plane septic) — is a Brill–Noether <em>divisor</em>, of codimension $|\\rho|=1$ in $\\mathcal{M}_8$."
+        }
+      ]
+    },
+    "bn-in-mg": {
+      "title": "Brill–Noether loci in $\\mathcal{M}_g$",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "When $\\rho(g,r,d)=-1$, the locus $\\mathcal{M}^r_{g,d}=\\{[C]\\in\\mathcal{M}_g:W^r_d(C)\\ne\\emptyset\\}$ is:",
+          "choices": [
+            "Empty.",
+            "All of $\\mathcal{M}_g$.",
+            "A divisor (codim 1) in $\\mathcal{M}_g$ — the Brill–Noether divisor.",
+            "A finite set of points."
+          ],
+          "answer": 2,
+          "hint": "$|\\rho|$ is the codimension of the failure locus in $\\mathcal{M}_g$.",
+          "explain": "For $\\rho=-1$, the locus of curves where $W^r_d$ is non-empty (against the generic expectation) has codimension $1$ in $\\mathcal{M}_g$ — it is a divisor. These are the <strong>Brill–Noether divisors</strong>; Eisenbud–Harris (1987) computed their classes in $\\Pic(\\overline{\\mathcal{M}}_g)\\otimes\\mathbb{Q}$ as explicit combinations of $\\lambda$ and the boundary classes $\\delta_i$, using limit linear series on flag curves. For more negative $\\rho$, the locus has higher codimension."
+        },
+        {
+          "type": "mcq",
+          "q": "The Eisenbud–Harris theory of <em>limit linear series</em> extends Brill–Noether to:",
+          "choices": [
+            "Smooth curves over fields of positive characteristic.",
+            "Stable nodal curves at the boundary of $\\overline{\\mathcal{M}}_g$ — letting one compute Brill–Noether divisor classes by degeneration.",
+            "Higher-dimensional varieties.",
+            "Mixed-characteristic schemes."
+          ],
+          "answer": 1,
+          "hint": "Eisenbud–Harris's technical innovation was handling the boundary $\\partial\\overline{\\mathcal{M}}_g$.",
+          "explain": "A limit linear series on a chain of components prescribes a coordinated choice of linear series on each component, with vanishing-sequence compatibility at the nodes. Eisenbud–Harris (1983) showed limit linear series on flag curves (chains of elliptic curves) smooth out to $g^r_d$'s on nearby smooth curves — proving Petri by degeneration and supplying explicit divisor classes in $\\Pic\\overline{\\mathcal{M}}_g\\otimes\\mathbb{Q}$. The classes are the central technical input to the Harris–Mumford theorem on the Kodaira dimension of $\\overline{\\mathcal{M}}_g$."
+        },
+        {
+          "type": "multi-select",
+          "q": "Select every $(g,r,d)$ triple with $\\rho(g,r,d)=-1$ — i.e. giving a Brill–Noether divisor in $\\mathcal{M}_g$.",
+          "choices": [
+            "$(3,1,2)$ — hyperelliptic locus in $\\mathcal{M}_3$.",
+            "$(4,1,3)$ — trigonal pencils on a genus-4 curve.",
+            "$(5,1,3)$ — trigonal locus in $\\mathcal{M}_5$.",
+            "$(7,1,4)$ — tetragonal locus in $\\mathcal{M}_7$.",
+            "$(2,1,2)$ — every genus-2 curve is hyperelliptic."
+          ],
+          "answer": [
+            0,
+            2,
+            3
+          ],
+          "hint": "Compute $\\rho$ for each; the $\\rho=-1$ cases are exactly the codim-$1$ loci in $\\mathcal{M}_g$.",
+          "explain": "$\\rho(3,1,2)=3-2\\cdot 2=-1$ ✓ (hyperelliptic divisor in $\\mathcal{M}_3$). $\\rho(4,1,3)=4-2\\cdot 2=0$ (every genus-4 curve has a $g^1_3$, so the locus is all of $\\mathcal{M}_4$ — not a divisor). $\\rho(5,1,3)=5-2\\cdot 3=-1$ ✓ (trigonal divisor in $\\mathcal{M}_5$). $\\rho(7,1,4)=7-2\\cdot 4=-1$ ✓ (tetragonal divisor in $\\mathcal{M}_7$). $\\rho(2,1,2)=0$ (unique $g^1_2$ on every genus-2 curve — not a divisor). The pattern: $\\rho(2k+1,1,k+1)=-1$ gives the classic codimension-1 'gonality' loci in odd genus, with classes computed explicitly by Harris–Mumford and Eisenbud–Harris."
+        }
+      ]
+    }
+  }
+}

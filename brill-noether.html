@@ -1,0 +1,1195 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Brill–Noether theory</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false,
+      macros:{
+        '\\Spec':'\\operatorname{Spec}',
+        '\\Gal':'\\operatorname{Gal}',
+        '\\Hom':'\\operatorname{Hom}',
+        '\\Pic':'\\operatorname{Pic}',
+        '\\tr':'\\operatorname{tr}',
+        '\\ad':'\\operatorname{ad}',
+        '\\ind':'\\operatorname{ind}'
+      }
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  /* sticky sidebar TOC (wide screens only; narrow screens fall back to top-nav) */
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+  /* callback-css-auto-begin */
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+/* callback-css-auto-end */
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
+  /* display-prefs-css-auto-begin */
+  html[data-hide-widgets] .widget { display: none !important; }
+  html[data-hide-quizzes] .quiz { display: none !important; }
+  html[data-hide-lineage] .lineage-strip { display: none !important; }
+  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }
+  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }
+  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }
+  .mv-display-toggle--off { opacity: 0.35; }
+  /* display-prefs-css-auto-end */
+</style>
+<link rel="stylesheet" media="print" href="./css/print.css">
+<link rel="stylesheet" href="./css/theme-light.css">
+<script src="./js/theme-toggle.js"></script>
+<script src="./concepts/bundle.js" defer></script>
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./quizzes/bundle.js"></script>
+<script src="./js/sidetoc.js"></script>
+<!-- display-prefs-head-auto-begin -->
+<script src="./js/display-prefs.js"></script>
+<!-- display-prefs-head-auto-end -->
+</head>
+<body data-section="Algebraic geometry" data-level="advanced">
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+// draw an arrow marker def once per svg (idempotent)
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+// curved arrow between two pixel points, with optional label
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  // shorten endpoints
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a>
+<!-- toc-auto-begin -->
+  <a href="#special-divisors">1&nbsp;Special&nbsp;divisors&nbsp;and&nbsp;linear&nbsp;series</a>
+  <a href="#riemann-roch-bn">2&nbsp;Riemann–Roch&nbsp;as&nbsp;the&nbsp;dimension-counting&nbsp;tool</a>
+  <a href="#brill-noether-number">3&nbsp;The&nbsp;Brill–Noether&nbsp;number&nbsp;$\rho(g,r,d)$</a>
+  <a href="#wrd-locus">4&nbsp;$W^r_d(C)$&nbsp;—&nbsp;the&nbsp;Brill–Noether&nbsp;locus</a>
+  <a href="#brill-noether-theorem">5&nbsp;The&nbsp;Brill–Noether&nbsp;theorem&nbsp;(existence&nbsp;+&nbsp;dimension)</a>
+  <a href="#petri">6&nbsp;Petri's&nbsp;theorem&nbsp;(smoothness)</a>
+  <a href="#bn-in-mg">7&nbsp;Brill–Noether&nbsp;loci&nbsp;in&nbsp;$\mathcal{M}_g$</a>
+  <a href="#connections">8&nbsp;Connections</a>
+<!-- toc-auto-end -->
+</nav>
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Brill–Noether theory</h1>
+  <p class="sub">When does a smooth projective curve of genus $g$ admit a non-degenerate map to $\mathbb{P}^r$ of degree $d$? Riemann–Roch gives a lower bound on $h^0$; the <strong>Brill–Noether number</strong> $\rho(g,r,d)=g-(r+1)(g-d+r)$ predicts the expected dimension of the variety $W^r_d(C)$ of such linear series. The Brill–Noether theorem (Kempf, Kleiman–Laksov) says $W^r_d$ is non-empty of dimension $\rho$ on every curve when $\rho\ge 0$; Petri's theorem says the locus is smooth — and the prediction sharp — on a general curve. Together they describe how special divisors are arranged on a general curve, and how the geometry of $\mathcal{M}_g$ stratifies by the existence of unusual linear systems.</p>
+</section>
+
+<section id="special-divisors">
+<h2>1. Special divisors and linear series</h2>
+
+<p>Let $C$ be a smooth projective curve of genus $g$ over an algebraically closed field $k$. A <strong>divisor</strong> $D=\sum n_p\,[p]$ is a finite formal $\mathbb{Z}$-sum of points; its degree is $\deg D=\sum n_p$. The <em>complete linear series</em> attached to a divisor is the projective space</p>
+
+<p style="text-align:center">$|D|\;=\;\mathbb{P}(H^0(C,\mathcal{O}_C(D))),$</p>
+
+<p>parametrizing effective divisors $D'\ge 0$ linearly equivalent to $D$. Equivalently, a section $s\in H^0(C,\mathcal{O}(D))$ has a zero locus $\mathrm{div}(s)+D\sim D$; the choice of $s$ up to scalar is the choice of an effective representative.</p>
+
+<p>A <strong>$g^r_d$</strong> on $C$ is a pair $(L,V)$ where $L$ is a line bundle of degree $d$ and $V\subset H^0(C,L)$ is an $(r+1)$-dimensional subspace. When $V=H^0(C,L)$ it is <em>complete</em>; in general it is a sublinear series. A $g^r_d$ defines a rational map $C\dashrightarrow\mathbb{P}^r=\mathbb{P}(V^*)$; the map is a morphism whenever $V$ has no base points. The question "does $C$ embed in $\mathbb{P}^r$ as a degree-$d$ curve" is the question "does $C$ carry a very ample $g^r_d$".</p>
+
+<h3>Special vs. non-special</h3>
+
+<p>A divisor $D$ is <strong>special</strong> if $h^1(D):=\dim H^1(C,\mathcal{O}(D))>0$, equivalently (Serre duality) if $h^0(K-D)>0$ where $K$ is the canonical divisor of degree $2g-2$. By Riemann–Roch (next section), $h^0(D)-h^1(D)=d-g+1$, so when $D$ is non-special, $h^0(D)=d-g+1$ is determined by $d$ and $g$ alone. Specialness — extra sections beyond what Riemann–Roch forces — is exactly the phenomenon Brill–Noether theory measures.</p>
+
+<div class="widget" id="w-bn-linear-series">
+  <div class="hd"><div class="ttl">Effective divisors in a linear series</div><div class="hint">drag the slider; the section moves through $|D|$ and its zeros trace a $g^r_d$</div></div>
+  <div class="row">
+    <label>$\dim V = r+1$:</label>
+    <input id="ls-dim" type="range" min="1" max="4" step="1" value="2">
+    <span id="ls-dimval" class="pill">r+1 = 2</span>
+  </div>
+  <div class="row">
+    <label>parameter $\lambda$:</label>
+    <input id="ls-lambda" type="range" min="-2" max="2" step="0.04" value="0.3">
+    <span id="ls-lamval" class="pill">λ = 0.30</span>
+  </div>
+  <svg id="ls-svg" viewBox="0 0 720 260" width="720" height="260"><title>Effective divisors in a linear series</title></svg>
+  <div class="readout" id="ls-out">drag the parameter slider; the orange marks are the $d$ zeros of $s_\lambda=\sum\lambda_i s_i$ on the curve…</div>
+  <p class="small">Sections $s_0,\ldots,s_r$ span a $g^r_d$ of degree $d=6$. Varying $\lambda\in\mathbb{P}^r$ moves through the effective divisors $\mathrm{div}(s_\lambda)$, each a sum of $d$ points (with multiplicity). The <em>base locus</em> is the intersection of all zero divisors — points where every section vanishes. A base-point-free $g^r_d$ defines a morphism $\varphi\colon C\to\mathbb{P}^r$.</p>
+</div>
+<script>
+(function(){
+  const svg=$('#ls-svg'), out=$('#ls-out');
+  const dimSlider=$('#ls-dim'), lamSlider=$('#ls-lambda');
+  const dimVal=$('#ls-dimval'), lamVal=$('#ls-lamval');
+  const W=720, H=260;
+  // Parametrize a circle as the "curve" for visualization purposes.
+  // d=6 zero locations; vary section coefficients to shift the configuration.
+  const d=6;
+  function curvePt(t){
+    const cx=360, cy=130, R=92;
+    return [cx + R*Math.cos(2*Math.PI*t), cy + R*Math.sin(2*Math.PI*t)];
+  }
+  function basisZeros(i){
+    // i-th basis section's d zeros — spread around the circle with a phase
+    const out=[];
+    for(let k=0;k<d;k++){
+      const phase = (k/d) + 0.07*i + 0.02*i*i;
+      out.push(phase % 1);
+    }
+    return out;
+  }
+  function sectionZeros(coeffs){
+    // Approximate the zeros of a complex polynomial whose roots interpolate
+    // between the basis-section zeros — for visualization we simply rotate
+    // each basis-zero by a coefficient-weighted phase shift.
+    const r1 = coeffs.length;
+    let phase = 0, scale = 0;
+    for(let i=0;i<r1;i++){ phase += coeffs[i]*0.18*(i+1); scale += Math.abs(coeffs[i]); }
+    scale = Math.max(scale, 1e-3);
+    const base = basisZeros(0);
+    return base.map((t,k)=> (t + phase/scale + 0.03*k*coeffs[1%r1]) % 1);
+  }
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const r1 = +dimSlider.value;     // dim V
+    const lam = +lamSlider.value;
+    // Build a coefficient vector that smoothly moves with lambda.
+    const coeffs = [];
+    for(let i=0;i<r1;i++){ coeffs.push(Math.cos(0.9*lam + i*1.1) * (1 + 0.3*i)); }
+    // curve (background)
+    const cx=360, cy=130, R=92;
+    svg.appendChild(SVG('circle',{cx,cy,r:R,fill:'none',stroke:'var(--mute)','stroke-width':1.0}));
+    const lab=SVG('text',{x:cx,y:cy-R-12,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});
+    lab.textContent='smooth projective curve C (genus '+(d-r1>=0?d-r1+1:'g')+' for illustration)'; svg.appendChild(lab);
+    // basis section zeros (faint)
+    for(let i=0;i<r1;i++){
+      const ph = basisZeros(i);
+      const col = ['var(--blue)','var(--violet)','var(--cyan)','var(--green)'][i] || 'var(--mute)';
+      for(const t of ph){
+        const [px,py] = curvePt(t);
+        svg.appendChild(SVG('circle',{cx:px,cy:py,r:2,fill:col,opacity:0.4}));
+      }
+      const lg=SVG('text',{x:60+i*120, y:H-40,'font-size':11, fill:col});
+      lg.textContent='s_'+i+' zeros'; svg.appendChild(lg);
+      svg.appendChild(SVG('circle',{cx:50+i*120, cy:H-44, r:3, fill:col, opacity:0.7}));
+    }
+    // current section's zeros
+    const z = sectionZeros(coeffs);
+    for(const t of z){
+      const [px,py] = curvePt(t);
+      svg.appendChild(SVG('circle',{cx:px,cy:py,r:5,fill:'var(--yellow)',stroke:'#111','stroke-width':1.3}));
+    }
+    // Center label
+    const ctxt = SVG('text',{x:cx,y:cy,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});
+    ctxt.textContent='div(s_λ), d='+d; svg.appendChild(ctxt);
+    // Right panel: linear combination
+    const px0 = 530;
+    const eq = SVG('text',{x:px0,y:36,'font-size':12,fill:'var(--ink)'});
+    eq.textContent='s_λ = ' + coeffs.map((c,i)=>(c>=0&&i>0?'+':'')+c.toFixed(2)+'·s_'+i).join(''); svg.appendChild(eq);
+    const dimLine = SVG('text',{x:px0,y:60,'font-size':11,fill:'var(--mute)'});
+    dimLine.textContent='dim V = '+r1+',  r = '+(r1-1)+',  deg div(s_λ) = '+d; svg.appendChild(dimLine);
+    const noBP = SVG('text',{x:px0,y:80,'font-size':11,fill:'var(--green)'});
+    noBP.textContent= r1>=2 ? '(base locus: empty — defines φ: C → ℙ^'+(r1-1)+')' : '(r=0: |D| is a point — no map)'; svg.appendChild(noBP);
+    dimVal.textContent='r+1 = '+r1;
+    lamVal.textContent='λ = '+lam.toFixed(2);
+    out.textContent =
+      'A g^'+(r1-1)+'_'+d+': line bundle L of degree '+d+', V ⊂ H⁰(C,L) of dim '+r1+'.\n' +
+      'Varying λ ∈ ℙ(V) sweeps out the effective divisors in |V|.\n' +
+      'Each div(s_λ) is a sum of '+d+' points on C — its image under φ_V is a hyperplane section in ℙ^'+(r1-1)+'.';
+  }
+  dimSlider.addEventListener('input', render);
+  lamSlider.addEventListener('input', render);
+  render();
+})();
+</script>
+
+<div class="note"><strong>Special means tightly constrained.</strong> If $D$ is non-special and $\deg D\ge g$ then $h^0(D)=d-g+1$ and the geometry of $|D|$ is determined: it's the expected size. Specialness — "more sections than Riemann–Roch forces" — happens for low-degree divisors and for the canonical divisor $K$ itself, where $h^0(K)=g$ and $h^1(K)=1$.</div>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./algebraic-curves-higher-genus.html#divisors">Divisors on curves</a></li>
+    <li><a href="./sheaf-cohomology.html#serre">Picard groups and Serre duality signals</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./brill-noether.html#riemann-roch-bn">Brill–Noether theory</a> · Riemann–Roch as the dimension-counting tool</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="special-divisors-linear-series"></div>
+
+</section>
+
+<section id="riemann-roch-bn">
+<h2>2. Riemann–Roch as the dimension-counting tool</h2>
+
+<p>The single most important constraint on $|D|$ is the Riemann–Roch formula. For any divisor $D$ on a smooth projective curve $C$ of genus $g$, with canonical divisor $K$ of degree $2g-2$:</p>
+
+<p style="text-align:center">$h^0(C,\mathcal{O}(D)) - h^0(C,\mathcal{O}(K-D))\;=\;\deg D - g + 1.$</p>
+
+<p>Equivalently $h^0(D)-h^1(D)=d-g+1$ via Serre duality $h^1(D)=h^0(K-D)$. The formula is the engine: it converts the abstract question "how many sections does $\mathcal{O}(D)$ have?" into a concrete count, modulo the correction term $h^0(K-D)$, which vanishes once $D$ is sufficiently positive.</p>
+
+<table class="plain">
+<thead><tr><th>regime</th><th>condition on $d=\deg D$</th><th>$h^0(D)$</th></tr></thead>
+<tbody>
+<tr><td>$D&lt;0$</td><td>$d&lt;0$</td><td>$0$</td></tr>
+<tr><td>"special range"</td><td>$0\le d\le 2g-2$</td><td>$\ge d-g+1$ (often equal, sometimes more)</td></tr>
+<tr><td>"non-special"</td><td>$d&gt;2g-2$</td><td>$=d-g+1$ exactly (Serre vanishing)</td></tr>
+<tr><td>canonical $K$</td><td>$d=2g-2$</td><td>$=g$</td></tr>
+</tbody>
+</table>
+
+<p>Brill–Noether theory lives entirely in the <em>special range</em>: when $D$ is special, $h^1(D)>0$ can be anything from $1$ to $g$, and the question of how special $D$ can be — how large $h^0$ can grow above $d-g+1$ — is precisely the question of the existence of a $g^r_d$ with $r$ above the Riemann–Roch baseline.</p>
+
+<div class="widget" id="w-bn-rr">
+  <div class="hd"><div class="ttl">Riemann–Roch dimension explorer</div><div class="hint">slide $d$; the bars compare the forced floor $d-g+1$ against actual $h^0$ for a typical $D$</div></div>
+  <div class="row">
+    <label>genus $g$:</label>
+    <input id="rr-g" type="range" min="2" max="10" step="1" value="5">
+    <span id="rr-gval" class="pill">g = 5</span>
+  </div>
+  <div class="row">
+    <label>degree $d$:</label>
+    <input id="rr-d" type="range" min="0" max="20" step="1" value="6">
+    <span id="rr-dval" class="pill">d = 6</span>
+  </div>
+  <svg id="rr-svg" viewBox="0 0 720 240" width="720" height="240"><title>Riemann–Roch dimension explorer</title></svg>
+  <div class="readout" id="rr-out">slide $g$ and $d$; the bars show $h^0(D)$ vs the Riemann–Roch floor $d-g+1$…</div>
+  <p class="small">Cyan bar = Riemann–Roch lower bound $\max(0,d-g+1)$. Yellow bar = a "generic" $h^0(D)$ for $D$ of degree $d$: equal to the cyan in the non-special range $d\ge 2g-1$, and bumped above it by $h^0(K-D)$ in the special range. Pink shading = special range $0\le d\le 2g-2$, where Brill–Noether theory lives.</p>
+</div>
+<script>
+(function(){
+  const svg=$('#rr-svg'), out=$('#rr-out');
+  const gS=$('#rr-g'), dS=$('#rr-d');
+  const gV=$('#rr-gval'), dV=$('#rr-dval');
+  const W=720, H=240;
+  function h0_floor(d, g){ return Math.max(0, d - g + 1); }
+  function h0_generic(d, g){
+    // generic special divisor: h^0 grows above the floor by h^0(K-D),
+    // estimated using a Brill–Noether-style heuristic.
+    if(d < 0) return 0;
+    if(d >= 2*g - 1) return d - g + 1;          // Serre vanishing
+    if(d === 2*g - 2) return g;                  // canonical
+    if(d === 0) return 1;                        // O_C
+    // Heuristic: for a generic D in the special range, h^0(D) jumps to
+    // ceil(d/2)+1 for low d (Brill–Noether bound for r=1), tracking the
+    // largest r with rho(g,r,d) >= 0.
+    // We use: h^0 = max(floor, 1 + floor((d+ epsilon)/2) when h^1>0 generic)
+    const floor = h0_floor(d, g);
+    // 1 + max r with (r+1)(g-d+r) <= g, i.e. solve r(g-d+r) <= g-d.
+    // Generic curve: r = 0 unless rho(g,r,d) >= 0 for r>=1.
+    // For r=1: rho = g - 2(g-d+1) = 2d - g - 2 ≥ 0 iff d ≥ (g+2)/2.
+    let r = 0;
+    if(d >= (g+2)/2 && d <= 2*g-2) r = 1;
+    if(d >= (2*g+3)/3 && d <= 2*g-2 - 1) r = Math.max(r, 2);
+    return Math.max(floor, r + 1);
+  }
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const g = +gS.value, d = +dS.value;
+    // Background bands: special range pink, non-special green
+    const x0=70, x1=W-40, dmax=20, bx=(x1-x0)/(dmax+1);
+    // special range = [0, 2g-2]
+    const sp_x1 = x0 + (Math.min(2*g-2, dmax)+0.5)*bx;
+    svg.appendChild(SVG('rect',{x:x0, y:60, width:sp_x1 - x0, height:H-110,
+      fill:'rgba(224,122,95,0.07)', stroke:'none'}));
+    svg.appendChild(SVG('rect',{x:sp_x1, y:60, width:(x0+(dmax+0.5)*bx)-sp_x1, height:H-110,
+      fill:'rgba(131,193,103,0.07)', stroke:'none'}));
+    // axes
+    svg.appendChild(SVG('line',{x1:x0,y1:H-50,x2:x1,y2:H-50,stroke:'var(--line)','stroke-width':0.8}));
+    svg.appendChild(SVG('line',{x1:x0,y1:60,x2:x0,y2:H-50,stroke:'var(--line)','stroke-width':0.8}));
+    // axis labels
+    const ax=SVG('text',{x:x1+8,y:H-46,'font-size':11,fill:'var(--mute)'}); ax.textContent='deg D'; svg.appendChild(ax);
+    const ay=SVG('text',{x:x0,y:52,'text-anchor':'middle','font-size':11,fill:'var(--mute)'}); ay.textContent='h⁰(D)'; svg.appendChild(ay);
+    // bar heights — scale with g
+    const ymax = Math.max(g+2, h0_generic(dmax, g)+1);
+    const yScale = (H-120) / ymax;
+    function ypx(v){ return H-50 - v*yScale; }
+    // tick: 0, g, 2g-2
+    for(const tick of [0, g, 2*g-2, dmax]){
+      const xx = x0 + (tick+0.5)*bx;
+      if(tick <= dmax){
+        svg.appendChild(SVG('line',{x1:xx,y1:H-50,x2:xx,y2:H-46,stroke:'var(--mute)','stroke-width':0.6}));
+        const ttx=SVG('text',{x:xx,y:H-34,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});
+        ttx.textContent=(tick===2*g-2?'2g−2':tick===g?'g':String(tick)); svg.appendChild(ttx);
+      }
+    }
+    // bars for every d from 0 to dmax
+    for(let dd=0; dd<=dmax; dd++){
+      const cx = x0 + (dd+0.5)*bx;
+      const fl = h0_floor(dd, g);
+      const ac = h0_generic(dd, g);
+      // floor bar (cyan)
+      svg.appendChild(SVG('rect',{x:cx-7, y:ypx(fl), width:6, height:H-50-ypx(fl), fill:'var(--cyan)', opacity:0.45}));
+      // actual bar (yellow) — taller; show overhang in pink
+      const overhang = Math.max(0, ac - fl);
+      svg.appendChild(SVG('rect',{x:cx+1, y:ypx(fl), width:6, height:H-50-ypx(fl), fill:'var(--yellow)', opacity:0.55}));
+      if(overhang>0){
+        svg.appendChild(SVG('rect',{x:cx+1, y:ypx(ac), width:6, height:ypx(fl)-ypx(ac), fill:'var(--pink)', opacity:0.85}));
+      }
+    }
+    // highlight current d
+    const cx0 = x0 + (d+0.5)*bx;
+    svg.appendChild(SVG('rect',{x:cx0-13, y:60, width:26, height:H-110, fill:'none', stroke:'var(--violet)','stroke-width':1.5}));
+    const fl=h0_floor(d,g), ac=h0_generic(d,g);
+    // legend lines (viewport coords)
+    const lx=85;
+    svg.appendChild(SVG('rect',{x:lx,y:18,width:8,height:8,fill:'var(--cyan)',opacity:0.45}));
+    const l1=SVG('text',{x:lx+14,y:25,'font-size':10,fill:'var(--mute)'}); l1.textContent='floor = d − g + 1'; svg.appendChild(l1);
+    svg.appendChild(SVG('rect',{x:lx+150,y:18,width:8,height:8,fill:'var(--yellow)',opacity:0.55}));
+    const l2=SVG('text',{x:lx+164,y:25,'font-size':10,fill:'var(--mute)'}); l2.textContent='generic h⁰(D)'; svg.appendChild(l2);
+    svg.appendChild(SVG('rect',{x:lx+280,y:18,width:8,height:8,fill:'var(--pink)',opacity:0.85}));
+    const l3=SVG('text',{x:lx+294,y:25,'font-size':10,fill:'var(--mute)'}); l3.textContent='specialness h¹(D) = h⁰(K−D)'; svg.appendChild(l3);
+    gV.textContent='g = '+g;
+    dV.textContent='d = '+d;
+    out.textContent =
+      'g = '+g+',  d = '+d+'\n' +
+      'Riemann–Roch floor:  h⁰(D) ≥ d − g + 1 = '+(d-g+1)+'  (≥ 0)\n' +
+      'Generic h⁰(D): '+ac+'   specialness h¹(D) = '+ (ac - (d-g+1)) +'\n' +
+      (d < 0 ? '(d<0: h⁰=0 always)' :
+       d > 2*g-2 ? 'non-special range: h¹ = 0, h⁰ = '+(d-g+1)+' is forced (Serre vanishing).' :
+       'special range: h¹(D) = h⁰(K−D) > 0 possible — this is where Brill–Noether lives.');
+  }
+  gS.addEventListener('input', render);
+  dS.addEventListener('input', render);
+  render();
+})();
+</script>
+
+<p>Serre duality $H^1(C,\mathcal{O}(D))\cong H^0(C,\Omega^1_C(-D))^*$ gives a clean reading of $h^1$: an element of $H^1$ is a meromorphic 1-form with prescribed poles. So $h^1(D)$ counts <em>holomorphic differentials on $C$ that vanish along $D$</em>; equivalently, hyperplanes in $\mathbb{P}^{g-1}$ (the canonical embedding) that contain the image of $D$. This geometrical reading is the bridge to the Petri map (section 6).</p>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./algebraic-curves-higher-genus.html#riemann-roch">Riemann–Roch on curves</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./brill-noether.html#brill-noether-number">Brill–Noether theory</a> · The Brill–Noether number $\rho(g,r,d)$</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="riemann-roch-bn"></div>
+
+</section>
+
+<section id="brill-noether-number">
+<h2>3. The Brill–Noether number $\rho(g,r,d)$</h2>
+
+<p>The expected dimension of the locus of $g^r_d$'s on a smooth projective curve of genus $g$ is the <strong>Brill–Noether number</strong></p>
+
+<p style="text-align:center">$\rho(g,r,d)\;=\;g\;-\;(r+1)(g-d+r).$</p>
+
+<p>The derivation is a parameter count. Working on the Jacobian $J(C)=\Pic^d(C)$, line bundles of degree $d$ form a $g$-dimensional family. The condition "$h^0(L)\ge r+1$" is the rank-condition that an evaluation map of $L$ have a kernel of dimension $\ge r+1$. By Porteous-type expected codimension, the locus where a generic linear map between bundles of ranks $a\le b$ has kernel of dimension $\ge a-c$ has codimension $c(b-c)$ inside the parameter space. Applied here: $h^0(L)\ge r+1$ is codimension $(r+1)(g-d+r)$ (the "Brill–Noether codimension"). Subtracting from $g=\dim\Pic^d$ gives $\rho$.</p>
+
+<div class="widget" id="w-bn-rho">
+  <div class="hd"><div class="ttl">Brill–Noether number $\rho(g,r,d)$ explorer</div><div class="hint">slide $g,r,d$; positive $\rho$ predicts existence, negative predicts emptiness</div></div>
+  <div class="row">
+    <label>genus $g$:</label>
+    <input id="rho-g" type="range" min="2" max="20" step="1" value="6">
+    <span id="rho-gval" class="pill">g = 6</span>
+  </div>
+  <div class="row">
+    <label>rank $r$:</label>
+    <input id="rho-r" type="range" min="1" max="6" step="1" value="1">
+    <span id="rho-rval" class="pill">r = 1</span>
+  </div>
+  <div class="row">
+    <label>degree $d$:</label>
+    <input id="rho-d" type="range" min="1" max="30" step="1" value="4">
+    <span id="rho-dval" class="pill">d = 4</span>
+  </div>
+  <svg id="rho-svg" viewBox="0 0 720 260" width="720" height="260"><title>Brill–Noether number ρ explorer</title></svg>
+  <div class="readout" id="rho-out">slide the sliders; the table tracks $\rho$ on a $(d,r)$-grid for the chosen $g$…</div>
+  <p class="small">For each cell $(d,r)$ in the grid, the colour shows the sign of $\rho(g,r,d)=g-(r+1)(g-d+r)$. Green: $\rho\ge 0$ (a $g^r_d$ exists on a general curve, expected dim $=\rho$). Pink: $\rho&lt;0$ (no $g^r_d$ on a generic curve — the locus $W^r_d$ is empty). Yellow border: the current $(d,r)$. The Brill–Noether locus $W^r_d(C)$ jumps from empty to non-empty exactly at $\rho=0$.</p>
+</div>
+<script>
+(function(){
+  const svg=$('#rho-svg'), out=$('#rho-out');
+  const gS=$('#rho-g'), rS=$('#rho-r'), dS=$('#rho-d');
+  const gV=$('#rho-gval'), rV=$('#rho-rval'), dV=$('#rho-dval');
+  const W=720, H=260;
+  function rho(g,r,d){ return g - (r+1)*(g - d + r); }
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const g = +gS.value, r = +rS.value, d = +dS.value;
+    // Grid bounds
+    const dMin=1, dMax=Math.max(2*g, 18);
+    const rMin=0, rMax=6;
+    const x0=70, x1=W-220, y0=40, y1=H-30;
+    const cellW = (x1-x0)/(dMax-dMin+1);
+    const cellH = (y1-y0)/(rMax-rMin+1);
+    // axes labels
+    const ax=SVG('text',{x:(x0+x1)/2, y:y1+24,'text-anchor':'middle','font-size':11, fill:'var(--mute)'});
+    ax.textContent='degree d  →'; svg.appendChild(ax);
+    const ay=SVG('text',{x:x0-40, y:(y0+y1)/2,'font-size':11, fill:'var(--mute)','transform':`rotate(-90 ${x0-40} ${(y0+y1)/2})`});
+    ay.textContent='rank r  ↑'; svg.appendChild(ay);
+    // Grid cells
+    for(let rr=rMin; rr<=rMax; rr++){
+      for(let dd=dMin; dd<=dMax; dd++){
+        const px = x0 + (dd-dMin)*cellW, py = y1 - (rr-rMin+1)*cellH;
+        const v = rho(g, rr, dd);
+        const isCur = (rr===r && dd===d);
+        let col, alpha;
+        if(v >= 0){ col='var(--green)'; alpha = Math.min(0.18 + v*0.04, 0.65); }
+        else { col='var(--pink)'; alpha = Math.min(0.18 + (-v)*0.04, 0.65); }
+        svg.appendChild(SVG('rect',{x:px, y:py, width:cellW-1, height:cellH-1, fill:col, opacity:alpha,
+          stroke: isCur ? 'var(--yellow)' : 'none', 'stroke-width': isCur ? 2 : 0}));
+        if(cellW > 16){
+          const tx=SVG('text',{x:px+cellW/2, y:py+cellH/2+4,'text-anchor':'middle','font-size':9,
+            fill: isCur ? 'var(--ink)' : 'var(--mute)'});
+          tx.textContent= v.toString(); svg.appendChild(tx);
+        }
+      }
+    }
+    // d-axis tick marks: 1, g, 2g-2, dMax
+    for(const tick of [1, Math.ceil(g/2), g, 2*g-2, dMax]){
+      if(tick < dMin || tick > dMax) continue;
+      const xx = x0 + (tick-dMin+0.5)*cellW;
+      const tt=SVG('text',{x:xx, y:y1+12,'text-anchor':'middle','font-size':9, fill:'var(--mute)'});
+      tt.textContent= tick===2*g-2 ? '2g−2' : tick===g?'g':String(tick); svg.appendChild(tt);
+    }
+    // r-axis ticks
+    for(let rr=rMin; rr<=rMax; rr++){
+      const py = y1 - (rr-rMin+0.5)*cellH;
+      const tt=SVG('text',{x:x0-6, y:py+4,'text-anchor':'end','font-size':9, fill:'var(--mute)'});
+      tt.textContent= rr.toString(); svg.appendChild(tt);
+    }
+    // Side panel: numbers
+    const cx = x1+20;
+    const v = rho(g, r, d);
+    const verdict = v >= 0 ? 'g^'+r+'_'+d+' exists (general C)' : 'no g^'+r+'_'+d+' on general C';
+    const col = v >= 0 ? 'var(--green)' : 'var(--pink)';
+    svg.appendChild(SVG('rect',{x:cx, y:60, width:170, height:160, rx:8, fill:'color-mix(in srgb,'+col+' 12%, transparent)', stroke:col,'stroke-width':1.4}));
+    const eq1=SVG('text',{x:cx+85, y:90,'text-anchor':'middle','font-size':11, fill:'var(--mute)'});
+    eq1.textContent='ρ(g,r,d) = g − (r+1)(g−d+r)'; svg.appendChild(eq1);
+    const eq2=SVG('text',{x:cx+85, y:118,'text-anchor':'middle','font-size':14, fill:'var(--ink)'});
+    eq2.textContent='ρ('+g+','+r+','+d+') = '+v; svg.appendChild(eq2);
+    const eq3=SVG('text',{x:cx+85, y:148,'text-anchor':'middle','font-size':11, fill:col,'font-weight':600});
+    eq3.textContent=verdict; svg.appendChild(eq3);
+    const eq4=SVG('text',{x:cx+85, y:180,'text-anchor':'middle','font-size':10, fill:'var(--mute)'});
+    eq4.textContent= v >= 0 ? 'dim W^'+r+'_'+d+'(C) = '+v+' (BN)' : 'W^'+r+'_'+d+'(C) = ∅'; svg.appendChild(eq4);
+    const eq5=SVG('text',{x:cx+85, y:200,'text-anchor':'middle','font-size':10, fill:'var(--mute)'});
+    eq5.textContent= 'codim in Pic^d = '+((r+1)*(g-d+r))+''; svg.appendChild(eq5);
+    gV.textContent='g = '+g;
+    rV.textContent='r = '+r;
+    dV.textContent='d = '+d;
+    out.textContent =
+      'ρ('+g+','+r+','+d+') = '+v+'\n' +
+      (v >= 0
+        ? 'Brill–Noether: on a general curve C of genus '+g+', a g^'+r+'_'+d+' exists, and W^'+r+'_'+d+'(C) ⊂ Pic^'+d+'(C) has dim '+v+'.'
+        : 'Brill–Noether: ρ < 0 means W^'+r+'_'+d+'(C) is empty for a general curve. Special curves may still carry a g^'+r+'_'+d+', placing them in a positive-codimension locus of M_g.') + '\n' +
+      'Codimension of W^'+r+'_'+d+' in Pic^'+d+': (r+1)(g−d+r) = '+((r+1)*(g-d+r));
+  }
+  gS.addEventListener('input', render);
+  rS.addEventListener('input', render);
+  dS.addEventListener('input', render);
+  render();
+})();
+</script>
+
+<table class="plain">
+<thead><tr><th>$(g,r,d)$</th><th>$\rho$</th><th>geometric reading</th></tr></thead>
+<tbody>
+<tr><td>$(2,1,2)$</td><td>$0$</td><td>Every genus-2 curve is hyperelliptic — a unique $g^1_2$ (the canonical pencil). $W^1_2$ is a point.</td></tr>
+<tr><td>$(3,1,2)$</td><td>$-1$</td><td>A general genus-3 curve has no $g^1_2$ (is not hyperelliptic). Hyperelliptic genus-3 curves form a codim-1 locus in $\mathcal{M}_3$.</td></tr>
+<tr><td>$(4,1,3)$</td><td>$0$</td><td>Every genus-4 curve admits a $g^1_3$ (trigonal pencil); on a general curve there are exactly two such pencils — Castelnuovo's count, $\dim W^1_3 = 0$.</td></tr>
+<tr><td>$(g,g-1,2g-2)$</td><td>$g-1$</td><td>The complete $g^{g-1}_{2g-2}=|K|$ canonical series — always exists, the canonical map. Dim of $W^{g-1}_{2g-2}$ is $0$ in general (just one $L$ — namely $K$).</td></tr>
+</tbody>
+</table>
+
+<div class="quiz" data-concept="brill-noether-number"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./brill-noether.html#wrd-locus">Brill–Noether theory</a> · $W^r_d(C)$ — the Brill–Noether locus</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+</section>
+
+<section id="wrd-locus">
+<h2>4. $W^r_d(C)$ — the Brill–Noether locus</h2>
+
+<p>For a fixed smooth projective curve $C$, the <strong>Brill–Noether locus</strong> $W^r_d(C)\subseteq\Pic^d(C)$ is the closed subset parametrizing line bundles with at least $r+1$ sections:</p>
+
+<p style="text-align:center">$W^r_d(C)\;=\;\{\,L\in\Pic^d(C)\;:\;h^0(C,L)\ge r+1\,\}.$</p>
+
+<p>It has a natural <em>scheme</em> structure as a <strong>determinantal variety</strong>. The Abel–Jacobi map $C^{(d)}\to\Pic^d(C)$ from the $d$-th symmetric product factors through $W^r_d$ in the right way; concretely, one realizes $W^r_d$ as the locus where the rank of a universal evaluation map of bundles drops. Choose a Poincaré bundle on $C\times\Pic^d(C)$ and form, for a sufficiently general effective divisor $E$ on $C$,</p>
+
+<p style="text-align:center">$\gamma\colon\;\mathcal{F}\;\longrightarrow\;\mathcal{G}$</p>
+
+<p>a map of vector bundles on $\Pic^d(C)$ whose kernel rank at $L$ jumps by $h^0(L)$. Then $W^r_d(C)$ is the locus where $\operatorname{rk}\gamma\le \operatorname{rk}\mathcal{F}-(r+1)$. The codimension of such a determinantal locus, by Macaulay/Porteous, has <em>expected</em> value $(r+1)(g-d+r)$ — which is exactly $g-\rho$.</p>
+
+<div class="widget" id="w-bn-wrd">
+  <div class="hd"><div class="ttl">Determinantal stratification of $\Pic^d(C)$</div><div class="hint">click a stratum; see the nested $W^0\supset W^1\supset W^2\supset\cdots$ filtration</div></div>
+  <div class="row">
+    <label>genus $g$:</label>
+    <input id="wrd-g" type="range" min="3" max="10" step="1" value="6">
+    <span id="wrd-gval" class="pill">g = 6</span>
+  </div>
+  <div class="row">
+    <label>degree $d$:</label>
+    <input id="wrd-d" type="range" min="2" max="15" step="1" value="5">
+    <span id="wrd-dval" class="pill">d = 5</span>
+  </div>
+  <div class="row">
+    <button id="wrd-r0" class="active">W⁰_d</button>
+    <button id="wrd-r1">W¹_d</button>
+    <button id="wrd-r2">W²_d</button>
+    <button id="wrd-r3">W³_d</button>
+  </div>
+  <svg id="wrd-svg" viewBox="0 0 720 260" width="720" height="260"><title>W^r_d filtration on Pic^d</title></svg>
+  <div class="readout" id="wrd-out">click a stratum: see its expected codimension and how it nests inside $\Pic^d(C)$…</div>
+  <p class="small">The Brill–Noether loci form a chain $\Pic^d(C)=W^{-1}\supseteq W^0_d\supseteq W^1_d\supseteq W^2_d\supseteq\cdots$. Each inclusion is a determinantal cut by one extra rank condition; the expected codimension increases by $g-d+r$ at each step. When $\rho(g,r,d)\ge 0$, the locus is non-empty of expected dimension; when negative, it's empty (generic curve).</p>
+</div>
+<script>
+(function(){
+  const svg=$('#wrd-svg'), out=$('#wrd-out');
+  const gS=$('#wrd-g'), dS=$('#wrd-d');
+  const gV=$('#wrd-gval'), dV=$('#wrd-dval');
+  const buttons = {0:$('#wrd-r0'), 1:$('#wrd-r1'), 2:$('#wrd-r2'), 3:$('#wrd-r3')};
+  const W=720, H=260;
+  let activeR = 0;
+  function rho(g,r,d){ return g - (r+1)*(g - d + r); }
+  function expectedCodim(g,r,d){ return (r+1)*(g - d + r); }
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const g = +gS.value, d = +dS.value;
+    // Draw nested ellipses on the left representing W^r_d ⊂ ... ⊂ Pic^d
+    const cx=200, cy=130;
+    const rxOuter=170, ryOuter=100;
+    // Outer = Pic^d
+    svg.appendChild(SVG('ellipse',{cx,cy,rx:rxOuter,ry:ryOuter,fill:'rgba(88,196,221,0.06)',stroke:'var(--blue)','stroke-width':1.2}));
+    const lbl0=SVG('text',{x:cx,y:cy-ryOuter-8,'text-anchor':'middle','font-size':11, fill:'var(--blue)'});
+    lbl0.textContent='Pic^'+d+'(C),  dim = g = '+g; svg.appendChild(lbl0);
+    // Each nested W^r_d
+    const colors = ['var(--cyan)','var(--green)','var(--yellow)','var(--pink)'];
+    for(let r=0; r<=3; r++){
+      const codim = expectedCodim(g, r, d);
+      const isActive = (r === activeR);
+      if(codim >= g) {
+        // empty
+        if(isActive){
+          // Indicate empty by an "∅" badge
+          const eb=SVG('text',{x:cx,y:cy+3,'text-anchor':'middle','font-size':28,fill:'var(--pink)','font-weight':600});
+          eb.textContent='∅'; svg.appendChild(eb);
+        }
+        break;
+      }
+      const shrink = Math.min(1, Math.max(0.06, 1 - codim / g * 0.95));
+      const rx = rxOuter * shrink * 0.95;
+      const ry = ryOuter * shrink * 0.95;
+      svg.appendChild(SVG('ellipse',{cx,cy,rx,ry,
+        fill: isActive ? 'color-mix(in srgb,'+colors[r]+' 35%, transparent)' : 'color-mix(in srgb,'+colors[r]+' 12%, transparent)',
+        stroke: colors[r],'stroke-width': isActive?2:1}));
+      // label
+      const tlbl=SVG('text',{x:cx+rx+4, y:cy + r*5 - 5,'font-size':10, fill:colors[r], 'font-weight': isActive?700:400});
+      tlbl.textContent='W^'+r+'_'+d; svg.appendChild(tlbl);
+    }
+    // Right side: stratum table
+    const tx0 = 430;
+    const th=SVG('text',{x:tx0, y:30,'font-size':12, fill:'var(--mute)','font-weight':600});
+    th.textContent='r    expected codim    ρ    status'; svg.appendChild(th);
+    for(let r=0; r<=4; r++){
+      const codim = expectedCodim(g, r, d);
+      const v = rho(g, r, d);
+      const empty = codim > g;
+      const isActive = (r === activeR);
+      const col = empty ? 'var(--pink)' : (v >= 0 ? 'var(--green)' : 'var(--yellow)');
+      const yy = 56 + r*30;
+      if(isActive){
+        svg.appendChild(SVG('rect',{x:tx0-6,y:yy-13,width:260,height:24,rx:4,
+          fill:'color-mix(in srgb,'+col+' 14%, transparent)', stroke:col,'stroke-width':1}));
+      }
+      const tr=SVG('text',{x:tx0, y:yy+3,'font-size':12, fill: empty ? 'var(--mute)' : 'var(--ink)'});
+      tr.textContent= r + '     ' + codim + '              ' + v + '    ' +
+        (empty ? '(W^r_d = ∅ on generic C)' :
+         (v >= 0 ? 'dim '+v+' (Kempf, BN)' : 'empty on generic C'));
+      svg.appendChild(tr);
+    }
+    gV.textContent='g = '+g;
+    dV.textContent='d = '+d;
+    const codim = expectedCodim(g, activeR, d);
+    const v = rho(g, activeR, d);
+    out.textContent =
+      'g = '+g+',  d = '+d+',  highlighting W^'+activeR+'_'+d+'.\n' +
+      'Expected codimension (r+1)(g−d+r) = '+codim+'.   ρ(g,r,d) = g − codim = '+v+'.\n' +
+      (codim > g ? 'Codim exceeds dim Pic^d — W^'+activeR+'_'+d+' is empty on any curve of this genus.' :
+       v < 0 ? 'Generic curve: W^'+activeR+'_'+d+' is empty.  Special curves (codim '+(-v)+' in M_g) carry one.' :
+       'Generic curve: W^'+activeR+'_'+d+' is non-empty of dimension '+v+' — Brill–Noether existence (next section).');
+  }
+  for(const [r, b] of Object.entries(buttons)){
+    b.addEventListener('click', ()=>{
+      activeR = +r;
+      for(const [k, bb] of Object.entries(buttons)) bb.classList.toggle('active', +k===activeR);
+      render();
+    });
+  }
+  gS.addEventListener('input', render);
+  dS.addEventListener('input', render);
+  render();
+})();
+</script>
+
+<div class="note"><strong>Scheme structure matters.</strong> $W^r_d(C)$ is not just a set; it's a determinantal scheme, and the "expected dimension" $\rho$ is the dimension of the determinantal locus when the rank conditions are imposed generically. The Brill–Noether and Petri theorems are precisely the statements that this expected scheme structure is the actual scheme structure on a general curve.</div>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./algebraic-curves-higher-genus.html#divisors">Divisors on curves</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./brill-noether.html#brill-noether-theorem">Brill–Noether theory</a> · The Brill–Noether theorem (existence + dimension)</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="wrd-locus"></div>
+
+</section>
+
+<section id="brill-noether-theorem">
+<h2>5. The Brill–Noether theorem (existence + dimension)</h2>
+
+<p>The classical existence statement was conjectured by Brill and Noether in the late 19th century and proved rigorously a century later:</p>
+
+<div class="ok"><strong>Brill–Noether theorem (Kempf 1971, Kleiman–Laksov 1972, 1974).</strong> Let $C$ be any smooth projective curve of genus $g$. If $\rho(g,r,d)\ge 0$, then $W^r_d(C)$ is non-empty, and every irreducible component has dimension $\ge\rho(g,r,d)$.</div>
+
+<p>The non-emptiness half is unconditional — every curve, not just a generic one. The proof is a Schubert-calculus / Chern-class computation on a projective bundle. Build the Picard variety $\Pic^d(C)$ and a Poincaré bundle $\mathcal{P}$, push it forward to $\Pic^d$ to get sheaves $\mathcal{F}\to\mathcal{G}$ whose kernel-rank-jumping locus is $W^r_d$. The class of $W^r_d$ in cohomology of $\Pic^d$ is a Schubert-style polynomial in the universal Chern classes, and its non-vanishing for $\rho\ge 0$ is a direct combinatorial check on Young diagrams.</p>
+
+<p>For the second half — dimension equals $\rho$ on a general curve — one needs:</p>
+
+<div class="ok"><strong>Existence + sharp dimension (Griffiths–Harris 1980).</strong> On a general smooth projective curve of genus $g$, $\dim W^r_d(C)=\rho(g,r,d)$ whenever $\rho\ge 0$ — the determinantal upper bound on codimension is sharp.</div>
+
+<p>"General" means: in a Zariski-open dense subset of $\mathcal{M}_g$. The non-general curves where $W^r_d$ has dimension above $\rho$ are special — they live in proper subvarieties of $\mathcal{M}_g$. The hyperelliptic curves $\mathcal{M}^1_{g,2}\subset\mathcal{M}_g$ are the simplest example.</p>
+
+<div class="widget" id="w-bn-existence">
+  <div class="hd"><div class="ttl">Existence by Schubert-calculus weight</div><div class="hint">step through the Kempf cohomology argument on $\Pic^d$</div></div>
+  <div class="row">
+    <button id="bn-step1" class="active">1. Poincaré bundle</button>
+    <button id="bn-step2">2. Pushforward</button>
+    <button id="bn-step3">3. Rank-drop locus</button>
+    <button id="bn-step4">4. Chern class</button>
+    <button id="bn-step5">5. Non-emptiness</button>
+  </div>
+  <svg id="bn-svg" viewBox="0 0 720 280" width="720" height="280"><title>Brill–Noether existence: Schubert step-through</title></svg>
+  <div class="readout" id="bn-out">step 1: …</div>
+  <p class="small">A miniature of the Kempf / Kleiman–Laksov proof: $\Pic^d(C)$ carries a universal Poincaré bundle $\mathcal{P}$; pushing it forward along the second projection $C\times\Pic^d\to\Pic^d$ produces locally free sheaves whose evaluation map has rank-drop locus = $W^r_d$. The Chern class of $W^r_d$ is the determinant of a matrix of universal classes — a Schubert-type polynomial. Non-vanishing for $\rho\ge 0$ is a combinatorial check.</p>
+</div>
+<script>
+(function(){
+  const svg=$('#bn-svg'), out=$('#bn-out');
+  const btns = {
+    1:$('#bn-step1'), 2:$('#bn-step2'), 3:$('#bn-step3'), 4:$('#bn-step4'), 5:$('#bn-step5')
+  };
+  const W=720, H=280;
+  let step=1;
+  const stepText = {
+    1: '1. Build the Poincaré bundle 𝒫 on C × Pic^d(C). Restricted to {p} × Pic^d, 𝒫|_{p,·} is a degree-d line bundle parametrised over Pic^d. The whole product carries a universal degree-d divisor whose Chern class is c_1(𝒫).',
+    2: '2. Push 𝒫 forward along π₂: C × Pic^d → Pic^d. After twisting by O(E) for a high-degree divisor E on C and taking the long exact sequence, get a map of bundles γ: ℱ → 𝒢 on Pic^d. The fibre rank-drop of γ at L equals h⁰(C, L).',
+    3: '3. W^r_d = locus where rk(γ) ≤ rk(ℱ) − (r+1), i.e. h⁰(L) ≥ r+1. This is a determinantal subscheme of Pic^d cut out by (r+1)×(r+1) minors of the matrix of γ.',
+    4: '4. Macaulay/Porteous formula: the class of a determinantal locus of expected codim c = (r+1)(g−d+r) is a Schur polynomial in Chern classes of 𝒢 − ℱ. For Brill–Noether, this gives [W^r_d] = ∏_{i=0..r} (i!/(g−d+r+i)!) · θ^{g−ρ} in H^*(Pic^d) where θ is the theta divisor.',
+    5: '5. The Schubert-like product is a positive combination of Schur polynomials in c_1(θ); for ρ ≥ 0 every coefficient is positive, so [W^r_d] ≠ 0 in cohomology — hence W^r_d ≠ ∅ on every curve. This is Kempf 1971 / Kleiman–Laksov 1972.'
+  };
+  const stepBox = {
+    1: {x:120, y:60, w:480, h:160, label:'C × Pic^d', inner: '𝒫 (Poincaré bundle)'},
+    2: {x:120, y:60, w:480, h:160, label:'Pic^d',     inner: 'γ: ℱ → 𝒢   (pushforward via π₂)'},
+    3: {x:120, y:60, w:480, h:160, label:'Pic^d',     inner: 'W^r_d = {rk γ ≤ rk ℱ − (r+1)}'},
+    4: {x:120, y:60, w:480, h:160, label:'H*(Pic^d)', inner: '[W^r_d] = Schubert polynomial in c_1, c_2, …'},
+    5: {x:120, y:60, w:480, h:160, label:'cohomology', inner: '[W^r_d] ≠ 0  for ρ ≥ 0    ⇒   W^r_d ≠ ∅'}
+  };
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const sb = stepBox[step];
+    // Frame
+    svg.appendChild(SVG('rect',{x:sb.x, y:sb.y, width:sb.w, height:sb.h, rx:10, fill:'var(--panel)', stroke:'var(--cyan)','stroke-width':1.5}));
+    const lbl=SVG('text',{x:sb.x+sb.w/2, y:sb.y-10,'text-anchor':'middle','font-size':12, fill:'var(--mute)'});
+    lbl.textContent=sb.label; svg.appendChild(lbl);
+    const inn=SVG('text',{x:sb.x+sb.w/2, y:sb.y+sb.h/2+6,'text-anchor':'middle','font-size':16, fill:'var(--cyan)','font-weight':600});
+    inn.textContent=sb.inner; svg.appendChild(inn);
+    if(step===2 || step===3){
+      // small map indicator
+      const ar=SVG('text',{x:sb.x+sb.w/2, y:sb.y+sb.h - 18,'text-anchor':'middle','font-size':11, fill:'var(--yellow)'});
+      ar.textContent=step===2 ? 'rk(γ at L) = h⁰(L)' : 'rank drops on W^r_d by r+1';
+      svg.appendChild(ar);
+    }
+    if(step===5){
+      const ok=SVG('text',{x:sb.x+sb.w/2, y:sb.y+sb.h - 18,'text-anchor':'middle','font-size':12, fill:'var(--green)','font-weight':600});
+      ok.textContent='Kempf 1971 / Kleiman–Laksov 1972: existence for every C.';
+      svg.appendChild(ok);
+    }
+    // Step indicator strip
+    for(let i=1;i<=5;i++){
+      svg.appendChild(SVG('rect',{x:60+(i-1)*110, y:240, width:90, height:18, rx:4,
+        fill: i===step ? 'var(--yellow)' : 'var(--panel2)',
+        stroke:'var(--line)','stroke-width':0.6}));
+      const sx=SVG('text',{x:60+(i-1)*110+45, y:253,'text-anchor':'middle','font-size':10,
+        fill: i===step ? '#111' : 'var(--mute)','font-weight': i===step?700:400});
+      sx.textContent='step '+i; svg.appendChild(sx);
+    }
+    out.textContent = stepText[step];
+  }
+  function setStep(s){
+    step=s;
+    for(const k of Object.keys(btns)) btns[k].classList.toggle('active', +k===s);
+    render();
+  }
+  for(const k of Object.keys(btns)) btns[k].addEventListener('click',()=>setStep(+k));
+  setStep(1);
+})();
+</script>
+
+<div class="note"><strong>Why this is hard.</strong> The non-vanishing of $[W^r_d]$ in cohomology is "obvious by Schubert calculus" — once you know it's the right polynomial to compute. The subtle part is making this rigorous: setting up the universal Poincaré bundle, the pushforward sheaves, and the determinantal scheme structure carefully enough that the Chern-class computation actually measures geometry, not just an abstract cohomology number. This is the work of Kempf 1971 (algebraic-cycle argument), Kleiman–Laksov 1972 (Schubert), and a stream of refinements.</div>
+
+<div class="quiz" data-concept="brill-noether-theorem"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./brill-noether.html#petri">Brill–Noether theory</a> · Petri's theorem (smoothness)</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+</section>
+
+<section id="petri">
+<h2>6. Petri's theorem (smoothness)</h2>
+
+<p>Existence is the easy half. The hard half is <em>smoothness</em>: on a general curve, $W^r_d(C)$ is not merely non-empty of expected dimension — it's smooth as a scheme at every point of the open stratum. The obstruction is the <strong>Petri map</strong>.</p>
+
+<p>Fix a line bundle $L\in\Pic^d(C)$ of degree $d$ with $h^0(L)=r+1$. The Petri map is the cup-product</p>
+
+<p style="text-align:center">$\mu_0(L)\colon\;H^0(C,L)\otimes H^0(C,K\otimes L^{-1})\;\longrightarrow\;H^0(C,K),$</p>
+
+<p>multiplying a section of $L$ by a section of $K\otimes L^{-1}$ to get a holomorphic differential. The Zariski tangent space to $W^r_d$ at $L$ is the dual of $\operatorname{coker}\mu_0(L)$. So $W^r_d$ has the expected dimension $\rho$ at $L$ iff $\mu_0(L)$ has full rank — iff $\mu_0(L)$ is injective.</p>
+
+<div class="ok"><strong>Petri's theorem (Gieseker 1982, Eisenbud–Harris 1983).</strong> On a general smooth projective curve $C$ of genus $g$, for every line bundle $L\in W^r_d(C)\setminus W^{r+1}_d(C)$, the Petri map $\mu_0(L)$ is injective. Consequently, $W^r_d(C)$ is smooth of dimension exactly $\rho(g,r,d)$ along its open stratum.</div>
+
+<p>The statement was conjectured by Petri (1923, in his Pisa thesis under Severi) and proved by Gieseker via degeneration to a flag curve, then re-proved more cleanly by Eisenbud–Harris using limit linear series (next section). The injectivity is open and closed in the smooth locus of $\mathcal{M}_g$: it's a Zariski-open property (the rank of $\mu_0$ is upper-semicontinuous), and it holds for at least one curve (a chain of elliptic curves) — so it holds on a Zariski-open dense set.</p>
+
+<div class="widget" id="w-bn-petri">
+  <div class="hd"><div class="ttl">The Petri map $\mu_0$</div><div class="hint">vary the genus and degree; watch $\dim$ domain vs codomain — and the tangent space to $W^r_d$</div></div>
+  <div class="row">
+    <label>genus $g$:</label>
+    <input id="pe-g" type="range" min="3" max="12" step="1" value="6">
+    <span id="pe-gval" class="pill">g = 6</span>
+  </div>
+  <div class="row">
+    <label>degree $d$:</label>
+    <input id="pe-d" type="range" min="2" max="20" step="1" value="5">
+    <span id="pe-dval" class="pill">d = 5</span>
+  </div>
+  <div class="row">
+    <label>rank $r$:</label>
+    <input id="pe-r" type="range" min="1" max="5" step="1" value="1">
+    <span id="pe-rval" class="pill">r = 1</span>
+  </div>
+  <svg id="pe-svg" viewBox="0 0 720 260" width="720" height="260"><title>Petri map dimension diagram</title></svg>
+  <div class="readout" id="pe-out">slide $g,r,d$; watch how $\dim H^0(L)\otimes H^0(K\otimes L^{-1})$ compares to $\dim H^0(K)=g$…</div>
+  <p class="small">Tangent space: $T_L W^r_d=\operatorname{coker}(\mu_0)^*$, of dimension $g-\operatorname{rk}\mu_0$. Petri injectivity means $\operatorname{rk}\mu_0$ is maximal $=(r+1)(g-d+r)$, so $\dim T_L W^r_d=g-(r+1)(g-d+r)=\rho$ — the expected dimension. Failure of injectivity at $L$ means $W^r_d$ has an obstruction at $L$; on a non-general curve, failures live on a closed subset.</p>
+</div>
+<script>
+(function(){
+  const svg=$('#pe-svg'), out=$('#pe-out');
+  const gS=$('#pe-g'), dS=$('#pe-d'), rS=$('#pe-r');
+  const gV=$('#pe-gval'), dV=$('#pe-dval'), rV=$('#pe-rval');
+  const W=720, H=260;
+  function rho(g,r,d){ return g - (r+1)*(g - d + r); }
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const g = +gS.value, d = +dS.value, r = +rS.value;
+    const h0L = r+1;
+    const h0KL = g - d + r;     // = h^1(L) on a general L of the right shape
+    const domainDim = h0L * h0KL;
+    const codomDim = g;
+    const expectedRank = Math.min(domainDim, codomDim);
+    const cokerDim = codomDim - expectedRank;  // ≥ 0
+    const tangentDim = cokerDim + (domainDim - expectedRank);
+    // For Petri-injective L on a general curve: rk μ_0 = domainDim (μ_0 injective),
+    // so tangent dim = codom − domain (when domain < codom) = g − (r+1)(g−d+r) = ρ.
+    const rhoV = rho(g, r, d);
+    // Diagram: H⁰(L) ⊗ H⁰(K⊗L⁻¹) ── μ_0 ──▶ H⁰(K)
+    const lx=80, mx=360, rx0=600;
+    const cy=130;
+    // boxes
+    function box(cx, cy, ww, hh, fill, stroke){
+      svg.appendChild(SVG('rect',{x:cx-ww/2, y:cy-hh/2, width:ww, height:hh, rx:8, fill, stroke,'stroke-width':1.3}));
+    }
+    box(lx, cy, 160, 80, 'rgba(125,224,214,0.08)', 'var(--cyan)');
+    box(rx0, cy, 140, 80, 'rgba(179,157,219,0.08)', 'var(--violet)');
+    const t1=SVG('text',{x:lx, y:cy-12,'text-anchor':'middle','font-size':12, fill:'var(--cyan)'});
+    t1.textContent='H⁰(L) ⊗ H⁰(K⊗L⁻¹)'; svg.appendChild(t1);
+    const t1a=SVG('text',{x:lx, y:cy+8,'text-anchor':'middle','font-size':11, fill:'var(--mute)'});
+    t1a.textContent='dim = '+h0L+' · '+h0KL+' = '+domainDim; svg.appendChild(t1a);
+    const t2=SVG('text',{x:rx0, y:cy-12,'text-anchor':'middle','font-size':12, fill:'var(--violet)'});
+    t2.textContent='H⁰(K)'; svg.appendChild(t2);
+    const t2a=SVG('text',{x:rx0, y:cy+8,'text-anchor':'middle','font-size':11, fill:'var(--mute)'});
+    t2a.textContent='dim = g = '+g; svg.appendChild(t2a);
+    // arrow
+    drawArrow(svg, [lx+82, cy], [rx0-72, cy], {color:'var(--yellow)', curve:0, label:'μ₀  (cup product)', labelSide:1, markerId:'arr-petri'});
+    // rank summary
+    const rxbox=SVG('rect',{x:120, y:200, width:480, height:50, rx:8, fill:'var(--panel2)', stroke:'var(--line)','stroke-width':0.8});
+    svg.appendChild(rxbox);
+    const sigCol = (h0KL>=0 && domainDim <= codomDim) ? 'var(--green)' : 'var(--pink)';
+    const status = (h0KL >= 0 && domainDim <= codomDim)
+      ? 'Petri-injective μ₀ possible: rk μ₀ = '+domainDim+' (max). dim T_L W^r_d = g − rk = ' + (g - domainDim) + ' = ρ.'
+      : 'domain ≥ codomain: μ₀ cannot be injective.  W^r_d generically empty (ρ < 0): rk μ₀ < (r+1)(g−d+r) impossible.';
+    const tt=SVG('text',{x:360, y:222,'text-anchor':'middle','font-size':11, fill:sigCol});
+    tt.textContent='ρ(g,r,d) = g − (r+1)(g−d+r) = '+rhoV; svg.appendChild(tt);
+    const tt2=SVG('text',{x:360, y:240,'text-anchor':'middle','font-size':11, fill:'var(--mute)'});
+    tt2.textContent=status; svg.appendChild(tt2);
+    gV.textContent='g = '+g;
+    dV.textContent='d = '+d;
+    rV.textContent='r = '+r;
+    out.textContent =
+      'dim H⁰(L) = r+1 = '+h0L+',  dim H⁰(K⊗L⁻¹) = g−d+r = '+h0KL+'\n' +
+      'dim domain μ₀ = '+domainDim+',  dim codomain = g = '+g+'\n' +
+      (h0KL<0 ? 'h⁰(K⊗L⁻¹) negative: L is non-special, Brill–Noether trivial here.' :
+       domainDim>codomDim ? 'Domain exceeds codomain — μ₀ has kernel ≠ 0, so the determinantal scheme is "expected to be empty"; ρ = '+rhoV+' < 0.' :
+       'Petri-injectivity expected on a general curve: rk μ₀ = '+domainDim+', cokerdim = '+(g - domainDim)+' = ρ = '+rhoV+', so W^r_d is smooth at L of dim ρ.');
+  }
+  gS.addEventListener('input', render);
+  dS.addEventListener('input', render);
+  rS.addEventListener('input', render);
+  render();
+})();
+</script>
+
+<div class="note"><strong>Petri's geometric reading.</strong> An element of $H^0(L)\otimes H^0(K\otimes L^{-1})$ that maps to zero under $\mu_0$ is a tensor $\sum s_i\otimes t_i$ with $\sum s_i\,t_i=0$ in $H^0(K)$ — a non-trivial linear relation among the products of the two factor systems. Geometrically, the canonical map $C\hookrightarrow\mathbb{P}^{g-1}$ has a quadric containing it that splits as a sum of products of an $|L|$-element and a $|K-L|$-element. Petri injectivity says no such "split" quadric exists on a general $C$ — the canonical image is not on a sum-of-two-lines quadric for any divisor splitting.</div>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./algebraic-curves-higher-genus.html#canonical-embedding">The canonical embedding</a></li>
+    <li><a href="./deformation-theory.html#first-order-deformation">First-order deformations</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./brill-noether.html#bn-in-mg">Brill–Noether theory</a> · Brill–Noether loci in $\mathcal{M}_g$</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="petri"></div>
+
+</section>
+
+<section id="bn-in-mg">
+<h2>7. Brill–Noether loci in $\mathcal{M}_g$</h2>
+
+<p>Brill–Noether theory is about a fixed curve $C$. But it has a second life: as one varies $C$ over the moduli space $\mathcal{M}_g$, the loci where $W^r_d(C)$ is bigger than expected — where the Petri map degenerates — cut out interesting subvarieties of $\mathcal{M}_g$.</p>
+
+<p>When $\rho(g,r,d)=-1$, $W^r_d(C)$ is generically empty but the locus</p>
+
+<p style="text-align:center">$\mathcal{M}^r_{g,d}\;=\;\{\,[C]\in\mathcal{M}_g\;:\;W^r_d(C)\ne\emptyset\,\}$</p>
+
+<p>is a <em>divisor</em> in $\mathcal{M}_g$ — the <strong>Brill–Noether divisor</strong>. Its class in $\Pic(\overline{\mathcal{M}}_g)\otimes\mathbb{Q}$ is computable in terms of the standard generators $\lambda$ (Hodge class) and $\delta_i$ (boundary classes). Eisenbud–Harris (1987) gave the formula explicitly using their machinery of limit linear series, computing these divisor classes for every $g,r,d$ with $\rho=-1$.</p>
+
+<p>This is the bridge between Brill–Noether theory and the birational geometry of $\overline{\mathcal{M}}_g$: the Brill–Noether divisors are exactly the divisors needed to compute the canonical class of $\overline{\mathcal{M}}_g$. The Harris–Mumford theorem on the Kodaira dimension of $\overline{\mathcal{M}}_g$ uses Brill–Noether divisors as the central technical input.</p>
+
+<h3>Limit linear series</h3>
+
+<p>The Eisenbud–Harris construction handles degenerate (nodal) curves at the boundary of $\overline{\mathcal{M}}_g$. A <em>limit linear series</em> on a chain of components $C_0\cup C_1\cup\cdots\cup C_n$ is a coordinated choice of linear series on each component, with vanishing-order conditions at the nodes that match up. The total "degree" and "rank" of a limit linear series can be specified, and the limit is the right notion of a $g^r_d$ on a stable curve.</p>
+
+<div class="widget" id="w-bn-limit">
+  <div class="hd"><div class="ttl">Limit linear series on a chain of elliptic curves</div><div class="hint">click a component; see its vanishing sequence at the marked node</div></div>
+  <div class="row">
+    <button id="lim-c1" class="active">component E₁</button>
+    <button id="lim-c2">component E₂</button>
+    <button id="lim-c3">component E₃</button>
+    <button id="lim-c4">component E₄</button>
+  </div>
+  <svg id="lim-svg" viewBox="0 0 720 260" width="720" height="260"><title>Limit linear series on a chain</title></svg>
+  <div class="readout" id="lim-out">click a component to see its local data (degree, vanishing sequence, contribution to ρ)…</div>
+  <p class="small">A chain of $g$ elliptic curves $E_1\cup E_2\cup\cdots\cup E_g$ is a "flag curve" in $\overline{\mathcal{M}}_g$. A limit $g^r_d$ assigns to each $E_i$ a $g^r_d$-like datum (a line bundle of degree $d$ and an $(r+1)$-dim subspace of sections) with compatibility at each node: the vanishing sequences must add correctly. Eisenbud–Harris showed limit linear series on flag curves smooth out to $g^r_d$'s on a nearby smooth curve, and this is the engine for proving Petri injectivity (by degeneration) and computing $\overline{\mathcal{M}}_g$ divisor classes.</p>
+</div>
+<script>
+(function(){
+  const svg=$('#lim-svg'), out=$('#lim-out');
+  const btns={1:$('#lim-c1'),2:$('#lim-c2'),3:$('#lim-c3'),4:$('#lim-c4')};
+  const W=720, H=260;
+  let activeC = 1;
+  const comps = [
+    {name:'E₁', vanish:'(0, 5)', deg:5, color:'var(--cyan)'},
+    {name:'E₂', vanish:'(1, 4)', deg:5, color:'var(--green)'},
+    {name:'E₃', vanish:'(2, 3)', deg:5, color:'var(--yellow)'},
+    {name:'E₄', vanish:'(2, 4)', deg:5, color:'var(--pink)'}
+  ];
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    // chain of four ellipses
+    const y=130;
+    const ex=140, gap=120;
+    for(let i=0;i<4;i++){
+      const cx = ex + i*gap;
+      const isActive = (i+1 === activeC);
+      svg.appendChild(SVG('ellipse',{cx, cy:y, rx:50, ry:32,
+        fill: isActive ? 'color-mix(in srgb, '+comps[i].color+' 28%, transparent)' : 'var(--panel)',
+        stroke: comps[i].color, 'stroke-width': isActive ? 2.5 : 1.3}));
+      const lbl=SVG('text',{x:cx, y:y-44,'text-anchor':'middle','font-size':12, fill:comps[i].color, 'font-weight': isActive?700:500});
+      lbl.textContent=comps[i].name; svg.appendChild(lbl);
+      // vanishing sequence inside
+      const vs=SVG('text',{x:cx, y:y+5,'text-anchor':'middle','font-size':11, fill:'var(--mute)'});
+      vs.textContent=comps[i].vanish; svg.appendChild(vs);
+      const dg=SVG('text',{x:cx, y:y+20,'text-anchor':'middle','font-size':10, fill:'var(--mute)'});
+      dg.textContent='deg '+comps[i].deg; svg.appendChild(dg);
+      // node markers (right side of all but last)
+      if(i<3){
+        svg.appendChild(SVG('circle',{cx:cx+50, cy:y, r:4, fill:'var(--violet)'}));
+        // crossing line into next
+        svg.appendChild(SVG('line',{x1:cx+50, y1:y, x2:ex+(i+1)*gap-50, y2:y, stroke:'var(--violet)','stroke-width':1.2}));
+      }
+    }
+    // total
+    const tot=SVG('text',{x:W/2, y:225,'text-anchor':'middle','font-size':12, fill:'var(--mute)'});
+    tot.textContent='Chain of 4 elliptic curves modeling a limit g¹₅; ρ(4, 1, 5) = ' + (4 - 2*(4-5+1)) + ' (special range: d ≤ 2g−2 = 6)';
+    svg.appendChild(tot);
+    const cmt=SVG('text',{x:W/2, y:243,'text-anchor':'middle','font-size':10, fill:'var(--mute)','font-style':'italic'});
+    cmt.textContent='vanishing sequences satisfy the Eisenbud–Harris compatibility at every node.';
+    svg.appendChild(cmt);
+    const c = comps[activeC-1];
+    out.textContent =
+      'Component '+c.name+': deg = '+c.deg+', vanishing sequence at the node ↔ next component: '+c.vanish+'\n' +
+      'A limit linear series prescribes both the line bundle on each component and the order of vanishing at each node.\n' +
+      'Compatibility (Eisenbud–Harris): the vanishing sequences on the two sides of each node must add to (≥) (d−r, d−r+1, ..., d) — i.e. enough sections vanish on each side to glue.';
+  }
+  for(const k of Object.keys(btns)){
+    btns[k].addEventListener('click', ()=>{
+      activeC = +k;
+      for(const kk of Object.keys(btns)) btns[kk].classList.toggle('active', +kk===activeC);
+      render();
+    });
+  }
+  render();
+})();
+</script>
+
+<table class="plain">
+<thead><tr><th>$(g,r,d)$</th><th>$\rho$</th><th>Brill–Noether divisor in $\mathcal{M}_g$</th></tr></thead>
+<tbody>
+<tr><td>$(3,1,2)$</td><td>$-1$</td><td>Hyperelliptic locus $\mathcal{M}^1_{3,2}\subset\mathcal{M}_3$ — a codim-$1$ subvariety; in $\overline{\mathcal{M}}_3$ it has a known class in $\Pic\otimes\mathbb{Q}$.</td></tr>
+<tr><td>$(5,1,3)$</td><td>$-1$</td><td>Trigonal locus in $\mathcal{M}_5$ — curves with a $g^1_3$ (degree-3 map to $\mathbb{P}^1$). Codim 1.</td></tr>
+<tr><td>$(6,2,5)$</td><td>$-1$</td><td>Curves with a $g^2_5$ in $\mathcal{M}_6$ — codim-1. Class computed by Harris–Mumford; key input to proving $\overline{\mathcal{M}}_g$ is of general type for $g\ge 24$.</td></tr>
+<tr><td>$(g, r, d)$, $\rho=-1$</td><td>$-1$</td><td>Eisenbud–Harris class formula: $[\overline{\mathcal{M}}^r_{g,d}]$ as an explicit combination of $\lambda$ and $\delta_i$.</td></tr>
+</tbody>
+</table>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./algebraic-curves-higher-genus.html#moduli-of-curves-genus-g">Moduli of higher-genus curves $\mathcal{M}_g$</a></li>
+    <li><a href="./moduli-spaces.html#higher">Higher-genus moduli and stable curves</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><div class="quiz" data-concept="bn-in-mg"></div>
+
+</section>
+
+<section id="connections">
+<h2>8. Connections</h2>
+
+<p>Brill–Noether theory sits at the centre of curve theory: it is the bridge between the cohomology of a fixed curve (Riemann–Roch and its refinements), the geometry of its Picard variety, and the global geometry of $\mathcal{M}_g$. Where it leads:</p>
+
+<ul>
+<li><a href="./algebraic-curves-higher-genus.html#riemann-roch">Higher-genus curves</a> — every result here is downstream of Riemann–Roch on a curve; Brill–Noether is "Riemann–Roch made geometric" by reading $h^0$ as a dimension of a variety, not just a single number.</li>
+<li><a href="./moduli-spaces.html#higher">Moduli of curves</a> — the Brill–Noether divisors stratify $\mathcal{M}_g$ and supply the divisor classes needed to compute the Kodaira dimension of $\overline{\mathcal{M}}_g$.</li>
+<li><a href="./algebraic-curves-higher-genus.html#canonical-embedding">Canonical embedding</a> — Petri injectivity is a statement about quadrics through the canonical image: no quadric is a "sum of two divisors". This is Noether–Enriques–Petri in its modern form.</li>
+<li><a href="./abelian-varieties.html#theta-divisor">Abelian varieties</a> — $W^r_d(C)\subset\Pic^d(C)\cong J(C)$ are special subvarieties of the Jacobian; their class as algebraic cycles is a Schubert polynomial in $\theta$.</li>
+<li><a href="./deformation-theory.html#tangent">Deformation theory</a> — the Petri map computes the tangent space to $W^r_d$. The general framework is deformations of pairs $(C, L)$ with $L$ a line bundle on $C$.</li>
+<li><a href="./intersection-theory-chow.html#schubert">Schubert calculus</a> — Kempf's existence proof is a Chern-class / Schubert computation on the Picard variety. The Brill–Noether class polynomial is the Schubert class of a determinantal locus.</li>
+</ul>
+
+<p>Frontier: Brill–Noether theory for vector bundles (rank $\ge 2$) replaces line bundles by higher-rank bundles, and the corresponding "moduli of vector bundles with prescribed cohomology" is much less understood — Mercat's conjecture and its counterexamples are open battlegrounds. The analogue of $\rho$ for vector bundles has been computed in some cases but not in general. A parallel frontier is <em>tropical</em> Brill–Noether theory (Cools–Draisma–Payne–Robeva, Jensen–Payne) which gives a chip-firing-style proof of Brill–Noether and Gieseker–Petri using tropical curves and parking functions on graphs — and produces uniform bounds matching the classical results.</p>
+
+</section>
+
+</main>
+
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('brill-noether'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+})();
+</script>
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-05-12</td><td>initial version</td></tr>
+    </tbody>
+  </table>
+</details>
+
+</body>
+</html>

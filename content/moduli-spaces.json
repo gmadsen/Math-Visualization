@@ -326,7 +326,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./geometric-invariant-theory.html#moduli-applications\">Geometric invariant theory</a> · Moduli applications: $M_g$, quivers, $\\mathrm{Bun}_G$</div>\n    <div><a href=\"./tropical-geometry.html#trop-moduli\">Tropical geometry</a> · Tropical moduli and Riemann–Roch</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./brill-noether.html#bn-in-mg\">Brill–Noether theory</a> · Brill–Noether loci in $\\mathcal{M}_g$</div>\n    <div><a href=\"./geometric-invariant-theory.html#moduli-applications\">Geometric invariant theory</a> · Moduli applications: $M_g$, quivers, $\\mathrm{Bun}_G$</div>\n    <div><a href=\"./tropical-geometry.html#trop-moduli\">Tropical geometry</a> · Tropical moduli and Riemann–Roch</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

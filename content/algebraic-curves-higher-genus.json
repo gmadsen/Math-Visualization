@@ -84,7 +84,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./abelian-varieties.html#jacobian\">Abelian varieties</a> · Jacobians of curves and Torelli</div>\n    <div><a href=\"./algebraic-curves-higher-genus.html#riemann-roch\">Algebraic curves: higher genus</a> · Riemann–Roch on curves</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./abelian-varieties.html#jacobian\">Abelian varieties</a> · Jacobians of curves and Torelli</div>\n    <div><a href=\"./algebraic-curves-higher-genus.html#riemann-roch\">Algebraic curves: higher genus</a> · Riemann–Roch on curves</div>\n    <div><a href=\"./brill-noether.html#wrd-locus\">Brill–Noether theory</a> · $W^r_d(C)$ — the Brill–Noether locus</div>\n    <div><a href=\"./brill-noether.html#special-divisors\">Brill–Noether theory</a> · Special divisors and linear series</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -135,7 +135,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./algebraic-curves-higher-genus.html#hyperelliptic\">Algebraic curves: higher genus</a> · Hyperelliptic curves</div>\n    <div><a href=\"./algebraic-curves-higher-genus.html#canonical-embedding\">Algebraic curves: higher genus</a> · The canonical embedding</div>\n    <div><a href=\"./deformation-theory.html#deformation-of-a-curve\">Deformation theory</a> · Worked example: deformations of a smooth curve</div>\n    <div><a href=\"./positivity-and-ample-line-bundles.html#picard\">Positivity and ample line bundles</a> · Divisors, line bundles, and the Picard group</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./algebraic-curves-higher-genus.html#hyperelliptic\">Algebraic curves: higher genus</a> · Hyperelliptic curves</div>\n    <div><a href=\"./algebraic-curves-higher-genus.html#canonical-embedding\">Algebraic curves: higher genus</a> · The canonical embedding</div>\n    <div><a href=\"./brill-noether.html#riemann-roch-bn\">Brill–Noether theory</a> · Riemann–Roch as the dimension-counting tool</div>\n    <div><a href=\"./deformation-theory.html#deformation-of-a-curve\">Deformation theory</a> · Worked example: deformations of a smooth curve</div>\n    <div><a href=\"./positivity-and-ample-line-bundles.html#picard\">Positivity and ample line bundles</a> · Divisors, line bundles, and the Picard group</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -182,7 +182,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./mmp-and-birational-geometry.html#kodaira-dimension\">MMP and birational geometry</a> · Kodaira dimension and the canonical ring</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./brill-noether.html#petri\">Brill–Noether theory</a> · Petri's theorem (smoothness)</div>\n    <div><a href=\"./mmp-and-birational-geometry.html#kodaira-dimension\">MMP and birational geometry</a> · Kodaira dimension and the canonical ring</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -269,6 +269,10 @@
         {
           "type": "raw",
           "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./moduli-spaces.html\">Moduli spaces in general</a></li>\n    <li><a href=\"./stacks.html\">Deligne–Mumford stacks</a></li>\n    <li><a href=\"./deformation-theory.html\">$h^1(C, T_C) = 3g - 3$ deformation count</a></li>\n    <li><a href=\"./stacks.html#fib\">Groupoids, fibered categories, descent</a></li>\n    <li><a href=\"./stacks.html#coarse\">Deligne–Mumford stacks and coarse spaces</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./brill-noether.html#bn-in-mg\">Brill–Noether theory</a> · Brill–Noether loci in $\\mathcal{M}_g$</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

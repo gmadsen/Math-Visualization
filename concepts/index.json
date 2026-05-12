@@ -21,6 +21,18 @@
 
 
 
+
+
+
+
+
+
+    "brill-noether",
+
+
+
+
+
     "several-complex-variables",
     "khovanov-homology",
     "shimura-varieties",
@@ -388,6 +400,7 @@
     "random-matrix-theory": "advanced",
     "shimura-varieties": "capstone",
     "geometric-invariant-theory": "advanced",
-    "heegaard-floer": "advanced"
+    "heegaard-floer": "advanced",
+    "brill-noether": "advanced"
   }
 }

@@ -225,7 +225,8 @@
         "d-modules",
         "crystalline-cohomology",
         "tropical-geometry",
-        "geometric-invariant-theory"
+        "geometric-invariant-theory",
+        "brill-noether"
       ],
       "color": "g"
     },
