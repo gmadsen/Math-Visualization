@@ -228,9 +228,19 @@ function extractSelectors(widgetHtml) {
 // We deliberately err on the side of classifying as Interactive: the goal
 // is to surface suspiciously-idle widgets, so a few false negatives on the
 // "static" list beat a noisy false-positive tide.
+//
+// Convention the `MV*.init` arm anchors on: every shared widget library
+// exposes its API as `global.MVXxx = { init }` (see `js/widget-*.js`).
+// If that convention changes — either the prefix (no longer `MV`) or
+// the method name (`.mount`/`.setup`/`.attach`) — this regex must change
+// with it. The `\s*\(` is required so the regex misses comments like
+// `// MVFoo.init is deprecated` that mention the symbol without actually
+// invoking it. The fixed-name verbs are each followed by `(?![A-Za-z])`
+// so that `addEventListenerExtra` (hypothetical) doesn't match as the
+// shorter `addEventListener`.
 
 const EVENT_VERBS_RE =
-  /\b(addEventListener|removeEventListener|make3DDraggable|requestAnimationFrame|MV[A-Z][A-Za-z]+\.init)\b/;
+  /\b(?:(?:addEventListener|removeEventListener|make3DDraggable|requestAnimationFrame)(?![A-Za-z])|MV[A-Z][A-Za-z]+\.init\s*\()/;
 const INLINE_HANDLER_ATTR_RE =
   /\bon(?:click|input|change|pointerdown|pointermove|pointerup|pointercancel|mousedown|mousemove|mouseup|mouseover|mouseout|mouseenter|mouseleave|keydown|keyup|keypress|wheel|touchstart|touchmove|touchend|focus|blur|submit|dblclick|contextmenu)\s*=\s*["']/i;
 
@@ -271,9 +281,12 @@ function scriptReferencesSelector(scriptText, selector, kind) {
   const selEsc = escapeForRegex(sel);
 
   // $('#id'), $("#id") — or $('.class')
+  // Negative lookahead `(?![\w-])` so `$('#w-left'` doesn't match an audit
+  // for `#w-leftright-thing` (and vice versa: an audit for `#w-left` isn't
+  // satisfied by the longer id).
   const prefix = kind === 'id' ? '#' : '.';
   const dollarRe = new RegExp(
-    `\\$\\(\\s*["'\`]\\s*${escapeForRegex(prefix)}${selEsc}\\b`
+    `\\$\\(\\s*["'\`]\\s*${escapeForRegex(prefix)}${selEsc}(?![\\w-])`
   );
   if (dollarRe.test(scriptText)) return true;
 
@@ -285,11 +298,14 @@ function scriptReferencesSelector(scriptText, selector, kind) {
     if (gbiRe.test(scriptText)) return true;
   }
 
-  // document.querySelector / querySelectorAll with '#id' / '.class'
+  // document.querySelector / querySelectorAll with '#id' / '.class'.
+  // Same `(?![\w-])` lookahead as $() above to prevent prefix-id collision;
+  // the trailing `[^"'`]*` still allows compound selectors like
+  // `'#parent > .child'` because the lookahead doesn't consume the next char.
   const qsRe = new RegExp(
     `querySelector(?:All)?\\(\\s*["'\`][^"'\`]*${escapeForRegex(
       prefix
-    )}${selEsc}\\b[^"'\`]*["'\`]\\s*\\)`
+    )}${selEsc}(?![\\w-])[^"'\`]*["'\`]\\s*\\)`
   );
   if (qsRe.test(scriptText)) return true;
 
@@ -305,8 +321,17 @@ function scriptReferencesSelector(scriptText, selector, kind) {
   // names an event-binding verb or inline handler assignment. This catches
   // patterns like  const btn = $(s); s being a variable holding the selector,
   // or `make3DDraggable(svg, ...)` after `const svg = $('#...')`.
+  //
+  // The negative lookahead `(?![\w-])` after the id is load-bearing: ids
+  // contain `[\w-]+` in practice, so without it `\b` would match between
+  // `t` and `-` in `#w-left-scrubber` when auditing `#w-left`, falsely
+  // classifying short-prefix ids as interactive on any page that mentions
+  // the longer id. The `MV*.init` expansion grew the surface of this
+  // collision substantially — adding the registry-driven library calls
+  // bumps interactive scripts from ~17 to ~29 pages — making the
+  // lookahead necessary rather than merely paranoid.
   const bareRe = new RegExp(
-    `["'\`]\\s*${escapeForRegex(prefix)}${selEsc}\\b`
+    `["'\`]\\s*${escapeForRegex(prefix)}${selEsc}(?![\\w-])`
   );
   if (bareRe.test(scriptText) && EVENT_VERBS_RE.test(scriptText)) return true;
 
