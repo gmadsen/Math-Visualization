@@ -1,7 +1,6 @@
 {
   "_note": "Per-page static-widget baseline. Regenerate with `node scripts/audit-widget-interactivity.mjs --update-baseline`. CI runs `--strict` and fails if any per-page count grows.",
   "perPage": {
-    "abelian-varieties.html": 4,
     "additive-number-theory.html": 3,
     "algebraic-curves-higher-genus.html": 3,
     "algebraic-de-rham-cohomology.html": 2,
@@ -25,8 +24,6 @@
     "heights-arithmetic-geometry.html": 3,
     "heyting-algebras-toposes.html": 3,
     "homological.html": 1,
-    "infinity-categories.html": 4,
-    "infinity-topoi.html": 4,
     "intersection-theory-chow.html": 2,
     "mmp-and-birational-geometry.html": 6,
     "modular-forms.html": 1,

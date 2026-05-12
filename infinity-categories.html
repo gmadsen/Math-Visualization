@@ -309,6 +309,8 @@ is the data witnessing $h \simeq g \circ f$. The inner-horn filler for $\Lambda^
 <script>
 (function(){
   if(!window.MVProofScrubber) return;
+    const root = document.getElementById('w-quasi-category-build');
+  if(!root) return;
   MVProofScrubber.init('#w-quasi-category-build', {
     title: "From ordinary categories to quasi-categories",
     hint: "scrub the slider — or press play",
@@ -388,12 +390,49 @@ is an honest $1$-category with composition induced by $\Lambda^2_1$-fillers — 
     <text x="290" y="100" font-size="11" fill="var(--mute)">id_y (degenerate)</text>
     <text x="180" y="195" text-anchor="middle" font-size="11" fill="var(--mute)">σ ∈ C₂ with ∂₂σ = f, ∂₀σ = id_y, ∂₁σ = g  ⇔  f ≃ g</text>
   </svg>
+  <div class="row">
+    <button id="hc2-btn-witness" class="active">witness $f \simeq g$</button>
+    <button id="hc2-btn-degeneracy">role of degenerate edge</button>
+    <button id="hc2-btn-equiv">why this is symmetric &amp; transitive</button>
+  </div>
+  <div class="readout" id="hc2-out">A 2-simplex σ in the nerve $C$ with the boundary configuration above gives a homotopy from $f$ to $g$ (in the homotopy category $h(\mathcal{C})$). The two parallel 1-simplices $f, g\colon x\to y$ are connected by a 2-cell whose third edge is the identity on $y$.</div>
 </div>
+<script>
+(function(){
+  const root = document.getElementById('w-homotopy-2simplex');
+  if(!root) return;
+  const out = document.getElementById('hc2-out');
+  const btns = {
+    witness: document.getElementById('hc2-btn-witness'),
+    degeneracy: document.getElementById('hc2-btn-degeneracy'),
+    equiv: document.getElementById('hc2-btn-equiv'),
+  };
+  const text = {
+    witness: 'A 2-simplex $\\sigma \\in C_2$ with $\\partial_2\\sigma = f$, $\\partial_0\\sigma = \\mathrm{id}_y$, $\\partial_1\\sigma = g$ <em>is</em> the witness $f \\simeq g$. In the nerve of an ordinary category, such σ exists iff $\\mathrm{id}_y \\circ f = g$ — i.e. $f = g$. In a quasi-category there can be many distinct such σ, encoding higher homotopical data.',
+    degeneracy: 'The dashed edge is the degenerate 1-simplex $s_0(y) = \\mathrm{id}_y$. Its degeneracy is what lets the 2-simplex relate two arrows that share both endpoints — without a degenerate face, the 2-simplex $\\Delta^2$ would only express composition $g \\circ h = f$ for some non-trivial $h$.',
+    equiv: 'Symmetric: build a $\\Lambda^3_2$ horn from σ (a $f \\simeq g$ witness), the degenerate $s_0(\\mathrm{id}_x)$, and a degenerate face; fill it to a 3-simplex and the missing face $\\partial_2$ is a witness $g \\simeq f$. Transitive: from σ for $f \\simeq g$ and τ for $g \\simeq h$, build a $\\Lambda^3_1$ horn (the three non-$\\partial_3$ faces); fill to a 3-simplex and read off $\\partial_3$ as the witness $f \\simeq h$. Reflexive: the degenerate 2-simplex $s_1(f)$. (See `w-h-construction` Step 3 for the full Joyal proof.)',
+  };
+  function select(key){
+    out.innerHTML = text[key];
+    for(const k of Object.keys(btns)){
+      btns[k].classList.toggle('active', k === key);
+    }
+    if(window.renderMathInElement) window.renderMathInElement(out,{throwOnError:false,delimiters:[{left:'$',right:'$',display:false}]});
+  }
+  btns.witness.addEventListener('click', ()=>select('witness'));
+  btns.degeneracy.addEventListener('click', ()=>select('degeneracy'));
+  btns.equiv.addEventListener('click', ()=>select('equiv'));
+  // initial state mirrors the default 'active' button.
+  select('witness');
+})();
+</script>
 
 <div class="widget" id="w-h-construction"></div>
 <script>
 (function(){
   if(!window.MVProofScrubber) return;
+    const root = document.getElementById('w-h-construction');
+  if(!root) return;
   MVProofScrubber.init('#w-h-construction', {
     title: "Building $h(\\mathcal{C})$ from a quasi-category",
     hint: "scrub through the construction",
@@ -754,6 +793,8 @@ where $\mathcal{C} \times_{\mathcal{D}} \mathcal{D}_{/d}$ is the <em>comma $\inf
 <script>
 (function(){
   if(!window.MVProofScrubber) return;
+    const root = document.getElementById('w-kan-pointwise');
+  if(!root) return;
   MVProofScrubber.init('#w-kan-pointwise', {
     title: "The pointwise formula for $\\mathrm{Lan}_i F$",
     hint: "scrub through the construction at a single point $d \\in \\mathcal{D}$",
