@@ -2,12 +2,12 @@
 
 ## Corpus totals
 
-- Topics: **172**, concepts: **1194**
-- Widgets: **1219** (registry-driven: 1219, inline: 0)
-- Quizzes: **4776** (v1: 3540, hard: 1223, expert: 13)
-- Quiz types: mcq: 3153, numeric: 1159, multi-select: 206, matching: 93, ordering: 70, spot-the-error: 43, complex: 29, proof-completion: 19, construction: 2, guess-my-rule: 2
+- Topics: **173**, concepts: **1201**
+- Widgets: **1226** (registry-driven: 1226, inline: 0)
+- Quizzes: **4797** (v1: 3561, hard: 1223, expert: 13)
+- Quiz types: mcq: 3164, numeric: 1164, multi-select: 209, matching: 94, ordering: 71, spot-the-error: 43, complex: 29, proof-completion: 19, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their section: **149**
-- Concepts lacking a hard-tier quiz: **756**
+- Concepts lacking a hard-tier quiz: **763**
 
 ## Per-slug registry adoption
 
@@ -621,6 +621,13 @@ page has wired one in yet.
 | `ricci-extinction-timeline` | ricci-extinction-timeline | button-stepper | 2d | 1 | ricci-flow |
 | `ricci-neckpinch-surgery` | ricci-neckpinch-surgery | button-stepper | 2d | 1 | ricci-flow |
 | `ricci-soliton-zoo` | ricci-soliton-zoo | button-stepper | 2d | 1 | ricci-flow |
+| `rmt-w1` | verbatim | click | 2d | 1 | random-matrix-theory |
+| `rmt-w2` | verbatim | click | 2d | 1 | random-matrix-theory |
+| `rmt-w3` | verbatim | click | 2d | 1 | random-matrix-theory |
+| `rmt-w4` | verbatim | click | 2d | 1 | random-matrix-theory |
+| `rmt-w5` | verbatim | click | 2d | 1 | random-matrix-theory |
+| `rmt-w6` | verbatim | click | 2d | 1 | random-matrix-theory |
+| `rmt-w7` | verbatim | click | 2d | 1 | random-matrix-theory |
 | `scv-w1` | verbatim | click | 2d | 1 | several-complex-variables |
 | `scv-w2` | verbatim | click | 2d | 1 | several-complex-variables |
 | `scv-w3` | verbatim | click | 2d | 1 | several-complex-variables |
@@ -810,13 +817,13 @@ page has wired one in yet.
 
 ### Probability & statistics
 
-- Topics: **8**, concepts: **55**
-- Widgets: **51** (registry-driven: 51, inline: 0)
-  - by family: button-stepper: 10, ms-bias-variance: 1, ms-likelihood-curve: 1, ms-crlb-envelope: 1, ms-neyman-pearson: 1, ms-beta-posterior: 1, ms-wilks-theorem: 1, hdg-sphere-concentration-band: 1, hdg-dvoretzky-section: 1, hdg-jl-distortion-histogram: 1, hdg-talagrand-deviation: 1, hdg-isoperimetry-tail: 1, hdg-marchenko-pastur: 1, stoch-proc-filtration-stopping: 1, stoch-proc-random-walk-martingale: 1, stoch-proc-gamblers-ruin: 1, stoch-proc-doob-decomposition: 1, stoch-proc-convergence-regimes: 1, stoch-proc-brownian-quadratic-variation: 1, stochastic-calc-ito-riemann-sums: 1, stochastic-calc-ito-formula-bsq: 1, stochastic-calc-geometric-brownian-motion: 1, stochastic-calc-girsanov-density: 1, stochastic-calc-feynman-kac-heat: 1, stochastic-calc-binomial-black-scholes: 1, random-walks-graph-step: 1, random-walks-matrix-power: 1, random-walks-tv-distance: 1, random-walks-eigenvalue-inspector: 1, random-walks-cycle-coupling: 1, random-walks-metropolis-hastings: 1, information-entropy: 1, information-mutual-info-venn: 1, information-kl-simplex: 1, information-huffman-builder: 1, information-bsc-capacity: 1, information-rate-distortion: 1, large-dev-cramer-tilt: 1, large-dev-rate-gallery: 1, large-dev-sanov-kl: 1, large-dev-gartner-ar1: 1, large-dev-schilder-paths: 1
-  - by dimension: 2d: 51
-  - by gesture: slider: 28, click: 15, step: 5, button: 2, toggle: 1
-- Quizzes: **202** (v1: 165, hard: 24, expert: 13)
-  - by type: mcq: 140, numeric: 51, matching: 3, multi-select: 2, proof-completion: 2, construction: 1, complex: 1, ordering: 1, spot-the-error: 1
+- Topics: **9**, concepts: **62**
+- Widgets: **58** (registry-driven: 58, inline: 0)
+  - by family: button-stepper: 10, verbatim: 7, ms-bias-variance: 1, ms-likelihood-curve: 1, ms-crlb-envelope: 1, ms-neyman-pearson: 1, ms-beta-posterior: 1, ms-wilks-theorem: 1, hdg-sphere-concentration-band: 1, hdg-dvoretzky-section: 1, hdg-jl-distortion-histogram: 1, hdg-talagrand-deviation: 1, hdg-isoperimetry-tail: 1, hdg-marchenko-pastur: 1, stoch-proc-filtration-stopping: 1, stoch-proc-random-walk-martingale: 1, stoch-proc-gamblers-ruin: 1, stoch-proc-doob-decomposition: 1, stoch-proc-convergence-regimes: 1, stoch-proc-brownian-quadratic-variation: 1, stochastic-calc-ito-riemann-sums: 1, stochastic-calc-ito-formula-bsq: 1, stochastic-calc-geometric-brownian-motion: 1, stochastic-calc-girsanov-density: 1, stochastic-calc-feynman-kac-heat: 1, stochastic-calc-binomial-black-scholes: 1, random-walks-graph-step: 1, random-walks-matrix-power: 1, random-walks-tv-distance: 1, random-walks-eigenvalue-inspector: 1, random-walks-cycle-coupling: 1, random-walks-metropolis-hastings: 1, information-entropy: 1, information-mutual-info-venn: 1, information-kl-simplex: 1, information-huffman-builder: 1, information-bsc-capacity: 1, information-rate-distortion: 1, large-dev-cramer-tilt: 1, large-dev-rate-gallery: 1, large-dev-sanov-kl: 1, large-dev-gartner-ar1: 1, large-dev-schilder-paths: 1
+  - by dimension: 2d: 58
+  - by gesture: slider: 28, click: 22, step: 5, button: 2, toggle: 1
+- Quizzes: **223** (v1: 186, hard: 24, expert: 13)
+  - by type: mcq: 151, numeric: 56, multi-select: 5, matching: 4, ordering: 2, proof-completion: 2, construction: 1, complex: 1, spot-the-error: 1
 
 ### Geometry & topology
 
@@ -880,6 +887,7 @@ page has wired one in yet.
 
 ## Per-topic
 
+- `random-matrix-theory` (Probability & statistics) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
 - `several-complex-variables` (Analysis) — concepts=6, widgets=5 (slug=5), quiz=18 (v1=18, hard=0, expert=0)
 - `khovanov-homology` (Geometry & topology) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `shimura-varieties` (Modular forms & L-functions) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
@@ -1080,6 +1088,13 @@ page has wired one in yet.
 
 ### Concepts missing a hard-tier quiz (top 20)
 
+- `rmt-ensembles` (random-matrix-theory)
+- `rmt-wigner-semicircle` (random-matrix-theory)
+- `rmt-marchenko-pastur` (random-matrix-theory)
+- `rmt-tracy-widom` (random-matrix-theory)
+- `rmt-free-probability` (random-matrix-theory)
+- `rmt-universality` (random-matrix-theory)
+- `rmt-katz-sarnak` (random-matrix-theory)
 - `scv-hartogs` (several-complex-variables)
 - `scv-psh` (several-complex-variables)
 - `scv-dbar` (several-complex-variables)
@@ -1093,10 +1108,3 @@ page has wired one in yet.
 - `khov-foams` (khovanov-homology)
 - `khov-applications` (khovanov-homology)
 - `shim-datum` (shimura-varieties)
-- `shim-canonical-model` (shimura-varieties)
-- `shim-siegel` (shimura-varieties)
-- `shim-hilbert` (shimura-varieties)
-- `shim-cohomology` (shimura-varieties)
-- `shim-langlands-kottwitz` (shimura-varieties)
-- `as-counting-fields` (arithmetic-statistics)
-- `as-cohen-lenstra` (arithmetic-statistics)

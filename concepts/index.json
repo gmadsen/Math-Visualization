@@ -1,5 +1,27 @@
 {
   "topics": [
+
+
+
+
+
+
+
+    "random-matrix-theory",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     "several-complex-variables",
     "khovanov-homology",
     "shimura-varieties",
@@ -364,6 +386,7 @@
     "tropical-geometry": "advanced",
     "surgery-theory": "advanced",
     "arithmetic-statistics": "advanced",
+    "random-matrix-theory": "advanced",
     "shimura-varieties": "capstone"
   }
 }

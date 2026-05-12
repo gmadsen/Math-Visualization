@@ -4,6 +4,7 @@
 window.__MVConcepts = {
   "index": {
     "topics": [
+      "random-matrix-theory",
       "several-complex-variables",
       "khovanov-homology",
       "shimura-varieties",
@@ -368,10 +369,116 @@ window.__MVConcepts = {
       "tropical-geometry": "advanced",
       "surgery-theory": "advanced",
       "arithmetic-statistics": "advanced",
+      "random-matrix-theory": "advanced",
       "shimura-varieties": "capstone"
     }
   },
   "topics": {
+    "random-matrix-theory": {
+      "topic": "random-matrix-theory",
+      "title": "Random matrix theory",
+      "page": "random-matrix-theory.html",
+      "concepts": [
+        {
+          "id": "rmt-ensembles",
+          "title": "Random matrix ensembles and the Dyson index",
+          "anchor": "ensembles",
+          "prereqs": [
+            "random-variables",
+            "algebraic-structures"
+          ],
+          "blurb": "The three classical Wigner ensembles — GOE (real symmetric, $\\beta=1$), GUE (complex Hermitian, $\\beta=2$), GSE (quaternionic self-dual, $\\beta=4$) — pick i.i.d.\\ Gaussian entries respecting a symmetry. The Dyson index $\\beta\\in\\{1,2,4\\}$ records the dimension of the entry algebra over $\\mathbb{R}$ and tunes every downstream eigenvalue statistic via the joint density $\\prod_{i<j}|\\lambda_i-\\lambda_j|^\\beta e^{-\\beta\\sum\\lambda_i^2/4}$.",
+          "tags": [
+            "foundation",
+            "classification"
+          ]
+        },
+        {
+          "id": "rmt-wigner-semicircle",
+          "title": "Wigner's semicircle law",
+          "anchor": "wigner",
+          "prereqs": [
+            "rmt-ensembles",
+            "central-limit-theorem"
+          ],
+          "blurb": "For an $N\\times N$ Wigner matrix (symmetric, zero-mean, unit-variance, finite higher moments) the empirical spectral measure of $H/\\sqrt N$ converges weakly almost surely to the semicircle $\\rho_{\\mathrm{sc}}(x)=\\tfrac{1}{2\\pi}\\sqrt{4-x^2}\\mathbf{1}_{[-2,2]}$. Proved by moments: $\\mathbb{E}\\tfrac1N\\tr(H/\\sqrt N)^{2k}\\to C_k$ (the $k$-th Catalan number).",
+          "tags": [
+            "completion",
+            "density"
+          ]
+        },
+        {
+          "id": "rmt-marchenko-pastur",
+          "title": "Marchenko–Pastur and sample covariance",
+          "anchor": "mp",
+          "prereqs": [
+            "rmt-wigner-semicircle",
+            "hdg-sphere-concentration"
+          ],
+          "blurb": "For a $p\\times n$ data matrix $X$ with i.i.d.\\ zero-mean unit-variance entries, the eigenvalues of $\\tfrac{1}{n}XX^\\top$ converge to the Marchenko–Pastur law $\\rho_{c}(x)=\\tfrac{1}{2\\pi c x}\\sqrt{(b-x)(x-a)}$ on $[a,b]$ with $a,b=(1\\mp\\sqrt c)^2$ and $c=p/n$. At $c=1$ the bulk touches zero; for $c>1$ a point mass at $0$ of size $1-1/c$ appears.",
+          "tags": [
+            "classification",
+            "completion"
+          ]
+        },
+        {
+          "id": "rmt-tracy-widom",
+          "title": "Tracy–Widom and the soft edge",
+          "anchor": "tracy-widom",
+          "prereqs": [
+            "rmt-wigner-semicircle"
+          ],
+          "blurb": "Near the spectral edge $\\pm 2\\sqrt N$ of a Wigner matrix the fluctuations are not Gaussian but Tracy–Widom: $N^{2/3}(\\lambda_{\\max}-2\\sqrt N)\\Rightarrow F_\\beta$, where $F_\\beta$ is determined by a Painlevé II equation. The distribution surfaces at every soft edge in integrable probability — longest increasing subsequence, KPZ growth, last-passage percolation, polynuclear deposition.",
+          "tags": [
+            "completion",
+            "equidistribution"
+          ]
+        },
+        {
+          "id": "rmt-free-probability",
+          "title": "Free probability and free convolution",
+          "anchor": "free-probability",
+          "prereqs": [
+            "rmt-wigner-semicircle",
+            "von-neumann-algebras"
+          ],
+          "blurb": "Voiculescu's <em>freeness</em> is the noncommutative analogue of independence: in a tracial $\\ast$-algebra $(\\mathcal{A},\\tau)$, subalgebras are free iff $\\tau$ vanishes on alternating words of centred elements. Independent GUE matrices become asymptotically free; the spectral measure of $A+B$ for free $A,B$ is the free additive convolution $\\mu_A\\boxplus\\mu_B$, linearised by Voiculescu's $R$-transform: $R_{\\mu\\boxplus\\nu}=R_\\mu+R_\\nu$.",
+          "tags": [
+            "foundation",
+            "duality"
+          ]
+        },
+        {
+          "id": "rmt-universality",
+          "title": "Bulk and edge universality",
+          "anchor": "universality",
+          "prereqs": [
+            "rmt-wigner-semicircle",
+            "rmt-tracy-widom"
+          ],
+          "blurb": "The semicircle, the sine-kernel for bulk eigenvalue gaps, and Tracy–Widom at the edge depend on the entry distribution only through its first two moments. Erdős–Schlein–Yau, Tao–Vu and others proved this universality theorem rigorously via the four-moment method and Dyson Brownian motion — the analogue of the CLT for spectral statistics.",
+          "tags": [
+            "completion",
+            "classification"
+          ]
+        },
+        {
+          "id": "rmt-katz-sarnak",
+          "title": "Katz–Sarnak symmetry of L-function families",
+          "anchor": "katz-sarnak",
+          "prereqs": [
+            "rmt-ensembles",
+            "rmt-universality",
+            "as-l-symmetry"
+          ],
+          "blurb": "Montgomery–Odlyzko: the normalised gaps between zeros of $\\zeta(s)$ match the GUE bulk law. Katz–Sarnak generalised: every natural family of $L$-functions carries a <em>symmetry type</em> from the classical-group list $\\{U(N),\\,O^\\pm(N),\\,\\mathrm{USp}(2N)\\}$, and its low-lying zeros equidistribute against the eigenvalues of a Haar-random matrix in that group. $\\zeta$ alone $\\to U$, quadratic Dirichlet $L$-functions $\\to \\mathrm{USp}$, elliptic-curve $L$-functions $\\to O^\\pm$ split by root number.",
+          "tags": [
+            "duality",
+            "equidistribution"
+          ]
+        }
+      ]
+    },
     "several-complex-variables": {
       "topic": "several-complex-variables",
       "title": "Several complex variables & Stein manifolds",
@@ -17742,7 +17849,8 @@ window.__MVConcepts = {
           "information-theory",
           "large-deviations",
           "mathematical-statistics",
-          "high-dimensional-geometry"
+          "high-dimensional-geometry",
+          "random-matrix-theory"
         ],
         "color": "g"
       },
@@ -18180,6 +18288,7 @@ window.__MVConcepts = {
     "tropical-geometry": "advanced",
     "surgery-theory": "advanced",
     "arithmetic-statistics": "advanced",
+    "random-matrix-theory": "advanced",
     "shimura-varieties": "capstone"
   },
   "newArc": [
@@ -18211,7 +18320,7 @@ window.__MVConcepts = {
       "concepts": 148,
       "intra": 224,
       "crossOut": 25,
-      "crossIn": 93,
+      "crossIn": 94,
       "density": 0.16891891891891891
     },
     "Higher categories & toposes": {
@@ -18225,15 +18334,15 @@ window.__MVConcepts = {
       "concepts": 197,
       "intra": 346,
       "crossOut": 33,
-      "crossIn": 65,
+      "crossIn": 66,
       "density": 0.16751269035532995
     },
     "Probability & statistics": {
-      "concepts": 55,
-      "intra": 92,
-      "crossOut": 14,
+      "concepts": 62,
+      "intra": 103,
+      "crossOut": 17,
       "crossIn": 13,
-      "density": 0.2545454545454545
+      "density": 0.27419354838709675
     },
     "Geometry & topology": {
       "concepts": 146,
@@ -18246,7 +18355,7 @@ window.__MVConcepts = {
       "concepts": 128,
       "intra": 180,
       "crossOut": 57,
-      "crossIn": 35,
+      "crossIn": 36,
       "density": 0.4453125
     },
     "Modular forms & L-functions": {
