@@ -199,6 +199,7 @@ Each concept carries up to three quiz tiers — v1 (required), hard (unlocked af
 - [D-modules & the Riemann–Hilbert correspondence](./d-modules.html) — the Weyl algebra, $\mathcal{D}_X$-modules, holonomicity and characteristic varieties, hypergeometric systems, the Bernstein–Sato polynomial
 - [Crystalline cohomology](./crystalline-cohomology.html) — the $\ell=p$ gap, divided powers and the crystalline site, comparison with de Rham of a lift, Frobenius and Katz–Messing, F-isocrystals, period rings $B_{\mathrm{cris}} / B_{\mathrm{dR}}$
 - [Tropical geometry](./tropical-geometry.html) — draft — fill in once the page has real content
+- [Geometric invariant theory](./geometric-invariant-theory.html) — draft — fill in once the page has real content
 
 ### Combinatorics & graph theory
 - [Spectral graph theory](./spectral-graph-theory.html) — adjacency, Laplacian, Cheeger inequality, expanders — graphs as discrete differential geometry
