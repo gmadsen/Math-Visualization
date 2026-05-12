@@ -9,8 +9,9 @@
 // index.html, so the card stays in scaffolded form unless someone explicitly
 // updates it).
 //
-// Exits 0 always (advisory). Exit code is informational; rebuild.mjs runs this
-// as a non-gating audit step.
+// Exits non-zero when any card still has a placeholder thumb / desc — draft
+// cards shipping to the live homepage was a real user-visible regression. The
+// audit shifted from advisory to gating after that.
 //
 // Usage:
 //   node scripts/audit-draft-index-cards.mjs
@@ -94,6 +95,6 @@ console.log('\nFix: replace each draft card\'s .desc with a 1-2 sentence summary
 console.log('     of the topic, replace the .tag content with a short bullet list of');
 console.log('     key concepts, and swap the placeholder rect SVG for a motif evocative');
 console.log('     of the topic. See an existing finished card (e.g. category-theory)');
-console.log('     for the template. (advisory; always exits 0)');
+console.log('     for the template.');
 
-process.exit(0);
+process.exit(1);

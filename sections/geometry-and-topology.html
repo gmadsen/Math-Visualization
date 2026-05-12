@@ -1073,18 +1073,24 @@
 
     <a class="card v" href="../kahler-geometry.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <!-- Hodge diamond — h^{p,q} symmetry -->
-        <g fill="var(--violet)" font-family="serif" font-size="9" text-anchor="middle">
-          <text x="50" y="20">1</text>
-          <text x="36" y="35">$h^{1,0}$</text>
-          <text x="64" y="35">$h^{0,1}$</text>
-          <text x="22" y="50">$h^{2,0}$</text>
-          <text x="50" y="50">$h^{1,1}$</text>
-          <text x="78" y="50">$h^{0,2}$</text>
-          <text x="36" y="65">$h^{2,1}$</text>
-          <text x="64" y="65">$h^{1,2}$</text>
-          <text x="50" y="78" font-size="7" font-style="italic">$\bar{h}^{p,q}=h^{q,p}$</text>
+        <!-- Hodge diamond for a Kähler surface (n=2): rows hold h^{p,q} for p+q = 0..4 -->
+        <g fill="var(--violet)" font-family="serif" font-size="11" text-anchor="middle">
+          <text x="50" y="16">1</text>
+          <text x="36" y="32">h¹⁰</text>
+          <text x="64" y="32">h⁰¹</text>
+          <text x="22" y="48">h²⁰</text>
+          <text x="50" y="48">h¹¹</text>
+          <text x="78" y="48">h⁰²</text>
+          <text x="36" y="64">h²¹</text>
+          <text x="64" y="64">h¹²</text>
         </g>
+        <g stroke="var(--violet)" stroke-width="0.4" opacity="0.45" fill="none">
+          <line x1="50" y1="20" x2="80" y2="50"/>
+          <line x1="80" y1="50" x2="50" y2="80"/>
+          <line x1="50" y1="80" x2="20" y2="50"/>
+          <line x1="20" y1="50" x2="50" y2="20"/>
+        </g>
+        <text x="92" y="76" text-anchor="end" font-size="6" fill="var(--mute)" font-style="italic" font-family="serif">h^{p,q} = h̄^{q,p}</text>
       </svg></div>
       <div class="body">
         <div class="tt">Kähler geometry <span class="level advanced">advanced</span></div>
@@ -1116,28 +1122,53 @@
 
     <a class="card v" href="../khovanov-homology.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <!-- TODO: replace this placeholder thumb with a motif evocative of the topic. -->
-        <rect x="18" y="18" width="64" height="44" rx="6" fill="none" stroke="var(--violet)" stroke-width="1.4"/>
-        <text x="50" y="46" text-anchor="middle" font-size="10" fill="var(--violet)" font-style="italic" font-family="serif">draft</text>
+        <!-- Bigraded lattice = categorified Jones polynomial. Trefoil's Khovanov diagram. -->
+        <g stroke="var(--line)" stroke-width="0.4">
+          <line x1="14" y1="20" x2="86" y2="20"/>
+          <line x1="14" y1="35" x2="86" y2="35"/>
+          <line x1="14" y1="50" x2="86" y2="50"/>
+          <line x1="14" y1="65" x2="86" y2="65"/>
+          <line x1="20" y1="14" x2="20" y2="70"/>
+          <line x1="36" y1="14" x2="36" y2="70"/>
+          <line x1="52" y1="14" x2="52" y2="70"/>
+          <line x1="68" y1="14" x2="68" y2="70"/>
+          <line x1="84" y1="14" x2="84" y2="70"/>
+        </g>
+        <g fill="var(--violet)">
+          <circle cx="20" cy="65" r="2.4"/>
+          <circle cx="36" cy="50" r="2.4"/>
+          <circle cx="52" cy="35" r="2.4"/>
+          <circle cx="68" cy="35" r="2.4"/>
+          <circle cx="68" cy="20" r="2.4"/>
+        </g>
+        <text x="14" y="76" font-size="6" fill="var(--mute)" font-style="italic" font-family="serif">q  ↑</text>
+        <text x="84" y="76" text-anchor="end" font-size="6" fill="var(--mute)" font-style="italic" font-family="serif">h →</text>
       </svg></div>
       <div class="body">
         <div class="tt">Khovanov homology</div>
-        <div class="desc">Draft — fill in once the page has real content.</div>
-        <span class="tag">Geometry &amp; topology</span>
+        <div class="desc">A categorification of the Jones polynomial: each cube-of-resolutions vertex becomes a Frobenius-algebra tensor, edges become module maps, and the bigraded chain complex recovers $V_K(q)$ as Euler characteristic — plus the Rasmussen slice-genus bound.</div>
+        <span class="tag">jones · categorification · rasmussen · cobordism</span>
       </div>
     </a>
 
 
     <a class="card v" href="../surgery-theory.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <!-- TODO: replace this placeholder thumb with a motif evocative of the topic. -->
-        <rect x="18" y="18" width="64" height="44" rx="6" fill="none" stroke="var(--violet)" stroke-width="1.4"/>
-        <text x="50" y="46" text-anchor="middle" font-size="10" fill="var(--violet)" font-style="italic" font-family="serif">draft</text>
+        <!-- Dehn surgery: remove a solid torus, re-glue with a twist (slope p/q). -->
+        <ellipse cx="35" cy="42" rx="22" ry="14" fill="none" stroke="var(--violet)" stroke-width="1.3"/>
+        <ellipse cx="35" cy="42" rx="8" ry="5" fill="none" stroke="var(--violet)" stroke-width="0.9" opacity="0.55"/>
+        <line x1="55" y1="42" x2="60" y2="42" stroke="var(--cyan)" stroke-width="1.4" stroke-dasharray="2,2"/>
+        <polygon points="60,42 56,40 56,44" fill="var(--cyan)"/>
+        <ellipse cx="78" cy="42" rx="14" ry="9" fill="none" stroke="var(--violet)" stroke-width="1.3"/>
+        <g stroke="var(--yellow)" stroke-width="0.8" fill="none">
+          <path d="M 65 38 q 6 -6 12 0 q 6 6 12 0" />
+        </g>
+        <text x="50" y="74" text-anchor="middle" font-size="7" fill="var(--violet)" font-style="italic" font-family="serif">cut · twist · re-glue</text>
       </svg></div>
       <div class="body">
         <div class="tt">Surgery theory</div>
-        <div class="desc">Draft — fill in once the page has real content.</div>
-        <span class="tag">Geometry &amp; topology</span>
+        <div class="desc">Cut out a solid torus and glue it back via a different diffeomorphism: the surgery exact sequence + Wall obstructions classify smooth/PL/TOP manifold structures, with Casson, Browder–Quinn, and the Kirby calculus at the technical core.</div>
+        <span class="tag">dehn surgery · cobordism · wall · kirby calculus</span>
       </div>
     </a>
 
