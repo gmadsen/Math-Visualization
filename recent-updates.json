@@ -1,13 +1,21 @@
 {
-  "generated": "2026-05-12T05:48:02.529Z",
+  "generated": "2026-05-12T06:17:23.601Z",
   "entries": [
+    {
+      "slug": "geometric-invariant-theory",
+      "title": "Geometric invariant theory",
+      "color": "g",
+      "tag": "",
+      "date": "2026-05-11",
+      "message": "scaffold(geometric-invariant-theory): stub topic in algebraic-geometry"
+    },
     {
       "slug": "random-matrix-theory",
       "title": "Random matrix theory",
       "color": "c",
       "tag": "",
       "date": "2026-05-11",
-      "message": "new topic: random-matrix-theory (Probability & statistics)"
+      "message": "New topic: Random matrix theory (Probability & statistics) (#155)"
     },
     {
       "slug": "complex-multiplication",
