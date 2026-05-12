@@ -30,6 +30,7 @@
     "brill-noether",
     "coding-theory",
     "conformal-and-cr-geometry",
+    "mathematical-biology",
 
 
 
@@ -405,6 +406,7 @@
     "heegaard-floer": "advanced",
     "brill-noether": "advanced",
     "coding-theory": "standard",
-    "conformal-and-cr-geometry": "advanced"
+    "conformal-and-cr-geometry": "advanced",
+    "mathematical-biology": "advanced"
   }
 }

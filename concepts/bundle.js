@@ -10,6 +10,7 @@ window.__MVConcepts = {
       "brill-noether",
       "coding-theory",
       "conformal-and-cr-geometry",
+      "mathematical-biology",
       "several-complex-variables",
       "khovanov-homology",
       "shimura-varieties",
@@ -380,7 +381,8 @@ window.__MVConcepts = {
       "heegaard-floer": "advanced",
       "brill-noether": "advanced",
       "coding-theory": "standard",
-      "conformal-and-cr-geometry": "advanced"
+      "conformal-and-cr-geometry": "advanced",
+      "mathematical-biology": "advanced"
     }
   },
   "topics": {
@@ -997,6 +999,110 @@ window.__MVConcepts = {
           "tags": [
             "duality",
             "lifting"
+          ]
+        }
+      ]
+    },
+    "mathematical-biology": {
+      "topic": "mathematical-biology",
+      "title": "Mathematical biology",
+      "page": "mathematical-biology.html",
+      "concepts": [
+        {
+          "id": "mb-wright-fisher",
+          "title": "The Wright–Fisher model",
+          "anchor": "wright-fisher",
+          "prereqs": [
+            "markov-chains",
+            "random-variables"
+          ],
+          "blurb": "Discrete-generation population of $2N$ haploid alleles: each generation, every offspring picks a parent uniformly at random from the previous generation. The allele-count $X_n\\in\\{0,1,\\dots,2N\\}$ is a Markov chain with transition $X_{n+1}\\mid X_n=k \\sim \\mathrm{Binomial}(2N,k/(2N))$; both endpoints $0$ and $2N$ are absorbing — every neutral allele eventually fixes or vanishes.",
+          "tags": [
+            "foundation",
+            "classification"
+          ]
+        },
+        {
+          "id": "mb-moran",
+          "title": "The Moran process",
+          "anchor": "moran",
+          "prereqs": [
+            "mb-wright-fisher",
+            "sp-discrete-martingales"
+          ],
+          "blurb": "Continuous-time analogue: at each event, one individual is chosen uniformly to die and one (possibly the same one) to reproduce. The allele frequency $p_n=X_n/(2N)$ is a martingale, so fixation probability from initial count $k$ is exactly $k/(2N)$. Cleaner formulas than Wright–Fisher with the same diffusion limit.",
+          "tags": [
+            "foundation",
+            "duality"
+          ]
+        },
+        {
+          "id": "mb-kimura-diffusion",
+          "title": "Genetic drift and the Kimura diffusion",
+          "anchor": "kimura",
+          "prereqs": [
+            "mb-wright-fisher",
+            "sc-sde-existence",
+            "brownian-motion"
+          ],
+          "blurb": "Rescale time by $2N$ generations and let $N\\to\\infty$ with selection $s=\\sigma/(2N)$: the allele-frequency process converges to the Kimura diffusion $dp_t=\\sigma p(1-p)\\,dt+\\sqrt{p(1-p)}\\,dW_t$, whose generator is $\\tfrac{1}{2}p(1-p)\\partial_p^2+\\sigma p(1-p)\\partial_p$. The dimensionless product $N\\!\\cdot\\! s$ — not $s$ alone — sets the regime: $|Ns|\\ll 1$ is drift-dominated, $|Ns|\\gg 1$ is selection-dominated.",
+          "tags": [
+            "completion",
+            "classification"
+          ]
+        },
+        {
+          "id": "mb-coalescent",
+          "title": "Kingman's coalescent",
+          "anchor": "coalescent",
+          "prereqs": [
+            "mb-wright-fisher",
+            "markov-chains"
+          ],
+          "blurb": "Look backward in time: in a sample of $n$ lineages from a Wright–Fisher population of size $2N$, each pair coalesces independently at rate $1/(2N)$, so while $k$ lineages remain the next coalescence happens after an exponential time with mean $2N\\binom{k}{2}^{-1}$. In units of $2N$ generations, $\\mathbb{E}[T_{\\mathrm{MRCA}}]=2(1-1/n)$ — the genealogy is a random binary tree (a realisation of Kingman's $n$-coalescent).",
+          "tags": [
+            "duality",
+            "completion"
+          ]
+        },
+        {
+          "id": "mb-lotka-volterra",
+          "title": "Lotka–Volterra predator–prey",
+          "anchor": "lotka-volterra",
+          "prereqs": [
+            "dyn-phase-portraits",
+            "dyn-fixed-linearization"
+          ],
+          "blurb": "Deterministic ODE model: $\\dot x = ax - bxy$ (prey growth minus predation), $\\dot y = -cy + dxy$ (predator decay plus consumption). The non-trivial fixed point $(c/d,\\,a/b)$ is a centre; every orbit conserves $H(x,y)=d x - c\\ln x + b y - a\\ln y$, so solutions trace closed periodic curves in phase space — boom-and-bust cycles whose period depends on amplitude.",
+          "tags": [
+            "foundation",
+            "completion"
+          ]
+        },
+        {
+          "id": "mb-replicator",
+          "title": "The replicator equation",
+          "anchor": "replicator",
+          "prereqs": [
+            "mb-lotka-volterra",
+            "dyn-orbits-flows"
+          ],
+          "blurb": "Frequency dynamics on the simplex: if $x_i$ is the share of strategy $i$ in a population playing payoff matrix $A$, then $\\dot x_i = x_i\\bigl(f_i(x) - \\bar f(x)\\bigr)$ with $f_i = (Ax)_i$ and $\\bar f = x^\\top A x$. Nash equilibria are exactly the rest points; rock-paper-scissors gives heteroclinic limit cycles around the barycentre. Bridges evolutionary biology to game theory.",
+          "tags": [
+            "duality",
+            "classification"
+          ]
+        },
+        {
+          "id": "mb-mutation-selection",
+          "title": "Mutation–selection balance",
+          "anchor": "mutation-selection",
+          "prereqs": [
+            "mb-kimura-diffusion"
+          ],
+          "blurb": "Recurrent deleterious mutation at rate $u$ per locus per generation is balanced by purifying selection of strength $s$: the equilibrium frequency of the deleterious allele is $\\hat q \\approx u/s$ (deterministic, $u\\ll s$), giving the Haldane–Muller principle that fitness load $L = \\bar w_{\\max}-\\bar w$ depends on $u$ alone, not on $s$. Mutational meltdown happens when $Ns\\ll 1$ kills the deterministic balance.",
+          "tags": [
+            "completion"
           ]
         }
       ]
@@ -18373,7 +18479,8 @@ window.__MVConcepts = {
           "large-deviations",
           "mathematical-statistics",
           "high-dimensional-geometry",
-          "random-matrix-theory"
+          "random-matrix-theory",
+          "mathematical-biology"
         ],
         "color": "g"
       },
@@ -18821,7 +18928,8 @@ window.__MVConcepts = {
     "heegaard-floer": "advanced",
     "brill-noether": "advanced",
     "coding-theory": "standard",
-    "conformal-and-cr-geometry": "advanced"
+    "conformal-and-cr-geometry": "advanced",
+    "mathematical-biology": "advanced"
   },
   "newArc": [
     "elementary-topos-theory",
@@ -18866,15 +18974,15 @@ window.__MVConcepts = {
       "concepts": 204,
       "intra": 357,
       "crossOut": 36,
-      "crossIn": 66,
+      "crossIn": 69,
       "density": 0.17647058823529413
     },
     "Probability & statistics": {
-      "concepts": 62,
-      "intra": 103,
-      "crossOut": 17,
+      "concepts": 69,
+      "intra": 114,
+      "crossOut": 20,
       "crossIn": 14,
-      "density": 0.27419354838709675
+      "density": 0.2898550724637681
     },
     "Geometry & topology": {
       "concepts": 153,
