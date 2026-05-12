@@ -100,7 +100,8 @@
         "mathematical-statistics",
         "high-dimensional-geometry",
         "random-matrix-theory",
-        "mathematical-biology"
+        "mathematical-biology",
+        "spectral-methods-data"
       ],
       "color": "g"
     },

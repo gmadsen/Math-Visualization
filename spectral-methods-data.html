@@ -1,0 +1,1353 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Spectral methods for massive data sets — SVD, PCA, PageRank, spectral clustering</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false,
+      macros:{
+        '\\Spec':'\\operatorname{Spec}',
+        '\\Gal':'\\operatorname{Gal}',
+        '\\Hom':'\\operatorname{Hom}',
+        '\\tr':'\\operatorname{tr}',
+        '\\ad':'\\operatorname{ad}',
+        '\\ind':'\\operatorname{ind}'
+      }
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  /* sticky sidebar TOC (wide screens only; narrow screens fall back to top-nav) */
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+  /* callback-css-auto-begin */
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+/* callback-css-auto-end */
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
+  /* display-prefs-css-auto-begin */
+  html[data-hide-widgets] .widget { display: none !important; }
+  html[data-hide-quizzes] .quiz { display: none !important; }
+  html[data-hide-lineage] .lineage-strip { display: none !important; }
+  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }
+  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }
+  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }
+  .mv-display-toggle--off { opacity: 0.35; }
+  /* display-prefs-css-auto-end */
+</style>
+<!-- breadcrumb-head-auto-begin -->
+<script>window.__MV_SECTION_MAP = {"<topic>":{"next":null,"prev":null,"section":"Sections","title":"<topic>"},"L-functions":{"next":"sato-tate","prev":"moonshine","section":"Modular forms & L-functions","title":"L-functions"},"abelian-varieties":{"next":"positivity-and-ample-line-bundles","prev":"toric-varieties","section":"Algebraic geometry","title":"Abelian varieties"},"additive-number-theory":{"next":"heights-arithmetic-geometry","prev":"quadratic-forms-genus-theory","section":"Number theory","title":"Additive number theory"},"adeles-and-ideles":{"next":"frobenius-and-reciprocity","prev":"p-adic-numbers","section":"Number theory","title":"Adèles & idèles"},"advanced-complex-analysis":{"next":"microlocal-analysis","prev":"sobolev-spaces-distributions","section":"Analysis","title":"Advanced complex analysis"},"algebra":{"next":"representation-theory","prev":null,"section":"Algebra & homological","title":"Abstract algebra"},"algebraic-curves-higher-genus":{"next":"deformation-theory","prev":"mirror-symmetry","section":"Algebraic geometry","title":"Algebraic curves: higher genus"},"algebraic-de-rham-cohomology":{"next":"calabi-yau-manifolds","prev":"algebraic-spaces","section":"Algebraic geometry","title":"Algebraic de Rham cohomology"},"algebraic-k-theory-foundations":{"next":"model-categories","prev":"quantum-groups","section":"Algebra & homological","title":"Algebraic K-theory foundations"},"algebraic-number-theory":{"next":"p-adic-numbers","prev":"galois","section":"Number theory","title":"Algebraic number theory"},"algebraic-spaces":{"next":"algebraic-de-rham-cohomology","prev":"functor-of-points","section":"Algebraic geometry","title":"Algebraic spaces"},"algebraic-topology":{"next":"knot-polynomials","prev":"point-set-topology","section":"Geometry & topology","title":"Algebraic topology"},"analytic-continuation":{"next":"zeta-values","prev":"dirichlet-series-euler-products","section":"Modular forms & L-functions","title":"Analytic continuation"},"analytic-number-theory":{"next":"galois","prev":null,"section":"Number theory","title":"Analytic number theory"},"atiyah-singer-index-theorem":{"next":"riemannian-geometry","prev":"k-theory","section":"Geometry & topology","title":"Atiyah–Singer index theorem"},"automorphic-forms-adelic":{"next":"moonshine","prev":"hecke-operators","section":"Modular forms & L-functions","title":"Automorphic forms (adelic)"},"bezout":{"next":"schemes","prev":"elliptic-curves","section":"Algebraic geometry","title":"Bézout's theorem"},"brill-noether":{"next":null,"prev":"geometric-invariant-theory","section":"Algebraic geometry","title":"Brill–Noether theory"},"bsd":{"next":"modularity-and-flt","prev":"sato-tate","section":"Modular forms & L-functions","title":"Birch & Swinnerton-Dyer"},"calabi-yau-manifolds":{"next":"mirror-symmetry","prev":"algebraic-de-rham-cohomology","section":"Algebraic geometry","title":"Calabi–Yau manifolds"},"category-theory":{"next":"commutative-algebra","prev":"derived-categories","section":"Algebra & homological","title":"Category theory"},"characteristic-classes":{"next":"k-theory","prev":"symplectic-manifolds","section":"Geometry & topology","title":"Characteristic classes"},"class-field-theory":{"next":"galois-representations","prev":"computational-number-theory","section":"Number theory","title":"Class field theory"},"cluster-algebras":{"next":"galois-cohomology-and-brauer","prev":"geometric-and-combinatorial-group-theory","section":"Algebra & homological","title":"Cluster algebras"},"cobordism":{"next":"homotopy-theory","prev":"cohomology-and-duality","section":"Geometry & topology","title":"Cobordism"},"cocartesian-fibrations":{"next":"infinity-categories","prev":"heyting-algebras-toposes","section":"Higher categories & toposes","title":"Cocartesian fibrations"},"coding-theory":{"next":null,"prev":"expanders","section":"Combinatorics & graph theory","title":"Coding theory"},"cohomology-and-duality":{"next":"cobordism","prev":"mostow-rigidity","section":"Geometry & topology","title":"Cohomology and duality"},"commutative-algebra":{"next":"homological","prev":"category-theory","section":"Algebra & homological","title":"Commutative algebra"},"complex-analysis":{"next":"measure-theory","prev":"real-analysis","section":"Analysis","title":"Complex analysis"},"complex-multiplication":{"next":null,"prev":"dirichlet-unit-theorem","section":"Number theory","title":"Complex multiplication"},"complexity-theory":{"next":"type-theory-and-hott","prev":"computability-and-decidability","section":"Logic & Foundations","title":"Complexity theory"},"computability-and-decidability":{"next":"complexity-theory","prev":"model-theory-basics","section":"Logic & Foundations","title":"Computability and decidability"},"computational-number-theory":{"next":"class-field-theory","prev":"mathematics-and-cryptography","section":"Number theory","title":"Computational number theory"},"condensed-mathematics":{"next":null,"prev":"groebner-bases","section":"Algebra & homological","title":"Condensed mathematics"},"conformal-and-cr-geometry":{"next":null,"prev":"several-complex-variables","section":"Analysis","title":"Conformal & CR geometry"},"continued-fractions":{"next":"dirichlet-unit-theorem","prev":"iwasawa-theory","section":"Number theory","title":"Continued fractions"},"crystalline-cohomology":{"next":"tropical-geometry","prev":"d-modules","section":"Algebraic geometry","title":"Crystalline cohomology"},"d-modules":{"next":"crystalline-cohomology","prev":"mmp-and-birational-geometry","section":"Algebraic geometry","title":"D-modules"},"deformation-theory":{"next":"resolution-of-singularities","prev":"algebraic-curves-higher-genus","section":"Algebraic geometry","title":"Deformation theory"},"derived-categories":{"next":"category-theory","prev":"model-categories","section":"Algebra & homological","title":"Derived categories"},"designs":{"next":"spectral-graph-theory","prev":"enumerative-combinatorics","section":"Combinatorics & graph theory","title":"Designs"},"differential-forms":{"next":"morse-theory","prev":"riemann-surfaces","section":"Geometry & topology","title":"Differential forms"},"differential-geometry":{"next":"riemann-surfaces","prev":"smooth-manifolds","section":"Geometry & topology","title":"Differential geometry"},"dirac-equation":{"next":"statistical-mechanics","prev":"klein-gordon-equation","section":"Mathematical physics","title":"Dirac equation"},"dirichlet-series-euler-products":{"next":"analytic-continuation","prev":null,"section":"Modular forms & L-functions","title":"Dirichlet series & Euler products"},"dirichlet-unit-theorem":{"next":"complex-multiplication","prev":"continued-fractions","section":"Number theory","title":"Dirichlet unit theorem"},"dynamical-systems":{"next":"semigroup-theory-evolution-equations","prev":"operator-algebras","section":"Analysis","title":"Dynamical systems"},"elementary-topos-theory":{"next":"grothendieck-topologies-sites","prev":"simplicial-sets-and-nerve","section":"Higher categories & toposes","title":"Elementary topos theory"},"elliptic-curves":{"next":"bezout","prev":"etale-fundamental-group","section":"Algebraic geometry","title":"Elliptic curves"},"enumerative-combinatorics":{"next":"designs","prev":"simplicial-complexes-combinatorial","section":"Combinatorics & graph theory","title":"Enumerative combinatorics"},"etale-cohomology":{"next":"mmp-and-birational-geometry","prev":"stacks","section":"Algebraic geometry","title":"Étale cohomology"},"etale-fundamental-group":{"next":"elliptic-curves","prev":"projective-plane","section":"Algebraic geometry","title":"Étale fundamental group"},"expanders":{"next":"coding-theory","prev":"spectral-graph-theory","section":"Combinatorics & graph theory","title":"Expanders"},"extremal-combinatorics":{"next":"simplicial-complexes-combinatorial","prev":"probabilistic-method","section":"Combinatorics & graph theory","title":"Extremal combinatorics"},"first-order-logic-and-completeness":{"next":"zfc-and-ordinals","prev":"type-theory-and-hott","section":"Logic & Foundations","title":"First order logic and completeness"},"fixed-point-theorems":{"next":"harmonic-analysis-fourier","prev":"functional-analysis","section":"Analysis","title":"Fixed point theorems"},"forcing-and-independence":{"next":null,"prev":"zfc-and-ordinals","section":"Logic & Foundations","title":"Forcing and independence"},"frobenius-and-reciprocity":{"next":"quadratic-reciprocity","prev":"adeles-and-ideles","section":"Number theory","title":"Frobenius & reciprocity"},"functional-analysis":{"next":"fixed-point-theorems","prev":"harmonic-functions","section":"Analysis","title":"Functional analysis"},"functor-of-points":{"next":"algebraic-spaces","prev":"morphisms-fiber-products","section":"Algebraic geometry","title":"Functor of points"},"galois":{"next":"algebraic-number-theory","prev":"analytic-number-theory","section":"Number theory","title":"Galois theory & the quintic"},"galois-cohomology-and-brauer":{"next":"group-cohomology","prev":"cluster-algebras","section":"Algebra & homological","title":"Galois cohomology and Brauer groups"},"galois-representations":{"next":"iwasawa-theory","prev":"class-field-theory","section":"Number theory","title":"Galois representations"},"gauge-theory":{"next":"string-theory","prev":"statistical-mechanics","section":"Mathematical physics","title":"Gauge theory"},"general-relativity":{"next":"schrodinger-equation","prev":"three-body-problem","section":"Mathematical physics","title":"General relativity & Einstein equations"},"geometric-and-combinatorial-group-theory":{"next":"cluster-algebras","prev":"quaternions-octonions-and-division-algebras","section":"Algebra & homological","title":"Geometric and combinatorial group theory"},"geometric-invariant-theory":{"next":"brill-noether","prev":"tropical-geometry","section":"Algebraic geometry","title":"Geometric invariant theory"},"geometric-measure-theory":{"next":"operator-algebras","prev":"microlocal-analysis","section":"Analysis","title":"Geometric measure theory"},"groebner-bases":{"next":"condensed-mathematics","prev":"homological","section":"Algebra & homological","title":"Gröbner bases"},"grothendieck-topologies-sites":{"next":"infinity-topoi","prev":"elementary-topos-theory","section":"Higher categories & toposes","title":"Grothendieck topologies & sites"},"group-cohomology":{"next":"quantum-groups","prev":"galois-cohomology-and-brauer","section":"Algebra & homological","title":"Group cohomology"},"group-schemes":{"next":"morphisms-fiber-products","prev":"intersection-theory-chow","section":"Algebraic geometry","title":"Group schemes"},"half-integral-weight-forms":{"next":"shimura-varieties","prev":"maass-forms","section":"Modular forms & L-functions","title":"Half-integral weight forms"},"hamiltonians-classical-mechanics":{"next":"special-relativity","prev":"schrodinger-equation","section":"Mathematical physics","title":"Hamiltonians & classical mechanics"},"harmonic-analysis-fourier":{"next":"wavelets","prev":"fixed-point-theorems","section":"Analysis","title":"Harmonic analysis & Fourier theory"},"harmonic-functions":{"next":"functional-analysis","prev":"measure-theory","section":"Analysis","title":"Harmonic functions"},"hecke-operators":{"next":"automorphic-forms-adelic","prev":"theta-functions","section":"Modular forms & L-functions","title":"Hecke operators"},"heegaard-floer":{"next":null,"prev":"surgery-theory","section":"Geometry & topology","title":"Heegaard Floer & knot Floer"},"heights-arithmetic-geometry":{"next":"mathematics-and-cryptography","prev":"additive-number-theory","section":"Number theory","title":"Heights in arithmetic geometry"},"heyting-algebras-toposes":{"next":"cocartesian-fibrations","prev":null,"section":"Higher categories & toposes","title":"Heyting algebras & intuitionist logic"},"high-dimensional-geometry":{"next":"information-theory","prev":"large-deviations","section":"Probability & statistics","title":"High dimensional geometry"},"hodge-theory":{"next":"singular-cubics-reduction","prev":"motives","section":"Algebraic geometry","title":"Hodge theory"},"homological":{"next":"groebner-bases","prev":"commutative-algebra","section":"Algebra & homological","title":"Homological algebra"},"homotopy-theory":{"next":"kahler-geometry","prev":"cobordism","section":"Geometry & topology","title":"Homotopy theory"},"infinity-categories":{"next":"simplicial-sets-and-nerve","prev":"cocartesian-fibrations","section":"Higher categories & toposes","title":"∞-categories (quasi-categories)"},"infinity-topoi":{"next":null,"prev":"grothendieck-topologies-sites","section":"Higher categories & toposes","title":"∞-topoi"},"information-theory":{"next":"mathematical-statistics","prev":"high-dimensional-geometry","section":"Probability & statistics","title":"Information theory"},"intersection-theory-chow":{"next":"group-schemes","prev":"sheaves","section":"Algebraic geometry","title":"Intersection theory & Chow groups"},"iwasawa-theory":{"next":"continued-fractions","prev":"galois-representations","section":"Number theory","title":"Iwasawa theory"},"k-theory":{"next":"atiyah-singer-index-theorem","prev":"characteristic-classes","section":"Geometry & topology","title":"K-theory"},"kahler-geometry":{"next":"mapping-class-groups","prev":"homotopy-theory","section":"Geometry & topology","title":"Kähler geometry"},"khovanov-homology":{"next":"surgery-theory","prev":"mapping-class-groups","section":"Geometry & topology","title":"Khovanov homology"},"klein-gordon-equation":{"next":"dirac-equation","prev":"special-relativity","section":"Mathematical physics","title":"Klein-Gordon equation"},"knot-polynomials":{"next":"smooth-manifolds","prev":"algebraic-topology","section":"Geometry & topology","title":"Knot polynomials"},"langlands-program":{"next":"theta-functions","prev":"vertex-operator-algebras","section":"Modular forms & L-functions","title":"Langlands program"},"large-deviations":{"next":"high-dimensional-geometry","prev":"random-walks-and-mixing","section":"Probability & statistics","title":"Large deviations"},"lie-algebras":{"next":"quaternions-octonions-and-division-algebras","prev":"representation-theory","section":"Algebra & homological","title":"Lie algebras"},"lie-groups":{"next":"mostow-rigidity","prev":"ricci-flow","section":"Geometry & topology","title":"Lie groups & algebras"},"maass-forms":{"next":"half-integral-weight-forms","prev":"modularity-and-flt","section":"Modular forms & L-functions","title":"Maass forms"},"mapping-class-groups":{"next":"khovanov-homology","prev":"kahler-geometry","section":"Geometry & topology","title":"Mapping class groups & 4-manifolds"},"mathematical-biology":{"next":"spectral-methods-data","prev":"random-matrix-theory","section":"Probability & statistics","title":"Mathematical biology"},"mathematical-statistics":{"next":"probability-theory","prev":"information-theory","section":"Probability & statistics","title":"Mathematical statistics"},"mathematics-and-cryptography":{"next":"computational-number-theory","prev":"heights-arithmetic-geometry","section":"Number theory","title":"Mathematics and cryptography"},"matroid-theory":{"next":"probabilistic-method","prev":null,"section":"Combinatorics & graph theory","title":"Matroid theory"},"measure-theory":{"next":"harmonic-functions","prev":"complex-analysis","section":"Analysis","title":"Measure theory"},"microlocal-analysis":{"next":"geometric-measure-theory","prev":"advanced-complex-analysis","section":"Analysis","title":"Microlocal analysis"},"mirror-symmetry":{"next":"algebraic-curves-higher-genus","prev":"calabi-yau-manifolds","section":"Algebraic geometry","title":"Mirror symmetry"},"mmp-and-birational-geometry":{"next":"d-modules","prev":"etale-cohomology","section":"Algebraic geometry","title":"MMP and birational geometry"},"model-categories":{"next":"derived-categories","prev":"algebraic-k-theory-foundations","section":"Algebra & homological","title":"Model categories"},"model-theory-basics":{"next":"computability-and-decidability","prev":"naive-set-theory","section":"Logic & Foundations","title":"Model theory basics"},"modular-curves":{"next":"vertex-operator-algebras","prev":"partitions-generating-functions","section":"Modular forms & L-functions","title":"Modular curves"},"modular-forms":{"next":"partitions-generating-functions","prev":"upper-half-plane-hyperbolic","section":"Modular forms & L-functions","title":"Modular forms"},"modularity-and-flt":{"next":"maass-forms","prev":"bsd","section":"Modular forms & L-functions","title":"Modularity & FLT"},"moduli-spaces":{"next":"toric-varieties","prev":"sheaf-cohomology","section":"Algebraic geometry","title":"Moduli spaces"},"moonshine":{"next":"L-functions","prev":"automorphic-forms-adelic","section":"Modular forms & L-functions","title":"Monstrous moonshine"},"morphisms-fiber-products":{"next":"functor-of-points","prev":"group-schemes","section":"Algebraic geometry","title":"Morphisms & fiber products"},"morse-theory":{"next":"symplectic-manifolds","prev":"differential-forms","section":"Geometry & topology","title":"Morse theory"},"mostow-rigidity":{"next":"cohomology-and-duality","prev":"lie-groups","section":"Geometry & topology","title":"Mostow rigidity"},"motives":{"next":"hodge-theory","prev":"resolution-of-singularities","section":"Algebraic geometry","title":"Motives"},"naive-set-theory":{"next":"model-theory-basics","prev":null,"section":"Logic & Foundations","title":"Naive set theory"},"numerical-analysis":{"next":"variational-methods","prev":"spectral-theory","section":"Analysis","title":"Numerical analysis"},"operator-algebras":{"next":"dynamical-systems","prev":"geometric-measure-theory","section":"Analysis","title":"Operator algebras"},"p-adic-numbers":{"next":"adeles-and-ideles","prev":"algebraic-number-theory","section":"Number theory","title":"p-adic numbers"},"partial-differential-equations":{"next":"spectral-theory","prev":"wavelets","section":"Analysis","title":"Partial differential equations"},"partitions-generating-functions":{"next":"modular-curves","prev":"modular-forms","section":"Modular forms & L-functions","title":"Partitions & generating functions"},"point-set-topology":{"next":"algebraic-topology","prev":null,"section":"Geometry & topology","title":"Point-set topology"},"positivity-and-ample-line-bundles":{"next":"stacks","prev":"abelian-varieties","section":"Algebraic geometry","title":"Positivity and ample line bundles"},"probabilistic-method":{"next":"extremal-combinatorics","prev":"matroid-theory","section":"Combinatorics & graph theory","title":"Probabilistic method"},"probability-theory":{"next":"random-matrix-theory","prev":"mathematical-statistics","section":"Probability & statistics","title":"Probability theory"},"projective-plane":{"next":"etale-fundamental-group","prev":null,"section":"Algebraic geometry","title":"Projective plane"},"quadratic-forms-genus-theory":{"next":"additive-number-theory","prev":"quadratic-reciprocity","section":"Number theory","title":"Quadratic forms & genus theory"},"quadratic-reciprocity":{"next":"quadratic-forms-genus-theory","prev":"frobenius-and-reciprocity","section":"Number theory","title":"Quadratic reciprocity"},"quantum-field-theory":{"next":null,"prev":"string-theory","section":"Mathematical physics","title":"Quantum field theory"},"quantum-groups":{"next":"algebraic-k-theory-foundations","prev":"group-cohomology","section":"Algebra & homological","title":"Quantum groups"},"quaternions-octonions-and-division-algebras":{"next":"geometric-and-combinatorial-group-theory","prev":"lie-algebras","section":"Algebra & homological","title":"Quaternions, octonions, and division algebras"},"random-matrix-theory":{"next":"mathematical-biology","prev":"probability-theory","section":"Probability & statistics","title":"Random matrix theory"},"random-walks-and-mixing":{"next":"large-deviations","prev":"stochastic-calculus","section":"Probability & statistics","title":"Random walks and mixing"},"real-analysis":{"next":"complex-analysis","prev":null,"section":"Analysis","title":"Real analysis"},"representation-theory":{"next":"lie-algebras","prev":"algebra","section":"Algebra & homological","title":"Representation theory"},"resolution-of-singularities":{"next":"motives","prev":"deformation-theory","section":"Algebraic geometry","title":"Resolution of singularities"},"ricci-flow":{"next":"lie-groups","prev":"riemannian-geometry","section":"Geometry & topology","title":"Ricci flow"},"riemann-surfaces":{"next":"differential-forms","prev":"differential-geometry","section":"Geometry & topology","title":"Riemann surfaces"},"riemannian-geometry":{"next":"ricci-flow","prev":"atiyah-singer-index-theorem","section":"Geometry & topology","title":"Riemannian geometry"},"sato-tate":{"next":"bsd","prev":"L-functions","section":"Modular forms & L-functions","title":"Sato–Tate"},"schemes":{"next":"sheaves","prev":"bezout","section":"Algebraic geometry","title":"Schemes"},"schrodinger-equation":{"next":"hamiltonians-classical-mechanics","prev":"general-relativity","section":"Mathematical physics","title":"Schrödinger equation"},"semigroup-theory-evolution-equations":{"next":"several-complex-variables","prev":"dynamical-systems","section":"Analysis","title":"Semigroup theory & evolution equations"},"several-complex-variables":{"next":"conformal-and-cr-geometry","prev":"semigroup-theory-evolution-equations","section":"Analysis","title":"Several complex variables"},"sheaf-cohomology":{"next":"moduli-spaces","prev":"singular-cubics-reduction","section":"Algebraic geometry","title":"Sheaf cohomology"},"sheaves":{"next":"intersection-theory-chow","prev":"schemes","section":"Algebraic geometry","title":"Sheaves"},"shimura-varieties":{"next":null,"prev":"half-integral-weight-forms","section":"Modular forms & L-functions","title":"Shimura varieties"},"simplicial-complexes-combinatorial":{"next":"enumerative-combinatorics","prev":"extremal-combinatorics","section":"Combinatorics & graph theory","title":"Simplicial complexes (combinatorial)"},"simplicial-sets-and-nerve":{"next":"elementary-topos-theory","prev":"infinity-categories","section":"Higher categories & toposes","title":"Simplicial sets & the nerve"},"singular-cubics-reduction":{"next":"sheaf-cohomology","prev":"hodge-theory","section":"Algebraic geometry","title":"Singular cubics & reduction"},"smooth-manifolds":{"next":"differential-geometry","prev":"knot-polynomials","section":"Geometry & topology","title":"Smooth manifolds"},"sobolev-spaces-distributions":{"next":"advanced-complex-analysis","prev":"variational-methods","section":"Analysis","title":"Sobolev spaces & distributions"},"special-relativity":{"next":"klein-gordon-equation","prev":"hamiltonians-classical-mechanics","section":"Mathematical physics","title":"Special relativity"},"spectral-graph-theory":{"next":"expanders","prev":"designs","section":"Combinatorics & graph theory","title":"Spectral graph theory"},"spectral-methods-data":{"next":null,"prev":"mathematical-biology","section":"Probability & statistics","title":"Spectral methods for massive data sets"},"spectral-theory":{"next":"numerical-analysis","prev":"partial-differential-equations","section":"Analysis","title":"Spectral theory"},"stacks":{"next":"etale-cohomology","prev":"positivity-and-ample-line-bundles","section":"Algebraic geometry","title":"Stacks (Deligne–Mumford)"},"statistical-mechanics":{"next":"gauge-theory","prev":"dirac-equation","section":"Mathematical physics","title":"Statistical mechanics"},"stochastic-calculus":{"next":"random-walks-and-mixing","prev":"stochastic-processes-and-martingales","section":"Probability & statistics","title":"Stochastic calculus"},"stochastic-processes-and-martingales":{"next":"stochastic-calculus","prev":null,"section":"Probability & statistics","title":"Stochastic processes and martingales"},"string-theory":{"next":"quantum-field-theory","prev":"gauge-theory","section":"Mathematical physics","title":"String theory"},"surgery-theory":{"next":"heegaard-floer","prev":"khovanov-homology","section":"Geometry & topology","title":"Surgery theory"},"symplectic-manifolds":{"next":"characteristic-classes","prev":"morse-theory","section":"Geometry & topology","title":"Symplectic manifolds"},"theta-functions":{"next":"hecke-operators","prev":"langlands-program","section":"Modular forms & L-functions","title":"Theta functions"},"three-body-problem":{"next":"general-relativity","prev":null,"section":"Mathematical physics","title":"The three-body problem"},"toric-varieties":{"next":"abelian-varieties","prev":"moduli-spaces","section":"Algebraic geometry","title":"Toric varieties"},"tropical-geometry":{"next":"geometric-invariant-theory","prev":"crystalline-cohomology","section":"Algebraic geometry","title":"Tropical geometry"},"type-theory-and-hott":{"next":"first-order-logic-and-completeness","prev":"complexity-theory","section":"Logic & Foundations","title":"Type theory and HoTT"},"upper-half-plane-hyperbolic":{"next":"modular-forms","prev":"zeta-values","section":"Modular forms & L-functions","title":"Upper half-plane"},"variational-methods":{"next":"sobolev-spaces-distributions","prev":"numerical-analysis","section":"Analysis","title":"Variational methods"},"vertex-operator-algebras":{"next":"langlands-program","prev":"modular-curves","section":"Modular forms & L-functions","title":"Vertex operator algebras"},"wavelets":{"next":"partial-differential-equations","prev":"harmonic-analysis-fourier","section":"Analysis","title":"Wavelets"},"zeta-values":{"next":"upper-half-plane-hyperbolic","prev":"analytic-continuation","section":"Modular forms & L-functions","title":"Zeta values"},"zfc-and-ordinals":{"next":"forcing-and-independence","prev":"first-order-logic-and-completeness","section":"Logic & Foundations","title":"ZFC and ordinals"}};</script>
+<script src="./js/breadcrumb.js"></script>
+<script src="./js/glossary-popover.js" defer></script>
+<link rel="stylesheet" media="print" href="./css/print.css">
+<link rel="stylesheet" href="./css/theme-light.css">
+<script src="./js/theme-toggle.js"></script>
+<script src="./concepts/bundle.js" defer></script>
+<script src="./js/topic-hotkeys.js" defer></script>
+<script src="./js/topic-lineage.js" defer></script>
+<!-- breadcrumb-head-auto-end -->
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./quizzes/bundle.js"></script>
+<script src="./js/sidetoc.js"></script>
+</head>
+<body data-section="Probability & statistics" data-level="intermediate">
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+// draw an arrow marker def once per svg (idempotent)
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+/* shared numerical helpers used by spectral-methods widgets */
+function smdMatVec(M, v){
+  const n = M.length, k = v.length;
+  const out = new Array(n).fill(0);
+  for(let i=0;i<n;i++){ let s=0; for(let j=0;j<k;j++) s += M[i][j]*v[j]; out[i]=s; }
+  return out;
+}
+function smdNorm(v){ let s=0; for(const x of v) s += x*x; return Math.sqrt(s); }
+function smdNormalize(v){ const n=smdNorm(v); if(n<1e-12) return v.slice(); return v.map(x=>x/n); }
+function smdDot(a,b){ let s=0; for(let i=0;i<a.length;i++) s+=a[i]*b[i]; return s; }
+function smdSub(a,b){ return a.map((x,i)=>x-b[i]); }
+function smdScale(a,s){ return a.map(x=>x*s); }
+/* Symmetric Jacobi eigendecomposition for small dense matrices. */
+function smdJacobi(A0){
+  const n = A0.length;
+  const A = A0.map(r=>r.slice());
+  const V = Array.from({length:n},(_,i)=>Array.from({length:n},(_,j)=>i===j?1:0));
+  for(let iter=0; iter<300; iter++){
+    let p=0,q=1,off=Math.abs(A[0][1]);
+    for(let i=0;i<n;i++) for(let j=i+1;j<n;j++){
+      if(Math.abs(A[i][j])>off){ off=Math.abs(A[i][j]); p=i; q=j; }
+    }
+    if(off < 1e-11) break;
+    const app=A[p][p], aqq=A[q][q], apq=A[p][q];
+    const theta = (aqq - app)/(2*apq);
+    const t = (theta>=0? 1 : -1)/(Math.abs(theta) + Math.sqrt(theta*theta + 1));
+    const c = 1/Math.sqrt(1+t*t), s = t*c;
+    A[p][p] = app - t*apq;
+    A[q][q] = aqq + t*apq;
+    A[p][q] = 0; A[q][p] = 0;
+    for(let i=0;i<n;i++){
+      if(i!==p && i!==q){
+        const aip=A[i][p], aiq=A[i][q];
+        A[i][p] = c*aip - s*aiq; A[p][i] = A[i][p];
+        A[i][q] = s*aip + c*aiq; A[q][i] = A[i][q];
+      }
+    }
+    for(let i=0;i<n;i++){
+      const vip=V[i][p], viq=V[i][q];
+      V[i][p] = c*vip - s*viq;
+      V[i][q] = s*vip + c*viq;
+    }
+  }
+  const idx = Array.from({length:n},(_,i)=>i).sort((a,b)=>A[b][b]-A[a][a]); // descending
+  const eigs = idx.map(i=>A[i][i]);
+  const vecs = idx.map(i=>V.map(row=>row[i]));
+  return {eigs, vecs};
+}
+/* SVD of a small m×n matrix via eigendecomposition of A^T A. */
+function smdSvd(A){
+  const m=A.length, n=A[0].length;
+  // Build A^T A (n×n)
+  const AtA = Array.from({length:n},()=>new Array(n).fill(0));
+  for(let i=0;i<n;i++) for(let j=0;j<n;j++){
+    let s=0; for(let k=0;k<m;k++) s += A[k][i]*A[k][j];
+    AtA[i][j]=s;
+  }
+  const {eigs, vecs} = smdJacobi(AtA);
+  const r = Math.min(m,n);
+  const S = new Array(r).fill(0);
+  for(let i=0;i<r;i++) S[i] = Math.sqrt(Math.max(eigs[i],0));
+  // V columns = vecs[i]
+  const V = vecs.slice(0,r);
+  // U columns = A V_i / σ_i
+  const U = [];
+  for(let i=0;i<r;i++){
+    const Av = smdMatVec(A, V[i]);
+    if(S[i] > 1e-10) U.push(Av.map(x=>x/S[i]));
+    else { const z = new Array(m).fill(0); z[i % m] = 1; U.push(z); }
+  }
+  return {U, S, V}; // U,V stored as arrays of column vectors
+}
+function smdSeed(seedRef){
+  // mulberry32 — small-state PRNG so the page is reproducible across reloads
+  return function(){
+    let t = (seedRef.s += 0x6D2B79F5)|0;
+    t = Math.imul(t ^ t>>>15, t | 1);
+    t ^= t + Math.imul(t ^ t>>>7, t | 61);
+    return ((t ^ t>>>14) >>> 0) / 4294967296;
+  };
+}
+function smdGauss(rng){
+  let u=0, v=0;
+  while(u<1e-12) u = rng();
+  v = rng();
+  return Math.sqrt(-2*Math.log(u)) * Math.cos(2*Math.PI*v);
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><span class="nav-links"><a class="nav-link" href="./pathway.html">Pathway</a><a class="nav-link" href="./tours.html">Tours</a><a class="nav-link" href="./history.html">History</a><a class="nav-link" href="./tags.html">Themes</a><a class="nav-link" href="./mindmap.html">Mindmap</a><a class="nav-link" href="./search.html">Search</a></span><span class="mv-theme-slot"></span><!-- breadcrumb-nav-auto-end -->
+<!-- toc-auto-begin -->
+  <a href="#svd">1&nbsp;The&nbsp;singular&nbsp;value&nbsp;decomposition</a>
+  <a href="#pca">2&nbsp;Principal&nbsp;component&nbsp;analysis</a>
+  <a href="#graph-laplacian">3&nbsp;The&nbsp;graph&nbsp;Laplacian</a>
+  <a href="#spectral-clustering">4&nbsp;Spectral&nbsp;clustering</a>
+  <a href="#pagerank">5&nbsp;PageRank</a>
+  <a href="#randomized-svd">6&nbsp;Randomized&nbsp;SVD&nbsp;and&nbsp;Johnson–Lindenstrauss</a>
+  <a href="#nystrom">7&nbsp;The&nbsp;Nyström&nbsp;method</a>
+  <a href="#connections">8&nbsp;Connections</a>
+<!-- toc-auto-end -->
+</nav>
+<!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Spectral methods for massive data sets</h1>
+  <p class="sub">When a data matrix is too big to look at, its top few singular vectors usually are. SVD compresses, PCA denoises, the graph Laplacian clusters, PageRank ranks, and randomized projections shrink — five spectral moves that turn $n \times n$ problems into $k \times k$ ones with $k \ll n$.</p>
+</section>
+
+<section id="svd">
+<h2>1. The singular value decomposition</h2>
+
+<p>Every real $m\times n$ matrix factors as</p>
+
+<p style="text-align:center">$A \;=\; U \Sigma V^{T} \;=\; \sum_{i=1}^{r} \sigma_i\, u_i v_i^{T},$</p>
+
+<p>where $U\in\mathbb{R}^{m\times m}$ and $V\in\mathbb{R}^{n\times n}$ are orthogonal, $\Sigma\in\mathbb{R}^{m\times n}$ is "diagonal" with non-negative entries $\sigma_1 \ge \sigma_2 \ge \cdots \ge \sigma_r > 0$ down its leading block, and $r = \operatorname{rank} A$. The $\sigma_i$ are the <strong>singular values</strong>; the columns of $U$ and $V$ are the <strong>left</strong> and <strong>right singular vectors</strong>. Geometrically, $A$ acts as <em>rotate by $V^T$, scale axis $i$ by $\sigma_i$, rotate by $U$</em>: any linear map is three rigid moves and a stretch.</p>
+
+<p>The decomposition exists because $A^T A$ is symmetric positive semidefinite, so it diagonalises orthogonally: $A^T A = V\,\Sigma^T\Sigma\, V^T$ gives the right singular vectors and the squared singular values. Setting $u_i = A v_i / \sigma_i$ for $\sigma_i > 0$ extends to a full orthonormal basis of $\mathbb{R}^m$. The image $\operatorname{range}(A) = \operatorname{span}(u_1,\dots,u_r)$ and the kernel $\operatorname{ker}(A) = \operatorname{span}(v_{r+1},\dots,v_n)$ are read off the columns.</p>
+
+<h3>Eckart–Young: optimal rank-$k$ approximation</h3>
+
+<p>The decomposition encodes how compressible $A$ is. Let $A_k = \sum_{i=1}^{k}\sigma_i u_i v_i^{T}$ be the truncation at rank $k$. Then</p>
+
+<p style="text-align:center">$\min_{\operatorname{rank}(B)\le k} \|A - B\|_{F}^{2} \;=\; \|A - A_k\|_{F}^{2} \;=\; \sum_{i=k+1}^{r}\sigma_i^{2},$</p>
+
+<p>and the same minimum (with norm replaced by $\sigma_{k+1}$) holds in the operator $2$-norm. This is the <strong>Eckart–Young theorem</strong>: the SVD is not just <em>a</em> low-rank approximation — among all rank-$\le k$ matrices, it is <em>the</em> best one in any unitarily invariant norm. Tail singular values are the irreducible error you accept by truncating.</p>
+
+<div class="widget" id="w-svd-rank">
+  <div class="hd"><div class="ttl">SVD low-rank reconstruction</div><div class="hint">slide $k$ to drop singular values; watch the image fade</div></div>
+  <div class="row">
+    <label for="svd-k">rank $k$: <span id="svd-kv">8</span></label>
+    <input type="range" id="svd-k" min="1" max="20" step="1" value="8">
+    <button id="svd-pattern">flip pattern</button>
+  </div>
+  <svg id="svd-svg" viewBox="0 0 720 320" width="720" height="320"><title>SVD low-rank approximation of a small image</title></svg>
+  <div class="readout" id="svd-out"></div>
+  <p class="small">We build a $20\times 20$ greyscale "image" $A$ — either a checkered cross or a noisy gradient — and compute its SVD $A=U\Sigma V^{T}$. The left panel is the original; the right is $A_k=\sum_{i=1}^{k}\sigma_i u_i v_i^{T}$. The bottom strip shows the singular-value spectrum; truncated values are dimmed. Frobenius error $\|A-A_k\|_F^2=\sum_{i>k}\sigma_i^2$.</p>
+</div>
+<script>
+(function(){
+  const ksl=$('#svd-k'), kv=$('#svd-kv'), svg=$('#svd-svg'), out=$('#svd-out');
+  const flip=$('#svd-pattern');
+  const N=20;
+  let pattern = 0;
+  function buildImage(p){
+    const A = Array.from({length:N},()=>new Array(N).fill(0));
+    if(p===0){
+      // checkered cross — rank ~ 4 baseline
+      for(let i=0;i<N;i++) for(let j=0;j<N;j++){
+        const cross = (Math.abs(i-N/2)<2 || Math.abs(j-N/2)<2) ? 1 : 0;
+        const check = ((((i>>2)+(j>>2))&1) ? 0.3 : 0.05);
+        A[i][j] = cross? 0.95 : check;
+      }
+    } else {
+      // gradient + noise — fuller spectrum
+      const seed = {s: 12345};
+      const rng = smdSeed(seed);
+      for(let i=0;i<N;i++) for(let j=0;j<N;j++){
+        const g = (i+j)/(2*N);
+        A[i][j] = Math.max(0, Math.min(1, g + 0.15*(rng()-0.5)));
+      }
+    }
+    return A;
+  }
+  let A = buildImage(0);
+  let svd = smdSvd(A);
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const k = +ksl.value;
+    kv.textContent = k;
+    // reconstruct A_k
+    const Ak = Array.from({length:N},()=>new Array(N).fill(0));
+    for(let r=0;r<k;r++){
+      const sigma = svd.S[r];
+      const u = svd.U[r], v = svd.V[r];
+      for(let i=0;i<N;i++) for(let j=0;j<N;j++) Ak[i][j] += sigma*u[i]*v[j];
+    }
+    // draw two heatmaps
+    const cell = 12, ML = 40;
+    function heatmap(M, xoff, label){
+      const g = SVG('g',{});
+      svg.appendChild(g);
+      for(let i=0;i<N;i++) for(let j=0;j<N;j++){
+        const v = Math.max(0, Math.min(1, M[i][j]));
+        const c = Math.round(255*v);
+        const rgb = `rgb(${c},${c},${c})`;
+        g.appendChild(SVG('rect',{x:xoff+j*cell,y:20+i*cell,width:cell,height:cell,fill:rgb}));
+      }
+      const t = SVG('text',{x:xoff + N*cell/2, y:15, 'text-anchor':'middle','font-size':12, fill:'var(--mute)'});
+      t.textContent = label;
+      svg.appendChild(t);
+    }
+    heatmap(A, ML, 'original');
+    heatmap(Ak, ML + N*cell + 60, `rank ${k}`);
+    // spectrum strip
+    const ystrip = 280;
+    const maxSigma = svd.S[0] || 1;
+    const barW = 28, barH = 30;
+    const xstart = ML + 20;
+    svg.appendChild(SVG('text',{x:xstart-6, y:ystrip-6, 'text-anchor':'end','font-size':11, fill:'var(--mute)'})).textContent = 'σᵢ:';
+    for(let i=0;i<svd.S.length;i++){
+      const h = barH * svd.S[i]/maxSigma;
+      const x = xstart + i*barW*0.9;
+      const colour = (i<k) ? 'var(--cyan)' : 'var(--line)';
+      svg.appendChild(SVG('rect',{x, y:ystrip - h, width:barW*0.7, height:h, fill:colour, opacity:0.85}));
+      if(i % 4 === 0){
+        const tt = SVG('text',{x:x+barW*0.35, y:ystrip+12, 'text-anchor':'middle','font-size':10, fill:'var(--mute)'});
+        tt.textContent = String(i+1);
+        svg.appendChild(tt);
+      }
+    }
+    // readout
+    let err = 0; for(let i=k;i<svd.S.length;i++) err += svd.S[i]*svd.S[i];
+    let total = 0; for(let i=0;i<svd.S.length;i++) total += svd.S[i]*svd.S[i];
+    const ratio = (total>0) ? err/total : 0;
+    out.textContent =
+      `k = ${k} of ${svd.S.length}\n` +
+      `‖A − A_k‖²_F = Σᵢ>k σᵢ² = ${err.toFixed(3)}\n` +
+      `relative tail energy = ${(100*ratio).toFixed(1)}%   (variance captured = ${(100*(1-ratio)).toFixed(1)}%)\n` +
+      `σ₁ ${svd.S[0].toFixed(3)}    σ${k} ${svd.S[k-1].toFixed(3)}    σ${k+1} ${(svd.S[k]||0).toFixed(3)}`;
+  }
+  ksl.addEventListener('input', render);
+  flip.addEventListener('click', ()=>{
+    pattern = 1 - pattern;
+    A = buildImage(pattern);
+    svd = smdSvd(A);
+    render();
+  });
+  render();
+})();
+</script>
+
+<div class="note"><strong>Sense of scale.</strong> The full SVD costs $O(\min(mn^2, m^2n))$ — punishing when $m=n=10^6$. But the <em>top $k$</em> singular vectors can be extracted by Krylov methods (Lanczos, ARPACK) in $O(k \cdot \mathrm{nnz}(A))$ time, and by randomized SVD (§6) in essentially $O(k\cdot mn)$ for dense $A$. The economics of spectral methods rest on <em>never materialising the full decomposition</em>.</p></div>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./algebra.html#intro">Groups, rings, and fields</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./spectral-methods-data.html#pca">Spectral methods for massive data sets</a> · Principal component analysis</div>
+    <div><a href="./spectral-methods-data.html#randomized-svd">Spectral methods for massive data sets</a> · Randomized SVD and Johnson–Lindenstrauss</div>
+    <div><a href="./spectral-methods-data.html#graph-laplacian">Spectral methods for massive data sets</a> · The graph Laplacian</div>
+    <div><a href="./spectral-methods-data.html#nystrom">Spectral methods for massive data sets</a> · The Nyström method</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="svd-eckart-young"></div>
+
+</section>
+
+<section id="pca">
+<h2>2. Principal component analysis</h2>
+
+<p>Given $n$ data points $x_1,\dots,x_n \in \mathbb{R}^d$, stack them row-wise into $X\in\mathbb{R}^{n\times d}$. <strong>Principal component analysis</strong> is a three-step recipe:</p>
+
+<ol>
+  <li><em>Center.</em> Subtract the column mean: $\tilde X = X - \mathbf{1}\bar x^{T}$ where $\bar x = \tfrac1n \sum_i x_i$.</li>
+  <li><em>Decompose.</em> Compute the SVD $\tilde X = U\Sigma V^{T}$ (or equivalently the eigendecomposition of the sample covariance $S = \tfrac1n \tilde X^{T}\tilde X = V \tfrac{1}{n}\Sigma^{2} V^{T}$).</li>
+  <li><em>Project.</em> The first $k$ right singular vectors $v_1,\dots,v_k$ are the <strong>principal directions</strong>; the $i$th row of $\tilde X V_{:,1:k} = U_{:,1:k} \Sigma_{1:k}$ is the embedding of $x_i$ in $\mathbb{R}^k$.</li>
+</ol>
+
+<p>The $j$th principal component captures variance $\sigma_j^{2}/n$, and by Eckart–Young the rank-$k$ projection is the variance-maximising orthogonal projection. The fraction $\sum_{j\le k}\sigma_j^{2}\;/\;\sum_{j\le r}\sigma_j^{2}$ is the <strong>variance explained</strong>; plotting it (or the singular values themselves) versus $k$ produces the <strong>scree plot</strong> — and the heuristic "elbow" $k^{*}$ at which the curve plateaus is the standard cutoff for how many components to keep.</p>
+
+<div class="widget" id="w-pca">
+  <div class="hd"><div class="ttl">PCA on Gaussian blobs</div><div class="hint">tilt the cloud; watch principal axes track variance</div></div>
+  <div class="row">
+    <label for="pca-theta">tilt $\theta$: <span id="pca-thetav">30°</span></label>
+    <input type="range" id="pca-theta" min="0" max="90" step="5" value="30">
+    <label for="pca-stretch">stretch $\sigma_1/\sigma_2$: <span id="pca-stretchv">3.0</span></label>
+    <input type="range" id="pca-stretch" min="1.0" max="6.0" step="0.2" value="3.0">
+    <button id="pca-resample">resample</button>
+  </div>
+  <svg id="pca-svg" viewBox="0 0 720 320" width="720" height="320"><title>PCA recovers the principal axes of a tilted Gaussian cloud</title></svg>
+  <div class="readout" id="pca-out"></div>
+  <p class="small">200 points $x_i\in\mathbb{R}^2$ drawn from a Gaussian with axes ratio $\sigma_1/\sigma_2$ tilted by $\theta$. We center, compute the SVD, and overlay the two principal directions (yellow = largest variance, cyan = orthogonal). The right panel projects each $x_i$ onto the first principal axis only — exactly the rank-1 PCA embedding.</p>
+</div>
+<script>
+(function(){
+  const tsl=$('#pca-theta'), tv=$('#pca-thetav');
+  const ssl=$('#pca-stretch'), sv=$('#pca-stretchv');
+  const svg=$('#pca-svg'), out=$('#pca-out');
+  const resample=$('#pca-resample');
+  const N=200;
+  let seed = {s: 42};
+  function generate(theta, stretch){
+    const rng = smdSeed(seed);
+    const c = Math.cos(theta), s = Math.sin(theta);
+    const pts=[];
+    for(let i=0;i<N;i++){
+      const a = stretch*smdGauss(rng);
+      const b = (1.0)*smdGauss(rng);
+      // rotate (a,b) by theta
+      pts.push([c*a - s*b, s*a + c*b]);
+    }
+    return pts;
+  }
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const theta = (+tsl.value) * Math.PI/180;
+    const stretch = +ssl.value;
+    tv.textContent = `${(+tsl.value).toFixed(0)}°`;
+    sv.textContent = stretch.toFixed(1);
+    const pts = generate(theta, stretch);
+    // center
+    let mx=0, my=0; for(const p of pts){ mx+=p[0]; my+=p[1]; }
+    mx/=N; my/=N;
+    const Xc = pts.map(p=>[p[0]-mx, p[1]-my]);
+    // 2×2 covariance
+    let s11=0,s12=0,s22=0;
+    for(const p of Xc){ s11+=p[0]*p[0]; s12+=p[0]*p[1]; s22+=p[1]*p[1]; }
+    s11/=N; s12/=N; s22/=N;
+    // eigendecomp of 2×2 symmetric
+    const {eigs, vecs} = smdJacobi([[s11,s12],[s12,s22]]);
+    // draw left panel — cloud + principal axes
+    const ML=40, MR=380, CY=160, scaleA = 32;
+    svg.appendChild(SVG('line',{x1:ML,y1:CY,x2:ML+280,y2:CY,stroke:'var(--line)','stroke-width':0.8}));
+    svg.appendChild(SVG('line',{x1:ML+140,y1:CY-130,x2:ML+140,y2:CY+130,stroke:'var(--line)','stroke-width':0.8}));
+    const CX = ML+140;
+    for(const p of Xc){
+      svg.appendChild(SVG('circle',{cx:CX+scaleA*p[0],cy:CY-scaleA*p[1],r:2.2,fill:'var(--cyan)',opacity:0.55}));
+    }
+    // axes
+    const colors = ['var(--yellow)','var(--cyan)'];
+    for(let i=0;i<2;i++){
+      const v = vecs[i];
+      const L = 2.2*Math.sqrt(eigs[i]);
+      svg.appendChild(SVG('line',{
+        x1:CX-scaleA*L*v[0], y1:CY+scaleA*L*v[1],
+        x2:CX+scaleA*L*v[0], y2:CY-scaleA*L*v[1],
+        stroke:colors[i], 'stroke-width':2.5, opacity:0.85
+      }));
+    }
+    const lbl1 = SVG('text',{x:ML+10, y:30, 'font-size':12, fill:'var(--yellow)'});
+    lbl1.textContent = `PC1 (σ₁²=${eigs[0].toFixed(2)})`; svg.appendChild(lbl1);
+    const lbl2 = SVG('text',{x:ML+10, y:48, 'font-size':12, fill:'var(--cyan)'});
+    lbl2.textContent = `PC2 (σ₂²=${eigs[1].toFixed(2)})`; svg.appendChild(lbl2);
+    // right panel — rank-1 projection
+    const RX = 420;
+    svg.appendChild(SVG('line',{x1:RX,y1:CY,x2:RX+260,y2:CY,stroke:'var(--line)','stroke-width':0.8}));
+    const lbl3 = SVG('text',{x:RX+130, y:30, 'text-anchor':'middle','font-size':12, fill:'var(--mute)'});
+    lbl3.textContent = 'projection onto PC1 (rank-1 embedding)';
+    svg.appendChild(lbl3);
+    for(const p of Xc){
+      const t = smdDot(p, vecs[0]);
+      svg.appendChild(SVG('circle',{cx:RX+130 + scaleA*t, cy:CY, r:2.2, fill:'var(--yellow)', opacity:0.7}));
+    }
+    // variance bar
+    const total = eigs[0]+eigs[1];
+    const frac = eigs[0]/total;
+    svg.appendChild(SVG('rect',{x:RX,y:CY+60,width:260,height:14,fill:'none',stroke:'var(--line)'}));
+    svg.appendChild(SVG('rect',{x:RX,y:CY+60,width:260*frac,height:14,fill:'var(--yellow)',opacity:0.7}));
+    const lblb = SVG('text',{x:RX+130, y:CY+92, 'text-anchor':'middle','font-size':11, fill:'var(--mute)'});
+    lblb.textContent = `variance captured by PC1: ${(100*frac).toFixed(1)}%`;
+    svg.appendChild(lblb);
+    out.textContent =
+      `θ = ${(+tsl.value).toFixed(0)}°,   σ₁/σ₂ = ${stretch.toFixed(1)}\n` +
+      `recovered PC1 direction: (${vecs[0][0].toFixed(2)}, ${vecs[0][1].toFixed(2)})\n` +
+      `expected:                 (${Math.cos(theta).toFixed(2)}, ${Math.sin(theta).toFixed(2)})\n` +
+      `eigenvalues of S: λ₁=${eigs[0].toFixed(3)}, λ₂=${eigs[1].toFixed(3)} — explained variance ${(100*frac).toFixed(1)}% / ${(100*(1-frac)).toFixed(1)}%`;
+  }
+  tsl.addEventListener('input', render);
+  ssl.addEventListener('input', render);
+  resample.addEventListener('click', ()=>{ seed.s = (seed.s+101)|0; render(); });
+  render();
+})();
+</script>
+
+<p>Two warnings that real practitioners learn the hard way:</p>
+
+<ul>
+  <li><strong>PCA is scale-sensitive.</strong> If the columns of $X$ have wildly different units (heights in metres, masses in grams), the biggest singular value comes from the noisiest variable. Always rescale features to comparable variance (the "correlation matrix" PCA) unless the units genuinely match.</li>
+  <li><strong>Variance captured is not signal captured.</strong> If the noise has higher variance than the signal — say, sensor jitter dominating a faint structural mode — PCA happily denoises in the wrong direction. The <a href="./random-matrix-theory.html#mp">Marchenko–Pastur distribution</a> diagnoses this: any singular value inside the random-matrix bulk is consistent with noise and should be discarded.</li>
+</ul>
+
+<div class="quiz" data-concept="pca-variance"></div>
+
+</section>
+
+<section id="graph-laplacian">
+<h2>3. The graph Laplacian</h2>
+
+<p>Given a weighted undirected graph $G=(V,E,w)$ on $n$ vertices, define the <strong>degree matrix</strong> $D = \operatorname{diag}(d_1,\dots,d_n)$ with $d_i = \sum_{j} w_{ij}$ and the <strong>adjacency matrix</strong> $A$ with $A_{ij}=w_{ij}$. The (combinatorial) <strong>Laplacian</strong> is</p>
+
+<p style="text-align:center">$L \;=\; D - A.$</p>
+
+<p>$L$ is symmetric and positive semidefinite. The quadratic form $f^{T}Lf = \sum_{ij\in E} w_{ij}(f_i-f_j)^{2}$ is the <strong>Dirichlet energy</strong> — the discrete analogue of $\int \|\nabla f\|^{2}$. The spectrum $0 = \lambda_1 \le \lambda_2 \le \cdots \le \lambda_n$ tells you:</p>
+
+<ul>
+  <li><strong>Components.</strong> $\dim \ker L$ = number of connected components of $G$. The kernel is spanned by indicator vectors of components.</li>
+  <li><strong>Algebraic connectivity.</strong> $\lambda_2$, the second-smallest eigenvalue, is zero iff $G$ disconnects. Its eigenvector — the <strong>Fiedler vector</strong> — bisects $G$ by sign.</li>
+  <li><strong>Cluster count.</strong> If $\lambda_2,\dots,\lambda_k$ are all small and $\lambda_{k+1}$ is much larger, the graph behaves like $k$ weakly-connected pieces. This is the foundation of spectral clustering.</li>
+</ul>
+
+<p>Two normalised variants live in the literature. The <strong>symmetric normalised Laplacian</strong> $L_{\mathrm{sym}} = D^{-1/2} L D^{-1/2} = I - D^{-1/2} A D^{-1/2}$ has eigenvalues in $[0,2]$, with $2$ achieved iff $G$ has a bipartite component. The <strong>random-walk Laplacian</strong> $L_{\mathrm{rw}} = D^{-1}L = I - D^{-1}A$ is similar (not symmetric) but shares the same spectrum as $L_{\mathrm{sym}}$ and connects directly to the simple random walk on $G$ — see §5.</p>
+
+<div class="widget" id="w-laplacian">
+  <div class="hd"><div class="ttl">Laplacian eigenvalues vs. cluster structure</div><div class="hint">tune the inter-cluster bridge; watch $\lambda_2,\lambda_3$ split off</div></div>
+  <div class="row">
+    <label for="lap-w">bridge weight $\varepsilon$: <span id="lap-wv">0.10</span></label>
+    <input type="range" id="lap-w" min="0.00" max="1.00" step="0.02" value="0.10">
+    <label for="lap-K">clusters $k$: <span id="lap-Kv">3</span></label>
+    <input type="range" id="lap-K" min="2" max="4" step="1" value="3">
+  </div>
+  <svg id="lap-svg" viewBox="0 0 720 320" width="720" height="320"><title>Graph Laplacian spectrum reveals cluster count</title></svg>
+  <div class="readout" id="lap-out"></div>
+  <p class="small">$k$ cliques of $4$ vertices each, joined by single edges of weight $\varepsilon$. Inside-cluster edges have weight $1$. Left: the graph, vertices coloured by the sign of $u_2$ (the Fiedler vector). Right: the bottom $8$ eigenvalues of $L$. As $\varepsilon\to 0$, the bottom $k$ eigenvalues collapse to $0$.</p>
+</div>
+<script>
+(function(){
+  const wsl=$('#lap-w'), wv=$('#lap-wv'), Ksl=$('#lap-K'), Kv=$('#lap-Kv');
+  const svg=$('#lap-svg'), out=$('#lap-out');
+  function buildLaplacian(K, eps){
+    const sz = 4;
+    const n = K*sz;
+    const L = Array.from({length:n},()=>new Array(n).fill(0));
+    // intra-cluster cliques
+    for(let c=0;c<K;c++){
+      for(let i=0;i<sz;i++){
+        for(let j=i+1;j<sz;j++){
+          const a = c*sz+i, b = c*sz+j;
+          L[a][b] -= 1; L[b][a] -= 1;
+          L[a][a] += 1; L[b][b] += 1;
+        }
+      }
+    }
+    // inter-cluster bridges between vertex 0 of each pair of adjacent clusters
+    for(let c=0;c<K-1;c++){
+      const a = c*sz + 0, b = (c+1)*sz + 0;
+      L[a][b] -= eps; L[b][a] -= eps;
+      L[a][a] += eps; L[b][b] += eps;
+    }
+    return L;
+  }
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const eps = +wsl.value, K = +Ksl.value;
+    wv.textContent = eps.toFixed(2); Kv.textContent = K;
+    const L = buildLaplacian(K, eps);
+    const n = L.length;
+    const {eigs, vecs} = smdJacobi(L);
+    // Jacobi returns descending — for Laplacian we want ascending
+    const order = eigs.map((_,i)=>i).sort((a,b)=>eigs[a]-eigs[b]);
+    const sortedEigs = order.map(i=>eigs[i]);
+    const sortedVecs = order.map(i=>vecs[i]);
+    const fiedler = sortedVecs[1]; // u_2
+    // ----- left panel: graph diagram -----
+    const ML=40, CX = 170, CY = 170, R = 95;
+    const clusterCenters = [];
+    for(let c=0;c<K;c++){
+      const a = 2*Math.PI*c/K - Math.PI/2;
+      clusterCenters.push([CX + R*Math.cos(a), CY + R*Math.sin(a)]);
+    }
+    const sz = 4;
+    const positions = [];
+    for(let c=0;c<K;c++){
+      const [cx,cy] = clusterCenters[c];
+      for(let i=0;i<sz;i++){
+        const a = 2*Math.PI*i/sz;
+        positions.push([cx + 22*Math.cos(a), cy + 22*Math.sin(a)]);
+      }
+    }
+    // intra-cluster edges
+    for(let c=0;c<K;c++){
+      for(let i=0;i<sz;i++) for(let j=i+1;j<sz;j++){
+        const a = c*sz+i, b = c*sz+j;
+        svg.appendChild(SVG('line',{x1:positions[a][0],y1:positions[a][1],x2:positions[b][0],y2:positions[b][1],stroke:'var(--line)','stroke-width':0.7,opacity:0.6}));
+      }
+    }
+    // inter-cluster
+    for(let c=0;c<K-1;c++){
+      const a = c*sz, b = (c+1)*sz;
+      svg.appendChild(SVG('line',{x1:positions[a][0],y1:positions[a][1],x2:positions[b][0],y2:positions[b][1],stroke:'var(--pink)','stroke-width':0.5+1.5*eps,opacity:0.8}));
+    }
+    // nodes coloured by sign of Fiedler vector
+    for(let i=0;i<n;i++){
+      const fill = fiedler[i] >= 0 ? 'var(--yellow)' : 'var(--cyan)';
+      svg.appendChild(SVG('circle',{cx:positions[i][0],cy:positions[i][1],r:5.5,fill,stroke:'var(--bg)','stroke-width':1.2}));
+    }
+    const lbl = SVG('text',{x:ML+10, y:30, 'font-size':12, fill:'var(--mute)'});
+    lbl.textContent = 'vertex colour = sign of Fiedler vector $u_2$';
+    svg.appendChild(lbl);
+    // ----- right panel: spectrum -----
+    const RX = 380, RY = 60, RW = 300, RH = 200;
+    svg.appendChild(SVG('line',{x1:RX,y1:RY+RH,x2:RX+RW,y2:RY+RH,stroke:'var(--line)','stroke-width':0.8}));
+    svg.appendChild(SVG('line',{x1:RX,y1:RY,x2:RX,y2:RY+RH,stroke:'var(--line)','stroke-width':0.8}));
+    const NSHOW = Math.min(8, sortedEigs.length);
+    const maxE = sortedEigs[NSHOW-1] + 0.5;
+    for(let i=0;i<NSHOW;i++){
+      const x = RX + 18 + i*((RW-30)/NSHOW);
+      const y = RY + RH - (RH-10)*sortedEigs[i]/maxE;
+      const w = (RW-30)/NSHOW * 0.55;
+      const colour = (i < K) ? 'var(--cyan)' : 'var(--yellow)';
+      svg.appendChild(SVG('rect',{x, y, width:w, height:RY+RH-y, fill:colour, opacity:0.78}));
+      const lbl1 = SVG('text',{x:x+w/2, y:RY+RH+14, 'text-anchor':'middle','font-size':10, fill:'var(--mute)'});
+      lbl1.textContent = `λ_${i+1}`;
+      svg.appendChild(lbl1);
+    }
+    const tlbl = SVG('text',{x:RX+RW/2, y:RY-6, 'text-anchor':'middle','font-size':12, fill:'var(--mute)'});
+    tlbl.textContent = 'bottom 8 eigenvalues of $L$';
+    svg.appendChild(tlbl);
+    // readout
+    const gap = sortedEigs[K] - sortedEigs[K-1];
+    out.textContent =
+      `K = ${K} clusters, ε = ${eps.toFixed(2)} bridge weight\n` +
+      `bottom eigenvalues: ${sortedEigs.slice(0,Math.min(5,n)).map(e=>e.toFixed(3)).join(', ')}\n` +
+      `cluster-revealing gap λ_${K+1} − λ_${K} = ${gap.toFixed(3)} (large gap ⇒ exactly K clusters)\n` +
+      `Fiedler vector u₂: ranges [${Math.min(...fiedler).toFixed(2)}, ${Math.max(...fiedler).toFixed(2)}] across ${n} vertices.`;
+  }
+  wsl.addEventListener('input', render);
+  Ksl.addEventListener('input', render);
+  render();
+})();
+</script>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./spectral-graph-theory.html#adjacency-laplacian">Adjacency, degree, and the Laplacian</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./spectral-methods-data.html#pagerank">Spectral methods for massive data sets</a> · PageRank</div>
+    <div><a href="./spectral-methods-data.html#spectral-clustering">Spectral methods for massive data sets</a> · Spectral clustering (Ng–Jordan–Weiss)</div>
+    <div><a href="./spectral-methods-data.html#nystrom">Spectral methods for massive data sets</a> · The Nyström method</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="graph-laplacian"></div>
+
+</section>
+
+<section id="spectral-clustering">
+<h2>4. Spectral clustering</h2>
+
+<p>If a graph has $k$ near-components, the bottom $k$ eigenvectors of $L$ are "nearly piecewise constant" on those components. The <strong>Ng–Jordan–Weiss algorithm</strong> turns that observation into a clustering recipe:</p>
+
+<ol>
+  <li>Compute $L_{\mathrm{sym}} = I - D^{-1/2} A D^{-1/2}$.</li>
+  <li>Take the bottom $k$ eigenvectors $u_1,\dots,u_k$ and stack as columns of $U\in\mathbb{R}^{n\times k}$.</li>
+  <li>Row-normalise to unit length: $\tilde U_{i\cdot} = U_{i\cdot}/\|U_{i\cdot}\|$.</li>
+  <li>Run $k$-means on the rows of $\tilde U$.</li>
+</ol>
+
+<p>Each vertex becomes a point on $S^{k-1}$ inside $\mathbb{R}^k$, and vertices in the same near-component land near each other. The reason it works is a <em>relaxation</em> story: the discrete <strong>normalised cut</strong> problem</p>
+
+<p style="text-align:center">$\min_{S\subset V} \;\mathrm{Ncut}(S, \bar S) \;=\; \frac{w(S, \bar S)}{\operatorname{vol}(S)} + \frac{w(S, \bar S)}{\operatorname{vol}(\bar S)}$</p>
+
+<p>is NP-hard, but its <em>continuous relaxation</em> — drop the constraint that the partition vector be $\pm 1$ — is exactly the eigenvalue problem $L_{\mathrm{sym}} u = \lambda u$. The bottom $k$ eigenvectors are the relaxed optima; $k$-means in the embedded space is one way to project back to a real partition.</p>
+
+<p>The quantitative half is <strong>Cheeger's inequality</strong>: for the second eigenvalue $\lambda_2$ of $L_{\mathrm{sym}}$,</p>
+
+<p style="text-align:center">$\frac{\lambda_2}{2} \;\le\; h(G) \;\le\; \sqrt{2\lambda_2}.$</p>
+
+<p>The <strong>conductance</strong> $h(G) = \min_S w(S,\bar S)/\min(\operatorname{vol}(S),\operatorname{vol}(\bar S))$ measures how "bottlenecked" the graph is. The bound says: small $\lambda_2$ guarantees a small cut exists, and the proof's upper-bound construction — the <strong>spectral sweep cut</strong> — is a constant-factor approximation algorithm for sparsest cut. The same machinery generalises to higher $\lambda_k$ via <strong>higher-order Cheeger inequalities</strong> (Lee–Oveis-Gharan–Trevisan 2014).</p>
+
+<div class="widget" id="w-cluster">
+  <div class="hd"><div class="ttl">Spectral embedding of a 3-blob graph</div><div class="hint">sample, embed via bottom eigenvectors, watch $k$-means recover clusters</div></div>
+  <div class="row">
+    <label for="cl-pin">inner edge density: <span id="cl-pinv">0.65</span></label>
+    <input type="range" id="cl-pin" min="0.20" max="0.95" step="0.05" value="0.65">
+    <label for="cl-pout">cross edge density: <span id="cl-poutv">0.05</span></label>
+    <input type="range" id="cl-pout" min="0.00" max="0.50" step="0.02" value="0.05">
+    <button id="cl-resample">resample</button>
+  </div>
+  <svg id="cl-svg" viewBox="0 0 720 320" width="720" height="320"><title>Spectral clustering of a stochastic block model</title></svg>
+  <div class="readout" id="cl-out"></div>
+  <p class="small">A stochastic block model: $3\times 8 = 24$ vertices, edges within a block sampled with probability $p_{\mathrm{in}}$ and across blocks with probability $p_{\mathrm{out}}$. Left: the graph (force-directed layout). Right: each vertex plotted at $(\tilde u_2, \tilde u_3)$ after row-normalisation of $[u_2\,u_3]$ — clusters appear as separated rays on the unit circle.</p>
+</div>
+<script>
+(function(){
+  const pinSl=$('#cl-pin'), pinV=$('#cl-pinv');
+  const poutSl=$('#cl-pout'), poutV=$('#cl-poutv');
+  const svg=$('#cl-svg'), out=$('#cl-out');
+  const resample = $('#cl-resample');
+  const K = 3, sz = 8;
+  const n = K*sz;
+  let seed = {s: 7};
+  function sampleGraph(pin, pout){
+    const rng = smdSeed(seed);
+    const A = Array.from({length:n},()=>new Array(n).fill(0));
+    for(let i=0;i<n;i++) for(let j=i+1;j<n;j++){
+      const sameBlock = Math.floor(i/sz)===Math.floor(j/sz);
+      const p = sameBlock? pin : pout;
+      if(rng() < p){ A[i][j]=1; A[j][i]=1; }
+    }
+    return A;
+  }
+  function buildLaplacian(A){
+    const L = Array.from({length:n},()=>new Array(n).fill(0));
+    const d = new Array(n).fill(0);
+    for(let i=0;i<n;i++) for(let j=0;j<n;j++) d[i]+=A[i][j];
+    for(let i=0;i<n;i++){
+      for(let j=0;j<n;j++) L[i][j] = (i===j ? 1 : 0) - ( (d[i]>0 && d[j]>0) ? A[i][j]/Math.sqrt(d[i]*d[j]) : 0 );
+    }
+    return L;
+  }
+  function forceLayout(A){
+    const pos = [];
+    for(let c=0;c<K;c++){
+      const a = 2*Math.PI*c/K - Math.PI/2;
+      const cx = 170 + 70*Math.cos(a), cy = 160 + 70*Math.sin(a);
+      for(let i=0;i<sz;i++){
+        const aa = 2*Math.PI*i/sz;
+        pos.push([cx + 30*Math.cos(aa), cy + 30*Math.sin(aa)]);
+      }
+    }
+    return pos;
+  }
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const pin = +pinSl.value, pout = +poutSl.value;
+    pinV.textContent = pin.toFixed(2); poutV.textContent = pout.toFixed(2);
+    const A = sampleGraph(pin, pout);
+    const Lsym = buildLaplacian(A);
+    const {eigs, vecs} = smdJacobi(Lsym);
+    const order = eigs.map((_,i)=>i).sort((a,b)=>eigs[a]-eigs[b]);
+    const u2 = vecs[order[1]], u3 = vecs[order[2]];
+    // row-normalise
+    const emb = [];
+    for(let i=0;i<n;i++){
+      const r = Math.hypot(u2[i], u3[i]);
+      emb.push(r > 1e-9 ? [u2[i]/r, u3[i]/r] : [1,0]);
+    }
+    // ----- left panel -----
+    const pos = forceLayout(A);
+    for(let i=0;i<n;i++) for(let j=i+1;j<n;j++) if(A[i][j]){
+      const sameBlock = Math.floor(i/sz)===Math.floor(j/sz);
+      svg.appendChild(SVG('line',{x1:pos[i][0],y1:pos[i][1],x2:pos[j][0],y2:pos[j][1],stroke:sameBlock?'var(--line)':'var(--pink)','stroke-width':sameBlock?0.6:0.9,opacity:0.7}));
+    }
+    const palette = ['var(--yellow)','var(--cyan)','var(--green)'];
+    for(let i=0;i<n;i++){
+      svg.appendChild(SVG('circle',{cx:pos[i][0],cy:pos[i][1],r:5.5,fill:palette[Math.floor(i/sz)],stroke:'var(--bg)','stroke-width':1.2}));
+    }
+    const lbl = SVG('text',{x:50, y:30, 'font-size':12, fill:'var(--mute)'}); lbl.textContent='SBM graph (colour = true block)'; svg.appendChild(lbl);
+    // ----- right panel: 2D embedding -----
+    const RX = 420, CY = 160, scl = 110;
+    svg.appendChild(SVG('line',{x1:RX,y1:CY,x2:RX+260,y2:CY,stroke:'var(--line)','stroke-width':0.6}));
+    svg.appendChild(SVG('line',{x1:RX+130,y1:CY-130,x2:RX+130,y2:CY+130,stroke:'var(--line)','stroke-width':0.6}));
+    svg.appendChild(SVG('circle',{cx:RX+130,cy:CY,r:scl,fill:'none',stroke:'var(--line)','stroke-dasharray':'3 3','stroke-width':0.6}));
+    for(let i=0;i<n;i++){
+      svg.appendChild(SVG('circle',{cx:RX+130 + scl*emb[i][0], cy:CY - scl*emb[i][1], r:4, fill:palette[Math.floor(i/sz)], opacity:0.9}));
+    }
+    const lbl2 = SVG('text',{x:RX+130, y:30, 'text-anchor':'middle','font-size':12, fill:'var(--mute)'});
+    lbl2.textContent='row-normalised embedding $(\\tilde u_2,\\tilde u_3)$'; svg.appendChild(lbl2);
+    // compute angular spread inside each block
+    const angles = emb.map(p=>Math.atan2(p[1],p[0]));
+    function circSpread(arr){
+      let cx=0, cy=0; for(const a of arr){ cx+=Math.cos(a); cy+=Math.sin(a); }
+      cx/=arr.length; cy/=arr.length;
+      return 1 - Math.hypot(cx,cy); // circular variance ∈ [0,1]
+    }
+    const spreads = [];
+    for(let c=0;c<K;c++) spreads.push(circSpread(angles.slice(c*sz,(c+1)*sz)));
+    out.textContent =
+      `(p_in, p_out) = (${pin.toFixed(2)}, ${pout.toFixed(2)})\n` +
+      `bottom eigenvalues of L_sym: ${order.slice(0,4).map(i=>eigs[i].toFixed(3)).join(', ')}\n` +
+      `cluster-revealing gap λ_4 − λ_3 = ${(eigs[order[3]]-eigs[order[2]]).toFixed(3)}\n` +
+      `embedding tightness per block (lower = tighter): ${spreads.map(s=>s.toFixed(3)).join(', ')}`;
+  }
+  pinSl.addEventListener('input', render);
+  poutSl.addEventListener('input', render);
+  resample.addEventListener('click', ()=>{ seed.s = (seed.s + 13)|0; render(); });
+  render();
+})();
+</script>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./spectral-graph-theory.html#cheeger">Cheeger's inequality</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><div class="quiz" data-concept="spectral-clustering-ng"></div>
+
+</section>
+
+<section id="pagerank">
+<h2>5. PageRank</h2>
+
+<p>Brin and Page's 1998 ranking algorithm imagined a "random surfer" who at each step follows an outgoing link uniformly at random — or, with probability $1-\alpha$, teleports to a random page chosen uniformly from the web. The stationary distribution of this Markov chain is what we call <strong>PageRank</strong>. Concretely, given a directed graph with adjacency $A$, let $P$ be the column-stochastic transition matrix ($P_{ij} = A_{ji}/d^{\mathrm{out}}_j$, with sinks restarted to the uniform distribution). The <strong>PageRank vector</strong> $r$ solves</p>
+
+<p style="text-align:center">$r \;=\; \alpha\, P r \;+\; (1-\alpha)\, \tfrac{1}{n}\mathbf{1},$</p>
+
+<p>where $\alpha\approx 0.85$ is the <strong>damping factor</strong>. Equivalently, $r$ is the dominant eigenvector of the perturbed matrix $G_\alpha = \alpha P + (1-\alpha)\tfrac{1}{n}\mathbf{1}\mathbf{1}^{T}$. The teleportation $(1-\alpha)/n$ rank-one term guarantees $G_\alpha$ is <em>irreducible</em> and <em>aperiodic</em>, so Perron–Frobenius applies and the stationary distribution is unique, positive on every vertex, and reached from any starting distribution by <strong>power iteration</strong>:</p>
+
+<p style="text-align:center">$r^{(t+1)} \;=\; \alpha\, P\, r^{(t)} \;+\; (1-\alpha)\,\tfrac{1}{n}\mathbf{1}.$</p>
+
+<p>The convergence rate is geometric in the second eigenvalue of $G_\alpha$, which is at most $\alpha$ — so $\alpha=0.85$ delivers $\sim 50$ iterations for $10^{-6}$ accuracy regardless of graph size. That is the engineering miracle that made PageRank ship: the spectral gap of the teleportation perturbation does not degrade with $n$.</p>
+
+<div class="widget" id="w-pagerank">
+  <div class="hd"><div class="ttl">Power iteration converges to PageRank</div><div class="hint">step the iteration; watch the bars settle to the stationary distribution</div></div>
+  <div class="row">
+    <label for="pr-alpha">damping $\alpha$: <span id="pr-alphav">0.85</span></label>
+    <input type="range" id="pr-alpha" min="0.40" max="0.99" step="0.01" value="0.85">
+    <button id="pr-step">step</button>
+    <button id="pr-run">run 50</button>
+    <button id="pr-reset">reset</button>
+  </div>
+  <svg id="pr-svg" viewBox="0 0 720 320" width="720" height="320"><title>PageRank power iteration on a 7-node directed graph</title></svg>
+  <div class="readout" id="pr-out"></div>
+  <p class="small">Seven nodes, hand-picked directed edges. Nodes 0 and 3 are link hubs. Left: graph (edge width and node size = current rank). Right: rank distribution as a bar chart, updated at every iteration. Compare $\alpha=0.85$ (default) with $\alpha\to 1$ (slow) and $\alpha=0.5$ (heavy teleport, ranks flatten).</p>
+</div>
+<script>
+(function(){
+  const asl=$('#pr-alpha'), av=$('#pr-alphav');
+  const stepBtn=$('#pr-step'), runBtn=$('#pr-run'), resetBtn=$('#pr-reset');
+  const svg=$('#pr-svg'), out=$('#pr-out');
+  // 7-node directed graph
+  const N=7;
+  const edges = [
+    [0,1],[0,2],[0,3],
+    [1,2],[1,4],
+    [2,0],[2,3],
+    [3,4],[3,5],[3,6],
+    [4,5],
+    [5,3],
+    [6,3],[6,0]
+  ];
+  const positions = [
+    [140,80],[230,40],[300,140],[170,180],[260,230],[110,250],[60,160]
+  ];
+  // column-stochastic P: P[i][j] = prob of jumping from j to i
+  function buildP(){
+    const P = Array.from({length:N},()=>new Array(N).fill(0));
+    const out = new Array(N).fill(0);
+    for(const [u,v] of edges) out[u]++;
+    for(const [u,v] of edges){
+      P[v][u] = 1/out[u];
+    }
+    // dangling — node with no outgoing: replace col by uniform
+    for(let j=0;j<N;j++) if(out[j]===0) for(let i=0;i<N;i++) P[i][j] = 1/N;
+    return P;
+  }
+  const P = buildP();
+  let r = new Array(N).fill(1/N);
+  let iter = 0;
+  function iterate(){
+    const alpha = +asl.value;
+    const Pr = smdMatVec(P, r);
+    const next = new Array(N);
+    for(let i=0;i<N;i++) next[i] = alpha*Pr[i] + (1-alpha)/N;
+    // normalise (mostly unnecessary, but guards against drift)
+    let s=0; for(const x of next) s+=x;
+    for(let i=0;i<N;i++) next[i] /= s;
+    const delta = Math.max(...next.map((x,i)=>Math.abs(x-r[i])));
+    r = next;
+    iter++;
+    return delta;
+  }
+  function render(delta){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    av.textContent = (+asl.value).toFixed(2);
+    // left panel
+    ensureArrow(svg, 'pr-arrow', 'var(--line)');
+    for(const [u,v] of edges){
+      const x1=positions[u][0], y1=positions[u][1];
+      const x2=positions[v][0], y2=positions[v][1];
+      const dx=x2-x1, dy=y2-y1, L=Math.hypot(dx,dy)||1;
+      const ux=dx/L, uy=dy/L;
+      const sx=x1 + 12*ux, sy=y1 + 12*uy;
+      const ex=x2 - 12*ux, ey=y2 - 12*uy;
+      svg.appendChild(SVG('path',{d:`M${sx} ${sy} L ${ex} ${ey}`,fill:'none',stroke:'var(--line)','stroke-width':1,'marker-end':'url(#pr-arrow)'}));
+    }
+    const maxR = Math.max(...r);
+    for(let i=0;i<N;i++){
+      const rad = 8 + 22*r[i]/maxR;
+      svg.appendChild(SVG('circle',{cx:positions[i][0],cy:positions[i][1],r:rad,fill:'var(--cyan)','fill-opacity':0.25,stroke:'var(--cyan)','stroke-width':1.5}));
+      const t = SVG('text',{x:positions[i][0],y:positions[i][1]+4,'text-anchor':'middle','font-size':12,fill:'#fff','font-weight':600});
+      t.textContent = String(i);
+      svg.appendChild(t);
+    }
+    // right panel — bars
+    const RX = 380, RY = 40, RW = 300, RH = 200;
+    svg.appendChild(SVG('line',{x1:RX,y1:RY+RH,x2:RX+RW,y2:RY+RH,stroke:'var(--line)','stroke-width':0.8}));
+    const barW = (RW-20)/N;
+    for(let i=0;i<N;i++){
+      const h = (RH-8) * r[i]/Math.max(maxR, 0.5);
+      const x = RX + 10 + i*barW;
+      svg.appendChild(SVG('rect',{x,y:RY+RH-h,width:barW*0.7,height:h,fill:'var(--yellow)',opacity:0.85}));
+      const t = SVG('text',{x:x+barW*0.35,y:RY+RH+14,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});
+      t.textContent = String(i);
+      svg.appendChild(t);
+    }
+    const tlbl = SVG('text',{x:RX+RW/2,y:RY-6,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});
+    tlbl.textContent = `rank distribution after t=${iter} iterations`;
+    svg.appendChild(tlbl);
+    out.textContent =
+      `α = ${(+asl.value).toFixed(2)}    iteration t = ${iter}\n` +
+      `r = [${r.map(x=>x.toFixed(3)).join(', ')}]\n` +
+      `‖r^(t+1) − r^(t)‖∞ = ${(delta===undefined?'(initial)':delta.toExponential(2))}\n` +
+      'top ranks: ' + Array.from(r.keys()).sort((a,b)=>r[b]-r[a]).slice(0,3).map(i=>`#${i}(${r[i].toFixed(3)})`).join('  ');
+  }
+  stepBtn.addEventListener('click', ()=>{ const d = iterate(); render(d); });
+  runBtn.addEventListener('click', ()=>{
+    let d=0; for(let i=0;i<50;i++) d=iterate(); render(d);
+  });
+  resetBtn.addEventListener('click', ()=>{ r = new Array(N).fill(1/N); iter=0; render(); });
+  asl.addEventListener('input', ()=>render());
+  render();
+})();
+</script>
+
+<p>PageRank's deep relative is the <strong>personalised PageRank</strong>, where the uniform teleport $\tfrac{1}{n}\mathbf{1}$ is replaced by a "preference" distribution $v$ supported near a user's interests. The same eigenvalue equation $r = \alpha P r + (1-\alpha) v$ then ranks pages by personalised reachability — and approximate personalised PageRank powers a surprising amount of modern recommendation infrastructure and local graph clustering (Andersen–Chung–Lang 2006). The <strong>PageRank vector</strong> is the discrete analogue of the heat kernel: it spreads mass from the seed at rate $\alpha$ with restart rate $1-\alpha$.</p>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./random-walks-and-mixing.html#markov">Markov chains and transition matrices</a></li>
+    <li><a href="./random-walks-and-mixing.html#stationary">Stationary distributions</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><div class="quiz" data-concept="pagerank"></div>
+
+</section>
+
+<section id="randomized-svd">
+<h2>6. Randomized SVD and Johnson–Lindenstrauss</h2>
+
+<p>Computing the top $k$ singular vectors of an $n\times n$ dense matrix by Lanczos takes $O(kn^{2})$ flops — already painful at $n=10^{5}$. The <strong>randomized SVD</strong> (Halko–Martinsson–Tropp 2011) does it in a single dense matrix-matrix product plus a tiny SVD, with provable error bounds:</p>
+
+<ol>
+  <li>Draw $\Omega\in\mathbb{R}^{n\times (k+p)}$ with i.i.d. $\mathcal{N}(0,1)$ entries, where $p\ge 5$ is a small "oversampling" parameter.</li>
+  <li>Compute $Y = A\,\Omega$. The columns of $Y$ span an approximate basis for the dominant subspace of $A$.</li>
+  <li>QR-decompose $Y = QR$. Then $Q\in\mathbb{R}^{m\times (k+p)}$ has orthonormal columns and $A \approx QQ^{T} A$.</li>
+  <li>Compute the small SVD $Q^{T}A = \hat U\hat\Sigma V^{T}$ and set $U = Q\hat U$.</li>
+</ol>
+
+<p>The error obeys $\mathbb{E}\,\|A - QQ^{T}A\|_{F}^{2} \;\le\; \Bigl(1 + \tfrac{k}{p-1}\Bigr) \sum_{i>k}\sigma_i^{2}$ — only a small constant worse than Eckart–Young, and the total flop count is dominated by the single $A\,\Omega$ multiplication. The reason it works is that a random $k$-dim subspace of $\mathbb{R}^n$ has, with high probability, large overlap with any fixed $k$-dim subspace — so $\Omega$'s columns almost surely sit transverse to $\operatorname{ker}(A) + (\text{tail singular directions})$.</p>
+
+<h3>The Johnson–Lindenstrauss lemma</h3>
+
+<p>The same kind of random-projection magic is the engine of all distance-preserving sketches. The <strong>Johnson–Lindenstrauss lemma</strong>: for any $n$ points $x_1,\dots,x_n\in\mathbb{R}^d$ and any $\varepsilon\in(0,1)$, if $k \;\ge\; \tfrac{8\log n}{\varepsilon^{2}}$ and $\Pi\in\mathbb{R}^{k\times d}$ has i.i.d. $\mathcal{N}(0,1/k)$ entries, then with probability $\ge 1-1/n$,</p>
+
+<p style="text-align:center">$(1-\varepsilon)\,\|x_i - x_j\|^{2} \;\le\; \|\Pi x_i - \Pi x_j\|^{2} \;\le\; (1+\varepsilon)\,\|x_i - x_j\|^{2} \quad \text{for all } i,j.$</p>
+
+<p>The target dimension $k$ is independent of the original $d$ — only the number of points $n$ matters. This is the high-dimensional concentration story (cf. <a href="./high-dimensional-geometry.html#hdg-johnson-lindenstrauss">high-dimensional geometry</a>): pairwise distances are stable under random rotations into $\sim\log n$ dimensions. Any algorithm that depends only on pairwise distances — nearest-neighbour search, $k$-means, MDS — can be applied to the sketch $\Pi x_i$ instead of $x_i$ with logarithmic dimension blowup.</p>
+
+<div class="widget" id="w-jl">
+  <div class="hd"><div class="ttl">Johnson–Lindenstrauss distance preservation</div><div class="hint">slide target dimension $k$; watch distortion shrink</div></div>
+  <div class="row">
+    <label for="jl-k">target dim $k$: <span id="jl-kv">12</span></label>
+    <input type="range" id="jl-k" min="2" max="80" step="2" value="12">
+    <button id="jl-resample">resample $\Pi$</button>
+  </div>
+  <svg id="jl-svg" viewBox="0 0 720 320" width="720" height="320"><title>Johnson–Lindenstrauss distance preservation under random projection</title></svg>
+  <div class="readout" id="jl-out"></div>
+  <p class="small">$n=40$ random points in $\mathbb{R}^{200}$. We project to $\mathbb{R}^{k}$ via $\Pi\in\mathbb{R}^{k\times 200}$ Gaussian and plot, for each of the $\binom{40}{2}$ pairs, the original distance $\|x_i-x_j\|$ versus the projected distance $\|\Pi x_i - \Pi x_j\|$. The 45° line is perfect preservation; the dashed envelope is the $\pm\varepsilon$ band for $\varepsilon=\sqrt{8\log n / k}$.</p>
+</div>
+<script>
+(function(){
+  const ksl=$('#jl-k'), kv=$('#jl-kv'), resample=$('#jl-resample');
+  const svg=$('#jl-svg'), out=$('#jl-out');
+  const n = 40, d = 200;
+  let seedPts = {s: 1001};
+  let seedPi = {s: 2002};
+  let pts;
+  function genPoints(){
+    const rng = smdSeed(seedPts);
+    pts = [];
+    for(let i=0;i<n;i++){
+      const v = new Array(d);
+      for(let j=0;j<d;j++) v[j] = smdGauss(rng);
+      pts.push(v);
+    }
+  }
+  genPoints();
+  function project(k){
+    const rng = smdSeed(seedPi);
+    const Pi = Array.from({length:k},()=>{
+      const row = new Array(d);
+      for(let j=0;j<d;j++) row[j] = smdGauss(rng)/Math.sqrt(k);
+      return row;
+    });
+    return pts.map(x => smdMatVec(Pi, x));
+  }
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const k = +ksl.value;
+    kv.textContent = k;
+    const proj = project(k);
+    // collect (d_orig, d_proj) pairs
+    const pairs = [];
+    for(let i=0;i<n;i++) for(let j=i+1;j<n;j++){
+      const a = smdNorm(smdSub(pts[i], pts[j]));
+      const b = smdNorm(smdSub(proj[i], proj[j]));
+      pairs.push([a,b]);
+    }
+    // bounds
+    let dmax = 0; for(const p of pairs){ if(p[0]>dmax) dmax=p[0]; if(p[1]>dmax) dmax=p[1]; }
+    dmax *= 1.05;
+    const ML=80, MR=480, MT=30, MB=50, W=400, H=240;
+    // axes
+    svg.appendChild(SVG('line',{x1:ML,y1:MT+H,x2:ML+W,y2:MT+H,stroke:'var(--line)','stroke-width':0.8}));
+    svg.appendChild(SVG('line',{x1:ML,y1:MT,x2:ML,y2:MT+H,stroke:'var(--line)','stroke-width':0.8}));
+    // 45° line
+    svg.appendChild(SVG('line',{x1:ML,y1:MT+H,x2:ML+W,y2:MT,stroke:'var(--yellow)','stroke-width':1,'stroke-dasharray':'4 3'}));
+    // ε envelope
+    const eps = Math.sqrt(8*Math.log(n)/k);
+    const epsR = Math.sqrt(Math.max(0, 1+eps)), epsL = Math.sqrt(Math.max(0, 1-eps));
+    for(const sign of [+1,-1]){
+      const fac = sign>0? epsR : epsL;
+      svg.appendChild(SVG('line',{x1:ML,y1:MT+H,x2:ML+W,y2:MT+H - W*fac, stroke:'var(--line)','stroke-width':0.8,'stroke-dasharray':'2 3'}));
+    }
+    // data
+    for(const [a,b] of pairs){
+      const x = ML + W*a/dmax, y = MT+H - H*b/dmax;
+      svg.appendChild(SVG('circle',{cx:x,cy:y,r:2.4,fill:'var(--cyan)',opacity:0.55}));
+    }
+    // axis labels
+    svg.appendChild(SVG('text',{x:ML+W/2,y:MT+H+30,'text-anchor':'middle','font-size':12,fill:'var(--mute)'})).textContent='original ‖xᵢ − xⱼ‖';
+    const yl = SVG('text',{x:ML-50,y:MT+H/2,'font-size':12,fill:'var(--mute)','transform':`rotate(-90 ${ML-50} ${MT+H/2})`}); yl.textContent='projected ‖Π xᵢ − Π xⱼ‖'; svg.appendChild(yl);
+    // distortion stats
+    const ratios = pairs.map(p=>p[1]/p[0]);
+    const distortion = Math.max(...ratios.map(r=>Math.abs(r-1)));
+    out.textContent =
+      `n = ${n}, d = ${d}, k = ${k}\n` +
+      `JL guarantee: ε = √(8 log n / k) = ${eps.toFixed(3)}\n` +
+      `worst observed distortion |‖Πx_i−Πx_j‖/‖x_i−x_j‖ − 1| = ${distortion.toFixed(3)}\n` +
+      `mean ratio = ${(ratios.reduce((a,b)=>a+b,0)/ratios.length).toFixed(3)} (1 is perfect)`;
+  }
+  ksl.addEventListener('input', render);
+  resample.addEventListener('click', ()=>{ seedPi.s = (seedPi.s + 19)|0; render(); });
+  render();
+})();
+</script>
+
+<div class="note"><strong>Randomized SVD ≈ JL applied to columns.</strong> The randomized SVD's first step — $Y = A\,\Omega$ — is exactly a JL sketch of the column space of $A$. The reason both schemes work is the same concentration phenomenon: in high dimensions a random Gaussian almost surely sits well-aligned with any fixed low-dimensional subspace.</p></div>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./high-dimensional-geometry.html#jl">Johnson–Lindenstrauss</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><div class="quiz" data-concept="random-projection"></div>
+
+</section>
+
+<section id="nystrom">
+<h2>7. The Nyström method</h2>
+
+<p>The last spectral move is for kernel methods. Given a positive semidefinite kernel $K\in\mathbb{R}^{n\times n}$ (Gaussian kernel, polynomial kernel, graph diffusion kernel, ...) that you want to use for SVM, kernel PCA, or Gaussian-process regression, the explicit matrix is unaffordable at $n=10^{6}$. The <strong>Nyström approximation</strong>: pick $m \ll n$ "landmarks" $i_1,\dots,i_m$, build the small blocks</p>
+
+<p style="text-align:center">$K_{mm} = K_{[i_1\cdots i_m],[i_1\cdots i_m]} \;\in\;\mathbb{R}^{m\times m}, \qquad K_{nm} = K_{[1\cdots n],[i_1\cdots i_m]} \;\in\;\mathbb{R}^{n\times m},$</p>
+
+<p>and approximate the full kernel by</p>
+
+<p style="text-align:center">$K \;\approx\; \tilde K \;=\; K_{nm}\, K_{mm}^{+}\, K_{nm}^{T},$</p>
+
+<p>where $K_{mm}^{+}$ is the Moore–Penrose pseudoinverse. Storage drops from $O(n^{2})$ to $O(nm)$ and computing $\tilde K v$ costs $O(nm + m^{2})$ instead of $O(n^{2})$. Equivalently: read off the eigendecomposition $K_{mm} = U_m\Lambda_m U_m^{T}$ and extend each landmark eigenvector $u^{(m)}_\ell$ to a full-length eigenvector $\tilde u_\ell = \tfrac{1}{\lambda_\ell} K_{nm} u^{(m)}_\ell$. The eigenvalues of $\tilde K$ approximate those of $K$; the eigenvectors are the natural <em>out-of-sample extension</em> from the landmark set to the full data.</p>
+
+<p>How well does it work? When the kernel is smooth (decays fast in feature space) and the landmarks are picked by <strong>leverage-score sampling</strong> rather than uniformly, $m = O(k\log k / \varepsilon^{2})$ landmarks suffice to approximate the top-$k$ eigendecomposition to relative error $\varepsilon$ (Drineas–Mahoney 2005; Alaoui–Mahoney 2015). The landmark-selection step is itself a spectral task — leverage scores are diagonal entries of a projection onto the dominant subspace.</p>
+
+<div class="widget" id="w-nystrom">
+  <div class="hd"><div class="ttl">Nyström approximation of a Gaussian kernel</div><div class="hint">slide $m$ landmarks; watch eigenvalues lock in</div></div>
+  <div class="row">
+    <label for="ny-m">landmarks $m$: <span id="ny-mv">10</span></label>
+    <input type="range" id="ny-m" min="2" max="40" step="1" value="10">
+    <label for="ny-bw">bandwidth $\gamma$: <span id="ny-bwv">0.50</span></label>
+    <input type="range" id="ny-bw" min="0.10" max="2.00" step="0.05" value="0.50">
+    <button id="ny-resample">resample</button>
+  </div>
+  <svg id="ny-svg" viewBox="0 0 720 320" width="720" height="320"><title>Nyström approximation of a Gaussian kernel matrix</title></svg>
+  <div class="readout" id="ny-out"></div>
+  <p class="small">$n=60$ points sampled in $[-2,2]$. Full kernel $K_{ij} = \exp(-\gamma(x_i-x_j)^{2})$. We compare the top-$8$ eigenvalues of the exact $K$ against the Nyström estimate $\tilde K = K_{nm} K_{mm}^{+} K_{nm}^{T}$ built from $m$ uniformly-selected landmarks. Relative spectrum error drops fast as $m$ grows past the effective rank.</p>
+</div>
+<script>
+(function(){
+  const msl=$('#ny-m'), mv=$('#ny-mv');
+  const bsl=$('#ny-bw'), bv=$('#ny-bwv');
+  const svg=$('#ny-svg'), out=$('#ny-out');
+  const resample=$('#ny-resample');
+  const N=60;
+  let seedPts = {s: 333};
+  let pts;
+  function gen(){
+    const rng = smdSeed(seedPts);
+    pts = [];
+    for(let i=0;i<N;i++) pts.push(-2 + 4*rng());
+    pts.sort((a,b)=>a-b);
+  }
+  gen();
+  function buildK(gam){
+    const K = Array.from({length:N},()=>new Array(N).fill(0));
+    for(let i=0;i<N;i++) for(let j=0;j<N;j++){
+      const d = pts[i]-pts[j];
+      K[i][j] = Math.exp(-gam*d*d);
+    }
+    return K;
+  }
+  function nystrom(K, m){
+    // uniform landmark selection
+    const idx = [];
+    for(let i=0;i<m;i++) idx.push(Math.floor((i+0.5)*N/m));
+    const Kmm = Array.from({length:m},(_,a)=>Array.from({length:m},(_,b)=>K[idx[a]][idx[b]]));
+    const Knm = Array.from({length:N},(_,a)=>Array.from({length:m},(_,b)=>K[a][idx[b]]));
+    // pseudoinverse of Kmm via Jacobi
+    const {eigs:em, vecs:vm} = smdJacobi(Kmm);
+    const Kmm_pinv = Array.from({length:m},()=>new Array(m).fill(0));
+    for(let r=0;r<m;r++){
+      if(Math.abs(em[r])<1e-9) continue;
+      for(let i=0;i<m;i++) for(let j=0;j<m;j++){
+        Kmm_pinv[i][j] += vm[r][i]*vm[r][j]/em[r];
+      }
+    }
+    // tilde K = Knm * Kmm_pinv * Knm^T — but we only need its top eigenvalues
+    // Build M = Knm^T Knm  (m×m), then form S = Kmm_pinv^{1/2} M Kmm_pinv^{1/2}-style
+    // shortcut: tildeK's nonzero eigenvalues = eigenvalues of (Kmm_pinv * Knm^T Knm),
+    // computed cheaply.
+    const KnmT_Knm = Array.from({length:m},()=>new Array(m).fill(0));
+    for(let a=0;a<m;a++) for(let b=0;b<m;b++){
+      let s=0;
+      for(let i=0;i<N;i++) s += Knm[i][a]*Knm[i][b];
+      KnmT_Knm[a][b]=s;
+    }
+    // PinvKnTKn = Kmm_pinv * KnmT_Knm (not symmetric in general; symmetrise)
+    const M = Array.from({length:m},()=>new Array(m).fill(0));
+    for(let i=0;i<m;i++) for(let j=0;j<m;j++){
+      let s=0;
+      for(let k=0;k<m;k++) s += Kmm_pinv[i][k]*KnmT_Knm[k][j];
+      M[i][j]=s;
+    }
+    // symmetrise: (M + M^T)/2
+    const Ms = Array.from({length:m},(_,i)=>Array.from({length:m},(_,j)=>0.5*(M[i][j]+M[j][i])));
+    const {eigs: e2} = smdJacobi(Ms);
+    return e2.slice(0,Math.min(m,8));
+  }
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const m = +msl.value, gam = +bsl.value;
+    mv.textContent = m; bv.textContent = gam.toFixed(2);
+    const K = buildK(gam);
+    const {eigs: eExact} = smdJacobi(K);
+    const eNy = nystrom(K, m);
+    // bar chart of top-8 eigenvalues, exact vs nyström
+    const NSHOW = 8;
+    const RX = 80, RY = 40, RW = 580, RH = 200;
+    svg.appendChild(SVG('line',{x1:RX,y1:RY+RH,x2:RX+RW,y2:RY+RH,stroke:'var(--line)','stroke-width':0.8}));
+    svg.appendChild(SVG('line',{x1:RX,y1:RY,x2:RX,y2:RY+RH,stroke:'var(--line)','stroke-width':0.8}));
+    const maxE = eExact[0] || 1;
+    for(let i=0;i<NSHOW;i++){
+      const x0 = RX + 20 + i*((RW-30)/NSHOW);
+      const hE = (RH-10) * (eExact[i]||0) / maxE;
+      const hN = (RH-10) * (eNy[i]||0) / maxE;
+      svg.appendChild(SVG('rect',{x:x0, y:RY+RH-hE, width:18, height:hE, fill:'var(--cyan)', opacity:0.85}));
+      svg.appendChild(SVG('rect',{x:x0+22, y:RY+RH-hN, width:18, height:hN, fill:'var(--yellow)', opacity:0.85}));
+      const lbl = SVG('text',{x:x0+20, y:RY+RH+14, 'text-anchor':'middle','font-size':10, fill:'var(--mute)'});
+      lbl.textContent = `λ_${i+1}`;
+      svg.appendChild(lbl);
+    }
+    const c1 = SVG('text',{x:RX+30,y:RY-10,'font-size':12,fill:'var(--cyan)'}); c1.textContent='■ exact'; svg.appendChild(c1);
+    const c2 = SVG('text',{x:RX+120,y:RY-10,'font-size':12,fill:'var(--yellow)'}); c2.textContent='■ Nyström (m landmarks)'; svg.appendChild(c2);
+    // relative spectrum error
+    let num=0, den=0;
+    for(let i=0;i<NSHOW;i++){
+      const a = eExact[i]||0, b = eNy[i]||0;
+      num += (a-b)*(a-b);
+      den += a*a;
+    }
+    const relErr = den>0 ? Math.sqrt(num/den) : 0;
+    out.textContent =
+      `n = ${N}, m = ${m} landmarks (uniform spacing), γ = ${gam.toFixed(2)}\n` +
+      `exact top-8 eigenvalues: ${eExact.slice(0,8).map(e=>e.toFixed(2)).join(', ')}\n` +
+      `Nyström top-8 estimate: ${eNy.slice(0,8).map(e=>e.toFixed(2)).join(', ')}\n` +
+      `relative spectrum error ‖λ_exact − λ_Ny‖ / ‖λ_exact‖ = ${(100*relErr).toFixed(2)}%`;
+  }
+  msl.addEventListener('input', render);
+  bsl.addEventListener('input', render);
+  resample.addEventListener('click', ()=>{ seedPts.s = (seedPts.s + 23)|0; gen(); render(); });
+  render();
+})();
+</script>
+
+<div class="quiz" data-concept="nystrom-kernel"></div>
+
+</section>
+
+<section id="connections">
+<h2>8. Connections</h2>
+
+<p>Spectral methods are the place where pure linear algebra meets the realities of $n=10^{9}$. The spectacular successes (SVD compression, PageRank, Laplacian eigenmaps) all share a structure — extract a rank-$k$ approximation, then do everything else in $\mathbb{R}^{k}$. The open frontier is <em>when that compression is faithful</em>: random matrix theory gives the asymptotic story, but quantitative deviation inequalities for spiked models, kernel matrices, and structured noise are an active area. On the algorithmic side, sketching, streaming, and "communication-avoiding" linear algebra push spectral methods into the regime where the matrix can't even fit on one machine.</p>
+
+<ul>
+  <li><a href="./spectral-graph-theory.html#spectral-clustering">Spectral graph theory — spectral clustering</a> — the combinatorics view: Cheeger's inequality, expanders, Ramanujan graphs.</li>
+  <li><a href="./random-matrix-theory.html#mp">Random matrix theory — Marchenko–Pastur</a> — when a singular value lies inside the noise bulk, throw it out.</li>
+  <li><a href="./high-dimensional-geometry.html#hdg-johnson-lindenstrauss">High-dimensional geometry — Johnson–Lindenstrauss</a> — the concentration of measure behind every random projection bound.</li>
+  <li><a href="./random-walks-and-mixing.html#spectral">Random walks and mixing — spectral gap</a> — PageRank's convergence rate is the spectral gap of the teleportation chain.</li>
+  <li><a href="./information-theory.html">Information theory</a> — the rate-distortion view: SVD truncation is the Gaussian information bottleneck.</li>
+</ul>
+</section>
+
+</main>
+
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('spectral-methods-data'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+})();
+</script>
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-05-12</td><td>initial version</td></tr>
+    </tbody>
+  </table>
+</details>
+
+</body>
+</html>

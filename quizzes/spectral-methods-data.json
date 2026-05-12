@@ -1,0 +1,288 @@
+{
+  "topic": "spectral-methods-data",
+  "quizzes": {
+    "svd-eckart-young": {
+      "title": "SVD and Eckart–Young",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Let $A\\in\\mathbb{R}^{m\\times n}$ have SVD $A=U\\Sigma V^{T}$ with singular values $\\sigma_1\\ge\\cdots\\ge\\sigma_r>0$. The rank-$k$ truncation $A_k=\\sum_{i=1}^{k}\\sigma_i u_i v_i^{T}$ minimises $\\|A-B\\|_F$ over rank-$\\le k$ matrices $B$. What is the optimal value of $\\|A-B\\|_F^{2}$?",
+          "choices": [
+            "$\\sum_{i=1}^{k}\\sigma_i^{2}$",
+            "$\\sum_{i=k+1}^{r}\\sigma_i^{2}$",
+            "$\\sigma_{k+1}$",
+            "$\\sigma_{k+1}^{2}\\,(r-k)$"
+          ],
+          "answer": 1,
+          "explain": "Eckart–Young: the optimal Frobenius error is the sum of squared tail singular values, $\\sum_{i>k}\\sigma_i^{2}$. The operator-2-norm version gives $\\sigma_{k+1}$ as the optimum.",
+          "hint": "The total Frobenius energy of $A$ is $\\sum_i \\sigma_i^{2}$; the truncation keeps the first $k$ and loses the rest."
+        },
+        {
+          "type": "numeric",
+          "q": "A $5\\times 5$ matrix has singular values $\\sigma=(4, 3, 1, 0.5, 0)$. What is the relative Frobenius error $\\|A-A_2\\|_F^{2}/\\|A\\|_F^{2}$ when truncating to rank $k=2$?",
+          "answer": 0.05,
+          "tol": 1e-3,
+          "explain": "Total $\\|A\\|_F^{2}=16+9+1+0.25+0=26.25$. Tail $\\|A-A_2\\|_F^{2}=1+0.25+0=1.25$. Ratio $=1.25/26.25 \\approx 0.0476$.",
+          "hint": "Square each tail singular value, sum, divide by the sum of all squared singular values."
+        },
+        {
+          "type": "multi-select",
+          "q": "Select every statement that is true of the SVD $A=U\\Sigma V^{T}$ of a real $m\\times n$ matrix $A$.",
+          "choices": [
+            "The right singular vectors $v_i$ are eigenvectors of $A^{T}A$ with eigenvalue $\\sigma_i^{2}$.",
+            "The left singular vectors $u_i$ are eigenvectors of $AA^{T}$ with eigenvalue $\\sigma_i^{2}$.",
+            "The singular values are uniquely determined by $A$ even if $U$ and $V$ are not.",
+            "If $A$ is square and invertible, $\\sigma_i(A^{-1}) = 1/\\sigma_i(A)$ for the same ordering."
+          ],
+          "answer": [0, 1, 2],
+          "explain": "$A^{T}A=V\\Sigma^{T}\\Sigma V^{T}$ and $AA^{T}=U\\Sigma\\Sigma^{T}U^{T}$ make the first two clear. Singular values are unique (the eigenvalues of $A^{T}A$, square-rooted). The last is wrong because $\\sigma_i(A^{-1})$ uses the <em>reverse</em> ordering: the largest singular value of $A^{-1}$ is $1/\\sigma_n(A)$, the smallest of $A$.",
+          "hint": "Square the SVD: $A^{T}A$ and $AA^{T}$ are both PSD and share the spectrum $\\sigma_i^{2}$. For the inverse, think which singular value of $A$ corresponds to the largest singular value of $A^{-1}$."
+        }
+      ]
+    },
+    "pca-variance": {
+      "title": "Principal component analysis",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "PCA is run on a centered $n\\times d$ data matrix $\\tilde X$ with sample covariance $S=\\tfrac{1}{n}\\tilde X^{T}\\tilde X$. Which is the correct relationship between the singular values $\\sigma_j$ of $\\tilde X$ and the eigenvalues $\\lambda_j$ of $S$?",
+          "choices": [
+            "$\\lambda_j = \\sigma_j$",
+            "$\\lambda_j = \\sigma_j^{2}$",
+            "$\\lambda_j = \\sigma_j^{2}/n$",
+            "$\\lambda_j = \\sigma_j/\\sqrt n$"
+          ],
+          "answer": 2,
+          "explain": "$S = \\tfrac{1}{n}\\tilde X^{T}\\tilde X = \\tfrac{1}{n}V\\Sigma^{2}V^{T}$, so the eigenvalues of $S$ are $\\sigma_j^{2}/n$. PC$_j$ captures variance $\\lambda_j$.",
+          "hint": "Write $\\tilde X = U\\Sigma V^{T}$ and substitute into the definition of $S$."
+        },
+        {
+          "type": "numeric",
+          "q": "Three PCs of a centered data matrix capture variances $\\lambda_1=12, \\lambda_2=3, \\lambda_3=1$ (out of total variance $\\sum_j \\lambda_j = 18$ across all $d$ features, with the remaining $2$ units in PCs $\\ge 4$). What fraction of variance is explained by the first two PCs?",
+          "answer": 0.8333,
+          "tol": 0.01,
+          "explain": "$(\\lambda_1+\\lambda_2)/\\sum_j\\lambda_j = 15/18 \\approx 0.833$.",
+          "hint": "Divide the partial sum by the total variance."
+        },
+        {
+          "type": "mcq",
+          "q": "A student claims: 'The first principal component is the direction along which the projected data has the smallest variance, because PCA minimises reconstruction error.' What is wrong?",
+          "choices": [
+            "PCA actually maximises variance along PC1; the equivalent dual statement is that it minimises reconstruction error along the orthogonal complement.",
+            "Nothing is wrong — PCA minimises variance.",
+            "PCA only minimises reconstruction error if the data has zero mean.",
+            "The first PC is the eigenvector with the smallest eigenvalue, not the largest."
+          ],
+          "answer": 0,
+          "explain": "PC1 maximises variance of the projection $\\tilde X v$ over unit $v$ — equivalently, it is the unit direction that minimises the residual $\\|\\tilde X - \\tilde X vv^{T}\\|_F^{2}$ (the orthogonal-complement reconstruction error). The student inverted the variance statement.",
+          "hint": "Eckart–Young plus the Pythagorean identity: total variance = projected variance + residual variance."
+        }
+      ]
+    },
+    "graph-laplacian": {
+      "title": "The graph Laplacian",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "For an unweighted undirected graph with $c$ connected components, the dimension of $\\ker L$ equals $c$. A graph has Laplacian spectrum (sorted ascending) $\\{0, 0, 0, 0.7, 1.2, 2.4, 3.1\\}$. How many connected components does it have?",
+          "answer": 3,
+          "tol": 0,
+          "explain": "Multiplicity of the eigenvalue $0$ in $L$ equals the number of connected components. Three zeros ⇒ three components.",
+          "hint": "Count the zero eigenvalues."
+        },
+        {
+          "type": "mcq",
+          "q": "Which expression equals $f^{T}Lf$ where $L=D-A$ is the combinatorial Laplacian of an unweighted graph $G$?",
+          "choices": [
+            "$\\sum_{i\\in V} f_i^{2}$",
+            "$\\sum_{ij\\in E} (f_i - f_j)^{2}$",
+            "$\\sum_{ij\\in E} f_i f_j$",
+            "$\\sum_{i\\in V} d_i f_i^{2}$"
+          ],
+          "answer": 1,
+          "explain": "The Dirichlet energy: $f^{T}Lf = \\sum_i d_i f_i^{2} - \\sum_{ij}A_{ij}f_i f_j = \\sum_{ij\\in E}(f_i-f_j)^{2}$. It is the discrete analogue of $\\int\\|\\nabla f\\|^{2}$.",
+          "hint": "Expand $L=D-A$ and group terms by edges."
+        },
+        {
+          "type": "multi-select",
+          "q": "Select every statement that is true of the symmetric normalised Laplacian $L_{\\mathrm{sym}} = I - D^{-1/2}AD^{-1/2}$ for a finite weighted graph $G$ with positive vertex degrees.",
+          "choices": [
+            "Its spectrum lies in $[0, 2]$.",
+            "Its smallest eigenvalue is $0$ with eigenvector $D^{1/2}\\mathbf{1}$.",
+            "It has eigenvalue $2$ if and only if $G$ has a bipartite connected component.",
+            "It is similar to the random-walk Laplacian $L_{\\mathrm{rw}} = I - D^{-1}A$ via $D^{1/2}$."
+          ],
+          "answer": [0, 1, 2, 3],
+          "explain": "All four are classical: spectrum $\\subseteq [0,2]$ by Gershgorin; $L_{\\mathrm{sym}}\\,D^{1/2}\\mathbf{1}=0$; $\\lambda=2$ iff a bipartite component exists; and $L_{\\mathrm{sym}} = D^{1/2}L_{\\mathrm{rw}}D^{-1/2}$ makes them similar (same spectrum).",
+          "hint": "Each statement is in the first paragraph of any spectral-graph-theory text — verify them by elementary linear algebra."
+        }
+      ]
+    },
+    "spectral-clustering-ng": {
+      "title": "Spectral clustering",
+      "questions": [
+        {
+          "type": "ordering",
+          "q": "Order the steps of the Ng–Jordan–Weiss spectral clustering algorithm.",
+          "items": [
+            "Form $L_{\\mathrm{sym}} = I - D^{-1/2}AD^{-1/2}$ from the affinity matrix $A$.",
+            "Run $k$-means on the rows of $\\tilde U$ to assign each vertex to a cluster.",
+            "Compute the $k$ eigenvectors $u_1,\\dots,u_k$ corresponding to the smallest eigenvalues of $L_{\\mathrm{sym}}$.",
+            "Row-normalise the matrix $U=[u_1,\\dots,u_k]$ to obtain $\\tilde U$ with unit-length rows."
+          ],
+          "answer": [0, 2, 3, 1],
+          "explain": "Build the normalised Laplacian, extract its bottom $k$ eigenvectors, row-normalise them so each vertex lives on $S^{k-1}$, then $k$-means. The row-normalisation step is what distinguishes Ng–Jordan–Weiss from the earlier Shi–Malik variant.",
+          "hint": "Build operator → eigenvectors → project to sphere → run $k$-means."
+        },
+        {
+          "type": "mcq",
+          "q": "Cheeger's inequality for the normalised Laplacian states $\\lambda_2/2 \\le h(G) \\le \\sqrt{2\\lambda_2}$, where $h(G)$ is the graph conductance. Which conclusion is correct?",
+          "choices": [
+            "A small $\\lambda_2$ certifies that no small-conductance cut exists.",
+            "A small $\\lambda_2$ certifies that a small-conductance cut exists, and the spectral sweep cut achieves it up to a square-root factor.",
+            "Cheeger's inequality is tight: $\\lambda_2 = h(G)^{2}$ for every graph.",
+            "$h(G)$ is exactly $\\lambda_2/2$ for connected graphs."
+          ],
+          "answer": 1,
+          "explain": "Small $\\lambda_2$ ⇒ small $h(G)$ (via the upper bound), and the proof's construction — the spectral sweep cut — explicitly realises a cut with conductance $\\le\\sqrt{2\\lambda_2}$. That's the algorithmic content: an eigenvector gives you an approximate sparsest cut.",
+          "hint": "The bound $h(G)\\le\\sqrt{2\\lambda_2}$ is constructive: the Fiedler vector's sweep cut achieves it."
+        },
+        {
+          "type": "mcq",
+          "q": "Which of these is a <em>NP-hard combinatorial problem</em> whose continuous relaxation is precisely the bottom eigenvector problem for $L_{\\mathrm{sym}}$?",
+          "choices": [
+            "Maximum independent set",
+            "Normalised cut (Ncut)",
+            "Maximum cut",
+            "Graph isomorphism"
+          ],
+          "answer": 1,
+          "explain": "Shi–Malik (2000) showed: minimise $\\mathrm{Ncut}(S,\\bar S)$ over partitions $S\\subset V$ is NP-hard; relax the $\\pm 1$ partition vector to a real vector orthogonal to $D^{1/2}\\mathbf{1}$, and the optimum is exactly $\\lambda_2(L_{\\mathrm{sym}})$ achieved by the Fiedler vector.",
+          "hint": "The combinatorial-to-continuous bridge in spectral clustering."
+        }
+      ]
+    },
+    "pagerank": {
+      "title": "PageRank",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What role does the damping factor $\\alpha\\in(0,1)$ play in the PageRank construction $G_\\alpha = \\alpha P + (1-\\alpha)\\tfrac{1}{n}\\mathbf{1}\\mathbf{1}^{T}$?",
+          "choices": [
+            "It is the eigenvalue of $G_\\alpha$ corresponding to the PageRank vector.",
+            "It is the rate at which the random surfer follows a link rather than teleporting; the teleportation $(1-\\alpha)\\tfrac{1}{n}\\mathbf{1}\\mathbf{1}^{T}$ guarantees irreducibility.",
+            "It is the smallest eigenvalue of $G_\\alpha$, and controls the spectral gap.",
+            "It is the convergence tolerance of power iteration."
+          ],
+          "answer": 1,
+          "explain": "With probability $\\alpha$ the surfer follows the link transition $P$; with probability $1-\\alpha$ it jumps to a uniformly random page. The rank-one teleportation term guarantees the perturbed chain is irreducible and aperiodic, so Perron–Frobenius gives a unique positive stationary vector. The dominant eigenvalue of $G_\\alpha$ is $1$, not $\\alpha$.",
+          "hint": "$\\alpha$ controls a probabilistic mixture of two transitions; teleportation is what guarantees the Markov chain is well-behaved."
+        },
+        {
+          "type": "numeric",
+          "q": "Power iteration on $G_\\alpha$ converges geometrically with rate (at most) $\\alpha$. For $\\alpha=0.85$, roughly how many iterations are needed to drive the residual below $10^{-6}$ (use $\\log_{10}(0.85)\\approx -0.0706$)?",
+          "answer": 85,
+          "tol": 5,
+          "explain": "$\\alpha^{t}\\le 10^{-6}$ gives $t\\ge 6/0.0706\\approx 85$. Independent of $n$ — that's the engineering miracle.",
+          "hint": "Solve $\\alpha^{t}=10^{-6}$ for $t$ in log base 10."
+        },
+        {
+          "type": "mcq",
+          "q": "A student claims: 'PageRank works on any directed graph because $P$ alone is column-stochastic — the damping is just a convenience.' What is wrong?",
+          "choices": [
+            "Nothing is wrong.",
+            "Without damping, $P$ may have multiple stationary distributions if the chain is reducible (e.g. dangling pages or rank sinks), so the PageRank vector is not well-defined.",
+            "$P$ is row-stochastic, not column-stochastic.",
+            "$P$ has eigenvalues $> 1$ if the graph has cycles."
+          ],
+          "answer": 1,
+          "explain": "Real web graphs have dangling nodes (pages with no outlinks) and rank sinks (groups that link only inwards). Without the teleportation, $P$ is reducible and Perron–Frobenius doesn't give uniqueness. Damping $(1-\\alpha)\\tfrac{1}{n}\\mathbf{1}\\mathbf{1}^{T}$ is what makes the stationary distribution exist, be unique, and be approximable by power iteration.",
+          "hint": "What goes wrong on a graph with a dangling node?"
+        }
+      ]
+    },
+    "random-projection": {
+      "title": "Randomized SVD and Johnson–Lindenstrauss",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The Johnson–Lindenstrauss lemma says that any $n$ points in $\\mathbb{R}^{d}$ can be embedded in $\\mathbb{R}^{k}$ via a random Gaussian projection with all pairwise distances preserved to factor $1\\pm\\varepsilon$, provided $k$ satisfies which bound?",
+          "choices": [
+            "$k = O(d/\\varepsilon^{2})$",
+            "$k = O(n/\\varepsilon^{2})$",
+            "$k = O(\\log n / \\varepsilon^{2})$",
+            "$k = O(\\log d / \\varepsilon^{2})$"
+          ],
+          "answer": 2,
+          "explain": "JL: $k\\ge 8\\log n/\\varepsilon^{2}$ suffices (with probability $\\ge 1-1/n$). The target dimension is independent of the source dimension $d$ — only the number of points and the desired distortion matter.",
+          "hint": "Union-bound over $\\binom{n}{2}$ pairs."
+        },
+        {
+          "type": "numeric",
+          "q": "How many target dimensions $k$ does JL recommend for $n=10^{4}$ points to be preserved at $\\varepsilon=0.1$ distortion (use $\\log n \\approx 9.21$ for natural log)?",
+          "answer": 7368,
+          "tol": 100,
+          "explain": "$k\\ge 8\\ln n/\\varepsilon^{2} \\approx 8\\cdot 9.21 / 0.01 \\approx 7368$. The constant in front is sometimes given as $4$ or $24$ depending on the proof; the scaling $\\log n/\\varepsilon^{2}$ is what matters.",
+          "hint": "Plug into $k = 8\\log n/\\varepsilon^{2}$ with $\\log=\\ln$."
+        },
+        {
+          "type": "ordering",
+          "q": "Order the steps of randomized SVD (Halko–Martinsson–Tropp) for finding the top-$k$ singular vectors of $A\\in\\mathbb{R}^{m\\times n}$.",
+          "items": [
+            "Compute the small SVD $\\hat U\\hat\\Sigma V^{T} = Q^{T}A$ and set $U = Q\\hat U$.",
+            "Compute the dense product $Y = A\\,\\Omega \\in\\mathbb{R}^{m\\times (k+p)}$.",
+            "Orthonormalise the columns of $Y$ via QR: $Y = QR$.",
+            "Draw a random Gaussian sketch matrix $\\Omega\\in\\mathbb{R}^{n\\times (k+p)}$."
+          ],
+          "answer": [3, 1, 2, 0],
+          "explain": "Sketch → multiply → orthonormalise → restrict-and-decompose. The expensive step is the $A\\Omega$ product; everything after that is $O((m+n)(k+p)^{2})$ at most, dwarfed by the sketch.",
+          "hint": "The flow is: pick a random subspace, project $A$ onto it, decompose the projection."
+        }
+      ]
+    },
+    "nystrom-kernel": {
+      "title": "The Nyström method",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The Nyström approximation $\\tilde K = K_{nm}K_{mm}^{+}K_{nm}^{T}$ replaces an $n\\times n$ kernel matrix $K$ with a rank-$m$ approximation based on $m$ landmarks. What is the dominant storage cost?",
+          "choices": [
+            "$O(n^{2})$",
+            "$O(nm)$",
+            "$O(m^{2})$",
+            "$O(n\\log m)$"
+          ],
+          "answer": 1,
+          "explain": "$K_{nm}\\in\\mathbb{R}^{n\\times m}$ dominates: $O(nm)$. $K_{mm}^{+}\\in\\mathbb{R}^{m\\times m}$ is $O(m^{2})$, negligible when $m\\ll n$. The point of Nyström is exactly that you avoid materialising the full $n^{2}$ matrix.",
+          "hint": "Which of the two blocks is bigger when $m\\ll n$?"
+        },
+        {
+          "type": "multi-select",
+          "q": "Select every property that the Nyström approximation $\\tilde K = K_{nm}K_{mm}^{+}K_{nm}^{T}$ shares with the original positive semidefinite kernel matrix $K$.",
+          "choices": [
+            "Positive semidefiniteness.",
+            "Symmetry.",
+            "Rank: $\\tilde K$ has the same rank as $K$.",
+            "Eigenvectors: the top-$m$ Nyström eigenvectors are the Nyström extensions of the eigenvectors of $K_{mm}$ to the full point set."
+          ],
+          "answer": [0, 1, 3],
+          "explain": "$\\tilde K$ is symmetric PSD by construction (a Gram product) and its top-$m$ eigenpairs are the Nyström extensions described. Rank is generally <em>not</em> preserved — $\\tilde K$ has rank $\\le m$, while $K$ may be full rank.",
+          "hint": "$\\tilde K$ factors as $X^{T}X$ for an explicit $X$; the rank claim conflates 'approximate' with 'exact'."
+        },
+        {
+          "type": "mcq",
+          "q": "Which landmark-selection scheme provides the strongest theoretical guarantee — needing only $m = O(k\\log k/\\varepsilon^{2})$ landmarks for relative-$\\varepsilon$ recovery of the top-$k$ eigenpairs of a kernel matrix?",
+          "choices": [
+            "Uniform random sampling.",
+            "$k$-means clustering of the points, then take cluster centers as landmarks.",
+            "Leverage-score sampling — sample each point with probability proportional to its diagonal in the projection onto the top-$k$ subspace.",
+            "Greedy max-min coverage of the data."
+          ],
+          "answer": 2,
+          "explain": "Drineas–Mahoney (2005) and Alaoui–Mahoney (2015): leverage scores are the diagonal entries of $UU^{T}$ where $U$ holds the top-$k$ eigenvectors of $K$. Sampling proportionally to leverage scores beats uniform sampling by a factor of $k$ in the required landmark count, with relative-error guarantees.",
+          "hint": "The 'importance' of a point for the top-$k$ subspace is encoded in its leverage score."
+        }
+      ]
+    }
+  }
+}
