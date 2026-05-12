@@ -1033,15 +1033,15 @@ function drawNode(svg, x, y, label, opts={}){
 <p>The proof flows through the <em>Kempf–Ness function</em> $\Phi_x(g)=\log\|g\cdot \tilde x\|^2$ on $G_\mathbb{C}/K$, where $\tilde x\in V\setminus 0$ is any lift. $\Phi_x$ is strictly convex along geodesics, and its critical points project to the zeros of $\mu$ on the $G_\mathbb{C}$-orbit. Polystability is exactly "$\Phi_x$ achieves its minimum"; instability is "$\Phi_x$ has no minimum on the orbit", which happens precisely when the orbit closure contains $0$.</p>
 
 <div class="widget" id="w-kn">
-  <div class="hd"><div class="ttl">Kempf–Ness: moment map of $\mathrm{SU}(2)$ on $\mathbb{C}^2$</div><div class="hint">drag the point in $\mathbb{C}^2$ (left); watch the moment-map value (right) hit zero on the unit sphere</div></div>
-  <svg id="kn-svg" viewBox="0 0 720 320" width="720" height="320"><title>Kempf–Ness for SU(2) on C²</title></svg>
+  <div class="hd"><div class="ttl">Kempf–Ness: $\mathbb{C}^\times$ on $\mathbb{C}^2$ — moment map and the level-1 quotient $\mathbb{P}^1$</div><div class="hint">drag the point in $\mathbb{C}^2$ (left); watch the moment-map value (right) hit zero on the unit sphere</div></div>
+  <svg id="kn-svg" viewBox="0 0 720 320" width="720" height="320"><title>Kempf–Ness for the C× action on C² (level 1)</title></svg>
   <div class="readout" id="kn-out">drag the point in the disk on the left…</div>
   <div class="row">
     <button id="kn-stable">stable: |v|=1 (polystable)</button>
     <button id="kn-zero">unstable: v→0</button>
     <button id="kn-large">drive away: |v|>>1</button>
   </div>
-  <p class="small">$\mathrm{SU}(2)$ acts on $\mathbb{C}^2$ by left multiplication, complexified to $\mathrm{SL}_2(\mathbb{C})$ acting linearly. The moment map (using the Hermitian form) is $\mu(v)=\tfrac{1}{2}(|v|^2-1)\cdot\xi$ for the central direction; here we plot $|v|^2-1$ along the orbit of a fixed direction. The zero locus is the unit sphere $|v|=1$, on which the $\mathrm{SU}(2)$-orbit through $v$ is a 3-sphere. Polystable orbits ($v\ne 0$) meet $|v|=1$ in a unique $\mathrm{SU}(2)$-orbit; the unstable orbit ($v=0$) is the origin alone, whose closure is itself.</p>
+  <p class="small">$\mathbb{C}^\times$ acts on $\mathbb{C}^2$ by scalar multiplication (the complexification of the diagonal $\mathrm{U}(1)$). The moment map is $\mu(v)=\tfrac{1}{2}(|v|^2-1)$ for the level-shifted choice; the zero locus is the unit sphere $|v|=1$. Polystable orbits ($v\ne 0$) all meet $\mu^{-1}(0)$ in a unique $\mathrm{U}(1)$-orbit (a circle), and the GIT quotient $\mathbb{C}^2/\!/_1\mathbb{C}^\times = \mu^{-1}(0)/\mathrm{U}(1) = \mathbb{P}^1$. The unstable orbit ($v=0$) is the origin alone; the moment-map condition throws it away.</p>
 </div>
 <script>
 (function(){
@@ -1067,7 +1067,7 @@ function drawNode(svg, x, y, label, opts={}){
     // orbit through v: the SU(2)-orbit through v in real cross-section is the circle of radius |v|
     const rv=Math.hypot(v[0],v[1]);
     svg.appendChild(SVG('circle',{cx:cxL,cy:cyL,r:rv*scaleL,fill:'none',stroke:'var(--yellow)','stroke-width':1.2,'stroke-dasharray':'4 3',opacity:0.7}));
-    const obl=SVG('text',{x:cxL+rv*scaleL+4,y:cyL,'font-size':10,fill:'var(--yellow)'}); obl.textContent='SU(2)-orbit (|v|='+rv.toFixed(2)+')'; svg.appendChild(obl);
+    const obl=SVG('text',{x:cxL+rv*scaleL+4,y:cyL,'font-size':10,fill:'var(--yellow)'}); obl.textContent='C×-orbit (|v|='+rv.toFixed(2)+')'; svg.appendChild(obl);
     // current v
     const vx=cxL+v[0]*scaleL, vy=cyL-v[1]*scaleL;
     svg.appendChild(SVG('circle',{cx:vx,cy:vy,r:7,fill:'var(--yellow)',stroke:'#fff','stroke-width':1.5,style:'cursor:grab'}));
@@ -1116,7 +1116,7 @@ function drawNode(svg, x, y, label, opts={}){
       'v = (' + v[0].toFixed(2) + ', ' + v[1].toFixed(2) + ')\n' +
       '|v| = ' + rv.toFixed(3) + '   |μ(v)| = ' + (phi_cur*4).toFixed(3).slice(0,5) + '  (= ¼(|v|²−1)²)\n' +
       'GIT-stability: ' + classification + '\n' +
-      'Kempf–Ness: the unique zero of μ along the SL₂-orbit through v is at |v|=1 — exists iff v ≠ 0.';
+      'Kempf–Ness: the unique zero of μ along the C×-orbit through v is at |v|=1 — exists iff v ≠ 0. Quotient = P¹.';
   }
   // dragging
   svg.addEventListener('pointerdown', e=>{
@@ -1492,7 +1492,7 @@ function drawNode(svg, x, y, label, opts={}){
 <li><a href="./mmp-and-birational-geometry.html#flips">MMP &amp; birational geometry</a> — VGIT manufactures explicit flips. Thaddeus / Dolgachev–Hu's wall-crossing structure is one of the cleanest naturally occurring sources of small modifications.</li>
 <li><a href="./algebraic-curves-higher-genus.html#moduli-of-curves-genus-g">Higher-genus curves</a> — Mumford's original GIT construction of $\overline{M}_g$ used tricanonical Hilbert points and reduced Deligne–Mumford stability to GIT stability.</li>
 <li><a href="./stacks.html#quotient">Stacks</a> — $[X/G]$ is the stack quotient; $X/\!/G$ is the coarse moduli space. GIT remembers less (loses automorphism information) but produces an actual scheme. Both are needed.</li>
-<li><a href="./representation-theory.html#orbits">Group actions and orbits</a> — quiver moduli (King) extends GIT to representation moduli of any finite quiver, recovering many classical moduli spaces (vector bundles, Higgs bundles) as quiver moduli with relations.</li>
+<li><a href="./representation-theory.html#sec-orbit">Group actions and orbits</a> — quiver moduli (King) extends GIT to representation moduli of any finite quiver, recovering many classical moduli spaces (vector bundles, Higgs bundles) as quiver moduli with relations.</li>
 </ul>
 
 <p>Frontier: Bridgeland stability conditions on derived categories $D^b(X)$ generalise GIT stability to a continuous parameter space $\mathrm{Stab}(X)$, with a wall-and-chamber structure refining VGIT and a conjectural action of the mapping class group / braid group. The Bayer–Macrì programme uses Bridgeland walls to run the MMP on moduli of sheaves on K3 surfaces, producing all known minimal models from a single derived-category computation. The interplay between GIT, Bridgeland, and quantum cohomology is one of the active modern research areas in algebraic geometry.</p>

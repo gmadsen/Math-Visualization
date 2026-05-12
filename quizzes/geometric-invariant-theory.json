@@ -50,7 +50,11 @@
             "The unipotent group $U_n$ of upper-triangular matrices with $1$s on the diagonal",
             "Any torus $(\\mathbb{G}_m)^n$"
           ],
-          "answer": [0, 1, 4],
+          "answer": [
+            0,
+            1,
+            4
+          ],
           "explain": "$\\mathrm{GL}_n$, $\\mathrm{SL}_n$, and tori are reductive — they have trivial unipotent radical and every finite-dimensional representation is semisimple in characteristic zero. $\\mathbb{G}_a$ and unipotent groups are not reductive: their representations have nontrivial extensions (e.g.\\ $\\mathbb{G}_a$ on $\\mathbb{C}^2$ as $t\\mapsto\\begin{pmatrix}1&t\\\\0&1\\end{pmatrix}$ has no invariant complement to the $x$-axis)."
         },
         {
@@ -97,7 +101,12 @@
             "Some $G$-invariant section is nonzero on $x$, but $\\overline{G\\cdot x}$ meets a strictly smaller orbit",
             "No nonzero $G$-invariant section misses $x$ (every $G$-invariant section vanishes there)"
           ],
-          "answer": [3, 2, 0, 1],
+          "answer": [
+            3,
+            2,
+            0,
+            1
+          ],
           "explain": "Unstable = every invariant section vanishes; semistable = some invariant section is nonzero (the points that survive the quotient); strictly semistable = semistable but the orbit closure absorbs smaller orbits, so several orbits collapse to one quotient point; stable = closed orbit with finite stabilizer (so the orbit is a single quotient point and has the right dimension); polystable = closed orbit but the stabilizer may be larger (the orbit still represents a unique quotient point but isn't \"generic\")."
         },
         {
@@ -143,7 +152,7 @@
         },
         {
           "type": "numeric",
-          "q": "For the binary quartic $f(x,y)=x^3 y$ (so $n=4$ and only the $i=3$ coefficient is nonzero) and $\\lambda(t)=\\operatorname{diag}(t,t^{-1})$, compute the Hilbert–Mumford weight $\\mu(f,\\lambda)$.",
+          "q": "For the binary quartic $f(x,y)=x^3 y$ (so $n=4$ and only the $i=3$ coefficient is nonzero) and the specific 1-PS $\\lambda(t)=\\operatorname{diag}(t,t^{-1})$ (not the supremum over all 1-PSs), compute $\\mu(f,\\lambda)$.",
           "answer": 2,
           "tol": 1e-9,
           "explain": "Only the $i=3$ coefficient is nonzero, contributing weight $2\\cdot 3-4=2$. Since $\\mu>0$, this 1-PS drives $f$ <em>away</em> from $0$ (so $f$ is in fact semistable for this $\\lambda$ — only $\\lambda^{-1}=\\operatorname{diag}(t^{-1},t)$ would push $f\\to 0$, with weight $-2$). The Hilbert–Mumford criterion looks at the worst 1-PS: $f=x^3y$ has minimum weight $-2$ over all conjugate 1-PSs (just swap which axis is shrunk), and so $f$ is unstable for $\\mathrm{SL}_2$ — a triple root is too much."
@@ -157,7 +166,12 @@
             "Decompose the action of $\\lambda$ on the ambient $V=H^0(X,L)$ into weight spaces $V=\\bigoplus V_w$, and write $x=\\sum x_w$.",
             "Declare $x$ semistable iff $\\mu(x,\\lambda)\\le 0$ for every $\\lambda$; stable iff $\\mu(x,\\lambda)<0$ for every nontrivial $\\lambda$."
           ],
-          "answer": [1, 2, 0, 3],
+          "answer": [
+            1,
+            2,
+            0,
+            3
+          ],
           "explain": "Standard workflow: parametrise 1-PSs (often it suffices to test only finitely many up to conjugacy, like the diagonal ones for $\\mathrm{SL}_n$), decompose the ambient representation under each $\\lambda$ into weight pieces, read off the minimum weight where $x$ has nonzero support, then apply the $\\le 0$ / $<0$ test. The pedagogical example is $\\mathrm{SL}_2$ on binary $n$-forms: diagonal 1-PSs give the weight $2i-n$ on $x^iy^{n-i}$, and the criterion becomes \"no root has multiplicity $>n/2$.\""
         }
       ]
@@ -198,7 +212,11 @@
             "Every reductive $G$ is a maximal compact $K$ (false in general).",
             "Moduli problems with a symplectic interpretation (stable bundles, ASD connections) admit an algebraic incarnation as a GIT quotient."
           ],
-          "answer": [0, 1, 3],
+          "answer": [
+            0,
+            1,
+            3
+          ],
           "explain": "Kempf–Ness directly gives the Kähler quotient (the symplectic reduction inherits a complex structure from the GIT side and a metric from the symplectic side), supplies the minimisation algorithm for stability ($\\|\\mu\\|^2$-flow lands at the polystable orbit), and identifies moduli of stable bundles / instantons (Atiyah–Bott, Donaldson) with GIT quotients. The claim that $G=K$ is false — $K$ is a proper subgroup of $G_\\mathbb{C}$ (real form vs complexification)."
         }
       ]
@@ -249,7 +267,7 @@
       "questions": [
         {
           "type": "matching",
-          "q": "Match each moduli problem to the GIT construction that produces it.",
+          "q": "Match each moduli problem to the standard construction that produces it.",
           "left": [
             "$M_g$ (smooth genus-$g$ curves, $g\\ge 2$)",
             "Moduli of representations of a quiver $Q$ with dimension vector $\\mathbf{d}$ and stability character $\\theta$",
@@ -262,7 +280,12 @@
             "Period domain quotients (a Hodge-theoretic, not direct-GIT, construction)",
             "Geometric invariant theory of semistable bundles via Quot schemes (Seshadri / Gieseker)"
           ],
-          "answer": [1, 0, 3, 2],
+          "answer": [
+            1,
+            0,
+            3,
+            2
+          ],
           "explain": "Mumford's $M_g$: tricanonical Hilbert points are stable iff the curve is Deligne–Mumford stable; the quotient is $M_g$. King: quiver representations have a GIT-natural character that matches slope stability. Seshadri–Gieseker: semistable bundles on a curve correspond to Quot-scheme points stable under $\\mathrm{GL}$. Polarized K3 moduli: the natural construction is via Hodge structures and period maps, not directly GIT — although GIT plays a role in compactifications and the Hilbert-point picture."
         },
         {

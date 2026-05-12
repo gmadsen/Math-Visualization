@@ -566,7 +566,7 @@ window.__MVConcepts = {
           ],
           "blurb": "The GIT quotient depends on the choice of linearization $L$. The cone of fractional linearizations $\\mathrm{NS}^G(X)_\\mathbb{Q}$ has a finite chamber decomposition: inside each chamber the semistable locus and the quotient $X/\\!/_L G$ are constant, but across a <em>wall</em> a stable locus is replaced by a semistable boundary and the quotient changes by a small birational modification — typically a flip in the sense of the minimal model program. Thaddeus and Dolgachev–Hu (1998) made this precise: varying the linearization sweeps out a family of birational models of the moduli space, and the relevant transitions are exactly the elementary flips of MMP. VGIT is one of the cleanest natural settings where the MMP runs explicitly.",
           "tags": [
-            "lifting",
+            "moduli",
             "duality"
           ]
         },

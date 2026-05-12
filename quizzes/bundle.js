@@ -25291,7 +25291,7 @@ window.MVQuizBank = {
           },
           {
             "type": "numeric",
-            "q": "For the binary quartic $f(x,y)=x^3 y$ (so $n=4$ and only the $i=3$ coefficient is nonzero) and $\\lambda(t)=\\operatorname{diag}(t,t^{-1})$, compute the Hilbert–Mumford weight $\\mu(f,\\lambda)$.",
+            "q": "For the binary quartic $f(x,y)=x^3 y$ (so $n=4$ and only the $i=3$ coefficient is nonzero) and the specific 1-PS $\\lambda(t)=\\operatorname{diag}(t,t^{-1})$ (not the supremum over all 1-PSs), compute $\\mu(f,\\lambda)$.",
             "answer": 2,
             "tol": 1e-9,
             "explain": "Only the $i=3$ coefficient is nonzero, contributing weight $2\\cdot 3-4=2$. Since $\\mu>0$, this 1-PS drives $f$ <em>away</em> from $0$ (so $f$ is in fact semistable for this $\\lambda$ — only $\\lambda^{-1}=\\operatorname{diag}(t^{-1},t)$ would push $f\\to 0$, with weight $-2$). The Hilbert–Mumford criterion looks at the worst 1-PS: $f=x^3y$ has minimum weight $-2$ over all conjugate 1-PSs (just swap which axis is shrunk), and so $f$ is unstable for $\\mathrm{SL}_2$ — a triple root is too much."
@@ -25406,7 +25406,7 @@ window.MVQuizBank = {
         "questions": [
           {
             "type": "matching",
-            "q": "Match each moduli problem to the GIT construction that produces it.",
+            "q": "Match each moduli problem to the standard construction that produces it.",
             "left": [
               "$M_g$ (smooth genus-$g$ curves, $g\\ge 2$)",
               "Moduli of representations of a quiver $Q$ with dimension vector $\\mathbf{d}$ and stability character $\\theta$",
