@@ -345,6 +345,13 @@ function scriptReferencesSelector(scriptText, selector, kind) {
   // dynamic-id construction in the rest of the script. Without this branch,
   // diagram-editor / julia-playground / similar registry widgets all
   // false-positive as static.
+  //
+  // Contract: the `widgetId: '<id>'` convention is defined by
+  // `scripts/new-widget.mjs` (scaffolder) and the renderScript outputs in
+  // every `widgets/<slug>/index.mjs`. If a future refactor renames the key
+  // (e.g. `id:` instead of `widgetId:`) or switches to a closure form that
+  // omits the assignment, regenerate this branch to match the new
+  // convention — otherwise dynamic-id widgets silently regress to static.
   if (kind === 'id') {
     // The key may be quoted (`"widgetId":`) from JSON.stringify output or
     // bare (`widgetId:`) from hand-authored object literals; accept both.
