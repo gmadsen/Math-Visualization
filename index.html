@@ -556,7 +556,19 @@
   #recently-updated.ready{display:block}
   #recently-updated .ru-head{font-size:0.78rem;letter-spacing:0.16em;text-transform:uppercase;
     color:var(--mute);margin:0 0 0.8rem;padding-bottom:0.4rem;border-bottom:1px solid var(--line);
-    font-weight:400}
+    font-weight:400;display:flex;align-items:center;justify-content:space-between;
+    gap:0.6rem}
+  #recently-updated .ru-toggle{background:none;border:none;color:var(--mute);
+    font:inherit;letter-spacing:inherit;text-transform:inherit;cursor:pointer;
+    padding:2px 6px;border-radius:4px;margin:0;line-height:1;
+    display:inline-flex;align-items:center;gap:0.4rem}
+  #recently-updated .ru-toggle:hover{color:var(--ink);background:var(--panel2)}
+  #recently-updated .ru-toggle:focus-visible{outline:1px solid var(--violet);outline-offset:1px}
+  #recently-updated .ru-caret{display:inline-block;width:0.6em;text-align:center;
+    transition:transform 150ms ease}
+  #recently-updated.collapsed .ru-strip{display:none}
+  #recently-updated.collapsed .ru-head{margin:0;padding:0;border-bottom:none}
+  #recently-updated.collapsed .ru-caret{transform:rotate(-90deg)}
   .ru-strip{display:flex;flex-direction:column;gap:8px}
   .ru-card{background:var(--panel);border:1px solid var(--line);border-radius:8px;
     padding:0.55rem 0.8rem;display:flex;align-items:center;gap:12px;
@@ -718,8 +730,13 @@
   </section>
 
   <section id="recently-updated" aria-label="Recently updated topics">
-    <h2 class="ru-head">Recently updated</h2>
-    <div class="ru-strip"></div>
+    <h2 class="ru-head">
+      <button type="button" class="ru-toggle" aria-expanded="true" aria-controls="ru-strip">
+        <span class="ru-caret" aria-hidden="true">▾</span>
+        <span>Recently updated</span>
+      </button>
+    </h2>
+    <div class="ru-strip" id="ru-strip"></div>
   </section>
 
     <div class="sec">Logic &amp; Foundations</div>
@@ -4951,6 +4968,40 @@
       strip.appendChild(a);
     }
     container.classList.add('ready');
+
+    // Collapsible toggle. State persists in localStorage as 'mvnb.ui.recentOpen'
+    // (per the storage allowlist in CLAUDE.md). Default is OPEN for new
+    // visitors; storage event keeps cross-tab state in sync.
+    var STORE_KEY = 'mvnb.ui.recentOpen';
+    var toggle = container.querySelector('.ru-toggle');
+    function apply(open){
+      if(open){
+        container.classList.remove('collapsed');
+        if(toggle) toggle.setAttribute('aria-expanded', 'true');
+      } else {
+        container.classList.add('collapsed');
+        if(toggle) toggle.setAttribute('aria-expanded', 'false');
+      }
+    }
+    function readStored(){
+      try {
+        var raw = localStorage.getItem(STORE_KEY);
+        if(raw === null) return true; // default open
+        return raw !== '0';            // '0' = closed, anything else = open
+      } catch(_) { return true; }
+    }
+    apply(readStored());
+    if(toggle){
+      toggle.addEventListener('click', function(){
+        var nowOpen = container.classList.contains('collapsed');
+        apply(nowOpen);
+        try { localStorage.setItem(STORE_KEY, nowOpen ? '1' : '0'); } catch(_) {}
+      });
+    }
+    window.addEventListener('storage', function(e){
+      if(e.key !== STORE_KEY) return;
+      apply(readStored());
+    });
   }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();
