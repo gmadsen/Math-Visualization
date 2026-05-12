@@ -48913,6 +48913,301 @@ window.MVQuizBank = {
       }
     }
   },
+  "random-matrix-theory": {
+    "topic": "random-matrix-theory",
+    "quizzes": {
+      "rmt-ensembles": {
+        "title": "Ensembles and the Dyson index",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which Dyson index $\\beta$ corresponds to the Gaussian Unitary Ensemble (GUE) of $N\\times N$ complex Hermitian matrices with i.i.d.\\ Gaussian entries?",
+            "choices": [
+              "$\\beta=1$",
+              "$\\beta=2$",
+              "$\\beta=4$",
+              "$\\beta=0$ (Poisson limit)"
+            ],
+            "answer": 1,
+            "explain": "$\\beta$ is the real dimension of the entry algebra: GOE uses $\\mathbb{R}$ ($\\beta=1$), GUE uses $\\mathbb{C}$ ($\\beta=2$), GSE uses $\\mathbb{H}$ ($\\beta=4$). The joint eigenvalue density carries the Vandermonde factor $\\prod|\\lambda_i-\\lambda_j|^\\beta$."
+          },
+          {
+            "type": "numeric",
+            "q": "The Wigner surmise for nearest-neighbour eigenvalue gaps in a $\\beta$-ensemble scales as $p_\\beta(s)\\propto s^\\beta$ near $s=0$. For GUE, evaluate the exponent of $s$ in the gap density at $s\\to 0$.",
+            "answer": 2,
+            "tol": 1e-9,
+            "explain": "GUE has $\\beta=2$, so the surmise behaves as $s^2$ near $0$ — quadratic level repulsion. GOE gives linear ($s$), GSE quartic ($s^4$)."
+          },
+          {
+            "type": "multi-select",
+            "q": "Select every statement that is true of the classical Wigner ensembles GOE, GUE, GSE.",
+            "choices": [
+              "The joint eigenvalue density carries a factor $\\prod_{i<j}|\\lambda_i-\\lambda_j|^\\beta$.",
+              "Above-diagonal entries are independent.",
+              "All three ensembles have the same level-spacing statistics.",
+              "The eigenvalues are real for all three ensembles."
+            ],
+            "answer": [
+              0,
+              1,
+              3
+            ],
+            "explain": "All three are sums of independent (above-diagonal) Gaussians respecting symmetry, all have real spectra (symmetric / Hermitian / self-dual), and all carry the Vandermonde-$\\beta$ joint density. Their level-spacing statistics differ — that's exactly what $\\beta$ controls."
+          }
+        ]
+      },
+      "rmt-wigner-semicircle": {
+        "title": "Wigner's semicircle law",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which density is the Wigner semicircle law on $[-2,2]$?",
+            "choices": [
+              "$\\rho(x)=\\tfrac{1}{2\\pi}\\sqrt{4-x^2}$",
+              "$\\rho(x)=\\tfrac{1}{\\pi}\\sqrt{1-x^2/4}$",
+              "$\\rho(x)=\\tfrac{1}{4}\\sqrt{4-x^2}$",
+              "$\\rho(x)=\\tfrac{1}{2\\pi}\\sqrt{1-x^2}$"
+            ],
+            "answer": 0,
+            "explain": "$\\rho_{\\mathrm{sc}}(x)=\\tfrac{1}{2\\pi}\\sqrt{4-x^2}\\mathbf{1}_{[-2,2]}(x)$ integrates to $1$ on $[-2,2]$. It is the weak limit of the empirical spectral measure of $H/\\sqrt N$ for a Wigner matrix."
+          },
+          {
+            "type": "numeric",
+            "q": "Wigner's moment proof gives $\\lim_{N\\to\\infty}\\tfrac{1}{N}\\mathbb{E}\\tr (H/\\sqrt N)^{2m} = C_m$, the $m$-th Catalan number. Compute $C_3$.",
+            "answer": 5,
+            "tol": 1e-9,
+            "explain": "$C_m = \\tfrac{1}{m+1}\\binom{2m}{m}$. $C_3=\\tfrac{1}{4}\\binom{6}{3}=\\tfrac{20}{4}=5$. The semicircle's even moments are exactly the Catalan numbers; odd moments vanish."
+          },
+          {
+            "type": "ordering",
+            "q": "Order the steps of the moment-method proof of Wigner's law.",
+            "items": [
+              "Identify surviving walks: only non-crossing pair-matchings of the $2m$ edges contribute in the limit.",
+              "Expand $\\tfrac{1}{N}\\tr (H/\\sqrt N)^{2m}$ as a sum over closed walks of length $2m$.",
+              "Conclude $\\mu_N\\Rightarrow\\rho_{\\mathrm{sc}}$ by Carleman's moment-determinacy criterion.",
+              "Count: non-crossing pair-matchings of $2m$ edges = Catalan number $C_m$."
+            ],
+            "answer": [
+              1,
+              0,
+              3,
+              2
+            ],
+            "explain": "The standard order: expand the trace into a walk sum; identify which walks survive the $N\\to\\infty$ limit (non-crossing pair-matchings only, by edge-coincidence and variance counting); count those matchings (Catalan); match the resulting moments to $\\rho_{\\mathrm{sc}}$ via Carleman."
+          }
+        ]
+      },
+      "rmt-marchenko-pastur": {
+        "title": "Marchenko–Pastur and sample covariance",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "For a $p\\times n$ matrix $X$ with i.i.d.\\ unit-variance entries and $c=p/n$, the bulk of the Marchenko–Pastur density is supported on $[(1-\\sqrt c)^2,(1+\\sqrt c)^2]$. For $c=1/4$, what is the upper edge $b=(1+\\sqrt c)^2$?",
+            "answer": 2.25,
+            "tol": 0.000001,
+            "explain": "$\\sqrt{1/4}=1/2$, so $b=(1+1/2)^2=9/4=2.25$. The lower edge is $(1-1/2)^2=1/4=0.25$. As $c$ grows the support widens."
+          },
+          {
+            "type": "mcq",
+            "q": "At the critical ratio $c=1$, what happens to the Marchenko–Pastur density?",
+            "choices": [
+              "It develops a point mass at $0$ of weight $1$.",
+              "Its lower edge contacts $0$ with a $1/\\sqrt x$ singularity, but no point mass.",
+              "It splits into two disjoint intervals.",
+              "It coincides with the semicircle law."
+            ],
+            "answer": 1,
+            "explain": "At $c=1$ the lower edge is $a=(1-1)^2=0$, and $\\rho_1(x)\\sim 1/(2\\pi\\sqrt x)$ near $0$. No point mass yet — that appears only for $c>1$, when the matrix becomes rank-deficient and forces $p-n$ zero eigenvalues."
+          },
+          {
+            "type": "numeric",
+            "q": "For $c=2$ (twice as many dimensions as samples), what is the weight of the point mass at $0$ in the Marchenko–Pastur distribution?",
+            "answer": 0.5,
+            "tol": 0.000001,
+            "explain": "The point-mass weight is $1-1/c$ for $c>1$, accounting for the $p-n$ zero eigenvalues of the rank-$n$ matrix $\\tfrac{1}{n}XX^\\top$ in dimension $p$. At $c=2$ that's $1-1/2=0.5$."
+          }
+        ]
+      },
+      "rmt-tracy-widom": {
+        "title": "Tracy–Widom and the soft edge",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For a $N\\times N$ GUE matrix, which rescaling makes $\\lambda_{\\max}-2\\sqrt N$ converge to the Tracy–Widom $F_2$ distribution?",
+            "choices": [
+              "$N^{1/2}(\\lambda_{\\max}-2\\sqrt N)$",
+              "$N^{2/3}(\\lambda_{\\max}-2\\sqrt N)$",
+              "$N(\\lambda_{\\max}-2\\sqrt N)$",
+              "$\\log N\\cdot(\\lambda_{\\max}-2\\sqrt N)$"
+            ],
+            "answer": 1,
+            "explain": "Soft-edge fluctuations of $\\lambda_{\\max}$ in a Wigner ensemble are on the $N^{-2/3}$ scale; multiplying by $N^{2/3}$ gives an order-one limit, the Tracy–Widom $F_\\beta$ distribution. Bulk gaps, by contrast, are on the $N^{-1}$ scale."
+          },
+          {
+            "type": "multi-select",
+            "q": "Select every probability model in which the Tracy–Widom $F_2$ distribution is the proven scaling limit of an extreme statistic.",
+            "choices": [
+              "Length of the longest increasing subsequence of a random permutation (Baik–Deift–Johansson).",
+              "Mean of $n$ i.i.d.\\ samples from a Gaussian.",
+              "Height function of TASEP with step initial condition.",
+              "Largest eigenvalue of a Wishart $p\\times p$ sample covariance matrix at its upper edge."
+            ],
+            "answer": [
+              0,
+              2,
+              3
+            ],
+            "explain": "The KPZ universality class collects exactly these soft-edge / longest-path statistics under $F_2$ (curved or step initial data). The sample mean of i.i.d.\\ Gaussians is Gaussian by exact distribution, not Tracy–Widom — that's a different (Gaussian) universality class."
+          },
+          {
+            "type": "mcq",
+            "q": "The Tracy–Widom densities $F_\\beta'$ have negative mean and positive skewness. Compared to a Gaussian of matching mean and variance, the right tail of $F_\\beta'$ is:",
+            "choices": [
+              "Heavier (decays slower as $s\\to\\infty$).",
+              "Lighter (decays faster as $s\\to\\infty$).",
+              "Identical to the Gaussian's right tail.",
+              "Discontinuous."
+            ],
+            "answer": 1,
+            "explain": "The right tail decays like $\\exp(-cs^{3/2})$ — faster than the Gaussian's $\\exp(-cs^2)$ for moderate $s$, much faster as $s\\to\\infty$. The left tail decays like $\\exp(-c|s|^3/24)$ for $F_2$, which is heavier than Gaussian on the left. Net effect: skewed-right means positive skewness with a sharp upper bound."
+          }
+        ]
+      },
+      "rmt-free-probability": {
+        "title": "Freeness and the $R$-transform",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Two subalgebras $\\mathcal{B}_1,\\mathcal{B}_2$ of a tracial $\\ast$-algebra $(\\mathcal{A},\\tau)$ are <em>free</em> iff $\\tau(b_1 b_2\\cdots b_k)=0$ for every alternating word with $b_i\\in\\mathcal{B}_{\\epsilon(i)}$, $\\epsilon(i)\\ne\\epsilon(i+1)$, and which extra condition?",
+            "choices": [
+              "$\\tau(b_i)=0$ for every $i$.",
+              "$b_1\\cdots b_k=0$.",
+              "Every $b_i$ is self-adjoint.",
+              "The word length $k$ is even."
+            ],
+            "answer": 0,
+            "explain": "Freeness demands the trace of an alternating word in <em>centred</em> elements vanishes. This is the noncommutative analogue of $\\mathbb{E}[\\prod X_i]=\\prod\\mathbb{E} X_i=0$ for centred independent variables — but alternation is essential because the algebra is noncommutative."
+          },
+          {
+            "type": "mcq",
+            "q": "The $R$-transform $R_\\mu$ linearises which operation on free random variables?",
+            "choices": [
+              "Free multiplicative convolution $\\mu\\boxtimes\\nu$.",
+              "Free additive convolution $\\mu\\boxplus\\nu$.",
+              "Classical convolution $\\mu*\\nu$.",
+              "Free compression $\\mu_{[p,q]}$."
+            ],
+            "answer": 1,
+            "explain": "$R_{\\mu\\boxplus\\nu}=R_\\mu+R_\\nu$ — the free additive convolution becomes simple sum of $R$-transforms, exactly as $\\log\\hat\\varphi_{\\mu*\\nu}=\\log\\hat\\varphi_\\mu+\\log\\hat\\varphi_\\nu$ does for classical convolution. The $S$-transform plays the same role for free <em>multiplicative</em> convolution $\\boxtimes$."
+          },
+          {
+            "type": "numeric",
+            "q": "Let $\\mu_1=\\mu_2=\\rho_1$ be the standard semicircle of radius $1$. The free additive convolution $\\mu_1\\boxplus\\mu_2$ is the semicircle of what radius?",
+            "answer": 1.41421356,
+            "tol": 0.0001,
+            "explain": "Semicircles are stable under $\\boxplus$ with the rule $\\rho_{r_1}\\boxplus\\rho_{r_2}=\\rho_{\\sqrt{r_1^2+r_2^2}}$, equivalently $R_{\\rho_r}(z)=r^2 z/4$ so $R_{\\rho_1}+R_{\\rho_1}=z/2$, which is the $R$-transform of $\\rho_{\\sqrt 2}$. Radius $\\sqrt 2\\approx 1.414$."
+          }
+        ]
+      },
+      "rmt-universality": {
+        "title": "Universality of the Wigner law",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which feature of the entry distribution is enough to determine the limiting eigenvalue density of a Wigner matrix?",
+            "choices": [
+              "All moments up to order $\\log N$.",
+              "Mean and variance only (plus a finite-moment condition).",
+              "The full distribution.",
+              "Skewness and kurtosis."
+            ],
+            "answer": 1,
+            "explain": "The semicircle limit depends only on mean (zero) and variance (one), provided a finite-higher-moment condition holds. This is the global semicircle universality theorem — distributional fingerprints wash out, exactly as the CLT washes out the entry distribution for sums."
+          },
+          {
+            "type": "multi-select",
+            "q": "Select every statement true of the Erdős–Schlein–Yau / Tao–Vu local universality theorems.",
+            "choices": [
+              "The sine-kernel describes the bulk spacing distribution.",
+              "Local eigenvalue statistics in the bulk depend on the entry distribution only through its first two moments (under mild tail conditions).",
+              "Universality holds at the soft edge as well, with Tracy–Widom as the limit.",
+              "Universality holds only for Gaussian entries; non-Gaussian Wigner matrices have ensemble-specific local laws."
+            ],
+            "answer": [
+              0,
+              1,
+              2
+            ],
+            "explain": "Bulk sine-kernel and edge Tracy–Widom are both universal across Wigner ensembles satisfying mild moment / tail conditions. The whole point of the universality theorems is that the limit law is <em>not</em> ensemble-specific."
+          },
+          {
+            "type": "mcq",
+            "q": "The four-moment method of Tao–Vu proves universality by showing that:",
+            "choices": [
+              "Wigner matrices with the same first four entry moments have asymptotically identical local eigenvalue statistics.",
+              "Every Wigner matrix has the same fourth moment.",
+              "GUE matrices are the only Wigner matrices with universal statistics.",
+              "Four eigenvalues suffice to determine the full spectrum."
+            ],
+            "answer": 0,
+            "explain": "Tao–Vu's four-moment theorem: if two Wigner matrix distributions match in their first four moments (entry-wise), local eigenvalue statistics are asymptotically the same. Since any Wigner distribution can be moment-matched to GUE up to four moments, universality reduces to the GUE case (where everything is computed exactly via the Hermite kernel)."
+          }
+        ]
+      },
+      "rmt-katz-sarnak": {
+        "title": "Katz–Sarnak symmetry",
+        "questions": [
+          {
+            "type": "matching",
+            "q": "Match each natural $L$-function family to its Katz–Sarnak symmetry type.",
+            "left": [
+              "$U(N)$ unitary",
+              "$\\mathrm{USp}(2N)$ symplectic",
+              "$O^+(2N)$ even orthogonal",
+              "$O^-(2N+1)$ odd orthogonal"
+            ],
+            "right": [
+              "$L(s,E)$ with global root number $w(E)=-1$",
+              "quadratic Dirichlet $L(s,\\chi_d)$",
+              "the singleton $\\{\\zeta\\}$",
+              "$L(s,E)$ with global root number $w(E)=+1$"
+            ],
+            "answer": [
+              3,
+              1,
+              0,
+              2
+            ],
+            "explain": "$\\zeta$ alone gives unitary statistics (Montgomery's pair correlation). Quadratic Dirichlet $L$-functions form a symplectic family with a forced sign in their functional equation. Elliptic-curve $L$-functions split by root number: $w(E)=+1$ gives even orthogonal $O^+$ (no forced zero at $s=\\tfrac12$), $w(E)=-1$ gives odd orthogonal $O^-$ (forced zero at $s=\\tfrac12$, contributing a $\\delta_0$ to the one-level density)."
+          },
+          {
+            "type": "mcq",
+            "q": "Montgomery's 1972 pair-correlation function for the non-trivial zeros of $\\zeta(s)$ is $R_2(\\alpha)=1-\\bigl(\\tfrac{\\sin\\pi\\alpha}{\\pi\\alpha}\\bigr)^2$. Dyson recognised this immediately as the pair correlation of which random-matrix ensemble?",
+            "choices": [
+              "Gaussian Orthogonal Ensemble (GOE)",
+              "Gaussian Unitary Ensemble (GUE)",
+              "Gaussian Symplectic Ensemble (GSE)",
+              "Poisson process"
+            ],
+            "answer": 1,
+            "explain": "The $1-\\mathrm{sinc}^2$ kernel is the pair correlation of GUE eigenvalues — the unitary $\\beta=2$ symmetry class. Odlyzko's computations of millions of $\\zeta$-zeros agree with GUE statistics to many decimals, supporting the Hilbert–Pólya / Montgomery–Odlyzko picture that the zeros are eigenvalues of an unidentified self-adjoint operator with GUE-like statistics."
+          },
+          {
+            "type": "mcq",
+            "q": "Over function fields $\\mathbb{F}_q(t)$, the Katz–Sarnak symmetry assignment is:",
+            "choices": [
+              "A heuristic, supported by partial results.",
+              "A theorem, proved via Deligne's equidistribution and Katz's geometric monodromy computations.",
+              "False for elliptic-curve families.",
+              "Equivalent to GRH over $\\mathbb{F}_q(t)$."
+            ],
+            "answer": 1,
+            "explain": "On the function-field side the $L$-functions are polynomials in $T=q^{-s}$ with roots on $|T|=q^{-1/2}$ (Weil), and the Frobenius angles equidistribute against the Haar measure of the geometric monodromy group — exactly Katz–Sarnak. Over number fields the same statement is a conjecture; the function-field calculation is the heuristic engine that motivated the conjecture."
+          }
+        ]
+      }
+    }
+  },
   "random-walks-and-mixing": {
     "topic": "random-walks-and-mixing",
     "quizzes": {

@@ -1,6 +1,14 @@
 {
-  "generated": "2026-05-12T04:49:46.536Z",
+  "generated": "2026-05-12T05:26:32.103Z",
   "entries": [
+    {
+      "slug": "random-matrix-theory",
+      "title": "Random matrix theory",
+      "color": "c",
+      "tag": "",
+      "date": "2026-05-11",
+      "message": "scaffold(random-matrix-theory): stub topic in probability-and-statistics"
+    },
     {
       "slug": "complex-multiplication",
       "title": "Complex multiplication",

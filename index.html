@@ -610,9 +610,9 @@
     <h1>Interactive Mathematics Notebook</h1>
     <p class="sub">Interactive concepts across mathematics — from foundations to research-level topics — each a single-page explainer with live widgets and worked examples.</p>
     <div class="hero-tagline" aria-label="Notebook scope">
-      <span><span class="tg-num">172</span> topics</span>
+      <span><span class="tg-num">173</span> topics</span>
       <span class="dot">&middot;</span>
-      <span><span class="tg-num">1194</span> concepts</span>
+      <span><span class="tg-num">1201</span> concepts</span>
       <span class="dot">&middot;</span>
       <span>pathway-graph explorer</span>
     </div>
@@ -1969,16 +1969,26 @@
     </a>
 
 
-    <a class="card g" href="./random-matrix-theory.html">
+    <a class="card c" href="./random-matrix-theory.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <!-- TODO: replace this placeholder thumb with a motif evocative of the topic. -->
-        <rect x="18" y="18" width="64" height="44" rx="6" fill="none" stroke="var(--green)" stroke-width="1.4"/>
-        <text x="50" y="46" text-anchor="middle" font-size="10" fill="var(--green)" font-style="italic" font-family="serif">draft</text>
+        <!-- baseline + Wigner semicircle filled, eigenvalue tick marks below -->
+        <line x1="10" y1="58" x2="90" y2="58" stroke="var(--mute)" stroke-width="0.7"/>
+        <path d="M 18 58 A 32 24 0 0 1 82 58 Z" fill="var(--cyan)" fill-opacity="0.18" stroke="var(--cyan)" stroke-width="1.3"/>
+        <g stroke="var(--cyan)" stroke-width="1">
+          <line x1="22" y1="55" x2="22" y2="63"/><line x1="29" y1="55" x2="29" y2="63"/>
+          <line x1="36" y1="55" x2="36" y2="63"/><line x1="43" y1="55" x2="43" y2="63"/>
+          <line x1="50" y1="55" x2="50" y2="63"/><line x1="57" y1="55" x2="57" y2="63"/>
+          <line x1="64" y1="55" x2="64" y2="63"/><line x1="71" y1="55" x2="71" y2="63"/>
+          <line x1="78" y1="55" x2="78" y2="63"/>
+        </g>
+        <text x="18" y="74" font-size="7" fill="var(--mute)" font-family="serif">−2</text>
+        <text x="82" y="74" text-anchor="end" font-size="7" fill="var(--mute)" font-family="serif">+2</text>
+        <text x="50" y="30" text-anchor="middle" font-size="8" fill="var(--cyan)" font-style="italic" font-family="serif">ρ_sc</text>
       </svg></div>
       <div class="body">
-        <div class="tt">Random matrix theory</div>
-        <div class="desc">Draft — fill in once the page has real content.</div>
-        <span class="tag">Probability &amp; statistics</span>
+        <div class="tt">Random matrix theory <span class="level advanced">advanced</span></div>
+        <div class="desc">Eigenvalue statistics of large random matrices: Wigner's semicircle, Marchenko–Pastur, Tracy–Widom universality, Voiculescu's free probability, and the Katz–Sarnak dictionary between $L$-function families and random-matrix ensembles.</div>
+        <span class="tag">GUE · semicircle · MP · Tracy–Widom · free convolution</span>
       </div>
     </a>
 
