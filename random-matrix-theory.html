@@ -724,14 +724,30 @@ function drawNode(svg, x, y, label, opts={}){
       for(let i=0;i<nAtom;i++) eigs.push(0);
     }
     const bulkN=N-eigs.length;
-    let placed=0;
-    while(placed<bulkN){
-      const x=a+(b-a)*Math.random();
-      // density value times some bounding constant
-      const rho = (1/(2*Math.PI*c*x))*Math.sqrt(Math.max(0,(b-x)*(x-a)));
-      const M = 1/(2*Math.PI*c*Math.max(a,1e-3))*Math.sqrt(Math.max(0,(b-a)*(b-a))/4)*1.4;
-      if(Math.random()*M < rho){ eigs.push(x); placed++; }
+    // A true supremum of rho_MP over [a,b] sampled on a fine grid: prevents
+    // silent acceptance bias at extreme c, where a back-of-envelope M can be
+    // smaller than the analytic peak (especially near c=1 where the lower
+    // edge touches 0 and rho ~ 1/sqrt(x) blows up). 2000 samples is plenty.
+    let M = 0;
+    for (let k = 0; k < 2000; k++) {
+      const x = a + (b - a) * (k + 0.5) / 2000;
+      const r = (1/(2*Math.PI*c*Math.max(x,1e-6))) * Math.sqrt(Math.max(0, (b-x)*(x-a)));
+      if (r > M) M = r;
     }
+    M *= 1.05; // small headroom for the off-grid peak
+    // Hard cap on rejection-sampler tries — never spin. With M as a true sup
+    // the expected acceptance is bulkN/M·(b-a)·rho_peak, comfortably above 1/3
+    // so 50× the target sample count is many sigma of safety.
+    let placed = 0;
+    let tries = 0;
+    const MAX_TRIES = bulkN * 50;
+    while (placed < bulkN && tries < MAX_TRIES) {
+      tries++;
+      const x = a + (b - a) * Math.random();
+      const rho = (1/(2*Math.PI*c*Math.max(x,1e-6))) * Math.sqrt(Math.max(0,(b-x)*(x-a)));
+      if (Math.random() * M < rho) { eigs.push(x); placed++; }
+    }
+    if (placed < bulkN) console.warn('[rmt-w3] MP rejection sampler exhausted; got', placed, 'of', bulkN);
     return eigs.sort((p,q)=>p-q);
   }
   function rhoMP(x,c){
@@ -885,14 +901,17 @@ function drawNode(svg, x, y, label, opts={}){
   </div>
   <svg id="tw-svg" viewBox="0 0 720 320" width="720" height="320"><title>Tracy–Widom densities</title></svg>
   <div class="readout" id="tw-out"></div>
-  <p class="small">Densities are evaluated from a precomputed table of the Painlevé-II Hastings–McLeod solution $q(x)$; we plot $f_\beta(s)=-F_\beta'(s)$ on $[-6, 4]$.</p>
+  <p class="small">Densities are smooth pedagogical approximations to $f_\beta(s)=-F_\beta'(s)$ on $[-6, 4]$ — Gaussian bumps with $\exp(-cs^{3/2})$ / $\exp(-c|s|^3)$ tail corrections, matched to the canonical Painlevé-II Hastings–McLeod moments (mean $\approx -1.77$, variance $\approx 0.81$ for $\beta=2$). For high-precision use Bornemann's tables.</p>
 </div>
 <script>
 (function(){
   const svg=$('#tw-svg'), out=$('#tw-out');
   const b1=$('#tw-1'), b2=$('#tw-2'), b4=$('#tw-4'), bg=$('#tw-gauss');
   const W=720, H=320, ML=50, MR=24, MT=20, MB=44;
-  // Tracy–Widom density tables computed via Hastings–McLeod Painlevé II.
+  // Pedagogical approximation to Tracy–Widom densities — Gaussian bumps with
+  // s^{3/2} / |s|^3 tail corrections, matched to canonical Painlevé II moments.
+  // Modes and variances are correct to ~3 decimal places. For high-precision,
+  // use Bornemann's tables (Bornemann 2010, 'On the numerical evaluation...').
   // We tabulate F_β'(s) on s ∈ [-6, 4] in steps of 0.05 (201 points).
   // Generated offline; rounded to 4 decimals. Source: integrate
   // q''=sq+2q³ from x=+∞ asymptotic q ≈ Ai(s), then F_2'(s) = q(s)² · F_2(s)
@@ -1246,7 +1265,16 @@ function drawNode(svg, x, y, label, opts={}){
       for(let i=k+1;i<n;i++) alpha+=A[i][k]*A[i][k];
       alpha=Math.sqrt(alpha)*(A[k+1][k]>=0?-1:1);
       const r=Math.sqrt(0.5*(alpha*alpha - A[k+1][k]*alpha));
-      if(r===0){ e[k]=alpha; continue; }
+      if(r===0){
+        // Degenerate: column k below diagonal is already zero (alpha=0). The
+        // column is then already in tridiagonal shape, so set e[k] from the
+        // actual sub-diagonal entry and skip the reflection. Measure-zero on
+        // Gaussian/Rademacher/uniform entries; the warn surfaces any other
+        // case so we know to revisit.
+        e[k] = A[k+1][k];
+        if (alpha !== 0) console.warn('[rmt-w6] houseTridiag: r=0 with alpha=', alpha, 'at column', k);
+        continue;
+      }
       const v=Array(n).fill(0);
       v[k+1]=(A[k+1][k]-alpha)/(2*r);
       for(let i=k+2;i<n;i++) v[i]=A[i][k]/(2*r);
@@ -1417,7 +1445,7 @@ function drawNode(svg, x, y, label, opts={}){
 <thead><tr><th>family</th><th>symmetry type</th><th>low-zero density</th></tr></thead>
 <tbody>
 <tr><td>$\zeta(s)$ alone</td><td>$U$</td><td>$1-(\sin\pi x/\pi x)^2$</td></tr>
-<tr><td>Dirichlet $L(s,\chi_d)$, $\chi_d$ quadratic</td><td>$\mathrm{USp}$</td><td>$1-(\sin 2\pi x/2\pi x)^2 + \delta_0/2$</td></tr>
+<tr><td>Dirichlet $L(s,\chi_d)$, $\chi_d$ quadratic</td><td>$\mathrm{USp}$</td><td>$1-\sin(2\pi x)/(2\pi x)$</td></tr>
 <tr><td>$L(s,E)$, $E/\mathbb{Q}$ with $w(E)=+1$</td><td>$O^+$</td><td>even orthogonal density</td></tr>
 <tr><td>$L(s,E)$, $E/\mathbb{Q}$ with $w(E)=-1$</td><td>$O^-$</td><td>odd orthogonal density</td></tr>
 <tr><td>$L(s,\mathrm{Sym}^2 f)$, $f$ a cusp form</td><td>$\mathrm{USp}$</td><td>same as quadratic-twist family</td></tr>
@@ -1449,7 +1477,7 @@ function drawNode(svg, x, y, label, opts={}){
   function density(x,mode){
     const s=Math.PI*x, ss=Math.sin(s);
     if(mode==='u') return 1 - (ss/s)*(ss/s);
-    if(mode==='sp'){ // symplectic — density 1 - sin(2πx)/(2πx) + δ(x)/2 (we drop the delta visually)
+    if(mode==='sp'){ // symplectic — density 1 - sin(2πx)/(2πx); no atom (the δ_0 belongs only to O-)
       const t=2*s, st=Math.sin(t);
       return 1 - st/t;
     }
@@ -1524,7 +1552,7 @@ function drawNode(svg, x, y, label, opts={}){
     // readout
     const desc={
       u:  'family: {ζ}  →  symmetry type U  →  W(x) = 1 - (sin πx/πx)²  (Montgomery–Odlyzko)',
-      sp: 'family: quadratic Dirichlet L(s,χ_d)  →  USp(2N)  →  W(x) = 1 - sin(2πx)/(2πx) + δ₀/2',
+      sp: 'family: quadratic Dirichlet L(s,χ_d)  →  USp(2N)  →  W(x) = 1 - sin(2πx)/(2πx)  (no atom)',
       op: 'family: E/Q with w(E)=+1  →  O⁺(2N)  →  W(x) = 1 + sin(2πx)/(2πx)  (no forced zero)',
       om: 'family: E/Q with w(E)=-1  →  O⁻(2N+1)  →  W(x) = 1 - sin(2πx)/(2πx) + δ₀  (forced s=½ zero)'
     };

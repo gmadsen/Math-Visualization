@@ -404,7 +404,7 @@ window.__MVConcepts = {
           "blurb": "For an $N\\times N$ Wigner matrix (symmetric, zero-mean, unit-variance, finite higher moments) the empirical spectral measure of $H/\\sqrt N$ converges weakly almost surely to the semicircle $\\rho_{\\mathrm{sc}}(x)=\\tfrac{1}{2\\pi}\\sqrt{4-x^2}\\mathbf{1}_{[-2,2]}$. Proved by moments: $\\mathbb{E}\\tfrac1N\\tr(H/\\sqrt N)^{2k}\\to C_k$ (the $k$-th Catalan number).",
           "tags": [
             "completion",
-            "duality"
+            "density"
           ]
         },
         {

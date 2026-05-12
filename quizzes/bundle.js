@@ -49069,7 +49069,7 @@ window.MVQuizBank = {
               "Discontinuous."
             ],
             "answer": 1,
-            "explain": "The right tail decays like $\\exp(-cs^{3/2})$ — faster than the Gaussian's $\\exp(-cs^2)$ for moderate $s$, much faster as $s\\to\\infty$. The left tail decays like $\\exp(-c|s|^3/24)$ for $F_2$, which is heavier than Gaussian on the left. Net effect: skewed-right means positive skewness with a sharp upper bound."
+            "explain": "The right tail decays like $\\exp(-cs^{3/2})$. With the matched-Gaussian variance $\\approx 0.81$, the Gaussian's $\\exp(-s^2/(2\\sigma^2))$ has a much sharper coefficient, so for the moderate $s$ a learner actually sees on the plot the TW right tail is lighter (the Gaussian curve falls off faster than the TW once you go a couple of $\\sigma$ above the mode). The left tail of $F_2$ behaves like $\\exp(-|s|^3/24)$, which is lighter than Gaussian asymptotically but heavier on the moderate-$|s|$ window — the long, slow drift inward you see in the bulk-edge picture. The asymmetry between the two tails is what makes the skewness positive."
           }
         ]
       },
