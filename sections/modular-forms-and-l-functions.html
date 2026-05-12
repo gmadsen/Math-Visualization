@@ -556,7 +556,19 @@
   #recently-updated.ready{display:block}
   #recently-updated .ru-head{font-size:0.78rem;letter-spacing:0.16em;text-transform:uppercase;
     color:var(--mute);margin:0 0 0.8rem;padding-bottom:0.4rem;border-bottom:1px solid var(--line);
-    font-weight:400}
+    font-weight:400;display:flex;align-items:center;justify-content:space-between;
+    gap:0.6rem}
+  #recently-updated .ru-toggle{background:none;border:none;color:var(--mute);
+    font:inherit;letter-spacing:inherit;text-transform:inherit;cursor:pointer;
+    padding:2px 6px;border-radius:4px;margin:0;line-height:1;
+    display:inline-flex;align-items:center;gap:0.4rem}
+  #recently-updated .ru-toggle:hover{color:var(--ink);background:var(--panel2)}
+  #recently-updated .ru-toggle:focus-visible{outline:1px solid var(--violet);outline-offset:1px}
+  #recently-updated .ru-caret{display:inline-block;width:0.6em;text-align:center;
+    transition:transform 150ms ease}
+  #recently-updated.collapsed .ru-strip{display:none}
+  #recently-updated.collapsed .ru-head{margin:0;padding:0;border-bottom:none}
+  #recently-updated.collapsed .ru-caret{transform:rotate(-90deg)}
   .ru-strip{display:flex;flex-direction:column;gap:8px}
   .ru-card{background:var(--panel);border:1px solid var(--line);border-radius:8px;
     padding:0.55rem 0.8rem;display:flex;align-items:center;gap:12px;
