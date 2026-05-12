@@ -299,6 +299,115 @@ $$\underline T(S) \;:=\; \mathrm{Cont}(S, T),$$
   <svg id="cm-y-svg" viewBox="-260 -130 520 260" width="100%" height="280"><title>Underlying-condensed-set functor: continuous maps from a profinite probe S into a topological space T form the value of underline T at S</title></svg>
   <div id="cm-y-out" class="readout"></div>
 </div>
+<script>
+(function(){
+  const svg = document.getElementById('cm-y-svg');
+  const out = document.getElementById('cm-y-out');
+  const bC = document.getElementById('cm-y-circ');
+  const bZ = document.getElementById('cm-y-zp');
+  const bR = document.getElementById('cm-y-r');
+  const bD = document.getElementById('cm-y-disc');
+  const sel = document.getElementById('cm-y-probe');
+  let target = 'circ';
+  function setT(t){
+    target = t;
+    bC.classList.toggle('active', t === 'circ');
+    bZ.classList.toggle('active', t === 'zp');
+    bR.classList.toggle('active', t === 'r');
+    bD.classList.toggle('active', t === 'disc');
+    draw();
+  }
+  bC.addEventListener('click', function(){ setT('circ'); });
+  bZ.addEventListener('click', function(){ setT('zp'); });
+  bR.addEventListener('click', function(){ setT('r'); });
+  bD.addEventListener('click', function(){ setT('disc'); });
+  sel.addEventListener('change', draw);
+  function describe(t, s){
+    if(s === 'pt'){
+      return {
+        size:'underlying set of T',
+        formula:'underline T(*) = T',
+        notes:'Probing at the point recovers the underlying set of T. This is the underlying-set functor part of the embedding.'
+      };
+    }
+    if(s === '2pt'){
+      return {
+        size:'T x T',
+        formula:'underline T({a,b}) = T x T',
+        notes:'A continuous map from a discrete 2-point space is a pair of values in T -- the descent axiom in action: underline T({a} sqcup {b}) = underline T({a}) x underline T({b}) = T x T.'
+      };
+    }
+    if(s === 'cantor'){
+      const tnotes = {
+        circ: 'Cont(Cantor, S^1): S^1 is path-connected and Cantor is totally disconnected, so every such map is locally constant on each connected component of Cantor (each point is its own component); the global structure is set-theoretic of cardinality 2^aleph_0.',
+        zp:   'Cont(Cantor, Z_p) = locally constant Z_p-valued functions on Cantor (Z_p is totally disconnected, so continuous = locally constant). Recovers the standard description of Z_p-valued measures on Cantor.',
+        r:    'Cont(Cantor, R) = continuous R-valued functions on Cantor. By Stone-Weierstrass these are uniform limits of step functions; topology of R sees more than locally constant.',
+        disc: 'Cont(Cantor, {0,1,2}) = locally constant 3-valued functions on Cantor = colim_n {0,1,2}^{2^n} (functions on the underlying countable system of finite quotients of Cantor).'
+      };
+      return {
+        size: target === 'r' ? 'large; uniform limits of step functions' : (target === 'disc' ? 'colim of 3^{2^n}, locally constant' : 'locally constant or worse'),
+        formula: 'underline T(Cantor) = Cont({0,1}^N, T)',
+        notes: tnotes[t]
+      };
+    }
+    if(s === 'zp'){
+      const tnotes = {
+        circ: 'Cont(Z_p, S^1) = continuous maps from Z_p to S^1; Z_p is profinite and S^1 is path-connected, so each map is determined by its restriction to a finite quotient Z/p^n composed with a continuous map Z/p^n -> S^1. The continuous *homomorphisms* form a much smaller subspace: Hom_cts(Z_p, S^1) = colim_n mu_{p^n} = mu_{p^infty}, the Pruefer p-group (the Pontryagin dual of Z_p).',
+        zp:   'Cont(Z_p, Z_p) = continuous self-maps. By Mahler theorem the explicit basis is the binomial-coefficient functions binom(x,n); locally constant elements correspond to maps factoring through finite Z/p^k quotients.',
+        r:    'Cont(Z_p, R) = continuous functions from a profinite space to R. By Stone-Weierstrass dense in C(Z_p, R); concretely uniform limits of locally constant functions.',
+        disc: 'Cont(Z_p, {0,1,2}) = locally constant maps = colim_n Hom(Z/p^n, {0,1,2}). Discrete target collapses every continuous map to a finite-quotient datum.'
+      };
+      return {
+        size: target === 'r' ? 'continuous functions Z_p -> R' : (target === 'disc' ? 'locally constant 3-valued' : 'profinitely-presented'),
+        formula: 'underline T(Z_p) = Cont(Z_p, T)',
+        notes: tnotes[t]
+      };
+    }
+    // Unknown probe: surface as a visible readout error rather than
+    // a silent empty-string render that looks like a layout bug.
+    return {
+      size: '(unknown probe "' + s + '")',
+      formula: '(no description for this probe)',
+      notes: 'A probe was selected that this widget does not enumerate. Add a branch to describe(t, s) for s="' + s + '".'
+    };
+  }
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const t = target;
+    const s = sel.value;
+    const lblTop = SVG('text',{x:0, y:-105, 'text-anchor':'middle', 'font-size':13, fill:'var(--cyan)','font-weight':600});
+    lblTop.textContent = 'condensed-set value of T at probe S';
+    svg.appendChild(lblTop);
+    drawNode(svg, -150, 0, 'S', {stroke:'var(--green)', r:32, fontSize:18});
+    drawNode(svg,  150, 0, 'T', {stroke:'var(--yellow)', r:32, fontSize:18});
+    drawArrow(svg, [-150, 0], [150, 0], {color:'var(--cyan)', label:'continuous', markerId:'cmY-arr', width:1.8});
+    const subS = SVG('text', {x:-150, y:50, 'text-anchor':'middle', 'font-size':11, fill:'var(--mute)'});
+    const labS = ({pt:'point *', '2pt':'2 disjoint points', cantor:'Cantor {0,1}^N', zp:'Z_p (profinite)'})[s];
+    subS.textContent = labS;
+    svg.appendChild(subS);
+    const subT = SVG('text', {x:150, y:50, 'text-anchor':'middle', 'font-size':11, fill:'var(--mute)'});
+    const labT = ({circ:'S^1 circle', zp:'Z_p', r:'R real line', disc:'{0,1,2} discrete'})[t];
+    subT.textContent = labT;
+    svg.appendChild(subT);
+    const d = describe(t, s);
+    const labV = SVG('text', {x:0, y:75, 'text-anchor':'middle', 'font-size':13, fill:'var(--green)','font-weight':600});
+    labV.textContent = 'value: ' + d.size;
+    svg.appendChild(labV);
+    const f = SVG('text', {x:0, y:95, 'text-anchor':'middle', 'font-size':12, fill:'var(--ink)','font-style':'italic'});
+    f.textContent = d.formula;
+    svg.appendChild(f);
+    const lines = [];
+    lines.push('Probe S = ' + labS + ',   Target T = ' + labT);
+    lines.push('Value of underline T at S:  ' + d.size);
+    lines.push('');
+    lines.push(d.notes);
+    lines.push('');
+    lines.push('Descent check: any S splits into extremally-disconnected covers; values on the cover paste back via underline T(S) = lim underline T(cover_i). For Cantor this is automatic since Cantor itself is extremally disconnected.');
+    out.textContent = lines.join('\n');
+  }
+  draw();
+})();
+</script>
 
 <aside class="callback">
   <div class="ttl">See also</div>
@@ -352,6 +461,105 @@ $$\underline T(S) \;:=\; \mathrm{Cont}(S, T),$$
   <svg id="cm-sn-svg" viewBox="-280 -150 560 300" width="100%" height="320"><title>Snake-lemma comparison: in Cond(Ab) the connecting map exists for every short exact sequence, in topological Ab some short exact sequences fail</title></svg>
   <div id="cm-sn-out" class="readout"></div>
 </div>
+<script>
+(function(){
+  const svg = document.getElementById('cm-sn-svg');
+  const out = document.getElementById('cm-sn-out');
+  const bD = document.getElementById('cm-sn-disc');
+  const bP = document.getElementById('cm-sn-padic');
+  const bR = document.getElementById('cm-sn-rcirc');
+  const bQ = document.getElementById('cm-sn-qr');
+  let mode = 'disc';
+  const CASES = {
+    'disc': {
+      ses: '0 -> Z -> Z -> Z/n -> 0  (multiplication by n in degree 0)',
+      condNote: 'All three terms are discrete (so condensed = discrete = topological as far as this sequence sees). Snake lemma works classically and in Cond.',
+      topNote: 'Same -- discrete topology causes no issue. Both frameworks agree here.',
+      contrast: false
+    },
+    'padic': {
+      ses: '0 -> Z (discrete) -> Z_p (with p-adic top) -> Z_p / Z -> 0',
+      condNote: 'In Cond(Ab) the cokernel Z_p / Z is a perfectly fine condensed abelian group, the SES is exact, and any associated snake connecting map works.',
+      topNote: 'In topological Ab the inclusion Z (discrete) -> Z_p (p-adic) has dense image, so the topological cokernel is the trivial group while the algebraic cokernel is Z_p/Z. The image vs. coimage comparison fails -- coimage = Z (discrete), image = closure of Z in Z_p = Z_p, not iso. So this is NOT a short exact sequence in topological Ab in the abelian-category sense.',
+      contrast: true
+    },
+    'rcirc': {
+      ses: '0 -> Z -> R -> R/Z = S^1 -> 0  (universal cover of the circle)',
+      condNote: 'Z -> R is closed (Z is discrete in R), so the topological quotient R/Z is also the categorical quotient. Snake works in both Cond and TopAb.',
+      topNote: 'A genuine SES in topological Ab too -- one of the few classical cases where everything cleanly aligns. R/Z = S^1 with quotient topology is exactly the topological circle.',
+      contrast: false
+    },
+    'qr': {
+      ses: '0 -> Q (discrete) -> R -> R/Q -> 0',
+      condNote: 'In Cond(Ab) all three are good condensed abelian groups; R/Q makes sense as a sheaf even though it has horrible point-set topology (every coset is dense).',
+      topNote: 'In topological Ab the quotient R/Q has the indiscrete topology (no nonempty proper open subgroups: every coset of Q is dense in R). The closure of {0} in R/Q is the entire group. So R/Q is not Hausdorff, and the would-be quotient map R -> R/Q breaks the categorical-exactness of the sequence in TopAb -- coimage R/Q (with one point set) does not match image R/Q (the whole indiscrete group).',
+      contrast: true
+    },
+  };
+  function set(m){ mode = m;
+    bD.classList.toggle('active', m==='disc');
+    bP.classList.toggle('active', m==='padic');
+    bR.classList.toggle('active', m==='rcirc');
+    bQ.classList.toggle('active', m==='qr');
+    draw();
+  }
+  bD.addEventListener('click', function(){ set('disc'); });
+  bP.addEventListener('click', function(){ set('padic'); });
+  bR.addEventListener('click', function(){ set('rcirc'); });
+  bQ.addEventListener('click', function(){ set('qr'); });
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const c = CASES[mode];
+    const lblTop = SVG('text',{x:0, y:-115, 'text-anchor':'middle', 'font-size':13, fill:'var(--cyan)','font-weight':600});
+    lblTop.textContent = 'Short exact sequence: ' + c.ses;
+    svg.appendChild(lblTop);
+    function badge(x, y, label, ok){
+      const r = SVG('rect',{x:x-90,y:y-22,width:180,height:44,rx:6,
+        fill: ok ? 'var(--panel2)' : 'var(--bg)',
+        stroke: ok ? 'var(--green)' : 'var(--pink)','stroke-width':2});
+      svg.appendChild(r);
+      const t = SVG('text',{x:x, y:y+6, 'text-anchor':'middle', 'font-size':14,
+        fill: ok ? 'var(--green)' : 'var(--pink)', 'font-weight':600});
+      t.textContent = label;
+      svg.appendChild(t);
+    }
+    badge(-130, -50, 'Cond(Ab): WORKS', true);
+    badge( 130, -50, c.contrast ? 'TopAb: BROKEN' : 'TopAb: WORKS',  !c.contrast);
+    drawArrow(svg, [-130, -25], [-130, 30], {color:'var(--green)', label:'snake delta', labelSide:1, markerId:'cmSn-c', width:1.8});
+    if(!c.contrast){
+      drawArrow(svg, [130, -25], [130, 30], {color:'var(--green)', label:'snake delta', labelSide:1, markerId:'cmSn-t', width:1.8});
+    } else {
+      const x1=130, y1=-22, y2=30;
+      const ln1 = SVG('line',{x1:x1-12,y1:y1+2,x2:x1+12,y2:y2-2,stroke:'var(--pink)','stroke-width':2.2});
+      const ln2 = SVG('line',{x1:x1+12,y1:y1+2,x2:x1-12,y2:y2-2,stroke:'var(--pink)','stroke-width':2.2});
+      svg.appendChild(ln1); svg.appendChild(ln2);
+      const tt = SVG('text',{x:148, y:8, 'text-anchor':'start', 'font-size':12, fill:'var(--pink)','font-style':'italic'});
+      tt.textContent = 'no delta -- not abelian';
+      svg.appendChild(tt);
+    }
+    const lblK = SVG('text',{x:-130, y:60, 'text-anchor':'middle', 'font-size':12, fill:'var(--mute)'});
+    lblK.textContent = 'ker / coker / six-term SES';
+    svg.appendChild(lblK);
+    const lblK2 = SVG('text',{x:130, y:60, 'text-anchor':'middle', 'font-size':12, fill:'var(--mute)'});
+    lblK2.textContent = c.contrast ? 'image vs coimage mismatch' : 'ker / coker exist';
+    svg.appendChild(lblK2);
+    const lines = [];
+    lines.push('SES: ' + c.ses);
+    lines.push('');
+    lines.push('In Cond(Ab):  ' + c.condNote);
+    lines.push('');
+    lines.push('In TopAb:     ' + c.topNote);
+    lines.push('');
+    if(c.contrast){
+      lines.push('Punchline: this is precisely the kind of pathology that motivated the condensed framework. The map of classical underlying groups survives, but the topological enrichment fails to assemble into an abelian-category SES. Cond(Ab) keeps the topology data without paying the abelianness price.');
+    } else {
+      lines.push('Both frameworks agree: this is a clean SES in either. Use Cond(Ab) when you want UNIFORM behaviour; for individual nice cases topological Ab is fine.');
+    }
+    out.textContent = lines.join('\n');
+  }
+  draw();
+})();
+</script>
 
 <aside class="callback">
   <div class="ttl">See also</div>
@@ -426,6 +634,107 @@ $$\alpha_S\colon \mathbb Z[S] \otimes M \;\longrightarrow\; \mathrm{Maps}(S, M)$
   <svg id="cm-st-svg" viewBox="-280 -130 560 260" width="100%" height="280"><title>Solidity test: comparison map alpha_S between completed-tensor and continuous-maps; iso means M is solid</title></svg>
   <div id="cm-st-out" class="readout"></div>
 </div>
+<script>
+(function(){
+  const svg = document.getElementById('cm-st-svg');
+  const out = document.getElementById('cm-st-out');
+  const bZ = document.getElementById('cm-st-zp');
+  const bX = document.getElementById('cm-st-zppx');
+  const bR = document.getElementById('cm-st-r');
+  const bQ = document.getElementById('cm-st-qp');
+  const bP = document.getElementById('cm-st-prof');
+  const sel = document.getElementById('cm-st-probe');
+  let mode = 'zp';
+  const SOLID = {zp:true, zppx:true, r:false, qp:true, prof:true};
+  function set(m){ mode = m;
+    bZ.classList.toggle('active', m==='zp');
+    bX.classList.toggle('active', m==='zppx');
+    bR.classList.toggle('active', m==='r');
+    bQ.classList.toggle('active', m==='qp');
+    bP.classList.toggle('active', m==='prof');
+    draw();
+  }
+  bZ.addEventListener('click', function(){ set('zp'); });
+  bX.addEventListener('click', function(){ set('zppx'); });
+  bR.addEventListener('click', function(){ set('r'); });
+  bQ.addEventListener('click', function(){ set('qp'); });
+  bP.addEventListener('click', function(){ set('prof'); });
+  sel.addEventListener('change', draw);
+  function describe(m, s){
+    const pretty = {zp:'Z_p', zppx:'Z_p[[x]]', r:'R', qp:'Q_p', prof:'Zhat'}[m];
+    const sName = ({'2pt':'two-point set {0,1}', cantor:'Cantor set {0,1}^N', zp:'profinite Z_p as a set'})[s];
+    if(m === 'r'){
+      const lhs = 'Z[S] tensor R  =  finite formal R-linear combinations of elements of S';
+      const rhs = (s === '2pt') ? 'Maps({0,1}, R) = R x R' : (s === 'cantor' ? 'Maps(Cantor, R) = continuous R-valued functions on Cantor (uncountably many, including all uniform limits of step functions)' : 'Maps(Z_p, R) = continuous R-valued functions, dense in but bigger than the formal-tensor side');
+      const verdict = (s === '2pt') ? 'iso (the discrete probe is too small to detect failure; for finite S any condensed abelian group has Z[S] tensor M = Maps(S, M))' : 'NOT iso -- formal tensor produces only finite-rank elements but Maps(S,R) contains uncountable-rank limits';
+      return {
+        lhs, rhs,
+        iso: (s === '2pt'),
+        verdict,
+        full: 'M = ' + pretty + ' is NOT solid because R is archimedean. Solidity for an archimedean group fails on any non-finite profinite probe -- the canonical comparison loses the uniform-limit content. (This is precisely why Clausen-Scholze invented the LIQUID variant for R-vector spaces in section 4.)'
+      };
+    } else {
+      const lhs = (s === '2pt') ? 'Z[{0,1}] tensor ' + pretty + ' = ' + pretty + ' (+) ' + pretty :
+                  (s === 'cantor') ? 'Z[Cantor] tensor ' + pretty + ' = locally constant ' + pretty + '-valued functions' :
+                                     'Z[Z_p] tensor ' + pretty + ' = locally constant ' + pretty + '-valued functions on Z_p';
+      const rhs = (s === '2pt') ? 'Maps({0,1}, ' + pretty + ') = ' + pretty + ' x ' + pretty :
+                  (s === 'cantor') ? 'Maps(Cantor, ' + pretty + ') = continuous ' + pretty + '-valued functions = locally constant (since ' + pretty + ' totally disconnected)' :
+                                     'Maps(Z_p, ' + pretty + ') = continuous ' + pretty + '-valued functions = locally constant';
+      let extra = '';
+      if(m === 'zp')   extra = 'Z_p is a profinite ring; profinite groups are solid by definition. Locally constant Z_p-valued functions = continuous Z_p-valued functions (both targets totally disconnected).';
+      if(m === 'zppx') extra = 'Z_p[[x]] is the inverse limit lim_n Z_p[x]/(x^{n+1}), each level finite-rank free over Z_p. Solid by closure under limits with surjective transitions (Mittag-Leffler).';
+      if(m === 'qp')   extra = 'Q_p is solid as a Z_p-module (and a fortiori as a Z-module). The completed tensor takes Z_p tensor (Q_p over Z_p) = Q_p directly.';
+      if(m === 'prof') extra = 'Profinite groups are the prototype of solid: Zhat = lim_n Z/n.';
+      return {
+        lhs, rhs,
+        iso: true,
+        verdict: 'ISO -- both sides equal locally constant ' + pretty + '-valued functions on ' + sName + '.',
+        full: 'M = ' + pretty + ' is solid; the comparison map alpha_S is an isomorphism. ' + extra
+      };
+    }
+  }
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const m = mode, s = sel.value;
+    const d = describe(m, s);
+    const lblTop = SVG('text',{x:0,y:-105,'text-anchor':'middle','font-size':13,fill:'var(--cyan)','font-weight':600});
+    lblTop.textContent = 'Z[S] tensor M  vs  Maps(S, M)';
+    svg.appendChild(lblTop);
+    function box(x, y, w, h, label, color){
+      const r = SVG('rect',{x:x-w/2, y:y-h/2, width:w, height:h, rx:6,
+        fill:'var(--panel2)', stroke:color,'stroke-width':1.8});
+      svg.appendChild(r);
+      const t = SVG('text',{x:x, y:y+5, 'text-anchor':'middle', 'font-size':12, fill:color, 'font-weight':600});
+      t.textContent = label;
+      svg.appendChild(t);
+    }
+    box(-130, -10, 200, 60, 'Z[S] tensor M', 'var(--yellow)');
+    box( 130, -10, 200, 60, 'Maps(S, M)',    'var(--cyan)');
+    if(d.iso){
+      drawArrow(svg, [-30, -10], [30, -10], {color:'var(--green)', label:'iso', markerId:'cmST-iso', width:2});
+    } else {
+      drawArrow(svg, [-30, -10], [30, -10], {color:'var(--pink)', label:'NOT iso', markerId:'cmST-no', dash:'5 4', width:2});
+      const ln = SVG('line',{x1:-5,y1:-25,x2:5,y2:5,stroke:'var(--pink)','stroke-width':2.5});
+      svg.appendChild(ln);
+    }
+    const verdictColor = d.iso ? 'var(--green)' : 'var(--pink)';
+    const status = SOLID[m] ? 'SOLID' : 'NOT SOLID';
+    const sBadge = SVG('text',{x:0,y:50,'text-anchor':'middle','font-size':14,fill:verdictColor,'font-weight':600});
+    sBadge.textContent = status + (d.iso ? '' : '  -- alpha_S fails on this probe');
+    svg.appendChild(sBadge);
+    const lines = [];
+    lines.push('Test: alpha_S : Z[S] tensor M -> Maps(S, M)');
+    lines.push('LHS: ' + d.lhs);
+    lines.push('RHS: ' + d.rhs);
+    lines.push('');
+    lines.push('Verdict at this probe: ' + d.verdict);
+    lines.push('');
+    lines.push(d.full);
+    out.textContent = lines.join('\n');
+  }
+  draw();
+})();
+</script>
 
 <div class="quiz" data-concept="cm-solid-abelian"></div><!-- backlinks-auto-begin -->
 <aside class="related">
@@ -493,6 +802,74 @@ $$\mu\colon \mathcal{M}_p(V) \;\to\; V$$
   <svg id="cm-lt-svg" viewBox="-280 -120 560 240" width="100%" height="240"><title>Comparison of classical projective tensor product with the liquid tensor product as the parameter p varies</title></svg>
   <div id="cm-lt-out" class="readout"></div>
 </div>
+<script>
+(function(){
+  const svg = document.getElementById('cm-lt-svg');
+  const out = document.getElementById('cm-lt-out');
+  const vSel = document.getElementById('cm-lt-V');
+  const wSel = document.getElementById('cm-lt-W');
+  const pIn = document.getElementById('cm-lt-p');
+  const pOut = document.getElementById('cm-lt-p-out');
+  const SPACE_NAMES = {r:'R', c01:'C[0,1]', ell2:'ell^2', L1:'L^1[0,1]'};
+  function classical(V, W){
+    if(V === 'r') return SPACE_NAMES[W];
+    if(W === 'r') return SPACE_NAMES[V];
+    if(V === 'c01' && W === 'c01') return 'C([0,1] x [0,1])  (joint continuity)';
+    if((V === 'ell2' && W === 'ell2')) return 'trace-class operators (S^1)  -- exhibits exactness failure of pi-tensor';
+    if((V === 'L1' && W === 'L1')) return 'L^1([0,1] x [0,1])  -- Fubini';
+    if((V === 'c01' && W === 'L1') || (V === 'L1' && W === 'c01')) return 'pi-tensor of C with L^1: a Banach space, but well-known to fail Grothendieck approximation property';
+    if((V === 'ell2' && W === 'L1') || (V === 'L1' && W === 'ell2')) return 'a Banach space realised as nuclear operators ell^2 -> L^1';
+    if((V === 'c01' && W === 'ell2') || (V === 'ell2' && W === 'c01')) return 'projective Banach tensor C tensor ell^2; failure of approximation property (Enflo 1973) localises here';
+    return 'projective Banach tensor';
+  }
+  function liquid(V, W, p){
+    const cl = classical(V, W);
+    if(V === 'r' || W === 'r') return 'identical to classical: ' + cl + ' (any 1-d factor passes through both tensor products unchanged)';
+    if(p < 0.3) return 'liquid_p with p strict: noticeably smaller than projective; only ' + p.toFixed(2) + '-summable measures contribute. Gives a clean exact tensor at the price of admitting fewer Banach inputs as p-liquid.';
+    if(p < 0.7) return 'liquid_p tensor in the design sweet spot: exact monoidal structure; matches projective tensor on Banach spaces up to a quantified continuity correction.';
+    return 'liquid_p with p close to 1: very close to projective; just barely enough p < 1 to gain exactness over the classical case. The strict inequality p < 1 is essential -- p = 1 reverts to the failed projective case.';
+  }
+  function exactness(V, W){
+    if(V === 'r' || W === 'r') return 'EXACT (1-d tensor is always exact in any reasonable setting)';
+    return 'liquid_p tensor is EXACT for 0 < p < 1; classical pi-tensor is NOT (this is the whole point)';
+  }
+  function refresh(){ pOut.textContent = 'p = ' + (+pIn.value).toFixed(2); draw(); }
+  vSel.addEventListener('change', refresh);
+  wSel.addEventListener('change', refresh);
+  pIn.addEventListener('input', refresh);
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const V = vSel.value, W = wSel.value, p = +pIn.value;
+    const lblTop = SVG('text',{x:0,y:-95,'text-anchor':'middle','font-size':13,fill:'var(--cyan)','font-weight':600});
+    lblTop.textContent = 'V tensor W : classical pi vs liquid_p';
+    svg.appendChild(lblTop);
+    function pill(x, y, w, h, label, color){
+      const r = SVG('rect',{x:x-w/2,y:y-h/2,width:w,height:h,rx:6,fill:'var(--panel2)',stroke:color,'stroke-width':1.8});
+      svg.appendChild(r);
+      const t = SVG('text',{x:x,y:y+5,'text-anchor':'middle','font-size':12,fill:color,'font-weight':600});
+      t.textContent = label; svg.appendChild(t);
+    }
+    pill(-130, -45, 240, 50, 'classical pi-tensor', 'var(--yellow)');
+    pill( 130, -45, 240, 50, 'liquid_p tensor (p='+p.toFixed(2)+')', 'var(--green)');
+    pill(-130, 45, 240, 36, 'NOT exact', 'var(--pink)');
+    pill( 130, 45, 240, 36, 'EXACT (for 0 < p < 1)', 'var(--green)');
+    drawArrow(svg, [-10, -45], [10, -45], {color:'var(--mute)', label:'compared on V tensor W', markerId:'cmLT-cmp', width:1.4});
+    const lines = [];
+    lines.push('V = ' + SPACE_NAMES[V] + ',  W = ' + SPACE_NAMES[W] + ',  p = ' + p.toFixed(2));
+    lines.push('');
+    lines.push('Classical projective tensor V piTensor W:  ' + classical(V, W));
+    lines.push('Liquid_p tensor V liquidTensor_p W:        ' + liquid(V, W, p));
+    lines.push('');
+    lines.push('Exactness as a bifunctor of variables: ' + exactness(V, W));
+    lines.push('');
+    if(V === 'ell2' && W === 'ell2') lines.push('Special case ell^2 tensor ell^2: classical pi-tensor gives the trace-class operators -- exactness fails because the inclusion of finite-rank into trace-class is not split. Liquid_p restores exactness, and the comparison piTensor -> liquid_p Tensor differs by a controlled correction.');
+    if(p > 0.95) lines.push('p approaching 1 from below: the liquid tensor smoothly approaches the projective tensor, but at p = 1 the gain disappears. The strict inequality 0 < p < 1 is what buys exactness.');
+    if(p < 0.2) lines.push('Very small p: the liquid tensor restricts to a much smaller class of inputs; only those Banach spaces with finite p-summable mass admit a liquid structure at this p.');
+    out.textContent = lines.join('\n');
+  }
+  refresh();
+})();
+</script>
 
 <aside class="callback">
   <div class="ttl">See also</div>
@@ -546,6 +923,97 @@ $$\mathrm{Ext}^i_{\mathrm{Cond}(\mathbb R)}\bigl(M_{p'}(S),\, V\bigr) \;=\; 0 \q
   <svg id="cm-lte-svg" viewBox="-280 -110 560 220" width="100%" height="240"><title>Timeline of the Liquid Tensor Experiment from December 2020 challenge through 2023 generalisations</title></svg>
   <div id="cm-lte-out" class="readout"></div>
 </div>
+<script>
+(function(){
+  const svg = document.getElementById('cm-lte-svg');
+  const out = document.getElementById('cm-lte-out');
+  const buttons = [1,2,3,4,5,6].map(function(k){ return document.getElementById('cm-lte-m'+k); });
+  let active = 0;
+  const MILESTONES = [
+    {
+      date: 'December 5, 2020',
+      title: 'The challenge',
+      who: 'Peter Scholze posts on Kevin Buzzard Xena blog',
+      body: 'Scholze publishes his liquid-vector-space theorem in unrefereed-preprint form and asks publicly whether Lean can verify it. He frames the request as a way to check a manuscript he is not yet fully confident in -- some technical steps are sketched -- and the formal-methods community responds. The LTE is launched on the premise that a formal check would either confirm or expose any gaps.'
+    },
+    {
+      date: 'March 2021',
+      title: 'Project repo, blueprint, first contributors',
+      who: 'Johan Commelin (Utrecht) leads, with Adam Topaz, Riccardo Brasca, Patrick Massot, Damiano Testa, Filippo Nuccio joining early',
+      body: 'A Lean repository is created. The blueprint PDF maps each step of Scholze manuscript to a precise Lean theorem statement. The blueprint diagram becomes a community working tool: nodes coloured by formalisation status update live as PRs land. Initial focus on definitions and the topological-vector-space prerequisites in mathlib.'
+    },
+    {
+      date: 'July 2021',
+      title: 'Base lemmas: locally compact abelian, profinite measures',
+      who: 'Bhavik Mehta, Kevin Buzzard, Yael Dillies and many others contribute infrastructure',
+      body: 'The technical preliminaries -- p-summable measures on profinite sets, the long-exact-sequence machinery in Cond(Ab), the basic homological algebra in mathlib (Ext, derived functors, profinite Z-modules) -- come online. Mathlib grows substantially in homological algebra and topology to accommodate the project.'
+    },
+    {
+      date: 'May 28, 2021',
+      title: 'The main theorem (induction core)',
+      who: 'Commelin announces successful Lean proof of the inductive theorem',
+      body: 'After about six months of community work, the main inductive statement -- the technical heart of the liquid Ext-vanishing -- is verified. Scholze blogs ("Half a year of LTE") that the proof stands up. The formalisation surfaces one step in the original manuscript that was sketched in a way that did not type-check; Commelin and Scholze collaboratively patch it.'
+    },
+    {
+      date: 'July 14, 2022',
+      title: 'Full theorem complete',
+      who: 'Commelin, Topaz, Brasca, Massot, et al.',
+      body: 'The remaining base-case steps -- including the analytic inequality Scholze called the most fragile -- are discharged. The LTE is formally complete. Total: about 100k lines of Lean across mathlib and the LTE-specific repo, with substantial new infrastructure for condensed sets, p-Banach spaces, and the liquid framework now permanent in mathlib.'
+    },
+    {
+      date: '2023',
+      title: 'Generalisations and downstream',
+      who: 'Continued work on mathlib4 port, integration into broader formalisation efforts',
+      body: 'The infrastructure built for the LTE -- particularly the homological-algebra framework, the condensed-sets formalisation, and the blueprint-driven community-formalisation technique -- becomes a template for subsequent ambitious projects, including parts of the Langlands programme and the ongoing FLT formalisation effort. The cultural shift -- mathematicians using Lean to gain confidence in their own work -- is the LTE most lasting consequence.'
+    }
+  ];
+  function set(k){ active = k;
+    for(let i=0;i<buttons.length;i++){ buttons[i].classList.toggle('active', i===k); }
+    draw();
+  }
+  buttons.forEach(function(b, k){ b.addEventListener('click', function(){ set(k); }); });
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const lblTop = SVG('text',{x:0,y:-90,'text-anchor':'middle','font-size':13,fill:'var(--cyan)','font-weight':600});
+    lblTop.textContent = 'Liquid Tensor Experiment timeline (Dec 2020 - 2023)';
+    svg.appendChild(lblTop);
+    const N = MILESTONES.length;
+    for(let i=0;i<N;i++){
+      const x = -240 + (480/(N-1))*i;
+      const isActive = (i === active);
+      const c = SVG('circle',{cx:x, cy:0, r:isActive?14:9,
+        fill: isActive ? 'var(--yellow)' : 'var(--panel2)',
+        stroke: isActive ? 'var(--yellow)' : 'var(--mute)','stroke-width':1.8});
+      svg.appendChild(c);
+      const lbl = SVG('text',{x:x, y:-25,'text-anchor':'middle','font-size':10,
+        fill: isActive ? 'var(--yellow)' : 'var(--mute)','font-weight':isActive?600:500});
+      lbl.textContent = MILESTONES[i].date.split(',')[0];
+      svg.appendChild(lbl);
+      const sub = SVG('text',{x:x, y:30,'text-anchor':'middle','font-size':10,
+        fill: isActive ? 'var(--ink)' : 'var(--mute)'});
+      const t = MILESTONES[i].title;
+      sub.textContent = t.length > 22 ? t.slice(0,20) + '...' : t;
+      svg.appendChild(sub);
+      if(i < N-1){
+        const x2 = -240 + (480/(N-1))*(i+1);
+        const ln = SVG('line',{x1:x+9, y1:0, x2:x2-9, y2:0, stroke:'var(--mute)','stroke-width':1.2});
+        svg.appendChild(ln);
+      }
+    }
+    const m = MILESTONES[active];
+    const lblBot = SVG('text',{x:0,y:75,'text-anchor':'middle','font-size':13,fill:'var(--green)','font-weight':600});
+    lblBot.textContent = m.title;
+    svg.appendChild(lblBot);
+    const lines = [];
+    lines.push(m.date + ' -- ' + m.title);
+    lines.push('Who: ' + m.who);
+    lines.push('');
+    lines.push(m.body);
+    out.textContent = lines.join('\n');
+  }
+  draw();
+})();
+</script>
 
 <aside class="callback">
   <div class="ttl">See also</div>
@@ -593,6 +1061,98 @@ $$\mathrm{Ext}^i_{\mathrm{Cond}(\mathbb R)}\bigl(M_{p'}(S),\, V\bigr) \;=\; 0 \q
   <svg id="cm-ar-svg" viewBox="-280 -130 560 260" width="100%" height="280"><title>Analytic-ring assembly: classical structure plus discrete modules class plus derived category</title></svg>
   <div id="cm-ar-out" class="readout"></div>
 </div>
+<script>
+(function(){
+  const svg = document.getElementById('cm-ar-svg');
+  const out = document.getElementById('cm-ar-out');
+  const bP = document.getElementById('cm-ar-paff');
+  const bR = document.getElementById('cm-ar-raff');
+  const bD = document.getElementById('cm-ar-disk');
+  const bF = document.getElementById('cm-ar-formal');
+  let mode = 'paff';
+  const RINGS = {
+    'paff': {
+      name: 'A^1_{Q_p} = Spec Q_p[t]',
+      classical: 'Classical: a smooth Q_p-scheme; coherent sheaves form an abelian category but global sections of an O-module on the analytic A^1_{Q_p} (rigid-analytic) require choice of an admissible topology.',
+      condensed: 'As a solid analytic ring: the underlying ring is condensed Q_p[t], the discrete modules are solid Q_p[t]-modules with a continuity condition over the parameter t.',
+      derivedCategory: 'D(Solid(Q_p[t]))  -- a stable infinity-category. RHom and tensor are both well-defined, derived. Bhatt-Morrow-Scholze prismatic comparison embeds Z_p[t] into this picture.',
+      classicalIssue: 'Classical issue: which topology on Q_p[t]? p-adic topology on coefficients leaves ambiguity in the t direction; rigid-analytic conventions (Tate algebras Q_p<t>) lose the polynomial information.',
+      solidFix: 'Solid fix: solid Q_p[t]-modules naturally include all completions Q_p<t>, Q_p[[t]], and various overconvergent variants as full subcategories. One derived category subsumes all the classical rigid-analytic models.'
+    },
+    'raff': {
+      name: 'A^1_R = Spec R[t]',
+      classical: 'Classical: a smooth R-scheme. Real-analytic sheaves on R live in the C^infty / sub-analytic / Whitney function frameworks, none compatible with each other or with classical algebraic geometry.',
+      condensed: 'As a liquid analytic ring: condensed R[t] with the LIQUID (not solid) modules class -- because R is archimedean, the right notion is liquid_p modules for some 0 < p < 1.',
+      derivedCategory: 'D(Liquid_p(R[t]))  -- a derived stable infinity-category that contains C^infty(R), L^p(R), and Whitney function spaces all as full subcategories.',
+      classicalIssue: 'Classical issue: real-analytic sheaves do not derive cleanly. C^infty cohomology fails Mayer-Vietoris in the strict abelian sense; sub-analytic sheaves (Kashiwara-Schapira) repair this but at the cost of leaving classical functional analysis.',
+      solidFix: 'Liquid fix: Liquid_p(R) IS abelian, derives correctly, and contains the classical real-analytic objects as full subcategories. Programme is younger than the p-adic side -- Clausen-Scholze 2024 lectures sketched the framework; full development ongoing.'
+    },
+    'disk': {
+      name: 'Bar D = Spa Z_p<x>  (rigid open disk)',
+      classical: 'Classical: a rigid-analytic Q_p-space (Tate). Coherent O_X-modules form an abelian category on each affinoid, but globalising requires Cech cohomology with carefully chosen admissible covers.',
+      condensed: 'As a solid analytic ring: discrete modules are FINITE solid Z_p<x>-modules (Tate algebra version). Pro-coherent sheaves and the entire six-functor formalism (incl. RHom, Verdier dual) descend to D(Solid).',
+      derivedCategory: 'D(Solid(Z_p<x>))  -- the rigid-analytic disk derived category, with proper-base-change for the projection bar D -> Spa Z_p.',
+      classicalIssue: 'Classical issue: rigid-analytic sheaf cohomology (Kiehl) requires admissible Cech covers and proper-base-change is delicate; six-functor formalism for adic spaces (Huber) repairs this but introduces a separate machinery.',
+      solidFix: 'Solid fix: solid Z_p<x>-modules unify Kiehl, Huber, and Berkovich approaches; the derived category D(Solid) is the natural target of pi^* and pi_! for any proper morphism of analytic rings.'
+    },
+    'formal': {
+      name: 'Spf Z_p[[x]]  (formal disk)',
+      classical: 'Classical: a Noetherian formal scheme (Grothendieck). Adic completion is built into the definition; coherent sheaves on Spf Z_p[[x]] are finitely generated continuous Z_p[[x]]-modules.',
+      condensed: 'As a solid analytic ring: discrete modules are SOLID Z_p[[x]]-modules. The condition x^k -> 0 in the topology recovers exactly the formal-scheme convention.',
+      derivedCategory: 'D(Solid(Z_p[[x]]))  -- contains classical formal-coherent sheaves as a full subcategory; the embedding extends to admit non-Noetherian completions cleanly.',
+      classicalIssue: 'Classical issue: derived category of formal-coherent sheaves on Spf Z_p[[x]] is technical; Mittag-Leffler conditions appear everywhere; pi_! is not generally defined for non-proper morphisms.',
+      solidFix: 'Solid fix: D(Solid(Z_p[[x]])) is a clean stable infinity-category; Mittag-Leffler conditions become automatic from the solid axiom; pi_! for solid analytic rings exists for all morphisms in the appropriate locally-compact range.'
+    },
+  };
+  function set(m){ mode = m;
+    bP.classList.toggle('active', m==='paff');
+    bR.classList.toggle('active', m==='raff');
+    bD.classList.toggle('active', m==='disk');
+    bF.classList.toggle('active', m==='formal');
+    draw();
+  }
+  bP.addEventListener('click', function(){ set('paff'); });
+  bR.addEventListener('click', function(){ set('raff'); });
+  bD.addEventListener('click', function(){ set('disk'); });
+  bF.addEventListener('click', function(){ set('formal'); });
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const r = RINGS[mode];
+    const lblTop = SVG('text',{x:0,y:-105,'text-anchor':'middle','font-size':13,fill:'var(--cyan)','font-weight':600});
+    lblTop.textContent = 'Analytic ring: ' + r.name;
+    svg.appendChild(lblTop);
+    function box(x, y, w, h, label, color){
+      const rc = SVG('rect',{x:x-w/2,y:y-h/2,width:w,height:h,rx:6,fill:'var(--panel2)',stroke:color,'stroke-width':1.8});
+      svg.appendChild(rc);
+      const t = SVG('text',{x:x,y:y+5,'text-anchor':'middle','font-size':12,fill:color,'font-weight':600});
+      t.textContent = label; svg.appendChild(t);
+    }
+    const isLiq = (mode === 'raff');
+    box(-160, -45, 200, 50, 'condensed ring R', 'var(--yellow)');
+    box(   0, -45, 200, 50, isLiq ? 'liquid_p modules' : 'solid modules class', 'var(--cyan)');
+    box( 160, -45, 200, 50, 'derived cat', 'var(--green)');
+    drawArrow(svg, [-60, -45], [-100, -45], {color:'var(--mute)', label:'discrete', markerId:'cmAR-d', width:1.4, pad1:8, pad2:8});
+    drawArrow(svg, [100, -45], [60, -45], {color:'var(--mute)', label:'D(...)', markerId:'cmAR-D', width:1.4, pad1:8, pad2:8});
+    const lblD = SVG('text',{x:0, y:25, 'text-anchor':'middle', 'font-size':12, fill:'var(--ink)','font-style':'italic'});
+    lblD.textContent = r.derivedCategory;
+    svg.appendChild(lblD);
+    const lines = [];
+    lines.push('Analytic ring: ' + r.name);
+    lines.push('');
+    lines.push('Classical viewpoint: ' + r.classical);
+    lines.push('');
+    lines.push('Condensed/' + (isLiq ? 'liquid' : 'solid') + ' viewpoint: ' + r.condensed);
+    lines.push('');
+    lines.push('Derived category: ' + r.derivedCategory);
+    lines.push('');
+    lines.push('Classical issue: ' + r.classicalIssue);
+    lines.push('');
+    lines.push((isLiq ? 'Liquid' : 'Solid') + ' fix: ' + r.solidFix);
+    out.textContent = lines.join('\n');
+  }
+  draw();
+})();
+</script>
 
 <div class="quiz" data-concept="cm-applications"></div>
 
