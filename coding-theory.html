@@ -1,0 +1,1152 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Coding theory — Hamming, Reed–Solomon, BCH, LDPC, and sphere packings</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false,
+      macros:{
+        '\\Spec':'\\operatorname{Spec}',
+        '\\Gal':'\\operatorname{Gal}',
+        '\\Hom':'\\operatorname{Hom}',
+        '\\tr':'\\operatorname{tr}',
+        '\\ad':'\\operatorname{ad}',
+        '\\ind':'\\operatorname{ind}'
+      }
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  /* sticky sidebar TOC (wide screens only; narrow screens fall back to top-nav) */
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+  /* callback-css-auto-begin */
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+/* callback-css-auto-end */
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
+  /* display-prefs-css-auto-begin */
+  html[data-hide-widgets] .widget { display: none !important; }
+  html[data-hide-quizzes] .quiz { display: none !important; }
+  html[data-hide-lineage] .lineage-strip { display: none !important; }
+  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }
+  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }
+  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }
+  .mv-display-toggle--off { opacity: 0.35; }
+  /* display-prefs-css-auto-end */
+</style>
+<!-- breadcrumb-head-auto-begin -->
+<script>window.__MV_SECTION_MAP = {"<topic>":{"next":null,"prev":null,"section":"Sections","title":"<topic>"},"L-functions":{"next":"sato-tate","prev":"moonshine","section":"Modular forms & L-functions","title":"L-functions"},"abelian-varieties":{"next":"positivity-and-ample-line-bundles","prev":"toric-varieties","section":"Algebraic geometry","title":"Abelian varieties"},"additive-number-theory":{"next":"heights-arithmetic-geometry","prev":"quadratic-forms-genus-theory","section":"Number theory","title":"Additive number theory"},"adeles-and-ideles":{"next":"frobenius-and-reciprocity","prev":"p-adic-numbers","section":"Number theory","title":"Adèles & idèles"},"advanced-complex-analysis":{"next":"microlocal-analysis","prev":"sobolev-spaces-distributions","section":"Analysis","title":"Advanced complex analysis"},"algebra":{"next":"representation-theory","prev":null,"section":"Algebra & homological","title":"Abstract algebra"},"algebraic-curves-higher-genus":{"next":"deformation-theory","prev":"mirror-symmetry","section":"Algebraic geometry","title":"Algebraic curves: higher genus"},"algebraic-de-rham-cohomology":{"next":"calabi-yau-manifolds","prev":"algebraic-spaces","section":"Algebraic geometry","title":"Algebraic de Rham cohomology"},"algebraic-k-theory-foundations":{"next":"model-categories","prev":"quantum-groups","section":"Algebra & homological","title":"Algebraic K-theory foundations"},"algebraic-number-theory":{"next":"p-adic-numbers","prev":"galois","section":"Number theory","title":"Algebraic number theory"},"algebraic-spaces":{"next":"algebraic-de-rham-cohomology","prev":"functor-of-points","section":"Algebraic geometry","title":"Algebraic spaces"},"algebraic-topology":{"next":"knot-polynomials","prev":"point-set-topology","section":"Geometry & topology","title":"Algebraic topology"},"analytic-continuation":{"next":"zeta-values","prev":"dirichlet-series-euler-products","section":"Modular forms & L-functions","title":"Analytic continuation"},"analytic-number-theory":{"next":"galois","prev":null,"section":"Number theory","title":"Analytic number theory"},"atiyah-singer-index-theorem":{"next":"riemannian-geometry","prev":"k-theory","section":"Geometry & topology","title":"Atiyah–Singer index theorem"},"automorphic-forms-adelic":{"next":"moonshine","prev":"hecke-operators","section":"Modular forms & L-functions","title":"Automorphic forms (adelic)"},"bezout":{"next":"schemes","prev":"elliptic-curves","section":"Algebraic geometry","title":"Bézout's theorem"},"bsd":{"next":"modularity-and-flt","prev":"sato-tate","section":"Modular forms & L-functions","title":"Birch & Swinnerton-Dyer"},"calabi-yau-manifolds":{"next":"mirror-symmetry","prev":"algebraic-de-rham-cohomology","section":"Algebraic geometry","title":"Calabi–Yau manifolds"},"category-theory":{"next":"commutative-algebra","prev":"derived-categories","section":"Algebra & homological","title":"Category theory"},"characteristic-classes":{"next":"k-theory","prev":"symplectic-manifolds","section":"Geometry & topology","title":"Characteristic classes"},"class-field-theory":{"next":"galois-representations","prev":"computational-number-theory","section":"Number theory","title":"Class field theory"},"cluster-algebras":{"next":"galois-cohomology-and-brauer","prev":"geometric-and-combinatorial-group-theory","section":"Algebra & homological","title":"Cluster algebras"},"cobordism":{"next":"homotopy-theory","prev":"cohomology-and-duality","section":"Geometry & topology","title":"Cobordism"},"cocartesian-fibrations":{"next":"infinity-categories","prev":"heyting-algebras-toposes","section":"Higher categories & toposes","title":"Cocartesian fibrations"},"coding-theory":{"next":null,"prev":"expanders","section":"Combinatorics & graph theory","title":"Coding theory"},"cohomology-and-duality":{"next":"cobordism","prev":"mostow-rigidity","section":"Geometry & topology","title":"Cohomology and duality"},"commutative-algebra":{"next":"homological","prev":"category-theory","section":"Algebra & homological","title":"Commutative algebra"},"complex-analysis":{"next":"measure-theory","prev":"real-analysis","section":"Analysis","title":"Complex analysis"},"complex-multiplication":{"next":null,"prev":"dirichlet-unit-theorem","section":"Number theory","title":"Complex multiplication"},"complexity-theory":{"next":"type-theory-and-hott","prev":"computability-and-decidability","section":"Logic & Foundations","title":"Complexity theory"},"computability-and-decidability":{"next":"complexity-theory","prev":"model-theory-basics","section":"Logic & Foundations","title":"Computability and decidability"},"computational-number-theory":{"next":"class-field-theory","prev":"mathematics-and-cryptography","section":"Number theory","title":"Computational number theory"},"condensed-mathematics":{"next":null,"prev":"groebner-bases","section":"Algebra & homological","title":"Condensed mathematics"},"continued-fractions":{"next":"dirichlet-unit-theorem","prev":"iwasawa-theory","section":"Number theory","title":"Continued fractions"},"crystalline-cohomology":{"next":"tropical-geometry","prev":"d-modules","section":"Algebraic geometry","title":"Crystalline cohomology"},"d-modules":{"next":"crystalline-cohomology","prev":"mmp-and-birational-geometry","section":"Algebraic geometry","title":"D-modules"},"deformation-theory":{"next":"resolution-of-singularities","prev":"algebraic-curves-higher-genus","section":"Algebraic geometry","title":"Deformation theory"},"derived-categories":{"next":"category-theory","prev":"model-categories","section":"Algebra & homological","title":"Derived categories"},"designs":{"next":"spectral-graph-theory","prev":"enumerative-combinatorics","section":"Combinatorics & graph theory","title":"Designs"},"differential-forms":{"next":"morse-theory","prev":"riemann-surfaces","section":"Geometry & topology","title":"Differential forms"},"differential-geometry":{"next":"riemann-surfaces","prev":"smooth-manifolds","section":"Geometry & topology","title":"Differential geometry"},"dirac-equation":{"next":"statistical-mechanics","prev":"klein-gordon-equation","section":"Mathematical physics","title":"Dirac equation"},"dirichlet-series-euler-products":{"next":"analytic-continuation","prev":null,"section":"Modular forms & L-functions","title":"Dirichlet series & Euler products"},"dirichlet-unit-theorem":{"next":"complex-multiplication","prev":"continued-fractions","section":"Number theory","title":"Dirichlet unit theorem"},"dynamical-systems":{"next":"semigroup-theory-evolution-equations","prev":"operator-algebras","section":"Analysis","title":"Dynamical systems"},"elementary-topos-theory":{"next":"grothendieck-topologies-sites","prev":"simplicial-sets-and-nerve","section":"Higher categories & toposes","title":"Elementary topos theory"},"elliptic-curves":{"next":"bezout","prev":"etale-fundamental-group","section":"Algebraic geometry","title":"Elliptic curves"},"enumerative-combinatorics":{"next":"designs","prev":"simplicial-complexes-combinatorial","section":"Combinatorics & graph theory","title":"Enumerative combinatorics"},"etale-cohomology":{"next":"mmp-and-birational-geometry","prev":"stacks","section":"Algebraic geometry","title":"Étale cohomology"},"etale-fundamental-group":{"next":"elliptic-curves","prev":"projective-plane","section":"Algebraic geometry","title":"Étale fundamental group"},"expanders":{"next":"coding-theory","prev":"spectral-graph-theory","section":"Combinatorics & graph theory","title":"Expanders"},"extremal-combinatorics":{"next":"simplicial-complexes-combinatorial","prev":"probabilistic-method","section":"Combinatorics & graph theory","title":"Extremal combinatorics"},"first-order-logic-and-completeness":{"next":"zfc-and-ordinals","prev":"type-theory-and-hott","section":"Logic & Foundations","title":"First order logic and completeness"},"fixed-point-theorems":{"next":"harmonic-analysis-fourier","prev":"functional-analysis","section":"Analysis","title":"Fixed point theorems"},"forcing-and-independence":{"next":null,"prev":"zfc-and-ordinals","section":"Logic & Foundations","title":"Forcing and independence"},"frobenius-and-reciprocity":{"next":"quadratic-reciprocity","prev":"adeles-and-ideles","section":"Number theory","title":"Frobenius & reciprocity"},"functional-analysis":{"next":"fixed-point-theorems","prev":"harmonic-functions","section":"Analysis","title":"Functional analysis"},"functor-of-points":{"next":"algebraic-spaces","prev":"morphisms-fiber-products","section":"Algebraic geometry","title":"Functor of points"},"galois":{"next":"algebraic-number-theory","prev":"analytic-number-theory","section":"Number theory","title":"Galois theory & the quintic"},"galois-cohomology-and-brauer":{"next":"group-cohomology","prev":"cluster-algebras","section":"Algebra & homological","title":"Galois cohomology and Brauer groups"},"galois-representations":{"next":"iwasawa-theory","prev":"class-field-theory","section":"Number theory","title":"Galois representations"},"gauge-theory":{"next":"string-theory","prev":"statistical-mechanics","section":"Mathematical physics","title":"Gauge theory"},"general-relativity":{"next":"schrodinger-equation","prev":"three-body-problem","section":"Mathematical physics","title":"General relativity & Einstein equations"},"geometric-and-combinatorial-group-theory":{"next":"cluster-algebras","prev":"quaternions-octonions-and-division-algebras","section":"Algebra & homological","title":"Geometric and combinatorial group theory"},"geometric-invariant-theory":{"next":null,"prev":"tropical-geometry","section":"Algebraic geometry","title":"Geometric invariant theory"},"geometric-measure-theory":{"next":"operator-algebras","prev":"microlocal-analysis","section":"Analysis","title":"Geometric measure theory"},"groebner-bases":{"next":"condensed-mathematics","prev":"homological","section":"Algebra & homological","title":"Gröbner bases"},"grothendieck-topologies-sites":{"next":"infinity-topoi","prev":"elementary-topos-theory","section":"Higher categories & toposes","title":"Grothendieck topologies & sites"},"group-cohomology":{"next":"quantum-groups","prev":"galois-cohomology-and-brauer","section":"Algebra & homological","title":"Group cohomology"},"group-schemes":{"next":"morphisms-fiber-products","prev":"intersection-theory-chow","section":"Algebraic geometry","title":"Group schemes"},"half-integral-weight-forms":{"next":"shimura-varieties","prev":"maass-forms","section":"Modular forms & L-functions","title":"Half-integral weight forms"},"hamiltonians-classical-mechanics":{"next":"special-relativity","prev":"schrodinger-equation","section":"Mathematical physics","title":"Hamiltonians & classical mechanics"},"harmonic-analysis-fourier":{"next":"wavelets","prev":"fixed-point-theorems","section":"Analysis","title":"Harmonic analysis & Fourier theory"},"harmonic-functions":{"next":"functional-analysis","prev":"measure-theory","section":"Analysis","title":"Harmonic functions"},"hecke-operators":{"next":"automorphic-forms-adelic","prev":"theta-functions","section":"Modular forms & L-functions","title":"Hecke operators"},"heights-arithmetic-geometry":{"next":"mathematics-and-cryptography","prev":"additive-number-theory","section":"Number theory","title":"Heights in arithmetic geometry"},"heyting-algebras-toposes":{"next":"cocartesian-fibrations","prev":null,"section":"Higher categories & toposes","title":"Heyting algebras & intuitionist logic"},"high-dimensional-geometry":{"next":"information-theory","prev":"large-deviations","section":"Probability & statistics","title":"High dimensional geometry"},"hodge-theory":{"next":"singular-cubics-reduction","prev":"motives","section":"Algebraic geometry","title":"Hodge theory"},"homological":{"next":"groebner-bases","prev":"commutative-algebra","section":"Algebra & homological","title":"Homological algebra"},"homotopy-theory":{"next":"kahler-geometry","prev":"cobordism","section":"Geometry & topology","title":"Homotopy theory"},"infinity-categories":{"next":"simplicial-sets-and-nerve","prev":"cocartesian-fibrations","section":"Higher categories & toposes","title":"∞-categories (quasi-categories)"},"infinity-topoi":{"next":null,"prev":"grothendieck-topologies-sites","section":"Higher categories & toposes","title":"∞-topoi"},"information-theory":{"next":"mathematical-statistics","prev":"high-dimensional-geometry","section":"Probability & statistics","title":"Information theory"},"intersection-theory-chow":{"next":"group-schemes","prev":"sheaves","section":"Algebraic geometry","title":"Intersection theory & Chow groups"},"iwasawa-theory":{"next":"continued-fractions","prev":"galois-representations","section":"Number theory","title":"Iwasawa theory"},"k-theory":{"next":"atiyah-singer-index-theorem","prev":"characteristic-classes","section":"Geometry & topology","title":"K-theory"},"kahler-geometry":{"next":"mapping-class-groups","prev":"homotopy-theory","section":"Geometry & topology","title":"Kähler geometry"},"khovanov-homology":{"next":"surgery-theory","prev":"mapping-class-groups","section":"Geometry & topology","title":"Khovanov homology"},"klein-gordon-equation":{"next":"dirac-equation","prev":"special-relativity","section":"Mathematical physics","title":"Klein-Gordon equation"},"knot-polynomials":{"next":"smooth-manifolds","prev":"algebraic-topology","section":"Geometry & topology","title":"Knot polynomials"},"langlands-program":{"next":"theta-functions","prev":"vertex-operator-algebras","section":"Modular forms & L-functions","title":"Langlands program"},"large-deviations":{"next":"high-dimensional-geometry","prev":"random-walks-and-mixing","section":"Probability & statistics","title":"Large deviations"},"lie-algebras":{"next":"quaternions-octonions-and-division-algebras","prev":"representation-theory","section":"Algebra & homological","title":"Lie algebras"},"lie-groups":{"next":"mostow-rigidity","prev":"ricci-flow","section":"Geometry & topology","title":"Lie groups & algebras"},"maass-forms":{"next":"half-integral-weight-forms","prev":"modularity-and-flt","section":"Modular forms & L-functions","title":"Maass forms"},"mapping-class-groups":{"next":"khovanov-homology","prev":"kahler-geometry","section":"Geometry & topology","title":"Mapping class groups & 4-manifolds"},"mathematical-statistics":{"next":"probability-theory","prev":"information-theory","section":"Probability & statistics","title":"Mathematical statistics"},"mathematics-and-cryptography":{"next":"computational-number-theory","prev":"heights-arithmetic-geometry","section":"Number theory","title":"Mathematics and cryptography"},"matroid-theory":{"next":"probabilistic-method","prev":null,"section":"Combinatorics & graph theory","title":"Matroid theory"},"measure-theory":{"next":"harmonic-functions","prev":"complex-analysis","section":"Analysis","title":"Measure theory"},"microlocal-analysis":{"next":"geometric-measure-theory","prev":"advanced-complex-analysis","section":"Analysis","title":"Microlocal analysis"},"mirror-symmetry":{"next":"algebraic-curves-higher-genus","prev":"calabi-yau-manifolds","section":"Algebraic geometry","title":"Mirror symmetry"},"mmp-and-birational-geometry":{"next":"d-modules","prev":"etale-cohomology","section":"Algebraic geometry","title":"MMP and birational geometry"},"model-categories":{"next":"derived-categories","prev":"algebraic-k-theory-foundations","section":"Algebra & homological","title":"Model categories"},"model-theory-basics":{"next":"computability-and-decidability","prev":"naive-set-theory","section":"Logic & Foundations","title":"Model theory basics"},"modular-curves":{"next":"vertex-operator-algebras","prev":"partitions-generating-functions","section":"Modular forms & L-functions","title":"Modular curves"},"modular-forms":{"next":"partitions-generating-functions","prev":"upper-half-plane-hyperbolic","section":"Modular forms & L-functions","title":"Modular forms"},"modularity-and-flt":{"next":"maass-forms","prev":"bsd","section":"Modular forms & L-functions","title":"Modularity & FLT"},"moduli-spaces":{"next":"toric-varieties","prev":"sheaf-cohomology","section":"Algebraic geometry","title":"Moduli spaces"},"moonshine":{"next":"L-functions","prev":"automorphic-forms-adelic","section":"Modular forms & L-functions","title":"Monstrous moonshine"},"morphisms-fiber-products":{"next":"functor-of-points","prev":"group-schemes","section":"Algebraic geometry","title":"Morphisms & fiber products"},"morse-theory":{"next":"symplectic-manifolds","prev":"differential-forms","section":"Geometry & topology","title":"Morse theory"},"mostow-rigidity":{"next":"cohomology-and-duality","prev":"lie-groups","section":"Geometry & topology","title":"Mostow rigidity"},"motives":{"next":"hodge-theory","prev":"resolution-of-singularities","section":"Algebraic geometry","title":"Motives"},"naive-set-theory":{"next":"model-theory-basics","prev":null,"section":"Logic & Foundations","title":"Naive set theory"},"numerical-analysis":{"next":"variational-methods","prev":"spectral-theory","section":"Analysis","title":"Numerical analysis"},"operator-algebras":{"next":"dynamical-systems","prev":"geometric-measure-theory","section":"Analysis","title":"Operator algebras"},"p-adic-numbers":{"next":"adeles-and-ideles","prev":"algebraic-number-theory","section":"Number theory","title":"p-adic numbers"},"partial-differential-equations":{"next":"spectral-theory","prev":"wavelets","section":"Analysis","title":"Partial differential equations"},"partitions-generating-functions":{"next":"modular-curves","prev":"modular-forms","section":"Modular forms & L-functions","title":"Partitions & generating functions"},"point-set-topology":{"next":"algebraic-topology","prev":null,"section":"Geometry & topology","title":"Point-set topology"},"positivity-and-ample-line-bundles":{"next":"stacks","prev":"abelian-varieties","section":"Algebraic geometry","title":"Positivity and ample line bundles"},"probabilistic-method":{"next":"extremal-combinatorics","prev":"matroid-theory","section":"Combinatorics & graph theory","title":"Probabilistic method"},"probability-theory":{"next":"random-matrix-theory","prev":"mathematical-statistics","section":"Probability & statistics","title":"Probability theory"},"projective-plane":{"next":"etale-fundamental-group","prev":null,"section":"Algebraic geometry","title":"Projective plane"},"quadratic-forms-genus-theory":{"next":"additive-number-theory","prev":"quadratic-reciprocity","section":"Number theory","title":"Quadratic forms & genus theory"},"quadratic-reciprocity":{"next":"quadratic-forms-genus-theory","prev":"frobenius-and-reciprocity","section":"Number theory","title":"Quadratic reciprocity"},"quantum-field-theory":{"next":null,"prev":"string-theory","section":"Mathematical physics","title":"Quantum field theory"},"quantum-groups":{"next":"algebraic-k-theory-foundations","prev":"group-cohomology","section":"Algebra & homological","title":"Quantum groups"},"quaternions-octonions-and-division-algebras":{"next":"geometric-and-combinatorial-group-theory","prev":"lie-algebras","section":"Algebra & homological","title":"Quaternions, octonions, and division algebras"},"random-matrix-theory":{"next":null,"prev":"probability-theory","section":"Probability & statistics","title":"Random matrix theory"},"random-walks-and-mixing":{"next":"large-deviations","prev":"stochastic-calculus","section":"Probability & statistics","title":"Random walks and mixing"},"real-analysis":{"next":"complex-analysis","prev":null,"section":"Analysis","title":"Real analysis"},"representation-theory":{"next":"lie-algebras","prev":"algebra","section":"Algebra & homological","title":"Representation theory"},"resolution-of-singularities":{"next":"motives","prev":"deformation-theory","section":"Algebraic geometry","title":"Resolution of singularities"},"ricci-flow":{"next":"lie-groups","prev":"riemannian-geometry","section":"Geometry & topology","title":"Ricci flow"},"riemann-surfaces":{"next":"differential-forms","prev":"differential-geometry","section":"Geometry & topology","title":"Riemann surfaces"},"riemannian-geometry":{"next":"ricci-flow","prev":"atiyah-singer-index-theorem","section":"Geometry & topology","title":"Riemannian geometry"},"sato-tate":{"next":"bsd","prev":"L-functions","section":"Modular forms & L-functions","title":"Sato–Tate"},"schemes":{"next":"sheaves","prev":"bezout","section":"Algebraic geometry","title":"Schemes"},"schrodinger-equation":{"next":"hamiltonians-classical-mechanics","prev":"general-relativity","section":"Mathematical physics","title":"Schrödinger equation"},"semigroup-theory-evolution-equations":{"next":"several-complex-variables","prev":"dynamical-systems","section":"Analysis","title":"Semigroup theory & evolution equations"},"several-complex-variables":{"next":null,"prev":"semigroup-theory-evolution-equations","section":"Analysis","title":"Several complex variables"},"sheaf-cohomology":{"next":"moduli-spaces","prev":"singular-cubics-reduction","section":"Algebraic geometry","title":"Sheaf cohomology"},"sheaves":{"next":"intersection-theory-chow","prev":"schemes","section":"Algebraic geometry","title":"Sheaves"},"shimura-varieties":{"next":null,"prev":"half-integral-weight-forms","section":"Modular forms & L-functions","title":"Shimura varieties"},"simplicial-complexes-combinatorial":{"next":"enumerative-combinatorics","prev":"extremal-combinatorics","section":"Combinatorics & graph theory","title":"Simplicial complexes (combinatorial)"},"simplicial-sets-and-nerve":{"next":"elementary-topos-theory","prev":"infinity-categories","section":"Higher categories & toposes","title":"Simplicial sets & the nerve"},"singular-cubics-reduction":{"next":"sheaf-cohomology","prev":"hodge-theory","section":"Algebraic geometry","title":"Singular cubics & reduction"},"smooth-manifolds":{"next":"differential-geometry","prev":"knot-polynomials","section":"Geometry & topology","title":"Smooth manifolds"},"sobolev-spaces-distributions":{"next":"advanced-complex-analysis","prev":"variational-methods","section":"Analysis","title":"Sobolev spaces & distributions"},"special-relativity":{"next":"klein-gordon-equation","prev":"hamiltonians-classical-mechanics","section":"Mathematical physics","title":"Special relativity"},"spectral-graph-theory":{"next":"expanders","prev":"designs","section":"Combinatorics & graph theory","title":"Spectral graph theory"},"spectral-theory":{"next":"numerical-analysis","prev":"partial-differential-equations","section":"Analysis","title":"Spectral theory"},"stacks":{"next":"etale-cohomology","prev":"positivity-and-ample-line-bundles","section":"Algebraic geometry","title":"Stacks (Deligne–Mumford)"},"statistical-mechanics":{"next":"gauge-theory","prev":"dirac-equation","section":"Mathematical physics","title":"Statistical mechanics"},"stochastic-calculus":{"next":"random-walks-and-mixing","prev":"stochastic-processes-and-martingales","section":"Probability & statistics","title":"Stochastic calculus"},"stochastic-processes-and-martingales":{"next":"stochastic-calculus","prev":null,"section":"Probability & statistics","title":"Stochastic processes and martingales"},"string-theory":{"next":"quantum-field-theory","prev":"gauge-theory","section":"Mathematical physics","title":"String theory"},"surgery-theory":{"next":null,"prev":"khovanov-homology","section":"Geometry & topology","title":"Surgery theory"},"symplectic-manifolds":{"next":"characteristic-classes","prev":"morse-theory","section":"Geometry & topology","title":"Symplectic manifolds"},"theta-functions":{"next":"hecke-operators","prev":"langlands-program","section":"Modular forms & L-functions","title":"Theta functions"},"three-body-problem":{"next":"general-relativity","prev":null,"section":"Mathematical physics","title":"The three-body problem"},"toric-varieties":{"next":"abelian-varieties","prev":"moduli-spaces","section":"Algebraic geometry","title":"Toric varieties"},"tropical-geometry":{"next":"geometric-invariant-theory","prev":"crystalline-cohomology","section":"Algebraic geometry","title":"Tropical geometry"},"type-theory-and-hott":{"next":"first-order-logic-and-completeness","prev":"complexity-theory","section":"Logic & Foundations","title":"Type theory and HoTT"},"upper-half-plane-hyperbolic":{"next":"modular-forms","prev":"zeta-values","section":"Modular forms & L-functions","title":"Upper half-plane"},"variational-methods":{"next":"sobolev-spaces-distributions","prev":"numerical-analysis","section":"Analysis","title":"Variational methods"},"vertex-operator-algebras":{"next":"langlands-program","prev":"modular-curves","section":"Modular forms & L-functions","title":"Vertex operator algebras"},"wavelets":{"next":"partial-differential-equations","prev":"harmonic-analysis-fourier","section":"Analysis","title":"Wavelets"},"zeta-values":{"next":"upper-half-plane-hyperbolic","prev":"analytic-continuation","section":"Modular forms & L-functions","title":"Zeta values"},"zfc-and-ordinals":{"next":"forcing-and-independence","prev":"first-order-logic-and-completeness","section":"Logic & Foundations","title":"ZFC and ordinals"}};</script>
+<script src="./js/breadcrumb.js"></script>
+<script src="./js/glossary-popover.js" defer></script>
+<link rel="stylesheet" media="print" href="./css/print.css">
+<link rel="stylesheet" href="./css/theme-light.css">
+<script src="./js/theme-toggle.js"></script>
+<script src="./concepts/bundle.js" defer></script>
+<script src="./js/topic-hotkeys.js" defer></script>
+<script src="./js/topic-lineage.js" defer></script>
+<!-- breadcrumb-head-auto-end -->
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./js/katex-select.js"></script>
+<script src="./js/widget-diagram-editor.js"></script>
+<script src="./quizzes/bundle.js"></script>
+<script src="./js/sidetoc.js"></script>
+<!-- display-prefs-head-auto-begin -->
+<script src="./js/display-prefs.js"></script>
+<!-- display-prefs-head-auto-end -->
+</head>
+<body data-section="combinatorics-and-graph-theory" data-level="intermediate">
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+// draw an arrow marker def once per svg (idempotent)
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+// curved arrow between two pixel points, with optional label
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  // shorten endpoints
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><span class="nav-links"><a class="nav-link" href="./pathway.html">Pathway</a><a class="nav-link" href="./tours.html">Tours</a><a class="nav-link" href="./history.html">History</a><a class="nav-link" href="./tags.html">Themes</a><a class="nav-link" href="./mindmap.html">Mindmap</a><a class="nav-link" href="./search.html">Search</a></span><span class="mv-theme-slot"></span><!-- breadcrumb-nav-auto-end -->
+<!-- toc-auto-begin -->
+  <a href="#distance">1&nbsp;Hamming&nbsp;distance&nbsp;and&nbsp;the&nbsp;Singleton&nbsp;bound</a>
+  <a href="#linear">2&nbsp;Linear&nbsp;codes:&nbsp;generator,&nbsp;parity-check,&nbsp;syndrome</a>
+  <a href="#hamming">3&nbsp;Hamming&nbsp;codes</a>
+  <a href="#reed-solomon">4&nbsp;Reed–Solomon&nbsp;codes</a>
+  <a href="#bch">5&nbsp;BCH&nbsp;codes&nbsp;&amp;mdash;&nbsp;cyclic&nbsp;codes&nbsp;by&nbsp;design</a>
+  <a href="#ldpc">6&nbsp;LDPC&nbsp;codes&nbsp;&amp;&nbsp;iterative&nbsp;decoding</a>
+  <a href="#lattices">7&nbsp;Lattice&nbsp;codes&nbsp;&amp;&nbsp;sphere&nbsp;packings</a>
+  <a href="#connections">8&nbsp;Connections</a>
+<!-- toc-auto-end -->
+</nav>
+<!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Coding theory &amp; error-correcting codes</h1>
+  <p class="sub">Add redundancy on purpose: bits flipped by noise can be detected and undone, provided we know which patterns are <em>codewords</em>. From Hamming's $[7,4,3]$ to LDPC near the Shannon limit, codes turn algebra over $\mathbb{F}_q$ and sparse linear algebra over $\mathbb{F}_2$ into devices for surviving channel noise.</p>
+</section>
+
+<section id="distance">
+<h2>1. Hamming distance and the Singleton bound</h2>
+
+<p>A <strong>block code</strong> of length $n$ over an alphabet $\Sigma$ of size $q$ is a subset $C\subseteq \Sigma^n$. The three numbers that summarise it are the length $n$, the size $|C|=q^k$ (so the code has $k$ <em>information symbols</em>), and the <strong>minimum distance</strong>
+$$d \;=\; \min_{c\neq c'\in C}\, d_H(c,c'),\qquad d_H(x,y)=\#\{i:x_i\neq y_i\}.$$
+We summarise the parameters as $[n,k,d]_q$. A code of distance $d$ can <em>detect</em> any pattern of $\le d-1$ errors and <em>correct</em> any pattern of $\le \lfloor (d-1)/2 \rfloor$ errors: closed Hamming balls of that radius around distinct codewords are disjoint.</p>
+
+<p>The <strong>Singleton bound</strong> is the elementary observation that puncturing $d-1$ coordinates of $C$ must still leave distinct codewords distinguishable, so
+$$d \;\le\; n - k + 1.$$
+Codes meeting this bound with equality are <strong>maximum distance separable</strong> (MDS). Reed–Solomon codes are the headline example.</p>
+
+<div class="widget" id="w-distance">
+  <div class="hd"><div class="ttl">Distance &amp; correction radius</div><div class="hint">choose $n$, $d$ — see correction radius and Singleton ceiling on $k$</div></div>
+  <div class="row">
+    <label>length $n$ <input id="dist-n" type="range" min="3" max="31" step="1" value="7"></label>
+    <span id="dist-n-out" class="pill">n=7</span>
+  </div>
+  <div class="row">
+    <label>min distance $d$ <input id="dist-d" type="range" min="1" max="15" step="1" value="3"></label>
+    <span id="dist-d-out" class="pill">d=3</span>
+  </div>
+  <svg id="dist-svg" viewBox="0 0 640 220" width="100%" height="220" aria-label="ball-packing schematic"><title>Hamming balls of correction radius around two codewords</title></svg>
+  <div id="dist-out" class="readout">— set the sliders above —</div>
+</div>
+<script>
+(function(){
+  const svg=$('#dist-svg'), out=$('#dist-out');
+  const nIn=$('#dist-n'), dIn=$('#dist-d');
+  const nOut=$('#dist-n-out'), dOut=$('#dist-d-out');
+  function vol(n,t){
+    let v=0, c=1;
+    for(let i=0;i<=t;i++){ v+=c; c=c*(n-i)/(i+1); }
+    return v;
+  }
+  function draw(){
+    const n=+nIn.value, d=Math.min(+dIn.value, n);
+    const t=Math.floor((d-1)/2);
+    nOut.textContent='n='+n;
+    dOut.textContent='d='+d;
+    dIn.max=String(n);
+    svg.innerHTML='';
+    const cx1=170, cx2=470, cy=110;
+    // radius scaled by pixel-units
+    const Rmax=130, R = Math.min(Rmax, 18*Math.max(t,0)+8);
+    const sep = Math.hypot(cx2-cx1,0);
+    const overlap = (2*R > sep);
+    // codeword 1 ball
+    svg.appendChild(SVG('circle',{cx:cx1,cy,r:R,fill:'color-mix(in srgb, var(--cyan) 18%, transparent)',stroke:'var(--cyan)','stroke-width':1.3}));
+    svg.appendChild(SVG('circle',{cx:cx2,cy,r:R,fill:'color-mix(in srgb, var(--pink) 18%, transparent)',stroke:'var(--pink)','stroke-width':1.3}));
+    // codeword dots
+    svg.appendChild(SVG('circle',{cx:cx1,cy,r:5,fill:'var(--cyan)'}));
+    svg.appendChild(SVG('circle',{cx:cx2,cy,r:5,fill:'var(--pink)'}));
+    // labels
+    let t1=SVG('text',{x:cx1,y:cy-R-8,'text-anchor':'middle','font-size':12,fill:'var(--cyan)'}); t1.textContent='codeword c'; svg.appendChild(t1);
+    let t2=SVG('text',{x:cx2,y:cy-R-8,'text-anchor':'middle','font-size':12,fill:'var(--pink)'}); t2.textContent="codeword c'"; svg.appendChild(t2);
+    let t3=SVG('text',{x:cx1,y:cy+R+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'}); t3.textContent='ball of radius t = '+t; svg.appendChild(t3);
+    let t4=SVG('text',{x:cx2,y:cy+R+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'}); t4.textContent='ball of radius t = '+t; svg.appendChild(t4);
+    // distance line
+    const dl=SVG('line',{x1:cx1,y1:cy+R+34,x2:cx2,y2:cy+R+34,stroke:'var(--mute)','stroke-dasharray':'4 4'}); svg.appendChild(dl);
+    let t5=SVG('text',{x:(cx1+cx2)/2,y:cy+R+50,'text-anchor':'middle','font-size':11,fill:'var(--mute)'}); t5.textContent='Hamming distance ≥ '+d; svg.appendChild(t5);
+    // readout
+    const kMax = n-d+1;
+    const V = vol(n,t);
+    const hbound = Math.pow(2,n)/V;
+    const hboundK = Math.floor(Math.log2(hbound)*1000)/1000;
+    out.textContent = 't = ⌊(d-1)/2⌋ = '+t+
+      '   |   Singleton: k ≤ n-d+1 = '+kMax+
+      '   |   Hamming/sphere-packing (q=2): |C| ≤ 2^n / V₂(n,t) = '+hbound.toFixed(2)+'  (log₂ ≈ '+hboundK.toFixed(3)+')'+
+      (overlap ? '   ⚠ balls overlap — distance too small to correct t errors' : '   ✓ balls disjoint — decoding unambiguous up to t errors');
+  }
+  nIn.addEventListener('input',draw);
+  dIn.addEventListener('input',draw);
+  draw();
+})();
+</script>
+
+<p>The widget draws two codewords as points and the Hamming balls of radius $t=\lfloor (d-1)/2\rfloor$ around them: as long as the balls are disjoint, every received word lies in at most one ball and decoding is unambiguous. The readout reports the maximum $k$ allowed by Singleton, plus the trivial upper bound $|C|\le q^n/V_q(n,t)$ (the <strong>Hamming / sphere-packing bound</strong>).</p>
+
+<aside class="note"><strong>Tradeoff in three numbers.</strong> Coding theory is the study of the achievable region in $(n,k,d)$-space. Singleton is one ceiling; the Plotkin, Hamming, Griesmer, and Linear-Programming (LP) bounds carve away more. Constructive codes try to hug these bounds.</aside>
+
+<div class="quiz" data-concept="ct-distance"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./coding-theory.html#linear">Coding theory &amp; error-correcting codes</a> · Linear codes: generator, parity-check, syndrome</div>
+    <div><a href="./coding-theory.html#reed-solomon">Coding theory &amp; error-correcting codes</a> · Reed–Solomon codes</div>
+</aside>
+<!-- backlinks-auto-end -->
+</section>
+
+<section id="linear">
+<h2>2. Linear codes: generator, parity-check, syndrome</h2>
+
+<p>A code $C\subseteq \mathbb{F}_q^n$ is <strong>linear</strong> if it is a $k$-dimensional subspace. Two matrices describe it:</p>
+<ul>
+  <li>A <strong>generator matrix</strong> $G\in\mathbb{F}_q^{k\times n}$ whose rows span $C$. Encoding a message $m\in\mathbb{F}_q^k$ is the matrix product $c = mG$.</li>
+  <li>A <strong>parity-check matrix</strong> $H\in\mathbb{F}_q^{(n-k)\times n}$ whose kernel is $C$: a word $y\in\mathbb{F}_q^n$ is a codeword iff $Hy^\top = 0$.</li>
+</ul>
+<p>If $G=[I_k\mid A]$ is in standard form then $H=[-A^\top\mid I_{n-k}]$ works. The minimum distance equals the minimum weight $\min_{c\neq 0}w(c)$ (linearity collapses pairs to differences), and that minimum equals the smallest number of columns of $H$ that are linearly dependent.</p>
+
+<p>Given a received word $y=c+e$ with $c\in C$ and error vector $e$, the <strong>syndrome</strong> is $s = Hy^\top = He^\top$ — it depends only on the error pattern, not on which codeword was sent. <strong>Syndrome decoding</strong> precomputes a table mapping each syndrome to the minimum-weight error producing it; on receiving $y$ we compute $s$, look up $e$, and output $\hat c = y - e$.</p>
+
+<div class="widget" id="w-linear">
+  <div class="hd"><div class="ttl">Syndrome decoder for a $[6,3]$ code</div><div class="hint">flip received bits; watch the syndrome change</div></div>
+  <p class="small" style="margin:.2rem 0 .4rem">Parity-check $H$ with three rows; flip any of the six bits to see $Hy^\top$.</p>
+  <div id="lin-bits" class="row" style="gap:.4rem;flex-wrap:nowrap"></div>
+  <svg id="lin-svg" viewBox="0 0 640 200" width="100%" height="200" aria-label="parity-check matrix and syndrome"><title>Parity-check matrix and current syndrome</title></svg>
+  <div id="lin-out" class="readout">syndrome 000 — y is a codeword</div>
+</div>
+<script>
+(function(){
+  // [6,3] code, H = [[1,0,1,1,0,0],[1,1,0,0,1,0],[0,1,1,0,0,1]]
+  const H=[[1,0,1,1,0,0],[1,1,0,0,1,0],[0,1,1,0,0,1]];
+  const N=6, K=3;
+  const y=[0,0,0,0,0,0];
+  const bitsRow=$('#lin-bits'), svg=$('#lin-svg'), out=$('#lin-out');
+  // build clickable bit buttons
+  bitsRow.innerHTML='';
+  for(let i=0;i<N;i++){
+    const b=document.createElement('button');
+    b.id='lin-y'+i;
+    b.textContent='y'+(i+1)+'=0';
+    b.addEventListener('click',()=>{ y[i]^=1; draw(); });
+    bitsRow.appendChild(b);
+  }
+  function draw(){
+    // refresh button labels
+    for(let i=0;i<N;i++){
+      const b=$('#lin-y'+i);
+      b.textContent='y'+(i+1)+'='+y[i];
+      b.classList.toggle('active', y[i]===1);
+    }
+    // draw H and current product
+    svg.innerHTML='';
+    const ox=60, oy=30, cellW=44, cellH=34;
+    // matrix
+    for(let r=0;r<3;r++) for(let c=0;c<6;c++){
+      const t=SVG('text',{x:ox+c*cellW+cellW/2, y:oy+r*cellH+cellH/2+4,'text-anchor':'middle','font-size':14,fill:'var(--ink)'});
+      t.textContent=H[r][c]; svg.appendChild(t);
+    }
+    // brackets
+    svg.appendChild(SVG('path',{d:`M${ox-10},${oy-4} L${ox-14},${oy-4} L${ox-14},${oy+3*cellH+4} L${ox-10},${oy+3*cellH+4}`,stroke:'var(--ink)',fill:'none','stroke-width':1.2}));
+    svg.appendChild(SVG('path',{d:`M${ox+6*cellW+10},${oy-4} L${ox+6*cellW+14},${oy-4} L${ox+6*cellW+14},${oy+3*cellH+4} L${ox+6*cellW+10},${oy+3*cellH+4}`,stroke:'var(--ink)',fill:'none','stroke-width':1.2}));
+    // label H over matrix
+    const Hlbl=SVG('text',{x:ox+3*cellW,y:oy-12,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});
+    Hlbl.textContent='parity-check H'; svg.appendChild(Hlbl);
+    // y vector below H
+    const yLblY=oy+3*cellH+34;
+    const yLbl=SVG('text',{x:ox+3*cellW,y:yLblY-12,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});
+    yLbl.textContent='received y'; svg.appendChild(yLbl);
+    for(let i=0;i<N;i++){
+      const x=ox+i*cellW+cellW/2;
+      svg.appendChild(SVG('rect',{x:x-15,y:yLblY-2,width:30,height:24,fill:y[i]?'color-mix(in srgb, var(--yellow) 30%, transparent)':'transparent',stroke:'var(--line)','stroke-width':1,rx:4}));
+      const t=SVG('text',{x,y:yLblY+15,'text-anchor':'middle','font-size':14,fill:y[i]?'var(--yellow)':'var(--ink)'});
+      t.textContent=y[i]; svg.appendChild(t);
+    }
+    // syndrome
+    const s=H.map(row=>row.reduce((a,h,i)=>a^(h*y[i]),0));
+    const sx=ox+6*cellW+60;
+    const sLbl=SVG('text',{x:sx+20,y:oy-12,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});
+    sLbl.textContent='syndrome s = Hyᵀ'; svg.appendChild(sLbl);
+    const isZero=s.every(b=>b===0);
+    for(let r=0;r<3;r++){
+      svg.appendChild(SVG('rect',{x:sx,y:oy+r*cellH,width:40,height:24,fill:s[r]?'color-mix(in srgb, var(--pink) 30%, transparent)':'color-mix(in srgb, var(--green) 25%, transparent)',stroke:'var(--line)',rx:4}));
+      const t=SVG('text',{x:sx+20,y:oy+r*cellH+17,'text-anchor':'middle','font-size':14,fill:s[r]?'var(--pink)':'var(--green)','font-weight':600});
+      t.textContent=s[r]; svg.appendChild(t);
+    }
+    out.textContent='syndrome '+s.join('')+(isZero?'  ✓  y is a codeword (no detected error)':'  ✗  not a codeword: y is in coset '+s.join('')+'; minimum-weight coset leader e identifies the error');
+  }
+  draw();
+})();
+</script>
+
+<p>The dual code $C^\perp = \{x:\langle x,c\rangle=0\text{ for all }c\in C\}$ is the $(n-k)$-dimensional code whose generator is $H$ and whose parity-check is $G$. Duality swaps $G$ and $H$ — and swaps "long messages, few constraints" for "short messages, many constraints." A code can even be <strong>self-dual</strong>: the famous extended binary Golay code $[24,12,8]$ and the binary Reed–Muller code $\mathrm{RM}(1,m)$ at the right parameters are examples.</p>
+
+<div class="quiz" data-concept="ct-linear"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./coding-theory.html#hamming">Coding theory &amp; error-correcting codes</a> · Hamming codes</div>
+    <div><a href="./coding-theory.html#lattices">Coding theory &amp; error-correcting codes</a> · Lattice codes and sphere packings</div>
+    <div><a href="./coding-theory.html#ldpc">Coding theory &amp; error-correcting codes</a> · LDPC codes and belief propagation</div>
+</aside>
+<!-- backlinks-auto-end -->
+</section>
+
+<section id="hamming">
+<h2>3. Hamming codes</h2>
+
+<p>The simplest non-trivial family of perfect single-error-correcting codes:</p>
+<ul>
+  <li>Pick $m\ge 2$. Let $H$ be the $m\times (2^m-1)$ matrix whose columns are <em>all</em> non-zero vectors of $\mathbb{F}_2^m$, in any order.</li>
+  <li>Its kernel is the binary <strong>Hamming code</strong> $\mathrm{Ham}(m)$ with parameters $[n,k,d] = [2^m-1,\, 2^m-1-m,\, 3]$.</li>
+</ul>
+<p>Distance $d=3$ because any two columns of $H$ are linearly independent (they're distinct non-zero vectors) but three columns can sum to zero. So Hamming codes correct exactly one error. The classic case $m=3$ is the $[7,4,3]$ code with $2^4=16$ codewords.</p>
+
+<p><strong>Perfect:</strong> The Hamming bound $|C|\cdot V_2(n,1) \le 2^n$ becomes $2^k\cdot(1+n) \le 2^n$, i.e. $k\le n-\log_2(n+1)$ — and Hamming codes meet it with equality. Every binary word is within distance $1$ of <em>exactly</em> one codeword; the closed balls of radius $1$ tile $\mathbb{F}_2^n$.</p>
+
+<p>The <strong>decoding trick</strong> that made Hamming codes famous in 1950: <em>arrange the columns of $H$ to be the binary representations of $1,2,\dots,n$.</em> Then the syndrome $Hy^\top$ <em>is</em> the binary representation of the index of the flipped bit. No table lookup; the syndrome <strong>points at</strong> the error.</p>
+
+<div class="widget" id="w-hamming">
+  <div class="hd"><div class="ttl">$[7,4,3]$ Hamming code &mdash; click to flip a bit</div><div class="hint">parity bits at positions 1,2,4; syndrome = binary index of flip</div></div>
+  <svg id="ham-svg" viewBox="0 0 640 260" width="100%" height="260" aria-label="seven-bit Hamming codeword with parity-bit Venn diagram"><title>Seven-bit Hamming codeword with three overlapping parity circles</title></svg>
+  <div id="ham-out" class="readout">— click a bit cell —</div>
+  <div class="row" style="margin-top:.4rem">
+    <button id="ham-reset">reset codeword</button>
+    <button id="ham-random">random codeword</button>
+  </div>
+</div>
+<script>
+(function(){
+  // [7,4,3] Hamming with parity at positions 1,2,4 (1-indexed)
+  const svg=$('#ham-svg'), out=$('#ham-out');
+  // bits y[0..6] correspond to positions 1..7
+  const y=[0,0,0,0,0,0,0];
+  // parity positions in 1-indexed: 1,2,4 i.e. y[0],y[1],y[3]
+  // Three parity equations: y1 ⊕ y3 ⊕ y5 ⊕ y7  (positions with bit-0 of index set)
+  //                          y2 ⊕ y3 ⊕ y6 ⊕ y7  (bit-1 of index set)
+  //                          y4 ⊕ y5 ⊕ y6 ⊕ y7  (bit-2 of index set)
+  // Circles cover support of each equation.
+  function reEncode(){
+    // recompute parities from data bits y[2]=p3..y[6]
+    y[0]=y[2]^y[4]^y[6];
+    y[1]=y[2]^y[5]^y[6];
+    y[3]=y[4]^y[5]^y[6];
+  }
+  function syndrome(){
+    return [
+      y[0]^y[2]^y[4]^y[6],
+      y[1]^y[2]^y[5]^y[6],
+      y[3]^y[4]^y[5]^y[6]
+    ];
+  }
+  function draw(){
+    svg.innerHTML='';
+    // three Venn circles
+    const c1={cx:230,cy:135,r:90,color:'var(--cyan)'};
+    const c2={cx:330,cy:135,r:90,color:'var(--yellow)'};
+    const c3={cx:280,cy:80,r:90,color:'var(--pink)'};
+    // group for circles
+    for(const cc of [c1,c2,c3]){
+      svg.appendChild(SVG('circle',{cx:cc.cx,cy:cc.cy,r:cc.r,fill:`color-mix(in srgb, ${cc.color} 10%, transparent)`,stroke:cc.color,'stroke-width':1.4}));
+    }
+    // labels for which row
+    const L1=SVG('text',{x:135,y:140,'font-size':11,fill:'var(--cyan)','text-anchor':'middle'}); L1.textContent='s₁ (bit-0)'; svg.appendChild(L1);
+    const L2=SVG('text',{x:430,y:140,'font-size':11,fill:'var(--yellow)','text-anchor':'middle'}); L2.textContent='s₂ (bit-1)'; svg.appendChild(L2);
+    const L3=SVG('text',{x:280,y:-10+10,'font-size':11,fill:'var(--pink)','text-anchor':'middle'}); L3.textContent='s₃ (bit-2)'; svg.appendChild(L3);
+    // bit positions (pixel placement inside Venn regions): 1..7 by binary index
+    // pos i ∈ regions whose bit is set in i
+    // 1 (001): only s1     -> in c1 only
+    // 2 (010): only s2     -> in c2 only
+    // 3 (011): s1 & s2     -> intersection c1∩c2 (no c3)
+    // 4 (100): only s3     -> in c3 only
+    // 5 (101): s1 & s3     -> c1∩c3 (not c2)
+    // 6 (110): s2 & s3     -> c2∩c3
+    // 7 (111): all three   -> center
+    const slot=[
+      {x:175,y:155}, // pos 1 (s1)
+      {x:385,y:155}, // pos 2 (s2)
+      {x:280,y:175}, // pos 3 (s1 ∩ s2)
+      {x:280,y:30},  // pos 4 (s3)
+      {x:220,y:90},  // pos 5 (s1 ∩ s3)
+      {x:340,y:90},  // pos 6 (s2 ∩ s3)
+      {x:280,y:115}  // pos 7 (all three)
+    ];
+    for(let i=0;i<7;i++){
+      const s=slot[i];
+      const isParity=(i===0||i===1||i===3);
+      svg.appendChild(SVG('circle',{cx:s.x,cy:s.y,r:18,fill:y[i]?'var(--yellow)':'var(--panel2)',stroke:isParity?'var(--violet)':'var(--line)','stroke-width':isParity?2:1.2}));
+      const t=SVG('text',{x:s.x,y:s.y+5,'text-anchor':'middle','font-size':15,fill:y[i]?'#111':'var(--ink)','font-weight':600});
+      t.textContent=String(y[i]); svg.appendChild(t);
+      const lab=SVG('text',{x:s.x,y:s.y+34,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});
+      lab.textContent='y'+(i+1)+(isParity?' (p)':'');
+      svg.appendChild(lab);
+      // click toggles
+      const hit=SVG('circle',{cx:s.x,cy:s.y,r:22,fill:'transparent',cursor:'pointer'});
+      hit.addEventListener('click',()=>{ y[i]^=1; draw(); });
+      svg.appendChild(hit);
+    }
+    // syndrome display
+    const s=syndrome();
+    const idx = (s[2]<<2)|(s[1]<<1)|s[0]; // bit2,bit1,bit0 -> reading position
+    const isZero=(idx===0);
+    let msg = 'codeword = '+y.join('')+'   syndrome (s₃ s₂ s₁) = '+s[2]+''+s[1]+''+s[0];
+    if(isZero) msg += '  ✓ all parity checks satisfied';
+    else msg += '  ✗ syndrome = binary '+s[2]+''+s[1]+''+s[0]+' = '+idx+' → bit at position '+idx+' is flipped; flip it back to correct.';
+    out.textContent=msg;
+    // text overlay: integer index of flipped bit
+    if(!isZero){
+      const ind=SVG('rect',{x:520,y:30,width:90,height:60,rx:8,fill:'color-mix(in srgb, var(--pink) 18%, transparent)',stroke:'var(--pink)','stroke-width':1.3});
+      svg.appendChild(ind);
+      const t=SVG('text',{x:565,y:55,'text-anchor':'middle','font-size':12,fill:'var(--pink)'}); t.textContent='points at'; svg.appendChild(t);
+      const t2=SVG('text',{x:565,y:80,'text-anchor':'middle','font-size':22,fill:'var(--pink)','font-weight':700}); t2.textContent='bit '+idx; svg.appendChild(t2);
+    }
+  }
+  $('#ham-reset').addEventListener('click',()=>{ for(let i=0;i<7;i++)y[i]=0; draw(); });
+  $('#ham-random').addEventListener('click',()=>{
+    // pick random 4 message bits, re-encode parity
+    y[2]=Math.random()<0.5?1:0;
+    y[4]=Math.random()<0.5?1:0;
+    y[5]=Math.random()<0.5?1:0;
+    y[6]=Math.random()<0.5?1:0;
+    reEncode();
+    draw();
+  });
+  reEncode(); draw();
+})();
+</script>
+
+<p>The Venn diagram visualises three parity circles, each enforcing $\sum_{i\in S_j} y_i = 0\pmod 2$ for one row $S_j$ of $H$. A single bit-flip falsifies exactly the rows whose support contains that bit; the syndrome $s_1 s_2 s_3$ reads off as the binary index of the flipped position — including the parity bits themselves at positions $1,2,4$.</p>
+
+<div class="quiz" data-concept="ct-hamming"></div>
+</section>
+
+<section id="reed-solomon">
+<h2>4. Reed–Solomon codes</h2>
+
+<p>Fix a finite field $\mathbb{F}_q$ with $n\le q$ distinct evaluation points $\alpha_1,\dots,\alpha_n\in\mathbb{F}_q$. The <strong>Reed–Solomon code</strong> with dimension $k$ is the image of the evaluation map
+$$\mathrm{ev}:\mathbb{F}_q[x]_{<k}\to\mathbb{F}_q^n,\qquad f \mapsto (f(\alpha_1),\dots,f(\alpha_n)).$$
+A codeword is a polynomial of degree $&lt;k$ sampled at $n$ points. Two distinct degree-$&lt;k$ polynomials agree at $\le k-1$ points (their difference is a non-zero polynomial of degree $&lt;k$), so they disagree at $\ge n-k+1$ — distance $d = n-k+1$ exactly. Reed–Solomon codes are <strong>MDS</strong>: they meet the Singleton bound with equality.</p>
+
+<p>This is the code in QR codes, on a CD's red book, in DSL modems, in RAID-6, and famously on the Voyager probes (after they were upgraded to a $[255,223,33]$ Reed–Solomon outer code in 1986). Decoders such as Berlekamp–Massey, Berlekamp–Welch, and Guruswami–Sudan all exploit the polynomial structure: a received word $r = c + e$ is the values $f(\alpha_i)+e_i$, and the polynomial $f$ can be recovered as long as the error vector is sparse enough that no other degree-$&lt;k$ polynomial fits.</p>
+
+<div class="widget" id="w-rs">
+  <div class="hd"><div class="ttl">Reed–Solomon over $\mathbb{R}$ — sandbox</div><div class="hint">interpolate $f$ at $n$ points, corrupt $e$ of them, watch error-locator detect locations</div></div>
+  <p class="small" style="margin:.2rem 0 .4rem">Real-arithmetic mock-up: polynomial of degree $&lt;k$ evaluated at $n=8$ points $x_i=i$; corrupt up to $e\le\lfloor (n-k)/2\rfloor$ samples by sliders.</p>
+  <div class="row">
+    <label>dim $k$ <input id="rs-k" type="range" min="1" max="5" step="1" value="3"></label>
+    <span id="rs-k-out" class="pill">k=3</span>
+    <span class="pill" id="rs-cap">corrects 2 of 8</span>
+  </div>
+  <div id="rs-noise" class="row" style="gap:.3rem;flex-wrap:wrap"></div>
+  <svg id="rs-svg" viewBox="0 0 640 280" width="100%" height="280" aria-label="reed-solomon encoder/decoder"><title>True polynomial, noisy samples, and recovered polynomial</title></svg>
+  <div id="rs-out" class="readout">— corrupt samples with the buttons —</div>
+</div>
+<script>
+(function(){
+  const N=8;
+  const kIn=$('#rs-k'), kOut=$('#rs-k-out'), capOut=$('#rs-cap');
+  const noiseRow=$('#rs-noise'), svg=$('#rs-svg'), out=$('#rs-out');
+  // fixed "true" polynomial with degree up to 4: f(x)=0.5 - 0.4 x + 0.15 x^2 - 0.01 x^3 + 0.001 x^4
+  const trueCoef=[0.5,-0.4,0.15,-0.01,0.001];
+  const noise=new Array(N).fill(0);
+  function polyEval(c,x){ let v=0; for(let i=c.length-1;i>=0;i--) v=v*x+c[i]; return v; }
+  // build noise toggles
+  noiseRow.innerHTML='';
+  for(let i=0;i<N;i++){
+    const b=document.createElement('button'); b.id='rs-n'+i; b.textContent='x'+(i+1)+' clean';
+    b.addEventListener('click',()=>{
+      noise[i]= noise[i]===0 ? (Math.random()*3-1.5) : 0;
+      draw();
+    });
+    noiseRow.appendChild(b);
+  }
+  // Lagrange interpolation through k chosen indices
+  function lagrange(xs,ys){
+    const n=xs.length;
+    return function(x){
+      let r=0;
+      for(let i=0;i<n;i++){
+        let term=ys[i];
+        for(let j=0;j<n;j++) if(j!==i) term *= (x-xs[j])/(xs[i]-xs[j]);
+        r+=term;
+      }
+      return r;
+    };
+  }
+  // exhaustive search: try every (n choose k) subset, return one with lowest sum of |samples - reconstruction|
+  function decode(samples,k){
+    const n=samples.length;
+    const idxs=[]; for(let i=0;i<n;i++) idxs.push(i);
+    // generate k-subsets (binomial; n=8,k≤5 so up to 70 subsets — fine)
+    function subsets(arr,k){
+      if(k===0) return [[]];
+      if(arr.length<k) return [];
+      const [first,...rest]=arr;
+      const w=subsets(rest,k-1).map(s=>[first,...s]);
+      const wo=subsets(rest,k);
+      return w.concat(wo);
+    }
+    let best=null, bestErr=Infinity, bestPoly=null;
+    for(const sub of subsets(idxs,k)){
+      const xs=sub.map(i=>i+1), ys=sub.map(i=>samples[i]);
+      const p=lagrange(xs,ys);
+      let err=0, errCount=0;
+      for(let i=0;i<n;i++){
+        const diff=Math.abs(p(i+1)-samples[i]);
+        if(diff>0.01) errCount++;
+        err+=diff;
+      }
+      if(errCount<bestErr || (errCount===bestErr && err<(best?.err||Infinity))){
+        bestErr=errCount; best={sub,errCount,err}; bestPoly=p;
+      }
+    }
+    return {poly:bestPoly, errCount:bestErr, sub:best.sub};
+  }
+  function draw(){
+    const k=+kIn.value;
+    const t=Math.floor((N-k)/2);
+    kOut.textContent='k='+k;
+    capOut.textContent='corrects '+t+' of '+N;
+    // update noise button labels
+    for(let i=0;i<N;i++){
+      const b=$('#rs-n'+i);
+      const v=noise[i];
+      b.textContent= v===0 ? ('x'+(i+1)+' clean') : ('x'+(i+1)+' +'+v.toFixed(2));
+      b.classList.toggle('active', v!==0);
+    }
+    svg.innerHTML='';
+    // axes
+    const ML=46, MR=20, MT=20, MB=36, W=640, H=280;
+    const plotW=W-ML-MR, plotH=H-MT-MB;
+    const xs=[1,2,3,4,5,6,7,8];
+    const trueYs=xs.map(x=>polyEval(trueCoef.slice(0,k),x));
+    const sampYs=trueYs.map((y,i)=>y+noise[i]);
+    let yMin=Infinity,yMax=-Infinity;
+    for(const v of trueYs.concat(sampYs)){ if(v<yMin)yMin=v; if(v>yMax)yMax=v; }
+    const pad=(yMax-yMin)*0.2 + 0.4;
+    yMin-=pad; yMax+=pad;
+    function px(x){ return ML+(x-0.5)/(N+0.5)*plotW; }
+    function py(y){ return MT+plotH*(1-(y-yMin)/(yMax-yMin)); }
+    // axis
+    svg.appendChild(SVG('line',{x1:ML,y1:H-MB,x2:W-MR,y2:H-MB,stroke:'var(--mute)','stroke-width':1}));
+    svg.appendChild(SVG('line',{x1:ML,y1:MT,x2:ML,y2:H-MB,stroke:'var(--mute)','stroke-width':1}));
+    // true polynomial curve
+    let path='';
+    for(let i=0;i<=120;i++){
+      const x=0.5+i/120*(N+0.5-0.5);
+      const y=polyEval(trueCoef.slice(0,k),x);
+      path += (i===0?'M':'L')+px(x)+' '+py(y)+' ';
+    }
+    svg.appendChild(SVG('path',{d:path,fill:'none',stroke:'var(--cyan)','stroke-width':1.8}));
+    // decode
+    const dec=decode(sampYs,k);
+    // recovered polynomial curve
+    let dpath='';
+    for(let i=0;i<=120;i++){
+      const x=0.5+i/120*(N+0.5-0.5);
+      const y=dec.poly(x);
+      dpath += (i===0?'M':'L')+px(x)+' '+py(y)+' ';
+    }
+    svg.appendChild(SVG('path',{d:dpath,fill:'none',stroke:'var(--yellow)','stroke-width':1.6,'stroke-dasharray':'5 3'}));
+    // samples
+    for(let i=0;i<N;i++){
+      const corrupted = Math.abs(sampYs[i]-dec.poly(i+1))>0.05;
+      svg.appendChild(SVG('circle',{cx:px(i+1),cy:py(sampYs[i]),r:6,fill:corrupted?'var(--pink)':'var(--green)',stroke:'var(--ink)','stroke-width':1}));
+      const t=SVG('text',{x:px(i+1),y:H-MB+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+      t.textContent='x'+(i+1); svg.appendChild(t);
+    }
+    // legend
+    const lg=SVG('g',{transform:'translate('+(W-150)+','+(MT+8)+')'});
+    lg.appendChild(SVG('rect',{x:0,y:0,width:140,height:60,fill:'var(--panel)',stroke:'var(--line)',rx:4}));
+    const l1=SVG('line',{x1:8,y1:18,x2:32,y2:18,stroke:'var(--cyan)','stroke-width':2}); lg.appendChild(l1);
+    const t1=SVG('text',{x:36,y:21,'font-size':11,fill:'var(--ink)'}); t1.textContent='true poly f(x)'; lg.appendChild(t1);
+    const l2=SVG('line',{x1:8,y1:38,x2:32,y2:38,stroke:'var(--yellow)','stroke-width':2,'stroke-dasharray':'4 3'}); lg.appendChild(l2);
+    const t2=SVG('text',{x:36,y:41,'font-size':11,fill:'var(--ink)'}); t2.textContent='decoder recovers'; lg.appendChild(t2);
+    svg.appendChild(lg);
+    // readout
+    const eCount=noise.filter(v=>v!==0).length;
+    let msg='k='+k+', n='+N+' → distance d=n-k+1='+(N-k+1)+', corrects t=⌊(d-1)/2⌋='+t+' errors. ';
+    msg += eCount+' corrupted sample(s); decoder ';
+    if(eCount<=t) msg += 'recovers f exactly (errors corrected).';
+    else msg += 'cannot recover — error pattern exceeds capacity, expect garbled output.';
+    out.textContent=msg;
+  }
+  kIn.addEventListener('input',draw);
+  draw();
+})();
+</script>
+
+<p><strong>Why MDS matters:</strong> any $k$ of the $n$ symbols suffice to reconstruct the message. Erase any $n-k$ coordinates (a so-called <em>erasure channel</em>) and Lagrange interpolation through the surviving samples returns $f$. That's also why Reed–Solomon is the standard for distributed-storage erasure coding.</p>
+
+<aside class="note"><strong>Generalisation.</strong> Replacing the line by an algebraic curve $X/\mathbb{F}_q$ of genus $g$ and the polynomial filter by sections of a divisor $D$ gives <strong>algebraic-geometric (Goppa) codes</strong>: $[n,k,d]_q$ with $k\ge \deg D - g + 1$ and $d\ge n-\deg D$. For curves with many $\mathbb{F}_q$-points (e.g. Hermitian, Suzuki, Drinfeld modular), AG codes beat the Gilbert–Varshamov bound for $q\ge 49$ — the <em>Tsfasman–Vlăduţ–Zink theorem</em>.</aside>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./algebra.html#polyrings">Polynomial rings and irreducibility</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./coding-theory.html#bch">Coding theory &amp; error-correcting codes</a> · BCH codes</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="ct-reed-solomon"></div>
+</section>
+
+<section id="bch">
+<h2>5. BCH codes &mdash; cyclic codes by design</h2>
+
+<p>A linear code $C\subseteq \mathbb{F}_q^n$ is <strong>cyclic</strong> if a cyclic shift $(c_0,c_1,\dots,c_{n-1})\mapsto (c_{n-1},c_0,\dots,c_{n-2})$ preserves $C$. Encode words as polynomials $c(x)=\sum c_i x^i \in \mathbb{F}_q[x]/(x^n-1)$; cyclic codes are exactly the ideals of that quotient ring, each generated by a divisor $g(x)$ of $x^n-1$. The polynomial $g(x)$ is the <strong>generator polynomial</strong>; its degree is $n-k$.</p>
+
+<p><strong>Bose–Chaudhuri–Hocquenghem (BCH) construction.</strong> Pick a primitive $n$-th root of unity $\beta\in \mathbb{F}_{q^m}$ (so $n\mid q^m-1$). For a target distance $\delta$, let
+$$g(x) = \mathrm{lcm}\big(m_{\beta^{1}}(x),\, m_{\beta^{2}}(x),\,\dots,\,m_{\beta^{\delta-1}}(x)\big),$$
+the least common multiple of the minimal polynomials of $\delta-1$ <em>consecutive</em> powers of $\beta$. The <strong>BCH bound</strong> guarantees the resulting cyclic code has minimum distance $d\ge \delta$. Reed–Solomon codes are the special case $q^m=q$ (no extension), with $g(x)=\prod_{i=1}^{\delta-1}(x-\beta^i)$.</p>
+
+<div class="widget" id="w-bch">
+  <div class="hd"><div class="ttl">Spectrum of a cyclic code</div><div class="hint">$g(x)$'s zero set $\subset \{\beta^0,\dots,\beta^{n-1}\}$; BCH-designed window highlighted</div></div>
+  <p class="small" style="margin:.2rem 0 .4rem">$n=15$, $\beta\in\mathbb{F}_{16}$ primitive 15th root. Click a power $\beta^i$ to include $m_{\beta^i}(x)$ in $g(x)$; the conjugate orbit toggles together.</p>
+  <svg id="bch-svg" viewBox="0 0 640 360" width="100%" height="360" aria-label="powers of the primitive 15th root of unity"><title>Powers of beta on the unit circle, with BCH design distance window</title></svg>
+  <div id="bch-out" class="readout">— click any β^i —</div>
+  <div class="row" style="margin-top:.4rem">
+    <button id="bch-design-5">design δ=5 (corrects 2)</button>
+    <button id="bch-design-7">design δ=7 (corrects 3)</button>
+    <button id="bch-reset">clear</button>
+  </div>
+</div>
+<script>
+(function(){
+  const svg=$('#bch-svg'), out=$('#bch-out');
+  const N=15, Q=2; // F_2, beta primitive 15th root over F_16
+  // cyclotomic cosets of 2 mod 15: each coset = {i, 2i, 4i, 8i} mod 15
+  const cosets=[];
+  const seen=new Set();
+  for(let i=0;i<N;i++){
+    if(seen.has(i)) continue;
+    const C=[];
+    let j=i;
+    while(!seen.has(j)){ seen.add(j); C.push(j); j=(j*Q)%N; }
+    cosets.push(C);
+  }
+  // active = set of indices that are roots of g(x). Toggling any index toggles its whole coset.
+  const active=new Set();
+  function cosetOf(i){ return cosets.find(c=>c.includes(i)); }
+  function design(d){
+    active.clear();
+    for(let i=1;i<=d-1;i++){
+      for(const j of cosetOf(i)) active.add(j);
+    }
+    draw();
+  }
+  $('#bch-design-5').addEventListener('click',()=>design(5));
+  $('#bch-design-7').addEventListener('click',()=>design(7));
+  $('#bch-reset').addEventListener('click',()=>{ active.clear(); draw(); });
+  function draw(){
+    svg.innerHTML='';
+    const cx=320, cy=180, R=120;
+    // unit circle
+    svg.appendChild(SVG('circle',{cx,cy,r:R,fill:'none',stroke:'var(--mute)','stroke-dasharray':'4 4','stroke-width':1}));
+    // dots
+    for(let i=0;i<N;i++){
+      const angle = -Math.PI/2 + 2*Math.PI*i/N;
+      const x=cx+R*Math.cos(angle), y=cy+R*Math.sin(angle);
+      const isActive=active.has(i);
+      svg.appendChild(SVG('circle',{cx:x,cy:y,r:isActive?10:7,fill:isActive?'var(--pink)':'var(--panel2)',stroke:'var(--ink)','stroke-width':1.4,cursor:'pointer'}));
+      const lbl=SVG('text',{x:cx+(R+22)*Math.cos(angle),y:cy+(R+22)*Math.sin(angle)+4,'text-anchor':'middle','font-size':12,fill:isActive?'var(--pink)':'var(--ink)','font-weight':isActive?600:400});
+      lbl.textContent='β'+(i===0?'⁰':String.fromCharCode(0x2070 + (i<10?i:0)) + (i>=10?(['¹⁰','¹¹','¹²','¹³','¹⁴'][i-10]):''));
+      // simpler: use β^i text
+      lbl.textContent='β^'+i;
+      svg.appendChild(lbl);
+      // click target
+      const hit=SVG('circle',{cx:x,cy:y,r:18,fill:'transparent',cursor:'pointer'});
+      hit.addEventListener('click',()=>{
+        const C=cosetOf(i);
+        const allActive = C.every(j=>active.has(j));
+        for(const j of C){ if(allActive) active.delete(j); else active.add(j); }
+        draw();
+      });
+      svg.appendChild(hit);
+    }
+    // design window for consecutive 1..δ-1: count longest consecutive active starting from 1
+    let consec=0;
+    for(let i=1;i<N;i++){ if(active.has(i)) consec++; else break; }
+    const delta = consec+1;
+    // arc highlight if delta≥2
+    if(consec>=1){
+      const a1=-Math.PI/2 + 2*Math.PI*1/N;
+      const a2=-Math.PI/2 + 2*Math.PI*consec/N;
+      const x1=cx+R*Math.cos(a1), y1=cy+R*Math.sin(a1);
+      const x2=cx+R*Math.cos(a2), y2=cy+R*Math.sin(a2);
+      const largeArc=(consec>N/2)?1:0;
+      const arcPath=`M ${cx} ${cy} L ${x1} ${y1} A ${R} ${R} 0 ${largeArc} 1 ${x2} ${y2} Z`;
+      svg.appendChild(SVG('path',{d:arcPath,fill:'color-mix(in srgb, var(--cyan) 18%, transparent)',stroke:'var(--cyan)','stroke-width':1.2}));
+    }
+    // info table at right
+    const info=SVG('g',{transform:'translate(20,30)'});
+    const tt=SVG('text',{x:0,y:0,'font-size':12,fill:'var(--mute)'}); tt.textContent='cyclotomic cosets mod 15 over F₂:'; info.appendChild(tt);
+    let yy=20;
+    for(const c of cosets){
+      const t=SVG('text',{x:0,y:yy,'font-size':11,fill:c.some(j=>active.has(j))?'var(--pink)':'var(--ink)'});
+      t.textContent='{ '+c.join(', ')+' }';
+      info.appendChild(t);
+      yy+=16;
+    }
+    svg.appendChild(info);
+    // readout
+    const degG = active.size;
+    const k = N - degG;
+    out.textContent='active roots: '+(active.size?[...active].sort((a,b)=>a-b).join(', '):'(none)')+
+      '   |   deg g(x) = '+degG+'   |   k = n - deg g = '+k+
+      '   |   consecutive roots starting at β¹: '+consec+
+      '   ⇒ BCH bound: d ≥ '+delta+
+      (consec>=1?' (so corrects ⌊('+delta+'-1)/2⌋ = '+Math.floor((delta-1)/2)+' errors)':'');
+  }
+  draw();
+})();
+</script>
+
+<p>Why this is non-trivial: the consecutive-roots window forces any non-zero codeword $c(x)$ to have $\ge \delta-1$ consecutive roots, which by a Vandermonde determinant argument forces $c(x)$ to have $\ge \delta$ non-zero coefficients (weight $\ge \delta$). The minimal polynomials $m_{\beta^i}(x)\in\mathbb{F}_q[x]$ lump together <strong>cyclotomic cosets</strong>: powers of $\beta$ related by $i\sim qi\pmod n$. Pick a window of $\delta-1$ consecutive powers; the actual $g(x)$ may carry extra roots dragged in by cosets, often giving the <em>true</em> distance $d&gt;\delta$ (Reed–Muller and Berlekamp–Massey-Solomon refinements live here).</p>
+
+<div class="quiz" data-concept="ct-bch"></div>
+</section>
+
+<section id="ldpc">
+<h2>6. LDPC codes &amp; iterative decoding</h2>
+
+<p><strong>Low-density parity-check (LDPC) codes</strong>, invented by Robert Gallager in 1962 and rediscovered 1996, take the opposite design philosophy from BCH. Instead of an algebraic structure that gives a closed-form decoder, an LDPC code is defined by a <em>random sparse</em> parity-check matrix $H\in\mathbb{F}_2^{(n-k)\times n}$ — each row has only a handful of $1$s, each column the same. Decoding is iterative message-passing on the <strong>Tanner graph</strong>: a bipartite graph with $n$ <em>variable nodes</em> (codeword bits) on one side and $n-k$ <em>check nodes</em> (parity equations) on the other; an edge connects variable $i$ to check $j$ iff $H_{ji}=1$.</p>
+
+<p><strong>Belief propagation</strong> (sum-product). Each variable node carries a log-likelihood ratio $L(y_i) = \log\Pr(y_i\mid c_i=0)/\Pr(y_i\mid c_i=1)$. In each round:</p>
+<ol>
+  <li>Each variable sends each neighbouring check the sum of its own channel LLR and every other check's outgoing message (excluding the destination).</li>
+  <li>Each check sends each neighbouring variable a function combining incoming messages from its <em>other</em> variables: $L_{c\to v} = 2\,\mathrm{atanh}\!\Big(\prod_{v'\ne v}\tanh(L_{v'\to c}/2)\Big)$ — the soft analogue of XOR.</li>
+  <li>After a fixed number of rounds (or until parity checks are satisfied), decode each bit by the sign of its posterior LLR.</li>
+</ol>
+<p>On a tree the algorithm is <em>exact</em>; on the Tanner graph it's a heuristic that nevertheless gets within $\sim 0.0045\,\mathrm{dB}$ of Shannon capacity for well-designed irregular LDPC ensembles. The <em>density evolution</em> calculus rigorously tracks the recursion and produces designable codes.</p>
+
+<div class="widget" id="w-ldpc">
+  <div class="hd"><div class="ttl">Tanner graph of a $(3,6)$-LDPC code</div><div class="hint">click a variable node — toggle its bit, watch parity-violation checks light up</div></div>
+  <p class="small" style="margin:.2rem 0 .4rem">$n=12$ variable nodes (left), $n-k=6$ check nodes (right). Each variable connects to 3 checks, each check to 6 variables. Toggle bits to see which parities are violated.</p>
+  <svg id="ldpc-svg" viewBox="0 0 640 460" width="100%" height="460" aria-label="bipartite tanner graph"><title>Bipartite Tanner graph with variable nodes left, check nodes right</title></svg>
+  <div id="ldpc-out" class="readout">— click a variable node —</div>
+  <div class="row" style="margin-top:.4rem">
+    <button id="ldpc-reset">all-zero codeword</button>
+    <button id="ldpc-flip-2">flip 2 random bits</button>
+    <button id="ldpc-flip-4">flip 4 random bits</button>
+  </div>
+</div>
+<script>
+(function(){
+  // Fixed (3,6) Tanner graph: n=12 variables, m=6 checks
+  // each variable has 3 edges, each check has 6 edges
+  const svg=$('#ldpc-svg'), out=$('#ldpc-out');
+  const N=12, M=6;
+  // explicit adjacency: H[m][n] = 1 iff edge
+  const H=[
+    [1,1,1,1,1,1,0,0,0,0,0,0],
+    [1,1,1,0,0,0,1,1,1,0,0,0],
+    [1,0,0,1,1,0,1,1,0,1,0,0],
+    [0,1,0,1,0,1,1,0,1,0,1,0],
+    [0,0,1,0,1,1,0,1,1,0,0,1],
+    [0,0,0,0,0,0,0,0,0,1,1,1]
+  ];
+  // Sanity: row sums should be 6, col sums 3 — adjust last row to be (1,1,1,1,1,1) on cols 6..11 minus those already 3
+  // Recompute col sums and pad final row
+  function rebuild(){
+    const colSum=new Array(N).fill(0);
+    for(let m=0;m<M;m++) for(let n=0;n<N;n++) colSum[n]+=H[m][n];
+    for(let n=0;n<N;n++){
+      while(colSum[n]<3){
+        // add edge to next under-filled row
+        for(let m=0;m<M;m++){
+          if(H[m][n]===0){
+            const rowSum=H[m].reduce((a,b)=>a+b,0);
+            if(rowSum<6){ H[m][n]=1; colSum[n]++; break; }
+          }
+        }
+        if(colSum[n]<3) break; // give up
+      }
+    }
+  }
+  rebuild();
+  const y=new Array(N).fill(0);
+  function checks(){
+    return H.map(row=>row.reduce((a,h,i)=>a^(h*y[i]),0));
+  }
+  function flipRandom(k){
+    const idxs=[]; for(let i=0;i<N;i++) idxs.push(i);
+    for(let i=idxs.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [idxs[i],idxs[j]]=[idxs[j],idxs[i]]; }
+    for(let i=0;i<k;i++) y[idxs[i]]^=1;
+  }
+  function draw(){
+    svg.innerHTML='';
+    const W=640, Hh=460;
+    const xL=130, xR=510;
+    const yTopV=40, yGapV=(Hh-80)/(N-1);
+    const yTopC=80, yGapC=(Hh-160)/(M-1);
+    const c=checks();
+    // edges first (so nodes overlay)
+    for(let m=0;m<M;m++){
+      const yC=yTopC+m*yGapC;
+      for(let n=0;n<N;n++) if(H[m][n]){
+        const yV=yTopV+n*yGapV;
+        svg.appendChild(SVG('line',{x1:xL,y1:yV,x2:xR,y2:yC,stroke:c[m]?'var(--pink)':'var(--mute)','stroke-width':c[m]?1.6:0.8,opacity:c[m]?0.9:0.45}));
+      }
+    }
+    // variable nodes
+    for(let n=0;n<N;n++){
+      const yV=yTopV+n*yGapV;
+      svg.appendChild(SVG('circle',{cx:xL,cy:yV,r:15,fill:y[n]?'var(--yellow)':'var(--panel2)',stroke:'var(--ink)','stroke-width':1.4,cursor:'pointer'}));
+      const t=SVG('text',{x:xL,y:yV+4,'text-anchor':'middle','font-size':12,fill:y[n]?'#111':'var(--ink)','font-weight':600}); t.textContent=y[n]; svg.appendChild(t);
+      const lab=SVG('text',{x:xL-26,y:yV+4,'text-anchor':'end','font-size':11,fill:'var(--mute)'}); lab.textContent='v'+(n+1); svg.appendChild(lab);
+      const hit=SVG('circle',{cx:xL,cy:yV,r:20,fill:'transparent',cursor:'pointer'});
+      hit.addEventListener('click',()=>{ y[n]^=1; draw(); });
+      svg.appendChild(hit);
+    }
+    // check nodes
+    for(let m=0;m<M;m++){
+      const yC=yTopC+m*yGapC;
+      svg.appendChild(SVG('rect',{x:xR-14,y:yC-14,width:28,height:28,fill:c[m]?'var(--pink)':'var(--panel2)',stroke:'var(--ink)','stroke-width':1.4}));
+      const t=SVG('text',{x:xR,y:yC+5,'text-anchor':'middle','font-size':14,fill:c[m]?'#fff':'var(--ink)','font-weight':600}); t.textContent='='; svg.appendChild(t);
+      const lab=SVG('text',{x:xR+30,y:yC+5,'font-size':11,fill:c[m]?'var(--pink)':'var(--mute)'}); lab.textContent='c'+(m+1)+'='+c[m]; svg.appendChild(lab);
+    }
+    // legend / title strip
+    const tv=SVG('text',{x:xL,y:22,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}); tv.textContent='variable nodes (bits)'; svg.appendChild(tv);
+    const tc=SVG('text',{x:xR,y:22,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}); tc.textContent='check nodes (parity rows)'; svg.appendChild(tc);
+    const violated=c.filter(b=>b===1).length;
+    out.textContent='received word: '+y.join('')+'   |   '+violated+' / '+M+' parity checks violated'+(violated===0?'  ✓  consistent with all-zero codeword (or some other codeword)':'  ✗  not a codeword — belief propagation would route messages along the highlighted (pink) edges to identify which bits to flip.');
+  }
+  $('#ldpc-reset').addEventListener('click',()=>{ for(let i=0;i<N;i++) y[i]=0; draw(); });
+  $('#ldpc-flip-2').addEventListener('click',()=>{ for(let i=0;i<N;i++) y[i]=0; flipRandom(2); draw(); });
+  $('#ldpc-flip-4').addEventListener('click',()=>{ for(let i=0;i<N;i++) y[i]=0; flipRandom(4); draw(); });
+  draw();
+})();
+</script>
+
+<p>Modern standards built on LDPC: <strong>DVB-S2</strong> (satellite TV, 2003), <strong>WiFi 802.11n/ac/ax</strong>, <strong>5G NR data channels</strong> (3GPP 2018; alongside polar codes for control). The performance gap to Shannon capacity is now small enough that the dominant engineering work is iterations-per-bit, not algebraic-distance-tuning.</p>
+
+<aside class="note"><strong>Random vs. algebraic.</strong> Coding theory has a recurring split: algebraic codes (Hamming, BCH, Reed–Solomon) give closed-form decoders and provable distance, but plateau well below capacity. Random / pseudorandom codes (LDPC, polar, fountain) approach capacity but need iterative decoders and tail-bound analysis. Both species are now industrial; pick by gesture, not by aesthetics.</aside>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./information-theory.html#channel-coding">Channel coding</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><div class="quiz" data-concept="ct-ldpc"></div>
+</section>
+
+<section id="lattices">
+<h2>7. Lattice codes &amp; sphere packings</h2>
+
+<p>For continuous channels (think Gaussian noise on a real-valued signal) the relevant object is a <strong>lattice</strong> $\Lambda\subset \mathbb{R}^n$: a discrete additive subgroup $\Lambda = \mathbb{Z}b_1 + \cdots + \mathbb{Z}b_n$ where $\{b_i\}$ is an $\mathbb{R}$-basis. Codewords are lattice points; the "minimum distance" is the lattice's shortest non-zero vector, $\lambda_1(\Lambda) = \min_{0\neq v\in\Lambda}\|v\|$. Spheres of radius $\lambda_1/2$ around lattice points are disjoint; the <strong>center density</strong>
+$$\delta(\Lambda) = \frac{(\lambda_1/2)^n}{\det\Lambda}$$
+measures how tightly they pack.</p>
+
+<p>Two endpoints define the field:</p>
+<ul>
+  <li>In dimension $8$, the <strong>$E_8$ root lattice</strong> achieves $\delta = 1/16$ and is optimal — Maryna Viazovska's 2016 proof. Each lattice point has $240$ nearest neighbours (the kissing number).</li>
+  <li>In dimension $24$, the <strong>Leech lattice</strong> $\Lambda_{24}$ is optimal (Cohn–Kumar–Miller–Radchenko–Viazovska, 2017) with kissing number $196{,}560$. Each point sees the other $196{,}560$ at exactly the minimum distance — an absurdly rigid configuration. The Leech lattice's symmetry group, modulo $\{\pm 1\}$, is Conway's sporadic simple group $\mathrm{Co}_1$.</li>
+</ul>
+
+<div class="widget" id="w-lattice">
+  <div class="hd"><div class="ttl">2D lattice — basis sliders &amp; packing density</div><div class="hint">tweak $v_1,v_2$ — covolume and shortest-vector circle update live</div></div>
+  <p class="small" style="margin:.2rem 0 .4rem">Square lattice maximises density iff $v_1\perp v_2$ with equal length; the hexagonal $A_2$ at $60^\circ$ is the true 2D optimum.</p>
+  <div class="row">
+    <label>$v_1.x$ <input id="lat-v1x" type="range" min="-2" max="2" step="0.05" value="1"></label>
+    <label>$v_1.y$ <input id="lat-v1y" type="range" min="-2" max="2" step="0.05" value="0"></label>
+  </div>
+  <div class="row">
+    <label>$v_2.x$ <input id="lat-v2x" type="range" min="-2" max="2" step="0.05" value="0"></label>
+    <label>$v_2.y$ <input id="lat-v2y" type="range" min="-2" max="2" step="0.05" value="1"></label>
+  </div>
+  <svg id="lat-svg" viewBox="0 0 640 360" width="100%" height="360" aria-label="2D lattice with packing circles"><title>Two-dimensional lattice with disjoint circles of radius half the shortest vector</title></svg>
+  <div id="lat-out" class="readout">— move sliders —</div>
+  <div class="row">
+    <button id="lat-square">square</button>
+    <button id="lat-hex">hexagonal A₂</button>
+  </div>
+</div>
+<script>
+(function(){
+  const svg=$('#lat-svg'), out=$('#lat-out');
+  const inputs={
+    v1x:$('#lat-v1x'), v1y:$('#lat-v1y'),
+    v2x:$('#lat-v2x'), v2y:$('#lat-v2y')
+  };
+  for(const k of Object.keys(inputs)) inputs[k].addEventListener('input',draw);
+  $('#lat-square').addEventListener('click',()=>{
+    inputs.v1x.value=1; inputs.v1y.value=0;
+    inputs.v2x.value=0; inputs.v2y.value=1;
+    draw();
+  });
+  $('#lat-hex').addEventListener('click',()=>{
+    inputs.v1x.value=1; inputs.v1y.value=0;
+    inputs.v2x.value=0.5; inputs.v2y.value=Math.sqrt(3)/2;
+    draw();
+  });
+  function draw(){
+    const v1=[+inputs.v1x.value,+inputs.v1y.value];
+    const v2=[+inputs.v2x.value,+inputs.v2y.value];
+    const det=v1[0]*v2[1]-v1[1]*v2[0];
+    const absdet=Math.abs(det);
+    svg.innerHTML='';
+    const cx=320, cy=180, scale=70;
+    // grid background
+    for(let i=-6;i<=6;i++){
+      svg.appendChild(SVG('line',{x1:0,y1:cy+i*30,x2:640,y2:cy+i*30,stroke:'var(--line)','stroke-width':0.4,opacity:0.4}));
+      svg.appendChild(SVG('line',{x1:cx+i*30,y1:0,x2:cx+i*30,y2:360,stroke:'var(--line)','stroke-width':0.4,opacity:0.4}));
+    }
+    // collect lattice points within a generous radius
+    const range=4;
+    const points=[];
+    let minLen=Infinity;
+    for(let i=-range;i<=range;i++) for(let j=-range;j<=range;j++){
+      if(i===0&&j===0) continue;
+      const x=i*v1[0]+j*v2[0], y=i*v1[1]+j*v2[1];
+      const L=Math.hypot(x,y);
+      if(L<minLen) minLen=L;
+      points.push({i,j,x,y,L});
+    }
+    if(!isFinite(minLen)||minLen<0.01) minLen=0.01;
+    // packing radius
+    const r=minLen/2;
+    // fundamental parallelogram
+    if(absdet>0.05){
+      const fp=`M ${cx} ${cy} L ${cx+v1[0]*scale} ${cy-v1[1]*scale} L ${cx+(v1[0]+v2[0])*scale} ${cy-(v1[1]+v2[1])*scale} L ${cx+v2[0]*scale} ${cy-v2[1]*scale} Z`;
+      svg.appendChild(SVG('path',{d:fp,fill:'color-mix(in srgb, var(--cyan) 12%, transparent)',stroke:'var(--cyan)','stroke-width':1.4}));
+    }
+    // packing circles around each lattice point in view
+    for(const p of points){
+      const X=cx+p.x*scale, Y=cy-p.y*scale;
+      if(X<-30||X>670||Y<-30||Y>390) continue;
+      svg.appendChild(SVG('circle',{cx:X,cy:Y,r:r*scale,fill:'color-mix(in srgb, var(--yellow) 14%, transparent)',stroke:'var(--yellow)','stroke-width':0.8,opacity:0.7}));
+    }
+    // origin & lattice points
+    for(const p of points){
+      const X=cx+p.x*scale, Y=cy-p.y*scale;
+      if(X<-10||X>650||Y<-10||Y>370) continue;
+      svg.appendChild(SVG('circle',{cx:X,cy:Y,r:3.5,fill:'var(--ink)'}));
+    }
+    svg.appendChild(SVG('circle',{cx:cx,cy:cy,r:5,fill:'var(--pink)'}));
+    // basis vectors
+    function arrow(x,y,color,label){
+      svg.appendChild(SVG('line',{x1:cx,y1:cy,x2:cx+x*scale,y2:cy-y*scale,stroke:color,'stroke-width':2,'marker-end':'url(#lat-arr)'}));
+      const t=SVG('text',{x:cx+x*scale+10*Math.sign(x||1),y:cy-y*scale-6,'font-size':12,fill:color,'font-weight':600}); t.textContent=label; svg.appendChild(t);
+    }
+    // arrow def
+    const defs=SVG('defs'); const mk=SVG('marker',{id:'lat-arr',viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'}); mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:'var(--green)'})); defs.appendChild(mk); svg.appendChild(defs);
+    arrow(v1[0],v1[1],'var(--green)','v₁');
+    arrow(v2[0],v2[1],'var(--green)','v₂');
+    // density (2D)
+    const density = Math.PI*r*r/absdet;
+    out.textContent='covolume |det| = '+absdet.toFixed(4)+
+      '   |   shortest vector λ₁ = '+minLen.toFixed(4)+
+      '   |   packing density Δ = π r² / covol = '+(isFinite(density)?density.toFixed(4):'∞')+
+      '   |   maximum 2D density: π/(2√3) ≈ 0.9069 (hexagonal lattice A₂)';
+  }
+  draw();
+})();
+</script>
+
+<p>Why this lives inside coding theory: a lattice $\Lambda\subset\mathbb{R}^n$ projected modulo a sublattice $\Lambda'\subset\Lambda$ yields a finite code (the quotient $\Lambda/\Lambda'$ inherits a distance), and many high-rate lattices arise by <em>Construction A</em>: lift a binary linear code $C\subseteq \mathbb{F}_2^n$ to $\Lambda_C = \{x\in\mathbb{Z}^n: x\bmod 2\in C\}$. Hamming codes give the $D_n$ lattices; the extended Hamming $[8,4,4]$ gives $E_8$; the binary Golay $[24,12,8]$ gives a scaled Leech lattice (after a final $\mathbb{Z}/2$ twist). Channel codes and sphere packings are dual faces of the same problem.</p>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./additive-number-theory.html#twosq">Sum of two squares</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><div class="quiz" data-concept="ct-lattices"></div>
+</section>
+
+
+<section id="connections">
+<h2>Connections</h2>
+
+<p>Coding theory sits at the intersection of finite-field algebra, sparse linear algebra, probabilistic combinatorics, and discrete geometry. The open frontiers are quantum LDPC codes (low-overhead error correction for fault-tolerant quantum computers — <em>Panteleev–Kalachev</em> recently broke through the $\sqrt n$ distance barrier), the post-quantum cryptosystems built on hardness of decoding random linear codes (McEliece is back in NIST's standardisation), and the still-uncomputed precise capacity of the deletion channel.</p>
+
+<ul>
+  <li><a href="./information-theory.html#channel-coding">Information theory — channel capacity</a> — Shannon's noisy-channel theorem sets the absolute ceiling that LDPC and polar codes approach.</li>
+  <li><a href="./algebra.html#finite">Abstract algebra — finite fields</a> — Reed–Solomon and BCH live entirely in $\mathbb{F}_q[x]$; without finite-field arithmetic there is no encoder.</li>
+  <li><a href="./additive-number-theory.html#twosq">Additive number theory — sums of squares</a> — counting lattice points inside a ball is the geometry-of-numbers question that bounds packing density.</li>
+  <li><a href="./mathematics-and-cryptography.html#crypto-lattice-based">Cryptography — lattice-based crypto</a> — the same lattices that make great codes make hard-to-decode problems for post-quantum cryptography.</li>
+  <li><a href="./spectral-graph-theory.html#bipartite-expanders">Spectral graph theory — expanders</a> — good LDPC codes have Tanner graphs that are good expanders; Sipser–Spielman <em>expander codes</em> use this directly.</li>
+</ul>
+</section>
+
+</main>
+
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('coding-theory'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+})();
+</script>
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-05-12</td><td>initial version</td></tr>
+    </tbody>
+  </table>
+</details>
+
+</body>
+</html>

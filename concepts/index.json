@@ -28,6 +28,7 @@
 
 
     "brill-noether",
+    "coding-theory",
 
 
 
@@ -401,6 +402,7 @@
     "shimura-varieties": "capstone",
     "geometric-invariant-theory": "advanced",
     "heegaard-floer": "advanced",
-    "brill-noether": "advanced"
+    "brill-noether": "advanced",
+    "coding-theory": "standard"
   }
 }

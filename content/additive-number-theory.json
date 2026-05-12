@@ -236,7 +236,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./additive-number-theory.html#gaussian\">Additive number theory</a> · Gaussian integers and prime splitting</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./additive-number-theory.html#gaussian\">Additive number theory</a> · Gaussian integers and prime splitting</div>\n    <div><a href=\"./coding-theory.html#lattices\">Coding theory &amp; error-correcting codes</a> · Lattice codes and sphere packings</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

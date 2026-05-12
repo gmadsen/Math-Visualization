@@ -242,7 +242,8 @@
         "simplicial-complexes-combinatorial",
         "enumerative-combinatorics",
         "designs",
-        "expanders"
+        "expanders",
+        "coding-theory"
       ],
       "color": "v"
     },
