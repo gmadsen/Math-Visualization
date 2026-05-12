@@ -57,6 +57,24 @@
     return e;
   }
 
+  // Mirrors the macro set installed by topic-page <head> blocks (see
+  // CLAUDE.md "House conventions"). Without these, \Spec / \Gal / \Hom etc.
+  // are unknown to KaTeX inside scrubber-rendered nodes since the page-level
+  // renderMathInElement call has already finished.
+  var SCRUBBER_MACROS = {
+    '\\Spec': '\\operatorname{Spec}',
+    '\\Gal':  '\\operatorname{Gal}',
+    '\\Hom':  '\\operatorname{Hom}',
+    '\\hom':  '\\operatorname{hom}',
+    '\\tr':   '\\operatorname{tr}',
+    '\\ad':   '\\operatorname{ad}',
+    '\\ind':  '\\operatorname{ind}',
+    '\\GL':   '\\operatorname{GL}',
+    '\\SL':   '\\operatorname{SL}',
+    '\\Frob': '\\operatorname{Frob}',
+    '\\Sha':  '\\text{Ш}'
+  };
+
   function typesetMath(node){
     if(global.renderMathInElement){
       try {
@@ -66,9 +84,20 @@
             {left:'$',  right:'$',  display:false},
             {left:'\\(', right:'\\)', display:false},
             {left:'\\[', right:'\\]', display:true}
-          ]
+          ],
+          throwOnError: false,
+          macros: SCRUBBER_MACROS
         });
-      } catch(_){ /* swallow */ }
+      } catch(err){
+        // throwOnError:false neutralizes the narrow KaTeX-parse threat, so
+        // anything reaching this catch is a different failure class —
+        // detached node, library load race, malformed macros — none of
+        // which the user can recover from. Surface to devtools rather
+        // than swallowing.
+        if(global.console && global.console.warn){
+          global.console.warn('widget-proof-scrubber: typesetMath failed', err);
+        }
+      }
     }
   }
 

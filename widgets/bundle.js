@@ -4063,13 +4063,14 @@ window.__MVWidgets = [
     "slug": "deformation-theory-schlessinger-diagram",
     "family": "svg-illustration",
     "dimension": "2d",
-    "gesture": "read",
-    "role": "illustrative",
+    "gesture": "click",
+    "role": "interactive",
     "title": "deformation-theory-schlessinger-diagram widget params",
-    "description": "Bespoke static SVG diagram of Schlessinger's axioms (H1)–(H4) for a deformation functor $F: \\mathrm{Art}_k \\to \\mathrm{Set}$, used in deformation-theory.html §4 (#deformation-functor). No driving script.",
+    "description": "Bespoke clickable SVG diagram of Schlessinger's axioms (H1)–(H4) for a deformation functor $F: \\mathrm{Art}_k \\to \\mathrm{Set}$, used in deformation-theory.html §4 (#deformation-functor). Each corner of the pullback diagram is clickable and updates a readout naming which axiom that corner is involved in.",
     "requiredParams": [
       "widgetId",
-      "bodyMarkup"
+      "bodyMarkup",
+      "bodyScript"
     ],
     "readmeExcerpt": "Bespoke static SVG diagram of Schlessinger's axioms (H1)–(H4) for a deformation functor $F: \\mathrm{Art}_k \\to \\mathrm{Set}$, used in deformation-theory.html §4 (#deformation-functor). No driving script.",
     "hasExample": false,
