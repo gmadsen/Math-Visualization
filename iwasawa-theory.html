@@ -295,6 +295,68 @@ The slogan: $p$-class numbers grow at a rate dictated by an exponential ($\mu$),
   <svg id="g-svg" viewBox="0 0 620 280" width="620" height="280"><title>Iwasawa growth formula</title></svg>
   <div class="readout" id="g-out">drag sliders…</div>
 </div>
+<script>
+/* =========== SECTION 1: Iwasawa growth formula widget =========== */
+(function(){
+  const svg=$('#g-svg'), out=$('#g-out');
+  const muS=$('#g-mu'), lamS=$('#g-lam'), nuS=$('#g-nu'), pS=$('#g-p');
+  const muV=$('#g-mu-val'), lamV=$('#g-lam-val'), nuV=$('#g-nu-val');
+
+  function exp(n,mu,lam,nu,p){ return mu*Math.pow(p,n)+lam*n+nu; }
+
+  function render(){
+    const mu=+muS.value, lam=+lamS.value, nu=+nuS.value, p=+pS.value;
+    muV.textContent=mu; lamV.textContent=lam; nuV.textContent=nu;
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const W=620,H=280, padL=60,padR=24,padT=24,padB=44;
+    const Nmax=8;
+    let yMin=0, yMax=1;
+    for(let n=0;n<=Nmax;n++){
+      const v=exp(n,mu,lam,nu,p);
+      if(v<yMin) yMin=v;
+      if(v>yMax) yMax=v;
+    }
+    if(yMax-yMin < 1) yMax = yMin + 1;
+    const x = n => padL + (W-padL-padR)*n/Nmax;
+    const y = v => padT + (H-padT-padB)*(yMax - v)/(yMax - yMin);
+    // axes
+    const yZero = y(0);
+    svg.appendChild(SVG('line',{x1:padL,y1:yZero,x2:W-padR,y2:yZero,stroke:'var(--mute)','stroke-width':1}));
+    svg.appendChild(SVG('line',{x1:padL,y1:padT,x2:padL,y2:H-padB,stroke:'var(--mute)','stroke-width':1}));
+    for(let n=0;n<=Nmax;n++){
+      svg.appendChild(SVG('line',{x1:x(n),y1:yZero,x2:x(n),y2:yZero+4,stroke:'var(--mute)'}));
+      const t=SVG('text',{x:x(n),y:yZero+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+      t.textContent=n; svg.appendChild(t);
+    }
+    const xl=SVG('text',{x:(W+padL-padR)/2,y:H-8,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});
+    xl.textContent='layer index n'; svg.appendChild(xl);
+    const yl=SVG('text',{x:padL-44,y:padT+12,'text-anchor':'start','font-size':12,fill:'var(--mute)'});
+    yl.textContent='log_p |A_n|'; svg.appendChild(yl);
+    let path='';
+    const pts=[];
+    for(let n=0;n<=Nmax;n++){
+      const v=exp(n,mu,lam,nu,p);
+      const cx=x(n), cy=y(v);
+      pts.push([n,v,cx,cy]);
+      path += (n===0?'M':' L') + cx + ' ' + cy;
+    }
+    svg.appendChild(SVG('path',{d:path,fill:'none',stroke:'var(--yellow)','stroke-width':2}));
+    for(const [n,v,cx,cy] of pts){
+      svg.appendChild(SVG('circle',{cx,cy,r:4,fill:'var(--yellow)'}));
+    }
+    const lines=[];
+    for(let n=0;n<=4;n++){
+      const v=exp(n,mu,lam,nu,p);
+      const sz=v>=0 && v<=20 ? `|A_${n}|=${p}^${v}=${Math.pow(p,v)}` : `log_${p}|A_${n}|=${v}`;
+      lines.push(sz);
+    }
+    out.textContent = `formula: log_${p}|A_n| = ${mu}·${p}^n + ${lam}·n + ${nu}\n` + lines.join('   ');
+  }
+  [muS,lamS,nuS,pS].forEach(s=>s.addEventListener('input',render));
+  render();
+})();
+</script>
+
 
 <p>For a general number field $K$, the number of independent $\mathbb{Z}_p$-extensions of $K$ is $r_2(K)+1+\delta$ where $\delta\ge 0$ is the <em>Leopoldt defect</em>. Leopoldt's conjecture (still open in general) says $\delta=0$, so $K$ has exactly $r_2(K)+1$ independent towers — and the cyclotomic one is one of them.</p>
 
@@ -376,6 +438,40 @@ with $f_j$ distinguished irreducible, whose kernel and cokernel are both finite 
   <div class="readout" id="lm-out">…</div>
 </div>
 
+<script>
+/* =========== SECTION 2: Lambda-module factor widget =========== */
+(function(){
+  const kind=$('#lm-kind'), pCtl=$('#lm-pcontrol'), fCtl=$('#lm-fcontrol');
+  const aS=$('#lm-a'), mS=$('#lm-m'), fS=$('#lm-f');
+  const aV=$('#lm-a-val'), mV=$('#lm-m-val'), out=$('#lm-out');
+
+  const FDEG = {'T':1,'T+p':1,'T2+pT+p':2,'T3':3};
+  const FLABEL = {'T':'T','T+p':'(T+p)','T2+pT+p':'(T^2+pT+p)','T3':'T^3'};
+
+  function render(){
+    const k=kind.value;
+    pCtl.style.display = (k==='p')? 'flex':'none';
+    fCtl.style.display = (k==='f')? 'flex':'none';
+    aV.textContent=aS.value; mV.textContent=mS.value;
+    let mu=0, lam=0, charId='', summary='';
+    if(k==='p'){
+      const a=+aS.value;
+      mu=a; lam=0;
+      charId = `(p^${a})`;
+      summary = `M = Λ/(p^${a})\nchar(M) = ${charId}\ncontributes μ ← μ + ${a},  λ unchanged.`;
+    } else {
+      const f=fS.value, m=+mS.value, deg=FDEG[f];
+      mu=0; lam=deg*m;
+      charId = `(${FLABEL[f]}^${m})`;
+      summary = `M = Λ/${FLABEL[f]}^${m}\nchar(M) = ${charId}\ndeg(f)=${deg},  multiplicity m=${m}\ncontributes λ ← λ + ${deg*m},  μ unchanged.`;
+    }
+    out.textContent = summary + `\n\nrank_Λ M = 0  (M is torsion)`;
+  }
+  [kind,aS,mS,fS].forEach(el=>el.addEventListener('input',render));
+  render();
+})();
+</script>
+
 <aside class="callback">
   <div class="ttl">See also</div>
   <ul>
@@ -435,6 +531,40 @@ follows by counting $\Gamma$-coinvariants level by level.</div>
   <div class="readout" id="fw-out">linear growth (left) vs. doubly-exponential growth (right).</div>
 </div>
 
+<script>
+/* =========== SECTION 3: Ferrero-Washington widget =========== */
+(function(){
+  const lamS=$('#fw-lam'), muS=$('#fw-mu');
+  const lamV=$('#fw-lam-val'), muV=$('#fw-mu-val');
+  const tbody=$('#fw-tbl tbody'), out=$('#fw-out');
+  const p=3;
+
+  function render(){
+    const lam=+lamS.value, mu=+muS.value;
+    lamV.textContent=lam; muV.textContent=mu;
+    tbody.innerHTML='';
+    for(let n=0;n<=6;n++){
+      const eA = lam*n;
+      const eB = mu*Math.pow(p,n) + lam*n;
+      const tr=document.createElement('tr');
+      const fmt = e => e<=14 ? `${p}^${e} = ${Math.pow(p,e)}` : `${p}^${e}`;
+      const ratio = eB - eA;
+      tr.innerHTML =
+        `<td>${n}</td><td>${fmt(eA)}</td><td>${fmt(eB)}</td>`+
+        `<td>${ratio===0?'1':p+'^'+ratio}</td>`;
+      tbody.appendChild(tr);
+    }
+    if(mu===0){
+      out.textContent = `μ=0 forces both columns to coincide (linear in n). This is the Ferrero–Washington regime.`;
+    } else {
+      out.textContent = `μ=${mu}>0 makes |A_n| blow up like ${p}^{${mu}·${p}^n} — Ferrero–Washington (1979) rules this out for cyclotomic Z_p-extensions of abelian K.`;
+    }
+  }
+  [lamS,muS].forEach(s=>s.addEventListener('input',render));
+  render();
+})();
+</script>
+
 <p>An elegant consequence: the $\Gamma$-coinvariants $X_\infty/(T-(\gamma-1))X_\infty$ recover $A_0=A=\operatorname{Cl}(K)_p$. Specialising the characteristic ideal at $T=0$ therefore reads off (a multiple of) the class number. This is the first hint of the main conjecture: a single power-series-valued invariant of the tower secretly encodes every level's class number.</p>
 
 <aside class="callback">
@@ -490,6 +620,84 @@ Equivalently $B_n/n\equiv B_m/m\pmod{p^k}$ in this regime — the values that $L
   </table>
   <div class="readout" id="kc-out">picking values $n\equiv n_0\pmod{p-1}$ aligns the values $p$-adically.</div>
 </div>
+<script>
+/* =========== SECTION 4: Kummer congruence widget =========== */
+(function(){
+  const pS=$('#kc-p'), rS=$('#kc-r'), tbody=$('#kc-tbl tbody'), out=$('#kc-out');
+  // Bernoulli numerators / denominators for B_n, n=2..30 even, stored as BigInt
+  // because B_26 .. B_30 multiplied by p^{n-1} overflow Number (past 2^53) for the
+  // small primes we expose (p=5,7,11,13).
+  const B = {
+    2:[1n,6n], 4:[-1n,30n], 6:[1n,42n], 8:[-1n,30n], 10:[5n,66n],
+    12:[-691n,2730n], 14:[7n,6n], 16:[-3617n,510n], 18:[43867n,798n],
+    20:[-174611n,330n], 22:[854513n,138n], 24:[-236364091n,2730n],
+    26:[8553103n,6n], 28:[-23749461029n,870n], 30:[8615841276005n,14322n]
+  };
+
+  function bipow(a, e){ let r=1n; for(let i=0n;i<e;i++) r*=a; return r; }
+  function biabs(a){ return a<0n ? -a : a; }
+  // p-adic valuation of an exact rational num/den (num,den BigInt).
+  function vp(num, den, p){
+    if(num === 0n) return Infinity;
+    const P = BigInt(p);
+    let v = 0n, n = biabs(num);
+    while(n % P === 0n){ n /= P; v++; }
+    let d = biabs(den), dv = 0n;
+    while(d % P === 0n){ d /= P; dv++; }
+    return Number(v - dv);
+  }
+
+  function buildResidues(){
+    const p=+pS.value;
+    rS.innerHTML='';
+    for(let r=2;r<=p-3;r+=2){
+      const o=document.createElement('option'); o.value=r; o.textContent=r;
+      if(r===2) o.selected=true;
+      rS.appendChild(o);
+    }
+  }
+
+  function render(){
+    const p=+pS.value, r=+rS.value;
+    const P=BigInt(p);
+    tbody.innerHTML='';
+    const ns=[];
+    for(let n=2;n<=30;n+=2){
+      if(((n - r) % (p-1)) === 0) ns.push(n);
+    }
+    if(ns.length<2){ out.textContent = 'pick a residue with multiple n in our small Bernoulli table.'; return; }
+    let prev=null;
+    for(const n of ns){
+      if(!B[n]) continue;
+      const [bn,bd] = B[n];
+      // ζ(1-n) = -B_n/n  → numerator -bn, denominator bd*n
+      const num = -bn, den = bd * BigInt(n);
+      // (1 - p^{n-1}) · ζ(1-n)
+      const factor = 1n - bipow(P, BigInt(n-1));
+      const num2 = num * factor;
+      const v = vp(num2, den, p);
+      let diffStr='—';
+      if(prev !== null){
+        // diff = num2/den - prev.num/prev.den = (num2·prev.den − prev.num·den)/(den·prev.den)
+        const dn = num2 * prev.den - prev.num * den;
+        const dd = den * prev.den;
+        const dv = vp(dn, dd, p);
+        diffStr = (dn === 0n) ? '(equal!)' : `v_${p} ≥ ${dv}`;
+      }
+      const tr=document.createElement('tr');
+      tr.innerHTML=`<td>${n}</td><td>−${bn}/${bd*BigInt(n)}</td><td>(1−${p}^${n-1})·−${bn}/${bd*BigInt(n)}</td><td>${diffStr}</td>`;
+      tbody.appendChild(tr);
+      prev={num:num2, den:den};
+    }
+    out.textContent =
+      `congruence: differences in column 4 grow with the spacing in n (Δn=${p-1}, ${(p-1)*p}, …). Two consecutive rows agree to v_${p}≥1; three rows mod (p-1)·p, etc. This is exactly what L_${p}(s,χ) interpolates.`;
+  }
+  pS.addEventListener('change', ()=>{ buildResidues(); render(); });
+  rS.addEventListener('change', render);
+  buildResidues(); render();
+})();
+</script>
+
 
 <p>A second packaging is closer to the main-conjecture statement. Via Mahler's theorem there is a power series $L_p(\chi,T)\in\Lambda\otimes\mathbb{Q}_p$, the <strong>Iwasawa power series</strong> attached to $\chi$, such that
 $$L_p(s,\chi)\;=\;L_p(\chi,\,\langle\kappa\rangle^{s}-1)$$
@@ -569,6 +777,23 @@ recovering Herbrand's theorem (an irregular prime $p$ divides $B_k$ implies a no
   <div class="readout" id="mc-out">…</div>
 </div>
 
+<script>
+/* =========== SECTION 5: main conjecture two-ideals widget =========== */
+(function(){
+  const fS=$('#mc-f'), uS=$('#mc-u'), out=$('#mc-out');
+  const FLAB={'T':'T','T+p':'(T+p)','T2-T':'(T^2-T)','T2+pT+p':'(T^2+pT+p)'};
+  function render(){
+    const f=fS.value, u=uS.value;
+    const lhs = `algebraic:  char_Λ(X_∞(χ)) = ${FLAB[f]}`;
+    const rhs = `analytic:   (L_p(χ^{-1}ω, T))    = (${u})·${FLAB[f]}  =  ${FLAB[f]}  (since unit ${u} ∈ Λ^×)`;
+    const eq  = `equal as ideals in Λ ⊗ ℚ_p  ✓  (Mazur–Wiles for abelian /ℚ; Wiles for totally real)`;
+    out.textContent = lhs + '\n' + rhs + '\n\n' + eq;
+  }
+  [fS,uS].forEach(s=>s.addEventListener('change',render));
+  render();
+})();
+</script>
+
 <div class="quiz" data-concept="iw-main-conjecture"></div><!-- backlinks-auto-begin -->
 <aside class="related">
   <div class="ttl">Used in</div>
@@ -628,6 +853,52 @@ for many $E/\mathbb{Q}$ of analytic rank $r\le 1$ — including the finiteness o
   </div>
   <div class="readout" id="el-out">pick a configuration…</div>
 </div>
+
+<script>
+/* =========== SECTION 6: who's-proved-what widget =========== */
+(function(){
+  const cm=$('#el-cm'), red=$('#el-red'), ar=$('#el-ar'), out=$('#el-out');
+  function render(){
+    const isCM = cm.value==='cm';
+    const r = red.value;
+    const a = +ar.value;
+    const lines=[];
+    // Coates-Wiles
+    if(isCM && a===0){
+      lines.push('  ✓ Coates–Wiles (1977): L(E,1) ≠ 0 + CM ⇒ rank 0 (E(ℚ) finite).');
+    } else if(isCM){
+      lines.push('  – Coates–Wiles applies only when a-rank = 0; here a-rank > 0.');
+    } else {
+      lines.push('  – Coates–Wiles requires CM; this curve is non-CM.');
+    }
+    // Kato divisibility (modular elliptic curves over Q)
+    if(r==='ord'){
+      lines.push('  ✓ Kato (Euler system): char_Λ(X_E) | (L_p(E,T)) — modularity supplies the input.');
+    } else if(r==='mult'){
+      lines.push('  ✓ Kato also covers multiplicative reduction.');
+    } else {
+      lines.push('  ▲ Kato in the supersingular case requires Pollack/Sprung ± L_p; signed main conjectures.');
+    }
+    // Skinner-Urban
+    if(r==='ord' && !isCM){
+      lines.push('  ✓ Skinner–Urban (2014): (L_p(E,T)) | char_Λ(X_E) under standard hypotheses.');
+    } else if(r==='ord' && isCM){
+      lines.push('  ✓ Rubin (CM case, 1991) provides the converse divisibility.');
+    } else {
+      lines.push('  ▲ Converse divisibility in supersingular/multiplicative cases is still partial.');
+    }
+    // p-part of BSD
+    if(a<=1 && r==='ord'){
+      lines.push('  ⇒ p-part of BSD known (mod hypotheses) for analytic rank ≤ 1.');
+    } else if(a>=2){
+      lines.push('  ▲ Analytic rank ≥ 2 is wide open: even nonvanishing of leading L-coefficient is conjectural.');
+    }
+    out.textContent = `curve: ${isCM?'CM':'non-CM'},  reduction: ${r},  analytic rank: ${a}\n\n` + lines.join('\n');
+  }
+  [cm,red,ar].forEach(s=>s.addEventListener('change',render));
+  render();
+})();
+</script>
 
 <aside class="callback">
   <div class="ttl">See also</div>
