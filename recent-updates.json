@@ -1,5 +1,5 @@
 {
-  "generated": "2026-05-12T14:43:56.988Z",
+  "generated": "2026-05-12T22:30:44.830Z",
   "entries": [
     {
       "slug": "brill-noether",
@@ -19,7 +19,7 @@
     },
     {
       "slug": "conformal-and-cr-geometry",
-      "title": "Conformal &amp; CR geometry",
+      "title": "Conformal & CR geometry",
       "color": "p",
       "tag": "",
       "date": "2026-05-12",
@@ -27,7 +27,7 @@
     },
     {
       "slug": "heegaard-floer",
-      "title": "Heegaard Floer &amp; knot Floer",
+      "title": "Heegaard Floer & knot Floer",
       "color": "v",
       "tag": "",
       "date": "2026-05-12",
@@ -211,7 +211,7 @@
     },
     {
       "slug": "mapping-class-groups",
-      "title": "Mapping class groups &amp; 4-manifolds",
+      "title": "Mapping class groups & 4-manifolds",
       "color": "v",
       "tag": "",
       "date": "2026-05-06",
@@ -315,7 +315,7 @@
     },
     {
       "slug": "semigroup-theory-evolution-equations",
-      "title": "Semigroup theory &amp; evolution equations",
+      "title": "Semigroup theory & evolution equations",
       "color": "p",
       "tag": "",
       "date": "2026-05-04",
@@ -379,7 +379,7 @@
     },
     {
       "slug": "galois",
-      "title": "Galois theory &amp; the quintic",
+      "title": "Galois theory & the quintic",
       "color": "v",
       "tag": "",
       "date": "2026-05-02",
@@ -779,7 +779,7 @@
     },
     {
       "slug": "adeles-and-ideles",
-      "title": "Adèles &amp; idèles",
+      "title": "Adèles & idèles",
       "color": "c",
       "tag": "",
       "date": "2026-04-26",
@@ -923,7 +923,7 @@
     },
     {
       "slug": "dirichlet-series-euler-products",
-      "title": "Dirichlet series &amp; Euler products",
+      "title": "Dirichlet series & Euler products",
       "color": "y",
       "tag": "",
       "date": "2026-04-26",
@@ -1003,7 +1003,7 @@
     },
     {
       "slug": "frobenius-and-reciprocity",
-      "title": "Frobenius &amp; reciprocity",
+      "title": "Frobenius & reciprocity",
       "color": "g",
       "tag": "",
       "date": "2026-04-26",
@@ -1059,7 +1059,7 @@
     },
     {
       "slug": "harmonic-analysis-fourier",
-      "title": "Harmonic analysis &amp; Fourier theory",
+      "title": "Harmonic analysis & Fourier theory",
       "color": "p",
       "tag": "",
       "date": "2026-04-26",
@@ -1107,7 +1107,7 @@
     },
     {
       "slug": "lie-groups",
-      "title": "Lie groups &amp; algebras",
+      "title": "Lie groups & algebras",
       "color": "c",
       "tag": "",
       "date": "2026-04-26",
@@ -1163,7 +1163,7 @@
     },
     {
       "slug": "morphisms-fiber-products",
-      "title": "Morphisms &amp; fiber products",
+      "title": "Morphisms & fiber products",
       "color": "p",
       "tag": "",
       "date": "2026-04-26",
@@ -1195,7 +1195,7 @@
     },
     {
       "slug": "partitions-generating-functions",
-      "title": "Partitions &amp; generating functions",
+      "title": "Partitions & generating functions",
       "color": "v",
       "tag": "",
       "date": "2026-04-26",
@@ -1235,7 +1235,7 @@
     },
     {
       "slug": "quadratic-forms-genus-theory",
-      "title": "Quadratic forms &amp; genus theory",
+      "title": "Quadratic forms & genus theory",
       "color": "y",
       "tag": "",
       "date": "2026-04-26",
@@ -1331,7 +1331,7 @@
     },
     {
       "slug": "singular-cubics-reduction",
-      "title": "Singular cubics &amp; reduction",
+      "title": "Singular cubics & reduction",
       "color": "p",
       "tag": "",
       "date": "2026-04-26",
@@ -1347,7 +1347,7 @@
     },
     {
       "slug": "sobolev-spaces-distributions",
-      "title": "Sobolev spaces &amp; distributions",
+      "title": "Sobolev spaces & distributions",
       "color": "p",
       "tag": "",
       "date": "2026-04-26",

@@ -21,6 +21,24 @@ import { fileURLToPath } from 'node:url';
 const __filename = fileURLToPath(import.meta.url);
 const repoRoot = resolve(dirname(__filename), '..');
 
+// Decode the handful of HTML entities that show up in card titles/tags
+// (`&amp;`, `&nbsp;`, `&lt;`, `&gt;`, `&quot;`, numeric refs). The manifest
+// is consumed via `textContent`, which does NOT decode entities — without
+// this pass titles like "Conformal & CR geometry" render literally as
+// "Conformal &amp; CR geometry".
+function decodeHtmlEntities(s) {
+  return s
+    .replace(/&amp;/g, '&')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&#x27;/gi, "'")
+    .replace(/&#(\d+);/g, (_, n) => String.fromCodePoint(parseInt(n, 10)))
+    .replace(/&#x([0-9a-f]+);/gi, (_, n) => String.fromCodePoint(parseInt(n, 16)));
+}
+
 function loadCardMeta() {
   const html = readFileSync(join(repoRoot, 'index.html'), 'utf8');
   // Topic cards: <a class="card <color>" href="./<slug>.html"> ... <div class="tt">Title</div> ... <div class="tag">tag1 · tag2</div>
@@ -36,9 +54,9 @@ function loadCardMeta() {
     const ttMatch = inner.match(/<div class="tt"[^>]*>([\s\S]*?)<\/div>/);
     const tagMatch = inner.match(/<div class="tag"[^>]*>([\s\S]*?)<\/div>/);
     const title = ttMatch
-      ? ttMatch[1].replace(/<span class="level[^"]*"[^>]*>[^<]*<\/span>/g, '').replace(/<[^>]*>/g, '').trim()
+      ? decodeHtmlEntities(ttMatch[1].replace(/<span class="level[^"]*"[^>]*>[^<]*<\/span>/g, '').replace(/<[^>]*>/g, '').trim())
       : '';
-    const tag = tagMatch ? tagMatch[1].replace(/<[^>]*>/g, '').trim() : '';
+    const tag = tagMatch ? decodeHtmlEntities(tagMatch[1].replace(/<[^>]*>/g, '').trim()) : '';
     if (!map.has(slug)) {
       map.set(slug, { color, tag, title });
     }
