@@ -335,6 +335,27 @@ function scriptReferencesSelector(scriptText, selector, kind) {
   );
   if (bareRe.test(scriptText) && EVENT_VERBS_RE.test(scriptText)) return true;
 
+  // Registry-widget convention: every `widgets/<slug>/index.mjs` renderScript
+  // emits a config object that includes `widgetId: '<id>'`, then uses
+  // `CFG.widgetId` to build DOM lookups like
+  // `document.getElementById(CFG.widgetId + '-svg')`. The literal id never
+  // appears in selector form (`'#<id>'`) in those scripts, but the literal
+  // string `widgetId: '<id>'` always does. If the script body assigns
+  // widgetId to our audited id AND has event verbs, the widget is bound by
+  // dynamic-id construction in the rest of the script. Without this branch,
+  // diagram-editor / julia-playground / similar registry widgets all
+  // false-positive as static.
+  if (kind === 'id') {
+    // The key may be quoted (`"widgetId":`) from JSON.stringify output or
+    // bare (`widgetId:`) from hand-authored object literals; accept both.
+    const widgetIdAssignRe = new RegExp(
+      `["'\`]?\\bwidgetId\\b["'\`]?\\s*:\\s*["'\`]\\s*${selEsc}(?![\\w-])`
+    );
+    if (widgetIdAssignRe.test(scriptText) && EVENT_VERBS_RE.test(scriptText)) {
+      return true;
+    }
+  }
+
   return false;
 }
 
