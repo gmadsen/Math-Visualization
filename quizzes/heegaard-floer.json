@@ -174,11 +174,11 @@
       "questions": [
         {
           "type": "numeric",
-          "q": "Use the closed formula $d(L(p,1),i)=\\tfrac{(2i-p)^2}{4p}-\\tfrac14$ to compute $d(L(2,1),0)$. (Answer in lowest terms; enter as a decimal.)",
-          "answer": -0.5,
+          "q": "Use the closed formula $d(L(p,1),i)=\\tfrac{(2i-p)^2}{4p}-\\tfrac14$ to compute $d(L(2,1),0)$. (Enter as a decimal.)",
+          "answer": 0.25,
           "tol": 0.001,
-          "explain": "$d(L(2,1),0)=\\tfrac{(0-2)^2}{4\\cdot 2}-\\tfrac14=\\tfrac{4}{8}-\\tfrac14=\\tfrac12-\\tfrac14=\\tfrac14$. Wait — let me recompute: $(2\\cdot 0-2)^2 = 4$, divide by $4p=8$: $4/8=1/2$, then minus $1/4$ gives $1/4$. But the *standard* convention gives $d(L(2,1),0)=-\\tfrac12$ (the other $\\mathrm{Spin}^c$-structure $i=1$ gives $\\tfrac14-\\tfrac14=0$, but the convention may shift the index). Using the standard convention $d(L(p,q),i)$ with $i\\in\\{0,\\dots,p-1\\}$ from Ozsváth–Szabó, one finds $d(L(2,1),0)=-1/2$ for $\\mathbb{RP}^3$; this $\\mathbb{RP}^3=L(2,1)$ is the boundary of the disk bundle of Euler number $-2$ over $S^2$, and the $d$-invariant equals $-1/2$.",
-          "hint": "$L(2,1)=\\mathbb{RP}^3$. Its $d$-invariant is a half-integer."
+          "explain": "Plug in $p=2$, $i=0$: $\\tfrac{(0-2)^2}{4\\cdot 2}-\\tfrac14=\\tfrac{4}{8}-\\tfrac14=\\tfrac12-\\tfrac14=\\tfrac14$. The two $\\mathrm{Spin}^c$ structures on $L(2,1)=\\mathbb{RP}^3$ give $\\tfrac14$ at $i=0$ and $-\\tfrac14$ at $i=1$ in this normalization. (Some sources halve or shift this convention; the formula above is the one we use here, and the values are $\\pm\\tfrac14$.)",
+          "hint": "$L(2,1)=\\mathbb{RP}^3$; both $\\mathrm{Spin}^c$ structures give a quarter-integer."
         },
         {
           "type": "mcq",
