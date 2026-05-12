@@ -28,7 +28,7 @@ const repoRoot = resolve(dirname(__filename), '..');
 // Pages we don't audit (navigation pages, capstone story pages, special).
 const SKIP = new Set([
   'index.html', 'pathway.html', 'mindmap.html', 'tags.html', 'search.html',
-  'progress.html', 'review.html', 'widgets.html', 'latex-cheatsheet.html',
+  'updates.html', 'progress.html', 'review.html', 'widgets.html', 'latex-cheatsheet.html',
   'capstone-bsd-story.html', 'capstone-flt-story.html',
   'capstone-satotate-story.html',
   'capstone-solvability-story.html',

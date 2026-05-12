@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Update history — Interactive Mathematics Notebook</title>
+<link rel="stylesheet" href="./css/theme-light.css">
+<script src="./js/theme-toggle.js"></script>
+<script defer src="./concepts/bundle.js"></script>
+<script defer src="./recent-updates.js"></script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+    --orange:#e8a04a;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  main{max-width:980px;margin:0 auto;padding:1.6rem 1.5rem 6rem}
+
+  .top-nav{display:flex;align-items:center;justify-content:space-between;
+    gap:0.8rem;padding:0.55rem 0 0.9rem;margin:0 0 1.8rem;
+    border-bottom:1px solid var(--line)}
+  .top-nav .brand{font-size:0.78rem;letter-spacing:0.16em;text-transform:uppercase;
+    color:var(--mute);font-family:ui-monospace,Menlo,monospace;white-space:nowrap}
+  .top-nav .brand strong{color:var(--ink);font-weight:600;letter-spacing:0.14em}
+  .top-nav .nav-links{display:flex;gap:0.35rem;align-items:center;flex-wrap:wrap;
+    justify-content:flex-end}
+  .top-nav a.nav-link{color:var(--mute);text-decoration:none;
+    padding:0.35rem 0.75rem;border-radius:6px;border:1px solid transparent;
+    font-size:0.88rem;font-weight:500;line-height:1.2;
+    transition:color 150ms ease, background 150ms ease, border-color 150ms ease}
+  .top-nav a.nav-link:hover{color:var(--ink);background:var(--panel2);
+    border-color:var(--line)}
+
+  .hero{margin:1.5rem 0 1.4rem}
+  .hero h1{font-size:2.2rem;letter-spacing:-0.01em;margin:0 0 0.5rem;color:var(--ink)}
+  .hero p.sub{color:var(--mute);margin:0;font-size:1.02rem;max-width:64ch}
+
+  /* Filter chips: one per section, plus "All". Click toggles which entries
+     are visible. Active chip uses the section accent color as fill. */
+  .filters{display:flex;flex-wrap:wrap;gap:0.4rem;margin:1.3rem 0 1.8rem}
+  .filters .chip{background:var(--panel);border:1px solid var(--line);
+    color:var(--mute);font-size:0.82rem;padding:0.35rem 0.8rem;
+    border-radius:999px;cursor:pointer;line-height:1.2;
+    transition:color 120ms ease, background 120ms ease, border-color 120ms ease}
+  .filters .chip:hover{color:var(--ink);background:var(--panel2)}
+  .filters .chip.active{background:color-mix(in srgb, currentColor 14%, var(--panel));
+    border-color:currentColor;color:var(--ink)}
+  .filters .chip[data-color="b"]{color:var(--blue)}
+  .filters .chip[data-color="y"]{color:var(--yellow)}
+  .filters .chip[data-color="p"]{color:var(--pink)}
+  .filters .chip[data-color="v"]{color:var(--violet)}
+  .filters .chip[data-color="g"]{color:var(--green)}
+  .filters .chip[data-color="c"]{color:var(--cyan)}
+  .filters .chip[data-color="o"]{color:var(--orange)}
+  .filters .chip.active[data-color]{color:var(--ink)}
+  .filters .chip .count{font-family:ui-monospace,Menlo,monospace;
+    font-size:0.74rem;color:var(--mute);margin-left:0.45rem}
+  .filters .chip.active .count{color:color-mix(in srgb, var(--ink) 70%, transparent)}
+
+  /* Month group: a header row + a vertical list of entries below. The list
+     uses the same .ru-card chip vocabulary as index.html's recently-updated
+     strip so the visual rhythm is identical. */
+  .month-group{margin:0 0 2rem}
+  .month-group h2{font-size:0.78rem;letter-spacing:0.16em;text-transform:uppercase;
+    color:var(--mute);font-family:ui-monospace,Menlo,monospace;font-weight:500;
+    margin:0 0 0.7rem;padding-bottom:0.4rem;border-bottom:1px solid var(--line)}
+  .month-group h2 .month-count{color:color-mix(in srgb, var(--mute) 70%, transparent);
+    margin-left:0.5rem;text-transform:none;letter-spacing:0}
+  .month-list{display:flex;flex-direction:column;gap:0.5rem}
+
+  /* Mirrors index.html's .ru-card styling — duplicated here rather than
+     hoisted to a shared CSS file to keep each page self-contained. */
+  .ru-card{background:var(--panel);border:1px solid var(--line);border-radius:8px;
+    padding:0.55rem 0.85rem;text-decoration:none;display:flex;align-items:center;
+    gap:0.85rem;transition:transform 140ms ease, border-color 140ms ease,
+    background 140ms ease}
+  .ru-card:hover{transform:translateY(-1px);background:var(--panel2)}
+  .ru-card .ru-date{font-size:0.74rem;font-family:ui-monospace,Menlo,monospace;
+    color:var(--mute);min-width:5.6em;flex-shrink:0;font-variant-numeric:tabular-nums}
+  .ru-card .ru-title{font-weight:600;font-size:0.95rem;color:var(--ink);flex:1;min-width:0;
+    overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .ru-card .ru-message{color:var(--mute);font-size:0.84rem;flex:2;min-width:0;
+    overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .ru-card .ru-section{font-size:0.72rem;padding:1px 8px;border-radius:999px;
+    border:1px solid currentColor;background:color-mix(in srgb, currentColor 8%, transparent);
+    flex-shrink:0;text-transform:uppercase;letter-spacing:0.05em}
+  .ru-card.y .ru-title{color:var(--yellow)} .ru-card.y:hover{border-color:var(--yellow)}
+  .ru-card.b .ru-title{color:var(--blue)}   .ru-card.b:hover{border-color:var(--blue)}
+  .ru-card.g .ru-title{color:var(--green)}  .ru-card.g:hover{border-color:var(--green)}
+  .ru-card.p .ru-title{color:var(--pink)}   .ru-card.p:hover{border-color:var(--pink)}
+  .ru-card.v .ru-title{color:var(--violet)} .ru-card.v:hover{border-color:var(--violet)}
+  .ru-card.c .ru-title{color:var(--cyan)}   .ru-card.c:hover{border-color:var(--cyan)}
+  .ru-card.o .ru-title{color:var(--orange)} .ru-card.o:hover{border-color:var(--orange)}
+  .ru-card.y .ru-section{color:var(--yellow)}
+  .ru-card.b .ru-section{color:var(--blue)}
+  .ru-card.g .ru-section{color:var(--green)}
+  .ru-card.p .ru-section{color:var(--pink)}
+  .ru-card.v .ru-section{color:var(--violet)}
+  .ru-card.c .ru-section{color:var(--cyan)}
+  .ru-card.o .ru-section{color:var(--orange)}
+
+  @media (max-width:640px){
+    .ru-card{padding:0.5rem 0.65rem;gap:0.5rem;flex-wrap:wrap}
+    .ru-card .ru-date{font-size:0.7rem;min-width:5.2em}
+    .ru-card .ru-title{font-size:0.88rem;flex:1 1 100%;order:3}
+    .ru-card .ru-message{display:none}
+    .ru-card .ru-section{font-size:0.66rem}
+  }
+
+  .empty-state{padding:2rem;text-align:center;color:var(--mute);
+    border:1px dashed var(--line);border-radius:10px;margin:1.5rem 0}
+
+  footer{color:var(--mute);font-size:0.85rem;text-align:center;margin-top:4rem;
+    padding-top:2rem;border-top:1px solid var(--line)}
+  footer a{color:var(--mute)}
+  footer a:hover{color:var(--ink)}
+</style>
+</head>
+<body data-page="updates">
+<main>
+  <nav class="top-nav">
+    <div class="brand"><strong>MV</strong> &middot; Notebook</div>
+    <div class="nav-links">
+      <a class="nav-link" href="./index.html">← Notebook</a>
+      <a class="nav-link" href="./pathway.html">Pathway</a>
+      <a class="nav-link" href="./tours.html">Tours</a>
+      <a class="nav-link" href="./tags.html">Themes</a>
+      <a class="nav-link" href="./search.html">Search</a>
+      <span class="mv-theme-slot"></span>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <h1>Update history</h1>
+    <p class="sub">Every topic, sorted by its most recent meaningful edit. Dates come from <code>git log</code> on each <code>quizzes/&lt;slug&gt;.json</code>, which is touched only by content commits — no injector or build script writes to it.</p>
+  </section>
+
+  <div class="filters" id="filters" role="navigation" aria-label="Filter by section"></div>
+
+  <div id="list"></div>
+
+  <div id="empty" class="empty-state" hidden>
+    Recently-updated manifest is missing or empty. Rebuild with <code>node scripts/build-recent-updates.mjs</code>.
+  </div>
+
+  <footer>
+    <a href="./index.html">← Notebook</a> · <a href="./pathway.html">Pathway</a> · <a href="./search.html">Search</a>
+  </footer>
+</main>
+
+<script>
+// Renders the full timeline from `window.MV_RECENT_UPDATES` (populated by
+// recent-updates.js), enriched with section metadata from
+// `window.__MVConcepts.sections.sections`. Grouped by Year-Month; filterable
+// by section via the chip row. All inline — no fetch — so it works under
+// file://.
+(function(){
+  var MONTH_NAMES = ['January','February','March','April','May','June',
+                     'July','August','September','October','November','December'];
+
+  function buildSlugSectionMap(){
+    // Map<slug, { id, title, color }> from the bundled sections.json.
+    // Each section's `topics` array enumerates its slugs; one section per slug.
+    var bundle = window.__MVConcepts;
+    var sections = bundle && bundle.sections && Array.isArray(bundle.sections.sections)
+      ? bundle.sections.sections : [];
+    var map = new Map();
+    for(var i=0;i<sections.length;i++){
+      var s = sections[i];
+      if(!Array.isArray(s.topics)) continue;
+      for(var j=0;j<s.topics.length;j++){
+        map.set(s.topics[j], { id: s.id, title: s.title, color: s.color });
+      }
+    }
+    return { map: map, sections: sections };
+  }
+
+  function monthKey(iso){
+    // YYYY-MM-DD → "YYYY-MM". Stable lexicographic order matches chronological.
+    return iso.slice(0, 7);
+  }
+  function monthLabel(key){
+    // "YYYY-MM" → "May 2026"
+    var parts = key.split('-');
+    var y = parts[0], m = parseInt(parts[1], 10) - 1;
+    if(isNaN(m) || m < 0 || m > 11) return key;
+    return MONTH_NAMES[m] + ' ' + y;
+  }
+
+  function render(entries, sectionMap, sections){
+    // Per-section count for the chip badges.
+    var counts = { __all__: entries.length };
+    for(var i=0;i<entries.length;i++){
+      var meta = sectionMap.get(entries[i].slug);
+      if(!meta) continue;
+      counts[meta.id] = (counts[meta.id] || 0) + 1;
+    }
+    // Filter chip row.
+    var filters = document.getElementById('filters');
+    filters.innerHTML = '';
+    var allChip = makeChip('__all__', 'All', null, counts.__all__);
+    allChip.classList.add('active');
+    filters.appendChild(allChip);
+    for(var k=0;k<sections.length;k++){
+      var s = sections[k];
+      if(!counts[s.id]) continue;
+      filters.appendChild(makeChip(s.id, s.title, s.color, counts[s.id]));
+    }
+
+    renderList(entries, sectionMap, '__all__');
+
+    filters.addEventListener('click', function(ev){
+      var chip = ev.target.closest('.chip');
+      if(!chip) return;
+      var prev = filters.querySelector('.chip.active');
+      if(prev) prev.classList.remove('active');
+      chip.classList.add('active');
+      renderList(entries, sectionMap, chip.dataset.sectionId);
+    });
+  }
+
+  function makeChip(sectionId, label, color, count){
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'chip';
+    b.dataset.sectionId = sectionId;
+    if(color) b.dataset.color = color;
+    b.textContent = label;
+    var c = document.createElement('span');
+    c.className = 'count';
+    c.textContent = count;
+    b.appendChild(c);
+    return b;
+  }
+
+  function renderList(entries, sectionMap, sectionId){
+    var list = document.getElementById('list');
+    list.innerHTML = '';
+    // Group by month, preserving the date-descending order of entries.
+    var groups = [];
+    var byKey = new Map();
+    for(var i=0;i<entries.length;i++){
+      var e = entries[i];
+      var meta = sectionMap.get(e.slug);
+      if(sectionId !== '__all__' && (!meta || meta.id !== sectionId)) continue;
+      var key = monthKey(e.date);
+      var g = byKey.get(key);
+      if(!g){
+        g = { key: key, entries: [] };
+        byKey.set(key, g);
+        groups.push(g);
+      }
+      g.entries.push({ entry: e, section: meta });
+    }
+    if(groups.length === 0){
+      var empty = document.createElement('div');
+      empty.className = 'empty-state';
+      empty.textContent = 'No updates in this section yet.';
+      list.appendChild(empty);
+      return;
+    }
+    for(var j=0;j<groups.length;j++){
+      var g2 = groups[j];
+      var wrap = document.createElement('section');
+      wrap.className = 'month-group';
+      var h = document.createElement('h2');
+      h.textContent = monthLabel(g2.key);
+      var count = document.createElement('span');
+      count.className = 'month-count';
+      count.textContent = '· ' + g2.entries.length + ' topic' + (g2.entries.length === 1 ? '' : 's');
+      h.appendChild(count);
+      wrap.appendChild(h);
+      var ul = document.createElement('div');
+      ul.className = 'month-list';
+      for(var n=0;n<g2.entries.length;n++){
+        ul.appendChild(makeRow(g2.entries[n].entry, g2.entries[n].section));
+      }
+      wrap.appendChild(ul);
+      list.appendChild(wrap);
+    }
+  }
+
+  function makeRow(e, section){
+    var a = document.createElement('a');
+    a.className = 'ru-card' + (e.color ? ' ' + e.color : '');
+    a.href = './' + e.slug + '.html';
+    a.title = e.message ? (e.date + ' — ' + e.message) : e.date;
+    var date = document.createElement('span');
+    date.className = 'ru-date';
+    date.textContent = e.date;
+    var title = document.createElement('span');
+    title.className = 'ru-title';
+    title.textContent = e.title;
+    a.appendChild(date);
+    a.appendChild(title);
+    if(e.message){
+      var msg = document.createElement('span');
+      msg.className = 'ru-message';
+      msg.textContent = e.message;
+      a.appendChild(msg);
+    }
+    if(section){
+      var sec = document.createElement('span');
+      sec.className = 'ru-section';
+      sec.textContent = section.title;
+      a.appendChild(sec);
+    }
+    return a;
+  }
+
+  function init(){
+    var manifest = window.MV_RECENT_UPDATES;
+    var empty = document.getElementById('empty');
+    if(!manifest || !Array.isArray(manifest.entries) || !manifest.entries.length){
+      if(empty) empty.hidden = false;
+      return;
+    }
+    var ctx = buildSlugSectionMap();
+    render(manifest.entries, ctx.map, ctx.sections);
+  }
+
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
+</body>
+</html>

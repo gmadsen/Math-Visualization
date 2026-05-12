@@ -58,6 +58,7 @@ const SKIP = new Set([
   'widgets.html',
   'review.html',
   'search.html',
+  'updates.html',
   'capstone-bsd-story.html',
   'capstone-flt-story.html',
   'capstone-satotate-story.html',
