@@ -213,7 +213,10 @@
 
   function init(selector, cfg){
     const root = typeof selector === 'string' ? document.querySelector(selector) : selector;
-    if(!root) return null;
+    if(!root){
+      console.warn('[MVCounterexampleGenerator] no host for', selector);
+      return null;
+    }
 
     const space = (cfg && cfg.space) ? cfg.space.slice() : ['a','b','c','d'];
     const n = space.length;

@@ -117,7 +117,14 @@
 
   // ===== widget impl =====
   function init(host, data){
-    if(!host || !data) return;
+    if(!host){
+      console.warn('[MVHistoryTimeline] init called with no host element');
+      return;
+    }
+    if(!data){
+      console.warn('[MVHistoryTimeline] init called with no data');
+      return;
+    }
     const eras = data.eras || [];
     const people = data.people || [];
     const events = (data.events || []).slice();

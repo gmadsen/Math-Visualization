@@ -105,9 +105,13 @@
     const root = typeof selector === 'string'
       ? document.querySelector(selector)
       : selector;
-    if(!root){ return null; }
+    if(!root){
+      console.warn('[MVProofScrubber] no host for', selector);
+      return null;
+    }
     if(!opts || !Array.isArray(opts.steps) || !opts.steps.length){
       root.textContent = 'proof-scrubber: no steps';
+      console.warn('[MVProofScrubber] no steps in opts');
       return null;
     }
 

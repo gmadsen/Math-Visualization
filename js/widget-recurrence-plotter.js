@@ -143,7 +143,10 @@
 
   function init(selector, opts) {
     const root = typeof selector === 'string' ? document.querySelector(selector) : selector;
-    if (!root) return null;
+    if (!root) {
+      console.warn('[MVRecurrencePlotter] no host for', selector);
+      return null;
+    }
     if (!opts || !opts.kind || !KINDS[opts.kind]) {
       root.textContent = `recurrence-plotter: unknown kind "${opts && opts.kind}"`;
       return null;
