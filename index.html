@@ -4993,9 +4993,12 @@
     apply(readStored());
     if(toggle){
       toggle.addEventListener('click', function(){
-        var nowOpen = container.classList.contains('collapsed');
-        apply(nowOpen);
-        try { localStorage.setItem(STORE_KEY, nowOpen ? '1' : '0'); } catch(_) {}
+        // classList still reflects pre-click state; willOpen is the target
+        // state after the flip (true if currently collapsed, since clicking
+        // a collapsed section opens it).
+        var willOpen = container.classList.contains('collapsed');
+        apply(willOpen);
+        try { localStorage.setItem(STORE_KEY, willOpen ? '1' : '0'); } catch(_) {}
       });
     }
     window.addEventListener('storage', function(e){
