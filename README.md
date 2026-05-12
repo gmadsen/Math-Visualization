@@ -201,6 +201,7 @@ Each concept carries up to three quiz tiers — v1 (required), hard (unlocked af
 - [Crystalline cohomology](./crystalline-cohomology.html) — the $\ell=p$ gap, divided powers and the crystalline site, comparison with de Rham of a lift, Frobenius and Katz–Messing, F-isocrystals, period rings $B_{\mathrm{cris}} / B_{\mathrm{dR}}$
 - [Tropical geometry](./tropical-geometry.html) — draft — fill in once the page has real content
 - [Geometric invariant theory](./geometric-invariant-theory.html) — invariants of group actions, reductive groups + the Reynolds operator, GIT quotients $X/\!/G$, Hilbert–Mumford numerical criterion, Kempf–Ness as symplectic reduction, VGIT wall-crossing, moduli applications ($M_g$, quiver moduli, $\mathrm{Bun}_G$)
+- [Brill–Noether theory](./brill-noether.html) — special divisors and linear series, Riemann–Roch as the dimension-counting tool, the Brill–Noether number $\rho(g,r,d)$, the determinantal locus $W^r_d(C)$, existence (Kempf / Kleiman–Laksov), Petri's smoothness theorem, Brill–Noether divisors in $\overline{\mathcal{M}}_g$ and limit linear series
 
 ### Combinatorics & graph theory
 - [Spectral graph theory](./spectral-graph-theory.html) — adjacency, Laplacian, Cheeger inequality, expanders — graphs as discrete differential geometry
