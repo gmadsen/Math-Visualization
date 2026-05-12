@@ -245,6 +245,10 @@
         },
         {
           "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./coding-theory.html#ldpc\">Coding theory &amp; error-correcting codes</a> · LDPC codes and belief propagation</div>\n</aside>\n<!-- backlinks-auto-end -->"
+        },
+        {
+          "type": "raw",
           "html": ""
         },
         {

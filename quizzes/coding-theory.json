@@ -1,0 +1,316 @@
+{
+  "topic": "coding-theory",
+  "quizzes": {
+    "ct-distance": {
+      "title": "Hamming distance and the Singleton bound",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "A binary code of length $n=15$ has minimum distance $d=5$. How many errors can it guarantee to correct?",
+          "answer": 2,
+          "tol": 0,
+          "explain": "$t=\\lfloor (d-1)/2\\rfloor=\\lfloor 4/2\\rfloor=2$. Up to $d-1=4$ errors are detectable; up to $\\lfloor(d-1)/2\\rfloor=2$ are correctable, because closed Hamming balls of radius $2$ around distinct codewords are disjoint.",
+          "hint": "Use $t=\\lfloor (d-1)/2\\rfloor$."
+        },
+        {
+          "type": "mcq",
+          "q": "A code with parameters $[n,k,d]=[10,4,d]$ over any alphabet must satisfy which Singleton inequality?",
+          "choices": [
+            "$d \\le n + k - 1 = 13$",
+            "$d \\le n - k + 1 = 7$",
+            "$d \\le k = 4$",
+            "$d \\le n/k = 2.5$"
+          ],
+          "answer": 1,
+          "explain": "Singleton: $d\\le n-k+1$. Puncturing $d-1$ coordinates of $C$ still leaves $|C|=q^k$ distinct strings of length $n-d+1$, forcing $q^k\\le q^{n-d+1}$, i.e. $k\\le n-d+1$.",
+          "hint": "Puncture $d-1$ coordinates."
+        },
+        {
+          "type": "multi-select",
+          "q": "Which statements about the parameters $[n,k,d]$ of a $q$-ary block code are correct?",
+          "choices": [
+            "$d\\le n-k+1$ (Singleton).",
+            "$|C|\\cdot V_q(n,\\lfloor (d-1)/2\\rfloor)\\le q^n$ (Hamming/sphere-packing).",
+            "Every code attaining Singleton with equality is called perfect.",
+            "Increasing $d$ at fixed $n,k$ is always achievable."
+          ],
+          "answer": [
+            0,
+            1
+          ],
+          "explain": "Singleton and the sphere-packing bound are both correct. 'MDS' (not 'perfect') describes Singleton-tight codes; 'perfect' means balls of radius $t$ tile the space (e.g. Hamming, Golay). And increasing $d$ at fixed $(n,k)$ generally requires giving up rate — there is no free distance.",
+          "hint": "Two universal upper bounds vs. two interchanged definitions."
+        }
+      ]
+    },
+    "ct-linear": {
+      "title": "Linear codes: generator, parity-check, syndrome",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "For a binary linear code with parity-check matrix $H$, the minimum distance equals:",
+          "choices": [
+            "the smallest number of $1$s in any row of $H$.",
+            "the smallest number of columns of $H$ that are linearly dependent.",
+            "the number of rows of $H$.",
+            "$n-k+1$ always."
+          ],
+          "answer": 1,
+          "explain": "$d$ is the minimum weight of a non-zero codeword. A non-zero $c\\in\\ker H$ of weight $w$ exhibits $w$ columns of $H$ summing to $0$, i.e. linearly dependent. Conversely $w$ dependent columns give a weight-$w$ codeword.",
+          "hint": "$Hc^\\top=0$ for $c\\in C$."
+        },
+        {
+          "type": "numeric",
+          "q": "A binary linear code has parity-check $H=\\begin{pmatrix}1&0&1&1&0&0\\\\1&1&0&0&1&0\\\\0&1&1&0&0&1\\end{pmatrix}$. The received word $y=(1,0,0,0,0,0)$ arrives. What is the syndrome $Hy^\\top$ as a decimal integer with $s_1$ the least-significant bit?",
+          "answer": 3,
+          "tol": 0,
+          "explain": "$Hy^\\top=(H_{*,1})=(1,1,0)^\\top$, i.e. $s_1=1, s_2=1, s_3=0$. Reading $s_3 s_2 s_1$ as binary: $011_2=3$.",
+          "hint": "Only the first column of $H$ contributes."
+        },
+        {
+          "type": "matching",
+          "q": "Match each object on the left with its role:",
+          "left": [
+            "generator matrix $G$",
+            "parity-check matrix $H$",
+            "syndrome $s=Hy^\\top$",
+            "minimum-weight coset leader"
+          ],
+          "right": [
+            "rows span the code $C$",
+            "kernel equals the code $C$",
+            "depends only on the error pattern $e$",
+            "best guess for $e$ in syndrome decoding"
+          ],
+          "answer": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "explain": "$G$'s rows are a basis; $H$ acts on $\\mathbb{F}_q^n$ with kernel $C$; the syndrome of $y=c+e$ is $He^\\top$ (independent of $c$); syndrome decoding maps $s$ to the minimum-weight $e$ achieving $s$.",
+          "hint": "Four roles, four objects, one-to-one."
+        }
+      ]
+    },
+    "ct-hamming": {
+      "title": "Hamming codes",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "The binary Hamming code $\\mathrm{Ham}(m)$ for $m=4$ has parameters $[n,k,d]$. What is $k$?",
+          "answer": 11,
+          "tol": 0,
+          "explain": "$n=2^m-1=15$, parity-check has $m=4$ rows, so $k=n-m=11$. Parameters: $[15,11,3]$.",
+          "hint": "$n=2^m-1$, $k=n-m$."
+        },
+        {
+          "type": "mcq",
+          "q": "Why does $\\mathrm{Ham}(m)$ have minimum distance exactly $3$?",
+          "choices": [
+            "The parity-check has exactly $m$ rows.",
+            "All columns of $H$ are non-zero and distinct (so two are always independent), but three of them can sum to zero.",
+            "The Singleton bound forces $d\\le 3$.",
+            "Every received word lies in a unique ball of radius $1$."
+          ],
+          "answer": 1,
+          "explain": "Columns of $H$ run through every non-zero vector in $\\mathbb{F}_2^m$. Distinct non-zero vectors are pairwise independent (no two columns sum to $0$), so no codeword has weight $\\le 2$. But any three columns including $e_i,e_j,e_i+e_j$ sum to $0$, giving a weight-$3$ codeword.",
+          "hint": "Look at columns of $H$."
+        },
+        {
+          "type": "spot-the-error",
+          "q": "A student presents the following chain of claims about the binary $[7,4,3]$ Hamming code. Which step contains the error?",
+          "steps": [
+            "Step 1: the parity-check matrix $H$ has columns running through every non-zero vector of $\\mathbb{F}_2^3$.",
+            "Step 2: if a single bit at position $i$ is flipped, the syndrome $Hy^\\top$ equals the $i$-th column of $H$, i.e. the binary representation of $i$.",
+            "Step 3: hence the decoder can identify which data bit got flipped, but parity bits (positions 1, 2, 4) are always correct — the channel cannot flip them.",
+            "Step 4: therefore the code can correct any single-bit error and detect (but not correct) two-bit errors."
+          ],
+          "answer": 2,
+          "explain": "Step 3 is the error. The channel doesn't know which bits are 'parity' vs 'data' — it flips bits at random, and the syndrome will correctly point at a parity-bit position just as it points at a data-bit position. There is no semantic distinction at the channel level. Step 4's detection claim is correct only if you observe that $d=3$ implies detection-of-2 / correction-of-1.",
+          "hint": "Channel noise doesn't distinguish parity bits from data bits."
+        }
+      ]
+    },
+    "ct-reed-solomon": {
+      "title": "Reed–Solomon codes",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A Reed–Solomon code over $\\mathbb{F}_q$ with $n$ evaluation points and message dimension $k$ has minimum distance:",
+          "choices": [
+            "$d = n - k + 1$ (MDS).",
+            "$d = 3$ for all $k$.",
+            "$d = k$.",
+            "$d \\ge \\log_q n$."
+          ],
+          "answer": 0,
+          "explain": "Two distinct polynomials of degree $<k$ agree at $\\le k-1$ points (their difference has $<k$ roots), so they differ at $\\ge n-(k-1) = n-k+1$ points. The bound $d\\le n-k+1$ is therefore tight: Reed–Solomon meets Singleton.",
+          "hint": "How many roots can $f-g$ have?"
+        },
+        {
+          "type": "numeric",
+          "q": "A Reed–Solomon code over $\\mathbb{F}_{256}$ with $n=255$ and $k=223$ (the Voyager outer code from 1986) can correct how many byte errors?",
+          "answer": 16,
+          "tol": 0,
+          "explain": "$d=n-k+1=33$. Correctable errors: $t=\\lfloor 32/2\\rfloor=16$. A whole 'symbol' (byte) is one error here — that's the granularity Reed–Solomon corrects, and it's why bursty errors that hit consecutive bits but few bytes are favourable.",
+          "hint": "MDS gives $d$ for free; then halve."
+        },
+        {
+          "type": "ordering",
+          "q": "Order the steps of polynomial encoding for a Reed–Solomon code with message $(m_0,\\dots,m_{k-1})$:",
+          "items": [
+            "Evaluate $f$ at the fixed points $\\alpha_1,\\dots,\\alpha_n$ to obtain the codeword $(f(\\alpha_1),\\dots,f(\\alpha_n))$.",
+            "Interpret the message as the coefficients of a polynomial $f(x)=m_0+m_1 x+\\dots+m_{k-1}x^{k-1}$.",
+            "Choose $n\\le q$ distinct points $\\alpha_1,\\dots,\\alpha_n\\in\\mathbb{F}_q$ once and fix them as the code's evaluation set."
+          ],
+          "answer": [
+            2,
+            1,
+            0
+          ],
+          "explain": "Setup: fix the points (step 3); encoding maps message coefficients to a polynomial (step 2) and evaluates it (step 1). The evaluation points are a fixed parameter of the code, not part of the per-message data.",
+          "hint": "What's data, what's parameter?"
+        }
+      ]
+    },
+    "ct-bch": {
+      "title": "BCH codes",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The BCH bound states that if a cyclic code's generator $g(x)$ has $\\delta-1$ <em>consecutive</em> powers of a primitive $n$-th root of unity as roots, then:",
+          "choices": [
+            "The code corrects exactly $\\delta-1$ errors.",
+            "The minimum distance satisfies $d \\ge \\delta$.",
+            "The dimension is $k = n - \\delta + 1$.",
+            "The code is automatically MDS."
+          ],
+          "answer": 1,
+          "explain": "The BCH bound is the lower bound $d\\ge\\delta$, proved by a Vandermonde determinant on the $\\delta-1$ consecutive roots. The true distance often exceeds $\\delta$ (extra cyclotomic-coset roots tighten it), and the code is generally not MDS — Reed–Solomon (the no-extension case) is the MDS sub-family.",
+          "hint": "It's a lower bound on $d$."
+        },
+        {
+          "type": "numeric",
+          "q": "For a binary BCH code of length $n=15$ with $\\beta\\in\\mathbb{F}_{16}$ primitive, the cyclotomic coset of $1$ modulo $15$ under multiplication by $q=2$ is $\\{1,2,4,8\\}$. How many distinct cyclotomic cosets partition $\\{0,1,\\dots,14\\}$?",
+          "answer": 5,
+          "tol": 0,
+          "explain": "The cosets of $\\langle 2\\rangle$ acting on $\\mathbb{Z}/15$: $\\{0\\}$, $\\{1,2,4,8\\}$, $\\{3,6,12,9\\}$, $\\{5,10\\}$, $\\{7,14,13,11\\}$. That's five cosets, accounting for $1+4+4+2+4=15$ elements.",
+          "hint": "Each coset has size dividing $\\mathrm{ord}_{15}(2)=4$."
+        },
+        {
+          "type": "multi-select",
+          "q": "Which of the following are true of BCH codes in general?",
+          "choices": [
+            "They are cyclic.",
+            "Reed–Solomon codes are the special case where no field extension is needed.",
+            "The actual distance always equals the design distance.",
+            "They can be decoded by the Berlekamp–Massey algorithm."
+          ],
+          "answer": [
+            0,
+            1,
+            3
+          ],
+          "explain": "BCH codes are cyclic by construction; Reed–Solomon is the $q^m=q$ case; Berlekamp–Massey efficiently finds the error-locator polynomial from a syndrome. The 'true distance equals design distance' claim is false — extra roots from cyclotomic cosets routinely push $d>\\delta$.",
+          "hint": "Three of four hold."
+        }
+      ]
+    },
+    "ct-ldpc": {
+      "title": "LDPC codes and belief propagation",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "In a $(d_v,d_c)$-regular LDPC code, the rate $R=k/n$ satisfies (for the typical bipartite graph with all checks linearly independent):",
+          "choices": [
+            "$R = d_v/d_c$.",
+            "$R = 1 - d_v/d_c$.",
+            "$R = d_c/(d_v+d_c)$.",
+            "$R = 1 - 1/(d_v d_c)$."
+          ],
+          "answer": 1,
+          "explain": "Each variable has $d_v$ edges; each check has $d_c$ edges; edge-count equality gives $n\\,d_v = (n-k)\\,d_c$, so $k/n=1-d_v/d_c$. For example $(3,6)$-regular: $R=1-1/2=1/2$.",
+          "hint": "Count edges two ways."
+        },
+        {
+          "type": "mcq",
+          "q": "Belief propagation on a Tanner graph is exact when:",
+          "choices": [
+            "Every parity check has even weight.",
+            "The graph is a tree (no cycles).",
+            "The code is a Reed–Solomon code.",
+            "The check-node update is a hard XOR."
+          ],
+          "answer": 1,
+          "explain": "On a tree, the messages propagate without ever cycling back to a sender — every node receives the exact posterior. On graphs with cycles (including all LDPC Tanner graphs) it's an approximation that nevertheless works extremely well when girth is large.",
+          "hint": "Where does 'propagation' actually propagate without overlap?"
+        },
+        {
+          "type": "multi-select",
+          "q": "Select every accurate statement about LDPC codes:",
+          "choices": [
+            "$H$ is intentionally sparse.",
+            "Decoding cost per iteration is linear in the number of edges of the Tanner graph.",
+            "Well-designed irregular LDPC codes approach the Shannon capacity.",
+            "Belief propagation always converges in $O(\\log n)$ iterations on any Tanner graph."
+          ],
+          "answer": [
+            0,
+            1,
+            2
+          ],
+          "explain": "Sparsity (constant-weight rows and columns), per-iteration linear cost, and capacity-approaching performance via irregular ensembles are all standard. Convergence guarantees in $O(\\log n)$ require expansion / girth properties that don't hold for arbitrary Tanner graphs; in general convergence is empirical.",
+          "hint": "Three are properties, one is wishful thinking."
+        }
+      ]
+    },
+    "ct-lattices": {
+      "title": "Lattice codes and sphere packings",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The center density of a lattice $\\Lambda\\subset\\mathbb{R}^n$ is defined as:",
+          "choices": [
+            "$\\det\\Lambda / \\lambda_1$.",
+            "$(\\lambda_1/2)^n / \\det\\Lambda$, where $\\lambda_1$ is the length of a shortest non-zero vector.",
+            "the kissing number divided by $2^n$.",
+            "the number of lattice points within a unit ball."
+          ],
+          "answer": 1,
+          "explain": "Center density is the proportion of $\\mathbb{R}^n$ covered by disjoint balls of radius $\\lambda_1/2$ around each lattice point: ball volume per lattice point is $(\\lambda_1/2)^n$ times the volume of the unit ball, and there is one point per fundamental domain of volume $\\det\\Lambda$.",
+          "hint": "Volume of a ball of half-shortest-vector radius divided by covolume."
+        },
+        {
+          "type": "numeric",
+          "q": "The kissing number of the $E_8$ lattice — the number of lattice points at distance exactly $\\lambda_1$ from any given point — is:",
+          "answer": 240,
+          "tol": 0,
+          "explain": "$E_8$ has $240$ minimal vectors: the $112$ vectors with two $\\pm 1$s and six $0$s (in a half-integer-shifted coordinate system, $\\binom{8}{2}\\cdot 2^2 / 2$ rescaled), plus the $128$ half-integer-coordinate vectors with all signs even. This number $240$ also equals the order of the root system $E_8$, and is provably maximal in dimension $8$ (Viazovska 2016 for packings; the kissing-number bound was older).",
+          "hint": "It's also the size of the $E_8$ root system."
+        },
+        {
+          "type": "matching",
+          "q": "Match each binary linear code to the lattice it produces by Construction A (or scaled Construction A):",
+          "left": [
+            "Hamming code $[7,4,3]$ (extended to $[8,4,4]$)",
+            "Single parity check $[n,n-1,2]$",
+            "Binary Golay code $[24,12,8]$"
+          ],
+          "right": [
+            "$E_8$ root lattice",
+            "$D_n$ root lattice (checkerboard)",
+            "Leech lattice (up to scaling and a final $\\mathbb{Z}/2$ twist)"
+          ],
+          "answer": [
+            0,
+            1,
+            2
+          ],
+          "explain": "The extended Hamming $[8,4,4]$ via Construction A gives the $E_8$ root lattice. The single-parity-check code gives $D_n=\\{x\\in\\mathbb{Z}^n:\\sum x_i\\text{ even}\\}$. The Golay code is the seed for the Leech lattice, the densest known packing in $\\mathbb{R}^{24}$, optimality proved by Cohn–Kumar–Miller–Radchenko–Viazovska in 2017.",
+          "hint": "Three classics: $E_8$, $D_n$, Leech."
+        }
+      ]
+    }
+  }
+}

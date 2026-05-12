@@ -729,7 +729,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./cluster-algebras.html#laurent\">Cluster algebras</a> · Laurent phenomenon and positivity</div>\n    <div><a href=\"./cluster-algebras.html#seeds\">Cluster algebras</a> · Quivers and seeds</div>\n    <div><a href=\"./galois.html#galois\">Galois theory</a> · Splitting fields</div>\n    <div><a href=\"./groebner-bases.html#monomial-orders\">Gröbner bases</a> · Polynomial rings &amp; monomial orders</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./cluster-algebras.html#laurent\">Cluster algebras</a> · Laurent phenomenon and positivity</div>\n    <div><a href=\"./cluster-algebras.html#seeds\">Cluster algebras</a> · Quivers and seeds</div>\n    <div><a href=\"./coding-theory.html#reed-solomon\">Coding theory &amp; error-correcting codes</a> · Reed–Solomon codes</div>\n    <div><a href=\"./galois.html#galois\">Galois theory</a> · Splitting fields</div>\n    <div><a href=\"./groebner-bases.html#monomial-orders\">Gröbner bases</a> · Polynomial rings &amp; monomial orders</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
