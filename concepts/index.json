@@ -400,11 +400,7 @@
     "random-matrix-theory": "advanced",
     "shimura-varieties": "capstone",
     "geometric-invariant-theory": "advanced",
-    "heegaard-floer": "advanced"
-||||||| parent of f9a60965 (New topic: Brill–Noether theory (Algebraic geometry))
-    "geometric-invariant-theory": "advanced"
-=======
-    "geometric-invariant-theory": "advanced",
+    "heegaard-floer": "advanced",
     "brill-noether": "advanced"
   }
 }

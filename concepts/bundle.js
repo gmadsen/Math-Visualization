@@ -7,6 +7,7 @@ window.__MVConcepts = {
       "random-matrix-theory",
       "geometric-invariant-theory",
       "heegaard-floer",
+      "brill-noether",
       "several-complex-variables",
       "khovanov-homology",
       "shimura-varieties",
@@ -374,7 +375,8 @@ window.__MVConcepts = {
       "random-matrix-theory": "advanced",
       "shimura-varieties": "capstone",
       "geometric-invariant-theory": "advanced",
-      "heegaard-floer": "advanced"
+      "heegaard-floer": "advanced",
+      "brill-noether": "advanced"
     }
   },
   "topics": {
@@ -689,6 +691,111 @@ window.__MVConcepts = {
           "tags": [
             "classification",
             "completion"
+          ]
+        }
+      ]
+    },
+    "brill-noether": {
+      "topic": "brill-noether",
+      "title": "Brill–Noether theory",
+      "page": "brill-noether.html",
+      "concepts": [
+        {
+          "id": "special-divisors-linear-series",
+          "title": "Special divisors and linear series",
+          "anchor": "special-divisors",
+          "prereqs": [
+            "divisors-on-curves",
+            "applications-picard-serre"
+          ],
+          "blurb": "A linear series $g^r_d$ on a smooth projective curve $C$ is a pair $(L,V)$ with $L$ a degree-$d$ line bundle and $V\\subset H^0(C,L)$ an $(r+1)$-dimensional subspace; equivalently, an $r$-dimensional family of effective divisors of degree $d$ that vary linearly. A divisor $D$ is <em>special</em> when $h^1(D)>0$ — when it carries more sections than Riemann–Roch forces. Brill–Noether theory studies precisely this excess: how special can $D$ be, and how many $g^r_d$'s does a given curve carry?",
+          "tags": [
+            "foundation",
+            "classification"
+          ]
+        },
+        {
+          "id": "riemann-roch-bn",
+          "title": "Riemann–Roch as the dimension-counting tool",
+          "anchor": "riemann-roch-bn",
+          "prereqs": [
+            "special-divisors-linear-series",
+            "riemann-roch-curves"
+          ],
+          "blurb": "Riemann–Roch $h^0(D)-h^1(D)=d-g+1$ is the lower bound on the number of sections of a degree-$d$ line bundle. In the non-special range $d>2g-2$, Serre vanishing forces $h^1=0$ and $h^0=d-g+1$ exactly. The special range $0\\le d\\le 2g-2$ is where $h^0$ can exceed the Riemann–Roch floor; Serre duality reads $h^1(D)=h^0(K-D)$ as <em>holomorphic differentials vanishing along $D$</em>, geometrically translating into the canonical embedding picture.",
+          "tags": [
+            "duality",
+            "foundation"
+          ]
+        },
+        {
+          "id": "brill-noether-number",
+          "title": "The Brill–Noether number $\\rho(g,r,d)$",
+          "anchor": "brill-noether-number",
+          "prereqs": [
+            "riemann-roch-bn"
+          ],
+          "blurb": "The <strong>Brill–Noether number</strong> $\\rho(g,r,d)=g-(r+1)(g-d+r)$ is the expected dimension of the variety of $g^r_d$'s on a curve of genus $g$. It is derived as $\\dim\\Pic^d(C)=g$ minus the expected codimension of the rank-jumping condition $h^0(L)\\ge r+1$, which equals $(r+1)(g-d+r)$ by Macaulay/Porteous. Positive $\\rho$ predicts existence; negative $\\rho$ predicts emptiness on a general curve.",
+          "tags": [
+            "classification",
+            "finiteness"
+          ]
+        },
+        {
+          "id": "wrd-locus",
+          "title": "$W^r_d(C)$ — the Brill–Noether locus",
+          "anchor": "wrd-locus",
+          "prereqs": [
+            "brill-noether-number",
+            "divisors-on-curves"
+          ],
+          "blurb": "$W^r_d(C)=\\{L\\in\\Pic^d(C):h^0(L)\\ge r+1\\}$ is a determinantal subscheme of the Picard variety. Using a Poincaré bundle and pushforward, it is cut out by the rank condition on a map $\\gamma\\colon\\mathcal{F}\\to\\mathcal{G}$ of vector bundles on $\\Pic^d(C)$. The expected codimension $(r+1)(g-d+r)$ — equivalently $g-\\rho$ — is the Macaulay/Porteous codimension of the determinantal locus.",
+          "tags": [
+            "moduli",
+            "duality"
+          ]
+        },
+        {
+          "id": "brill-noether-theorem",
+          "title": "The Brill–Noether theorem (existence + dimension)",
+          "anchor": "brill-noether-theorem",
+          "prereqs": [
+            "wrd-locus"
+          ],
+          "blurb": "<strong>Kempf (1971) / Kleiman–Laksov (1972, 1974):</strong> for every smooth projective curve $C$ of genus $g$ and every $(r,d)$ with $\\rho(g,r,d)\\ge 0$, the locus $W^r_d(C)$ is non-empty, and every component has dimension $\\ge\\rho$. The proof is a Schubert-calculus argument: the class of $W^r_d$ in cohomology of $\\Pic^d(C)$ is a positive Schur polynomial in the theta divisor, hence non-zero. On a general curve (Griffiths–Harris 1980) the dimension equals $\\rho$ exactly.",
+          "tags": [
+            "classification",
+            "compactness"
+          ]
+        },
+        {
+          "id": "petri",
+          "title": "Petri's theorem (smoothness)",
+          "anchor": "petri",
+          "prereqs": [
+            "brill-noether-theorem",
+            "canonical-embedding",
+            "first-order-deformation"
+          ],
+          "blurb": "For $L\\in W^r_d(C)$ with $h^0(L)=r+1$, the <strong>Petri map</strong> $\\mu_0(L)\\colon H^0(L)\\otimes H^0(K\\otimes L^{-1})\\to H^0(K)$ is cup-product into the canonical sections; its cokernel is the Zariski cotangent space of $W^r_d$ at $L$. <strong>Petri's theorem (Gieseker 1982, Eisenbud–Harris 1983):</strong> on a general curve, $\\mu_0(L)$ is injective for every $L$ in the open stratum $W^r_d\\setminus W^{r+1}_d$. Consequently $W^r_d(C)$ is smooth of dimension exactly $\\rho$ — the Brill–Noether prediction is sharp.",
+          "tags": [
+            "duality",
+            "classification"
+          ]
+        },
+        {
+          "id": "bn-in-mg",
+          "title": "Brill–Noether loci in $\\mathcal{M}_g$",
+          "anchor": "bn-in-mg",
+          "prereqs": [
+            "petri",
+            "moduli-of-curves-genus-g",
+            "higher-genus-moduli"
+          ],
+          "blurb": "Varying $C$ over $\\mathcal{M}_g$, the locus of curves whose $W^r_d(C)$ is bigger than expected — equivalently, where Petri fails — is closed in $\\mathcal{M}_g$. When $\\rho(g,r,d)=-1$ this locus is the <strong>Brill–Noether divisor</strong> $\\mathcal{M}^r_{g,d}\\subset\\mathcal{M}_g$. Eisenbud–Harris (1987) computed its class in $\\Pic(\\overline{\\mathcal{M}}_g)\\otimes\\mathbb{Q}$ using limit linear series on chains of elliptic curves. These divisor classes are the central technical input to the Harris–Mumford theorem on the Kodaira dimension of $\\overline{\\mathcal{M}}_g$.",
+          "tags": [
+            "moduli",
+            "classification"
           ]
         }
       ]
@@ -18191,7 +18298,8 @@ window.__MVConcepts = {
           "d-modules",
           "crystalline-cohomology",
           "tropical-geometry",
-          "geometric-invariant-theory"
+          "geometric-invariant-theory",
+          "brill-noether"
         ],
         "color": "g"
       },
@@ -18507,7 +18615,8 @@ window.__MVConcepts = {
     "random-matrix-theory": "advanced",
     "shimura-varieties": "capstone",
     "geometric-invariant-theory": "advanced",
-    "heegaard-floer": "advanced"
+    "heegaard-floer": "advanced",
+    "brill-noether": "advanced"
   },
   "newArc": [
     "elementary-topos-theory",
@@ -18584,11 +18693,11 @@ window.__MVConcepts = {
       "density": 0.5371900826446281
     },
     "Algebraic geometry": {
-      "concepts": 192,
-      "intra": 287,
+      "concepts": 199,
+      "intra": 301,
       "crossOut": 73,
       "crossIn": 35,
-      "density": 0.3802083333333333
+      "density": 0.36683417085427134
     },
     "Combinatorics & graph theory": {
       "concepts": 51,
