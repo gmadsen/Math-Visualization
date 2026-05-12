@@ -11,6 +11,7 @@ window.__MVConcepts = {
       "coding-theory",
       "conformal-and-cr-geometry",
       "mathematical-biology",
+      "spectral-methods-data",
       "several-complex-variables",
       "khovanov-homology",
       "shimura-varieties",
@@ -382,7 +383,8 @@ window.__MVConcepts = {
       "brill-noether": "advanced",
       "coding-theory": "standard",
       "conformal-and-cr-geometry": "advanced",
-      "mathematical-biology": "advanced"
+      "mathematical-biology": "advanced",
+      "spectral-methods-data": "advanced"
     }
   },
   "topics": {
@@ -1103,6 +1105,103 @@ window.__MVConcepts = {
           "blurb": "Recurrent deleterious mutation at rate $u$ per locus per generation is balanced by purifying selection of strength $s$: the equilibrium frequency of the deleterious allele is $\\hat q \\approx u/s$ (deterministic, $u\\ll s$), giving the Haldane–Muller principle that fitness load $L = \\bar w_{\\max}-\\bar w$ depends on $u$ alone, not on $s$. Mutational meltdown happens when $Ns\\ll 1$ kills the deterministic balance.",
           "tags": [
             "completion"
+          ]
+        }
+      ]
+    },
+    "spectral-methods-data": {
+      "topic": "spectral-methods-data",
+      "title": "Spectral methods for massive data sets",
+      "page": "spectral-methods-data.html",
+      "concepts": [
+        {
+          "id": "svd-eckart-young",
+          "title": "Singular value decomposition and Eckart–Young",
+          "anchor": "svd",
+          "prereqs": [
+            "algebraic-structures"
+          ],
+          "blurb": "Every real $A\\in\\mathbb{R}^{m\\times n}$ factors as $A=U\\Sigma V^{T}$ with orthogonal $U,V$ and non-negative diagonal $\\Sigma$. The truncation $A_k=\\sum_{i\\le k}\\sigma_i u_i v_i^{T}$ is the best rank-$k$ approximation in any unitarily invariant norm (Eckart–Young), with Frobenius error $\\sum_{i>k}\\sigma_i^{2}$.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "pca-variance",
+          "title": "Principal component analysis",
+          "anchor": "pca",
+          "prereqs": [
+            "svd-eckart-young"
+          ],
+          "blurb": "Center the data matrix, take its SVD, keep the top-$k$ right singular vectors as principal directions. The $j$th component captures variance $\\sigma_j^{2}/n$; the scree plot's elbow is the standard cutoff. Beware: variance captured is not the same as signal captured.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "graph-laplacian",
+          "title": "The graph Laplacian",
+          "anchor": "graph-laplacian",
+          "prereqs": [
+            "svd-eckart-young",
+            "adjacency-and-laplacian"
+          ],
+          "blurb": "On a weighted graph $G$, the Laplacian $L=D-A$ is symmetric PSD with $f^{T}Lf=\\sum_{ij\\in E}w_{ij}(f_i-f_j)^{2}$. The multiplicity of $0$ counts components; small $\\lambda_2$ (the Fiedler value) signals a near-bottleneck. The symmetric normalisation $L_{\\mathrm{sym}}=I-D^{-1/2}AD^{-1/2}$ has spectrum in $[0,2]$.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "spectral-clustering-ng",
+          "title": "Spectral clustering (Ng–Jordan–Weiss)",
+          "anchor": "spectral-clustering",
+          "prereqs": [
+            "graph-laplacian",
+            "cheeger-inequality"
+          ],
+          "blurb": "Embed each vertex via the bottom $k$ eigenvectors of $L_{\\mathrm{sym}}$, row-normalise to land on $S^{k-1}$, then $k$-means. The bottom-$k$ eigenvector problem is the continuous relaxation of normalised cut; Cheeger's inequality $\\lambda_2/2\\le h(G)\\le\\sqrt{2\\lambda_2}$ certifies the spectral sweep cut.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "pagerank",
+          "title": "PageRank",
+          "anchor": "pagerank",
+          "prereqs": [
+            "graph-laplacian",
+            "rw-markov-chains",
+            "rw-stationary-distribution"
+          ],
+          "blurb": "Stationary distribution of $G_\\alpha=\\alpha P + (1-\\alpha)\\tfrac{1}{n}\\mathbf{1}\\mathbf{1}^{T}$ with $P$ the column-stochastic web-link transition and $\\alpha\\approx 0.85$. Power iteration converges geometrically with rate $\\alpha$, independent of $n$ — the teleportation is what makes it ship at web scale.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "random-projection",
+          "title": "Randomized SVD and Johnson–Lindenstrauss",
+          "anchor": "randomized-svd",
+          "prereqs": [
+            "svd-eckart-young",
+            "hdg-johnson-lindenstrauss"
+          ],
+          "blurb": "Sketch $Y=A\\Omega$ with $\\Omega\\in\\mathbb{R}^{n\\times(k+p)}$ Gaussian, QR to get $Q$, then the small SVD of $Q^{T}A$ recovers the top-$k$ singular vectors with expected error $(1+k/(p-1))\\sum_{i>k}\\sigma_i^{2}$. The same JL projection preserves pairwise distances to factor $1\\pm\\varepsilon$ in $k=O(\\log n/\\varepsilon^{2})$ dimensions.",
+          "tags": [
+            "duality"
+          ]
+        },
+        {
+          "id": "nystrom-kernel",
+          "title": "The Nyström method",
+          "anchor": "nystrom",
+          "prereqs": [
+            "svd-eckart-young",
+            "graph-laplacian"
+          ],
+          "blurb": "Pick $m\\ll n$ landmarks; approximate the full kernel matrix $K\\approx K_{nm}K_{mm}^{+}K_{nm}^{T}$. Storage $O(nm)$ instead of $O(n^{2})$; eigenvectors extend out-of-sample. With leverage-score sampling, $m=O(k\\log k/\\varepsilon^{2})$ landmarks suffice for relative-$\\varepsilon$ top-$k$ recovery.",
+          "tags": [
+            "foundation"
           ]
         }
       ]
@@ -18480,7 +18579,8 @@ window.__MVConcepts = {
           "mathematical-statistics",
           "high-dimensional-geometry",
           "random-matrix-theory",
-          "mathematical-biology"
+          "mathematical-biology",
+          "spectral-methods-data"
         ],
         "color": "g"
       },
@@ -18929,7 +19029,8 @@ window.__MVConcepts = {
     "brill-noether": "advanced",
     "coding-theory": "standard",
     "conformal-and-cr-geometry": "advanced",
-    "mathematical-biology": "advanced"
+    "mathematical-biology": "advanced",
+    "spectral-methods-data": "advanced"
   },
   "newArc": [
     "elementary-topos-theory",
@@ -18960,7 +19061,7 @@ window.__MVConcepts = {
       "concepts": 148,
       "intra": 224,
       "crossOut": 25,
-      "crossIn": 97,
+      "crossIn": 98,
       "density": 0.16891891891891891
     },
     "Higher categories & toposes": {
@@ -18978,11 +19079,11 @@ window.__MVConcepts = {
       "density": 0.17647058823529413
     },
     "Probability & statistics": {
-      "concepts": 69,
-      "intra": 114,
-      "crossOut": 20,
+      "concepts": 76,
+      "intra": 124,
+      "crossOut": 23,
       "crossIn": 14,
-      "density": 0.2898550724637681
+      "density": 0.3026315789473684
     },
     "Geometry & topology": {
       "concepts": 153,
@@ -19016,7 +19117,7 @@ window.__MVConcepts = {
       "concepts": 58,
       "intra": 56,
       "crossOut": 27,
-      "crossIn": 2,
+      "crossIn": 4,
       "density": 0.46551724137931033
     },
     "Mathematical physics": {

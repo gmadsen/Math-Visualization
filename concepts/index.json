@@ -31,6 +31,7 @@
     "coding-theory",
     "conformal-and-cr-geometry",
     "mathematical-biology",
+    "spectral-methods-data",
 
 
 
@@ -407,6 +408,7 @@
     "brill-noether": "advanced",
     "coding-theory": "standard",
     "conformal-and-cr-geometry": "advanced",
-    "mathematical-biology": "advanced"
+    "mathematical-biology": "advanced",
+    "spectral-methods-data": "advanced"
   }
 }
