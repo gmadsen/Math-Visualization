@@ -4,11 +4,11 @@ Forward-looking priorities for the notebook. Daily-workflow commands, one-time s
 
 When something ships, delete its bullet here. Don't keep a "Shipped recently" log — `git log` is the audit trail. The full step list of `rebuild.mjs` is in `scripts/rebuild.mjs` — refer to it rather than restating step names here.
 
-## Corpus snapshot (2026-05-12)
+## Corpus snapshot (2026-05-13)
 
 From `audits/coverage-stats.md` and `audits/starter-concepts.md`:
 
-- 180 topics, 1250 concepts, 34 capstones
+- 181 topics, 1257 concepts, 34 capstones
 - 149 concepts lack a widget in their owning section
 - 1233 widgets, 100% registry-driven. 1229 interactive, 4 baselined-static SVG/table illustrations (`audit-widget-interactivity.mjs` is CI-gated via `audits/static-widgets-baseline.json`)
 - Quiz tiers: v1 = 3708, hard = 1223, expert = 13 (intentionally bottom-of-list — see "Out of scope")

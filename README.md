@@ -226,6 +226,9 @@ Each concept carries up to three quiz tiers — v1 (required), hard (unlocked af
 - [Dirac equation](./dirac-equation.html) — first-order operator from $E^2=p^2+m^2$, covariant form, spin-½, positive-definite probability current, Dirac sea & antimatter, Pauli equation as the non-relativistic limit
 - [Quantum field theory](./quantum-field-theory.html) — operator-valued distributions, Fock space, Feynman path integral, Feynman diagrams, renormalization and running couplings, gauge fields and the Standard Model
 
+### Control theory & optimization
+- [Optimal control and dynamic programming](./optimal-control-and-dynamic-programming.html) — Pontryagin's maximum principle, Hamilton–Jacobi–Bellman PDE, linear-quadratic regulator and the Riccati equation, discrete-time Bellman equation with value/policy iteration, stochastic dynamic programming and the Merton portfolio problem.
+
 ## Resetting progress
 
 Clear all mastery from the browser devtools console:

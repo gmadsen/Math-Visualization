@@ -12452,6 +12452,153 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "oc-bolza",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "interactive",
+    "title": "oc-bolza widget params",
+    "description": "Bolza ↔ Mayer state-augmentation visualisation. Verbatim-renderer slug for an inline widget on the optimal-control-and-dynamic-programming topic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bolza ↔ Mayer state-augmentation visualisation.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "oc-hjb",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "interactive",
+    "title": "oc-hjb widget params",
+    "description": "HJB value function: target-reaching in 1D. Verbatim-renderer slug for an inline widget on the optimal-control-and-dynamic-programming topic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "HJB value function: target-reaching in 1D.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "oc-lqr",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "interactive",
+    "title": "oc-lqr widget params",
+    "description": "1D LQR: Riccati ODE phase and closed-loop spectrum. Verbatim-renderer slug for an inline widget on the optimal-control-and-dynamic-programming topic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "1D LQR: Riccati ODE phase and closed-loop spectrum.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "oc-merton",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "interactive",
+    "title": "oc-merton widget params",
+    "description": "Merton optimal risky fraction widget. Verbatim-renderer slug for an inline widget on the optimal-control-and-dynamic-programming topic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Merton optimal risky fraction widget.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "oc-pmp",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "scrub",
+    "role": "interactive",
+    "title": "oc-pmp widget params",
+    "description": "Pontryagin maximum principle proof scrubber. Verbatim-renderer slug for an inline widget on the optimal-control-and-dynamic-programming topic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Pontryagin maximum principle proof scrubber.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "oc-reach",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "interactive",
+    "title": "oc-reach widget params",
+    "description": "Reachable-set widget for the double-integrator under bounded control. Verbatim-renderer slug for an inline widget on the optimal-control-and-dynamic-programming topic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Reachable-set widget for the double-integrator under bounded control.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "oc-vi",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "oc-vi widget params",
+    "description": "Value iteration on a 5x5 grid world. Verbatim-renderer slug for an inline widget on the optimal-control-and-dynamic-programming topic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Value iteration on a 5x5 grid world.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "parametric-plot",
     "family": "parametric-plot",
     "dimension": "2d",

@@ -5,27 +5,7 @@
 
     "geometric-invariant-theory",
 
-
-
-
-
     "heegaard-floer",
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     "brill-noether",
     "coding-theory",
@@ -36,6 +16,16 @@
 
 
 
+
+
+
+
+
+
+
+
+
+    "optimal-control-and-dynamic-programming",
 
     "several-complex-variables",
     "khovanov-homology",
@@ -409,6 +399,7 @@
     "coding-theory": "standard",
     "conformal-and-cr-geometry": "advanced",
     "mathematical-biology": "advanced",
-    "spectral-methods-data": "advanced"
+    "spectral-methods-data": "advanced",
+    "optimal-control-and-dynamic-programming": "advanced"
   }
 }

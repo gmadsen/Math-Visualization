@@ -12,6 +12,7 @@ window.__MVConcepts = {
       "conformal-and-cr-geometry",
       "mathematical-biology",
       "spectral-methods-data",
+      "optimal-control-and-dynamic-programming",
       "several-complex-variables",
       "khovanov-homology",
       "shimura-varieties",
@@ -384,7 +385,8 @@ window.__MVConcepts = {
       "coding-theory": "standard",
       "conformal-and-cr-geometry": "advanced",
       "mathematical-biology": "advanced",
-      "spectral-methods-data": "advanced"
+      "spectral-methods-data": "advanced",
+      "optimal-control-and-dynamic-programming": "advanced"
     }
   },
   "topics": {
@@ -1202,6 +1204,101 @@ window.__MVConcepts = {
           "blurb": "Pick $m\\ll n$ landmarks; approximate the full kernel matrix $K\\approx K_{nm}K_{mm}^{+}K_{nm}^{T}$. Storage $O(nm)$ instead of $O(n^{2})$; eigenvectors extend out-of-sample. With leverage-score sampling, $m=O(k\\log k/\\varepsilon^{2})$ landmarks suffice for relative-$\\varepsilon$ top-$k$ recovery.",
           "tags": [
             "foundation"
+          ]
+        }
+      ]
+    },
+    "optimal-control-and-dynamic-programming": {
+      "topic": "optimal-control-and-dynamic-programming",
+      "title": "Optimal control and dynamic programming",
+      "page": "optimal-control-and-dynamic-programming.html",
+      "concepts": [
+        {
+          "id": "oc-problem",
+          "title": "The optimal-control problem",
+          "anchor": "problem",
+          "prereqs": [
+            "dyn-orbits-flows"
+          ],
+          "blurb": "A controlled ODE $\\dot x = f(x,u,t)$ with control $u\\in U$ and Bolza cost $J=\\int L\\,dt + \\Phi(x(T))$. Existence rests on Filippov-style convexity; controllability is the linear-algebraic Kalman rank condition; reachability defines the set of states the system can actually visit.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "oc-euler-lagrange",
+          "title": "Euler–Lagrange detour and Bolza form",
+          "anchor": "euler-lagrange",
+          "prereqs": [
+            "oc-problem",
+            "vm-euler-lagrange"
+          ],
+          "blurb": "Without a control constraint the problem collapses to calculus of variations: $\\frac{d}{dt}\\partial_{\\dot x}L = \\partial_x L$. The Bolza, Mayer, and Lagrange formulations are interconvertible by augmenting the state with the running-cost integral — Bolza is the universal container.",
+          "tags": [
+            "universal-property"
+          ]
+        },
+        {
+          "id": "oc-pontryagin",
+          "title": "Pontryagin's maximum principle",
+          "anchor": "pontryagin",
+          "prereqs": [
+            "oc-euler-lagrange",
+            "hcm-hamilton-equations"
+          ],
+          "blurb": "Necessary condition for optimality: a co-state $\\lambda(t)$ co-evolves backward via $\\dot\\lambda = -\\partial_x H$, and the optimal control maximises the Hamiltonian $H=\\lambda^\\top f - L$ pointwise over $U$. Bang-bang controls fall out when $H$ is affine in $u$; the state-costate flow is Hamilton's equations on the cotangent bundle.",
+          "tags": [
+            "duality"
+          ]
+        },
+        {
+          "id": "oc-hjb",
+          "title": "Hamilton-Jacobi-Bellman equation",
+          "anchor": "hjb",
+          "prereqs": [
+            "oc-pontryagin",
+            "pde-classification"
+          ],
+          "blurb": "The value function $V(x,t)=\\inf_u J$ satisfies a first-order nonlinear PDE $-\\partial_t V = \\inf_u\\{L + \\partial_x V\\cdot f\\}$ with terminal condition $V(\\cdot,T)=\\Phi$. The optimal feedback is the pointwise minimiser; Pontryagin extremals are HJB characteristics. Viscosity solutions handle the typical non-differentiability of $V$.",
+          "tags": [
+            "duality"
+          ]
+        },
+        {
+          "id": "oc-lqr",
+          "title": "Linear-quadratic regulator (LQR)",
+          "anchor": "lqr",
+          "prereqs": [
+            "oc-hjb"
+          ],
+          "blurb": "Linear dynamics $\\dot x = Ax + Bu$ with quadratic cost — HJB collapses via a quadratic ansatz $V=\\tfrac12 x^\\top P x$ to the Riccati ODE $-\\dot P = A^\\top P + PA - PBR^{-1}B^\\top P + Q$. Optimal control is a state-linear feedback $u^*=-R^{-1}B^\\top P x$; the infinite-horizon limit solves the algebraic Riccati equation.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "oc-dp",
+          "title": "Discrete-time DP and the Bellman equation",
+          "anchor": "dp",
+          "prereqs": [
+            "oc-hjb"
+          ],
+          "blurb": "The recurrence $V_n(x)=\\min_u\\{c(x,u)+V_{n+1}(f(x,u))\\}$ solves the discrete problem in $O(N|X||U|)$ instead of the naive $O(|U|^N)$. The Bellman operator is a $\\gamma$-contraction in sup-norm; value iteration converges geometrically by Banach, and policy iteration converges in finitely many steps on finite state spaces.",
+          "tags": [
+            "compactness"
+          ]
+        },
+        {
+          "id": "oc-stochastic",
+          "title": "Stochastic dynamic programming",
+          "anchor": "stochastic",
+          "prereqs": [
+            "oc-hjb",
+            "sc-feynman-kac"
+          ],
+          "blurb": "A controlled SDE $dx = b\\,dt + \\sigma\\,dW$ leads to a second-order HJB PDE $-\\partial_t V = \\inf_u\\{L + \\mathcal{L}^u V\\}$ where $\\mathcal{L}^u$ is the controlled generator. Merton's portfolio problem solves in closed form for CRRA utility: $u^* = (\\mu-r)/(\\gamma\\sigma^2)$, independent of wealth and horizon — the canonical bridge to mathematical finance.",
+          "tags": [
+            "duality"
           ]
         }
       ]
@@ -18752,7 +18849,9 @@ window.__MVConcepts = {
         "id": "control-theory-and-optimization",
         "title": "Control theory & optimization",
         "description": "Linear and convex programming, network flows, dynamic programming, optimal control, Itô calculus applied to finance, and the analytic tools at the boundary between pure math and engineering decisions.",
-        "topics": [],
+        "topics": [
+          "optimal-control-and-dynamic-programming"
+        ],
         "color": "p"
       }
     ]
@@ -19037,7 +19136,8 @@ window.__MVConcepts = {
     "coding-theory": "standard",
     "conformal-and-cr-geometry": "advanced",
     "mathematical-biology": "advanced",
-    "spectral-methods-data": "advanced"
+    "spectral-methods-data": "advanced",
+    "optimal-control-and-dynamic-programming": "advanced"
   },
   "newArc": [
     "elementary-topos-theory",
@@ -19082,14 +19182,14 @@ window.__MVConcepts = {
       "concepts": 204,
       "intra": 357,
       "crossOut": 36,
-      "crossIn": 69,
+      "crossIn": 72,
       "density": 0.17647058823529413
     },
     "Probability & statistics": {
       "concepts": 76,
       "intra": 124,
       "crossOut": 23,
-      "crossIn": 14,
+      "crossIn": 15,
       "density": 0.3026315789473684
     },
     "Geometry & topology": {
@@ -19131,15 +19231,15 @@ window.__MVConcepts = {
       "concepts": 69,
       "intra": 75,
       "crossOut": 40,
-      "crossIn": 0,
+      "crossIn": 1,
       "density": 0.5797101449275363
     },
     "Control theory & optimization": {
-      "concepts": 0,
-      "intra": 0,
-      "crossOut": 0,
+      "concepts": 7,
+      "intra": 6,
+      "crossOut": 5,
       "crossIn": 0,
-      "density": 0
+      "density": 0.7142857142857143
     }
   }
 };

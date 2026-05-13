@@ -1,0 +1,285 @@
+{
+  "topic": "optimal-control-and-dynamic-programming",
+  "quizzes": {
+    "oc-problem": {
+      "title": "The optimal-control problem",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "For the linear time-invariant system $\\dot x = Ax + Bu$ on $\\mathbb{R}^n$, which is the classical Kalman criterion for controllability?",
+          "choices": [
+            "$A$ has full rank",
+            "$\\operatorname{rank}[B \\mid AB \\mid A^2 B \\mid \\cdots \\mid A^{n-1}B] = n$",
+            "$B$ has full row rank",
+            "Every eigenvalue of $A$ has negative real part"
+          ],
+          "answer": 1,
+          "explain": "The Kalman controllability matrix $\\mathcal{C}=[B\\mid AB\\mid\\cdots\\mid A^{n-1}B]$ has columns spanning the reachable subspace from the origin. Full rank $n$ means every state direction is reachable — i.e. the system is controllable. This is purely linear algebra; the Cayley-Hamilton theorem stops the construction at $A^{n-1}$ because higher powers are linearly dependent."
+        },
+        {
+          "type": "mcq",
+          "q": "Filippov's existence theorem for optimal controls requires which structural hypothesis on $f(x,u,t)$ as a function of $u$?",
+          "choices": [
+            "Smoothness of $f$ in $u$",
+            "Linearity of $f$ in $u$ (or convexity of $f(x,U,t)$ at each $x,t$)",
+            "Lipschitz dependence on $u$",
+            "Periodicity of $f$ in $u$"
+          ],
+          "answer": 1,
+          "explain": "Without convexity of the velocity set $f(x,U,t)\\subseteq\\mathbb{R}^n$, a minimising sequence of controls can \"chatter\" between values whose convex combinations the dynamics cannot actually realise; the weak-* limit then sits outside the admissible set. Linearity in $u$ (or convexity of $f(x,U,t)$) is the optimal-control analog of weak lower-semicontinuity in the calculus of variations.",
+          "hint": "Convexity of the velocity set is the optimal-control counterpart of weak lower-semicontinuity — it's what prevents minimising sequences from chattering out of the admissible set."
+        },
+        {
+          "type": "numeric",
+          "q": "For the double integrator $\\ddot q = u$, $|u|\\le 1$, started at rest from the origin, what is the maximum reachable position $q$ at time $T=2$? (Use bang-bang with one switch at the midpoint.)",
+          "answer": 1.0,
+          "tol": 0.01,
+          "explain": "Bang-bang with $u=+1$ on $[0,1]$, $u=-1$ on $[1,2]$ gives $\\dot q(1)=1$, $q(1)=0.5$, then $q(2) = 0.5 + 1\\cdot 1 - 0.5\\cdot 1^2 = 1.0$ with $\\dot q(2)=0$. This is the maximum-position bang-bang policy — Pontryagin already in disguise."
+        }
+      ]
+    },
+    "oc-euler-lagrange": {
+      "title": "Euler-Lagrange detour and Bolza form",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "When does the optimal-control problem collapse to a pure calculus-of-variations problem?",
+          "choices": [
+            "When the dynamics $f$ is linear",
+            "When the control set $U$ is open and the dynamics is $\\dot x = u$ (control equals velocity)",
+            "When the terminal cost $\\Phi$ vanishes",
+            "When the running cost $L$ is quadratic"
+          ],
+          "answer": 1,
+          "explain": "If $\\dot x = u$ and $U$ is open (e.g. $U=\\mathbb{R}^m$), then $u$ is just $\\dot x$ with no constraint, and the cost $\\int L(x,u,t)\\,dt$ becomes $\\int L(x,\\dot x,t)\\,dt$ — exactly the classical calculus-of-variations integrand. Euler-Lagrange $\\frac{d}{dt}\\partial_{\\dot x}L=\\partial_x L$ is the necessary condition.",
+          "hint": "The control becomes the velocity; with no constraint $U$, perturbations are free and you recover the classical setup."
+        },
+        {
+          "type": "mcq",
+          "q": "The Bolza, Mayer, and Lagrange cost formulations are interconvertible. The trick that converts a Lagrange cost $\\int_0^T L\\,dt$ to a Mayer cost $\\Phi(x(T))$ is:",
+          "choices": [
+            "Differentiate the running cost",
+            "Augment the state with a new coordinate $x_{n+1}(t)=\\int_0^t L\\,ds$ satisfying $\\dot x_{n+1}=L$",
+            "Apply Pontryagin's principle to extract a boundary term",
+            "Take the Legendre transform of $L$"
+          ],
+          "answer": 1,
+          "explain": "Add a coordinate whose ODE is exactly the running cost: $\\dot x_{n+1}=L$, $x_{n+1}(0)=0$. Then $x_{n+1}(T)=\\int_0^T L\\,dt$, and the Lagrange cost becomes a terminal evaluation on the augmented state — pure Mayer form. The reverse direction (Mayer to Lagrange) is trivial with $L\\equiv 0$."
+        },
+        {
+          "type": "mcq",
+          "q": "Why does the Euler-Lagrange equation fail to capture the optimum when $U$ is a closed bounded set?",
+          "choices": [
+            "$L$ is no longer smooth",
+            "The variations $\\delta u$ are constrained to a cone — pointwise extremum requires $H$-maximisation over $U$, not $\\partial_u H=0$",
+            "Integration by parts no longer holds",
+            "The state $x$ becomes discontinuous"
+          ],
+          "answer": 1,
+          "explain": "Euler-Lagrange's $\\partial_u L = 0$-type stationarity rests on perturbing $u$ in every direction. When $u\\in U$ closed, admissible variations form a cone, not a vector space; the first-order condition becomes the variational inequality \"directional derivative non-negative in every admissible direction\" — which is Pontryagin's $H$-maximisation over $U$, possibly attained at the boundary.",
+          "hint": "Constraint qualifications change the first-order condition from an equation to an inequality — the same way KKT conditions generalise the gradient-zero rule in finite-dimensional optimisation."
+        }
+      ]
+    },
+    "oc-pontryagin": {
+      "title": "Pontryagin's maximum principle",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Pontryagin's control Hamiltonian (in the maximise-$H$ convention used here) is",
+          "choices": [
+            "$H = L - \\lambda^\\top f$",
+            "$H = \\lambda^\\top f - L$",
+            "$H = \\lambda^\\top f + L$",
+            "$H = -\\lambda^\\top \\dot x$"
+          ],
+          "answer": 1,
+          "explain": "With the maximise-$H$ sign convention, $H(x,u,\\lambda,t) = \\lambda^\\top f(x,u,t) - L(x,u,t)$. The state-costate equations are then $\\dot x = \\partial_\\lambda H = f$ and $\\dot \\lambda = -\\partial_x H = -\\lambda^\\top\\partial_x f + \\partial_x L$, exactly Hamilton's canonical equations. Flipping signs $\\lambda\\mapsto-\\lambda$ recovers the minimise-$H$ convention."
+        },
+        {
+          "type": "mcq",
+          "q": "The Pontryagin co-state $\\lambda(t)$ evolves backward in time. The terminal condition is the *transversality condition*:",
+          "choices": [
+            "$\\lambda(T) = 0$ always",
+            "$\\lambda(T) = -\\partial_x \\Phi(x^*(T))$ for free-terminal-state problems",
+            "$\\lambda(T) = x(T)$",
+            "$\\lambda(T)$ is determined by initial conditions"
+          ],
+          "answer": 1,
+          "explain": "Variation $\\delta x(T)$ is free when the terminal state is unconstrained; collecting its coefficient in $\\delta\\widetilde J$ gives $\\lambda(T) + \\partial_x \\Phi(x^*(T)) = 0$, hence $\\lambda(T) = -\\partial_x \\Phi$. For a fixed terminal state $x(T)=x_T$, this transversality condition is replaced by the terminal constraint; the co-state is unconstrained at $T$ and pinned at the start by the dynamics."
+        },
+        {
+          "type": "mcq",
+          "q": "When the control Hamiltonian $H$ is affine in $u$ on a box $U=[u_{\\min},u_{\\max}]$, the Pontryagin-optimal control $u^*(t)$ has which characteristic structure?",
+          "choices": [
+            "$u^*(t)$ is constant",
+            "$u^*(t)$ is bang-bang: $u^*(t)\\in\\{u_{\\min},u_{\\max}\\}$, switching when $\\partial_u H$ crosses zero",
+            "$u^*(t) = -\\partial_u H$",
+            "$u^*(t)$ is always the midpoint $(u_{\\min}+u_{\\max})/2$"
+          ],
+          "answer": 1,
+          "explain": "Maximising a linear function of $u$ over a box always lands at a vertex unless the coefficient is exactly zero. Hence $u^*(t)\\in\\{u_{\\min},u_{\\max}\\}$ — the *bang-bang* control law — and switches happen on the zero set of the *switching function* $\\sigma(t) = \\partial_u H(x^*,u,\\lambda^*,t)$. The minimum-time double-integrator problem is the textbook example.",
+          "hint": "Maximising a linear function over a convex polytope: the answer always lives at a vertex."
+        }
+      ]
+    },
+    "oc-hjb": {
+      "title": "Hamilton-Jacobi-Bellman equation",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The Hamilton-Jacobi-Bellman equation for the value function $V(x,t)$ takes the form",
+          "choices": [
+            "$\\partial_t V + \\Delta V = 0$",
+            "$-\\partial_t V = \\inf_{u\\in U}\\{L(x,u,t) + \\partial_x V \\cdot f(x,u,t)\\}$",
+            "$\\partial_t V = V$",
+            "$\\partial_t V + \\partial_x V = 0$"
+          ],
+          "answer": 1,
+          "explain": "Bellman's principle of optimality plus a Taylor expansion of $V(x+f\\,\\delta t,t+\\delta t)$ gives the dynamic programming PDE $-\\partial_t V = \\inf_u\\{L + \\partial_x V\\cdot f\\}$ with terminal condition $V(x,T)=\\Phi(x)$. It is first-order, nonlinear (because of the $\\inf$), and runs backward in time."
+        },
+        {
+          "type": "mcq",
+          "q": "How does the HJB equation relate to Pontryagin's maximum principle?",
+          "choices": [
+            "They are independent results with no formal connection",
+            "Pontryagin extremals are characteristic curves of the HJB PDE, with $\\lambda(t)=-\\partial_x V(x^*(t),t)$",
+            "HJB is a special case of Pontryagin for the linear-quadratic problem only",
+            "Pontryagin gives sufficiency; HJB gives necessity"
+          ],
+          "answer": 1,
+          "explain": "HJB is a first-order nonlinear PDE for $V$; its characteristics (in the method-of-characteristics sense) are the Pontryagin state-costate ODEs, with co-state $\\lambda(t)=-\\partial_x V(x^*(t),t)$. Pontryagin is necessary (every optimum is an extremal); HJB is necessary-and-sufficient (every viscosity solution = the value function) but harder to solve in high dimensions.",
+          "hint": "First-order PDEs and Hamilton's canonical ODEs: the method of characteristics is the bridge — exactly the same bridge between classical action and Hamilton-Jacobi in mechanics."
+        },
+        {
+          "type": "mcq",
+          "q": "Why is the *viscosity solution* concept needed for HJB?",
+          "choices": [
+            "Because the value function is always smooth and viscosity is just a formality",
+            "Because $V$ is generically only Lipschitz — characteristics collide, $\\partial_x V$ has shocks, and classical pointwise solutions don't exist or aren't unique",
+            "Because the equation is parabolic and viscosity stabilises numerics",
+            "Because the boundary conditions are stochastic"
+          ],
+          "answer": 1,
+          "explain": "Even for smooth $f,L,\\Phi$, the HJB value function $V$ typically has \"kink\" lines where two optimal trajectories from different directions meet — exactly the analog of shocks in conservation laws. The classical pointwise interpretation fails; the Crandall-Lions viscosity solution (test-function differential inequalities) is unique, stable under perturbation, and coincides with $V$."
+        }
+      ]
+    },
+    "oc-lqr": {
+      "title": "Linear-quadratic regulator (LQR)",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Plugging the quadratic ansatz $V(x,t)=\\tfrac12 x^\\top P(t)\\,x$ into the HJB equation for the linear-quadratic problem $\\dot x = Ax+Bu$, $L=\\tfrac12(x^\\top Q x + u^\\top R u)$ yields which matrix ODE for $P(t)$?",
+          "choices": [
+            "$\\dot P = AP + PA^\\top$",
+            "$-\\dot P = A^\\top P + PA - PBR^{-1}B^\\top P + Q$",
+            "$\\dot P = -BR^{-1}B^\\top$",
+            "$\\dot P = Q P$"
+          ],
+          "answer": 1,
+          "explain": "The pointwise minimisation gives $u^*=-R^{-1}B^\\top Px$. Substituting back, the quadratic form in $x$ on each side of HJB matches if and only if $P$ satisfies the *Riccati differential equation* $-\\dot P = A^\\top P + PA - PBR^{-1}B^\\top P + Q$ with terminal condition $P(T)=S$. It runs backward in time."
+        },
+        {
+          "type": "mcq",
+          "q": "The infinite-horizon LQR optimal feedback under controllability of $(A,B)$ is given by $u^*=-R^{-1}B^\\top \\bar P\\,x$ where $\\bar P$ satisfies",
+          "choices": [
+            "the linear Lyapunov equation $A^\\top \\bar P + \\bar P A + Q = 0$",
+            "the algebraic Riccati equation $A^\\top \\bar P + \\bar P A - \\bar P B R^{-1}B^\\top \\bar P + Q = 0$",
+            "$\\bar P = Q + R$",
+            "$\\bar P = (A^\\top A)^{-1}Q$"
+          ],
+          "answer": 1,
+          "explain": "Setting $\\dot P = 0$ in the Riccati ODE gives the *algebraic Riccati equation*, a quadratic matrix equation. Under controllability of $(A,B)$ and observability of $(A,Q^{1/2})$, it has a unique positive semidefinite solution $\\bar P$ for which $A_{\\rm cl}=A-BR^{-1}B^\\top\\bar P$ is Hurwitz (stable). This is the steady-state LQR feedback."
+        },
+        {
+          "type": "numeric",
+          "q": "Scalar LQR: $\\dot x = u$ (so $A=0$, $B=1$), $Q=1$, $R=1$. Compute the algebraic Riccati root $\\bar P$.",
+          "answer": 1.0,
+          "tol": 0.01,
+          "explain": "Algebraic Riccati: $0\\cdot \\bar P + \\bar P\\cdot 0 - \\bar P^2 + 1 = 0$, so $\\bar P^2 = 1$, $\\bar P = 1$ (taking the positive root). Feedback gain $K = \\bar P/R = 1$, closed-loop pole $A_{\\rm cl} = 0 - 1 = -1$ — open-loop integrator stabilised to a stable mode by the LQR controller.",
+          "hint": "For the scalar problem the Riccati is $-\\bar P^2 + 1 = 0$; solve for the non-negative root."
+        }
+      ]
+    },
+    "oc-dp": {
+      "title": "Discrete-time DP and Bellman equation",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The Bellman operator $T$ on bounded value functions $V\\colon X\\to\\mathbb{R}$ is defined by $(TV)(x)=\\min_u\\{c(x,u)+\\gamma V(f(x,u))\\}$ with $\\gamma\\in[0,1)$. What metric property does $T$ enjoy?",
+          "choices": [
+            "$T$ is a $\\gamma$-contraction in $\\sup$-norm",
+            "$T$ is an isometry",
+            "$T$ is linear",
+            "$T$ is non-expansive but not contracting"
+          ],
+          "answer": 0,
+          "explain": "For any $V,V'$, $|(TV)(x)-(TV')(x)| \\le \\gamma\\|V-V'\\|_\\infty$ pointwise (proof: pick the $u^*$ optimising $TV(x)$; the inequality follows from monotonicity of $\\min$). Taking $\\sup$ over $x$ gives $\\|TV-TV'\\|_\\infty\\le\\gamma\\|V-V'\\|_\\infty$. Banach's fixed-point theorem then guarantees a unique fixed point and geometric convergence of value iteration."
+        },
+        {
+          "type": "mcq",
+          "q": "Howard's policy iteration converges in finitely many steps on a finite state-action space because:",
+          "choices": [
+            "The Bellman operator is linear",
+            "There are only finitely many deterministic stationary policies, and policy improvement produces a strictly better one whenever the current is suboptimal",
+            "Discount factor $\\gamma$ vanishes",
+            "Value iteration is faster"
+          ],
+          "answer": 1,
+          "explain": "On a finite $|X|\\cdot|U|$ space, there are only $|U|^{|X|}$ deterministic stationary policies. Policy improvement either keeps the current policy (which is then optimal by the Bellman equation) or strictly decreases the value at some state — and on a finite set strict decrease can happen only finitely many times. Hence finite termination."
+        },
+        {
+          "type": "mcq",
+          "q": "For a problem with $|X|=100$ states, $|U|=4$ actions, horizon $N=20$, what is the speedup of backward dynamic programming over naïve enumeration of control sequences?",
+          "choices": [
+            "Roughly $4^{20}/(20\\cdot 100\\cdot 4) \\approx 10^{8}$",
+            "Roughly $20$",
+            "About a factor of $100$",
+            "No speedup"
+          ],
+          "answer": 0,
+          "explain": "Naïve search costs $|U|^N = 4^{20}\\approx 1.1\\cdot 10^{12}$ policy evaluations. Backward DP costs $N\\cdot|X|\\cdot|U| = 20\\cdot 100\\cdot 4 = 8000$. Ratio is $\\approx 1.4\\cdot 10^{8}$ — eight orders of magnitude. This *is* Bellman's principle of optimality: subproblems are reused, never re-solved.",
+          "hint": "Compare $|U|^N$ against $N\\cdot|X|\\cdot|U|$ for the given numbers."
+        }
+      ]
+    },
+    "oc-stochastic": {
+      "title": "Stochastic dynamic programming",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "For the controlled SDE $dx_t = b(x,u,t)\\,dt + \\sigma(x,u,t)\\,dW_t$, the stochastic HJB equation is",
+          "choices": [
+            "first-order, like deterministic HJB",
+            "second-order: $-\\partial_t V = \\inf_u\\{L + b\\cdot\\nabla V + \\tfrac12\\operatorname{tr}(\\sigma\\sigma^\\top D^2 V)\\}$",
+            "an integral equation",
+            "linear in $V$"
+          ],
+          "answer": 1,
+          "explain": "Bellman's principle plus Itô's formula now produces a *second-order* PDE because $\\mathcal{L}^u\\phi = b\\cdot\\nabla\\phi + \\tfrac12\\operatorname{tr}(\\sigma\\sigma^\\top D^2\\phi)$ is the controlled-diffusion generator, carrying the Laplacian-like Itô correction $\\tfrac12\\sigma\\sigma^\\top$. The $\\sigma\\to 0$ limit recovers the first-order deterministic HJB."
+        },
+        {
+          "type": "mcq",
+          "q": "In Merton's portfolio problem with CRRA utility $u(c)=c^{1-\\gamma}/(1-\\gamma)$, the optimal risky fraction is $u^* = (\\mu-r)/(\\gamma\\sigma^2)$. Which striking feature does this have?",
+          "choices": [
+            "It depends linearly on current wealth",
+            "It is independent of wealth and horizon — only the market parameters $\\mu,r,\\sigma$ and the agent's $\\gamma$ matter",
+            "It is the constant zero",
+            "It depends on the consumption rate"
+          ],
+          "answer": 1,
+          "explain": "The CRRA structure makes the value function homogeneous in wealth: $V(X)=KX^{1-\\gamma}/(1-\\gamma)$. The HJB minimisation in the risky fraction $u$ is over a quadratic in $u$ whose coefficients are wealth-independent. Hence $u^*$ is a *constant* fraction. This is Merton's celebrated result — a strong recommendation that risk allocation should stay constant rather than \"de-risk with age\" (though deviations from CRRA bring the lifecycle effect back)."
+        },
+        {
+          "type": "numeric",
+          "q": "With $\\mu-r=0.06$, $\\sigma=0.20$, $\\gamma=2$, compute Merton's $u^*$.",
+          "answer": 0.75,
+          "tol": 0.01,
+          "explain": "$u^* = 0.06/(2\\cdot 0.04) = 0.06/0.08 = 0.75$. The agent puts 75% of wealth in the risky asset. With $\\gamma=1$ (log utility) the same numbers give $u^*=1.5$ — leveraged. With $\\gamma=4$, $u^*=0.375$. Risk aversion $\\gamma$ rules the dial.",
+          "hint": "Plug into $u^*=(\\mu-r)/(\\gamma\\sigma^2)$ with $\\sigma^2=0.04$."
+        }
+      ]
+    }
+  }
+}

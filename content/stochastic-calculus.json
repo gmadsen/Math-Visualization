@@ -253,7 +253,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./stochastic-calculus.html#applications\">Stochastic calculus</a> · Applications: Black–Scholes, Kalman, optimal stopping</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./optimal-control-and-dynamic-programming.html#stochastic\">Optimal control and dynamic programming</a> · Stochastic dynamic programming</div>\n    <div><a href=\"./stochastic-calculus.html#applications\">Stochastic calculus</a> · Applications: Black–Scholes, Kalman, optimal stopping</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

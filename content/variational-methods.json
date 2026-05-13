@@ -82,7 +82,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./variational-methods.html#applications\">Variational methods</a> · Applications: geodesics, minimal surfaces, gauge theory</div>\n    <div><a href=\"./variational-methods.html#isoperimetric\">Variational methods</a> · Isoperimetric inequality</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./optimal-control-and-dynamic-programming.html#euler-lagrange\">Optimal control and dynamic programming</a> · Euler–Lagrange detour and Bolza form</div>\n    <div><a href=\"./variational-methods.html#applications\">Variational methods</a> · Applications: geodesics, minimal surfaces, gauge theory</div>\n    <div><a href=\"./variational-methods.html#isoperimetric\">Variational methods</a> · Isoperimetric inequality</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "quiz",
