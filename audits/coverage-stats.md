@@ -2,12 +2,12 @@
 
 ## Corpus totals
 
-- Topics: **181**, concepts: **1257**
-- Widgets: **1282** (registry-driven: 1282, inline: 0)
-- Quizzes: **4965** (v1: 3729, hard: 1223, expert: 13)
-- Quiz types: mcq: 3255, numeric: 1198, multi-select: 228, matching: 102, ordering: 79, spot-the-error: 49, complex: 29, proof-completion: 21, construction: 2, guess-my-rule: 2
+- Topics: **182**, concepts: **1264**
+- Widgets: **1289** (registry-driven: 1289, inline: 0)
+- Quizzes: **4986** (v1: 3750, hard: 1223, expert: 13)
+- Quiz types: mcq: 3265, numeric: 1202, multi-select: 231, matching: 103, ordering: 80, spot-the-error: 51, complex: 29, proof-completion: 21, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their section: **149**
-- Concepts lacking a hard-tier quiz: **819**
+- Concepts lacking a hard-tier quiz: **826**
 
 ## Per-slug registry adoption
 
@@ -204,6 +204,13 @@ page has wired one in yet.
 | `continued-fractions-w4` | verbatim | click | 2d | 1 | continued-fractions |
 | `continued-fractions-w5` | verbatim | click | 2d | 1 | continued-fractions |
 | `continued-fractions-w6` | verbatim | click | 2d | 1 | continued-fractions |
+| `copt-approx` | verbatim | select | 2d | 1 | combinatorial-optimization |
+| `copt-duality` | verbatim | slider | 2d | 1 | combinatorial-optimization |
+| `copt-flow` | verbatim | click | 2d | 1 | combinatorial-optimization |
+| `copt-lp-poly` | verbatim | slider | 2d | 1 | combinatorial-optimization |
+| `copt-matching` | verbatim | click | 2d | 1 | combinatorial-optimization |
+| `copt-poly` | verbatim | click | 2d | 1 | combinatorial-optimization |
+| `copt-tu` | verbatim | select | 2d | 1 | combinatorial-optimization |
 | `crypto-diffie-hellman` | crypto-diffie-hellman | slider | 2d | 1 | mathematics-and-cryptography |
 | `crypto-ecc-points` | crypto-ecc-points | slider | 2d | 1 | mathematics-and-cryptography |
 | `crypto-lwe-samples` | crypto-lwe-samples | slider | 2d | 1 | mathematics-and-cryptography |
@@ -943,13 +950,13 @@ page has wired one in yet.
 
 ### Control theory & optimization
 
-- Topics: **1**, concepts: **7**
-- Widgets: **7** (registry-driven: 7, inline: 0)
-  - by family: verbatim: 7
-  - by dimension: 2d: 7
-  - by gesture: slider: 5, scrub: 1, click: 1
-- Quizzes: **21** (v1: 21, hard: 0, expert: 0)
-  - by type: mcq: 18, numeric: 3
+- Topics: **2**, concepts: **14**
+- Widgets: **14** (registry-driven: 14, inline: 0)
+  - by family: verbatim: 14
+  - by dimension: 2d: 14
+  - by gesture: slider: 7, click: 4, select: 2, scrub: 1
+- Quizzes: **42** (v1: 42, hard: 0, expert: 0)
+  - by type: mcq: 28, numeric: 7, multi-select: 3, spot-the-error: 2, matching: 1, ordering: 1
 
 ## Per-topic
 
@@ -962,6 +969,7 @@ page has wired one in yet.
 - `mathematical-biology` (Probability & statistics) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
 - `spectral-methods-data` (Probability & statistics) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
 - `optimal-control-and-dynamic-programming` (Control theory & optimization) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
+- `combinatorial-optimization` (Control theory & optimization) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
 - `several-complex-variables` (Analysis) — concepts=6, widgets=5 (slug=5), quiz=18 (v1=18, hard=0, expert=0)
 - `khovanov-homology` (Geometry & topology) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `shimura-varieties` (Modular forms & L-functions) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)

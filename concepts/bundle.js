@@ -13,6 +13,7 @@ window.__MVConcepts = {
       "mathematical-biology",
       "spectral-methods-data",
       "optimal-control-and-dynamic-programming",
+      "combinatorial-optimization",
       "several-complex-variables",
       "khovanov-homology",
       "shimura-varieties",
@@ -386,7 +387,8 @@ window.__MVConcepts = {
       "conformal-and-cr-geometry": "advanced",
       "mathematical-biology": "advanced",
       "spectral-methods-data": "advanced",
-      "optimal-control-and-dynamic-programming": "advanced"
+      "optimal-control-and-dynamic-programming": "advanced",
+      "combinatorial-optimization": "advanced"
     }
   },
   "topics": {
@@ -1299,6 +1301,98 @@ window.__MVConcepts = {
           "blurb": "A controlled SDE $dx = b\\,dt + \\sigma\\,dW$ leads to a second-order HJB PDE $-\\partial_t V = \\inf_u\\{L + \\mathcal{L}^u V\\}$ where $\\mathcal{L}^u$ is the controlled generator. Merton's portfolio problem solves in closed form for CRRA utility: $u^* = (\\mu-r)/(\\gamma\\sigma^2)$, independent of wealth and horizon — the canonical bridge to mathematical finance.",
           "tags": [
             "duality"
+          ]
+        }
+      ]
+    },
+    "combinatorial-optimization": {
+      "topic": "combinatorial-optimization",
+      "title": "Combinatorial optimization",
+      "page": "combinatorial-optimization.html",
+      "concepts": [
+        {
+          "id": "lp-simplex",
+          "title": "Linear programming and the simplex method",
+          "anchor": "lp-simplex",
+          "prereqs": [
+            "algebraic-structures"
+          ],
+          "blurb": "Linear programs $\\max c^\\top x$ s.t. $Ax\\le b$, $x\\ge 0$ are optimized over polyhedra; the fundamental theorem locates optima at vertices, so a combinatorial search over basic feasible solutions suffices. The simplex method walks adjacent vertices with strictly improving reduced costs; smoothed analysis explains its empirical polynomial behavior despite worst-case exponential Klee–Minty examples.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "lp-duality",
+          "title": "LP duality and min-max theorems",
+          "anchor": "duality",
+          "prereqs": [
+            "lp-simplex"
+          ],
+          "blurb": "To every primal LP $\\max c^\\top x$ s.t. $Ax\\le b$, $x\\ge 0$ corresponds the dual $\\min b^\\top y$ s.t. $A^\\top y \\ge c$, $y\\ge 0$. Weak duality is one line; strong duality $\\max = \\min$ (von Neumann) yields combinatorial min-max theorems — König–Egerváry, max-flow / min-cut, Menger — by LP relaxation of TU integer programs.",
+          "tags": [
+            "duality"
+          ]
+        },
+        {
+          "id": "network-flows",
+          "title": "Network flows: max-flow / min-cut",
+          "anchor": "flows",
+          "prereqs": [
+            "lp-duality"
+          ],
+          "blurb": "On a capacitated directed graph, the maximum $s$–$t$ flow equals the minimum $s$–$t$ cut (Ford–Fulkerson). The augmenting-path algorithm in the residual graph improves any non-optimal flow; choosing shortest augmenting paths (Edmonds–Karp) gives $O(|V||E|^2)$. The constraint matrix is TU, so integer capacities yield integer-valued optimum flows.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "matching",
+          "title": "Matching and assignment",
+          "anchor": "matching",
+          "prereqs": [
+            "network-flows"
+          ],
+          "blurb": "A matching is a set of pairwise non-adjacent edges. In bipartite graphs, maximum matching reduces to max-flow and König gives $\\max|M| = \\min |\\text{vertex cover}|$. The Hungarian algorithm solves weighted assignment in $O(n^3)$. For general graphs, Edmonds' blossom algorithm handles odd cycles and gives the polynomial-time matching algorithm.",
+          "tags": [
+            "duality"
+          ]
+        },
+        {
+          "id": "ip-tu",
+          "title": "Integer programming and total unimodularity",
+          "anchor": "ip-tu",
+          "prereqs": [
+            "lp-simplex"
+          ],
+          "blurb": "Integer linear programs are NP-hard in general (subset-sum reduces to ILP). But when the constraint matrix is totally unimodular — every square submatrix has determinant in $\\{-1,0,+1\\}$ — every LP vertex is integer (Hoffman–Kruskal), so the LP relaxation solves the ILP exactly. Bipartite incidence and network incidence matrices are TU.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "polyhedral",
+          "title": "Polyhedral combinatorics",
+          "anchor": "polyhedral",
+          "prereqs": [
+            "matching",
+            "ip-tu"
+          ],
+          "blurb": "The characteristic polytope $P(\\mathcal{F}) = \\operatorname{conv}\\{\\chi_F : F\\in\\mathcal{F}\\}$ converts combinatorial optimization to LP. Edmonds described the matching polytope by degree + odd-set inequalities. Grötschel–Lovász–Schrijver: polynomial separation $\\Leftrightarrow$ polynomial optimization, via the ellipsoid method. Chvátal–Gomory cuts close the integrality gap iteratively.",
+          "tags": [
+            "duality"
+          ]
+        },
+        {
+          "id": "approximation",
+          "title": "LP rounding and approximation algorithms",
+          "anchor": "approximation",
+          "prereqs": [
+            "polyhedral"
+          ],
+          "blurb": "When the LP relaxation has an integrality gap, rounding the fractional optimum yields approximation algorithms with guaranteed ratios. Vertex cover: threshold rounding gives 2-approximation, optimal under UGC. Set cover: greedy / randomised rounding give $H_n \\le \\ln n + 1$. Max-cut: Goemans–Williamson SDP rounding achieves $\\alpha_{\\mathrm{GW}} \\approx 0.878$.",
+          "tags": [
+            "classification"
           ]
         }
       ]
@@ -18850,7 +18944,8 @@ window.__MVConcepts = {
         "title": "Control theory & optimization",
         "description": "Linear and convex programming, network flows, dynamic programming, optimal control, Itô calculus applied to finance, and the analytic tools at the boundary between pure math and engineering decisions.",
         "topics": [
-          "optimal-control-and-dynamic-programming"
+          "optimal-control-and-dynamic-programming",
+          "combinatorial-optimization"
         ],
         "color": "p"
       }
@@ -19137,7 +19232,8 @@ window.__MVConcepts = {
     "conformal-and-cr-geometry": "advanced",
     "mathematical-biology": "advanced",
     "spectral-methods-data": "advanced",
-    "optimal-control-and-dynamic-programming": "advanced"
+    "optimal-control-and-dynamic-programming": "advanced",
+    "combinatorial-optimization": "advanced"
   },
   "newArc": [
     "elementary-topos-theory",
@@ -19168,7 +19264,7 @@ window.__MVConcepts = {
       "concepts": 148,
       "intra": 224,
       "crossOut": 25,
-      "crossIn": 98,
+      "crossIn": 99,
       "density": 0.16891891891891891
     },
     "Higher categories & toposes": {
@@ -19235,11 +19331,11 @@ window.__MVConcepts = {
       "density": 0.5797101449275363
     },
     "Control theory & optimization": {
-      "concepts": 7,
-      "intra": 6,
-      "crossOut": 5,
+      "concepts": 14,
+      "intra": 13,
+      "crossOut": 6,
       "crossIn": 0,
-      "density": 0.7142857142857143
+      "density": 0.42857142857142855
     }
   }
 };

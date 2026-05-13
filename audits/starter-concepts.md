@@ -12,7 +12,7 @@ reach into upstream foundations or stay within their own cluster.
 | section | concepts | intra edges | cross out | cross in | density |
 |---|---:|---:|---:|---:|---:|
 | Logic & Foundations | 49 | 67 | 6 | 21 | 0.122 |
-| Algebra & homological | 148 | 224 | 25 | 98 | 0.169 |
+| Algebra & homological | 148 | 224 | 25 | 99 | 0.169 |
 | Higher categories & toposes | 45 | 68 | 23 | 4 | 0.511 |
 | Analysis | 204 | 357 | 36 | 72 | 0.176 |
 | Probability & statistics | 76 | 124 | 23 | 15 | 0.303 |
@@ -22,7 +22,7 @@ reach into upstream foundations or stay within their own cluster.
 | Algebraic geometry | 199 | 301 | 73 | 35 | 0.367 |
 | Combinatorics & graph theory | 58 | 56 | 27 | 4 | 0.466 |
 | Mathematical physics | 69 | 75 | 40 | 1 | 0.580 |
-| Control theory & optimization | 7 | 6 | 5 | 0 | 0.714 |
+| Control theory & optimization | 14 | 13 | 6 | 0 | 0.429 |
 
 ## EMPTY — concepts with no prereqs (3)
 
