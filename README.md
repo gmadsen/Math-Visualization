@@ -125,7 +125,7 @@ Each concept carries up to three quiz tiers — v1 (required), hard (unlocked af
 - [Khovanov homology](./khovanov-homology.html) — draft — fill in once the page has real content
 - [Surgery theory](./surgery-theory.html) — draft — fill in once the page has real content
 - [Heegaard floer](./heegaard-floer.html) — draft — fill in once the page has real content
-- [Topological data analysis](./topological-data-analysis.html) — draft — fill in once the page has real content
+- [Topological data analysis](./topological-data-analysis.html) — point clouds and Vietoris–Rips filtrations, simplicial homology as a tool, persistent homology and barcodes, the Cohen-Steiner–Edelsbrunner–Harer stability theorem, structure theorem for persistence modules, Mapper, persistent cohomology + zigzag + software ecosystem
 
 ### Number theory
 - [Galois theory & the quintic](./galois.html) — constructibility, correspondence, unsolvability

@@ -138,7 +138,7 @@
           "type": "numeric",
           "q": "Two distance-to-cloud functions on a complex satisfy $\\|f-g\\|_\\infty = 0.05$. What is the tightest upper bound stability gives on $W_\\infty(\\mathrm{Dgm}(f),\\mathrm{Dgm}(g))$?",
           "answer": 0.05,
-          "tol": 1e-6,
+          "tol": 0.001,
           "explain": "Stability is $1$-Lipschitz: $W_\\infty\\le \\|f-g\\|_\\infty = 0.05$.",
           "hint": "Read off the Lipschitz constant of the persistence map."
         },
@@ -281,11 +281,11 @@
             "Ripser (Bauer)",
             "GUDHI (INRIA)",
             "Dionysus (Morozov)",
-            "scikit-tda / giotto-tda"
+            "PersistencePro (commercial; bundled with Matlab Statistics Toolbox)"
           ],
-          "answer": [0, 1, 2, 3],
-          "explain": "All four are widely used. Ripser is the speed champion for Rips persistence on moderate-scale clouds; GUDHI is the most complete C++/Python library (Rips, Čech, Alpha, Mapper, multi-parameter, Wasserstein); Dionysus emphasises zigzag and cohomology research features; the scikit-tda umbrella and giotto-tda wrap them in sklearn-style APIs for ML pipelines.",
-          "hint": "All four are in active use; this question tests vocabulary, not preference."
+          "answer": [0, 1, 2],
+          "explain": "Ripser, GUDHI, and Dionysus are the canonical open-source TDA libraries. Ripser is the speed champion for Rips persistence on moderate-scale clouds; GUDHI is the most complete C++/Python library (Rips, Čech, Alpha, Mapper, multi-parameter, Wasserstein); Dionysus emphasises zigzag and cohomology research features. \"PersistencePro\" is fabricated — there is no commercial TDA toolbox in Matlab; legitimate Python wrappers are scikit-tda and giotto-tda.",
+          "hint": "Three of these are open-source research libraries; one is a plausible-sounding invention."
         }
       ]
     }

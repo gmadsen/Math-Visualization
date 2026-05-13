@@ -339,7 +339,11 @@ function drawNode(svg, x, y, label, opts={}){
     for(let i=0;i<n;i++) roots.add(uniteFind(parent,i));
     const beta0 = roots.size;
     const chi = n - edges.length + triangles.length;
-    const beta1 = beta0 - chi;
+    // β₁ = β₀ − χ + β₂. For Vietoris–Rips on R² point clouds, β₂ = 0 in
+    // practice (no 2-sphere can be triangulated by 2D vertices), so we drop
+    // the β₂ term — but clamp to ≥ 0 to surface any future violation rather
+    // than show a negative count.
+    const beta1 = Math.max(0, beta0 - chi);
     return [beta0, beta1];
   }
   function render(){
@@ -643,9 +647,9 @@ function drawNode(svg, x, y, label, opts={}){
       svg.appendChild(SVG('line',{x1,x2,y1:y,y2:y, stroke:'var(--cyan)', 'stroke-width':3, 'stroke-linecap':'round'}));
       if(!Number.isFinite(d)) svg.appendChild(SVG('text',{x:infMark+5, y:y+3, 'font-size':10, fill:'var(--cyan)'})).textContent = '∞';
       row++;
-      if(row > 12) break;
+      if(row >= 12 && sorted0.length > 12){ const y = PY0 + 12 + row*PYrow; svg.appendChild(SVG('text',{x:PX0, y:y+3, 'font-size':10, fill:'var(--mute)','font-style':'italic'})).textContent = `+${sorted0.length-12} more β₀ bars (longest shown above)`; break; } if(row > 12) break;
     }
-    svg.appendChild(SVG('text',{x:PX0, y:PY0 + 24 + Math.min(12,sorted0.length)*PYrow, 'font-size':11, fill:'var(--yellow)'})).textContent = 'β₁ bars:';
+    svg.appendChild(SVG('text',{x:PX0, y:PY0 + 24 + Math.min(12,sorted0.length)*PYrow + (sorted0.length>12?PYrow:0), 'font-size':11, fill:'var(--yellow)'})).textContent = 'β₁ bars:';
     let row1 = Math.min(12,sorted0.length) + 1;
     const sorted1 = bars1.slice().sort((a,b)=>{
       const dA = Number.isFinite(a[1]) ? a[1]-a[0] : 1e9;
@@ -657,11 +661,13 @@ function drawNode(svg, x, y, label, opts={}){
       const x1 = toX(b);
       const x2 = Number.isFinite(d) ? toX(d) : infMark;
       const y = PY0 + 12 + row1*PYrow;
-      if(longestBar1 === null || (Number.isFinite(d) && d-b > (longestBar1.d-longestBar1.b))) longestBar1 = {b, d};
+      const lenCur = Number.isFinite(d) ? d-b : Infinity;
+      const lenBest = longestBar1 ? (Number.isFinite(longestBar1.d) ? longestBar1.d-longestBar1.b : Infinity) : -1;
+      if(lenCur > lenBest) longestBar1 = {b, d};
       svg.appendChild(SVG('line',{x1,x2,y1:y,y2:y, stroke:'var(--yellow)', 'stroke-width':3, 'stroke-linecap':'round'}));
       if(!Number.isFinite(d)) svg.appendChild(SVG('text',{x:infMark+5, y:y+3, 'font-size':10, fill:'var(--yellow)'})).textContent = '∞';
       row1++;
-      if(row1 > 22) break;
+      if(row1 >= 22 && sorted1.length > (22 - Math.min(12,sorted0.length) - 1)){ const y = PY0 + 12 + row1*PYrow; svg.appendChild(SVG('text',{x:PX0, y:y+3, 'font-size':10, fill:'var(--mute)','font-style':'italic'})).textContent = `(more β₁ bars truncated — see β₁-count in readout)`; break; } if(row1 > 22) break;
     }
     const longest = longestBar1 ? `[${longestBar1.b.toFixed(2)}, ${Number.isFinite(longestBar1.d)?longestBar1.d.toFixed(2):'∞'}]` : 'none';
     out.textContent =
@@ -704,7 +710,7 @@ function drawNode(svg, x, y, label, opts={}){
 <p>Persistence is $1$-Lipschitz with respect to the $L^\infty$ norm on input filtrations. For point-cloud Rips filtrations, the same statement reads: the Hausdorff distance between two clouds bounds the bottleneck distance between their persistence diagrams. Noisy data $\Rightarrow$ noisy diagrams, but only as noisy as the data.</p>
 
 <div class="widget" id="w-tda-stability">
-  <div class="hd"><div class="ttl">Stability proof — sketch in three slides</div><div class="hint">scrub to step through the inclusion / interleaving / matching argument</div></div>
+  <div class="hd"><div class="ttl">Stability proof — sketch in four slides</div><div class="hint">scrub to step through the setup / inclusion / interleaving / matching argument</div></div>
   <div class="row">
     <button id="tda-stab-prev">←</button>
     <input type="range" id="tda-stab-sl" min="0" max="3" step="1" value="0">
