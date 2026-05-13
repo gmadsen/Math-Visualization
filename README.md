@@ -228,6 +228,7 @@ Each concept carries up to three quiz tiers — v1 (required), hard (unlocked af
 
 ### Control theory & optimization
 - [Optimal control and dynamic programming](./optimal-control-and-dynamic-programming.html) — Pontryagin's maximum principle, Hamilton–Jacobi–Bellman PDE, linear-quadratic regulator and the Riccati equation, discrete-time Bellman equation with value/policy iteration, stochastic dynamic programming and the Merton portfolio problem.
+- [Convex optimization](./convex-optimization.html) — convex sets/functions and the Legendre–Fenchel transform, subgradients and the constrained first-order condition, Lagrangian duality with Slater + KKT, conic programming (LP/QP/SOCP/SDP) and the Goemans–Williamson MAX-CUT relaxation, gradient and proximal methods (Nesterov acceleration, ISTA/FISTA), interior-point methods and self-concordance, stochastic and online convex optimization (SGD, mirror descent).
 
 ## Resetting progress
 

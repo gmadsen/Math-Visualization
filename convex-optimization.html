@@ -1,0 +1,1171 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Convex optimization</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false,
+      macros:{
+        '\\Spec':'\\operatorname{Spec}',
+        '\\Gal':'\\operatorname{Gal}',
+        '\\Hom':'\\operatorname{Hom}',
+        '\\tr':'\\operatorname{tr}',
+        '\\ad':'\\operatorname{ad}',
+        '\\ind':'\\operatorname{ind}'
+      }
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  /* sticky sidebar TOC (wide screens only; narrow screens fall back to top-nav) */
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+  /* callback-css-auto-begin */
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+/* callback-css-auto-end */
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
+  /* display-prefs-css-auto-begin */
+  html[data-hide-widgets] .widget { display: none !important; }
+  html[data-hide-quizzes] .quiz { display: none !important; }
+  html[data-hide-lineage] .lineage-strip { display: none !important; }
+  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }
+  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }
+  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }
+  .mv-display-toggle--off { opacity: 0.35; }
+  /* display-prefs-css-auto-end */
+</style>
+<!-- breadcrumb-head-auto-begin -->
+<script>window.__MV_SECTION_MAP = {"<topic>":{"next":null,"prev":null,"section":"Sections","title":"<topic>"},"L-functions":{"next":"sato-tate","prev":"moonshine","section":"Modular forms & L-functions","title":"L-functions"},"abelian-varieties":{"next":"positivity-and-ample-line-bundles","prev":"toric-varieties","section":"Algebraic geometry","title":"Abelian varieties"},"additive-number-theory":{"next":"heights-arithmetic-geometry","prev":"quadratic-forms-genus-theory","section":"Number theory","title":"Additive number theory"},"adeles-and-ideles":{"next":"frobenius-and-reciprocity","prev":"p-adic-numbers","section":"Number theory","title":"Adèles & idèles"},"advanced-complex-analysis":{"next":"microlocal-analysis","prev":"sobolev-spaces-distributions","section":"Analysis","title":"Advanced complex analysis"},"algebra":{"next":"representation-theory","prev":null,"section":"Algebra & homological","title":"Abstract algebra"},"algebraic-curves-higher-genus":{"next":"deformation-theory","prev":"mirror-symmetry","section":"Algebraic geometry","title":"Algebraic curves: higher genus"},"algebraic-de-rham-cohomology":{"next":"calabi-yau-manifolds","prev":"algebraic-spaces","section":"Algebraic geometry","title":"Algebraic de Rham cohomology"},"algebraic-k-theory-foundations":{"next":"model-categories","prev":"quantum-groups","section":"Algebra & homological","title":"Algebraic K-theory foundations"},"algebraic-number-theory":{"next":"p-adic-numbers","prev":"galois","section":"Number theory","title":"Algebraic number theory"},"algebraic-spaces":{"next":"algebraic-de-rham-cohomology","prev":"functor-of-points","section":"Algebraic geometry","title":"Algebraic spaces"},"algebraic-topology":{"next":"knot-polynomials","prev":"point-set-topology","section":"Geometry & topology","title":"Algebraic topology"},"analytic-continuation":{"next":"zeta-values","prev":"dirichlet-series-euler-products","section":"Modular forms & L-functions","title":"Analytic continuation"},"analytic-number-theory":{"next":"galois","prev":null,"section":"Number theory","title":"Analytic number theory"},"atiyah-singer-index-theorem":{"next":"riemannian-geometry","prev":"k-theory","section":"Geometry & topology","title":"Atiyah–Singer index theorem"},"automorphic-forms-adelic":{"next":"moonshine","prev":"hecke-operators","section":"Modular forms & L-functions","title":"Automorphic forms (adelic)"},"bezout":{"next":"schemes","prev":"elliptic-curves","section":"Algebraic geometry","title":"Bézout's theorem"},"brill-noether":{"next":"donaldson-thomas-and-gw-invariants","prev":"geometric-invariant-theory","section":"Algebraic geometry","title":"Brill–Noether theory"},"bsd":{"next":"modularity-and-flt","prev":"sato-tate","section":"Modular forms & L-functions","title":"Birch & Swinnerton-Dyer"},"calabi-yau-manifolds":{"next":"mirror-symmetry","prev":"algebraic-de-rham-cohomology","section":"Algebraic geometry","title":"Calabi–Yau manifolds"},"category-theory":{"next":"commutative-algebra","prev":"derived-categories","section":"Algebra & homological","title":"Category theory"},"characteristic-classes":{"next":"k-theory","prev":"symplectic-manifolds","section":"Geometry & topology","title":"Characteristic classes"},"class-field-theory":{"next":"galois-representations","prev":"computational-number-theory","section":"Number theory","title":"Class field theory"},"cluster-algebras":{"next":"galois-cohomology-and-brauer","prev":"geometric-and-combinatorial-group-theory","section":"Algebra & homological","title":"Cluster algebras"},"cobordism":{"next":"homotopy-theory","prev":"cohomology-and-duality","section":"Geometry & topology","title":"Cobordism"},"cocartesian-fibrations":{"next":"infinity-categories","prev":"heyting-algebras-toposes","section":"Higher categories & toposes","title":"Cocartesian fibrations"},"coding-theory":{"next":null,"prev":"expanders","section":"Combinatorics & graph theory","title":"Coding theory"},"cohomology-and-duality":{"next":"cobordism","prev":"mostow-rigidity","section":"Geometry & topology","title":"Cohomology and duality"},"combinatorial-optimization":{"next":"mathematical-finance","prev":"optimal-control-and-dynamic-programming","section":"Control theory & optimization","title":"Combinatorial optimization"},"commutative-algebra":{"next":"homological","prev":"category-theory","section":"Algebra & homological","title":"Commutative algebra"},"complex-analysis":{"next":"measure-theory","prev":"real-analysis","section":"Analysis","title":"Complex analysis"},"complex-multiplication":{"next":null,"prev":"dirichlet-unit-theorem","section":"Number theory","title":"Complex multiplication"},"complexity-theory":{"next":"type-theory-and-hott","prev":"computability-and-decidability","section":"Logic & Foundations","title":"Complexity theory"},"computability-and-decidability":{"next":"complexity-theory","prev":"model-theory-basics","section":"Logic & Foundations","title":"Computability and decidability"},"computational-number-theory":{"next":"class-field-theory","prev":"mathematics-and-cryptography","section":"Number theory","title":"Computational number theory"},"condensed-mathematics":{"next":null,"prev":"groebner-bases","section":"Algebra & homological","title":"Condensed mathematics"},"conformal-and-cr-geometry":{"next":null,"prev":"several-complex-variables","section":"Analysis","title":"Conformal & CR geometry"},"continued-fractions":{"next":"dirichlet-unit-theorem","prev":"iwasawa-theory","section":"Number theory","title":"Continued fractions"},"crystalline-cohomology":{"next":"tropical-geometry","prev":"d-modules","section":"Algebraic geometry","title":"Crystalline cohomology"},"d-modules":{"next":"crystalline-cohomology","prev":"mmp-and-birational-geometry","section":"Algebraic geometry","title":"D-modules"},"deformation-theory":{"next":"resolution-of-singularities","prev":"algebraic-curves-higher-genus","section":"Algebraic geometry","title":"Deformation theory"},"derived-categories":{"next":"category-theory","prev":"model-categories","section":"Algebra & homological","title":"Derived categories"},"designs":{"next":"spectral-graph-theory","prev":"enumerative-combinatorics","section":"Combinatorics & graph theory","title":"Designs"},"differential-forms":{"next":"morse-theory","prev":"riemann-surfaces","section":"Geometry & topology","title":"Differential forms"},"differential-geometry":{"next":"riemann-surfaces","prev":"smooth-manifolds","section":"Geometry & topology","title":"Differential geometry"},"dirac-equation":{"next":"statistical-mechanics","prev":"klein-gordon-equation","section":"Mathematical physics","title":"Dirac equation"},"dirichlet-series-euler-products":{"next":"analytic-continuation","prev":null,"section":"Modular forms & L-functions","title":"Dirichlet series & Euler products"},"dirichlet-unit-theorem":{"next":"complex-multiplication","prev":"continued-fractions","section":"Number theory","title":"Dirichlet unit theorem"},"donaldson-thomas-and-gw-invariants":{"next":"positive-characteristic-ag","prev":"brill-noether","section":"Algebraic geometry","title":"Donaldson–Thomas & GW invariants"},"dynamical-systems":{"next":"semigroup-theory-evolution-equations","prev":"operator-algebras","section":"Analysis","title":"Dynamical systems"},"elementary-topos-theory":{"next":"grothendieck-topologies-sites","prev":"simplicial-sets-and-nerve","section":"Higher categories & toposes","title":"Elementary topos theory"},"elliptic-curves":{"next":"bezout","prev":"etale-fundamental-group","section":"Algebraic geometry","title":"Elliptic curves"},"enumerative-combinatorics":{"next":"designs","prev":"simplicial-complexes-combinatorial","section":"Combinatorics & graph theory","title":"Enumerative combinatorics"},"etale-cohomology":{"next":"mmp-and-birational-geometry","prev":"stacks","section":"Algebraic geometry","title":"Étale cohomology"},"etale-fundamental-group":{"next":"elliptic-curves","prev":"projective-plane","section":"Algebraic geometry","title":"Étale fundamental group"},"expanders":{"next":"coding-theory","prev":"spectral-graph-theory","section":"Combinatorics & graph theory","title":"Expanders"},"extremal-combinatorics":{"next":"simplicial-complexes-combinatorial","prev":"probabilistic-method","section":"Combinatorics & graph theory","title":"Extremal combinatorics"},"first-order-logic-and-completeness":{"next":"zfc-and-ordinals","prev":"type-theory-and-hott","section":"Logic & Foundations","title":"First order logic and completeness"},"fixed-point-theorems":{"next":"harmonic-analysis-fourier","prev":"functional-analysis","section":"Analysis","title":"Fixed point theorems"},"forcing-and-independence":{"next":null,"prev":"zfc-and-ordinals","section":"Logic & Foundations","title":"Forcing and independence"},"frobenius-and-reciprocity":{"next":"quadratic-reciprocity","prev":"adeles-and-ideles","section":"Number theory","title":"Frobenius & reciprocity"},"functional-analysis":{"next":"fixed-point-theorems","prev":"harmonic-functions","section":"Analysis","title":"Functional analysis"},"functor-of-points":{"next":"algebraic-spaces","prev":"morphisms-fiber-products","section":"Algebraic geometry","title":"Functor of points"},"galois":{"next":"algebraic-number-theory","prev":"analytic-number-theory","section":"Number theory","title":"Galois theory & the quintic"},"galois-cohomology-and-brauer":{"next":"group-cohomology","prev":"cluster-algebras","section":"Algebra & homological","title":"Galois cohomology and Brauer groups"},"galois-representations":{"next":"iwasawa-theory","prev":"class-field-theory","section":"Number theory","title":"Galois representations"},"gauge-theory":{"next":"string-theory","prev":"statistical-mechanics","section":"Mathematical physics","title":"Gauge theory"},"general-relativity":{"next":"schrodinger-equation","prev":"three-body-problem","section":"Mathematical physics","title":"General relativity & Einstein equations"},"geometric-and-combinatorial-group-theory":{"next":"cluster-algebras","prev":"quaternions-octonions-and-division-algebras","section":"Algebra & homological","title":"Geometric and combinatorial group theory"},"geometric-invariant-theory":{"next":"brill-noether","prev":"tropical-geometry","section":"Algebraic geometry","title":"Geometric invariant theory"},"geometric-measure-theory":{"next":"operator-algebras","prev":"microlocal-analysis","section":"Analysis","title":"Geometric measure theory"},"groebner-bases":{"next":"condensed-mathematics","prev":"homological","section":"Algebra & homological","title":"Gröbner bases"},"grothendieck-topologies-sites":{"next":"infinity-topoi","prev":"elementary-topos-theory","section":"Higher categories & toposes","title":"Grothendieck topologies & sites"},"group-cohomology":{"next":"quantum-groups","prev":"galois-cohomology-and-brauer","section":"Algebra & homological","title":"Group cohomology"},"group-schemes":{"next":"morphisms-fiber-products","prev":"intersection-theory-chow","section":"Algebraic geometry","title":"Group schemes"},"half-integral-weight-forms":{"next":"shimura-varieties","prev":"maass-forms","section":"Modular forms & L-functions","title":"Half-integral weight forms"},"hamiltonians-classical-mechanics":{"next":"special-relativity","prev":"schrodinger-equation","section":"Mathematical physics","title":"Hamiltonians & classical mechanics"},"harmonic-analysis-fourier":{"next":"wavelets","prev":"fixed-point-theorems","section":"Analysis","title":"Harmonic analysis & Fourier theory"},"harmonic-functions":{"next":"functional-analysis","prev":"measure-theory","section":"Analysis","title":"Harmonic functions"},"hecke-operators":{"next":"automorphic-forms-adelic","prev":"theta-functions","section":"Modular forms & L-functions","title":"Hecke operators"},"heegaard-floer":{"next":null,"prev":"surgery-theory","section":"Geometry & topology","title":"Heegaard Floer & knot Floer"},"heights-arithmetic-geometry":{"next":"mathematics-and-cryptography","prev":"additive-number-theory","section":"Number theory","title":"Heights in arithmetic geometry"},"heyting-algebras-toposes":{"next":"cocartesian-fibrations","prev":null,"section":"Higher categories & toposes","title":"Heyting algebras & intuitionist logic"},"high-dimensional-geometry":{"next":"information-theory","prev":"large-deviations","section":"Probability & statistics","title":"High dimensional geometry"},"hodge-theory":{"next":"singular-cubics-reduction","prev":"motives","section":"Algebraic geometry","title":"Hodge theory"},"homological":{"next":"groebner-bases","prev":"commutative-algebra","section":"Algebra & homological","title":"Homological algebra"},"homotopy-theory":{"next":"kahler-geometry","prev":"cobordism","section":"Geometry & topology","title":"Homotopy theory"},"infinity-categories":{"next":"simplicial-sets-and-nerve","prev":"cocartesian-fibrations","section":"Higher categories & toposes","title":"∞-categories (quasi-categories)"},"infinity-topoi":{"next":null,"prev":"grothendieck-topologies-sites","section":"Higher categories & toposes","title":"∞-topoi"},"information-theory":{"next":"mathematical-statistics","prev":"high-dimensional-geometry","section":"Probability & statistics","title":"Information theory"},"intersection-theory-chow":{"next":"group-schemes","prev":"sheaves","section":"Algebraic geometry","title":"Intersection theory & Chow groups"},"iwasawa-theory":{"next":"continued-fractions","prev":"galois-representations","section":"Number theory","title":"Iwasawa theory"},"k-theory":{"next":"atiyah-singer-index-theorem","prev":"characteristic-classes","section":"Geometry & topology","title":"K-theory"},"kahler-geometry":{"next":"mapping-class-groups","prev":"homotopy-theory","section":"Geometry & topology","title":"Kähler geometry"},"khovanov-homology":{"next":"surgery-theory","prev":"mapping-class-groups","section":"Geometry & topology","title":"Khovanov homology"},"klein-gordon-equation":{"next":"dirac-equation","prev":"special-relativity","section":"Mathematical physics","title":"Klein-Gordon equation"},"knot-polynomials":{"next":"smooth-manifolds","prev":"algebraic-topology","section":"Geometry & topology","title":"Knot polynomials"},"langlands-program":{"next":"theta-functions","prev":"vertex-operator-algebras","section":"Modular forms & L-functions","title":"Langlands program"},"large-deviations":{"next":"high-dimensional-geometry","prev":"random-walks-and-mixing","section":"Probability & statistics","title":"Large deviations"},"lie-algebras":{"next":"quaternions-octonions-and-division-algebras","prev":"representation-theory","section":"Algebra & homological","title":"Lie algebras"},"lie-groups":{"next":"mostow-rigidity","prev":"ricci-flow","section":"Geometry & topology","title":"Lie groups & algebras"},"maass-forms":{"next":"half-integral-weight-forms","prev":"modularity-and-flt","section":"Modular forms & L-functions","title":"Maass forms"},"mapping-class-groups":{"next":"khovanov-homology","prev":"kahler-geometry","section":"Geometry & topology","title":"Mapping class groups & 4-manifolds"},"mathematical-biology":{"next":"spectral-methods-data","prev":"random-matrix-theory","section":"Probability & statistics","title":"Mathematical biology"},"mathematical-finance":{"next":null,"prev":"combinatorial-optimization","section":"Control theory & optimization","title":"Mathematical finance & stochastic control"},"mathematical-statistics":{"next":"probability-theory","prev":"information-theory","section":"Probability & statistics","title":"Mathematical statistics"},"mathematics-and-cryptography":{"next":"computational-number-theory","prev":"heights-arithmetic-geometry","section":"Number theory","title":"Mathematics and cryptography"},"matroid-theory":{"next":"probabilistic-method","prev":null,"section":"Combinatorics & graph theory","title":"Matroid theory"},"measure-theory":{"next":"harmonic-functions","prev":"complex-analysis","section":"Analysis","title":"Measure theory"},"microlocal-analysis":{"next":"geometric-measure-theory","prev":"advanced-complex-analysis","section":"Analysis","title":"Microlocal analysis"},"mirror-symmetry":{"next":"algebraic-curves-higher-genus","prev":"calabi-yau-manifolds","section":"Algebraic geometry","title":"Mirror symmetry"},"mmp-and-birational-geometry":{"next":"d-modules","prev":"etale-cohomology","section":"Algebraic geometry","title":"MMP and birational geometry"},"model-categories":{"next":"derived-categories","prev":"algebraic-k-theory-foundations","section":"Algebra & homological","title":"Model categories"},"model-theory-basics":{"next":"computability-and-decidability","prev":"naive-set-theory","section":"Logic & Foundations","title":"Model theory basics"},"modular-curves":{"next":"vertex-operator-algebras","prev":"partitions-generating-functions","section":"Modular forms & L-functions","title":"Modular curves"},"modular-forms":{"next":"partitions-generating-functions","prev":"upper-half-plane-hyperbolic","section":"Modular forms & L-functions","title":"Modular forms"},"modularity-and-flt":{"next":"maass-forms","prev":"bsd","section":"Modular forms & L-functions","title":"Modularity & FLT"},"moduli-spaces":{"next":"toric-varieties","prev":"sheaf-cohomology","section":"Algebraic geometry","title":"Moduli spaces"},"moonshine":{"next":"L-functions","prev":"automorphic-forms-adelic","section":"Modular forms & L-functions","title":"Monstrous moonshine"},"morphisms-fiber-products":{"next":"functor-of-points","prev":"group-schemes","section":"Algebraic geometry","title":"Morphisms & fiber products"},"morse-theory":{"next":"symplectic-manifolds","prev":"differential-forms","section":"Geometry & topology","title":"Morse theory"},"mostow-rigidity":{"next":"cohomology-and-duality","prev":"lie-groups","section":"Geometry & topology","title":"Mostow rigidity"},"motives":{"next":"hodge-theory","prev":"resolution-of-singularities","section":"Algebraic geometry","title":"Motives"},"naive-set-theory":{"next":"model-theory-basics","prev":null,"section":"Logic & Foundations","title":"Naive set theory"},"numerical-analysis":{"next":"variational-methods","prev":"spectral-theory","section":"Analysis","title":"Numerical analysis"},"operator-algebras":{"next":"dynamical-systems","prev":"geometric-measure-theory","section":"Analysis","title":"Operator algebras"},"optimal-control-and-dynamic-programming":{"next":"combinatorial-optimization","prev":null,"section":"Control theory & optimization","title":"Optimal control and dynamic programming"},"p-adic-numbers":{"next":"adeles-and-ideles","prev":"algebraic-number-theory","section":"Number theory","title":"p-adic numbers"},"partial-differential-equations":{"next":"spectral-theory","prev":"wavelets","section":"Analysis","title":"Partial differential equations"},"partitions-generating-functions":{"next":"modular-curves","prev":"modular-forms","section":"Modular forms & L-functions","title":"Partitions & generating functions"},"point-set-topology":{"next":"algebraic-topology","prev":null,"section":"Geometry & topology","title":"Point-set topology"},"positive-characteristic-ag":{"next":null,"prev":"donaldson-thomas-and-gw-invariants","section":"Algebraic geometry","title":"Positive-characteristic AG"},"positivity-and-ample-line-bundles":{"next":"stacks","prev":"abelian-varieties","section":"Algebraic geometry","title":"Positivity and ample line bundles"},"probabilistic-method":{"next":"extremal-combinatorics","prev":"matroid-theory","section":"Combinatorics & graph theory","title":"Probabilistic method"},"probability-theory":{"next":"random-matrix-theory","prev":"mathematical-statistics","section":"Probability & statistics","title":"Probability theory"},"projective-plane":{"next":"etale-fundamental-group","prev":null,"section":"Algebraic geometry","title":"Projective plane"},"quadratic-forms-genus-theory":{"next":"additive-number-theory","prev":"quadratic-reciprocity","section":"Number theory","title":"Quadratic forms & genus theory"},"quadratic-reciprocity":{"next":"quadratic-forms-genus-theory","prev":"frobenius-and-reciprocity","section":"Number theory","title":"Quadratic reciprocity"},"quantum-field-theory":{"next":null,"prev":"string-theory","section":"Mathematical physics","title":"Quantum field theory"},"quantum-groups":{"next":"algebraic-k-theory-foundations","prev":"group-cohomology","section":"Algebra & homological","title":"Quantum groups"},"quaternions-octonions-and-division-algebras":{"next":"geometric-and-combinatorial-group-theory","prev":"lie-algebras","section":"Algebra & homological","title":"Quaternions, octonions, and division algebras"},"random-matrix-theory":{"next":"mathematical-biology","prev":"probability-theory","section":"Probability & statistics","title":"Random matrix theory"},"random-walks-and-mixing":{"next":"large-deviations","prev":"stochastic-calculus","section":"Probability & statistics","title":"Random walks and mixing"},"real-analysis":{"next":"complex-analysis","prev":null,"section":"Analysis","title":"Real analysis"},"representation-theory":{"next":"lie-algebras","prev":"algebra","section":"Algebra & homological","title":"Representation theory"},"resolution-of-singularities":{"next":"motives","prev":"deformation-theory","section":"Algebraic geometry","title":"Resolution of singularities"},"ricci-flow":{"next":"lie-groups","prev":"riemannian-geometry","section":"Geometry & topology","title":"Ricci flow"},"riemann-surfaces":{"next":"differential-forms","prev":"differential-geometry","section":"Geometry & topology","title":"Riemann surfaces"},"riemannian-geometry":{"next":"ricci-flow","prev":"atiyah-singer-index-theorem","section":"Geometry & topology","title":"Riemannian geometry"},"sato-tate":{"next":"bsd","prev":"L-functions","section":"Modular forms & L-functions","title":"Sato–Tate"},"schemes":{"next":"sheaves","prev":"bezout","section":"Algebraic geometry","title":"Schemes"},"schrodinger-equation":{"next":"hamiltonians-classical-mechanics","prev":"general-relativity","section":"Mathematical physics","title":"Schrödinger equation"},"semigroup-theory-evolution-equations":{"next":"several-complex-variables","prev":"dynamical-systems","section":"Analysis","title":"Semigroup theory & evolution equations"},"several-complex-variables":{"next":"conformal-and-cr-geometry","prev":"semigroup-theory-evolution-equations","section":"Analysis","title":"Several complex variables"},"sheaf-cohomology":{"next":"moduli-spaces","prev":"singular-cubics-reduction","section":"Algebraic geometry","title":"Sheaf cohomology"},"sheaves":{"next":"intersection-theory-chow","prev":"schemes","section":"Algebraic geometry","title":"Sheaves"},"shimura-varieties":{"next":null,"prev":"half-integral-weight-forms","section":"Modular forms & L-functions","title":"Shimura varieties"},"simplicial-complexes-combinatorial":{"next":"enumerative-combinatorics","prev":"extremal-combinatorics","section":"Combinatorics & graph theory","title":"Simplicial complexes (combinatorial)"},"simplicial-sets-and-nerve":{"next":"elementary-topos-theory","prev":"infinity-categories","section":"Higher categories & toposes","title":"Simplicial sets & the nerve"},"singular-cubics-reduction":{"next":"sheaf-cohomology","prev":"hodge-theory","section":"Algebraic geometry","title":"Singular cubics & reduction"},"smooth-manifolds":{"next":"differential-geometry","prev":"knot-polynomials","section":"Geometry & topology","title":"Smooth manifolds"},"sobolev-spaces-distributions":{"next":"advanced-complex-analysis","prev":"variational-methods","section":"Analysis","title":"Sobolev spaces & distributions"},"special-relativity":{"next":"klein-gordon-equation","prev":"hamiltonians-classical-mechanics","section":"Mathematical physics","title":"Special relativity"},"spectral-graph-theory":{"next":"expanders","prev":"designs","section":"Combinatorics & graph theory","title":"Spectral graph theory"},"spectral-methods-data":{"next":null,"prev":"mathematical-biology","section":"Probability & statistics","title":"Spectral methods for massive data sets"},"spectral-theory":{"next":"numerical-analysis","prev":"partial-differential-equations","section":"Analysis","title":"Spectral theory"},"stacks":{"next":"etale-cohomology","prev":"positivity-and-ample-line-bundles","section":"Algebraic geometry","title":"Stacks (Deligne–Mumford)"},"statistical-mechanics":{"next":"gauge-theory","prev":"dirac-equation","section":"Mathematical physics","title":"Statistical mechanics"},"stochastic-calculus":{"next":"random-walks-and-mixing","prev":"stochastic-processes-and-martingales","section":"Probability & statistics","title":"Stochastic calculus"},"stochastic-processes-and-martingales":{"next":"stochastic-calculus","prev":null,"section":"Probability & statistics","title":"Stochastic processes and martingales"},"string-theory":{"next":"quantum-field-theory","prev":"gauge-theory","section":"Mathematical physics","title":"String theory"},"surgery-theory":{"next":"heegaard-floer","prev":"khovanov-homology","section":"Geometry & topology","title":"Surgery theory"},"symplectic-manifolds":{"next":"characteristic-classes","prev":"morse-theory","section":"Geometry & topology","title":"Symplectic manifolds"},"theta-functions":{"next":"hecke-operators","prev":"langlands-program","section":"Modular forms & L-functions","title":"Theta functions"},"three-body-problem":{"next":"general-relativity","prev":null,"section":"Mathematical physics","title":"The three-body problem"},"toric-varieties":{"next":"abelian-varieties","prev":"moduli-spaces","section":"Algebraic geometry","title":"Toric varieties"},"tropical-geometry":{"next":"geometric-invariant-theory","prev":"crystalline-cohomology","section":"Algebraic geometry","title":"Tropical geometry"},"type-theory-and-hott":{"next":"first-order-logic-and-completeness","prev":"complexity-theory","section":"Logic & Foundations","title":"Type theory and HoTT"},"upper-half-plane-hyperbolic":{"next":"modular-forms","prev":"zeta-values","section":"Modular forms & L-functions","title":"Upper half-plane"},"variational-methods":{"next":"sobolev-spaces-distributions","prev":"numerical-analysis","section":"Analysis","title":"Variational methods"},"vertex-operator-algebras":{"next":"langlands-program","prev":"modular-curves","section":"Modular forms & L-functions","title":"Vertex operator algebras"},"wavelets":{"next":"partial-differential-equations","prev":"harmonic-analysis-fourier","section":"Analysis","title":"Wavelets"},"zeta-values":{"next":"upper-half-plane-hyperbolic","prev":"analytic-continuation","section":"Modular forms & L-functions","title":"Zeta values"},"zfc-and-ordinals":{"next":"forcing-and-independence","prev":"first-order-logic-and-completeness","section":"Logic & Foundations","title":"ZFC and ordinals"}};</script>
+<script src="./js/breadcrumb.js"></script>
+<script src="./js/glossary-popover.js" defer></script>
+<link rel="stylesheet" media="print" href="./css/print.css">
+<link rel="stylesheet" href="./css/theme-light.css">
+<script src="./js/theme-toggle.js"></script>
+<script src="./concepts/bundle.js" defer></script>
+<script src="./js/topic-hotkeys.js" defer></script>
+<script src="./js/topic-lineage.js" defer></script>
+<!-- breadcrumb-head-auto-end -->
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./js/katex-select.js"></script>
+<script src="./js/widget-diagram-editor.js"></script>
+<script src="./js/widget-inline-code-cell.js"></script>
+<script src="./quizzes/bundle.js"></script>
+<script src="./js/sidetoc.js"></script>
+<!-- display-prefs-head-auto-begin -->
+<script src="./js/display-prefs.js"></script>
+<!-- display-prefs-head-auto-end -->
+</head>
+<body data-section="Control theory & optimization" data-level="intermediate">
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+// draw an arrow marker def once per svg (idempotent)
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+// curved arrow between two pixel points, with optional label
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  // shorten endpoints
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a>
+<!-- toc-auto-begin -->
+  <a href="#convex-sets-functions">1&nbsp;Convex&nbsp;sets,&nbsp;functions,&nbsp;and&nbsp;the&nbsp;Legendre–Fenchel&nbsp;transform</a>
+  <a href="#subgradients">2&nbsp;Subgradients&nbsp;and&nbsp;first-order&nbsp;optimality</a>
+  <a href="#lagrangian-duality">3&nbsp;Lagrangian&nbsp;duality&nbsp;and&nbsp;the&nbsp;KKT&nbsp;system</a>
+  <a href="#conic-sdp">4&nbsp;Conic&nbsp;programming:&nbsp;LP,&nbsp;QP,&nbsp;SOCP,&nbsp;SDP</a>
+  <a href="#gradient-proximal">5&nbsp;Gradient&nbsp;and&nbsp;proximal&nbsp;methods</a>
+  <a href="#interior-point">6&nbsp;Interior-point&nbsp;methods&nbsp;and&nbsp;self-concordance</a>
+  <a href="#stochastic-online">7&nbsp;Stochastic&nbsp;and&nbsp;online&nbsp;convex&nbsp;optimization</a>
+  <a href="#connections">8&nbsp;Connections</a>
+<!-- toc-auto-end -->
+</nav>
+<!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Convex optimization</h1>
+  <p class="sub">A convex program minimises a convex function over a convex set — the local-to-global miracle is that any local minimum is global, and that every interesting structural question (existence, optimality conditions, sensitivity, algorithms) has a clean geometric answer. <em>Duality</em> reads the problem from both sides at once; <em>conic programming</em> packages LP, QP, SOCP, and SDP into a single template; <em>interior-point methods</em> make them polynomial-time; <em>proximal and stochastic</em> methods scale to the millions of variables that modern statistics demands.</p>
+</section>
+
+<section id="convex-sets-functions">
+<h2>1. Convex sets, functions, and the Legendre–Fenchel transform</h2>
+
+<p>A set $C\subseteq\mathbb{R}^n$ is <strong>convex</strong> when every chord between two of its points stays inside: $tx+(1-t)y\in C$ for all $x,y\in C$ and $t\in[0,1]$. A function $f\colon\mathbb{R}^n\to\mathbb{R}\cup\{+\infty\}$ is <strong>convex</strong> iff its <strong>epigraph</strong></p>
+$$\mathrm{epi}\,f \;=\; \{(x,t)\in\mathbb{R}^{n+1} : t\ge f(x)\}$$
+<p>is convex — equivalently, the chord from $(x,f(x))$ to $(y,f(y))$ lies above the graph: $f(tx+(1-t)y)\le tf(x)+(1-t)f(y)$. This <em>Jensen inequality</em> is the entire definition; everything else (closedness of sublevel sets, continuity in the interior of the effective domain, monotonicity along rays from a minimiser) follows.</p>
+
+<h3>Supporting hyperplanes and the bipolar picture</h3>
+<p>A closed convex set $C\subset\mathbb{R}^n$ admits a <strong>supporting hyperplane</strong> $\{x : \langle a,x\rangle = \alpha\}$ at every boundary point, with the hyperplane on the outside: $\langle a,x\rangle\le\alpha$ for all $x\in C$. The miracle is that $C$ is recovered as the intersection of all such half-spaces. The function-side reflection of this — that a closed proper convex $f$ is the supremum of all affine minorants — is exactly</p>
+$$f^{**}(x) \;=\; f(x), \qquad f^*(y) \;:=\; \sup_{x\in\mathbb{R}^n}\,\bigl\{\langle y,x\rangle - f(x)\bigr\}.$$
+<p>The conjugate $f^*$ (the <strong>Legendre–Fenchel transform</strong>) lives in the <em>dual</em> $y$-space; the biconjugate theorem $f^{**}=f$ for closed proper convex $f$ is the analytic shadow of the supporting-hyperplane geometry. A short table of conjugate pairs is the dictionary of duality:</p>
+
+<table class="plain">
+  <thead><tr><th>$f(x)$</th><th>$f^*(y)$</th><th>note</th></tr></thead>
+  <tbody>
+    <tr><td>$\tfrac{1}{2}x^\top Q x$, $Q\succ 0$</td><td>$\tfrac{1}{2}y^\top Q^{-1}y$</td><td>self-conjugate when $Q=I$</td></tr>
+    <tr><td>$|x|$ on $\mathbb{R}$</td><td>$\mathbb{1}_{[-1,1]}(y)$</td><td>norm ↔ indicator of dual-norm ball</td></tr>
+    <tr><td>$e^x$</td><td>$y\log y - y$ (on $y\ge 0$, $+\infty$ else)</td><td>exp ↔ entropy</td></tr>
+    <tr><td>$\mathbb{1}_C(x)$ (indicator of convex $C$)</td><td>$\sigma_C(y)=\sup_{x\in C}\langle y,x\rangle$</td><td>support function of $C$</td></tr>
+  </tbody>
+</table>
+
+<div class="widget" id="cv-w-epigraph">
+  <div class="hd"><div class="ttl">Epigraph &amp; supporting line</div><div class="hint">slide $a$ · pick a point on the graph · watch the tangent line stay below</div></div>
+  <svg id="cv-epi-svg" viewBox="0 0 580 320" width="580" height="320"><title>Graph of a convex function with epigraph shaded and a supporting line at a slider-chosen point.</title></svg>
+  <div class="row">
+    <label for="cv-epi-a">point $a$</label>
+    <input type="range" id="cv-epi-a" min="-2.5" max="2.5" step="0.05" value="0.6">
+    <span class="readout" id="cv-epi-a-out" style="min-width:120px;flex:0 0 auto">a = 0.60</span>
+  </div>
+  <div class="row">
+    <label for="cv-epi-fn">function</label>
+    <select id="cv-epi-fn">
+      <option value="quad">$f(x)=x^2$</option>
+      <option value="exp">$f(x)=e^{x}-1$</option>
+      <option value="abs">$f(x)=|x|$</option>
+    </select>
+  </div>
+  <div class="readout" id="cv-epi-out"></div>
+  <div class="note small">The grey region is the epigraph $\mathrm{epi}\,f$; the cyan line is a supporting hyperplane (affine minorant) at the marked point. The Legendre conjugate $f^*(g)$ is exactly the vertical-axis intercept of the supporting line with slope $g$. For $f=|x|$ at the kink, *any* slope in $[-1,1]$ supports — that's the subdifferential at $0$.</div>
+</div>
+<script>
+/* ============================ §1 epigraph widget ============================ */
+(function(){
+  const svg=$("#cv-epi-svg"), AS=$("#cv-epi-a"), AO=$("#cv-epi-a-out"), FN=$("#cv-epi-fn"), out=$("#cv-epi-out");
+  const W=580,H=320,padL=46,padR=20,padT=20,padB=40;
+  function f(x,kind){
+    if(kind==="quad") return x*x;
+    if(kind==="exp")  return Math.exp(x)-1;
+    return Math.abs(x);
+  }
+  function df(x,kind){
+    if(kind==="quad") return 2*x;
+    if(kind==="exp")  return Math.exp(x);
+    return x>0?1:(x<0?-1:0);
+  }
+  function render(){
+    svg.innerHTML="";
+    const a=parseFloat(AS.value), kind=FN.value;
+    AO.textContent=`a = ${a.toFixed(2)}`;
+    const xmin=-2.6,xmax=2.6,ymin=-0.6,ymax=4.2;
+    const sx=x=>padL+(x-xmin)/(xmax-xmin)*(W-padL-padR);
+    const sy=y=>padT+(ymax-y)/(ymax-ymin)*(H-padT-padB);
+    // frame
+    svg.appendChild(SVG("rect",{x:padL,y:padT,width:W-padL-padR,height:H-padT-padB,fill:"none",stroke:"var(--line)"}));
+    // axes
+    svg.appendChild(SVG("line",{x1:padL,y1:sy(0),x2:W-padR,y2:sy(0),stroke:"var(--line)","stroke-dasharray":"2,3"}));
+    svg.appendChild(SVG("line",{x1:sx(0),y1:padT,x2:sx(0),y2:H-padB,stroke:"var(--line)","stroke-dasharray":"2,3"}));
+    // labels
+    const xl=SVG("text",{x:W-padR-6,y:sy(0)-6,"text-anchor":"end","font-size":11,fill:"var(--mute)"}); xl.textContent="x"; svg.appendChild(xl);
+    const yl=SVG("text",{x:sx(0)+6,y:padT+12,"font-size":11,fill:"var(--mute)"}); yl.textContent="f(x)"; svg.appendChild(yl);
+    // epigraph shading — fill above the curve
+    const N=200;
+    const top=[]; for(let i=0;i<=N;i++){ const x=xmin+(xmax-xmin)*i/N; top.push([sx(x),sy(f(x,kind))]); }
+    const epi=[`M${sx(xmin)} ${sy(ymax)}`, `L${top[0][0]} ${top[0][1]}`, ...top.slice(1).map(p=>`L${p[0]} ${p[1]}`), `L${sx(xmax)} ${sy(ymax)} Z`].join(" ");
+    svg.appendChild(SVG("path",{d:epi,fill:"var(--mute)","fill-opacity":0.13,stroke:"none"}));
+    // graph
+    const gpath=top.map((p,i)=>`${i===0?"M":"L"}${p[0]} ${p[1]}`).join(" ");
+    svg.appendChild(SVG("path",{d:gpath,fill:"none",stroke:"var(--yellow)","stroke-width":2}));
+    // supporting line at a
+    const ya=f(a,kind), ga=df(a,kind);
+    const supp=x=>ya+ga*(x-a);
+    svg.appendChild(SVG("line",{x1:sx(xmin),y1:sy(supp(xmin)),x2:sx(xmax),y2:sy(supp(xmax)),stroke:"var(--cyan)","stroke-width":1.6,"stroke-dasharray":"5,3"}));
+    // marked point
+    svg.appendChild(SVG("circle",{cx:sx(a),cy:sy(ya),r:4.5,fill:"var(--pink)"}));
+    // intercept marker (f*(ga) = -intercept)
+    const intercept = supp(0); // value at x=0
+    svg.appendChild(SVG("circle",{cx:sx(0),cy:sy(intercept),r:3.2,fill:"var(--cyan)"}));
+    // legend
+    const lg=SVG("text",{x:padL+10,y:padT+18,"font-size":11,fill:"var(--yellow)"}); lg.textContent="graph of f"; svg.appendChild(lg);
+    const lg2=SVG("text",{x:padL+10,y:padT+34,"font-size":11,fill:"var(--cyan)"}); lg2.textContent="supporting line, slope g = f'(a)"; svg.appendChild(lg2);
+    const lg3=SVG("text",{x:padL+10,y:padT+50,"font-size":11,fill:"var(--mute)"}); lg3.textContent="grey region: epi(f)"; svg.appendChild(lg3);
+    out.textContent = `a = ${a.toFixed(2)}    f(a) = ${ya.toFixed(3)}    g = f'(a) = ${ga.toFixed(3)}    line intercept at x=0:  ${intercept.toFixed(3)}    so f*(g) = -intercept = ${(-intercept).toFixed(3)}`;
+  }
+  AS.addEventListener("input",render);
+  FN.addEventListener("change",render);
+  render();
+})();
+</script>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./functional-analysis.html#hilbert">Banach and Hilbert spaces</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./convex-optimization.html#subgradients">Convex optimization</a> · Subgradients and first-order optimality</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="co-convex-sets-functions"></div>
+</section>
+
+<section id="subgradients">
+<h2>2. Subgradients and first-order optimality</h2>
+
+<p>For convex $f$, a vector $g\in\mathbb{R}^n$ is a <strong>subgradient</strong> at $x$ when</p>
+$$f(y) \;\ge\; f(x) + \langle g,\,y-x\rangle \qquad \text{for all } y\in\mathbb{R}^n.$$
+<p>Geometrically, $g$ is the slope of an affine minorant that touches the graph at $(x,f(x))$. The <strong>subdifferential</strong> $\partial f(x)$ is the set of all such slopes — a non-empty closed convex set in the interior of $\mathrm{dom}\,f$. At smooth points $\partial f(x) = \{\nabla f(x)\}$; at non-smooth points the subdifferential is a non-singleton.</p>
+
+<p>The textbook example is $f(x)=|x|$ on $\mathbb{R}$: $\partial f(x)$ equals $\{+1\}$ for $x>0$, $\{-1\}$ for $x<0$, and the whole interval $[-1,+1]$ at the kink $x=0$. The kink "owns" every slope between the left and right derivatives.</p>
+
+<h3>The constrained optimality condition</h3>
+<p>Over a convex set $C$, the right generalisation of $\nabla f = 0$ is the <strong>variational inequality</strong></p>
+$$\langle \nabla f(x^*),\,y - x^*\rangle \;\ge\; 0 \qquad \text{for all } y\in C,$$
+<p>equivalently $-\nabla f(x^*)\in N_C(x^*)$ where $N_C(x^*)=\{v : \langle v,y-x^*\rangle\le 0\;\forall y\in C\}$ is the <strong>outward normal cone</strong>. Combining the smooth and non-smooth halves:</p>
+$$0 \;\in\; \partial f(x^*) + N_C(x^*).$$
+<p>For unconstrained problems $N_C\equiv\{0\}$ and this collapses to $0\in\partial f(x^*)$.</p>
+
+<div class="widget" id="cv-w-subgrad">
+  <div class="hd"><div class="ttl">Subgradients at a kink</div><div class="hint">drag $x$ · pick any slope inside $\partial f(x)$ · see the line stay under the graph</div></div>
+  <svg id="cv-sub-svg" viewBox="0 0 580 320" width="580" height="320"><title>Convex function with a kink; subdifferential interval shown when x is at the kink.</title></svg>
+  <div class="row">
+    <label for="cv-sub-x">point $x$</label>
+    <input type="range" id="cv-sub-x" min="-2.2" max="2.2" step="0.02" value="0">
+    <span class="readout" id="cv-sub-x-out" style="min-width:100px;flex:0 0 auto">x = 0.00</span>
+  </div>
+  <div class="row">
+    <label for="cv-sub-g">subgradient $g$</label>
+    <input type="range" id="cv-sub-g" min="-2" max="2" step="0.02" value="0">
+    <span class="readout" id="cv-sub-g-out" style="min-width:100px;flex:0 0 auto">g = 0.00</span>
+  </div>
+  <div class="readout" id="cv-sub-out"></div>
+  <div class="note small">$f(x)=|x| + \tfrac{1}{4}x^2$. Away from the kink $\partial f(x)=\{\mathrm{sign}(x)+x/2\}$ is a singleton; at $x=0$ the subdifferential is the interval $[-1,+1]$. The slider for $g$ accepts any value; the readout reports whether $g\in\partial f(x)$ (a valid subgradient) or not. A "valid" line stays at or below the curve everywhere.</div>
+</div>
+<script>
+/* ============================ §2 subgradient widget ============================ */
+(function(){
+  const svg=$("#cv-sub-svg"), XS=$("#cv-sub-x"), XO=$("#cv-sub-x-out"), GS=$("#cv-sub-g"), GO=$("#cv-sub-g-out"), out=$("#cv-sub-out");
+  const W=580,H=320,padL=46,padR=20,padT=20,padB=40;
+  function f(x){ return Math.abs(x) + 0.25*x*x; }
+  // subdifferential of |x|+x^2/4 at x: [sign-,sign+] + x/2 i.e. {x/2 + s : s in sign-set}
+  function subRange(x){
+    if(x>1e-6) return [1+x/2, 1+x/2];
+    if(x<-1e-6) return [-1+x/2, -1+x/2];
+    return [-1, 1];
+  }
+  function render(){
+    svg.innerHTML="";
+    const x=parseFloat(XS.value), g=parseFloat(GS.value);
+    XO.textContent=`x = ${x.toFixed(2)}`;
+    GO.textContent=`g = ${g.toFixed(2)}`;
+    const xmin=-2.4,xmax=2.4,ymin=-0.6,ymax=3.6;
+    const sx=u=>padL+(u-xmin)/(xmax-xmin)*(W-padL-padR);
+    const sy=v=>padT+(ymax-v)/(ymax-ymin)*(H-padT-padB);
+    svg.appendChild(SVG("rect",{x:padL,y:padT,width:W-padL-padR,height:H-padT-padB,fill:"none",stroke:"var(--line)"}));
+    svg.appendChild(SVG("line",{x1:padL,y1:sy(0),x2:W-padR,y2:sy(0),stroke:"var(--line)","stroke-dasharray":"2,3"}));
+    svg.appendChild(SVG("line",{x1:sx(0),y1:padT,x2:sx(0),y2:H-padB,stroke:"var(--line)","stroke-dasharray":"2,3"}));
+    // graph
+    const N=200;
+    let d="";
+    for(let i=0;i<=N;i++){ const xx=xmin+(xmax-xmin)*i/N; const yy=f(xx); d += `${i===0?"M":"L"}${sx(xx)} ${sy(yy)} `; }
+    svg.appendChild(SVG("path",{d,fill:"none",stroke:"var(--yellow)","stroke-width":2}));
+    // candidate line through (x, f(x)) with slope g
+    const y0=f(x);
+    const ll = u => y0 + g*(u-x);
+    // determine validity: is g a subgradient at x?
+    const [glo,ghi] = subRange(x);
+    const valid = (g>=glo-1e-9 && g<=ghi+1e-9);
+    svg.appendChild(SVG("line",{x1:sx(xmin),y1:sy(ll(xmin)),x2:sx(xmax),y2:sy(ll(xmax)),stroke:valid?"var(--green)":"var(--pink)","stroke-width":1.6,"stroke-dasharray":valid?"":"5,3"}));
+    // marked point
+    svg.appendChild(SVG("circle",{cx:sx(x),cy:sy(y0),r:4.5,fill:"var(--cyan)"}));
+    // subdifferential interval visualisation: a vertical bracket on a side-axis showing valid slope range
+    // draw as a small slope-rose at the point
+    const r=22;
+    for(let i=0;i<=8;i++){
+      const tt=i/8; const gs = glo + (ghi-glo)*tt;
+      const dx = r/Math.sqrt(1+gs*gs); const dy = gs*dx;
+      // line in pixel coords roughly representing slope direction
+      svg.appendChild(SVG("line",{x1:sx(x),y1:sy(y0),x2:sx(x)+dx,y2:sy(y0)-dy*((H-padT-padB)/(ymax-ymin))/((W-padL-padR)/(xmax-xmin)),stroke:"var(--violet)","stroke-width":1.2,"stroke-opacity":0.55}));
+    }
+    // legend
+    const lg=SVG("text",{x:padL+10,y:padT+18,"font-size":11,fill:"var(--yellow)"}); lg.textContent="graph of f(x)=|x|+x²/4"; svg.appendChild(lg);
+    const lg2=SVG("text",{x:padL+10,y:padT+34,"font-size":11,fill:"var(--violet)"}); lg2.textContent="violet fan: ∂f(x), the valid subgradient slopes"; svg.appendChild(lg2);
+    const lg3=SVG("text",{x:padL+10,y:padT+50,"font-size":11,fill:valid?"var(--green)":"var(--pink)"});
+    lg3.textContent = valid ? "your line (green): valid subgradient — stays ≤ f everywhere" : "your line (pink dashed): NOT a subgradient — crosses above f";
+    svg.appendChild(lg3);
+    out.textContent = `at x=${x.toFixed(2)}: ∂f(x) = ${glo===ghi?`{${glo.toFixed(2)}}`:`[${glo.toFixed(2)}, ${ghi.toFixed(2)}]`}    your g=${g.toFixed(2)}: ${valid?"✓ valid":"✗ not in ∂f(x)"}`;
+  }
+  XS.addEventListener("input",render);
+  GS.addEventListener("input",render);
+  render();
+})();
+</script>
+
+<div class="quiz" data-concept="co-subgradients"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./convex-optimization.html#gradient-proximal">Convex optimization</a> · Gradient and proximal methods</div>
+    <div><a href="./convex-optimization.html#lagrangian-duality">Convex optimization</a> · Lagrangian duality and the KKT system</div>
+</aside>
+<!-- backlinks-auto-end -->
+</section>
+
+<section id="lagrangian-duality">
+<h2>3. Lagrangian duality and the KKT system</h2>
+
+<p>The constrained primal problem</p>
+$$\min_x f(x) \quad \text{s.t.} \quad g_i(x)\le 0\ (i=1..m), \quad h_j(x)=0\ (j=1..p)$$
+<p>has <strong>Lagrangian</strong></p>
+$$L(x,\lambda,\nu) \;=\; f(x) + \sum_{i=1}^m \lambda_i g_i(x) + \sum_{j=1}^p \nu_j h_j(x), \qquad \lambda\ge 0.$$
+<p>The <strong>dual function</strong> $g(\lambda,\nu)=\inf_x L(x,\lambda,\nu)$ is always concave (an infimum of affine functions), and weak duality is the one-line bound $g(\lambda,\nu)\le p^*$ for every dual-feasible $(\lambda,\nu)$. The dual problem is $\max g(\lambda,\nu)$ s.t. $\lambda\ge 0$.</p>
+
+<h3>Slater's condition and strong duality</h3>
+<p>For convex programs (convex $f, g_i$; affine $h_j$), <strong>Slater's condition</strong> — existence of an $\tilde x$ with $g_i(\tilde x)<0$ for all non-affine $g_i$ and $h_j(\tilde x)=0$ — implies <em>strong duality</em>: $p^*=d^*$, with the dual optimum attained. This is what makes "solve the dual instead of the primal" a legitimate strategy.</p>
+
+<h3>The KKT conditions</h3>
+<p>Under Slater (and convexity), $x^*$ is primal-optimal iff there exist $\lambda^*\ge 0$, $\nu^*$ such that</p>
+<ul>
+  <li><strong>Stationarity:</strong> $0 \in \partial f(x^*) + \sum\lambda_i^*\,\partial g_i(x^*) + \sum\nu_j^*\nabla h_j(x^*)$.</li>
+  <li><strong>Primal feasibility:</strong> $g_i(x^*)\le 0$, $h_j(x^*)=0$.</li>
+  <li><strong>Dual feasibility:</strong> $\lambda_i^*\ge 0$.</li>
+  <li><strong>Complementary slackness:</strong> $\lambda_i^*\,g_i(x^*)=0$ — an inactive constraint ($g_i<0$) has zero multiplier; an active constraint ($g_i=0$) may have $\lambda_i>0$.</li>
+</ul>
+
+<div class="widget" id="cv-w-kkt">
+  <div class="hd"><div class="ttl">KKT geometry: gradient vs active constraints</div><div class="hint">drag the gradient angle · watch which constraints become active</div></div>
+  <svg id="cv-kkt-svg" viewBox="0 0 580 320" width="580" height="320"><title>Polyhedral feasible region with linear objective; rotating the gradient picks out the optimal vertex and identifies the active constraints.</title></svg>
+  <div class="row">
+    <label for="cv-kkt-theta">gradient angle $\theta$</label>
+    <input type="range" id="cv-kkt-theta" min="0" max="360" step="1" value="135">
+    <span class="readout" id="cv-kkt-theta-out" style="min-width:90px;flex:0 0 auto">θ = 135°</span>
+  </div>
+  <div class="readout" id="cv-kkt-out"></div>
+  <div class="note small">Feasible region: a convex pentagon defined by 5 inequalities $g_i(x)\le 0$. The pink arrow is $-\nabla f$ (descent direction of the linear objective $c^\top x$). At the optimum, $-\nabla f$ lies in the cone generated by the outward normals of the active constraints — that's the KKT condition $-\nabla f = \sum\lambda_i\nabla g_i$ with $\lambda_i\ge 0$. Active constraints are highlighted yellow; inactive ones (zero multiplier) stay grey.</div>
+</div>
+<script>
+/* ============================ §3 KKT widget ============================ */
+(function(){
+  const svg=$("#cv-kkt-svg"), TS=$("#cv-kkt-theta"), TO=$("#cv-kkt-theta-out"), out=$("#cv-kkt-out");
+  const W=580,H=320;
+  // pentagon vertices (counter-clockwise)
+  const V = [ [-1.8,-0.6], [0.0,-2.0], [2.0,-0.4], [1.4,1.8], [-1.2,1.6] ];
+  // edges: each edge has outward normal
+  const nedges = V.length;
+  function edgeData(i){
+    const a=V[i], b=V[(i+1)%nedges];
+    const ex=b[0]-a[0], ey=b[1]-a[1];
+    // outward normal for CCW polygon: rotate edge -90deg
+    let nx=ey, ny=-ex;
+    const len=Math.hypot(nx,ny); nx/=len; ny/=len;
+    return {a,b,nx,ny};
+  }
+  function render(){
+    svg.innerHTML="";
+    const theta=parseFloat(TS.value)*Math.PI/180;
+    TO.textContent=`θ = ${(theta*180/Math.PI).toFixed(0)}°`;
+    const cx=290,cy=160,scale=60;
+    const sx=p=>cx+p[0]*scale;
+    const sy=p=>cy-p[1]*scale;
+    // gradient direction (c so we minimise c·x, descent = -c)
+    const c=[Math.cos(theta), Math.sin(theta)];
+    // optimal vertex: argmin c·x over V
+    let opt=0, best=Infinity;
+    for(let i=0;i<nedges;i++){ const v=V[i]; const val=c[0]*v[0]+c[1]*v[1]; if(val<best){best=val;opt=i;} }
+    // active edges = those touching optimal vertex
+    const activeEdges = new Set();
+    activeEdges.add((opt+nedges-1)%nedges);
+    activeEdges.add(opt);
+    // draw level sets of c·x
+    for(let k=-4;k<=4;k++){
+      const cval=k*0.6;
+      // line c·x = cval, parametrise perpendicular
+      const t = [-c[1], c[0]];
+      const p1=[c[0]*cval - 4*t[0], c[1]*cval - 4*t[1]];
+      const p2=[c[0]*cval + 4*t[0], c[1]*cval + 4*t[1]];
+      svg.appendChild(SVG("line",{x1:sx(p1),y1:sy(p1),x2:sx(p2),y2:sy(p2),stroke:"var(--cyan)","stroke-opacity":0.22,"stroke-width":1,"stroke-dasharray":"3,4"}));
+    }
+    // shade feasible region
+    const polyPts = V.map(v=>`${sx(v)},${sy(v)}`).join(" ");
+    svg.appendChild(SVG("polygon",{points:polyPts,fill:"var(--violet)","fill-opacity":0.10,stroke:"var(--mute)","stroke-width":1.2}));
+    // edges: highlight active ones
+    for(let i=0;i<nedges;i++){
+      const e=edgeData(i);
+      const active=activeEdges.has(i);
+      svg.appendChild(SVG("line",{x1:sx(e.a),y1:sy(e.a),x2:sx(e.b),y2:sy(e.b),stroke:active?"var(--yellow)":"var(--mute)","stroke-width":active?3:1.5}));
+      // outward normal at edge midpoint
+      const mx=(e.a[0]+e.b[0])/2, my=(e.a[1]+e.b[1])/2;
+      if(active){
+        svg.appendChild(SVG("line",{x1:sx([mx,my]),y1:sy([mx,my]),x2:sx([mx,my])+e.nx*30,y2:sy([mx,my])-e.ny*30,stroke:"var(--yellow)","stroke-width":1.5,"marker-end":"url(#kkt-arr-y)"}));
+      }
+    }
+    // vertices
+    for(let i=0;i<nedges;i++){
+      const v=V[i];
+      svg.appendChild(SVG("circle",{cx:sx(v),cy:sy(v),r:i===opt?6:3,fill:i===opt?"var(--green)":"var(--mute)"}));
+    }
+    // gradient arrow at optimal vertex: -∇f direction
+    const vo=V[opt];
+    const gx=sx(vo)-c[0]*60, gy=sy(vo)+c[1]*60;
+    ensureArrow(svg,"kkt-arr-p","var(--pink)");
+    ensureArrow(svg,"kkt-arr-y","var(--yellow)");
+    svg.appendChild(SVG("line",{x1:sx(vo),y1:sy(vo),x2:gx,y2:gy,stroke:"var(--pink)","stroke-width":2,"marker-end":"url(#kkt-arr-p)"}));
+    // legend in viewport coords
+    const lg=SVG("text",{x:20,y:24,"font-size":11,fill:"var(--cyan)"}); lg.textContent="level sets of c·x (dashed)"; svg.appendChild(lg);
+    const lg2=SVG("text",{x:20,y:40,"font-size":11,fill:"var(--yellow)"}); lg2.textContent="active edges + outward normals"; svg.appendChild(lg2);
+    const lg3=SVG("text",{x:20,y:56,"font-size":11,fill:"var(--pink)"}); lg3.textContent="-∇f (descent direction)"; svg.appendChild(lg3);
+    const lg4=SVG("text",{x:20,y:72,"font-size":11,fill:"var(--green)"}); lg4.textContent="optimal vertex x*"; svg.appendChild(lg4);
+    const cosT=Math.cos(theta).toFixed(2), sinT=Math.sin(theta).toFixed(2);
+    out.textContent = `c = (${cosT}, ${sinT})    optimum value c·x* = ${best.toFixed(3)} at x* = (${vo[0].toFixed(2)}, ${vo[1].toFixed(2)})    active constraints: edges {${[...activeEdges].sort().join(", ")}}    KKT: -∇f sits in the cone of yellow normals (multipliers λ≥0)`;
+  }
+  TS.addEventListener("input",render);
+  render();
+})();
+</script>
+
+<!-- proof-scrubber: Slater → strong duality -->
+<div class="widget" id="cv-w-slater">
+  <div class="hd"><div class="ttl">Slater ⇒ strong duality (proof scrubber)</div><div class="hint">step through the supporting-hyperplane argument</div></div>
+  <div class="row">
+    <button id="cv-slater-prev">◂ prev</button>
+    <button id="cv-slater-play">play</button>
+    <button id="cv-slater-next">next ▸</button>
+    <input type="range" id="cv-slater-scrub" min="0" max="4" step="1" value="0" style="flex:1">
+    <span class="readout" id="cv-slater-step" style="min-width:60px">1 / 5</span>
+  </div>
+  <svg id="cv-slater-svg" viewBox="0 0 580 240" width="580" height="240"><title>Sequence of figures illustrating the separation of the (cost, constraint) image set by a supporting hyperplane.</title></svg>
+  <div class="readout" id="cv-slater-out"></div>
+  <div class="note small">Idea: the set $A=\{(u,t) : \exists x.\ g(x)\le u,\ f(x)\le t\}$ is convex (convexity of $f,g$). Slater says $(0,p^*)$ sits on its boundary; a supporting hyperplane $\lambda^\top u + \mu t = \alpha$ with $\mu>0$ exists; normalising and minimising over $x$ recovers $d^*\ge p^*$.</div>
+</div>
+<script>
+/* ============================ §3 Slater proof-scrubber ============================ */
+(function(){
+  const svg=$("#cv-slater-svg"), PV=$("#cv-slater-prev"), PL=$("#cv-slater-play"), NX=$("#cv-slater-next"),
+        SC=$("#cv-slater-scrub"), ST=$("#cv-slater-step"), out=$("#cv-slater-out");
+  const W=580,H=240;
+  const STEPS = [
+    {t:"1. The cost-constraint image $A$", body:"Form the set $A=\\{(u,t) : \\exists x.\\ g(x)\\le u,\\ f(x)\\le t\\}\\subseteq\\mathbb{R}^2$. Convexity of $f$ and $g$ makes $A$ convex (a 'down-and-right closed' convex set)."},
+    {t:"2. The optimum sits on $\\partial A$", body:"$p^*=\\inf f$ subject to $g\\le 0$. The boundary point $(0,p^*)$ lies on $\\partial A$ — moving down or left would strictly improve the primal, which is impossible."},
+    {t:"3. Supporting hyperplane", body:"A closed convex set has a supporting hyperplane at every boundary point. Pick $(\\lambda,\\mu)\\ne 0$ with $\\lambda u+\\mu t\\ge \\mu p^*$ for all $(u,t)\\in A$."},
+    {t:"4. Slater rules out $\\mu=0$", body:"If $\\mu=0$, the inequality becomes $\\lambda u\\ge 0$ for all $(u,t)\\in A$. Slater's strictly-feasible $\\tilde x$ has $g(\\tilde x)<0$, so $(g(\\tilde x),f(\\tilde x))\\in A$ with $u<0$ — forcing $\\lambda\\le 0$. But $(\\lambda,\\mu)\\ne 0$ and $\\lambda\\ge 0$ from $u\\to\\infty$. Contradiction. Hence $\\mu>0$ and we normalise $\\mu=1$."},
+    {t:"5. Strong duality", body:"For every $x$, $(g(x),f(x))\\in A$, so $\\lambda g(x)+f(x)\\ge p^*$ with $\\lambda\\ge 0$. Taking $\\inf_x$: $g(\\lambda)\\ge p^*$. With weak duality $g(\\lambda)\\le p^*$, we get $d^*\\ge g(\\lambda)\\ge p^*\\ge d^*$, hence $p^*=d^*$. QED."}
+  ];
+  function diagram(k){
+    svg.innerHTML="";
+    const cx=320,cy=130;
+    // axes
+    svg.appendChild(SVG("line",{x1:60,y1:cy,x2:540,y2:cy,stroke:"var(--mute)","stroke-width":1}));
+    svg.appendChild(SVG("line",{x1:cx,y1:30,x2:cx,y2:230,stroke:"var(--mute)","stroke-width":1}));
+    svg.appendChild(SVG("text",{x:548,y:cy-4,"font-size":11,fill:"var(--mute)"})).textContent="u (constraint)";
+    svg.appendChild(SVG("text",{x:cx+6,y:36,"font-size":11,fill:"var(--mute)"})).textContent="t (cost)";
+    // set A: a convex blob ish, down-and-right closed: extend rightward and upward of the boundary
+    // boundary curve: t = -u for u≤0 then t = u^2/3 for u≥0 (caricature)
+    const pts = [];
+    for(let u=-3;u<=3;u+=0.1){
+      const t = u<0? (-u*30) : (u*u*8 + 30);
+      pts.push([cx+u*36, cy - (60-t)]);
+    }
+    // closure to infinity (clip to viewbox right + bottom)
+    const allPts = [...pts, [540, 230], [60, 230]];
+    const dA = allPts.map((p,i)=>`${i===0?"M":"L"}${p[0]} ${p[1]}`).join(" ") + " Z";
+    svg.appendChild(SVG("path",{d:dA,fill:"var(--violet)","fill-opacity":0.12,stroke:"var(--violet)","stroke-width":1.5}));
+    svg.appendChild(SVG("text",{x:cx+90,y:cy+90,"font-size":12,fill:"var(--violet)","font-style":"italic"})).textContent="A";
+    // (0, p*) marker — at u=0, t = boundary value
+    const pstar_y = cy - (60 - 30);
+    if(k>=1){
+      svg.appendChild(SVG("circle",{cx:cx,cy:pstar_y,r:5,fill:"var(--green)"}));
+      svg.appendChild(SVG("text",{x:cx+8,y:pstar_y-6,"font-size":11,fill:"var(--green)"})).textContent="(0, p*)";
+    }
+    // supporting hyperplane at step ≥ 2
+    if(k>=2){
+      // line slope: ~ tangent at (0, pstar). For boundary t=-u (u<0) the left slope is -1, right slope 0. Pick slope=-0.5 (in [-1,0]).
+      const slope = -0.5;
+      // line: t - pstar = slope*(u - 0) → in pixels: y - pstar_y = -slope_pix*(x-cx)  ... but careful with y-up vs y-down.
+      // We want a line passing through (cx, pstar_y) with slope dt/du = slope. In pixels, dy/dx = -slope*scale_t/scale_u. scale_u=36px, scale_t = 1px per unit t (we used 60-t directly with t in [0,60]). dt=1 → dy=-1.
+      // So slope_pix = -slope * (1/36).
+      const slope_pix = -slope * (1/36); // dy/dx
+      // wait the t units in our caricature are not standardised. Use a simple visual: draw line at slope -0.4 in pixel space.
+      const slope_visual = 0.4;
+      const x1=60,y1=pstar_y + slope_visual*(cx-60);
+      const x2=540,y2=pstar_y - slope_visual*(540-cx);
+      svg.appendChild(SVG("line",{x1,y1,x2,y2,stroke:"var(--pink)","stroke-width":1.8,"stroke-dasharray":"6,3"}));
+      svg.appendChild(SVG("text",{x:80,y:y1-8,"font-size":11,fill:"var(--pink)"})).textContent="λu + μt = α  (μ > 0 after Slater)";
+    }
+    // Slater point at step ≥ 3
+    if(k>=3){
+      const ux=-1.6;
+      const px = cx+ux*36;
+      const py = cy-(60-(-ux*30)) + 12;
+      svg.appendChild(SVG("circle",{cx:px,cy:py,r:4,fill:"var(--yellow)"}));
+      svg.appendChild(SVG("text",{x:px+6,y:py-6,"font-size":11,fill:"var(--yellow)"})).textContent="(g(x̃), f(x̃))  Slater, u<0";
+    }
+    // final equality marker
+    if(k>=4){
+      svg.appendChild(SVG("text",{x:cx-110,y:H-12,"font-size":13,fill:"var(--green)","font-weight":600})).textContent="p* = d*    (strong duality)";
+    }
+  }
+  let timer=null;
+  function setK(k){
+    k=Math.max(0,Math.min(STEPS.length-1,k|0));
+    SC.value=k; ST.textContent=`${k+1} / ${STEPS.length}`;
+    diagram(k);
+    out.textContent = `Step ${k+1}: ${STEPS[k].t.replace(/\$([^$]+)\$/g,"$1")}\n${STEPS[k].body.replace(/\$([^$]+)\$/g,"$1")}`;
+  }
+  SC.addEventListener("input",e=>setK(parseInt(SC.value,10)));
+  PV.addEventListener("click",()=>setK(parseInt(SC.value,10)-1));
+  NX.addEventListener("click",()=>setK(parseInt(SC.value,10)+1));
+  PL.addEventListener("click",()=>{
+    if(timer){clearInterval(timer);timer=null;PL.textContent="play";return;}
+    PL.textContent="pause";
+    timer=setInterval(()=>{
+      let k=parseInt(SC.value,10);
+      if(k>=STEPS.length-1){clearInterval(timer);timer=null;PL.textContent="play";return;}
+      setK(k+1);
+    },1400);
+  });
+  setK(0);
+})();
+</script>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./combinatorial-optimization.html#duality">LP duality and min-max theorems</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./convex-optimization.html#conic-sdp">Convex optimization</a> · Conic programming: LP, QP, SOCP, SDP</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="co-lagrangian-duality"></div>
+</section>
+
+<section id="conic-sdp">
+<h2>4. Conic programming: LP, QP, SOCP, SDP</h2>
+
+<p>Every convex program admits a <strong>conic standard form</strong>:</p>
+$$\min_x\, c^\top x \quad \text{s.t.} \quad Ax = b, \quad x\in K,$$
+<p>where $K\subseteq\mathbb{R}^n$ is a <strong>closed convex cone</strong>. As $K$ ranges over a sequence of self-dual cones we recover a strict hierarchy of model classes — and dramatic expressive power for a single algorithmic framework:</p>
+
+<table class="plain">
+  <thead><tr><th>cone</th><th>name</th><th>program</th><th>example</th></tr></thead>
+  <tbody>
+    <tr><td>$\mathbb{R}^n_+$ (non-negative orthant)</td><td>linear</td><td>LP</td><td>diet, transportation</td></tr>
+    <tr><td>$\mathcal{L}^n=\{(x,t):\|x\|_2\le t\}$ (Lorentz)</td><td>second-order</td><td>SOCP</td><td>robust LS, portfolio risk</td></tr>
+    <tr><td>$\mathbb{S}^n_+$ (PSD matrices)</td><td>semidefinite</td><td>SDP</td><td>MAX-CUT, Lyapunov</td></tr>
+    <tr><td>+ exponential cone, power cone</td><td>conic-exponential</td><td>(generalised)</td><td>entropy, geometric programming</td></tr>
+  </tbody>
+</table>
+
+<p>The dual cone $K^*=\{y : \langle y,x\rangle\ge 0\;\forall x\in K\}$ controls the dual program — each of $\mathbb{R}^n_+$, $\mathcal{L}^n$, $\mathbb{S}^n_+$ is <em>self-dual</em>, which is why duality theory for LP/SOCP/SDP is so clean.</p>
+
+<h3>The Goemans–Williamson SDP relaxation of MAX-CUT</h3>
+<p>MAX-CUT — partition the vertex set of a weighted graph to maximise the weight of cut edges — is NP-hard. The integer programming formulation $\max \tfrac{1}{4}\sum w_{ij}(1-y_iy_j)$ with $y_i\in\{\pm 1\}$ is relaxed by lifting each $y_i$ to a unit vector $v_i\in S^{n-1}$:</p>
+$$\max \;\tfrac{1}{2}\sum_{(i,j)\in E} w_{ij}\,(1-v_i\!\cdot\!v_j), \quad \|v_i\|=1.$$
+<p>This is an SDP in the Gram matrix $X_{ij}=v_i\!\cdot\!v_j$ with $X\succeq 0$, $\mathrm{diag}(X)=1$. After solving, round via a uniformly random hyperplane: set $y_i=\mathrm{sign}(\langle v_i, r\rangle)$ for $r\sim\mathcal{N}(0,I)$. The expected cut weight is at least</p>
+$$\alpha_{\mathrm{GW}} \;=\; \min_{\theta\in[0,\pi]} \frac{\theta/\pi}{(1-\cos\theta)/2} \;\approx\; 0.87856\ldots$$
+<p>times the SDP optimum — and under the Unique Games Conjecture this constant is the best polynomial-time approximation possible.</p>
+
+<div class="widget" id="cv-w-gw">
+  <div class="hd"><div class="ttl">Goemans–Williamson rounding</div><div class="hint">drag a hyperplane · cut a configuration of unit vectors</div></div>
+  <svg id="cv-gw-svg" viewBox="0 0 580 320" width="580" height="320"><title>Five unit vectors on a circle; a rotatable random hyperplane partitions them; resulting cut weight reported.</title></svg>
+  <div class="row">
+    <label for="cv-gw-phi">hyperplane angle $\varphi$</label>
+    <input type="range" id="cv-gw-phi" min="0" max="360" step="1" value="40">
+    <span class="readout" id="cv-gw-phi-out" style="min-width:90px;flex:0 0 auto">φ = 40°</span>
+  </div>
+  <div class="row">
+    <label for="cv-gw-samples">random samples $N$</label>
+    <input type="range" id="cv-gw-samples" min="100" max="5000" step="100" value="1000">
+    <span class="readout" id="cv-gw-samples-out" style="min-width:90px;flex:0 0 auto">N = 1000</span>
+  </div>
+  <div class="readout" id="cv-gw-out"></div>
+  <div class="note small">A 5-cycle in 2D: SDP relaxation places vectors at angles $0,72,144,216,288°$. Pick a hyperplane normal $r$ at angle $\varphi$ and partition vertices by $\mathrm{sign}(v_i\!\cdot\! r)$. Cut weight = sum of $w_{ij}$ over edges $(i,j)$ separated by the hyperplane. Re-sampling many random $r$ approximates the GW expectation. The $0.878\ldots$ guarantee is the worst-case ratio between this expected cut and the SDP relaxation value.</div>
+</div>
+<script>
+/* ============================ §4 GW rounding widget ============================ */
+(function(){
+  const svg=$("#cv-gw-svg"), PH=$("#cv-gw-phi"), PHO=$("#cv-gw-phi-out"),
+        NS=$("#cv-gw-samples"), NSO=$("#cv-gw-samples-out"), out=$("#cv-gw-out");
+  const W=580,H=320,cx=290,cy=160,R=110;
+  // 5-cycle: edges between consecutive vertices, all weight 1
+  const n=5;
+  const vert = []; for(let i=0;i<n;i++){ const a = 2*Math.PI*i/n; vert.push([Math.cos(a), Math.sin(a)]); }
+  const edges = []; for(let i=0;i<n;i++) edges.push([i,(i+1)%n]);
+  function sdpValue(){
+    // SDP relaxation objective: sum (1 - v_i·v_j)/2 over edges
+    let s=0;
+    for(const [i,j] of edges){
+      s += (1 - (vert[i][0]*vert[j][0] + vert[i][1]*vert[j][1]))/2;
+    }
+    return s;
+  }
+  function cutOnce(phi){
+    // r = (cos phi, sin phi); cut count = number of edges (i,j) with sign(v_i·r) != sign(v_j·r)
+    const r=[Math.cos(phi),Math.sin(phi)];
+    let c=0;
+    for(const [i,j] of edges){
+      const s1=vert[i][0]*r[0]+vert[i][1]*r[1];
+      const s2=vert[j][0]*r[0]+vert[j][1]*r[1];
+      if((s1>=0)!==(s2>=0)) c++;
+    }
+    return c;
+  }
+  function expectedCut(N){
+    let s=0;
+    for(let k=0;k<N;k++){
+      s += cutOnce(Math.random()*2*Math.PI);
+    }
+    return s/N;
+  }
+  function render(){
+    svg.innerHTML="";
+    const phi=parseFloat(PH.value)*Math.PI/180;
+    const N=parseInt(NS.value,10);
+    PHO.textContent=`φ = ${(phi*180/Math.PI).toFixed(0)}°`;
+    NSO.textContent=`N = ${N}`;
+    // circle
+    svg.appendChild(SVG("circle",{cx,cy,r:R,fill:"none",stroke:"var(--line)","stroke-width":1.2}));
+    // hyperplane (a line through origin perpendicular to r)
+    const r=[Math.cos(phi),Math.sin(phi)];
+    const t=[-r[1],r[0]];
+    svg.appendChild(SVG("line",{x1:cx-t[0]*R*1.4,y1:cy+t[1]*R*1.4,x2:cx+t[0]*R*1.4,y2:cy-t[1]*R*1.4,stroke:"var(--cyan)","stroke-width":1.8,"stroke-dasharray":"5,4"}));
+    // r arrow
+    ensureArrow(svg,"gw-arr","var(--cyan)");
+    svg.appendChild(SVG("line",{x1:cx,y1:cy,x2:cx+r[0]*40,y2:cy-r[1]*40,stroke:"var(--cyan)","stroke-width":1.5,"marker-end":"url(#gw-arr)"}));
+    // edges, colored by cut status
+    for(const [i,j] of edges){
+      const s1=vert[i][0]*r[0]+vert[i][1]*r[1];
+      const s2=vert[j][0]*r[0]+vert[j][1]*r[1];
+      const cut=((s1>=0)!==(s2>=0));
+      svg.appendChild(SVG("line",{
+        x1:cx+vert[i][0]*R,y1:cy-vert[i][1]*R,
+        x2:cx+vert[j][0]*R,y2:cy-vert[j][1]*R,
+        stroke:cut?"var(--yellow)":"var(--mute)","stroke-width":cut?2.2:1.4
+      }));
+    }
+    // vertices, colored by side
+    for(let i=0;i<n;i++){
+      const s=vert[i][0]*r[0]+vert[i][1]*r[1];
+      svg.appendChild(SVG("circle",{cx:cx+vert[i][0]*R,cy:cy-vert[i][1]*R,r:7,fill:s>=0?"var(--pink)":"var(--green)",stroke:"var(--ink)","stroke-width":1}));
+      svg.appendChild(SVG("text",{x:cx+vert[i][0]*R*1.18,y:cy-vert[i][1]*R*1.18+4,"text-anchor":"middle","font-size":11,fill:"var(--ink)"})).textContent=String(i+1);
+    }
+    // stats
+    const sdp=sdpValue();
+    const oneCut=cutOnce(phi);
+    const exp=expectedCut(N);
+    const ratio=exp/sdp;
+    // legend in viewport coords
+    const lg=SVG("text",{x:20,y:24,"font-size":11,fill:"var(--cyan)"}); lg.textContent="hyperplane r (cyan dashed)"; svg.appendChild(lg);
+    const lg2=SVG("text",{x:20,y:40,"font-size":11,fill:"var(--yellow)"}); lg2.textContent="cut edges (yellow)"; svg.appendChild(lg2);
+    const lg3=SVG("text",{x:20,y:56,"font-size":11,fill:"var(--pink)"}); lg3.textContent="side +1 (pink)"; svg.appendChild(lg3);
+    const lg4=SVG("text",{x:20,y:72,"font-size":11,fill:"var(--green)"}); lg4.textContent="side -1 (green)"; svg.appendChild(lg4);
+    out.textContent = `SDP value = ${sdp.toFixed(3)}    this hyperplane cuts ${oneCut} / ${edges.length} edges    expected cut over ${N} random samples = ${exp.toFixed(3)}    ratio ≈ ${ratio.toFixed(3)}  (GW guarantee: ≥ 0.878)`;
+  }
+  PH.addEventListener("input",render);
+  NS.addEventListener("input",render);
+  render();
+})();
+</script>
+
+<div class="quiz" data-concept="co-conic-sdp"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./convex-optimization.html#interior-point">Convex optimization</a> · Interior-point methods and self-concordance</div>
+</aside>
+<!-- backlinks-auto-end -->
+</section>
+
+<section id="gradient-proximal">
+<h2>5. Gradient and proximal methods</h2>
+
+<p>For smooth convex $f$ with $L$-Lipschitz gradient, the basic <strong>gradient descent</strong> iteration $x_{k+1}=x_k-\alpha\,\nabla f(x_k)$ with $\alpha=1/L$ satisfies</p>
+$$f(x_k) - f^* \;\le\; \frac{L\,\|x_0-x^*\|^2}{2k} \;=\; O(1/k).$$
+<p>Adding <strong>strong convexity</strong> ($f-\tfrac{\mu}{2}\|x\|^2$ still convex) tightens this to geometric $O((1-\mu/L)^k)$. The condition number $\kappa=L/\mu$ controls the rate.</p>
+
+<p><strong>Nesterov's accelerated gradient</strong> (1983) introduces an extrapolation step</p>
+$$y_k = x_k + \tfrac{k-1}{k+2}(x_k - x_{k-1}), \qquad x_{k+1} = y_k - \alpha\,\nabla f(y_k),$$
+<p>and achieves $f(x_k)-f^* = O(1/k^2)$, matching the Nemirovski–Yudin lower bound for first-order methods on smooth convex problems. The momentum coefficient $\tfrac{k-1}{k+2}\to 1$ as $k\to\infty$; Nesterov-style methods "remember" past directions and ride them.</p>
+
+<h3>Proximal operators for non-smooth pieces</h3>
+<p>Many problems split as $\min f(x)+g(x)$ with $f$ smooth and $g$ non-smooth (e.g. $\|x\|_1$, an indicator of a constraint set, a nuclear norm). The <strong>proximal operator</strong></p>
+$$\mathrm{prox}_{\alpha g}(y) \;=\; \arg\min_x \Bigl\{ g(x) + \tfrac{1}{2\alpha}\,\|x-y\|^2 \Bigr\}$$
+<p>steps in $y$ as if $g=0$, then resolves $g$ exactly. The composite step</p>
+$$x_{k+1} \;=\; \mathrm{prox}_{\alpha g}\bigl(x_k - \alpha\nabla f(x_k)\bigr)$$
+<p>is the <strong>proximal gradient method</strong> (ISTA); accelerating it with Nesterov momentum gives FISTA, the workhorse of large-scale $\ell_1$-regularised regression. For $g=\lambda\|x\|_1$ the prox is component-wise <em>soft-thresholding</em>: $\mathrm{prox}_{\alpha\lambda\|\cdot\|_1}(y)_i = \mathrm{sign}(y_i)\,\max(|y_i|-\alpha\lambda, 0)$.</p>
+
+<div class="widget" id="cv-w-rates"></div>
+<script>
+(function(){
+  if(!window.MVInlineCodeCell) return;
+  MVInlineCodeCell.init('#cv-w-rates', {
+    title: "Compare gradient descent vs Nesterov acceleration",
+    hint: "Run a side-by-side sweep on a 2D ill-conditioned quadratic",
+    initialCode: "// Minimise f(x,y) = 0.5*(x^2 + 100*y^2)\n// Gradient = (x, 100y). Lipschitz constant L = 100.\nconst L = 100, alpha = 1/L;\nconst N = 80;\n\nfunction gd(x0, y0){\n  let x=x0, y=y0;\n  const hist = [];\n  for(let k=0;k<N;k++){\n    const f = 0.5*(x*x + 100*y*y);\n    hist.push(f);\n    x = x - alpha*x;\n    y = y - alpha*(100*y);\n  }\n  return hist;\n}\n\nfunction nesterov(x0, y0){\n  let x=x0, y=y0, xp=x0, yp=y0;\n  const hist = [];\n  for(let k=0;k<N;k++){\n    const beta = k/(k+3);\n    const ux = x + beta*(x-xp), uy = y + beta*(y-yp);\n    xp=x; yp=y;\n    x = ux - alpha*ux;\n    y = uy - alpha*(100*uy);\n    hist.push(0.5*(x*x + 100*y*y));\n  }\n  return hist;\n}\n\nconst g = gd(1, 1);\nconst n = nesterov(1, 1);\nconsole.log('iter  GD                NAG');\nfor(let k of [0,5,10,20,40,79]){\n  console.log(k.toString().padStart(4) + '  ' + g[k].toExponential(3) + '   ' + n[k].toExponential(3));\n}\nconsole.log('\\nAfter 80 iterations:');\nconsole.log('  GD          : ' + g[N-1].toExponential(3));\nconsole.log('  Nesterov NAG: ' + n[N-1].toExponential(3));\nconsole.log('  ratio       : ' + (g[N-1]/n[N-1]).toFixed(1) + 'x');",
+    prelude: "math",
+    rows: 14,
+  });
+})();
+</script>
+
+<div class="quiz" data-concept="co-gradient-proximal"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./convex-optimization.html#stochastic-online">Convex optimization</a> · Stochastic and online convex optimization</div>
+</aside>
+<!-- backlinks-auto-end -->
+</section>
+
+<section id="interior-point">
+<h2>6. Interior-point methods and self-concordance</h2>
+
+<p>Interior-point methods (IPMs) solve $\min f(x)$ s.t. $x\in K$ by replacing the cone constraint with a barrier $B\colon\mathrm{int}\,K\to\mathbb{R}$ that diverges on $\partial K$, and minimising the perturbed problem</p>
+$$\min_x \;f(x) + \mu\,B(x)$$
+<p>at a sequence of barrier parameters $\mu\downarrow 0$. The minimisers $x(\mu)$ form a smooth <strong>central path</strong> in $\mathrm{int}\,K$ that converges to the constrained optimum. Newton's method, started at $x(\mu)$, finds $x(\mu')$ for the next barrier value in a small number of damped Newton steps — and that's where the polynomial-time guarantee comes from.</p>
+
+<p>The classical examples:</p>
+<ul>
+  <li><strong>Log-barrier on $\mathbb{R}^n_+$:</strong> $B(x) = -\sum_{i=1}^n \log x_i$. Self-concordance parameter $\nu = n$.</li>
+  <li><strong>Lorentz cone $\mathcal{L}^n$:</strong> $B(x,t) = -\log(t^2 - \|x\|^2)$. $\nu = 2$.</li>
+  <li><strong>PSD cone $\mathbb{S}^n_+$:</strong> $B(X) = -\log\det X$. $\nu = n$.</li>
+</ul>
+
+<p>The structural condition that makes Newton's method work uniformly is <strong>self-concordance</strong> (Nesterov–Nemirovski): in one variable,</p>
+$$|\phi'''(x)| \;\le\; 2\,\phi''(x)^{3/2},$$
+<p>which makes the Newton decrement $\lambda(x)=\sqrt{\nabla\phi(x)^\top \nabla^2\phi(x)^{-1}\nabla\phi(x)}$ an affine-invariant measure of nearness-to-optimum. Damped Newton converges quadratically once $\lambda(x)<1/4$, and an outer loop on $\mu$ achieves $\varepsilon$-accuracy in $O(\sqrt{\nu}\,\log(1/\varepsilon))$ iterations. This is why LP, QP, SOCP, and SDP are all polynomial-time.</p>
+
+<div class="widget" id="cv-w-central">
+  <div class="hd"><div class="ttl">Central path of a tiny LP</div><div class="hint">drag $\mu$ · watch the path trace toward the LP optimum</div></div>
+  <svg id="cv-cp-svg" viewBox="0 0 580 320" width="580" height="320"><title>Triangular LP feasible region; central path traced by minimisers of the log-barrier as μ decreases.</title></svg>
+  <div class="row">
+    <label for="cv-cp-mu">barrier $\mu$</label>
+    <input type="range" id="cv-cp-mu" min="-3" max="1" step="0.05" value="0">
+    <span class="readout" id="cv-cp-mu-out" style="min-width:120px;flex:0 0 auto">μ = 1.00 (10^0.00)</span>
+  </div>
+  <div class="readout" id="cv-cp-out"></div>
+  <div class="note small">Problem: $\min -x_1 - x_2$ s.t. $x_1+x_2\le 1$, $x_1\ge 0$, $x_2\ge 0$. Log-barrier $B(x)=-\log x_1-\log x_2-\log(1-x_1-x_2)$; minimisers of $-x_1-x_2 + \mu B$ trace the central path. As $\mu\downarrow 0$ the path bends toward the optimum vertex $(1,0)$ or $(0,1)$ — actually toward the analytic centre of the optimal face, and along the edge to $(1,0)$ since both give the same optimum (degenerate). Each iterate is a Newton-style solve at fixed $\mu$.</div>
+</div>
+<script>
+/* ============================ §6 central path widget ============================ */
+(function(){
+  const svg=$("#cv-cp-svg"), MS=$("#cv-cp-mu"), MO=$("#cv-cp-mu-out"), out=$("#cv-cp-out");
+  const W=580,H=320,padL=60,padR=20,padT=20,padB=40;
+  // Problem: max x1+x2 s.t. x1+x2<=1, x1,x2>=0. Optimum any point on the edge x1+x2=1.
+  // Use objective: min -x1 - 0.95 x2 (slight perturbation so optimum is (1,0) uniquely)
+  // Barrier: -log x1 - log x2 - log(1-x1-x2)
+  // Stationarity: -1 + mu*(-1/x1 + 1/(1-x1-x2)) = 0;  -0.95 + mu*(-1/x2 + 1/(1-x1-x2)) = 0
+  // i.e. 1/(1-x1-x2) - 1/x1 = 1/mu;  and  1/(1-x1-x2) - 1/x2 = 0.95/mu.
+  function centralPoint(mu){
+    // Solve by Newton on the two equations. Variables: x1, x2.
+    let x1=0.33, x2=0.33;
+    for(let it=0;it<200;it++){
+      const s = 1 - x1 - x2; if(s<1e-6||x1<1e-6||x2<1e-6) break;
+      const f1 = 1/s - 1/x1 - 1/mu;
+      const f2 = 1/s - 1/x2 - 0.95/mu;
+      const ds_dx1 = -1, ds_dx2 = -1;
+      // d/dx1 of (1/s - 1/x1) = -ds_dx1/s^2 + 1/x1^2 = 1/s^2 + 1/x1^2
+      const J11 = 1/(s*s) + 1/(x1*x1);
+      const J12 = 1/(s*s);
+      const J21 = 1/(s*s);
+      const J22 = 1/(s*s) + 1/(x2*x2);
+      const det = J11*J22 - J12*J21;
+      const dx1 = ( J22*f1 - J12*f2)/det;
+      const dx2 = (-J21*f1 + J11*f2)/det;
+      let step=1;
+      while((x1-step*dx1)<1e-6 || (x2-step*dx2)<1e-6 || (1-(x1-step*dx1)-(x2-step*dx2))<1e-6) step*=0.5;
+      x1 -= step*dx1; x2 -= step*dx2;
+      if(Math.abs(dx1)+Math.abs(dx2)<1e-10) break;
+    }
+    return [x1,x2];
+  }
+  function render(){
+    svg.innerHTML="";
+    const muExp=parseFloat(MS.value); const mu=Math.pow(10,muExp);
+    MO.textContent=`μ = ${mu.toFixed(3)} (10^${muExp.toFixed(2)})`;
+    const xmin=-0.05,xmax=1.1,ymin=-0.05,ymax=1.1;
+    const sx=x=>padL+(x-xmin)/(xmax-xmin)*(W-padL-padR);
+    const sy=y=>padT+(ymax-y)/(ymax-ymin)*(H-padT-padB);
+    // frame
+    svg.appendChild(SVG("rect",{x:padL,y:padT,width:W-padL-padR,height:H-padT-padB,fill:"none",stroke:"var(--line)"}));
+    // axes
+    svg.appendChild(SVG("line",{x1:padL,y1:sy(0),x2:W-padR,y2:sy(0),stroke:"var(--mute)","stroke-width":1}));
+    svg.appendChild(SVG("line",{x1:sx(0),y1:padT,x2:sx(0),y2:H-padB,stroke:"var(--mute)","stroke-width":1}));
+    svg.appendChild(SVG("text",{x:W-padR-6,y:sy(0)-6,"text-anchor":"end","font-size":11,fill:"var(--mute)"})).textContent="x₁";
+    svg.appendChild(SVG("text",{x:sx(0)+6,y:padT+12,"font-size":11,fill:"var(--mute)"})).textContent="x₂";
+    // feasible triangle
+    const tri=[[0,0],[1,0],[0,1]];
+    svg.appendChild(SVG("polygon",{points:tri.map(p=>`${sx(p[0])},${sy(p[1])}`).join(" "),fill:"var(--violet)","fill-opacity":0.1,stroke:"var(--violet)","stroke-width":1.4}));
+    // level sets of objective -x1 - 0.95 x2
+    for(let k=-5;k<=10;k++){
+      const v=k*0.1;
+      // line -x1 - 0.95 x2 = -v → x2 = (v - x1)/0.95
+      const x1a=-0.05, x2a=(v-x1a)/0.95;
+      const x1b=1.1,  x2b=(v-x1b)/0.95;
+      svg.appendChild(SVG("line",{x1:sx(x1a),y1:sy(x2a),x2:sx(x1b),y2:sy(x2b),stroke:"var(--cyan)","stroke-opacity":0.18,"stroke-width":1,"stroke-dasharray":"3,4"}));
+    }
+    // central path: sample at many mu values
+    const path=[];
+    for(let m=-3;m<=2;m+=0.05){
+      const muu=Math.pow(10,m);
+      const p=centralPoint(muu);
+      path.push(p);
+    }
+    const d=path.map((p,i)=>`${i===0?"M":"L"}${sx(p[0])} ${sy(p[1])}`).join(" ");
+    svg.appendChild(SVG("path",{d,fill:"none",stroke:"var(--yellow)","stroke-width":2}));
+    // current point
+    const cur=centralPoint(mu);
+    svg.appendChild(SVG("circle",{cx:sx(cur[0]),cy:sy(cur[1]),r:6,fill:"var(--pink)",stroke:"var(--ink)","stroke-width":1.2}));
+    // optimum
+    svg.appendChild(SVG("circle",{cx:sx(1),cy:sy(0),r:4.5,fill:"var(--green)"}));
+    svg.appendChild(SVG("text",{x:sx(1)+8,y:sy(0)+4,"font-size":11,fill:"var(--green)"})).textContent="optimum (1,0)";
+    // legend
+    const lg=SVG("text",{x:padL+10,y:padT+18,"font-size":11,fill:"var(--yellow)"}); lg.textContent="central path x(μ)"; svg.appendChild(lg);
+    const lg2=SVG("text",{x:padL+10,y:padT+34,"font-size":11,fill:"var(--pink)"}); lg2.textContent="current x(μ) at slider value"; svg.appendChild(lg2);
+    const lg3=SVG("text",{x:padL+10,y:padT+50,"font-size":11,fill:"var(--cyan)"}); lg3.textContent="level sets of objective"; svg.appendChild(lg3);
+    out.textContent = `μ = ${mu.toExponential(2)}    x(μ) ≈ (${cur[0].toFixed(4)}, ${cur[1].toFixed(4)})    objective ≈ ${(-cur[0]-0.95*cur[1]).toFixed(4)}    LP optimum: (1, 0), value -1.0`;
+  }
+  MS.addEventListener("input",render);
+  render();
+})();
+</script>
+
+<div class="quiz" data-concept="co-interior-point"></div>
+</section>
+
+<section id="stochastic-online">
+<h2>7. Stochastic and online convex optimization</h2>
+
+<p>When the objective is an expectation $f(x)=\mathbb{E}_\xi[F(x,\xi)]$ — e.g. an average loss over a giant training set — full-batch gradients become prohibitive. <strong>Stochastic gradient descent</strong> replaces $\nabla f$ with an unbiased estimate $\hat g_k$ (one sample, one mini-batch):</p>
+$$x_{k+1} \;=\; x_k - \alpha_k\,\hat g_k, \qquad \mathbb{E}[\hat g_k\mid x_k] = \nabla f(x_k).$$
+<p>For convex Lipschitz objectives, SGD with step $\alpha_k=O(1/\sqrt{k})$ and Polyak averaging $\bar x_T = \tfrac{1}{T}\sum x_k$ achieves</p>
+$$\mathbb{E}\bigl[f(\bar x_T)\bigr] - f^* \;=\; O(1/\sqrt{T}),$$
+<p><strong>independent of dimension</strong> $n$ — the magic that powers modern machine learning.</p>
+
+<h3>Online convex optimization and regret</h3>
+<p>The online version: an adversary picks a convex loss $\ell_t$ at each round; the player commits to $x_t$ before seeing $\ell_t$; the goal is to make</p>
+$$R_T \;=\; \sum_{t=1}^T \ell_t(x_t) - \min_{x\in C}\sum_{t=1}^T \ell_t(x)$$
+<p>(the <strong>regret</strong> versus the best fixed action in hindsight) grow sublinearly. <strong>Online gradient descent</strong> $x_{t+1}=\Pi_C(x_t-\alpha\nabla\ell_t(x_t))$ achieves $R_T = O(\sqrt{T})$ — the analogue of SGD's bound for adversarial losses.</p>
+
+<h3>Mirror descent and the entropy regulariser</h3>
+<p><strong>Mirror descent</strong> replaces the Euclidean projection step with a <strong>Bregman divergence</strong>:</p>
+$$x_{t+1} \;=\; \arg\min_{x\in C} \Bigl\{ \langle\nabla\ell_t(x_t),x\rangle + \tfrac{1}{\alpha}\,D_\psi(x, x_t) \Bigr\}, \qquad D_\psi(x,y)=\psi(x)-\psi(y)-\langle\nabla\psi(y),x-y\rangle$$
+<p>for a strongly convex regulariser $\psi$. Two important instances:</p>
+<ul>
+  <li>$\psi(x)=\tfrac{1}{2}\|x\|_2^2$: $D_\psi(x,y)=\tfrac{1}{2}\|x-y\|^2$ — recovers online gradient descent, regret $O(\sqrt{T})$ with dimension factor $\sqrt{n}$.</li>
+  <li>$\psi(x)=\sum x_i\log x_i$ on the simplex $\Delta_n$: $D_\psi$ is the KL divergence; the update becomes the <em>multiplicative-weights</em> / <em>exponentiated-gradient</em> rule $x_{t+1,i}\propto x_{t,i}\,e^{-\alpha\nabla\ell_t(x_t)_i}$ — regret $O(\sqrt{T\log n})$, <em>exponentially</em> better in $n$.</li>
+</ul>
+
+<p>Choosing the regulariser to match the geometry of the feasible set is the central design move of mirror descent — and the reason boosting, multiplicative weights, follow-the-regularised-leader, and a dozen other algorithms all sit under one analytic umbrella.</p>
+
+<div class="widget" id="cv-w-sgd">
+  <div class="hd"><div class="ttl">SGD vs full gradient on a noisy quadratic</div><div class="hint">drag noise · drag step size · watch the trajectory wander</div></div>
+  <svg id="cv-sgd-svg" viewBox="0 0 580 320" width="580" height="320"><title>Two trajectories descending a quadratic bowl: deterministic gradient descent vs noisy SGD; trajectories shown over a level-set background.</title></svg>
+  <div class="row">
+    <label for="cv-sgd-sigma">noise $\sigma$</label>
+    <input type="range" id="cv-sgd-sigma" min="0" max="2" step="0.05" value="0.6">
+    <span class="readout" id="cv-sgd-sigma-out" style="min-width:90px;flex:0 0 auto">σ = 0.60</span>
+  </div>
+  <div class="row">
+    <label for="cv-sgd-alpha">step $\alpha$</label>
+    <input type="range" id="cv-sgd-alpha" min="0.005" max="0.2" step="0.005" value="0.05">
+    <span class="readout" id="cv-sgd-alpha-out" style="min-width:90px;flex:0 0 auto">α = 0.050</span>
+  </div>
+  <div class="row">
+    <button id="cv-sgd-resample">resample</button>
+  </div>
+  <div class="readout" id="cv-sgd-out"></div>
+  <div class="note small">$f(x,y)=\tfrac{1}{2}(x^2 + 2y^2)$, started at $(2,2)$. <em>Yellow</em> curve: deterministic GD with the chosen step. <em>Pink</em> curve: SGD with $\nabla f$ corrupted by zero-mean Gaussian noise of std $\sigma$ per coordinate per step. As $\sigma\to 0$, SGD converges to the optimum; with constant step and finite $\sigma$, SGD bounces around in a noise ball of size $O(\sigma\sqrt{\alpha})$. Decreasing step sizes $\alpha_k\propto 1/\sqrt{k}$ recover the $O(1/\sqrt{T})$ averaged-iterate rate.</div>
+</div>
+<script>
+/* ============================ §7 SGD widget ============================ */
+(function(){
+  const svg=$("#cv-sgd-svg"), SS=$("#cv-sgd-sigma"), SO=$("#cv-sgd-sigma-out"),
+        AS=$("#cv-sgd-alpha"), AO=$("#cv-sgd-alpha-out"), RB=$("#cv-sgd-resample"), out=$("#cv-sgd-out");
+  const W=580,H=320,padL=46,padR=20,padT=20,padB=40;
+  function gauss(){
+    let u=0,v=0; while(u===0)u=Math.random(); while(v===0)v=Math.random();
+    return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v);
+  }
+  let seed=0;
+  function gaussSeeded(){
+    // simple LCG-driven gaussian for reproducibility per-render
+    seed=(1664525*seed+1013904223)>>>0;
+    const u1=(seed||1)/0xffffffff;
+    seed=(1664525*seed+1013904223)>>>0;
+    const u2=(seed||1)/0xffffffff;
+    return Math.sqrt(-2*Math.log(u1))*Math.cos(2*Math.PI*u2);
+  }
+  let resampleSeed=42;
+  function run(sigma, alpha){
+    const N=120;
+    const gd=[[2,2]], sgd=[[2,2]];
+    let x=2,y=2;
+    for(let k=0;k<N;k++){
+      x -= alpha*x;
+      y -= alpha*2*y;
+      gd.push([x,y]);
+    }
+    seed=resampleSeed;
+    let xs=2,ys=2;
+    for(let k=0;k<N;k++){
+      const gx = xs + sigma*gaussSeeded();
+      const gy = 2*ys + sigma*gaussSeeded();
+      xs -= alpha*gx;
+      ys -= alpha*gy;
+      sgd.push([xs,ys]);
+    }
+    return {gd,sgd};
+  }
+  function render(){
+    svg.innerHTML="";
+    const sigma=parseFloat(SS.value), alpha=parseFloat(AS.value);
+    SO.textContent=`σ = ${sigma.toFixed(2)}`;
+    AO.textContent=`α = ${alpha.toFixed(3)}`;
+    const xmin=-2.5,xmax=2.5,ymin=-2.5,ymax=2.5;
+    const sx=u=>padL+(u-xmin)/(xmax-xmin)*(W-padL-padR);
+    const sy=v=>padT+(ymax-v)/(ymax-ymin)*(H-padT-padB);
+    svg.appendChild(SVG("rect",{x:padL,y:padT,width:W-padL-padR,height:H-padT-padB,fill:"none",stroke:"var(--line)"}));
+    // axes
+    svg.appendChild(SVG("line",{x1:padL,y1:sy(0),x2:W-padR,y2:sy(0),stroke:"var(--line)","stroke-dasharray":"2,3"}));
+    svg.appendChild(SVG("line",{x1:sx(0),y1:padT,x2:sx(0),y2:H-padB,stroke:"var(--line)","stroke-dasharray":"2,3"}));
+    // level sets of 0.5*(x^2 + 2y^2)
+    for(const r of [0.2, 0.5, 1, 2, 4]){
+      // ellipse x^2 + 2y^2 = 2r → rx = sqrt(2r), ry = sqrt(r)
+      const rx=Math.sqrt(2*r), ry=Math.sqrt(r);
+      svg.appendChild(SVG("ellipse",{cx:sx(0),cy:sy(0),
+        rx:rx/(xmax-xmin)*(W-padL-padR), ry:ry/(ymax-ymin)*(H-padT-padB),
+        fill:"none",stroke:"var(--cyan)","stroke-opacity":0.25,"stroke-width":1,"stroke-dasharray":"3,4"}));
+    }
+    const {gd,sgd} = run(sigma, alpha);
+    // GD path
+    const dGD=gd.map((p,i)=>`${i===0?"M":"L"}${sx(p[0])} ${sy(p[1])}`).join(" ");
+    svg.appendChild(SVG("path",{d:dGD,fill:"none",stroke:"var(--yellow)","stroke-width":1.8}));
+    // SGD path
+    const dS=sgd.map((p,i)=>`${i===0?"M":"L"}${sx(p[0])} ${sy(p[1])}`).join(" ");
+    svg.appendChild(SVG("path",{d:dS,fill:"none",stroke:"var(--pink)","stroke-width":1.4,"stroke-opacity":0.85}));
+    // markers
+    svg.appendChild(SVG("circle",{cx:sx(2),cy:sy(2),r:5,fill:"var(--violet)"}));
+    svg.appendChild(SVG("text",{x:sx(2)+8,y:sy(2)-4,"font-size":11,fill:"var(--violet)"})).textContent="x₀ = (2,2)";
+    svg.appendChild(SVG("circle",{cx:sx(0),cy:sy(0),r:4,fill:"var(--green)"}));
+    // legend
+    const lg=SVG("text",{x:padL+10,y:padT+18,"font-size":11,fill:"var(--yellow)"}); lg.textContent="GD (deterministic)"; svg.appendChild(lg);
+    const lg2=SVG("text",{x:padL+10,y:padT+34,"font-size":11,fill:"var(--pink)"}); lg2.textContent="SGD (noisy gradient)"; svg.appendChild(lg2);
+    const lg3=SVG("text",{x:padL+10,y:padT+50,"font-size":11,fill:"var(--cyan)"}); lg3.textContent="level sets of f(x,y)"; svg.appendChild(lg3);
+    const fGD = 0.5*(gd[gd.length-1][0]**2 + 2*gd[gd.length-1][1]**2);
+    const fSGD = 0.5*(sgd[sgd.length-1][0]**2 + 2*sgd[sgd.length-1][1]**2);
+    out.textContent = `after 120 steps:    GD f = ${fGD.toExponential(2)}    SGD f = ${fSGD.toExponential(2)}    noise ball radius ≈ σ√α = ${(sigma*Math.sqrt(alpha)).toFixed(3)}`;
+  }
+  RB.addEventListener("click",()=>{ resampleSeed = Math.floor(Math.random()*1e9); render(); });
+  SS.addEventListener("input",render);
+  AS.addEventListener("input",render);
+  render();
+})();
+</script>
+
+<div class="quiz" data-concept="co-stochastic-online"></div>
+</section>
+
+<section id="connections">
+<h2>8. Connections</h2>
+
+<p>Convex optimization sits at the geometric centre of modern applied mathematics: <em>any</em> problem with a convex relaxation gets a polynomial-time solver and a duality-based bound on the gap to the original. The active research frontier moves outward — beyond convexity (non-convex landscapes with benign geometry: deep networks, low-rank matrix recovery, phase retrieval), beyond first-order (variance-reduced SGD, second-order stochastic methods, distributed and federated optimisation), and beyond static optimization (online learning, control as optimisation, optimal transport as an LP on probability measures).</p>
+
+<ul>
+  <li><a href="./combinatorial-optimization.html#duality">Combinatorial optimization — LP duality</a> — the discrete analogue: TU constraint matrices make the LP relaxation integer-optimal, and SDP relaxations like Goemans–Williamson lift this to NP-hard problems.</li>
+  <li><a href="./optimal-control-and-dynamic-programming.html#pontryagin">Optimal control — Pontryagin's maximum principle</a> — the same Lagrangian / Hamiltonian structure runs in continuous time, with the co-state $\lambda(t)$ playing the role of a multiplier on the dynamical constraint $\dot x = f(x,u)$.</li>
+  <li><a href="./mathematical-finance.html#merton-portfolio">Mathematical finance — Merton portfolio</a> — utility maximisation under stochastic dynamics; the HJB equation is an infinite-dimensional analogue of the KKT stationarity condition.</li>
+  <li><a href="./variational-methods.html#vm-euler-lagrange">Variational methods — Euler–Lagrange</a> — the calculus of variations is convex optimization on function spaces; coercivity and lower semicontinuity replace boundedness and continuity, but the duality theme survives via Fenchel–Rockafellar.</li>
+  <li><a href="./functional-analysis.html#krein-milman">Functional analysis — Krein–Milman</a> — the Hahn–Banach separation theorem is the analytic source of every supporting-hyperplane argument; LP / SOCP / SDP duality is its finite-dimensional shadow.</li>
+  <li><a href="./information-theory.html">Information theory</a> — entropy is the Legendre conjugate of the log-moment-generating function; relative entropy is a Bregman divergence; the Csiszár–Sanov picture and large-deviations rate functions are convex-analytic to their core.</li>
+</ul>
+</section>
+
+</main>
+
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('convex-optimization'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+})();
+</script>
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-05-13</td><td>initial version</td></tr>
+    </tbody>
+  </table>
+</details>
+
+</body>
+</html>
