@@ -65,6 +65,7 @@ const SECTIONS = [
   'Algebraic geometry',
   'Combinatorics & graph theory',
   'Mathematical physics',
+  'Control theory & optimization',
 ];
 
 // Per-section default card color palette for the placeholder thumb. The
@@ -85,6 +86,7 @@ const SECTION_PALETTE = new Map([
   ['Algebraic geometry',           { klass: 'g', cssVar: '--green'  }],
   ['Mathematical physics',         { klass: 'p', cssVar: '--pink'   }],
   ['Combinatorics & graph theory', { klass: 'v', cssVar: '--violet' }],
+  ['Control theory & optimization', { klass: 'p', cssVar: '--pink'  }],
 ]);
 
 // Accept shorthand aliases for convenience. Map them to the canonical name.
@@ -126,6 +128,13 @@ const SECTION_ALIASES = new Map([
   ['mathematical physics', 'Mathematical physics'],
   ['math-physics', 'Mathematical physics'],
   ['physics', 'Mathematical physics'],
+  ['control', 'Control theory & optimization'],
+  ['control-theory', 'Control theory & optimization'],
+  ['control theory', 'Control theory & optimization'],
+  ['control-theory-and-optimization', 'Control theory & optimization'],
+  ['control theory & optimization', 'Control theory & optimization'],
+  ['control and optimization', 'Control theory & optimization'],
+  ['optimization', 'Control theory & optimization'],
 ]);
 
 // concepts/index.json layout: blank-line-separated groups. The first 7
@@ -135,7 +144,7 @@ const SECTION_ALIASES = new Map([
 // in one of the 7 regular sections, and if the topic is also a capstone the
 // authoring agent manually migrates it to the capstones group + adds an
 // entry to concepts/capstones.json.
-const CAPSTONES_GROUP_INDEX = 11; // 0-based, immediately after the 11 SECTIONS
+const CAPSTONES_GROUP_INDEX = 12; // 0-based, immediately after the 12 SECTIONS
 
 function usage() {
   console.error('usage: node scripts/new-topic.mjs <topic-slug> <section>');
