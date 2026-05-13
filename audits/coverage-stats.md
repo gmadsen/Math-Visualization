@@ -2,12 +2,12 @@
 
 ## Corpus totals
 
-- Topics: **185**, concepts: **1285**
-- Widgets: **1312** (registry-driven: 1312, inline: 0)
-- Quizzes: **5049** (v1: 3813, hard: 1223, expert: 13)
-- Quiz types: mcq: 3315, numeric: 1208, multi-select: 237, matching: 104, ordering: 80, spot-the-error: 51, complex: 29, proof-completion: 21, construction: 2, guess-my-rule: 2
+- Topics: **186**, concepts: **1292**
+- Widgets: **1321** (registry-driven: 1321, inline: 0)
+- Quizzes: **5070** (v1: 3834, hard: 1223, expert: 13)
+- Quiz types: mcq: 3335, numeric: 1209, multi-select: 237, matching: 104, ordering: 80, spot-the-error: 51, complex: 29, proof-completion: 21, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their section: **149**
-- Concepts lacking a hard-tier quiz: **847**
+- Concepts lacking a hard-tier quiz: **854**
 
 ## Per-slug registry adoption
 
@@ -26,13 +26,14 @@ page has wired one in yet.
 | `hamiltonians-figure` | hamiltonians-figure | interact | 2d | 6 | hamiltonians-classical-mechanics |
 | `surface-viewer` | surface-viewer | drag | 3d | 6 | differential-geometry, lie-groups |
 | `svg-illustration` | svg-illustration | static | 2d | 6 | L-functions, riemann-surfaces |
-| `inline-code-cell` | inline-code-cell | edit | 2d | 4 | analytic-number-theory, heights-arithmetic-geometry, p-adic-numbers |
+| `inline-code-cell` | inline-code-cell | edit | 2d | 5 | analytic-number-theory, heights-arithmetic-geometry, mathematical-chaos, p-adic-numbers |
 | `input-form` | input-form | input | 2d | 4 | additive-number-theory |
 | `lattice-visualizer` | lattice-visualizer | slider | 2d | 4 | elliptic-curves, modular-forms, riemann-surfaces, theta-functions |
 | `modular-arithmetic-clock` | modular-arithmetic-clock | slider | 2d | 4 | additive-number-theory, frobenius-and-reciprocity, p-adic-numbers, quadratic-reciprocity |
 | `declarative-host` | declarative-host | interactive | 2d | 3 | additive-number-theory, category-theory |
+| `proof-scrubber` | proof-scrubber | timeline | 2d | 3 | algebraic-topology, analytic-number-theory, mathematical-chaos |
 | `counterexample-explorer` | counterexample-explorer | select | 2d | 2 | heights-arithmetic-geometry, point-set-topology |
-| `proof-scrubber` | proof-scrubber | timeline | 2d | 2 | algebraic-topology, analytic-number-theory |
+| `recurrence-plotter` | recurrence-plotter | slider | 2d | 2 | dynamical-systems, mathematical-chaos |
 | `abelian-varieties-w1` | verbatim | click | 2d | 1 | abelian-varieties |
 | `abelian-varieties-w2` | verbatim | click | 2d | 1 | abelian-varieties |
 | `abelian-varieties-w3` | verbatim | click | 2d | 1 | abelian-varieties |
@@ -562,6 +563,12 @@ page has wired one in yet.
 | `mcg-w4` | verbatim | drag | 2d | 1 | mapping-class-groups |
 | `mcg-w5` | verbatim | input | 2d | 1 | mapping-class-groups |
 | `mcg-w6` | verbatim | click | 2d | 1 | mapping-class-groups |
+| `mchaos-w1` | verbatim | interactive | 2d | 1 | mathematical-chaos |
+| `mchaos-w2` | verbatim | interactive | 2d | 1 | mathematical-chaos |
+| `mchaos-w3` | verbatim | interactive | 2d | 1 | mathematical-chaos |
+| `mchaos-w4` | verbatim | interactive | 2d | 1 | mathematical-chaos |
+| `mchaos-w5` | verbatim | interactive | 2d | 1 | mathematical-chaos |
+| `mchaos-w6` | verbatim | interactive | 2d | 1 | mathematical-chaos |
 | `mf-w1` | verbatim | slider | 2d | 1 | mathematical-finance |
 | `mf-w2` | verbatim | slider | 2d | 1 | mathematical-finance |
 | `mf-w3` | verbatim | slider | 2d | 1 | mathematical-finance |
@@ -688,7 +695,6 @@ page has wired one in yet.
 | `random-walks-matrix-power` | random-walks-matrix-power | step | 2d | 1 | random-walks-and-mixing |
 | `random-walks-metropolis-hastings` | random-walks-metropolis-hastings | slider | 2d | 1 | random-walks-and-mixing |
 | `random-walks-tv-distance` | random-walks-tv-distance | slider | 2d | 1 | random-walks-and-mixing |
-| `recurrence-plotter` | recurrence-plotter | slider | 2d | 1 | dynamical-systems |
 | `resolution-ade-dynkin` | resolution-ade-dynkin | inspect | 2d | 1 | resolution-of-singularities |
 | `resolution-curve-normalization` | resolution-curve-normalization | inspect | 2d | 1 | resolution-of-singularities |
 | `resolution-cusp-node-visualizer` | resolution-cusp-node-visualizer | inspect | 2d | 1 | resolution-of-singularities |
@@ -893,13 +899,13 @@ page has wired one in yet.
 
 ### Analysis
 
-- Topics: **21**, concepts: **204**
-- Widgets: **173** (registry-driven: 173, inline: 0)
-  - by family: verbatim: 51, clickable-diagram: 41, button-stepper: 37, aca-figure: 5, numerical-fp-cancellation: 1, numerical-newton-iteration: 1, numerical-quadrature-error: 1, numerical-hilbert-conditioning: 1, numerical-ftcs-stability: 1, numerical-fem-hat-basis: 1, variational-fdiff: 1, variational-brachistochrone: 1, variational-direct-method: 1, variational-mountain-pass: 1, variational-isoperimetric: 1, variational-sphere-geodesic: 1, constraint-bifurcation-explorer: 1, recurrence-plotter: 1, julia-playground: 1, sobolev-pairing: 1, sobolev-weak-derivative: 1, sobolev-fractional-power: 1, sobolev-embedding-exponent: 1, sobolev-trace: 1, sobolev-newtonian-potential: 1, sobolev-variational: 1, harmonic-partial-sum: 1, harmonic-tent-transform: 1, harmonic-convolution: 1, harmonic-uncertainty: 1, harmonic-heat-evolution: 1, pde-classifier: 1, pde-heat-kernel: 1, pde-wave-dalembert: 1, pde-poisson-disk: 1, pde-weak-test: 1, pde-sobolev-embedding: 1, harmonic-functions-laplacian-heatmap: 1, harmonic-functions-mvp-circle: 1, harmonic-functions-maximum-locator: 1, harmonic-functions-poisson-extension: 1, harmonic-functions-harnack-corridor: 1, harmonic-functions-perron-supremum: 1
-  - by dimension: 2d: 172, 3d: 1
-  - by gesture: click: 94, slider: 60, select: 10, drag: 6, interact: 1, step: 1, static: 1
-- Quizzes: **756** (v1: 571, hard: 185, expert: 0)
-  - by type: mcq: 467, numeric: 161, multi-select: 40, matching: 29, ordering: 22, complex: 14, spot-the-error: 11, proof-completion: 10, construction: 1, guess-my-rule: 1
+- Topics: **22**, concepts: **211**
+- Widgets: **182** (registry-driven: 182, inline: 0)
+  - by family: verbatim: 57, clickable-diagram: 41, button-stepper: 37, aca-figure: 5, recurrence-plotter: 2, inline-code-cell: 1, proof-scrubber: 1, numerical-fp-cancellation: 1, numerical-newton-iteration: 1, numerical-quadrature-error: 1, numerical-hilbert-conditioning: 1, numerical-ftcs-stability: 1, numerical-fem-hat-basis: 1, variational-fdiff: 1, variational-brachistochrone: 1, variational-direct-method: 1, variational-mountain-pass: 1, variational-isoperimetric: 1, variational-sphere-geodesic: 1, constraint-bifurcation-explorer: 1, julia-playground: 1, sobolev-pairing: 1, sobolev-weak-derivative: 1, sobolev-fractional-power: 1, sobolev-embedding-exponent: 1, sobolev-trace: 1, sobolev-newtonian-potential: 1, sobolev-variational: 1, harmonic-partial-sum: 1, harmonic-tent-transform: 1, harmonic-convolution: 1, harmonic-uncertainty: 1, harmonic-heat-evolution: 1, pde-classifier: 1, pde-heat-kernel: 1, pde-wave-dalembert: 1, pde-poisson-disk: 1, pde-weak-test: 1, pde-sobolev-embedding: 1, harmonic-functions-laplacian-heatmap: 1, harmonic-functions-mvp-circle: 1, harmonic-functions-maximum-locator: 1, harmonic-functions-poisson-extension: 1, harmonic-functions-harnack-corridor: 1, harmonic-functions-perron-supremum: 1
+  - by dimension: 2d: 181, 3d: 1
+  - by gesture: click: 94, slider: 61, select: 10, interactive: 6, drag: 6, edit: 1, timeline: 1, interact: 1, step: 1, static: 1
+- Quizzes: **777** (v1: 592, hard: 185, expert: 0)
+  - by type: mcq: 487, numeric: 162, multi-select: 40, matching: 29, ordering: 22, complex: 14, spot-the-error: 11, proof-completion: 10, construction: 1, guess-my-rule: 1
 
 ### Probability & statistics
 
@@ -986,6 +992,7 @@ page has wired one in yet.
 - `random-matrix-theory` (Probability & statistics) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
 - `geometric-invariant-theory` (Algebraic geometry) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
 - `heegaard-floer` (Geometry & topology) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
+- `mathematical-chaos` (Analysis) — concepts=7, widgets=9 (slug=9), quiz=21 (v1=21, hard=0, expert=0)
 - `brill-noether` (Algebraic geometry) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
 - `coding-theory` (Combinatorics & graph theory) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
 - `conformal-and-cr-geometry` (Analysis) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)

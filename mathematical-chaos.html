@@ -1,0 +1,1033 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Mathematical chaos</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false,
+      macros:{
+        '\\Spec':'\\operatorname{Spec}',
+        '\\Gal':'\\operatorname{Gal}',
+        '\\Hom':'\\operatorname{Hom}',
+        '\\tr':'\\operatorname{tr}',
+        '\\ad':'\\operatorname{ad}',
+        '\\ind':'\\operatorname{ind}'
+      }
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  /* sticky sidebar TOC (wide screens only; narrow screens fall back to top-nav) */
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+  /* callback-css-auto-begin */
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+/* callback-css-auto-end */
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
+  /* display-prefs-css-auto-begin */
+  html[data-hide-widgets] .widget { display: none !important; }
+  html[data-hide-quizzes] .quiz { display: none !important; }
+  html[data-hide-lineage] .lineage-strip { display: none !important; }
+  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }
+  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }
+  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }
+  .mv-display-toggle--off { opacity: 0.35; }
+  /* display-prefs-css-auto-end */
+</style>
+<!-- breadcrumb-head-auto-begin -->
+<script>window.__MV_SECTION_MAP = {"<topic>":{"next":null,"prev":null,"section":"Sections","title":"<topic>"},"L-functions":{"next":"sato-tate","prev":"moonshine","section":"Modular forms & L-functions","title":"L-functions"},"abelian-varieties":{"next":"positivity-and-ample-line-bundles","prev":"toric-varieties","section":"Algebraic geometry","title":"Abelian varieties"},"additive-number-theory":{"next":"heights-arithmetic-geometry","prev":"quadratic-forms-genus-theory","section":"Number theory","title":"Additive number theory"},"adeles-and-ideles":{"next":"frobenius-and-reciprocity","prev":"p-adic-numbers","section":"Number theory","title":"Adèles & idèles"},"advanced-complex-analysis":{"next":"microlocal-analysis","prev":"sobolev-spaces-distributions","section":"Analysis","title":"Advanced complex analysis"},"algebra":{"next":"representation-theory","prev":null,"section":"Algebra & homological","title":"Abstract algebra"},"algebraic-curves-higher-genus":{"next":"deformation-theory","prev":"mirror-symmetry","section":"Algebraic geometry","title":"Algebraic curves: higher genus"},"algebraic-de-rham-cohomology":{"next":"calabi-yau-manifolds","prev":"algebraic-spaces","section":"Algebraic geometry","title":"Algebraic de Rham cohomology"},"algebraic-k-theory-foundations":{"next":"model-categories","prev":"quantum-groups","section":"Algebra & homological","title":"Algebraic K-theory foundations"},"algebraic-number-theory":{"next":"p-adic-numbers","prev":"galois","section":"Number theory","title":"Algebraic number theory"},"algebraic-spaces":{"next":"algebraic-de-rham-cohomology","prev":"functor-of-points","section":"Algebraic geometry","title":"Algebraic spaces"},"algebraic-topology":{"next":"knot-polynomials","prev":"point-set-topology","section":"Geometry & topology","title":"Algebraic topology"},"analytic-continuation":{"next":"zeta-values","prev":"dirichlet-series-euler-products","section":"Modular forms & L-functions","title":"Analytic continuation"},"analytic-number-theory":{"next":"galois","prev":null,"section":"Number theory","title":"Analytic number theory"},"atiyah-singer-index-theorem":{"next":"riemannian-geometry","prev":"k-theory","section":"Geometry & topology","title":"Atiyah–Singer index theorem"},"automorphic-forms-adelic":{"next":"moonshine","prev":"hecke-operators","section":"Modular forms & L-functions","title":"Automorphic forms (adelic)"},"bezout":{"next":"schemes","prev":"elliptic-curves","section":"Algebraic geometry","title":"Bézout's theorem"},"brill-noether":{"next":"donaldson-thomas-and-gw-invariants","prev":"geometric-invariant-theory","section":"Algebraic geometry","title":"Brill–Noether theory"},"bsd":{"next":"modularity-and-flt","prev":"sato-tate","section":"Modular forms & L-functions","title":"Birch & Swinnerton-Dyer"},"calabi-yau-manifolds":{"next":"mirror-symmetry","prev":"algebraic-de-rham-cohomology","section":"Algebraic geometry","title":"Calabi–Yau manifolds"},"category-theory":{"next":"commutative-algebra","prev":"derived-categories","section":"Algebra & homological","title":"Category theory"},"characteristic-classes":{"next":"k-theory","prev":"symplectic-manifolds","section":"Geometry & topology","title":"Characteristic classes"},"class-field-theory":{"next":"galois-representations","prev":"computational-number-theory","section":"Number theory","title":"Class field theory"},"cluster-algebras":{"next":"galois-cohomology-and-brauer","prev":"geometric-and-combinatorial-group-theory","section":"Algebra & homological","title":"Cluster algebras"},"cobordism":{"next":"homotopy-theory","prev":"cohomology-and-duality","section":"Geometry & topology","title":"Cobordism"},"cocartesian-fibrations":{"next":"infinity-categories","prev":"heyting-algebras-toposes","section":"Higher categories & toposes","title":"Cocartesian fibrations"},"coding-theory":{"next":null,"prev":"expanders","section":"Combinatorics & graph theory","title":"Coding theory"},"cohomology-and-duality":{"next":"cobordism","prev":"mostow-rigidity","section":"Geometry & topology","title":"Cohomology and duality"},"combinatorial-optimization":{"next":"mathematical-finance","prev":"optimal-control-and-dynamic-programming","section":"Control theory & optimization","title":"Combinatorial optimization"},"commutative-algebra":{"next":"homological","prev":"category-theory","section":"Algebra & homological","title":"Commutative algebra"},"complex-analysis":{"next":"measure-theory","prev":"real-analysis","section":"Analysis","title":"Complex analysis"},"complex-multiplication":{"next":null,"prev":"dirichlet-unit-theorem","section":"Number theory","title":"Complex multiplication"},"complexity-theory":{"next":"type-theory-and-hott","prev":"computability-and-decidability","section":"Logic & Foundations","title":"Complexity theory"},"computability-and-decidability":{"next":"complexity-theory","prev":"model-theory-basics","section":"Logic & Foundations","title":"Computability and decidability"},"computational-number-theory":{"next":"class-field-theory","prev":"mathematics-and-cryptography","section":"Number theory","title":"Computational number theory"},"condensed-mathematics":{"next":null,"prev":"groebner-bases","section":"Algebra & homological","title":"Condensed mathematics"},"conformal-and-cr-geometry":{"next":"mathematical-chaos","prev":"several-complex-variables","section":"Analysis","title":"Conformal & CR geometry"},"continued-fractions":{"next":"dirichlet-unit-theorem","prev":"iwasawa-theory","section":"Number theory","title":"Continued fractions"},"crystalline-cohomology":{"next":"tropical-geometry","prev":"d-modules","section":"Algebraic geometry","title":"Crystalline cohomology"},"d-modules":{"next":"crystalline-cohomology","prev":"mmp-and-birational-geometry","section":"Algebraic geometry","title":"D-modules"},"deformation-theory":{"next":"resolution-of-singularities","prev":"algebraic-curves-higher-genus","section":"Algebraic geometry","title":"Deformation theory"},"derived-categories":{"next":"category-theory","prev":"model-categories","section":"Algebra & homological","title":"Derived categories"},"designs":{"next":"spectral-graph-theory","prev":"enumerative-combinatorics","section":"Combinatorics & graph theory","title":"Designs"},"differential-forms":{"next":"morse-theory","prev":"riemann-surfaces","section":"Geometry & topology","title":"Differential forms"},"differential-geometry":{"next":"riemann-surfaces","prev":"smooth-manifolds","section":"Geometry & topology","title":"Differential geometry"},"dirac-equation":{"next":"statistical-mechanics","prev":"klein-gordon-equation","section":"Mathematical physics","title":"Dirac equation"},"dirichlet-series-euler-products":{"next":"analytic-continuation","prev":null,"section":"Modular forms & L-functions","title":"Dirichlet series & Euler products"},"dirichlet-unit-theorem":{"next":"complex-multiplication","prev":"continued-fractions","section":"Number theory","title":"Dirichlet unit theorem"},"donaldson-thomas-and-gw-invariants":{"next":"positive-characteristic-ag","prev":"brill-noether","section":"Algebraic geometry","title":"Donaldson–Thomas & GW invariants"},"dynamical-systems":{"next":"semigroup-theory-evolution-equations","prev":"operator-algebras","section":"Analysis","title":"Dynamical systems"},"elementary-topos-theory":{"next":"grothendieck-topologies-sites","prev":"simplicial-sets-and-nerve","section":"Higher categories & toposes","title":"Elementary topos theory"},"elliptic-curves":{"next":"bezout","prev":"etale-fundamental-group","section":"Algebraic geometry","title":"Elliptic curves"},"enumerative-combinatorics":{"next":"designs","prev":"simplicial-complexes-combinatorial","section":"Combinatorics & graph theory","title":"Enumerative combinatorics"},"etale-cohomology":{"next":"mmp-and-birational-geometry","prev":"stacks","section":"Algebraic geometry","title":"Étale cohomology"},"etale-fundamental-group":{"next":"elliptic-curves","prev":"projective-plane","section":"Algebraic geometry","title":"Étale fundamental group"},"expanders":{"next":"coding-theory","prev":"spectral-graph-theory","section":"Combinatorics & graph theory","title":"Expanders"},"extremal-combinatorics":{"next":"simplicial-complexes-combinatorial","prev":"probabilistic-method","section":"Combinatorics & graph theory","title":"Extremal combinatorics"},"first-order-logic-and-completeness":{"next":"zfc-and-ordinals","prev":"type-theory-and-hott","section":"Logic & Foundations","title":"First order logic and completeness"},"fixed-point-theorems":{"next":"harmonic-analysis-fourier","prev":"functional-analysis","section":"Analysis","title":"Fixed point theorems"},"forcing-and-independence":{"next":null,"prev":"zfc-and-ordinals","section":"Logic & Foundations","title":"Forcing and independence"},"frobenius-and-reciprocity":{"next":"quadratic-reciprocity","prev":"adeles-and-ideles","section":"Number theory","title":"Frobenius & reciprocity"},"functional-analysis":{"next":"fixed-point-theorems","prev":"harmonic-functions","section":"Analysis","title":"Functional analysis"},"functor-of-points":{"next":"algebraic-spaces","prev":"morphisms-fiber-products","section":"Algebraic geometry","title":"Functor of points"},"galois":{"next":"algebraic-number-theory","prev":"analytic-number-theory","section":"Number theory","title":"Galois theory & the quintic"},"galois-cohomology-and-brauer":{"next":"group-cohomology","prev":"cluster-algebras","section":"Algebra & homological","title":"Galois cohomology and Brauer groups"},"galois-representations":{"next":"iwasawa-theory","prev":"class-field-theory","section":"Number theory","title":"Galois representations"},"gauge-theory":{"next":"string-theory","prev":"statistical-mechanics","section":"Mathematical physics","title":"Gauge theory"},"general-relativity":{"next":"schrodinger-equation","prev":"three-body-problem","section":"Mathematical physics","title":"General relativity & Einstein equations"},"geometric-and-combinatorial-group-theory":{"next":"cluster-algebras","prev":"quaternions-octonions-and-division-algebras","section":"Algebra & homological","title":"Geometric and combinatorial group theory"},"geometric-invariant-theory":{"next":"brill-noether","prev":"tropical-geometry","section":"Algebraic geometry","title":"Geometric invariant theory"},"geometric-measure-theory":{"next":"operator-algebras","prev":"microlocal-analysis","section":"Analysis","title":"Geometric measure theory"},"groebner-bases":{"next":"condensed-mathematics","prev":"homological","section":"Algebra & homological","title":"Gröbner bases"},"grothendieck-topologies-sites":{"next":"infinity-topoi","prev":"elementary-topos-theory","section":"Higher categories & toposes","title":"Grothendieck topologies & sites"},"group-cohomology":{"next":"quantum-groups","prev":"galois-cohomology-and-brauer","section":"Algebra & homological","title":"Group cohomology"},"group-schemes":{"next":"morphisms-fiber-products","prev":"intersection-theory-chow","section":"Algebraic geometry","title":"Group schemes"},"half-integral-weight-forms":{"next":"shimura-varieties","prev":"maass-forms","section":"Modular forms & L-functions","title":"Half-integral weight forms"},"hamiltonians-classical-mechanics":{"next":"special-relativity","prev":"schrodinger-equation","section":"Mathematical physics","title":"Hamiltonians & classical mechanics"},"harmonic-analysis-fourier":{"next":"wavelets","prev":"fixed-point-theorems","section":"Analysis","title":"Harmonic analysis & Fourier theory"},"harmonic-functions":{"next":"functional-analysis","prev":"measure-theory","section":"Analysis","title":"Harmonic functions"},"hecke-operators":{"next":"automorphic-forms-adelic","prev":"theta-functions","section":"Modular forms & L-functions","title":"Hecke operators"},"heegaard-floer":{"next":null,"prev":"surgery-theory","section":"Geometry & topology","title":"Heegaard Floer & knot Floer"},"heights-arithmetic-geometry":{"next":"mathematics-and-cryptography","prev":"additive-number-theory","section":"Number theory","title":"Heights in arithmetic geometry"},"heyting-algebras-toposes":{"next":"cocartesian-fibrations","prev":null,"section":"Higher categories & toposes","title":"Heyting algebras & intuitionist logic"},"high-dimensional-geometry":{"next":"information-theory","prev":"large-deviations","section":"Probability & statistics","title":"High dimensional geometry"},"hodge-theory":{"next":"singular-cubics-reduction","prev":"motives","section":"Algebraic geometry","title":"Hodge theory"},"homological":{"next":"groebner-bases","prev":"commutative-algebra","section":"Algebra & homological","title":"Homological algebra"},"homotopy-theory":{"next":"kahler-geometry","prev":"cobordism","section":"Geometry & topology","title":"Homotopy theory"},"infinity-categories":{"next":"simplicial-sets-and-nerve","prev":"cocartesian-fibrations","section":"Higher categories & toposes","title":"∞-categories (quasi-categories)"},"infinity-topoi":{"next":null,"prev":"grothendieck-topologies-sites","section":"Higher categories & toposes","title":"∞-topoi"},"information-theory":{"next":"mathematical-statistics","prev":"high-dimensional-geometry","section":"Probability & statistics","title":"Information theory"},"intersection-theory-chow":{"next":"group-schemes","prev":"sheaves","section":"Algebraic geometry","title":"Intersection theory & Chow groups"},"iwasawa-theory":{"next":"continued-fractions","prev":"galois-representations","section":"Number theory","title":"Iwasawa theory"},"k-theory":{"next":"atiyah-singer-index-theorem","prev":"characteristic-classes","section":"Geometry & topology","title":"K-theory"},"kahler-geometry":{"next":"mapping-class-groups","prev":"homotopy-theory","section":"Geometry & topology","title":"Kähler geometry"},"khovanov-homology":{"next":"surgery-theory","prev":"mapping-class-groups","section":"Geometry & topology","title":"Khovanov homology"},"klein-gordon-equation":{"next":"dirac-equation","prev":"special-relativity","section":"Mathematical physics","title":"Klein-Gordon equation"},"knot-polynomials":{"next":"smooth-manifolds","prev":"algebraic-topology","section":"Geometry & topology","title":"Knot polynomials"},"langlands-program":{"next":"theta-functions","prev":"vertex-operator-algebras","section":"Modular forms & L-functions","title":"Langlands program"},"large-deviations":{"next":"high-dimensional-geometry","prev":"random-walks-and-mixing","section":"Probability & statistics","title":"Large deviations"},"lie-algebras":{"next":"quaternions-octonions-and-division-algebras","prev":"representation-theory","section":"Algebra & homological","title":"Lie algebras"},"lie-groups":{"next":"mostow-rigidity","prev":"ricci-flow","section":"Geometry & topology","title":"Lie groups & algebras"},"maass-forms":{"next":"half-integral-weight-forms","prev":"modularity-and-flt","section":"Modular forms & L-functions","title":"Maass forms"},"mapping-class-groups":{"next":"khovanov-homology","prev":"kahler-geometry","section":"Geometry & topology","title":"Mapping class groups & 4-manifolds"},"mathematical-biology":{"next":"spectral-methods-data","prev":"random-matrix-theory","section":"Probability & statistics","title":"Mathematical biology"},"mathematical-chaos":{"next":null,"prev":"conformal-and-cr-geometry","section":"Analysis","title":"Mathematical chaos"},"mathematical-finance":{"next":null,"prev":"combinatorial-optimization","section":"Control theory & optimization","title":"Mathematical finance & stochastic control"},"mathematical-statistics":{"next":"probability-theory","prev":"information-theory","section":"Probability & statistics","title":"Mathematical statistics"},"mathematics-and-cryptography":{"next":"computational-number-theory","prev":"heights-arithmetic-geometry","section":"Number theory","title":"Mathematics and cryptography"},"matroid-theory":{"next":"probabilistic-method","prev":null,"section":"Combinatorics & graph theory","title":"Matroid theory"},"measure-theory":{"next":"harmonic-functions","prev":"complex-analysis","section":"Analysis","title":"Measure theory"},"microlocal-analysis":{"next":"geometric-measure-theory","prev":"advanced-complex-analysis","section":"Analysis","title":"Microlocal analysis"},"mirror-symmetry":{"next":"algebraic-curves-higher-genus","prev":"calabi-yau-manifolds","section":"Algebraic geometry","title":"Mirror symmetry"},"mmp-and-birational-geometry":{"next":"d-modules","prev":"etale-cohomology","section":"Algebraic geometry","title":"MMP and birational geometry"},"model-categories":{"next":"derived-categories","prev":"algebraic-k-theory-foundations","section":"Algebra & homological","title":"Model categories"},"model-theory-basics":{"next":"computability-and-decidability","prev":"naive-set-theory","section":"Logic & Foundations","title":"Model theory basics"},"modular-curves":{"next":"vertex-operator-algebras","prev":"partitions-generating-functions","section":"Modular forms & L-functions","title":"Modular curves"},"modular-forms":{"next":"partitions-generating-functions","prev":"upper-half-plane-hyperbolic","section":"Modular forms & L-functions","title":"Modular forms"},"modularity-and-flt":{"next":"maass-forms","prev":"bsd","section":"Modular forms & L-functions","title":"Modularity & FLT"},"moduli-spaces":{"next":"toric-varieties","prev":"sheaf-cohomology","section":"Algebraic geometry","title":"Moduli spaces"},"moonshine":{"next":"L-functions","prev":"automorphic-forms-adelic","section":"Modular forms & L-functions","title":"Monstrous moonshine"},"morphisms-fiber-products":{"next":"functor-of-points","prev":"group-schemes","section":"Algebraic geometry","title":"Morphisms & fiber products"},"morse-theory":{"next":"symplectic-manifolds","prev":"differential-forms","section":"Geometry & topology","title":"Morse theory"},"mostow-rigidity":{"next":"cohomology-and-duality","prev":"lie-groups","section":"Geometry & topology","title":"Mostow rigidity"},"motives":{"next":"hodge-theory","prev":"resolution-of-singularities","section":"Algebraic geometry","title":"Motives"},"naive-set-theory":{"next":"model-theory-basics","prev":null,"section":"Logic & Foundations","title":"Naive set theory"},"numerical-analysis":{"next":"variational-methods","prev":"spectral-theory","section":"Analysis","title":"Numerical analysis"},"operator-algebras":{"next":"dynamical-systems","prev":"geometric-measure-theory","section":"Analysis","title":"Operator algebras"},"optimal-control-and-dynamic-programming":{"next":"combinatorial-optimization","prev":null,"section":"Control theory & optimization","title":"Optimal control and dynamic programming"},"p-adic-numbers":{"next":"adeles-and-ideles","prev":"algebraic-number-theory","section":"Number theory","title":"p-adic numbers"},"partial-differential-equations":{"next":"spectral-theory","prev":"wavelets","section":"Analysis","title":"Partial differential equations"},"partitions-generating-functions":{"next":"modular-curves","prev":"modular-forms","section":"Modular forms & L-functions","title":"Partitions & generating functions"},"point-set-topology":{"next":"algebraic-topology","prev":null,"section":"Geometry & topology","title":"Point-set topology"},"positive-characteristic-ag":{"next":null,"prev":"donaldson-thomas-and-gw-invariants","section":"Algebraic geometry","title":"Positive-characteristic AG"},"positivity-and-ample-line-bundles":{"next":"stacks","prev":"abelian-varieties","section":"Algebraic geometry","title":"Positivity and ample line bundles"},"probabilistic-method":{"next":"extremal-combinatorics","prev":"matroid-theory","section":"Combinatorics & graph theory","title":"Probabilistic method"},"probability-theory":{"next":"random-matrix-theory","prev":"mathematical-statistics","section":"Probability & statistics","title":"Probability theory"},"projective-plane":{"next":"etale-fundamental-group","prev":null,"section":"Algebraic geometry","title":"Projective plane"},"quadratic-forms-genus-theory":{"next":"additive-number-theory","prev":"quadratic-reciprocity","section":"Number theory","title":"Quadratic forms & genus theory"},"quadratic-reciprocity":{"next":"quadratic-forms-genus-theory","prev":"frobenius-and-reciprocity","section":"Number theory","title":"Quadratic reciprocity"},"quantum-field-theory":{"next":null,"prev":"string-theory","section":"Mathematical physics","title":"Quantum field theory"},"quantum-groups":{"next":"algebraic-k-theory-foundations","prev":"group-cohomology","section":"Algebra & homological","title":"Quantum groups"},"quaternions-octonions-and-division-algebras":{"next":"geometric-and-combinatorial-group-theory","prev":"lie-algebras","section":"Algebra & homological","title":"Quaternions, octonions, and division algebras"},"random-matrix-theory":{"next":"mathematical-biology","prev":"probability-theory","section":"Probability & statistics","title":"Random matrix theory"},"random-walks-and-mixing":{"next":"large-deviations","prev":"stochastic-calculus","section":"Probability & statistics","title":"Random walks and mixing"},"real-analysis":{"next":"complex-analysis","prev":null,"section":"Analysis","title":"Real analysis"},"representation-theory":{"next":"lie-algebras","prev":"algebra","section":"Algebra & homological","title":"Representation theory"},"resolution-of-singularities":{"next":"motives","prev":"deformation-theory","section":"Algebraic geometry","title":"Resolution of singularities"},"ricci-flow":{"next":"lie-groups","prev":"riemannian-geometry","section":"Geometry & topology","title":"Ricci flow"},"riemann-surfaces":{"next":"differential-forms","prev":"differential-geometry","section":"Geometry & topology","title":"Riemann surfaces"},"riemannian-geometry":{"next":"ricci-flow","prev":"atiyah-singer-index-theorem","section":"Geometry & topology","title":"Riemannian geometry"},"sato-tate":{"next":"bsd","prev":"L-functions","section":"Modular forms & L-functions","title":"Sato–Tate"},"schemes":{"next":"sheaves","prev":"bezout","section":"Algebraic geometry","title":"Schemes"},"schrodinger-equation":{"next":"hamiltonians-classical-mechanics","prev":"general-relativity","section":"Mathematical physics","title":"Schrödinger equation"},"semigroup-theory-evolution-equations":{"next":"several-complex-variables","prev":"dynamical-systems","section":"Analysis","title":"Semigroup theory & evolution equations"},"several-complex-variables":{"next":"conformal-and-cr-geometry","prev":"semigroup-theory-evolution-equations","section":"Analysis","title":"Several complex variables"},"sheaf-cohomology":{"next":"moduli-spaces","prev":"singular-cubics-reduction","section":"Algebraic geometry","title":"Sheaf cohomology"},"sheaves":{"next":"intersection-theory-chow","prev":"schemes","section":"Algebraic geometry","title":"Sheaves"},"shimura-varieties":{"next":null,"prev":"half-integral-weight-forms","section":"Modular forms & L-functions","title":"Shimura varieties"},"simplicial-complexes-combinatorial":{"next":"enumerative-combinatorics","prev":"extremal-combinatorics","section":"Combinatorics & graph theory","title":"Simplicial complexes (combinatorial)"},"simplicial-sets-and-nerve":{"next":"elementary-topos-theory","prev":"infinity-categories","section":"Higher categories & toposes","title":"Simplicial sets & the nerve"},"singular-cubics-reduction":{"next":"sheaf-cohomology","prev":"hodge-theory","section":"Algebraic geometry","title":"Singular cubics & reduction"},"smooth-manifolds":{"next":"differential-geometry","prev":"knot-polynomials","section":"Geometry & topology","title":"Smooth manifolds"},"sobolev-spaces-distributions":{"next":"advanced-complex-analysis","prev":"variational-methods","section":"Analysis","title":"Sobolev spaces & distributions"},"special-relativity":{"next":"klein-gordon-equation","prev":"hamiltonians-classical-mechanics","section":"Mathematical physics","title":"Special relativity"},"spectral-graph-theory":{"next":"expanders","prev":"designs","section":"Combinatorics & graph theory","title":"Spectral graph theory"},"spectral-methods-data":{"next":null,"prev":"mathematical-biology","section":"Probability & statistics","title":"Spectral methods for massive data sets"},"spectral-theory":{"next":"numerical-analysis","prev":"partial-differential-equations","section":"Analysis","title":"Spectral theory"},"stacks":{"next":"etale-cohomology","prev":"positivity-and-ample-line-bundles","section":"Algebraic geometry","title":"Stacks (Deligne–Mumford)"},"statistical-mechanics":{"next":"gauge-theory","prev":"dirac-equation","section":"Mathematical physics","title":"Statistical mechanics"},"stochastic-calculus":{"next":"random-walks-and-mixing","prev":"stochastic-processes-and-martingales","section":"Probability & statistics","title":"Stochastic calculus"},"stochastic-processes-and-martingales":{"next":"stochastic-calculus","prev":null,"section":"Probability & statistics","title":"Stochastic processes and martingales"},"string-theory":{"next":"quantum-field-theory","prev":"gauge-theory","section":"Mathematical physics","title":"String theory"},"surgery-theory":{"next":"heegaard-floer","prev":"khovanov-homology","section":"Geometry & topology","title":"Surgery theory"},"symplectic-manifolds":{"next":"characteristic-classes","prev":"morse-theory","section":"Geometry & topology","title":"Symplectic manifolds"},"theta-functions":{"next":"hecke-operators","prev":"langlands-program","section":"Modular forms & L-functions","title":"Theta functions"},"three-body-problem":{"next":"general-relativity","prev":null,"section":"Mathematical physics","title":"The three-body problem"},"toric-varieties":{"next":"abelian-varieties","prev":"moduli-spaces","section":"Algebraic geometry","title":"Toric varieties"},"tropical-geometry":{"next":"geometric-invariant-theory","prev":"crystalline-cohomology","section":"Algebraic geometry","title":"Tropical geometry"},"type-theory-and-hott":{"next":"first-order-logic-and-completeness","prev":"complexity-theory","section":"Logic & Foundations","title":"Type theory and HoTT"},"upper-half-plane-hyperbolic":{"next":"modular-forms","prev":"zeta-values","section":"Modular forms & L-functions","title":"Upper half-plane"},"variational-methods":{"next":"sobolev-spaces-distributions","prev":"numerical-analysis","section":"Analysis","title":"Variational methods"},"vertex-operator-algebras":{"next":"langlands-program","prev":"modular-curves","section":"Modular forms & L-functions","title":"Vertex operator algebras"},"wavelets":{"next":"partial-differential-equations","prev":"harmonic-analysis-fourier","section":"Analysis","title":"Wavelets"},"zeta-values":{"next":"upper-half-plane-hyperbolic","prev":"analytic-continuation","section":"Modular forms & L-functions","title":"Zeta values"},"zfc-and-ordinals":{"next":"forcing-and-independence","prev":"first-order-logic-and-completeness","section":"Logic & Foundations","title":"ZFC and ordinals"}};</script>
+<script src="./js/breadcrumb.js"></script>
+<script src="./js/glossary-popover.js" defer></script>
+<link rel="stylesheet" media="print" href="./css/print.css">
+<link rel="stylesheet" href="./css/theme-light.css">
+<script src="./js/theme-toggle.js"></script>
+<script src="./concepts/bundle.js" defer></script>
+<script src="./js/topic-hotkeys.js" defer></script>
+<script src="./js/topic-lineage.js" defer></script>
+<!-- breadcrumb-head-auto-end -->
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./js/katex-select.js"></script>
+<script src="./js/widget-recurrence-plotter.js"></script>
+<script src="./js/widget-inline-code-cell.js"></script>
+<script src="./js/widget-proof-scrubber.js"></script>
+<script src="./quizzes/bundle.js"></script>
+<script src="./js/sidetoc.js"></script>
+<!-- display-prefs-head-auto-begin -->
+<script src="./js/display-prefs.js"></script>
+<!-- display-prefs-head-auto-end -->
+</head>
+<body data-section="analysis" data-level="advanced">
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+// draw an arrow marker def once per svg (idempotent)
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+// curved arrow between two pixel points, with optional label
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  // shorten endpoints
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><span class="nav-links"><a class="nav-link" href="./pathway.html">Pathway</a><a class="nav-link" href="./tours.html">Tours</a><a class="nav-link" href="./history.html">History</a><a class="nav-link" href="./tags.html">Themes</a><a class="nav-link" href="./mindmap.html">Mindmap</a><a class="nav-link" href="./search.html">Search</a></span><span class="mv-theme-slot"></span><!-- breadcrumb-nav-auto-end -->
+<!-- toc-auto-begin -->
+  <a href="#lyapunov">1&nbsp;Sensitive&nbsp;dependence&nbsp;and&nbsp;Lyapunov&nbsp;exponents</a>
+  <a href="#feigenbaum">2&nbsp;The&nbsp;logistic&nbsp;map&nbsp;and&nbsp;Feigenbaum&nbsp;universality</a>
+  <a href="#strange-attractors">3&nbsp;Strange&nbsp;attractors&nbsp;and&nbsp;the&nbsp;horseshoe</a>
+  <a href="#entropy">4&nbsp;Symbolic&nbsp;dynamics&nbsp;and&nbsp;topological&nbsp;entropy</a>
+  <a href="#srb">5&nbsp;Ergodic&nbsp;theory&nbsp;and&nbsp;SRB&nbsp;measures</a>
+  <a href="#kam">6&nbsp;KAM&nbsp;theorem&nbsp;and&nbsp;Hamiltonian&nbsp;chaos</a>
+  <a href="#sharkovsky">7&nbsp;Sharkovsky's&nbsp;theorem&nbsp;and&nbsp;1D&nbsp;order</a>
+  <a href="#connections">8&nbsp;Connections</a>
+<!-- toc-auto-end -->
+</nav>
+<!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Mathematical chaos</h1>
+  <p class="sub">Sensitive dependence, period doubling, strange attractors, KAM, and the deep order hiding inside seemingly random dynamics.</p>
+</section>
+
+<section id="lyapunov">
+<h2>1. Sensitive dependence and Lyapunov exponents</h2>
+<p>"Chaos" is one of mathematics' most misused words. A working definition: a deterministic dynamical system is <strong>chaotic</strong> on an invariant set when it has (i) sensitive dependence on initial conditions, (ii) topological transitivity, and (iii) dense periodic orbits — Devaney's triple. Of these, sensitive dependence is the one a computer can quantify. Given a smooth map $f\colon\mathbb{R}^n\to\mathbb{R}^n$, the rate at which nearby orbits separate along the orbit of $x_0$ is the <strong>Lyapunov exponent</strong></p>
+<p style="text-align:center">$\lambda(x_0; v) = \lim_{n\to\infty}\dfrac{1}{n}\,\log\|Df^n(x_0)\cdot v\|,\qquad v\in T_{x_0}\mathbb{R}^n\setminus\{0\}.$</p>
+<p>By the chain rule $Df^n(x_0)=Df(x_{n-1})\cdots Df(x_0)$, so for a 1D map $\lambda = \lim\tfrac1n\sum_{k=0}^{n-1}\log|f'(x_k)|$ — the time average of $\log|f'|$ along the orbit. <strong>Oseledec's multiplicative ergodic theorem</strong> (1968) is the precise sense in which this works: for any ergodic invariant probability $\mu$, the limit $\lambda(x;v)$ exists $\mu$-almost everywhere and takes at most $n$ distinct values $\lambda_1>\lambda_2>\cdots$ — the <em>Lyapunov spectrum</em>. Positive $\lambda_1$ is the operational signature of chaos.</p>
+
+<p>For the logistic map $f_r(x)=rx(1-x)$, the exponent $\lambda(r)$ as a function of the parameter is striking. On the periodic windows (period-2 from $r=3$, period-4 from $r\approx 3.449$, period-3 from $r\approx 3.828$) $\lambda$ dips below zero. At the Feigenbaum point $r_\infty\approx 3.5699$ it crosses through zero into chaos. At $r=4$ exactly, the conjugation $h(x)=\sin^2(\pi x/2)$ takes $f_4$ to the tent map $T(y)=1-|2y-1|$, which has $|T'|\equiv 2$ — so $\lambda(4)=\log 2$. The widget below lets you estimate $\lambda$ for any map you like in JavaScript.</p>
+
+<div class="widget" id="w-mchaos-lyap-code"></div><script>
+(function(){
+  if(!window.MVInlineCodeCell) return;
+  MVInlineCodeCell.init('#w-mchaos-lyap-code', {
+    title: "Lyapunov-exponent sandbox: $\\lambda(f,x_0)$",
+    hint: "edit f and x0, hit Run · use math prelude for log, abs, etc.",
+    initialCode: "// Estimate the Lyapunov exponent of a 1D map f at x0.\n// lambda = (1/N) sum_{k=0..N-1} log|f'(x_k)|.\n// We differentiate numerically so any f works.\nfunction f(x) {\n  // try changing this:\n  //   r * x * (1 - x)         // logistic with r below\n  //   Math.cos(x)             // cosine map (mostly periodic)\n  //   (x < 0.5 ? 2*x : 2 - 2*x) // tent map -> lambda = log 2\n  const r = 4.0;\n  return r * x * (1 - x);\n}\nfunction df(x) {\n  const h = 1e-6;\n  return (f(x + h) - f(x - h)) / (2 * h);\n}\nlet x = 0.3;            // initial condition (avoid eventually-periodic seeds)\nconst burnin = 2000;\nconst N = 20000;\nfor (let k = 0; k < burnin; k++) x = f(x);\nlet sum = 0, valid = 0;\nfor (let k = 0; k < N; k++) {\n  const d = Math.abs(df(x));\n  if (d > 1e-12) { sum += Math.log(d); valid++; }\n  x = f(x);\n}\nconst lambda = sum / valid;\nconsole.log('Lyapunov exponent estimate: ' + lambda.toFixed(4));\nconsole.log('log(2) =                   ' + Math.log(2).toFixed(4));\nconsole.log('positive => chaos; zero on the boundary; negative on periodic windows.');\n",
+    prelude: "math",
+    rows: 16,
+    runLabel: "Run",
+  });
+})();
+</script>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./dynamical-systems.html#chaos">Chaos and Lyapunov exponents</a></li>
+    <li><a href="./dynamical-systems.html#maps">Iterated maps and the logistic family</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./mathematical-chaos.html#feigenbaum">Mathematical chaos</a> · The logistic map and Feigenbaum universality</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="mchaos-lyapunov"></div>
+</section>
+
+<section id="feigenbaum">
+<h2>2. The logistic map and Feigenbaum universality</h2>
+<p>The logistic family $f_r(x)=rx(1-x)$ on $[0,1]$ is the world's most-studied 1D dynamical system, and for good reason: as $r$ rises through $[1,4]$ it traverses every qualitative behaviour a smooth unimodal map can exhibit. At $r=1$ everything dies to $0$; at $r=3$ the fixed point $x^*=1-1/r$ loses stability via a period-doubling and a stable 2-cycle is born; past $r_2\approx 3.4495$ the 2-cycle bifurcates to a 4-cycle, then to 8, 16, 32, $\ldots$ The bifurcation values $r_n$ accumulate at $r_\infty\approx 3.56995$.</p>
+
+<p>Drag the slider below to walk through the cascade. Watch the orbit: at $r=2.9$ a clean fixed point, at $r=3.2$ a 2-cycle, at $r=3.5$ a 4-cycle, at $r=3.83$ a stable 3-cycle (the famous "period-3 window" hidden inside the chaotic regime).</p>
+
+<div class="widget" id="w-mchaos-logistic"></div><script>
+(function(){
+  if(!window.MVRecurrencePlotter) return;
+  MVRecurrencePlotter.init('#w-mchaos-logistic', {
+    kind: "logistic",
+    title: "Logistic map cobweb: $x_{n+1}=r\\,x_n(1-x_n)$",
+    hint: "try r ≈ 2.9 (fixed), 3.2 (2-cycle), 3.5 (4-cycle), 3.57 (chaos onset), 3.83 (period-3 window)",
+    params: {"r":3.5,"x0":0.4,"n":100},
+  });
+})();
+</script>
+
+<p>Mitchell <strong>Feigenbaum</strong>'s 1978 discovery is what makes this section more than a curiosity. The successive gaps $\Delta_n = r_n - r_{n-1}$ shrink geometrically:</p>
+<p style="text-align:center">$\delta = \lim_{n\to\infty}\dfrac{\Delta_{n-1}}{\Delta_n} = \lim_{n\to\infty}\dfrac{r_{n-1}-r_{n-2}}{r_n-r_{n-1}} \approx 4.66920\,16091\,02990\ldots$</p>
+<p>And the spatial scaling: if $d_n$ is the distance from the critical point $x_c=1/2$ to the nearest point of the period-$2^n$ orbit, then $|d_{n-1}/d_n|\to \alpha\approx 2.50290\,78750\,95892\ldots$ These two ratios are <strong>universal</strong>. The same $\delta$ and $\alpha$ govern the period-doubling cascade of <em>every</em> smooth one-parameter family $g_r$ of unimodal maps with quadratic critical point. They depend only on the <em>order</em> of the critical point (replacing the quadratic max with a quartic gives a different pair of constants).</p>
+
+<p>The mechanism is a renormalization fixed point: the operator $R$ that takes a unimodal $g$ to a rescaled iterate $R(g)(x)=-\alpha\,g\!\bigl(g(-x/\alpha)\bigr)$ has a hyperbolic fixed point $g^*$ in the space of unimodal maps, with a single unstable direction whose eigenvalue is $\delta$. The bifurcation cascade is the image of $g^*$'s unstable manifold under any 1-parameter slice transverse to it. Mitchell Feigenbaum did this numerically before the rigorous proofs (Lanford 1982 for the quadratic case, computer-assisted) arrived.</p>
+
+<div class="widget" id="w-mchaos-bifurcation">
+  <div class="hd"><div class="ttl">Bifurcation diagram of $f_r(x)=rx(1-x)$</div><div class="hint">drag the slider — vertical strip marks the current $r$; below shows the orbit</div></div>
+  <div class="row">
+    <label for="bif-r">$r$</label>
+    <input id="bif-r" type="range" min="2.5" max="4.0" step="0.001" value="3.5"/>
+    <span class="small" id="bif-rval">r = 3.500</span>
+  </div>
+  <svg id="bif-svg" viewBox="0 0 720 320" width="720" height="320"><title>Logistic bifurcation diagram</title></svg>
+  <div class="readout" id="bif-out">drag r to read off the orbit structure…</div>
+  <p class="small">Each column is one $r$ value; the dots are the long-term iterates of a single seed (after a 400-step burn-in). The black vertical bar marks your $r$. Notice the period-doubling cascade on the left, the chaos band on the right, and the bright period-3 window opening at $r\approx 3.8284$.</p>
+</div>
+<script>
+(function(){
+  const svg=$('#bif-svg'), out=$('#bif-out'), slider=$('#bif-r'), label=$('#bif-rval');
+  const W=720, H=320, ML=44, MR=10, MT=14, MB=30;
+  const rMin=2.5, rMax=4.0, xMin=0, xMax=1;
+  const Rcols=600, BURN=400, KEEP=140;
+  const dots=[];
+  for(let i=0;i<Rcols;i++){
+    const r=rMin+(rMax-rMin)*i/(Rcols-1);
+    let x=0.4;
+    for(let k=0;k<BURN;k++) x=r*x*(1-x);
+    const col=[];
+    for(let k=0;k<KEEP;k++){ x=r*x*(1-x); col.push(x); }
+    dots.push(col);
+  }
+  function xpx(r){ return ML + (W-ML-MR)*(r-rMin)/(rMax-rMin); }
+  function ypx(x){ return (H-MB) - (H-MB-MT)*(x-xMin)/(xMax-xMin); }
+  function renderBase(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    svg.appendChild(SVG('rect',{x:ML,y:MT,width:W-ML-MR,height:H-MT-MB,fill:'var(--panel2)',stroke:'var(--line)','stroke-width':0.6}));
+    for(let i=0;i<Rcols;i++){
+      const xp=xpx(rMin+(rMax-rMin)*i/(Rcols-1));
+      const col=dots[i];
+      for(const x of col){
+        svg.appendChild(SVG('circle',{cx:xp,cy:ypx(x),r:0.55,fill:'var(--cyan)',opacity:0.55}));
+      }
+    }
+    for(let k=0;k<=5;k++){
+      const r=rMin+(rMax-rMin)*k/5;
+      const x=xpx(r);
+      svg.appendChild(SVG('line',{x1:x,y1:H-MB,x2:x,y2:H-MB+4,stroke:'var(--mute)'}));
+      const t=SVG('text',{x,y:H-MB+16,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+      t.textContent=r.toFixed(1); svg.appendChild(t);
+    }
+    for(let k=0;k<=4;k++){
+      const v=xMin+(xMax-xMin)*k/4;
+      const y=ypx(v);
+      svg.appendChild(SVG('line',{x1:ML-4,y1:y,x2:ML,y2:y,stroke:'var(--mute)'}));
+      const t=SVG('text',{x:ML-6,y:y+4,'text-anchor':'end','font-size':11,fill:'var(--mute)'});
+      t.textContent=v.toFixed(2); svg.appendChild(t);
+    }
+    const xlbl=SVG('text',{x:(ML+W-MR)/2,y:H-6,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});
+    xlbl.textContent='parameter r'; svg.appendChild(xlbl);
+    const ylbl=SVG('text',{x:14,y:(MT+H-MB)/2,'text-anchor':'middle','font-size':12,fill:'var(--mute)',transform:'rotate(-90 14,'+((MT+H-MB)/2)+')'});
+    ylbl.textContent='attractor x'; svg.appendChild(ylbl);
+    const landmarks=[
+      {r:3.0,    label:'r=3'},
+      {r:3.4495, label:'r2'},
+      {r:3.5699, label:'r∞'},
+      {r:3.8284, label:'P3'}
+    ];
+    for(const lm of landmarks){
+      const x=xpx(lm.r);
+      svg.appendChild(SVG('line',{x1:x,y1:MT,x2:x,y2:H-MB,stroke:'var(--yellow)','stroke-width':0.6,'stroke-dasharray':'2 3',opacity:0.55}));
+      const t=SVG('text',{x:x+3,y:MT+12,'font-size':10,fill:'var(--yellow)'});
+      t.textContent=lm.label; svg.appendChild(t);
+    }
+  }
+  let cursor=null;
+  function setR(r){
+    if(cursor) cursor.remove();
+    const x=xpx(r);
+    cursor=SVG('line',{x1:x,y1:MT,x2:x,y2:H-MB,stroke:'var(--pink)','stroke-width':1.8,opacity:0.95});
+    svg.appendChild(cursor);
+    let xv=0.4;
+    for(let k=0;k<BURN;k++) xv=r*xv*(1-xv);
+    const sample=[];
+    for(let k=0;k<200;k++){ xv=r*xv*(1-xv); sample.push(xv); }
+    let period='chaotic / long-transient';
+    for(let p=1;p<=24;p++){
+      let match=true;
+      for(let k=0;k<6;k++){
+        if(Math.abs(sample[100+k]-sample[100+k+p])>1e-4){ match=false; break; }
+      }
+      if(match){ period='period '+p; break; }
+    }
+    const lam = (function(){
+      let xv2=0.4;
+      for(let k=0;k<500;k++) xv2=r*xv2*(1-xv2);
+      let s=0,n=0;
+      for(let k=0;k<3000;k++){
+        const d=Math.abs(r*(1-2*xv2));
+        if(d>1e-12){ s+=Math.log(d); n++; }
+        xv2=r*xv2*(1-xv2);
+      }
+      return s/n;
+    })();
+    label.textContent='r = '+r.toFixed(3);
+    out.textContent =
+      'r = '+r.toFixed(3)+'\n'+
+      'attractor: '+period+'\n'+
+      'Lyapunov exponent λ ≈ '+lam.toFixed(3)+(lam>0.01?' (chaotic)':lam<-0.01?' (periodic)':' (boundary)');
+  }
+  renderBase();
+  slider.addEventListener('input',e=>setR(+e.target.value));
+  setR(+slider.value);
+})();
+</script>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./dynamical-systems.html#period-doubling-cascade">The period-doubling cascade</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><div class="quiz" data-concept="mchaos-feigenbaum"></div>
+</section>
+
+<section id="strange-attractors">
+<h2>3. Strange attractors and the horseshoe</h2>
+<p>The logistic map is 1D, dissipative, and noninvertible. To reach the truly geometric picture of chaos — invariant sets with fractional dimension, woven from infinitely many sheets — we need at least three continuous variables. <strong>Edward Lorenz</strong>'s 1963 paper "Deterministic Nonperiodic Flow" stripped the equations of atmospheric convection down to a 3-variable ODE,</p>
+<p style="text-align:center">$\dot x = \sigma(y - x),\qquad \dot y = x(\rho - z) - y,\qquad \dot z = xy - \beta z,$</p>
+<p>and discovered the eponymous butterfly. At $(\sigma,\beta,\rho)=(10,8/3,28)$ the system has three fixed points — the origin, and two symmetric saddle-foci $C_\pm$ at $(\pm\sqrt{\beta(\rho-1)},\pm\sqrt{\beta(\rho-1)},\rho-1)$ — none stable, and yet trajectories never escape to infinity. They wander forever on a thin invariant set with Hausdorff dimension $\approx 2.062$, the <strong>Lorenz attractor</strong>. Tucker proved (computer-assisted, 1998) that the geometric Lorenz attractor is genuinely a robust strange attractor.</p>
+
+<div class="widget" id="w-mchaos-lorenz">
+  <div class="hd"><div class="ttl">Lorenz system, projected to the $(x,z)$ plane</div><div class="hint">drag $\rho$ — quiet below ≈14, periodic transient, chaotic above $\rho_H\approx 24.74$</div></div>
+  <div class="row">
+    <label for="lz-rho">$\rho$</label>
+    <input id="lz-rho" type="range" min="0.5" max="50" step="0.1" value="28"/>
+    <span class="small" id="lz-rhoval">ρ = 28.0</span>
+    <button id="lz-reset">reseed</button>
+  </div>
+  <svg id="lz-svg" viewBox="0 0 720 360" width="720" height="360"><title>Lorenz attractor projection</title></svg>
+  <div class="readout" id="lz-out">drag ρ to watch the basin and attractor reorganize…</div>
+  <p class="small">$\sigma=10,\ \beta=8/3$ throughout. Below the supercritical Hopf $\rho_H = \sigma(\sigma+\beta+3)/(\sigma-\beta-1)\approx 24.74$ the symmetric pair $C_\pm$ is stable and trajectories spiral into one wing or the other. Above $\rho_H$ they are unstable saddle-foci; trajectories oscillate around each, then unpredictably switch wings. Two trajectories with initial separation $10^{-9}$ diverge to macroscopic distance after $\approx 25$ time units — the maximal Lyapunov exponent is $\approx 0.906$.</p>
+</div>
+<script>
+(function(){
+  const svg=$('#lz-svg'), out=$('#lz-out'), slider=$('#lz-rho'), label=$('#lz-rhoval'), reset=$('#lz-reset');
+  const W=720, H=360, ML=40, MR=14, MT=20, MB=32;
+  const sigma=10, beta=8/3;
+  const xMin=-25, xMax=25, zMin=-2, zMax=55;
+  function xpx(x){ return ML+(W-ML-MR)*(x-xMin)/(xMax-xMin); }
+  function ypx(z){ return (H-MB)-(H-MB-MT)*(z-zMin)/(zMax-zMin); }
+  let seed=[0.1,0,0];
+  function integrate(rho, n, h){
+    const pts=[];
+    let [x,y,z]=seed;
+    for(let k=0;k<400;k++){
+      const dx=sigma*(y-x), dy=x*(rho-z)-y, dz=x*y-beta*z;
+      x+=h*dx; y+=h*dy; z+=h*dz;
+    }
+    for(let k=0;k<n;k++){
+      const dx=sigma*(y-x), dy=x*(rho-z)-y, dz=x*y-beta*z;
+      x+=h*dx; y+=h*dy; z+=h*dz;
+      pts.push([x,y,z]);
+    }
+    return pts;
+  }
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    svg.appendChild(SVG('rect',{x:ML,y:MT,width:W-ML-MR,height:H-MT-MB,fill:'var(--panel2)',stroke:'var(--line)','stroke-width':0.6}));
+    const rho=+slider.value;
+    const pts=integrate(rho, 5000, 0.005);
+    let pathD='';
+    for(let i=0;i<pts.length;i++){
+      const [x,_y,z]=pts[i];
+      pathD += (i?' L ':'M ')+xpx(x).toFixed(2)+' '+ypx(z).toFixed(2);
+    }
+    svg.appendChild(SVG('path',{d:pathD,fill:'none',stroke:'var(--cyan)','stroke-width':0.7,opacity:0.85}));
+    if(rho>1){
+      const x_eq=Math.sqrt(beta*(rho-1));
+      const z_eq=rho-1;
+      for(const sgn of [1,-1]){
+        svg.appendChild(SVG('circle',{cx:xpx(sgn*x_eq),cy:ypx(z_eq),r:4,fill:'var(--yellow)',stroke:'var(--ink)','stroke-width':0.8}));
+      }
+    }
+    svg.appendChild(SVG('circle',{cx:xpx(0),cy:ypx(0),r:3,fill:'none',stroke:'var(--pink)','stroke-width':1.4}));
+    for(let k=-20;k<=20;k+=10){
+      const xp=xpx(k);
+      svg.appendChild(SVG('line',{x1:xp,y1:H-MB,x2:xp,y2:H-MB+4,stroke:'var(--mute)'}));
+      const t=SVG('text',{x:xp,y:H-MB+16,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+      t.textContent=String(k); svg.appendChild(t);
+    }
+    for(let k=0;k<=50;k+=10){
+      const yp=ypx(k);
+      svg.appendChild(SVG('line',{x1:ML-4,y1:yp,x2:ML,y2:yp,stroke:'var(--mute)'}));
+      const t=SVG('text',{x:ML-6,y:yp+4,'text-anchor':'end','font-size':11,fill:'var(--mute)'});
+      t.textContent=String(k); svg.appendChild(t);
+    }
+    const xlbl=SVG('text',{x:(ML+W-MR)/2,y:H-8,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}); xlbl.textContent='x'; svg.appendChild(xlbl);
+    const ylbl=SVG('text',{x:14,y:(MT+H-MB)/2,'text-anchor':'middle','font-size':12,fill:'var(--mute)',transform:'rotate(-90 14,'+((MT+H-MB)/2)+')'}); ylbl.textContent='z'; svg.appendChild(ylbl);
+    let regime;
+    if(rho<=1) regime='stable origin — no flow';
+    else if(rho<13.93) regime='monostable: trajectories spiral into '+(pts[pts.length-1][0]>0?'C+':'C-');
+    else if(rho<24.06) regime='preturbulent: long transient chaos before settling';
+    else if(rho<24.74) regime='coexisting strange invariant set + stable C±';
+    else regime='strange attractor — robust chaos';
+    label.textContent='ρ = '+rho.toFixed(2);
+    out.textContent =
+      'σ = 10,  β = 8/3,  ρ = '+rho.toFixed(2)+'\n'+
+      'regime: '+regime+'\n'+
+      'showing 5000 steps of dt = 0.005 (≈ 25 time units)';
+  }
+  reset.addEventListener('click',()=>{
+    seed=[Math.random()*2-1, Math.random()*2-1, Math.random()*20+5];
+    draw();
+  });
+  slider.addEventListener('input',draw);
+  draw();
+})();
+</script>
+
+<p>The Lorenz attractor's geometry is a Cantor-set foliation: locally a 2D surface, transverse to which it looks like a Cantor set in dimension $\approx 0.06$. <strong>Stephen Smale</strong>'s <strong>horseshoe</strong> (1965) is the topological essence of why this works. Take a square, stretch it vertically by a factor $>2$, compress it horizontally by a factor $<1/2$, then fold the top back over the bottom and place the resulting "horseshoe" back over the original square. The points that stay inside the square under all forward and backward iterations form an invariant Cantor set $\Lambda\subset Q$; coding each point by which leg ($0$ or $1$) it occupies at each iterate gives a homeomorphism $\Lambda\cong\{0,1\}^{\mathbb{Z}}$ that conjugates $f|_\Lambda$ to the shift map $\sigma(s)_n = s_{n+1}$. The shift has periodic orbits of every period (one for each periodic binary sequence) and dense orbits — so $f$ does too.</p>
+
+<div class="widget" id="w-mchaos-horseshoe">
+  <div class="hd"><div class="ttl">Smale's horseshoe: stretch, fold, replace</div><div class="hint">step through the construction — the cyan strips are $\bigcap_{|n|\le k}f^n(Q)$</div></div>
+  <div class="row">
+    <button id="hs-prev">prev</button>
+    <button id="hs-next">next</button>
+    <button id="hs-reset">reset</button>
+    <span id="hs-step" class="small">step 0 of 4</span>
+  </div>
+  <svg id="hs-svg" viewBox="0 0 720 320" width="720" height="320"><title>Smale's horseshoe construction</title></svg>
+  <div class="readout" id="hs-out">click next to stretch + fold + place back…</div>
+</div>
+<script>
+(function(){
+  const svg=$('#hs-svg'), out=$('#hs-out'), prev=$('#hs-prev'), next=$('#hs-next'), reset=$('#hs-reset'), step=$('#hs-step');
+  const stages = [
+    {label:'Stage 0 — the square Q', text:'Start with a square Q = [0,1]^2. The map f stretches vertically by μ>2, compresses horizontally by λ<1/2, then folds the top half back over the bottom.'},
+    {label:'Stage 1 — f(Q): a horseshoe', text:'After one application: f(Q) is a horseshoe-shaped region. Two horizontal strips H0, H1 ⊂ Q are mapped onto two vertical strips V0, V1 ⊂ Q — these are what stay inside Q.'},
+    {label:'Stage 2 — f²(Q) ∩ Q', text:'Points that stay in Q for 2 iterations lie in f(V0 ∪ V1) ∩ (H0 ∪ H1) — 4 thinner vertical strips. The dynamics on these strips is coded by the first two symbols (s0,s1)∈{0,1}².'},
+    {label:'Stage 3 — f³(Q) ∩ Q', text:'After 3 iterations, 8 yet thinner strips. The strip widths shrink as λⁿ, so the limit as n→∞ in the forward direction is a Cantor set of vertical lines.'},
+    {label:'Stage 4 — the Cantor set Λ', text:'Λ = ∩_{n∈ℤ} fⁿ(Q) is a Cantor set ≅ {0,1}^ℤ. The map f|_Λ is conjugate to the shift, so it has periodic orbits of every period and a dense orbit. This is the topological skeleton of every uniformly hyperbolic chaotic system.'}
+  ];
+  let s=0;
+  function drawSquare(x,y,w,h,fill,stroke){
+    return SVG('rect',{x,y,width:w,height:h,fill:fill||'none',stroke:stroke||'var(--line)','stroke-width':1});
+  }
+  function drawStripes(x,y,w,h,n,vertical,fill){
+    let strips=[[0,1]];
+    for(let k=0;k<n;k++){
+      const newStrips=[];
+      for(const [a,b] of strips){
+        const len=b-a;
+        const lpart=len*0.42, rpart=len*0.42;
+        newStrips.push([a, a+lpart]);
+        newStrips.push([b-rpart, b]);
+      }
+      strips=newStrips;
+    }
+    const out=[];
+    for(const [a,b] of strips){
+      if(vertical){
+        out.push(SVG('rect',{x:x+w*a,y,width:w*(b-a),height:h,fill:fill||'var(--cyan)',opacity:0.5,stroke:'none'}));
+      } else {
+        out.push(SVG('rect',{x,y:y+h*a,width:w,height:h*(b-a),fill:fill||'var(--yellow)',opacity:0.5,stroke:'none'}));
+      }
+    }
+    return out;
+  }
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const Qx=70, Qy=40, Qs=240;
+    svg.appendChild(drawSquare(Qx,Qy,Qs,Qs,'var(--panel2)','var(--mute)'));
+    const t=SVG('text',{x:Qx+Qs/2,y:Qy-12,'text-anchor':'middle','font-size':13,fill:'var(--mute)'});
+    t.textContent='Q'; svg.appendChild(t);
+    if(s===0){
+      const txt=SVG('text',{x:Qx+Qs/2,y:Qy+Qs/2+5,'text-anchor':'middle','font-size':16,fill:'var(--mute)'});
+      txt.textContent='Q'; svg.appendChild(txt);
+    } else {
+      for(const r of drawStripes(Qx,Qy,Qs,Qs,1,false,'var(--yellow)')) svg.appendChild(r);
+      const tl=SVG('text',{x:Qx-8,y:Qy+Qs*0.21+4,'text-anchor':'end','font-size':11,fill:'var(--yellow)'}); tl.textContent='H0'; svg.appendChild(tl);
+      const tu=SVG('text',{x:Qx-8,y:Qy+Qs*0.79+4,'text-anchor':'end','font-size':11,fill:'var(--yellow)'}); tu.textContent='H1'; svg.appendChild(tu);
+    }
+    const Rx=420, Ry=40, Rs=240;
+    svg.appendChild(drawSquare(Rx,Ry,Rs,Rs,'var(--panel2)','var(--mute)'));
+    if(s===0){
+      const txt=SVG('text',{x:Rx+Rs/2,y:Ry+Rs/2+5,'text-anchor':'middle','font-size':16,fill:'var(--mute)'});
+      txt.textContent='Q'; svg.appendChild(txt);
+    } else if(s===1){
+      for(const r of drawStripes(Rx,Ry,Rs,Rs,1,true,'var(--cyan)')) svg.appendChild(r);
+      const aPath = 'M '+(Rx+Rs*0.21)+' '+Ry+' C '+(Rx+Rs*0.21)+' '+(Ry-50)+', '+(Rx+Rs*0.79)+' '+(Ry-50)+', '+(Rx+Rs*0.79)+' '+Ry;
+      svg.appendChild(SVG('path',{d:aPath,fill:'none',stroke:'var(--cyan)','stroke-width':1.5,opacity:0.85}));
+      const tl=SVG('text',{x:Rx+Rs*0.21,y:Ry+Rs+14,'text-anchor':'middle','font-size':11,fill:'var(--cyan)'}); tl.textContent='V0'; svg.appendChild(tl);
+      const tu=SVG('text',{x:Rx+Rs*0.79,y:Ry+Rs+14,'text-anchor':'middle','font-size':11,fill:'var(--cyan)'}); tu.textContent='V1'; svg.appendChild(tu);
+      const lbl=SVG('text',{x:Rx+Rs/2,y:Ry-22,'text-anchor':'middle','font-size':12,fill:'var(--cyan)'}); lbl.textContent='f(Q)'; svg.appendChild(lbl);
+    } else {
+      for(const r of drawStripes(Rx,Ry,Rs,Rs,s,true,'var(--cyan)')) svg.appendChild(r);
+      const lbl=SVG('text',{x:Rx+Rs/2,y:Ry-22,'text-anchor':'middle','font-size':12,fill:'var(--cyan)'});
+      lbl.textContent = s===4 ? 'Λ = invariant Cantor set' : ('f^'+s+'(Q) ∩ Q  →  '+Math.pow(2,s)+' strips'); svg.appendChild(lbl);
+    }
+    const ax1=Qx+Qs+10, ax2=Rx-10, ay=Qy+Qs/2;
+    svg.appendChild(SVG('line',{x1:ax1,y1:ay,x2:ax2,y2:ay,stroke:'var(--ink)','stroke-width':1.2,'marker-end':'url(#hs-arr)'}));
+    let defs=svg.querySelector('defs');
+    if(!defs){ defs=SVG('defs'); svg.appendChild(defs); }
+    if(!defs.querySelector('#hs-arr')){
+      const m=SVG('marker',{id:'hs-arr',viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+      m.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:'var(--ink)'}));
+      defs.appendChild(m);
+    }
+    const fl=SVG('text',{x:(ax1+ax2)/2,y:ay-6,'text-anchor':'middle','font-size':12,fill:'var(--ink)','font-style':'italic'});
+    fl.textContent = s===0 ? 'f' : ('f^'+s); svg.appendChild(fl);
+    out.textContent = stages[s].label + '\n' + stages[s].text;
+    step.textContent='step '+s+' of '+(stages.length-1);
+  }
+  prev.addEventListener('click',()=>{ s=Math.max(0,s-1); render(); });
+  next.addEventListener('click',()=>{ s=Math.min(stages.length-1,s+1); render(); });
+  reset.addEventListener('click',()=>{ s=0; render(); });
+  render();
+})();
+</script>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./dynamical-systems.html#attractors">Strange attractors</a></li>
+    <li><a href="./three-body-problem.html#poincare">Poincaré's tangle — the birth of chaos</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./mathematical-chaos.html#entropy">Mathematical chaos</a> · Symbolic dynamics and topological entropy</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="mchaos-strange-attractors"></div>
+</section>
+
+<section id="entropy">
+<h2>4. Symbolic dynamics and topological entropy</h2>
+<p>The horseshoe's punchline — every orbit corresponds to a bi-infinite binary sequence — is the prototype of <strong>symbolic dynamics</strong>. Given an invariant partition $\{A_0,\ldots,A_{k-1}\}$ of phase space (a Markov partition), the <em>itinerary</em> $\sigma\colon X\to\{0,\ldots,k-1\}^{\mathbb{Z}}$ defined by $\sigma(x)_n = i \iff f^n(x)\in A_i$ conjugates $f$ to a <strong>subshift of finite type</strong> $\Sigma_A$ — a closed shift-invariant subset of $k^{\mathbb{Z}}$ specified by a $k\times k$ transition matrix $A\in\{0,1\}^{k\times k}$ (with $A_{ij}=1$ iff $f(A_i)\supset A_j$).</p>
+
+<p>The combinatorial complexity of a chaotic system is measured by <strong>topological entropy</strong>:</p>
+<p style="text-align:center">$h_{\mathrm{top}}(f) \;=\; \lim_{n\to\infty}\dfrac{1}{n}\log\#\mathrm{Fix}(f^n) \;=\; \lim_{n\to\infty}\dfrac{1}{n}\log\#\{n\text{-words in }\Sigma_A\} \;=\; \log\rho(A),$</p>
+<p>where $\rho(A)$ is the spectral radius (largest eigenvalue, by Perron–Frobenius). The horseshoe has $A=\begin{pmatrix}1&1\\1&1\end{pmatrix}$, so $\rho(A)=2$ and $h_{\mathrm{top}}=\log 2$. A period-3-forcing map ("period 3 implies all periods", Sharkovsky's punchline) has $h_{\mathrm{top}}\ge\log\bigl(\tfrac{1+\sqrt 5}{2}\bigr) > 0$.</p>
+
+<p>Two structural theorems tie it all together. The <strong>variational principle</strong>: $h_{\mathrm{top}}(f) = \sup_\mu h_\mu(f)$ over all $f$-invariant probability measures $\mu$, where $h_\mu$ is the Kolmogorov–Sinai entropy. <strong>Ruelle's inequality</strong>: $h_\mu(f)\le \sum_i \max(\lambda_i(\mu),0)$ — entropy is bounded by the sum of positive Lyapunov exponents. <strong>Pesin's formula</strong>: equality holds iff $\mu$ is an SRB measure (next section).</p>
+
+<div class="widget" id="w-mchaos-symbolic">
+  <div class="hd"><div class="ttl">Symbolic dynamics: doubling map ↔ 2-shift</div><div class="hint">drag $x_0$ — the binary expansion IS the itinerary; entropy = $\log 2$</div></div>
+  <div class="row">
+    <label for="sd-x0">$x_0$</label>
+    <input id="sd-x0" type="range" min="0.001" max="0.999" step="0.001" value="0.3625"/>
+    <span class="small" id="sd-x0val">x0 = 0.3625</span>
+    <label for="sd-n">steps</label>
+    <input id="sd-n" type="range" min="4" max="20" step="1" value="10"/>
+    <span class="small" id="sd-nval">n = 10</span>
+  </div>
+  <svg id="sd-svg" viewBox="0 0 720 220" width="720" height="220"><title>Doubling map symbolic itinerary</title></svg>
+  <div class="readout" id="sd-out">drag $x_0$ — the binary expansion of $x_0$ IS its itinerary…</div>
+  <p class="small">The doubling map $D(x)=2x\bmod 1$ takes $x = 0.s_1 s_2 s_3\ldots_2$ (binary) to $0.s_2 s_3 s_4\ldots_2$ — it literally shifts the binary expansion. Coding $D^n(x)$ by whether it lies in $[0,1/2)$ ($s=0$) or $[1/2,1)$ ($s=1$) recovers the original bits in order. So $D$ on $[0,1)$ is measurably conjugate to the full 2-shift $(\{0,1\}^{\mathbb{N}},\sigma)$.</p>
+</div>
+<script>
+(function(){
+  const svg=$('#sd-svg'), out=$('#sd-out'), s0=$('#sd-x0'), s0v=$('#sd-x0val'), sN=$('#sd-n'), sNv=$('#sd-nval');
+  const W=720,H=220,ML=44,MR=14,MT=14,MB=30;
+  function xpx(t){ return ML+(W-ML-MR)*t; }
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    let x=+s0.value;
+    const n=+sN.value;
+    s0v.textContent='x0 = '+x.toFixed(4);
+    sNv.textContent='n = '+n;
+    svg.appendChild(SVG('line',{x1:ML,y1:MT,x2:W-MR,y2:MT,stroke:'var(--mute)','stroke-width':0.5}));
+    svg.appendChild(SVG('line',{x1:ML+(W-ML-MR)/2,y1:MT,x2:ML+(W-ML-MR)/2,y2:H-MB,stroke:'var(--mute)','stroke-dasharray':'2 3'}));
+    svg.appendChild(SVG('rect',{x:ML,y:MT,width:(W-ML-MR)/2,height:H-MT-MB,fill:'var(--cyan)',opacity:0.05}));
+    svg.appendChild(SVG('rect',{x:ML+(W-ML-MR)/2,y:MT,width:(W-ML-MR)/2,height:H-MT-MB,fill:'var(--yellow)',opacity:0.05}));
+    const t0=SVG('text',{x:ML+(W-ML-MR)*0.25,y:H-MB+18,'text-anchor':'middle','font-size':11,fill:'var(--cyan)'}); t0.textContent='s=0   [0,1/2)'; svg.appendChild(t0);
+    const t1=SVG('text',{x:ML+(W-ML-MR)*0.75,y:H-MB+18,'text-anchor':'middle','font-size':11,fill:'var(--yellow)'}); t1.textContent='s=1   [1/2,1)'; svg.appendChild(t1);
+    for(const k of [0,0.5,1]){
+      const xp=xpx(k);
+      svg.appendChild(SVG('line',{x1:xp,y1:H-MB,x2:xp,y2:H-MB+4,stroke:'var(--mute)'}));
+      const t=SVG('text',{x:xp,y:H-MB+18,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});
+      t.textContent=k.toString(); svg.appendChild(t);
+    }
+    const symbols=[];
+    let xCur=x;
+    for(let i=0;i<n;i++){
+      const sym = xCur < 0.5 ? 0 : 1;
+      symbols.push(sym);
+      const xp=xpx(xCur);
+      const yp = MT + (H-MT-MB-20)*(i/(n-1));
+      svg.appendChild(SVG('circle',{cx:xp,cy:yp,r:3,fill:sym===0?'var(--cyan)':'var(--yellow)'}));
+      if(i<6 || i===n-1){
+        const lbl=SVG('text',{x:ML-8,y:yp+4,'text-anchor':'end','font-size':10,fill:'var(--mute)'});
+        lbl.textContent='Dⁿ='+i; svg.appendChild(lbl);
+      }
+      xCur = (2*xCur) % 1;
+    }
+    out.textContent =
+      'itinerary s1s2…s'+n+' = '+symbols.join('')+'\n'+
+      'binary expansion of x0 = '+x.toFixed(4)+' starts '+x.toString(2).slice(2,2+n)+'\n'+
+      '#admissible n-words in the 2-shift = 2^n = '+Math.pow(2,n)+'\n'+
+      'h_top(D) = log 2 ≈ 0.693';
+  }
+  s0.addEventListener('input',render);
+  sN.addEventListener('input',render);
+  render();
+})();
+</script>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./dynamical-systems.html#symbolic">Symbolic dynamics</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./mathematical-chaos.html#srb">Mathematical chaos</a> · Ergodic theory and SRB measures</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="mchaos-symbolic-entropy"></div>
+</section>
+
+<section id="srb">
+<h2>5. Ergodic theory and SRB measures</h2>
+<p>Chaos defeats predictability of individual orbits, but the <strong>statistics</strong> of orbits can still be perfectly predictable. <strong>Birkhoff's ergodic theorem</strong> (1931): if $T\colon X\to X$ preserves a probability measure $\mu$ and is ergodic (every $T$-invariant set has $\mu$-measure $0$ or $1$), then for every $f\in L^1(\mu)$,</p>
+<p style="text-align:center">$\displaystyle\lim_{N\to\infty}\dfrac{1}{N}\sum_{k=0}^{N-1}f(T^k x) \;=\; \int_X f\,d\mu \qquad\mu\text{-almost every } x.$</p>
+<p>Time averages equal space averages. The doubling map preserves Lebesgue measure on $[0,1)$ and is ergodic; running a long orbit and binning the visits recovers the uniform measure. The logistic map at $r=4$ preserves the measure $d\mu = \tfrac{1}{\pi\sqrt{x(1-x)}}dx$ — orbits cluster near $0$ and $1$, not uniformly.</p>
+
+<p>For a dissipative system the attractor is a measure-zero (Lebesgue) subset of phase space, so demanding "Lebesgue-a.e. initial conditions converge to $\int f\,d\mu$" doesn't fit — the attractor's own measure is mutually singular with Lebesgue. The right notion is the <strong>Sinai–Ruelle–Bowen measure</strong> (Sinai 1972, Ruelle 1976, Bowen 1975): the unique $f$-invariant measure $\mu_{\mathrm{SRB}}$ supported on the attractor whose <em>conditional measures along unstable manifolds</em> are absolutely continuous with respect to the unstable Lebesgue. This is the maximum of Pesin's formula and the physical-measure property combined.</p>
+
+<p>The operational miracle: for Lebesgue-a.e. initial condition $x$ in the basin of attraction, $\tfrac{1}{N}\sum f(T^k x)\to \int f\,d\mu_{\mathrm{SRB}}$. An experimenter who picks an arbitrary microstate gets reproducible average behaviour. SRB measures are why "macroscopic" predictions from chaotic models — long-term climate statistics, the equilibrium distribution of a billiard ball on a Bunimovich stadium — are possible at all.</p>
+
+<div class="widget" id="w-mchaos-ergodic">
+  <div class="hd"><div class="ttl">Time average vs. space average: $f_4(x)=4x(1-x)$</div><div class="hint">run many steps and watch the histogram converge to the invariant density</div></div>
+  <div class="row">
+    <button id="erg-go">+1000 steps</button>
+    <button id="erg-go10">+10000 steps</button>
+    <button id="erg-reset">reset</button>
+    <span class="small" id="erg-count">N = 0</span>
+  </div>
+  <svg id="erg-svg" viewBox="0 0 720 260" width="720" height="260"><title>Ergodic histogram convergence</title></svg>
+  <div class="readout" id="erg-out">click +1000 to start iterating…</div>
+  <p class="small">The invariant density $\rho(x) = \tfrac{1}{\pi\sqrt{x(1-x)}}$ (yellow curve) is what Birkhoff's theorem says the histogram of long orbits will converge to. It diverges integrably at $x=0,1$ — orbits spend disproportionately long near the endpoints, which the cobweb diagram makes visually obvious.</p>
+</div>
+<script>
+(function(){
+  const svg=$('#erg-svg'), out=$('#erg-out'), go=$('#erg-go'), go10=$('#erg-go10'), reset=$('#erg-reset'), counter=$('#erg-count');
+  const W=720, H=260, ML=44, MR=14, MT=14, MB=30;
+  const BINS=40;
+  let bins=new Array(BINS).fill(0);
+  let x=0.31415, N=0;
+  function step(steps){
+    for(let k=0;k<steps;k++){
+      x = 4*x*(1-x);
+      if(x<=0||x>=1) x=0.5;
+      const b=Math.min(BINS-1,Math.floor(x*BINS));
+      bins[b]++; N++;
+    }
+    render();
+  }
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    svg.appendChild(SVG('rect',{x:ML,y:MT,width:W-ML-MR,height:H-MT-MB,fill:'var(--panel2)',stroke:'var(--line)','stroke-width':0.6}));
+    const xpx=t=>ML+(W-ML-MR)*t;
+    const total=Math.max(N,1);
+    const probs = bins.map(c=>c/total);
+    const dens = probs.map(p=>p*BINS);
+    let maxD = 4;
+    for(const d of dens) maxD=Math.max(maxD,d);
+    const ypx=d=>(H-MB)-(H-MB-MT)*d/maxD;
+    for(let i=0;i<BINS;i++){
+      const xl=xpx(i/BINS), xr=xpx((i+1)/BINS), y=ypx(dens[i]);
+      svg.appendChild(SVG('rect',{x:xl+1,y,width:xr-xl-2,height:Math.max(0,(H-MB)-y),fill:'var(--cyan)',opacity:0.55}));
+    }
+    const path=[];
+    for(let k=0;k<=200;k++){
+      const t=(k+0.5)/201;
+      const rho = 1/(Math.PI*Math.sqrt(t*(1-t)));
+      path.push((k?'L':'M')+xpx(t).toFixed(2)+' '+ypx(Math.min(maxD,rho)).toFixed(2));
+    }
+    svg.appendChild(SVG('path',{d:path.join(' '),fill:'none',stroke:'var(--yellow)','stroke-width':2}));
+    for(const t of [0,0.25,0.5,0.75,1]){
+      const xp=xpx(t);
+      svg.appendChild(SVG('line',{x1:xp,y1:H-MB,x2:xp,y2:H-MB+4,stroke:'var(--mute)'}));
+      const lbl=SVG('text',{x:xp,y:H-MB+16,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+      lbl.textContent=t.toString(); svg.appendChild(lbl);
+    }
+    const xl=SVG('text',{x:(ML+W-MR)/2,y:H-6,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}); xl.textContent='x in [0,1]'; svg.appendChild(xl);
+    counter.textContent='N = '+N;
+    let dist=0;
+    for(let i=0;i<BINS;i++){
+      const xc=(i+0.5)/BINS;
+      const rho_i = 1/(Math.PI*Math.sqrt(xc*(1-xc)));
+      dist += Math.abs(dens[i]-rho_i)/BINS;
+    }
+    out.textContent =
+      'iterations N = '+N+'\n'+
+      'empirical density (cyan bars) vs invariant density ρ(x)=1/(π√(x(1-x))) (yellow curve)\n'+
+      'L1 distance ≈ '+dist.toFixed(3)+' — shrinks like 1/√N by the ergodic CLT';
+  }
+  go.addEventListener('click',()=>step(1000));
+  go10.addEventListener('click',()=>step(10000));
+  reset.addEventListener('click',()=>{ bins=new Array(BINS).fill(0); x=0.31415; N=0; render(); });
+  render();
+})();
+</script>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./dynamical-systems.html#ergodic">Ergodicity and invariant measures</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><div class="quiz" data-concept="mchaos-ergodic-srb"></div>
+</section>
+
+<section id="kam">
+<h2>6. KAM theorem and Hamiltonian chaos</h2>
+<p>Hamiltonian dynamics offers a third register. A <strong>completely integrable</strong> Hamiltonian on $T^*Q$ has $n$ Poisson-commuting first integrals; Liouville–Arnold says regular compact level sets are tori $T^n$ on which the flow is conditionally periodic with frequency vector $\omega(I)=\partial H/\partial I$. Every orbit either closes (resonant $\omega$, rational dependence) or winds densely (non-resonant $\omega$). No chaos. Most real Hamiltonians are <em>not</em> integrable: $H_\varepsilon = H_0(I) + \varepsilon H_1(I,\theta)$ with $\varepsilon>0$ — a slight perturbation. What survives?</p>
+
+<p><strong>Kolmogorov</strong> (1954), <strong>Arnold</strong> (1963), <strong>Moser</strong> (1962) — the KAM theorem — proves that <em>most</em> invariant tori survive. Specifically, if $H_0$ is non-degenerate ($\det\partial^2 H_0/\partial I^2 \ne 0$) and the perturbation $H_1$ is sufficiently small and smooth, the tori with <strong>Diophantine</strong> frequency vectors</p>
+<p style="text-align:center">$|k\cdot\omega| \ge \gamma\,|k|^{-\tau}\qquad\forall k\in\mathbb{Z}^n\setminus\{0\}$</p>
+<p>persist as smoothly deformed Lagrangian tori in the perturbed system. The set of Diophantine $\omega$ has positive Lebesgue measure that tends to full measure as $\varepsilon\to 0$. The proof handles the "small-denominator problem" — the resonances $k\cdot\omega\approx 0$ that would naively destroy convergence of perturbation series — by an accelerated Newton-style iteration that uses superexponential convergence to defeat the polynomial small-denominator divergence.</p>
+
+<p>In the <em>gaps</em> between Diophantine tori, KAM is silent — and Hamiltonian chaos lives there. Resonant tori shatter into pairs of elliptic and hyperbolic periodic orbits (Poincaré–Birkhoff theorem), and the unstable manifold of each hyperbolic orbit weaves into the stable manifold of others, creating Poincaré's <em>homoclinic tangle</em>: trajectories that look locally like a Smale horseshoe. The Chirikov standard map below is the canonical 2D model: a perturbed twist map with a single dimensionless coupling $K$. At $K=0$ all tori are invariant circles; for $K<K_c\approx 0.971635$ a Cantor family of invariant KAM circles still spans the cylinder (the "golden circle" $\omega=(\sqrt 5-1)/2$ being the last to break); above $K_c$ no invariant circle separates top from bottom and global Arnold-style diffusion is possible.</p>
+
+<div class="widget" id="w-mchaos-stdmap">
+  <div class="hd"><div class="ttl">Chirikov standard map: $p_{n+1}=p_n+K\sin\theta_n$, $\theta_{n+1}=\theta_n+p_{n+1}$</div><div class="hint">drag $K$ from 0 (clean tori) to past $K_c\approx 0.97$ (chaos sea spans the cylinder)</div></div>
+  <div class="row">
+    <label for="sm-K">$K$</label>
+    <input id="sm-K" type="range" min="0" max="3" step="0.01" value="0.5"/>
+    <span class="small" id="sm-Kval">K = 0.50</span>
+    <button id="sm-reseed">reseed</button>
+  </div>
+  <svg id="sm-svg" viewBox="0 0 720 360" width="720" height="360"><title>Standard map phase portrait</title></svg>
+  <div class="readout" id="sm-out">drag K — watch invariant circles erode and chaos seas grow…</div>
+  <p class="small">Twelve initial conditions are iterated 1500 times each; each orbit's $(\theta,p)$ points are plotted on the cylinder $[0,2\pi)\times[-\pi,\pi]$. At small $K$ each is an invariant circle (Diophantine $\omega$); at large $K$ they become indistinguishable noise of the chaos sea. The transition at the golden circle $K_c\approx 0.9716$ (Greene's residue criterion, Mather's variational proof) is one of the few exact thresholds in Hamiltonian chaos.</p>
+</div>
+<script>
+(function(){
+  const svg=$('#sm-svg'), out=$('#sm-out'), slider=$('#sm-K'), label=$('#sm-Kval'), reseed=$('#sm-reseed');
+  const W=720, H=360, ML=42, MR=12, MT=14, MB=30;
+  const PI=Math.PI;
+  function xpx(th){ return ML + (W-ML-MR)*(th/(2*PI)); }
+  function ypx(p){ return (H-MB) - (H-MB-MT)*((p+PI)/(2*PI)); }
+  let seeds=null;
+  function reseedFn(){
+    seeds=[];
+    for(let i=0;i<12;i++){
+      const t = (i+0.5)/12 * 2*PI;
+      const p0 = -PI + 2*PI*((i+0.5)/12);
+      seeds.push([t, p0]);
+    }
+  }
+  reseedFn();
+  function iter(K){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    svg.appendChild(SVG('rect',{x:ML,y:MT,width:W-ML-MR,height:H-MT-MB,fill:'var(--panel2)',stroke:'var(--line)','stroke-width':0.6}));
+    const colors=['var(--yellow)','var(--cyan)','var(--pink)','var(--green)','var(--violet)','var(--blue)'];
+    for(let i=0;i<seeds.length;i++){
+      let [theta,p]=seeds[i];
+      const col=colors[i%colors.length];
+      for(let k=0;k<1500;k++){
+        p = p + K*Math.sin(theta);
+        p = ((p + PI) % (2*PI) + 2*PI) % (2*PI) - PI;
+        theta = theta + p;
+        theta = ((theta % (2*PI)) + 2*PI) % (2*PI);
+        svg.appendChild(SVG('circle',{cx:xpx(theta),cy:ypx(p),r:0.6,fill:col,opacity:0.7}));
+      }
+    }
+    for(let k=0;k<=4;k++){
+      const t = 2*PI*k/4;
+      const xp=xpx(t);
+      svg.appendChild(SVG('line',{x1:xp,y1:H-MB,x2:xp,y2:H-MB+4,stroke:'var(--mute)'}));
+      const lbl=SVG('text',{x:xp,y:H-MB+16,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+      lbl.textContent=(k===0?'0':k===4?'2π':k+'π/2'); svg.appendChild(lbl);
+    }
+    for(let k=-1;k<=1;k++){
+      const yp=ypx(k*PI);
+      svg.appendChild(SVG('line',{x1:ML-4,y1:yp,x2:ML,y2:yp,stroke:'var(--mute)'}));
+      const lbl=SVG('text',{x:ML-6,y:yp+4,'text-anchor':'end','font-size':11,fill:'var(--mute)'});
+      lbl.textContent=k===0?'0':k>0?'π':'-π'; svg.appendChild(lbl);
+    }
+    const xl=SVG('text',{x:(ML+W-MR)/2,y:H-8,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}); xl.textContent='θ'; svg.appendChild(xl);
+    const yl=SVG('text',{x:14,y:(MT+H-MB)/2,'text-anchor':'middle','font-size':12,fill:'var(--mute)',transform:'rotate(-90 14,'+((MT+H-MB)/2)+')'}); yl.textContent='p'; svg.appendChild(yl);
+    let regime;
+    if(K<0.05) regime='trivial twist — all orbits on invariant circles';
+    else if(K<0.5) regime='mostly KAM; faint resonance islands';
+    else if(K<0.97) regime='resonance islands + chaos belts; golden circle still holds';
+    else if(K<1.5) regime='golden circle broken (K_c≈0.9716); chaos sea spans the cylinder';
+    else if(K<2.5) regime='well above onset — KAM remnants are small islands';
+    else regime='strongly hyperbolic; little structure remains';
+    label.textContent='K = '+K.toFixed(2);
+    out.textContent =
+      'coupling K = '+K.toFixed(3)+'\n'+
+      'regime: '+regime+'\n'+
+      'transition: K_c ≈ 0.97164 (golden-circle breakup, Greene 1979)';
+  }
+  reseed.addEventListener('click',()=>{ reseedFn(); iter(+slider.value); });
+  slider.addEventListener('input',e=>iter(+e.target.value));
+  iter(+slider.value);
+})();
+</script>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./hamiltonians-classical-mechanics.html#integrable">Integrable systems and KAM</a></li>
+    <li><a href="./three-body-problem.html#kam">KAM theorem and stability of the solar system</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><div class="quiz" data-concept="mchaos-kam"></div>
+</section>
+
+<section id="sharkovsky">
+<h2>7. Sharkovsky's theorem and 1D order</h2>
+<p>In 1964 a young Ukrainian mathematician, <strong>Oleksandr Sharkovsky</strong>, proved one of the most surprising theorems in dynamics. For continuous self-maps of an interval, the periods that occur are totally ordered:</p>
+<p style="text-align:center">$3 \,\triangleright\, 5 \,\triangleright\, 7 \,\triangleright\, \cdots \,\triangleright\, 2\cdot 3 \,\triangleright\, 2\cdot 5 \,\triangleright\, \cdots \,\triangleright\, 4\cdot 3 \,\triangleright\, 4\cdot 5 \,\triangleright\, \cdots \,\triangleright\, 2^n \,\triangleright\, \cdots \,\triangleright\, 16 \,\triangleright\, 8 \,\triangleright\, 4 \,\triangleright\, 2 \,\triangleright\, 1$</p>
+
+<p><strong>Sharkovsky's theorem</strong>: If $f\colon I\to I$ is continuous and has a periodic orbit of period $m$, then $f$ has periodic orbits of every period $n$ with $m \triangleright n$. The order's first element is $3$, so a period-3 orbit forces orbits of every period — the famous "<strong>period three implies chaos</strong>" (Li and Yorke 1975; though Sharkovsky's stronger result preceded it by a decade). The order's last element is $1$ (fixed points); a continuous map of an interval into itself always has those, by Brouwer.</p>
+
+<div class="widget" id="w-mchaos-sharkovsky"></div><script>
+(function(){
+  if(!window.MVProofScrubber) return;
+  MVProofScrubber.init('#w-mchaos-sharkovsky', {
+    title: "Sharkovsky's order — period-3 forces everything",
+    hint: "scrub through the order — each step adds the next group",
+    viewBox: "0 0 720 220",
+    autoplayMs: 2400,
+    steps: [
+      {
+        title: "Setup: continuous $f\\colon I\\to I$, $I\\subset\\mathbb{R}$",
+        body: "Pick a continuous map of a real interval to itself. The simplest examples: the logistic $f_r(x)=rx(1-x)$ on $[0,1]$ for $r\\in[0,4]$, or any unimodal map. The set of periods occurring is constrained by a total order on $\\mathbb{N}$.",
+        svgInner: "<line x1='40' y1='110' x2='680' y2='110' stroke='var(--mute)' stroke-width='1'/><circle cx='100' cy='110' r='4' fill='var(--ink)'/><text x='100' y='130' text-anchor='middle' font-size='11' fill='var(--mute)'>a</text><circle cx='620' cy='110' r='4' fill='var(--ink)'/><text x='620' y='130' text-anchor='middle' font-size='11' fill='var(--mute)'>b</text><text x='360' y='80' text-anchor='middle' font-size='14' fill='var(--ink)'>f : [a,b] to [a,b]  continuous</text>",
+      },
+      {
+        title: "Powers-of-2 tail: ... 16 > 8 > 4 > 2 > 1",
+        body: "Read Sharkovsky's order from right to left: it ends with the powers of 2 in descending order, then $1$ (fixed points). A period-$2^k$ orbit forces orbits of period $2^j$ for every $j<k$. The Feigenbaum cascade traverses exactly this tail in reverse — at each $r_n$ a new $2^n$-orbit is born, forcing all lower powers.",
+        svgInner: "<line x1='40' y1='110' x2='680' y2='110' stroke='var(--mute)' stroke-width='1'/><circle cx='200' cy='110' r='6' fill='var(--cyan)'/><text x='200' y='90' text-anchor='middle' font-size='12' fill='var(--cyan)'>... 16, 8</text><circle cx='340' cy='110' r='6' fill='var(--cyan)'/><text x='340' y='90' text-anchor='middle' font-size='12' fill='var(--cyan)'>4</text><circle cx='480' cy='110' r='6' fill='var(--cyan)'/><text x='480' y='90' text-anchor='middle' font-size='12' fill='var(--cyan)'>2</text><circle cx='600' cy='110' r='6' fill='var(--yellow)'/><text x='600' y='90' text-anchor='middle' font-size='12' fill='var(--yellow)'>1</text>",
+      },
+      {
+        title: "Even-times-odd layers above the tail",
+        body: "Above the powers-of-2 tail sit the layers $2^k\\cdot$(odd>1): first $4\\cdot$odd in increasing order, then $2\\cdot$odd. The full doubling cascade ($r_\\infty$ in the logistic family) is the limit point of the powers-of-2 layer, but the periodic windows beyond $r_\\infty$ ($r=3.628$ for period 6, $r=3.739$ for period 10) are visiting these higher layers in turn.",
+        svgInner: "<line x1='40' y1='110' x2='680' y2='110' stroke='var(--mute)' stroke-width='1'/><circle cx='160' cy='110' r='6' fill='var(--pink)'/><text x='160' y='90' text-anchor='middle' font-size='12' fill='var(--pink)'>4.5</text><circle cx='240' cy='110' r='6' fill='var(--pink)'/><text x='240' y='90' text-anchor='middle' font-size='12' fill='var(--pink)'>4.3</text><circle cx='360' cy='110' r='6' fill='var(--violet)'/><text x='360' y='90' text-anchor='middle' font-size='12' fill='var(--violet)'>2.5</text><circle cx='440' cy='110' r='6' fill='var(--violet)'/><text x='440' y='90' text-anchor='middle' font-size='12' fill='var(--violet)'>2.3</text><text x='560' y='110' font-size='12' fill='var(--mute)'>powers of 2, 1</text>",
+      },
+      {
+        title: "Odds at the top: 3, 5, 7, ...",
+        body: "At the top of Sharkovsky's order sit the odd numbers $\\ge 3$, in increasing order. A period-3 orbit forces orbits of every other period — both higher odds and everything below. In the logistic family, the period-3 window opens at $r\\approx 3.8284$ inside the chaos band; its existence means $f_r$ at that point has a period-3 orbit and hence orbits of every period.",
+        svgInner: "<line x1='40' y1='110' x2='680' y2='110' stroke='var(--mute)' stroke-width='1'/><circle cx='100' cy='110' r='8' fill='var(--yellow)'/><text x='100' y='86' text-anchor='middle' font-size='14' fill='var(--yellow)' font-weight='bold'>3</text><circle cx='180' cy='110' r='6' fill='var(--yellow)'/><text x='180' y='90' text-anchor='middle' font-size='12' fill='var(--yellow)'>5</text><circle cx='250' cy='110' r='6' fill='var(--yellow)'/><text x='250' y='90' text-anchor='middle' font-size='12' fill='var(--yellow)'>7</text><text x='340' y='114' font-size='12' fill='var(--mute)'>9, 11, ...</text><text x='540' y='114' font-size='12' fill='var(--mute)'>everything else</text>",
+      },
+      {
+        title: "Realization: Sharkovsky's converse",
+        body: "Sharkovsky also proved the converse: for every initial segment of his order, there exists a continuous $f$ realizing exactly the periods in that segment. The converse depends on intervals; on the circle, on higher-dim manifolds, on graphs, the analogous total order fails. The whole structure is a feature of the one-dimensional intermediate-value theorem, applied to a directed graph of intervals between consecutive orbit points.",
+        svgInner: "<rect x='40' y='40' width='640' height='140' fill='none' stroke='var(--line)'/><text x='360' y='80' text-anchor='middle' font-size='13' fill='var(--ink)'>For every $S$ a closed initial segment of Sharkovsky's order,</text><text x='360' y='110' text-anchor='middle' font-size='13' fill='var(--ink)'>some continuous $f\\colon I\\to I$ has periods exactly $= S$.</text><text x='360' y='150' text-anchor='middle' font-size='12' fill='var(--cyan)'>(realized by tent-like maps with piecewise affine branches)</text>",
+      },
+    ],
+  });
+})();
+</script>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./dynamical-systems.html#maps">Iterated maps and the logistic family</a></li>
+    <li><a href="./fixed-point-theorems.html#brouwer">Brouwer fixed-point theorem</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><div class="quiz" data-concept="mchaos-sharkovsky"></div>
+</section>
+
+<section id="connections">
+<h2>Connections</h2>
+
+<p>Chaos is no longer a frontier so much as a hub. The cutting edges are in <em>partial hyperbolicity</em> (relaxing Anosov's uniform expansion to a dominated splitting), <em>chaotic billiards</em> (Sinai's dispersing billiards, ergodicity of hard-sphere gases), <em>quantum chaos</em> (statistics of Laplacian eigenvalues on negatively curved manifolds matching GOE/GUE — random matrix universality), and the still-stubborn question of <em>turbulence</em> in the Navier–Stokes equations.</p>
+
+<ul>
+  <li><a href="./dynamical-systems.html#chaos">Dynamical systems — chaos and Lyapunov exponents</a> — the direct parent: this page picks up where dynamical-systems ends, with sharper tools (entropy, SRB, KAM).</li>
+  <li><a href="./three-body-problem.html#poincare">The three-body problem — Poincaré's tangle</a> — Poincaré's 1889 discovery of homoclinic tangles in the restricted 3-body problem is the historical birthplace of mathematical chaos.</li>
+  <li><a href="./hamiltonians-classical-mechanics.html#integrable">Hamiltonians and classical mechanics — KAM</a> — the integrable case KAM perturbs.</li>
+  <li><a href="./fixed-point-theorems.html#brouwer">Fixed-point theorems — Brouwer</a> — Sharkovsky's theorem rests on intermediate-value-style fixed-point arguments applied to a directed graph of intervals.</li>
+  <li><a href="./random-matrix-theory.html#universality">Random matrix theory — universality</a> — quantum chaos conjectures that eigenvalues of the Laplacian on chaotic systems follow GOE / GUE statistics, an empirically robust but still partly open universality.</li>
+  <li><a href="./statistical-mechanics.html#microstates-ensembles">Statistical mechanics — microstates and ensembles</a> — ergodicity is the bridge: it is what makes the microcanonical ensemble's "uniform on the energy shell" assumption operationally true.</li>
+</ul>
+</section>
+
+</main>
+
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('mathematical-chaos'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+})();
+</script>
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-05-13</td><td>initial version</td></tr>
+    </tbody>
+  </table>
+</details>
+
+</body>
+</html>

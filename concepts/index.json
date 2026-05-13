@@ -6,6 +6,7 @@
     "geometric-invariant-theory",
 
     "heegaard-floer",
+    "mathematical-chaos",
 
     "brill-noether",
     "coding-theory",
@@ -399,6 +400,7 @@
     "shimura-varieties": "capstone",
     "geometric-invariant-theory": "advanced",
     "heegaard-floer": "advanced",
+    "mathematical-chaos": "advanced",
     "brill-noether": "advanced",
     "coding-theory": "standard",
     "conformal-and-cr-geometry": "advanced",

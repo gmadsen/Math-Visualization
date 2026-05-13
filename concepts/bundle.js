@@ -7,6 +7,7 @@ window.__MVConcepts = {
       "random-matrix-theory",
       "geometric-invariant-theory",
       "heegaard-floer",
+      "mathematical-chaos",
       "brill-noether",
       "coding-theory",
       "conformal-and-cr-geometry",
@@ -385,6 +386,7 @@ window.__MVConcepts = {
       "shimura-varieties": "capstone",
       "geometric-invariant-theory": "advanced",
       "heegaard-floer": "advanced",
+      "mathematical-chaos": "advanced",
       "brill-noether": "advanced",
       "coding-theory": "standard",
       "conformal-and-cr-geometry": "advanced",
@@ -709,6 +711,111 @@ window.__MVConcepts = {
           "tags": [
             "classification",
             "completion"
+          ]
+        }
+      ]
+    },
+    "mathematical-chaos": {
+      "topic": "mathematical-chaos",
+      "title": "Mathematical chaos",
+      "page": "mathematical-chaos.html",
+      "concepts": [
+        {
+          "id": "mchaos-lyapunov",
+          "title": "Sensitive dependence and Lyapunov exponents",
+          "anchor": "lyapunov",
+          "prereqs": [
+            "dyn-chaos",
+            "dyn-iterated-maps"
+          ],
+          "blurb": "Chaos is sensitive dependence made quantitative. The Lyapunov exponent $\\lambda(x) = \\lim_{n\\to\\infty}\\tfrac{1}{n}\\log\\|Df^n(x)v\\|$ measures the exponential rate at which nearby trajectories separate. For the logistic map $\\lambda(r)$ stays $\\le 0$ on stable windows, spikes to $\\log 2$ at the chaos threshold $r_\\infty$, and equals $\\log 2$ exactly at $r=4$ (conjugate to the doubling map). Positive $\\lambda$ is the operational definition of chaos.",
+          "tags": [
+            "classification",
+            "foundation"
+          ]
+        },
+        {
+          "id": "mchaos-feigenbaum",
+          "title": "The logistic map and Feigenbaum universality",
+          "anchor": "feigenbaum",
+          "prereqs": [
+            "mchaos-lyapunov",
+            "period-doubling-cascade"
+          ],
+          "blurb": "The logistic map $x_{n+1}=rx_n(1-x_n)$ runs through a period-doubling cascade at $r_n$ with $r_n\\to r_\\infty\\approx 3.5699$. Two ratios are universal across all unimodal maps with quadratic maximum: the geometric rate $\\delta=\\lim (r_{n-1}-r_{n-2})/(r_n-r_{n-1})\\approx 4.6692$ and the scaling $\\alpha\\approx 2.5029$ of the doubling-renormalization fixed point. Feigenbaum's discovery: the constants depend only on the order of the critical point, not the family.",
+          "tags": [
+            "classification",
+            "foundation"
+          ]
+        },
+        {
+          "id": "mchaos-strange-attractors",
+          "title": "Strange attractors and the horseshoe",
+          "anchor": "strange-attractors",
+          "prereqs": [
+            "dyn-strange-attractors",
+            "tbp-poincare-tangle"
+          ],
+          "blurb": "A strange attractor is an invariant set with sensitive dependence and non-integer Hausdorff dimension. The Lorenz system $\\dot x=\\sigma(y-x),\\ \\dot y=x(\\rho-z)-y,\\ \\dot z=xy-\\beta z$ at $(\\sigma,\\beta,\\rho)=(10,8/3,28)$ is the canonical example — dimension $\\approx 2.06$, two unstable spirals woven by a Cantor-set lamination. Smale's horseshoe is the topological skeleton: a single stretch-fold map of a square contains a Cantor set on which the dynamics is conjugate to the full 2-shift, with infinitely many periodic orbits.",
+          "tags": [
+            "classification",
+            "compactness"
+          ]
+        },
+        {
+          "id": "mchaos-symbolic-entropy",
+          "title": "Symbolic dynamics and topological entropy",
+          "anchor": "entropy",
+          "prereqs": [
+            "dyn-symbolic-dynamics",
+            "mchaos-strange-attractors"
+          ],
+          "blurb": "A Markov partition encodes orbits as bi-infinite sequences in $\\{0,\\dots,k-1\\}^{\\mathbb{Z}}$, conjugating the dynamics to a subshift of finite type $\\Sigma_A$ specified by a transition matrix $A$. Topological entropy $h_{\\mathrm{top}}(f)=\\lim_n\\tfrac{1}{n}\\log\\#\\mathrm{Fix}(f^n)=\\log\\rho(A)$ counts periodic orbits exponentially; it equals the supremum of measure-theoretic entropies (variational principle) and lower-bounds the sum of positive Lyapunov exponents (Ruelle's inequality).",
+          "tags": [
+            "classification",
+            "foundation"
+          ]
+        },
+        {
+          "id": "mchaos-ergodic-srb",
+          "title": "Ergodic theory and SRB measures",
+          "anchor": "srb",
+          "prereqs": [
+            "dyn-ergodicity",
+            "mchaos-symbolic-entropy"
+          ],
+          "blurb": "Birkhoff's ergodic theorem: for measure-preserving $T$ and $\\mu$-integrable $f$, the time average $\\tfrac{1}{n}\\sum_{k<n}f(T^k x)$ converges $\\mu$-a.e. to a $T$-invariant function, equal to $\\int f\\,d\\mu$ when $T$ is ergodic. On a hyperbolic attractor the Sinai–Ruelle–Bowen measure is the unique invariant measure absolutely continuous along unstable manifolds: time averages of $f$ for Lebesgue-a.e. initial condition land on $\\int f\\,d\\mu_{\\mathrm{SRB}}$. SRB is what makes physical predictions from chaotic dynamics possible.",
+          "tags": [
+            "classification",
+            "completion"
+          ]
+        },
+        {
+          "id": "mchaos-kam",
+          "title": "KAM theorem and Hamiltonian chaos",
+          "anchor": "kam",
+          "prereqs": [
+            "hcm-integrable-systems",
+            "tbp-kam"
+          ],
+          "blurb": "Kolmogorov–Arnold–Moser: for a small perturbation $H_\\varepsilon = H_0(I)+\\varepsilon H_1(I,\\theta)$ of a non-degenerate integrable Hamiltonian, the invariant tori whose frequency vectors satisfy a Diophantine condition $|k\\cdot\\omega|\\ge\\gamma|k|^{-\\tau}$ persist as smoothly deformed Lagrangian tori. The KAM set has positive Lebesgue measure (full as $\\varepsilon\\to 0$); in the gaps, resonant tori shatter into stochastic layers — Hamiltonian chaos lives there. The three-body problem and the Hénon–Heiles potential are the showcase systems.",
+          "tags": [
+            "classification",
+            "completion"
+          ]
+        },
+        {
+          "id": "mchaos-sharkovsky",
+          "title": "Sharkovsky's theorem and 1D order",
+          "anchor": "sharkovsky",
+          "prereqs": [
+            "dyn-iterated-maps",
+            "fpt-brouwer"
+          ],
+          "blurb": "For continuous $f\\colon I\\to I$ on a real interval, the periods that occur are totally ordered by Sharkovsky's order $3\\triangleright 5\\triangleright 7\\triangleright\\cdots\\triangleright 2\\cdot 3\\triangleright 2\\cdot 5\\triangleright\\cdots\\triangleright 4\\triangleright 2\\triangleright 1$: a period-$m$ orbit forces all periods $n$ with $m\\triangleright n$. Period-three implies every period (Li–Yorke 1975) — and forces positive topological entropy. Sharkovsky's order is the deepest combinatorial fact about 1D real-line dynamics.",
+          "tags": [
+            "classification",
+            "foundation"
           ]
         }
       ]
@@ -19057,7 +19164,8 @@ window.__MVConcepts = {
           "wavelets",
           "numerical-analysis",
           "variational-methods",
-          "fixed-point-theorems"
+          "fixed-point-theorems",
+          "mathematical-chaos"
         ],
         "color": "p"
       },
@@ -19535,6 +19643,7 @@ window.__MVConcepts = {
     "shimura-varieties": "capstone",
     "geometric-invariant-theory": "advanced",
     "heegaard-floer": "advanced",
+    "mathematical-chaos": "advanced",
     "brill-noether": "advanced",
     "coding-theory": "standard",
     "conformal-and-cr-geometry": "advanced",
@@ -19586,11 +19695,11 @@ window.__MVConcepts = {
       "density": 0.5111111111111111
     },
     "Analysis": {
-      "concepts": 204,
-      "intra": 357,
-      "crossOut": 36,
+      "concepts": 211,
+      "intra": 368,
+      "crossOut": 39,
       "crossIn": 73,
-      "density": 0.17647058823529413
+      "density": 0.1848341232227488
     },
     "Probability & statistics": {
       "concepts": 76,
@@ -19638,7 +19747,7 @@ window.__MVConcepts = {
       "concepts": 69,
       "intra": 75,
       "crossOut": 40,
-      "crossIn": 1,
+      "crossIn": 4,
       "density": 0.5797101449275363
     },
     "Control theory & optimization": {

@@ -11432,6 +11432,132 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "mchaos-w1",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "interactive",
+    "role": "interactive",
+    "title": "mchaos-w1 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the mathematical-chaos topic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `mathematical-chaos` topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "mchaos-w2",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "interactive",
+    "role": "interactive",
+    "title": "mchaos-w2 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the mathematical-chaos topic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `mathematical-chaos` topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "mchaos-w3",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "interactive",
+    "role": "interactive",
+    "title": "mchaos-w3 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the mathematical-chaos topic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `mathematical-chaos` topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "mchaos-w4",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "interactive",
+    "role": "interactive",
+    "title": "mchaos-w4 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the mathematical-chaos topic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `mathematical-chaos` topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "mchaos-w5",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "interactive",
+    "role": "interactive",
+    "title": "mchaos-w5 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the mathematical-chaos topic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `mathematical-chaos` topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "mchaos-w6",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "interactive",
+    "role": "interactive",
+    "title": "mchaos-w6 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the mathematical-chaos topic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `mathematical-chaos` topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "mf-w1",
     "family": "verbatim",
     "dimension": "2d",

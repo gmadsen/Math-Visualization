@@ -38699,6 +38699,314 @@ window.MVQuizBank = {
       }
     }
   },
+  "mathematical-chaos": {
+    "topic": "mathematical-chaos",
+    "quizzes": {
+      "mchaos-lyapunov": {
+        "title": "Sensitive dependence and Lyapunov exponents",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For a smooth map $f\\colon\\mathbb{R}\\to\\mathbb{R}$, the Lyapunov exponent along an orbit $x_0,x_1,\\ldots$ is the limit",
+            "choices": [
+              "$\\lim_{n\\to\\infty}\\dfrac{1}{n}\\sum_{k=0}^{n-1}|f'(x_k)|$",
+              "$\\lim_{n\\to\\infty}\\dfrac{1}{n}\\sum_{k=0}^{n-1}\\log|f'(x_k)|$",
+              "$\\lim_{n\\to\\infty}\\log|f'(x_n)|$",
+              "$\\lim_{n\\to\\infty}\\dfrac{1}{n}\\prod_{k=0}^{n-1}|f'(x_k)|$"
+            ],
+            "answer": 1,
+            "explain": "By the chain rule $|Df^n(x_0)| = \\prod_{k=0}^{n-1}|f'(x_k)|$, so $\\tfrac{1}{n}\\log|Df^n(x_0)| = \\tfrac{1}{n}\\sum\\log|f'(x_k)|$. The Lyapunov exponent is the time-average of $\\log|f'|$ along the orbit — by Birkhoff, this converges almost everywhere with respect to any ergodic invariant measure.",
+            "hint": "Differentiating $f^n$ by the chain rule turns the product into a sum once you take logs."
+          },
+          {
+            "type": "mcq",
+            "q": "What is the exact Lyapunov exponent of the logistic map $f(x)=4x(1-x)$ on $[0,1]$?",
+            "choices": [
+              "$0$",
+              "$\\log 2$",
+              "$\\log 4$",
+              "$\\log\\delta$ where $\\delta\\approx 4.6692$ is the Feigenbaum constant"
+            ],
+            "answer": 1,
+            "explain": "At $r=4$ the conjugation $h(x)=\\sin^2(\\pi x/2)$ takes the tent / doubling map $T(y)=1-|2y-1|$ to $f$. The tent map has $|T'|\\equiv 2$ everywhere, so its Lyapunov exponent is $\\log 2$, and conjugacies preserve the exponent. Equivalently, $f$ is ergodic with respect to $d\\mu = \\tfrac{1}{\\pi\\sqrt{x(1-x)}}dx$ and $\\int\\log|f'|\\,d\\mu = \\log 2$.",
+            "hint": "The map at $r=4$ is conjugate (via a sine substitution) to the tent map, whose slope is constant."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is positive Lyapunov exponent often called the \"operational definition\" of chaos?",
+            "choices": [
+              "It is the only definition that can be proved rigorously.",
+              "It is numerically robust — small numerical errors that obey the cocycle equation still recover the right $\\lambda$, while topological transitivity needs symbolic methods.",
+              "It implies the dynamics are integrable.",
+              "It is preserved under all smooth conjugacies, including those that change the periodic orbit structure."
+            ],
+            "answer": 1,
+            "explain": "Sensitive dependence is hard to test in code (it's a $\\forall\\delta\\exists\\epsilon$ statement); Lyapunov exponents drop out of a finite-time tangent-vector computation and the multiplicative ergodic theorem (Oseledec) makes them well-defined $\\mu$-a.e. The other characterizations of chaos — topological transitivity, dense periodic orbits — are harder to certify numerically.",
+            "hint": "Compare what a computer has to do to estimate $\\lambda$ versus to certify dense periodic orbits."
+          }
+        ]
+      },
+      "mchaos-feigenbaum": {
+        "title": "The logistic map and Feigenbaum universality",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The Feigenbaum constant $\\delta\\approx 4.6692\\ldots$ is the limit of which ratio along the logistic map's period-doubling cascade $r_1<r_2<\\cdots$?",
+            "choices": [
+              "$r_n / r_{n-1}$",
+              "$(r_n - r_\\infty) / (r_{n-1} - r_\\infty)$",
+              "$(r_{n-1} - r_{n-2}) / (r_n - r_{n-1})$",
+              "$r_n - r_{n-1}$"
+            ],
+            "answer": 2,
+            "explain": "The spacings $\\Delta_n = r_n - r_{n-1}$ shrink geometrically by factor $1/\\delta$: $\\Delta_n/\\Delta_{n-1}\\to 1/\\delta$, i.e. $\\Delta_{n-1}/\\Delta_n\\to\\delta$. So $\\delta$ measures how much faster each successive bifurcation happens.",
+            "hint": "Spacings shrink, so put the older (larger) spacing in the numerator."
+          },
+          {
+            "type": "mcq",
+            "q": "Feigenbaum universality says that $\\delta$ and $\\alpha$ depend on:",
+            "choices": [
+              "the specific algebraic form of the map (e.g. $rx(1-x)$ versus $r\\sin(\\pi x)$),",
+              "the order of the critical point (quadratic vs. quartic) but not the specific algebraic form,",
+              "the dimension of the phase space,",
+              "the location of the attractor's center of mass."
+            ],
+            "answer": 1,
+            "explain": "The renormalization fixed point — and hence $\\delta,\\alpha$ — depends only on the local behaviour of $f$ at its critical point, specifically the leading-order vanishing. All smooth unimodal maps with $f''(c)\\ne 0$ at the maximum share the same constants. Replacing the quadratic with a quartic maximum gives a different universality class with different constants.",
+            "hint": "Renormalization sees only the local Taylor structure at the critical point."
+          },
+          {
+            "type": "numeric",
+            "q": "If the logistic-map bifurcation points satisfy $r_n - r_\\infty \\approx C\\,\\delta^{-n}$ with $\\delta=4.669$ and $r_\\infty=3.5699$, and you measure $r_5\\approx 3.5697$, what is the next bifurcation $r_6$ predicted to (3 decimal places)?",
+            "answer": 3.5699,
+            "tol": 0.001,
+            "explain": "Each successive spacing $\\Delta_{n+1}=r_{n+1}-r_n$ shrinks by $1/\\delta$, so $r_n$ converges to $r_\\infty$ geometrically. By $r_5$ the orbit is within $\\sim 10^{-4}$ of $r_\\infty$, so $r_6\\approx r_\\infty\\approx 3.5699$. The cascade visibly accumulates.",
+            "hint": "By the time you're at $r_5$ you're already inside the resolution of $r_\\infty$ to three decimals."
+          }
+        ]
+      },
+      "mchaos-strange-attractors": {
+        "title": "Strange attractors and the horseshoe",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The Lorenz attractor at the classical parameters $(\\sigma,\\beta,\\rho)=(10,8/3,28)$ has Hausdorff dimension approximately:",
+            "choices": [
+              "$1$ — it's essentially a curve.",
+              "$2.06$ — slightly more than a surface.",
+              "$3$ — it fills the box $[-30,30]^3$.",
+              "$0$ — it's a Cantor set."
+            ],
+            "answer": 1,
+            "explain": "The Kaplan–Yorke conjecture gives $D_{\\mathrm{KY}}\\approx 2.06$ from the Lyapunov spectrum $(\\lambda_1,\\lambda_2,\\lambda_3)\\approx(0.91,0,-14.57)$. The attractor is a 2D-plus-Cantor sandwich: locally a surface, transverse to which it's a Cantor set with positive (but small) fractal codimension.",
+            "hint": "Take the largest two Lyapunov exponents into the Kaplan–Yorke formula."
+          },
+          {
+            "type": "mcq",
+            "q": "Smale's horseshoe is the topological mechanism that produces:",
+            "choices": [
+              "a globally stable fixed point,",
+              "an invariant Cantor set on which the dynamics is conjugate to the full 2-shift $(\\Sigma_2,\\sigma)$,",
+              "a Hopf bifurcation,",
+              "a period-doubling cascade."
+            ],
+            "answer": 1,
+            "explain": "Stretch a square horizontally, fold it into a horseshoe, place it back over the original. Points that stay in the square under all iterations form a Cantor set $\\Lambda$; coding each point by which 'leg' it occupies at each iterate gives a homeomorphism $\\Lambda\\cong\\{0,1\\}^{\\mathbb{Z}}$ that intertwines $f$ with the shift. Result: infinitely many periodic orbits of every period.",
+            "hint": "The horseshoe codes orbits by which leg of the folded square they sit in."
+          },
+          {
+            "type": "mcq",
+            "q": "Which of the following is NOT a characteristic of a strange attractor?",
+            "choices": [
+              "positive Lebesgue measure in phase space,",
+              "sensitive dependence on initial conditions,",
+              "fractal (non-integer Hausdorff) dimension,",
+              "topological transitivity on the attractor."
+            ],
+            "answer": 0,
+            "explain": "Strange attractors live on a measure-zero (in fact Lebesgue-null) subset of phase space — that's why they have fractional dimension. Dissipativity ($\\nabla\\cdot X<0$) forces volumes to contract to zero, so the attractor can be any of a curve, surface, or fractal, but never a region of positive volume.",
+            "hint": "Dissipation contracts volumes, so the attractor has to be thin in some direction."
+          }
+        ]
+      },
+      "mchaos-symbolic-entropy": {
+        "title": "Symbolic dynamics and topological entropy",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For a subshift of finite type $\\Sigma_A$ specified by an irreducible transition matrix $A$, the topological entropy is:",
+            "choices": [
+              "$\\log\\det A$,",
+              "$\\log\\rho(A)$, the log of the spectral radius (Perron eigenvalue),",
+              "$\\log\\mathrm{tr}\\,A$,",
+              "$\\log$ of the number of $1$'s in $A$."
+            ],
+            "answer": 1,
+            "explain": "The number of length-$n$ admissible words is $\\sum_{i,j}(A^n)_{ij}$, asymptotically $\\rho(A)^n$ by Perron–Frobenius. Hence $\\#\\mathrm{Fix}(\\sigma^n)$ grows like $\\rho(A)^n$ and $h_{\\mathrm{top}}=\\lim\\tfrac1n\\log\\#\\mathrm{Fix}(\\sigma^n)=\\log\\rho(A)$.",
+            "hint": "Counting length-$n$ words in $\\Sigma_A$ reduces to summing entries of $A^n$."
+          },
+          {
+            "type": "mcq",
+            "q": "Ruelle's inequality says that for a $C^1$ map $f$ with invariant measure $\\mu$, the measure-theoretic entropy satisfies:",
+            "choices": [
+              "$h_\\mu(f) = 0$ when $f$ has positive Lyapunov exponents,",
+              "$h_\\mu(f) \\le \\sum_i \\max(\\lambda_i,0)$, summed over positive Lyapunov exponents,",
+              "$h_\\mu(f) \\ge \\log\\rho(Df)$,",
+              "$h_\\mu(f)$ is always irrational."
+            ],
+            "answer": 1,
+            "explain": "Ruelle's inequality: measure-theoretic entropy is at most the total exponential expansion rate, summed over expanding directions. Equality (Pesin's formula) holds when $\\mu$ is absolutely continuous with respect to Lebesgue — exactly when $\\mu$ is an SRB measure on a hyperbolic attractor.",
+            "hint": "Entropy is bounded above by how fast the dynamics stretch — sum the positive Lyapunov exponents."
+          },
+          {
+            "type": "mcq",
+            "q": "The variational principle for topological entropy states:",
+            "choices": [
+              "$h_{\\mathrm{top}}(f) = \\sup\\{h_\\mu(f) : \\mu\\ f\\text{-invariant}\\}$",
+              "$h_{\\mathrm{top}}(f) = \\inf\\{h_\\mu(f) : \\mu\\ f\\text{-invariant}\\}$",
+              "$h_{\\mathrm{top}}(f) = h_\\mu(f)$ for every $f$-invariant $\\mu$,",
+              "$h_{\\mathrm{top}}(f)$ is unrelated to measure-theoretic entropy."
+            ],
+            "answer": 0,
+            "explain": "Goodwyn / Dinaburg / Goodman proved that topological entropy is the supremum of Kolmogorov–Sinai (measure-theoretic) entropies over all invariant probabilities. A measure attaining the supremum is called a measure of maximal entropy; for subshifts of finite type it's unique (the Parry measure).",
+            "hint": "Topological entropy is the worst case over all invariant measures — sup, not inf."
+          }
+        ]
+      },
+      "mchaos-ergodic-srb": {
+        "title": "Ergodic theory and SRB measures",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Birkhoff's ergodic theorem says that for an ergodic measure-preserving $T$ and integrable $f$, the time average $\\tfrac{1}{N}\\sum_{k=0}^{N-1} f(T^k x)$ converges (as $N\\to\\infty$):",
+            "choices": [
+              "in $L^2$ but not pointwise,",
+              "$\\mu$-almost everywhere, to $\\int f\\,d\\mu$,",
+              "$\\mu$-almost everywhere, to $f(x)$,",
+              "only for $f$ continuous."
+            ],
+            "answer": 1,
+            "explain": "Ergodicity makes the limit constant ($\\mu$-a.e.) equal to the space average $\\int f\\,d\\mu$. The non-ergodic version: the limit exists pointwise but is the conditional expectation $\\mathbb{E}[f\\mid\\mathcal{I}]$ over the invariant $\\sigma$-algebra.",
+            "hint": "Ergodicity collapses the invariant $\\sigma$-algebra to trivial, so the conditional expectation becomes a constant."
+          },
+          {
+            "type": "mcq",
+            "q": "An SRB measure $\\mu$ on a hyperbolic attractor is characterized by:",
+            "choices": [
+              "being the unique invariant measure on the attractor,",
+              "being absolutely continuous with respect to Lebesgue measure on the full phase space,",
+              "having conditional measures along unstable manifolds absolutely continuous with respect to the unstable Lebesgue measure,",
+              "having entropy zero."
+            ],
+            "answer": 2,
+            "explain": "On a hyperbolic attractor the attractor itself has Lebesgue measure zero (it's a fractal), so $\\mu$ can't be Lebesgue-a.c. globally. The Sinai–Ruelle–Bowen condition is the next-best thing: along unstable foliation leaves, $\\mu$'s conditionals are smooth densities. That's what makes time averages from Lebesgue-a.e. initial condition land on $\\int f\\,d\\mu_{\\mathrm{SRB}}$.",
+            "hint": "The attractor has measure zero, so absolute continuity has to be conditional — along unstable leaves."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is the SRB property physically meaningful?",
+            "choices": [
+              "It is the only mathematically rigorous result in ergodic theory.",
+              "It makes time averages from Lebesgue-a.e. (i.e. \"physical\") initial conditions equal to space averages with respect to $\\mu_{\\mathrm{SRB}}$.",
+              "It implies the system is integrable.",
+              "It is invariant under all diffeomorphisms."
+            ],
+            "answer": 1,
+            "explain": "An experimenter selects an initial condition with respect to Lebesgue, not with respect to the attractor's measure. The SRB property guarantees the basin of attraction $B(\\Lambda)$ has positive Lebesgue measure and that for Lebesgue-a.e. $x\\in B(\\Lambda)$, time averages equal $\\int f\\,d\\mu_{\\mathrm{SRB}}$. Without SRB, the system's statistics could depend pathologically on which microstate you happened to start from.",
+            "hint": "Experiments sample initial conditions from Lebesgue, not from the attractor's own measure."
+          }
+        ]
+      },
+      "mchaos-kam": {
+        "title": "KAM theorem and Hamiltonian chaos",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The KAM theorem requires the unperturbed Hamiltonian $H_0(I)$ to be:",
+            "choices": [
+              "linear in the action variables,",
+              "non-degenerate: $\\det(\\partial^2 H_0/\\partial I_i\\partial I_j)\\ne 0$ (Kolmogorov's condition),",
+              "polynomial,",
+              "globally hyperbolic."
+            ],
+            "answer": 1,
+            "explain": "Non-degeneracy ensures the frequency map $I\\mapsto\\omega(I)=\\nabla H_0(I)$ is a local diffeomorphism, so the Diophantine tori form a set of positive measure in frequency space and hence in action space. Without it, frequencies collapse to a lower-dimensional set and the theorem fails (e.g. the isochronous harmonic oscillator).",
+            "hint": "You need the frequency vector to vary genuinely with the action — i.e. the Hessian of $H_0$ in actions must be invertible."
+          },
+          {
+            "type": "mcq",
+            "q": "Which frequency vectors $\\omega\\in\\mathbb{R}^n$ have invariant tori that KAM preserves under small perturbation?",
+            "choices": [
+              "rational frequency vectors (commensurable),",
+              "frequency vectors $\\omega$ satisfying a Diophantine condition $|k\\cdot\\omega|\\ge\\gamma|k|^{-\\tau}$ for all $k\\in\\mathbb{Z}^n\\setminus\\{0\\}$,",
+              "all $\\omega\\in\\mathbb{R}^n$,",
+              "only rationally independent $\\omega$ with $\\omega_i\\in\\mathbb{Z}$."
+            ],
+            "answer": 1,
+            "explain": "Diophantine $\\omega$ are 'badly approximable' by rationals: small denominators $|k\\cdot\\omega|$ are bounded below by an inverse power of $|k|$. This bound is what defeats the small-denominator divergence in the perturbative KAM series. Rational $\\omega$ (resonant) generically break under perturbation into Birkhoff zones; that's where Hamiltonian chaos lives.",
+            "hint": "The 'small-denominator problem' is the obstruction; Diophantine bounds defeat it."
+          },
+          {
+            "type": "mcq",
+            "q": "In the gaps left by KAM tori, the dynamics:",
+            "choices": [
+              "is rigorously integrable,",
+              "exhibits chaos in 'stochastic layers' — homoclinic tangles, Arnold diffusion in $n\\ge 3$,",
+              "decays to a global fixed point,",
+              "always escapes to infinity."
+            ],
+            "answer": 1,
+            "explain": "Resonant tori are destroyed by perturbation and replaced by alternating elliptic / hyperbolic periodic orbits (Poincaré–Birkhoff). The stable and unstable manifolds of the hyperbolic ones intersect transversally — Poincaré's homoclinic tangle. For $n\\ge 3$ degrees of freedom, KAM tori no longer separate energy shells and trajectories can drift through resonance gaps over very long times (Arnold diffusion).",
+            "hint": "Resonant tori break into elliptic + hyperbolic orbits; the latter weave the Poincaré tangle that drives the local chaos."
+          }
+        ]
+      },
+      "mchaos-sharkovsky": {
+        "title": "Sharkovsky's theorem and 1D order",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Sharkovsky's order on $\\mathbb{N}$ begins with odd numbers, then $2\\times$ odd, $4\\times$ odd, ..., and ends with the powers of $2$. The order ends at:",
+            "choices": [
+              "$1$ (the least element under Sharkovsky's order),",
+              "$\\infty$,",
+              "$3$,",
+              "$2$."
+            ],
+            "answer": 0,
+            "explain": "Sharkovsky's order is $3\\triangleright 5\\triangleright 7\\triangleright\\cdots\\triangleright 2\\cdot 3\\triangleright 2\\cdot 5\\triangleright\\cdots\\triangleright 2^n\\triangleright\\cdots\\triangleright 4\\triangleright 2\\triangleright 1$. The terminal element is $1$ (fixed points). The forcing direction: a period-$m$ orbit forces all $n$ with $m\\triangleright n$.",
+            "hint": "Read the order all the way to the right — past the doubling tail."
+          },
+          {
+            "type": "mcq",
+            "q": "The Li–Yorke / Sharkovsky principle 'period three implies chaos' on a 1D interval map says, at minimum, that a period-3 orbit forces:",
+            "choices": [
+              "no other periodic orbits,",
+              "an uncountable scrambled set with sensitive dependence,",
+              "the map to be a contraction,",
+              "the map to be linear."
+            ],
+            "answer": 1,
+            "explain": "Sharkovsky's theorem already says period-3 forces orbits of every period (since $3$ is maximal in his order). Li–Yorke's 1975 paper went further: the same hypothesis produces an uncountable 'scrambled set' on which the dynamics exhibits sensitive dependence — pairs of points whose orbits get arbitrarily close infinitely often and arbitrarily far apart infinitely often. Period-3 also forces topological entropy $\\ge\\log\\rho_3>0$ where $\\rho_3\\approx 1.6180$ is the golden ratio.",
+            "hint": "Period-3 forces every other period plus an uncountable set of orbits with sensitive dependence."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is Sharkovsky's theorem specific to continuous self-maps of an interval (or arc), not generalizable to maps of the circle or higher dimensions?",
+            "choices": [
+              "Because higher dimensions have no notion of period.",
+              "Because the proof uses the intermediate-value theorem and the linear order of the real line — a circle or plane lacks the global one-dimensional structure that lets a single covering relation force all smaller periods.",
+              "Because periodic orbits don't exist in dimension $\\ge 2$.",
+              "Because the period-3 orbit cannot be realized in dimension $\\ge 2$."
+            ],
+            "answer": 1,
+            "explain": "The proof builds a directed graph from a periodic orbit by labeling intervals between consecutive orbit points and tracking which interval $f$ stretches over which others (covering relation); intermediate-value then converts symbolic paths into actual periodic orbits. On a circle, the orbit's intervals form a cycle and the linear-order argument breaks. On $\\mathbb{R}^2$ a rotation has only fixed points (period $1$) but no period-$2$ orbits — the implications can fail in either direction.",
+            "hint": "The proof leans on intermediate-value applied to a linear order — what fails on a circle?"
+          }
+        ]
+      }
+    }
+  },
   "mathematical-finance": {
     "topic": "mathematical-finance",
     "quizzes": {
