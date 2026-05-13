@@ -274,7 +274,8 @@
       "title": "Control theory & optimization",
       "description": "Linear and convex programming, network flows, dynamic programming, optimal control, Itô calculus applied to finance, and the analytic tools at the boundary between pure math and engineering decisions.",
       "topics": [
-        "optimal-control-and-dynamic-programming"
+        "optimal-control-and-dynamic-programming",
+        "combinatorial-optimization"
       ],
       "color": "p"
     }

@@ -1,0 +1,323 @@
+{
+  "topic": "combinatorial-optimization",
+  "quizzes": {
+    "lp-simplex": {
+      "title": "Linear programming and the simplex method",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Where does the optimal value of $\\max c^\\top x$ s.t. $Ax\\le b$, $x\\ge 0$ live, when it is finite?",
+          "choices": [
+            "At the strict interior of the feasible polyhedron",
+            "At a vertex (basic feasible solution) of the polyhedron",
+            "At the centroid of the polyhedron",
+            "Always at the origin $x=0$"
+          ],
+          "answer": 1,
+          "hint": "A linear objective restricted to a bounded face is itself linear, so its maximum is attained on the boundary.",
+          "explain": "The fundamental theorem of LP: a linear objective over a bounded polyhedron attains its maximum at a vertex. Even on an unbounded polyhedron, when the optimum is finite, some basic feasible solution achieves it."
+        },
+        {
+          "type": "numeric",
+          "q": "Consider $\\max\\ 3x_1 + 2x_2$ s.t. $x_1 + x_2 \\le 4$, $x_1 \\le 3$, $x_1,x_2 \\ge 0$. What is the optimal value?",
+          "answer": 11,
+          "tol": 0.0001,
+          "hint": "Enumerate the vertices of the feasible polygon — they are $(0,0)$, $(3,0)$, $(3,1)$, $(0,4)$.",
+          "explain": "The four vertices are $(0,0)$, $(3,0)$, $(3,1)$, $(0,4)$, with objective values $0, 9, 11, 8$. The optimum is $11$ at $(3,1)$."
+        },
+        {
+          "type": "multi-select",
+          "q": "Which statements about the simplex method are correct?",
+          "choices": [
+            "Each pivot moves to an adjacent vertex with strictly improving objective (modulo degeneracy)",
+            "Simplex has worst-case polynomial pivot count on every input",
+            "Simplex runs empirically fast despite worst-case exponential behavior (Klee–Minty)",
+            "The interior-point method is a competitor that gives the first proven polynomial-time LP algorithm (Khachiyan / Karmarkar)"
+          ],
+          "answer": [
+            0,
+            2,
+            3
+          ],
+          "hint": "Klee–Minty exhibits a perturbed cube on which simplex visits $2^n$ vertices; that rules out one of the options.",
+          "explain": "Simplex pivots between adjacent BFS along improving directions; Klee–Minty cubes force $2^n$ pivots in the worst case. Smoothed analysis (Spielman–Teng) explains the empirical polynomial behavior. Khachiyan's ellipsoid method (1979) gave the first polynomial-time LP algorithm."
+        }
+      ]
+    },
+    "lp-duality": {
+      "title": "LP duality and min-max theorems",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "If $x$ is primal-feasible for $\\max c^\\top x$ s.t. $Ax\\le b$, $x\\ge 0$, and $y$ is dual-feasible for $\\min b^\\top y$ s.t. $A^\\top y\\ge c$, $y\\ge 0$, which inequality always holds?",
+          "choices": [
+            "$c^\\top x \\ge b^\\top y$",
+            "$c^\\top x \\le b^\\top y$",
+            "$c^\\top x = b^\\top y$ (always)",
+            "$c^\\top x + b^\\top y \\le 0$"
+          ],
+          "answer": 1,
+          "hint": "Use $Ax\\le b$ and $A^\\top y\\ge c$ to sandwich $y^\\top A x$ from both sides.",
+          "explain": "Weak duality: $c^\\top x \\le (A^\\top y)^\\top x = y^\\top Ax \\le y^\\top b = b^\\top y$. Equality holds at primal–dual optima (strong duality)."
+        },
+        {
+          "type": "matching",
+          "q": "Match each combinatorial min–max theorem to its primal optimization problem.",
+          "left": [
+            "König–Egerváry",
+            "Ford–Fulkerson",
+            "Menger (edge form)",
+            "von Neumann minimax"
+          ],
+          "right": [
+            "max bipartite matching = min vertex cover",
+            "max $s$–$t$ flow = min $s$–$t$ cut",
+            "max edge-disjoint $s$–$t$ paths = min edge separator",
+            "max row payoff = min column payoff in zero-sum game"
+          ],
+          "answer": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "hint": "Each theorem is LP duality for a different combinatorial polytope; the primal counts the objects, the dual counts the blockers.",
+          "explain": "Each theorem is LP duality applied to a 0/1 LP whose constraint matrix is TU (or has integrality gap zero by structure)."
+        },
+        {
+          "type": "spot-the-error",
+          "q": "Find the error in the following student reasoning: \"By weak duality, if I find any primal-feasible $x$ with $c^\\top x = 7$ and any dual-feasible $y$ with $b^\\top y = 5$, the LP has optimum $7$.\"",
+          "steps": [
+            "Let $x$ be a primal-feasible point with $c^\\top x = 7$.",
+            "Let $y$ be a dual-feasible point with $b^\\top y = 5$.",
+            "By weak duality, $c^\\top x \\le b^\\top y$, so $7 \\le 5$ — both points are consistent.",
+            "Conclude: the LP optimum is $c^\\top x = 7$."
+          ],
+          "answer": 2,
+          "hint": "Recall the inequality direction from weak duality.",
+          "explain": "Step 2 is the error: weak duality demands $c^\\top x \\le b^\\top y$ for every feasible pair. If $7 > 5$, then $x$ or $y$ is in fact NOT feasible — the student's two feasibility claims are mutually inconsistent. There is no valid LP for which both can hold."
+        }
+      ]
+    },
+    "network-flows": {
+      "title": "Max-flow / min-cut",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "On a directed network $(G, s, t, c)$, after running max-flow to optimality, the reachable set from $s$ in the residual graph $G_f$ is $S$. Why is $(S, V\\setminus S)$ a minimum cut?",
+          "choices": [
+            "By construction — every edge from $S$ to $V\\setminus S$ has $f(e) = c(e)$, so cut capacity equals flow value, and weak duality gives the min cut",
+            "Because $t \\in S$ at optimum",
+            "Because $|S|$ is minimised among all cuts",
+            "Because every edge from $V\\setminus S$ to $S$ has $f(e) = 0$ only"
+          ],
+          "answer": 0,
+          "hint": "Every cut bounds every flow; equality means both are optimal.",
+          "explain": "At optimality, no augmenting path exists, so every forward edge from $S$ to $V\\setminus S$ is saturated ($f(e)=c(e)$) and every backward edge has $f(e)=0$. The net flow across the cut equals the cut capacity, which also equals $|f|$. Since every cut $\\ge$ every flow, both are simultaneously optimal."
+        },
+        {
+          "type": "numeric",
+          "q": "On a network where every edge has unit capacity, the max-flow / min-cut value equals the number of edge-disjoint $s$–$t$ paths (Menger). For the complete bipartite graph $K_{3,3}$ oriented left-to-right with $s$ as a super-source above the left side and $t$ as a super-sink below the right side, how many edge-disjoint $s$–$t$ paths are there?",
+          "answer": 3,
+          "tol": 0,
+          "hint": "The bottleneck is the source-side $s\\to L$ or sink-side $R\\to t$ — both have 3 unit-capacity edges.",
+          "explain": "The min cut is the 3 edges from $s$ to $L$ (or 3 from $R$ to $t$). Hence max-flow = 3 and there are 3 edge-disjoint $s$–$t$ paths."
+        },
+        {
+          "type": "ordering",
+          "q": "Place the steps of the Edmonds–Karp max-flow algorithm in order.",
+          "items": [
+            "Initialise $f(e) = 0$ on every edge",
+            "Build the residual graph $G_f$",
+            "BFS from $s$ in $G_f$ to find a shortest augmenting path to $t$",
+            "Push the bottleneck capacity of the path through $f$",
+            "Repeat until no augmenting path exists; the current $f$ is optimal"
+          ],
+          "answer": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "hint": "Each iteration rebuilds the residual graph, BFS for a new path, augments by the bottleneck.",
+          "explain": "Edmonds–Karp: initialise with zero flow; iteratively (residual graph → BFS shortest path → augment by bottleneck) until BFS finds no $s$–$t$ path. The $O(|V||E|^2)$ bound comes from BFS-derived monotone shortest distances."
+        }
+      ]
+    },
+    "matching": {
+      "title": "Matching and assignment",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Berge's lemma characterises maximum matchings as exactly the matchings $M$ such that:",
+          "choices": [
+            "No vertex has more than one matching edge",
+            "There is no $M$-augmenting path (an alternating path between two unmatched vertices)",
+            "Every vertex is matched",
+            "$M$ contains a perfect matching"
+          ],
+          "answer": 1,
+          "hint": "Augmenting paths flip non-matching to matching and vice versa along the path, gaining one matched edge.",
+          "explain": "Berge: $M$ is maximum iff no augmenting path exists. If a path $v_0 \\to v_1 \\to \\cdots \\to v_{2k+1}$ alternates non-matching/matching/non-matching and starts and ends unmatched, flipping yields $|M|+1$ matched edges."
+        },
+        {
+          "type": "numeric",
+          "q": "By König–Egerváry, in the bipartite graph with $L=\\{a,b,c\\}$, $R=\\{1,2,3\\}$ and edges $\\{(a,1),(a,2),(b,2),(c,2),(c,3)\\}$, what is the size of a maximum matching?",
+          "answer": 3,
+          "tol": 0,
+          "hint": "Try to match each left vertex; with 5 edges and only 3 right vertices, the bottleneck is on the right.",
+          "explain": "A maximum matching is $\\{(a,1),(b,2),(c,3)\\}$, size 3. The minimum vertex cover is also size 3 (e.g. $\\{1,2,3\\}$), confirming König's theorem."
+        },
+        {
+          "type": "multi-select",
+          "q": "Which statements about maximum matching in general (non-bipartite) graphs are correct?",
+          "choices": [
+            "Edmonds' blossom algorithm runs in polynomial time",
+            "Berge's lemma still characterises maximum matchings by absence of augmenting paths",
+            "König–Egerváry generalises directly to non-bipartite graphs",
+            "Odd cycles (blossoms) require special handling; naive bipartite-style search fails"
+          ],
+          "answer": [
+            0,
+            1,
+            3
+          ],
+          "hint": "König holds in bipartite graphs only — try the triangle for a counterexample.",
+          "explain": "Edmonds (1965) gave the polynomial algorithm via blossom contraction. Berge's lemma is graph-agnostic. König–Egerváry fails on the triangle: max matching = 1, min vertex cover = 2."
+        }
+      ]
+    },
+    "ip-tu": {
+      "title": "Integer programming and total unimodularity",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Why does total unimodularity of $A$ guarantee that LP optima of $\\max c^\\top x$ s.t. $Ax\\le b$, $x\\ge 0$ are integer for integer $b$?",
+          "choices": [
+            "Because Cramer's rule expresses BFS coordinates as ratios of subdeterminants of $A$, and TU forces those denominators to be $\\pm 1$",
+            "Because TU matrices are square",
+            "Because integer programs always have integer optima",
+            "Because the simplex method only uses integer arithmetic"
+          ],
+          "answer": 0,
+          "hint": "BFS coordinates are $x_B = B^{-1} b$ where $B$ is a basis submatrix; by Cramer, each is a subdeterminant ratio.",
+          "explain": "Hoffman–Kruskal: at each BFS, basic variables are $x_B = B^{-1} b$; Cramer's rule writes each entry as a ratio with $\\det B$ in the denominator. TU forces $\\det B \\in \\{-1,0,+1\\}$, so the BFS is integer."
+        },
+        {
+          "type": "multi-select",
+          "q": "Which of the following matrices are totally unimodular?",
+          "choices": [
+            "Vertex–edge incidence matrix of a bipartite graph",
+            "Signed (head $=-1$, tail $=+1$) incidence matrix of a directed graph",
+            "Vertex–edge incidence matrix of $C_3$ (the triangle)",
+            "Matrix with consecutive-ones property (each row has a contiguous block of 1s)"
+          ],
+          "answer": [
+            0,
+            1,
+            3
+          ],
+          "hint": "Odd cycles break bipartite TU; one of the four listed is an odd cycle.",
+          "explain": "Bipartite incidence, directed signed incidence, and consecutive-ones matrices are all TU. The triangle is the standard counterexample: its incidence matrix has $\\det = \\pm 2$."
+        },
+        {
+          "type": "spot-the-error",
+          "q": "Find the error in the following argument: \"My ILP's constraint matrix $A$ has $\\det A = 1$, so $A$ is totally unimodular, so the LP relaxation has integer vertices and solves the ILP.\"",
+          "steps": [
+            "$A$ is the constraint matrix; compute $\\det A = 1$.",
+            "Since $\\det A = 1 \\in \\{-1,0,+1\\}$, $A$ is totally unimodular.",
+            "By Hoffman–Kruskal, every BFS of $\\{x\\ge 0 : Ax\\le b\\}$ is integer.",
+            "Conclude: the LP relaxation has integer optimum and solves the ILP."
+          ],
+          "answer": 1,
+          "hint": "TU is a property of every square submatrix, not just $A$ itself.",
+          "explain": "Step 1 is correct, and steps 2–4 follow only if 'TU' is correctly applied. Step 2 is the error: TU requires every square submatrix (every $k\\times k$ minor for every $k$) to have determinant in $\\{-1,0,+1\\}$, not just $A$ as a whole. A matrix with $\\det A = 1$ can have, say, a $2\\times 2$ subminor of $2$ — the bipartite incidence of $C_3$ is one such example."
+        }
+      ]
+    },
+    "polyhedral": {
+      "title": "Polyhedral combinatorics",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Edmonds' matching polytope theorem describes $P_{\\mathrm{match}}(G)$ for a general graph $G$ by which family of inequalities (in addition to $x\\ge 0$)?",
+          "choices": [
+            "Degree constraints $\\sum_{e\\ni v} x_e \\le 1$ only",
+            "Degree constraints together with odd-set inequalities $\\sum_{e\\subseteq S} x_e \\le \\lfloor|S|/2\\rfloor$ for every odd $S$",
+            "Only the odd-set inequalities, dropping degree constraints",
+            "Spanning-tree constraints"
+          ],
+          "answer": 1,
+          "hint": "Bipartite graphs need only degree constraints; the new content is the odd-set family for non-bipartite graphs.",
+          "explain": "Edmonds (1965): degree constraints alone are insufficient for non-bipartite graphs — the 5-cycle gives a fractional half-edge solution. Adding the odd-set inequalities for every odd $S \\subseteq V$ exactly describes the matching polytope."
+        },
+        {
+          "type": "mcq",
+          "q": "Grötschel–Lovász–Schrijver (1981) established the equivalence:",
+          "choices": [
+            "polynomial separation $\\iff$ polynomial optimization (via the ellipsoid method)",
+            "polynomial separation $\\iff$ polynomial enumeration of vertices",
+            "polynomial vertex count $\\iff$ polynomial optimization",
+            "every integer program is polynomially solvable"
+          ],
+          "answer": 0,
+          "hint": "The breakthrough was using the ellipsoid method with an oracle, not a list of constraints.",
+          "explain": "GLS: a polytope admits poly-time LP optimization iff it admits a poly-time separation oracle. The ellipsoid method only asks 'is $x\\in P$? if not, give a violated inequality' at each iteration — so an oracle suffices, even if $P$ has exponentially many facets."
+        },
+        {
+          "type": "mcq",
+          "q": "The matching polytope of $C_5$ has a positive integrality gap. With only the degree constraints $\\sum_{e\\ni v} x_e \\le 1$, $x\\ge 0$, what is the fractional LP optimum of $\\max\\sum x_e$? (Recall: integer max matching of $C_5$ is $2$.)",
+          "choices": [
+            "$2$",
+            "$5/2$ (attained by $x_e = 1/2$ on every edge)",
+            "$3$",
+            "$1$"
+          ],
+          "answer": 1,
+          "hint": "On the cycle, the symmetric fractional matching sets every edge equal; check the degree constraints carry the load.",
+          "explain": "Setting $x_e=1/2$ on all 5 edges of $C_5$ satisfies the degree constraints with equality and gives objective $5/2$. The integer optimum is $\\lfloor 5/2\\rfloor = 2$, so the integrality gap is $5/4$. Adding the odd-set inequality $\\sum_{e\\subseteq V} x_e \\le 2$ closes the gap."
+        }
+      ]
+    },
+    "approximation": {
+      "title": "LP rounding and approximation algorithms",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Threshold rounding for minimum vertex cover sets $\\hat x_v = 1$ when $x_v \\ge 1/2$, where $x$ is the LP optimum. What is the proven approximation ratio?",
+          "choices": [
+            "Optimal — gives an exact vertex cover",
+            "2-approximation",
+            "$\\ln n$-approximation",
+            "$O(\\sqrt n)$-approximation"
+          ],
+          "answer": 1,
+          "hint": "Every LP variable doubles at most when rounded, and feasibility is preserved on every edge.",
+          "explain": "For each edge $(u,v)$ with $x_u + x_v \\ge 1$, at least one of $x_u, x_v \\ge 1/2$, so the rounded cover is feasible. Cost at most doubles, giving a 2-approximation. This is also optimal under the Unique Games Conjecture."
+        },
+        {
+          "type": "numeric",
+          "q": "On a universe $U$ of size $n = 100$, the LP relaxation lower bound for set cover is $\\mathrm{OPT}_{\\mathrm{LP}}$. The greedy algorithm produces a cover of size at most  $H_n \\cdot \\mathrm{OPT}_{\\mathrm{LP}}$  where $H_n \\approx \\ln n + \\gamma$. To two decimal places, what is $H_{100}$? (Take $\\sum_{k=1}^{100} 1/k$.)",
+          "answer": 5.19,
+          "tol": 0.05,
+          "hint": "Use $H_n \\approx \\ln n + \\gamma$ with Euler's constant $\\gamma \\approx 0.5772$.",
+          "explain": "$H_{100} = 1 + 1/2 + \\cdots + 1/100 \\approx \\ln 100 + 0.5772 + 1/200 \\approx 5.187$. So greedy / randomized rounding gives a $\\approx 5.19$-approximation on this universe."
+        },
+        {
+          "type": "mcq",
+          "q": "What is the Goemans–Williamson approximation ratio for max-cut, and how is it achieved?",
+          "choices": [
+            "$1/2$, by random partition",
+            "$0.878\\ldots$, by SDP relaxation + random hyperplane rounding",
+            "Optimal (1), by LP",
+            "$3/4$, by greedy"
+          ],
+          "answer": 1,
+          "hint": "The ratio comes from comparing $\\theta/\\pi$ to $(1-\\cos\\theta)/2$ over $\\theta\\in[0,\\pi]$.",
+          "explain": "Goemans–Williamson (1995): solve the SDP $\\max \\sum_{ij\\in E}(1-v_i\\cdot v_j)/2$ with unit vectors $v_i \\in S^{n-1}$, then round by a random hyperplane through the origin. The probability $(i,j)$ is cut is $\\theta/\\pi$, and $\\min_{\\theta} (\\theta/\\pi) / ((1-\\cos\\theta)/2) = \\alpha_{\\mathrm{GW}} \\approx 0.878567$."
+        }
+      ]
+    }
+  }
+}

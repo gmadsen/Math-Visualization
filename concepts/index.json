@@ -26,6 +26,7 @@
 
 
     "optimal-control-and-dynamic-programming",
+    "combinatorial-optimization",
 
     "several-complex-variables",
     "khovanov-homology",
@@ -400,6 +401,7 @@
     "conformal-and-cr-geometry": "advanced",
     "mathematical-biology": "advanced",
     "spectral-methods-data": "advanced",
-    "optimal-control-and-dynamic-programming": "advanced"
+    "optimal-control-and-dynamic-programming": "advanced",
+    "combinatorial-optimization": "advanced"
   }
 }
