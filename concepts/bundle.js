@@ -18747,6 +18747,13 @@ window.__MVConcepts = {
           "string-theory"
         ],
         "color": "o"
+      },
+      {
+        "id": "control-theory-and-optimization",
+        "title": "Control theory & optimization",
+        "description": "Linear and convex programming, network flows, dynamic programming, optimal control, Itô calculus applied to finance, and the analytic tools at the boundary between pure math and engineering decisions.",
+        "topics": [],
+        "color": "p"
       }
     ]
   },
@@ -19126,6 +19133,13 @@ window.__MVConcepts = {
       "crossOut": 40,
       "crossIn": 0,
       "density": 0.5797101449275363
+    },
+    "Control theory & optimization": {
+      "concepts": 0,
+      "intra": 0,
+      "crossOut": 0,
+      "crossIn": 0,
+      "density": 0
     }
   }
 };
