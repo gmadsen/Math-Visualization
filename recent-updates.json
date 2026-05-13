@@ -1,5 +1,5 @@
 {
-  "generated": "2026-05-12T22:30:44.830Z",
+  "generated": "2026-05-13T01:43:43.112Z",
   "entries": [
     {
       "slug": "brill-noether",
@@ -40,6 +40,14 @@
       "tag": "",
       "date": "2026-05-12",
       "message": "New topic: Mathematical biology & population genetics (Probability & statistics) (#162)"
+    },
+    {
+      "slug": "optimal-control-and-dynamic-programming",
+      "title": "Optimal control and dynamic programming",
+      "color": "p",
+      "tag": "",
+      "date": "2026-05-12",
+      "message": "New topic: Optimal control & dynamic programming (Control theory & optimization)"
     },
     {
       "slug": "spectral-methods-data",

@@ -2,12 +2,12 @@
 
 ## Corpus totals
 
-- Topics: **180**, concepts: **1250**
-- Widgets: **1275** (registry-driven: 1275, inline: 0)
-- Quizzes: **4944** (v1: 3708, hard: 1223, expert: 13)
-- Quiz types: mcq: 3237, numeric: 1195, multi-select: 228, matching: 102, ordering: 79, spot-the-error: 49, complex: 29, proof-completion: 21, construction: 2, guess-my-rule: 2
+- Topics: **181**, concepts: **1257**
+- Widgets: **1282** (registry-driven: 1282, inline: 0)
+- Quizzes: **4965** (v1: 3729, hard: 1223, expert: 13)
+- Quiz types: mcq: 3255, numeric: 1198, multi-select: 228, matching: 102, ordering: 79, spot-the-error: 49, complex: 29, proof-completion: 21, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their section: **149**
-- Concepts lacking a hard-tier quiz: **812**
+- Concepts lacking a hard-tier quiz: **819**
 
 ## Per-slug registry adoption
 
@@ -608,6 +608,13 @@ page has wired one in yet.
 | `numerical-hilbert-conditioning` | numerical-hilbert-conditioning | slider | 2d | 1 | numerical-analysis |
 | `numerical-newton-iteration` | numerical-newton-iteration | step | 2d | 1 | numerical-analysis |
 | `numerical-quadrature-error` | numerical-quadrature-error | slider | 2d | 1 | numerical-analysis |
+| `oc-bolza` | verbatim | slider | 2d | 1 | optimal-control-and-dynamic-programming |
+| `oc-hjb` | verbatim | slider | 2d | 1 | optimal-control-and-dynamic-programming |
+| `oc-lqr` | verbatim | slider | 2d | 1 | optimal-control-and-dynamic-programming |
+| `oc-merton` | verbatim | slider | 2d | 1 | optimal-control-and-dynamic-programming |
+| `oc-pmp` | verbatim | scrub | 2d | 1 | optimal-control-and-dynamic-programming |
+| `oc-reach` | verbatim | slider | 2d | 1 | optimal-control-and-dynamic-programming |
+| `oc-vi` | verbatim | click | 2d | 1 | optimal-control-and-dynamic-programming |
 | `pde-classifier` | pde-classifier | slider | 2d | 1 | partial-differential-equations |
 | `pde-heat-kernel` | pde-heat-kernel | slider | 2d | 1 | partial-differential-equations |
 | `pde-poisson-disk` | pde-poisson-disk | drag | 2d | 1 | partial-differential-equations |
@@ -936,13 +943,13 @@ page has wired one in yet.
 
 ### Control theory & optimization
 
-- Topics: **0**, concepts: **0**
-- Widgets: **0** (registry-driven: 0, inline: 0)
-  - by family: _(none)_
-  - by dimension: _(none)_
-  - by gesture: _(none)_
-- Quizzes: **0** (v1: 0, hard: 0, expert: 0)
-  - by type: _(none)_
+- Topics: **1**, concepts: **7**
+- Widgets: **7** (registry-driven: 7, inline: 0)
+  - by family: verbatim: 7
+  - by dimension: 2d: 7
+  - by gesture: slider: 5, scrub: 1, click: 1
+- Quizzes: **21** (v1: 21, hard: 0, expert: 0)
+  - by type: mcq: 18, numeric: 3
 
 ## Per-topic
 
@@ -954,6 +961,7 @@ page has wired one in yet.
 - `conformal-and-cr-geometry` (Analysis) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
 - `mathematical-biology` (Probability & statistics) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
 - `spectral-methods-data` (Probability & statistics) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
+- `optimal-control-and-dynamic-programming` (Control theory & optimization) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
 - `several-complex-variables` (Analysis) — concepts=6, widgets=5 (slug=5), quiz=18 (v1=18, hard=0, expert=0)
 - `khovanov-homology` (Geometry & topology) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `shimura-varieties` (Modular forms & L-functions) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
