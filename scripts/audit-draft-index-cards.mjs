@@ -41,6 +41,7 @@ const PLACEHOLDER_DESC_PATTERNS = [
 
 const cards = root.querySelectorAll('a.card');
 const drafts = [];
+const misplacedLevels = [];
 
 for (const card of cards) {
   const href = card.getAttribute('href') || '';
@@ -69,32 +70,61 @@ for (const card of cards) {
       desc: descText.slice(0, 80),
     });
   }
+
+  // 4) Level badge placement: `<span class="level …">prereq|advanced|capstone</span>`
+  //    must live inside the `<div class="tt">`, not inside `<div class="desc">`
+  //    or `<span class="tag">`. Otherwise the badge appears in the wrong
+  //    visual slot (sub-topic-box instead of next to the title), which
+  //    happened on cluster-algebras and slipped past every other check.
+  const levelBadges = card.querySelectorAll('.level');
+  for (const lvl of levelBadges) {
+    const inTitle = !!lvl.closest('.tt');
+    if (!inTitle) {
+      const parentClass = lvl.parentNode?.getAttribute?.('class') || '(unknown)';
+      misplacedLevels.push({ slug, parentClass, text: lvl.text.trim() });
+    }
+  }
 }
 
-if (drafts.length === 0) {
+if (drafts.length === 0 && misplacedLevels.length === 0) {
   console.log(
     `audit-draft-index-cards: ${cards.length} card(s) checked; all look authored.`
   );
   process.exit(0);
 }
 
-console.log(
-  `audit-draft-index-cards: ${drafts.length} card(s) still in placeholder state ` +
-  `(out of ${cards.length} total):\n`
-);
-for (const d of drafts) {
-  const flags = [
-    d.svgHasDraftText ? 'svg-draft-text' : null,
-    d.descIsPlaceholder ? 'placeholder-desc' : null,
-    d.hasTodoComment ? 'todo-comment' : null,
-  ].filter(Boolean).join(', ');
-  console.log(`  ${d.slug.padEnd(40)} [${flags}]`);
-  if (d.desc) console.log(`    desc: "${d.desc}${d.desc.length === 80 ? '…' : ''}"`);
+if (drafts.length > 0) {
+  console.log(
+    `audit-draft-index-cards: ${drafts.length} card(s) still in placeholder state ` +
+    `(out of ${cards.length} total):\n`
+  );
+  for (const d of drafts) {
+    const flags = [
+      d.svgHasDraftText ? 'svg-draft-text' : null,
+      d.descIsPlaceholder ? 'placeholder-desc' : null,
+      d.hasTodoComment ? 'todo-comment' : null,
+    ].filter(Boolean).join(', ');
+    console.log(`  ${d.slug.padEnd(40)} [${flags}]`);
+    if (d.desc) console.log(`    desc: "${d.desc}${d.desc.length === 80 ? '…' : ''}"`);
+  }
+  console.log('\nFix: replace each draft card\'s .desc with a 1-2 sentence summary');
+  console.log('     of the topic, replace the .tag content with a short bullet list of');
+  console.log('     key concepts, and swap the placeholder rect SVG for a motif evocative');
+  console.log('     of the topic. See an existing finished card (e.g. category-theory)');
+  console.log('     for the template.');
 }
-console.log('\nFix: replace each draft card\'s .desc with a 1-2 sentence summary');
-console.log('     of the topic, replace the .tag content with a short bullet list of');
-console.log('     key concepts, and swap the placeholder rect SVG for a motif evocative');
-console.log('     of the topic. See an existing finished card (e.g. category-theory)');
-console.log('     for the template.');
+
+if (misplacedLevels.length > 0) {
+  if (drafts.length > 0) console.log('');
+  console.log(
+    `audit-draft-index-cards: ${misplacedLevels.length} level badge(s) placed outside .tt ` +
+    `(should sit next to the title, not inside .desc / .tag):\n`
+  );
+  for (const m of misplacedLevels) {
+    console.log(`  ${m.slug.padEnd(40)} <span class="level …">${m.text}</span> nested inside .${m.parentClass}`);
+  }
+  console.log('\nFix: move the level badge into the .tt block, e.g.');
+  console.log('     <div class="tt">Topic title <span class="level advanced">advanced</span></div>');
+}
 
 process.exit(1);
