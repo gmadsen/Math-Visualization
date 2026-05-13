@@ -19,12 +19,13 @@ From `audits/coverage-stats.md` and `audits/starter-concepts.md`:
 
 Distilled from comparisons against the Harvard / Princeton / MIT / Berkeley / Caltech grad catalogs. The Tier 1 Harvard list (several complex variables, cluster algebras, mapping class groups, Khovanov, complex multiplication, arithmetic statistics) shipped in PRs #131–#140; Random matrix theory in #155, GIT in #156; Brill–Noether (#159), Coding theory (#160), Conformal & CR geometry (#161), Mathematical biology (#162), Spectral methods (#163), Heegaard Floer (squash merge directly to main) all shipped together in a parallel batch. The residual next-priority batch:
 
-1. **Combinatorial optimization** — Princeton MAT572. Min-max theorems, network flows, LP, perfect graphs, polyhedral combinatorics. Foundational for a proposed *Optimization* section.
-2. **Mathematical finance & stochastic control** — Caltech Ma 214. Itô calculus applied to derivatives pricing, optimal portfolio selection, HJB equations. Bridges `stochastic-calculus` to the proposed *Optimization* / *Control theory* sections.
-3. **Donaldson–Thomas / GW invariants** — Princeton MAT566/567. Hinted in `mirror-symmetry` and `gauge-theory` but no dedicated page; closes the enumerative-AG gap.
-4. **Positive characteristic AG** — Harvard Math 260Z. Frobenius splittings, $F$-singularities, char-$p$ phenomena. Partially covered by `crystalline-cohomology`.
+1. **Combinatorial optimization** — Princeton MAT572. Min-max theorems, network flows, LP, perfect graphs, polyhedral combinatorics. **Lands in the new Control theory & optimization section.**
+2. **Mathematical finance & stochastic control** — Caltech Ma 214. Itô calculus applied to derivatives pricing, optimal portfolio selection, HJB equations. Bridges `stochastic-calculus` into the new Control theory & optimization section.
+3. **Optimal control & dynamic programming** — Pontryagin's maximum principle, Bellman equation, HJB PDE. Companion to math finance and the canonical opener for the new section.
+4. **Donaldson–Thomas / GW invariants** — Princeton MAT566/567. Hinted in `mirror-symmetry` and `gauge-theory` but no dedicated page; closes the enumerative-AG gap.
+5. **Positive characteristic AG** — Harvard Math 260Z. Frobenius splittings, $F$-singularities, char-$p$ phenomena. Partially covered by `crystalline-cohomology`.
 
-**Section-architecture question still open**: `mathematical-biology` is currently under *Probability & statistics* (cyan card). The agent who drafted it argued the page is 5/7 stochastic-process material so it sits cleanly there; the alternative is to open it as a 12th section *Mathematical biology* (and pull in computational molecular biology + mathematical chaos as siblings). No action needed unless the corpus grows another bio-flavored topic.
+**Mathematical biology stays under Probability & statistics** (user decision, 2026-05-12). Wright–Fisher / Moran / Kimura diffusion / Kingman coalescent are dominant; Lotka–Volterra and replicator dynamics sit as a deterministic detour. The section question is closed.
 
 **Specialty / deferred**:
 - **Microlocal sheaves and $\mathcal{D}$-modules connections** — partially covered by `d-modules` + `microlocal-analysis`.

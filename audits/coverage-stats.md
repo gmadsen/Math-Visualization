@@ -934,6 +934,16 @@ page has wired one in yet.
 - Quizzes: **208** (v1: 208, hard: 0, expert: 0)
   - by type: mcq: 134, numeric: 26, multi-select: 23, ordering: 11, spot-the-error: 8, matching: 6
 
+### Control theory & optimization
+
+- Topics: **0**, concepts: **0**
+- Widgets: **0** (registry-driven: 0, inline: 0)
+  - by family: _(none)_
+  - by dimension: _(none)_
+  - by gesture: _(none)_
+- Quizzes: **0** (v1: 0, hard: 0, expert: 0)
+  - by type: _(none)_
+
 ## Per-topic
 
 - `random-matrix-theory` (Probability & statistics) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
