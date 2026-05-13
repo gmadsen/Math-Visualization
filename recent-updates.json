@@ -1,5 +1,5 @@
 {
-  "generated": "2026-05-13T03:01:51.531Z",
+  "generated": "2026-05-13T03:38:06.955Z",
   "entries": [
     {
       "slug": "brill-noether",
@@ -88,6 +88,14 @@
       "tag": "",
       "date": "2026-05-12",
       "message": "New topic: Spectral methods for massive data sets (Probability & statistics) (#163)"
+    },
+    {
+      "slug": "topological-data-analysis",
+      "title": "Topological data analysis",
+      "color": "g",
+      "tag": "",
+      "date": "2026-05-12",
+      "message": "New topic: Topological data analysis & persistent homology (Geometry & topology)"
     },
     {
       "slug": "geometric-invariant-theory",

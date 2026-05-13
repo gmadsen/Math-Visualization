@@ -62,7 +62,7 @@ Quiz items from PR #36 / #37 review (type-variety, hint coverage, trivia rewrite
 
 Items the user has explicitly de-prioritized. **Don't suggest these as "what next" without prompting.**
 
-- **Hard-tier quiz authoring** (847 concepts lack hard tier).
+- **Hard-tier quiz authoring** (854 concepts lack hard tier).
 - **Expert-tier authoring** (13 questions corpus-wide).
 
 These are real coverage gaps but not where the user wants to spend time. Per-session feedback memory: lowest-leverage direction, structural/architectural improvements come first.
