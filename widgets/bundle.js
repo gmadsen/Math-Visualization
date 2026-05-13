@@ -13065,6 +13065,195 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "pchar-w1",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "interactive",
+    "title": "pchar-w1 widget params",
+    "description": "Bespoke verbatim-renderer slug for the \"The Frobenius factorization\" widget on the positive-characteristic-ag topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke verbatim slug for the \"The Frobenius factorization\" widget on `positive-characteristic-ag`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "pchar-w2",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "interactive",
+    "title": "pchar-w2 widget params",
+    "description": "Bespoke verbatim-renderer slug for the \"Rank of $F_*\\mathcal{O}_X$\" widget on the positive-characteristic-ag topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke verbatim slug for the \"Rank of $F_*\\mathcal{O}_X$\" widget on `positive-characteristic-ag`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "pchar-w3",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "interactive",
+    "title": "pchar-w3 widget params",
+    "description": "Bespoke verbatim-renderer slug for the \"Mehta–Ramanathan proof scrub\" widget on the positive-characteristic-ag topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke verbatim slug for the \"Mehta–Ramanathan proof scrub\" widget on `positive-characteristic-ag`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "pchar-w4",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "select",
+    "role": "interactive",
+    "title": "pchar-w4 widget params",
+    "description": "Bespoke verbatim-renderer slug for the \"Cartier action on $f^{p-1}\\,df$\" widget on the positive-characteristic-ag topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke verbatim slug for the \"Cartier action on $f^{p-1}\\,df$\" widget on `positive-characteristic-ag`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "pchar-w5",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "select",
+    "role": "interactive",
+    "title": "pchar-w5 widget params",
+    "description": "Bespoke verbatim-renderer slug for the \"$F$-singularity browser\" widget on the positive-characteristic-ag topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke verbatim slug for the \"$F$-singularity browser\" widget on `positive-characteristic-ag`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "pchar-w6",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "select",
+    "role": "interactive",
+    "title": "pchar-w6 widget params",
+    "description": "Bespoke verbatim-renderer slug for the \"Artin–Schreier genus as $p$ and $f$ vary\" widget on the positive-characteristic-ag topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke verbatim slug for the \"Artin–Schreier genus as $p$ and $f$ vary\" widget on `positive-characteristic-ag`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "pchar-w7",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "interactive",
+    "title": "pchar-w7 widget params",
+    "description": "Bespoke verbatim-renderer slug for the \"Witt-vector arithmetic in $W_2(\\mathbb{F}_p)$\" widget on the positive-characteristic-ag topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke verbatim slug for the \"Witt-vector arithmetic in $W_2(\\mathbb{F}_p)$\" widget on `positive-characteristic-ag`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "pchar-w8",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "interactive",
+    "title": "pchar-w8 widget params",
+    "description": "Bespoke verbatim-renderer slug for the \"The de Rham–Witt bicomplex grading\" widget on the positive-characteristic-ag topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke verbatim slug for the \"The de Rham–Witt bicomplex grading\" widget on `positive-characteristic-ag`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "pchar-w9",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "select",
+    "role": "interactive",
+    "title": "pchar-w9 widget params",
+    "description": "Bespoke verbatim-renderer slug for the \"Pathology browser\" widget on the positive-characteristic-ag topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke verbatim slug for the \"Pathology browser\" widget on `positive-characteristic-ag`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "pde-classifier",
     "family": "pde-classifier",
     "dimension": "2d",

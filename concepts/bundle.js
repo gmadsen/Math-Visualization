@@ -16,6 +16,7 @@ window.__MVConcepts = {
       "combinatorial-optimization",
       "mathematical-finance",
       "donaldson-thomas-and-gw-invariants",
+      "positive-characteristic-ag",
       "several-complex-variables",
       "khovanov-homology",
       "shimura-varieties",
@@ -392,7 +393,8 @@ window.__MVConcepts = {
       "optimal-control-and-dynamic-programming": "advanced",
       "combinatorial-optimization": "advanced",
       "mathematical-finance": "advanced",
-      "donaldson-thomas-and-gw-invariants": "advanced"
+      "donaldson-thomas-and-gw-invariants": "advanced",
+      "positive-characteristic-ag": "advanced"
     }
   },
   "topics": {
@@ -1593,6 +1595,108 @@ window.__MVConcepts = {
           "blurb": "DT invariants depend on a choice of stability condition (Gieseker, slope, Bridgeland). As the parameter $\\sigma$ varies across a real codimension-1 wall in the stability manifold, semistable objects switch and the DT count jumps. Joyce (2008) and Kontsevich–Soibelman (2008) gave the universal wall-crossing formula expressing the jump as a Lie-algebraic identity in a motivic Hall algebra: ordered products of group elements $U_\\alpha$ before and after the wall agree, the product taken over rays in the complex plane sorted by phase. Refined / motivic DT invariants live as Poincaré polynomials and satisfy the same formula with quantum dilogarithms.",
           "tags": [
             "duality",
+            "classification"
+          ]
+        }
+      ]
+    },
+    "positive-characteristic-ag": {
+      "topic": "positive-characteristic-ag",
+      "title": "Positive-characteristic algebraic geometry",
+      "page": "positive-characteristic-ag.html",
+      "concepts": [
+        {
+          "id": "pchar-absolute-frobenius",
+          "title": "Absolute Frobenius and its pushforward",
+          "anchor": "absolute-frobenius",
+          "prereqs": [
+            "scheme-morphisms",
+            "fiber-products"
+          ],
+          "blurb": "On a scheme $X/\\mathbb{F}_p$, the absolute Frobenius $F_X\\colon X\\to X$ is the identity on points and $f\\mapsto f^p$ on sections. The relative Frobenius $F_{X/k}\\colon X\\to X^{(p)}$ is the unique $k$-morphism filling the Frobenius square; the diagonal composition recovers the absolute $F_X$. For smooth $X$ of dimension $n$, the Frobenius pushforward $F_*\\mathcal{O}_X$ is locally free of rank $p^n$, the basic object every later construction sits on.",
+          "tags": [
+            "foundation",
+            "group-action"
+          ]
+        },
+        {
+          "id": "pchar-frobenius-splittings",
+          "title": "Frobenius splittings and Mehta–Ramanathan vanishing",
+          "anchor": "frobenius-splittings",
+          "prereqs": [
+            "pchar-absolute-frobenius",
+            "applications-picard-serre"
+          ],
+          "blurb": "$X/k$ is Frobenius split if $\\mathcal{O}_X\\to F_*\\mathcal{O}_X$ admits an $\\mathcal{O}_X$-linear retraction. Mehta–Ramanathan: a splitting makes $H^i(X,L^{-1})$ a summand of $H^i(X,L^{-p^r})$ for every $r$, so Serre vanishing forces vanishing of $H^i(X,L^{-1})$ for $i<\\dim X$ — Kodaira-type vanishing in characteristic $p$. Toric varieties, flag varieties $G/B$, Schubert varieties, and ordinary abelian varieties are all canonically split; Raynaud built unsplit smooth projective $X$ on which Kodaira vanishing fails.",
+          "tags": [
+            "cohomology"
+          ]
+        },
+        {
+          "id": "pchar-cartier-operator",
+          "title": "The Cartier operator and Cartier isomorphism",
+          "anchor": "cartier-operator",
+          "prereqs": [
+            "pchar-absolute-frobenius",
+            "de-rham-complex"
+          ],
+          "blurb": "Cartier (1957): for $X/k$ smooth, $k$ perfect, $C^{-1}\\colon\\Omega^i_{X^{(p)}/k}\\xrightarrow{\\sim}\\mathcal{H}^i(F_*\\Omega^\\bullet_X)$ is a canonical isomorphism characterised on degree-1 forms by $C^{-1}(d\\bar x)=[x^{p-1}dx]$. The inverse $C$ extracts the $p$-typical part of $f^{p-1}df$ and discards the exact piece. Deligne–Illusie (1987) lift this to a $W_2$-quasi-isomorphism $\\bigoplus\\Omega^i_{X/k}[-i]\\xrightarrow{\\sim}F_*\\Omega^\\bullet_X$, giving an algebraic proof of Hodge-to-de-Rham degeneration.",
+          "tags": [
+            "duality",
+            "cohomology"
+          ]
+        },
+        {
+          "id": "pchar-f-singularities",
+          "title": "$F$-singularities",
+          "anchor": "f-singularities",
+          "prereqs": [
+            "pchar-absolute-frobenius",
+            "reduction-mod-p"
+          ],
+          "blurb": "Local rings of characteristic $p$ classified by how nicely $F_*\\mathcal{O}_X$ sits over $\\mathcal{O}_X$: $F$-pure, $F$-split, $F$-regular (Hochster–Huneke's tight closure), $F$-rational. Hara–Smith bridge: a complex singularity is klt iff its reduction mod $p$ is $F$-regular for $p\\gg 0$, and rational iff $F$-rational for $p\\gg 0$. So the MMP singularity hierarchy IS the $F$-singularity hierarchy under the bridge — but the positive-characteristic side is intrinsic (no resolution required).",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "pchar-artin-schreier",
+          "title": "Wild ramification and Artin–Schreier covers",
+          "anchor": "artin-schreier",
+          "prereqs": [
+            "pchar-absolute-frobenius",
+            "field-extensions-galois",
+            "padic-extensions-ramification"
+          ],
+          "blurb": "$y^p-y=f(x)$ over a characteristic-$p$ field is a $\\mathbb{Z}/p$-Galois cover, étale away from poles of $f$, wildly ramified at those poles. The genus formula $g=(p-1)(m-1)/2$ for $f$ with pole order $m$ coprime to $p$ has no characteristic-$0$ analog. When $p\\mid m$ the substitution $y\\to y-x^{m/p}$ trivialises the cover — genus drops. Wild ramification carries integer Swan conductors and enters the Grothendieck–Ogg–Shafarevich Euler-characteristic formula on a curve.",
+          "tags": [
+            "group-action"
+          ]
+        },
+        {
+          "id": "pchar-de-rham-witt",
+          "title": "Witt vectors and the de Rham–Witt complex",
+          "anchor": "witt-vectors",
+          "prereqs": [
+            "pchar-cartier-operator",
+            "padic-norm-completion"
+          ],
+          "blurb": "Witt vectors $W(k)$ are the universal characteristic-$0$ DVR with residue field $k$; $W(\\mathbb{F}_p)=\\mathbb{Z}_p$. Addition involves a Witt 'carry' polynomial $C(a_0,b_0)=((a_0+b_0)^p-a_0^p-b_0^p)/p$. The Bloch–Illusie de Rham–Witt complex $W_n\\Omega^\\bullet_X$ is a bicomplex with differential $d$, Frobenius $F$ (raising slopes by $p$), and Verschiebung $V$ (shift), satisfying $FV=VF=p$. $\\varprojlim H^*(W_n\\Omega^\\bullet)=H^*_{\\mathrm{cris}}(X/W)$ — it is the computational engine of crystalline cohomology and the natural home for slopes / Newton polygons.",
+          "tags": [
+            "completion",
+            "cohomology"
+          ]
+        },
+        {
+          "id": "pchar-pathologies",
+          "title": "Pathologies of positive characteristic",
+          "anchor": "pathologies",
+          "prereqs": [
+            "pchar-frobenius-splittings",
+            "pchar-de-rham-witt"
+          ],
+          "blurb": "Catalog of theorems that fail in characteristic $p$: Kodaira vanishing (Raynaud), Bertini's smoothness for inseparable maps, Hodge symmetry (Mumford), existence of $W$-lifts (Hirokado, Schröer), resolution of singularities in $\\dim\\ge 4$, termination of the MMP. Failure modes are productive: each broken theorem forced a new invariant — Frobenius splittings, $W_2$-lifts, $F$-singularities, $p$-adic Hodge theory. The 'positive-characteristic perspective' is one where the failure list is part of the structure to be studied.",
+          "tags": [
             "classification"
           ]
         }
@@ -19101,7 +19205,8 @@ window.__MVConcepts = {
           "tropical-geometry",
           "geometric-invariant-theory",
           "brill-noether",
-          "donaldson-thomas-and-gw-invariants"
+          "donaldson-thomas-and-gw-invariants",
+          "positive-characteristic-ag"
         ],
         "color": "g"
       },
@@ -19438,7 +19543,8 @@ window.__MVConcepts = {
     "optimal-control-and-dynamic-programming": "advanced",
     "combinatorial-optimization": "advanced",
     "mathematical-finance": "advanced",
-    "donaldson-thomas-and-gw-invariants": "advanced"
+    "donaldson-thomas-and-gw-invariants": "advanced",
+    "positive-characteristic-ag": "advanced"
   },
   "newArc": [
     "elementary-topos-theory",
@@ -19504,7 +19610,7 @@ window.__MVConcepts = {
       "concepts": 128,
       "intra": 180,
       "crossOut": 57,
-      "crossIn": 37,
+      "crossIn": 40,
       "density": 0.4453125
     },
     "Modular forms & L-functions": {
@@ -19515,11 +19621,11 @@ window.__MVConcepts = {
       "density": 0.5371900826446281
     },
     "Algebraic geometry": {
-      "concepts": 206,
-      "intra": 316,
-      "crossOut": 73,
+      "concepts": 213,
+      "intra": 328,
+      "crossOut": 76,
       "crossIn": 35,
-      "density": 0.35436893203883496
+      "density": 0.3568075117370892
     },
     "Combinatorics & graph theory": {
       "concepts": 58,

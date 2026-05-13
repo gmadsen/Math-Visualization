@@ -230,7 +230,8 @@
         "tropical-geometry",
         "geometric-invariant-theory",
         "brill-noether",
-        "donaldson-thomas-and-gw-invariants"
+        "donaldson-thomas-and-gw-invariants",
+        "positive-characteristic-ag"
       ],
       "color": "g"
     },

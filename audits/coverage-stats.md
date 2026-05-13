@@ -2,12 +2,12 @@
 
 ## Corpus totals
 
-- Topics: **184**, concepts: **1278**
-- Widgets: **1303** (registry-driven: 1303, inline: 0)
-- Quizzes: **5028** (v1: 3792, hard: 1223, expert: 13)
-- Quiz types: mcq: 3298, numeric: 1206, multi-select: 235, matching: 104, ordering: 80, spot-the-error: 51, complex: 29, proof-completion: 21, construction: 2, guess-my-rule: 2
+- Topics: **185**, concepts: **1285**
+- Widgets: **1312** (registry-driven: 1312, inline: 0)
+- Quizzes: **5049** (v1: 3813, hard: 1223, expert: 13)
+- Quiz types: mcq: 3315, numeric: 1208, multi-select: 237, matching: 104, ordering: 80, spot-the-error: 51, complex: 29, proof-completion: 21, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their section: **149**
-- Concepts lacking a hard-tier quiz: **840**
+- Concepts lacking a hard-tier quiz: **847**
 
 ## Per-slug registry adoption
 
@@ -636,6 +636,15 @@ page has wired one in yet.
 | `oc-pmp` | verbatim | scrub | 2d | 1 | optimal-control-and-dynamic-programming |
 | `oc-reach` | verbatim | slider | 2d | 1 | optimal-control-and-dynamic-programming |
 | `oc-vi` | verbatim | click | 2d | 1 | optimal-control-and-dynamic-programming |
+| `pchar-w1` | verbatim | interact | 2d | 1 | positive-characteristic-ag |
+| `pchar-w2` | verbatim | slider | 2d | 1 | positive-characteristic-ag |
+| `pchar-w3` | verbatim | slider | 2d | 1 | positive-characteristic-ag |
+| `pchar-w4` | verbatim | select | 2d | 1 | positive-characteristic-ag |
+| `pchar-w5` | verbatim | select | 2d | 1 | positive-characteristic-ag |
+| `pchar-w6` | verbatim | select | 2d | 1 | positive-characteristic-ag |
+| `pchar-w7` | verbatim | interact | 2d | 1 | positive-characteristic-ag |
+| `pchar-w8` | verbatim | interact | 2d | 1 | positive-characteristic-ag |
+| `pchar-w9` | verbatim | select | 2d | 1 | positive-characteristic-ag |
 | `pde-classifier` | pde-classifier | slider | 2d | 1 | partial-differential-equations |
 | `pde-heat-kernel` | pde-heat-kernel | slider | 2d | 1 | partial-differential-equations |
 | `pde-poisson-disk` | pde-poisson-disk | drag | 2d | 1 | partial-differential-equations |
@@ -934,13 +943,13 @@ page has wired one in yet.
 
 ### Algebraic geometry
 
-- Topics: **34**, concepts: **206**
-- Widgets: **214** (registry-driven: 214, inline: 0)
-  - by family: verbatim: 70, button-stepper: 61, clickable-diagram: 23, proof-scrubber: 7, clickable-graph: 6, declarative-host: 6, parametric-plot: 4, modular-arithmetic-clock: 2, svg-illustration: 2, calabi-yau-canonical-degree: 1, calabi-yau-hodge-diamond: 1, calabi-yau-hypersurface-zoo: 1, calabi-yau-periods: 1, calabi-yau-mirror-swap: 1, calabi-yau-syz-fibration: 1, mirror-hodge-diamond: 1, mirror-quintic-counts: 1, mirror-stable-map: 1, mirror-quintic-periods: 1, mirror-hms-pairing: 1, mirror-syz-fibration: 1, resolution-cusp-node-visualizer: 1, resolution-cuspidal-blowup: 1, resolution-tower-of-blowups: 1, resolution-curve-normalization: 1, resolution-ade-dynkin: 1, lattice-visualizer: 1, algebraic-curves-riemann-hurwitz-cover: 1, algebraic-curves-jacobian-lattice: 1, algebraic-curves-riemann-roch-scrubber: 1, algebraic-curves-canonical-embedding-scrubber: 1, algebraic-curves-hyperelliptic-cover: 1, algebraic-curves-moduli-boundary: 1, algebraic-de-rham-kahler-scrubber: 1, algebraic-de-rham-complex-scrubber: 1, algebraic-de-rham-betti-comparison-scrubber: 1, algebraic-de-rham-hodge-filtration-scrubber: 1, algebraic-de-rham-hodge-diamond-clickgraph: 1, algebraic-de-rham-hodge-pn-explorer: 1, algebraic-de-rham-curve-clickable: 1, algebraic-de-rham-hodge-sandbox: 1, counterexample-explorer: 1
-  - by dimension: 2d: 214
-  - by gesture: click: 155, slider: 20, interact: 16, select: 8, scrub: 7, inspect: 5, drag: 2, slide: 1
-- Quizzes: **863** (v1: 618, hard: 245, expert: 0)
-  - by type: mcq: 574, numeric: 219, multi-select: 34, matching: 18, ordering: 7, spot-the-error: 7, complex: 3, proof-completion: 1
+- Topics: **35**, concepts: **213**
+- Widgets: **223** (registry-driven: 223, inline: 0)
+  - by family: verbatim: 79, button-stepper: 61, clickable-diagram: 23, proof-scrubber: 7, clickable-graph: 6, declarative-host: 6, parametric-plot: 4, modular-arithmetic-clock: 2, svg-illustration: 2, calabi-yau-canonical-degree: 1, calabi-yau-hodge-diamond: 1, calabi-yau-hypersurface-zoo: 1, calabi-yau-periods: 1, calabi-yau-mirror-swap: 1, calabi-yau-syz-fibration: 1, mirror-hodge-diamond: 1, mirror-quintic-counts: 1, mirror-stable-map: 1, mirror-quintic-periods: 1, mirror-hms-pairing: 1, mirror-syz-fibration: 1, resolution-cusp-node-visualizer: 1, resolution-cuspidal-blowup: 1, resolution-tower-of-blowups: 1, resolution-curve-normalization: 1, resolution-ade-dynkin: 1, lattice-visualizer: 1, algebraic-curves-riemann-hurwitz-cover: 1, algebraic-curves-jacobian-lattice: 1, algebraic-curves-riemann-roch-scrubber: 1, algebraic-curves-canonical-embedding-scrubber: 1, algebraic-curves-hyperelliptic-cover: 1, algebraic-curves-moduli-boundary: 1, algebraic-de-rham-kahler-scrubber: 1, algebraic-de-rham-complex-scrubber: 1, algebraic-de-rham-betti-comparison-scrubber: 1, algebraic-de-rham-hodge-filtration-scrubber: 1, algebraic-de-rham-hodge-diamond-clickgraph: 1, algebraic-de-rham-hodge-pn-explorer: 1, algebraic-de-rham-curve-clickable: 1, algebraic-de-rham-hodge-sandbox: 1, counterexample-explorer: 1
+  - by dimension: 2d: 223
+  - by gesture: click: 155, slider: 22, interact: 19, select: 12, scrub: 7, inspect: 5, drag: 2, slide: 1
+- Quizzes: **884** (v1: 639, hard: 245, expert: 0)
+  - by type: mcq: 591, numeric: 221, multi-select: 36, matching: 18, ordering: 7, spot-the-error: 7, complex: 3, proof-completion: 1
 
 ### Combinatorics & graph theory
 
@@ -986,6 +995,7 @@ page has wired one in yet.
 - `combinatorial-optimization` (Control theory & optimization) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
 - `mathematical-finance` (Control theory & optimization) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
 - `donaldson-thomas-and-gw-invariants` (Algebraic geometry) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
+- `positive-characteristic-ag` (Algebraic geometry) — concepts=7, widgets=9 (slug=9), quiz=21 (v1=21, hard=0, expert=0)
 - `several-complex-variables` (Analysis) — concepts=6, widgets=5 (slug=5), quiz=18 (v1=18, hard=0, expert=0)
 - `khovanov-homology` (Geometry & topology) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `shimura-varieties` (Modular forms & L-functions) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
