@@ -11285,6 +11285,153 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "mf-w1",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "interactive",
+    "title": "mf-w1 widget params",
+    "description": "Bespoke verbatim-renderer slug for the \"Geometric Brownian motion\" widget on the mathematical-finance topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke verbatim slug for the \"Geometric Brownian motion\" widget on `mathematical-finance`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "mf-w2",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "interactive",
+    "title": "mf-w2 widget params",
+    "description": "Bespoke verbatim-renderer slug for the \"Black–Scholes call price as a function of $(S,t)$\" widget on the mathematical-finance topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke verbatim slug for the \"Black–Scholes call price as a function of $(S,t)$\" widget on `mathematical-finance`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "mf-w3",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "interactive",
+    "title": "mf-w3 widget params",
+    "description": "Bespoke verbatim-renderer slug for the \"Monte Carlo European call vs. Black–Scholes\" widget on the mathematical-finance topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke verbatim slug for the \"Monte Carlo European call vs. Black–Scholes\" widget on `mathematical-finance`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "mf-w4",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "interactive",
+    "title": "mf-w4 widget params",
+    "description": "Bespoke verbatim-renderer slug for the \"Merton fraction explorer\" widget on the mathematical-finance topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke verbatim slug for the \"Merton fraction explorer\" widget on `mathematical-finance`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "mf-w5",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "interactive",
+    "title": "mf-w5 widget params",
+    "description": "Bespoke verbatim-renderer slug for the \"HJB on a binomial state tree\" widget on the mathematical-finance topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke verbatim slug for the \"HJB on a binomial state tree\" widget on `mathematical-finance`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "mf-w6",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "mf-w6 widget params",
+    "description": "Bespoke verbatim-renderer slug for the \"Delta-hedging proof of the BS PDE\" widget on the mathematical-finance topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke verbatim slug for the \"Delta-hedging proof of the BS PDE\" widget on `mathematical-finance`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "mf-w7",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "mf-w7 widget params",
+    "description": "Bespoke verbatim-renderer slug for the \"Implied volatility shapes\" widget on the mathematical-finance topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke verbatim slug for the \"Implied volatility shapes\" widget on `mathematical-finance`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "mirror-hms-pairing",
     "family": "mirror-hms-pairing",
     "dimension": "2d",

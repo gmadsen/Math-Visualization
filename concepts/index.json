@@ -27,6 +27,7 @@
 
     "optimal-control-and-dynamic-programming",
     "combinatorial-optimization",
+    "mathematical-finance",
 
     "several-complex-variables",
     "khovanov-homology",
@@ -402,6 +403,7 @@
     "mathematical-biology": "advanced",
     "spectral-methods-data": "advanced",
     "optimal-control-and-dynamic-programming": "advanced",
-    "combinatorial-optimization": "advanced"
+    "combinatorial-optimization": "advanced",
+    "mathematical-finance": "advanced"
   }
 }
