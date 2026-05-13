@@ -1,0 +1,58 @@
+name: regen-recent-updates
+
+# Why this exists: `recent-updates.json` / `.js` are built by
+# `scripts/build-recent-updates.mjs` from `git log -1 -- quizzes/<slug>.json`
+# for every topic. A PR that adds a new topic can't include that topic in
+# the manifest at commit time, because git log can't see the file until
+# AFTER the commit lands. So the merge into main always leaves the manifest
+# missing the just-merged topic — and parallel PRs make it worse, because
+# each PR's branch builds the manifest from a stale view of main.
+#
+# This workflow runs on every push to main, regenerates the manifest, and
+# commits the result back if it changed. Net effect: the homepage "Recently
+# updated" strip always reflects what's actually on main.
+
+on:
+  push:
+    branches: [main]
+    # Only the files that affect the manifest output. Skip cycles where
+    # this workflow's own push triggers another run with no real diff.
+    paths:
+      - 'quizzes/*.json'
+      - 'index.html'
+      - 'scripts/build-recent-updates.mjs'
+      - '.github/workflows/regen-recent-updates.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  regen:
+    runs-on: ubuntu-latest
+    # Skip the auto-commit loop: if the last commit was made by this workflow,
+    # there's nothing new to regenerate from.
+    if: github.event.head_commit.author.email != 'github-actions[bot]@users.noreply.github.com'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # We need the full history so git log can date every quiz file.
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install script dependencies
+        run: npm ci --prefix scripts
+      - name: Regenerate recent-updates manifest
+        run: node scripts/build-recent-updates.mjs
+      - name: Commit + push if changed
+        run: |
+          if git diff --quiet recent-updates.json recent-updates.js; then
+            echo "recent-updates is already current — nothing to push."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add recent-updates.json recent-updates.js
+          git commit -m "chore(auto): refresh recent-updates.json after merge"
+          git push
