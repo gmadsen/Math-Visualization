@@ -771,22 +771,12 @@ function drawNode(svg, x, y, label, opts={}){
   sel.addEventListener('change', render);
   render();
 })();
-</script>
-
+</script><!-- callback-auto-begin -->
 <aside class="callback">
   <div class="ttl">See also</div>
   <ul>
     <li><a href="./mathematical-biology.html#coalescent">Mathematical biology — Kingman's coalescent</a> — the prior on phylogenies used by Bayesian methods like BEAST.</li>
-    <li><a href="./information-theory.html#mutual-information">Information theory — mutual information</a> — the substitution-model entropy $H(X_\infty)$ caps what any tree can predict.</li>
-  </ul>
-</aside>
-
-<!-- callback-auto-begin -->
-<aside class="callback">
-  <div class="ttl">See also</div>
-  <ul>
-    <li><a href="./mathematical-biology.html#coalescent">Mathematical biology — Kingman's coalescent</a> — the prior on phylogenies used by Bayesian methods like BEAST.</li>
-    <li><a href="./information-theory.html#mutual-information">Information theory — mutual information</a> — the substitution-model entropy $H(X_\infty)$ caps what any tree can predict.</li>
+    <li><a href="./information-theory.html#mutual-info">Information theory — mutual information</a> — the substitution-model entropy $H(X_\infty)$ caps what any tree can predict.</li>
     <li><a href="./probability-theory.html#bayes">Conditional probability and Bayes' rule</a></li>
   </ul>
 </aside>
@@ -1245,7 +1235,7 @@ function drawNode(svg, x, y, label, opts={}){
 <ul>
   <li><a href="./mathematical-biology.html#coalescent">Mathematical biology — Kingman's coalescent</a> — the genealogical scaffold on which every coalescent estimator (Watterson, Tajima's $D$, $F_{ST}$) lives.</li>
   <li><a href="./probability-theory.html#markov">Probability theory — Markov chains</a> — every HMM, every substitution model, every BWT-LF traversal is a finite-state Markov chain at heart.</li>
-  <li><a href="./information-theory.html#mutual-information">Information theory — mutual information</a> — naive MI on alignment columns is the baseline contact predictor; entropy of the substitution model bounds the per-site information content of a phylogeny.</li>
+  <li><a href="./information-theory.html#mutual-info">Information theory — mutual information</a> — naive MI on alignment columns is the baseline contact predictor; entropy of the substitution model bounds the per-site information content of a phylogeny.</li>
   <li><a href="./stochastic-processes-and-martingales.html#discrete-martingales">Stochastic processes — discrete martingales</a> — the forward and backward algorithms of an HMM are evaluations of the same conditional-expectation martingale.</li>
   <li><a href="./spectral-graph-theory.html#clustering">Spectral graph theory — clustering</a> — spectral clustering on a sequence-similarity graph is the standard taxonomic-classification heuristic for novel metagenomic data.</li>
   <li><a href="./hidden-markov-models.html#baum-welch" style="color:var(--mute);text-decoration:none;cursor:default">Hidden Markov models — Baum–Welch</a> <span class="small">(not in the notebook yet)</span> — the EM ascent on $(a,e)$ that fits a profile HMM to a protein family.</li>

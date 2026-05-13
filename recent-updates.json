@@ -1,5 +1,5 @@
 {
-  "generated": "2026-05-13T03:01:51.531Z",
+  "generated": "2026-05-13T16:14:38.366Z",
   "entries": [
     {
       "slug": "brill-noether",
@@ -24,6 +24,14 @@
       "tag": "",
       "date": "2026-05-12",
       "message": "New topic: Combinatorial optimization (Control theory & optimization) (#177)"
+    },
+    {
+      "slug": "computational-molecular-biology",
+      "title": "Computational molecular biology",
+      "color": "c",
+      "tag": "",
+      "date": "2026-05-12",
+      "message": "New topic: Computational molecular biology (Probability & statistics)"
     },
     {
       "slug": "conformal-and-cr-geometry",
