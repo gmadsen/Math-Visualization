@@ -5408,6 +5408,153 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "dtgw-w1",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "interactive",
+    "title": "dtgw-w1 widget params",
+    "description": "Bespoke verbatim-renderer slug for the \"Length-$n$ subschemes of $\\mathbb{C}^2$ near the origin\" widget on the donaldson-thomas-and-gw-invariants topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke verbatim slug for the \"Length-$n$ subschemes of $\\mathbb{C}^2$ near the origin\" widget on `donaldson-thomas-and-gw-invariants`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "dtgw-w2",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "dtgw-w2 widget params",
+    "description": "Bespoke verbatim-renderer slug for the \"Virtual dimension on a CY3-fold\" widget on the donaldson-thomas-and-gw-invariants topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke verbatim slug for the \"Virtual dimension on a CY3-fold\" widget on `donaldson-thomas-and-gw-invariants`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "dtgw-w3",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "interactive",
+    "title": "dtgw-w3 widget params",
+    "description": "Bespoke verbatim-renderer slug for the \"MacMahon partition function\" widget on the donaldson-thomas-and-gw-invariants topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke verbatim slug for the \"MacMahon partition function\" widget on `donaldson-thomas-and-gw-invariants`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "dtgw-w4",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "dtgw-w4 widget params",
+    "description": "Bespoke verbatim-renderer slug for the \"Genus expansion vs. DT $q$-series\" widget on the donaldson-thomas-and-gw-invariants topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke verbatim slug for the \"Genus expansion vs. DT $q$-series\" widget on `donaldson-thomas-and-gw-invariants`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "dtgw-w5",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "dtgw-w5 widget params",
+    "description": "Bespoke verbatim-renderer slug for the \"MNOP change of variables — step through the substitution\" widget on the donaldson-thomas-and-gw-invariants topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke verbatim slug for the \"MNOP change of variables — step through the substitution\" widget on `donaldson-thomas-and-gw-invariants`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "dtgw-w6",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "dtgw-w6 widget params",
+    "description": "Bespoke verbatim-renderer slug for the \"Topological vertex — click an example geometry\" widget on the donaldson-thomas-and-gw-invariants topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke verbatim slug for the \"Topological vertex — click an example geometry\" widget on `donaldson-thomas-and-gw-invariants`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "dtgw-w7",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "interactive",
+    "title": "dtgw-w7 widget params",
+    "description": "Bespoke verbatim-renderer slug for the \"Stability manifold and a wall — drag the parameter\" widget on the donaldson-thomas-and-gw-invariants topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke verbatim slug for the \"Stability manifold and a wall — drag the parameter\" widget on `donaldson-thomas-and-gw-invariants`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "ec-disc",
     "family": "verbatim",
     "dimension": "2d",
