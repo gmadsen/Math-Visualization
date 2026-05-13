@@ -8,10 +8,10 @@ When something ships, delete its bullet here. Don't keep a "Shipped recently" lo
 
 From `audits/coverage-stats.md` and `audits/starter-concepts.md`:
 
-- 185 topics, 1285 concepts, 34 capstones
+- 186 topics, 1292 concepts, 34 capstones
 - 149 concepts lack a widget in their owning section
 - 1233 widgets, 100% registry-driven. 1229 interactive, 4 baselined-static SVG/table illustrations (`audit-widget-interactivity.mjs` is CI-gated via `audits/static-widgets-baseline.json`)
-- Quiz tiers: v1 = 3813, hard = 1223, expert = 13 (intentionally bottom-of-list — see "Out of scope")
+- Quiz tiers: v1 = 3834, hard = 1223, expert = 13 (intentionally bottom-of-list — see "Out of scope")
 - Tag coverage: 99.1% across all 11 sections; tagging effort effectively complete
 - 11 narrative-tour story pages on disk, all wired into Tours 1–11
 
@@ -30,7 +30,6 @@ Distilled from comparisons against the Harvard / Princeton / MIT / Berkeley / Ca
 **Specialty / deferred**:
 - **Microlocal sheaves and $\mathcal{D}$-modules connections** — partially covered by `d-modules` + `microlocal-analysis`.
 - **Computational molecular biology** (MIT 18.417/418), **mathematical chaos** (Caltech Ma 104) — would fit inside the proposed *Mathematical biology* section.
-- **Topological data analysis / persistent homology** — currently a sub-bullet in `simplicial-complexes-combinatorial`; deserves its own page if the corpus pursues an applied-topology direction.
 
 ## Content-gap audit — long-running
 

@@ -17,6 +17,7 @@ window.__MVConcepts = {
       "mathematical-finance",
       "donaldson-thomas-and-gw-invariants",
       "positive-characteristic-ag",
+      "topological-data-analysis",
       "several-complex-variables",
       "khovanov-homology",
       "shimura-varieties",
@@ -394,7 +395,8 @@ window.__MVConcepts = {
       "combinatorial-optimization": "advanced",
       "mathematical-finance": "advanced",
       "donaldson-thomas-and-gw-invariants": "advanced",
-      "positive-characteristic-ag": "advanced"
+      "positive-characteristic-ag": "advanced",
+      "topological-data-analysis": "advanced"
     }
   },
   "topics": {
@@ -1698,6 +1700,99 @@ window.__MVConcepts = {
           "blurb": "Catalog of theorems that fail in characteristic $p$: Kodaira vanishing (Raynaud), Bertini's smoothness for inseparable maps, Hodge symmetry (Mumford), existence of $W$-lifts (Hirokado, Schröer), resolution of singularities in $\\dim\\ge 4$, termination of the MMP. Failure modes are productive: each broken theorem forced a new invariant — Frobenius splittings, $W_2$-lifts, $F$-singularities, $p$-adic Hodge theory. The 'positive-characteristic perspective' is one where the failure list is part of the structure to be studied.",
           "tags": [
             "classification"
+          ]
+        }
+      ]
+    },
+    "topological-data-analysis": {
+      "topic": "topological-data-analysis",
+      "title": "Topological data analysis",
+      "page": "topological-data-analysis.html",
+      "concepts": [
+        {
+          "id": "point-clouds-filtrations",
+          "title": "Point clouds and the Vietoris–Rips filtration",
+          "anchor": "filtrations",
+          "prereqs": [
+            "abstract-simplicial-complex"
+          ],
+          "blurb": "Given $X = \\{x_1,\\dots,x_n\\}\\subset\\mathbb{R}^d$, the Vietoris–Rips complex $\\mathrm{VR}_\\epsilon(X) = \\{\\sigma : \\mathrm{diam}(\\sigma)\\le 2\\epsilon\\}$ packages the union of $\\epsilon$-balls $\\bigcup_i B(x_i,\\epsilon)$ into an abstract simplicial complex computable from a distance matrix alone. As $\\epsilon$ grows from $0$ to $\\infty$ the complexes nest, producing a filtration $\\mathrm{VR}_{\\epsilon_0}\\subseteq\\cdots\\subseteq\\mathrm{VR}_{\\epsilon_n}$ whose persistent homology is the central TDA invariant.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "simplicial-homology-tda",
+          "title": "Simplicial homology as a tool",
+          "anchor": "homology",
+          "prereqs": [
+            "point-clouds-filtrations",
+            "singular-homology"
+          ],
+          "blurb": "For each simplicial complex $K$ the chain space $C_n(K;k)$ has $n$-simplices as basis; the boundary $\\partial_n[v_0,\\dots,v_n] = \\sum (-1)^i[v_0,\\dots,\\widehat{v_i},\\dots,v_n]$ satisfies $\\partial\\circ\\partial=0$, and $H_n(K;k) = \\ker\\partial_n/\\mathrm{im}\\,\\partial_{n+1}$. Over $\\mathbb{F}_2$ the orientation signs vanish and the computation reduces to $\\mathbb{F}_2$ row reduction — exactly what TDA software runs at every scale.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "persistent-homology",
+          "title": "Persistent homology and the barcode",
+          "anchor": "persistence",
+          "prereqs": [
+            "simplicial-homology-tda"
+          ],
+          "blurb": "Applying $H_k$ to a filtration $K_0\\subseteq\\cdots\\subseteq K_n$ yields a persistence module $H_k(K_0)\\to\\cdots\\to H_k(K_n)$. A class is born at scale $b$ when first non-trivial and dies at scale $d$ when killed in the image. The multiset of birth–death pairs is the persistence diagram, equivalently a barcode of horizontal bars; long bars signal robust features, short bars topological noise.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "stability-theorem",
+          "title": "Stability theorem",
+          "anchor": "stability",
+          "prereqs": [
+            "persistent-homology"
+          ],
+          "blurb": "Cohen-Steiner–Edelsbrunner–Harer (2007): for tame functions $f,g$ on the same complex, $W_\\infty(\\mathrm{Dgm}(f),\\mathrm{Dgm}(g))\\le \\|f-g\\|_\\infty$, where $W_\\infty$ is the bottleneck distance on diagrams (matching points across the two diagrams, with unmatched points sent to the diagonal). The persistence map is $1$-Lipschitz: small input perturbations cause small diagram perturbations, so persistence-based features are statistically robust.",
+          "tags": [
+            "duality"
+          ]
+        },
+        {
+          "id": "structure-theorem-decomposition",
+          "title": "Structure theorem — interval decomposition",
+          "anchor": "decomposition",
+          "prereqs": [
+            "persistent-homology"
+          ],
+          "blurb": "Crawley-Boevey and Zomorodian–Carlsson: every pointwise-finite-dimensional persistence module over a field decomposes uniquely as a direct sum $\\bigoplus_\\alpha \\mathbb{I}[b_\\alpha, d_\\alpha)$ of interval modules. The persistence diagram is therefore a complete invariant — two such modules are isomorphic iff their diagrams agree as multisets. Multi-parameter modules (over $\\mathbb{R}^2$) admit no analogous decomposition; classifying their indecomposables is wild.",
+          "tags": [
+            "duality"
+          ]
+        },
+        {
+          "id": "mapper-algorithm",
+          "title": "Mapper algorithm",
+          "anchor": "mapper",
+          "prereqs": [
+            "point-clouds-filtrations"
+          ],
+          "blurb": "Singh–Mémoli–Carlsson (2007): pick a filter $f:X\\to\\mathbb{R}^k$, cover $f(X)$ by overlapping intervals $U_i$, cluster $f^{-1}(U_i)\\cap X$ within each, and take the nerve. Output is a graph (or simplicial complex) skeleton of the data. Used to surface unexpected branch structure — type-II diabetes subgroups (Li et al. 2015), cancer subtypes (Nicolau–Levine–Carlsson 2011). Sensitive to cover choice; best read as a hypothesis generator.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "cohomology-zigzag-software",
+          "title": "Cohomology, zigzag, multi-parameter, software",
+          "anchor": "beyond",
+          "prereqs": [
+            "persistent-homology",
+            "structure-theorem-decomposition"
+          ],
+          "blurb": "Persistent cohomology equals persistent homology over a field but is operationally faster (de Silva–Morozov–Vejdemo-Johansson 2011) and yields circular coordinates. Zigzag persistence (Carlsson–de Silva 2010) generalises to direction-reversing filtrations. Multi-parameter persistence has no structure theorem and uses surrogate invariants (rank, fibered barcode, landscape). Software: Ripser (Bauer), GUDHI, Dionysus, scikit-tda, giotto-tda.",
+          "tags": [
+            "duality"
           ]
         }
       ]
@@ -19108,7 +19203,8 @@ window.__MVConcepts = {
           "kahler-geometry",
           "mapping-class-groups",
           "surgery-theory",
-          "heegaard-floer"
+          "heegaard-floer",
+          "topological-data-analysis"
         ],
         "color": "v"
       },
@@ -19544,7 +19640,8 @@ window.__MVConcepts = {
     "combinatorial-optimization": "advanced",
     "mathematical-finance": "advanced",
     "donaldson-thomas-and-gw-invariants": "advanced",
-    "positive-characteristic-ag": "advanced"
+    "positive-characteristic-ag": "advanced",
+    "topological-data-analysis": "advanced"
   },
   "newArc": [
     "elementary-topos-theory",
@@ -19600,11 +19697,11 @@ window.__MVConcepts = {
       "density": 0.3026315789473684
     },
     "Geometry & topology": {
-      "concepts": 153,
-      "intra": 260,
-      "crossOut": 31,
+      "concepts": 160,
+      "intra": 268,
+      "crossOut": 32,
       "crossIn": 100,
-      "density": 0.20261437908496732
+      "density": 0.2
     },
     "Number theory": {
       "concepts": 128,
@@ -19631,7 +19728,7 @@ window.__MVConcepts = {
       "concepts": 58,
       "intra": 56,
       "crossOut": 27,
-      "crossIn": 4,
+      "crossIn": 5,
       "density": 0.46551724137931033
     },
     "Mathematical physics": {

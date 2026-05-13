@@ -133,7 +133,8 @@
         "kahler-geometry",
         "mapping-class-groups",
         "surgery-theory",
-        "heegaard-floer"
+        "heegaard-floer",
+        "topological-data-analysis"
       ],
       "color": "v"
     },

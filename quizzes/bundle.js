@@ -64862,6 +64862,325 @@ window.MVQuizBank = {
       }
     }
   },
+  "topological-data-analysis": {
+    "topic": "topological-data-analysis",
+    "quizzes": {
+      "point-clouds-filtrations": {
+        "title": "Point clouds and Vietoris–Rips",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The Vietoris–Rips complex $\\mathrm{VR}_\\epsilon(X)$ for a finite point set $X\\subset\\mathbb{R}^d$ contains the simplex $\\sigma\\subseteq X$ iff:",
+            "choices": [
+              "$\\bigcap_{x\\in\\sigma} B(x,\\epsilon)\\neq\\emptyset$",
+              "$\\mathrm{diam}(\\sigma)\\le 2\\epsilon$",
+              "every pair $x,y\\in\\sigma$ satisfies $\\|x-y\\|\\le \\epsilon$",
+              "$\\sigma\\subset B(c,\\epsilon)$ for some $c\\in\\mathbb{R}^d$"
+            ],
+            "answer": 1,
+            "explain": "The Rips criterion looks only at pairwise distances: every pair within $2\\epsilon$ (i.e. $\\mathrm{diam}\\le 2\\epsilon$). The first option is the Čech complex condition; the third gets the scale factor wrong (the pairwise threshold is $2\\epsilon$, not $\\epsilon$); the fourth is yet another (alpha-style) condition. Rips and Čech interleave via $\\check C_\\epsilon\\subseteq\\mathrm{VR}_\\epsilon\\subseteq\\check C_{\\sqrt 2\\,\\epsilon}$.",
+            "hint": "Rips uses only the distance matrix — what's the simplest pairwise condition?"
+          },
+          {
+            "type": "numeric",
+            "q": "Four points sit at the corners of a unit square in $\\mathbb{R}^2$: $(0,0),(1,0),(1,1),(0,1)$. At what value of $\\epsilon$ does $\\mathrm{VR}_\\epsilon$ first contain a $2$-simplex (filled triangle)?",
+            "answer": 0.7071,
+            "tol": 0.01,
+            "explain": "The diameter of any 3-vertex subset includes one diagonal, length $\\sqrt 2$. The Rips condition is $\\mathrm{diam}\\le 2\\epsilon$, so a triangle appears when $\\sqrt 2 \\le 2\\epsilon$, i.e. $\\epsilon = \\sqrt 2/2 \\approx 0.707$.",
+            "hint": "A triangle's diameter is its longest edge — what's the longest pairwise distance in any 3-subset?"
+          },
+          {
+            "type": "multi-select",
+            "q": "Select every true statement about the filtration $\\{\\mathrm{VR}_\\epsilon(X)\\}_{\\epsilon\\ge 0}$ for a finite point set $X$ of size $n$.",
+            "choices": [
+              "It is monotone: $\\epsilon_1\\le \\epsilon_2 \\Rightarrow \\mathrm{VR}_{\\epsilon_1}\\subseteq \\mathrm{VR}_{\\epsilon_2}$.",
+              "For sufficiently large $\\epsilon$, $\\mathrm{VR}_\\epsilon(X)$ is the full $(n-1)$-simplex on $X$.",
+              "$\\mathrm{VR}_\\epsilon$ has the same homotopy type as $\\bigcup_i B(x_i,\\epsilon)$ for every $\\epsilon$.",
+              "$\\mathrm{VR}_\\epsilon$ depends only on the matrix of pairwise distances of $X$."
+            ],
+            "answer": [
+              0,
+              1,
+              3
+            ],
+            "explain": "(0) Larger $\\epsilon$ means a weaker diameter condition — every simplex stays. (1) Once $\\epsilon\\ge \\mathrm{diam}(X)/2$ all simplices are in. (3) Rips depends only on distances. (2) is the Čech statement (Nerve Theorem); Rips is only homotopy-equivalent to $\\bigcup B$ up to the $\\check C_\\epsilon \\subseteq \\mathrm{VR}_\\epsilon \\subseteq \\check C_{\\sqrt 2\\epsilon}$ interleaving, not equality.",
+            "hint": "Which statement is actually about the Čech complex, not the Rips complex?"
+          }
+        ]
+      },
+      "simplicial-homology-tda": {
+        "title": "Simplicial homology bookkeeping",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For a simplicial complex $K$, what is the relationship $\\partial_{n-1}\\circ\\partial_n$?",
+            "choices": [
+              "It equals the identity on $C_n$.",
+              "It is zero.",
+              "It equals $\\partial_n$.",
+              "It is non-zero in general but zero on cycles."
+            ],
+            "answer": 1,
+            "explain": "$\\partial\\circ\\partial = 0$ is the defining axiom of a chain complex — each face of a face appears twice with opposite signs and cancels. It is what makes $\\mathrm{im}\\,\\partial_{n+1}\\subseteq\\ker\\partial_n$ and the quotient $H_n = \\ker\\partial_n/\\mathrm{im}\\,\\partial_{n+1}$ well-defined.",
+            "hint": "Compute $\\partial(\\partial[v_0,v_1,v_2])$ explicitly with signs."
+          },
+          {
+            "type": "numeric",
+            "q": "On a complex $K$ with $|V|=8$ vertices, $|E|=12$ edges, and $|T|=4$ triangles, the Euler characteristic is $\\chi(K) = |V|-|E|+|T|$. Compute $\\chi(K)$ (an integer).",
+            "answer": 0,
+            "tol": 0.001,
+            "explain": "$\\chi = 8 - 12 + 4 = 0$. By the Euler–Poincaré formula $\\chi = \\beta_0 - \\beta_1 + \\beta_2$, so the Betti numbers must satisfy $\\beta_0 - \\beta_1 + \\beta_2 = 0$ (e.g. a torus has $\\beta_0=1, \\beta_1=2, \\beta_2=1$, giving $1-2+1=0$).",
+            "hint": "Plug into $\\chi = V - E + F$."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which of the following are $\\mathbb{F}_2$-cycles on the boundary of a filled triangle with vertices $A,B,C$ (edges $AB,BC,CA$)?",
+            "choices": [
+              "The empty chain $0$",
+              "$AB$ alone",
+              "$AB + BC + CA$",
+              "$AB + CA$"
+            ],
+            "answer": [
+              0,
+              2
+            ],
+            "explain": "Over $\\mathbb{F}_2$, $\\partial(AB+BC+CA) = (A+B)+(B+C)+(C+A) = 2A+2B+2C = 0$. The empty chain is trivially a cycle. $\\partial(AB) = A+B\\ne 0$ and $\\partial(AB+CA) = (A+B)+(C+A) = B+C\\ne 0$, so those are not cycles.",
+            "hint": "Compute $\\partial c$ for each choice over $\\mathbb{F}_2$ (so $+1 = -1$ and the alternating signs vanish)."
+          }
+        ]
+      },
+      "persistent-homology": {
+        "title": "Persistent homology and barcode",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A persistence bar $[b, d)$ on the $\\beta_1$ axis means:",
+            "choices": [
+              "A 1-cycle was born at scale $b$ and killed (became a boundary) at scale $d$.",
+              "A 1-cycle existed at every scale in $[b,d)$ and at no other scale.",
+              "A loop in the data has length $d - b$.",
+              "Two components merged at scale $b$ and split at scale $d$."
+            ],
+            "answer": 0,
+            "explain": "A $\\beta_1$ bar tracks one independent 1-cycle through the filtration: born at $b$ (first appears as a non-trivial homology class) and killed entering $K_d$ (becomes the boundary of a chain of 2-simplices). The bar's <em>length</em> $d-b$ measures persistence, not the geometric length of any loop in the data.",
+            "hint": "What two events does each persistence bar record?"
+          },
+          {
+            "type": "numeric",
+            "q": "A persistence diagram has $\\beta_1$ bars $[0.3, 0.5), [0.4, 1.8), [0.6, 0.65)$. What is the longest persistence (the bar's lifetime $d-b$)?",
+            "answer": 1.4,
+            "tol": 0.01,
+            "explain": "$1.8 - 0.4 = 1.4$. The other lifetimes are $0.2$ and $0.05$.",
+            "hint": "Take the difference $d - b$ for each bar and pick the maximum."
+          },
+          {
+            "type": "ordering",
+            "q": "Order these events in the lifecycle of a single persistent $H_1$ class as the filtration parameter $\\epsilon$ grows.",
+            "items": [
+              "The complex contains $n$ isolated vertices",
+              "Enough edges appear that a cycle forms — a class is born",
+              "More edges fill in but the cycle remains a generator of $H_1$",
+              "A triangle (or chain of triangles) is added whose boundary realises the cycle — the class dies"
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "explain": "Filtrations grow monotonically: vertices first, then edges (some of which create cycles), then 2-simplices (some of which kill cycles by exhibiting them as boundaries). The bar $[b, d)$ records the second and fourth events.",
+            "hint": "Filtrations add lower-dimensional simplices before higher-dimensional ones; cycles need edges to be born and triangles to die."
+          }
+        ]
+      },
+      "stability-theorem": {
+        "title": "Stability theorem",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The Cohen-Steiner–Edelsbrunner–Harer stability theorem bounds:",
+            "choices": [
+              "The bottleneck distance between two persistence diagrams by the $L^\\infty$ distance between their generating filtrations.",
+              "The Hausdorff distance between two point clouds by their barcode lengths.",
+              "The Wasserstein-$1$ distance between point clouds by the number of bars in the diagrams.",
+              "The bottleneck distance between two diagrams by the sum of all bar lengths."
+            ],
+            "answer": 0,
+            "explain": "Stability theorem: $W_\\infty(\\mathrm{Dgm}(f),\\mathrm{Dgm}(g))\\le \\|f-g\\|_\\infty$. Two filtrations close in sup-norm give diagrams close in bottleneck distance. The other choices invert the inequality or use the wrong metric.",
+            "hint": "Which direction of inequality does the theorem give — input-norm bounds diagram-distance, or the reverse?"
+          },
+          {
+            "type": "numeric",
+            "q": "Two distance-to-cloud functions on a complex satisfy $\\|f-g\\|_\\infty = 0.05$. What is the tightest upper bound stability gives on $W_\\infty(\\mathrm{Dgm}(f),\\mathrm{Dgm}(g))$?",
+            "answer": 0.05,
+            "tol": 0.000001,
+            "explain": "Stability is $1$-Lipschitz: $W_\\infty\\le \\|f-g\\|_\\infty = 0.05$.",
+            "hint": "Read off the Lipschitz constant of the persistence map."
+          },
+          {
+            "type": "mcq",
+            "q": "Practitioners discard persistence bars whose length $d-b$ is below the input noise floor. Stability justifies this because:",
+            "choices": [
+              "Short bars cannot move to long bars under small perturbations.",
+              "Short bars can be matched to diagonal points under any perturbation larger than half the bar length.",
+              "Short bars are not part of the persistence diagram in the first place.",
+              "Stability says the number of bars is invariant under perturbations."
+            ],
+            "answer": 1,
+            "explain": "A bar $[b,d)$ with $d-b$ small is $L^\\infty$-close to a diagonal point $(t,t)$. If the data perturbation is at most $\\varepsilon \\ge (d-b)/2$, the bottleneck matching is allowed to send the bar to the diagonal — i.e. the bar is statistically indistinguishable from noise. So features below the noise floor lose interpretive weight.",
+            "hint": "The bottleneck matching allows unmatched bars to be sent to the diagonal; what's the cost of doing that?"
+          }
+        ]
+      },
+      "structure-theorem-decomposition": {
+        "title": "Structure theorem",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What does the Crawley-Boevey / Zomorodian–Carlsson structure theorem assert about a pointwise-finite-dimensional persistence module $M$ over a field?",
+            "choices": [
+              "$M$ admits a unique decomposition $M\\cong\\bigoplus_\\alpha\\mathbb{I}[b_\\alpha,d_\\alpha)$ into interval modules.",
+              "$M$ admits a decomposition into interval modules, but the decomposition is not unique.",
+              "$M$ decomposes uniquely into rank-$1$ projective modules over $k[t]$.",
+              "$M$ is always finitely presented over $k[t,t^{-1}]$."
+            ],
+            "answer": 0,
+            "explain": "The structure theorem: a pointwise-finite-dim persistence module over a field decomposes <em>uniquely</em> (up to reordering) as a direct sum of interval modules $\\mathbb{I}[b,d)$. Uniqueness is what makes the persistence diagram a well-defined invariant. The proof goes via finitely-presented graded $k[t]$-modules, where $k[t]$ is a PID and indecomposables are interval modules.",
+            "hint": "Why is the persistence diagram a complete invariant?"
+          },
+          {
+            "type": "mcq",
+            "q": "The structure theorem (one-parameter persistence) fails for multi-parameter persistence modules over $\\mathbb{R}^2$. Which is the correct reason?",
+            "choices": [
+              "The category of $\\mathbb{R}^2$-indexed modules is not abelian.",
+              "Indecomposable two-parameter persistence modules are uncountably many (\"wild\"), so there is no finite list of bar-shaped building blocks.",
+              "Only modules of finite total dimension decompose; two-parameter modules are typically infinite-dimensional.",
+              "Two-parameter modules have no boundary maps."
+            ],
+            "answer": 1,
+            "explain": "The classification of indecomposables of $\\mathbb{R}^2$-indexed (or even $A_n\\times A_n$-indexed) persistence modules is <em>wild</em> in the technical sense: there is no countable list of indecomposable shapes that suffices. Hence the field uses surrogate invariants (rank, fibered barcode, persistence landscape, GRIL) rather than a true diagram.",
+            "hint": "What is the moduli of indecomposable $\\mathbb{R}^2$-indexed persistence modules like?"
+          },
+          {
+            "type": "mcq",
+            "q": "A student writes: 'The persistence diagram of $M$ is the multiset of birth–death pairs, and two persistence modules are isomorphic iff their diagrams agree as multisets — this works for $\\mathbb{R}$-indexed, $\\mathbb{R}^2$-indexed, and zigzag persistence modules alike.' Where is the error?",
+            "choices": [
+              "Two $\\mathbb{R}^2$-indexed modules can be non-isomorphic with the same rank invariant; the multiset-of-pairs reading does not classify them.",
+              "Even for $\\mathbb{R}$-indexed modules, the diagram fails to be a complete invariant.",
+              "Zigzag persistence does not admit any decomposition theorem.",
+              "Birth–death pairs are not well-defined for any persistence module."
+            ],
+            "answer": 0,
+            "explain": "The structure theorem (and therefore the diagram-as-complete-invariant statement) is one-parameter only. Zigzag persistence does decompose into intervals (via the Auslander–Reiten / $A_n$-quiver classification), so it shares the property. Two-parameter persistence is genuinely different: the rank invariant is a strictly weaker invariant than the module itself.",
+            "hint": "Which of the three settings — $\\mathbb{R}$, $\\mathbb{R}^2$, zigzag — is the odd one out for the structure theorem?"
+          }
+        ]
+      },
+      "mapper-algorithm": {
+        "title": "Mapper algorithm",
+        "questions": [
+          {
+            "type": "ordering",
+            "q": "Order the four steps of the Mapper algorithm.",
+            "items": [
+              "Choose a filter function $f:X\\to\\mathbb{R}^k$.",
+              "Cover the range $f(X)$ by overlapping intervals (or boxes) $U_1,\\dots,U_m$.",
+              "Cluster the preimage $f^{-1}(U_i)\\cap X$ within each cover element.",
+              "Build the nerve: clusters are nodes; edges record cluster overlaps."
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "explain": "Mapper: filter, cover, cluster, nerve. Each step has tuning choices (which $f$, what overlap, which clusterer) that the user must justify — Mapper is a hypothesis-generating tool, not a unique invariant.",
+            "hint": "You can't cover the range before choosing the filter, can't cluster before fixing the cover, etc."
+          },
+          {
+            "type": "mcq",
+            "q": "Mapper run with the cover-bin count set very small (e.g. $m=2$) on a complex dataset will:",
+            "choices": [
+              "Recover all branch structure of the data faithfully.",
+              "Collapse most local structure: the output is a near-trivial graph with one or two nodes.",
+              "Crash because clusters cannot be found in two cover elements.",
+              "Be equivalent to running spectral clustering with $k=2$."
+            ],
+            "answer": 1,
+            "explain": "With only two cover bins, the entire dataset is split into two large preimages; clustering inside each produces few large clusters, so the nerve is essentially a single edge or two-node graph. Coarse covers under-fit the topology. Conversely, too many tiny bins over-fit and produce noise-driven nodes.",
+            "hint": "What does the Mapper graph look like when each cover element is enormous?"
+          },
+          {
+            "type": "multi-select",
+            "q": "Which statements are true of Mapper graphs?",
+            "choices": [
+              "The graph is a topological invariant of the data — different filters give the same graph up to isomorphism.",
+              "The graph depends on the choice of filter $f$, the cover, and the clustering algorithm.",
+              "A degree-$\\ge 3$ node in the graph suggests a branching in the data not visible from one-dimensional projection.",
+              "Mapper graphs are nerve constructions, so they are full simplicial complexes (with higher-simplex faces for triple intersections), but practitioners often display only the 1-skeleton."
+            ],
+            "answer": [
+              1,
+              2,
+              3
+            ],
+            "explain": "Mapper is <em>not</em> a topological invariant — change the filter and you change the graph. (1) is the warning every TDA practitioner repeats. (2) is what Mapper is for: surfacing structure beyond what $f$ alone reveals. (3) is the technical truth that the graph is the 1-skeleton of the nerve.",
+            "hint": "Which statement would imply you don't need to justify your filter choice?"
+          }
+        ]
+      },
+      "cohomology-zigzag-software": {
+        "title": "Persistent cohomology, zigzag, software",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Persistent cohomology of a filtration $K_\\bullet$ over a field $k$ has the same barcode as persistent homology. Why do practitioners often compute cohomology instead?",
+            "choices": [
+              "Cohomology gives more information than homology in this setting.",
+              "Cohomology computations admit a faster reduction algorithm in practice (de Silva–Morozov–Vejdemo-Johansson, 2011).",
+              "Homology cannot be computed over $\\mathbb{F}_2$ but cohomology can.",
+              "Persistent cohomology produces a continuous summary; homology only produces a discrete one."
+            ],
+            "answer": 1,
+            "explain": "Over a field, $H^k\\cong H_k^*$ pointwise so the bars are identical. The computational gain is the <em>cohomology shortcut</em>: the relevant matrix to reduce is sparser when working with cohomology, giving a measurable speed-up. Cohomology also produces explicit cocycles that lift (via Bockstein) to $S^1$-valued circular coordinates on data.",
+            "hint": "Both functors give the same answer here — what else is different?"
+          },
+          {
+            "type": "mcq",
+            "q": "Zigzag persistence generalises persistence by allowing:",
+            "choices": [
+              "Negative birth times.",
+              "Filtrations that reverse direction: $K_0\\to K_1\\leftarrow K_2\\to\\cdots$",
+              "Persistence modules over $\\mathbb{R}^2$ instead of $\\mathbb{R}$.",
+              "Persistence modules with non-finite-dimensional vector spaces at each scale."
+            ],
+            "answer": 1,
+            "explain": "Zigzag persistence (Carlsson–de Silva, 2010) is the persistence theory for arrows that may point either direction — modelling time-varying point clouds, merges between two filtrations, etc. The Gabriel-quiver classification of $A_n$-representations still gives a barcode. Multi-parameter is a different generalisation (option C) and remains open.",
+            "hint": "Which generalisation still admits a barcode decomposition?"
+          },
+          {
+            "type": "multi-select",
+            "q": "Which of these are software libraries commonly used for TDA computations?",
+            "choices": [
+              "Ripser (Bauer)",
+              "GUDHI (INRIA)",
+              "Dionysus (Morozov)",
+              "scikit-tda / giotto-tda"
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "explain": "All four are widely used. Ripser is the speed champion for Rips persistence on moderate-scale clouds; GUDHI is the most complete C++/Python library (Rips, Čech, Alpha, Mapper, multi-parameter, Wasserstein); Dionysus emphasises zigzag and cohomology research features; the scikit-tda umbrella and giotto-tda wrap them in sklearn-style APIs for ML pipelines.",
+            "hint": "All four are in active use; this question tests vocabulary, not preference."
+          }
+        ]
+      }
+    }
+  },
   "toric-varieties": {
     "topic": "toric-varieties",
     "quizzes": {
