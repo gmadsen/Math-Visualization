@@ -595,6 +595,102 @@
       applyState();
     });
 
+    // ===== zoom (horizontal-only via viewBox manipulation) =====
+    // Year scrubber and individual dot circles keep their pixel size
+    // because we shift the SVG camera rather than scaling content.
+    const ZOOM_MIN = 1, ZOOM_MAX = 12;
+    let zScale = 1, vbX = 0; // vbX in viewBox-px; width = VIEW_W / zScale
+    function applyVb(){
+      const w = VIEW_W / zScale;
+      // Clamp so we never pan past either end of the timeline.
+      if(vbX < 0) vbX = 0;
+      if(vbX + w > VIEW_W) vbX = VIEW_W - w;
+      svg.setAttribute('viewBox', `${vbX.toFixed(2)} 0 ${w.toFixed(2)} ${VIEW_H}`);
+    }
+    function setZoom(next, cursorX /* in viewBox coords */){
+      const n = Math.max(ZOOM_MIN, Math.min(ZOOM_MAX, next));
+      const w0 = VIEW_W / zScale;
+      const w1 = VIEW_W / n;
+      const cx = cursorX ?? (vbX + w0 / 2);
+      // Keep cursorX visually anchored: solve for new vbX given new width.
+      vbX = cx - (w1 / w0) * (cx - vbX);
+      zScale = n;
+      applyVb();
+    }
+    svg.addEventListener('wheel', e => {
+      if(!e.ctrlKey && Math.abs(e.deltaY) < Math.abs(e.deltaX)) return; // let horizontal scroll pass through
+      e.preventDefault();
+      const r = svg.getBoundingClientRect();
+      const w = VIEW_W / zScale;
+      const cx = vbX + (e.clientX - r.left) / r.width * w;
+      const factor = e.deltaY < 0 ? 1.25 : 1 / 1.25;
+      setZoom(zScale * factor, cx);
+    }, { passive: false });
+
+    // Drag-pan on the timeline background (skip event dots + scrubber so
+    // their click handlers still fire). Only activates after pointer moves
+    // > 4 px so a quick click still registers as a click.
+    let pan = null;
+    svg.addEventListener('pointerdown', e => {
+      if(e.target.closest('.event-dot')) return;
+      if(e.target.closest('.tl-scrubber')) return;
+      pan = { x0: e.clientX, vb0: vbX, id: e.pointerId, moved: false };
+    });
+    svg.addEventListener('pointermove', e => {
+      if(!pan || e.pointerId !== pan.id) return;
+      const r = svg.getBoundingClientRect();
+      const w = VIEW_W / zScale;
+      const dx = (e.clientX - pan.x0) / r.width * w;
+      if(!pan.moved && Math.abs(e.clientX - pan.x0) > 4){
+        pan.moved = true;
+        try { svg.setPointerCapture(e.pointerId); } catch (_) {}
+        svg.style.cursor = 'grabbing';
+      }
+      if(pan.moved){
+        vbX = pan.vb0 - dx;
+        applyVb();
+      }
+    });
+    let suppressNextClick = false;
+    function endPan(){
+      if(pan && pan.moved){
+        // Drag-pan terminated; the trailing click event would otherwise
+        // jump the scrubber to wherever the pointer happens to be.
+        suppressNextClick = true;
+        svg.style.cursor = '';
+      }
+      pan = null;
+    }
+    svg.addEventListener('pointerup', endPan);
+    svg.addEventListener('pointercancel', endPan);
+    svg.addEventListener('click', e => {
+      if(suppressNextClick){
+        suppressNextClick = false;
+        e.stopImmediatePropagation();
+      }
+    }, true);
+
+    const zoomCtrls = document.createElement('div');
+    zoomCtrls.className = 'zoom-controls';
+    function mkBtn(label, title, onClick){
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'era-chip zoom-btn';
+      b.textContent = label;
+      b.title = title;
+      b.setAttribute('aria-label', title);
+      b.addEventListener('click', onClick);
+      return b;
+    }
+    zoomCtrls.appendChild(mkBtn('+', 'Zoom in', () => setZoom(zScale * 1.5)));
+    zoomCtrls.appendChild(mkBtn('−', 'Zoom out', () => setZoom(zScale / 1.5)));
+    zoomCtrls.appendChild(mkBtn('⌖', 'Reset zoom', () => { zScale = 1; vbX = 0; applyVb(); }));
+    ctrls.appendChild(zoomCtrls);
+
+    // Reflect new affordances in the hint copy.
+    const hintEl = host.querySelector('.hd .hint');
+    if(hintEl) hintEl.textContent = 'Click a dot for details · scroll to zoom · drag the background to pan';
+
     // initial paint
     applyState();
   }
