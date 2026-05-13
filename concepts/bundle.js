@@ -14,6 +14,7 @@ window.__MVConcepts = {
       "spectral-methods-data",
       "optimal-control-and-dynamic-programming",
       "combinatorial-optimization",
+      "mathematical-finance",
       "several-complex-variables",
       "khovanov-homology",
       "shimura-varieties",
@@ -388,7 +389,8 @@ window.__MVConcepts = {
       "mathematical-biology": "advanced",
       "spectral-methods-data": "advanced",
       "optimal-control-and-dynamic-programming": "advanced",
-      "combinatorial-optimization": "advanced"
+      "combinatorial-optimization": "advanced",
+      "mathematical-finance": "advanced"
     }
   },
   "topics": {
@@ -1394,6 +1396,97 @@ window.__MVConcepts = {
           "tags": [
             "classification"
           ]
+        }
+      ]
+    },
+    "mathematical-finance": {
+      "topic": "mathematical-finance",
+      "title": "Mathematical finance & stochastic control",
+      "page": "mathematical-finance.html",
+      "concepts": [
+        {
+          "id": "mf-black-scholes-model",
+          "title": "The Black–Scholes model",
+          "anchor": "black-scholes-model",
+          "prereqs": [
+            "sc-sde-existence",
+            "brownian-motion"
+          ],
+          "blurb": "Asset prices follow geometric Brownian motion $dS_t=\\mu S_t\\,dt+\\sigma S_t\\,dB_t$; under no-arbitrage and constant volatility a European call has the closed-form price $C(S,t)=S\\Phi(d_1)-Ke^{-r(T-t)}\\Phi(d_2)$ with $d_{1,2}$ depending only on $S/K$, $r$, $\\sigma$, $T-t$ — not on the unknown drift $\\mu$.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "mf-bs-pde",
+          "title": "The Black–Scholes PDE",
+          "anchor": "bs-pde",
+          "prereqs": [
+            "mf-black-scholes-model",
+            "sc-ito-formula",
+            "pde-heat-equation"
+          ],
+          "blurb": "Delta-hedging a derivative against the underlying yields a riskless portfolio; matching its growth to the bond rate gives $\\partial_t V+\\tfrac{1}{2}\\sigma^2 S^2\\partial_{SS}V+rS\\partial_S V-rV=0$ with terminal condition $V(T,S)=\\max(S-K,0)$ — a backward parabolic PDE that reduces to the heat equation under $S=Ke^x$, $\\tau=T-t$.",
+          "tags": [
+            "duality"
+          ]
+        },
+        {
+          "id": "mf-risk-neutral",
+          "title": "Risk-neutral pricing and martingale measures",
+          "anchor": "risk-neutral",
+          "prereqs": [
+            "mf-black-scholes-model",
+            "sc-girsanov"
+          ],
+          "blurb": "Girsanov's theorem absorbs the drift $\\mu-r$ into a change of measure $\\mathbb{Q}$ under which the discounted asset $e^{-rt}S_t$ is a martingale; the price of any contingent claim is $V_0=e^{-rT}\\mathbb{E}^{\\mathbb{Q}}[\\text{payoff}]$, and the first fundamental theorem of asset pricing identifies no-arbitrage with the existence of such a measure.",
+          "tags": [
+            "duality"
+          ]
+        },
+        {
+          "id": "mf-merton-portfolio",
+          "title": "Optimal portfolio selection (Merton)",
+          "anchor": "merton-portfolio",
+          "prereqs": [
+            "mf-black-scholes-model",
+            "sc-ito-formula"
+          ],
+          "blurb": "An investor with CRRA utility $u(c)=c^{1-\\gamma}/(1-\\gamma)$ choosing consumption $c_t$ and portfolio weight $\\pi_t$ in a single risky asset solves $\\max\\mathbb{E}\\int_0^T e^{-\\rho t}u(c_t)\\,dt$; the closed-form Merton fraction $\\pi^*=(\\mu-r)/(\\gamma\\sigma^2)$ trades expected excess return against risk-aversion-weighted volatility, independent of wealth.",
+          "tags": []
+        },
+        {
+          "id": "mf-hjb",
+          "title": "The Hamilton–Jacobi–Bellman equation",
+          "anchor": "hjb",
+          "prereqs": [
+            "mf-merton-portfolio",
+            "sc-feynman-kac"
+          ],
+          "blurb": "Dynamic programming for a controlled diffusion $dX_t=b(t,X_t,u_t)\\,dt+\\sigma(t,X_t,u_t)\\,dB_t$ with running cost $f$ gives the value function $V(t,x)$ satisfying $\\partial_t V+\\sup_u\\{\\mathcal{L}^uV+f\\}=0$; the supremum over admissible controls collapses the curse of dimensionality into a nonlinear PDE, and Merton's problem is its prototypical closed-form instance.",
+          "tags": [
+            "duality"
+          ]
+        },
+        {
+          "id": "mf-ito-finance",
+          "title": "Itô diffusions in finance",
+          "anchor": "ito-finance",
+          "prereqs": [
+            "mf-bs-pde",
+            "sc-ito-integral"
+          ],
+          "blurb": "Local martingales and quadratic variation underwrite the no-arbitrage skeleton: the Itô isometry quantifies hedging-error variance, the Itô–Doeblin formula turns $f(S_t)$ into $f'(S_t)\\,dS_t+\\tfrac{1}{2}f''(S_t)\\,d\\langle S\\rangle_t$, and the resulting hedging argument is the bridge from a position in the underlying to a self-financing replication of a derivative payoff."
+        },
+        {
+          "id": "mf-beyond-bs",
+          "title": "Beyond Black–Scholes",
+          "anchor": "beyond-bs",
+          "prereqs": [
+            "mf-risk-neutral",
+            "mf-bs-pde"
+          ],
+          "blurb": "Empirical option prices show a volatility smile that constant-$\\sigma$ Black–Scholes cannot fit; Heston's stochastic-volatility SDE, Merton's jump-diffusion, and Dupire's local-volatility surface $\\sigma_{\\mathrm{loc}}(K,T)$ each enlarge the model class while preserving the risk-neutral pricing skeleton, at the price of incomplete markets and additional calibration."
         }
       ]
     },
@@ -18945,7 +19038,8 @@ window.__MVConcepts = {
         "description": "Linear and convex programming, network flows, dynamic programming, optimal control, Itô calculus applied to finance, and the analytic tools at the boundary between pure math and engineering decisions.",
         "topics": [
           "optimal-control-and-dynamic-programming",
-          "combinatorial-optimization"
+          "combinatorial-optimization",
+          "mathematical-finance"
         ],
         "color": "p"
       }
@@ -19233,7 +19327,8 @@ window.__MVConcepts = {
     "mathematical-biology": "advanced",
     "spectral-methods-data": "advanced",
     "optimal-control-and-dynamic-programming": "advanced",
-    "combinatorial-optimization": "advanced"
+    "combinatorial-optimization": "advanced",
+    "mathematical-finance": "advanced"
   },
   "newArc": [
     "elementary-topos-theory",
@@ -19278,14 +19373,14 @@ window.__MVConcepts = {
       "concepts": 204,
       "intra": 357,
       "crossOut": 36,
-      "crossIn": 72,
+      "crossIn": 73,
       "density": 0.17647058823529413
     },
     "Probability & statistics": {
       "concepts": 76,
       "intra": 124,
       "crossOut": 23,
-      "crossIn": 15,
+      "crossIn": 22,
       "density": 0.3026315789473684
     },
     "Geometry & topology": {
@@ -19331,11 +19426,11 @@ window.__MVConcepts = {
       "density": 0.5797101449275363
     },
     "Control theory & optimization": {
-      "concepts": 14,
-      "intra": 13,
-      "crossOut": 6,
+      "concepts": 21,
+      "intra": 20,
+      "crossOut": 14,
       "crossIn": 0,
-      "density": 0.42857142857142855
+      "density": 0.6666666666666666
     }
   }
 };

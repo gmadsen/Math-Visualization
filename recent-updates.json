@@ -1,5 +1,5 @@
 {
-  "generated": "2026-05-13T01:55:13.991Z",
+  "generated": "2026-05-13T02:07:47.048Z",
   "entries": [
     {
       "slug": "brill-noether",
@@ -16,6 +16,14 @@
       "tag": "",
       "date": "2026-05-12",
       "message": "New topic: Coding theory & error-correcting codes (Combinatorics & graph theory) (#160)"
+    },
+    {
+      "slug": "combinatorial-optimization",
+      "title": "Combinatorial optimization",
+      "color": "p",
+      "tag": "",
+      "date": "2026-05-12",
+      "message": "New topic: Combinatorial optimization (Control theory & optimization) (#177)"
     },
     {
       "slug": "conformal-and-cr-geometry",

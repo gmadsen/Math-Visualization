@@ -38403,6 +38403,320 @@ window.MVQuizBank = {
       }
     }
   },
+  "mathematical-finance": {
+    "topic": "mathematical-finance",
+    "quizzes": {
+      "mf-black-scholes-model": {
+        "title": "The Black–Scholes model",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Under the Black–Scholes model the asset price $S_t$ follows which SDE?",
+            "choices": [
+              "$dS_t = \\mu\\,dt + \\sigma\\,dB_t$",
+              "$dS_t = \\mu S_t\\,dt + \\sigma S_t\\,dB_t$",
+              "$dS_t = \\mu S_t\\,dt + \\sigma\\,dB_t$",
+              "$dS_t = \\mu\\,dt + \\sigma S_t\\,dB_t$"
+            ],
+            "answer": 1,
+            "hint": "Both the drift and the diffusion need to scale with $S$ so the percentage return — not the absolute change — has constant statistics.",
+            "explain": "Geometric Brownian motion: returns $dS/S=\\mu\\,dt+\\sigma\\,dB$ are scale-invariant, so the process stays positive and lognormal in distribution. Solving $d\\log S=(\\mu-\\sigma^2/2)\\,dt+\\sigma\\,dB$ gives the explicit form $S_t=S_0\\exp((\\mu-\\sigma^2/2)t+\\sigma B_t)$."
+          },
+          {
+            "type": "mcq",
+            "q": "Why does the Black–Scholes call-price formula $C=S\\Phi(d_1)-Ke^{-r(T-t)}\\Phi(d_2)$ not depend on the drift $\\mu$?",
+            "choices": [
+              "Because $\\mu$ cancels exactly in $d_1-d_2$.",
+              "Because the hedging argument replicates the option, leaving only $r$ and $\\sigma$ as priceable.",
+              "Because $\\mu$ is empirically negligible for liquid stocks.",
+              "Because the formula is only valid for $\\mu=r$."
+            ],
+            "answer": 1,
+            "hint": "What does dynamic hedging guarantee about the payoff?",
+            "explain": "Delta-hedging replicates the option's payoff exactly, so a no-arbitrage price equals the cost of the hedging portfolio — that cost depends on $r$ (financing) and $\\sigma$ (residual diffusion) but not on $\\mu$, which would otherwise be the rate the unhedged asset drifts."
+          },
+          {
+            "type": "numeric",
+            "q": "For a one-year European call with $S=K=100$, $r=0$, $\\sigma=0.20$, the Black–Scholes price is approximately (to 1 decimal)?",
+            "answer": 7.97,
+            "tol": 0.3,
+            "hint": "$d_1=\\sigma\\sqrt{T}/2$, $d_2=-d_1$. Use $\\Phi(0.1)\\approx 0.5398$, $\\Phi(-0.1)\\approx 0.4602$.",
+            "explain": "With $S=K$, $r=0$, $T=1$, $\\sigma=0.2$: $d_1=0.1$, $d_2=-0.1$. $C=100(0.5398-0.4602)=7.97$. The thumb rule $C\\approx 0.4\\,S\\sigma\\sqrt{T}$ gives the same answer."
+          }
+        ]
+      },
+      "mf-bs-pde": {
+        "title": "The Black–Scholes PDE",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which boundary condition corresponds to a European call option with strike $K$ and maturity $T$?",
+            "choices": [
+              "$V(T,S)=\\max(K-S,0)$",
+              "$V(T,S)=\\max(S-K,0)$",
+              "$V(0,S)=S-K$",
+              "$V(T,S)=K-S$"
+            ],
+            "answer": 1,
+            "hint": "A call pays whatever positive amount you'd make by exercising at $S$, vs. paying $K$.",
+            "explain": "At expiry the holder exercises iff $S_T>K$, so the payoff is $(S_T-K)^+=\\max(S_T-K,0)$. This is the *terminal* condition; the PDE is solved backward in time from $T$ to $0$."
+          },
+          {
+            "type": "mcq",
+            "q": "The Black–Scholes PDE is $\\partial_t V+\\tfrac{1}{2}\\sigma^2 S^2\\partial_{SS}V+rS\\partial_S V-rV=0$. Which classical PDE does it reduce to under the substitution $S=Ke^x$, $\\tau=T-t$, plus a discount/drift transform?",
+            "choices": [
+              "The wave equation",
+              "Laplace's equation",
+              "The heat equation $\\partial_\\tau u = \\partial_{xx} u$",
+              "A first-order transport equation"
+            ],
+            "answer": 2,
+            "hint": "The diffusion term is $\\sigma^2 S^2 \\partial_{SS}$; switching to log-price absorbs the $S^2$ factor.",
+            "explain": "Setting $S=Ke^x$ converts $S\\partial_S\\to\\partial_x$ and $S^2\\partial_{SS}\\to\\partial_{xx}-\\partial_x$; reversing time $\\tau=T-t$ and absorbing the linear drift/discount terms into an exponential prefactor yields the heat equation. This is why Black–Scholes prices are essentially Gaussian convolutions of the payoff."
+          },
+          {
+            "type": "mcq",
+            "q": "In the delta-hedging derivation of the BS PDE, what quantity is held constant over $[t,t+dt]$ to make the hedged portfolio riskless?",
+            "choices": [
+              "The number of options",
+              "The total portfolio value $V$",
+              "The share count $\\Delta=\\partial V/\\partial S$",
+              "The volatility $\\sigma$"
+            ],
+            "answer": 2,
+            "hint": "We cancel the $dB$ term in $d(V-\\Delta S)$ by choosing $\\Delta$ correctly.",
+            "explain": "Take a long option and short $\\Delta$ shares. Itô's formula gives $d(V-\\Delta S)=(\\partial_t V+\\tfrac{1}{2}\\sigma^2 S^2 V_{SS})\\,dt+(V_S-\\Delta)\\,dS$. Choosing $\\Delta=V_S$ eliminates the random $dS$ term; setting the remaining deterministic growth equal to $r(V-\\Delta S)\\,dt$ yields the PDE."
+          }
+        ]
+      },
+      "mf-risk-neutral": {
+        "title": "Risk-neutral pricing and martingale measures",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Under the risk-neutral measure $\\mathbb{Q}$, what is the drift of the asset $S_t$ in the Black–Scholes model?",
+            "choices": [
+              "$\\mu$",
+              "$r$ (the risk-free rate)",
+              "$\\mu-r$",
+              "$0$"
+            ],
+            "answer": 1,
+            "hint": "Girsanov shifts the drift by $\\sigma\\theta$; choose $\\theta$ so that $e^{-rt}S_t$ becomes a martingale.",
+            "explain": "Setting $\\theta=(\\mu-r)/\\sigma$ in Girsanov makes $\\tilde B_t=B_t+\\theta t$ a $\\mathbb{Q}$-Brownian motion, and $dS_t=rS_t\\,dt+\\sigma S_t\\,d\\tilde B_t$. The discounted price $e^{-rt}S_t$ is then a $\\mathbb{Q}$-martingale, the defining property of a risk-neutral measure."
+          },
+          {
+            "type": "mcq",
+            "q": "The price of a European option with payoff $g(S_T)$ is given by:",
+            "choices": [
+              "$\\mathbb{E}^{\\mathbb{P}}[g(S_T)]$",
+              "$e^{-rT}\\,\\mathbb{E}^{\\mathbb{P}}[g(S_T)]$",
+              "$e^{-rT}\\,\\mathbb{E}^{\\mathbb{Q}}[g(S_T)]$",
+              "$\\mathbb{E}^{\\mathbb{Q}}[g(S_T)]$"
+            ],
+            "answer": 2,
+            "hint": "Discount the payoff at the risk-free rate, expectation taken under the risk-neutral measure.",
+            "explain": "Risk-neutral pricing: the option value at time $0$ is $V_0=e^{-rT}\\mathbb{E}^{\\mathbb{Q}}[g(S_T)]$. Discounting accounts for the time value of money; the change of measure to $\\mathbb{Q}$ encodes the absence of arbitrage."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which statements are implied by the first fundamental theorem of asset pricing?",
+            "choices": [
+              "No-arbitrage is equivalent to existence of an equivalent martingale measure.",
+              "The martingale measure is always unique.",
+              "Under the martingale measure, discounted asset prices are martingales.",
+              "The drift $\\mu$ of the real-world dynamics determines option prices."
+            ],
+            "answer": [
+              0,
+              2
+            ],
+            "hint": "Uniqueness is the *second* fundamental theorem (and only holds when the market is complete).",
+            "explain": "FTAP I: no-arbitrage $\\Leftrightarrow$ existence of an equivalent martingale measure under which discounted prices are martingales. Uniqueness of the measure is the second FTAP and equivalent to market completeness. Real-world drift $\\mu$ is irrelevant for replicable payoffs."
+          }
+        ]
+      },
+      "mf-merton-portfolio": {
+        "title": "Optimal portfolio selection (Merton)",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For CRRA utility $u(c)=c^{1-\\gamma}/(1-\\gamma)$, the Merton portfolio fraction $\\pi^*$ in the risky asset is:",
+            "choices": [
+              "$\\pi^*=\\mu/\\sigma$",
+              "$\\pi^*=(\\mu-r)/\\sigma^2$",
+              "$\\pi^*=(\\mu-r)/(\\gamma\\sigma^2)$",
+              "$\\pi^*=\\mu-r$"
+            ],
+            "answer": 2,
+            "hint": "Risk-aversion $\\gamma$ should appear in the denominator: more risk-averse investors hold less of the risky asset.",
+            "explain": "Plugging the CRRA value function $V(t,w)=\\phi(t)w^{1-\\gamma}/(1-\\gamma)$ into the HJB equation and optimizing over $\\pi$ gives $\\pi^*=(\\mu-r)/(\\gamma\\sigma^2)$. Notably the optimum is independent of wealth $w$ — a hallmark of CRRA preferences."
+          },
+          {
+            "type": "mcq",
+            "q": "In Merton's problem, what is the rationale for treating $\\pi_t$ (the fraction of wealth in the risky asset) as the control rather than the dollar amount?",
+            "choices": [
+              "Mathematical convention only.",
+              "It keeps the controlled wealth process well-defined and the value function homogeneous.",
+              "Real markets only allow proportional positions.",
+              "It avoids using Itô's formula."
+            ],
+            "answer": 1,
+            "hint": "What property of CRRA utility makes the fraction the natural state-independent control?",
+            "explain": "Wealth $W_t$ evolves as $dW_t=(r+\\pi_t(\\mu-r))W_t\\,dt+\\pi_t\\sigma W_t\\,dB_t$. CRRA utility is homogeneous, so the value function inherits a $w^{1-\\gamma}$ separation, and the optimal $\\pi^*$ becomes wealth-independent. A dollar control would break this scaling."
+          },
+          {
+            "type": "numeric",
+            "q": "For $\\mu=0.08$, $r=0.02$, $\\sigma=0.20$, $\\gamma=2$, compute the Merton fraction (positive number).",
+            "answer": 0.75,
+            "tol": 0.05,
+            "hint": "$\\pi^*=(\\mu-r)/(\\gamma\\sigma^2)$.",
+            "explain": "$\\pi^*=(0.08-0.02)/(2\\cdot 0.04)=0.06/0.08=0.75$. So an investor with $\\gamma=2$ holds 75% of wealth in the risky asset and 25% in the riskless bond."
+          }
+        ]
+      },
+      "mf-hjb": {
+        "title": "The Hamilton–Jacobi–Bellman equation",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For a controlled diffusion $dX_t=b(X_t,u_t)\\,dt+\\sigma(X_t,u_t)\\,dB_t$ with running cost $f$ and value function $V(t,x)$, the HJB equation reads:",
+            "choices": [
+              "$\\partial_t V + \\sup_u\\{\\mathcal{L}^u V + f\\} = 0$",
+              "$\\partial_t V + \\inf_u\\{\\mathcal{L}^u V - f\\} = 0$",
+              "$\\partial_t V + b\\,\\partial_x V + \\tfrac{1}{2}\\sigma^2 \\partial_{xx} V = 0$",
+              "$\\partial_t V = f$"
+            ],
+            "answer": 0,
+            "hint": "The supremum picks the best instantaneous control; without it you'd have a passive Kolmogorov backward equation.",
+            "explain": "Dynamic programming says: given that you'll play optimally from $t+dt$ onward, choose $u$ at time $t$ to maximize $f\\,dt + \\mathbb{E}[dV]$. Itô on $V$ produces the operator $\\mathcal{L}^u = b\\,\\partial_x + \\tfrac{1}{2}\\sigma^2\\partial_{xx}$, and the optimization over $u$ gives the sup."
+          },
+          {
+            "type": "mcq",
+            "q": "A *verification theorem* for HJB says:",
+            "choices": [
+              "Any classical solution of the HJB equation is the value function.",
+              "A classical solution of HJB satisfying suitable growth conditions equals the value function, and the maximizer is an optimal feedback control.",
+              "The HJB always has a unique classical solution.",
+              "The HJB equation is well-posed if and only if the diffusion is non-degenerate."
+            ],
+            "answer": 1,
+            "hint": "Verification needs both regularity of $V$ and a transversality / growth condition.",
+            "explain": "The verification theorem trades the dynamic-programming derivation for a check: if a smooth $V$ solves the HJB with the right boundary and growth conditions, then $V$ is the value function and the argmax of the Hamiltonian is an optimal feedback control. Without smoothness one falls back on viscosity solutions."
+          },
+          {
+            "type": "mcq",
+            "q": "What distinguishes the HJB equation from the Feynman–Kac PDE?",
+            "choices": [
+              "HJB is parabolic, Feynman–Kac is elliptic.",
+              "HJB has a $\\sup_u$ (or $\\inf_u$) inside it — it's nonlinear in $V$; Feynman–Kac is linear.",
+              "HJB applies to discrete time, Feynman–Kac to continuous time.",
+              "They are the same equation under change of variables."
+            ],
+            "answer": 1,
+            "hint": "Feynman–Kac gives the expected discounted payoff under a *given* dynamics; HJB has you choosing the dynamics.",
+            "explain": "Feynman–Kac solves a *linear* parabolic PDE associated with a fixed SDE. HJB optimizes over control, so the operator inside is $\\sup_u\\{\\mathcal{L}^u V + f\\}$ — nonlinear in $V$. With a single uncontrolled drift, HJB collapses to Feynman–Kac."
+          }
+        ]
+      },
+      "mf-ito-finance": {
+        "title": "Itô diffusions in finance",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For $S_t$ following geometric Brownian motion, what is $d\\langle S\\rangle_t$, the quadratic variation increment?",
+            "choices": [
+              "$\\sigma^2\\,dt$",
+              "$\\sigma^2 S_t^2\\,dt$",
+              "$\\mu S_t^2\\,dt$",
+              "$dt$"
+            ],
+            "answer": 1,
+            "hint": "Quadratic variation collects the $(dB_t)^2$ contribution from the diffusion coefficient.",
+            "explain": "$dS_t=\\mu S_t\\,dt+\\sigma S_t\\,dB_t$ gives $(dS_t)^2=\\sigma^2 S_t^2\\,dt$ via $(dB_t)^2=dt$ and $dt\\,dB=0$, so $d\\langle S\\rangle_t=\\sigma^2 S_t^2\\,dt$. This is the term that drives the Itô correction in Black–Scholes."
+          },
+          {
+            "type": "mcq",
+            "q": "A self-financing portfolio holds $\\Delta_t$ shares plus $B_t$ in bonds. The 'self-financing' condition says:",
+            "choices": [
+              "$d(\\Delta_t S_t + B_t e^{rt}) = \\Delta_t\\,dS_t + r B_t e^{rt}\\,dt$",
+              "$\\Delta_t + B_t = \\text{const}$",
+              "$d\\Delta_t = 0$",
+              "$\\Delta_t S_t + B_t e^{rt}$ is a martingale"
+            ],
+            "answer": 0,
+            "hint": "Self-financing means there's no external cash inflow or outflow — wealth changes only because positions earn or lose.",
+            "explain": "Wealth $W_t=\\Delta_t S_t + B_t e^{rt}$. Self-financing requires $dW_t=\\Delta_t\\,dS_t+r B_t e^{rt}\\,dt$ — i.e. rebalancing $\\Delta$ generates no cash. This is the constraint that makes hedging-portfolio replication coherent."
+          },
+          {
+            "type": "mcq",
+            "q": "The Itô isometry $\\mathbb{E}\\big[(\\int_0^T\\theta_t\\,dB_t)^2\\big]=\\mathbb{E}\\int_0^T\\theta_t^2\\,dt$ has what role in finance?",
+            "choices": [
+              "It defines the Sharpe ratio.",
+              "It quantifies the variance of a hedging-error or stochastic-integral residual.",
+              "It is the change-of-measure formula.",
+              "It implies the Black–Scholes formula directly."
+            ],
+            "answer": 1,
+            "hint": "The hedging error is a stochastic integral; its variance is what you'd want to bound.",
+            "explain": "Replication errors and P&L residuals are stochastic integrals against Brownian motion. The Itô isometry pins their $L^2$-norm to the integrand's expected squared $L^2$ norm — making it quantitative how much rebalancing frequency reduces tracking error."
+          }
+        ]
+      },
+      "mf-beyond-bs": {
+        "title": "Beyond Black–Scholes",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The empirical 'volatility smile' shows implied volatility $\\sigma_{\\mathrm{imp}}(K,T)$ as a function of strike — typically:",
+            "choices": [
+              "Flat across strikes (Black–Scholes prediction).",
+              "Strictly increasing in $K$.",
+              "U-shaped, with higher implied vol for far in- or out-of-the-money options.",
+              "Always decreasing with maturity $T$."
+            ],
+            "answer": 2,
+            "hint": "Black–Scholes assumes constant $\\sigma$; the market's deviation from that assumption traces a smile or a skew.",
+            "explain": "The volatility smile / skew is the empirical fact that out-of-the-money puts and calls trade at higher implied volatility than at-the-money options. It signals fatter tails than the lognormal — present-discounting of crash risk and consistent with stochastic-volatility or jump-diffusion models."
+          },
+          {
+            "type": "matching",
+            "q": "Match each model extension to its key feature.",
+            "left": [
+              "Heston",
+              "Merton 1976",
+              "Dupire"
+            ],
+            "right": [
+              "Stochastic volatility — $\\sigma_t$ follows its own SDE (mean-reverting CIR)",
+              "Jump-diffusion — Brownian motion plus a compound Poisson process",
+              "Local volatility — $\\sigma(t,S)$ as a deterministic function of state, calibrated to fit all market quotes"
+            ],
+            "answer": [
+              0,
+              1,
+              2
+            ],
+            "hint": "One is stochastic, one is discontinuous, one is deterministic-but-state-dependent.",
+            "explain": "Heston adds a second SDE for variance, giving a smile generated by vol-of-vol; Merton 1976 superposes Poisson jumps onto Black–Scholes, producing fatter tails and crash risk; Dupire shows that a function $\\sigma_{\\mathrm{loc}}(K,T)$ can always be chosen to match the entire implied-vol surface — at the cost of treating $\\sigma$ as state-dependent rather than stochastic."
+          },
+          {
+            "type": "mcq",
+            "q": "In a stochastic-volatility model like Heston, the market is generally:",
+            "choices": [
+              "Complete — every derivative is replicable.",
+              "Incomplete — replication requires a second tradable, e.g. another option.",
+              "Trivially arbitrage-free with a unique price.",
+              "Equivalent to Black–Scholes after rescaling time."
+            ],
+            "answer": 1,
+            "hint": "Two sources of randomness ($S_t$ and $\\sigma_t$) but only one tradable instrument means the underlying alone can't span all payoffs.",
+            "explain": "Heston has two independent Brownian drivers (one for $S$, one for $\\sigma$) and one tradable asset, so vega risk is unhedgeable from $S$ alone. Pricing requires either a market price of volatility risk or use of a second option to span the variance noise — making the equivalent martingale measure non-unique."
+          }
+        ]
+      }
+    }
+  },
   "mathematical-statistics": {
     "topic": "mathematical-statistics",
     "quizzes": {

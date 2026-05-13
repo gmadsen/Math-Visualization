@@ -2,12 +2,12 @@
 
 ## Corpus totals
 
-- Topics: **182**, concepts: **1264**
-- Widgets: **1289** (registry-driven: 1289, inline: 0)
-- Quizzes: **4986** (v1: 3750, hard: 1223, expert: 13)
-- Quiz types: mcq: 3265, numeric: 1202, multi-select: 231, matching: 103, ordering: 80, spot-the-error: 51, complex: 29, proof-completion: 21, construction: 2, guess-my-rule: 2
+- Topics: **183**, concepts: **1271**
+- Widgets: **1296** (registry-driven: 1296, inline: 0)
+- Quizzes: **5007** (v1: 3771, hard: 1223, expert: 13)
+- Quiz types: mcq: 3282, numeric: 1204, multi-select: 232, matching: 104, ordering: 80, spot-the-error: 51, complex: 29, proof-completion: 21, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their section: **149**
-- Concepts lacking a hard-tier quiz: **826**
+- Concepts lacking a hard-tier quiz: **833**
 
 ## Per-slug registry adoption
 
@@ -555,6 +555,13 @@ page has wired one in yet.
 | `mcg-w4` | verbatim | drag | 2d | 1 | mapping-class-groups |
 | `mcg-w5` | verbatim | input | 2d | 1 | mapping-class-groups |
 | `mcg-w6` | verbatim | click | 2d | 1 | mapping-class-groups |
+| `mf-w1` | verbatim | slider | 2d | 1 | mathematical-finance |
+| `mf-w2` | verbatim | slider | 2d | 1 | mathematical-finance |
+| `mf-w3` | verbatim | slider | 2d | 1 | mathematical-finance |
+| `mf-w4` | verbatim | slider | 2d | 1 | mathematical-finance |
+| `mf-w5` | verbatim | slider | 2d | 1 | mathematical-finance |
+| `mf-w6` | verbatim | click | 2d | 1 | mathematical-finance |
+| `mf-w7` | verbatim | click | 2d | 1 | mathematical-finance |
 | `mirror-hms-pairing` | mirror-hms-pairing | click | 2d | 1 | mirror-symmetry |
 | `mirror-hodge-diamond` | mirror-hodge-diamond | select | 2d | 1 | mirror-symmetry |
 | `mirror-quintic-counts` | mirror-quintic-counts | click | 2d | 1 | mirror-symmetry |
@@ -950,13 +957,13 @@ page has wired one in yet.
 
 ### Control theory & optimization
 
-- Topics: **2**, concepts: **14**
-- Widgets: **14** (registry-driven: 14, inline: 0)
-  - by family: verbatim: 14
-  - by dimension: 2d: 14
-  - by gesture: slider: 7, click: 4, select: 2, scrub: 1
-- Quizzes: **42** (v1: 42, hard: 0, expert: 0)
-  - by type: mcq: 28, numeric: 7, multi-select: 3, spot-the-error: 2, matching: 1, ordering: 1
+- Topics: **3**, concepts: **21**
+- Widgets: **21** (registry-driven: 21, inline: 0)
+  - by family: verbatim: 21
+  - by dimension: 2d: 21
+  - by gesture: slider: 12, click: 6, select: 2, scrub: 1
+- Quizzes: **63** (v1: 63, hard: 0, expert: 0)
+  - by type: mcq: 45, numeric: 9, multi-select: 4, matching: 2, spot-the-error: 2, ordering: 1
 
 ## Per-topic
 
@@ -970,6 +977,7 @@ page has wired one in yet.
 - `spectral-methods-data` (Probability & statistics) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
 - `optimal-control-and-dynamic-programming` (Control theory & optimization) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
 - `combinatorial-optimization` (Control theory & optimization) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
+- `mathematical-finance` (Control theory & optimization) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
 - `several-complex-variables` (Analysis) — concepts=6, widgets=5 (slug=5), quiz=18 (v1=18, hard=0, expert=0)
 - `khovanov-homology` (Geometry & topology) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `shimura-varieties` (Modular forms & L-functions) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
