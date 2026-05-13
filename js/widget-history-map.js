@@ -531,6 +531,105 @@
       }
     });
 
+    // ===== zoom / pan =====
+    // Wrap every existing immediate svg child in a single transform group
+    // so wheel-zoom and drag-pan can scale + translate without rebuilding.
+    const zoomLayer = el('g', { 'class': 'zoom-content' });
+    while (svg.firstChild) zoomLayer.appendChild(svg.firstChild);
+    svg.appendChild(zoomLayer);
+
+    const ZOOM_MIN = 1, ZOOM_MAX = 10;
+    let zScale = 1, zTx = 0, zTy = 0;
+    function clampPan(){
+      // Keep at least 30% of viewBox visible at any zoom level.
+      const maxTx = (zScale - 1) * VB_W * 0.7;
+      const maxTy = (zScale - 1) * VB_H * 0.7;
+      zTx = Math.max(-maxTx, Math.min(maxTx, zTx));
+      zTy = Math.max(-maxTy, Math.min(maxTy, zTy));
+    }
+    function applyZoom(){
+      zoomLayer.setAttribute('transform', `translate(${zTx.toFixed(2)} ${zTy.toFixed(2)}) scale(${zScale.toFixed(3)})`);
+    }
+    function setZoom(next, cx, cy){
+      const n = Math.max(ZOOM_MIN, Math.min(ZOOM_MAX, next));
+      cx = cx ?? VB_W / 2;
+      cy = cy ?? VB_H / 2;
+      // Re-anchor translate so the (cx, cy) viewBox point stays put under
+      // the cursor across the zoom step.
+      zTx = cx - (n / zScale) * (cx - zTx);
+      zTy = cy - (n / zScale) * (cy - zTy);
+      zScale = n;
+      clampPan();
+      applyZoom();
+    }
+    function ptToViewBox(e){
+      const r = svg.getBoundingClientRect();
+      return [
+        (e.clientX - r.left) / r.width * VB_W,
+        (e.clientY - r.top) / r.height * VB_H,
+      ];
+    }
+    svg.addEventListener('wheel', e => {
+      e.preventDefault();
+      const [px, py] = ptToViewBox(e);
+      const factor = e.deltaY < 0 ? 1.2 : 1 / 1.2;
+      setZoom(zScale * factor, px, py);
+    }, { passive: false });
+
+    // Drag-pan: only activate after the pointer moves > 4px so single
+    // clicks on pins / continents still work normally.
+    let drag = null;
+    svg.addEventListener('pointerdown', e => {
+      // Don't intercept clicks that land on pins (they have their own click handler).
+      if(e.target.closest('.pin')) return;
+      drag = { x0: e.clientX, y0: e.clientY, moved: false, id: e.pointerId };
+    });
+    svg.addEventListener('pointermove', e => {
+      if(!drag || e.pointerId !== drag.id) return;
+      const r = svg.getBoundingClientRect();
+      const dx = (e.clientX - drag.x0) / r.width * VB_W;
+      const dy = (e.clientY - drag.y0) / r.height * VB_H;
+      if(!drag.moved && Math.hypot(e.clientX - drag.x0, e.clientY - drag.y0) > 4){
+        drag.moved = true;
+        try { svg.setPointerCapture(e.pointerId); } catch (_) {}
+        svg.style.cursor = 'grabbing';
+      }
+      if(drag.moved){
+        zTx += dx;
+        zTy += dy;
+        clampPan();
+        applyZoom();
+        drag.x0 = e.clientX;
+        drag.y0 = e.clientY;
+      }
+    });
+    function endDrag(){
+      if(drag) svg.style.cursor = '';
+      drag = null;
+    }
+    svg.addEventListener('pointerup', endDrag);
+    svg.addEventListener('pointercancel', endDrag);
+    svg.style.cursor = 'grab';
+
+    // Zoom control buttons (mounted in the chip row so they share the same
+    // visual treatment).
+    const zoomCtrls = document.createElement('div');
+    zoomCtrls.className = 'zoom-controls';
+    function mkBtn(label, title, onClick){
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'era-chip zoom-btn';
+      b.textContent = label;
+      b.title = title;
+      b.setAttribute('aria-label', title);
+      b.addEventListener('click', onClick);
+      return b;
+    }
+    zoomCtrls.appendChild(mkBtn('+', 'Zoom in', () => setZoom(zScale * 1.5)));
+    zoomCtrls.appendChild(mkBtn('−', 'Zoom out', () => setZoom(zScale / 1.5)));
+    zoomCtrls.appendChild(mkBtn('⌖', 'Reset zoom', () => { zScale = 1; zTx = 0; zTy = 0; applyZoom(); }));
+    ctrls.appendChild(zoomCtrls);
+
     applyState();
   }
 
