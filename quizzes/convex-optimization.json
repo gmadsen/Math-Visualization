@@ -69,7 +69,7 @@
           "explain": "For $x<2$, $f'(x)=x-1$, so $x^*=1$ with $f(1)=0.5+1=1.5$. At $x=1$ the subgradient inclusion $0\\in\\partial f(1)=\\{1-1\\}=\\{0\\}$ holds. (For $x>2$ the stationary candidate is $x=-1$, which is infeasible there.)"
         },
         {
-          "type": "spot-the-error",
+          "type": "mcq",
           "q": "A student claims: \"For convex $f$ and convex set $C$, $x^*$ minimises $f$ over $C$ iff $\\nabla f(x^*)=0$.\" Where's the error?",
           "choices": [
             "The function might not even be differentiable",
