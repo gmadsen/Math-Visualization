@@ -1,5 +1,5 @@
 {
-  "generated": "2026-05-13T02:07:47.048Z",
+  "generated": "2026-05-13T02:31:35.797Z",
   "entries": [
     {
       "slug": "brill-noether",
@@ -48,6 +48,14 @@
       "tag": "",
       "date": "2026-05-12",
       "message": "New topic: Mathematical biology & population genetics (Probability & statistics) (#162)"
+    },
+    {
+      "slug": "mathematical-finance",
+      "title": "Mathematical finance & stochastic control",
+      "color": "p",
+      "tag": "",
+      "date": "2026-05-12",
+      "message": "New topic: Mathematical finance & stochastic control (Control theory & optimization) (#175)"
     },
     {
       "slug": "optimal-control-and-dynamic-programming",

@@ -28,6 +28,7 @@
     "optimal-control-and-dynamic-programming",
     "combinatorial-optimization",
     "mathematical-finance",
+    "donaldson-thomas-and-gw-invariants",
 
     "several-complex-variables",
     "khovanov-homology",
@@ -404,6 +405,7 @@
     "spectral-methods-data": "advanced",
     "optimal-control-and-dynamic-programming": "advanced",
     "combinatorial-optimization": "advanced",
-    "mathematical-finance": "advanced"
+    "mathematical-finance": "advanced",
+    "donaldson-thomas-and-gw-invariants": "advanced"
   }
 }

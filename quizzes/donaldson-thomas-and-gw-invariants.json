@@ -1,0 +1,284 @@
+{
+  "topic": "donaldson-thomas-and-gw-invariants",
+  "quizzes": {
+    "dtgw-moduli-ideal-sheaves": {
+      "title": "Moduli of ideal sheaves",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Let $X$ be a smooth Calabi–Yau threefold. The Hilbert scheme $\\mathrm{Hilb}^n(X)$ parametrises:",
+          "choices": [
+            "Smooth subvarieties of $X$ of dimension $n$.",
+            "Zero-dimensional closed subschemes of $X$ of length $n$ (i.e.\\ ideals $I \\subset \\mathcal{O}_X$ with $\\dim_{\\mathbb{C}} \\mathcal{O}_X/I = n$).",
+            "Holomorphic line bundles on $X$ of degree $n$.",
+            "Algebraic cycles on $X$ in degree $n$ rational equivalence."
+          ],
+          "answer": 1,
+          "explain": "Ideal sheaves on $X$ with $\\mathrm{ch}_3 = -n$ and trivial $\\mathrm{ch}_2$ correspond to length-$n$ zero-dimensional subschemes. The simplest configurations are $n$ distinct points; multiplicities appear when subschemes are non-reduced. The Hilbert scheme is the moduli space — it captures both honest tuples and limits where points collide."
+        },
+        {
+          "type": "mcq",
+          "q": "Why is the moduli space of ideal sheaves on a CY3-fold typically <em>not</em> smooth, even when $X$ itself is smooth?",
+          "choices": [
+            "Because $X$ is high-dimensional.",
+            "Because subschemes can have nontrivial automorphisms preventing fine moduli.",
+            "Because the deformation theory has obstructions: the second-order deformations of a subscheme generally do not all lift, so the tangent dimension exceeds the expected dimension.",
+            "Because $X$ is compact."
+          ],
+          "answer": 2,
+          "explain": "Even on a smooth $X$, ideal sheaves carry obstructions in $\\mathrm{Ext}^2(\\mathcal{I},\\mathcal{I})$. When these are nonzero, the Hilbert scheme has tangent spaces larger than the expected dimension and is singular. The virtual fundamental class is exactly the right tool to bypass this — replacing $[M]$ with a class of the expected dimension."
+        },
+        {
+          "type": "numeric",
+          "q": "Fix $X = \\mathbb{C}^3$ and the curve class $\\beta = 0$. The DT count $\\mathrm{DT}_{n,0}(\\mathbb{C}^3)$ equals the number of 3D partitions of $n$ (boxes stacked in a corner). How many 3D partitions of $n=2$ are there?",
+          "answer": 3,
+          "tol": 1e-9,
+          "hint": "List the ways to stack 2 unit boxes in a corner so each box has a corner or floor under it. Stacking along three different axes are distinct.",
+          "explain": "Stack 2 boxes: along the $x$-axis (boxes at $(0,0,0),(1,0,0)$), along $y$, or along $z$. That's 3 plane partitions of size 2 — matching the coefficient of $q^2$ in $M(q) = \\prod_k (1-q^k)^{-k} = 1 + q + 3q^2 + 6q^3 + 13q^4 + \\cdots$."
+        }
+      ]
+    },
+    "dtgw-virtual-fundamental-class": {
+      "title": "Virtual fundamental class",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "On a CY3-fold ideal-sheaf moduli space, the virtual dimension is:",
+          "choices": [
+            "$\\dim X = 3$.",
+            "$0$.",
+            "$\\dim M$ (the actual dimension of the moduli space).",
+            "Always $1$."
+          ],
+          "answer": 1,
+          "explain": "The Calabi–Yau condition $K_X \\cong \\mathcal{O}_X$ produces a Serre-duality pairing $\\mathrm{Ext}^1(\\mathcal{I},\\mathcal{I})_0 \\cong \\mathrm{Ext}^2(\\mathcal{I},\\mathcal{I})_0^\\vee$, so deformations and obstructions match dimension-for-dimension. The virtual rank cancels to $\\mathrm{vd} = 0$ — DT invariants are integers."
+        },
+        {
+          "type": "mcq",
+          "q": "A perfect obstruction theory on $M$ consists of:",
+          "choices": [
+            "Any surjection $E^\\bullet \\twoheadrightarrow \\mathbb{L}_M$ where $E^\\bullet$ has bounded cohomology.",
+            "A morphism $\\phi\\colon E^\\bullet \\to \\mathbb{L}_M$ in $D^b(M)$ with $E^\\bullet$ a 2-term perfect complex (in $[-1,0]$) such that $h^0(\\phi)$ is an isomorphism and $h^{-1}(\\phi)$ is surjective.",
+            "A flat family of perfect complexes on $X$.",
+            "An $\\mathcal{O}_M$-module isomorphic to the tangent sheaf."
+          ],
+          "answer": 1,
+          "explain": "The Behrend–Fantechi definition asks for $E^\\bullet$ supported in degrees $-1$ and $0$ (so $h^{-1}$ is the obstruction sheaf, $h^0$ the tangent sheaf), with the map $\\phi$ inducing an iso on $h^0$ and a surjection on $h^{-1}$. The virtual fundamental class is then built from the intrinsic normal cone of $M$ via the bundle stack of $E^\\bullet$."
+        },
+        {
+          "type": "mcq",
+          "q": "Behrend's theorem expresses the DT invariant as which kind of count?",
+          "choices": [
+            "A naïve Euler characteristic $\\chi(\\mathrm{Hilb})$.",
+            "A weighted Euler characteristic $\\chi(\\mathrm{Hilb}, \\nu)$ where $\\nu$ is the Behrend function, equal to $(-1)^{\\dim_x M}$ at a smooth point $x$ of dimension $\\dim_x M$.",
+            "The dimension of $H^0(X,\\mathcal{O}_X)$.",
+            "An integral over the unit interval."
+          ],
+          "answer": 1,
+          "explain": "Behrend (2009) proved $\\mathrm{DT}_{n,\\beta} = \\chi(\\mathrm{Hilb}^{n,\\beta}, \\nu)$, where $\\nu\\colon M \\to \\mathbb{Z}$ is the constructible function $\\nu(x) = (-1)^{\\dim_x M}(1 - \\chi(\\mathrm{MF}_x))$ involving the Milnor fibre of a local Chern–Simons potential. This makes DT invariants motivic and lifts them to refined counts."
+        }
+      ]
+    },
+    "dtgw-dt-invariants": {
+      "title": "Donaldson–Thomas invariants",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The MacMahon function $M(q) = \\prod_{k\\ge 1}(1-q^k)^{-k}$ arises in DT theory as:",
+          "choices": [
+            "The Riemann zeta function of $\\mathbb{C}^3$.",
+            "The Donaldson–Thomas generating function $Z_{\\mathrm{DT}}(\\mathbb{C}^3;q)$ in the zero curve-class sector.",
+            "The character of the standard $\\mathfrak{sl}_2$-representation.",
+            "An $L$-function of an elliptic curve."
+          ],
+          "answer": 1,
+          "explain": "The DT count of ideal sheaves on $\\mathbb{C}^3$ (or any toric CY3 in degree zero) reduces to counting 3D partitions, whose generating function is exactly $M(q)$. For a general CY3-fold $X$, the degree-zero DT series is the universal MacMahon up to a global sign: $Z_{\\mathrm{DT}}(X;q,0) = M(-q)^{\\chi(X)}$."
+        },
+        {
+          "type": "numeric",
+          "q": "The first few coefficients of $M(q) = 1 + q + 3q^2 + 6q^3 + 13q^4 + 24q^5 + 48q^6 + \\cdots$. How many 3D partitions of $n = 3$ are there?",
+          "answer": 6,
+          "tol": 1e-9,
+          "hint": "Count plane partitions of size 3: each is a way to stack 3 boxes in a corner. Try arrangements that are linear along each axis (3), L-shaped (3), or stacked.",
+          "explain": "The 6 plane partitions of $3$ are: three linear chains (along $x$, $y$, or $z$); three L-shapes (one box stacked on a 2-row in each axis-pair). Equivalently the coefficient of $q^3$ in $M(q)$, which expands as $1 + q + 3q^2 + 6q^3 + 13q^4 + 24q^5 + \\cdots$."
+        },
+        {
+          "type": "mcq",
+          "q": "Why does the DT invariant land in $\\mathbb{Z}$ rather than $\\mathbb{Q}$ (in contrast to Gromov–Witten)?",
+          "choices": [
+            "Because the moduli space is smooth.",
+            "Because $X$ has integral cohomology.",
+            "Because the moduli space is a scheme rather than a Deligne–Mumford stack, so the virtual class integrates to an honest integer; equivalently the Behrend-weighted Euler characteristic of a scheme is an integer.",
+            "Because $X$ has finite Picard group."
+          ],
+          "answer": 2,
+          "explain": "Gromov–Witten invariants integrate over $\\overline{\\mathcal{M}}_{g,n}(X,\\beta)$, which is a Deligne–Mumford stack with generic stabilisers — rational counts. Hilbert schemes of CY3-folds are schemes, so DT invariants are integers. The MNOP change of variables explains how a rational GW series equals an integer DT series after $q \\to -e^{iu}$."
+        }
+      ]
+    },
+    "dtgw-gw-invariants": {
+      "title": "Gromov–Witten invariants",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A stable map $f\\colon (C, p_1,\\ldots,p_n) \\to X$ in the moduli space $\\overline{\\mathcal{M}}_{g,n}(X,\\beta)$ is one such that:",
+          "choices": [
+            "$C$ is smooth and $f$ is injective.",
+            "$C$ is a connected nodal curve of arithmetic genus $g$ with $n$ smooth marked points, $f_*[C] = \\beta$, and the automorphism group of $(C, p_\\bullet, f)$ is finite.",
+            "$C = \\mathbb{P}^1$.",
+            "$f$ is a polynomial map of degree $\\beta$."
+          ],
+          "answer": 1,
+          "explain": "Stability — automorphism group finite — is the Deligne–Mumford rigidity replacement for asking $f$ to be an embedding. It allows nodal curves and contracted components but forbids unstable components like $\\mathbb{P}^1$ contracted with only 2 special points and no nontrivial map."
+        },
+        {
+          "type": "mcq",
+          "q": "On a CY3-fold $X$ with $n = 0$ marked points, the virtual dimension of $\\overline{\\mathcal{M}}_{g,0}(X,\\beta)$ is:",
+          "choices": [
+            "$0$ (and independent of $g$ and $\\beta$).",
+            "$g - 1$.",
+            "$3g - 3 + \\langle c_1(X), \\beta\\rangle$.",
+            "$\\dim X = 3$."
+          ],
+          "answer": 0,
+          "explain": "The general formula $\\int_\\beta c_1(X) + (\\dim X - 3)(1-g) + n$ collapses: $c_1(X) = 0$ on a CY3, $\\dim X - 3 = 0$, and $n = 0$. So the virtual dimension is $0$ in every genus and class — the GW count is just an integral of $1$, a number rather than a homology class."
+        },
+        {
+          "type": "multi-select",
+          "q": "Select every fact about Gromov–Witten invariants on a Calabi–Yau threefold.",
+          "choices": [
+            "$\\mathrm{GW}_{g,\\beta}(X) \\in \\mathbb{Q}$ in general (stacky rational counts).",
+            "Genus-zero GW invariants on the quintic recover the Candelas–de la Ossa–Green–Parkes predictions verified by Givental and Lian–Liu–Yau.",
+            "The Gopakumar–Vafa integrality conjecture says rational GW invariants assemble into integer BPS counts $n_{g,\\beta}^{\\mathrm{BPS}}$.",
+            "GW invariants are always integers because moduli spaces of stable maps are smooth."
+          ],
+          "answer": [0, 1, 2],
+          "explain": "All three correct statements are landmarks: stacky moduli give rational invariants, genus-0 GW on the quintic was the original mirror-symmetry win, and Gopakumar–Vafa reorganises GW data into integers. The false claim is the last — moduli of stable maps have nontrivial obstructions and finite automorphisms, hence not smooth and not integer-valued in general."
+        }
+      ]
+    },
+    "dtgw-mnop-correspondence": {
+      "title": "MNOP correspondence",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The MNOP correspondence relates the reduced DT generating function $Z'_{\\mathrm{DT}}(X;q,Q)$ and the GW generating function $Z_{\\mathrm{GW}}(X;u,Q)$ via the substitution:",
+          "choices": [
+            "$q = u$.",
+            "$q = e^u$.",
+            "$q = -e^{iu}$.",
+            "$q = u^2$."
+          ],
+          "answer": 2,
+          "explain": "The exact MNOP statement is $Z'_{\\mathrm{DT}}(X;q,Q) = Z_{\\mathrm{GW}}(X;u,Q)$ under $q = -e^{iu}$. The minus sign matters — without it, the parity-matching with the Behrend function fails — and the $iu$ exponent converts the formal genus expansion of GW into the $q$-series form of DT."
+        },
+        {
+          "type": "mcq",
+          "q": "Why divide by $Z_{\\mathrm{DT}}(X;q,0)$ to form the <em>reduced</em> generating series?",
+          "choices": [
+            "Because the curve-class zero piece is universal $M(-q)^{\\chi(X)}$ and represents the topological 'background' of point sheaves — it does not encode curve-counting data.",
+            "Because $Z_{\\mathrm{DT}}(X;q,0)$ has poles at $q = 0$.",
+            "Because $Z_{\\mathrm{DT}}(X;q,0)$ depends on the choice of polarisation.",
+            "Because DT invariants in degree zero are rational rather than integer."
+          ],
+          "answer": 0,
+          "explain": "$Z_{\\mathrm{DT}}(X;q,0) = M(-q)^{\\chi(X)}$ is a universal factor coming from clusters of point-like sheaves on $X$; it encodes the Euler characteristic but no curve information. Dividing it out isolates the genuinely curve-counting part — which is what GW computes — so the correspondence makes sense after the reduction."
+        },
+        {
+          "type": "multi-select",
+          "q": "Which of the following CY3-folds are cases for which MNOP is currently a theorem (i.e.\\ proved, not just conjectured)?",
+          "choices": [
+            "All toric CY3-folds (Maulik–Oblomkov–Okounkov–Pandharipande, 2011).",
+            "The quintic threefold (proved via degeneration / log GW).",
+            "Local curves $K_C \\oplus K_C^{-1} \\otimes \\mathcal{O}_C \\to C$ over a curve $C$ (proved early via topological vertex / TQFT).",
+            "Every smooth CY3-fold without exception (full conjecture proved)."
+          ],
+          "answer": [0, 1, 2],
+          "explain": "The toric case was settled by MOOP via equivariant localisation; local curves were among the first cases proved (Bryan–Pandharipande). The quintic was completed via log GW techniques (Maulik–Pandharipande and others). MNOP for an arbitrary CY3-fold remains open in full generality — the universal proof is one of the goals of stable-pairs (PT) and motivic-DT programmes."
+        }
+      ]
+    },
+    "dtgw-topological-vertex": {
+      "title": "Topological vertex",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The topological vertex $C_{\\lambda\\mu\\nu}(q)$ assigns a partition function to:",
+          "choices": [
+            "A single 3-valent vertex in a toric diagram with Young diagrams $\\lambda, \\mu, \\nu$ specifying the boundary partitions on its three legs.",
+            "A compact CY3-fold globally, with no decomposition.",
+            "An elliptic fibration $X \\to B$.",
+            "A pair of points on a curve."
+          ],
+          "answer": 0,
+          "explain": "The toric diagram of a non-compact toric CY3 is a planar trivalent graph; each vertex has three edges (legs), and the boundary partition on each leg specifies the asymptotic 3D partition the count must match. $C_{\\lambda\\mu\\nu}(q)$ is the local count at that vertex. Gluing along edges (with framing factors) reconstructs the global partition function."
+        },
+        {
+          "type": "mcq",
+          "q": "For the trivial partitions $\\lambda = \\mu = \\nu = \\emptyset$ the vertex value $C_{\\emptyset\\emptyset\\emptyset}(q)$ is:",
+          "choices": [
+            "$1$ (no contribution).",
+            "The MacMahon function $M(q) = \\prod_{k\\ge 1}(1-q^k)^{-k}$.",
+            "The Riemann zeta function $\\zeta(s)$.",
+            "A polynomial of degree $1$ in $q$."
+          ],
+          "answer": 1,
+          "explain": "With no boundary partitions, the local count on $\\mathbb{C}^3$ (= one vertex with three free legs) is the count of finite plane partitions — exactly $M(q)$. This is the simplest possible CY3 (non-compact toric, a single vertex) and matches the degree-zero DT calculation directly."
+        },
+        {
+          "type": "mcq",
+          "q": "The topological vertex is built using which special functions on partitions?",
+          "choices": [
+            "Bernoulli polynomials.",
+            "Skew Schur functions $s_{\\lambda/\\mu}$ evaluated at principal specialisations $q^\\rho$ or $q^{\\nu + \\rho}$.",
+            "Theta functions $\\vartheta(z;\\tau)$.",
+            "Riemann zeta values at integers."
+          ],
+          "answer": 1,
+          "explain": "The closed-form expression $C_{\\lambda\\mu\\nu}(q) = q^{\\kappa(\\lambda)/2} s_{\\nu^t}(q^\\rho) \\sum_\\eta s_{\\lambda^t/\\eta}(q^{\\nu+\\rho}) s_{\\mu/\\eta}(q^{\\nu^t+\\rho})$ uses Schur and skew-Schur functions at specialised values. The combinatorics is essentially the RSK / dimer / vertex-operator algebra of plane partitions; principal specialisations of Schur functions are 3D-partition generating series."
+        }
+      ]
+    },
+    "dtgw-wall-crossing": {
+      "title": "Wall-crossing",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A Bridgeland stability condition on $D^b\\mathrm{Coh}(X)$ consists of:",
+          "choices": [
+            "A choice of metric on $X$.",
+            "A heart of a bounded $t$-structure on $D^b\\mathrm{Coh}(X)$ and a group homomorphism $Z\\colon K(X) \\to \\mathbb{C}$ (the central charge) such that $Z(E) \\in \\overline{\\mathbb{H}}\\setminus \\mathbb{R}_{\\le 0}$ for every nonzero $E$ in the heart, satisfying a Harder–Narasimhan / support property.",
+            "An ample line bundle on $X$.",
+            "A choice of orbifold structure on $X$."
+          ],
+          "answer": 1,
+          "explain": "Bridgeland (2002) axiomatised stability for triangulated categories: a heart and a compatible central charge whose argument $\\phi(E) = \\arg Z(E)/\\pi$ defines slopes. Walls in the stability manifold $\\mathrm{Stab}(X)$ are loci where some object's phase coincides with another's — exactly where (semi)stable subobjects switch."
+        },
+        {
+          "type": "mcq",
+          "q": "Across a wall in the stability manifold, the DT invariant $\\mathrm{DT}(\\alpha)$ of a class $\\alpha$ typically:",
+          "choices": [
+            "Stays constant.",
+            "Jumps by a universal Lie-algebraic formula expressing the new count in terms of products of old counts of subclasses (Joyce / Kontsevich–Soibelman).",
+            "Doubles.",
+            "Is set to zero by convention."
+          ],
+          "answer": 1,
+          "explain": "The Kontsevich–Soibelman wall-crossing formula identifies products of formal group elements $\\prod_\\alpha U_\\alpha^{\\mathrm{DT}(\\alpha)}$ taken in two orders, before and after the wall. The DT integers on each side are tied together by this identity, which underlies both the BPS-spectrum description of Calabi–Yau categories and quantum cluster algebras."
+        },
+        {
+          "type": "multi-select",
+          "q": "Which of the following are consequences / refinements of DT wall-crossing?",
+          "choices": [
+            "Motivic DT invariants (Kontsevich–Soibelman) refine integers to Hodge-theoretic Poincaré polynomials in $y$.",
+            "BPS state counts in string compactifications on CY3-folds change across moduli walls via the same formula.",
+            "DT/PT (stable pairs) wall-crossing for $\\beta \\neq 0$ (Pandharipande–Thomas, 2009) gives a cleaner curve-counting theory.",
+            "Wall-crossing trivialises in every example — DT is independent of stability."
+          ],
+          "answer": [0, 1, 2],
+          "explain": "Motivic DT and BPS-state counting are the two main refinements / physical interpretations. PT theory is the stable-pairs alternative that simplifies the DT/GW comparison. The false statement is the last: DT genuinely depends on stability, and wall-crossing is the central object — without it, DT invariants would not glue across the stability manifold."
+        }
+      ]
+    }
+  }
+}

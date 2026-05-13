@@ -15,6 +15,7 @@ window.__MVConcepts = {
       "optimal-control-and-dynamic-programming",
       "combinatorial-optimization",
       "mathematical-finance",
+      "donaldson-thomas-and-gw-invariants",
       "several-complex-variables",
       "khovanov-homology",
       "shimura-varieties",
@@ -390,7 +391,8 @@ window.__MVConcepts = {
       "spectral-methods-data": "advanced",
       "optimal-control-and-dynamic-programming": "advanced",
       "combinatorial-optimization": "advanced",
-      "mathematical-finance": "advanced"
+      "mathematical-finance": "advanced",
+      "donaldson-thomas-and-gw-invariants": "advanced"
     }
   },
   "topics": {
@@ -1487,6 +1489,112 @@ window.__MVConcepts = {
             "mf-bs-pde"
           ],
           "blurb": "Empirical option prices show a volatility smile that constant-$\\sigma$ Black–Scholes cannot fit; Heston's stochastic-volatility SDE, Merton's jump-diffusion, and Dupire's local-volatility surface $\\sigma_{\\mathrm{loc}}(K,T)$ each enlarge the model class while preserving the risk-neutral pricing skeleton, at the price of incomplete markets and additional calibration."
+        }
+      ]
+    },
+    "donaldson-thomas-and-gw-invariants": {
+      "topic": "donaldson-thomas-and-gw-invariants",
+      "title": "Donaldson–Thomas & Gromov–Witten invariants",
+      "page": "donaldson-thomas-and-gw-invariants.html",
+      "concepts": [
+        {
+          "id": "dtgw-moduli-ideal-sheaves",
+          "title": "Moduli of ideal sheaves on a Calabi–Yau threefold",
+          "anchor": "moduli-ideal-sheaves",
+          "prereqs": [
+            "moduli-problem",
+            "cy-definition"
+          ],
+          "blurb": "Donaldson–Thomas theory counts ideal sheaves $\\mathcal{I}_Z \\subset \\mathcal{O}_X$ of subschemes $Z \\subset X$ on a smooth projective Calabi–Yau 3-fold $X$, fixing the topological invariants $(\\mathrm{ch}_2,\\mathrm{ch}_3) = (-\\beta,-n)$. The simplest case is $\\beta=0$: the Hilbert scheme $\\mathrm{Hilb}^n(X)$ of length-$n$ zero-dimensional subschemes — formal collections of $n$ points with multiplicities. Higher $\\beta$ adds a curve class; the moduli space sees ideal sheaves cut out by both curves and points and is generally singular even when $X$ is smooth.",
+          "tags": [
+            "moduli",
+            "foundation"
+          ]
+        },
+        {
+          "id": "dtgw-virtual-fundamental-class",
+          "title": "The virtual fundamental class",
+          "anchor": "virtual-class",
+          "prereqs": [
+            "dtgw-moduli-ideal-sheaves",
+            "chern-classes",
+            "deformation-functor"
+          ],
+          "blurb": "When a moduli space $M$ is not smooth — or has the wrong dimension — Behrend–Fantechi's virtual fundamental class $[M]^{\\mathrm{vir}} \\in A_{\\mathrm{vd}}(M)$ replaces $[M]$. The construction needs a perfect obstruction theory: a 2-term complex $E^\\bullet \\to \\mathbb{L}_M$ on $M$ whose hypercohomology computes deformations and obstructions. The virtual dimension $\\mathrm{vd} = \\mathrm{rk}(E^\\bullet)$ matches the expected dimension predicted by deformation theory. For CY3 ideal-sheaf moduli the obstruction theory is Serre-dual to the tangent complex, forcing $\\mathrm{vd} = 0$ — DT invariants are integers.",
+          "tags": [
+            "cohomology",
+            "foundation"
+          ]
+        },
+        {
+          "id": "dtgw-dt-invariants",
+          "title": "Donaldson–Thomas invariants",
+          "anchor": "dt-invariants",
+          "prereqs": [
+            "dtgw-virtual-fundamental-class",
+            "cy-mirror-pair"
+          ],
+          "blurb": "The Donaldson–Thomas invariant in class $(\\beta,n)$ is the degree of the virtual class: $\\mathrm{DT}_{n,\\beta}(X) = \\int_{[\\mathrm{Hilb}^{n,\\beta}(X)]^{\\mathrm{vir}}} 1 \\in \\mathbb{Z}$. Behrend showed it equals a weighted Euler characteristic, $\\mathrm{DT}_{n,\\beta} = \\chi(\\mathrm{Hilb}^{n,\\beta}, \\nu)$, with the Behrend function $\\nu$ recording the parity of the obstruction at each ideal sheaf. The generating series $Z_{\\mathrm{DT}}(X;q,Q) = \\sum_{n,\\beta} \\mathrm{DT}_{n,\\beta}\\, q^n Q^\\beta$ encodes the full count. For $X = \\mathbb{C}^3$ the curve-class part collapses and the answer is the MacMahon function $M(q) = \\prod_{k\\ge 1}(1-q^k)^{-k}$ — the generating function of 3D partitions.",
+          "tags": [
+            "moduli",
+            "classification"
+          ]
+        },
+        {
+          "id": "dtgw-gw-invariants",
+          "title": "Gromov–Witten invariants",
+          "anchor": "gw-invariants",
+          "prereqs": [
+            "ms-gromov-witten",
+            "higher-genus-moduli"
+          ],
+          "blurb": "The Gromov–Witten invariant counts stable maps $f\\colon (C, p_1,\\ldots,p_n) \\to X$ from a genus-$g$ nodal curve with $n$ marked points, representing a homology class $\\beta \\in H_2(X,\\mathbb{Z})$. The moduli space $\\overline{\\mathcal{M}}_{g,n}(X,\\beta)$ carries a virtual class of dimension $\\int_\\beta c_1(X) + (\\dim X - 3)(1-g) + n$; on a CY3 with $n=0$ this is $0$, giving integer-looking but rational invariants $\\mathrm{GW}_{g,\\beta}(X) = \\int_{[\\overline{\\mathcal{M}}_{g,0}(X,\\beta)]^{\\mathrm{vir}}} 1 \\in \\mathbb{Q}$. The full generating function $Z_{\\mathrm{GW}}(X;u,Q) = \\sum_{g,\\beta} \\mathrm{GW}_{g,\\beta}\\, u^{2g-2} Q^\\beta$ packages every genus.",
+          "tags": [
+            "moduli",
+            "duality"
+          ]
+        },
+        {
+          "id": "dtgw-mnop-correspondence",
+          "title": "The MNOP (DT/GW) correspondence",
+          "anchor": "mnop",
+          "prereqs": [
+            "dtgw-dt-invariants",
+            "dtgw-gw-invariants"
+          ],
+          "blurb": "The Maulik–Nekrasov–Okounkov–Pandharipande conjecture (2003), now a theorem for toric and many other CY3-folds, equates the reduced DT and GW generating series after a change of variables. Writing $Z'_{\\mathrm{DT}}(X;q,Q) = Z_{\\mathrm{DT}}(X;q,Q)/Z_{\\mathrm{DT}}(X;q,0)$ for the degree-zero quotient, the conjecture reads $Z'_{\\mathrm{DT}}(X;-e^{iu},Q) = Z_{\\mathrm{GW}}(X;u,Q)$. The substitution $q = -e^{iu}$ converts the polynomial-in-$q$ DT count of 3D partitions into the formal-in-$u$ Gromov–Witten genus expansion — algebra meets geometry.",
+          "tags": [
+            "duality",
+            "classification"
+          ]
+        },
+        {
+          "id": "dtgw-topological-vertex",
+          "title": "The topological vertex",
+          "anchor": "topological-vertex",
+          "prereqs": [
+            "dtgw-dt-invariants",
+            "dtgw-mnop-correspondence"
+          ],
+          "blurb": "Aganagic–Klemm–Mariño–Vafa's topological vertex gives a combinatorial formula for $Z_{\\mathrm{GW}}$ and $Z_{\\mathrm{DT}}$ on every toric Calabi–Yau threefold. Decompose the toric diagram into trivalent vertices; each vertex with three Young-diagram boundary partitions $(\\lambda,\\mu,\\nu)$ contributes a Schur-function expression $C_{\\lambda\\mu\\nu}(q) = q^{\\kappa(\\lambda)/2}\\, s_{\\nu^t}(q^\\rho) \\sum_\\eta s_{\\lambda^t/\\eta}(q^{\\nu+\\rho})\\, s_{\\mu/\\eta}(q^{\\nu^t+\\rho})$ in plane partitions. Gluing vertices along edges with framing reproduces $Z_{\\mathrm{DT}}$ vertex-by-vertex; for $\\mathbb{C}^3$ alone the vertex collapses to $M(q)$.",
+          "tags": [
+            "moduli",
+            "duality"
+          ]
+        },
+        {
+          "id": "dtgw-wall-crossing",
+          "title": "Stability conditions and wall-crossing",
+          "anchor": "wall-crossing",
+          "prereqs": [
+            "dtgw-dt-invariants",
+            "git-vgit"
+          ],
+          "blurb": "DT invariants depend on a choice of stability condition (Gieseker, slope, Bridgeland). As the parameter $\\sigma$ varies across a real codimension-1 wall in the stability manifold, semistable objects switch and the DT count jumps. Joyce (2008) and Kontsevich–Soibelman (2008) gave the universal wall-crossing formula expressing the jump as a Lie-algebraic identity in a motivic Hall algebra: ordered products of group elements $U_\\alpha$ before and after the wall agree, the product taken over rays in the complex plane sorted by phase. Refined / motivic DT invariants live as Poincaré polynomials and satisfy the same formula with quantum dilogarithms.",
+          "tags": [
+            "duality",
+            "classification"
+          ]
         }
       ]
     },
@@ -18992,7 +19100,8 @@ window.__MVConcepts = {
           "crystalline-cohomology",
           "tropical-geometry",
           "geometric-invariant-theory",
-          "brill-noether"
+          "brill-noether",
+          "donaldson-thomas-and-gw-invariants"
         ],
         "color": "g"
       },
@@ -19328,7 +19437,8 @@ window.__MVConcepts = {
     "spectral-methods-data": "advanced",
     "optimal-control-and-dynamic-programming": "advanced",
     "combinatorial-optimization": "advanced",
-    "mathematical-finance": "advanced"
+    "mathematical-finance": "advanced",
+    "donaldson-thomas-and-gw-invariants": "advanced"
   },
   "newArc": [
     "elementary-topos-theory",
@@ -19405,11 +19515,11 @@ window.__MVConcepts = {
       "density": 0.5371900826446281
     },
     "Algebraic geometry": {
-      "concepts": 199,
-      "intra": 301,
+      "concepts": 206,
+      "intra": 316,
       "crossOut": 73,
       "crossIn": 35,
-      "density": 0.36683417085427134
+      "density": 0.35436893203883496
     },
     "Combinatorics & graph theory": {
       "concepts": 58,
