@@ -36,6 +36,10 @@
         },
         {
           "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./convex-geometry.html#john\">Convex geometry</a> · John's ellipsoid &amp; Banach–Mazur distance</div>\n    <div><a href=\"./convex-geometry.html#minkowski-sum\">Convex geometry</a> · Minkowski sum &amp; mixed volumes</div>\n    <div><a href=\"./convex-geometry.html#polar\">Convex geometry</a> · Polar duality &amp; Mahler conjecture</div>\n    <div><a href=\"./convex-geometry.html#polytopes\">Convex geometry</a> · Polytopes &amp; the f-vector</div>\n</aside>\n<!-- backlinks-auto-end -->"
+        },
+        {
+          "type": "raw",
           "html": "\n</section>\n\n"
         }
       ]
@@ -70,6 +74,10 @@
           "type": "quiz",
           "concept": "cg-minkowski-sum",
           "html": "<div class=\"quiz\" data-concept=\"cg-minkowski-sum\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./convex-geometry.html#brunn-minkowski\">Convex geometry</a> · Brunn–Minkowski inequality</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -145,6 +153,10 @@
           "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./combinatorial-optimization.html#polyhedral\">Polyhedral combinatorics</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {
+          "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./convex-geometry.html#polar\">Convex geometry</a> · Polar duality &amp; Mahler conjecture</div>\n</aside>\n<!-- backlinks-auto-end -->"
+        },
+        {
           "type": "quiz",
           "concept": "cg-polytopes",
           "html": "<div class=\"quiz\" data-concept=\"cg-polytopes\"></div>"
@@ -184,6 +196,10 @@
         {
           "type": "raw",
           "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./differential-geometry.html#first\">First/second fundamental forms</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./convex-geometry.html#dvoretzky\">Convex geometry</a> · Spherical sections &amp; Dvoretzky</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "quiz",
