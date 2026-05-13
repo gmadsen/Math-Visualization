@@ -48669,6 +48669,307 @@ window.MVQuizBank = {
       }
     }
   },
+  "positive-characteristic-ag": {
+    "topic": "positive-characteristic-ag",
+    "quizzes": {
+      "pchar-absolute-frobenius": {
+        "title": "Absolute Frobenius and its pushforward",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Why is the map $\\varphi\\colon A\\to A$, $a\\mapsto a^p$, a ring homomorphism when $A$ is an $\\mathbb{F}_p$-algebra?",
+            "choices": [
+              "Because $A$ is commutative.",
+              "Because the binomial coefficients $\\binom{p}{i}$ vanish in $\\mathbb{F}_p$ for $0<i<p$, so $(a+b)^p=a^p+b^p$.",
+              "Because every element of $A$ is a unit.",
+              "Because the characteristic equals zero."
+            ],
+            "answer": 1,
+            "explain": "The expansion $(a+b)^p=\\sum\\binom{p}{i}a^ib^{p-i}$ has all intermediate coefficients divisible by $p$, so they vanish mod $p$. This identity (the 'freshman's dream') is what makes Frobenius a ring map in characteristic $p$ — and only there."
+          },
+          {
+            "type": "mcq",
+            "q": "Let $X$ be a smooth $k$-scheme of dimension $n$, $k$ perfect of characteristic $p$. What is the rank of $F_*\\mathcal{O}_X$ as an $\\mathcal{O}_X$-module?",
+            "choices": [
+              "$p$",
+              "$n$",
+              "$p^n$",
+              "$n^p$"
+            ],
+            "answer": 2,
+            "explain": "Locally with étale coordinates $x_1,\\ldots,x_n$, the basis of $F_*A$ over $A$ (where $A$ acts via $a\\mapsto a^p$) is $\\{x_1^{i_1}\\cdots x_n^{i_n}:0\\le i_j<p\\}$, which has cardinality $p^n$. The rank of $F_*\\mathcal{O}_X$ is $p^n$."
+          },
+          {
+            "type": "mcq",
+            "q": "What is $X^{(p)}$, the 'Frobenius twist' of an $\\mathbb{F}_p$-scheme $X$ over a perfect field $k$?",
+            "choices": [
+              "The disjoint union of $p$ copies of $X$.",
+              "The pullback $X\\times_{k,\\sigma}k$ along the Frobenius $\\sigma\\colon k\\to k$, $\\lambda\\mapsto\\lambda^p$.",
+              "The blowup of $X$ at the unique closed point.",
+              "The product $X\\times X$."
+            ],
+            "answer": 1,
+            "explain": "$X^{(p)} := X\\times_{k,\\sigma}k$ has the same underlying topological space as $X$, but the structure sheaf is base-changed along $\\sigma$. The relative Frobenius $F_{X/k}\\colon X\\to X^{(p)}$ is the unique $k$-morphism factoring the absolute $F_X$ as $F_X = \\mathrm{pr}\\circ F_{X/k}$.",
+            "hint": "It is a fibre product with $k$ along Frobenius."
+          }
+        ]
+      },
+      "pchar-frobenius-splittings": {
+        "title": "Frobenius splittings and Mehta–Ramanathan",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A scheme $X$ is called Frobenius split if:",
+            "choices": [
+              "$X$ decomposes as a disjoint union of $p$ smooth pieces.",
+              "The natural map $\\mathcal{O}_X\\to F_*\\mathcal{O}_X$ admits an $\\mathcal{O}_X$-linear retraction $\\varphi$ with $\\varphi(1)=1$.",
+              "Frobenius is the identity on cohomology.",
+              "$X$ admits a smooth lift to $W_2(k)$."
+            ],
+            "answer": 1,
+            "explain": "A Frobenius splitting is an $\\mathcal{O}_X$-linear retraction $\\varphi\\colon F_*\\mathcal{O}_X\\to\\mathcal{O}_X$ of the unit map $\\mathcal{O}_X\\to F_*\\mathcal{O}_X$. The condition $\\varphi(1)=1$ is what makes the unit map split; locally $\\varphi$ extracts the 'monomial $x_1^{p-1}\\cdots x_n^{p-1}$' coefficient."
+          },
+          {
+            "type": "mcq",
+            "q": "In the Mehta–Ramanathan argument, after iterating the splitting $r$ times, $H^i(X,L^{-1})$ is exhibited as a direct summand of:",
+            "choices": [
+              "$H^i(X,L)$",
+              "$H^i(X,L^{-p^r})$",
+              "$H^i(X,\\mathcal{O}_X)$",
+              "$H^i(X,L^{p^r})$"
+            ],
+            "answer": 1,
+            "explain": "Each application of the splitting exhibits $H^i(X,L^{-1})$ as a summand of $H^i(X, L^{-p})$ via the projection formula and $F^*L = L^p$. Iterating gives $H^i(X,L^{-1})\\subset H^i(X,L^{-p^r})$. Then Serre vanishing on the ample $L$ kills the right side for $r\\gg 0$ once $i<\\dim X$."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which of the following smooth projective varieties are canonically Frobenius split in characteristic $p$?",
+            "choices": [
+              "Smooth toric varieties",
+              "Flag varieties $G/B$ for a reductive group $G$",
+              "Raynaud's counterexample to Kodaira vanishing",
+              "Schubert varieties $X_w\\subset G/B$",
+              "Ordinary abelian varieties"
+            ],
+            "answer": [
+              0,
+              1,
+              3,
+              4
+            ],
+            "explain": "Smooth toric varieties (via the standard splitting on a torus), flag varieties (Mehta–Ramanathan), Schubert varieties (Ramanan–Ramanathan), and ordinary abelian varieties are all canonically split. Raynaud's counterexample was explicitly built to be NOT split — that's what allows Kodaira vanishing to fail on it.",
+            "hint": "Three of these are part of the 'classical' splittings table; one was built specifically to fail."
+          }
+        ]
+      },
+      "pchar-cartier-operator": {
+        "title": "The Cartier operator",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The Cartier inverse $C^{-1}$ is an isomorphism of which sheaves?",
+            "choices": [
+              "$\\Omega^i_{X/k}\\xrightarrow{\\sim}\\mathcal{H}^i(F_*\\Omega^\\bullet_{X/k})$ — wait, the wrong direction of twist.",
+              "$\\Omega^i_{X^{(p)}/k}\\xrightarrow{\\sim}\\mathcal{H}^i(F_*\\Omega^\\bullet_{X/k})$",
+              "$F_*\\Omega^i_{X/k}\\xrightarrow{\\sim}\\Omega^i_{X/k}$",
+              "$\\mathcal{O}_X\\xrightarrow{\\sim}F_*\\mathcal{O}_X$"
+            ],
+            "answer": 1,
+            "explain": "The Cartier isomorphism is $C^{-1}\\colon\\Omega^i_{X^{(p)}/k}\\xrightarrow{\\sim}\\mathcal{H}^i(F_*\\Omega^\\bullet_X)$. The Frobenius twist on the source is essential: cohomology of the Frobenius pushforward is naturally an $\\mathcal{O}_{X^{(p)}}$-module, not an $\\mathcal{O}_X$-module."
+          },
+          {
+            "type": "mcq",
+            "q": "In the local computation, what role does the form $x^{p-1}\\,dx$ play?",
+            "choices": [
+              "It is exact: $x^{p-1}\\,dx = d(x^p/p)$ since $p$ is invertible.",
+              "It is closed but not exact, and $C$ sends $[x^{p-1}\\,dx]$ to $d\\bar x\\in\\Omega^1_{X^{(p)}/k}$.",
+              "It is identically zero in characteristic $p$.",
+              "It generates the kernel of $F$."
+            ],
+            "answer": 1,
+            "explain": "In characteristic $p$, $d(x^p)=p x^{p-1}dx=0$, so $x^{p-1}dx$ is closed. It is not the differential of $x^p/p$ because $p$ is zero. Its class in $\\mathcal{H}^1(F_*\\Omega^\\bullet)$ generates the Cartier image and maps to $d\\bar x$ on $X^{(p)}$."
+          },
+          {
+            "type": "mcq",
+            "q": "The Deligne–Illusie theorem (1987) sharpens the Cartier isomorphism: when $X$ admits a smooth lift to $W_2(k)$, it provides a quasi-isomorphism:",
+            "choices": [
+              "$F_*\\Omega^\\bullet_{X/k}\\simeq\\Omega^\\bullet_{X^{(p)}/k}$ as complexes, not just on cohomology sheaves.",
+              "$\\bigoplus_i \\Omega^i_{X^{(p)}/k}[-i]\\xrightarrow{\\sim}F_*\\Omega^\\bullet_{X/k}$ in the derived category.",
+              "$H^*_{\\mathrm{dR}}(X/k)\\simeq H^*_{\\mathrm{sing}}(X(\\mathbb{C}),\\mathbb{Q})$.",
+              "$F_*\\mathcal{O}_X\\simeq\\mathcal{O}_X^{\\oplus p^n}$ as $\\mathcal{O}_X$-modules."
+            ],
+            "answer": 1,
+            "explain": "Deligne–Illusie: a $W_2$-lift gives a quasi-iso $\\bigoplus_i\\Omega^i_{X^{(p)}/k}[-i]\\xrightarrow{\\sim}F_*\\Omega^\\bullet_{X/k}$ in $D^b(X^{(p)})$. The Cartier isomorphism is the underlying statement on $\\mathcal{H}^*$; Deligne–Illusie lifts it to the level of complexes. This yields a purely algebraic proof of Hodge-to-de-Rham degeneration."
+          }
+        ]
+      },
+      "pchar-f-singularities": {
+        "title": "$F$-singularities",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which characteristic-$0$ singularity class is the analog of $F$-regular under reduction mod $p$?",
+            "choices": [
+              "Log-canonical singularities",
+              "Rational singularities",
+              "Klt (Kawamata log terminal) singularities",
+              "Terminal singularities"
+            ],
+            "answer": 2,
+            "explain": "Hara–Watanabe (1996) and Hara–Mehta–Smith showed: a complex normal $\\mathbb{Q}$-Gorenstein singularity is klt iff its reduction mod $p$ is $F$-regular for all $p\\gg 0$ (with appropriate compatibility conditions). $F$-rational ↔ rational; $F$-pure ↔ log canonical."
+          },
+          {
+            "type": "mcq",
+            "q": "Hochster–Huneke's tight closure of an ideal $I\\subset A$ (where $A$ is a Noetherian domain of characteristic $p$) consists of all $x\\in A$ such that:",
+            "choices": [
+              "$x\\in I$.",
+              "There exists $c\\in A$ not in any minimal prime with $cx^{p^e}\\in I^{[p^e]}$ for all $e\\gg 0$.",
+              "$x^n\\in I$ for some $n$.",
+              "$x$ is a unit modulo $I$."
+            ],
+            "answer": 1,
+            "explain": "Tight closure $I^*$: $x\\in I^*$ iff there exists $c\\notin\\bigcup\\{\\text{minimal primes}\\}$ such that $cx^{p^e}\\in I^{[p^e]}$ for all $e\\gg 0$, where $I^{[p^e]}$ denotes the ideal generated by $p^e$-th powers of generators of $I$. $F$-regular = every ideal equals its tight closure (in every localization)."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is the $F$-singularity hierarchy 'intrinsic' in a way the MMP hierarchy is not?",
+            "choices": [
+              "It uses fewer letters.",
+              "It is defined by the action of Frobenius on $A$ directly, with no choice of resolution required.",
+              "It works only for smooth schemes.",
+              "It is invariant under finite flat covers, unlike the MMP hierarchy."
+            ],
+            "answer": 1,
+            "explain": "The MMP hierarchy (klt, log canonical, etc.) requires choosing a log resolution $\\pi\\colon Y\\to X$ and reading off discrepancies of exceptional divisors; in characteristic $p$ the existence of such resolutions is itself an open problem in dim $\\ge 4$. $F$-singularities are intrinsic to the ring's Frobenius action — no resolution needed.",
+            "hint": "What does each side require from outside the ring itself?"
+          }
+        ]
+      },
+      "pchar-artin-schreier": {
+        "title": "Artin–Schreier covers and wild ramification",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "Consider the Artin–Schreier cover $y^p-y=x^4$ over $\\mathbb{F}_5$. Compute the genus of its smooth projective completion. (Use $g=(p-1)(m-1)/2$ for pole order $m$ coprime to $p$.)",
+            "answer": 6,
+            "tol": 0,
+            "explain": "Pole order $m=4$ at $\\infty$, coprime to $p=5$. Genus formula: $g=(p-1)(m-1)/2 = 4\\cdot 3/2 = 6$.",
+            "hint": "Use $g=(p-1)(m-1)/2$ with $m$ = pole order coprime to $p$."
+          },
+          {
+            "type": "mcq",
+            "q": "Consider the Artin–Schreier cover $y^p-y=x^3$ over $\\mathbb{F}_3$. Why is its genus zero?",
+            "choices": [
+              "Because $p=3$ is too small.",
+              "Because $p=3$ divides the pole order $m=3$, so the substitution $y\\to y-x$ rewrites the equation as $y^p - y = 0$, a trivial $\\mathbb{Z}/p$-cover with no wild branching.",
+              "Because every Artin–Schreier cover has genus zero in characteristic $3$.",
+              "Because the polynomial $x^3$ is reducible mod $3$."
+            ],
+            "answer": 1,
+            "explain": "When $p\\mid m$ in $y^p-y=f(x)$ with $f$ of pole order $m$, the substitution $y\\to y - x^{m/p}$ absorbs the leading term: $(y-x^{m/p})^p - (y-x^{m/p}) = y^p - x^m - y + x^{m/p}$, and the $x^m$ cancels the right-hand side's pole. The cover trivialises and the genus drops to $0$. The genus formula $g=(p-1)(m-1)/2$ requires $\\gcd(m,p)=1$.",
+            "hint": "What does the substitution $y\\to y-x$ do to $y^3-y$ in characteristic $3$?"
+          },
+          {
+            "type": "mcq",
+            "q": "Wild ramification of the Artin–Schreier cover at a pole of $f$ is detected by which invariant?",
+            "choices": [
+              "The degree of the cover.",
+              "The Swan conductor (an integer-valued invariant of the inertia filtration).",
+              "The number of singular points of the affine model.",
+              "The discriminant of the cover."
+            ],
+            "answer": 1,
+            "explain": "Higher-ramification filtration of inertia (in upper numbering) gives the Swan conductor as an integer-valued invariant of the wild part of the ramification. It enters the Grothendieck–Ogg–Shafarevich Euler-characteristic formula: $\\chi(C)=2-2g = \\chi(\\mathbb{P}^1)\\cdot\\deg - \\sum\\mathrm{Sw}_x + \\text{tame terms}$. Swan conductor is the 'right' wildness invariant.",
+            "hint": "It's an integer-valued invariant of the inertia filtration."
+          }
+        ]
+      },
+      "pchar-de-rham-witt": {
+        "title": "Witt vectors and the de Rham–Witt complex",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "In $W_2(\\mathbb{F}_5)$, compute the second component of $(1,0)+(1,0)$. (Use the Witt addition $(a_0,a_1)+(b_0,b_1)=(a_0+b_0,\\,a_1+b_1+C(a_0,b_0))$ where $C(a_0,b_0)=\\frac{(a_0+b_0)^p-a_0^p-b_0^p}{p}\\pmod{p}$.)",
+            "answer": 1,
+            "tol": 0,
+            "explain": "$C(1,1)=\\frac{2^5-1-1}{5}=\\frac{30}{5}=6$. Reducing mod $5$ gives $6\\equiv 1$. The second component is $0+0+1=1$. (So $(1,0)+(1,0)=(2,1)$ in $W_2(\\mathbb{F}_5)$ — a strict departure from the componentwise $\\mathbb{F}_5^2$, which would give $(2,0)$.)",
+            "hint": "Compute $C(1,1) = ((1+1)^p - 1 - 1)/p$ and reduce mod $p$."
+          },
+          {
+            "type": "mcq",
+            "q": "The Frobenius $F$ and Verschiebung $V$ on the de Rham–Witt complex satisfy:",
+            "choices": [
+              "$F=V$",
+              "$FV = VF = p$ (multiplication by $p$)",
+              "$FV = 0$, $VF = \\mathrm{id}$",
+              "$F$ and $V$ are inverse isomorphisms"
+            ],
+            "answer": 1,
+            "explain": "$F\\colon W_{n+1}\\Omega^j\\to W_n\\Omega^j$ and $V\\colon W_n\\Omega^j\\to W_{n+1}\\Omega^j$ are the Frobenius and Verschiebung. They satisfy $FV = p$ and $VF = p$ on each Witt level — this is what makes the slope filtration coincide with the $p$-adic filtration on crystalline cohomology."
+          },
+          {
+            "type": "mcq",
+            "q": "For smooth proper $X/k$, what does $\\varprojlim_n H^*(X, W_n\\Omega^\\bullet_X)$ compute?",
+            "choices": [
+              "Singular cohomology $H^*(X(\\mathbb{C}),\\mathbb{Z})$.",
+              "Étale cohomology $H^*_{\\mathrm{\\acute{e}t}}(X,\\mathbb{Z}_\\ell)$.",
+              "Crystalline cohomology $H^*_{\\mathrm{cris}}(X/W)$.",
+              "Algebraic de Rham cohomology of any smooth lift."
+            ],
+            "answer": 2,
+            "explain": "Bloch–Illusie–Deligne: $H^*_{\\mathrm{cris}}(X/W) = \\varprojlim_n H^*(X_{\\mathrm{Zar}}, W_n\\Omega^\\bullet_X)$ for $X/k$ smooth proper. The de Rham–Witt complex is the computational engine of crystalline cohomology, and the slope decomposition on the limit recovers the Newton polygon of Frobenius."
+          }
+        ]
+      },
+      "pchar-pathologies": {
+        "title": "Pathologies of positive characteristic",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Raynaud's 1978 counterexample shows that, without auxiliary hypotheses:",
+            "choices": [
+              "Every smooth projective variety in characteristic $p$ is Frobenius split.",
+              "Kodaira vanishing $H^i(X,L^{-1})=0$ for $i<\\dim X$ can fail for smooth projective $X$ and ample $L$ in characteristic $p$.",
+              "There are no smooth projective varieties in positive characteristic.",
+              "Hodge symmetry always holds."
+            ],
+            "answer": 1,
+            "explain": "Raynaud (1978) constructed a smooth projective surface $X$ in characteristic $p$ with an ample line bundle $L$ such that $H^1(X, L^{-1})\\ne 0$. Mehta–Ramanathan vanishing (via Frobenius splitting) and Deligne–Illusie ($W_2$-liftability) are the standard hypotheses that restore Kodaira vanishing."
+          },
+          {
+            "type": "mcq",
+            "q": "Which of the following is an open problem in positive-characteristic algebraic geometry?",
+            "choices": [
+              "Whether $\\mathbb{F}_p$ is a field.",
+              "Resolution of singularities for varieties of dimension $\\ge 4$ over $\\overline{\\mathbb{F}_p}$.",
+              "Whether $\\mathbb{P}^1_{\\mathbb{F}_p}$ is smooth.",
+              "The existence of a Frobenius on $\\mathbb{F}_p$-schemes."
+            ],
+            "answer": 1,
+            "explain": "Hironaka (1964) proved resolution of singularities in characteristic $0$ in all dimensions. In characteristic $p$, it is known for surfaces (Abhyankar–Lipman) and threefolds (Cossart–Piltant); for $\\dim\\ge 4$ it remains the central open problem of birational geometry in positive characteristic."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which of the following characteristic-$0$ theorems are known to fail (or be open) in characteristic $p$?",
+            "choices": [
+              "Bertini's smoothness for inseparable maps",
+              "Existence of smooth $W$-lifts of smooth proper varieties",
+              "$\\mathbb{F}_p$ has a Frobenius endomorphism",
+              "Termination of the MMP in $\\dim\\ge 3$",
+              "Hodge symmetry $h^{p,q}=h^{q,p}$"
+            ],
+            "answer": [
+              0,
+              1,
+              3,
+              4
+            ],
+            "explain": "Bertini fails for inseparable maps; smooth $W$-lifts can fail to exist (Hirokado, Schröer); MMP termination is open in characteristic $p$ for $\\dim\\ge 3$ (Kodaira vanishing failure obstructs standard methods); Hodge symmetry fails (Mumford's surface in char $2$). The Frobenius endomorphism of $\\mathbb{F}_p$ definitely exists — it is the identity!"
+          }
+        ]
+      }
+    }
+  },
   "positivity-and-ample-line-bundles": {
     "topic": "positivity-and-ample-line-bundles",
     "quizzes": {

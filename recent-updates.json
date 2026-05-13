@@ -1,5 +1,5 @@
 {
-  "generated": "2026-05-13T02:31:35.797Z",
+  "generated": "2026-05-13T02:46:21.938Z",
   "entries": [
     {
       "slug": "brill-noether",
@@ -32,6 +32,14 @@
       "tag": "",
       "date": "2026-05-12",
       "message": "New topic: Conformal & CR geometry (Analysis) (#161)"
+    },
+    {
+      "slug": "donaldson-thomas-and-gw-invariants",
+      "title": "Donaldson–Thomas & GW invariants",
+      "color": "v",
+      "tag": "",
+      "date": "2026-05-12",
+      "message": "New topic: Donaldson–Thomas & GW invariants (Algebraic geometry) (#173)"
     },
     {
       "slug": "heegaard-floer",
