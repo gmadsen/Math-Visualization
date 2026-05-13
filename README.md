@@ -99,6 +99,7 @@ Each concept carries up to three quiz tiers — v1 (required), hard (unlocked af
 - [Mathematical statistics](./mathematical-statistics.html) — sufficiency, MLE, Cramér–Rao, asymptotic normality, hypothesis tests
 - [High-dimensional geometry](./high-dimensional-geometry.html) — concentration of measure, Johnson–Lindenstrauss, isoperimetry, random projections
 - [Random matrix theory](./random-matrix-theory.html) — draft — fill in once the page has real content
+- [Computational molecular biology](./computational-molecular-biology.html) — sequence alignment (Needleman–Wunsch, Smith–Waterman), suffix arrays and the Burrows–Wheeler transform, HMMs and Viterbi, phylogenetic inference (UPGMA, neighbor-joining, Felsenstein pruning), the coalescent in inference, RNA secondary-structure DP, and protein contact maps
 
 ### Geometry & topology
 - [Point-set topology](./point-set-topology.html) — metric spaces, open sets, continuity, compactness, connectedness, separation axioms
