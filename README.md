@@ -125,6 +125,7 @@ Each concept carries up to three quiz tiers — v1 (required), hard (unlocked af
 - [Khovanov homology](./khovanov-homology.html) — draft — fill in once the page has real content
 - [Surgery theory](./surgery-theory.html) — draft — fill in once the page has real content
 - [Heegaard floer](./heegaard-floer.html) — draft — fill in once the page has real content
+- [Convex geometry](./convex-geometry.html) — convex bodies, Minkowski sums and mixed volumes, Brunn–Minkowski, polytopes, polar duality, John ellipsoid, and Dvoretzky-style spherical sections
 
 ### Number theory
 - [Galois theory & the quintic](./galois.html) — constructibility, correspondence, unsolvability

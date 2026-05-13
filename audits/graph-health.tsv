@@ -1,277 +1,448 @@
 id	title	topic	incoming	outgoing	topic_spread	implicit_prereqs	blurb_sentences	blurb_chars	recommendation	implicit_list
-compactness	Compactness	point-set-topology	10	2	15	1	1	167	extract-multi-topic	axiom-of-choice
-w-applications	Applications	wavelets	0	2	12	0	3	406	extract-multi-topic	
-hdg-applications	Applications	high-dimensional-geometry	0	3	11	0	1	241	extract-multi-topic	
-e-applications	Applications	expanders	0	2	11	0	1	273	extract-multi-topic	
-fundamental-group	Fundamental group	algebraic-topology	14	1	10	0	2	86	extract-multi-topic	
-open-sets	Topological spaces	point-set-topology	10	2	10	0	1	167	extract-multi-topic	
-cc-vector-bundles	Vector bundles	characteristic-classes	5	1	9	0	2	345	extract-multi-topic	
-analytic-continuation	Analytic continuation	complex-analysis	8	1	8	2	1	221	extract-multi-topic	holomorphic-function|contour-integral
-holomorphic-function	Holomorphic functions	complex-analysis	6	1	7	2	1	71	extract-multi-topic	amplitwist|cauchy-theorem
+compactness	Compactness	point-set-topology	10	2	20	1	1	167	extract-multi-topic	axiom-of-choice
+w-applications	Applications	wavelets	0	2	18	0	3	406	extract-multi-topic	
+hdg-applications	Applications	high-dimensional-geometry	0	3	17	0	1	241	extract-multi-topic	
+e-applications	Applications	expanders	0	2	17	0	1	273	extract-multi-topic	
+completion-ca	Completion	commutative-algebra	0	2	16	1	2	255	extract-multi-topic	exact-sequences
+fundamental-group	Fundamental group	algebraic-topology	19	1	15	0	2	86	extract-multi-topic	
+open-sets	Topological spaces	point-set-topology	10	2	14	0	1	167	extract-multi-topic	
+cc-vector-bundles	Vector bundles	characteristic-classes	5	1	13	0	2	345	extract-multi-topic	
+analytic-continuation	Analytic continuation	complex-analysis	8	1	11	2	1	221	extract-multi-topic	holomorphic-function|contour-integral
+exact-sequences	Exact sequences	homological	13	1	10	1	1	121	extract-multi-topic	long-exact-sequence
+holomorphic-function	Holomorphic functions	complex-analysis	8	1	8	2	1	71	extract-multi-topic	amplitwist|cauchy-theorem
+brownian-motion	Brownian motion	probability-theory	4	2	8	2	1	200	extract-multi-topic	sc-girsanov|sc-ito-formula
+real-differentiation	Differentiation	real-analysis	11	1	8	0	1	113	extract-multi-topic	
+sm-symplectic-form	Symplectic form	symplectic-manifolds	5	3	7	0	3	319	extract-multi-topic	
+reflexivity	Reflexivity	functional-analysis	0	3	6	1	1	132	extract-multi-topic	compactness
+lebesgue-measure	Lebesgue measure	measure-theory	11	1	6	0	1	176	extract-multi-topic	
+random-variables	Random variables	probability-theory	9	2	6	0	1	149	extract-multi-topic	
+eisenstein-series-mf	Eisenstein series	modular-forms	4	1	6	0	1	97	extract-multi-topic	
+limits-colimits	Limits and colimits	category-theory	3	1	6	0	1	159	extract-multi-topic	
+chern-classes	Chern classes	intersection-theory-chow	2	3	5	3	2	250	extract-multi-topic	cc-vector-bundles|k-chern-character|cc-euler-class
+cc-chern-classes	Chern classes	characteristic-classes	8	2	5	2	2	426	extract-multi-topic	cc-euler-class|k-chern-character
 complex-numbers	Complex numbers	complex-analysis	5	0	5	2	1	198	extract-multi-topic	fta|riemann-sphere
-exact-sequences	Exact sequences	homological	12	1	5	1	1	121	extract-multi-topic	long-exact-sequence
+cd-poincare-duality	Poincaré duality	cohomology-and-duality	3	2	5	2	3	255	extract-multi-topic	sm-symplectic-form|cc-signature-theorem
+kan-complex	Kan complexes	simplicial-sets-and-nerve	3	1	5	1	2	231	extract-multi-topic	open-sets
+modularity-theorem	Modularity theorem	modularity-and-flt	5	4	5	0	2	266	extract-multi-topic	
+liouville	Liouville's theorem	complex-analysis	3	1	5	0	1	26	extract-multi-topic	
+k-chern-character	Chern character	k-theory	2	3	5	0	3	466	extract-multi-topic	
 connectedness	Connectedness	point-set-topology	1	1	5	0	1	109	extract-multi-topic	
-brownian-motion	Brownian motion	probability-theory	2	2	4	2	1	200	extract-multi-topic	sc-girsanov|sc-ito-formula
-kan-complex	Kan complexes	simplicial-sets-and-nerve	3	1	4	1	2	231	extract-multi-topic	open-sets
+cy-hodge-numbers	The Hodge diamond	calabi-yau-manifolds	3	2	4	2	3	335	extract-multi-topic	connectedness|compactness
 hcm-applications	Worked examples	hamiltonians-classical-mechanics	0	1	4	1	3	457	extract-multi-topic	hcm-hamilton-equations
-reflexivity	Reflexivity	functional-analysis	0	3	4	1	1	132	extract-multi-topic	compactness
-singular-homology	Singular homology	algebraic-topology	14	1	4	0	1	95	extract-multi-topic	
-real-differentiation	Differentiation	real-analysis	11	1	4	0	1	113	extract-multi-topic	
-lebesgue-measure	Lebesgue measure	measure-theory	11	1	4	0	1	176	extract-multi-topic	
-random-variables	Random variables	probability-theory	6	2	4	0	1	149	extract-multi-topic	
+singular-homology	Singular homology	algebraic-topology	18	1	4	0	1	95	extract-multi-topic	
+tangent-space-manifolds	Tangent spaces	smooth-manifolds	10	1	4	0	1	142	extract-multi-topic	
 mobius-transformations	Möbius transformations	complex-analysis	5	1	4	0	1	56	extract-multi-topic	
-modularity-theorem	Modularity theorem	modularity-and-flt	4	4	4	0	2	266	extract-multi-topic	
-limits-colimits	Limits and colimits	category-theory	3	1	4	0	1	159	extract-multi-topic	
-liouville	Liouville's theorem	complex-analysis	3	1	4	0	1	26	extract-multi-topic	
-k-chern-character	Chern character	k-theory	2	3	4	0	3	466	extract-multi-topic	
-eisenstein-series-mf	Eisenstein series	modular-forms	2	1	4	0	1	97	extract-multi-topic	
-scheme-morphisms	Morphisms of schemes	morphisms-fiber-products	6	1	3	2	1	69	extract-multi-topic	open-sets|locally-ringed-space
+sc-ito-formula	Itô's formula	stochastic-calculus	5	2	4	0	1	273	extract-multi-topic	
+exterior-derivative	Exterior derivative	differential-forms	5	1	4	0	1	77	extract-multi-topic	
+hilbert-class-field	Hilbert class field	class-field-theory	4	2	4	0	1	178	extract-multi-topic	
+spectral-sequences-ha	Spectral sequences	homological	3	1	4	0	1	84	extract-multi-topic	
+dtgw-gw-invariants	Gromov–Witten invariants	donaldson-thomas-and-gw-invariants	1	2	4	0	3	658	extract-multi-topic	
+kp-jones-polynomial	Jones polynomial	knot-polynomials	6	2	3	3	2	279	extract-multi-topic	kp-khovanov-homology|open-sets|singular-homology
+scheme-morphisms	Morphisms of schemes	morphisms-fiber-products	7	1	3	2	1	69	extract-multi-topic	open-sets|locally-ringed-space
+laurent-series	Laurent series	complex-analysis	4	1	3	2	1	64	extract-multi-topic	cauchy-theorem|residue-theorem
+hf-maximum-principle	Maximum principle	harmonic-functions	2	1	3	2	3	230	extract-multi-topic	connectedness|harmonic-functions
+martingales	Martingales	probability-theory	6	2	3	1	1	169	extract-multi-topic	sp-martingale-convergence
 geometric-morphisms-intro	Geometric morphisms	elementary-topos-theory	3	3	3	1	2	276	extract-multi-topic	open-sets
 partition-of-unity	Partitions of unity	smooth-manifolds	0	1	3	1	1	137	extract-multi-topic	riemannian-metrics
-tangent-space-manifolds	Tangent spaces	smooth-manifolds	8	1	3	0	1	142	extract-multi-topic	
-sm-symplectic-form	Symplectic form	symplectic-manifolds	5	3	3	0	3	319	extract-multi-topic	
+riemannian-metrics	Riemannian metrics	riemannian-geometry	8	2	3	0	1	85	extract-multi-topic	
 riesz-representation	Riesz representation theorem	functional-analysis	5	2	3	0	1	136	extract-multi-topic	
 legendre-symbol	The Legendre symbol	quadratic-reciprocity	5	1	3	0	1	97	extract-multi-topic	
-countability	Countability	naive-set-theory	3	1	3	0	1	72	extract-multi-topic	
+countability	Countability	naive-set-theory	4	1	3	0	1	72	extract-multi-topic	
+measurable-functions	Measurable functions	measure-theory	3	1	3	0	1	118	extract-multi-topic	
 poisson-summation	Poisson summation	harmonic-analysis-fourier	2	3	3	0	2	233	extract-multi-topic	
-hilbert-class-field	Hilbert class field	class-field-theory	2	2	3	0	1	178	extract-multi-topic	
 locally-ringed-space	Locally ringed spaces	schemes	2	1	3	0	1	132	extract-multi-topic	
-chern-classes	Chern classes	intersection-theory-chow	1	3	2	3	2	250	add-prereqs:3	cc-vector-bundles|k-chern-character|cc-euler-class
-cc-chern-classes	Chern classes	characteristic-classes	7	2	2	2	2	426	keep	cc-euler-class|k-chern-character
-cy-hodge-numbers	The Hodge diamond	calabi-yau-manifolds	3	2	2	2	3	335	split-blurb	connectedness|compactness
-laurent-series	Laurent series	complex-analysis	3	1	2	2	1	64	keep	cauchy-theorem|residue-theorem
-martingales	Martingales	probability-theory	6	2	2	1	1	169	keep	sp-martingale-convergence
-markov-chains	Markov chains	probability-theory	2	2	2	1	1	182	keep	rw-stationary-distribution
+cc-euler-class	Euler class	characteristic-classes	1	2	3	0	2	333	extract-multi-topic	
+riemann-mapping	Riemann mapping theorem	complex-analysis	0	3	3	0	1	70	extract-multi-topic	
+sc-girsanov	Girsanov's theorem	stochastic-calculus	2	2	2	2	1	289	keep	sc-ito-integral|brownian-motion
+kp-khovanov-homology	Khovanov homology	knot-polynomials	1	2	2	2	4	489	split-blurb	hdg-applications|hf-knot-floer
+harmonic-functions	Harmonic functions	complex-analysis	1	6	2	2	1	193	keep	hf-laplace-equation|schwarz-lemma
+metric-spaces	Metric spaces	point-set-topology	8	0	2	1	1	129	keep	completion-ca
+hcm-hamilton-equations	Hamilton's equations	hamiltonians-classical-mechanics	4	3	2	1	3	383	split-blurb	liouville
+markov-chains	Markov chains	probability-theory	4	2	2	1	1	182	keep	rw-stationary-distribution
+cc-pontryagin	Pontryagin classes	characteristic-classes	4	1	2	1	2	357	keep	cc-signature-theorem
+cheeger-inequality	Cheeger's inequality	spectral-graph-theory	3	1	2	1	2	233	keep	spectral-clustering
 ld-sanov-theorem	Sanov's theorem	large-deviations	2	1	2	1	1	261	keep	it-kl-divergence
-harmonic-functions	Harmonic functions	complex-analysis	1	6	2	1	1	193	keep	hf-laplace-equation
-metric-spaces	Metric spaces	point-set-topology	8	0	2	0	1	129	keep	
+dtgw-virtual-fundamental-class	The virtual fundamental class	donaldson-thomas-and-gw-invariants	1	3	2	1	4	610	split-blurb	first-order-deformation
+real-numbers	Real numbers	real-analysis	7	0	2	0	1	114	keep	
+quasi-category	Quasi-categories	infinity-categories	6	2	2	0	2	236	keep	
+sm-lagrangian-submanifolds	Lagrangian submanifolds	symplectic-manifolds	5	2	2	0	3	354	split-blurb	
 uniform-convergence	Uniform convergence	real-analysis	5	1	2	0	1	137	keep	
+hyperbolic-metric	The hyperbolic metric	upper-half-plane-hyperbolic	5	1	2	0	1	109	keep	
+monoidal-categories	Monoidal categories	category-theory	4	1	2	0	1	195	keep	
 sieves	Sieves	grothendieck-topologies-sites	4	2	2	0	2	245	keep	
+lebesgue-integral	Lebesgue integral	measure-theory	4	2	2	0	1	125	keep	
 rw-mixing-time	Mixing time	random-walks-and-mixing	4	1	2	0	1	219	keep	
-exterior-derivative	Exterior derivative	differential-forms	4	1	2	0	1	77	keep	
-riemannian-metrics	Riemannian metrics	riemannian-geometry	4	2	2	0	1	85	keep	
-hyperbolic-metric	The hyperbolic metric	upper-half-plane-hyperbolic	3	1	2	0	1	109	keep	
+k-bott-periodicity	Bott periodicity	k-theory	3	2	2	0	3	356	split-blurb	
+projective-modules	Projective modules	homological	3	1	2	0	1	138	keep	
+central-limit-theorem	Central limit theorem	probability-theory	3	2	2	0	1	130	keep	
+sc-ito-integral	Itô integral	stochastic-calculus	3	2	2	0	1	315	keep	
+theta-transformation-law	Theta transformation law	theta-functions	3	2	2	0	1	77	keep	
+intersection-multiplicity	Intersection multiplicity	bezout	3	1	2	0	1	69	keep	
+first-order-deformation	First-order deformations	deformation-theory	3	2	2	0	2	225	keep	
+mordell-weil	Mordell–Weil theorem	bsd	3	2	2	0	2	112	keep	
+hdg-johnson-lindenstrauss	Johnson–Lindenstrauss	high-dimensional-geometry	2	2	2	0	1	241	keep	
+sm-poisson-bracket	Poisson bracket	symplectic-manifolds	2	1	2	0	2	290	keep	
+kp-alexander-polynomial	Alexander polynomial	knot-polynomials	2	3	2	0	3	315	split-blurb	
 conformal-map	Conformal maps	complex-analysis	2	2	2	0	1	74	keep	
 law-of-large-numbers	Law of large numbers	probability-theory	2	2	2	0	1	123	keep	
-theta-transformation-law	Theta transformation law	theta-functions	2	2	2	0	1	77	keep	
-kp-jones-polynomial	Jones polynomial	knot-polynomials	4	2	1	3	2	279	add-prereqs:3	kp-khovanov-homology|open-sets|singular-homology
-hf-maximum-principle	Maximum principle	harmonic-functions	2	1	1	2	3	230	split-blurb	connectedness|harmonic-functions
-sc-girsanov	Girsanov's theorem	stochastic-calculus	1	2	1	2	1	289	keep	sc-ito-integral|brownian-motion
-group-representations	Group representations	representation-theory	7	1	1	1	1	110	keep	maschke-theorem
+idele-class-group	The idèle class group	adeles-and-ideles	2	1	2	0	1	245	keep	
+strong-approximation	Strong approximation	adeles-and-ideles	1	1	2	0	1	241	keep	
+vm-isoperimetric	Isoperimetric inequality	variational-methods	0	2	2	0	2	255	keep	
+fpt-lefschetz	Lefschetz fixed-point theorem	fixed-point-theorems	0	3	2	0	2	169	keep	
+hyperelliptic-curves	Hyperelliptic curves	algebraic-curves-higher-genus	0	2	2	0	3	263	split-blurb	
+krein-milman	Krein–Milman theorem	functional-analysis	0	1	1	3	2	204	add-prereqs:3	compactness|measurable-functions|hf-maximum-principle
+motivic-galois-group	The motivic Galois group	motives	3	3	1	2	3	254	split-blurb	fundamental-group|hodge-conjecture
+iw-main-conjecture	Iwasawa main conjecture	iwasawa-theory	1	2	1	2	2	393	keep	eisenstein-series-mf|du-class-number-formula
+aca-hadamard-three-circles	Hadamard's three-circles theorem	advanced-complex-analysis	1	2	1	2	2	333	keep	holomorphic-function|harmonic-functions
+group-representations	Group representations	representation-theory	10	1	1	1	1	110	keep	maschke-theorem
 schwarz-lemma	Schwarz lemma	complex-analysis	5	1	1	1	1	192	keep	riemann-mapping
+maximum-modulus	Maximum modulus principle	complex-analysis	4	1	1	1	1	54	keep	aca-hadamard-three-circles
 fundamental-theorem-galois	Fundamental theorem of Galois theory	galois	4	2	1	1	1	80	keep	radical-extensions
-cc-pontryagin	Pontryagin classes	characteristic-classes	3	1	1	1	2	357	keep	cc-signature-theorem
-hcm-hamilton-equations	Hamilton's equations	hamiltonians-classical-mechanics	2	3	1	1	3	383	split-blurb	liouville
+kp-reidemeister-moves	Reidemeister moves	knot-polynomials	3	1	1	1	2	249	keep	kp-jones-polynomial
+sc-feynman-kac	Feynman–Kac formula	stochastic-calculus	3	3	1	1	1	254	keep	law-of-large-numbers
 atiyah-singer-statement	The index theorem	atiyah-singer-index-theorem	2	3	1	1	2	400	keep	cc-vector-bundles
 axiom-of-choice-intuition	Axiom of choice	naive-set-theory	2	2	1	1	2	176	keep	open-sets
+snake-lemma	The snake lemma	homological	2	1	1	1	1	139	keep	long-exact-sequence
 hf-laplace-equation	Laplace's equation	harmonic-functions	2	2	1	1	2	292	keep	harmonic-functions
 genus-theory	Genus theory	quadratic-forms-genus-theory	2	2	1	1	1	204	keep	legendre-symbol
-cheeger-inequality	Cheeger's inequality	spectral-graph-theory	2	1	1	1	2	233	keep	spectral-clustering
+sg-infinitesimal-generator	The infinitesimal generator	semigroup-theory-evolution-equations	1	1	1	1	5	731	split-blurb	real-differentiation
 axiom-of-choice	The axiom of choice	zfc-and-ordinals	1	2	1	1	2	192	keep	open-sets
 sp-martingale-convergence	Martingale convergence theorem	stochastic-processes-and-martingales	1	3	1	1	2	278	keep	random-variables
+cc-signature-theorem	Hirzebruch signature theorem	characteristic-classes	1	2	1	1	3	470	split-blurb	cd-poincare-duality
+binary-forms-basics	Binary quadratic forms	quadratic-forms-genus-theory	1	1	1	1	1	172	keep	genus-theory
+long-exact-sequence-cohomology	Long exact sequence in cohomology	sheaf-cohomology	1	2	1	1	1	173	keep	hdg-applications
 finite-etale-covers	Finite étale covers	etale-fundamental-group	1	2	1	1	2	286	keep	fundamental-group
-kp-khovanov-homology	Khovanov homology	knot-polynomials	0	2	1	1	4	489	split-blurb	hdg-applications
-quasi-category	Quasi-categories	infinity-categories	5	2	1	0	2	236	keep	
+du-class-number-formula	The analytic class number formula	dirichlet-unit-theorem	0	2	1	1	3	755	split-blurb	iw-main-conjecture
+monodromy-theorem	Monodromy theorem	analytic-continuation	0	3	1	1	2	223	keep	compactness
+frobenius-element	Frobenius elements	frobenius-and-reciprocity	6	1	1	0	1	81	keep	
 cauchy-riemann	Cauchy–Riemann equations	complex-analysis	5	1	1	0	2	161	keep	
+simply-connected	Simply connected domains	algebraic-topology	5	1	1	0	1	122	keep	
+neron-tate-canonical-height	Néron–Tate canonical height	heights-arithmetic-geometry	5	2	1	0	2	313	keep	
 yoneda-lemma	The Yoneda lemma	category-theory	4	1	1	0	1	172	keep	
-lebesgue-integral	Lebesgue integral	measure-theory	4	2	1	0	1	125	keep	
-sm-lagrangian-submanifolds	Lagrangian submanifolds	symplectic-manifolds	3	2	1	0	3	354	split-blurb	
-measurable-functions	Measurable functions	measure-theory	3	1	1	0	1	118	keep	
+dtgw-dt-invariants	Donaldson–Thomas invariants	donaldson-thomas-and-gw-invariants	3	2	1	0	4	696	split-blurb	
+vm-euler-lagrange	Euler–Lagrange equations	variational-methods	3	2	1	0	1	196	keep	
 cauchy-theorem	Cauchy's theorem	complex-analysis	3	2	1	0	1	41	keep	
-maximum-modulus	Maximum modulus principle	complex-analysis	3	1	1	0	1	54	keep	
-sc-ito-formula	Itô's formula	stochastic-calculus	3	2	1	0	1	273	keep	
 splitting-fields	Splitting fields	galois	3	3	1	0	2	200	keep	
-vm-euler-lagrange	Euler–Lagrange equations	variational-methods	2	2	1	0	1	196	keep	
+mf-bs-pde	The Black–Scholes PDE	mathematical-finance	2	3	1	0	1	329	keep	
+scv-hartogs	Hartogs phenomenon	several-complex-variables	2	3	1	0	3	414	split-blurb	
+sr-energy-momentum	Relativistic energy-momentum	special-relativity	2	2	1	0	3	650	split-blurb	
 mr-hyperbolic-3-mflds	Hyperbolic 3-manifolds	mostow-rigidity	2	3	1	0	1	226	keep	
-sm-poisson-bracket	Poisson bracket	symplectic-manifolds	2	1	1	0	2	290	keep	
-k-bott-periodicity	Bott periodicity	k-theory	2	2	1	0	3	356	split-blurb	
 tt-univalence	Univalence axiom	type-theory-and-hott	2	2	1	0	3	396	split-blurb	
 tt-higher-inductive-types	Higher inductive types	type-theory-and-hott	2	1	1	0	3	399	split-blurb	
-projective-modules	Projective modules	homological	2	1	1	0	1	138	keep	
-central-limit-theorem	Central limit theorem	probability-theory	2	2	1	0	1	130	keep	
-sc-ito-integral	Itô integral	stochastic-calculus	2	2	1	0	1	315	keep	
+bounded-variation	Bounded variation	real-analysis	2	2	1	0	1	214	keep	
+rw-stationary-distribution	Stationary distributions	random-walks-and-mixing	2	2	1	0	1	194	keep	
 it-kl-divergence	Kullback–Leibler divergence	information-theory	2	2	1	0	1	248	keep	
-idele-class-group	The idèle class group	adeles-and-ideles	2	1	1	0	1	245	keep	
-intersection-multiplicity	Intersection multiplicity	bezout	2	1	1	0	1	69	keep	
-first-order-deformation	First-order deformations	deformation-theory	2	2	1	0	2	225	keep	
-mordell-weil	Mordell–Weil theorem	bsd	2	2	1	0	2	112	keep	
+two-squares-theorem	Sum of two squares	additive-number-theory	2	1	1	0	1	61	keep	
+canonical-embedding	The canonical embedding	algebraic-curves-higher-genus	2	2	1	0	2	240	keep	
+hf-knot-floer	Knot Floer homology	heegaard-floer	1	2	1	0	3	385	split-blurb	
+cf-roth	Roth's theorem	continued-fractions	1	2	1	0	4	414	split-blurb	
+hodge-conjecture	The Hodge conjecture	hodge-theory	1	4	1	0	3	254	split-blurb	
+aca-mittag-leffler	Mittag-Leffler theorem	advanced-complex-analysis	1	2	1	0	2	311	keep	
 cnt-primality	Primality testing	computational-number-theory	1	2	1	0	2	269	keep	
+hdg-dvoretzky	Dvoretzky's theorem	high-dimensional-geometry	1	2	1	0	1	215	keep	
 hdg-talagrand	Talagrand's inequality	high-dimensional-geometry	1	2	1	0	1	223	keep	
 qg-hopf-algebras	Hopf algebras	quantum-groups	1	2	1	0	1	316	keep	
 continuum-hypothesis	The continuum hypothesis	zfc-and-ordinals	1	1	1	0	3	181	keep	
-monoidal-categories	Monoidal categories	category-theory	1	1	1	0	1	195	keep	
 kan-extensions	Kan extensions	category-theory	1	2	1	0	1	172	keep	
-spectral-sequences-ha	Spectral sequences	homological	1	1	1	0	1	84	keep	
-rw-stationary-distribution	Stationary distributions	random-walks-and-mixing	1	2	1	0	1	194	keep	
-cc-euler-class	Euler class	characteristic-classes	1	2	1	0	2	333	keep	
+maschke-theorem	Maschke's theorem	representation-theory	1	1	1	0	1	201	keep	
+cc-stiefel-whitney	Stiefel–Whitney classes	characteristic-classes	1	2	1	0	2	414	keep	
 gauss-lemma-qr	Gauss's lemma	quadratic-reciprocity	1	1	1	0	1	97	keep	
-two-squares-theorem	Sum of two squares	additive-number-theory	1	1	1	0	1	61	keep	
-strong-approximation	Strong approximation	adeles-and-ideles	1	1	1	0	1	241	keep	
 petersson-inner-product	Petersson inner product	modular-forms	1	1	1	0	1	135	keep	
-vm-isoperimetric	Isoperimetric inequality	variational-methods	0	2	1	0	2	255	keep	
-fpt-lefschetz	Lefschetz fixed-point theorem	fixed-point-theorems	0	3	1	0	2	169	keep	
+classical-to-adelic-dictionary	Classical-to-adelic dictionary	automorphic-forms-adelic	1	2	1	0	2	371	keep	
+deformation-rings	Deformation rings	modularity-and-flt	1	2	1	0	1	269	keep	
+pal-kodaira-embedding	Kodaira embedding theorem	positivity-and-ample-line-bundles	0	2	1	0	3	355	split-blurb	
+finite-abelian-classification	Finite abelian groups	algebra	0	1	1	0	1	199	keep	
+koszul-complex-ca	Koszul complex	commutative-algebra	0	2	1	0	2	203	keep	
 absolute-continuity	Absolute continuity	real-analysis	0	2	1	0	2	187	keep	
-riemann-mapping	Riemann mapping theorem	complex-analysis	0	3	1	0	1	70	keep	
 gauss-bonnet	Gauss–Bonnet theorem	differential-geometry	0	2	1	0	1	174	keep	
-categories-morphisms	Categories and morphisms	category-theory	8	1	0	3	1	84	add-prereqs:3	open-sets|scheme-morphisms|reflexivity
+cross-ratio	The cross-ratio	projective-plane	0	2	1	0	1	147	keep	
+spectral-clustering	Spectral clustering	spectral-graph-theory	0	2	1	0	2	214	keep	
+sg-applications	Applications: nonlinear PDEs, control, and stochastic flows	semigroup-theory-evolution-equations	0	2	0	4	4	887	add-prereqs:4	measurable-functions|sc-ito-formula|brownian-motion|sc-feynman-kac
+aca-several-complex-variables	Several complex variables	advanced-complex-analysis	0	4	0	4	4	663	add-prereqs:4	riemann-mapping|laurent-series|scv-hartogs|atiyah-singer-statement
+categories-morphisms	Categories and morphisms	category-theory	10	1	0	3	1	84	add-prereqs:3	open-sets|scheme-morphisms|reflexivity
 cstar-basics	C*-algebras and examples	operator-algebras	7	1	0	3	1	83	add-prereqs:3	spectrum-of-element|positive-elements|gns-construction
+etale-morphism	Étale morphisms	etale-cohomology	7	2	0	3	2	158	add-prereqs:3	fundamental-group|finite-etale-covers|completion-ca
+cm-liquid-vector-spaces	Liquid $\mathbb{R}$-vector spaces	condensed-mathematics	2	2	0	3	4	585	add-prereqs:3	completion-ca|limits-colimits|exact-sequences
+yoneda-limits-adjunctions	Yoneda, limits, and adjunctions	category-theory	2	4	0	3	1	110	add-prereqs:3	completion-ca|fundamental-group|yoneda-lemma
 singularity-classification	Classification of singularities	complex-analysis	2	1	0	3	1	61	add-prereqs:3	hcm-applications|argument-principle|residue-theorem
+ht-stable	Stable homotopy and spectra	homotopy-theory	1	2	0	3	3	469	add-prereqs:3	spectral-sequences-ha|exact-sequences|cc-vector-bundles
+cm-solid-abelian	Solid abelian groups: the closed monoidal subcategory	condensed-mathematics	1	1	0	3	3	631	add-prereqs:3	limits-colimits|exact-sequences|completion-ca
 geometric-morphisms-of-sites	Geometric morphisms from morphisms of sites	grothendieck-topologies-sites	1	2	0	3	2	252	add-prereqs:3	open-sets|sieves|fundamental-group
 vitali-covering	Vitali covering lemma	real-analysis	1	2	0	3	2	255	add-prereqs:3	compactness|real-differentiation|lebesgue-differentiation
+rmt-free-probability	Free probability and free convolution	random-matrix-theory	0	2	0	3	2	440	add-prereqs:3	random-variables|sc-ito-integral|brownian-motion
+cd-characteristic-preview	Characteristic classes preview	cohomology-and-duality	0	2	0	3	2	269	add-prereqs:3	cc-vector-bundles|hdg-applications|cc-chern-classes
 aca-overview	The graduate landscape	advanced-complex-analysis	0	0	0	3	1	415	orphan-candidate	cauchy-theorem|aca-bloch-theorem|maximum-modulus
-aca-several-complex-variables	Several complex variables	advanced-complex-analysis	0	4	0	3	4	663	add-prereqs:3	riemann-mapping|laurent-series|atiyah-singer-statement
-smooth-manifold-definition	Smooth manifolds and atlases	smooth-manifolds	10	1	0	2	1	65	keep	countability|partition-of-unity
-etale-morphism	Étale morphisms	etale-cohomology	6	2	0	2	2	158	keep	fundamental-group|finite-etale-covers
-sm-hamiltonian-flow	Hamiltonian vector fields and flows	symplectic-manifolds	5	2	0	2	2	303	keep	hcm-hamilton-equations|liouville
+cy-applications	String compactifications, DT, SYZ	calabi-yau-manifolds	0	1	0	3	3	469	add-prereqs:3	k-chern-character|dtgw-virtual-fundamental-class|dtgw-gw-invariants
+comparison-topological	Comparison with topological $\pi_1$	etale-fundamental-group	0	1	0	3	2	266	add-prereqs:3	completion-ca|analytic-continuation|finite-etale-covers
+chern-simons	Chern-Simons theory	gauge-theory	0	2	0	3	2	363	add-prereqs:3	k-chern-character|kp-jones-polynomial|kp-reidemeister-moves
+smooth-manifold-definition	Smooth manifolds and atlases	smooth-manifolds	12	1	0	2	1	65	keep	countability|partition-of-unity
+sm-hamiltonian-flow	Hamiltonian vector fields and flows	symplectic-manifolds	7	2	0	2	2	303	keep	hcm-hamilton-equations|liouville
+lfunction-prototype	Prototype L-functions	L-functions	7	1	0	2	1	87	keep	analytic-continuation|completion-ca
+upper-half-plane-model	The upper half-plane model	upper-half-plane-hyperbolic	4	2	0	2	1	85	keep	mobius-transformations|holomorphic-function
 q-expansions-mf	q-expansions and arithmetic data	modular-forms	4	2	0	2	1	110	keep	petersson-inner-product|modularity-theorem
+arithmetic-data-lfunctions	Arithmetic data and modularity links	L-functions	4	2	0	2	1	88	keep	modularity-theorem|analytic-continuation
+derived-functor-cohomology	Derived functor sheaf cohomology	sheaf-cohomology	4	2	0	2	1	69	keep	partition-of-unity|spectral-sequences-ha
+ak-k0-projective	$K_0$ of a ring: the Grothendieck group of projective modules	algebraic-k-theory-foundations	3	3	0	2	4	628	split-blurb	completion-ca|cc-vector-bundles
+hodge-decomposition	The Hodge decomposition theorem	hodge-theory	3	1	0	2	2	265	keep	cy-hodge-numbers|cd-poincare-duality
 vm-direct-method	Direct method (Tonelli)	variational-methods	3	4	0	2	2	270	keep	compactness|reflexivity
-arithmetic-data-lfunctions	Arithmetic data and modularity links	L-functions	3	2	0	2	1	88	keep	modularity-theorem|analytic-continuation
+k-grothendieck-group	Grothendieck group $K_0$ of an exact category	k-theory	3	2	0	2	3	432	split-blurb	completion-ca|cc-vector-bundles
+ld-cramer-theorem	Cramér's theorem	large-deviations	3	2	0	2	1	264	keep	random-variables|it-kl-divergence
 presheaf-functor	Presheaves on Open(X)	sheaves	3	2	0	2	1	141	keep	holomorphic-function|limits-colimits
-yoneda-limits-adjunctions	Yoneda, limits, and adjunctions	category-theory	2	4	0	2	1	110	keep	fundamental-group|yoneda-lemma
+dm-holonomic	Holonomic D-modules and characteristic varieties	d-modules	2	1	0	2	4	405	split-blurb	sm-poisson-bracket|sm-symplectic-form
+tannakian-categories	Tannakian categories — representations of an invisible group	motives	2	3	0	2	2	212	keep	fundamental-group|completion-ca
+hcm-phase-space	Phase space and the cotangent bundle	hamiltonians-classical-mechanics	2	2	0	2	3	422	split-blurb	exterior-derivative|liouville
 abelian-categories	Abelian categories and triangulated preview	homological	2	2	0	2	1	145	keep	snake-lemma|five-lemma
 normal-families	Normal families (Montel)	complex-analysis	2	3	0	2	1	185	keep	holomorphic-function|riemann-mapping
-ld-cramer-theorem	Cramér's theorem	large-deviations	2	2	0	2	1	264	keep	random-variables|it-kl-divergence
 ld-rate-function	Rate functions and convex duality	large-deviations	2	1	0	2	1	204	keep	compactness|central-limit-theorem
 continuity-topology	Continuity & homeomorphism	point-set-topology	2	2	0	2	2	132	keep	compactness|connectedness
 mt-morse-homology	Morse homology	morse-theory	2	2	0	2	2	319	keep	mt-morse-inequalities|compactness
-upper-half-plane-model	The upper half-plane model	upper-half-plane-hyperbolic	2	2	0	2	1	85	keep	mobius-transformations|holomorphic-function
-derived-functor-cohomology	Derived functor sheaf cohomology	sheaf-cohomology	2	2	0	2	1	69	keep	partition-of-unity|spectral-sequences-ha
-aca-hadamard-three-circles	Hadamard's three-circles theorem	advanced-complex-analysis	1	2	0	2	2	333	keep	holomorphic-function|harmonic-functions
-hcm-phase-space	Phase space and the cotangent bundle	hamiltonians-classical-mechanics	1	2	0	2	3	422	split-blurb	exterior-derivative|liouville
+analytic-continuation-lfunc	Analytic continuation of $L$-functions	L-functions	2	2	0	2	1	147	keep	analytic-continuation|modularity-theorem
+ox-modules	Ringed spaces and $\mathcal{O}_X$-modules	sheaves	2	3	0	2	1	170	keep	cc-vector-bundles|scheme-morphisms
+brill-noether-theorem	The Brill–Noether theorem (existence + dimension)	brill-noether	1	1	0	2	3	476	split-blurb	cc-chern-classes|hyperelliptic-curves
+ccr-cr-structure	CR structures and the Heisenberg model	conformal-and-cr-geometry	1	2	0	2	3	611	split-blurb	real-differentiation|tangent-space-manifolds
+mf-risk-neutral	Risk-neutral pricing and martingale measures	mathematical-finance	1	2	0	2	1	348	keep	brownian-motion|martingales
+scv-dbar	The $\bar\partial$-equation and Hörmander's $L^2$ estimates	several-complex-variables	1	3	0	2	2	477	keep	simply-connected|holomorphic-function
+khov-foams	Foams and $sl_n$ link homology	khovanov-homology	1	2	0	2	2	426	keep	kp-khovanov-homology|kp-jones-polynomial
+kg-kahler-identities	Kähler identities and Hodge decomposition	kahler-geometry	1	3	0	2	2	432	keep	compactness|cy-hodge-numbers
+hiw-kohnen-plus-space	Kohnen's plus space	half-integral-weight-forms	1	2	0	2	2	384	keep	binary-forms-basics|hiw-waldspurger
+dm-weyl	The Weyl algebra and D-modules on affine space	d-modules	1	2	0	2	3	454	split-blurb	real-differentiation|laurent-series
+ak-q-construction	Quillen's Q-construction and higher K-theory	algebraic-k-theory-foundations	1	3	0	2	5	946	split-blurb	exact-sequences|fundamental-group
+cm-condensed-sets	Condensed sets: sheaves on the pro-étale site of a point	condensed-mathematics	1	2	0	2	3	585	split-blurb	open-sets|limits-colimits
+gl2-modularity	Modularity: the proven $\GL_2$ case	langlands-program	1	2	0	2	2	241	keep	classical-to-adelic-dictionary|deformation-rings
+gmt-bv-functions	Functions of bounded variation	geometric-measure-theory	1	3	0	2	3	964	split-blurb	lebesgue-measure|compactness
+cd-mayer-vietoris-kunneth	Mayer–Vietoris and Künneth	cohomology-and-duality	1	2	0	2	2	250	keep	snake-lemma|long-exact-sequence-cohomology
+cd-de-rham	De Rham cohomology and the de Rham theorem	cohomology-and-duality	1	2	0	2	3	280	split-blurb	exterior-derivative|cd-poincare-duality
+cd-spectral-sequences	Spectral sequences (introduction)	cohomology-and-duality	1	2	0	2	3	307	split-blurb	exact-sequences|cc-euler-class
 k-applications	Applications: index theorem & K-theory of $\mathcal{O}_F$	k-theory	1	3	0	2	2	436	keep	hdg-applications|cc-vector-bundles
 infty-adjunctions	Adjunctions $\infty$-categorically	infinity-categories	1	3	0	2	2	263	keep	quasi-category|kan-complex
 left-right-fibrations	Left and right fibrations	cocartesian-fibrations	1	1	0	2	2	292	keep	cocartesian-fibration|kan-complex
+banach-alaoglu	Banach–Alaoglu theorem	functional-analysis	1	1	0	2	1	202	keep	reflexivity|compactness
+states-pure-states	States and pure states	operator-algebras	1	3	0	2	1	226	keep	von-neumann-and-nc|krein-milman
 dyn-conservative-dissipative	Conservative vs dissipative flows	dynamical-systems	1	3	0	2	2	275	keep	liouville|sm-symplectic-form
 sp-continuous-martingales	Continuous-time martingales and Brownian motion	stochastic-processes-and-martingales	1	2	0	2	1	228	keep	martingales|sc-ito-integral
 ant-bombieri-vinogradov	Bombieri–Vinogradov on average	analytic-number-theory	1	2	0	2	1	256	keep	hdg-applications|ant-large-sieve
-analytic-continuation-lfunc	Analytic continuation of $L$-functions	L-functions	1	2	0	2	1	147	keep	analytic-continuation|modularity-theorem
-ox-modules	Ringed spaces and $\mathcal{O}_X$-modules	sheaves	1	3	0	2	1	170	keep	cc-vector-bundles|scheme-morphisms
 lefschetz-fixed-point	Grothendieck–Lefschetz fixed-point formula	etale-cohomology	1	2	0	2	2	218	keep	fpt-lefschetz|tangent-space-manifolds
+weil-frobenius-trace	Weil conjectures and Frobenius trace	etale-cohomology	1	1	0	2	2	187	keep	cd-poincare-duality|complex-numbers
+ccr-cr-yamabe	The Webster connection and the CR Yamabe problem	conformal-and-cr-geometry	0	2	0	2	3	611	split-blurb	ccr-conformal-laplacian|compactness
+oc-stochastic	Stochastic dynamic programming	optimal-control-and-dynamic-programming	0	2	0	2	2	356	keep	brownian-motion|sc-ito-formula
+cg-dvoretzky	Spherical sections & Dvoretzky	convex-geometry	0	2	0	2	2	342	keep	hdg-applications|hdg-johnson-lindenstrauss
+scv-cousin	Cousin problems and applications	several-complex-variables	0	2	0	2	3	531	split-blurb	aca-mittag-leffler|holomorphic-function
+maa-l-function	Maass $L$-functions and Ramanujan	maass-forms	0	2	0	2	3	366	split-blurb	real-numbers|analytic-continuation
+dm-bs-polynomial	The Bernstein-Sato polynomial	d-modules	0	1	0	2	3	451	split-blurb	hdg-applications|analytic-continuation
+av-mordell-weil-faltings	Mordell–Weil and Faltings finiteness	abelian-varieties	0	3	0	2	3	442	split-blurb	mordell-weil|neron-tate-canonical-height
+ak-applications	Applications: Bass-Quillen, Wall finiteness, motivic K-theory	algebraic-k-theory-foundations	0	3	0	2	4	681	split-blurb	hdg-applications|cc-euler-class
+mc-examples	Standard model structures: spaces, simplicial sets, chain complexes	model-categories	0	1	0	2	5	997	split-blurb	open-sets|kan-complex
+large-deviations-equilibrium	Large deviations and equilibrium fluctuations	statistical-mechanics	0	2	0	2	2	260	keep	random-variables|central-limit-theorem
 aca-hardy-spaces	Hardy spaces and Fatou boundary	advanced-complex-analysis	0	4	0	2	2	372	keep	holomorphic-function|analytic-continuation
 aca-bergman-kernel	Bergman kernels	advanced-complex-analysis	0	2	0	2	3	670	split-blurb	holomorphic-function|hyperbolic-metric
 aca-quasiconformal-beltrami	Quasiconformal maps and the Beltrami equation	advanced-complex-analysis	0	3	0	2	3	633	split-blurb	riemann-mapping|mr-hyperbolic-3-mflds
 fpt-kkm	Knaster–Kuratowski–Mazurkiewicz lemma	fixed-point-theorems	0	1	0	2	2	307	keep	compactness|singular-homology
+ms-quintic-prediction	The quintic prediction	mirror-symmetry	0	3	0	2	3	494	split-blurb	hcm-applications|dtgw-gw-invariants
 qg-applications	Affine, KZ, and categorification	quantum-groups	0	1	0	2	1	310	keep	kp-khovanov-homology|kp-jones-polynomial
+kan-extension	$\infty$-categorical Kan extensions	infinity-categories	0	3	0	2	2	249	keep	hdg-applications|completion-ca
 signed-measures-radon-nikodym	Signed measures & Radon–Nikodym	measure-theory	0	1	0	2	2	180	keep	absolute-continuity|lebesgue-measure
 hf-harnack-inequality	Harnack's inequality	harmonic-functions	0	1	0	2	2	218	keep	harmonic-functions|holomorphic-function
+sc-applications	Applications: Black–Scholes, Kalman, optimal stopping	stochastic-calculus	0	2	0	2	1	246	keep	sc-ito-formula|mf-bs-pde
 it-aep	Asymptotic equipartition property	information-theory	0	3	0	2	2	380	keep	random-variables|it-source-coding
+cc-equivariant	Equivariant characteristic classes	characteristic-classes	0	2	0	2	2	513	keep	cc-euler-class|dtgw-dt-invariants
 jacobi-symbol-generalization	The Jacobi symbol	quadratic-reciprocity	0	1	0	2	1	159	keep	legendre-symbol|cnt-primality
 zeta-functional-equation	Riemann’s functional equation for $\zeta$	analytic-continuation	0	3	0	2	1	262	keep	analytic-continuation|poisson-summation
 de-rham-curves	Worked example: de Rham of a smooth curve	algebraic-de-rham-cohomology	0	2	0	2	1	256	keep	cy-hodge-numbers|connectedness
 riemann-roch-preview	Grothendieck–Riemann–Roch (preview)	intersection-theory-chow	0	2	0	2	2	305	keep	k-chern-character|exact-sequences
 etale-vs-connected	Étale, connected, and infinitesimal pieces	group-schemes	0	2	0	2	2	412	keep	qg-hopf-algebras|connectedness
-comparison-topological	Comparison with topological $\pi_1$	etale-fundamental-group	0	1	0	2	2	266	keep	analytic-continuation|finite-etale-covers
+frobenius-and-pi1	Frobenius generates $\pi_1^{\acute{e}t}(\Spec\,\mathbb{F}_q)$	etale-fundamental-group	0	2	0	2	2	244	keep	fundamental-group|completion-ca
 concentration-inequalities	Concentration: Markov, Chebyshev, Chernoff, Azuma	probabilistic-method	0	2	0	2	2	281	keep	hdg-talagrand|random-variables
 r-equals-t	The R = T theorem	modularity-and-flt	0	3	0	2	1	264	keep	frey-curve|ribet-level-lowering
-lp-spaces	Lᵖ spaces	measure-theory	15	2	0	1	1	118	keep	riesz-representation
-bounded-operators-fa	Bounded operators and adjoints	functional-analysis	14	3	0	1	1	91	keep	real-differentiation
-fourier-transform-real-line	Fourier transform on $\mathbb{R}$	harmonic-analysis-fourier	9	3	0	1	2	257	keep	real-differentiation
-cech-cohomology	Čech cocycles and cohomology	sheaf-cohomology	9	2	0	1	1	68	keep	cc-vector-bundles
+lp-spaces	Lᵖ spaces	measure-theory	17	2	0	1	1	118	keep	riesz-representation
+bounded-operators-fa	Bounded operators and adjoints	functional-analysis	15	3	0	1	1	91	keep	real-differentiation
+fourier-transform-real-line	Fourier transform on $\mathbb{R}$	harmonic-analysis-fourier	10	3	0	1	2	257	keep	real-differentiation
+cech-cohomology	Čech cocycles and cohomology	sheaf-cohomology	10	2	0	1	1	68	keep	cc-vector-bundles
 field-extensions-basics	Field extensions and minimal polynomials	algebra	8	1	0	1	1	175	keep	splitting-fields
 dirichlet-series-basics	Dirichlet series basics	dirichlet-series-euler-products	8	3	0	1	1	86	keep	complex-numbers
 riemann-integral	Riemann integral	real-analysis	7	2	0	1	1	106	keep	lebesgue-measure
+cd-cup-product	Singular cohomology and the cup product	cohomology-and-duality	6	3	0	1	2	225	keep	open-sets
+cauchy-integral-formula	Cauchy integral formula	complex-analysis	6	1	0	1	1	186	keep	holomorphic-function
+lie-group-definition	Lie groups and matrix examples	lie-groups	6	2	0	1	1	62	keep	fundamental-group
 ant-prime-counting	$\pi(x)$ and the prime number theorem	analytic-number-theory	6	3	0	1	1	230	keep	ant-sieve-methods
 ms-mle	Maximum likelihood and the score equation	mathematical-statistics	5	2	0	1	3	463	split-blurb	ld-sanov-theorem
+hdg-sphere-concentration	Concentration on the sphere	high-dimensional-geometry	5	2	0	1	2	214	keep	vm-isoperimetric
+polynomial-rings-irreducibility	Polynomial rings and irreducibility	algebra	5	1	0	1	1	212	keep	gauss-lemma-qr
+derived-category	The derived category $D(\mathcal{A})$	derived-categories	5	1	0	1	2	232	keep	completion-ca
 presheaf-topos	Presheaf toposes $\hat{C} = [C^{\mathrm{op}}, \mathbf{Set}]$	elementary-topos-theory	5	3	0	1	3	246	split-blurb	limits-colimits
-cauchy-integral-formula	Cauchy integral formula	complex-analysis	5	1	0	1	1	186	keep	holomorphic-function
+artin-map-cft	Artin reciprocity map	class-field-theory	5	1	0	1	1	83	keep	hilbert-class-field
+sl2z-on-H	SL2(Z) action on the upper half-plane	modular-forms	5	2	0	1	1	100	keep	mobius-transformations
 mordell-weil-ec	Mordell–Weil and invariants	elliptic-curves	5	1	0	1	1	81	keep	mordell-weil
-hdg-sphere-concentration	Concentration on the sphere	high-dimensional-geometry	4	2	0	1	2	214	keep	vm-isoperimetric
+applications-picard-serre	Picard groups and Serre duality signals	sheaf-cohomology	5	1	0	1	1	75	keep	pal-kodaira-embedding
+kahler-differentials	Kähler differentials $\Omega^1_{X/k}$	algebraic-de-rham-cohomology	5	1	0	1	2	248	keep	partition-of-unity
+moduli-problem	Moduli problems and parameters	moduli-spaces	5	1	0	1	1	76	keep	complex-numbers
+intersection-product	Intersection product on smooth $X$	intersection-theory-chow	5	2	0	1	2	276	keep	tangent-space-manifolds
+l-adic-cohomology	ℓ-adic cohomology	etale-cohomology	5	2	0	1	1	168	keep	cd-poincare-duality
+git-quotient	GIT quotients and stability	geometric-invariant-theory	4	3	0	1	5	655	split-blurb	cross-ratio
+cg-convex-bodies	Convex bodies & supporting hyperplanes	convex-geometry	4	0	0	1	2	357	keep	compactness
+cob-equivalence	Cobordism as an equivalence relation	cobordism	4	3	0	1	4	486	split-blurb	reflexivity
+boltzmann-canonical	Boltzmann distribution and the canonical ensemble	statistical-mechanics	4	1	0	1	2	250	keep	real-differentiation
+fol-completeness	Gödel's completeness theorem	first-order-logic-and-completeness	4	2	0	1	3	310	split-blurb	compactness
 primes-maximals-ca	Prime vs maximal ideals	commutative-algebra	4	1	0	1	2	187	keep	hcm-applications
 la-axioms	Axioms and matrix examples	lie-algebras	4	2	0	1	2	298	keep	sm-symplectic-form
 infty-functors	Functors and natural transformations $\infty$-categorically	infinity-categories	4	2	0	1	2	235	keep	kan-complex
-kahler-differentials	Kähler differentials $\Omega^1_{X/k}$	algebraic-de-rham-cohomology	4	1	0	1	2	248	keep	partition-of-unity
+pde-laplace-equation	Laplace equation and the Dirichlet problem	partial-differential-equations	4	3	0	1	2	295	keep	hf-maximum-principle
+sc-sde-existence	Stochastic differential equations	stochastic-calculus	4	2	0	1	1	317	keep	brownian-motion
+gluing-affines	Gluing affine schemes	schemes	4	1	0	1	1	76	keep	scheme-morphisms
+higher-genus-moduli	Higher-genus moduli and stable curves	moduli-spaces	4	2	0	1	1	115	keep	first-order-deformation
 matroid-bases-rank	Bases, rank, and cryptomorphism	matroid-theory	4	1	0	1	2	235	keep	matroid-greedy
+graph-laplacian	The graph Laplacian	spectral-methods-data	3	2	0	1	3	313	split-blurb	spectral-clustering
+scv-psh	Plurisubharmonic functions and the Levi form	several-complex-variables	3	2	0	1	2	455	keep	holomorphic-function
+cy-mirror-pair	Mirror symmetry: swapping the diamond	calabi-yau-manifolds	3	2	0	1	3	461	split-blurb	dtgw-gw-invariants
 w-multiresolution	Multiresolution analysis	wavelets	3	2	0	1	2	429	keep	real-differentiation
-fol-completeness	Gödel's completeness theorem	first-order-logic-and-completeness	3	2	0	1	3	310	split-blurb	compactness
+fol-syntax	Syntax: languages, terms, formulas	first-order-logic-and-completeness	3	1	0	1	3	341	split-blurb	compactness
+sheaves-on-a-site	Sheaves and sheafification	grothendieck-topologies-sites	3	2	0	1	2	262	keep	sieves
 simplicial-set	Simplicial sets as $\Delta^{\mathrm{op}} \to \mathbf{Set}$	simplicial-sets-and-nerve	3	2	0	1	2	256	keep	limits-colimits
 infty-limits	$\infty$-categorical (co)limits	infinity-categories	3	2	0	1	2	243	keep	kan-complex
-pde-laplace-equation	Laplace equation and the Dirichlet problem	partial-differential-equations	3	3	0	1	2	295	keep	hf-maximum-principle
-lie-group-definition	Lie groups and matrix examples	lie-groups	3	2	0	1	1	62	keep	fundamental-group
+schwartz-space-distributions	Schwartz space and tempered distributions	harmonic-analysis-fourier	3	2	0	1	2	306	keep	real-differentiation
 branched-covers-rs	Branched covers and maps	riemann-surfaces	3	1	0	1	1	77	keep	fundamental-group
-sl2z-on-H	SL2(Z) action on the upper half-plane	modular-forms	3	2	0	1	1	100	keep	mobius-transformations
-lfunction-prototype	Prototype L-functions	L-functions	3	1	0	1	1	87	keep	analytic-continuation
-gluing-affines	Gluing affine schemes	schemes	3	1	0	1	1	76	keep	scheme-morphisms
+adele-ring	The adèle ring	adeles-and-ideles	3	1	0	1	2	267	keep	completion-ca
+bezout-theorem-core	Bézout theorem	bezout	3	1	0	1	1	95	keep	intersection-multiplicity
 yoneda-functor-points	Functor-of-points viewpoint	functor-of-points	3	3	0	1	1	99	keep	cc-vector-bundles
+ct-distance	Hamming distance and the Singleton bound	coding-theory	2	0	0	1	3	351	split-blurb	ct-reed-solomon
+scv-pseudoconvex	Domains of holomorphy and Levi pseudoconvexity	several-complex-variables	2	2	0	1	3	425	split-blurb	riemann-mapping
+shim-canonical-model	Adelic double quotient and canonical models	shimura-varieties	2	3	0	1	3	681	split-blurb	strong-approximation
+ht-hurewicz-whitehead	Hurewicz and Whitehead theorems	homotopy-theory	2	2	0	1	3	550	split-blurb	open-sets
+maa-spectral	Spectral decomposition of $L^2(\Gamma\backslash\mathbb{H})$	maass-forms	2	1	0	1	2	411	keep	eisenstein-series-mf
+mc-axioms	Quillen's model category axioms	model-categories	2	2	0	1	5	792	split-blurb	limits-colimits
+cm-condensed-abelian	Condensed abelian groups and homological algebra	condensed-mathematics	2	2	0	1	4	550	split-blurb	spectral-sequences-ha
+kg-plane-waves	Plane-wave solutions and the dispersion relation	klein-gordon-equation	2	1	0	1	3	575	split-blurb	sr-energy-momentum
 cy-period-map	Periods and Picard–Fuchs	calabi-yau-manifolds	2	3	0	1	3	398	split-blurb	holomorphic-function
+ms-gromov-witten	A-model: Gromov–Witten invariants	mirror-symmetry	2	2	0	1	2	446	keep	dtgw-virtual-fundamental-class
 mr-statement	Mostow's rigidity theorem	mostow-rigidity	2	3	0	1	2	170	keep	conformal-map
-kp-reidemeister-moves	Reidemeister moves	knot-polynomials	2	1	0	1	2	249	keep	kp-jones-polynomial
-k-grothendieck-group	Grothendieck group $K_0$ of an exact category	k-theory	2	2	0	1	3	432	split-blurb	cc-vector-bundles
-fol-syntax	Syntax: languages, terms, formulas	first-order-logic-and-completeness	2	1	0	1	3	341	split-blurb	compactness
 von-neumann-ordinals	Von Neumann ordinals	zfc-and-ordinals	2	1	0	1	2	195	keep	ordinal-arithmetic
 cardinals-cofinality	Cardinals and cofinality	zfc-and-ordinals	2	2	0	1	1	218	keep	continuum-hypothesis
-snake-lemma	The snake lemma	homological	2	1	0	1	1	139	keep	long-exact-sequence
-sheaves-on-a-site	Sheaves and sheafification	grothendieck-topologies-sites	2	2	0	1	2	262	keep	sieves
+resolutions-ha	Resolutions: projective, injective, flat	homological	2	2	0	1	1	110	keep	exact-sequences
 horn-filling	Inner-horn filling and quasi-categorical nerves	simplicial-sets-and-nerve	2	2	0	1	2	227	keep	quasi-category
 grothendieck-construction	Straightening / unstraightening: the Grothendieck construction	cocartesian-fibrations	2	2	0	1	2	365	keep	cocartesian-fibration
 spectrum-of-element	Continuous functional calculus	operator-algebras	2	3	0	1	1	192	keep	positive-elements
 positive-elements	Positive elements	operator-algebras	2	1	0	1	1	195	keep	gns-construction
-schwartz-space-distributions	Schwartz space and tempered distributions	harmonic-analysis-fourier	2	2	0	1	2	306	keep	real-differentiation
 hf-mean-value-property	Mean value property	harmonic-functions	2	2	0	1	2	235	keep	holomorphic-function
+hf-subharmonic	Subharmonic functions and Perron's method	harmonic-functions	2	2	0	1	2	298	keep	harmonic-functions
 st-spectral-theorem-compact	Spectral theorem (compact self-adjoint)	spectral-theory	2	2	0	1	1	214	keep	compactness
-sc-sde-existence	Stochastic differential equations	stochastic-calculus	2	2	0	1	1	317	keep	brownian-motion
+rw-markov-chains	Markov chains and transition matrices	random-walks-and-mixing	2	1	0	1	1	196	keep	rw-stationary-distribution
 rw-spectral-gap	Spectral gap and rapid mixing	random-walks-and-mixing	2	2	0	1	1	217	keep	cheeger-inequality
+submanifolds-immersions	Immersions, submersions, and submanifolds	smooth-manifolds	2	1	0	1	1	177	keep	partition-of-unity
+cc-classifying-spaces	Classifying spaces $BO(n)$, $BU(n)$	characteristic-classes	2	2	0	1	5	529	split-blurb	k-chern-character
 four-squares-and-waring	Four squares and Waring perspective	additive-number-theory	2	1	0	1	1	80	keep	eisenstein-series-mf
-artin-map-cft	Artin reciprocity map	class-field-theory	2	1	0	1	1	83	keep	hilbert-class-field
+places-and-local-fields	Places and local fields	adeles-and-ideles	2	2	0	1	2	273	keep	completion-ca
 mc-jacobian-J0	The Jacobian $J_0(N)$ and Eichler–Shimura	modular-curves	2	3	0	1	2	396	keep	eisenstein-series-mf
-bezout-theorem-core	Bézout theorem	bezout	2	1	0	1	1	95	keep	intersection-multiplicity
 sheaf-morphisms-stalks	Morphisms of sheaves and stalk criteria	sheaves	2	2	0	1	1	202	keep	monoidal-categories
-intersection-product	Intersection product on smooth $X$	intersection-theory-chow	2	2	0	1	2	276	keep	tangent-space-manifolds
+rmt-universality	Bulk and edge universality	random-matrix-theory	1	2	0	1	2	339	keep	brownian-motion
+git-reductive	Reductive groups and the Reynolds operator	geometric-invariant-theory	1	2	0	1	3	705	split-blurb	maschke-theorem
+git-kempf-ness	Kempf–Ness and symplectic reduction	geometric-invariant-theory	1	2	0	1	5	667	split-blurb	sm-symplectic-form
+hf-lagrangian-floer	Lagrangian Floer homology	heegaard-floer	1	2	0	1	3	434	split-blurb	compactness
+riemann-roch-bn	Riemann–Roch as the dimension-counting tool	brill-noether	1	2	0	1	3	445	split-blurb	canonical-embedding
+wrd-locus	$W^r_d(C)$ — the Brill–Noether locus	brill-noether	1	2	0	1	3	385	split-blurb	cc-vector-bundles
+ccr-conformal-class	Conformal class of a Riemannian metric	conformal-and-cr-geometry	1	2	0	1	2	460	keep	riemann-mapping
+ccr-yamabe-problem	The Yamabe problem and the Yamabe equation	conformal-and-cr-geometry	1	3	0	1	3	522	split-blurb	compactness
+mb-kimura-diffusion	Genetic drift and the Kimura diffusion	mathematical-biology	1	3	0	1	3	415	split-blurb	sg-infinitesimal-generator
+oc-euler-lagrange	Euler–Lagrange detour and Bolza form	optimal-control-and-dynamic-programming	1	2	0	1	2	282	keep	hf-maximum-principle
+dtgw-moduli-ideal-sheaves	Moduli of ideal sheaves on a Calabi–Yau threefold	donaldson-thomas-and-gw-invariants	1	2	0	1	3	563	split-blurb	cc-chern-classes
+dtgw-mnop-correspondence	The MNOP (DT/GW) correspondence	donaldson-thomas-and-gw-invariants	1	2	0	1	3	546	split-blurb	dtgw-topological-vertex
+scv-stein	Stein manifolds and Cartan's Theorems A and B	several-complex-variables	1	3	0	1	4	514	split-blurb	holomorphic-function
+khov-rasmussen	Lee deformation and the Rasmussen invariant	khovanov-homology	1	2	0	1	3	442	split-blurb	kp-khovanov-homology
+as-function-fields	Function-field analogues	arithmetic-statistics	1	2	0	1	4	484	split-blurb	hyperelliptic-curves
+cm-heegner	Heegner points on modular curves	complex-multiplication	1	3	0	1	2	417	keep	hilbert-class-field
+cm-main-theorem	Main theorem of complex multiplication	complex-multiplication	1	2	0	1	3	468	split-blurb	hilbert-class-field
+trop-semiring	The tropical semiring	tropical-geometry	1	0	0	1	2	348	keep	real-numbers
+surg-exact-sequence	The surgery exact sequence	surgery-theory	1	3	0	1	2	629	keep	fundamental-group
+kg-complex-structure	Almost complex structure and integrability	kahler-geometry	1	2	0	1	3	483	split-blurb	exterior-derivative
+mcg-casson	Casson invariant and the Donaldson preview	mapping-class-groups	1	2	0	1	2	370	keep	kp-alexander-polynomial
+cc-f-isocrystals	F-isocrystals, Newton above Hodge	crystalline-cohomology	1	2	0	1	4	483	split-blurb	monodromy-theorem
+maa-eisenstein	Eisenstein series and meromorphic continuation	maass-forms	1	2	0	1	3	350	split-blurb	analytic-continuation
+dm-dx	$\mathcal{D}_X$-modules on a smooth variety	d-modules	1	3	0	1	3	442	split-blurb	dm-riemann-hilbert
+cohomology-zoo	The cohomology zoo and the realization problem	motives	1	2	0	1	2	253	keep	fpt-lefschetz
+ak-localization-sequence	The localization long exact sequence	algebraic-k-theory-foundations	1	2	0	1	4	911	split-blurb	finite-abelian-classification
+cft-as-langlands	Class field theory as Langlands for $\GL_1$	langlands-program	1	2	0	1	4	326	split-blurb	idele-class-group
+functoriality-langlands-group	Functoriality and the Langlands group	langlands-program	1	1	0	1	3	284	split-blurb	motivic-galois-group
+ml-fourier-integral-ops	Fourier integral operators and Lagrangian distributions	microlocal-analysis	1	2	0	1	4	874	split-blurb	sm-symplectic-form
+gmt-perimeter-sets	Sets of finite perimeter and reduced boundary	geometric-measure-theory	1	1	0	1	4	898	split-blurb	lebesgue-measure
+gmt-area-coarea	Area and coarea formulas	geometric-measure-theory	1	1	0	1	4	955	split-blurb	lebesgue-integral
+gmt-currents	Currents and Federer–Fleming compactness	geometric-measure-theory	1	2	0	1	5	1002	split-blurb	compactness
+qft-path-integral	The Feynman path integral	quantum-field-theory	1	1	0	1	4	836	split-blurb	analytic-continuation
+microstates-ensembles	Microstates and ensembles	statistical-mechanics	1	2	0	1	2	249	keep	liouville
 ms-period-integrals	B-model: periods and Picard–Fuchs	mirror-symmetry	1	3	0	1	3	440	split-blurb	holomorphic-function
 hcm-canonical-transformations	Canonical transformations and Hamilton–Jacobi	hamiltonians-classical-mechanics	1	2	0	1	3	413	split-blurb	sm-symplectic-form
 hcm-integrable-systems	Integrable systems and KAM	hamiltonians-classical-mechanics	1	3	0	1	2	446	keep	hcm-hamilton-equations
 e-explicit-constructions	Explicit constructions	expanders	1	2	0	1	1	326	keep	hdg-applications
 qg-knot-invariants	Reshetikhin–Turaev knot invariants	quantum-groups	1	2	0	1	1	284	keep	kp-jones-polynomial
+ca-finite-type	Finite type and the ADE classification	cluster-algebras	1	2	0	1	2	321	keep	monoidal-categories
 voa-vertex-operators	Vertex operators and locality	vertex-operator-algebras	1	2	0	1	1	264	keep	laurent-series
+kp-quantum-invariants	Quantum invariants	knot-polynomials	1	1	0	1	2	317	keep	kp-reidemeister-moves
 rf-singularities	Singularity formation and ancient solutions	ricci-flow	1	1	0	1	3	310	split-blurb	compactness
 k-algebraic-k-theory	Algebraic K-theory $K_n(R)$	k-theory	1	1	0	1	2	395	keep	projective-modules
+as-elliptic-operators	Elliptic operators and Fredholm property	atiyah-singer-index-theorem	1	3	0	1	2	446	keep	compactness
 as-special-cases	Classical specialisations	atiyah-singer-index-theorem	1	2	0	1	1	425	keep	gauss-bonnet
+fol-compactness	Compactness and non-standard models	first-order-logic-and-completeness	1	2	0	1	3	320	split-blurb	hdg-applications
 mt-types-and-saturation	Types and saturation	model-theory-basics	1	2	0	1	3	434	split-blurb	compactness
 forcing-generic-extensions	Generic filters and the model $M[G]$	forcing-and-independence	1	2	0	1	2	249	keep	countability
-polynomial-rings-irreducibility	Polynomial rings and irreducibility	algebra	1	1	0	1	1	212	keep	gauss-lemma-qr
 tensor-and-dual-reps	Tensor products and dual representations	representation-theory	1	1	0	1	1	184	keep	schurs-lemma
 spec-zariski-ca	Spec and Zariski topology	commutative-algebra	1	2	0	1	1	159	keep	connectedness
-resolutions-ha	Resolutions: projective, injective, flat	homological	1	2	0	1	1	110	keep	exact-sequences
+quasi-isomorphisms	Quasi-isomorphisms and localization	derived-categories	1	1	0	1	1	215	keep	completion-ca
 presheaf-infty-topos	$\mathcal{P}(C)$: presheaf $\infty$-topoi	infinity-topoi	1	2	0	1	2	272	keep	kan-complex
 inverse-function-theorem	Inverse & implicit function theorems	real-analysis	1	1	0	1	1	149	keep	real-differentiation
+metric-completeness-baire	Metric completeness & Baire category	real-analysis	1	2	0	1	1	146	keep	completion-ca
 bump-functions	Bump functions & mollification	real-analysis	1	1	0	1	1	166	keep	partition-of-unity
+hausdorff-measure	Hausdorff measure & dimension	measure-theory	1	1	0	1	1	192	keep	lebesgue-measure
 adjoint-hilbert	Adjoint operator on Hilbert space	functional-analysis	1	2	0	1	1	147	keep	complex-numbers
-states-pure-states	States and pure states	operator-algebras	1	3	0	1	1	226	keep	von-neumann-and-nc
-hf-subharmonic	Subharmonic functions and Perron's method	harmonic-functions	1	2	0	1	2	298	keep	harmonic-functions
 st-compact-fredholm	Compact operators and the Fredholm alternative	spectral-theory	1	2	0	1	1	274	keep	compactness
-sc-feynman-kac	Feynman–Kac formula	stochastic-calculus	1	3	0	1	1	254	keep	law-of-large-numbers
-rw-markov-chains	Markov chains and transition matrices	random-walks-and-mixing	1	1	0	1	1	196	keep	rw-stationary-distribution
 it-source-coding	Source coding	information-theory	1	1	0	1	2	310	keep	it-aep
 ld-gartner-ellis	Gärtner–Ellis theorem	large-deviations	1	2	0	1	1	261	keep	markov-chains
-submanifolds-immersions	Immersions, submersions, and submanifolds	smooth-manifolds	1	1	0	1	1	177	keep	partition-of-unity
 pullback-of-forms	Pullback of forms	differential-forms	1	2	0	1	1	142	keep	exterior-derivative
 gauss-curvature-geodesics	Gaussian curvature and geodesics	differential-geometry	1	1	0	1	1	219	keep	vm-euler-lagrange
 riemann-curvature-tensor	Curvature tensor and comparison	riemannian-geometry	1	1	0	1	1	93	keep	fundamental-group
-cc-classifying-spaces	Classifying spaces $BO(n)$, $BU(n)$	characteristic-classes	1	2	0	1	5	529	split-blurb	k-chern-character
 radical-extensions	Radical extensions	galois	1	2	0	1	2	283	keep	complex-numbers
 normal-separable-extensions	Normal and separable extensions	galois	1	2	0	1	1	178	keep	splitting-fields
 multiplicative-group-mod-p	The multiplicative group (Z/p)×	quadratic-reciprocity	1	1	0	1	2	265	keep	legendre-symbol
 supplementary-laws-qr	Supplementary laws	quadratic-reciprocity	1	1	0	1	1	106	keep	gauss-lemma-qr
-binary-forms-basics	Binary quadratic forms	quadratic-forms-genus-theory	1	1	0	1	1	172	keep	genus-theory
 gaussian-integer-splitting	Gaussian integers and prime splitting	additive-number-theory	1	1	0	1	1	115	keep	legendre-symbol
 local-global-cft	Local and global class field theory	class-field-theory	1	1	0	1	1	86	keep	hilbert-class-field
 dedekind-eta-modular	Dedekind eta as a modular form	partitions-generating-functions	1	3	0	1	1	141	keep	theta-transformation-law
+hecke-self-adjointness	Self-adjointness of $T_p$	hecke-operators	1	2	0	1	1	202	keep	eisenstein-series-mf
 basel-problem	The Basel problem: ζ(2) = π²/6	zeta-values	1	1	0	1	1	187	keep	uniform-convergence
+mc-heegner-points	Heegner points and CM	modular-curves	1	2	0	1	2	524	keep	hilbert-class-field
 stalks-local-data	Stalks and germs	sheaves	1	1	0	1	1	143	keep	holomorphic-function
-moduli-problem	Moduli problems and parameters	moduli-spaces	1	1	0	1	1	76	keep	complex-numbers
 etale-equivalence-relation	Étale equivalence relations	algebraic-spaces	1	2	0	1	2	231	keep	reflexivity
 deligne-mumford-vs-artin	Deligne–Mumford vs. Artin stacks	stacks	1	1	0	1	1	126	keep	cc-vector-bundles
 obstructions-H2	Obstructions live in $H^2(X_0, T_{X_0})$	deformation-theory	1	2	0	1	2	256	keep	first-order-deformation
+deformation-functor	Deformation functors and Schlessinger's criteria	deformation-theory	1	2	0	1	2	356	keep	tangent-space-manifolds
 bipartite-and-expanders	Bipartite graphs, expanders, and Ramanujan	spectral-graph-theory	1	1	0	1	2	249	keep	hdg-applications
 matroid-duality	Matroid duality	matroid-theory	1	1	0	1	2	214	keep	matroid-greedy
 geometric-realization-nerve	Geometric realization and the nerve	simplicial-complexes-combinatorial	1	2	0	1	2	275	keep	open-sets
+symmetric-power-l-functions	Symmetric-power L-functions	sato-tate	1	5	0	1	1	102	keep	analytic-continuation
+comparison-theorems-etale	Comparison theorems: étale vs. singular, de Rham, crystalline	etale-cohomology	1	3	0	1	1	220	keep	koszul-complex-ca
+string-dualities	Dualities: T-duality and mirror symmetry	string-theory	1	2	0	1	2	494	keep	dtgw-gw-invariants
+rmt-katz-sarnak	Katz–Sarnak symmetry of L-function families	random-matrix-theory	0	3	0	1	3	501	split-blurb	frobenius-element
+ct-lattices	Lattice codes and sphere packings	coding-theory	0	2	0	1	3	408	split-blurb	ct-hamming
+mf-ito-finance	Itô diffusions in finance	mathematical-finance	0	2	0	1	1	373	keep	sc-ito-formula
+pchar-artin-schreier	Wild ramification and Artin–Schreier covers	positive-characteristic-ag	0	3	0	1	4	473	split-blurb	completion-ca
+cg-brunn-minkowski	Brunn–Minkowski inequality	convex-geometry	0	1	0	1	2	272	keep	vm-isoperimetric
+trop-applications	Mikhalkin's correspondence and mirror symmetry	tropical-geometry	0	3	0	1	3	408	split-blurb	dtgw-gw-invariants
+mcg-teichmuller	Teichmüller space and the $\mathrm{Mod}(S)$ action	mapping-class-groups	0	3	0	1	2	369	keep	riemannian-metrics
+ht-loop	Loop spaces and Bott periodicity	homotopy-theory	0	2	0	1	3	685	split-blurb	k-bott-periodicity
+dm-pde	D-modules and PDE: hypergeometric systems	d-modules	0	2	0	1	2	406	keep	fundamental-group
+cob-oriented	Oriented cobordism $\Omega_*^{SO}$ and the signature theorem	cobordism	0	3	0	1	3	513	split-blurb	cc-pontryagin
+cob-tqft	TQFT and the cobordism category	cobordism	0	3	0	1	4	748	split-blurb	cd-poincare-duality
+cf-markoff	Markoff spectrum and Markoff numbers	continued-fractions	0	1	0	1	3	379	split-blurb	lebesgue-measure
+cf-padic-roth	$p$-adic Roth and the subspace theorem	continued-fractions	0	2	0	1	2	472	keep	completion-ca
+pal-vanishing	Kodaira and Kawamata–Viehweg vanishing	positivity-and-ample-line-bundles	0	3	0	1	2	350	keep	hdg-applications
+standard-conjectures	The standard conjectures and the road forward	motives	0	1	0	1	3	263	split-blurb	motivic-galois-group
+mc-bridge-infinity	From model categories to $\infty$-categories	model-categories	0	2	0	1	4	1118	split-blurb	kan-complex
+cm-applications	Applications: analytic geometry, $p$-adic Hodge theory, analytic stacks	condensed-mathematics	0	2	0	1	1	575	keep	completion-ca
+gmt-applications	Applications: Plateau, minimal surfaces, and Mumford–Shah	geometric-measure-theory	0	2	0	1	4	967	split-blurb	compactness
+tv-mirror	Reflexive polytopes and Batyrev mirror pairs	toric-varieties	0	1	0	1	1	293	keep	reflexivity
 aca-bloch-theorem	Bloch's theorem	advanced-complex-analysis	0	3	0	1	2	434	keep	holomorphic-function
 aca-nevanlinna-theory	Nevanlinna theory	advanced-complex-analysis	0	2	0	1	2	532	keep	lebesgue-measure
+solving-polynomial-systems	Solving polynomial systems & implicitization	groebner-bases	0	1	0	1	2	276	keep	hdg-applications
 vm-mountain-pass	Mountain-pass theorem	variational-methods	0	3	0	1	1	248	keep	compactness
 fpt-schauder	Schauder fixed-point theorem	fixed-point-theorems	0	3	0	1	2	199	keep	compactness
 cy-examples	Examples: elliptic curves, K3, the quintic	calabi-yau-manifolds	0	3	0	1	5	407	split-blurb	cy-hodge-numbers
-cy-applications	String compactifications, DT, SYZ	calabi-yau-manifolds	0	1	0	1	3	469	split-blurb	k-chern-character
 hdg-isoperimetry	Gaussian isoperimetry	high-dimensional-geometry	0	2	0	1	2	252	keep	vm-isoperimetric
-ms-quintic-prediction	The quintic prediction	mirror-symmetry	0	3	0	1	3	494	split-blurb	hcm-applications
 ros-applications	Applications and frontiers	resolution-of-singularities	0	2	0	1	3	386	split-blurb	hdg-applications
 d-finite-projective-planes	Finite projective planes	designs	0	2	0	1	3	318	split-blurb	two-squares-theorem
 sm-darboux	Darboux's theorem	symplectic-manifolds	0	2	0	1	3	253	split-blurb	riemannian-metrics
@@ -279,22 +450,20 @@ gcgt-applications	Applications and frontiers	geometric-and-combinatorial-group-t
 w-lifting-scheme	The lifting scheme	wavelets	0	2	0	1	2	398	keep	w-biorthogonal
 w-biorthogonal	Biorthogonal wavelets	wavelets	0	2	0	1	2	422	keep	w-haar-wavelet
 se-path-integral-preview	Path integral and the classical limit	schrodinger-equation	0	1	0	1	2	362	keep	lebesgue-measure
-kp-quantum-invariants	Quantum invariants	knot-polynomials	0	1	0	1	2	317	keep	kp-reidemeister-moves
-as-elliptic-operators	Elliptic operators and Fredholm property	atiyah-singer-index-theorem	0	3	0	1	2	446	keep	compactness
 as-topological-side	The topological index via $\mathrm{ch}\cdot\mathrm{Td}$	atiyah-singer-index-theorem	0	5	0	1	3	423	split-blurb	k-chern-character
 as-applications	Heat kernel, families, equivariant, anomalies	atiyah-singer-index-theorem	0	2	0	1	2	525	keep	atiyah-singer-statement
 equivalence-relations	Equivalence relations and quotients	naive-set-theory	0	1	0	1	1	119	keep	fundamental-group
-fol-compactness	Compactness and non-standard models	first-order-logic-and-completeness	0	2	0	1	3	320	split-blurb	hdg-applications
 mt-applications-to-algebra	Applications to algebra	model-theory-basics	0	4	0	1	3	448	split-blurb	compactness
 comp-godel-incompleteness	Gödel incompleteness — computability lens	computability-and-decidability	0	2	0	1	4	538	split-blurb	comp-turing-machines
 two-categories	2-categories preview	category-theory	0	1	0	1	1	173	keep	kan-extensions
 enriched-categories	Enriched categories preview	category-theory	0	1	0	1	1	192	keep	metric-spaces
+double-complex-ha	Double complexes and total complexes	homological	0	1	0	1	2	218	keep	spectral-sequences-ha
+tor-symmetry-ha	Symmetry of Tor	homological	0	2	0	1	2	253	keep	spectral-sequences-ha
 t-structures	$t$-structures and hearts	derived-categories	0	2	0	1	3	297	split-blurb	exact-sequences
 cyclic-periodic-tate	Cyclic groups, periodicity, and Tate cohomology	group-cohomology	0	2	0	1	2	274	keep	exact-sequences
 g-set-topos	The topos of $G$-sets	elementary-topos-theory	0	2	0	1	2	228	keep	limits-colimits
 lem-failure	Why LEM fails: double negation in toposes	heyting-algebras-toposes	0	2	0	1	2	211	keep	continuum-hypothesis
 geometric-realization	Geometric realization $|X|$	simplicial-sets-and-nerve	0	2	0	1	1	248	keep	kan-complex
-kan-extension	$\infty$-categorical Kan extensions	infinity-categories	0	3	0	1	2	249	keep	hdg-applications
 examples-of-fibrations	Examples: arrow categories, modules, classifying spaces	cocartesian-fibrations	0	4	0	1	3	355	split-blurb	hcm-applications
 giraud-infty	$\infty$-Giraud axioms	infinity-topoi	0	2	0	1	2	237	keep	reflexivity
 multivariable-integration	Multivariable integration	real-analysis	0	2	0	1	1	102	keep	measurable-functions
@@ -302,193 +471,261 @@ power-series-real	Power series & radius of convergence	real-analysis	0	2	0	1	1	1
 c-space-arzela	C[a,b] & the Arzelà–Ascoli theorem	real-analysis	0	1	0	1	1	150	keep	compactness
 lebesgue-differentiation	Lebesgue differentiation theorem	real-analysis	0	2	0	1	2	196	keep	lebesgue-measure
 fubini-tonelli	Fubini & Tonelli	measure-theory	0	2	0	1	2	207	keep	lebesgue-measure
-hausdorff-measure	Hausdorff measure & dimension	measure-theory	0	1	0	1	1	192	keep	lebesgue-measure
 big-four-theorems	The big four theorems	functional-analysis	0	1	0	1	1	129	keep	hdg-applications
 von-neumann-and-nc	Noncommutative dictionary	operator-algebras	0	3	0	1	2	214	keep	cc-vector-bundles
 heat-kernel-gaussian	Heat kernel and the Gaussian eigenfunction	harmonic-analysis-fourier	0	2	0	1	2	269	keep	brownian-motion
 pontryagin-duality	Pontryagin duality (teaser)	harmonic-analysis-fourier	0	2	0	1	2	316	keep	analytic-continuation
 supports-distributions	Supports, distributions, and densities	probability-theory	0	1	0	1	1	197	keep	hdg-applications
-sc-applications	Applications: Black–Scholes, Kalman, optimal stopping	stochastic-calculus	0	2	0	1	1	246	keep	sc-ito-formula
 rw-coupling-method	Coupling for upper bounds on mixing	random-walks-and-mixing	0	1	0	1	1	193	keep	markov-chains
 rw-applications-mcmc	Markov-chain Monte Carlo	random-walks-and-mixing	0	2	0	1	1	221	keep	rw-mixing-time
 ld-applications	Applications: Schilder, Freidlin–Wentzell, entropy	large-deviations	0	2	0	1	1	284	keep	brownian-motion
-cc-equivariant	Equivariant characteristic classes	characteristic-classes	0	2	0	1	2	513	keep	cc-euler-class
 mt-applications	Applications and generalisations	morse-theory	0	2	0	1	1	256	keep	k-bott-periodicity
 mt-morse-smale	Morse–Smale gradients and transversality	morse-theory	0	2	0	1	3	469	split-blurb	compactness
 ideals-vs-forms	Forms and ideal classes	quadratic-forms-genus-theory	0	3	0	1	1	174	keep	form-class-group
+local-global-principle	Local-global (Hasse) principle	p-adic-numbers	0	2	0	1	1	217	keep	completion-ca
 isometry-group-psl2r	PSL2(R) and the isometry trichotomy	upper-half-plane-hyperbolic	0	1	0	1	1	151	keep	mobius-transformations
-hecke-self-adjointness	Self-adjointness of $T_p$	hecke-operators	0	2	0	1	1	202	keep	eisenstein-series-mf
-monodromy-theorem	Monodromy theorem	analytic-continuation	0	3	0	1	2	223	keep	compactness
 schwarz-reflection	Schwarz reflection principle	analytic-continuation	0	2	0	1	1	186	keep	analytic-continuation
 semisimple-decomposition	Irreducibility and semisimplification	galois-representations	0	2	0	1	1	133	keep	group-representations
-mc-heegner-points	Heegner points and CM	modular-curves	0	2	0	1	2	524	keep	hilbert-class-field
 hasse-bound-point-counting	Point counting and the Hasse bound	singular-cubics-reduction	0	2	0	1	2	168	keep	modularity-theorem
 leray-acyclic-covers	Leray acyclic covers and affine vanishing	sheaf-cohomology	0	1	0	1	2	223	keep	spectral-sequences-ha
-long-exact-sequence-cohomology	Long exact sequence in cohomology	sheaf-cohomology	0	2	0	1	1	173	keep	hdg-applications
-higher-genus-moduli	Higher-genus moduli and stable curves	moduli-spaces	0	2	0	1	1	115	keep	first-order-deformation
 between-schemes-and-stacks	Algebraic spaces sit between schemes and DM stacks	algebraic-spaces	0	2	0	1	2	267	keep	cc-vector-bundles
 hopf-algebra	Affine group schemes ↔ commutative Hopf algebras	group-schemes	0	2	0	1	1	242	keep	qg-hopf-algebras
-frobenius-and-pi1	Frobenius generates $\pi_1^{\acute{e}t}(\Spec\,\mathbb{F}_q)$	etale-fundamental-group	0	2	0	1	2	244	keep	fundamental-group
-deformation-functor	Deformation functors and Schlessinger's criteria	deformation-theory	0	2	0	1	2	356	keep	tangent-space-manifolds
+triangle-removal-regularity	Triangle removal lemma and Szemerédi regularity	extremal-combinatorics	0	1	0	1	3	333	split-blurb	cf-roth
 shellable-cohen-macaulay	Shellable and Cohen–Macaulay complexes	simplicial-complexes-combinatorial	0	2	0	1	2	327	keep	stanley-reisner-ring
-symmetric-power-l-functions	Symmetric-power L-functions	sato-tate	0	5	0	1	1	102	keep	analytic-continuation
-weil-frobenius-trace	Weil conjectures and Frobenius trace	etale-cohomology	0	1	0	1	2	187	keep	complex-numbers
-algebraic-structures	Groups, rings, and fields	algebra	20	0	0	0	1	111	keep	
-banach-hilbert-spaces	Banach and Hilbert spaces	functional-analysis	17	1	0	0	1	84	keep	
-sets-functions	Sets and functions	naive-set-theory	15	0	0	0	1	114	keep	
+algebraic-structures	Groups, rings, and fields	algebra	25	0	0	0	1	111	keep	
+sets-functions	Sets and functions	naive-set-theory	18	0	0	0	1	114	keep	
+banach-hilbert-spaces	Banach and Hilbert spaces	functional-analysis	18	1	0	0	1	84	keep	
+modular-form-definition	Definition of modular forms	modular-forms	13	1	0	0	1	113	keep	
+pde-classification	Classification: elliptic / parabolic / hyperbolic	partial-differential-equations	12	1	0	0	2	248	keep	
 expectation-moments	Expectation, variance, and moments	probability-theory	12	3	0	0	1	132	keep	
 prime-ideals-factorization-ant	Ideal factorization and ramification	algebraic-number-theory	12	2	0	0	1	84	keep	
-modular-form-definition	Definition of modular forms	modular-forms	12	1	0	0	1	113	keep	
-ideals-quotients-ca	Ideals and quotient rings	commutative-algebra	9	1	0	0	1	74	keep	
-pde-classification	Classification: elliptic / parabolic / hyperbolic	partial-differential-equations	9	1	0	0	2	248	keep	
-functors-natural-transformations	Functors and natural transformations	category-theory	8	1	0	0	1	102	keep	
+elliptic-curve-definition	Elliptic curves and Weierstrass models	elliptic-curves	12	1	0	0	1	87	keep	
+chain-complexes	Chain complexes and homology	homological	11	1	0	0	1	95	keep	
+padic-norm-completion	p-adic norm and completion	p-adic-numbers	11	1	0	0	1	63	keep	
+ideals-quotients-ca	Ideals and quotient rings	commutative-algebra	10	1	0	0	1	74	keep	
+functors-natural-transformations	Functors and natural transformations	category-theory	9	1	0	0	1	102	keep	
+sobolev-spaces-wkp	Sobolev spaces $W^{k,p}$ and $H^s$	sobolev-spaces-distributions	9	3	0	0	1	212	keep	
+forms-and-wedge	Differential forms and wedge product	differential-forms	9	1	0	0	1	68	keep	
+field-extensions-galois	Field extensions and automorphisms	galois	9	1	0	0	1	79	keep	
+galois-rep-definition	Galois representations and examples	galois-representations	9	2	0	0	1	71	keep	
+spectrum-primes	Prime spectrum and Zariski topology	schemes	9	1	0	0	1	73	keep	
+cy-definition	Definition: Ricci-flat Kähler manifolds	calabi-yau-manifolds	8	2	0	0	2	425	keep	
 characters-orthogonality	Characters and orthogonality	representation-theory	8	1	0	0	1	94	keep	
 convergence-rv	Modes of convergence	probability-theory	8	2	0	0	3	180	keep	
-forms-and-wedge	Differential forms and wedge product	differential-forms	8	1	0	0	1	68	keep	
-spectrum-primes	Prime spectrum and Zariski topology	schemes	8	1	0	0	1	73	keep	
-elliptic-curve-definition	Elliptic curves and Weierstrass models	elliptic-curves	8	1	0	0	1	87	keep	
-real-numbers	Real numbers	real-analysis	7	0	0	0	1	114	keep	
+de-rham-complex	The algebraic de Rham complex $\Omega^\bullet_{X/k}$	algebraic-de-rham-cohomology	8	3	0	0	2	252	keep	
+quotients-homomorphisms	Quotients and finite fields	algebra	7	1	0	0	1	111	keep	
+localization-ca	Localization and local algebra	commutative-algebra	7	2	0	0	1	73	keep	
 convergence-theorems	Monotone and dominated convergence	measure-theory	7	4	0	0	1	120	keep	
-field-extensions-galois	Field extensions and automorphisms	galois	7	1	0	0	1	79	keep	
-quotients-homomorphisms	Quotients and finite fields	algebra	6	1	0	0	1	111	keep	
-chain-complexes	Chain complexes and homology	homological	6	1	0	0	1	95	keep	
+dyn-orbits-flows	Orbits, flows, and vector fields	dynamical-systems	7	2	0	0	2	216	keep	
+stokes-derham	Stokes theorem and de Rham cohomology	differential-forms	7	2	0	0	1	83	keep	
+fiber-products	Fiber products and base change	morphisms-fiber-products	7	1	0	0	1	75	keep	
+modules-ca	Modules and tensor products	commutative-algebra	6	1	0	0	1	153	keep	
+noetherian-hilbert-ca	Noetherian rings and Hilbert basis	commutative-algebra	6	2	0	0	2	249	keep	
+derived-functors	Derived functors and Ext/Tor	homological	6	3	0	0	1	132	keep	
 riemann-surface-definition	Riemann surfaces as 1D complex manifolds	riemann-surfaces	6	2	0	0	1	72	keep	
-padic-norm-completion	p-adic norm and completion	p-adic-numbers	6	1	0	0	1	63	keep	
-frobenius-element	Frobenius elements	frobenius-and-reciprocity	6	1	0	0	1	81	keep	
+mt-handle-decomposition	Handle decomposition via sublevel sets	morse-theory	6	2	0	0	2	246	keep	
+number-fields-integers	Number fields and rings of integers	algebraic-number-theory	6	1	0	0	1	63	keep	
+automorphic-form-definition	Adelic automorphic forms	automorphic-forms-adelic	6	2	0	0	2	501	keep	
 projective-points-lines	Projective points and lines	projective-plane	6	1	0	0	1	78	keep	
+presheaf-sheaf-axioms	Presheaves and sheaf condition	sheaves	6	1	0	0	1	164	keep	
+adjacency-and-laplacian	Adjacency, degree, and the Laplacian	spectral-graph-theory	6	1	0	0	1	260	keep	
+dirac-equation	The Dirac equation in covariant form	dirac-equation	5	1	0	0	3	888	split-blurb	
 fpt-brouwer	Brouwer fixed-point theorem	fixed-point-theorems	5	4	0	0	1	139	keep	
-cy-definition	Definition: Ricci-flat Kähler manifolds	calabi-yau-manifolds	5	2	0	0	2	425	keep	
 cx-time-complexity	Time complexity and big-O	complexity-theory	5	1	0	0	5	498	split-blurb	
 subgroups-cosets-lagrange	Subgroups, cosets, and Lagrange	algebra	5	1	0	0	1	190	keep	
-localization-ca	Localization and local algebra	commutative-algebra	5	2	0	0	1	73	keep	
-derived-functors	Derived functors and Ext/Tor	homological	5	3	0	0	1	132	keep	
+adjunctions	Adjunctions: unit, counit, triangle	category-theory	5	1	0	0	1	181	keep	
 h1-crossed-homs	$H^1$, crossed homomorphisms, and Hilbert 90	group-cohomology	5	2	0	0	2	246	keep	
 infty-topos-definition	$\infty$-topos via accessible left exact localization	infinity-topoi	5	2	0	0	2	270	keep	
 analyticity	Analyticity = holomorphy	complex-analysis	5	4	0	0	1	64	keep	
-dyn-orbits-flows	Orbits, flows, and vector fields	dynamical-systems	5	2	0	0	2	216	keep	
-sobolev-spaces-wkp	Sobolev spaces $W^{k,p}$ and $H^s$	sobolev-spaces-distributions	5	3	0	0	1	212	keep	
-fiber-products	Fiber products and base change	morphisms-fiber-products	5	1	0	0	1	75	keep	
-adjacency-and-laplacian	Adjacency, degree, and the Laplacian	spectral-graph-theory	5	1	0	0	1	260	keep	
+it-shannon-entropy	Shannon entropy	information-theory	5	2	0	0	1	263	keep	
+class-group-units-ant	Class group and units	algebraic-number-theory	5	2	0	0	1	67	keep	
+hecke-algebra-commuting	Commuting Hecke algebra	hecke-operators	5	2	0	0	1	100	keep	
+frobenius-traces	Frobenius traces and compatibility	galois-representations	5	2	0	0	1	87	keep	
+mc-y0-x0	Y0(N), X0(N), and the cusps	modular-curves	5	2	0	0	3	410	split-blurb	
+homogeneous-coordinates	Homogeneous equations and charts	projective-plane	5	1	0	0	1	68	keep	
+riemann-roch-curves	Riemann–Roch on curves	algebraic-curves-higher-genus	5	2	0	0	2	235	keep	
+bsd-rank-equality	BSD rank equality	bsd	5	4	0	0	2	145	keep	
+rmt-wigner-semicircle	Wigner's semicircle law	random-matrix-theory	4	2	0	0	2	355	keep	
+svd-eckart-young	Singular value decomposition and Eckart–Young	spectral-methods-data	4	1	0	0	2	311	keep	
+pchar-absolute-frobenius	Absolute Frobenius and its pushforward	positive-characteristic-ag	4	2	0	0	3	452	split-blurb	
+ht-pi-n	Higher homotopy groups	homotopy-theory	4	2	0	0	4	442	split-blurb	
+av-definition	Abelian varieties and complex tori	abelian-varieties	4	3	0	0	3	400	split-blurb	
+pal-very-ample	Very ample, ample, and Serre's theorem	positivity-and-ample-line-bundles	4	2	0	0	2	355	keep	
+kg-equation	The Klein-Gordon equation	klein-gordon-equation	4	1	0	0	3	669	split-blurb	
+ms-mirror-pair-statement	The mirror pair statement	mirror-symmetry	4	3	0	0	3	426	split-blurb	
 d-block-designs	Balanced incomplete block designs	designs	4	2	0	0	2	327	keep	
+se-time-dependent	Time-dependent Schrödinger equation	schrodinger-equation	4	3	0	0	1	289	keep	
 crypto-modular-arithmetic	Modular arithmetic and Euler's theorem	mathematics-and-cryptography	4	2	0	0	4	444	split-blurb	
 k-vector-bundles	Topological $K^0(X)$ from vector bundles	k-theory	4	1	0	0	2	363	keep	
 mt-elementary-equivalence	Elementary equivalence	model-theory-basics	4	2	0	0	2	440	keep	
 cayley-tables	Cayley tables and subgroups	algebra	4	1	0	0	2	332	keep	
-adjunctions	Adjunctions: unit, counit, triangle	category-theory	4	1	0	0	1	181	keep	
 h2-extensions	$H^2$ classifies group extensions	group-cohomology	4	2	0	0	2	260	keep	
+la-cartan-killing-classification	Cartan, Killing, and semisimplicity	lie-algebras	4	2	0	0	2	237	keep	
 topos-definition	What is a topos?	elementary-topos-theory	4	1	0	0	2	297	keep	
 internal-language	The internal Mitchell–Bénabou language	heyting-algebras-toposes	4	2	0	0	2	250	keep	
 real-continuity	Continuity on R	real-analysis	4	2	0	0	1	94	keep	
 sigma-algebras	σ-algebras and measures	measure-theory	4	2	0	0	1	97	keep	
+dyn-fixed-linearization	Fixed points and linearization	dynamical-systems	4	1	0	0	1	195	keep	
 dyn-iterated-maps	Iterated maps and the logistic family	dynamical-systems	4	1	0	0	1	191	keep	
 dyn-chaos	Chaos and Lyapunov exponents	dynamical-systems	4	2	0	0	2	256	keep	
+pde-heat-equation	Heat equation and the heat kernel	partial-differential-equations	4	3	0	0	1	279	keep	
 sample-spaces-events	Sample spaces, events, and probability measures	probability-theory	4	2	0	0	1	144	keep	
-it-shannon-entropy	Shannon entropy	information-theory	4	2	0	0	1	263	keep	
+sp-discrete-martingales	Discrete-time martingales	stochastic-processes-and-martingales	4	3	0	0	1	201	keep	
 paths	Paths and homotopy	algebraic-topology	4	1	0	0	1	100	keep	
 covering-spaces	Covering spaces	algebraic-topology	4	1	0	0	1	125	keep	
+smooth-map	Smooth maps and diffeomorphisms	smooth-manifolds	4	1	0	0	1	116	keep	
 tangent-bundle	Tangent bundle and vector fields	smooth-manifolds	4	1	0	0	1	128	keep	
-stokes-derham	Stokes theorem and de Rham cohomology	differential-forms	4	2	0	0	1	83	keep	
+levi-civita-connection	Levi-Civita connection and geodesics	riemannian-geometry	4	1	0	0	1	99	keep	
 bernoulli-generating-function	Bernoulli numbers and their generating function	additive-number-theory	4	1	0	0	1	138	keep	
-number-fields-integers	Number fields and rings of integers	algebraic-number-theory	4	1	0	0	1	63	keep	
-neron-tate-canonical-height	Néron–Tate canonical height	heights-arithmetic-geometry	4	2	0	0	2	313	keep	
-hecke-algebra-commuting	Commuting Hecke algebra	hecke-operators	4	2	0	0	1	100	keep	
-galois-rep-definition	Galois representations and examples	galois-representations	4	2	0	0	1	71	keep	
-frobenius-traces	Frobenius traces and compatibility	galois-representations	4	2	0	0	1	87	keep	
-automorphic-form-definition	Adelic automorphic forms	automorphic-forms-adelic	4	2	0	0	2	501	keep	
+chebotarev-density	Chebotarev density	frobenius-and-reciprocity	4	1	0	0	1	82	keep	
+logarithmic-height-northcott	Logarithmic height and Northcott finiteness	heights-arithmetic-geometry	4	2	0	0	3	277	split-blurb	
+eigenforms-and-euler-factors	Eigenforms and Euler factors	hecke-operators	4	1	0	0	1	123	keep	
+functional-equation-completion	Completion and functional equations	L-functions	4	1	0	0	1	79	keep	
+mc-moduli-of-elliptic-curves	$Y_0(N)$ as a moduli space	modular-curves	4	2	0	0	2	435	keep	
 structure-sheaf-schemes	Structure sheaf and affine schemes	schemes	4	2	0	0	1	84	keep	
-presheaf-sheaf-axioms	Presheaves and sheaf condition	sheaves	4	1	0	0	1	164	keep	
 elliptic-group-law	Group law on cubic curves	elliptic-curves	4	1	0	0	1	71	keep	
+smooth-projective-curve	Smooth projective curves and their genus	algebraic-curves-higher-genus	4	2	0	0	2	273	keep	
+divisors-on-curves	Divisors on curves	algebraic-curves-higher-genus	4	2	0	0	3	271	split-blurb	
+hodge-filtration	The Hodge filtration $F^\bullet$	algebraic-de-rham-cohomology	4	2	0	0	2	295	keep	
+chow-groups	Chow groups $A_*(X)$	intersection-theory-chow	4	2	0	0	2	241	keep	
 group-scheme-definition	What is a group scheme?	group-schemes	4	1	0	0	2	257	keep	
 ec-binomial-and-stars-bars	Binomial coefficients, multinomials, and stars-and-bars	enumerative-combinatorics	4	1	0	0	2	315	keep	
+hf-variants	Heegaard Floer variants	heegaard-floer	3	2	0	0	3	449	split-blurb	
+ct-linear	Linear codes: generator, parity-check, syndrome	coding-theory	3	1	0	0	3	397	split-blurb	
+mb-wright-fisher	The Wright–Fisher model	mathematical-biology	3	2	0	0	2	379	keep	
+oc-hjb	Hamilton-Jacobi-Bellman equation	optimal-control-and-dynamic-programming	3	2	0	0	3	333	split-blurb	
+mf-black-scholes-model	The Black–Scholes model	mathematical-finance	3	2	0	0	1	304	keep	
+khov-complex	Khovanov chain complex	khovanov-homology	3	3	0	0	3	489	split-blurb	
+trop-curves	Tropical curves and the balancing condition	tropical-geometry	3	1	0	0	2	343	keep	
+surg-handles	Handle decompositions and surgery	surgery-theory	3	2	0	0	3	595	split-blurb	
+maa-definition	Maass forms and the hyperbolic Laplacian	maass-forms	3	2	0	0	2	417	keep	
+cob-numbers	Stiefel–Whitney and Pontryagin numbers as obstructions	cobordism	3	3	0	0	3	427	split-blurb	
+mmp-flips	Threefold MMP: small contractions and flips	mmp-and-birational-geometry	3	2	0	0	3	639	split-blurb	
+cf-convergents	Convergents and best approximations	continued-fractions	3	1	0	0	3	446	split-blurb	
+realization-functors	Realizations: how Betti, de Rham, ℓ-adic, crystalline all come from one motive	motives	3	1	0	0	2	189	keep	
+ak-k1-units	$K_1$ of a ring: stable invertible matrices	algebraic-k-theory-foundations	3	1	0	0	4	833	split-blurb	
+global-langlands-gl-n	Global Langlands for $\GL_n$	langlands-program	3	2	0	0	2	268	keep	
+ml-pseudo-diff-ops	Pseudodifferential operators and the symbol calculus	microlocal-analysis	3	3	0	0	3	863	split-blurb	
+sr-minkowski	Minkowski metric and the spacetime interval	special-relativity	3	2	0	0	3	761	split-blurb	
 aca-picard-little	Little Picard theorem	advanced-complex-analysis	3	4	0	0	2	239	keep	
 na-floating-point	Floating-point arithmetic	numerical-analysis	3	1	0	0	2	376	keep	
 vm-functional-derivative	Functional derivative	variational-methods	3	3	0	0	1	263	keep	
 fpt-banach	Banach contraction principle	fixed-point-theorems	3	1	0	0	1	173	keep	
-ms-mirror-pair-statement	The mirror pair statement	mirror-symmetry	3	3	0	0	3	426	split-blurb	
+ros-blow-up	Blowing up a subvariety	resolution-of-singularities	3	2	0	0	3	493	split-blurb	
+ros-resolution-statement	Hironaka's theorem	resolution-of-singularities	3	2	0	0	3	434	split-blurb	
 gr-einstein-equations	Einstein field equations	general-relativity	3	4	0	0	2	388	keep	
 e-spectral-gap	Spectral expansion	expanders	3	3	0	0	2	284	keep	
 qoda-quaternions	Quaternions $\mathbb{H}$	quaternions-octonions-and-division-algebras	3	2	0	0	2	362	keep	
 w-haar-wavelet	The Haar wavelet	wavelets	3	2	0	0	3	331	split-blurb	
 se-stationary	Stationary states and the eigenvalue problem	schrodinger-equation	3	2	0	0	2	345	keep	
 crypto-discrete-log	Discrete logarithm and Diffie–Hellman	mathematics-and-cryptography	3	2	0	0	5	484	split-blurb	
+fol-semantics	Tarski semantics and structures	first-order-logic-and-completeness	3	1	0	0	3	360	split-blurb	
 zfc-axioms	The ZFC axioms	zfc-and-ordinals	3	2	0	0	1	187	keep	
+comp-turing-machines	Turing machines	computability-and-decidability	3	1	0	0	4	509	split-blurb	
 comp-halting-problem	The halting problem	computability-and-decidability	3	2	0	0	6	438	split-blurb	
+cx-p-and-np	P and NP	complexity-theory	3	1	0	0	5	566	split-blurb	
+cx-np-completeness	NP-completeness and Cook–Levin	complexity-theory	3	2	0	0	5	601	split-blurb	
+ring-ideals	Ideals and quotient rings	algebra	3	1	0	0	1	185	keep	
 quotient-groups-iso-theorems	Quotient groups and isomorphism theorems	algebra	3	1	0	0	1	197	keep	
 group-actions-burnside	Group actions, orbits, and Burnside	algebra	3	1	0	0	1	199	keep	
 schurs-lemma	Schur's lemma	representation-theory	3	1	0	0	1	207	keep	
-modules-ca	Modules and tensor products	commutative-algebra	3	1	0	0	1	153	keep	
-noetherian-hilbert-ca	Noetherian rings and Hilbert basis	commutative-algebra	3	2	0	0	2	249	keep	
-derived-category	The derived category $D(\mathcal{A})$	derived-categories	3	1	0	0	2	232	keep	
-la-cartan-killing-classification	Cartan, Killing, and semisimplicity	lie-algebras	3	2	0	0	2	237	keep	
+integral-extensions-ca	Integral extensions and Noether normalization	commutative-algebra	3	3	0	0	1	238	keep	
+krull-dimension-ca	Krull dimension and depth heuristics	commutative-algebra	3	3	0	0	1	75	keep	
+long-exact-sequence	Long exact sequence in homology	homological	3	2	0	0	1	150	keep	
+flat-modules	Flat modules	homological	3	1	0	0	1	137	keep	
+homotopy-category-K	The homotopy category $K(\mathcal{A})$	derived-categories	3	1	0	0	2	230	keep	
+la-sl2-and-roots	$\mathfrak{sl}_2$-triples, root spaces, weights	lie-algebras	3	2	0	0	1	268	keep	
 gcb-cocycle-cohomology	Galois cocycles and $H^i(G,M)$	galois-cohomology-and-brauer	3	3	0	0	2	267	keep	
 subobject-classifier	The subobject classifier $\Omega$	elementary-topos-theory	3	3	0	0	2	335	keep	
 multivariable-differentiation	Multivariable differentiation	real-analysis	3	1	0	0	1	124	keep	
 contour-integral	Contour integrals	complex-analysis	3	3	0	0	1	149	keep	
 residue-theorem	Residue theorem	complex-analysis	3	2	0	0	2	67	keep	
 compact-operators	Compact operators and Fredholm alternative	functional-analysis	3	2	0	0	1	158	keep	
-dyn-fixed-linearization	Fixed points and linearization	dynamical-systems	3	1	0	0	1	195	keep	
-pde-heat-equation	Heat equation and the heat kernel	partial-differential-equations	3	3	0	0	1	279	keep	
+weak-topology	Weak and weak-* topologies	functional-analysis	3	2	0	0	1	124	keep	
+distributional-derivative	Distributional and weak derivatives	sobolev-spaces-distributions	3	2	0	0	1	253	keep	
 pde-weak-solutions	Weak solutions and Galerkin approximation	partial-differential-equations	3	3	0	0	2	284	keep	
+pde-existence-and-regularity	Lax–Milgram, elliptic regularity, embedding	partial-differential-equations	3	2	0	0	1	278	keep	
 hf-poisson-kernel	Poisson kernel	harmonic-functions	3	2	0	0	3	262	split-blurb	
 st-spectral-theorem-bounded	Spectral theorem (bounded self-adjoint)	spectral-theory	3	3	0	0	1	208	keep	
 conditional-bayes	Conditional probability and Bayes' rule	probability-theory	3	1	0	0	1	151	keep	
-sp-discrete-martingales	Discrete-time martingales	stochastic-processes-and-martingales	3	3	0	0	1	201	keep	
-simply-connected	Simply connected domains	algebraic-topology	3	1	0	0	1	122	keep	
 vector-field-flows	Integral curves and flows	smooth-manifolds	3	1	0	0	1	156	keep	
-levi-civita-connection	Levi-Civita connection and geodesics	riemannian-geometry	3	1	0	0	1	99	keep	
+orientation	Orientation of manifolds	smooth-manifolds	3	1	0	0	1	158	keep	
+first-second-fundamental	First/second fundamental forms	differential-geometry	3	1	0	0	1	212	keep	
+ricci-curvature	Ricci curvature and Einstein manifolds	riemannian-geometry	3	1	0	0	1	133	keep	
+lie-algebra-and-exp	Lie algebra and exponential map	lie-groups	3	1	0	0	1	176	keep	
+riemann-hurwitz-uniformization	Riemann–Hurwitz and uniformization	riemann-surfaces	3	1	0	0	1	78	keep	
 riemann-roch	Divisors and the Riemann–Roch theorem	riemann-surfaces	3	2	0	0	1	150	keep	
 mt-morse-functions	Morse functions and non-degenerate critical points	morse-theory	3	2	0	0	3	306	split-blurb	
-mt-handle-decomposition	Handle decomposition via sublevel sets	morse-theory	3	2	0	0	2	246	keep	
 quadratic-reciprocity-law	Quadratic reciprocity law	quadratic-reciprocity	3	5	0	0	1	95	keep	
+discriminant-ant	Discriminant of a number field	algebraic-number-theory	3	1	0	0	1	146	keep	
+minkowski-bound	Minkowski bound and geometry of numbers	algebraic-number-theory	3	2	0	0	1	187	keep	
 hensel-lemma	Hensel lifting	p-adic-numbers	3	1	0	0	1	84	keep	
-adele-ring	The adèle ring	adeles-and-ideles	3	1	0	0	2	267	keep	
-chebotarev-density	Chebotarev density	frobenius-and-reciprocity	3	1	0	0	1	82	keep	
+newton-polygons	Newton polygons	p-adic-numbers	3	3	0	0	1	162	keep	
+naive-height-projective	Naive height on projective space	heights-arithmetic-geometry	3	1	0	0	1	208	keep	
 weil-height-line-bundle	Weil heights from line bundles	heights-arithmetic-geometry	3	1	0	0	2	337	keep	
-eigenforms-and-euler-factors	Eigenforms and Euler factors	hecke-operators	3	1	0	0	1	123	keep	
 euler-product-structure	Euler products and multiplicativity	dirichlet-series-euler-products	3	1	0	0	1	89	keep	
 dirichlet-characters-lseries	Dirichlet characters and L-series	dirichlet-series-euler-products	3	2	0	0	1	74	keep	
 mellin-transform-dirichlet	Mellin transform and the gamma integral	dirichlet-series-euler-products	3	3	0	0	1	175	keep	
 continuation-along-path	Continuation along a path	analytic-continuation	3	2	0	0	1	176	keep	
-functional-equation-completion	Completion and functional equations	L-functions	3	1	0	0	1	79	keep	
 thompson-series	Thompson series and Conway–Norton	moonshine	3	2	0	0	1	171	keep	
-mc-y0-x0	Y0(N), X0(N), and the cusps	modular-curves	3	2	0	0	3	410	split-blurb	
-mc-moduli-of-elliptic-curves	$Y_0(N)$ as a moduli space	modular-curves	3	2	0	0	2	435	keep	
-homogeneous-coordinates	Homogeneous equations and charts	projective-plane	3	1	0	0	1	68	keep	
-smooth-projective-curve	Smooth projective curves and their genus	algebraic-curves-higher-genus	3	2	0	0	2	273	keep	
-riemann-roch-curves	Riemann–Roch on curves	algebraic-curves-higher-genus	3	2	0	0	2	235	keep	
-de-rham-complex	The algebraic de Rham complex $\Omega^\bullet_{X/k}$	algebraic-de-rham-cohomology	3	3	0	0	2	252	keep	
-hodge-filtration	The Hodge filtration $F^\bullet$	algebraic-de-rham-cohomology	3	2	0	0	2	295	keep	
+spherical-hecke-satake	Spherical Hecke algebra and Satake	automorphic-forms-adelic	3	2	0	0	2	488	keep	
+projective-scheme	Projective schemes and Proj	schemes	3	1	0	0	1	144	keep	
+complex-multiplication	Complex uniformization and CM	elliptic-curves	3	3	0	0	1	164	keep	
+reduction-mod-p	Reduction modulo p	singular-cubics-reduction	3	1	0	0	1	64	keep	
 algebraic-space-definition	Algebraic spaces as étale sheaves	algebraic-spaces	3	3	0	0	2	273	keep	
 tangent-space-of-moduli	Tangent space of moduli is $H^1(X_0, T_{X_0})$	deformation-theory	3	2	0	0	2	245	keep	
 existence-by-expectation	Existence by expectation	probabilistic-method	3	1	0	0	3	284	split-blurb	
 abstract-simplicial-complex	Abstract simplicial complexes	simplicial-complexes-combinatorial	3	1	0	0	3	284	split-blurb	
 hasse-bound-angle	Hasse bound and the Frobenius angle	sato-tate	3	2	0	0	2	158	keep	
+rmt-ensembles	Random matrix ensembles and the Dyson index	random-matrix-theory	2	2	0	0	2	439	keep	
+ccr-conformal-laplacian	The conformal Laplacian	conformal-and-cr-geometry	2	2	0	0	2	402	keep	
+lp-simplex	Linear programming and the simplex method	combinatorial-optimization	2	1	0	0	3	399	split-blurb	
+polyhedral	Polyhedral combinatorics	combinatorial-optimization	2	2	0	0	4	389	split-blurb	
+as-counting-fields	Counting number fields	arithmetic-statistics	2	2	0	0	4	519	split-blurb	
+as-selmer-averages	Bhargava's Selmer averages	arithmetic-statistics	2	3	0	0	4	576	split-blurb	
+cm-class-poly	Hilbert class polynomial	complex-multiplication	2	2	0	0	2	336	keep	
+surg-h-cobordism	The $h$-cobordism theorem	surgery-theory	2	3	0	0	4	512	split-blurb	
+kg-kahler-form	Hermitian metric and the Kähler form	kahler-geometry	2	3	0	0	4	450	split-blurb	
+mcg-modular	The mapping class group $\mathrm{Mod}(S)$	mapping-class-groups	2	3	0	0	2	303	keep	
+mcg-4manifolds	4-manifold fundamentals	mapping-class-groups	2	3	0	0	3	334	split-blurb	
+du-statement	Dirichlet's theorem and proof sketch	dirichlet-unit-theorem	2	2	0	0	4	613	split-blurb	
+du-regulator	The regulator $R_K$	dirichlet-unit-theorem	2	1	0	0	4	724	split-blurb	
+mmp-cone-theorem	The cone theorem and extremal contractions	mmp-and-birational-geometry	2	3	0	0	2	452	keep	
+av-polarization	Polarizations and the dual abelian variety	abelian-varieties	2	2	0	0	3	387	split-blurb	
+av-tate-module	Isogenies, Tate modules, and Galois action	abelian-varieties	2	2	0	0	2	440	keep	
+pal-nef-big	Nef, big, and the cone of curves	positivity-and-ample-line-bundles	2	1	0	0	3	427	split-blurb	
+mc-quillen-functors	Quillen functors and Quillen equivalences	model-categories	2	2	0	0	4	995	split-blurb	
+pure-hodge-structure	Pure Hodge structures as a category	hodge-theory	2	2	0	0	2	260	keep	
+langlands-philosophy	Philosophy: arithmetic vs. analytic columns	langlands-program	2	2	0	0	4	216	split-blurb	
+ml-wavefront	The wavefront set: where × in which direction	microlocal-analysis	2	2	0	0	4	934	split-blurb	
+gmt-rectifiability	Rectifiable sets and Hausdorff measure	geometric-measure-theory	2	2	0	0	5	852	split-blurb	
+sg-c0-semigroups	Strongly continuous (C₀) semigroups	semigroup-theory-evolution-equations	2	1	0	0	4	698	split-blurb	
+sr-lorentz	Lorentz transformations	special-relativity	2	2	0	0	3	601	split-blurb	
+kg-derivation	From E²=p²+m² to a wave operator	klein-gordon-equation	2	1	0	0	4	597	split-blurb	
+iw-algebra	Iwasawa algebra $\Lambda$	iwasawa-theory	2	2	0	0	3	340	split-blurb	
+qft-canonical-quantization	From classical fields to operator-valued distributions	quantum-field-theory	2	2	0	0	3	723	split-blurb	
+qft-feynman-diagrams	Perturbation theory and Feynman diagrams	quantum-field-theory	2	1	0	0	5	744	split-blurb	
 ms-estimators	Point estimators: bias, consistency, MSE, sufficiency	mathematical-statistics	2	2	0	0	2	469	keep	
-cy-mirror-pair	Mirror symmetry: swapping the diamond	calabi-yau-manifolds	2	2	0	0	3	461	split-blurb	
-ros-blow-up	Blowing up a subvariety	resolution-of-singularities	2	2	0	0	3	493	split-blurb	
-ros-resolution-statement	Hironaka's theorem	resolution-of-singularities	2	2	0	0	3	434	split-blurb	
+ros-surfaces	Surfaces and ADE	resolution-of-singularities	2	2	0	0	3	502	split-blurb	
+hcm-noether	Symmetries and Noether's theorem	hamiltonians-classical-mechanics	2	2	0	0	4	389	split-blurb	
+gr-spacetime	Spacetime as a Lorentzian manifold	general-relativity	2	2	0	0	2	332	keep	
 tbp-newton-equations	Newton's equations and conserved quantities	three-body-problem	2	1	0	0	2	351	keep	
 tbp-restricted-3body	Restricted three-body problem & Lagrange points	three-body-problem	2	2	0	0	2	431	keep	
+sm-floer-homology-preview	Floer homology — a preview	symplectic-manifolds	2	3	0	0	3	379	split-blurb	
 qg-uq-sl2	Drinfeld–Jimbo $U_q(\mathfrak{sl}_2)$	quantum-groups	2	3	0	0	1	216	keep	
+gcgt-presentations	Presentations and the word problem	geometric-and-combinatorial-group-theory	2	2	0	0	3	462	split-blurb	
 gcgt-cayley-graph	Cayley graphs and the word metric	geometric-and-combinatorial-group-theory	2	2	0	0	3	440	split-blurb	
 w-daubechies	Daubechies wavelets	wavelets	2	2	0	0	2	343	keep	
 voa-modular-invariance	Modular invariance — Zhu's theorem	vertex-operator-algebras	2	2	0	0	1	287	keep	
-se-time-dependent	Time-dependent Schrödinger equation	schrodinger-equation	2	3	0	0	1	289	keep	
 rf-equation	The Ricci flow equation	ricci-flow	2	3	0	0	2	278	keep	
 cartesian-product-powerset	Cartesian products and power sets	naive-set-theory	2	1	0	0	1	180	keep	
-comp-turing-machines	Turing machines	computability-and-decidability	2	1	0	0	4	509	split-blurb	
-cx-p-and-np	P and NP	complexity-theory	2	1	0	0	5	566	split-blurb	
 tt-identity-types	Identity types	type-theory-and-hott	2	1	0	0	3	407	split-blurb	
-ring-ideals	Ideals and quotient rings	algebra	2	1	0	0	1	185	keep	
-composition-series-jordan-holder	Composition series & Jordan–Hölder	algebra	2	1	0	0	2	405	keep	
+composition-series-jordan-holder	Composition series & Jordan–Hölder	algebra	2	1	0	0	2	409	keep	
 solvable-groups	Solvable groups	algebra	2	1	0	0	2	356	keep	
 universal-properties	Universal properties and representability	category-theory	2	1	0	0	1	188	keep	
 highest-weight-theorem	Highest-weight vectors for $\mathfrak{sl}_2$	representation-theory	2	1	0	0	1	203	keep	
-integral-extensions-ca	Integral extensions and Noether normalization	commutative-algebra	2	3	0	0	1	238	keep	
-krull-dimension-ca	Krull dimension and depth heuristics	commutative-algebra	2	3	0	0	1	75	keep	
-flat-modules	Flat modules	homological	2	1	0	0	1	137	keep	
+triangulated-structure	Triangulated structure and exact triangles	derived-categories	2	3	0	0	2	251	keep	
 la-derivations-and-adjoint	Derivations and the adjoint representation	lie-algebras	2	2	0	0	1	202	keep	
-la-sl2-and-roots	$\mathfrak{sl}_2$-triples, root spaces, weights	lie-algebras	2	2	0	0	1	268	keep	
 gcb-brauer-group	Brauer group $\mathrm{Br}(K) = H^2(K,\bar K^\times)$	galois-cohomology-and-brauer	2	2	0	0	2	366	keep	
 grothendieck-topology	Grothendieck topology axioms	grothendieck-topologies-sites	2	1	0	0	2	264	keep	
 topos-of-sheaves	$\mathrm{Sh}(C, J)$ as a topos	grothendieck-topologies-sites	2	2	0	0	2	234	keep	
@@ -497,47 +734,41 @@ numeric-series	Numeric series & convergence tests	real-analysis	2	1	0	0	1	131	ke
 ftc-both-parts	Fundamental theorem of calculus (both parts)	real-analysis	2	2	0	0	2	175	keep	
 outer-measure-caratheodory	Outer measure & Carathéodory's criterion	measure-theory	2	1	0	0	1	192	keep	
 amplitwist	Amplitwist	complex-analysis	2	2	0	0	1	170	keep	
+argument-principle	Argument principle	complex-analysis	2	1	0	0	1	65	keep	
 disk-automorphisms	Disk automorphisms	complex-analysis	2	2	0	0	1	186	keep	
-weak-topology	Weak and weak-* topologies	functional-analysis	2	2	0	0	1	124	keep	
+von-neumann-algebras	Von Neumann algebras and the double commutant	operator-algebras	2	3	0	0	1	172	keep	
+dyn-phase-portraits	Phase portraits in 2D	dynamical-systems	2	1	0	0	1	165	keep	
 dyn-poincare-section	Poincaré sections and return maps	dynamical-systems	2	2	0	0	2	218	keep	
-distributional-derivative	Distributional and weak derivatives	sobolev-spaces-distributions	2	2	0	0	1	253	keep	
+test-functions-distributions	Test functions and the space of distributions	sobolev-spaces-distributions	2	2	0	0	1	210	keep	
 fourier-series-circle	Fourier series on the circle	harmonic-analysis-fourier	2	2	0	0	2	285	keep	
-pde-existence-and-regularity	Lax–Milgram, elliptic regularity, embedding	partial-differential-equations	2	2	0	0	1	278	keep	
+pde-wave-equation	Wave equation and d'Alembert	partial-differential-equations	2	1	0	0	1	260	keep	
 st-self-adjoint-spectrum	Spectrum of self-adjoint operators	spectral-theory	2	2	0	0	2	149	keep	
 st-unbounded-operators	Unbounded self-adjoint operators	spectral-theory	2	1	0	0	1	237	keep	
 it-mutual-information	Mutual information	information-theory	2	2	0	0	1	202	keep	
-smooth-map	Smooth maps and diffeomorphisms	smooth-manifolds	2	1	0	0	1	116	keep	
-first-second-fundamental	First/second fundamental forms	differential-geometry	2	1	0	0	1	212	keep	
-ricci-curvature	Ricci curvature and Einstein manifolds	riemannian-geometry	2	1	0	0	1	133	keep	
 lie-algebra-tangent	Lie algebra as tangent space at the identity	lie-groups	2	2	0	0	1	167	keep	
-lie-algebra-and-exp	Lie algebra and exponential map	lie-groups	2	1	0	0	1	176	keep	
 lie-bracket-bch	Bracket, commutators, and BCH	lie-groups	2	1	0	0	1	169	keep	
+adjoint-representation-killing	Adjoint representation and Killing form	lie-groups	2	2	0	0	1	171	keep	
+cc-chern-weil	Chern–Weil theory	characteristic-classes	2	2	0	0	3	449	split-blurb	
 mt-cw-structure	CW structure from a Morse function	morse-theory	2	2	0	0	2	257	keep	
 waring-problem-statement	Waring's problem: g(k)	additive-number-theory	2	1	0	0	1	124	keep	
 zeta-special-values	Euler's formula for $\zeta(2n)$	additive-number-theory	2	2	0	0	1	175	keep	
-discriminant-ant	Discriminant of a number field	algebraic-number-theory	2	1	0	0	1	146	keep	
-class-group-units-ant	Class group and units	algebraic-number-theory	2	2	0	0	1	67	keep	
-places-and-local-fields	Places and local fields	adeles-and-ideles	2	2	0	0	2	273	keep	
+padic-expansions	p-adic expansions and topology	p-adic-numbers	2	1	0	0	1	69	keep	
 artin-reciprocity-preview	Reciprocity toward Artin maps	frobenius-and-reciprocity	2	1	0	0	1	84	keep	
 idele-class-groups	Idèles and class formations	class-field-theory	2	1	0	0	1	74	keep	
-naive-height-projective	Naive height on projective space	heights-arithmetic-geometry	2	1	0	0	1	208	keep	
-logarithmic-height-northcott	Logarithmic height and Northcott finiteness	heights-arithmetic-geometry	2	2	0	0	3	277	split-blurb	
 mahler-measure-lehmer	Mahler measure and Lehmer's problem	heights-arithmetic-geometry	2	1	0	0	2	370	keep	
 sl2r-action-on-H	SL2(R) action and modular preview	upper-half-plane-hyperbolic	2	2	0	0	1	109	keep	
 lattices-in-C	Lattices in C	modular-forms	2	1	0	0	2	469	keep	
+theta-q-expansion	q-expansion and convergence	theta-functions	2	1	0	0	1	132	keep	
 jacobi-triple-product	Jacobi triple product and q-identities	theta-functions	2	1	0	0	1	75	keep	
 pentagonal-number-theorem	Euler's pentagonal number theorem	partitions-generating-functions	2	1	0	0	1	143	keep	
 even-integer-values	Even values ζ(2n) via Bernoulli numbers	zeta-values	2	2	0	0	1	145	keep	
 borcherds-proof-sketch	Borcherds' proof — generalized Kac–Moody and replication	moonshine	2	2	0	0	1	236	keep	
-spherical-hecke-satake	Spherical Hecke algebra and Satake	automorphic-forms-adelic	2	2	0	0	2	488	keep	
 mc-hecke-correspondences-curves	Hecke correspondences on $X_0(N)$	modular-curves	2	1	0	0	2	388	keep	
 sheafification-functor	Sheafification as a left adjoint	sheaves	2	1	0	0	1	155	keep	
 representability-criteria	Representability and moduli functors	functor-of-points	2	1	0	0	1	63	keep	
-complex-multiplication	Complex uniformization and CM	elliptic-curves	2	3	0	0	1	164	keep	
-reduction-mod-p	Reduction modulo p	singular-cubics-reduction	2	1	0	0	1	64	keep	
 kodaira-néron-preview	Bad reduction taxonomy	singular-cubics-reduction	2	1	0	0	1	77	keep	
-applications-picard-serre	Picard groups and Serre duality signals	sheaf-cohomology	2	1	0	0	1	75	keep	
 fine-vs-coarse-moduli	Fine versus coarse moduli	moduli-spaces	2	1	0	0	1	78	keep	
+quotient-stack	Quotient stack [X/G]	stacks	2	1	0	0	1	96	keep	
 dm-stacks-coarse-space	Deligne–Mumford stacks and coarse spaces	stacks	2	1	0	0	1	79	keep	
 etale-pi1	$\pi_1^{\acute{e}t}(X, \bar{x}) = \mathrm{Aut}(F_{\bar{x}})$	etale-fundamental-group	2	2	0	0	2	296	keep	
 algebraic-connectivity-fiedler	Algebraic connectivity and the Fiedler vector	spectral-graph-theory	2	1	0	0	2	204	keep	
@@ -546,40 +777,126 @@ linearity-of-expectation	Linearity of expectation	probabilistic-method	2	2	0	0	2
 turan-theorem	Turán's theorem and the Turán graph	extremal-combinatorics	2	1	0	0	2	224	keep	
 equidistribution-weyl	Equidistribution and Weyl's criterion	sato-tate	2	2	0	0	1	208	keep	
 sato-tate-measure	The Sato–Tate measure	sato-tate	2	4	0	0	1	110	keep	
-l-adic-cohomology	ℓ-adic cohomology	etale-cohomology	2	2	0	0	1	168	keep	
+principal-bundles-connections	Principal bundles and connections	gauge-theory	2	2	0	0	2	344	keep	
+curvature-yang-mills	Curvature and the Yang-Mills action	gauge-theory	2	2	0	0	2	334	keep	
+rmt-tracy-widom	Tracy–Widom and the soft edge	random-matrix-theory	1	1	0	0	2	386	keep	
+git-invariants	Invariants of group actions	geometric-invariant-theory	1	2	0	0	3	677	split-blurb	
+git-vgit	Variation of GIT and wall-crossing	geometric-invariant-theory	1	2	0	0	4	735	split-blurb	
+hf-splittings	Heegaard splittings and diagrams	heegaard-floer	1	2	0	0	3	481	split-blurb	
+special-divisors-linear-series	Special divisors and linear series	brill-noether	1	2	0	0	3	494	split-blurb	
+brill-noether-number	The Brill–Noether number $\rho(g,r,d)$	brill-noether	1	1	0	0	3	403	split-blurb	
+petri	Petri's theorem (smoothness)	brill-noether	1	3	0	0	3	519	split-blurb	
+ct-reed-solomon	Reed–Solomon codes	coding-theory	1	2	0	0	3	352	split-blurb	
+ccr-levi-form	The Levi form and strict pseudoconvexity	conformal-and-cr-geometry	1	2	0	0	3	588	split-blurb	
+mb-lotka-volterra	Lotka–Volterra predator–prey	mathematical-biology	1	2	0	0	2	361	keep	
+oc-problem	The optimal-control problem	optimal-control-and-dynamic-programming	1	1	0	0	2	280	keep	
+oc-pontryagin	Pontryagin's maximum principle	optimal-control-and-dynamic-programming	1	2	0	0	2	334	keep	
+lp-duality	LP duality and min-max theorems	combinatorial-optimization	1	1	0	0	4	324	split-blurb	
+network-flows	Network flows: max-flow / min-cut	combinatorial-optimization	1	1	0	0	3	347	split-blurb	
+matching	Matching and assignment	combinatorial-optimization	1	1	0	0	4	345	split-blurb	
+ip-tu	Integer programming and total unimodularity	combinatorial-optimization	1	1	0	0	3	338	split-blurb	
+mf-merton-portfolio	Optimal portfolio selection (Merton)	mathematical-finance	1	2	0	0	1	356	keep	
+pchar-frobenius-splittings	Frobenius splittings and Mehta–Ramanathan vanishing	positive-characteristic-ag	1	2	0	0	3	519	split-blurb	
+pchar-cartier-operator	The Cartier operator and Cartier isomorphism	positive-characteristic-ag	1	2	0	0	3	507	split-blurb	
+pchar-de-rham-witt	Witt vectors and the de Rham–Witt complex	positive-characteristic-ag	1	2	0	0	4	564	split-blurb	
+cg-minkowski-sum	Minkowski sum & mixed volumes	convex-geometry	1	1	0	0	2	338	keep	
+cg-polytopes	Polytopes & the f-vector	convex-geometry	1	2	0	0	2	326	keep	
+cg-john-ellipsoid	John's ellipsoid & Banach–Mazur distance	convex-geometry	1	2	0	0	2	351	keep	
+khov-cube	The cube of resolutions	khovanov-homology	1	2	0	0	2	391	keep	
+khov-jones-categorification	Categorification of the Jones polynomial	khovanov-homology	1	3	0	0	2	387	keep	
+shim-datum	The Shimura datum $(G, X)$	shimura-varieties	1	2	0	0	2	697	keep	
+shim-siegel	Siegel modular varieties $\mathcal{A}_g$	shimura-varieties	1	3	0	0	3	616	split-blurb	
+shim-hilbert	Hilbert and quaternionic Shimura varieties	shimura-varieties	1	3	0	0	3	675	split-blurb	
+shim-cohomology	Étale cohomology and Galois representations	shimura-varieties	1	4	0	0	4	723	split-blurb	
+as-cohen-lenstra	Cohen–Lenstra heuristics	arithmetic-statistics	1	2	0	0	4	532	split-blurb	
+as-l-symmetry	L-functions and symmetry types	arithmetic-statistics	1	3	0	0	5	510	split-blurb	
+cm-elliptic-c	CM elliptic curves over $\mathbb{C}$	complex-multiplication	1	3	0	0	2	333	keep	
+trop-bezout	Bernstein's theorem and stable intersection	tropical-geometry	1	3	0	0	2	348	keep	
+surg-l-theory	$L$-theory and the Wall obstruction	surgery-theory	1	3	0	0	4	646	split-blurb	
+kg-calabi-yau	Ricci-flat Kähler and the Calabi conjecture	kahler-geometry	1	3	0	0	4	412	split-blurb	
+mcg-dehn	Dehn twists and generation	mapping-class-groups	1	2	0	0	2	300	keep	
+hiw-metaplectic-cocycle	Metaplectic group and the theta cocycle	half-integral-weight-forms	1	3	0	0	2	394	keep	
+hiw-theta-prototype	Theta as the prototypical weight-1/2 form	half-integral-weight-forms	1	3	0	0	2	396	keep	
+hiw-shimura-lift	Shimura's lift to integral weight	half-integral-weight-forms	1	3	0	0	3	379	split-blurb	
+hiw-waldspurger	Waldspurger's formula	half-integral-weight-forms	1	3	0	0	2	411	keep	
+cc-motivation	Why crystalline? — the $\ell=p$ gap	crystalline-cohomology	1	3	0	0	3	463	split-blurb	
+cc-divided-powers	Divided powers and the crystalline site	crystalline-cohomology	1	2	0	0	3	477	split-blurb	
+cc-de-rham-comparison	Comparison with de Rham of a lift	crystalline-cohomology	1	2	0	0	3	416	split-blurb	
+cc-frobenius	Frobenius action and the Katz–Messing theorem	crystalline-cohomology	1	2	0	0	3	508	split-blurb	
+ht-eilenberg-maclane	Eilenberg–MacLane spaces and ordinary cohomology	homotopy-theory	1	2	0	0	4	490	split-blurb	
+dm-riemann-hilbert	The Riemann-Hilbert correspondence	d-modules	1	3	0	0	3	419	split-blurb	
+du-log-embedding	Logarithmic embedding of units	dirichlet-unit-theorem	1	2	0	0	2	554	keep	
+cob-thom	Thom's theorem and the Thom spectrum $MO$	cobordism	1	3	0	0	3	466	split-blurb	
+mmp-kodaira-dimension	Kodaira dimension and the canonical ring	mmp-and-birational-geometry	1	2	0	0	3	353	split-blurb	
+cf-hurwitz	Hurwitz's theorem and the constant $\sqrt{5}$	continued-fractions	1	1	0	0	1	345	keep	
+cf-liouville	Liouville numbers and the first transcendence proof	continued-fractions	1	2	0	0	2	332	keep	
+av-neron-model	Néron models and reduction types	abelian-varieties	1	2	0	0	3	528	split-blurb	
+pal-picard	Divisors, line bundles, and the Picard group	positivity-and-ample-line-bundles	1	2	0	0	2	397	keep	
+pal-nakai	Nakai–Moishezon and the ample cone	positivity-and-ample-line-bundles	1	3	0	0	2	324	keep	
+algebraic-correspondences	Correspondences as morphisms	motives	1	2	0	0	2	222	keep	
+pure-chow-motives	Pure Chow motives	motives	1	1	0	0	3	282	split-blurb	
+tate-twist	The Tate twist Q(n)	motives	1	1	0	0	3	267	split-blurb	
+mc-cofibrant-replacement	Cofibrant and fibrant replacement	model-categories	1	1	0	0	6	924	split-blurb	
+why-hodge	Why Hodge structures? — cohomology gets refinement from complex structure	hodge-theory	1	2	0	0	2	281	keep	
+hodge-filtration-structure	The Hodge filtration $F^\bullet$ — algebraic incarnation	hodge-theory	1	2	0	0	3	249	split-blurb	
+mixed-hodge-structure	Mixed Hodge structures (Deligne)	hodge-theory	1	1	0	0	2	227	keep	
+l-functions-langlands-bridge	L-functions: the bridge	langlands-program	1	3	0	0	4	275	split-blurb	
+local-langlands-gl-n	Local Langlands for $\GL_n$	langlands-program	1	1	0	0	2	243	keep	
+ml-microlocal-regularity	Microlocal regularity and propagation of singularities	microlocal-analysis	1	4	0	0	4	876	split-blurb	
+sg-hille-yosida	The Hille–Yosida theorem	semigroup-theory-evolution-equations	1	1	0	0	5	764	split-blurb	
+sg-analytic-semigroups	Analytic semigroups and parabolic regularity	semigroup-theory-evolution-equations	1	1	0	0	5	817	split-blurb	
+sg-evolution-pdes	Evolution equations as abstract Cauchy problems	semigroup-theory-evolution-equations	1	2	0	0	4	752	split-blurb	
+sr-postulates	Einstein's postulates and inertial frames	special-relativity	1	1	0	0	3	613	split-blurb	
+kg-negative-energy	Negative-energy solutions and antiparticles	klein-gordon-equation	1	1	0	0	3	679	split-blurb	
+dirac-derivation	From $E^2=p^2+m^2$ to a first-order operator	dirac-equation	1	2	0	0	4	773	split-blurb	
+iw-cyclotomic	Cyclotomic $\mathbb{Z}_p$-extension	iwasawa-theory	1	2	0	0	2	347	keep	
+iw-class-groups	Class groups along the tower	iwasawa-theory	1	2	0	0	3	362	split-blurb	
+iw-padic-l	Kubota–Leopoldt $p$-adic $L$-function	iwasawa-theory	1	3	0	0	2	375	keep	
+qft-renormalization	Renormalization and running couplings	quantum-field-theory	1	1	0	0	4	1186	split-blurb	
+tv-fans	Lattices, cones, and fans	toric-varieties	1	1	0	0	1	236	keep	
+tv-affine	Affine toric varieties $U_\sigma$	toric-varieties	1	2	0	0	1	271	keep	
+tv-dictionary	The toric dictionary	toric-varieties	1	2	0	0	2	256	keep	
+tv-examples	Worked examples: $\mathbb{P}^n$, $\mathbb{P}^1 \times \mathbb{P}^1$, blowups	toric-varieties	1	2	0	0	1	320	keep	
+tv-cox	Cox ring and toric intersection numbers	toric-varieties	1	2	0	0	1	288	keep	
+ising-phase-transitions	The Ising model and phase transitions	statistical-mechanics	1	1	0	0	2	251	keep	
 aca-picard-great	Great Picard theorem	advanced-complex-analysis	1	4	0	0	2	226	keep	
 aca-weierstrass-factorization	Weierstrass factorization	advanced-complex-analysis	1	1	0	0	2	327	keep	
-aca-mittag-leffler	Mittag-Leffler theorem	advanced-complex-analysis	1	2	0	0	2	311	keep	
 aca-phragmen-lindelof	Phragmén-Lindelöf principle	advanced-complex-analysis	1	1	0	0	3	319	split-blurb	
+monomial-orders	Polynomial rings & monomial orders	groebner-bases	1	2	0	0	2	250	keep	
+multivariable-division	The multivariable division algorithm	groebner-bases	1	1	0	0	2	260	keep	
+groebner-basis-definition	Gröbner bases: definition	groebner-bases	1	2	0	0	3	271	split-blurb	
+s-polynomials-buchberger	S-polynomials & Buchberger's criterion	groebner-bases	1	1	0	0	2	260	keep	
+buchberger-algorithm	Buchberger's algorithm	groebner-bases	1	1	0	0	3	252	split-blurb	
+reduced-groebner-basis	Reduced Gröbner bases	groebner-bases	1	1	0	0	2	248	keep	
+elimination-ideals	Elimination ideals	groebner-bases	1	1	0	0	2	241	keep	
 ms-cramer-rao	Cramér–Rao bound, UMVU, Rao–Blackwell	mathematical-statistics	1	2	0	0	3	425	split-blurb	
 na-rootfinding	Rootfinding: bisection & Newton	numerical-analysis	1	2	0	0	3	332	split-blurb	
 na-linear-systems	Linear systems: direct & iterative solvers	numerical-analysis	1	2	0	0	2	440	keep	
 cnt-lattice-reduction	LLL & lattice reduction	computational-number-theory	1	2	0	0	2	287	keep	
 cnt-modular-arithmetic-algorithms	Modular arithmetic algorithms	computational-number-theory	1	1	0	0	2	284	keep	
 fpt-kakutani	Kakutani fixed-point theorem	fixed-point-theorems	1	2	0	0	2	201	keep	
-hdg-johnson-lindenstrauss	Johnson–Lindenstrauss	high-dimensional-geometry	1	2	0	0	1	241	keep	
+ms-syz	Strominger–Yau–Zaslow fibrations	mirror-symmetry	1	3	0	0	3	451	split-blurb	
 mr-quasi-isometry	Quasi-isometry and boundary extension	mostow-rigidity	1	1	0	0	1	210	keep	
 mr-ergodicity-of-action	Ergodicity of the boundary action	mostow-rigidity	1	3	0	0	1	220	keep	
 ros-singular-vs-smooth	Singular vs smooth points	resolution-of-singularities	1	2	0	0	3	442	split-blurb	
-ros-surfaces	Surfaces and ADE	resolution-of-singularities	1	2	0	0	3	502	split-blurb	
-hcm-noether	Symmetries and Noether's theorem	hamiltonians-classical-mechanics	1	2	0	0	4	389	split-blurb	
-gr-spacetime	Spacetime as a Lorentzian manifold	general-relativity	1	2	0	0	2	332	keep	
 gr-schwarzschild	Schwarzschild solution and event horizons	general-relativity	1	2	0	0	2	338	keep	
 tbp-special-solutions	Lagrange, Euler, and the figure-eight	three-body-problem	1	1	0	0	4	492	split-blurb	
 tbp-poincare-tangle	Poincaré's tangle — the birth of chaos	three-body-problem	1	3	0	0	3	497	split-blurb	
 d-fisher-inequality	Fisher's inequality	designs	1	1	0	0	2	241	keep	
 d-latin-squares	Latin squares & MOLS	designs	1	1	0	0	3	339	split-blurb	
 e-definition	Combinatorial expansion	expanders	1	1	0	0	1	235	keep	
-sm-floer-homology-preview	Floer homology — a preview	symplectic-manifolds	1	3	0	0	3	379	split-blurb	
 qg-r-matrix	Universal $R$-matrix and Yang–Baxter	quantum-groups	1	1	0	0	1	266	keep	
 qg-representations	Representations and crystal bases	quantum-groups	1	3	0	0	1	287	keep	
 qoda-cayley-dickson	The Cayley–Dickson tower	quaternions-octonions-and-division-algebras	1	1	0	0	2	532	keep	
 qoda-octonions	Octonions $\mathbb{O}$	quaternions-octonions-and-division-algebras	1	1	0	0	3	430	split-blurb	
 qoda-frobenius-theorem	Frobenius's theorem	quaternions-octonions-and-division-algebras	1	2	0	0	3	457	split-blurb	
-gcgt-presentations	Presentations and the word problem	geometric-and-combinatorial-group-theory	1	2	0	0	3	462	split-blurb	
 gcgt-quasi-isometry	Quasi-isometry and large-scale geometry	geometric-and-combinatorial-group-theory	1	2	0	0	2	368	keep	
 gcgt-growth	Growth functions and Gromov's theorem	geometric-and-combinatorial-group-theory	1	1	0	0	3	375	split-blurb	
 gcgt-hyperbolic-groups	Gromov-hyperbolic groups	geometric-and-combinatorial-group-theory	1	2	0	0	3	423	split-blurb	
+ca-quivers-and-seeds	Quivers and seeds	cluster-algebras	1	2	0	0	2	272	keep	
+ca-mutation	Mutation and the exchange relation	cluster-algebras	1	1	0	0	1	295	keep	
+ca-laurent	Laurent phenomenon and positivity	cluster-algebras	1	2	0	0	2	298	keep	
+ca-categories	Cluster categories and τ-tilting	cluster-algebras	1	4	0	0	1	327	keep	
 w-discrete-transform	Discrete wavelet transform	wavelets	1	1	0	0	3	364	split-blurb	
 w-wavelet-vs-fourier	Time-frequency localisation	wavelets	1	2	0	0	2	339	keep	
 voa-axioms	VOA axioms — vacuum, translation, locality, Jacobi	vertex-operator-algebras	1	1	0	0	1	328	keep	
@@ -588,35 +905,31 @@ voa-moonshine-module	The moonshine module $V^\natural$	vertex-operator-algebras	
 crypto-rsa	RSA	mathematics-and-cryptography	1	1	0	0	5	494	split-blurb	
 crypto-lattice-based	Lattice-based and post-quantum cryptography	mathematics-and-cryptography	1	2	0	0	5	668	split-blurb	
 kp-knots-and-links	Knots and links	knot-polynomials	1	1	0	0	2	247	keep	
-kp-alexander-polynomial	Alexander polynomial	knot-polynomials	1	3	0	0	3	315	split-blurb	
 kp-homfly-polynomial	HOMFLY polynomial	knot-polynomials	1	2	0	0	2	299	keep	
 rf-short-time	Short-time existence and the DeTurck trick	ricci-flow	1	2	0	0	2	307	keep	
 rf-soliton	Ricci solitons	ricci-flow	1	1	0	0	2	373	keep	
 rf-surgery	Surgery on $\epsilon$-necks	ricci-flow	1	2	0	0	2	340	keep	
 as-dirac-operators	Dirac operators and the $\hat A$-genus	atiyah-singer-index-theorem	1	2	0	0	3	415	split-blurb	
-fol-semantics	Tarski semantics and structures	first-order-logic-and-completeness	1	1	0	0	3	360	split-blurb	
 fol-deduction	Deduction: proof systems and soundness	first-order-logic-and-completeness	1	1	0	0	3	264	split-blurb	
 fol-lowenheim-skolem	Löwenheim–Skolem and Skolem's paradox	first-order-logic-and-completeness	1	3	0	0	3	327	split-blurb	
 mt-structures	Structures and signatures	model-theory-basics	1	2	0	0	3	393	split-blurb	
 comp-rec-vs-re	Recursive vs recursively enumerable	computability-and-decidability	1	1	0	0	6	455	split-blurb	
-cx-np-completeness	NP-completeness and Cook–Levin	complexity-theory	1	2	0	0	5	601	split-blurb	
+comp-undecidability	Undecidability via reduction	computability-and-decidability	1	2	0	0	4	481	split-blurb	
 cx-space-complexity	Space complexity and PSPACE	complexity-theory	1	1	0	0	6	679	split-blurb	
 tt-judgments	Judgments and contexts	type-theory-and-hott	1	1	0	0	3	370	split-blurb	
 tt-pi-sigma	Π and Σ types	type-theory-and-hott	1	1	0	0	3	399	split-blurb	
+tt-models	Models of HoTT	type-theory-and-hott	1	3	0	0	3	423	split-blurb	
 forcing-posets	Forcing posets and dense subsets	forcing-and-independence	1	1	0	0	2	262	keep	
 forcing-truth-lemma	The forcing relation and truth lemma	forcing-and-independence	1	1	0	0	3	259	split-blurb	
 forcing-cohen-reals	Cohen forcing for adding reals	forcing-and-independence	1	1	0	0	3	256	split-blurb	
 forcing-not-ch	Independence of the continuum hypothesis	forcing-and-independence	1	2	0	0	2	220	keep	
 sylow-theorems	Sylow theorems	algebra	1	2	0	0	1	198	keep	
 semidirect-products-ses	Semidirect products and short exact sequences	algebra	1	2	0	0	1	197	keep	
-maschke-theorem	Maschke's theorem	representation-theory	1	1	0	0	1	201	keep	
 frobenius-reciprocity	Induction, restriction, Frobenius reciprocity	representation-theory	1	1	0	0	1	205	keep	
 artinian-local-ca	Artinian local rings	commutative-algebra	1	2	0	0	3	358	split-blurb	
-long-exact-sequence	Long exact sequence in homology	homological	1	2	0	0	1	150	keep	
+flatness-ca	Flatness and Tor	commutative-algebra	1	4	0	0	2	255	keep	
+dvr-dedekind-ca	Discrete valuation rings and Dedekind domains	commutative-algebra	1	3	0	0	3	219	split-blurb	
 injective-modules	Injective modules	homological	1	1	0	0	1	134	keep	
-homotopy-category-K	The homotopy category $K(\mathcal{A})$	derived-categories	1	1	0	0	2	230	keep	
-quasi-isomorphisms	Quasi-isomorphisms and localization	derived-categories	1	1	0	0	1	215	keep	
-triangulated-structure	Triangulated structure and exact triangles	derived-categories	1	3	0	0	2	251	keep	
 derived-functors-triangulated	Derived functors $RF, LF$	derived-categories	1	3	0	0	4	252	split-blurb	
 examples-D-Coh	$D^b(\mathrm{Coh}\,X)$ and Fourier–Mukai	derived-categories	1	3	0	0	2	326	keep	
 bar-resolution	The bar resolution and $H^n(G,M)$	group-cohomology	1	2	0	0	1	244	keep	
@@ -633,40 +946,32 @@ simplex-category	The simplex category $\Delta$	simplicial-sets-and-nerve	1	2	0	0
 nerve-of-category	The nerve $N(C)$ of a category	simplicial-sets-and-nerve	1	2	0	0	3	224	split-blurb	
 cocartesian-edge	Cocartesian edges	cocartesian-fibrations	1	1	0	0	1	284	keep	
 fibers-and-transport	Fibers and transport functors	cocartesian-fibrations	1	2	0	0	2	358	keep	
-metric-completeness-baire	Metric completeness & Baire category	real-analysis	1	2	0	0	1	146	keep	
-bounded-variation	Bounded variation	real-analysis	1	2	0	0	1	214	keep	
 product-measures	Product measures & σ-finiteness	measure-theory	1	1	0	0	1	180	keep	
 riemann-sphere	Riemann sphere	complex-analysis	1	1	0	0	1	62	keep	
 fta	Fundamental theorem of algebra	complex-analysis	1	1	0	0	1	147	keep	
-argument-principle	Argument principle	complex-analysis	1	1	0	0	1	65	keep	
 operator-norm	Bounded linear operators and the operator norm	functional-analysis	1	1	0	0	1	154	keep	
 spectral-theorem-fa	Spectral theorem viewpoint	functional-analysis	1	2	0	0	1	79	keep	
 spectrum-classification	Spectrum classification: point, continuous, residual	functional-analysis	1	2	0	0	1	159	keep	
 distributions	Distributions and test functions	functional-analysis	1	3	0	0	1	148	keep	
 banach-spectrum	Spectrum in Banach algebras	operator-algebras	1	2	0	0	1	234	keep	
 gelfand-duality-oa	Commutative duality and spectra	operator-algebras	1	2	0	0	1	73	keep	
-von-neumann-algebras	Von Neumann algebras and the double commutant	operator-algebras	1	3	0	0	1	172	keep	
 factors-types	Factors and type classification	operator-algebras	1	1	0	0	1	189	keep	
-dyn-phase-portraits	Phase portraits in 2D	dynamical-systems	1	1	0	0	1	165	keep	
 dyn-limit-cycles	Periodic orbits and limit cycles	dynamical-systems	1	1	0	0	2	221	keep	
 dyn-bifurcations	Bifurcations	dynamical-systems	1	2	0	0	2	283	keep	
-test-functions-distributions	Test functions and the space of distributions	sobolev-spaces-distributions	1	2	0	0	1	210	keep	
 trace-theorem	Trace theorem on the boundary	sobolev-spaces-distributions	1	1	0	0	1	333	keep	
 convolution-theorem	Convolution and the convolution theorem	harmonic-analysis-fourier	1	1	0	0	2	244	keep	
-pde-wave-equation	Wave equation and d'Alembert	partial-differential-equations	1	1	0	0	1	260	keep	
 st-bounded-operators-spectrum	Spectrum of a bounded operator	spectral-theory	1	2	0	0	1	217	keep	
 generating-functions	Moment and characteristic functions	probability-theory	1	1	0	0	1	166	keep	
 sp-filtrations	Filtrations and adapted processes	stochastic-processes-and-martingales	1	2	0	0	1	265	keep	
 sp-doob-decomposition	Doob decomposition and quadratic variation	stochastic-processes-and-martingales	1	2	0	0	1	224	keep	
+it-channel-coding	Channel coding	information-theory	1	1	0	0	2	256	keep	
 lie-bracket-fields	Lie bracket of vector fields	smooth-manifolds	1	1	0	0	1	117	keep	
 integration-on-chains	Integration of forms over chains	differential-forms	1	2	0	0	1	161	keep	
 curves-surfaces-dg	Curves and surfaces in R^3	differential-geometry	1	1	0	0	1	264	keep	
 gauss-map	Gauss map and shape operator	differential-geometry	1	1	0	0	1	188	keep	
-adjoint-representation-killing	Adjoint representation and Killing form	lie-groups	1	2	0	0	1	171	keep	
 adjoint-roots	Adjoint action and root data	lie-groups	1	1	0	0	1	70	keep	
-riemann-hurwitz-uniformization	Riemann–Hurwitz and uniformization	riemann-surfaces	1	1	0	0	1	78	keep	
-cc-chern-weil	Chern–Weil theory	characteristic-classes	1	2	0	0	3	449	split-blurb	
 mt-morse-inequalities	Morse inequalities	morse-theory	1	1	0	0	2	260	keep	
+mt-cerf-theory	Cerf theory and wall-crossing	morse-theory	1	2	0	0	2	553	keep	
 reduction-theory	Reduction theory	quadratic-forms-genus-theory	1	1	0	0	1	179	keep	
 form-class-group	Form class group	quadratic-forms-genus-theory	1	1	0	0	1	173	keep	
 three-squares-theorem	Legendre three-square theorem	additive-number-theory	1	2	0	0	1	57	keep	
@@ -674,9 +979,7 @@ hilbert-waring-theorem	Hilbert–Waring theorem	additive-number-theory	1	1	0	0	1
 circle-method-intro	Circle method setup	additive-number-theory	1	2	0	0	1	155	keep	
 faulhaber-formula	Faulhaber's formula for power sums	additive-number-theory	1	1	0	0	1	143	keep	
 zeta-functional-equation-preview	Functional equation preview via Mellin	additive-number-theory	1	2	0	0	1	179	keep	
-minkowski-bound	Minkowski bound and geometry of numbers	algebraic-number-theory	1	2	0	0	1	187	keep	
-padic-expansions	p-adic expansions and topology	p-adic-numbers	1	1	0	0	1	69	keep	
-newton-polygons	Newton polygons	p-adic-numbers	1	3	0	0	1	162	keep	
+padic-extensions-ramification	Extensions of Q_p and ramification	p-adic-numbers	1	4	0	0	1	298	keep	
 splitting-types	Splitting types: split, inert, ramified	frobenius-and-reciprocity	1	2	0	0	1	176	keep	
 heights-mordell-faltings	Heights and Mordell–Faltings	heights-arithmetic-geometry	1	2	0	0	3	369	split-blurb	
 ant-riemann-zeta-from-pnt	$\zeta(s)$ and the explicit formula	analytic-number-theory	1	3	0	0	2	312	keep	
@@ -686,7 +989,6 @@ ant-circle-method	The Hardy–Littlewood circle method	analytic-number-theory	1	
 ant-exponential-sums	Exponential sums and equidistribution	analytic-number-theory	1	2	0	0	2	413	keep	
 geodesics-in-H	Geodesics in H	upper-half-plane-hyperbolic	1	1	0	0	1	108	keep	
 theta-series-lattice	Theta series from lattices	theta-functions	1	1	0	0	1	67	keep	
-theta-q-expansion	q-expansion and convergence	theta-functions	1	1	0	0	1	132	keep	
 dedekind-eta-theta	Dedekind eta and theta	theta-functions	1	1	0	0	1	102	keep	
 partition-function-pn	The partition function p(n)	partitions-generating-functions	1	1	0	0	1	149	keep	
 euler-partition-product	Euler's partition product	partitions-generating-functions	1	1	0	0	1	127	keep	
@@ -696,35 +998,34 @@ perron-formula	Perron's formula	dirichlet-series-euler-products	1	2	0	0	1	172	ke
 power-series-radius-analytic	Germs and disks of convergence	analytic-continuation	1	2	0	0	1	219	keep	
 odd-integer-values-apery	Odd values and Apéry's constant ζ(3)	zeta-values	1	1	0	0	2	212	keep	
 negative-integer-values	Negative-integer values and trivial zeros	zeta-values	1	3	0	0	2	216	keep	
+special-values-lfunc	Special values and arithmetic	L-functions	1	2	0	0	1	145	keep	
 modularity-and-deformations	Residual reps, deformations, modularity	galois-representations	1	2	0	0	1	89	keep	
 j-invariant-q-expansion	The j-invariant's q-expansion	moonshine	1	1	0	0	2	175	keep	
 monster-group-structure	The Monster group and its irreducibles	moonshine	1	1	0	0	1	168	keep	
 mckay-observation	McKay's observation	moonshine	1	2	0	0	1	207	keep	
 gl2-adelic-group	$\mathrm{GL}_2(\mathbb{A}_\mathbb{Q})$ as a restricted product	automorphic-forms-adelic	1	2	0	0	2	388	keep	
 strong-approximation-gl2	Strong approximation and $\Gamma_0(N) \backslash \mathbb{H}$	automorphic-forms-adelic	1	3	0	0	3	403	split-blurb	
-classical-to-adelic-dictionary	Classical-to-adelic dictionary	automorphic-forms-adelic	1	2	0	0	2	371	keep	
 automorphic-l-function	Automorphic $L$-functions	automorphic-forms-adelic	1	3	0	0	2	432	keep	
 mc-genus-formula	Genus formulas for $X_0(N)$, $X_1(N)$, $X(N)$	modular-curves	1	1	0	0	2	415	keep	
 projective-transformations	Projective automorphisms	projective-plane	1	1	0	0	1	61	keep	
 resultants-elimination	Resultants and elimination	bezout	1	1	0	0	1	76	keep	
 higher-dim-bezout	Bézout in higher dimensions	bezout	1	1	0	0	1	208	keep	
 residue-field-at-prime	Residue fields and evaluation at points	schemes	1	2	0	0	1	157	keep	
-projective-scheme	Projective schemes and Proj	schemes	1	1	0	0	1	144	keep	
 closed-subscheme	Closed subschemes, reducedness, and irreducibility	schemes	1	2	0	0	1	177	keep	
 sheafification-and-qcoh	Quasi-coherent sheaves on affine schemes	sheaves	1	3	0	0	1	170	keep	
 immersions-schemes	Open, closed, and locally closed immersions	morphisms-fiber-products	1	1	0	0	1	149	keep	
 geometric-fibers	Geometric fibers and smoothness intuition	morphisms-fiber-products	1	1	0	0	1	89	keep	
 separated-proper-morphisms	Separated and proper morphisms	morphisms-fiber-products	1	2	0	0	1	233	keep	
 stacky-obstructions	When functors require stacks	functor-of-points	1	1	0	0	1	79	keep	
-divisors-on-curves	Divisors on curves	algebraic-curves-higher-genus	1	2	0	0	3	271	split-blurb	
+j-invariant-classification	The j-invariant and isomorphism classes	elliptic-curves	1	2	0	0	1	167	keep	
+moduli-of-curves-genus-g	Moduli of higher-genus curves $\mathcal{M}_g$	algebraic-curves-higher-genus	1	2	0	0	2	235	keep	
+comparison-betti	Comparison with Betti cohomology	algebraic-de-rham-cohomology	1	2	0	0	2	243	keep	
 hodge-numbers	Hodge numbers $h^{p,q}(X)$	algebraic-de-rham-cohomology	1	2	0	0	2	259	keep	
 automorphisms-obstruction	Automorphisms obstruct fine moduli	moduli-spaces	1	1	0	0	1	135	keep	
 why-algebraic-spaces	Why schemes aren't enough	algebraic-spaces	1	2	0	0	3	276	split-blurb	
 groupoids-and-descent	Groupoids, fibered categories, descent	stacks	1	2	0	0	1	79	keep	
 classifying-stacks	Classifying stacks BG	stacks	1	1	0	0	1	85	keep	
-quotient-stack	Quotient stack [X/G]	stacks	1	1	0	0	1	96	keep	
 cycles-and-equivalence	Algebraic cycles and rational equivalence	intersection-theory-chow	1	1	0	0	2	308	keep	
-chow-groups	Chow groups $A_*(X)$	intersection-theory-chow	1	2	0	0	2	241	keep	
 examples-Ga-Gm-mu-n	Examples: $\mathbb{G}_a, \mathbb{G}_m, \mu_n, \alpha_p$	group-schemes	1	2	0	0	2	258	keep	
 fiber-functor	The fiber functor at a geometric point	etale-fundamental-group	1	2	0	0	2	277	keep	
 spec-field-galois	$\pi_1^{\acute{e}t}(\Spec\,k) = \Gal(\bar{k}/k)$	etale-fundamental-group	1	2	0	0	2	235	keep	
@@ -738,9 +1039,90 @@ ec-recurrences-and-gen-fun	Recurrences and generating functions	enumerative-comb
 ec-permutation-statistics	Permutation statistics	enumerative-combinatorics	1	1	0	0	3	349	split-blurb	
 ec-partition-theory	Integer partitions and Euler's product	enumerative-combinatorics	1	1	0	0	3	360	split-blurb	
 point-counting-heuristic	Birch–Swinnerton-Dyer heuristic	bsd	1	3	0	0	2	133	keep	
-bsd-rank-equality	BSD rank equality	bsd	1	4	0	0	2	145	keep	
 frey-curve	The Frey curve	modularity-and-flt	1	1	0	0	2	256	keep	
-deformation-rings	Deformation rings	modularity-and-flt	1	2	0	0	1	269	keep	
+gauge-transformations-holonomy	Gauge transformations and holonomy	gauge-theory	1	1	0	0	2	347	keep	
+instantons-selfdual	Self-dual connections and instantons	gauge-theory	1	1	0	0	2	324	keep	
+worldsheet-action	The world-sheet action	string-theory	1	2	0	0	3	393	split-blurb	
+worldsheet-cft	Conformal field theory on the world-sheet	string-theory	1	1	0	0	2	345	keep	
+bosonic-strings-critical	Bosonic strings and the critical dimension	string-theory	1	1	0	0	3	351	split-blurb	
+superstrings-susy	Superstrings and supersymmetry	string-theory	1	1	0	0	3	428	split-blurb	
+compactification-cy	Compactification and Calabi–Yau manifolds	string-theory	1	2	0	0	3	465	split-blurb	
+rmt-marchenko-pastur	Marchenko–Pastur and sample covariance	random-matrix-theory	0	2	0	0	2	346	keep	
+git-hilbert-mumford	The Hilbert–Mumford numerical criterion	geometric-invariant-theory	0	1	0	0	4	635	split-blurb	
+git-moduli-applications	Moduli applications: $M_g$, quivers, $\mathrm{Bun}_G$	geometric-invariant-theory	0	4	0	0	4	823	split-blurb	
+hf-d-invariant	The $d$-invariant (correction term)	heegaard-floer	0	1	0	0	3	427	split-blurb	
+hf-surgery-triangle	Surgery exact triangle and cobordism maps	heegaard-floer	0	2	0	0	2	427	keep	
+hf-applications	The $\tau$-invariant and slice-genus bounds	heegaard-floer	0	1	0	0	3	436	split-blurb	
+bn-in-mg	Brill–Noether loci in $\mathcal{M}_g$	brill-noether	0	3	0	0	4	573	split-blurb	
+ct-hamming	Hamming codes	coding-theory	0	1	0	0	4	344	split-blurb	
+ct-bch	BCH codes	coding-theory	0	1	0	0	3	377	split-blurb	
+ct-ldpc	LDPC codes and belief propagation	coding-theory	0	2	0	0	3	414	split-blurb	
+ccr-q-curvature	Q-curvature and the Paneitz operator	conformal-and-cr-geometry	0	1	0	0	2	484	keep	
+mb-moran	The Moran process	mathematical-biology	0	2	0	0	3	316	split-blurb	
+mb-coalescent	Kingman's coalescent	mathematical-biology	0	2	0	0	2	421	keep	
+mb-replicator	The replicator equation	mathematical-biology	0	2	0	0	3	379	split-blurb	
+mb-mutation-selection	Mutation–selection balance	mathematical-biology	0	1	0	0	2	413	keep	
+pca-variance	Principal component analysis	spectral-methods-data	0	1	0	0	3	267	split-blurb	
+spectral-clustering-ng	Spectral clustering (Ng–Jordan–Weiss)	spectral-methods-data	0	2	0	0	2	304	keep	
+pagerank	PageRank	spectral-methods-data	0	3	0	0	2	307	keep	
+random-projection	Randomized SVD and Johnson–Lindenstrauss	spectral-methods-data	0	2	0	0	2	336	keep	
+nystrom-kernel	The Nyström method	spectral-methods-data	0	2	0	0	3	296	split-blurb	
+oc-lqr	Linear-quadratic regulator (LQR)	optimal-control-and-dynamic-programming	0	1	0	0	2	320	keep	
+oc-dp	Discrete-time DP and the Bellman equation	optimal-control-and-dynamic-programming	0	1	0	0	2	322	keep	
+approximation	LP rounding and approximation algorithms	combinatorial-optimization	0	1	0	0	4	363	split-blurb	
+mf-hjb	The Hamilton–Jacobi–Bellman equation	mathematical-finance	0	2	0	0	1	367	keep	
+mf-beyond-bs	Beyond Black–Scholes	mathematical-finance	0	2	0	0	1	368	keep	
+dtgw-topological-vertex	The topological vertex	donaldson-thomas-and-gw-invariants	0	2	0	0	3	635	split-blurb	
+dtgw-wall-crossing	Stability conditions and wall-crossing	donaldson-thomas-and-gw-invariants	0	2	0	0	4	652	split-blurb	
+pchar-f-singularities	$F$-singularities	positive-characteristic-ag	0	2	0	0	3	494	split-blurb	
+pchar-pathologies	Pathologies of positive characteristic	positive-characteristic-ag	0	2	0	0	3	526	split-blurb	
+cg-polar-duality	Polar duality & Mahler conjecture	convex-geometry	0	2	0	0	2	413	keep	
+khov-applications	Applications and open problems	khovanov-homology	0	3	0	0	3	441	split-blurb	
+shim-langlands-kottwitz	The Langlands–Kottwitz program	shimura-varieties	0	3	0	0	2	682	keep	
+as-average-rank	Average rank of elliptic curves	arithmetic-statistics	0	2	0	0	4	479	split-blurb	
+cm-abelian	CM abelian varieties (Shimura–Taniyama)	complex-multiplication	0	2	0	0	2	391	keep	
+cm-stark-heegner	Applications: Heegner numbers, Gross–Zagier, Stark	complex-multiplication	0	2	0	0	1	457	keep	
+trop-tropicalization	Tropicalization and the valuation map	tropical-geometry	0	2	0	0	3	358	split-blurb	
+trop-moduli	Tropical moduli and Riemann–Roch	tropical-geometry	0	2	0	0	2	393	keep	
+surg-s-cobordism	The $s$-cobordism theorem and the Whitehead group	surgery-theory	0	3	0	0	4	499	split-blurb	
+surg-exotic-spheres	Exotic spheres and dimensions $3,4$	surgery-theory	0	3	0	0	4	713	split-blurb	
+kg-lefschetz	Lefschetz operator and hard Lefschetz	kahler-geometry	0	1	0	0	3	470	split-blurb	
+kg-kahler-einstein	Kähler–Einstein and K-stability	kahler-geometry	0	1	0	0	3	432	split-blurb	
+mcg-nielsen-thurston	Nielsen–Thurston classification	mapping-class-groups	0	2	0	0	2	303	keep	
+hiw-tunnell-congruent	Tunnell's theorem and the congruent number problem	half-integral-weight-forms	0	3	0	0	2	389	keep	
+cc-p-adic-hodge	Period rings $B_{\mathrm{cris}},B_{\mathrm{dR}}$ and Fontaine's comparison	crystalline-cohomology	0	2	0	0	3	570	split-blurb	
+ht-hopf-rational	Hopf fibration and rational homotopy	homotopy-theory	0	2	0	0	3	651	split-blurb	
+maa-selberg-eigenvalue	Selberg's eigenvalue conjecture	maass-forms	0	1	0	0	3	340	split-blurb	
+maa-trace-formula	Selberg trace formula and the Weyl law	maass-forms	0	2	0	0	2	412	keep	
+du-pell-real-quadratic	Real quadratic units and Pell's equation	dirichlet-unit-theorem	0	2	0	0	3	739	split-blurb	
+du-s-units	$S$-units and the higher analogue	dirichlet-unit-theorem	0	2	0	0	5	783	split-blurb	
+cob-surgery	Surgery and the $h$-cobordism theorem	cobordism	0	3	0	0	4	572	split-blurb	
+mmp-surfaces	Surface MMP: Castelnuovo and Enriques classification	mmp-and-birational-geometry	0	2	0	0	3	504	split-blurb	
+mmp-singularities-of-pairs	Singularities of pairs and discrepancies	mmp-and-birational-geometry	0	2	0	0	3	514	split-blurb	
+mmp-sarkisov	Mori fibre spaces and the Sarkisov program	mmp-and-birational-geometry	0	1	0	0	3	518	split-blurb	
+av-jacobian	Jacobians of curves and Torelli	abelian-varieties	0	2	0	0	2	380	keep	
+ak-k2-steinberg	$K_2$ of a ring and the Steinberg relations	algebraic-k-theory-foundations	0	1	0	0	5	909	split-blurb	
+mc-monoidal	Monoidal model categories and the pushout-product axiom	model-categories	0	2	0	0	4	953	split-blurb	
+cm-liquid-tensor-experiment	The Liquid Tensor Experiment	condensed-mathematics	0	2	0	0	4	661	split-blurb	
+period-domains-vhs	Period domains and variations of Hodge structure	hodge-theory	0	2	0	0	3	268	split-blurb	
+hodge-as-realization	Hodge as a motivic realization	hodge-theory	0	3	0	0	3	323	split-blurb	
+universal-reciprocity	Universal reciprocity — the philosophy realised	langlands-program	0	4	0	0	2	254	keep	
+ml-elliptic-regularity	Elliptic regularity via the parametrix	microlocal-analysis	0	3	0	0	4	807	split-blurb	
+ml-applications	Scattering, Radon transforms, and inverse problems	microlocal-analysis	0	2	0	0	2	1090	keep	
+sr-time-length	Time dilation and length contraction	special-relativity	0	2	0	0	3	582	split-blurb	
+sr-causality	Causality, light cones, and the relativity of simultaneity	special-relativity	0	1	0	0	3	686	split-blurb	
+kg-current	Conserved current and the probability problem	klein-gordon-equation	0	1	0	0	3	720	split-blurb	
+kg-non-rel-limit	Non-relativistic limit and applications	klein-gordon-equation	0	3	0	0	3	705	split-blurb	
+dirac-spin-half	Spin-½ from the Dirac equation	dirac-equation	0	2	0	0	3	496	split-blurb	
+dirac-positive-current	Positive-definite probability current	dirac-equation	0	1	0	0	4	914	split-blurb	
+dirac-antiparticles	Negative-energy sea and the prediction of antimatter	dirac-equation	0	2	0	0	3	522	split-blurb	
+dirac-non-rel-limit	Non-relativistic limit and Pauli equation	dirac-equation	0	2	0	0	2	552	keep	
+iw-elliptic	Elliptic Iwasawa theory and BSD	iwasawa-theory	0	2	0	0	2	415	keep	
+qft-fock-space	Fock space and multi-particle states	quantum-field-theory	0	1	0	0	3	781	split-blurb	
+qft-gauge-fields	Quantum gauge fields and the Standard Model	quantum-field-theory	0	2	0	0	4	911	split-blurb	
+entropy-gibbs	Entropy and the Gibbs distribution	statistical-mechanics	0	2	0	0	2	295	keep	
+grand-canonical	Grand canonical ensemble and chemical potential	statistical-mechanics	0	1	0	0	2	280	keep	
+renormalization-group	The renormalization group	statistical-mechanics	0	1	0	0	3	303	split-blurb	
 ms-hypothesis-testing	Hypothesis testing: Neyman–Pearson and likelihood ratios	mathematical-statistics	0	1	0	0	3	501	split-blurb	
 ms-bayesian	Bayesian inference: posteriors, conjugate priors, credible intervals	mathematical-statistics	0	1	0	0	4	469	split-blurb	
 ms-asymptotics	Asymptotics: delta method, Slutsky, Wilks	mathematical-statistics	0	3	0	0	3	487	split-blurb	
@@ -753,10 +1135,7 @@ cnt-class-group-computation	Class & unit group computation	computational-number-
 vm-applications	Applications: geodesics, minimal surfaces, gauge theory	variational-methods	0	3	0	0	2	301	keep	
 fpt-applications	Applications across mathematics	fixed-point-theorems	0	3	0	0	1	180	keep	
 fpt-caristi	Caristi's fixed-point theorem	fixed-point-theorems	0	2	0	0	2	288	keep	
-hdg-dvoretzky	Dvoretzky's theorem	high-dimensional-geometry	0	2	0	0	1	215	keep	
-ms-gromov-witten	A-model: Gromov–Witten invariants	mirror-symmetry	0	2	0	0	2	446	keep	
 ms-homological-mirror	Homological mirror symmetry (Kontsevich)	mirror-symmetry	0	3	0	0	3	498	split-blurb	
-ms-syz	Strominger–Yau–Zaslow fibrations	mirror-symmetry	0	3	0	0	3	451	split-blurb	
 mr-arithmetic-lattices	Margulis arithmeticity	mostow-rigidity	0	1	0	0	2	193	keep	
 mr-applications	Volume, simplicial volume, and geometrisation	mostow-rigidity	0	2	0	0	1	221	keep	
 ros-curves	Curves: nodes, cusps, normalisation	resolution-of-singularities	0	2	0	0	3	473	split-blurb	
@@ -771,6 +1150,7 @@ e-cheeger	Cheeger inequality (graph version)	expanders	0	2	0	0	1	263	keep
 e-ramanujan-graphs	Ramanujan graphs and Alon–Boppana	expanders	0	3	0	0	2	373	keep	
 qoda-rotations	Unit quaternions and $\mathrm{SU}(2)\to\mathrm{SO}(3)$	quaternions-octonions-and-division-algebras	0	2	0	0	2	360	keep	
 qoda-hurwitz-theorem	Hurwitz's theorem	quaternions-octonions-and-division-algebras	0	2	0	0	2	427	keep	
+ca-applications	Grassmannians, surfaces, and total positivity	cluster-algebras	0	4	0	0	1	354	keep	
 voa-applications	Applications — chiral CFT and chiral algebras	vertex-operator-algebras	0	2	0	0	1	287	keep	
 se-harmonic-oscillator	Harmonic oscillator and ladder operators	schrodinger-equation	0	1	0	0	2	343	keep	
 se-hydrogen	Hydrogen atom	schrodinger-equation	0	2	0	0	2	338	keep	
@@ -785,12 +1165,9 @@ inaccessible-cardinals	Inaccessible cardinals	zfc-and-ordinals	0	2	0	0	3	267	spl
 mt-isomorphism-vs-equivalence	Isomorphism vs elementary equivalence	model-theory-basics	0	1	0	0	3	486	split-blurb	
 mt-ehrenfeucht-fraisse	Ehrenfeucht–Fraïssé games	model-theory-basics	0	1	0	0	4	485	split-blurb	
 comp-recursive-functions	Recursive and partial-recursive functions	computability-and-decidability	0	1	0	0	3	545	split-blurb	
-comp-undecidability	Undecidability via reduction	computability-and-decidability	0	2	0	0	4	481	split-blurb	
 cx-reductions	Karp reductions and complete problems	complexity-theory	0	1	0	0	4	581	split-blurb	
 cx-hierarchy-theorems	Time and space hierarchy theorems	complexity-theory	0	2	0	0	5	633	split-blurb	
-tt-models	Models of HoTT	type-theory-and-hott	0	3	0	0	3	423	split-blurb	
 forcing-applications	Other independence results	forcing-and-independence	0	1	0	0	1	270	keep	
-finite-abelian-classification	Finite abelian groups	algebra	0	1	0	0	1	199	keep	
 nilpotent-groups	Nilpotent groups	algebra	0	2	0	0	2	333	keep	
 free-groups-presentations	Free groups & presentations	algebra	0	1	0	0	2	404	keep	
 monads-algebras	Monads and their algebras	category-theory	0	1	0	0	1	140	keep	
@@ -801,10 +1178,10 @@ induction-and-young	Young tableaux and irreps of $S_n$	representation-theory	0	1
 peter-weyl-preview	Compact groups and Peter–Weyl	representation-theory	0	2	0	0	1	191	keep	
 sl2-weight-decomposition	Weight decomposition for $\mathfrak{sl}_2$	representation-theory	0	2	0	0	1	270	keep	
 nilradical-jacobson-ca	Nilradical and Jacobson radical	commutative-algebra	0	1	0	0	1	212	keep	
-flatness-ca	Flatness and Tor	commutative-algebra	0	4	0	0	2	255	keep	
 nakayama-lemma-ca	Nakayama's lemma and Zariski tangent spaces	commutative-algebra	0	2	0	0	1	231	keep	
 transcendence-degree-ca	Transcendence degree and geometric dimension	commutative-algebra	0	2	0	0	2	279	keep	
 five-lemma	The five lemma	homological	0	1	0	0	1	173	keep	
+cartan-eilenberg-ha	Cartan–Eilenberg resolutions	homological	0	2	0	0	2	278	keep	
 inflation-restriction-lhs	Inflation–restriction and Lyndon–Hochschild–Serre	group-cohomology	0	3	0	0	1	234	keep	
 galois-cohomology-brauer	Galois cohomology and the Brauer group	group-cohomology	0	3	0	0	2	312	keep	
 la-classification-simple	Classification of simple Lie algebras	lie-algebras	0	1	0	0	1	279	keep	
@@ -821,6 +1198,7 @@ etale-infty-topos-of-scheme	The étale $\infty$-topos of a scheme	infinity-topoi
 riesz-representation-measures	Riesz representation (measure form)	measure-theory	0	2	0	0	1	174	keep	
 domain-coloring	Domain coloring	complex-analysis	0	1	0	0	1	160	keep	
 rouche	Rouché's theorem	complex-analysis	0	1	0	0	1	64	keep	
+open-mapping-ca	Open mapping theorem	complex-analysis	0	2	0	0	2	202	keep	
 murray-vn-equivalence	Murray–von Neumann equivalence and dimension	operator-algebras	0	1	0	0	1	174	keep	
 gns-construction	GNS construction	operator-algebras	0	2	0	0	1	258	keep	
 approximate-units-amenability	Approximate units and amenability	operator-algebras	0	2	0	0	1	214	keep	
@@ -836,19 +1214,14 @@ st-applications	Applications: quantum mechanics, PDE, harmonic analysis	spectral
 st-trace-class-hilbert-schmidt	Trace-class and Hilbert–Schmidt operators	spectral-theory	0	1	0	0	2	351	keep	
 st-weyl-laplacian	Weyl's law for the Laplacian	spectral-theory	0	2	0	0	2	373	keep	
 sp-optional-stopping	Optional stopping theorem	stochastic-processes-and-martingales	0	2	0	0	2	260	keep	
-it-channel-coding	Channel coding	information-theory	0	1	0	0	2	256	keep	
 it-rate-distortion	Rate–distortion	information-theory	0	2	0	0	2	341	keep	
 it-fisher-and-cramer-rao	Fisher information and the Cramér–Rao bound	information-theory	0	3	0	0	2	423	keep	
 separation-axioms	Separation & countability	point-set-topology	0	1	0	0	1	104	keep	
 universal-cover-of-circle	Universal cover of S¹	algebraic-topology	0	1	0	0	2	297	keep	
 smooth-manifold-examples	Examples: spheres, projective spaces, matrix groups	smooth-manifolds	0	1	0	0	1	136	keep	
-orientation	Orientation of manifolds	smooth-manifolds	0	1	0	0	1	158	keep	
 volume-form-rg	Riemannian volume form and divergence	riemannian-geometry	0	2	0	0	1	163	keep	
 so3-su2-double-cover	SO(3), SU(2), and the double cover	lie-groups	0	3	0	0	1	181	keep	
 genus-invariant	Genus as the universal invariant	riemann-surfaces	0	3	0	0	1	168	keep	
-cc-stiefel-whitney	Stiefel–Whitney classes	characteristic-classes	0	2	0	0	2	414	keep	
-cc-signature-theorem	Hirzebruch signature theorem	characteristic-classes	0	2	0	0	3	470	split-blurb	
-mt-cerf-theory	Cerf theory and wall-crossing	morse-theory	0	2	0	0	2	553	keep	
 solvability-by-radicals	Solvability by radicals	galois	0	7	0	0	2	233	keep	
 primitive-element-theorem	Primitive element theorem	galois	0	1	0	0	1	177	keep	
 waring-problem	Waring's problem: g(k) and G(k)	additive-number-theory	0	1	0	0	1	111	keep	
@@ -856,8 +1229,6 @@ g-k-vs-G-k	g(k) versus G(k)	additive-number-theory	0	1	0	0	1	114	keep
 major-vs-minor-arcs	Major arcs vs minor arcs	additive-number-theory	0	1	0	0	1	212	keep	
 euler-maclaurin	Euler-Maclaurin summation	additive-number-theory	0	2	0	0	1	177	keep	
 ultrametric-topology	Ultrametric topology	p-adic-numbers	0	2	0	0	1	115	keep	
-padic-extensions-ramification	Extensions of Q_p and ramification	p-adic-numbers	0	4	0	0	1	298	keep	
-local-global-principle	Local-global (Hasse) principle	p-adic-numbers	0	2	0	0	1	217	keep	
 tate-thesis-sketch	Tate's thesis sketch	adeles-and-ideles	0	4	0	0	1	276	keep	
 decomposition-group	Decomposition and inertia groups	frobenius-and-reciprocity	0	3	0	0	1	181	keep	
 existence-theorem-cft	Takagi existence theorem	class-field-theory	0	3	0	0	1	233	keep	
@@ -873,7 +1244,6 @@ ramanujan-congruences	Ramanujan congruences	partitions-generating-functions	0	4	
 functional-equation-zeta	The functional equation ξ(s) = ξ(1−s)	zeta-values	0	2	0	0	1	199	keep	
 multiple-zeta-values	Multiple zeta values and their algebra	zeta-values	0	1	0	0	1	372	keep	
 zeta-mahler-measure	Zeta values and Mahler measure	zeta-values	0	4	0	0	1	355	keep	
-special-values-lfunc	Special values and arithmetic	L-functions	0	2	0	0	1	145	keep	
 ramification-galois-rep	Inertia, ramification, and the conductor	galois-representations	0	2	0	0	1	125	keep	
 replication-formulas	Replication formulas and Hauptmodul recursions	moonshine	0	1	0	0	1	305	keep	
 genus-zero-moonshine-groups	Genus-zero groups and Ogg's coincidence	moonshine	0	2	0	0	1	374	keep	
@@ -885,20 +1255,14 @@ mc-cusps-galois	Cusps and rationality over $\mathbb{Q}$	modular-curves	0	2	0	0	2
 mc-atkin-lehner-newforms	Atkin–Lehner involutions and the old/new decomposition	modular-curves	0	2	0	0	3	569	split-blurb	
 mc-mazur-torsion	Mazur's torsion theorem via $X_1(N)$	modular-curves	0	2	0	0	2	538	keep	
 projective-duality	Projective duality	projective-plane	0	2	0	0	1	127	keep	
-cross-ratio	The cross-ratio	projective-plane	0	2	0	0	1	147	keep	
 cayley-bacharach	Cayley–Bacharach and associativity	bezout	0	2	0	0	1	176	keep	
 generic-point	Generic points and specialization	schemes	0	1	0	0	1	131	keep	
 dimension-scheme	Dimension of a scheme	schemes	0	2	0	0	1	167	keep	
 fiber-over-point	Fibers of a morphism over a point	schemes	0	2	0	0	1	181	keep	
 yoneda-embedding-ag	The Yoneda embedding for schemes	functor-of-points	0	3	0	0	1	181	keep	
 base-change-interpretation	Base change as pullback of functors	functor-of-points	0	2	0	0	1	155	keep	
-j-invariant-classification	The j-invariant and isomorphism classes	elliptic-curves	0	2	0	0	1	167	keep	
 singular-cubic-types	Singular cubic types	singular-cubics-reduction	0	1	0	0	1	71	keep	
 minimal-weierstrass-model	Minimal Weierstrass model and conductor	singular-cubics-reduction	0	2	0	0	2	193	keep	
-canonical-embedding	The canonical embedding	algebraic-curves-higher-genus	0	2	0	0	2	240	keep	
-hyperelliptic-curves	Hyperelliptic curves	algebraic-curves-higher-genus	0	2	0	0	3	263	split-blurb	
-moduli-of-curves-genus-g	Moduli of higher-genus curves $\mathcal{M}_g$	algebraic-curves-higher-genus	0	2	0	0	2	235	keep	
-comparison-betti	Comparison with Betti cohomology	algebraic-de-rham-cohomology	0	2	0	0	2	243	keep	
 level-structures-moduli	Level structure and compactification ideas	moduli-spaces	0	2	0	0	1	89	keep	
 morphisms-of-algebraic-spaces	Morphisms of algebraic spaces	algebraic-spaces	0	2	0	0	2	219	keep	
 examples-of-algebraic-spaces	Examples: free quotients and a non-scheme	algebraic-spaces	0	1	0	0	3	297	split-blurb	
@@ -907,7 +1271,6 @@ lie-algebra-of-G	Lie algebra $\mathrm{Lie}(G)$	group-schemes	0	2	0	0	2	242	keep
 torsors-and-cohomology	$G$-torsors and $H^1(X, G)$	group-schemes	0	2	0	0	2	282	keep	
 cotangent-complex	The cotangent complex $L_{X/Y}$	deformation-theory	0	2	0	0	2	275	keep	
 deformation-of-a-curve	Worked example: deformations of a smooth curve	deformation-theory	0	3	0	0	2	252	keep	
-spectral-clustering	Spectral clustering	spectral-graph-theory	0	2	0	0	2	214	keep	
 matroid-examples	Vector, graphic, uniform, transversal matroids	matroid-theory	0	1	0	0	2	265	keep	
 matroid-closure-flats	Closure, flats, and the geometric lattice	matroid-theory	0	1	0	0	2	233	keep	
 tutte-polynomial	The Tutte polynomial	matroid-theory	0	2	0	0	3	265	split-blurb	
@@ -917,7 +1280,6 @@ lovasz-local-lemma	Lovász Local Lemma	probabilistic-method	0	1	0	0	2	324	keep
 random-graph-thresholds	Thresholds in $G(n,p)$	probabilistic-method	0	2	0	0	2	288	keep	
 ramsey-numbers	Ramsey numbers	extremal-combinatorics	0	1	0	0	3	292	split-blurb	
 sperner-lym	Sperner's theorem and the LYM inequality	extremal-combinatorics	0	1	0	0	2	230	keep	
-triangle-removal-regularity	Triangle removal lemma and Szemerédi regularity	extremal-combinatorics	0	1	0	0	3	333	split-blurb	
 stanley-reisner-ring	Stanley–Reisner ring	simplicial-complexes-combinatorial	0	2	0	0	2	314	keep	
 persistent-homology-combinatorial	Persistent homology and Vietoris–Rips	simplicial-complexes-combinatorial	0	2	0	0	3	332	split-blurb	
 ec-inclusion-exclusion	Inclusion–exclusion and derangements	enumerative-combinatorics	0	1	0	0	3	236	split-blurb	
@@ -926,4 +1288,6 @@ cm-vs-non-cm-sato-tate	CM vs. non-CM: two equidistribution laws	sato-tate	0	2	0	
 regulator	Néron–Tate height and the regulator	bsd	0	2	0	0	1	202	keep	
 sha-tate-shafarevich	The Tate–Shafarevich group Ш	bsd	0	2	0	0	2	178	keep	
 ribet-level-lowering	Ribet's level lowering	modularity-and-flt	0	2	0	0	2	252	keep	
-comparison-theorems-etale	Comparison theorems: étale vs. singular, de Rham, crystalline	etale-cohomology	0	3	0	0	1	220	keep	
+lattice-gauge	Lattice gauge theory	gauge-theory	0	1	0	0	3	387	split-blurb	
+donaldson-sw-invariants	Donaldson and Seiberg-Witten invariants	gauge-theory	0	2	0	0	2	434	keep	
+branes-string-math	Branes and the math output of string theory	string-theory	0	1	0	0	3	597	split-blurb	

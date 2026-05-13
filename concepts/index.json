@@ -13,23 +13,24 @@
     "mathematical-biology",
     "spectral-methods-data",
 
-
-
-
-
-
-
-
-
-
-
-
-
     "optimal-control-and-dynamic-programming",
     "combinatorial-optimization",
     "mathematical-finance",
     "donaldson-thomas-and-gw-invariants",
     "positive-characteristic-ag",
+    "convex-geometry",
+
+
+
+
+
+
+
+
+
+
+
+
 
     "several-complex-variables",
     "khovanov-homology",
@@ -408,6 +409,7 @@
     "combinatorial-optimization": "advanced",
     "mathematical-finance": "advanced",
     "donaldson-thomas-and-gw-invariants": "advanced",
-    "positive-characteristic-ag": "advanced"
+    "positive-characteristic-ag": "advanced",
+    "convex-geometry": "advanced"
   }
 }

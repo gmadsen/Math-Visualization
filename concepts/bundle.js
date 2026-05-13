@@ -17,6 +17,7 @@ window.__MVConcepts = {
       "mathematical-finance",
       "donaldson-thomas-and-gw-invariants",
       "positive-characteristic-ag",
+      "convex-geometry",
       "several-complex-variables",
       "khovanov-homology",
       "shimura-varieties",
@@ -394,7 +395,8 @@ window.__MVConcepts = {
       "combinatorial-optimization": "advanced",
       "mathematical-finance": "advanced",
       "donaldson-thomas-and-gw-invariants": "advanced",
-      "positive-characteristic-ag": "advanced"
+      "positive-characteristic-ag": "advanced",
+      "convex-geometry": "advanced"
     }
   },
   "topics": {
@@ -1696,6 +1698,99 @@ window.__MVConcepts = {
             "pchar-de-rham-witt"
           ],
           "blurb": "Catalog of theorems that fail in characteristic $p$: Kodaira vanishing (Raynaud), Bertini's smoothness for inseparable maps, Hodge symmetry (Mumford), existence of $W$-lifts (Hirokado, Schröer), resolution of singularities in $\\dim\\ge 4$, termination of the MMP. Failure modes are productive: each broken theorem forced a new invariant — Frobenius splittings, $W_2$-lifts, $F$-singularities, $p$-adic Hodge theory. The 'positive-characteristic perspective' is one where the failure list is part of the structure to be studied.",
+          "tags": [
+            "classification"
+          ]
+        }
+      ]
+    },
+    "convex-geometry": {
+      "topic": "convex-geometry",
+      "title": "Convex geometry",
+      "page": "convex-geometry.html",
+      "concepts": [
+        {
+          "id": "cg-convex-bodies",
+          "title": "Convex bodies & supporting hyperplanes",
+          "anchor": "bodies",
+          "prereqs": [],
+          "blurb": "A convex body $K\\subset\\mathbb{R}^n$ is compact and convex with non-empty interior. Hahn–Banach in finite dimension guarantees that every boundary point has a supporting hyperplane $\\{x:\\langle u,x\\rangle=h_K(u)\\}$, and the support function $h_K(u)=\\sup_{x\\in K}\\langle u,x\\rangle$ encodes $K$ completely via $K=\\bigcap_u\\{x:\\langle u,x\\rangle\\le h_K(u)\\}$.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "cg-minkowski-sum",
+          "title": "Minkowski sum & mixed volumes",
+          "anchor": "minkowski-sum",
+          "prereqs": [
+            "cg-convex-bodies"
+          ],
+          "blurb": "The Minkowski sum $A+B=\\{a+b:a\\in A,b\\in B\\}$ acts like a generalised dilation. The volume of $\\lambda_1 K_1+\\cdots+\\lambda_m K_m$ is a homogeneous polynomial of degree $n$ in the $\\lambda_i$; its symmetric multilinear coefficients $V(K_{i_1},\\ldots,K_{i_n})$ are the mixed volumes — the essential numerical invariants of convex geometry.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "cg-brunn-minkowski",
+          "title": "Brunn–Minkowski inequality",
+          "anchor": "brunn-minkowski",
+          "prereqs": [
+            "cg-minkowski-sum"
+          ],
+          "blurb": "$\\mathrm{vol}(A+B)^{1/n}\\ge\\mathrm{vol}(A)^{1/n}+\\mathrm{vol}(B)^{1/n}$ for convex bodies, with equality iff $A$ and $B$ are homothetic. Equivalent to the Prékopa–Leindler functional inequality and instantly yields the classical isoperimetric inequality on $\\mathbb{R}^n$.",
+          "tags": [
+            "duality"
+          ]
+        },
+        {
+          "id": "cg-polytopes",
+          "title": "Polytopes & the f-vector",
+          "anchor": "polytopes",
+          "prereqs": [
+            "cg-convex-bodies",
+            "polyhedral"
+          ],
+          "blurb": "Minkowski–Weyl: a bounded intersection of finitely many half-spaces equals a convex hull of finitely many points. The face lattice is ranked by dimension; the $f$-vector $(f_0,\\ldots,f_{n-1})$ satisfies Euler's relation $\\sum_i(-1)^i f_i=1-(-1)^n$, with the upper-bound theorem (McMullen) capping $f_i$ at the cyclic polytope.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "cg-john-ellipsoid",
+          "title": "John's ellipsoid & Banach–Mazur distance",
+          "anchor": "john",
+          "prereqs": [
+            "cg-convex-bodies",
+            "first-second-fundamental"
+          ],
+          "blurb": "Every centrally symmetric convex body $K$ contains a unique ellipsoid $E$ of maximal volume — the John ellipsoid — and $E\\subseteq K\\subseteq\\sqrt n\\,E$. The Banach–Mazur distance $d(K,L)=\\inf\\{r:K\\subseteq TL\\subseteq rK\\}$ over invertible affine $T$ then bounds the diameter of the compact metric space of $n$-dimensional normed spaces by $\\sqrt n$.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "cg-polar-duality",
+          "title": "Polar duality & Mahler conjecture",
+          "anchor": "polar",
+          "prereqs": [
+            "cg-convex-bodies",
+            "cg-polytopes"
+          ],
+          "blurb": "The polar body $K^\\circ=\\{y:\\langle y,x\\rangle\\le 1\\text{ for all }x\\in K\\}$ is an involution: $(K^\\circ)^\\circ=K$ for closed convex bodies containing the origin. Mahler's conjecture asks whether $\\mathrm{vol}(K)\\,\\mathrm{vol}(K^\\circ)\\ge 4^n/n!$ for symmetric $K$ — proven in dimensions 2 and 3, with the hyperplane (slicing) conjecture (Bourgain) the dual open problem about lower bounds on hyperplane sections.",
+          "tags": [
+            "duality"
+          ]
+        },
+        {
+          "id": "cg-dvoretzky",
+          "title": "Spherical sections & Dvoretzky",
+          "anchor": "dvoretzky",
+          "prereqs": [
+            "cg-john-ellipsoid",
+            "hdg-dvoretzky"
+          ],
+          "blurb": "Dvoretzky's theorem: every centred convex body in $\\mathbb{R}^n$ has an almost-Euclidean section of dimension $k=\\Omega(\\varepsilon^2\\log n)$ — geometrically, every high-dimensional Banach ball hides a round one inside. Milman's proof routes through measure concentration on $S^{n-1}$ and ties convex geometry to high-dimensional probability.",
           "tags": [
             "classification"
           ]
@@ -19108,7 +19203,8 @@ window.__MVConcepts = {
           "kahler-geometry",
           "mapping-class-groups",
           "surgery-theory",
-          "heegaard-floer"
+          "heegaard-floer",
+          "convex-geometry"
         ],
         "color": "v"
       },
@@ -19544,7 +19640,8 @@ window.__MVConcepts = {
     "combinatorial-optimization": "advanced",
     "mathematical-finance": "advanced",
     "donaldson-thomas-and-gw-invariants": "advanced",
-    "positive-characteristic-ag": "advanced"
+    "positive-characteristic-ag": "advanced",
+    "convex-geometry": "advanced"
   },
   "newArc": [
     "elementary-topos-theory",
@@ -19596,15 +19693,15 @@ window.__MVConcepts = {
       "concepts": 76,
       "intra": 124,
       "crossOut": 23,
-      "crossIn": 22,
+      "crossIn": 23,
       "density": 0.3026315789473684
     },
     "Geometry & topology": {
-      "concepts": 153,
-      "intra": 260,
-      "crossOut": 31,
+      "concepts": 160,
+      "intra": 268,
+      "crossOut": 33,
       "crossIn": 100,
-      "density": 0.20261437908496732
+      "density": 0.20625
     },
     "Number theory": {
       "concepts": 128,
@@ -19645,7 +19742,7 @@ window.__MVConcepts = {
       "concepts": 21,
       "intra": 20,
       "crossOut": 14,
-      "crossIn": 0,
+      "crossIn": 1,
       "density": 0.6666666666666666
     }
   }

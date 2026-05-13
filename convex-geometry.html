@@ -1,0 +1,1122 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Convex geometry</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false,
+      macros:{
+        '\\Spec':'\\operatorname{Spec}',
+        '\\Gal':'\\operatorname{Gal}',
+        '\\Hom':'\\operatorname{Hom}',
+        '\\tr':'\\operatorname{tr}',
+        '\\ad':'\\operatorname{ad}',
+        '\\ind':'\\operatorname{ind}'
+      }
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  /* sticky sidebar TOC (wide screens only; narrow screens fall back to top-nav) */
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+  /* callback-css-auto-begin */
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+/* callback-css-auto-end */
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
+  /* display-prefs-css-auto-begin */
+  html[data-hide-widgets] .widget { display: none !important; }
+  html[data-hide-quizzes] .quiz { display: none !important; }
+  html[data-hide-lineage] .lineage-strip { display: none !important; }
+  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }
+  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }
+  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }
+  .mv-display-toggle--off { opacity: 0.35; }
+  /* display-prefs-css-auto-end */
+</style>
+<!-- breadcrumb-head-auto-begin -->
+<script>window.__MV_SECTION_MAP = {"<topic>":{"next":null,"prev":null,"section":"Sections","title":"<topic>"},"L-functions":{"next":"sato-tate","prev":"moonshine","section":"Modular forms & L-functions","title":"L-functions"},"abelian-varieties":{"next":"positivity-and-ample-line-bundles","prev":"toric-varieties","section":"Algebraic geometry","title":"Abelian varieties"},"additive-number-theory":{"next":"heights-arithmetic-geometry","prev":"quadratic-forms-genus-theory","section":"Number theory","title":"Additive number theory"},"adeles-and-ideles":{"next":"frobenius-and-reciprocity","prev":"p-adic-numbers","section":"Number theory","title":"Adèles & idèles"},"advanced-complex-analysis":{"next":"microlocal-analysis","prev":"sobolev-spaces-distributions","section":"Analysis","title":"Advanced complex analysis"},"algebra":{"next":"representation-theory","prev":null,"section":"Algebra & homological","title":"Abstract algebra"},"algebraic-curves-higher-genus":{"next":"deformation-theory","prev":"mirror-symmetry","section":"Algebraic geometry","title":"Algebraic curves: higher genus"},"algebraic-de-rham-cohomology":{"next":"calabi-yau-manifolds","prev":"algebraic-spaces","section":"Algebraic geometry","title":"Algebraic de Rham cohomology"},"algebraic-k-theory-foundations":{"next":"model-categories","prev":"quantum-groups","section":"Algebra & homological","title":"Algebraic K-theory foundations"},"algebraic-number-theory":{"next":"p-adic-numbers","prev":"galois","section":"Number theory","title":"Algebraic number theory"},"algebraic-spaces":{"next":"algebraic-de-rham-cohomology","prev":"functor-of-points","section":"Algebraic geometry","title":"Algebraic spaces"},"algebraic-topology":{"next":"knot-polynomials","prev":"point-set-topology","section":"Geometry & topology","title":"Algebraic topology"},"analytic-continuation":{"next":"zeta-values","prev":"dirichlet-series-euler-products","section":"Modular forms & L-functions","title":"Analytic continuation"},"analytic-number-theory":{"next":"galois","prev":null,"section":"Number theory","title":"Analytic number theory"},"atiyah-singer-index-theorem":{"next":"riemannian-geometry","prev":"k-theory","section":"Geometry & topology","title":"Atiyah–Singer index theorem"},"automorphic-forms-adelic":{"next":"moonshine","prev":"hecke-operators","section":"Modular forms & L-functions","title":"Automorphic forms (adelic)"},"bezout":{"next":"schemes","prev":"elliptic-curves","section":"Algebraic geometry","title":"Bézout's theorem"},"brill-noether":{"next":"donaldson-thomas-and-gw-invariants","prev":"geometric-invariant-theory","section":"Algebraic geometry","title":"Brill–Noether theory"},"bsd":{"next":"modularity-and-flt","prev":"sato-tate","section":"Modular forms & L-functions","title":"Birch & Swinnerton-Dyer"},"calabi-yau-manifolds":{"next":"mirror-symmetry","prev":"algebraic-de-rham-cohomology","section":"Algebraic geometry","title":"Calabi–Yau manifolds"},"category-theory":{"next":"commutative-algebra","prev":"derived-categories","section":"Algebra & homological","title":"Category theory"},"characteristic-classes":{"next":"k-theory","prev":"symplectic-manifolds","section":"Geometry & topology","title":"Characteristic classes"},"class-field-theory":{"next":"galois-representations","prev":"computational-number-theory","section":"Number theory","title":"Class field theory"},"cluster-algebras":{"next":"galois-cohomology-and-brauer","prev":"geometric-and-combinatorial-group-theory","section":"Algebra & homological","title":"Cluster algebras"},"cobordism":{"next":"homotopy-theory","prev":"cohomology-and-duality","section":"Geometry & topology","title":"Cobordism"},"cocartesian-fibrations":{"next":"infinity-categories","prev":"heyting-algebras-toposes","section":"Higher categories & toposes","title":"Cocartesian fibrations"},"coding-theory":{"next":null,"prev":"expanders","section":"Combinatorics & graph theory","title":"Coding theory"},"cohomology-and-duality":{"next":"cobordism","prev":"mostow-rigidity","section":"Geometry & topology","title":"Cohomology and duality"},"combinatorial-optimization":{"next":"mathematical-finance","prev":"optimal-control-and-dynamic-programming","section":"Control theory & optimization","title":"Combinatorial optimization"},"commutative-algebra":{"next":"homological","prev":"category-theory","section":"Algebra & homological","title":"Commutative algebra"},"complex-analysis":{"next":"measure-theory","prev":"real-analysis","section":"Analysis","title":"Complex analysis"},"complex-multiplication":{"next":null,"prev":"dirichlet-unit-theorem","section":"Number theory","title":"Complex multiplication"},"complexity-theory":{"next":"type-theory-and-hott","prev":"computability-and-decidability","section":"Logic & Foundations","title":"Complexity theory"},"computability-and-decidability":{"next":"complexity-theory","prev":"model-theory-basics","section":"Logic & Foundations","title":"Computability and decidability"},"computational-number-theory":{"next":"class-field-theory","prev":"mathematics-and-cryptography","section":"Number theory","title":"Computational number theory"},"condensed-mathematics":{"next":null,"prev":"groebner-bases","section":"Algebra & homological","title":"Condensed mathematics"},"conformal-and-cr-geometry":{"next":null,"prev":"several-complex-variables","section":"Analysis","title":"Conformal & CR geometry"},"continued-fractions":{"next":"dirichlet-unit-theorem","prev":"iwasawa-theory","section":"Number theory","title":"Continued fractions"},"convex-geometry":{"next":null,"prev":"heegaard-floer","section":"Geometry & topology","title":"Convex geometry"},"crystalline-cohomology":{"next":"tropical-geometry","prev":"d-modules","section":"Algebraic geometry","title":"Crystalline cohomology"},"d-modules":{"next":"crystalline-cohomology","prev":"mmp-and-birational-geometry","section":"Algebraic geometry","title":"D-modules"},"deformation-theory":{"next":"resolution-of-singularities","prev":"algebraic-curves-higher-genus","section":"Algebraic geometry","title":"Deformation theory"},"derived-categories":{"next":"category-theory","prev":"model-categories","section":"Algebra & homological","title":"Derived categories"},"designs":{"next":"spectral-graph-theory","prev":"enumerative-combinatorics","section":"Combinatorics & graph theory","title":"Designs"},"differential-forms":{"next":"morse-theory","prev":"riemann-surfaces","section":"Geometry & topology","title":"Differential forms"},"differential-geometry":{"next":"riemann-surfaces","prev":"smooth-manifolds","section":"Geometry & topology","title":"Differential geometry"},"dirac-equation":{"next":"statistical-mechanics","prev":"klein-gordon-equation","section":"Mathematical physics","title":"Dirac equation"},"dirichlet-series-euler-products":{"next":"analytic-continuation","prev":null,"section":"Modular forms & L-functions","title":"Dirichlet series & Euler products"},"dirichlet-unit-theorem":{"next":"complex-multiplication","prev":"continued-fractions","section":"Number theory","title":"Dirichlet unit theorem"},"donaldson-thomas-and-gw-invariants":{"next":"positive-characteristic-ag","prev":"brill-noether","section":"Algebraic geometry","title":"Donaldson–Thomas & GW invariants"},"dynamical-systems":{"next":"semigroup-theory-evolution-equations","prev":"operator-algebras","section":"Analysis","title":"Dynamical systems"},"elementary-topos-theory":{"next":"grothendieck-topologies-sites","prev":"simplicial-sets-and-nerve","section":"Higher categories & toposes","title":"Elementary topos theory"},"elliptic-curves":{"next":"bezout","prev":"etale-fundamental-group","section":"Algebraic geometry","title":"Elliptic curves"},"enumerative-combinatorics":{"next":"designs","prev":"simplicial-complexes-combinatorial","section":"Combinatorics & graph theory","title":"Enumerative combinatorics"},"etale-cohomology":{"next":"mmp-and-birational-geometry","prev":"stacks","section":"Algebraic geometry","title":"Étale cohomology"},"etale-fundamental-group":{"next":"elliptic-curves","prev":"projective-plane","section":"Algebraic geometry","title":"Étale fundamental group"},"expanders":{"next":"coding-theory","prev":"spectral-graph-theory","section":"Combinatorics & graph theory","title":"Expanders"},"extremal-combinatorics":{"next":"simplicial-complexes-combinatorial","prev":"probabilistic-method","section":"Combinatorics & graph theory","title":"Extremal combinatorics"},"first-order-logic-and-completeness":{"next":"zfc-and-ordinals","prev":"type-theory-and-hott","section":"Logic & Foundations","title":"First order logic and completeness"},"fixed-point-theorems":{"next":"harmonic-analysis-fourier","prev":"functional-analysis","section":"Analysis","title":"Fixed point theorems"},"forcing-and-independence":{"next":null,"prev":"zfc-and-ordinals","section":"Logic & Foundations","title":"Forcing and independence"},"frobenius-and-reciprocity":{"next":"quadratic-reciprocity","prev":"adeles-and-ideles","section":"Number theory","title":"Frobenius & reciprocity"},"functional-analysis":{"next":"fixed-point-theorems","prev":"harmonic-functions","section":"Analysis","title":"Functional analysis"},"functor-of-points":{"next":"algebraic-spaces","prev":"morphisms-fiber-products","section":"Algebraic geometry","title":"Functor of points"},"galois":{"next":"algebraic-number-theory","prev":"analytic-number-theory","section":"Number theory","title":"Galois theory & the quintic"},"galois-cohomology-and-brauer":{"next":"group-cohomology","prev":"cluster-algebras","section":"Algebra & homological","title":"Galois cohomology and Brauer groups"},"galois-representations":{"next":"iwasawa-theory","prev":"class-field-theory","section":"Number theory","title":"Galois representations"},"gauge-theory":{"next":"string-theory","prev":"statistical-mechanics","section":"Mathematical physics","title":"Gauge theory"},"general-relativity":{"next":"schrodinger-equation","prev":"three-body-problem","section":"Mathematical physics","title":"General relativity & Einstein equations"},"geometric-and-combinatorial-group-theory":{"next":"cluster-algebras","prev":"quaternions-octonions-and-division-algebras","section":"Algebra & homological","title":"Geometric and combinatorial group theory"},"geometric-invariant-theory":{"next":"brill-noether","prev":"tropical-geometry","section":"Algebraic geometry","title":"Geometric invariant theory"},"geometric-measure-theory":{"next":"operator-algebras","prev":"microlocal-analysis","section":"Analysis","title":"Geometric measure theory"},"groebner-bases":{"next":"condensed-mathematics","prev":"homological","section":"Algebra & homological","title":"Gröbner bases"},"grothendieck-topologies-sites":{"next":"infinity-topoi","prev":"elementary-topos-theory","section":"Higher categories & toposes","title":"Grothendieck topologies & sites"},"group-cohomology":{"next":"quantum-groups","prev":"galois-cohomology-and-brauer","section":"Algebra & homological","title":"Group cohomology"},"group-schemes":{"next":"morphisms-fiber-products","prev":"intersection-theory-chow","section":"Algebraic geometry","title":"Group schemes"},"half-integral-weight-forms":{"next":"shimura-varieties","prev":"maass-forms","section":"Modular forms & L-functions","title":"Half-integral weight forms"},"hamiltonians-classical-mechanics":{"next":"special-relativity","prev":"schrodinger-equation","section":"Mathematical physics","title":"Hamiltonians & classical mechanics"},"harmonic-analysis-fourier":{"next":"wavelets","prev":"fixed-point-theorems","section":"Analysis","title":"Harmonic analysis & Fourier theory"},"harmonic-functions":{"next":"functional-analysis","prev":"measure-theory","section":"Analysis","title":"Harmonic functions"},"hecke-operators":{"next":"automorphic-forms-adelic","prev":"theta-functions","section":"Modular forms & L-functions","title":"Hecke operators"},"heegaard-floer":{"next":"convex-geometry","prev":"surgery-theory","section":"Geometry & topology","title":"Heegaard Floer & knot Floer"},"heights-arithmetic-geometry":{"next":"mathematics-and-cryptography","prev":"additive-number-theory","section":"Number theory","title":"Heights in arithmetic geometry"},"heyting-algebras-toposes":{"next":"cocartesian-fibrations","prev":null,"section":"Higher categories & toposes","title":"Heyting algebras & intuitionist logic"},"high-dimensional-geometry":{"next":"information-theory","prev":"large-deviations","section":"Probability & statistics","title":"High dimensional geometry"},"hodge-theory":{"next":"singular-cubics-reduction","prev":"motives","section":"Algebraic geometry","title":"Hodge theory"},"homological":{"next":"groebner-bases","prev":"commutative-algebra","section":"Algebra & homological","title":"Homological algebra"},"homotopy-theory":{"next":"kahler-geometry","prev":"cobordism","section":"Geometry & topology","title":"Homotopy theory"},"infinity-categories":{"next":"simplicial-sets-and-nerve","prev":"cocartesian-fibrations","section":"Higher categories & toposes","title":"∞-categories (quasi-categories)"},"infinity-topoi":{"next":null,"prev":"grothendieck-topologies-sites","section":"Higher categories & toposes","title":"∞-topoi"},"information-theory":{"next":"mathematical-statistics","prev":"high-dimensional-geometry","section":"Probability & statistics","title":"Information theory"},"intersection-theory-chow":{"next":"group-schemes","prev":"sheaves","section":"Algebraic geometry","title":"Intersection theory & Chow groups"},"iwasawa-theory":{"next":"continued-fractions","prev":"galois-representations","section":"Number theory","title":"Iwasawa theory"},"k-theory":{"next":"atiyah-singer-index-theorem","prev":"characteristic-classes","section":"Geometry & topology","title":"K-theory"},"kahler-geometry":{"next":"mapping-class-groups","prev":"homotopy-theory","section":"Geometry & topology","title":"Kähler geometry"},"khovanov-homology":{"next":"surgery-theory","prev":"mapping-class-groups","section":"Geometry & topology","title":"Khovanov homology"},"klein-gordon-equation":{"next":"dirac-equation","prev":"special-relativity","section":"Mathematical physics","title":"Klein-Gordon equation"},"knot-polynomials":{"next":"smooth-manifolds","prev":"algebraic-topology","section":"Geometry & topology","title":"Knot polynomials"},"langlands-program":{"next":"theta-functions","prev":"vertex-operator-algebras","section":"Modular forms & L-functions","title":"Langlands program"},"large-deviations":{"next":"high-dimensional-geometry","prev":"random-walks-and-mixing","section":"Probability & statistics","title":"Large deviations"},"lie-algebras":{"next":"quaternions-octonions-and-division-algebras","prev":"representation-theory","section":"Algebra & homological","title":"Lie algebras"},"lie-groups":{"next":"mostow-rigidity","prev":"ricci-flow","section":"Geometry & topology","title":"Lie groups & algebras"},"maass-forms":{"next":"half-integral-weight-forms","prev":"modularity-and-flt","section":"Modular forms & L-functions","title":"Maass forms"},"mapping-class-groups":{"next":"khovanov-homology","prev":"kahler-geometry","section":"Geometry & topology","title":"Mapping class groups & 4-manifolds"},"mathematical-biology":{"next":"spectral-methods-data","prev":"random-matrix-theory","section":"Probability & statistics","title":"Mathematical biology"},"mathematical-finance":{"next":null,"prev":"combinatorial-optimization","section":"Control theory & optimization","title":"Mathematical finance & stochastic control"},"mathematical-statistics":{"next":"probability-theory","prev":"information-theory","section":"Probability & statistics","title":"Mathematical statistics"},"mathematics-and-cryptography":{"next":"computational-number-theory","prev":"heights-arithmetic-geometry","section":"Number theory","title":"Mathematics and cryptography"},"matroid-theory":{"next":"probabilistic-method","prev":null,"section":"Combinatorics & graph theory","title":"Matroid theory"},"measure-theory":{"next":"harmonic-functions","prev":"complex-analysis","section":"Analysis","title":"Measure theory"},"microlocal-analysis":{"next":"geometric-measure-theory","prev":"advanced-complex-analysis","section":"Analysis","title":"Microlocal analysis"},"mirror-symmetry":{"next":"algebraic-curves-higher-genus","prev":"calabi-yau-manifolds","section":"Algebraic geometry","title":"Mirror symmetry"},"mmp-and-birational-geometry":{"next":"d-modules","prev":"etale-cohomology","section":"Algebraic geometry","title":"MMP and birational geometry"},"model-categories":{"next":"derived-categories","prev":"algebraic-k-theory-foundations","section":"Algebra & homological","title":"Model categories"},"model-theory-basics":{"next":"computability-and-decidability","prev":"naive-set-theory","section":"Logic & Foundations","title":"Model theory basics"},"modular-curves":{"next":"vertex-operator-algebras","prev":"partitions-generating-functions","section":"Modular forms & L-functions","title":"Modular curves"},"modular-forms":{"next":"partitions-generating-functions","prev":"upper-half-plane-hyperbolic","section":"Modular forms & L-functions","title":"Modular forms"},"modularity-and-flt":{"next":"maass-forms","prev":"bsd","section":"Modular forms & L-functions","title":"Modularity & FLT"},"moduli-spaces":{"next":"toric-varieties","prev":"sheaf-cohomology","section":"Algebraic geometry","title":"Moduli spaces"},"moonshine":{"next":"L-functions","prev":"automorphic-forms-adelic","section":"Modular forms & L-functions","title":"Monstrous moonshine"},"morphisms-fiber-products":{"next":"functor-of-points","prev":"group-schemes","section":"Algebraic geometry","title":"Morphisms & fiber products"},"morse-theory":{"next":"symplectic-manifolds","prev":"differential-forms","section":"Geometry & topology","title":"Morse theory"},"mostow-rigidity":{"next":"cohomology-and-duality","prev":"lie-groups","section":"Geometry & topology","title":"Mostow rigidity"},"motives":{"next":"hodge-theory","prev":"resolution-of-singularities","section":"Algebraic geometry","title":"Motives"},"naive-set-theory":{"next":"model-theory-basics","prev":null,"section":"Logic & Foundations","title":"Naive set theory"},"numerical-analysis":{"next":"variational-methods","prev":"spectral-theory","section":"Analysis","title":"Numerical analysis"},"operator-algebras":{"next":"dynamical-systems","prev":"geometric-measure-theory","section":"Analysis","title":"Operator algebras"},"optimal-control-and-dynamic-programming":{"next":"combinatorial-optimization","prev":null,"section":"Control theory & optimization","title":"Optimal control and dynamic programming"},"p-adic-numbers":{"next":"adeles-and-ideles","prev":"algebraic-number-theory","section":"Number theory","title":"p-adic numbers"},"partial-differential-equations":{"next":"spectral-theory","prev":"wavelets","section":"Analysis","title":"Partial differential equations"},"partitions-generating-functions":{"next":"modular-curves","prev":"modular-forms","section":"Modular forms & L-functions","title":"Partitions & generating functions"},"point-set-topology":{"next":"algebraic-topology","prev":null,"section":"Geometry & topology","title":"Point-set topology"},"positive-characteristic-ag":{"next":null,"prev":"donaldson-thomas-and-gw-invariants","section":"Algebraic geometry","title":"Positive-characteristic AG"},"positivity-and-ample-line-bundles":{"next":"stacks","prev":"abelian-varieties","section":"Algebraic geometry","title":"Positivity and ample line bundles"},"probabilistic-method":{"next":"extremal-combinatorics","prev":"matroid-theory","section":"Combinatorics & graph theory","title":"Probabilistic method"},"probability-theory":{"next":"random-matrix-theory","prev":"mathematical-statistics","section":"Probability & statistics","title":"Probability theory"},"projective-plane":{"next":"etale-fundamental-group","prev":null,"section":"Algebraic geometry","title":"Projective plane"},"quadratic-forms-genus-theory":{"next":"additive-number-theory","prev":"quadratic-reciprocity","section":"Number theory","title":"Quadratic forms & genus theory"},"quadratic-reciprocity":{"next":"quadratic-forms-genus-theory","prev":"frobenius-and-reciprocity","section":"Number theory","title":"Quadratic reciprocity"},"quantum-field-theory":{"next":null,"prev":"string-theory","section":"Mathematical physics","title":"Quantum field theory"},"quantum-groups":{"next":"algebraic-k-theory-foundations","prev":"group-cohomology","section":"Algebra & homological","title":"Quantum groups"},"quaternions-octonions-and-division-algebras":{"next":"geometric-and-combinatorial-group-theory","prev":"lie-algebras","section":"Algebra & homological","title":"Quaternions, octonions, and division algebras"},"random-matrix-theory":{"next":"mathematical-biology","prev":"probability-theory","section":"Probability & statistics","title":"Random matrix theory"},"random-walks-and-mixing":{"next":"large-deviations","prev":"stochastic-calculus","section":"Probability & statistics","title":"Random walks and mixing"},"real-analysis":{"next":"complex-analysis","prev":null,"section":"Analysis","title":"Real analysis"},"representation-theory":{"next":"lie-algebras","prev":"algebra","section":"Algebra & homological","title":"Representation theory"},"resolution-of-singularities":{"next":"motives","prev":"deformation-theory","section":"Algebraic geometry","title":"Resolution of singularities"},"ricci-flow":{"next":"lie-groups","prev":"riemannian-geometry","section":"Geometry & topology","title":"Ricci flow"},"riemann-surfaces":{"next":"differential-forms","prev":"differential-geometry","section":"Geometry & topology","title":"Riemann surfaces"},"riemannian-geometry":{"next":"ricci-flow","prev":"atiyah-singer-index-theorem","section":"Geometry & topology","title":"Riemannian geometry"},"sato-tate":{"next":"bsd","prev":"L-functions","section":"Modular forms & L-functions","title":"Sato–Tate"},"schemes":{"next":"sheaves","prev":"bezout","section":"Algebraic geometry","title":"Schemes"},"schrodinger-equation":{"next":"hamiltonians-classical-mechanics","prev":"general-relativity","section":"Mathematical physics","title":"Schrödinger equation"},"semigroup-theory-evolution-equations":{"next":"several-complex-variables","prev":"dynamical-systems","section":"Analysis","title":"Semigroup theory & evolution equations"},"several-complex-variables":{"next":"conformal-and-cr-geometry","prev":"semigroup-theory-evolution-equations","section":"Analysis","title":"Several complex variables"},"sheaf-cohomology":{"next":"moduli-spaces","prev":"singular-cubics-reduction","section":"Algebraic geometry","title":"Sheaf cohomology"},"sheaves":{"next":"intersection-theory-chow","prev":"schemes","section":"Algebraic geometry","title":"Sheaves"},"shimura-varieties":{"next":null,"prev":"half-integral-weight-forms","section":"Modular forms & L-functions","title":"Shimura varieties"},"simplicial-complexes-combinatorial":{"next":"enumerative-combinatorics","prev":"extremal-combinatorics","section":"Combinatorics & graph theory","title":"Simplicial complexes (combinatorial)"},"simplicial-sets-and-nerve":{"next":"elementary-topos-theory","prev":"infinity-categories","section":"Higher categories & toposes","title":"Simplicial sets & the nerve"},"singular-cubics-reduction":{"next":"sheaf-cohomology","prev":"hodge-theory","section":"Algebraic geometry","title":"Singular cubics & reduction"},"smooth-manifolds":{"next":"differential-geometry","prev":"knot-polynomials","section":"Geometry & topology","title":"Smooth manifolds"},"sobolev-spaces-distributions":{"next":"advanced-complex-analysis","prev":"variational-methods","section":"Analysis","title":"Sobolev spaces & distributions"},"special-relativity":{"next":"klein-gordon-equation","prev":"hamiltonians-classical-mechanics","section":"Mathematical physics","title":"Special relativity"},"spectral-graph-theory":{"next":"expanders","prev":"designs","section":"Combinatorics & graph theory","title":"Spectral graph theory"},"spectral-methods-data":{"next":null,"prev":"mathematical-biology","section":"Probability & statistics","title":"Spectral methods for massive data sets"},"spectral-theory":{"next":"numerical-analysis","prev":"partial-differential-equations","section":"Analysis","title":"Spectral theory"},"stacks":{"next":"etale-cohomology","prev":"positivity-and-ample-line-bundles","section":"Algebraic geometry","title":"Stacks (Deligne–Mumford)"},"statistical-mechanics":{"next":"gauge-theory","prev":"dirac-equation","section":"Mathematical physics","title":"Statistical mechanics"},"stochastic-calculus":{"next":"random-walks-and-mixing","prev":"stochastic-processes-and-martingales","section":"Probability & statistics","title":"Stochastic calculus"},"stochastic-processes-and-martingales":{"next":"stochastic-calculus","prev":null,"section":"Probability & statistics","title":"Stochastic processes and martingales"},"string-theory":{"next":"quantum-field-theory","prev":"gauge-theory","section":"Mathematical physics","title":"String theory"},"surgery-theory":{"next":"heegaard-floer","prev":"khovanov-homology","section":"Geometry & topology","title":"Surgery theory"},"symplectic-manifolds":{"next":"characteristic-classes","prev":"morse-theory","section":"Geometry & topology","title":"Symplectic manifolds"},"theta-functions":{"next":"hecke-operators","prev":"langlands-program","section":"Modular forms & L-functions","title":"Theta functions"},"three-body-problem":{"next":"general-relativity","prev":null,"section":"Mathematical physics","title":"The three-body problem"},"toric-varieties":{"next":"abelian-varieties","prev":"moduli-spaces","section":"Algebraic geometry","title":"Toric varieties"},"tropical-geometry":{"next":"geometric-invariant-theory","prev":"crystalline-cohomology","section":"Algebraic geometry","title":"Tropical geometry"},"type-theory-and-hott":{"next":"first-order-logic-and-completeness","prev":"complexity-theory","section":"Logic & Foundations","title":"Type theory and HoTT"},"upper-half-plane-hyperbolic":{"next":"modular-forms","prev":"zeta-values","section":"Modular forms & L-functions","title":"Upper half-plane"},"variational-methods":{"next":"sobolev-spaces-distributions","prev":"numerical-analysis","section":"Analysis","title":"Variational methods"},"vertex-operator-algebras":{"next":"langlands-program","prev":"modular-curves","section":"Modular forms & L-functions","title":"Vertex operator algebras"},"wavelets":{"next":"partial-differential-equations","prev":"harmonic-analysis-fourier","section":"Analysis","title":"Wavelets"},"zeta-values":{"next":"upper-half-plane-hyperbolic","prev":"analytic-continuation","section":"Modular forms & L-functions","title":"Zeta values"},"zfc-and-ordinals":{"next":"forcing-and-independence","prev":"first-order-logic-and-completeness","section":"Logic & Foundations","title":"ZFC and ordinals"}};</script>
+<script src="./js/breadcrumb.js"></script>
+<script src="./js/glossary-popover.js" defer></script>
+<link rel="stylesheet" media="print" href="./css/print.css">
+<link rel="stylesheet" href="./css/theme-light.css">
+<script src="./js/theme-toggle.js"></script>
+<script src="./concepts/bundle.js" defer></script>
+<script src="./js/topic-hotkeys.js" defer></script>
+<script src="./js/topic-lineage.js" defer></script>
+<!-- breadcrumb-head-auto-end -->
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./js/katex-select.js"></script>
+<script src="./js/widget-diagram-editor.js"></script>
+<script src="./quizzes/bundle.js"></script>
+<script src="./js/sidetoc.js"></script>
+<!-- display-prefs-head-auto-begin -->
+<script src="./js/display-prefs.js"></script>
+<!-- display-prefs-head-auto-end -->
+</head>
+<body data-section="Geometry & topology" data-level="intermediate">
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+// draw an arrow marker def once per svg (idempotent)
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+// curved arrow between two pixel points, with optional label
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  // shorten endpoints
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><span class="nav-links"><a class="nav-link" href="./pathway.html">Pathway</a><a class="nav-link" href="./tours.html">Tours</a><a class="nav-link" href="./history.html">History</a><a class="nav-link" href="./tags.html">Themes</a><a class="nav-link" href="./mindmap.html">Mindmap</a><a class="nav-link" href="./search.html">Search</a></span><span class="mv-theme-slot"></span><!-- breadcrumb-nav-auto-end -->
+  <a href="#bodies">1&nbsp;Bodies</a>
+  <a href="#minkowski-sum">2&nbsp;Minkowski&nbsp;sums</a>
+  <a href="#brunn-minkowski">3&nbsp;Brunn–Minkowski</a>
+  <a href="#polytopes">4&nbsp;Polytopes</a>
+  <a href="#john">5&nbsp;John</a>
+  <a href="#polar">6&nbsp;Polar&nbsp;duality</a>
+  <a href="#dvoretzky">7&nbsp;Dvoretzky</a>
+  <a href="#connections">8&nbsp;Connections</a>
+</nav>
+<!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Convex geometry</h1>
+  <p class="sub">Convex bodies in $\mathbb{R}^n$ sit at the crossroads of analysis, combinatorics, and probability. The same body acquires four different personalities — its <em>support function</em>, its <em>polar dual</em>, its <em>face lattice</em>, and its <em>John ellipsoid</em> — and each one captures a different inequality. Brunn–Minkowski is the master inequality; Dvoretzky's theorem is the punchline; everything else is a step between.</p>
+</section>
+
+<section id="bodies">
+<h2>1. Convex bodies & supporting hyperplanes</h2>
+
+<p>A <strong>convex body</strong> is a compact convex subset $K\subset\mathbb{R}^n$ with non-empty interior. Convexity says that for any $x,y\in K$ and $t\in[0,1]$ the point $(1-t)x+ty$ also lies in $K$. Compactness plus interior buys you both extremes — the boundary $\partial K$ is a closed hypersurface, and the volume $\mathrm{vol}(K)$ is a positive finite number.</p>
+
+<p>Convex bodies are completely determined by their <em>support function</em>:</p>
+<p style="text-align:center">$h_K(u)=\sup_{x\in K}\,\langle u,x\rangle,\qquad u\in\mathbb{R}^n.$</p>
+<p>The function $h_K$ is positively 1-homogeneous and subadditive (hence convex), and the body recovers as</p>
+<p style="text-align:center">$K=\bigcap_{u\in S^{n-1}}\{x:\langle u,x\rangle\le h_K(u)\}.$</p>
+
+<p>For every unit vector $u$, the hyperplane $H_u=\{x:\langle u,x\rangle=h_K(u)\}$ is a <strong>supporting hyperplane</strong>: it touches $K$ but leaves all of $K$ on one side. Hahn–Banach in finite dimension (= a one-line separation argument) guarantees that <em>every</em> boundary point of $K$ has a supporting hyperplane through it. At smooth boundary points the hyperplane is unique and is the tangent space; at corners (e.g. vertices of a polytope) there is a whole fan of supporting hyperplanes.</p>
+
+<div class="widget" id="w-support">
+  <div class="hd"><div class="ttl">Support function on the sphere</div><div class="hint">drag the angle slider · watch the supporting hyperplane sweep around $K$</div></div>
+  <div class="row">
+    <label for="sup-shape">body</label>
+    <select id="sup-shape">
+      <option value="square">square $[-1,1]^2$</option>
+      <option value="disk">unit disk</option>
+      <option value="hex">regular hexagon</option>
+      <option value="tri">equilateral triangle</option>
+    </select>
+    <label for="sup-theta">direction $\theta$</label>
+    <input id="sup-theta" type="range" min="0" max="6.2832" step="0.01" value="0.6">
+    <span id="sup-theta-out" class="pill">θ=0.60</span>
+  </div>
+  <svg id="sup-svg" viewBox="0 0 640 360" width="100%" height="360" aria-label="Support function visualised by a rotating supporting hyperplane"><title>Supporting hyperplane and h_K(u) for a chosen body and direction</title></svg>
+  <div class="readout" id="sup-out"></div>
+</div><script>
+/* ====================== §1 Support function ====================== */
+(function(){
+  const svg = $('#sup-svg'), out = $('#sup-out');
+  const shapeSel = $('#sup-shape'), thIn = $('#sup-theta'), thOut = $('#sup-theta-out');
+  const W = 640, H = 360, cx = 260, cy = 180, scale = 110;
+  function bodyVerts(kind){
+    if(kind==='square') return [[-1,-1],[1,-1],[1,1],[-1,1]];
+    if(kind==='hex'){
+      const v=[]; for(let k=0;k<6;k++){ const a=Math.PI/3*k+Math.PI/6; v.push([Math.cos(a),Math.sin(a)]); } return v;
+    }
+    if(kind==='tri') return [[0,1.1],[-0.95,-0.55],[0.95,-0.55]];
+    /* disk: discrete approximation for drawing */
+    const v=[]; for(let k=0;k<96;k++){ const a=2*Math.PI*k/96; v.push([Math.cos(a),Math.sin(a)]); } return v;
+  }
+  function supportVal(kind, u){
+    if(kind==='disk') return 1;
+    const verts = bodyVerts(kind);
+    let h = -Infinity;
+    for(const v of verts){ const d = v[0]*u[0]+v[1]*u[1]; if(d>h) h=d; }
+    return h;
+  }
+  function draw(){
+    const kind = shapeSel.value;
+    const theta = parseFloat(thIn.value);
+    thOut.textContent = `θ=${theta.toFixed(2)}`;
+    const u = [Math.cos(theta), Math.sin(theta)];
+    const h = supportVal(kind, u);
+    svg.innerHTML = '';
+    /* axes */
+    svg.appendChild(SVG('line',{x1:cx,y1:30,x2:cx,y2:330,stroke:'var(--line)','stroke-width':1}));
+    svg.appendChild(SVG('line',{x1:60,y1:cy,x2:460,y2:cy,stroke:'var(--line)','stroke-width':1}));
+    /* body */
+    const verts = bodyVerts(kind);
+    const pts = verts.map(v=>`${cx+v[0]*scale},${cy-v[1]*scale}`).join(' ');
+    svg.appendChild(SVG('polygon',{points:pts,fill:'color-mix(in srgb, var(--violet) 22%, transparent)',
+      stroke:'var(--violet)','stroke-width':1.6}));
+    /* origin */
+    svg.appendChild(SVG('circle',{cx,cy,r:3,fill:'var(--ink)'}));
+    /* direction vector u (from origin) */
+    const ux = cx + u[0]*70, uy = cy - u[1]*70;
+    drawArrow(svg,[cx,cy],[ux,uy],{color:'var(--yellow)',markerId:'arr-u',width:2});
+    const tlab = SVG('text',{x:ux+8,y:uy-6,'font-size':12,fill:'var(--yellow)'});
+    tlab.textContent = 'u'; svg.appendChild(tlab);
+    /* supporting hyperplane: line  <u,x> = h_K(u). Perpendicular to u, at distance h from origin. */
+    const px = cx + u[0]*h*scale, py = cy - u[1]*h*scale; /* foot of perpendicular */
+    const perp = [-u[1], u[0]];
+    const lx1 = px + perp[0]*180, ly1 = py - perp[1]*180;
+    const lx2 = px - perp[0]*180, ly2 = py + perp[1]*180;
+    svg.appendChild(SVG('line',{x1:lx1,y1:ly1,x2:lx2,y2:ly2,stroke:'var(--cyan)','stroke-width':2,'stroke-dasharray':'6,4'}));
+    svg.appendChild(SVG('circle',{cx:px,cy:py,r:4,fill:'var(--cyan)'}));
+    /* contact set: highlight vertices/points where <u,v>=h to within eps */
+    if(kind!=='disk'){
+      for(const v of verts){
+        const d = v[0]*u[0]+v[1]*u[1];
+        if(Math.abs(d - h) < 1e-6){
+          svg.appendChild(SVG('circle',{cx:cx+v[0]*scale,cy:cy-v[1]*scale,r:5,fill:'var(--yellow)','stroke':'var(--ink)','stroke-width':1}));
+        }
+      }
+    } else {
+      svg.appendChild(SVG('circle',{cx:cx+u[0]*scale,cy:cy-u[1]*scale,r:5,fill:'var(--yellow)','stroke':'var(--ink)','stroke-width':1}));
+    }
+    /* legend (viewport coords) */
+    const lg = SVG('g',{transform:'translate(470, 50)'});
+    lg.appendChild(SVG('rect',{x:-6,y:-12,width:160,height:84,fill:'var(--panel2)',stroke:'var(--line)',rx:4}));
+    const r1 = SVG('text',{x:4,y:4,'font-size':12,fill:'var(--ink)'}); r1.textContent = `h_K(u) = ${h.toFixed(3)}`; lg.appendChild(r1);
+    const r2 = SVG('text',{x:4,y:24,'font-size':11,fill:'var(--mute)'}); r2.textContent = `u = (${u[0].toFixed(2)}, ${u[1].toFixed(2)})`; lg.appendChild(r2);
+    const r3 = SVG('text',{x:4,y:42,'font-size':11,fill:'var(--cyan)'}); r3.textContent = 'dashed: supporting line'; lg.appendChild(r3);
+    const r4 = SVG('text',{x:4,y:58,'font-size':11,fill:'var(--yellow)'}); r4.textContent = 'yellow: contact point(s)'; lg.appendChild(r4);
+    svg.appendChild(lg);
+    out.textContent = `Direction u = (${u[0].toFixed(3)}, ${u[1].toFixed(3)});  h_K(u) = ${h.toFixed(4)}.  At a corner of a polytope, h_K is non-smooth and many directions share the same contact vertex.`;
+  }
+  shapeSel.addEventListener('change', draw);
+  thIn.addEventListener('input', draw);
+  draw();
+})();
+</script>
+
+<p>Drag the angle slider: the dashed supporting line $\{x:\langle u,x\rangle=h_K(u)\}$ rolls around the boundary of $K$, hitting a single point in smooth directions and a whole edge or vertex in degenerate ones. The plot of $h_K$ on $S^{n-1}$ is exactly the dual description of $K$ — once you know it for every $u$, you know the body.</p>
+
+<div class="quiz" data-concept="cg-convex-bodies"></div>
+</section>
+
+<section id="minkowski-sum">
+<h2>2. Minkowski sum & mixed volumes</h2>
+
+<p>The <strong>Minkowski sum</strong> of two convex sets is</p>
+<p style="text-align:center">$A+B=\{a+b:a\in A,\ b\in B\}.$</p>
+<p>It is again convex; for scalars $\lambda\ge0$ one writes $\lambda A=\{\lambda a:a\in A\}$. The two operations endow the set of convex bodies with the structure of a positive cone, and the support function turns Minkowski sum into pointwise addition: $h_{A+B}=h_A+h_B$.</p>
+
+<p>The deep observation (Minkowski 1903) is that <em>volume is a polynomial</em> under Minkowski combination. For convex bodies $K_1,\ldots,K_m\subset\mathbb{R}^n$ and $\lambda_i\ge0$,</p>
+<p style="text-align:center">$\mathrm{vol}(\lambda_1 K_1+\cdots+\lambda_m K_m)=\sum_{i_1,\ldots,i_n=1}^m V(K_{i_1},\ldots,K_{i_n})\,\lambda_{i_1}\cdots\lambda_{i_n},$</p>
+<p>where $V$ is symmetric in its arguments, multilinear with respect to Minkowski sum, and normalised so that $V(K,\ldots,K)=\mathrm{vol}(K)$. The coefficient $V(K_1,\ldots,K_n)$ is the <strong>mixed volume</strong> — the central numerical invariant of convex geometry.</p>
+
+<p>Mixed volumes specialise to many familiar quantities. With $B$ the unit ball, the <em>Steiner formula</em></p>
+<p style="text-align:center">$\mathrm{vol}(K+\varepsilon B)=\sum_{k=0}^n\binom{n}{k}\varepsilon^k\,W_k(K)$</p>
+<p>has coefficients $W_k(K)=V(K,\ldots,K,\underbrace{B,\ldots,B}_{k})$ — the <em>quermassintegrals</em>. The first non-trivial coefficient $W_1(K)=\mathrm{surf}(K)/n$ recovers the surface area; the top coefficient $W_n=\mathrm{vol}(B)$.</p>
+
+<div class="widget" id="w-mink">
+  <div class="hd"><div class="ttl">Minkowski sum of two polygons</div><div class="hint">slide $\lambda$ — interpolate from $A$ to $A+B$</div></div>
+  <div class="row">
+    <label for="mk-shapeA">$A$</label>
+    <select id="mk-shapeA">
+      <option value="square" selected>square</option>
+      <option value="tri">triangle</option>
+      <option value="hex">hexagon</option>
+    </select>
+    <label for="mk-shapeB">$B$</label>
+    <select id="mk-shapeB">
+      <option value="tri" selected>triangle</option>
+      <option value="square">square</option>
+      <option value="hex">hexagon</option>
+    </select>
+    <label for="mk-lam">scale $\lambda$ on $B$</label>
+    <input id="mk-lam" type="range" min="0" max="1.6" step="0.01" value="0.8">
+    <span id="mk-lam-out" class="pill">λ=0.80</span>
+  </div>
+  <svg id="mk-svg" viewBox="0 0 640 340" width="100%" height="340" aria-label="Minkowski sum of two polygons with adjustable scale"><title>A + λB drawn as the polygon sum</title></svg>
+  <div class="readout" id="mk-out"></div>
+</div><script>
+/* ====================== §2 Minkowski sum ====================== */
+(function(){
+  const svg = $('#mk-svg'), out = $('#mk-out');
+  const aSel = $('#mk-shapeA'), bSel = $('#mk-shapeB');
+  const lamIn = $('#mk-lam'), lamOut = $('#mk-lam-out');
+  function shape(kind){
+    if(kind==='square') return [[-0.7,-0.7],[0.7,-0.7],[0.7,0.7],[-0.7,0.7]];
+    if(kind==='tri') return [[0,0.85],[-0.75,-0.5],[0.75,-0.5]];
+    if(kind==='hex'){
+      const v=[]; for(let k=0;k<6;k++){ const a=Math.PI/3*k+Math.PI/6; v.push([0.75*Math.cos(a),0.75*Math.sin(a)]); } return v;
+    }
+    return [[-1,-1],[1,-1],[1,1],[-1,1]];
+  }
+  function shapeArea(verts){
+    let a=0;
+    for(let i=0;i<verts.length;i++){
+      const j=(i+1)%verts.length;
+      a += verts[i][0]*verts[j][1] - verts[j][0]*verts[i][1];
+    }
+    return Math.abs(a)/2;
+  }
+  function ccwSort(pts){
+    const cx = pts.reduce((s,p)=>s+p[0],0)/pts.length;
+    const cy = pts.reduce((s,p)=>s+p[1],0)/pts.length;
+    return pts.slice().sort((u,v)=>Math.atan2(u[1]-cy,u[0]-cx)-Math.atan2(v[1]-cy,v[0]-cx));
+  }
+  function convexHull(pts){
+    /* Andrew monotone chain */
+    const ps = pts.slice().sort((a,b)=>a[0]-b[0] || a[1]-b[1]);
+    const cross = (o,a,b)=>(a[0]-o[0])*(b[1]-o[1])-(a[1]-o[1])*(b[0]-o[0]);
+    const lower=[]; for(const p of ps){ while(lower.length>=2 && cross(lower[lower.length-2],lower[lower.length-1],p)<=0) lower.pop(); lower.push(p); }
+    const upper=[]; for(let i=ps.length-1;i>=0;i--){ const p=ps[i]; while(upper.length>=2 && cross(upper[upper.length-2],upper[upper.length-1],p)<=0) upper.pop(); upper.push(p); }
+    upper.pop(); lower.pop();
+    return lower.concat(upper);
+  }
+  function minkSum(A, B, lambda){
+    const out = [];
+    for(const a of A) for(const b of B) out.push([a[0]+lambda*b[0], a[1]+lambda*b[1]]);
+    return convexHull(out);
+  }
+  function draw(){
+    const A = shape(aSel.value), B = shape(bSel.value);
+    const lambda = parseFloat(lamIn.value);
+    lamOut.textContent = `λ=${lambda.toFixed(2)}`;
+    const sum = minkSum(A, B, lambda);
+    svg.innerHTML = '';
+    /* three sub-panels: A on left, B in middle, A+λB on right */
+    function panel(x0, verts, color, label){
+      const cx0 = x0, cy0 = 170, s = 60;
+      svg.appendChild(SVG('text',{x:cx0,y:30,'text-anchor':'middle','font-size':12,fill:'var(--mute)'})).textContent = label;
+      const pts = verts.map(v=>`${cx0+v[0]*s},${cy0-v[1]*s}`).join(' ');
+      svg.appendChild(SVG('polygon',{points:pts,fill:`color-mix(in srgb, ${color} 22%, transparent)`,stroke:color,'stroke-width':1.6}));
+    }
+    panel(120, A, 'var(--pink)', 'A');
+    panel(320, B.map(v=>[v[0]*lambda, v[1]*lambda]), 'var(--cyan)', `λB (λ=${lambda.toFixed(2)})`);
+    /* A+λB on right, smaller scale */
+    {
+      const cx0 = 520, cy0 = 170, s = 35;
+      svg.appendChild(SVG('text',{x:cx0,y:30,'text-anchor':'middle','font-size':12,fill:'var(--mute)'})).textContent = 'A + λB';
+      const pts = sum.map(v=>`${cx0+v[0]*s},${cy0-v[1]*s}`).join(' ');
+      svg.appendChild(SVG('polygon',{points:pts,fill:'color-mix(in srgb, var(--yellow) 22%, transparent)',
+        stroke:'var(--yellow)','stroke-width':1.6}));
+      /* overlay A and λB faintly */
+      const ptsA = A.map(v=>`${cx0+v[0]*s},${cy0-v[1]*s}`).join(' ');
+      svg.appendChild(SVG('polygon',{points:ptsA,fill:'none',stroke:'var(--pink)','stroke-width':1,'stroke-dasharray':'4,3','opacity':0.55}));
+      const ptsB = B.map(v=>`${cx0+v[0]*lambda*s},${cy0-v[1]*lambda*s}`).join(' ');
+      svg.appendChild(SVG('polygon',{points:ptsB,fill:'none',stroke:'var(--cyan)','stroke-width':1,'stroke-dasharray':'4,3','opacity':0.55}));
+    }
+    const areaA = shapeArea(A), areaB = shapeArea(B), areaSum = shapeArea(sum);
+    /* mixed-volume coefficient via Steiner: vol(A+λB) = vol(A) + 2λV(A,B) + λ²vol(B) */
+    /* numerical estimate via two values of λ — here just report area + the difference */
+    const mvEst = (areaSum - areaA - lambda*lambda*areaB) / (2*lambda || 1);
+    out.textContent =
+      `vol(A) = ${areaA.toFixed(3)};  vol(λB) = ${(lambda*lambda*areaB).toFixed(3)};  vol(A+λB) = ${areaSum.toFixed(3)}.\n` +
+      `Steiner-polynomial fit: vol(A+λB) = vol(A) + 2λ·V(A,B) + λ²·vol(B), so mixed volume V(A,B) ≈ ${mvEst.toFixed(3)}.\n` +
+      `The 2D mixed volume V(A,B) is sometimes called the "mixed area" of A and B.`;
+  }
+  aSel.addEventListener('change', draw);
+  bSel.addEventListener('change', draw);
+  lamIn.addEventListener('input', draw);
+  draw();
+})();
+</script>
+
+<div class="note"><strong>Vertex addition.</strong> For polygons the Minkowski sum has at most $|V(A)|+|V(B)|$ vertices, and its edges are exactly the disjoint union of the edges of $A$ and $\lambda B$ sorted by slope. A handy way to compute $A+B$ for polygons is to walk both polygons' edge sequences in slope order and concatenate.</div>
+
+<div class="quiz" data-concept="cg-minkowski-sum"></div>
+</section>
+
+<section id="brunn-minkowski">
+<h2>3. Brunn–Minkowski inequality</h2>
+
+<p>The single inequality that organises the whole subject is</p>
+<p style="text-align:center">$\boxed{\;\mathrm{vol}(A+B)^{1/n}\ge\mathrm{vol}(A)^{1/n}+\mathrm{vol}(B)^{1/n}\;}$</p>
+<p>for convex bodies (or, in the Prékopa–Leindler form, for arbitrary measurable sets). Equality holds iff $A$ and $B$ are <em>homothetic</em>: $B=\lambda A+v$ for some $\lambda>0$ and $v\in\mathbb{R}^n$.</p>
+
+<p>The functional form (Prékopa–Leindler, 1971/1972) is even stronger:</p>
+<p style="text-align:center">$\Bigl(\int h\Bigr)\ge\Bigl(\int f\Bigr)^{1-t}\Bigl(\int g\Bigr)^t,$</p>
+<p>whenever $h\bigl((1-t)x+ty\bigr)\ge f(x)^{1-t}g(y)^t$ for all $x,y$ and $t\in[0,1]$. Applied to indicator functions $f=\mathbf{1}_A$, $g=\mathbf{1}_B$, $h=\mathbf{1}_{(1-t)A+tB}$ one recovers Brunn–Minkowski via $\log$-concavity of $t\mapsto\mathrm{vol}((1-t)A+tB)^{1/n}$.</p>
+
+<div class="widget" id="w-bm">
+  <div class="hd"><div class="ttl">Brunn–Minkowski numerical check</div><div class="hint">$n=2$, $A,B$ scaled disks/squares; slide $t$ — watch $(1-t)A+tB$</div></div>
+  <div class="row">
+    <label for="bm-shape">family</label>
+    <select id="bm-shape">
+      <option value="disk-disk" selected>disk vs scaled disk</option>
+      <option value="square-square">square vs scaled square</option>
+      <option value="disk-square">disk vs square (non-homothetic)</option>
+      <option value="tri-tri">two equilateral triangles, different sizes</option>
+    </select>
+    <label for="bm-t">interpolation $t$</label>
+    <input id="bm-t" type="range" min="0" max="1" step="0.005" value="0.5">
+    <span id="bm-t-out" class="pill">t=0.50</span>
+  </div>
+  <svg id="bm-svg" viewBox="0 0 640 320" width="100%" height="320" aria-label="Brunn–Minkowski LHS vs RHS as a function of t"><title>LHS = vol((1-t)A + tB)^{1/n}, RHS = (1-t)vol(A)^{1/n} + t·vol(B)^{1/n}</title></svg>
+  <div class="readout" id="bm-out"></div>
+</div><script>
+/* ====================== §3 Brunn–Minkowski ====================== */
+(function(){
+  const svg = $('#bm-svg'), out = $('#bm-out');
+  const sel = $('#bm-shape'), tIn = $('#bm-t'), tOut = $('#bm-t-out');
+  const W = 640, H = 320, padL = 60, padR = 30, padT = 30, padB = 50;
+  function bodyDisk(r){ const v=[]; for(let k=0;k<96;k++){ const a=2*Math.PI*k/96; v.push([r*Math.cos(a),r*Math.sin(a)]); } return v; }
+  function bodySq(r){ return [[-r,-r],[r,-r],[r,r],[-r,r]]; }
+  function bodyTri(r){ return [[0,r*1.1],[-r*0.95,-r*0.55],[r*0.95,-r*0.55]]; }
+  function pickAB(kind){
+    if(kind==='disk-disk') return [bodyDisk(0.6), bodyDisk(1.2)];
+    if(kind==='square-square') return [bodySq(0.6), bodySq(1.1)];
+    if(kind==='disk-square') return [bodyDisk(0.6), bodySq(1.1)];
+    if(kind==='tri-tri') return [bodyTri(0.55), bodyTri(1.1)];
+    return [bodyDisk(0.6), bodyDisk(1.2)];
+  }
+  function area(verts){
+    let a=0;
+    for(let i=0;i<verts.length;i++){
+      const j=(i+1)%verts.length;
+      a += verts[i][0]*verts[j][1] - verts[j][0]*verts[i][1];
+    }
+    return Math.abs(a)/2;
+  }
+  function convexHull(pts){
+    const ps = pts.slice().sort((a,b)=>a[0]-b[0] || a[1]-b[1]);
+    const cross = (o,a,b)=>(a[0]-o[0])*(b[1]-o[1])-(a[1]-o[1])*(b[0]-o[0]);
+    const lower=[]; for(const p of ps){ while(lower.length>=2 && cross(lower[lower.length-2],lower[lower.length-1],p)<=0) lower.pop(); lower.push(p); }
+    const upper=[]; for(let i=ps.length-1;i>=0;i--){ const p=ps[i]; while(upper.length>=2 && cross(upper[upper.length-2],upper[upper.length-1],p)<=0) upper.pop(); upper.push(p); }
+    upper.pop(); lower.pop();
+    return lower.concat(upper);
+  }
+  function interp(A, B, t){
+    const out = [];
+    for(const a of A) for(const b of B) out.push([(1-t)*a[0]+t*b[0], (1-t)*a[1]+t*b[1]]);
+    return convexHull(out);
+  }
+  function draw(){
+    const [A,B] = pickAB(sel.value);
+    const t = parseFloat(tIn.value);
+    tOut.textContent = `t=${t.toFixed(2)}`;
+    const aA = area(A), aB = area(B);
+    /* sample t' in [0,1] for LHS curve */
+    const samples = 40;
+    const lhs = [], rhs = [];
+    for(let i=0;i<=samples;i++){
+      const tt = i/samples;
+      const C = interp(A,B,tt);
+      const aC = area(C);
+      lhs.push([tt, Math.sqrt(aC)]);
+      rhs.push([tt, (1-tt)*Math.sqrt(aA) + tt*Math.sqrt(aB)]);
+    }
+    const yMax = Math.max(...lhs.map(p=>p[1]), ...rhs.map(p=>p[1]))*1.1;
+    svg.innerHTML = '';
+    /* axes */
+    function px(tt){ return padL + tt*(W-padL-padR); }
+    function py(y){ return H - padB - (y/yMax)*(H-padT-padB); }
+    svg.appendChild(SVG('line',{x1:padL,y1:H-padB,x2:W-padR,y2:H-padB,stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:padL,y1:padT,x2:padL,y2:H-padB,stroke:'var(--line)'}));
+    let xl = SVG('text',{x:W-padR,y:H-padB+22,'text-anchor':'end','font-size':12,fill:'var(--mute)'});
+    xl.textContent = 'interpolation t'; svg.appendChild(xl);
+    let yl = SVG('text',{x:padL-6,y:padT+10,'text-anchor':'end','font-size':12,fill:'var(--mute)'});
+    yl.textContent = 'vol(·)^{1/n}'; svg.appendChild(yl);
+    /* tick labels */
+    [0,0.25,0.5,0.75,1].forEach(tt=>{
+      svg.appendChild(SVG('line',{x1:px(tt),y1:H-padB,x2:px(tt),y2:H-padB+4,stroke:'var(--mute)'}));
+      const t1 = SVG('text',{x:px(tt),y:H-padB+18,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});
+      t1.textContent = tt.toFixed(2); svg.appendChild(t1);
+    });
+    /* RHS straight line (chord) */
+    {
+      let d = '';
+      for(const p of rhs) d += (d?'L':'M') + px(p[0]) + ' ' + py(p[1]) + ' ';
+      svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--mute)','stroke-width':1.5,'stroke-dasharray':'5,4'}));
+    }
+    /* LHS curve */
+    {
+      let d = '';
+      for(const p of lhs) d += (d?'L':'M') + px(p[0]) + ' ' + py(p[1]) + ' ';
+      svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--yellow)','stroke-width':2.5}));
+    }
+    /* current t marker */
+    const cur = lhs[Math.round(t*samples)];
+    const curRhs = rhs[Math.round(t*samples)];
+    svg.appendChild(SVG('circle',{cx:px(cur[0]),cy:py(cur[1]),r:5,fill:'var(--yellow)','stroke':'var(--ink)','stroke-width':1.2}));
+    svg.appendChild(SVG('circle',{cx:px(curRhs[0]),cy:py(curRhs[1]),r:4,fill:'var(--mute)'}));
+    /* legend */
+    const lg = SVG('g',{transform:'translate(80, 50)'});
+    lg.appendChild(SVG('rect',{x:-6,y:-12,width:300,height:64,fill:'var(--panel2)',stroke:'var(--line)',rx:4}));
+    svg.appendChild(lg);
+    svg.appendChild(SVG('rect',{x:80,y:54,width:16,height:3,fill:'var(--yellow)'}));
+    let t1 = SVG('text',{x:104,y:60,'font-size':12,fill:'var(--ink)'});
+    t1.textContent = 'LHS = vol((1−t)A + tB)^{1/n}'; svg.appendChild(t1);
+    svg.appendChild(SVG('rect',{x:80,y:74,width:16,height:3,fill:'var(--mute)'}));
+    let t2 = SVG('text',{x:104,y:80,'font-size':12,fill:'var(--mute)'});
+    t2.textContent = 'RHS = (1−t)·vol(A)^{1/n} + t·vol(B)^{1/n}  (chord)'; svg.appendChild(t2);
+    out.textContent =
+      `At t = ${t.toFixed(2)} :  LHS = ${cur[1].toFixed(4)},  RHS = ${curRhs[1].toFixed(4)}.\n` +
+      `Brunn–Minkowski: LHS ≥ RHS, with equality everywhere iff A and B are homothetic.\n` +
+      `'disk vs scaled disk' and 'square vs scaled square' are exact equality (homothetic). 'disk vs square' shows the strict gap.`;
+  }
+  sel.addEventListener('change', draw);
+  tIn.addEventListener('input', draw);
+  draw();
+})();
+</script>
+
+<p>Pick the homothetic options (disk–disk or square–square): the yellow curve sits exactly on the dashed chord — Brunn–Minkowski is sharp for similar bodies. Switch to disk–square: the yellow curve bulges above the chord — non-homothetic bodies enjoy a strict inequality, and the gap is what the isoperimetric deficit measures.</p>
+
+<div class="ok"><strong>Consequence: isoperimetric inequality.</strong> Taking $B=\varepsilon B^n$ and differentiating Brunn–Minkowski at $\varepsilon=0$ yields $\mathrm{surf}(K)\ge n\,\omega_n^{1/n}\,\mathrm{vol}(K)^{(n-1)/n}$, with equality iff $K$ is a Euclidean ball. The same one-line argument also produces the Aleksandrov–Fenchel inequality, the master inequality on mixed volumes.</div>
+
+<div class="quiz" data-concept="cg-brunn-minkowski"></div>
+</section>
+
+<section id="polytopes">
+<h2>4. Polytopes & the f-vector</h2>
+
+<p>A <strong>polytope</strong> is a convex body with finitely many extreme points. Equivalently — and this equivalence is the Minkowski–Weyl theorem — it is a bounded intersection of finitely many closed half-spaces. The two descriptions are dual:</p>
+<ul>
+<li><em>V-representation</em>: $P=\mathrm{conv}(v_1,\ldots,v_N)$ — the convex hull of vertices.</li>
+<li><em>H-representation</em>: $P=\{x:a_i^\top x\le b_i,\ i=1,\ldots,m\}$ — the intersection of half-spaces.</li>
+</ul>
+<p>Converting between them is, in general, hard (the <em>convex hull problem</em> has output-sensitive complexity $O(n\log n+f)$ in $\mathbb{R}^2$ but blows up combinatorially in higher dimension).</p>
+
+<p>The combinatorial skeleton of a polytope $P\subset\mathbb{R}^n$ is its <strong>face lattice</strong>. Each face is itself a polytope obtained by setting some linear functionals equal to their support values; faces are ordered by inclusion and graded by dimension. The number of $i$-dimensional faces is $f_i(P)$; the tuple $f(P)=(f_0,f_1,\ldots,f_{n-1})$ is the <strong>$f$-vector</strong>.</p>
+
+<p>Euler's relation generalises the formula $V-E+F=2$ for $3$-polytopes:</p>
+<p style="text-align:center">$\sum_{i=0}^{n-1}(-1)^i f_i(P)=1-(-1)^n.$</p>
+
+<p>The <em>upper-bound theorem</em> (McMullen 1970) says that, among simplicial $n$-polytopes with $f_0=N$ vertices, the <em>cyclic polytope</em> $C(N,n)$ maximises every $f_i$. A polytope is <strong>simple</strong> if every vertex meets exactly $n$ facets; <strong>simplicial</strong> if every facet is a simplex. Polar duality (next section) exchanges simple and simplicial.</p>
+
+<div class="widget" id="w-poly">
+  <div class="hd"><div class="ttl">$f$-vector explorer</div><div class="hint">click a polytope · view its face lattice and verify Euler's relation</div></div>
+  <div class="row">
+    <label for="poly-choice">polytope</label>
+    <select id="poly-choice">
+      <option value="tet" selected>tetrahedron (simplex, $n{=}3$)</option>
+      <option value="cube">cube (simple, $n{=}3$)</option>
+      <option value="oct">octahedron (simplicial, $n{=}3$)</option>
+      <option value="dodec">dodecahedron (simple, $n{=}3$)</option>
+      <option value="icos">icosahedron (simplicial, $n{=}3$)</option>
+      <option value="simplex4">4-simplex (simplicial, $n{=}4$)</option>
+      <option value="cube4">4-cube (simple, $n{=}4$)</option>
+    </select>
+  </div>
+  <svg id="poly-svg" viewBox="0 0 640 280" width="100%" height="280" aria-label="Face lattice of the selected polytope"><title>f-vector bars + Euler verification</title></svg>
+  <div class="readout" id="poly-out"></div>
+</div><script>
+/* ====================== §4 f-vector ====================== */
+(function(){
+  const svg = $('#poly-svg'), out = $('#poly-out');
+  const sel = $('#poly-choice');
+  /* Curated f-vectors (3-polytopes have (f0,f1,f2); 4-polytopes have (f0,f1,f2,f3)). */
+  const data = {
+    tet:    {f:[4,6,4],     n:3, label:'tetrahedron'},
+    cube:   {f:[8,12,6],    n:3, label:'cube'},
+    oct:    {f:[6,12,8],    n:3, label:'octahedron'},
+    dodec:  {f:[20,30,12],  n:3, label:'dodecahedron'},
+    icos:   {f:[12,30,20],  n:3, label:'icosahedron'},
+    simplex4:{f:[5,10,10,5], n:4, label:'4-simplex (Δ⁴)'},
+    cube4:   {f:[16,32,24,8],n:4, label:'4-cube'},
+  };
+  function draw(){
+    const key = sel.value, info = data[key];
+    const f = info.f, n = info.n;
+    const N = f.length;
+    const totalMax = Math.max(...f);
+    svg.innerHTML = '';
+    const padL = 60, padR = 20, padT = 30, padB = 60, W = 640, H = 280;
+    /* bars for each f_i */
+    const barW = (W - padL - padR) / N * 0.6;
+    const spacing = (W - padL - padR) / N;
+    for(let i=0;i<N;i++){
+      const h = (f[i]/totalMax)*(H - padT - padB);
+      const x = padL + i*spacing + (spacing - barW)/2;
+      const y = H - padB - h;
+      const colors = ['var(--pink)','var(--cyan)','var(--violet)','var(--yellow)'];
+      svg.appendChild(SVG('rect',{x,y,width:barW,height:h,fill:colors[i % colors.length],
+        stroke:'var(--ink)','stroke-width':1}));
+      const lbl = SVG('text',{x:x+barW/2,y:y-6,'text-anchor':'middle','font-size':12,fill:'var(--ink)'});
+      lbl.textContent = f[i]; svg.appendChild(lbl);
+      const dim = SVG('text',{x:x+barW/2,y:H-padB+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+      dim.textContent = `f_${i} (dim ${i})`; svg.appendChild(dim);
+    }
+    /* axis line */
+    svg.appendChild(SVG('line',{x1:padL,y1:H-padB,x2:W-padR,y2:H-padB,stroke:'var(--line)'}));
+    /* Euler check */
+    let euler = 0; for(let i=0;i<N;i++) euler += (i%2===0?1:-1)*f[i];
+    const eulerExp = 1 - Math.pow(-1, n);
+    const ok = euler === eulerExp;
+    /* legend */
+    const lg = SVG('text',{x:padL,y:padT-8,'font-size':12,fill:'var(--mute)'});
+    lg.textContent = `${info.label} : f = (${f.join(', ')}) in R^${n}`;
+    svg.appendChild(lg);
+    out.textContent =
+      `f-vector: (${f.join(', ')}).  ` +
+      `Alternating sum Σ(−1)^i f_i = ${euler}.  ` +
+      `Euler's relation predicts 1 − (−1)^n = ${eulerExp}.  ` +
+      `${ok ? '✓ matches.' : '✗ MISMATCH (recheck data).'}\n` +
+      (n===3 ? 'In R^3 this is the classical V − E + F = 2.' : 'In R^4 the alternating sum equals 0.');
+  }
+  sel.addEventListener('change', draw);
+  draw();
+})();
+</script>
+
+<div class="note"><strong>Why "simple ↔ simplicial".</strong> If every facet of $P$ is a simplex ($n$-polytope $\Leftrightarrow$ ($n{-}1$)-simplex facet, etc.), then at each vertex of $P^\circ$ the dual incidence makes exactly $n$ facets meet. So polar duality $P\mapsto P^\circ$ swaps the two combinatorial classes.</div>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./combinatorial-optimization.html#polyhedral">Polyhedral combinatorics</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><div class="quiz" data-concept="cg-polytopes"></div>
+</section>
+
+<section id="john">
+<h2>5. John's ellipsoid & Banach–Mazur distance</h2>
+
+<p>Among all ellipsoids contained in a centred convex body $K\subset\mathbb{R}^n$, there is a unique one of maximal volume — the <strong>John ellipsoid</strong> $E=E(K)$. Dually, the unique minimal-volume ellipsoid <em>containing</em> $K$ is the <em>Löwner ellipsoid</em>, related by polarity to $E(K^\circ)$.</p>
+
+<p><strong>John's theorem</strong> (1948). For centrally symmetric $K\subset\mathbb{R}^n$,</p>
+<p style="text-align:center">$E\subseteq K\subseteq\sqrt n\,E,$</p>
+<p>and the factor $\sqrt n$ is best possible — saturated by the cube and the cross-polytope. For general (not necessarily symmetric) $K$, the factor is $n$ instead of $\sqrt n$ (saturated by the simplex).</p>
+
+<p>The John condition for optimality is striking: when $E$ is the unit ball $B$, optimality holds iff there exist contact points $u_1,\ldots,u_m\in K\cap\partial B$ and weights $c_i>0$ with</p>
+<p style="text-align:center">$\sum_i c_i\,u_i u_i^\top=\mathrm{Id},\qquad\sum_i c_i\,u_i=0.$</p>
+<p>That is, the contact points form a <em>tight frame</em>. This is exactly the condition for a finite "Parseval-style" expansion of $\mathbb{R}^n$, and gives John's theorem a representation-theoretic flavour.</p>
+
+<p>John's inclusion translates into a bound on the <strong>Banach–Mazur distance</strong></p>
+<p style="text-align:center">$d(K,L)=\inf\{r\ge1:K\subseteq TL\subseteq rK\text{ for some invertible affine }T\},$</p>
+<p>which is a complete metric (after $\log$) on the set of $n$-dim normed spaces modulo isometry. John gives $d(K,\ell^2_n)\le\sqrt n$ for symmetric bodies, so the <em>Banach–Mazur compactum</em> has diameter at most $\sqrt n$. Determining its exact diameter is a long-standing open problem.</p>
+
+<div class="widget" id="w-john">
+  <div class="hd"><div class="ttl">John ellipsoid of a 2D body</div><div class="hint">scrub through curated polygons · watch the maximal inscribed ellipse</div></div>
+  <div class="row">
+    <label for="john-shape">body</label>
+    <select id="john-shape">
+      <option value="square" selected>square $[-1,1]^2$ (John = disk of radius 1; ratio $\sqrt 2$)</option>
+      <option value="hex">regular hexagon (John = disk; ratio $2/\sqrt 3\approx 1.155$)</option>
+      <option value="tri">equilateral triangle (asymmetric; ratio 2)</option>
+      <option value="rect21">2:1 rectangle (degenerate symmetry)</option>
+      <option value="cross">cross-polytope $|x|+|y|\le1$ (John = disk radius $1/\sqrt 2$; ratio $\sqrt 2$)</option>
+    </select>
+  </div>
+  <svg id="john-svg" viewBox="0 0 640 320" width="100%" height="320" aria-label="John ellipsoid inscribed in selected body"><title>Body, John ellipsoid, and outer-scaled ellipsoid</title></svg>
+  <div class="readout" id="john-out"></div>
+</div><script>
+/* ====================== §5 John ellipsoid ====================== */
+(function(){
+  const svg = $('#john-svg'), out = $('#john-out');
+  const sel = $('#john-shape');
+  /* Hard-coded John data for didactic 2D bodies. */
+  const cases = {
+    square: { name:'square [-1,1]²', verts:[[-1,-1],[1,-1],[1,1],[-1,1]], john:{rx:1, ry:1}, outerScale:Math.sqrt(2) },
+    hex:    { name:'regular hexagon (circumradius 1)', verts:[], john:{rx:Math.sqrt(3)/2, ry:Math.sqrt(3)/2}, outerScale:2/Math.sqrt(3) },
+    tri:    { name:'equilateral triangle (side √3)', verts:[[0,1],[-Math.sqrt(3)/2,-0.5],[Math.sqrt(3)/2,-0.5]], john:{rx:0.5, ry:0.5}, outerScale:2 },
+    rect21: { name:'rectangle 2×1', verts:[[-1,-0.5],[1,-0.5],[1,0.5],[-1,0.5]], john:{rx:0.5, ry:0.5}, outerScale:Math.sqrt(5) },
+    cross:  { name:'cross-polytope |x|+|y|≤1', verts:[[1,0],[0,1],[-1,0],[0,-1]], john:{rx:1/Math.sqrt(2), ry:1/Math.sqrt(2)}, outerScale:Math.sqrt(2) },
+  };
+  /* hex verts */
+  cases.hex.verts = []; for(let k=0;k<6;k++){ const a = Math.PI/3*k + Math.PI/6; cases.hex.verts.push([Math.cos(a), Math.sin(a)]); }
+  function draw(){
+    const key = sel.value, c = cases[key];
+    const W = 640, H = 320, cx = 320, cy = 160, scale = 110;
+    svg.innerHTML = '';
+    /* axes */
+    svg.appendChild(SVG('line',{x1:cx,y1:30,x2:cx,y2:H-30,stroke:'var(--line)','stroke-width':1}));
+    svg.appendChild(SVG('line',{x1:60,y1:cy,x2:W-60,y2:cy,stroke:'var(--line)','stroke-width':1}));
+    /* body */
+    const pts = c.verts.map(v=>`${cx+v[0]*scale},${cy-v[1]*scale}`).join(' ');
+    svg.appendChild(SVG('polygon',{points:pts,fill:'color-mix(in srgb, var(--violet) 18%, transparent)',
+      stroke:'var(--violet)','stroke-width':1.6}));
+    /* John ellipsoid */
+    svg.appendChild(SVG('ellipse',{cx,cy,rx:c.john.rx*scale,ry:c.john.ry*scale,
+      fill:'color-mix(in srgb, var(--yellow) 20%, transparent)',stroke:'var(--yellow)','stroke-width':2}));
+    /* outer-scaled ellipsoid (John × outerScale) */
+    svg.appendChild(SVG('ellipse',{cx,cy,rx:c.john.rx*scale*c.outerScale,ry:c.john.ry*scale*c.outerScale,
+      fill:'none',stroke:'var(--cyan)','stroke-width':1.2,'stroke-dasharray':'5,4'}));
+    /* center */
+    svg.appendChild(SVG('circle',{cx,cy,r:3,fill:'var(--ink)'}));
+    /* legend */
+    const lg = SVG('text',{x:60,y:H-12,'font-size':12,fill:'var(--mute)'});
+    lg.textContent = `${c.name}  ·  John radius ${c.john.rx.toFixed(3)}  ·  outer factor ${c.outerScale.toFixed(3)}`;
+    svg.appendChild(lg);
+    const lg2 = SVG('g',{transform:'translate(440, 50)'});
+    lg2.appendChild(SVG('rect',{x:-6,y:-12,width:170,height:70,fill:'var(--panel2)',stroke:'var(--line)',rx:4}));
+    svg.appendChild(lg2);
+    svg.appendChild(SVG('rect',{x:440,y:54,width:14,height:3,fill:'var(--yellow)'}));
+    let t1 = SVG('text',{x:460,y:60,'font-size':12,fill:'var(--ink)'});
+    t1.textContent = 'John ellipsoid'; svg.appendChild(t1);
+    svg.appendChild(SVG('rect',{x:440,y:74,width:14,height:3,fill:'var(--cyan)'}));
+    let t2 = SVG('text',{x:460,y:80,'font-size':12,fill:'var(--mute)'});
+    t2.textContent = 'outer scaling'; svg.appendChild(t2);
+    out.textContent =
+      `${c.name}.  John ellipsoid axes: r_x = ${c.john.rx.toFixed(4)}, r_y = ${c.john.ry.toFixed(4)}.  ` +
+      `Outer factor (smallest scaling so outer ⊇ body): ${c.outerScale.toFixed(4)}.\n` +
+      (key==='square' || key==='cross' ? 'This case saturates John\'s bound: K ⊂ √n · E in n = 2 means ratio √2 ≈ 1.414.' :
+       key==='tri' ? 'Asymmetric: the John factor is n = 2, not √n. The equilateral triangle exactly saturates this.' :
+       'Inner / outer factor below the John worst case.');
+  }
+  sel.addEventListener('change', draw);
+  draw();
+})();
+</script>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./differential-geometry.html#first">First/second fundamental forms</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><div class="quiz" data-concept="cg-john-ellipsoid"></div>
+</section>
+
+<section id="polar">
+<h2>6. Polar duality & the Mahler conjecture</h2>
+
+<p>Define the <strong>polar body</strong> of $K\subset\mathbb{R}^n$ (closed convex, $0\in\mathrm{int}\,K$) as</p>
+<p style="text-align:center">$K^\circ=\{y\in\mathbb{R}^n:\langle y,x\rangle\le 1\text{ for all }x\in K\}.$</p>
+<p>Polarity is order-reversing ($K\subseteq L\Rightarrow K^\circ\supseteq L^\circ$) and an involution: $(K^\circ)^\circ=K$ (this is the bipolar theorem). In the language of support functions, polarity exchanges $h_K$ and the gauge / Minkowski functional $\|x\|_K=\inf\{t>0:x\in tK\}$; in the language of polytopes, polarity exchanges the $V$- and $H$-representations (vertices of $K$ ↔ facets of $K^\circ$).</p>
+
+<table class="plain">
+  <thead><tr><th>$K$</th><th>$K^\circ$</th></tr></thead>
+  <tbody>
+    <tr><td>Euclidean ball $B^n$</td><td>$B^n$ (self-polar)</td></tr>
+    <tr><td>cube $[-1,1]^n$ ($\ell^\infty$ ball)</td><td>cross-polytope $\{|x|_1\le 1\}$ ($\ell^1$ ball)</td></tr>
+    <tr><td>regular simplex (centred)</td><td>regular simplex</td></tr>
+    <tr><td>regular hexagon</td><td>regular hexagon (rotated by 30°)</td></tr>
+    <tr><td>$\ell^p$ ball</td><td>$\ell^q$ ball, $1/p+1/q=1$</td></tr>
+  </tbody>
+</table>
+
+<p>The most striking open question on the product $\mathrm{vol}(K)\cdot\mathrm{vol}(K^\circ)$ is the <strong>Mahler conjecture</strong>: for centrally symmetric convex bodies $K\subset\mathbb{R}^n$,</p>
+<p style="text-align:center">$\mathrm{vol}(K)\,\mathrm{vol}(K^\circ)\ge\frac{4^n}{n!}.$</p>
+<p>Equality should be achieved by the cube–cross-polytope (and the Hanner polytopes more generally). The conjecture is known in dimensions 2 (Mahler 1939) and 3 (Iriyeh–Shibata 2020); the symmetric case in arbitrary dimension is still open. The non-symmetric version (with bound $(n+1)^{n+1}/(n!)^2$) is also open beyond $n=2$.</p>
+
+<p>Dual to Mahler is the <strong>hyperplane (slicing) conjecture</strong> of Bourgain: there exists a universal $c>0$ such that every centrally symmetric convex body $K\subset\mathbb{R}^n$ with $\mathrm{vol}(K)=1$ has a hyperplane section of volume $\ge c$. Best known: $c=\Omega(1/\log n)$ (Klartag, 2024), improving on Bourgain's original $\Omega(n^{-1/4})$.</p>
+
+<div class="widget" id="w-polar">
+  <div class="hd"><div class="ttl">Polar duality of a polygon</div><div class="hint">drag the polygon's vertices · watch the polar deform inversely</div></div>
+  <div class="row">
+    <label for="pol-shape">starting polygon</label>
+    <select id="pol-shape">
+      <option value="square" selected>square (polar = diamond)</option>
+      <option value="hex">regular hexagon (self-polar up to rotation)</option>
+      <option value="tri">centred triangle</option>
+      <option value="pent">regular pentagon</option>
+    </select>
+    <label for="pol-scale">scale</label>
+    <input id="pol-scale" type="range" min="0.4" max="1.6" step="0.01" value="1">
+    <span id="pol-scale-out" class="pill">s=1.00</span>
+  </div>
+  <svg id="pol-svg" viewBox="0 0 640 340" width="100%" height="340" aria-label="Polygon and its polar dual"><title>K (violet) and K^circ (cyan), with vol(K)·vol(K^circ) readout</title></svg>
+  <div class="readout" id="pol-out"></div>
+</div><script>
+/* ====================== §6 Polar duality ====================== */
+(function(){
+  const svg = $('#pol-svg'), out = $('#pol-out');
+  const sel = $('#pol-shape'), scaleIn = $('#pol-scale'), scaleOut = $('#pol-scale-out');
+  function baseShape(kind){
+    if(kind==='square') return [[-1,-1],[1,-1],[1,1],[-1,1]];
+    if(kind==='hex'){ const v=[]; for(let k=0;k<6;k++){ const a=Math.PI/3*k+Math.PI/6; v.push([Math.cos(a),Math.sin(a)]); } return v; }
+    if(kind==='tri') return [[0,1.1],[-Math.sqrt(3)/2*1.1,-0.55],[Math.sqrt(3)/2*1.1,-0.55]];
+    if(kind==='pent'){ const v=[]; for(let k=0;k<5;k++){ const a=2*Math.PI*k/5+Math.PI/2; v.push([Math.cos(a),Math.sin(a)]); } return v; }
+    return [];
+  }
+  /* polar of a polygon (centred, containing origin) = intersection of half-spaces
+       <v_i, y> <= 1  for each vertex v_i of K.
+     Compute as intersection of lines; vertices of K^circ are intersections of adjacent edges. */
+  function polarVerts(K){
+    /* edges of the polar are y·v_i = 1 for each vertex v_i; adjacent edges of K^circ
+       come from consecutive normals  v_i, v_{i+1}  (after sorting K's vertices by angle). */
+    /* sort CCW about origin */
+    const sorted = K.slice().sort((u,v)=>Math.atan2(u[1],u[0]) - Math.atan2(v[1],v[0]));
+    const n = sorted.length;
+    const verts = [];
+    for(let i=0;i<n;i++){
+      const v1 = sorted[i], v2 = sorted[(i+1)%n];
+      /* solve  v1·y = 1, v2·y = 1 */
+      const det = v1[0]*v2[1] - v1[1]*v2[0];
+      if(Math.abs(det) < 1e-12) continue;
+      const y = [ (v2[1] - v1[1])/det, (v1[0] - v2[0])/det ];
+      verts.push(y);
+    }
+    return verts;
+  }
+  function area(verts){
+    if(verts.length<3) return 0;
+    let a=0;
+    for(let i=0;i<verts.length;i++){
+      const j=(i+1)%verts.length;
+      a += verts[i][0]*verts[j][1] - verts[j][0]*verts[i][1];
+    }
+    return Math.abs(a)/2;
+  }
+  function draw(){
+    const kind = sel.value;
+    const s = parseFloat(scaleIn.value);
+    scaleOut.textContent = `s=${s.toFixed(2)}`;
+    const K = baseShape(kind).map(v=>[v[0]*s, v[1]*s]);
+    const Kpolar = polarVerts(K);
+    const cx = 320, cy = 170, scale = 70;
+    svg.innerHTML = '';
+    svg.appendChild(SVG('line',{x1:cx,y1:30,x2:cx,y2:310,stroke:'var(--line)','stroke-width':1}));
+    svg.appendChild(SVG('line',{x1:60,y1:cy,x2:580,y2:cy,stroke:'var(--line)','stroke-width':1}));
+    /* K */
+    const ptsK = K.map(v=>`${cx+v[0]*scale},${cy-v[1]*scale}`).join(' ');
+    svg.appendChild(SVG('polygon',{points:ptsK,fill:'color-mix(in srgb, var(--violet) 22%, transparent)',
+      stroke:'var(--violet)','stroke-width':1.8}));
+    /* K^circ (sorted CCW for nice polygon) */
+    const Kpolar2 = Kpolar.slice().sort((u,v)=>Math.atan2(u[1],u[0]) - Math.atan2(v[1],v[0]));
+    const ptsP = Kpolar2.map(v=>`${cx+v[0]*scale},${cy-v[1]*scale}`).join(' ');
+    svg.appendChild(SVG('polygon',{points:ptsP,fill:'color-mix(in srgb, var(--cyan) 18%, transparent)',
+      stroke:'var(--cyan)','stroke-width':1.8,'stroke-dasharray':'5,3'}));
+    /* origin */
+    svg.appendChild(SVG('circle',{cx,cy,r:3,fill:'var(--ink)'}));
+    /* vertex markers */
+    for(const v of K) svg.appendChild(SVG('circle',{cx:cx+v[0]*scale,cy:cy-v[1]*scale,r:3.5,fill:'var(--violet)'}));
+    for(const v of Kpolar2) svg.appendChild(SVG('circle',{cx:cx+v[0]*scale,cy:cy-v[1]*scale,r:3.5,fill:'var(--cyan)'}));
+    /* legend */
+    const lg = SVG('g',{transform:'translate(20, 240)'});
+    lg.appendChild(SVG('rect',{x:-6,y:-12,width:260,height:60,fill:'var(--panel2)',stroke:'var(--line)',rx:4}));
+    svg.appendChild(lg);
+    svg.appendChild(SVG('rect',{x:20,y:244,width:14,height:3,fill:'var(--violet)'}));
+    let t1 = SVG('text',{x:40,y:250,'font-size':12,fill:'var(--ink)'}); t1.textContent='K (violet)'; svg.appendChild(t1);
+    svg.appendChild(SVG('rect',{x:20,y:264,width:14,height:3,fill:'var(--cyan)'}));
+    let t2 = SVG('text',{x:40,y:270,'font-size':12,fill:'var(--ink)'}); t2.textContent='K° (cyan dashed)'; svg.appendChild(t2);
+    /* product readout */
+    const aK = area(K), aP = area(Kpolar2);
+    const product = aK*aP;
+    const mahlerBound = 16/2; /* 4^n/n! at n=2 */
+    out.textContent =
+      `vol(K) = ${aK.toFixed(4)};  vol(K°) = ${aP.toFixed(4)};  product = ${product.toFixed(4)}.\n` +
+      `Mahler bound (n=2, symmetric):  4²/2! = ${mahlerBound}.  ` +
+      `${kind==='square' && Math.abs(s-1)<1e-6 ? 'Square achieves Mahler equality at s=1.' : 'Product ≥ Mahler bound (verifiable for symmetric K in 2D).'}\n` +
+      `Scaling K by s scales K° by 1/s, so vol(K)vol(K°) is scale-invariant (verify by sliding 'scale').`;
+  }
+  sel.addEventListener('change', draw);
+  scaleIn.addEventListener('input', draw);
+  draw();
+})();
+</script>
+
+<p>The volume product is scale-invariant by design: scaling $K\mapsto sK$ scales $K^\circ\mapsto K^\circ/s$, leaving $\mathrm{vol}(K)\cdot\mathrm{vol}(K^\circ)$ fixed. The square saturates Mahler in 2D; sliding the scale doesn't move the product off $8$. Switch shapes and the product rises — the worst case is the cube–cross-polytope pair.</p>
+
+<div class="quiz" data-concept="cg-polar-duality"></div>
+</section>
+
+<section id="dvoretzky">
+<h2>7. Spherical sections & Dvoretzky's theorem</h2>
+
+<p>The crown of finite-dimensional convex geometry, where the subject reconnects with high-dimensional probability:</p>
+
+<div class="ok"><strong>Dvoretzky's theorem</strong> (1961). Let $K\subset\mathbb{R}^n$ be a centred convex body with associated norm $\|\cdot\|_K$. For every $\varepsilon\in(0,1)$ there is a subspace $E\subset\mathbb{R}^n$ of dimension $k\ge c\,\varepsilon^2\log n$ and a number $r>0$ such that
+$$r\,|x|\le\|x\|_K\le(1+\varepsilon)\,r\,|x|\qquad\forall x\in E.$$
+That is, every high-dimensional convex body hides an almost-Euclidean section of dimension $\Omega(\log n)$.</div>
+
+<p>The exponent on $\log n$ is sharp: cubes and cross-polytopes only have logarithmic-dimensional Euclidean sections. <em>Milman's proof</em> (1971) uses Lévy concentration on $S^{n-1}$ — the unit sphere concentrates around any $1$-Lipschitz function, and the norm $\|\cdot\|_K$ restricted to a random $k$-subspace fluctuates by less than $\varepsilon$ when $k\le c\,\varepsilon^2\log n$. The Lipschitz constant is controlled by the John ellipsoid (§5).</p>
+
+<p>The theorem is the geometric heart of high-dimensional probability: it says that <em>every</em> normed space, no matter how exotic, eventually behaves like Hilbert space on a small subspace, and the dimension grows only logarithmically in the ambient size. For applications in machine learning (Johnson–Lindenstrauss, random projections), this is the structural reason random sketches preserve geometry.</p>
+
+<div class="widget" id="w-dvor">
+  <div class="hd"><div class="ttl">Dvoretzky dimension vs $n$</div><div class="hint">slide $\varepsilon$ — watch $k(\varepsilon,n)$ grow logarithmically</div></div>
+  <div class="row">
+    <label for="dv-eps">distortion $\varepsilon$</label>
+    <input id="dv-eps" type="range" min="0.05" max="0.5" step="0.005" value="0.2">
+    <span id="dv-eps-out" class="pill">ε=0.20</span>
+    <label for="dv-c">constant $c$</label>
+    <input id="dv-c" type="range" min="0.1" max="2.0" step="0.05" value="0.5">
+    <span id="dv-c-out" class="pill">c=0.50</span>
+  </div>
+  <svg id="dv-svg" viewBox="0 0 640 320" width="100%" height="320" aria-label="Dvoretzky guaranteed section dimension vs ambient dimension"><title>k(ε, n) = c·ε²·log(n)</title></svg>
+  <div class="readout" id="dv-out"></div>
+</div><script>
+/* ====================== §7 Dvoretzky dimension ====================== */
+(function(){
+  const svg = $('#dv-svg'), out = $('#dv-out');
+  const epsIn = $('#dv-eps'), epsOut = $('#dv-eps-out');
+  const cIn = $('#dv-c'), cOut = $('#dv-c-out');
+  const W = 640, H = 320, padL = 60, padR = 30, padT = 30, padB = 50;
+  function px(n){ return padL + (Math.log(n) - Math.log(2)) / (Math.log(10000) - Math.log(2)) * (W - padL - padR); }
+  function py(k, kMax){ return H - padB - (k/kMax)*(H - padT - padB); }
+  function draw(){
+    const eps = parseFloat(epsIn.value), c = parseFloat(cIn.value);
+    epsOut.textContent = `ε=${eps.toFixed(3)}`;
+    cOut.textContent = `c=${c.toFixed(2)}`;
+    svg.innerHTML = '';
+    const samples = 200;
+    const points = [];
+    let kMax = 0;
+    for(let i=0;i<=samples;i++){
+      const logn = Math.log(2) + (Math.log(10000) - Math.log(2)) * i / samples;
+      const n = Math.exp(logn);
+      const k = c * eps*eps * Math.log(n);
+      if(k > kMax) kMax = k;
+      points.push([n, k]);
+    }
+    /* axes */
+    svg.appendChild(SVG('line',{x1:padL,y1:H-padB,x2:W-padR,y2:H-padB,stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:padL,y1:padT,x2:padL,y2:H-padB,stroke:'var(--line)'}));
+    /* x-axis labels (log scale) */
+    [2,10,100,1000,10000].forEach(n=>{
+      svg.appendChild(SVG('line',{x1:px(n),y1:H-padB,x2:px(n),y2:H-padB+4,stroke:'var(--mute)'}));
+      const t = SVG('text',{x:px(n),y:H-padB+18,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});
+      t.textContent = n; svg.appendChild(t);
+    });
+    let xl = SVG('text',{x:W-padR,y:H-padB+34,'text-anchor':'end','font-size':12,fill:'var(--mute)'});
+    xl.textContent = 'ambient dimension n (log scale)'; svg.appendChild(xl);
+    /* y-axis labels */
+    for(let kk = 0; kk <= kMax; kk += Math.max(1, Math.round(kMax/5))){
+      svg.appendChild(SVG('line',{x1:padL-4,y1:py(kk,kMax),x2:padL,y2:py(kk,kMax),stroke:'var(--mute)'}));
+      const t = SVG('text',{x:padL-8,y:py(kk,kMax)+4,'text-anchor':'end','font-size':10,fill:'var(--mute)'});
+      t.textContent = kk.toFixed(1); svg.appendChild(t);
+    }
+    let yl = SVG('text',{x:padL-6,y:padT+10,'text-anchor':'end','font-size':12,fill:'var(--mute)'});
+    yl.textContent = 'guaranteed k(ε, n)'; svg.appendChild(yl);
+    /* curve */
+    let d = '';
+    for(const p of points) d += (d?'L':'M') + px(p[0]) + ' ' + py(p[1], kMax) + ' ';
+    svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--yellow)','stroke-width':2.5}));
+    /* sample readout for n = 100, 1000, 10000 */
+    [10, 100, 1000, 10000].forEach(n=>{
+      const k = c * eps*eps * Math.log(n);
+      svg.appendChild(SVG('circle',{cx:px(n),cy:py(k,kMax),r:4,fill:'var(--cyan)','stroke':'var(--ink)','stroke-width':1}));
+    });
+    /* legend */
+    const lg = SVG('g',{transform:'translate(360, 50)'});
+    lg.appendChild(SVG('rect',{x:-6,y:-12,width:240,height:46,fill:'var(--panel2)',stroke:'var(--line)',rx:4}));
+    svg.appendChild(lg);
+    let t1 = SVG('text',{x:360,y:60,'font-size':12,fill:'var(--ink)'});
+    t1.textContent = `k(ε, n) = c · ε² · log n`; svg.appendChild(t1);
+    let t2 = SVG('text',{x:360,y:78,'font-size':11,fill:'var(--mute)'});
+    t2.textContent = 'cyan dots: n = 10, 100, 1000, 10000'; svg.appendChild(t2);
+    out.textContent =
+      `Dvoretzky guarantees an almost-Euclidean section of dimension at least k(ε, n) = c · ε² · log(n).\n` +
+      `At ε = ${eps.toFixed(2)}, c = ${c.toFixed(2)}:\n` +
+      `  n =      10  →  k ≥ ${(c*eps*eps*Math.log(10)).toFixed(3)}\n` +
+      `  n =     100  →  k ≥ ${(c*eps*eps*Math.log(100)).toFixed(3)}\n` +
+      `  n =   10000  →  k ≥ ${(c*eps*eps*Math.log(10000)).toFixed(3)}\n` +
+      `The log-growth is sharp: cube and cross-polytope ⊂ ℝⁿ have ≤ O(log n)-dim Euclidean sections.`;
+  }
+  epsIn.addEventListener('input', draw);
+  cIn.addEventListener('input', draw);
+  draw();
+})();
+</script>
+
+<div class="note"><strong>Sharpness.</strong> Take $K=[-1,1]^n$, the cube. Its norm is $\|\cdot\|_\infty$. A subspace $E\subset\mathbb{R}^n$ on which $\|x\|_\infty\le (1+\varepsilon)\,r\,|x|$ for some $r$ and all $x\in E$ must satisfy $\dim E\le O(\log n)$: any larger subspace contains a vector with one coordinate of magnitude $\gtrsim\sqrt{\log\dim E}\cdot|x|/\sqrt n$, beating the bound. So the $\log n$ rate is optimal.</div>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./high-dimensional-geometry.html#dvoretzky">Dvoretzky's theorem</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><div class="quiz" data-concept="cg-dvoretzky"></div>
+</section>
+
+<section id="connections">
+<h2>8. Connections</h2>
+
+<p>Convex geometry is a hub: it inherits its analytic muscle from functional analysis and high-dimensional probability, it borrows from the combinatorics of polytopes for its discrete face, and it loops back into algebraic geometry (toric varieties, Newton polytopes), optimisation (LP polyhedra, semidefinite programming), and the asymptotic theory of normed spaces. Many central problems — Mahler, the slicing conjecture, the variance / KLS conjecture — remain open in arbitrary dimension; the strongest current advances mix concentration of measure with stochastic localisation, which is where the next decade of progress will likely come from.</p>
+
+<ul>
+<li><a href="./high-dimensional-geometry.html#dvoretzky">High-dimensional geometry — Dvoretzky's theorem</a> — the convex-geometry view of concentration of measure; this page's §7 is its companion.</li>
+<li><a href="./combinatorial-optimization.html#polyhedral">Combinatorial optimization — Polyhedral combinatorics</a> — LP feasibility regions and integer hulls are the bridge to the optimisation side of polytopes.</li>
+<li><a href="./toric-varieties.html#dictionary">Toric varieties — Cone–variety dictionary</a> — lattice polytopes and Newton polytopes recast convex bodies as algebro-geometric data.</li>
+<li><a href="./differential-geometry.html#first-second-fundamental">Differential geometry — First and second fundamental forms</a> — the Gauss curvature of $\partial K$ for a smooth convex body $K$ feeds into Aleksandrov–Fenchel and the volume polynomial.</li>
+<li><a href="./geometric-measure-theory.html#perimeter">Geometric measure theory — Sets of finite perimeter</a> — Brunn–Minkowski and the isoperimetric inequality generalise far beyond convex bodies, with the relevant notion of "boundary" supplied by GMT.</li>
+</ul>
+</section>
+
+</main>
+
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('convex-geometry'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+})();
+</script>
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-05-13</td><td>initial version</td></tr>
+    </tbody>
+  </table>
+</details>
+
+</body>
+</html>

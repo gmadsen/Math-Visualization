@@ -1,0 +1,283 @@
+{
+  "topic": "convex-geometry",
+  "quizzes": {
+    "cg-convex-bodies": {
+      "title": "Convex bodies & supporting hyperplanes",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which of the following is the support function $h_K$ of a convex body $K\\subset\\mathbb{R}^n$?",
+          "choices": [
+            "$h_K(u)=\\inf_{x\\in K}\\langle u,x\\rangle$",
+            "$h_K(u)=\\sup_{x\\in K}\\langle u,x\\rangle$",
+            "$h_K(u)=\\sup_{x\\in K}|x|\\cdot\\mathbf{1}_{\\langle u,x\\rangle\\ge0}$",
+            "$h_K(u)=\\sup_{x\\in\\partial K}\\langle u,x\\rangle/|u|^2$"
+          ],
+          "answer": 1,
+          "explain": "By definition $h_K(u)=\\sup_{x\\in K}\\langle u,x\\rangle$. Then $K=\\bigcap_u\\{x:\\langle u,x\\rangle\\le h_K(u)\\}$ recovers $K$ from $h_K$.",
+          "hint": "The supporting hyperplane lives on the side where $\\langle u,x\\rangle$ is largest."
+        },
+        {
+          "type": "multi-select",
+          "q": "Which of the following must be true for a convex body $K\\subset\\mathbb{R}^n$ (compact convex with non-empty interior)?",
+          "choices": [
+            "Every boundary point has at least one supporting hyperplane.",
+            "$h_K$ is positively 1-homogeneous: $h_K(\\lambda u)=\\lambda h_K(u)$ for $\\lambda\\ge0$.",
+            "$h_K$ is subadditive: $h_K(u+v)\\le h_K(u)+h_K(v)$.",
+            "$K$ has finitely many extreme points."
+          ],
+          "answer": [0, 1, 2],
+          "explain": "Hahn–Banach guarantees a supporting hyperplane at every boundary point. Homogeneity and subadditivity are immediate from the sup definition. Convex bodies need not have finitely many extreme points — a Euclidean ball has uncountably many.",
+          "hint": "Three are general convex-body facts; one is a polytope-only property."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $K=[-1,1]^2\\subset\\mathbb{R}^2$ and $u=(\\cos\\theta,\\sin\\theta)$. Compute $h_K(u)$ when $\\theta=\\pi/4$ (give the value to 3 decimals).",
+          "answer": 1.414,
+          "tol": 0.01,
+          "explain": "$h_K(u)=\\sup_{|x_1|,|x_2|\\le 1}(x_1\\cos\\theta+x_2\\sin\\theta)=|\\cos\\theta|+|\\sin\\theta|$. At $\\theta=\\pi/4$ this is $\\sqrt 2\\approx 1.414$.",
+          "hint": "Maximise $x_1\\cos\\theta+x_2\\sin\\theta$ over $|x_i|\\le1$ independently."
+        }
+      ]
+    },
+    "cg-minkowski-sum": {
+      "title": "Minkowski sum & mixed volumes",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Let $B\\subset\\mathbb{R}^n$ be the unit ball and $K$ a convex body. The Steiner formula expands $\\mathrm{vol}(K+\\varepsilon B)$ as a polynomial in $\\varepsilon$. What is the coefficient of $\\varepsilon$ to leading order?",
+          "choices": [
+            "$\\mathrm{vol}(K)$",
+            "$\\mathrm{surf}(K)$, the surface area of $K$ (equivalently $n\\,V(K,\\ldots,K,B)$)",
+            "$\\mathrm{vol}(B)$",
+            "$0$"
+          ],
+          "answer": 1,
+          "explain": "Differentiating $\\mathrm{vol}(K+\\varepsilon B)$ at $\\varepsilon=0$ gives the surface area of $K$; the mixed-volume form $n\\,V(K,\\ldots,K,B)$ is the same number, since the Steiner polynomial expands $\\mathrm{vol}(K)+\\varepsilon\\,\\mathrm{surf}(K)+O(\\varepsilon^2)$.",
+          "hint": "The first-order term measures how fast volume grows when you grow $K$ by an $\\varepsilon$ shell."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $A=[0,2]\\times[0,1]$ and $B=[0,1]\\times[0,3]$ in $\\mathbb{R}^2$. Compute $\\mathrm{vol}(A+B)$.",
+          "answer": 12,
+          "tol": 0.01,
+          "explain": "$A+B=[0,3]\\times[0,4]$, so $\\mathrm{vol}(A+B)=3\\cdot 4=12$. Note this is larger than $\\mathrm{vol}(A)+\\mathrm{vol}(B)=2+3=5$.",
+          "hint": "For rectangles the Minkowski sum is the rectangle of summed widths."
+        },
+        {
+          "type": "mcq",
+          "q": "The mixed volume $V(K_1,\\ldots,K_n)$ of $n$ convex bodies in $\\mathbb{R}^n$ is best described as...",
+          "choices": [
+            "the volume of the intersection $K_1\\cap\\cdots\\cap K_n$",
+            "the unique symmetric multilinear function of $K_1,\\ldots,K_n$ whose diagonal $V(K,\\ldots,K)=\\mathrm{vol}(K)$",
+            "the volume of the Cartesian product $K_1\\times\\cdots\\times K_n$",
+            "the Minkowski sum volume $\\mathrm{vol}(K_1+\\cdots+K_n)$"
+          ],
+          "answer": 1,
+          "explain": "Mixed volumes are defined precisely as the symmetric polynomial coefficients in $\\mathrm{vol}(\\lambda_1 K_1+\\cdots+\\lambda_n K_n)$; symmetry, multilinearity in Minkowski sum, and the normalisation $V(K,\\ldots,K)=\\mathrm{vol}(K)$ characterise them uniquely.",
+          "hint": "Think of $V$ as the multilinear version of $\\mathrm{vol}$."
+        }
+      ]
+    },
+    "cg-brunn-minkowski": {
+      "title": "Brunn–Minkowski inequality",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Brunn–Minkowski states $\\mathrm{vol}(A+B)^{1/n}\\ge\\mathrm{vol}(A)^{1/n}+\\mathrm{vol}(B)^{1/n}$. When does equality hold for convex bodies $A,B$?",
+          "choices": [
+            "Always (the inequality is in fact an equality).",
+            "Iff $A=B$.",
+            "Iff $A$ and $B$ are homothetic — $B=\\lambda A+v$ for some $\\lambda>0$ and $v\\in\\mathbb{R}^n$.",
+            "Iff $A,B$ are both balls."
+          ],
+          "answer": 2,
+          "explain": "Equality holds precisely when $A$ and $B$ differ by a translation and a positive scaling. Balls are a special homothetic family but not the only one.",
+          "hint": "Translating $B$ and uniformly scaling it doesn't change the geometry of the pair."
+        },
+        {
+          "type": "numeric",
+          "q": "Take $A=B$ the unit ball $B^n$ in $\\mathbb{R}^3$. Brunn–Minkowski compares $\\mathrm{vol}(A+B)^{1/3}$ to $\\mathrm{vol}(A)^{1/3}+\\mathrm{vol}(B)^{1/3}$. What is the ratio LHS/RHS?",
+          "answer": 1.0,
+          "tol": 0.001,
+          "explain": "$A+B=2B^3$, so $\\mathrm{vol}(A+B)=2^3\\mathrm{vol}(B^3)$ and $\\mathrm{vol}(A+B)^{1/3}=2\\,\\mathrm{vol}(B^3)^{1/3}$, exactly equal to the RHS. This is the equality case (homothetic with $\\lambda=1$).",
+          "hint": "$A+A=2A$ for any convex $A$ in the Minkowski sense."
+        },
+        {
+          "type": "mcq",
+          "q": "Which classical inequality follows from Brunn–Minkowski by taking $B=\\varepsilon B^n$ and expanding to first order in $\\varepsilon$?",
+          "choices": [
+            "The Cauchy–Schwarz inequality.",
+            "The isoperimetric inequality on $\\mathbb{R}^n$: among bodies of equal volume, the ball minimises surface area.",
+            "Jensen's inequality.",
+            "Hölder's inequality."
+          ],
+          "answer": 1,
+          "explain": "The first-order Steiner expansion turns Brunn–Minkowski into $\\mathrm{surf}(K)\\ge n\\,\\omega_n^{1/n}\\,\\mathrm{vol}(K)^{(n-1)/n}$, with equality iff $K$ is a ball — exactly the Euclidean isoperimetric inequality.",
+          "hint": "Think of $K+\\varepsilon B$ as an $\\varepsilon$-tubular neighbourhood."
+        }
+      ]
+    },
+    "cg-polytopes": {
+      "title": "Polytopes & the f-vector",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "For a tetrahedron in $\\mathbb{R}^3$ the $f$-vector is $(f_0,f_1,f_2)=(4,6,4)$. Compute the alternating sum $f_0-f_1+f_2$.",
+          "answer": 2,
+          "tol": 0.001,
+          "explain": "$4-6+4=2$. Euler's relation in $n=3$ gives $f_0-f_1+f_2=2$ (i.e. $1-(-1)^3=2$). Every 3-polytope has this sum equal to 2, matching the Euler characteristic of $S^2$.",
+          "hint": "Euler's relation: $\\sum(-1)^i f_i=1-(-1)^n$."
+        },
+        {
+          "type": "mcq",
+          "q": "The Minkowski–Weyl theorem says a subset $P\\subset\\mathbb{R}^n$ is a polytope iff...",
+          "choices": [
+            "$P$ is the intersection of finitely many half-spaces and unbounded.",
+            "$P$ is the convex hull of finitely many points; equivalently, $P$ is a bounded intersection of finitely many half-spaces.",
+            "$P$ has finitely many extreme points and is closed.",
+            "$P$ is the unit ball of some norm on $\\mathbb{R}^n$."
+          ],
+          "answer": 1,
+          "explain": "Minkowski–Weyl is the equivalence of the V-representation (convex hull of vertices) and the H-representation (intersection of half-spaces), for bounded sets.",
+          "hint": "Two equivalent descriptions: vertices vs. half-spaces."
+        },
+        {
+          "type": "mcq",
+          "q": "A polytope $P\\subset\\mathbb{R}^n$ is called <em>simple</em> when...",
+          "choices": [
+            "every facet has the same number of vertices",
+            "every vertex lies on exactly $n$ facets",
+            "every face is a simplex",
+            "$P$ has no proper faces"
+          ],
+          "answer": 1,
+          "explain": "Simple polytopes have each vertex meeting exactly $n$ facets (equivalently, $n$ edges). The dual notion — every facet is a simplex — defines <em>simplicial</em> polytopes.",
+          "hint": "Don't confuse <em>simple</em> with <em>simplicial</em>: the two are polar-dual."
+        }
+      ]
+    },
+    "cg-john-ellipsoid": {
+      "title": "John's ellipsoid & Banach–Mazur distance",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "For a centrally symmetric convex body $K\\subset\\mathbb{R}^n$, John's theorem says the maximal inscribed ellipsoid $E$ satisfies which inclusion?",
+          "choices": [
+            "$E\\subseteq K\\subseteq\\sqrt n\\,E$",
+            "$E\\subseteq K\\subseteq n\\,E$",
+            "$E\\subseteq K\\subseteq 2E$",
+            "$\\sqrt n\\,E\\subseteq K\\subseteq nE$"
+          ],
+          "answer": 0,
+          "explain": "For symmetric $K$, John's inclusion is $E\\subseteq K\\subseteq\\sqrt n\\,E$. The non-symmetric version weakens the factor to $n$. The factor $\\sqrt n$ is saturated by the cross-polytope and the cube.",
+          "hint": "Symmetry buys a square-root factor."
+        },
+        {
+          "type": "numeric",
+          "q": "The Banach–Mazur distance between the cube $[-1,1]^n$ and the cross-polytope $\\{x:|x_1|+\\cdots+|x_n|\\le 1\\}$ in $\\mathbb{R}^2$ is $d=\\sqrt 2$. Give this to 3 decimals.",
+          "answer": 1.414,
+          "tol": 0.01,
+          "explain": "Both bodies have their inscribed John ellipsoid matching a Euclidean disk up to a factor of $\\sqrt 2$ on either side, giving $d=\\sqrt 2\\approx 1.414$. In general, $d(\\text{cube}_n,\\text{cross-polytope}_n)=\\sqrt n$ — saturating John's bound.",
+          "hint": "These two bodies are polar duals; their distance saturates John."
+        },
+        {
+          "type": "mcq",
+          "q": "The set of $n$-dimensional normed spaces modulo isometry, equipped with the Banach–Mazur distance, is...",
+          "choices": [
+            "non-compact and infinite-dimensional",
+            "a compact metric space (the Banach–Mazur compactum) of finite diameter — $\\le n$ in general, $\\le\\sqrt n$ for symmetric bodies",
+            "discrete",
+            "homeomorphic to $\\mathbb{R}^n$"
+          ],
+          "answer": 1,
+          "explain": "John's theorem implies every $n$-dim norm is within Banach–Mazur distance $\\le\\sqrt n$ of $\\ell^2_n$, so the compactum has finite diameter; it is also compact (Auerbach + a precompactness argument).",
+          "hint": "John's inclusion is exactly a diameter bound on this space."
+        }
+      ]
+    },
+    "cg-polar-duality": {
+      "title": "Polar duality & Mahler conjecture",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Let $K\\subset\\mathbb{R}^n$ be a closed convex body containing the origin. What is $(K^\\circ)^\\circ$?",
+          "choices": [
+            "$K^\\circ$ — the polar is its own polar.",
+            "$-K$ — the reflection of $K$ through the origin.",
+            "$K$ — the bipolar theorem says polarity is an involution.",
+            "$nK$"
+          ],
+          "answer": 2,
+          "explain": "The bipolar theorem: for closed convex $K$ containing $0$, $(K^\\circ)^\\circ=K$. (For general sets one takes the closed convex hull of $K\\cup\\{0\\}$.)",
+          "hint": "Polar duality is order-reversing and an involution."
+        },
+        {
+          "type": "numeric",
+          "q": "In $\\mathbb{R}^2$ the unit square $K=[-1,1]^2$ has $\\mathrm{vol}(K)=4$. Its polar $K^\\circ=\\{y:|y_1|+|y_2|\\le1\\}$ is the cross-polytope with $\\mathrm{vol}(K^\\circ)=2$. Compute $\\mathrm{vol}(K)\\cdot\\mathrm{vol}(K^\\circ)$.",
+          "answer": 8,
+          "tol": 0.01,
+          "explain": "$4\\cdot 2=8$. Mahler's conjecture predicts $\\mathrm{vol}(K)\\mathrm{vol}(K^\\circ)\\ge 4^n/n!=16/2=8$ in dimension 2 for symmetric $K$ — the cube–cross-polytope pair achieves equality. Mahler's conjecture is proven for $n\\le 3$.",
+          "hint": "The polar of the cube is the cross-polytope, and vice versa."
+        },
+        {
+          "type": "mcq",
+          "q": "Bourgain's hyperplane (slicing) conjecture asks: does there exist a universal $c>0$ such that every centrally symmetric convex body $K\\subset\\mathbb{R}^n$ of volume 1 has some hyperplane section of volume...",
+          "choices": [
+            "$\\ge c$",
+            "$\\le 1/c$",
+            "$=1$",
+            "$\\to 0$ as $n\\to\\infty$"
+          ],
+          "answer": 0,
+          "explain": "The conjecture asserts a dimension-free lower bound on the maximal hyperplane section: $\\sup_{H}\\mathrm{vol}(K\\cap H)\\ge c$. The best known bound is $\\Omega(1/\\log n)$ (Klartag, 2024), down from Bourgain's original $\\Omega(n^{-1/4})$.",
+          "hint": "The conjecture forbids 'all sections are tiny'."
+        }
+      ]
+    },
+    "cg-dvoretzky": {
+      "title": "Spherical sections & Dvoretzky",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Dvoretzky's theorem says every centred $n$-dim convex body has an almost-Euclidean section of dimension $k$ growing like...",
+          "choices": [
+            "$k\\sim n$",
+            "$k\\sim\\sqrt n$",
+            "$k\\sim\\log n$",
+            "$k$ bounded independent of $n$"
+          ],
+          "answer": 2,
+          "explain": "Dvoretzky–Milman: $k=\\Omega(\\varepsilon^2\\log n)$ for $(1+\\varepsilon)$-Euclidean sections. The bound is tight up to constants (cube and cross-polytope saturate logarithmic growth).",
+          "hint": "Spherical concentration gives only a log-dimensional almost-round subspace."
+        },
+        {
+          "type": "mcq",
+          "q": "Milman's proof of Dvoretzky's theorem hinges on...",
+          "choices": [
+            "the Riesz representation theorem",
+            "concentration of measure on the sphere $S^{n-1}$",
+            "the spectral theorem",
+            "the Hahn–Banach theorem"
+          ],
+          "answer": 1,
+          "explain": "Milman established Lévy's lemma on $S^{n-1}$ for Lipschitz functionals and applied it to the norm restricted to a random subspace. Concentration of measure is the engine; Hahn–Banach (existence of supporting hyperplanes) is upstream of the convex-body setup but doesn't power the section result.",
+          "hint": "What makes random directions look uniformly the same?"
+        },
+        {
+          "type": "multi-select",
+          "q": "Which statements are true consequences or close cousins of Dvoretzky's theorem?",
+          "choices": [
+            "Every $n$-dim normed space has an almost-isometric $\\Omega(\\log n)$-dim subspace isomorphic to Hilbert space.",
+            "The original motivation of Dvoretzky was a question of Grothendieck on $\\ell^2$-like subspaces of Banach spaces.",
+            "Every convex body is itself an ellipsoid.",
+            "John's theorem: every centred convex body has a unique maximal inscribed ellipsoid."
+          ],
+          "answer": [0, 1, 3],
+          "explain": "Items 1 and 2 are direct restatements of Dvoretzky and its historical motivation. John's theorem is a closely related convex-geometric fact about ellipsoidal approximation. Item 3 is false — most convex bodies are far from ellipsoids; Dvoretzky only guarantees an almost-ellipsoidal <em>section</em>.",
+          "hint": "Dvoretzky finds a round subspace, not a round body."
+        }
+      ]
+    }
+  }
+}

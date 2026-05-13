@@ -15,16 +15,16 @@ reach into upstream foundations or stay within their own cluster.
 | Algebra & homological | 148 | 224 | 25 | 99 | 0.169 |
 | Higher categories & toposes | 45 | 68 | 23 | 4 | 0.511 |
 | Analysis | 204 | 357 | 36 | 73 | 0.176 |
-| Probability & statistics | 76 | 124 | 23 | 22 | 0.303 |
-| Geometry & topology | 153 | 260 | 31 | 100 | 0.203 |
+| Probability & statistics | 76 | 124 | 23 | 23 | 0.303 |
+| Geometry & topology | 160 | 268 | 33 | 100 | 0.206 |
 | Number theory | 128 | 180 | 57 | 40 | 0.445 |
 | Modular forms & L-functions | 121 | 181 | 65 | 24 | 0.537 |
 | Algebraic geometry | 213 | 328 | 76 | 35 | 0.357 |
 | Combinatorics & graph theory | 58 | 56 | 27 | 4 | 0.466 |
 | Mathematical physics | 69 | 75 | 40 | 1 | 0.580 |
-| Control theory & optimization | 21 | 20 | 14 | 0 | 0.667 |
+| Control theory & optimization | 21 | 20 | 14 | 1 | 0.667 |
 
-## EMPTY — concepts with no prereqs (3)
+## EMPTY — concepts with no prereqs (4)
 
 Concepts whose `prereqs` field is `[]` and whose owning topic is *not*
 a foundation/prereq topic. Almost always indicates a missing cross-
@@ -36,6 +36,7 @@ at brand-new progress alongside genuine entry points like
 |---|---|---|
 | advanced-complex-analysis | `aca-overview` | The graduate landscape |
 | coding-theory | `ct-distance` | Hamming distance and the Singleton bound |
+| convex-geometry | `cg-convex-bodies` | Convex bodies & supporting hyperplanes |
 | tropical-geometry | `trop-semiring` | The tropical semiring |
 
 ## THIN-NEW — new-arc concepts with intra-topic-only prereqs (13)
