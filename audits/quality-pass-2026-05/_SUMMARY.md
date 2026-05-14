@@ -15,13 +15,13 @@ notation drift / undefined jargon / tone mismatches / missing worked examples / 
 | Analysis | 22 | 22 | complete |
 | Probability & statistics | 12 | 12 | complete |
 | Geometry & topology | 26 | 26 | complete |
-| Number theory | 19 | 0 | pending |
+| Number theory | 19 | 19 | complete |
 | Modular forms & L-functions | 20 | 0 | pending |
 | Algebraic geometry | 35 | 0 | pending |
 | Combinatorics & graph theory | 9 | 0 | pending |
 | Mathematical physics | 11 | 0 | pending |
 | Control theory & optimization | 4 | 0 | pending |
-| **Total** | **190** | **92** | **48%** |
+| **Total** | **190** | **111** | **58%** |
 
 ## Higher categories & toposes — consolidated findings (7/7)
 
