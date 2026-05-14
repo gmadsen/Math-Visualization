@@ -2,12 +2,12 @@
 
 ## Corpus totals
 
-- Topics: **185**, concepts: **1285**
-- Widgets: **1312** (registry-driven: 1312, inline: 0)
-- Quizzes: **5049** (v1: 3813, hard: 1223, expert: 13)
-- Quiz types: mcq: 3315, numeric: 1208, multi-select: 237, matching: 104, ordering: 80, spot-the-error: 51, complex: 29, proof-completion: 21, construction: 2, guess-my-rule: 2
+- Topics: **186**, concepts: **1292**
+- Widgets: **1320** (registry-driven: 1320, inline: 0)
+- Quizzes: **5070** (v1: 3834, hard: 1223, expert: 13)
+- Quiz types: mcq: 3323, numeric: 1215, multi-select: 239, matching: 106, ordering: 81, spot-the-error: 52, complex: 29, proof-completion: 21, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their section: **149**
-- Concepts lacking a hard-tier quiz: **847**
+- Concepts lacking a hard-tier quiz: **854**
 
 ## Per-slug registry adoption
 
@@ -26,7 +26,7 @@ page has wired one in yet.
 | `hamiltonians-figure` | hamiltonians-figure | interact | 2d | 6 | hamiltonians-classical-mechanics |
 | `surface-viewer` | surface-viewer | drag | 3d | 6 | differential-geometry, lie-groups |
 | `svg-illustration` | svg-illustration | static | 2d | 6 | L-functions, riemann-surfaces |
-| `inline-code-cell` | inline-code-cell | edit | 2d | 4 | analytic-number-theory, heights-arithmetic-geometry, p-adic-numbers |
+| `inline-code-cell` | inline-code-cell | edit | 2d | 5 | analytic-number-theory, convex-optimization, heights-arithmetic-geometry, p-adic-numbers |
 | `input-form` | input-form | input | 2d | 4 | additive-number-theory |
 | `lattice-visualizer` | lattice-visualizer | slider | 2d | 4 | elliptic-curves, modular-forms, riemann-surfaces, theta-functions |
 | `modular-arithmetic-clock` | modular-arithmetic-clock | slider | 2d | 4 | additive-number-theory, frobenius-and-reciprocity, p-adic-numbers, quadratic-reciprocity |
@@ -231,6 +231,13 @@ page has wired one in yet.
 | `ct-w5` | verbatim | click | 2d | 1 | coding-theory |
 | `ct-w6` | verbatim | click | 2d | 1 | coding-theory |
 | `ct-w7` | verbatim | click | 2d | 1 | coding-theory |
+| `cv-w-central` | verbatim | slider | 2d | 1 | convex-optimization |
+| `cv-w-epigraph` | verbatim | slider | 2d | 1 | convex-optimization |
+| `cv-w-gw` | verbatim | slider | 2d | 1 | convex-optimization |
+| `cv-w-kkt` | verbatim | slider | 2d | 1 | convex-optimization |
+| `cv-w-sgd` | verbatim | slider | 2d | 1 | convex-optimization |
+| `cv-w-slater` | verbatim | slider | 2d | 1 | convex-optimization |
+| `cv-w-subgrad` | verbatim | slider | 2d | 1 | convex-optimization |
 | `d-modules-w1` | verbatim | click | 2d | 1 | d-modules |
 | `d-modules-w2` | verbatim | click | 2d | 1 | d-modules |
 | `d-modules-w3` | verbatim | click | 2d | 1 | d-modules |
@@ -973,13 +980,13 @@ page has wired one in yet.
 
 ### Control theory & optimization
 
-- Topics: **3**, concepts: **21**
-- Widgets: **21** (registry-driven: 21, inline: 0)
-  - by family: verbatim: 21
-  - by dimension: 2d: 21
-  - by gesture: slider: 12, click: 6, select: 2, scrub: 1
-- Quizzes: **63** (v1: 63, hard: 0, expert: 0)
-  - by type: mcq: 45, numeric: 9, multi-select: 4, matching: 2, spot-the-error: 2, ordering: 1
+- Topics: **4**, concepts: **28**
+- Widgets: **29** (registry-driven: 29, inline: 0)
+  - by family: verbatim: 28, inline-code-cell: 1
+  - by dimension: 2d: 29
+  - by gesture: slider: 19, click: 6, select: 2, scrub: 1, edit: 1
+- Quizzes: **84** (v1: 84, hard: 0, expert: 0)
+  - by type: mcq: 53, numeric: 16, multi-select: 6, matching: 4, spot-the-error: 3, ordering: 2
 
 ## Per-topic
 
@@ -996,6 +1003,7 @@ page has wired one in yet.
 - `mathematical-finance` (Control theory & optimization) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
 - `donaldson-thomas-and-gw-invariants` (Algebraic geometry) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
 - `positive-characteristic-ag` (Algebraic geometry) — concepts=7, widgets=9 (slug=9), quiz=21 (v1=21, hard=0, expert=0)
+- `convex-optimization` (Control theory & optimization) — concepts=7, widgets=8 (slug=8), quiz=21 (v1=21, hard=0, expert=0)
 - `several-complex-variables` (Analysis) — concepts=6, widgets=5 (slug=5), quiz=18 (v1=18, hard=0, expert=0)
 - `khovanov-homology` (Geometry & topology) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `shimura-varieties` (Modular forms & L-functions) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)

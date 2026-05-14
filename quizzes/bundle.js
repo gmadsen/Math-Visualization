@@ -15665,6 +15665,316 @@ window.MVQuizBank = {
       }
     }
   },
+  "convex-optimization": {
+    "topic": "convex-optimization",
+    "quizzes": {
+      "co-convex-sets-functions": {
+        "title": "Convex sets, functions, and the Legendre–Fenchel transform",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A function $f\\colon\\mathbb{R}^n\\to\\mathbb{R}\\cup\\{+\\infty\\}$ is convex iff which set is convex?",
+            "choices": [
+              "Its graph $\\{(x,f(x))\\}$",
+              "Its epigraph $\\mathrm{epi}\\,f=\\{(x,t):t\\ge f(x)\\}$",
+              "Its hypograph $\\{(x,t):t\\le f(x)\\}$",
+              "Its level set $\\{x:f(x)=0\\}$"
+            ],
+            "answer": 1,
+            "hint": "Jensen's inequality says the chord from $(x,f(x))$ to $(y,f(y))$ lies above the graph — equivalently, in the closed region above it.",
+            "explain": "Convexity of $f$ is equivalent to convexity of its epigraph. Sublevel sets $\\{f\\le c\\}$ are convex too (a consequence), but graphs and hypographs of non-affine functions are not."
+          },
+          {
+            "type": "numeric",
+            "q": "Compute the Legendre–Fenchel conjugate of $f(x)=\\tfrac{1}{2}x^2$ at $y=3$: $f^*(3)=\\sup_x\\{3x-\\tfrac{1}{2}x^2\\}=?$",
+            "answer": 4.5,
+            "tol": 0.001,
+            "hint": "Maximise over $x$ by setting the derivative to zero; the conjugate of $\\tfrac{1}{2}x^2$ is again a quadratic.",
+            "explain": "$\\frac{d}{dx}(3x-\\tfrac{1}{2}x^2)=3-x=0$ gives $x=3$, and the value is $9-4.5=4.5=\\tfrac{1}{2}\\cdot 3^2$. The quadratic is self-conjugate up to scaling: $(\\tfrac{1}{2}x^2)^*=\\tfrac{1}{2}y^2$."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which operations preserve convexity of a function $f$?",
+            "choices": [
+              "Pointwise supremum of a family of convex functions",
+              "Pointwise infimum of a family of convex functions",
+              "Non-negative combination $\\sum\\alpha_i f_i$ with $\\alpha_i\\ge 0$",
+              "Composition with an affine map: $f(Ax+b)$"
+            ],
+            "answer": [
+              0,
+              2,
+              3
+            ],
+            "hint": "The infimum of convex functions is the classic non-example — think of two parabolas with widely separated minima.",
+            "explain": "Sup, conic combination, and affine pre-composition all preserve convexity. The pointwise infimum does not in general (it can fail to be convex even with two convex inputs)."
+          }
+        ]
+      },
+      "co-subgradients": {
+        "title": "Subgradients and first-order optimality",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the subdifferential $\\partial f(0)$ of $f(x)=|x|$ at $x=0$?",
+            "choices": [
+              "$\\{0\\}$",
+              "$\\{-1, +1\\}$",
+              "The interval $[-1, 1]$",
+              "Empty (subdifferential undefined)"
+            ],
+            "answer": 2,
+            "hint": "$g\\in\\partial f(0)$ means $|y|\\ge g\\cdot y$ for all $y$ — what slopes $g$ satisfy that?",
+            "explain": "Any slope $g\\in[-1,1]$ gives a global underestimating line $gy\\le|y|$. Outside that interval the line $gy$ overshoots $|y|$ on one side."
+          },
+          {
+            "type": "numeric",
+            "q": "Minimise $f(x)=\\tfrac{1}{2}x^2 + |x-2|$ over $\\mathbb{R}$. What is $x^*$?",
+            "answer": 1,
+            "tol": 0.001,
+            "hint": "Away from the kink at $x=2$, the optimality condition is $x\\pm 1=0$. Check which of $\\pm 1$ sits on the correct side of the kink.",
+            "explain": "For $x<2$, $f'(x)=x-1$, so $x^*=1$ with $f(1)=0.5+1=1.5$. At $x=1$ the subgradient inclusion $0\\in\\partial f(1)=\\{1-1\\}=\\{0\\}$ holds. (For $x>2$ the stationary candidate is $x=-1$, which is infeasible there.)"
+          },
+          {
+            "type": "mcq",
+            "q": "A student claims: \"For convex $f$ and convex set $C$, $x^*$ minimises $f$ over $C$ iff $\\nabla f(x^*)=0$.\" Where's the error?",
+            "choices": [
+              "The function might not even be differentiable",
+              "It ignores the boundary: the correct condition is $-\\nabla f(x^*)\\in N_C(x^*)$, equivalently $\\nabla f(x^*)^\\top(y-x^*)\\ge 0$ for all $y\\in C$",
+              "The claim is correct as stated for convex $f$ and $C$",
+              "Convexity is the wrong hypothesis"
+            ],
+            "answer": 1,
+            "hint": "A constrained minimum can lie on the boundary, where the gradient need not vanish — it just has to point out of $C$.",
+            "explain": "The correct first-order condition over a convex set $C$ is the variational inequality $\\langle\\nabla f(x^*), y-x^*\\rangle\\ge 0$ for all $y\\in C$; equivalently $-\\nabla f(x^*)\\in N_C(x^*)$, the outward normal cone at $x^*$. Setting $\\nabla f=0$ is only right for unconstrained problems."
+          }
+        ]
+      },
+      "co-lagrangian-duality": {
+        "title": "Lagrangian duality and the KKT system",
+        "questions": [
+          {
+            "type": "ordering",
+            "q": "Order the four KKT conditions in the standard exposition for $\\min f$ s.t. $g_i\\le 0$:",
+            "items": [
+              "Stationarity: $0\\in\\partial f(x^*)+\\sum\\lambda_i^*\\partial g_i(x^*)$",
+              "Primal feasibility: $g_i(x^*)\\le 0$",
+              "Dual feasibility: $\\lambda_i^*\\ge 0$",
+              "Complementary slackness: $\\lambda_i^*\\,g_i(x^*)=0$"
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "hint": "Stationarity comes first (the Lagrangian's gradient), then the two feasibility conditions, then complementary slackness as the coupling.",
+            "explain": "The canonical order — stationarity → primal feasibility → dual feasibility → complementary slackness — encodes that an inactive constraint must have zero multiplier and a binding constraint may have a positive one. Slater's condition is what upgrades the necessary KKT to sufficient (strong duality)."
+          },
+          {
+            "type": "mcq",
+            "q": "Slater's condition guarantees what for a convex program $\\min f$ s.t. $g_i\\le 0$, $Ax=b$?",
+            "choices": [
+              "Existence of a primal optimum",
+              "Strong duality $p^* = d^*$ (no duality gap)",
+              "Uniqueness of the primal optimum",
+              "Polynomial-time solvability"
+            ],
+            "answer": 1,
+            "hint": "Slater's condition is a *constraint qualification* — it controls the relationship between primal and dual, not existence or uniqueness of $x^*$.",
+            "explain": "Slater (existence of a strictly feasible interior point $g_i(\\tilde x)<0$ for non-affine $g_i$, plus $A\\tilde x=b$) implies strong duality and existence of a dual optimum $\\lambda^*$. Existence of a primal optimum and polynomial-time solvability are separate questions."
+          },
+          {
+            "type": "numeric",
+            "q": "Minimise $f(x,y)=x^2+y^2$ subject to $x+y=2$. By KKT (or Lagrange multipliers), the optimal value is?",
+            "answer": 2,
+            "tol": 0.001,
+            "hint": "Symmetry gives $x=y=1$. The Lagrangian $x^2+y^2+\\nu(x+y-2)$ has stationary point $2x+\\nu=0$, $2y+\\nu=0$.",
+            "explain": "Stationarity: $\\nabla f + \\nu(1,1)=0$ gives $x=y=-\\nu/2$, and $x+y=2$ then forces $x=y=1$, $\\nu=-2$. Optimal value $1^2+1^2=2$. The dual function $g(\\nu)=-\\nu^2/2-2\\nu$ peaks at $\\nu=-2$ with $g(-2)=2$ — equal, as Slater promises."
+          }
+        ]
+      },
+      "co-conic-sdp": {
+        "title": "Conic programming: LP, QP, SOCP, SDP",
+        "questions": [
+          {
+            "type": "matching",
+            "q": "Match each conic program to the cone defining its constraint $x\\in K$.",
+            "left": [
+              "Linear program (LP)",
+              "Second-order-cone program (SOCP)",
+              "Semidefinite program (SDP)",
+              "Quadratic program (QP)"
+            ],
+            "right": [
+              "Non-negative orthant $\\mathbb{R}^n_+$",
+              "Lorentz / ice-cream cone $\\{(x,t):\\|x\\|_2\\le t\\}$",
+              "PSD cone $\\mathbb{S}^n_+$ of symmetric positive-semidefinite matrices",
+              "Convex polyhedron defined by a PSD quadratic objective"
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "hint": "Each program is named for the cone of inequalities it uses; QP is the odd one out — convex polyhedral feasible set plus a quadratic *objective*.",
+            "explain": "LP/SOCP/SDP are pure conic over the orthant, Lorentz, and PSD cones respectively. QP is an LP with a convex-quadratic objective — strictly between LP and SOCP in the hierarchy LP $\\subseteq$ QP $\\subseteq$ SOCP $\\subseteq$ SDP."
+          },
+          {
+            "type": "mcq",
+            "q": "The Goemans–Williamson algorithm gives a $\\alpha\\approx 0.878$-approximation to MAX-CUT. What is the rounding step?",
+            "choices": [
+              "Round each fractional $x_i$ to the nearer of $\\{0,1\\}$",
+              "Solve the SDP relaxation to obtain unit vectors $v_i\\in S^{n-1}$, then partition by the sign of $\\langle v_i, r\\rangle$ for a uniformly random hyperplane normal $r$",
+              "Take the integer part of each LP variable",
+              "Apply a randomised pivot of the simplex tableau"
+            ],
+            "answer": 1,
+            "hint": "MAX-CUT's SDP relaxation lifts each binary $\\pm 1$ to a unit vector in $\\mathbb{R}^n$; rounding has to convert vectors back to a $\\pm 1$ assignment.",
+            "explain": "The SDP relaxation maximises $\\sum_{ij\\in E}w_{ij}\\,(1-v_i\\!\\cdot\\!v_j)/2$ with $\\|v_i\\|=1$. Random-hyperplane rounding separates $v_i$ from $v_j$ with probability $\\arccos(v_i\\!\\cdot\\!v_j)/\\pi$; the ratio to the relaxed objective is $\\ge 0.87856\\ldots$. Under UGC this constant is optimal."
+          },
+          {
+            "type": "numeric",
+            "q": "How many degrees of freedom does an $n\\times n$ symmetric matrix have? (The PSD cone $\\mathbb{S}^n_+$ lives inside this dimension-many ambient space.) Take $n=4$.",
+            "answer": 10,
+            "tol": 0.0001,
+            "hint": "$n$ diagonal entries plus the $\\binom{n}{2}$ strict-upper-triangle entries.",
+            "explain": "Symmetric $4\\times 4$ matrices form a $4+\\binom{4}{2}=4+6=10$-dimensional vector space; $\\mathbb{S}^4_+$ is a $10$-dimensional convex cone inside it. An SDP in $n$ matrix variables has decision-variable count growing like $n^2/2$."
+          }
+        ]
+      },
+      "co-gradient-proximal": {
+        "title": "Gradient and proximal methods",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Gradient descent with constant step size $\\alpha=1/L$ on a convex $f$ with $L$-Lipschitz gradient converges at what rate in objective value?",
+            "choices": [
+              "$O(1/k)$",
+              "$O(1/k^2)$",
+              "$O(\\log k / k)$",
+              "Geometric / exponential: $O(\\rho^k)$ with $\\rho<1$"
+            ],
+            "answer": 0,
+            "hint": "Without strong convexity, the convergence is sublinear; Nesterov's acceleration improves this by one power of $k$.",
+            "explain": "Vanilla gradient descent has $f(x_k)-f^*\\le L\\|x_0-x^*\\|^2/(2k)$ on smooth convex functions. Strong convexity ($\\mu>0$) gives geometric $O((1-\\mu/L)^k)$; Nesterov's accelerated method gives $O(1/k^2)$ without strong convexity."
+          },
+          {
+            "type": "numeric",
+            "q": "Compute the proximal operator of $g(x)=\\lambda|x|$ with $\\lambda=1$ at $y=2$: $\\mathrm{prox}_g(2)=\\arg\\min_x\\{|x|+\\tfrac{1}{2}(x-2)^2\\}=?$",
+            "answer": 1,
+            "tol": 0.001,
+            "hint": "Soft-thresholding: $\\mathrm{prox}_{\\lambda|\\cdot|}(y)=\\mathrm{sign}(y)\\,\\max(|y|-\\lambda, 0)$.",
+            "explain": "The minimiser of $|x|+\\tfrac{1}{2}(x-2)^2$ is found from $0\\in\\partial g(x)+(x-2)$. For $x>0$, $1+x-2=0$ gives $x=1$. This is exactly soft-thresholding: $\\mathrm{prox}_{|\\cdot|}(y)=\\mathrm{sign}(y)\\,(|y|-1)_+$. ISTA / FISTA iterate this for $\\ell_1$-regularised regression."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which statements about Nesterov's accelerated gradient method on smooth convex $f$ are correct?",
+            "choices": [
+              "It achieves $O(1/k^2)$ in objective value, matching the lower bound for first-order methods",
+              "Its iteration uses a momentum / extrapolation step in addition to the gradient",
+              "It is monotone: $f(x_{k+1})\\le f(x_k)$ always",
+              "It is optimal among first-order methods on the class of smooth convex problems (Nemirovski–Yudin lower bound)"
+            ],
+            "answer": [
+              0,
+              1,
+              3
+            ],
+            "hint": "Vanilla Nesterov is *not* monotone — the objective can rise on a step; restart schemes are added to enforce monotonicity.",
+            "explain": "Nesterov 1983 hits $O(1/k^2)$ and matches Nemirovski–Yudin's $\\Omega(1/k^2)$ lower bound, so it is optimal among first-order methods on smooth convex problems. The method uses an extrapolation $y_k=x_k+\\beta_k(x_k-x_{k-1})$, $x_{k+1}=y_k-\\alpha\\nabla f(y_k)$. It is not monotone in $f$."
+          }
+        ]
+      },
+      "co-interior-point": {
+        "title": "Interior-point methods and self-concordance",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What does the *central path* in a primal-dual interior-point method trace out as the barrier parameter $\\mu\\to 0$?",
+            "choices": [
+              "A piecewise-linear sequence of vertices of the feasible polytope",
+              "A smooth curve in the strict interior, asymptoting to the optimum as $\\mu\\to 0$",
+              "A random walk biased toward the optimum",
+              "The boundary of the feasible set"
+            ],
+            "answer": 1,
+            "hint": "Interior-point methods stay *strictly inside* the feasible region — that's where the barrier function is finite.",
+            "explain": "For each $\\mu>0$, the perturbed KKT system $\\nabla f(x)+A^\\top y=\\mu\\nabla B(x)$ has a unique solution $x(\\mu)$ in the strict interior. The curve $\\{x(\\mu):\\mu>0\\}$ is smooth and ends at the optimum; Newton steps track it efficiently while $\\mu$ decreases geometrically."
+          },
+          {
+            "type": "numeric",
+            "q": "Nesterov–Nemirovski's polynomial-time bound on an interior-point method with $\\nu$-self-concordant barrier requires $O(\\sqrt{\\nu}\\,\\log(1/\\varepsilon))$ outer iterations to reach $\\varepsilon$-accuracy. If the log-barrier $-\\sum\\log x_i$ on $\\mathbb{R}^n_+$ has $\\nu=n$, what is the exponent on $n$? (Answer the exponent on $n$ alone.)",
+            "answer": 0.5,
+            "tol": 0.001,
+            "hint": "Read off the exponent on $\\nu$ in $O(\\sqrt{\\nu}\\,\\log(1/\\varepsilon))$.",
+            "explain": "The complexity scales as $\\sqrt{\\nu}=\\sqrt{n}$ for the standard log-barrier on the non-negative orthant. This is why LP, QP, SOCP, and SDP all sit in P with practical $\\tilde O(\\sqrt{n}\\log(1/\\varepsilon))$ implementations."
+          },
+          {
+            "type": "mcq",
+            "q": "A function $\\phi$ is *self-concordant* (Nesterov–Nemirovski) iff its third derivative is bounded by its second derivative to the $3/2$ power: $|\\phi'''(x)|\\le 2\\,\\phi''(x)^{3/2}$ (1D version). Why is this the right notion?",
+            "choices": [
+              "It guarantees $\\phi$ is convex",
+              "It makes the Newton step size affine-invariant and gives an explicit region of quadratic convergence",
+              "It ensures $\\phi$ is bounded above",
+              "It is a smoothness condition equivalent to $C^\\infty$"
+            ],
+            "answer": 1,
+            "hint": "Self-concordance is exactly the property that Newton's method behaves well — it lets you bound progress *without* knowing global Lipschitz constants.",
+            "explain": "Self-concordance makes the *Newton decrement* $\\lambda(x)=\\sqrt{\\nabla\\phi^\\top H^{-1}\\nabla\\phi}$ a meaningful measure of nearness-to-optimum, affine-invariant under coordinate change. Damped Newton converges quadratically once $\\lambda(x)<1/4$. This is the entire mechanism behind polynomial-time interior-point methods."
+          }
+        ]
+      },
+      "co-stochastic-online": {
+        "title": "Stochastic and online convex optimization",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Stochastic gradient descent on a convex objective with a constant-step or $O(1/\\sqrt{T})$-decaying step achieves what rate in $\\mathbb{E}\\,f(\\bar x_T)-f^*$?",
+            "choices": [
+              "$O(1/T)$",
+              "$O(1/\\sqrt{T})$",
+              "$O(1/T^2)$",
+              "$O(\\log T / T)$"
+            ],
+            "answer": 1,
+            "hint": "SGD is one order slower than full-batch gradient descent on the same problem — the noise costs a $\\sqrt{T}$.",
+            "explain": "SGD with step $\\alpha_t=O(1/\\sqrt{t})$ and Polyak averaging achieves $\\mathbb{E}\\,f(\\bar x_T)-f^*=O(1/\\sqrt{T})$ on convex Lipschitz objectives, *independent of dimension*. Strong convexity improves this to $O(1/T)$."
+          },
+          {
+            "type": "matching",
+            "q": "Match each online algorithm to its regularizer (Bregman divergence generator).",
+            "left": [
+              "Online gradient descent",
+              "Multiplicative weights / Hedge",
+              "Mirror descent (general)"
+            ],
+            "right": [
+              "Squared Euclidean norm $\\tfrac{1}{2}\\|x\\|_2^2$",
+              "Negative entropy $\\sum x_i\\log x_i$ on the simplex",
+              "A general strongly-convex $\\psi$ generating the Bregman divergence $D_\\psi(x,y)$"
+            ],
+            "answer": [
+              0,
+              1,
+              2
+            ],
+            "hint": "OGD is mirror descent under the Euclidean regulariser; Hedge / exponentiated gradient is mirror descent under negative entropy on the simplex.",
+            "explain": "Mirror descent generalises projected gradient by using any strongly convex $\\psi$ as a regulariser. Euclidean $\\psi$ recovers OGD with $O(\\sqrt{T})$ regret; entropic $\\psi$ on the simplex recovers multiplicative weights, with $O(\\sqrt{T\\log n})$ regret — exponentially better dimension dependence."
+          },
+          {
+            "type": "numeric",
+            "q": "Online gradient descent on a convex Lipschitz loss sequence with optimal step size achieves regret $R_T=O(\\sqrt{T})$. What is the exponent on $T$? (Just the exponent.)",
+            "answer": 0.5,
+            "tol": 0.001,
+            "hint": "$\\sqrt{T}=T^{?}$.",
+            "explain": "Zinkevich's analysis (2003) shows OGD achieves $R_T\\le GD\\sqrt{T}$ where $D$ is the diameter and $G$ the gradient bound, giving an exponent of $1/2$ on $T$. This is optimal for adversarial Lipschitz losses; smoothness or strong convexity improves the rate."
+          }
+        ]
+      }
+    }
+  },
   "crystalline-cohomology": {
     "topic": "crystalline-cohomology",
     "quizzes": {

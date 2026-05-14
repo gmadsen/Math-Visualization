@@ -278,6 +278,7 @@
       "topics": [
         "optimal-control-and-dynamic-programming",
         "combinatorial-optimization",
+        "convex-optimization",
         "mathematical-finance"
       ],
       "color": "p"
