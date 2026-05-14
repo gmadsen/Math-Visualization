@@ -24,7 +24,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./partial-differential-equations.html#classification\">Classification: elliptic / parabolic / hyperbolic</a></li>\n    <li><a href=\"./partial-differential-equations.html#heat\">Heat equation and the heat kernel</a></li>\n    <li><a href=\"./riemannian-geometry.html#ricci\">Ricci curvature and Einstein manifolds</a></li>\n  </ul>\n</aside>\n\n"
+          "html": "\n\n"
         },
         {
           "type": "quiz",

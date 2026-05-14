@@ -223,7 +223,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<p><strong>Dehn's algorithm.</strong> A presentation $\\langle S \\mid R \\rangle$ is a <em>Dehn presentation</em> if every nontrivial word $w$ representing the identity contains <em>more than half</em> of some cyclic conjugate of a relator. Then we can repeatedly replace that long subword with its shorter complement, strictly decreasing word length each time — the algorithm terminates in $O(|w|)$ steps. Hyperbolic groups always admit a Dehn presentation; this is why the word problem is linear-time.</p>\n\n<aside class=\"callback\">\n<div class=\"ttl\">See also</div>\n<ul>\n  <li><a href=\"./algebraic-topology.html#fundamental-group\">Fundamental group</a> — surface groups $\\pi_1(\\Sigma_g)$ for $g\\ge 2$ are the prototypical hyperbolic groups.</li>\n  <li><a href=\"./point-set-topology.html#metric-spaces\">Metric spaces</a> — the entire framework lives one layer up from the metric-space axioms.</li>\n</ul>\n</aside>\n\n"
+          "html": "\n\n<p><strong>Dehn's algorithm.</strong> A presentation $\\langle S \\mid R \\rangle$ is a <em>Dehn presentation</em> if every nontrivial word $w$ representing the identity contains <em>more than half</em> of some cyclic conjugate of a relator. Then we can repeatedly replace that long subword with its shorter complement, strictly decreasing word length each time — the algorithm terminates in $O(|w|)$ steps. Hyperbolic groups always admit a Dehn presentation; this is why the word problem is linear-time.</p>\n\n"
         },
         {
           "type": "raw",
@@ -272,7 +272,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<aside class=\"callback\">\n<div class=\"ttl\">See also</div>\n<ul>\n  <li><a href=\"./spectral-graph-theory.html#adjacency-and-laplacian\">Adjacency &amp; Laplacian</a> — expander families are exactly Cayley graphs with bounded-below spectral gap.</li>\n</ul>\n</aside>\n\n"
+          "html": "\n\n"
         },
         {
           "type": "raw",

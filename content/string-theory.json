@@ -23,7 +23,7 @@
         },
         {
           "type": "raw",
-          "html": "\n<p class=\"small\">The open string (endpoints free) sweeps out a 2D strip; the closed string (endpoints joined) sweeps out a tube. In either case it is a 2D surface $\\Sigma$ embedded in spacetime. The Polyakov action computes the (signed) area of $\\Sigma$ using its own intrinsic metric.</p>\n\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./general-relativity.html#spacetime\">Spacetime as a Lorentzian manifold</a></li>\n    <li><a href=\"./riemannian-geometry.html#metric\">Riemannian metrics</a></li>\n  </ul>\n</aside>\n\n"
+          "html": "\n<p class=\"small\">The open string (endpoints free) sweeps out a 2D strip; the closed string (endpoints joined) sweeps out a tube. In either case it is a 2D surface $\\Sigma$ embedded in spacetime. The Polyakov action computes the (signed) area of $\\Sigma$ using its own intrinsic metric.</p>\n\n"
         },
         {
           "type": "raw",
@@ -207,7 +207,7 @@
         },
         {
           "type": "raw",
-          "html": "\n<p class=\"small\">For self-mirror compactifications $h^{1,1} = h^{2,1}$ ⟹ Euler characteristic $\\chi = 0$. The Schoen 3-fold (1988) is a famous example with $h^{1,1} = h^{2,1} = 19$.</p>\n\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./calabi-yau-manifolds.html#definition\">Definition: Ricci-flat Kähler manifolds</a></li>\n  </ul>\n</aside>\n\n"
+          "html": "\n<p class=\"small\">For self-mirror compactifications $h^{1,1} = h^{2,1}$ ⟹ Euler characteristic $\\chi = 0$. The Schoen 3-fold (1988) is a famous example with $h^{1,1} = h^{2,1} = 19$.</p>\n\n"
         },
         {
           "type": "raw",
@@ -256,7 +256,7 @@
         },
         {
           "type": "raw",
-          "html": "\n<p class=\"small\">Cyan dots: pure-momentum states $n/R$. Pink dots: pure-winding states $mR/\\alpha'$. As $R$ shrinks below $\\sqrt{\\alpha'}$ the momentum tower gets heavy and the winding tower gets light — physically equivalent to a large dual circle. The two towers cross at $R = \\sqrt{\\alpha'}$.</p>\n\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./mirror-symmetry.html#statement\">The mirror pair statement</a></li>\n  </ul>\n</aside>\n\n"
+          "html": "\n<p class=\"small\">Cyan dots: pure-momentum states $n/R$. Pink dots: pure-winding states $mR/\\alpha'$. As $R$ shrinks below $\\sqrt{\\alpha'}$ the momentum tower gets heavy and the winding tower gets light — physically equivalent to a large dual circle. The two towers cross at $R = \\sqrt{\\alpha'}$.</p>\n\n"
         },
         {
           "type": "raw",

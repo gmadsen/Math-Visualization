@@ -27,7 +27,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<p>The story is more delicate on a 3-fold than on a surface. The Hilbert scheme $\\mathrm{Hilb}^n(C^2)$ on a smooth surface is itself smooth of dimension $2n$ (Fogarty 1968). But $\\mathrm{Hilb}^n(\\mathbb{C}^3)$ is generically singular for $n \\ge 4$: the deformation theory acquires obstructions in $\\mathrm{Ext}^2(\\mathcal{I},\\mathcal{I})$ and the moduli space has irreducible components of different dimensions. This is the central technical difficulty DT theory must overcome — the moduli space is \"too big,\" and naive integrals on it diverge or give wrong answers.</p>\n\n<aside class=\"callback\">\n<div class=\"ttl\">See also</div>\n<ul>\n<li><a href=\"./moduli-spaces.html#what\">Moduli problems and parameters</a></li>\n<li><a href=\"./calabi-yau-manifolds.html#definition\">Calabi–Yau manifolds — definition</a></li>\n</ul>\n</aside>\n\n"
+          "html": "\n\n<p>The story is more delicate on a 3-fold than on a surface. The Hilbert scheme $\\mathrm{Hilb}^n(C^2)$ on a smooth surface is itself smooth of dimension $2n$ (Fogarty 1968). But $\\mathrm{Hilb}^n(\\mathbb{C}^3)$ is generically singular for $n \\ge 4$: the deformation theory acquires obstructions in $\\mathrm{Ext}^2(\\mathcal{I},\\mathcal{I})$ and the moduli space has irreducible components of different dimensions. This is the central technical difficulty DT theory must overcome — the moduli space is \"too big,\" and naive integrals on it diverge or give wrong answers.</p>\n\n"
         },
         {
           "type": "raw",
@@ -72,7 +72,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<div class=\"note\"><strong>Behrend's theorem.</strong> When the obstruction theory is symmetric (as on a CY3), $[M]^{\\mathrm{vir}}$ equals a <em>weighted Euler characteristic</em> $\\chi(M, \\nu)$, where the Behrend function $\\nu \\colon M \\to \\mathbb{Z}$ is the constructible function $\\nu(x) = (-1)^{\\dim_x M}(1 - \\chi(\\mathrm{MF}_x))$. The local Chern–Simons potential whose Milnor fibre $\\mathrm{MF}_x$ appears here is what makes DT theory \"categorified\" — the count is geometric, not just an integral.</div>\n\n<aside class=\"callback\">\n<div class=\"ttl\">See also</div>\n<ul>\n<li><a href=\"./intersection-theory-chow.html#chern-classes\">Chern classes</a></li>\n<li><a href=\"./deformation-theory.html#functor\">Deformation functor</a></li>\n</ul>\n</aside>\n\n"
+          "html": "\n\n<div class=\"note\"><strong>Behrend's theorem.</strong> When the obstruction theory is symmetric (as on a CY3), $[M]^{\\mathrm{vir}}$ equals a <em>weighted Euler characteristic</em> $\\chi(M, \\nu)$, where the Behrend function $\\nu \\colon M \\to \\mathbb{Z}$ is the constructible function $\\nu(x) = (-1)^{\\dim_x M}(1 - \\chi(\\mathrm{MF}_x))$. The local Chern–Simons potential whose Milnor fibre $\\mathrm{MF}_x$ appears here is what makes DT theory \"categorified\" — the count is geometric, not just an integral.</div>\n\n"
         },
         {
           "type": "raw",
@@ -117,7 +117,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<p>For a general compact CY3-fold $X$, the degree-zero DT series is itself a universal MacMahon, raised to the Euler characteristic:</p>\n\n$$Z_{\\mathrm{DT}}(X;q,0) \\;=\\; M(-q)^{\\chi(X)} \\quad \\text{(MNOP conjecture, now theorem on every CY3)}.$$\n\n<p>For the quintic threefold $X \\subset \\mathbb{P}^4$ with $\\chi(X) = -200$, the point-only DT count is $M(-q)^{-200}$ — encoding nothing about the actual quintic geometry beyond its Euler characteristic. All the geometry sits in the reduced part $Z'_{\\mathrm{DT}}$.</p>\n\n<aside class=\"callback\">\n<div class=\"ttl\">See also</div>\n<ul>\n<li><a href=\"./calabi-yau-manifolds.html#mirror\">Calabi–Yau manifolds — mirror pair</a></li>\n</ul>\n</aside>\n\n"
+          "html": "\n\n<p>For a general compact CY3-fold $X$, the degree-zero DT series is itself a universal MacMahon, raised to the Euler characteristic:</p>\n\n$$Z_{\\mathrm{DT}}(X;q,0) \\;=\\; M(-q)^{\\chi(X)} \\quad \\text{(MNOP conjecture, now theorem on every CY3)}.$$\n\n<p>For the quintic threefold $X \\subset \\mathbb{P}^4$ with $\\chi(X) = -200$, the point-only DT count is $M(-q)^{-200}$ — encoding nothing about the actual quintic geometry beyond its Euler characteristic. All the geometry sits in the reduced part $Z'_{\\mathrm{DT}}$.</p>\n\n"
         },
         {
           "type": "raw",
@@ -162,7 +162,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<h3>The Gopakumar–Vafa integrality conjecture</h3>\n\n<p>GW counts are rational, which is unsatisfying compared to DT integers. The <strong>Gopakumar–Vafa</strong> (1998) conjecture explains the rationals as universal contributions from <em>integer</em> BPS-state counts $n^g_\\beta \\in \\mathbb{Z}$. Schematically,</p>\n\n$$\\sum_g \\mathrm{GW}_{g,\\beta}\\, u^{2g-2} \\;=\\; \\sum_{g \\ge 0} n^g_\\beta \\sum_{d \\ge 1} \\frac{1}{d}\\left(2 \\sin\\!\\tfrac{du}{2}\\right)^{2g-2}\\, Q^{d\\beta},$$\n\n<p>and $n^g_\\beta \\in \\mathbb{Z}$ is the conjectural BPS count. For the quintic at genus zero, $n^0_d$ recovers the famous Candelas–de la Ossa–Green–Parkes numbers $2{,}875$, $609{,}250$, $317{,}206{,}375$, …</p>\n\n<aside class=\"callback\">\n<div class=\"ttl\">See also</div>\n<ul>\n<li><a href=\"./mirror-symmetry.html#gw\">A-model: Gromov–Witten invariants</a></li>\n<li><a href=\"./moduli-spaces.html#higher\">Higher-genus moduli and stable curves</a></li>\n</ul>\n</aside>\n\n"
+          "html": "\n\n<h3>The Gopakumar–Vafa integrality conjecture</h3>\n\n<p>GW counts are rational, which is unsatisfying compared to DT integers. The <strong>Gopakumar–Vafa</strong> (1998) conjecture explains the rationals as universal contributions from <em>integer</em> BPS-state counts $n^g_\\beta \\in \\mathbb{Z}$. Schematically,</p>\n\n$$\\sum_g \\mathrm{GW}_{g,\\beta}\\, u^{2g-2} \\;=\\; \\sum_{g \\ge 0} n^g_\\beta \\sum_{d \\ge 1} \\frac{1}{d}\\left(2 \\sin\\!\\tfrac{du}{2}\\right)^{2g-2}\\, Q^{d\\beta},$$\n\n<p>and $n^g_\\beta \\in \\mathbb{Z}$ is the conjectural BPS count. For the quintic at genus zero, $n^0_d$ recovers the famous Candelas–de la Ossa–Green–Parkes numbers $2{,}875$, $609{,}250$, $317{,}206{,}375$, …</p>\n\n"
         },
         {
           "type": "raw",
@@ -285,7 +285,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<p>The universal jump formula was found in different forms by <strong>Joyce</strong> (2008, motivic Hall algebra) and <strong>Kontsevich–Soibelman</strong> (2008, quantum-torus identity). Both express the product of formal group elements $U_\\alpha^{\\mathrm{DT}(\\alpha)}$ taken with respect to the wall-ordering of phases as a constant of motion: the product is the same on either side of the wall, even though the individual $\\mathrm{DT}(\\alpha)$ counts jump.</p>\n\n<p>Refinements upgrade integer DT counts to <strong>motivic / refined DT invariants</strong>: Poincaré polynomials in a formal variable $y$ that recover the integers at $y = -1$ via Behrend's theorem. The wall-crossing identity then involves <strong>quantum dilogarithms</strong> $\\mathbb{E}_q(x) = \\prod_{k \\ge 0}(1 + q^{k+1/2}x)^{-1}$ in place of plain group elements — a quantum-cluster-algebra structure that connects DT theory to <em>cluster algebras</em>, BPS spectrum computations in $\\mathcal{N} = 2$ supersymmetric gauge theories, and stability conditions on the Fukaya category via homological mirror symmetry.</p>\n\n<aside class=\"callback\">\n<div class=\"ttl\">See also</div>\n<ul>\n<li><a href=\"./geometric-invariant-theory.html#vgit\">Variation of GIT and wall-crossing</a></li>\n</ul>\n</aside>\n\n"
+          "html": "\n\n<p>The universal jump formula was found in different forms by <strong>Joyce</strong> (2008, motivic Hall algebra) and <strong>Kontsevich–Soibelman</strong> (2008, quantum-torus identity). Both express the product of formal group elements $U_\\alpha^{\\mathrm{DT}(\\alpha)}$ taken with respect to the wall-ordering of phases as a constant of motion: the product is the same on either side of the wall, even though the individual $\\mathrm{DT}(\\alpha)$ counts jump.</p>\n\n<p>Refinements upgrade integer DT counts to <strong>motivic / refined DT invariants</strong>: Poincaré polynomials in a formal variable $y$ that recover the integers at $y = -1$ via Behrend's theorem. The wall-crossing identity then involves <strong>quantum dilogarithms</strong> $\\mathbb{E}_q(x) = \\prod_{k \\ge 0}(1 + q^{k+1/2}x)^{-1}$ in place of plain group elements — a quantum-cluster-algebra structure that connects DT theory to <em>cluster algebras</em>, BPS spectrum computations in $\\mathcal{N} = 2$ supersymmetric gauge theories, and stability conditions on the Fukaya category via homological mirror symmetry.</p>\n\n"
         },
         {
           "type": "raw",

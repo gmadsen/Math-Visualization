@@ -74,7 +74,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<aside class=\"callback\"><div class=\"ttl\">Prereq</div><ul>\n<li><a href=\"./dynamical-systems.html#fixed\">dynamical-systems — Fixed points and linearization</a> — the same Hartman–Grobman analysis classifies the Lagrange points as saddles vs centres.</li>\n</ul></aside>\n\n"
+          "html": "\n\n"
         },
         {
           "type": "raw",
@@ -162,7 +162,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<aside class=\"callback\"><div class=\"ttl\">Prereq</div><ul>\n<li><a href=\"./dynamical-systems.html#poincare\">dynamical-systems — Poincaré sections and return maps</a> — the horseshoe lives on a Poincaré section transverse to a periodic orbit.</li>\n<li><a href=\"./dynamical-systems.html#chaos\">dynamical-systems — Chaos and Lyapunov exponents</a> — sensitive dependence + transitivity + dense periodic orbits.</li>\n</ul></aside>\n\n"
+          "html": "\n\n"
         },
         {
           "type": "raw",
@@ -208,7 +208,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<aside class=\"callback\"><div class=\"ttl\">Prereq</div><ul>\n<li><a href=\"./symplectic-manifolds.html#hamiltonian\">symplectic-manifolds — Hamiltonian vector fields and flows</a> — KAM is a theorem about Hamiltonian perturbations of integrable systems on a symplectic manifold.</li>\n</ul></aside>\n\n"
+          "html": "\n\n"
         },
         {
           "type": "raw",

@@ -48,7 +48,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./real-analysis.html#real-numbers\">Real analysis — Real numbers</a> · the limit of refinement that floats only approximate</li>\n  </ul>\n</aside>\n</section>\n\n<!-- =============================== §2 ROOTFINDING =============================== -->\n"
+          "html": "\n\n</section>\n\n<!-- =============================== §2 ROOTFINDING =============================== -->\n"
         }
       ]
     },
@@ -97,7 +97,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./real-analysis.html#real-differentiation\">Real analysis — Differentiation</a> · the linearization that powers Newton</li>\n  </ul>\n</aside>\n</section>\n\n<!-- =============================== §3 QUADRATURE =============================== -->\n"
+          "html": "\n\n</section>\n\n<!-- =============================== §3 QUADRATURE =============================== -->\n"
         }
       ]
     },
@@ -142,7 +142,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./real-analysis.html#riemann-integral\">Real analysis — Riemann integral</a> · the limit these rules approximate</li>\n  </ul>\n</aside>\n</section>\n\n<!-- =============================== §4 LINEAR SYSTEMS =============================== -->\n"
+          "html": "\n\n</section>\n\n<!-- =============================== §4 LINEAR SYSTEMS =============================== -->\n"
         }
       ]
     },
@@ -191,7 +191,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./functional-analysis.html#hilbert\">Functional analysis — Banach &amp; Hilbert spaces</a> · the inner-product geometry behind CG</li>\n  </ul>\n</aside>\n</section>\n\n<!-- =============================== §5 FINITE DIFFERENCES =============================== -->\n"
+          "html": "\n\n</section>\n\n<!-- =============================== §5 FINITE DIFFERENCES =============================== -->\n"
         }
       ]
     },
@@ -236,7 +236,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./partial-differential-equations.html#classification\">PDEs — Classification</a> · the elliptic / parabolic / hyperbolic split that drives stencil choice</li>\n    <li><a href=\"./partial-differential-equations.html#heat\">PDEs — Heat equation</a> · the analytic solution the scheme tracks</li>\n  </ul>\n</aside>\n</section>\n\n<!-- =============================== §6 FINITE ELEMENTS =============================== -->\n"
+          "html": "\n\n</section>\n\n<!-- =============================== §6 FINITE ELEMENTS =============================== -->\n"
         }
       ]
     },
@@ -281,7 +281,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./partial-differential-equations.html#weak-solutions\">PDEs — Weak solutions and Galerkin approximation</a> · the abstract framework FEM realizes computationally</li>\n    <li><a href=\"./functional-analysis.html#hilbert\">Functional analysis — Banach &amp; Hilbert spaces</a> · the $H^1_0$ home</li>\n  </ul>\n</aside>\n</section>\n\n<!-- ═══════════════════════════════════════════════════════════════════\n     Connections outro\n═══════════════════════════════════════════════════════════════════ -->\n"
+          "html": "\n\n</section>\n\n<!-- ═══════════════════════════════════════════════════════════════════\n     Connections outro\n═══════════════════════════════════════════════════════════════════ -->\n"
         }
       ]
     },

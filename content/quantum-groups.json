@@ -31,7 +31,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<div class=\"note\">A commutative algebra of functions on a group $G$ ($\\mathbb C[G]$ if $G$ is finite) is dual to the cocommutative $\\mathbb C[G]$: the Hopf structure is a single algebraic object that simultaneously sees the algebra of functions and the group operation. Quantum groups are the deformations where neither side is commutative anymore.</div>\n\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./category-theory.html#cat\">Categories and morphisms</a></li>\n    <li><a href=\"./representation-theory.html#tensor-dual\">Tensor products and dual representations</a></li>\n  </ul>\n</aside>\n\n"
+          "html": "\n\n<div class=\"note\">A commutative algebra of functions on a group $G$ ($\\mathbb C[G]$ if $G$ is finite) is dual to the cocommutative $\\mathbb C[G]$: the Hopf structure is a single algebraic object that simultaneously sees the algebra of functions and the group operation. Quantum groups are the deformations where neither side is commutative anymore.</div>\n\n"
         },
         {
           "type": "quiz",

@@ -284,7 +284,7 @@ function heatColor(t){
 <h2>1. Laplace's equation</h2>
 <p>What physical situations force a function to satisfy a "no curvature on average" condition? Steady-state heat: temperature in a body whose boundary temperature is held fixed. Electrostatic potential: voltage outside the supports of charges. Gravitational potential: outside a mass distribution. Velocity potential: of an incompressible irrotational fluid. In each case, the second-order operator that vanishes is the Laplacian — and the function it kills is called <em>harmonic</em>.</p>
 <p>Concretely: a function $u\colon \Omega \subseteq \mathbb{R}^n \to \mathbb{R}$ of class $C^2$ is <strong>harmonic</strong> when</p>
-<p>$\Delta u ;=; \sum_{i=1}^n \frac{\partial^2 u}{\partial x_i^2} ;=; 0.$</p>
+<p>$\Delta u \;=\; \sum_{i=1}^n \frac{\partial^2 u}{\partial x_i^2} \;=\; 0.$</p>
 <p>This is the simplest elliptic PDE.</p>
 <p>In two dimensions there is a magic bridge to <a href="./complex-analysis.html#analyticity">complex analysis</a>: if $f = u + iv$ is holomorphic on an open $\Omega \subseteq \mathbb{C}$, then differentiating the Cauchy–Riemann equations $u_x = v_y$, $u_y = -v_x$ once more gives $u_{xx} + u_{yy} = v_{yx} - v_{xy} = 0$. Both the real and imaginary part of any holomorphic function are harmonic. Conversely, on a simply connected $\Omega$, every harmonic $u$ has a <em>harmonic conjugate</em> $v$ — the unique-up-to-constant real function making $u + iv$ holomorphic.</p>
 

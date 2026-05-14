@@ -23,7 +23,7 @@
         },
         {
           "type": "raw",
-          "html": "\n<p class=\"small\">Below is a base loop $\\gamma\\subset M$ (the projected ellipse). Each gray vertical line is a fiber circle $G = U(1)$, drawn edge-on so we see only the lift's height. The yellow path is the horizontal lift of $\\gamma$ under $A = A_0\\,d\\theta$ — when $A_0\\ne 0$ the lift fails to close up, and the vertical gap is the holonomy phase $e^{i\\oint_\\gamma A}$.</p>\n\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./lie-groups.html#exp\">Lie algebra and exponential map</a></li>\n    <li><a href=\"./smooth-manifolds.html#tangent\">Tangent spaces</a></li>\n  </ul>\n</aside>\n\n"
+          "html": "\n<p class=\"small\">Below is a base loop $\\gamma\\subset M$ (the projected ellipse). Each gray vertical line is a fiber circle $G = U(1)$, drawn edge-on so we see only the lift's height. The yellow path is the horizontal lift of $\\gamma$ under $A = A_0\\,d\\theta$ — when $A_0\\ne 0$ the lift fails to close up, and the vertical gap is the holonomy phase $e^{i\\oint_\\gamma A}$.</p>\n\n"
         },
         {
           "type": "raw",
@@ -72,7 +72,7 @@
         },
         {
           "type": "raw",
-          "html": "\n<p class=\"small\">Color encodes $F_{xy} = \\partial_x A_y - \\partial_y A_x$: cyan is positive flux density, pink negative, dim is near zero. The arrows show the vector field $(A_x, A_y)$ itself. The total $S_{YM} \\propto \\int|F|^2$ is summed over the visible window.</p>\n\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./differential-forms.html#d\">Exterior derivative</a></li>\n  </ul>\n</aside>\n\n"
+          "html": "\n<p class=\"small\">Color encodes $F_{xy} = \\partial_x A_y - \\partial_y A_x$: cyan is positive flux density, pink negative, dim is near zero. The arrows show the vector field $(A_x, A_y)$ itself. The total $S_{YM} \\propto \\int|F|^2$ is summed over the visible window.</p>\n\n"
         },
         {
           "type": "raw",
@@ -211,7 +211,7 @@
         },
         {
           "type": "raw",
-          "html": "\n<p class=\"small\">The Jones polynomial $V(t)\\in\\mathbb{Z}[t^{\\pm 1/2}]$ is a knot invariant computable by the Kauffman bracket and Reidemeister moves. In Chern-Simons theory at level $k$ for $G = SU(2)$ in the fundamental rep, $\\langle W(\\gamma)\\rangle$ on $S^3$ equals $V_\\gamma(e^{2\\pi i/(k+2)})$ up to a framing-dependent prefactor — closing the loop between QFT and knot theory.</p>\n\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./characteristic-classes.html#chern-weil\">Chern–Weil theory</a></li>\n  </ul>\n</aside>\n\n"
+          "html": "\n<p class=\"small\">The Jones polynomial $V(t)\\in\\mathbb{Z}[t^{\\pm 1/2}]$ is a knot invariant computable by the Kauffman bracket and Reidemeister moves. In Chern-Simons theory at level $k$ for $G = SU(2)$ in the fundamental rep, $\\langle W(\\gamma)\\rangle$ on $S^3$ equals $V_\\gamma(e^{2\\pi i/(k+2)})$ up to a framing-dependent prefactor — closing the loop between QFT and knot theory.</p>\n\n"
         },
         {
           "type": "raw",
@@ -297,7 +297,7 @@
         },
         {
           "type": "raw",
-          "html": "\n<p class=\"small\">Each dot is a basic class $c\\in H^2(X;\\mathbb{Z})$ (an integer cohomology class for which $\\mathrm{SW}(\\mathfrak{s}_c)\\ne 0$); the integer next to it is $\\mathrm{SW}$. The diagram is a curated, hard-coded slice — actual computations involve gluing formulas, surgery sequences, and (for elliptic surfaces) the Fintushel-Stern fiber-sum formula.</p>\n\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./characteristic-classes.html#chern\">Chern classes</a></li>\n  </ul>\n</aside>\n\n"
+          "html": "\n<p class=\"small\">Each dot is a basic class $c\\in H^2(X;\\mathbb{Z})$ (an integer cohomology class for which $\\mathrm{SW}(\\mathfrak{s}_c)\\ne 0$); the integer next to it is $\\mathrm{SW}$. The diagram is a curated, hard-coded slice — actual computations involve gluing formulas, surgery sequences, and (for elliptic surfaces) the Fintushel-Stern fiber-sum formula.</p>\n\n"
         },
         {
           "type": "raw",
