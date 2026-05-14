@@ -193,15 +193,15 @@
       "questions": [
         {
           "type": "mcq",
-          "q": "For a smooth variety $X$ with $\\Delta = 0$, the discrepancy $a_E(X, 0)$ along any prime divisor $E$ on a log resolution satisfies:",
+          "q": "For a smooth variety $X$ with $\\Delta = 0$, the discrepancy $a_E(X, 0)$ along any prime divisor $E$ that is exceptional over $X$ (extracted on a log resolution) satisfies:",
           "choices": [
             "$a_E \\ge 0$, with equality iff $E$ is exceptional",
             "$a_E > 0$, so $(X, 0)$ is terminal",
-            "$a_E = 0$ for every $E$",
+            "$a_E = 0$ for every exceptional $E$",
             "$a_E < 0$, so $(X, 0)$ is log canonical but not klt"
           ],
           "answer": 1,
-          "explain": "On a smooth $X$ the discrepancy along any divisor $E$ on a sequence of blow-ups is strictly positive: blowing up a smooth point of dimension $d$ adds an exceptional $\\mathbb{P}^{d-1}$ with discrepancy $d - 1 \\ge 1$. So $\\inf_E a_E(X, 0) > 0$, meaning $(X, 0)$ is terminal. Smooth varieties are the prototype of terminal singularities, just as klt is the natural setting for the modern MMP and lc is the boundary class.",
+          "explain": "On a smooth $X$ the discrepancy along any exceptional divisor $E$ extracted by a sequence of blow-ups is strictly positive: blowing up a smooth point of dimension $d$ adds an exceptional $\\mathbb{P}^{d-1}$ with discrepancy $d - 1 \\ge 1$. So $\\inf_{E \\text{ exceptional}} a_E(X, 0) > 0$, meaning $(X, 0)$ is terminal. (Non-exceptional prime divisors have $a_E = 0$ for $\\Delta = 0$, so the question is restricted to exceptional $E$.) Smooth varieties are the prototype of terminal singularities, just as klt is the natural setting for the modern MMP and lc is the boundary class.",
           "hint": "Blowing up the origin of $\\mathbb{A}^d$ produces an exceptional $\\mathbb{P}^{d-1}$ — what is its discrepancy?"
         },
         {

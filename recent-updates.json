@@ -1,5 +1,5 @@
 {
-  "generated": "2026-05-14T15:04:08.876Z",
+  "generated": "2026-05-14T15:22:22.084Z",
   "entries": [
     {
       "slug": "computational-molecular-biology",
@@ -144,6 +144,14 @@
       "tag": "",
       "date": "2026-05-11",
       "message": "New topic: Random matrix theory (Probability & statistics) (#155)"
+    },
+    {
+      "slug": "arithmetic-statistics",
+      "title": "Arithmetic statistics",
+      "color": "y",
+      "tag": "",
+      "date": "2026-05-07",
+      "message": "New topic: Arithmetic statistics (#139)"
     },
     {
       "slug": "complex-multiplication",

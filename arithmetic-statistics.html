@@ -153,7 +153,7 @@
 <script src="./js/display-prefs.js"></script>
 <!-- display-prefs-head-auto-end -->
 </head>
-<body data-section="number-theory" data-level="intermediate">
+<body data-section="number-theory" data-level="advanced">
 <script>
 const $ = (s,r=document)=>r.querySelector(s);
 const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
@@ -383,7 +383,7 @@ function drawNode(svg, x, y, label, opts={}){
 <ul>
   <li><strong>Probability $p\nmid h(K)$:</strong> $\prod_{k\ge 1}(1-p^{-k})$. For $p=3$ this is $\approx 0.5601$, matching tabulated data strikingly well.</li>
   <li><strong>$p$-rank is mostly $0$:</strong> the chance the $p$-rank is $\ge 1$ is $1-\prod(1-p^{-k})\approx p^{-1}+p^{-2}+\cdots$ for large $p$.</li>
-  <li><strong>Cyclic-on-average:</strong> $\Pr(\mathrm{Cl}_p\text{ cyclic})$ is $\prod_{k\ge 2}(1-p^{-k})/\prod_{k\ge 1}(1-p^{-k})$.</li>
+  <li><strong>Cyclic-or-trivial $p$-part:</strong> the marginal $\Pr(p\text{-rank}\le 1)$ is $\prod_{k\ge 1}(1-p^{-k})\cdot\bigl(1+p^{-1}/(1-p^{-1})^2\bigr)$. For $p=3$ this is $\approx 0.980$ — almost all imaginary-quadratic class groups are cyclic at $p=3$.</li>
 </ul>
 
 <h3>Real fields and function fields</h3>
@@ -565,13 +565,14 @@ function drawNode(svg, x, y, label, opts={}){
   const nIn=$('#sel-N'), bRun=$('#sel-run');
   const svg=$('#sel-svg'), out=$('#sel-out');
   const W=720, H=280, ML=60, MR=24, MT=24, MB=44;
-  // Bhargava–Shankar limit law for the 2-Selmer rank, tabulated on
-  // P(|Sel_2|=2^k) for k=0..6. The proved mean E[|Sel_2|]=3 over E/Q is
-  // closely matched (this vector gives ≈3.22, the small bias is the
-  // truncation residue past k=6). Renormalized so the cumulative sum is
-  // exactly 1 — otherwise sampleSize() would silently dump residual mass
-  // into the last bin.
-  const _bsRaw = [0.2096, 0.4153, 0.2702, 0.0840, 0.0166, 0.0036, 0.0007];
+  // Bhargava–Shankar / Poonen–Rains limit law for the 2-Selmer rank,
+  // tabulated on P(|Sel_2|=2^k) for k=0..6. The closed form is
+  // P(rank=k) ∝ 2^k / ∏_{j=1}^k (2^j-1); normalising the seven leading
+  // terms gives the values below, with mean E[|Sel_2|]≈2.9996 — i.e.
+  // the proved Bhargava–Shankar average of 3 to four significant figures.
+  // Renormalised so the cumulative sum is exactly 1 (otherwise
+  // sampleSize() would silently dump residual mass into the last bin).
+  const _bsRaw = [0.20971, 0.41942, 0.27962, 0.07989, 0.01065, 0.00069, 0.00002];
   const _bsSum = _bsRaw.reduce((a,b)=>a+b,0);
   const BS_LOG2 = _bsRaw.map(x=>x/_bsSum);
   function sampleSize(){

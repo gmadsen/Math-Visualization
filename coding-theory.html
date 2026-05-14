@@ -894,34 +894,15 @@ the least common multiple of the minimal polynomials of $\delta-1$ <em>consecuti
   // each variable has 3 edges, each check has 6 edges
   const svg=$('#ldpc-svg'), out=$('#ldpc-out');
   const N=12, M=6;
-  // explicit adjacency: H[m][n] = 1 iff edge
+  // explicit adjacency: H[m][n] = 1 iff edge — proper (3,6)-regular: every row sum = 6, every col sum = 3
   const H=[
     [1,1,1,1,1,1,0,0,0,0,0,0],
     [1,1,1,0,0,0,1,1,1,0,0,0],
-    [1,0,0,1,1,0,1,1,0,1,0,0],
-    [0,1,0,1,0,1,1,0,1,0,1,0],
-    [0,0,1,0,1,1,0,1,1,0,0,1],
-    [0,0,0,0,0,0,0,0,0,1,1,1]
+    [1,0,0,1,1,0,1,0,0,1,1,0],
+    [0,1,0,1,0,1,0,1,0,1,0,1],
+    [0,0,1,0,1,1,0,0,1,0,1,1],
+    [0,0,0,0,0,0,1,1,1,1,1,1]
   ];
-  // Sanity: row sums should be 6, col sums 3 — adjust last row to be (1,1,1,1,1,1) on cols 6..11 minus those already 3
-  // Recompute col sums and pad final row
-  function rebuild(){
-    const colSum=new Array(N).fill(0);
-    for(let m=0;m<M;m++) for(let n=0;n<N;n++) colSum[n]+=H[m][n];
-    for(let n=0;n<N;n++){
-      while(colSum[n]<3){
-        // add edge to next under-filled row
-        for(let m=0;m<M;m++){
-          if(H[m][n]===0){
-            const rowSum=H[m].reduce((a,b)=>a+b,0);
-            if(rowSum<6){ H[m][n]=1; colSum[n]++; break; }
-          }
-        }
-        if(colSum[n]<3) break; // give up
-      }
-    }
-  }
-  rebuild();
   const y=new Array(N).fill(0);
   function checks(){
     return H.map(row=>row.reduce((a,h,i)=>a^(h*y[i]),0));
@@ -1125,7 +1106,7 @@ measures how tightly they pack.</p>
   <li><a href="./information-theory.html#channel-coding">Information theory — channel capacity</a> — Shannon's noisy-channel theorem sets the absolute ceiling that LDPC and polar codes approach.</li>
   <li><a href="./algebra.html#finite">Abstract algebra — finite fields</a> — Reed–Solomon and BCH live entirely in $\mathbb{F}_q[x]$; without finite-field arithmetic there is no encoder.</li>
   <li><a href="./additive-number-theory.html#twosq">Additive number theory — sums of squares</a> — counting lattice points inside a ball is the geometry-of-numbers question that bounds packing density.</li>
-  <li><a href="./mathematics-and-cryptography.html#crypto-lattice-based">Cryptography — lattice-based crypto</a> — the same lattices that make great codes make hard-to-decode problems for post-quantum cryptography.</li>
+  <li><a href="./mathematics-and-cryptography.html#lattice">Cryptography — lattice-based crypto</a> — the same lattices that make great codes make hard-to-decode problems for post-quantum cryptography.</li>
   <li><a href="./spectral-graph-theory.html#bipartite-expanders">Spectral graph theory — expanders</a> — good LDPC codes have Tanner graphs that are good expanders; Sipser–Spielman <em>expander codes</em> use this directly.</li>
 </ul>
 </section>

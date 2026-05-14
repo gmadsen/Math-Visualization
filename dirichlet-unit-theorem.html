@@ -508,11 +508,11 @@ and $(p_{k-1},q_{k-1})$ is the smallest positive Pell solution — i.e. the fund
 <tr><td>$5$</td><td>$[2;\overline{4}]$</td><td>$1$</td><td>$(1+\sqrt 5)/2$</td><td>$-1$</td></tr>
 <tr><td>$6$</td><td>$[2;\overline{2,4}]$</td><td>$2$</td><td>$5+2\sqrt{6}$</td><td>$+1$</td></tr>
 <tr><td>$13$</td><td>$[3;\overline{1,1,1,1,6}]$</td><td>$5$</td><td>$(3+\sqrt{13})/2$</td><td>$-1$</td></tr>
-<tr><td>$61$</td><td>(period $11$)</td><td>$11$</td><td>$1766319049+226153980\sqrt{61}$</td><td>$+1$</td></tr>
+<tr><td>$61$</td><td>(period $11$)</td><td>$11$</td><td>$29718+3805\sqrt{61}$</td><td>$-1$</td></tr>
 </tbody>
 </table>
 
-<p>The size of $\varepsilon$ can be exponential in $\log d$: $d=61$ already has a 9-digit fundamental solution, and Archimedes' "cattle problem" reduces to Pell with $d=4729494$, whose smallest solution has $\sim 10^{206544}$ digits.</p>
+<p>The size of $\varepsilon$ can be exponential in $\log d$: $d=61$ already needs a 5-digit fundamental solution (and the smallest solution of the $+1$ Pell equation $x^2-61y^2=+1$ is its square, with 10-digit $x$), while Archimedes' "cattle problem" reduces to Pell with $d=4729494$, whose smallest solution has $\sim 10^{206544}$ digits.</p>
 
 <h3>Negative Pell: when does $x^2-dy^2=-1$ have a solution?</h3>
 
@@ -735,7 +735,7 @@ has only finitely many solutions.</div>
     10: {x:3, y:1, half:false, k:1, N:-1},
     11: {x:10, y:3, half:false, k:2, N:1},
     13: {x:3, y:1, half:true, k:5, N:-1},
-    61: {x:1766319049, y:226153980, half:false, k:11, N:1},
+    61: {x:29718, y:3805, half:false, k:11, N:-1},
     94: {x:2143295, y:221064, half:false, k:16, N:1},
   };
   function update(){

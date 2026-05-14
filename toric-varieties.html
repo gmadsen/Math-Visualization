@@ -554,7 +554,7 @@ $$\mathbb{C}[S_\sigma] \;=\; \mathbb{C}[\chi^{e_1^*}, \chi^{e_2^*}] \;=\; \mathb
         // halfline starting at 0 — shade a thin strip
         const v = c.rays[0];
         svg.appendChild(SVG('line',{x1:cx,y1:cy,x2:cx+v[0]*scale*2.5,y2:cy-v[1]*scale*2.5,
-          stroke:'var(--blue)','stroke-width':3,'stroke-linecap':'round'}));
+          stroke:'var(--blue)','stroke-width':3,'stroke-linecap':'round',style:'cursor:pointer','data-idx':i}));
       } else if (c.rays.length === 2){
         const [a, b] = c.rays;
         const far = 3;
@@ -566,13 +566,13 @@ $$\mathbb{C}[S_\sigma] \;=\; \mathbb{C}[\chi^{e_1^*}, \chi^{e_2^*}] \;=\; \mathb
         ];
         svg.appendChild(SVG('polygon',{
           points: pts.map(p=>p.join(',')).join(' '),
-          fill:'var(--blue)','fill-opacity':0.22, stroke:'var(--blue)','stroke-width':1.2
+          fill:'var(--blue)','fill-opacity':0.22, stroke:'var(--blue)','stroke-width':1.2,style:'cursor:pointer','data-idx':i
         }));
       }
       // tip dot
-      svg.appendChild(SVG('circle',{cx:cx,cy:cy,r:3,fill:'var(--ink)'}));
+      svg.appendChild(SVG('circle',{cx:cx,cy:cy,r:3,fill:'var(--ink)','data-idx':i}));
       // label
-      const tx = SVG('text',{x:cx,y:cellH-12,'text-anchor':'middle','font-size':12,fill:'var(--ink)'});
+      const tx = SVG('text',{x:cx,y:cellH-12,'text-anchor':'middle','font-size':12,fill:'var(--ink)','data-idx':i});
       tx.textContent = c.label;
       svg.appendChild(tx);
     });
@@ -583,7 +583,9 @@ $$\mathbb{C}[S_\sigma] \;=\; \mathbb{C}[\chi^{e_1^*}, \chi^{e_2^*}] \;=\; \mathb
   }
 
   svg.addEventListener('click', e=>{
-    const idx = e.target && e.target.getAttribute && e.target.getAttribute('data-idx');
+    let node = e.target;
+    while (node && node !== svg && !(node.getAttribute && node.getAttribute('data-idx'))) node = node.parentNode;
+    const idx = node && node.getAttribute && node.getAttribute('data-idx');
     if (idx !== null && idx !== undefined){ active = parseInt(idx, 10); render(); }
   });
   render();

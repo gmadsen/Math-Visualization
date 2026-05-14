@@ -260,7 +260,7 @@ function drawNode(svg, x, y, label, opts={}){
   <p class="sub">Lift the Jones polynomial from a Laurent polynomial to a bigraded chain complex. Each crossing becomes a hypercube edge, each resolution becomes a tensor power of the Frobenius algebra $\mathbb{Z}[X]/(X^2)$, and the graded Euler characteristic puts Jones back where you found it. The homology, however, sees more: cobordism functoriality, the Rasmussen invariant $s(K)$, slice-genus bounds, and a categorical answer to "what is the Jones polynomial counting?"</p>
 </section>
 
-<p class="small"><em>Reader's note.</em> This page assumes the <a href="./knot-polynomials.html#jones">Jones polynomial</a> from the bracket / state-sum side and a working command of <a href="./homological.html#chain-complexes">chain complexes</a> and bigradings. We will categorify each piece of the bracket — the smoothings, the multiplications, the writhe correction — into a piece of homological algebra, then read off the Jones polynomial as $\sum (-1)^i q^j \dim Kh^{i,j}$.</p>
+<p class="small"><em>Reader's note.</em> This page assumes the <a href="./knot-polynomials.html#jones">Jones polynomial</a> from the bracket / state-sum side and a working command of <a href="./homological.html#complexes">chain complexes</a> and bigradings. We will categorify each piece of the bracket — the smoothings, the multiplications, the writhe correction — into a piece of homological algebra, then read off the Jones polynomial as $\sum (-1)^i q^j \dim Kh^{i,j}$.</p>
 
 <section id="cube">
 <h2>1. The cube of resolutions</h2>
@@ -332,7 +332,7 @@ function drawNode(svg, x, y, label, opts={}){
   </div>
   <svg id="cmx-svg" viewBox="0 0 720 360" width="720" height="360"><title>Bigraded Khovanov complex</title></svg>
   <div class="readout" id="cmx-out"></div>
-  <p class="small">Columns are homological degree $i$, rows are $q$-grading $j$. Cells show the rank of $C^{i,j}$ before passing to homology; numbers in parentheses are $\dim Kh^{i,j}$ (true homology) for the standard knots tabulated below.</p>
+  <p class="small">Columns are homological degree $i$, rows are $q$-grading $j$. Cells show $\dim_\mathbb{Q} Kh^{i,j}(L)$ — the rank of the (rational) Khovanov homology in each bidegree — for the standard small knots tabulated below; the header sums them as $\sum_{i,j}\dim Kh^{i,j}$.</p>
 </div>
 
 <div class="note"><strong>Why the shifts?</strong> The shifts $\{n_+ - 2n_-\}$ in $j$ and by $-n_-$ in $i$ are exactly what makes $Kh$ invariant under R1 (the move that changes $n_\pm$ but not the underlying link). They are the categorified avatar of the $(-A)^{-3w(D)}$ writhe-correction in the Kauffman bracket.</div>
@@ -528,7 +528,7 @@ function drawNode(svg, x, y, label, opts={}){
 <ul>
   <li><a href="./knot-polynomials.html#jones">Knot polynomials — Jones polynomial</a> — the polynomial recovered as the graded Euler characteristic; everything in §3 is the categorification of the bracket calculation.</li>
   <li><a href="./knot-polynomials.html#quantum">Knot polynomials — quantum invariants</a> — the modular tensor category of $U_q(\mathfrak{sl}_2)$-modules; foams categorify the $sl_n$ Reshetikhin–Turaev invariants.</li>
-  <li><a href="./homological.html#chain-complexes">Homological algebra — chain complexes</a> — the cube of resolutions is the basic example of a multicomplex; the bigrading and edge-sign convention are textbook homological algebra dressed up.</li>
+  <li><a href="./homological.html#complexes">Homological algebra — chain complexes</a> — the cube of resolutions is the basic example of a multicomplex; the bigrading and edge-sign convention are textbook homological algebra dressed up.</li>
   <li><a href="./cobordism.html#tqft">Cobordism — TQFT</a> — Khovanov homology is functorial under link cobordisms (Bar-Natan's $(1+1)$-dim TQFT extended to $4$-dim cobordisms in $\mathbb{R}^3\times[0,1]$); the foam calculus is a $(2+1)$-dim TQFT skeleton.</li>
   <li><a href="./gauge-theory.html">Gauge theory</a> — Kronheimer–Mrowka's spectral sequence from $Kh$ to instanton homology proves the unknot-detection theorem and connects categorified topology to Donaldson–Floer theory.</li>
   <li><a href="./quantum-groups.html">Quantum groups</a> — Khovanov–Lauda–Rouquier algebras categorify $U_q^-(\mathfrak{g})$, and link homologies arise via diagrammatic categorified reps; the quantum group is no longer just a Hopf algebra but a $2$-category.</li>

@@ -184,10 +184,9 @@
         },
         {
           "type": "numeric",
-          "q": "If $A$ is an abelian variety of dimension $g$ with CM by a number field $L$ (acting as a maximal commutative subalgebra of $\\mathrm{End}^0(A)$), what must $[L : \\mathbb{Q}]$ equal?",
+          "q": "If $A$ is an abelian variety of dimension $g = 3$ with CM by a number field $L$ (acting as a maximal commutative subalgebra of $\\mathrm{End}^0(A)$), what must $[L : \\mathbb{Q}]$ equal?",
           "answer": 6,
           "tol": 0.0001,
-          "tol_note": "For the specific case g = 3, asked in the prompt below.",
           "hint": "Take $g = 3$; recall $[L:\\mathbb{Q}] = 2g$ for a CM type to make sense.",
           "explain": "For a CM type $\\Phi$ to give an embedding $\\mathbb{C}^g / \\Phi(\\mathcal{O}_L) \\cong A$, one needs $|\\Phi| = g$ embeddings out of the total $|\\mathrm{Hom}(L, \\mathbb{C})| = [L:\\mathbb{Q}]$, with $\\Phi \\sqcup \\bar\\Phi$ exhausting them. So $[L:\\mathbb{Q}] = 2g = 6$ for $g = 3$. (In general, $[L:\\mathbb{Q}] = 2g$.)"
         },
