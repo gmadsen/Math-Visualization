@@ -1,5 +1,5 @@
 {
-  "generated": "2026-05-14T01:11:14.796Z",
+  "generated": "2026-05-14T01:20:34.618Z",
   "entries": [
     {
       "slug": "computational-molecular-biology",
@@ -10,12 +10,36 @@
       "message": "New topic: Computational molecular biology (Probability & statistics) (#180)"
     },
     {
+      "slug": "convex-geometry",
+      "title": "Convex geometry",
+      "color": "v",
+      "tag": "",
+      "date": "2026-05-13",
+      "message": "New topics rollup: Convex geometry + TDA + Mathematical chaos (#181)"
+    },
+    {
       "slug": "convex-optimization",
       "title": "Convex optimization",
       "color": "p",
       "tag": "",
       "date": "2026-05-13",
       "message": "New topic: Convex optimization (Control theory & optimization) (#179)"
+    },
+    {
+      "slug": "mathematical-chaos",
+      "title": "Mathematical chaos",
+      "color": "c",
+      "tag": "",
+      "date": "2026-05-13",
+      "message": "New topics rollup: Convex geometry + TDA + Mathematical chaos (#181)"
+    },
+    {
+      "slug": "topological-data-analysis",
+      "title": "Topological data analysis",
+      "color": "g",
+      "tag": "",
+      "date": "2026-05-13",
+      "message": "New topics rollup: Convex geometry + TDA + Mathematical chaos (#181)"
     },
     {
       "slug": "brill-noether",
@@ -48,14 +72,6 @@
       "tag": "",
       "date": "2026-05-12",
       "message": "New topic: Conformal & CR geometry (Analysis) (#161)"
-    },
-    {
-      "slug": "convex-geometry",
-      "title": "Convex geometry",
-      "color": "v",
-      "tag": "",
-      "date": "2026-05-12",
-      "message": "New topic: Convex geometry (Geometry & topology)"
     },
     {
       "slug": "donaldson-thomas-and-gw-invariants",
