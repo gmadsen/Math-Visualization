@@ -10,7 +10,7 @@ Per-topic mathematical-correctness audits. Each report verifies every formula, t
 |---|---:|---:|---|
 | Logic & Foundations | 8 | 8 | complete (3 major, 5 minor) |
 | Algebra & homological | 17 | 17 | complete (10 major, 5 minor, 2 clean) |
-| Higher categories & toposes | 7 | 0 | pending |
+| Higher categories & toposes | 7 | 7 | complete (4 major, 3 minor) |
 | Analysis | 22 | 0 | pending |
 | Probability & statistics | 12 | 0 | pending |
 | Geometry & topology | 26 | 0 | pending |
@@ -20,7 +20,24 @@ Per-topic mathematical-correctness audits. Each report verifies every formula, t
 | Combinatorics & graph theory | 9 | 0 | pending |
 | Mathematical physics | 11 | 0 | pending |
 | Control theory & optimization | 4 | 0 | pending |
-| **Total** | **190** | **25** | **13%** |
+| **Total** | **190** | **32** | **17%** |
+
+## Higher categories & toposes — math findings (7/7)
+
+### Major (4)
+- **`elementary-topos-theory`**: subobject classifier of G-Set claimed to be subgroups-with-conjugation (3 places — §6, §6 widget, quizzes); actually Ω = {0,1} with trivial G-action (the topos is Boolean). Plus wrong claim about subobjects of G/H via intermediate subgroups, and §6 widget displays subgroups as "subobjects of G" when they're not stable under regular left action.
+- **`grothendieck-topologies-sites`**: §3 line 554 fpqc/fppf containment reversed (prose contradicts page's own quiz); μ_2 over F_2 misclassified as étale-locally constant (it's infinitesimal in char 2); sieve count 5 vs page's 4.
+- **`infinity-categories`**: §6 Kan-extension widget Step 5 contradicts HTT 4.3.2.15 + page's own quiz (qualifier inverted on whether `i` fully faithful suffices); hard-tier quasi-category Q2 wrong answer key (claims pushout of two parallel edges has unfillable Λ²₁ — no such horn exists); §5 adjunction triangle SVG vertex labels swapped.
+- **`cocartesian-fibrations`**: source/target eval-map cocart/cart classification reversed throughout (8+ locations). Per HTT/Kerodon: `ev_0` is cartesian, `ev_1` is cocartesian; page reverses. Plus §1 widget false equivalence on left fib characterization, and §6 "universal right fibration" wrongly identified with `ev_1` (it's `S_{*/}^{op} → S^{op}`).
+
+### Minor (3)
+- **`heyting-algebras-toposes`**: same G-Set Ω error from elementary-topos-theory (corpus pattern); §4 Kripke–Joyal scrubber convention inconsistency (covariant vs contravariant declared); §2 proof-scrubber Step 2 source-object wrong.
+- **`simplicial-sets-and-nerve`**: §1 widget extras have cosimplicial identities `i,j` swapped relative to correct prose (verified false by direct computation); §5 horn widget captions confuse "right-cancellable" with "right-divisible"; line 414 has author "check the third identity" stub still shipped.
+- **`infinity-topoi`**: 5 errors — Krull vs cohomological dim conflated for Spec(∏k_n); Brunerie/Ladelle attribution (Ladelle is fake); Lurie–Galois mis-cited at HTT 7.3 (actually Hoyois shape paper); 2 minor convention slips.
+
+### Notable patterns continuing
+- **G-Set Ω corpus bug**: same wrong claim in elementary-topos-theory AND heyting-algebras-toposes. (Like Hilbert 90 in Algebra section.)
+- **Cocart/cart eval-map reversal**: propagates across 8 locations in cocartesian-fibrations (§3, §4, §7, §2 widget, multiple quizzes). Likely shared author convention bug.
 
 ## Algebra & homological — math findings (17/17)
 
