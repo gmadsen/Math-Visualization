@@ -1,6 +1,22 @@
 {
-  "generated": "2026-05-14T00:47:10.416Z",
+  "generated": "2026-05-14T00:40:31.086Z",
   "entries": [
+    {
+      "slug": "computational-molecular-biology",
+      "title": "Computational molecular biology",
+      "color": "c",
+      "tag": "",
+      "date": "2026-05-13",
+      "message": "New topic: Computational molecular biology (Probability & statistics) (#180)"
+    },
+    {
+      "slug": "convex-optimization",
+      "title": "Convex optimization",
+      "color": "p",
+      "tag": "",
+      "date": "2026-05-13",
+      "message": "New topic: Convex optimization (Control theory & optimization) (#179)"
+    },
     {
       "slug": "brill-noether",
       "title": "Brill–Noether theory",
