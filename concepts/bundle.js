@@ -20,6 +20,8 @@ window.__MVConcepts = {
       "positive-characteristic-ag",
       "convex-optimization",
       "convex-geometry",
+      "topological-data-analysis",
+      "mathematical-chaos",
       "several-complex-variables",
       "khovanov-homology",
       "shimura-varieties",
@@ -397,6 +399,8 @@ window.__MVConcepts = {
       "combinatorial-optimization": "advanced",
       "convex-optimization": "advanced",
       "convex-geometry": "advanced",
+      "topological-data-analysis": "advanced",
+      "mathematical-chaos": "advanced",
       "mathematical-finance": "advanced",
       "donaldson-thomas-and-gw-invariants": "advanced",
       "positive-characteristic-ag": "advanced",
@@ -1989,6 +1993,204 @@ window.__MVConcepts = {
           "blurb": "Dvoretzky's theorem: every centred convex body in $\\mathbb{R}^n$ has an almost-Euclidean section of dimension $k=\\Omega(\\varepsilon^2\\log n)$ — geometrically, every high-dimensional Banach ball hides a round one inside. Milman's proof routes through measure concentration on $S^{n-1}$ and ties convex geometry to high-dimensional probability.",
           "tags": [
             "classification"
+          ]
+        }
+      ]
+    },
+    "topological-data-analysis": {
+      "topic": "topological-data-analysis",
+      "title": "Topological data analysis",
+      "page": "topological-data-analysis.html",
+      "concepts": [
+        {
+          "id": "point-clouds-filtrations",
+          "title": "Point clouds and the Vietoris–Rips filtration",
+          "anchor": "filtrations",
+          "prereqs": [
+            "abstract-simplicial-complex"
+          ],
+          "blurb": "Given $X = \\{x_1,\\dots,x_n\\}\\subset\\mathbb{R}^d$, the Vietoris–Rips complex $\\mathrm{VR}_\\epsilon(X) = \\{\\sigma : \\mathrm{diam}(\\sigma)\\le 2\\epsilon\\}$ packages the union of $\\epsilon$-balls $\\bigcup_i B(x_i,\\epsilon)$ into an abstract simplicial complex computable from a distance matrix alone. As $\\epsilon$ grows from $0$ to $\\infty$ the complexes nest, producing a filtration $\\mathrm{VR}_{\\epsilon_0}\\subseteq\\cdots\\subseteq\\mathrm{VR}_{\\epsilon_n}$ whose persistent homology is the central TDA invariant.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "simplicial-homology-tda",
+          "title": "Simplicial homology as a tool",
+          "anchor": "homology",
+          "prereqs": [
+            "point-clouds-filtrations",
+            "singular-homology"
+          ],
+          "blurb": "For each simplicial complex $K$ the chain space $C_n(K;k)$ has $n$-simplices as basis; the boundary $\\partial_n[v_0,\\dots,v_n] = \\sum (-1)^i[v_0,\\dots,\\widehat{v_i},\\dots,v_n]$ satisfies $\\partial\\circ\\partial=0$, and $H_n(K;k) = \\ker\\partial_n/\\mathrm{im}\\,\\partial_{n+1}$. Over $\\mathbb{F}_2$ the orientation signs vanish and the computation reduces to $\\mathbb{F}_2$ row reduction — exactly what TDA software runs at every scale.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "persistent-homology",
+          "title": "Persistent homology and the barcode",
+          "anchor": "persistence",
+          "prereqs": [
+            "simplicial-homology-tda"
+          ],
+          "blurb": "Applying $H_k$ to a filtration $K_0\\subseteq\\cdots\\subseteq K_n$ yields a persistence module $H_k(K_0)\\to\\cdots\\to H_k(K_n)$. A class is born at scale $b$ when first non-trivial and dies at scale $d$ when killed in the image. The multiset of birth–death pairs is the persistence diagram, equivalently a barcode of horizontal bars; long bars signal robust features, short bars topological noise.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "stability-theorem",
+          "title": "Stability theorem",
+          "anchor": "stability",
+          "prereqs": [
+            "persistent-homology"
+          ],
+          "blurb": "Cohen-Steiner–Edelsbrunner–Harer (2007): for tame functions $f,g$ on the same complex, $W_\\infty(\\mathrm{Dgm}(f),\\mathrm{Dgm}(g))\\le \\|f-g\\|_\\infty$, where $W_\\infty$ is the bottleneck distance on diagrams (matching points across the two diagrams, with unmatched points sent to the diagonal). The persistence map is $1$-Lipschitz: small input perturbations cause small diagram perturbations, so persistence-based features are statistically robust.",
+          "tags": [
+            "duality"
+          ]
+        },
+        {
+          "id": "structure-theorem-decomposition",
+          "title": "Structure theorem — interval decomposition",
+          "anchor": "decomposition",
+          "prereqs": [
+            "persistent-homology"
+          ],
+          "blurb": "Crawley-Boevey and Zomorodian–Carlsson: every pointwise-finite-dimensional persistence module over a field decomposes uniquely as a direct sum $\\bigoplus_\\alpha \\mathbb{I}[b_\\alpha, d_\\alpha)$ of interval modules. The persistence diagram is therefore a complete invariant — two such modules are isomorphic iff their diagrams agree as multisets. Multi-parameter modules (over $\\mathbb{R}^2$) admit no analogous decomposition; classifying their indecomposables is wild.",
+          "tags": [
+            "duality"
+          ]
+        },
+        {
+          "id": "mapper-algorithm",
+          "title": "Mapper algorithm",
+          "anchor": "mapper",
+          "prereqs": [
+            "point-clouds-filtrations"
+          ],
+          "blurb": "Singh–Mémoli–Carlsson (2007): pick a filter $f:X\\to\\mathbb{R}^k$, cover $f(X)$ by overlapping intervals $U_i$, cluster $f^{-1}(U_i)\\cap X$ within each, and take the nerve. Output is a graph (or simplicial complex) skeleton of the data. Used to surface unexpected branch structure — type-II diabetes subgroups (Li et al. 2015), cancer subtypes (Nicolau–Levine–Carlsson 2011). Sensitive to cover choice; best read as a hypothesis generator.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "cohomology-zigzag-software",
+          "title": "Cohomology, zigzag, multi-parameter, software",
+          "anchor": "beyond",
+          "prereqs": [
+            "persistent-homology",
+            "structure-theorem-decomposition"
+          ],
+          "blurb": "Persistent cohomology equals persistent homology over a field but is operationally faster (de Silva–Morozov–Vejdemo-Johansson 2011) and yields circular coordinates. Zigzag persistence (Carlsson–de Silva 2010) generalises to direction-reversing filtrations. Multi-parameter persistence has no structure theorem and uses surrogate invariants (rank, fibered barcode, landscape). Software: Ripser (Bauer), GUDHI, Dionysus, scikit-tda, giotto-tda.",
+          "tags": [
+            "duality"
+          ]
+        }
+      ]
+    },
+    "mathematical-chaos": {
+      "topic": "mathematical-chaos",
+      "title": "Mathematical chaos",
+      "page": "mathematical-chaos.html",
+      "concepts": [
+        {
+          "id": "mchaos-lyapunov",
+          "title": "Sensitive dependence and Lyapunov exponents",
+          "anchor": "lyapunov",
+          "prereqs": [
+            "dyn-chaos",
+            "dyn-iterated-maps"
+          ],
+          "blurb": "Chaos is sensitive dependence made quantitative. The Lyapunov exponent $\\lambda(x) = \\lim_{n\\to\\infty}\\tfrac{1}{n}\\log\\|Df^n(x)v\\|$ measures the exponential rate at which nearby trajectories separate. For the logistic map $\\lambda(r)$ stays $\\le 0$ on stable windows, spikes to $\\log 2$ at the chaos threshold $r_\\infty$, and equals $\\log 2$ exactly at $r=4$ (conjugate to the doubling map). Positive $\\lambda$ is the operational definition of chaos.",
+          "tags": [
+            "classification",
+            "foundation"
+          ]
+        },
+        {
+          "id": "mchaos-feigenbaum",
+          "title": "The logistic map and Feigenbaum universality",
+          "anchor": "feigenbaum",
+          "prereqs": [
+            "mchaos-lyapunov",
+            "period-doubling-cascade"
+          ],
+          "blurb": "The logistic map $x_{n+1}=rx_n(1-x_n)$ runs through a period-doubling cascade at $r_n$ with $r_n\\to r_\\infty\\approx 3.5699$. Two ratios are universal across all unimodal maps with quadratic maximum: the geometric rate $\\delta=\\lim (r_{n-1}-r_{n-2})/(r_n-r_{n-1})\\approx 4.6692$ and the scaling $\\alpha\\approx 2.5029$ of the doubling-renormalization fixed point. Feigenbaum's discovery: the constants depend only on the order of the critical point, not the family.",
+          "tags": [
+            "classification",
+            "foundation"
+          ]
+        },
+        {
+          "id": "mchaos-strange-attractors",
+          "title": "Strange attractors and the horseshoe",
+          "anchor": "strange-attractors",
+          "prereqs": [
+            "dyn-strange-attractors",
+            "tbp-poincare-tangle"
+          ],
+          "blurb": "A strange attractor is an invariant set with sensitive dependence and non-integer Hausdorff dimension. The Lorenz system $\\dot x=\\sigma(y-x),\\ \\dot y=x(\\rho-z)-y,\\ \\dot z=xy-\\beta z$ at $(\\sigma,\\beta,\\rho)=(10,8/3,28)$ is the canonical example — dimension $\\approx 2.06$, two unstable spirals woven by a Cantor-set lamination. Smale's horseshoe is the topological skeleton: a single stretch-fold map of a square contains a Cantor set on which the dynamics is conjugate to the full 2-shift, with infinitely many periodic orbits.",
+          "tags": [
+            "classification",
+            "compactness"
+          ]
+        },
+        {
+          "id": "mchaos-symbolic-entropy",
+          "title": "Symbolic dynamics and topological entropy",
+          "anchor": "entropy",
+          "prereqs": [
+            "dyn-symbolic-dynamics",
+            "mchaos-strange-attractors"
+          ],
+          "blurb": "A Markov partition encodes orbits as bi-infinite sequences in $\\{0,\\dots,k-1\\}^{\\mathbb{Z}}$, conjugating the dynamics to a subshift of finite type $\\Sigma_A$ specified by a transition matrix $A$. Topological entropy $h_{\\mathrm{top}}(f)=\\lim_n\\tfrac{1}{n}\\log\\#\\mathrm{Fix}(f^n)=\\log\\rho(A)$ counts periodic orbits exponentially; it equals the supremum of measure-theoretic entropies (variational principle) and lower-bounds the sum of positive Lyapunov exponents (Ruelle's inequality).",
+          "tags": [
+            "classification",
+            "foundation"
+          ]
+        },
+        {
+          "id": "mchaos-ergodic-srb",
+          "title": "Ergodic theory and SRB measures",
+          "anchor": "srb",
+          "prereqs": [
+            "dyn-ergodicity",
+            "mchaos-symbolic-entropy"
+          ],
+          "blurb": "Birkhoff's ergodic theorem: for measure-preserving $T$ and $\\mu$-integrable $f$, the time average $\\tfrac{1}{n}\\sum_{k<n}f(T^k x)$ converges $\\mu$-a.e. to a $T$-invariant function, equal to $\\int f\\,d\\mu$ when $T$ is ergodic. On a hyperbolic attractor the Sinai–Ruelle–Bowen measure is the unique invariant measure absolutely continuous along unstable manifolds: time averages of $f$ for Lebesgue-a.e. initial condition land on $\\int f\\,d\\mu_{\\mathrm{SRB}}$. SRB is what makes physical predictions from chaotic dynamics possible.",
+          "tags": [
+            "classification",
+            "completion"
+          ]
+        },
+        {
+          "id": "mchaos-kam",
+          "title": "KAM theorem and Hamiltonian chaos",
+          "anchor": "kam",
+          "prereqs": [
+            "hcm-integrable-systems",
+            "tbp-kam"
+          ],
+          "blurb": "Kolmogorov–Arnold–Moser: for a small perturbation $H_\\varepsilon = H_0(I)+\\varepsilon H_1(I,\\theta)$ of a non-degenerate integrable Hamiltonian, the invariant tori whose frequency vectors satisfy a Diophantine condition $|k\\cdot\\omega|\\ge\\gamma|k|^{-\\tau}$ persist as smoothly deformed Lagrangian tori. The KAM set has positive Lebesgue measure (full as $\\varepsilon\\to 0$); in the gaps, resonant tori shatter into stochastic layers — Hamiltonian chaos lives there. The three-body problem and the Hénon–Heiles potential are the showcase systems.",
+          "tags": [
+            "classification",
+            "completion"
+          ]
+        },
+        {
+          "id": "mchaos-sharkovsky",
+          "title": "Sharkovsky's theorem and 1D order",
+          "anchor": "sharkovsky",
+          "prereqs": [
+            "dyn-iterated-maps",
+            "fpt-brouwer"
+          ],
+          "blurb": "For continuous $f\\colon I\\to I$ on a real interval, the periods that occur are totally ordered by Sharkovsky's order $3\\triangleright 5\\triangleright 7\\triangleright\\cdots\\triangleright 2\\cdot 3\\triangleright 2\\cdot 5\\triangleright\\cdots\\triangleright 4\\triangleright 2\\triangleright 1$: a period-$m$ orbit forces all periods $n$ with $m\\triangleright n$. Period-three implies every period (Li–Yorke 1975) — and forces positive topological entropy. Sharkovsky's order is the deepest combinatorial fact about 1D real-line dynamics.",
+          "tags": [
+            "classification",
+            "foundation"
           ]
         }
       ]
@@ -19348,7 +19550,8 @@ window.__MVConcepts = {
           "wavelets",
           "numerical-analysis",
           "variational-methods",
-          "fixed-point-theorems"
+          "fixed-point-theorems",
+          "mathematical-chaos"
         ],
         "color": "p"
       },
@@ -19401,7 +19604,8 @@ window.__MVConcepts = {
           "mapping-class-groups",
           "surgery-theory",
           "heegaard-floer",
-          "convex-geometry"
+          "convex-geometry",
+          "topological-data-analysis"
         ],
         "color": "v"
       },
@@ -19838,6 +20042,8 @@ window.__MVConcepts = {
     "combinatorial-optimization": "advanced",
     "convex-optimization": "advanced",
     "convex-geometry": "advanced",
+    "topological-data-analysis": "advanced",
+    "mathematical-chaos": "advanced",
     "mathematical-finance": "advanced",
     "donaldson-thomas-and-gw-invariants": "advanced",
     "positive-characteristic-ag": "advanced",
@@ -19883,11 +20089,11 @@ window.__MVConcepts = {
       "density": 0.5111111111111111
     },
     "Analysis": {
-      "concepts": 204,
-      "intra": 357,
-      "crossOut": 36,
+      "concepts": 211,
+      "intra": 368,
+      "crossOut": 39,
       "crossIn": 74,
-      "density": 0.17647058823529413
+      "density": 0.1848341232227488
     },
     "Probability & statistics": {
       "concepts": 83,
@@ -19897,11 +20103,11 @@ window.__MVConcepts = {
       "density": 0.27710843373493976
     },
     "Geometry & topology": {
-      "concepts": 160,
-      "intra": 268,
-      "crossOut": 33,
+      "concepts": 167,
+      "intra": 276,
+      "crossOut": 34,
       "crossIn": 100,
-      "density": 0.20625
+      "density": 0.20359281437125748
     },
     "Number theory": {
       "concepts": 128,
@@ -19928,14 +20134,14 @@ window.__MVConcepts = {
       "concepts": 58,
       "intra": 56,
       "crossOut": 27,
-      "crossIn": 4,
+      "crossIn": 5,
       "density": 0.46551724137931033
     },
     "Mathematical physics": {
       "concepts": 69,
       "intra": 75,
       "crossOut": 40,
-      "crossIn": 1,
+      "crossIn": 4,
       "density": 0.5797101449275363
     },
     "Control theory & optimization": {

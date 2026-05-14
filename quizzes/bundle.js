@@ -39589,6 +39589,314 @@ window.MVQuizBank = {
       }
     }
   },
+  "mathematical-chaos": {
+    "topic": "mathematical-chaos",
+    "quizzes": {
+      "mchaos-lyapunov": {
+        "title": "Sensitive dependence and Lyapunov exponents",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For a smooth map $f\\colon\\mathbb{R}\\to\\mathbb{R}$, the Lyapunov exponent along an orbit $x_0,x_1,\\ldots$ is the limit",
+            "choices": [
+              "$\\lim_{n\\to\\infty}\\dfrac{1}{n}\\sum_{k=0}^{n-1}|f'(x_k)|$",
+              "$\\lim_{n\\to\\infty}\\dfrac{1}{n}\\sum_{k=0}^{n-1}\\log|f'(x_k)|$",
+              "$\\lim_{n\\to\\infty}\\log|f'(x_n)|$",
+              "$\\lim_{n\\to\\infty}\\dfrac{1}{n}\\prod_{k=0}^{n-1}|f'(x_k)|$"
+            ],
+            "answer": 1,
+            "explain": "By the chain rule $|Df^n(x_0)| = \\prod_{k=0}^{n-1}|f'(x_k)|$, so $\\tfrac{1}{n}\\log|Df^n(x_0)| = \\tfrac{1}{n}\\sum\\log|f'(x_k)|$. The Lyapunov exponent is the time-average of $\\log|f'|$ along the orbit — by Birkhoff, this converges almost everywhere with respect to any ergodic invariant measure.",
+            "hint": "Differentiating $f^n$ by the chain rule turns the product into a sum once you take logs."
+          },
+          {
+            "type": "mcq",
+            "q": "What is the exact Lyapunov exponent of the logistic map $f(x)=4x(1-x)$ on $[0,1]$?",
+            "choices": [
+              "$0$",
+              "$\\log 2$",
+              "$\\log 4$",
+              "$\\log\\delta$ where $\\delta\\approx 4.6692$ is the Feigenbaum constant"
+            ],
+            "answer": 1,
+            "explain": "At $r=4$ the conjugation $h(x)=\\sin^2(\\pi x/2)$ takes the tent / doubling map $T(y)=1-|2y-1|$ to $f$. The tent map has $|T'|\\equiv 2$ everywhere, so its Lyapunov exponent is $\\log 2$, and conjugacies preserve the exponent. Equivalently, $f$ is ergodic with respect to $d\\mu = \\tfrac{1}{\\pi\\sqrt{x(1-x)}}dx$ and $\\int\\log|f'|\\,d\\mu = \\log 2$.",
+            "hint": "The map at $r=4$ is conjugate (via a sine substitution) to the tent map, whose slope is constant."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is positive Lyapunov exponent often called the \"operational definition\" of chaos?",
+            "choices": [
+              "It is the only definition that can be proved rigorously.",
+              "It is numerically robust — small numerical errors that obey the cocycle equation still recover the right $\\lambda$, while topological transitivity needs symbolic methods.",
+              "It implies the dynamics are integrable.",
+              "It is preserved under all smooth conjugacies, including those that change the periodic orbit structure."
+            ],
+            "answer": 1,
+            "explain": "Sensitive dependence is hard to test in code (it's a $\\forall\\delta\\exists\\epsilon$ statement); Lyapunov exponents drop out of a finite-time tangent-vector computation and the multiplicative ergodic theorem (Oseledec) makes them well-defined $\\mu$-a.e. The other characterizations of chaos — topological transitivity, dense periodic orbits — are harder to certify numerically.",
+            "hint": "Compare what a computer has to do to estimate $\\lambda$ versus to certify dense periodic orbits."
+          }
+        ]
+      },
+      "mchaos-feigenbaum": {
+        "title": "The logistic map and Feigenbaum universality",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The Feigenbaum constant $\\delta\\approx 4.6692\\ldots$ is the limit of which ratio along the logistic map's period-doubling cascade $r_1<r_2<\\cdots$?",
+            "choices": [
+              "$r_n / r_{n-1}$",
+              "$(r_n - r_\\infty) / (r_{n-1} - r_\\infty)$",
+              "$(r_{n-1} - r_{n-2}) / (r_n - r_{n-1})$",
+              "$r_n - r_{n-1}$"
+            ],
+            "answer": 2,
+            "explain": "The spacings $\\Delta_n = r_n - r_{n-1}$ shrink geometrically by factor $1/\\delta$: $\\Delta_n/\\Delta_{n-1}\\to 1/\\delta$, i.e. $\\Delta_{n-1}/\\Delta_n\\to\\delta$. So $\\delta$ measures how much faster each successive bifurcation happens.",
+            "hint": "Spacings shrink, so put the older (larger) spacing in the numerator."
+          },
+          {
+            "type": "mcq",
+            "q": "Feigenbaum universality says that $\\delta$ and $\\alpha$ depend on:",
+            "choices": [
+              "the specific algebraic form of the map (e.g. $rx(1-x)$ versus $r\\sin(\\pi x)$),",
+              "the order of the critical point (quadratic vs. quartic) but not the specific algebraic form,",
+              "the dimension of the phase space,",
+              "the location of the attractor's center of mass."
+            ],
+            "answer": 1,
+            "explain": "The renormalization fixed point — and hence $\\delta,\\alpha$ — depends only on the local behaviour of $f$ at its critical point, specifically the leading-order vanishing. All smooth unimodal maps with $f''(c)\\ne 0$ at the maximum share the same constants. Replacing the quadratic with a quartic maximum gives a different universality class with different constants.",
+            "hint": "Renormalization sees only the local Taylor structure at the critical point."
+          },
+          {
+            "type": "numeric",
+            "q": "If the logistic-map bifurcation points satisfy $r_n - r_\\infty \\approx C\\,\\delta^{-n}$ with $\\delta=4.669$ and $r_\\infty=3.5699$, and you measure $r_5\\approx 3.5697$, what is the next bifurcation $r_6$ predicted to (3 decimal places)?",
+            "answer": 3.5699,
+            "tol": 0.001,
+            "explain": "Each successive spacing $\\Delta_{n+1}=r_{n+1}-r_n$ shrinks by $1/\\delta$, so $r_n$ converges to $r_\\infty$ geometrically. By $r_5$ the orbit is within $\\sim 10^{-4}$ of $r_\\infty$, so $r_6\\approx r_\\infty\\approx 3.5699$. The cascade visibly accumulates.",
+            "hint": "By the time you're at $r_5$ you're already inside the resolution of $r_\\infty$ to three decimals."
+          }
+        ]
+      },
+      "mchaos-strange-attractors": {
+        "title": "Strange attractors and the horseshoe",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The Lorenz attractor at the classical parameters $(\\sigma,\\beta,\\rho)=(10,8/3,28)$ has Hausdorff dimension approximately:",
+            "choices": [
+              "$1$ — it's essentially a curve.",
+              "$2.06$ — slightly more than a surface.",
+              "$3$ — it fills the box $[-30,30]^3$.",
+              "$0$ — it's a Cantor set."
+            ],
+            "answer": 1,
+            "explain": "The Kaplan–Yorke conjecture gives $D_{\\mathrm{KY}}\\approx 2.06$ from the Lyapunov spectrum $(\\lambda_1,\\lambda_2,\\lambda_3)\\approx(0.91,0,-14.57)$. The attractor is a 2D-plus-Cantor sandwich: locally a surface, transverse to which it's a Cantor set with positive (but small) fractal codimension.",
+            "hint": "Take the largest two Lyapunov exponents into the Kaplan–Yorke formula."
+          },
+          {
+            "type": "mcq",
+            "q": "Smale's horseshoe is the topological mechanism that produces:",
+            "choices": [
+              "a globally stable fixed point,",
+              "an invariant Cantor set on which the dynamics is conjugate to the full 2-shift $(\\Sigma_2,\\sigma)$,",
+              "a Hopf bifurcation,",
+              "a period-doubling cascade."
+            ],
+            "answer": 1,
+            "explain": "Stretch a square horizontally, fold it into a horseshoe, place it back over the original. Points that stay in the square under all iterations form a Cantor set $\\Lambda$; coding each point by which 'leg' it occupies at each iterate gives a homeomorphism $\\Lambda\\cong\\{0,1\\}^{\\mathbb{Z}}$ that intertwines $f$ with the shift. Result: infinitely many periodic orbits of every period.",
+            "hint": "The horseshoe codes orbits by which leg of the folded square they sit in."
+          },
+          {
+            "type": "mcq",
+            "q": "Which of the following is NOT a characteristic of a strange attractor?",
+            "choices": [
+              "positive Lebesgue measure in phase space,",
+              "sensitive dependence on initial conditions,",
+              "fractal (non-integer Hausdorff) dimension,",
+              "topological transitivity on the attractor."
+            ],
+            "answer": 0,
+            "explain": "Strange attractors live on a measure-zero (in fact Lebesgue-null) subset of phase space — that's why they have fractional dimension. Dissipativity ($\\nabla\\cdot X<0$) forces volumes to contract to zero, so the attractor can be any of a curve, surface, or fractal, but never a region of positive volume.",
+            "hint": "Dissipation contracts volumes, so the attractor has to be thin in some direction."
+          }
+        ]
+      },
+      "mchaos-symbolic-entropy": {
+        "title": "Symbolic dynamics and topological entropy",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For a subshift of finite type $\\Sigma_A$ specified by an irreducible transition matrix $A$, the topological entropy is:",
+            "choices": [
+              "$\\log\\det A$,",
+              "$\\log\\rho(A)$, the log of the spectral radius (Perron eigenvalue),",
+              "$\\log\\mathrm{tr}\\,A$,",
+              "$\\log$ of the number of $1$'s in $A$."
+            ],
+            "answer": 1,
+            "explain": "The number of length-$n$ admissible words is $\\sum_{i,j}(A^n)_{ij}$, asymptotically $\\rho(A)^n$ by Perron–Frobenius. Hence $\\#\\mathrm{Fix}(\\sigma^n)$ grows like $\\rho(A)^n$ and $h_{\\mathrm{top}}=\\lim\\tfrac1n\\log\\#\\mathrm{Fix}(\\sigma^n)=\\log\\rho(A)$.",
+            "hint": "Counting length-$n$ words in $\\Sigma_A$ reduces to summing entries of $A^n$."
+          },
+          {
+            "type": "mcq",
+            "q": "Ruelle's inequality says that for a $C^1$ map $f$ with invariant measure $\\mu$, the measure-theoretic entropy satisfies:",
+            "choices": [
+              "$h_\\mu(f) = 0$ when $f$ has positive Lyapunov exponents,",
+              "$h_\\mu(f) \\le \\sum_i \\max(\\lambda_i,0)$, summed over positive Lyapunov exponents,",
+              "$h_\\mu(f) \\ge \\log\\rho(Df)$,",
+              "$h_\\mu(f)$ is always irrational."
+            ],
+            "answer": 1,
+            "explain": "Ruelle's inequality: measure-theoretic entropy is at most the total exponential expansion rate, summed over expanding directions. Equality (Pesin's formula) holds when $\\mu$ is absolutely continuous with respect to Lebesgue — exactly when $\\mu$ is an SRB measure on a hyperbolic attractor.",
+            "hint": "Entropy is bounded above by how fast the dynamics stretch — sum the positive Lyapunov exponents."
+          },
+          {
+            "type": "mcq",
+            "q": "The variational principle for topological entropy states:",
+            "choices": [
+              "$h_{\\mathrm{top}}(f) = \\sup\\{h_\\mu(f) : \\mu\\ f\\text{-invariant}\\}$",
+              "$h_{\\mathrm{top}}(f) = \\inf\\{h_\\mu(f) : \\mu\\ f\\text{-invariant}\\}$",
+              "$h_{\\mathrm{top}}(f) = h_\\mu(f)$ for every $f$-invariant $\\mu$,",
+              "$h_{\\mathrm{top}}(f)$ is unrelated to measure-theoretic entropy."
+            ],
+            "answer": 0,
+            "explain": "Goodwyn / Dinaburg / Goodman proved that topological entropy is the supremum of Kolmogorov–Sinai (measure-theoretic) entropies over all invariant probabilities. A measure attaining the supremum is called a measure of maximal entropy; for subshifts of finite type it's unique (the Parry measure).",
+            "hint": "Topological entropy is the worst case over all invariant measures — sup, not inf."
+          }
+        ]
+      },
+      "mchaos-ergodic-srb": {
+        "title": "Ergodic theory and SRB measures",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Birkhoff's ergodic theorem says that for an ergodic measure-preserving $T$ and integrable $f$, the time average $\\tfrac{1}{N}\\sum_{k=0}^{N-1} f(T^k x)$ converges (as $N\\to\\infty$):",
+            "choices": [
+              "in $L^2$ but not pointwise,",
+              "$\\mu$-almost everywhere, to $\\int f\\,d\\mu$,",
+              "$\\mu$-almost everywhere, to $f(x)$,",
+              "only for $f$ continuous."
+            ],
+            "answer": 1,
+            "explain": "Ergodicity makes the limit constant ($\\mu$-a.e.) equal to the space average $\\int f\\,d\\mu$. The non-ergodic version: the limit exists pointwise but is the conditional expectation $\\mathbb{E}[f\\mid\\mathcal{I}]$ over the invariant $\\sigma$-algebra.",
+            "hint": "Ergodicity collapses the invariant $\\sigma$-algebra to trivial, so the conditional expectation becomes a constant."
+          },
+          {
+            "type": "mcq",
+            "q": "An SRB measure $\\mu$ on a hyperbolic attractor is characterized by:",
+            "choices": [
+              "being the unique invariant measure on the attractor,",
+              "being absolutely continuous with respect to Lebesgue measure on the full phase space,",
+              "having conditional measures along unstable manifolds absolutely continuous with respect to the unstable Lebesgue measure,",
+              "having entropy zero."
+            ],
+            "answer": 2,
+            "explain": "On a hyperbolic attractor the attractor itself has Lebesgue measure zero (it's a fractal), so $\\mu$ can't be Lebesgue-a.c. globally. The Sinai–Ruelle–Bowen condition is the next-best thing: along unstable foliation leaves, $\\mu$'s conditionals are smooth densities. That's what makes time averages from Lebesgue-a.e. initial condition land on $\\int f\\,d\\mu_{\\mathrm{SRB}}$.",
+            "hint": "The attractor has measure zero, so absolute continuity has to be conditional — along unstable leaves."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is the SRB property physically meaningful?",
+            "choices": [
+              "It is the only mathematically rigorous result in ergodic theory.",
+              "It makes time averages from Lebesgue-a.e. (i.e. \"physical\") initial conditions equal to space averages with respect to $\\mu_{\\mathrm{SRB}}$.",
+              "It implies the system is integrable.",
+              "It is invariant under all diffeomorphisms."
+            ],
+            "answer": 1,
+            "explain": "An experimenter selects an initial condition with respect to Lebesgue, not with respect to the attractor's measure. The SRB property guarantees the basin of attraction $B(\\Lambda)$ has positive Lebesgue measure and that for Lebesgue-a.e. $x\\in B(\\Lambda)$, time averages equal $\\int f\\,d\\mu_{\\mathrm{SRB}}$. Without SRB, the system's statistics could depend pathologically on which microstate you happened to start from.",
+            "hint": "Experiments sample initial conditions from Lebesgue, not from the attractor's own measure."
+          }
+        ]
+      },
+      "mchaos-kam": {
+        "title": "KAM theorem and Hamiltonian chaos",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The KAM theorem requires the unperturbed Hamiltonian $H_0(I)$ to be:",
+            "choices": [
+              "linear in the action variables,",
+              "non-degenerate: $\\det(\\partial^2 H_0/\\partial I_i\\partial I_j)\\ne 0$ (Kolmogorov's condition),",
+              "polynomial,",
+              "globally hyperbolic."
+            ],
+            "answer": 1,
+            "explain": "Non-degeneracy ensures the frequency map $I\\mapsto\\omega(I)=\\nabla H_0(I)$ is a local diffeomorphism, so the Diophantine tori form a set of positive measure in frequency space and hence in action space. Without it, frequencies collapse to a lower-dimensional set and the theorem fails (e.g. the isochronous harmonic oscillator).",
+            "hint": "You need the frequency vector to vary genuinely with the action — i.e. the Hessian of $H_0$ in actions must be invertible."
+          },
+          {
+            "type": "mcq",
+            "q": "Which frequency vectors $\\omega\\in\\mathbb{R}^n$ have invariant tori that KAM preserves under small perturbation?",
+            "choices": [
+              "rational frequency vectors (commensurable),",
+              "frequency vectors $\\omega$ satisfying a Diophantine condition $|k\\cdot\\omega|\\ge\\gamma|k|^{-\\tau}$ for all $k\\in\\mathbb{Z}^n\\setminus\\{0\\}$,",
+              "all $\\omega\\in\\mathbb{R}^n$,",
+              "only rationally independent $\\omega$ with $\\omega_i\\in\\mathbb{Z}$."
+            ],
+            "answer": 1,
+            "explain": "Diophantine $\\omega$ are 'badly approximable' by rationals: small denominators $|k\\cdot\\omega|$ are bounded below by an inverse power of $|k|$. This bound is what defeats the small-denominator divergence in the perturbative KAM series. Rational $\\omega$ (resonant) generically break under perturbation into Birkhoff zones; that's where Hamiltonian chaos lives.",
+            "hint": "The 'small-denominator problem' is the obstruction; Diophantine bounds defeat it."
+          },
+          {
+            "type": "mcq",
+            "q": "In the gaps left by KAM tori, the dynamics:",
+            "choices": [
+              "is rigorously integrable,",
+              "exhibits chaos in 'stochastic layers' — homoclinic tangles, Arnold diffusion in $n\\ge 3$,",
+              "decays to a global fixed point,",
+              "always escapes to infinity."
+            ],
+            "answer": 1,
+            "explain": "Resonant tori are destroyed by perturbation and replaced by alternating elliptic / hyperbolic periodic orbits (Poincaré–Birkhoff). The stable and unstable manifolds of the hyperbolic ones intersect transversally — Poincaré's homoclinic tangle. For $n\\ge 3$ degrees of freedom, KAM tori no longer separate energy shells and trajectories can drift through resonance gaps over very long times (Arnold diffusion).",
+            "hint": "Resonant tori break into elliptic + hyperbolic orbits; the latter weave the Poincaré tangle that drives the local chaos."
+          }
+        ]
+      },
+      "mchaos-sharkovsky": {
+        "title": "Sharkovsky's theorem and 1D order",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Sharkovsky's order on $\\mathbb{N}$ begins with odd numbers, then $2\\times$ odd, $4\\times$ odd, ..., and ends with the powers of $2$. The order ends at:",
+            "choices": [
+              "$1$ (the least element under Sharkovsky's order),",
+              "$\\infty$,",
+              "$3$,",
+              "$2$."
+            ],
+            "answer": 0,
+            "explain": "Sharkovsky's order is $3\\triangleright 5\\triangleright 7\\triangleright\\cdots\\triangleright 2\\cdot 3\\triangleright 2\\cdot 5\\triangleright\\cdots\\triangleright 2^n\\triangleright\\cdots\\triangleright 4\\triangleright 2\\triangleright 1$. The terminal element is $1$ (fixed points). The forcing direction: a period-$m$ orbit forces all $n$ with $m\\triangleright n$.",
+            "hint": "Read the order all the way to the right — past the doubling tail."
+          },
+          {
+            "type": "mcq",
+            "q": "The Li–Yorke / Sharkovsky principle 'period three implies chaos' on a 1D interval map says, at minimum, that a period-3 orbit forces:",
+            "choices": [
+              "no other periodic orbits,",
+              "an uncountable scrambled set with sensitive dependence,",
+              "the map to be a contraction,",
+              "the map to be linear."
+            ],
+            "answer": 1,
+            "explain": "Sharkovsky's theorem already says period-3 forces orbits of every period (since $3$ is maximal in his order). Li–Yorke's 1975 paper went further: the same hypothesis produces an uncountable 'scrambled set' on which the dynamics exhibits sensitive dependence — pairs of points whose orbits get arbitrarily close infinitely often and arbitrarily far apart infinitely often. Period-3 also forces topological entropy $\\ge\\log\\rho_3>0$ where $\\rho_3\\approx 1.6180$ is the golden ratio.",
+            "hint": "Period-3 forces every other period plus an uncountable set of orbits with sensitive dependence."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is Sharkovsky's theorem specific to continuous self-maps of an interval (or arc), not generalizable to maps of the circle or higher dimensions?",
+            "choices": [
+              "Because higher dimensions have no notion of period.",
+              "Because the proof uses the intermediate-value theorem and the linear order of the real line — a circle or plane lacks the global one-dimensional structure that lets a single covering relation force all smaller periods.",
+              "Because periodic orbits don't exist in dimension $\\ge 2$.",
+              "Because the period-3 orbit cannot be realized in dimension $\\ge 2$."
+            ],
+            "answer": 1,
+            "explain": "The proof builds a directed graph from a periodic orbit by labeling intervals between consecutive orbit points and tracking which interval $f$ stretches over which others (covering relation); intermediate-value then converts symbolic paths into actual periodic orbits. On a circle, the orbit's intervals form a cycle and the linear-order argument breaks. On $\\mathbb{R}^2$ a rotation has only fixed points (period $1$) but no period-$2$ orbits — the implications can fail in either direction.",
+            "hint": "The proof leans on intermediate-value applied to a linear order — what fails on a circle?"
+          }
+        ]
+      }
+    }
+  },
   "mathematical-finance": {
     "topic": "mathematical-finance",
     "quizzes": {
@@ -65747,6 +66055,324 @@ window.MVQuizBank = {
             ],
             "answer": 1,
             "explain": "In the planet's rest frame the encounter is elastic — speed in/out are equal. Boosting back to the heliocentric frame, the rotation of the velocity vector by the planet's orbital velocity gives the spacecraft a net change in solar-frame speed. This is the restricted three-body problem at work."
+          }
+        ]
+      }
+    }
+  },
+  "topological-data-analysis": {
+    "topic": "topological-data-analysis",
+    "quizzes": {
+      "point-clouds-filtrations": {
+        "title": "Point clouds and Vietoris–Rips",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The Vietoris–Rips complex $\\mathrm{VR}_\\epsilon(X)$ for a finite point set $X\\subset\\mathbb{R}^d$ contains the simplex $\\sigma\\subseteq X$ iff:",
+            "choices": [
+              "$\\bigcap_{x\\in\\sigma} B(x,\\epsilon)\\neq\\emptyset$",
+              "$\\mathrm{diam}(\\sigma)\\le 2\\epsilon$",
+              "every pair $x,y\\in\\sigma$ satisfies $\\|x-y\\|\\le \\epsilon$",
+              "$\\sigma\\subset B(c,\\epsilon)$ for some $c\\in\\mathbb{R}^d$"
+            ],
+            "answer": 1,
+            "explain": "The Rips criterion looks only at pairwise distances: every pair within $2\\epsilon$ (i.e. $\\mathrm{diam}\\le 2\\epsilon$). The first option is the Čech complex condition; the third gets the scale factor wrong (the pairwise threshold is $2\\epsilon$, not $\\epsilon$); the fourth is yet another (alpha-style) condition. Rips and Čech interleave via $\\check C_\\epsilon\\subseteq\\mathrm{VR}_\\epsilon\\subseteq\\check C_{\\sqrt 2\\,\\epsilon}$.",
+            "hint": "Rips uses only the distance matrix — what's the simplest pairwise condition?"
+          },
+          {
+            "type": "numeric",
+            "q": "Four points sit at the corners of a unit square in $\\mathbb{R}^2$: $(0,0),(1,0),(1,1),(0,1)$. At what value of $\\epsilon$ does $\\mathrm{VR}_\\epsilon$ first contain a $2$-simplex (filled triangle)?",
+            "answer": 0.7071,
+            "tol": 0.01,
+            "explain": "The diameter of any 3-vertex subset includes one diagonal, length $\\sqrt 2$. The Rips condition is $\\mathrm{diam}\\le 2\\epsilon$, so a triangle appears when $\\sqrt 2 \\le 2\\epsilon$, i.e. $\\epsilon = \\sqrt 2/2 \\approx 0.707$.",
+            "hint": "A triangle's diameter is its longest edge — what's the longest pairwise distance in any 3-subset?"
+          },
+          {
+            "type": "multi-select",
+            "q": "Select every true statement about the filtration $\\{\\mathrm{VR}_\\epsilon(X)\\}_{\\epsilon\\ge 0}$ for a finite point set $X$ of size $n$.",
+            "choices": [
+              "It is monotone: $\\epsilon_1\\le \\epsilon_2 \\Rightarrow \\mathrm{VR}_{\\epsilon_1}\\subseteq \\mathrm{VR}_{\\epsilon_2}$.",
+              "For sufficiently large $\\epsilon$, $\\mathrm{VR}_\\epsilon(X)$ is the full $(n-1)$-simplex on $X$.",
+              "$\\mathrm{VR}_\\epsilon$ has the same homotopy type as $\\bigcup_i B(x_i,\\epsilon)$ for every $\\epsilon$.",
+              "$\\mathrm{VR}_\\epsilon$ depends only on the matrix of pairwise distances of $X$."
+            ],
+            "answer": [
+              0,
+              1,
+              3
+            ],
+            "explain": "(0) Larger $\\epsilon$ means a weaker diameter condition — every simplex stays. (1) Once $\\epsilon\\ge \\mathrm{diam}(X)/2$ all simplices are in. (3) Rips depends only on distances. (2) is the Čech statement (Nerve Theorem); Rips is only homotopy-equivalent to $\\bigcup B$ up to the $\\check C_\\epsilon \\subseteq \\mathrm{VR}_\\epsilon \\subseteq \\check C_{\\sqrt 2\\epsilon}$ interleaving, not equality.",
+            "hint": "Which statement is actually about the Čech complex, not the Rips complex?"
+          }
+        ]
+      },
+      "simplicial-homology-tda": {
+        "title": "Simplicial homology bookkeeping",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For a simplicial complex $K$, what is the relationship $\\partial_{n-1}\\circ\\partial_n$?",
+            "choices": [
+              "It equals the identity on $C_n$.",
+              "It is zero.",
+              "It equals $\\partial_n$.",
+              "It is non-zero in general but zero on cycles."
+            ],
+            "answer": 1,
+            "explain": "$\\partial\\circ\\partial = 0$ is the defining axiom of a chain complex — each face of a face appears twice with opposite signs and cancels. It is what makes $\\mathrm{im}\\,\\partial_{n+1}\\subseteq\\ker\\partial_n$ and the quotient $H_n = \\ker\\partial_n/\\mathrm{im}\\,\\partial_{n+1}$ well-defined.",
+            "hint": "Compute $\\partial(\\partial[v_0,v_1,v_2])$ explicitly with signs."
+          },
+          {
+            "type": "numeric",
+            "q": "On a complex $K$ with $|V|=8$ vertices, $|E|=12$ edges, and $|T|=4$ triangles, the Euler characteristic is $\\chi(K) = |V|-|E|+|T|$. Compute $\\chi(K)$ (an integer).",
+            "answer": 0,
+            "tol": 0.001,
+            "explain": "$\\chi = 8 - 12 + 4 = 0$. By the Euler–Poincaré formula $\\chi = \\beta_0 - \\beta_1 + \\beta_2$, so the Betti numbers must satisfy $\\beta_0 - \\beta_1 + \\beta_2 = 0$ (e.g. a torus has $\\beta_0=1, \\beta_1=2, \\beta_2=1$, giving $1-2+1=0$).",
+            "hint": "Plug into $\\chi = V - E + F$."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which of the following are $\\mathbb{F}_2$-cycles on the boundary of a filled triangle with vertices $A,B,C$ (edges $AB,BC,CA$)?",
+            "choices": [
+              "The empty chain $0$",
+              "$AB$ alone",
+              "$AB + BC + CA$",
+              "$AB + CA$"
+            ],
+            "answer": [
+              0,
+              2
+            ],
+            "explain": "Over $\\mathbb{F}_2$, $\\partial(AB+BC+CA) = (A+B)+(B+C)+(C+A) = 2A+2B+2C = 0$. The empty chain is trivially a cycle. $\\partial(AB) = A+B\\ne 0$ and $\\partial(AB+CA) = (A+B)+(C+A) = B+C\\ne 0$, so those are not cycles.",
+            "hint": "Compute $\\partial c$ for each choice over $\\mathbb{F}_2$ (so $+1 = -1$ and the alternating signs vanish)."
+          }
+        ]
+      },
+      "persistent-homology": {
+        "title": "Persistent homology and barcode",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A persistence bar $[b, d)$ on the $\\beta_1$ axis means:",
+            "choices": [
+              "A 1-cycle was born at scale $b$ and killed (became a boundary) at scale $d$.",
+              "A 1-cycle existed at every scale in $[b,d)$ and at no other scale.",
+              "A loop in the data has length $d - b$.",
+              "Two components merged at scale $b$ and split at scale $d$."
+            ],
+            "answer": 0,
+            "explain": "A $\\beta_1$ bar tracks one independent 1-cycle through the filtration: born at $b$ (first appears as a non-trivial homology class) and killed entering $K_d$ (becomes the boundary of a chain of 2-simplices). The bar's <em>length</em> $d-b$ measures persistence, not the geometric length of any loop in the data.",
+            "hint": "What two events does each persistence bar record?"
+          },
+          {
+            "type": "numeric",
+            "q": "A persistence diagram has $\\beta_1$ bars $[0.3, 0.5), [0.4, 1.8), [0.6, 0.65)$. What is the longest persistence (the bar's lifetime $d-b$)?",
+            "answer": 1.4,
+            "tol": 0.01,
+            "explain": "$1.8 - 0.4 = 1.4$. The other lifetimes are $0.2$ and $0.05$.",
+            "hint": "Take the difference $d - b$ for each bar and pick the maximum."
+          },
+          {
+            "type": "ordering",
+            "q": "Order these events in the lifecycle of a single persistent $H_1$ class as the filtration parameter $\\epsilon$ grows.",
+            "items": [
+              "The complex contains $n$ isolated vertices",
+              "Enough edges appear that a cycle forms — a class is born",
+              "More edges fill in but the cycle remains a generator of $H_1$",
+              "A triangle (or chain of triangles) is added whose boundary realises the cycle — the class dies"
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "explain": "Filtrations grow monotonically: vertices first, then edges (some of which create cycles), then 2-simplices (some of which kill cycles by exhibiting them as boundaries). The bar $[b, d)$ records the second and fourth events.",
+            "hint": "Filtrations add lower-dimensional simplices before higher-dimensional ones; cycles need edges to be born and triangles to die."
+          }
+        ]
+      },
+      "stability-theorem": {
+        "title": "Stability theorem",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The Cohen-Steiner–Edelsbrunner–Harer stability theorem bounds:",
+            "choices": [
+              "The bottleneck distance between two persistence diagrams by the $L^\\infty$ distance between their generating filtrations.",
+              "The Hausdorff distance between two point clouds by their barcode lengths.",
+              "The Wasserstein-$1$ distance between point clouds by the number of bars in the diagrams.",
+              "The bottleneck distance between two diagrams by the sum of all bar lengths."
+            ],
+            "answer": 0,
+            "explain": "Stability theorem: $W_\\infty(\\mathrm{Dgm}(f),\\mathrm{Dgm}(g))\\le \\|f-g\\|_\\infty$. Two filtrations close in sup-norm give diagrams close in bottleneck distance. The other choices invert the inequality or use the wrong metric.",
+            "hint": "Which direction of inequality does the theorem give — input-norm bounds diagram-distance, or the reverse?"
+          },
+          {
+            "type": "numeric",
+            "q": "Two distance-to-cloud functions on a complex satisfy $\\|f-g\\|_\\infty = 0.05$. What is the tightest upper bound stability gives on $W_\\infty(\\mathrm{Dgm}(f),\\mathrm{Dgm}(g))$?",
+            "answer": 0.05,
+            "tol": 0.001,
+            "explain": "Stability is $1$-Lipschitz: $W_\\infty\\le \\|f-g\\|_\\infty = 0.05$.",
+            "hint": "Read off the Lipschitz constant of the persistence map."
+          },
+          {
+            "type": "mcq",
+            "q": "Practitioners discard persistence bars whose length $d-b$ is below the input noise floor. Stability justifies this because:",
+            "choices": [
+              "Short bars cannot move to long bars under small perturbations.",
+              "Short bars can be matched to diagonal points under any perturbation larger than half the bar length.",
+              "Short bars are not part of the persistence diagram in the first place.",
+              "Stability says the number of bars is invariant under perturbations."
+            ],
+            "answer": 1,
+            "explain": "A bar $[b,d)$ with $d-b$ small is $L^\\infty$-close to a diagonal point $(t,t)$. If the data perturbation is at most $\\varepsilon \\ge (d-b)/2$, the bottleneck matching is allowed to send the bar to the diagonal — i.e. the bar is statistically indistinguishable from noise. So features below the noise floor lose interpretive weight.",
+            "hint": "The bottleneck matching allows unmatched bars to be sent to the diagonal; what's the cost of doing that?"
+          }
+        ]
+      },
+      "structure-theorem-decomposition": {
+        "title": "Structure theorem",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What does the Crawley-Boevey / Zomorodian–Carlsson structure theorem assert about a pointwise-finite-dimensional persistence module $M$ over a field?",
+            "choices": [
+              "$M$ admits a unique decomposition $M\\cong\\bigoplus_\\alpha\\mathbb{I}[b_\\alpha,d_\\alpha)$ into interval modules.",
+              "$M$ admits a decomposition into interval modules, but the decomposition is not unique.",
+              "$M$ decomposes uniquely into rank-$1$ projective modules over $k[t]$.",
+              "$M$ is always finitely presented over $k[t,t^{-1}]$."
+            ],
+            "answer": 0,
+            "explain": "The structure theorem: a pointwise-finite-dim persistence module over a field decomposes <em>uniquely</em> (up to reordering) as a direct sum of interval modules $\\mathbb{I}[b,d)$. Uniqueness is what makes the persistence diagram a well-defined invariant. The proof goes via finitely-presented graded $k[t]$-modules, where $k[t]$ is a PID and indecomposables are interval modules.",
+            "hint": "Why is the persistence diagram a complete invariant?"
+          },
+          {
+            "type": "mcq",
+            "q": "The structure theorem (one-parameter persistence) fails for multi-parameter persistence modules over $\\mathbb{R}^2$. Which is the correct reason?",
+            "choices": [
+              "The category of $\\mathbb{R}^2$-indexed modules is not abelian.",
+              "Indecomposable two-parameter persistence modules are uncountably many (\"wild\"), so there is no finite list of bar-shaped building blocks.",
+              "Only modules of finite total dimension decompose; two-parameter modules are typically infinite-dimensional.",
+              "Two-parameter modules have no boundary maps."
+            ],
+            "answer": 1,
+            "explain": "The classification of indecomposables of $\\mathbb{R}^2$-indexed (or even $A_n\\times A_n$-indexed) persistence modules is <em>wild</em> in the technical sense: there is no countable list of indecomposable shapes that suffices. Hence the field uses surrogate invariants (rank, fibered barcode, persistence landscape, GRIL) rather than a true diagram.",
+            "hint": "What is the moduli of indecomposable $\\mathbb{R}^2$-indexed persistence modules like?"
+          },
+          {
+            "type": "mcq",
+            "q": "A student writes: 'The persistence diagram of $M$ is the multiset of birth–death pairs, and two persistence modules are isomorphic iff their diagrams agree as multisets — this works for $\\mathbb{R}$-indexed, $\\mathbb{R}^2$-indexed, and zigzag persistence modules alike.' Where is the error?",
+            "choices": [
+              "Two $\\mathbb{R}^2$-indexed modules can be non-isomorphic with the same rank invariant; the multiset-of-pairs reading does not classify them.",
+              "Even for $\\mathbb{R}$-indexed modules, the diagram fails to be a complete invariant.",
+              "Zigzag persistence does not admit any decomposition theorem.",
+              "Birth–death pairs are not well-defined for any persistence module."
+            ],
+            "answer": 0,
+            "explain": "The structure theorem (and therefore the diagram-as-complete-invariant statement) is one-parameter only. Zigzag persistence does decompose into intervals (via the Auslander–Reiten / $A_n$-quiver classification), so it shares the property. Two-parameter persistence is genuinely different: the rank invariant is a strictly weaker invariant than the module itself.",
+            "hint": "Which of the three settings — $\\mathbb{R}$, $\\mathbb{R}^2$, zigzag — is the odd one out for the structure theorem?"
+          }
+        ]
+      },
+      "mapper-algorithm": {
+        "title": "Mapper algorithm",
+        "questions": [
+          {
+            "type": "ordering",
+            "q": "Order the four steps of the Mapper algorithm.",
+            "items": [
+              "Choose a filter function $f:X\\to\\mathbb{R}^k$.",
+              "Cover the range $f(X)$ by overlapping intervals (or boxes) $U_1,\\dots,U_m$.",
+              "Cluster the preimage $f^{-1}(U_i)\\cap X$ within each cover element.",
+              "Build the nerve: clusters are nodes; edges record cluster overlaps."
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "explain": "Mapper: filter, cover, cluster, nerve. Each step has tuning choices (which $f$, what overlap, which clusterer) that the user must justify — Mapper is a hypothesis-generating tool, not a unique invariant.",
+            "hint": "You can't cover the range before choosing the filter, can't cluster before fixing the cover, etc."
+          },
+          {
+            "type": "mcq",
+            "q": "Mapper run with the cover-bin count set very small (e.g. $m=2$) on a complex dataset will:",
+            "choices": [
+              "Recover all branch structure of the data faithfully.",
+              "Collapse most local structure: the output is a near-trivial graph with one or two nodes.",
+              "Crash because clusters cannot be found in two cover elements.",
+              "Be equivalent to running spectral clustering with $k=2$."
+            ],
+            "answer": 1,
+            "explain": "With only two cover bins, the entire dataset is split into two large preimages; clustering inside each produces few large clusters, so the nerve is essentially a single edge or two-node graph. Coarse covers under-fit the topology. Conversely, too many tiny bins over-fit and produce noise-driven nodes.",
+            "hint": "What does the Mapper graph look like when each cover element is enormous?"
+          },
+          {
+            "type": "multi-select",
+            "q": "Which statements are true of Mapper graphs?",
+            "choices": [
+              "The graph is a topological invariant of the data — different filters give the same graph up to isomorphism.",
+              "The graph depends on the choice of filter $f$, the cover, and the clustering algorithm.",
+              "A degree-$\\ge 3$ node in the graph suggests a branching in the data not visible from one-dimensional projection.",
+              "Mapper graphs are nerve constructions, so they are full simplicial complexes (with higher-simplex faces for triple intersections), but practitioners often display only the 1-skeleton."
+            ],
+            "answer": [
+              1,
+              2,
+              3
+            ],
+            "explain": "Mapper is <em>not</em> a topological invariant — change the filter and you change the graph. (1) is the warning every TDA practitioner repeats. (2) is what Mapper is for: surfacing structure beyond what $f$ alone reveals. (3) is the technical truth that the graph is the 1-skeleton of the nerve.",
+            "hint": "Which statement would imply you don't need to justify your filter choice?"
+          }
+        ]
+      },
+      "cohomology-zigzag-software": {
+        "title": "Persistent cohomology, zigzag, software",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Persistent cohomology of a filtration $K_\\bullet$ over a field $k$ has the same barcode as persistent homology. Why do practitioners often compute cohomology instead?",
+            "choices": [
+              "Cohomology gives more information than homology in this setting.",
+              "Cohomology computations admit a faster reduction algorithm in practice (de Silva–Morozov–Vejdemo-Johansson, 2011).",
+              "Homology cannot be computed over $\\mathbb{F}_2$ but cohomology can.",
+              "Persistent cohomology produces a continuous summary; homology only produces a discrete one."
+            ],
+            "answer": 1,
+            "explain": "Over a field, $H^k\\cong H_k^*$ pointwise so the bars are identical. The computational gain is the <em>cohomology shortcut</em>: the relevant matrix to reduce is sparser when working with cohomology, giving a measurable speed-up. Cohomology also produces explicit cocycles that lift (via Bockstein) to $S^1$-valued circular coordinates on data.",
+            "hint": "Both functors give the same answer here — what else is different?"
+          },
+          {
+            "type": "mcq",
+            "q": "Zigzag persistence generalises persistence by allowing:",
+            "choices": [
+              "Negative birth times.",
+              "Filtrations that reverse direction: $K_0\\to K_1\\leftarrow K_2\\to\\cdots$",
+              "Persistence modules over $\\mathbb{R}^2$ instead of $\\mathbb{R}$.",
+              "Persistence modules with non-finite-dimensional vector spaces at each scale."
+            ],
+            "answer": 1,
+            "explain": "Zigzag persistence (Carlsson–de Silva, 2010) is the persistence theory for arrows that may point either direction — modelling time-varying point clouds, merges between two filtrations, etc. The Gabriel-quiver classification of $A_n$-representations still gives a barcode. Multi-parameter is a different generalisation (option C) and remains open.",
+            "hint": "Which generalisation still admits a barcode decomposition?"
+          },
+          {
+            "type": "multi-select",
+            "q": "Which of these are software libraries commonly used for TDA computations?",
+            "choices": [
+              "Ripser (Bauer)",
+              "GUDHI (INRIA)",
+              "Dionysus (Morozov)",
+              "PersistencePro (commercial; bundled with Matlab Statistics Toolbox)"
+            ],
+            "answer": [
+              0,
+              1,
+              2
+            ],
+            "explain": "Ripser, GUDHI, and Dionysus are the canonical open-source TDA libraries. Ripser is the speed champion for Rips persistence on moderate-scale clouds; GUDHI is the most complete C++/Python library (Rips, Čech, Alpha, Mapper, multi-parameter, Wasserstein); Dionysus emphasises zigzag and cohomology research features. \"PersistencePro\" is fabricated — there is no commercial TDA toolbox in Matlab; legitimate Python wrappers are scikit-tda and giotto-tda.",
+            "hint": "Three of these are open-source research libraries; one is a plausible-sounding invention."
           }
         ]
       }

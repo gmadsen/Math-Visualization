@@ -11873,6 +11873,132 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "mchaos-w1",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "interactive",
+    "role": "interactive",
+    "title": "mchaos-w1 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the mathematical-chaos topic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `mathematical-chaos` topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "mchaos-w2",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "interactive",
+    "role": "interactive",
+    "title": "mchaos-w2 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the mathematical-chaos topic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `mathematical-chaos` topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "mchaos-w3",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "interactive",
+    "role": "interactive",
+    "title": "mchaos-w3 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the mathematical-chaos topic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `mathematical-chaos` topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "mchaos-w4",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "interactive",
+    "role": "interactive",
+    "title": "mchaos-w4 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the mathematical-chaos topic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `mathematical-chaos` topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "mchaos-w5",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "interactive",
+    "role": "interactive",
+    "title": "mchaos-w5 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the mathematical-chaos topic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `mathematical-chaos` topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "mchaos-w6",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "interactive",
+    "role": "interactive",
+    "title": "mchaos-w6 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the mathematical-chaos topic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `mathematical-chaos` topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "mf-w1",
     "family": "verbatim",
     "dimension": "2d",
@@ -17265,6 +17391,132 @@ window.__MVWidgets = [
       "bodyScript"
     ],
     "readmeExcerpt": "Bespoke widget for the symplectic-manifolds topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "tda-w1",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "interactive",
+    "title": "tda-w1 widget params",
+    "description": "Bespoke verbatim-renderer slug for the \"Vietoris–Rips filtration of a noisy circle\" widget on the topological-data-analysis topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke verbatim slug for the \"Vietoris–Rips filtration of a noisy circle\" widget on `topological-data-analysis`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "tda-w2",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "interactive",
+    "title": "tda-w2 widget params",
+    "description": "Bespoke verbatim-renderer slug for the \"Cycles vs. boundaries on the boundary of a triangle\" widget on the topological-data-analysis topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke verbatim slug for the \"Cycles vs. boundaries on the boundary of a triangle\" widget on `topological-data-analysis`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "tda-w3",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "interactive",
+    "title": "tda-w3 widget params",
+    "description": "Bespoke verbatim-renderer slug for the \"Persistence barcode of a noisy circle\" widget on the topological-data-analysis topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke verbatim slug for the \"Persistence barcode of a noisy circle\" widget on `topological-data-analysis`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "tda-w4",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "interactive",
+    "title": "tda-w4 widget params",
+    "description": "Bespoke verbatim-renderer slug for the \"Stability proof — sketch in three slides\" widget on the topological-data-analysis topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke verbatim slug for the \"Stability proof — sketch in three slides\" widget on `topological-data-analysis`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "tda-w5",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "interactive",
+    "title": "tda-w5 widget params",
+    "description": "Bespoke verbatim-renderer slug for the \"Mapper on a Y-shaped point cloud\" widget on the topological-data-analysis topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke verbatim slug for the \"Mapper on a Y-shaped point cloud\" widget on `topological-data-analysis`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "tda-w6",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "tda-w6 widget params",
+    "description": "Bespoke verbatim-renderer slug for the \"Persistence sandbox — Ripser-style on a custom cloud\" widget on the topological-data-analysis topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke verbatim slug for the \"Persistence sandbox — Ripser-style on a custom cloud\" widget on `topological-data-analysis`.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
