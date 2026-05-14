@@ -629,9 +629,9 @@
     <h1>Interactive Mathematics Notebook</h1>
     <p class="sub">Interactive concepts across mathematics — from foundations to research-level topics — each a single-page explainer with live widgets and worked examples.</p>
     <div class="hero-tagline" aria-label="Notebook scope">
-      <span><span class="tg-num">187</span> topics</span>
+      <span><span class="tg-num">190</span> topics</span>
       <span class="dot">&middot;</span>
-      <span><span class="tg-num">1299</span> concepts</span>
+      <span><span class="tg-num">1320</span> concepts</span>
       <span class="dot">&middot;</span>
       <span>pathway-graph explorer</span>
     </div>
@@ -1877,6 +1877,23 @@
       </div>
     </a>
 
+    <a class="card c" href="./mathematical-chaos.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <!-- Lorenz-butterfly silhouette: the two-lobe strange attractor. -->
+        <path d="M 50 42 C 28 14, 14 28, 22 46 C 30 60, 44 56, 50 44 C 56 56, 70 60, 78 46 C 86 28, 72 14, 50 42 Z"
+              fill="none" stroke="var(--cyan)" stroke-width="1.2" opacity="0.95"/>
+        <path d="M 50 42 C 32 22, 22 32, 28 48 C 34 58, 44 54, 50 44" fill="none" stroke="var(--cyan)" stroke-width="0.7" opacity="0.55"/>
+        <path d="M 50 42 C 68 22, 78 32, 72 48 C 66 58, 56 54, 50 44" fill="none" stroke="var(--cyan)" stroke-width="0.7" opacity="0.55"/>
+        <circle cx="50" cy="42" r="1.6" fill="var(--pink)"/>
+        <text x="50" y="70" text-anchor="middle" font-family="serif" font-size="7" font-style="italic" fill="var(--mute)">λ &gt; 0</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Mathematical chaos <span class="level advanced">advanced</span></div>
+        <div class="desc">Lyapunov exponents, Feigenbaum universality, strange attractors + Smale's horseshoe, symbolic dynamics, KAM tori.</div>
+        <span class="tag">Lyapunov · Feigenbaum · Sharkovsky · ergodicity</span>
+      </div>
+    </a>
+
   </div>
 
   <div class="sec">Probability &amp; statistics</div>
@@ -2694,6 +2711,52 @@
         <div class="tt">Heegaard Floer &amp; knot Floer</div>
         <div class="desc">Cut a 3-manifold along a Heegaard surface, count holomorphic disks between two Lagrangian tori in the symmetric product, and out drops $\widehat{HF}$, $HF^\pm$, the $d$-invariant, and a smooth slice-genus bound for knots.</div>
         <span class="tag">floer · 3-manifold · slice genus · surgery</span>
+      </div>
+    </a>
+
+    <a class="card v" href="./convex-geometry.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <!-- Convex body with support hyperplane (Hahn–Banach) motif. -->
+        <path d="M 22 56 C 22 30, 38 18, 56 22 C 74 26, 80 42, 76 56 C 72 70, 38 70, 22 56 Z" fill="none" stroke="var(--violet)" stroke-width="1.4"/>
+        <line x1="14" y1="64" x2="86" y2="42" stroke="var(--cyan)" stroke-width="1" stroke-dasharray="3 2"/>
+        <circle cx="56" cy="52" r="2" fill="var(--pink)"/>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Convex geometry <span class="level advanced">advanced</span></div>
+        <div class="desc">Hahn–Banach support, polarity, Brunn–Minkowski + Prékopa–Leindler, Minkowski's & John's theorems, Banach–Mazur distance, the polar / Mahler conjecture circle, Dvoretzky.</div>
+        <span class="tag">Brunn-Minkowski · polarity · John · Dvoretzky</span>
+      </div>
+    </a>
+
+    <a class="card g" href="./topological-data-analysis.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <!-- Point cloud arranged on a noisy circle with epsilon-balls, plus barcode bars on the right. -->
+        <g stroke="var(--green)" stroke-width="0.8" fill="none" opacity="0.45">
+          <circle cx="30" cy="20" r="6"/>
+          <circle cx="44" cy="14" r="6"/>
+          <circle cx="55" cy="20" r="6"/>
+          <circle cx="58" cy="34" r="6"/>
+          <circle cx="50" cy="46" r="6"/>
+          <circle cx="34" cy="46" r="6"/>
+          <circle cx="24" cy="36" r="6"/>
+        </g>
+        <g fill="var(--green)">
+          <circle cx="30" cy="20" r="1.7"/><circle cx="44" cy="14" r="1.7"/><circle cx="55" cy="20" r="1.7"/>
+          <circle cx="58" cy="34" r="1.7"/><circle cx="50" cy="46" r="1.7"/><circle cx="34" cy="46" r="1.7"/>
+          <circle cx="24" cy="36" r="1.7"/>
+        </g>
+        <g stroke="var(--green)" stroke-width="1.8" stroke-linecap="round">
+          <line x1="72" y1="20" x2="92" y2="20"/>
+          <line x1="72" y1="30" x2="86" y2="30"/>
+          <line x1="72" y1="40" x2="78" y2="40"/>
+          <line x1="72" y1="50" x2="74" y2="50"/>
+        </g>
+        <text x="69" y="62" font-size="6" fill="var(--green)" font-style="italic" font-family="serif">barcode</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Topological data analysis <span class="level advanced">advanced</span></div>
+        <div class="desc">Filter a point cloud by scale, run homology at every scale, package the birth–death pairs into a persistence diagram. Stable under perturbation, computable in polynomial time, and the basis of an entire applied-topology toolkit.</div>
+        <span class="tag">persistence · rips · mapper · barcode</span>
       </div>
     </a>
 

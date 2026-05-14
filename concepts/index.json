@@ -21,6 +21,9 @@
     "positive-characteristic-ag",
 
     "convex-optimization",
+    "convex-geometry",
+    "topological-data-analysis",
+    "mathematical-chaos",
 
     "several-complex-variables",
     "khovanov-homology",
@@ -398,6 +401,9 @@
     "optimal-control-and-dynamic-programming": "advanced",
     "combinatorial-optimization": "advanced",
     "convex-optimization": "advanced",
+    "convex-geometry": "advanced",
+    "topological-data-analysis": "advanced",
+    "mathematical-chaos": "advanced",
     "mathematical-finance": "advanced",
     "donaldson-thomas-and-gw-invariants": "advanced",
     "positive-characteristic-ag": "advanced",
