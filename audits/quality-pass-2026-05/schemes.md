@@ -1,0 +1,47 @@
+# schemes — pedagogical audit (2026-05)
+
+**Section:** Algebraic geometry
+**Compared against:** sheaves, morphisms-fiber-products
+
+## Summary
+The first half (§§1-7) is the strongest pedagogical writing in the section — concrete, conversational, and carried by six well-built widgets — but the second half (§§8-13) was clearly bolted on later: five of the seven post-§7 sections have no widget at all, the helper block reverts to a 2D-only stub that is missing `drawArrow`/`ensureArrow`/`drawNode`, and §6's slogan "another page for another day" was never updated when those sections appeared.
+
+## Findings
+
+### Notation drift
+- KaTeX macro list in `schemes.html:10` is the older inline `onload=` form (one line, no `throwOnError`); both reference pages (`sheaves.html:10-35`, `morphisms-fiber-products.html:10-35`) use the multi-line IIFE form with `throwOnError:false` and the same macro set. Cosmetic — same six macros are defined — but a future macro addition will be done twice.
+- `\Spec\mathbb{Z}` (no spacer) is used freely (e.g. `schemes.html:258`, `:273`, `:1503`) while every `Spec` of a polynomial ring uses `\Spec{}k[x]` with the empty-group spacer (`:396`, `:400`, `:651`, etc.). The `{}` is there to suppress KaTeX's spacing after `\operatorname`; both work, but the inconsistency reads as accidental. Sheaves writes uniformly `\Spec\,R` (`sheaves.html:275`, `:436`, `:832`) — a thin space rather than a brace. Pick one.
+- `\mathfrak m` vs `\mathfrak{m}`: schemes uses unbraced `\mathfrak p`, `\mathfrak q`, `\mathfrak m` throughout (`:225`, `:855`, `:1419`); both peers brace consistently (`sheaves.html:817` `\mathfrak{m}_x`; `morphisms-fiber-products.html:294` `\mathfrak{m}_y`). One-letter args render identically but the discipline matters when somebody adds `\mathfrak m_x^2` later.
+- `\operatorname{Frac}` (`schemes.html:226`, `:1358`) vs `\mathrm{Frac}` (`sheaves.html:832`). Both render the same; pick the one matching the macro convention.
+- §12 introduces `\operatorname{nil}(R)` (`:1419`) without defining it; both peers always spell it out as "nilradical." Cosmetic.
+
+### Undefined jargon
+- §1 closing aside (`:226`) names "**residue field** $\kappa(\mathfrak p)$" with a one-line formula but does not flag this as the term's first use; §9 (`:1356`) is where the actual definition lives. A reader landing on §1 has to take the formula on faith for eight sections. A forward-pointer ("see §9 for the residue-field machinery") would close it.
+- §10 (`:1385`) opens with "A **ringed space** is a topological space $X$ together with a sheaf of rings $\mathcal O_X$." No prior section has defined "sheaf of rings"; the single callback to `commutative-algebra.html#localize` (`:1368`) is for §9's localization, not §10's sheaf. The page presupposes the reader has read `sheaves.html` but does not say so or link forward to it. Compare `morphisms-fiber-products.html:283` which begins with an inline link "(For background on sheaves and how $\mathcal{O}_X$ records the local regular functions, see [sheaves.html](./sheaves.html).)"
+- §10 (`:1387`) uses "fully faithful contravariant functor" without callback; §11 (`:1400`) introduces "**Proj**", "**irrelevant ideal**", and "graded ring" in two consecutive sentences with no callback to algebra-side prereqs (commutative-algebra has nothing on graded rings either, so this is genuinely a gap, not just a missing link).
+- §6 (`:1000`) coins "the **$n$-th order infinitesimal neighborhood of the origin** or the *$n$-th jet*" and immediately writes "A morphism $D_n \to X$ … is the same as a point of $X$ together with an $(n-1)$-jet of a curve through it." — but morphisms of schemes are not introduced on this page (they live next door in `morphisms-fiber-products.html`). High-priority because §6 is mid-page.
+- §11 (`:1401`) "the **Zariski topology**" appears as if defined; it is informally introduced in §5's title (`:854` "Zariski topology & specialization") but the formal definition is buried in `:855` ("The closed sets of $\Spec{}R$ are the vanishing loci $V(I)$"). A back-pointer would help.
+
+### Tone mismatches
+- §§1-7 set a strong conversational voice: "Three problems nag at you" (`:215`), "Let's just derive" (in widget code, fine), "*That* is the main reason Grothendieck's definition is so powerful" (`:1161`). §§8-13 abruptly shift to dry textbook voice with no second-person address and no embedded asides — e.g. §10 (`:1383-1396`) is four paragraphs of pure exposition without a single "you," widget, or note callout other than auto-injected backlinks. Same for §11, §13.
+- §7's closing note (`:1163`) explicitly says "Sheaves (local-to-global functions), morphisms of schemes, base change, fiber products, projective schemes, coherent sheaves, and cohomology … another page for another day." Sections 8-14 were then appended below this same note without removing it or updating the framing — the reader is told "we stop here" and then immediately reads six more sections. High-priority semantic drift: the page lies about its own structure.
+- §10 closes with "In short: 'sheaf of rings whose stalks detect a unique point of vanishing' is precisely the structure needed to glue $\Spec$'s into a category of honest geometric objects." The single-quote inside a sentence-final period is fine, but compare the slogan rhythm of `morphisms-fiber-products.html:308` (`<strong>geometry on schemes ↔ commutative algebra on rings</strong>`, set off as its own centered paragraph). The schemes-page sloganry of §§1-7 (e.g. `:1163` "*That* is the main reason …") has been abandoned.
+- §6 (`:1015`) "Two variables: $\Spec\mathbb{C}[x,y]/(x^2,xy,y^2)$ is a 'fat point' with the full 2-dim tangent space. $\Spec\mathbb{C}[x,y]/(x^2,y)$ is a length-2 scheme pointing in the $x$-direction — an infinitesimal arrow." This is a great paragraph; the same examples reappear without warning as a dedicated SVG widget in §12 (`:1455-1473`). Pick one location to introduce them.
+
+### Missing worked examples
+- **§8 generic-point** (`:1347-1354`): pure prose, no widget. The §5 specialization-poset widget covers some of this ground but the section would benefit from at least a worked computation (e.g. closure of $(p)$ in $\Spec\mathbb{Z}[x]$ is the line $x$-axis mod $p$, drawn).
+- **§9 residue-field** (`:1356-1381`): pure prose, no widget. §2's Spec-ℤ widget already shows residue fields by example; a forward-link from §2 or a static table here would tie the two together.
+- **§10 locally-ringed-space** (`:1383-1396`): pure prose, no widget. The `morphisms-fiber-products.html:300` discussion of $t_y \mapsto u t_x^e$ as ramification index is the kind of concrete-feeling paragraph that's missing here.
+- **§11 projective-scheme** (`:1398-1412`): pure prose, no widget. §7 already has the $\mathbb{P}^1$-from-two-charts widget; a Proj-side companion (e.g. clicking a homogeneous prime to see which $D_+(x_i)$ chart it falls in) would mirror the §7 toy.
+- **§13 dimension** (`:1501-1527`): pure prose, no widget. The bullet list at `:1506-1512` is a worked-examples list, which is something — but the §5 specialization-poset is right there and could drive a "longest chain" highlighter.
+- §12 has a static four-panel SVG (`:1422-1426`), which is technically a widget but has no interactivity (the hint literally reads `static example` at `:1423`); compare to the gallery-style chooser in `morphisms-fiber-products.html:645-655` (`#w-imm`) where four similar panels are clickable.
+- §14 also marks itself `static schematic` (`:1539`); same issue.
+
+### KaTeX macros / formatting
+- The `\Spec{}` brace-spacer trick used 12 times (`:396`, `:400`, `:651`, `:654`, `:655`, `:855`, `:864`, `:1349`, `:1350`, `:1402`, `:1416`, `:1419`) is unusual; neither peer file uses it. Cosmetic, but a global s/`\Spec{}`/`\Spec\,`/ would normalize.
+- Helper `<script>` block (`schemes.html:157-183`) is the older 2D stub: it defines `$`, `$$`, `SVG`, `PRIMES`, `factorize`, `gcd`, `mod` — but **not** `ensureArrow`, `drawArrow`, or `drawNode`. Both peers (`sheaves.html:188-251`, `morphisms-fiber-products.html:184-255`) include the canonical `ensureArrow`/`drawArrow`/`drawNode` triple verbatim. AGENTS.md § "Page-global helpers" says "**Copy verbatim** from `category-theory.html` (2D) … do not rewrite." This page does not. Schemes' widgets all draw their own arrows inline (e.g. `:358` raw `<line stroke-dasharray="2 3">`), which is why the page got away with it — but any new widget added to §§8-13 would have to re-implement arrow-drawing. High-priority hygiene drift.
+- Schemes uses an older `:root` palette without `--orange` and without `.ok`/`.bad` classes (`:11-65`). Both peers have `--orange` (commented-in via `notebook.css`) and define `.ok` / `.bad` alongside `.note` (`sheaves.html:79-82`, `morphisms-fiber-products.html:78-81`). The schemes-page `.caution` class (`:54`) is bespoke and nowhere else; the `.ok`/`.bad` standard would do the same job.
+- Widget chrome is correct everywhere it appears: `.widget` / `.hd` / `.ttl` / `.hint` / `.readout` / `.row` / `.note` are all standard. Ad-hoc button classes `.fbtn`, `.pbtn`, `.cbtn` (`:407-410`, `:420-425`, `:662-668`) are scoped to single widgets and styled by the global `button.active` rule, so this is fine.
+
+## Severity
+minor polish — first half is a model topic page; second half is a coverage gap (5 widget-less sections, helper-block stub, stale §7 closing note) rather than a content error.

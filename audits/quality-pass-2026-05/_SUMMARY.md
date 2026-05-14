@@ -17,11 +17,11 @@ notation drift / undefined jargon / tone mismatches / missing worked examples / 
 | Geometry & topology | 26 | 26 | complete |
 | Number theory | 19 | 19 | complete |
 | Modular forms & L-functions | 20 | 20 | complete |
-| Algebraic geometry | 35 | 0 | pending |
+| Algebraic geometry | 35 | 35 | complete |
 | Combinatorics & graph theory | 9 | 0 | pending |
 | Mathematical physics | 11 | 0 | pending |
 | Control theory & optimization | 4 | 0 | pending |
-| **Total** | **190** | **131** | **69%** |
+| **Total** | **190** | **166** | **87%** |
 
 ## Higher categories & toposes — consolidated findings (7/7)
 
