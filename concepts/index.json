@@ -12,22 +12,13 @@
     "conformal-and-cr-geometry",
     "mathematical-biology",
     "spectral-methods-data",
+    "computational-molecular-biology",
 
     "optimal-control-and-dynamic-programming",
     "combinatorial-optimization",
     "mathematical-finance",
     "donaldson-thomas-and-gw-invariants",
     "positive-characteristic-ag",
-
-
-
-
-
-
-
-
-
-
 
     "convex-optimization",
 
@@ -409,6 +400,7 @@
     "convex-optimization": "advanced",
     "mathematical-finance": "advanced",
     "donaldson-thomas-and-gw-invariants": "advanced",
-    "positive-characteristic-ag": "advanced"
+    "positive-characteristic-ag": "advanced",
+    "computational-molecular-biology": "advanced"
   }
 }

@@ -2374,6 +2374,153 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "cmb-w1",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "interactive",
+    "title": "cmb-w1 widget params",
+    "description": "Bespoke verbatim-renderer slug for one widget on the computational-molecular-biology topic. Carries opaque bodyMarkup + bodyScript strings; uses the shared verbatim renderer (widgets/_shared/verbatim-renderer.mjs).",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Cmb w1 widget — scaffolded stub. Replace this paragraph with a short description of what the widget does, which topic page first introduced it, and whether it's a bespoke module or part of a shared family.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "cmb-w2",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "interactive",
+    "title": "cmb-w2 widget params",
+    "description": "Bespoke verbatim-renderer slug for one widget on the computational-molecular-biology topic. Carries opaque bodyMarkup + bodyScript strings; uses the shared verbatim renderer (widgets/_shared/verbatim-renderer.mjs).",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Cmb w2 widget — scaffolded stub. Replace this paragraph with a short description of what the widget does, which topic page first introduced it, and whether it's a bespoke module or part of a shared family.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "cmb-w3",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "interactive",
+    "title": "cmb-w3 widget params",
+    "description": "Bespoke verbatim-renderer slug for one widget on the computational-molecular-biology topic. Carries opaque bodyMarkup + bodyScript strings; uses the shared verbatim renderer (widgets/_shared/verbatim-renderer.mjs).",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Cmb w3 widget — scaffolded stub. Replace this paragraph with a short description of what the widget does, which topic page first introduced it, and whether it's a bespoke module or part of a shared family.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "cmb-w4",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "interactive",
+    "title": "cmb-w4 widget params",
+    "description": "Bespoke verbatim-renderer slug for one widget on the computational-molecular-biology topic. Carries opaque bodyMarkup + bodyScript strings; uses the shared verbatim renderer (widgets/_shared/verbatim-renderer.mjs).",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Cmb w4 widget — scaffolded stub. Replace this paragraph with a short description of what the widget does, which topic page first introduced it, and whether it's a bespoke module or part of a shared family.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "cmb-w5",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "interactive",
+    "title": "cmb-w5 widget params",
+    "description": "Bespoke verbatim-renderer slug for one widget on the computational-molecular-biology topic. Carries opaque bodyMarkup + bodyScript strings; uses the shared verbatim renderer (widgets/_shared/verbatim-renderer.mjs).",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Cmb w5 widget — scaffolded stub. Replace this paragraph with a short description of what the widget does, which topic page first introduced it, and whether it's a bespoke module or part of a shared family.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "cmb-w6",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "interactive",
+    "title": "cmb-w6 widget params",
+    "description": "Bespoke verbatim-renderer slug for one widget on the computational-molecular-biology topic. Carries opaque bodyMarkup + bodyScript strings; uses the shared verbatim renderer (widgets/_shared/verbatim-renderer.mjs).",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Cmb w6 widget — scaffolded stub. Replace this paragraph with a short description of what the widget does, which topic page first introduced it, and whether it's a bespoke module or part of a shared family.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "cmb-w7",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "interactive",
+    "title": "cmb-w7 widget params",
+    "description": "Bespoke verbatim-renderer slug for one widget on the computational-molecular-biology topic. Carries opaque bodyMarkup + bodyScript strings; uses the shared verbatim renderer (widgets/_shared/verbatim-renderer.mjs).",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Cmb w7 widget — scaffolded stub. Replace this paragraph with a short description of what the widget does, which topic page first introduced it, and whether it's a bespoke module or part of a shared family.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "cnt-bu",
     "family": "verbatim",
     "dimension": "2d",

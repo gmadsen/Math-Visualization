@@ -101,7 +101,8 @@
         "high-dimensional-geometry",
         "random-matrix-theory",
         "mathematical-biology",
-        "spectral-methods-data"
+        "spectral-methods-data",
+        "computational-molecular-biology"
       ],
       "color": "g"
     },

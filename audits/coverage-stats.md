@@ -2,12 +2,12 @@
 
 ## Corpus totals
 
-- Topics: **186**, concepts: **1292**
-- Widgets: **1320** (registry-driven: 1320, inline: 0)
-- Quizzes: **5070** (v1: 3834, hard: 1223, expert: 13)
-- Quiz types: mcq: 3323, numeric: 1215, multi-select: 239, matching: 106, ordering: 81, spot-the-error: 52, complex: 29, proof-completion: 21, construction: 2, guess-my-rule: 2
+- Topics: **187**, concepts: **1299**
+- Widgets: **1327** (registry-driven: 1327, inline: 0)
+- Quizzes: **5091** (v1: 3855, hard: 1223, expert: 13)
+- Quiz types: mcq: 3333, numeric: 1222, multi-select: 242, matching: 106, ordering: 81, spot-the-error: 53, complex: 29, proof-completion: 21, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their section: **149**
-- Concepts lacking a hard-tier quiz: **854**
+- Concepts lacking a hard-tier quiz: **861**
 
 ## Per-slug registry adoption
 
@@ -140,6 +140,13 @@ page has wired one in yet.
 | `cm-snake` | verbatim | click | 2d | 1 | condensed-mathematics |
 | `cm-solid-test` | verbatim | click | 2d | 1 | condensed-mathematics |
 | `cm-yoneda` | verbatim | click | 2d | 1 | condensed-mathematics |
+| `cmb-w1` | verbatim | slider | 2d | 1 | computational-molecular-biology |
+| `cmb-w2` | verbatim | slider | 2d | 1 | computational-molecular-biology |
+| `cmb-w3` | verbatim | slider | 2d | 1 | computational-molecular-biology |
+| `cmb-w4` | verbatim | slider | 2d | 1 | computational-molecular-biology |
+| `cmb-w5` | verbatim | slider | 2d | 1 | computational-molecular-biology |
+| `cmb-w6` | verbatim | slider | 2d | 1 | computational-molecular-biology |
+| `cmb-w7` | verbatim | slider | 2d | 1 | computational-molecular-biology |
 | `cnt-bu` | verbatim | click | 2d | 1 | computational-number-theory |
 | `cnt-exp` | verbatim | input | 2d | 1 | computational-number-theory |
 | `cnt-lll` | verbatim | slider | 2d | 1 | computational-number-theory |
@@ -910,13 +917,13 @@ page has wired one in yet.
 
 ### Probability & statistics
 
-- Topics: **11**, concepts: **76**
-- Widgets: **72** (registry-driven: 72, inline: 0)
-  - by family: verbatim: 21, button-stepper: 10, ms-bias-variance: 1, ms-likelihood-curve: 1, ms-crlb-envelope: 1, ms-neyman-pearson: 1, ms-beta-posterior: 1, ms-wilks-theorem: 1, hdg-sphere-concentration-band: 1, hdg-dvoretzky-section: 1, hdg-jl-distortion-histogram: 1, hdg-talagrand-deviation: 1, hdg-isoperimetry-tail: 1, hdg-marchenko-pastur: 1, stoch-proc-filtration-stopping: 1, stoch-proc-random-walk-martingale: 1, stoch-proc-gamblers-ruin: 1, stoch-proc-doob-decomposition: 1, stoch-proc-convergence-regimes: 1, stoch-proc-brownian-quadratic-variation: 1, stochastic-calc-ito-riemann-sums: 1, stochastic-calc-ito-formula-bsq: 1, stochastic-calc-geometric-brownian-motion: 1, stochastic-calc-girsanov-density: 1, stochastic-calc-feynman-kac-heat: 1, stochastic-calc-binomial-black-scholes: 1, random-walks-graph-step: 1, random-walks-matrix-power: 1, random-walks-tv-distance: 1, random-walks-eigenvalue-inspector: 1, random-walks-cycle-coupling: 1, random-walks-metropolis-hastings: 1, information-entropy: 1, information-mutual-info-venn: 1, information-kl-simplex: 1, information-huffman-builder: 1, information-bsc-capacity: 1, information-rate-distortion: 1, large-dev-cramer-tilt: 1, large-dev-rate-gallery: 1, large-dev-sanov-kl: 1, large-dev-gartner-ar1: 1, large-dev-schilder-paths: 1
-  - by dimension: 2d: 72
-  - by gesture: slider: 41, click: 23, step: 5, button: 2, toggle: 1
-- Quizzes: **265** (v1: 228, hard: 24, expert: 13)
-  - by type: mcq: 169, numeric: 68, multi-select: 10, ordering: 5, matching: 5, spot-the-error: 3, proof-completion: 3, construction: 1, complex: 1
+- Topics: **12**, concepts: **83**
+- Widgets: **79** (registry-driven: 79, inline: 0)
+  - by family: verbatim: 28, button-stepper: 10, ms-bias-variance: 1, ms-likelihood-curve: 1, ms-crlb-envelope: 1, ms-neyman-pearson: 1, ms-beta-posterior: 1, ms-wilks-theorem: 1, hdg-sphere-concentration-band: 1, hdg-dvoretzky-section: 1, hdg-jl-distortion-histogram: 1, hdg-talagrand-deviation: 1, hdg-isoperimetry-tail: 1, hdg-marchenko-pastur: 1, stoch-proc-filtration-stopping: 1, stoch-proc-random-walk-martingale: 1, stoch-proc-gamblers-ruin: 1, stoch-proc-doob-decomposition: 1, stoch-proc-convergence-regimes: 1, stoch-proc-brownian-quadratic-variation: 1, stochastic-calc-ito-riemann-sums: 1, stochastic-calc-ito-formula-bsq: 1, stochastic-calc-geometric-brownian-motion: 1, stochastic-calc-girsanov-density: 1, stochastic-calc-feynman-kac-heat: 1, stochastic-calc-binomial-black-scholes: 1, random-walks-graph-step: 1, random-walks-matrix-power: 1, random-walks-tv-distance: 1, random-walks-eigenvalue-inspector: 1, random-walks-cycle-coupling: 1, random-walks-metropolis-hastings: 1, information-entropy: 1, information-mutual-info-venn: 1, information-kl-simplex: 1, information-huffman-builder: 1, information-bsc-capacity: 1, information-rate-distortion: 1, large-dev-cramer-tilt: 1, large-dev-rate-gallery: 1, large-dev-sanov-kl: 1, large-dev-gartner-ar1: 1, large-dev-schilder-paths: 1
+  - by dimension: 2d: 79
+  - by gesture: slider: 48, click: 23, step: 5, button: 2, toggle: 1
+- Quizzes: **286** (v1: 249, hard: 24, expert: 13)
+  - by type: mcq: 178, numeric: 75, multi-select: 13, ordering: 5, matching: 5, spot-the-error: 5, proof-completion: 3, construction: 1, complex: 1
 
 ### Geometry & topology
 
@@ -986,7 +993,7 @@ page has wired one in yet.
   - by dimension: 2d: 29
   - by gesture: slider: 19, click: 6, select: 2, scrub: 1, edit: 1
 - Quizzes: **84** (v1: 84, hard: 0, expert: 0)
-  - by type: mcq: 53, numeric: 16, multi-select: 6, matching: 4, spot-the-error: 3, ordering: 2
+  - by type: mcq: 54, numeric: 16, multi-select: 6, matching: 4, spot-the-error: 2, ordering: 2
 
 ## Per-topic
 
@@ -998,6 +1005,7 @@ page has wired one in yet.
 - `conformal-and-cr-geometry` (Analysis) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
 - `mathematical-biology` (Probability & statistics) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
 - `spectral-methods-data` (Probability & statistics) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
+- `computational-molecular-biology` (Probability & statistics) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
 - `optimal-control-and-dynamic-programming` (Control theory & optimization) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
 - `combinatorial-optimization` (Control theory & optimization) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
 - `mathematical-finance` (Control theory & optimization) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)

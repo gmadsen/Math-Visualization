@@ -12,6 +12,7 @@ window.__MVConcepts = {
       "conformal-and-cr-geometry",
       "mathematical-biology",
       "spectral-methods-data",
+      "computational-molecular-biology",
       "optimal-control-and-dynamic-programming",
       "combinatorial-optimization",
       "mathematical-finance",
@@ -396,7 +397,8 @@ window.__MVConcepts = {
       "convex-optimization": "advanced",
       "mathematical-finance": "advanced",
       "donaldson-thomas-and-gw-invariants": "advanced",
-      "positive-characteristic-ag": "advanced"
+      "positive-characteristic-ag": "advanced",
+      "computational-molecular-biology": "advanced"
     }
   },
   "topics": {
@@ -1214,6 +1216,106 @@ window.__MVConcepts = {
           "blurb": "Pick $m\\ll n$ landmarks; approximate the full kernel matrix $K\\approx K_{nm}K_{mm}^{+}K_{nm}^{T}$. Storage $O(nm)$ instead of $O(n^{2})$; eigenvectors extend out-of-sample. With leverage-score sampling, $m=O(k\\log k/\\varepsilon^{2})$ landmarks suffice for relative-$\\varepsilon$ top-$k$ recovery.",
           "tags": [
             "foundation"
+          ]
+        }
+      ]
+    },
+    "computational-molecular-biology": {
+      "topic": "computational-molecular-biology",
+      "title": "Computational molecular biology",
+      "page": "computational-molecular-biology.html",
+      "concepts": [
+        {
+          "id": "cmb-sequence-alignment",
+          "title": "Sequence alignment by dynamic programming",
+          "anchor": "alignment",
+          "prereqs": [
+            "markov-chains"
+          ],
+          "blurb": "Score the best edit-path between two sequences $x\\in\\Sigma^n,\\,y\\in\\Sigma^m$ by filling an $(n{+}1)\\times(m{+}1)$ table $H$ from the recurrence $H_{ij}=\\max(H_{i-1,j-1}+s(x_i,y_j),\\,H_{i-1,j}-g,\\,H_{i,j-1}-g)$ — global (Needleman–Wunsch) starts at $H_{00}=0$ and reads the answer at $H_{nm}$; local (Smith–Waterman) clamps negatives to zero and reads the maximum. The substitution matrix $s$ (BLOSUM62, PAM) is the data-driven choice that turns the algorithm into biology.",
+          "tags": [
+            "foundation",
+            "completion"
+          ]
+        },
+        {
+          "id": "cmb-bwt-fm-index",
+          "title": "Suffix arrays, BWT, and the FM-index",
+          "anchor": "bwt",
+          "prereqs": [
+            "cmb-sequence-alignment"
+          ],
+          "blurb": "Sort every cyclic rotation of $T\\$$ lexicographically; the last column $\\mathrm{BWT}(T)$ groups equal characters together and is invertible from the rank function $C$ and the LF-mapping $\\mathrm{LF}(i)=C[\\mathrm{BWT}[i]]+\\mathrm{rank}_{\\mathrm{BWT}[i]}(i)$. The FM-index stores BWT plus a few rank tables in $O(n)$ bits and answers exact-match queries on a pattern of length $m$ in $O(m)$ time — the read-aligner backbone of Bowtie and BWA.",
+          "tags": [
+            "completion",
+            "duality"
+          ]
+        },
+        {
+          "id": "cmb-hmm-viterbi",
+          "title": "Hidden Markov models and Viterbi",
+          "anchor": "hmm",
+          "prereqs": [
+            "markov-chains",
+            "random-variables"
+          ],
+          "blurb": "A hidden state chain $Z_1,\\dots,Z_T$ on a finite alphabet emits observations $X_t\\sim P(\\cdot\\mid Z_t)$. The Viterbi recurrence $\\delta_t(z)=\\max_{z'}\\delta_{t-1}(z')\\,a_{z'z}\\,e_z(X_t)$ computes the maximum-likelihood hidden path in $O(TK^2)$. Forward/backward yields posteriors $P(Z_t\\mid X_{1:T})$, and Baum–Welch is the EM that fits $(a,e)$ to data — together they power gene finders, profile HMMs (PFAM), and the speech-recognition canon.",
+          "tags": [
+            "foundation",
+            "duality"
+          ]
+        },
+        {
+          "id": "cmb-phylogeny-felsenstein",
+          "title": "Phylogenetic inference and Felsenstein pruning",
+          "anchor": "phylogeny",
+          "prereqs": [
+            "cmb-hmm-viterbi",
+            "conditional-bayes"
+          ],
+          "blurb": "A phylogenetic tree is a labelled binary tree carrying a continuous-time Markov substitution model (Jukes–Cantor, Kimura, HKY) along its branches. Felsenstein's pruning algorithm post-orders the tree and computes the partial likelihood $L_v(s)=\\prod_{c\\in\\mathrm{children}(v)}\\sum_t P_{st}(\\ell_{vc})\\,L_c(t)$, giving $P(\\mathrm{alignment}\\mid\\mathrm{tree})$ in time linear in the number of taxa. Distance methods (UPGMA, neighbor-joining) are fast heuristics; Bayesian MCMC samples from the posterior on tree-space.",
+          "tags": [
+            "completion",
+            "duality"
+          ]
+        },
+        {
+          "id": "cmb-coalescent-inference",
+          "title": "The coalescent in population inference",
+          "anchor": "coalescent-inference",
+          "prereqs": [
+            "mb-coalescent"
+          ],
+          "blurb": "Kingman's coalescent gives a closed-form prior on genealogies: while $k$ lineages remain, the next coalescence is exponential with rate $\\binom{k}{2}/(2N_e)$, so $\\mathbb{E}[T_{\\mathrm{MRCA}}]=2(1-1/n)$ in units of $2N_e$. Watterson's estimator $\\hat\\theta=S/H_{n-1}$ converts segregating-site count to $\\theta=4N_e\\mu$; Tajima's $D=(\\hat\\pi-\\hat\\theta)/\\mathrm{sd}$ tests whether the site-frequency spectrum matches neutrality; $F_{ST}$ partitions variance between subpopulations.",
+          "tags": [
+            "completion",
+            "classification"
+          ]
+        },
+        {
+          "id": "cmb-rna-folding",
+          "title": "RNA secondary structure by energy minimisation",
+          "anchor": "rna",
+          "prereqs": [
+            "cmb-sequence-alignment"
+          ],
+          "blurb": "A pseudoknot-free secondary structure is a non-crossing matching on the bases of an RNA strand; Nussinov maximises pair count, $W_{ij}=\\max(W_{i+1,j},\\,W_{i,j-1},\\,W_{i+1,j-1}+\\delta(x_i,x_j),\\,\\max_{i<k<j}W_{ik}+W_{k+1,j})$, in $O(n^3)$. Zuker's algorithm minimises a Turner free energy summed over stacked-pair, hairpin, internal-loop, and multi-loop terms. McCaskill's partition function $Z=\\sum_S e^{-E(S)/RT}$ replaces max with sum and yields base-pair probabilities.",
+          "tags": [
+            "completion"
+          ]
+        },
+        {
+          "id": "cmb-protein-contacts",
+          "title": "Protein contact maps and coevolution",
+          "anchor": "protein",
+          "prereqs": [
+            "cmb-phylogeny-felsenstein",
+            "it-mutual-information"
+          ],
+          "blurb": "A protein's $L\\times L$ contact map records which residue pairs lie within $\\sim 8$ Å in the folded structure. Co-evolving columns of a deep multiple sequence alignment betray such contacts: direct coupling analysis fits a Potts model $P(x)\\propto\\exp(\\sum h_i(x_i)+\\sum J_{ij}(x_i,x_j))$ by pseudo-likelihood and reads contacts off $\\|J_{ij}\\|$. The Anfinsen hypothesis frames folding as free-energy minimisation; AlphaFold turns the coevolution signal plus geometric priors into atomic structures.",
+          "tags": [
+            "duality",
+            "completion"
           ]
         }
       ]
@@ -19170,7 +19272,8 @@ window.__MVConcepts = {
           "high-dimensional-geometry",
           "random-matrix-theory",
           "mathematical-biology",
-          "spectral-methods-data"
+          "spectral-methods-data",
+          "computational-molecular-biology"
         ],
         "color": "g"
       },
@@ -19640,7 +19743,8 @@ window.__MVConcepts = {
     "convex-optimization": "advanced",
     "mathematical-finance": "advanced",
     "donaldson-thomas-and-gw-invariants": "advanced",
-    "positive-characteristic-ag": "advanced"
+    "positive-characteristic-ag": "advanced",
+    "computational-molecular-biology": "advanced"
   },
   "newArc": [
     "elementary-topos-theory",
@@ -19689,11 +19793,11 @@ window.__MVConcepts = {
       "density": 0.17647058823529413
     },
     "Probability & statistics": {
-      "concepts": 76,
-      "intra": 124,
+      "concepts": 83,
+      "intra": 134,
       "crossOut": 23,
       "crossIn": 22,
-      "density": 0.3026315789473684
+      "density": 0.27710843373493976
     },
     "Geometry & topology": {
       "concepts": 153,
