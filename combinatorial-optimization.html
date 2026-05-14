@@ -644,7 +644,7 @@ function drawNode(svg, x, y, label, opts={}){
     const r = residualBFS();
     if(!r){ out.textContent = `No augmenting path. Max flow = ${flowVal()}.  Click "show min cut" for the witness.`; return; }
     for(const p of r.path){
-      p.e.flow += r.dir!==undefined && p.dir<0 ? -r.bottleneck : r.bottleneck;
+      p.e.flow += p.dir<0 ? -r.bottleneck : r.bottleneck;
     }
     showCut=false;
     draw();
@@ -659,10 +659,10 @@ function drawNode(svg, x, y, label, opts={}){
       const r = residualBFS();
       if(!r) break;
       for(const p of r.path){
-        p.e.flow += r.dir!==undefined && p.dir<0 ? -r.bottleneck : r.bottleneck;
+        p.e.flow += p.dir<0 ? -r.bottleneck : r.bottleneck;
       }
       autoSteps++;
-      if(autoSteps > 1000) break; /* safety guard for the small fixed graph */
+      if(autoSteps > 1000){ out.textContent = 'Auto-augment safety cap (1000 steps) hit before the residual was exhausted; the cut below is NOT certified minimum. Please file a bug.'; return; }
     }
     /* reachable set in residual from s */
     const adj = {}; for(const u of V) adj[u]=[];
@@ -844,7 +844,7 @@ function drawNode(svg, x, y, label, opts={}){
       augmentStep();
       if(M.size === before) break;
       autoSteps++;
-      if(autoSteps > 1000) break; /* safety guard */
+      if(autoSteps > 1000){ out.textContent = 'Auto-augment safety cap (1000 steps) hit before maximum matching was reached; the cover below is NOT certified minimum. Please file a bug.'; return; }
     }
     /* König: from the residual reachability, compute min vertex cover.
        Z = unmatched-left ∪ {reachable via alt paths}.  Cover = (L\Z) ∪ (R∩Z).
