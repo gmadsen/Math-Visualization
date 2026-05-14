@@ -13,7 +13,7 @@ notation drift / undefined jargon / tone mismatches / missing worked examples / 
 | Algebra & homological | 17 | 17 | complete |
 | Higher categories & toposes | 7 | 7 | complete |
 | Analysis | 22 | 22 | complete |
-| Probability & statistics | 12 | 0 | pending |
+| Probability & statistics | 12 | 12 | complete |
 | Geometry & topology | 26 | 0 | pending |
 | Number theory | 19 | 0 | pending |
 | Modular forms & L-functions | 20 | 0 | pending |
@@ -21,7 +21,7 @@ notation drift / undefined jargon / tone mismatches / missing worked examples / 
 | Combinatorics & graph theory | 9 | 0 | pending |
 | Mathematical physics | 11 | 0 | pending |
 | Control theory & optimization | 4 | 0 | pending |
-| **Total** | **190** | **54** | **28%** |
+| **Total** | **190** | **66** | **35%** |
 
 ## Higher categories & toposes — consolidated findings (7/7)
 
