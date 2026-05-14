@@ -376,8 +376,12 @@
     function pointerToYear(e){
       const rect = svg.getBoundingClientRect();
       const xCss = e.clientX - rect.left;
-      // SVG viewBox is VIEW_W wide rendered into rect.width css pixels
-      const xSvg = xCss * (VIEW_W / rect.width);
+      // SVG viewBox is `vbX 0 (VIEW_W / zScale) VIEW_H` when zoomed; we
+      // map CSS px to viewBox px through the *current* viewBox width and
+      // offset, not the unzoomed VIEW_W — otherwise dragging the scrubber
+      // while zoomed jumps to the wrong year.
+      const wVb = VIEW_W / zScale;
+      const xSvg = vbX + xCss * (wVb / rect.width);
       return xToYear(xSvg);
     }
     scrubGrip.addEventListener('pointerdown', e => {
@@ -443,8 +447,13 @@
     });
 
     // ===== state =====
+    // filterMode decouples "filter active with zero chips" from "filter
+    // off" — without this flag, clicking the last active chip silently
+    // reverts to the show-everything default, which the user doesn't want.
+    // "All eras" is the only path back to filterMode=false.
     const state = {
-      activeEras: new Set(),  // empty = all visible
+      activeEras: new Set(),  // chips currently lit
+      filterMode: false,      // explicit filter-on flag
       query: '',
       selectedIdx: -1,
       _renderedIdx: -2          // track last selectedIdx the detail was rendered for
@@ -496,7 +505,10 @@
 
     function applyState(){
       const q = state.query.trim().toLowerCase();
-      const filterActive = state.activeEras.size > 0;
+      // filterActive is driven by the explicit filterMode flag — so an
+      // empty activeEras set in filterMode renders every dot as `.dim`,
+      // matching the user's "no era selected = everything shaded" model.
+      const filterActive = state.filterMode;
       events.forEach((ev, i) => {
         const dot = dotNodes[i];
         let visible = !filterActive || state.activeEras.has(ev.era);
@@ -542,8 +554,9 @@
         c.classList.toggle('active', on);
         c.setAttribute('aria-pressed', on ? 'true' : 'false');
       });
-      allBtn.classList.toggle('active', state.activeEras.size === 0);
-      allBtn.setAttribute('aria-pressed', state.activeEras.size === 0 ? 'true' : 'false');
+      const allOn = !state.filterMode;
+      allBtn.classList.toggle('active', allOn);
+      allBtn.setAttribute('aria-pressed', allOn ? 'true' : 'false');
       renderDetail();
     }
 
@@ -583,11 +596,15 @@
       c.addEventListener('click', () => {
         if(state.activeEras.has(id)) state.activeEras.delete(id);
         else state.activeEras.add(id);
+        // Entering filter mode stays sticky: dropping the last chip
+        // leaves every dot dimmed rather than reverting to default.
+        state.filterMode = true;
         applyState();
       });
     });
     allBtn.addEventListener('click', () => {
       state.activeEras.clear();
+      state.filterMode = false;
       applyState();
     });
     search.addEventListener('input', () => {
