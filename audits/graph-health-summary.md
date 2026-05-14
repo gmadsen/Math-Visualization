@@ -2,23 +2,23 @@
 
 - Total concepts: **1292**
 - Total prereq edges: **2373**
-- Implicit prereq candidates (total across all concepts): **528**
+- Implicit prereq candidates (total across all concepts): **524**
 - Multi-topic candidates (title appears in prose of ≥ 3 other topics): **54**
-- Atomicity-split candidates (blurb ≥ 3 sentences AND > 200 chars): **366**
+- Atomicity-split candidates (blurb ≥ 3 sentences AND > 200 chars): **370**
 - Dangling proper-noun phrases (in ≥ 2 topics, no matching concept): **90**
 - Orphan concepts (zero edges in or out): **1**
 
 ## Decision framework
 
-- ✅ **implicit_prereqs ≥ 200** (528): edge enrichment first. The existing graph has too many missing dependencies to benefit from restructuring.
+- ✅ **implicit_prereqs ≥ 200** (524): edge enrichment first. The existing graph has too many missing dependencies to benefit from restructuring.
 - ✅ **dangling_terms ≥ 50** (90): add nodes before restructuring. The graph has identifiable gaps — proper-noun phrases that recur across topics without being defined as concepts.
 
 ## Top 15 multi-topic candidates
 
-- `compactness` (point-set-topology) — title appears in prose of **20** other topics
-- `w-applications` (wavelets) — title appears in prose of **18** other topics
-- `hdg-applications` (high-dimensional-geometry) — title appears in prose of **17** other topics
-- `e-applications` (expanders) — title appears in prose of **17** other topics
+- `compactness` (point-set-topology) — title appears in prose of **19** other topics
+- `w-applications` (wavelets) — title appears in prose of **17** other topics
+- `hdg-applications` (high-dimensional-geometry) — title appears in prose of **16** other topics
+- `e-applications` (expanders) — title appears in prose of **16** other topics
 - `completion-ca` (commutative-algebra) — title appears in prose of **16** other topics
 - `fundamental-group` (algebraic-topology) — title appears in prose of **15** other topics
 - `open-sets` (point-set-topology) — title appears in prose of **14** other topics
@@ -66,11 +66,11 @@
 - "The Gaussian" — in **4** topics
 - "The Lie" — in **4** topics
 - "Mac Lane" — in **4** topics
+- "The Frobenius" — in **3** topics
 - "The PDE" — in **3** topics
 - "The Hilbert" — in **3** topics
 - "By Cartan" — in **3** topics
 - "Every Riemann" — in **3** topics
-- "The Jacobi" — in **3** topics
 
 ## Top 10 atomicity-split candidates
 
@@ -102,6 +102,7 @@ Compact roll-up of the rows above. Bucket: 🟢 healthy (no implicit flags, ≤1
 | `cohomology-and-duality` | 6 | 1 | 0 | 12 | 1 | 🔴 |
 | `commutative-algebra` | 16 | 5 | 0 | 3 | 1 | 🔴 |
 | `complex-analysis` | 27 | 4 | 0 | 18 | 7 | 🔴 |
+| `computational-molecular-biology` | 7 | 4 | 0 | 0 | 0 | 🔴 |
 | `condensed-mathematics` | 6 | 2 | 0 | 10 | 0 | 🔴 |
 | `conformal-and-cr-geometry` | 7 | 2 | 0 | 6 | 0 | 🔴 |
 | `d-modules` | 6 | 2 | 0 | 8 | 0 | 🔴 |
@@ -125,7 +126,6 @@ Compact roll-up of the rows above. Bucket: 🟢 healthy (no implicit flags, ≤1
 | `knot-polynomials` | 8 | 1 | 0 | 7 | 1 | 🔴 |
 | `L-functions` | 5 | 0 | 0 | 6 | 0 | 🔴 |
 | `large-deviations` | 5 | 1 | 0 | 7 | 0 | 🔴 |
-| `mathematical-biology` | 7 | 4 | 0 | 1 | 0 | 🔴 |
 | `measure-theory` | 12 | 3 | 0 | 5 | 2 | 🔴 |
 | `motives` | 8 | 1 | 0 | 6 | 0 | 🔴 |
 | `operator-algebras` | 12 | 4 | 0 | 8 | 0 | 🔴 |
@@ -163,7 +163,6 @@ Compact roll-up of the rows above. Bucket: 🟢 healthy (no implicit flags, ≤1
 | `computability-and-decidability` | 6 | 2 | 0 | 1 | 0 | 🟡 |
 | `computational-number-theory` | 6 | 3 | 0 | 0 | 0 | 🟡 |
 | `continued-fractions` | 6 | 2 | 0 | 2 | 0 | 🟡 |
-| `convex-geometry` | 7 | 3 | 0 | 4 | 0 | 🟡 |
 | `crystalline-cohomology` | 6 | 1 | 0 | 1 | 0 | 🟡 |
 | `deformation-theory` | 6 | 2 | 0 | 2 | 0 | 🟡 |
 | `derived-categories` | 7 | 1 | 0 | 3 | 0 | 🟡 |
@@ -195,7 +194,7 @@ Compact roll-up of the rows above. Bucket: 🟢 healthy (no implicit flags, ≤1
 | `hecke-operators` | 5 | 0 | 0 | 1 | 0 | 🟡 |
 | `heegaard-floer` | 7 | 3 | 0 | 1 | 0 | 🟡 |
 | `heyting-algebras-toposes` | 6 | 2 | 0 | 1 | 0 | 🟡 |
-| `high-dimensional-geometry` | 6 | 2 | 0 | 2 | 1 | 🟡 |
+| `high-dimensional-geometry` | 6 | 3 | 0 | 2 | 1 | 🟡 |
 | `hodge-theory` | 8 | 2 | 0 | 2 | 0 | 🟡 |
 | `information-theory` | 8 | 3 | 0 | 3 | 0 | 🟡 |
 | `iwasawa-theory` | 6 | 1 | 0 | 2 | 0 | 🟡 |
@@ -207,6 +206,7 @@ Compact roll-up of the rows above. Bucket: 🟢 healthy (no implicit flags, ≤1
 | `lie-groups` | 7 | 1 | 0 | 1 | 0 | 🟡 |
 | `maass-forms` | 6 | 3 | 0 | 4 | 0 | 🟡 |
 | `mapping-class-groups` | 6 | 2 | 0 | 2 | 0 | 🟡 |
+| `mathematical-biology` | 7 | 3 | 0 | 1 | 0 | 🟡 |
 | `mathematical-finance` | 7 | 3 | 0 | 3 | 0 | 🟡 |
 | `mathematical-statistics` | 6 | 3 | 0 | 1 | 0 | 🟡 |
 | `mathematics-and-cryptography` | 6 | 2 | 0 | 0 | 0 | 🟡 |

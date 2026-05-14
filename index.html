@@ -629,9 +629,9 @@
     <h1>Interactive Mathematics Notebook</h1>
     <p class="sub">Interactive concepts across mathematics — from foundations to research-level topics — each a single-page explainer with live widgets and worked examples.</p>
     <div class="hero-tagline" aria-label="Notebook scope">
-      <span><span class="tg-num">186</span> topics</span>
+      <span><span class="tg-num">188</span> topics</span>
       <span class="dot">&middot;</span>
-      <span><span class="tg-num">1292</span> concepts</span>
+      <span><span class="tg-num">1306</span> concepts</span>
       <span class="dot">&middot;</span>
       <span>pathway-graph explorer</span>
     </div>
@@ -2087,6 +2087,44 @@
       </div>
     </a>
 
+
+    <a class="card c" href="./computational-molecular-biology.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <!-- Needleman–Wunsch traceback motif: a small DP grid with a diagonal traceback arrow. -->
+        <g stroke="var(--cyan)" stroke-width="0.7" fill="none" opacity="0.45">
+          <line x1="18" y1="14" x2="82" y2="14"/>
+          <line x1="18" y1="26" x2="82" y2="26"/>
+          <line x1="18" y1="38" x2="82" y2="38"/>
+          <line x1="18" y1="50" x2="82" y2="50"/>
+          <line x1="18" y1="62" x2="82" y2="62"/>
+          <line x1="18" y1="14" x2="18" y2="62"/>
+          <line x1="34" y1="14" x2="34" y2="62"/>
+          <line x1="50" y1="14" x2="50" y2="62"/>
+          <line x1="66" y1="14" x2="66" y2="62"/>
+          <line x1="82" y1="14" x2="82" y2="62"/>
+        </g>
+        <circle cx="26" cy="20" r="2.2" fill="var(--yellow)"/>
+        <circle cx="42" cy="32" r="2.2" fill="var(--yellow)"/>
+        <circle cx="58" cy="44" r="2.2" fill="var(--yellow)"/>
+        <circle cx="74" cy="56" r="2.2" fill="var(--yellow)"/>
+        <path d="M 24 18 L 76 58" stroke="var(--cyan)" stroke-width="1.4" fill="none" marker-end="url(#cmb-arr)"/>
+        <defs><marker id="cmb-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--cyan)"/></marker></defs>
+        <text x="11" y="20" font-size="6.5" fill="var(--mute)" font-family="ui-monospace,monospace">G</text>
+        <text x="11" y="32" font-size="6.5" fill="var(--mute)" font-family="ui-monospace,monospace">A</text>
+        <text x="11" y="44" font-size="6.5" fill="var(--mute)" font-family="ui-monospace,monospace">T</text>
+        <text x="11" y="56" font-size="6.5" fill="var(--mute)" font-family="ui-monospace,monospace">A</text>
+        <text x="26" y="10" font-size="6.5" fill="var(--mute)" font-family="ui-monospace,monospace" text-anchor="middle">G</text>
+        <text x="42" y="10" font-size="6.5" fill="var(--mute)" font-family="ui-monospace,monospace" text-anchor="middle">A</text>
+        <text x="58" y="10" font-size="6.5" fill="var(--mute)" font-family="ui-monospace,monospace" text-anchor="middle">T</text>
+        <text x="74" y="10" font-size="6.5" fill="var(--mute)" font-family="ui-monospace,monospace" text-anchor="middle">C</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Computational molecular biology</div>
+        <div class="desc">DNA, RNA, and protein sequences as discrete objects: alignment via dynamic programming, search via the Burrows–Wheeler transform, evolution via HMMs and phylogenetic inference, and structure via energy-minimisation combinatorics.</div>
+        <span class="tag">alignment · BWT · HMM · phylogeny</span>
+      </div>
+    </a>
+
   </div>
 
   <div class="sec">Geometry &amp; topology</div>
@@ -2659,23 +2697,17 @@
       </div>
     </a>
 
-
     <a class="card v" href="./convex-geometry.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <!-- Motif: a convex body K (violet hexagon) overlaid with its polar dual K° (cyan, rotated)
-             interlocking through the origin — the K ↔ K° involution at the heart of the topic. -->
-        <polygon points="20,40 35,18 60,18 75,40 60,62 35,62" fill="none" stroke="var(--violet)" stroke-width="1.4"/>
-        <polygon points="50,16 76,32 76,48 50,64 24,48 24,32" fill="none" stroke="var(--cyan)" stroke-width="1.2" stroke-dasharray="3,2" opacity="0.85"/>
-        <circle cx="50" cy="40" r="2.2" fill="var(--ink)"/>
-        <g stroke="var(--yellow)" stroke-width="0.8" fill="none" opacity="0.7">
-          <line x1="50" y1="40" x2="60" y2="18"/>
-          <line x1="50" y1="40" x2="75" y2="40"/>
-        </g>
+        <!-- Convex body with support hyperplane (Hahn–Banach) motif. -->
+        <path d="M 22 56 C 22 30, 38 18, 56 22 C 74 26, 80 42, 76 56 C 72 70, 38 70, 22 56 Z" fill="none" stroke="var(--violet)" stroke-width="1.4"/>
+        <line x1="14" y1="64" x2="86" y2="42" stroke="var(--cyan)" stroke-width="1" stroke-dasharray="3 2"/>
+        <circle cx="56" cy="52" r="2" fill="var(--pink)"/>
       </svg></div>
       <div class="body">
-        <div class="tt">Convex geometry</div>
-        <div class="desc">Convex bodies in $\mathbb{R}^n$ through four lenses — support functions, Minkowski sums + mixed volumes, polar duality, and almost-Euclidean sections — with Brunn–Minkowski and Dvoretzky's theorem as the master inequalities.</div>
-        <span class="tag">brunn-minkowski · mixed volumes · polar duality · john ellipsoid</span>
+        <div class="tt">Convex geometry <span class="level advanced">advanced</span></div>
+        <div class="desc">Hahn–Banach support, polarity, Brunn–Minkowski + Prékopa–Leindler, Minkowski's & John's theorems, Banach–Mazur distance, the polar / Mahler conjecture circle, Dvoretzky.</div>
+        <span class="tag">Brunn-Minkowski · polarity · John · Dvoretzky</span>
       </div>
     </a>
 
@@ -4953,6 +4985,27 @@
         <div class="tt">Mathematical finance &amp; stochastic control <span class="level advanced">advanced</span></div>
         <div class="desc">Itô calculus applied to derivatives pricing: Black–Scholes via delta-hedging, risk-neutral measures and Girsanov, Merton's optimal portfolio, and the Hamilton–Jacobi–Bellman equation governing stochastic-control problems.</div>
         <span class="tag">black-scholes · merton · risk-neutral · HJB</span>
+      </div>
+    </a>
+
+
+    <a class="card p" href="./convex-optimization.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <!-- convex region (violet) + nested level sets (cyan) + optimum on boundary (yellow) -->
+        <polygon points="16,56 30,22 64,16 86,32 82,60 46,68" fill="var(--violet)" fill-opacity="0.18" stroke="var(--violet)" stroke-width="1.2"/>
+        <ellipse cx="58" cy="42" rx="30" ry="18" fill="none" stroke="var(--cyan)" stroke-width="0.7" stroke-opacity="0.4"/>
+        <ellipse cx="58" cy="42" rx="20" ry="12" fill="none" stroke="var(--cyan)" stroke-width="0.8" stroke-opacity="0.65"/>
+        <ellipse cx="58" cy="42" rx="10" ry="6" fill="none" stroke="var(--cyan)" stroke-width="1.0"/>
+        <circle cx="58" cy="42" r="1.6" fill="var(--cyan)"/>
+        <line x1="58" y1="42" x2="86" y2="32" stroke="var(--pink)" stroke-width="1.4"/>
+        <circle cx="86" cy="32" r="3" fill="var(--yellow)" stroke="var(--ink)" stroke-width="0.5"/>
+        <text x="84" y="28" text-anchor="end" font-size="6.5" fill="var(--yellow)" font-style="italic" font-family="serif">x*</text>
+        <text x="20" y="74" font-size="6.5" fill="var(--violet)" font-style="italic" font-family="serif">C</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Convex optimization <span class="level advanced">advanced</span></div>
+        <div class="desc">Minimise a convex function over a convex set — the local-to-global miracle. Lagrangian duality, KKT, conic programming (LP/SOCP/SDP), and the polynomial-time interior-point + first-order methods that make the framework practical.</div>
+        <span class="tag">duality · KKT · SDP · proximal</span>
       </div>
     </a>
 

@@ -12,11 +12,13 @@ window.__MVConcepts = {
       "conformal-and-cr-geometry",
       "mathematical-biology",
       "spectral-methods-data",
+      "computational-molecular-biology",
       "optimal-control-and-dynamic-programming",
       "combinatorial-optimization",
       "mathematical-finance",
       "donaldson-thomas-and-gw-invariants",
       "positive-characteristic-ag",
+      "convex-optimization",
       "convex-geometry",
       "several-complex-variables",
       "khovanov-homology",
@@ -393,10 +395,12 @@ window.__MVConcepts = {
       "spectral-methods-data": "advanced",
       "optimal-control-and-dynamic-programming": "advanced",
       "combinatorial-optimization": "advanced",
+      "convex-optimization": "advanced",
+      "convex-geometry": "advanced",
       "mathematical-finance": "advanced",
       "donaldson-thomas-and-gw-invariants": "advanced",
       "positive-characteristic-ag": "advanced",
-      "convex-geometry": "advanced"
+      "computational-molecular-biology": "advanced"
     }
   },
   "topics": {
@@ -1218,6 +1222,106 @@ window.__MVConcepts = {
         }
       ]
     },
+    "computational-molecular-biology": {
+      "topic": "computational-molecular-biology",
+      "title": "Computational molecular biology",
+      "page": "computational-molecular-biology.html",
+      "concepts": [
+        {
+          "id": "cmb-sequence-alignment",
+          "title": "Sequence alignment by dynamic programming",
+          "anchor": "alignment",
+          "prereqs": [
+            "markov-chains"
+          ],
+          "blurb": "Score the best edit-path between two sequences $x\\in\\Sigma^n,\\,y\\in\\Sigma^m$ by filling an $(n{+}1)\\times(m{+}1)$ table $H$ from the recurrence $H_{ij}=\\max(H_{i-1,j-1}+s(x_i,y_j),\\,H_{i-1,j}-g,\\,H_{i,j-1}-g)$ — global (Needleman–Wunsch) starts at $H_{00}=0$ and reads the answer at $H_{nm}$; local (Smith–Waterman) clamps negatives to zero and reads the maximum. The substitution matrix $s$ (BLOSUM62, PAM) is the data-driven choice that turns the algorithm into biology.",
+          "tags": [
+            "foundation",
+            "completion"
+          ]
+        },
+        {
+          "id": "cmb-bwt-fm-index",
+          "title": "Suffix arrays, BWT, and the FM-index",
+          "anchor": "bwt",
+          "prereqs": [
+            "cmb-sequence-alignment"
+          ],
+          "blurb": "Sort every cyclic rotation of $T\\$$ lexicographically; the last column $\\mathrm{BWT}(T)$ groups equal characters together and is invertible from the rank function $C$ and the LF-mapping $\\mathrm{LF}(i)=C[\\mathrm{BWT}[i]]+\\mathrm{rank}_{\\mathrm{BWT}[i]}(i)$. The FM-index stores BWT plus a few rank tables in $O(n)$ bits and answers exact-match queries on a pattern of length $m$ in $O(m)$ time — the read-aligner backbone of Bowtie and BWA.",
+          "tags": [
+            "completion",
+            "duality"
+          ]
+        },
+        {
+          "id": "cmb-hmm-viterbi",
+          "title": "Hidden Markov models and Viterbi",
+          "anchor": "hmm",
+          "prereqs": [
+            "markov-chains",
+            "random-variables"
+          ],
+          "blurb": "A hidden state chain $Z_1,\\dots,Z_T$ on a finite alphabet emits observations $X_t\\sim P(\\cdot\\mid Z_t)$. The Viterbi recurrence $\\delta_t(z)=\\max_{z'}\\delta_{t-1}(z')\\,a_{z'z}\\,e_z(X_t)$ computes the maximum-likelihood hidden path in $O(TK^2)$. Forward/backward yields posteriors $P(Z_t\\mid X_{1:T})$, and Baum–Welch is the EM that fits $(a,e)$ to data — together they power gene finders, profile HMMs (PFAM), and the speech-recognition canon.",
+          "tags": [
+            "foundation",
+            "duality"
+          ]
+        },
+        {
+          "id": "cmb-phylogeny-felsenstein",
+          "title": "Phylogenetic inference and Felsenstein pruning",
+          "anchor": "phylogeny",
+          "prereqs": [
+            "cmb-hmm-viterbi",
+            "conditional-bayes"
+          ],
+          "blurb": "A phylogenetic tree is a labelled binary tree carrying a continuous-time Markov substitution model (Jukes–Cantor, Kimura, HKY) along its branches. Felsenstein's pruning algorithm post-orders the tree and computes the partial likelihood $L_v(s)=\\prod_{c\\in\\mathrm{children}(v)}\\sum_t P_{st}(\\ell_{vc})\\,L_c(t)$, giving $P(\\mathrm{alignment}\\mid\\mathrm{tree})$ in time linear in the number of taxa. Distance methods (UPGMA, neighbor-joining) are fast heuristics; Bayesian MCMC samples from the posterior on tree-space.",
+          "tags": [
+            "completion",
+            "duality"
+          ]
+        },
+        {
+          "id": "cmb-coalescent-inference",
+          "title": "The coalescent in population inference",
+          "anchor": "coalescent-inference",
+          "prereqs": [
+            "mb-coalescent"
+          ],
+          "blurb": "Kingman's coalescent gives a closed-form prior on genealogies: while $k$ lineages remain, the next coalescence is exponential with rate $\\binom{k}{2}/(2N_e)$, so $\\mathbb{E}[T_{\\mathrm{MRCA}}]=2(1-1/n)$ in units of $2N_e$. Watterson's estimator $\\hat\\theta=S/H_{n-1}$ converts segregating-site count to $\\theta=4N_e\\mu$; Tajima's $D=(\\hat\\pi-\\hat\\theta)/\\mathrm{sd}$ tests whether the site-frequency spectrum matches neutrality; $F_{ST}$ partitions variance between subpopulations.",
+          "tags": [
+            "completion",
+            "classification"
+          ]
+        },
+        {
+          "id": "cmb-rna-folding",
+          "title": "RNA secondary structure by energy minimisation",
+          "anchor": "rna",
+          "prereqs": [
+            "cmb-sequence-alignment"
+          ],
+          "blurb": "A pseudoknot-free secondary structure is a non-crossing matching on the bases of an RNA strand; Nussinov maximises pair count, $W_{ij}=\\max(W_{i+1,j},\\,W_{i,j-1},\\,W_{i+1,j-1}+\\delta(x_i,x_j),\\,\\max_{i<k<j}W_{ik}+W_{k+1,j})$, in $O(n^3)$. Zuker's algorithm minimises a Turner free energy summed over stacked-pair, hairpin, internal-loop, and multi-loop terms. McCaskill's partition function $Z=\\sum_S e^{-E(S)/RT}$ replaces max with sum and yields base-pair probabilities.",
+          "tags": [
+            "completion"
+          ]
+        },
+        {
+          "id": "cmb-protein-contacts",
+          "title": "Protein contact maps and coevolution",
+          "anchor": "protein",
+          "prereqs": [
+            "cmb-phylogeny-felsenstein",
+            "it-mutual-information"
+          ],
+          "blurb": "A protein's $L\\times L$ contact map records which residue pairs lie within $\\sim 8$ Å in the folded structure. Co-evolving columns of a deep multiple sequence alignment betray such contacts: direct coupling analysis fits a Potts model $P(x)\\propto\\exp(\\sum h_i(x_i)+\\sum J_{ij}(x_i,x_j))$ by pseudo-likelihood and reads contacts off $\\|J_{ij}\\|$. The Anfinsen hypothesis frames folding as free-energy minimisation; AlphaFold turns the coevolution signal plus geometric priors into atomic structures.",
+          "tags": [
+            "duality",
+            "completion"
+          ]
+        }
+      ]
+    },
     "optimal-control-and-dynamic-programming": {
       "topic": "optimal-control-and-dynamic-programming",
       "title": "Optimal control and dynamic programming",
@@ -1698,6 +1802,98 @@ window.__MVConcepts = {
             "pchar-de-rham-witt"
           ],
           "blurb": "Catalog of theorems that fail in characteristic $p$: Kodaira vanishing (Raynaud), Bertini's smoothness for inseparable maps, Hodge symmetry (Mumford), existence of $W$-lifts (Hirokado, Schröer), resolution of singularities in $\\dim\\ge 4$, termination of the MMP. Failure modes are productive: each broken theorem forced a new invariant — Frobenius splittings, $W_2$-lifts, $F$-singularities, $p$-adic Hodge theory. The 'positive-characteristic perspective' is one where the failure list is part of the structure to be studied.",
+          "tags": [
+            "classification"
+          ]
+        }
+      ]
+    },
+    "convex-optimization": {
+      "topic": "convex-optimization",
+      "title": "Convex optimization",
+      "page": "convex-optimization.html",
+      "concepts": [
+        {
+          "id": "co-convex-sets-functions",
+          "title": "Convex sets, functions, and the Legendre–Fenchel transform",
+          "anchor": "convex-sets-functions",
+          "prereqs": [
+            "banach-hilbert-spaces"
+          ],
+          "blurb": "A set $C\\subseteq\\mathbb{R}^n$ is convex if $[x,y]\\subseteq C$ for all $x,y\\in C$; a function is convex iff its epigraph is. The Legendre–Fenchel conjugate $f^*(y)=\\sup_x\\langle y,x\\rangle - f(x)$ turns minimisation into maximisation, and the biconjugate theorem $f^{**}=f$ for closed proper convex $f$ is the geometric heart of duality: a closed convex set equals the intersection of its supporting half-spaces.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "co-subgradients",
+          "title": "Subgradients and first-order optimality",
+          "anchor": "subgradients",
+          "prereqs": [
+            "co-convex-sets-functions"
+          ],
+          "blurb": "When $f$ is non-smooth the gradient is replaced by the subdifferential $\\partial f(x)=\\{g : f(y)\\ge f(x)+\\langle g,y-x\\rangle\\;\\forall y\\}$; on the kink of $|x|$ at $0$ this is the whole interval $[-1,1]$. The optimality condition over a convex set $C$ becomes $0\\in\\partial f(x^*)+N_C(x^*)$, where $N_C$ is the normal cone — generalising $\\nabla f=0$ to the non-smooth, constrained setting.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "co-lagrangian-duality",
+          "title": "Lagrangian duality and the KKT system",
+          "anchor": "lagrangian-duality",
+          "prereqs": [
+            "co-subgradients",
+            "lp-duality"
+          ],
+          "blurb": "The Lagrangian $L(x,\\lambda,\\nu)=f(x)+\\sum\\lambda_i g_i(x)+\\sum\\nu_j h_j(x)$ converts inequality constraints into a min-max: $\\min_x f$ subject to $g_i\\le 0$ becomes $\\max_{\\lambda\\ge 0}\\min_x L$. Weak duality is one line; Slater's condition (strictly feasible interior point) buys strong duality, $p^*=d^*$. The KKT conditions — stationarity, primal/dual feasibility, complementary slackness — are then necessary and sufficient.",
+          "tags": [
+            "duality"
+          ]
+        },
+        {
+          "id": "co-conic-sdp",
+          "title": "Conic programming: LP, QP, SOCP, SDP",
+          "anchor": "conic-sdp",
+          "prereqs": [
+            "co-lagrangian-duality"
+          ],
+          "blurb": "Every convex program in standard form is $\\min c^\\top x$ s.t. $Ax=b$, $x\\in K$ for a self-dual cone $K$. The hierarchy $\\mathbb{R}^n_+\\subset\\mathcal{L}^n\\subset\\mathbb{S}^n_+$ — non-negative orthant $\\to$ Lorentz cone $\\to$ PSD cone — gives LP $\\to$ SOCP $\\to$ SDP. Goemans–Williamson's $0.878$-approximation for MAX-CUT relaxes a binary IP to an SDP, then rounds via a random hyperplane through the origin.",
+          "tags": [
+            "duality"
+          ]
+        },
+        {
+          "id": "co-gradient-proximal",
+          "title": "Gradient and proximal methods",
+          "anchor": "gradient-proximal",
+          "prereqs": [
+            "co-subgradients"
+          ],
+          "blurb": "Gradient descent $x_{k+1}=x_k-\\alpha\\nabla f(x_k)$ converges at $O(1/k)$ on smooth convex $f$ with Lipschitz gradient; Nesterov's accelerated method adds a momentum term to reach the optimal $O(1/k^2)$. For non-smooth composites $f+g$ the proximal operator $\\mathrm{prox}_{\\alpha g}(y)=\\arg\\min_x\\{g(x)+\\tfrac{1}{2\\alpha}\\|x-y\\|^2\\}$ steps over the smooth part and resolves the non-smooth $g$ implicitly — the workhorse of modern $\\ell_1$ / nuclear-norm optimisation.",
+          "tags": [
+            "compactness"
+          ]
+        },
+        {
+          "id": "co-interior-point",
+          "title": "Interior-point methods and self-concordance",
+          "anchor": "interior-point",
+          "prereqs": [
+            "co-conic-sdp"
+          ],
+          "blurb": "Replace the constraint $x\\in K$ with the barrier-augmented objective $f(x)+\\mu B(x)$ where $B\\to\\infty$ on $\\partial K$; Newton steps in $x$ at decreasing $\\mu$ trace the central path to the optimum. Self-concordance of the barrier (Nesterov–Nemirovski) is exactly the condition under which damped Newton converges in $O(\\sqrt{\\nu}\\,\\log(1/\\varepsilon))$ outer iterations, making LP/QP/SDP polynomial-time.",
+          "tags": [
+            "duality"
+          ]
+        },
+        {
+          "id": "co-stochastic-online",
+          "title": "Stochastic and online convex optimization",
+          "anchor": "stochastic-online",
+          "prereqs": [
+            "co-gradient-proximal"
+          ],
+          "blurb": "SGD $x_{k+1}=x_k-\\alpha_k\\hat g_k$ with unbiased gradient estimate achieves $\\mathbb{E}\\,f(\\bar x_T)-f^*=O(1/\\sqrt{T})$ on convex objectives — independent of dimension. Online gradient descent against an adversarial sequence of convex losses has the same $O(\\sqrt{T})$ regret; replacing Euclidean projection by a Bregman divergence gives mirror descent, and entropic regularisation recovers the multiplicative-weights / exponentiated-gradient algorithm.",
           "tags": [
             "classification"
           ]
@@ -19171,7 +19367,8 @@ window.__MVConcepts = {
           "high-dimensional-geometry",
           "random-matrix-theory",
           "mathematical-biology",
-          "spectral-methods-data"
+          "spectral-methods-data",
+          "computational-molecular-biology"
         ],
         "color": "g"
       },
@@ -19349,6 +19546,7 @@ window.__MVConcepts = {
         "topics": [
           "optimal-control-and-dynamic-programming",
           "combinatorial-optimization",
+          "convex-optimization",
           "mathematical-finance"
         ],
         "color": "p"
@@ -19638,10 +19836,12 @@ window.__MVConcepts = {
     "spectral-methods-data": "advanced",
     "optimal-control-and-dynamic-programming": "advanced",
     "combinatorial-optimization": "advanced",
+    "convex-optimization": "advanced",
+    "convex-geometry": "advanced",
     "mathematical-finance": "advanced",
     "donaldson-thomas-and-gw-invariants": "advanced",
     "positive-characteristic-ag": "advanced",
-    "convex-geometry": "advanced"
+    "computational-molecular-biology": "advanced"
   },
   "newArc": [
     "elementary-topos-theory",
@@ -19686,15 +19886,15 @@ window.__MVConcepts = {
       "concepts": 204,
       "intra": 357,
       "crossOut": 36,
-      "crossIn": 73,
+      "crossIn": 74,
       "density": 0.17647058823529413
     },
     "Probability & statistics": {
-      "concepts": 76,
-      "intra": 124,
+      "concepts": 83,
+      "intra": 134,
       "crossOut": 23,
       "crossIn": 23,
-      "density": 0.3026315789473684
+      "density": 0.27710843373493976
     },
     "Geometry & topology": {
       "concepts": 160,
@@ -19739,11 +19939,11 @@ window.__MVConcepts = {
       "density": 0.5797101449275363
     },
     "Control theory & optimization": {
-      "concepts": 21,
-      "intra": 20,
-      "crossOut": 14,
+      "concepts": 28,
+      "intra": 27,
+      "crossOut": 15,
       "crossIn": 1,
-      "density": 0.6666666666666666
+      "density": 0.5357142857142857
     }
   }
 };

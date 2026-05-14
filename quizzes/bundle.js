@@ -14519,6 +14519,295 @@ window.MVQuizBank = {
       }
     }
   },
+  "computational-molecular-biology": {
+    "topic": "computational-molecular-biology",
+    "quizzes": {
+      "cmb-sequence-alignment": {
+        "title": "Sequence alignment by dynamic programming",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Aligning sequences of lengths $n$ and $m$ with a constant gap cost, the Needleman–Wunsch dynamic program runs in time:",
+            "choices": [
+              "$\\Theta(n+m)$",
+              "$\\Theta(n m)$",
+              "$\\Theta((n+m)\\log(n+m))$",
+              "$\\Theta(n^2 m^2)$"
+            ],
+            "answer": 1,
+            "explain": "Each of the $(n{+}1)(m{+}1)$ cells is filled by a constant-time max over three predecessors. So the total work is $\\Theta(nm)$. (Hirschberg's divide-and-conquer trims memory to $\\Theta(n+m)$ but keeps the same time.)",
+            "hint": "Count the cells in the DP table and the constant work per cell."
+          },
+          {
+            "type": "numeric",
+            "q": "Align $x=\\mathtt{GATTACA}$ against $y=\\mathtt{GCATGCU}$ globally with $s(a,a)=+1$, $s(a,b)=-1$ ($a\\ne b$), and linear gap penalty $-1$. What is the optimal Needleman–Wunsch score $H_{nm}$?",
+            "answer": 0,
+            "tol": 0.5,
+            "explain": "One optimal alignment is $\\mathtt{G\\mbox{-}ATTACA}$ vs $\\mathtt{GCATGCU\\mbox{-}}$ which scores $\\,1-1+1-1+1-1+1-1=0$; equivalently, $\\mathtt{GATTACA\\mbox{-}}$ vs $\\mathtt{GCA\\mbox{-}TGCU}$ gives the same total. The maximum-score DP cell $H_{7,7}$ is $0$.",
+            "hint": "Try one diagonal step per matched pair, occasionally substituting a mismatch ($-1$) or a single gap ($-1$). Four matches and four penalties net to zero."
+          },
+          {
+            "type": "spot-the-error",
+            "q": "A student writes the local-alignment (Smith–Waterman) recurrence. Find the planted flaw.",
+            "steps": [
+              "Initialise $H_{i,0}=0$ and $H_{0,j}=0$ for all $i,j$ (no penalty for skipping a prefix).",
+              "Set $H_{ij}=\\max\\bigl(0,\\ H_{i-1,j-1}+s(x_i,y_j),\\ H_{i-1,j}-g,\\ H_{i,j-1}-g\\bigr)$.",
+              "Read the optimal local-alignment score off $H_{nm}$ — the bottom-right cell, exactly as in Needleman–Wunsch.",
+              "Traceback from the cell where this maximum is attained until you hit a zero."
+            ],
+            "answer": 2,
+            "explain": "Step 3 is the planted error. The local-alignment score is the <em>maximum over the whole table</em>, $\\max_{i,j}H_{ij}$ — not $H_{nm}$. Reading $H_{nm}$ would only give the score of an optimal local alignment that ends at the last positions of both sequences, which is rarely the answer in real data.",
+            "hint": "Where do you start the traceback in Smith–Waterman? Wherever it starts is where the score is."
+          }
+        ]
+      },
+      "cmb-bwt-fm-index": {
+        "title": "Suffix arrays, BWT, and the FM-index",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For $T=\\mathtt{BANANA\\$}$ (with $\\$$ sorting before every letter), the Burrows–Wheeler transform $\\mathrm{BWT}(T)$ is:",
+            "choices": [
+              "$\\mathtt{ANNB\\$AA}$",
+              "$\\mathtt{BNN\\$AAA}$",
+              "$\\mathtt{ANNB\\$AA}$ but with $\\$$ at the end",
+              "$\\mathtt{NNAB\\$AA}$"
+            ],
+            "answer": 0,
+            "explain": "Sort cyclic rotations of $\\mathtt{BANANA\\$}$ lexicographically and read the last column: $\\$\\mathtt{BANANA},\\ \\mathtt{A\\$BANAN},\\ \\mathtt{ANA\\$BAN},\\ \\mathtt{ANANA\\$B},\\ \\mathtt{BANANA\\$},\\ \\mathtt{NA\\$BANA},\\ \\mathtt{NANA\\$BA}$ — last column is $\\mathtt{A,N,N,B,\\$,A,A} = \\mathtt{ANNB\\$AA}$.",
+            "hint": "Sort the rotations. The BWT is just the last character of each sorted rotation, in order."
+          },
+          {
+            "type": "numeric",
+            "q": "An FM-index over a text of length $n$ exact-matches a pattern of length $m$ in time $\\Theta(?)$. Enter the exponent of $m$ in the answer (so $1$ for $\\Theta(m)$, $2$ for $\\Theta(m^2)$, etc.).",
+            "answer": 1,
+            "tol": 0.1,
+            "explain": "Backward search updates an interval $[\\ell,r]$ over the suffix array one character at a time using $\\mathrm{LF}$-mapping; with constant-time rank queries (sampled checkpoints + word-level popcount), the total work is $\\Theta(m)$, independent of $n$. That's the headline win that made Bowtie/BWA practical.",
+            "hint": "Each character of the pattern triggers exactly one LF-mapping step on the suffix interval."
+          },
+          {
+            "type": "mcq",
+            "q": "The LF-mapping identity $\\mathrm{LF}(i)=C[\\mathrm{BWT}[i]]+\\mathrm{rank}_{\\mathrm{BWT}[i]}(i)$ encodes which structural fact about the Burrows–Wheeler matrix?",
+            "choices": [
+              "Equal characters in the last column appear in the same relative order as in the first column.",
+              "The first and last columns are reverses of one another.",
+              "The first column has the same character distribution as the last column (a trivial counting identity).",
+              "The matrix is a Hankel matrix (constant on anti-diagonals)."
+            ],
+            "answer": 0,
+            "explain": "The LF identity is the 'same-rank' invariant: the $k$-th occurrence of character $c$ in $L$ (the BWT) corresponds to the $k$-th occurrence of $c$ in $F$ (the sorted first column). Choice 2 is true but trivial (both columns are a permutation of $T$); LF is much stronger because it determines a <em>specific</em> bijection, and that bijection is what makes inversion and backward search work.",
+            "hint": "The whole point of LF is that ranks are preserved across the first and last columns of the BWM."
+          }
+        ]
+      },
+      "cmb-hmm-viterbi": {
+        "title": "Hidden Markov models and Viterbi",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "An HMM has $K$ hidden states and observation length $T$. The Viterbi algorithm runs in time:",
+            "choices": [
+              "$\\Theta(T)$",
+              "$\\Theta(TK)$",
+              "$\\Theta(TK^2)$",
+              "$\\Theta(TK^T)$"
+            ],
+            "answer": 2,
+            "explain": "Filling $\\delta_t(z)$ for each of $T$ time steps and $K$ states requires a max over the $K$ predecessor states, so the cost is $\\Theta(TK^2)$. The naive enumeration of all $K^T$ paths is what you avoid.",
+            "hint": "Each cell of the $T\\times K$ trellis is a max over $K$ predecessors."
+          },
+          {
+            "type": "numeric",
+            "q": "Consider a two-state HMM with transitions $a_{HH}=a_{LL}=0.9$, $a_{HL}=a_{LH}=0.1$, emissions $e_H(\\mathtt{1})=0.8,\\,e_H(\\mathtt{0})=0.2,\\,e_L(\\mathtt{1})=0.3,\\,e_L(\\mathtt{0})=0.7$, and uniform initial $\\pi=(0.5,0.5)$. Observation is $\\mathtt{1}$. What is the most likely hidden state at $t=1$ (under Viterbi)? Enter $0$ for $H$ or $1$ for $L$.",
+            "answer": 0,
+            "tol": 0.4,
+            "explain": "$\\delta_1(H)=0.5\\cdot 0.8=0.40$ and $\\delta_1(L)=0.5\\cdot 0.3=0.15$, so $H$ wins by a factor of $8/3$. With only one observation, Viterbi reduces to maximum-likelihood emission.",
+            "hint": "With one observation the prior is uniform, so just compare $e_H(\\mathtt{1})$ against $e_L(\\mathtt{1})$."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which of the following are <em>correct</em> about the forward, backward, Viterbi, and Baum–Welch algorithms on an HMM?",
+            "choices": [
+              "The forward algorithm computes $P(X_{1:T})$ by summing over hidden paths, not maximising.",
+              "Viterbi can be written as the forward algorithm with $\\max$ replacing $\\sum$.",
+              "Baum–Welch is an instance of expectation–maximisation in which the E-step uses forward/backward to compute hidden-state posteriors.",
+              "Baum–Welch returns the global maximum-likelihood parameters."
+            ],
+            "answer": [
+              0,
+              1,
+              2
+            ],
+            "explain": "First three are standard. Baum–Welch is EM and only guarantees convergence to a <em>local</em> optimum of the (non-convex) likelihood; restarting from many initialisations is the usual workaround.",
+            "hint": "EM monotonically increases the likelihood but can get stuck — which fact does that contradict?"
+          }
+        ]
+      },
+      "cmb-phylogeny-felsenstein": {
+        "title": "Phylogenetic inference and Felsenstein pruning",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Felsenstein's pruning algorithm computes the likelihood $P(\\mathrm{column}\\mid \\mathrm{tree})$ in time:",
+            "choices": [
+              "$\\Theta(n)$ in the number of taxa $n$, with constant per-node work.",
+              "$\\Theta(n\\,|\\Sigma|^2)$ in the number of taxa $n$ and alphabet size $|\\Sigma|$.",
+              "$\\Theta(n!)$, summing over every leaf permutation.",
+              "$\\Theta(n^2)$, doing one pairwise distance comparison per internal node."
+            ],
+            "answer": 1,
+            "explain": "There are $n-1$ internal nodes on a binary tree with $n$ leaves; each node combines two children's partial-likelihood vectors of length $|\\Sigma|$, taking $\\Theta(|\\Sigma|^2)$ work (a matrix-vector multiply per child). Total: $\\Theta(n\\,|\\Sigma|^2)$ per alignment column.",
+            "hint": "Count internal nodes, then the work at each internal node in terms of $|\\Sigma|$."
+          },
+          {
+            "type": "numeric",
+            "q": "Under the Jukes–Cantor model $P_{aa}(t)=\\tfrac{1}{4}+\\tfrac{3}{4}e^{-4t/3}$, what is the probability $P_{AA}(t)$ at $t=\\tfrac{3}{4}\\ln 4 \\approx 1.0397$? Round to 4 decimal places.",
+            "answer": 0.4375,
+            "tol": 0.001,
+            "explain": "$e^{-4t/3}=e^{-\\ln 4}=1/4$, so $P_{AA}(t)=\\tfrac{1}{4}+\\tfrac{3}{4}\\cdot\\tfrac{1}{4}=\\tfrac{1}{4}+\\tfrac{3}{16}=\\tfrac{7}{16}=0.4375$. At this branch length the chain has lost most memory of its starting state; the remaining $3/16$ above the stationary $1/4$ is the residual signal that phylogenetic methods extract.",
+            "hint": "Substitute and reach $e^{-4t/3} = 1/4$; the rest is arithmetic."
+          },
+          {
+            "type": "spot-the-error",
+            "q": "A student applies UPGMA to a distance matrix on four taxa. Find the planted flaw.",
+            "steps": [
+              "UPGMA repeatedly merges the closest pair of clusters, taking the average over all cross-cluster pairwise distances.",
+              "Branch lengths in the resulting tree are half the merged-cluster distance, so each leaf is the same total distance from the root.",
+              "Therefore UPGMA returns an <em>ultrametric</em> tree, in which every leaf is equidistant from the root.",
+              "Because every gene tree under a molecular clock is ultrametric, UPGMA is unbiased — that is, statistically consistent — for every model that uses a single substitution rate."
+            ],
+            "answer": 3,
+            "explain": "Steps 1–3 describe UPGMA correctly. The flaw is step 4: UPGMA is consistent only when the distances are themselves ultrametric in expectation, which fails as soon as substitution rates vary across lineages even slightly — and it is famously inconsistent on non-ultrametric distances (it can construct the wrong topology). Neighbour-joining drops the molecular-clock assumption and is consistent under any additive distance.",
+            "hint": "When does UPGMA recover the true tree? Only under the strict molecular-clock hypothesis."
+          }
+        ]
+      },
+      "cmb-coalescent-inference": {
+        "title": "The coalescent in population inference",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "Watterson's estimator: a sample of $n=20$ chromosomes shows $S=150$ segregating sites. Compute $\\hat\\theta = S/H_{n-1}$ where $H_k=\\sum_{i=1}^k 1/i$. Round to 2 decimal places.",
+            "answer": 42.32,
+            "tol": 0.1,
+            "explain": "$H_{19}=1+1/2+\\cdots+1/19\\approx 3.5477$. So $\\hat\\theta = 150/3.5477\\approx 42.28\\!-\\!42.34$ depending on rounding. The estimator hinges on $\\mathbb{E}[S\\mid \\theta] = \\theta H_{n-1}$ under the coalescent with infinite-sites mutation.",
+            "hint": "Compute $H_{19}$ by direct summation, then divide $S$ by it."
+          },
+          {
+            "type": "mcq",
+            "q": "In Kingman's coalescent with sample size $n$, the expected time to the most recent common ancestor measured in units of $2N_e$ generations is:",
+            "choices": [
+              "$\\mathbb{E}[T_{\\mathrm{MRCA}}] = 2(1 - 1/n)$",
+              "$\\mathbb{E}[T_{\\mathrm{MRCA}}] = 1/n$",
+              "$\\mathbb{E}[T_{\\mathrm{MRCA}}] = 2N_e \\log n$",
+              "$\\mathbb{E}[T_{\\mathrm{MRCA}}] = n(n-1)/2$"
+            ],
+            "answer": 0,
+            "explain": "While $k$ lineages remain, the waiting time is exponential with rate $\\binom{k}{2}$, so $\\mathbb{E}[T_k]=2/[k(k-1)]$. Summing $k=2,\\dots,n$ gives $\\sum 2/[k(k-1)] = 2\\sum(1/(k-1)-1/k)=2(1-1/n)$. Two units of $2N_e$ is the deep-time scale you should keep in mind for human samples.",
+            "hint": "Sum the per-stage expected waits; the sum telescopes."
+          },
+          {
+            "type": "multi-select",
+            "q": "Select every statement that is correct about Tajima's $D = (\\hat\\pi - \\hat\\theta_W)/\\mathrm{sd}$ under neutrality.",
+            "choices": [
+              "Under the standard neutral coalescent with constant population size, $\\mathbb{E}[D]\\approx 0$.",
+              "Strongly negative $D$ is consistent with a recent selective sweep or a population expansion (excess of low-frequency variants).",
+              "Strongly positive $D$ is consistent with balancing selection or a population bottleneck (excess of intermediate-frequency variants).",
+              "Tajima's $D$ requires phased haplotype data; it cannot be computed from unphased SNP counts."
+            ],
+            "answer": [
+              0,
+              1,
+              2
+            ],
+            "explain": "The first three are textbook. The last is wrong: $\\hat\\pi$ is the average pairwise difference and $\\hat\\theta_W$ is the Watterson estimator — both are computable from unphased SNP frequencies. Tajima's $D$ is one of the simplest neutrality tests precisely because it needs no haplotype information.",
+            "hint": "What inputs do the pairwise-difference and Watterson estimators actually need?"
+          }
+        ]
+      },
+      "cmb-rna-folding": {
+        "title": "RNA secondary structure by energy minimisation",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Nussinov's base-pair maximisation runs in time:",
+            "choices": [
+              "$\\Theta(n)$",
+              "$\\Theta(n^2)$",
+              "$\\Theta(n^3)$",
+              "$\\Theta(2^n)$"
+            ],
+            "answer": 2,
+            "explain": "Each of the $O(n^2)$ table cells $W_{ij}$ is computed by a max over $O(n)$ split points $k\\in(i,j)$. Total: $\\Theta(n^3)$. Zuker's algorithm has the same asymptotic complexity but with bigger constants because of stacked-pair energies.",
+            "hint": "Count cells, then per-cell work — the bifurcation case is where the extra factor comes in."
+          },
+          {
+            "type": "numeric",
+            "q": "Run Nussinov on $x=\\mathtt{GCACG}$ counting only Watson–Crick pairs ($\\mathtt{G\\mbox{-}C}$, $\\mathtt{A\\mbox{-}U}$, $\\mathtt{C\\mbox{-}G}$). What is the maximum number of non-crossing base pairs?",
+            "answer": 2,
+            "tol": 0.5,
+            "explain": "Pair positions $(1,2)$ as $\\mathtt{G\\mbox{-}C}$ and $(4,5)$ as $\\mathtt{C\\mbox{-}G}$: two pairs, non-crossing, no shared base. Pairing $(1,5)$ and $(2,4)$ also gives two pairs (it's a nested matching, also legal). A third pair is impossible because every base except one would need to be paired and the lengths and matching constraints don't allow it.",
+            "hint": "Find two disjoint matched pairs; a third would force you to pair an unmatched base or cross."
+          },
+          {
+            "type": "mcq",
+            "q": "McCaskill's partition-function algorithm replaces Nussinov's $\\max$ with $\\sum$ to compute $Z=\\sum_S e^{-E(S)/RT}$. From $Z$ and similar quantities one can derive:",
+            "choices": [
+              "Base-pair probabilities $P_{ij}=P(\\text{base }i\\text{ paired with }j\\mid \\text{equilibrium})$ for all $i<j$.",
+              "The minimum-free-energy structure (which is necessarily the most probable structure).",
+              "A guarantee that the most probable structure equals the structure that minimises free energy.",
+              "Nothing about base-pair probabilities — McCaskill only gives the total partition function."
+            ],
+            "answer": 0,
+            "explain": "From $Z$ together with restricted partition functions (forcing $i$ paired with $j$) one obtains $P_{ij}$ in $O(n^3)$. The minimum-free-energy structure is a separate Zuker computation and need not be the most probable one — a low-energy basin of many similar structures can outweigh a single deep but isolated minimum. McCaskill's value is exactly that it tells you about ensembles, not single structures.",
+            "hint": "The relevant quantity is the ratio of constrained $Z$ to total $Z$ — that's a probability."
+          }
+        ]
+      },
+      "cmb-protein-contacts": {
+        "title": "Protein contact maps and coevolution",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Direct coupling analysis (DCA) for residue contact prediction fits which model to a deep multiple sequence alignment?",
+            "choices": [
+              "An independent-site model $P(x)=\\prod_i p_i(x_i)$.",
+              "A pairwise Markov random field (Potts model) $P(x)\\propto\\exp\\bigl(\\sum h_i(x_i)+\\sum_{i<j} J_{ij}(x_i,x_j)\\bigr)$.",
+              "A hidden Markov model in which the hidden chain runs along the sequence.",
+              "A linear regression of one residue position against all others."
+            ],
+            "answer": 1,
+            "explain": "DCA decomposes site–site covariation into <em>direct</em> couplings $J_{ij}$ (from the Potts model) versus <em>indirect</em> chains of covariation that mutual information cannot disentangle. The Frobenius norm $\\|J_{ij}\\|$ then ranks contacts. This is the input feature whose interaction with geometric attention powers AlphaFold-style contact prediction.",
+            "hint": "What pairwise statistical model decouples direct from indirect covariation?"
+          },
+          {
+            "type": "multi-select",
+            "q": "Which of the following are <em>genuine</em> reasons mutual information $I(x_i;x_j)$ alone is a weaker contact predictor than DCA's $\\|J_{ij}\\|$?",
+            "choices": [
+              "Mutual information conflates direct coupling with chains of indirect covariation $i\\!-\\!k\\!-\\!j$.",
+              "Mutual information is dominated by phylogenetic sampling bias when closely related sequences cluster in the alignment.",
+              "Mutual information requires Gaussian assumptions on the residue distribution that fail for discrete amino acids.",
+              "Mutual information is computationally intractable for $L > 50$ residues."
+            ],
+            "answer": [
+              0,
+              1
+            ],
+            "explain": "Direct vs indirect coupling and phylogenetic redundancy are real well-known limitations addressed by DCA and reweighting. Choice 3 is wrong — mutual information is a discrete, non-parametric quantity. Choice 4 is wrong — pairwise MI is $\\Theta(L^2)$ to compute and trivial for any realistic $L$.",
+            "hint": "Two of the four reasons are honest practical concerns; the other two are made-up technical claims that don't apply."
+          },
+          {
+            "type": "numeric",
+            "q": "A protein of length $L=200$ residues has a contact map. If contacts are defined by $C_\\alpha$–$C_\\alpha$ distance $\\le 8$ Å and the protein has on average $4L$ contacts (a standard empirical figure), what fraction of the upper-triangle entries of the $L\\times L$ map are non-zero? Express as a percentage rounded to 1 decimal place.",
+            "answer": 4,
+            "tol": 0.2,
+            "explain": "There are $\\binom{L}{2}=\\binom{200}{2}=19900$ unordered residue pairs. With $4L=800$ contacts, the density is $800/19900 \\approx 0.0402 = 4.0\\%$. The contact map is sparse — that sparsity is what makes coevolution-based prediction tractable.",
+            "hint": "$\\binom{L}{2}$ pairs in the upper triangle; divide the contact count by that."
+          }
+        ]
+      }
+    }
+  },
   "computational-number-theory": {
     "topic": "computational-number-theory",
     "quizzes": {
@@ -15951,6 +16240,316 @@ window.MVQuizBank = {
             ],
             "explain": "Items 1 and 2 are direct restatements of Dvoretzky and its historical motivation. John's theorem is a closely related convex-geometric fact about ellipsoidal approximation. Item 3 is false — most convex bodies are far from ellipsoids; Dvoretzky only guarantees an almost-ellipsoidal <em>section</em>.",
             "hint": "Dvoretzky finds a round subspace, not a round body."
+          }
+        ]
+      }
+    }
+  },
+  "convex-optimization": {
+    "topic": "convex-optimization",
+    "quizzes": {
+      "co-convex-sets-functions": {
+        "title": "Convex sets, functions, and the Legendre–Fenchel transform",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A function $f\\colon\\mathbb{R}^n\\to\\mathbb{R}\\cup\\{+\\infty\\}$ is convex iff which set is convex?",
+            "choices": [
+              "Its graph $\\{(x,f(x))\\}$",
+              "Its epigraph $\\mathrm{epi}\\,f=\\{(x,t):t\\ge f(x)\\}$",
+              "Its hypograph $\\{(x,t):t\\le f(x)\\}$",
+              "Its level set $\\{x:f(x)=0\\}$"
+            ],
+            "answer": 1,
+            "hint": "Jensen's inequality says the chord from $(x,f(x))$ to $(y,f(y))$ lies above the graph — equivalently, in the closed region above it.",
+            "explain": "Convexity of $f$ is equivalent to convexity of its epigraph. Sublevel sets $\\{f\\le c\\}$ are convex too (a consequence), but graphs and hypographs of non-affine functions are not."
+          },
+          {
+            "type": "numeric",
+            "q": "Compute the Legendre–Fenchel conjugate of $f(x)=\\tfrac{1}{2}x^2$ at $y=3$: $f^*(3)=\\sup_x\\{3x-\\tfrac{1}{2}x^2\\}=?$",
+            "answer": 4.5,
+            "tol": 0.001,
+            "hint": "Maximise over $x$ by setting the derivative to zero; the conjugate of $\\tfrac{1}{2}x^2$ is again a quadratic.",
+            "explain": "$\\frac{d}{dx}(3x-\\tfrac{1}{2}x^2)=3-x=0$ gives $x=3$, and the value is $9-4.5=4.5=\\tfrac{1}{2}\\cdot 3^2$. The quadratic is self-conjugate up to scaling: $(\\tfrac{1}{2}x^2)^*=\\tfrac{1}{2}y^2$."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which operations preserve convexity of a function $f$?",
+            "choices": [
+              "Pointwise supremum of a family of convex functions",
+              "Pointwise infimum of a family of convex functions",
+              "Non-negative combination $\\sum\\alpha_i f_i$ with $\\alpha_i\\ge 0$",
+              "Composition with an affine map: $f(Ax+b)$"
+            ],
+            "answer": [
+              0,
+              2,
+              3
+            ],
+            "hint": "The infimum of convex functions is the classic non-example — think of two parabolas with widely separated minima.",
+            "explain": "Sup, conic combination, and affine pre-composition all preserve convexity. The pointwise infimum does not in general (it can fail to be convex even with two convex inputs)."
+          }
+        ]
+      },
+      "co-subgradients": {
+        "title": "Subgradients and first-order optimality",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the subdifferential $\\partial f(0)$ of $f(x)=|x|$ at $x=0$?",
+            "choices": [
+              "$\\{0\\}$",
+              "$\\{-1, +1\\}$",
+              "The interval $[-1, 1]$",
+              "Empty (subdifferential undefined)"
+            ],
+            "answer": 2,
+            "hint": "$g\\in\\partial f(0)$ means $|y|\\ge g\\cdot y$ for all $y$ — what slopes $g$ satisfy that?",
+            "explain": "Any slope $g\\in[-1,1]$ gives a global underestimating line $gy\\le|y|$. Outside that interval the line $gy$ overshoots $|y|$ on one side."
+          },
+          {
+            "type": "numeric",
+            "q": "Minimise $f(x)=\\tfrac{1}{2}x^2 + |x-2|$ over $\\mathbb{R}$. What is $x^*$?",
+            "answer": 1,
+            "tol": 0.001,
+            "hint": "Away from the kink at $x=2$, the optimality condition is $x\\pm 1=0$. Check which of $\\pm 1$ sits on the correct side of the kink.",
+            "explain": "For $x<2$, $f'(x)=x-1$, so $x^*=1$ with $f(1)=0.5+1=1.5$. At $x=1$ the subgradient inclusion $0\\in\\partial f(1)=\\{1-1\\}=\\{0\\}$ holds. (For $x>2$ the stationary candidate is $x=-1$, which is infeasible there.)"
+          },
+          {
+            "type": "mcq",
+            "q": "A student claims: \"For convex $f$ and convex set $C$, $x^*$ minimises $f$ over $C$ iff $\\nabla f(x^*)=0$.\" Where's the error?",
+            "choices": [
+              "The function might not even be differentiable",
+              "It ignores the boundary: the correct condition is $-\\nabla f(x^*)\\in N_C(x^*)$, equivalently $\\nabla f(x^*)^\\top(y-x^*)\\ge 0$ for all $y\\in C$",
+              "The claim is correct as stated for convex $f$ and $C$",
+              "Convexity is the wrong hypothesis"
+            ],
+            "answer": 1,
+            "hint": "A constrained minimum can lie on the boundary, where the gradient need not vanish — it just has to point out of $C$.",
+            "explain": "The correct first-order condition over a convex set $C$ is the variational inequality $\\langle\\nabla f(x^*), y-x^*\\rangle\\ge 0$ for all $y\\in C$; equivalently $-\\nabla f(x^*)\\in N_C(x^*)$, the outward normal cone at $x^*$. Setting $\\nabla f=0$ is only right for unconstrained problems."
+          }
+        ]
+      },
+      "co-lagrangian-duality": {
+        "title": "Lagrangian duality and the KKT system",
+        "questions": [
+          {
+            "type": "ordering",
+            "q": "Order the four KKT conditions in the standard exposition for $\\min f$ s.t. $g_i\\le 0$:",
+            "items": [
+              "Stationarity: $0\\in\\partial f(x^*)+\\sum\\lambda_i^*\\partial g_i(x^*)$",
+              "Primal feasibility: $g_i(x^*)\\le 0$",
+              "Dual feasibility: $\\lambda_i^*\\ge 0$",
+              "Complementary slackness: $\\lambda_i^*\\,g_i(x^*)=0$"
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "hint": "Stationarity comes first (the Lagrangian's gradient), then the two feasibility conditions, then complementary slackness as the coupling.",
+            "explain": "The canonical order — stationarity → primal feasibility → dual feasibility → complementary slackness — encodes that an inactive constraint must have zero multiplier and a binding constraint may have a positive one. Slater's condition is what upgrades the necessary KKT to sufficient (strong duality)."
+          },
+          {
+            "type": "mcq",
+            "q": "Slater's condition guarantees what for a convex program $\\min f$ s.t. $g_i\\le 0$, $Ax=b$?",
+            "choices": [
+              "Existence of a primal optimum",
+              "Strong duality $p^* = d^*$ (no duality gap)",
+              "Uniqueness of the primal optimum",
+              "Polynomial-time solvability"
+            ],
+            "answer": 1,
+            "hint": "Slater's condition is a *constraint qualification* — it controls the relationship between primal and dual, not existence or uniqueness of $x^*$.",
+            "explain": "Slater (existence of a strictly feasible interior point $g_i(\\tilde x)<0$ for non-affine $g_i$, plus $A\\tilde x=b$) implies strong duality and existence of a dual optimum $\\lambda^*$. Existence of a primal optimum and polynomial-time solvability are separate questions."
+          },
+          {
+            "type": "numeric",
+            "q": "Minimise $f(x,y)=x^2+y^2$ subject to $x+y=2$. By KKT (or Lagrange multipliers), the optimal value is?",
+            "answer": 2,
+            "tol": 0.001,
+            "hint": "Symmetry gives $x=y=1$. The Lagrangian $x^2+y^2+\\nu(x+y-2)$ has stationary point $2x+\\nu=0$, $2y+\\nu=0$.",
+            "explain": "Stationarity: $\\nabla f + \\nu(1,1)=0$ gives $x=y=-\\nu/2$, and $x+y=2$ then forces $x=y=1$, $\\nu=-2$. Optimal value $1^2+1^2=2$. The dual function $g(\\nu)=-\\nu^2/2-2\\nu$ peaks at $\\nu=-2$ with $g(-2)=2$ — equal, as Slater promises."
+          }
+        ]
+      },
+      "co-conic-sdp": {
+        "title": "Conic programming: LP, QP, SOCP, SDP",
+        "questions": [
+          {
+            "type": "matching",
+            "q": "Match each conic program to the cone defining its constraint $x\\in K$.",
+            "left": [
+              "Linear program (LP)",
+              "Second-order-cone program (SOCP)",
+              "Semidefinite program (SDP)",
+              "Quadratic program (QP)"
+            ],
+            "right": [
+              "Non-negative orthant $\\mathbb{R}^n_+$",
+              "Lorentz / ice-cream cone $\\{(x,t):\\|x\\|_2\\le t\\}$",
+              "PSD cone $\\mathbb{S}^n_+$ of symmetric positive-semidefinite matrices",
+              "Convex polyhedron defined by a PSD quadratic objective"
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "hint": "Each program is named for the cone of inequalities it uses; QP is the odd one out — convex polyhedral feasible set plus a quadratic *objective*.",
+            "explain": "LP/SOCP/SDP are pure conic over the orthant, Lorentz, and PSD cones respectively. QP is an LP with a convex-quadratic objective — strictly between LP and SOCP in the hierarchy LP $\\subseteq$ QP $\\subseteq$ SOCP $\\subseteq$ SDP."
+          },
+          {
+            "type": "mcq",
+            "q": "The Goemans–Williamson algorithm gives a $\\alpha\\approx 0.878$-approximation to MAX-CUT. What is the rounding step?",
+            "choices": [
+              "Round each fractional $x_i$ to the nearer of $\\{0,1\\}$",
+              "Solve the SDP relaxation to obtain unit vectors $v_i\\in S^{n-1}$, then partition by the sign of $\\langle v_i, r\\rangle$ for a uniformly random hyperplane normal $r$",
+              "Take the integer part of each LP variable",
+              "Apply a randomised pivot of the simplex tableau"
+            ],
+            "answer": 1,
+            "hint": "MAX-CUT's SDP relaxation lifts each binary $\\pm 1$ to a unit vector in $\\mathbb{R}^n$; rounding has to convert vectors back to a $\\pm 1$ assignment.",
+            "explain": "The SDP relaxation maximises $\\sum_{ij\\in E}w_{ij}\\,(1-v_i\\!\\cdot\\!v_j)/2$ with $\\|v_i\\|=1$. Random-hyperplane rounding separates $v_i$ from $v_j$ with probability $\\arccos(v_i\\!\\cdot\\!v_j)/\\pi$; the ratio to the relaxed objective is $\\ge 0.87856\\ldots$. Under UGC this constant is optimal."
+          },
+          {
+            "type": "numeric",
+            "q": "How many degrees of freedom does an $n\\times n$ symmetric matrix have? (The PSD cone $\\mathbb{S}^n_+$ lives inside this dimension-many ambient space.) Take $n=4$.",
+            "answer": 10,
+            "tol": 0.0001,
+            "hint": "$n$ diagonal entries plus the $\\binom{n}{2}$ strict-upper-triangle entries.",
+            "explain": "Symmetric $4\\times 4$ matrices form a $4+\\binom{4}{2}=4+6=10$-dimensional vector space; $\\mathbb{S}^4_+$ is a $10$-dimensional convex cone inside it. An SDP in $n$ matrix variables has decision-variable count growing like $n^2/2$."
+          }
+        ]
+      },
+      "co-gradient-proximal": {
+        "title": "Gradient and proximal methods",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Gradient descent with constant step size $\\alpha=1/L$ on a convex $f$ with $L$-Lipschitz gradient converges at what rate in objective value?",
+            "choices": [
+              "$O(1/k)$",
+              "$O(1/k^2)$",
+              "$O(\\log k / k)$",
+              "Geometric / exponential: $O(\\rho^k)$ with $\\rho<1$"
+            ],
+            "answer": 0,
+            "hint": "Without strong convexity, the convergence is sublinear; Nesterov's acceleration improves this by one power of $k$.",
+            "explain": "Vanilla gradient descent has $f(x_k)-f^*\\le L\\|x_0-x^*\\|^2/(2k)$ on smooth convex functions. Strong convexity ($\\mu>0$) gives geometric $O((1-\\mu/L)^k)$; Nesterov's accelerated method gives $O(1/k^2)$ without strong convexity."
+          },
+          {
+            "type": "numeric",
+            "q": "Compute the proximal operator of $g(x)=\\lambda|x|$ with $\\lambda=1$ at $y=2$: $\\mathrm{prox}_g(2)=\\arg\\min_x\\{|x|+\\tfrac{1}{2}(x-2)^2\\}=?$",
+            "answer": 1,
+            "tol": 0.001,
+            "hint": "Soft-thresholding: $\\mathrm{prox}_{\\lambda|\\cdot|}(y)=\\mathrm{sign}(y)\\,\\max(|y|-\\lambda, 0)$.",
+            "explain": "The minimiser of $|x|+\\tfrac{1}{2}(x-2)^2$ is found from $0\\in\\partial g(x)+(x-2)$. For $x>0$, $1+x-2=0$ gives $x=1$. This is exactly soft-thresholding: $\\mathrm{prox}_{|\\cdot|}(y)=\\mathrm{sign}(y)\\,(|y|-1)_+$. ISTA / FISTA iterate this for $\\ell_1$-regularised regression."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which statements about Nesterov's accelerated gradient method on smooth convex $f$ are correct?",
+            "choices": [
+              "It achieves $O(1/k^2)$ in objective value, matching the lower bound for first-order methods",
+              "Its iteration uses a momentum / extrapolation step in addition to the gradient",
+              "It is monotone: $f(x_{k+1})\\le f(x_k)$ always",
+              "It is optimal among first-order methods on the class of smooth convex problems (Nemirovski–Yudin lower bound)"
+            ],
+            "answer": [
+              0,
+              1,
+              3
+            ],
+            "hint": "Vanilla Nesterov is *not* monotone — the objective can rise on a step; restart schemes are added to enforce monotonicity.",
+            "explain": "Nesterov 1983 hits $O(1/k^2)$ and matches Nemirovski–Yudin's $\\Omega(1/k^2)$ lower bound, so it is optimal among first-order methods on smooth convex problems. The method uses an extrapolation $y_k=x_k+\\beta_k(x_k-x_{k-1})$, $x_{k+1}=y_k-\\alpha\\nabla f(y_k)$. It is not monotone in $f$."
+          }
+        ]
+      },
+      "co-interior-point": {
+        "title": "Interior-point methods and self-concordance",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What does the *central path* in a primal-dual interior-point method trace out as the barrier parameter $\\mu\\to 0$?",
+            "choices": [
+              "A piecewise-linear sequence of vertices of the feasible polytope",
+              "A smooth curve in the strict interior, asymptoting to the optimum as $\\mu\\to 0$",
+              "A random walk biased toward the optimum",
+              "The boundary of the feasible set"
+            ],
+            "answer": 1,
+            "hint": "Interior-point methods stay *strictly inside* the feasible region — that's where the barrier function is finite.",
+            "explain": "For each $\\mu>0$, the perturbed KKT system $\\nabla f(x)+A^\\top y=\\mu\\nabla B(x)$ has a unique solution $x(\\mu)$ in the strict interior. The curve $\\{x(\\mu):\\mu>0\\}$ is smooth and ends at the optimum; Newton steps track it efficiently while $\\mu$ decreases geometrically."
+          },
+          {
+            "type": "numeric",
+            "q": "Nesterov–Nemirovski's polynomial-time bound on an interior-point method with $\\nu$-self-concordant barrier requires $O(\\sqrt{\\nu}\\,\\log(1/\\varepsilon))$ outer iterations to reach $\\varepsilon$-accuracy. If the log-barrier $-\\sum\\log x_i$ on $\\mathbb{R}^n_+$ has $\\nu=n$, what is the exponent on $n$? (Answer the exponent on $n$ alone.)",
+            "answer": 0.5,
+            "tol": 0.001,
+            "hint": "Read off the exponent on $\\nu$ in $O(\\sqrt{\\nu}\\,\\log(1/\\varepsilon))$.",
+            "explain": "The complexity scales as $\\sqrt{\\nu}=\\sqrt{n}$ for the standard log-barrier on the non-negative orthant. This is why LP, QP, SOCP, and SDP all sit in P with practical $\\tilde O(\\sqrt{n}\\log(1/\\varepsilon))$ implementations."
+          },
+          {
+            "type": "mcq",
+            "q": "A function $\\phi$ is *self-concordant* (Nesterov–Nemirovski) iff its third derivative is bounded by its second derivative to the $3/2$ power: $|\\phi'''(x)|\\le 2\\,\\phi''(x)^{3/2}$ (1D version). Why is this the right notion?",
+            "choices": [
+              "It guarantees $\\phi$ is convex",
+              "It makes the Newton step size affine-invariant and gives an explicit region of quadratic convergence",
+              "It ensures $\\phi$ is bounded above",
+              "It is a smoothness condition equivalent to $C^\\infty$"
+            ],
+            "answer": 1,
+            "hint": "Self-concordance is exactly the property that Newton's method behaves well — it lets you bound progress *without* knowing global Lipschitz constants.",
+            "explain": "Self-concordance makes the *Newton decrement* $\\lambda(x)=\\sqrt{\\nabla\\phi^\\top H^{-1}\\nabla\\phi}$ a meaningful measure of nearness-to-optimum, affine-invariant under coordinate change. Damped Newton converges quadratically once $\\lambda(x)<1/4$. This is the entire mechanism behind polynomial-time interior-point methods."
+          }
+        ]
+      },
+      "co-stochastic-online": {
+        "title": "Stochastic and online convex optimization",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Stochastic gradient descent on a convex objective with a constant-step or $O(1/\\sqrt{T})$-decaying step achieves what rate in $\\mathbb{E}\\,f(\\bar x_T)-f^*$?",
+            "choices": [
+              "$O(1/T)$",
+              "$O(1/\\sqrt{T})$",
+              "$O(1/T^2)$",
+              "$O(\\log T / T)$"
+            ],
+            "answer": 1,
+            "hint": "SGD is one order slower than full-batch gradient descent on the same problem — the noise costs a $\\sqrt{T}$.",
+            "explain": "SGD with step $\\alpha_t=O(1/\\sqrt{t})$ and Polyak averaging achieves $\\mathbb{E}\\,f(\\bar x_T)-f^*=O(1/\\sqrt{T})$ on convex Lipschitz objectives, *independent of dimension*. Strong convexity improves this to $O(1/T)$."
+          },
+          {
+            "type": "matching",
+            "q": "Match each online algorithm to its regularizer (Bregman divergence generator).",
+            "left": [
+              "Online gradient descent",
+              "Multiplicative weights / Hedge",
+              "Mirror descent (general)"
+            ],
+            "right": [
+              "Squared Euclidean norm $\\tfrac{1}{2}\\|x\\|_2^2$",
+              "Negative entropy $\\sum x_i\\log x_i$ on the simplex",
+              "A general strongly-convex $\\psi$ generating the Bregman divergence $D_\\psi(x,y)$"
+            ],
+            "answer": [
+              0,
+              1,
+              2
+            ],
+            "hint": "OGD is mirror descent under the Euclidean regulariser; Hedge / exponentiated gradient is mirror descent under negative entropy on the simplex.",
+            "explain": "Mirror descent generalises projected gradient by using any strongly convex $\\psi$ as a regulariser. Euclidean $\\psi$ recovers OGD with $O(\\sqrt{T})$ regret; entropic $\\psi$ on the simplex recovers multiplicative weights, with $O(\\sqrt{T\\log n})$ regret — exponentially better dimension dependence."
+          },
+          {
+            "type": "numeric",
+            "q": "Online gradient descent on a convex Lipschitz loss sequence with optimal step size achieves regret $R_T=O(\\sqrt{T})$. What is the exponent on $T$? (Just the exponent.)",
+            "answer": 0.5,
+            "tol": 0.001,
+            "hint": "$\\sqrt{T}=T^{?}$.",
+            "explain": "Zinkevich's analysis (2003) shows OGD achieves $R_T\\le GD\\sqrt{T}$ where $D$ is the diameter and $G$ the gradient bound, giving an exponent of $1/2$ on $T$. This is optimal for adversarial Lipschitz losses; smoothness or strong convexity improves the rate."
           }
         ]
       }

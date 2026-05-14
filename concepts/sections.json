@@ -101,7 +101,8 @@
         "high-dimensional-geometry",
         "random-matrix-theory",
         "mathematical-biology",
-        "spectral-methods-data"
+        "spectral-methods-data",
+        "computational-molecular-biology"
       ],
       "color": "g"
     },
@@ -279,6 +280,7 @@
       "topics": [
         "optimal-control-and-dynamic-programming",
         "combinatorial-optimization",
+        "convex-optimization",
         "mathematical-finance"
       ],
       "color": "p"

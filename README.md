@@ -23,7 +23,7 @@ Alongside each handwritten `<topic>.html`, the repo also carries a structured `c
 
 ## Learning pathways
 
-Start from [`pathway.html`](./pathway.html) to explore prerequisite graphs for capstone goals — pick any of the 34 capstones and the DAG layers every prereq concept by depth. For free-form exploration over the entire 1292-concept graph (no goal required), [`mindmap.html`](./mindmap.html) renders a section-clustered force-directed layout: click a node to focus its k-hop neighborhood, filter by section/level/mastery, and a structural-stats panel surfaces uneven prereq density across the eleven sections. Both views read the same concept graph; pathway is goal-targeted, mindmap is free-explore.
+Start from [`pathway.html`](./pathway.html) to explore prerequisite graphs for capstone goals — pick any of the 34 capstones and the DAG layers every prereq concept by depth. For free-form exploration over the entire 1306-concept graph (no goal required), [`mindmap.html`](./mindmap.html) renders a section-clustered force-directed layout: click a node to focus its k-hop neighborhood, filter by section/level/mastery, and a structural-stats panel surfaces uneven prereq density across the eleven sections. Both views read the same concept graph; pathway is goal-targeted, mindmap is free-explore.
 
 Each concept carries up to three quiz tiers — v1 (required), hard (unlocked after v1), and expert (unlocked after hard). Mastery is tracked in `localStorage` and lights up downstream concepts `locked → ready → mastered`, Brilliant-style. Topic cards on the index may carry a level badge: `prereq`, `advanced`, or `capstone`.
 
@@ -99,6 +99,7 @@ Each concept carries up to three quiz tiers — v1 (required), hard (unlocked af
 - [Mathematical statistics](./mathematical-statistics.html) — sufficiency, MLE, Cramér–Rao, asymptotic normality, hypothesis tests
 - [High-dimensional geometry](./high-dimensional-geometry.html) — concentration of measure, Johnson–Lindenstrauss, isoperimetry, random projections
 - [Random matrix theory](./random-matrix-theory.html) — draft — fill in once the page has real content
+- [Computational molecular biology](./computational-molecular-biology.html) — sequence alignment (Needleman–Wunsch, Smith–Waterman), suffix arrays and the Burrows–Wheeler transform, HMMs and Viterbi, phylogenetic inference (UPGMA, neighbor-joining, Felsenstein pruning), the coalescent in inference, RNA secondary-structure DP, and protein contact maps
 
 ### Geometry & topology
 - [Point-set topology](./point-set-topology.html) — metric spaces, open sets, continuity, compactness, connectedness, separation axioms
@@ -125,7 +126,6 @@ Each concept carries up to three quiz tiers — v1 (required), hard (unlocked af
 - [Khovanov homology](./khovanov-homology.html) — draft — fill in once the page has real content
 - [Surgery theory](./surgery-theory.html) — draft — fill in once the page has real content
 - [Heegaard floer](./heegaard-floer.html) — draft — fill in once the page has real content
-- [Convex geometry](./convex-geometry.html) — convex bodies, Minkowski sums and mixed volumes, Brunn–Minkowski, polytopes, polar duality, John ellipsoid, and Dvoretzky-style spherical sections
 
 ### Number theory
 - [Galois theory & the quintic](./galois.html) — constructibility, correspondence, unsolvability
@@ -229,6 +229,7 @@ Each concept carries up to three quiz tiers — v1 (required), hard (unlocked af
 
 ### Control theory & optimization
 - [Optimal control and dynamic programming](./optimal-control-and-dynamic-programming.html) — Pontryagin's maximum principle, Hamilton–Jacobi–Bellman PDE, linear-quadratic regulator and the Riccati equation, discrete-time Bellman equation with value/policy iteration, stochastic dynamic programming and the Merton portfolio problem.
+- [Convex optimization](./convex-optimization.html) — convex sets/functions and the Legendre–Fenchel transform, subgradients and the constrained first-order condition, Lagrangian duality with Slater + KKT, conic programming (LP/QP/SOCP/SDP) and the Goemans–Williamson MAX-CUT relaxation, gradient and proximal methods (Nesterov acceleration, ISTA/FISTA), interior-point methods and self-concordance, stochastic and online convex optimization (SGD, mirror descent).
 
 ## Resetting progress
 
