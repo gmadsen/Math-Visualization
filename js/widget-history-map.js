@@ -360,7 +360,13 @@
     host.appendChild(legend);
 
     // === state ===
-    const state = { activeEras: new Set(), selectedIdx: -1, _renderedIdx: -2 };
+    // filterMode: explicit "filter is active" flag. Decouples "no era
+    // selected" from "filter disabled". When the user clicks any chip, we
+    // enter filter mode; subsequent deselections (including dropping the
+    // last chip) keep filter mode on, so every pin renders as `.dim` —
+    // this is what "no era selected" means visually. The "All eras"
+    // button is the only way back to filter-off (everything natural).
+    const state = { activeEras: new Set(), selectedIdx: -1, filterMode: false, _renderedIdx: -2 };
 
     function renderDetail(){
       // gate: only re-render when the selection has actually changed.
@@ -404,7 +410,11 @@
     }
 
     function applyState(){
-      const filterActive = state.activeEras.size > 0;
+      // filterActive is driven by the explicit filterMode flag, not by
+      // activeEras.size — so the "no era selected" sub-state of filter
+      // mode renders every pin as `.dim` rather than collapsing back to
+      // the natural-color default.
+      const filterActive = state.filterMode;
       // When a single era is selected, the halo should match that era for
       // every visible pin — not the pin's "newest era" color, which would
       // leak through unrelated eras' tints. We override --era-color on the
@@ -461,8 +471,12 @@
         c.classList.toggle('active', on);
         c.setAttribute('aria-pressed', on ? 'true' : 'false');
       });
-      allBtn.classList.toggle('active', state.activeEras.size === 0);
-      allBtn.setAttribute('aria-pressed', state.activeEras.size === 0 ? 'true' : 'false');
+      // "All eras" pip lights only when filter mode is OFF (default
+       // state); in filter mode with empty selection, NO chip is active —
+       // that's the "show everything dim" state.
+      const allOn = !state.filterMode;
+      allBtn.classList.toggle('active', allOn);
+      allBtn.setAttribute('aria-pressed', allOn ? 'true' : 'false');
       renderDetail();
     }
 
@@ -514,14 +528,18 @@
       c.addEventListener('click', () => {
         if(state.activeEras.has(id)) state.activeEras.delete(id);
         else state.activeEras.add(id);
+        // Any chip click enters filter mode and stays there even if the
+        // selection drops to empty — the empty-selection state is "no
+        // era selected, show everything dimmed".
+        state.filterMode = true;
         applyState();
       });
     });
     allBtn.addEventListener('click', () => {
-      // "All eras" means "no era filter active" — clear the selection back
-      // to the default state where every pin shows in its natural
-      // (newest-era) color with no halo or fade.
+      // "All eras" exits filter mode entirely: every pin renders in its
+      // natural color with no halo or fade.
       state.activeEras.clear();
+      state.filterMode = false;
       applyState();
     });
     svg.addEventListener('dblclick', e => {
