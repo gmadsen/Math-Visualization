@@ -1,6 +1,14 @@
 {
-  "generated": "2026-05-13T03:01:51.531Z",
+  "generated": "2026-05-14T00:22:20.201Z",
   "entries": [
+    {
+      "slug": "convex-optimization",
+      "title": "Convex optimization",
+      "color": "p",
+      "tag": "",
+      "date": "2026-05-13",
+      "message": "New topic: Convex optimization (Control theory & optimization) (#179)"
+    },
     {
       "slug": "brill-noether",
       "title": "Brill–Noether theory",
