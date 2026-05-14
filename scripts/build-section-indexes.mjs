@@ -31,6 +31,13 @@ const repoRoot = resolve(dirname(__filename), '..');
 const indexPath = join(repoRoot, 'index.html');
 const sectionsDir = join(repoRoot, 'sections');
 
+// --fix writes; default mode compares desired vs on-disk bytes and exits 1
+// on drift. CI (`rebuild.mjs --no-fix`) must stay read-only so committed
+// section-index drift surfaces as a build failure rather than being silently
+// regenerated and passing.
+const FIX = process.argv.includes('--fix');
+const driftedFiles = [];
+
 // ----- 1-sentence description per section (sourced from sections.json) -----
 // Each entry in concepts/sections.json carries a `description` field; we
 // build a lookup keyed by display title. Sections without a description
@@ -85,10 +92,26 @@ const origHeadInner = headMatch[1];
 // Rewrite the <head> for the sections/ subdirectory. KaTeX is on a CDN, so
 // the only relative paths are defensive rewrites for ./<something>.
 // Apply to href="./…" and src="./…" uniformly.
+//
+// Also neutralize the index.html collapsible-section affordance on these
+// pages: each section landing only contains ONE `.sec` header (its own), so
+// the cursor:pointer + chevron + hover styles offer no real action and the
+// click handler that drives them lives in index.html only. Overriding the
+// styles here keeps the index-side affordance intact while making the
+// section pages render as plain headers.
+const SECTION_PAGE_OVERRIDES = '\n<style>\n' +
+  '  /* Section pages contain a single .sec header — neutralize the\n' +
+  '     collapsible affordance copied from index.html. */\n' +
+  '  .sec{cursor:default;user-select:auto}\n' +
+  '  .sec:hover{border-bottom-color:var(--line);background:transparent;\n' +
+  '    border-left-width:3px;padding-left:0.95rem}\n' +
+  '  .sec::before{content:none}\n' +
+  '</style>\n';
+
 function rewriteHead(headInner) {
   return headInner
     .replace(/href="\.\/(?!\/)/g, 'href="../')
-    .replace(/src="\.\/(?!\/)/g, 'src="../');
+    .replace(/src="\.\/(?!\/)/g, 'src="../') + SECTION_PAGE_OVERRIDES;
 }
 
 // Retitle (keep everything else in <head> untouched).
@@ -233,7 +256,14 @@ for (const sec of parsedSections) {
   const out = `<!doctype html>\n<html lang="en">\n<head>${headInner}</head>\n${body}\n`;
 
   const outPath = join(sectionsDir, `${slug}.html`);
-  writeFileSync(outPath, out);
+  const existing = existsSync(outPath) ? readFileSync(outPath, 'utf8') : null;
+  if (existing !== out) {
+    if (FIX) {
+      writeFileSync(outPath, out);
+    } else {
+      driftedFiles.push(`sections/${slug}.html`);
+    }
+  }
 
   summary.push({ slug, title: sec.title, cardCount: sec.cardCount, path: outPath });
   if (sec.empty) emptySections.push(sec.title);
@@ -275,12 +305,17 @@ if (fenceRe.test(newIndex)) {
 }
 
 if (newIndex !== indexHtml) {
-  writeFileSync(indexPath, newIndex);
+  if (FIX) {
+    writeFileSync(indexPath, newIndex);
+  } else {
+    driftedFiles.push('index.html');
+  }
 }
 
 // ----- Summary -----
 const totalCards = summary.reduce((a, s) => a + s.cardCount, 0);
-console.log(`build-section-indexes: wrote ${summary.length} page(s), ${totalCards} card(s) distributed`);
+const verb = FIX ? 'wrote' : 'checked';
+console.log(`build-section-indexes: ${verb} ${summary.length} page(s), ${totalCards} card(s) distributed`);
 for (const s of summary) {
   console.log(`  - sections/${s.slug}.html  (${s.cardCount} card${s.cardCount === 1 ? '' : 's'}) — ${s.title}`);
 }
@@ -289,6 +324,15 @@ if (emptySections.length > 0) {
 } else {
   console.log('  no empty sections.');
 }
-console.log('  index.html: Sections row appended/refreshed above the existing <footer>.');
+console.log(`  index.html: Sections row ${FIX ? 'appended/refreshed' : 'compared'} above the existing <footer>.`);
+
+if (driftedFiles.length > 0) {
+  console.error(
+    `\nbuild-section-indexes: ${driftedFiles.length} file(s) drifted from desired bytes:`
+  );
+  for (const f of driftedFiles) console.error(`  - ${f}`);
+  console.error('Re-run with --fix to apply.');
+  process.exit(1);
+}
 
 process.exit(0);

@@ -337,11 +337,15 @@ $$ds^2 \;=\; -\,dt^2 + dx^2 + dy^2 + dz^2.$$
       function up(){
         document.removeEventListener('pointermove', move);
         document.removeEventListener('pointerup', up);
+        document.removeEventListener('pointercancel', up);
+        window.removeEventListener('blur', up);
         // h was rebuilt inside draw(), so don't try to re-style it; the
         // newly-rendered handle uses the default cursor:grab from its inline style.
       }
       document.addEventListener('pointermove', move);
       document.addEventListener('pointerup', up, {once:true});
+      document.addEventListener('pointercancel', up, {once:true});
+      window.addEventListener('blur', up, {once:true});
     });
     out.textContent = `v = (Δt=${vt.toFixed(0)}, Δx=${vx.toFixed(0)})    g(v,v) = Δx² − Δt² = ${inner.toFixed(0)}    ⇒  ${kind}`;
   }

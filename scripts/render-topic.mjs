@@ -72,7 +72,18 @@ function buildWidgetById(doc) {
   for (const section of doc.sections) {
     for (const block of section.blocks) {
       if (block.type === 'widget' && block.slug && block.params?.widgetId) {
-        map.set(block.params.widgetId, block);
+        const id = block.params.widgetId;
+        if (map.has(id)) {
+          // Fail fast: a duplicate widgetId silently breaks
+          // { "type": "widget-script", "ref": ... } binding because the lookup
+          // would resolve to whichever widget appears last. Surface the
+          // ambiguity at render time instead of producing a wrong page.
+          throw new Error(
+            `render-topic: duplicate widgetId "${id}" in topic — ref-based ` +
+            `widget-script lookups are ambiguous; rename one of the widgets.`,
+          );
+        }
+        map.set(id, block);
       }
     }
   }
