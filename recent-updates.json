@@ -1,5 +1,5 @@
 {
-  "generated": "2026-05-14T15:53:24.210Z",
+  "generated": "2026-05-14T16:23:18.923Z",
   "entries": [
     {
       "slug": "complex-multiplication",
@@ -16,6 +16,14 @@
       "tag": "",
       "date": "2026-05-14",
       "message": "fix: Codex Tier 2 backlog — math/widget/anchor bugs from PRs #100-#170 (#187)"
+    },
+    {
+      "slug": "sato-tate",
+      "title": "Sato–Tate",
+      "color": "p",
+      "tag": "",
+      "date": "2026-05-14",
+      "message": "fix: Codex Tier 3 backlog — 19 fixes from PRs #1-#100 (oldest) (#188)"
     },
     {
       "slug": "several-complex-variables",
@@ -1364,14 +1372,6 @@
     {
       "slug": "riemannian-geometry",
       "title": "Riemannian geometry",
-      "color": "p",
-      "tag": "",
-      "date": "2026-04-26",
-      "message": "Content + structure expansion: 22 new topics, 156 new concepts, full review pass (#35)"
-    },
-    {
-      "slug": "sato-tate",
-      "title": "Sato–Tate",
       "color": "p",
       "tag": "",
       "date": "2026-04-26",
