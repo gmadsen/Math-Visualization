@@ -10,8 +10,8 @@ notation drift / undefined jargon / tone mismatches / missing worked examples / 
 | Section | Topics | Audited | Status |
 |---|---:|---:|---|
 | Logic & Foundations | 8 | 8 | complete |
+| Algebra & homological | 17 | 17 | complete |
 | Higher categories & toposes | 7 | 0 | pending |
-| Algebra & homological | 17 | 0 | pending |
 | Analysis | 22 | 0 | pending |
 | Probability & statistics | 12 | 0 | pending |
 | Geometry & topology | 26 | 0 | pending |
@@ -21,7 +21,7 @@ notation drift / undefined jargon / tone mismatches / missing worked examples / 
 | Combinatorics & graph theory | 9 | 0 | pending |
 | Mathematical physics | 11 | 0 | pending |
 | Control theory & optimization | 4 | 0 | pending |
-| **Total** | **190** | **8** | **4%** |
+| **Total** | **190** | **25** | **13%** |
 
 ## Logic & Foundations — consolidated findings (8/8)
 
@@ -68,6 +68,58 @@ All 8 topics rated `minor polish`. Recurring themes across the section:
 ### Tone (rare)
 - `zfc-and-ordinals` §5 jumps to formalism faster than `naive-set-theory#choice` (missing shoes-vs-socks intuition).
 - `zfc-and-ordinals` §7 large-cardinal name-density higher than peers allow.
+
+## Algebra & homological — consolidated findings (17/17)
+
+All 17 topics rated `minor polish`. Recurring themes across the section:
+
+### Real bugs (highest priority)
+- **`condensed-mathematics`**: undefined `\liq` macro used 3x (lines 762, 765, 780) — renders blank or raw under `throwOnError:false`. Plus a 2022/2021 date desync between §5 widget button label and underlying milestone data.
+- **`quaternions-octonions-and-division-algebras`**: 2 broken cross-page anchors in §7 (silent 404s per anchor contract): `lie-groups.html#so3-su2` should be `#so3su2`; `algebra.html#field-extensions` should be `#extensions`.
+- **`commutative-algebra`** §15 (line 2563) closing paragraph references "twelve sections" but the page now has sixteen — stale text from before §13/§14/§16 backfill.
+- **Duplicate callbacks (corpus-wide pattern)**: hand-authored `<aside class="callback">` blocks coexisting with auto-injected fenced blocks in `quantum-groups` §1, `cluster-algebras` §§5–6, `geometric-and-combinatorial-group-theory` §§5–6. Readers see "See also" twice. `audit-callbacks.mjs` only checks coverage, not duplication — script enhancement needed.
+
+### Notation drift (corpus-wide pattern)
+- Pervasive `\mathrm{Op}` vs `\operatorname{Op}` mixing across all 17 pages — `\mathrm` overused for multi-letter operators (`Ext`, `Tor`, `Hom`, `Tot`, `Ch`, `Ind`, `Res`, `GL`, `End`, `Stab`, `sgn`, ...) where the canonical `category-theory.html` and `homological.html` use `\operatorname{...}`. Cleanest fix: extend the page's KaTeX `macros:` block with `\Ext`, `\Tor`, `\Tot`, `\Ch`, `\Ind`, `\Res`, etc., and rewrite call sites.
+- Category-name fonts inconsistent across the section: `\mathbf{Top}` (model-categories), `\mathsf{Top}` (category-theory), `\mathrm{Ab}` (derived-categories). Three peers, three font conventions.
+- `\mathbb{Z}` vs `\mathbb Z` (braces vs unbraced) interleaved inside many pages.
+- Widget readouts emit raw ASCII (`sl_2`, `pi_1`, `>=`, `(+)`) outside `$…$` so KaTeX never re-renders them — `lie-algebras`, `representation-theory`, `algebraic-k-theory-foundations` all flagged.
+- `galois-cohomology-and-brauer` uses Latin `\mathrm{III}` for Tate–Shafarevich; `bsd.html` and `elliptic-curves.html` use Cyrillic `\Sha → \text{Ш}`.
+
+### Helper-block hygiene
+- `algebra.html` and `homological.html` both omit `ensureArrow` / `drawArrow` / `drawNode` from the canonical helper block (per AGENTS.md § "Page-global helpers" the block must be copied verbatim from category-theory.html). Each ad-hoc widget then re-implements local arrow-drawing.
+
+### Dead macros (corpus-wide)
+- Most pages declare `\Spec`, `\Gal`, `\Hom`, `\tr`, `\ad`, `\ind` in the loader but never use most of them. Loader copy-paste inertia.
+
+### Missing widgets / worked examples
+- `algebra` §1, §7, §8 — no widget.
+- `category-theory` §7 — no `<div class="quiz">` placeholder (anomalous; every other section has one).
+- `commutative-algebra` §9, §14, §16 — no widget.
+- `homological` §5 (LES — most important result on the page), §12, §13, §14 — no widget. Same late-back-fill signature as commutative-algebra §13/§14/§16.
+- `representation-theory` §6 (Characters and orthogonality) — no widget.
+- `quantum-groups` §5, §6 — no worked computation in prose.
+- `lie-algebras` §5, §6 — no walked-through small weight string / Cartan-matrix worked case.
+- `galois-cohomology` §5, §6 — read-only widgets only.
+- `cluster-algebras` §5 (Caldero–Chapoton), §6 (Bordered surfaces, Total positivity).
+- `derived-categories` §3, §6, §7 under-illustrated.
+- `algebraic-k-theory-foundations` §6 (motivic) shares one truncating widget across three subsections.
+- `quaternions-octonions` §3 (Cayley–Dickson), §6 (Hurwitz four-square).
+
+### Tone slips (corpus-wide pattern)
+- §11+ "Connections" sections drift into encyclopedia / name-drop register: `algebra` §16–§19, `representation-theory` §11, `lie-algebras` §7, `algebraic-k-theory` §7, `quaternions-octonions` §7, `cluster-algebras` §7. Recommend collapsing into the standard `<aside class="related">` callback pattern.
+- §12–§14 of `homological` drier than §1–§11 (back-fill signature).
+
+### Other notable
+- `homological` §14 introduces `\mathbb{R}^n F` for hyper-derived without flagging that it differs from §9's `R^iF` — same semantic risk as `algebra`'s `Galois group` before §8.
+- `cluster-algebras` polygon-flip widget has LaTeX-in-`textContent` leak (line 790) — `$\mu_d$` and `$x_{(i,j)}$` written after KaTeX scanned, render literal.
+- `geometric-and-combinatorial-group-theory` §5 widget draws δ-neighborhood as Euclidean radius even in Poincaré-disk mode — pedagogically counterproductive in the section *defining* δ-thinness.
+- `model-categories` Unicode `⫛` (U+2ADB) in widget readouts where the conventional symbol is `⊠`.
+- `algebra` KaTeX loader omits `throwOnError:false` — future LaTeX typos render as red error badges instead of falling back to source.
+
+### Cosmetic
+- `zfc`/`commutative-algebra` SVG ID near-collisions (`ch-svg`/`ch-svg2`).
+- `quaternions-octonions` line 459 hex literal `'#111'` (should be `var(--ink)`).
 
 ## Logic & Foundations — recommended fix bundle
 

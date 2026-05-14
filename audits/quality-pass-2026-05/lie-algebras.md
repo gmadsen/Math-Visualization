@@ -1,0 +1,47 @@
+# lie-algebras — pedagogical audit (2026-05)
+
+**Section:** Algebra & homological
+**Compared against:** algebra, representation-theory
+
+## Summary
+Compact, well-paced 7-section page; helper block, KaTeX loader (IIFE + `throwOnError:false`), and macro block all match the canonical `category-theory.html` template. Strongest issue is the systemic `\mathrm{*}` vs `\operatorname{*}` (`\Hom`/`\tr`/`\ad`) inconsistency for classical-group operators (`\mathrm{GL}`, `\mathrm{SL}`, `\mathrm{SO}`, `\mathrm{Sp}`, `\mathrm{SU}`); secondary issue is widget readouts emitting raw ASCII Lie-algebra strings (`sl_2`, `g^(0)`, `n_3`) outside `$…$` so they never re-render.
+
+## Findings
+
+### Notation drift
+- **Classical group operators use `\mathrm` while the macro block defines `\operatorname` for `\Hom`/`\tr`/`\ad`.** Line 280–283 (the §1 table) writes `\mathrm{GL}_n`, `\mathrm{SL}_n`, `\mathrm{SO}_n`, `\mathrm{Sp}_{2n}`; line 370 (backlink) has `\mathrm{SU}(2)\to\mathrm{SO}(3)`. category-theory.html and the macro block treat multi-letter operators as `\operatorname`-style; representation-theory.html has the same `\mathrm{GL}` slip flagged in its audit. Cosmetic spacing drift but visible side-by-side with `$\tr X$` (which uses the macro) on line 281.
+- **`\top` for transpose used directly** (lines 282–283: `X+X^\top=0`, `X^\top J + JX = 0`). Fine — matches representation-theory.html convention; flag only because the same expression in some peer pages writes `X^T`. Internally consistent.
+- **`\Spec`, `\Gal`, `\ind` macros are dead weight.** Defined at lines 23–28, never used anywhere in the body. Same corpus-wide inertia flagged in the algebra and rep-theory audits — copy-pasted from the canonical macro block without pruning. Cosmetic.
+- **`\Hom` macro is also dead** on this page specifically — `\Hom` never appears in the body (the page never writes morphism spaces). All operator usage is via `\tr` (line 281, 384) and `\ad` (lines 378–380, 384, 401, 480, 507). Pruning the unused half of the macro block would be one small win.
+- **Subscript convention for `\mathfrak{g}_\alpha`** (line 608) is consistent with itself (`\mathfrak{g}_{-\alpha}`, `\mathfrak{g}_{-2}`, etc.); no drift. Good.
+
+### Undefined jargon
+- **§1 hero subtitle drops "skew-symmetry, Jacobi, and a single bilinear form"** (line 267) — "single bilinear form" foreshadows the Killing form, but the term is undefined here and only formally introduced in §2 (line 384). Acceptable as poetic framing in the hero; minor.
+- **§4 line 605 introduces "radical" parenthetically** ("its largest solvable ideal (the *radical*)") — adequate one-line gloss, good.
+- **§4 line 607 "maximal toral (ad-diagonalizable) subalgebra"** — "toral" is glossed inline as "ad-diagonalizable" in the same parenthetical. Good.
+- **§5 line 725 "Casimir $C=ef+fe+\tfrac12 h^2$"** appears with no prior mention of what a Casimir is or why it commutes with everything. Reader gets the formula and the eigenvalue but no concept-anchor. The §5 widget then exposes the value `n(n+2)/2` in a readout (line 777) without re-explaining. **Medium priority** — one parenthetical "(the central element of $U(\mathfrak{g})$)" or a callback would close it.
+- **§5 line 725 "$j(j+1)$ in physics with $j=n/2$"** — drops "physics" terminology onto a reader who may not have seen it. Cosmetic; the analogy lands for readers who recognize it and is ignorable for those who don't.
+- **§4 / §6 use "simple" and "semisimple" interchangeably with the formal definitions appearing only at §4 line 605 (semisimple) and §4 line 694 / §6 line 810 ("simple")**. The note at line 694 ("A *simple* Lie algebra has an irreducible root system") is the only definition of "simple", and it arrives after "simple" has already been used multiple times in headers and prose. **Medium priority** — define "simple" alongside "semisimple" in §4, or one-line up front.
+- **§7 line 977 "Reductive algebraic groups"** is name-dropped without definition; acceptable in a "Connections" outro but unusual for the page voice (the rest defines or glosses every term).
+- **§7 line 981 "Kac–Moody, Virasoro"** — name-drops in a connections section, fine.
+
+### Tone mismatches
+- **§7 ("Connections") drops out of the canonical voice into a textbook-recommendation register.** Sub-headings ("Lie groups", "Representation theory", "Algebraic groups and number theory", "Geometry and physics") read as encyclopedia summaries — third-person, no "you", no widget, no concrete computation. Compare §1–§6 which keep the second-person register ("Differentiate a Lie group at the identity and you get…", "click a cell to see $[X,Y]$", "watch where $\ad(x)$ sends each basis vector"). Same pattern that the rep-theory audit flagged about its §11 reading-list close. **Medium priority** — at minimum, replace the third-party-author register with callbacks/related-asides per house convention; ideally collapse the four `<h3>`s into a tighter prose paragraph that points outward via in-corpus links, mirroring `category-theory.html`'s closing voice.
+- **§5 weight-diagram widget readouts (lines 777, 781) emit `dim V_n = …`, `e·v -> v_4`, `v_-2`** in raw ASCII — same family as the rep-theory `s4-pairs` and §8.1 widgets that emit ASCII Lie-algebra names. Sits next to lush prose with `$V_n$`, `$h$`, `$\mathfrak{g}_\alpha$` etc. Cosmetic; affects multiple widgets on the page (see KaTeX section).
+- **Hero subtitle ends with "decoded from skew-symmetry, Jacobi, and a single bilinear form"** — strong, on-brand compression. Good.
+
+### Missing worked examples
+- **§5 has the widget but the prose never walks through a small concrete weight-string by hand.** The classification claim ("for each $n\ge 0$ there is a unique irrep $V_n$") drops, then jumps straight into the slider. A 2-line worked case (e.g. "for $n=2$: weights are $2,0,-2$; $e\cdot v_0 = v_2$, $f\cdot v_2 = v_0$ — see widget") would mirror the §1 / §2 rhythm where prose computes in `\mathfrak{sl}_2` first, then the widget verifies. Minor — the widget itself does compute it interactively.
+- **§6 (Classification) has a Dynkin gallery but no "given a diagram, recover the Cartan matrix" or "given the Cartan matrix, count the roots" worked example.** The §6 prose is one paragraph + table; the page's promised pedagogical rhythm (definition → small computation → widget) compresses to (definition → widget) here. Compare algebra.html §16 which still walks through one composition series before the widget. **Medium priority.**
+- **§7 (Connections) has no widget by design**, fine for an outro. No action.
+- **No widget for the Killing-form computation in §2.** The Killing form $B(x,y)=\tr(\ad(x)\ad(y))$ is introduced at line 384 and the surrounding prose claims it is canonical and nondegenerate-iff-semisimple — but the reader never gets to compute $B$ on $\mathfrak{sl}_2$ to feel why. The §2 widget only visualizes $\ad(x)$ (good); a short follow-on "compute $B(h,h), B(e,f)$" matrix readout would tie the abstract claim to a concrete number (the Killing form on $\mathfrak{sl}_2$ is $B = 4\cdot\mathrm{diag}$ on the basis ordering up to normalization). Could be a one-cell readout next to the existing widget. **Medium priority** — the §4 Cartan-criterion landing at line 606 cites $B$ nondegenerate without a tangible example.
+
+### KaTeX macros / formatting
+- **Widget readouts emit raw ASCII Lie-algebra names instead of LaTeX.** Line 530–533 has `data` config strings: `"sl_2"`, `"Heisenberg n_3"`, `"Borel"`; line 559 emits `"g^("+i+")"`; line 577 builds a multi-line readout with `g^(k)` ASCII; line 756 emits `"weights of V_" + n`; line 779–781 emits `"v_"+(selectedW+2)`, `"e·v -> v_…"`. None of these are wrapped in `$…$` and KaTeX never re-renders `.readout` content. Result: the rendered widgets show ASCII flat against the lush prose. Same systemic issue flagged in the rep-theory audit. Cosmetic but corpus-wide.
+- **Two viewBox-centered SVGs (`#adj-svg`, `#wd-svg`) include `<title>` tags with raw `$…$`** (lines 400, 524, 618, 724): `<title>Weight diagram of $V_n$</title>`, `<title>Adjoint action on $\mathfrak{sl}_2$</title>`. KaTeX won't render inside `<title>` (it's an a11y-only tooltip in browsers and a literal string in SR output). Minor a11y leak — screen readers will read `dollar V sub n dollar`. Suggested fix: drop the dollars, e.g. `<title>Weight diagram of V_n</title>` or spell out as `<title>Weight diagram of V sub n</title>`.
+- **Macro block has 6 macros declared, only 2 used (`\tr`, `\ad`).** `\Spec`, `\Gal`, `\Hom`, `\ind` are dead. Same as algebra.html and representation-theory.html — copy-paste inertia, not a local bug. Could safely prune to `{\\tr, \\ad}`.
+- **Helper block (lines 194–246)** matches category-theory.html canonical: `$`, `$$`, `SVG`, `ensureArrow`, `drawArrow`, `drawNode`. **No deviations.** Good.
+- **KaTeX loader (lines 10–35)** uses the IIFE poll-pattern with `throwOnError:false`. Matches representation-theory.html exactly. Good.
+
+## Severity
+minor polish — primary actions: (1) one-line gloss for "simple" / "Casimir" on first use, (2) replace §7 textbook-encyclopedia voice with callback-style outro, (3) add a small worked Killing-form computation in §2 or §4 to anchor "Cartan's criterion", (4) systemic `\mathrm{GL}/SL/SO/Sp/SU` → `\operatorname` (or a `\GL`/`\SL`/`\SO`/`\Sp`/`\SU` macro pack), (5) wrap widget readout strings in `$…$` or pre-render to KaTeX HTML so `sl_2`/`g^(k)`/`V_n` don't ASCII-leak, (6) strip raw `$…$` from SVG `<title>` elements.

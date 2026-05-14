@@ -1,0 +1,43 @@
+# algebra — pedagogical audit (2026-05)
+
+**Section:** Algebra & homological
+**Compared against:** category-theory, representation-theory
+
+## Summary
+Strong, well-paced page: 19 sections, 16 of which carry a real interactive widget; notation is consistent with the section peers and the prose is in the right house voice. Minor polish only — the helper block is a stripped-down variant of the canonical one, the KaTeX loader inlines its config (and silently omits `throwOnError:false`), and three sections (§7 ideals, §8 extensions, plus §1 intro) have no widget despite being pure-definition territory where a poke-the-axiom toy is the page's stated promise.
+
+## Findings
+
+### Notation drift
+- Hero subtitle and headers mix Unicode glyphs (`ℤ/nℤ` in §4 `<h2>`, `𝔽`<sub>pⁿ</sub> in §6 `<h2>`, `D<sub>n</sub>` in §3 `<h2>`) while the body prose uses KaTeX (`$\mathbb{Z}/n\mathbb{Z}$`, `$\mathbb{F}_{p^n}$`, `$D_n$`). Peers do the same in TOC entries, but representation-theory.html keeps `<h2>`s either pure-LaTeX inside `$…$` or pure-ASCII; consider unifying. Low priority — visual only.
+- §15 reads `$1\to N\xrightarrow{\iota} G\xrightarrow{\pi} H\to 1$`, while category-theory.html / representation-theory.html consistently start short exact sequences with `$0\to$` (additive convention) for module-style sequences. Group-theoretic SES with `$1\to$` is correct here; flag is just to confirm the convention is intentional and matches `group-cohomology.html` (referenced in the §15 backlink). No action if downstream agrees.
+- `\mathrm{im}\,\varphi` (§10 line 1633, §15 line 2419) vs `\operatorname{im}` style elsewhere. category-theory.html uses `\operatorname{ob}`, `\operatorname{Mor}`, `\operatorname{Nat}`; representation-theory uses `\mathrm{End}_G`, `\mathrm{im}`, `\mathrm{Stab}` — both are mixed in the corpus, so this is acceptable, but the page's own `\mathrm{im}` / `\mathrm{Stab}` / `\mathrm{Aut}` / `\mathrm{Syl}` could all be promoted to `\operatorname{…}` for consistent baseline-spacing in tight expressions.
+- Macros `\Hom`, `\Spec`, `\Gal`, `\tr`, `\ad`, `\ind` are declared in the loader but never used in the body — the page exclusively writes out `\mathrm{im}`, `\Gal{…}` once at line 1080, etc. Either prune the unused macros from this page's loader or use them consistently (e.g. `\Gal(\mathbb{F}_{p^n}/\mathbb{F}_p)` already does at line 1080 — fine).
+
+### Undefined jargon
+- §6 line 1080 says "the full **Galois group** $\Gal(\mathbb{F}_{p^n}/\mathbb{F}_p)$ is cyclic of order $n$" but the page never defines a Galois group; the term first appears here, with no in-page callback. Splitting fields and "automorphisms of $K$ fixing $F$" are introduced in §8 line 1418, three sections later. Consider either (a) a one-line gloss in §6 ("automorphisms of $K$ fixing $\mathbb{F}_p$"), or (b) a `<aside class="callback">` to `galois.html`.
+- §16 line 2522 uses "**simple** group" with the parenthetical "no further normal subdivision possible" doing all the definitional work — adequate, but the term then propagates into §17 line 2673 ("non-abelian simple group is $A_5$") without a back-reference. A `(see §16)` would harden the chain.
+- §17 line 2674 mentions "**Abel–Ruffini**" and "the generic quintic has no radical formula" without defining "radical formula" or "by radicals"; downstream the §17 readout repeats "not solvable by radicals" again (line 2738). Acceptable as a teaser, but the reader who hasn't seen Galois theory has no anchor; one parenthetical "(a formula using only +, ×, /, and $n$-th roots)" would fix it.
+- §18 line 2761 reads "every finite **$p$-group** is nilpotent" — `p`-group is not defined on this page (it appears only inside the §12 discussion of Sylow-$p$-subgroups, where the term is "Sylow $p$-subgroup", not "$p$-group"). One-clause gloss needed.
+- §19 line 2853 cites "the **word problem**… is undecidable in general (Novikov 1955, Boone 1958)" — fine as a culture beat, but "undecidable" is a logic term the algebra page hasn't earned. A linkable `<a href="./computability-and-decidability.html#…">` would be a cheap callback.
+
+### Tone mismatches
+- Section 1 ("One, two, three operations") is voicy and on-brand ("places you can solve linear equations"), but it's the only section with no widget and no `<svg>` — the hero promise "one interactive widget per section" is broken at section 1 itself. Either add a 3-pill toggle (group / ring / field axioms checklist) or rewrite the hero to "almost every section."
+- §16-§19 are noticeably denser and more textbook-voiced than §1-§14. Compare §17 line 2672 ("It's the smallest normal subgroup of $G$ whose quotient is abelian: $G/G'$ is the *abelianization*, the largest abelian quotient.") to §2 line 235 ("this is how you cheat to read off Cayley's theorem"). The later sections drop the second-person "you cheat" / "you can poke" register entirely. category-theory.html maintains the conversational beat through Yoneda and Kan extensions; consider one or two register-resetting asides in §16-§19.
+- §13 line 2087 has the formula `$A\cong\bigoplus_{i}\mathbb{Z}/p_i^{a_i}\mathbb{Z}.$` followed immediately by another formula and a counting recipe — a wall of three back-to-back display equations with no narration between them. A worked one-line example ("e.g. there are $P(3) = 3$ abelian groups of order $8$: …") would land it.
+
+### Missing worked examples
+- **§1 (intro)** — pure pill catalogue, no widget. The hero subtitle promises "one interactive widget per section."
+- **§7 (ideals)** — three dense paragraphs introducing prime ideals, maximal ideals, and the Third Isomorphism Theorem with no widget. A "click an ideal of $\mathbb{Z}/12\mathbb{Z}$, see its quotient" toy or even a static lattice of ideals would carry the pedagogy. representation-theory.html §6 (characters) is roughly the same density but anchors with the Schur widget two sections back; algebra.html §7 has nothing within reach.
+- **§8 (field extensions)** — same problem, denser content. Worked example ("compute $[\mathbb{Q}(\sqrt 2,\sqrt 3):\mathbb{Q}]$ step by step") is hinted at line 1417 but the calculation is given as a one-liner `$2\cdot 2=4$` with no "click to see the basis $\{1,\sqrt2,\sqrt3,\sqrt 6\}$" expansion.
+- §3, §4, §5 have widgets but no `<div class="quiz" data-concept="…">` placeholder. They presumably ride on §2's `cayley-tables` / §6's `quotients-homomorphisms` quizzes, but a reader scrolling §3 (Dihedral) or §5 (Polynomial Euclid) sees no mastery checkpoint at section end. This is a structural gap, not a missing example.
+
+### KaTeX macros / formatting
+- **High-priority:** the inline `onload="renderMathInElement(…, throwOnError…)"` at line 10 omits `throwOnError:false`. Both peer pages set it explicitly (representation-theory.html line 36, category-theory.html line 21). With `throwOnError` defaulting to `true`, any future LaTeX typo on this page renders as a red `\KatexError` badge instead of falling back to the source string. Switch to the multi-line IIFE pattern used by the peers and add `throwOnError:false`.
+- The KaTeX loader is one inlined `onload=` blob (line 10), while peer pages use a self-invoking IIFE that polls until `renderMathInElement` is defined. The blob form is fragile if the auto-render script loads before `renderMathInElement` exists; the peers' polling pattern is the documented workaround. Migrate to match.
+- **Helper block deviation (high priority — semantic):** The top-of-body helper script (lines 161-172) defines `$`, `$$`, `SVG`, `gcd`, `mod`, `isPrime`, `euler` but **omits** `ensureArrow`, `drawArrow`, `drawNode` — the three SVG primitives that AGENTS.md § "Page-global helpers" calls out as required and instructs you to copy verbatim from category-theory.html. Section 4's IIFE re-defines a local `drawArrow` (line 800) with a different signature (`(P1, P2, markerId, color)` — positional, no curve / label / pad / dash options), shadowing the missing global. This is a verbatim-copy violation and a foot-gun if any future widget reaches for the global helpers. Restore the canonical helper block.
+- §17 line 2737 readout uses `ℓ(G)` (Unicode) for derived length; fine in a JS-built readout, but the prose in the same section uses `$G^{(k)}$`. Cosmetic.
+- `\mathrm{Stab}`, `\mathrm{Fix}`, `\mathrm{Syl}`, `\mathrm{Aut}`, `\mathrm{im}` are repeated standalone enough times that local macros (`\\Stab`, `\\Aut`, …) would tighten the source. Both peer pages take this approach for `\Hom`, `\Gal`, etc. Low priority.
+
+## Severity
+minor polish — primary actions: restore the canonical helper block (drawArrow/drawNode/ensureArrow), add `throwOnError:false` and migrate to the IIFE KaTeX loader, add a worked toy to §7 / §8, and gloss "Galois group" / "$p$-group" on first use.
