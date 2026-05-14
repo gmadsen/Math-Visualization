@@ -18,6 +18,7 @@ window.__MVConcepts = {
       "mathematical-finance",
       "donaldson-thomas-and-gw-invariants",
       "positive-characteristic-ag",
+      "convex-optimization",
       "several-complex-variables",
       "khovanov-homology",
       "shimura-varieties",
@@ -393,6 +394,7 @@ window.__MVConcepts = {
       "spectral-methods-data": "advanced",
       "optimal-control-and-dynamic-programming": "advanced",
       "combinatorial-optimization": "advanced",
+      "convex-optimization": "advanced",
       "mathematical-finance": "advanced",
       "donaldson-thomas-and-gw-invariants": "advanced",
       "positive-characteristic-ag": "advanced",
@@ -1798,6 +1800,98 @@ window.__MVConcepts = {
             "pchar-de-rham-witt"
           ],
           "blurb": "Catalog of theorems that fail in characteristic $p$: Kodaira vanishing (Raynaud), Bertini's smoothness for inseparable maps, Hodge symmetry (Mumford), existence of $W$-lifts (Hirokado, Schröer), resolution of singularities in $\\dim\\ge 4$, termination of the MMP. Failure modes are productive: each broken theorem forced a new invariant — Frobenius splittings, $W_2$-lifts, $F$-singularities, $p$-adic Hodge theory. The 'positive-characteristic perspective' is one where the failure list is part of the structure to be studied.",
+          "tags": [
+            "classification"
+          ]
+        }
+      ]
+    },
+    "convex-optimization": {
+      "topic": "convex-optimization",
+      "title": "Convex optimization",
+      "page": "convex-optimization.html",
+      "concepts": [
+        {
+          "id": "co-convex-sets-functions",
+          "title": "Convex sets, functions, and the Legendre–Fenchel transform",
+          "anchor": "convex-sets-functions",
+          "prereqs": [
+            "banach-hilbert-spaces"
+          ],
+          "blurb": "A set $C\\subseteq\\mathbb{R}^n$ is convex if $[x,y]\\subseteq C$ for all $x,y\\in C$; a function is convex iff its epigraph is. The Legendre–Fenchel conjugate $f^*(y)=\\sup_x\\langle y,x\\rangle - f(x)$ turns minimisation into maximisation, and the biconjugate theorem $f^{**}=f$ for closed proper convex $f$ is the geometric heart of duality: a closed convex set equals the intersection of its supporting half-spaces.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "co-subgradients",
+          "title": "Subgradients and first-order optimality",
+          "anchor": "subgradients",
+          "prereqs": [
+            "co-convex-sets-functions"
+          ],
+          "blurb": "When $f$ is non-smooth the gradient is replaced by the subdifferential $\\partial f(x)=\\{g : f(y)\\ge f(x)+\\langle g,y-x\\rangle\\;\\forall y\\}$; on the kink of $|x|$ at $0$ this is the whole interval $[-1,1]$. The optimality condition over a convex set $C$ becomes $0\\in\\partial f(x^*)+N_C(x^*)$, where $N_C$ is the normal cone — generalising $\\nabla f=0$ to the non-smooth, constrained setting.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "co-lagrangian-duality",
+          "title": "Lagrangian duality and the KKT system",
+          "anchor": "lagrangian-duality",
+          "prereqs": [
+            "co-subgradients",
+            "lp-duality"
+          ],
+          "blurb": "The Lagrangian $L(x,\\lambda,\\nu)=f(x)+\\sum\\lambda_i g_i(x)+\\sum\\nu_j h_j(x)$ converts inequality constraints into a min-max: $\\min_x f$ subject to $g_i\\le 0$ becomes $\\max_{\\lambda\\ge 0}\\min_x L$. Weak duality is one line; Slater's condition (strictly feasible interior point) buys strong duality, $p^*=d^*$. The KKT conditions — stationarity, primal/dual feasibility, complementary slackness — are then necessary and sufficient.",
+          "tags": [
+            "duality"
+          ]
+        },
+        {
+          "id": "co-conic-sdp",
+          "title": "Conic programming: LP, QP, SOCP, SDP",
+          "anchor": "conic-sdp",
+          "prereqs": [
+            "co-lagrangian-duality"
+          ],
+          "blurb": "Every convex program in standard form is $\\min c^\\top x$ s.t. $Ax=b$, $x\\in K$ for a self-dual cone $K$. The hierarchy $\\mathbb{R}^n_+\\subset\\mathcal{L}^n\\subset\\mathbb{S}^n_+$ — non-negative orthant $\\to$ Lorentz cone $\\to$ PSD cone — gives LP $\\to$ SOCP $\\to$ SDP. Goemans–Williamson's $0.878$-approximation for MAX-CUT relaxes a binary IP to an SDP, then rounds via a random hyperplane through the origin.",
+          "tags": [
+            "duality"
+          ]
+        },
+        {
+          "id": "co-gradient-proximal",
+          "title": "Gradient and proximal methods",
+          "anchor": "gradient-proximal",
+          "prereqs": [
+            "co-subgradients"
+          ],
+          "blurb": "Gradient descent $x_{k+1}=x_k-\\alpha\\nabla f(x_k)$ converges at $O(1/k)$ on smooth convex $f$ with Lipschitz gradient; Nesterov's accelerated method adds a momentum term to reach the optimal $O(1/k^2)$. For non-smooth composites $f+g$ the proximal operator $\\mathrm{prox}_{\\alpha g}(y)=\\arg\\min_x\\{g(x)+\\tfrac{1}{2\\alpha}\\|x-y\\|^2\\}$ steps over the smooth part and resolves the non-smooth $g$ implicitly — the workhorse of modern $\\ell_1$ / nuclear-norm optimisation.",
+          "tags": [
+            "compactness"
+          ]
+        },
+        {
+          "id": "co-interior-point",
+          "title": "Interior-point methods and self-concordance",
+          "anchor": "interior-point",
+          "prereqs": [
+            "co-conic-sdp"
+          ],
+          "blurb": "Replace the constraint $x\\in K$ with the barrier-augmented objective $f(x)+\\mu B(x)$ where $B\\to\\infty$ on $\\partial K$; Newton steps in $x$ at decreasing $\\mu$ trace the central path to the optimum. Self-concordance of the barrier (Nesterov–Nemirovski) is exactly the condition under which damped Newton converges in $O(\\sqrt{\\nu}\\,\\log(1/\\varepsilon))$ outer iterations, making LP/QP/SDP polynomial-time.",
+          "tags": [
+            "duality"
+          ]
+        },
+        {
+          "id": "co-stochastic-online",
+          "title": "Stochastic and online convex optimization",
+          "anchor": "stochastic-online",
+          "prereqs": [
+            "co-gradient-proximal"
+          ],
+          "blurb": "SGD $x_{k+1}=x_k-\\alpha_k\\hat g_k$ with unbiased gradient estimate achieves $\\mathbb{E}\\,f(\\bar x_T)-f^*=O(1/\\sqrt{T})$ on convex objectives — independent of dimension. Online gradient descent against an adversarial sequence of convex losses has the same $O(\\sqrt{T})$ regret; replacing Euclidean projection by a Bregman divergence gives mirror descent, and entropic regularisation recovers the multiplicative-weights / exponentiated-gradient algorithm.",
           "tags": [
             "classification"
           ]
@@ -19356,6 +19450,7 @@ window.__MVConcepts = {
         "topics": [
           "optimal-control-and-dynamic-programming",
           "combinatorial-optimization",
+          "convex-optimization",
           "mathematical-finance"
         ],
         "color": "p"
@@ -19645,6 +19740,7 @@ window.__MVConcepts = {
     "spectral-methods-data": "advanced",
     "optimal-control-and-dynamic-programming": "advanced",
     "combinatorial-optimization": "advanced",
+    "convex-optimization": "advanced",
     "mathematical-finance": "advanced",
     "donaldson-thomas-and-gw-invariants": "advanced",
     "positive-characteristic-ag": "advanced",
@@ -19693,7 +19789,7 @@ window.__MVConcepts = {
       "concepts": 204,
       "intra": 357,
       "crossOut": 36,
-      "crossIn": 73,
+      "crossIn": 74,
       "density": 0.17647058823529413
     },
     "Probability & statistics": {
@@ -19746,11 +19842,11 @@ window.__MVConcepts = {
       "density": 0.5797101449275363
     },
     "Control theory & optimization": {
-      "concepts": 21,
-      "intra": 20,
-      "crossOut": 14,
+      "concepts": 28,
+      "intra": 27,
+      "crossOut": 15,
       "crossIn": 0,
-      "density": 0.6666666666666666
+      "density": 0.5357142857142857
     }
   }
 };
