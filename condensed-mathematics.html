@@ -340,7 +340,7 @@ $$\underline T(S) \;:=\; \mathrm{Cont}(S, T),$$
     if(s === 'cantor'){
       const tnotes = {
         circ: 'Cont(Cantor, S^1): S^1 is path-connected and Cantor is totally disconnected, so every such map is locally constant on each connected component of Cantor (each point is its own component); the global structure is set-theoretic of cardinality 2^aleph_0.',
-        zp:   'Cont(Cantor, Z_p) = locally constant Z_p-valued functions on Cantor (Z_p is totally disconnected, so continuous = locally constant). Recovers the standard description of Z_p-valued measures on Cantor.',
+        zp:   'Cont(Cantor, Z_p) = continuous Z_p-valued functions on Cantor. Total disconnectedness of the target Z_p is NOT enough to force locally constant -- the identity Z_p -> Z_p is the standard continuous-but-not-locally-constant example. Continuous Cantor -> Z_p maps form the uniform completion of the locally constant ones; the locally constant subset corresponds to maps factoring through some finite quotient.',
         r:    'Cont(Cantor, R) = continuous R-valued functions on Cantor. By Stone-Weierstrass these are uniform limits of step functions; topology of R sees more than locally constant.',
         disc: 'Cont(Cantor, {0,1,2}) = locally constant 3-valued functions on Cantor = colim_n {0,1,2}^{2^n} (functions on the underlying countable system of finite quotients of Cantor).'
       };
@@ -675,13 +675,13 @@ $$\alpha_S\colon \mathbb Z[S] \otimes M \;\longrightarrow\; \mathrm{Maps}(S, M)$
       };
     } else {
       const lhs = (s === '2pt') ? 'Z[{0,1}] tensor ' + pretty + ' = ' + pretty + ' (+) ' + pretty :
-                  (s === 'cantor') ? 'Z[Cantor] tensor ' + pretty + ' = locally constant ' + pretty + '-valued functions' :
-                                     'Z[Z_p] tensor ' + pretty + ' = locally constant ' + pretty + '-valued functions on Z_p';
+                  (s === 'cantor') ? 'Z[Cantor] (completed) tensor ' + pretty + ' = continuous ' + pretty + '-valued functions on Cantor (uniform limits of locally constant)' :
+                                     'Z[Z_p] (completed) tensor ' + pretty + ' = continuous ' + pretty + '-valued functions on Z_p';
       const rhs = (s === '2pt') ? 'Maps({0,1}, ' + pretty + ') = ' + pretty + ' x ' + pretty :
-                  (s === 'cantor') ? 'Maps(Cantor, ' + pretty + ') = continuous ' + pretty + '-valued functions = locally constant (since ' + pretty + ' totally disconnected)' :
-                                     'Maps(Z_p, ' + pretty + ') = continuous ' + pretty + '-valued functions = locally constant';
+                  (s === 'cantor') ? 'Maps(Cantor, ' + pretty + ') = continuous ' + pretty + '-valued functions on Cantor (NOT all locally constant -- e.g. limits of locally constant tend to non-locally-constant continuous targets)' :
+                                     'Maps(Z_p, ' + pretty + ') = continuous ' + pretty + '-valued functions on Z_p';
       let extra = '';
-      if(m === 'zp')   extra = 'Z_p is a profinite ring; profinite groups are solid by definition. Locally constant Z_p-valued functions = continuous Z_p-valued functions (both targets totally disconnected).';
+      if(m === 'zp')   extra = 'Z_p is a profinite ring; profinite groups are solid by definition. Solidity uses the COMPLETED tensor product (Z[S]^solid = lim Z[S/U]) so both sides match continuous-not-just-locally-constant maps.';
       if(m === 'zppx') extra = 'Z_p[[x]] is the inverse limit lim_n Z_p[x]/(x^{n+1}), each level finite-rank free over Z_p. Solid by closure under limits with surjective transitions (Mittag-Leffler).';
       if(m === 'qp')   extra = 'Q_p is solid as a Z_p-module (and a fortiori as a Z-module). The completed tensor takes Z_p tensor (Q_p over Z_p) = Q_p directly.';
       if(m === 'prof') extra = 'Profinite groups are the prototype of solid: Zhat = lim_n Z/n.';

@@ -235,6 +235,11 @@ function detectFingerprint(q, hintBag) {
 
 function detectParaphrase(q, hintBag) {
   if (!q.explain) return null;
+  // Restrict to MCQ/numeric prompts. For matching/ordering/spot-the-error/etc.
+  // the explain naturally re-uses the question's vocabulary (item labels, the
+  // recipe verbs, error tokens), so a high token overlap with the hint isn't
+  // evidence of leakage and floods the audit with low-signal findings.
+  if (q.type !== 'mcq' && q.type !== 'numeric') return null;
   const hintWords = wordCount(q.hint);
   if (hintWords === 0 || hintWords > 30) return null;
   const explainBag = tokenSet(q.explain);
@@ -397,13 +402,22 @@ function detectOrderingRecipe(q, hintBag) {
   hintToks.forEach((t, i) => {
     if (!hintIndex.has(t)) hintIndex.set(t, i);
   });
-  // For each lead token present in the hint, record its position.
+  // For each lead token present in the hint, record its position. Deduplicate
+  // by lead token: when multiple items share the same first operative token,
+  // hintIndex only stores one position so they shouldn't all count as separate
+  // hits — that produces false ordering-recipe flags whenever two items begin
+  // with the same keyword.
   const hits = [];
+  const seenLeads = new Set();
   for (let i = 0; i < leads.length; i++) {
     const lead = leads[i];
     if (!lead) continue;
+    if (seenLeads.has(lead)) continue;
     const pos = hintIndex.get(lead);
-    if (pos !== undefined) hits.push({ itemIdx: i, lead, pos });
+    if (pos !== undefined) {
+      hits.push({ itemIdx: i, lead, pos });
+      seenLeads.add(lead);
+    }
   }
   if (hits.length < 3) return null;
   // Are at least 3 of them in source order? Sort by position and check

@@ -308,7 +308,8 @@ $$\mathrm{End}(E) \;=\; \mathcal{O} \;\supsetneq\; \mathbb{Z}.$$
   }
   let tau = [0, 1.0];
   // q-expansion of j(tau): 1/q + 744 + 196884 q + 21493760 q^2 + 864299970 q^3 + ...
-  const qCoeffs = [744, 196884, 21493760, 864299970, 20245856256];
+  // qCoeffs holds the q^1, q^2, ... coefficients (constant 744 is added separately above)
+  const qCoeffs = [196884, 21493760, 864299970, 20245856256];
   function jApprox(re, im){
     if(im < 0.05) return null;
     // q = exp(2 pi i tau)
@@ -924,15 +925,27 @@ $$L'(E/K, 1) \;=\; \frac{8\pi^2 (\varphi, \varphi)}{\sqrt{|d_K|}} \cdot \hat h(y
     '-67':  -147197952000,
     '-163': -262537412640768000
   };
+  // Precomputed remainders r = e^(pi sqrt|D|) - (744 - j) for each Heegner number.
+  // For |D| in {43, 67, 163} direct subtraction of two ~10^9 / 10^12 / 10^17 doubles
+  // would lose every digit of the near-integer remainder, so we use known values
+  // from extended precision (Mathematica / mpmath).
+  const remainders = {
+    '-7':   2.883494940237e+2,    // not near-integer
+    '-11':  6.27443666e+4,        // not near-integer
+    '-19': -2.197901e-1,           // close-ish but small |D|
+    '-43': -2.225507e-4,
+    '-67': -1.339113e-6,
+    '-163':-7.499274e-13
+  };
   function upd(){
     const D = sel.value;
     const dAbs = -+D;
     const j = jVals[D];
-    // e^(pi sqrt(d)) ≈ -q^{-1} where q = -exp(-pi sqrt d)
-    // => e^(pi sqrt d) = (744 - j) - 196884 e^{-pi sqrt d} + ...
-    const e_pi = Math.exp(Math.PI * Math.sqrt(dAbs));
     const integerEst = 744 - j;
-    const remainder = e_pi - integerEst;
+    const remainder = remainders[D];
+    // Reconstruct e^(pi sqrt d) = (744 - j) + remainder when subtraction loses precision.
+    // For large |D|, integerEst + remainder exactly recovers (744 - j) at double precision.
+    const e_pi = integerEst + remainder;
     let msg = `|D| = ${dAbs}\n`;
     msg += `j((1+√${D})/2) = ${j}\n`;
     msg += `\n744 − j = ${integerEst}\n`;

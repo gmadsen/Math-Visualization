@@ -71,7 +71,7 @@
             "$u(z) = \\mathrm{Re}(z_1 \\bar z_2)$"
           ],
           "answer": 0,
-          "explain": "$\\log|z_1|$ is the pullback of $\\log|w|$ (subharmonic in one variable) by the projection $z\\mapsto z_1$, so its restriction to every complex line is subharmonic — that's PSH. The other options have Hessians with mixed signs ($|z_1|^2 - |z_2|^2$ has eigenvalues $\\pm 1$), or are concave ($-|z|^2$), or are pluriharmonic but not PSH ($\\mathrm{Re}(z_1\\bar z_2)$)."
+          "explain": "$\\log|z_1|$ is the pullback of $\\log|w|$ (subharmonic in one variable) by the projection $z\\mapsto z_1$, so its restriction to every complex line is subharmonic — that's PSH. The other options have complex Hessians with mixed signs and so are not PSH: $|z_1|^2 - |z_2|^2$ has eigenvalues $\\pm 1$; $-|z|^2$ is plurisubharmonic-negated (i.e. plurisuperharmonic); $\\mathrm{Re}(z_1\\bar z_2)$ has complex Hessian $\\partial^2/\\partial z_1\\partial\\bar z_2 = 1/2$ (indefinite mixed entry) — it is harmonic but not pluriharmonic, and its Levi form has signature $(1,1)$ so it fails PSH."
         },
         {
           "type": "matching",

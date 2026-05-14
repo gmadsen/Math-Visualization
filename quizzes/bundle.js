@@ -13971,10 +13971,9 @@ window.MVQuizBank = {
           },
           {
             "type": "numeric",
-            "q": "If $A$ is an abelian variety of dimension $g$ with CM by a number field $L$ (acting as a maximal commutative subalgebra of $\\mathrm{End}^0(A)$), what must $[L : \\mathbb{Q}]$ equal?",
+            "q": "If $A$ is an abelian variety of dimension $g = 3$ with CM by a number field $L$ (acting as a maximal commutative subalgebra of $\\mathrm{End}^0(A)$), what must $[L : \\mathbb{Q}]$ equal?",
             "answer": 6,
             "tol": 0.0001,
-            "tol_note": "For the specific case g = 3, asked in the prompt below.",
             "hint": "Take $g = 3$; recall $[L:\\mathbb{Q}] = 2g$ for a CM type to make sense.",
             "explain": "For a CM type $\\Phi$ to give an embedding $\\mathbb{C}^g / \\Phi(\\mathcal{O}_L) \\cong A$, one needs $|\\Phi| = g$ embeddings out of the total $|\\mathrm{Hom}(L, \\mathbb{C})| = [L:\\mathbb{Q}]$, with $\\Phi \\sqcup \\bar\\Phi$ exhausting them. So $[L:\\mathbb{Q}] = 2g = 6$ for $g = 3$. (In general, $[L:\\mathbb{Q}] = 2g$.)"
           },
@@ -42594,15 +42593,15 @@ window.MVQuizBank = {
         "questions": [
           {
             "type": "mcq",
-            "q": "For a smooth variety $X$ with $\\Delta = 0$, the discrepancy $a_E(X, 0)$ along any prime divisor $E$ on a log resolution satisfies:",
+            "q": "For a smooth variety $X$ with $\\Delta = 0$, the discrepancy $a_E(X, 0)$ along any prime divisor $E$ that is exceptional over $X$ (extracted on a log resolution) satisfies:",
             "choices": [
               "$a_E \\ge 0$, with equality iff $E$ is exceptional",
               "$a_E > 0$, so $(X, 0)$ is terminal",
-              "$a_E = 0$ for every $E$",
+              "$a_E = 0$ for every exceptional $E$",
               "$a_E < 0$, so $(X, 0)$ is log canonical but not klt"
             ],
             "answer": 1,
-            "explain": "On a smooth $X$ the discrepancy along any divisor $E$ on a sequence of blow-ups is strictly positive: blowing up a smooth point of dimension $d$ adds an exceptional $\\mathbb{P}^{d-1}$ with discrepancy $d - 1 \\ge 1$. So $\\inf_E a_E(X, 0) > 0$, meaning $(X, 0)$ is terminal. Smooth varieties are the prototype of terminal singularities, just as klt is the natural setting for the modern MMP and lc is the boundary class.",
+            "explain": "On a smooth $X$ the discrepancy along any exceptional divisor $E$ extracted by a sequence of blow-ups is strictly positive: blowing up a smooth point of dimension $d$ adds an exceptional $\\mathbb{P}^{d-1}$ with discrepancy $d - 1 \\ge 1$. So $\\inf_{E \\text{ exceptional}} a_E(X, 0) > 0$, meaning $(X, 0)$ is terminal. (Non-exceptional prime divisors have $a_E = 0$ for $\\Delta = 0$, so the question is restricted to exceptional $E$.) Smooth varieties are the prototype of terminal singularities, just as klt is the natural setting for the modern MMP and lc is the boundary class.",
             "hint": "Blowing up the origin of $\\mathbb{A}^d$ produces an exceptional $\\mathbb{P}^{d-1}$ — what is its discrepancy?"
           },
           {
@@ -58915,7 +58914,7 @@ window.MVQuizBank = {
               "$u(z) = \\mathrm{Re}(z_1 \\bar z_2)$"
             ],
             "answer": 0,
-            "explain": "$\\log|z_1|$ is the pullback of $\\log|w|$ (subharmonic in one variable) by the projection $z\\mapsto z_1$, so its restriction to every complex line is subharmonic — that's PSH. The other options have Hessians with mixed signs ($|z_1|^2 - |z_2|^2$ has eigenvalues $\\pm 1$), or are concave ($-|z|^2$), or are pluriharmonic but not PSH ($\\mathrm{Re}(z_1\\bar z_2)$)."
+            "explain": "$\\log|z_1|$ is the pullback of $\\log|w|$ (subharmonic in one variable) by the projection $z\\mapsto z_1$, so its restriction to every complex line is subharmonic — that's PSH. The other options have complex Hessians with mixed signs and so are not PSH: $|z_1|^2 - |z_2|^2$ has eigenvalues $\\pm 1$; $-|z|^2$ is plurisubharmonic-negated (i.e. plurisuperharmonic); $\\mathrm{Re}(z_1\\bar z_2)$ has complex Hessian $\\partial^2/\\partial z_1\\partial\\bar z_2 = 1/2$ (indefinite mixed entry) — it is harmonic but not pluriharmonic, and its Levi form has signature $(1,1)$ so it fails PSH."
           },
           {
             "type": "matching",

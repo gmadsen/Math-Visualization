@@ -753,6 +753,7 @@ function drawNode(svg, x, y, label, opts={}){
   function rhoMP(x,c){
     const a=(1-Math.sqrt(c))**2, b=(1+Math.sqrt(c))**2;
     if(x<a || x>b) return 0;
+    if(x<1e-9) return 0; // guard against 0/0 at the c=1 hard edge where a=0
     return Math.sqrt((b-x)*(x-a))/(2*Math.PI*c*x);
   }
   function render(){

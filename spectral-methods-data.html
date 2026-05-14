@@ -1077,7 +1077,7 @@ function smdGauss(rng){
 
 <p style="text-align:center">$(1-\varepsilon)\,\|x_i - x_j\|^{2} \;\le\; \|\Pi x_i - \Pi x_j\|^{2} \;\le\; (1+\varepsilon)\,\|x_i - x_j\|^{2} \quad \text{for all } i,j.$</p>
 
-<p>The target dimension $k$ is independent of the original $d$ — only the number of points $n$ matters. This is the high-dimensional concentration story (cf. <a href="./high-dimensional-geometry.html#hdg-johnson-lindenstrauss">high-dimensional geometry</a>): pairwise distances are stable under random rotations into $\sim\log n$ dimensions. Any algorithm that depends only on pairwise distances — nearest-neighbour search, $k$-means, MDS — can be applied to the sketch $\Pi x_i$ instead of $x_i$ with logarithmic dimension blowup.</p>
+<p>The target dimension $k$ is independent of the original $d$ — only the number of points $n$ matters. This is the high-dimensional concentration story (cf. <a href="./high-dimensional-geometry.html#jl">high-dimensional geometry</a>): pairwise distances are stable under random rotations into $\sim\log n$ dimensions. Any algorithm that depends only on pairwise distances — nearest-neighbour search, $k$-means, MDS — can be applied to the sketch $\Pi x_i$ instead of $x_i$ with logarithmic dimension blowup.</p>
 
 <div class="widget" id="w-jl">
   <div class="hd"><div class="ttl">Johnson–Lindenstrauss distance preservation</div><div class="hint">slide target dimension $k$; watch distortion shrink</div></div>
@@ -1328,7 +1328,7 @@ function smdGauss(rng){
 <ul>
   <li><a href="./spectral-graph-theory.html#spectral-clustering">Spectral graph theory — spectral clustering</a> — the combinatorics view: Cheeger's inequality, expanders, Ramanujan graphs.</li>
   <li><a href="./random-matrix-theory.html#mp">Random matrix theory — Marchenko–Pastur</a> — when a singular value lies inside the noise bulk, throw it out.</li>
-  <li><a href="./high-dimensional-geometry.html#hdg-johnson-lindenstrauss">High-dimensional geometry — Johnson–Lindenstrauss</a> — the concentration of measure behind every random projection bound.</li>
+  <li><a href="./high-dimensional-geometry.html#jl">High-dimensional geometry — Johnson–Lindenstrauss</a> — the concentration of measure behind every random projection bound.</li>
   <li><a href="./random-walks-and-mixing.html#spectral">Random walks and mixing — spectral gap</a> — PageRank's convergence rate is the spectral gap of the teleportation chain.</li>
   <li><a href="./information-theory.html">Information theory</a> — the rate-distortion view: SVD truncation is the Gaussian information bottleneck.</li>
 </ul>

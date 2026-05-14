@@ -1193,7 +1193,7 @@ function drawNode(svg, x, y, label, opts={}){
   </div>
   <svg id="vgit-svg" viewBox="0 0 720 280" width="720" height="280"><title>Wall-crossing in VGIT</title></svg>
   <div class="readout" id="vgit-out">slide α across the wall…</div>
-  <p class="small">Four points $p_1,p_2$ (weight $\alpha$) and $q_1,q_2$ (weight $1-\alpha$) on $\mathbb{P}^1$. Linearizing by $L_\alpha=\mathcal{O}(\alpha,\alpha,1-\alpha,1-\alpha)$, the GIT criterion says a configuration is unstable iff some point absorbs more than half the total weight $2$. The wall is $\alpha=\tfrac12$ (symmetric linearization). For $\alpha<\tfrac12$, the configuration "$p_1=p_2$ but $q_i$ distinct" becomes unstable; for $\alpha>\tfrac12$, the symmetric configuration "$q_1=q_2$" becomes unstable. The two GIT quotients are connected by a flip across the wall.</p>
+  <p class="small">Four points $p_1,p_2$ (weight $\alpha$) and $q_1,q_2$ (weight $1-\alpha$) on $\mathbb{P}^1$. Linearizing by $L_\alpha=\mathcal{O}(\alpha,\alpha,1-\alpha,1-\alpha)$, the GIT criterion says a configuration is unstable iff some point absorbs more than half the total weight $2$. The wall is $\alpha=\tfrac12$ (symmetric linearization). For $\alpha>\tfrac12$, the cluster $p_1=p_2$ carries weight $2\alpha>1$ and so becomes unstable; for $\alpha<\tfrac12$, the cluster $q_1=q_2$ carries weight $2(1-\alpha)>1$ and so becomes unstable. The two GIT quotients are connected by a flip across the wall.</p>
 </div>
 <script>
 (function(){
@@ -1292,8 +1292,8 @@ function drawNode(svg, x, y, label, opts={}){
     const t1=SVG('text',{x:W-60,y:H-32,'text-anchor':'end','font-size':10,fill:'var(--mute)'}); t1.textContent='α=0.9'; svg.appendChild(t1);
     const tnow=SVG('text',{x:wallX,y:H-58,'text-anchor':'middle','font-size':10,fill:'var(--cyan)'}); tnow.textContent='α='+alpha.toFixed(2); svg.appendChild(tnow);
     aval.textContent = 'α = ' + alpha.toFixed(2);
-    const region = alpha<0.499 ? 'chamber I (α<½) — symmetric "q-coincide" stable, asymmetric "p-coincide" unstable'
-                  : alpha>0.501 ? 'chamber II (α>½) — symmetric "p-coincide" stable, asymmetric "q-coincide" unstable'
+    const region = alpha<0.499 ? 'chamber I (α<½) — "p-coincide" stable (weight 2α<1), "q-coincide" unstable (weight 2(1−α)>1)'
+                  : alpha>0.501 ? 'chamber II (α>½) — "q-coincide" stable (weight 2(1−α)<1), "p-coincide" unstable (weight 2α>1)'
                                 : 'WALL α=½ — strictly semistable boundary, GIT quotient changes';
     out.textContent =
       'α = ' + alpha.toFixed(3) + ',  1−α = ' + (1-alpha).toFixed(3) + '\n' +
