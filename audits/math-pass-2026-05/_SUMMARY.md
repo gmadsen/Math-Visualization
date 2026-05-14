@@ -9,7 +9,7 @@ Per-topic mathematical-correctness audits. Each report verifies every formula, t
 | Section | Topics | Audited | Status |
 |---|---:|---:|---|
 | Logic & Foundations | 8 | 8 | complete (3 major, 5 minor) |
-| Algebra & homological | 17 | 0 | pending |
+| Algebra & homological | 17 | 17 | complete (10 major, 5 minor, 2 clean) |
 | Higher categories & toposes | 7 | 0 | pending |
 | Analysis | 22 | 0 | pending |
 | Probability & statistics | 12 | 0 | pending |
@@ -20,7 +20,35 @@ Per-topic mathematical-correctness audits. Each report verifies every formula, t
 | Combinatorics & graph theory | 9 | 0 | pending |
 | Mathematical physics | 11 | 0 | pending |
 | Control theory & optimization | 4 | 0 | pending |
-| **Total** | **190** | **8** | **4%** |
+| **Total** | **190** | **25** | **13%** |
+
+## Algebra & homological — math findings (17/17)
+
+### Clean (2)
+- `category-theory`, `geometric-and-combinatorial-group-theory` (one minor widget reduction error in the latter).
+
+### Major errors (10)
+- **`algebra`**: 3 widget bugs — §13 invariant-factors widget violates d_1 | d_2 contract (n=72 example wrong); §15 semidirect classifier wrong cardinality formula (Z/4 × Z/2 = Z/4 instead of order 8); §18 S_4 lower central series listed `S_4, A_4, V_4, V_4` but actually stabilizes at A_4.
+- **`representation-theory`**: §12 sl_2 capstone EF/FE formulas swapped (page even derives `H = FE - EF` with wrong sign); §9 induction widget Ind_{V_4}^{S_4}(𝟙) decomposition has dimensions summing > [S_4:V_4]=6.
+- **`groebner-bases`**: §8 + quiz claim {t-x, y-x², z-x³} is the reduced lex GB of the twisted-cubic ideal — it's NOT (S-poly reduces to xy-z ≠ 0). Distractor describes union-of-curves as "surface".
+- **`homological`**: 2 wrong quiz answers (H_1(D², S¹) recorded as 1, correct 0; |ker δ| in snake-lemma question 4 vs correct 1); §9 widget Q/Z ⊗ Z/n returns Z/n (correct: 0).
+- **`derived-categories`**: §5 RF widget step-6 LES wrong (missing Ext¹(Z/2, Z) middle term); plus 3 minor.
+- **`group-cohomology`**: 3 errors — Hilbert 90 widget gives wrong α (off by inversion); periodic-table note false ($H^{2k+1} ≠ 0$ for trivial action); LHS spectral seq C3⋊S3 over F_3 case wrong on column 0.
+- **`lie-algebras`**: §2 ad(f) matrix wrong (rows swapped — gives nilpotent claim with eigenvalue 2); §6 attributes "27 lines on cubic surface" to E_7 (it's E_6; E_7 ↔ del Pezzo / 28 bitangents).
+- **`galois-cohomology-and-brauer`**: Hilbert 90 widget sign-inversion bug (same root cause as group-cohomology).
+- **`quantum-groups`**: §4 weight-basis E,F formulas inconsistent with [E,F] relation; direct check on V_1 fails.
+- **`cluster-algebras`**: 3 quiz bugs — cyclohedron attributed to D_n (it's B/C); E_6,7,8 cluster *variable* counts (42/70/128) labeled as cluster (seed) counts (correct: 833/4160/25080); projective decomposition explanation muddled.
+
+### Minor errors (5)
+- **`commutative-algebra`** quiz: associated-prime count for k[x,y,z]/(x²,xy,yz,z²) listed as 1; correct is 2 (minimal (x,z) + embedded (x,y,z)).
+- **`algebraic-k-theory-foundations`**: claim SK_1(Z[t,t^{-1}]) ≠ 0 is false (= 0 by Bass-Heller-Swan); suggested replacement: SK_1(Z[Q_8]).
+- **`model-categories`**: §1 lifting widget uses z²: S¹→S¹ as a Quillen cofibration (it's not — covering map, not injective); contradicted by widget's own §2 classification. Plus quiz over-claim about kernel-projective.
+- **`condensed-mathematics`**: 7 small wording slips, headline being LTE date inconsistency (May 2022 prose vs May 28, 2021 in code).
+- **`quaternions-octonions-and-division-algebras`**: line 344 sign error in conjugation-via-dot-product formula; line 589 wrong octonion non-associativity example (uses an associating triple).
+
+### Notable patterns
+- **Hilbert 90 widget shared bug**: Same off-by-inversion bug (`α = 1+β` doesn't satisfy `σ(α)/α = β` for norm-1 β; correct is `α = 1/(1+β)`) appears in BOTH group-cohomology AND galois-cohomology-and-brauer §1 widgets — same author convention propagated. Worth a corpus-wide fix.
+- **Quiz answer correctness** is the most common failure mode (commutative-algebra associated primes, homological 2 questions, cluster-algebras 3 questions, model-categories Q3, model-theory-basics EF-rank from L&F section). Suggests a separate "quiz answer key audit" pass would be high-value.
 
 ## Logic & Foundations — math findings (8/8)
 
