@@ -19,9 +19,9 @@ notation drift / undefined jargon / tone mismatches / missing worked examples / 
 | Modular forms & L-functions | 20 | 20 | complete |
 | Algebraic geometry | 35 | 35 | complete |
 | Combinatorics & graph theory | 9 | 9 | complete |
-| Mathematical physics | 11 | 0 | pending |
-| Control theory & optimization | 4 | 0 | pending |
-| **Total** | **190** | **175** | **92%** |
+| Mathematical physics | 11 | 11 | complete |
+| Control theory & optimization | 4 | 4 | complete |
+| **Total** | **190** | **190** | **100%** |
 
 ## Higher categories & toposes — consolidated findings (7/7)
 

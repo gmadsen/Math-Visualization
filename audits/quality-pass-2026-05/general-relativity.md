@@ -1,0 +1,49 @@
+# general-relativity — pedagogical audit (2026-05)
+
+**Section:** Mathematical physics
+**Compared against:** special-relativity, riemannian-geometry
+
+## Summary
+The page is dense, well-paced, and ships a working widget per section, but it carries two semantic-grade hygiene bugs (quoted `var()` literals and double-encoded ampersands) inherited nowhere else in the section, plus a notation slip that puts the symbol `R` to triple duty. Two later sections drop the cross-page callbacks/backlinks the rest of the corpus uses.
+
+## Findings
+### Notation drift
+- Scalar curvature collides with the Riemann tensor letter. `general-relativity.html#einstein-eq` (line 374) writes "scalar curvature $R=g^{\mu\nu}R_{\mu\nu}$" while `riemannian-geometry.html#ricci` (line 1197) reserves $R$ for the Riemann tensor and uses `$S$` for the scalar; line 434 here even reuses $R$ inside `$-R+4\Lambda = 8\pi G\,T$` where it's the scalar. High priority — same letter, two meanings, on the same page that calls back to riemannian-geometry. Recommend `S` (or `\mathrm{R}` displayed differently) per the riemannian-geometry convention.
+- Ricci notation diverges from the cross-linked sibling. Here line 374: `$R_{\mu\nu}=R^\rho{}_{\mu\rho\nu}$`; in `riemannian-geometry.html` line 1196: `$\operatorname{Ric}_{ij} = R^k_{kij}$`. Index families differ (`\mu\nu` vs `ij`) and the operator name differs (`R_{\mu\nu}` vs `\operatorname{Ric}`). Defensible — physics convention vs math convention — but the See-also callback to `riemannian-geometry.html#ricci` lands on a page where the same object looks different. Cosmetic if the bridge sentence acknowledges the rename; currently it doesn't.
+- Bracket / subscript on stationary-limit surface mis-typeset. Line 564: `$r_{\mathrm SL}(\theta)$` — `\mathrm` takes its argument with braces, so this renders as `r_\mathrm{S} L(\theta)` rather than the intended `r_{\mathrm{SL}}(\theta)`. Replace with `r_{\mathrm{SL}}`.
+- Bare-text mu/nu in readouts. Sections 5/6 readouts use `Ω_m, Ω_Λ, h(t), Δt'` etc. as plain Unicode rather than KaTeX, matching special-relativity's house style — fine. But the einstein-eq widget readout (line 426) emits `K ≈ ρ + Λ/3` with bare ρ/Λ while the body reads `\Lambda` and `\rho`; consistent with special-relativity widget readouts so cosmetic only.
+
+### Undefined jargon
+- "Killing energy" appears at line 633 ("a particle can carry *negative* Killing energy") with no prior mention of Killing vector fields, and no callback to a definition. The Kerr section earlier mentioned `$\partial_t$ is spacelike` without naming it as the timelike Killing vector. High priority — this is the conceptual lever of the Penrose process.
+- "Lorenz gauge" introduced at line 735 with no definition; readers without prior EM/gauge exposure will read it as a gauge-fixing condition without context. (Reasonable to assume given the audience, but `special-relativity.html` defines $\mathrm{O}(1,3)$ in line and the page elsewhere unpacks "transverse-traceless gauge" — consistency would suggest one sentence on what gauge-fixing is doing here.)
+- "Birkhoff's theorem" cited as authority at line 459 without statement. Compare `special-relativity.html` which always pairs a named theorem with a one-line statement of its content.
+- "Ricci-flat" boldfaced at line 434 as if defined; first definition is implicit (`$R_{\mu\nu}=0$`). Acceptable since the equation is shown immediately, but the term "Ricci-flat" itself is what `riemannian-geometry.html#ricci` defines — the callback would carry the meaning.
+- "diffeomorphism gauge subtracts 4" at line 434 — the phrase "diffeomorphism gauge" appears with no setup; readers won't know what gauge symmetry is being invoked. The "10 unknowns minus 4" arithmetic depends on the unstated $\mathrm{Diff}(M)$ action.
+- "ADM initial-value formulation" appears only in the Connections outro (line 839). Acceptable as a forward pointer, but the body of §6 hand-waves the count of physical polarisations without naming the constraint structure that would justify it.
+
+### Tone mismatches
+- Three sections (3, 4, 5) are prefixed with literal "**Worked example: …**" (lines 459, 560, 642). Neither special-relativity nor riemannian-geometry ever uses this prefix — the entire section IS the worked example, so the label reads as scaffolding left in. Strip the three prefix paragraphs; the bold lead sentence is fine on its own.
+- The Wheeler quote (line 378, "spacetime tells matter how to move; matter tells spacetime how to curve") is well-placed but carries no attribution beyond "John Wheeler put it"; minor — category-theory sets a precedent of either naming the person fully or letting the result speak. Cosmetic.
+- The hero `<p class="sub">` sentence "Spacetime is geometry. Curvature is gravity." is more aphoristic than special-relativity's matched-clause sub or riemannian-geometry's longer sentence; this is a mild stylistic outlier but reads as deliberate punch — not a mismatch.
+- The connections outro opener ("GR is the home of nearly every open problem...") is appropriately conversational; matches the canon.
+
+### Missing worked examples
+- **§7 Connections** has no widget — but neither does the matching outro on either reference, so this is the expected pattern.
+- Every numbered §1–§6 has a widget, so the floor is met. However, the §2 widget ("Curvature ↔ matter dial") draws an ad-hoc grid distortion with `K ≈ ρ + Λ/3` (line 426) that the page itself never derives or even names; readers will see the ≈ and wonder what the toy model is. The widget needs one sentence of "this is a cartoon, not the field equations" framing — the riemannian-geometry widgets are always honest about what they compute.
+- The §4 Kerr readout (line 626) reports "ergosphere thickness on equator" but the formula `(M+Math.sqrt(M*M-a*a*0)-rPlus)` literally multiplies $a^2$ by zero — i.e. this is `$M + M - r_+ = 2M - r_+$`, a fixed function of $a$ that happens to be the right answer at $\theta=\pi/2$ but written as if `cos²θ` were a variable. Either compute it generically with a $\theta$ slider or state "on equator" plainly without the dead `*0`. Semantic — small hidden bug.
+- §6 "Plus & cross polarisations" widget: the cross-mode formula at lines 798–800 is `cx = (x+y)·0.5·(1+h/2) + (x−y)·0.5·(1−h/2)` which simplifies algebraically to `x + h(y/2)`, i.e. a horizontal shear, not the 45°-rotated stretch advertised as $h_\times$. The intended cross polarisation $h_+\!\to h_\times$ is a rotation of axes by π/4 then plus-stretching — this implementation drops the rotational symmetry. Semantic — the widget mislabels its physics.
+
+### KaTeX macros / formatting
+- **Quoted `var()` literals throughout the inline `<style>`** (lines 47, 53, 70, 88, 102, 103, 107). Examples: `a{color:'var(--blue)'}`, `h3{... color:'var(--yellow)'}`, `nav.toc a:hover{color:'var(--yellow)'}`, `.small{... color:'var(--mute)'}`. The literal `'var(--blue)'` is an invalid CSS value (CSS doesn't strip quotes around `var()`); the property silently falls back. Compare `special-relativity.html` lines 47/53/70/88/103/107 which use bare `var(--blue)` correctly. **High priority — semantic CSS bug**, not cosmetic; anchors fall back to UA blue, h3s lose accent color, the active button border breaks, hover colors die, .small loses muted color.
+- **Double-encoded HTML entities** in three widget headers and three SVG `<title>` elements: line 281/282 "Light cones &amp;amp; vector classes", line 386 "Curvature ↔ matter dial" widget label is fine but lines 742/749 carry "Plus &amp;amp; cross polarisations". These render the literal text "&amp;" instead of "&" in the widget chrome. Compare special-relativity which simply uses bare `&` inside text content (e.g. line 480 "Light cone & vector classification"). High priority — visible UI breakage.
+- §2 widget hint string contains `Ω&lt;sub&gt;Λ&lt;/sub&gt;` (line 653) — literal `<sub>` HTML tags HTML-encoded inside what is already an HTML attribute context. The hint will display the text "Ω<sub>Λ</sub>" instead of the intended Ω with subscript Λ. Match the body's KaTeX `$\Omega_\Lambda$` form.
+- KaTeX macro block (lines 22–29) lists `\Spec, \Gal, \Hom, \tr, \ad, \ind` — verbatim copy from category-theory.html, none used in the body. Same as special-relativity and riemannian-geometry, so consistent — just dead weight.
+- §4 caveat: `r_{\mathrm SL}` brace bug noted under Notation drift; it's also a KaTeX rendering issue.
+
+### Helper-block / widget-chrome hygiene
+- Page-global helper script (lines 187–239) is verbatim from special-relativity / category-theory: `$, $$, SVG, ensureArrow, drawArrow, drawNode` all match. One micro-divergence: `drawNode` defaults `textColor: 'var(--ink)'` (line 233), whereas special-relativity and riemannian-geometry use `'#fff'`. Minor; helper is otherwise unused on this page (the SVG widgets all build their own primitives), so functionally neutral.
+- All six widgets use `.widget / .hd / .ttl / .hint / .readout / .row` chrome correctly. No ad-hoc classes. No `.note / .ok / .bad` callouts at all on this page — special-relativity uses one `.note` and riemannian-geometry uses many; a single `.note` (e.g. summarising "what coordinate-singularity vs curvature-singularity means" in §3) would carry pedagogical weight.
+- §4 (Kerr) and §5 (FLRW) have **no** `<aside class="callback">` See-also block — both should plausibly link out to riemannian-geometry (Killing fields / symmetric spaces for Kerr; Friedmann / warped products for FLRW). §4 also lacks the `<aside class="related">` Used-in backlink that §1–§3 carry. Run `audit-callbacks.mjs --fix` and `inject-used-in-backlinks.mjs --fix` to catch up — but verify the JSON prereq edges first; if they're missing the audit won't synthesise the asides.
+
+## Severity
+minor polish (with two semantic must-fixes: quoted-`var()` CSS bug + `&amp;amp;` double-encoding; everything else is real but not bleeding).
