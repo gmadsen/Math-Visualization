@@ -1,0 +1,53 @@
+# cocartesian-fibrations — pedagogical audit (2026-05)
+
+**Section:** Higher categories & toposes
+**Compared against:** infinity-categories, simplicial-sets-and-nerve
+
+## Summary
+Strong, deeply-authored page (8 sections, 7 widgets, all the right examples) that genuinely teaches straightening rather than restating it. The notable issues are (1) a real broken peer anchor used twice (`#horns` does not exist), (2) a section-wide notation drift away from peers' `\colon` to bare `:`, and (3) "inner fibration" being deployed in §1–§2 prose before its only quasi-definition appears in §3.
+
+## Findings
+
+### Notation drift
+- **Typed-arrow colon (semantic-adjacent — section-wide).** Target uses bare `:` everywhere: `$p: \mathcal{E} \to \mathcal{B}$` (line 270, 354, 549, 758), `$\bar{e}: \bar{x} \to \bar{y}$` (passim), `$s: \mathrm{Fun}(\Delta^1, \mathcal{C}) \to \mathcal{C}$` (line 435, 559, 830). Both peers consistently use `\colon`: see `infinity-categories.html` line 491 (`$F\colon \mathcal{C} \to \mathcal{D}$`), `simplicial-sets-and-nerve.html` line 273 (`$d^i\colon [n-1] \to [n]$`). This is the single biggest cross-page glyph drift in the section. Recommend `\colon` to match peers; high-volume edit but mechanical.
+- **`\Hom` macro defined but never used.** Loader at line 25 declares `\Hom → \operatorname{Hom}`, but the page never invokes `\Hom`. It does write `\mathrm{Map}`, `\mathrm{Fun}`, `\mathrm{Mod}`, `\mathrm{Cat}_\infty`, `\mathrm{LFib}`, `\mathrm{coCart}`, `\mathrm{St}`, `\mathrm{Un}` — none of these have macros either, so this is house-consistent (peers do the same with `\mathrm{Map}`, `\mathrm{Fun}`). Not a finding; flagged because the dormant `\Hom` is a tell that mapping spaces could be written `\Hom_\mathcal{E}` if the section ever standardises.
+- **Cosmetic case slip: `biCartesian`.** §3 line 441 — "a biCartesian fibration is exactly the data of an $\infty$-adjunction." The mid-cap is a Lurie-ism but inconsistent with the rest of the page's lowercase `cocartesian` / `cartesian`. Peers do not use it. Pick one (lowercase `bicartesian` matches the tone here).
+- **`fiber` vs `fibre`.** Target uses `fiber` exclusively. `infinity-categories.html` mixes both. Cocartesian wins this one — no action.
+- **Composite ordering `\bar{f}\bar{e}` vs `\bar{e}\bar{f}`.** §2 line 376 widget reads `composite \bar{f}\bar{e}: \bar{x} \to \bar{z}` (right-to-left is the Lurie convention, so `\bar{f}\bar{e}` means "do $\bar{e}$ first"). This is internally consistent across §3, §4, §5 but worth noting the reader has to absorb that convention silently — no inline gloss.
+
+### Undefined jargon
+- **"inner fibration" deployed before defined (high priority).** First appearance: §1 widget Step 4 `svgInner`, line 306 — "$p$ inner fibration AND every fiber $\mathcal{E}_b$ is a Kan complex" — inside Joyal's recognition theorem, with no callback. Second: §2 prose line 354 — "the device that lets one go from an arbitrary inner fibration to a 'fibration with covariant transport'" — still no definition. The term is finally pinned down in §3 line 429 only as a parenthetical: "$p$ is an inner fibration (so every fiber $\mathcal{E}_{\bar{b}}$ is a quasi-category)". A first-pass reader hits the term twice before they have any chance of unpacking it. Recommend either an inline gloss in §1 widget Step 4 ("inner fibration: every $\Lambda^n_k$, $0<k<n$, lifts") or a `See also` callback to `infinity-categories.html#quasi-category`.
+- **"Joyal's recognition theorem"** introduced as a label in §1 widget Step 4 line 304 with no upstream reference; first-time reader who didn't already know Joyal's name has nothing to anchor it to. A `See also` to `infinity-categories.html#quasi-category` (where Joyal's theorem on quasi-categories *is* discussed) would close the loop.
+- **"$\mathbb{E}_\infty$-ring spectrum"** appears in §3 line 436 ("$\mathbb{E}_\infty$-ring spectrum $R$") and §7(b) line 832 with no gloss and no callback. Topic is genuinely off-page; an inline parenthetical "(an $\infty$-categorical commutative ring)" or a callback would help.
+- **"lax colimit"** deployed in §5 line 670 — "whose total space is the lax colimit (the appropriate $\infty$-categorical Grothendieck-type construction)". The parenthetical glosses "Grothendieck-type construction" but `lax colimit` itself is left bare and is a load-bearing piece of the statement. Either drop it or unpack it.
+- **"cofiber sequence"** in §7(d) line 840 used to describe the worked example without saying what it is. Peer pages don't define cofiber sequences either, so a `See also` to `algebraic-topology.html` or similar would suffice.
+- **"$E_n$-algebras / operadic algebras"** in §8 line 928 dropped without gloss. Acceptable as forward-looking context in an outro but worth a callback to where operads live in the corpus.
+- **"six functor formalism" / "GAGA-style descent"** in §8 line 924 and "pyknotic sets" in line 930 — outro frontiers, unsourced. Standard outro pattern (peer infinity-categories §7 does the same), so pedagogically OK, just noted.
+
+### Tone mismatches
+- Generally on-tone with peers — conversational-precise, second person sparingly, worked examples baked into prose.
+- **§1 paragraph 4 (line 276) "sit between these two extremes"** is an unusually pithy/conversational sentence right next to a paragraph dense with horn formalism (line 274). Reads slightly like two voices stitched together. Compare infinity-categories §1 line 281 which threads "Two extremes bracket the picture" through the same sentence as the formal content — smoother glide.
+- **§3 line 429** opens with a long single-paragraph definition that bundles (i) and (ii) plus an aside on independence of the two clauses into one breath. Both peers tend to display the (i)/(ii) split as a list or a numbered display. Minor structural polish.
+- **§7 (Examples) is a 4-paragraph wall (a)–(d) with no widget interactivity for examples (b), (c), (d)** — only the §7 graph widget covers (a). The interactive `w-examples-graph` could either be retitled "Example (a): arrow-category fibration" or extended with tabs for (b)/(c)/(d). Pedagogically the prose carries the load fine, but the section visually flat-lines after one toy.
+- **§8 (Connections) is denser and better-situated than infinity-categories §7** — uses each `<h3>` to actually frame a downstream arc rather than just listing names. Good model for the section.
+
+### Missing worked examples
+- All eight numbered sections have at least one widget; coverage by the audit's structural rule is satisfied. The qualitative gaps:
+- **§4 (`#fibers-and-transport`) "Two worked fiber computations" prose-only.** Line 559 walks through `s: \mathrm{Fun}(\Delta^1, \mathcal{C}) \to \mathcal{C}` and `\mathrm{Mod} \to \mathrm{CAlg}` in a single paragraph. The accompanying `w-transport-clickable` widget shows the abstract "click an object, see transport" but never instantiates either example. Adding a tab/toggle that actually labels the boxes as `\mathcal{C}_{a/}` and `\mathcal{C}_{a'/}` for the arrow-category case would make the worked example clickable rather than implicit.
+- **§5 (`#grothendieck-construction`) — the `w-grothendieck-scrubber` builds the *abstract* $F: [1] \to \mathrm{Cat}_\infty$** but never picks an actual $\Phi$. Step 1 just says "$F(a) = \mathcal{C}_a$, $F(b) = \mathcal{C}_b$, $F(a \to b) = \Phi$" without committing. The companion `w-groth-codecell` (line 799) *does* commit ($\mathcal{C}_0 = \{a,b\}$, $\mathcal{C}_1 = \{x,y,z\}$, $\Phi(a)=x, \Phi(b)=y$) and is excellent — but it's a $1$-categorical toy, so the $\infty$-side of the equivalence is still abstract on this page. Consider promoting one of the codecell's variables into Step 1 of the scrubber so the two widgets share a running example.
+- **§6 (`#left-fibrations-as-presheaves`) — the universal-left-fibration widget is illustration-only.** No interaction (no clickable elements, no scrubber). Compared to the §1 / §2 / §5 scrubbers, this is the thinnest interactive surface on the page. A "click a base $\mathcal{B}$ → see the pulled-back $\mathcal{E}$" toggle would push it past static.
+
+### KaTeX macros / formatting
+- **No locally introduced macros.** Page only consumes the loader-block macros (`\Hom`, `\Spec`, etc.); the rest is `\mathrm{...}` inline. Consistent with peers.
+- **No invented delimiters.** All math wrapped in `$…$` or `$$…$$`.
+- **Helper-block hygiene (lines 188–240).** Verbatim-equivalent to the canonical `category-theory.html` block — `$`, `$$`, `SVG`, `ensureArrow`, `drawArrow`, `drawNode`. Same as both peers. Compliant.
+- **Widget-chrome hygiene.** All seven interactive widgets use `<div class="widget"><div class="hd"><div class="ttl">…</div><div class="hint">…</div></div>`; readouts use `<div class="readout">`. No ad-hoc classes.
+- **Color tokens.** All SVG paint attributes use `var(--blue)`, `var(--yellow)`, `var(--green)`, `var(--cyan)`, `var(--violet)`, `var(--mute)`, `var(--ink)`, `var(--panel2)`, `var(--pink)`. No raw hex inside widget markup. (One `rgba(...)` literal at line 511 etc. for translucent fills, which is a documented exception across the section.)
+- **`renderMathInElement` re-render after click.** All five clickable widgets (`w-cocart-clickable`, `w-transport-clickable`, `w-functor-levels`-style pattern at `w-examples-graph`, etc.) call `renderMathInElement(ro, …)` after updating innerHTML — this is the §-correct pattern; peer infinity-categories does the same.
+
+### Cross-page consistency notes
+- **REAL BROKEN ANCHOR (high priority).** §1 line 270 inline link `<a href="./simplicial-sets-and-nerve.html#horns">` and §1 callback line 335 `<a href="./simplicial-sets-and-nerve.html#horns">simplicial sets &amp; the nerve · Horns and inner-horn filling</a>`. The peer file has `id="kan-complex"` and `id="horn-filling"` but **no `id="horns"`** (verified via `grep "id=" simplicial-sets-and-nerve.html`). Both deep-links silently 404. Already flagged in `simplicial-sets-and-nerve.md` audit; the cleanest fix is to retarget these two anchors to `#horn-filling` (where simplicial-sets line 947 actually lives), since `audit-callbacks.mjs` does not validate hand-rolled inline links.
+- **§6 callback at line 818** points to `./category-theory.html#yoneda-deep`. Should verify this anchor exists; the §5 callback at line 737 points to `./category-theory.html#yoneda` (a different anchor) — at least one of these two is likely a typo for the other.
+
+## Severity
+minor polish — except the broken `#horns` anchor (deployed twice, definitely 404s) and "inner fibration" deployed before definition, both of which deserve a focused fix.

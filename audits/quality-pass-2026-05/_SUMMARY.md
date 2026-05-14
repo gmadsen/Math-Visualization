@@ -11,7 +11,7 @@ notation drift / undefined jargon / tone mismatches / missing worked examples / 
 |---|---:|---:|---|
 | Logic & Foundations | 8 | 8 | complete |
 | Algebra & homological | 17 | 17 | complete |
-| Higher categories & toposes | 7 | 0 | pending |
+| Higher categories & toposes | 7 | 7 | complete |
 | Analysis | 22 | 0 | pending |
 | Probability & statistics | 12 | 0 | pending |
 | Geometry & topology | 26 | 0 | pending |
@@ -21,7 +21,49 @@ notation drift / undefined jargon / tone mismatches / missing worked examples / 
 | Combinatorics & graph theory | 9 | 0 | pending |
 | Mathematical physics | 11 | 0 | pending |
 | Control theory & optimization | 4 | 0 | pending |
-| **Total** | **190** | **25** | **13%** |
+| **Total** | **190** | **32** | **17%** |
+
+## Higher categories & toposes — consolidated findings (7/7)
+
+All 7 topics rated `minor polish`. Section themes:
+
+### Real bugs (highest priority)
+- **`infinity-categories.html` line 360**: two real bugs in the same defining sentence for the homotopy relation `f \simeq g` — (a) `\\colon` (doubled-backslash leaked from a JS-string context, won't render); (b) `\partial_0\sigma = g, \partial_1\sigma = g` repeats `g` where intended values are `\mathrm{id}_y, g, f` (correct values appear in widget code at line 411).
+- **`cocartesian-fibrations.html`** lines 270, 335: deep-links to `simplicial-sets-and-nerve.html#horns` — anchor doesn't exist (matching ids are `#kan-complex` and `#horn-filling`). Silent 404 per anchor contract. Cheapest fix: add `id="horns"` alias.
+- **`simplicial-sets-and-nerve.html`** line 414 widget readout contains author note leaked as user copy: `'... s⁰d¹ = d¹s⁰? not quite, check the third identity.'`
+- **`infinity-topoi.html` §5** missing the auto-injected `<!-- callback-auto-begin -->` block — verify against `concepts/infinity-topoi.json` whether that concept has no cross-topic prereqs or whether `audit-callbacks.mjs --fix` was skipped.
+
+### Notation drift (within-section)
+- Face-operator notation: `simplicial-sets-and-nerve` uses `d_i`/`d^i`; `infinity-categories` and `cocartesian-fibrations` use `\partial_i`. Same operator, different glyphs, three adjacent pages.
+- Typed-arrow style: `cocartesian-fibrations` uses bare `:` for `$p: \mathcal{E} \to \mathcal{B}$`; both peers consistently use `\colon`. Mechanical mass-find/replace.
+- Presheaf-topos hat: `elementary-topos-theory` uses `\hat{C}` everywhere; both peers use `\widehat{C}`.
+- `elementary-topos-theory` is the in-section outlier on `\mathbf{Set}` (others use `\mathsf{Set}`).
+- `infinity-topoi`: `\mathcal{X}_\flat` (line 715) vs standard `\tau_{\leq 0}` (line 952) for the same idea.
+- `elementary-topos-theory` has a bare Japanese `よ(c)` for the Yoneda embedding (line 573) — used nowhere else in the corpus, in math mode unwrapped.
+
+### Undefined jargon
+- `infinity-categories`: "fibrant in the Joyal model structure", "inner fibration", "trivial Kan fibration", "Dwyer–Kan", `\mathbb{E}_\infty`-ring spectrum
+- `cocartesian-fibrations`: "inner fibration" used in §1 widget Step 4 + §2 prose before its only quasi-definition in §3 line 429; lax colimit, cofiber sequence, $E_n$-algebras, biCartesian
+- `simplicial-sets-and-nerve`: presheaf topos structure, subobject classifier, Quillen equivalence, Joyal model structure, $(\infty,1)$-categories, right lifting property
+- `heyting-algebras-toposes`: Beck–Chevalley (§3+§6), locally cartesian closed (§3), regular open (§5)
+- `elementary-topos-theory`: sober space, Frobenius reciprocity
+- `grothendieck-topologies-sites`: "sober", `\Omega` (used as if defined; only callback to ETT)
+- `infinity-topoi`: `\mathrm{Kan}_\infty`, "animae" introduced §1 line 278 with no callback
+
+### Missing widgets / worked examples
+- `grothendieck-topologies-sites` §5 (Giraud-axioms) is decorative SVG only; peer infinity-topoi has interactive scrubber for same content.
+- `grothendieck-topologies-sites` §6 widget never delivers prose promise ("trace what $f^*$ and $f_*$ do to a specific sheaf").
+- `heyting-algebras-toposes` §6 asserts $f^*$ doesn't preserve $\Rightarrow/\forall$ but exhibits no concrete failing $f$.
+- `heyting-algebras-toposes` §5 alludes to Cohen forcing without sketching a base topos.
+- `elementary-topos-theory` §2 has display-math pullback square that peers would render as SVG.
+- `simplicial-sets-and-nerve` §2 needs non-representable simplicial-set toy.
+- `infinity-categories` §5 (Adjunctions), §6 (Kan extensions) widgets are conceptual, not worked.
+- `cocartesian-fibrations` §5 abstract straightening scrubber doesn't share running example with §5's code-cell. §7 examples (b)/(c)/(d) prose-only. §6 universal-left-fibration widget is illustration-only.
+- `infinity-topoi` §5 hypercompletion widget classifies cases without computing one.
+
+### Other
+- `heyting-algebras-toposes` §2 line 428: densest formula-without-narration block on the page.
+- `simplicial-sets-and-nerve` lines 274, 664: `<p style="text-align:center">$...$</p>` instead of `$$...$$` per peer convention (same anti-pattern as `naive-set-theory` line 681).
 
 ## Logic & Foundations — consolidated findings (8/8)
 
