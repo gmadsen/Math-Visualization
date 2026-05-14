@@ -11,7 +11,7 @@ Per-topic mathematical-correctness audits. Each report verifies every formula, t
 | Logic & Foundations | 8 | 8 | complete (3 major, 5 minor) |
 | Algebra & homological | 17 | 17 | complete (10 major, 5 minor, 2 clean) |
 | Higher categories & toposes | 7 | 7 | complete (4 major, 3 minor) |
-| Analysis | 22 | 0 | pending |
+| Analysis | 22 | 22 | complete (5 major, 6 medium, 3 minor, 8 clean) |
 | Probability & statistics | 12 | 0 | pending |
 | Geometry & topology | 26 | 0 | pending |
 | Number theory | 19 | 0 | pending |
@@ -20,7 +20,36 @@ Per-topic mathematical-correctness audits. Each report verifies every formula, t
 | Combinatorics & graph theory | 9 | 0 | pending |
 | Mathematical physics | 11 | 0 | pending |
 | Control theory & optimization | 4 | 0 | pending |
-| **Total** | **190** | **32** | **17%** |
+| **Total** | **190** | **54** | **28%** |
+
+## Analysis — math findings (22/22)
+
+### Clean (8)
+- harmonic-analysis-fourier, geometric-measure-theory (trivial widget closed-form), semigroup-theory-evolution-equations, advanced-complex-analysis, partial-differential-equations, harmonic-functions, wavelets, variational-methods, fixed-point-theorems
+
+### Major (5)
+- **`real-analysis`**: false "Hölder ⇒ AC" theorem in `absolute-continuity` hard quiz (Cantor function counterexample sits right there); Riemann integral hard q2 numeric answer wrong (0.4538 vs correct 0.8536); Cantor-AC widget computes wrong quantity.
+- **`functional-analysis`**: §8 Courant-Fischer formula given for absolute-value-ordered eigenvalues (only correct for signed); broken Banach-Hilbert quiz counterexample; adjoint quiz answer array fully inverted [1,3,0,2] (correct [2,0,3,1]).
+- **`sobolev-spaces-distributions`**: §7 widget `uExact` for bump source has flipped sign — coded `u'' = +f` instead of `-u'' = f`; max principle violated.
+- **`conformal-and-cr-geometry`**: 3 formula bugs — CR Yamabe exponent wrong twice ((n+1)/(n-1) instead of (n+2)/n); Paneitz operator Ric coefficient wrong; Chern-Gauss-Bonnet rearrangement contradicts itself (8Q vs 4Q).
+- **`spectral-theory`**: §1 Volterra widget calls 0 ∈ σ(V) "residual spectrum" — actually continuous spectrum (V has dense range on L²[0,1]).
+
+### Medium (6)
+- **`complex-analysis`**: Möbius widget elliptic preset mislabeled (encodes `iz` not "fix ±i"); Cayley conformal-gallery entry mapping reversed; cross-ratio quiz answer wrong; Möbius matching answer arrays inconsistent across Q1/Q2.
+- **`measure-theory`**: §10 Folland Fubini sign error (assigned signs flipped on iterated integrals); Vitali quiz numeric answer 0 contradicts assumed positivity.
+- **`operator-algebras`**: §14 GNS widget — inner-product convention slip (computes ω(a*) not ω(a)); tracial cyclic vector mis-normalized; mixed-state self-contradiction; quiz cstar-basics hard q1 broken counterexample.
+- **`several-complex-variables`**: §6 Stein parenthetical contradicts itself ("ℂⁿ\{0} is Stein by Hartogs" — opposite is true); polydisk Levi form description wrong; widget mislabel.
+- **`microlocal-analysis`**: 3 sign-convention defects (composition asymptotic `(i^|α|)/α!` should be `(-i)^|α|/α!`); §3 wave operator symbol sign wrong; §4 Laplacian symbol sign wrong; §6 Helmholtz "non-elliptic" misuses principal-symbol definition.
+- **`dynamical-systems`**: Mandelbrot main-cardioid cusp mislabeled (c=-3/4 is period-doubling, not cusp at c=1/4); spot-the-error quiz where the "error" actually isn't (Bendixson allows zero set of measure zero).
+- **`numerical-analysis`**: §2 Newton "three steps to machine precision" contradicts widget's own 5-step output.
+- **`mathematical-chaos`**: Lorenz Hopf at ρ=24.74 labeled supercritical; actually subcritical (Sparrow 1982).
+
+### Minor (3+)
+- All clean topics had small notes; representative items in commit message.
+
+### Notable patterns
+- **Sign-convention bugs cluster** around Fourier/PDE pages: microlocal-analysis (D=−i∂ vs +i∂), sobolev-spaces (u'' sign in widget), measure-theory (Folland Fubini iterated-integral signs).
+- **Quiz answer-key bugs** continue from prior sections: real-analysis Riemann integral, functional-analysis adjoint matching, complex-analysis cross-ratio + Möbius matching, operator-algebras cstar-basics.
 
 ## Higher categories & toposes — math findings (7/7)
 
