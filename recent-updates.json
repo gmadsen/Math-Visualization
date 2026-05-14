@@ -1,6 +1,30 @@
 {
-  "generated": "2026-05-14T15:22:22.084Z",
+  "generated": "2026-05-14T15:43:42.893Z",
   "entries": [
+    {
+      "slug": "complex-multiplication",
+      "title": "Complex multiplication",
+      "color": "y",
+      "tag": "",
+      "date": "2026-05-14",
+      "message": "fix: Codex Tier 2 backlog — math/widget/anchor bugs from PRs #100-#170 (#187)"
+    },
+    {
+      "slug": "mmp-and-birational-geometry",
+      "title": "MMP and birational geometry",
+      "color": "g",
+      "tag": "",
+      "date": "2026-05-14",
+      "message": "fix: Codex Tier 2 backlog — math/widget/anchor bugs from PRs #100-#170 (#187)"
+    },
+    {
+      "slug": "several-complex-variables",
+      "title": "Several complex variables",
+      "color": "p",
+      "tag": "",
+      "date": "2026-05-14",
+      "message": "fix: Codex Tier 2 backlog — math/widget/anchor bugs from PRs #100-#170 (#187)"
+    },
     {
       "slug": "computational-molecular-biology",
       "title": "Computational molecular biology",
@@ -154,14 +178,6 @@
       "message": "New topic: Arithmetic statistics (#139)"
     },
     {
-      "slug": "complex-multiplication",
-      "title": "Complex multiplication",
-      "color": "y",
-      "tag": "",
-      "date": "2026-05-07",
-      "message": "New topic: Complex multiplication of elliptic curves (#136)"
-    },
-    {
       "slug": "khovanov-homology",
       "title": "Khovanov homology",
       "color": "v",
@@ -306,28 +322,12 @@
       "message": "New topic: Mapping class groups & 4-manifolds (#134)"
     },
     {
-      "slug": "mmp-and-birational-geometry",
-      "title": "MMP and birational geometry",
-      "color": "g",
-      "tag": "",
-      "date": "2026-05-06",
-      "message": "3 more gap topics: dirichlet-unit-theorem, cobordism, MMP (#123)"
-    },
-    {
       "slug": "positivity-and-ample-line-bundles",
       "title": "Positivity and ample line bundles",
       "color": "g",
       "tag": "",
       "date": "2026-05-06",
       "message": "3 next-priority gap topics + condensed pin fix (#122)"
-    },
-    {
-      "slug": "several-complex-variables",
-      "title": "Several complex variables",
-      "color": "p",
-      "tag": "",
-      "date": "2026-05-06",
-      "message": "New topic: Several complex variables & Stein manifolds (#131)"
     },
     {
       "slug": "toric-varieties",
