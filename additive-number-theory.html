@@ -266,8 +266,8 @@ function drawNode(svg, x, y, label, opts={}){
 <main>
 
 <section class="hero">
-  <h1>Sums of squares</h1>
-  <p class="sub">Which integers are sums of two, three, or four squares? The answers run through Fermat's descent, the Gaussian integers, Legendre–Gauss, Lagrange, and finally the generating function $\theta(\tau)^k$ that connects it all to modular forms.</p>
+  <h1>Additive number theory</h1>
+  <p class="sub">Three threads, one toolkit. Which integers are sums of two, three, or four squares? When can every $n$ be written as a sum of $k$-th powers (Waring)? And how do Bernoulli numbers tie $\sum k^m$ to $\zeta(2n)$ and the functional equation? The path runs Fermat $\to$ Gaussian integers $\to$ Legendre–Gauss $\to$ Lagrange $\to$ Hardy–Littlewood circle method $\to$ Faulhaber/Euler-Maclaurin.</p>
 </section>
 
 <section id="question">
@@ -966,7 +966,7 @@ $$(a_1^2+a_2^2+a_3^2+a_4^2)(b_1^2+b_2^2+b_3^2+b_4^2) = c_1^2+c_2^2+c_3^2+c_4^2$$
 
 </section>
 <section id="statement">
-<h2>1. The statement</h2>
+<h2>8. The statement</h2>
 <p>Waring conjectured in 1770 that for every exponent $k\ge 1$ there is a finite constant $g(k)$ such that every positive integer is a sum of at most $g(k)$ non-negative $k$-th powers:
 $$n = x_1^k + x_2^k + \cdots + x_{g(k)}^k,\qquad x_i\in\mathbb{Z}_{\ge 0}.$$
 Lagrange had just proved $g(2)=4$; the extension to $g(3)$ and $g(4)$ was folklore. The constants turned out to be:</p>
@@ -1004,12 +1004,6 @@ which holds for all $k\le 471{,}600{,}000$ and all sufficiently large $k$ (Kubin
 </div>
 
 <!-- callback-auto-begin -->
-<aside class="callback">
-  <div class="ttl">See also</div>
-  <ul>
-    <li><a href="./sums-of-squares.html#four">Four squares and Waring perspective</a></li>
-  </ul>
-</aside>
 <!-- callback-auto-end -->
 <!-- backlinks-auto-begin -->
 <aside class="related">
@@ -1080,7 +1074,7 @@ which holds for all $k\le 471{,}600{,}000$ and all sufficiently large $k$ (Kubin
 
 </section>
 <section id="gvsG">
-<h2>2. <span>$g(k)$</span> versus <span>$G(k)$</span></h2>
+<h2>9. <span>$g(k)$</span> versus <span>$G(k)$</span></h2>
 <p>The constant $g(k)$ is hostage to a few small "bad" integers — $7$, $23$, $79$, $223$ — that are inefficient because they are too small to use large powers. For the large-$n$ behaviour it is more natural to define the <strong>asymptotic Waring constant</strong>:</p>
 
 <div class="note">$G(k)$ = the smallest $s$ such that every <em>sufficiently large</em> integer $n$ is a sum of $s$ $k$-th powers.</div>
@@ -1196,7 +1190,7 @@ which holds for all $k\le 471{,}600{,}000$ and all sufficiently large $k$ (Kubin
 
 </section>
 <section id="hilbert">
-<h2>3. Hilbert–Waring: finiteness</h2>
+<h2>10. Hilbert–Waring: finiteness</h2>
 <p>For 140 years after Waring no one could prove even that $g(k)<\infty$ in general. Then:</p>
 
 <div class="ok"><strong>Theorem (Hilbert, 1909).</strong> For every $k\ge 1$, $g(k)$ is finite.</div>
@@ -1225,7 +1219,7 @@ Clearing denominators (replace $n$ by a large multiple), one gets every sufficie
 </section>
 
 <section id="circle">
-<h2>4. The circle method</h2>
+<h2>11. The circle method</h2>
 <p>Fix $k\ge 2$ and a target integer $N$, and consider the <em>generating function</em>
 $$f(\alpha) = \sum_{n=1}^{\lfloor N^{1/k}\rfloor} e(\alpha\, n^k),\qquad e(x):=e^{2\pi i x},\ \alpha\in\mathbb{R}/\mathbb{Z}.$$
 Raising to the $s$-th power,
@@ -1393,7 +1387,7 @@ $$r_{s,k}(N) = \int_0^1 f(\alpha)^s\, e(-\alpha N)\, d\alpha.$$</div>
 
 </section>
 <section id="arcs">
-<h2>5. Major arcs: the main term</h2>
+<h2>12. Major arcs: the main term</h2>
 <p>Pick $\alpha$ close to a reduced fraction $a/q$: write $\alpha = a/q + \beta$ with $|\beta|$ small. Then
 $$f(\alpha) = \sum_{n\le M} e\bigl((a/q)n^k\bigr)\, e(\beta n^k),\qquad M:=\lfloor N^{1/k}\rfloor.$$
 The first factor depends only on $n \bmod q$, so split the sum by residue class:
@@ -1410,7 +1404,7 @@ $$\mathfrak{S}(N)\cdot J(N) + \text{(error)},\qquad
 \mathfrak{S}(N) = \sum_{q=1}^{\infty} \sum_{\substack{a=1\\ (a,q)=1}}^{q} \Bigl(\tfrac{S(a,q)}{q}\Bigr)^{\!s} e(-aN/q),\quad
 J(N) = \int_{-\infty}^{\infty} v(\beta)^s\, e(-\beta N)\, d\beta.$$
 
-<p>The quantity $\mathfrak{S}(N)$ is the <em>singular series</em> and $J(N)$ the <em>singular integral</em>. Each factor is an <em>Euler product</em> over primes times an archimedean factor — a Hasse-style local-to-global product, see section 6.</p>
+<p>The quantity $\mathfrak{S}(N)$ is the <em>singular series</em> and $J(N)$ the <em>singular integral</em>. Each factor is an <em>Euler product</em> over primes times an archimedean factor — a Hasse-style local-to-global product, see <a href="#local">§13</a>.</p>
 
 <p>On the <strong>minor arcs</strong> Weyl's inequality does the rest:</p>
 
@@ -1482,7 +1476,7 @@ The leading term $N^{s/k-1}$ is the geometric expectation: the volume of the box
 
 </section>
 <section id="local">
-<h2>6. Local densities — Hasse principle for powers</h2>
+<h2>13. Local densities — Hasse principle for powers</h2>
 <p>The singular series $\mathfrak{S}(N)$ is more than a bookkeeping device: it factors as a product over primes,
 $$\mathfrak{S}(N) = \prod_{p\text{ prime}} \sigma_p(N),\qquad \sigma_p(N) = \lim_{h\to\infty} \frac{\#\{(x_1,\ldots,x_s) \in (\mathbb{Z}/p^h\mathbb{Z})^s : \sum x_i^k \equiv N\pmod{p^h}\}}{p^{h(s-1)}}.$$
 That is, $\sigma_p(N)$ is the $p$-adic <em>density</em> of solutions to $\sum x_i^k = N$ modulo every power of $p$. Likewise the singular integral $J(N)$ is the <em>archimedean density</em> at the real place.</p>
@@ -1500,22 +1494,22 @@ has integer solutions iff it has solutions modulo every $p^h$ and solutions in $
 
 <div class="note"><strong>Analogy to Dirichlet series.</strong> The singular series is an Euler product indexed by primes, exactly like a Dirichlet $L$-function. On the <a href="./dirichlet-series-euler-products.html">Dirichlet series page</a> the Euler product encodes <em>multiplicative</em> arithmetic; here it encodes <em>additive</em> arithmetic, but the local-to-global slogan is the same: a global solution exists iff every local solution exists and the infinite product of local densities converges to a positive constant.</div>
 
-<div class="note"><strong>Cross-link: sums of squares.</strong> The $k=2$ case specializes to Lagrange, Jacobi, and the three-squares theorem of Legendre — developed in full on <a href="./sums-of-squares.html">sums-of-squares.html</a>. Jacobi's exact formula $r_4(N) = 8\sum_{d\mid N,\ 4\nmid d} d$ is the circle-method asymptotic made exact, because the minor arcs vanish (the Eisenstein series $\theta^4$ is a finite sum, not a limit). That is the miracle of the modular-form picture developed on the <a href="./theta-functions.html">theta-functions page</a>: for $k=2$, the generating function is itself modular, and the whole singular series collapses to a divisor sum.</div>
+<div class="note"><strong>Cross-link: sums of squares.</strong> The $k=2$ case specializes to Lagrange (<a href="#four">§6</a>), Jacobi, and the three-squares theorem of Legendre (<a href="#three">§5</a>) — see the first half of this page. Jacobi's exact formula $r_4(N) = 8\sum_{d\mid N,\ 4\nmid d} d$ is the circle-method asymptotic made exact, because the minor arcs vanish (the Eisenstein series $\theta^4$ is a finite sum, not a limit). That is the miracle of the modular-form picture developed on the <a href="./theta-functions.html">theta-functions page</a>: for $k=2$, the generating function is itself modular, and the whole singular series collapses to a divisor sum.</div>
 
 </section>
 
 <section id="faulhaber">
-<h2>1. Faulhaber: sums of $k^m$ as polynomials in $n$</h2>
+<h2>14. Faulhaber: sums of $k^m$ as polynomials in $n$</h2>
 
 <p>Gauss's schoolboy trick tells you $1+2+\cdots+n=\tfrac{n(n+1)}{2}$ — a quadratic in $n$. Less well known, but equally elementary:</p>
 
-<p style="text-align:center">$\displaystyle\sum_{k=1}^{n} k^2 = \frac{n(n+1)(2n+1)}{6},\qquad \sum_{k=1}^{n} k^3 = \left(\frac{n(n+1)}{2}\right)^2.$</p>
+$$\sum_{k=1}^{n} k^2 = \frac{n(n+1)(2n+1)}{6},\qquad \sum_{k=1}^{n} k^3 = \left(\frac{n(n+1)}{2}\right)^2.$$
 
 <p>Each sum is a polynomial in $n$. The pattern, discovered by <strong>Jacob Bernoulli</strong> (and earlier by Faulhaber in special cases), is that</p>
 
-<p style="text-align:center">$\displaystyle S_m(n):=\sum_{k=1}^{n} k^m = \frac{1}{m+1}\sum_{j=0}^{m}\binom{m+1}{j} B_j\, n^{m+1-j},$</p>
+$$S_m(n):=\sum_{k=1}^{n} k^m = \frac{1}{m+1}\sum_{j=0}^{m}\binom{m+1}{j} B_j\, n^{m+1-j},$$
 
-<p>where $B_j$ are the <em>Bernoulli numbers</em> (§2). So $S_m$ is a polynomial of degree $m+1$ in $n$ with leading coefficient $\tfrac{1}{m+1}$ — unsurprising, since $S_m(n)$ is the Riemann sum for $\int_0^n x^m\,dx=\tfrac{n^{m+1}}{m+1}$, and the Bernoulli numbers are the discrete correction to the integral.</p>
+<p>where $B_j$ are the <em>Bernoulli numbers</em> (<a href="#bernoulli">§15</a>). So $S_m$ is a polynomial of degree $m+1$ in $n$ with leading coefficient $\tfrac{1}{m+1}$ — unsurprising, since $S_m(n)$ is the Riemann sum for $\int_0^n x^m\,dx=\tfrac{n^{m+1}}{m+1}$, and the Bernoulli numbers are the discrete correction to the integral.</p>
 
 <div class="note"><strong>Why leading $\tfrac{1}{m+1}$?</strong> The largest term $k=n$ contributes $n^m$; summing $n$ such terms near the top gives roughly $\int_0^n x^m\,dx=n^{m+1}/(m+1)$. The remaining Bernoulli corrections all have lower degree in $n$.</div>
 
@@ -1755,15 +1749,15 @@ has integer solutions iff it has solutions modulo every $p^h$ and solutions in $
 
 </section>
 <section id="bernoulli">
-<h2>2. Bernoulli numbers and their generating function</h2>
+<h2>15. Bernoulli numbers and their generating function</h2>
 
 <p>The Bernoulli numbers $B_n$ are defined by the single generating-function identity</p>
 
-<p style="text-align:center">$\displaystyle \frac{t}{e^{t}-1} \;=\; \sum_{n\ge 0} B_n\, \frac{t^n}{n!}.$</p>
+$$\frac{t}{e^{t}-1} \;=\; \sum_{n\ge 0} B_n\, \frac{t^n}{n!}.$$
 
 <p>Expanding the left side as a power series in $t$ and comparing coefficients gives $B_0=1$, $B_1=-\tfrac12$, $B_2=\tfrac16$, $B_3=0$, $B_4=-\tfrac{1}{30}$, and so on. A key symmetry is visible by rewriting</p>
 
-<p style="text-align:center">$\displaystyle \frac{t}{e^{t}-1}+\frac{t}{2} \;=\; \frac{t}{2}\cdot\frac{e^{t}+1}{e^{t}-1} \;=\; \frac{t}{2}\coth(t/2),$</p>
+$$\frac{t}{e^{t}-1}+\frac{t}{2} \;=\; \frac{t}{2}\cdot\frac{e^{t}+1}{e^{t}-1} \;=\; \frac{t}{2}\coth(t/2),$$
 
 <p>which is an <em>even</em> function of $t$. Subtracting off the $B_1 t/1!=-t/2$ term, all odd powers must vanish: <strong>$B_{2k+1}=0$ for $k\ge 1$</strong>. The even values alternate in sign and grow faster than any geometric rate.</p>
 
@@ -1782,7 +1776,7 @@ has integer solutions iff it has solutions modulo every $p^h$ and solutions in $
     <thead><tr><th>$n$</th><th>$B_n$</th><th>numeric</th></tr></thead>
     <tbody></tbody>
   </table>
-  <div class="small" style="color:var(--mute)">Odd $B_n>1$ are zero. Even $|B_{2k}|$ grows like $2(2k)!/(2\pi)^{2k}$ — the seed of Euler's zeta formula (§3).</div>
+  <div class="small" style="color:var(--mute)">Odd $B_n>1$ are zero. Even $|B_{2k}|$ grows like $2(2k)!/(2\pi)^{2k}$ — the seed of Euler's zeta formula (§16).</div>
 </div>
 
 
@@ -1878,19 +1872,19 @@ has integer solutions iff it has solutions modulo every $p^h$ and solutions in $
 
 </section>
 <section id="zeta">
-<h2>3. Euler's formula for $\zeta(2n)$</h2>
+<h2>16. Euler's formula for $\zeta(2n)$</h2>
 
 <p>In 1734 Euler solved the <em>Basel problem</em> by proving $\zeta(2)=\pi^2/6$. The full even-integer result, in his later notation:</p>
 
-<p style="text-align:center">$\displaystyle \zeta(2n) \;=\; (-1)^{n+1}\frac{B_{2n}(2\pi)^{2n}}{2\,(2n)!}.$</p>
+$$\zeta(2n) \;=\; (-1)^{n+1}\frac{B_{2n}(2\pi)^{2n}}{2\,(2n)!}.$$
 
 <p>The modern derivation: start from the Weierstrass product $\sin(\pi z)=\pi z\prod_{k\ge 1}(1-z^2/k^2)$, take logarithmic derivative, compare with $\pi\cot(\pi z)=\tfrac1z - 2\sum_{n\ge 1}\zeta(2n) z^{2n-1}$, then use the cotangent-to-Bernoulli expansion</p>
 
-<p style="text-align:center">$\displaystyle \pi z\cot(\pi z) \;=\; \sum_{n\ge 0}\frac{(-1)^n B_{2n}(2\pi z)^{2n}}{(2n)!}.$</p>
+$$\pi z\cot(\pi z) \;=\; \sum_{n\ge 0}\frac{(-1)^n B_{2n}(2\pi z)^{2n}}{(2n)!}.$$
 
-<p>The <em>negative-integer</em> values, by contrast, fall out of the functional equation (§5) as</p>
+<p>The <em>negative-integer</em> values, by contrast, fall out of the functional equation (<a href="#func-eq">§18</a>) as</p>
 
-<p style="text-align:center">$\displaystyle \zeta(-n) \;=\; -\frac{B_{n+1}}{n+1}.$</p>
+$$\zeta(-n) \;=\; -\frac{B_{n+1}}{n+1}.$$
 
 <p>Since $B_3=B_5=B_7=\cdots=0$, this gives $\zeta(-2)=\zeta(-4)=\cdots=0$ — the <strong>trivial zeros</strong>. And $\zeta(-1)=-B_2/2=-1/12$, the regularised value that makes the string theorist's $1+2+3+\cdots$ finite.</p>
 
@@ -2003,11 +1997,11 @@ has integer solutions iff it has solutions modulo every $p^h$ and solutions in $
 
 </section>
 <section id="em">
-<h2>4. Euler-Maclaurin summation</h2>
+<h2>17. Euler-Maclaurin summation</h2>
 
 <p>The same Bernoulli numbers that solve $\sum k^m$ also bridge finite sums to integrals of arbitrary smooth functions. <strong>Euler-Maclaurin</strong>:</p>
 
-<p style="text-align:center">$\displaystyle \sum_{k=a}^{b} f(k) \;=\; \int_{a}^{b} f(x)\,dx \;+\; \frac{f(a)+f(b)}{2} \;+\; \sum_{k=1}^{K} \frac{B_{2k}}{(2k)!}\,\bigl[f^{(2k-1)}(b)-f^{(2k-1)}(a)\bigr] \;+\; R_K,$</p>
+$$\sum_{k=a}^{b} f(k) \;=\; \int_{a}^{b} f(x)\,dx \;+\; \frac{f(a)+f(b)}{2} \;+\; \sum_{k=1}^{K} \frac{B_{2k}}{(2k)!}\,\bigl[f^{(2k-1)}(b)-f^{(2k-1)}(a)\bigr] \;+\; R_K,$$
 
 <p>where $R_K$ is a remainder bounded in terms of $\|f^{(2K+1)}\|_\infty$. Only the <em>even</em> Bernoulli numbers enter the main series (the odd ones, past $B_1$, vanish; $B_1$ is hidden inside the $(f(a)+f(b))/2$ trapezoidal term). Two ways to think about it:</p>
 
@@ -2165,27 +2159,27 @@ has integer solutions iff it has solutions modulo every $p^h$ and solutions in $
 
 </section>
 <section id="func-eq">
-<h2>5. Functional equation preview</h2>
+<h2>18. Functional equation preview</h2>
 
-<p>The special values of §3 are not two unrelated facts — they are one fact seen from two sides of a <em>reflection</em>. Define the <strong>completed zeta function</strong>:</p>
+<p>The special values of <a href="#zeta">§16</a> are not two unrelated facts — they are one fact seen from two sides of a <em>reflection</em>. Define the <strong>completed zeta function</strong>:</p>
 
-<p style="text-align:center">$\displaystyle \xi(s) \;=\; \pi^{-s/2}\,\Gamma(s/2)\,\zeta(s).$</p>
+$$\xi(s) \;=\; \pi^{-s/2}\,\Gamma(s/2)\,\zeta(s).$$
 
 <p>Riemann's 1859 memoir proves</p>
 
-<p style="text-align:center">$\displaystyle \xi(s) \;=\; \xi(1-s),$</p>
+$$\xi(s) \;=\; \xi(1-s),$$
 
-<p>so $\xi$ is symmetric across the critical line $\operatorname{Re}(s)=\tfrac12$. The proof goes via the <em>theta function</em> $\theta(y)=\sum_{n\in\mathbb Z} e^{-\pi n^2 y}$ and its Poisson-summation symmetry $\theta(1/y)=\sqrt{y}\,\theta(y)$ — that is why the Mellin transform (see <a href="./dirichlet-series-euler-products.html#mellin">dirichlet-series</a>) is the right bridge.</p>
+<p>so $\xi$ is symmetric across the critical line $\mathrm{Re}(s)=\tfrac12$. The proof goes via the <em>theta function</em> $\theta(y)=\sum_{n\in\mathbb{Z}} e^{-\pi n^2 y}$ and its Poisson-summation symmetry $\theta(1/y)=\sqrt{y}\,\theta(y)$ — that is why the Mellin transform (see <a href="./dirichlet-series-euler-products.html#mellin">dirichlet-series</a>) is the right bridge.</p>
 
 <p>Pulling $\xi(s)=\xi(1-s)$ apart gives the asymmetric form</p>
 
-<p style="text-align:center">$\displaystyle \zeta(1-s) \;=\; 2\,(2\pi)^{-s}\cos(\pi s/2)\,\Gamma(s)\,\zeta(s).$</p>
+$$\zeta(1-s) \;=\; 2\,(2\pi)^{-s}\cos(\pi s/2)\,\Gamma(s)\,\zeta(s).$$
 
 <p>Plug in $s=2n$: the $\cos(\pi n)=(-1)^n$ factor, together with Euler's $\zeta(2n)=(-1)^{n+1}B_{2n}(2\pi)^{2n}/(2(2n)!)$ and $\Gamma(2n)=(2n-1)!$, collapses to</p>
 
-<p style="text-align:center">$\displaystyle \zeta(1-2n) \;=\; -\frac{B_{2n}}{2n}.$</p>
+$$\zeta(1-2n) \;=\; -\frac{B_{2n}}{2n}.$$
 
-<p>Combined with $\zeta(-2k)=0$ (trivial zeros, from odd $B=0$), this is exactly the reflection of §3 — the Bernoulli numbers are the <em>same numbers</em> on both sides of the mirror.</p>
+<p>Combined with $\zeta(-2k)=0$ (trivial zeros, from odd $B=0$), this is exactly the reflection of §16 — the Bernoulli numbers are the <em>same numbers</em> on both sides of the mirror.</p>
 
 <div class="widget" id="w-fe">
   <div class="hd"><div class="ttl">$\xi(s)=\xi(1-s)$ consistency check</div><div class="hint">slide $s$; both sides should match</div></div>
@@ -2283,11 +2277,11 @@ has integer solutions iff it has solutions modulo every $p^h$ and solutions in $
 
 </section>
 <section id="app">
-<h2>6. Application: accurate $\zeta(s)$ near $s=1$</h2>
+<h2>19. Application: accurate $\zeta(s)$ near $s=1$</h2>
 
-<p>The naïve series $\zeta(s)=\sum_{k\ge 1} k^{-s}$ converges absolutely for $\operatorname{Re}(s)>1$ but agonizingly slowly as $s\to 1^{+}$: the tail $\sum_{k>N} k^{-s}\approx N^{1-s}/(s-1)$. Applying Euler-Maclaurin to the tail gives</p>
+<p>The naïve series $\zeta(s)=\sum_{k\ge 1} k^{-s}$ converges absolutely for $\mathrm{Re}(s)>1$ but agonizingly slowly as $s\to 1^{+}$: the tail $\sum_{k>N} k^{-s}\approx N^{1-s}/(s-1)$. Applying Euler-Maclaurin to the tail gives</p>
 
-<p style="text-align:center">$\displaystyle \zeta(s) \;\approx\; \sum_{k=1}^{N-1}\frac{1}{k^{s}} \;+\; \frac{N^{1-s}}{s-1} \;+\; \frac{1}{2 N^{s}} \;+\; \sum_{k=1}^{K}\frac{B_{2k}}{(2k)!}\,\frac{s(s+1)\cdots(s+2k-2)}{N^{s+2k-1}}.$</p>
+$$\zeta(s) \;\approx\; \sum_{k=1}^{N-1}\frac{1}{k^{s}} \;+\; \frac{N^{1-s}}{s-1} \;+\; \frac{1}{2 N^{s}} \;+\; \sum_{k=1}^{K}\frac{B_{2k}}{(2k)!}\,\frac{s(s+1)\cdots(s+2k-2)}{N^{s+2k-1}}.$$
 
 <p>This is the Riemann-Siegel predecessor: a modest $N$ and $K$ already give 10-digit accuracy uniformly across a reasonable strip. The widget below compares the two strategies at any $s>1$; notice how the EM-corrected estimate blows past the naïve partial sum by many orders of magnitude for the same number of terms.</p>
 

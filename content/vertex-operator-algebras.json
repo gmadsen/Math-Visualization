@@ -31,7 +31,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<p>Two further axioms tie the formal-series picture to a state space: the <strong>vacuum</strong> $\\mathbf{1} \\in V$ is a distinguished element with $Y(\\mathbf{1}, z) = \\mathrm{id}_V$, and <strong>creation</strong> demands $Y(a, z)\\mathbf{1} \\in V[[z]]$ with $Y(a, z)\\mathbf{1}\\big|_{z = 0} = a$. Reading the constant-in-$z$ coefficient gives $a_{-1}\\mathbf{1} = a$: every state is recovered by acting with the $(-1)$-mode on the vacuum.</p>\n\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./lie-algebras.html#axioms\">Axioms and matrix examples</a></li>\n    <li><a href=\"./modular-forms.html#qexp\">q-expansions and arithmetic data</a></li>\n  </ul>\n</aside>\n\n"
+          "html": "\n\n<p>Two further axioms tie the formal-series picture to a state space: the <strong>vacuum</strong> $\\mathbf{1} \\in V$ is a distinguished element with $Y(\\mathbf{1}, z) = \\mathrm{id}_V$, and <strong>creation</strong> demands $Y(a, z)\\mathbf{1} \\in V[[z]]$ with $Y(a, z)\\mathbf{1}\\big|_{z = 0} = a$. Reading the constant-in-$z$ coefficient gives $a_{-1}\\mathbf{1} = a$: every state is recovered by acting with the $(-1)$-mode on the vacuum.</p>\n\n"
         },
         {
           "type": "quiz",

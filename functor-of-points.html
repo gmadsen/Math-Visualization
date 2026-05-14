@@ -398,7 +398,7 @@ $$X(R) \;=\; \Hom_{\mathrm{CRing}}(\mathbb{Z}[x,y]/(y^2-x^3-1),\, R) \;=\; \{(a,
 
 <ul>
   <li>$X(\mathbb{F}_2) = \{(0,1),(1,0)\}$. Two points.</li>
-  <li>$X(\mathbb{F}_3) = \{(0,1),(0,2),(2,0),(2,1),(2,2)\}$. Five points. Wait, check $(2,1)$: $1 = 8 + 1 = 9 \equiv 0 \not= 1$. Retract that. The widget below does the brute-force properly.</li>
+  <li>$X(\mathbb{F}_3) = \{(0,1),(0,2),(2,0)\}$. Three points (check: $a=0$ gives $b^2=1$, so $b\in\{1,2\}$; $a=1$ gives $b^2=2$, which has no solution mod $3$; $a=2$ gives $b^2=8+1\equiv 0$, so $b=0$). The widget below does the brute force over a range of finite fields.</li>
 </ul>
 
 <div class="note"><strong>The point.</strong> As the ring $R$ varies, $X(R)$ is literally the set of solutions in $R$. There is no hidden infrastructure: the scheme <em>is</em> this rule, and a morphism $X \to Y$ is a rule that turns $R$-solutions of one equation into $R$-solutions of the other, naturally in $R$.</div>
