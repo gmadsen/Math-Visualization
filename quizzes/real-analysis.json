@@ -291,10 +291,10 @@
         },
         {
           "type": "numeric",
-          "q": "Let $f(x) = \\begin{cases}x\\sin(1/x) & x\\ne 0 \\\\ 0 & x=0\\end{cases}$. Is $f$ Riemann-integrable on $[-1,1]$? Compute $\\int_{-1}^1 |f(x)|\\,dx$ to 4 decimal places. (Hint: the integral equals $2\\int_0^1 x|\\sin(1/x)|\\,dx\\approx 0.4538$.)",
-          "answer": 0.4538,
+          "q": "Let $f(x) = \\begin{cases}x\\sin(1/x) & x\\ne 0 \\\\ 0 & x=0\\end{cases}$. Is $f$ Riemann-integrable on $[-1,1]$? Compute $\\int_{-1}^1 |f(x)|\\,dx$ to 4 decimal places. (Hint: the integral equals $2\\int_0^1 x|\\sin(1/x)|\\,dx\\approx 0.8536$.)",
+          "answer": 0.8536,
           "tol": 0.005,
-          "explain": "$f$ is bounded and continuous except at $0$ (a single point, measure zero), so it is Riemann-integrable by Lebesgue's criterion. Numerically, $\\int_{-1}^1 |x\\sin(1/x)|\\,dx=2\\int_0^1 x|\\sin(1/x)|\\,dx\\approx 0.4538$."
+          "explain": "$f$ is bounded and continuous except at $0$ (a single point, measure zero), so it is Riemann-integrable by Lebesgue's criterion. Numerically, $\\int_0^1 x|\\sin(1/x)|\\,dx\\approx 0.4268$, so $\\int_{-1}^1 |x\\sin(1/x)|\\,dx=2\\int_0^1 x|\\sin(1/x)|\\,dx\\approx 0.8536$."
         }
       ]
     },
@@ -931,12 +931,12 @@
         },
         {
           "type": "ordering",
-          "q": "Arrange the implications between regularity classes on $[a,b]$, from STRONGEST to weakest.",
+          "q": "Arrange the regularity classes on $[a,b]$ in a strict chain of implications, from STRONGEST to weakest.",
           "items": [
+            "$C^1$",
             "Lipschitz",
-            "Hölder $C^{0,\\alpha}$ ($0<\\alpha<1$)",
             "Absolutely continuous (AC)",
-            "Bounded variation (BV)"
+            "Bounded variation $\\cap$ continuous (BV $\\cap C$)"
           ],
           "answer": [
             0,
@@ -944,8 +944,8 @@
             2,
             3
           ],
-          "hint": "Each step strictly drops a property: a uniform Lipschitz constant; an exponent in the Hölder bound; the AC inequality on disjoint intervals.",
-          "explain": "Lipschitz is Hölder with $\\alpha=1$, strictly stronger than $\\alpha<1$. Hölder $C^{0,\\alpha}$ on a compact interval implies uniform continuity and AC: cover the AC test windows by $\\le \\sum (b_k-a_k)^\\alpha \\le N^{1-\\alpha}\\delta^\\alpha$ which $\\to 0$ as $\\delta\\to 0$. AC $\\Rightarrow$ BV always (the AC bound forces finite total variation). The reverse implications all fail: BV $\\not\\Rightarrow$ AC (Cantor function), AC $\\not\\Rightarrow$ Hölder for any specific $\\alpha$, and Hölder $\\alpha<1$ $\\not\\Rightarrow$ Lipschitz. Continuous is omitted from this chain because it is incomparable with BV (a step function is BV but not continuous; $x\\sin(1/x)$ is continuous but not BV)."
+          "hint": "Each step strictly drops a property: continuity of $f'$; uniform bound on the difference quotient; the AC inequality on disjoint intervals; closing the gap with the Cantor function.",
+          "explain": "On $[a,b]$ each containment is strict. $C^1 \\subsetneq$ Lipschitz: $f'$ continuous on a compact is bounded, so $f$ is Lipschitz with constant $\\sup|f'|$; $f(x)=|x|$ is Lipschitz but not $C^1$. Lipschitz $\\subsetneq$ AC: the AC sum is bounded by $L\\sum(b_k-a_k)<L\\delta$; $f(x)=\\sqrt{x}$ on $[0,1]$ is AC (its derivative $1/(2\\sqrt x)$ is in $L^1$) but not Lipschitz. AC $\\subsetneq$ BV $\\cap C$: AC functions are uniformly continuous and have finite variation (split $[a,b]$ into $\\lceil (b-a)/\\delta\\rceil$ chunks; the AC sum bounds the variation on each); the Cantor function is in BV $\\cap C$ but not AC. Hölder $C^{0,\\alpha}$ for $\\alpha<1$ is deliberately omitted: the Cantor function is $\\alpha$-Hölder for $\\alpha=\\log 2/\\log 3$ yet not AC, so Hölder and AC are incomparable on $[a,b]$ — Hölder does NOT imply AC (only $\\alpha=1$, i.e. Lipschitz, does)."
         }
       ]
     },

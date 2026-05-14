@@ -270,13 +270,13 @@ has the expected rank $n - \dim X$. Equivalently, the Zariski tangent space $T_p
 <p>The <em>tangent cone</em> $C_p X$ refines the tangent space. After translating $p$ to the origin, expand $f_i = f_i^{(d_i)} + \text{higher}$ where $f_i^{(d_i)}$ is the homogeneous lowest-degree term. Then $C_p X = V(f_1^{(d_1)}, \ldots, f_r^{(d_r)})$. At a smooth point each $d_i = 1$ and $C_p X = T_p X$. At a node $f = y^2 - x^2 - x^3$ the lowest-degree piece is $y^2 - x^2 = (y-x)(y+x)$, so $C_p X$ is the union of two lines inside the larger tangent space. At a cusp $y^2 - x^3$ the cone is the doubled line $y^2 = 0$.</p>
 
 <div class="widget" id="w-jac">
-  <div class="hd"><span class="ttl">Cusp/node visualizer</span><span class="hint">slide $a$: $y^2 = x^2 + a x^3$ deforms cusp ($a=0$) to node-like ($a&gt;0$)</span></div>
+  <div class="hd"><span class="ttl">Cusp/node visualizer</span><span class="hint">slide $a$: $y^2 = x^3 + a x^2$ deforms cusp ($a=0$) to node ($a&gt;0$) or acnode ($a&lt;0$)</span></div>
   <div class="row">
     <label>$a$ <input type="range" id="j-a" min="-2" max="2" step="0.02" value="0"></label>
     <span id="j-av" class="small">0.00</span>
     <button id="j-cusp" type="button">cusp ($a{=}0$)</button>
     <button id="j-node" type="button">node ($a{=}1$)</button>
-    <button id="j-smooth" type="button">smooth ($a{=}-0.5$)</button>
+    <button id="j-smooth" type="button">acnode ($a{=}-0.5$)</button>
   </div>
   <svg id="j-svg" viewBox="0 0 560 360" width="560" height="360" style="background:#0b0f16;border:1px solid var(--line);border-radius:6px"><title>Cusp / node visualizer</title></svg>
   <div class="readout" id="j-out"></div>
@@ -294,42 +294,43 @@ has the expected rank $n - \dim X$. Equivalently, the Zariski tangent space $T_p
     svg.innerHTML = "";
     svg.appendChild(SVG("line", {x1:PAD, y1:sy(0), x2:W-PAD, y2:sy(0), stroke:"#2a3242"}));
     svg.appendChild(SVG("line", {x1:sx(0), y1:PAD, x2:sx(0), y2:H-PAD, stroke:"#2a3242"}));
-    // f(x) = x^2 + a x^3, plot y = +/- sqrt(f) where f >= 0
+    // f(x) = x^3 + a x^2, plot y = +/- sqrt(f) where f >= 0
     const N = 800;
     let segs = [[]];
     for(let i = 0; i <= N; i++){
       const x = XMIN + (XMAX - XMIN) * i / N;
-      const f = x*x + a*x*x*x;
+      const f = x*x*x + a*x*x;
       if(f < 0){ if(segs[segs.length-1].length) segs.push([]); }
       else segs[segs.length-1].push(x);
     }
     for(const seg of segs){
       if(seg.length < 2) continue;
-      const up = seg.map(x => [sx(x), sy(Math.sqrt(x*x + a*x*x*x))]);
-      const dn = seg.map(x => [sx(x), sy(-Math.sqrt(x*x + a*x*x*x))]);
+      const up = seg.map(x => [sx(x), sy(Math.sqrt(x*x*x + a*x*x))]);
+      const dn = seg.map(x => [sx(x), sy(-Math.sqrt(x*x*x + a*x*x))]);
       svg.appendChild(SVG("path", {d:"M " + up.map(p=>p[0]+" "+p[1]).join(" L "), fill:"none", stroke:"var(--blue)", "stroke-width":1.7}));
       svg.appendChild(SVG("path", {d:"M " + dn.map(p=>p[0]+" "+p[1]).join(" L "), fill:"none", stroke:"var(--blue)", "stroke-width":1.7}));
     }
-    // mark origin: cusp / node / smooth
+    // mark origin: cusp / node / acnode (isolated real point, node over ℂ)
     let label, color;
     if(Math.abs(a) < 0.03){ label = "cusp"; color = "var(--pink)"; }
     else if(a > 0){ label = "node"; color = "var(--yellow)"; }
-    else { label = "smooth (isolated tangent point)"; color = "var(--green)"; }
+    else { label = "acnode (node over ℂ)"; color = "var(--green)"; }
     svg.appendChild(SVG("circle", {cx:sx(0), cy:sy(0), r:5, fill:color}));
     const txt = SVG("text", {x:sx(0)+10, y:sy(0)-6, "font-size":12, fill:color});
     txt.textContent = label;
     svg.appendChild(txt);
-    // tangent cone visualisation: lowest degree term is y^2 - x^2 = 0 if a is small, draw asymptotes for node case
+    // tangent cone visualisation: lowest-degree term is y^2 - a x^2; for a > 0 draw the two real lines y = ±√a x
     if(a > 0.03){
       const L = 1.6;
-      svg.appendChild(SVG("line", {x1:sx(-L), y1:sy(-L), x2:sx(L), y2:sy(L), stroke:"var(--violet)", "stroke-dasharray":"4,4", "stroke-width":1.1}));
-      svg.appendChild(SVG("line", {x1:sx(-L), y1:sy(L), x2:sx(L), y2:sy(-L), stroke:"var(--violet)", "stroke-dasharray":"4,4", "stroke-width":1.1}));
+      const k = Math.sqrt(a);
+      svg.appendChild(SVG("line", {x1:sx(-L), y1:sy(-k*L), x2:sx(L), y2:sy(k*L), stroke:"var(--violet)", "stroke-dasharray":"4,4", "stroke-width":1.1}));
+      svg.appendChild(SVG("line", {x1:sx(-L), y1:sy(k*L), x2:sx(L), y2:sy(-k*L), stroke:"var(--violet)", "stroke-dasharray":"4,4", "stroke-width":1.1}));
     }
-    let msg = `f(x,y) = y² − x² − a·x³, a = ${a.toFixed(2)}\n`;
-    msg += `Jacobian at origin: ∂f/∂x = −2x − 3a x² = 0, ∂f/∂y = 2y = 0 — both vanish, so origin is singular.\n`;
+    let msg = `f(x,y) = y² − x³ − a·x², a = ${a.toFixed(2)}\n`;
+    msg += `Jacobian at origin: ∂f/∂x = −3x² − 2a x = 0, ∂f/∂y = 2y = 0 — both vanish, so origin is singular.\n`;
     if(Math.abs(a) < 0.03) msg += `Tangent cone: y² = 0 (doubled line) — cusp.`;
-    else if(a > 0) msg += `Tangent cone: y² = x² → two lines y = ±x — node.`;
-    else msg += `Locally f ≈ y² − x²(1 + a x); near origin still has tangent cone y² = x², but the global curve has only an isolated real point at origin (real picture is misleading; over ℂ still a node).`;
+    else if(a > 0) msg += `Tangent cone: y² = a·x² → two lines y = ±√a · x — node.`;
+    else msg += `Tangent cone: y² = a·x² with a < 0 has no real lines (only the origin); the real plot collapses to an isolated point (acnode), but over ℂ this is still a node — the two complex lines y = ±i√|a|·x.`;
     out.textContent = msg;
   }
   A.addEventListener("input", render);
@@ -445,8 +446,8 @@ together with the projection $\pi : \mathrm{Bl}_0 \mathbb{A}^n \to \mathbb{A}^n$
     svg.appendChild(oTxt);
     out.textContent =
       "Cusp parametrised by (t², t³). Slope y/x = t — well-defined except at t=0.\n" +
-      "Blow-up adopts m = y/x as a coordinate: y = m·x, so y² = x³ becomes m²·x² = x³, i.e. x(m² − x) = 0.\n" +
-      "The two factors split: x = 0 is the exceptional divisor E ≅ ℙ¹; m² = x is the smooth strict transform meeting E transversally at m = 0.";
+      "Blow-up adopts m = y/x as a coordinate: y = m·x, so y² = x³ becomes m²·x² = x³, i.e. x²(x − m²) = 0.\n" +
+      "The two factors split: x = 0 (with multiplicity 2) is the exceptional divisor E ≅ ℙ¹; x = m² is the smooth strict transform meeting E transversally at m = 0.";
   }
   T.addEventListener("input", render);
   render();

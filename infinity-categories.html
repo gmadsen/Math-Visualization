@@ -693,10 +693,10 @@ $$\mathrm{Map}_{\mathcal{D}}(f(c), d) \;\simeq\; \mathrm{Map}_{\mathcal{C}}(c, g
     <polygon points="60,180 180,180 120,70" fill="rgba(255,216,102,0.06)" stroke="none"/>
     <circle class="adj-pick" data-key="f1" cx="60" cy="180" r="12" fill="var(--panel2)" stroke="var(--blue)" style="cursor:pointer"/>
     <text x="60" y="184" text-anchor="middle" font-size="11" pointer-events="none">f</text>
-    <circle class="adj-pick" data-key="fgf" cx="180" cy="180" r="14" fill="var(--panel2)" stroke="var(--violet)" style="cursor:pointer"/>
-    <text x="180" y="184" text-anchor="middle" font-size="11" pointer-events="none">fgf</text>
-    <circle class="adj-pick" data-key="f2" cx="120" cy="70" r="12" fill="var(--panel2)" stroke="var(--blue)" style="cursor:pointer"/>
-    <text x="120" y="74" text-anchor="middle" font-size="11" pointer-events="none">f</text>
+    <circle class="adj-pick" data-key="f2" cx="180" cy="180" r="12" fill="var(--panel2)" stroke="var(--blue)" style="cursor:pointer"/>
+    <text x="180" y="184" text-anchor="middle" font-size="11" pointer-events="none">f</text>
+    <circle class="adj-pick" data-key="fgf" cx="120" cy="70" r="14" fill="var(--panel2)" stroke="var(--violet)" style="cursor:pointer"/>
+    <text x="120" y="74" text-anchor="middle" font-size="11" pointer-events="none">fgf</text>
     <line class="adj-pick" data-key="fη" x1="70" y1="172" x2="116" y2="84" stroke="var(--yellow)" stroke-width="1.6" marker-end="url(#adj-arr-y)" style="cursor:pointer"/>
     <text x="80" y="125" font-size="11" fill="var(--yellow)">fη</text>
     <line class="adj-pick" data-key="εf" x1="124" y1="84" x2="172" y2="172" stroke="var(--cyan)" stroke-width="1.6" marker-end="url(#adj-arr-c)" style="cursor:pointer"/>
@@ -708,10 +708,10 @@ $$\mathrm{Map}_{\mathcal{D}}(f(c), d) \;\simeq\; \mathrm{Map}_{\mathcal{C}}(c, g
     <polygon points="300,180 420,180 360,70" fill="rgba(88,196,221,0.06)" stroke="none"/>
     <circle class="adj-pick" data-key="g1" cx="300" cy="180" r="12" fill="var(--panel2)" stroke="var(--blue)" style="cursor:pointer"/>
     <text x="300" y="184" text-anchor="middle" font-size="11" pointer-events="none">g</text>
-    <circle class="adj-pick" data-key="gfg" cx="420" cy="180" r="14" fill="var(--panel2)" stroke="var(--violet)" style="cursor:pointer"/>
-    <text x="420" y="184" text-anchor="middle" font-size="11" pointer-events="none">gfg</text>
-    <circle class="adj-pick" data-key="g2" cx="360" cy="70" r="12" fill="var(--panel2)" stroke="var(--blue)" style="cursor:pointer"/>
-    <text x="360" y="74" text-anchor="middle" font-size="11" pointer-events="none">g</text>
+    <circle class="adj-pick" data-key="g2" cx="420" cy="180" r="12" fill="var(--panel2)" stroke="var(--blue)" style="cursor:pointer"/>
+    <text x="420" y="184" text-anchor="middle" font-size="11" pointer-events="none">g</text>
+    <circle class="adj-pick" data-key="gfg" cx="360" cy="70" r="14" fill="var(--panel2)" stroke="var(--violet)" style="cursor:pointer"/>
+    <text x="360" y="74" text-anchor="middle" font-size="11" pointer-events="none">gfg</text>
     <line class="adj-pick" data-key="ηg" x1="310" y1="172" x2="356" y2="84" stroke="var(--yellow)" stroke-width="1.6" marker-end="url(#adj-arr-y)" style="cursor:pointer"/>
     <text x="320" y="125" font-size="11" fill="var(--yellow)">ηg</text>
     <line class="adj-pick" data-key="gε" x1="364" y1="84" x2="412" y2="172" stroke="var(--cyan)" stroke-width="1.6" marker-end="url(#adj-arr-c)" style="cursor:pointer"/>
@@ -824,7 +824,7 @@ where $\mathcal{C} \times_{\mathcal{D}} \mathcal{D}_{/d}$ is the <em>comma $\inf
       {
         title: "Step 5 — Functoriality and the unit",
         body: "Varying $d$ assembles $(\\mathrm{Lan}_i F)$ into an $\\infty$-functor $\\mathcal{D} \\to \\mathcal{E}$ — a coherent choice of colimits indexed by the family $\\{\\mathcal{C}/_d\\}_{d \\in \\mathcal{D}}$. The unit $\\eta\\colon F \\to (\\mathrm{Lan}_i F) \\circ i$ at $c$ is the canonical map from $F(c)$ into the colimit defining $(\\mathrm{Lan}_i F)(i(c))$, indexed by the cocone vertex $(c, \\mathrm{id}_{i(c)})$.",
-        svgInner: "<text x='30' y='45' font-size='13' fill='var(--ink)'>η : F → (Lan_i F) ∘ i</text><text x='30' y='85' font-size='12' fill='var(--mute)'>at c ∈ 𝒞:  F(c) → (Lan_i F)(i(c)) = colim_{𝒞/_{i(c)}} F</text><text x='30' y='125' font-size='12' fill='var(--mute)'>via the cocone vertex (c, id_{i(c)}) ∈ 𝒞/_{i(c)}.</text><text x='30' y='170' font-size='12' fill='var(--green)'>η is generally not invertible — even if i is fully faithful, the colimit can be larger than F(c).</text>"
+        svgInner: "<text x='30' y='45' font-size='13' fill='var(--ink)'>η : F → (Lan_i F) ∘ i</text><text x='30' y='85' font-size='12' fill='var(--mute)'>at c ∈ 𝒞:  F(c) → (Lan_i F)(i(c)) = colim_{𝒞/_{i(c)}} F</text><text x='30' y='125' font-size='12' fill='var(--mute)'>via the cocone vertex (c, id_{i(c)}) ∈ 𝒞/_{i(c)}.</text><text x='30' y='170' font-size='12' fill='var(--green)'>When i is fully faithful, η IS an equivalence: (c, id_{i(c)}) is final in 𝒞/_{i(c)}, so the colimit collapses to F(c) (HTT 4.3.2.15). Without that hypothesis, η can fail to be invertible.</text>"
       },
       {
         title: "Step 6 — The universal property",

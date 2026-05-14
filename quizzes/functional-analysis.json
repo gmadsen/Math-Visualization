@@ -42,12 +42,12 @@
           "q": "The space $C[0,1]$ with the $L^2$ norm is NOT a Banach space. Which is the correct reason, and which is its completion?",
           "choices": [
             "The $L^2$ norm fails the triangle inequality on $C[0,1]$; the completion is $C^1[0,1]$",
-            "The sequence $f_n(x)=x^n$ is Cauchy in $L^2$ but its $L^2$ limit is not continuous; the completion is $L^2[0,1]$",
+            "The piecewise-linear $f_n$ that equals $0$ on $[0,\\tfrac12]$, equals $1$ on $[\\tfrac12+\\tfrac1n,1]$, and is linear in between is Cauchy in $L^2$ but its $L^2$ limit $\\mathbf 1_{[1/2,1]}$ is not (a.e. equal to) a continuous function; the completion is $L^2[0,1]$",
             "There are no Cauchy sequences in $C[0,1]$ under $\\|\\cdot\\|_{L^2}$, so completeness is vacuously false",
             "$C[0,1]$ is already a Banach space under the $L^2$ norm because it is finite-dimensional"
           ],
           "answer": 1,
-          "explain": "The functions $f_n(x)=x^n$ form a Cauchy sequence in $C[0,1]$ under $\\|\\cdot\\|_{L^2}$, but their $L^2$ limit is the indicator $\\mathbf{1}_{{1}}$, which is not continuous. Thus $C[0,1]$ is not closed under $L^2$ limits; its metric completion is $L^2[0,1]$."
+          "explain": "The piecewise-linear approximations $f_n$ to the step $\\mathbf 1_{[1/2,1]}$ form a Cauchy sequence in $C[0,1]$ under $\\|\\cdot\\|_{L^2}$ (the squared $L^2$ distance between consecutive terms is $O(1/n)$), and they converge in $L^2$ to $\\mathbf 1_{[1/2,1]}$ — which is not equal a.e. to any continuous function. So $C[0,1]$ is not closed under $L^2$ limits; its metric completion is $L^2[0,1]$. (The classic non-witness is $g_n(x)=x^n$: its $L^2$ norm $1/\\sqrt{2n+1}\\to 0$, so $g_n\\to 0$ in $L^2$, and $0$ is continuous — no incompleteness.)"
         },
         {
           "type": "mcq",
@@ -275,10 +275,10 @@
             "unitary"
           ],
           "answer": [
-            1,
-            3,
+            2,
             0,
-            2
+            3,
+            1
           ],
           "explain": "Self-adjoint: $T^*=T$. Skew-adjoint: $T^*=-T$. Normal: $T^*T=TT^*$ (strictly weaker — includes self-adjoint and unitary). Unitary: $T^*T=TT^*=I$ (i.e., $T$ is an isometric bijection)."
         },

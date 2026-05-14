@@ -82,7 +82,7 @@
             "Not pseudoconvex"
           ],
           "right": [
-            "polydisk $\\mathbb{D}^n$ — Levi form vanishes on the edge components but is $\\ge 0$",
+            "polydisk $\\mathbb{D}^n$ — Levi form is identically zero on each smooth face (corners are non-smooth)",
             "ball $\\mathbb{B}^n$ — Levi form is everywhere strictly positive on the boundary",
             "Hartogs figure — Levi form has a negative direction on the inner edge"
           ],
@@ -91,7 +91,7 @@
             0,
             2
           ],
-          "explain": "Strict pseudoconvexity is the ball — the Levi form is $\\partial\\bar\\partial(|z|^2 - 1) = $ identity, restricted to the tangent. The polydisk is weakly pseudoconvex: along the smooth faces the Levi form is non-negative but it degenerates on the edges. The Hartogs figure is not pseudoconvex precisely because the inner-edge boundary curves the wrong way."
+          "explain": "Strict pseudoconvexity is the ball — the Levi form is $\\partial\\bar\\partial(|z|^2 - 1) = $ identity, restricted to the tangent. The polydisk is weakly pseudoconvex: on each smooth face $\\{|z_j|=1, |z_k|<1\\text{ for }k\\ne j\\}$ the Levi form is identically zero (the only non-zero entry of $\\partial\\bar\\partial\\rho_j$ sits in the $(j,j)$ slot, which is exactly the normal direction excluded from $T^{1,0}\\partial\\Omega$); the corners (edges) are non-smooth so Levi form is not defined there. The Hartogs figure is not pseudoconvex precisely because the inner-edge boundary curves the wrong way."
         }
       ]
     },

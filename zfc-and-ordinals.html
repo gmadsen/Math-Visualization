@@ -627,7 +627,7 @@ with $\beta_1>\beta_2>\cdots>\beta_k$ and $n_i\in\mathbb N_{>0}$. The first ordi
       'ω²|ω':['ω^(ω·2)','(ω²)^ω = ω^(2·ω) = ω^ω. Wait — ordinal exp: (ω²)^ω = sup{(ω²)^n} = sup{ω^(2n)} = ω^ω.', 'ω^ω'],
       'ω²|ω+1':['ω^(ω·2+2)·... ','complicated'],
       'ω²|ω·2':['ω^(ω·2)',''],
-      'ω²|ω²':['ω^(ω²·2)','this lives below ε₀'],
+      'ω²|ω²':['ω^(ω²)','(ω²)^(ω²) = ω^(2·ω²) = ω^(ω²) since 2·ω² = ω². This lives below ε₀.'],
     },
   };
   // Override one entry that was wrong above:
@@ -691,7 +691,7 @@ Every infinite cardinal is some $\aleph_\alpha$. The ordinal index $\alpha$ rang
 
 <h3>The continuum</h3>
 <p>$|\mathbb R|=2^{\aleph_0}$, the <strong>cardinality of the continuum</strong>. Two-way embedding:
-$\mathbb R \hookrightarrow \mathcal P(\mathbb Q)$ via Dedekind cuts $r\mapsto\{q\in\mathbb Q:q<r\}$, and $\{0,1\}^{\mathbb N}\hookrightarrow\mathbb R$ via binary expansions (after handling the $0.0\overline 1=0.1\overline 0$ ambiguity). Cantor–Schröder–Bernstein closes the loop. The cardinal $2^{\aleph_0}$ is uncountable (Cantor's diagonal), at least $\aleph_1$, and at most $\aleph_{\omega+1}$ in any sensible model — but its exact aleph rank is the continuum hypothesis.</p>
+$\mathbb R \hookrightarrow \mathcal P(\mathbb Q)$ via Dedekind cuts $r\mapsto\{q\in\mathbb Q:q<r\}$, and $\{0,1\}^{\mathbb N}\hookrightarrow\mathbb R$ via binary expansions (after handling the $0.0\overline 1=0.1\overline 0$ ambiguity). Cantor–Schröder–Bernstein closes the loop. The cardinal $2^{\aleph_0}$ is uncountable (Cantor's diagonal) and at least $\aleph_1$, but its exact aleph rank is the continuum hypothesis. The only ZFC constraint beyond $2^{\aleph_0}\geq\aleph_1$ is König's $\operatorname{cf}(2^{\aleph_0})>\omega$; by Easton's theorem $2^{\aleph_0}$ can consistently be any cardinal of uncountable cofinality.</p>
 
 <!-- callback-auto-begin -->
 <aside class="callback">
@@ -947,8 +947,9 @@ within that constraint, every aleph value is consistent with ZFC.`;
 <h3>Grothendieck universes</h3>
 <p>A <strong>Grothendieck universe</strong> $\mathcal U$ is a transitive set with</p>
 <ul>
-  <li>$x\in\mathcal U \Rightarrow \mathcal P(x)\in\mathcal U$,</li>
   <li>$x\in\mathcal U,\ y\in x \Rightarrow y\in\mathcal U$ (transitive),</li>
+  <li>$x,y\in\mathcal U \Rightarrow \{x,y\}\in\mathcal U$ (pairing closure),</li>
+  <li>$x\in\mathcal U \Rightarrow \mathcal P(x)\in\mathcal U$,</li>
   <li>$\{x_i\}_{i\in I}$ a family with $I\in\mathcal U$ and each $x_i\in\mathcal U$ implies $\bigcup_i x_i \in\mathcal U$.</li>
 </ul>
 

@@ -277,7 +277,7 @@
       "questions": [
         {
           "type": "mcq",
-          "q": "The CR Yamabe equation on a $(2n+1)$-dimensional strictly pseudoconvex CR manifold is $L_b u = \\lambda u^{Q/(Q-2)}$. The 'homogeneous dimension' $Q$ equals:",
+          "q": "The CR Yamabe equation on a $(2n+1)$-dimensional strictly pseudoconvex CR manifold is $L_b u = \\lambda u^{(Q+2)/(Q-2)}$. The 'homogeneous dimension' $Q$ equals:",
           "choices": [
             "$2n+1$ (the real dimension)",
             "$2n$ (the CR-horizontal dimension)",

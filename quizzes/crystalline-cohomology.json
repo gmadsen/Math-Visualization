@@ -218,7 +218,7 @@
         },
         {
           "type": "mcq",
-          "q": "For $X/K$ smooth proper with good reduction $X_0/k$, the crystalline comparison conjecture (Faltings–Tsuji) asserts:",
+          "q": "For $X/K$ smooth proper with good reduction $X_0/k$, the crystalline comparison conjecture (Fontaine–Messing 1987 / Faltings 1989) asserts:",
           "choices": [
             "$H^*_{\\mathrm{\\acute{e}t}}(X_{\\bar K},\\mathbb{Q}_p) \\cong H^*_{\\mathrm{cris}}(X_0/W)$ as $\\mathbb{Q}_p$-vector spaces.",
             "$H^*_{\\mathrm{\\acute{e}t}}(X_{\\bar K},\\mathbb{Q}_p)\\otimes_{\\mathbb{Q}_p}B_{\\mathrm{cris}} \\cong H^*_{\\mathrm{cris}}(X_0/W)\\otimes_W B_{\\mathrm{cris}}$ compatibly with Frobenius, filtration, and Galois action.",

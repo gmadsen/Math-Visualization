@@ -69,7 +69,7 @@
           "q": "How many algebraically independent components does the symmetric tensor $g_{\\mu\\nu}$ have on a 4-dimensional spacetime?",
           "answer": 10,
           "tol": 0.5,
-          "explain": "A symmetric $4\\times4$ matrix has $4(4+1)/2=10$ independent components. Diffeomorphism gauge freedom subtracts 4, leaving 6 physical metric degrees of freedom."
+          "explain": "A symmetric $4\\times4$ matrix has $4(4+1)/2=10$ independent components. Diffeomorphism gauge freedom subtracts 4 and the 4 ADM constraints (Hamiltonian + 3 momentum) subtract another 4, leaving $10-4-4=2$ physical propagating degrees of freedom — the two transverse-traceless gravitational-wave polarizations $h_+,h_\\times$."
         }
       ]
     },

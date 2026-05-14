@@ -532,7 +532,7 @@ and the right-hand side is independent of the choice of lift (any two smooth pro
     'point':   { name:'Spec 𝔽_q', betti:[1], lift:'yes (canonical lift Spec W)', note:'point cohomology is W in degree 0.' },
     'proj1':   { name:'ℙ¹', betti:[1,0,1], lift:'yes (the projective line lifts canonically)', note:'two W summands; H¹ = 0; matches Betti (1,0,1).' },
     'ec-ord':  { name:'ordinary E₀', betti:[1,2,1], lift:'yes (canonical Serre–Tate lift)', note:'H¹ free of rank 2; F-isocrystal slopes (0,1) — see §5.' },
-    'ec-ss':   { name:'supersingular E₀', betti:[1,2,1], lift:'no global W-lift in general (only W₂)', note:'H¹ still free of rank 2; the crystalline site glues local lifts. Slopes (½,½).' },
+    'ec-ss':   { name:'supersingular E₀', betti:[1,2,1], lift:'yes (lifts to W via Serre–Tate, but the lift is not canonical)', note:'H¹ still free of rank 2; the construction is intrinsic — independent of which lift is chosen. Slopes (½,½).' },
     'proj2':   { name:'ℙ²', betti:[1,0,1,0,1], lift:'yes', note:'H^{2i}=W; H^{odd}=0; pure Tate type.' }
   };
   function render(){
@@ -550,7 +550,7 @@ and the right-hand side is independent of the choice of lift (any two smooth pro
 })();
 </script>
 
-<p>Even on the supersingular elliptic curve — the textbook case where global lifts fail — crystalline cohomology gives a <em>free</em> rank-$2$ $W$-module $H^1_{\mathrm{cris}}(E_0/W)$. The crystalline site does the gluing the lift cannot. This is a feature: the theory exists wherever de Rham would, even when lifts do not.</p>
+<p>Even on the supersingular elliptic curve — where the canonical Serre–Tate lift does <em>not</em> exist — crystalline cohomology gives a <em>free</em> rank-$2$ $W$-module $H^1_{\mathrm{cris}}(E_0/W)$ that does not depend on which (non-canonical) lift one chooses. And on the textbook examples where global lifts genuinely fail — Hirokado / Schröer threefolds in characteristics $2$ and $3$, and Enriques surfaces in characteristic $2$ — the crystalline site does the gluing no global lift can. This is a feature: the theory exists wherever de Rham would, even when lifts do not.</p>
 
 <div class="quiz" data-concept="cc-de-rham-comparison"></div><!-- callback-auto-begin -->
 <aside class="callback">
@@ -731,7 +731,7 @@ $$Z(X_0/\mathbb{F}_q,\,t) \;=\; \prod_{i=0}^{2\dim X_0}\det(1-t\cdot\mathrm{Frob
     const t2=SVG('text',{x:428, y:68, 'font-size':11, fill:kind==='ord'?'var(--green)':'var(--yellow)'}); t2.textContent='Newton polygon'; svg.appendChild(t2);
     out.textContent = kind==='ord'
       ? 'ordinary: Newton = Hodge, slopes (0,1). Frobenius eigenvalues α, β with v_p(α)=0, v_p(β)=1; canonical Serre–Tate lift exists.'
-      : 'supersingular: Newton STRICTLY above Hodge, slopes (½,½). Frobenius eigenvalues α, ᾱ with v_p(α)=v_p(ᾱ)=½ (both factors of √p); no global W-lift.';
+      : 'supersingular: Newton STRICTLY above Hodge, slopes (½,½). Frobenius eigenvalues α, ᾱ with v_p(α)=v_p(ᾱ)=½ (both factors of √p); lifts to W exist but no canonical Serre–Tate lift.';
   }
   sel.addEventListener('change', render);
   render();
@@ -774,7 +774,7 @@ $$\mathbb{Q}_p \;\subset\; B_{\mathrm{HT}} \;\subset\; B_{\mathrm{cris}} \;\subs
 
 <p>The construction of $B_{\mathrm{cris}}$ uses divided powers — the same gadget as in §2. Concretely, $B_{\mathrm{cris}}$ is built from the perfection of $\mathcal{O}_{\mathbb{C}_p}/p$, taking PD-envelopes, and inverting a specific element. The technicalities are formidable; what one needs from them is the following:</p>
 
-<div class="ok"><strong>Crystalline comparison (Fontaine–Messing conjecture; Faltings 1989, Tsuji 1999).</strong> Let $K/\mathbb{Q}_p$ be a finite extension with residue field $k$, $W=W(k)$, and $X/K$ smooth proper with good reduction $X_0/k$. Then
+<div class="ok"><strong>Crystalline comparison (Fontaine–Messing conjecture; Fontaine–Messing 1987, Faltings 1989).</strong> Let $K/\mathbb{Q}_p$ be a finite extension with residue field $k$, $W=W(k)$, and $X/K$ smooth proper with good reduction $X_0/k$. Then
 $$H^i_{\text{ét}}(X_{\bar K},\mathbb{Q}_p) \otimes_{\mathbb{Q}_p} B_{\mathrm{cris}} \;\cong\; H^i_{\mathrm{cris}}(X_0/W) \otimes_W B_{\mathrm{cris}},$$
 and the isomorphism is compatible with Frobenius, the filtration coming from de Rham of the lift, and the $G_K$-action on both sides.</div>
 

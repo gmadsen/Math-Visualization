@@ -265,7 +265,7 @@ function drawNode(svg, x, y, label, opts={}){
 
 <p>For Riemannian manifolds in general, the metric and the topology are independent: a torus admits flat, Berger-sphere-like, and many other metrics simultaneously. Even a closed hyperbolic surface of genus $g\ge 2$ has a $(6g-6)$-dimensional Teichmüller space of distinct hyperbolic metrics. Then dimension $3$ arrives, and freedom collapses.</p>
 
-<div class="note"><strong>Mostow rigidity (1968).</strong> Let $M_1, M_2$ be closed (compact, no boundary), connected, orientable hyperbolic $n$-manifolds with $n\ge 3$. If $\pi_1(M_1) \cong \pi_1(M_2)$ as abstract groups, then $M_1$ and $M_2$ are isometric, and the isometry is unique up to homotopy. Equivalently: any homotopy equivalence between such manifolds is homotopic to an isometry.</div>
+<div class="note"><strong>Mostow rigidity (1968).</strong> Let $M_1, M_2$ be closed (compact, no boundary), connected, orientable hyperbolic $n$-manifolds with $n\ge 3$. If $\pi_1(M_1) \cong \pi_1(M_2)$ as abstract groups, then $M_1$ and $M_2$ are isometric, and the isometry is unique within its homotopy class (in fact unique outright, since two homotopic isometries between such manifolds coincide). Equivalently: any homotopy equivalence between such manifolds is homotopic to an isometry.</div>
 
 <p>The hyperbolic metric is therefore a <em>topological invariant</em> in dimension $\ge 3$. Every metric quantity — volume, length spectrum, eigenvalue spectrum of the Laplacian, injectivity radius — becomes computable in principle from $\pi_1(M)$ alone. There is no continuous parameter to deform along.</p>
 
@@ -548,8 +548,8 @@ $$ \tfrac{1}{K}\, d(x,y) - C \;\le\; d(\widetilde f(x), \widetilde f(y)) \;\le\;
     eccLabel.textContent = "K = " + K.toFixed(2) + (K < 1.05 ? "  (near-isometric)" : (K < 1.8 ? "  (mild quasi-isometry)" : "  (large distortion)"));
     svg.appendChild(eccLabel);
     out.textContent = "Bulk constant K = " + K.toFixed(2) +
-      "  →  boundary K' ≈ " + (K*K).toFixed(2) +
-      ".  At K = 1 the map is an isometry and the boundary map is Möbius (zero distortion).";
+      "  →  boundary map is K'-quasi-conformal for some K' = K'(K) \u2265 1." +
+      "  At K = 1 the map is an isometry and the boundary map is Möbius (zero distortion); the precise bulk-to-boundary dependence is non-elementary.";
   }
   kIn.addEventListener("input", render);
   render();
@@ -560,13 +560,13 @@ $$ \tfrac{1}{K}\, d(x,y) - C \;\le\; d(\widetilde f(x), \widetilde f(y)) \;\le\;
 <section id="ergodic">
 <h2>4. Ergodicity of the boundary action</h2>
 
-<p>The boundary map $\partial\widetilde f$ has bounded distortion but is far from canonical: any quasi-conformal map deforms infinitesimal balls into infinitesimal ellipsoids, and the family of dilatation tensors</p>
-$$ \mu(x) \;=\; \frac{D\partial\widetilde f(x) \, [D\partial\widetilde f(x)]^T}{\det D\partial\widetilde f(x)}\; - \; I \qquad (x\in S^{n-1}\setminus\text{null set}) $$
-<p>encodes the obstruction to being conformal. The trick is that $\mu$ is $\Gamma$-equivariant in a precise sense: $\mu$ pulled back by every $\gamma\in\Gamma$ matches $\mu$ a.e. Then ergodicity strikes.</p>
+<p>The boundary map $\partial\widetilde f$ has bounded distortion but is far from canonical: any quasi-conformal map deforms infinitesimal balls into infinitesimal ellipsoids, and the family of (normalised) distortion tensors</p>
+$$ \mu(x) \;=\; \frac{D\partial\widetilde f(x)^T \, D\partial\widetilde f(x)}{\;|\det D\partial\widetilde f(x)|^{2/(n-1)}\;}\; - \; I \qquad (x\in S^{n-1}\setminus\text{null set}) $$
+<p>encodes the obstruction to being conformal: the $|\det D\partial\widetilde f|^{2/(n-1)}$ normalisation cancels the volume factor on the $(n-1)$-dimensional boundary, so $\mu \equiv 0$ exactly at the conformal points. The trick is that $\mu$ is $\Gamma$-equivariant in a precise sense: $\mu$ pulled back by every $\gamma\in\Gamma$ matches $\mu$ a.e. Then ergodicity strikes.</p>
 
 <div class="note"><strong>Hopf ergodicity.</strong> For a closed hyperbolic $n$-manifold $M = \mathbb{H}^n/\Gamma$, the geodesic flow on the unit tangent bundle $T^1 M$ is ergodic (Eberhard Hopf, 1939). Equivalently, the diagonal $\Gamma$-action on $S^{n-1}\times S^{n-1}\setminus\Delta$ is ergodic with respect to the Lebesgue product measure.</div>
 
-<p>The Gromov–Margulis argument: the dilatation $\mu$ defines a $\Gamma$-invariant measurable function on $S^{n-1}$. Ergodicity of the action on pairs of boundary points (which controls $\mu$ via Egoroff–Lusin) forces $\mu$ to be a.e. constant. For $n\ge 3$, a quasi-conformal map of $S^{n-1}$ with constant dilatation is $1$-quasi-conformal, hence Möbius, hence the restriction to $S^{n-1}$ of a hyperbolic isometry. Lifting back, $\widetilde f$ is at finite distance from a hyperbolic isometry of $\mathbb{H}^n$, and $\Gamma$-equivariance descends this isometry to $M_1\to M_2$.</p>
+<p>The Gromov–Margulis argument: the dilatation $\mu$ defines a $\Gamma$-invariant measurable function on $S^{n-1}$. Ergodicity of the diagonal action on pairs of boundary points then directly forces any such $\Gamma$-invariant measurable function to be a.e. constant. For $n\ge 3$, a quasi-conformal map of $S^{n-1}$ with constant dilatation is $1$-quasi-conformal, hence Möbius, hence the restriction to $S^{n-1}$ of a hyperbolic isometry. Lifting back, $\widetilde f$ is at finite distance from a hyperbolic isometry of $\mathbb{H}^n$, and $\Gamma$-equivariance descends this isometry to $M_1\to M_2$.</p>
 
 <p>The dimension $\ge 3$ hypothesis enters here: for $n=2$, the boundary $S^1$ has many quasi-symmetric self-homeomorphisms with constant dilatation that are <em>not</em> Möbius — earthquake maps build them. That degree of freedom is exactly the Teichmüller space.</p>
 
@@ -771,9 +771,9 @@ where $v_n$ is the volume of a regular ideal hyperbolic $n$-simplex. So simplici
 <p>The hyperbolic pieces — the most numerous and most generic — are <em>uniquely</em> determined as Riemannian manifolds by Mostow rigidity. The spherical and Euclidean pieces are also classified, with finite (resp. continuous-but-controlled) moduli; only the hyperbolic case has zero moduli for reasons of dimension.</p>
 
 <div class="widget" id="w-volume-spectrum">
-  <div class="hd"><div class="ttl">Hyperbolic volume spectrum</div><div class="hint">closed hyperbolic 3-manifolds, ordered by volume</div></div>
-  <svg id="vol-svg" viewBox="0 0 620 280" width="620" height="280"><title>Volume spectrum of closed hyperbolic 3-manifolds</title></svg>
-  <div class="readout" id="vol-out">The volume spectrum of closed hyperbolic 3-manifolds is well-ordered (every subset has a least element) and the smallest known is the <strong>Weeks manifold</strong> at $\mathrm{Vol}\approx 0.9427$. Mostow rigidity: each volume value lifts to a finite list of manifolds.</div>
+  <div class="hd"><div class="ttl">Hyperbolic volume spectrum</div><div class="hint">closed and cusped hyperbolic 3-manifolds, ordered by volume</div></div>
+  <svg id="vol-svg" viewBox="0 0 620 280" width="620" height="280"><title>Volume spectrum of hyperbolic 3-manifolds (closed and cusped)</title></svg>
+  <div class="readout" id="vol-out">The volume spectrum of closed hyperbolic 3-manifolds is well-ordered (every subset has a least element). The proven minimum is the <strong>Weeks manifold</strong> at $\mathrm{Vol}\approx 0.9427$ (Gabai–Meyerhoff–Milley, 2009). Cusped (finite-volume, non-compact) hyperbolic 3-manifolds form a parallel spectrum, with the figure-8 knot complement and its sister tied for smallest at $2v_3 \approx 2.0299$. Mostow rigidity: each volume value lifts to a finite list of manifolds.</div>
 </div>
 
 <div class="quiz" data-concept="mr-applications"></div>
@@ -783,21 +783,24 @@ where $v_n$ is the volume of a regular ideal hyperbolic $n$-simplex. So simplici
   const W = 620, H = 280;
   while(svg.firstChild) svg.removeChild(svg.firstChild);
   svg.appendChild(SVG("rect",{x:0,y:0,width:W,height:H,fill:"var(--bg)"}));
-  // Selected closed hyperbolic 3-manifolds with approximate volumes
+  // Hyperbolic 3-manifolds, mixing the smallest closed examples with the
+  // smallest cusped examples (the figure-8 knot complement and its sister).
+  // Closed: Weeks, Meyerhoff, m007(3,1) (= "Vol3"), m003(-4,3).
+  // Cusped: m003 (figure-8 sister), m004 (figure-8 knot complement).
   const data = [
-    {name:"Weeks",       vol:0.9427},
-    {name:"Meyerhoff",   vol:0.9814},
-    {name:"m003",        vol:1.0149},
-    {name:"m004 (fig-8 sister)", vol:1.0149},
-    {name:"s776",        vol:3.1772},
-    {name:"v3372",       vol:5.3349},
-    {name:"Vol3",        vol:5.0747},
-    {name:"3-torus bundle",vol:6.4520}
+    {name:"Weeks (closed)",                 vol:0.9427, kind:"closed"},
+    {name:"Meyerhoff (closed)",             vol:0.9814, kind:"closed"},
+    {name:"m007(3,1) = Vol3 (closed)",       vol:1.0149, kind:"closed"},
+    {name:"m003(-4,3) (closed)",            vol:1.2637, kind:"closed"},
+    {name:"m003 (fig-8 sister, cusped)",     vol:2.0299, kind:"cusped"},
+    {name:"m004 (fig-8 complement, cusped)", vol:2.0299, kind:"cusped"},
+    {name:"Whitehead link complement (cusped)", vol:3.6638, kind:"cusped"},
+    {name:"Borromean rings complement (cusped)", vol:7.3277, kind:"cusped"}
   ];
   const x0 = 50, x1 = W - 30, y0 = 220;
   // axis
   svg.appendChild(SVG("line",{x1:x0,y1:y0,x2:x1,y2:y0,stroke:"var(--mute)","stroke-width":1.2}));
-  const vmax = 7;
+  const vmax = 8;
   for(let v = 0; v <= vmax; v++){
     const xx = x0 + v*(x1-x0)/vmax;
     svg.appendChild(SVG("line",{x1:xx,y1:y0-4,x2:xx,y2:y0+4,stroke:"var(--mute)"}));
@@ -806,23 +809,25 @@ where $v_n$ is the volume of a regular ideal hyperbolic $n$-simplex. So simplici
     svg.appendChild(tk);
   }
   const xl = SVG("text",{x:(x0+x1)/2,y:y0+38,"text-anchor":"middle","font-size":12,fill:"var(--mute)"});
-  xl.textContent = "hyperbolic volume (in units where $v_3 \\approx 1.0149$)";
+  xl.textContent = "hyperbolic volume (recall $v_3 = 3\\Lambda(\\pi/6) \\approx 1.0149$ is the regular ideal-tetrahedron volume)";
   svg.appendChild(xl);
   // markers
   for(let i = 0; i < data.length; i++){
     const xx = x0 + Math.min(data[i].vol, vmax)*(x1-x0)/vmax;
     const yy = y0 - 80 + (i % 4) * 18 - 20;
+    const isCusped = data[i].kind === "cusped";
+    const dotColor = isCusped ? "var(--pink)" : "var(--yellow)";
     svg.appendChild(SVG("line",{x1:xx,y1:yy+8,x2:xx,y2:y0,stroke:"var(--cyan)","stroke-width":1,opacity:0.5}));
-    svg.appendChild(SVG("circle",{cx:xx,cy:yy,r:4,fill:"var(--yellow)"}));
+    svg.appendChild(SVG("circle",{cx:xx,cy:yy,r:4,fill:dotColor}));
     const lab = SVG("text",{x:xx+7,y:yy+3,"font-size":11,fill:"var(--ink)"});
     lab.textContent = data[i].name + " (" + data[i].vol.toFixed(2) + ")";
     svg.appendChild(lab);
   }
   const tt = SVG("text",{x:x0,y:30,"font-size":13,fill:"var(--ink)","font-weight":600});
-  tt.textContent = "Volume spectrum of closed hyperbolic 3-manifolds";
+  tt.textContent = "Volume spectrum: smallest closed and cusped hyperbolic 3-manifolds";
   svg.appendChild(tt);
   const sub = SVG("text",{x:x0,y:48,"font-size":11,fill:"var(--mute)"});
-  sub.textContent = "Mostow: each volume value corresponds to finitely many isometry classes.";
+  sub.textContent = "Yellow = closed (cocompact \u0393); pink = cusped (finite-volume non-compact). Mostow: each value lifts to finitely many isometry classes.";
   svg.appendChild(sub);
 })();
 </script>

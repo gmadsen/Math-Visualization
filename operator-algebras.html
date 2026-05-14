@@ -1689,7 +1689,7 @@ $$d\colon \mathrm{Proj}(M)\to[0,1],\qquad d(p)=\tau(p),$$
 <p>Every state $\omega$ on a $C^*$-algebra $A$ gives a cyclic $*$-representation $(\pi_\omega,H_\omega,\Omega_\omega)$ — this is the <strong>Gelfand–Naimark–Segal construction</strong>. Define a sesquilinear form on $A$ by</p>
 $$\langle a, b\rangle_\omega := \omega(b^*a).$$
 <p>This is positive semidefinite (because $\omega$ is positive), so $N_\omega=\{a:\omega(a^*a)=0\}$ is a left ideal and $A/N_\omega$ inherits a genuine inner product. Complete to get $H_\omega$; let $A$ act on $A/N_\omega$ by left multiplication (the ideal property makes this well-defined and bounded), extend to $H_\omega$, and take $\Omega_\omega=[1]$ as the cyclic vector. Then</p>
-$$\omega(a) = \langle \Omega_\omega,\, \pi_\omega(a)\Omega_\omega\rangle_\omega,$$
+$$\omega(a) = \langle \pi_\omega(a)\Omega_\omega,\, \Omega_\omega\rangle_\omega,$$
 <p>and every cyclic representation of $A$ arises this way (up to unitary equivalence). Summing over all states gives the <strong>universal representation</strong>: every $C^*$-algebra embeds isometrically into $B(H)$ for some $H$ — this is the noncommutative Gelfand–Naimark theorem.</p>
 
 <div class="widget" id="w-gns">
@@ -1733,8 +1733,8 @@ $$\omega(a) = \langle \Omega_\omega,\, \pi_\omega(a)\Omega_\omega\rangle_\omega,
       svg.appendChild(Object.assign(SVG('text',{x:130,y:120,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}),{textContent:'faithful tracial state'}));
       right1='H_ω = ℂ⁴ (= M_2 with HS inner prod)';
       right2='π_ω(a) = left multiplication';
-      right3='Ω_ω = 1/√2 · I';
-      desc='The trace ½ tr is faithful, so N_ω = 0. Then A/N_ω = M_2(ℂ) with inner product ⟨a,b⟩ = ½ tr(b*a) — the Hilbert–Schmidt inner product. π_ω is left-regular rep; Ω_ω = I/√2. This rep is NOT irreducible (it decomposes as 2 copies of the defining rep).';
+      right3='Ω_ω = [I],  ⟨I,I⟩ = ½ tr(I) = 1';
+      desc='The trace ½ tr is faithful, so N_ω = 0. Then A/N_ω = M_2(ℂ) with inner product ⟨a,b⟩ = ½ tr(b*a) — a rescaled Hilbert–Schmidt inner product. π_ω is the left-regular rep; the cyclic vector is Ω_ω = [I], already a unit vector since ⟨I,I⟩ = ½ tr(I*I) = ½·2 = 1. This rep is NOT irreducible (it decomposes as 2 copies of the defining rep).';
     } else if(mode==='v'){
       svg.appendChild(Object.assign(SVG('text',{x:130,y:90,'text-anchor':'middle','font-size':13,fill:'var(--ink)'}),{textContent:'ω_e(a) = ⟨ae, e⟩,  e ∈ ℂ²'}));
       svg.appendChild(Object.assign(SVG('text',{x:130,y:120,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}),{textContent:'pure vector state (unit e)'}));
@@ -1748,12 +1748,12 @@ $$\omega(a) = \langle \Omega_\omega,\, \pi_\omega(a)\Omega_\omega\rangle_\omega,
       right1='H_ω = ℂ² ⊕ ℂ²';
       right2='π_ω = id ⊕ id';
       right3='Ω_ω = (e₁,e₂)/√2';
-      desc='A proper mixture of two pure states. GNS gives the direct sum of the two irreducible GNS reps — reducible. The cyclic vector is the "diagonal" √½(e₁,e₂). In M_2(ℂ) this mixture happens to equal ½ tr, but its GNS rep is distinct from the tracial one (Hilbert space has dim 4 either way but the algebras act differently — they differ by a unitary equivalence).';
+      desc='A proper mixture of two pure states. GNS gives the direct sum of the two irreducible GNS reps — reducible. The cyclic vector is the "diagonal" √½(e₁,e₂). In M_2(ℂ) this mixture happens to equal ½ tr exactly, so by the GNS uniqueness theorem this representation is unitarily equivalent to the tracial GNS above — both are the dim-4 left-regular rep, decomposing as π_def ⊕ π_def on ℂ²⊕ℂ². The presentation differs (this construction makes the ⊕-decomposition manifest; the tracial one packages it as M_2 acting on itself), but the rep is canonically the same.';
     }
     svg.appendChild(Object.assign(SVG('text',{x:430,y:90,'text-anchor':'middle','font-size':13,fill:'var(--green)'}),{textContent:right1}));
     svg.appendChild(Object.assign(SVG('text',{x:430,y:120,'text-anchor':'middle','font-size':13,fill:'var(--green)'}),{textContent:right2}));
     svg.appendChild(Object.assign(SVG('text',{x:430,y:150,'text-anchor':'middle','font-size':13,fill:'var(--green)'}),{textContent:right3}));
-    svg.appendChild(Object.assign(SVG('text',{x:430,y:188,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}),{textContent:'ω(a) = ⟨Ω_ω, π_ω(a) Ω_ω⟩'}));
+    svg.appendChild(Object.assign(SVG('text',{x:430,y:188,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}),{textContent:'ω(a) = ⟨π_ω(a) Ω_ω, Ω_ω⟩'}));
     drawArrow(svg,[235,130],[325,130],{color:'var(--blue)',label:'GNS',markerId:'gns-ar'});
     out.textContent = desc;
   }

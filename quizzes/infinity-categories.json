@@ -67,9 +67,9 @@
             "No — there is an inner horn $\\Lambda^2_1$ formed by the two edges that has no filler.",
             "It depends on whether we orient the edges in the same direction."
           ],
-          "answer": 2,
-          "explain": "Take the two edges $f, g\\colon 0 \\to 1$. The horn $\\Lambda^2_1$ with $\\partial_0 = g$ and $\\partial_2 = f$ requires a $2$-simplex with $\\partial_1\\colon 0 \\to 1$ — but this would need a third $1$-simplex composing $f$ then $g$, and we only have two edges and no $2$-simplices. So no filler exists; the simplicial set fails to be a quasi-category. Contrast with the nerve of the free category on two parallel arrows, which has all the formal composites $g \\circ f$, $f \\circ g$, etc. as $1$-simplices.",
-          "hint": "Two parallel arrows form the inner horn $\\Lambda^2_1$ — what would the filler require?"
+          "answer": 1,
+          "explain": "No nontrivial inner horn $\\Lambda^2_1$ exists in this simplicial set. To form one with $\\partial_2 = f\\colon 0\\to 1$ as the first leg and $\\partial_0 = g$ as the second leg, vertex $1$ of $\\Delta^2$ would have to map to the target of $f$ (i.e. $1\\in\\mathcal{C}_0$) and simultaneously to the source of $g$ (i.e. $0\\in\\mathcal{C}_0$) — impossible since $f, g$ are parallel from $0$ to $1$. The only $\\Lambda^2_1$ horns admitted use a degenerate edge ($\\partial_0 = \\mathrm{id}_1$ or $\\partial_2 = \\mathrm{id}_0$) and fill via $s_1(f)$, $s_1(g)$, $s_0(f)$, or $s_0(g)$. Higher inner horns fill similarly via degeneracies. So this simplicial set IS a quasi-category — in fact it is the nerve of the free category on the graph with two vertices and two parallel arrows.",
+          "hint": "What edges of $\\Delta^2$ would two parallel arrows $0 \\to 1$ have to occupy to form $\\Lambda^2_1$?"
         }
       ]
     },

@@ -395,7 +395,7 @@ function drawNode(svg, x, y, label, opts={}){
       'population: 2N = '+twoN+'    initial freq p₀ = '+p0.toFixed(2)+'\n'+
       'martingale identity: E[p_{n+1} | p_n] = p_n   ⇒   P[fix] = p₀  (theoretical)\n'+
       'empirical fixation rate over 200 simulated populations: '+sim.fixedRate.toFixed(3)+'\n'+
-      'expected time to absorption ≈ -2N·(p₀ ln p₀ + (1-p₀) ln (1-p₀))  generations.';
+      'expected time to absorption ≈ -4N·(p₀ ln p₀ + (1-p₀) ln (1-p₀))  generations.';
   }
   nSl.addEventListener('input', () => { twoN = +nSl.value; nv.textContent = twoN; sim = simulate(twoN,p0); render(); });
   pSl.addEventListener('input', () => { p0 = +pSl.value; pv.textContent = p0.toFixed(2); sim = simulate(twoN,p0); render(); });
@@ -561,7 +561,7 @@ function drawNode(svg, x, y, label, opts={}){
   </div>
   <svg id="km-svg" viewBox="0 0 720 300" width="720" height="300"><title>Kimura fixation probability</title></svg>
   <div class="readout" id="km-out"></div>
-  <p class="small">The dimensionless parameter $\sigma = 2Ns$ is the only thing that matters — not $N$ and $s$ separately. When $|\sigma|\le 1$ the curve is approximately the neutral diagonal $u(p)=p$; once $|\sigma|\gtrsim 4$, a single rare mutant ($p\approx 0$) already has fixation probability near $\sigma/(1-e^{-2\sigma})$. The shape is the population-genetics analogue of an Arrhenius factor.</p>
+  <p class="small">The dimensionless parameter $\sigma = 2Ns$ is the only thing that matters — not $N$ and $s$ separately. When $|\sigma|\le 1$ the curve is approximately the neutral diagonal $u(p)=p$; once $|\sigma|\gtrsim 4$, a rare mutant at frequency $p$ has fixation probability $\approx 2\sigma p/(1-e^{-2\sigma})$ (so a single new mutant at $p=1/(2N)$ fixes with probability $\approx 2s/(1-e^{-2\sigma})$, recovering Haldane's $\approx 2s$ in the strong-selection limit). The shape is the population-genetics analogue of an Arrhenius factor.</p>
 </div>
 <script>
 (function(){
@@ -822,7 +822,7 @@ function drawNode(svg, x, y, label, opts={}){
 
 <h3>Fixed points and the conserved quantity</h3>
 
-<p>Setting $\dot x = \dot y = 0$ gives two fixed points: the trivial $(0,0)$ (saddle: unstable along $x$, stable along $y$) and the non-trivial $(c/d, a/b)$. Linearizing at the non-trivial equilibrium yields eigenvalues $\pm i\sqrt{ac}$ — purely imaginary, so the fixed point is a <strong>centre</strong> (a degenerate spiral of period $2\pi/\sqrt{ac}$). Centres are non-generic: the centre status survives the linearization only because Lotka–Volterra has a global conserved quantity. Direct calculation:</p>
+<p>Setting $\dot x = \dot y = 0$ gives two fixed points: the trivial $(0,0)$ (saddle: unstable along $x$, stable along $y$) and the non-trivial $(c/d, a/b)$. Linearizing at the non-trivial equilibrium yields eigenvalues $\pm i\sqrt{ac}$ — purely imaginary, so the fixed point is a <strong>centre</strong> (closed orbits with linearized period $2\pi/\sqrt{ac}$, distinct from a spiral, which would require a non-zero real part). Centres are non-generic: the centre status survives the linearization only because Lotka–Volterra has a global conserved quantity. Direct calculation:</p>
 
 <p style="text-align:center">$H(x,y) \;=\; d x - c \ln x \;+\; b y - a \ln y$</p>
 
@@ -1002,7 +1002,7 @@ function drawNode(svg, x, y, label, opts={}){
   </div>
   <svg id="rep-svg" viewBox="0 0 540 460" width="540" height="460"><title>Replicator dynamics on a 2-simplex</title></svg>
   <div class="readout" id="rep-out"></div>
-  <p class="small">The 2-simplex $\Delta^2 = \{(x_1,x_2,x_3): x_i\ge 0,\ \sum x_i=1\}$ as an equilateral triangle, vertices = pure strategies. Click inside to seed an initial condition and integrate forward; multiple clicks layer trajectories. Rock-paper-scissors gives closed orbits around the barycentre (Nash); the hawk-dove-retaliator game has a stable interior fixed point that's an ESS.</p>
+  <p class="small">The 2-simplex $\Delta^2 = \{(x_1,x_2,x_3): x_i\ge 0,\ \sum x_i=1\}$ as an equilateral triangle, vertices = pure strategies. Click inside to seed an initial condition and integrate forward; multiple clicks layer trajectories. Rock-paper-scissors gives closed orbits around the barycentre (Nash); the hawk-dove-retaliator game converges to an interior stable rest point (illustrative payoffs, not the canonical Maynard Smith $V,C$ parameterization — visualizing the spiral-in attractor, not certifying ESS in the strict $A\bar x = $ const sense).</p>
 </div>
 <script>
 (function(){
@@ -1106,7 +1106,7 @@ function drawNode(svg, x, y, label, opts={}){
       'trajectories drawn: '+trajectories.length+'\n'+
       (game==='rps'
         ? 'rock-paper-scissors is anti-symmetric; orbits are closed (centre at the barycentre).'
-        : 'hawk-dove-retaliator has an interior ESS — orbits spiral to a stable fixed point.');
+        : 'hawk-dove-retaliator (illustrative payoffs): orbits spiral to a stable interior rest point.');
   }
   // Use pointer events on the parent (more reliable in some browsers than addEventListener on SVG)
   function onClick(ev){

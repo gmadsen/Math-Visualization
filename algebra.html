@@ -2167,12 +2167,16 @@ function euler(n){let c=0;for(let i=1;i<n;i++) if(gcd(i,n)===1) c++;return c}
       return terms.join(' ⊕ ');
     }
     function invariantFactors(g){
-      // for each prime, pad its partitions with zeros to common length = max r across primes
+      // For each prime, pad its partition with zeros to common length = max r across primes.
+      // Partitions arrive non-increasing (e.g. (2,1)); for invariant factors we need exponents
+      // non-decreasing across d_1, …, d_r so that d_i | d_{i+1}. Reverse the partition, then
+      // pad zeros at the FRONT so the largest exponents land in d_r.
       const maxR = Math.max(...g.map(x=>x.part.length));
       const perP = g.map(({p, part}) => {
+        const ascending = [...part].reverse();
         const padded = [];
-        for(let i=0;i<maxR-part.length;i++) padded.push(0);
-        padded.push(...part);
+        for(let i=0;i<maxR-ascending.length;i++) padded.push(0);
+        padded.push(...ascending);
         return {p, padded};
       });
       // invariant factor d_i = product over primes of p^{padded[i]}
@@ -2501,7 +2505,11 @@ function euler(n){let c=0;for(let i=1;i<n;i++) if(gcd(i,n)===1) c++;return c}
         if(op(i,j) !== op(j,i)) abel = false;
 
     const name = !inv
-      ? (n===1 ? 'ℤ/2' : `ℤ/${n} × ℤ/2 = ℤ/${2*n/gcd(n,2)} (abelian, direct product)`)
+      ? (n===1
+          ? 'ℤ/2'
+          : (gcd(n,2)===1
+              ? `ℤ/${n} × ℤ/2 ≅ ℤ/${2*n} (abelian, direct product; cyclic by CRT since gcd(${n},2)=1)`
+              : `ℤ/${n} × ℤ/2 (abelian, direct product; not cyclic since gcd(${n},2)=${gcd(n,2)})`))
       : (n===1 ? 'ℤ/2' : (n===2 ? 'V₄ (inversion is trivial on ℤ/2)' : `D${sup(n)} (dihedral group of order ${2*n})`));
 
     out.innerHTML = html;
@@ -2786,7 +2794,7 @@ function euler(n){let c=0;for(let i=1;i<n;i++) if(gcd(i,n)===1) c++;return c}
     D4:  { name:'D₄',    order:8,  lcs:[['D₄',8],['⟨r²⟩',2],['{e}',1]], sylows:[['Syl₂',8,'D₄ itself']], directProduct:true, nilpotent:true },
     Q8:  { name:'Q₈',    order:8,  lcs:[['Q₈',8],['{±1}',2],['{e}',1]], sylows:[['Syl₂',8,'Q₈ itself']], directProduct:true, nilpotent:true },
     S3:  { name:'S₃',    order:6,  lcs:[['S₃',6],['A₃',3],['A₃',3]], sylows:[['Syl₂',2,'⟨(12)⟩, ⟨(13)⟩, ⟨(23)⟩ — three copies, none normal'],['Syl₃',3,'A₃ (unique, normal)']], directProduct:false, nilpotent:false, stallNote:'γ_i S₃ stabilizes at A₃ ≠ {e}' },
-    S4:  { name:'S₄',    order:24, lcs:[['S₄',24],['A₄',12],['V₄',4],['V₄',4]], sylows:[['Syl₂',8,'three conjugate D₄ copies'],['Syl₃',3,'four conjugate ℤ/3 copies']], directProduct:false, nilpotent:false, stallNote:'γ_i S₄ stabilizes at V₄ ≠ {e}' },
+    S4:  { name:'S₄',    order:24, lcs:[['S₄',24],['A₄',12],['A₄',12]], sylows:[['Syl₂',8,'three conjugate D₄ copies'],['Syl₃',3,'four conjugate ℤ/3 copies']], directProduct:false, nilpotent:false, stallNote:'γ_i S₄ stabilizes at A₄ ≠ {e} (since [A₄, S₄] = A₄, not V₄)' },
     A4:  { name:'A₄',    order:12, lcs:[['A₄',12],['V₄',4],['V₄',4]], sylows:[['Syl₂',4,'V₄ (unique, normal)'],['Syl₃',3,'four conjugate ℤ/3 copies — not normal']], directProduct:false, nilpotent:false, stallNote:'γ_i A₄ stabilizes at V₄ ≠ {e}' },
   };
 

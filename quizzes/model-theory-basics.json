@@ -163,10 +163,10 @@
         },
         {
           "type": "numeric",
-          "q": "Consider the linear orders $\\mathfrak{A}=(\\{0,1,2\\},<)$ and $\\mathfrak{B}=(\\{0,1,2,3\\},<)$. What is the largest $n$ for which Duplicator wins the $n$-round EF game on $\\mathfrak{A}$ vs $\\mathfrak{B}$? (Hint: a sentence of quantifier rank $n$ can count up to roughly $2^n$ elements; here a rank-$2$ sentence already separates them.)",
-          "answer": 1,
+          "q": "Consider the linear orders $\\mathfrak{A}=(\\{0,1,2\\},<)$ and $\\mathfrak{B}=(\\{0,1,2,3\\},<)$. What is the largest $n$ for which Duplicator wins the $n$-round EF game on $\\mathfrak{A}$ vs $\\mathfrak{B}$? (Hint: for finite linear orders of sizes $m<n$, Duplicator wins the $k$-round game iff $\\min(m,n)\\ge 2^k-1$.)",
+          "answer": 2,
           "tol": 0,
-          "explain": "With $1$ round Duplicator can match either's chosen element to a counterpart in the other; both orders look like 'one element' from a first-order perspective at rank $1$. With $2$ rounds Spoiler picks the largest element in $\\mathfrak{B}$, then the second-largest; in $\\mathfrak{A}$ Duplicator runs out of distinct space to copy this configuration. So $n=1$ is the largest Duplicator winning round count."
+          "explain": "Standard fact (Libkin, <em>Elements of Finite Model Theory</em>, Thm 3.6): for finite linear orders Duplicator wins the $k$-round game iff $\\min(m,n)\\ge 2^k-1$. Here $\\min=3$. For $k=2$: $2^2-1=3\\le 3$ ✓ — Duplicator wins by matching each Spoiler pick to the element with the same number of points strictly below and above (any leftover slack absorbed at the larger structure's end). For $k=3$: $2^3-1=7>3$ — Spoiler wins by picking three elements in $\\mathfrak{B}$ whose successor/predecessor configuration cannot be reproduced in $\\mathfrak{A}$. So the largest winning $n$ is $\\boxed{2}$."
         },
         {
           "type": "mcq",
@@ -178,7 +178,7 @@
             "'Every vertex has degree exactly 2.'"
           ],
           "answer": 1,
-          "explain": "Connectivity is the canonical example of a non-FO-definable property. The proof: for any $n$, a long cycle $C_{2n+1}$ (connected) and a disjoint union $C_n \\sqcup C_{n+1}$ (disconnected) agree on every sentence of quantifier rank $\\le n$, by an EF-game argument. The other three are FO-definable: count vertices, count edges in a triangle, count neighbours."
+          "explain": "Connectivity is the canonical example of a non-FO-definable property. The proof: for any $k$, the cycle $C_{3\\cdot 2^k}$ (connected) and the two-cycle disjoint union $C_{3\\cdot 2^k}\\sqcup C_{3\\cdot 2^k}$ (disconnected) agree on every sentence of quantifier rank $\\le k$, by an EF-game argument. The cycle length must be <em>exponential</em> in $k$ because a rank-$k$ formula can detect a path of length up to $2^k-1$. The other three are FO-definable: count vertices, count edges in a triangle, count neighbours."
         }
       ]
     },

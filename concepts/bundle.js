@@ -9004,7 +9004,7 @@ window.__MVConcepts = {
             "tt-higher-inductive-types",
             "kan-complex"
           ],
-          "blurb": "A model interprets each type as an object and each judgment as a derivation in some semantic category. Voevodsky's simplicial-set model interprets types as Kan complexes ($\\infty$-groupoids), Π/Σ as fibred mapping spaces / total spaces, identity types as path objects, and univalence holds because equivalence of Kan complexes coincides with weak equivalence. This is what justifies HoTT as a foundation, not just a syntax.",
+          "blurb": "A model interprets each type as an object and each judgment as a derivation in some semantic category. Voevodsky's simplicial-set model interprets types as Kan complexes ($\\infty$-groupoids), Π/Σ as fibred mapping spaces / total spaces, identity types as path objects, and univalence holds because Voevodsky constructed a fibrant universe of small Kan fibrations whose path space at $(A,B)$ matches the space of equivalences $A\\simeq B$. This is what justifies HoTT as a foundation, not just a syntax.",
           "tags": [
             "foundation"
           ]
@@ -9060,7 +9060,7 @@ window.__MVConcepts = {
           "prereqs": [
             "forcing-truth-lemma"
           ],
-          "blurb": "The Cohen poset $2^{<\\omega}$ has finite binary strings ordered by extension. A generic filter $G$ collects to a single new real $r_G\\in 2^\\omega$ not in $M$. Forcing with the product $2^{<\\omega}\\times\\aleph_2$ injects $\\aleph_2^M$ many new reals at once.",
+          "blurb": "The Cohen poset $2^{<\\omega}$ has finite binary strings ordered by extension. A generic filter $G$ collects to a single new real $r_G\\in 2^\\omega$ not in $M$. Forcing with the side-by-side poset $\\operatorname{Fn}(\\aleph_2\\times\\omega,2)$ of finite partial functions injects $\\aleph_2^M$ many new reals at once.",
           "tags": [
             "foundation"
           ]
@@ -10534,7 +10534,7 @@ window.__MVConcepts = {
             "presheaf-topos",
             "cayley-tables"
           ],
-          "blurb": "For a group $G$, the category of left $G$-sets is a topos: it's the presheaf topos on $\\mathbf{B}G$ (the one-object groupoid). Its subobject classifier is the lattice of subgroups, generalizing $\\{\\bot,\\top\\}$ in $\\mathbf{Set}$.",
+          "blurb": "For a group $G$, the category of left $G$-sets is a topos: it's the presheaf topos on $\\mathbf{B}G$ (the one-object groupoid). Because $\\mathbf{B}G$ is a groupoid, the topos is Boolean and $\\Omega = \\{\\bot,\\top\\}$ with trivial $G$-action — subobjects are $G$-stable subsets (unions of orbits), classified by their indicator function.",
           "tags": [
             "group-action"
           ]

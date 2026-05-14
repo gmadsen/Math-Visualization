@@ -269,7 +269,7 @@ function drawNode(svg, x, y, label, opts={}){
 <ul>
   <li>The <em>tangent bundle</em> $TM\to M$ of a smooth manifold, with transitions given by the Jacobians of chart changes.</li>
   <li>For an embedding $\iota\colon N\hookrightarrow M$, the <em>normal bundle</em> $\nu_\iota = \iota^*TM/TN$, controlling local thickening.</li>
-  <li><em>Line bundles</em>: rank $1$, classified by $H^1(X;\mathbb{R}^\times)$ in the real case and by $H^2(X;\mathbb{Z}) = \mathrm{Pic}(X)$ in the complex case (we will recover the latter from $c_1$).</li>
+  <li><em>Line bundles</em>: rank $1$, classified by $H^1(X;\mathbb{Z}/2)$ in the real case and by $H^2(X;\mathbb{Z}) = \mathrm{Pic}(X)$ in the complex case (we will recover the latter from $c_1$).</li>
 </ul>
 
 <div class="ok"><strong>Trivial vs non-trivial.</strong> A bundle $E$ is <em>trivial</em> if $E\cong X\times\mathbb{R}^n$ globally. The trivial line bundle on $S^1$ is the cylinder; the non-trivial one is the Möbius band. The widget below compares them — the cylinder is two-sided, the Möbius bundle returns to itself with a sign flip after one loop.</div>
@@ -505,7 +505,7 @@ The factor $i/2\pi$ is the integrality normalisation: with this convention the d
 
 <div class="note"><strong>Why is $[P(F_\nabla)]$ independent of $\nabla$?</strong> Two connections $\nabla_0,\nabla_1$ are joined by the affine path $\nabla_t = \nabla_0 + t\,\alpha$ where $\alpha = \nabla_1 - \nabla_0\in\Omega^1(M;\mathrm{End}\,E)$. A direct computation gives $\frac{d}{dt}P(F_{\nabla_t}) = d\,\mathrm{TP}(\alpha,F_{\nabla_t})$ for an explicit transgression form $\mathrm{TP}$ — so $P(F_{\nabla_1}) - P(F_{\nabla_0})$ is exact.</div>
 
-<p><strong>Gauss–Bonnet</strong> is the rank-$1$ case for the tangent bundle of a surface. Equip a closed oriented surface $\Sigma$ with a Riemannian metric. The Levi-Civita connection on $T\Sigma$ has curvature $F = -K\,dA$ (regarding $T\Sigma$ as a complex line bundle via the metric and orientation, where $K$ is the Gaussian curvature and $dA$ is the Riemannian area form). Then
+<p><strong>Gauss–Bonnet</strong> is the rank-$1$ case for the tangent bundle of a surface. Equip a closed oriented surface $\Sigma$ with a Riemannian metric. The Levi-Civita connection on the rank-$2$ oriented real bundle $T\Sigma$ has curvature $2$-form $R\in\Omega^2(\Sigma;\mathfrak{so}(2))$, and the Pfaffian gives $\mathrm{Pf}(R) = K\,dA$, where $K$ is the Gaussian curvature and $dA$ the Riemannian area form. Chern–Weil for the Euler class then reads $e(T\Sigma) = [\tfrac{1}{2\pi}\mathrm{Pf}(R)]$, so
 $$\chi(\Sigma) \;=\; \langle e(T\Sigma),[\Sigma]\rangle \;=\; \frac{1}{2\pi}\int_\Sigma K\,dA.$$
 A sphere of radius $R$ has $K = 1/R^2$ and area $4\pi R^2$, so $\frac{1}{2\pi}\int K\,dA = 2 = \chi(S^2)$. A flat torus has $K\equiv 0$, recovering $\chi(T^2) = 0$.</p>
 
@@ -657,8 +657,8 @@ When $X = \mathrm{pt}$ this gives <em>universal</em> equivariant Chern classes l
 $$\int_X \alpha \;=\; \sum_{i=1}^m \frac{\iota_{p_i}^* \alpha}{e^T(\nu_{p_i})} \;\in\; \mathrm{Frac}\,H^*(BT) = \mathbb{Q}(t),$$
 where $\nu_{p_i} = T_{p_i}X$ is the normal bundle at the fixed point and $e^T$ is the equivariant Euler class. So the integral on $X$ is a finite sum over isolated fixed points — a fearsome computational shortcut.</div>
 
-<p><strong>Worked example: $X = \mathbb{CP}^n$ with the standard $T = S^1$ action.</strong> The fixed points are the $n+1$ coordinate lines $p_i = [0:\cdots:1:\cdots:0]$. The equivariant class $c_1^T(\mathcal{O}(1))$ restricts to the weight $t_i$ at $p_i$, and the equivariant Euler class of $T_{p_i}\mathbb{CP}^n$ is $\prod_{j\ne i}(t_j - t_i)$. Localisation gives
-$$\int_{\mathbb{CP}^n} c_1(\mathcal{O}(1))^n = \sum_{i=0}^n \frac{t_i^n}{\prod_{j\ne i}(t_j - t_i)} = 1$$
+<p><strong>Worked example: $X = \mathbb{CP}^n$ with the standard $T = S^1$ action.</strong> The fixed points are the $n+1$ coordinate lines $p_i = [0:\cdots:1:\cdots:0]$. The equivariant class $c_1^T(\mathcal{O}(1))$ restricts to the weight $t_i$ at $p_i$, and the equivariant Euler class of $T_{p_i}\mathbb{CP}^n$ is $\prod_{j\ne i}(t_i - t_j)$. Localisation gives
+$$\int_{\mathbb{CP}^n} c_1(\mathcal{O}(1))^n = \sum_{i=0}^n \frac{t_i^n}{\prod_{j\ne i}(t_i - t_j)} = 1$$
 — a non-trivial polynomial identity that you can <em>verify</em> by hand for $n=1,2$ and that recovers the obvious geometric answer.</p>
 
 <div class="note"><strong>Where this leads.</strong> Localisation is the engine of equivariant K-theory, GKM theory, and modern enumerative geometry — Gromov–Witten and Donaldson–Thomas invariants are routinely computed by torus localisation on moduli spaces. The same machinery on a $G$-manifold with $G$ non-abelian reduces to the maximal torus via Weyl-group averaging.</div>
@@ -671,7 +671,7 @@ $$\int_{\mathbb{CP}^n} c_1(\mathcal{O}(1))^n = \sum_{i=0}^n \frac{t_i^n}{\prod_{
     <input type="range" id="loc-n" min="1" max="4" step="1" value="2">
     <span class="small" id="loc-nval"></span>
   </div>
-  <div class="readout" id="loc-readout" aria-live="polite">$n=2$: three fixed points $p_0,p_1,p_2$ on $\mathbb{CP}^2$. Localisation of $\int c_1^2 = 1$ becomes $\sum_i t_i^2 / \prod_{j\ne i}(t_j-t_i) = 1$.</div>
+  <div class="readout" id="loc-readout" aria-live="polite">$n=2$: three fixed points $p_0,p_1,p_2$ on $\mathbb{CP}^2$. Localisation of $\int c_1^2 = 1$ becomes $\sum_i t_i^2 / \prod_{j\ne i}(t_i-t_j) = 1$.</div>
 </div>
 
 
@@ -792,7 +792,7 @@ $$\int_{\mathbb{CP}^n} c_1(\mathcal{O}(1))^n = \sum_{i=0}^n \frac{t_i^n}{\prod_{
   const data = {
     S2:   { label:"S^2",   chi:2,  w1:false, w2:false, blurb:"$T S^2$: orientable, $w_1=0$. Spin: $w_2=0$. The 2-sphere is two-sided in $\\mathbb{R}^3$." },
     T2:   { label:"T^2",   chi:0,  w1:false, w2:false, blurb:"$T T^2$: orientable, $w_1=0$. Parallelisable, so all $w_i$ vanish; $\\chi = 0$." },
-    K:    { label:"K",     chi:0,  w1:true,  w2:false, blurb:"Klein bottle: non-orientable, $w_1 \\ne 0$. Even though $\\chi=0$, $w_2$ also vanishes (not spin in the orientable sense, but $w_1 w_1 = w_2$ trivially)." },
+    K:    { label:"K",     chi:0,  w1:true,  w2:false, blurb:"Klein bottle: non-orientable, $w_1 \\ne 0$, so no spin structure (spin needs $w_1 = w_2 = 0$). Wu's formula gives $w_2 = w_1^2$ on a closed surface, and here $w_2 = 0$." },
     RP2:  { label:"RP^2",  chi:1,  w1:true,  w2:true,  blurb:"$\\mathbb{RP}^2$: $w(T) = (1+a)^3 = 1+a+a^2$, so $w_1=a\\ne 0$ (non-orientable) and $w_2=a^2\\ne 0$ (no spin structure)." }
   };
   let cur = "S2";
@@ -1359,7 +1359,7 @@ $$\int_{\mathbb{CP}^n} c_1(\mathcal{O}(1))^n = \sum_{i=0}^n \frac{t_i^n}{\prod_{
   const data = {
     cp2:    { dim:4, sig:1,  pTop:"p_1[M] = 3", L:"L_1 = p_1/3 = 1", form:"(1)", blurb:"$\\mathbb{CP}^2$: intersection form $(1)$ on $H^2$, signature $\\sigma=1$. Pontryagin number $p_1[\\mathbb{CP}^2] = 3$, so $L_1[M] = 3/3 = 1$. Hirzebruch: $\\sigma = L_1[M]$ verified." },
     cp2bar: { dim:4, sig:0,  pTop:"p_1[M] = 0", L:"L_1 = 0/3 = 0", form:"(1)\\oplus(-1)", blurb:"$\\mathbb{CP}^2 \\#\\overline{\\mathbb{CP}}^2$: intersection form is diag($1,-1$), signature $\\sigma = 1 + (-1) = 0$. Pontryagin numbers add under connected sum, $p_1[M] = 3 + (-3) = 0$, so $L_1 = 0$. Both invariants vanish." },
-    k3:     { dim:4, sig:-16,pTop:"p_1[K3] = -48", L:"L_1 = -48/3 = -16", form:"3\\cdot(-E_8) \\oplus 3 H", blurb:"K3 surface: signature $\\sigma(K3) = -16$ (the famous lattice $3\\cdot(-E_8)\\oplus 3 H$). Pontryagin number $p_1[K3] = -48 = 3\\sigma$, in agreement with $L_1[M] = p_1/3 = -16$." },
+    k3:     { dim:4, sig:-16,pTop:"p_1[K3] = -48", L:"L_1 = -48/3 = -16", form:"2\\cdot(-E_8) \\oplus 3 H", blurb:"K3 surface: signature $\\sigma(K3) = -16$ (the famous lattice $2\\cdot(-E_8)\\oplus 3 H$). Pontryagin number $p_1[K3] = -48 = 3\\sigma$, in agreement with $L_1[M] = p_1/3 = -16$." },
     hp2:    { dim:8, sig:1,  pTop:"p_1^2[M] = 4,\\, p_2[M] = 7", L:"L_2 = (7\\cdot 7 - 4)/45 = 1", form:"(1)", blurb:"$\\mathbb{HP}^2$: $8$-manifold with $\\sigma = 1$. Pontryagin numbers: $p_1^2[M] = 4$, $p_2[M] = 7$, so $L_2[M] = (7p_2 - p_1^2)/45 \\cdot [M] = (49 - 4)/45 = 1$. Hirzebruch in dimension $8$." }
   };
   function draw(){
@@ -1438,16 +1438,16 @@ $$\int_{\mathbb{CP}^n} c_1(\mathcal{O}(1))^n = \sum_{i=0}^n \frac{t_i^n}{\prod_{
     }
     // formula at bottom
     const f = SVG("text",{x:W/2,y:H-40,"text-anchor":"middle","font-size":13,fill:"var(--ink)","font-style":"italic"});
-    f.textContent = "∫ c_1(O(1))^"+n+" = Σ_i  t_i^"+n+" / Π_{j≠i} (t_j − t_i)  =  1";
+    f.textContent = "∫ c_1(O(1))^"+n+" = Σ_i  t_i^"+n+" / Π_{j≠i} (t_i − t_j)  =  1";
     svg.appendChild(f);
     // result
     const res = SVG("text",{x:W/2,y:H-12,"text-anchor":"middle","font-size":11,fill:"var(--mute)"});
     res.textContent = "(verify: substitute any distinct values for the t_i — the rational sum collapses to 1)";
     svg.appendChild(res);
     let msg;
-    if(n===1) msg = "$n=1$: two fixed points $p_0 = [1:0],\\,p_1=[0:1]$ on $\\mathbb{CP}^1$. Localisation: $\\frac{t_0}{t_1-t_0} + \\frac{t_1}{t_0-t_1} = 1$ — a one-line identity.";
-    else if(n===2) msg = "$n=2$: three fixed points on $\\mathbb{CP}^2$. The localisation identity $\\sum_i t_i^2 / \\prod_{j\\ne i}(t_j-t_i) = 1$ holds for all choices of distinct $t_0,t_1,t_2$.";
-    else if(n===3) msg = "$n=3$: four fixed points on $\\mathbb{CP}^3$. The polynomial identity $\\sum_i t_i^3 / \\prod_{j\\ne i}(t_j-t_i) = 1$ already requires partial-fraction work to check by hand.";
+    if(n===1) msg = "$n=1$: two fixed points $p_0 = [1:0],\\,p_1=[0:1]$ on $\\mathbb{CP}^1$. Localisation: $\\frac{t_0}{t_0-t_1} + \\frac{t_1}{t_1-t_0} = 1$ — a one-line identity.";
+    else if(n===2) msg = "$n=2$: three fixed points on $\\mathbb{CP}^2$. The localisation identity $\\sum_i t_i^2 / \\prod_{j\\ne i}(t_i-t_j) = 1$ holds for all choices of distinct $t_0,t_1,t_2$.";
+    else if(n===3) msg = "$n=3$: four fixed points on $\\mathbb{CP}^3$. The polynomial identity $\\sum_i t_i^3 / \\prod_{j\\ne i}(t_i-t_j) = 1$ already requires partial-fraction work to check by hand.";
     else msg = "$n="+n+"$: "+(n+1)+" fixed points. Atiyah–Bott reduces an integral on $\\mathbb{CP}^"+n+"$ to a finite rational sum — all higher complexity is encoded in the $(n+1)\\times(n+1)$ Vandermonde-style denominator.";
     readout.innerHTML = msg;
     if(window.renderMathInElement){ try{ renderMathInElement(readout,{delimiters:[{left:"$",right:"$",display:false}],throwOnError:false}); }catch(e){} }

@@ -295,7 +295,7 @@
           ],
           "answer": 1,
           "hint": "Eisenbud–Harris's technical innovation was handling the boundary $\\partial\\overline{\\mathcal{M}}_g$.",
-          "explain": "A limit linear series on a chain of components prescribes a coordinated choice of linear series on each component, with vanishing-sequence compatibility at the nodes. Eisenbud–Harris (1983) showed limit linear series on flag curves (chains of elliptic curves) smooth out to $g^r_d$'s on nearby smooth curves — proving Petri by degeneration and supplying explicit divisor classes in $\\Pic\\overline{\\mathcal{M}}_g\\otimes\\mathbb{Q}$. The classes are the central technical input to the Harris–Mumford theorem on the Kodaira dimension of $\\overline{\\mathcal{M}}_g$."
+          "explain": "A limit linear series on a chain of components prescribes a coordinated choice of linear series on each component, with vanishing-sequence compatibility at the nodes. Eisenbud–Harris (1986) showed limit linear series on flag curves (chains of elliptic curves) smooth out to $g^r_d$'s on nearby smooth curves — proving Petri by degeneration and supplying explicit divisor classes in $\\Pic\\overline{\\mathcal{M}}_g\\otimes\\mathbb{Q}$. The classes are the central technical input to the Harris–Mumford theorem on the Kodaira dimension of $\\overline{\\mathcal{M}}_g$."
         },
         {
           "type": "multi-select",

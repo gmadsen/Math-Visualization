@@ -271,7 +271,7 @@ function drawNode(svg, x, y, label, opts={}){
 
 <div class="note"><strong>Examples to keep in mind.</strong>
 <ul>
-  <li>$\mathbb{R}^{2n}$ with $\omega_0 = \sum_i dp_i\wedge dq_i$ (the model).</li>
+  <li>$\mathbb{R}^{2n}$ with $\omega_0 = \sum_i dq_i\wedge dp_i$ (the model).</li>
   <li>The cotangent bundle $T^*N$ with $\omega = -d\lambda$, where $\lambda = \sum p_i\,dq_i$ is the Liouville 1-form. This is the symplectic stage of classical mechanics on configuration space $N$.</li>
   <li>$S^2$ with its area form. Any orientable surface is symplectic.</li>
   <li>$\mathbb{C}P^n$ with the Fubini–Study form (it's Kähler).</li>
@@ -317,7 +317,7 @@ function drawNode(svg, x, y, label, opts={}){
 <p>The first thing to ask about any geometric structure is: what are its local invariants? For Riemannian metrics it's curvature; for complex structures it's nothing in the integrable case (Newlander–Nirenberg) but plenty in general. For symplectic forms the answer is <em>nothing at all</em>.</p>
 
 <div class="note"><strong>Darboux's theorem.</strong> Let $(M^{2n},\omega)$ be symplectic. Around every point $p\in M$ there is a chart $(p_1,\dots,p_n,q_1,\dots,q_n)$ with $p\mapsto 0$ in which
-$$\omega \;=\; \sum_{i=1}^n dp_i\wedge dq_i.$$
+$$\omega \;=\; \sum_{i=1}^n dq_i\wedge dp_i.$$
 Equivalently, every symplectic $2n$-manifold is locally symplectomorphic to $(\mathbb{R}^{2n},\omega_0)$.</div>
 
 <p>The proof is a Moser-trick deformation. Pick a chart taking $\omega_p$ to $\omega_0$ at the origin (linear algebra: any non-degenerate alternating form on $\mathbb{R}^{2n}$ is $\omega_0$ in suitable coordinates). Define $\omega_t = (1-t)\omega_0 + t\omega$ for $t\in[0,1]$. Both endpoints are symplectic at the origin; by closedness write $\omega - \omega_0 = d\alpha$ on a small ball, then solve $\iota_{X_t}\omega_t = -\alpha$ for a time-dependent vector field $X_t$. Its flow is a diffeomorphism $\Phi$ with $\Phi^*\omega = \omega_0$. Done.</p>
@@ -355,12 +355,12 @@ Equivalently, every symplectic $2n$-manifold is locally symplectomorphic to $(\m
 <div class="note"><strong>Definition.</strong> The <strong>Hamiltonian vector field</strong> $X_H$ associated to $H$ is the unique vector field satisfying
 $$\iota_{X_H}\,\omega \;=\; dH.$$</div>
 
-<p>In Darboux coordinates $\omega = \sum dp_i\wedge dq_i$, the equation unwraps to Hamilton's equations:
+<p>In Darboux coordinates $\omega = \sum dq_i\wedge dp_i$, the equation unwraps to Hamilton's equations:
 $$\dot q_i \;=\; \tfrac{\partial H}{\partial p_i}, \qquad \dot p_i \;=\; -\tfrac{\partial H}{\partial q_i}.$$
 Two facts come for free:</p>
 <ul>
   <li><strong>Energy conservation.</strong> $\dot H = X_H(H) = dH(X_H) = \omega(X_H,X_H) = 0$ by antisymmetry. $H$ is constant along trajectories.</li>
-  <li><strong>Symplectic flow.</strong> By Cartan's formula $\mathcal{L}_{X_H}\omega = d\iota_{X_H}\omega + \iota_{X_H}d\omega = d(dH) + 0 = 0$. So the time-$t$ flow $\Phi_t^{X_H}$ is a symplectomorphism — Liouville's theorem.</li>
+  <li><strong>Symplectic flow.</strong> By Cartan's formula $\mathcal{L}_{X_H}\omega = d\iota_{X_H}\omega + \iota_{X_H}d\omega = d(dH) + 0 = 0$, so the time-$t$ flow $\Phi_t^{X_H}$ is a symplectomorphism. Taking the top exterior power, $\Phi_t^{X_H}$ also preserves the volume form $\omega^n$ — this volume-preservation is the classical statement of <em>Liouville's theorem</em>.</li>
 </ul>
 
 <div class="widget" id="w-ham">
@@ -404,7 +404,7 @@ Two facts come for free:</p>
 <p>Hamiltonian vector fields close under the Lie bracket, but the right way to see this is via a bracket on functions.</p>
 
 <div class="note"><strong>Definition.</strong> The <strong>Poisson bracket</strong> of $f,g\in C^\infty(M)$ is
-$$\{f,g\} \;=\; \omega(X_f, X_g) \;=\; X_f(g) \;=\; -X_g(f).$$</div>
+$$\{f,g\} \;=\; \omega(X_g, X_f) \;=\; X_f(g) \;=\; -X_g(f).$$</div>
 
 <p>In Darboux coordinates this is $\{f,g\} = \sum_i \big(\tfrac{\partial f}{\partial p_i}\tfrac{\partial g}{\partial q_i} - \tfrac{\partial f}{\partial q_i}\tfrac{\partial g}{\partial p_i}\big)$ — the formula from classical mechanics textbooks. Three structural identities:</p>
 <ul>
@@ -508,7 +508,7 @@ and Floer proved $\partial^2 = 0$ and $HF_*(M;H,J) \cong H_*(M)$.</p>
   </div>
   <svg id="fl-svg" viewBox="0 0 760 320" width="100%"><title>Widget · Lagrangian Floer intersections on a torus</title></svg>
   <div class="readout" id="fl-out"></div>
-  <p class="small">On $T^2 = \mathbb{R}^2/\mathbb{Z}^2$ with the standard $\omega = dx\wedge dy$, take $L_0 = \{y = 0\}$ (red) and $L_1 = $ a Hamiltonian-isotopic deformation of the vertical circle $\{x = 0\}$ (cyan). The intersections $L_0\cap L_1$ are highlighted dots; their count is at least $|H_*(S^1)| = 2$ — the rank of the Floer chain complex. No matter how you wiggle $L_1$ by a Hamiltonian, you can't cancel both intersection points.</p>
+  <p class="small">On $T^2 = \mathbb{R}^2/\mathbb{Z}^2$ with the standard $\omega = dx\wedge dy$, take $L_0 = \{y = \tfrac12\}$ (red) and $L_1 = $ a Hamiltonian deformation of the vertical circle $\{x = \tfrac12\}$ (cyan). Because $L_0$ and the vertical circle live in different homology classes of $T^2$, their algebraic intersection number is $1$ — the highlighted dot — and any Hamiltonian wiggle of $L_1$ preserves that single transverse crossing. The Arnold–Givental rank lower bound $|L_0\cap L_1|\ge \dim H_*(L_0;\mathbb{Z}/2) = 2$ requires $L_1$ to be Hamiltonian-isotopic to $L_0$ itself (same class); in that regime no Hamiltonian can cancel intersections below the Floer rank. The widget illustrates the transverse-intersection input to Lagrangian Floer homology, not the Arnold–Givental bound.</p>
 </div>
 
 <!-- callback-auto-begin -->
@@ -651,7 +651,7 @@ and Floer proved $\partial^2 = 0$ and $HF_*(M;H,J) \cong H_*(M)$.</p>
       points:`${c00.x},${c00.y} ${c10.x},${c10.y} ${c11.x},${c11.y} ${c01.x},${c01.y}`,
       fill:"rgba(255,216,102,0.28)", stroke:"var(--yellow)", "stroke-width":2
     }));
-    // dp ∧ dq vectors at origin
+    // dq ∧ dp vectors at origin
     drawArrow(svg, [c00.x,c00.y], [c10.x,c10.y], {color:"var(--cyan)", markerId:"d-p", width:2});
     drawArrow(svg, [c00.x,c00.y], [c01.x,c01.y], {color:"var(--pink)", markerId:"d-q", width:2});
     const lp = SVG("text",{x:c10.x+8,y:c10.y+14,"font-size":12,fill:"var(--cyan)","font-style":"italic"}); lp.textContent = "∂/∂p"; svg.appendChild(lp);
@@ -660,7 +660,7 @@ and Floer proved $\partial^2 = 0$ and $HF_*(M;H,J) \cong H_*(M)$.</p>
     const det = a*d - b*c;
     const detSign = det > 0 ? "" : "−";
     tOut.textContent = `t = ${tt.toFixed(2)}`;
-    out.textContent = `det of cell deformation = ${det.toFixed(3)}     ω₁ = (1−t) dp∧dq + t · sheared dp∧dq    ·    Moser flow rectifies ω_t back to ω₀ via a symplectomorphism`;
+    out.textContent = `det of cell deformation = ${det.toFixed(3)}     ω₁ = (1−t) dq∧dp + t · sheared dq∧dp    ·    Moser flow rectifies ω_t back to ω₀ via a symplectomorphism`;
   }
   t.addEventListener("input", draw);
   draw();

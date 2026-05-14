@@ -262,7 +262,7 @@ function drawNode(svg, x, y, label, opts={}){
 $$a^p + b^p = c^p.$$
 Gerhard Frey's 1985 insight was that this hypothetical triple gives rise to a very concrete elliptic curve:
 $$E_{a,b,c}: \ y^2 \ =\ x\,(x - a^p)\,(x + b^p).$$
-If $a^p + b^p = c^p$, then the three roots $0,\, a^p,\, -b^p$ of the right-hand side are three integers that sum to $0$ — a hidden piece of additive structure baked into a multiplicative equation.</p>
+If $a^p + b^p = c^p$, then the three roots $0,\, a^p,\, -b^p$ of the right-hand side have pairwise differences $a^p,\, b^p,\, a^p + b^p = c^p$ — every gap between roots is itself a perfect $p$-th power. That is the hidden piece of multiplicative structure baked into the curve.</p>
 
 <p>The curve's <strong>discriminant</strong> is the square of the product of root differences (times a standard factor). Here the differences are $a^p,\, b^p,\, a^p + b^p = c^p$, giving
 $$\Delta(E_{a,b,c}) \ =\ 16\,(a^p \, b^p \, c^p)^2 \ =\ 16\,(abc)^{2p}.$$
@@ -563,16 +563,16 @@ whose $q$-expansion we can match term-by-term with Frobenius traces computed by 
 
   // a_n for the newform associated to y²=x³−x  (conductor 32, CM by Z[i]).
   // Hardcoded first 20 q-expansion coefficients (LMFDB 32.2.a.a).
-  const F32 = [1,0,0,0,0,0,0,0,0,0,0,0,-6,0,0,0,2,0,0,0];
+  const F32 = [1,0,0,0,-2,0,0,0,-3,0,0,0,6,0,0,0,2,0,0,0];
   // a_p(E) for y²=x³−x, conductor 32.
   // #E(F_p) for p ≠ 2: if p ≡ 3 (mod 4), #E(F_p) = p+1 (supersingular, a_p=0).
   // if p ≡ 1 (mod 4), write p = a²+b² with a odd, b even, a+b ≡ 1 (mod 4):  a_p = 2a.
-  const Ap_E32 = { 2:0, 3:0, 5:-2, 7:0, 11:0, 13:-6, 17:2, 19:0 };
+  const Ap_E32 = { 2:0, 3:0, 5:-2, 7:0, 11:0, 13:6, 17:2, 19:0 };
 
   const SETS = {
     '11a': {
       label:'E₁ : y² + y = x³ − x²   (N = 11)',
-      form:'f_E(τ) = η(τ)² η(11τ)² = q − 2q² − q³ + 2q⁴ + q⁵ + 2q⁶ − 2q⁷ + … + q¹⁰ + …',
+      form:'f_E(τ) = η(τ)² η(11τ)² = q − 2q² − q³ + 2q⁴ + q⁵ + 2q⁶ − 2q⁷ + … + q¹¹ + …',
       coefs: F11, apE: Ap_E11,
       primes: [2,3,5,7,11,13,17,19]
     },
@@ -687,7 +687,7 @@ Mismatches: ${mism} (should be 0 at good primes for the matched modular pair).`;
 
 <p>Now Ribet's theorem strips the big primes out of the level:</p>
 
-<div class="ok"><strong>Ribet's level-lowering theorem (1990).</strong> If $\overline\rho$ is an irreducible modular mod-$p$ Galois representation arising from a newform of level $Np$ (with $p \nmid N$), and $\overline\rho$ is <em>unramified at every prime dividing the "extra" $p$</em>, then $\overline\rho$ already arises from a newform of level $N$. For Frey's curve, the extra ramification at every odd prime $\ell \mid abc$ is carried entirely by a $p$-th power — it becomes invisible mod $p$, and Ribet lets us remove that $\ell$.</div>
+<div class="ok"><strong>Ribet's level-lowering theorem (1990).</strong> If $\overline\rho$ is an irreducible modular mod-$p$ Galois representation arising from a newform of level $N\ell$ (with $\ell \ne p$ and $\ell \nmid N$), and $\overline\rho$ is <em>unramified at the "extra" prime $\ell$</em>, then $\overline\rho$ already arises from a newform of level $N$. For Frey's curve, the extra ramification at every odd prime $\ell \mid abc$ is carried entirely by a $p$-th power — it becomes invisible mod $p$, and Ribet lets us remove that $\ell$.</div>
 
 <p>Iterating, Ribet lowers the level of $\overline\rho_{E_{a,b,c},p}$ all the way from $N_E$ down to $N = 2$. The representation must now come from a weight-2 newform in $S_2(\Gamma_0(2))$.</p>
 

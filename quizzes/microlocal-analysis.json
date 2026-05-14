@@ -133,11 +133,11 @@
         },
         {
           "type": "numeric",
-          "q": "For the wave operator $\\Box=-\\partial_t^2+\\Delta_x$ on $\\mathbb{R}^{1+n}$, the principal symbol is $p_2(t,x;\\tau,\\xi)=-\\tau^2+|\\xi|^2$. The characteristic variety is the set $\\{p_2=0\\}$. For a fixed nonzero spatial frequency $\\xi$ with $|\\xi|=1$, how many real values of $\\tau$ lie on the characteristic variety?",
+          "q": "For the wave operator $\\Box=-\\partial_t^2+\\Delta_x$ on $\\mathbb{R}^{1+n}$, the principal symbol is $p_2(t,x;\\tau,\\xi)=\\tau^2-|\\xi|^2$. The characteristic variety is the set $\\{p_2=0\\}$. For a fixed nonzero spatial frequency $\\xi$ with $|\\xi|=1$, how many real values of $\\tau$ lie on the characteristic variety?",
           "answer": 2,
           "tol": 0,
           "hint": "The characteristic variety is the zero set of the principal symbol. Treat $\\tau$ as the variable, fix $|\\xi|=1$, and ask how many real $\\tau$ satisfy the equation.",
-          "explain": "$-\\tau^2+1=0$ gives $\\tau=\\pm 1$, so two real values. These are the forward and backward light cones in the cotangent fibre, and the bicharacteristics splitting at $|\\xi|=1$ correspond to the two solution operators $e^{\\pm it\\sqrt{-\\Delta}}$ — one carrying singularities forward in time, the other backward."
+          "explain": "$\\tau^2-1=0$ gives $\\tau=\\pm 1$, so two real values. These are the forward and backward light cones in the cotangent fibre, and the bicharacteristics splitting at $|\\xi|=1$ correspond to the two solution operators $e^{\\pm it\\sqrt{-\\Delta}}$ — one carrying singularities forward in time, the other backward."
         },
         {
           "type": "spot-the-error",
@@ -302,8 +302,8 @@
           "q": "Order the conceptual steps that take the Helmholtz equation $(\\Delta+k^2)u=f$ from PDE to a microlocally well-posed scattering problem.",
           "items": [
             "Apply Hörmander's propagation theorem on the chosen sheet to get existence/uniqueness modulo decaying remainders, completing the limiting absorption principle.",
-            "Compute the principal symbol $p_2(x,\\xi)=-|\\xi|^2+k^2$ and observe the characteristic variety is the sphere $|\\xi|=k$.",
-            "Note the operator is non-elliptic on the characteristic variety, so the parametrix construction breaks and a different regularization is needed.",
+            "Compute the full symbol $p(x,\\xi)=-|\\xi|^2+k^2$ (principal part $-|\\xi|^2$ is elliptic in the §3 sense) and observe its zero set, the semiclassical characteristic sphere $|\\xi|=k$.",
+            "Note the standard parametrix $1/p$ blows up on $|\\xi|=k$, so a different regularization is needed even though the operator is principal-symbol elliptic.",
             "Impose the Sommerfeld radiation condition $r^{(n-1)/2}(\\partial_r-ik)u\\to 0$, which microlocally selects the outgoing half of the characteristic variety.",
             "Write down $(\\Delta+k^2)u=f$ on $\\mathbb{R}^n$ as the equation modeling time-harmonic scattering."
           ],
@@ -315,7 +315,7 @@
             0
           ],
           "hint": "Two of the steps are diagnostic (compute, observe what fails); two are remedial (impose a condition, then conclude); one is the prerequisite that the rest depend on. Group them, then sequence inside each group.",
-          "explain": "(4) State the equation. (1) Compute the principal symbol — discovers the characteristic sphere. (2) Diagnose the failure: non-elliptic on $|\\xi|=k$, no parametrix. (3) Impose the radiation condition — selects outgoing bicharacteristics. (0) Apply Hörmander on the selected sheet to extract well-posedness. The order is forced: you can't apply propagation before selecting the sheet, can't select before knowing what fails, can't diagnose before computing the symbol, can't compute the symbol before writing the equation."
+          "explain": "(4) State the equation. (1) Compute the full symbol — discovers the semiclassical characteristic sphere $|\\xi|=k$ (the principal symbol $-|\\xi|^2$ alone is elliptic). (2) Diagnose the failure: $1/p$ blows up on $|\\xi|=k$, no naive parametrix. (3) Impose the radiation condition — selects outgoing bicharacteristics. (0) Apply Hörmander on the selected sheet to extract well-posedness. The order is forced: you can't apply propagation before selecting the sheet, can't select before knowing what fails, can't diagnose before computing the symbol, can't compute the symbol before writing the equation."
         }
       ]
     }

@@ -407,11 +407,11 @@ function drawNode(svg, x, y, label, opts={}){
     if(!g) return;
     const tag = g.kind==='face' ? 'COFACE' : 'CODEGENERACY';
     let extra = '';
-    if(g.id==='d0_12') extra = '\n\nrelation: dⁱdʲ = dʲdⁱ⁻¹ for i<j (inserting two missing vertices is order-independent)';
+    if(g.id==='d0_12') extra = '\n\nrelation: dʲdⁱ = dⁱdʲ⁻¹ for i<j (inserting two missing vertices is order-independent)';
     if(g.id==='d2_12') extra = '\n\nthe simplex with vertices (0,1) sits as the bottom face of [2] when we miss vertex 2';
-    if(g.id==='s0_21') extra = '\n\nrelation: sⁱsʲ = sʲsⁱ⁺¹ for i≤j (doubling twice with adjacent indices commutes after a shift)';
+    if(g.id==='s0_21') extra = '\n\nrelation: sʲsⁱ = sⁱsʲ⁺¹ for i≤j (doubling twice with adjacent indices commutes after a shift)';
     if(g.id==='s1_21') extra = '\n\nthe pair s⁰, s¹ : [2]→[1] are exactly the two ways to be the surjection [2]↠[1] in Δ';
-    if(g.id==='d1_23') extra = '\n\nrelation: sʲdⁱ = dⁱ⁻¹sʲ for i > j+1; with i=1, j=0 here: s⁰d¹ = d¹s⁰? not quite, check the third identity.';
+    if(g.id==='d1_23') extra = '\n\nthird cosimplicial identity sʲdⁱ has three branches in i vs j+1; with i=1, j=0 we are in the middle branch i ∈ {j, j+1}, where sʲdⁱ = id. So s⁰d¹ = id_[1].';
     out.textContent = `${tag}: ${g.desc}${extra}`;
   }
 
@@ -851,7 +851,7 @@ function drawNode(svg, x, y, label, opts={}){
       caption:
         'OUTER horn Λ²_0 — the two edges emanating from vertex 0.\n\n' +
         'Filler data needed: an edge (1,2). In a category C: given f:0→1 and h:0→2, find g:1→2 with h = g∘f.\n\n' +
-        'EXTENSION HOLDS for arbitrary C iff f is right-cancellable for every target — i.e., iff C is a groupoid.\n\n' +
+        'EXTENSION HOLDS for arbitrary C iff f is right-divisible by every morphism out of a — i.e., iff C is a groupoid.\n\n' +
         '⇒ N(C) is a Kan complex iff C is a groupoid.' },
     { name:'Λ²_1 (INNER horn)',
       edges: [[0,1],[1,2]],
@@ -864,7 +864,7 @@ function drawNode(svg, x, y, label, opts={}){
       caption:
         'OUTER horn Λ²_2 — the two edges arriving at vertex 2: h:0→2 and g:1→2.\n\n' +
         'Filler data needed: an edge (0,1). In C: given h and g, find f:0→1 with h = g∘f.\n\n' +
-        'Same story as Λ²_0 — extension iff g is left-cancellable, iff C is a groupoid.' }
+        'Same story as Λ²_0 — extension iff g is left-divisible by every morphism into c, iff C is a groupoid.' }
   ];
   let step = 0;
   function render(){

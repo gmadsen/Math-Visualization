@@ -717,8 +717,11 @@ $$\mathsf{refl}_a : \mathsf{Id}_A(a,a)$$
     lines.push(`euclid dist: ${dist.toFixed(1)} px  (visualisation only)`);
     lines.push('');
     if(same){
-      lines.push('a = b (definitionally),  so  Id_A(a, b)  is inhabited by  refl_a.');
-      lines.push('refl_a  is the canonical "constant path" at a.');
+      lines.push('endpoints coincide (we view both as the same point a),');
+      lines.push('so  Id_A(a, a)  is inhabited by the constant path  refl_a.');
+      lines.push('refl_a  is the canonical witness of *propositional* equality —');
+      lines.push('a term of the type  Id_A(a, a) — distinct from the *judgment*');
+      lines.push('a ≡ a : A  of definitional equality.');
     } else {
       lines.push('a ≠ b (as drawn).  An element  p : Id_A(a, b)  asserts');
       lines.push('an identification of a with b.  Picture: a path from a to b.');

@@ -421,19 +421,19 @@ Again the origin is singular. The degree-$2$ part at the origin is just $y^2$: a
 
 <h3>Nodal: smooth locus is the multiplicative group</h3>
 
-<p>Let $C : y^2 = x^3 + x^2$. The tangent directions at the node are $y = \pm x$. Parametrize the smooth locus by
-$$t \longmapsto \bigl(t^2-1,\; t(t^2-1)\bigr),\qquad t\in \mathbb{G}_m = \mathbb{A}^1 \setminus \{0\},$$
-and observe that $t = \pm 1$ both hit the node $(0,0)$ from the two branches, while $t = 0$ and $t = \infty$ give the two "ends" — these are glued into a single node on the projective completion. After removing the node, one gets a rational map $\mathbb{G}_m \to C^{\mathrm{sm}}$ that identifies $t$ with $1/t$, except that a cleaner parametrization (using the two tangent slopes as a dual coordinate) gives an isomorphism
-$$C^{\mathrm{sm}} \;\xrightarrow{\;\sim\;}\; \mathbb{G}_m,$$
-and under this map the chord-and-tangent law becomes ordinary multiplication.</p>
+<p>Let $C : y^2 = x^3 + x^2$. The tangent directions at the node are $y = \pm x$. The slope $u = y/x$ is a rational function on $C$, and substituting into the equation gives $u^2 = x+1$, so the curve is birational to the $u$-line via
+$$u \longmapsto \bigl(u^2-1,\; u(u^2-1)\bigr).$$
+The two preimages of the node $(0,0)$ are $u = \pm 1$ — one for each tangent branch. To turn this birational picture into an honest group, switch to the coordinate $t = (u+1)/(u-1)$ (a Möbius transformation that sends $u = 1$ to $\infty$ and $u = -1$ to $0$). The smooth locus $C^{\mathrm{sm}}$ then matches up with $t \in \mathbb{A}^1 \setminus \{0\} = \mathbb{G}_m$, and the chord-and-tangent law on $C^{\mathrm{sm}}$ becomes ordinary multiplication in $t$:
+$$C^{\mathrm{sm}} \;\xrightarrow{\;\sim\;}\; \mathbb{G}_m.$$</p>
 
 <div class="ok"><b>Statement.</b> On a nodal cubic, $C^{\mathrm{sm}}(\bar k) \cong \mathbb{G}_m(\bar k) = \bar k^{\times}$ as algebraic groups.</div>
 
 <h3>Cuspidal: smooth locus is the additive group</h3>
 
-<p>Let $C : y^2 = x^3$. The unique tangent at the cusp is $y = 0$ with multiplicity $2$, and the curve is parametrized by
-$$t \longmapsto (t^2, t^3), \qquad t \in \mathbb{A}^1.$$
-The cusp itself is the image of $t = 0$. Removing it identifies the smooth locus with $\mathbb{A}^1 \setminus \{0\}$ — but as a <em>group</em>, the law is inherited from the parameter $t$, and the chord-and-tangent construction on $C$ translates to ordinary <em>addition</em> in $t$ (the parameter $1/t$ makes the identification with $\mathbb{G}_a$ direct after removing infinity).</p>
+<p>Let $C : y^2 = x^3$. The unique tangent at the cusp is $y = 0$ with multiplicity $2$, and the affine curve is parametrized by
+$$t \longmapsto (t^2, t^3), \qquad t \in \mathbb{A}^1,$$
+with the cusp itself at $t = 0$. To turn this into the group law, work projectively: the projective completion $Y^2 Z = X^3$ has the cusp $[0:0:1]$ and a smooth point at infinity $[0:1:0]$. Use the rational function $\tau = x/y$ on $C$, which is regular on the smooth locus and satisfies $\tau = 1/t$ in the affine parametrization (so $\tau = 0$ at the point at infinity). The smooth locus is then identified with the $\tau$-line $\mathbb{A}^1$, and a direct check on the chord-and-tangent construction shows that addition of points on $C^{\mathrm{sm}}$ corresponds to addition of $\tau$-coordinates:
+$$C^{\mathrm{sm}} \;\xrightarrow{\;\sim\;}\; \mathbb{G}_a.$$</p>
 
 <div class="ok"><b>Statement.</b> On a cuspidal cubic, $C^{\mathrm{sm}}(\bar k) \cong \mathbb{G}_a(\bar k) = \bar k$ as algebraic groups.</div>
 
@@ -1050,7 +1050,7 @@ Equivalently, $|a_p| \le 2\sqrt p$. This is a Riemann Hypothesis for $E$ over th
 <h3>What this sets up</h3>
 
 <p>This page is the bridge between the global object $E/\mathbb{Q}$ and its local behavior at a single prime. Each prime $p$ gives a local Euler factor $L_p(E,s)$; assembled over all primes they produce the global <a href="./dirichlet-series-euler-products.html">Dirichlet series</a>
-$$L(E, s) \;=\; \prod_p L_p(E, s)^{-1},$$
+$$L(E, s) \;=\; \prod_p L_p(E, s),$$
 whose analytic properties sit at the heart of modern number theory (modularity, Birch–Swinnerton-Dyer, and so on). The story of <a href="./modular-forms.html">modular forms</a> enters because the coefficients $a_p$ of a suitable weight-$2$ modular form coincide with those of an elliptic curve — and the matching of $a_p$'s across good, split, non-split, and additive primes is exactly the compatibility one must verify.</p>
 
 <p>Two nearby pages deepen this picture from complementary directions. Reduction mod $p$ is the "residue-field" operation on the arithmetic scheme $\mathcal{E} \to \Spec\mathbb{Z}$; the general machinery of closed fibers and generic fibers is the subject of <a href="./schemes.html">schemes</a> and <a href="./morphisms-fiber-products.html">fiber products of morphisms</a>. On the other side, the local field $\mathbb{Q}_p$ of <a href="./p-adic-numbers.html">$p$-adic numbers</a> provides the right universe to study reduction as a <em>specialization</em>: the minimal Weierstrass model over $\mathbb{Z}_p$, the Néron model, and the Tate uniformization of multiplicative-reduction curves $E(\mathbb{Q}_p) = \mathbb{Q}_p^{\times}/q^{\mathbb{Z}}$ all live there.</p>
@@ -1081,12 +1081,12 @@ whose analytic properties sit at the heart of modern number theory (modularity, 
 </ul>
 This is Ogg's formula and the classification on Néron's list. The conductor $N(E)$ is the data that appears in every $L$-function formula for $E$.</div>
 
-<p>Worked example: take $E\colon y^2 = x^3 + 1$ with (minimal) discriminant $\Delta = -432 = -2^4\cdot 3^3$. The curve has $j$-invariant $0$, and an analysis at each bad prime shows:</p>
+<p>Worked example: take $E\colon y^2 = x^3 + 1$ with (minimal) discriminant $\Delta = -432 = -2^4\cdot 3^3$. The curve has $j$-invariant $0$, and an analysis at each bad prime (Tate's algorithm) shows:</p>
 <ul>
-  <li>At $p = 2$: additive reduction, with $f_2 = 4$ (wild ramification contributes extra).</li>
-  <li>At $p = 3$: additive reduction, with $f_3 = 3$ (wild at $3$).</li>
+  <li>At $p = 2$: additive reduction, with $f_2 = 2$ (no wild contribution beyond the tame part for this curve).</li>
+  <li>At $p = 3$: additive reduction, with $f_3 = 2$.</li>
 </ul>
-<p>So the conductor is $N(E) = 2^4 \cdot 3^3 = 432$, which coincides (coincidentally, in this easy case) with $|\Delta|$. A general smooth curve with multiplicative reduction at $p = 11$ and good reduction elsewhere has $N = 11$, matching the famous "smallest-conductor" curve $y^2 + y = x^3 - x^2$ of Cremona label 11a1.</p>
+<p>So the conductor is $N(E) = 2^2 \cdot 3^2 = 36$ (this is Cremona 36a1 / LMFDB 36.a4). Note that $N = 36$ is strictly smaller than $|\Delta| = 432$ — the conductor records the depth of the singular reduction, and the surplus power of $2$ and $3$ in $\Delta$ does not feed into $N$. A different smooth curve with multiplicative reduction at $p = 11$ and good reduction elsewhere has $N = 11$, matching the famous "smallest-conductor" curve $y^2 + y = x^3 - x^2$ of Cremona label 11a3 (in the same isogeny class as the optimal 11a1).</p>
 
 <p>The conductor is the single most important arithmetic invariant of $E/\mathbb{Q}$ after its $L$-function — modular forms of weight $2$ and level $N$ are (by modularity) in bijection with elliptic curves of conductor $N$, so the minimal model and its conductor are exactly the bridge between the geometric page above and the analytic picture on <a href="./modular-forms.html">modular-forms.html</a>.</p>
 

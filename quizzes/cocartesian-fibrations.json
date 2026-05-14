@@ -139,7 +139,7 @@
           "type": "multi-select",
           "q": "Which of the following are <strong>cocartesian fibrations</strong>?",
           "choices": [
-            "The source map $s: \\mathrm{Fun}(\\Delta^1, \\mathcal{C}) \\to \\mathcal{C}$ for an $\\infty$-category $\\mathcal{C}$.",
+            "The target map $t = \\mathrm{ev}_1: \\mathrm{Fun}(\\Delta^1, \\mathcal{C}) \\to \\mathcal{C}$ for an $\\infty$-category $\\mathcal{C}$.",
             "The product projection $\\mathcal{C} \\times \\mathcal{D} \\to \\mathcal{C}$.",
             "The forgetful $\\mathrm{Mod}_R \\to \\mathrm{CAlg}$ from modules to commutative ring spectra.",
             "The diagonal $\\mathcal{C} \\to \\mathcal{C} \\times \\mathcal{C}$.",
@@ -150,8 +150,8 @@
             1,
             2
           ],
-          "explain": "Source-of-an-arrow, product projection, and the modules-over-CAlg fibration are the three canonical examples (Kerodon 5.1.5). The diagonal is generally not even an inner fibration. An equalizer inclusion is a <em>monomorphism</em>, not a fibration; it has no nontrivial cocartesian lifts.",
-          "hint": "Cocartesian fibrations classify covariant families of $\\infty$-categories — projections and arrow-source maps fit; inclusions and diagonals don't."
+          "explain": "Target-of-an-arrow, product projection, and the modules-over-CAlg fibration are the three canonical examples (HTT 2.4.7.11 / Kerodon Tag 01VK; Kerodon 5.1.5). Note the source map $s = \\mathrm{ev}_0$ is <em>cartesian</em>, not cocartesian — it's the dual case. The diagonal is generally not even an inner fibration. An equalizer inclusion is a <em>monomorphism</em>, not a fibration; it has no nontrivial cocartesian lifts.",
+          "hint": "Cocartesian fibrations classify covariant families of $\\infty$-categories — projections and arrow-target maps fit; arrow-source map is cartesian (the dual)."
         },
         {
           "type": "mcq",
@@ -185,23 +185,23 @@
           "q": "Match each cocartesian fibration $p$ to the corresponding straightened functor $\\mathcal{B} \\to \\mathrm{Cat}_\\infty$.",
           "left": [
             "Constant functor $\\mathcal{C} \\to \\mathrm{Cat}_\\infty$ at $\\mathcal{D}$",
-            "Slice functor $c \\mapsto \\mathcal{C}_{c/}$",
+            "Over-category functor $c \\mapsto \\mathcal{C}_{/c}$",
             "Module functor $R \\mapsto \\mathrm{Mod}_R$",
             "$BG$-action on a space $X$"
           ],
           "right": [
             "$\\mathrm{Mod}_{(-)} \\to \\mathrm{CAlg}$",
-            "$\\mathrm{Fun}(\\Delta^1, \\mathcal{C}) \\xrightarrow{s} \\mathcal{C}$",
+            "$\\mathrm{Fun}(\\Delta^1, \\mathcal{C}) \\xrightarrow{t = \\mathrm{ev}_1} \\mathcal{C}$",
             "$X /\\!\\!/ G \\to BG$",
             "$\\mathcal{C} \\times \\mathcal{D} \\to \\mathcal{C}$"
           ],
           "answer": [
             3,
+            1,
             0,
-            2,
-            1
+            2
           ],
-          "explain": "(left index → right slot.) Constant family ↔ product projection (idx 3 of left = $\\mathcal{C} \\times \\mathcal{D}$). Slice functor ↔ arrow-source (left idx 1 → right idx 0, since right[0] is the modules fibration — wait, double-check: right[0] is Mod$\\to$CAlg → matches Module functor (left idx 2). The intended answer pairs are: 'constant $\\mathcal{D}$' ↔ '$\\mathcal{C} \\times \\mathcal{D} \\to \\mathcal{C}$', 'slice $c \\mapsto \\mathcal{C}_{c/}$' ↔ '$s: \\mathrm{Fun}(\\Delta^1,\\mathcal{C}) \\to \\mathcal{C}$', 'modules $R \\mapsto \\mathrm{Mod}_R$' ↔ '$\\mathrm{Mod} \\to \\mathrm{CAlg}$', 'BG-action on $X$' ↔ '$X /\\!\\!/ G \\to BG$'. Each is a canonical example of straightening."
+          "explain": "(left index → right slot.) The intended pairs are: 'constant $\\mathcal{D}$' ↔ '$\\mathcal{C} \\times \\mathcal{D} \\to \\mathcal{C}$', 'over-category $c \\mapsto \\mathcal{C}_{/c}$' ↔ '$t = \\mathrm{ev}_1: \\mathrm{Fun}(\\Delta^1,\\mathcal{C}) \\to \\mathcal{C}$' (target map, HTT 2.4.7.11 — covariant postcomposition transport), 'modules $R \\mapsto \\mathrm{Mod}_R$' ↔ '$\\mathrm{Mod} \\to \\mathrm{CAlg}$', 'BG-action on $X$' ↔ '$X /\\!\\!/ G \\to BG$'. The dual slice functor $c \\mapsto \\mathcal{C}_{c/}$ is contravariant and straightens the <em>cartesian</em> source map $s = \\mathrm{ev}_0$, not a cocartesian fibration."
         }
       ]
     },
@@ -210,7 +210,7 @@
       "questions": [
         {
           "type": "mcq",
-          "q": "For the source map $s: \\mathrm{Fun}(\\Delta^1, \\mathcal{C}) \\to \\mathcal{C}$, what is the fiber over an object $x \\in \\mathcal{C}$?",
+          "q": "For the source map $s = \\mathrm{ev}_0: \\mathrm{Fun}(\\Delta^1, \\mathcal{C}) \\to \\mathcal{C}$, what is the fiber over an object $x \\in \\mathcal{C}$?",
           "choices": [
             "The mapping space $\\mathrm{Map}_\\mathcal{C}(x, x)$.",
             "The slice $\\mathcal{C}_{x/}$ — arrows out of $x$.",
@@ -218,7 +218,7 @@
             "The whole of $\\mathcal{C}$ shifted by $x$."
           ],
           "answer": 1,
-          "explain": "An object of $\\mathrm{Fun}(\\Delta^1, \\mathcal{C})$ is an arrow $f: a \\to b$; the source map sends $f$ to $a$. The fiber over $x$ is therefore the $\\infty$-category of arrows with source $x$, i.e. the slice $\\mathcal{C}_{x/}$. (The <em>target</em> map gives $\\mathcal{C}_{/x}$.) The transport functor along $\\bar{e}: x \\to y$ is the postcomposition $\\bar{e}_*: \\mathcal{C}_{x/} \\to \\mathcal{C}_{y/}$ … wait, careful: cocartesian lift of $\\bar{e}$ at an arrow $f: x \\to z$ is the $2$-simplex with $f$ on one face and $\\bar{e}$ on another, giving an arrow $y \\to z$ — i.e. <em>precomposition</em> by $\\bar{e}$, sending $f$ to $f \\circ \\bar{e}^{-1}$ … no: source map is cocartesian, so $\\bar{e}_!$ on $\\mathcal{C}_{x/}$ goes to $\\mathcal{C}_{y/}$ via filling. The end product is precomposition with $\\bar{e}$ in the contravariant direction.",
+          "explain": "An object of $\\mathrm{Fun}(\\Delta^1, \\mathcal{C})$ is an arrow $f: a \\to b$; the source map sends $f$ to $a$. The fiber over $x$ is therefore the $\\infty$-category of arrows with source $x$, i.e. the slice $\\mathcal{C}_{x/}$. (The <em>target</em> map $t = \\mathrm{ev}_1$ gives $\\mathcal{C}_{/x}$ as fiber.) Note: the source map is in fact a <em>cartesian</em> fibration (HTT 2.4.7.11), with contravariant precomposition transport $\\mathcal{C}_{x'/} \\to \\mathcal{C}_{x/}$ along $\\bar{e}: x \\to x'$; the cocartesian dual is the target map.",
           "hint": "An arrow $f: a \\to b$ has source $a$; the source-fiber over $x$ is what one builds out of arrows starting at $x$."
         },
         {
@@ -365,14 +365,14 @@
           "type": "mcq",
           "q": "Yoneda's $\\infty$-categorical embedding $\\mathcal{B} \\to \\mathcal{P}(\\mathcal{B}) = \\mathrm{Fun}(\\mathcal{B}^{\\mathrm{op}}, \\mathcal{S})$ factors through:",
           "choices": [
-            "The universal cocartesian fibration over $\\mathcal{B}$.",
-            "The universal <em>right</em> fibration over $\\mathcal{B}$ — i.e. the target map $\\mathrm{tw}(\\mathcal{B}) \\to \\mathcal{B}$ of the twisted-arrow $\\infty$-category projected onto its source-side.",
+            "The cocartesian target map $\\mathrm{ev}_1: \\mathrm{Fun}(\\Delta^1, \\mathcal{B}) \\to \\mathcal{B}$ — directly a right fibration.",
+            "The family of slice right-fibrations $\\{\\mathcal{B}_{/b} \\to \\mathcal{B}\\}_{b \\in \\mathcal{B}}$, each pulled back from the universal right fibration $\\mathcal{S}_{*/}^{\\mathrm{op}} \\to \\mathcal{S}^{\\mathrm{op}}$.",
             "The forgetful functor $\\mathrm{Cat}_\\infty \\to \\mathcal{S}$.",
             "The classifying space functor $|-|: \\mathrm{sSet} \\to \\mathcal{S}$."
           ],
           "answer": 1,
-          "explain": "Yoneda factors through the universal right fibration: an object $b \\in \\mathcal{B}$ is sent to the slice $\\mathcal{B}_{/b}$, which is the fiber of the right fibration $\\mathrm{ev}_1: \\mathrm{Fun}(\\Delta^1, \\mathcal{B}) \\to \\mathcal{B}$ over $b$. Straightening this right fibration recovers the Yoneda functor $\\mathcal{B} \\to \\mathcal{P}(\\mathcal{B})$.",
-          "hint": "$\\mathcal{B}_{/b}$ = the representable presheaf at $b$, viewed as the fiber of a fibration."
+          "explain": "An object $b \\in \\mathcal{B}$ is sent to the slice $\\mathcal{B}_{/b} \\to \\mathcal{B}$ — itself a right fibration with mapping-space fibers $\\mathrm{Map}_\\mathcal{B}(-, b)$ — which is the pullback of the universal right fibration $\\mathcal{S}_{*/}^{\\mathrm{op}} \\to \\mathcal{S}^{\\mathrm{op}}$ along the representable $\\mathrm{Map}_\\mathcal{B}(-, b): \\mathcal{B}^{\\mathrm{op}} \\to \\mathcal{S}$. The target-evaluation map $\\mathrm{ev}_1: \\mathrm{Fun}(\\Delta^1, \\mathcal{B}) \\to \\mathcal{B}$ has the slices $\\mathcal{B}_{/b}$ as fibers but is itself <em>cocartesian</em>, not a right fibration — its fibers are $\\infty$-categories rather than spaces (HTT 2.4.7.11 / nLab \"coCartesian fibration\").",
+          "hint": "$\\mathcal{B}_{/b}$ = the representable presheaf at $b$, viewed as the fiber of a (right) fibration."
         },
         {
           "type": "mcq",
@@ -422,16 +422,16 @@
           "type": "matching",
           "q": "Match each canonical fibration to the functor $\\mathcal{B} \\to \\mathrm{Cat}_\\infty$ (or $\\mathcal{S}$) that it straightens to.",
           "left": [
-            "$c \\mapsto \\mathcal{C}_{c/}$ (slice $\\infty$-category)",
+            "$c \\mapsto \\mathcal{C}_{/c}$ (over-category $\\infty$-category, with postcomposition functoriality)",
             "$R \\mapsto \\mathrm{Mod}_R$ (with base change as functoriality)",
-            "$* \\mapsto X$ (a $G$-space, viewed via the action $G$-action functor $BG \\to \\mathcal{S}$)",
+            "$* \\mapsto X$ (a $G$-space, viewed via the $G$-action functor $BG \\to \\mathcal{S}$)",
             "$c \\mapsto \\{c\\}$ (constant singleton)"
           ],
           "right": [
             "$X /\\!\\!/ G \\to BG$ — the homotopy quotient as a left fibration over $BG$",
             "$\\mathrm{id}: \\mathcal{C} \\to \\mathcal{C}$ — every object's fiber is a singleton",
             "$\\mathrm{Mod} \\to \\mathrm{CAlg}$ — the universal modules fibration",
-            "$s: \\mathrm{Fun}(\\Delta^1, \\mathcal{C}) \\to \\mathcal{C}$ — the source map of the arrow category"
+            "$t = \\mathrm{ev}_1: \\mathrm{Fun}(\\Delta^1, \\mathcal{C}) \\to \\mathcal{C}$ — the target map of the arrow category"
           ],
           "answer": [
             3,
@@ -439,15 +439,15 @@
             0,
             1
           ],
-          "explain": "(left → right indices.) Slice functor straightens to the source map (left 0 → right 3). Modules functor straightens to the modules fibration (left 1 → right 2). $G$-action straightens to homotopy quotient (left 2 → right 0). Constant singleton functor unstraightens to the identity (left 3 → right 1)."
+          "explain": "(left → right indices.) Over-category functor (covariant via postcomposition) straightens to the cocartesian target map $t = \\mathrm{ev}_1$ (left 0 → right 3; HTT 2.4.7.11 / Kerodon Tag 01VK). Modules functor straightens to the modules fibration (left 1 → right 2). $G$-action straightens to homotopy quotient (left 2 → right 0). Constant singleton functor unstraightens to the identity (left 3 → right 1). The dual slice functor $c \\mapsto \\mathcal{C}_{c/}$ is contravariant and straightens the <em>cartesian</em> source map $s = \\mathrm{ev}_0$, not a cocartesian fibration."
         },
         {
           "type": "multi-select",
           "q": "Among the following projections, which are <strong>left fibrations</strong>?",
           "choices": [
-            "$\\mathcal{C}_{x/} \\to \\mathcal{C}$ — the slice 'forget the source' map.",
-            "$\\mathcal{C}_{/x} \\to \\mathcal{C}$ — the slice 'forget the target' map.",
-            "$\\mathrm{Fun}(\\Delta^1, \\mathcal{C}) \\xrightarrow{s} \\mathcal{C}$ — the source map.",
+            "$\\mathcal{C}_{x/} \\to \\mathcal{C}$ — the slice 'forget the source' map (for fixed $x \\in \\mathcal{C}$).",
+            "$\\mathcal{C}_{/x} \\to \\mathcal{C}$ — the slice 'forget the target' map (for fixed $x$).",
+            "$\\mathrm{Fun}(\\Delta^1, \\mathcal{C}) \\xrightarrow{t = \\mathrm{ev}_1} \\mathcal{C}$ — the target map of the arrow category.",
             "$X /\\!\\!/ G \\to BG$ — homotopy quotient projection.",
             "$\\mathcal{C} \\times \\mathcal{D} \\to \\mathcal{C}$ — product projection where $\\mathcal{D}$ is an $\\infty$-category but not a Kan complex."
           ],
@@ -455,7 +455,7 @@
             0,
             3
           ],
-          "explain": "$\\mathcal{C}_{x/} \\to \\mathcal{C}$ has Kan-complex fibers $\\mathrm{Map}_\\mathcal{C}(x, -)$, so it is a left fibration. $X /\\!\\!/ G \\to BG$ has fibers all equivalent to the space $X$, so it is a left fibration. The arrow source-map has $\\infty$-category fibers $\\mathcal{C}_{x/}$ (not Kan complexes in general), so it's cocartesian but not left. The slice 'forget target' map is a <em>right</em> fibration. A product projection with an $\\infty$-category factor is cocartesian, not left.",
+          "explain": "$\\mathcal{C}_{x/} \\to \\mathcal{C}$ has Kan-complex fibers $\\mathrm{Map}_\\mathcal{C}(x, -)$, so it is a left fibration. $X /\\!\\!/ G \\to BG$ has fibers all equivalent to the space $X$, so it is a left fibration. The arrow target-map $t = \\mathrm{ev}_1$ has $\\infty$-category fibers $\\mathcal{C}_{/y}$ (not Kan complexes in general), so it's cocartesian but not left. The slice 'forget target' map $\\mathcal{C}_{/x} \\to \\mathcal{C}$ is a <em>right</em> fibration (the dual). A product projection with an $\\infty$-category factor is cocartesian, not left.",
           "hint": "Left fibration = cocartesian + Kan-complex fibers = $\\mathcal{S}$-valued straightening."
         },
         {

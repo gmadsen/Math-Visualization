@@ -215,7 +215,7 @@
             "constructing the étale fundamental group of a curve."
           ],
           "answer": 0,
-          "explain": "The Billera–Holmes–Vogtmann space of phylogenetic trees is naturally a tropical Grassmannian (Speyer–Sturmfels). Other applications include scheduling / shortest-path optimization (Hopfield-style $\\min$-plus algebras) and economic auctions.",
+          "explain": "The Billera–Holmes–Vogtmann space of phylogenetic trees is naturally a tropical Grassmannian (Speyer–Sturmfels). Other applications include scheduling / shortest-path optimization (Bellman–Ford and Floyd–Warshall are min-plus matrix powers) and economic auctions (Baldwin–Klemperer).",
           "hint": "Phylogenetics: discrete tree distances form a tropical structure."
         }
       ]

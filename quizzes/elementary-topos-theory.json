@@ -57,15 +57,15 @@
           "type": "matching",
           "q": "Match each topos to its subobject classifier $\\Omega$.",
           "left": [
-            "$\\{\\bot, \\top\\}$",
+            "$\\{\\bot, \\top\\}$ (the classical 2-element Boolean algebra)",
             "the set of sieves on $c$ at each $c \\in C$",
             "the open subsets of $U$ at each open $U \\subseteq X$",
-            "the set of subgroups of $G$ (with conjugation action)"
+            "$\\{\\bot, \\top\\}$ with trivial $G$-action (Boolean, regardless of $G$)"
           ],
           "right": [
             "presheaf topos $[C^{\\mathrm{op}}, \\mathbf{Set}]$",
             "$\\mathrm{Sh}(X)$ for a space $X$",
-            "$G\\text{-}\\mathbf{Set}$ for a group $G$",
+            "$G\\text{-}\\mathbf{Set}$ for a (discrete) group $G$",
             "$\\mathbf{Set}$"
           ],
           "answer": [
@@ -74,8 +74,8 @@
             1,
             2
           ],
-          "explain": "$\\mathbf{Set}$ has $\\Omega = \\{\\bot, \\top\\}$ (classical truth values). Presheaf toposes have $\\Omega(c) = \\mathrm{Sieves}(c)$. Sheaves on a topological space $X$ have $\\Omega(U) = $ open subsets of $U$. The topos $G\\text{-}\\mathbf{Set}$ is a presheaf topos on $\\mathbf{B}G$ and its $\\Omega$ unwinds to subgroups of $G$ with conjugation action.",
-          "hint": "Each generalises 'truth values'. In a presheaf topos a 'truth value at $c$' is a sieve."
+          "explain": "$\\mathbf{Set}$ has $\\Omega = \\{\\bot, \\top\\}$ (classical truth values). Presheaf toposes have $\\Omega(c) = \\mathrm{Sieves}(c)$. Sheaves on a topological space $X$ have $\\Omega(U) = $ open subsets of $U$. The topos $G\\text{-}\\mathbf{Set}$ is a presheaf topos on the *groupoid* $\\mathbf{B}G$, and the only sieves on its unique object are $\\varnothing$ and $G$ — so $\\Omega = \\{\\bot, \\top\\}$ with trivial $G$-action and the topos is Boolean.",
+          "hint": "Each generalises 'truth values'. In a presheaf topos a 'truth value at $c$' is a sieve — and in a groupoid the only sieves are the trivial ones."
         },
         {
           "type": "mcq",
@@ -293,7 +293,7 @@
       "questions": [
         {
           "type": "mcq",
-          "q": "Let $G = \\mathbb{Z}/6$. Which of the following is the lattice of subgroups of $G$ (and hence the lattice of subobjects of $G/1$ in $G\\text{-}\\mathbf{Set}$)?",
+          "q": "Let $G = \\mathbb{Z}/6$. Which of the following is the lattice of subgroups of $G$ (and hence, equivalently, the lattice of equivariant *quotients* of the regular $G$-set $G/1 = G$ in $G\\text{-}\\mathbf{Set}$)?",
           "choices": [
             "$\\{1\\} < \\langle 3 \\rangle < \\mathbb{Z}/6$ — a chain of length 2.",
             "$\\{1\\} < \\langle 3 \\rangle, \\langle 2 \\rangle < \\mathbb{Z}/6$ — a diamond.",
@@ -301,21 +301,21 @@
             "$\\{1\\} < \\langle 1 \\rangle < \\mathbb{Z}/6$."
           ],
           "answer": 1,
-          "explain": "$\\mathbb{Z}/6$ has subgroups $\\{0\\}, \\langle 3 \\rangle = \\{0, 3\\} \\cong \\mathbb{Z}/2, \\langle 2 \\rangle = \\{0, 2, 4\\} \\cong \\mathbb{Z}/3$, and $\\mathbb{Z}/6$ itself. The lattice is a diamond: trivial at the bottom, $\\mathbb{Z}/2$ and $\\mathbb{Z}/3$ as incomparable middle elements, $\\mathbb{Z}/6$ on top.",
+          "explain": "$\\mathbb{Z}/6$ has subgroups $\\{0\\}, \\langle 3 \\rangle = \\{0, 3\\} \\cong \\mathbb{Z}/2, \\langle 2 \\rangle = \\{0, 2, 4\\} \\cong \\mathbb{Z}/3$, and $\\mathbb{Z}/6$ itself. The lattice is a diamond: trivial at the bottom, $\\mathbb{Z}/2$ and $\\mathbb{Z}/3$ as incomparable middle elements, $\\mathbb{Z}/6$ on top. Each intermediate $K$ corresponds to the equivariant quotient $G \\twoheadrightarrow G/K$. (Subobjects of the *transitive* $G$-set $G$ in $G\\text{-}\\mathbf{Set}$, by contrast, are only $\\varnothing$ and $G$ itself.)",
           "hint": "By Lagrange, divisors of 6 are $1, 2, 3, 6$; cyclic groups have one subgroup per divisor."
         },
         {
           "type": "mcq",
-          "q": "In $G\\text{-}\\mathbf{Set}$, the subobject classifier $\\Omega$ as a $G$-set has underlying set:",
+          "q": "In $G\\text{-}\\mathbf{Set}$ for an (abstract, discrete) group $G$, the subobject classifier $\\Omega$ as a $G$-set has underlying set:",
           "choices": [
-            "$\\{0, 1\\}$",
+            "$\\{0, 1\\}$ with trivial $G$-action (the topos is Boolean)",
             "the set of subgroups of $G$, with $G$ acting by conjugation",
             "$G$ itself with the regular action",
             "the set of normal subgroups only"
           ],
-          "answer": 1,
-          "explain": "$\\Omega$ in $G\\text{-}\\mathbf{Set} = [\\mathbf{B}G^{\\mathrm{op}}, \\mathbf{Set}]$ at the unique object $* \\in \\mathbf{B}G$ is the set of sieves on $*$, which unwinds to subgroups of $G$. The presheaf-restriction action becomes conjugation: $g \\cdot H = gHg^{-1}$. All subgroups appear, not just normal ones.",
-          "hint": "Sieves on the unique object of $\\mathbf{B}G$ are exactly subgroups of $G$ (downward closure becomes the subgroup property)."
+          "answer": 0,
+          "explain": "$\\Omega(*)$ in $[\\mathbf{B}G^{\\mathrm{op}}, \\mathbf{Set}]$ is the set of sieves on the unique object $*$ — subsets $S \\subseteq G$ closed under precomposition by every $g \\in G$. Because $\\mathbf{B}G$ is a *groupoid*, if $h \\in S$ then $g = h(h^{-1}g) \\in S$ for all $g$, so the only sieves are $\\varnothing$ and $G$. Thus $\\Omega = \\{\\bot, \\top\\}$ with trivial action, and the topos is Boolean. (Equivalently: subobjects of any $G$-set $X$ are $G$-stable subsets, classified by the indicator $X \\to \\{\\bot,\\top\\}$, automatically equivariant.)",
+          "hint": "Sieves on the unique object of a *groupoid* collapse: if any arrow is in the sieve, all are."
         },
         {
           "type": "mcq",
@@ -327,8 +327,8 @@
             "$G\\text{-}\\mathbf{Set}$ is never equivalent to $\\mathbf{Set}$ for non-trivial reasons."
           ],
           "answer": 2,
-          "explain": "When $G$ is trivial, $\\mathbf{B}G$ is the terminal category, so $G\\text{-}\\mathbf{Set} = [\\mathbf{B}\\{e\\}^{\\mathrm{op}}, \\mathbf{Set}] \\simeq \\mathbf{Set}$. For any non-trivial $G$, $\\Omega$ has more than 2 elements (the lattice of subgroups), so the topos cannot be $\\mathbf{Set}$.",
-          "hint": "$\\Omega$ is the lattice of subgroups. When does that have only two elements?"
+          "explain": "When $G$ is trivial, $\\mathbf{B}G$ is the terminal category, so $G\\text{-}\\mathbf{Set} = [\\mathbf{B}\\{e\\}^{\\mathrm{op}}, \\mathbf{Set}] \\simeq \\mathbf{Set}$. For any non-trivial $G$, the topos $G\\text{-}\\mathbf{Set}$ has $G$-sets with non-trivial actions (e.g. $G$ acting on itself by left translation), which are not in the image of $\\mathbf{Set} \\hookrightarrow G\\text{-}\\mathbf{Set}$ (the trivial-action functor) up to equivalence — so $G\\text{-}\\mathbf{Set} \\not\\simeq \\mathbf{Set}$. (Both toposes are Boolean and both have $\\Omega = \\{\\bot,\\top\\}$, so the difference is in the hom-sets / actions, not in $\\Omega$.)",
+          "hint": "When does $\\mathbf{B}G$ become equivalent to the terminal category $\\mathbf{1}$?"
         }
       ]
     },

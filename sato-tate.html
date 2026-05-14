@@ -568,7 +568,7 @@ bin into 24 bins, and overlay the exact density. Toggle "CM mode" for the degene
   <svg id="hist-svg" viewBox="0 0 640 280" width="640" height="280"><title>Sato–Tate histogram (4000 samples)</title></svg>
   <div class="row">
     <button id="hist-resample">resample</button>
-    <button id="hist-mode" class="active" data-mode="nonCM">non-CM · $y^2=x^3+1$</button>
+    <button id="hist-mode" class="active" data-mode="nonCM">non-CM · $y^2=x^3-x+1$</button>
     <button id="hist-mode-cm" data-mode="CM">CM · $y^2=x^3-x$</button>
   </div>
   <div class="readout" id="hist-out"></div>
@@ -689,7 +689,7 @@ bin into 24 bins, and overlay the exact density. Toggle "CM mode" for the degene
     }
     out.textContent =
       (mode==='CM' ? 'mode: CM ( y² = x³ − x ) — half supersingular + uniform residual'
-                   : 'mode: non-CM ( y² = x³ + 1 ) — Sato–Tate semicircle law') + '\n' +
+                   : 'mode: non-CM ( y² = x³ − x + 1 ) — Sato–Tate semicircle law') + '\n' +
       'samples: '+N+'   bins: '+B+'   ∫ density ≈ '+
         (dens.reduce((s,v)=>s+v,0)*h).toFixed(3) +
       '   max |obs − (2/π)sin²θ|: '+ maxDev.toFixed(3);
@@ -778,9 +778,9 @@ Small gap indicates genuine Sato–Tate behavior; CM stays visibly off because o
   <div class="row">
     <label for="frob-curve">curve</label>
     <select id="frob-curve">
-      <option value="0" selected>$y^2 = x^3 - x + 1$ (non-CM, conductor 37)</option>
+      <option value="0" selected>$y^2 = x^3 - x + 1$ (non-CM, conductor 92)</option>
       <option value="1">$y^2 = x^3 + 17$ (non-CM)</option>
-      <option value="2">$y^2 = x^3 - 43x + 166$ (non-CM, conductor 26)</option>
+      <option value="2">$y^2 = x^3 - 43x + 166$ (non-CM, conductor 37)</option>
       <option value="3">$y^2 = x^3 - x$ (CM by $\mathbb{Z}[i]$)</option>
     </select>
     <label>$N$ <input id="frob-n" type="range" min="300" max="3000" step="100" value="1500"></label>
@@ -965,7 +965,7 @@ Small gap indicates genuine Sato–Tate behavior; CM stays visibly off because o
 <div class="note"><b>CM Sato–Tate (Hecke, Deuring, 1950s).</b> Let $E/\mathbb{Q}$ have CM by an order in $K=\mathbb{Q}(\sqrt{-d})$. Then:
 <br>• for primes $p$ <em>inert</em> in $K$ (density $\tfrac12$), $a_p=0$ — $p$ is supersingular, $\theta_p=\pi/2$;
 <br>• for primes $p$ <em>split</em> in $K$ (density $\tfrac12$), the angles $\theta_p$ equidistribute <em>uniformly</em> on $[0,\pi]$ with density $1/\pi$.
-<br>The combined Frobenius distribution is therefore $\tfrac12\delta_{\pi/2} + \tfrac12\cdot\frac{1}{\pi}\,d\theta$, i.e. Haar measure on $N(T)/T$-conjugacy classes.</div>
+<br>The combined Frobenius distribution is therefore $\tfrac12\delta_{\pi/2} + \tfrac12\cdot\frac{1}{\pi}\,d\theta$, i.e. the pushforward of Haar measure on $N(T)$ to $N(T)$-conjugacy classes in $\mathrm{SU}(2)$.</div>
 
 <p>The split-prime story is genuinely different: for $p=\mathfrak{p}\bar{\mathfrak{p}}$ with $\mathfrak{p}\in K$ above $p$, the Grössencharacter $\psi$ satisfies $\psi(\mathfrak{p})\bar\psi(\mathfrak{p})=p$, and $a_p=\psi(\mathfrak{p})+\bar\psi(\mathfrak{p})$. Equidistribution of the arguments $\arg\psi(\mathfrak{p})$ in $\mathbb{R}/2\pi\mathbb{Z}$ is classical — it follows from equidistribution of the arguments of ideals in an ideal class via Hecke $L$-functions, and predates the full Sato–Tate conjecture by half a century.</p>
 

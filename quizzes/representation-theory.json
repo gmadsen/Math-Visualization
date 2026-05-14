@@ -820,10 +820,10 @@
         },
         {
           "type": "numeric",
-          "q": "On the weight-$m$ space of $V_n$, the operator $EF$ acts as the scalar $\\tfrac{(n-m)(n+m+2)}{4}$. For $n=4$, $m=0$, what is this scalar?",
+          "q": "On the weight-$m$ space of $V_n$, the operator $EF$ acts as the scalar $\\tfrac{(n+m)(n-m+2)}{4}$. For $n=4$, $m=0$, what is this scalar?",
           "answer": 6,
           "tol": 0.000001,
-          "explain": "$\\tfrac{(4-0)(4+0+2)}{4}=\\tfrac{4\\cdot 6}{4}=6$."
+          "explain": "$\\tfrac{(4+0)(4-0+2)}{4}=\\tfrac{4\\cdot 6}{4}=6$. (Sanity check: $FE$ acts by $\\tfrac{(n-m)(n+m+2)}{4} = 6$ as well at $m=0$, so $EF - FE = 0 = H$ on the weight-$0$ space, consistent with $[E,F]=H$.)"
         }
       ],
       "hard": [

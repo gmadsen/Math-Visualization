@@ -235,7 +235,7 @@
             "Riemann zeta values at integers."
           ],
           "answer": 1,
-          "explain": "The closed-form expression $C_{\\lambda\\mu\\nu}(q) = q^{\\kappa(\\lambda)/2} s_{\\nu^t}(q^\\rho) \\sum_\\eta s_{\\lambda^t/\\eta}(q^{\\nu+\\rho}) s_{\\mu/\\eta}(q^{\\nu^t+\\rho})$ uses Schur and skew-Schur functions at specialised values. The combinatorics is essentially the RSK / dimer / vertex-operator algebra of plane partitions; principal specialisations of Schur functions are 3D-partition generating series."
+          "explain": "The closed-form expression $C_{\\lambda\\mu\\nu}(q) = q^{(\\kappa(\\lambda)+\\kappa(\\nu))/2} s_{\\nu^t}(q^\\rho) \\sum_\\eta s_{\\lambda^t/\\eta}(q^{\\nu+\\rho}) s_{\\mu/\\eta}(q^{\\nu^t+\\rho})$ uses Schur and skew-Schur functions at specialised values. The combinatorics is essentially the RSK / dimer / vertex-operator algebra of plane partitions; principal specialisations of Schur functions are 3D-partition generating series."
         }
       ]
     },

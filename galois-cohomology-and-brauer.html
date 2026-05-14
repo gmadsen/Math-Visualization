@@ -292,7 +292,7 @@ $$H^1(\Gal(L/K),L^\times)\;=\;1.$$
     <button id="coc-go">test &amp; trivialise</button>
   </div>
   <div class="readout" id="coc-out">…</div>
-  <div class="row"><span class="small">Hilbert 90: every norm-one $\beta$ has the form $\sigma(\alpha)/\alpha$. Take $\alpha=1+\beta$ (when nonzero); the readout displays the witness and verifies the trivialisation, confirming $H^1=1$.</span></div>
+  <div class="row"><span class="small">Hilbert 90: every norm-one $\beta$ has the form $\sigma(\alpha)/\alpha$. Take $\alpha=1/(1+\beta)$ (when $1+\beta\ne 0$); since $\sigma(\beta)=\bar\beta=\beta^{-1}$, $\sigma(1+\beta)=(1+\beta)/\beta$, so $\sigma(\alpha)/\alpha=\beta$. Up to a positive real scale this is $\alpha=(c+a)-bi$. The readout displays the witness and verifies the trivialisation, confirming $H^1=1$.</span></div>
 </div>
 
 <p>The Kummer sequence $1\to\mu_n\to\bar K^\times\xrightarrow{n}\bar K^\times\to 1$ (when $\mathrm{char}(K)\nmid n$ and $\mu_n\subset K$) gives the long exact sequence</p>
@@ -574,7 +574,9 @@ $$0\;\to\;E(K)/nE(K)\;\to\;\mathrm{Sel}_n(E/K)\;\to\;\mathrm{III}(E/K)[n]\;\to\;
       return;
     }
     lines.push(`Norm = 1 -- Hilbert 90 promises an alpha in Q(i)^* with sigma(alpha)/alpha = beta.`);
-    const aRe = c + a, aIm = b;
+    // Witness: alpha = 1/(1 + beta).  Clearing denominators (multiply by (c+a)+b·i
+    // bar then by 2(c+a)) leaves a positive-real-scalar multiple alpha ∝ (c+a) − b·i.
+    const aRe = c + a, aIm = -b;
     if(aRe === 0 && aIm === 0){
       lines.push("");
       lines.push(`Special case beta = -1: take alpha = i. Then sigma(alpha) = -i, sigma(alpha)/alpha = -1 = beta. OK`);
@@ -582,8 +584,9 @@ $$0\;\to\;E(K)/nE(K)\;\to\;\mathrm{Sel}_n(E/K)\;\to\;\mathrm{III}(E/K)[n]\;\to\;
       return;
     }
     lines.push("");
-    lines.push(`Trivialise: alpha = c (1 + beta) = (c+a) + b i = ${aRe} + ${aIm} i`);
-    lines.push(`sigma(alpha) = ${aRe} - ${aIm} i`);
+    const fmt = (x) => x >= 0 ? `+ ${x}` : `- ${-x}`;
+    lines.push(`Trivialise: alpha = 1/(1 + beta) ∝ (c+a) − b i = ${aRe} ${fmt(aIm)} i`);
+    lines.push(`sigma(alpha) = ${aRe} ${fmt(-aIm)} i`);
     const numRe = aRe*aRe - aIm*aIm;
     const numIm = -2*aRe*aIm;
     const denom = aRe*aRe + aIm*aIm;

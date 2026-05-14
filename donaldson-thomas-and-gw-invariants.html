@@ -365,7 +365,7 @@ $$I_n(X,\beta) \;=\; \{\mathcal{I}_Z \subset \mathcal{O}_X \;:\; \mathrm{ch}_2 =
 })();
 </script>
 
-<p>The story is more delicate on a 3-fold than on a surface. The Hilbert scheme $\mathrm{Hilb}^n(C^2)$ on a smooth surface is itself smooth of dimension $2n$ (Fogarty 1968). But $\mathrm{Hilb}^n(\mathbb{C}^3)$ is generically singular for $n \ge 4$: the deformation theory acquires obstructions in $\mathrm{Ext}^2(\mathcal{I},\mathcal{I})$ and the moduli space has irreducible components of different dimensions. This is the central technical difficulty DT theory must overcome — the moduli space is "too big," and naive integrals on it diverge or give wrong answers.</p>
+<p>The story is more delicate on a 3-fold than on a surface. The Hilbert scheme $\mathrm{Hilb}^n(C^2)$ on a smooth surface is itself smooth of dimension $2n$ (Fogarty 1968). But $\mathrm{Hilb}^n(\mathbb{C}^3)$ behaves much worse: the principal (smoothable) component — closure of the locus of $n$ distinct points — is generically smooth, but the deformation theory acquires obstructions in $\mathrm{Ext}^2(\mathcal{I},\mathcal{I})$ and, as $n$ grows, extra non-smoothable irreducible components of different dimensions appear (Iarrobino). This is the central technical difficulty DT theory must overcome — the moduli space is "too big," and naive integrals on it diverge or give wrong answers.</p>
 
 <!-- callback-auto-begin -->
 <aside class="callback">
@@ -808,7 +808,7 @@ $$\boxed{\;Z'_{\mathrm{DT}}(X;q,Q) \;=\; Z_{\mathrm{GW}}(X;u,Q) \quad \text{with
   </div>
   <svg id="mnop-svg" viewBox="0 0 720 220" width="720" height="220"><title>MNOP substitution</title></svg>
   <div class="readout" id="mnop-out">step through the substitution that proves "GW = DT" for the simplest CY3, the resolved conifold…</div>
-  <p class="small">Worked on the <strong>resolved conifold</strong> $X = \mathcal{O}(-1) \oplus \mathcal{O}(-1) \to \mathbb{P}^1$. Genus-zero GW: $\sum_d \mathrm{GW}_{0,d} \, Q^d = -\sum_d Q^d / d^2$. Genus expansion adds higher-genus corrections in $u$. The MNOP substitution converts to a $q$-series that exactly matches the DT count of $\mathcal{O}_X$-modules.</p>
+  <p class="small">Worked on the <strong>resolved conifold</strong> $X = \mathcal{O}(-1) \oplus \mathcal{O}(-1) \to \mathbb{P}^1$. Genus-zero GW: $\sum_d \mathrm{GW}_{0,d} \, Q^d = \sum_d Q^d / d^3$ (the multiple-cover formula gives $\mathrm{GW}_{0,d} = 1/d^3$, with a single rational curve $\mathbb{P}^1$ contributing in each degree). Genus expansion adds higher-genus corrections in $u$. The MNOP substitution converts to a $q$-series that exactly matches the DT count of $\mathcal{O}_X$-modules.</p>
 </div>
 <script>
 (function(){
@@ -820,8 +820,8 @@ $$\boxed{\;Z'_{\mathrm{DT}}(X;q,Q) \;=\; Z_{\mathrm{GW}}(X;u,Q) \quad \text{with
          note:'Genus expansion of all-genus invariants on β = dβ, with β the generator of H_2(P^1). The (2 sin)^{−2} kernel is universal in genus.',
          color:'var(--cyan)'},
     s2: {head:'Step 2 — Substitute  q = −e^{iu}',
-         line:'2 sin(du/2)  =  (e^{idu/2} − e^{−idu/2})/i  =  −i · q^{d/2}(1 − q^{−d})/  •  with q = −e^{iu}',
-         note:'Compute: 2 sin(du/2) · e^{iu·something} matches a q-series. The pre-factor q^{d/2} can be absorbed into the Q-variable normalisation; the residual (1 − q^d) is the DT-side weighting.',
+         line:'(2 sin(du/2))^2  =  −(e^{idu} − 1)^2 / e^{idu}  =  −((−q)^d − 1)^2 / (−q)^d   (with q = −e^{iu})',
+         note:'Square first to avoid the half-integer e^{idu/2} branch ambiguity. Substituting e^{iu} = −q gives a clean rational function in (−q)^d that step 3 will turn into the DT weighting.',
          color:'var(--blue)'},
     s3: {head:'Step 3 — Expand  (2 sin(du/2))^{−2}  as a q-series',
          line:'(2 sin(du/2))^{−2}  =  − q^d / (1 − q^d)^2  (after MNOP normalisation)',
@@ -833,7 +833,7 @@ $$\boxed{\;Z'_{\mathrm{DT}}(X;q,Q) \;=\; Z_{\mathrm{GW}}(X;u,Q) \quad \text{with
          color:'var(--yellow)'},
     s5: {head:'Step 5 — Equality',
          line:'Z\'_DT(conifold; q, Q)  =  Z_GW(conifold; u, Q),   with q = −e^{iu}',
-         note:'Both sides equal  ∏_{d≥1} (1 − q^d Q)^{−d}  (Faber–Pandharipande / MNOP for conifold). The integer DT count exactly matches the rational GW genus expansion, mediated by q ↔ −e^{iu}.',
+         note:'Both sides equal  ∏_{d≥1} (1 − (−q)^d Q)^d  (Faber–Pandharipande / MNOP for conifold; matches the topological-vertex assembly below). The integer DT count exactly matches the rational GW genus expansion, mediated by q ↔ −e^{iu}.',
          color:'var(--green)'}
   };
   let cur='s1';
@@ -895,7 +895,7 @@ $$\boxed{\;Z'_{\mathrm{DT}}(X;q,Q) \;=\; Z_{\mathrm{GW}}(X;u,Q) \quad \text{with
 
 <p>The closed form, in terms of skew Schur functions $s_{\lambda/\mu}$:</p>
 
-$$C_{\lambda\mu\nu}(q) \;=\; q^{\kappa(\lambda)/2}\, s_{\nu^t}(q^\rho) \sum_{\eta} s_{\lambda^t/\eta}(q^{\nu+\rho})\, s_{\mu/\eta}(q^{\nu^t+\rho}),$$
+$$C_{\lambda\mu\nu}(q) \;=\; q^{(\kappa(\lambda)+\kappa(\nu))/2}\, s_{\nu^t}(q^\rho) \sum_{\eta} s_{\lambda^t/\eta}(q^{\nu+\rho})\, s_{\mu/\eta}(q^{\nu^t+\rho}),$$
 
 <p>where $\rho = (-\tfrac12, -\tfrac32, -\tfrac52, \ldots)$ is the half-integer shift, $\kappa(\lambda) = \sum_i \lambda_i (\lambda_i - 2i + 1)$, and the variables are evaluated at the principal specialisation. For the trivial-partition input,</p>
 

@@ -43,11 +43,11 @@
           "choices": [
             "The disk algebra $A(\\mathbb{D})$ with $f^*(z)=\\overline{f(\\bar z)}$ satisfies $\\|f^*f\\|=\\|f\\|^2$",
             "On $\\ell^1(\\mathbb{Z})$ with convolution and involution $f^*(n)=\\overline{f(-n)}$, the element $f=\\delta_1$ gives $\\|f^*f\\|=\\|\\delta_0\\|=1$ while $\\|f\\|^2=1$, so it DOES hold here",
-            "The algebra $M_2(\\mathbb{C})$ with the Frobenius norm $\\|A\\|_F=\\sqrt{\\tr(A^*A)}$ fails the $C^*$-identity: for $A=\\begin{pmatrix}1&1\\\\0&0\\end{pmatrix}$, $\\|A^*A\\|_F=\\sqrt{3}\\ne\\|A\\|_F^2=2$",
+            "The algebra $M_2(\\mathbb{C})$ with the Frobenius norm $\\|A\\|_F=\\sqrt{\\tr(A^*A)}$ fails the $C^*$-identity: for $A=\\mathrm{diag}(1,2)$, $\\|A^*A\\|_F=\\sqrt{17}\\ne\\|A\\|_F^2=5$",
             "No Banach $*$-algebra can fail the $C^*$-identity"
           ],
           "answer": 2,
-          "explain": "$M_2(\\mathbb{C})$ with the Frobenius norm is a Banach $*$-algebra but not a $C^*$-algebra. For $A=\\begin{pmatrix}1&1\\\\0&0\\end{pmatrix}$: $A^*A=\\begin{pmatrix}1&1\\\\1&1\\end{pmatrix}$, $\\|A^*A\\|_F=\\sqrt{4}=2$, but $\\|A\\|_F^2=(\\sqrt{2})^2=2$. Checking the operator norm instead: $\\|A\\|_{op}=\\sqrt{2}$, $\\|A^*A\\|_{op}=2=(\\sqrt{2})^2$, so the operator norm DOES satisfy the $C^*$-identity — this is why only the operator norm makes $M_2(\\mathbb{C})$ a $C^*$-algebra."
+          "explain": "$M_2(\\mathbb{C})$ with the Frobenius norm is a Banach $*$-algebra but not a $C^*$-algebra. For $A=\\mathrm{diag}(1,2)$: $A^*A=\\mathrm{diag}(1,4)$, so $\\|A^*A\\|_F=\\sqrt{1+16}=\\sqrt{17}$, but $\\|A\\|_F^2=1+4=5$, and $\\sqrt{17}\\ne 5$ — the $C^*$-identity FAILS. Checking the operator norm on the same matrix: $\\|A\\|_{op}=2$, $\\|A^*A\\|_{op}=4=2^2$, so the operator norm DOES satisfy the $C^*$-identity — this is why only the operator norm makes $M_2(\\mathbb{C})$ a $C^*$-algebra."
         },
         {
           "type": "numeric",
@@ -765,7 +765,7 @@
             "Let $N_\\omega=\\{a\\in A:\\omega(a^*a)=0\\}$, a closed left ideal.",
             "Pass to the quotient $A/N_\\omega$ which carries a genuine inner product; complete to $H_\\omega$.",
             "Define $\\pi_\\omega(a)[b+N_\\omega]=[ab+N_\\omega]$, extend to a bounded $*$-representation.",
-            "Set $\\Omega_\\omega=[1+N_\\omega]$; then $\\omega(a)=\\langle \\Omega_\\omega,\\pi_\\omega(a)\\Omega_\\omega\\rangle$."
+            "Set $\\Omega_\\omega=[1+N_\\omega]$; then $\\omega(a)=\\langle \\pi_\\omega(a)\\Omega_\\omega,\\Omega_\\omega\\rangle$."
           ],
           "answer": [
             0,

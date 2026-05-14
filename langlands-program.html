@@ -260,7 +260,7 @@ function drawNode(svg, x, y, label, opts={}){
 
 <section class="hero">
   <h1>The Langlands program</h1>
-  <p class="sub">A vast network of conjectures predicting that <em>every</em> arithmetic-geometric L-function — those built from Galois representations, from elliptic curves, from étale cohomology of arithmetic varieties — agrees with an <em>analytic</em> L-function built from automorphic representations of $\GL_n$. Class field theory is the abelian case ($n = 1$); modularity of elliptic curves is the proven non-abelian case for $n = 2$ over $\mathbb{Q}$; Sato–Tate is its symmetric-power consequence. The general statement remains conjectural and is the organising principle of half of modern number theory. Robert Langlands sketched the program in a 1967 letter to André Weil; the predicted reciprocity laws would unify class field theory, Artin reciprocity, modularity, and the Riemann hypothesis under a single Tannakian framework.</p>
+  <p class="sub">A vast network of conjectures predicting that <em>every</em> arithmetic-geometric L-function — those built from Galois representations, from elliptic curves, from étale cohomology of arithmetic varieties — agrees with an <em>analytic</em> L-function built from automorphic representations of $\GL_n$. Class field theory is the abelian case ($n = 1$); modularity of elliptic curves is the proven non-abelian case for $n = 2$ over $\mathbb{Q}$; Sato–Tate is its symmetric-power consequence. The general statement remains conjectural and is the organising principle of half of modern number theory. Robert Langlands sketched the program in a 1967 letter to André Weil; the predicted reciprocity laws would unify class field theory, Artin reciprocity, modularity, and Sato–Tate equidistribution under a single Tannakian framework. (GRH for automorphic L-functions is a separate analytic conjecture, not predicted by the Langlands package.)</p>
 </section>
 
 <section id="philosophy">
@@ -279,7 +279,7 @@ function drawNode(svg, x, y, label, opts={}){
   <text x="150" y="74" text-anchor="middle" font-size="14" font-weight="600" fill="var(--yellow)">Arithmetic side</text>
   <text x="150" y="100" text-anchor="middle" font-size="12" fill="var(--ink)">n-dimensional</text>
   <text x="150" y="118" text-anchor="middle" font-size="12" fill="var(--ink)">Galois representations</text>
-  <text x="150" y="138" text-anchor="middle" font-size="12" fill="var(--mute)" font-style="italic">ρ : Gal(Q̄/Q) → GL_n(Q_ℓ)</text>
+  <text x="150" y="138" text-anchor="middle" font-size="12" fill="var(--mute)" font-style="italic">ρ : Gal(Q̄/Q) → GL_n(Q̄_ℓ)</text>
   <text x="150" y="166" text-anchor="middle" font-size="11" fill="var(--mute)">cohomology of varieties</text>
   <text x="150" y="184" text-anchor="middle" font-size="11" fill="var(--mute)">étale, crystalline, …</text>
   <!-- Right column: automorphic -->
@@ -375,7 +375,7 @@ $$L(\pi, s) = \prod_p L(\pi_p, s),$$
   <li>irreducible smooth admissible representations of $\GL_n(\mathbb{Q}_v)$.</li>
 </ul>
 
-<p>Concretely: a $W$-D representation packages $(\rho, N)$ with $\rho\colon W_{\mathbb{Q}_v} \to \GL_n(\mathbb{C})$ semisimple and $N$ a nilpotent matrix satisfying $\rho(\sigma) N \rho(\sigma)^{-1} = q^{|\sigma|} N$. On the automorphic side, smooth admissible reps of $\GL_n(\mathbb{Q}_v)$ are infinite-dimensional vector spaces with a continuous $\GL_n$-action; the irreducible ones are classified (Bernstein-Zelevinsky) into supercuspidal, principal, and Steinberg pieces.</p>
+<p>Concretely: a $W$-D representation packages $(\rho, N)$ with $\rho\colon W_{\mathbb{Q}_v} \to \GL_n(\mathbb{C})$ semisimple and $N$ a nilpotent matrix satisfying $\rho(\sigma) N \rho(\sigma)^{-1} = q^{-n(\sigma)} N$, where $n(\sigma)$ is the power of geometric Frobenius in $\sigma$ (so $N$ has weight $-1$ under Frobenius). On the automorphic side, smooth admissible reps of $\GL_n(\mathbb{Q}_v)$ are infinite-dimensional vector spaces with a continuous $\GL_n$-action; the irreducible ones are classified (Bernstein-Zelevinsky) into supercuspidal, principal, and Steinberg pieces.</p>
 
 <p><b>Status.</b> Local Langlands for $\GL_n$ over a $p$-adic field is proven (Harris-Taylor, Henniart, 2001). Over an archimedean local field ($\mathbb{R}$ or $\mathbb{C}$), it is the Langlands classification of admissible representations of real reductive groups (Langlands, 1973). For groups other than $\GL_n$ — orthogonal, symplectic, exceptional — local Langlands is partially proven and substantially harder.</p>
 
@@ -393,7 +393,7 @@ $$L(\pi, s) = \prod_p L(\pi_p, s),$$
 <p>The global statement glues local Langlands across all places. <b>Global Langlands for $\GL_n$ over $\mathbb{Q}$</b> predicts a bijection between</p>
 
 <ul>
-  <li>continuous, irreducible, $n$-dimensional Galois representations $\rho\colon \Gal(\overline{\mathbb{Q}}/\mathbb{Q}) \to \GL_n(\mathbb{Q}_\ell)$ that are unramified outside a finite set of primes, almost everywhere de Rham, and "geometric" (cuts of cohomology of varieties), and</li>
+  <li>continuous, irreducible, $n$-dimensional Galois representations $\rho\colon \Gal(\overline{\mathbb{Q}}/\mathbb{Q}) \to \GL_n(\overline{\mathbb{Q}_\ell})$ that are unramified outside a finite set of primes, de Rham at $\ell$ (the Fontaine condition at the place above $\ell$), and "geometric" in the Fontaine–Mazur sense (cut out of étale cohomology of algebraic varieties), and</li>
   <li>cuspidal automorphic representations $\pi$ of $\GL_n(\mathbb{A}_\mathbb{Q})$ that are "algebraic" (whose archimedean component has integral Hodge-Tate weights).</li>
 </ul>
 
@@ -402,8 +402,8 @@ $$L(\pi, s) = \prod_p L(\pi_p, s),$$
 <p><b>Known cases.</b></p>
 <ul>
   <li>$n = 1$: <a href="./class-field-theory.html#artin-map-cft">class field theory</a> (proven). Galois reps = continuous characters $\Gal(\overline{\mathbb{Q}}/\mathbb{Q}) \to \mathbb{C}^\times$; automorphic reps of $\GL_1(\mathbb{A}_\mathbb{Q}) = \mathbb{A}_\mathbb{Q}^\times$ = Hecke characters.</li>
-  <li>$n = 2$: modularity of elliptic curves (Wiles, Taylor-Wiles, BCDT — proven for elliptic curves over $\mathbb{Q}$); plus modularity of <em>most</em> 2-dimensional Galois representations of regular weight (Khare-Wintenberger for Serre's conjecture). The general $n=2$ case (potentially modular for all suitable Galois reps) remains active research.</li>
-  <li>$n \geq 3$: only fragmentary cases. Symmetric-power liftings $\Sym^k$ of $\GL_2$-reps to $\GL_{k+1}$-reps are known up to $k = 4$ (Kim-Shahidi); Sato-Tate (Taylor et al.) is the corresponding consequence.</li>
+  <li>$n = 2$: modularity of elliptic curves (Wiles, Taylor-Wiles, BCDT — proven for elliptic curves over $\mathbb{Q}$); the mod-$\ell$ analogue (Serre's conjecture) is Khare-Wintenberger 2009. Modularity in characteristic 0 of <em>most</em> 2-dimensional Galois representations of regular weight is the ten-author paper (Allen-Calegari-Caraiani-Gee-Helm-Le Hung-Newton-Scholze-Taylor-Thorne, 2018, building on Calegari-Geraghty). The general $n=2$ case (automorphy for all suitable Galois reps) remains active research.</li>
+  <li>$n \geq 3$: only fragmentary cases. Symmetric-power liftings $\Sym^k$ of $\GL_2$-reps to $\GL_{k+1}$-reps are known unconditionally up to $k = 4$ for general cuspidal $\pi$ (Kim-Shahidi 2002, Kim 2003), and for <em>all</em> $k$ when $\pi$ comes from a non-CM holomorphic modular form (Newton-Thorne 2021); Sato-Tate (Taylor et al.) is the corresponding equidistribution consequence.</li>
 </ul>
 
 <div class="quiz" data-concept="global-langlands-gl-n"></div><!-- backlinks-auto-begin -->
@@ -482,6 +482,8 @@ $$L(E, s) = L(f, s).$$
 
 <p>Beyond bijections, Langlands predicted a vast network of <em>functorial</em> liftings: given a continuous homomorphism $\rho\colon {}^L H \to {}^L G$ between Langlands dual groups, every automorphic representation $\pi$ of $H(\mathbb{A}_\mathbb{Q})$ should lift to one of $G(\mathbb{A}_\mathbb{Q})$ in a way compatible with L-functions.</p>
 
+<p><b>The L-group ${}^L G$.</b> For a connected reductive group $G$ over $F$, the Langlands dual ${}^L G = \widehat G(\mathbb{C}) \rtimes \Gal(\overline F/F)$, where $\widehat G$ is the complex reductive group with <em>dual</em> root datum (roots ↔ coroots, weights ↔ coweights) and $\Gal(\overline F/F)$ acts through the action on the root datum induced by the $F$-form of $G$. Examples: ${}^L \GL_n = \GL_n(\mathbb{C})$ (self-dual, trivial Galois action over a split form); ${}^L \mathrm{SL}_n = \mathrm{PGL}_n(\mathbb{C})$; ${}^L \mathrm{SO}_{2n+1} = \mathrm{Sp}_{2n}(\mathbb{C})$. Functoriality is parametrised by maps ${}^L H \to {}^L G$ rather than maps $H \to G$ — that swap is the central insight.</p>
+
 <p>Concrete instances:</p>
 <ul>
   <li><b>Symmetric power lifting.</b> For $\pi$ on $\GL_2(\mathbb{A}_\mathbb{Q})$, its $k$-th symmetric power $\Sym^k \pi$ should be an automorphic representation of $\GL_{k+1}(\mathbb{A}_\mathbb{Q})$ with $L(\Sym^k \pi, s) = L(\Sym^k \rho_\pi, s)$. Known unconditionally for $k \le 4$ (Kim-Shahidi 2002, Kim 2003); extended in the modular case (Newton-Thorne 2020 for all $k$).</li>
@@ -511,12 +513,12 @@ $$L(E, s) = L(f, s).$$
   <li><b>Modularity of elliptic curves</b> — the $n = 2$ case for one specific class of Galois reps, proven by Wiles + Taylor-Wiles + BCDT (1995-2001).</li>
   <li><b>The Sato-Tate conjecture</b> — the corresponding statement for $\Sym^k \rho_E$, proven for elliptic curves over totally real fields (Taylor et al., 2008+).</li>
   <li><b>The Hodge / Tate / motivic conjectures</b> — the predicted compatibility with the <a href="./motives.html">motivic Galois group</a>.</li>
-  <li><b>The Riemann hypothesis (and its generalisations)</b> — through the Galois-rep side: GRH for L-functions of automorphic forms is part of the Langlands package.</li>
+  <li><b>Sato-Tate-style equidistribution laws</b> — symmetric-power functoriality of $\GL_2$ implies Sato-Tate, and analogous statements for higher-rank automorphic reps fall out of the corresponding functorialities.</li>
 </ul>
 
-<p>The framework is also what extends the analogy between number theory and geometry. Geometric Langlands (Drinfeld, Beilinson, Mukai) replaces the field $\mathbb{Q}$ with the function field $\mathbb{F}_q(C)$ of a curve $C$, and the resulting correspondence sends $\ell$-adic local systems on $C$ to D-modules on $\mathrm{Bun}_G(C)$. This geometric mirror is fully proven for $\GL_2$ (Drinfeld) and substantially proven for general groups — the geometric side is in some ways the most accessible window into the program.</p>
+<p>The framework is also what extends the analogy between number theory and geometry. There are two parallel <em>geometric</em> versions. (i) <b>Function-field Langlands</b> (Drinfeld, Laumon, Lafforgue) replaces $\mathbb{Q}$ with $\mathbb{F}_q(C)$ for a curve $C/\mathbb{F}_q$ and matches $\ell$-adic local systems on $C$ with Hecke eigensheaves on $\mathrm{Bun}_G(C)$ in the $\ell$-adic setting; Drinfeld settled $\GL_2$ (1980s, via shtukas) and Lafforgue extended to $\GL_n$ (Fields Medal 2002). (ii) <b>De Rham geometric Langlands</b> (Beilinson-Drinfeld, Frenkel-Gaitsgory-Vilonen, and the 2024 proof by Gaitsgory and collaborators) works over $C/\mathbb{C}$ and matches flat $\widehat G$-bundles on $C$ with D-modules on $\mathrm{Bun}_G(C)$. The two settings use different sheaf theories (constructible $\ell$-adic sheaves vs. holonomic D-modules) and should not be conflated. The geometric side is in some ways the most accessible window into the program.</p>
 
-<aside class="bad"><b>Status (number-theoretic side).</b> Most of the program remains conjectural. Local Langlands for $\GL_n$ over $p$-adic fields is proven (Harris-Taylor, Henniart 2001). Global Langlands is proven for $n = 1$ (CFT), substantially for $n = 2$ (modular elliptic curves + Serre's conjecture), and only fragmentarily for $n \ge 3$. The Langlands group $L_F$ does not provably exist; the predicted compatibilities with the motivic Galois group are open. <em>This is the largest open program in modern number theory</em>, and most of what can be proven about specific arithmetic objects (modularity, Sato-Tate, L-function meromorphic continuation) is a partial increment of the full picture.</aside>
+<aside class="bad"><b>Status (number-theoretic side).</b> Most of the program remains conjectural. Local Langlands for $\GL_n$ over $p$-adic fields is proven (Harris-Taylor, Henniart 2001). Global Langlands is proven for $n = 1$ (CFT), substantially for $n = 2$ (modular elliptic curves + Serre's conjecture), and only fragmentarily for $n \ge 3$. The Langlands group $L_F$ does not provably exist; the predicted compatibilities with the motivic Galois group are open. GRH for automorphic L-functions is a <em>separate</em> analytic conjecture stated in Langlands-compatible language — the program does not predict or imply it. <em>This is the largest open program in modern number theory</em>, and most of what can be proven about specific arithmetic objects (modularity, Sato-Tate, L-function meromorphic continuation) is a partial increment of the full picture.</aside>
 
 <p>And yet the framework already organises an enormous chunk of arithmetic. Every L-function of arithmetic significance — Riemann zeta, Dirichlet, Hecke, Artin, Hasse-Weil, Sato-Tate symmetric powers — fits inside the picture, and the matching with automorphic L-functions is the testable evidence at every step.</p>
 

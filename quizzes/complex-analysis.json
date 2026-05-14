@@ -96,10 +96,10 @@
             "$T(z) = 2z$"
           ],
           "answer": [
-            3,
-            0,
             1,
-            2
+            2,
+            3,
+            0
           ],
           "hint": "Solve $T(z)=z$ in each case; count $\\infty$ as a fixed point exactly when $c=0$ (and as a double fixed point when $a=d$ and $c=0$).",
           "explain": "$T(z)=z$ becomes $cz^2+(d-a)z-b=0$ in $\\mathbb{C}$, with $\\infty$ as a fixed point iff $c=0$. $2z=z\\Rightarrow z=0$ and $\\infty$ (since $c=0$): fixed points $\\{0,\\infty\\}$. $z+1=z$ has no finite solution and $\\infty$ is a double fixed point (parabolic). $1/z=z\\Rightarrow z^2=1$: fixed points $\\{1,-1\\}$. $-1/z=z\\Rightarrow z^2=-1$: fixed points $\\{i,-i\\}$. A non-identity Möbius always has exactly two fixed points in $\\hat{\\mathbb{C}}$ (counted with multiplicity)."
@@ -132,8 +132,8 @@
             "$z = -1$",
             "$z = 1/3$"
           ],
-          "answer": 0,
-          "explain": "The cross-ratio $(z_1,z_2;z_3,z_4)=\\frac{(z_1-z_3)(z_2-z_4)}{(z_1-z_4)(z_2-z_3)}$. With $z_4=\\infty$ this simplifies to $\\frac{z_1-z_3}{z_2-z_3}=\\frac{0-z}{1-z}$. Setting equal to $2$: $-z = 2(1-z) = 2-2z$, so $z = 2 - 2z + z \\Rightarrow z = 1/2$."
+          "answer": 1,
+          "explain": "The cross-ratio $(z_1,z_2;z_3,z_4)=\\frac{(z_1-z_3)(z_2-z_4)}{(z_1-z_4)(z_2-z_3)}$. With $z_4=\\infty$ the factors $(z_2-z_4)$ and $(z_1-z_4)$ cancel in the limit, leaving $\\frac{z_1-z_3}{z_2-z_3}=\\frac{0-z}{1-z}=\\frac{-z}{1-z}$. Setting equal to $2$: $-z = 2(1-z) = 2 - 2z$, so $z = 2$."
         },
         {
           "type": "mcq",

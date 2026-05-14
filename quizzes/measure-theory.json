@@ -186,10 +186,10 @@
         },
         {
           "type": "numeric",
-          "q": "A Vitali set $V\\subset[0,1]$ is non-measurable. Assuming translation-invariance, if $\\{V+q:q\\in\\mathbb{Q}\\cap[-1,1]\\}$ are pairwise disjoint and cover $[0,2]$, what value does $\\sum_{q}m(V+q)$ take if $m(V)$ existed and were positive?",
+          "q": "A Vitali set $V\\subset[0,1]$ is non-measurable. Assuming translation-invariance, the disjoint family $\\{V+q:q\\in\\mathbb{Q}\\cap[-1,1]\\}$ is contained in $[-1,2]$ and covers $[0,1]$. If $m(V)$ existed and equalled $0$, what value would $\\sum_{q}m(V+q)$ take?",
           "answer": 0,
           "tol": 0.000001,
-          "explain": "If $m(V)=c>0$, countable additivity gives $m([0,2])\\ge\\sum_{q}c=\\infty$, contradicting $m([0,2])=2$. If $m(V)=0$, then $m([0,2])=0$, again a contradiction. So no consistent value of $m(V)$ exists; the correct answer reflecting the only non-contradictory finite value attempted is $0$, but in truth measurability fails entirely."
+          "explain": "Translation invariance gives $m(V+q)=m(V)=0$ for every $q$, so the countable sum is $0$. But countable additivity then forces $m([0,1])\\le\\sum_q m(V+q)=0$, contradicting $m([0,1])=1$. The complementary case $m(V)=c>0$ instead gives $\\sum_q c=\\infty$, contradicting $m([-1,2])=3$. Both branches fail, so $V$ admits no consistent measure."
         },
         {
           "type": "mcq",

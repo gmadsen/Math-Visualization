@@ -339,7 +339,7 @@ reflecting across the <em>critical line</em> $\mathrm{Re}\,s = 1/2$. The factor 
 
 <section id="elliptic">
 <h2>3. $L(E,s)$ of an elliptic curve</h2>
-<p>Let $E/\mathbb{Q}$ be an <a href="./elliptic-curves.html">elliptic curve</a> with minimal discriminant $\Delta$ and conductor $N$ (same prime support as $\Delta$; see <a href="./singular-cubics-reduction.html">singular cubics &amp; reduction</a>). For each prime $p$ we classify reduction and read off a local factor. Define $a_p = p + 1 - \#E(\mathbb{F}_p)$, the prime-to-$p$ part of the <em>trace of Frobenius</em>.</p>
+<p>Let $E/\mathbb{Q}$ be an <a href="./elliptic-curves.html">elliptic curve</a> with minimal discriminant $\Delta$ and conductor $N$ (same prime support as $\Delta$; see <a href="./singular-cubics-reduction.html">singular cubics &amp; reduction</a>). For each prime $p$ we classify reduction and read off a local factor. Define $a_p = p + 1 - \#E(\mathbb{F}_p)$; this is the <em>trace of Frobenius</em> at $p$.</p>
 
 <table class="plain">
 <thead><tr><th>reduction type at $p$</th><th>condition on $p$ and $\Delta$</th><th>local factor $L_p(s)$</th></tr></thead>
@@ -391,20 +391,20 @@ The coefficients $a_n$ are determined by the local quadratics via the recursion 
 (function(){
   const svg = $('#ap-svg');
   if(!svg) return;
-  // a_p for E: y^2 = x^3 - x (LMFDB 32.a, CM by Z[i])
+  // a_p for E: y^2 = x^3 - x (LMFDB 32.a3, CM by Z[i])
   // For this CM curve, a_p = 0 when p ≡ 3 (mod 4); else a_p computed from p = a^2+b^2 with a odd.
   const PRIMES = [3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59];
   function ap(p){
     if(p===2) return null; // additive
     if(p%4 === 3) return 0;
-    // p = a^2 + b^2 with a odd, a ≡ 1 (mod 4) possibly; take a_p = 2a with that sign convention.
+    // p = a^2 + b^2 with a odd. LMFDB sign convention for 32.a3: pick a so that a ≡ 3 (mod 4)
+    // (i.e. negate when a ≡ 1 (mod 4)). Then a_p = 2a. Verified at p=5,13,29,37,53.
     for(let a = 1; a*a <= p; a+=2){
       const b2 = p - a*a;
       const b = Math.round(Math.sqrt(b2));
       if(b*b === b2){
-        // convention: a_p = 2a if a is odd and a ≡ 1 (mod 4), else 2a with a ≡ 1 (mod 4) forced
         let aa = a;
-        if(aa % 4 === 3) aa = -aa;
+        if(aa % 4 === 1) aa = -aa;
         return 2*aa;
       }
     }
@@ -562,13 +562,14 @@ The coefficients $a_n$ are determined by the local quadratics via the recursion 
   const sV = $('#ec-sv');
   if(!svg || !sInp) return;
 
-  // same CM curve data — compute a_n from a_p via multiplicativity + recursion
+  // same CM curve data — compute a_n from a_p via multiplicativity + recursion.
+  // LMFDB 32.a3 sign convention: pick a so that a ≡ 3 (mod 4); see #w-ap script for details.
   function apCurve(p){
     if(p===2) return 0; // additive
     if(p%4 === 3) return 0;
     for(let a=1;a*a<=p;a+=2){
       const b2 = p-a*a; const b = Math.round(Math.sqrt(b2));
-      if(b*b===b2){ let aa=a; if(aa%4===3) aa=-aa; return 2*aa; }
+      if(b*b===b2){ let aa=a; if(aa%4===1) aa=-aa; return 2*aa; }
     }
     return 0;
   }
@@ -722,7 +723,7 @@ $$L(f,s) \;=\; \sum_{n\ge 1}\frac{a_n}{n^s}$$
 has an Euler product, courtesy of Hecke:
 $$L(f,s) \;=\; \prod_{p \nmid N}\frac{1}{1 - a_p\,p^{-s} + p^{k-1}\,p^{-2s}} \;\cdot\; \prod_{p \mid N}\frac{1}{1 - a_p\,p^{-s}}.$$</p>
 
-<p>The factorization follows from the Hecke recursions $a_{p^{k+1}} = a_p\,a_{p^k} - p^{k-1}\,a_{p^{k-1}}$ at good primes and $a_{mn} = a_m\,a_n$ for $\gcd(m,n)=1$. Multiplicativity of the coefficients is exactly the statement that $L(f,s)$ factors as a product over primes.</p>
+<p>The factorization follows from the Hecke recursions $a_{p^{j+1}} = a_p\,a_{p^j} - p^{k-1}\,a_{p^{j-1}}$ (with $j\ge 1$ the recursion index, $k$ still the weight) at good primes and $a_{mn} = a_m\,a_n$ for $\gcd(m,n)=1$. Multiplicativity of the coefficients is exactly the statement that $L(f,s)$ factors as a product over primes.</p>
 
 <p>For weight $k=2$ the local factor $\bigl(1 - a_p p^{-s} + p\cdot p^{-2s}\bigr)^{-1}$ has <em>the same shape</em> as the local factor of an elliptic curve at a good prime. This coincidence is not a coincidence; it is the statement of <a href="#modularity">modularity</a>.</p>
 
@@ -1219,9 +1220,9 @@ Exponential decay of $f(iy)$ as $y\to\infty$ makes the second integral entire in
 $$\zeta(2k) \;=\; (-1)^{k+1}\,\frac{(2\pi)^{2k}\,B_{2k}}{2\,(2k)!},$$
 where $B_{2k}$ are Bernoulli numbers. The transcendentals are packaged into $\pi^{2k}$; the arithmetic is in the rational number $B_{2k}$. At negative integers $\zeta(1-n) = -B_n/n$ — pure rationals. This is the shape the theory is after: a special value is a product of a "period" (transcendental) with an arithmetic invariant (rational, class number, regulator, etc.).</p>
 
-<p>For Dirichlet $L$-functions the analogue is the <strong>class number formula</strong>: for a nontrivial character $\chi$ of conductor $q$,
-$$L(1,\chi) \;=\; \text{(elementary factor)}\cdot\frac{2\pi\,h\,R}{w\sqrt{|d|}},$$
-where $h$, $R$, $w$, $d$ are the class number, regulator, number of roots of unity, and discriminant of the abelian extension cut out by $\chi$. The <em>central value</em> $L(1,\chi)$ literally counts how far the ring of integers of that extension is from being a PID.</p>
+<p>For Dirichlet $L$-functions the analogue is the <strong>class number formula</strong>. In the cleanest case — an imaginary quadratic field $K=\mathbb{Q}(\sqrt{d})$ with $d&lt;0$, cut out by the Kronecker character $\chi_d$ — it reads
+$$L(1,\chi_d) \;=\; \frac{2\pi\,h}{w\sqrt{|d|}},$$
+where $h$ is the class number of $K$ and $w$ the number of roots of unity in $K$ (the regulator $R$ equals $1$ here because the unit group is finite). For real quadratic and higher-degree abelian extensions the formula gains a regulator factor and a different elementary constant; for non-quadratic Dirichlet $\chi$ one applies it via the abelian extension that $\chi$ cuts out. In every case the <em>central value</em> $L(1,\chi)$ literally counts how far the ring of integers of that extension is from being a PID.</p>
 
 <p>For elliptic curves the center of the functional equation is $s=1$, and <strong>Birch–Swinnerton-Dyer</strong> predicts
 $$\mathrm{ord}_{s=1} L(E,s) \;=\; \mathrm{rank}\,E(\mathbb{Q}),$$

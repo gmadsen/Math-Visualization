@@ -140,7 +140,7 @@
             "Terminal singularities"
           ],
           "answer": 2,
-          "explain": "Hara–Watanabe (1996) and Hara–Mehta–Smith showed: a complex normal $\\mathbb{Q}$-Gorenstein singularity is klt iff its reduction mod $p$ is $F$-regular for all $p\\gg 0$ (with appropriate compatibility conditions). $F$-rational ↔ rational; $F$-pure ↔ log canonical."
+          "explain": "Hara–Watanabe (1996, 2002) showed a complex normal $\\mathbb{Q}$-Gorenstein singularity is klt iff its reduction mod $p$ is $F$-regular for all $p\\gg 0$; Smith and Hara independently gave the rational $\\Leftrightarrow$ $F$-rational bridge, and $F$-pure $\\Leftrightarrow$ log canonical holds in the same asymptotic-$p$ sense."
         },
         {
           "type": "mcq",

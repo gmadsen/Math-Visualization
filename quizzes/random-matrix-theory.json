@@ -107,12 +107,12 @@
           "q": "For a $N\\times N$ GUE matrix, which rescaling makes $\\lambda_{\\max}-2\\sqrt N$ converge to the Tracy–Widom $F_2$ distribution?",
           "choices": [
             "$N^{1/2}(\\lambda_{\\max}-2\\sqrt N)$",
-            "$N^{2/3}(\\lambda_{\\max}-2\\sqrt N)$",
+            "$N^{1/6}(\\lambda_{\\max}-2\\sqrt N)$",
             "$N(\\lambda_{\\max}-2\\sqrt N)$",
             "$\\log N\\cdot(\\lambda_{\\max}-2\\sqrt N)$"
           ],
           "answer": 1,
-          "explain": "Soft-edge fluctuations of $\\lambda_{\\max}$ in a Wigner ensemble are on the $N^{-2/3}$ scale; multiplying by $N^{2/3}$ gives an order-one limit, the Tracy–Widom $F_\\beta$ distribution. Bulk gaps, by contrast, are on the $N^{-1}$ scale."
+          "explain": "With the page's unrescaled convention (bulk on $[-2\\sqrt N, 2\\sqrt N]$, joint density $\\propto e^{-\\beta\\sum\\lambda_i^2/4}$), the soft-edge fluctuations of $\\lambda_{\\max}-2\\sqrt N$ are on the $N^{-1/6}$ scale; multiplying by $N^{1/6}$ gives an order-one Tracy–Widom $F_\\beta$ limit. (After first rescaling eigenvalues by $1/\\sqrt N$ so the bulk lives on $[-2,2]$, the fluctuation scale becomes the more familiar $N^{-2/3}$.) Bulk gaps in either convention are on the $N^{-1}$ scale."
         },
         {
           "type": "multi-select",

@@ -470,15 +470,19 @@ recovers the $j$-function. The requirement that the Monster acts is then a const
     1n, 196883n, 21296876n, 842609326n, 18538750076n, 19360062527n,
     293553734298n, 3879214937598n, 12432283649025n,
   ];
-  // Multiplicities m_{i,n} in V^♮_n for small n (published decompositions).
+  // Multiplicities m_{i,n} in V^♮_n for small n.
   // entry is: n -> array of multiplicities for V_1..V_9 (we use only the first few).
+  // n = -1, 1, 2, 3 are the canonical Frenkel–Lepowsky–Meurman decompositions.
+  // n = 4, 5 are *sample* non-negative-integer combinations that sum to c_n; the
+  // canonical FLM decomposition for n >= 4 involves additional Monster irreps and
+  // is tabulated in Conway–Norton (1979) Table 4.
   const DEC = {
     "-1": [1, 0, 0, 0, 0, 0, 0, 0, 0],
      "1": [1, 1, 0, 0, 0, 0, 0, 0, 0],
      "2": [1, 1, 1, 0, 0, 0, 0, 0, 0],
      "3": [2, 2, 1, 1, 0, 0, 0, 0, 0],
-     "4": [2, 3, 2, 1, 1, 0, 0, 0, 0],
-     "5": [4, 5, 3, 2, 1, 1, 0, 0, 0],
+     "4": [3, 3, 1, 2, 1, 0, 0, 0, 0],
+     "5": [4, 5, 3, 2, 1, 1, 1, 0, 0],
   };
   // c_n for sanity check
   const C = {
@@ -512,6 +516,13 @@ recovers the $j$-function. The requirement that the Monster acts is then a const
     lines.push(`  sum                                = ${total.toString()}`);
     lines.push(`  target c_${n===-1?'{-1}':n}                              = ${c.toString()}`);
     lines.push(`  match? ${total === c ? 'YES' : 'NO'}`);
+    if(n === '4' || n === '5'){
+      lines.push('');
+      lines.push('note: for n ≥ 4 the canonical FLM decomposition involves additional');
+      lines.push('      Monster irreps; the multiplicities shown here are one valid');
+      lines.push('      non-negative integer combination summing to c_n. See');
+      lines.push('      Conway–Norton (1979) Table 4 for the published decomposition.');
+    }
     out.textContent = lines.join('\n');
   }
   sel.addEventListener('change', render);
@@ -906,7 +917,7 @@ with integer-coefficient polynomials $\alpha,\beta$ determined by the genus-zero
            // Display the Faber polynomial Phi_4 expansion sketch:
            return { lines:[
              'Faber polynomial recursion (sketch):',
-             '   Phi_4(X) = X^4 - 4 c(1) X^2 - 4 c(2) X - 2 c(1)^2 - 4 c(3)',
+             '   Phi_4(X) = X^4 - 4 c(1) X^2 - 4 c(2) X + 2 c(1)^2 - 4 c(3)',
              '   Phi_4(J(tau)) = q^{-4} + O(q)  forces:',
              '     c(4) = (numerical combination of c(1), c(2), c(3))',
              '',

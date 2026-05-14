@@ -265,7 +265,7 @@
             "$\\mathrm{SO}(3)$"
           ],
           "answer": 3,
-          "explain": "$\\mathrm{SO}(3)$ is not a subgroup of $\\mathrm{USp}(2)\\cong\\mathrm{SU}(2)$ in the relevant sense for rank-2 motives. The Sato–Tate groups for rank-2 motives are $\\mathrm{SU}(2)$ (non-CM), $N(T)$ (CM over $\\mathbb{Q}$), or $U(1)$ (CM over the base field); $\\mathrm{SO}(3)$ appears for symmetric-square motives, not rank-2."
+          "explain": "The Sato–Tate group of a rank-2 motive sits inside $\\mathrm{USp}(2)\\cong\\mathrm{SU}(2)$, so the only candidates are $\\mathrm{SU}(2)$ (non-CM), $N(T)$ (CM over $\\mathbb{Q}$), and $U(1)$ (CM over the base field). $\\mathrm{SO}(3)\\cong\\mathrm{SU}(2)/\\{\\pm I\\}$ is a quotient of $\\mathrm{SU}(2)$, not a subgroup, and it acts on a 3-dimensional representation; it does arise as a Sato–Tate group — but for rank-3 symmetric-square motives, not for rank 2."
         },
         {
           "type": "numeric",

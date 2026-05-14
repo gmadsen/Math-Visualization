@@ -388,7 +388,7 @@ function drawNode(svg, x, y, label, opts={}){
 
 <h3>Real fields and function fields</h3>
 
-<p>For real quadratic $K=\mathbb{Q}(\sqrt{d})$ ($d>0$), Cohen–Lenstra–Friedman–Washington predict a different measure — twisted by the rank of the unit group — because $\mathcal{O}_K^\times$ has rank one and contributes a factor $|\mathrm{Aut}(A)|^{-1}\cdot |A|^{-1}$. The real heuristic predicts $p\nmid h$ with probability $\prod_{k\ge 2}(1-p^{-k})$, which for $p=3$ is $\approx 0.7544$.</p>
+<p>For real quadratic $K=\mathbb{Q}(\sqrt{d})$ ($d>0$), Cohen–Lenstra–Friedman–Washington predict a different measure — twisted by the rank of the unit group — because $\mathcal{O}_K^\times$ has rank one and contributes a factor $|\mathrm{Aut}(A)|^{-1}\cdot |A|^{-1}$. The real heuristic predicts $p\nmid h$ with probability $\prod_{k\ge 2}(1-p^{-k})$, which for $p=3$ is $\approx 0.8402$.</p>
 
 <p>For $\mathbb{F}_q(t)$ replacing $\mathbb{Q}$, Ellenberg–Venkatesh–Westerland (2016) proved a Cohen–Lenstra-type theorem unconditionally by computing the cohomology of Hurwitz moduli spaces — the function-field analogue of CL is a <em>theorem</em>, not a heuristic.</p>
 
@@ -547,7 +547,7 @@ function drawNode(svg, x, y, label, opts={}){
 
 <h3>Density consequences</h3>
 
-<p>Here is the dazzling payoff: take $\ell=5$. Then $\mathbb{E}[|\mathrm{Sel}_5|]=6$. If the $5$-Selmer rank were always $\ge 2$, the average would be $\ge 1+5^2=26$. Since it is $6$, a positive proportion of $E$ have $5$-Selmer rank $\le 1$, hence $\mathrm{rk}\,E(\mathbb{Q})\le 1$ for that proportion. Sharpening this: <strong>at least $\tfrac{20.62}{100}$ of $E/\mathbb{Q}$ have rank $0$, and at least $\tfrac{83.75}{100}$ have rank $\le 1$</strong> (Bhargava–Shankar–Skinner–Zhang).</p>
+<p>Here is the dazzling payoff: take $\ell=5$. Then $\mathbb{E}[|\mathrm{Sel}_5|]=6$. If the $5$-Selmer rank were always $\ge 2$, the average would be $\ge 5^2=25$. Since it is $6$, a positive proportion of $E$ have $5$-Selmer rank $\le 1$, hence $\mathrm{rk}\,E(\mathbb{Q})\le 1$ for that proportion. Sharpening this: <strong>at least $\tfrac{20.62}{100}$ of $E/\mathbb{Q}$ have rank $0$, and at least $\tfrac{83.75}{100}$ have rank $\le 1$</strong> (Bhargava–Shankar–Skinner–Zhang).</p>
 
 <div class="widget" id="w-selmer">
   <div class="hd"><div class="ttl">Selmer-size histogram</div><div class="hint">simulate $|\mathrm{Sel}_2|$ in a quadratic-twist family</div></div>
@@ -921,8 +921,8 @@ function drawNode(svg, x, y, label, opts={}){
 <table class="plain">
 <thead><tr><th>family</th><th>symmetry type</th><th>density of $1$st zero near $\tfrac12$</th></tr></thead>
 <tbody>
-<tr><td>$\zeta(s)$ alone</td><td>$U$ (unitary)</td><td>$1-\sin(\pi x)/(\pi x)$ (Montgomery)</td></tr>
-<tr><td>$\{L(s,\chi_d)\}_{d}$ Dirichlet quadratic</td><td>$\mathrm{USp}$ (symplectic)</td><td>$1+\sin(2\pi x)/(2\pi x) - \cos(2\pi x)$</td></tr>
+<tr><td>$\zeta(s)$ alone</td><td>$U$ (unitary)</td><td>$1$ (constant; pair-correlation is $1-(\sin(\pi x)/(\pi x))^2$, Montgomery)</td></tr>
+<tr><td>$\{L(s,\chi_d)\}_{d}$ Dirichlet quadratic</td><td>$\mathrm{USp}$ (symplectic)</td><td>$1-\sin(2\pi x)/(2\pi x)$</td></tr>
 <tr><td>$\{L(s,E)\}_E$ elliptic-curve</td><td>$O$ (orthogonal)</td><td>repels at $x=0$</td></tr>
 <tr><td>$\{L(s,f)\}_f$ holomorphic forms of fixed weight</td><td>$O$ split by sign</td><td>$O^+$ vs $O^-$ density</td></tr>
 </tbody>
@@ -947,7 +947,7 @@ function drawNode(svg, x, y, label, opts={}){
   </div>
   <svg id="sym-svg" viewBox="0 0 720 280" width="720" height="280"><title>Symmetry-type explorer</title></svg>
   <div class="readout" id="sym-out"></div>
-  <p class="small">Plot of the conjectural / proven $1$-level density $W(x)$ of low-lying zeros, plotted at scaled height $x$. $U$ has constant density; $\mathrm{USp}$ rises ("attraction" to $\tfrac12$); $O^-$ has a delta at $0$ (forced zero from odd root number); $O^+$ repels.</p>
+  <p class="small">Plot of the conjectural / proven $1$-level density $W(x)$ of low-lying zeros, plotted at scaled height $x$. $U$ has constant density; $\mathrm{USp}$ <em>repels</em> at $x=0$ ($W(0)=0$, no zeros at the central point); $O^+$ shows the "attraction" — extra eigenvalue density near $0$; $O^-$ has a delta at $0$ (forced zero from odd root number).</p>
 </div>
 <script>
 (function(){
@@ -1066,7 +1066,7 @@ function drawNode(svg, x, y, label, opts={}){
 <section id="connections">
 <h2>Connections</h2>
 
-<p>Arithmetic statistics is open at every frontier: Malle's conjecture is wide open for $n\ge 6$, the Cohen–Lenstra heuristics for cubic and higher-degree fields are largely conjectural, the elliptic-curve average rank is conjecturally $\tfrac12$ but only proved $\le 1.17$ unconditionally, and the Katz–Sarnak symmetry assignment for high-rank automorphic families is in flux.</p>
+<p>Arithmetic statistics is open at every frontier: Malle's conjecture is wide open for $n\ge 6$, the Cohen–Lenstra heuristics for cubic and higher-degree fields are largely conjectural, the elliptic-curve average rank is conjecturally $\tfrac12$ but only proved $\le 0.885$ unconditionally (Bhargava–Shankar, via $5$-Selmer), and the Katz–Sarnak symmetry assignment for high-rank automorphic families is in flux.</p>
 
 <ul>
   <li><a href="./algebraic-number-theory.html#class-group">Algebraic number theory — class groups</a> — the populations whose distribution Cohen–Lenstra describes.</li>

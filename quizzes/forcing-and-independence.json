@@ -209,7 +209,7 @@
             "Commutativity of ordinal addition."
           ],
           "answer": 2,
-          "explain": "Jensen showed $V=L$ implies $\\neg$SH (a Suslin tree exists), while Solovay–Tennenbaum forced SH using countable-support iterated forcing. So SH is independent of ZFC."
+          "explain": "Jensen showed $V=L$ implies $\\neg$SH (a Suslin tree exists), while Solovay–Tennenbaum forced SH using finite-support iterated ccc forcing. So SH is independent of ZFC."
         },
         {
           "type": "mcq",

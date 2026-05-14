@@ -213,9 +213,9 @@
         {
           "type": "numeric",
           "q": "In a snake-lemma setup with $\\alpha=\\mathrm{id}_{\\mathbb{Z}/4}$, $\\beta=\\mathrm{id}_{\\mathbb{Z}/4}$, $\\gamma=\\mathrm{id}_{\\mathbb{Z}/4}$ and exact rows being the identity sequence, what is $|\\ker\\delta|$?",
-          "answer": 4,
+          "answer": 1,
           "tol": 1e-06,
-          "explain": "With all vertical maps being identities, $\\ker\\gamma=0$ (since $\\gamma=\\mathrm{id}$, every element is in the image, kernel is trivial — but actually $\\ker(\\mathrm{id})=0$). Wait: $\\ker\\delta$ is the kernel of $\\delta:\\ker\\gamma\\to\\operatorname{coker}\\alpha$. Since $\\ker\\gamma=0$ (identity is injective), the domain is $0$ and $\\ker\\delta=0$. But if rows are $0\\to\\mathbb{Z}/4\\xrightarrow{\\mathrm{id}}\\mathbb{Z}/4\\to 0$, then $\\ker\\gamma=\\mathbb{Z}/4$, $\\operatorname{coker}\\alpha=0$, and $\\delta=0$ with $\\ker\\delta=\\mathbb{Z}/4$, so $|\\ker\\delta|=4$."
+          "explain": "The connecting map $\\delta\\colon\\ker\\gamma\\to\\operatorname{coker}\\alpha$ has domain $\\ker\\gamma$. Since $\\gamma=\\mathrm{id}_{\\mathbb{Z}/4}$ is injective, $\\ker\\gamma=0$ is the trivial group. Hence $\\delta\\colon 0\\to\\operatorname{coker}\\alpha$ is the zero map on the zero group, and $\\ker\\delta=0$ has exactly one element, so $|\\ker\\delta|=1$."
         },
         {
           "type": "spot-the-error",
@@ -371,9 +371,9 @@
         {
           "type": "numeric",
           "q": "Using the long exact sequence of the pair $(D^2, S^1)$ and the fact that $D^2$ is contractible, compute $\\dim_{\\mathbb{Q}} H_1(D^2,S^1;\\mathbb{Q})$.",
-          "answer": 1,
+          "answer": 0,
           "tol": 1e-06,
-          "explain": "The LES gives $H_1(D^2)\\to H_1(D^2,S^1)\\to H_0(S^1)\\to H_0(D^2)$. Since $D^2$ is contractible, $H_1(D^2)=0$ and the map $H_0(S^1)\\cong\\mathbb{Q}\\to H_0(D^2)\\cong\\mathbb{Q}$ is an isomorphism. So $H_1(D^2,S^1)\\cong\\mathbb{Q}$, dimension $1$. (By excision this equals $\\tilde{H}_1(S^1)\\cong\\mathbb{Q}$.)"
+          "explain": "The relevant slice of the LES is $H_1(D^2)\\to H_1(D^2,S^1)\\xrightarrow{\\partial}H_0(S^1)\\xrightarrow{i_*}H_0(D^2)$. Since $D^2$ is contractible, $H_1(D^2)=0$, and the inclusion induces an isomorphism $i_*\\colon H_0(S^1)\\cong\\mathbb{Q}\\xrightarrow{\\sim}H_0(D^2)\\cong\\mathbb{Q}$ (both spaces are path-connected). Exactness forces $\\partial$ to land in $\\ker i_*=0$, so $H_1(D^2,S^1)=0$, dimension $0$. (Equivalently, by excision $H_n(D^2,S^1)\\cong\\tilde H_n(D^2/S^1)\\cong\\tilde H_n(S^2)$, which vanishes for $n=1$ and is $\\mathbb{Q}$ only at $n=2$.)"
         },
         {
           "type": "mcq",

@@ -485,8 +485,9 @@ For the holomorphic-form version this was proved by Deligne via étale cohomolog
 <thead><tr><th>year</th><th>author</th><th>$|a_f(p)|\le$</th></tr></thead>
 <tbody>
 <tr><td>—</td><td>trivial</td><td>$2 p^{1/2}$ (square-root cancellation lower bound)</td></tr>
-<tr><td>1995</td><td>Bump–Duke–Hoffstein–Iwaniec</td><td>$2 p^{5/28}$</td></tr>
-<tr><td>2002</td><td>Kim–Shahidi</td><td>$2 p^{1/9}$</td></tr>
+<tr><td>1992</td><td>Bump–Duke–Hoffstein–Iwaniec</td><td>$2 p^{1/5}$</td></tr>
+<tr><td>1995</td><td>Luo–Rudnick–Sarnak</td><td>$2 p^{5/28}$</td></tr>
+<tr><td>2002</td><td>Kim–Shahidi</td><td>$2 p^{5/34}$</td></tr>
 <tr><td>2003</td><td>Kim–Sarnak</td><td>$\mathbf{2\,p^{7/64}}$</td></tr>
 <tr><td>conj.</td><td>Ramanujan–Petersson</td><td>$2$</td></tr>
 </tbody>
@@ -652,7 +653,7 @@ the exact analog of the prime number theorem under the substitution $N=e^X$. Clo
   }
   const W=640, H=220, pad=46;
   // first ~12 cuspidal Laplacian eigenvalues on SL2(Z)\H (approx, normalized)
-  const cuspLambdas = [91.14, 148.4, 190.1, 226.0, 269.2, 296.4, 357.3, 384.4, 437.1, 461.5, 500.7, 540.0];
+  const cuspLambdas = [91.14, 148.43, 190.14, 206.42, 260.69, 277.43, 314.92, 330.79, 377.42, 395.61, 421.48, 454.61];
   const Tmax = 600;
   function mx(lam){ return pad + (W-2*pad)*Math.min(lam,Tmax)/Tmax; }
   function render(){
@@ -921,7 +922,7 @@ the exact analog of the prime number theorem under the substitution $N=e^X$. Clo
     return;
   }
   // First 12 cuspidal Maass eigenvalues (approx); after the 12th use Weyl-density to extrapolate.
-  const knownLambdas = [91.14, 148.42, 190.13, 226.08, 268.83, 296.42, 357.32, 384.41, 437.13, 461.50, 500.66, 540.06];
+  const knownLambdas = [91.14, 148.43, 190.14, 206.42, 260.69, 277.43, 314.92, 330.79, 377.42, 395.61, 421.48, 454.61];
   function N_emp(t){
     // step over knownLambdas, then Weyl extension
     let count = 0;
