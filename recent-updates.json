@@ -1,6 +1,14 @@
 {
-  "generated": "2026-05-14T00:34:55.164Z",
+  "generated": "2026-05-14T00:40:31.086Z",
   "entries": [
+    {
+      "slug": "computational-molecular-biology",
+      "title": "Computational molecular biology",
+      "color": "c",
+      "tag": "",
+      "date": "2026-05-13",
+      "message": "New topic: Computational molecular biology (Probability & statistics) (#180)"
+    },
     {
       "slug": "convex-optimization",
       "title": "Convex optimization",
@@ -32,14 +40,6 @@
       "tag": "",
       "date": "2026-05-12",
       "message": "New topic: Combinatorial optimization (Control theory & optimization) (#177)"
-    },
-    {
-      "slug": "computational-molecular-biology",
-      "title": "Computational molecular biology",
-      "color": "c",
-      "tag": "",
-      "date": "2026-05-12",
-      "message": "New topic: Computational molecular biology (Probability & statistics)"
     },
     {
       "slug": "conformal-and-cr-geometry",
