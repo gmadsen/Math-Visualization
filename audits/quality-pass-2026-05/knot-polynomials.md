@@ -1,0 +1,41 @@
+# knot-polynomials — pedagogical audit (2026-05)
+
+**Section:** Geometry & topology
+**Compared against:** algebraic-topology, khovanov-homology
+
+## Summary
+Sections 1–6 are tight, voiced well, and uniformly well-toyed. The page falls off in §7 (Vassiliev) and §8 (Khovanov), which lose their interactive widgets and pile up jargon (4T relation, KZ connection, Casson invariant, Conway $\nabla_K(z)$) that has not been introduced; §8 also drifts in Frobenius-algebra notation away from the canonical convention used on its sibling page khovanov-homology.html.
+
+## Findings
+### Notation drift
+- Frobenius algebra on the same object: knot-polynomials §8 line 577 writes `$A = \mathbb{Q}\langle 1, X\rangle$`; khovanov-homology line 309 writes `$A=\mathbb{Z}[X]/(X^2)$`. Same algebra, two different notations on adjacent pages. Recommend matching khovanov-homology's `$\mathbb{Z}[X]/(X^2)$` (also matches §8 line 589's own later usage `$\mathbb{Q}[X]/X^2$`, which itself drops parentheses around the relation — a third local convention).
+- Khovanov complex symbol drift inside knot-polynomials: line 420 introduces `$\mathrm{Kh}^{i,j}(L)$`, then line 579 switches to `$\widetilde{C}^{i,j}(D)$`, then line 583 switches again to bare `$H^{i,j}(L)$` (and §8 line 589 uses `$H^{*,*}(L)$`). Khovanov-homology uses `Kh^{i,j}` throughout. Settle on `Kh^{i,j}` per the sibling page.
+- `\mathfrak{sl}_n` vs bare `sl_n`: line 534 (related backlink) uses `$sl_n$`, line 593 prose uses `$\mathfrak{sl}_n$`. Khovanov-homology has the same drift (TOC line 247 `$sl_n$`, prose line 448 `$\mathfrak{sl}_n$`). Cosmetic but visible, since both are display-rendered. Recommend `\mathfrak{sl}_n` everywhere it appears as a Lie algebra symbol; reserve bare `sl_n` for rendered names like "$sl_n$ link homology".
+- Skein-trace naming: §3 (Alexander) uses `$L_+, L_-, L_0$`, §4 (Jones / Kauffman) switches to `$L_\times, L_0, L_\infty$` for the bracket (line 393), §4 returns to `$L_+, L_-, L_0$` for the Jones skein (line 419), §5 (HOMFLY) uses `$L_+, L_-, L_0$`. The middle switch is justified (oriented vs unoriented) but never narrated; a one-clause aside ("the bracket is unoriented, so we name the two smoothings $L_0, L_\infty$") would close the gap.
+
+### Undefined jargon
+- "writhe" appears in the §1 widget readout (line 280 doesn't, but §2 list lines 305–307 use "writhe" four times) before its definition lands at line 412 in §4 ("`<em>writhe</em> $w(D) = \sum_{\text{crossings}} \pm 1$`"). The §2 readout "Changes the writhe by ±1" (line 318) is the first unhinged occurrence; either define inline in §2 or callback-forward.
+- "4T relation" introduced at line 549 with only a parenthetical "a four-term identity forced by sliding a chord across a strand" — too compressed to be self-contained; readers without prior exposure get the name without the picture. Compare khovanov-homology's §1 prose for the cube of resolutions, which actually narrates the "split / merge" picture.
+- "KZ connection" appears once at line 568 ("an iterated integral cousin to the KZ connection") with no definition, no expansion ("Knizhnik–Zamolodchikov"), and no callback. It is the only mention on the page. Either drop the comparison or expand to one clause.
+- "Casson invariant" cited as basis label `$a_2$ (Casson invariant)` in the table at line 562 with no surrounding sentence. Reader has no idea what an order-2 Vassiliev invariant of a knot is doing being called "Casson" (Casson's original invariant is a 3-manifold invariant). One sentence of context, please.
+- Conway polynomial `$\nabla_K(z)$` cited at line 555 ("The same holds for Conway $\nabla_K(z)$ and HOMFLY") never appears anywhere else on the page and is not introduced. Either define it (it's the Alexander polynomial in a different variable) or drop it.
+- "knot Floer homology" at line 593 — bare name, no callback to `./heegaard-floer.html#knot-floer` (which the page already backlinks to in a `Used in` block on line 380, so the cross-page is known). Add the link inline.
+
+### Tone mismatches
+- §6 (Quantum invariants) line 529 closes with a heroic-sounding paragraph ("This is the grand unification … a still-open bridge between quantum and hyperbolic topology") that compresses Witten / Reshetikhin–Turaev / volume conjecture into a single rhetorical wave. The sibling khovanov-homology §6 ("Applications and open problems") instead breaks each result into a `<strong>`-headed micro-paragraph (Detection results, Slice-disk obstructions, Open frontiers). The §6 final paragraph here reads more textbook-summary than worked-narration; a structured breakdown would match section voice.
+- §8 (Khovanov) is essentially a 35-line definition slab (lines 575–593). Compare khovanov-homology §3 ("Categorifying the Jones polynomial") which intersperses prose with `<strong>Reidemeister invariance.</strong>` and `<strong>Functoriality under cobordisms.</strong>` callouts and ends with a widget. Knot-polynomials §8 has the bullet list of "headline applications" but no widget and no narrative bridge into the next display formula — feels like a synopsis rather than a section.
+- §7 (Vassiliev) line 547 writes "Then $\mathcal{V}_0 \subset \mathcal{V}_1 \subset \mathcal{V}_2 \subset \cdots$ is an exhaustive filtration". The "Then" gestures forward without showing what's exhausted; the rest of the section then jumps straight into Bar-Natan's expansion without explicitly labeling what to do with $h^n$. A "let's see what this filtration looks like at small $n$" hand-off would help.
+
+### Missing worked examples
+- §7 (Vassiliev / finite-type invariants): NO `.widget`. Only a static `<table class="plain">` of dimensions $\dim \mathcal{V}_n / \mathcal{V}_{n-1}$. By the AGENTS.md house rule "Every numbered `<h2>` section should have at least one concrete computation or widget", this section misses the bar. A `chord-diagram-explorer` (click chord configurations on $S^1$, see them count under the 4T relation) or even a static SVG of the four chord diagrams of order 2 plus the 4T relation would make the abstract "finite-dimensional in each order" claim concrete.
+- §8 (Khovanov homology): also NO `.widget`. The display formula at line 579 (`$\widetilde{C}^{i,j}(D) = \bigoplus \dots$`) and the decategorification claim at line 583 cry out for a "click the trefoil's $Kh$ table" toy — exactly what khovanov-homology §3 has (its `w-jones` widget shows $Kh^{i,j}$ side by side with $V_L(q)$). Even a static cell-grid would close the gap for this section's standalone reader.
+
+### KaTeX macros / formatting
+- Helper macros block (`\Spec`, `\Gal`, `\Hom`, `\tr`, `\ad`, `\ind`) is the canonical six and matches category-theory.html and khovanov-homology verbatim. No new macros invented locally — clean.
+- Page-global helper script (`$`, `$$`, `SVG`, `ensureArrow`, `drawArrow`, `drawNode`) is byte-equivalent to category-theory.html (uses double-quoted attribute strings); knot-polynomials and category-theory match. Khovanov-homology has the same helpers but rewritten in single quotes — a deviation on khovanov-homology's side, not on this page's.
+- Section 4 inline display at line 413 uses `<p style="text-align:center">` for `$X(D) = (-A)^{-3 w(D)} \langle D \rangle$` — works, but the rest of the page mixes two display idioms: `<p style="text-align:center">$…$</p>` (lines 347, 364, 412–413, 419) and proper `$$ … $$` blocks (lines 543, 553, 579). Pick one. The $$…$$ form is conventional in category-theory.html and yields proper KaTeX display spacing without inline comma juggling (note line 347 ends `$\displaystyle \Delta_K(t) = \det(V - tV^T) \in \mathbb{Z}[t, t^{-1}]$,` — comma outside the math, awkward typography).
+- Mid-paragraph `$\mathrm{lk}(\alpha_i^+, \alpha_j)$` at line 344 uses `\mathrm{lk}` once and never again. Cosmetic — could be promoted to a `\lk` page-local macro for consistency, or left alone.
+- Widget chrome (`.widget / .hd / .ttl / .hint / .readout / .row / .note / .ok / .bad`) is used cleanly throughout; no ad-hoc classes spotted in sections that have widgets.
+
+## Severity
+minor polish (sections 1–6 are solid; sections 7–8 need real worked examples and a jargon callback pass to reach parity with the rest of the page and with khovanov-homology.html)
