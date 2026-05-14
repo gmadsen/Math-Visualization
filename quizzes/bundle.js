@@ -57487,9 +57487,9 @@ window.MVQuizBank = {
           {
             "type": "numeric",
             "q": "If $\\theta_p = \\pi/3$ (so $\\alpha_p = \\sqrt{p}\\,e^{i\\pi/3}$), compute $\\alpha_p^2 + \\alpha_p\\beta_p + \\beta_p^2$ divided by $p$. (This is the trace of $\\mathrm{Sym}^2$ Frobenius divided by $p$.)",
-            "answer": 2,
+            "answer": 0,
             "tol": 0.01,
-            "explain": "$\\alpha_p^2 + \\beta_p^2 = a_p^2 - 2p = 4p\\cos^2\\theta_p - 2p$, and $\\alpha_p\\beta_p = p$. Sum = $4p\\cos^2\\theta_p - p$. Dividing by $p$: $4\\cos^2(\\pi/3) - 1 = 4\\cdot\\tfrac14 - 1 = 0$ … plus $\\alpha\\beta/p = 1$, giving $0 + 1 + 1 = 2$. (Equivalently: $\\sum e^{i(2-2k)\\theta_p} = U_2(\\cos\\theta_p) = 4\\cos^2\\theta_p - 1 + 1 = 2$ at $\\theta = \\pi/3$.)"
+            "explain": "$\\alpha_p^2 + \\beta_p^2 = a_p^2 - 2p = 4p\\cos^2\\theta_p - 2p$, and $\\alpha_p\\beta_p = p$. Sum $= 4p\\cos^2\\theta_p - p$. Dividing by $p$: $4\\cos^2(\\pi/3) - 1 = 4\\cdot\\tfrac14 - 1 = 0$. Equivalently, $\\alpha_p^k\\beta_p^{2-k}/p = e^{i(2-2k)\\theta_p}$, so the sum is $e^{2i\\theta_p} + 1 + e^{-2i\\theta_p} = 1 + 2\\cos(2\\theta_p) = U_2(\\cos\\theta_p) = 0$ at $\\theta_p = \\pi/3$."
           },
           {
             "type": "mcq",

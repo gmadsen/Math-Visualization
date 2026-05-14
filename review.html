@@ -724,44 +724,11 @@
   render();
 
   // -------------------------------------------------------------------
-  // Sidetoc population — mirrors the pattern used across topic pages.
+  // Sidetoc population is handled by the shared ./js/sidetoc.js include
+  // above (loaded near the end of <head>). The legacy inline builder
+  // used to live here; keeping it would duplicate the title + link list
+  // and run two competing scroll-spy handlers on the same <aside>.
   // -------------------------------------------------------------------
-  (function populateSidetoc(){
-    const aside = $('aside.sidetoc');
-    if(!aside) return;
-    const sections = $$('main > section[id]');
-    if(sections.length === 0) return;
-    const title = document.createElement('div');
-    title.className = 'sidetoc-title';
-    title.textContent = 'On this page';
-    aside.appendChild(title);
-    const ol = document.createElement('ol');
-    for(const s of sections){
-      const h = s.querySelector('h1, h2');
-      if(!h) continue;
-      const li = document.createElement('li');
-      const a = document.createElement('a');
-      a.href = '#' + s.id;
-      a.textContent = h.textContent;
-      li.appendChild(a);
-      ol.appendChild(li);
-    }
-    aside.appendChild(ol);
-    const links = $$('a', aside);
-    function update(){
-      let active = null;
-      for(const s of sections){
-        const rect = s.getBoundingClientRect();
-        if(rect.top < window.innerHeight * 0.35) active = s.id;
-      }
-      for(const a of links){
-        if(active && a.getAttribute('href') === '#' + active) a.classList.add('active');
-        else a.classList.remove('active');
-      }
-    }
-    window.addEventListener('scroll', update, { passive: true });
-    update();
-  })();
 })();
 </script>
 

@@ -49,7 +49,11 @@ const STEPS = [
   { name: 'quizzes',    script: 'build-quizzes-bundle.mjs',     fix: false },
   { name: 'widgets-bundle', script: 'build-widgets-bundle.mjs', fix: false },
   { name: 'search',     script: 'build-search-index.mjs',       fix: false },
-  { name: 'section-indexes', script: 'build-section-indexes.mjs', fix: false },
+  // Section index pages are derived from concepts/sections.json + index.html
+  // cards. The script writes sections/*.html plus a Sections-row in
+  // index.html. With `fix: true` the unconditional write happens in local
+  // rebuilds; --no-fix flips it to audit-only so CI fails on drift.
+  { name: 'section-indexes', script: 'build-section-indexes.mjs', fix: true  },
   { name: 'recent-updates', script: 'build-recent-updates.mjs',  fix: false },
   { name: 'schema',     script: 'validate-schema.mjs',          fix: false },
   { name: 'widget-params', script: 'validate-widget-params.mjs', fix: false },

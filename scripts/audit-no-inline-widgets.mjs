@@ -35,16 +35,27 @@ const repoRoot = resolve(dirname(__filename), '..');
 
 // ----- Helpers -----
 
-// Count <div class="widget" ... > occurrences in a topic's `raw` HTML blocks
-// — Type A inline widgets.
+// Count `<div ... class="widget...">` occurrences in a topic's `raw` HTML
+// blocks — Type A inline widgets. Match `class` in any attribute position
+// (so `<div id="x" class="widget">` is counted), accept either single or
+// double quotes, and treat `widget` as a whole class token (so `widget-foo`
+// won't false-positive but `widget callback` does).
 function countInlineMarkup(doc) {
   let n = 0;
+  // Two regex passes — one per quote style — keeps the class-token boundary
+  // check straightforward without exploding into nested alternations.
+  // The class token must be exactly `widget` (terminated by whitespace or
+  // closing quote), so `widget-handle` / `widget-foo` don't false-positive.
+  const reDouble = /<div\b[^>]*?\bclass\s*=\s*"(?:[^"]*\s)?widget(?:\s[^"]*)?"/gi;
+  const reSingle = /<div\b[^>]*?\bclass\s*=\s*'(?:[^']*\s)?widget(?:\s[^']*)?'/gi;
   for (const sec of doc.sections || []) {
     for (const b of sec.blocks || []) {
       if (b.type !== 'raw') continue;
       const html = b.html || '';
-      const m = html.match(/<div\s+class="widget(?:\s|"|\s+[^"]*")/g);
-      if (m) n += m.length;
+      const md = html.match(reDouble);
+      if (md) n += md.length;
+      const ms = html.match(reSingle);
+      if (ms) n += ms.length;
     }
   }
   return n;

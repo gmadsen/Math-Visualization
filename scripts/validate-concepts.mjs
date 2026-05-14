@@ -84,7 +84,7 @@ if (!existsSync(sectionsPath)) {
         err(`concepts/sections.json: section "${s.id}" missing string "title"`);
       if (!Array.isArray(s.topics))
         err(`concepts/sections.json: section "${s.id}" missing "topics" array`);
-      for (const t of s.topics || []) {
+      for (const t of Array.isArray(s.topics) ? s.topics : []) {
         if (seenTopics.has(t)) dups.push(t);
         seenTopics.add(t);
       }

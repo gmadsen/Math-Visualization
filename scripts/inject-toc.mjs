@@ -53,6 +53,34 @@ const FIX = argv.includes('--fix');
 
 // ----- Helpers -----
 
+// Named-entity table for the entity decoder used by label extraction. We keep
+// it narrow but cover the entities that real headings actually use (em/en
+// dashes, mdash, quotes, primes). Unknown entities are passed through verbatim
+// so they don't get double-encoded downstream.
+const NAMED_ENTITIES = {
+  amp: '&', lt: '<', gt: '>', nbsp: ' ', quot: '"', apos: "'",
+  ndash: '–', mdash: '—', hellip: '…',
+  lsquo: '‘', rsquo: '’', ldquo: '“', rdquo: '”',
+  prime: '′', Prime: '″', times: '×', minus: '−',
+  middot: '·', bull: '•',
+};
+
+function decodeEntities(s) {
+  return s.replace(/&(#x?[0-9a-fA-F]+|[a-zA-Z]+);/g, (full, body) => {
+    if (body.startsWith('#x') || body.startsWith('#X')) {
+      const cp = parseInt(body.slice(2), 16);
+      return Number.isFinite(cp) ? String.fromCodePoint(cp) : full;
+    }
+    if (body.startsWith('#')) {
+      const cp = parseInt(body.slice(1), 10);
+      return Number.isFinite(cp) ? String.fromCodePoint(cp) : full;
+    }
+    return Object.prototype.hasOwnProperty.call(NAMED_ENTITIES, body)
+      ? NAMED_ENTITIES[body]
+      : full;
+  });
+}
+
 // Extract a clean text label from an H2 like "1. The symmetry of roots" or
 // "5. Fundamental theorem and solvability". Returns just the title portion.
 function extractH2Label(rawHtml) {
@@ -69,9 +97,16 @@ function extractH2Label(rawHtml) {
   // Collapse whitespace.
   label = label.replace(/\s+/g, ' ').trim();
   // HTML-decode common entities so they don't double-encode.
-  label = label.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&nbsp;/g, ' ');
+  label = decodeEntities(label);
   return label || null;
 }
+
+// Sentinel placeholders for inline tags we want to preserve through the
+// HTML-encoding pass in buildTocEntries. Picking literal U+E000-range PUA
+// codepoints means they cannot collide with any real heading content; they
+// get swapped back to real tags after the &/</> escaping round.
+const SUB_OPEN = '', SUB_CLOSE = '';
+const SUP_OPEN = '', SUP_CLOSE = '';
 
 // Extract a heading label from an Hn tag (n = 2 for primary sections, falls
 // back to H3 for appendix-style sections like "Coda"). KaTeX delimiters are
@@ -84,13 +119,20 @@ function extractHeadingLabel(rawHtml, level) {
   if (!m) return null;
   let label = m[1];
   label = label.replace(/^\s*\d+\.\s*/, '');
+  // Preserve <sub>/<sup> markup (e.g. "D<sub>n</sub>") through the escape
+  // pass in buildTocEntries by swapping in PUA sentinels. They get rewritten
+  // back to real tags after &/</> are escaped.
+  label = label.replace(/<sub[^>]*>/gi, SUB_OPEN).replace(/<\/sub>/gi, SUB_CLOSE);
+  label = label.replace(/<sup[^>]*>/gi, SUP_OPEN).replace(/<\/sup>/gi, SUP_CLOSE);
+  // Strip simple inline tags but keep their text.
   label = label.replace(/<\/?(?:em|strong|i|b|span|code)[^>]*>/gi, '');
   // Keep $...$ delimiters intact — KaTeX auto-render handles them at page
   // load. Stripping them would leave bare LaTeX macros, which test-topic-jsdom
   // (correctly) flags as a rendering bug in the nav.
   label = label.replace(/\s+/g, ' ').trim();
-  label = label
-    .replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&nbsp;/g, ' ');
+  // HTML-decode named + numeric entities so they don't double-encode in
+  // buildTocEntries (e.g. &ndash; would otherwise become &amp;ndash;).
+  label = decodeEntities(label);
   return label || null;
 }
 
@@ -146,10 +188,17 @@ function buildTocEntries(sections) {
     // Re-encode the label for HTML output. We keep $...$ KaTeX intact
     // since auto-render runs on the nav at load time. Spaces -> &nbsp; per
     // existing convention; ampersands -> &amp;.
-    const safeLabel = label
+    let safeLabel = label
       .replace(/&/g, '&amp;')
       .replace(/</g, '&lt;')
       .replace(/>/g, '&gt;');
+    // Re-emit preserved <sub>/<sup> markup that survived the escape pass as
+    // PUA sentinels in extractHeadingLabel.
+    safeLabel = safeLabel
+      .replace(new RegExp(SUB_OPEN, 'g'), '<sub>')
+      .replace(new RegExp(SUB_CLOSE, 'g'), '</sub>')
+      .replace(new RegExp(SUP_OPEN, 'g'), '<sup>')
+      .replace(new RegExp(SUP_CLOSE, 'g'), '</sup>');
     const nbspLabel = safeLabel.replace(/ /g, '&nbsp;');
     if (isAppendix) {
       // Appendix-style entry: no number, just a "·" prefix.

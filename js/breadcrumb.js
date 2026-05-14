@@ -88,6 +88,11 @@
     if (anchors.length === 0) return null;
     var wrap = document.createElement('div');
     wrap.className = 'toc-sections';
+    // Assign a deterministic id so the mobile toggle's aria-controls relation
+    // resolves to a real IDREF — without this, ensureToggle wrote
+    // `aria-controls=""` and assistive tech could not follow the link from the
+    // disclosure button to the section list it controls.
+    wrap.id = 'toc-sections';
     nav.insertBefore(wrap, anchors[0]);
     for (var j = 0; j < anchors.length; j++) {
       wrap.appendChild(anchors[j]);

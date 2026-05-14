@@ -546,6 +546,12 @@
       if(e.target === svg || e.target.classList.contains('continent') || e.target.tagName === 'line'){
         state.selectedIdx = -1;
         applyState();
+        // Mirror the click-toggle deselect path: clear cross-widget
+        // selection so timeline / lineage / person-card highlights don't
+        // stay stuck on the previously selected pin.
+        if(window.MVHistoryBus && typeof window.MVHistoryBus.clearSelection === 'function'){
+          window.MVHistoryBus.clearSelection();
+        }
       }
     });
 

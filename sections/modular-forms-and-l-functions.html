@@ -607,6 +607,15 @@
   footer{color:var(--mute);font-size:0.85rem;text-align:center;margin-top:4rem;
     border-top:1px solid var(--line);padding-top:1.4rem}
 </style>
+
+<style>
+  /* Section pages contain a single .sec header — neutralize the
+     collapsible affordance copied from index.html. */
+  .sec{cursor:default;user-select:auto}
+  .sec:hover{border-bottom-color:var(--line);background:transparent;
+    border-left-width:3px;padding-left:0.95rem}
+  .sec::before{content:none}
+</style>
 </head>
 <body>
 <!-- section-index-auto-begin -->
