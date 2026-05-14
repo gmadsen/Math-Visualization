@@ -12,7 +12,7 @@ notation drift / undefined jargon / tone mismatches / missing worked examples / 
 | Logic & Foundations | 8 | 8 | complete |
 | Algebra & homological | 17 | 17 | complete |
 | Higher categories & toposes | 7 | 7 | complete |
-| Analysis | 22 | 0 | pending |
+| Analysis | 22 | 22 | complete |
 | Probability & statistics | 12 | 0 | pending |
 | Geometry & topology | 26 | 0 | pending |
 | Number theory | 19 | 0 | pending |
@@ -21,7 +21,7 @@ notation drift / undefined jargon / tone mismatches / missing worked examples / 
 | Combinatorics & graph theory | 9 | 0 | pending |
 | Mathematical physics | 11 | 0 | pending |
 | Control theory & optimization | 4 | 0 | pending |
-| **Total** | **190** | **32** | **17%** |
+| **Total** | **190** | **54** | **28%** |
 
 ## Higher categories & toposes — consolidated findings (7/7)
 
@@ -162,6 +162,61 @@ All 17 topics rated `minor polish`. Recurring themes across the section:
 ### Cosmetic
 - `zfc`/`commutative-algebra` SVG ID near-collisions (`ch-svg`/`ch-svg2`).
 - `quaternions-octonions` line 459 hex literal `'#111'` (should be `var(--ink)`).
+
+## Analysis — consolidated findings (22/22)
+
+21 topics rated `minor polish`; **1 topic rated `needs rework` (`complex-analysis`)** — the only such finding so far in the audit.
+
+### Real bugs (highest priority)
+- **`complex-analysis.html`**: 8 inline `(§N)` cross-references in §16, §17, §18, §24 target stale section numbers — `Open Mapping` was inserted as §15 after numbering was set, so reader clicking "the residue theorem (§18)" lands on "Classification of singularities" and "Riemann mapping (§24)" lands on "Normal families." (`needs rework`)
+- **`real-analysis.html:1281`** (§8): missing `$…$` delimiters and `\le` macro: text `"The sublevel set ({(x,y): g_a(x,y)le 0})"` renders as raw characters in-browser.
+- **`harmonic-functions.html:287`** (§1): literal `;=;` instead of `\;=\;` — visible semicolons in the defining Laplace equation `$\Delta u ;=; \sum… ;=; 0$`.
+- **`infinity-categories.html:360`** (cross-section reminder): doubled `\\colon` won't render and value-repetition typo (already in Higher categories findings).
+- **`several-complex-variables.html`**:
+  - Lines 165–172 manually load 6 scripts + 2 stylesheets that lines 173–183 then reload inside the `breadcrumb-head-auto-*` fence — 8 duplicated resources, including `concepts/bundle.js`.
+  - §6 line 819: paragraph self-contradicts mid-sentence about whether ℂ²\{0} is Stein (claims it's not, then admits it actually is in a parenthetical).
+  - §6 widget title says "Cousin obstructions on ℂℙ¹×ℂ*" but draws two abstract ellipses, no actual ℂℙ¹/annulus geometry.
+- **`dynamical-systems.html`**:
+  - Line 1244: orphan `</p>` with no opening tag inside a `<div class="note">`.
+  - Line 1386: JS camelCase `fillOpacity:0.25` as SVG attribute (browsers ignore) — §9 `#w-div` blob renders fully opaque instead of 0.25.
+  - Lines 210–212: overrides canonical `drawArrow` defaults (canonical 14/16; target 0/8) — violates AGENTS.md helper-block rule.
+- **`conformal-and-cr-geometry.html`**:
+  - Line 855: cross-reference says "§6 of Several complex variables" but the link goes to `#psh` which is §2 (§6 is Cousin problems).
+  - §7 dictionary widget writes `rows[active].l` strings via `out.textContent` AFTER KaTeX's auto-render pass — users see literal `$\Delta_g$ (Laplacian)` source.
+- **`fixed-point-theorems.html`** §6 Caristi widget: line 472 hint reads `Slide x_0; orbit displacement is capped by varphi.` (raw `x_0` and `varphi`); line 534 SVG axis label is literal `"varphi"` while line 500 uses Unicode `φ`.
+- **`numerical-analysis.html`**: every section §1–§6 emits its "See also" callback TWICE — once fenced, once unfenced after the quiz placeholder. Page has 12 callback asides vs 5 in each peer. The unfenced one isn't strippable by `audit-callbacks.mjs --fix`. Same pattern as `cluster-algebras`/`geometric-and-combinatorial-group-theory`/`quantum-groups` — corpus-wide issue.
+- **`operator-algebras.html` §16**: opener leaks authoring context (`*The user's aside, made precise*`).
+- **`geometric-measure-theory.html`** §6: `gmt-plateau` widget hint promises drag-the-boundary-point interactivity that isn't implemented (endpoints hard-coded at line 1574).
+- **`partial-differential-equations.html` §3** (wave equation): only section without a "See also" callback aside; verify against `concepts/partial-differential-equations.json` whether prereqs were missed.
+
+### Cross-page semantic drift
+- **Heisenberg uncertainty bound** (high priority): `wavelets` §5 quotes `\Delta x\,\Delta\xi\gtrsim 1`; `harmonic-analysis-fourier` §5 establishes `\sigma_x\sigma_\xi\ge 1/(4\pi)`. Two different bounds for the same statement on adjacent pages.
+- **Upper half-plane** (cross-section, with Modular forms): `complex-analysis` §23 uses `\mathbb{H}`; modular-forms uses `\mathcal{H}`.
+- **Sharkovsky/Sharkovskii** spelling: `dynamical-systems` line 825 uses Sharkovskii, line 771 + `mathematical-chaos` everywhere uses Sharkovsky.
+- **Compact operators**: `operator-algebras` uses bare `K(H)`; `spectral-theory` and `functional-analysis` use `\mathcal{K}(H)`.
+- **British vs American spelling**: `sobolev-spaces-distributions` uses _regularised, minimiser, optimisation_ throughout; rest of corpus is American. Consistent enough that it's a stylistic decision worth recording or flipping.
+
+### Within-page notation drift
+- `measure-theory`: `\mathcal{L}` overloaded — informal in §1, formal `\mathcal{L}^p(\mu)` in §8.
+- `complex-analysis`: `\operatorname{Res}` vs `\mathrm{Res}` within 5 lines of each other in §19.
+- `wavelets` §3 jargon dump: QMF / spectral-factor / minimum-phase filter all introduced same sentence (line 358).
+- `infinity-topoi`: `\mathcal{X}_\flat` (line 715) vs standard `\tau_{\leq 0}` (line 952).
+
+### Missing widgets / worked examples
+- `measure-theory` §2 (the foundational σ-algebras section, anomalous given peers' widget-per-section discipline).
+- `functional-analysis` §6, §11, §13, §14, §15 (back-fill PR #89 didn't get widgets).
+- `complex-analysis` §5, §13, §23, §25, §26, §27 (six sections; §27 analytic continuation is the most visual-friendly miss).
+- `advanced-complex-analysis` §4, §5, §6, §7, §8 — five back-to-back narrative-only sections.
+- `harmonic-analysis-fourier` §4 (Schwartz), §6 (Poisson summation).
+- `several-complex-variables` §4 (Domains of holomorphy & Levi pseudoconvexity).
+- `operator-algebras` §12 duplicates §13 state-definition; should refocus on positive cone with worked widget.
+- `microlocal-analysis` §5/§7 jargon density; §6 Strichartz/dispersive name-drops.
+
+### Other
+- `operator-algebras` `\mathrm{conv}` should be `\operatorname{conv}`; type-roman labels `\mathrm{II}_1` not used consistently with bare-ASCII "II$_1$" elsewhere on the same page.
+- `dynamical-systems` §6/§7 duplicate the period-doubling cascade text including the verbatim Feigenbaum-constant formula.
+- `complex-analysis` 2D helper diverges in `pad1/pad2` defaults from canonical (harmless but flagged).
+- `mathematical-chaos` Sharkovsky proof-scrubber uses `$…$` inside `svgInner` strings — `renderMathInElement` skips `<svg>`, needs verification.
 
 ## Logic & Foundations — recommended fix bundle
 
