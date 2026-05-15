@@ -19,6 +19,7 @@
         {left:'\\[',right:'\\]',display:true}
       ],
       throwOnError:false,
+      strict:'ignore',
       macros:{
         '\\Spec':'\\operatorname{Spec}',
         '\\Gal':'\\operatorname{Gal}',
@@ -330,7 +331,8 @@ $$A(\mathbb{C})\;\cong\;V/\Lambda$$
       msg = 'NOT algebraic ✗ — Im(τ) is not positive definite (det='+det.toFixed(2)+', need > 0 with Y₁₁ > 0). The complex torus exists, but it is not projective and admits no nonconstant meromorphic functions.';
     }
     out.innerHTML = msg;
-    if(window.renderMathInElement) window.renderMathInElement(out,{throwOnError:false,delimiters:[{left:'$',right:'$',display:false}]});
+    if(window.renderMathInElement) window.renderMathInElement(out,{throwOnError:false,
+      strict:'ignore',delimiters:[{left:'$',right:'$',display:false}]});
   }
   for(const id of ids) inputs[id].addEventListener('input', update);
   update();
@@ -411,7 +413,8 @@ $$A^\vee \;=\; \mathrm{Pic}^0(A).$$
       r.style.cursor = 'pointer';
     });
     out.innerHTML = desc[i] || desc[desc.length-1];
-    if(window.renderMathInElement) window.renderMathInElement(out,{throwOnError:false,delimiters:[{left:'$',right:'$',display:false}]});
+    if(window.renderMathInElement) window.renderMathInElement(out,{throwOnError:false,
+      strict:'ignore',delimiters:[{left:'$',right:'$',display:false}]});
   }
   rows.forEach((r,i)=>{
     r.addEventListener('click', ()=>select(i));
@@ -532,7 +535,8 @@ The number of points satisfies $|A(\mathbb{F}_{q^n})|=\prod_i(1-\alpha_i^n)$, so
       '$|A(\\mathbb{F}_{'+Q+'^{'+N+'}})| = '+pts+'$. '+
       'Imag residue $\\approx '+imag.toFixed(3)+'$ (numerically $0$ — eigenvalues come in conjugate pairs). '+
       bound+'.';
-    if(window.renderMathInElement) window.renderMathInElement(out,{throwOnError:false,delimiters:[{left:'$',right:'$',display:false},{left:'$$',right:'$$',display:true}]});
+    if(window.renderMathInElement) window.renderMathInElement(out,{throwOnError:false,
+      strict:'ignore',delimiters:[{left:'$',right:'$',display:false},{left:'$$',right:'$$',display:true}]});
   }
   for(const el of [q, g, th1, th2, n]) el.addEventListener('input', update);
   update();
@@ -629,7 +633,8 @@ is injective. So the polarized Jacobian determines the curve up to isomorphism.<
       r.style.cursor = 'pointer';
     });
     out.innerHTML = desc[i] || desc[desc.length-1];
-    if(window.renderMathInElement) window.renderMathInElement(out,{throwOnError:false,delimiters:[{left:'$',right:'$',display:false}]});
+    if(window.renderMathInElement) window.renderMathInElement(out,{throwOnError:false,
+      strict:'ignore',delimiters:[{left:'$',right:'$',display:false}]});
   }
   rows.forEach((r,i)=>{
     r.addEventListener('click', ()=>select(i));
@@ -696,7 +701,8 @@ $$\Phi \;=\; \mathcal{A}_k/\mathcal{A}_k^0$$
       r.style.cursor = 'pointer';
     });
     out.innerHTML = desc[i] || desc[desc.length-1];
-    if(window.renderMathInElement) window.renderMathInElement(out,{throwOnError:false,delimiters:[{left:'$',right:'$',display:false}]});
+    if(window.renderMathInElement) window.renderMathInElement(out,{throwOnError:false,
+      strict:'ignore',delimiters:[{left:'$',right:'$',display:false}]});
   }
   rows.forEach((r,i)=>{
     r.addEventListener('click', ()=>select(i));
@@ -811,7 +817,8 @@ with $r=\mathrm{rank}\,A(K)$ finite and $A(K)_{\mathrm{tors}}$ finite.</div>
   function update(){
     const o = obj.value, c = cond.value;
     out.innerHTML = (table[o] && table[o][c]) || 'No data for this combination.';
-    if(window.renderMathInElement) window.renderMathInElement(out,{throwOnError:false,delimiters:[{left:'$',right:'$',display:false},{left:'$$',right:'$$',display:true}]});
+    if(window.renderMathInElement) window.renderMathInElement(out,{throwOnError:false,
+      strict:'ignore',delimiters:[{left:'$',right:'$',display:false},{left:'$$',right:'$$',display:true}]});
   }
   obj.addEventListener('change', update);
   cond.addEventListener('change', update);

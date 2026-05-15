@@ -34,6 +34,7 @@
         {left:'\\[',right:'\\]',display:true}
       ],
       throwOnError:false,
+      strict:'ignore',
       macros:{
         '\\Spec':'\\operatorname{Spec}',
         '\\Gal':'\\operatorname{Gal}',
@@ -879,7 +880,7 @@ The sign $w$ is the <strong>root number</strong> (or sign of the functional equa
     const N = parseInt(NSel.value, 10);
     const w = parseInt(wSel.value, 10);
     const W = 640, H = 260, padL = 50, padR = 16, padT = 18, padB = 36;
-    const xL = 0, xR = 2; // plot s in [0,2]
+    const xL = 0.05, xR = 1.95; // plot s in (0, 2) — avoid Γ pole at s=0 on both Λ(s) and Λ(2−s) reflection
     // For illustration treat L(s) ≡ 1 so Lambda(s) = N^{s/2} (2π)^{-s} Γ(s).
     const pts = [];
     const M = 200;

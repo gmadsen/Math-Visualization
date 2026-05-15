@@ -19,6 +19,7 @@
         {left:'\\[',right:'\\]',display:true}
       ],
       throwOnError:false,
+      strict:'ignore',
       macros:{
         '\\Spec':'\\operatorname{Spec}',
         '\\Gal':'\\operatorname{Gal}',
@@ -417,7 +418,8 @@ is an honest $1$-category with composition induced by $\Lambda^2_1$-fillers — 
     for(const k of Object.keys(btns)){
       btns[k].classList.toggle('active', k === key);
     }
-    if(window.renderMathInElement) window.renderMathInElement(out,{throwOnError:false,delimiters:[{left:'$',right:'$',display:false}]});
+    if(window.renderMathInElement) window.renderMathInElement(out,{throwOnError:false,
+      strict:'ignore',delimiters:[{left:'$',right:'$',display:false}]});
   }
   btns.witness.addEventListener('click', ()=>select('witness'));
   btns.degeneracy.addEventListener('click', ()=>select('degeneracy'));
