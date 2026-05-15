@@ -351,7 +351,7 @@ function renderMat(container, M, p=3){
 
 <p>The dimensions are not arbitrary: each is the dimension of the tangent space at $I$, which we will identify in §2 with a vector space of matrices satisfying a linearised version of the defining equation.</p>
 
-<p>Here is a working visualization of $\mathrm{SO}(3)$, the rotation group of $\mathbb{R}^3$. A rotation is determined by an axis $\hat n\in S^2$ and an angle $\theta\in[0,\pi]$ (with $(\hat n,\theta)\sim(-\hat n,2\pi-\theta)$), giving $\mathrm{SO}(3)\cong\mathbb{RP}^3$, a closed 3-manifold of dimension $\binom{3}{2}=3$.</p>
+<p>Here is a working visualization of $\mathrm{SO}(3)$, the rotation group of $\mathbb{R}^3$. A rotation is determined by an axis $\hat n\in S^2$ and an angle $\theta\in[0,\pi]$, with the boundary identification $(\hat n,\pi)\sim(-\hat n,\pi)$ (a half-turn about $\hat n$ equals a half-turn about $-\hat n$), giving $\mathrm{SO}(3)\cong\mathbb{RP}^3$, a closed 3-manifold of dimension $\binom{3}{2}=3$.</p>
 
 <div class="widget" id="w-so3rot">
   <div class="hd"><span class="ttl">SO(3) rotation visualizer</span><span class="hint">axis–angle → $3\times3$ matrix &amp; rotated cube</span></div>
@@ -522,7 +522,7 @@ $$\frac{1}{2i}\sigma_1,\ \frac{1}{2i}\sigma_2,\ \frac{1}{2i}\sigma_3,$$
 <h3>The bracket on $\mathfrak{so}(3)$</h3>
 <p>A skew-symmetric $3\times3$ matrix has the form</p>
 $$X = \begin{pmatrix} 0 & -c & b \\ c & 0 & -a \\ -b & a & 0 \end{pmatrix},$$
-<p>and the map $X\leftrightarrow(a,b,c)$ identifies $\mathfrak{so}(3)$ with $\mathbb{R}^3$. Under this identification one computes $[X,Y]\leftrightarrow X\cdot \vec v\times \vec w$, i.e., the Lie bracket on $\mathfrak{so}(3)$ is the cross product on $\mathbb{R}^3$. This is the prototype for everything in §6 — the adjoint action of a Lie group on its Lie algebra.</p>
+<p>and the map $X\leftrightarrow(a,b,c)$ identifies $\mathfrak{so}(3)$ with $\mathbb{R}^3$ — write $X\leftrightarrow\vec v$, $Y\leftrightarrow\vec w$. Under this identification one computes $[X,Y]\leftrightarrow \vec v\times \vec w$, i.e., the Lie bracket on $\mathfrak{so}(3)$ is the cross product on $\mathbb{R}^3$. This is the prototype for everything in §6 — the adjoint action of a Lie group on its Lie algebra.</p>
 
 <h3>Why the left-invariant picture</h3>
 
@@ -1261,7 +1261,7 @@ $$[h,e] = 2e, \qquad [h,f] = -2f, \qquad [h,h]=0.$$
 <tr><td>$A_2$</td><td>2</td><td>6</td><td>$S_3$</td><td>$\mathfrak{sl}_3$</td></tr>
 <tr><td>$A_n$</td><td>$n$</td><td>$n(n+1)$</td><td>$S_{n+1}$</td><td>$\mathfrak{sl}_{n+1}$</td></tr>
 <tr><td>$B_n$</td><td>$n$</td><td>$2n^2$</td><td>$(\mathbb{Z}/2)^n\rtimes S_n$</td><td>$\mathfrak{so}(2n+1)$</td></tr>
-<tr><td>$D_n$</td><td>$n$</td><td>$2n(n-1)$</td><td>—</td><td>$\mathfrak{so}(2n)$</td></tr>
+<tr><td>$D_n$</td><td>$n$</td><td>$2n(n-1)$</td><td>$(\mathbb{Z}/2)^{n-1}\rtimes S_n$</td><td>$\mathfrak{so}(2n)$</td></tr>
 <tr><td>$E_8$</td><td>8</td><td>240</td><td>order $696{,}729{,}600$</td><td>$\mathfrak{e}_8$</td></tr>
 </tbody>
 </table>

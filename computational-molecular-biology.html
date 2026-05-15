@@ -400,7 +400,7 @@ function drawNode(svg, x, y, label, opts={}){
 <section id="bwt">
 <h2>2. Suffix arrays, BWT, and the FM-index</h2>
 
-<p>Read alignment — locating a short ($\sim 100$ bp) query inside a $3$-gigabase reference — is the highest-volume problem in genomics. Naive substring search is $O(n+m)$ per query, but you want to amortise the index over millions of queries. The clever construction at the heart of Bowtie and BWA is the <strong>Burrows–Wheeler transform</strong>.</p>
+<p>Read alignment — locating a short ($\sim 100$ bp) query inside a $3$-gigabase reference — is the highest-volume problem in genomics. Naive substring search is $O(nm)$ per query (and linear-time with KMP/BM/Z preprocessing), but you want to amortise the index over millions of queries. The clever construction at the heart of Bowtie and BWA is the <strong>Burrows–Wheeler transform</strong>.</p>
 
 <p>Append a sentinel $\$$ to the text $T$ (sorting before every letter), list all cyclic rotations, sort them lexicographically, and read off the last column. That last column is $\mathrm{BWT}(T)$. The first column $F$ is a sorted permutation of $T$ — trivial to encode in $|\Sigma|$ cumulative counts. The miracle is the <strong>LF-mapping</strong>: the $k$-th occurrence of character $c$ in the last column $L$ corresponds to the $k$-th occurrence of $c$ in the first column $F$. Concretely,</p>
 
@@ -660,7 +660,7 @@ function drawNode(svg, x, y, label, opts={}){
 <tbody>
 <tr><td>Jukes–Cantor (1969)</td><td>$Q_{ij}=\alpha$ for $i\ne j$</td><td>$1$ rate</td></tr>
 <tr><td>Kimura two-parameter (1980)</td><td>transitions $\alpha$, transversions $\beta$</td><td>$2$ rates</td></tr>
-<tr><td>HKY (Hasegawa–Kishino–Yano)</td><td>transitions $\kappa$, base frequencies $\pi$</td><td>$5$ free</td></tr>
+<tr><td>HKY (Hasegawa–Kishino–Yano)</td><td>transitions $\kappa$, base frequencies $\pi$</td><td>$4$ free</td></tr>
 </tbody>
 </table>
 

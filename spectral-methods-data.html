@@ -361,7 +361,7 @@ function smdGauss(rng){
 
 <p style="text-align:center">$\min_{\operatorname{rank}(B)\le k} \|A - B\|_{F}^{2} \;=\; \|A - A_k\|_{F}^{2} \;=\; \sum_{i=k+1}^{r}\sigma_i^{2},$</p>
 
-<p>and the same minimum (with norm replaced by $\sigma_{k+1}$) holds in the operator $2$-norm. This is the <strong>Eckart–Young theorem</strong>: the SVD is not just <em>a</em> low-rank approximation — among all rank-$\le k$ matrices, it is <em>the</em> best one in any unitarily invariant norm. Tail singular values are the irreducible error you accept by truncating.</p>
+<p>and the same minimum (with norm replaced by $\sigma_{k+1}$) holds in the operator $2$-norm. This is the <strong>Eckart–Young theorem</strong> (Frobenius and operator-2-norm cases); <strong>Mirsky's theorem</strong> (1960) extends optimality to <em>any</em> unitarily invariant norm, so the combined statement is often called Eckart–Young–Mirsky. The SVD is not just <em>a</em> low-rank approximation — among all rank-$\le k$ matrices, it is <em>the</em> best one in every such norm. Tail singular values are the irreducible error you accept by truncating.</p>
 
 <div class="widget" id="w-svd-rank">
   <div class="hd"><div class="ttl">SVD low-rank reconstruction</div><div class="hint">slide $k$ to drop singular values; watch the image fade</div></div>
@@ -787,13 +787,13 @@ function smdGauss(rng){
 
 <p style="text-align:center">$\min_{S\subset V} \;\mathrm{Ncut}(S, \bar S) \;=\; \frac{w(S, \bar S)}{\operatorname{vol}(S)} + \frac{w(S, \bar S)}{\operatorname{vol}(\bar S)}$</p>
 
-<p>is NP-hard, but its <em>continuous relaxation</em> — drop the constraint that the partition vector be $\pm 1$ — is exactly the eigenvalue problem $L_{\mathrm{sym}} u = \lambda u$. The bottom $k$ eigenvectors are the relaxed optima; $k$-means in the embedded space is one way to project back to a real partition.</p>
+<p>is NP-hard, but its <em>continuous relaxation</em> — drop the discreteness of the volume-weighted indicator $f_i \in \{\sqrt{\operatorname{vol}(\bar S)/\operatorname{vol}(S)}, -\sqrt{\operatorname{vol}(S)/\operatorname{vol}(\bar S)}\}$ and allow $f$ to range over $\mathbb{R}^n$ — is exactly the eigenvalue problem $L_{\mathrm{sym}} u = \lambda u$. (The simpler $\pm 1$ relaxation belongs instead to RatioCut + unnormalised $L$.) The bottom $k$ eigenvectors are the relaxed optima; $k$-means in the embedded space is one way to project back to a real partition.</p>
 
 <p>The quantitative half is <strong>Cheeger's inequality</strong>: for the second eigenvalue $\lambda_2$ of $L_{\mathrm{sym}}$,</p>
 
 <p style="text-align:center">$\frac{\lambda_2}{2} \;\le\; h(G) \;\le\; \sqrt{2\lambda_2}.$</p>
 
-<p>The <strong>conductance</strong> $h(G) = \min_S w(S,\bar S)/\min(\operatorname{vol}(S),\operatorname{vol}(\bar S))$ measures how "bottlenecked" the graph is. The bound says: small $\lambda_2$ guarantees a small cut exists, and the proof's upper-bound construction — the <strong>spectral sweep cut</strong> — is a constant-factor approximation algorithm for sparsest cut. The same machinery generalises to higher $\lambda_k$ via <strong>higher-order Cheeger inequalities</strong> (Lee–Oveis-Gharan–Trevisan 2014).</p>
+<p>The <strong>conductance</strong> $h(G) = \min_S w(S,\bar S)/\min(\operatorname{vol}(S),\operatorname{vol}(\bar S))$ measures how "bottlenecked" the graph is. The bound says: small $\lambda_2$ guarantees a small cut exists, and the proof's upper-bound construction — the <strong>spectral sweep cut</strong> — is a <em>quadratic</em> ($O(\sqrt{h_{\mathrm{OPT}}})$) approximation algorithm for sparsest cut: the bounds $\lambda_2/2 \le h \le \sqrt{2\lambda_2}$ themselves rule out a constant-factor guarantee. Constant-factor / $O(\log n)$ approximations require LP/SDP rounding (Leighton–Rao, Arora–Rao–Vazirani). The same machinery generalises to higher $\lambda_k$ via <strong>higher-order Cheeger inequalities</strong> (Lee–Oveis-Gharan–Trevisan 2014).</p>
 
 <div class="widget" id="w-cluster">
   <div class="hd"><div class="ttl">Spectral embedding of a 3-blob graph</div><div class="hint">sample, embed via bottom eigenvectors, watch $k$-means recover clusters</div></div>
@@ -1192,7 +1192,7 @@ function smdGauss(rng){
 
 <p style="text-align:center">$K \;\approx\; \tilde K \;=\; K_{nm}\, K_{mm}^{+}\, K_{nm}^{T},$</p>
 
-<p>where $K_{mm}^{+}$ is the Moore–Penrose pseudoinverse. Storage drops from $O(n^{2})$ to $O(nm)$ and computing $\tilde K v$ costs $O(nm + m^{2})$ instead of $O(n^{2})$. Equivalently: read off the eigendecomposition $K_{mm} = U_m\Lambda_m U_m^{T}$ and extend each landmark eigenvector $u^{(m)}_\ell$ to a full-length eigenvector $\tilde u_\ell = \tfrac{1}{\lambda_\ell} K_{nm} u^{(m)}_\ell$. The eigenvalues of $\tilde K$ approximate those of $K$; the eigenvectors are the natural <em>out-of-sample extension</em> from the landmark set to the full data.</p>
+<p>where $K_{mm}^{+}$ is the Moore–Penrose pseudoinverse. Storage drops from $O(n^{2})$ to $O(nm)$ and computing $\tilde K v$ costs $O(nm + m^{2})$ instead of $O(n^{2})$. Equivalently: read off the eigendecomposition $K_{mm} = U_m\Lambda_m U_m^{T}$ and extend each landmark eigenvector $u^{(m)}_\ell$ to a full-length eigenvector $\tilde u_\ell = \tfrac{1}{\lambda_\ell} K_{nm} u^{(m)}_\ell$ — these solve $\tilde K \tilde u_\ell = \lambda_\ell^{(\tilde K)} \tilde u_\ell$ with $\lambda_\ell^{(\tilde K)} = (n/m)\lambda_\ell$ (an implicit $n/m$ rescaling, equivalent to working with the symmetric form $K_{mm}^{-1/2} K_{nm}^T K_{nm} K_{mm}^{-1/2}$). The (rescaled) eigenvalues of $\tilde K$ approximate those of $K$; the eigenvectors are the natural <em>out-of-sample extension</em> from the landmark set to the full data.</p>
 
 <p>How well does it work? When the kernel is smooth (decays fast in feature space) and the landmarks are picked by <strong>leverage-score sampling</strong> rather than uniformly, $m = O(k\log k / \varepsilon^{2})$ landmarks suffice to approximate the top-$k$ eigendecomposition to relative error $\varepsilon$ (Drineas–Mahoney 2005; Alaoui–Mahoney 2015). The landmark-selection step is itself a spectral task — leverage scores are diagonal entries of a projection onto the dominant subspace.</p>
 

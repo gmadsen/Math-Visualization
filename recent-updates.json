@@ -1,5 +1,5 @@
 {
-  "generated": "2026-05-15T00:10:02.110Z",
+  "generated": "2026-05-15T04:42:55.751Z",
   "entries": [
     {
       "slug": "infinity-categories",
@@ -24,6 +24,14 @@
       "tag": "",
       "date": "2026-05-14",
       "message": "fix: math-correctness audit pass — 75 topics across all 12 sections"
+    },
+    {
+      "slug": "algebraic-number-theory",
+      "title": "Algebraic number theory",
+      "color": "g",
+      "tag": "",
+      "date": "2026-05-14",
+      "message": "fix: math-correctness audit pass — second batch (10 more topics)"
     },
     {
       "slug": "atiyah-singer-index-theorem",
@@ -80,6 +88,14 @@
       "tag": "",
       "date": "2026-05-14",
       "message": "fix: Codex Tier 2 backlog — math/widget/anchor bugs from PRs #100-#170 (#187)"
+    },
+    {
+      "slug": "condensed-mathematics",
+      "title": "Condensed mathematics",
+      "color": "y",
+      "tag": "",
+      "date": "2026-05-14",
+      "message": "fix: math-correctness audit pass — second batch (10 more topics)"
     },
     {
       "slug": "conformal-and-cr-geometry",
@@ -578,14 +594,6 @@
       "message": "3 advanced topics + map/mindmap UX + section pill UI + thumb-art (#121)"
     },
     {
-      "slug": "condensed-mathematics",
-      "title": "Condensed mathematics",
-      "color": "y",
-      "tag": "",
-      "date": "2026-05-05",
-      "message": "Condensed mathematics capstone + tour expansion + home UI polish (#118)"
-    },
-    {
       "slug": "dirac-equation",
       "title": "Dirac equation",
       "color": "p",
@@ -1005,14 +1013,6 @@
       "slug": "algebraic-de-rham-cohomology",
       "title": "Algebraic de Rham cohomology",
       "color": "p",
-      "tag": "",
-      "date": "2026-04-26",
-      "message": "Content + structure expansion: 22 new topics, 156 new concepts, full review pass (#35)"
-    },
-    {
-      "slug": "algebraic-number-theory",
-      "title": "Algebraic number theory",
-      "color": "g",
       "tag": "",
       "date": "2026-04-26",
       "message": "Content + structure expansion: 22 new topics, 156 new concepts, full review pass (#35)"

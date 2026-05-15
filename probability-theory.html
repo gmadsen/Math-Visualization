@@ -1454,7 +1454,7 @@ encoded by a <strong>transition matrix</strong> $P\in[0,1]^{S\times S}$ with row
 
 <p><strong>Worked example: 3-state weather chain.</strong> States: $S,C,R$ (sunny/cloudy/rainy). Transition:
 $$P=\begin{pmatrix}0.7&0.2&0.1\\0.3&0.4&0.3\\0.2&0.3&0.5\end{pmatrix}.$$
-Solve $\pi P=\pi$ with $\sum\pi=1$: $\pi\approx(0.47,0.28,0.25)$. The widget below animates this chain; starting anywhere, the running frequency bars converge to $\pi$.</p>
+Solve $\pi P=\pi$ with $\sum\pi=1$: $\pi=(21/46,13/46,12/46)\approx(0.46,0.28,0.26)$. The widget below animates this chain; starting anywhere, the running frequency bars converge to $\pi$.</p>
 
 <p><strong>Counterexample: reducible chain, non-unique stationary.</strong> On $\{1,2,3,4\}$ with two disjoint 2-cycles, each component has its own stationary distribution, and any convex combination is stationary — the simplex of stationary distributions is one-dimensional.</p>
 

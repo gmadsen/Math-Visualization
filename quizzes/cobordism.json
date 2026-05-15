@@ -46,7 +46,7 @@
       "questions": [
         {
           "type": "mcq",
-          "q": "Pontryagin's theorem states that a closed manifold $M^n$ is null-cobordant in $\\Omega_*^{O}$ if and only if:",
+          "q": "Thom's theorem (1954) states that a closed manifold $M^n$ is null-cobordant in $\\Omega_*^{O}$ if and only if:",
           "choices": [
             "$M$ is orientable",
             "Every Stiefel–Whitney number of $M$ vanishes in $\\mathbb{Z}/2$",

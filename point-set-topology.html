@@ -819,7 +819,7 @@ Equivalently, $f^{-1}(B_Y(f(x_0),\varepsilon))\supseteq B_X(x_0,\delta)$. The $\
 
 <div class="ok"><strong>Definition.</strong> A topological space $X$ is <strong>compact</strong> if every open cover has a finite subcover: given any family $\{U_\alpha\}$ of opens with $\bigcup_\alpha U_\alpha=X$, there are finitely many indices $\alpha_1,\dots,\alpha_n$ with $U_{\alpha_1}\cup\cdots\cup U_{\alpha_n}=X$.</div>
 
-<p>Equivalent formulations: every family of closed sets with the finite-intersection property has nonempty total intersection; every net (or filter) has a convergent subnet (Bolzano–Weierstrass–style). On metric spaces, compact also means <strong>sequentially compact</strong>: every sequence has a convergent subsequence. Sequential compactness and open-cover compactness are equivalent for metric spaces but can diverge on general topological spaces.</p>
+<p>Equivalent formulations: every family of closed sets with the finite-intersection property has nonempty total intersection; every net has a convergent subnet, equivalently every ultrafilter converges (Bolzano–Weierstrass–style). On metric spaces, compact also means <strong>sequentially compact</strong>: every sequence has a convergent subsequence. Sequential compactness and open-cover compactness are equivalent for metric spaces but can diverge on general topological spaces.</p>
 
 <h3>Heine–Borel and its kin</h3>
 <div class="ok"><strong>Heine–Borel.</strong> In $\mathbb{R}^n$ (with the Euclidean topology), a subset is compact iff it is closed and bounded.</div>
@@ -1006,7 +1006,7 @@ Equivalently, $f^{-1}(B_Y(f(x_0),\varepsilon))\supseteq B_X(x_0,\delta)$. The $\
 <p>The intuitive picture is a space "in one piece." Formally:</p>
 <div class="ok"><strong>Definition.</strong> A space $X$ is <strong>connected</strong> if it cannot be written as $X=U\sqcup V$ with $U,V\in\tau$ nonempty disjoint opens. Equivalently, the only clopen (simultaneously open and closed) subsets are $\emptyset$ and $X$.</div>
 
-<p>Typical connected spaces: intervals in $\mathbb{R}$, $\mathbb{R}^n$, the circle, any convex subset of $\mathbb{R}^n$, $\mathsf{GL}_n(\mathbb{C})$ (though $\mathsf{GL}_n(\mathbb{R})$ is not). Disconnected: $\mathbb{Q}$ (take $U=\{x:x<\sqrt{2}\}$, $V=\{x:x>\sqrt 2\}$), $\{0\}\cup\{1\}$ as a subspace of $\mathbb{R}$, any finite space with the discrete topology.</p>
+<p>Typical connected spaces: intervals in $\mathbb{R}$, $\mathbb{R}^n$, the circle, any convex subset of $\mathbb{R}^n$, $\mathsf{GL}_n(\mathbb{C})$ (though $\mathsf{GL}_n(\mathbb{R})$ is not). Disconnected: $\mathbb{Q}$ (take $U=\{x:x<\sqrt{2}\}$, $V=\{x:x>\sqrt 2\}$), $\{0\}\cup\{1\}$ as a subspace of $\mathbb{R}$, any finite discrete space with $\ge 2$ points.</p>
 
 <h3>Path-connectedness</h3>
 <p>$X$ is <strong>path-connected</strong> if for any $x,y\in X$ there is a continuous $\gamma\colon[0,1]\to X$ with $\gamma(0)=x,\gamma(1)=y$. Every path-connected space is connected: otherwise a path would pull back the separation into a disconnection of $[0,1]$, contradicting the connectedness of $[0,1]$ (which is the key atomic fact, proven from the supremum property of $\mathbb{R}$).</p>
@@ -1127,7 +1127,7 @@ Equivalently, $f^{-1}(B_Y(f(x_0),\varepsilon))\supseteq B_X(x_0,\delta)$. The $\
 </tbody>
 </table>
 
-<p>The implications run $T_4\Rightarrow T_3\Rightarrow T_2\Rightarrow T_1\Rightarrow T_0$. Each reverse arrow fails: there are $T_1$-non-Hausdorff, Hausdorff-non-regular, etc. Every metric space is normal. Hausdorff is usually the lowest rung worth demanding because limits of sequences become unique — sequences can have at most one limit iff the space is Hausdorff. Compact Hausdorff spaces are automatically normal.</p>
+<p>The implications run $T_4\Rightarrow T_3\Rightarrow T_2\Rightarrow T_1\Rightarrow T_0$. Each reverse arrow fails: there are $T_1$-non-Hausdorff, Hausdorff-non-regular, etc. Every metric space is normal. Hausdorff is usually the lowest rung worth demanding because limits of sequences become unique — in a Hausdorff space every sequence has at most one limit (the converse needs first-countability; on a non-first-countable space like an uncountable set with the cocountable topology, every convergent sequence is eventually constant so limits are unique even though the space is not Hausdorff). Compact Hausdorff spaces are automatically normal.</p>
 
 <h3>Two critical payoffs</h3>
 <div class="ok"><strong>Urysohn's lemma.</strong> In a normal space, any two disjoint closed sets $A,B$ can be separated by a continuous function: there exists continuous $f\colon X\to[0,1]$ with $f\equiv 0$ on $A$, $f\equiv 1$ on $B$. <em>Functions</em> distinguish closed sets, not just opens.</div>

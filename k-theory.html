@@ -260,7 +260,7 @@ function drawNode(svg, x, y, label, opts={}){
 
 <section id="vector-bundles">
 <h2>1. Topological $K^0(X)$ from vector bundles</h2>
-<p>Let $X$ be a compact Hausdorff space and $\mathrm{Vect}_\mathbb{C}(X)$ the set of isomorphism classes of complex vector bundles on $X$. Direct sum $\oplus$ makes it an <em>abelian monoid</em>, but cancellation can fail: there exist bundles $E,F,G$ with $E\oplus G\cong F\oplus G$ yet $E\not\cong F$ (this is "stable but not unstable equivalence" — the failure is genuine on $S^7$, for instance).</p>
+<p>Let $X$ be a compact Hausdorff space and $\mathrm{Vect}_\mathbb{C}(X)$ the set of isomorphism classes of complex vector bundles on $X$. Direct sum $\oplus$ makes it an <em>abelian monoid</em>, but cancellation can fail: there exist bundles $E,F,G$ with $E\oplus G\cong F\oplus G$ yet $E\not\cong F$ (this is "stable but not unstable equivalence" — e.g. on $S^2$, the tangent bundle $TS^2$ satisfies $TS^2\oplus\varepsilon\cong\varepsilon^3$ yet $TS^2\not\cong\varepsilon^2$).</p>
 
 <p>The <strong>Grothendieck group</strong> $K^0(X)$ is the universal abelian group receiving a monoid map from $\mathrm{Vect}_\mathbb{C}(X)$:
 $$K^0(X) \;=\; \{\,[E]-[F]\,\}/\!\sim, \qquad [E]-[F]\sim[E']-[F'] \iff E\oplus F'\oplus G \cong E'\oplus F\oplus G \text{ for some }G.$$

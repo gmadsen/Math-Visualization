@@ -50733,7 +50733,7 @@ window.MVQuizBank = {
         "hard": [
           {
             "type": "mcq",
-            "q": "Bonferroni's inequality says $\\mathbb{P}(\\bigcup_{i=1}^n A_i)\\le\\sum_i\\mathbb{P}(A_i)$. Under what condition does equality hold?",
+            "q": "Boole's inequality (the union bound) says $\\mathbb{P}(\\bigcup_{i=1}^n A_i)\\le\\sum_i\\mathbb{P}(A_i)$. Under what condition does equality hold?",
             "choices": [
               "The $A_i$ are identically distributed",
               "The $A_i$ are pairwise disjoint",
@@ -51511,8 +51511,8 @@ window.MVQuizBank = {
               "Symmetric random walk is transient"
             ],
             "answer": 2,
-            "hint": "Check UI: is $\\sup_n\\mathbb{E}|S_{n\\wedge\\tau}|<\\infty$?",
-            "explain": "$\\tau<\\infty$ a.s.\\ (recurrence of 1D walk) but $\\mathbb{E}[\\tau]=\\infty$. The stopped process is not UI because $\\sup_n\\mathbb{E}|S_{n\\wedge\\tau}|=\\infty$. The conclusion $\\mathbb{E}[S_\\tau]=1\\ne 0$ shows the hypothesis matters."
+            "hint": "The stopped process is $L^1$-bounded ($S_{n\\wedge\\tau}\\le 1$ a.s.); what stronger property fails?",
+            "explain": "$\\tau<\\infty$ a.s.\\ (recurrence of 1D walk) but $\\mathbb{E}[\\tau]=\\infty$. The stopped process $S_{n\\wedge\\tau}$ is bounded above by $1$, hence $L^1$-bounded ($\\mathbb{E}|S_{n\\wedge\\tau}|\\le 2$), but it fails to be uniformly integrable: the negative tail $S_{n\\wedge\\tau}^-$ carries unbounded mass on $\\{\\tau>n\\}$, so $\\sup_n\\mathbb{E}[|S_{n\\wedge\\tau}|\\mathbf{1}_{|S_{n\\wedge\\tau}|>K}]\\not\\to 0$ as $K\\to\\infty$. The conclusion $\\mathbb{E}[S_\\tau]=1\\ne 0$ shows the UI hypothesis matters."
           },
           {
             "type": "mcq",
@@ -62882,7 +62882,7 @@ window.MVQuizBank = {
               "Graph isomorphism"
             ],
             "answer": 1,
-            "explain": "Shi–Malik (2000) showed: minimise $\\mathrm{Ncut}(S,\\bar S)$ over partitions $S\\subset V$ is NP-hard; relax the $\\pm 1$ partition vector to a real vector orthogonal to $D^{1/2}\\mathbf{1}$, and the optimum is exactly $\\lambda_2(L_{\\mathrm{sym}})$ achieved by the Fiedler vector.",
+            "explain": "Shi–Malik (2000) showed: minimise $\\mathrm{Ncut}(S,\\bar S)$ over partitions $S\\subset V$ is NP-hard; relax the discrete volume-weighted indicator $f_i \\in \\{\\sqrt{\\operatorname{vol}(\\bar S)/\\operatorname{vol}(S)}, -\\sqrt{\\operatorname{vol}(S)/\\operatorname{vol}(\\bar S)}\\}$ to any real vector orthogonal to $D^{1/2}\\mathbf{1}$, and the optimum is exactly $\\lambda_2(L_{\\mathrm{sym}})$ achieved by the Fiedler vector. (The simpler $\\pm 1$ relaxation is the RatioCut + unnormalised $L$ story.)",
             "hint": "The combinatorial-to-continuous bridge in spectral clustering."
           }
         ]

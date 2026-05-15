@@ -470,7 +470,7 @@ $$\varphi_\beta\circ\varphi_\alpha^{-1}\colon \varphi_\alpha(U_\alpha\cap U_\bet
 <tr><td>$\mathrm{SU}(n)$</td><td>$A^*A = I$, $\det A = 1$</td><td>$n^2-1$</td></tr>
 </tbody>
 </table>
-<p>Each is cut out as a preimage of a regular value of a smooth map — section 7 explains why preimages of regular values are manifolds.</p>
+<p>Each is cut out as a preimage of a regular value of a smooth map — section 8 explains why preimages of regular values are manifolds.</p>
 
 <h3>Grassmannians</h3>
 <p>$\mathrm{Gr}(k,n)$ is the set of $k$-dimensional linear subspaces of $\mathbb{R}^n$, a compact manifold of dimension $k(n-k)$ generalising $\mathbb{RP}^{n-1} = \mathrm{Gr}(1,n)$. Charts come from choosing a complement: near a subspace $W_0$, nearby $W$ are graphs of linear maps $W_0\to W_0^\perp$, which gives local coordinates.</p>
@@ -489,9 +489,9 @@ $$\hat f = \psi\circ f\circ\varphi^{-1}\colon \varphi(U)\to\psi(V)$$
 
 <p>Special cases:</p>
 <ul>
-  <li><strong>Smooth functions</strong> $M\to\mathbb{R}$ form the ring $C^\infty(M)$. This ring is the algebraic shadow of $M$: the (maximal) ideals of $C^\infty(M)$ are in bijection with points of $M$.</li>
+  <li><strong>Smooth functions</strong> $M\to\mathbb{R}$ form the ring $C^\infty(M)$. This ring is the algebraic shadow of $M$: when $M$ is <em>compact</em>, the maximal ideals of $C^\infty(M)$ are in bijection with points of $M$ (Milnor). For non-compact $M$ extra maximal ideals appear (e.g. supported "at infinity"), and the right statement is that points correspond to $\mathbb{R}$-algebra homomorphisms $C^\infty(M)\to\mathbb{R}$.</li>
   <li><strong>Smooth curves</strong> are smooth maps $\gamma\colon I\to M$ for $I\subseteq\mathbb{R}$ open.</li>
-  <li><strong>Embeddings, immersions, submersions</strong>: see §7.</li>
+  <li><strong>Embeddings, immersions, submersions</strong>: see §8.</li>
 </ul>
 
 <p>The <strong>differential</strong> (also called the <em>tangent map</em> or <em>pushforward</em>) of $f\colon M\to N$ at $p\in M$ is a linear map</p>
@@ -514,7 +514,7 @@ $$df_p\colon T_pM\to T_{f(p)}N,\qquad df_p(v) = \text{"$v$ pushed through $f$"}.
   <p class="small">Left panel: domain grid, coloured by $\operatorname{rank}(df_{(x,y)})$. Right panel: the image under $f$. The rank is the number of linearly independent rows of the Jacobian $Df = \begin{pmatrix}\partial f^1/\partial x & \partial f^1/\partial y \\ \partial f^2/\partial x & \partial f^2/\partial y\end{pmatrix}$.</p>
 </div>
 
-<p>Rank is pointwise: it can drop on a subset where the Jacobian's determinant vanishes. Where rank is maximal (= $\min(\dim M,\dim N)$), $f$ is locally modelled by a linear surjection or injection — this is the content of the constant-rank theorem, which powers §7.</p>
+<p>Rank is pointwise: it can drop on a subset where the Jacobian's determinant vanishes. Where rank is maximal (= $\min(\dim M,\dim N)$), $f$ is locally modelled by a linear surjection or injection — this is the content of the constant-rank theorem, which powers §8.</p>
 
 
 
@@ -1207,7 +1207,7 @@ $$\Phi^{-Y}_t\circ\Phi^{-X}_t\circ\Phi^Y_t\circ\Phi^X_t(p) \;=\; p + t^2\,[X,Y]_
 
 <p>A cleaner way to say it: $[X,Y]_p = \lim_{t\to 0} t^{-2}\bigl(\Phi^{-Y}_t\Phi^{-X}_t\Phi^Y_t\Phi^X_t(p) - p\bigr)$. This gives the bracket as a second-order feature of flow composition — the first nontrivial correction to "flows commute".</p>
 
-<p class="note">Commuting vector fields ($[X,Y] = 0$) are the exception. When they commute on an open set, one can find coordinates in which $X = \partial_1$ and $Y = \partial_2$ simultaneously (Frobenius). Non-commuting fields generate higher-dimensional foliations — the bracket detects obstructions to integrability.</p>
+<p class="note">Commuting vector fields ($[X,Y] = 0$) are the exception. When they commute on an open set (and are linearly independent), one can find coordinates in which $X = \partial_1$ and $Y = \partial_2$ simultaneously — this is the <em>flow-box</em> (canonical-form) theorem applied jointly, sometimes attributed to Frobenius but distinct from the Frobenius integrability theorem proper. Non-commuting fields generate higher-dimensional foliations — the bracket detects obstructions to integrability.</p>
 
 <div class="quiz" data-concept="lie-bracket-fields"></div><!-- backlinks-auto-begin -->
 <aside class="related">
@@ -1721,7 +1721,7 @@ $$b(x) = \begin{cases} e^{-1/(1-\|x\|^2)} & \|x\|<1,\\ 0 & \|x\|\ge 1,\end{cases
   <li><strong>Differential forms</strong> are the dual story: a $k$-form eats $k$ tangent vectors and spits out a number. On a manifold $M$, $k$-forms are smooth sections of $\Lambda^k T^*M$. The wedge and $d$ operations live in $\Omega^\bullet(M)$ and integrate over oriented submanifolds.</li>
   <li><strong>Differential geometry of surfaces</strong> is the theory of $2$-manifolds, usually embedded in $\mathbb{R}^3$, with the induced metric. Gauss curvature, geodesics, Gauss–Bonnet — all live on the 2D case of what we built here.</li>
   <li><strong>Riemannian geometry</strong> adds a metric: a smoothly varying inner product on each $T_pM$. Distances, angles, geodesics, curvature follow. The Levi-Civita connection is the unique torsion-free connection compatible with the metric.</li>
-  <li><strong>Lie groups</strong> are smooth manifolds that are also groups, with smooth multiplication and inverse. The tangent space at the identity, $T_eG$, is a Lie algebra under the bracket from §6. The exponential map $\exp\colon T_eG\to G$ integrates the algebra to the group.</li>
+  <li><strong>Lie groups</strong> are smooth manifolds that are also groups, with smooth multiplication and inverse. The tangent space at the identity, $T_eG$, is a Lie algebra under the bracket from §7. The exponential map $\exp\colon T_eG\to G$ integrates the algebra to the group.</li>
   <li><strong>Riemann surfaces</strong> are smooth manifolds with complex structure: holomorphic transitions instead of just smooth ones. Complex 1-manifolds are real 2-manifolds with extra data.</li>
 </ul>
 
