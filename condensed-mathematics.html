@@ -444,7 +444,7 @@ $$\underline T(S) \;:=\; \mathrm{Cont}(S, T),$$
 <li><strong>It has enough projectives and injectives.</strong> Sheafification of the free-module functor on extremally disconnected sets supplies projectives; an injective-resolution argument analogous to Grothendieck's tohoku theorem (every Grothendieck abelian category has enough injectives) supplies injectives.</li>
 </ul>
 
-<p>The contrast with topological abelian groups is sharp. Topological $\mathrm{Ab}$ is only <em>quasi-abelian</em> in Schneiders's sense: it has kernels and cokernels, but the canonical comparison $\mathrm{coim}\,f \to \mathrm{im}\,f$ is generally not an iso. The standard counterexample: the inclusion $\mathbb Q \hookrightarrow \mathbb R$ as topological abelian groups has trivial kernel (so coimage is $\mathbb Q$ with the subspace topology) and dense image (so image is $\mathbb R$); the comparison is bijective on points but not a homeomorphism. In $\mathrm{Cond}(\mathrm{Ab})$ this pathology disappears because the underlying functor records only the descent data, not a fixed point-set topology.</p>
+<p>The contrast with topological abelian groups is sharp. Topological $\mathrm{Ab}$ is only <em>quasi-abelian</em> in Schneiders's sense: it has kernels and cokernels, but the canonical comparison $\mathrm{coim}\,f \to \mathrm{im}\,f$ is generally not an iso. The standard counterexample: the inclusion $\mathbb Q \hookrightarrow \mathbb R$ as topological abelian groups has trivial kernel (so coimage is $\mathbb Q$ with the subspace topology) and non-closed dense image (so image is $\mathbb R$); the comparison from coimage to image is injective with dense, non-closed image — not an isomorphism. In $\mathrm{Cond}(\mathrm{Ab})$ this pathology disappears because the underlying functor records only the descent data, not a fixed point-set topology.</p>
 
 <p>Topological subcategories embed cleanly: condensed Banach spaces, condensed locally compact abelian groups, and condensed finite-dimensional vector spaces are full subcategories. On Banach spaces the embedding is fully faithful as condensed abelian groups, and $\mathrm{Ext}^*$ in $\mathrm{Cond}(\mathrm{Ab})$ recovers continuous group cohomology. On locally compact abelian groups one recovers Pontryagin duality at the derived level — the duality $M \mapsto \underline{\mathrm{Hom}}(M, \mathbb T)$ is exact in $\mathrm{Cond}(\mathrm{Ab})$ where it was only a left-exact mess in topological $\mathrm{Ab}$.</p>
 
@@ -492,7 +492,7 @@ $$\underline T(S) \;:=\; \mathrm{Cont}(S, T),$$
     'qr': {
       ses: '0 -> Q (discrete) -> R -> R/Q -> 0',
       condNote: 'In Cond(Ab) all three are good condensed abelian groups; R/Q makes sense as a sheaf even though it has horrible point-set topology (every coset is dense).',
-      topNote: 'In topological Ab the quotient R/Q has the indiscrete topology (no nonempty proper open subgroups: every coset of Q is dense in R). The closure of {0} in R/Q is the entire group. So R/Q is not Hausdorff, and the would-be quotient map R -> R/Q breaks the categorical-exactness of the sequence in TopAb -- coimage R/Q (with one point set) does not match image R/Q (the whole indiscrete group).',
+      topNote: 'In topological Ab the quotient R/Q has the indiscrete topology (no nonempty proper open subgroups: every coset of Q is dense in R). The closure of {0} in R/Q is the entire group, so R/Q is not Hausdorff. The pathology now sits at the inclusion Q -> R: coimage = Q with the subspace topology, image = closure of Q in R = R itself, so the canonical comparison coim -> im is injective with dense, non-closed image -- not an isomorphism. As in the p-adic case, the topological enrichment fails to make the SES exact in the abelian-category sense.',
       contrast: true
     },
   };
@@ -610,7 +610,7 @@ $$\alpha_S\colon \mathbb Z[S] \otimes M \;\longrightarrow\; \mathrm{Maps}(S, M)$
 <li>Complex Banach spaces (also archimedean).</li>
 </ul>
 
-<p>The key theorem (Clausen–Scholze): $\mathrm{Solid}(\mathrm{Ab}) \subset \mathrm{Cond}(\mathrm{Ab})$ is a <strong>closed monoidal abelian subcategory</strong>. It is closed under all small limits and colimits computed in $\mathrm{Cond}(\mathrm{Ab})$, under extensions in short exact sequences, and carries a "solid tensor product" $\otimes^{\blacksquare}$ that derives correctly. The inclusion $\mathrm{Solid} \hookrightarrow \mathrm{Cond}$ has both adjoints — solidification ${}^{\blacksquare}$ as a left adjoint, and the inclusion itself as a right adjoint.</p>
+<p>The key theorem (Clausen–Scholze): $\mathrm{Solid}(\mathrm{Ab}) \subset \mathrm{Cond}(\mathrm{Ab})$ is a <strong>closed monoidal abelian subcategory</strong>. It is closed under all small limits and colimits computed in $\mathrm{Cond}(\mathrm{Ab})$, under extensions in short exact sequences, and carries a "solid tensor product" $\otimes^{\blacksquare}$ that derives correctly. $\mathrm{Solid} \hookrightarrow \mathrm{Cond}$ is a reflective subcategory: solidification ${}^{\blacksquare}$ is left adjoint to the inclusion.</p>
 
 <p>Operationally this means: <em>the derived category $D(\mathrm{Solid}(\mathrm{Ab}))$ is the right home for completed/profinite topological algebra</em>. Tensor products of $\mathbb Z_p$ with itself give $\mathbb Z_p$ (idempotence of solid completion), $\mathrm{RHom}_{\mathrm{Solid}}(\mathbb Z, \mathbb Z_p)$ recovers $\mathbb Z_p$, and the Mayer–Vietoris / Čech sequences for solid sheaves on a $p$-adic ring all behave as a working algebraist would expect — and as classical topological-Ab homological algebra absolutely did not.</p>
 
@@ -767,14 +767,14 @@ $$\mu\colon \mathcal{M}_p(V) \;\to\; V$$
 <p>Classical objects sit inside $\mathrm{Liquid}_p(\mathbb R)$ as full subcategories:</p>
 
 <ul>
-<li><strong>Banach spaces</strong> are $p$-liquid for $p$ smaller than but close to $1$;</li>
+<li><strong>Banach spaces</strong> are $p$-liquid for every $0 < p \le 1$;</li>
 <li><strong>Fréchet spaces</strong> (countable inverse limits of Banach) are $p$-liquid;</li>
 <li><strong>Bornological vector spaces</strong> with reasonable boundedness structure;</li>
-<li><strong>$L^p$ spaces</strong> match the parameter $p$;</li>
+<li><strong>$L^p$ spaces</strong> ($1 \le p < \infty$, as Banach spaces) embed into $\mathrm{Liquid}_{p'}(\mathbb R)$ for every $0 < p' \le 1$;</li>
 <li>$C(X, \mathbb R)$ for $X$ compact, locally convex topological vector spaces in general — the entire functional-analysis cast.</li>
 </ul>
 
-<p>Why parameterise by $p$? The condition gets stricter as $p$ shrinks: $1$-liquid is too weak (everything reasonable is $1$-liquid but the tensor product still misbehaves), $p$ near zero is too strong (too few examples). The sweet spot is some $p_0 < 1$; for the headline theorem in §5, both the input and output sit in this $p$-liquid range, with a strict inequality $p' < p$ supplying the room to manoeuvre the proof requires.</p>
+<p>Why parameterise by $p$? The property strengthens as $p$ approaches $1$: $1$-liquid is the weakest condition (everything reasonable is $1$-liquid but the tensor product breaks at the boundary), and small $p$ is the most permissive end of the range (more spaces qualify, the tensor structure is well-behaved). The sweet spot for the theory is some $p_0 < 1$; for the headline theorem in §5, both the input and output sit in this $p$-liquid range, with a strict inequality $p' < p$ supplying the room to manoeuvre the proof requires.</p>
 
 <div class="widget" id="cm-liquid-tensor">
   <div class="hd"><div class="ttl">Classical $\widehat{\otimes}_\pi$ vs liquid $\otimes^{\liq}$</div><div class="hint">slide $p$; watch the liquid tensor change while the classical projective tensor stays fixed</div></div>
@@ -906,7 +906,7 @@ $$\mathrm{Ext}^i_{\mathrm{Cond}(\mathbb R)}\bigl(M_{p'}(S),\, V\bigr) \;=\; 0 \q
 
 <p>The proof is a tour de force of $50$+ pages, with intricate inequalities about $p'$-summable norms and a delicate induction whose base case relies on a real-analytic estimate Scholze called "the most fragile thing I have ever proved". In December 2020 Scholze posted a challenge on Kevin Buzzard's <em>Xena</em> blog: <em>formally verify this theorem in Lean</em>. None of his collaborators believed it was right; all of them lacked confidence in their own line-by-line check.</p>
 
-<p>A community led by Johan Commelin (Utrecht/Mainz) took the bait. Using Lean's <code>mathlib</code> library and a careful translation of Scholze's manuscript, the team — Adam Topaz, Riccardo Brasca, Patrick Massot, Damiano Testa, Filippo Nuccio, Kevin Buzzard, Bhavik Mehta, and many others — formalised the proof step by step over 18 months. The main theorem (the inductive heart of the result) was discharged in May 2022; the full statement, including the technically painful base case, was complete by July 2022; further generalisations and tightenings landed through 2023.</p>
+<p>A community led by Johan Commelin (Utrecht/Mainz) took the bait. Using Lean's <code>mathlib</code> library and a careful translation of Scholze's manuscript, the team — Adam Topaz, Riccardo Brasca, Patrick Massot, Damiano Testa, Filippo Nuccio, Kevin Buzzard, Bhavik Mehta, and many others — formalised the proof step by step over 18 months. The main theorem (the inductive heart of the result) was discharged in May 2021; the full statement, including the technically painful base case, was complete by July 2022; further generalisations and tightenings landed through 2023.</p>
 
 <p>The cultural significance went well beyond the theorem itself. <strong>This was the first time a major living mathematician used Lean to gain confidence in a theorem they personally doubted.</strong> Formal verification graduated from "proves things you already know" to "proves things you don't know yet", crossing a working-mathematician acceptability threshold that the field had been near for years but had never quite reached. The infrastructure built — Lean tactics for limits of profinite spaces, a $p$-summable-measure formalisation, a working derived-category framework — became foundational to subsequent <code>mathlib</code> efforts.</p>
 
@@ -916,7 +916,7 @@ $$\mathrm{Ext}^i_{\mathrm{Cond}(\mathbb R)}\bigl(M_{p'}(S),\, V\bigr) \;=\; 0 \q
     <button id="cm-lte-m1" class="active">Dec 2020 — challenge</button>
     <button id="cm-lte-m2">Mar 2021 — repo, blueprint</button>
     <button id="cm-lte-m3">Jul 2021 — base lemmas</button>
-    <button id="cm-lte-m4">May 2022 — main thm</button>
+    <button id="cm-lte-m4">May 2021 — main thm</button>
     <button id="cm-lte-m5">Jul 2022 — full thm</button>
     <button id="cm-lte-m6">2023 — generalisations</button>
   </div>

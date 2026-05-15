@@ -4383,7 +4383,7 @@ window.__MVConcepts = {
             "cm-liquid-vector-spaces",
             "tt-models"
           ],
-          "blurb": "In December 2020 Scholze posted on Xena: formally verify in Lean that $\\mathrm{Ext}^i_{\\mathrm{Cond}(\\mathbb R)}(M_{p'}, V) = 0$ for $i \\ge 1$ when $V$ is $p$-liquid and $0 < p' < p \\le 1$. The theorem is the homological cornerstone of the liquid theory and Scholze called it the most fragile of his work — none of his collaborators believed it. A community led by Johan Commelin formalised the proof in Lean's mathlib library, finishing the main theorem in mid-2022 and the full result in 2023. It marks a turning point: formal verification graduated from a tool for theorems already trusted to a working option for results active researchers themselves doubt.",
+          "blurb": "In December 2020 Scholze posted on Xena: formally verify in Lean that $\\mathrm{Ext}^i_{\\mathrm{Cond}(\\mathbb R)}(M_{p'}, V) = 0$ for $i \\ge 1$ when $V$ is $p$-liquid and $0 < p' < p \\le 1$. The theorem is the homological cornerstone of the liquid theory and Scholze called it the most fragile of his work — none of his collaborators believed it. A community led by Johan Commelin formalised the proof in Lean's mathlib library, finishing the main inductive theorem in May 2021 and the full result by July 2022, with generalisations through 2023. It marks a turning point: formal verification graduated from a tool for theorems already trusted to a working option for results active researchers themselves doubt.",
           "tags": [
             "foundation",
             "refinement"

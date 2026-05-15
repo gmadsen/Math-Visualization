@@ -301,7 +301,7 @@ function digitsOfRatInZp(a, b, p, depth){
 
 <section class="hero">
   <h1>p-adic numbers: trees, ultrametrics, and Hensel</h1>
-  <p class="sub">A parallel universe of "size" on the rationals, built from divisibility by a prime. The number line is replaced by a rooted tree, triangles become isoceles, and power series converge when their coefficients grow. This page keeps one image at the center: $\mathbb{Z}_p$ as a Cantor-set-like tree.</p>
+  <p class="sub">A parallel universe of "size" on the rationals, built from divisibility by a prime. The number line is replaced by a rooted tree, triangles become isosceles, and power series converge when their coefficients grow. This page keeps one image at the center: $\mathbb{Z}_p$ as a Cantor-set-like tree.</p>
 </section>
 
 <section id="abs">
@@ -417,7 +417,7 @@ where $v$ ranges over $\infty$ and all primes. Decrease somewhere, increase some
 $$|x+y|_p \le \max(|x|_p,|y|_p).$$
 Call an absolute value with this property <strong>non-Archimedean</strong>, or an <strong>ultrametric</strong>. Three small but dramatic consequences:</p>
 <ul>
-  <li><strong>Every triangle is isoceles.</strong> If $|x|_p \ne |y|_p$, then $|x+y|_p = \max(|x|_p,|y|_p)$. So among three pairwise distances, the two largest must be equal.</li>
+  <li><strong>Every triangle is isosceles.</strong> If $|x|_p \ne |y|_p$, then $|x+y|_p = \max(|x|_p,|y|_p)$. So among three pairwise distances, the two largest must be equal.</li>
   <li><strong>Every point inside a ball is its center.</strong> If $y$ lies in $\overline{B}(x,r) = \{z : |z-x|_p \le r\}$, then $\overline{B}(y,r) = \overline{B}(x,r)$.</li>
   <li><strong>Balls are clopen.</strong> A $p$-adic ball is both open and closed. The topology is totally disconnected — no nontrivial connected sets.</li>
 </ul>
@@ -452,7 +452,7 @@ Call an absolute value with this property <strong>non-Archimedean</strong>, or a
       `|b-c|_${p} = ${dbc.toPrecision(4)}\n` +
       `|a-c|_${p} = ${dac.toPrecision(4)}\n` +
       `sorted: ${arr.map(x=>x.toPrecision(4)).join(' \u2265 ')}\n` +
-      (isIsoc ? 'two largest agree \u2014 isoceles, as forced by the ultrametric.' :
+      (isIsoc ? 'two largest agree \u2014 isosceles, as forced by the ultrametric.' :
                 'distances strict \u2014 this would violate the ultrametric if inputs were valid!');
   }
   $('#w4-go').addEventListener('click', go);
@@ -1059,32 +1059,45 @@ The left-to-right direction is automatic; the deep content is the reverse direct
     lines.push(`over \u211d: ax\u00b2+by\u00b2 with (a,b)=(${a},${b}) reaches ${realOK?'c='+c+' \u2713':'c='+c+' \u2717 (sign obstruction)'}`);
     // p-adic solvability heuristic: search modulo p^k for small k.
     // For good primes (p odd, not dividing abc, and not p=2 special), Hensel usually lifts any smooth point.
-    // We do a brute search mod p^3.
+    // We do a brute search mod p^3, full residue range so the search is exhaustive
+    // for every selectable prime (e.g. p=13 needs 2197 cells per axis).
     let pk = p*p*p; // p^3
     let found = null;
+    let aborted = false;
+    // Hard cell-pair budget keeps the UI responsive even if the user picks a huge prime.
+    const MAX_PAIRS = 250000;
+    let tried = 0;
     outer:
     for(let x=0;x<pk;x++){
       for(let y=0;y<pk;y++){
+        if(tried++ >= MAX_PAIRS){ aborted = true; break outer; }
         if(((a*x*x + b*y*y - c) % pk + pk) % pk === 0){
           // also require (x,y) not both \u2261 0 mod p, to rule out trivial scaling
           if(!(x%p===0 && y%p===0)){
             found = [x,y]; break outer;
           }
         }
-        if(y>200) break; // safety
       }
-      if(x>200) break;
     }
     if(found){
       lines.push(`over \u211a_${p}: primitive solution mod ${p}\u00b3 at (x,y)\u2261(${found[0]},${found[1]}), Hensel lifts \u2713`);
+    } else if(aborted){
+      lines.push(`over \u211a_${p}: search aborted after ${MAX_PAIRS.toLocaleString()} pairs (window too small for p=${p}); inconclusive.`);
     } else {
-      lines.push(`over \u211a_${p}: no primitive solution found mod ${p}\u00b3 in search window (likely obstruction)`);
+      lines.push(`over \u211a_${p}: no primitive solution found mod ${p}\u00b3 in full residue range (genuine obstruction at this prime).`);
     }
-    const globalLikely = realOK && !!found;
     lines.push('');
-    lines.push(globalLikely ?
-      `local data consistent \u2014 by Hasse\u2013Minkowski a global \u211a-solution exists.` :
-      `local obstruction detected \u2014 no global \u211a-solution (Hasse\u2013Minkowski).`);
+    if(aborted){
+      lines.push(`status at this place: inconclusive \u2014 cannot conclude anything about \u211a-solvability from a partial search.`);
+    } else if(realOK && found){
+      lines.push(`status: \u211d \u2713 and \u211a_${p} \u2713. Hasse\u2013Minkowski needs solvability at every place (\u211d and every \u211a_q); this widget only checks one prime, so a global \u211a-solution is consistent with the evidence but not yet proved.`);
+    } else if(!realOK && !found){
+      lines.push(`status: obstructed at \u211d and \u211a_${p}. Hasse\u2013Minkowski rules out a global \u211a-solution as soon as any single place is obstructed.`);
+    } else if(!realOK){
+      lines.push(`status: \u211d obstruction. Hasse\u2013Minkowski rules out a global \u211a-solution as soon as any single place is obstructed.`);
+    } else {
+      lines.push(`status: \u211a_${p} obstruction. Hasse\u2013Minkowski rules out a global \u211a-solution as soon as any single place is obstructed.`);
+    }
     out.textContent = lines.join('\n');
   }
   $('#w7-go').addEventListener('click', go);

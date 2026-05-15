@@ -4369,11 +4369,11 @@ window.MVQuizBank = {
           },
           {
             "type": "numeric",
-            "q": "Let $K=\\mathbb{Q}(\\sqrt{-3})$. Since $-3\\equiv 1\\pmod 4$, the ring of integers is $\\mathbb{Z}[\\omega]$ where $\\omega=\\tfrac{1+\\sqrt{-3}}{2}$. Compute $\\omega^2+\\omega$ (as an integer).",
+            "q": "Let $K=\\mathbb{Q}(\\sqrt{-3})$. Since $-3\\equiv 1\\pmod 4$, the ring of integers is $\\mathbb{Z}[\\omega]$ where $\\omega=\\tfrac{-1+\\sqrt{-3}}{2}=e^{2\\pi i/3}$ is a primitive third root of unity. Compute $\\omega^2+\\omega$ (as an integer).",
             "answer": -1,
             "tol": 0.000001,
             "hint": "Use the cyclotomic relation $\\omega^2+\\omega+1=0$.",
-            "explain": "$\\omega$ satisfies the minimal polynomial $x^2-x+1=0$, so $\\omega^2-\\omega+1=0$, giving $\\omega^2=\\omega-1$ and $\\omega^2+\\omega=2\\omega-1$. But $\\omega^2+\\omega+1=0$ is the cyclotomic relation for $\\omega=e^{2\\pi i/3}$; rearranging $x^2+x+1=0$ gives $\\omega^2+\\omega=-1$."
+            "explain": "$\\omega=e^{2\\pi i/3}$ satisfies the cyclotomic minimal polynomial $x^2+x+1=0$, so rearranging gives $\\omega^2+\\omega=-1$. (The conjugate element $-\\omega=\\tfrac{1+\\sqrt{-3}}{2}=e^{\\pi i/3}$ is the primitive sixth root, satisfying $x^2-x+1=0$, and generates the full unit group $\\mathcal{O}_K^\\times\\cong\\mathbb{Z}/6$.)"
           },
           {
             "type": "mcq",
@@ -15296,8 +15296,8 @@ window.MVQuizBank = {
               0,
               4
             ],
-            "hint": "Order by year first (2020, 2021, 2022, 2022, 2023+), then within 2022 by which result is logically prerequisite to which other. The two 2022 events have a clear dependency direction since one builds on top of what the other discharges.",
-            "explain": "Order: (2) Dec 2020 challenge → (1) Mar 2021 repo + blueprint → (3) May 2022 main inductive theorem → (0) Jul 2022 full theorem with the painful base case → (4) 2023+ generalisations. The May/July 2022 ordering matters: the inductive step came first; the base case (the technically painful real-analytic estimate) was discharged afterward. Both were needed for the headline statement to be fully verified."
+            "hint": "Order by year first (2020, 2021, 2021, 2022, 2023+). The May 2021 main inductive theorem and the July 2022 full theorem (with painful base case) have a clear dependency direction since one builds on top of what the other discharges.",
+            "explain": "Order: (2) Dec 2020 challenge → (1) Mar 2021 repo + blueprint → (3) May 2021 main inductive theorem → (0) Jul 2022 full theorem with the painful base case → (4) 2023+ generalisations. The May 2021 / July 2022 ordering matters: the inductive step came first; the base case (the technically painful real-analytic estimate) was discharged afterward. Both were needed for the headline statement to be fully verified."
           },
           {
             "type": "multi-select",

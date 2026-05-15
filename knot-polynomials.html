@@ -511,7 +511,7 @@ function drawNode(svg, x, y, label, opts={}){
     <input type="range" id="rmx-q" min="0.3" max="3" step="0.05" value="1.4">
     <span class="small" id="rmx-qval">q = 1.40</span>
   </div>
-  <div class="readout" id="rmx-readout">The $4 \times 4$ matrix $R$ on $V \otimes V$ where $V = \mathbb{C}^2$. Entries depend on $q$; at $q = 1$ it degenerates to the swap (classical). The Jones polynomial is the trace of products of $R$'s and $R^{-1}$'s built from the diagram.</div>
+  <div class="readout" id="rmx-readout">The $4 \times 4$ matrix $R$ on $V \otimes V$ where $V = \mathbb{C}^2$. Entries depend on $q$; at $q = 1$ it degenerates to the identity (classical limit — the $q$-deformation reduces to the trivial unbraided action). The Jones polynomial is the trace of products of $R$'s and $R^{-1}$'s built from the diagram.</div>
 </div>
 
 <p>Different choices of $(\mathcal{C}, V)$ give different polynomial invariants:</p>
@@ -724,7 +724,7 @@ function drawNode(svg, x, y, label, opts={}){
     unknot: { fn: drawUnknot, msg: "The round circle: the simplest equivalence class. Every knot is its diagram modulo Reidemeister moves; the unknot is the class of every diagram that can be reduced to a circle." },
     trefoil: { fn: drawTrefoil, msg: "The right-handed trefoil 3₁ — the simplest non-trivial knot. Crossing number 3. Its mirror image (left trefoil) is a different knot — they are distinguished by the Jones polynomial, not by Alexander." },
     fig8: { fn: drawFig8, msg: "The figure-eight 4₁ — the simplest amphichiral knot (equal to its mirror). Crossing number 4. Its complement in S³ has the largest hyperbolic volume of any 4-crossing knot." },
-    hopf: { fn: drawHopf, msg: "The Hopf link — the simplest non-trivial 2-component link, linking number ±1. Its complement is fibred over the circle by Seifert tori." }
+    hopf: { fn: drawHopf, msg: "The Hopf link — the simplest non-trivial 2-component link, linking number ±1. Its complement is fibred over the circle with annulus fibres (the Hopf link is a fibred link with fibre an annulus, not a torus — the complement only deformation retracts to T²)." }
   };
 
   function select(key){
@@ -877,17 +877,18 @@ function drawNode(svg, x, y, label, opts={}){
 
   // For the trefoil with 3 crossings, there are 2^3 = 8 states.
   // Each state is encoded as 3 bits: 0 = A-smoothing (multiply by A), 1 = A^{-1}-smoothing (multiply by A^{-1}).
-  // Number of resulting circles is a precomputed combinatorial fact for the trefoil:
-  //   AAA → 2 circles, AAB → 3, ABA → 3, ABB → 2, BAA → 3, BAB → 2, BBA → 2, BBB → 1.
+  // Number of resulting circles is a precomputed combinatorial fact for the right-handed trefoil:
+  //   AAA → 2 circles, AAB = ABA = BAA → 1, ABB = BAB = BBA → 2, BBB → 3.
+  // Sanity check: A³·δ + 3·A·1 + 3·A⁻¹·δ + A⁻³·δ² = -A⁵ - A⁻³ + A⁻⁷ with δ = -A² - A⁻².
   const states = [
     { bits: "AAA", circles: 2, weight: "A³" },
-    { bits: "AAB", circles: 3, weight: "A²A⁻¹ = A" },
-    { bits: "ABA", circles: 3, weight: "A²A⁻¹ = A" },
+    { bits: "AAB", circles: 1, weight: "A²A⁻¹ = A" },
+    { bits: "ABA", circles: 1, weight: "A²A⁻¹ = A" },
     { bits: "ABB", circles: 2, weight: "A·A⁻² = A⁻¹" },
-    { bits: "BAA", circles: 3, weight: "A²A⁻¹ = A" },
+    { bits: "BAA", circles: 1, weight: "A²A⁻¹ = A" },
     { bits: "BAB", circles: 2, weight: "A·A⁻² = A⁻¹" },
     { bits: "BBA", circles: 2, weight: "A·A⁻² = A⁻¹" },
-    { bits: "BBB", circles: 1, weight: "A⁻³" }
+    { bits: "BBB", circles: 3, weight: "A⁻³" }
   ];
 
   let idx = 0;
@@ -936,12 +937,16 @@ function drawNode(svg, x, y, label, opts={}){
   // Start: trefoil 3₁
   // After one step: linear combo of (Hopf) and (smoothed = unknot ⊔ unknot)
   // After two steps: linear combo of unknot, unknot ⊔ unknot, unknot ⊔ unknot ⊔ unknot, …
+  // Skein α P(L₊) − α⁻¹ P(L₋) = z P(L₀)  ⇒  P(L₊) = α⁻² P(L₋) + α⁻¹ z P(L₀).
+  // Trefoil 3₁ at one positive crossing: L₋ = unknot, L₀ = Hopf⁺.
+  // Hopf⁺ at one positive crossing: L₋ = unknot ⊔ unknot, L₀ = unknot.
+  // P(○ ⊔ L) = δ · P(L) with δ = (α − α⁻¹)/z, so α⁻³ z · δ = α⁻²−α⁻⁴.
   let depth = 0;
   const stages = [
     { tex: "P(3₁)", text: "right trefoil — 3 positive crossings" },
-    { tex: "α² P(unknot) + α z P(Hopf)", text: "after one skein at one crossing: written via the unknot and the Hopf link with an α z coefficient" },
-    { tex: "α² + α z [α² + α z P(unknot ⊔ unknot)]", text: "after two skeins: only the Hopf link remains, recursively reduced to unknots" },
-    { tex: "α² + α³ z δ + α² z² δ", text: "fully reduced — δ = (α − α⁻¹)/z is the value of P(unknot ⊔ unknot)/P(unknot); the result is the HOMFLY of 3₁" }
+    { tex: "α⁻² P(unknot) + α⁻¹ z P(Hopf)", text: "after one skein at one crossing: P(L₊) = α⁻² P(L₋) + α⁻¹ z P(L₀); here L₋ is the unknot and L₀ is the positive Hopf link" },
+    { tex: "α⁻² + α⁻¹ z [α⁻² P(unknot ⊔ unknot) + α⁻¹ z]", text: "after a second skein on the Hopf link: only the unknot and the 2-component unlink remain" },
+    { tex: "α⁻² + α⁻³ z δ + α⁻² z²", text: "fully reduced — δ = (α − α⁻¹)/z so α⁻³ z δ = α⁻² − α⁻⁴; collecting gives the HOMFLY of 3₁" }
   ];
 
   function render(){
@@ -957,7 +962,7 @@ function drawNode(svg, x, y, label, opts={}){
     svg.appendChild(sub);
     if(depth===stages.length-1){
       const ok = SVG("text",{x:W/2, y:210, "text-anchor":"middle", "font-size":13, fill:"var(--green)"});
-      ok.textContent = "P(3₁) = -α⁻² + α² + α⁻² z²    (after using P(unknot)=1, δ=(α−α⁻¹)/z)";
+      ok.textContent = "P(3₁) = -α⁻⁴ + α⁻² z² + 2α⁻²    (Alexander check: α=1, z²=t−2+t⁻¹ ⇒ t−1+t⁻¹ = Δ_{3₁})";
       svg.appendChild(ok);
     }
     counter.textContent = "depth " + depth;
@@ -1029,7 +1034,7 @@ function drawNode(svg, x, y, label, opts={}){
     const tt2 = SVG("text",{x:x0+2*cell+cell/2, y:y0-8, "text-anchor":"middle", "font-size":11, fill:"var(--mute)"}); tt2.textContent="10"; svg.appendChild(tt2);
     const tt3 = SVG("text",{x:x0+3*cell+cell/2, y:y0-8, "text-anchor":"middle", "font-size":11, fill:"var(--mute)"}); tt3.textContent="11"; svg.appendChild(tt3);
     const lab = SVG("text",{x:W/2, y:y0+4*cell+30, "text-anchor":"middle", "font-size":12, fill:"var(--mute)"});
-    lab.textContent = "diagonal entries = q (yellow), off-diagonal q − q⁻¹ (cyan); at q=1 R becomes the swap";
+    lab.textContent = "diagonal entries = q (yellow), off-diagonal q − q⁻¹ (cyan); at q=1 R becomes the identity (off-diagonal vanishes, diagonal becomes 1)";
     svg.appendChild(lab);
   }
 
@@ -1039,7 +1044,7 @@ function drawNode(svg, x, y, label, opts={}){
     render(q);
     readout.textContent = "Current q = " + q.toFixed(2) +
       ". R-matrix on C² ⊗ C² (basis 00, 01, 10, 11). Diagonal entries q, off-diagonal q − q⁻¹. " +
-      "At q = 1 only the diagonal survives and R = id (the classical limit, swap on swap-symmetric tensors). " +
+      "At q = 1 the off-diagonal q − q⁻¹ vanishes and the diagonal collapses to 1, so R = id (the classical limit — the q-deformation reduces to the trivial unbraided action). " +
       "Yang–Baxter R₁₂R₁₃R₂₃ = R₂₃R₁₃R₁₂ holds for every q.";
   }
   slider.addEventListener("input", update);

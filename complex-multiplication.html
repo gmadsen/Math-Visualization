@@ -266,7 +266,7 @@ $$\mathrm{End}(E) \;=\; \mathcal{O} \;\supsetneq\; \mathbb{Z}.$$
 
 <h3>$j$-invariants of CM points are algebraic integers</h3>
 
-<p>The CM locus in $\mathbb{H}$ — the set of $\tau$ generating an imaginary quadratic field — is countable and dense, but not arbitrary. Theorem (Schneider 1937, classical CM theory): if $E/\mathbb{C}$ has CM, then $j(E) \in \overline{\mathbb{Q}}$ is an algebraic integer. The standard examples:</p>
+<p>The CM locus in $\mathbb{H}$ — the set of $\tau$ generating an imaginary quadratic field — is countable and dense, but not arbitrary. Theorem (Kronecker–Weber–Hasse–Deuring, classical CM theory): if $E/\mathbb{C}$ has CM, then $j(E) \in \overline{\mathbb{Q}}$ is an algebraic integer. (Schneider's 1937 theorem is the converse-flavored transcendence statement: $j(\tau)$ is transcendental whenever $\tau$ is algebraic and non-CM.) The standard examples:</p>
 
 <table class="plain">
 <thead><tr><th>$\tau$</th><th>order</th><th>$j(E)$</th></tr></thead>
@@ -633,7 +633,7 @@ $$L'(E/K, 1) \ne 0 \;\Longleftrightarrow\; y_K\,\text{is non-torsion} \;\Longrig
     msg += breakdown;
     if(allSplit){
       const h = hData[Dv] || '?';
-      msg += `\n✓ Heegner hypothesis satisfied. Number of Heegner points (mod Γ_0(N))\n   = h_K · 2^{ω(N)} / |Pic(O_K)/N| ≈ ${h} · 2^${ps.length}.`;
+      msg += `\n✓ Heegner hypothesis satisfied. Number of Heegner points (mod Γ_0(N))\n   = h_K · 2^{ω(N)} = ${h} · 2^${ps.length}.`;
       msg += `\nThe Heegner point P_K ∈ X_0(N)(H) maps to a candidate non-torsion point\nin E(K) for any modular E/Q of conductor N.`;
     } else {
       msg += `\n✗ Heegner hypothesis fails: at least one prime p | N is inert or ramifies in K.\nNo classical Heegner points; need generalized (Shimura curve) construction.`;
@@ -930,8 +930,8 @@ $$L'(E/K, 1) \;=\; \frac{8\pi^2 (\varphi, \varphi)}{\sqrt{|d_K|}} \cdot \hat h(y
   // would lose every digit of the near-integer remainder, so we use known values
   // from extended precision (Mathematica / mpmath).
   const remainders = {
-    '-7':   2.883494940237e+2,    // not near-integer
-    '-11':  6.27443666e+4,        // not near-integer
+    '-7':  -4.7067905e+1,         // not near-integer
+    '-11': -5.856934e+0,          // not near-integer
     '-19': -2.197901e-1,           // close-ish but small |D|
     '-43': -2.225507e-4,
     '-67': -1.339113e-6,
