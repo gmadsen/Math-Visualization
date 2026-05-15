@@ -74,7 +74,7 @@
             "Ampleness is a property of $\\mathcal{O}_X$, not of $L$."
           ],
           "answer": 1,
-          "explain": "Ampleness is the property that <em>some</em> tensor power is very ample. The simplest counterexample to (a) is a line bundle $L$ on an elliptic curve $E$ of degree $1$: it is ample (positive degree) but not very ample (since global sections cannot separate the points $P, -P$ for $P \\ne -P$)."
+          "explain": "Ampleness is the property that <em>some</em> tensor power is very ample. The simplest counterexample to (a) is a degree-$1$ line bundle $L$ on an elliptic curve $E$: it is ample (positive degree) but not very ample. By Riemann–Roch $h^0(L) = 1$ in degree $1$, so there are not even enough sections to define a map; only at degree $\\ge 3$ does $|L|$ embed $E$."
         }
       ]
     },
@@ -209,7 +209,7 @@
             "$H^i(X, L^{\\otimes n}) = 0$ for $i \\ne n$"
           ],
           "answer": 1,
-          "explain": "Kodaira: $H^i(X, K_X \\otimes L) = 0$ for $i > 0$ when $L$ is ample. The factor of $K_X$ is essential — without it, the conclusion can fail (consider $X = \\mathbb{P}^1$, $L = \\mathcal{O}(-1)$: $H^0(L) = 0$ but Kodaira applied to $K_{\\mathbb{P}^1} \\otimes \\mathcal{O}(2) = \\mathcal{O}(0)$ correctly gives $H^1 = 0$)."
+          "explain": "Kodaira: $H^i(X, K_X \\otimes L) = 0$ for $i > 0$ when $L$ is ample. The factor of $K_X$ is essential — without it, the conclusion can fail even for line bundles that are positive in a weaker sense (on an elliptic curve $E$, the trivial bundle $\\mathcal{O}_E$ is nef but $H^1(E, \\mathcal{O}_E) \\cong \\mathbb{C} \\ne 0$)."
         },
         {
           "type": "mcq",

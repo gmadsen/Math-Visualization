@@ -384,7 +384,7 @@
             "There is no general comparison."
           ],
           "answer": 0,
-          "explain": "For a geometrically connected proper variety over an algebraically closed field, étale base change to a larger algebraically closed field is an equivalence on $\\mathrm{F\\acute{E}t}/X$ (this uses properness — without it, base change can introduce new covers, e.g. $\\mathbb{A}^1$ acquires more covers under $\\overline{\\mathbb{Q}}\\hookrightarrow\\mathbb{C}$ via transcendental extensions). So $\\pi_1^{\\acute{e}t}(X) = \\pi_1^{\\acute{e}t}(X_{\\mathbb{C}})$ for $X$ proper smooth.",
+          "explain": "For a geometrically connected proper variety over an algebraically closed field of characteristic 0, étale base change to a larger algebraically closed field is an equivalence on $\\mathrm{F\\acute{E}t}/X$ (in characteristic 0 the comparison-with-topological-$\\pi_1$ via Riemann existence pins everything down; properness lets you avoid the extra subtleties at infinity). The hypothesis is essential: in positive characteristic, base change of an open variety can lose covers — e.g. $\\pi_1^{\\acute{e}t}(\\mathbb{A}^1_{\\overline{\\mathbb{F}_p}})$ is enormous (Artin–Schreier), but base change behaves badly between non-algebraically-closed and algebraically closed bases. (Note: $\\pi_1^{\\acute{e}t}(\\mathbb{A}^1_{\\overline{\\mathbb{Q}}}) = \\pi_1^{\\acute{e}t}(\\mathbb{A}^1_{\\mathbb{C}}) = 1$ by the Lefschetz principle, so $\\mathbb{A}^1$ over $\\overline{\\mathbb{Q}}$ is not a counterexample to $X = X_{\\mathbb{C}}$ — real failures live in char $p$.) So $\\pi_1^{\\acute{e}t}(X) = \\pi_1^{\\acute{e}t}(X_{\\mathbb{C}})$ for $X$ proper smooth.",
           "hint": "Properness is essential — what fails for $X = \\mathbb{A}^1$?"
         }
       ]

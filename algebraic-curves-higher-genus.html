@@ -879,7 +879,7 @@ The map $\pi$ is the projection $(x, y) \mapsto x$, the involution $\sigma\colon
       lines.push('');
       lines.push(`Δ_${i}: pinch a separating curve splitting C into`);
       lines.push(`(C₁, C₂) of genera (${i}, ${g-i})`);
-      lines.push(`dim Δ_${i} = (3i−3) + (3(g−i)−3) + 1 (the node) = 3g − 5 (codim 1 in Mg-bar)`);
+      lines.push(`dim Δ_${i} = dim M_{${i},1} + dim M_{${g-i},1} = (3i−2) + (3(g−i)−2) = 3g − 4 (codim 1 in Mg-bar)`);
       const ix = 360, iy = 245;
       svg.appendChild(SVG('circle',{cx:ix,cy:iy,r:18,fill:'none',stroke:'var(--blue)','stroke-width':1.6}));
       svg.appendChild(SVG('text',{x:ix,y:iy+4,'text-anchor':'middle','font-size':10,fill:'var(--blue)'})).textContent=`g=${i}`;

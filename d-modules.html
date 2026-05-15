@@ -457,7 +457,7 @@ $$\mathrm{Char}(M) \;=\; \mathrm{Supp}(\mathrm{gr}^F M) \;\subset\; T^*X.$$
 <p>The first step is to pin down "regular singularity" globally.</p>
 
 <div class="note">
-<p style="margin:.2rem 0"><strong>Regular holonomic.</strong> A holonomic $\mathcal{D}_X$-module $M$ is <em>regular</em> if, for every embedding $j : X \hookrightarrow \overline X$ into a smooth compactification, $j_+ M$ has at worst regular singularities along the boundary divisor $\overline X \setminus X$. Locally on a curve, regular at a point $p$ means: every formal solution at $p$ has Gevrey class $0$ (equivalently, the connection matrix has at most a simple pole at $p$ in suitable coordinates).</p>
+<p style="margin:.2rem 0"><strong>Regular holonomic.</strong> A holonomic $\mathcal{D}_X$-module $M$ is <em>regular</em> if, for every embedding $j : X \hookrightarrow \overline X$ into a smooth compactification, $j_+ M$ has at worst regular singularities along the boundary divisor $\overline X \setminus X$. Locally on a curve, regular at a point $p$ means: every formal solution at $p$ converges in a punctured neighbourhood of $p$ — i.e. the irregularity (Gevrey index) at $p$ is $0$, no Gevrey-positive divergent series appears (equivalently, the connection matrix has at most a simple pole at $p$ in suitable coordinates).</p>
 </div>
 
 <p>Regular holonomic D-modules form a full abelian subcategory $\mathrm{Mod}_{\mathrm{rh}}(\mathcal{D}_X) \subset \mathrm{Mod}_h(\mathcal{D}_X)$. The point of the regularity condition is to rule out "irregular" examples like $\mathbb{C}[x]\,e^{1/x}$ on $\mathbb{A}^1 \setminus \{0\}$, whose monodromy at $0$ is trivial yet the D-module is non-trivial — i.e. monodromy alone does not determine the D-module without regularity.</p>
@@ -600,7 +600,7 @@ $$P(s) \cdot f^{s+1} \;=\; b(s) \cdot f^s$$
       <option value="x2y3">$x^2 + y^3$ (cusp)</option>
       <option value="x3y3">$x^3 + y^3$</option>
       <option value="xy">$xy$</option>
-      <option value="x2yz2">$x^2 + yz^2 + y^3$ (D_4)</option>
+      <option value="x2y4">$x^2 + y^4$ (A_3 curve singularity)</option>
     </select>
   </div>
   <div class="readout" id="bf-out">Pick a polynomial. The widget displays $b_f(s)$ and locates its roots on a line — all in $(-\infty, 0) \cap \mathbb{Q}$ by Kashiwara's theorem.</div>
@@ -613,7 +613,7 @@ $$P(s) \cdot f^{s+1} \;=\; b(s) \cdot f^s$$
 <ul>
   <li><strong>Analytic continuation of $f^s$.</strong> The distribution-valued function $s \mapsto |f|^{2s}$ extends meromorphically to $s \in \mathbb{C}$, with poles only at the roots of $b_f$ and their negative-integer translates. This was the original 1960s motivation (Atiyah, Bernstein-Gelfand) — generalising the gamma function's $\Gamma(s) = \int_0^\infty x^{s-1} e^{-x} dx$ to arbitrary $f$.</li>
   <li><strong>Vanishing cycles and IC sheaves.</strong> Roots of $b_f(s)$ correspond to eigenvalues of monodromy on the vanishing cohomology of $f$ at a critical point — a bridge to Hodge theory and the spectrum of singularities.</li>
-  <li><strong>Multiplier ideals.</strong> The largest root of $b_f(-s)$ controls the log canonical threshold $\mathrm{lct}(f)$ of $f$, a numerical invariant of the singularities of the divisor $\{f = 0\}$ central to the MMP.</li>
+  <li><strong>Multiplier ideals.</strong> The <em>smallest</em> root of $b_f(-s)$ — equivalently, the negative of the largest (closest-to-zero) root of $b_f(s)$ — equals the log canonical threshold $\mathrm{lct}(f)$, a numerical invariant of the singularities of the divisor $\{f = 0\}$ central to the MMP (Kollár / ELSV).</li>
 </ul>
 
 <p>The story leaves D-module theory and lands in singularity theory, mixed Hodge structures, and birational geometry — a representative example of the way D-module techniques infiltrate apparently distant subjects through the regular-holonomic / perverse-sheaf bridge.</p>
@@ -730,7 +730,7 @@ $$P(s) \cdot f^{s+1} \;=\; b(s) \cdot f^s$$
     },
     zero: {
       lab: 'M = C[x] · e^x = D/D(∂ - 1)',
-      desc: 'Char(M) = zero section.\nRank 1, but solutions are e^x — not regular at infinity!\nUnder regular RH this corresponds to trivial local system on A^1.\nThe IRREGULAR data at ∞ is what RH (regular) cannot see.',
+      desc: 'Char(M) = zero section.\nRank 1, but solutions are e^x — IRREGULAR at infinity, so M sits OUTSIDE the regular RH source category Mod_rh(D).\nRegular RH does NOT send M anywhere; only its restriction to A^1 (simply connected) has trivial monodromy.\nIrregular RH (D Agnolo–Kashiwara) is required to capture Oe^x as a Stokes-enhanced perverse sheaf.',
       kind: 'horizontal'
     }
   };
@@ -1020,7 +1020,7 @@ $$P(s) \cdot f^{s+1} \;=\; b(s) \cdot f^s$$
     x2y3: { tex:'(s + 1)(s + 5/6)(s + 7/6)',                     rootsTex:'-1, -5/6, -7/6' },
     x3y3: { tex:'(s + 1)(s + 2/3)(s + 4/3)',                     rootsTex:'-1, -2/3, -4/3' },
     xy:   { tex:'(s + 1)^2',                                     rootsTex:'-1 (mult. 2)' },
-    x2yz2:{ tex:'(s + 1)(s + 3/4)(s + 5/4)',                     rootsTex:'-1, -3/4, -5/4' }
+    x2y4: { tex:'(s + 1)(s + 3/4)(s + 5/4)',                     rootsTex:'-1, -3/4, -5/4' }
   };
   function render(){
     const v = sel.value;

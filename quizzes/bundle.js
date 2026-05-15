@@ -22677,7 +22677,7 @@ window.MVQuizBank = {
               "There is no general comparison."
             ],
             "answer": 0,
-            "explain": "For a geometrically connected proper variety over an algebraically closed field, étale base change to a larger algebraically closed field is an equivalence on $\\mathrm{F\\acute{E}t}/X$ (this uses properness — without it, base change can introduce new covers, e.g. $\\mathbb{A}^1$ acquires more covers under $\\overline{\\mathbb{Q}}\\hookrightarrow\\mathbb{C}$ via transcendental extensions). So $\\pi_1^{\\acute{e}t}(X) = \\pi_1^{\\acute{e}t}(X_{\\mathbb{C}})$ for $X$ proper smooth.",
+            "explain": "For a geometrically connected proper variety over an algebraically closed field of characteristic 0, étale base change to a larger algebraically closed field is an equivalence on $\\mathrm{F\\acute{E}t}/X$ (in characteristic 0 the comparison-with-topological-$\\pi_1$ via Riemann existence pins everything down; properness lets you avoid the extra subtleties at infinity). The hypothesis is essential: in positive characteristic, base change of an open variety can lose covers — e.g. $\\pi_1^{\\acute{e}t}(\\mathbb{A}^1_{\\overline{\\mathbb{F}_p}})$ is enormous (Artin–Schreier), but base change behaves badly between non-algebraically-closed and algebraically closed bases. (Note: $\\pi_1^{\\acute{e}t}(\\mathbb{A}^1_{\\overline{\\mathbb{Q}}}) = \\pi_1^{\\acute{e}t}(\\mathbb{A}^1_{\\mathbb{C}}) = 1$ by the Lefschetz principle, so $\\mathbb{A}^1$ over $\\overline{\\mathbb{Q}}$ is not a counterexample to $X = X_{\\mathbb{C}}$ — real failures live in char $p$.) So $\\pi_1^{\\acute{e}t}(X) = \\pi_1^{\\acute{e}t}(X_{\\mathbb{C}})$ for $X$ proper smooth.",
             "hint": "Properness is essential — what fails for $X = \\mathbb{A}^1$?"
           }
         ]
@@ -50242,7 +50242,7 @@ window.MVQuizBank = {
               "Ampleness is a property of $\\mathcal{O}_X$, not of $L$."
             ],
             "answer": 1,
-            "explain": "Ampleness is the property that <em>some</em> tensor power is very ample. The simplest counterexample to (a) is a line bundle $L$ on an elliptic curve $E$ of degree $1$: it is ample (positive degree) but not very ample (since global sections cannot separate the points $P, -P$ for $P \\ne -P$)."
+            "explain": "Ampleness is the property that <em>some</em> tensor power is very ample. The simplest counterexample to (a) is a degree-$1$ line bundle $L$ on an elliptic curve $E$: it is ample (positive degree) but not very ample. By Riemann–Roch $h^0(L) = 1$ in degree $1$, so there are not even enough sections to define a map; only at degree $\\ge 3$ does $|L|$ embed $E$."
           }
         ]
       },
@@ -50377,7 +50377,7 @@ window.MVQuizBank = {
               "$H^i(X, L^{\\otimes n}) = 0$ for $i \\ne n$"
             ],
             "answer": 1,
-            "explain": "Kodaira: $H^i(X, K_X \\otimes L) = 0$ for $i > 0$ when $L$ is ample. The factor of $K_X$ is essential — without it, the conclusion can fail (consider $X = \\mathbb{P}^1$, $L = \\mathcal{O}(-1)$: $H^0(L) = 0$ but Kodaira applied to $K_{\\mathbb{P}^1} \\otimes \\mathcal{O}(2) = \\mathcal{O}(0)$ correctly gives $H^1 = 0$)."
+            "explain": "Kodaira: $H^i(X, K_X \\otimes L) = 0$ for $i > 0$ when $L$ is ample. The factor of $K_X$ is essential — without it, the conclusion can fail even for line bundles that are positive in a weaker sense (on an elliptic curve $E$, the trivial bundle $\\mathcal{O}_E$ is nef but $H^1(E, \\mathcal{O}_E) \\cong \\mathbb{C} \\ne 0$)."
           },
           {
             "type": "mcq",
@@ -63724,7 +63724,7 @@ window.MVQuizBank = {
               "$\\pi$ has no universal property"
             ],
             "answer": 1,
-            "explain": "$\\pi$ is a bijection on geometric points and any scheme-valued map from $\\mathcal{X}$ factors uniquely through $\\pi$. But the fiber of $\\pi$ over a stacky point is a classifying stack $B\\mathrm{Aut}$, so automorphism data is discarded; e.g. $\\mathrm{CH}^*(\\mathcal{M}_{1,1})_{\\mathbb{Z}}=\\mathbb{Z}[t]/(12t)\\ne \\mathrm{CH}^*(\\mathbb{A}^1)$."
+            "explain": "$\\pi$ is a bijection on geometric points and any scheme-valued map from $\\mathcal{X}$ factors uniquely through $\\pi$. But the fiber of $\\pi$ over a stacky point is a classifying stack $B\\mathrm{Aut}$, so automorphism data is discarded; e.g. $\\mathrm{CH}^*(\\mathcal{M}_{1,1})_{\\mathbb{Z}}=\\mathbb{Z}\\oplus(\\mathbb{Z}/12)\\cdot\\lambda$ (equivalently $\\mathbb{Z}[t]/(12t,\\,t^2)$, since $\\mathcal{M}_{1,1}$ is $1$-dimensional) $\\ne\\mathrm{CH}^*(\\mathbb{A}^1)=\\mathbb{Z}$."
           },
           {
             "type": "numeric",
@@ -63759,7 +63759,7 @@ window.MVQuizBank = {
             ],
             "answer": 0,
             "hint": "Coarse spaces have different integral classes at orbifold points.",
-            "explain": "The Hodge line bundle $\\lambda$ on $\\mathcal{M}_{1,1}$ satisfies $12\\lambda=0$ in $\\mathrm{Pic}(\\mathcal{M}_{1,1})$ (reflecting the $\\mu_2$ automorphism at every point and the $\\mu_6$ at $j=0$), giving $\\mathrm{CH}^1(\\mathcal{M}_{1,1})\\cong\\mathbb{Z}/12$. Meanwhile $\\mathrm{CH}^1(\\mathbb{A}^1)=0$, so $\\pi^*$ is not an isomorphism integrally."
+            "explain": "The Hodge line bundle $\\lambda$ on $\\mathcal{M}_{1,1}$ satisfies $12\\lambda=0$ in $\\mathrm{Pic}(\\mathcal{M}_{1,1})$ — Mumford's computation: the discriminant section of $\\lambda^{\\otimes 12}$ vanishes nowhere on $\\mathcal{M}_{1,1}$ (it cuts out the cusp on $\\overline{\\mathcal{M}_{1,1}}$), so $12\\lambda$ is trivial and $\\mathrm{Pic}(\\mathcal{M}_{1,1})=\\mathrm{CH}^1(\\mathcal{M}_{1,1})\\cong\\mathbb{Z}/12$. Meanwhile $\\mathrm{CH}^1(\\mathbb{A}^1)=0$, so $\\pi^*$ is not an isomorphism integrally."
           },
           {
             "type": "numeric",

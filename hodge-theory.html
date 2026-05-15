@@ -436,7 +436,11 @@ $$V_\mathbb{C} := V_\mathbb{Q} \otimes_\mathbb{Q} \mathbb{C} \;=\; \bigoplus_{p+
 <section id="mixed-hodge">
 <h2>5. Mixed Hodge structures (Deligne)</h2>
 
-<p>The Hodge decomposition fails for non-compact or singular varieties. The cohomology of $\mathbb{C}^* = \mathbb{C} \setminus \{0\}$ is $H^1(\mathbb{C}^*; \mathbb{Q}) \cong \mathbb{Q}$, but neither weight-$0$ nor weight-$1$ Hodge structure fits — the answer is "extension of weight 2 by weight 0" (or, after a Tate twist, weight $-2$ by weight $0$).</p>
+<p>The Hodge decomposition fails for non-compact or singular varieties. As a first orientation: the cohomology of $\mathbb{C}^* = \mathbb{C} \setminus \{0\}$ is $H^1(\mathbb{C}^*; \mathbb{Q}) \cong \mathbb{Q}$, and as a mixed Hodge structure it is in fact <em>pure of weight $2$</em> — namely the Tate twist $\mathbb{Q}(-1)$ (the dual of $\mathbb{Q}(1) = 2\pi i\,\mathbb{Q} \subset \mathbb{C}$). So $\mathbb{C}^*$ alone does not yet exhibit nontrivial weight-filtration extensions; for that one needs genuinely mixed examples. Two prototypes that <em>do</em> show extensions:</p>
+<ul>
+  <li><strong>Open elliptic curve $E \setminus \{p\}$.</strong> Removing one point from a smooth elliptic curve gives $H^1(E \setminus \{p\}; \mathbb{Q})$ as a nontrivial extension $0 \to H^1(E) \to H^1(E \setminus \{p\}) \to \mathbb{Q}(-1) \to 0$, mixing the pure weight-$1$ piece $H^1(E)$ with a weight-$2$ quotient. The extension class is the Abel–Jacobi image of the divisor $(p) - (0)$ — this is exactly how mixed Hodge encodes algebraic-cycle data.</li>
+  <li><strong>Nodal cubic (singular projective).</strong> The projective nodal cubic $X\colon y^2 z = x^2(x+z)$ has $H^1(X; \mathbb{Q}) \cong \mathbb{Q}$, and that one-dimensional space is pure of weight $0$ (it records the loop around the node) — sitting inside the punctured-curve cohomology as the kernel of restriction to the normalization, which witnesses a nontrivial extension between weights $0$ and $1$.</li>
+</ul>
 
 <p>Deligne's <b>mixed Hodge structures</b> (1971-74) repair the failure. A mixed $\mathbb{Q}$-Hodge structure is the data of:</p>
 <ul>
@@ -489,7 +493,7 @@ $$\Hdg^p(X) := H^{2p}(X; \mathbb{Q}) \cap H^{p,p}(X) \;\subset\; H^{2p}(X; \math
 
 <p>The Hodge conjecture (1950) predicts that this is all of $\Hdg^p(X)$ — every rational class of type $(p, p)$ comes from an algebraic cycle.</p>
 
-<aside class="bad"><b>Open since 1950.</b> A Clay Millennium prize problem. Known for $p = 1$ (the <em>Lefschetz $(1,1)$-theorem</em>: every integral $(1,1)$-class is the cycle class of a divisor — comes from the exponential sequence and the de Rham comparison). Known for abelian varieties of dimension $\le 4$ (André, Deligne for general absolute Hodge classes), for low-dimensional moduli, for Calabi-Yau threefolds in many cases — but in general, we don't know how to produce algebraic cycles to match every Hodge class. Counterexamples to the integral version are known (Atiyah-Hirzebruch, Totaro); the rational version remains the live problem.</aside>
+<aside class="bad"><b>Open since 1950.</b> A Clay Millennium prize problem. Known for $p = 1$ (the <em>Lefschetz $(1,1)$-theorem</em>: every integral $(1,1)$-class is the cycle class of a divisor — comes from the exponential sequence and the de Rham comparison). Unconditionally known up to dimension $3$ (where Hodge classes appear only in codimensions $0, 1, 2, 3$, and the only nontrivial codimensions $1$ and $2$ follow from Lefschetz $(1,1)$ and hard Lefschetz/duality). In dimension $4$ the conjecture is known in selected cases (e.g. abelian fourfolds of CM type, certain hypersurface families) but is open in general — what is established for abelian varieties of all dimensions is Deligne's theorem (1982) that <em>every Hodge class is absolutely Hodge</em>, which is strictly weaker than algebraicity (it does not produce algebraic cycles). For Calabi-Yau threefolds many cases are known — but in general, we don't know how to produce algebraic cycles to match every Hodge class. Counterexamples to the integral version are known (Atiyah-Hirzebruch, Totaro); the rational version remains the live problem.</aside>
 
 <p>Equivalent reformulations make the conjecture more tractable in special cases:</p>
 <ul>

@@ -413,7 +413,7 @@ $$\varphi_L\colon X \to \mathbb{P}^N, \qquad x \mapsto [s_0(x) : \cdots : s_N(x)
 <p style="margin:.2rem 0"><strong>Definition (ample).</strong> $L$ is <em>ample</em> if $L^{\otimes n}$ is very ample for some $n \ge 1$.</p>
 </div>
 
-<p>Why the relaxation? Because very ampleness is genuinely fragile — even on an elliptic curve $E$, a degree-$1$ line bundle is ample but not very ample. (Two sections cannot separate the points $P, -P$; you need three.) Replacing $L$ by $L^{\otimes n}$ for $n$ large enough always cures the problem. The flexibility makes ampleness the right invariant: it is both intrinsic to the line bundle and stable under operations like tensoring with a power.</p>
+<p>Why the relaxation? Because very ampleness is genuinely fragile — even on an elliptic curve $E$, a degree-$1$ line bundle is ample but not very ample. (By Riemann–Roch, $h^0 = 1$ in degree $1$, so there are not even enough sections to define a map; degree $2$ gives the $2:1$ cover of $\mathbb{P}^1$ and still cannot separate $P, -P$ — you need degree $\ge 3$.) Replacing $L$ by $L^{\otimes n}$ for $n$ large enough always cures the problem. The flexibility makes ampleness the right invariant: it is both intrinsic to the line bundle and stable under operations like tensoring with a power.</p>
 
 <h3>Serre's theorem: ampleness as a cohomological condition</h3>
 
@@ -764,7 +764,7 @@ $$N^1(X)_\mathbb{R} \times N_1(X)_\mathbb{R} \to \mathbb{R}, \qquad ([L], [C]) \
 $$\mathrm{Nef}(X) \;=\; \{\, [L] : L \cdot \alpha \ge 0 \text{ for all } \alpha \in \overline{NE}(X)\,\}.$$
 </div>
 
-<p>This duality is the bridge between divisors (codimension $1$) and curves (dimension $1$). Mori's contraction theorem then says the $K_X$-negative extremal rays of $\overline{NE}(X)$ admit geometric contractions, and these are the elementary moves of the <em>minimal model program</em>: for each extremal ray you contract a curve class, producing a new variety that is one step closer to "as positive as possible."</p>
+<p>This duality is the bridge between divisors (codimension $1$) and curves (dimension $1$). Mori's contraction theorem then says that for $X$ smooth (or, more generally, klt) projective, the $K_X$-negative extremal rays of $\overline{NE}(X)$ admit geometric contractions, and these are the elementary moves of the <em>minimal model program</em>: for each extremal ray you contract a curve class, producing a new variety that is one step closer to "as positive as possible."</p>
 
 <div class="widget" id="w-cones">
   <div class="hd"><div class="ttl">The chain of cones in $N^1(X)_\mathbb{R}$</div><div class="hint">a schematic of the four positivity classes</div></div>
@@ -1017,7 +1017,7 @@ $$\varphi_{L^{\otimes n}}\colon X \to \mathbb{P}\bigl(H^0(X, L^{\otimes n})^\vee
 $$H^i(X, K_X \otimes L) \;=\; 0 \quad \text{for all } i > 0.$$
 </div>
 
-<p>The factor of $K_X$ is essential. Without it, the cohomology $H^i(X, L)$ can be non-zero (e.g. $H^1(\mathbb{P}^1, \mathcal{O}(-2)) = \mathbb{C}$ since $K_{\mathbb{P}^1} = \mathcal{O}(-2)$ and Serre duality gives $H^1 \cong H^0(\mathcal{O})^\vee$). Kodaira vanishing says: tilt by $K_X$ first, then everything above $H^0$ vanishes for ample twists.</p>
+<p>The factor of $K_X$ is essential. Without it, the cohomology $H^i(X, L)$ can be non-zero even for line bundles that are positive in a weaker sense — e.g. on an elliptic curve $E$, the trivial bundle $\mathcal{O}_E$ is nef (and even base-point-free) yet $H^1(E, \mathcal{O}_E) \cong \mathbb{C}$, so dropping the $K_X$ twist breaks vanishing already on the simplest non-rational curve. Kodaira vanishing says: tilt by $K_X$ first, then everything above $H^0$ vanishes for ample twists.</p>
 
 <p>The proof, in modern form, uses Hodge theory: harmonic representatives of $K_X \otimes L$-classes at degree $i$ would have to be holomorphic $(d, i)$-forms with values in $L$, but ampleness of $L$ rules these out via a Bochner-style positivity argument on the curvature. The argument fails — and the theorem fails — in positive characteristic. Raynaud constructed counterexamples in characteristic $p$.</p>
 

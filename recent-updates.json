@@ -1,5 +1,5 @@
 {
-  "generated": "2026-05-15T05:35:52.325Z",
+  "generated": "2026-05-15T06:05:06.848Z",
   "entries": [
     {
       "slug": "infinity-categories",
@@ -32,6 +32,14 @@
       "tag": "",
       "date": "2026-05-14",
       "message": "fix: math-correctness audit pass — second batch (10 more topics)"
+    },
+    {
+      "slug": "analytic-number-theory",
+      "title": "Analytic number theory",
+      "color": "y",
+      "tag": "",
+      "date": "2026-05-14",
+      "message": "fix: math-correctness audit pass — fourth batch (35 more topics)"
     },
     {
       "slug": "atiyah-singer-index-theorem",
@@ -114,12 +122,36 @@
       "message": "fix: math-correctness audit pass — 75 topics across all 12 sections"
     },
     {
+      "slug": "convex-geometry",
+      "title": "Convex geometry",
+      "color": "v",
+      "tag": "",
+      "date": "2026-05-14",
+      "message": "fix: math-correctness audit pass — fourth batch (35 more topics)"
+    },
+    {
       "slug": "crystalline-cohomology",
       "title": "Crystalline cohomology",
       "color": "g",
       "tag": "",
       "date": "2026-05-14",
       "message": "fix: math-correctness audit pass — 75 topics across all 12 sections"
+    },
+    {
+      "slug": "dirac-equation",
+      "title": "Dirac equation",
+      "color": "p",
+      "tag": "",
+      "date": "2026-05-14",
+      "message": "fix: math-correctness audit pass — fourth batch (35 more topics)"
+    },
+    {
+      "slug": "dirichlet-unit-theorem",
+      "title": "Dirichlet unit theorem",
+      "color": "y",
+      "tag": "",
+      "date": "2026-05-14",
+      "message": "fix: math-correctness audit pass — fourth batch (35 more topics)"
     },
     {
       "slug": "donaldson-thomas-and-gw-invariants",
@@ -144,6 +176,14 @@
       "tag": "",
       "date": "2026-05-14",
       "message": "fix: math-correctness audit pass — 75 topics across all 12 sections"
+    },
+    {
+      "slug": "expanders",
+      "title": "Expanders",
+      "color": "v",
+      "tag": "",
+      "date": "2026-05-14",
+      "message": "fix: math-correctness audit pass — fourth batch (35 more topics)"
     },
     {
       "slug": "forcing-and-independence",
@@ -194,6 +234,14 @@
       "message": "fix: math-correctness audit pass — 75 topics across all 12 sections"
     },
     {
+      "slug": "heights-arithmetic-geometry",
+      "title": "Heights in arithmetic geometry",
+      "color": "y",
+      "tag": "",
+      "date": "2026-05-14",
+      "message": "fix: math-correctness audit pass — fourth batch (35 more topics)"
+    },
+    {
       "slug": "heyting-algebras-toposes",
       "title": "Heyting algebras & intuitionist logic",
       "color": "v",
@@ -208,6 +256,14 @@
       "tag": "",
       "date": "2026-05-14",
       "message": "fix: math-correctness audit pass — 75 topics across all 12 sections"
+    },
+    {
+      "slug": "homotopy-theory",
+      "title": "Homotopy theory",
+      "color": "v",
+      "tag": "",
+      "date": "2026-05-14",
+      "message": "fix: math-correctness audit pass — fourth batch (35 more topics)"
     },
     {
       "slug": "measure-theory",
@@ -266,6 +322,14 @@
       "message": "fix: math-correctness audit pass — 75 topics across all 12 sections"
     },
     {
+      "slug": "partitions-generating-functions",
+      "title": "Partitions & generating functions",
+      "color": "v",
+      "tag": "",
+      "date": "2026-05-14",
+      "message": "fix: math-correctness audit pass — fourth batch (35 more topics)"
+    },
+    {
       "slug": "positive-characteristic-ag",
       "title": "Positive-characteristic AG",
       "color": "g",
@@ -280,6 +344,14 @@
       "tag": "",
       "date": "2026-05-14",
       "message": "fix: math-correctness audit pass — third batch (15 more topics)"
+    },
+    {
+      "slug": "quadratic-forms-genus-theory",
+      "title": "Quadratic forms & genus theory",
+      "color": "y",
+      "tag": "",
+      "date": "2026-05-14",
+      "message": "fix: math-correctness audit pass — fourth batch (35 more topics)"
     },
     {
       "slug": "random-matrix-theory",
@@ -376,14 +448,6 @@
       "tag": "",
       "date": "2026-05-13",
       "message": "New topic: Computational molecular biology (Probability & statistics) (#180)"
-    },
-    {
-      "slug": "convex-geometry",
-      "title": "Convex geometry",
-      "color": "v",
-      "tag": "",
-      "date": "2026-05-13",
-      "message": "New topics rollup: Convex geometry + TDA + Mathematical chaos (#181)"
     },
     {
       "slug": "convex-optimization",
@@ -530,28 +594,12 @@
       "message": "3 more gap topics: homotopy-theory, maass-forms, d-modules (#124)"
     },
     {
-      "slug": "dirichlet-unit-theorem",
-      "title": "Dirichlet unit theorem",
-      "color": "y",
-      "tag": "",
-      "date": "2026-05-06",
-      "message": "3 more gap topics: dirichlet-unit-theorem, cobordism, MMP (#123)"
-    },
-    {
       "slug": "half-integral-weight-forms",
       "title": "Half-integral weight forms",
       "color": "c",
       "tag": "",
       "date": "2026-05-06",
       "message": "3 more gap topics: kahler-geometry, half-integral-weight, crystalline-cohomology (#125)"
-    },
-    {
-      "slug": "homotopy-theory",
-      "title": "Homotopy theory",
-      "color": "v",
-      "tag": "",
-      "date": "2026-05-06",
-      "message": "3 more gap topics: homotopy-theory, maass-forms, d-modules (#124)"
     },
     {
       "slug": "iwasawa-theory",
@@ -600,14 +648,6 @@
       "tag": "",
       "date": "2026-05-06",
       "message": "3 advanced topics + map/mindmap UX + section pill UI + thumb-art (#121)"
-    },
-    {
-      "slug": "dirac-equation",
-      "title": "Dirac equation",
-      "color": "p",
-      "tag": "",
-      "date": "2026-05-04",
-      "message": "Dirac equation topic (#106) (#106)"
     },
     {
       "slug": "geometric-measure-theory",
@@ -770,14 +810,6 @@
       "message": "Refactor + corpus expansion: sidetoc, hamiltonians-figure, inline-widget migration, content materialization, graduate CA, +12 grad concepts (#45)"
     },
     {
-      "slug": "analytic-number-theory",
-      "title": "Analytic number theory",
-      "color": "y",
-      "tag": "",
-      "date": "2026-04-27",
-      "message": "Sweep: build-time speedup, compass+quintic polish, tours, slug adoptions, hub growth, capstone fattening, inline migration (#41)"
-    },
-    {
       "slug": "automorphic-forms-adelic",
       "title": "Automorphic forms (adelic)",
       "color": "c",
@@ -818,14 +850,6 @@
       "message": "PCM honorable mentions: 15 topics + Mathematical physics section (#37)"
     },
     {
-      "slug": "expanders",
-      "title": "Expanders",
-      "color": "v",
-      "tag": "",
-      "date": "2026-04-27",
-      "message": "PCM honorable mentions: 15 topics + Mathematical physics section (#37)"
-    },
-    {
       "slug": "geometric-and-combinatorial-group-theory",
       "title": "Geometric and combinatorial group theory",
       "color": "y",
@@ -840,14 +864,6 @@
       "tag": "",
       "date": "2026-04-27",
       "message": "PCM honorable mentions: 15 topics + Mathematical physics section (#37)"
-    },
-    {
-      "slug": "heights-arithmetic-geometry",
-      "title": "Heights in arithmetic geometry",
-      "color": "y",
-      "tag": "",
-      "date": "2026-04-27",
-      "message": "Sweep: build-time speedup, compass+quintic polish, tours, slug adoptions, hub growth, capstone fattening, inline migration (#41)"
     },
     {
       "slug": "high-dimensional-geometry",
@@ -1338,14 +1354,6 @@
       "message": "Content + structure expansion: 22 new topics, 156 new concepts, full review pass (#35)"
     },
     {
-      "slug": "partitions-generating-functions",
-      "title": "Partitions & generating functions",
-      "color": "v",
-      "tag": "",
-      "date": "2026-04-26",
-      "message": "Content + structure expansion: 22 new topics, 156 new concepts, full review pass (#35)"
-    },
-    {
       "slug": "point-set-topology",
       "title": "Point-set topology",
       "color": "v",
@@ -1364,14 +1372,6 @@
     {
       "slug": "projective-plane",
       "title": "Projective plane",
-      "color": "y",
-      "tag": "",
-      "date": "2026-04-26",
-      "message": "Content + structure expansion: 22 new topics, 156 new concepts, full review pass (#35)"
-    },
-    {
-      "slug": "quadratic-forms-genus-theory",
-      "title": "Quadratic forms & genus theory",
       "color": "y",
       "tag": "",
       "date": "2026-04-26",

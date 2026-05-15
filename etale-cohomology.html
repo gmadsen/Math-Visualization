@@ -704,7 +704,7 @@ $$Z(X,t) \;=\; \prod_{i=0}^{2\dim X}\det\!\big(1 - t\,\operatorname{Frob}_q\,\bi
       <select id="we-sel">
         <option value="c1">$y^2+y=x^3$ over $\mathbb{F}_2$ ($a_q = 0$)</option>
         <option value="c2">$y^2=x^3+1$ over $\mathbb{F}_3$ ($a_q = 0$)</option>
-        <option value="c3">$y^2=x^3+x+1$ over $\mathbb{F}_5$ ($a_q = -2$)</option>
+        <option value="c3">$y^2=x^3+x+1$ over $\mathbb{F}_5$ ($a_q = -3$)</option>
         <option value="custom">custom: slide $a_q$</option>
       </select>
     </label>
@@ -720,7 +720,7 @@ $$Z(X,t) \;=\; \prod_{i=0}^{2\dim X}\det\!\big(1 - t\,\operatorname{Frob}_q\,\bi
 (function(){
   const sel=$('#we-sel'), out=$('#we-out'), svg=$('#we-svg');
   const qSel=$('#we-q'), aSl=$('#we-a'), aVal=$('#we-a-val'), rowA=$('#we-row-a');
-  const PR={c1:{q:2,a:0,name:'y²+y=x³ / 𝔽₂'}, c2:{q:3,a:0,name:'y²=x³+1 / 𝔽₃'}, c3:{q:5,a:-2,name:'y²=x³+x+1 / 𝔽₅'}};
+  const PR={c1:{q:2,a:0,name:'y²+y=x³ / 𝔽₂'}, c2:{q:3,a:0,name:'y²=x³+1 / 𝔽₃'}, c3:{q:5,a:-3,name:'y²=x³+x+1 / 𝔽₅'}};
   function render(){
     const k=sel.value; let q,a,name;
     if(k==='custom'){ rowA.style.display=''; q=+qSel.value;
@@ -861,12 +861,12 @@ $$Z(X,t) \;=\; \prod_{i=0}^{2\dim X}\det\!\big(1 - t\,\operatorname{Frob}_q\,\bi
         cnt++;
       }
       title = `q=${q}, swept ${cnt} integer values of a_q; yellow = current a_q=${a}`;
-      extra = 'As a_q ranges over the Hasse interval, (α,β) moves along the dashed circle: arcs collapse to the real axis at the endpoints (supersingular splits in char p).';
+      extra = 'As a_q ranges over the Hasse interval, (α,β) moves along the dashed circle: arcs collapse to the real axis at the endpoints a_q = ±2√q (only attainable when √q is an integer, i.e. q is a square). Supersingular curves are characterised by a_p ≡ 0 (mod p) — typically the middle of the Hasse interval, not its endpoints.';
     } else { // sweep-p
-      const primes = primesUpTo(97).filter(p=>p!==2 && p!==3); // skip bad reduction at 2,3 for this curve (disc = 16·(4·(-1)³ - 27·1²) = 16·-31, so bad at 31)
+      const primes = primesUpTo(97).filter(p=>p!==2); // skip p=2 (small-prime artefacts in our brute-force loop)
       let points=[];
       primes.forEach(p=>{
-        if(p===31) return; // bad reduction for y² = x³ - x + 1 (Δ = -16·(4(-1)³+27)= -16·23 ≠ 0 actually); keep simple: skip 31 just in case
+        if(p===23) return; // bad reduction for y² = x³ − x + 1: Δ = -16·(4·(-1)³ + 27·1²) = -16·23 = -368, so bad-reduction primes are 2 and 23
         const ap = apEll(p);
         if(Math.abs(ap) > 2*Math.sqrt(p) + 0.5) return;
         const [al,be,sq] = eigFromAq(ap, p);

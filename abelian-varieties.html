@@ -526,7 +526,7 @@ The number of points satisfies $|A(\mathbb{F}_{q^n})|=\prod_i(1-\alpha_i^n)$, so
     const pts = Math.round(real);
     const bound = G === 1
       ? 'Hasse: $|N - (q^n+1)| \\le 2\\sqrt{q^n}$'
-      : 'Weil: $|N - (q^n+1)^g| \\le \\binom{2g}{g}\\,q^{ng/2}$';
+      : 'Weil: $(\\sqrt{q^n}-1)^{2g} \\le N \\le (\\sqrt{q^n}+1)^{2g}$ (from $|1-\\alpha_i^n|\\le 1+\\sqrt{q^n}$)';
     out.innerHTML =
       'For $A/\\mathbb{F}_'+Q+'$ of dim $g='+G+'$ with chosen Frobenius angles, '+
       '$|A(\\mathbb{F}_{'+Q+'^{'+N+'}})| = '+pts+'$. '+
@@ -600,7 +600,7 @@ is injective. So the polarized Jacobian determines the curve up to isomorphism.<
     <thead><tr><th>$g$</th><th>$\dim\mathcal{M}_g=3g-3$</th><th>$\dim\mathcal{A}_g=g(g+1)/2$</th><th>codim of $\mathcal{J}_g$ in $\mathcal{A}_g$</th><th>status</th></tr></thead>
     <tbody>
       <tr><td>1</td><td>1 (just $j$)</td><td>1</td><td>0</td><td>every p.p.a.v. is an elliptic curve</td></tr>
-      <tr><td>2</td><td>3</td><td>3</td><td>0</td><td>every p.p.a.v. is a Jacobian</td></tr>
+      <tr><td>2</td><td>3</td><td>3</td><td>0</td><td>every irreducible p.p.a.v. is a Jacobian (or a product of two ECs)</td></tr>
       <tr><td>3</td><td>6</td><td>6</td><td>0</td><td>every irreducible p.p.a.v. is a Jacobian (or a product)</td></tr>
       <tr><td>4</td><td>9</td><td>10</td><td>1</td><td>Schottky equation cuts out $\overline{\mathcal{J}_4}$</td></tr>
       <tr><td>5</td><td>12</td><td>15</td><td>3</td><td>cut out by Andreotti–Mayer + further conditions</td></tr>
@@ -711,7 +711,7 @@ $$\Phi \;=\; \mathcal{A}_k/\mathcal{A}_k^0$$
 <p>The <strong>Néron–Ogg–Shafarevich criterion</strong> connects reduction to Galois representations: $A/K$ has good reduction at $v$ iff the inertia group $I_v$ acts trivially on $T_\ell A$ for some (equivalently every) $\ell\ne\mathrm{char}\,k(v)$. So the local Galois representation knows the reduction type — and the conductor exponent $f_v$ measures the inertia invariants:</p>
 $$f_v \;=\; \dim T_\ell A \;-\; \dim(T_\ell A)^{I_v} \;+\; (\text{wild part}).$$
 
-<p>For elliptic curves the resulting <em>Kodaira–Néron classification</em> (Kodaira 1963, Néron 1964, Tate's algorithm 1975) lists exactly $10$ reduction types: $I_0$ (good), $I_n$ ($n\ge 1$, multiplicative), and seven additive types $II,III,IV,I_0^*,I_n^*,IV^*,III^*,II^*$. For $g\ge 2$ the analogous classification is more elaborate but follows the same pattern via the toric / unipotent / abelian rank triple.</p>
+<p>For elliptic curves the resulting <em>Kodaira–Néron classification</em> (Kodaira 1963, Néron 1964, Tate's algorithm 1975) lists exactly $10$ reduction types: $I_0$ (good), $I_n$ ($n\ge 1$, multiplicative), and eight additive types $II,III,IV,I_0^*,I_n^*,IV^*,III^*,II^*$. For $g\ge 2$ the analogous classification is more elaborate but follows the same pattern via the toric / unipotent / abelian rank triple.</p>
 
 <div class="quiz" data-concept="av-neron-model"></div><!-- callback-auto-begin -->
 <aside class="callback">

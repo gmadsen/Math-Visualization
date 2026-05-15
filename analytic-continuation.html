@@ -736,12 +736,13 @@ defines a holomorphic extension of $f$ to $U^+\cup I\cup U^-$.</div>
 
 <p>Not every holomorphic function on a domain can be continued beyond it. Sometimes the boundary is <strong>natural</strong>: every boundary point is a singularity, and no germ on the inside extends through any arc of the boundary.</p>
 
-<div class="note"><strong>Ostrowski's gap theorem (flavor).</strong> If a power series $\sum c_n z^n$ has radius $1$ and its nonzero coefficients occur only on indices $n_k$ with $n_{k+1}/n_k \ge 1+\delta > 1$, the unit circle is a natural boundary.</div>
+<div class="note"><strong>Hadamard's gap theorem (1892).</strong> If a power series $\sum c_n z^n$ has radius $1$ and its nonzero coefficients occur only on indices $n_k$ with $n_{k+1}/n_k \ge 1+\delta > 1$ (a true geometric gap), the unit circle is a natural boundary. The textbook witness is $\sum z^{2^k}$.</div>
 
-<p>The cleanest example is the <em>theta-like</em> lacunary series
-$$F(z) \;=\; \sum_{n=0}^\infty z^{n^2} \;=\; 1+z+z^4+z^9+z^{16}+\cdots$$</p>
+<p>A subtler example, with quadratic — not exponential — gaps, is the <em>theta-like</em> lacunary series
+$$F(z) \;=\; \sum_{n=0}^\infty z^{n^2} \;=\; 1+z+z^4+z^9+z^{16}+\cdots$$
+Here the gap exponents $n_k = k^2$ satisfy $n_{k+1}/n_k = (k+1)^2/k^2 \to 1$, so Hadamard's hypothesis <em>fails</em> — but the unit circle is still a natural boundary, by a different mechanism.</p>
 
-<p>On $|z|<1$ the series converges absolutely, defining a holomorphic $F$. Near any root of unity $\zeta = e^{2\pi i p/q}$ on the boundary, one shows $|F(r\zeta)|\to\infty$ as $r\to 1^-$ (using the identity $F(z)^2 \approx $ number-theoretic counting of $n_1^2+n_2^2$). Roots of unity are <em>dense</em> in the unit circle, so $F$ cannot be continued across <em>any</em> boundary arc — each would contain infinitely many singular points.</p>
+<p>On $|z|<1$ the series converges absolutely, defining a holomorphic $F$. Near any root of unity $\zeta = e^{2\pi i p/q}$ on the boundary, one shows $|F(r\zeta)|\to\infty$ as $r\to 1^-$ — the rigorous mechanism is theta-modularity: write $F(e^{2\pi i\tau}) = \frac{1+\theta_3(\tau)}{2}$ where $\theta_3(\tau) = \sum_{n\in\mathbb{Z}} e^{\pi i n^2 \tau}$, and apply the Jacobi transformation law $\theta_3(-1/\tau) = \sqrt{-i\tau}\,\theta_3(\tau)$ to see that $\theta_3$ blows up at every cusp of the upper half-plane — i.e. at every rational $p/q$, and hence at every root of unity in the $q$-disc picture. Roots of unity are <em>dense</em> in the unit circle, so $F$ cannot be continued across <em>any</em> boundary arc — each would contain infinitely many singular points.</p>
 
 <p>This is typical: lacunary series produce functions with the unit disk as a "private universe." Another famous example: $\eta(\tau) = q^{1/24}\prod(1-q^n)$ as a function of $q=e^{2\pi i\tau}$ has the unit circle as a natural boundary (from the $q$-side).</p>
 
