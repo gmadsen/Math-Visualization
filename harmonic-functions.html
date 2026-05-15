@@ -1079,14 +1079,14 @@ function heatColor(t){
     }
     return s/N;
   }
-  // a "subharmonic competitor": cone tip at θ_k on the boundary, value g(θ_k); subharmonic on disk by max of linear functions
+  // genuine subharmonic competitor: v_k(z) = g(θ_k) + M*(|z − e^{iθ_k}|^2 − 4). Since Δ(|z−w|^2) = 4 > 0, each v_k is SUBHARMONIC; on the unit disk |z−w|^2 ∈ [0,4] so v_k ≤ g(θ_k) on ∂D, with v_k(e^{iθ_k}) = g(θ_k) − 4M and v_k = g(θ_k) at the antipode. Max-of-subharmonic is subharmonic.
   function buildSub(family, x, y){
     let best = -Infinity;
     for(const c of family){
-      // candidate v(z) = g(θ_k) − M*|z − e^{iθ_k}|^2 (a subharmonic paraboloid below the boundary value at one point)
+      // candidate v(z) = g(θ_k) + M*(|z − e^{iθ_k}|^2 − 4)
       const dx = x - Math.cos(c.th), dy = y - Math.sin(c.th);
       const d2 = dx*dx + dy*dy;
-      const v = c.val - c.M*d2;
+      const v = c.val + c.M*(d2 - 4);
       if(v>best) best=v;
     }
     return best;
@@ -1100,7 +1100,7 @@ function heatColor(t){
     let gMin=Infinity,gMax=-Infinity;
     for(let k=0;k<400;k++){ const v=g(2*Math.PI*k/400); gMin=Math.min(gMin,v); gMax=Math.max(gMax,v); }
     const gAbs = Math.max(Math.abs(gMin), Math.abs(gMax), 1e-3);
-    // build family: n equally spaced θ_k, each contributes a subharmonic paraboloid v_k = g(θ_k) - M|z-e^{iθ_k}|²
+    // build family: n equally spaced θ_k, each contributes a subharmonic paraboloid v_k = g(θ_k) + M(|z-e^{iθ_k}|² − 4)
     const family = [];
     const M = 1.5;
     for(let k=0;k<n;k++){

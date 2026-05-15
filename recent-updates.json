@@ -1,5 +1,5 @@
 {
-  "generated": "2026-05-15T06:05:06.848Z",
+  "generated": "2026-05-15T07:18:05.857Z",
   "entries": [
     {
       "slug": "infinity-categories",
@@ -178,6 +178,14 @@
       "message": "fix: math-correctness audit pass — 75 topics across all 12 sections"
     },
     {
+      "slug": "etale-fundamental-group",
+      "title": "Étale fundamental group",
+      "color": "c",
+      "tag": "",
+      "date": "2026-05-14",
+      "message": "fix: math-correctness audit pass — fifth batch (28 topics that earlier reports hallucinated)"
+    },
+    {
       "slug": "expanders",
       "title": "Expanders",
       "color": "v",
@@ -338,6 +346,14 @@
       "message": "fix: math-correctness audit pass — 75 topics across all 12 sections"
     },
     {
+      "slug": "positivity-and-ample-line-bundles",
+      "title": "Positivity and ample line bundles",
+      "color": "g",
+      "tag": "",
+      "date": "2026-05-14",
+      "message": "fix: math-correctness audit pass — fifth batch (28 topics that earlier reports hallucinated)"
+    },
+    {
       "slug": "probability-theory",
       "title": "Probability theory",
       "color": "b",
@@ -416,6 +432,14 @@
       "tag": "",
       "date": "2026-05-14",
       "message": "fix: math-correctness audit pass — third batch (15 more topics)"
+    },
+    {
+      "slug": "stacks",
+      "title": "Stacks (Deligne–Mumford)",
+      "color": "g",
+      "tag": "",
+      "date": "2026-05-14",
+      "message": "fix: math-correctness audit pass — fifth batch (28 topics that earlier reports hallucinated)"
     },
     {
       "slug": "stochastic-calculus",
@@ -632,14 +656,6 @@
       "tag": "",
       "date": "2026-05-06",
       "message": "New topic: Mapping class groups & 4-manifolds (#134)"
-    },
-    {
-      "slug": "positivity-and-ample-line-bundles",
-      "title": "Positivity and ample line bundles",
-      "color": "g",
-      "tag": "",
-      "date": "2026-05-06",
-      "message": "3 next-priority gap topics + condensed pin fix (#122)"
     },
     {
       "slug": "toric-varieties",
@@ -1178,14 +1194,6 @@
       "message": "Content + structure expansion: 22 new topics, 156 new concepts, full review pass (#35)"
     },
     {
-      "slug": "etale-fundamental-group",
-      "title": "Étale fundamental group",
-      "color": "c",
-      "tag": "",
-      "date": "2026-04-26",
-      "message": "Content + structure expansion: 22 new topics, 156 new concepts, full review pass (#35)"
-    },
-    {
       "slug": "extremal-combinatorics",
       "title": "Extremal combinatorics",
       "color": "g",
@@ -1460,14 +1468,6 @@
     {
       "slug": "spectral-graph-theory",
       "title": "Spectral graph theory",
-      "color": "g",
-      "tag": "",
-      "date": "2026-04-26",
-      "message": "Content + structure expansion: 22 new topics, 156 new concepts, full review pass (#35)"
-    },
-    {
-      "slug": "stacks",
-      "title": "Stacks (Deligne–Mumford)",
       "color": "g",
       "tag": "",
       "date": "2026-04-26",

@@ -326,7 +326,7 @@ $$\int_0^1 |f(x)|^2\,dx \;=\; \sum_{n\in\mathbb{Z}} |\hat f(n)|^2.$$
     square:   x => x < 0.5 ? 1 : -1,
     triangle: x => 1 - 4*Math.abs(x - 0.5),
     sawtooth: x => 2*x - 1,
-    bump:     x => Math.exp(-30*(x-0.5)*(x-0.5)) - 0.32465247
+    bump:     x => Math.exp(-30*(x-0.5)*(x-0.5)) - 0.32365   // mean = √(π/30)·erf(√30/2)
   };
   // Numerical Fourier coefficients for the chosen target on [0,1].
   // For symmetric/antisymmetric simple waves the closed forms exist,
@@ -943,9 +943,8 @@ $$u(t, x) \;=\; (K_t * f)(x),\qquad K_t(x) = \frac{1}{\sqrt{4\pi t}}\, e^{-x^2/(
 
     // ranges and step sizes
     const dy = 12.0/Mc;   // integrate y over [-6, 6]
-    const sigma2 = Math.max(t*4, 1e-7);   // since u_t = u_xx → variance = 2t in our convention
-                                          // actually with our PDE u_t = u_xx (no 4π factor) the
-                                          // kernel is K_t(x) = 1/√(4πt) exp(-x²/(4t)).
+    // PDE is u_t = u_xx (no 4π factor); kernel K_t(x) = 1/√(4πt) exp(-x²/(4t)),
+    // so the kernel variance is 2t (used inline in uAt).
 
     function uAt(x){
       if(t < 1e-6) return fn(x);

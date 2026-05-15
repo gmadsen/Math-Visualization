@@ -2509,7 +2509,7 @@ $$(\varepsilon F)\circ(F\eta)=\mathrm{id}_F,\qquad (G\varepsilon)\circ(\eta G)=\
     for(let i=0;i<nA;i++){
       msg += `   ${Aitems[i]} ↦ (word ${Aitems[i]}) ↦ ${evalExt(Aitems[i])}     ← equals f(${Aitems[i]})=${fVals[i]}? ${evalExt(Aitems[i])===fVals[i]?'yes ✓':'no ✗'}\n`;
     }
-    msg += `\ncounit ε_G : FU(G) → G  is the evaluation-of-words map; for G abelian, F(U(G)) surjects onto G via word-sum.`;
+    msg += `\ncounit ε_G : FU(G) → G  is the evaluation-of-words map; ε_G is always surjective (every g ∈ G is the image of its one-letter word).`;
     out.textContent = msg;
   }
   nSl.addEventListener('input', render);

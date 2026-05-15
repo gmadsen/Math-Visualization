@@ -947,7 +947,7 @@ For a martingale, $L^1$-convergence is equivalent to UI. When $(M_n)$ is UI, $M_
         `Pólya urn: M_n = (red urns)/(total urns) ∈ [0,1]\n`+
         `${paths.length} paths, N = ${N}\n`+
         `M_N empirical mean = ${m.toFixed(3)} (target 0.500 by symmetry); empirical std ≈ ${sd.toFixed(3)}\n`+
-        `bounded ⇒ UI ⇒ converges in L¹ to a (random) limit M_∞ ∈ [0,1] with E[M_∞] = 1/2`;
+        `bounded ⇒ UI ⇒ converges in L¹ to a (random) limit M_∞ ∈ [0,1] with E[M_∞] = 1/2 — in fact M_∞ ~ Uniform[0,1]`;
     } else {
       out.textContent =
         `doubling product: X_i ∈ {0, 2}, M_n = ∏ X_i\n`+

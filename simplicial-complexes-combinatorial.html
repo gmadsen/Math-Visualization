@@ -419,7 +419,7 @@ The $h$-vector and $f$-vector encode the same data, but the $h$-side often has s
 
 <div class="note"><strong>Dehn–Sommerville (simplicial polytopes / spheres).</strong> If $K$ is the boundary complex of a simplicial $d$-polytope (or, more generally, a simplicial $(d-1)$-sphere), then
 $$h_k = h_{d-k}, \qquad k = 0, 1, \ldots, d.$$
-This is a strong constraint on $f$-vectors: out of the $d$ free numbers $f_0, \ldots, f_{d-1}$, only roughly $d/2$ are independent. Stanley's $g$-theorem (1980, with McMullen's $g$-conjecture from 1971 as the upper-bound side) classifies which $h$-vectors actually arise.</p></div>
+This is a strong constraint on $f$-vectors: out of the $d$ free numbers $f_0, \ldots, f_{d-1}$, only roughly $d/2$ are independent. Stanley's $g$-theorem (1980) — proving McMullen's 1971 $g$-conjecture for simplicial polytopes — gives a complete characterization of the $h$-vectors (equivalently $f$-vectors) of simplicial polytopes. (The Upper Bound Theorem of McMullen 1970 / Stanley 1975 is a separate, weaker bound. Adiprasito 2018 extended the $g$-conjecture to all simplicial spheres.)</p></div>
 
 <div class="widget" id="w-fh">
   <div class="hd"><div class="ttl">$f \to h$ converter</div><div class="hint">pick a complex and read the $h$-vector — Dehn–Sommerville is the symmetry test</div></div>
@@ -814,7 +814,7 @@ A monomial $x^{a}$ survives in $k[K]$ iff its support $\{i : a_i > 0\}$ is a fac
 <tr><td>$\{\emptyset, 1, 2, 3\}$ (3 isolated points)</td><td>$\{12, 13, 23, 123\}$</td><td>$(x_1x_2, x_1x_3, x_2x_3)$</td><td>$k[x_1,x_2,x_3]/(\text{products})$</td></tr>
 <tr><td>$\partial\Delta^2$ (boundary of triangle)</td><td>$\{123\}$</td><td>$(x_1x_2x_3)$</td><td>$k[x_1,x_2,x_3]/(x_1x_2x_3)$</td></tr>
 <tr><td>$\Delta^2$ (full triangle)</td><td>$\emptyset$</td><td>$(0)$</td><td>$k[x_1,x_2,x_3]$</td></tr>
-<tr><td>two edges $\{12, 23\}$</td><td>$\{13, 123\}$</td><td>$(x_1x_3)$ ⟂ already cont.</td><td>$k[x_1,x_2,x_3]/(x_1x_3)$</td></tr>
+<tr><td>two edges $\{12, 23\}$</td><td>$\{13, 123\}$</td><td>$(x_1x_3)$ &nbsp;<span class="small">($x_1x_2x_3$ already in this ideal, so redundant)</span></td><td>$k[x_1,x_2,x_3]/(x_1x_3)$</td></tr>
 </tbody>
 </table>
 

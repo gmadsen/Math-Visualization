@@ -49,7 +49,7 @@
         "hf-mean-value-property",
         "lebesgue-measure"
       ],
-      "blurb": "The disk's Dirichlet problem has the explicit solution $u(re^{i\\theta}) = \\tfrac{1}{2\\pi}\\int_0^{2\\pi} P_r(\\theta-\\varphi)\\,g(\\varphi)\\,d\\varphi$ with $P_r(\\theta) = \\tfrac{1-r^2}{1-2r\\cos\\theta+r^2}$. Boundary values are recovered $L^p$-a.e. by Fatou's theorem.",
+      "blurb": "The disk's Dirichlet problem has the explicit solution $u(re^{i\\theta}) = \\tfrac{1}{2\\pi}\\int_0^{2\\pi} P_r(\\theta-\\varphi)\\,g(\\varphi)\\,d\\varphi$ with $P_r(\\theta) = \\tfrac{1-r^2}{1-2r\\cos\\theta+r^2}$. Boundary values are recovered a.e. by Fatou's theorem (for $g \\in L^1$).",
       "tags": [
         "duality"
       ]
