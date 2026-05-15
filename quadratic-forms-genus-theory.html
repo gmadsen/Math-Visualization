@@ -416,7 +416,7 @@ This turns the set of equivalence classes into a finite, computable list. The nu
 <h3>The reduction algorithm</h3>
 <p>Starting from any primitive positive-definite form $(a,b,c)$ with $D = b^2-4ac$:</p>
 <ol>
-  <li>If $a > c$, swap $a \leftrightarrow c$ and negate $b$ (which replaces $f(x,y)$ by $f(y,x)$).</li>
+  <li>If $a > c$, swap $a \leftrightarrow c$ and negate $b$ (the substitution $(x,y)\mapsto(y,-x)$, with matrix $\begin{pmatrix}0&1\\-1&0\end{pmatrix}\in\mathrm{SL}_2(\mathbb{Z})$, sends $(a,b,c)$ to $(c,-b,a)$).</li>
   <li>If $|b| > a$, replace $b$ by $b - 2ak$ where $k = \lfloor (b+a)/(2a) \rfloor$; update $c$ via $c \leftarrow (b'^2 - D)/(4a)$ using new $b' = b-2ak$.</li>
   <li>Repeat until the inequalities hold.</li>
 </ol>
@@ -530,7 +530,7 @@ for explicit bilinear forms $B$ and $C$. This composition descends to an abelian
 $$ f_0 = \begin{cases} x^2 - \tfrac{D}{4}y^2 & \text{if } 4\mid D, \\ x^2 + xy - \tfrac{D-1}{4}y^2 & \text{if } D \equiv 1\pmod{4}. \end{cases} $$
 The <strong>inverse</strong> of the class of $(a,b,c)$ is the class of $(a,-b,c)$ — simply negate the middle coefficient.</p>
 
-<div class="note"><strong>A finite abelian group.</strong> $|\mathrm{Cl}(D)| = h(D)$, the class number. By Minkowski's bound, every class contains a form with $a \le \sqrt{|D|/3}$, so $h(D)$ is finite. Its growth is predicted by the <em>Brauer–Siegel theorem</em>: roughly $h(D) \sim \sqrt{|D|}$ on average.</div>
+<div class="note"><strong>A finite abelian group.</strong> $|\mathrm{Cl}(D)| = h(D)$, the class number. By Minkowski's bound, every class contains a form with $a \le \sqrt{|D|/3}$, so $h(D)$ is finite. Its growth is predicted by the <em>Brauer–Siegel theorem</em>: for fundamental $D<0$ (where the regulator is $1$), $\log h(D) \sim \tfrac12\log|D|$, i.e. $h(D) = |D|^{1/2 + o(1)}$.</div>
 
 <h3>Group structure visualizer</h3>
 <p>For $D = -23$ the class group $\mathrm{Cl}(-23) \cong \mathbb{Z}/3\mathbb{Z}$ has three elements: the three reduced forms $(1,1,6)$, $(2,1,3)$, $(2,-1,3)$. Squaring the non-principal element cycles back to the identity.</p>

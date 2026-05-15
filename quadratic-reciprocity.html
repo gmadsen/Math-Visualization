@@ -520,7 +520,7 @@ $$ a^{(p-1)/2} \equiv \left(\frac{a}{p}\right) \pmod p. $$</div>
 <strong>Second supplement.</strong> $\displaystyle \left(\frac{2}{p}\right) = (-1)^{(p^2-1)/8} = \begin{cases} +1 & p\equiv \pm 1\pmod 8,\\ -1 & p\equiv \pm 3\pmod 8. \end{cases}$
 </div>
 
-<p>This one is proved by Gauss's lemma (next section) applied to $a=2$: count how many of $\{2,4,6,\ldots,p-1\}$ reduce to the "upper half" $\{(p+1)/2,\ldots,p-1\}$ mod $p$, and read off the sign. The count turns out to be $\lfloor p/4 \rfloor$, giving the displayed parity.</p>
+<p>This one is proved by Gauss's lemma (next section) applied to $a=2$: count how many of $\{2,4,6,\ldots,p-1\}$ reduce to the "upper half" $\{(p+1)/2,\ldots,p-1\}$ mod $p$, and read off the sign. The count turns out to be $\lfloor (p+1)/4 \rfloor$ — equivalently $\lfloor p/4\rfloor$ when $p\equiv 1\pmod 4$ and $\lfloor p/4\rfloor + 1$ when $p\equiv 3\pmod 4$ — and its parity matches $(p^2-1)/8$, giving the displayed sign.</p>
 
 <p>Together with multiplicativity, these let us handle $-1$ and $2$ with a single glance at $p \bmod 8$.</p>
 <div class="quiz" data-concept="supplementary-laws-qr"></div>
@@ -673,7 +673,7 @@ Equivalently: the two symbols agree unless <em>both</em> $p$ and $q$ are $\equiv
 $$ \left(\frac{q}{p}\right) = (-1)^{T(p,q)}. $$
 Swapping $p$ and $q$ swaps the two legs of the rectangle and replaces $T(p,q)$ by $T(q,p)$, and
 $$ T(p,q) + T(q,p) = \frac{p-1}{2}\cdot\frac{q-1}{2} $$
-is the lattice-point count in the whole rectangle $[1,(p-1)/2]\times[1,(q-1)/2]$, split by the diagonal (which misses all lattice points when $p\ne q$). Multiplying the two symbols yields the parity of the sum, which is the reciprocity exponent.</p>
+is the lattice-point count in the whole rectangle $[1,(p-1)/2]\times[1,(q-1)/2]$, split by the diagonal (which misses all lattice points since $\gcd(p,q)=1$). Multiplying the two symbols yields the parity of the sum, which is the reciprocity exponent.</p>
 
 <h3>The sign pattern</h3>
 <p>Visualise it. For each pair of small odd primes $(p,q)$, color the cell by whether $\left(\tfrac{p}{q}\right)\left(\tfrac{q}{p}\right)$ is $+1$ (green) or $-1$ (red). The red cells are precisely those where $p\equiv q\equiv 3 \pmod 4$. The pattern is symmetric in $p,q$ and has a visible block structure.</p>

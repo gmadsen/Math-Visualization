@@ -362,7 +362,7 @@ The added term cancels precisely the gauge-degeneracy of the principal symbol: R
   <thead><tr><th>Type</th><th>Rate as $t\to T$</th><th>Example</th></tr></thead>
   <tbody>
     <tr><td><strong>Type I</strong></td><td>$K(t)\,(T-t)$ bounded</td><td>round shrinking sphere; non-degenerate neckpinch</td></tr>
-    <tr><td><strong>Type IIa</strong></td><td>$K(t)\,(T-t)\to\infty$ (slower-than-parabolic blowup)</td><td>degenerate neckpinch on $S^3$</td></tr>
+    <tr><td><strong>Type IIa</strong></td><td>$K(t)\,(T-t)\to\infty$ (faster-than-parabolic blowup)</td><td>degenerate neckpinch on $S^3$</td></tr>
     <tr><td><strong>Type III</strong></td><td>$T=\infty$, $K(t)\,t$ bounded</td><td>immortal expanding flow</td></tr>
   </tbody>
 </table>
@@ -376,7 +376,7 @@ The added term cancels precisely the gauge-degeneracy of the principal symbol: R
   </div>
   <svg id="bu-svg" viewBox="0 0 760 300" width="100%"><title>Widget · Type I and Type II blowup curves</title></svg>
   <div class="readout" id="bu-out"></div>
-  <p class="small">Plotting $K(t)$ for $t\in[0,T)$. Type I: $K(t)=C/(T-t)$ — the natural parabolic rate. Type II: $K(t)=C/(T-t)^2$ — supercritical. The vertical line marks $T$. Both diverge, but Type II is <em>so much</em> faster that parabolic rescaling near a Type II singularity produces an eternal (not just ancient) limit.</p>
+  <p class="small">Plotting $K(t)$ for $t\in[0,T)$. Type I: $K(t)=C/(T-t)$ — the natural parabolic rate. Type II only requires $K(t)(T-t)\to\infty$ (faster-than-parabolic); the curve $K(t)=C/(T-t)^2$ shown here is one illustrative model rate, not the definition. The vertical line marks $T$. Both diverge, but the Type II profile is <em>so much</em> faster that parabolic rescaling near a Type II singularity produces an eternal (not just ancient) limit.</p>
 </div>
 
 <p>Why does this matter? Take a singular point $(x_0,T)$ and perform <strong>parabolic rescaling</strong>: choose a sequence $\lambda_k\to\infty$ and set
@@ -727,7 +727,7 @@ $$S^3,\quad \mathbb{E}^3,\quad \mathbb{H}^3,\quad S^2\times\mathbb{R},\quad \mat
     svg.appendChild(SVG("line",{x1:x0+w-188,y1:y0-h+25,x2:x0+w-160,y2:y0-h+25,stroke:"var(--cyan)","stroke-width":2}));
     svg.appendChild(SVG("text",{x:x0+w-154,y:y0-h+29,"font-size":12,fill:"var(--cyan)"})).textContent = "Type I: K = C/(T−t)";
     svg.appendChild(SVG("line",{x1:x0+w-188,y1:y0-h+47,x2:x0+w-160,y2:y0-h+47,stroke:"var(--yellow)","stroke-width":2}));
-    svg.appendChild(SVG("text",{x:x0+w-154,y:y0-h+51,"font-size":12,fill:"var(--yellow)"})).textContent = "Type II: K = C/(T−t)²";
+    svg.appendChild(SVG("text",{x:x0+w-154,y:y0-h+51,"font-size":12,fill:"var(--yellow)"})).textContent = "Type II (model): K = C/(T−t)²";
     out.textContent = "K_I(" + tau.toFixed(2) + ") ≈ " + KI.toFixed(2) + "    K_II(" + tau.toFixed(2) + ") ≈ " + KII.toFixed(2);
   }
   tIn.addEventListener("input", draw);
@@ -743,7 +743,7 @@ $$S^3,\quad \mathbb{E}^3,\quad \mathbb{H}^3,\quad S^2\times\mathbb{R},\quad \mat
   if(!svg) return;
   const solitons = [
     {name:"round S^n",          lambda:1,  type:"shrinking", x:140, color:"var(--pink)",   info:"Einstein soliton on S^n with Ric = (n−1)g; shrinks self-similarly to a point at t = 1/(2(n−1))."},
-    {name:"Gaussian on R^n",    lambda:1,  type:"shrinking", x:240, color:"var(--pink)",   info:"Gradient shrinker (R^n, g_E, f = |x|²/4); the universal model for Type I limits at compact shrinkers."},
+    {name:"Gaussian on R^n",    lambda:0.5,type:"shrinking", x:240, color:"var(--pink)",   info:"Gradient shrinker (R^n, g_E, f = |x|²/4); Hess f = ½ g gives soliton constant λ = ½. The universal model for Type I limits at compact shrinkers."},
     {name:"Hamilton's cigar",   lambda:0,  type:"steady",    x:340, color:"var(--yellow)", info:"Steady gradient soliton on R² with g = (1+|x|²)⁻¹ g_E; potential f = −log(1+|x|²); asymptotic to a cylinder at infinity."},
     {name:"Bryant",             lambda:0,  type:"steady",    x:440, color:"var(--yellow)", info:"Rotationally symmetric steady gradient soliton on R^n (n≥3); models Type II 3-D singularities."},
     {name:"H^n",                lambda:-1, type:"expanding", x:560, color:"var(--cyan)",   info:"Hyperbolic space, Einstein soliton with λ < 0; expanding self-similarly under Ricci flow."},

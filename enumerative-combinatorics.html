@@ -554,7 +554,7 @@ function drawNode(svg, x, y, label, opts={}){
     for(let i = 0; i < k; i++) v = v * (n - i) / (i + 1);
     return Math.round(v);
   }
-  function fib(n){ if(n<=0) return 0; let a=1, b=1; for(let i=2;i<=n;i++){ const c=a+b; a=b; b=c; } return n===1?1:b; }
+  function fib(n){ if(n<=1) return n; let a=0, b=1; for(let i=2;i<=n;i++){ [a, b] = [b, a + b]; } return b; }
   function catalan(n){ return Math.round(binom(2*n, n) / (n + 1)); }
 
   function coef(name, n){
@@ -668,7 +668,7 @@ function drawNode(svg, x, y, label, opts={}){
   <div class="hd"><div class="ttl">Permutation statistics</div><div class="hint">edit the one-line notation · inversions, descents, and cycles update live</div></div>
   <div class="row">
     <label for="perm-input">$\sigma$ in one-line notation:</label>
-    <input type="text" id="perm-input" value="3 1 4 1 5 9 2 6" style="width:14em;font-family:ui-monospace,monospace">
+    <input type="text" id="perm-input" value="3 1 4 2 6 5" style="width:14em;font-family:ui-monospace,monospace">
     <button id="perm-rand">randomise</button>
     <button id="perm-id">reset to identity</button>
   </div>
@@ -810,7 +810,7 @@ function drawNode(svg, x, y, label, opts={}){
     <span id="young-ndisp" style="color:var(--yellow);min-width:1.6em;text-align:right">6</span>
     <button id="young-conj">conjugate $\lambda \to \lambda'$</button>
     <button id="young-staircase">staircase 4+3+2+1</button>
-    <button id="young-rect">rectangle</button>
+    <button id="young-rect">near-rectangle</button>
   </div>
   <svg id="young-svg" viewBox="0 0 720 320" width="720" height="320"><title>Young diagram for partition lambda</title></svg>
   <div class="readout" id="young-out"></div>

@@ -929,7 +929,7 @@ function drawNode(svg, x, y, label, opts={}){
 <section id="ip-tu">
 <h2>5. Integer programming and total unimodularity</h2>
 
-<p>An <strong>integer linear program</strong> (ILP) adds the constraint $x\in\mathbb{Z}^n$ to an LP. Unlike LP, ILP is NP-hard in general — the reduction from $3$-SAT through subset-sum is one of Karp's original 21. But there is a rich class of <em>polynomial</em> integer programs, characterised by structure of the constraint matrix.</p>
+<p>An <strong>integer linear program</strong> (ILP) adds the constraint $x\in\mathbb{Z}^n$ to an LP. Unlike LP, ILP is NP-hard in general — 0-1 integer programming appears directly on Karp's original list of 21 NP-complete problems (reduced from SAT). But there is a rich class of <em>polynomial</em> integer programs, characterised by structure of the constraint matrix.</p>
 
 <p>A matrix $A\in\mathbb{Z}^{m\times n}$ is <strong>totally unimodular</strong> (TU) if every square submatrix has determinant in $\{-1,0,+1\}$.</p>
 
@@ -1229,7 +1229,7 @@ function drawNode(svg, x, y, label, opts={}){
     <select id="approx-pick">
       <option value="triangle" selected>triangle $C_3$ (LP-optimal $3/2$, IP-optimal $2$)</option>
       <option value="square">$C_4$ (bipartite — LP = IP)</option>
-      <option value="petersen">Petersen graph fragment</option>
+      <option value="c5">5-cycle $C_5$ (odd cycle — LP $5/2$, IP $3$)</option>
     </select>
     <button id="approx-run" style="margin-left:.4rem">solve LP &amp; round</button>
   </div>
@@ -1258,7 +1258,7 @@ function drawNode(svg, x, y, label, opts={}){
       lpOpt: 2,
       ipOpt: 2,
     },
-    petersen: {
+    c5: {
       V: ['1','2','3','4','5'],
       pos: { '1':[260,40], '2':[400,140], '3':[340,240], '4':[180,240], '5':[120,140] },
       E: [['1','2'],['2','3'],['3','4'],['4','5'],['5','1']],

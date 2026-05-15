@@ -5,7 +5,7 @@
 - Topics: **190**, concepts: **1320**
 - Widgets: **1349** (registry-driven: 1349, inline: 0)
 - Quizzes: **5154** (v1: 3918, hard: 1223, expert: 13)
-- Quiz types: mcq: 3377, numeric: 1233, multi-select: 248, matching: 106, ordering: 83, spot-the-error: 53, complex: 29, proof-completion: 21, construction: 2, guess-my-rule: 2
+- Quiz types: mcq: 3376, numeric: 1233, multi-select: 249, matching: 106, ordering: 83, spot-the-error: 53, complex: 29, proof-completion: 21, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their section: **150**
 - Concepts lacking a hard-tier quiz: **882**
 
@@ -962,7 +962,7 @@ page has wired one in yet.
   - by dimension: 2d: 149
   - by gesture: click: 100, slider: 22, input: 8, select: 5, edit: 4, interactive: 2, interact: 2, drag: 1, button: 1, static: 1, branching-timeline: 1, read: 1, timeline: 1
 - Quizzes: **564** (v1: 381, hard: 183, expert: 0)
-  - by type: mcq: 376, numeric: 164, multi-select: 10, matching: 5, ordering: 4, complex: 3, spot-the-error: 1, guess-my-rule: 1
+  - by type: mcq: 375, numeric: 164, multi-select: 11, matching: 5, ordering: 4, complex: 3, spot-the-error: 1, guess-my-rule: 1
 
 ### Modular forms & L-functions
 

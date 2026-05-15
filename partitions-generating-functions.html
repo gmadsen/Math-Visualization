@@ -384,10 +384,10 @@ This is <strong>Euler's partition product identity</strong>. One line of formal-
 <h3>Bijective consequences</h3>
 <p>The product form is a licensing stamp for combinatorial identities.</p>
 <ul>
-<li><strong>Glaisher's theorem.</strong> Partitions of $n$ into <em>odd</em> parts are equinumerous with partitions into <em>distinct</em> parts, because
+<li><strong>Euler's theorem (1748).</strong> Partitions of $n$ into <em>odd</em> parts are equinumerous with partitions into <em>distinct</em> parts, because
 $$\prod_{k\ge 1}\frac{1}{1-q^{2k-1}} \;=\; \prod_{n\ge 1}\frac{1-q^{2n}}{1-q^n} \;=\; \prod_{n\ge 1}(1+q^n).$$
-The middle step is the telescoping $1-q^{2n} = (1-q^n)(1+q^n)$.</li>
-<li><strong>Odd$\to$distinct mapping.</strong> Given a partition into odd parts, split each part as a sum of distinct powers of $2$ times the odd — binary-decomposing the multiplicity of each odd. That map is Glaisher's bijection.</li>
+The middle step is the telescoping $1-q^{2n} = (1-q^n)(1+q^n)$. <strong>Glaisher's theorem (1883)</strong> is the strict generalization: for every $k \ge 2$, partitions in which no part appears $\ge k$ times are equinumerous with partitions in which no part is divisible by $k$. Euler's theorem is the case $k=2$.</li>
+<li><strong>Odd$\to$distinct mapping.</strong> Given a partition into odd parts, split each part as a sum of distinct powers of $2$ times the odd — binary-decomposing the multiplicity of each odd. This is the binary (Sylvester) bijection realizing the $k=2$ case.</li>
 </ul>
 
 <div class="widget" id="w-euler">
@@ -629,7 +629,7 @@ $$\sum_{n \in \mathbb{Z}} z^n\, q^{n^2} \;=\; \prod_{n=1}^{\infty} \bigl(1 - q^{
 This converts a bilateral sum over the integers into a product of three infinite factors. See <a href="./theta-functions.html">theta functions</a> for the analytic side of this identity — both sides are $q$-expansions of the Jacobi theta function $\vartheta(z,\tau)$, and the equality says that one function has two completely different closed forms.</p>
 
 <h3>Specializations — where pentagonal numbers hide</h3>
-<p>Substituting $z = -q$ and replacing $q^2 \mapsto q^3$ (a reindexing of the sum):
+<p>Substituting $z = -q^{1/2}$ and replacing $q^2 \mapsto q^3$ (equivalently, sending $q \mapsto q^{3/2}$ on the sum side):
 $$\prod_{n \ge 1}(1 - q^n) \;=\; \sum_{n \in \mathbb{Z}} (-1)^n\, q^{n(3n-1)/2}.$$
 That is Euler's pentagonal number theorem falling out of the triple product as one specialization. The other famous specialization, $z = -1$, gives
 $$\prod_{n \ge 1}(1 - q^{2n})(1 - q^{2n-1})^2 \;=\; \sum_{n \in \mathbb{Z}} (-1)^n\, q^{n^2},$$
@@ -990,7 +990,7 @@ The exponent $\pi\sqrt{2n/3}$ grows as $\sqrt{n}$, so $p(n)$ is super-polynomial
 <h3>Why $\pi\sqrt{2n/3}$?</h3>
 <p>The saddle-point calculation on the modular transformation $\eta(-1/\tau) = \sqrt{-i\tau}\, \eta(\tau)$ pins down the constants. The partition generating function has a pole at $\tau = 0$ (equivalently $q = 1$); its behavior there, through modularity, is controlled by the $q^{1/24}$ prefactor and yields precisely
 $$\sum p(n) q^n \;\sim\; \frac{1}{(2\pi)^{1/2}}\, (\tau/i)^{1/2}\, \exp\!\Bigl(\frac{\pi i}{12\tau}\Bigr) \qquad (\tau \to 0, \operatorname{Im}\tau > 0).$$
-A saddle-point in $\tau$ for the coefficient extraction $p(n) = \tfrac{1}{2\pi i}\oint \tau^{-n-1}\sum p(m) q^m\, dq$ lands at $\tau \sim i/\sqrt{24n}$, giving the $\pi\sqrt{2n/3}$ exponent. Rademacher's exact formula (end of §6) sums the contributions of <em>all</em> cusps $\tau = a/c$ of $\mathrm{SL}_2(\mathbb{Z})$ and converges, remarkably, to the integer $p(n)$ on the nose.</p>
+A saddle-point in $\tau$ for the coefficient extraction $p(n) = \tfrac{1}{2\pi i}\oint q^{-n-1}\sum_m p(m) q^m\, dq$ (contour $|q| = $ const $< 1$) lands at $\tau \sim i/\sqrt{24n}$, giving the $\pi\sqrt{2n/3}$ exponent. Rademacher's exact formula (end of §6) sums the contributions of <em>all</em> cusps $\tau = a/c$ of $\mathrm{SL}_2(\mathbb{Z})$ and converges, remarkably, to the integer $p(n)$ on the nose.</p>
 
 <div class="widget" id="w-hr">
   <div class="hd"><div class="ttl">Hardy–Ramanujan vs. exact $p(n)$</div><div class="hint">relative error shrinks like $1/\sqrt{n}$</div></div>

@@ -1,5 +1,5 @@
 {
-  "generated": "2026-05-15T04:42:55.751Z",
+  "generated": "2026-05-15T05:35:52.325Z",
   "entries": [
     {
       "slug": "infinity-categories",
@@ -56,6 +56,14 @@
       "tag": "",
       "date": "2026-05-14",
       "message": "fix: math-correctness audit pass — 75 topics across all 12 sections"
+    },
+    {
+      "slug": "cobordism",
+      "title": "Cobordism",
+      "color": "v",
+      "tag": "",
+      "date": "2026-05-14",
+      "message": "fix: math-correctness audit pass — third batch (15 more topics)"
     },
     {
       "slug": "cocartesian-fibrations",
@@ -266,6 +274,14 @@
       "message": "fix: math-correctness audit pass — 75 topics across all 12 sections"
     },
     {
+      "slug": "probability-theory",
+      "title": "Probability theory",
+      "color": "b",
+      "tag": "",
+      "date": "2026-05-14",
+      "message": "fix: math-correctness audit pass — third batch (15 more topics)"
+    },
+    {
       "slug": "random-matrix-theory",
       "title": "Random matrix theory",
       "color": "c",
@@ -320,6 +336,14 @@
       "tag": "",
       "date": "2026-05-14",
       "message": "fix: math-correctness audit pass — 75 topics across all 12 sections"
+    },
+    {
+      "slug": "spectral-methods-data",
+      "title": "Spectral methods for massive data sets",
+      "color": "c",
+      "tag": "",
+      "date": "2026-05-14",
+      "message": "fix: math-correctness audit pass — third batch (15 more topics)"
     },
     {
       "slug": "stochastic-calculus",
@@ -434,14 +458,6 @@
       "message": "New topic: Optimal control & dynamic programming (Control theory & optimization) (#176)"
     },
     {
-      "slug": "spectral-methods-data",
-      "title": "Spectral methods for massive data sets",
-      "color": "c",
-      "tag": "",
-      "date": "2026-05-12",
-      "message": "New topic: Spectral methods for massive data sets (Probability & statistics) (#163)"
-    },
-    {
       "slug": "geometric-invariant-theory",
       "title": "Geometric invariant theory",
       "color": "g",
@@ -488,14 +504,6 @@
       "tag": "",
       "date": "2026-05-06",
       "message": "3 next-priority gap topics + condensed pin fix (#122)"
-    },
-    {
-      "slug": "cobordism",
-      "title": "Cobordism",
-      "color": "v",
-      "tag": "",
-      "date": "2026-05-06",
-      "message": "3 more gap topics: dirichlet-unit-theorem, cobordism, MMP (#123)"
     },
     {
       "slug": "cohomology-and-duality",
@@ -1349,14 +1357,6 @@
       "slug": "probabilistic-method",
       "title": "Probabilistic method",
       "color": "g",
-      "tag": "",
-      "date": "2026-04-26",
-      "message": "Content + structure expansion: 22 new topics, 156 new concepts, full review pass (#35)"
-    },
-    {
-      "slug": "probability-theory",
-      "title": "Probability theory",
-      "color": "b",
       "tag": "",
       "date": "2026-04-26",
       "message": "Content + structure expansion: 22 new topics, 156 new concepts, full review pass (#35)"

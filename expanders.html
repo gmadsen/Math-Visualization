@@ -395,7 +395,7 @@ function drawNode(svg, x, y, label, opts={}){
 
 <p>Here is the easy direction of the equivalence with edge expansion. Given $S\subseteq V$ with $|S|\le n/2$, write $\mathbf{1}_S = (|S|/n)\mathbf{1} + v$ with $v\perp\mathbf{1}$. Then</p>
 <p style="text-align:center">$\langle \mathbf{1}_S, \widehat A \mathbf{1}_S\rangle \;=\; \frac{|S|^2}{n} + \langle v, \widehat A v\rangle \;\le\; \frac{|S|^2}{n} + \lambda_2\,\|v\|^2,$</p>
-<p>and the left side counts edges inside $S$ divided by $d$. A short calculation turns this into $|E(S,\bar S)| \ge \tfrac{d}{2}(1-\lambda_2)\,\tfrac{|S|\,|\bar S|}{n}$, so a spectral gap forces edge expansion. (Vertex expansion follows up to constants.)</p>
+<p>and the left side counts edges inside $S$ divided by $d$. A short calculation turns this into $|E(S,\bar S)| \ge d(1-\lambda_2)\,\tfrac{|S|\,|\bar S|}{n}$, so a spectral gap forces edge expansion. (Vertex expansion follows up to constants.)</p>
 
 <div class="widget" id="w-spec">
   <div class="hd"><div class="ttl">Spectrum of $\widehat A$</div><div class="hint">drag the slider · watch $\lambda_2$ collapse for cycles</div></div>
@@ -683,7 +683,7 @@ function drawNode(svg, x, y, label, opts={}){
 <h3>Margulis–Gabber–Galil (1973–81)</h3>
 <p>Vertices are $(\mathbb{Z}/n\mathbb{Z})^2$. Edges are given by the action of eight maps from $SL_2(\mathbb{Z})$:</p>
 <p style="text-align:center">$T_1\colon (x,y)\mapsto(x,x+y),\quad T_2\colon (x,y)\mapsto(x+y,y),\quad T_3\colon (x,y)\mapsto(x,x+y+1),\quad T_4\colon (x,y)\mapsto(x+y+1,y),$</p>
-<p>and their inverses. The spectral gap is uniform in $n$, with the lower bound coming from the <strong>Kazhdan property (T)</strong> of $SL_3(\mathbb{Z})$. This was the first explicit family; the gap is sub-optimal but everything is elementary group theory.</p>
+<p>and their inverses. The spectral gap is uniform in $n$. Margulis's original 1973 construction used different generators, on $\mathbb{F}_p^3$, and proved the gap via Kazhdan's <strong>property (T)</strong> for $SL_3(\mathbb{Z})$. Gabber–Galil's 1981 sharpening gave the elementary $(\mathbb{Z}/n\mathbb{Z})^2$ generators above and proved the uniform gap directly by Fourier analysis on the additive group, avoiding property (T) entirely. Either way it was the first explicit family; the gap is sub-optimal but everything is elementary.</p>
 
 <h3>Lubotzky–Phillips–Sarnak (1988)</h3>
 <p>Fix primes $p\ne q$ with $p\equiv 1\pmod 4$. Vertices of the LPS graph $X^{p,q}$ are elements of $\mathrm{PGL}_2(\mathbb{F}_q)$ (or $\mathrm{PSL}_2$, depending on whether $p$ is a square mod $q$). Edges connect $g$ to $\alpha_i g$ where the $\alpha_i$ are the $p+1$ integer quaternions of norm $p$, projected into $\mathrm{PGL}_2(\mathbb{F}_q)$. The result is a $(p+1)$-regular Cayley graph with the <em>Ramanujan property</em> $|\lambda| \le 2\sqrt p$ — saturating Alon–Boppana.</p>

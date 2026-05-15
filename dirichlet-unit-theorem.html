@@ -328,7 +328,7 @@ The free rank $r:=r_1+r_2-1$ is one less than the number of archimedean places. 
 <tr><td>$\mathbb{Q}(\sqrt{-d})$, $d>0$</td><td>$(0,1)$</td><td>$0$</td><td>$\mu_K$ (size $2,4,$ or $6$)</td></tr>
 <tr><td>$\mathbb{Q}(\sqrt{d})$, $d>0$</td><td>$(2,0)$</td><td>$1$</td><td>$\{\pm 1\}\times\langle\varepsilon\rangle$</td></tr>
 <tr><td>$\mathbb{Q}(\sqrt[3]{2})$</td><td>$(1,1)$</td><td>$1$</td><td>$\{\pm 1\}\times\langle\sqrt[3]{2}-1\rangle$</td></tr>
-<tr><td>$\mathbb{Q}(\zeta_n)$</td><td>$(0,\varphi(n)/2)$</td><td>$\varphi(n)/2-1$</td><td>cyclotomic units</td></tr>
+<tr><td>$\mathbb{Q}(\zeta_n)$, $n\ge 3$</td><td>$(0,\varphi(n)/2)$</td><td>$\varphi(n)/2-1$</td><td>$\mu_K\times\mathbb{Z}^{\varphi(n)/2-1}$ (contains the cyclotomic units as a finite-index subgroup)</td></tr>
 </tbody>
 </table>
 
@@ -497,7 +497,7 @@ Conversely every Pell solution gives a unit. Dirichlet's theorem is, in this cas
 $$\sqrt{d} \;=\; [a_0;\,\overline{a_1,a_2,\ldots,a_{k-1},2a_0}].$$
 Let $p_{k-1}/q_{k-1}$ be the convergent at the end of the first period. Then
 $$p_{k-1}^2 \;-\; d\,q_{k-1}^2 \;=\; (-1)^{k},$$
-and $(p_{k-1},q_{k-1})$ is the smallest positive Pell solution — i.e. the fundamental unit (up to a square if the $-1$ Pell is unsolvable).</p>
+and $(p_{k-1},q_{k-1})$ is the smallest positive Pell solution — i.e. the fundamental unit of $\mathbb{Z}[\sqrt d]$. <strong>Caveat:</strong> when $d\equiv 1\pmod 4$ the full ring of integers is $\mathcal{O}_K=\mathbb{Z}[(1+\sqrt d)/2]\supsetneq\mathbb{Z}[\sqrt d]$, and the CF output is then the <em>cube</em> of the $\mathcal{O}_K$ fundamental unit $\varepsilon$. Concretely, for $d=5$ the CF gives $2+\sqrt 5=\varphi^3$ with $\varphi=(1+\sqrt 5)/2$; for $d=13$ it gives $18+5\sqrt{13}=((3+\sqrt{13})/2)^3$. The table below lists the genuine $\mathcal{O}_K$ unit, recovered from the CF output by extracting a cube root when $d\equiv 1\pmod 4$.</p>
 
 <p><strong>Examples.</strong></p>
 <table class="plain">
@@ -512,7 +512,7 @@ and $(p_{k-1},q_{k-1})$ is the smallest positive Pell solution — i.e. the fund
 </tbody>
 </table>
 
-<p>The size of $\varepsilon$ can be exponential in $\log d$: $d=61$ already needs a 5-digit fundamental solution (and the smallest solution of the $+1$ Pell equation $x^2-61y^2=+1$ is its square, with 10-digit $x$), while Archimedes' "cattle problem" reduces to Pell with $d=4729494$, whose smallest solution has $\sim 10^{206544}$ digits.</p>
+<p>The size of $\varepsilon$ can be exponential in $\log d$: $d=61$ already needs a 5-digit fundamental solution (and the smallest solution of the $+1$ Pell equation $x^2-61y^2=+1$ is its square, with 10-digit $x$), while Archimedes' "cattle problem" reduces to Pell with $d=4729494$, whose smallest solution is $\sim 7.76\cdot 10^{206544}$ — a number with $\sim 206545$ digits.</p>
 
 <h3>Negative Pell: when does $x^2-dy^2=-1$ have a solution?</h3>
 
@@ -558,7 +558,7 @@ Concretely, $\mathcal{O}_{K,S}$ is $\mathcal{O}_K$ with the primes in $S$ invert
 
 <p>The proof is the same Minkowski-style argument applied to the extended log-embedding
 $$\ell_S\colon \mathcal{O}_{K,S}^\times \;\to\; \mathbb{R}^{|S|},\qquad u\;\mapsto\;(\log|u|_v)_{v\in S},$$
-with $|u|_v = -v(u)\log Nv$ for finite places $v\in S$. The product formula $\prod_v|u|_v=1$ across <em>all</em> places now reads, after restriction to $S$ (since $|u|_v=1$ for $v\notin S$ when $u$ is an $S$-unit), as one linear constraint $\sum_{v\in S}\log|u|_v=0$. The image is again a discrete full-rank lattice in this hyperplane — kernel still $\mu_K$, free rank $|S|-1$.</p>
+with $\log|u|_v = -v(u)\log Nv$ (equivalently, $|u|_v = (Nv)^{-v(u)}$) for finite places $v\in S$. The product formula $\prod_v|u|_v=1$ across <em>all</em> places now reads, after restriction to $S$ (since $|u|_v=1$ for $v\notin S$ when $u$ is an $S$-unit), as one linear constraint $\sum_{v\in S}\log|u|_v=0$. The image is again a discrete full-rank lattice in this hyperplane — kernel still $\mu_K$, free rank $|S|-1$.</p>
 
 <h3>Consequence: the $S$-unit equation</h3>
 

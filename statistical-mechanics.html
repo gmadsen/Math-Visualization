@@ -413,7 +413,7 @@ where the partition function $Z$ is the normalization. For a discrete spectrum, 
 
 <p>The last identity is the first <strong>fluctuation-response</strong> relation we meet: the heat capacity, an apparently dynamical quantity (how much energy you need to add to raise temperature by a degree), equals an equilibrium fluctuation (the variance of energy). All linear-response coefficients have this structure (§7).</p>
 
-<div class="note"><strong>Worked example: two-level system.</strong> A spin in a magnetic field has energies $E_\pm = \pm\Delta/2$. Then $Z = e^{\beta\Delta/2} + e^{-\beta\Delta/2} = 2\cosh(\beta\Delta/2)$, $\langle E\rangle = -\tfrac{\Delta}{2}\tanh(\beta\Delta/2)$, $C_V = k_B(\beta\Delta/2)^2\mathrm{sech}^2(\beta\Delta/2)$ — the <em>Schottky anomaly</em>: a peak in $C_V$ at $k_BT \approx \Delta/2.4$, with $C_V\to 0$ in both the low-$T$ (gap freezes out fluctuations) and high-$T$ (Boltzmann factors saturate at $1/2$) limits.</div>
+<div class="note"><strong>Worked example: two-level system.</strong> A spin in a magnetic field has energies $E_\pm = \pm\Delta/2$. Then $Z = e^{\beta\Delta/2} + e^{-\beta\Delta/2} = 2\cosh(\beta\Delta/2)$, $\langle E\rangle = -\tfrac{\Delta}{2}\tanh(\beta\Delta/2)$, $C_V = k_B(\beta\Delta/2)^2\mathrm{sech}^2(\beta\Delta/2)$ — the <em>Schottky anomaly</em>: a peak in $C_V$ at $k_BT \approx \Delta/2.4$, with $C_V\to 0$ in both the low-$T$ (gap freezes out fluctuations) and high-$T$ (level populations both saturate at $1/2$) limits.</div>
 
 <div class="widget" id="w-boltz">
   <div class="hd"><div class="ttl">Boltzmann distribution on a 4-level system</div><div class="hint">slide $\beta$ — populations redistribute</div></div>
@@ -506,7 +506,7 @@ where the partition function $Z$ is the normalization. For a discrete spectrum, 
 
 <div class="note"><strong>Gibbs entropy.</strong> For a probability distribution $\{p_i\}$ on a discrete set of microstates,
 $$S(\{p_i\}) \;=\; -k_B \sum_i p_i \log p_i.$$
-For a continuous density $\rho(q,p)$ on phase space (with $h$ a reference scale, classically the Planck constant), $S = -k_B\int \rho\log(\rho h^{3N}/N!)\, d\Gamma$ — the same formula relative to a measure.</div>
+For a continuous density $\rho(q,p)$ on phase space (with $h$ a reference scale, classically the Planck constant), $S = -k_B\int \rho\log(\rho\, h^{3N} N!)\, d\Gamma$ — the same formula relative to a measure.</div>
 
 <p>The entropy is concave in $\{p_i\}$, vanishes for any deterministic $p_i = \delta_{i,k}$, and achieves its global maximum $k_B\log N$ at the uniform distribution. To find the maximum subject to constraints we use Lagrange multipliers.</p>
 
@@ -786,7 +786,7 @@ At $h = 0$, this has only the trivial solution $m = 0$ for $\beta qJ \le 1$, but
 <tr><td>$d = 1$</td><td>$0$ (no transition)</td><td>—</td><td>Peierls argument</td></tr>
 <tr><td>$d = 2$ (square)</td><td>$2/\log(1+\sqrt 2)\approx 2.27$</td><td>$1/8$</td><td>Onsager 1944</td></tr>
 <tr><td>$d = 3$</td><td>$\approx 4.51$</td><td>$\approx 0.326$</td><td>Monte Carlo, $\epsilon$-expansion</td></tr>
-<tr><td>$d \ge 4$</td><td>—</td><td>$1/2$ (mean-field)</td><td>Wilson-Fisher trivial above $4D$</td></tr>
+<tr><td>$d \ge 4$</td><td>—</td><td>$1/2$ (mean-field)</td><td>Gaussian FP governs for $d \ge 4$</td></tr>
 </tbody>
 </table>
 
@@ -927,7 +927,7 @@ $$K' - K^* \;=\; M(K - K^*) + O((K-K^*)^2), \qquad M_{ij} = \frac{\partial K'_i}
 
 <div class="note"><strong>Critical exponents from eigenvalues.</strong> For Ising-type theories with two relevant directions (temperature and field), one shows
 $$\nu = \frac{1}{y_t}, \qquad \beta = \frac{d - y_h}{y_t}, \qquad \gamma = \frac{2 y_h - d}{y_t}, \qquad \eta = d + 2 - 2 y_h$$
-in $d$ dimensions. The exponents satisfy two scaling relations $\alpha + 2\beta + \gamma = 2$ (Rushbrooke) and $\gamma = \nu(2-\eta)$ (Fisher), reducing six exponents to two independent ones — exactly $y_t$ and $y_h$. This explains why measurements of any two exponents determine the rest.</div>
+in $d$ dimensions. The exponents satisfy four scaling relations — Rushbrooke $\alpha + 2\beta + \gamma = 2$, Widom $\gamma = \beta(\delta - 1)$, Fisher $\gamma = \nu(2-\eta)$, and Josephson (hyperscaling) $\nu d = 2 - \alpha$ — which reduce six exponents to the two RG eigenvalues $y_t, y_h$ when hyperscaling holds (i.e., below the upper critical dimension $d &lt; 4$ for $\phi^4$). This explains why measurements of any two exponents determine the rest.</div>
 
 <p><strong>Wilson-Fisher fixed point.</strong> For the $\phi^4$ scalar field theory, $\phi^4$ is marginal at $d = 4$ (its eigenvalue is exactly zero in mean-field). Wilson and Fisher (1972) noticed that perturbing about $d = 4$ — formally treating $\epsilon = 4 - d$ as a small parameter — gives a new fixed point at coupling $g^* = O(\epsilon)$, away from the Gaussian fixed point. Critical exponents have an $\epsilon$-expansion:</p>
 
@@ -1055,7 +1055,7 @@ $$I(x) \;=\; \Lambda^*(x) \;=\; \sup_{\theta\in\mathbb{R}}\bigl(\theta x - \Lamb
 
 <div class="note"><strong>Gärtner-Ellis theorem.</strong> The Cramér theorem extends from i.i.d. sums to general dependent sequences whenever the limit
 $$\Lambda(\theta) \;=\; \lim_{n\to\infty}\frac{1}{n}\log\mathbb{E}\bigl[e^{n\theta\,Y_n}\bigr]$$
-exists and is differentiable. Then $Y_n$ satisfies a large-deviation principle with rate $I = \Lambda^*$. This is the workhorse of equilibrium statistical mechanics: in the canonical ensemble, the empirical mean energy $\bar E_n$ has CGF $\Lambda(\theta) = -\beta f(\beta - \theta) + \beta f(\beta)$ where $f$ is the free energy density, and the rate function is the <em>entropy density</em> as a function of energy. Free energy and entropy are Legendre dual rate functions.</div>
+exists and is differentiable. Then $Y_n$ satisfies a large-deviation principle with rate $I = \Lambda^*$. This is the workhorse of equilibrium statistical mechanics: in the canonical ensemble, the empirical mean energy $\bar E_n$ has CGF $\Lambda(\theta) = -(\beta-\theta) f(\beta - \theta) + \beta f(\beta)$ where $f$ is the free energy density, and the rate function is the <em>entropy density</em> as a function of energy. Free energy and entropy are Legendre dual rate functions.</div>
 
 <p>The bridge to thermodynamics is now sharp:</p>
 

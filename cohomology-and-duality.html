@@ -585,7 +585,7 @@ the exterior algebra on $n$ degree-1 generators (one per circle factor). $\dim_{
 <p style="text-align:center">$H^k(M;\mathbb{Q})\otimes H^{n-k}(M;\mathbb{Q}) \xrightarrow{\smile}H^n(M;\mathbb{Q})\xrightarrow{\int_{[M]}}\mathbb{Q},$</p>
 <p>i.e. the cup product followed by integration is non-degenerate. In dimensions where $H^k$ is free, $b_k(M) = b_{n-k}(M)$ (the Betti numbers are <em>palindromic</em>).</p>
 
-<div class="note"><strong>What "orientation" is doing.</strong> Without orientation the fundamental class lives in $H_n(M;\mathbb{Z}/2)$ and you only get $\mathbb{Z}/2$-coefficient duality. The Möbius band and $\mathbb{RP}^2$ are obstructed in this way: they have integral Poincaré duality only after killing 2-torsion, but $\mathbb{Z}/2$-duality always holds. <strong>Lefschetz duality</strong> handles manifolds with boundary: $H^k(M,\partial M)\cong H_{n-k}(M)$ — relative cohomology pairs with absolute homology.</div>
+<div class="note"><strong>What "orientation" is doing.</strong> Without orientation the fundamental class lives in $H_n(M;\mathbb{Z}/2)$ and you only get $\mathbb{Z}/2$-coefficient duality. $\mathbb{RP}^2$ is the canonical obstruction: it is a closed non-orientable surface with no integral fundamental class, but $\mathbb{Z}/2$-duality always holds. <strong>Lefschetz duality</strong> handles manifolds with boundary (e.g. the Möbius band, which has $\partial\ne\emptyset$ so plain PD does not apply): $H^k(M,\partial M)\cong H_{n-k}(M)$ — relative cohomology pairs with absolute homology.</div>
 
 <h3>Worked example: a closed oriented surface</h3>
 <p>Let $\Sigma_g$ be the closed orientable surface of genus $g$. Cell-decompose with one $0$-cell, $2g$ one-cells $a_1,b_1,\ldots,a_g,b_g$, and one $2$-cell. Then:</p>
@@ -597,7 +597,7 @@ the exterior algebra on $n$ degree-1 generators (one per circle factor). $\dim_{
 <tr><td>$2$</td><td>$\mathbb{Z}$</td><td>$\mathbb{Z}$</td><td>$1$</td></tr>
 </tbody>
 </table>
-<p>Poincaré duality: $b_0 = b_2 = 1$ and $b_1 = b_{n-1} = 2g$ (with $n=2$). The cup product pairing $H^1\otimes H^1\to H^2$ is the symplectic form: $\alpha_i\smile\beta_j = \delta_{ij}\cdot[\Sigma_g]^*$, $\alpha_i\smile\alpha_j = 0$, $\beta_i\smile\beta_j = 0$. The intersection form has signature $0$ (in the symmetric case via $\alpha\smile\beta + \beta\smile\alpha$ on $H^1$, but in dim 2 the natural form is alternating). For 4-manifolds the same construction gives an integral, symmetric, unimodular form whose signature is a deep invariant — the start of the Hirzebruch signature theorem story.</p>
+<p>Poincaré duality: $b_0 = b_2 = 1$ and $b_1 = b_{n-1} = 2g$ (with $n=2$). The cup product pairing $H^1\otimes H^1\to H^2$ is the symplectic form: $\alpha_i\smile\beta_j = \delta_{ij}\cdot[\Sigma_g]^*$, $\alpha_i\smile\alpha_j = 0$, $\beta_i\smile\beta_j = 0$. By graded commutativity in degree 1, $\beta\smile\alpha = -\alpha\smile\beta$, so the pairing is <em>antisymmetric</em>: it is a non-degenerate alternating form, i.e. a symplectic form on $H^1(\Sigma_g;\mathbb{Z})\cong\mathbb{Z}^{2g}$ (signature is not defined for alternating forms). For 4-manifolds the cup product on $H^2\otimes H^2\to H^4$ instead gives an integral, symmetric, unimodular form (since classes are now in even degree), whose signature is a deep invariant — the start of the Hirzebruch signature theorem story.</p>
 
 <div class="widget" id="w-pd">
   <div class="hd"><div class="ttl">Palindromic Betti numbers</div><div class="hint">pick a closed oriented manifold</div></div>

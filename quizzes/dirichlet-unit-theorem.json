@@ -160,7 +160,7 @@
         },
         {
           "type": "mcq",
-          "q": "Why does the continued-fraction algorithm applied to $\\sqrt{d}$ produce the fundamental unit of $\\mathbb{Q}(\\sqrt{d})$?",
+          "q": "Why does the continued-fraction algorithm applied to $\\sqrt{d}$ produce the fundamental unit of $\\mathbb{Z}[\\sqrt{d}]$?",
           "choices": [
             "Because all units of $\\mathbb{Q}(\\sqrt{d})$ are rational.",
             "By Lagrange's theorem the expansion is purely periodic past $a_0$, and the convergent at the end of one period is a solution of $x^2-dy^2=\\pm 1$ — and a minimality argument among convergents shows it is the fundamental one.",
@@ -168,7 +168,7 @@
             "By Hensel's lemma."
           ],
           "answer": 1,
-          "explain": "Lagrange (1770): real quadratic irrationals have eventually-periodic continued fractions, and $\\sqrt{d}$ for $d>0$ non-square is purely periodic after $a_0$. The Pell relation $p_{n-1}^2-d q_{n-1}^2=(-1)^n$ at the end of the period — easy to derive from the matrix product encoding of convergents — and a minimality argument show this convergent is the fundamental Pell solution, equivalently the smallest unit $>1$."
+          "explain": "Lagrange (1770): real quadratic irrationals have eventually-periodic continued fractions, and $\\sqrt{d}$ for $d>0$ non-square is purely periodic after $a_0$. The Pell relation $p_{n-1}^2-d q_{n-1}^2=(-1)^n$ at the end of the period — easy to derive from the matrix product encoding of convergents — and a minimality argument show this convergent is the fundamental Pell solution, equivalently the smallest unit $>1$ in the order $\\mathbb{Z}[\\sqrt d]$. When $d\\equiv 1\\pmod 4$ the maximal order is $\\mathcal{O}_K=\\mathbb{Z}[(1+\\sqrt d)/2]\\supsetneq\\mathbb{Z}[\\sqrt d]$, and the CF output is then the cube of the $\\mathcal{O}_K$ fundamental unit (e.g. $2+\\sqrt 5=\\varphi^3$, $18+5\\sqrt{13}=((3+\\sqrt{13})/2)^3$)."
         },
         {
           "type": "mcq",

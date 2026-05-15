@@ -124,16 +124,16 @@
           "explain": "The three reduced forms are $x^2+xy+6y^2$, $2x^2+xy+3y^2$, and $2x^2-xy+3y^2$, all satisfying $|b|\\le a\\le c$ with $D=b^2-4ac=-23$. So $h(-23)=3$."
         },
         {
-          "type": "mcq",
-          "q": "Which statement about reduced forms is a correct counterexample to the claim 'any form with $a \\le c$ is reduced'?",
+          "type": "multi-select",
+          "q": "Which of the following are correct counterexamples to the claim 'any form with $a \\le c$ is reduced'? Select all that apply.",
           "choices": [
             "$x^2 - 3xy + 3y^2$ has $a=1\\le c=3$ but $|b|=3 > a=1$, so it is not reduced",
             "$x^2+2xy+2y^2$ has $a=1\\le c=2$ and $|b|=2>a=1$, so it is not reduced",
             "No counterexample exists; $a\\le c$ is both necessary and sufficient for reduction"
           ],
-          "answer": 1,
-          "hint": "Check whether $|b|\\le a$ holds in each option.",
-          "explain": "$x^2+2xy+2y^2$: here $a=1, b=2, c=2$. We have $a\\le c$ but $|b|=2 > a=1$, violating the first reduction inequality $|b|\\le a$. It is not reduced despite $a\\le c$. (The form $x^2-3xy+3y^2$ also fails, but its $|b|=3=c=3$ ties require further case analysis.)"
+          "answer": [0, 1],
+          "hint": "Check whether $|b|\\le a$ holds in each option; both A and B violate it independently of the tie-break clause.",
+          "explain": "Both A and B fail the inequality $|b|\\le a$ while satisfying $a\\le c$, so each is a valid counterexample. In A, $a=1, b=-3, c=3$: $|b|=3 > a=1$. In B, $a=1, b=2, c=2$: $|b|=2 > a=1$. The tie-break clauses ($b\\ge 0$ when $|b|=a$ or $a=c$) are irrelevant here since the primary inequality $|b|\\le a$ already fails. C is wrong because $a\\le c$ is necessary but far from sufficient — the $|b|\\le a$ condition can fail independently."
         }
       ]
     },

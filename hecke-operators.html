@@ -647,9 +647,11 @@ $$T_p f \;=\; \sum_{n \ge 0} c_n q^n, \qquad c_n \;=\; a_{pn} + p^{k-1} a_{n/p},
         (isEig ? `✓ Hecke eigenform: c_n = a_p · a_n for all n. The eigenvalue is a_p.` :
                  `(numerical roundoff aside, c_n should equal a_p · a_n — Δ is an eigenform)`);
     } else {
+      const lam = 1 + Math.pow(p,3);
       out.textContent =
-        `E_4: p=${p}. a_0 = 1, a_p = ${ap}.  c_0 = a_0 + p^{k-1}·0 = 1.  c_n = a_{pn} + p^{k-1}·a_{n/p}.\n` +
-        `E_4 is also a Hecke eigenform (it's the unique weight-4 form up to scale), with eigenvalue a_p = 240·σ_3(p) = 1 + p^3.`;
+        `E_4 (weight 4, so k=4): p=${p}. Unnormalized a_0 = 1, a_p = 240·σ_3(p) = ${ap} = 240·(1+p^3).\n` +
+        `Since p|0, a_{0/p} = a_0, so c_0 = a_0 + p^{k-1}·a_0 = (1 + p^{k-1})·a_0; with k=4 that's 1 + p^3 = ${lam}.\n` +
+        `E_4 is a Hecke eigenform with eigenvalue λ_p = a_p / a_1 = 1 + p^3 = ${lam} (the unique weight-4 form up to scale). Note: c_n shown above uses the k from the selector, not k=4.`;
     }
   }
   [pSel,kSel,fSel].forEach(e => e.addEventListener('change', draw));

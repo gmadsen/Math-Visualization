@@ -608,7 +608,9 @@ The multiset of degrees $(d_1,d_2,\dots,d_r)$ is the <strong>cycle shape</strong
   pin.addEventListener('keyup', e=>{ if(e.key==='Enter') run(); });
   run();
 })();
-</script><div class="widget" id="w-frob-mult-clock"></div><script>
+</script><p>Here is a microscopic preview of how a single Frobenius cycle is born. Take $f(x) = \Phi_5(x) = x^4 + x^3 + x^2 + x + 1$ and the prime $p = 2$. The Frobenius element acts on the roots $\zeta_5, \zeta_5^2, \zeta_5^3, \zeta_5^4$ by $\zeta \mapsto \zeta^2$, which on exponents is multiplication by $2$ inside $(\mathbb{Z}/5)^\times$. The clock below visualises that exponent action: the orbit of $1$ under multiplication-by-$2$ mod $5$ is $1 \to 2 \to 4 \to 3 \to 1$, a single 4-cycle. Equivalently $\mathrm{ord}_5(2) = 4$, so $\Phi_5 \bmod 2$ is irreducible of degree $4$ — a clean instance of the cyclotomic reciprocity recipe expanded in §7.</p>
+
+<div class="widget" id="w-frob-mult-clock"></div><script>
 (function(){
   if(!window.MVModularArithmeticClock) return;
   MVModularArithmeticClock.init('#w-frob-mult-clock', {
@@ -839,8 +841,12 @@ Every conjugacy class, from every Galois group, gets hit by a positive, explicit
                {name:'3-cycle (3)', size:2, total:6, match: degs => degs.length===1 && degs[0]===3}]},
     {name:'x⁴ + 1 (G = V₄)',
       coeffs:[1,0,0,0,1], disc:256,
-      classes:[{name:'identity (1,1,1,1)', size:1, total:4, match: degs => degs.length===4},
-               {name:'type (2,2)',         size:3, total:4, match: degs => degs.length===2 && degs[0]===2 && degs[1]===2}]},
+      // V₄ is abelian, so each of its 4 elements is its own conjugacy class.
+      // The three non-identity elements all give cycle shape (2,2), so we display
+      // them as a single cycle-shape bucket of 3 elements (sum of three singleton
+      // class densities, 1/4 each → 3/4 total).
+      classes:[{name:'identity (1,1,1,1)',                       size:1, total:4, match: degs => degs.length===4},
+               {name:'cycle-type (2,2) — 3 elements of V₄', size:3, total:4, match: degs => degs.length===2 && degs[0]===2 && degs[1]===2}]},
   ];
   const sel = $('#cheb-poly');
   POLYS.forEach((p,i)=>{ const o=document.createElement('option'); o.value=i; o.textContent=p.name; sel.appendChild(o); });

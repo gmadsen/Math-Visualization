@@ -132,7 +132,7 @@
             "Random bipartite graphs"
           ],
           "answer": 0,
-          "explain": "The MGG construction uses translations and shears from $SL_2(\\mathbb{Z})$ acting on $(\\mathbb{Z}/n)^2$. It was the first explicit expander family with a quantitative spectral gap (via Kazhdan's property (T))."
+          "explain": "The Gabber–Galil 1981 construction uses translations and shears from $SL_2(\\mathbb{Z})$ acting on $(\\mathbb{Z}/n)^2$, with the uniform spectral gap proved by Fourier analysis on the additive group. Margulis's original 1973 family was a different set of generators on $\\mathbb{F}_p^3$ whose gap came from Kazhdan's property (T) of $SL_3(\\mathbb{Z})$."
         },
         {
           "type": "mcq",

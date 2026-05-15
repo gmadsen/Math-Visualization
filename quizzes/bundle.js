@@ -6176,13 +6176,13 @@ window.MVQuizBank = {
             "q": "The bootstrap from Selberg's symmetry formula to PNT proceeds by",
             "choices": [
               "directly invoking the residue theorem",
-              "showing that $A = \\limsup_x |\\psi(x)/x - 1|$ satisfies $A \\le \\tfrac12 A$ (so $A = 0$), via the symmetry's averaging effect",
+              "showing that $A = \\limsup_x |\\psi(x)/x - 1|$ satisfies $A \\le (1-\\delta) A + o(1)$ for some fixed $\\delta > 0$ (so $A = 0$), via the symmetry's averaging effect",
               "induction on the number of prime factors",
               "Mellin-transform inversion"
             ],
             "answer": 1,
-            "hint": "Symmetry feeds back the same quantity at half scale — a self-improvement loop forces zero.",
-            "explain": "Define $R(x) = \\psi(x) - x$. Selberg's formula combined with elementary inequalities gives $|R(x)| \\le \\tfrac{1}{2}\\max_{y \\le x} |R(y)| + o(x)$, which iterates down to $R(x) = o(x)$ — i.e. $\\psi(x) \\sim x$, equivalent to PNT. The averaging on the right is the symmetric pairing of $p$ with $pq$."
+            "hint": "Symmetry feeds back the same quantity strictly contracted — a self-improvement loop forces zero.",
+            "explain": "Define $R(x) = \\psi(x) - x$. Selberg's formula combined with a Tauberian averaging argument gives a contraction $A \\le (1-\\delta) A + o(1)$ for $A := \\limsup_x |R(x)/x|$ and some fixed $\\delta > 0$, which iterates down to $A = 0$ — i.e. $\\psi(x) \\sim x$, equivalent to PNT. The averaging on the right is the symmetric pairing of $p$ with $pq$. (Older sketches sometimes use $\\tfrac{1}{2}$ as the contraction constant for illustration; the literal proof produces a smaller, less explicit $\\delta$.)"
           }
         ]
       },
@@ -6195,7 +6195,7 @@ window.MVQuizBank = {
             "choices": [
               "$\\sum_{q \\le Q} \\sum_{\\chi \\bmod q}^{*} \\bigl|\\sum_{n \\le N} a_n \\chi(n)\\bigr|^2 \\le (Q^2 + N) \\sum_{n \\le N} |a_n|^2$",
               "$\\sum_{n \\le N} |a_n|^2 \\le \\sum_p (\\log p)^2$",
-              "$\\sum_{q \\le Q} \\varphi(q) = Q^2/(2\\zeta(2))$",
+              "$\\sum_{q \\le Q} \\bigl|\\sum_{n \\le N} a_n e(n/q)\\bigr|^2 \\le Q^2 \\sum |a_n|^2$",
               "$\\sum_{p \\le N} 1/p \\le \\log\\log N + B$"
             ],
             "answer": 0,
@@ -6206,13 +6206,13 @@ window.MVQuizBank = {
             "type": "mcq",
             "q": "The large sieve constant $(Q^2 + N)$ is essentially sharp because",
             "choices": [
-              "the number of primitive characters $\\sum_{q \\le Q}\\varphi^*(q) \\sim Q^2/\\zeta(2)$, and the inequality is tight when $a_n$ is supported on a residue class",
+              "the number of primitive characters $\\sum_{q \\le Q}\\varphi^*(q) \\sim Q^2/(2\\zeta(2))$, and the inequality is tight when $a_n$ is supported on a residue class",
               "primes have density zero",
               "$\\zeta(s)$ has a pole at $s = 1$",
               "Riemann's hypothesis would imply a smaller constant"
             ],
             "answer": 0,
-            "hint": "Counting primitive characters mod $q \\le Q$ is asymptotic to $Q^2 / \\zeta(2)$.",
+            "hint": "Counting primitive characters mod $q \\le Q$ is asymptotic to $Q^2 / (2\\zeta(2))$.",
             "explain": "There are $\\asymp Q^2$ primitive characters of conductors $\\le Q$, so the LHS already has $\\asymp Q^2 \\|a\\|_2^2$ Plancherel mass when $a$ is concentrated on one residue class. The $N$ on the right is the trivial bound from Cauchy–Schwarz applied to a single Dirichlet sum. Both regimes show up — hence $Q^2 + N$, not max."
           },
           {
@@ -10401,7 +10401,7 @@ window.MVQuizBank = {
         "questions": [
           {
             "type": "mcq",
-            "q": "Pontryagin's theorem states that a closed manifold $M^n$ is null-cobordant in $\\Omega_*^{O}$ if and only if:",
+            "q": "Thom's theorem (1954) states that a closed manifold $M^n$ is null-cobordant in $\\Omega_*^{O}$ if and only if:",
             "choices": [
               "$M$ is orientable",
               "Every Stiefel–Whitney number of $M$ vanishes in $\\mathbb{Z}/2$",
@@ -16145,13 +16145,13 @@ window.MVQuizBank = {
             "q": "The set of $n$-dimensional normed spaces modulo isometry, equipped with the Banach–Mazur distance, is...",
             "choices": [
               "non-compact and infinite-dimensional",
-              "a compact metric space (the Banach–Mazur compactum) of finite diameter — $\\le n$ in general, $\\le\\sqrt n$ for symmetric bodies",
+              "a compact metric space (the Banach–Mazur compactum) of finite radius around $\\ell^2_n$ — $\\le\\sqrt n$ for symmetric bodies, $\\le n$ in general (so multiplicative diameter $\\le n$, resp. $\\le n^2$)",
               "discrete",
               "homeomorphic to $\\mathbb{R}^n$"
             ],
             "answer": 1,
-            "explain": "John's theorem implies every $n$-dim norm is within Banach–Mazur distance $\\le\\sqrt n$ of $\\ell^2_n$, so the compactum has finite diameter; it is also compact (Auerbach + a precompactness argument).",
-            "hint": "John's inclusion is exactly a diameter bound on this space."
+            "explain": "John's theorem implies every symmetric $n$-dim norm is within Banach–Mazur distance $\\le\\sqrt n$ of $\\ell^2_n$ (and $\\le n$ in the general non-symmetric case), so the compactum has finite radius around $\\ell^2_n$; the multiplicative diameter $d(K,L)\\le d(K,\\ell^2_n)\\,d(\\ell^2_n,L)$ is then $\\le n$ (resp. $\\le n^2$). Compactness comes from Auerbach + a precompactness argument.",
+            "hint": "John's inclusion bounds the radius around $\\ell^2_n$; the triangle inequality on $\\log d$ then bounds the diameter."
           }
         ]
       },
@@ -16189,7 +16189,7 @@ window.MVQuizBank = {
               "$\\to 0$ as $n\\to\\infty$"
             ],
             "answer": 0,
-            "explain": "The conjecture asserts a dimension-free lower bound on the maximal hyperplane section: $\\sup_{H}\\mathrm{vol}(K\\cap H)\\ge c$. The best known bound is $\\Omega(1/\\log n)$ (Klartag, 2024), down from Bourgain's original $\\Omega(n^{-1/4})$.",
+            "explain": "The conjecture asserts a dimension-free lower bound on the maximal hyperplane section: $\\sup_{H}\\mathrm{vol}(K\\cap H)\\ge c$. Klartag–Lehec (2022) proved the isotropic-constant bound $L_K=O(\\sqrt{\\log n})$, giving $c=\\Omega(1/\\sqrt{\\log n})$, and Klartag (2023) improved this to $L_K=O((\\log n)^{1/4})$ — the slicing problem is now resolved up to polylog factors, well past Bourgain's $\\Omega(n^{-1/4})$.",
             "hint": "The conjecture forbids 'all sections are tiny'."
           }
         ]
@@ -18973,13 +18973,13 @@ window.MVQuizBank = {
             "q": "Splitting the 4-spinor as $\\psi = (\\varphi, \\chi)^T$ in the standard representation and assuming $|\\chi| \\ll |\\varphi|$ at low momentum, the leading-order non-relativistic equation for $\\varphi$ is:",
             "choices": [
               "The Klein-Gordon equation $(\\Box + m^2)\\varphi = 0$.",
-              "The Pauli equation $i\\partial_t\\varphi = \\bigl(\\tfrac{p^2}{2m} - \\tfrac{e}{2m}\\vec\\sigma\\cdot\\vec B + V\\bigr)\\varphi$, including a spin-magnetic-moment term with gyromagnetic ratio $g = 2$.",
+              "The Pauli equation $i\\partial_t\\varphi = \\bigl(\\tfrac{p^2}{2m} + \\tfrac{e}{2m}\\vec\\sigma\\cdot\\vec B + V\\bigr)\\varphi$, including a spin-magnetic-moment term with gyromagnetic ratio $g = 2$ (sign convention: $\\vec\\pi = \\vec p - e\\vec A$, so for the physical electron $e<0$ the coefficient is negative and the term reads $-\\vec\\mu\\cdot\\vec B$).",
               "The free Schrödinger equation $i\\partial_t\\varphi = -\\tfrac{\\nabla^2}{2m}\\varphi$ — no spin coupling.",
               "A first-order equation in $\\varphi$ with no $p^2/(2m)$ term (which only appears at $O(1/m^2)$)."
             ],
             "answer": 1,
             "hint": "The lower 2-spinor $\\chi$ is suppressed by $|\\vec p|/m$ in the rest frame. Solve the bottom-block equation for $\\chi$ in terms of $\\varphi$, substitute back, and minimally-couple to electromagnetism via $\\vec p \\to \\vec p - e\\vec A$. The $(\\vec\\sigma\\cdot\\vec\\pi)^2$ identity is the key.",
-            "explain": "In the standard representation, the bottom block of the Dirac equation gives $\\chi \\approx \\tfrac{1}{2m}\\vec\\sigma\\cdot\\vec\\pi\\,\\varphi$ where $\\vec\\pi = \\vec p - e\\vec A$. Substituting back into the top block: $i\\partial_t\\varphi = \\bigl(\\tfrac{(\\vec\\sigma\\cdot\\vec\\pi)^2}{2m} + e\\Phi\\bigr)\\varphi$. The Pauli identity $(\\vec\\sigma\\cdot\\vec\\pi)^2 = \\vec\\pi^2 - e\\vec\\sigma\\cdot\\vec B$ produces both the kinetic term AND the spin-magnetic coupling automatically — Dirac's structure forces $g = 2$ exactly. Choice 2 misses the spin coupling. Choice 3 confuses the 'first-order' character of the Dirac equation with the order of the resulting Schrödinger equation (which IS second-order in $\\nabla$)."
+            "explain": "In the standard representation, the bottom block of the Dirac equation gives $\\chi \\approx \\tfrac{1}{2m}\\vec\\sigma\\cdot\\vec\\pi\\,\\varphi$ where $\\vec\\pi = \\vec p - e\\vec A$. Substituting back into the top block: $i\\partial_t\\varphi = \\bigl(\\tfrac{(\\vec\\sigma\\cdot\\vec\\pi)^2}{2m} + e\\Phi\\bigr)\\varphi$. The Pauli identity $(\\vec\\sigma\\cdot\\vec\\pi)^2 = \\vec\\pi^2 + e\\vec\\sigma\\cdot\\vec B$ (using $\\vec\\pi\\times\\vec\\pi = -ie\\vec B$) produces both the kinetic term AND the spin-magnetic coupling automatically — Dirac's structure forces $g = 2$ exactly. Choice 2 misses the spin coupling. Choice 3 confuses the 'first-order' character of the Dirac equation with the order of the resulting Schrödinger equation (which IS second-order in $\\nabla$)."
           },
           {
             "type": "numeric",
@@ -19000,7 +19000,7 @@ window.MVQuizBank = {
             ],
             "answer": 2,
             "hint": "$|\\chi|/|\\varphi| \\sim |\\vec p|/m$ is small, but how small is the leading $\\chi$ in absolute terms when you act on it with $\\vec\\sigma\\cdot\\vec\\pi$? An order-of-magnitude check on the bottom-block equation will show whether $\\chi$ is exactly zero or just suppressed.",
-            "explain": "Step 2 is the error. $\\chi$ is suppressed but NOT zero — to leading order $\\chi \\approx (\\vec\\sigma\\cdot\\vec\\pi/2m)\\varphi$, which is small but contributes the spin-magnetic moment when substituted back. If one set $\\chi = 0$ identically, the Pauli term $-(e/2m)\\vec\\sigma\\cdot\\vec B\\,\\varphi$ would never appear, $g = 0$, and the splitting of the hydrogen $2P_{1/2}/2P_{3/2}$ levels (the spin-orbit coupling, which lives at the next order in $1/m$) would be missing. The correct procedure is the systematic Foldy-Wouthuysen expansion in powers of $1/m$, keeping $\\chi$ at each order."
+            "explain": "Step 2 is the error. $\\chi$ is suppressed but NOT zero — to leading order $\\chi \\approx (\\vec\\sigma\\cdot\\vec\\pi/2m)\\varphi$, which is small but contributes the spin-magnetic moment when substituted back. If one set $\\chi = 0$ identically, the Pauli term $+(e/2m)\\vec\\sigma\\cdot\\vec B\\,\\varphi$ would never appear, $g = 0$, and the splitting of the hydrogen $2P_{1/2}/2P_{3/2}$ levels (the spin-orbit coupling, which lives at the next order in $1/m$) would be missing. The correct procedure is the systematic Foldy-Wouthuysen expansion in powers of $1/m$, keeping $\\chi$ at each order."
           }
         ]
       }
@@ -19529,7 +19529,7 @@ window.MVQuizBank = {
           },
           {
             "type": "mcq",
-            "q": "Why does the continued-fraction algorithm applied to $\\sqrt{d}$ produce the fundamental unit of $\\mathbb{Q}(\\sqrt{d})$?",
+            "q": "Why does the continued-fraction algorithm applied to $\\sqrt{d}$ produce the fundamental unit of $\\mathbb{Z}[\\sqrt{d}]$?",
             "choices": [
               "Because all units of $\\mathbb{Q}(\\sqrt{d})$ are rational.",
               "By Lagrange's theorem the expansion is purely periodic past $a_0$, and the convergent at the end of one period is a solution of $x^2-dy^2=\\pm 1$ — and a minimality argument among convergents shows it is the fundamental one.",
@@ -19537,7 +19537,7 @@ window.MVQuizBank = {
               "By Hensel's lemma."
             ],
             "answer": 1,
-            "explain": "Lagrange (1770): real quadratic irrationals have eventually-periodic continued fractions, and $\\sqrt{d}$ for $d>0$ non-square is purely periodic after $a_0$. The Pell relation $p_{n-1}^2-d q_{n-1}^2=(-1)^n$ at the end of the period — easy to derive from the matrix product encoding of convergents — and a minimality argument show this convergent is the fundamental Pell solution, equivalently the smallest unit $>1$."
+            "explain": "Lagrange (1770): real quadratic irrationals have eventually-periodic continued fractions, and $\\sqrt{d}$ for $d>0$ non-square is purely periodic after $a_0$. The Pell relation $p_{n-1}^2-d q_{n-1}^2=(-1)^n$ at the end of the period — easy to derive from the matrix product encoding of convergents — and a minimality argument show this convergent is the fundamental Pell solution, equivalently the smallest unit $>1$ in the order $\\mathbb{Z}[\\sqrt d]$. When $d\\equiv 1\\pmod 4$ the maximal order is $\\mathcal{O}_K=\\mathbb{Z}[(1+\\sqrt d)/2]\\supsetneq\\mathbb{Z}[\\sqrt d]$, and the CF output is then the cube of the $\\mathcal{O}_K$ fundamental unit (e.g. $2+\\sqrt 5=\\varphi^3$, $18+5\\sqrt{13}=((3+\\sqrt{13})/2)^3$)."
           },
           {
             "type": "mcq",
@@ -22818,7 +22818,7 @@ window.MVQuizBank = {
               "Random bipartite graphs"
             ],
             "answer": 0,
-            "explain": "The MGG construction uses translations and shears from $SL_2(\\mathbb{Z})$ acting on $(\\mathbb{Z}/n)^2$. It was the first explicit expander family with a quantitative spectral gap (via Kazhdan's property (T))."
+            "explain": "The Gabber–Galil 1981 construction uses translations and shears from $SL_2(\\mathbb{Z})$ acting on $(\\mathbb{Z}/n)^2$, with the uniform spectral gap proved by Fourier analysis on the additive group. Margulis's original 1973 family was a different set of generators on $\\mathbb{F}_p^3$ whose gap came from Kazhdan's property (T) of $SL_3(\\mathbb{Z})$."
           },
           {
             "type": "mcq",
@@ -31590,12 +31590,12 @@ window.MVQuizBank = {
             "q": "Heights enter Faltings' proof primarily through which finiteness statement?",
             "choices": [
               "Northcott applied directly to $C(K)$.",
-              "Finiteness of isogeny classes of abelian varieties of bounded Faltings height (the Shafarevich/isogeny-class theorem).",
+              "Finiteness of $K$-isomorphism classes of abelian varieties of bounded Faltings height (the Northcott property of $h_F$, used together with Shafarevich).",
               "Finiteness of torsion on the Jacobian.",
               "The Mordell–Weil theorem for $\\operatorname{Jac}(C)$."
             ],
             "answer": 1,
-            "explain": "A central step is showing that abelian varieties with bounded Faltings height fall into finitely many isogeny classes — Northcott in the moduli world. Vojta's later proof replaces the moduli detour with a direct height inequality on $C\\times C$."
+            "explain": "A central step is the Northcott property for the Faltings height: only finitely many $K$-isomorphism classes of abelian varieties of fixed dimension with $h_F\\le C$. (The companion 'Faltings' isogeny theorem' — the Tate conjecture for Galois reps of abelian varieties — supplies the semisimplicity input separately.) Vojta's later proof replaces the moduli detour with a direct height inequality on $C\\times C$."
           },
           {
             "type": "mcq",
@@ -31666,14 +31666,14 @@ window.MVQuizBank = {
               "The Hasse–Weil L-function and its meromorphic continuation."
             ],
             "answer": 1,
-            "explain": "Weak Mordell–Weil gives finitely many cosets $Q_1,\\dots,Q_m$ for $E(K)/2E(K)$. Heights then provide the descent: $P=2P'+Q_i$ with $\\hat h(P')\\le\\tfrac14\\hat h(P)+C$, so iterating drives every $P$ into a finite Northcott set, yielding a finite generating set."
+            "explain": "Weak Mordell–Weil gives finitely many cosets $Q_1,\\dots,Q_m$ for $E(K)/2E(K)$. Heights then provide the descent: $P=2P'+Q_i$ gives $\\hat h(2P')=4\\hat h(P')=\\hat h(P-Q_i)\\le 2\\hat h(P)+2\\hat h(Q_i)$ by parallelogram, so $\\hat h(P')\\le\\tfrac12\\hat h(P)+C$. Iterating drives every $P$ into a finite Northcott set, yielding a finite generating set."
           },
           {
             "type": "numeric",
-            "q": "If $\\hat h(P)=400$ and the descent step gives $\\hat h(P')\\le\\tfrac14\\hat h(P)+C$ with $C=10$, what is the upper bound on $\\hat h(P')$ after one descent?",
-            "answer": 110,
+            "q": "If $\\hat h(P)=400$ and the descent step gives $\\hat h(P')\\le\\tfrac12\\hat h(P)+C$ with $C=10$, what is the upper bound on $\\hat h(P')$ after one descent?",
+            "answer": 210,
             "tol": 0.000001,
-            "explain": "$\\tfrac14(400)+10=100+10=110$. Each iteration shrinks the height by a factor of $4$ plus a bounded additive constant; after enough steps, $\\hat h$ is dominated by $C$ alone — Northcott-finite."
+            "explain": "$\\tfrac12(400)+10=200+10=210$. Each iteration shrinks the height by a factor of $2$ plus a bounded additive constant; after enough steps, $\\hat h$ is dominated by $2C$ alone — Northcott-finite."
           },
           {
             "type": "mcq",
@@ -34016,7 +34016,7 @@ window.MVQuizBank = {
               "$\\Omega^8\\mathrm{U}\\simeq\\mathrm{U}$"
             ],
             "answer": 1,
-            "explain": "Bott: $\\Omega^2\\mathrm{U}\\simeq\\mathrm{U}\\times\\mathbb{Z}$, equivalently $\\Omega^2\\mathrm{BU}\\simeq\\mathrm{BU}\\times\\mathbb{Z}$, giving $\\pi_n\\mathrm{U}$ periodic of period $2$: $\\mathbb{Z},0,\\mathbb{Z},0,\\ldots$. The stable orthogonal group has $8$-periodicity instead: $\\Omega^8\\mathrm{O}\\simeq\\mathrm{O}\\times\\mathbb{Z}$."
+            "explain": "Bott: $\\Omega^2\\mathrm{U}\\simeq\\mathrm{U}$, equivalently $\\Omega(\\mathbb{Z}\\times B\\mathrm{U})\\simeq\\mathrm{U}$, giving $\\pi_n\\mathrm{U}$ periodic of period $2$: $0,\\mathbb{Z},0,\\mathbb{Z},\\ldots$ starting at $n=0$ (since $\\mathrm{U}$ is connected). The stable orthogonal group has $8$-periodicity instead: $\\Omega^8\\mathrm{O}\\simeq\\mathrm{O}$."
           },
           {
             "type": "numeric",
@@ -49121,7 +49121,7 @@ window.MVQuizBank = {
           },
           {
             "type": "mcq",
-            "q": "Glaisher's theorem says the number of partitions of $n$ into <em>odd</em> parts equals the number of partitions of $n$ into <em>distinct</em> parts. Which product identity is the generating-function form of that?",
+            "q": "Euler's theorem (1748) says the number of partitions of $n$ into <em>odd</em> parts equals the number of partitions of $n$ into <em>distinct</em> parts. Which product identity is the generating-function form of that?",
             "choices": [
               "$\\prod_{k\\ge 1}\\dfrac{1}{1-q^{2k-1}} = \\prod_{n\\ge 1}(1+q^n)$",
               "$\\prod_{n\\ge 1}(1-q^n) = \\prod_{n\\ge 1}(1-q^{2n-1})$",
@@ -52128,16 +52128,19 @@ window.MVQuizBank = {
             "explain": "The three reduced forms are $x^2+xy+6y^2$, $2x^2+xy+3y^2$, and $2x^2-xy+3y^2$, all satisfying $|b|\\le a\\le c$ with $D=b^2-4ac=-23$. So $h(-23)=3$."
           },
           {
-            "type": "mcq",
-            "q": "Which statement about reduced forms is a correct counterexample to the claim 'any form with $a \\le c$ is reduced'?",
+            "type": "multi-select",
+            "q": "Which of the following are correct counterexamples to the claim 'any form with $a \\le c$ is reduced'? Select all that apply.",
             "choices": [
               "$x^2 - 3xy + 3y^2$ has $a=1\\le c=3$ but $|b|=3 > a=1$, so it is not reduced",
               "$x^2+2xy+2y^2$ has $a=1\\le c=2$ and $|b|=2>a=1$, so it is not reduced",
               "No counterexample exists; $a\\le c$ is both necessary and sufficient for reduction"
             ],
-            "answer": 1,
-            "hint": "Check whether $|b|\\le a$ holds in each option.",
-            "explain": "$x^2+2xy+2y^2$: here $a=1, b=2, c=2$. We have $a\\le c$ but $|b|=2 > a=1$, violating the first reduction inequality $|b|\\le a$. It is not reduced despite $a\\le c$. (The form $x^2-3xy+3y^2$ also fails, but its $|b|=3=c=3$ ties require further case analysis.)"
+            "answer": [
+              0,
+              1
+            ],
+            "hint": "Check whether $|b|\\le a$ holds in each option; both A and B violate it independently of the tie-break clause.",
+            "explain": "Both A and B fail the inequality $|b|\\le a$ while satisfying $a\\le c$, so each is a valid counterexample. In A, $a=1, b=-3, c=3$: $|b|=3 > a=1$. In B, $a=1, b=2, c=2$: $|b|=2 > a=1$. The tie-break clauses ($b\\ge 0$ when $|b|=a$ or $a=c$) are irrelevant here since the primary inequality $|b|\\le a$ already fails. C is wrong because $a\\le c$ is necessary but far from sufficient — the $|b|\\le a$ condition can fail independently."
           }
         ]
       },

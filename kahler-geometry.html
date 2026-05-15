@@ -482,7 +482,7 @@ Three conditions on three different geometric structures collapse into one close
 
 <p>The Kähler condition transforms into a torrent of identities relating the operators $d, \partial, \bar\partial$ to their formal adjoints $d^*, \partial^*, \bar\partial^*$ and to the Lefschetz operator $L = \omega \wedge -$ and its adjoint $\Lambda$ (contraction with $\omega$). The fundamental <strong>Kähler identities</strong> are:
 $$[\Lambda, \partial] = i\,\bar\partial^*, \qquad [\Lambda, \bar\partial] = -i\,\partial^*.$$
-Both are local pointwise identities — they are statements about the Hermitian linear algebra at a single tangent space, but they hold globally only because $d\omega = 0$.</p>
+Both are pointwise identities of Hermitian linear algebra and in fact hold on <em>any</em> Hermitian manifold — the Kähler hypothesis $d\omega = 0$ is not used to derive them. The Kähler condition enters at the next step: only when $d\omega = 0$ do the operators interact cleanly enough to collapse the three Laplacians.</p>
 
 <p>From these come the three Laplacians:
 $$\Delta_d = dd^* + d^*d, \qquad \Delta_\partial = \partial\partial^* + \partial^*\partial, \qquad \Delta_{\bar\partial} = \bar\partial\bar\partial^* + \bar\partial^*\bar\partial,$$
@@ -564,7 +564,7 @@ $$H^k(M;\mathbb{C}) \;=\; \bigoplus_{p+q=k} H^{p,q}(M), \qquad H^{p,q}(M) \cong 
       }
     }
     out.textContent =
-      `Complex dim n = ${n}: full diamond has ${count} entries, but Hodge symmetry h^{p,q}=h^{q,p} and Serre duality h^{p,q}=h^{n-p,n-q} reduce this to ${independent} independent values (highlighted). Top h^{n,0} = h^{0,0} corner is the trivial holomorphic n-form when c_1=0.`;
+      `Complex dim n = ${n}: full diamond has ${count} entries, but Hodge symmetry h^{p,q}=h^{q,p} and Serre duality h^{p,q}=h^{n-p,n-q} reduce this to ${independent} independent values (highlighted). Top h^{n,0} = h^{0,n} (Serre duality) counts global holomorphic n-forms; on a Calabi–Yau (c_1 = 0) the canonical bundle is trivial and h^{n,0} = 1 = h^{0,0}, but in general the two corners are independent.`;
   }
   nSl.addEventListener('input', render);
   render();
