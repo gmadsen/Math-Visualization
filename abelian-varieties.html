@@ -19,7 +19,7 @@
         {left:'\\[',right:'\\]',display:true}
       ],
       throwOnError:false,
-      strict:'ignore',
+      strict:(c)=>c==='unicodeTextInMathMode'?'ignore':'warn',
       macros:{
         '\\Spec':'\\operatorname{Spec}',
         '\\Gal':'\\operatorname{Gal}',
@@ -332,7 +332,7 @@ $$A(\mathbb{C})\;\cong\;V/\Lambda$$
     }
     out.innerHTML = msg;
     if(window.renderMathInElement) window.renderMathInElement(out,{throwOnError:false,
-      strict:'ignore',delimiters:[{left:'$',right:'$',display:false}]});
+      strict:(c)=>c==='unicodeTextInMathMode'?'ignore':'warn',delimiters:[{left:'$',right:'$',display:false}]});
   }
   for(const id of ids) inputs[id].addEventListener('input', update);
   update();
@@ -414,7 +414,7 @@ $$A^\vee \;=\; \mathrm{Pic}^0(A).$$
     });
     out.innerHTML = desc[i] || desc[desc.length-1];
     if(window.renderMathInElement) window.renderMathInElement(out,{throwOnError:false,
-      strict:'ignore',delimiters:[{left:'$',right:'$',display:false}]});
+      strict:(c)=>c==='unicodeTextInMathMode'?'ignore':'warn',delimiters:[{left:'$',right:'$',display:false}]});
   }
   rows.forEach((r,i)=>{
     r.addEventListener('click', ()=>select(i));
@@ -536,7 +536,7 @@ The number of points satisfies $|A(\mathbb{F}_{q^n})|=\prod_i(1-\alpha_i^n)$, so
       'Imag residue $\\approx '+imag.toFixed(3)+'$ (numerically $0$ — eigenvalues come in conjugate pairs). '+
       bound+'.';
     if(window.renderMathInElement) window.renderMathInElement(out,{throwOnError:false,
-      strict:'ignore',delimiters:[{left:'$',right:'$',display:false},{left:'$$',right:'$$',display:true}]});
+      strict:(c)=>c==='unicodeTextInMathMode'?'ignore':'warn',delimiters:[{left:'$',right:'$',display:false},{left:'$$',right:'$$',display:true}]});
   }
   for(const el of [q, g, th1, th2, n]) el.addEventListener('input', update);
   update();
@@ -634,7 +634,7 @@ is injective. So the polarized Jacobian determines the curve up to isomorphism.<
     });
     out.innerHTML = desc[i] || desc[desc.length-1];
     if(window.renderMathInElement) window.renderMathInElement(out,{throwOnError:false,
-      strict:'ignore',delimiters:[{left:'$',right:'$',display:false}]});
+      strict:(c)=>c==='unicodeTextInMathMode'?'ignore':'warn',delimiters:[{left:'$',right:'$',display:false}]});
   }
   rows.forEach((r,i)=>{
     r.addEventListener('click', ()=>select(i));
@@ -702,7 +702,7 @@ $$\Phi \;=\; \mathcal{A}_k/\mathcal{A}_k^0$$
     });
     out.innerHTML = desc[i] || desc[desc.length-1];
     if(window.renderMathInElement) window.renderMathInElement(out,{throwOnError:false,
-      strict:'ignore',delimiters:[{left:'$',right:'$',display:false}]});
+      strict:(c)=>c==='unicodeTextInMathMode'?'ignore':'warn',delimiters:[{left:'$',right:'$',display:false}]});
   }
   rows.forEach((r,i)=>{
     r.addEventListener('click', ()=>select(i));
@@ -818,7 +818,7 @@ with $r=\mathrm{rank}\,A(K)$ finite and $A(K)_{\mathrm{tors}}$ finite.</div>
     const o = obj.value, c = cond.value;
     out.innerHTML = (table[o] && table[o][c]) || 'No data for this combination.';
     if(window.renderMathInElement) window.renderMathInElement(out,{throwOnError:false,
-      strict:'ignore',delimiters:[{left:'$',right:'$',display:false},{left:'$$',right:'$$',display:true}]});
+      strict:(c)=>c==='unicodeTextInMathMode'?'ignore':'warn',delimiters:[{left:'$',right:'$',display:false},{left:'$$',right:'$$',display:true}]});
   }
   obj.addEventListener('change', update);
   cond.addEventListener('change', update);

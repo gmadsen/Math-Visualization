@@ -19,7 +19,7 @@
         {left:'\\[',right:'\\]',display:true}
       ],
       throwOnError:false,
-      strict:'ignore',
+      strict:(c)=>c==='unicodeTextInMathMode'?'ignore':'warn',
       macros:{
         '\\Spec':'\\operatorname{Spec}',
         '\\Gal':'\\operatorname{Gal}',
@@ -385,7 +385,11 @@ function drawNode(svg, x, y, label, opts={}){
     render();
     raf = requestAnimationFrame(tick);
   }
-  tauIn.addEventListener('input', ()=>{ tau = parseInt(tauIn.value,10)/100; render(); });
+  tauIn.addEventListener('input', ()=>{
+    // pause any ongoing animation so the drag wins the race
+    if(playing){ playing = false; playBtn.textContent = '▶ animate'; playBtn.classList.remove('active'); if(raf){ cancelAnimationFrame(raf); raf = null; } }
+    tau = parseInt(tauIn.value,10)/100; render();
+  });
   playBtn.addEventListener('click', ()=>{
     playing = !playing;
     playBtn.textContent = playing ? '⏸ pause' : '▶ animate';
