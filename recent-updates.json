@@ -1,6 +1,22 @@
 {
-  "generated": "2026-05-16T04:10:19.604Z",
+  "generated": "2026-05-16T06:25:10.165Z",
   "entries": [
+    {
+      "slug": "cocartesian-fibrations",
+      "title": "Cocartesian fibrations",
+      "color": "c",
+      "tag": "",
+      "date": "2026-05-15",
+      "message": "fixup: review findings on PR #190"
+    },
+    {
+      "slug": "elementary-topos-theory",
+      "title": "Elementary topos theory",
+      "color": "y",
+      "tag": "",
+      "date": "2026-05-15",
+      "message": "fixup: review findings on PR #190"
+    },
     {
       "slug": "infinity-categories",
       "title": "∞-categories (quasi-categories)",
@@ -72,14 +88,6 @@
       "tag": "",
       "date": "2026-05-14",
       "message": "fix: math-correctness audit pass — third batch (15 more topics)"
-    },
-    {
-      "slug": "cocartesian-fibrations",
-      "title": "Cocartesian fibrations",
-      "color": "c",
-      "tag": "",
-      "date": "2026-05-14",
-      "message": "fix: math-correctness audit pass — 75 topics across all 12 sections"
     },
     {
       "slug": "commutative-algebra",
@@ -165,14 +173,6 @@
       "slug": "dynamical-systems",
       "title": "Dynamical systems",
       "color": "p",
-      "tag": "",
-      "date": "2026-05-14",
-      "message": "fix: math-correctness audit pass — 75 topics across all 12 sections"
-    },
-    {
-      "slug": "elementary-topos-theory",
-      "title": "Elementary topos theory",
-      "color": "y",
       "tag": "",
       "date": "2026-05-14",
       "message": "fix: math-correctness audit pass — 75 topics across all 12 sections"
