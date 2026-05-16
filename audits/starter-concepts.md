@@ -15,14 +15,14 @@ reach into upstream foundations or stay within their own cluster.
 | Algebra & homological | 148 | 224 | 25 | 99 | 0.169 |
 | Higher categories & toposes | 45 | 68 | 23 | 4 | 0.511 |
 | Analysis | 211 | 368 | 39 | 74 | 0.185 |
-| Probability & statistics | 83 | 134 | 23 | 23 | 0.277 |
+| Probability & statistics | 83 | 134 | 23 | 26 | 0.277 |
 | Geometry & topology | 167 | 276 | 34 | 100 | 0.204 |
 | Number theory | 128 | 180 | 57 | 40 | 0.445 |
 | Modular forms & L-functions | 121 | 181 | 65 | 24 | 0.537 |
 | Algebraic geometry | 213 | 328 | 76 | 35 | 0.357 |
 | Combinatorics & graph theory | 58 | 56 | 27 | 5 | 0.466 |
 | Mathematical physics | 69 | 75 | 40 | 4 | 0.580 |
-| Control theory & optimization | 28 | 27 | 15 | 1 | 0.536 |
+| Control theory & optimization | 34 | 32 | 18 | 1 | 0.529 |
 
 ## EMPTY — concepts with no prereqs (4)
 

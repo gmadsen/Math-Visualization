@@ -1,0 +1,81 @@
+{
+  "topic": "kalman-filtering-and-state-estimation",
+  "title": "Kalman filtering and state estimation",
+  "page": "kalman-filtering-and-state-estimation.html",
+  "concepts": [
+    {
+      "id": "kf-problem",
+      "title": "The estimation problem",
+      "anchor": "problem",
+      "prereqs": [
+        "random-variables"
+      ],
+      "blurb": "A hidden state $x_t$ evolves by linear dynamics $x_{t+1}=Fx_t+w_t$ with process noise $w_t\\sim\\mathcal{N}(0,Q)$; only a noisy projection $y_t=Hx_t+v_t$, $v_t\\sim\\mathcal{N}(0,R)$ is observed. The task is the posterior $p(x_t\\mid y_{1:t})$ — under linear-Gaussian assumptions it stays Gaussian forever, so tracking the mean and covariance is exact rather than a moment approximation.",
+      "tags": [
+        "foundation"
+      ]
+    },
+    {
+      "id": "kf-fusion",
+      "title": "Bayesian fusion of two Gaussians",
+      "anchor": "fusion",
+      "prereqs": [
+        "kf-problem",
+        "conditional-bayes"
+      ],
+      "blurb": "Two independent Gaussian estimates $\\mathcal{N}(\\mu_1,\\sigma_1^2)$ and $\\mathcal{N}(\\mu_2,\\sigma_2^2)$ of the same scalar combine into a third Gaussian whose precision is the sum: $1/\\sigma^2 = 1/\\sigma_1^2 + 1/\\sigma_2^2$, $\\mu = \\sigma^2(\\mu_1/\\sigma_1^2 + \\mu_2/\\sigma_2^2)$. The narrower estimate dominates; the posterior is sharper than either input. This precision-weighted mean is the entire Bayesian content of the Kalman update — everything else is bookkeeping.",
+      "tags": [
+        "duality"
+      ]
+    },
+    {
+      "id": "kf-scalar-cycle",
+      "title": "The 1D Kalman cycle — predict and update",
+      "anchor": "scalar-cycle",
+      "prereqs": [
+        "kf-fusion"
+      ],
+      "blurb": "Discrete-time scalar dynamics $x_{t+1}=ax_t+w_t$, observation $y_t=x_t+v_t$. Each step is two moves: the predict step pushes the mean through $a$ and inflates the variance by $a^2\\sigma^2+q$; the update step does Gaussian fusion against the observation, shrinking variance back. Variance reaches a steady state once predict-inflation balances update-shrinkage — the fixed point of a one-step Riccati recurrence.",
+      "tags": [
+        "universal-property"
+      ]
+    },
+    {
+      "id": "kf-vector",
+      "title": "Vector form and the covariance ellipse",
+      "anchor": "vector",
+      "prereqs": [
+        "kf-scalar-cycle"
+      ],
+      "blurb": "In $\\mathbb{R}^n$ the state covariance $\\Sigma_t$ is an ellipse $\\{x:x^\\top\\Sigma_t^{-1}x=1\\}$. Prediction evolves it as $\\Sigma_{t+1\\mid t} = F\\Sigma_{t\\mid t}F^\\top + Q$ — rotation, stretch, then puff up by process noise. Update collapses it along the directions $H$ observes: $\\Sigma_{t\\mid t} = (I-K_tH)\\Sigma_{t\\mid t-1}$. The covariance is a moving rigid-plus-noise picture of how confident the filter is along each direction in state space.",
+      "tags": [
+        "compactness"
+      ]
+    },
+    {
+      "id": "kf-gain",
+      "title": "The Kalman gain as optimal mixing",
+      "anchor": "gain",
+      "prereqs": [
+        "kf-vector"
+      ],
+      "blurb": "The gain $K_t = \\Sigma_{t\\mid t-1}H^\\top(H\\Sigma_{t\\mid t-1}H^\\top+R)^{-1}$ is exactly the value that minimises the trace of the posterior covariance — equivalently, the MAP estimate, MMSE estimate, and weighted-least-squares solution all agree under the linear-Gaussian assumption. Large $R$ (noisy sensor) pulls $K$ toward $0$ and the filter trusts its prediction; small $R$ (sharp sensor) pulls $K$ toward $H^{-1}$ and the filter snaps to the measurement.",
+      "tags": [
+        "duality"
+      ]
+    },
+    {
+      "id": "kf-tracking",
+      "title": "Tracking a 2D moving target",
+      "anchor": "tracking",
+      "prereqs": [
+        "kf-gain",
+        "markov-chains"
+      ],
+      "blurb": "A constant-velocity model in the plane has state $(p_x,p_y,v_x,v_y)$ with $F$ a block-upper-triangular shear and $Q$ injecting noise into the velocity components. Observing position only ($H=[I_2\\;0]$) lets the filter infer velocity from the way successive position errors correlate — the off-diagonal blocks of $\\Sigma_t$ encode that inference, which is why a Kalman tracker beats every position-only smoother.",
+      "tags": [
+        "classification"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/kf-gain/schema.json",
+  "title": "kf-gain widget params",
+  "description": "Verbatim slug for the \"how the gain mixes prior and observation\" R-sweep widget on kalman-filtering-and-state-estimation.",
+  "meta": {
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "interactive"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title",
+    "hint",
+    "bodyMarkup",
+    "bodyScript"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\"> wrapper."
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title rendered inside .hd > .ttl."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional short hint rendered inside .hd > .hint."
+    },
+    "bodyMarkup": {
+      "type": "string",
+      "description": "Verbatim widget markup. Kept opaque so byte-identical round-trip survives.",
+      "x-artifact": true
+    },
+    "bodyScript": {
+      "type": "string",
+      "description": "Verbatim driving script.",
+      "x-artifact": true
+    }
+  }
+}

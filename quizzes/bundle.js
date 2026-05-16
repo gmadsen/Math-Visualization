@@ -36254,6 +36254,240 @@ window.MVQuizBank = {
       }
     }
   },
+  "kalman-filtering-and-state-estimation": {
+    "topic": "kalman-filtering-and-state-estimation",
+    "quizzes": {
+      "kf-problem": {
+        "title": "The estimation problem",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Why does the linear-Gaussian setup keep the posterior $p(x_t\\mid y_{1:t})$ exactly Gaussian forever (rather than only approximately, as in moment-matching filters)?",
+            "choices": [
+              "Because the noises $w_t,v_t$ have finite variance",
+              "Because Gaussian distributions are closed under affine maps and under addition of independent Gaussians",
+              "Because the Kalman gain is bounded",
+              "Because $x_0$ is chosen to be deterministic"
+            ],
+            "answer": 1,
+            "explain": "$x_{t+1}=Fx_t+w_t$ is an affine map of a Gaussian plus an independent Gaussian — still Gaussian. The same closure makes the conditional $p(x_t\\mid y_t)$ Gaussian (multiplying two Gaussian densities of $x$ gives a Gaussian). So the family $\\mathcal{N}(\\hat x_t,\\Sigma_t)$ is invariant under both predict and update; tracking $(\\hat x_t,\\Sigma_t)$ is therefore exact, not an approximation.",
+            "hint": "What family does $Ax+b+\\text{Gaussian}$ land in?"
+          },
+          {
+            "type": "mcq",
+            "q": "In the linear-Gaussian model $y_t = H x_t + v_t$, the matrix $H$ encodes",
+            "choices": [
+              "How fast the state evolves",
+              "Which linear combinations of the state the sensor measures",
+              "The covariance of the observation noise",
+              "The prior over the initial state $x_0$"
+            ],
+            "answer": 1,
+            "explain": "$H$ is the observation operator: each row of $H$ is one scalar measurement, expressed as a linear combination of the state coordinates. If the state is $(p_x,p_y,v_x,v_y)$ and a GPS reports position only, then $H=\\begin{pmatrix}1&0&0&0\\\\ 0&1&0&0\\end{pmatrix}$. Dynamics live in $F$; observation noise lives in $R$; prior lives in $\\Sigma_0$."
+          },
+          {
+            "type": "numeric",
+            "q": "A 2D constant-velocity tracker has state $(p_x,p_y,v_x,v_y)\\in\\mathbb{R}^4$ and observation $y = H x$ with $H=\\begin{pmatrix}1&0&0&0\\\\ 0&1&0&0\\end{pmatrix}$. How many scalar quantities does each observation reveal directly?",
+            "answer": 2,
+            "tol": 0,
+            "explain": "$H$ is a $2\\times 4$ matrix — two rows, hence two scalar observations per time step ($p_x$ and $p_y$). The two velocity coordinates $v_x,v_y$ are never observed directly; the filter has to infer them from how successive position residuals correlate over time."
+          }
+        ]
+      },
+      "kf-fusion": {
+        "title": "Bayesian fusion of two Gaussians",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Two independent Gaussian beliefs $\\mathcal{N}(\\mu_1,\\sigma_1^2)$ and $\\mathcal{N}(\\mu_2,\\sigma_2^2)$ about the same scalar combine into a Gaussian whose variance $\\sigma^2$ satisfies",
+            "choices": [
+              "$\\sigma^2 = \\sigma_1^2 + \\sigma_2^2$",
+              "$\\sigma^2 = (\\sigma_1^2 + \\sigma_2^2)/2$",
+              "$1/\\sigma^2 = 1/\\sigma_1^2 + 1/\\sigma_2^2$",
+              "$\\sigma = \\min(\\sigma_1,\\sigma_2)$"
+            ],
+            "answer": 2,
+            "explain": "Multiplying the two Gaussian densities and completing the square gives a Gaussian whose precision (inverse variance) is the sum of the two precisions. Adding precisions, not variances — even a hazy second witness makes the posterior sharper than either input.",
+            "hint": "Multiply the densities, look at the coefficient of $x^2$ in the exponent."
+          },
+          {
+            "type": "numeric",
+            "q": "Combine $\\mathcal{N}(0, 1)$ with $\\mathcal{N}(2, 1)$ (both independent, same target). What is the posterior mean?",
+            "answer": 1,
+            "tol": 0.01,
+            "explain": "Equal precisions $1/\\sigma_1^2=1/\\sigma_2^2=1$ make the precision-weighted average reduce to the ordinary average: $\\mu = (0\\cdot 1 + 2\\cdot 1)/(1+1) = 1$. Posterior variance is $1/(1+1)=0.5$, so $\\sigma\\approx 0.707$ — sharper than either input."
+          },
+          {
+            "type": "numeric",
+            "q": "Combine $\\mathcal{N}(\\mu_1, 4)$ with $\\mathcal{N}(\\mu_2, 1)$ (so $\\sigma_1=2,\\sigma_2=1$). What is the posterior standard deviation $\\sigma$, to two decimals?",
+            "answer": 0.89,
+            "tol": 0.02,
+            "explain": "$1/\\sigma^2 = 1/4 + 1/1 = 5/4$, so $\\sigma^2=4/5=0.8$ and $\\sigma = 2/\\sqrt 5 \\approx 0.894$. The sharper witness dominates but the hazy one still narrows the posterior — every Bayesian observation contracts uncertainty."
+          }
+        ]
+      },
+      "kf-scalar-cycle": {
+        "title": "The 1D Kalman cycle — predict and update",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For scalar dynamics $x_{t+1}=ax_t+w_t$ with $\\mathrm{Var}(w_t)=q$, the predict step turns a prior variance $\\sigma_t^2$ into",
+            "choices": [
+              "$\\sigma_t^2 + q$",
+              "$a\\,\\sigma_t^2 + q$",
+              "$a^2\\,\\sigma_t^2 + q$",
+              "$\\sigma_t^2/a^2 + q$"
+            ],
+            "answer": 2,
+            "explain": "$\\mathrm{Var}(ax_t + w_t) = a^2\\mathrm{Var}(x_t) + \\mathrm{Var}(w_t) = a^2\\sigma_t^2 + q$ when $x_t$ and $w_t$ are independent. The factor $a^2$ (not $a$) is the standard scaling: variance is a quadratic functional of $x$.",
+            "hint": "$\\mathrm{Var}(aX) = a^2 \\mathrm{Var}(X)$."
+          },
+          {
+            "type": "mcq",
+            "q": "The scalar Kalman gain is $K = \\sigma^2_{\\mathrm{pred}}/(\\sigma^2_{\\mathrm{pred}}+r)$. As the observation noise $r\\to\\infty$,",
+            "choices": [
+              "$K\\to 1$ and the filter snaps to each measurement",
+              "$K\\to 0$ and the filter ignores the observation, keeping its prediction",
+              "$K\\to \\sigma_{\\mathrm{pred}}$ and the filter scales the residual by the prior sd",
+              "$K$ diverges and the variance update fails"
+            ],
+            "answer": 1,
+            "explain": "Large $r$ makes the denominator huge while the numerator is fixed — $K\\to 0$, so the update $\\hat x \\leftarrow \\hat x + K(y-\\hat x)$ keeps the prediction unchanged. This matches intuition: an infinitely noisy sensor carries no information."
+          },
+          {
+            "type": "numeric",
+            "q": "With $\\sigma^2_{\\mathrm{pred}}=2$ and $r=2$, what is the scalar Kalman gain $K$?",
+            "answer": 0.5,
+            "tol": 0.01,
+            "explain": "$K = 2/(2+2) = 0.5$. Equal trust in prediction and observation gives equal weight: the posterior mean is exactly halfway between the prior and the measurement, and the posterior variance is $(1-K)\\sigma^2_{\\mathrm{pred}} = 0.5\\cdot 2 = 1$."
+          }
+        ]
+      },
+      "kf-vector": {
+        "title": "Vector form and the covariance ellipse",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For vector state $x\\in\\mathbb{R}^n$ with dynamics $x_{t+1}=Fx_t+w_t$ and $\\mathrm{Cov}(w_t)=Q$, the predict step on the covariance $\\Sigma$ is",
+            "choices": [
+              "$\\Sigma \\to F^\\top \\Sigma F + Q$",
+              "$\\Sigma \\to F \\Sigma F^\\top + Q$",
+              "$\\Sigma \\to F \\Sigma F^{-1} + Q$",
+              "$\\Sigma \\to \\Sigma + F Q F^\\top$"
+            ],
+            "answer": 1,
+            "explain": "$\\mathrm{Cov}(FX+w) = F\\,\\mathrm{Cov}(X)\\,F^\\top + \\mathrm{Cov}(w)$ when $X,w$ are independent. The right-multiplication by $F^\\top$ (not $F^{-1}$) is non-negotiable — it's the matrix analogue of the scalar $a^2\\sigma^2$.",
+            "hint": "Match dimensions: $F$ is $n\\times n$, $\\Sigma$ is $n\\times n$, and the answer should be $n\\times n$ symmetric PSD."
+          },
+          {
+            "type": "mcq",
+            "q": "Geometrically, the predict step pictures the covariance ellipse $\\{x : x^\\top \\Sigma^{-1} x = 1\\}$ as",
+            "choices": [
+              "Unchanged in shape, translated by $F\\hat x$",
+              "Rotated and stretched by $F$, then inflated by $Q$",
+              "Shrunk by a factor equal to $\\det F$",
+              "Reflected across the origin"
+            ],
+            "answer": 1,
+            "explain": "$\\Sigma \\to F\\Sigma F^\\top$ applies the linear map $F$ to the ellipse — rotating and stretching its principal axes. Adding $Q$ then inflates it (the new ellipse contains the old, in the matrix-PSD sense). The translation $\\hat x\\to F\\hat x$ moves the centre, but the shape change is the geometric content of the matrix step."
+          },
+          {
+            "type": "mcq",
+            "q": "The update step in vector form is $\\Sigma_{\\mathrm{post}} = (I - KH)\\Sigma_{\\mathrm{pred}}$. Why is this consistent with $\\Sigma_{\\mathrm{post}}$ remaining symmetric and positive-definite?",
+            "choices": [
+              "Because $I-KH$ is automatically symmetric for any $K, H$",
+              "Because $K$ is by construction the projection onto the observation subspace",
+              "Because the equivalent Joseph form $(I-KH)\\Sigma(I-KH)^\\top + KRK^\\top$ is manifestly symmetric and PSD, and equals the simpler form when $K$ is the Kalman gain",
+              "Because $\\Sigma_{\\mathrm{pred}}$ commutes with $H$"
+            ],
+            "answer": 2,
+            "explain": "The compact form $(I-KH)\\Sigma$ can lose symmetry under finite-precision arithmetic; the Joseph form $(I-KH)\\Sigma(I-KH)^\\top + KRK^\\top$ is the algebraically equivalent expression that is guaranteed symmetric and PSD for any $K$, not just the optimal Kalman gain. Production code often uses Joseph form for numerical stability — a real practical concern in long-running filters.",
+            "hint": "Compact form and Joseph form are equal at the optimal $K$; one is robust to roundoff and the other isn't."
+          }
+        ]
+      },
+      "kf-gain": {
+        "title": "The Kalman gain as optimal mixing",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The Kalman gain in vector form is",
+            "choices": [
+              "$K = H^\\top \\Sigma^{-1}$",
+              "$K = \\Sigma\\, H^\\top(H \\Sigma H^\\top + R)^{-1}$",
+              "$K = (H^\\top R^{-1} H + \\Sigma^{-1})^{-1}$",
+              "$K = \\Sigma\\, H(R + H \\Sigma H^\\top)^{-1}$"
+            ],
+            "answer": 1,
+            "explain": "$K = \\Sigma_{\\mathrm{pred}} H^\\top (H\\Sigma_{\\mathrm{pred}} H^\\top + R)^{-1}$. The factor $H \\Sigma H^\\top + R$ is the innovation covariance — the variance of the residual $y - H\\hat x$ under the prior. Dividing by it is exactly the precision-weighting we saw in the scalar fusion problem, lifted to matrices.",
+            "hint": "Innovation covariance = predicted observation variance + sensor variance."
+          },
+          {
+            "type": "mcq",
+            "q": "Among all linear update rules $\\hat x_{\\mathrm{post}} = \\hat x_{\\mathrm{pred}} + L(y - H\\hat x_{\\mathrm{pred}})$, the Kalman gain $L=K$ is uniquely characterised by:",
+            "choices": [
+              "Minimising the trace of the posterior covariance $\\Sigma_{\\mathrm{post}}$",
+              "Maximising the determinant of $\\Sigma_{\\mathrm{post}}$",
+              "Making $\\hat x_{\\mathrm{post}}$ equal the observation $y$",
+              "Making the innovation $y - H\\hat x_{\\mathrm{pred}}$ identically zero"
+            ],
+            "answer": 0,
+            "explain": "Differentiating $\\mathrm{tr}\\,\\Sigma_{\\mathrm{post}}(L)$ with respect to $L$ and setting the result to zero gives $L = K$ exactly. Equivalently $K$ is the MAP estimate (negative log-posterior is quadratic, minimised at $K$) and the weighted-least-squares solution stacking prediction and observation as a joint residual — all three converge in the linear-Gaussian world."
+          },
+          {
+            "type": "numeric",
+            "q": "Scalar case: prior $\\sigma^2_{\\mathrm{pred}}=1$, observation noise $R=3$. What is the Kalman gain $K$ (to two decimals)?",
+            "answer": 0.25,
+            "tol": 0.01,
+            "explain": "$K = 1/(1+3) = 0.25$. The filter trusts its prediction three times more than the observation, so it moves only a quarter of the way toward $y$. Posterior variance becomes $(1-K)\\sigma^2 = 0.75$ — smaller than the prior, larger than what a clean sensor would have left."
+          }
+        ]
+      },
+      "kf-tracking": {
+        "title": "Tracking a 2D moving target",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For a 2D constant-velocity tracker observing position only, how can the filter possibly estimate the velocity components?",
+            "choices": [
+              "By numerical differentiation of the observed positions",
+              "Through the off-diagonal blocks of $\\Sigma_t$, which couple position and velocity and update during the Bayesian step",
+              "By assuming the velocity is constant and reading it off the slope of the trajectory",
+              "It can't — velocity has to be measured directly"
+            ],
+            "answer": 1,
+            "explain": "After a few prediction steps the covariance $\\Sigma_t$ acquires nonzero $(p_x,v_x)$ and $(p_y,v_y)$ off-diagonal entries — the filter has learned that residuals in position correlate with errors in velocity. The Bayesian update, which uses the full $\\Sigma_t$ matrix (not just its position-block), then improves the velocity estimate every time a position observation arrives. Numerical differentiation throws away exactly this correlation structure, which is why naive smoothers are worse.",
+            "hint": "What information sits in the $(p,v)$ off-diagonal of $\\Sigma$?"
+          },
+          {
+            "type": "mcq",
+            "q": "Increasing the observation-noise variance $R$ while keeping process noise $Q$ fixed changes the Kalman tracker how?",
+            "choices": [
+              "The filter trusts measurements more, so the trajectory becomes jittery",
+              "The filter trusts its dynamic model more, so the trajectory becomes a smoothed (low-pass) version of the truth with lag",
+              "The filter diverges because the gain becomes unbounded",
+              "Nothing changes — gain scales out"
+            ],
+            "answer": 1,
+            "explain": "Bigger $R$ shrinks the gain $K$ toward zero. Each update barely moves $\\hat x$ toward the observation, so the filter follows the deterministic propagation through $F$ — which acts as a low-pass filter on the position trace, lagging fast wiggles and smoothing them out. Cranking $Q$ instead has the opposite effect.",
+            "hint": "Gain shrinks when sensor confidence shrinks; predictions get the steering wheel."
+          },
+          {
+            "type": "mcq",
+            "q": "For the standard 2D constant-velocity model, the process-noise matrix $Q$ is usually structured with off-diagonal terms $\\propto \\Delta t^2/2$ coupling position and velocity. Why?",
+            "choices": [
+              "To make $Q$ symmetric — any off-diagonal works",
+              "Because acceleration noise propagates over $\\Delta t$ to give correlated position/velocity perturbations, and ignoring the coupling would over-trust the position estimate",
+              "To minimise the trace of $Q$",
+              "It's a numerical-stability trick with no physical meaning"
+            ],
+            "answer": 1,
+            "explain": "The CV model is really 'true motion is constant-acceleration with $a\\sim\\mathcal{N}(0,q)$, propagated through kinematics for time $\\Delta t$.' Integrating $a$ gives a velocity perturbation $a\\Delta t$ and a position perturbation $a\\Delta t^2/2$ — these are perfectly correlated (both depend on the same $a$), so $\\mathrm{Cov}(p,v) = q\\Delta t^3/2 \\cdot \\frac{1}{\\Delta t}\\cdot\\frac{\\Delta t^2}{2} = q\\Delta t^2/2$. A diagonal $Q$ would falsely treat them as independent and the filter would underestimate position uncertainty."
+          }
+        ]
+      }
+    }
+  },
   "khovanov-homology": {
     "topic": "khovanov-homology",
     "quizzes": {
