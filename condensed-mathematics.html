@@ -906,7 +906,7 @@ $$\mathrm{Ext}^i_{\mathrm{Cond}(\mathbb R)}\bigl(M_{p'}(S),\, V\bigr) \;=\; 0 \q
 
 <p>The proof is a tour de force of $50$+ pages, with intricate inequalities about $p'$-summable norms and a delicate induction whose base case relies on a real-analytic estimate Scholze called "the most fragile thing I have ever proved". In December 2020 Scholze posted a challenge on Kevin Buzzard's <em>Xena</em> blog: <em>formally verify this theorem in Lean</em>. None of his collaborators believed it was right; all of them lacked confidence in their own line-by-line check.</p>
 
-<p>A community led by Johan Commelin (Utrecht/Mainz) took the bait. Using Lean's <code>mathlib</code> library and a careful translation of Scholze's manuscript, the team — Adam Topaz, Riccardo Brasca, Patrick Massot, Damiano Testa, Filippo Nuccio, Kevin Buzzard, Bhavik Mehta, and many others — formalised the proof step by step over 18 months. The main theorem (the inductive heart of the result) was discharged in May 2021; the full statement, including the technically painful base case, was complete by July 2022; further generalisations and tightenings landed through 2023.</p>
+<p>A community led by Johan Commelin (Utrecht/Mainz) took the bait. Using Lean's <code>mathlib</code> library and a careful translation of Scholze's manuscript, the team — Adam Topaz, Riccardo Brasca, Patrick Massot, Damiano Testa, Filippo Nuccio, Kevin Buzzard, Bhavik Mehta, and many others — formalised the proof step by step over 18 months. The main theorem (the inductive heart of the result) was discharged in May 2022; the full statement, including the technically painful base case, was complete by July 2022; further generalisations and tightenings landed through 2023.</p>
 
 <p>The cultural significance went well beyond the theorem itself. <strong>This was the first time a major living mathematician used Lean to gain confidence in a theorem they personally doubted.</strong> Formal verification graduated from "proves things you already know" to "proves things you don't know yet", crossing a working-mathematician acceptability threshold that the field had been near for years but had never quite reached. The infrastructure built — Lean tactics for limits of profinite spaces, a $p$-summable-measure formalisation, a working derived-category framework — became foundational to subsequent <code>mathlib</code> efforts.</p>
 
@@ -916,7 +916,7 @@ $$\mathrm{Ext}^i_{\mathrm{Cond}(\mathbb R)}\bigl(M_{p'}(S),\, V\bigr) \;=\; 0 \q
     <button id="cm-lte-m1" class="active">Dec 2020 — challenge</button>
     <button id="cm-lte-m2">Mar 2021 — repo, blueprint</button>
     <button id="cm-lte-m3">Jul 2021 — base lemmas</button>
-    <button id="cm-lte-m4">May 2021 — main thm</button>
+    <button id="cm-lte-m4">May 2022 — main thm</button>
     <button id="cm-lte-m5">Jul 2022 — full thm</button>
     <button id="cm-lte-m6">2023 — generalisations</button>
   </div>
@@ -949,7 +949,7 @@ $$\mathrm{Ext}^i_{\mathrm{Cond}(\mathbb R)}\bigl(M_{p'}(S),\, V\bigr) \;=\; 0 \q
       body: 'The technical preliminaries -- p-summable measures on profinite sets, the long-exact-sequence machinery in Cond(Ab), the basic homological algebra in mathlib (Ext, derived functors, profinite Z-modules) -- come online. Mathlib grows substantially in homological algebra and topology to accommodate the project.'
     },
     {
-      date: 'May 28, 2021',
+      date: 'May 28, 2022',
       title: 'The main theorem (induction core)',
       who: 'Commelin announces successful Lean proof of the inductive theorem',
       body: 'After about six months of community work, the main inductive statement -- the technical heart of the liquid Ext-vanishing -- is verified. Scholze blogs ("Half a year of LTE") that the proof stands up. The formalisation surfaces one step in the original manuscript that was sketched in a way that did not type-check; Commelin and Scholze collaboratively patch it.'

@@ -69,10 +69,10 @@
             "$\\mathbf{Set}$"
           ],
           "answer": [
-            3,
-            0,
             1,
-            2
+            2,
+            3,
+            0
           ],
           "explain": "$\\mathbf{Set}$ has $\\Omega = \\{\\bot, \\top\\}$ (classical truth values). Presheaf toposes have $\\Omega(c) = \\mathrm{Sieves}(c)$. Sheaves on a topological space $X$ have $\\Omega(U) = $ open subsets of $U$. The topos $G\\text{-}\\mathbf{Set}$ is a presheaf topos on the *groupoid* $\\mathbf{B}G$, and the only sieves on its unique object are $\\varnothing$ and $G$ — so $\\Omega = \\{\\bot, \\top\\}$ with trivial $G$-action and the topos is Boolean.",
           "hint": "Each generalises 'truth values'. In a presheaf topos a 'truth value at $c$' is a sieve — and in a groupoid the only sieves are the trivial ones."

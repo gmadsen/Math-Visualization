@@ -10786,12 +10786,12 @@ window.MVQuizBank = {
               "$\\mathcal{C} \\times \\mathcal{D} \\to \\mathcal{C}$"
             ],
             "answer": [
-              3,
+              2,
               1,
-              0,
-              2
+              3,
+              0
             ],
-            "explain": "(left index → right slot.) The intended pairs are: 'constant $\\mathcal{D}$' ↔ '$\\mathcal{C} \\times \\mathcal{D} \\to \\mathcal{C}$', 'over-category $c \\mapsto \\mathcal{C}_{/c}$' ↔ '$t = \\mathrm{ev}_1: \\mathrm{Fun}(\\Delta^1,\\mathcal{C}) \\to \\mathcal{C}$' (target map, HTT 2.4.7.11 — covariant postcomposition transport), 'modules $R \\mapsto \\mathrm{Mod}_R$' ↔ '$\\mathrm{Mod} \\to \\mathrm{CAlg}$', 'BG-action on $X$' ↔ '$X /\\!\\!/ G \\to BG$'. The dual slice functor $c \\mapsto \\mathcal{C}_{c/}$ is contravariant and straightens the <em>cartesian</em> source map $s = \\mathrm{ev}_0$, not a cocartesian fibration."
+            "explain": "The intended pairs are: 'constant $\\mathcal{D}$' ↔ '$\\mathcal{C} \\times \\mathcal{D} \\to \\mathcal{C}$', 'over-category $c \\mapsto \\mathcal{C}_{/c}$' ↔ '$t = \\mathrm{ev}_1: \\mathrm{Fun}(\\Delta^1,\\mathcal{C}) \\to \\mathcal{C}$' (target map, HTT 2.4.7.11 — covariant postcomposition transport), 'modules $R \\mapsto \\mathrm{Mod}_R$' ↔ '$\\mathrm{Mod} \\to \\mathrm{CAlg}$', 'BG-action on $X$' ↔ '$X /\\!\\!/ G \\to BG$'."
           }
         ]
       },
@@ -11024,12 +11024,12 @@ window.MVQuizBank = {
               "$t = \\mathrm{ev}_1: \\mathrm{Fun}(\\Delta^1, \\mathcal{C}) \\to \\mathcal{C}$ — the target map of the arrow category"
             ],
             "answer": [
-              3,
               2,
-              0,
-              1
+              3,
+              1,
+              0
             ],
-            "explain": "(left → right indices.) Over-category functor (covariant via postcomposition) straightens to the cocartesian target map $t = \\mathrm{ev}_1$ (left 0 → right 3; HTT 2.4.7.11 / Kerodon Tag 01VK). Modules functor straightens to the modules fibration (left 1 → right 2). $G$-action straightens to homotopy quotient (left 2 → right 0). Constant singleton functor unstraightens to the identity (left 3 → right 1). The dual slice functor $c \\mapsto \\mathcal{C}_{c/}$ is contravariant and straightens the <em>cartesian</em> source map $s = \\mathrm{ev}_0$, not a cocartesian fibration."
+            "explain": "Over-category functor (covariant via postcomposition) straightens to the cocartesian target map $t = \\mathrm{ev}_1$ (HTT 2.4.7.11 / Kerodon Tag 01VK). Modules functor straightens to the modules fibration. $G$-action straightens to homotopy quotient. Constant singleton functor unstraightens to the identity. The dual slice functor $c \\mapsto \\mathcal{C}_{c/}$ is contravariant and straightens the <em>cartesian</em> source map $s = \\mathrm{ev}_0$, not a cocartesian fibration."
           },
           {
             "type": "multi-select",
@@ -21018,10 +21018,10 @@ window.MVQuizBank = {
               "$\\mathbf{Set}$"
             ],
             "answer": [
-              3,
-              0,
               1,
-              2
+              2,
+              3,
+              0
             ],
             "explain": "$\\mathbf{Set}$ has $\\Omega = \\{\\bot, \\top\\}$ (classical truth values). Presheaf toposes have $\\Omega(c) = \\mathrm{Sieves}(c)$. Sheaves on a topological space $X$ have $\\Omega(U) = $ open subsets of $U$. The topos $G\\text{-}\\mathbf{Set}$ is a presheaf topos on the *groupoid* $\\mathbf{B}G$, and the only sieves on its unique object are $\\varnothing$ and $G$ — so $\\Omega = \\{\\bot, \\top\\}$ with trivial $G$-action and the topos is Boolean.",
             "hint": "Each generalises 'truth values'. In a presheaf topos a 'truth value at $c$' is a sieve — and in a groupoid the only sieves are the trivial ones."
