@@ -19,6 +19,7 @@
         {left:'\\[',right:'\\]',display:true}
       ],
       throwOnError:false,
+      strict:(c)=>c==='unicodeTextInMathMode'?'ignore':'warn',
       macros:{
         '\\Spec':'\\operatorname{Spec}',
         '\\Gal':'\\operatorname{Gal}',
@@ -351,7 +352,8 @@ function drawNode(svg, x, y, label, opts={}){
     tag.textContent = 'Y_x' + (i+1) + ' (3 points)';
     fiberGroup.appendChild(tag);
     out.textContent = 'fiber over $x_' + (i+1) + '$ has 3 geometric points — a torsor under $\\mathbb{Z}/3$ acting by deck transformation. degree of the cover is constant: ' + 'rank f_*O_Y = 3 everywhere.';
-    if(window.renderMathInElement) window.renderMathInElement(out, {throwOnError:false, delimiters:[{left:'$',right:'$',display:false}]});
+    if(window.renderMathInElement) window.renderMathInElement(out, {throwOnError:false,
+      strict:(c)=>c==='unicodeTextInMathMode'?'ignore':'warn', delimiters:[{left:'$',right:'$',display:false}]});
   }
   // open with x3 highlighted to advertise the affordance
   showFiber(2);

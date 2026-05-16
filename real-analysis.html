@@ -35,6 +35,7 @@
         {left:'\\[',right:'\\]',display:true}
       ],
       throwOnError:false,
+      strict:(c)=>c==='unicodeTextInMathMode'?'ignore':'warn',
       macros:{
         '\\Spec':'\\operatorname{Spec}',
         '\\Gal':'\\operatorname{Gal}',
@@ -1563,7 +1564,7 @@ $$ \frac{1}{R} = \limsup_{n\to\infty} |c_n|^{1/n}. $$
     const e = Math.abs(partialSum(x0) - F.true(x0));
     out.textContent =
       `series : ${F.name}\n`+
-      `R = ${F.R}\n`+
+      `R = ${isFinite(F.R) ? F.R : '∞'}\n`+
       `at x = ${x0}:   S_${N}(x) = ${partialSum(x0).toFixed(6)}   ,   f(x) = ${F.true(x0).toFixed(6)}\n`+
       `error  |S_N − f| = ${e.toExponential(3)}`;
   }

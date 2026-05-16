@@ -35,6 +35,7 @@
         {left:'\\[',right:'\\]',display:true}
       ],
       throwOnError:false,
+      strict:(c)=>c==='unicodeTextInMathMode'?'ignore':'warn',
       macros:{
         '\\Spec':'\\operatorname{Spec}',
         '\\Gal':'\\operatorname{Gal}',
@@ -1843,7 +1844,9 @@ $$\frac{t}{e^{t}-1}+\frac{t}{2} \;=\; \frac{t}{2}\cdot\frac{e^{t}+1}{e^{t}-1} \;
   }
   function trueVal(t){
     if(Math.abs(t) < 1e-10) return 1;
-    return t / (Math.exp(t) - 1);
+    // The A-T recurrence above produces B_n with B_1 = +1/2 convention; matching
+    // generating function is t/(1 - e^{-t}), not t/(e^t - 1) (which uses B_1 = -1/2).
+    return t / (1 - Math.exp(-t));
   }
   function update(){
     const t = parseFloat(tEl.value), N = parseInt(NEl.value,10);
@@ -1855,7 +1858,7 @@ $$\frac{t}{e^{t}-1}+\frac{t}{2} \;=\; \frac{t}{2}\cdot\frac{e^{t}+1}{e^{t}-1} \;
     out.textContent =
       `partial sum Σ_{n=0..${N}} B_n t^n/n! at t=${t.toFixed(3)}:\n`+
       `  ≈ ${p.toFixed(10)}\n\n`+
-      `true value t/(e^t − 1):\n`+
+      `true value t/(1 − e^{−t}):\n`+
       `  = ${tr.toFixed(10)}\n\n`+
       `|error| = ${err.toExponential(3)}\n`+
       `(radius of convergence is 2π ≈ 6.28 — try |t| > 6.28 to see divergence)`;

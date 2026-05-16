@@ -35,6 +35,7 @@
         {left:'\\[',right:'\\]',display:true}
       ],
       throwOnError:false,
+      strict:(c)=>c==='unicodeTextInMathMode'?'ignore':'warn',
       macros:{
         '\\Sha':'\\text{Ш}',
         '\\Spec':'\\operatorname{Spec}',

@@ -19,6 +19,7 @@
         {left:'\\[',right:'\\]',display:true}
       ],
       throwOnError:false,
+      strict:(c)=>c==='unicodeTextInMathMode'?'ignore':'warn',
       macros:{
         '\\Spec':'\\operatorname{Spec}',
         '\\Gal':'\\operatorname{Gal}',
@@ -776,6 +777,7 @@ $$\Box\,\bar h_{\mu\nu} \;=\; -16\pi G\, T_{\mu\nu}.$$
     if(playing) loop();
     else if(raf){ cancelAnimationFrame(raf); raf=null; }
   });
+  hsl.addEventListener('input',()=>{ if(!playing) draw(); });
   function loop(){
     phase += 0.04;
     draw();

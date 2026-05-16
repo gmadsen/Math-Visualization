@@ -19,6 +19,7 @@
         {left:'\\[',right:'\\]',display:true}
       ],
       throwOnError:false,
+      strict:(c)=>c==='unicodeTextInMathMode'?'ignore':'warn',
       macros:{
         '\\Gal':'\\operatorname{Gal}',
         '\\Hom':'\\operatorname{Hom}',
