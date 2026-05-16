@@ -283,7 +283,8 @@
         "optimal-control-and-dynamic-programming",
         "combinatorial-optimization",
         "convex-optimization",
-        "mathematical-finance"
+        "mathematical-finance",
+        "kalman-filtering-and-state-estimation"
       ],
       "color": "p"
     }

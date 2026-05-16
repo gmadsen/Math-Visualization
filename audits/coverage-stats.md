@@ -2,12 +2,12 @@
 
 ## Corpus totals
 
-- Topics: **190**, concepts: **1320**
-- Widgets: **1349** (registry-driven: 1349, inline: 0)
-- Quizzes: **5154** (v1: 3918, hard: 1223, expert: 13)
-- Quiz types: mcq: 3376, numeric: 1233, multi-select: 249, matching: 106, ordering: 83, spot-the-error: 53, complex: 29, proof-completion: 21, construction: 2, guess-my-rule: 2
+- Topics: **191**, concepts: **1326**
+- Widgets: **1355** (registry-driven: 1355, inline: 0)
+- Quizzes: **5172** (v1: 3936, hard: 1223, expert: 13)
+- Quiz types: mcq: 3389, numeric: 1238, multi-select: 249, matching: 106, ordering: 83, spot-the-error: 53, complex: 29, proof-completion: 21, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their section: **150**
-- Concepts lacking a hard-tier quiz: **882**
+- Concepts lacking a hard-tier quiz: **888**
 
 ## Per-slug registry adoption
 
@@ -523,6 +523,12 @@ page has wired one in yet.
 | `kahler-geometry-w4` | verbatim | click | 2d | 1 | kahler-geometry |
 | `kahler-geometry-w5` | verbatim | click | 2d | 1 | kahler-geometry |
 | `kahler-geometry-w6` | verbatim | click | 2d | 1 | kahler-geometry |
+| `kf-cycle` | verbatim | slider | 2d | 1 | kalman-filtering-and-state-estimation |
+| `kf-ellipse` | verbatim | slider | 2d | 1 | kalman-filtering-and-state-estimation |
+| `kf-fusion` | verbatim | slider | 2d | 1 | kalman-filtering-and-state-estimation |
+| `kf-gain` | verbatim | slider | 2d | 1 | kalman-filtering-and-state-estimation |
+| `kf-setup` | verbatim | slider | 2d | 1 | kalman-filtering-and-state-estimation |
+| `kf-track` | verbatim | slider | 2d | 1 | kalman-filtering-and-state-estimation |
 | `kg-anti` | verbatim | click | 2d | 1 | klein-gordon-equation |
 | `kg-curr` | verbatim | slider | 2d | 1 | klein-gordon-equation |
 | `kg-deriv` | verbatim | slider | 2d | 1 | klein-gordon-equation |
@@ -1006,13 +1012,13 @@ page has wired one in yet.
 
 ### Control theory & optimization
 
-- Topics: **4**, concepts: **28**
-- Widgets: **29** (registry-driven: 29, inline: 0)
-  - by family: verbatim: 28, inline-code-cell: 1
-  - by dimension: 2d: 29
-  - by gesture: slider: 19, click: 6, select: 2, scrub: 1, edit: 1
-- Quizzes: **84** (v1: 84, hard: 0, expert: 0)
-  - by type: mcq: 54, numeric: 16, multi-select: 6, matching: 4, spot-the-error: 2, ordering: 2
+- Topics: **5**, concepts: **34**
+- Widgets: **35** (registry-driven: 35, inline: 0)
+  - by family: verbatim: 34, inline-code-cell: 1
+  - by dimension: 2d: 35
+  - by gesture: slider: 25, click: 6, select: 2, scrub: 1, edit: 1
+- Quizzes: **102** (v1: 102, hard: 0, expert: 0)
+  - by type: mcq: 67, numeric: 21, multi-select: 6, matching: 4, spot-the-error: 2, ordering: 2
 
 ## Per-topic
 
@@ -1034,6 +1040,7 @@ page has wired one in yet.
 - `convex-geometry` (Geometry & topology) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
 - `topological-data-analysis` (Geometry & topology) — concepts=7, widgets=6 (slug=6), quiz=21 (v1=21, hard=0, expert=0)
 - `mathematical-chaos` (Analysis) — concepts=7, widgets=9 (slug=9), quiz=21 (v1=21, hard=0, expert=0)
+- `kalman-filtering-and-state-estimation` (Control theory & optimization) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `several-complex-variables` (Analysis) — concepts=6, widgets=5 (slug=5), quiz=18 (v1=18, hard=0, expert=0)
 - `khovanov-homology` (Geometry & topology) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `shimura-varieties` (Modular forms & L-functions) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)

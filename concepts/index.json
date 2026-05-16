@@ -25,6 +25,16 @@
     "topological-data-analysis",
     "mathematical-chaos",
 
+
+
+
+
+
+
+
+
+    "kalman-filtering-and-state-estimation",
+
     "several-complex-variables",
     "khovanov-homology",
     "shimura-varieties",
@@ -407,6 +417,7 @@
     "mathematical-finance": "advanced",
     "donaldson-thomas-and-gw-invariants": "advanced",
     "positive-characteristic-ag": "advanced",
-    "computational-molecular-biology": "advanced"
+    "computational-molecular-biology": "advanced",
+    "kalman-filtering-and-state-estimation": "advanced"
   }
 }

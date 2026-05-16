@@ -629,9 +629,9 @@
     <h1>Interactive Mathematics Notebook</h1>
     <p class="sub">Interactive concepts across mathematics — from foundations to research-level topics — each a single-page explainer with live widgets and worked examples.</p>
     <div class="hero-tagline" aria-label="Notebook scope">
-      <span><span class="tg-num">190</span> topics</span>
+      <span><span class="tg-num">191</span> topics</span>
       <span class="dot">&middot;</span>
-      <span><span class="tg-num">1320</span> concepts</span>
+      <span><span class="tg-num">1326</span> concepts</span>
       <span class="dot">&middot;</span>
       <span>pathway-graph explorer</span>
     </div>
@@ -5076,6 +5076,28 @@
         <div class="tt">Convex optimization <span class="level advanced">advanced</span></div>
         <div class="desc">Minimise a convex function over a convex set — the local-to-global miracle. Lagrangian duality, KKT, conic programming (LP/SOCP/SDP), and the polynomial-time interior-point + first-order methods that make the framework practical.</div>
         <span class="tag">duality · KKT · SDP · proximal</span>
+      </div>
+    </a>
+
+
+    <a class="card p" href="./kalman-filtering-and-state-estimation.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <!-- prior covariance ellipse (dashed blue) collapses to posterior (yellow) toward observation y (pink) -->
+        <g transform="translate(50 42)">
+          <ellipse cx="0" cy="0" rx="32" ry="20" transform="rotate(-18)" fill="none" stroke="var(--blue)" stroke-width="1" stroke-dasharray="3 2" stroke-opacity="0.7"/>
+          <ellipse cx="9" cy="-6" rx="20" ry="8" transform="rotate(-18)" fill="var(--yellow)" fill-opacity="0.18" stroke="var(--yellow)" stroke-width="1.4"/>
+          <line x1="0" y1="0" x2="9" y2="-6" stroke="var(--pink)" stroke-width="1" stroke-dasharray="2 1.5"/>
+          <circle cx="0" cy="0" r="1.8" fill="var(--blue)"/>
+          <circle cx="9" cy="-6" r="1.8" fill="var(--yellow)"/>
+          <circle cx="26" cy="-14" r="2.4" fill="var(--pink)" stroke="var(--ink)" stroke-width="0.5"/>
+        </g>
+        <text x="60" y="22" font-size="6.5" fill="var(--pink)" font-style="italic" font-family="serif">y</text>
+        <text x="44" y="68" text-anchor="middle" font-size="6.5" fill="var(--mute)">prior → posterior</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Kalman filtering and state estimation</div>
+        <div class="desc">Track a hidden state through noisy measurements: Bayesian fusion of two Gaussians, the predict/update cycle, the Kalman gain as a precision-weighted compromise, and 2D target tracking with covariance ellipses.</div>
+        <span class="tag">predict · update · gain · LQG · tracking</span>
       </div>
     </a>
 
