@@ -4383,7 +4383,7 @@ window.__MVConcepts = {
             "cm-liquid-vector-spaces",
             "tt-models"
           ],
-          "blurb": "In December 2020 Scholze posted on Xena: formally verify in Lean that $\\mathrm{Ext}^i_{\\mathrm{Cond}(\\mathbb R)}(M_{p'}, V) = 0$ for $i \\ge 1$ when $V$ is $p$-liquid and $0 < p' < p \\le 1$. The theorem is the homological cornerstone of the liquid theory and Scholze called it the most fragile of his work — none of his collaborators believed it. A community led by Johan Commelin formalised the proof in Lean's mathlib library, finishing the main theorem in mid-2022 and the full result in 2023. It marks a turning point: formal verification graduated from a tool for theorems already trusted to a working option for results active researchers themselves doubt.",
+          "blurb": "In December 2020 Scholze posted on Xena: formally verify in Lean that $\\mathrm{Ext}^i_{\\mathrm{Cond}(\\mathbb R)}(M_{p'}, V) = 0$ for $i \\ge 1$ when $V$ is $p$-liquid and $0 < p' < p \\le 1$. The theorem is the homological cornerstone of the liquid theory and Scholze called it the most fragile of his work — none of his collaborators believed it. A community led by Johan Commelin formalised the proof in Lean's mathlib library, finishing the main inductive theorem in May 2021 and the full result by July 2022, with generalisations through 2023. It marks a turning point: formal verification graduated from a tool for theorems already trusted to a working option for results active researchers themselves doubt.",
           "tags": [
             "foundation",
             "refinement"
@@ -9004,7 +9004,7 @@ window.__MVConcepts = {
             "tt-higher-inductive-types",
             "kan-complex"
           ],
-          "blurb": "A model interprets each type as an object and each judgment as a derivation in some semantic category. Voevodsky's simplicial-set model interprets types as Kan complexes ($\\infty$-groupoids), Π/Σ as fibred mapping spaces / total spaces, identity types as path objects, and univalence holds because equivalence of Kan complexes coincides with weak equivalence. This is what justifies HoTT as a foundation, not just a syntax.",
+          "blurb": "A model interprets each type as an object and each judgment as a derivation in some semantic category. Voevodsky's simplicial-set model interprets types as Kan complexes ($\\infty$-groupoids), Π/Σ as fibred mapping spaces / total spaces, identity types as path objects, and univalence holds because Voevodsky constructed a fibrant universe of small Kan fibrations whose path space at $(A,B)$ matches the space of equivalences $A\\simeq B$. This is what justifies HoTT as a foundation, not just a syntax.",
           "tags": [
             "foundation"
           ]
@@ -9060,7 +9060,7 @@ window.__MVConcepts = {
           "prereqs": [
             "forcing-truth-lemma"
           ],
-          "blurb": "The Cohen poset $2^{<\\omega}$ has finite binary strings ordered by extension. A generic filter $G$ collects to a single new real $r_G\\in 2^\\omega$ not in $M$. Forcing with the product $2^{<\\omega}\\times\\aleph_2$ injects $\\aleph_2^M$ many new reals at once.",
+          "blurb": "The Cohen poset $2^{<\\omega}$ has finite binary strings ordered by extension. A generic filter $G$ collects to a single new real $r_G\\in 2^\\omega$ not in $M$. Forcing with the side-by-side poset $\\operatorname{Fn}(\\aleph_2\\times\\omega,2)$ of finite partial functions injects $\\aleph_2^M$ many new reals at once.",
           "tags": [
             "foundation"
           ]
@@ -10534,7 +10534,7 @@ window.__MVConcepts = {
             "presheaf-topos",
             "cayley-tables"
           ],
-          "blurb": "For a group $G$, the category of left $G$-sets is a topos: it's the presheaf topos on $\\mathbf{B}G$ (the one-object groupoid). Its subobject classifier is the lattice of subgroups, generalizing $\\{\\bot,\\top\\}$ in $\\mathbf{Set}$.",
+          "blurb": "For a group $G$, the category of left $G$-sets is a topos: it's the presheaf topos on $\\mathbf{B}G$ (the one-object groupoid). Because $\\mathbf{B}G$ is a groupoid, the topos is Boolean and $\\Omega = \\{\\bot,\\top\\}$ with trivial $G$-action — subobjects are $G$-stable subsets (unions of orbits), classified by their indicator function.",
           "tags": [
             "group-action"
           ]
@@ -12741,7 +12741,7 @@ window.__MVConcepts = {
             "hf-mean-value-property",
             "lebesgue-measure"
           ],
-          "blurb": "The disk's Dirichlet problem has the explicit solution $u(re^{i\\theta}) = \\tfrac{1}{2\\pi}\\int_0^{2\\pi} P_r(\\theta-\\varphi)\\,g(\\varphi)\\,d\\varphi$ with $P_r(\\theta) = \\tfrac{1-r^2}{1-2r\\cos\\theta+r^2}$. Boundary values are recovered $L^p$-a.e. by Fatou's theorem.",
+          "blurb": "The disk's Dirichlet problem has the explicit solution $u(re^{i\\theta}) = \\tfrac{1}{2\\pi}\\int_0^{2\\pi} P_r(\\theta-\\varphi)\\,g(\\varphi)\\,d\\varphi$ with $P_r(\\theta) = \\tfrac{1-r^2}{1-2r\\cos\\theta+r^2}$. Boundary values are recovered a.e. by Fatou's theorem (for $g \\in L^1$).",
           "tags": [
             "duality"
           ]

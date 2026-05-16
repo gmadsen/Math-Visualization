@@ -404,7 +404,7 @@ function drawNode(svg, x, y, label, opts={}){
 <h2>4. The Lee deformation and the Rasmussen invariant</h2>
 <p>Khovanov homology has a one-parameter deformation due to Lee. Replace the Frobenius algebra $A=\mathbb{Z}[X]/(X^2)$ by</p>
 <p style="text-align:center">$A_{Lee} \;=\; \mathbb{Q}[X]/(X^2-1).$</p>
-<p>The multiplications and comultiplications carry over, but $X^2=1$ now, and the algebra splits as $A_{Lee}\cong\mathbb{Q}\oplus\mathbb{Q}$ via $X\mapsto\pm 1$. The Bar-Natan deformation is the universal one over $\mathbb{Z}$: $A_{BN}=\mathbb{Z}[X,h]/(X^2-hX)$, recovering Khovanov at $h=0$ and Lee at $h\to\text{(generic)}$ over $\mathbb{Q}$.</p>
+<p>The multiplications and comultiplications carry over, but $X^2=1$ now, and the algebra splits as $A_{Lee}\cong\mathbb{Q}\oplus\mathbb{Q}$ via $X\mapsto\pm 1$. Khovanov's <em>universal</em> Frobenius algebra is two-parameter: $A_{\text{univ}}=\mathbb{Z}[X,h,t]/(X^2-hX-t)$. Khovanov sits at $(h,t)=(0,0)$, the Bar-Natan deformation at $(h,t)=(1,0)$ (so $X^2=X$), and Lee at $(h,t)=(0,1)$ (so $X^2=1$). Bar-Natan and Lee are <em>distinct</em> specialisations — Lee is not in the one-parameter $X^2=hX$ family for any $h$.</p>
 
 <p>Lee's theorem: for a knot $K$, $Kh_{Lee}(K)\cong\mathbb{Q}^2$, regardless of $K$. The two generators have an explicit description: orient $K$ and $\overline K$ (the orientation reversal) and apply the Seifert algorithm; the resulting all-orientation-respecting smoothing produces a canonical class $\mathfrak{s}_o$ for each orientation $o\in\{K,\overline K\}$. These two classes span $Kh_{Lee}(K)$.</p>
 
@@ -641,9 +641,9 @@ function drawNode(svg, x, y, label, opts={}){
     "hopf-pos": { name:"positive Hopf link $T(2,2)$", np:2, nm:0,
       kh:{"0,0":1, "0,2":1, "2,4":1, "2,6":1} },
     "trefoil-pos": { name:"right trefoil $T(2,3)$", np:3, nm:0,
-      kh:{"0,1":1, "0,3":1, "2,5":1, "3,9":1, "2,7":0, "3,7":1} },
+      kh:{"0,1":1, "0,3":1, "2,5":1, "3,9":1} },
     "trefoil-neg": { name:"left trefoil $T(2,-3)$", np:0, nm:3,
-      kh:{"0,-1":1, "0,-3":1, "-2,-5":1, "-3,-9":1, "-3,-7":1} }
+      kh:{"0,-1":1, "0,-3":1, "-2,-5":1, "-3,-9":1} }
   };
   function draw(){
     while(svg.firstChild) svg.removeChild(svg.firstChild);
@@ -710,8 +710,8 @@ function drawNode(svg, x, y, label, opts={}){
   const data = {
     "unknot":   { name:"unknot",         jones:"1",                       khrank:"q + q^{-1}" ,  ranks:[[0,1,1],[0,-1,1]]},
     "hopf-pos": { name:"positive Hopf",  jones:"-q^{5/2} - q^{1/2}",      khrank:"q^2 + 1 + q^4 + q^6", ranks:[[0,0,1],[0,2,1],[2,4,1],[2,6,1]] },
-    "trefoil-r":{ name:"right trefoil",  jones:"-q^4 + q^3 + q",          khrank:"q + q^3 + q^5 - q^9 + q^7",  ranks:[[0,1,1],[0,3,1],[2,5,1],[3,9,1],[3,7,1]] },
-    "trefoil-l":{ name:"left trefoil",   jones:"-q^{-4} + q^{-3} + q^{-1}", khrank:"q^{-1}+q^{-3}+q^{-5}-q^{-9}+q^{-7}", ranks:[[0,-1,1],[0,-3,1],[-2,-5,1],[-3,-9,1],[-3,-7,1]] },
+    "trefoil-r":{ name:"right trefoil",  jones:"-q^4 + q^3 + q",          khrank:"q + q^3 + q^5 - q^9",  ranks:[[0,1,1],[0,3,1],[2,5,1],[3,9,1]] },
+    "trefoil-l":{ name:"left trefoil",   jones:"-q^{-4} + q^{-3} + q^{-1}", khrank:"q^{-1}+q^{-3}+q^{-5}-q^{-9}", ranks:[[0,-1,1],[0,-3,1],[-2,-5,1],[-3,-9,1]] },
     "fig8":     { name:"figure-eight",   jones:"q^{-2} - q^{-1} + 1 - q + q^2", khrank:"q^{-5}+q^{-3}+...+q^5 (symmetric)", ranks:[[-2,-5,1],[-1,-1,1],[0,1,1],[0,-1,1],[1,1,1],[2,5,1]] }
   };
   function draw(){

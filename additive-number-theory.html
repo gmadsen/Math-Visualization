@@ -1591,18 +1591,18 @@ $$S_m(n):=\sum_{k=1}^{n} k^m = \frac{1}{m+1}\sum_{j=0}^{m}\binom{m+1}{j} B_j\, n
   function fact(n){ let r=1n; for(let i=2n;i<=BigInt(n);i++) r*=i; return r; }
   function binom(n,k){ return rat(fact(n)/(fact(k)*fact(n-k)), 1n); }
 
-  // Bernoulli via Akiyama–Tanigawa recurrence (convention B1 = -1/2)
+  // Bernoulli via Akiyama–Tanigawa recurrence (yields B1 = +1/2 convention; flip sign of B_1 for the −½ convention)
   const BCACHE = [rat(1n,1n)];
   function B(n){
     while(BCACHE.length <= n){
       const m = BCACHE.length;
-      // row-by-row: A[0][j] = 1/(j+1); A[i][j] = (i)*(A[i-1][j] - A[i-1][j+1])
+      // row-by-row: A[0][j] = 1/(j+1); A[i][j] = (j+1)*(A[i-1][j] - A[i-1][j+1])
       const N = m+1;
       let A = Array.from({length:N},(_,j)=>rat(1n, BigInt(j+1)));
       for(let i=1;i<=m;i++){
         const next = [];
         for(let j=0;j<N-i;j++){
-          next.push( rmul( rat(BigInt(i),1n), rsub(A[j], A[j+1]) ) );
+          next.push( rmul( rat(BigInt(j+1),1n), rsub(A[j], A[j+1]) ) );
         }
         A = next;
       }
@@ -1612,8 +1612,8 @@ $$S_m(n):=\sum_{k=1}^{n} k^m = \frac{1}{m+1}\sum_{j=0}^{m}\binom{m+1}{j} B_j\, n
   }
 
   // Faulhaber coefficients: S_m(n) = sum_{j=0..m} c_j n^{m+1-j}
-  // with c_j = binom(m+1,j) B_j / (m+1). Convention: B_1 = -1/2 (the "modern" one)
-  // which is compatible with the standard formula.
+  // with c_j = binom(m+1,j) B_j / (m+1). Convention: B_1 = +1/2 (the one A-T produces)
+  // which is the convention the Faulhaber polynomial Σ_{k=1..n} k^m requires.
   function faulCoeffs(m){
     const out = [];
     const mp1 = rat(BigInt(m+1),1n);
@@ -1812,7 +1812,7 @@ $$\frac{t}{e^{t}-1}+\frac{t}{2} \;=\; \frac{t}{2}\cdot\frac{e^{t}+1}{e^{t}-1} \;
       for(let i=1;i<=m;i++){
         const next=[];
         for(let j=0;j<N-i;j++){
-          next.push( rmul(rat(BigInt(i),1n), rsub(A[j], A[j+1])) );
+          next.push( rmul(rat(BigInt(j+1),1n), rsub(A[j], A[j+1])) );
         }
         A = next;
       }
@@ -1941,7 +1941,7 @@ $$\zeta(-n) \;=\; -\frac{B_{n+1}}{n+1}.$$
       for(let i=1;i<=m;i++){
         const next=[];
         for(let j=0;j<N-i;j++){
-          next.push( rmul(rat(BigInt(i),1n), rsub(A[j], A[j+1])) );
+          next.push( rmul(rat(BigInt(j+1),1n), rsub(A[j], A[j+1])) );
         }
         A = next;
       }
@@ -2056,7 +2056,7 @@ $$\sum_{k=a}^{b} f(k) \;=\; \int_{a}^{b} f(x)\,dx \;+\; \frac{f(a)+f(b)}{2} \;+\
       for(let i=1;i<=m;i++){
         const next=[];
         for(let j=0;j<N-i;j++){
-          next.push( rmul(rat(BigInt(i),1n), rsub(A[j], A[j+1])) );
+          next.push( rmul(rat(BigInt(j+1),1n), rsub(A[j], A[j+1])) );
         }
         A = next;
       }
@@ -2319,7 +2319,7 @@ $$\zeta(s) \;\approx\; \sum_{k=1}^{N-1}\frac{1}{k^{s}} \;+\; \frac{N^{1-s}}{s-1}
       for(let i=1;i<=m;i++){
         const next=[];
         for(let j=0;j<N2-i;j++){
-          next.push( rmul(rat(BigInt(i),1n), rsub(A[j], A[j+1])) );
+          next.push( rmul(rat(BigInt(j+1),1n), rsub(A[j], A[j+1])) );
         }
         A = next;
       }

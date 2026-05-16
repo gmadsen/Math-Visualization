@@ -333,7 +333,7 @@ removes the open tube and glues in its dual. The two pieces share boundary $S^{k
 <h3>Proof strategy: cancel handles in pairs</h3>
 <p>Pick a Morse function $f\colon W\to[0,1]$ with $M_0=f^{-1}(0)$, $M_1=f^{-1}(1)$, no boundary critical points. The relative homology $H_*(W,M_0)$ vanishes (homotopy equivalence). The Morse-complex chains in degree $k$ are free $\mathbb{Z}$-modules on the index-$k$ critical points; vanishing relative homology forces matching algebraic counts of index-$k$ and index-$(k+1)$ handles. A miracle of dimension $\ge 5$ — the <strong>Whitney trick</strong> — converts each algebraic intersection number of $\pm 1$ into a clean geometric one, after which Smale's <em>handle cancellation lemma</em> erases the matched pair. Iterating in turn empties the Morse function of all critical points, leaving $W=M_0\times[0,1]$.</p>
 
-<aside class="note"><strong>Why dimension $\ge 5$.</strong> The Whitney trick uses an embedded 2-disk $D^2\hookrightarrow W$ to slide one intersection point onto another. In ambient dimension $\ge 5$ a generic such disk has self-intersections of codimension $\ge 4$, which can be perturbed away. In dimension 4 the disk's interior may self-intersect and there is no room to push the crossings off — Casson handles and Freedman's machinery recover topological-but-not-smooth versions of the trick.</aside>
+<aside class="note"><strong>Why dimension $\ge 5$.</strong> The Whitney trick uses an embedded 2-disk $D^2\hookrightarrow W$ to slide one intersection point onto another. In ambient dimension $\ge 5$ a generic 2-disk has self-intersections of expected dimension $4 - N \le -1$ (negative), so generic position eliminates them. In dimension 4 the disk's interior may self-intersect and there is no room to push the crossings off — Casson handles and Freedman's machinery recover topological-but-not-smooth versions of the trick.</aside>
 
 <div class="widget" id="w-handle-cancel">
   <div class="hd"><div class="ttl">Handle cancellation</div><div class="hint">click to cancel a $(k,k{+}1)$ pair</div></div>
@@ -511,7 +511,7 @@ Each term has its own meaning:</p>
   </tbody>
 </table>
 
-<p>The orders of $\mathrm{bP}_{4k}$ are essentially Bernoulli denominators — a startling appearance of number theory inside differential topology. Concretely $|\mathrm{bP}_{4k}| = 2^{2k-2}(2^{2k-1}-1)\,\mathrm{numerator}(B_{2k}/4k)$.</p>
+<p>The orders of $\mathrm{bP}_{4k}$ are essentially Bernoulli denominators — a startling appearance of number theory inside differential topology. Concretely $|\mathrm{bP}_{4k}| = 2^{2k-2}(2^{2k-1}-1)\,\mathrm{numerator}(4B_{2k}/k)$ (Kervaire–Milnor); spot-check $k=2$ gives $4\cdot 7\cdot 1=28$ and $k=3$ gives $16\cdot 31\cdot 2 = 992$.</p>
 
 <h3>The dimensions that escape</h3>
 

@@ -857,7 +857,7 @@ is consistent — every finite subset is satisfied by any rational larger than t
 <p>The widget below visualises the type space $S_1(A_0)$ over a small parameter set in $(\mathbb{Q},<)$. Add parameters; the type space refines into intervals; some types are realised in $\mathbb{Q}$, others only in extensions.</p>
 
 <div class="widget" id="w-types">
-  <div class="hd"><div class="ttl">Types over a parameter set in $(\mathbb{Q},&lt;)$</div><div class="hint">click the line to add a parameter; type space splits into open intervals + cuts</div></div>
+  <div class="hd"><div class="ttl">Types over a parameter set in $(\mathbb{Q},&lt;)$</div><div class="hint">click the line to add a parameter; type space splits into n algebraic types + (n+1) open-interval types — all realised in (Q,&lt;)</div></div>
   <div class="row">
     <button id="ty-clear">clear parameters</button>
     <button id="ty-demo">demo: 3 parameters</button>
@@ -915,10 +915,12 @@ is consistent — every finite subset is satisfied by any rational larger than t
     // mark intervals between parameters
     const sorted = params.slice().sort((a,b)=>a-b);
     const breaks = [-Infinity, ...sorted, Infinity];
-    // 1-types over A_0 in (Q,<):
-    //   for each parameter a_i: the type "x = a_i"          (realised; algebraic over A_0)
-    //   for each interval (a_i, a_{i+1}): two open types    one realised, plus "cut" types unrealised in Q
-    // We'll show the realised "interval" types as tinted bands and the unrealised "cut" types as tick marks.
+    // 1-types over a finite A_0 in DLO:
+    //   for each parameter a_i: the type "x = a_i"            (algebraic over A_0; realised at a_i itself)
+    //   for each gap between consecutive break-points: the open-interval type "a_i < x < a_{i+1}"
+    //   plus the two unbounded ends ("x < min A_0", "x > max A_0")
+    // Total: |A_0| + (|A_0|+1) = 2|A_0| + 1, and (Q,<) being ω-saturated realises ALL of them by density.
+    // Cut types like "x > q for q < √2 ∧ x < q for q > √2" only appear over the INFINITE parameter set Q, not over a finite A_0.
     const bandY = yLine - 60;
     const bandH = 18;
     for(let i=0;i<breaks.length-1;i++){
@@ -931,41 +933,41 @@ is consistent — every finite subset is satisfied by any rational larger than t
     // legend / counts
     const nIntervals = breaks.length - 1;
     const nParams = params.length;
-    // type count: nParams realized "x = a_i" + nIntervals "open" realized + (nParams+1) cut types unrealized
-    // (more precisely, in DLO over a set of n parameters, |S_1(A)| = 2n+1 with n+1 of them omitted as Dedekind cuts at the endpoints.)
-    const real = nParams + nIntervals;     // realised types
-    const cuts = nParams + 1;               // cut/limit types — omitted in (Q,<)
+    // |S_1(A_0)| = 2n + 1 = nParams algebraic + nIntervals open-interval types; all realised in (Q,<).
+    const algebraic = nParams;
+    const intervals = nIntervals;
+    const total = algebraic + intervals;   // = 2*nParams + 1 when nParams ≥ 0
     // labels
     const lL = SVG('text',{x:xL,y:bandY-8,'font-size':11,fill:'var(--cyan)'});
-    lL.textContent = 'realised intervals (open in Q)'; svg.appendChild(lL);
-    // tick marks above parameters indicating unrealised "cut" types
-    [breaks[0], ...sorted, breaks[breaks.length-1]].forEach((v,i)=>{
-      // place a small ✗ at the boundary representing the type "x is just-below/just-above a_i" or ±∞
-      const xx = isFinite(v) ? valToX(v) : (i===0 ? xL : xR);
+    lL.textContent = 'open-interval types (all realised in Q by density)'; svg.appendChild(lL);
+    // mark each parameter with a ✓ to flag the algebraic type "x = a_i" as realised
+    sorted.forEach(v=>{
+      const xx = valToX(v);
       const yc = yLine + 56;
-      svg.appendChild(SVG('text',{x:xx,y:yc,'text-anchor':'middle','font-size':14,fill:'var(--pink)','font-weight':700}))
-        .textContent = '✗';
+      svg.appendChild(SVG('text',{x:xx,y:yc,'text-anchor':'middle','font-size':14,fill:'var(--green)','font-weight':700}))
+        .textContent = '✓';
     });
-    const ct = SVG('text',{x:W2(),y:yLine+82,'text-anchor':'middle','font-size':11,fill:'var(--pink)'});
-    ct.textContent = '✗ = cut/limit type, consistent but unrealised in Q';
+    const ct = SVG('text',{x:W2(),y:yLine+82,'text-anchor':'middle','font-size':11,fill:'var(--green)'});
+    ct.textContent = '✓ = algebraic type "x = aᵢ" — realised at the parameter itself';
     svg.appendChild(ct);
-    renderReadout(real, cuts, nParams);
+    renderReadout(total, algebraic, intervals, nParams);
   }
   function W2(){ return 620/2; }
-  function renderReadout(real, cuts, nP){
+  function renderReadout(total, algebraic, intervals, nP){
     const lines = [];
     lines.push(`parameters A₀ ⊆ Q  : ${nP===0?'(empty)':params.map(p=>p.toFixed(2)).join(', ')}`);
     lines.push('');
-    lines.push(`|S₁(A₀)| in DLO     : ${2*nP + 1}`);
-    lines.push(`  realised in (Q,<) : ${real}   (the n algebraic types "x = aᵢ" plus the n+1 open-interval types)`);
-    lines.push(`  omitted in (Q,<)  : ${cuts}   (Dedekind-cut types — saturated only after passing to an extension)`);
+    lines.push(`|S₁(A₀)| in DLO     : ${2*nP + 1}   (= ${algebraic} algebraic + ${intervals} open-interval)`);
+    lines.push(`  realised in (Q,<) : ${total}   (ALL of them — (Q,<) is ω-saturated)`);
+    lines.push(`  omitted in (Q,<)  : 0`);
     lines.push('');
     if(nP === 0){
       lines.push('with no parameters, DLO has exactly one complete 1-type — every element looks the same.');
     } else {
-      lines.push(`(Q,<) is ω-saturated for "open" types but omits cut types like x > a₁ ∧ x < a₂`);
-      lines.push(`when no rational lies strictly between — but here density saves us, so all open intervals`);
-      lines.push(`are realised. The cut types are limit-of-rationals types like "x = √2 from below."`);
+      lines.push('(Q,<) is ω-saturated: every type over a FINITE parameter set is realised.');
+      lines.push('Density gives a witness inside each open interval (aᵢ, aᵢ₊₁) and beyond the endpoints.');
+      lines.push('Dedekind-cut types like "x > q for q < √2 ∧ x < q for q > √2" only appear in S₁(Q),');
+      lines.push('i.e. over the INFINITE parameter set Q itself — not over any finite A₀ shown here.');
     }
     lines.push('');
     lines.push('click anywhere on the line to add a parameter aᵢ.');
@@ -1005,7 +1007,7 @@ is consistent — every finite subset is satisfied by any rational larger than t
 
 <p>The proof is by induction on $n$, mirrored on both sides: a winning strategy <em>is</em> the witness that no rank-$n$ separator exists, and conversely.</p>
 
-<div class="note"><strong>Application: connectivity is not first-order.</strong> Take $\mathfrak{A}=C_{2n+1}$ (one cycle of length $2n+1$, connected) and $\mathfrak{B}=C_n\sqcup C_{n+1}$ (two cycles, disconnected). For $n$ rounds Duplicator can mirror Spoiler's moves locally — distances of order $\le 2^n$ are visible to a rank-$n$ formula, but the global topology isn't. So no rank-$n$ sentence distinguishes connected from disconnected for arbitrary $n$.</div>
+<div class="note"><strong>Application: connectivity is not first-order.</strong> For each $k$, take $\mathfrak{A}=C_{3\cdot 2^k}$ (one cycle, connected) and $\mathfrak{B}=C_{3\cdot 2^k}\sqcup C_{3\cdot 2^k}$ (two disjoint copies of the same cycle, disconnected). The cycle length must be <em>exponential</em> in the round count: a rank-$k$ formula can detect any path of length $\le 2^k-1$, so Duplicator only survives $k$ rounds when the local $2^k$-balls around any chosen point look identical in both structures — and they do, because each ball is just an arc inside one cycle. So no rank-$k$ sentence separates connected from disconnected. Letting $k\to\infty$ shows connectivity is not first-order.</div>
 
 <p>The widget below runs a 2-round EF game on two small linear orders. You play Spoiler against a fixed Duplicator strategy; if you can find a move sequence that traps Duplicator, you've discovered a rank-$\le 2$ sentence separating the two structures.</p>
 
@@ -1136,8 +1138,8 @@ is consistent — every finite subset is satisfied by any rational larger than t
       const vt = SVG('text',{x:W/2,y:H-20,'text-anchor':'middle','font-size':14,
         fill: verdict==='spoiler-wins'?'var(--pink)':'var(--green)', 'font-weight':700});
       vt.textContent = verdict==='spoiler-wins' ?
-        '↯  Spoiler wins — partial map fails to preserve <  ⇒  ∃ rank-2 separator' :
-        '✓  Duplicator survives 2 rounds — no rank-2 separator (yet)';
+        '↯  Spoiler beat the local Duplicator strategy — but a smarter Duplicator wins all 2-round games here' :
+        '✓  Duplicator survives 2 rounds — confirms no rank-2 sentence separates these orders';
       svg.appendChild(vt);
     } else {
       const ht = SVG('text',{x:W/2,y:H-20,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});
@@ -1162,14 +1164,16 @@ is consistent — every finite subset is satisfied by any rational larger than t
     }
     lines.push('');
     if(verdict==='spoiler-wins'){
-      lines.push('Duplicator could not preserve the < pattern.');
-      lines.push('translation: there is a rank-2 sentence φ such that A ⊨ φ but B ⊭ φ.');
-      lines.push('one such sentence: "∃x∃y(x<y ∧ ∀z(z<x ∨ z=x ∨ x<z<y ∨ z=y ∨ y<z))"');
-      lines.push('— "there is an adjacent pair", which holds in {1,2,3} but the witness pattern in B is different.');
+      lines.push('The local greedy Duplicator strategy used here failed to preserve the < pattern.');
+      lines.push('Caveat: this does NOT mean a rank-2 separator exists. Mathematically, A and B agree');
+      lines.push('on every rank-2 sentence — by the EF rule min(|A|,|B|) ≥ 2^k − 1 with min=3, k=2.');
+      lines.push('A smarter Duplicator (matching by "position from each end") wins all 2-round games here.');
+      lines.push('Spoiler only starts to genuinely win at round 3, where 2^3 − 1 = 7 > 3.');
+      lines.push('Try "reset" and replay: there is always a 2-round winning response, even after this branch.');
     } else if(verdict==='duplicator-wins'){
-      lines.push('Duplicator survived 2 rounds.');
-      lines.push('this only proves there is no rank-2 separator. It does not prove A ≡ B!');
-      lines.push('larger games will eventually find a separator: A and B differ at rank ≈ log₂ of size.');
+      lines.push('Duplicator survived 2 rounds — consistent with the theorem: A and B share all rank-2 sentences.');
+      lines.push('At round 3 Spoiler wins (e.g. by picking 3 elements in B forming a "middle element with both');
+      lines.push('a successor and a predecessor that themselves have successors" — a rank-3 configuration A lacks).');
     } else {
       lines.push('after 2 full rounds we will have 4 moves total.');
       lines.push('then we check: does the order pattern between Spoiler\'s and Duplicator\'s picks match?');

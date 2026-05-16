@@ -689,15 +689,17 @@ f is modular of weight ${k}  ⟺  f(γτ) = (cτ+d)^${k} · f(τ)`;
 
 <section id="eisen">
 <h2>5. Eisenstein series: the first examples</h2>
-<p>The cleanest way to produce a modular form is to average. For even $k \ge 4$, define the <strong>Eisenstein series</strong>
-$$E_k(\tau) \;=\; \tfrac{1}{2} \sum_{\substack{(m,n) \in \mathbb{Z}^2 \\ (m,n)\ne(0,0)}} \frac{1}{(m\tau + n)^k}.$$
-The half is for normalization ($(m,n)$ and $(-m,-n)$ give the same term when $k$ is even). The series converges absolutely for $k \ge 4$ and defines a holomorphic function on $\mathcal{H}$.</p>
+<p>The cleanest way to produce a modular form is to average. For even $k \ge 4$, define the <strong>(unnormalized) Eisenstein series</strong>
+$$G_k(\tau) \;=\; \tfrac{1}{2} \sum_{\substack{(m,n) \in \mathbb{Z}^2 \\ (m,n)\ne(0,0)}} \frac{1}{(m\tau + n)^k}.$$
+The half folds in the $\pm$-pair redundancy ($(m,n)$ and $(-m,-n)$ give the same term when $k$ is even). The series converges absolutely for $k \ge 4$ and defines a holomorphic function on $\mathcal{H}$. As $\mathrm{Im}\,\tau \to \infty$ only the $m=0$ terms survive, giving the constant term $\tfrac{1}{2}\sum_{n\ne 0} n^{-k} = \zeta(k)$. The <strong>normalized Eisenstein series</strong> divides this out:
+$$E_k(\tau) \;=\; \frac{G_k(\tau)}{\zeta(k)} \;=\; \frac{1}{2\zeta(k)} \sum_{\substack{(m,n) \in \mathbb{Z}^2 \\ (m,n)\ne(0,0)}} \frac{1}{(m\tau + n)^k},$$
+so that the constant term of $E_k$ is $1$.</p>
 
 <h3>Why it transforms correctly</h3>
-<p>For $\gamma = \begin{pmatrix}a&b\\c&d\end{pmatrix} \in \mathrm{SL}_2(\mathbb{Z})$ apply the change of variable $(m,n) \mapsto (m,n)\gamma^{-1}$ in the sum: the lattice $\mathbb{Z}^2 \setminus \{0\}$ is stable under $\mathrm{GL}_2(\mathbb{Z})$, and a direct computation gives $m(\gamma\tau) + n = (c\tau + d)^{-1} \cdot (m'\tau + n')$ for the relabeled indices. Summing over the permuted lattice yields $E_k(\gamma\tau) = (c\tau+d)^k E_k(\tau)$.</p>
+<p>For $\gamma = \begin{pmatrix}a&b\\c&d\end{pmatrix} \in \mathrm{SL}_2(\mathbb{Z})$ reindex the sum by $(m,n) \mapsto (m,n)\gamma = (ma+nc,\, mb+nd) =: (m',n')$: the lattice $\mathbb{Z}^2 \setminus \{0\}$ is permuted bijectively because $\gamma \in \mathrm{GL}_2(\mathbb{Z})$. A direct computation gives $m'\tau + n' = (c\tau+d)\bigl(m\gamma\tau + n\bigr)$, equivalently $m\gamma\tau + n = (c\tau+d)^{-1}(m'\tau + n')$. Substituting $\gamma\tau$ for $\tau$ and summing over the permuted lattice yields $G_k(\gamma\tau) = (c\tau+d)^k G_k(\tau)$, and the same for $E_k$ since the $\zeta(k)$ normalization is $\gamma$-independent.</p>
 
 <h3>The $q$-expansion and divisor sums</h3>
-<p>Every modular form for $\mathrm{SL}_2(\mathbb{Z})$ is, by $T$-periodicity, a power series in $q = e^{2\pi i \tau}$. The $q$-expansion of $E_k$ (with a standard normalization where the constant term is $1$) is
+<p>Every modular form for $\mathrm{SL}_2(\mathbb{Z})$ is, by $T$-periodicity, a power series in $q = e^{2\pi i \tau}$. The $q$-expansion of the normalized $E_k$ (constant term $1$) is
 $$E_k(\tau) \;=\; 1 - \frac{2k}{B_k} \sum_{n\ge 1} \sigma_{k-1}(n)\, q^n,$$
 where $B_k$ is the $k$-th Bernoulli number and $\sigma_{s}(n) = \sum_{d \mid n} d^s$. The constants for the first few:</p>
 <table class="plain">

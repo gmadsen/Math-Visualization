@@ -830,7 +830,7 @@ over the system of open neighborhoods of $x$, ordered by reverse inclusion. An e
   <li><strong>Smooth functions.</strong> $C^\infty_{X,x}$ on a smooth $n$-manifold is a local ring whose maximal ideal $\mathfrak{m}_x$ satisfies $\mathfrak{m}_x/\mathfrak{m}_x^2 \cong T_x^* X$ — the cotangent space. This is the sheafy origin of Kähler differentials.</li>
   <li><strong>Holomorphic functions.</strong> On $\mathbb{C}^n$ or a complex manifold, $\mathcal{O}_{X,x}$ is the ring of convergent power series $\mathbb{C}\{z_1, \dots, z_n\}$ — a Noetherian local UFD.</li>
   <li><strong>Structure sheaf of a scheme.</strong> For $X = \Spec\,R$ and $\mathfrak{p} \in X$, $\mathcal{O}_{X,\mathfrak{p}} = R_\mathfrak{p}$ — the localization of $R$ at the prime $\mathfrak{p}$. A local ring, by definition, with maximal ideal $\mathfrak{p} R_\mathfrak{p}$ and residue field $\kappa(\mathfrak{p}) = R_\mathfrak{p}/\mathfrak{p} R_\mathfrak{p} = \mathrm{Frac}(R/\mathfrak{p})$. This is why $\Spec\,R$ is a <em>locally</em> ringed space.</li>
-  <li><strong>Skyscraper.</strong> $(i_{x*}A)_y = A$ if $y$ is in the closure $\overline{\{x\}}$ (with the Zariski or analytic topology this can include generizations), but for Hausdorff $X$ reduces to $A$ if $y=x$ and the terminal object otherwise.</li>
+  <li><strong>Skyscraper.</strong> $(i_{x*}A)_y = A$ if $y$ is in the closure $\overline{\{x\}}$ (with the Zariski or analytic topology this can include specializations of $x$), but for Hausdorff $X$ reduces to $A$ if $y=x$ and the terminal object otherwise.</li>
 </ul>
 
 <h3>Worked example: the stalk of $\mathcal{O}_{\mathbb{A}^1_k}$ at the origin</h3>
@@ -1526,7 +1526,7 @@ with inverse $\mathcal{F} \mapsto \Gamma(X, \mathcal{F})$. The functor is exact,
   <li>The global sections are $\widetilde{M}(X) = \mathbb{Z}/6$.</li>
   <li>$\widetilde{M}(D(2)) = (\mathbb{Z}/6)_2 = \mathbb{Z}/3$. To see this, decompose $\mathbb{Z}/6 \cong \mathbb{Z}/2 \times \mathbb{Z}/3$ by CRT; localizing at $2$ inverts $2$, which acts as $0$ on the $\mathbb{Z}/2$ summand (killing it) and as a unit on $\mathbb{Z}/3$. So $(\mathbb{Z}/6)_2 = \mathbb{Z}/3$.</li>
   <li>Similarly $(\mathbb{Z}/6)_3 = \mathbb{Z}/2$, and $(\mathbb{Z}/6)_5 = \mathbb{Z}/6$ (since $5$ is already a unit mod $2$ and mod $3$).</li>
-  <li>The stalk at $\mathfrak{p} = (5)$ is $(\mathbb{Z}/6)_{(5)} = \mathbb{Z}/6$ since neither $2$ nor $3$ is in $(5)$.</li>
+  <li>The stalk at $\mathfrak{p} = (5)$ is $(\mathbb{Z}/6)_{(5)} = 0$. Localizing at the prime $(5)$ inverts every integer <em>outside</em> $(5)$, which includes both $2$ and $3$. But $2 \cdot 3 = 0$ in $\mathbb{Z}/6$, so once $3$ becomes a unit the relation forces $2 = 0$ (and symmetrically $3 = 0$) — the whole module collapses. Equivalently: $\widetilde{\mathbb{Z}/6}$ is supported on $V(6) = \{(2),(3)\}$, and $(5) \notin V(6)$.</li>
   <li>The stalk at $\mathfrak{p} = (2)$ is $(\mathbb{Z}/6)_{(2)} = \mathbb{Z}/2$, and at $\mathfrak{p} = (3)$ is $\mathbb{Z}/3$.</li>
 </ul>
 <p>So $\widetilde{\mathbb{Z}/6}$ is supported on $V(6) = \{(2),(3)\} \subset \Spec\,\mathbb{Z}$, with respective stalks $\mathbb{Z}/2$ and $\mathbb{Z}/3$. It is the direct sum of two skyscraper-like sheaves.</p>

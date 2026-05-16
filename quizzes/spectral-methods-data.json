@@ -157,7 +157,7 @@
             "Graph isomorphism"
           ],
           "answer": 1,
-          "explain": "Shi–Malik (2000) showed: minimise $\\mathrm{Ncut}(S,\\bar S)$ over partitions $S\\subset V$ is NP-hard; relax the $\\pm 1$ partition vector to a real vector orthogonal to $D^{1/2}\\mathbf{1}$, and the optimum is exactly $\\lambda_2(L_{\\mathrm{sym}})$ achieved by the Fiedler vector.",
+          "explain": "Shi–Malik (2000) showed: minimise $\\mathrm{Ncut}(S,\\bar S)$ over partitions $S\\subset V$ is NP-hard; relax the discrete volume-weighted indicator $f_i \\in \\{\\sqrt{\\operatorname{vol}(\\bar S)/\\operatorname{vol}(S)}, -\\sqrt{\\operatorname{vol}(S)/\\operatorname{vol}(\\bar S)}\\}$ to any real vector orthogonal to $D^{1/2}\\mathbf{1}$, and the optimum is exactly $\\lambda_2(L_{\\mathrm{sym}})$ achieved by the Fiedler vector. (The simpler $\\pm 1$ relaxation is the RatioCut + unnormalised $L$ story.)",
           "hint": "The combinatorial-to-continuous bridge in spectral clustering."
         }
       ]

@@ -115,12 +115,12 @@
           "choices": [
             "$\\alpha=1$",
             "$\\alpha=1+\\beta=\\frac{8+4i}{5}$ (or any nonzero scalar multiple)",
-            "$\\alpha=\\beta$",
+            "$\\alpha=1+\\bar\\beta=\\frac{8-4i}{5}$ (or any nonzero scalar multiple, e.g. $\\alpha=-2+i$)",
             "$\\alpha=i$"
           ],
-          "answer": 1,
-          "hint": "Pythagorean trick: $\\alpha=1+\\beta$ works whenever it is nonzero, since $\\sigma(1+\\beta)=1+\\bar\\beta=1+\\beta^{-1}=(1+\\beta)/\\beta\\cdot\\beta^{-1}\\cdot\\beta=\\beta^{-1}(1+\\beta)$, hence…",
-          "explain": "Pythagorean trick: $\\alpha=1+\\beta$ works whenever it is nonzero, since $\\sigma(1+\\beta)=1+\\bar\\beta=1+\\beta^{-1}=(1+\\beta)/\\beta\\cdot\\beta^{-1}\\cdot\\beta=\\beta^{-1}(1+\\beta)$, hence $\\sigma(\\alpha)/\\alpha=\\beta^{-1}\\cdot 1=\\beta$? Carefully: $\\sigma(1+\\beta)/(1+\\beta)=(1+\\beta^{-1})/(1+\\beta)=\\beta^{-1}$, so adjust to $\\alpha=\\beta(1+\\beta)$ if you want $\\beta$ rather than $\\beta^{-1}$ — the widget shows the explicit calculation."
+          "answer": 2,
+          "hint": "Compute $\\sigma(1+\\beta)/(1+\\beta)=(1+\\bar\\beta)/(1+\\beta)$ and use $\\bar\\beta=\\beta^{-1}$ for norm-one $\\beta$ — the result is $\\beta^{-1}$, not $\\beta$. Conjugate the numerator instead.",
+          "explain": "For norm-one $\\beta$, $\\sigma(\\beta)=\\bar\\beta=\\beta^{-1}$, so $\\sigma(1+\\beta)/(1+\\beta)=(1+\\beta^{-1})/(1+\\beta)=\\beta^{-1}$. The fix is to invert: take $\\alpha=1/(1+\\beta)$, which equivalently (after clearing denominators with $|1+\\beta|^2=2(c+a)/c$) is a real multiple of $\\alpha=1+\\bar\\beta=(c+a)-bi$. Check $\\alpha=-2+i$: $\\sigma(\\alpha)/\\alpha=(-2-i)/(-2+i)=(-2-i)^2/5=(3+4i)/5=\\beta$ ✓."
         }
       ]
     },

@@ -435,7 +435,7 @@ $$\boxed{\; R_{\mu\nu} \;-\; \tfrac12\,g_{\mu\nu}\,R \;+\; \Lambda\,g_{\mu\nu} \
 })();
 </script>
 
-<p>Tracing the equation gives $-R+4\Lambda = 8\pi G\,T$, so vacuum with $\Lambda=0$ collapses to <strong>Ricci-flat</strong>: $R_{\mu\nu}=0$. That is a quasilinear hyperbolic system in 10 unknowns $g_{\mu\nu}$; diffeomorphism gauge subtracts 4, leaving 6 propagating degrees of freedom — the seed of gravitational waves.</p>
+<p>Tracing the equation gives $-R+4\Lambda = 8\pi G\,T$, so vacuum with $\Lambda=0$ collapses to <strong>Ricci-flat</strong>: $R_{\mu\nu}=0$. That is a quasilinear hyperbolic system in 10 unknowns $g_{\mu\nu}$; diffeomorphism gauge subtracts 4 and the 4 ADM constraints (Hamiltonian + 3 momentum) subtract another 4, leaving $10-4-4=2$ propagating degrees of freedom — exactly the two transverse-traceless polarizations $h_+,h_\times$ that appear as gravitational waves in §6.</p>
 
 <!-- callback-auto-begin -->
 <aside class="callback">
@@ -463,6 +463,8 @@ $$\boxed{\; R_{\mu\nu} \;-\; \tfrac12\,g_{\mu\nu}\,R \;+\; \Lambda\,g_{\mu\nu} \
 <p><strong>Worked example: the Schwarzschild solution.</strong></p><p>The first nontrivial vacuum solution Schwarzschild found in 1916 — months after Einstein wrote down the field equations — is also the unique static spherically symmetric solution (Birkhoff's theorem):</p>
 
 $$ds^2 \;=\; -\Big(1-\tfrac{2M}{r}\Big)dt^2 \;+\; \Big(1-\tfrac{2M}{r}\Big)^{-1}\!dr^2 \;+\; r^2\bigl(d\theta^2+\sin^2\!\theta\,d\varphi^2\bigr).$$
+
+<p class="note"><strong>Units.</strong> This page uses <em>geometrized units</em> $G=c=1$, the standard convention in relativity. Lengths, times, and masses share one unit; restore SI by replacing $M \mapsto GM/c^2$ (so $2M$ becomes the Schwarzschild radius $r_s = 2GM/c^2$) and $8\pi G \mapsto 8\pi G/c^4$ in the field equations. For the Sun, $GM_\odot/c^2 \approx 1.48$ km, so $r_s \approx 2.95$ km.</p>
 
 <p>The metric component $g_{tt}=-(1-2M/r)$ vanishes at $r=2M$ — the <strong>event horizon</strong>. This is a coordinate singularity (the Kretschmann scalar $R_{\mu\nu\rho\sigma}R^{\mu\nu\rho\sigma}=48 M^2/r^6$ is finite there), but a <em>causal</em> singularity: light cones tip over and inside $r<2M$ all future-directed worldlines hit $r=0$, where curvature genuinely diverges.</p>
 
@@ -499,30 +501,30 @@ $$ds^2 \;=\; -\Big(1-\tfrac{2M}{r}\Big)dt^2 \;+\; \Big(1-\tfrac{2M}{r}\Big)^{-1}
     out.textContent = formatOut(rm);
   }
   function drawCone(cx, cy, rm, alpha){
-    // null slope = ±(1 - 2M/r) inside r>2M; reverses inside
+    // Schwarzschild (t,r) null condition: dt/dr = ±1/f with f = 1 - 2M/r.
+    // Outside horizon (f>0): cones close up as f→0, since dr/dt = ±f → 0 there.
+    // Inside horizon (f<0): t becomes spacelike and r timelike; future = decreasing r.
     const f = 1 - 2/rm;
-    const slope = f; // dt/dr along null in (t,r*) coords; we plot dt vs dr
-    const h = 28;
-    const dx = h * (slope > 0 ? 1 : -1);
-    const dr = Math.min(0.9, Math.abs(slope)) * h * (slope < 0 ? 1 : 1);
+    const h = 28;                       // cone half-height in the timelike direction
+    const fmin = 0.06;                  // floor so the active cone stays a visible sliver at the horizon
     let color;
     if(rm < 2) color='var(--pink)';
     else if(Math.abs(rm-2)<0.05) color='var(--yellow)';
     else color='var(--cyan)';
-    // simple cone: outward null + inward null
-    // outside horizon: both null directions point outward in t (future = up)
-    // inside: both point toward decreasing r (collapse toward singularity)
-    const out_dx = h*0.7, out_dt = -h*0.9;
-    const in_dx = -h*0.7, in_dt = -h*0.9;
     if(rm < 2){
-      // tip cones: future light cones point toward smaller r
+      // Inside horizon: cone opens in -r direction (future = toward singularity).
+      // Width in t-direction is h * |f| / (1+|f|) -> small near horizon, grows toward r=0.
+      const af = Math.abs(f);
+      const tw = h * Math.max(fmin, af / (1 + af));
       svg.appendChild(SVG('path',{
-        d:`M${cx} ${cy} L${cx-h*0.9} ${cy-h*0.7} L${cx-h*0.9} ${cy+h*0.7} Z`,
+        d:`M${cx} ${cy} L${cx-h} ${cy-tw} L${cx-h} ${cy+tw} Z`,
         fill:`color-mix(in srgb, ${color} 18%, transparent)`,stroke:color,'stroke-width':1.4,opacity:alpha
       }));
     } else {
+      // Outside horizon: future opens upward; r-spread = h * f closes to 0 at the horizon.
+      const rw = h * Math.max(fmin, f);
       svg.appendChild(SVG('path',{
-        d:`M${cx} ${cy} L${cx+out_dx} ${cy+out_dt} L${cx+in_dx} ${cy+in_dt} Z`,
+        d:`M${cx} ${cy} L${cx-rw} ${cy-h} L${cx+rw} ${cy-h} Z`,
         fill:`color-mix(in srgb, ${color} 18%, transparent)`,stroke:color,'stroke-width':1.4,opacity:alpha
       }));
     }
@@ -531,9 +533,9 @@ $$ds^2 \;=\; -\Big(1-\tfrac{2M}{r}\Big)dt^2 \;+\; \Big(1-\tfrac{2M}{r}\Big)^{-1}
   }
   function formatOut(rm){
     const f = 1 - 2/rm;
-    if(rm < 2) return `r/M = ${rm.toFixed(2)} < 2  ⇒  inside horizon. g_tt = ${(-f).toFixed(2)} (sign flip!), light cones point toward singularity.`;
-    if(Math.abs(rm-2) < 0.05) return `r/M ≈ 2  ⇒  on the event horizon. g_tt → 0, cones tilt to 45°.`;
-    return `r/M = ${rm.toFixed(2)}  ⇒  outside horizon. g_tt = ${(-f).toFixed(2)}, light cones open in usual orientation.`;
+    if(rm < 2) return `r/M = ${rm.toFixed(2)} < 2  ⇒  inside horizon. g_tt = ${(-f).toFixed(2)} (sign flip!), future cones point toward r = 0.`;
+    if(Math.abs(rm-2) < 0.05) return `r/M ≈ 2  ⇒  on the event horizon. f → 0, dt/dr → ∞: cones close up to a vertical sliver in (t, r).`;
+    return `r/M = ${rm.toFixed(2)}  ⇒  outside horizon. f = ${f.toFixed(2)}, null slope dt/dr = ±${(1/f).toFixed(2)}; cones narrow as r → 2M.`;
   }
   sl.addEventListener('input',build);
   build();

@@ -646,7 +646,7 @@ a power series in the Chern classes with rational coefficients. The first few ar
     if(dC === 1){
       readout.textContent = `dim_ℂ M = 1 (curve), rk E = ${rk}: integrand is [ch(E)·Td(TX)]_2 = c₁(E) + (rk/2) c₁(TX). For a curve of genus g and L of degree d: χ(L)=d+1-g — Riemann–Roch.`;
     } else if(dC === 2){
-      readout.textContent = `dim_ℂ M = 2 (surface), rk E = ${rk}: integrand is [ch(E)·Td(TM_ℂ)]_4 = (rk/12)(c₁(TM)²+c₂(TM)) + (1/2) c₁(E) c₁(TM) + (1/2) c₁(E)² + ch₂(E). Pair with [M] for χ(X,E).`;
+      readout.textContent = `dim_ℂ M = 2 (surface), rk E = ${rk}: integrand is [ch(E)·Td(TM_ℂ)]_4 = (rk/12)(c₁(TM)²+c₂(TM)) + (1/2) c₁(E) c₁(TM) + ch₂(E), where ch₂(E) = (1/2)(c₁(E)²−2c₂(E)). Pair with [M] for χ(X,E).`;
     } else {
       readout.textContent = `dim_ℂ M = ${dC}: the relevant integrand is the degree-${2*dC} component of ch(E)·Td(TM_ℂ). Higher-degree pieces have rational coefficients; the integer index emerges from the integral.`;
     }
@@ -819,7 +819,7 @@ with $e_i\cdot$ acting by Clifford multiplication. Its principal symbol $\sigma(
 
 <div class="ok"><strong>The Dirac index.</strong> Atiyah–Singer says
 $$\ind(D) \;=\; \int_M \hat A(TM), \qquad \hat A \;=\; \prod_i \frac{x_i/2}{\sinh(x_i/2)} \;=\; 1 - \tfrac{1}{24}p_1 + \tfrac{1}{5760}(7p_1^2 - 4p_2) + \cdots,$$
-where $x_i$ are formal Pontryagin roots and $p_i$ are Pontryagin classes. On a closed spin $4$-manifold, $\ind(D)=-\langle p_1(TM),[M]\rangle/24$. By the signature theorem, this equals $-\sigma(M)/8$, recovering Rokhlin's $\sigma(M)\equiv 0\pmod{16}$ for spin $4$-manifolds.</div>
+where $x_i$ are formal Pontryagin roots and $p_i$ are Pontryagin classes. On a closed spin $4$-manifold, $\ind(D)=-\langle p_1(TM),[M]\rangle/24$. By the signature theorem, this equals $-\sigma(M)/8$, giving Rokhlin's $\sigma(M)\equiv 0\pmod{8}$ for spin $4$-manifolds; the strengthening to $\sigma(M)\equiv 0\pmod{16}$ comes from the additional quaternionic structure on the spinor bundle $S^+$ in dimension $4$, which forces $\ind(D)$ to be even.</div>
 
 <p>The Dirac operator's spectrum encodes geometric information directly. On the round $n$-sphere with metric of curvature $1$, $D^2=\nabla^*\nabla+\tfrac{R}{4}$ (Lichnerowicz), and the eigenvalues are explicitly
 $$\lambda_k \;=\; \pm\bigl(k+\tfrac{n}{2}\bigr), \qquad k=0,1,2,\ldots,$$
@@ -954,8 +954,8 @@ lives in the representation ring of $G$. Atiyah–Bott's fixed-point formula com
 
 <h3>Anomalies and instantons</h3>
 <p>In gauge theory on a closed $4$-manifold $M$, the Dirac operator coupled to a gauge connection $A$ on a vector bundle $V\to M$ has index
-$$\ind(D_A) \;=\; \int_M \hat A(TM)\,\mathrm{ch}(V) \;=\; \int_M c_2(V) - \tfrac{1}{24}\langle p_1(TM),[M]\rangle\,\mathrm{rk}(V) + \cdots.$$
-The leading $\int c_2(V)$ is the <em>instanton number</em> — the topological charge of the gauge field, classifying $\mathrm{SU}(N)$ bundles up to isomorphism. The chiral anomaly in physics literature is exactly the statement that $\ind(D_A)$ does not vanish: the symmetry between left- and right-handed fermions is broken by the topology of the gauge bundle, by an integer the index theorem computes.</p>
+$$\ind(D_A) \;=\; \int_M \hat A(TM)\,\mathrm{ch}(V) \;=\; -\!\int_M c_2(V) - \tfrac{1}{24}\langle p_1(TM),[M]\rangle\,\mathrm{rk}(V) + \cdots,$$
+using $\mathrm{ch}_2(V)=-c_2(V)$ for an $\mathrm{SU}(N)$ bundle (where $c_1=0$). The leading $-\!\int c_2(V)$ equals the <em>instanton number</em> $k=\tfrac{1}{8\pi^2}\!\int\mathrm{tr}(F\wedge F)$ — the topological charge of the gauge field, classifying $\mathrm{SU}(N)$ bundles up to isomorphism. The chiral anomaly in physics literature is exactly the statement that $\ind(D_A)$ does not vanish: the symmetry between left- and right-handed fermions is broken by the topology of the gauge bundle, by an integer the index theorem computes.</p>
 
 <div class="widget" id="w-anomaly">
   <div class="hd"><div class="ttl">Anomaly diagram: index as topological charge</div><div class="hint">slide instanton number $k$ — the chiral imbalance in the Dirac spectrum tracks $k$</div></div>
@@ -964,7 +964,7 @@ The leading $\int c_2(V)$ is the <em>instanton number</em> — the topological c
     <label for="an-k">instanton number $k$</label>
     <input type="range" id="an-k" min="-3" max="3" step="1" value="1">
   </div>
-  <div class="readout" id="an-readout" aria-live="polite">$k=1$: a single instanton on $M^4$ contributes one zero-mode of $D_A^+$ over $D_A^-$, so $\ind(D_A)=+1=\int_M c_2(V)$. The chiral anomaly: $\partial_\mu j_5^\mu = -\tfrac{1}{8\pi^2}\tr(F\wedge F)$ integrates to this index.</div>
+  <div class="readout" id="an-readout" aria-live="polite">$k=1$: a single instanton on $M^4$ contributes one zero-mode of $D_A^+$ over $D_A^-$, so $\ind(D_A)=+1=k=-\!\int_M c_2(V)$ (using $\mathrm{ch}_2(V)=-c_2(V)$ for $\mathrm{SU}(N)$). The chiral anomaly: $\partial_\mu j_5^\mu = -\tfrac{1}{8\pi^2}\tr(F\wedge F)$ integrates to this index.</div>
 </div><script>
 /* =============================== SECTION 6: Anomaly / instanton diagram =============================== */
 (function(){
@@ -1017,7 +1017,7 @@ The leading $\int c_2(V)$ is the <em>instanton number</em> — the topological c
 
     // bottom equation
     const eq = SVG("text",{x:W/2,y:268,"text-anchor":"middle","font-size":12,fill:"var(--ink)"});
-    eq.textContent = "ind(D_A) = ∫_M Â(TM)·ch(V) ≈ ∫_M c₂(V) on a 4-manifold = instanton number";
+    eq.textContent = "ind(D_A) = ∫_M Â(TM)·ch(V) ≈ −∫_M c₂(V) = k (instanton number, SU(N))";
     svg.appendChild(eq);
     // header
     const h = SVG("text",{x:W/2,y:36,"text-anchor":"middle","font-size":14,fill:"var(--ink)","font-weight":600});
@@ -1031,7 +1031,7 @@ The leading $\int c_2(V)$ is the <em>instanton number</em> — the topological c
     if(k === 0){
       readout.textContent = "k=0: trivial gauge bundle, no zero-modes, ind(D_A) = 0. The chiral anomaly is silent — left- and right-handed fermions are balanced.";
     } else {
-      readout.textContent = `k=${k}: ${Math.abs(k)} extra zero-mode${Math.abs(k)===1?"":"s"} on the ${k>0?"left":"right"} side of the chiral Dirac operator. ind(D_A) = ${k>=0?"+":""}${k} = ∫_M c₂(V). The anomaly equation ∂_μ j₅^μ = −(1/8π²) tr(F∧F) integrates to this index.`;
+      readout.textContent = `k=${k}: ${Math.abs(k)} extra zero-mode${Math.abs(k)===1?"":"s"} on the ${k>0?"left":"right"} side of the chiral Dirac operator. ind(D_A) = ${k>=0?"+":""}${k} = k = −∫_M c₂(V) (using ch₂(V)=−c₂(V) for SU(N)). The anomaly equation ∂_μ j₅^μ = −(1/8π²) tr(F∧F) integrates to this index.`;
     }
   }
   kSlide.addEventListener("input", update);

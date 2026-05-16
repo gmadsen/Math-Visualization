@@ -763,10 +763,10 @@ function drawNode(svg, x, y, label, opts={}){
 <section id="g-set-topos">
 <h2>6. The topos of $G$-sets</h2>
 <p>For a group $G$, let $\mathbf{B}G$ denote the one-object groupoid with $\Hom(*,*) = G$. The category of <strong>left $G$-sets</strong> — sets $X$ with a left $G$-action $G \times X \to X$ — is exactly the presheaf topos $[\mathbf{B}G^{\mathrm{op}}, \mathbf{Set}] = G\text{-}\mathbf{Set}$. (The $\mathrm{op}$ swaps left/right; for a group it makes no essential difference because $g \mapsto g^{-1}$ is an isomorphism.) So everything from the presheaf section applies: $G\text{-}\mathbf{Set}$ has all limits and colimits computed underlyingly in $\mathbf{Set}$ with the $G$-action carried along, and it is cartesian closed with $Y^X$ the set of $G$-equivariant maps $X \to Y$ on which $G$ acts by conjugation.</p>
-<p>Its subobjects of a transitive $G$-set $G/H$ are particularly clean: a subobject of $G/H$ is determined by an intermediate subgroup $H \le K \le G$, namely the image of $G/H \to G/K$. Equivariant maps $G/H \to G/K$ correspond to $H$-fixed cosets $K\setminus G^H$, which by Frobenius reciprocity is non-empty iff $H \le K$ up to conjugation. So the lattice of subobjects of $G/H$ inside $G\text{-}\mathbf{Set}$ records the subgroup structure between $H$ and $G$.</p>
-<p>The subobject classifier $\Omega$ in $G\text{-}\mathbf{Set}$ is the set of subgroups of $G$ (more precisely: its underlying set is the set of subgroups, with $G$ acting by conjugation $g\cdot H = gHg^{-1}$). The arrow $\mathrm{true}\colon 1 \to \Omega$ picks out the full subgroup $G$ itself. Given a $G$-equivariant inclusion $S \hookrightarrow X$, the classifying map $\chi_S\colon X \to \Omega$ sends $x$ to the stabiliser-of-membership $\{g \in G : gx \in S\}$ — a subgroup of $G$, hence an element of $\Omega$. When $G$ is the trivial group this collapses to $\{\bot, \top\}$ and we recover ordinary $\mathbf{Set}$.</p>
+<p>Subobjects in $G\text{-}\mathbf{Set}$ are easy to describe: a subobject of a $G$-set $X$ is a $G$-stable subset $S \subseteq X$ — equivalently, a union of $G$-orbits. For a transitive $G$-set $G/H$ this leaves only two: $\varnothing$ and $G/H$ itself. What the intermediate-subgroup lattice $\{H \le K \le G\}$ does parameterise is *equivariant quotients* of $G/H$: each such $K$ gives a surjection $G/H \twoheadrightarrow G/K$. This is the dual side of the picture from subobjects. (Equivariant maps $G/H \to G/K$ themselves correspond bijectively to $H$-fixed cosets in $G/K$, and a non-empty set of such maps exists iff $H$ is subconjugate to $K$ — the standard universal property of $G/H$ as the free $G$-set on an $H$-fixed point.)</p>
+<p>The subobject classifier $\Omega$ in $G\text{-}\mathbf{Set}$ is just $\{\bot, \top\}$ with the *trivial* $G$-action. Reason via sieves: $G\text{-}\mathbf{Set} = [\mathbf{B}G^{\mathrm{op}}, \mathbf{Set}]$, so $\Omega(*)$ is the set of sieves on the unique object $*$ — subsets $S \subseteq G$ closed under precomposition by every $g \in G$. Because $\mathbf{B}G$ is a groupoid (every arrow invertible), if $h \in S$ then for any $g \in G$ we have $g = h \cdot (h^{-1}g) \in S$, so the only sieves are $\varnothing$ and $G$. The arrow $\mathrm{true}\colon 1 \to \Omega$ picks the maximal sieve $G$, i.e.\ $\top$. Given a $G$-stable inclusion $S \hookrightarrow X$, the classifying map $\chi_S\colon X \to \Omega$ sends $x \mapsto \top$ if $x \in S$ and $x \mapsto \bot$ otherwise — exactly the indicator function, automatically $G$-equivariant because $S$ is $G$-stable. The topos is therefore Boolean: every subobject has a complement (the complementary union of orbits). The trivial-group case $G = \{e\}$ recovers ordinary $\mathbf{Set}$ as the special case of this same formula.</p>
 <div class="widget" id="w-gset-graph">
-  <div class="hd"><div class="ttl">Subobjects of $G/H$ as intermediate subgroups</div><div class="hint">click a subgroup — the corresponding subobject of $G/1$ lights up</div></div>
+  <div class="hd"><div class="ttl">Equivariant quotients of $G$ as intermediate subgroups</div><div class="hint">click a subgroup $K$ — the quotient $G \twoheadrightarrow G/K$ collapses orbits accordingly</div></div>
   <div class="row"><label>group
     <select id="gs-pick">
       <option value="z6">$G = \mathbb{Z}/6$ (cyclic)</option>
@@ -774,21 +774,22 @@ function drawNode(svg, x, y, label, opts={}){
       <option value="v4">$G = V_4 = \mathbb{Z}/2 \times \mathbb{Z}/2$</option>
     </select></label>
   </div>
-  <svg id="svg-gset-graph" viewBox="0 0 480 280" width="480" height="280"><title>Subobjects of G/H as intermediate subgroups</title></svg>
-  <div class="readout" id="out-gset-graph">Click a node in the subgroup lattice. The subobject of $G$ (acting on itself by left translation) corresponding to that subgroup will appear on the right.</div>
+  <svg id="svg-gset-graph" viewBox="0 0 480 280" width="480" height="280"><title>Equivariant quotients of G as intermediate subgroups</title></svg>
+  <div class="readout" id="out-gset-graph">Click a subgroup $K \le G$ on the left lattice. The right panel shows the equivariant quotient $G \twoheadrightarrow G/K$: elements of $G$ are coloured by their coset, so each colour-class is one element of $G/K$. (The two genuine sub-$G$-sets of $G$ under left translation are only $\varnothing$ and all of $G$ — the topos $G\text{-}\mathbf{Set}$ is Boolean and $\Omega = \{\bot, \top\}$.)</div>
 </div><script>
 (function(){
   const svg=$('#svg-gset-graph'), out=$('#out-gset-graph'), pick=$('#gs-pick');
-  // For each group: list subgroups (each a subset of element-labels), and a Hasse diagram (edges = covering relations, lower → upper inclusion).
+  // For each group: list subgroups K (each a subset of element-labels) plus the left-coset partition of G by K (each subgroup gets `cosets`, an array of arrays of element-labels — each inner array is one coset gK), and a Hasse diagram (edges = covering relations, lower → upper inclusion).
+  // The right-hand panel shows the equivariant quotient G ↠ G/K by colouring elements by coset. Note: K itself is *not* a sub-G-set of G under left translation unless K = {e} or K = G — that is precisely why subobjects of G/H in G-Set are only ∅ and the whole thing, while intermediate subgroups parameterise *quotients* instead.
   const GROUPS = {
     z6: {
       name: 'ℤ/6 = {0,1,2,3,4,5}',
       elements: ['0','1','2','3','4','5'],
       subs: {
-        e:    { label:'{0}',          set:['0'],                  x:240, y:230 },
-        z2:   { label:'⟨3⟩ = {0,3}',  set:['0','3'],              x:140, y:140 },
-        z3:   { label:'⟨2⟩ = {0,2,4}',set:['0','2','4'],          x:340, y:140 },
-        full: { label:'ℤ/6',          set:['0','1','2','3','4','5'], x:240, y:50 },
+        e:    { label:'{0}',          set:['0'],                     cosets:[['0'],['1'],['2'],['3'],['4'],['5']], x:240, y:230 },
+        z2:   { label:'⟨3⟩ = {0,3}',  set:['0','3'],                 cosets:[['0','3'],['1','4'],['2','5']],        x:140, y:140 },
+        z3:   { label:'⟨2⟩ = {0,2,4}',set:['0','2','4'],             cosets:[['0','2','4'],['1','3','5']],          x:340, y:140 },
+        full: { label:'ℤ/6',          set:['0','1','2','3','4','5'], cosets:[['0','1','2','3','4','5']],            x:240, y:50  },
       },
       edges: [['e','z2'],['e','z3'],['z2','full'],['z3','full']],
     },
@@ -796,12 +797,12 @@ function drawNode(svg, x, y, label, opts={}){
       name: 'S₃ = {e, r, r², s, sr, sr²}',
       elements: ['e','r','r²','s','sr','sr²'],
       subs: {
-        E:    { label:'{e}',           set:['e'],                       x:240, y:230 },
-        s1:   { label:'⟨s⟩',           set:['e','s'],                   x:120, y:140 },
-        s2:   { label:'⟨sr⟩',          set:['e','sr'],                  x:240, y:140 },
-        s3sub:{ label:'⟨sr²⟩',         set:['e','sr²'],                 x:360, y:140 },
-        rot:  { label:'⟨r⟩ = A₃',      set:['e','r','r²'],              x:60,  y:140 },
-        full: { label:'S₃',            set:['e','r','r²','s','sr','sr²'],x:240, y:50 },
+        E:    { label:'{e}',           set:['e'],                        cosets:[['e'],['r'],['r²'],['s'],['sr'],['sr²']], x:240, y:230 },
+        s1:   { label:'⟨s⟩',           set:['e','s'],                    cosets:[['e','s'],['r','sr²'],['r²','sr']],       x:120, y:140 },
+        s2:   { label:'⟨sr⟩',          set:['e','sr'],                   cosets:[['e','sr'],['r','s'],['r²','sr²']],       x:240, y:140 },
+        s3sub:{ label:'⟨sr²⟩',         set:['e','sr²'],                  cosets:[['e','sr²'],['r','sr'],['r²','s']],       x:360, y:140 },
+        rot:  { label:'⟨r⟩ = A₃',      set:['e','r','r²'],               cosets:[['e','r','r²'],['s','sr','sr²']],         x:60,  y:140 },
+        full: { label:'S₃',            set:['e','r','r²','s','sr','sr²'],cosets:[['e','r','r²','s','sr','sr²']],           x:240, y:50  },
       },
       edges: [['E','s1'],['E','s2'],['E','s3sub'],['E','rot'],
               ['s1','full'],['s2','full'],['s3sub','full'],['rot','full']],
@@ -810,15 +811,17 @@ function drawNode(svg, x, y, label, opts={}){
       name: 'V₄ = {e, a, b, ab}',
       elements: ['e','a','b','ab'],
       subs: {
-        E:    { label:'{e}',     set:['e'],                x:240, y:230 },
-        a:    { label:'⟨a⟩',     set:['e','a'],            x:130, y:140 },
-        b:    { label:'⟨b⟩',     set:['e','b'],            x:240, y:140 },
-        ab:   { label:'⟨ab⟩',    set:['e','ab'],           x:350, y:140 },
-        full: { label:'V₄',      set:['e','a','b','ab'],   x:240, y:50  },
+        E:    { label:'{e}',     set:['e'],                cosets:[['e'],['a'],['b'],['ab']], x:240, y:230 },
+        a:    { label:'⟨a⟩',     set:['e','a'],            cosets:[['e','a'],['b','ab']],     x:130, y:140 },
+        b:    { label:'⟨b⟩',     set:['e','b'],            cosets:[['e','b'],['a','ab']],     x:240, y:140 },
+        ab:   { label:'⟨ab⟩',    set:['e','ab'],           cosets:[['e','ab'],['a','b']],     x:350, y:140 },
+        full: { label:'V₄',      set:['e','a','b','ab'],   cosets:[['e','a','b','ab']],       x:240, y:50  },
       },
       edges: [['E','a'],['E','b'],['E','ab'],['a','full'],['b','full'],['ab','full']],
     },
   };
+  // Palette for colouring cosets — at most 6 distinct colours needed (matches |G/K| ≤ |G| ≤ 6 here).
+  const COSET_COLORS = ['var(--yellow)','var(--cyan)','var(--violet)','var(--green)','var(--pink)','var(--blue)'];
   let selected = null;
   function render(){
     svg.innerHTML='';
@@ -827,7 +830,7 @@ function drawNode(svg, x, y, label, opts={}){
     const nlab = SVG('text',{x:120,y:24,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
     nlab.textContent = 'Subgroup lattice of ' + G.name; svg.appendChild(nlab);
     const nlab2 = SVG('text',{x:380,y:24,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
-    nlab2.textContent = 'G acting on itself: G·x for x ∈ ' + (selected ? G.subs[selected].label : '?'); svg.appendChild(nlab2);
+    nlab2.textContent = 'Quotient G ↠ G/' + (selected ? G.subs[selected].label.replace(/^.*=\s*/, '') : '?') + ' — colours = cosets'; svg.appendChild(nlab2);
     // subgroup lattice on the LEFT half (x < 240)
     // Re-map nodes to live in [20..220] x [50..230]
     const left = {}; for(const id of Object.keys(G.subs)){
@@ -866,34 +869,42 @@ function drawNode(svg, x, y, label, opts={}){
     // RIGHT half: G as a set of dots, with the selected subobject highlighted
     // bounding box [260..460] x [50..230]
     svg.appendChild(SVG('rect',{x:260,y:50,width:200,height:180,fill:'none',stroke:'var(--mute)','stroke-width':1,'stroke-dasharray':'3 3',rx:6}));
-    const tx = SVG('text',{x:268,y:46,'font-size':10,fill:'var(--mute)'}); tx.textContent='G as a G-set'; svg.appendChild(tx);
+    const tx = SVG('text',{x:268,y:46,'font-size':10,fill:'var(--mute)'}); tx.textContent='G as a G-set, coloured by coset'; svg.appendChild(tx);
     const elements = G.elements;
-    const Sset = selected ? new Set(G.subs[selected].set) : new Set();
+    // Build element → coset-index map from the selected subgroup's coset partition (or no colouring if nothing selected).
+    const cosetIdx = {};
+    if(selected){
+      const partition = G.subs[selected].cosets;
+      partition.forEach((coset, ci)=>{ for(const e of coset) cosetIdx[e] = ci; });
+    }
     elements.forEach((e,i)=>{
       const cols = 3;
       const cx = 280 + (i%cols)*60;
       const cy = 80 + Math.floor(i/cols)*55;
-      const inSel = Sset.has(e);
+      const ci = cosetIdx[e];
+      const colored = selected !== null && ci !== undefined;
+      const fill = colored ? COSET_COLORS[ci % COSET_COLORS.length] : 'var(--panel2)';
       svg.appendChild(SVG('circle',{cx,cy,r:18,
-        fill: inSel ? 'var(--yellow)' : 'var(--panel2)',
-        stroke: inSel ? 'var(--yellow)' : 'var(--mute)',
+        fill,
+        stroke: colored ? fill : 'var(--mute)',
         'stroke-width':1.5}));
       const t = SVG('text',{x:cx,y:cy+5,'text-anchor':'middle','font-size':12,
-        fill: inSel ? '#111' : 'var(--ink)','font-weight':600});
+        fill: colored ? '#111' : 'var(--ink)','font-weight':600});
       t.textContent = e; svg.appendChild(t);
     });
     // readout
     if(!selected){
-      out.innerHTML = 'Click a node in the subgroup lattice. The subobject of $G$ (acting on itself by left translation) corresponding to that subgroup will appear on the right.';
+      out.innerHTML = 'Click a subgroup $K \\le G$ on the left lattice. The right panel shows the equivariant quotient $G \\twoheadrightarrow G/K$: elements of $G$ are coloured by their coset, so each colour-class is one element of $G/K$. (The two genuine sub-$G$-sets of $G$ under left translation are only $\\varnothing$ and all of $G$ — the topos $G\\text{-}\\mathbf{Set}$ is Boolean and $\\Omega = \\{\\bot, \\top\\}$.)';
     } else {
       const s = G.subs[selected];
       const isFull = s.set.length===elements.length;
       const isTriv = s.set.length===1;
-      const tag = isFull ? '<span style="color:var(--green)">⊤ — true</span>'
-                : (isTriv ? '<span style="color:var(--pink)">⊥ — bottom (trivial subobject)</span>'
+      const numCosets = s.cosets.length;
+      const tag = isFull ? '<span style="color:var(--pink)">terminal quotient $G \\twoheadrightarrow \\{*\\}$</span>'
+                : (isTriv ? '<span style="color:var(--green)">identity quotient $G \\twoheadrightarrow G$</span>'
                           : '<span style="color:var(--violet)">intermediate</span>');
-      out.innerHTML = `Subgroup <b>${s.label}</b> ↔ subobject <b>{${s.set.join(', ')}}</b> ⊆ G &nbsp;·&nbsp; ${tag}` +
-        `<br/><span class="small">In the topos $G\\text{-}\\mathbf{Set}$, $\\Omega$ is the set of subgroups of $G$ (with conjugation action); $\\mathrm{true}$ picks out $G$ itself. The lattice on the left is exactly $\\mathrm{Sub}_{G\\text{-}\\mathbf{Set}}(G/1)$ as a poset of subgroups.</span>`;
+      out.innerHTML = `Subgroup <b>${s.label}</b> &nbsp;·&nbsp; equivariant quotient $G \\twoheadrightarrow G/${s.label.replace(/^.*=\s*/, '')}$ has $|G/K| = ${numCosets}$ &nbsp;·&nbsp; ${tag}` +
+        `<br/><span class="small">The lattice on the left is the lattice of subgroups of $G$, equivalently the lattice of equivariant <em>quotients</em> of $G$ (the regular $G$-set $G/1$). Subobjects of $G$ in $G\\text{-}\\mathbf{Set}$ are only $\\varnothing$ and $G$ itself, since $G$ is transitive. The subobject classifier is $\\Omega = \\{\\bot, \\top\\}$ with trivial action — the topos is Boolean.</span>`;
     }
     if(window.renderMathInElement) window.renderMathInElement(out,{delimiters:[
       {left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false},

@@ -642,7 +642,7 @@ $$1=\lambda_1\;>\;\lambda_2\;\ge\;\cdots\;\ge\;\lambda_n\;\ge\;-1.$$
 The <strong>spectral gap</strong> is $\gamma=1-\lambda_2$ (the <em>relaxation</em> gap), and the <strong>absolute spectral gap</strong> is $\gamma_*=1-\max(|\lambda_2|,|\lambda_n|)$.</p>
 
 <div class="ok"><strong>Spectral mixing-time bound (reversible).</strong>
-$$\frac{\gamma_*}{2}\,\log\!\frac{1}{2\varepsilon}\;\le\;t_{\mathrm{mix}}(\varepsilon)\;\le\;\frac{1}{\gamma_*}\,\log\!\frac{1}{\pi_{\min}\varepsilon},$$
+$$\Big(\frac{1}{\gamma_*}-1\Big)\,\log\!\frac{1}{2\varepsilon}\;\le\;t_{\mathrm{mix}}(\varepsilon)\;\le\;\frac{1}{\gamma_*}\,\log\!\frac{1}{\pi_{\min}\varepsilon},$$
 where $\pi_{\min}=\min_i\pi_i$. Big gap ⇒ fast mixing; tiny gap ⇒ either a near-disconnection ($\lambda_2\to 1$, Cheeger) or a near-bipartite oscillation ($\lambda_n\to -1$).</div>
 
 <p><strong>Why does $\lambda_2$ control the rate?</strong> Decompose any starting distribution in the basis of $P$-eigenvectors $u_1,\ldots,u_n$. The component along $u_1\propto\pi$ is preserved; every other component $\langle p,u_k\rangle$ decays by a factor of $\lambda_k$ per step. After $t$ steps the surviving contribution is at most $|\lambda_{\max\;{\rm nontrivial}}|^t$ in $\ell^2(\pi)$ — Cauchy–Schwarz then converts this to TV.</p>
@@ -834,14 +834,17 @@ is the workhorse of mixing-time upper bounds: design a coupling under which meet
   }
   function step(){
     if(met!==null) return;
-    // Common-step coupling: same direction for both, lazy with probability 1/2
+    // Mirror coupling: with prob 1/2 both stay (lazy step); otherwise pick a
+    // direction uniformly and let X move +dir while Y moves -dir. Each
+    // walker's marginal is the lazy walk (stay 1/2, ±1 with prob 1/4 each),
+    // and the circular gap performs a lazy walk on Z/n that hits 0.
     const move = Math.random();
     if(move < 0.5){
       // both stay
     } else {
       const dir = Math.random()<0.5 ? -1 : 1;
       x = (x+dir+n)%n;
-      y = (y+dir+n)%n;
+      y = (y-dir+n)%n;
     }
     t++;
     if(x===y) met = t;
@@ -882,8 +885,8 @@ is the workhorse of mixing-time upper bounds: design a coupling under which meet
       `n = ${n} · steps t = ${t}\n`+
       `X = ${x}, Y = ${y}, gap = ${Math.min((y-x+n)%n,(x-y+n)%n)}\n`+
       (met===null
-        ? "not met yet · common-direction coupling preserves circular gap with prob 1/2"
-        : `met at t = ${met} · the lazy step is the only way the gap changes; coupling inequality: ‖L(X_t)−L(Y_t)‖_TV ≤ P(τ>t).`);
+        ? "not met yet · mirror coupling: gap performs a lazy walk on Z/n, expected meeting time Θ(n²)"
+        : `met at t = ${met} · mirror coupling drives the gap to 0; coupling inequality: ‖L(X_t)−L(Y_t)‖_TV ≤ P(τ>t).`);
   }
   $('#cp-step').addEventListener('click',()=>{step();draw();});
   $('#cp-step10').addEventListener('click',()=>{for(let k=0;k<10;k++)step();draw();});

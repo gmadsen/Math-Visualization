@@ -241,7 +241,7 @@ function drawNode(svg, x, y, label, opts={}){
   <a href="#wedge">3&nbsp;The&nbsp;wedge&nbsp;product&nbsp;and&nbsp;$k$-forms</a>
   <a href="#d">4&nbsp;The&nbsp;exterior&nbsp;derivative</a>
   <a href="#integration">5&nbsp;Integration&nbsp;of&nbsp;forms&nbsp;over&nbsp;chains</a>
-  <a href="#pullback">6&nbsp;1.&nbsp;Pullback&nbsp;of&nbsp;forms&nbsp;(aside)</a>
+  <a href="#pullback">6&nbsp;Pullback&nbsp;of&nbsp;forms&nbsp;(aside)</a>
   <a href="#stokes">7&nbsp;Stokes's&nbsp;theorem</a>
   <a href="#deRham">8&nbsp;Closed&nbsp;vs&nbsp;exact&nbsp;—&nbsp;a&nbsp;first&nbsp;look&nbsp;at&nbsp;de&nbsp;Rham&nbsp;cohomology</a>
   <a href="#outro">9&nbsp;Where&nbsp;this&nbsp;connects</a>
@@ -761,7 +761,7 @@ function drawNode(svg, x, y, label, opts={}){
 <p>A smooth <strong>$k$-simplex</strong> in $M$ is a smooth map $\sigma\colon\Delta^k\to M$ from the standard $k$-simplex, and a <strong>smooth $k$-chain</strong> is a finite formal $\mathbb{Z}$-linear combination $c=\sum n_i\,\sigma_i$ of such. The integral of a $k$-form over a chain is defined by pullback to the standard simplex plus linearity:</p>
 <p style="text-align:center">$\displaystyle \int_\sigma \omega \;:=\; \int_{\Delta^k} \sigma^*\omega,\qquad \int_{\sum n_i\sigma_i}\omega \;:=\; \sum n_i \int_{\sigma_i}\omega.$</p>
 <p>Pullback-invariance is what makes this well-defined: reparametrizing $\sigma$ by an orientation-preserving diffeomorphism of $\Delta^k$ leaves the integral unchanged (Jacobian = $+1$ at the form level), while an orientation-reversing reparametrization flips the sign, matching the $\pm 1$ coefficient on $\sigma$ in the chain.</p>
-<p>This is the bridge between §4 and §5 below: integrating a $(k{-}1)$-form over the boundary chain $\partial M$ and integrating $d\omega$ over the bulk $k$-chain $M$ are both defined via the same pullback mechanism — the only question is whether they agree. They do, and that statement is Stokes.</p>
+<p>This is the bridge between §4 and §7 below: integrating a $(k{-}1)$-form over the boundary chain $\partial M$ and integrating $d\omega$ over the bulk $k$-chain $M$ are both defined via the same pullback mechanism — the only question is whether they agree. They do, and that statement is Stokes.</p>
 <!-- callback-auto-begin -->
 <aside class="callback">
   <div class="ttl">See also</div>
@@ -785,7 +785,7 @@ function drawNode(svg, x, y, label, opts={}){
 </section>
 
 <section id="pullback">
-<h2>5.1. Pullback of forms (aside)</h2>
+<h2>6. Pullback of forms (aside)</h2>
 <p>For a smooth map $f\colon N\to M$, the <strong>pullback</strong> $f^*\colon\Omega^k(M)\to\Omega^k(N)$ acts on $k$-forms contravariantly. On a decomposable form,</p>
 <p style="text-align:center">$f^*(\omega_1\wedge\cdots\wedge\omega_k)(v_1,\ldots,v_k) \;=\; \omega_1\wedge\cdots\wedge\omega_k\bigl(df(v_1),\ldots,df(v_k)\bigr).$</p>
 <p>Two identities make pullback the "right" operation:</p>
@@ -817,7 +817,7 @@ function drawNode(svg, x, y, label, opts={}){
 </section>
 
 <section id="stokes">
-<h2>6. Stokes's theorem</h2>
+<h2>7. Stokes's theorem</h2>
 <p>Let $M$ be a compact oriented smooth $k$-manifold with boundary $\partial M$ (with induced orientation). For any $(k{-}1)$-form $\omega$ on an open neighborhood of $M$,</p>
 <p style="text-align:center">$$\int_{\partial M} \omega = \int_M d\omega.$$</p>
 
@@ -956,7 +956,7 @@ function drawNode(svg, x, y, label, opts={}){
 </script>
 
 <section id="deRham">
-<h2>7. Closed vs exact — a first look at de Rham cohomology</h2>
+<h2>8. Closed vs exact — a first look at de Rham cohomology</h2>
 <p>The condition $d^2=0$ makes $(\Omega^\bullet(M), d)$ into a cochain complex:</p>
 <p style="text-align:center">$\Omega^0(M) \xrightarrow{d} \Omega^1(M) \xrightarrow{d} \Omega^2(M) \xrightarrow{d} \cdots.$</p>
 <p>Call $\omega$ <strong>closed</strong> if $d\omega=0$, and <strong>exact</strong> if $\omega=d\eta$ for some $\eta$. Exact forms are closed (because $d^2=0$); the converse is the interesting question.</p>
@@ -1109,7 +1109,7 @@ function drawNode(svg, x, y, label, opts={}){
 </script>
 
 <section id="outro">
-<h2>7. Where this connects</h2>
+<h2>9. Where this connects</h2>
 <p>Differential forms and $d$ are the common language of half of modern geometry. A few directions to follow:</p>
 
 <h3>Riemann surfaces and Hodge theory</h3>

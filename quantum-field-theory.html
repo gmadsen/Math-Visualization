@@ -408,7 +408,7 @@ $$\mathcal{F} \;=\; \bigoplus_{n\ge 0}\mathcal{H}^{(n)},\qquad \mathcal{H}^{(0)}
 
 $$a_p^\dagger a_q^\dagger|0\rangle = +a_q^\dagger a_p^\dagger|0\rangle\ \text{(boson)},\qquad b_p^\dagger b_q^\dagger|0\rangle = -b_q^\dagger b_p^\dagger|0\rangle\ \text{(fermion)}.$$
 
-<p>Setting $p=q$ in the fermion case gives $b_p^\dagger b_p^\dagger|0\rangle = 0$ — the <strong>Pauli exclusion principle</strong> as a structural identity, not an axiom. The <strong>spin-statistics theorem</strong> (Pauli 1940) shows that integer spin must use commutators and half-integer spin must use anticommutators: any other choice is incompatible with Lorentz invariance and microcausality $[\mathcal{O}(x),\mathcal{O}(y)]=0$ for spacelike $(x-y)^2 > 0$.</p>
+<p>Setting $p=q$ in the fermion case gives $b_p^\dagger b_p^\dagger|0\rangle = 0$ — the <strong>Pauli exclusion principle</strong> as a structural identity, not an axiom. The <strong>spin-statistics theorem</strong> (Pauli 1940) shows that integer spin must use commutators and half-integer spin must use anticommutators: any other choice is incompatible with Lorentz invariance and microcausality $[\mathcal{O}(x),\mathcal{O}(y)]=0$ for spacelike-separated $x,y$ (i.e. $(x-y)^2 < 0$ in the mostly-minus signature used in §4).</p>
 
 <p>The number operator $\hat N = \int (d^3p/(2\pi)^3 2E_p)\,a_p^\dagger a_p$ satisfies $\hat N|n_{p_1},\ldots,n_{p_k}\rangle = (n_{p_1}+\cdots+n_{p_k})|\cdots\rangle$ — Fock states are simultaneous eigenstates of $\hat N$ and $H$. This is the field-theoretic upgrade of the harmonic-oscillator ladder: each momentum slot has its own ladder, and the global state is a tensor of single-mode kets.</p>
 
@@ -678,7 +678,7 @@ $$Z_E \;=\; \int\mathcal{D}\phi\;e^{-S_E[\phi]/\hbar}$$
 <p>The textbook calculation $e^+e^-\to\mu^+\mu^-$ at tree level gives $\sigma = 4\pi\alpha^2/(3s)$ in the limit $\sqrt s\gg m_\mu$. At $\sqrt s = 100\,\mathrm{GeV}$ the cross-section is $\sim 8.7\times 10^{-3}\,\mathrm{nb} \approx 8.7\,\mathrm{pb}$ — measured to subpercent precision at LEP, and the universal benchmark for $e^+e^-$ collider analyses.</p>
 
 <div class="widget" id="qft-diagrams">
-  <div class="hd"><div class="ttl">Feynman amplitude assembly: $e^+e^- \to \mu^+\mu^-$ tree, plus a one-loop correction</div><div class="hint">slide energy; click to add a vertex correction; tree finite, loop diverges</div></div>
+  <div class="hd"><div class="ttl">Feynman amplitude assembly: $e^+e^- \to \mu^+\mu^-$ tree, plus a one-loop correction</div><div class="hint">slide energy; click to add a vacuum-polarization bubble; tree finite, loop diverges</div></div>
   <div class="row">
     <label for="qft-diag-energy">$\sqrt s$ (GeV):</label>
     <input id="qft-diag-energy" type="range" min="10" max="500" step="5" value="91">
@@ -686,7 +686,7 @@ $$Z_E \;=\; \int\mathcal{D}\phi\;e^{-S_E[\phi]/\hbar}$$
   </div>
   <div class="row">
     <button id="qft-diag-tree" class="active">tree only</button>
-    <button id="qft-diag-loop">+ one-loop vertex correction</button>
+    <button id="qft-diag-loop">+ one-loop vacuum polarization</button>
   </div>
   <svg id="qft-diag-svg" viewBox="-240 -130 480 260" width="100%" height="300"><title>QED tree and one-loop diagrams</title></svg>
   <div id="qft-diag-out" class="readout"></div>
@@ -742,10 +742,10 @@ $$Z_E \;=\; \int\mathcal{D}\phi\;e^{-S_E[\phi]/\hbar}$$
     let loopFactor = 0;
     let loopOK = true;
     if(mode === 'loop'){
-      const lc = [60, verticalCenter];
-      svg.appendChild(SVG('circle',{cx:lc[0],cy:lc[1]-22,r:14,fill:'transparent',stroke:'var(--pink)','stroke-width':1.4}));
-      const lblL = SVG('text',{x:lc[0],y:lc[1]-50,'text-anchor':'middle','font-size':10,fill:'var(--pink)'});
-      lblL.textContent = '1-loop vertex';
+      const lc = [0, verticalCenter];
+      svg.appendChild(SVG('circle',{cx:lc[0],cy:lc[1],r:14,fill:'transparent',stroke:'var(--pink)','stroke-width':1.4}));
+      const lblL = SVG('text',{x:lc[0],y:lc[1]-22,'text-anchor':'middle','font-size':10,fill:'var(--pink)'});
+      lblL.textContent = '1-loop vac. pol. (Π)';
       svg.appendChild(lblL);
       const Lambda_GeV = 1e16;
       const m = 0.000511;
@@ -753,13 +753,13 @@ $$Z_E \;=\; \int\mathcal{D}\phi\;e^{-S_E[\phi]/\hbar}$$
       loopOK = isFinite(loopFactor);
     }
     const tT = SVG('text',{x:0,y:-115,'text-anchor':'middle','font-size':12,fill:'var(--ink)','font-weight':600});
-    tT.textContent = mode === 'tree' ? 'tree-level diagram' : 'tree + 1-loop vertex correction (UV-divergent without renormalization)';
+    tT.textContent = mode === 'tree' ? 'tree-level diagram' : 'tree + 1-loop vacuum polarization (UV-divergent without renormalization)';
     svg.appendChild(tT);
     const lines = [
       `tree amplitude: |M|² ∝ e⁴ / s, σ_tree = (4πα²/3s) ≈ ${sigma_tree_nb.toExponential(3)} nb`,
     ];
     if(mode === 'loop'){
-      lines.push(`loop logarithm: (α/3π) ln(Λ/m_e) ≈ ${loopFactor.toFixed(3)} (Λ = 10¹⁶ GeV, m_e = 0.511 MeV)`);
+      lines.push(`vac. pol. log (drives running α): (α/3π) ln(Λ/m_e) ≈ ${loopFactor.toFixed(3)} (Λ = 10¹⁶ GeV, m_e = 0.511 MeV)`);
       lines.push('without renormalization the loop diverges as Λ → ∞ — must absorb into Z-factors. See §5.');
     }
     lines.forEach((line,i) => {
@@ -767,7 +767,7 @@ $$Z_E \;=\; \int\mathcal{D}\phi\;e^{-S_E[\phi]/\hbar}$$
       tt.textContent = line;
       svg.appendChild(tt);
     });
-    out.textContent = `√s = ${sqrt_s} GeV    σ_tree(e⁺e⁻ → μ⁺μ⁻) = ${sigma_tree_nb.toExponential(3)} nb    mode: ${mode}    The tree diagram has one virtual photon (violet wavy line) connecting the e⁺e⁻ vertex (left) to the μ⁺μ⁻ vertex (right). Adding a one-loop vertex correction (pink) introduces an integral ∫d⁴k/k² that diverges logarithmically — the cure is renormalization.`;
+    out.textContent = `√s = ${sqrt_s} GeV    σ_tree(e⁺e⁻ → μ⁺μ⁻) = ${sigma_tree_nb.toExponential(3)} nb    mode: ${mode}    The tree diagram has one virtual photon (violet wavy line) connecting the e⁺e⁻ vertex (left) to the μ⁺μ⁻ vertex (right). Adding a one-loop vacuum-polarization bubble (pink) on the photon line introduces an integral ∫d⁴k/k² that diverges logarithmically — the cure is renormalization, and the resulting (α/3π) ln(Λ/m) is what drives the running of α.`;
   }
   eSlide.addEventListener('input', draw);
   bTree.addEventListener('click', setTree);

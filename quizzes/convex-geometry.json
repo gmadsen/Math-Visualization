@@ -186,13 +186,13 @@
           "q": "The set of $n$-dimensional normed spaces modulo isometry, equipped with the Banach–Mazur distance, is...",
           "choices": [
             "non-compact and infinite-dimensional",
-            "a compact metric space (the Banach–Mazur compactum) of finite diameter — $\\le n$ in general, $\\le\\sqrt n$ for symmetric bodies",
+            "a compact metric space (the Banach–Mazur compactum) of finite radius around $\\ell^2_n$ — $\\le\\sqrt n$ for symmetric bodies, $\\le n$ in general (so multiplicative diameter $\\le n$, resp. $\\le n^2$)",
             "discrete",
             "homeomorphic to $\\mathbb{R}^n$"
           ],
           "answer": 1,
-          "explain": "John's theorem implies every $n$-dim norm is within Banach–Mazur distance $\\le\\sqrt n$ of $\\ell^2_n$, so the compactum has finite diameter; it is also compact (Auerbach + a precompactness argument).",
-          "hint": "John's inclusion is exactly a diameter bound on this space."
+          "explain": "John's theorem implies every symmetric $n$-dim norm is within Banach–Mazur distance $\\le\\sqrt n$ of $\\ell^2_n$ (and $\\le n$ in the general non-symmetric case), so the compactum has finite radius around $\\ell^2_n$; the multiplicative diameter $d(K,L)\\le d(K,\\ell^2_n)\\,d(\\ell^2_n,L)$ is then $\\le n$ (resp. $\\le n^2$). Compactness comes from Auerbach + a precompactness argument.",
+          "hint": "John's inclusion bounds the radius around $\\ell^2_n$; the triangle inequality on $\\log d$ then bounds the diameter."
         }
       ]
     },
@@ -230,7 +230,7 @@
             "$\\to 0$ as $n\\to\\infty$"
           ],
           "answer": 0,
-          "explain": "The conjecture asserts a dimension-free lower bound on the maximal hyperplane section: $\\sup_{H}\\mathrm{vol}(K\\cap H)\\ge c$. The best known bound is $\\Omega(1/\\log n)$ (Klartag, 2024), down from Bourgain's original $\\Omega(n^{-1/4})$.",
+          "explain": "The conjecture asserts a dimension-free lower bound on the maximal hyperplane section: $\\sup_{H}\\mathrm{vol}(K\\cap H)\\ge c$. Klartag–Lehec (2022) proved the isotropic-constant bound $L_K=O(\\sqrt{\\log n})$, giving $c=\\Omega(1/\\sqrt{\\log n})$, and Klartag (2023) improved this to $L_K=O((\\log n)^{1/4})$ — the slicing problem is now resolved up to polylog factors, well past Bourgain's $\\Omega(n^{-1/4})$.",
           "hint": "The conjecture forbids 'all sections are tiny'."
         }
       ]

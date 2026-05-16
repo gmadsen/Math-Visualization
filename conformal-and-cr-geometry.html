@@ -631,8 +631,8 @@ $$Y_g(u) \;=\; \frac{\int_M u\,L_g u\,dV_g}{\Bigl(\int_M u^{2^*}\,dV_g\Bigr)^{2/
 <p>The conformal Laplacian $L_g$ is the order-$2$ conformally covariant operator on $(M^n,g)$. Paneitz (1983) discovered its 4th-order sibling.</p>
 
 <div class="note"><strong>The Paneitz operator.</strong> On $(M^n,g)$ with $n\ge 5$,
-$$P_g \;=\; \Delta_g^2 \;+\; \delta\!\bigl((n-2)J_g\,g - 4\,\mathrm{Ric}_g\bigr)\,d \;+\; \frac{n-4}{2}\,Q_g,$$
-where $J_g = R_g/(2(n-1))$ is the (normalized) trace of the Schouten tensor, $\mathrm{Ric}_g$ is the Ricci tensor acting on 1-forms, and $Q_g$ is the <em>Q-curvature</em> of $g$.</div>
+$$P_g \;=\; \Delta_g^2 \;+\; \delta\!\bigl((n-2)J_g\,g - 4\,\mathrm{Sch}_g\bigr)\,d \;+\; \frac{n-4}{2}\,Q_g,$$
+where $\mathrm{Sch}_g = \tfrac{1}{n-2}\bigl(\mathrm{Ric}_g - J_g\,g\bigr)$ is the Schouten tensor (acting on 1-forms), $J_g = R_g/(2(n-1))$ is its trace (the normalized scalar curvature), and $Q_g$ is the <em>Q-curvature</em> of $g$.</div>
 
 <p>$P_g$ is conformally covariant in exactly the same sense as $L_g$, but with weights $(n-4)/2$ and $(n+4)/2$:</p>
 $$P_{\tilde g}(\phi) \;=\; e^{-(n+4)u/2}\,P_g\!\bigl(e^{(n-4)u/2}\phi\bigr), \qquad \tilde g = e^{2u}g, \;\;n\ge 5.$$
@@ -718,7 +718,7 @@ $$Q_{\tilde g} \;=\; e^{-4u}\bigl(Q_g + P_g u\bigr), \qquad \tilde g = e^{2u}g, 
 $$\int_M Q_g\,dV_g \;+\; \frac{1}{4}\int_M |W_g|^2\,dV_g \;=\; 8\pi^2\,\chi(M),$$
 <p>where $W_g$ is the Weyl tensor (the conformally invariant piece of the Riemann curvature) and $\chi(M)$ is the Euler characteristic. The Weyl-tensor integral is itself a conformal invariant, so this is a relation between two conformal invariants and a topological invariant.</p>
 
-<p>The Chern–Gauss–Bonnet formula in dimension 4 says $\chi(M) = \tfrac{1}{32\pi^2}\int_M (|W|^2 + Q\cdot 8) \,dV$ (in appropriate normalisations) — the same identity rearranged. Q-curvature is, in this sense, the conformally invariant <em>part</em> of the dimension-4 Gauss–Bonnet integrand.</p>
+<p>The Chern–Gauss–Bonnet formula in dimension 4 says $\chi(M) = \tfrac{1}{32\pi^2}\int_M (|W|^2 + 4Q) \,dV$ (in appropriate normalisations) — the same identity rearranged. Q-curvature is, in this sense, the conformally invariant <em>part</em> of the dimension-4 Gauss–Bonnet integrand.</p>
 
 <div class="quiz" data-concept="ccr-q-curvature"></div>
 </section>
@@ -967,8 +967,8 @@ $$L_{\tilde b}(\phi) \;=\; e^{-(n+1)u/n}\,L_b\!\bigl(e^{(n-1)u/n}\phi\bigr).$$
 <div class="note"><strong>The CR Yamabe problem.</strong> On a closed strictly pseudoconvex CR manifold $(M^{2n+1}, H, J)$, does there exist a pseudo-Hermitian structure $\theta$ with constant Webster scalar curvature $R^W\equiv\mathrm{const}$?</div>
 
 <p>By exactly the same computation as in the Riemannian case (write $\tilde\theta = u^{2/n}\theta$ and apply conformal covariance), this reduces to the <em>CR Yamabe equation</em></p>
-$$L_b\, u \;=\; \lambda\, u^{(n+1)/(n-1)} \;=\; \lambda\, u^{Q/(Q-2)},$$
-<p>where $Q = 2n + 2$ is the <strong>homogeneous dimension</strong> of $\mathbb{H}^n$. The exponent $Q/(Q-2)$ takes the place of the Riemannian $(n+2)/(n-2)$. The reason: the Heisenberg dilation $\delta_\lambda(z,t) = (\lambda z, \lambda^2 t)$ weights $z$ with $1$ and $t$ with $2$, so the metric ball of radius $\lambda$ has volume $\sim\lambda^{2n+2} = \lambda^Q$.</p>
+$$L_b\, u \;=\; \lambda\, u^{(n+2)/n} \;=\; \lambda\, u^{(Q+2)/(Q-2)},$$
+<p>where $Q = 2n + 2$ is the <strong>homogeneous dimension</strong> of $\mathbb{H}^n$. The exponent $(Q+2)/(Q-2)$ takes the place of the Riemannian $(n+2)/(n-2)$. The reason: the Heisenberg dilation $\delta_\lambda(z,t) = (\lambda z, \lambda^2 t)$ weights $z$ with $1$ and $t$ with $2$, so the metric ball of radius $\lambda$ has volume $\sim\lambda^{2n+2} = \lambda^Q$.</p>
 
 <h3>Jerison–Lee's resolution</h3>
 
@@ -988,7 +988,7 @@ $$L_b\, u \;=\; \lambda\, u^{(n+1)/(n-1)} \;=\; \lambda\, u^{Q/(Q-2)},$$
     {l:'$R_g$ (scalar curvature)', r:'$R^W$ (Webster scalar curvature)', m:'Built from the Levi-Civita / Webster connection by tracing the curvature. Both are conformal-invariant after the right weight scaling.'},
     {l:'$L_g = -\\Delta_g + c_n R_g$', r:'$L_b = -(2+2/n)\\Delta_b + R^W$', m:'Both are the order-2 conformally covariant operators in their geometries. Their conformal weights are calibrated to the respective Sobolev critical exponents.'},
     {l:'dimension $n$', r:'homogeneous dim. $Q=2n+2$', m:'The Heisenberg dilation $(z,t)\\mapsto(\\lambda z,\\lambda^2 t)$ weights $t$ with 2, so metric balls have volume $\\sim\\lambda^Q$. In every formula where Riemannian uses $n$, CR uses $Q$.'},
-    {l:'critical $(n+2)/(n-2)$', r:'critical $Q/(Q-2) = (n+1)/n$', m:'Same role in the Yamabe equation: the exponent that makes $H^1\\hookrightarrow L^p$ borderline non-compact.'},
+    {l:'critical $(n+2)/(n-2)$', r:'critical $(Q+2)/(Q-2) = (n+2)/n$', m:'Same role in the Yamabe equation: the exponent that makes $H^1\\hookrightarrow L^p$ borderline non-compact.'},
     {l:'round sphere $S^n$', r:'CR sphere $S^{2n+1}\\subset\\mathbb{C}^{n+1}$', m:'Both have the maximal symmetry group in their conformal classes ($O(n+1,1)$ vs $SU(n+1,1)$) and serve as the universal upper bound for the Yamabe constant.'},
     {l:'flat model $\\mathbb{R}^n$', r:'Heisenberg group $\\mathbb{H}^n$', m:'The non-compact, simply-connected, zero-curvature homogeneous model. The role of Euclidean space in each geometry.'},
   ];

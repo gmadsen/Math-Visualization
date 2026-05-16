@@ -287,7 +287,7 @@ function matMul(A,B){
 
 <p>Why would you want to do this? Because continuous problems become combinatorial the moment you apply a functor. Three classic examples:</p>
 
-<div class="note"><strong>Brouwer fixed point.</strong> Every continuous $f\colon D^n\to D^n$ has a fixed point. Proof: if $f$ had no fixed point, the map $x\mapsto$ (intersection of the ray from $f(x)$ through $x$ with $\partial D^n$) would retract $D^n$ onto $S^{n-1}$. But a retraction would produce a section of $H_{n-1}(S^{n-1})\hookrightarrow H_{n-1}(D^n)=0$, absurd because $H_{n-1}(S^{n-1})=\mathbb{Z}$.</div>
+<div class="note"><strong>Brouwer fixed point.</strong> Every continuous $f\colon D^n\to D^n$ has a fixed point. Proof: if $f$ had no fixed point, the map $x\mapsto$ (intersection of the ray from $f(x)$ through $x$ with $\partial D^n$) would retract $D^n$ onto $S^{n-1}$. But a retraction $r$ with $r\circ\iota=\mathrm{id}$ would force the inclusion-induced $\iota_*\colon H_{n-1}(S^{n-1})\to H_{n-1}(D^n)$ to be a split monomorphism — impossible, since the codomain is $0$ while $H_{n-1}(S^{n-1})=\mathbb{Z}$.</div>
 
 <div class="note"><strong>Hairy ball.</strong> $S^2$ admits no nowhere-vanishing continuous tangent vector field. The obstruction is the Euler characteristic $\chi(S^2)=2\ne 0$ — a tangent field with a single isolated zero would have total index $\chi=2$, so you can't get rid of the zeros.</div>
 
@@ -336,7 +336,7 @@ function matMul(A,B){
   </tbody>
 </table>
 
-<p>A clean slogan: $\pi_1$ is abelian whenever loops have "room to slide past each other" — true for any H-space, any product, and any space of dimension $\ge 2$ in the sense of CW dimension if $\pi_1$ happens to commute. In general though — figure-eight, surface groups, braid groups — $\pi_1$ is gloriously non-abelian.</p>
+<p>A clean slogan: $\pi_1$ is abelian whenever loops have "room to slide past each other" — true for any H-space (Eckmann–Hilton), and hence in particular for any topological group. In general though — figure-eight, surface groups, braid groups — $\pi_1$ is gloriously non-abelian.</p>
 
 
 

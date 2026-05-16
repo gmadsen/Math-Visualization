@@ -873,7 +873,7 @@ function drawNode(svg, x, y, label, opts={}){
 
 <p>The right scaling is</p>
 
-<p style="text-align:center">$\xi_N \;=\; N^{2/3}\bigl(\lambda_{\max}-2\sqrt N\bigr).$</p>
+<p style="text-align:center">$\xi_N \;=\; N^{1/6}\bigl(\lambda_{\max}-2\sqrt N\bigr).$</p>
 
 <p>Then $\xi_N\Rightarrow F_\beta$, the <strong>Tracy–Widom distribution</strong> of index $\beta$. The three classical $\beta$ values give three distributions $F_1,F_2,F_4$, characterised by a Fredholm-determinant identity:</p>
 
@@ -1003,7 +1003,7 @@ function drawNode(svg, x, y, label, opts={}){
     if(shown.g)  plot(gaussian,'var(--mute)','4 4');
     // axis label
     const xlbl=SVG('text',{x:(ML+W-MR)/2,y:H-6,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});
-    xlbl.textContent='s — fluctuation in units of N^{2/3}'; svg.appendChild(xlbl);
+    xlbl.textContent='s — fluctuation in units of N^{1/6}'; svg.appendChild(xlbl);
     // legend
     const lx=ML+W*0.62, ly=MT+8;
     svg.appendChild(SVG('rect',{x:lx-6,y:ly-4,width:200,height:74,fill:'var(--panel2)',stroke:'var(--line)','stroke-width':1,rx:4,opacity:0.92}));
@@ -1214,7 +1214,7 @@ function drawNode(svg, x, y, label, opts={}){
 
 <h3>Edge universality</h3>
 
-<p>The same story plays out at the soft edge: $N^{2/3}(\lambda_{\max}-2\sqrt N)$ converges to $F_\beta$ <em>regardless of entry distribution</em> (subject to a sub-Gaussian tail). The Tracy–Widom law is universal.</p>
+<p>The same story plays out at the soft edge: $N^{1/6}(\lambda_{\max}-2\sqrt N)$ converges to $F_\beta$ <em>regardless of entry distribution</em> (subject to a sub-Gaussian tail). The Tracy–Widom law is universal.</p>
 
 <div class="widget" id="w-univ">
   <div class="hd"><div class="ttl">Three distributions, one semicircle</div><div class="hint">Gaussian / Rademacher / uniform entries — same density</div></div>
@@ -1443,9 +1443,9 @@ function drawNode(svg, x, y, label, opts={}){
 <p>and the <em>low-lying zeros</em> of the family equidistribute against the eigenvalues of a Haar-random matrix in the corresponding compact group. The symmetry type is determined by symmetries of the family:</p>
 
 <table class="plain">
-<thead><tr><th>family</th><th>symmetry type</th><th>low-zero density</th></tr></thead>
+<thead><tr><th>family</th><th>symmetry type</th><th>low-zero statistic</th></tr></thead>
 <tbody>
-<tr><td>$\zeta(s)$ alone</td><td>$U$</td><td>$1-(\sin\pi x/\pi x)^2$</td></tr>
+<tr><td>$\zeta(s)$ alone</td><td>$U$</td><td>pair correlation $R_2(x)=1-(\sin\pi x/\pi x)^2$</td></tr>
 <tr><td>Dirichlet $L(s,\chi_d)$, $\chi_d$ quadratic</td><td>$\mathrm{USp}$</td><td>$1-\sin(2\pi x)/(2\pi x)$</td></tr>
 <tr><td>$L(s,E)$, $E/\mathbb{Q}$ with $w(E)=+1$</td><td>$O^+$</td><td>even orthogonal density</td></tr>
 <tr><td>$L(s,E)$, $E/\mathbb{Q}$ with $w(E)=-1$</td><td>$O^-$</td><td>odd orthogonal density</td></tr>
@@ -1465,7 +1465,7 @@ function drawNode(svg, x, y, label, opts={}){
   </div>
   <svg id="ks-svg" viewBox="0 0 720 300" width="720" height="300"><title>Katz–Sarnak low-zero densities</title></svg>
   <div class="readout" id="ks-out"></div>
-  <p class="small">The yellow curve is the one-level density of low-lying zeros for the selected symmetry type, normalised to mean zero spacing $1$. Vertical lines show the first few zeros of $\zeta(s)$ (cyan, in matched units) for visual comparison.</p>
+  <p class="small">The yellow curve is the one-level density of low-lying zeros for the selected symmetry type (for $U$, where the one-level density is the constant $1$, we instead plot Montgomery's pair correlation $R_2(x)$), normalised to mean zero spacing $1$. Vertical lines show the first few zeros of $\zeta(s)$ (cyan, in matched units) for visual comparison.</p>
 </div>
 <script>
 (function(){
@@ -1486,9 +1486,9 @@ function drawNode(svg, x, y, label, opts={}){
       const t=2*s, st=Math.sin(t);
       return 1 + st/t;
     }
-    if(mode==='om'){ // O- : 1 - sin(2πx)/(2πx) + δ(x)  — we plot the continuous part; visually a deep notch
+    if(mode==='om'){ // O- : 1 + sin(2πx)/(2πx) - δ(x)  — we plot the continuous part; the δ atom is drawn separately
       const t=2*s, st=Math.sin(t);
-      return 1 - st/t;
+      return 1 + st/t;
     }
     return 1;
   }
@@ -1547,15 +1547,15 @@ function drawNode(svg, x, y, label, opts={}){
     const lx=ML+W*0.58, ly=MT+8;
     svg.appendChild(SVG('rect',{x:lx-6,y:ly-4,width:230,height:48,fill:'var(--panel2)',stroke:'var(--line)','stroke-width':1,rx:4,opacity:0.92}));
     svg.appendChild(SVG('line',{x1:lx,y1:ly+8,x2:lx+18,y2:ly+8,stroke:'var(--yellow)','stroke-width':2}));
-    let tt=SVG('text',{x:lx+24,y:ly+12,'font-size':11,fill:'var(--ink)'}); tt.textContent='W_G(x) — one-level density'; svg.appendChild(tt);
+    let tt=SVG('text',{x:lx+24,y:ly+12,'font-size':11,fill:'var(--ink)'}); tt.textContent = (mode==='u') ? 'R_2(x) — pair correlation' : 'W_G(x) — one-level density'; svg.appendChild(tt);
     svg.appendChild(SVG('line',{x1:lx,y1:ly+28,x2:lx+18,y2:ly+28,stroke:'var(--cyan)','stroke-width':2}));
     tt=SVG('text',{x:lx+24,y:ly+32,'font-size':11,fill:'var(--ink)'}); tt.textContent='first ten ζ-zeros'; svg.appendChild(tt);
     // readout
     const desc={
-      u:  'family: {ζ}  →  symmetry type U  →  W(x) = 1 - (sin πx/πx)²  (Montgomery–Odlyzko)',
+      u:  'family: {ζ}  →  symmetry type U  →  pair correlation R_2(x) = 1 - (sin πx/πx)²  (Montgomery–Odlyzko)',
       sp: 'family: quadratic Dirichlet L(s,χ_d)  →  USp(2N)  →  W(x) = 1 - sin(2πx)/(2πx)  (no atom)',
       op: 'family: E/Q with w(E)=+1  →  O⁺(2N)  →  W(x) = 1 + sin(2πx)/(2πx)  (no forced zero)',
-      om: 'family: E/Q with w(E)=-1  →  O⁻(2N+1)  →  W(x) = 1 - sin(2πx)/(2πx) + δ₀  (forced s=½ zero)'
+      om: 'family: E/Q with w(E)=-1  →  O⁻(2N+1)  →  W(x) = 1 + sin(2πx)/(2πx) - δ₀  (forced s=½ zero)'
     };
     out.textContent = desc[mode] +
       '\nasymptote W(x) → 1: low-lying zeros average density is the same; the *shape* near 0 distinguishes the symmetry type.';

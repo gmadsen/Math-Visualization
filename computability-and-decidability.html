@@ -270,18 +270,18 @@ function drawNode(svg, x, y, label, opts={}){
 
 <p>tells the machine, given its current state and the symbol under the head, which symbol to write, which way to move the head, and which state to enter next. A <strong>configuration</strong> is the triple $(q, T, h)$ recording state, full tape contents, and head position. The machine starts at $q_0$ with the input written on the leftmost cells and blanks elsewhere; it <em>accepts</em> if it reaches $q_{\text{acc}}$, <em>rejects</em> at $q_{\text{rej}}$, and <em>loops</em> if it never halts.</p>
 
-<div class="ok"><strong>Robustness of the model.</strong> Multitape, two-counter, two-stack, RAM, and nondeterministic TMs all simulate one another with at most polynomial overhead. The class of <em>computable functions</em> is the same. This empirical convergence is the content of the <strong>Church–Turing thesis</strong>: any reasonable formalism for "effective procedure" yields exactly this class.</div>
+<div class="ok"><strong>Robustness of the model.</strong> Multitape, two-stack, RAM (uniform-cost), two-counter (Minsky), and nondeterministic TMs all compute exactly the same class of <em>computable functions</em>. The <em>time</em> overhead splits into three regimes: (i) <em>polynomial</em> for multitape ↔ single-tape (quadratic), two-stack ↔ TM, and RAM ↔ TM; (ii) <em>exponential</em> for Minsky's two-counter simulation, which encodes a TM tape of $n$ cells as a single integer of size $\sim k^n$ that the counters then unary-manipulate; (iii) <em>open</em> for DTM simulating NDTM — that gap is exactly the <strong>P vs NP</strong> question, with the best-known deterministic simulation still exponential. The empirical convergence at the level of <em>computability</em> is the content of the <strong>Church–Turing thesis</strong>: any reasonable formalism for "effective procedure" yields exactly this class.</div>
 
-<p>The widget below steps a tiny TM that increments a binary number written least-significant-bit-first. Each press of <em>step</em> applies one transition; watch the head sweep, find the rightmost <code>0</code> (or run off the end), flip it to <code>1</code>, and clear the trailing <code>1</code>'s on the way back.</p>
+<p>The widget below steps a tiny TM that increments a binary number written most-significant-bit-first (the units digit on the right, schoolbook style). Each press of <em>step</em> applies one transition; watch the head sweep right to find the right edge, then walk back left, flipping trailing <code>1</code>'s to <code>0</code>'s until it hits a <code>0</code> (set to <code>1</code>) or runs off the left end (write a new leading <code>1</code>).</p>
 
 <div class="widget" id="w-turing">
-  <div class="hd"><div class="ttl">Turing machine: binary increment</div><div class="hint">step through a TM adding 1 to a binary number (LSB-first)</div></div>
+  <div class="hd"><div class="ttl">Turing machine: binary increment</div><div class="hint">step through a TM adding 1 to a binary number (MSB-first)</div></div>
   <div class="row">
     <label for="tm-input">input</label>
     <select id="tm-input">
-      <option value="110">110 (= 3, LSB-first)</option>
-      <option value="111" selected>111 (= 7, LSB-first)</option>
-      <option value="0111">0111 (= 14)</option>
+      <option value="110">110 (= 6, MSB-first)</option>
+      <option value="111" selected>111 (= 7, MSB-first)</option>
+      <option value="0111">0111 (= 7)</option>
       <option value="1111">1111 (= 15, carries off the end)</option>
     </select>
     <button id="tm-step">step</button>
@@ -951,9 +951,9 @@ function drawNode(svg, x, y, label, opts={}){
 
 \[ \mathrm{Halt}(\ulcorner M\urcorner, \ulcorner w\urcorner) \;\equiv\; \exists t\, \mathrm{Halts\text{-}by\text{-}step}(\ulcorner M\urcorner,\ulcorner w\urcorner, t). \]
 
-<div class="bad"><strong>First incompleteness theorem.</strong> If $T$ is consistent and recursively axiomatised, $T$ is incomplete: there is a true $\Sigma_1$ sentence (about halting) that $T$ neither proves nor refutes.</div>
+<div class="bad"><strong>First incompleteness theorem.</strong> If $T$ is recursively axiomatised and <em>$\Sigma_1$-sound</em> (equivalently 1-consistent — every $\Sigma_1$ sentence $T$ proves is actually true), then $T$ is incomplete: there is a true $\Sigma_1$ sentence (about halting) that $T$ neither proves nor refutes. Bare consistency is enough to get an undecidable sentence, but identifying it as a <em>true</em> $\Sigma_1$ statement requires the soundness hypothesis.</div>
 
-<p><em>Why:</em> if $T$ proved every true halting fact and refuted every false one, we could decide halting by alternating proof-search on $\mathrm{Halt}$ and $\neg\mathrm{Halt}$ — contradicting Turing. The "true but unprovable" sentence Gödel produces is exactly such a missing halting fact, dressed up via the diagonal lemma so it self-references its own unprovability.</p>
+<p><em>Why:</em> if $T$ proved every true halting fact and refuted every false one, we could decide halting by alternating proof-search on $\mathrm{Halt}$ and $\neg\mathrm{Halt}$ — contradicting Turing. $\Sigma_1$-soundness is exactly what makes both branches of that proof-search trustworthy. The "true but unprovable" sentence Gödel produces is exactly such a missing halting fact, dressed up via the diagonal lemma so it self-references its own unprovability.</p>
 
 <div class="ok"><strong>Rosser's refinement.</strong> Gödel's original proof needed $\omega$-consistency. Rosser modified the self-referential sentence to "for every proof of me there is a shorter refutation", so the conclusion goes through with plain consistency.</div>
 

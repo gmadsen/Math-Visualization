@@ -545,7 +545,7 @@ This is the volume of the Mordell–Weil lattice, and it is one of the factors i
   <div class="row"><span class="small">Bars: $h_L([n]P)/n^2$ for $n=1,\dots,16$, simulated as $\hat h(P)+\varepsilon_n/n^2$ with bounded $\varepsilon_n$. The $1/n^2$ damping is what makes the limit converge.</span></div>
 </div>
 
-<p>On an elliptic curve over $\mathbb{Q}$, with $L=$ the divisor class of the origin $O$, this gives the celebrated $\hat h$ that makes the rational-points group $E(\mathbb{Q})/\mathrm{tors}$ into a Euclidean lattice. Doubling a non-torsion point $P$ produces points whose $x$-coordinates have heights growing exactly quadratically — for $E:y^2=x^3-2$ with $P=(3,5)$, the $x$-coordinate denominators grow as $4,121,18496,\dots$ matching $\hat h(2^kP)=4^k\hat h(P)$.</p>
+<p>On an elliptic curve over $\mathbb{Q}$, with $L=$ the divisor class of the origin $O$, this gives the celebrated $\hat h$ that makes the rational-points group $E(\mathbb{Q})/\mathrm{tors}$ into a Euclidean lattice. Doubling a non-torsion point $P$ produces points whose $x$-coordinates have heights growing exactly quadratically — for $E:y^2=x^3-x+1$ with the integer generator $P=(0,1)$, the $x$-coordinate denominators of $[2^k]P$ explode in digit-count by a factor of $4$ per step, matching $\hat h([2^k]P)=4^k\hat h(P)$ (the descent widget in §8 prints the actual sequence).</p>
 <!-- callback-auto-begin -->
 <aside class="callback">
   <div class="ttl">See also</div>
@@ -783,7 +783,7 @@ and no one has found a smaller value in the ninety years since. The question is 
 
 <p><em>Where do heights enter?</em> Faltings introduced his own <strong>Faltings height</strong> $h_F(A)$ on the moduli space of principally polarised abelian varieties of fixed dimension. A central step in his proof is a theorem of Northcott type:</p>
 
-<div class="note"><strong>Faltings' isogeny theorem.</strong> For each bound $C$, the set of isogeny classes of abelian varieties over $K$ of dimension $g$ with $h_F\le C$ is finite. Combined with semisimplicity of Tate modules and the Shafarevich conjecture for abelian varieties, this forces only finitely many curves of genus $g\ge 2$ with given good reduction set, and ultimately only finitely many rational points.</div>
+<div class="note"><strong>Northcott property of the Faltings height.</strong> For each bound $C$, the set of $K$-isomorphism classes of principally polarised abelian varieties over $K$ of dimension $g$ with $h_F\le C$ is finite. (The name <em>Faltings' isogeny theorem</em> is conventionally reserved for the companion statement — the Tate conjecture for Galois representations of abelian varieties over number fields — also proved in the 1983 paper.) Combined with semisimplicity of Tate modules and the Shafarevich conjecture for abelian varieties, this forces only finitely many curves of genus $g\ge 2$ with given good reduction set, and ultimately only finitely many rational points.</div>
 
 <p>Vojta's later (1991) proof replaces the moduli detour with a direct height inequality on $C\times C$, of the form $\hat h_\Theta(P,Q)\le\varepsilon\,(\hat h(P)+\hat h(Q))+O(1)$, whose iteration forces $\hat h(P)$ to be bounded. The latter approach is the modern blueprint behind the Lang and Vojta conjectures.</p>
 
@@ -933,11 +933,13 @@ The right-hand side decomposes as a sum over places $v\in M_K$ of local heights;
 $$E(K)/2E(K)\;\hookrightarrow\;\operatorname{Hom}\bigl(\operatorname{Gal}(\bar K/L),\,E[2]\bigr).$$
 The image lies in homomorphisms unramified outside a finite set $S$ of bad primes; <em>finiteness of class numbers and unit groups of $L$</em> bounds such hom-sets. Conclusion: $|E(K)/2E(K)|<\infty$.</p>
 
-<p>Pick coset representatives $Q_1,\dots,Q_m$. Now <strong>heights take over</strong>. The defining quadratic identity $\hat h(P+Q)+\hat h(P-Q)=2\hat h(P)+2\hat h(Q)$ implies, for any expression $P=2P'+Q_i$,
-$$\hat h(P')\;=\;\frac{1}{4}\hat h(P-Q_i)\;\le\;\frac{1}{4}\bigl(2\hat h(P)+2\hat h(Q_i)-\hat h(P+Q_i)\bigr)\;\le\;\frac{1}{4}\hat h(P)\,+\,C,$$
-with $C=\tfrac{1}{2}\max_i\hat h(Q_i)$. So one descent step contracts heights by a factor of $4$, plus a bounded additive correction.</p>
+<p>Pick coset representatives $Q_1,\dots,Q_m$. Now <strong>heights take over</strong>. From $P=2P'+Q_i$ we get $P-Q_i=2P'$, so $\hat h(P-Q_i)=4\hat h(P')$. Apply the parallelogram law to $(P,Q_i)$:
+$$4\,\hat h(P')\;=\;\hat h(P-Q_i)\;\le\;2\hat h(P)+2\hat h(Q_i)-\hat h(P+Q_i)\;\le\;2\hat h(P)+2\hat h(Q_i),$$
+since $\hat h(P+Q_i)\ge 0$. Dividing by $4$,
+$$\hat h(P')\;\le\;\tfrac{1}{2}\hat h(P)\,+\,C,\qquad C=\tfrac{1}{2}\max_i\hat h(Q_i).$$
+So one descent step contracts heights by a factor of $2$, plus a bounded additive correction.</p>
 
-<p>Iterate $n$ times: $\hat h(P^{(n)})\le 4^{-n}\hat h(P)+C\sum_{k\ge 0}4^{-k}=4^{-n}\hat h(P)+\tfrac{4}{3}C$. Eventually $\hat h(P^{(n)})\le\tfrac{4}{3}C+1$, which is a <em>fixed</em> bound independent of $P$. Northcott then says only finitely many points have height $\le\tfrac{4}{3}C+1$; that finite set, together with $Q_1,\dots,Q_m$, generates all of $E(K)$.</p>
+<p>Iterate $n$ times: $\hat h(P^{(n)})\le 2^{-n}\hat h(P)+C\sum_{k\ge 0}2^{-k}=2^{-n}\hat h(P)+2C$. Eventually $\hat h(P^{(n)})\le 2C+1$, which is a <em>fixed</em> bound independent of $P$. Northcott then says only finitely many points have height $\le 2C+1$; that finite set, together with $Q_1,\dots,Q_m$, generates all of $E(K)$.</p>
 
 <p>The widget below performs an explicit $2$-descent on the rank-$1$ curve $E\colon y^2=x^3-x+1$ over $\mathbb{Q}$. Starting from the integer point $P=(0,1)$, it generates $2P, 4P, 8P,\dots$ via the duplication formula and reads off the canonical height growth $\hat h([2^n]P)=4^n\,\hat h(P)$ — exactly the inverse of one descent step.</p>
 
@@ -954,9 +956,9 @@ with $C=\tfrac{1}{2}\max_i\hat h(Q_i)$. So one descent step contracts heights by
   });
 })();
 </script>
-<p>Reading the trajectory: the $x$-coordinate denominators of $[2^n]P_0$ explode like $4^n$ in their digit-count — exactly $\hat h([2^n]P)=4^n\hat h(P)$. The descent step <em>inverts</em> this: starting from a candidate $P$ of large height, we hunt for a $P'$ with $2P'\equiv P\pmod{Q_i}$ and read off a point of height $\sim\hat h(P)/4$.</p>
+<p>Reading the trajectory: the $x$-coordinate denominators of $[2^n]P_0$ explode like $4^n$ in their digit-count — exactly $\hat h([2^n]P)=4^n\hat h(P)$. The descent step <em>inverts</em> this: starting from a candidate $P$ of large height, we hunt for a $P'$ with $2P'\equiv P\pmod{Q_i}$ and read off a point of height $\lesssim\hat h(P)/2$.</p>
 
-<p>Crucially, descent gives a <strong>bounded search radius</strong>. After $n$ steps the iterates have height $\le\tfrac{4}{3}C+1$; one then enumerates the finite set of points with this height bound (Northcott) and works backwards to recover a generating set. For curves of small conductor the descent is fully algorithmic — it powers Cremona's tables and SageMath's <code>E.gens()</code>. For curves of large rank or large conductor, the bottleneck is computing $E(K)/2E(K)$ — not the height side — which is where Tate–Shafarevich obstructions enter.</p>
+<p>Crucially, descent gives a <strong>bounded search radius</strong>. After $n$ steps the iterates have height $\le 2C+1$; one then enumerates the finite set of points with this height bound (Northcott) and works backwards to recover a generating set. For curves of small conductor the descent is fully algorithmic — it powers Cremona's tables and SageMath's <code>E.gens()</code>. For curves of large rank or large conductor, the bottleneck is computing $E(K)/2E(K)$ — not the height side — which is where Tate–Shafarevich obstructions enter.</p>
 
 <p>Three textbook subtleties hide in the contraction. First, the descent yields $E(K)/2^kE(K)$ in principle for any $k$, but $k=2$ is computationally cheapest. Second, the constant $C=\tfrac12\max\hat h(Q_i)$ depends on the chosen coset reps; choosing them with small height accelerates termination. Third, descent over a number field $K\ne\mathbb{Q}$ requires control of the $S$-unit group of $K(E[2])$ — usually the binding constraint on which curves admit explicit descent.</p>
 
@@ -1157,7 +1159,7 @@ $$\max(|a|,|b|,|c|)\;\ll_\varepsilon\;\mathrm{rad}(abc)^{\,1+\varepsilon}.$$
   });
 })();
 </script>
-<p>The "quality" of a triple is $q(a,b,c)=\log\max(|a|,|b|,|c|)/\log\mathrm{rad}(abc)$. The strong abc conjecture predicts $\sup q\le 1+\varepsilon$ for any $\varepsilon>0$ (only finitely many exceptions). The current record is $q\approx 1.6299$ from Reyssat's triple $2+3^{10}\cdot 109=23^5$; no one has ever found $q>1.63$ despite enormous searches. If you ever meet $q\ge 2$, the abc conjecture is refuted — and a great deal of arithmetic geometry, including effective Faltings and uniform Mordell, falls with it.</p>
+<p>The "quality" of a triple is $q(a,b,c)=\log\max(|a|,|b|,|c|)/\log\mathrm{rad}(abc)$. The strong abc conjecture predicts $\sup q\le 1+\varepsilon$ for any $\varepsilon>0$ (only finitely many exceptions). The current record is $q\approx 1.6299$ from Reyssat's triple $2+3^{10}\cdot 109=23^5$; no one has ever found $q>1.63$ despite enormous searches. A single triple at any quality cannot algebraically refute strong abc (it permits finitely many exceptions for each $\varepsilon$), but an <em>infinite family</em> with $q$ bounded away from $1$ — or a single triple flagrantly above the predicted ceiling, e.g. $q\ge 2$ — would be devastating evidence against it, and a great deal of arithmetic geometry, including effective Faltings and uniform Mordell, would fall with it.</p>
 
 <p>The forward implications run deep. Granville's $p$-adic refinement of abc would yield Fermat's Last Theorem with no modularity, an effective Roth theorem (constants depending on $\varepsilon$), and uniform bounds for the number of solutions of generalised Fermat equations $x^p+y^q=z^r$. Vojta's full conjecture goes further: it predicts effective height bounds for $C(K)$ when $C$ has genus $\ge 2$, with constants depending only on the genus and $K$ — the elusive "uniform Mordell". Mochizuki's contested IUT framework, Kim's non-abelian Chabauty, and recent breakthroughs of Dimitrov–Gao–Habegger and Kühne all hover around this circle of ideas.</p>
 

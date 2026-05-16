@@ -407,7 +407,7 @@
           "params": {
             "widgetId": "w-julia-cascade",
             "title": "Filled Julia set $K_c$ for $z\\mapsto z^2+c$",
-            "hint": "drag $\\Re(c)$ / $\\Im(c)$ to move $c$ · shift-click to pin · $c=-1$ is the basilica · $c=-0.75$ is the cusp · the real-axis cascade lives at $c\\in[-2,\\,1/4]$",
+            "hint": "drag $\\Re(c)$ / $\\Im(c)$ to move $c$ · shift-click to pin · $c=-1$ is the basilica · $c=-3/4$ is the period-doubling bifurcation (cardioid meets period-2 disk) · $c=1/4$ is the cardioid cusp · the real-axis cascade lives at $c\\in[-2,\\,1/4]$",
             "mode": "julia",
             "cReal": -1,
             "cImag": 0,

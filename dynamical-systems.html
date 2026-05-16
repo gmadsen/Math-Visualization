@@ -848,7 +848,7 @@ function rk4Step(f, t, y, h){
 <p>The widget below renders $K_c$ for an interactively chosen $c$. The default $c=-1$ is the <strong>basilica</strong> — the Julia set of the first stable 2-cycle, exactly the complex-plane home of the cascade's first doubling. Drag the $\Re(c)$ / $\Im(c)$ sliders, or shift-click on the canvas to pin $c$ at a clicked point: every connected $K_c$ corresponds to a $c$ inside the Mandelbrot set, and the disconnected dust-Julia sets (Fatou's theorem) sit outside it.</p>
 
 <div class="widget" id="w-julia-cascade">
-  <div class="hd"><div class="ttl">Filled Julia set $K_c$ for $z\mapsto z^2+c$</div><div class="hint">drag $\Re(c)$ / $\Im(c)$ to move $c$ · shift-click to pin · $c=-1$ is the basilica · $c=-0.75$ is the cusp · the real-axis cascade lives at $c\in[-2,\,1/4]$</div></div>
+  <div class="hd"><div class="ttl">Filled Julia set $K_c$ for $z\mapsto z^2+c$</div><div class="hint">drag $\Re(c)$ / $\Im(c)$ to move $c$ · shift-click to pin · $c=-1$ is the basilica · $c=-3/4$ is the period-doubling bifurcation (cardioid meets period-2 disk) · $c=1/4$ is the cardioid cusp · the real-axis cascade lives at $c\in[-2,\,1/4]$</div></div>
   <canvas id="w-julia-cascade-canvas" width="520" height="340" style="width:100%;max-width:520px;height:auto;display:block;border:1px solid var(--line);border-radius:6px;cursor:crosshair;image-rendering:pixelated;background:var(--bg)"></canvas>
   <div class="row">
     <label for="w-julia-cascade-cR">$\Re(c)$</label>

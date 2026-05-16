@@ -544,9 +544,9 @@ where $(u,w) = (X/Y, Z/Y)$ on the $Y$-chart and $(x,y) = (X/Z, Y/Z) = (u/w, 1/w)
   const out = $('#ch-out');
   const boxes = $$('.chartbox');
   const txts = {
-    Z: 'U_Z (Z=1):  x² + y² = 1.   Compact circle.   Points at infinity from this chart: [X:Y:0] with X²+Y²=0, i.e. only [1:i:0] and [1:-i:0] over C — none over R.',
-    Y: 'U_Y (Y=1):  x² + 1 = z²,  i.e. z² − x² = 1.   Hyperbola.   The two missing points are where Y=0: [1:0:1] and [1:0:-1] are visible here, and [1:0:0] (the X-axis direction) is at infinity in this chart.',
-    X: 'U_X (X=1):  1 + y² = z²,  i.e. z² − y² = 1.   Same hyperbola, different chart.   [0:1:0] (the Y-axis direction) is at infinity here.'
+    Z: 'U_Z (Z=1):  x² + y² = 1.   Compact circle.   Points at infinity from this chart are [X:Y:0] with X²+Y²=0, i.e. only [1:i:0] and [1:-i:0] over C — none over R, so the real conic is already complete in this chart.',
+    Y: 'U_Y (Y=1):  x² + 1 = z²,  i.e. z² − x² = 1.   Hyperbola.   The points missing from U_Y are those with Y=0 on the conic: real points [1:0:1] and [1:0:-1] (both visible in the U_Z chart), plus the complex points at infinity [1:±i:0].',
+    X: 'U_X (X=1):  1 + y² = z²,  i.e. z² − y² = 1.   Same hyperbola, different chart.   The points missing from U_X are those with X=0: real points [0:1:1] and [0:1:-1] (in U_Z), plus the same complex [1:±i:0] at infinity.'
   };
   function pick(c){
     boxes.forEach(b => b.classList.toggle('sel', b.dataset.c === c));
@@ -801,7 +801,7 @@ This is an algebraic group of dimension $9 - 1 = 8$ over $K$.</p>
 <li>A projective <em>cubic</em> is determined by $9$ general points (the basis for the geometry of elliptic curves).</li>
 <li>$\mathrm{PGL}_3(K)$ acts simply transitively on ordered $4$-tuples of points in <em>general position</em> (no 3 collinear).</li>
 </ul>
-<p style="margin:.2rem 0">In particular, two smooth plane conics are projectively equivalent over $\bar{K}$: every smooth conic can be brought into the form $X^2+Y^2 = Z^2$ (a circle) or $XY = Z^2$ (a parabola) — over the algebraic closure they are the same curve.</p>
+<p style="margin:.2rem 0">In particular, two smooth plane conics are projectively equivalent over $\bar{K}$: every smooth conic can be brought into the form $X^2+Y^2 = Z^2$ or $XY = Z^2$ — over the algebraic closure these are the same curve, dehomogenizing to a circle, a hyperbola, or a parabola depending on which chart you slice it in.</p>
 </div>
 
 <div class="widget" id="w-conic">
@@ -955,7 +955,8 @@ The chosen point $O = [0:1:0]$ is the identity of the group law on $C$. The full
 (function(){
   // y² = x³ + 1   (affine).  Homogenization Y²Z = X³ + Z³.
   // U_Z chart: usual xy plot
-  // U_Y chart (Y=1): u² t = 1 + t³ where u = X/Y, t = Z/Y;  i.e.  u² = (1 + t³)/t ;  also  t = 0 corresponds to Y=∞ direction... wait: Z/Y = t; at the point [0:1:0] we have t = 0, u = 0. Plot in (u,t).
+  // U_Y chart (Y=1): with u = X/Y, t = Z/Y, divide Y²Z = X³ + Z³ by Y³ to get  t = u³ + t³.
+  // At [0:1:0] we have (u,t) = (0,0), and the curve passes through it smoothly (∂F/∂t = -1 there).
   function plotZ(){
     const svg = $('#we-z'); svg.innerHTML='';
     const W=320, H=280, ox=W/2, oy=H/2, sc=42;
@@ -984,15 +985,13 @@ The chosen point $O = [0:1:0]$ is the identity of the group law on $C$. The full
   function plotY(){
     const svg = $('#we-y'); svg.innerHTML='';
     // (u,t) plane, u = X/Y, t = Z/Y
-    // equation:  u² t = 1 + t³  =>  u² = (1 + t³)/t   (for t≠0)
-    // at t=0 we have the point [0:1:0] = (u=0, t=0)
-    // and the curve passes through it: as t→0+, u² ~ 1/t → ∞ on the branch u² = (1+t³)/t but also there's a different branch
-    // Actually the projective closure passes through (u,t)=(0,0) smoothly: rewrite as 1 = u²t - t³.
-    // Implicit plot: F(u,t) = u² t - t³ - 1 = 0. Use marching squares-lite over a grid.
+    // Y²Z = X³ + Z³  divided by Y³  =>  t = u³ + t³.
+    // The curve passes through (u,t) = (0,0) = [0:1:0] smoothly; tangent there is t = 0 (= line at infinity in U_Z).
+    // Implicit plot: F(u,t) = u³ + t³ - t = 0. Use marching squares-lite over a grid.
     const W=320, H=280, ox=W/2, oy=H/2, sc=70;
     svg.appendChild(SVG('line',{x1:0,y1:oy,x2:W,y2:oy,stroke:'#2a3242'}));
     svg.appendChild(SVG('line',{x1:ox,y1:0,x2:ox,y2:H,stroke:'#2a3242'}));
-    function f(u,t){ return u*u*t - t*t*t - 1; }
+    function f(u,t){ return u*u*u + t*t*t - t; }
     // sample a fine grid and connect zero crossings
     const N=200;
     const lo=-2.2, hi=2.2;

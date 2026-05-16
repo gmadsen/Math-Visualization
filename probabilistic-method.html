@@ -524,8 +524,8 @@ function drawNode(svg, x, y, label, opts={}){
 <ol>
   <li>Sample $G(n,p)$ with $p = n^{\theta-1}$ for small $\theta$.</li>
   <li>By linearity, the expected number of cycles of length $\le g-1$ is $\sum_{i=3}^{g-1} (n)_i p^i / (2i)$ — a polynomial in $n$ of degree at most $g-1$.</li>
-  <li>By the same trick, $\alpha(G) < n^{1-\theta/2}$ with high probability via a Chebyshev-type bound on $\#\{\text{independent sets of size }k\}$.</li>
-  <li>Delete one vertex from every short cycle: at most a $o(n)$ deletion. The remaining graph $G'$ has girth $\ge g$ and $\alpha(G') \le \alpha(G) < n^{1-\theta/2}$, so its chromatic number $\chi(G') \ge n/\alpha(G') > n^{\theta/2}$ — arbitrarily large.</li>
+  <li>A first-moment / union-bound argument on $\#\{\text{independent sets of size }k\}$ at $k = \lceil (3/p)\ln n\rceil$ gives $\alpha(G) < (3/p)\ln n = 3\,n^{1-\theta}\ln n$ with high probability.</li>
+  <li>Delete one vertex from every short cycle: at most a $o(n)$ deletion (since $\theta < 1/(g-1)$ keeps the expected number of short cycles $o(n)$). The remaining graph $G'$ has girth $\ge g$ and $\alpha(G') \le \alpha(G) < 3\,n^{1-\theta}\ln n$, so its chromatic number satisfies $\chi(G') \ge n/(2\alpha(G')) \gtrsim n^{\theta}/(6\ln n) \to \infty$ — arbitrarily large.</li>
 </ol>
 
 <p>The deletion in step 4 is the <em>alteration method</em> (§4) — but linearity is what makes the global accounting tractable.</p>
@@ -907,7 +907,7 @@ then $\mathbb{P}\!\left(\bigcap_{i=1}^m \bar A_i\right) > 0$.</div>
 </tbody>
 </table>
 
-<p>The variance computation is the heart: pairs of triangles either share $0$, $1$, $2$, or all $3$ edges, each with a different multiplicity. Above $p_c$ the dominant pair-type is "share $0$", giving $\operatorname{Var} \sim \mathbb{E}[X]$ — much smaller than $\mathbb{E}[X]^2$. Chebyshev wins.</p>
+<p>The variance computation is the heart: pairs of triangles either share $0$, $1$, $2$, or all $3$ edges. Pairs sharing $0$ edges are independent and contribute nothing to the covariance, so above $p_c$ (with $np \to \infty$) the dominant covariance contribution comes from pairs sharing exactly one edge ($\sim n^4 p^5$). Combined with the diagonal term $\sim \mathbb{E}[X]$, the total variance is $o(\mathbb{E}[X]^2) = o(n^6 p^6)$. Chebyshev wins.</p>
 
 <p>Connectivity ($p_c = \log n / n$), Hamiltonicity ($p_c = \log n / n$), and the giant component ($p_c = 1/n$) all follow the same template.</p>
 
@@ -1034,7 +1034,7 @@ then $\mathbb{P}\!\left(\bigcap_{i=1}^m \bar A_i\right) > 0$.</div>
 <tbody>
 <tr><td>Markov</td><td>$\mathbb{P}(X\ge a) \le \mathbb{E}[X]/a$</td><td>$X\ge 0$</td></tr>
 <tr><td>Chebyshev</td><td>$\mathbb{P}(|X-\mu|\ge t) \le \sigma^2/t^2$</td><td>finite variance</td></tr>
-<tr><td>Chernoff</td><td>$\mathbb{P}(S_n \ge (1+\delta)\mu) \le e^{-\mu\delta^2/3}$</td><td>$S_n=\sum X_i$, $X_i\in[0,1]$ independent</td></tr>
+<tr><td>Chernoff</td><td>$\mathbb{P}(S_n \ge (1+\delta)\mu) \le e^{-\mu\delta^2/3}$ for $\delta \in (0,1]$</td><td>$S_n=\sum X_i$, $X_i\in[0,1]$ independent</td></tr>
 <tr><td>Hoeffding</td><td>$\mathbb{P}(|S_n-\mu|\ge t) \le 2\exp(-2t^2/\sum c_i^2)$</td><td>$X_i\in[a_i,b_i]$ independent, $c_i=b_i-a_i$</td></tr>
 <tr><td>Azuma</td><td>$\mathbb{P}(|M_n-M_0|\ge t) \le 2\exp(-t^2/(2\sum c_i^2))$</td><td>martingale with bounded differences $|M_i - M_{i-1}|\le c_i$</td></tr>
 </tbody>

@@ -749,7 +749,7 @@ $$\alpha_{\mathrm{GW}} \;=\; \min_{\theta\in[0,\pi]} \frac{\theta/\pi}{(1-\cos\t
     <span class="readout" id="cv-gw-samples-out" style="min-width:90px;flex:0 0 auto">N = 1000</span>
   </div>
   <div class="readout" id="cv-gw-out"></div>
-  <div class="note small">A 5-cycle in 2D: SDP relaxation places vectors at angles $0,72,144,216,288°$. Pick a hyperplane normal $r$ at angle $\varphi$ and partition vertices by $\mathrm{sign}(v_i\!\cdot\! r)$. Cut weight = sum of $w_{ij}$ over edges $(i,j)$ separated by the hyperplane. Re-sampling many random $r$ approximates the GW expectation. The $0.878\ldots$ guarantee is the worst-case ratio between this expected cut and the SDP relaxation value.</div>
+  <div class="note small">A 5-cycle in 2D, with the vectors placed at angles $0,72,144,216,288°$ — this is a <em>feasible</em> Gram configuration ($\|v_i\|=1$), not the SDP optimum. (The true SDP optimum on $C_5$ uses the anti-prism arrangement at adjacent angle $4\pi/5$, giving objective $\approx 4.52$; the integer MAX-CUT optimum is $4$.) Pick a hyperplane normal $r$ at angle $\varphi$ and partition vertices by $\mathrm{sign}(v_i\!\cdot\! r)$. Cut weight = sum of $w_{ij}$ over edges $(i,j)$ separated by the hyperplane. Re-sampling many random $r$ approximates the GW expectation. The $0.878\ldots$ guarantee is the worst-case ratio between this expected cut and the SDP relaxation value.</div>
 </div>
 <script>
 /* ============================ §4 GW rounding widget ============================ */
@@ -829,7 +829,7 @@ $$\alpha_{\mathrm{GW}} \;=\; \min_{\theta\in[0,\pi]} \frac{\theta/\pi}{(1-\cos\t
     const lg2=SVG("text",{x:20,y:40,"font-size":11,fill:"var(--yellow)"}); lg2.textContent="cut edges (yellow)"; svg.appendChild(lg2);
     const lg3=SVG("text",{x:20,y:56,"font-size":11,fill:"var(--pink)"}); lg3.textContent="side +1 (pink)"; svg.appendChild(lg3);
     const lg4=SVG("text",{x:20,y:72,"font-size":11,fill:"var(--green)"}); lg4.textContent="side -1 (green)"; svg.appendChild(lg4);
-    out.textContent = `SDP value = ${sdp.toFixed(3)}    this hyperplane cuts ${oneCut} / ${edges.length} edges    expected cut over ${N} random samples = ${exp.toFixed(3)}    ratio ≈ ${ratio.toFixed(3)}  (GW guarantee: ≥ 0.878)`;
+    out.textContent = `feasible relaxation value (this Gram config) = ${sdp.toFixed(3)}    this hyperplane cuts ${oneCut} / ${edges.length} edges    expected cut over ${N} random samples = ${exp.toFixed(3)}    ratio (vs this feasible value) ≈ ${ratio.toFixed(3)}  (GW guarantee: ≥ 0.878 vs the SDP optimum, which on $C_5$ is ≈ 4.52)`;
   }
   PH.addEventListener("input",render);
   NS.addEventListener("input",render);
@@ -870,7 +870,7 @@ $$x_{k+1} \;=\; \mathrm{prox}_{\alpha g}\bigl(x_k - \alpha\nabla f(x_k)\bigr)$$
   MVInlineCodeCell.init('#cv-w-rates', {
     title: "Compare gradient descent vs Nesterov acceleration",
     hint: "Run a side-by-side sweep on a 2D ill-conditioned quadratic",
-    initialCode: "// Minimise f(x,y) = 0.5*(x^2 + 100*y^2)\n// Gradient = (x, 100y). Lipschitz constant L = 100.\nconst L = 100, alpha = 1/L;\nconst N = 80;\n\nfunction gd(x0, y0){\n  let x=x0, y=y0;\n  const hist = [];\n  for(let k=0;k<N;k++){\n    const f = 0.5*(x*x + 100*y*y);\n    hist.push(f);\n    x = x - alpha*x;\n    y = y - alpha*(100*y);\n  }\n  return hist;\n}\n\nfunction nesterov(x0, y0){\n  let x=x0, y=y0, xp=x0, yp=y0;\n  const hist = [];\n  for(let k=0;k<N;k++){\n    const beta = k/(k+3);\n    const ux = x + beta*(x-xp), uy = y + beta*(y-yp);\n    xp=x; yp=y;\n    x = ux - alpha*ux;\n    y = uy - alpha*(100*uy);\n    hist.push(0.5*(x*x + 100*y*y));\n  }\n  return hist;\n}\n\nconst g = gd(1, 1);\nconst n = nesterov(1, 1);\nconsole.log('iter  GD                NAG');\nfor(let k of [0,5,10,20,40,79]){\n  console.log(k.toString().padStart(4) + '  ' + g[k].toExponential(3) + '   ' + n[k].toExponential(3));\n}\nconsole.log('\\nAfter 80 iterations:');\nconsole.log('  GD          : ' + g[N-1].toExponential(3));\nconsole.log('  Nesterov NAG: ' + n[N-1].toExponential(3));\nconsole.log('  ratio       : ' + (g[N-1]/n[N-1]).toFixed(1) + 'x');",
+    initialCode: "// Minimise f(x,y) = 0.5*(x^2 + 100*y^2)\n// Gradient = (x, 100y). Lipschitz constant L = 100.\nconst L = 100, alpha = 1/L;\nconst N = 80;\n\nfunction gd(x0, y0){\n  let x=x0, y=y0;\n  const hist = [];\n  for(let k=0;k<N;k++){\n    const f = 0.5*(x*x + 100*y*y);\n    hist.push(f);\n    x = x - alpha*x;\n    y = y - alpha*(100*y);\n  }\n  return hist;\n}\n\nfunction nesterov(x0, y0){\n  let x=x0, y=y0, xp=x0, yp=y0;\n  const hist = [];\n  for(let k=0;k<N;k++){\n    const beta = k===0 ? 0 : (k-1)/(k+2);\n    const ux = x + beta*(x-xp), uy = y + beta*(y-yp);\n    xp=x; yp=y;\n    x = ux - alpha*ux;\n    y = uy - alpha*(100*uy);\n    hist.push(0.5*(x*x + 100*y*y));\n  }\n  return hist;\n}\n\nconst g = gd(1, 1);\nconst n = nesterov(1, 1);\nconsole.log('iter  GD                NAG');\nfor(let k of [0,5,10,20,40,79]){\n  console.log(k.toString().padStart(4) + '  ' + g[k].toExponential(3) + '   ' + n[k].toExponential(3));\n}\nconsole.log('\\nAfter 80 iterations:');\nconsole.log('  GD          : ' + g[N-1].toExponential(3));\nconsole.log('  Nesterov NAG: ' + n[N-1].toExponential(3));\nconsole.log('  ratio       : ' + (g[N-1]/n[N-1]).toFixed(1) + 'x');",
     prelude: "math",
     rows: 14,
   });

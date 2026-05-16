@@ -676,7 +676,7 @@ function drawNode(svg, x, y, label, opts={}){
 <tr><td>$(2,1,2)$</td><td>$0$</td><td>Every genus-2 curve is hyperelliptic — a unique $g^1_2$ (the canonical pencil). $W^1_2$ is a point.</td></tr>
 <tr><td>$(3,1,2)$</td><td>$-1$</td><td>A general genus-3 curve has no $g^1_2$ (is not hyperelliptic). Hyperelliptic genus-3 curves form a codim-1 locus in $\mathcal{M}_3$.</td></tr>
 <tr><td>$(4,1,3)$</td><td>$0$</td><td>Every genus-4 curve admits a $g^1_3$ (trigonal pencil); on a general curve there are exactly two such pencils — Castelnuovo's count, $\dim W^1_3 = 0$.</td></tr>
-<tr><td>$(g,g-1,2g-2)$</td><td>$g-1$</td><td>The complete $g^{g-1}_{2g-2}=|K|$ canonical series — always exists, the canonical map. Dim of $W^{g-1}_{2g-2}$ is $0$ in general (just one $L$ — namely $K$).</td></tr>
+<tr><td>$(g,g-1,2g-2)$</td><td>$0$</td><td>The complete $g^{g-1}_{2g-2}=|K|$ canonical series — always exists, the canonical map. $\rho=0$ matches the geometry: $W^{g-1}_{2g-2}$ is the single point $\{K\}\subset\Pic^{2g-2}$.</td></tr>
 </tbody>
 </table>
 
@@ -944,7 +944,7 @@ function drawNode(svg, x, y, label, opts={}){
 
 <p>multiplying a section of $L$ by a section of $K\otimes L^{-1}$ to get a holomorphic differential. The Zariski tangent space to $W^r_d$ at $L$ is the dual of $\operatorname{coker}\mu_0(L)$. So $W^r_d$ has the expected dimension $\rho$ at $L$ iff $\mu_0(L)$ has full rank — iff $\mu_0(L)$ is injective.</p>
 
-<div class="ok"><strong>Petri's theorem (Gieseker 1982, Eisenbud–Harris 1983).</strong> On a general smooth projective curve $C$ of genus $g$, for every line bundle $L\in W^r_d(C)\setminus W^{r+1}_d(C)$, the Petri map $\mu_0(L)$ is injective. Consequently, $W^r_d(C)$ is smooth of dimension exactly $\rho(g,r,d)$ along its open stratum.</div>
+<div class="ok"><strong>Petri's theorem (Gieseker 1982, Eisenbud–Harris 1986).</strong> On a general smooth projective curve $C$ of genus $g$, for every line bundle $L\in W^r_d(C)\setminus W^{r+1}_d(C)$, the Petri map $\mu_0(L)$ is injective. Consequently, $W^r_d(C)$ is smooth of dimension exactly $\rho(g,r,d)$ along its open stratum.</div>
 
 <p>The statement was conjectured by Petri (1923, in his Pisa thesis under Severi) and proved by Gieseker via degeneration to a flag curve, then re-proved more cleanly by Eisenbud–Harris using limit linear series (next section). The injectivity is open and closed in the smooth locus of $\mathcal{M}_g$: it's a Zariski-open property (the rank of $\mu_0$ is upper-semicontinuous), and it holds for at least one curve (a chain of elliptic curves) — so it holds on a Zariski-open dense set.</p>
 
@@ -1091,10 +1091,10 @@ function drawNode(svg, x, y, label, opts={}){
   const W=720, H=260;
   let activeC = 1;
   const comps = [
-    {name:'E₁', vanish:'(0, 5)', deg:5, color:'var(--cyan)'},
-    {name:'E₂', vanish:'(1, 4)', deg:5, color:'var(--green)'},
-    {name:'E₃', vanish:'(2, 3)', deg:5, color:'var(--yellow)'},
-    {name:'E₄', vanish:'(2, 4)', deg:5, color:'var(--pink)'}
+    {name:'E₁', vanish:'(0, 3)', deg:3, color:'var(--cyan)'},
+    {name:'E₂', vanish:'(0, 3)', deg:3, color:'var(--green)'},
+    {name:'E₃', vanish:'(0, 3)', deg:3, color:'var(--yellow)'},
+    {name:'E₄', vanish:'(0, 3)', deg:3, color:'var(--pink)'}
   ];
   function render(){
     while(svg.firstChild) svg.removeChild(svg.firstChild);
@@ -1123,7 +1123,7 @@ function drawNode(svg, x, y, label, opts={}){
     }
     // total
     const tot=SVG('text',{x:W/2, y:225,'text-anchor':'middle','font-size':12, fill:'var(--mute)'});
-    tot.textContent='Chain of 4 elliptic curves modeling a limit g¹₅; ρ(4, 1, 5) = ' + (4 - 2*(4-5+1)) + ' (special range: d ≤ 2g−2 = 6)';
+    tot.textContent='Chain of 4 elliptic curves modeling a limit g¹₃ (gonality of generic genus-4 curve); ρ(4, 1, 3) = ' + (4 - 2*(4-3+1)) + ' (special range: d ≤ 2g−2 = 6)';
     svg.appendChild(tot);
     const cmt=SVG('text',{x:W/2, y:243,'text-anchor':'middle','font-size':10, fill:'var(--mute)','font-style':'italic'});
     cmt.textContent='vanishing sequences satisfy the Eisenbud–Harris compatibility at every node.';
@@ -1132,7 +1132,7 @@ function drawNode(svg, x, y, label, opts={}){
     out.textContent =
       'Component '+c.name+': deg = '+c.deg+', vanishing sequence at the node ↔ next component: '+c.vanish+'\n' +
       'A limit linear series prescribes both the line bundle on each component and the order of vanishing at each node.\n' +
-      'Compatibility (Eisenbud–Harris): the vanishing sequences on the two sides of each node must add to (≥) (d−r, d−r+1, ..., d) — i.e. enough sections vanish on each side to glue.';
+      'Compatibility (Eisenbud–Harris): if (a_0 < ... < a_r) and (b_0 < ... < b_r) are the vanishing sequences on the two sides of a node, then a_i + b_{r-i} ≥ d for every i — a single threshold d, indexed in opposite directions on the two sides.';
   }
   for(const k of Object.keys(btns)){
     btns[k].addEventListener('click', ()=>{
@@ -1150,7 +1150,7 @@ function drawNode(svg, x, y, label, opts={}){
 <tbody>
 <tr><td>$(3,1,2)$</td><td>$-1$</td><td>Hyperelliptic locus $\mathcal{M}^1_{3,2}\subset\mathcal{M}_3$ — a codim-$1$ subvariety; in $\overline{\mathcal{M}}_3$ it has a known class in $\Pic\otimes\mathbb{Q}$.</td></tr>
 <tr><td>$(5,1,3)$</td><td>$-1$</td><td>Trigonal locus in $\mathcal{M}_5$ — curves with a $g^1_3$ (degree-3 map to $\mathbb{P}^1$). Codim 1.</td></tr>
-<tr><td>$(6,2,5)$</td><td>$-1$</td><td>Curves with a $g^2_5$ in $\mathcal{M}_6$ — codim-1. Class computed by Harris–Mumford; key input to proving $\overline{\mathcal{M}}_g$ is of general type for $g\ge 24$.</td></tr>
+<tr><td>$(11,2,9)$</td><td>$-1$</td><td>Curves of genus $11$ admitting a $g^2_9$ — a codim-$1$ Brill–Noether divisor in $\mathcal{M}_{11}$. Eisenbud–Harris computed its class; analogous BN divisors at $g=23$ are the key input to Harris–Mumford's proof that $\overline{\mathcal{M}}_g$ is of general type for $g\ge 24$.</td></tr>
 <tr><td>$(g, r, d)$, $\rho=-1$</td><td>$-1$</td><td>Eisenbud–Harris class formula: $[\overline{\mathcal{M}}^r_{g,d}]$ as an explicit combination of $\lambda$ and $\delta_i$.</td></tr>
 </tbody>
 </table>

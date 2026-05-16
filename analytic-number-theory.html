@@ -529,7 +529,7 @@ The trick is dissecting the integration domain $[0,1]$ into the rationals where 
 
 <p><strong>Minor arcs.</strong> Everywhere off the major arcs, $\alpha$ has poor rational approximations, and Weyl's inequality (next section) gives cancellation in $S(\alpha)$. The minor-arc integral is an error term, dominated when $K$ is chosen well.</p>
 
-<p>This circle of ideas was Hardy and Littlewood's framework for Waring's problem — every integer is a sum of $g(k)$ $k$-th powers, with $g(2) = 4$ (Lagrange), $g(3) = 9$ (Wieferich), $g(4) = 19$ (Balasubramanian–Deshouillers–Dress) — and Vinogradov's 1937 proof that every sufficiently large odd $N$ is a sum of three primes.</p>
+<p>This circle of ideas was Hardy and Littlewood's framework for Waring's problem — every integer is a sum of $g(k)$ $k$-th powers, with $g(2) = 4$ (Lagrange), $g(3) = 9$ (Wieferich), $g(4) = 19$ (Balasubramanian–Deshouillers–Dress) — and Vinogradov's 1937 proof that every sufficiently large odd $N$ is a sum of three primes (the remaining finite range was finally closed by Helfgott in 2013, completing the ternary Goldbach conjecture for all odd $N \ge 7$).</p>
 
 <div class="widget" id="w-cm">
   <div class="hd"><div class="ttl">Major arcs vs. minor arcs on $[0,1]$</div><div class="hint">drag $K$ — watch the major arcs grow</div></div>
@@ -669,7 +669,7 @@ The two sums are <em>symmetric</em> partners: the first counts primes weighted b
 $$\Lambda(n) \log n \;+\; (\Lambda * \Lambda)(n) \;=\; \sum_{d \mid n} \mu(d) \log^2(n/d).$$
 Summing both sides for $n \le x$ and using elementary asymptotics $\sum_{n \le x} \log^2 n = x\log^2 x - 2x\log x + 2x + O(\log^2 x)$ gives Selberg's identity after Abel summation.</p>
 
-<p><strong>The bootstrap.</strong> Set $R(x) = \psi(x) - x$. Selberg's identity rewrites as $R(x)\log x + \int_1^x R(x/t)\,d\psi(t) = O(x)$. Erdős's contribution: an averaging argument that turns this into the self-improvement $\limsup_x |R(x)/x| \le \tfrac12 \limsup_x |R(x)/x|$, forcing $R(x) = o(x)$ — equivalent to PNT. The error is weaker than the analytic proof's $O(x e^{-c\sqrt{\log x}})$, but the proof is real-variable.</p>
+<p><strong>The bootstrap.</strong> Set $R(x) = \psi(x) - x$. Selberg's identity rewrites as $R(x)\log x + \int_1^x R(x/t)\,d\psi(t) = O(x)$. Erdős's contribution: an averaging argument over a Tauberian smoothing that yields a self-improvement of the form $A \le (1-\delta)\,A + o(1)$ for $A := \limsup_x |R(x)/x|$ and some fixed $\delta > 0$, forcing $A = 0$ — equivalent to PNT. The error is weaker than the analytic proof's $O(x e^{-c\sqrt{\log x}})$, but the proof is real-variable.</p>
 
 <div class="widget" id="w-selberg"></div><script>
 (function(){
@@ -697,8 +697,8 @@ Summing both sides for $n \le x$ and using elementary asymptotics $\sum_{n \le x
       },
       {
         title: "Erdős's averaging step",
-        body: "Erdős's key insight: the symmetry forces an averaging inequality. If $A := \\limsup_x |R(x)/x|$, then\n$$A \\;\\le\\; \\tfrac{1}{2} A \\;+\\; o(1),$$\ni.e. the limsup self-improves by a factor of $1/2$ at each iteration. Iterating gives $A \\le 2^{-k} A + o(1)$ for every $k$, hence $A = 0$.",
-        svgInner: "<text x='160' y='40' text-anchor='middle' font-size='13' fill='var(--ink)'>A := lim sup |R(x)/x|</text><text x='160' y='80' text-anchor='middle' font-size='14' fill='var(--yellow)'>A ≤ ½ A</text><text x='160' y='110' text-anchor='middle' font-size='12' fill='var(--mute)'>iterate ⟹ A ≤ 2⁻ᵏ A → 0</text><text x='160' y='145' text-anchor='middle' font-size='13' fill='var(--green)'>R(x) = o(x)</text>",
+        body: "Erdős's key insight: the symmetry forces an averaging inequality. If $A := \\limsup_x |R(x)/x|$, then a Tauberian averaging argument applied to Selberg's identity yields\n$$A \\;\\le\\; (1-\\delta)\\,A \\;+\\; o(1)$$\nfor some fixed $\\delta > 0$ — i.e. the limsup is strictly contracted at each step. Iterating gives $A \\le (1-\\delta)^k A + o(1)$ for every $k$, hence $A = 0$. (The factor $\\tfrac{1}{2}$ in older sketches is illustrative, not the literal contraction the proof produces.)",
+        svgInner: "<text x='160' y='40' text-anchor='middle' font-size='13' fill='var(--ink)'>A := lim sup |R(x)/x|</text><text x='160' y='80' text-anchor='middle' font-size='14' fill='var(--yellow)'>A ≤ (1−δ) A + o(1)</text><text x='160' y='110' text-anchor='middle' font-size='12' fill='var(--mute)'>iterate ⟹ A ≤ (1−δ)ᵏ A → 0</text><text x='160' y='145' text-anchor='middle' font-size='13' fill='var(--green)'>R(x) = o(x)</text>",
       },
       {
         title: "Conclude PNT",
@@ -721,7 +721,7 @@ Summing both sides for $n \le x$ and using elementary asymptotics $\sum_{n \le x
 $$\sum_{q \le Q} \;\sum_{\chi \bmod q}^{*} \;\biggl|\sum_{n \le N} a_n \chi(n)\biggr|^2 \;\le\; (Q^2 + N) \sum_{n \le N} |a_n|^2,$$
 where the inner sum is over primitive characters $\chi$ mod $q$.</em></p>
 
-<p>The constant $Q^2 + N$ is essentially sharp. The number of primitive characters of conductors $\le Q$ is $\asymp Q^2/\zeta(2)$, so when $a_n$ is concentrated on a single residue class the LHS is already $\asymp Q^2 \|a\|_2^2$; the trivial Cauchy–Schwarz bound gives $N \|a\|_2^2$. Both regimes appear — hence the sum, not the max.</p>
+<p>The constant $Q^2 + N$ is essentially sharp. The number of primitive characters of conductors $\le Q$ is $\asymp Q^2/(2\zeta(2))$, so when $a_n$ is concentrated on a single residue class the LHS is already $\asymp Q^2 \|a\|_2^2$; the trivial Cauchy–Schwarz bound gives $N \|a\|_2^2$. Both regimes appear — hence the sum, not the max.</p>
 
 <p><strong>Dual / Plancherel reformulation.</strong> Equivalently, for $\delta$-spaced frequencies $\alpha_1, \ldots, \alpha_R \in \mathbb{R}/\mathbb{Z}$,
 $$\sum_{r=1}^R \biggl|\sum_{n \le N} a_n e(n\alpha_r)\biggr|^2 \;\le\; (\delta^{-1} + N) \sum |a_n|^2.$$

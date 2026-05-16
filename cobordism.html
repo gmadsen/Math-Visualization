@@ -379,7 +379,7 @@ function drawNode(svg, x, y, label, opts={}){
 
 <section id="thom">
 <h2>3. Thom's theorem and the Thom spectrum $MO$</h2>
-<p>Pontryagin's converse — that SW numbers see everything — is not proved by checking cases. It is proved by recasting the entire bordism ring as the homotopy of a single space (a <em>spectrum</em>), the Thom spectrum $MO$.</p>
+<p>Thom's converse — that SW numbers see everything — is not proved by checking cases. It is proved by recasting the entire bordism ring as the homotopy of a single space (a <em>spectrum</em>), the Thom spectrum $MO$. (Pontryagin had earlier partial results in the framed case (1947); the full SW-completeness theorem for unoriented bordism is Thom 1954.)</p>
 
 <h3>The Pontryagin–Thom construction</h3>
 <p>Given a closed $n$-manifold $M$, embed $M\hookrightarrow\mathbb{R}^{n+k}$ for $k$ large (Whitney). Let $\nu\to M$ be the rank-$k$ normal bundle, and $D(\nu)\to M$ its disk bundle, with sphere bundle $S(\nu)\subset D(\nu)$. The <strong>tubular neighbourhood theorem</strong> gives an embedding $D(\nu)\hookrightarrow\mathbb{R}^{n+k}$. Now collapse everything outside $D(\nu)$ to a point: the result is the <em>Thom space</em>
@@ -408,7 +408,7 @@ The reverse map sends a homotopy class $f\colon S^{n+k}\to MO(k)$ to the preimag
   </div>
   <svg id="om-svg" viewBox="0 0 720 240" width="720" height="240"><title>Dimensions of unoriented bordism groups</title></svg>
   <div class="readout" id="om-out"></div>
-  <p class="small">$\dim_{\mathbb{F}_2}\Omega_n^{O}$ counts monomials of total degree $n$ in $\mathbb{F}_2[x_2,x_4,x_5,x_6,x_8,\ldots]$. First few: $1, 0, 1, 0, 2, 1, 3, 2, 5, 4, 8, 6, 12,\ldots$. Note $\Omega_n^{O}=0$ when $n=1,3$ — the Mersenne dimensions land here as a side effect of the missing low-degree generators.</p>
+  <p class="small">$\dim_{\mathbb{F}_2}\Omega_n^{O}$ counts monomials of total degree $n$ in $\mathbb{F}_2[x_2,x_4,x_5,x_6,x_8,\ldots]$. First few: $1, 0, 1, 0, 2, 1, 3, 1, 5, 3, 8, 5, 12, 9, 18,\ldots$. The Mersenne integers $1, 3, 7, 15, \ldots$ are excluded as <em>generator degrees</em>, not as $\Omega$-vanishing degrees: $\Omega_1^{O}=\Omega_3^{O}=0$ only because no monomial reaches those small totals, but already $\Omega_7^{O}\ne 0$ (e.g. $x_5\,x_2$).</p>
 </div>
 
 <div class="ok"><strong>Why this is the right answer.</strong> Bordism is <em>not</em> ordinary cohomology: $MO\ne H\mathbb{Z}/2$. It is its own generalised cohomology theory, with its own Adams spectral sequence and its own coefficient ring. Thom's theorem is the prototype for every later "spectrum-of-manifolds-with-structure": $MSO$ (oriented), $MU$ (complex), $MSpin$ (spin), $M\mathrm{String}$ (string) — each a different Thom spectrum, each computing a different bordism ring.</p></div>
@@ -449,7 +449,7 @@ The reverse map sends a homotopy class $f\colon S^{n+k}\to MO(k)$ to the preimag
 <p style="text-align:center">$L_1 = \tfrac{1}{3}p_1,\qquad L_2 = \tfrac{1}{45}(7p_2 - p_1^2),\qquad L_3 = \tfrac{1}{945}(62p_3 - 13p_2p_1 + 2p_1^3),\quad\ldots$</p>
 <p>The Hirzebruch <strong>signature theorem</strong> (1954) says: for a closed oriented $M^{4k}$,</p>
 <p style="text-align:center">$\sigma(M) \;=\; \langle L_k(p_1,\ldots,p_k),[M]\rangle.$</p>
-<p>So a quantity built from cup products of cohomology classes (signature) equals an explicit polynomial in Pontryagin classes (curvature data of the tangent bundle). This is the prototype of an <em>index theorem</em> — both the topological index of an elliptic operator (here, $d+d^*$ on even forms) and the analytic index (the signature) are computed by the same characteristic-class formula.</p>
+<p>So a quantity built from cup products of cohomology classes (signature) equals an explicit polynomial in Pontryagin classes (curvature data of the tangent bundle). This is the prototype of an <em>index theorem</em> — both the topological index of an elliptic operator (here, the <em>signature operator</em> $d+d^*$ acting between the $\pm 1$ eigenspaces of the Hodge star on middle forms) and the analytic index (the signature) are computed by the same characteristic-class formula.</p>
 
 <div class="note"><strong>Worked example: $\sigma(\mathbb{CP}^2) = 1$.</strong> $H^2(\mathbb{CP}^2;\mathbb{Z}) = \mathbb{Z}\cdot x$ with $\langle x^2,[\mathbb{CP}^2]\rangle = 1$, so the form is the rank-one $(1)$, signature $1$. On the Pontryagin side, $T\mathbb{CP}^2$ has $p_1 = 3x^2$, so $L_1[\mathbb{CP}^2] = \tfrac{1}{3}\langle p_1,[\mathbb{CP}^2]\rangle = \tfrac{1}{3}\cdot 3 = 1$. The two sides agree — the signature theorem in degree 4. Iterating: $\sigma(\mathbb{CP}^{2k})=1$ in every dimension $4k$, which is exactly what makes $[\mathbb{CP}^{2k}]$ a polynomial generator of $\Omega_*^{SO}\otimes\mathbb{Q}$.</div>
 
@@ -508,7 +508,7 @@ The reverse map sends a homotopy class $f\colon S^{n+k}\to MO(k)$ to the preimag
 
 <p>The proof works by Cerf-theoretic handle cancellation (see <a href="./morse-theory.html#cerf-theory">Morse theory §8</a>): start with a Morse function on $W$, eliminate $0$- and $n$-handles by killing critical points using simple connectivity, then cancel pairs of adjacent-index handles using the <em>Whitney trick</em> — sliding handles past each other in a $(p,q)$-disk pair. The Whitney trick needs $\dim W \ge 5$ to embed the disk pair without self-intersection, and the dimension constraint $\ge 6$ comes from a margin in the indexing.</p>
 
-<div class="bad"><strong>The dimension hypothesis is sharp.</strong> The theorem is <em>false</em> in dimension $4$: Donaldson and Freedman gave examples of $h$-cobordant smooth $4$-manifolds that are not diffeomorphic. The Whitney trick fails — there is no room to embed the disks transversally — and exotic smooth structures proliferate. This is one face of why dimension $4$ is the hardest: smooth and topological categories diverge.</div>
+<div class="bad"><strong>The dimension hypothesis is sharp.</strong> The theorem is <em>false</em> in dimension $4$: Donaldson's gauge-theoretic invariants exhibit $h$-cobordant smooth $4$-manifolds that are not diffeomorphic. (Freedman's complementary 1982 result gives the <em>topological</em> $h$-cobordism theorem in dim $4$, so the failure is strictly smooth.) The Whitney trick fails — there is no room to embed the disks transversally — and exotic smooth structures proliferate. This is one face of why dimension $4$ is the hardest: smooth and topological categories diverge.</div>
 
 <h3>Consequences</h3>
 <ul>

@@ -217,7 +217,7 @@
           ],
           "answer": 0,
           "hint": "Without spin, $\\hat A$ would only land in $\\mathbb{Q}$, but $\\ind(D)$ is an integer.",
-          "explain": "The expansion of $\\hat A$ involves rational coefficients. The fact that its integral against $[M]$ is an integer when $M$ is spin is one of the first divisibility theorems that the index theorem produces — historically how Rokhlin's $\\sigma\\equiv 0\\pmod{16}$ for spin $4$-manifolds was reproved."
+          "explain": "The expansion of $\\hat A$ involves rational coefficients. The fact that its integral against $[M]$ is an integer when $M$ is spin is one of the first divisibility theorems that the index theorem produces — directly giving Rokhlin's $\\sigma\\equiv 0\\pmod{8}$ for spin $4$-manifolds (the mod-$16$ strengthening uses the additional quaternionic structure on $S^+$ in dim $4$)."
         }
       ]
     },

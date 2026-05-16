@@ -80,7 +80,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<p>The error after each Newton step squares the previous error. Starting from $x_0=2.5$ with $|e_0|\\approx 1.09$, three steps reach machine precision; bisection on the same interval would need $\\sim 50$ steps. The price is $f'$: when the derivative is unavailable or expensive, the secant method substitutes a finite difference and pays a slightly worse golden-ratio order $p\\approx 1.618$.</p>\n\n<div class=\"bad\"><strong>Failure modes.</strong> Newton diverges if $x_0$ is too far from the root (the tangent overshoots), if $f'(r)=0$ (multiple root — order drops to linear), or if iterates fall into a cycle. Robust solvers combine bisection's safety with Newton's speed: <strong>Brent's method</strong>.</div>\n\n"
+          "html": "\n\n<p>The error after each Newton step squares the previous error. Starting from $x_0=2.5$ with $|e_0|\\approx 1.09$, the iterates contract as $|e_n|\\approx 1.09,\\ 0.24,\\ 1.7\\!\\times\\!10^{-2},\\ 9.9\\!\\times\\!10^{-5},\\ 3.5\\!\\times\\!10^{-9},\\ 2.2\\!\\times\\!10^{-16}$ — five Newton steps reach machine precision; bisection on the same interval would need $\\sim 50$ steps. The price is $f'$: when the derivative is unavailable or expensive, the secant method substitutes a finite difference and pays a slightly worse golden-ratio order $p\\approx 1.618$.</p>\n\n<div class=\"bad\"><strong>Failure modes.</strong> Newton diverges if $x_0$ is too far from the root (the tangent overshoots), if $f'(r)=0$ (multiple root — order drops to linear), or if iterates fall into a cycle. Robust solvers combine bisection's safety with Newton's speed: <strong>Brent's method</strong>.</div>\n\n"
         },
         {
           "type": "raw",

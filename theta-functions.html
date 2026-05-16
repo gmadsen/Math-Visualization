@@ -905,7 +905,8 @@ The right-hand side is a two-variable theta series; setting $z = 1$ gives our $\
 <div class="note">
 <p><strong>$z = 1$</strong>: $\sum_{n\in\mathbb{Z}} q^{n^2/2} = \theta(\tau) = \prod_{n\ge 1}(1-q^n)(1+q^{n-1/2})^2.$</p>
 <p><strong>$z = -1$</strong>: $\sum_{n\in\mathbb{Z}} (-1)^n q^{n^2/2} = \prod_{n\ge 1}(1-q^n)(1-q^{n-1/2})^2 = \frac{\eta(\tau/2)^2}{\eta(\tau)}.$</p>
-<p><strong>$z = q^{1/2}$</strong>: gives <a href="./partitions-generating-functions.html#pent" data-auto-inline-link="1" data-concept-id="pentagonal-number-theorem" data-blurb="The reciprocal product ∏(1−q^n) collapses to a sparse signed sum over pentagonal numbers k(3k−1)/2, yielding a linear-time recurrence for p(n).">Euler's pentagonal number theorem</a> $\prod(1-q^n) = \sum_{k\in\mathbb{Z}} (-1)^k q^{k(3k-1)/2}.$</p>
+<p><strong>$z = q^{1/2}$</strong>: gives <strong>Gauss's triangular-number identity</strong> $\prod_{n\ge 1}(1-q^n)(1+q^n)(1+q^{n-1}) = \sum_{n\in\mathbb{Z}} q^{n(n+1)/2}.$ (The exponents $n(n+1)/2$ are the triangular numbers; the right side counts each triangular exponent twice from the $\pm n$ symmetry, except $n=0$.)</p>
+<p><strong>$q\mapsto q^3,\ z = -q^{-1/2}$</strong>: the three product factors collapse to $\prod_{n\ge 1}(1-q^{3n})(1-q^{3n-2})(1-q^{3n-1}) = \prod_{k\ge 1}(1-q^k)$, and the right side becomes $\sum_n (-1)^n q^{n(3n-1)/2}$ — <a href="./partitions-generating-functions.html#pent" data-auto-inline-link="1" data-concept-id="pentagonal-number-theorem" data-blurb="The reciprocal product ∏(1−q^n) collapses to a sparse signed sum over pentagonal numbers k(3k−1)/2, yielding a linear-time recurrence for p(n).">Euler's pentagonal number theorem</a> $\prod(1-q^n) = \sum_{k\in\mathbb{Z}} (-1)^k q^{k(3k-1)/2}.$</p>
 </div>
 
 <div class="widget" id="w-jtp">

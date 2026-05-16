@@ -310,7 +310,7 @@
           "q": "For an elliptic curve $E/\\mathbb{Q}$ with multiplicative reduction at $p = 11$ and good reduction at every other prime, the conductor exponent at $11$ is $f_{11} = 1$. Compute the conductor $N(E)$.",
           "answer": 11,
           "tol": 0,
-          "explain": "$N(E) = \\prod_{p\\ \\text{bad}} p^{f_p} = 11^1 = 11$. This is the conductor of the curve $y^2 + y = x^3 - x^2$ (Cremona 11a1), the smallest-conductor elliptic curve over $\\mathbb{Q}$."
+          "explain": "$N(E) = \\prod_{p\\ \\text{bad}} p^{f_p} = 11^1 = 11$. The conductor $11$ is the smallest known for any elliptic curve over $\\mathbb{Q}$, achieved by the isogeny class 11a; the specific model $y^2 + y = x^3 - x^2$ is Cremona 11a3 (the optimal curve in this class is 11a1)."
         },
         {
           "type": "mcq",

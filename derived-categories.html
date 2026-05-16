@@ -348,7 +348,7 @@ function drawNode(svg, x, y, label, opts={}){
 })();
 </script>
 
-<div class="note"><strong>Worked example.</strong> Let $R = k$ a field and consider the complex $X = (\,k \xrightarrow{1} k\,)$ in degrees $0,1$. The identity chain map $\mathrm{id}_X$ and the zero chain map $0$ are <em>chain homotopic</em> via $s\colon X^1 \to X^0$, $s = 1$: indeed $ds + sd = 0 \cdot 1 + 1 \cdot 1 = 1 = \mathrm{id} - 0$ in degree $1$, and similarly in degree $0$. So $[\mathrm{id}] = [0]$ in $K(\mathcal{A})$, which is right because $X$ is acyclic and hence isomorphic to $0$ in $K(\mathcal{A})$ — though strictly only a quasi-iso to $0$, this is one of the rare cases where homotopy already does the job.</div>
+<div class="note"><strong>Worked example.</strong> Let $R = k$ a field and consider the complex $X = (\,k \xrightarrow{1} k\,)$ in degrees $0,1$. The identity chain map $\mathrm{id}_X$ and the zero chain map $0$ are <em>chain homotopic</em> via $s\colon X^1 \to X^0$, $s = 1$: indeed $ds + sd = 1 \cdot 1 + 0 = 1 = \mathrm{id} - 0$ in degree $1$, and similarly in degree $0$. So $[\mathrm{id}] = [0]$ in $K(\mathcal{A})$, hence $X \cong 0$ already in $K(\mathcal{A})$ — for an acyclic complex, passing to $D(\mathcal{A})$ would also kill it via quasi-iso, but here homotopy already does the job.</div>
 
 <!-- callback-auto-begin -->
 <aside class="callback">
@@ -419,7 +419,7 @@ function drawNode(svg, x, y, label, opts={}){
       {
         title: "But f has no inverse in K(A)",
         body: "Could a chain map $g\\colon Y \\to X$ invert $f$? Then $g^1 \\circ \\pi = \\mathrm{id}_{\\mathbb{Z}}$ in degree $1$ — impossible: $\\pi$ kills $2\\mathbb{Z}$ so any post-composition factors through $\\mathbb{Z}/2$, never reaching the surjection onto $\\mathbb{Z}$. No chain map back, so $f$ is not invertible in $K(\\mathrm{Ab})$.",
-        svgInner: "<text x='30' y='50' font-size='13' fill='var(--pink)'>Want: g: Y → X with f∘g = id, g∘f = id (in K).</text><text x='30' y='90' font-size='13' fill='var(--mute)'>Need g¹: ℤ/2 → ℤ with π∘g¹ = id_ℤ.</text><text x='30' y='130' font-size='13' fill='var(--ink)'>Impossible: g¹ factors via |ℤ/2| = 2.</text><text x='30' y='170' font-size='13' fill='var(--pink)'>So in K(Ab), f is not an iso.</text>"
+        svgInner: "<text x='30' y='50' font-size='13' fill='var(--pink)'>Want: g: Y → X with f∘g = id, g∘f = id (in K).</text><text x='30' y='90' font-size='13' fill='var(--mute)'>Need g¹: ℤ/2 → ℤ with g¹∘π = id_ℤ.</text><text x='30' y='130' font-size='13' fill='var(--ink)'>Impossible: g¹ factors via |ℤ/2| = 2.</text><text x='30' y='170' font-size='13' fill='var(--pink)'>So in K(Ab), f is not an iso.</text>"
       },
       {
         title: "Localize: invert quasi-isos formally",
@@ -660,7 +660,7 @@ where $X^\bullet \to I^\bullet$ is a quasi-iso to a complex of injectives. $RF$ 
       {
         title: "Triangulated upshot",
         body: "Apply $RF$ to the SES $0 \\to \\mathbb{Z} \\xrightarrow{2} \\mathbb{Z} \\to \\mathbb{Z}/2 \\to 0$ as a distinguished triangle in $D$. The induced long exact sequence in cohomology of $RF$ is exactly the classical Ext sequence connecting $\\Hom$ and $\\mathrm{Ext}^1$. Triangulated machinery $=$ classical homological algebra.",
-        svgInner: "<text x='40' y='60' font-size='13' fill='var(--ink)'>ℤ →² ℤ → ℤ/2 → ℤ[1]  (triangle)</text><text x='40' y='110' font-size='13' fill='var(--mute)'>↦  apply RF, get LES of Ext</text><text x='40' y='160' font-size='13' fill='var(--green)'>0 → 0 → 0 → ℤ/2 → 0 → ℤ/2 → ℤ/2 → 0</text>"
+        svgInner: "<text x='40' y='60' font-size='13' fill='var(--ink)'>ℤ →² ℤ → ℤ/2 → ℤ[1]  (triangle)</text><text x='40' y='110' font-size='13' fill='var(--mute)'>↦  apply RF, get LES of Ext</text><text x='40' y='160' font-size='13' fill='var(--green)'>0 → 0 → 0 → ℤ/2 → ℤ/2 → ℤ/2 → ℤ/2 → 0</text>"
       },
     ],
   });
@@ -770,7 +770,7 @@ where $X^\bullet \to I^\bullet$ is a quasi-iso to a complex of injectives. $RF$ 
 
 <p>The mechanism is the <strong>Fourier–Mukai transform</strong>. Given a kernel $\mathcal{P} \in D^b(\mathrm{Coh}(X \times Y))$, define
 $$\Phi_{\mathcal{P}}\colon D^b(\mathrm{Coh}\,X) \to D^b(\mathrm{Coh}\,Y), \qquad \Phi_{\mathcal{P}}(\mathcal{E}) = R\pi_{Y,*}\bigl(\pi_X^*\mathcal{E} \otimes^L \mathcal{P}\bigr),$$
-where $\pi_X, \pi_Y$ are the projections. Mukai's original example: $X$ an abelian variety, $\hat X$ the dual, $\mathcal{P}$ the Poincaré bundle on $X \times \hat X$. Then $\Phi_{\mathcal{P}}\colon D^b(X) \xrightarrow{\sim} D^b(\hat X)$ is an equivalence with $\Phi_{\mathcal{P}}^{-1} = \Phi_{\mathcal{P}^\vee}[\dim X]$. This was the first example of a non-trivial derived equivalence between non-isomorphic varieties.</p>
+where $\pi_X, \pi_Y$ are the projections. Mukai's original example: $X$ an abelian variety, $\hat X$ the dual, $\mathcal{P}$ the Poincaré bundle on $X \times \hat X$. Then $\Phi_{\mathcal{P}}\colon D^b(X) \xrightarrow{\sim} D^b(\hat X)$ is an equivalence with $\Phi_{\mathcal{P}}^{-1} \cong (-1_X)^* \circ \Phi_{\mathcal{P}^\vee}[\dim X]$, where $(-1_X)\colon X \to X$ is the inverse-element involution on the abelian variety. This was the first example of a non-trivial derived equivalence between non-isomorphic varieties.</p>
 
 <p>Orlov's representability theorem strengthens the picture: every fully faithful triangulated functor $D^b(\mathrm{Coh}\,X) \to D^b(\mathrm{Coh}\,Y)$ between smooth projective varieties is of Fourier–Mukai type for a unique kernel $\mathcal{P}$. So the integral-kernel calculus is forced: any derived equivalence is geometric, given by sheaves on a product.</p>
 

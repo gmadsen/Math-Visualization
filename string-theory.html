@@ -625,10 +625,10 @@ function drawNode(svg, x, y, label, opts={}){
 <thead><tr><th>theory</th><th>open?</th><th>SUSY in 10D</th><th>massless content sketch</th></tr></thead>
 <tbody>
 <tr><td>type I</td><td>yes (with $\mathrm{SO}(32)$)</td><td>$\mathcal{N}=1$</td><td>graviton, gauge boson, gauginos, RR 2-form</td></tr>
-<tr><td>type IIA</td><td>no (closed only)</td><td>$\mathcal{N}=2$, non-chiral</td><td>graviton, dilaton, RR 1- and 3-forms</td></tr>
-<tr><td>type IIB</td><td>no (closed only)</td><td>$\mathcal{N}=2$, chiral</td><td>graviton, dilaton, RR 0-, 2-, 4-forms</td></tr>
-<tr><td>heterotic $E_8\times E_8$</td><td>no</td><td>$\mathcal{N}=1$</td><td>graviton, $E_8\times E_8$ gauge bosons</td></tr>
-<tr><td>heterotic $\mathrm{Spin}(32)/\mathbb{Z}_2$</td><td>no</td><td>$\mathcal{N}=1$</td><td>graviton, $\mathrm{Spin}(32)/\mathbb{Z}_2$ gauge bosons</td></tr>
+<tr><td>type IIA</td><td>no (closed only)</td><td>$\mathcal{N}=2$, non-chiral</td><td>graviton, dilaton, NS-NS $B_{\mu\nu}$, RR 1- and 3-forms</td></tr>
+<tr><td>type IIB</td><td>no (closed only)</td><td>$\mathcal{N}=2$, chiral</td><td>graviton, dilaton, NS-NS $B_{\mu\nu}$, RR 0-, 2-, 4-forms</td></tr>
+<tr><td>heterotic $E_8\times E_8$</td><td>no</td><td>$\mathcal{N}=1$</td><td>graviton, dilaton, NS-NS $B_{\mu\nu}$, $E_8\times E_8$ gauge bosons</td></tr>
+<tr><td>heterotic $\mathrm{Spin}(32)/\mathbb{Z}_2$</td><td>no</td><td>$\mathcal{N}=1$</td><td>graviton, dilaton, NS-NS $B_{\mu\nu}$, $\mathrm{Spin}(32)/\mathbb{Z}_2$ gauge bosons</td></tr>
 </tbody>
 </table>
 
@@ -856,7 +856,9 @@ The two non-trivial entries are $h^{1,1}(X)$ (Kähler / size moduli) and $h^{2,1
 
 <p style="text-align:center">$M^2(n,m,R) = \left(\dfrac{n}{R}\right)^2 + \left(\dfrac{mR}{\alpha'}\right)^2 + \dfrac{2}{\alpha'}(N + \tilde N - 2)$</p>
 
-<p>and is invariant under $(R, n, m) \mapsto (\alpha'/R, m, n)$: shrinking the circle to $\alpha'/R$ is physically the same as expanding to $R$, while exchanging momentum and winding. The fixed point $R = \sqrt{\alpha'}$ — the <em>self-dual radius</em> — is special: at that point an enhanced $\mathrm{SU}(2)\times\mathrm{SU}(2)$ gauge symmetry appears.</p>
+<p>The left- and right-moving oscillator numbers $N$ and $\tilde N$ are not independent: closed-string <strong>level matching</strong>, $N - \tilde N = nm$, comes from invariance of the wave functional under rigid $\sigma$-translation of the world-sheet circle (in the uncompactified case the right-hand side is $0$; the $nm$ shift is the contribution from KK momentum $n$ winding $m$ times around the circle).</p>
+
+<p>The mass formula is invariant under $(R, n, m) \mapsto (\alpha'/R, m, n)$: shrinking the circle to $\alpha'/R$ is physically the same as expanding to $R$, while exchanging momentum and winding. The fixed point $R = \sqrt{\alpha'}$ — the <em>self-dual radius</em> — is special: at that point an enhanced $\mathrm{SU}(2)\times\mathrm{SU}(2)$ gauge symmetry appears.</p>
 
 <p>T-duality on type IIA exchanges it with type IIB. Apply T-duality once and you have swapped the two type-II theories; this also swaps even-dimensional and odd-dimensional D-branes (§7).</p>
 
@@ -1002,9 +1004,9 @@ The two non-trivial entries are $h^{1,1}(X)$ (Kähler / size moduli) and $h^{2,1
     },
     'ads': {
       leftTitle: 'Boundary CFT',
-      leftBody: '4D N=4 super-Yang–Mills with gauge\ngroup U(N), \'t Hooft coupling λ = g²N.\nA conformal field theory with no\nintrinsic length scale.',
+      leftBody: '4D N=4 super-Yang–Mills with gauge\ngroup SU(N) (the diagonal U(1) on\nthe D3 stack decouples as a free\ncentre-of-mass mode). \'t Hooft\ncoupling λ = g²N. A conformal field\ntheory with no intrinsic length scale.',
       rightTitle: 'Bulk gravity',
-      rightBody: 'Type-IIB string theory on\nAdS₅ × S⁵ with N units of 5-form flux.\nClassical 10D gravity in the\nλ → ∞, N → ∞ limit.',
+      rightBody: 'Type-IIB string theory on\nAdS₅ × S⁵ with N units of 5-form flux.\nClassical-supergravity regime needs\ntwo separate limits, taken in order:\n  planar (\'t Hooft): N → ∞ at λ fixed,\n  then strong coupling: λ → ∞.\n1/N suppresses string loops,\n1/√λ suppresses α′ corrections.',
       bridge: 'Maldacena 1997: stack of N D3-branes at low energy IS this gauge theory; its near-horizon geometry IS AdS₅×S⁵. The two are different descriptions of the same physics.',
       proof: 'Many computational tests: integrability of planar N=4 SYM, agreement of anomalous dimensions with bulk string spectrum, BPS state matching.',
       math: 'Pure-math output: holographic entanglement (Ryu–Takayanagi → minimal surfaces), exact spectra via Bethe-ansatz integrability, conformal-bootstrap rigor.'

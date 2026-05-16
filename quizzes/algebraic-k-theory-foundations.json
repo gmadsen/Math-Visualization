@@ -74,7 +74,7 @@
           ],
           "answer": 1,
           "hint": "The diagonal embedding $r\\mapsto\\mathrm{diag}(r,1,\\ldots)$ realizes any $r\\in R^\\times$ as an element of $K_1$; consider how this constrains surjectivity vs. injectivity separately. Which of the four claims correctly characterizes the failure of one of those two properties?",
-          "explain": "The determinant map $\\det\\colon K_1(R)\\to R^\\times$ is split surjective via $r\\mapsto[\\mathrm{diag}(r,1,\\ldots)]$, so $K_1(R)\\cong R^\\times\\oplus SK_1(R)$ where $SK_1(R)$ is the special-linear summand. For fields $SK_1=0$ and the determinant is an iso (Whitehead determinant theorem); for Dedekind domains $SK_1$ vanishes too (Bass-Milnor-Serre); but in general $SK_1$ is nonzero — e.g. $SK_1(\\mathbb{Z}[t,t^{-1}])$ is nontrivial."
+          "explain": "The determinant map $\\det\\colon K_1(R)\\to R^\\times$ is split surjective via $r\\mapsto[\\mathrm{diag}(r,1,\\ldots)]$, so $K_1(R)\\cong R^\\times\\oplus SK_1(R)$ where $SK_1(R)$ is the special-linear summand. For fields $SK_1=0$ and the determinant is an iso (Whitehead determinant theorem); for Dedekind domains $SK_1$ vanishes too (Bass-Milnor-Serre); but in general $SK_1$ is nonzero — e.g. $SK_1(\\mathbb{Z}[Q_8])$ is nontrivial for the integral group ring of the order-8 quaternion group (Magurn)."
         },
         {
           "type": "ordering",

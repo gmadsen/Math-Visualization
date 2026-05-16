@@ -597,7 +597,7 @@ is itself compact in $\Omega$.</div>
 <thead><tr><th>property</th><th>witness</th><th>where it lives</th></tr></thead>
 <tbody>
 <tr><td>strictly pseudoconvex</td><td>strictly convex domain in $\mathbb{C}^n$, e.g. ball $\mathbb{B}^n$</td><td>$\eta(\Omega) = 1$</td></tr>
-<tr><td>weakly pseudoconvex</td><td>polydisk $\mathbb{D}^n$ (corners aside)</td><td>Levi form vanishes on edges</td></tr>
+<tr><td>weakly pseudoconvex</td><td>polydisk $\mathbb{D}^n$ (smooth faces)</td><td>Levi form is identically zero on each smooth face</td></tr>
 <tr><td>pseudoconvex with $\eta<1$</td><td>worm domain (Diederich–Fornæss 1977)</td><td>annular obstruction; $\bar\partial$-Neumann fails to be globally regular</td></tr>
 <tr><td>not pseudoconvex</td><td>Hartogs figure</td><td>some holomorphic function extends</td></tr>
 </tbody>
@@ -763,7 +763,7 @@ $$\mathrm{Pic}(\Omega) \;\cong\; H^2(\Omega,\mathbb{Z}).$$
 <div class="note"><strong>Second Cousin theorem (Stein).</strong> On a Stein manifold $\Omega$, the second Cousin problem is solvable iff the divisor's Chern class in $H^2(\Omega,\mathbb{Z})$ vanishes. In particular, on a Stein manifold with $H^2(\Omega,\mathbb{Z}) = 0$ — for instance on every $\mathbb{C}^n$, polydisk, or contractible Stein manifold — every second Cousin problem is solvable.</div>
 
 <div class="widget" id="w-cousin">
-  <div class="hd"><div class="ttl">Cousin obstructions on $\mathbb{CP}^1\times\mathbb{C}^*$</div><div class="hint">toggle the divisor's homology class; second Cousin solves iff Chern class = 0</div></div>
+  <div class="hd"><div class="ttl">Cousin obstructions on $\mathbb{CP}^1$</div><div class="hint">toggle the divisor's homology class; second Cousin solves iff Chern class = 0</div></div>
   <div class="row">
     <label for="co-d">divisor degree $d$:</label>
     <input type="range" id="co-d" min="-3" max="3" step="1" value="0" />
@@ -816,7 +816,7 @@ $$\mathrm{Pic}(\Omega) \;\cong\; H^2(\Omega,\mathbb{Z}).$$
 </script>
 
 <h3>Why the second Cousin can fail</h3>
-<p>The classic obstruction lives on a non-Stein domain. Take $\Omega = \mathbb{C}^2\setminus\{(0,0)\}$ — not Stein, since one can show $H^1(\Omega,\mathcal{O})\ne 0$ in dimension $2$ (actually the punctured $\mathbb{C}^2$ <em>is</em> Stein for $n\ge 2$ by Hartogs, but the Hopf bundle on $\mathbb{C}^2\setminus\{0\}$ as a model survives transfer). A more honest example: the Hopf surface $X = (\mathbb{C}^2\setminus\{0\})/\langle (z,w)\sim(2z,2w)\rangle$ is a non-Stein compact complex surface; its second Cousin problem can fail because $H^2(X,\mathbb{Z}) = 0$ is forced but the exponential exact sequence yields a non-zero $H^1(X,\mathcal{O}^\times) = \mathrm{Pic}(X)\ne 0$ via the non-vanishing $H^1(X,\mathcal{O})$ piece — divisors exist that are not Chern-class-zero realisable.</p>
+<p>The classic obstruction lives on a non-Stein domain. Take $\Omega = \mathbb{C}^2\setminus\{(0,0)\}$ — not Stein: by Hartogs's extension theorem every holomorphic function on $\Omega$ extends to all of $\mathbb{C}^2$, so $\mathcal{O}(\Omega) = \mathcal{O}(\mathbb{C}^2)$ cannot separate $\Omega$ from a strictly larger open set, and concretely $H^1(\Omega,\mathcal{O})\ne 0$ so Theorem B fails. The cleanest non-Stein example with a non-trivial Picard group is the Hopf surface $X = (\mathbb{C}^2\setminus\{0\})/\langle (z,w)\sim(2z,2w)\rangle$, a non-Stein compact complex surface whose second Cousin problem can fail because $H^2(X,\mathbb{Z}) = 0$ is forced but the exponential exact sequence yields a non-zero $H^1(X,\mathcal{O}^\times) = \mathrm{Pic}(X)\ne 0$ via the non-vanishing $H^1(X,\mathcal{O})$ piece — divisors exist that are not Chern-class-zero realisable.</p>
 
 <p>In one variable, the second Cousin theorem reduces to Weierstrass: $H^2$ of any planar domain vanishes, so every second Cousin problem on $\mathbb{C}$ is solvable. The genuine multivariable obstruction is what makes Stein-and-not-just-pseudoconvex worth naming.</p>
 

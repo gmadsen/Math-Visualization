@@ -983,7 +983,7 @@ where $\mathrm{GL}_2(\mathbb{A})^1 = \{ g : |\det g|_\mathbb{A} = 1 \}$ trims of
 
 <ul>
   <li><strong>Cuspidal $L^2_{\mathrm{cusp}}$.</strong> A Hilbert direct sum $\bigoplus_\pi m(\pi) \, \pi$ of irreducible cuspidal $\pi$ — by <em>multiplicity-one</em> for $\mathrm{GL}_2$, every $m(\pi) \le 1$. The classical $S_k(\Gamma_0(N))$ embeds inside.</li>
-  <li><strong>Residual $L^2_{\mathrm{res}}$.</strong> A discrete sum of representations built from <em>residues of Eisenstein series</em>. For $\mathrm{GL}_2$ over $\mathbb{Q}$ this is a one-parameter family of one-dimensional representations $g \mapsto |\det g|^s$ at $s = 1/2$ — the residual constants.</li>
+  <li><strong>Residual $L^2_{\mathrm{res}}$.</strong> A <em>discrete</em> sum of representations built from <em>residues</em> (poles) of Eisenstein series. For $\mathrm{GL}_2$ over $\mathbb{Q}$ each pole at $s = 1$ of $E(g, s; \chi)$ contributes the one-dimensional representation $g \mapsto \chi(\det g)$, and the residual spectrum is the discrete set indexed by Hecke characters $\chi$ with $\chi^2 = 1$ — not a continuous family.</li>
   <li><strong>Continuous $L^2_{\mathrm{cont}}$.</strong> A direct integral $\int_{\Re s = 1/2}^\oplus E(\,\cdot\,, s) \, ds$ of Eisenstein series along the critical line.</li>
 </ul>
 
@@ -1224,7 +1224,7 @@ and consequently $L(s, \pi_H, r \circ \rho) = L(s, \pi_G, r)$ for every $r$.</p>
       to:   'Res_{E/ℚ} GLₙ',
       rho:  'GLₙ(ℂ) ↪ (GLₙ(ℂ))^{[E:ℚ]} ⋊ Gal(E/ℚ)',
       example: 'Cuspidal π on GLₙ(𝔸_ℚ) lifts to Gal(E/ℚ)-invariant Π on GLₙ(𝔸_E).',
-      satake: '(α₁, …, αₙ) ↦ (α₁^{[E:ℚ]}, …, αₙ^{[E:ℚ]}) at split primes.',
+      satake: '(α₁, …, αₙ) ↦ (α₁^{[E:ℚ]}, …, αₙ^{[E:ℚ]}) at inert primes (residue degree [E:ℚ]); unchanged at split primes.',
       status: 'Theorem (Arthur–Clozel, 1989) for cyclic E/ℚ.'
     },
     {

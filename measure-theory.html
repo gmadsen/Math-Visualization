@@ -1368,7 +1368,7 @@ Then $\sum_n a_{m,n} = 0$ for each $m$, so $\sum_m\sum_n a_{m,n} = 0$. But $\sum
 
 <div class="note">A continuous version: on $[0,1]^2$ with Lebesgue measure, let
 $$ f(x,y) = \frac{x^2-y^2}{(x^2+y^2)^2}, \qquad (x,y)\ne (0,0).$$
-Then $\int_0^1\!\int_0^1 f\,dx\,dy = \pi/4$ while $\int_0^1\!\int_0^1 f\,dy\,dx = -\pi/4$. The function is not absolutely integrable near the origin, so Fubini's hypothesis is violated and the iterated integrals genuinely disagree.</div>
+Then $\int_0^1\!\int_0^1 f\,dx\,dy = -\pi/4$ while $\int_0^1\!\int_0^1 f\,dy\,dx = \pi/4$. The function is not absolutely integrable near the origin, so Fubini's hypothesis is violated and the iterated integrals genuinely disagree.</div>
 
 <p><strong>Operational protocol.</strong> Before swapping order of integration on a signed $f$, compute $\int\int|f|$ in <em>either</em> order (Tonelli makes the unsigned iterated integrals automatically equal). If that is finite, $f\in L^1(\mu\otimes\nu)$ and Fubini licenses the swap. Otherwise: don't.</p>
 

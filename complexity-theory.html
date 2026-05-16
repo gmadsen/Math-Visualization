@@ -565,7 +565,7 @@ function drawNode(svg, x, y, label, opts={}){
       `The verifier ran in O(|φ|) time. NP = problems with such a verifier.`;
   }
 
-  satBtn.addEventListener('click', ()=>{ w=[true,true,true,true]; render(); });
+  satBtn.addEventListener('click', ()=>{ w=[true,true,false,false]; render(); });
   badBtn.addEventListener('click', ()=>{ w=[false,false,true,true]; render(); });
 
   buildBits();

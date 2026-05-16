@@ -422,7 +422,7 @@ $$\beta \circ \alpha := (p_{XZ})_*\bigl((p_{XY})^*\alpha \cdot (p_{YZ})^*\beta\b
     <tr><td>Betti</td><td>$2\pi i \cdot \mathbb{Q} \subset \mathbb{C}$ — a rank-1 $\mathbb{Q}$-Hodge structure of weight $-2$, type $(-1, -1)$</td></tr>
     <tr><td>de Rham</td><td>$\mathbb{Q}$, with Hodge filtration $F^{-1} = $ everything, $F^0 = 0$</td></tr>
     <tr><td>$\ell$-adic</td><td>$\mathbb{Q}_\ell(1) = \varprojlim \mu_{\ell^n}$, the cyclotomic character $\chi_\ell\colon G_\mathbb{Q} \to \mathbb{Z}_\ell^\times$</td></tr>
-    <tr><td>Crystalline</td><td>$\mathbb{Q}_p \cdot \tfrac{1}{p}$, with Frobenius $\varphi$ acting by $\tfrac{1}{p}$</td></tr>
+    <tr><td>Crystalline</td><td>$\mathbb{Q}_p$ as the underlying $\varphi$-module, with Frobenius $\varphi$ acting by multiplication by $\tfrac{1}{p}$ (so $\mathbb{Q}_p(1)$ has Newton slope $-1$)</td></tr>
   </tbody>
 </table>
 
@@ -453,7 +453,7 @@ $$\mathcal{T} \;\simeq\; \mathsf{Rep}_k\bigl(\underline{\mathrm{Aut}}^\otimes(\o
 <ul>
   <li>$\mathsf{Vect}_k$ itself — Tannakian with $G = 1$.</li>
   <li>Finite-dimensional $\mathbb{Q}$-Hodge structures — Tannakian, with $G$ the <b>Mumford-Tate group</b>.</li>
-  <li>Finite-dimensional $\mathbb{Q}_\ell$-representations of $\Gal(\overline{\mathbb{Q}}/\mathbb{Q})$ — Tannakian, with $G$ a quotient of $G_\mathbb{Q}$ itself (after $\ell$-adic completion).</li>
+  <li>Finite-dimensional $\mathbb{Q}_\ell$-representations of $\Gal(\overline{\mathbb{Q}}/\mathbb{Q})$ — Tannakian, with $G$ the <em>algebraic envelope</em> (Zariski closure of the image inside $\mathrm{GL}(V)$, taken as an affine $\mathbb{Q}_\ell$-group scheme), not a quotient of $G_\mathbb{Q}$ itself: the absolute Galois group is profinite, while the Tannakian fundamental group is its associated algebraic group of $\otimes$-symmetries.</li>
   <li>Finite-dimensional $D$-modules with regular singularities on a complex variety — Tannakian, with $G$ a differential-Galois group.</li>
 </ul>
 
@@ -591,7 +591,7 @@ $$H^*_{\mathrm{dR}}(X/\mathbb{Q}) \otimes_\mathbb{Q} \mathbb{C} \;\cong\; H^*_B(
   <li><b>Hodge standard conjecture (I).</b> The bilinear form on the primitive part of $H^*(X; \mathbb{Q})$ is positive-definite — a "polarisation" property.</li>
 </ul>
 
-<p>Modulo (B) + (C), homological and numerical equivalence agree, $\mathsf{Mot}_k^{\mathrm{hom}}$ becomes Tannakian, and the motivic Galois group exists in the form described in §6. Without (B) + (C), the picture survives as a robust framework but the formalism is conjectural.</p>
+<p>Modulo (B) + (I) — Lefschetz plus the Hodge standard conjecture — Kleiman's theorem (1968) gives the bridge known as conjecture (D): homological and numerical equivalence agree, so $\mathsf{Mot}_k^{\mathrm{hom}}$ coincides with $\mathsf{Mot}_k^{\mathrm{num}}$, becomes Tannakian (after twisting the commutativity constraint by Künneth components), and the motivic Galois group exists in the form described in §6. The Künneth conjecture (C) is what produces those Künneth projectors algebraically (and so makes the grading of the motivic Galois group well-defined); the polarisation conjecture (I) is what bridges numerical to homological. Without these, the picture survives as a robust framework but the formalism is conjectural.</p>
 
 <aside class="bad"><b>Open since 1968.</b> Lefschetz (B), Künneth (C), Hodge (I) are all known in characteristic 0 only for very specific classes — abelian varieties, surfaces, complete intersections of small degree. Even in characteristic $p$, the picture is fragmentary. Nobody has proven the standard conjectures in full generality, and "we don't know how to prove the standard conjectures" is the common one-line summary of why motives remain conjectural.</aside>
 

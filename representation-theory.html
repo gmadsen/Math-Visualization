@@ -930,8 +930,8 @@ function cfmt(a){
 <p>The third comes by induction using $[E,F] = H$: $E F^k = F^k E + k F^{k-1} H - k(k-1) F^{k-1}$, applied to $v$. Finite-dimensionality forces $v_{n+1} = 0$ for some $n$, and then $E v_{n+1} = 0$ gives $(\lambda - n) v_n = 0$, forcing $\lambda = n$. Thus $\dim V = n+1$, weights $n,n-2,\ldots,-n$. Irreducibility and uniqueness up to iso follow from Schur. $\blacksquare$</p>
 
 <p>The formula $Ev_k = (n-k+1)v_{k-1}$ can be rewritten: on the weight-$m$ space (where $m = n-2k$), $EF$ acts by $(k+1)(n-k)$, which in $m$ is</p>
-<p style="text-align:center">$EF \mid_{V_m} = \tfrac{(n-m)(n+m+2)}{4}\cdot\mathrm{id}$,</p>
-<p>and $FE\mid_{V_m} = \tfrac{(n+m)(n-m+2)}{4}\cdot\mathrm{id}$. Their difference is $H = m$, confirming $[E,F]=H$.</p>
+<p style="text-align:center">$EF \mid_{V_m} = \tfrac{(n+m)(n-m+2)}{4}\cdot\mathrm{id}$,</p>
+<p>and $FE\mid_{V_m} = \tfrac{(n-m)(n+m+2)}{4}\cdot\mathrm{id}$. Their difference is $EF - FE = m = H$, confirming $[E,F]=H$.</p>
 
 <h3>Constructions</h3>
 <p>$V_n$ can be built as $\mathrm{Sym}^n(V_1)$, the $n$-th symmetric power of the standard $2$-dim rep. Explicitly on $V_1 = \mathbb{C}^2$ with basis $x,y$: $V_n = \{$ homogeneous polynomials of degree $n$ in $x,y\} = \mathrm{span}(x^n, x^{n-1}y, \ldots, y^n)$, with $H = x\partial_x - y\partial_y$, $E = x\partial_y$, $F = y\partial_x$.</p>
@@ -1950,7 +1950,7 @@ function innerProd(group, chiA, chiB){
     'C2-S3':  {H:'C_2', G:'S_3', iHorder:2, Gorder:6, idx:3, note:'Ind_{C_2}^{S_3} 𝟙 = 𝟙 ⊕ V_{(2,1)} (permutation rep on S_3/C_2 ≅ {1,2,3}).'},
     'C4-D4':  {H:'C_4', G:'D_4', iHorder:4, Gorder:8, idx:2, note:'The rotation subgroup; inducing non-trivial 1-dim gets 2-dim irrep.'},
     'C2-D4':  {H:'C_2', G:'D_4', iHorder:2, Gorder:8, idx:4, note:'A reflection subgroup.'},
-    'V4-S4':  {H:'V_4', G:'S_4', iHorder:4, Gorder:24, idx:6, note:'The Klein 4-group; Ind_{V_4}^{S_4} 𝟙 = 𝟙 ⊕ ε ⊕ 2V_{(3,1)} ⊕ ... (permutation rep on 6 cosets, decomposes via Frobenius).'},
+    'V4-S4':  {H:'V_4', G:'S_4', iHorder:4, Gorder:24, idx:6, note:'The Klein 4-group (normal in S_4); Ind_{V_4}^{S_4} 𝟙 = 𝟙 ⊕ ε ⊕ 2V_{(2,2)} (the regular rep of S_4/V_4 ≅ S_3, pulled back; dims 1+1+2·2 = 6).'},
     'A4-S4':  {H:'A_4', G:'S_4', iHorder:12, Gorder:24, idx:2, note:'Ind_{A_4}^{S_4} 𝟙 = 𝟙 ⊕ ε; induces trivial rep to trivial+sign.'},
     'S3-S4':  {H:'S_3', G:'S_4', iHorder:6, Gorder:24, idx:4, note:'Stabilizer of a point; Ind_{S_3}^{S_4} 𝟙 = 𝟙 ⊕ V_{(3,1)}, the standard permutation rep.'}
   };
@@ -2064,11 +2064,11 @@ function innerProd(group, chiA, chiB){
       g.appendChild(circ); g.appendChild(t);
       g.addEventListener('mouseenter', ()=>{
         circ.setAttribute('stroke','var(--yellow)');
-        const EF = ((n-p.w)/2+1)*((n+p.w)/2); // on v_k with k=(n-w)/2: EF v_k = (k)*(n-k+1), or simpler formula:
-        // Using EF|_{V_w} = (n-w)(n+w+2)/4
-        const EFval = (n-p.w)*(n+p.w+2)/4;
-        const FEval = (n+p.w)*(n-p.w+2)/4;
-        out.textContent = `weight ${p.w}:  EF acts by ${EFval},  FE acts by ${FEval},  H acts by ${p.w} = FE-EF = ${FEval-EFval} ✓`;
+        // On v_k with k=(n-w)/2:  EF v_k = (k+1)(n-k) v_k,  FE v_k = k(n-k+1) v_k.
+        // In closed form on the weight-w space: EF|_{V_w} = (n+w)(n-w+2)/4, FE|_{V_w} = (n-w)(n+w+2)/4.
+        const EFval = (n+p.w)*(n-p.w+2)/4;
+        const FEval = (n-p.w)*(n+p.w+2)/4;
+        out.textContent = `weight ${p.w}:  EF acts by ${EFval},  FE acts by ${FEval},  H acts by ${p.w} = EF-FE = ${EFval-FEval} ✓`;
       });
       g.addEventListener('mouseleave', ()=>{
         circ.setAttribute('stroke','var(--green)');

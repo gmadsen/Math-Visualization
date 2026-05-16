@@ -138,7 +138,7 @@
       "questions": [
         {
           "type": "mcq",
-          "q": "Under Girsanov with density $Z_T=\\exp(\\int_0^T\\theta_s\\,dB_s-\\tfrac{1}{2}\\int_0^T\\theta_s^2\\,ds)$, the process $\\tilde B_t=B_t-\\int_0^t\\theta_s\\,ds$ is:",
+          "q": "Under Girsanov (Shreve sign convention) with density $Z_T=\\exp(-\\int_0^T\\theta_s\\,dB_s-\\tfrac{1}{2}\\int_0^T\\theta_s^2\\,ds)$, the process $\\tilde B_t=B_t+\\int_0^t\\theta_s\\,ds$ is:",
           "choices": [
             "A martingale under $\\mathbb{P}$",
             "A Brownian motion under $\\mathbb{Q}=Z_T\\,d\\mathbb{P}$",
@@ -151,16 +151,16 @@
         },
         {
           "type": "mcq",
-          "q": "Why is the exponential martingale $Z_t=\\exp(\\int_0^t\\theta_s\\,dB_s-\\tfrac{1}{2}\\int_0^t\\theta_s^2\\,ds)$ a martingale (under Novikov)?",
+          "q": "Why is the exponential martingale $Z_t=\\exp(-\\int_0^t\\theta_s\\,dB_s-\\tfrac{1}{2}\\int_0^t\\theta_s^2\\,ds)$ a martingale (under Novikov)?",
           "choices": [
             "Because the integrand is bounded",
-            "Because Itô's formula gives $dZ_t=Z_t\\theta_t\\,dB_t$, with no drift",
+            "Because Itô's formula gives $dZ_t=-Z_t\\theta_t\\,dB_t$, with no drift",
             "Because Brownian motion has independent increments",
             "By the optional stopping theorem"
           ],
           "answer": 1,
           "hint": "Apply Itô to $Z_t$; the $-\\tfrac{1}{2}\\theta^2\\,dt$ in the exponent kills the Itô correction.",
-          "explain": "Itô on $\\log Z_t$ gives $dZ_t=Z_t\\theta_t\\,dB_t$ — drift-free. Under Novikov's condition $\\mathbb{E}\\exp(\\tfrac{1}{2}\\int\\theta^2\\,ds)<\\infty$, this local martingale is a true martingale."
+          "explain": "Itô on $\\log Z_t$ gives $dZ_t=-Z_t\\theta_t\\,dB_t$ — drift-free. Under Novikov's condition $\\mathbb{E}\\exp(\\tfrac{1}{2}\\int\\theta^2\\,ds)<\\infty$, this local martingale is a true martingale."
         },
         {
           "type": "mcq",

@@ -233,7 +233,7 @@
             "$\\Omega^8\\mathrm{U}\\simeq\\mathrm{U}$"
           ],
           "answer": 1,
-          "explain": "Bott: $\\Omega^2\\mathrm{U}\\simeq\\mathrm{U}\\times\\mathbb{Z}$, equivalently $\\Omega^2\\mathrm{BU}\\simeq\\mathrm{BU}\\times\\mathbb{Z}$, giving $\\pi_n\\mathrm{U}$ periodic of period $2$: $\\mathbb{Z},0,\\mathbb{Z},0,\\ldots$. The stable orthogonal group has $8$-periodicity instead: $\\Omega^8\\mathrm{O}\\simeq\\mathrm{O}\\times\\mathbb{Z}$."
+          "explain": "Bott: $\\Omega^2\\mathrm{U}\\simeq\\mathrm{U}$, equivalently $\\Omega(\\mathbb{Z}\\times B\\mathrm{U})\\simeq\\mathrm{U}$, giving $\\pi_n\\mathrm{U}$ periodic of period $2$: $0,\\mathbb{Z},0,\\mathbb{Z},\\ldots$ starting at $n=0$ (since $\\mathrm{U}$ is connected). The stable orthogonal group has $8$-periodicity instead: $\\Omega^8\\mathrm{O}\\simeq\\mathrm{O}$."
         },
         {
           "type": "numeric",

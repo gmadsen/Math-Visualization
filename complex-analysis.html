@@ -351,7 +351,7 @@ const C = {
       <option value="rot" selected>rotation by π/3</option>
       <option value="cayley">Cayley (UHP→disk)</option>
       <option value="inv">inversion 1/z</option>
-      <option value="elliptic">elliptic (fix ±i)</option>
+      <option value="elliptic">elliptic: rotation by π/2 (fix 0,∞)</option>
     </select>
     <label><input type="checkbox" id="mob-sphere"> stereographic view</label>
   </div>
@@ -1600,12 +1600,11 @@ const C = {
       info:'Inverse of exp. Slit plane (negative real axis removed) maps biholomorphically to the strip −π < Im < π.'
     },
     cayley: {
-      name:'Cayley i(1−z)/(1+z): UHP→𝔻',
+      name:'Cayley (z−i)/(z+i): UHP→𝔻',
       f: z => {
-        // (1-z)/(1+z) then multiply by i: i*(1-z)/(1+z)
-        const num = C.sub([1,0],z), den = C.add([1,0],z);
-        const q = C.div(num,den);
-        return C.mul([0,1],q);
+        // (z-i)/(z+i): the standard UHP→disk Cayley map
+        const num = C.sub(z,[0,1]), den = C.add(z,[0,1]);
+        return C.div(num,den);
       },
       gridSrc:'uhp',
       domain:'uhp',

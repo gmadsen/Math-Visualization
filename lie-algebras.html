@@ -406,7 +406,7 @@ function drawNode(svg, x, y, label, opts={}){
   const AD = {
     e: [[0,-2,0],[0,0,1],[0,0,0]],   // ad(e): e->0, h->-2e, f->h
     h: [[2,0,0],[0,0,0],[0,0,-2]],   // ad(h): e->2e, h->0, f->-2f
-    f: [[0,0,0],[0,2,0],[-1,0,0]]    // ad(f): e->h, h->2f, f->0
+    f: [[0,0,0],[-1,0,0],[0,2,0]]    // ad(f): e->-h, h->2f, f->0
   };
   const root = document.querySelector("#adjoint-vis");
   if(!root) return;
@@ -926,8 +926,8 @@ function drawNode(svg, x, y, label, opts={}){
     Dn:"D_n = so_{2n}: dim n(2n-1). Two half-spin reps; D_2 = A_1 × A_1, D_3 = A_3 (low-rank coincidences).",
     G2:"G_2: dim 14. Automorphism group of the octonions; smallest exceptional algebra.",
     F4:"F_4: dim 52. Automorphisms of the exceptional Jordan algebra h_3(O).",
-    E6:"E_6: dim 78. Plays a role in GUTs; complexification has fundamental rep of dim 27.",
-    E7:"E_7: dim 133. Smallest fundamental rep is 56-dim (closely tied to lines on a cubic surface).",
+    E6:"E_6: dim 78. Plays a role in GUTs; complexification has fundamental rep of dim 27 (the configuration of 27 lines on a smooth cubic surface).",
+    E7:"E_7: dim 133. Smallest fundamental rep is 56-dim (closely tied to the 56 (-1)-curves on a del Pezzo surface of degree 2, equivalently the 28 bitangents of a plane quartic).",
     E8:"E_8: dim 248. Self-dual lattice, equals its own adjoint rep — the largest exception."
   };
   const root = document.querySelector("#dynkin-gallery");

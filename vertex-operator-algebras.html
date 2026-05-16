@@ -548,9 +548,13 @@ treated as a formal $q$-series. The $-c/24$ shift is the Casimir of the Virasoro
 
 <script>
 (function(){
-  // dim V^natural_n = c_n (Fourier coef of j(tau))
-  // grading shift: in V^natural, V^natural_n has L_0 - c/24 = n - 1 (since c = 24, c/24 = 1)
-  // so ch_{V^natural}(tau) = sum_n (dim V^natural_n) q^{n-1}, leading term q^{-1}.
+  // C[n] = coefficient of q^{n-1} in ch_{V^natural} = J(tau).
+  // Grading note: with c = 24 and the convention L_0(V^natural_k) = k, FLM gives
+  //   V^natural_0 = C·1,  V^natural_1 = 0,  V^natural_2 = Griess (dim 196884),
+  //   V^natural_3 has dim 21493760, ...
+  // Equivalently the q^k coefficient (k >= 0) of ch is dim V^natural_{k+1}.
+  // The table below indexes rows by the Fourier exponent e = n - 1 to keep alignment
+  // with the q-series printed below; "dim V^natural_{e+1}" is the L_0-graded piece.
   const C = ["1","196884","21493760","864299970","20245856256","333202640600","4252023300096"];
   const sl = $('#w-zhu-N'), lb = $('#w-zhu-Nv'), out = $('#w-zhu-out');
   function render(){
@@ -558,13 +562,14 @@ treated as a formal $q$-series. The $-c/24$ shift is the Casimir of the Virasoro
     lb.textContent = `N = ${N}`;
     let lines = [];
     lines.push("ch_{V^natural}(tau)  =  tr q^{L_0 − c/24}    (c = 24, so c/24 = 1)");
+    lines.push("FLM grading: V^natural_0 = C·1, V^natural_1 = 0, V^natural_2 = Griess (dim 196884), ...");
     lines.push("");
-    lines.push("n   L_0 − c/24    dim V^natural_n");
-    lines.push("--  -----------   ---------------");
+    lines.push("n   q-exponent e = n−1    coeff of q^e  ( = dim V^natural_{e+1} )");
+    lines.push("--  -----------------     -----------------------------------");
     for(let n=0;n<=N;n++){
       const exp = (n - 1).toString().padStart(3," ");
       const dim = C[n].padStart(15," ");
-      lines.push(`${n.toString().padStart(2," ")}      ${exp}        ${dim}`);
+      lines.push(`${n.toString().padStart(2," ")}        ${exp}              ${dim}`);
     }
     lines.push("");
     let series = "ch = q^{-1}";
@@ -577,6 +582,7 @@ treated as a formal $q$-series. The $-c/24$ shift is the Casimir of the Virasoro
     lines.push(series);
     lines.push("");
     lines.push("compare j(tau) − 744 = J(tau) = q^{-1} + 196884·q + 21493760·q^2 + …");
+    lines.push("key fact: V^natural_1 = 0 (no weight-1 states) — load-bearing for the Borcherds construction.");
     out.textContent = lines.join("\n");
   }
   sl.addEventListener('input', render);
@@ -613,7 +619,7 @@ treated as a formal $q$-series. The $-c/24$ shift is the Casimir of the Virasoro
 <thead><tr><th>step</th><th>object</th><th>graded dim</th></tr></thead>
 <tbody>
 <tr><td>1</td><td>$V_\Lambda$ — the lattice VOA on the Leech lattice $\Lambda$ (rank $24$)</td><td>$\Theta_\Lambda(\tau) / \eta(\tau)^{24}$</td></tr>
-<tr><td>2</td><td>$V_\Lambda^+$ — fixed points of the $-1$ involution (a VOA itself)</td><td>$\frac{1}{2}\big(\mathrm{ch}\, V_\Lambda + \mathrm{ch}\, V_\Lambda^{tw}\big)$</td></tr>
+<tr><td>2</td><td>$V_\Lambda^+$ — fixed points of the $-1$ involution $\theta$ (a VOA itself)</td><td>$\frac{1}{2}\big(\mathrm{ch}\, V_\Lambda + \mathrm{tr}(\theta\mid V_\Lambda)\big)$</td></tr>
 <tr><td>3</td><td>$V^\natural = V_\Lambda^+ \oplus V_\Lambda^{tw,+}$ — the $\mathbb{Z}/2$ orbifold</td><td>$J(\tau) = j(\tau) - 744$</td></tr>
 </tbody>
 </table>
@@ -645,7 +651,7 @@ treated as a formal $q$-series. The $-c/24$ shift is the Casimir of the Virasoro
     "2A": {g:"Γ_0(2)+",       q:[1,4372,   96256,       1240002]},
     "2B": {g:"Γ_0(2)",        q:[1,276,    -2048,       11202]},
     "3A": {g:"Γ_0(3)+",       q:[1,783,    8672,        65367]},
-    "3B": {g:"Γ_0(3)",        q:[1,54,     -76,         243]},
+    "3B": {g:"Γ_0(3)",        q:[1,54,     -76,         -243]},
     "5A": {g:"Γ_0(5)+",       q:[1,134,    760,         3345]},
   };
   const S = $('#w-moon-g'), OUT = $('#w-moon-out');

@@ -771,7 +771,7 @@ The matrix is skew-symmetric because $(T,N,B)$ is orthonormal. Curvature $\kappa
 <p>A circle has constant curvature — no evolute worth drawing, since all centers of curvature pile up at one point. A parabola's evolute is a semicubical parabola (Neil's parabola), with a single cusp at the vertex. These facts all follow from the <em>elementary</em> observation that $\kappa$ records second-order information and its derivative records third-order.</p>
 
 <h3>Vertex theorem</h3>
-<p>A simple closed convex plane curve has at least four <strong>vertices</strong> — points where $\kappa'(s) = 0$, i.e. local extrema of $\kappa$. Circles achieve infinitely many (every point is a vertex); generic ovals have exactly four. The vertex theorem is an early example of a <em>global</em> geometric statement: local behaviour of curvature constrained by the topology of being a closed convex curve.</p>
+<p>A simple closed plane curve has at least four <strong>vertices</strong> — points where $\kappa'(s) = 0$, i.e. local extrema of $\kappa$. The classical version (Mukhopadhyaya, 1909) covers convex ovals; Osserman (1985) extended it to <em>all</em> simple closed plane curves, convex or not. Circles achieve infinitely many (every point is a vertex); generic ovals have exactly four. The vertex theorem is an early example of a <em>global</em> geometric statement: local behaviour of curvature constrained by the topology of being a simple closed curve.</p>
 
 </section>
 
@@ -2237,7 +2237,7 @@ Since $\chi(S^2) = 2$, the total defect of any polyhedron homeomorphic to a sphe
 })();
 </script>
 
-<p>Parallel transport around a closed loop does <em>not</em> return the vector to itself — it rotates by an angle equal to $\int K\,dA$ over the enclosed region. This is the <strong>holonomy</strong> of the Levi-Civita connection; on a flat surface it would be zero, and the fact that it isn't is exactly curvature. It is the local-to-global shadow of the exterior angle contribution in Gauss–Bonnet.</p>
+<p>Parallel transport around a closed loop does <em>not</em> return the vector to itself — it rotates by an angle which, for a smooth simply-connected closed region (or equivalently a piecewise-geodesic loop with the exterior-angle terms absorbed), equals $\int K\,dA$ over the enclosed region. The fully general identity for a piecewise-smooth loop is the local Gauss–Bonnet form $\text{holonomy} = \int K\,dA + \int \kappa_g\,ds + \sum_i \varepsilon_i$, where $\kappa_g$ is the geodesic curvature of the smooth arcs and $\varepsilon_i$ the exterior angles at corners. This rotation is the <strong>holonomy</strong> of the Levi-Civita connection; on a flat surface it would be zero, and the fact that it isn't is exactly curvature. It is the local-to-global shadow of the exterior angle contribution in Gauss–Bonnet.</p>
 
 
 </section>
@@ -2286,14 +2286,14 @@ Since $\chi(S^2) = 2$, the total defect of any polyhedron homeomorphic to a sphe
 <p style="text-align:center">$R(X, Y)Z = \nabla_X \nabla_Y Z - \nabla_Y \nabla_X Z - \nabla_{[X,Y]}Z.$</p>
 <p>In coordinates, $R^l_{ijk} = \partial_i \Gamma^l_{jk} - \partial_j \Gamma^l_{ik} + \Gamma^m_{jk}\Gamma^l_{im} - \Gamma^m_{ik}\Gamma^l_{jm}.$ Lowering an index: $R_{lijk} = g_{lm}R^m_{ijk}$.</p>
 
-<p>Symmetries: $R_{ijkl} = -R_{jikl} = -R_{ijlk} = R_{klij}$, plus the first Bianchi identity $R_{i[jkl]} = 0$. In dimension $n$ these constrain $R$ to $n^2(n^2-1)/12$ independent components at each point: $1$ in dim $2$, $6$ in dim $3$, $20$ in dim $4$, matching the classical tally.</p>
+<p>Symmetries: $R_{ijkl} = -R_{jikl} = -R_{ijlk} = R_{klij}$, plus the <strong>algebraic (first) Bianchi identity</strong> $R_{i[jkl]} = 0$ and the <strong>differential (second) Bianchi identity</strong> $\nabla_{[a} R_{bc]de} = 0$. The second Bianchi is the curvature analog of $d^2 = 0$ for the connection 1-form; contracting it twice yields the conservation law $\nabla^j(\mathrm{Ric}_{ij} - \tfrac{1}{2}R\,g_{ij}) = 0$, which makes the Einstein tensor divergence-free and is what forces $\nabla^\mu T_{\mu\nu} = 0$ in general relativity. Together with the index symmetries these constrain $R$ to $n^2(n^2-1)/12$ independent components at each point: $1$ in dim $2$, $6$ in dim $3$, $20$ in dim $4$, matching the classical tally.</p>
 
 <p>The <strong>sectional curvature</strong> of a 2-plane $\sigma \subseteq T_pM$ spanned by orthonormal $u, v$ is</p>
 <p style="text-align:center">$K(\sigma) = g(R(u,v)v, u).$</p>
 <p>When $M$ is a surface, $K$ is the Gaussian curvature of §5. In higher dimensions, $K(\sigma)$ at each point is a function on the Grassmannian of 2-planes. Manifolds of <em>constant sectional curvature</em> are the space forms: spheres, Euclidean space, and hyperbolic space — up to scaling and quotients.</p>
 
 <h3>Ricci curvature</h3>
-<p>Contracting once: $\mathrm{Ric}_{ij} = R^k_{kij}$. This is a symmetric 2-tensor. Geometrically, $\mathrm{Ric}(v, v)$ is (essentially) the average of sectional curvatures over all 2-planes containing $v$. Ricci curvature governs the behaviour of volumes of geodesic tubes: where Ricci is positive, volumes grow slower than Euclidean; where negative, faster. This is the curvature that enters Einstein's field equations $\mathrm{Ric} - \tfrac{1}{2}R\,g + \Lambda g = 8\pi T$ in general relativity.</p>
+<p>Contracting once: $\mathrm{Ric}_{ij} = R^k{}_{kij}$, the trace of the Riemann tensor on its first upper index and second lower index. (Many modern textbooks — do Carmo, Lee, Petersen — instead contract on the second lower slot, writing $\mathrm{Ric}_{ij} = R^k{}_{ikj}$; the two conventions differ only by the sign convention used to define $R^l{}_{ijk}$ in the line above, and yield the same symmetric tensor here.) The result is a symmetric 2-tensor. Geometrically, $\mathrm{Ric}(v, v)$ is (essentially) the average of sectional curvatures over all 2-planes containing $v$. Ricci curvature governs the behaviour of volumes of geodesic tubes: where Ricci is positive, volumes grow slower than Euclidean; where negative, faster. This is the curvature that enters Einstein's field equations $\mathrm{Ric} - \tfrac{1}{2}R\,g + \Lambda g = 8\pi T$ in general relativity.</p>
 
 <h3>Scalar curvature</h3>
 <p>Contracting once more: $R = g^{ij}\mathrm{Ric}_{ij}$. A single number at each point, capturing the average curvature in all planes. In dimension 2, $R = 2K$. In higher dimensions $R$ is much weaker than $\mathrm{Ric}$, which is much weaker than the full Riemann tensor.</p>

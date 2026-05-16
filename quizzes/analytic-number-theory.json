@@ -367,13 +367,13 @@
           "q": "The bootstrap from Selberg's symmetry formula to PNT proceeds by",
           "choices": [
             "directly invoking the residue theorem",
-            "showing that $A = \\limsup_x |\\psi(x)/x - 1|$ satisfies $A \\le \\tfrac12 A$ (so $A = 0$), via the symmetry's averaging effect",
+            "showing that $A = \\limsup_x |\\psi(x)/x - 1|$ satisfies $A \\le (1-\\delta) A + o(1)$ for some fixed $\\delta > 0$ (so $A = 0$), via the symmetry's averaging effect",
             "induction on the number of prime factors",
             "Mellin-transform inversion"
           ],
           "answer": 1,
-          "hint": "Symmetry feeds back the same quantity at half scale — a self-improvement loop forces zero.",
-          "explain": "Define $R(x) = \\psi(x) - x$. Selberg's formula combined with elementary inequalities gives $|R(x)| \\le \\tfrac{1}{2}\\max_{y \\le x} |R(y)| + o(x)$, which iterates down to $R(x) = o(x)$ — i.e. $\\psi(x) \\sim x$, equivalent to PNT. The averaging on the right is the symmetric pairing of $p$ with $pq$."
+          "hint": "Symmetry feeds back the same quantity strictly contracted — a self-improvement loop forces zero.",
+          "explain": "Define $R(x) = \\psi(x) - x$. Selberg's formula combined with a Tauberian averaging argument gives a contraction $A \\le (1-\\delta) A + o(1)$ for $A := \\limsup_x |R(x)/x|$ and some fixed $\\delta > 0$, which iterates down to $A = 0$ — i.e. $\\psi(x) \\sim x$, equivalent to PNT. The averaging on the right is the symmetric pairing of $p$ with $pq$. (Older sketches sometimes use $\\tfrac{1}{2}$ as the contraction constant for illustration; the literal proof produces a smaller, less explicit $\\delta$.)"
         }
       ]
     },
@@ -386,7 +386,7 @@
           "choices": [
             "$\\sum_{q \\le Q} \\sum_{\\chi \\bmod q}^{*} \\bigl|\\sum_{n \\le N} a_n \\chi(n)\\bigr|^2 \\le (Q^2 + N) \\sum_{n \\le N} |a_n|^2$",
             "$\\sum_{n \\le N} |a_n|^2 \\le \\sum_p (\\log p)^2$",
-            "$\\sum_{q \\le Q} \\varphi(q) = Q^2/(2\\zeta(2))$",
+            "$\\sum_{q \\le Q} \\bigl|\\sum_{n \\le N} a_n e(n/q)\\bigr|^2 \\le Q^2 \\sum |a_n|^2$",
             "$\\sum_{p \\le N} 1/p \\le \\log\\log N + B$"
           ],
           "answer": 0,
@@ -397,13 +397,13 @@
           "type": "mcq",
           "q": "The large sieve constant $(Q^2 + N)$ is essentially sharp because",
           "choices": [
-            "the number of primitive characters $\\sum_{q \\le Q}\\varphi^*(q) \\sim Q^2/\\zeta(2)$, and the inequality is tight when $a_n$ is supported on a residue class",
+            "the number of primitive characters $\\sum_{q \\le Q}\\varphi^*(q) \\sim Q^2/(2\\zeta(2))$, and the inequality is tight when $a_n$ is supported on a residue class",
             "primes have density zero",
             "$\\zeta(s)$ has a pole at $s = 1$",
             "Riemann's hypothesis would imply a smaller constant"
           ],
           "answer": 0,
-          "hint": "Counting primitive characters mod $q \\le Q$ is asymptotic to $Q^2 / \\zeta(2)$.",
+          "hint": "Counting primitive characters mod $q \\le Q$ is asymptotic to $Q^2 / (2\\zeta(2))$.",
           "explain": "There are $\\asymp Q^2$ primitive characters of conductors $\\le Q$, so the LHS already has $\\asymp Q^2 \\|a\\|_2^2$ Plancherel mass when $a$ is concentrated on one residue class. The $N$ on the right is the trivial bound from Cauchy–Schwarz applied to a single Dirichlet sum. Both regimes show up — hence $Q^2 + N$, not max."
         },
         {

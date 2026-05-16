@@ -165,7 +165,7 @@
           "q": "Lazy random walk on the hypercube $\\{0,1\\}^n$ with $n=10$: at each step, pick a coordinate uniformly and flip it with probability $1/2$. Coupon-collector heuristics give mixing time $\\Theta(n\\log n)$. Estimate $n\\log n$ for $n=10$ (use natural log, round to integer).",
           "answer": 23,
           "tol": 2,
-          "explain": "$n\\log n = 10\\ln 10\\approx 10\\cdot 2.30=23.0$. The standard coupling — couple coordinates as soon as both copies have updated each one — gives mixing in time $\\sim \\tfrac{1}{2}n\\log n$ via coupon collector."
+          "explain": "$n\\log n = 10\\ln 10\\approx 10\\cdot 2.30=23.0$. The standard coupling — couple coordinates as soon as both copies have updated each one — gives the upper bound $n\\log n + O(n)$ via coupon collector. The sharper $\\tfrac{1}{2}n\\log n$ cutoff (Aldous) requires different methods."
         },
         {
           "type": "mcq",

@@ -311,7 +311,7 @@
             "$\\pi$ has no universal property"
           ],
           "answer": 1,
-          "explain": "$\\pi$ is a bijection on geometric points and any scheme-valued map from $\\mathcal{X}$ factors uniquely through $\\pi$. But the fiber of $\\pi$ over a stacky point is a classifying stack $B\\mathrm{Aut}$, so automorphism data is discarded; e.g. $\\mathrm{CH}^*(\\mathcal{M}_{1,1})_{\\mathbb{Z}}=\\mathbb{Z}[t]/(12t)\\ne \\mathrm{CH}^*(\\mathbb{A}^1)$."
+          "explain": "$\\pi$ is a bijection on geometric points and any scheme-valued map from $\\mathcal{X}$ factors uniquely through $\\pi$. But the fiber of $\\pi$ over a stacky point is a classifying stack $B\\mathrm{Aut}$, so automorphism data is discarded; e.g. $\\mathrm{CH}^*(\\mathcal{M}_{1,1})_{\\mathbb{Z}}=\\mathbb{Z}\\oplus(\\mathbb{Z}/12)\\cdot\\lambda$ (equivalently $\\mathbb{Z}[t]/(12t,\\,t^2)$, since $\\mathcal{M}_{1,1}$ is $1$-dimensional) $\\ne\\mathrm{CH}^*(\\mathbb{A}^1)=\\mathbb{Z}$."
         },
         {
           "type": "numeric",
@@ -346,7 +346,7 @@
           ],
           "answer": 0,
           "hint": "Coarse spaces have different integral classes at orbifold points.",
-          "explain": "The Hodge line bundle $\\lambda$ on $\\mathcal{M}_{1,1}$ satisfies $12\\lambda=0$ in $\\mathrm{Pic}(\\mathcal{M}_{1,1})$ (reflecting the $\\mu_2$ automorphism at every point and the $\\mu_6$ at $j=0$), giving $\\mathrm{CH}^1(\\mathcal{M}_{1,1})\\cong\\mathbb{Z}/12$. Meanwhile $\\mathrm{CH}^1(\\mathbb{A}^1)=0$, so $\\pi^*$ is not an isomorphism integrally."
+          "explain": "The Hodge line bundle $\\lambda$ on $\\mathcal{M}_{1,1}$ satisfies $12\\lambda=0$ in $\\mathrm{Pic}(\\mathcal{M}_{1,1})$ — Mumford's computation: the discriminant section of $\\lambda^{\\otimes 12}$ vanishes nowhere on $\\mathcal{M}_{1,1}$ (it cuts out the cusp on $\\overline{\\mathcal{M}_{1,1}}$), so $12\\lambda$ is trivial and $\\mathrm{Pic}(\\mathcal{M}_{1,1})=\\mathrm{CH}^1(\\mathcal{M}_{1,1})\\cong\\mathbb{Z}/12$. Meanwhile $\\mathrm{CH}^1(\\mathbb{A}^1)=0$, so $\\pi^*$ is not an isomorphism integrally."
         },
         {
           "type": "numeric",

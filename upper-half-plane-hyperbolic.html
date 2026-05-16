@@ -262,7 +262,7 @@ function ensureArrow(svg, id, color){
 <h2>2. The hyperbolic metric</h2>
 <p>We give $\mathbb{H}$ the Riemannian metric</p>
 <p style="text-align:center">$ds^2 \;=\; \dfrac{dx^2 + dy^2}{y^2}.$</p>
-<p>At height $y$, one Euclidean unit of length counts as $1/y$ hyperbolic units. So as $y \to \infty$ the space feels "compressed" (Euclidean steps get cheaper in hyperbolic terms? no — <em>more expensive per Euclidean unit</em>? let's be careful). Concretely: a horizontal Euclidean segment from $(0,y)$ to $(L,y)$ has hyperbolic length $L/y$. Moving up, the <em>same hyperbolic step</em> requires an ever-larger Euclidean step. Near $y=0$, conversely, one hyperbolic unit is a tiny Euclidean sliver.</p>
+<p>At height $y$, one Euclidean unit of length counts as $1/y$ hyperbolic units. So as $y \to \infty$ a Euclidean step contributes <em>less</em> hyperbolic length: the space feels "compressed" near the top of the plane. Concretely: a horizontal Euclidean segment from $(0,y)$ to $(L,y)$ has hyperbolic length $L/y$. Moving up, the <em>same hyperbolic step</em> requires an ever-larger Euclidean step. Near $y=0$, conversely, one hyperbolic unit is a tiny Euclidean sliver.</p>
 <p>The real axis $\{y=0\}$ is at infinite hyperbolic distance from every interior point: integrating $\int_{\epsilon}^{1} dy/y = -\log\epsilon$ diverges as $\epsilon \to 0^+$. The axis is the <strong>boundary at infinity</strong>, written $\partial\mathbb{H} = \mathbb{R}\cup\{\infty\}$.</p>
 
 <div class="widget" id="w-metric">
@@ -349,10 +349,11 @@ function ensureArrow(svg, id, color){
         // vertical tick
         svg.appendChild(SVG('circle',{cx, cy, r:4, fill:'var(--yellow)'}));
         const xx = InvX(cx);
-        const hypLen = (40 / (H-padT-padB) * (yMax-yMin)) / yy;
+        const dxCoord = 40 / (W-padL-padR) * (xMax-xMin);
+        const hypLen = dxCoord / yy;
         out.textContent =
           `cursor at z = ${xx.toFixed(2)} + ${yy.toFixed(2)} i\n` +
-          `a Euclidean bar of 40 px ≈ ${(40/(H-padT-padB)*(yMax-yMin)).toFixed(3)} coord units\n` +
+          `a Euclidean bar of 40 px ≈ ${dxCoord.toFixed(3)} coord units\n` +
           `its hyperbolic length ds = Δx / y = ${hypLen.toFixed(3)}\n` +
           `(near the real axis this blows up; far from it, it shrinks)`;
       }

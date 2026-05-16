@@ -1330,8 +1330,9 @@ ${mode==='compact'
 <p>The spectral theorem is the centerpiece: it says a self-adjoint (or more generally <em>normal</em>) operator can be decomposed along its spectrum, in a way that reduces the study of $T$ to the study of scalar multiplication. Four tiers:</p>
 
 <h3>Rayleigh quotients and the variational principle</h3>
-<p>For self-adjoint $T$ on a Hilbert space, the <strong>Rayleigh quotient</strong> is $R_T(x)=\langle Tx,x\rangle/\|x\|^2$. Critical points of $R_T$ on the unit sphere are eigenvectors; the critical values are the eigenvalues. The <strong>Courant–Fischer min-max principle</strong> for compact self-adjoint operators on Hilbert space says the ordered eigenvalues $\lambda_1\ge\lambda_2\ge\cdots$ (by absolute value, with multiplicity) satisfy</p>
+<p>For self-adjoint $T$ on a Hilbert space, the <strong>Rayleigh quotient</strong> is $R_T(x)=\langle Tx,x\rangle/\|x\|^2$. Critical points of $R_T$ on the unit sphere are eigenvectors; the critical values are the eigenvalues. The <strong>Courant–Fischer min-max principle</strong> for compact self-adjoint operators on Hilbert space says the signed eigenvalues, ordered $\lambda_1\ge\lambda_2\ge\cdots$ (with multiplicity), satisfy</p>
 $$\lambda_k = \max_{\dim V=k}\min_{x\in V,\|x\|=1}\langle Tx,x\rangle.$$
+<p>(The convention matters: this min-max formula returns the $k$-th largest <em>signed</em> eigenvalue, not the $k$-th largest by absolute value. For an $\ell^2$ ordering by magnitude $|\lambda_1|\ge|\lambda_2|\ge\cdots$, the analogous variational characterization is for the singular values $s_k(T)=\inf_{\dim V=k-1}\sup_{x\perp V,\,\|x\|=1}\|Tx\|$.)
 <p>This is how you prove existence of the eigenvectors in the first place: iterate "maximize $R_T$ on the orthogonal complement of the previous eigenvectors".</p>
 
 <h3>Finite-dimensional: normal matrices diagonalize</h3>

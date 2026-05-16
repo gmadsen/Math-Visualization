@@ -85,7 +85,7 @@
         },
         {
           "type": "mcq",
-          "q": "Glaisher's theorem says the number of partitions of $n$ into <em>odd</em> parts equals the number of partitions of $n$ into <em>distinct</em> parts. Which product identity is the generating-function form of that?",
+          "q": "Euler's theorem (1748) says the number of partitions of $n$ into <em>odd</em> parts equals the number of partitions of $n$ into <em>distinct</em> parts. Which product identity is the generating-function form of that?",
           "choices": [
             "$\\prod_{k\\ge 1}\\dfrac{1}{1-q^{2k-1}} = \\prod_{n\\ge 1}(1+q^n)$",
             "$\\prod_{n\\ge 1}(1-q^n) = \\prod_{n\\ge 1}(1-q^{2n-1})$",

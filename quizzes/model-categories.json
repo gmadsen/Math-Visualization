@@ -110,7 +110,7 @@
           "q": "Select all true statements about fibrations in the projective model structure on $\\mathrm{Ch}(R)$ (chain complexes of $R$-modules, non-negatively graded).",
           "choices": [
             "Fibrations are exactly the chain maps that are surjective in every positive degree.",
-            "Trivial fibrations are exactly the surjective quasi-isomorphisms whose kernel is degreewise projective.",
+            "Trivial fibrations are exactly the chain maps that are surjective in every positive degree and quasi-isomorphisms.",
             "Every chain complex is fibrant.",
             "The projective model structure has the same fibrations as the injective model structure."
           ],
@@ -120,7 +120,7 @@
             2
           ],
           "hint": "Two of these are direct unwindings of the lifting calculus once you fix what 'cofibration' means in the projective structure; one is a categorical fact about the terminal object that characterizes which projective model variant you're in (bounded vs.\\ unbounded matters slightly); one compares two different model structures whose names are nearly identical but whose three classes interleave differently.",
-          "explain": "(0) is correct: in non-negative degrees, projective fibrations are surjections in every positive degree (the degree-zero piece is unconstrained). (1) is the trivial-fib characterization — surjective + quasi-iso, with degreewise projective kernel reflecting the cof orthogonality. (2) is the punchline: the terminal object is $0$, every $X \\to 0$ is degreewise surjective, so every complex is fibrant. (3) is false: the projective and injective structures have the SAME weak equivalences (quasi-isos) but swap the roles of cof / fib — they are Quillen-equivalent but not equal."
+          "explain": "(0) is correct: in non-negative degrees, projective fibrations are surjections in every positive degree (the degree-zero piece is unconstrained). (1) is the trivial-fib characterization: trivial fib = fib + weak eq = (surjective in every positive degree) + (quasi-iso). The kernel of such a map is acyclic but is NOT in general degreewise projective — e.g. a projective resolution $P_\\bullet \\to (\\mathbb{Z}/2)[0]$ over $R = \\mathbb{Z}/4$ with $P_0 = \\mathbb{Z}/4$ is a trivial fib whose degree-0 kernel is $2\\mathbb{Z}/4 \\cong \\mathbb{Z}/2$, not projective over $\\mathbb{Z}/4$. (2) is the punchline: the terminal object is $0$, every $X \\to 0$ is degreewise surjective, so every complex is fibrant. (3) is false: the projective and injective structures have the SAME weak equivalences (quasi-isos) but swap the roles of cof / fib — they are Quillen-equivalent but not equal."
         }
       ]
     },

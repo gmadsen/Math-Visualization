@@ -869,6 +869,12 @@ whose $\ell$-adic Tate module recovers exactly the Galois representation attache
 
 <p>The fractional denominators $4, 3, 2$ are not arbitrary: they record the orders of the stabilizers in $\mathrm{PSL}_2(\mathbb{Z})$ at the elliptic fixed points $i$ (order $2$) and $\rho = e^{2\pi i/3}$ (order $3$), and the parabolic stabilizer at each cusp (which has infinite order in $\mathrm{PSL}_2$ but contributes a $\frac{1}{2}$ from the boundary geometry).</p>
 
+<p>The same Riemann–Hurwitz argument applied to $X_1(N) \to X(1)$ and $X(N) \to X(1)$ gives the parallel formulas. For $N \geq 5$, $\Gamma_1(N)$ acts freely on $\mathcal{H}$ (no elliptic points) and</p>
+<p>$$g(X_1(N)) \;=\; 1 \;+\; \frac{[\mathrm{SL}_2(\mathbb{Z}):\Gamma_1(N)]}{24} \;-\; \frac{\nu_\infty(\Gamma_1(N))}{2}, \qquad [\mathrm{SL}_2(\mathbb{Z}):\Gamma_1(N)] \;=\; \tfrac{N^2}{2} \prod_{p \mid N}\!\bigl(1 - \tfrac{1}{p^2}\bigr),$$
+with cusp count $\nu_\infty(\Gamma_1(N)) = \tfrac{1}{2}\sum_{d \mid N} \varphi(d)\,\varphi(N/d)$ (for $N > 4$). For $\Gamma(N)$ with $N \geq 3$ the action is also free, and</p>
+<p>$$g(X(N)) \;=\; 1 \;+\; \frac{[\mathrm{SL}_2(\mathbb{Z}):\Gamma(N)]\,(N - 6)}{12N}, \qquad [\mathrm{SL}_2(\mathbb{Z}):\Gamma(N)] \;=\; N^3 \prod_{p \mid N}\!\bigl(1 - \tfrac{1}{p^2}\bigr),$$
+with $[\mathrm{SL}_2(\mathbb{Z}):\Gamma(N)]/N$ cusps. So $g(X(2)) = 0$, $g(X(3)) = 0$, $g(X(4)) = 0$, $g(X(5)) = 0$, $g(X(6)) = 1$, and $g(X(7)) = 3$ (the Klein quartic).</p>
+
 <div class="widget" id="w-gen">
   <div class="hd"><span class="ttl">Widget 5 · Genus growth $g(X_0(N))$ for small $N$</span><span class="hint">drag $N$ from $1$ to $50$ and watch the formula spit out the genus, with genus-$0$ levels highlighted</span></div>
   <div class="row">
@@ -1012,7 +1018,7 @@ g(X₀(N)) = 1 + ${idx}/12 − ${nu2}/4 − ${nu3}/3 − ${nuInf}/2 = ${g}`;
 <p>The moduli interpretation of $Y_0(N)$ — pairs $(E, C)$ with $E$ an elliptic curve and $C$ cyclic of order $N$ — descends to give a model of $X_0(N)$ over $\mathbb{Q}$. So $\Gal(\overline{\mathbb{Q}}/\mathbb{Q})$ acts on $X_0(N)(\overline{\mathbb{Q}})$, and one can ask which cusps are individually $\mathbb{Q}$-rational.</p>
 
 <p>The cusps of $X_0(N)$ are parametrized by</p>
-<p>$$\bigl\{(d, a) \,:\, d \mid N,\ a \in (\mathbb{Z}/\gcd(d, N/d))^\times / \{\pm 1\}\bigr\},$$
+<p>$$\bigl\{(d, a) \,:\, d \mid N,\ a \in (\mathbb{Z}/\gcd(d, N/d))^\times\bigr\},$$
 giving the count
 $$\nu_\infty(N) \;=\; \sum_{d \mid N} \varphi\bigl(\gcd(d, N/d)\bigr).$$
 The cusps $0$ (corresponding to $d = N$) and $\infty$ (corresponding to $d = 1$) are always individually $\mathbb{Q}$-rational, but for general $d$ the Galois group acts non-trivially on the parameter $a$.</p>
@@ -1353,6 +1359,12 @@ and each newform of level $N$ gives one factor of $J_0(N)^{\mathrm{new}}$ on whi
   const W = 720, H = 280;
 
   function legendre(a, p){
+    if(p === 2){
+      // Kronecker symbol (a/2): 0 if a even, +1 if a ≡ ±1 (mod 8), -1 if a ≡ ±3 (mod 8)
+      const m = ((a % 8) + 8) % 8;
+      if(m % 2 === 0) return 0;
+      return (m === 1 || m === 7) ? 1 : -1;
+    }
     a = ((a % p) + p) % p;
     if(a === 0) return 0;
     // Euler's criterion: a^((p-1)/2) mod p
@@ -1508,11 +1520,11 @@ and $Y_1(N)(\mathbb{Q}) \setminus \{\text{cusps}\}$ parametrizes elliptic curves
   // Genus of X_1(N) for relevant N (Cohen, Stein tables)
   const G1 = { 1:0, 2:0, 3:0, 4:0, 5:0, 6:0, 7:0, 8:0, 9:0, 10:0, 11:1, 12:0, 13:2, 14:1, 15:1, 16:2, 17:5, 18:2, 19:7, 20:3, 21:5, 22:6, 23:12 };
   const STATUS = {
-    5:  {ok:true,  example:"E: y² + y = x³ − x;   P = (0,0) order 5"},
+    5:  {ok:true,  example:"E: y² + y = x³ − x²;   P = (0,0) order 5  (Cremona 11a3 = X_1(11))"},
     7:  {ok:true,  example:"E: y² + xy = x³ − x² − 2x − 1;   P order 7"},
     10: {ok:true,  example:"E: y² + xy = x³ − 45x + 81;   P order 10 (LMFDB 66.c1)"},
     11: {ok:false, example:"X_1(11) has genus 1; only finitely many ℚ-points, all cusps (Mazur)"},
-    12: {ok:true,  example:"E: y² = x³ − 4x;   E(ℚ)_tors ≅ ℤ/12 not direct, but ℤ/2 ⊕ ℤ/6 occurs at level 30"},
+    12: {ok:true,  example:"E: y² + xy + y = x³ − 3x + 1;   E(ℚ)_tors ≅ ℤ/12  (Cremona 50a3 = LMFDB 50.b3)"},
     13: {ok:false, example:"X_1(13) has genus 2; ℚ-points are cusps (Mazur)"},
     15: {ok:false, example:"X_1(15) has genus 1; ℚ-points are cusps (Mazur)"},
     17: {ok:false, example:"X_1(17) has genus 5; ℚ-points are cusps (Mazur)"},

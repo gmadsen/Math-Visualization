@@ -408,7 +408,7 @@ $$\boxed{\zeta(2n) = (-1)^{n+1}\frac{B_{2n}\,(2\pi)^{2n}}{2\,(2n)!}, \qquad n=1,
   function zetaFormula(n){
     // (-1)^{n+1} B_{2n} (2pi)^{2n} / (2 (2n)!)
     const B = bernoulli(2*n);
-    const sign = ((n+1)%2===0) ? -1 : 1;
+    const sign = ((n+1)%2===0) ? 1 : -1;
     let fact = 1;
     for(let i=1;i<=2*n;i++) fact*=i;
     return sign * B * Math.pow(2*Math.PI, 2*n) / (2 * fact);
@@ -501,7 +501,7 @@ $$\zeta(3) = \frac{5}{2}\sum_{n=1}^{\infty}\frac{(-1)^{n+1}}{n^3\binom{2n}{n}}.$
 
 <p>The denominators of the partial sums grow slower than the denominators of any rational approximation to $\zeta(3)$ — a contradiction if $\zeta(3)$ were rational. The proof establishes irrationality but says nothing about transcendence.</p>
 
-<div class="note"><strong>What about $\zeta(5), \zeta(7), \ldots$?</strong> In 2001, Tanguy Rivoal proved that infinitely many odd zeta values are irrational, and in 2022 Wadim Zudilin showed at least one of $\zeta(5),\zeta(7),\zeta(9),\zeta(11)$ is irrational. Whether each individual odd value is irrational — let alone whether any has a $\pi^{2k+1}$-type closed form — remains completely open.</div>
+<div class="note"><strong>What about $\zeta(5), \zeta(7), \ldots$?</strong> In 2001, Tanguy Rivoal proved that infinitely many odd zeta values are irrational, and in 2001 Wadim Zudilin showed at least one of $\zeta(5),\zeta(7),\zeta(9),\zeta(11)$ is irrational. Whether each individual odd value is irrational — let alone whether any has a $\pi^{2k+1}$-type closed form — remains completely open.</div>
 
 <div class="widget" id="w-apery">
   <div class="hd"><div class="ttl">Apéry series convergence</div><div class="hint">watch rational approximants approach ζ(3)</div></div>

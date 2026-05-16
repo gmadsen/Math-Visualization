@@ -286,7 +286,7 @@ $$ G_\mathbb{Q} \;\cong\; \varprojlim_{K/\mathbb{Q}\text{ finite Galois}}\; \Gal
 <h3>Frobenius at a prime $p$</h3>
 <p>For each prime $p$, pick an embedding $\bar{\mathbb{Q}} \hookrightarrow \bar{\mathbb{Q}}_p$. That choice identifies a <strong>decomposition subgroup</strong> $D_p \subset G_\mathbb{Q}$ — the stabiliser of the embedding. Inside $D_p$ sits the <strong>inertia subgroup</strong> $I_p$, which encodes wild/tame ramification. When $p$ is <em>unramified</em> in a finite Galois extension $K/\mathbb{Q}$, the quotient $D_p/I_p$ is cyclic, generated canonically by the <strong>Frobenius</strong> element</p>
 $$ \mathrm{Frob}_p \in \Gal(K/\mathbb{Q}) \big/ I_p, \qquad \mathrm{Frob}_p: x \mapsto x^p \pmod{\mathfrak p}. $$
-<p>Different choices of embedding give conjugate $\mathrm{Frob}_p$'s, so $\mathrm{Frob}_p$ is well-defined as a <em>conjugacy class</em> in $G_\mathbb{Q}/I_p$.</p>
+<p>Different choices of embedding give conjugate $\mathrm{Frob}_p$'s, so $\mathrm{Frob}_p$ is well-defined as a <em>conjugacy class</em> in $\Gal(K/\mathbb{Q})$ for any finite Galois $K/\mathbb{Q}$ unramified at $p$ (equivalently, in the maximal-unramified-at-$p$ quotient $G_\mathbb{Q}/\langle I_p\rangle$, where $\langle I_p\rangle$ is the normal closure — the bare $I_p$ itself is not normal in $G_\mathbb{Q}$, since changing the embedding conjugates it).</p>
 
 <div class="widget" id="w-profinite">
   <div class="hd"><span class="ttl">Widget 1 · Profinite cartoon of $G_\mathbb{Q}$</span><span class="hint">finite quotients fan out; $G_\mathbb{Q}$ sits at the top</span></div>
@@ -403,7 +403,7 @@ $$ \rho_\psi \colon G_\mathbb{Q} \to (\mathbb{Z}/N)^\times \xrightarrow{\psi} \m
 <ul>
   <li>Tate modules of elliptic curves (§4),</li>
   <li>weight-2 cusp forms (§7),</li>
-  <li>odd irreducible Artin representations (Khare–Wintenberger theorem).</li>
+  <li>odd, irreducible, 2-dimensional complex Artin representations (modularity follows from Khare–Wintenberger's proof of Serre's conjecture for the residual mod-$\ell$ representation, combined with automorphy lifting; the Khare–Wintenberger theorem itself is a statement about mod-$\ell$ residual reps, not directly about complex Artin reps).</li>
 </ul>
 </section>
 
@@ -595,7 +595,7 @@ $$ \tr\rho_{f,\lambda}(\mathrm{Frob}_p) \;=\; a_p(f), \qquad \det\rho_{f,\lambda
 <section id="ss">
 <h2>8. Irreducibility and semisimplification</h2>
 <p>A Galois representation $\rho: G_\mathbb{Q} \to \mathrm{GL}_n(K)$ is <strong>irreducible</strong> if $K^n$ has no proper non-zero $G_\mathbb{Q}$-stable subspace, and <strong>semisimple</strong> if it decomposes as a direct sum of irreducibles. As with finite-group representations, not every representation is semisimple — an upper-triangular $\rho = \begin{pmatrix}\chi_1 & *\\ 0 & \chi_2\end{pmatrix}$ with non-zero extension class is reducible but not a direct sum. The <strong>semisimplification</strong> $\rho^{\mathrm{ss}} = \chi_1 \oplus \chi_2$ is obtained by throwing away the off-diagonal cocycle.</p>
-<p>Because traces are additive on short <a href="./homological.html#exact" data-auto-inline-link="1" data-concept-id="exact-sequences" data-blurb="Exactness at B means im f = ker g; short exact sequences 0→A→B→C→0 are the atomic building blocks of homological algebra.">exact sequences</a>, $\tr\rho(\mathrm{Frob}_p) = \tr\rho^{\mathrm{ss}}(\mathrm{Frob}_p)$ at every unramified prime. So <em>Frobenius traces only ever see the semisimplification</em>. By the <strong>Brauer–Nesbitt / Chebotarev</strong> combination, two semisimple $\ell$-adic representations of $G_\mathbb{Q}$ are isomorphic iff their traces of Frobenius agree at a density-one set of primes — a dramatic rigidity statement. For $\rho_{E,\ell}$ from an elliptic curve, a theorem of Serre guarantees irreducibility for all but finitely many $\ell$, so the semisimplification is just $\rho_{E,\ell}$ itself.</p>
+<p>Because traces are additive on short <a href="./homological.html#exact" data-auto-inline-link="1" data-concept-id="exact-sequences" data-blurb="Exactness at B means im f = ker g; short exact sequences 0→A→B→C→0 are the atomic building blocks of homological algebra.">exact sequences</a>, $\tr\rho(\mathrm{Frob}_p) = \tr\rho^{\mathrm{ss}}(\mathrm{Frob}_p)$ at every unramified prime. So <em>Frobenius traces only ever see the semisimplification</em>. By the <strong>Brauer–Nesbitt / Chebotarev</strong> combination, two semisimple $\ell$-adic representations of $G_\mathbb{Q}$ are isomorphic iff their traces of Frobenius agree at a density-one set of primes — a dramatic rigidity statement. For $\rho_{E,\ell}$ from a <strong>non-CM</strong> elliptic curve, Serre's open-image theorem guarantees irreducibility (in fact surjectivity onto $\mathrm{GL}_2(\mathbb{Z}_\ell)$) for all but finitely many $\ell$, so the semisimplification is just $\rho_{E,\ell}$ itself. For CM curves the picture is different: $\rho_{E,\ell}$ becomes reducible after restriction to $G_K$ (where $K$ is the CM field) at every $\ell$ that splits in $K$, decomposing as a sum of two Hecke characters.</p>
 
 <!-- callback-auto-begin -->
 <aside class="callback">
@@ -717,7 +717,7 @@ $$ \tr\rho_{f,\lambda}(\mathrm{Frob}_p) \;=\; a_p(f), \qquad \det\rho_{f,\lambda
     Ql: {target:'GL_n(Q̄_ℓ)', label:'ℓ-adic', color:'var(--yellow)',
          note:"The workhorse. Comes from ℓ-adic étale cohomology of algebraic varieties. Image need NOT be finite. Used for elliptic curves, modular forms."},
     Fl: {target:'GL_n(F̄_ℓ)', label:'mod ℓ', color:'var(--pink)',
-         note:"Reduction of an ℓ-adic representation mod ℓ. Image always finite. Serre's conjecture: every odd, irreducible, 2-d mod-ℓ representation is modular."}
+         note:"Reduction of an ℓ-adic representation mod ℓ. Image always finite. Serre's conjecture (now Khare–Wintenberger's theorem): every odd, absolutely irreducible, 2-d mod-ℓ representation of G_Q is modular."}
   };
 
   function render(){
@@ -1237,7 +1237,7 @@ $$ \tr\rho_{f,\lambda}(\mathrm{Frob}_p) \;=\; a_p(f), \qquad \det\rho_{f,\lambda
     if(disc < 0){
       add('eigenvalues: complex conjugate', 'var(--cyan)', 12);
     } else if(disc === 0){
-      add('repeated root (supersingular in char p)', 'var(--pink)', 12);
+      add('repeated root (a²=4p; no integer solution for prime p)', 'var(--pink)', 12);
     } else {
       add('real eigenvalues — on circle boundary', 'var(--pink)', 12);
     }

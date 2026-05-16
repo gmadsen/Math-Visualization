@@ -269,7 +269,7 @@ $$ \tfrac{d}{dt}\|\psi(t)\|^2 = \tfrac{d}{dt}\langle \psi, \psi\rangle = \langle
 <p>so $\int |\psi(x,t)|^2\,dx \equiv 1$: total probability is preserved forever. Strip away the physics and Schrödinger evolution is a <em>structure theorem</em>: every self-adjoint operator generates a one-parameter unitary group, and that group is the dynamics.</p>
 
 <div class="widget" id="w-figure-time-dep">
-  <div class="hd"><div class="ttl">Free wavepacket spreading</div><div class="hint">Slide $t$; the Gaussian&#39;s width grows as $\sqrt{1+t^2}$ but $\int|\psi|^2 = 1$.</div></div>
+  <div class="hd"><div class="ttl">Free wavepacket spreading</div><div class="hint">Slide $t$; the Gaussian&#39;s width grows as $\sqrt{1+t^2/16}$ but $\int|\psi|^2 = 1$.</div></div>
   <div class="row">
     <label for="se-t">$t$</label>
     <input type="range" id="se-t" min="0" max="40" step="0.5" value="0">
@@ -837,9 +837,9 @@ $$ E_n = -\frac{E_0}{n^2}, \qquad E_0 = \frac{me^4}{2\hbar^2} \approx 13.6\,\mat
 <h2>5. Scattering states and barrier transmission</h2>
 <p>For a potential that decays at infinity, the spectrum of $H = -\frac{\hbar^2}{2m}\Delta + V$ above the asymptotic value of $V$ is purely continuous. The generalized eigenstates are plane-wave solutions $e^{ikx}$ — not in $L^2$, but participating in the spectral measure. Physically, they describe a particle of definite momentum $p = \hbar k$.</p>
 
-<p>Send a wave $e^{ikx}$ from the left into a barrier. After it interacts with the potential it splits into a transmitted piece $T\,e^{ikx}$ on the right and a reflected piece $R\,e^{-ikx}$ on the left. Probability conservation — equivalently, unitarity of the S-matrix — gives</p>
-$$ |T|^2 + |R|^2 = 1. $$
-<p>The startling feature: even when the energy $E$ is <em>below</em> the barrier height $V_0$, transmission $|T|^2 > 0$. The wavefunction inside the barrier decays exponentially, $\psi(x) \propto e^{-\kappa x}$ with $\kappa = \sqrt{2m(V_0-E)}/\hbar$, but it doesn't reach zero, so a thin enough barrier always lets some amplitude through. This is <em>quantum tunneling</em> — the engine of $\alpha$-decay, the scanning tunneling microscope, and Josephson junctions.</p>
+<p>Send a wave $e^{ikx}$ from the left into a barrier. After it interacts with the potential it splits into a transmitted piece $t\,e^{ikx}$ on the right and a reflected piece $r\,e^{-ikx}$ on the left ($t,r$ are complex amplitudes). Define the transmission and reflection <em>probabilities</em> $T = |t|^2$ and $R = |r|^2$. Probability conservation — equivalently, unitarity of the S-matrix — gives</p>
+$$ T + R = 1. $$
+<p>The startling feature: even when the energy $E$ is <em>below</em> the barrier height $V_0$, the transmission probability $T > 0$. The wavefunction inside the barrier decays exponentially, $\psi(x) \propto e^{-\kappa x}$ with $\kappa = \sqrt{2m(V_0-E)}/\hbar$, but it doesn't reach zero, so a thin enough barrier always lets some amplitude through. This is <em>quantum tunneling</em> — the engine of $\alpha$-decay, the scanning tunneling microscope, and Josephson junctions.</p>
 
 <div class="widget" id="w-figure-scattering">
   <div class="hd"><div class="ttl">Rectangular barrier: tunneling probability $T(E)$</div><div class="hint">Drag $E$ across $V_0$. Transmission stays non-zero on the classically forbidden side.</div></div>

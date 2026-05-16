@@ -74,7 +74,7 @@
         "tt-higher-inductive-types",
         "kan-complex"
       ],
-      "blurb": "A model interprets each type as an object and each judgment as a derivation in some semantic category. Voevodsky's simplicial-set model interprets types as Kan complexes ($\\infty$-groupoids), Π/Σ as fibred mapping spaces / total spaces, identity types as path objects, and univalence holds because equivalence of Kan complexes coincides with weak equivalence. This is what justifies HoTT as a foundation, not just a syntax.",
+      "blurb": "A model interprets each type as an object and each judgment as a derivation in some semantic category. Voevodsky's simplicial-set model interprets types as Kan complexes ($\\infty$-groupoids), Π/Σ as fibred mapping spaces / total spaces, identity types as path objects, and univalence holds because Voevodsky constructed a fibrant universe of small Kan fibrations whose path space at $(A,B)$ matches the space of equivalences $A\\simeq B$. This is what justifies HoTT as a foundation, not just a syntax.",
       "tags": [
         "foundation"
       ]

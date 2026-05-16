@@ -12,15 +12,15 @@ Per-topic mathematical-correctness audits. Each report verifies every formula, t
 | Algebra & homological | 17 | 17 | complete (10 major, 5 minor, 2 clean) |
 | Higher categories & toposes | 7 | 7 | complete (4 major, 3 minor) |
 | Analysis | 22 | 22 | complete (5 major, 6 medium, 3 minor, 8 clean) |
-| Probability & statistics | 12 | 0 | pending |
-| Geometry & topology | 26 | 0 | pending |
-| Number theory | 19 | 0 | pending |
-| Modular forms & L-functions | 20 | 0 | pending |
-| Algebraic geometry | 35 | 0 | pending |
-| Combinatorics & graph theory | 9 | 0 | pending |
-| Mathematical physics | 11 | 0 | pending |
-| Control theory & optimization | 4 | 0 | pending |
-| **Total** | **190** | **54** | **28%** |
+| Probability & statistics | 12 | 12 | complete (1 major, 4 moderate, 5 minor, 2 clean) |
+| Geometry & topology | 26 | 26 | complete (~7 moderate, ~16 minor, 3 clean) |
+| Number theory | 19 | 19 | complete (1 major, 2 moderate, ~13 minor, 3 clean) |
+| Modular forms & L-functions | 20 | 20 | complete (~9 moderate, ~10 minor, 1 clean) |
+| Algebraic geometry | 35 | 35 | complete (~10 moderate, ~22 minor, 3 clean) |
+| Combinatorics & graph theory | 9 | 9 | complete (~7 minor, 2 clean) |
+| Mathematical physics | 11 | 11 | complete (~3 moderate, ~5 minor, 3 clean) |
+| Control theory & optimization | 4 | 4 | complete (~3 minor, 1 clean) |
+| **Total** | **190** | **190** | **100% — audit complete** |
 
 ## Analysis — math findings (22/22)
 

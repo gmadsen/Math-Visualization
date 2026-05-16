@@ -141,11 +141,11 @@
           ],
           "right": [
             "Triangulations of a convex $(n+3)$-gon by non-crossing diagonals; the exchange graph is the Stasheff associahedron.",
-            "Triangulations of a punctured $n$-gon (one tagged interior point); exchange graph is the cyclohedron.",
-            "Exceptional cluster algebras with no surface model; first defined by Fomin–Zelevinsky from the corresponding Dynkin diagrams; finite cluster sets of sizes $42, 70, 128$ respectively."
+            "Triangulations of a once-punctured $n$-gon with tagged arcs (Fomin–Shapiro–Thurston); exchange graph is the type-$D$ generalized associahedron of Fomin–Reading.",
+            "Exceptional cluster algebras with no surface model; first defined by Fomin–Zelevinsky from the corresponding Dynkin diagrams; $42, 70, 128$ cluster variables (= almost positive roots) respectively, with $833, 4160, 25080$ clusters."
           ],
           "answer": [0, 1, 2],
-          "explain": "Type $A_n$ ↔ unpunctured polygon (associahedron). Type $D_n$ ↔ punctured polygon (cyclohedron-like, with tagged arcs). The exceptional types $E_{6,7,8}$ admit no surface model and their clusters are enumerated combinatorially via the corresponding root system."
+          "explain": "Type $A_n$ ↔ unpunctured polygon, exchange polytope = Stasheff associahedron. Type $D_n$ ↔ once-punctured polygon with tagged arcs (FST 2008), exchange polytope = type-$D$ generalized associahedron of Fomin–Reading. (The cyclohedron is the type $B_n/C_n$ generalized associahedron, not type $D_n$.) The exceptional types $E_{6,7,8}$ admit no surface model: they have $42, 70, 128$ cluster variables (= almost positive roots) and $833, 4160, 25080$ clusters respectively, with cluster counts given by the Catalan-like product $\\prod_i (h+e_i+1)/(e_i+1)$ over the exponents of the root system."
         }
       ]
     },
@@ -169,7 +169,7 @@
           "q": "For the type $A_3$ cluster category, how many indecomposable objects are there (counting up to isomorphism)?",
           "answer": 9,
           "tol": 1e-9,
-          "explain": "Type $A_n$ has $n(n+3)/2$ cluster variables (= indecomposable rigid objects) and $n$ shifted projectives = $n$ extra indecomposables. The $A_3$ cluster category has $\\binom{n+3}{2}$ indecomposables total when $n=3$: $9$ indecomposable rigid objects. Equivalently: each diagonal AND each side of the hexagon represents one indecomposable, giving $9 = \\binom{6}{2}-6/?$; concretely the $9$ are the $n(n+3)/2 = 9$ diagonals/sides of the hexagon when $n=3$."
+          "explain": "All $n(n+3)/2$ indecomposable objects of the type-$A_n$ cluster category are rigid; for $n=3$ that gives $9$. They split as $\\binom{n+1}{2}$ indecomposable $kQ$-modules together with $n$ shifted projectives $P_1[1], \\dots, P_n[1]$ — the shifts are *among* the indecomposables, not in addition to them. For $A_3$: $6$ module indecomposables $+ 3$ shifted projectives $= 9$, matching the $n(n+3)/2 = 9$ diagonals of the hexagon."
         },
         {
           "type": "multi-select",

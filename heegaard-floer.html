@@ -373,12 +373,12 @@ Each is a $g$-dimensional torus inside $\mathrm{Sym}^g(\Sigma_g)$. A generator o
 <p>Four flavors arise from how one localises in $U$:</p>
 
 <table class="plain">
-  <thead><tr><th>flavor</th><th>coefficient ring</th><th>what it sees</th></tr></thead>
+  <thead><tr><th>flavor</th><th>$\mathbb{F}_2[U]$-module type</th><th>what it sees</th></tr></thead>
   <tbody>
-    <tr><td>$\widehat{HF}(Y)$</td><td>$\mathbb{F}_2$ (set $U=0$)</td><td>Most computable; rank lower bound on the splitting's intersection</td></tr>
-    <tr><td>$HF^-(Y)$</td><td>$\mathbb{F}_2[U]$</td><td>The "minus" tower; carries torsion that decorates the geometry</td></tr>
-    <tr><td>$HF^+(Y)$</td><td>$\mathbb{F}_2[U,U^{-1}]/U\mathbb{F}_2[U]$</td><td>The "plus" tower; a $\mathbb{Z}[U^{-1}]$-module with the $d$-invariant at its bottom</td></tr>
-    <tr><td>$HF^\infty(Y)$</td><td>$\mathbb{F}_2[U,U^{-1}]$</td><td>"Infinity" version; for $\mathbb{Q}$-homology spheres always $\mathbb{F}_2[U,U^{-1}]^{2^{b_1}}$</td></tr>
+    <tr><td>$\widehat{HF}(Y)$</td><td>$\mathbb{F}_2$-vector space (set $U=0$)</td><td>Most computable; rank lower bound on the splitting's intersection</td></tr>
+    <tr><td>$HF^-(Y)$</td><td>$\mathbb{F}_2[U]$-module</td><td>The "minus" tower; carries torsion that decorates the geometry</td></tr>
+    <tr><td>$HF^+(Y)$</td><td>module $\mathbb{F}_2[U,U^{-1}]/U\mathbb{F}_2[U]$ (no ring structure: not closed under multiplication)</td><td>The "plus" tower; a $\mathbb{Z}[U^{-1}]$-module with the $d$-invariant at its bottom</td></tr>
+    <tr><td>$HF^\infty(Y)$</td><td>$\mathbb{F}_2[U,U^{-1}]$-module</td><td>"Infinity" version; for $\mathbb{Q}$-homology spheres always $\mathbb{F}_2[U,U^{-1}]$ (i.e. rank one over $\mathbb{F}_2[U,U^{-1}]$, since $b_1=0$); the general statement $\mathbb{F}_2[U,U^{-1}]^{2^{b_1}}$ for arbitrary $Y$ is the Ozsváth–Szabó conjecture</td></tr>
   </tbody>
 </table>
 
@@ -387,7 +387,7 @@ $$\cdots\to HF^-(Y)\xrightarrow{\cdot U}HF^-(Y)\to\widehat{HF}(Y)\to\cdots$$
 plus a parallel sequence relating $HF^+$ and $HF^\infty$. Choice of <em>$\mathrm{Spin}^c$-structure</em> $\mathfrak{s}\in\mathrm{Spin}^c(Y)$ decomposes each variant: a generator $\mathbf{x}\in\mathbb{T}_\alpha\cap\mathbb{T}_\beta$ determines a $\mathrm{Spin}^c$-structure, and the differential preserves it.</p>
 
 <div class="widget" id="w-variants">
-  <div class="hd"><div class="ttl">The four flavors · click for definition</div><div class="hint">click a node · see its coefficient ring and information content</div></div>
+  <div class="hd"><div class="ttl">The four flavors · click for definition</div><div class="hint">click a node · see its module structure and information content</div></div>
   <svg id="hv-svg" viewBox="0 0 720 240" width="100%" height="240"><title>The four Heegaard Floer variants and their connecting maps</title></svg>
   <div class="readout" id="hv-out">Click a flavor in the diagram above.</div>
   <p class="small">$\widehat{HF}$ is the simplest, $HF^\infty$ the most rigid (it depends only on $H_*(Y;\mathbb{Z})$). The truncations $HF^\pm$ live between them and carry the subtle invariants — $d$, correction terms, mapping cone formulas.</p>
@@ -697,8 +697,8 @@ Furthermore $\tau$ is a homomorphism from the smooth knot concordance group $\ma
   if(!svg) return;
   const W=720, H=240;
   const nodes = [
-    {id:'inf',  x:120, y:80,  label:'HF^∞', color:'var(--violet)', desc:'HF^∞(Y,𝔰) = 𝔽₂[U,U⁻¹] for ℚ-homology spheres; depends only on H₁(Y). Coefficient ring 𝔽₂[U,U⁻¹]. The rigid skeleton.'},
-    {id:'plus', x:380, y:80,  label:'HF^+', color:'var(--green)',  desc:'HF^+(Y,𝔰) is the quotient HF^∞ / U·HF^−. Carries the d-invariant at the bottom of its U-tower. The flavor most often computed.'},
+    {id:'inf',  x:120, y:80,  label:'HF^∞', color:'var(--violet)', desc:'HF^∞(Y,𝔰) = 𝔽₂[U,U⁻¹] for ℚ-homology spheres (where it is vacuously H₁-determined since b₁=0); whether HF^∞ depends only on H₁(Y) for general Y is the Ozsváth–Szabó conjecture. 𝔽₂[U]-module structure 𝔽₂[U,U⁻¹]. The rigid skeleton.'},
+    {id:'plus', x:380, y:80,  label:'HF^+', color:'var(--green)',  desc:'HF^+(Y,𝔰) is the quotient HF^∞ / HF^− (cokernel of the inclusion HF^− ↪ HF^∞). Carries the d-invariant at the bottom of its U-tower. The flavor most often computed.'},
     {id:'minus',x:120, y:170, label:'HF^-', color:'var(--cyan)',   desc:'HF^−(Y,𝔰) is the U-completion; sub-𝔽₂[U]-module of HF^∞ on which U acts non-trivially. Carries finer torsion than HF^+.'},
     {id:'hat',  x:600, y:170, label:'̂HF',   color:'var(--yellow)',  desc:'̂HF(Y,𝔰) is the U=0 quotient HF^+/U·HF^+. Finite 𝔽₂-vector space; the most computable flavor. Generates a long exact sequence with HF^±.'}
   ];
@@ -751,7 +751,7 @@ Furthermore $\tau$ is a homomorphism from the smooth knot concordance group $\ma
   const data = {
     unknot: {alex:'1', lattice:[[0,0,1]]},
     trefoil: {alex:'t - 1 + t⁻¹', lattice:[[-2,-1,1],[-1,0,1],[0,1,1]]},
-    fig8: {alex:'-t + 3 - t⁻¹', lattice:[[-1,-1,1],[0,0,1],[1,1,1]]},
+    fig8: {alex:'-t + 3 - t⁻¹', lattice:[[-1,-1,1],[0,0,3],[1,1,1]]},
     51: {alex:'t² - t + 1 - t⁻¹ + t⁻²', lattice:[[-4,-2,1],[-3,-1,1],[-2,0,1],[-1,1,1],[0,2,1]]}
   };
   function draw(){

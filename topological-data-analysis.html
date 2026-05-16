@@ -339,10 +339,13 @@ function drawNode(svg, x, y, label, opts={}){
     for(let i=0;i<n;i++) roots.add(uniteFind(parent,i));
     const beta0 = roots.size;
     const chi = n - edges.length + triangles.length;
-    // β₁ = β₀ − χ + β₂. For Vietoris–Rips on R² point clouds, β₂ = 0 in
-    // practice (no 2-sphere can be triangulated by 2D vertices), so we drop
-    // the β₂ term — but clamp to ≥ 0 to surface any future violation rather
-    // than show a negative count.
+    // β₁ = β₀ − χ + β₂. The Vietoris–Rips complex is *abstract*, so the
+    // ambient dimension of the cloud places no a priori bound on its Betti
+    // numbers; β₂ can be nonzero in principle (e.g. octahedron-like 6-point
+    // configurations realise an S² at a narrow ε-band). For the small,
+    // generic 2-D demo clouds used here we don't enumerate triangle-pair
+    // boundaries, so we drop the β₂ term and clamp to ≥ 0 to surface any
+    // future violation rather than show a negative count.
     const beta1 = Math.max(0, beta0 - chi);
     return [beta0, beta1];
   }
@@ -761,7 +764,7 @@ function drawNode(svg, x, y, label, opts={}){
     },
     {
       title: 'Matching ⇒ bottleneck bound',
-      readout: 'Move C (algebraic stability, Chazal–de Silva–Glisse–Oudot 2009): any ε-interleaving of pointwise-finite-dim persistence modules induces a partial matching whose L^∞-cost ≤ ε. Conclusion: W_∞(Dgm(f), Dgm(g)) ≤ ‖f − g‖_∞. □',
+      readout: 'Move C (algebraic stability — Chazal–de Silva–Glisse–Oudot, *Structure and Stability of Persistence Modules*, arXiv 2012 / Springer 2016; building on the 2009 proximity-of-persistence-modules paper of Chazal–Cohen-Steiner–Glisse–Guibas–Oudot): any ε-interleaving of pointwise-finite-dim persistence modules induces a partial matching whose L^∞-cost ≤ ε. Conclusion: W_∞(Dgm(f), Dgm(g)) ≤ ‖f − g‖_∞. □',
       diagram: `<line x1='80' y1='200' x2='580' y2='40' stroke='var(--mute)' stroke-dasharray='4 4'/>
                 <circle cx='200' cy='100' r='5' fill='var(--cyan)'/>
                 <circle cx='220' cy='110' r='5' fill='var(--yellow)'/>
@@ -846,7 +849,7 @@ The multiset $\{(b_\alpha, d_\alpha)\}$ is the persistence diagram of $M$.</div>
   </div>
   <svg id="tda-mapper-svg" viewBox="0 0 720 360" width="720" height="360"><title>Mapper algorithm on a Y-shaped cloud: cover, clustering, nerve graph</title></svg>
   <div class="readout" id="tda-mapper-out"></div>
-  <p class="small">A Y-shaped cloud has three arms meeting at a junction. We use the $x$-coordinate as the filter $f$. With too few bins, the entire Y collapses to a line; with finely tuned bins and modest overlap, the Y's branching point appears as a degree-3 node. Real applications use Mapper to surface unexpected branch points in patient-clustering or single-cell data (Singh–Mémoli–Carlsson 2007; Nicolau–Levine–Carlsson type-II diabetes paper, 2011).</p>
+  <p class="small">A Y-shaped cloud has three arms meeting at a junction. We use the $x$-coordinate as the filter $f$. With too few bins, the entire Y collapses to a line; with finely tuned bins and modest overlap, the Y's branching point appears as a degree-3 node. Real applications use Mapper to surface unexpected branch points in patient-clustering or single-cell data (Singh–Mémoli–Carlsson 2007; Nicolau–Levine–Carlsson breast-cancer paper, 2011).</p>
 </div>
 <script>
 (function(){
@@ -973,7 +976,7 @@ The multiset $\{(b_\alpha, d_\alpha)\}$ is the persistence diagram of $M$.</div>
 })();
 </script>
 
-<p>Mapper is the workhorse of "exploratory TDA" outside academia: the original paper visualised diabetes patient strata with it; Carlsson's company Ayasdi (founded 2008, acquired by SymphonyAI 2019) built a commercial platform around it. Caveats: Mapper graphs are <em>not</em> a topological invariant — they depend on $f$ and the cover — so they are best read as <em>hypothesis generators</em>, then validated with persistent homology or domain knowledge.</p>
+<p>Mapper is the workhorse of "exploratory TDA" outside academia: Nicolau–Levine–Carlsson (2011, PNAS) used it to surface a previously unrecognised survival-favourable subgroup of breast cancers, and Li et al. (2015, Sci. Transl. Med.) later applied it to type-II diabetes patient stratification. Carlsson's company Ayasdi (founded 2008, acquired by SymphonyAI 2019) built a commercial platform around it. Caveats: Mapper graphs are <em>not</em> a topological invariant — they depend on $f$ and the cover — so they are best read as <em>hypothesis generators</em>, then validated with persistent homology or domain knowledge.</p>
 
 <div class="quiz" data-concept="mapper-algorithm"></div>
 </section>
@@ -1002,7 +1005,7 @@ The multiset $\{(b_\alpha, d_\alpha)\}$ is the persistence diagram of $M$.</div>
 <h3>Software ecosystem</h3>
 
 <ul>
-<li><strong>Ripser</strong> (Bauer 2019) — fastest Rips persistence; the de facto standard for moderate-scale clouds.</li>
+<li><strong>Ripser</strong> (Bauer 2021) — fastest Rips persistence; the de facto standard for moderate-scale clouds.</li>
 <li><strong>GUDHI</strong> (INRIA) — broad C++/Python library: Rips, Čech, Alpha complexes, Mapper, multi-parameter, Wasserstein metrics.</li>
 <li><strong>Dionysus</strong> (Morozov) — research-oriented, supports zigzag and cohomology.</li>
 <li><strong>scikit-tda</strong> — Python umbrella (Ripser, Mapper-via-KeplerMapper, persim).</li>

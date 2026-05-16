@@ -9,7 +9,7 @@
           "q": "Mostow rigidity asserts that for closed hyperbolic $n$-manifolds $M_1,M_2$ with $n\\ge 3$, an isomorphism $\\pi_1(M_1)\\cong\\pi_1(M_2)$ implies:",
           "choices": [
             "$M_1$ and $M_2$ are homotopy equivalent only",
-            "$M_1$ and $M_2$ are isometric (and the isometry is unique up to homotopy)",
+            "$M_1$ and $M_2$ are isometric (and the isometry is unique within its homotopy class)",
             "$M_1$ and $M_2$ have the same fundamental group but possibly different hyperbolic metrics",
             "$M_1$ and $M_2$ are merely diffeomorphic"
           ],

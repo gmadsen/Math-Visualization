@@ -211,12 +211,12 @@
           "q": "Heights enter Faltings' proof primarily through which finiteness statement?",
           "choices": [
             "Northcott applied directly to $C(K)$.",
-            "Finiteness of isogeny classes of abelian varieties of bounded Faltings height (the Shafarevich/isogeny-class theorem).",
+            "Finiteness of $K$-isomorphism classes of abelian varieties of bounded Faltings height (the Northcott property of $h_F$, used together with Shafarevich).",
             "Finiteness of torsion on the Jacobian.",
             "The Mordell–Weil theorem for $\\operatorname{Jac}(C)$."
           ],
           "answer": 1,
-          "explain": "A central step is showing that abelian varieties with bounded Faltings height fall into finitely many isogeny classes — Northcott in the moduli world. Vojta's later proof replaces the moduli detour with a direct height inequality on $C\\times C$."
+          "explain": "A central step is the Northcott property for the Faltings height: only finitely many $K$-isomorphism classes of abelian varieties of fixed dimension with $h_F\\le C$. (The companion 'Faltings' isogeny theorem' — the Tate conjecture for Galois reps of abelian varieties — supplies the semisimplicity input separately.) Vojta's later proof replaces the moduli detour with a direct height inequality on $C\\times C$."
         },
         {
           "type": "mcq",
@@ -287,14 +287,14 @@
             "The Hasse–Weil L-function and its meromorphic continuation."
           ],
           "answer": 1,
-          "explain": "Weak Mordell–Weil gives finitely many cosets $Q_1,\\dots,Q_m$ for $E(K)/2E(K)$. Heights then provide the descent: $P=2P'+Q_i$ with $\\hat h(P')\\le\\tfrac14\\hat h(P)+C$, so iterating drives every $P$ into a finite Northcott set, yielding a finite generating set."
+          "explain": "Weak Mordell–Weil gives finitely many cosets $Q_1,\\dots,Q_m$ for $E(K)/2E(K)$. Heights then provide the descent: $P=2P'+Q_i$ gives $\\hat h(2P')=4\\hat h(P')=\\hat h(P-Q_i)\\le 2\\hat h(P)+2\\hat h(Q_i)$ by parallelogram, so $\\hat h(P')\\le\\tfrac12\\hat h(P)+C$. Iterating drives every $P$ into a finite Northcott set, yielding a finite generating set."
         },
         {
           "type": "numeric",
-          "q": "If $\\hat h(P)=400$ and the descent step gives $\\hat h(P')\\le\\tfrac14\\hat h(P)+C$ with $C=10$, what is the upper bound on $\\hat h(P')$ after one descent?",
-          "answer": 110,
+          "q": "If $\\hat h(P)=400$ and the descent step gives $\\hat h(P')\\le\\tfrac12\\hat h(P)+C$ with $C=10$, what is the upper bound on $\\hat h(P')$ after one descent?",
+          "answer": 210,
           "tol": 1e-6,
-          "explain": "$\\tfrac14(400)+10=100+10=110$. Each iteration shrinks the height by a factor of $4$ plus a bounded additive constant; after enough steps, $\\hat h$ is dominated by $C$ alone — Northcott-finite."
+          "explain": "$\\tfrac12(400)+10=200+10=210$. Each iteration shrinks the height by a factor of $2$ plus a bounded additive constant; after enough steps, $\\hat h$ is dominated by $2C$ alone — Northcott-finite."
         },
         {
           "type": "mcq",

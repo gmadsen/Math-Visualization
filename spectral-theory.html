@@ -321,7 +321,7 @@ On finite-dimensional $H$ this is just the set of eigenvalues. In infinite dimen
     // Volterra operator (Vf)(x) = ∫₀ˣ f — quasi-nilpotent, σ = {0}
     svg.appendChild(SVG("circle",{cx,cy,r:6,fill:"var(--pink)"}));
     const t = SVG("text",{x:cx+18,y:cy+5,"font-size":12,fill:"var(--pink)"}); t.textContent="σ(V) = {0}"; svg.appendChild(t);
-    out.textContent = "Volterra operator (Vf)(x)=∫₀ˣ f on L²[0,1]: quasi-nilpotent. σ(V) = {0}, but 0 is in the residual spectrum — V is injective with non-dense range. Spectral radius = 0 yet ‖V‖ = 2/π.";
+    out.textContent = "Volterra operator (Vf)(x)=∫₀ˣ f on L²[0,1]: quasi-nilpotent. σ(V) = {0}, and 0 is in the continuous spectrum — V is injective with dense range (range = {g∈H¹:g(0)=0}, dense in L²) but the inverse d/dx is unbounded. Spectral radius = 0 yet ‖V‖ = 2/π.";
   }
   function setOp(which){
     clear();

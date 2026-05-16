@@ -256,13 +256,13 @@
           "q": "Splitting the 4-spinor as $\\psi = (\\varphi, \\chi)^T$ in the standard representation and assuming $|\\chi| \\ll |\\varphi|$ at low momentum, the leading-order non-relativistic equation for $\\varphi$ is:",
           "choices": [
             "The Klein-Gordon equation $(\\Box + m^2)\\varphi = 0$.",
-            "The Pauli equation $i\\partial_t\\varphi = \\bigl(\\tfrac{p^2}{2m} - \\tfrac{e}{2m}\\vec\\sigma\\cdot\\vec B + V\\bigr)\\varphi$, including a spin-magnetic-moment term with gyromagnetic ratio $g = 2$.",
+            "The Pauli equation $i\\partial_t\\varphi = \\bigl(\\tfrac{p^2}{2m} + \\tfrac{e}{2m}\\vec\\sigma\\cdot\\vec B + V\\bigr)\\varphi$, including a spin-magnetic-moment term with gyromagnetic ratio $g = 2$ (sign convention: $\\vec\\pi = \\vec p - e\\vec A$, so for the physical electron $e<0$ the coefficient is negative and the term reads $-\\vec\\mu\\cdot\\vec B$).",
             "The free Schrödinger equation $i\\partial_t\\varphi = -\\tfrac{\\nabla^2}{2m}\\varphi$ — no spin coupling.",
             "A first-order equation in $\\varphi$ with no $p^2/(2m)$ term (which only appears at $O(1/m^2)$)."
           ],
           "answer": 1,
           "hint": "The lower 2-spinor $\\chi$ is suppressed by $|\\vec p|/m$ in the rest frame. Solve the bottom-block equation for $\\chi$ in terms of $\\varphi$, substitute back, and minimally-couple to electromagnetism via $\\vec p \\to \\vec p - e\\vec A$. The $(\\vec\\sigma\\cdot\\vec\\pi)^2$ identity is the key.",
-          "explain": "In the standard representation, the bottom block of the Dirac equation gives $\\chi \\approx \\tfrac{1}{2m}\\vec\\sigma\\cdot\\vec\\pi\\,\\varphi$ where $\\vec\\pi = \\vec p - e\\vec A$. Substituting back into the top block: $i\\partial_t\\varphi = \\bigl(\\tfrac{(\\vec\\sigma\\cdot\\vec\\pi)^2}{2m} + e\\Phi\\bigr)\\varphi$. The Pauli identity $(\\vec\\sigma\\cdot\\vec\\pi)^2 = \\vec\\pi^2 - e\\vec\\sigma\\cdot\\vec B$ produces both the kinetic term AND the spin-magnetic coupling automatically — Dirac's structure forces $g = 2$ exactly. Choice 2 misses the spin coupling. Choice 3 confuses the 'first-order' character of the Dirac equation with the order of the resulting Schrödinger equation (which IS second-order in $\\nabla$)."
+          "explain": "In the standard representation, the bottom block of the Dirac equation gives $\\chi \\approx \\tfrac{1}{2m}\\vec\\sigma\\cdot\\vec\\pi\\,\\varphi$ where $\\vec\\pi = \\vec p - e\\vec A$. Substituting back into the top block: $i\\partial_t\\varphi = \\bigl(\\tfrac{(\\vec\\sigma\\cdot\\vec\\pi)^2}{2m} + e\\Phi\\bigr)\\varphi$. The Pauli identity $(\\vec\\sigma\\cdot\\vec\\pi)^2 = \\vec\\pi^2 + e\\vec\\sigma\\cdot\\vec B$ (using $\\vec\\pi\\times\\vec\\pi = -ie\\vec B$) produces both the kinetic term AND the spin-magnetic coupling automatically — Dirac's structure forces $g = 2$ exactly. Choice 2 misses the spin coupling. Choice 3 confuses the 'first-order' character of the Dirac equation with the order of the resulting Schrödinger equation (which IS second-order in $\\nabla$)."
         },
         {
           "type": "numeric",
@@ -283,7 +283,7 @@
           ],
           "answer": 2,
           "hint": "$|\\chi|/|\\varphi| \\sim |\\vec p|/m$ is small, but how small is the leading $\\chi$ in absolute terms when you act on it with $\\vec\\sigma\\cdot\\vec\\pi$? An order-of-magnitude check on the bottom-block equation will show whether $\\chi$ is exactly zero or just suppressed.",
-          "explain": "Step 2 is the error. $\\chi$ is suppressed but NOT zero — to leading order $\\chi \\approx (\\vec\\sigma\\cdot\\vec\\pi/2m)\\varphi$, which is small but contributes the spin-magnetic moment when substituted back. If one set $\\chi = 0$ identically, the Pauli term $-(e/2m)\\vec\\sigma\\cdot\\vec B\\,\\varphi$ would never appear, $g = 0$, and the splitting of the hydrogen $2P_{1/2}/2P_{3/2}$ levels (the spin-orbit coupling, which lives at the next order in $1/m$) would be missing. The correct procedure is the systematic Foldy-Wouthuysen expansion in powers of $1/m$, keeping $\\chi$ at each order."
+          "explain": "Step 2 is the error. $\\chi$ is suppressed but NOT zero — to leading order $\\chi \\approx (\\vec\\sigma\\cdot\\vec\\pi/2m)\\varphi$, which is small but contributes the spin-magnetic moment when substituted back. If one set $\\chi = 0$ identically, the Pauli term $+(e/2m)\\vec\\sigma\\cdot\\vec B\\,\\varphi$ would never appear, $g = 0$, and the splitting of the hydrogen $2P_{1/2}/2P_{3/2}$ levels (the spin-orbit coupling, which lives at the next order in $1/m$) would be missing. The correct procedure is the systematic Foldy-Wouthuysen expansion in powers of $1/m$, keeping $\\chi$ at each order."
         }
       ]
     }

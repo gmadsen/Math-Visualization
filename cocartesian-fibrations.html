@@ -302,8 +302,8 @@ function drawNode(svg, x, y, label, opts={}){
       },
       {
         title: "Step 4 — Joyal's recognition theorem",
-        body: "Joyal proved that left fibrations are detected on mapping spaces: $p: \\mathcal{E} \\to \\mathcal{B}$ is a left fibration iff for every $\\tilde{x} \\in \\mathcal{E}$ and every $\\bar{e}: \\tilde{x} \\to \\bar{y}$ in $\\mathcal{B}$, the induced map of mapping <em>spaces</em> $\\mathrm{Map}_\\mathcal{E}(\\tilde{x}, -) \\to \\mathrm{Map}_\\mathcal{B}(\\bar{x}, p(-))$ is a Kan fibration with contractible point-fibers — equivalently, every fiber of $p$ is a Kan complex and the cocartesian-edge condition automatically holds.",
-        svgInner: "<text x='30' y='40' font-size='13' fill='var(--ink)'>$p$ left fibration $\\iff$ </text><text x='30' y='80' font-size='13' fill='var(--green)'>$p$ inner fibration AND every fiber $\\mathcal{E}_b$ is a Kan complex</text><text x='30' y='120' font-size='13' fill='var(--ink)'>$\\iff$ every edge of $\\mathcal{E}$ is $p$-cocartesian (§2).</text><text x='30' y='170' font-size='12' fill='var(--mute)'>Joyal HTT 2.1.2.2 — three equivalent characterisations.</text>"
+        body: "Joyal proved that left fibrations are detected on mapping spaces: $p: \\mathcal{E} \\to \\mathcal{B}$ is a left fibration iff $p$ is an inner fibration and <em>every</em> edge of $\\mathcal{E}$ is $p$-cocartesian (HTT 2.1.2.2). Kan-complex fibers are then a <em>consequence</em> (HTT 2.1.3.3), not part of the characterisation: dropping the every-edge-cocartesian clause, inner-fib + Kan fibers is strictly weaker (e.g. $\\mathrm{Map}_\\mathcal{E}(0, 1) \\simeq S^1$ over $\\Delta^1$ has Kan-complex fibers but no canonical cocartesian lift).",
+        svgInner: "<text x='30' y='40' font-size='13' fill='var(--ink)'>$p$ left fibration $\\iff$ </text><text x='30' y='80' font-size='13' fill='var(--green)'>$p$ inner fibration AND every edge of $\\mathcal{E}$ is $p$-cocartesian</text><text x='30' y='120' font-size='13' fill='var(--ink)'>$\\iff$ every $\\Lambda^n_0$-horn lifts (the original definition).</text><text x='30' y='170' font-size='12' fill='var(--mute)'>Joyal / HTT 2.1.2.2. (Kan-complex fibers follow as a corollary, HTT 2.1.3.3.)</text>"
       },
       {
         title: "Step 5 — Straightening: presheaves of spaces",
@@ -392,9 +392,9 @@ is a homotopy equivalence (HTT 2.4.1.5; Kerodon 5.1.1). Equivalently, every $\La
         svgInner: "<text x='30' y='40' font-size='13' fill='var(--ink)'>Two fillers $\\sigma, \\sigma'$ of $\\Lambda^2_0$ give $\\tilde{f}, \\tilde{f}': y \\to z$.</text><text x='30' y='80' font-size='13' fill='var(--ink)'>The space of fillers is itself contractible:</text><text x='30' y='115' font-size='13' fill='var(--green)'>$\\mathrm{Map}_\\mathcal{E}(y, z) \\xrightarrow{\\sim}$ (chosen square pullback over $\\mathcal{B}$)</text><text x='30' y='160' font-size='12' fill='var(--mute)'>HTT 2.4.1.5: this is precisely the cocartesian condition.</text>"
       },
       {
-        title: "Step 5 — Worked example: source map of the arrow category",
-        body: "Take $p = s: \\mathrm{Fun}(\\Delta^1, \\mathcal{C}) \\to \\mathcal{C}$, the source projection. An object upstairs is an arrow $f: a \\to b$. Given $\\bar{e}: a \\to a'$ in $\\mathcal{C}$, the cocartesian lift of $\\bar{e}$ at $f$ is the $2$-simplex with edges $f, \\bar{e}$, and $f \\circ \\bar{e}^{-1}$ — i.e. precomposition. Equivalently, the cocartesian lift sends $f: a \\to b$ to the arrow $f \\bar{e}^{-1}: a' \\to b$ when $\\bar{e}$ is invertible — and to a $2$-simplex of arrows in general.",
-        svgInner: "<text x='30' y='40' font-size='13' fill='var(--ink)'>$p = s: \\mathrm{Fun}(\\Delta^1, \\mathcal{C}) \\to \\mathcal{C}$  (source map)</text><text x='30' y='75' font-size='13' fill='var(--ink)'>Object upstairs: arrow $f: a \\to b$.</text><text x='30' y='110' font-size='13' fill='var(--ink)'>Edge $\\bar{e}: a \\to a'$ downstairs.</text><text x='30' y='145' font-size='13' fill='var(--green)'>Cocartesian lift: the $2$-simplex with $\\partial_2 = \\bar{e}$, $\\partial_1 = f$.</text><text x='30' y='180' font-size='12' fill='var(--yellow)'>Transport $\\bar{e}_!: \\mathcal{C}_{a/} \\to \\mathcal{C}_{a'/}$ is precomposition with $\\bar{e}^{-1}$.</text>"
+        title: "Step 5 — Worked example: target map of the arrow category",
+        body: "Take $p = t = \\mathrm{ev}_1: \\mathrm{Fun}(\\Delta^1, \\mathcal{C}) \\to \\mathcal{C}$, the <em>target</em> projection (HTT 2.4.7.11 / Kerodon Tag 01VK). An object upstairs is an arrow $f: a \\to b$. Given $\\bar{e}: b \\to b'$ in $\\mathcal{C}$, the cocartesian lift of $\\bar{e}$ at $f$ is the $2$-simplex with $\\partial_2 = f$, $\\partial_0 = \\bar{e}$ — its top edge is $\\bar{e} \\circ f: a \\to b'$. So transport <em>postcomposes</em> with $\\bar{e}$. (The dual <em>source</em> map $s = \\mathrm{ev}_0$ is <em>cartesian</em>, not cocartesian — its transport precomposes contravariantly.)",
+        svgInner: "<text x='30' y='40' font-size='13' fill='var(--ink)'>$p = t = \\mathrm{ev}_1: \\mathrm{Fun}(\\Delta^1, \\mathcal{C}) \\to \\mathcal{C}$  (target map)</text><text x='30' y='75' font-size='13' fill='var(--ink)'>Object upstairs: arrow $f: a \\to b$.</text><text x='30' y='110' font-size='13' fill='var(--ink)'>Edge $\\bar{e}: b \\to b'$ downstairs.</text><text x='30' y='145' font-size='13' fill='var(--green)'>Cocartesian lift: the $2$-simplex with $\\partial_2 = f$, $\\partial_0 = \\bar{e}$.</text><text x='30' y='180' font-size='12' fill='var(--yellow)'>Transport $\\bar{e}_!: \\mathcal{C}_{/b} \\to \\mathcal{C}_{/b'}$ is postcomposition with $\\bar{e}$.</text>"
       },
     ],
   });
@@ -432,7 +432,7 @@ is a homotopy equivalence (HTT 2.4.1.5; Kerodon 5.1.1). Equivalently, every $\La
 
 <p>Three canonical examples to test the definition against:</p>
 <ul>
-  <li><strong>Source-of-arrow:</strong> $s: \mathrm{Fun}(\Delta^1, \mathcal{C}) \to \mathcal{C}$ is cocartesian for any $\infty$-category $\mathcal{C}$. Fibers are slice categories $\mathcal{C}_{a/}$ (arrows out of $a$).</li>
+  <li><strong>Target-of-arrow:</strong> $t = \mathrm{ev}_1: \mathrm{Fun}(\Delta^1, \mathcal{C}) \to \mathcal{C}$ is cocartesian for any $\infty$-category $\mathcal{C}$ (HTT 2.4.7.11). Fibers are over-categories $\mathcal{C}_{/b}$ (arrows into $b$); transport along $\bar{e}: b \to b'$ is postcomposition. The dual source map $s = \mathrm{ev}_0$ is <em>cartesian</em>, not cocartesian.</li>
   <li><strong>Modules over rings:</strong> $\mathrm{Mod} \to \mathrm{CAlg}$ taking a $\mathbb{E}_\infty$-ring spectrum $R$ to its $\infty$-category $\mathrm{Mod}_R$ of modules. Cocartesian transport along $R \to S$ is base change $S \otimes_R^{\mathbb{L}}-$.</li>
   <li><strong>Product projection:</strong> $\pi_1: \mathcal{C} \times \mathcal{D} \to \mathcal{C}$ is cocartesian with constant fiber $\mathcal{D}$ and identity transport.</li>
 </ul>
@@ -556,7 +556,7 @@ well-defined up to a contractible space of choices. Different choices of cocarte
 $$ (\bar{f}\bar{e})_! \;\simeq\; \bar{f}_! \circ \bar{e}_!,$$
 with the equivalence itself part of a coherent homotopy-functorial structure. Sticking together all these data — fibers, transport functors, and coherences — is exactly the functor $\mathcal{B} \to \mathrm{Cat}_\infty$ produced by straightening (§5).</p>
 
-<p><strong>Two worked fiber computations.</strong> The source map $s: \mathrm{Fun}(\Delta^1, \mathcal{C}) \to \mathcal{C}$ has fiber over $x \in \mathcal{C}$ equal to the slice $\mathcal{C}_{x/}$ — arrows out of $x$, with morphisms the commuting triangles under $x$. Symmetrically, the <em>target</em> map $t: \mathrm{Fun}(\Delta^1, \mathcal{C}) \to \mathcal{C}$ has fiber over $y$ equal to the over-category $\mathcal{C}_{/y}$. (Confusing the two slices is a standard slip.) The modules-over-rings fibration $\mathrm{Mod} \to \mathrm{CAlg}$ has fiber over $R$ equal to $\mathrm{Mod}_R$, with transport along $R \to S$ the derived base change $S \otimes_R^{\mathbb{L}}-: \mathrm{Mod}_R \to \mathrm{Mod}_S$.</p>
+<p><strong>Two worked fiber computations.</strong> The target map $t = \mathrm{ev}_1: \mathrm{Fun}(\Delta^1, \mathcal{C}) \to \mathcal{C}$ is the canonical <em>cocartesian</em> fibration here (HTT 2.4.7.11 / Kerodon Tag 01VK), with fiber over $y \in \mathcal{C}$ equal to the over-category $\mathcal{C}_{/y}$ — arrows into $y$ — and transport $\bar{e}_!: \mathcal{C}_{/y} \to \mathcal{C}_{/y'}$ given by postcomposition. The dual source map $s = \mathrm{ev}_0$ is <em>cartesian</em>, not cocartesian: its fiber over $x$ is the slice $\mathcal{C}_{x/}$ of arrows out of $x$, and its (cartesian) transport along $\bar{e}: x \to x'$ is contravariant precomposition $\mathcal{C}_{x'/} \to \mathcal{C}_{x/}$. (Confusing source/target with cocart/cart is a standard slip.) The modules-over-rings fibration $\mathrm{Mod} \to \mathrm{CAlg}$ has fiber over $R$ equal to $\mathrm{Mod}_R$, with transport along $R \to S$ the derived base change $S \otimes_R^{\mathbb{L}}-: \mathrm{Mod}_R \to \mathrm{Mod}_S$.</p>
 
 <p>An equivalence in $\mathcal{B}$ transports to an equivalence of fibers. So for any path-connected component of $\mathcal{B}$, the fibers over any two points are equivalent — though the specific equivalence depends on a chosen path.</p>
 
@@ -763,7 +763,7 @@ i.e. $\mathcal{E} \simeq \mathcal{B} \times_\mathcal{S} \mathcal{S}_{*/}$. This 
 
 <p><strong>Yoneda's factorization.</strong> The $\infty$-Yoneda embedding $y: \mathcal{B} \to \mathcal{P}(\mathcal{B}) = \mathrm{Fun}(\mathcal{B}^{\mathrm{op}}, \mathcal{S})$ sends each object $b$ to the functor "represent" $\mathrm{Map}_\mathcal{B}(-, b)$. Under the right-fibration version of straightening, this representing functor unstraightens to the <strong>over-category fibration</strong>
 $$ \mathcal{B}_{/b} \;\to\; \mathcal{B}, $$
-the slice $\infty$-category whose fiber over $a$ is $\mathrm{Map}_\mathcal{B}(a, b)$. So Yoneda factors through the family of slices, which assemble into the universal right fibration $\mathrm{ev}_1: \mathrm{Fun}(\Delta^1, \mathcal{B}) \to \mathcal{B}$ (target evaluation).</p>
+the slice $\infty$-category whose fiber over $a$ is $\mathrm{Map}_\mathcal{B}(a, b)$ — and which IS a right fibration. So Yoneda factors through the family of slices $\{\mathcal{B}_{/b}\}_{b \in \mathcal{B}}$, each of which is the pullback of the universal right fibration $\mathcal{S}_{*/}^{\mathrm{op}} \to \mathcal{S}^{\mathrm{op}}$ (the opposite of $\mathcal{S}_{*/} \to \mathcal{S}$) along $\mathrm{Map}_\mathcal{B}(-, b)$. (Note: the target-evaluation map $\mathrm{ev}_1: \mathrm{Fun}(\Delta^1, \mathcal{B}) \to \mathcal{B}$ has the slices $\mathcal{B}_{/b}$ as fibers, but it is itself a <em>cocartesian</em> fibration — its fibers being $\infty$-categories rather than spaces — not a right fibration.)</p>
 
 <p>Specializing further: for $\mathcal{B} = \Delta^0$, the equivalence $\mathrm{LFib}(\Delta^0) \simeq \mathcal{S}$ recovers the basic fact that a left fibration over a point is the same as a Kan complex — its single fiber.</p>
 
@@ -785,7 +785,7 @@ the slice $\infty$-category whose fiber over $a$ is $\mathrm{Map}_\mathcal{B}(a,
     <line x1="100" y1="70" x2="100" y2="180" stroke="var(--yellow)" stroke-width="1.6" marker-end="url(#ulf-arr)"/>
     <text x="78" y="130" font-size="13" fill="var(--yellow)">$p$</text>
     <line x1="380" y1="70" x2="380" y2="180" stroke="var(--green)" stroke-width="1.6" marker-end="url(#ulf-arr)"/>
-    <text x="395" y="130" font-size="12" fill="var(--green)">universal $\mathrm{ev}$</text>
+    <text x="395" y="130" font-size="12" fill="var(--green)">universal LFib</text>
     <line x1="120" y1="200" x2="360" y2="200" stroke="var(--ink)" stroke-width="1.6" marker-end="url(#ulf-arr)"/>
     <text x="240" y="220" text-anchor="middle" font-size="12" fill="var(--mute)">$\mathrm{St}(p)$  (the straightening)</text>
 
@@ -827,7 +827,7 @@ the slice $\infty$-category whose fiber over $a$ is $\mathrm{Map}_\mathcal{B}(a,
 <h2>7. Examples: arrow categories, modules, classifying spaces</h2>
 <p>This section collects the canonical worked examples one returns to whenever a definition or theorem about cocartesian fibrations needs a sanity check.</p>
 
-<p><strong>(a) Arrow $\infty$-category.</strong> For an $\infty$-category $\mathcal{C}$, the source map $s: \mathrm{Fun}(\Delta^1, \mathcal{C}) \to \mathcal{C}$ is a cocartesian fibration. Fiber over $a \in \mathcal{C}$: the slice $\mathcal{C}_{a/}$ of arrows out of $a$. Transport along $\bar{e}: a \to a'$: precomposition (sending $f: a \to b$ to a $2$-simplex with $\bar{e}$ as one face). Straightening: the slice functor $a \mapsto \mathcal{C}_{a/}$ from $\mathcal{C}$ to $\mathrm{Cat}_\infty$. The <em>target</em> map $t: \mathrm{Fun}(\Delta^1, \mathcal{C}) \to \mathcal{C}$ is the dual <em>cartesian</em> fibration, with fiber $\mathcal{C}_{/y}$ over $y$.</p>
+<p><strong>(a) Arrow $\infty$-category.</strong> For an $\infty$-category $\mathcal{C}$, the target map $t = \mathrm{ev}_1: \mathrm{Fun}(\Delta^1, \mathcal{C}) \to \mathcal{C}$ is a cocartesian fibration (HTT 2.4.7.11 / Kerodon Tag 01VK). Fiber over $b \in \mathcal{C}$: the over-category $\mathcal{C}_{/b}$ of arrows into $b$. Transport along $\bar{e}: b \to b'$: postcomposition (sending $f: a \to b$ to the $2$-simplex with $\bar{e}$ on the $\partial_0$ face, top edge $\bar{e} \circ f: a \to b'$). Straightening: the over-category functor $b \mapsto \mathcal{C}_{/b}$ from $\mathcal{C}$ to $\mathrm{Cat}_\infty$. The <em>source</em> map $s = \mathrm{ev}_0: \mathrm{Fun}(\Delta^1, \mathcal{C}) \to \mathcal{C}$ is the dual <em>cartesian</em> fibration, with fiber $\mathcal{C}_{x/}$ over $x$ and contravariant precomposition transport — its straightening is the contravariant slice functor $x \mapsto \mathcal{C}_{x/}$ on $\mathcal{C}^{\mathrm{op}}$.</p>
 
 <p><strong>(b) Modules over commutative ring spectra.</strong> The forgetful $\mathrm{Mod} \to \mathrm{CAlg}$, sending an $\mathbb{E}_\infty$-ring spectrum $R$ to its $\infty$-category of modules $\mathrm{Mod}_R$, is a cocartesian fibration (Lurie HA 4.5; Kerodon 5.1.5). Cocartesian transport along $\bar{f}: R \to S$ is the (derived) base-change functor
 $$ \bar{f}_! \;=\; S \otimes_R^{\mathbb{L}} -: \mathrm{Mod}_R \to \mathrm{Mod}_S. $$
@@ -845,7 +845,7 @@ exhibiting the $G$-action and its homotopy quotient as two views of the same fib
     <defs>
       <marker id="ex-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--ink)"/></marker>
     </defs>
-    <text x="240" y="35" text-anchor="middle" font-size="13" fill="var(--mute)">arrow-category fibration $s: \mathrm{Fun}(\Delta^1, \mathcal{C}) \to \mathcal{C}$</text>
+    <text x="240" y="35" text-anchor="middle" font-size="13" fill="var(--mute)">arrow-category fibration $t = \mathrm{ev}_1: \mathrm{Fun}(\Delta^1, \mathcal{C}) \to \mathcal{C}$</text>
 
     <!-- three base objects -->
     <circle class="ex-pick" data-key="a" cx="100" cy="130" r="20" fill="var(--panel2)" stroke="var(--blue)" style="cursor:pointer"/>
@@ -863,7 +863,7 @@ exhibiting the $G$-action and its homotopy quotient as two views of the same fib
     <line class="ex-pick" data-key="ac" x1="120" y1="140" x2="360" y2="140" stroke="var(--mute)" stroke-width="1.4" marker-end="url(#ex-arr)" stroke-dasharray="3 3" style="cursor:pointer"/>
     <text x="240" y="160" text-anchor="middle" font-size="12" fill="var(--mute)">$gf$</text>
 
-    <text x="240" y="220" text-anchor="middle" font-size="11" fill="var(--mute)">click an object → see its slice fiber. click an arrow → see the transport functor.</text>
+    <text x="240" y="220" text-anchor="middle" font-size="11" fill="var(--mute)">click an object → see its over-category fiber. click an arrow → see the transport functor.</text>
   </svg>
   <div class="readout" id="examples-readout">click an object ($a$, $b$, $c$) or an arrow ($f$, $g$, $gf$) above.</div>
 </div>
@@ -872,12 +872,12 @@ exhibiting the $G$-action and its homotopy quotient as two views of the same fib
   const ro = document.getElementById('examples-readout');
   if(!ro) return;
   const TXT = {
-    'a': "<strong>Object $a$.</strong> Fiber of the arrow-source map at $a$: the slice $\\mathcal{C}_{a/}$ — arrows starting at $a$. Concretely it has objects $a \\xrightarrow{\\mathrm{id}} a$, $f: a \\to b$, $gf: a \\to c$, and morphisms commuting triangles under $a$.",
-    'b': "<strong>Object $b$.</strong> Fiber: $\\mathcal{C}_{b/}$ — arrows starting at $b$. Objects $\\mathrm{id}_b$ and $g: b \\to c$.",
-    'c': "<strong>Object $c$.</strong> Fiber: $\\mathcal{C}_{c/} = \\{\\mathrm{id}_c\\}$ if $c$ is terminal in this restricted base, else just the slice over $c$.",
-    'ab': "<strong>Edge $f: a \\to b$.</strong> Transport functor $f_!: \\mathcal{C}_{a/} \\to \\mathcal{C}_{b/}$. Sends each $\\alpha: a \\to ?$ to a $2$-simplex with $f$ on one face — equivalently, looks for the unique extension of $\\alpha$ via $f$ in the slice.",
-    'bc': "<strong>Edge $g: b \\to c$.</strong> Transport $g_!: \\mathcal{C}_{b/} \\to \\mathcal{C}_{c/}$. Composing with $f_!$ gives $g_! f_!$, equivalent to $(gf)_!$ — the functoriality of straightening.",
-    'ac': "<strong>Composite $gf: a \\to c$.</strong> $(gf)_!: \\mathcal{C}_{a/} \\to \\mathcal{C}_{c/}$. By cocartesian-fibration functoriality, $(gf)_! \\simeq g_! \\circ f_!$ in $\\mathrm{Cat}_\\infty$, witnessed by a chosen $3$-simplex (the higher coherence above the $2$-simplex $f, g, gf$ in $\\mathcal{C}$)."
+    'a': "<strong>Object $a$.</strong> Fiber of the arrow-target map at $a$: the over-category $\\mathcal{C}_{/a}$ — arrows ending at $a$. Concretely it has objects $a \\xrightarrow{\\mathrm{id}} a$ together with any arrows $? \\to a$ in the restricted base, and morphisms are commuting triangles over $a$.",
+    'b': "<strong>Object $b$.</strong> Fiber: $\\mathcal{C}_{/b}$ — arrows ending at $b$. Includes $\\mathrm{id}_b$ and $f: a \\to b$.",
+    'c': "<strong>Object $c$.</strong> Fiber: $\\mathcal{C}_{/c}$ — arrows ending at $c$. Includes $\\mathrm{id}_c$, $g: b \\to c$, and $gf: a \\to c$.",
+    'ab': "<strong>Edge $f: a \\to b$.</strong> Transport functor $f_!: \\mathcal{C}_{/a} \\to \\mathcal{C}_{/b}$ is <em>postcomposition</em> with $f$ — sending each $\\alpha: ? \\to a$ to $f \\circ \\alpha: ? \\to b$, witnessed by the $2$-simplex with $\\partial_0 = f$, $\\partial_2 = \\alpha$.",
+    'bc': "<strong>Edge $g: b \\to c$.</strong> Transport $g_!: \\mathcal{C}_{/b} \\to \\mathcal{C}_{/c}$ is postcomposition with $g$. Composing with $f_!$ gives $g_! \\circ f_!$, equivalent to $(gf)_!$ — the functoriality of straightening.",
+    'ac': "<strong>Composite $gf: a \\to c$.</strong> $(gf)_!: \\mathcal{C}_{/a} \\to \\mathcal{C}_{/c}$. By cocartesian-fibration functoriality, $(gf)_! \\simeq g_! \\circ f_!$ in $\\mathrm{Cat}_\\infty$, witnessed by a chosen $3$-simplex (the higher coherence above the $2$-simplex $f, g, gf$ in $\\mathcal{C}$)."
   };
   document.querySelectorAll('#svg-examples-graph .ex-pick').forEach(el => {
     el.addEventListener('click', () => {

@@ -78,7 +78,7 @@
         "presheaf-topos",
         "cayley-tables"
       ],
-      "blurb": "For a group $G$, the category of left $G$-sets is a topos: it's the presheaf topos on $\\mathbf{B}G$ (the one-object groupoid). Its subobject classifier is the lattice of subgroups, generalizing $\\{\\bot,\\top\\}$ in $\\mathbf{Set}$.",
+      "blurb": "For a group $G$, the category of left $G$-sets is a topos: it's the presheaf topos on $\\mathbf{B}G$ (the one-object groupoid). Because $\\mathbf{B}G$ is a groupoid, the topos is Boolean and $\\Omega = \\{\\bot,\\top\\}$ with trivial $G$-action — subobjects are $G$-stable subsets (unions of orbits), classified by their indicator function.",
       "tags": [
         "group-action"
       ]

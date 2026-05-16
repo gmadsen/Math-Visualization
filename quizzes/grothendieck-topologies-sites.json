@@ -20,10 +20,10 @@
         {
           "type": "numeric",
           "q": "How many sieves are there on the top object $t$ of the same 3-object poset $\\{x, y, t\\}$ with $x \\leq t$ and $y \\leq t$?",
-          "answer": 4,
+          "answer": 5,
           "tol": 0,
-          "explain": "Sieves on $t$ correspond bijectively to down-sets of $\\{d : d \\leq t\\} = \\{x, y, t\\}$. With no relations between $x$ and $y$, every subset is automatically a down-set: $\\varnothing$, $\\{x\\}$, $\\{y\\}$, $\\{x, y\\}$ — but a sieve on $t$ must contain $\\mathrm{id}_t$ to make sense as a subfunctor of $h_t$ at $d = t$? Careful: actually every subset is a sieve, and the empty set is allowed too. The four sieves are $\\varnothing,\\ \\{x \\to t\\},\\ \\{y \\to t\\},\\ \\{x \\to t, y \\to t, \\mathrm{id}_t\\}$ if we close under precomposition — but in a poset closure is trivial. Counting all subsets of the down-set $\\{x, y\\}$ of strict predecessors of $t$ together with the choice of including $\\mathrm{id}_t$, gives $4$ when we identify a sieve with its set of strict $\\leq t$ predecessors.",
-          "hint": "In a poset, a sieve on $c$ is a down-set of $\\{d \\leq c\\}$; count down-sets."
+          "explain": "A sieve on $t$ is a precomposition-closed set of arrows into $t$, equivalently a down-set of $\\{d : d \\leq t\\} = \\{x, y, t\\}$. If $\\mathrm{id}_t$ is in the sieve, then closure under precomposition with $x \\to t$ and $y \\to t$ forces both legs in, giving the maximal sieve $\\mathrm{max}_t = \\{x \\to t,\\ y \\to t,\\ \\mathrm{id}_t\\}$. If $\\mathrm{id}_t$ is NOT in the sieve, we are free to choose any subset of $\\{x \\to t, y \\to t\\}$ (no further closure since $x$ and $y$ are minimal), giving $\\varnothing$, $\\{x \\to t\\}$, $\\{y \\to t\\}$, $\\{x \\to t, y \\to t\\}$. Total: $4 + 1 = 5$ sieves. Note that $\\{x \\to t, y \\to t\\}$ without $\\mathrm{id}_t$ is a legitimate sieve distinct from $\\mathrm{max}_t$.",
+          "hint": "In a poset, a sieve on $c$ is a down-set of $\\{d \\leq c\\}$. Split by whether $\\mathrm{id}_c$ is included; if it is, all strict predecessors are forced in."
         },
         {
           "type": "mcq",
@@ -117,16 +117,16 @@
       "questions": [
         {
           "type": "multi-select",
-          "q": "On $\\Spec \\mathbb{F}_2$, which of the following structures are Zariski-locally trivial? Which are étale-locally trivial?",
+          "q": "On $\\Spec \\mathbb{Q}$, which of the following structures become trivial Zariski-locally, and which require passing to the étale site?",
           "choices": [
             "A line bundle $\\mathcal{L}$ — Zariski-locally trivial.",
-            "$\\mu_2$, the sheaf of square roots of unity — Zariski-locally trivial.",
-            "$\\mu_2$, the sheaf of square roots of unity — étale-locally trivial.",
-            "An fppf $\\mathbb{Z}/2$-torsor — étale-locally trivial."
+            "$\\mu_3$, the sheaf of cube roots of unity — étale-locally trivial (after adjoining $\\zeta_3$) but NOT Zariski-locally trivial.",
+            "An fppf $\\underline{\\mathbb{Z}/3}$-torsor — étale-locally trivial (since $\\underline{\\mathbb{Z}/3}$ is étale on $\\mathbb{Q}$).",
+            "$\\mu_2$ over $\\Spec \\mathbb{F}_2$ — étale-locally trivial."
           ],
-          "answer": [0, 1, 2, 3],
-          "explain": "Over $\\mathbb{F}_2$, the polynomial $T^2 - 1 = (T-1)^2$ has only the root $1$, so $\\mu_2 \\cong \\Spec \\mathbb{F}_2[T]/(T-1)^2 \\cong \\mathbb{F}_2[\\epsilon]$ — but as a group scheme it's also isomorphic to the constant scheme $\\underline{\\mathbb{Z}/2}$ Zariski-locally because over $\\mathbb{F}_2$ the equation $T^2 = 1$ has a Zariski-trivial set of roots (just the constant $1$). So actually $\\mu_2 \\cong \\underline{\\mathbb{Z}/2}$ even Zariski-locally over $\\mathbb{F}_2$! Likewise line bundles are always Zariski-locally trivial by definition. Over a field of characteristic $\\neq 2$ where $\\mu_2 \\neq \\underline{\\mathbb{Z}/2}$, only étale-locally do they coincide.",
-          "hint": "A line bundle is Zariski-locally trivial by the very definition of locally free sheaf of rank 1; whether $\\mu_n$ is Zariski-locally trivial depends on whether $n$th roots of $1$ already live in the base ring."
+          "answer": [0, 1, 2],
+          "explain": "Line bundles are Zariski-locally trivial by the definition of locally free of rank 1. $\\mu_3$ over $\\mathbb{Q}$ is NOT Zariski-locally trivial because $\\mathbb{Q}$ has no primitive cube root of $1$ and $\\Spec \\mathbb{Q}$ has only the trivial Zariski cover; it does become trivial étale-locally after adjoining $\\zeta_3$, which is a separable extension since $3$ is invertible. For $\\underline{\\mathbb{Z}/3}$-torsors, étale and fppf cohomology agree because $\\underline{\\mathbb{Z}/3}$ is étale over a $\\mathbb{Z}[1/3]$-base. The trap is (d): in characteristic $2$, $\\mu_2 = \\Spec \\mathbb{F}_2[T]/(T-1)^2$ is the non-reduced Frobenius kernel — an infinitesimal group scheme of length $2$ that is NEVER étale-locally constant, because étale base change preserves reducedness and cannot turn one fat point into two reduced points. Trivializing $\\mu_2$ in characteristic $2$ requires an fppf cover, not étale.",
+          "hint": "A line bundle is Zariski-locally trivial by definition. For $\\mu_n$, the rule is: étale-locally trivial iff $n$ is invertible on the base; if $p \\mid n$ in characteristic $p$, $\\mu_n$ is infinitesimal and étale covers cannot trivialize it."
         },
         {
           "type": "mcq",

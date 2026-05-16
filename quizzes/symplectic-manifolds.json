@@ -53,13 +53,13 @@
           "q": "Darboux's theorem states that around every point of $(M^{2n},\\omega)$ there is a chart in which $\\omega$ equals which canonical form?",
           "choices": [
             "$\\sum_i x_i\\,dx_i$",
-            "$\\sum_i dp_i\\wedge dq_i$",
+            "$\\sum_i dq_i\\wedge dp_i$",
             "$dx_1\\wedge dx_2\\wedge\\cdots\\wedge dx_{2n}$",
             "$\\sum_i p_i\\,dq_i$"
           ],
           "answer": 1,
           "hint": "Pairs of coordinates wedged together.",
-          "explain": "Darboux: there exist local coordinates $(p_1,\\dots,p_n,q_1,\\dots,q_n)$ in which $\\omega = \\sum_{i=1}^n dp_i\\wedge dq_i$. The form $\\sum p_i\\,dq_i$ is the Liouville/tautological 1-form whose exterior derivative is the canonical $\\omega$ on $T^*N$."
+          "explain": "Darboux: there exist local coordinates $(p_1,\\dots,p_n,q_1,\\dots,q_n)$ in which $\\omega = \\sum_{i=1}^n dq_i\\wedge dp_i$. The form $\\sum p_i\\,dq_i$ is the Liouville/tautological 1-form whose exterior derivative (up to sign) is the canonical $\\omega$ on $T^*N$."
         },
         {
           "type": "mcq",
@@ -79,7 +79,7 @@
           "q": "Which of the following is NOT a corollary of Darboux's theorem?",
           "choices": [
             "Every symplectic manifold of dimension $2$ is locally area-preserving-equivalent to $(\\mathbb{R}^2, dx\\wedge dy)$.",
-            "Every symplectic chart can be chosen so that $\\omega = \\sum dp_i\\wedge dq_i$ on its domain.",
+            "Every symplectic chart can be chosen so that $\\omega = \\sum dq_i\\wedge dp_i$ on its domain.",
             "Every closed symplectic manifold is symplectomorphic to a torus.",
             "There is no local symplectic curvature invariant."
           ],
@@ -141,13 +141,13 @@
           "q": "On a symplectic manifold the Poisson bracket of $f,g\\in C^\\infty(M)$ is defined as...",
           "choices": [
             "$\\{f,g\\} = fg - gf$",
-            "$\\{f,g\\} = \\omega(X_f, X_g)$",
+            "$\\{f,g\\} = \\omega(X_g, X_f)$",
             "$\\{f,g\\} = df\\wedge dg$",
             "$\\{f,g\\} = \\nabla f\\cdot\\nabla g$"
           ],
           "answer": 1,
           "hint": "Plug the two Hamiltonian vector fields into $\\omega$.",
-          "explain": "By definition $\\{f,g\\} = \\omega(X_f,X_g) = X_f(g) = -X_g(f)$. The first equality is the definition; the others use $\\iota_{X_f}\\omega = df$. The bracket of ordinary functions is identically zero — they need to come from $\\omega$ to interact."
+          "explain": "By definition $\\{f,g\\} = \\omega(X_g,X_f) = X_f(g) = -X_g(f)$. Using $\\iota_{X_g}\\omega = dg$ and antisymmetry of $\\omega$: $\\omega(X_g,X_f) = -\\omega(X_f,X_g) = -df(X_g) = -X_g(f) = X_f(g)$. The bracket of ordinary functions (commutative product) is identically zero — they need to come from $\\omega$ to interact."
         },
         {
           "type": "mcq",
@@ -204,7 +204,7 @@
           ],
           "answer": 1,
           "hint": "Compute $\\dim$ and check $\\omega$ on tangent vectors of the zero section.",
-          "explain": "The zero section has dimension $\\dim N = n = \\frac12\\dim T^*N$, and its tangent vectors all have momentum coordinate zero, so $\\omega = \\sum dp_i\\wedge dq_i$ vanishes on them. More generally the graph of any closed 1-form $\\alpha\\in\\Omega^1(N)$ is a Lagrangian in $T^*N$."
+          "explain": "The zero section has dimension $\\dim N = n = \\frac12\\dim T^*N$, and its tangent vectors all have momentum coordinate zero, so $\\omega = \\sum dq_i\\wedge dp_i$ vanishes on them. More generally the graph of any closed 1-form $\\alpha\\in\\Omega^1(N)$ is a Lagrangian in $T^*N$."
         },
         {
           "type": "mcq",

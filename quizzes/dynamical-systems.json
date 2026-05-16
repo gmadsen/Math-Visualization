@@ -311,15 +311,15 @@
         },
         {
           "type": "spot-the-error",
-          "q": "Find the flawed step in this attempt to show $\\dot x=y,\\ \\dot y=-x+y^3$ has no periodic orbit.",
+          "q": "Find the flawed step in this attempt to show the Hopf normal form $\\dot x = y + x(1-x^2-y^2),\\ \\dot y = -x + y(1-x^2-y^2)$ has no periodic orbit on $\\mathbb{R}^2$.",
           "steps": [
-            "Compute $\\operatorname{div}X = \\partial(y)/\\partial x + \\partial(-x+y^3)/\\partial y = 0 + 3y^2 = 3y^2$.",
-            "Note $\\operatorname{div}X = 3y^2 \\ge 0$ everywhere.",
-            "By Bendixson's criterion, since $\\operatorname{div}X\\ge 0$, no closed orbit exists.",
+            "Compute $\\operatorname{div}X = \\partial_x[y+x(1-x^2-y^2)] + \\partial_y[-x+y(1-x^2-y^2)] = (1-3x^2-y^2) + (1-x^2-3y^2) = 2-4(x^2+y^2)$.",
+            "Near the origin $(x,y)=(0,0)$, $\\operatorname{div}X = 2 > 0$, so $\\operatorname{div}X$ is strictly positive on a neighborhood of the origin.",
+            "By Bendixson's criterion, since $\\operatorname{div}X > 0$ on this region, no closed orbit exists.",
             "Conclude: the system has no periodic orbit in $\\mathbb{R}^2$."
           ],
           "answer": 2,
-          "explain": "Bendixson requires $\\operatorname{div}X$ to have STRICTLY one sign on the region (not identically zero). $3y^2$ vanishes on the $x$-axis, so the hypothesis is not satisfied; the argument is invalid."
+          "explain": "Bendixson's criterion forbids a closed orbit lying ENTIRELY inside a simply connected region where $\\operatorname{div}X$ keeps one sign. Even though $\\operatorname{div}X > 0$ near the origin, $\\operatorname{div}X = 2 - 4r^2$ changes sign at $r = 1/\\sqrt 2$, and a periodic orbit need not be confined to that small disk. Indeed this is a Hopf normal form with a stable limit cycle at $r=1$, which crosses the locus $\\operatorname{div}X = 0$, so no contradiction with Bendixson is reached. Steps 1, 2, and 4 are all individually correct; the leap is in Step 3."
         },
         {
           "type": "numeric",

@@ -431,10 +431,10 @@
         {
           "type": "numeric",
           "q": "Let $A = k[x,y,z]/(x^2, xy, yz, z^2)$ (monomial quotient). How many associated primes does $A$ have as an $A$-module of itself?",
-          "answer": 1,
+          "answer": 2,
           "tol": 1e-06,
-          "hint": "Consider annihilators of nonzero elements.",
-          "explain": "The only minimal prime containing $(x^2,xy,yz,z^2)$ is the nilradical's associated prime $(x,y,z)$: every nonzero element's annihilator is contained in $(x,y,z)$. One associated prime."
+          "hint": "Find the minimal primes of $I=(x^2,xy,yz,z^2)$, then look for embedded primes via annihilators of specific elements.",
+          "explain": "Since $x^2,z^2 \\in I$ force $x=z=0$ on $V(I)$, the unique minimal prime is $\\mathfrak{p}_1=(x,z)$. There is also an embedded prime: the element $y\\in A$ is nonzero (no pure power of $y$ lies in $I$), but $x\\cdot y, z\\cdot y\\in I$ and $y\\cdot y$ is also annihilated modulo $I$ by all of $x,y,z$ — more precisely $\\mathrm{ann}_A(xy\\bmod\\text{lower})=(x,y,z)$ via the standard primary decomposition $I=(x,z)\\cap(x^2,y,z^2)$, whose radicals are $(x,z)$ and $(x,y,z)$. So $\\mathrm{Ass}(A)=\\{(x,z),(x,y,z)\\}$: two associated primes (one minimal, one embedded)."
         }
       ]
     },

@@ -269,7 +269,7 @@ The deviation scale is $1/\sqrt n$ — Lipschitz functionals are essentially con
 
 <p><strong>Generic vectors are nearly orthogonal.</strong> If $u,v\sim\sigma$ are independent, $\mathbb{E}[\langle u,v\rangle^{2}]=1/n$, so $|\langle u,v\rangle|\lesssim 1/\sqrt n$ with overwhelming probability. Pick $N=e^{c n}$ random unit vectors and they form an almost-orthonormal system — the foundation of randomised dimension reduction.</p>
 
-<div class="note"><strong>Where the constant comes from.</strong> Maurey's proof uses the spherical isoperimetric inequality (Schmidt): among Borel sets on $S^{n-1}$ of fixed measure, spherical caps minimise the boundary measure. A $1$-Lipschitz $f$ maps the $\varepsilon$-neighbourhood of $\{f\le M_{f}\}$ inside $\{f\le M_{f}+\varepsilon\}$, and cap volumes obey $\sigma(\text{cap of angular radius }\theta)\le e^{-(n-1)\sin^{2}\theta/2}$.</div>
+<div class="note"><strong>Where the constant comes from.</strong> Maurey's proof uses the spherical isoperimetric inequality (Schmidt): among Borel sets on $S^{n-1}$ of fixed measure, spherical caps minimise the boundary measure. A $1$-Lipschitz $f$ maps the $\varepsilon$-neighbourhood of $\{f\le M_{f}\}$ inside $\{f\le M_{f}+\varepsilon\}$, and the small-cap estimate is $\sigma\bigl(\{x\in S^{n-1}:\langle x,e\rangle\ge\sin\theta\}\bigr)\le \tfrac12\,e^{-(n-1)\sin^{2}\theta/2}$ for any unit $e$ and $\theta\in[0,\pi/2]$ — equivalently, the polar cap of angular radius $\pi/2-\theta$ has measure at most $\tfrac12 e^{-(n-1)\sin^{2}\theta/2}$, decreasing in $\theta$ as a small-cap bound should.</div>
 
 <div class="widget" id="w-sphere">
   <div class="hd"><div class="ttl">Concentration band on $S^{n-1}$</div><div class="hint">slide $n$ — watch the Gaussian tail $2e^{-(n-1)t^{2}/2}$ collapse around $t=0$</div></div>
@@ -379,7 +379,7 @@ That is, every centred convex body has an almost-Euclidean section of logarithmi
 
 <p><strong>Milman's proof in one paragraph.</strong> Concentration on $S^{n-1}$ shows the random variable $\|X\|_{K}$ (for $X\sim\sigma$) is concentrated within $1/\sqrt n$ of its mean $M$. So on $S^{n-1}$ the level sets $\{x:|\|x\|_{K}-M|<\varepsilon M\}$ have measure exponentially close to $1$. An $\varepsilon$-net argument over the Grassmannian $\mathrm{Gr}(k,n)$ — whose entropy is $\sim k\,n$ — combined with a union bound produces a single $k$-dim subspace $E$ on which the deviation is uniform.</p>
 
-<div class="ok"><strong>Constant for $\ell^{p}$.</strong> For $K=B_{\ell^{p}}$, the critical dimension is $k(\ell^{p},\varepsilon)\asymp\varepsilon^{2}n^{2/p}$ for $1\le p\le 2$ and $\asymp\varepsilon^{2}\log n$ for $p\ge 2$. The phase transition at $p=2$ is the boundary between "Hilbertian-already" and "non-Hilbertian-but-rescuable".</div>
+<div class="ok"><strong>Constant for $\ell^{p}$.</strong> For $K=B_{\ell^{p}_{n}}$, the Figiel–Lindenstrauss–Milman scaling is $k(\ell^{p}_{n},\varepsilon)\asymp\varepsilon^{2}n$ for $1\le p\le 2$, $\asymp\varepsilon^{2}n^{2/p}$ for $2\le p<\infty$, and $\asymp\varepsilon^{2}\log n$ at $p=\infty$. The exponent peaks at $p=2$ (the body is already Hilbertian) and degrades to logarithmic only in the cube limit.</div>
 
 <div class="widget" id="w-dvor">
   <div class="hd"><div class="ttl">$\ell^{\infty}_{n}$ unit ball — random $2$-D section</div><div class="hint">click to resample — the cross-section is approximately a regular polygon, becoming circular as $n$ grows</div></div>
@@ -640,7 +640,7 @@ For a convex $1$-Lipschitz $f:[0,1]^{n}\to\mathbb{R}$ this implies the dimension
 $$\mathbb{P}\bigl(|f(X)-\mathrm{med}\,f|>t\bigr)\le 4e^{-t^{2}/4},$$
 with no $n$ on the right-hand side. The $L^{p}$-Lipschitz cousin gives sub-Gaussian tails with constant determined by the Lipschitz norm.</p>
 
-<p><strong>Why convex distance is the right yardstick.</strong> On the Hamming cube the function $f(x)=\sum_{i}x_{i}$ is $1$-Lipschitz (in Hamming) but its standard deviation is $\sqrt n/2$, so the deviation cannot be dimension-free in Hamming. The convex distance is much smaller for "spread-out" disagreements — it absorbs the coordinatewise variability that the Hamming metric misses, and that's exactly what convex Lipschitz functionals see.</p>
+<p><strong>Why convex distance is the right yardstick.</strong> On $[0,1]^{n}$ with i.i.d.\ uniform coordinates, the linear functional $f(x)=\sum_{i}x_{i}$ is $1$-Lipschitz coordinatewise and has standard deviation $\sqrt{n}/(2\sqrt 3)$ — growing in $n$, so the deviation cannot be dimension-free for general coordinatewise-Lipschitz $f$. By contrast a convex $1$-Lipschitz functional like $f(x)=\max_{i}x_{i}$ has $O(1)$ standard deviation; the convex distance $d_{T}$ absorbs the coordinatewise variability that the Hamming metric misses, and that's exactly what convex Lipschitz functionals see.</p>
 
 <div class="widget" id="w-tala">
   <div class="hd"><div class="ttl">Hamming vs convex deviation</div><div class="hint">drag $n$ — Hamming-Lipschitz max grows as $\sqrt n$; convex-Lipschitz $f$ stays $O(1)$</div></div>
@@ -883,7 +883,7 @@ where $\Phi$ is the standard Gaussian CDF.</p>
 
 <p><strong>Compressed sensing.</strong> Candès–Romberg–Tao (2006): a $k$-sparse signal $x\in\mathbb{R}^{n}$ can be recovered exactly from $m=O(k\log(n/k))$ random linear measurements via $\ell^{1}$-minimisation. The proof rests on the <em>Restricted Isometry Property</em>: for every $k$-sparse $x$, $(1-\delta)\|x\|^{2}\le\|Ax\|^{2}\le(1+\delta)\|x\|^{2}$. JL-type concentration applied to all $\binom{n}{k}$ coordinate subspaces gives RIP with high probability.</p>
 
-<p><strong>Random matrix theory.</strong> The empirical spectral distribution of $\frac{1}{n}WW^{*}$ for $W$ an $m\times n$ matrix with i.i.d.\ centred entries (variance $1$) converges, as $m,n\to\infty$ with $m/n\to\lambda$, to the <strong>Marchenko–Pastur law</strong> on $\bigl[(1-\sqrt\lambda)^{2},(1+\sqrt\lambda)^{2}\bigr]$. Wigner's semicircle and Tracy–Widom edge fluctuations are companion phenomena. Concentration controls the operator norm: $\|W\|_{op}\le 2\sqrt n+O(1)$ for $n\times n$ Wigner.</p>
+<p><strong>Random matrix theory.</strong> For $W$ an $m\times n$ matrix with i.i.d.\ centred entries (variance $1$), the empirical spectral distribution of the $n\times n$ Gram matrix $\frac{1}{n}W^{*}W$ converges, as $m,n\to\infty$ with $m/n\to\lambda$, to the <strong>Marchenko–Pastur law</strong> on $\bigl[(1-\sqrt\lambda)^{2},(1+\sqrt\lambda)^{2}\bigr]$ (the $m\times m$ matrix $\frac{1}{n}WW^{*}$ has the same non-zero spectrum). Wigner's semicircle and Tracy–Widom edge fluctuations are companion phenomena. Concentration controls the operator norm: $\|W\|_{op}\le 2\sqrt n+O(1)$ for $n\times n$ Wigner.</p>
 
 <p><strong>Statistical learning (PAC).</strong> For a hypothesis class $\mathcal{H}$ of VC dimension $d$, the empirical-risk minimiser $\hat h$ on $m$ samples satisfies
 $$\mathbb{P}\!\left(\sup_{h\in\mathcal{H}}|R_{\mathrm{emp}}(h)-R(h)|>\varepsilon\right)\le 8\,m^{d}e^{-m\varepsilon^{2}/32}.$$

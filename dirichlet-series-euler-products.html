@@ -269,7 +269,7 @@ for some <strong>abscissa of absolute convergence</strong> $\sigma_a \in [-\inft
 <h3>Uniqueness of coefficients</h3>
 <p>On its half-plane of absolute convergence, the coefficients are uniquely recoverable:
 $$a_n \;=\; \lim_{\sigma \to \infty} n^\sigma \Bigl( D(\sigma) - \sum_{k<n} \frac{a_k}{k^\sigma} \Bigr).$$
-As $\sigma \to \infty$, every term $a_k/k^\sigma$ with $k < n$ is killed by multiplication by $n^\sigma$ (because $(n/k)^\sigma \to \infty$ eats the tail), while the $n$-th term becomes $a_n$, and tails beyond $n$ vanish. So if $D_1 = D_2$ as functions on a half-plane, their coefficient sequences are identical — a first hint that these objects are rigid.</p>
+The $k < n$ terms are explicitly subtracted off, leaving $n^\sigma \cdot (a_n/n^\sigma + \sum_{k>n} a_k/k^\sigma) = a_n + \sum_{k>n} a_k (n/k)^\sigma$; for $k > n$ we have $n/k < 1$, so $(n/k)^\sigma \to 0$ as $\sigma \to \infty$ and the tail vanishes, leaving $a_n$. So if $D_1 = D_2$ as functions on a half-plane, their coefficient sequences are identical — a first hint that these objects are rigid.</p>
 
 <div class="widget" id="w-halfplane">
   <div class="hd"><div class="ttl">Half-plane of convergence</div><div class="hint">drag the abscissa $\sigma_a$</div></div>
@@ -654,10 +654,10 @@ $$L(s,\chi_0) \;=\; \zeta(s) \prod_{p\mid N}(1-p^{-s}).$$
 For $\chi \ne \chi_0$, the sum is <em>conditionally</em> convergent for $\mathrm{Re}\,s > 0$ too (the character values are bounded and roughly cancel), so $L(s,\chi)$ extends to the half-plane $\mathrm{Re}\,s > 0$ directly — a smaller miracle than $\zeta$'s full continuation.</p>
 
 <h3>Example: the non-trivial character mod 4</h3>
-<p>Here $(\mathbb{Z}/4)^\times = \{1,3\}$ is cyclic of order $2$. The non-trivial character $\chi_3$ sends $1\mapsto 1$, $3\mapsto -1$:
-$$\chi_3(n) = \begin{cases} +1 & n\equiv 1\pmod 4\\ -1 & n\equiv 3\pmod 4\\ 0 & n\text{ even}\end{cases}$$
+<p>Here $(\mathbb{Z}/4)^\times = \{1,3\}$ is cyclic of order $2$. The non-trivial character $\chi_4$ sends $1\mapsto 1$, $3\mapsto -1$:
+$$\chi_4(n) = \begin{cases} +1 & n\equiv 1\pmod 4\\ -1 & n\equiv 3\pmod 4\\ 0 & n\text{ even}\end{cases}$$
 giving the famous Leibniz series:
-$$L(s,\chi_3) \;=\; 1 - \frac{1}{3^s} + \frac{1}{5^s} - \frac{1}{7^s} + \cdots, \qquad L(1,\chi_3) = \frac{\pi}{4}.$$
+$$L(s,\chi_4) \;=\; 1 - \frac{1}{3^s} + \frac{1}{5^s} - \frac{1}{7^s} + \cdots, \qquad L(1,\chi_4) = \frac{\pi}{4}.$$
 That specific identity — evaluating the series at $s=1$ — is a prototype of what class-number formulas compute. See <a href="./quadratic-reciprocity.html">quadratic-reciprocity</a> for how quadratic characters $\left(\tfrac{\cdot}{p}\right)$ fit this framework.</p>
 
 <div class="widget" id="w-chartab">
@@ -673,14 +673,14 @@ That specific identity — evaluating the series at $s=1$ — is a prototype of 
 </div>
 
 <div class="widget" id="w-lchi">
-  <div class="hd"><div class="ttl">$L(s,\chi_3)$ — non-trivial character mod 4</div><div class="hint">drag $s$</div></div>
-  <svg id="lc-svg" viewBox="0 0 620 260" width="620" height="260"><title>$L(s,\chi_3)$ — non-trivial character mod 4</title></svg>
+  <div class="hd"><div class="ttl">$L(s,\chi_4)$ — non-trivial character mod 4</div><div class="hint">drag $s$</div></div>
+  <svg id="lc-svg" viewBox="0 0 620 260" width="620" height="260"><title>$L(s,\chi_4)$ — non-trivial character mod 4</title></svg>
   <div class="row">
     <label for="lc-s">$s$</label>
     <input type="range" id="lc-s" min="0.2" max="4" step="0.02" value="1">
     <span id="lc-val" class="readout" style="min-width:280px;flex:0 0 auto"></span>
   </div>
-  <div class="small">At $s=1$: $L(1,\chi_3) = \pi/4 \approx 0.7854$. No pole — a hallmark of <em>non-trivial</em> characters.</div>
+  <div class="small">At $s=1$: $L(1,\chi_4) = \pi/4 \approx 0.7854$. No pole — a hallmark of <em>non-trivial</em> characters.</div>
 </div><script>
 /* =============================== SECTION 4a: character table =============================== */
 (function(){
@@ -778,7 +778,7 @@ That specific identity — evaluating the series at $s=1$ — is a prototype of 
 </script>
 
 <script>
-/* =============================== SECTION 4b: L(s, chi_3 mod 4) =============================== */
+/* =============================== SECTION 4b: L(s, chi_4 mod 4) =============================== */
 (function(){
   const svg = $('#lc-svg'), sR = $('#lc-s'), val = $('#lc-val');
   const W = 620, H = 260, pad = 40;
@@ -815,18 +815,18 @@ That specific identity — evaluating the series at $s=1$ — is a prototype of 
     }
     svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--yellow)','stroke-width':2}));
 
-    // highlight L(1, chi_3) = π/4
+    // highlight L(1, chi_4) = π/4
     const X1 = toX(1), Y1 = toY(Math.PI/4);
     svg.appendChild(SVG('circle',{cx:X1,cy:Y1,r:5,fill:'var(--green)'}));
     const t1 = SVG('text',{x:X1+8,y:Y1-6,'font-size':11,fill:'var(--green)'});
-    t1.textContent = 'L(1,χ₃) = π/4'; svg.appendChild(t1);
+    t1.textContent = 'L(1,χ₄) = π/4'; svg.appendChild(t1);
 
     // marker
     const s0 = parseFloat(sR.value);
     const y0 = Lchi(s0);
     const X = toX(s0), Y = toY(Math.min(Math.max(y0,ymin),ymax));
     svg.appendChild(SVG('circle',{cx:X,cy:Y,r:5,fill:'var(--blue)'}));
-    val.textContent = `L(${s0.toFixed(2)}, χ₃) ≈ ${y0.toFixed(5)}`;
+    val.textContent = `L(${s0.toFixed(2)}, χ₄) ≈ ${y0.toFixed(5)}`;
   }
   sR.addEventListener('input', draw);
   draw();
@@ -864,8 +864,9 @@ $$\theta(1/x) \;=\; \sqrt{x}\,\theta(x)$$
 
 <div class="ok"><strong>Why this matters.</strong> The functional equation trades knowledge of $\zeta$ on $\mathrm{Re}\,s > 1$ (where we have convergence) for knowledge on $\mathrm{Re}\,s < 0$. The "critical strip" $0 \le \mathrm{Re}\,s \le 1$ is where the interesting zeros live. The <em>Riemann Hypothesis</em> conjectures all non-trivial zeros lie on $\mathrm{Re}\,s = 1/2$.</div>
 
-<p>The same game works for Dirichlet $L$-functions: each non-trivial $L(s,\chi)$ extends to an entire function and satisfies a functional equation relating $s$ and $1-s$, with a "root number" $W(\chi)$ (a complex number of absolute value $1$) appearing:
-$$\Lambda(s,\chi) \;=\; W(\chi)\,\Lambda(1-s,\overline{\chi}).$$</p><script>
+<p>The same game works for Dirichlet $L$-functions: each non-trivial $L(s,\chi)$ extends to an entire function and satisfies a functional equation relating $s$ and $1-s$, with a "root number" $W(\chi)$ (a complex number of absolute value $1$) appearing — for <strong>primitive</strong> $\chi$,
+$$\Lambda(s,\chi) \;=\; W(\chi)\,\Lambda(1-s,\overline{\chi}).$$
+(For imprimitive $\chi$, pass to the inducing primitive character; the induced $L$-function differs from the primitive one only by finitely many local factors.)</p><script>
 /* =============================== SECTION 5 widget =============================== */
 (function(){
   const svg = $('#fe-svg'), sR = $('#fe-s'), sv = $('#fe-sv');
@@ -1343,7 +1344,7 @@ $$\pi(x; N, a) \;\sim\; \frac{1}{\varphi(N)}\,\frac{x}{\log x} \qquad (\gcd(a,N)
 
 </section>
 <section id="forward">
-<h2>7. What comes next</h2>
+<h2>9. What comes next</h2>
 <p>Once you believe a Dirichlet series encodes arithmetic into analysis, and an Euler product encodes unique factorization into geometry, you can ask the same questions of other arithmetic objects.</p>
 
 <ul>

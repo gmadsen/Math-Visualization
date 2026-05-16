@@ -835,7 +835,7 @@ The four cells encode: top — connectedness; middle row — holomorphic and ant
 
 <p><strong>Computing $H^*_{dR}$.</strong> Reading off from the diamond and $E_1$-degeneration:
 $$H^0_{dR}(C/\mathbb{C}) = \mathbb{C}, \qquad H^1_{dR}(C/\mathbb{C}) = \mathbb{C}^{2g}, \qquad H^2_{dR}(C/\mathbb{C}) = \mathbb{C}.$$
-The total Betti is $1 + 2g + 1 = 2g + 2$, which equals the topological Euler characteristic $\chi(C) = 2 - 2g$ <em>plus</em> the alternating-sum reformulation $\sum (-1)^i b_i = 2 - 2g$ ✓. The Hodge filtration on $H^1_{dR}$ has just one nontrivial step: $F^1 H^1 = H^0(C, \Omega^1_C)$ (the holomorphic 1-forms, dimension $g$), $F^0 H^1 = H^1_{dR}$ (everything, dimension $2g$). The quotient $\mathrm{gr}^0_F = H^1(C, \mathcal{O}_C)$ has dimension $g$.</p>
+The total Betti is $\sum_i b_i = 1 + 2g + 1 = 2g + 2$ (sum of all Betti numbers); the Euler characteristic is the <em>alternating</em> sum $\chi(C) = \sum (-1)^i b_i = 1 - 2g + 1 = 2 - 2g$ ✓. (The two agree only at $g = 0$.) The Hodge filtration on $H^1_{dR}$ has just one nontrivial step: $F^1 H^1 = H^0(C, \Omega^1_C)$ (the holomorphic 1-forms, dimension $g$), $F^0 H^1 = H^1_{dR}$ (everything, dimension $2g$). The quotient $\mathrm{gr}^0_F = H^1(C, \mathcal{O}_C)$ has dimension $g$.</p>
 
 <div class="widget" id="w-curve-clickable">
   <div class="hd"><div class="ttl">Hodge diamond of a smooth projective curve $C$ of genus $g$</div><div class="hint">click any cell to see what it means + an example value</div></div>
@@ -882,7 +882,7 @@ The total Betti is $1 + 2g + 1 = 2g + 2$, which equals the topological Euler cha
 })();
 </script>
 
-<p><strong>Worked example — an elliptic curve.</strong> $g = 1$. Diamond cells $1, 1, 1, 1$. $H^1_{dR} = \mathbb{C}^2$ with $F^1 = \mathbb{C}\langle dx/y \rangle$ and quotient $\mathbb{C}\langle x\,dx/y \rangle$ (in Weierstrass coordinates $y^2 = x^3 + ax + b$). The first form is holomorphic; the second is a "second-kind" form — algebraic, with poles, but representing a non-trivial de Rham class. The two together give the period lattice $\mathbb{Z}\omega_1 + \mathbb{Z}\omega_2 \subset \mathbb{C}$ that defines the complex torus $\mathbb{C}/\Lambda \cong E$.</p>
+<p><strong>Worked example — an elliptic curve.</strong> $g = 1$. Diamond cells $1, 1, 1, 1$. $H^1_{dR} = \mathbb{C}^2$ with $F^1 = \mathbb{C}\langle dx/y \rangle$ and quotient $\mathbb{C}\langle x\,dx/y \rangle$ (in Weierstrass coordinates $y^2 = x^3 + ax + b$). The first form is holomorphic; the second is a "second-kind" form — algebraic, with poles, but representing a non-trivial de Rham class. Only the holomorphic form $dx/y$ produces the period lattice $\Lambda = \mathbb{Z}\omega_1 + \mathbb{Z}\omega_2 \subset \mathbb{C}$ (with $\omega_i = \int_{\gamma_i} dx/y$ over a basis of $H_1$) that defines the complex torus $\mathbb{C}/\Lambda \cong E$. The second-kind form $x\,dx/y$ produces the <em>quasi-periods</em> $\eta_i = \int_{\gamma_i} x\,dx/y$, the partners that satisfy the Legendre relation $\omega_1 \eta_2 - \omega_2 \eta_1 = 2\pi i$; together $\{dx/y, x\,dx/y\}$ form a basis of $H^1_{dR}(E)$ but only the first gives lattice generators.</p>
 
 <p>Below: a sandbox that computes Hodge numbers for several smooth projective varieties — curves, $\mathbb{P}^n$, and a couple of surfaces — by formula. Edit the variety list and press Cmd/Ctrl-Enter to re-run.</p>
 

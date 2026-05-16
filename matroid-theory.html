@@ -405,7 +405,7 @@ function drawNode(svg, x, y, label, opts={}){
     runCheck();
   });
   btnBad.addEventListener('click', ()=>{
-    // hereditary holds, but exchange fails: bases of different sizes
+    // (I2) hereditary fails: {a,b,c} is listed but its subset {a,c} (and {b,c}) is not — every subset of an independent set should also be listed independent
     Ein.value = 'a,b,c,d';
     Iin.value = '{}\n{a}\n{b}\n{c}\n{d}\n{a,b}\n{a,b,c}';
     runCheck();

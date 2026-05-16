@@ -385,9 +385,9 @@ $$H^1(G,M)\;=\;\frac{\{\text{crossed homomorphisms }G\to M\}}{\{\text{principal:
 $$H^1(G,L^\times)\;=\;1.$$
 Equivalently: every element $\beta\in L^\times$ with $N_{L/K}(\beta)=1$ has the form $\beta=\sigma(\alpha)/\alpha$ for some $\alpha\in L^\times$.</div>
 
-<p>The proof is short and instructive. A $1$-cocycle $\varphi:G\to L^\times$ is determined by $\beta=\varphi(\sigma)\in L^\times$ (using the cocycle identity to extend), and the cocycle identity in cyclic form is exactly $N_{L/K}(\beta)=\beta\cdot\sigma\beta\cdots\sigma^{n-1}\beta=1$. To exhibit a coboundary $\beta=\sigma(\alpha)/\alpha$, set
-$$\alpha\;=\;\sum_{i=0}^{n-1}\beta\cdot\sigma\beta\cdots\sigma^{i-1}\beta\cdot\sigma^i(c)$$
-for a $c\in L^\times$ chosen so the sum is nonzero (possible by linear independence of characters). Then $\sigma(\alpha)=\beta^{-1}\alpha$ — done.</p>
+<p>The proof is short and instructive. A $1$-cocycle $\varphi:G\to L^\times$ is determined by $\beta=\varphi(\sigma)\in L^\times$ (using the cocycle identity to extend), and the cocycle identity in cyclic form is exactly $N_{L/K}(\beta)=\beta\cdot\sigma\beta\cdots\sigma^{n-1}\beta=1$. To exhibit a coboundary $\beta=\sigma(\alpha)/\alpha$, set $\gamma=\beta^{-1}$ (also norm-one) and form Speiser's sum
+$$\alpha^{-1}\;=\;\sum_{i=0}^{n-1}\gamma\cdot\sigma\gamma\cdots\sigma^{i-1}\gamma\cdot\sigma^i(c)$$
+for a $c\in L^\times$ chosen so the sum is nonzero (possible by linear independence of characters). Then $\sigma(\alpha^{-1})=\gamma^{-1}\alpha^{-1}=\beta\,\alpha^{-1}$, i.e. $\sigma(\alpha)=\beta^{-1}\alpha$ for $\alpha=(\sum\cdots)^{-1}$, hence $\sigma(\alpha)/\alpha=\beta^{-1}$ — and inverting once more (replacing $\alpha$ by $\alpha^{-1}$) gives the desired $\sigma(\alpha)/\alpha=\beta$. (Equivalently: apply Speiser to $\beta$ directly to get $\alpha$ with $\beta=\alpha/\sigma(\alpha)$, then take $\alpha\mapsto\alpha^{-1}$.)</p>
 
 <div class="widget" id="w-h90">
   <div class="hd"><div class="ttl">Hilbert 90 in $\mathbb{Q}(i)/\mathbb{Q}$</div><div class="hint">factor norm-one $\beta\in\mathbb{Q}(i)^\times$ as $\sigma(\alpha)/\alpha$</div></div>
@@ -406,7 +406,7 @@ for a $c\in L^\times$ chosen so the sum is nonzero (possible by linear independe
     <button id="h90-go">factor</button>
   </div>
   <div class="readout" id="h90-out">…</div>
-  <div class="row"><span class="small">For $L/\mathbb{Q}=\mathbb{Q}(i)/\mathbb{Q}$ the trick is $\alpha=1+\beta$ (when this is nonzero); then $\sigma(\alpha)/\alpha=\bar\beta\cdot(1+\beta)\cdot\overline{(1+\beta)}^{-1}\cdot\beta\cdot\beta^{-1}=\beta$ once you use $\beta\bar\beta=1$. The widget displays the witness $\alpha$ and verifies $\sigma(\alpha)/\alpha=\beta$.</span></div>
+  <div class="row"><span class="small">For $L/\mathbb{Q}=\mathbb{Q}(i)/\mathbb{Q}$ the trick is $\alpha=1/(1+\beta)$ (when $1+\beta\ne 0$); since $\sigma(\beta)=\bar\beta=\beta^{-1}$ for norm-one $\beta$, $\sigma(1+\beta)=1+\beta^{-1}=(1+\beta)/\beta$, so $\sigma(\alpha)/\alpha=(1+\beta)/\sigma(1+\beta)=\beta$. Up to a real scalar the witness simplifies to $\alpha=(c+a)-bi$. The widget displays this $\alpha$ and verifies $\sigma(\alpha)/\alpha=\beta$.</span></div>
 </div>
 
 <p>Hilbert 90 is the original incarnation. Its non-abelian and étale generalizations — $H^1(G,GL_n(L))=1$ for $L/K$ Galois, and the étale-cohomology version $H^1_{\mathrm{\acute et}}(\Spec\,K,\mathbb{G}_m)=\mathrm{Pic}(\Spec\,K)=0$ — are foundational for descent and twisted forms.</p>
@@ -509,7 +509,7 @@ $$\cdots\;\xrightarrow{N}\;\mathbb{Z}[G]\;\xrightarrow{\sigma-1}\;\mathbb{Z}[G]\
     <button id="tate-go">tabulate</button>
   </div>
   <div class="readout" id="tate-out">…</div>
-  <div class="row"><span class="small">Trivial action ($a=1$): $H^{2k}(C_m,\mathbb{Z}/k)=\mathbb{Z}/\gcd(m,k)$, $H^{2k+1}=0$. Sign action on $C_2,\mathbb{Z}/k$ flips this — odd degrees become $\mathbb{Z}/\gcd(2,k)$.</span></div>
+  <div class="row"><span class="small">Trivial action ($a=1$): both even and odd degrees agree, $H^{2k}(C_m,\mathbb{Z}/k)=H^{2k+1}(C_m,\mathbb{Z}/k)=\mathbb{Z}/\gcd(m,k)$ (since $H^1(C_m,\mathbb{Z}/k)=\Hom(C_m,\mathbb{Z}/k)=\mathbb{Z}/\gcd(m,k)$). Sign action on $C_2,\mathbb{Z}/k$ swaps the two — odd degrees become $\mathbb{Z}/\gcd(2,k)$ on the other side.</span></div>
 </div>
 
 <div class="quiz" data-concept="cyclic-periodic-tate"></div>
@@ -870,15 +870,17 @@ $$0\;\to\;\mathrm{Br}(k)[n]\;\to\;H^2(k,\mu_n)\;\to\;\mathrm{Br}(k)\xrightarrow{
     }
     lines.push('Norm = 1 ✓ — Hilbert 90 promises α with σ(α)/α = β.');
     lines.push('');
-    // α = c + a + b·i (i.e. c·(1+β) up to scale) provided c+a ≠ 0 or b ≠ 0
-    const aRe=c+a, aIm=b;
+    // α = 1/(1+β) up to a real scalar.  Multiplying numerator and denominator of
+    // 1/((c+a)/c + (b/c) i) by ((c+a) − b i) and rescaling gives α ∝ (c+a) − b·i.
+    const aRe=c+a, aIm=-b;
     if(aRe===0 && aIm===0){
       // β = -1 case: choose α = i
       lines.push('Special: β = −1, choose α = i.  Then σ(α) = −i and σ(α)/α = −1 = β. ✓');
       out.textContent=lines.join('\n'); return;
     }
-    lines.push(`Try α = c·(1 + β) = (c+a) + b·i = ${aRe} + ${aIm}·i.`);
-    lines.push(`Then σ(α) = ${aRe} − ${aIm}·i.`);
+    const fmt=(x)=>x>=0?`+ ${x}`:`− ${-x}`;
+    lines.push(`Try α = 1/(1 + β), rescaled to (c+a) − b·i = ${aRe} ${fmt(aIm)}·i.`);
+    lines.push(`Then σ(α) = ${aRe} ${fmt(-aIm)}·i.`);
     // σ(α)/α = (aRe - aIm i)(aRe + aIm i)^{-1} = (aRe - aIm i)·(aRe - aIm i)/|α|² ?
     // Simpler: σ(α)/α = (σα · ᾱ_conj)/|α|², but we want symbolic check.
     // σ(α)/α = [(aRe)² − (aIm i)²·(−1)] / |α|² is wrong — keep it concrete:
@@ -887,8 +889,8 @@ $$0\;\to\;\mathrm{Br}(k)[n]\;\to\;H^2(k,\mu_n)\;\to\;\mathrm{Br}(k)\xrightarrow{
     const numRe = aRe*aRe - aIm*aIm;
     const numIm = -2*aRe*aIm;
     const denom = aRe*aRe + aIm*aIm;
-    lines.push(`σ(α)/α = (${aRe} − ${aIm}·i)/(${aRe} + ${aIm}·i) · (${aRe} − ${aIm}·i)/(${aRe} − ${aIm}·i)`);
-    lines.push(`       = (${numRe} + ${numIm}·i)/${denom}`);
+    lines.push(`σ(α)/α = (${aRe} ${fmt(-aIm)}·i)/(${aRe} ${fmt(aIm)}·i) · (${aRe} ${fmt(-aIm)}·i)/(${aRe} ${fmt(-aIm)}·i)`);
+    lines.push(`       = (${numRe} ${fmt(numIm)}·i)/${denom}`);
     // Verify it equals β = (a + b i)/c
     const lhsRe=numRe/denom, lhsIm=numIm/denom;
     const rhsRe=a/c, rhsIm=b/c;
@@ -1041,11 +1043,17 @@ So  s: G → E  is a homomorphism;  E ≅ A ⋊ G = ℤ/2 × ℤ/2 = V_4.
       return '0';
     }
     if(extKey==='C3S3' && modKey==='F3'){
-      // H^q(C_3, F_3) = F_3 for all q; C_2 acts on H^*(C_3,F_3) by sign on odd q.
-      // H^p(C_2, F_3) = F_3 if p=0 else 0.  (since 2 invertible in F_3)
-      // So nonzero only on column 0.
-      if(p===0) return 'F₃';
-      return '0';
+      // H^*(C_3, F_3) = Λ(α) ⊗ F_3[β] with deg α = 1, deg β = 2.
+      // C_2 = N_{S_3}(C_3)/C_3 acts on C_3 by inversion, hence on α and on β = δα by −1.
+      // So on α^a β^b (degree a + 2b, a ∈ {0,1}, b ≥ 0) the sign is (−1)^{a+b}.
+      // E_2^{p,q} = H^p(C_2, H^q(C_3, F_3)).  Since |C_2|=2 is invertible in F_3,
+      // H^p(C_2, −) vanishes for p ≥ 1, and H^0(C_2, −) is the C_2-fixed part.
+      // Fixed part is F_3 when (−1)^{a+b} = +1, i.e. a + b is even, else 0.
+      if(p>=1) return '0';
+      // q = a + 2b with a ∈ {0,1}.  Decompose:
+      const a = q % 2;
+      const b = (q - a) / 2;
+      return ((a + b) % 2 === 0) ? 'F₃' : '0';
     }
     if(extKey==='C2C2' && modKey==='F3'){
       // 2 invertible in F_3, both factors ⇒ all E_2 vanishes off (0,0).

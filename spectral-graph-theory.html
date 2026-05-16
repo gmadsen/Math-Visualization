@@ -337,7 +337,7 @@ function sgtJacobi(A0){
 <tbody>
 <tr><td>complete graph $K_n$</td><td>$0,\;\underbrace{n,\dots,n}_{n-1}$</td><td>$n-1,\;\underbrace{-1,\dots,-1}_{n-1}$</td></tr>
 <tr><td>cycle $C_n$</td><td>$2-2\cos\tfrac{2\pi k}{n}$, $k=0,\dots,n-1$</td><td>$2\cos\tfrac{2\pi k}{n}$</td></tr>
-<tr><td>path $P_n$</td><td>$2-2\cos\tfrac{\pi k}{n}$, $k=0,\dots,n-1$</td><td>$2\cos\tfrac{\pi k}{n+1}$</td></tr>
+<tr><td>path $P_n$</td><td>$2-2\cos\tfrac{\pi k}{n}$, $k=0,\dots,n-1$</td><td>$2\cos\tfrac{\pi k}{n+1}$, $k=1,\dots,n$</td></tr>
 </tbody>
 </table>
 
@@ -666,7 +666,7 @@ function sgtJacobi(A0){
 <p>Order the spectrum $0=\lambda_1\le\lambda_2\le\cdots\le\lambda_n$. The second-smallest eigenvalue $\lambda_2$ is the <strong>algebraic connectivity</strong>, and its eigenvector $u_2$ is the <strong>Fiedler vector</strong> (Miroslav Fiedler, 1973).</p>
 
 <p>Two facts make $\lambda_2$ enormously useful. The first is the <em>Courant–Fischer characterisation</em>:</p>
-<p style="text-align:center">$\displaystyle \lambda_2 \;=\; \min_{\substack{f\perp\mathbf{1}\\ \|f\|=1}} f^\top L f \;=\; \min_{f\perp\mathbf{1},\,\|f\|=1}\frac{1}{1}\sum_{\{i,j\}\in E}(f(i)-f(j))^2.$</p>
+<p style="text-align:center">$\displaystyle \lambda_2 \;=\; \min_{\substack{f\perp\mathbf{1}\\ \|f\|=1}} f^\top L f \;=\; \min_{f\perp\mathbf{1},\,\|f\|=1}\tfrac{1}{2}\sum_{\{i,j\}\in E}(f(i)-f(j))^2.$</p>
 <p>The minimiser is exactly $u_2$, and $u_2$ is the smoothest function on $G$ that is orthogonal to the constant. <em>Smooth</em> here means small Dirichlet energy: $u_2$ varies as little as possible across edges, subject to having mean zero.</p>
 
 <p>The second fact is that $\lambda_2 > 0$ <strong>iff</strong> $G$ is connected — a one-line corollary of §2. So $\lambda_2$ is a quantitative refinement of "connected": small but positive means "barely held together by a thin set of edges", while $\lambda_2$ on the order of $n$ means "robustly mixed".</p>
@@ -836,7 +836,7 @@ For an arbitrary graph, replace $\lambda_2$ with the second eigenvalue of the no
   <li>Output the best such $S_k$.</li>
 </ol>
 
-<p>The output is provably within a factor $\sqrt{2d/\lambda_2}$ of optimal — a constant-factor approximation in the dense regime, polynomial-time computable. This <em>spectral</em> approximation algorithm was the original motivation for Fiedler's work in numerical analysis and the seed of all spectral clustering.</p>
+<p>Chaining the two Cheeger bounds — $h(G)\le \sqrt{2d\lambda_2}$ on the sweep cut output and $\lambda_2/2 \le h(G)$ — gives $h_{\text{sweep}} \le \sqrt{2d/\lambda_2}\cdot h(G)$, an $O(\sqrt{d/\lambda_2})$-approximation (Mihail 1989; see Chung's <em>Spectral Graph Theory</em>, §2.4). Polynomial-time computable; the seed of all spectral clustering and the original motivation for Fiedler's numerical-analysis work.</p>
 
 <div class="note"><strong>Continuous analogue.</strong> Cheeger's original (1970) inequality is for compact Riemannian manifolds: $\lambda_2(-\Delta) \ge h(M)^2/4$, where $h(M)$ is the infimum of $\operatorname{vol}_{n-1}(\partial S)/\operatorname{vol}_n(S)$ over open sets $S$ with $\operatorname{vol}_n(S)\le \operatorname{vol}_n(M)/2$. The graph version was the discrete reflection — exactly the right way to think of $L=D-A$ as $-\Delta$.</div>
 
@@ -1149,7 +1149,7 @@ For an arbitrary graph, replace $\lambda_2$ with the second eigenvalue of the no
 <div class="ok"><strong>Alon–Boppana (1986).</strong> For any infinite family of $d$-regular graphs $(G_n)$ with $|V(G_n)|\to\infty$,
 $$\liminf_{n\to\infty} \lambda_2(A_{G_n})\;\ge\; 2\sqrt{d-1}.$$</div>
 
-<p>A $d$-regular graph achieving $|\lambda_2(A)|\le 2\sqrt{d-1}$ is called a <strong>Ramanujan graph</strong>. Ramanujan graphs are essentially-optimal expanders. Lubotzky–Phillips–Sarnak (1988) constructed infinite Ramanujan families using arithmetic — Cayley graphs of $\mathrm{PGL}_2(\mathbb{F}_p)$ — and the proof reduces to deep facts about modular forms (eigenvalues of Hecke operators on weight-$2$ forms). The story is one of the most beautiful applications of automorphic representations to combinatorics.</p>
+<p>A $d$-regular graph achieving $|\lambda_2(A)|\le 2\sqrt{d-1}$ is called a <strong>Ramanujan graph</strong>. Ramanujan graphs are essentially-optimal expanders. Lubotzky–Phillips–Sarnak (1988) constructed infinite Ramanujan families arithmetically: for distinct odd primes $p,q$ with $p\equiv 1\pmod 4$, take a Cayley graph on $\mathrm{PGL}_2(\mathbb{F}_q)$ or $\mathrm{PSL}_2(\mathbb{F}_q)$ — bipartite $\mathrm{PGL}$ when the Legendre symbol $\left(\tfrac{p}{q}\right) = -1$, non-bipartite $\mathrm{PSL}$ when $\left(\tfrac{p}{q}\right) = +1$ — using $p+1$ generators built from integer quaternions of norm $p$. The proof that these are Ramanujan reduces to deep facts about modular forms (eigenvalues of Hecke operators on weight-$2$ forms, via Eichler–Deligne). The story is one of the most beautiful applications of automorphic representations to combinatorics.</p>
 <div class="widget" id="w-bip">
   <div class="hd"><div class="ttl">Bipartite spectrum</div><div class="hint">toggle bipartiteness · watch $\nu_n$ versus $2$</div></div>
   <div class="row">

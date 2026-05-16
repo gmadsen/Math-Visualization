@@ -474,19 +474,20 @@ a <em>finite</em> disjoint union of arithmetic quotients of the connected Hermit
       const ix = indexGL2(N,t);
       const cc = components(N,t);
       const dimC = 1;
-      const reflex = (t==="K"||t==="K1") ? "ℚ(ζ_N)" : "ℚ";
+      const reflex = (t==="K") ? "ℚ(ζ_N)" : "ℚ";
       lines.push(`G = GL₂, dim_ℂ Sh_K = ${dimC}`);
       lines.push(`level type ${t}, N = ${N}`);
       lines.push(`[SL₂(ℤ) : Γ] = ${ix}`);
       lines.push(`# connected components / ℂ = ${cc}`);
       lines.push(`reflex E(G,X) = ℚ;  Sh_K is over ${reflex}.`);
-      if(t==="K0") lines.push(`Each component is X_0(${N}) (analytically Y_0(${N})).`);
+      if(t==="K0") lines.push(`Each component is Y_0(${N}) (compactified to X_0(${N})).`);
     } else {
       // GSp_4 — use approximation: index_principal(N) = N^{10} prod(1-1/p^2)(1-1/p^4) for principal
       // we just report dimension and components qualitatively
       lines.push(`G = GSp₄, dim_ℂ Sh_K = 3 (Siegel threefold).`);
       lines.push(`level type ${t}, N = ${N}.`);
-      lines.push(`Strong approximation ⇒ 1 component over ℂ for principal level N≥1.`);
+      const gspCC = (t==="K0") ? 1 : eulerphi(N);
+      lines.push(`# geometric components / ℂ = ${gspCC}  (K_0(N): ν surjects onto Ẑ^× ⇒ 1; K(N) principal: φ(N) = ${eulerphi(N)} via similitude ν).`);
       lines.push(`reflex E(G,X) = ℚ.`);
       lines.push(`Galois group  Gal(ℚ(ζ_N)/ℚ) acts on the geometric components.`);
     }
@@ -887,9 +888,9 @@ where the sum is over <em>Kottwitz triples</em> $(\gamma_0; \gamma, \delta)$, $\
   <div class="row">
     <label for="w-lk-pick">variety / level:</label>
     <select id="w-lk-pick">
-      <option value="x011" selected>X₀(11) over 𝔽_p (Siegel-like, dim 1)</option>
-      <option value="x017">X₀(17) over 𝔽_p (Siegel-like, dim 1)</option>
-      <option value="x023">X₀(23) over 𝔽_p (genus 2)</option>
+      <option value="x011" selected>X₀(11) over 𝔽_p (modular curve, GL₂, genus 1)</option>
+      <option value="x017">X₀(17) over 𝔽_p (modular curve, GL₂, genus 1)</option>
+      <option value="x023">X₀(23) over 𝔽_p (modular curve, GL₂, genus 2)</option>
     </select>
     <label for="w-lk-p">prime $p$:</label>
     <input type="number" id="w-lk-p" min="2" max="61" step="1" value="2" style="width:5em">
@@ -904,13 +905,13 @@ where the sum is over <em>Kottwitz triples</em> $(\gamma_0; \gamma, \delta)$, $\
   const lk = {
     x011: {label:"X₀(11), genus 1, J₀(11) = E_{11}",
            ap:{2:-2,3:-1,5:1,7:-2,13:4,17:-2,19:0,23:-1,29:0,31:7,37:3,41:-8,43:-6,47:8,53:-6,59:5,61:12},
-           lvl:11, dim:1},
+           lvl:11, dim:1, genus:1},
     x017: {label:"X₀(17), genus 1, J₀(17) = E_{17}",
            ap:{2:-1,3:0,5:-2,7:4,11:0,13:2,19:4,23:-4,29:6,31:-8,37:6,41:-2,43:0,47:-4,53:6,59:-12,61:-2},
-           lvl:17, dim:1},
+           lvl:17, dim:1, genus:1},
     x023: {label:"X₀(23), genus 2, J₀(23) abelian surface",
            ap:{2:-1,3:-1,5:0,7:2,11:-2,13:-2,17:0,19:-1,29:6,31:0,37:-3,41:0,43:-7,47:0,53:1,59:8,61:-3},
-           lvl:23, dim:1}
+           lvl:23, dim:1, genus:2}
   };
   const sel = document.getElementById("w-lk-pick");
   const Pin = document.getElementById("w-lk-p");
@@ -938,9 +939,11 @@ where the sum is over <em>Kottwitz triples</em> $(\gamma_0; \gamma, \delta)$, $\
       lines.push(`  spectral:    a_p (sum of newform eigenvalues) = ${a}`);
       lines.push(`  match:       L–K formula gives same number ✓`);
       lines.push(`  Frob trace:  tr ρ_${v.lvl}(Frob_${p}) = ${a}`);
-      lines.push(`  Hasse–Weil bound:  |a_p| ≤ 2√p ≈ ${(2*Math.sqrt(p)).toFixed(2)}`);
+      const g = v.genus || 1;
+      lines.push(`  Weil bound (J₀ has dim ${g}):  |a_p| ≤ ${2*g}√p ≈ ${(2*g*Math.sqrt(p)).toFixed(2)}`);
     } else {
-      lines.push(`p = ${p}: data not tabulated here; in general |X₀(N)(𝔽_p)| = p+1 − a_p with |a_p| ≤ 2√p.`);
+      const g = v.genus || 1;
+      lines.push(`p = ${p}: data not tabulated here; in general |X₀(N)(𝔽_p)| = p+1 − a_p with |a_p| ≤ ${2*g}√p (Weil, J₀ has dim ${g}).`);
     }
     out.textContent = lines.join("\n");
   }

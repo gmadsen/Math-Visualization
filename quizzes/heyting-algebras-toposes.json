@@ -64,16 +64,16 @@
         },
         {
           "type": "mcq",
-          "q": "In the topos $G$-$\\mathbf{Set}$ of left $G$-sets, $\\Omega$ as a $G$-set has underlying set:",
+          "q": "In the topos $G$-$\\mathbf{Set}$ of left $G$-sets (for an abstract group $G$), $\\Omega$ as a $G$-set has underlying set:",
           "choices": [
             "The set of subgroups of $G$",
             "The set of normal subgroups of $G$",
             "$\\{\\bot, \\top\\}$ with trivial $G$-action",
             "The set of conjugacy classes in $G$"
           ],
-          "answer": 0,
-          "explain": "A subobject of the terminal $G$-set $\\{*\\}$ is a $G$-stable subset of $\\{*\\}$ — but the elements of $\\Omega$ in $G$-$\\mathbf{Set}$ are sieves on the unique object of the one-object groupoid $G$, which correspond to subgroups of $G$. The action of $g$ on $H \\le G$ is conjugation $H \\mapsto gHg^{-1}$.",
-          "hint": "Think of $G$ as a one-object groupoid; $\\Omega(c)$ in a presheaf topos is the sieves on $c$."
+          "answer": 2,
+          "explain": "Sieves on the unique object $*$ of the one-object groupoid $\\mathbf{B}G$ are subsets $S \\subseteq G$ closed under precomposition by every $g \\in G$. In a *group* (every arrow invertible) the only such $S$ are $\\varnothing$ and $G$, so $\\Omega(*) = \\{\\bot, \\top\\}$, and $G$ acts trivially because $\\mathbf{B}G$ has no other object to mediate the action. Equivalently: subobjects of any $G$-set $X$ are $G$-stable subsets, classified by the indicator $\\chi_S\\colon X \\to \\{\\bot,\\top\\}$ that is constant on each orbit. The topos is Boolean.",
+          "hint": "Sieves on $*$ in a groupoid are closed under precomposition by all invertible arrows — so they collapse to $\\{\\varnothing, G\\}$."
         },
         {
           "type": "matching",

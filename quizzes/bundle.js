@@ -4059,7 +4059,7 @@ window.MVQuizBank = {
             ],
             "answer": 1,
             "hint": "The diagonal embedding $r\\mapsto\\mathrm{diag}(r,1,\\ldots)$ realizes any $r\\in R^\\times$ as an element of $K_1$; consider how this constrains surjectivity vs. injectivity separately. Which of the four claims correctly characterizes the failure of one of those two properties?",
-            "explain": "The determinant map $\\det\\colon K_1(R)\\to R^\\times$ is split surjective via $r\\mapsto[\\mathrm{diag}(r,1,\\ldots)]$, so $K_1(R)\\cong R^\\times\\oplus SK_1(R)$ where $SK_1(R)$ is the special-linear summand. For fields $SK_1=0$ and the determinant is an iso (Whitehead determinant theorem); for Dedekind domains $SK_1$ vanishes too (Bass-Milnor-Serre); but in general $SK_1$ is nonzero — e.g. $SK_1(\\mathbb{Z}[t,t^{-1}])$ is nontrivial."
+            "explain": "The determinant map $\\det\\colon K_1(R)\\to R^\\times$ is split surjective via $r\\mapsto[\\mathrm{diag}(r,1,\\ldots)]$, so $K_1(R)\\cong R^\\times\\oplus SK_1(R)$ where $SK_1(R)$ is the special-linear summand. For fields $SK_1=0$ and the determinant is an iso (Whitehead determinant theorem); for Dedekind domains $SK_1$ vanishes too (Bass-Milnor-Serre); but in general $SK_1$ is nonzero — e.g. $SK_1(\\mathbb{Z}[Q_8])$ is nontrivial for the integral group ring of the order-8 quaternion group (Magurn)."
           },
           {
             "type": "ordering",
@@ -4369,11 +4369,11 @@ window.MVQuizBank = {
           },
           {
             "type": "numeric",
-            "q": "Let $K=\\mathbb{Q}(\\sqrt{-3})$. Since $-3\\equiv 1\\pmod 4$, the ring of integers is $\\mathbb{Z}[\\omega]$ where $\\omega=\\tfrac{1+\\sqrt{-3}}{2}$. Compute $\\omega^2+\\omega$ (as an integer).",
+            "q": "Let $K=\\mathbb{Q}(\\sqrt{-3})$. Since $-3\\equiv 1\\pmod 4$, the ring of integers is $\\mathbb{Z}[\\omega]$ where $\\omega=\\tfrac{-1+\\sqrt{-3}}{2}=e^{2\\pi i/3}$ is a primitive third root of unity. Compute $\\omega^2+\\omega$ (as an integer).",
             "answer": -1,
             "tol": 0.000001,
             "hint": "Use the cyclotomic relation $\\omega^2+\\omega+1=0$.",
-            "explain": "$\\omega$ satisfies the minimal polynomial $x^2-x+1=0$, so $\\omega^2-\\omega+1=0$, giving $\\omega^2=\\omega-1$ and $\\omega^2+\\omega=2\\omega-1$. But $\\omega^2+\\omega+1=0$ is the cyclotomic relation for $\\omega=e^{2\\pi i/3}$; rearranging $x^2+x+1=0$ gives $\\omega^2+\\omega=-1$."
+            "explain": "$\\omega=e^{2\\pi i/3}$ satisfies the cyclotomic minimal polynomial $x^2+x+1=0$, so rearranging gives $\\omega^2+\\omega=-1$. (The conjugate element $-\\omega=\\tfrac{1+\\sqrt{-3}}{2}=e^{\\pi i/3}$ is the primitive sixth root, satisfying $x^2-x+1=0$, and generates the full unit group $\\mathcal{O}_K^\\times\\cong\\mathbb{Z}/6$.)"
           },
           {
             "type": "mcq",
@@ -6176,13 +6176,13 @@ window.MVQuizBank = {
             "q": "The bootstrap from Selberg's symmetry formula to PNT proceeds by",
             "choices": [
               "directly invoking the residue theorem",
-              "showing that $A = \\limsup_x |\\psi(x)/x - 1|$ satisfies $A \\le \\tfrac12 A$ (so $A = 0$), via the symmetry's averaging effect",
+              "showing that $A = \\limsup_x |\\psi(x)/x - 1|$ satisfies $A \\le (1-\\delta) A + o(1)$ for some fixed $\\delta > 0$ (so $A = 0$), via the symmetry's averaging effect",
               "induction on the number of prime factors",
               "Mellin-transform inversion"
             ],
             "answer": 1,
-            "hint": "Symmetry feeds back the same quantity at half scale — a self-improvement loop forces zero.",
-            "explain": "Define $R(x) = \\psi(x) - x$. Selberg's formula combined with elementary inequalities gives $|R(x)| \\le \\tfrac{1}{2}\\max_{y \\le x} |R(y)| + o(x)$, which iterates down to $R(x) = o(x)$ — i.e. $\\psi(x) \\sim x$, equivalent to PNT. The averaging on the right is the symmetric pairing of $p$ with $pq$."
+            "hint": "Symmetry feeds back the same quantity strictly contracted — a self-improvement loop forces zero.",
+            "explain": "Define $R(x) = \\psi(x) - x$. Selberg's formula combined with a Tauberian averaging argument gives a contraction $A \\le (1-\\delta) A + o(1)$ for $A := \\limsup_x |R(x)/x|$ and some fixed $\\delta > 0$, which iterates down to $A = 0$ — i.e. $\\psi(x) \\sim x$, equivalent to PNT. The averaging on the right is the symmetric pairing of $p$ with $pq$. (Older sketches sometimes use $\\tfrac{1}{2}$ as the contraction constant for illustration; the literal proof produces a smaller, less explicit $\\delta$.)"
           }
         ]
       },
@@ -6195,7 +6195,7 @@ window.MVQuizBank = {
             "choices": [
               "$\\sum_{q \\le Q} \\sum_{\\chi \\bmod q}^{*} \\bigl|\\sum_{n \\le N} a_n \\chi(n)\\bigr|^2 \\le (Q^2 + N) \\sum_{n \\le N} |a_n|^2$",
               "$\\sum_{n \\le N} |a_n|^2 \\le \\sum_p (\\log p)^2$",
-              "$\\sum_{q \\le Q} \\varphi(q) = Q^2/(2\\zeta(2))$",
+              "$\\sum_{q \\le Q} \\bigl|\\sum_{n \\le N} a_n e(n/q)\\bigr|^2 \\le Q^2 \\sum |a_n|^2$",
               "$\\sum_{p \\le N} 1/p \\le \\log\\log N + B$"
             ],
             "answer": 0,
@@ -6206,13 +6206,13 @@ window.MVQuizBank = {
             "type": "mcq",
             "q": "The large sieve constant $(Q^2 + N)$ is essentially sharp because",
             "choices": [
-              "the number of primitive characters $\\sum_{q \\le Q}\\varphi^*(q) \\sim Q^2/\\zeta(2)$, and the inequality is tight when $a_n$ is supported on a residue class",
+              "the number of primitive characters $\\sum_{q \\le Q}\\varphi^*(q) \\sim Q^2/(2\\zeta(2))$, and the inequality is tight when $a_n$ is supported on a residue class",
               "primes have density zero",
               "$\\zeta(s)$ has a pole at $s = 1$",
               "Riemann's hypothesis would imply a smaller constant"
             ],
             "answer": 0,
-            "hint": "Counting primitive characters mod $q \\le Q$ is asymptotic to $Q^2 / \\zeta(2)$.",
+            "hint": "Counting primitive characters mod $q \\le Q$ is asymptotic to $Q^2 / (2\\zeta(2))$.",
             "explain": "There are $\\asymp Q^2$ primitive characters of conductors $\\le Q$, so the LHS already has $\\asymp Q^2 \\|a\\|_2^2$ Plancherel mass when $a$ is concentrated on one residue class. The $N$ on the right is the trivial bound from Cauchy–Schwarz applied to a single Dirichlet sum. Both regimes show up — hence $Q^2 + N$, not max."
           },
           {
@@ -6706,7 +6706,7 @@ window.MVQuizBank = {
             ],
             "answer": 0,
             "hint": "Without spin, $\\hat A$ would only land in $\\mathbb{Q}$, but $\\ind(D)$ is an integer.",
-            "explain": "The expansion of $\\hat A$ involves rational coefficients. The fact that its integral against $[M]$ is an integer when $M$ is spin is one of the first divisibility theorems that the index theorem produces — historically how Rokhlin's $\\sigma\\equiv 0\\pmod{16}$ for spin $4$-manifolds was reproved."
+            "explain": "The expansion of $\\hat A$ involves rational coefficients. The fact that its integral against $[M]$ is an integer when $M$ is spin is one of the first divisibility theorems that the index theorem produces — directly giving Rokhlin's $\\sigma\\equiv 0\\pmod{8}$ for spin $4$-manifolds (the mod-$16$ strengthening uses the additional quaternionic structure on $S^+$ in dim $4$)."
           }
         ]
       },
@@ -7758,7 +7758,7 @@ window.MVQuizBank = {
             ],
             "answer": 1,
             "hint": "Eisenbud–Harris's technical innovation was handling the boundary $\\partial\\overline{\\mathcal{M}}_g$.",
-            "explain": "A limit linear series on a chain of components prescribes a coordinated choice of linear series on each component, with vanishing-sequence compatibility at the nodes. Eisenbud–Harris (1983) showed limit linear series on flag curves (chains of elliptic curves) smooth out to $g^r_d$'s on nearby smooth curves — proving Petri by degeneration and supplying explicit divisor classes in $\\Pic\\overline{\\mathcal{M}}_g\\otimes\\mathbb{Q}$. The classes are the central technical input to the Harris–Mumford theorem on the Kodaira dimension of $\\overline{\\mathcal{M}}_g$."
+            "explain": "A limit linear series on a chain of components prescribes a coordinated choice of linear series on each component, with vanishing-sequence compatibility at the nodes. Eisenbud–Harris (1986) showed limit linear series on flag curves (chains of elliptic curves) smooth out to $g^r_d$'s on nearby smooth curves — proving Petri by degeneration and supplying explicit divisor classes in $\\Pic\\overline{\\mathcal{M}}_g\\otimes\\mathbb{Q}$. The classes are the central technical input to the Harris–Mumford theorem on the Kodaira dimension of $\\overline{\\mathcal{M}}_g$."
           },
           {
             "type": "multi-select",
@@ -10255,15 +10255,15 @@ window.MVQuizBank = {
             ],
             "right": [
               "Triangulations of a convex $(n+3)$-gon by non-crossing diagonals; the exchange graph is the Stasheff associahedron.",
-              "Triangulations of a punctured $n$-gon (one tagged interior point); exchange graph is the cyclohedron.",
-              "Exceptional cluster algebras with no surface model; first defined by Fomin–Zelevinsky from the corresponding Dynkin diagrams; finite cluster sets of sizes $42, 70, 128$ respectively."
+              "Triangulations of a once-punctured $n$-gon with tagged arcs (Fomin–Shapiro–Thurston); exchange graph is the type-$D$ generalized associahedron of Fomin–Reading.",
+              "Exceptional cluster algebras with no surface model; first defined by Fomin–Zelevinsky from the corresponding Dynkin diagrams; $42, 70, 128$ cluster variables (= almost positive roots) respectively, with $833, 4160, 25080$ clusters."
             ],
             "answer": [
               0,
               1,
               2
             ],
-            "explain": "Type $A_n$ ↔ unpunctured polygon (associahedron). Type $D_n$ ↔ punctured polygon (cyclohedron-like, with tagged arcs). The exceptional types $E_{6,7,8}$ admit no surface model and their clusters are enumerated combinatorially via the corresponding root system."
+            "explain": "Type $A_n$ ↔ unpunctured polygon, exchange polytope = Stasheff associahedron. Type $D_n$ ↔ once-punctured polygon with tagged arcs (FST 2008), exchange polytope = type-$D$ generalized associahedron of Fomin–Reading. (The cyclohedron is the type $B_n/C_n$ generalized associahedron, not type $D_n$.) The exceptional types $E_{6,7,8}$ admit no surface model: they have $42, 70, 128$ cluster variables (= almost positive roots) and $833, 4160, 25080$ clusters respectively, with cluster counts given by the Catalan-like product $\\prod_i (h+e_i+1)/(e_i+1)$ over the exponents of the root system."
           }
         ]
       },
@@ -10287,7 +10287,7 @@ window.MVQuizBank = {
             "q": "For the type $A_3$ cluster category, how many indecomposable objects are there (counting up to isomorphism)?",
             "answer": 9,
             "tol": 1e-9,
-            "explain": "Type $A_n$ has $n(n+3)/2$ cluster variables (= indecomposable rigid objects) and $n$ shifted projectives = $n$ extra indecomposables. The $A_3$ cluster category has $\\binom{n+3}{2}$ indecomposables total when $n=3$: $9$ indecomposable rigid objects. Equivalently: each diagonal AND each side of the hexagon represents one indecomposable, giving $9 = \\binom{6}{2}-6/?$; concretely the $9$ are the $n(n+3)/2 = 9$ diagonals/sides of the hexagon when $n=3$."
+            "explain": "All $n(n+3)/2$ indecomposable objects of the type-$A_n$ cluster category are rigid; for $n=3$ that gives $9$. They split as $\\binom{n+1}{2}$ indecomposable $kQ$-modules together with $n$ shifted projectives $P_1[1], \\dots, P_n[1]$ — the shifts are *among* the indecomposables, not in addition to them. For $A_3$: $6$ module indecomposables $+ 3$ shifted projectives $= 9$, matching the $n(n+3)/2 = 9$ diagonals of the hexagon."
           },
           {
             "type": "multi-select",
@@ -10401,7 +10401,7 @@ window.MVQuizBank = {
         "questions": [
           {
             "type": "mcq",
-            "q": "Pontryagin's theorem states that a closed manifold $M^n$ is null-cobordant in $\\Omega_*^{O}$ if and only if:",
+            "q": "Thom's theorem (1954) states that a closed manifold $M^n$ is null-cobordant in $\\Omega_*^{O}$ if and only if:",
             "choices": [
               "$M$ is orientable",
               "Every Stiefel–Whitney number of $M$ vanishes in $\\mathbb{Z}/2$",
@@ -10729,7 +10729,7 @@ window.MVQuizBank = {
             "type": "multi-select",
             "q": "Which of the following are <strong>cocartesian fibrations</strong>?",
             "choices": [
-              "The source map $s: \\mathrm{Fun}(\\Delta^1, \\mathcal{C}) \\to \\mathcal{C}$ for an $\\infty$-category $\\mathcal{C}$.",
+              "The target map $t = \\mathrm{ev}_1: \\mathrm{Fun}(\\Delta^1, \\mathcal{C}) \\to \\mathcal{C}$ for an $\\infty$-category $\\mathcal{C}$.",
               "The product projection $\\mathcal{C} \\times \\mathcal{D} \\to \\mathcal{C}$.",
               "The forgetful $\\mathrm{Mod}_R \\to \\mathrm{CAlg}$ from modules to commutative ring spectra.",
               "The diagonal $\\mathcal{C} \\to \\mathcal{C} \\times \\mathcal{C}$.",
@@ -10740,8 +10740,8 @@ window.MVQuizBank = {
               1,
               2
             ],
-            "explain": "Source-of-an-arrow, product projection, and the modules-over-CAlg fibration are the three canonical examples (Kerodon 5.1.5). The diagonal is generally not even an inner fibration. An equalizer inclusion is a <em>monomorphism</em>, not a fibration; it has no nontrivial cocartesian lifts.",
-            "hint": "Cocartesian fibrations classify covariant families of $\\infty$-categories — projections and arrow-source maps fit; inclusions and diagonals don't."
+            "explain": "Target-of-an-arrow, product projection, and the modules-over-CAlg fibration are the three canonical examples (HTT 2.4.7.11 / Kerodon Tag 01VK; Kerodon 5.1.5). Note the source map $s = \\mathrm{ev}_0$ is <em>cartesian</em>, not cocartesian — it's the dual case. The diagonal is generally not even an inner fibration. An equalizer inclusion is a <em>monomorphism</em>, not a fibration; it has no nontrivial cocartesian lifts.",
+            "hint": "Cocartesian fibrations classify covariant families of $\\infty$-categories — projections and arrow-target maps fit; arrow-source map is cartesian (the dual)."
           },
           {
             "type": "mcq",
@@ -10775,23 +10775,23 @@ window.MVQuizBank = {
             "q": "Match each cocartesian fibration $p$ to the corresponding straightened functor $\\mathcal{B} \\to \\mathrm{Cat}_\\infty$.",
             "left": [
               "Constant functor $\\mathcal{C} \\to \\mathrm{Cat}_\\infty$ at $\\mathcal{D}$",
-              "Slice functor $c \\mapsto \\mathcal{C}_{c/}$",
+              "Over-category functor $c \\mapsto \\mathcal{C}_{/c}$",
               "Module functor $R \\mapsto \\mathrm{Mod}_R$",
               "$BG$-action on a space $X$"
             ],
             "right": [
               "$\\mathrm{Mod}_{(-)} \\to \\mathrm{CAlg}$",
-              "$\\mathrm{Fun}(\\Delta^1, \\mathcal{C}) \\xrightarrow{s} \\mathcal{C}$",
+              "$\\mathrm{Fun}(\\Delta^1, \\mathcal{C}) \\xrightarrow{t = \\mathrm{ev}_1} \\mathcal{C}$",
               "$X /\\!\\!/ G \\to BG$",
               "$\\mathcal{C} \\times \\mathcal{D} \\to \\mathcal{C}$"
             ],
             "answer": [
-              3,
-              0,
               2,
-              1
+              1,
+              3,
+              0
             ],
-            "explain": "(left index → right slot.) Constant family ↔ product projection (idx 3 of left = $\\mathcal{C} \\times \\mathcal{D}$). Slice functor ↔ arrow-source (left idx 1 → right idx 0, since right[0] is the modules fibration — wait, double-check: right[0] is Mod$\\to$CAlg → matches Module functor (left idx 2). The intended answer pairs are: 'constant $\\mathcal{D}$' ↔ '$\\mathcal{C} \\times \\mathcal{D} \\to \\mathcal{C}$', 'slice $c \\mapsto \\mathcal{C}_{c/}$' ↔ '$s: \\mathrm{Fun}(\\Delta^1,\\mathcal{C}) \\to \\mathcal{C}$', 'modules $R \\mapsto \\mathrm{Mod}_R$' ↔ '$\\mathrm{Mod} \\to \\mathrm{CAlg}$', 'BG-action on $X$' ↔ '$X /\\!\\!/ G \\to BG$'. Each is a canonical example of straightening."
+            "explain": "The intended pairs are: 'constant $\\mathcal{D}$' ↔ '$\\mathcal{C} \\times \\mathcal{D} \\to \\mathcal{C}$', 'over-category $c \\mapsto \\mathcal{C}_{/c}$' ↔ '$t = \\mathrm{ev}_1: \\mathrm{Fun}(\\Delta^1,\\mathcal{C}) \\to \\mathcal{C}$' (target map, HTT 2.4.7.11 — covariant postcomposition transport), 'modules $R \\mapsto \\mathrm{Mod}_R$' ↔ '$\\mathrm{Mod} \\to \\mathrm{CAlg}$', 'BG-action on $X$' ↔ '$X /\\!\\!/ G \\to BG$'."
           }
         ]
       },
@@ -10800,7 +10800,7 @@ window.MVQuizBank = {
         "questions": [
           {
             "type": "mcq",
-            "q": "For the source map $s: \\mathrm{Fun}(\\Delta^1, \\mathcal{C}) \\to \\mathcal{C}$, what is the fiber over an object $x \\in \\mathcal{C}$?",
+            "q": "For the source map $s = \\mathrm{ev}_0: \\mathrm{Fun}(\\Delta^1, \\mathcal{C}) \\to \\mathcal{C}$, what is the fiber over an object $x \\in \\mathcal{C}$?",
             "choices": [
               "The mapping space $\\mathrm{Map}_\\mathcal{C}(x, x)$.",
               "The slice $\\mathcal{C}_{x/}$ — arrows out of $x$.",
@@ -10808,7 +10808,7 @@ window.MVQuizBank = {
               "The whole of $\\mathcal{C}$ shifted by $x$."
             ],
             "answer": 1,
-            "explain": "An object of $\\mathrm{Fun}(\\Delta^1, \\mathcal{C})$ is an arrow $f: a \\to b$; the source map sends $f$ to $a$. The fiber over $x$ is therefore the $\\infty$-category of arrows with source $x$, i.e. the slice $\\mathcal{C}_{x/}$. (The <em>target</em> map gives $\\mathcal{C}_{/x}$.) The transport functor along $\\bar{e}: x \\to y$ is the postcomposition $\\bar{e}_*: \\mathcal{C}_{x/} \\to \\mathcal{C}_{y/}$ … wait, careful: cocartesian lift of $\\bar{e}$ at an arrow $f: x \\to z$ is the $2$-simplex with $f$ on one face and $\\bar{e}$ on another, giving an arrow $y \\to z$ — i.e. <em>precomposition</em> by $\\bar{e}$, sending $f$ to $f \\circ \\bar{e}^{-1}$ … no: source map is cocartesian, so $\\bar{e}_!$ on $\\mathcal{C}_{x/}$ goes to $\\mathcal{C}_{y/}$ via filling. The end product is precomposition with $\\bar{e}$ in the contravariant direction.",
+            "explain": "An object of $\\mathrm{Fun}(\\Delta^1, \\mathcal{C})$ is an arrow $f: a \\to b$; the source map sends $f$ to $a$. The fiber over $x$ is therefore the $\\infty$-category of arrows with source $x$, i.e. the slice $\\mathcal{C}_{x/}$. (The <em>target</em> map $t = \\mathrm{ev}_1$ gives $\\mathcal{C}_{/x}$ as fiber.) Note: the source map is in fact a <em>cartesian</em> fibration (HTT 2.4.7.11), with contravariant precomposition transport $\\mathcal{C}_{x'/} \\to \\mathcal{C}_{x/}$ along $\\bar{e}: x \\to x'$; the cocartesian dual is the target map.",
             "hint": "An arrow $f: a \\to b$ has source $a$; the source-fiber over $x$ is what one builds out of arrows starting at $x$."
           },
           {
@@ -10955,14 +10955,14 @@ window.MVQuizBank = {
             "type": "mcq",
             "q": "Yoneda's $\\infty$-categorical embedding $\\mathcal{B} \\to \\mathcal{P}(\\mathcal{B}) = \\mathrm{Fun}(\\mathcal{B}^{\\mathrm{op}}, \\mathcal{S})$ factors through:",
             "choices": [
-              "The universal cocartesian fibration over $\\mathcal{B}$.",
-              "The universal <em>right</em> fibration over $\\mathcal{B}$ — i.e. the target map $\\mathrm{tw}(\\mathcal{B}) \\to \\mathcal{B}$ of the twisted-arrow $\\infty$-category projected onto its source-side.",
+              "The cocartesian target map $\\mathrm{ev}_1: \\mathrm{Fun}(\\Delta^1, \\mathcal{B}) \\to \\mathcal{B}$ — directly a right fibration.",
+              "The family of slice right-fibrations $\\{\\mathcal{B}_{/b} \\to \\mathcal{B}\\}_{b \\in \\mathcal{B}}$, each pulled back from the universal right fibration $\\mathcal{S}_{*/}^{\\mathrm{op}} \\to \\mathcal{S}^{\\mathrm{op}}$.",
               "The forgetful functor $\\mathrm{Cat}_\\infty \\to \\mathcal{S}$.",
               "The classifying space functor $|-|: \\mathrm{sSet} \\to \\mathcal{S}$."
             ],
             "answer": 1,
-            "explain": "Yoneda factors through the universal right fibration: an object $b \\in \\mathcal{B}$ is sent to the slice $\\mathcal{B}_{/b}$, which is the fiber of the right fibration $\\mathrm{ev}_1: \\mathrm{Fun}(\\Delta^1, \\mathcal{B}) \\to \\mathcal{B}$ over $b$. Straightening this right fibration recovers the Yoneda functor $\\mathcal{B} \\to \\mathcal{P}(\\mathcal{B})$.",
-            "hint": "$\\mathcal{B}_{/b}$ = the representable presheaf at $b$, viewed as the fiber of a fibration."
+            "explain": "An object $b \\in \\mathcal{B}$ is sent to the slice $\\mathcal{B}_{/b} \\to \\mathcal{B}$ — itself a right fibration with mapping-space fibers $\\mathrm{Map}_\\mathcal{B}(-, b)$ — which is the pullback of the universal right fibration $\\mathcal{S}_{*/}^{\\mathrm{op}} \\to \\mathcal{S}^{\\mathrm{op}}$ along the representable $\\mathrm{Map}_\\mathcal{B}(-, b): \\mathcal{B}^{\\mathrm{op}} \\to \\mathcal{S}$. The target-evaluation map $\\mathrm{ev}_1: \\mathrm{Fun}(\\Delta^1, \\mathcal{B}) \\to \\mathcal{B}$ has the slices $\\mathcal{B}_{/b}$ as fibers but is itself <em>cocartesian</em>, not a right fibration — its fibers are $\\infty$-categories rather than spaces (HTT 2.4.7.11 / nLab \"coCartesian fibration\").",
+            "hint": "$\\mathcal{B}_{/b}$ = the representable presheaf at $b$, viewed as the fiber of a (right) fibration."
           },
           {
             "type": "mcq",
@@ -11012,32 +11012,32 @@ window.MVQuizBank = {
             "type": "matching",
             "q": "Match each canonical fibration to the functor $\\mathcal{B} \\to \\mathrm{Cat}_\\infty$ (or $\\mathcal{S}$) that it straightens to.",
             "left": [
-              "$c \\mapsto \\mathcal{C}_{c/}$ (slice $\\infty$-category)",
+              "$c \\mapsto \\mathcal{C}_{/c}$ (over-category $\\infty$-category, with postcomposition functoriality)",
               "$R \\mapsto \\mathrm{Mod}_R$ (with base change as functoriality)",
-              "$* \\mapsto X$ (a $G$-space, viewed via the action $G$-action functor $BG \\to \\mathcal{S}$)",
+              "$* \\mapsto X$ (a $G$-space, viewed via the $G$-action functor $BG \\to \\mathcal{S}$)",
               "$c \\mapsto \\{c\\}$ (constant singleton)"
             ],
             "right": [
               "$X /\\!\\!/ G \\to BG$ — the homotopy quotient as a left fibration over $BG$",
               "$\\mathrm{id}: \\mathcal{C} \\to \\mathcal{C}$ — every object's fiber is a singleton",
               "$\\mathrm{Mod} \\to \\mathrm{CAlg}$ — the universal modules fibration",
-              "$s: \\mathrm{Fun}(\\Delta^1, \\mathcal{C}) \\to \\mathcal{C}$ — the source map of the arrow category"
+              "$t = \\mathrm{ev}_1: \\mathrm{Fun}(\\Delta^1, \\mathcal{C}) \\to \\mathcal{C}$ — the target map of the arrow category"
             ],
             "answer": [
-              3,
               2,
-              0,
-              1
+              3,
+              1,
+              0
             ],
-            "explain": "(left → right indices.) Slice functor straightens to the source map (left 0 → right 3). Modules functor straightens to the modules fibration (left 1 → right 2). $G$-action straightens to homotopy quotient (left 2 → right 0). Constant singleton functor unstraightens to the identity (left 3 → right 1)."
+            "explain": "Over-category functor (covariant via postcomposition) straightens to the cocartesian target map $t = \\mathrm{ev}_1$ (HTT 2.4.7.11 / Kerodon Tag 01VK). Modules functor straightens to the modules fibration. $G$-action straightens to homotopy quotient. Constant singleton functor unstraightens to the identity. The dual slice functor $c \\mapsto \\mathcal{C}_{c/}$ is contravariant and straightens the <em>cartesian</em> source map $s = \\mathrm{ev}_0$, not a cocartesian fibration."
           },
           {
             "type": "multi-select",
             "q": "Among the following projections, which are <strong>left fibrations</strong>?",
             "choices": [
-              "$\\mathcal{C}_{x/} \\to \\mathcal{C}$ — the slice 'forget the source' map.",
-              "$\\mathcal{C}_{/x} \\to \\mathcal{C}$ — the slice 'forget the target' map.",
-              "$\\mathrm{Fun}(\\Delta^1, \\mathcal{C}) \\xrightarrow{s} \\mathcal{C}$ — the source map.",
+              "$\\mathcal{C}_{x/} \\to \\mathcal{C}$ — the slice 'forget the source' map (for fixed $x \\in \\mathcal{C}$).",
+              "$\\mathcal{C}_{/x} \\to \\mathcal{C}$ — the slice 'forget the target' map (for fixed $x$).",
+              "$\\mathrm{Fun}(\\Delta^1, \\mathcal{C}) \\xrightarrow{t = \\mathrm{ev}_1} \\mathcal{C}$ — the target map of the arrow category.",
               "$X /\\!\\!/ G \\to BG$ — homotopy quotient projection.",
               "$\\mathcal{C} \\times \\mathcal{D} \\to \\mathcal{C}$ — product projection where $\\mathcal{D}$ is an $\\infty$-category but not a Kan complex."
             ],
@@ -11045,7 +11045,7 @@ window.MVQuizBank = {
               0,
               3
             ],
-            "explain": "$\\mathcal{C}_{x/} \\to \\mathcal{C}$ has Kan-complex fibers $\\mathrm{Map}_\\mathcal{C}(x, -)$, so it is a left fibration. $X /\\!\\!/ G \\to BG$ has fibers all equivalent to the space $X$, so it is a left fibration. The arrow source-map has $\\infty$-category fibers $\\mathcal{C}_{x/}$ (not Kan complexes in general), so it's cocartesian but not left. The slice 'forget target' map is a <em>right</em> fibration. A product projection with an $\\infty$-category factor is cocartesian, not left.",
+            "explain": "$\\mathcal{C}_{x/} \\to \\mathcal{C}$ has Kan-complex fibers $\\mathrm{Map}_\\mathcal{C}(x, -)$, so it is a left fibration. $X /\\!\\!/ G \\to BG$ has fibers all equivalent to the space $X$, so it is a left fibration. The arrow target-map $t = \\mathrm{ev}_1$ has $\\infty$-category fibers $\\mathcal{C}_{/y}$ (not Kan complexes in general), so it's cocartesian but not left. The slice 'forget target' map $\\mathcal{C}_{/x} \\to \\mathcal{C}$ is a <em>right</em> fibration (the dual). A product projection with an $\\infty$-category factor is cocartesian, not left.",
             "hint": "Left fibration = cocartesian + Kan-complex fibers = $\\mathcal{S}$-valued straightening."
           },
           {
@@ -12362,10 +12362,10 @@ window.MVQuizBank = {
           {
             "type": "numeric",
             "q": "Let $A = k[x,y,z]/(x^2, xy, yz, z^2)$ (monomial quotient). How many associated primes does $A$ have as an $A$-module of itself?",
-            "answer": 1,
+            "answer": 2,
             "tol": 0.000001,
-            "hint": "Consider annihilators of nonzero elements.",
-            "explain": "The only minimal prime containing $(x^2,xy,yz,z^2)$ is the nilradical's associated prime $(x,y,z)$: every nonzero element's annihilator is contained in $(x,y,z)$. One associated prime."
+            "hint": "Find the minimal primes of $I=(x^2,xy,yz,z^2)$, then look for embedded primes via annihilators of specific elements.",
+            "explain": "Since $x^2,z^2 \\in I$ force $x=z=0$ on $V(I)$, the unique minimal prime is $\\mathfrak{p}_1=(x,z)$. There is also an embedded prime: the element $y\\in A$ is nonzero (no pure power of $y$ lies in $I$), but $x\\cdot y, z\\cdot y\\in I$ and $y\\cdot y$ is also annihilated modulo $I$ by all of $x,y,z$ — more precisely $\\mathrm{ann}_A(xy\\bmod\\text{lower})=(x,y,z)$ via the standard primary decomposition $I=(x,z)\\cap(x^2,y,z^2)$, whose radicals are $(x,z)$ and $(x,y,z)$. So $\\mathrm{Ass}(A)=\\{(x,z),(x,y,z)\\}$: two associated primes (one minimal, one embedded)."
           }
         ]
       },
@@ -13066,10 +13066,10 @@ window.MVQuizBank = {
               "$T(z) = 2z$"
             ],
             "answer": [
-              3,
-              0,
               1,
-              2
+              2,
+              3,
+              0
             ],
             "hint": "Solve $T(z)=z$ in each case; count $\\infty$ as a fixed point exactly when $c=0$ (and as a double fixed point when $a=d$ and $c=0$).",
             "explain": "$T(z)=z$ becomes $cz^2+(d-a)z-b=0$ in $\\mathbb{C}$, with $\\infty$ as a fixed point iff $c=0$. $2z=z\\Rightarrow z=0$ and $\\infty$ (since $c=0$): fixed points $\\{0,\\infty\\}$. $z+1=z$ has no finite solution and $\\infty$ is a double fixed point (parabolic). $1/z=z\\Rightarrow z^2=1$: fixed points $\\{1,-1\\}$. $-1/z=z\\Rightarrow z^2=-1$: fixed points $\\{i,-i\\}$. A non-identity Möbius always has exactly two fixed points in $\\hat{\\mathbb{C}}$ (counted with multiplicity)."
@@ -13102,8 +13102,8 @@ window.MVQuizBank = {
               "$z = -1$",
               "$z = 1/3$"
             ],
-            "answer": 0,
-            "explain": "The cross-ratio $(z_1,z_2;z_3,z_4)=\\frac{(z_1-z_3)(z_2-z_4)}{(z_1-z_4)(z_2-z_3)}$. With $z_4=\\infty$ this simplifies to $\\frac{z_1-z_3}{z_2-z_3}=\\frac{0-z}{1-z}$. Setting equal to $2$: $-z = 2(1-z) = 2-2z$, so $z = 2 - 2z + z \\Rightarrow z = 1/2$."
+            "answer": 1,
+            "explain": "The cross-ratio $(z_1,z_2;z_3,z_4)=\\frac{(z_1-z_3)(z_2-z_4)}{(z_1-z_4)(z_2-z_3)}$. With $z_4=\\infty$ the factors $(z_2-z_4)$ and $(z_1-z_4)$ cancel in the limit, leaving $\\frac{z_1-z_3}{z_2-z_3}=\\frac{0-z}{1-z}=\\frac{-z}{1-z}$. Setting equal to $2$: $-z = 2(1-z) = 2 - 2z$, so $z = 2$."
           },
           {
             "type": "mcq",
@@ -15296,8 +15296,8 @@ window.MVQuizBank = {
               0,
               4
             ],
-            "hint": "Order by year first (2020, 2021, 2022, 2022, 2023+), then within 2022 by which result is logically prerequisite to which other. The two 2022 events have a clear dependency direction since one builds on top of what the other discharges.",
-            "explain": "Order: (2) Dec 2020 challenge → (1) Mar 2021 repo + blueprint → (3) May 2022 main inductive theorem → (0) Jul 2022 full theorem with the painful base case → (4) 2023+ generalisations. The May/July 2022 ordering matters: the inductive step came first; the base case (the technically painful real-analytic estimate) was discharged afterward. Both were needed for the headline statement to be fully verified."
+            "hint": "Order by year first (2020, 2021, 2021, 2022, 2023+). The May 2021 main inductive theorem and the July 2022 full theorem (with painful base case) have a clear dependency direction since one builds on top of what the other discharges.",
+            "explain": "Order: (2) Dec 2020 challenge → (1) Mar 2021 repo + blueprint → (3) May 2021 main inductive theorem → (0) Jul 2022 full theorem with the painful base case → (4) 2023+ generalisations. The May 2021 / July 2022 ordering matters: the inductive step came first; the base case (the technically painful real-analytic estimate) was discharged afterward. Both were needed for the headline statement to be fully verified."
           },
           {
             "type": "multi-select",
@@ -15661,7 +15661,7 @@ window.MVQuizBank = {
         "questions": [
           {
             "type": "mcq",
-            "q": "The CR Yamabe equation on a $(2n+1)$-dimensional strictly pseudoconvex CR manifold is $L_b u = \\lambda u^{Q/(Q-2)}$. The 'homogeneous dimension' $Q$ equals:",
+            "q": "The CR Yamabe equation on a $(2n+1)$-dimensional strictly pseudoconvex CR manifold is $L_b u = \\lambda u^{(Q+2)/(Q-2)}$. The 'homogeneous dimension' $Q$ equals:",
             "choices": [
               "$2n+1$ (the real dimension)",
               "$2n$ (the CR-horizontal dimension)",
@@ -16145,13 +16145,13 @@ window.MVQuizBank = {
             "q": "The set of $n$-dimensional normed spaces modulo isometry, equipped with the Banach–Mazur distance, is...",
             "choices": [
               "non-compact and infinite-dimensional",
-              "a compact metric space (the Banach–Mazur compactum) of finite diameter — $\\le n$ in general, $\\le\\sqrt n$ for symmetric bodies",
+              "a compact metric space (the Banach–Mazur compactum) of finite radius around $\\ell^2_n$ — $\\le\\sqrt n$ for symmetric bodies, $\\le n$ in general (so multiplicative diameter $\\le n$, resp. $\\le n^2$)",
               "discrete",
               "homeomorphic to $\\mathbb{R}^n$"
             ],
             "answer": 1,
-            "explain": "John's theorem implies every $n$-dim norm is within Banach–Mazur distance $\\le\\sqrt n$ of $\\ell^2_n$, so the compactum has finite diameter; it is also compact (Auerbach + a precompactness argument).",
-            "hint": "John's inclusion is exactly a diameter bound on this space."
+            "explain": "John's theorem implies every symmetric $n$-dim norm is within Banach–Mazur distance $\\le\\sqrt n$ of $\\ell^2_n$ (and $\\le n$ in the general non-symmetric case), so the compactum has finite radius around $\\ell^2_n$; the multiplicative diameter $d(K,L)\\le d(K,\\ell^2_n)\\,d(\\ell^2_n,L)$ is then $\\le n$ (resp. $\\le n^2$). Compactness comes from Auerbach + a precompactness argument.",
+            "hint": "John's inclusion bounds the radius around $\\ell^2_n$; the triangle inequality on $\\log d$ then bounds the diameter."
           }
         ]
       },
@@ -16189,7 +16189,7 @@ window.MVQuizBank = {
               "$\\to 0$ as $n\\to\\infty$"
             ],
             "answer": 0,
-            "explain": "The conjecture asserts a dimension-free lower bound on the maximal hyperplane section: $\\sup_{H}\\mathrm{vol}(K\\cap H)\\ge c$. The best known bound is $\\Omega(1/\\log n)$ (Klartag, 2024), down from Bourgain's original $\\Omega(n^{-1/4})$.",
+            "explain": "The conjecture asserts a dimension-free lower bound on the maximal hyperplane section: $\\sup_{H}\\mathrm{vol}(K\\cap H)\\ge c$. Klartag–Lehec (2022) proved the isotropic-constant bound $L_K=O(\\sqrt{\\log n})$, giving $c=\\Omega(1/\\sqrt{\\log n})$, and Klartag (2023) improved this to $L_K=O((\\log n)^{1/4})$ — the slicing problem is now resolved up to polylog factors, well past Bourgain's $\\Omega(n^{-1/4})$.",
             "hint": "The conjecture forbids 'all sections are tiny'."
           }
         ]
@@ -16774,7 +16774,7 @@ window.MVQuizBank = {
           },
           {
             "type": "mcq",
-            "q": "For $X/K$ smooth proper with good reduction $X_0/k$, the crystalline comparison conjecture (Faltings–Tsuji) asserts:",
+            "q": "For $X/K$ smooth proper with good reduction $X_0/k$, the crystalline comparison conjecture (Fontaine–Messing 1987 / Faltings 1989) asserts:",
             "choices": [
               "$H^*_{\\mathrm{\\acute{e}t}}(X_{\\bar K},\\mathbb{Q}_p) \\cong H^*_{\\mathrm{cris}}(X_0/W)$ as $\\mathbb{Q}_p$-vector spaces.",
               "$H^*_{\\mathrm{\\acute{e}t}}(X_{\\bar K},\\mathbb{Q}_p)\\otimes_{\\mathbb{Q}_p}B_{\\mathrm{cris}} \\cong H^*_{\\mathrm{cris}}(X_0/W)\\otimes_W B_{\\mathrm{cris}}$ compatibly with Frobenius, filtration, and Galois action.",
@@ -18973,13 +18973,13 @@ window.MVQuizBank = {
             "q": "Splitting the 4-spinor as $\\psi = (\\varphi, \\chi)^T$ in the standard representation and assuming $|\\chi| \\ll |\\varphi|$ at low momentum, the leading-order non-relativistic equation for $\\varphi$ is:",
             "choices": [
               "The Klein-Gordon equation $(\\Box + m^2)\\varphi = 0$.",
-              "The Pauli equation $i\\partial_t\\varphi = \\bigl(\\tfrac{p^2}{2m} - \\tfrac{e}{2m}\\vec\\sigma\\cdot\\vec B + V\\bigr)\\varphi$, including a spin-magnetic-moment term with gyromagnetic ratio $g = 2$.",
+              "The Pauli equation $i\\partial_t\\varphi = \\bigl(\\tfrac{p^2}{2m} + \\tfrac{e}{2m}\\vec\\sigma\\cdot\\vec B + V\\bigr)\\varphi$, including a spin-magnetic-moment term with gyromagnetic ratio $g = 2$ (sign convention: $\\vec\\pi = \\vec p - e\\vec A$, so for the physical electron $e<0$ the coefficient is negative and the term reads $-\\vec\\mu\\cdot\\vec B$).",
               "The free Schrödinger equation $i\\partial_t\\varphi = -\\tfrac{\\nabla^2}{2m}\\varphi$ — no spin coupling.",
               "A first-order equation in $\\varphi$ with no $p^2/(2m)$ term (which only appears at $O(1/m^2)$)."
             ],
             "answer": 1,
             "hint": "The lower 2-spinor $\\chi$ is suppressed by $|\\vec p|/m$ in the rest frame. Solve the bottom-block equation for $\\chi$ in terms of $\\varphi$, substitute back, and minimally-couple to electromagnetism via $\\vec p \\to \\vec p - e\\vec A$. The $(\\vec\\sigma\\cdot\\vec\\pi)^2$ identity is the key.",
-            "explain": "In the standard representation, the bottom block of the Dirac equation gives $\\chi \\approx \\tfrac{1}{2m}\\vec\\sigma\\cdot\\vec\\pi\\,\\varphi$ where $\\vec\\pi = \\vec p - e\\vec A$. Substituting back into the top block: $i\\partial_t\\varphi = \\bigl(\\tfrac{(\\vec\\sigma\\cdot\\vec\\pi)^2}{2m} + e\\Phi\\bigr)\\varphi$. The Pauli identity $(\\vec\\sigma\\cdot\\vec\\pi)^2 = \\vec\\pi^2 - e\\vec\\sigma\\cdot\\vec B$ produces both the kinetic term AND the spin-magnetic coupling automatically — Dirac's structure forces $g = 2$ exactly. Choice 2 misses the spin coupling. Choice 3 confuses the 'first-order' character of the Dirac equation with the order of the resulting Schrödinger equation (which IS second-order in $\\nabla$)."
+            "explain": "In the standard representation, the bottom block of the Dirac equation gives $\\chi \\approx \\tfrac{1}{2m}\\vec\\sigma\\cdot\\vec\\pi\\,\\varphi$ where $\\vec\\pi = \\vec p - e\\vec A$. Substituting back into the top block: $i\\partial_t\\varphi = \\bigl(\\tfrac{(\\vec\\sigma\\cdot\\vec\\pi)^2}{2m} + e\\Phi\\bigr)\\varphi$. The Pauli identity $(\\vec\\sigma\\cdot\\vec\\pi)^2 = \\vec\\pi^2 + e\\vec\\sigma\\cdot\\vec B$ (using $\\vec\\pi\\times\\vec\\pi = -ie\\vec B$) produces both the kinetic term AND the spin-magnetic coupling automatically — Dirac's structure forces $g = 2$ exactly. Choice 2 misses the spin coupling. Choice 3 confuses the 'first-order' character of the Dirac equation with the order of the resulting Schrödinger equation (which IS second-order in $\\nabla$)."
           },
           {
             "type": "numeric",
@@ -19000,7 +19000,7 @@ window.MVQuizBank = {
             ],
             "answer": 2,
             "hint": "$|\\chi|/|\\varphi| \\sim |\\vec p|/m$ is small, but how small is the leading $\\chi$ in absolute terms when you act on it with $\\vec\\sigma\\cdot\\vec\\pi$? An order-of-magnitude check on the bottom-block equation will show whether $\\chi$ is exactly zero or just suppressed.",
-            "explain": "Step 2 is the error. $\\chi$ is suppressed but NOT zero — to leading order $\\chi \\approx (\\vec\\sigma\\cdot\\vec\\pi/2m)\\varphi$, which is small but contributes the spin-magnetic moment when substituted back. If one set $\\chi = 0$ identically, the Pauli term $-(e/2m)\\vec\\sigma\\cdot\\vec B\\,\\varphi$ would never appear, $g = 0$, and the splitting of the hydrogen $2P_{1/2}/2P_{3/2}$ levels (the spin-orbit coupling, which lives at the next order in $1/m$) would be missing. The correct procedure is the systematic Foldy-Wouthuysen expansion in powers of $1/m$, keeping $\\chi$ at each order."
+            "explain": "Step 2 is the error. $\\chi$ is suppressed but NOT zero — to leading order $\\chi \\approx (\\vec\\sigma\\cdot\\vec\\pi/2m)\\varphi$, which is small but contributes the spin-magnetic moment when substituted back. If one set $\\chi = 0$ identically, the Pauli term $+(e/2m)\\vec\\sigma\\cdot\\vec B\\,\\varphi$ would never appear, $g = 0$, and the splitting of the hydrogen $2P_{1/2}/2P_{3/2}$ levels (the spin-orbit coupling, which lives at the next order in $1/m$) would be missing. The correct procedure is the systematic Foldy-Wouthuysen expansion in powers of $1/m$, keeping $\\chi$ at each order."
           }
         ]
       }
@@ -19529,7 +19529,7 @@ window.MVQuizBank = {
           },
           {
             "type": "mcq",
-            "q": "Why does the continued-fraction algorithm applied to $\\sqrt{d}$ produce the fundamental unit of $\\mathbb{Q}(\\sqrt{d})$?",
+            "q": "Why does the continued-fraction algorithm applied to $\\sqrt{d}$ produce the fundamental unit of $\\mathbb{Z}[\\sqrt{d}]$?",
             "choices": [
               "Because all units of $\\mathbb{Q}(\\sqrt{d})$ are rational.",
               "By Lagrange's theorem the expansion is purely periodic past $a_0$, and the convergent at the end of one period is a solution of $x^2-dy^2=\\pm 1$ — and a minimality argument among convergents shows it is the fundamental one.",
@@ -19537,7 +19537,7 @@ window.MVQuizBank = {
               "By Hensel's lemma."
             ],
             "answer": 1,
-            "explain": "Lagrange (1770): real quadratic irrationals have eventually-periodic continued fractions, and $\\sqrt{d}$ for $d>0$ non-square is purely periodic after $a_0$. The Pell relation $p_{n-1}^2-d q_{n-1}^2=(-1)^n$ at the end of the period — easy to derive from the matrix product encoding of convergents — and a minimality argument show this convergent is the fundamental Pell solution, equivalently the smallest unit $>1$."
+            "explain": "Lagrange (1770): real quadratic irrationals have eventually-periodic continued fractions, and $\\sqrt{d}$ for $d>0$ non-square is purely periodic after $a_0$. The Pell relation $p_{n-1}^2-d q_{n-1}^2=(-1)^n$ at the end of the period — easy to derive from the matrix product encoding of convergents — and a minimality argument show this convergent is the fundamental Pell solution, equivalently the smallest unit $>1$ in the order $\\mathbb{Z}[\\sqrt d]$. When $d\\equiv 1\\pmod 4$ the maximal order is $\\mathcal{O}_K=\\mathbb{Z}[(1+\\sqrt d)/2]\\supsetneq\\mathbb{Z}[\\sqrt d]$, and the CF output is then the cube of the $\\mathcal{O}_K$ fundamental unit (e.g. $2+\\sqrt 5=\\varphi^3$, $18+5\\sqrt{13}=((3+\\sqrt{13})/2)^3$)."
           },
           {
             "type": "mcq",
@@ -19845,7 +19845,7 @@ window.MVQuizBank = {
               "Riemann zeta values at integers."
             ],
             "answer": 1,
-            "explain": "The closed-form expression $C_{\\lambda\\mu\\nu}(q) = q^{\\kappa(\\lambda)/2} s_{\\nu^t}(q^\\rho) \\sum_\\eta s_{\\lambda^t/\\eta}(q^{\\nu+\\rho}) s_{\\mu/\\eta}(q^{\\nu^t+\\rho})$ uses Schur and skew-Schur functions at specialised values. The combinatorics is essentially the RSK / dimer / vertex-operator algebra of plane partitions; principal specialisations of Schur functions are 3D-partition generating series."
+            "explain": "The closed-form expression $C_{\\lambda\\mu\\nu}(q) = q^{(\\kappa(\\lambda)+\\kappa(\\nu))/2} s_{\\nu^t}(q^\\rho) \\sum_\\eta s_{\\lambda^t/\\eta}(q^{\\nu+\\rho}) s_{\\mu/\\eta}(q^{\\nu^t+\\rho})$ uses Schur and skew-Schur functions at specialised values. The combinatorics is essentially the RSK / dimer / vertex-operator algebra of plane partitions; principal specialisations of Schur functions are 3D-partition generating series."
           }
         ]
       },
@@ -20209,15 +20209,15 @@ window.MVQuizBank = {
           },
           {
             "type": "spot-the-error",
-            "q": "Find the flawed step in this attempt to show $\\dot x=y,\\ \\dot y=-x+y^3$ has no periodic orbit.",
+            "q": "Find the flawed step in this attempt to show the Hopf normal form $\\dot x = y + x(1-x^2-y^2),\\ \\dot y = -x + y(1-x^2-y^2)$ has no periodic orbit on $\\mathbb{R}^2$.",
             "steps": [
-              "Compute $\\operatorname{div}X = \\partial(y)/\\partial x + \\partial(-x+y^3)/\\partial y = 0 + 3y^2 = 3y^2$.",
-              "Note $\\operatorname{div}X = 3y^2 \\ge 0$ everywhere.",
-              "By Bendixson's criterion, since $\\operatorname{div}X\\ge 0$, no closed orbit exists.",
+              "Compute $\\operatorname{div}X = \\partial_x[y+x(1-x^2-y^2)] + \\partial_y[-x+y(1-x^2-y^2)] = (1-3x^2-y^2) + (1-x^2-3y^2) = 2-4(x^2+y^2)$.",
+              "Near the origin $(x,y)=(0,0)$, $\\operatorname{div}X = 2 > 0$, so $\\operatorname{div}X$ is strictly positive on a neighborhood of the origin.",
+              "By Bendixson's criterion, since $\\operatorname{div}X > 0$ on this region, no closed orbit exists.",
               "Conclude: the system has no periodic orbit in $\\mathbb{R}^2$."
             ],
             "answer": 2,
-            "explain": "Bendixson requires $\\operatorname{div}X$ to have STRICTLY one sign on the region (not identically zero). $3y^2$ vanishes on the $x$-axis, so the hypothesis is not satisfied; the argument is invalid."
+            "explain": "Bendixson's criterion forbids a closed orbit lying ENTIRELY inside a simply connected region where $\\operatorname{div}X$ keeps one sign. Even though $\\operatorname{div}X > 0$ near the origin, $\\operatorname{div}X = 2 - 4r^2$ changes sign at $r = 1/\\sqrt 2$, and a periodic orbit need not be confined to that small disk. Indeed this is a Hopf normal form with a stable limit cycle at $r=1$, which crosses the locus $\\operatorname{div}X = 0$, so no contradiction with Bendixson is reached. Steps 1, 2, and 4 are all individually correct; the leap is in Step 3."
           },
           {
             "type": "numeric",
@@ -21006,25 +21006,25 @@ window.MVQuizBank = {
             "type": "matching",
             "q": "Match each topos to its subobject classifier $\\Omega$.",
             "left": [
-              "$\\{\\bot, \\top\\}$",
+              "$\\{\\bot, \\top\\}$ (the classical 2-element Boolean algebra)",
               "the set of sieves on $c$ at each $c \\in C$",
               "the open subsets of $U$ at each open $U \\subseteq X$",
-              "the set of subgroups of $G$ (with conjugation action)"
+              "$\\{\\bot, \\top\\}$ with trivial $G$-action (Boolean, regardless of $G$)"
             ],
             "right": [
               "presheaf topos $[C^{\\mathrm{op}}, \\mathbf{Set}]$",
               "$\\mathrm{Sh}(X)$ for a space $X$",
-              "$G\\text{-}\\mathbf{Set}$ for a group $G$",
+              "$G\\text{-}\\mathbf{Set}$ for a (discrete) group $G$",
               "$\\mathbf{Set}$"
             ],
             "answer": [
-              3,
-              0,
               1,
-              2
+              2,
+              3,
+              0
             ],
-            "explain": "$\\mathbf{Set}$ has $\\Omega = \\{\\bot, \\top\\}$ (classical truth values). Presheaf toposes have $\\Omega(c) = \\mathrm{Sieves}(c)$. Sheaves on a topological space $X$ have $\\Omega(U) = $ open subsets of $U$. The topos $G\\text{-}\\mathbf{Set}$ is a presheaf topos on $\\mathbf{B}G$ and its $\\Omega$ unwinds to subgroups of $G$ with conjugation action.",
-            "hint": "Each generalises 'truth values'. In a presheaf topos a 'truth value at $c$' is a sieve."
+            "explain": "$\\mathbf{Set}$ has $\\Omega = \\{\\bot, \\top\\}$ (classical truth values). Presheaf toposes have $\\Omega(c) = \\mathrm{Sieves}(c)$. Sheaves on a topological space $X$ have $\\Omega(U) = $ open subsets of $U$. The topos $G\\text{-}\\mathbf{Set}$ is a presheaf topos on the *groupoid* $\\mathbf{B}G$, and the only sieves on its unique object are $\\varnothing$ and $G$ — so $\\Omega = \\{\\bot, \\top\\}$ with trivial $G$-action and the topos is Boolean.",
+            "hint": "Each generalises 'truth values'. In a presheaf topos a 'truth value at $c$' is a sieve — and in a groupoid the only sieves are the trivial ones."
           },
           {
             "type": "mcq",
@@ -21242,7 +21242,7 @@ window.MVQuizBank = {
         "questions": [
           {
             "type": "mcq",
-            "q": "Let $G = \\mathbb{Z}/6$. Which of the following is the lattice of subgroups of $G$ (and hence the lattice of subobjects of $G/1$ in $G\\text{-}\\mathbf{Set}$)?",
+            "q": "Let $G = \\mathbb{Z}/6$. Which of the following is the lattice of subgroups of $G$ (and hence, equivalently, the lattice of equivariant *quotients* of the regular $G$-set $G/1 = G$ in $G\\text{-}\\mathbf{Set}$)?",
             "choices": [
               "$\\{1\\} < \\langle 3 \\rangle < \\mathbb{Z}/6$ — a chain of length 2.",
               "$\\{1\\} < \\langle 3 \\rangle, \\langle 2 \\rangle < \\mathbb{Z}/6$ — a diamond.",
@@ -21250,21 +21250,21 @@ window.MVQuizBank = {
               "$\\{1\\} < \\langle 1 \\rangle < \\mathbb{Z}/6$."
             ],
             "answer": 1,
-            "explain": "$\\mathbb{Z}/6$ has subgroups $\\{0\\}, \\langle 3 \\rangle = \\{0, 3\\} \\cong \\mathbb{Z}/2, \\langle 2 \\rangle = \\{0, 2, 4\\} \\cong \\mathbb{Z}/3$, and $\\mathbb{Z}/6$ itself. The lattice is a diamond: trivial at the bottom, $\\mathbb{Z}/2$ and $\\mathbb{Z}/3$ as incomparable middle elements, $\\mathbb{Z}/6$ on top.",
+            "explain": "$\\mathbb{Z}/6$ has subgroups $\\{0\\}, \\langle 3 \\rangle = \\{0, 3\\} \\cong \\mathbb{Z}/2, \\langle 2 \\rangle = \\{0, 2, 4\\} \\cong \\mathbb{Z}/3$, and $\\mathbb{Z}/6$ itself. The lattice is a diamond: trivial at the bottom, $\\mathbb{Z}/2$ and $\\mathbb{Z}/3$ as incomparable middle elements, $\\mathbb{Z}/6$ on top. Each intermediate $K$ corresponds to the equivariant quotient $G \\twoheadrightarrow G/K$. (Subobjects of the *transitive* $G$-set $G$ in $G\\text{-}\\mathbf{Set}$, by contrast, are only $\\varnothing$ and $G$ itself.)",
             "hint": "By Lagrange, divisors of 6 are $1, 2, 3, 6$; cyclic groups have one subgroup per divisor."
           },
           {
             "type": "mcq",
-            "q": "In $G\\text{-}\\mathbf{Set}$, the subobject classifier $\\Omega$ as a $G$-set has underlying set:",
+            "q": "In $G\\text{-}\\mathbf{Set}$ for an (abstract, discrete) group $G$, the subobject classifier $\\Omega$ as a $G$-set has underlying set:",
             "choices": [
-              "$\\{0, 1\\}$",
+              "$\\{0, 1\\}$ with trivial $G$-action (the topos is Boolean)",
               "the set of subgroups of $G$, with $G$ acting by conjugation",
               "$G$ itself with the regular action",
               "the set of normal subgroups only"
             ],
-            "answer": 1,
-            "explain": "$\\Omega$ in $G\\text{-}\\mathbf{Set} = [\\mathbf{B}G^{\\mathrm{op}}, \\mathbf{Set}]$ at the unique object $* \\in \\mathbf{B}G$ is the set of sieves on $*$, which unwinds to subgroups of $G$. The presheaf-restriction action becomes conjugation: $g \\cdot H = gHg^{-1}$. All subgroups appear, not just normal ones.",
-            "hint": "Sieves on the unique object of $\\mathbf{B}G$ are exactly subgroups of $G$ (downward closure becomes the subgroup property)."
+            "answer": 0,
+            "explain": "$\\Omega(*)$ in $[\\mathbf{B}G^{\\mathrm{op}}, \\mathbf{Set}]$ is the set of sieves on the unique object $*$ — subsets $S \\subseteq G$ closed under precomposition by every $g \\in G$. Because $\\mathbf{B}G$ is a *groupoid*, if $h \\in S$ then $g = h(h^{-1}g) \\in S$ for all $g$, so the only sieves are $\\varnothing$ and $G$. Thus $\\Omega = \\{\\bot, \\top\\}$ with trivial action, and the topos is Boolean. (Equivalently: subobjects of any $G$-set $X$ are $G$-stable subsets, classified by the indicator $X \\to \\{\\bot,\\top\\}$, automatically equivariant.)",
+            "hint": "Sieves on the unique object of a *groupoid* collapse: if any arrow is in the sieve, all are."
           },
           {
             "type": "mcq",
@@ -21276,8 +21276,8 @@ window.MVQuizBank = {
               "$G\\text{-}\\mathbf{Set}$ is never equivalent to $\\mathbf{Set}$ for non-trivial reasons."
             ],
             "answer": 2,
-            "explain": "When $G$ is trivial, $\\mathbf{B}G$ is the terminal category, so $G\\text{-}\\mathbf{Set} = [\\mathbf{B}\\{e\\}^{\\mathrm{op}}, \\mathbf{Set}] \\simeq \\mathbf{Set}$. For any non-trivial $G$, $\\Omega$ has more than 2 elements (the lattice of subgroups), so the topos cannot be $\\mathbf{Set}$.",
-            "hint": "$\\Omega$ is the lattice of subgroups. When does that have only two elements?"
+            "explain": "When $G$ is trivial, $\\mathbf{B}G$ is the terminal category, so $G\\text{-}\\mathbf{Set} = [\\mathbf{B}\\{e\\}^{\\mathrm{op}}, \\mathbf{Set}] \\simeq \\mathbf{Set}$. For any non-trivial $G$, the topos $G\\text{-}\\mathbf{Set}$ has $G$-sets with non-trivial actions (e.g. $G$ acting on itself by left translation), which are not in the image of $\\mathbf{Set} \\hookrightarrow G\\text{-}\\mathbf{Set}$ (the trivial-action functor) up to equivalence — so $G\\text{-}\\mathbf{Set} \\not\\simeq \\mathbf{Set}$. (Both toposes are Boolean and both have $\\Omega = \\{\\bot,\\top\\}$, so the difference is in the hom-sets / actions, not in $\\Omega$.)",
+            "hint": "When does $\\mathbf{B}G$ become equivalent to the terminal category $\\mathbf{1}$?"
           }
         ]
       },
@@ -22677,7 +22677,7 @@ window.MVQuizBank = {
               "There is no general comparison."
             ],
             "answer": 0,
-            "explain": "For a geometrically connected proper variety over an algebraically closed field, étale base change to a larger algebraically closed field is an equivalence on $\\mathrm{F\\acute{E}t}/X$ (this uses properness — without it, base change can introduce new covers, e.g. $\\mathbb{A}^1$ acquires more covers under $\\overline{\\mathbb{Q}}\\hookrightarrow\\mathbb{C}$ via transcendental extensions). So $\\pi_1^{\\acute{e}t}(X) = \\pi_1^{\\acute{e}t}(X_{\\mathbb{C}})$ for $X$ proper smooth.",
+            "explain": "For a geometrically connected proper variety over an algebraically closed field of characteristic 0, étale base change to a larger algebraically closed field is an equivalence on $\\mathrm{F\\acute{E}t}/X$ (in characteristic 0 the comparison-with-topological-$\\pi_1$ via Riemann existence pins everything down; properness lets you avoid the extra subtleties at infinity). The hypothesis is essential: in positive characteristic, base change of an open variety can lose covers — e.g. $\\pi_1^{\\acute{e}t}(\\mathbb{A}^1_{\\overline{\\mathbb{F}_p}})$ is enormous (Artin–Schreier), but base change behaves badly between non-algebraically-closed and algebraically closed bases. (Note: $\\pi_1^{\\acute{e}t}(\\mathbb{A}^1_{\\overline{\\mathbb{Q}}}) = \\pi_1^{\\acute{e}t}(\\mathbb{A}^1_{\\mathbb{C}}) = 1$ by the Lefschetz principle, so $\\mathbb{A}^1$ over $\\overline{\\mathbb{Q}}$ is not a counterexample to $X = X_{\\mathbb{C}}$ — real failures live in char $p$.) So $\\pi_1^{\\acute{e}t}(X) = \\pi_1^{\\acute{e}t}(X_{\\mathbb{C}})$ for $X$ proper smooth.",
             "hint": "Properness is essential — what fails for $X = \\mathbb{A}^1$?"
           }
         ]
@@ -22818,7 +22818,7 @@ window.MVQuizBank = {
               "Random bipartite graphs"
             ],
             "answer": 0,
-            "explain": "The MGG construction uses translations and shears from $SL_2(\\mathbb{Z})$ acting on $(\\mathbb{Z}/n)^2$. It was the first explicit expander family with a quantitative spectral gap (via Kazhdan's property (T))."
+            "explain": "The Gabber–Galil 1981 construction uses translations and shears from $SL_2(\\mathbb{Z})$ acting on $(\\mathbb{Z}/n)^2$, with the uniform spectral gap proved by Fourier analysis on the additive group. Margulis's original 1973 family was a different set of generators on $\\mathbb{F}_p^3$ whose gap came from Kazhdan's property (T) of $SL_3(\\mathbb{Z})$."
           },
           {
             "type": "mcq",
@@ -23969,7 +23969,7 @@ window.MVQuizBank = {
               "Commutativity of ordinal addition."
             ],
             "answer": 2,
-            "explain": "Jensen showed $V=L$ implies $\\neg$SH (a Suslin tree exists), while Solovay–Tennenbaum forced SH using countable-support iterated forcing. So SH is independent of ZFC."
+            "explain": "Jensen showed $V=L$ implies $\\neg$SH (a Suslin tree exists), while Solovay–Tennenbaum forced SH using finite-support iterated ccc forcing. So SH is independent of ZFC."
           },
           {
             "type": "mcq",
@@ -24409,12 +24409,12 @@ window.MVQuizBank = {
             "q": "The space $C[0,1]$ with the $L^2$ norm is NOT a Banach space. Which is the correct reason, and which is its completion?",
             "choices": [
               "The $L^2$ norm fails the triangle inequality on $C[0,1]$; the completion is $C^1[0,1]$",
-              "The sequence $f_n(x)=x^n$ is Cauchy in $L^2$ but its $L^2$ limit is not continuous; the completion is $L^2[0,1]$",
+              "The piecewise-linear $f_n$ that equals $0$ on $[0,\\tfrac12]$, equals $1$ on $[\\tfrac12+\\tfrac1n,1]$, and is linear in between is Cauchy in $L^2$ but its $L^2$ limit $\\mathbf 1_{[1/2,1]}$ is not (a.e. equal to) a continuous function; the completion is $L^2[0,1]$",
               "There are no Cauchy sequences in $C[0,1]$ under $\\|\\cdot\\|_{L^2}$, so completeness is vacuously false",
               "$C[0,1]$ is already a Banach space under the $L^2$ norm because it is finite-dimensional"
             ],
             "answer": 1,
-            "explain": "The functions $f_n(x)=x^n$ form a Cauchy sequence in $C[0,1]$ under $\\|\\cdot\\|_{L^2}$, but their $L^2$ limit is the indicator $\\mathbf{1}_{{1}}$, which is not continuous. Thus $C[0,1]$ is not closed under $L^2$ limits; its metric completion is $L^2[0,1]$."
+            "explain": "The piecewise-linear approximations $f_n$ to the step $\\mathbf 1_{[1/2,1]}$ form a Cauchy sequence in $C[0,1]$ under $\\|\\cdot\\|_{L^2}$ (the squared $L^2$ distance between consecutive terms is $O(1/n)$), and they converge in $L^2$ to $\\mathbf 1_{[1/2,1]}$ — which is not equal a.e. to any continuous function. So $C[0,1]$ is not closed under $L^2$ limits; its metric completion is $L^2[0,1]$. (The classic non-witness is $g_n(x)=x^n$: its $L^2$ norm $1/\\sqrt{2n+1}\\to 0$, so $g_n\\to 0$ in $L^2$, and $0$ is continuous — no incompleteness.)"
           },
           {
             "type": "mcq",
@@ -24642,10 +24642,10 @@ window.MVQuizBank = {
               "unitary"
             ],
             "answer": [
-              1,
-              3,
+              2,
               0,
-              2
+              3,
+              1
             ],
             "explain": "Self-adjoint: $T^*=T$. Skew-adjoint: $T^*=-T$. Normal: $T^*T=TT^*$ (strictly weaker — includes self-adjoint and unitary). Unitary: $T^*T=TT^*=I$ (i.e., $T$ is an isometric bijection)."
           },
@@ -27207,7 +27207,7 @@ window.MVQuizBank = {
             "q": "How many algebraically independent components does the symmetric tensor $g_{\\mu\\nu}$ have on a 4-dimensional spacetime?",
             "answer": 10,
             "tol": 0.5,
-            "explain": "A symmetric $4\\times4$ matrix has $4(4+1)/2=10$ independent components. Diffeomorphism gauge freedom subtracts 4, leaving 6 physical metric degrees of freedom."
+            "explain": "A symmetric $4\\times4$ matrix has $4(4+1)/2=10$ independent components. Diffeomorphism gauge freedom subtracts 4 and the 4 ADM constraints (Hamiltonian + 3 momentum) subtract another 4, leaving $10-4-4=2$ physical propagating degrees of freedom — the two transverse-traceless gravitational-wave polarizations $h_+,h_\\times$."
           }
         ]
       },
@@ -28587,7 +28587,7 @@ window.MVQuizBank = {
               "$\\langle y - x^2,\\; xz - y^2\\rangle$"
             ],
             "answer": 0,
-            "explain": "Take $J = \\langle x - t,\\; y - t^2,\\; z - t^3\\rangle\\subset k[t,x,y,z]$ and eliminate $t$ under lex with $t > x > y > z$. The reduced Gröbner basis is $\\{t-x,\\; y-x^2,\\; z-x^3\\}$; the elements without $t$ are $\\{y - x^2,\\; z - x^3\\}$, which is the twisted-cubic ideal. The other distractors: choice 1 is $J$ itself (in $k[t,x,y,z]$, not yet eliminated). Choice 2 $\\langle xz - y^2,\\; y^3 - z^2\\rangle$ vanishes on the twisted cubic but defines a different variety — its zero set is a cone-like surface containing the cubic, not the cubic itself. Choice 3 $\\langle y - x^2,\\; xz - y^2\\rangle$ vanishes on the twisted cubic, but $V$ of this ideal is the twisted cubic *together with the $z$-axis* $\\{x=y=0\\}$ (since at $x=0,\\; y=0$ both generators vanish for any $z$); so the elimination ideal is strictly larger than this."
+            "explain": "Take $J = \\langle x - t,\\; y - t^2,\\; z - t^3\\rangle\\subset k[t,x,y,z]$ and eliminate $t$ under lex with $t > x > y > z$. Substituting $t = x$ (from $x - t = 0$) into the other generators gives $\\{y - x^2,\\; z - x^3\\}$ as the elements of $J$ that lie in $k[x,y,z]$, and these generate the twisted-cubic ideal. (Caveat: $\\{t - x,\\; y - x^2,\\; z - x^3\\}$ is *not* itself a reduced lex Gröbner basis of $J$ — Buchberger on the pair $(t - x,\\; y - x^2)$ gives a non-zero residue $xy - z$, so the full reduced lex GB is strictly larger. Only the eliminated piece $J\\cap k[x,y,z] = \\langle y - x^2,\\; z - x^3\\rangle$ matters here, and that part is correct.) The other distractors: choice 1 is $J$ itself (in $k[t,x,y,z]$, not yet eliminated). Choice 2 $\\langle xz - y^2,\\; y^3 - z^2\\rangle$ vanishes on the twisted cubic but its zero set is the union of the twisted cubic and the $x$-axis $\\{y = z = 0\\}$ (any point $(a, 0, 0)$ satisfies both equations) — a union of two curves, strictly larger than the cubic. Choice 3 $\\langle y - x^2,\\; xz - y^2\\rangle$ vanishes on the twisted cubic, but $V$ of this ideal is the twisted cubic *together with the $z$-axis* $\\{x=y=0\\}$ (since at $x=0,\\; y=0$ both generators vanish for any $z$); so the elimination ideal is strictly larger than this."
           },
           {
             "type": "multi-select",
@@ -28636,10 +28636,10 @@ window.MVQuizBank = {
           {
             "type": "numeric",
             "q": "How many sieves are there on the top object $t$ of the same 3-object poset $\\{x, y, t\\}$ with $x \\leq t$ and $y \\leq t$?",
-            "answer": 4,
+            "answer": 5,
             "tol": 0,
-            "explain": "Sieves on $t$ correspond bijectively to down-sets of $\\{d : d \\leq t\\} = \\{x, y, t\\}$. With no relations between $x$ and $y$, every subset is automatically a down-set: $\\varnothing$, $\\{x\\}$, $\\{y\\}$, $\\{x, y\\}$ — but a sieve on $t$ must contain $\\mathrm{id}_t$ to make sense as a subfunctor of $h_t$ at $d = t$? Careful: actually every subset is a sieve, and the empty set is allowed too. The four sieves are $\\varnothing,\\ \\{x \\to t\\},\\ \\{y \\to t\\},\\ \\{x \\to t, y \\to t, \\mathrm{id}_t\\}$ if we close under precomposition — but in a poset closure is trivial. Counting all subsets of the down-set $\\{x, y\\}$ of strict predecessors of $t$ together with the choice of including $\\mathrm{id}_t$, gives $4$ when we identify a sieve with its set of strict $\\leq t$ predecessors.",
-            "hint": "In a poset, a sieve on $c$ is a down-set of $\\{d \\leq c\\}$; count down-sets."
+            "explain": "A sieve on $t$ is a precomposition-closed set of arrows into $t$, equivalently a down-set of $\\{d : d \\leq t\\} = \\{x, y, t\\}$. If $\\mathrm{id}_t$ is in the sieve, then closure under precomposition with $x \\to t$ and $y \\to t$ forces both legs in, giving the maximal sieve $\\mathrm{max}_t = \\{x \\to t,\\ y \\to t,\\ \\mathrm{id}_t\\}$. If $\\mathrm{id}_t$ is NOT in the sieve, we are free to choose any subset of $\\{x \\to t, y \\to t\\}$ (no further closure since $x$ and $y$ are minimal), giving $\\varnothing$, $\\{x \\to t\\}$, $\\{y \\to t\\}$, $\\{x \\to t, y \\to t\\}$. Total: $4 + 1 = 5$ sieves. Note that $\\{x \\to t, y \\to t\\}$ without $\\mathrm{id}_t$ is a legitimate sieve distinct from $\\mathrm{max}_t$.",
+            "hint": "In a poset, a sieve on $c$ is a down-set of $\\{d \\leq c\\}$. Split by whether $\\mathrm{id}_c$ is included; if it is, all strict predecessors are forced in."
           },
           {
             "type": "mcq",
@@ -28737,21 +28737,20 @@ window.MVQuizBank = {
         "questions": [
           {
             "type": "multi-select",
-            "q": "On $\\Spec \\mathbb{F}_2$, which of the following structures are Zariski-locally trivial? Which are étale-locally trivial?",
+            "q": "On $\\Spec \\mathbb{Q}$, which of the following structures become trivial Zariski-locally, and which require passing to the étale site?",
             "choices": [
               "A line bundle $\\mathcal{L}$ — Zariski-locally trivial.",
-              "$\\mu_2$, the sheaf of square roots of unity — Zariski-locally trivial.",
-              "$\\mu_2$, the sheaf of square roots of unity — étale-locally trivial.",
-              "An fppf $\\mathbb{Z}/2$-torsor — étale-locally trivial."
+              "$\\mu_3$, the sheaf of cube roots of unity — étale-locally trivial (after adjoining $\\zeta_3$) but NOT Zariski-locally trivial.",
+              "An fppf $\\underline{\\mathbb{Z}/3}$-torsor — étale-locally trivial (since $\\underline{\\mathbb{Z}/3}$ is étale on $\\mathbb{Q}$).",
+              "$\\mu_2$ over $\\Spec \\mathbb{F}_2$ — étale-locally trivial."
             ],
             "answer": [
               0,
               1,
-              2,
-              3
+              2
             ],
-            "explain": "Over $\\mathbb{F}_2$, the polynomial $T^2 - 1 = (T-1)^2$ has only the root $1$, so $\\mu_2 \\cong \\Spec \\mathbb{F}_2[T]/(T-1)^2 \\cong \\mathbb{F}_2[\\epsilon]$ — but as a group scheme it's also isomorphic to the constant scheme $\\underline{\\mathbb{Z}/2}$ Zariski-locally because over $\\mathbb{F}_2$ the equation $T^2 = 1$ has a Zariski-trivial set of roots (just the constant $1$). So actually $\\mu_2 \\cong \\underline{\\mathbb{Z}/2}$ even Zariski-locally over $\\mathbb{F}_2$! Likewise line bundles are always Zariski-locally trivial by definition. Over a field of characteristic $\\neq 2$ where $\\mu_2 \\neq \\underline{\\mathbb{Z}/2}$, only étale-locally do they coincide.",
-            "hint": "A line bundle is Zariski-locally trivial by the very definition of locally free sheaf of rank 1; whether $\\mu_n$ is Zariski-locally trivial depends on whether $n$th roots of $1$ already live in the base ring."
+            "explain": "Line bundles are Zariski-locally trivial by the definition of locally free of rank 1. $\\mu_3$ over $\\mathbb{Q}$ is NOT Zariski-locally trivial because $\\mathbb{Q}$ has no primitive cube root of $1$ and $\\Spec \\mathbb{Q}$ has only the trivial Zariski cover; it does become trivial étale-locally after adjoining $\\zeta_3$, which is a separable extension since $3$ is invertible. For $\\underline{\\mathbb{Z}/3}$-torsors, étale and fppf cohomology agree because $\\underline{\\mathbb{Z}/3}$ is étale over a $\\mathbb{Z}[1/3]$-base. The trap is (d): in characteristic $2$, $\\mu_2 = \\Spec \\mathbb{F}_2[T]/(T-1)^2$ is the non-reduced Frobenius kernel — an infinitesimal group scheme of length $2$ that is NEVER étale-locally constant, because étale base change preserves reducedness and cannot turn one fat point into two reduced points. Trivializing $\\mu_2$ in characteristic $2$ requires an fppf cover, not étale.",
+            "hint": "A line bundle is Zariski-locally trivial by definition. For $\\mu_n$, the rule is: étale-locally trivial iff $n$ is invertible on the base; if $p \\mid n$ in characteristic $p$, $\\mu_n$ is infinitesimal and étale covers cannot trivialize it."
           },
           {
             "type": "mcq",
@@ -29100,12 +29099,12 @@ window.MVQuizBank = {
             "choices": [
               "$\\alpha=1$",
               "$\\alpha=1+\\beta=\\frac{8+4i}{5}$ (or any nonzero scalar multiple)",
-              "$\\alpha=\\beta$",
+              "$\\alpha=1+\\bar\\beta=\\frac{8-4i}{5}$ (or any nonzero scalar multiple, e.g. $\\alpha=-2+i$)",
               "$\\alpha=i$"
             ],
-            "answer": 1,
-            "hint": "Pythagorean trick: $\\alpha=1+\\beta$ works whenever it is nonzero, since $\\sigma(1+\\beta)=1+\\bar\\beta=1+\\beta^{-1}=(1+\\beta)/\\beta\\cdot\\beta^{-1}\\cdot\\beta=\\beta^{-1}(1+\\beta)$, hence…",
-            "explain": "Pythagorean trick: $\\alpha=1+\\beta$ works whenever it is nonzero, since $\\sigma(1+\\beta)=1+\\bar\\beta=1+\\beta^{-1}=(1+\\beta)/\\beta\\cdot\\beta^{-1}\\cdot\\beta=\\beta^{-1}(1+\\beta)$, hence $\\sigma(\\alpha)/\\alpha=\\beta^{-1}\\cdot 1=\\beta$? Carefully: $\\sigma(1+\\beta)/(1+\\beta)=(1+\\beta^{-1})/(1+\\beta)=\\beta^{-1}$, so adjust to $\\alpha=\\beta(1+\\beta)$ if you want $\\beta$ rather than $\\beta^{-1}$ — the widget shows the explicit calculation."
+            "answer": 2,
+            "hint": "Compute $\\sigma(1+\\beta)/(1+\\beta)=(1+\\bar\\beta)/(1+\\beta)$ and use $\\bar\\beta=\\beta^{-1}$ for norm-one $\\beta$ — the result is $\\beta^{-1}$, not $\\beta$. Conjugate the numerator instead.",
+            "explain": "For norm-one $\\beta$, $\\sigma(\\beta)=\\bar\\beta=\\beta^{-1}$, so $\\sigma(1+\\beta)/(1+\\beta)=(1+\\beta^{-1})/(1+\\beta)=\\beta^{-1}$. The fix is to invert: take $\\alpha=1/(1+\\beta)$, which equivalently (after clearing denominators with $|1+\\beta|^2=2(c+a)/c$) is a real multiple of $\\alpha=1+\\bar\\beta=(c+a)-bi$. Check $\\alpha=-2+i$: $\\sigma(\\alpha)/\\alpha=(-2-i)/(-2+i)=(-2-i)^2/5=(3+4i)/5=\\beta$ ✓."
           }
         ]
       },
@@ -31591,12 +31590,12 @@ window.MVQuizBank = {
             "q": "Heights enter Faltings' proof primarily through which finiteness statement?",
             "choices": [
               "Northcott applied directly to $C(K)$.",
-              "Finiteness of isogeny classes of abelian varieties of bounded Faltings height (the Shafarevich/isogeny-class theorem).",
+              "Finiteness of $K$-isomorphism classes of abelian varieties of bounded Faltings height (the Northcott property of $h_F$, used together with Shafarevich).",
               "Finiteness of torsion on the Jacobian.",
               "The Mordell–Weil theorem for $\\operatorname{Jac}(C)$."
             ],
             "answer": 1,
-            "explain": "A central step is showing that abelian varieties with bounded Faltings height fall into finitely many isogeny classes — Northcott in the moduli world. Vojta's later proof replaces the moduli detour with a direct height inequality on $C\\times C$."
+            "explain": "A central step is the Northcott property for the Faltings height: only finitely many $K$-isomorphism classes of abelian varieties of fixed dimension with $h_F\\le C$. (The companion 'Faltings' isogeny theorem' — the Tate conjecture for Galois reps of abelian varieties — supplies the semisimplicity input separately.) Vojta's later proof replaces the moduli detour with a direct height inequality on $C\\times C$."
           },
           {
             "type": "mcq",
@@ -31667,14 +31666,14 @@ window.MVQuizBank = {
               "The Hasse–Weil L-function and its meromorphic continuation."
             ],
             "answer": 1,
-            "explain": "Weak Mordell–Weil gives finitely many cosets $Q_1,\\dots,Q_m$ for $E(K)/2E(K)$. Heights then provide the descent: $P=2P'+Q_i$ with $\\hat h(P')\\le\\tfrac14\\hat h(P)+C$, so iterating drives every $P$ into a finite Northcott set, yielding a finite generating set."
+            "explain": "Weak Mordell–Weil gives finitely many cosets $Q_1,\\dots,Q_m$ for $E(K)/2E(K)$. Heights then provide the descent: $P=2P'+Q_i$ gives $\\hat h(2P')=4\\hat h(P')=\\hat h(P-Q_i)\\le 2\\hat h(P)+2\\hat h(Q_i)$ by parallelogram, so $\\hat h(P')\\le\\tfrac12\\hat h(P)+C$. Iterating drives every $P$ into a finite Northcott set, yielding a finite generating set."
           },
           {
             "type": "numeric",
-            "q": "If $\\hat h(P)=400$ and the descent step gives $\\hat h(P')\\le\\tfrac14\\hat h(P)+C$ with $C=10$, what is the upper bound on $\\hat h(P')$ after one descent?",
-            "answer": 110,
+            "q": "If $\\hat h(P)=400$ and the descent step gives $\\hat h(P')\\le\\tfrac12\\hat h(P)+C$ with $C=10$, what is the upper bound on $\\hat h(P')$ after one descent?",
+            "answer": 210,
             "tol": 0.000001,
-            "explain": "$\\tfrac14(400)+10=100+10=110$. Each iteration shrinks the height by a factor of $4$ plus a bounded additive constant; after enough steps, $\\hat h$ is dominated by $C$ alone — Northcott-finite."
+            "explain": "$\\tfrac12(400)+10=200+10=210$. Each iteration shrinks the height by a factor of $2$ plus a bounded additive constant; after enough steps, $\\hat h$ is dominated by $2C$ alone — Northcott-finite."
           },
           {
             "type": "mcq",
@@ -31839,16 +31838,16 @@ window.MVQuizBank = {
           },
           {
             "type": "mcq",
-            "q": "In the topos $G$-$\\mathbf{Set}$ of left $G$-sets, $\\Omega$ as a $G$-set has underlying set:",
+            "q": "In the topos $G$-$\\mathbf{Set}$ of left $G$-sets (for an abstract group $G$), $\\Omega$ as a $G$-set has underlying set:",
             "choices": [
               "The set of subgroups of $G$",
               "The set of normal subgroups of $G$",
               "$\\{\\bot, \\top\\}$ with trivial $G$-action",
               "The set of conjugacy classes in $G$"
             ],
-            "answer": 0,
-            "explain": "A subobject of the terminal $G$-set $\\{*\\}$ is a $G$-stable subset of $\\{*\\}$ — but the elements of $\\Omega$ in $G$-$\\mathbf{Set}$ are sieves on the unique object of the one-object groupoid $G$, which correspond to subgroups of $G$. The action of $g$ on $H \\le G$ is conjugation $H \\mapsto gHg^{-1}$.",
-            "hint": "Think of $G$ as a one-object groupoid; $\\Omega(c)$ in a presheaf topos is the sieves on $c$."
+            "answer": 2,
+            "explain": "Sieves on the unique object $*$ of the one-object groupoid $\\mathbf{B}G$ are subsets $S \\subseteq G$ closed under precomposition by every $g \\in G$. In a *group* (every arrow invertible) the only such $S$ are $\\varnothing$ and $G$, so $\\Omega(*) = \\{\\bot, \\top\\}$, and $G$ acts trivially because $\\mathbf{B}G$ has no other object to mediate the action. Equivalently: subobjects of any $G$-set $X$ are $G$-stable subsets, classified by the indicator $\\chi_S\\colon X \\to \\{\\bot,\\top\\}$ that is constant on each orbit. The topos is Boolean.",
+            "hint": "Sieves on $*$ in a groupoid are closed under precomposition by all invertible arrows — so they collapse to $\\{\\varnothing, G\\}$."
           },
           {
             "type": "matching",
@@ -32972,9 +32971,9 @@ window.MVQuizBank = {
           {
             "type": "numeric",
             "q": "In a snake-lemma setup with $\\alpha=\\mathrm{id}_{\\mathbb{Z}/4}$, $\\beta=\\mathrm{id}_{\\mathbb{Z}/4}$, $\\gamma=\\mathrm{id}_{\\mathbb{Z}/4}$ and exact rows being the identity sequence, what is $|\\ker\\delta|$?",
-            "answer": 4,
+            "answer": 1,
             "tol": 0.000001,
-            "explain": "With all vertical maps being identities, $\\ker\\gamma=0$ (since $\\gamma=\\mathrm{id}$, every element is in the image, kernel is trivial — but actually $\\ker(\\mathrm{id})=0$). Wait: $\\ker\\delta$ is the kernel of $\\delta:\\ker\\gamma\\to\\operatorname{coker}\\alpha$. Since $\\ker\\gamma=0$ (identity is injective), the domain is $0$ and $\\ker\\delta=0$. But if rows are $0\\to\\mathbb{Z}/4\\xrightarrow{\\mathrm{id}}\\mathbb{Z}/4\\to 0$, then $\\ker\\gamma=\\mathbb{Z}/4$, $\\operatorname{coker}\\alpha=0$, and $\\delta=0$ with $\\ker\\delta=\\mathbb{Z}/4$, so $|\\ker\\delta|=4$."
+            "explain": "The connecting map $\\delta\\colon\\ker\\gamma\\to\\operatorname{coker}\\alpha$ has domain $\\ker\\gamma$. Since $\\gamma=\\mathrm{id}_{\\mathbb{Z}/4}$ is injective, $\\ker\\gamma=0$ is the trivial group. Hence $\\delta\\colon 0\\to\\operatorname{coker}\\alpha$ is the zero map on the zero group, and $\\ker\\delta=0$ has exactly one element, so $|\\ker\\delta|=1$."
           },
           {
             "type": "spot-the-error",
@@ -33130,9 +33129,9 @@ window.MVQuizBank = {
           {
             "type": "numeric",
             "q": "Using the long exact sequence of the pair $(D^2, S^1)$ and the fact that $D^2$ is contractible, compute $\\dim_{\\mathbb{Q}} H_1(D^2,S^1;\\mathbb{Q})$.",
-            "answer": 1,
+            "answer": 0,
             "tol": 0.000001,
-            "explain": "The LES gives $H_1(D^2)\\to H_1(D^2,S^1)\\to H_0(S^1)\\to H_0(D^2)$. Since $D^2$ is contractible, $H_1(D^2)=0$ and the map $H_0(S^1)\\cong\\mathbb{Q}\\to H_0(D^2)\\cong\\mathbb{Q}$ is an isomorphism. So $H_1(D^2,S^1)\\cong\\mathbb{Q}$, dimension $1$. (By excision this equals $\\tilde{H}_1(S^1)\\cong\\mathbb{Q}$.)"
+            "explain": "The relevant slice of the LES is $H_1(D^2)\\to H_1(D^2,S^1)\\xrightarrow{\\partial}H_0(S^1)\\xrightarrow{i_*}H_0(D^2)$. Since $D^2$ is contractible, $H_1(D^2)=0$, and the inclusion induces an isomorphism $i_*\\colon H_0(S^1)\\cong\\mathbb{Q}\\xrightarrow{\\sim}H_0(D^2)\\cong\\mathbb{Q}$ (both spaces are path-connected). Exactness forces $\\partial$ to land in $\\ker i_*=0$, so $H_1(D^2,S^1)=0$, dimension $0$. (Equivalently, by excision $H_n(D^2,S^1)\\cong\\tilde H_n(D^2/S^1)\\cong\\tilde H_n(S^2)$, which vanishes for $n=1$ and is $\\mathbb{Q}$ only at $n=2$.)"
           },
           {
             "type": "mcq",
@@ -34017,7 +34016,7 @@ window.MVQuizBank = {
               "$\\Omega^8\\mathrm{U}\\simeq\\mathrm{U}$"
             ],
             "answer": 1,
-            "explain": "Bott: $\\Omega^2\\mathrm{U}\\simeq\\mathrm{U}\\times\\mathbb{Z}$, equivalently $\\Omega^2\\mathrm{BU}\\simeq\\mathrm{BU}\\times\\mathbb{Z}$, giving $\\pi_n\\mathrm{U}$ periodic of period $2$: $\\mathbb{Z},0,\\mathbb{Z},0,\\ldots$. The stable orthogonal group has $8$-periodicity instead: $\\Omega^8\\mathrm{O}\\simeq\\mathrm{O}\\times\\mathbb{Z}$."
+            "explain": "Bott: $\\Omega^2\\mathrm{U}\\simeq\\mathrm{U}$, equivalently $\\Omega(\\mathbb{Z}\\times B\\mathrm{U})\\simeq\\mathrm{U}$, giving $\\pi_n\\mathrm{U}$ periodic of period $2$: $0,\\mathbb{Z},0,\\mathbb{Z},\\ldots$ starting at $n=0$ (since $\\mathrm{U}$ is connected). The stable orthogonal group has $8$-periodicity instead: $\\Omega^8\\mathrm{O}\\simeq\\mathrm{O}$."
           },
           {
             "type": "numeric",
@@ -34103,9 +34102,9 @@ window.MVQuizBank = {
               "No — there is an inner horn $\\Lambda^2_1$ formed by the two edges that has no filler.",
               "It depends on whether we orient the edges in the same direction."
             ],
-            "answer": 2,
-            "explain": "Take the two edges $f, g\\colon 0 \\to 1$. The horn $\\Lambda^2_1$ with $\\partial_0 = g$ and $\\partial_2 = f$ requires a $2$-simplex with $\\partial_1\\colon 0 \\to 1$ — but this would need a third $1$-simplex composing $f$ then $g$, and we only have two edges and no $2$-simplices. So no filler exists; the simplicial set fails to be a quasi-category. Contrast with the nerve of the free category on two parallel arrows, which has all the formal composites $g \\circ f$, $f \\circ g$, etc. as $1$-simplices.",
-            "hint": "Two parallel arrows form the inner horn $\\Lambda^2_1$ — what would the filler require?"
+            "answer": 1,
+            "explain": "No nontrivial inner horn $\\Lambda^2_1$ exists in this simplicial set. To form one with $\\partial_2 = f\\colon 0\\to 1$ as the first leg and $\\partial_0 = g$ as the second leg, vertex $1$ of $\\Delta^2$ would have to map to the target of $f$ (i.e. $1\\in\\mathcal{C}_0$) and simultaneously to the source of $g$ (i.e. $0\\in\\mathcal{C}_0$) — impossible since $f, g$ are parallel from $0$ to $1$. The only $\\Lambda^2_1$ horns admitted use a degenerate edge ($\\partial_0 = \\mathrm{id}_1$ or $\\partial_2 = \\mathrm{id}_0$) and fill via $s_1(f)$, $s_1(g)$, $s_0(f)$, or $s_0(g)$. Higher inner horns fill similarly via degeneracies. So this simplicial set IS a quasi-category — in fact it is the nerve of the free category on the graph with two vertices and two parallel arrows.",
+            "hint": "What edges of $\\Delta^2$ would two parallel arrows $0 \\to 1$ have to occupy to form $\\Lambda^2_1$?"
           }
         ]
       },
@@ -34680,12 +34679,12 @@ window.MVQuizBank = {
             "q": "Hypercompletion is needed (i.e. $\\mathcal{X} \\neq \\mathcal{X}^\\wedge$) precisely when which property of the base fails?",
             "choices": [
               "When the base has finite cohomological dimension — finite-dim bases ARE the bad case.",
-              "When the base has infinite cohomological / Krull dimension — pathologies arise from unbounded-Postnikov-tower behavior.",
+              "When the base has infinite covering / cohomological dimension — pathologies arise from unbounded-Postnikov-tower behavior.",
               "When the base is non-Noetherian.",
               "When the base is non-affine."
             ],
             "answer": 1,
-            "explain": "The standard pathology: bases of infinite cohomological / Krull dimension produce $\\infty$-connective morphisms that are not equivalences. Concretely, $\\mathrm{Sh}_\\infty(\\Spec(\\prod_n k_n))$ for an infinite product of fields fails Whitehead. Bases of finite covering dimension (smooth manifolds, Noetherian schemes of finite Krull dimension) automatically have hypercomplete $\\infty$-toposes.",
+            "explain": "The standard pathology: bases of infinite covering / cohomological dimension produce $\\infty$-connective morphisms that are not equivalences. Concretely, $\\mathrm{Sh}_\\infty(\\Spec(\\prod_n k_n))$ for an infinite product of fields fails Whitehead — note this is a Krull-dimension-$0$ ring (every prime corresponds to an ultrafilter on $\\mathbb{N}$ and is maximal), so the pathology is genuinely about covering / cohomological dimension, not Krull dimension. Bases of finite covering dimension (smooth manifolds, Noetherian schemes of finite Krull dimension) automatically have hypercomplete $\\infty$-toposes — the implication finite-Krull $\\Rightarrow$ hypercomplete is real, but the converse direction (infinite-Krull $\\Rightarrow$ non-hypercomplete) is false.",
             "hint": "Hypercompletion's failure is about Postnikov-tower divergence — what makes Postnikov towers fail to converge?"
           },
           {
@@ -34845,7 +34844,7 @@ window.MVQuizBank = {
               "It is hypercomplete.",
               "Its 0-truncation $\\tau_{\\leq 0}\\mathrm{Sh}_\\infty(X_\\mathrm{ét})^\\wedge$ recovers the classical étale 1-topos $\\mathrm{Sh}_\\mathrm{ét}(X)$.",
               "It is the natural home for derived étale cohomology and $\\ell$-adic sheaves.",
-              "By the Lurie–Galois theorem, it determines $X$ up to a profinite Galois twist (étale homotopy type)."
+              "By the étale-homotopy-type reconstruction theorem (Artin–Mazur / Hoyois shape / Lurie SAG), it determines $X$ up to a profinite Galois twist."
             ],
             "answer": [
               0,
@@ -34853,7 +34852,7 @@ window.MVQuizBank = {
               2,
               3
             ],
-            "explain": "All four hold. (1) Finite Krull dimension is enough for hypercompletion to be automatic / harmless. (2) Truncation always recovers the 1-topos. (3) Derived étale theory naturally lives here. (4) Lurie's reconstruction (HTT 7.3 + Galois) recovers $X$ from $\\mathrm{Sh}_\\infty(X_\\mathrm{ét})^\\wedge$ up to Galois twist — étale homotopy type in modern language.",
+            "explain": "All four hold. (1) Finite Krull dimension is enough for hypercompletion to be automatic / harmless. (2) Truncation always recovers the 1-topos. (3) Derived étale theory naturally lives here. (4) The étale-homotopy-type reconstruction (Artin–Mazur LNM 100, 1969; Hoyois, J. Pure Appl. Algebra 2018; Lurie SAG) recovers $X$ from $\\mathrm{Sh}_\\infty(X_\\mathrm{ét})^\\wedge$ up to profinite Galois twist — étale homotopy type in modern language. (HTT §7.3 itself is proper base change, not the reconstruction theorem.)",
             "hint": "All four are core facts about the étale $\\infty$-topos."
           }
         ]
@@ -41144,10 +41143,10 @@ window.MVQuizBank = {
           },
           {
             "type": "numeric",
-            "q": "A Vitali set $V\\subset[0,1]$ is non-measurable. Assuming translation-invariance, if $\\{V+q:q\\in\\mathbb{Q}\\cap[-1,1]\\}$ are pairwise disjoint and cover $[0,2]$, what value does $\\sum_{q}m(V+q)$ take if $m(V)$ existed and were positive?",
+            "q": "A Vitali set $V\\subset[0,1]$ is non-measurable. Assuming translation-invariance, the disjoint family $\\{V+q:q\\in\\mathbb{Q}\\cap[-1,1]\\}$ is contained in $[-1,2]$ and covers $[0,1]$. If $m(V)$ existed and equalled $0$, what value would $\\sum_{q}m(V+q)$ take?",
             "answer": 0,
             "tol": 0.000001,
-            "explain": "If $m(V)=c>0$, countable additivity gives $m([0,2])\\ge\\sum_{q}c=\\infty$, contradicting $m([0,2])=2$. If $m(V)=0$, then $m([0,2])=0$, again a contradiction. So no consistent value of $m(V)$ exists; the correct answer reflecting the only non-contradictory finite value attempted is $0$, but in truth measurability fails entirely."
+            "explain": "Translation invariance gives $m(V+q)=m(V)=0$ for every $q$, so the countable sum is $0$. But countable additivity then forces $m([0,1])\\le\\sum_q m(V+q)=0$, contradicting $m([0,1])=1$. The complementary case $m(V)=c>0$ instead gives $\\sum_q c=\\infty$, contradicting $m([-1,2])=3$. Both branches fail, so $V$ admits no consistent measure."
           },
           {
             "type": "mcq",
@@ -41959,11 +41958,11 @@ window.MVQuizBank = {
           },
           {
             "type": "numeric",
-            "q": "For the wave operator $\\Box=-\\partial_t^2+\\Delta_x$ on $\\mathbb{R}^{1+n}$, the principal symbol is $p_2(t,x;\\tau,\\xi)=-\\tau^2+|\\xi|^2$. The characteristic variety is the set $\\{p_2=0\\}$. For a fixed nonzero spatial frequency $\\xi$ with $|\\xi|=1$, how many real values of $\\tau$ lie on the characteristic variety?",
+            "q": "For the wave operator $\\Box=-\\partial_t^2+\\Delta_x$ on $\\mathbb{R}^{1+n}$, the principal symbol is $p_2(t,x;\\tau,\\xi)=\\tau^2-|\\xi|^2$. The characteristic variety is the set $\\{p_2=0\\}$. For a fixed nonzero spatial frequency $\\xi$ with $|\\xi|=1$, how many real values of $\\tau$ lie on the characteristic variety?",
             "answer": 2,
             "tol": 0,
             "hint": "The characteristic variety is the zero set of the principal symbol. Treat $\\tau$ as the variable, fix $|\\xi|=1$, and ask how many real $\\tau$ satisfy the equation.",
-            "explain": "$-\\tau^2+1=0$ gives $\\tau=\\pm 1$, so two real values. These are the forward and backward light cones in the cotangent fibre, and the bicharacteristics splitting at $|\\xi|=1$ correspond to the two solution operators $e^{\\pm it\\sqrt{-\\Delta}}$ — one carrying singularities forward in time, the other backward."
+            "explain": "$\\tau^2-1=0$ gives $\\tau=\\pm 1$, so two real values. These are the forward and backward light cones in the cotangent fibre, and the bicharacteristics splitting at $|\\xi|=1$ correspond to the two solution operators $e^{\\pm it\\sqrt{-\\Delta}}$ — one carrying singularities forward in time, the other backward."
           },
           {
             "type": "spot-the-error",
@@ -42128,8 +42127,8 @@ window.MVQuizBank = {
             "q": "Order the conceptual steps that take the Helmholtz equation $(\\Delta+k^2)u=f$ from PDE to a microlocally well-posed scattering problem.",
             "items": [
               "Apply Hörmander's propagation theorem on the chosen sheet to get existence/uniqueness modulo decaying remainders, completing the limiting absorption principle.",
-              "Compute the principal symbol $p_2(x,\\xi)=-|\\xi|^2+k^2$ and observe the characteristic variety is the sphere $|\\xi|=k$.",
-              "Note the operator is non-elliptic on the characteristic variety, so the parametrix construction breaks and a different regularization is needed.",
+              "Compute the full symbol $p(x,\\xi)=-|\\xi|^2+k^2$ (principal part $-|\\xi|^2$ is elliptic in the §3 sense) and observe its zero set, the semiclassical characteristic sphere $|\\xi|=k$.",
+              "Note the standard parametrix $1/p$ blows up on $|\\xi|=k$, so a different regularization is needed even though the operator is principal-symbol elliptic.",
               "Impose the Sommerfeld radiation condition $r^{(n-1)/2}(\\partial_r-ik)u\\to 0$, which microlocally selects the outgoing half of the characteristic variety.",
               "Write down $(\\Delta+k^2)u=f$ on $\\mathbb{R}^n$ as the equation modeling time-harmonic scattering."
             ],
@@ -42141,7 +42140,7 @@ window.MVQuizBank = {
               0
             ],
             "hint": "Two of the steps are diagnostic (compute, observe what fails); two are remedial (impose a condition, then conclude); one is the prerequisite that the rest depend on. Group them, then sequence inside each group.",
-            "explain": "(4) State the equation. (1) Compute the principal symbol — discovers the characteristic sphere. (2) Diagnose the failure: non-elliptic on $|\\xi|=k$, no parametrix. (3) Impose the radiation condition — selects outgoing bicharacteristics. (0) Apply Hörmander on the selected sheet to extract well-posedness. The order is forced: you can't apply propagation before selecting the sheet, can't select before knowing what fails, can't diagnose before computing the symbol, can't compute the symbol before writing the equation."
+            "explain": "(4) State the equation. (1) Compute the full symbol — discovers the semiclassical characteristic sphere $|\\xi|=k$ (the principal symbol $-|\\xi|^2$ alone is elliptic). (2) Diagnose the failure: $1/p$ blows up on $|\\xi|=k$, no naive parametrix. (3) Impose the radiation condition — selects outgoing bicharacteristics. (0) Apply Hörmander on the selected sheet to extract well-posedness. The order is forced: you can't apply propagation before selecting the sheet, can't select before knowing what fails, can't diagnose before computing the symbol, can't compute the symbol before writing the equation."
           }
         ]
       }
@@ -42795,7 +42794,7 @@ window.MVQuizBank = {
             "q": "Select all true statements about fibrations in the projective model structure on $\\mathrm{Ch}(R)$ (chain complexes of $R$-modules, non-negatively graded).",
             "choices": [
               "Fibrations are exactly the chain maps that are surjective in every positive degree.",
-              "Trivial fibrations are exactly the surjective quasi-isomorphisms whose kernel is degreewise projective.",
+              "Trivial fibrations are exactly the chain maps that are surjective in every positive degree and quasi-isomorphisms.",
               "Every chain complex is fibrant.",
               "The projective model structure has the same fibrations as the injective model structure."
             ],
@@ -42805,7 +42804,7 @@ window.MVQuizBank = {
               2
             ],
             "hint": "Two of these are direct unwindings of the lifting calculus once you fix what 'cofibration' means in the projective structure; one is a categorical fact about the terminal object that characterizes which projective model variant you're in (bounded vs.\\ unbounded matters slightly); one compares two different model structures whose names are nearly identical but whose three classes interleave differently.",
-            "explain": "(0) is correct: in non-negative degrees, projective fibrations are surjections in every positive degree (the degree-zero piece is unconstrained). (1) is the trivial-fib characterization — surjective + quasi-iso, with degreewise projective kernel reflecting the cof orthogonality. (2) is the punchline: the terminal object is $0$, every $X \\to 0$ is degreewise surjective, so every complex is fibrant. (3) is false: the projective and injective structures have the SAME weak equivalences (quasi-isos) but swap the roles of cof / fib — they are Quillen-equivalent but not equal."
+            "explain": "(0) is correct: in non-negative degrees, projective fibrations are surjections in every positive degree (the degree-zero piece is unconstrained). (1) is the trivial-fib characterization: trivial fib = fib + weak eq = (surjective in every positive degree) + (quasi-iso). The kernel of such a map is acyclic but is NOT in general degreewise projective — e.g. a projective resolution $P_\\bullet \\to (\\mathbb{Z}/2)[0]$ over $R = \\mathbb{Z}/4$ with $P_0 = \\mathbb{Z}/4$ is a trivial fib whose degree-0 kernel is $2\\mathbb{Z}/4 \\cong \\mathbb{Z}/2$, not projective over $\\mathbb{Z}/4$. (2) is the punchline: the terminal object is $0$, every $X \\to 0$ is degreewise surjective, so every complex is fibrant. (3) is false: the projective and injective structures have the SAME weak equivalences (quasi-isos) but swap the roles of cof / fib — they are Quillen-equivalent but not equal."
           }
         ]
       },
@@ -43201,10 +43200,10 @@ window.MVQuizBank = {
           },
           {
             "type": "numeric",
-            "q": "Consider the linear orders $\\mathfrak{A}=(\\{0,1,2\\},<)$ and $\\mathfrak{B}=(\\{0,1,2,3\\},<)$. What is the largest $n$ for which Duplicator wins the $n$-round EF game on $\\mathfrak{A}$ vs $\\mathfrak{B}$? (Hint: a sentence of quantifier rank $n$ can count up to roughly $2^n$ elements; here a rank-$2$ sentence already separates them.)",
-            "answer": 1,
+            "q": "Consider the linear orders $\\mathfrak{A}=(\\{0,1,2\\},<)$ and $\\mathfrak{B}=(\\{0,1,2,3\\},<)$. What is the largest $n$ for which Duplicator wins the $n$-round EF game on $\\mathfrak{A}$ vs $\\mathfrak{B}$? (Hint: for finite linear orders of sizes $m<n$, Duplicator wins the $k$-round game iff $\\min(m,n)\\ge 2^k-1$.)",
+            "answer": 2,
             "tol": 0,
-            "explain": "With $1$ round Duplicator can match either's chosen element to a counterpart in the other; both orders look like 'one element' from a first-order perspective at rank $1$. With $2$ rounds Spoiler picks the largest element in $\\mathfrak{B}$, then the second-largest; in $\\mathfrak{A}$ Duplicator runs out of distinct space to copy this configuration. So $n=1$ is the largest Duplicator winning round count."
+            "explain": "Standard fact (Libkin, <em>Elements of Finite Model Theory</em>, Thm 3.6): for finite linear orders Duplicator wins the $k$-round game iff $\\min(m,n)\\ge 2^k-1$. Here $\\min=3$. For $k=2$: $2^2-1=3\\le 3$ ✓ — Duplicator wins by matching each Spoiler pick to the element with the same number of points strictly below and above (any leftover slack absorbed at the larger structure's end). For $k=3$: $2^3-1=7>3$ — Spoiler wins by picking three elements in $\\mathfrak{B}$ whose successor/predecessor configuration cannot be reproduced in $\\mathfrak{A}$. So the largest winning $n$ is $\\boxed{2}$."
           },
           {
             "type": "mcq",
@@ -43216,7 +43215,7 @@ window.MVQuizBank = {
               "'Every vertex has degree exactly 2.'"
             ],
             "answer": 1,
-            "explain": "Connectivity is the canonical example of a non-FO-definable property. The proof: for any $n$, a long cycle $C_{2n+1}$ (connected) and a disjoint union $C_n \\sqcup C_{n+1}$ (disconnected) agree on every sentence of quantifier rank $\\le n$, by an EF-game argument. The other three are FO-definable: count vertices, count edges in a triangle, count neighbours."
+            "explain": "Connectivity is the canonical example of a non-FO-definable property. The proof: for any $k$, the cycle $C_{3\\cdot 2^k}$ (connected) and the two-cycle disjoint union $C_{3\\cdot 2^k}\\sqcup C_{3\\cdot 2^k}$ (disconnected) agree on every sentence of quantifier rank $\\le k$, by an EF-game argument. The cycle length must be <em>exponential</em> in $k$ because a rank-$k$ formula can detect a path of length up to $2^k-1$. The other three are FO-definable: count vertices, count edges in a triangle, count neighbours."
           }
         ]
       },
@@ -45955,7 +45954,7 @@ window.MVQuizBank = {
             "q": "Mostow rigidity asserts that for closed hyperbolic $n$-manifolds $M_1,M_2$ with $n\\ge 3$, an isomorphism $\\pi_1(M_1)\\cong\\pi_1(M_2)$ implies:",
             "choices": [
               "$M_1$ and $M_2$ are homotopy equivalent only",
-              "$M_1$ and $M_2$ are isometric (and the isometry is unique up to homotopy)",
+              "$M_1$ and $M_2$ are isometric (and the isometry is unique within its homotopy class)",
               "$M_1$ and $M_2$ have the same fundamental group but possibly different hyperbolic metrics",
               "$M_1$ and $M_2$ are merely diffeomorphic"
             ],
@@ -47172,11 +47171,11 @@ window.MVQuizBank = {
             "choices": [
               "The disk algebra $A(\\mathbb{D})$ with $f^*(z)=\\overline{f(\\bar z)}$ satisfies $\\|f^*f\\|=\\|f\\|^2$",
               "On $\\ell^1(\\mathbb{Z})$ with convolution and involution $f^*(n)=\\overline{f(-n)}$, the element $f=\\delta_1$ gives $\\|f^*f\\|=\\|\\delta_0\\|=1$ while $\\|f\\|^2=1$, so it DOES hold here",
-              "The algebra $M_2(\\mathbb{C})$ with the Frobenius norm $\\|A\\|_F=\\sqrt{\\tr(A^*A)}$ fails the $C^*$-identity: for $A=\\begin{pmatrix}1&1\\\\0&0\\end{pmatrix}$, $\\|A^*A\\|_F=\\sqrt{3}\\ne\\|A\\|_F^2=2$",
+              "The algebra $M_2(\\mathbb{C})$ with the Frobenius norm $\\|A\\|_F=\\sqrt{\\tr(A^*A)}$ fails the $C^*$-identity: for $A=\\mathrm{diag}(1,2)$, $\\|A^*A\\|_F=\\sqrt{17}\\ne\\|A\\|_F^2=5$",
               "No Banach $*$-algebra can fail the $C^*$-identity"
             ],
             "answer": 2,
-            "explain": "$M_2(\\mathbb{C})$ with the Frobenius norm is a Banach $*$-algebra but not a $C^*$-algebra. For $A=\\begin{pmatrix}1&1\\\\0&0\\end{pmatrix}$: $A^*A=\\begin{pmatrix}1&1\\\\1&1\\end{pmatrix}$, $\\|A^*A\\|_F=\\sqrt{4}=2$, but $\\|A\\|_F^2=(\\sqrt{2})^2=2$. Checking the operator norm instead: $\\|A\\|_{op}=\\sqrt{2}$, $\\|A^*A\\|_{op}=2=(\\sqrt{2})^2$, so the operator norm DOES satisfy the $C^*$-identity — this is why only the operator norm makes $M_2(\\mathbb{C})$ a $C^*$-algebra."
+            "explain": "$M_2(\\mathbb{C})$ with the Frobenius norm is a Banach $*$-algebra but not a $C^*$-algebra. For $A=\\mathrm{diag}(1,2)$: $A^*A=\\mathrm{diag}(1,4)$, so $\\|A^*A\\|_F=\\sqrt{1+16}=\\sqrt{17}$, but $\\|A\\|_F^2=1+4=5$, and $\\sqrt{17}\\ne 5$ — the $C^*$-identity FAILS. Checking the operator norm on the same matrix: $\\|A\\|_{op}=2$, $\\|A^*A\\|_{op}=4=2^2$, so the operator norm DOES satisfy the $C^*$-identity — this is why only the operator norm makes $M_2(\\mathbb{C})$ a $C^*$-algebra."
           },
           {
             "type": "numeric",
@@ -47894,7 +47893,7 @@ window.MVQuizBank = {
               "Let $N_\\omega=\\{a\\in A:\\omega(a^*a)=0\\}$, a closed left ideal.",
               "Pass to the quotient $A/N_\\omega$ which carries a genuine inner product; complete to $H_\\omega$.",
               "Define $\\pi_\\omega(a)[b+N_\\omega]=[ab+N_\\omega]$, extend to a bounded $*$-representation.",
-              "Set $\\Omega_\\omega=[1+N_\\omega]$; then $\\omega(a)=\\langle \\Omega_\\omega,\\pi_\\omega(a)\\Omega_\\omega\\rangle$."
+              "Set $\\Omega_\\omega=[1+N_\\omega]$; then $\\omega(a)=\\langle \\pi_\\omega(a)\\Omega_\\omega,\\Omega_\\omega\\rangle$."
             ],
             "answer": [
               0,
@@ -49122,7 +49121,7 @@ window.MVQuizBank = {
           },
           {
             "type": "mcq",
-            "q": "Glaisher's theorem says the number of partitions of $n$ into <em>odd</em> parts equals the number of partitions of $n$ into <em>distinct</em> parts. Which product identity is the generating-function form of that?",
+            "q": "Euler's theorem (1748) says the number of partitions of $n$ into <em>odd</em> parts equals the number of partitions of $n$ into <em>distinct</em> parts. Which product identity is the generating-function form of that?",
             "choices": [
               "$\\prod_{k\\ge 1}\\dfrac{1}{1-q^{2k-1}} = \\prod_{n\\ge 1}(1+q^n)$",
               "$\\prod_{n\\ge 1}(1-q^n) = \\prod_{n\\ge 1}(1-q^{2n-1})$",
@@ -50013,7 +50012,7 @@ window.MVQuizBank = {
               "Terminal singularities"
             ],
             "answer": 2,
-            "explain": "Hara–Watanabe (1996) and Hara–Mehta–Smith showed: a complex normal $\\mathbb{Q}$-Gorenstein singularity is klt iff its reduction mod $p$ is $F$-regular for all $p\\gg 0$ (with appropriate compatibility conditions). $F$-rational ↔ rational; $F$-pure ↔ log canonical."
+            "explain": "Hara–Watanabe (1996, 2002) showed a complex normal $\\mathbb{Q}$-Gorenstein singularity is klt iff its reduction mod $p$ is $F$-regular for all $p\\gg 0$; Smith and Hara independently gave the rational $\\Leftrightarrow$ $F$-rational bridge, and $F$-pure $\\Leftrightarrow$ log canonical holds in the same asymptotic-$p$ sense."
           },
           {
             "type": "mcq",
@@ -50243,7 +50242,7 @@ window.MVQuizBank = {
               "Ampleness is a property of $\\mathcal{O}_X$, not of $L$."
             ],
             "answer": 1,
-            "explain": "Ampleness is the property that <em>some</em> tensor power is very ample. The simplest counterexample to (a) is a line bundle $L$ on an elliptic curve $E$ of degree $1$: it is ample (positive degree) but not very ample (since global sections cannot separate the points $P, -P$ for $P \\ne -P$)."
+            "explain": "Ampleness is the property that <em>some</em> tensor power is very ample. The simplest counterexample to (a) is a degree-$1$ line bundle $L$ on an elliptic curve $E$: it is ample (positive degree) but not very ample. By Riemann–Roch $h^0(L) = 1$ in degree $1$, so there are not even enough sections to define a map; only at degree $\\ge 3$ does $|L|$ embed $E$."
           }
         ]
       },
@@ -50378,7 +50377,7 @@ window.MVQuizBank = {
               "$H^i(X, L^{\\otimes n}) = 0$ for $i \\ne n$"
             ],
             "answer": 1,
-            "explain": "Kodaira: $H^i(X, K_X \\otimes L) = 0$ for $i > 0$ when $L$ is ample. The factor of $K_X$ is essential — without it, the conclusion can fail (consider $X = \\mathbb{P}^1$, $L = \\mathcal{O}(-1)$: $H^0(L) = 0$ but Kodaira applied to $K_{\\mathbb{P}^1} \\otimes \\mathcal{O}(2) = \\mathcal{O}(0)$ correctly gives $H^1 = 0$)."
+            "explain": "Kodaira: $H^i(X, K_X \\otimes L) = 0$ for $i > 0$ when $L$ is ample. The factor of $K_X$ is essential — without it, the conclusion can fail even for line bundles that are positive in a weaker sense (on an elliptic curve $E$, the trivial bundle $\\mathcal{O}_E$ is nef but $H^1(E, \\mathcal{O}_E) \\cong \\mathbb{C} \\ne 0$)."
           },
           {
             "type": "mcq",
@@ -50734,7 +50733,7 @@ window.MVQuizBank = {
         "hard": [
           {
             "type": "mcq",
-            "q": "Bonferroni's inequality says $\\mathbb{P}(\\bigcup_{i=1}^n A_i)\\le\\sum_i\\mathbb{P}(A_i)$. Under what condition does equality hold?",
+            "q": "Boole's inequality (the union bound) says $\\mathbb{P}(\\bigcup_{i=1}^n A_i)\\le\\sum_i\\mathbb{P}(A_i)$. Under what condition does equality hold?",
             "choices": [
               "The $A_i$ are identically distributed",
               "The $A_i$ are pairwise disjoint",
@@ -51512,8 +51511,8 @@ window.MVQuizBank = {
               "Symmetric random walk is transient"
             ],
             "answer": 2,
-            "hint": "Check UI: is $\\sup_n\\mathbb{E}|S_{n\\wedge\\tau}|<\\infty$?",
-            "explain": "$\\tau<\\infty$ a.s.\\ (recurrence of 1D walk) but $\\mathbb{E}[\\tau]=\\infty$. The stopped process is not UI because $\\sup_n\\mathbb{E}|S_{n\\wedge\\tau}|=\\infty$. The conclusion $\\mathbb{E}[S_\\tau]=1\\ne 0$ shows the hypothesis matters."
+            "hint": "The stopped process is $L^1$-bounded ($S_{n\\wedge\\tau}\\le 1$ a.s.); what stronger property fails?",
+            "explain": "$\\tau<\\infty$ a.s.\\ (recurrence of 1D walk) but $\\mathbb{E}[\\tau]=\\infty$. The stopped process $S_{n\\wedge\\tau}$ is bounded above by $1$, hence $L^1$-bounded ($\\mathbb{E}|S_{n\\wedge\\tau}|\\le 2$), but it fails to be uniformly integrable: the negative tail $S_{n\\wedge\\tau}^-$ carries unbounded mass on $\\{\\tau>n\\}$, so $\\sup_n\\mathbb{E}[|S_{n\\wedge\\tau}|\\mathbf{1}_{|S_{n\\wedge\\tau}|>K}]\\not\\to 0$ as $K\\to\\infty$. The conclusion $\\mathbb{E}[S_\\tau]=1\\ne 0$ shows the UI hypothesis matters."
           },
           {
             "type": "mcq",
@@ -52129,16 +52128,19 @@ window.MVQuizBank = {
             "explain": "The three reduced forms are $x^2+xy+6y^2$, $2x^2+xy+3y^2$, and $2x^2-xy+3y^2$, all satisfying $|b|\\le a\\le c$ with $D=b^2-4ac=-23$. So $h(-23)=3$."
           },
           {
-            "type": "mcq",
-            "q": "Which statement about reduced forms is a correct counterexample to the claim 'any form with $a \\le c$ is reduced'?",
+            "type": "multi-select",
+            "q": "Which of the following are correct counterexamples to the claim 'any form with $a \\le c$ is reduced'? Select all that apply.",
             "choices": [
               "$x^2 - 3xy + 3y^2$ has $a=1\\le c=3$ but $|b|=3 > a=1$, so it is not reduced",
               "$x^2+2xy+2y^2$ has $a=1\\le c=2$ and $|b|=2>a=1$, so it is not reduced",
               "No counterexample exists; $a\\le c$ is both necessary and sufficient for reduction"
             ],
-            "answer": 1,
-            "hint": "Check whether $|b|\\le a$ holds in each option.",
-            "explain": "$x^2+2xy+2y^2$: here $a=1, b=2, c=2$. We have $a\\le c$ but $|b|=2 > a=1$, violating the first reduction inequality $|b|\\le a$. It is not reduced despite $a\\le c$. (The form $x^2-3xy+3y^2$ also fails, but its $|b|=3=c=3$ ties require further case analysis.)"
+            "answer": [
+              0,
+              1
+            ],
+            "hint": "Check whether $|b|\\le a$ holds in each option; both A and B violate it independently of the tie-break clause.",
+            "explain": "Both A and B fail the inequality $|b|\\le a$ while satisfying $a\\le c$, so each is a valid counterexample. In A, $a=1, b=-3, c=3$: $|b|=3 > a=1$. In B, $a=1, b=2, c=2$: $|b|=2 > a=1$. The tie-break clauses ($b\\ge 0$ when $|b|=a$ or $a=c$) are irrelevant here since the primary inequality $|b|\\le a$ already fails. C is wrong because $a\\le c$ is necessary but far from sufficient — the $|b|\\le a$ condition can fail independently."
           }
         ]
       },
@@ -53673,12 +53675,12 @@ window.MVQuizBank = {
             "q": "For a $N\\times N$ GUE matrix, which rescaling makes $\\lambda_{\\max}-2\\sqrt N$ converge to the Tracy–Widom $F_2$ distribution?",
             "choices": [
               "$N^{1/2}(\\lambda_{\\max}-2\\sqrt N)$",
-              "$N^{2/3}(\\lambda_{\\max}-2\\sqrt N)$",
+              "$N^{1/6}(\\lambda_{\\max}-2\\sqrt N)$",
               "$N(\\lambda_{\\max}-2\\sqrt N)$",
               "$\\log N\\cdot(\\lambda_{\\max}-2\\sqrt N)$"
             ],
             "answer": 1,
-            "explain": "Soft-edge fluctuations of $\\lambda_{\\max}$ in a Wigner ensemble are on the $N^{-2/3}$ scale; multiplying by $N^{2/3}$ gives an order-one limit, the Tracy–Widom $F_\\beta$ distribution. Bulk gaps, by contrast, are on the $N^{-1}$ scale."
+            "explain": "With the page's unrescaled convention (bulk on $[-2\\sqrt N, 2\\sqrt N]$, joint density $\\propto e^{-\\beta\\sum\\lambda_i^2/4}$), the soft-edge fluctuations of $\\lambda_{\\max}-2\\sqrt N$ are on the $N^{-1/6}$ scale; multiplying by $N^{1/6}$ gives an order-one Tracy–Widom $F_\\beta$ limit. (After first rescaling eigenvalues by $1/\\sqrt N$ so the bulk lives on $[-2,2]$, the fluctuation scale becomes the more familiar $N^{-2/3}$.) Bulk gaps in either convention are on the $N^{-1}$ scale."
           },
           {
             "type": "multi-select",
@@ -54012,7 +54014,7 @@ window.MVQuizBank = {
             "q": "Lazy random walk on the hypercube $\\{0,1\\}^n$ with $n=10$: at each step, pick a coordinate uniformly and flip it with probability $1/2$. Coupon-collector heuristics give mixing time $\\Theta(n\\log n)$. Estimate $n\\log n$ for $n=10$ (use natural log, round to integer).",
             "answer": 23,
             "tol": 2,
-            "explain": "$n\\log n = 10\\ln 10\\approx 10\\cdot 2.30=23.0$. The standard coupling — couple coordinates as soon as both copies have updated each one — gives mixing in time $\\sim \\tfrac{1}{2}n\\log n$ via coupon collector."
+            "explain": "$n\\log n = 10\\ln 10\\approx 10\\cdot 2.30=23.0$. The standard coupling — couple coordinates as soon as both copies have updated each one — gives the upper bound $n\\log n + O(n)$ via coupon collector. The sharper $\\tfrac{1}{2}n\\log n$ cutoff (Aldous) requires different methods."
           },
           {
             "type": "mcq",
@@ -54359,10 +54361,10 @@ window.MVQuizBank = {
           },
           {
             "type": "numeric",
-            "q": "Let $f(x) = \\begin{cases}x\\sin(1/x) & x\\ne 0 \\\\ 0 & x=0\\end{cases}$. Is $f$ Riemann-integrable on $[-1,1]$? Compute $\\int_{-1}^1 |f(x)|\\,dx$ to 4 decimal places. (Hint: the integral equals $2\\int_0^1 x|\\sin(1/x)|\\,dx\\approx 0.4538$.)",
-            "answer": 0.4538,
+            "q": "Let $f(x) = \\begin{cases}x\\sin(1/x) & x\\ne 0 \\\\ 0 & x=0\\end{cases}$. Is $f$ Riemann-integrable on $[-1,1]$? Compute $\\int_{-1}^1 |f(x)|\\,dx$ to 4 decimal places. (Hint: the integral equals $2\\int_0^1 x|\\sin(1/x)|\\,dx\\approx 0.8536$.)",
+            "answer": 0.8536,
             "tol": 0.005,
-            "explain": "$f$ is bounded and continuous except at $0$ (a single point, measure zero), so it is Riemann-integrable by Lebesgue's criterion. Numerically, $\\int_{-1}^1 |x\\sin(1/x)|\\,dx=2\\int_0^1 x|\\sin(1/x)|\\,dx\\approx 0.4538$."
+            "explain": "$f$ is bounded and continuous except at $0$ (a single point, measure zero), so it is Riemann-integrable by Lebesgue's criterion. Numerically, $\\int_0^1 x|\\sin(1/x)|\\,dx\\approx 0.4268$, so $\\int_{-1}^1 |x\\sin(1/x)|\\,dx=2\\int_0^1 x|\\sin(1/x)|\\,dx\\approx 0.8536$."
           }
         ]
       },
@@ -54999,12 +55001,12 @@ window.MVQuizBank = {
           },
           {
             "type": "ordering",
-            "q": "Arrange the implications between regularity classes on $[a,b]$, from STRONGEST to weakest.",
+            "q": "Arrange the regularity classes on $[a,b]$ in a strict chain of implications, from STRONGEST to weakest.",
             "items": [
+              "$C^1$",
               "Lipschitz",
-              "Hölder $C^{0,\\alpha}$ ($0<\\alpha<1$)",
               "Absolutely continuous (AC)",
-              "Bounded variation (BV)"
+              "Bounded variation $\\cap$ continuous (BV $\\cap C$)"
             ],
             "answer": [
               0,
@@ -55012,8 +55014,8 @@ window.MVQuizBank = {
               2,
               3
             ],
-            "hint": "Each step strictly drops a property: a uniform Lipschitz constant; an exponent in the Hölder bound; the AC inequality on disjoint intervals.",
-            "explain": "Lipschitz is Hölder with $\\alpha=1$, strictly stronger than $\\alpha<1$. Hölder $C^{0,\\alpha}$ on a compact interval implies uniform continuity and AC: cover the AC test windows by $\\le \\sum (b_k-a_k)^\\alpha \\le N^{1-\\alpha}\\delta^\\alpha$ which $\\to 0$ as $\\delta\\to 0$. AC $\\Rightarrow$ BV always (the AC bound forces finite total variation). The reverse implications all fail: BV $\\not\\Rightarrow$ AC (Cantor function), AC $\\not\\Rightarrow$ Hölder for any specific $\\alpha$, and Hölder $\\alpha<1$ $\\not\\Rightarrow$ Lipschitz. Continuous is omitted from this chain because it is incomparable with BV (a step function is BV but not continuous; $x\\sin(1/x)$ is continuous but not BV)."
+            "hint": "Each step strictly drops a property: continuity of $f'$; uniform bound on the difference quotient; the AC inequality on disjoint intervals; closing the gap with the Cantor function.",
+            "explain": "On $[a,b]$ each containment is strict. $C^1 \\subsetneq$ Lipschitz: $f'$ continuous on a compact is bounded, so $f$ is Lipschitz with constant $\\sup|f'|$; $f(x)=|x|$ is Lipschitz but not $C^1$. Lipschitz $\\subsetneq$ AC: the AC sum is bounded by $L\\sum(b_k-a_k)<L\\delta$; $f(x)=\\sqrt{x}$ on $[0,1]$ is AC (its derivative $1/(2\\sqrt x)$ is in $L^1$) but not Lipschitz. AC $\\subsetneq$ BV $\\cap C$: AC functions are uniformly continuous and have finite variation (split $[a,b]$ into $\\lceil (b-a)/\\delta\\rceil$ chunks; the AC sum bounds the variation on each); the Cantor function is in BV $\\cap C$ but not AC. Hölder $C^{0,\\alpha}$ for $\\alpha<1$ is deliberately omitted: the Cantor function is $\\alpha$-Hölder for $\\alpha=\\log 2/\\log 3$ yet not AC, so Hölder and AC are incomparable on $[a,b]$ — Hölder does NOT imply AC (only $\\alpha=1$, i.e. Lipschitz, does)."
           }
         ]
       },
@@ -55922,10 +55924,10 @@ window.MVQuizBank = {
           },
           {
             "type": "numeric",
-            "q": "On the weight-$m$ space of $V_n$, the operator $EF$ acts as the scalar $\\tfrac{(n-m)(n+m+2)}{4}$. For $n=4$, $m=0$, what is this scalar?",
+            "q": "On the weight-$m$ space of $V_n$, the operator $EF$ acts as the scalar $\\tfrac{(n+m)(n-m+2)}{4}$. For $n=4$, $m=0$, what is this scalar?",
             "answer": 6,
             "tol": 0.000001,
-            "explain": "$\\tfrac{(4-0)(4+0+2)}{4}=\\tfrac{4\\cdot 6}{4}=6$."
+            "explain": "$\\tfrac{(4+0)(4-0+2)}{4}=\\tfrac{4\\cdot 6}{4}=6$. (Sanity check: $FE$ acts by $\\tfrac{(n-m)(n+m+2)}{4} = 6$ as well at $m=0$, so $EF - FE = 0 = H$ on the weight-$0$ space, consistent with $[E,F]=H$.)"
           }
         ],
         "hard": [
@@ -57458,7 +57460,7 @@ window.MVQuizBank = {
               "$\\mathrm{SO}(3)$"
             ],
             "answer": 3,
-            "explain": "$\\mathrm{SO}(3)$ is not a subgroup of $\\mathrm{USp}(2)\\cong\\mathrm{SU}(2)$ in the relevant sense for rank-2 motives. The Sato–Tate groups for rank-2 motives are $\\mathrm{SU}(2)$ (non-CM), $N(T)$ (CM over $\\mathbb{Q}$), or $U(1)$ (CM over the base field); $\\mathrm{SO}(3)$ appears for symmetric-square motives, not rank-2."
+            "explain": "The Sato–Tate group of a rank-2 motive sits inside $\\mathrm{USp}(2)\\cong\\mathrm{SU}(2)$, so the only candidates are $\\mathrm{SU}(2)$ (non-CM), $N(T)$ (CM over $\\mathbb{Q}$), and $U(1)$ (CM over the base field). $\\mathrm{SO}(3)\\cong\\mathrm{SU}(2)/\\{\\pm I\\}$ is a quotient of $\\mathrm{SU}(2)$, not a subgroup, and it acts on a 3-dimensional representation; it does arise as a Sato–Tate group — but for rank-3 symmetric-square motives, not for rank 2."
           },
           {
             "type": "numeric",
@@ -58925,7 +58927,7 @@ window.MVQuizBank = {
               "Not pseudoconvex"
             ],
             "right": [
-              "polydisk $\\mathbb{D}^n$ — Levi form vanishes on the edge components but is $\\ge 0$",
+              "polydisk $\\mathbb{D}^n$ — Levi form is identically zero on each smooth face (corners are non-smooth)",
               "ball $\\mathbb{B}^n$ — Levi form is everywhere strictly positive on the boundary",
               "Hartogs figure — Levi form has a negative direction on the inner edge"
             ],
@@ -58934,7 +58936,7 @@ window.MVQuizBank = {
               0,
               2
             ],
-            "explain": "Strict pseudoconvexity is the ball — the Levi form is $\\partial\\bar\\partial(|z|^2 - 1) = $ identity, restricted to the tangent. The polydisk is weakly pseudoconvex: along the smooth faces the Levi form is non-negative but it degenerates on the edges. The Hartogs figure is not pseudoconvex precisely because the inner-edge boundary curves the wrong way."
+            "explain": "Strict pseudoconvexity is the ball — the Levi form is $\\partial\\bar\\partial(|z|^2 - 1) = $ identity, restricted to the tangent. The polydisk is weakly pseudoconvex: on each smooth face $\\{|z_j|=1, |z_k|<1\\text{ for }k\\ne j\\}$ the Levi form is identically zero (the only non-zero entry of $\\partial\\bar\\partial\\rho_j$ sits in the $(j,j)$ slot, which is exactly the normal direction excluded from $T^{1,0}\\partial\\Omega$); the corners (edges) are non-smooth so Levi form is not defined there. The Hartogs figure is not pseudoconvex precisely because the inner-edge boundary curves the wrong way."
           }
         ]
       },
@@ -61135,7 +61137,7 @@ window.MVQuizBank = {
             "q": "For an elliptic curve $E/\\mathbb{Q}$ with multiplicative reduction at $p = 11$ and good reduction at every other prime, the conductor exponent at $11$ is $f_{11} = 1$. Compute the conductor $N(E)$.",
             "answer": 11,
             "tol": 0,
-            "explain": "$N(E) = \\prod_{p\\ \\text{bad}} p^{f_p} = 11^1 = 11$. This is the conductor of the curve $y^2 + y = x^3 - x^2$ (Cremona 11a1), the smallest-conductor elliptic curve over $\\mathbb{Q}$."
+            "explain": "$N(E) = \\prod_{p\\ \\text{bad}} p^{f_p} = 11^1 = 11$. The conductor $11$ is the smallest known for any elliptic curve over $\\mathbb{Q}$, achieved by the isogeny class 11a; the specific model $y^2 + y = x^3 - x^2$ is Cremona 11a3 (the optimal curve in this class is 11a1)."
           },
           {
             "type": "mcq",
@@ -62883,7 +62885,7 @@ window.MVQuizBank = {
               "Graph isomorphism"
             ],
             "answer": 1,
-            "explain": "Shi–Malik (2000) showed: minimise $\\mathrm{Ncut}(S,\\bar S)$ over partitions $S\\subset V$ is NP-hard; relax the $\\pm 1$ partition vector to a real vector orthogonal to $D^{1/2}\\mathbf{1}$, and the optimum is exactly $\\lambda_2(L_{\\mathrm{sym}})$ achieved by the Fiedler vector.",
+            "explain": "Shi–Malik (2000) showed: minimise $\\mathrm{Ncut}(S,\\bar S)$ over partitions $S\\subset V$ is NP-hard; relax the discrete volume-weighted indicator $f_i \\in \\{\\sqrt{\\operatorname{vol}(\\bar S)/\\operatorname{vol}(S)}, -\\sqrt{\\operatorname{vol}(S)/\\operatorname{vol}(\\bar S)}\\}$ to any real vector orthogonal to $D^{1/2}\\mathbf{1}$, and the optimum is exactly $\\lambda_2(L_{\\mathrm{sym}})$ achieved by the Fiedler vector. (The simpler $\\pm 1$ relaxation is the RatioCut + unnormalised $L$ story.)",
             "hint": "The combinatorial-to-continuous bridge in spectral clustering."
           }
         ]
@@ -63722,7 +63724,7 @@ window.MVQuizBank = {
               "$\\pi$ has no universal property"
             ],
             "answer": 1,
-            "explain": "$\\pi$ is a bijection on geometric points and any scheme-valued map from $\\mathcal{X}$ factors uniquely through $\\pi$. But the fiber of $\\pi$ over a stacky point is a classifying stack $B\\mathrm{Aut}$, so automorphism data is discarded; e.g. $\\mathrm{CH}^*(\\mathcal{M}_{1,1})_{\\mathbb{Z}}=\\mathbb{Z}[t]/(12t)\\ne \\mathrm{CH}^*(\\mathbb{A}^1)$."
+            "explain": "$\\pi$ is a bijection on geometric points and any scheme-valued map from $\\mathcal{X}$ factors uniquely through $\\pi$. But the fiber of $\\pi$ over a stacky point is a classifying stack $B\\mathrm{Aut}$, so automorphism data is discarded; e.g. $\\mathrm{CH}^*(\\mathcal{M}_{1,1})_{\\mathbb{Z}}=\\mathbb{Z}\\oplus(\\mathbb{Z}/12)\\cdot\\lambda$ (equivalently $\\mathbb{Z}[t]/(12t,\\,t^2)$, since $\\mathcal{M}_{1,1}$ is $1$-dimensional) $\\ne\\mathrm{CH}^*(\\mathbb{A}^1)=\\mathbb{Z}$."
           },
           {
             "type": "numeric",
@@ -63757,7 +63759,7 @@ window.MVQuizBank = {
             ],
             "answer": 0,
             "hint": "Coarse spaces have different integral classes at orbifold points.",
-            "explain": "The Hodge line bundle $\\lambda$ on $\\mathcal{M}_{1,1}$ satisfies $12\\lambda=0$ in $\\mathrm{Pic}(\\mathcal{M}_{1,1})$ (reflecting the $\\mu_2$ automorphism at every point and the $\\mu_6$ at $j=0$), giving $\\mathrm{CH}^1(\\mathcal{M}_{1,1})\\cong\\mathbb{Z}/12$. Meanwhile $\\mathrm{CH}^1(\\mathbb{A}^1)=0$, so $\\pi^*$ is not an isomorphism integrally."
+            "explain": "The Hodge line bundle $\\lambda$ on $\\mathcal{M}_{1,1}$ satisfies $12\\lambda=0$ in $\\mathrm{Pic}(\\mathcal{M}_{1,1})$ — Mumford's computation: the discriminant section of $\\lambda^{\\otimes 12}$ vanishes nowhere on $\\mathcal{M}_{1,1}$ (it cuts out the cusp on $\\overline{\\mathcal{M}_{1,1}}$), so $12\\lambda$ is trivial and $\\mathrm{Pic}(\\mathcal{M}_{1,1})=\\mathrm{CH}^1(\\mathcal{M}_{1,1})\\cong\\mathbb{Z}/12$. Meanwhile $\\mathrm{CH}^1(\\mathbb{A}^1)=0$, so $\\pi^*$ is not an isomorphism integrally."
           },
           {
             "type": "numeric",
@@ -64230,7 +64232,7 @@ window.MVQuizBank = {
         "questions": [
           {
             "type": "mcq",
-            "q": "Under Girsanov with density $Z_T=\\exp(\\int_0^T\\theta_s\\,dB_s-\\tfrac{1}{2}\\int_0^T\\theta_s^2\\,ds)$, the process $\\tilde B_t=B_t-\\int_0^t\\theta_s\\,ds$ is:",
+            "q": "Under Girsanov (Shreve sign convention) with density $Z_T=\\exp(-\\int_0^T\\theta_s\\,dB_s-\\tfrac{1}{2}\\int_0^T\\theta_s^2\\,ds)$, the process $\\tilde B_t=B_t+\\int_0^t\\theta_s\\,ds$ is:",
             "choices": [
               "A martingale under $\\mathbb{P}$",
               "A Brownian motion under $\\mathbb{Q}=Z_T\\,d\\mathbb{P}$",
@@ -64243,16 +64245,16 @@ window.MVQuizBank = {
           },
           {
             "type": "mcq",
-            "q": "Why is the exponential martingale $Z_t=\\exp(\\int_0^t\\theta_s\\,dB_s-\\tfrac{1}{2}\\int_0^t\\theta_s^2\\,ds)$ a martingale (under Novikov)?",
+            "q": "Why is the exponential martingale $Z_t=\\exp(-\\int_0^t\\theta_s\\,dB_s-\\tfrac{1}{2}\\int_0^t\\theta_s^2\\,ds)$ a martingale (under Novikov)?",
             "choices": [
               "Because the integrand is bounded",
-              "Because Itô's formula gives $dZ_t=Z_t\\theta_t\\,dB_t$, with no drift",
+              "Because Itô's formula gives $dZ_t=-Z_t\\theta_t\\,dB_t$, with no drift",
               "Because Brownian motion has independent increments",
               "By the optional stopping theorem"
             ],
             "answer": 1,
             "hint": "Apply Itô to $Z_t$; the $-\\tfrac{1}{2}\\theta^2\\,dt$ in the exponent kills the Itô correction.",
-            "explain": "Itô on $\\log Z_t$ gives $dZ_t=Z_t\\theta_t\\,dB_t$ — drift-free. Under Novikov's condition $\\mathbb{E}\\exp(\\tfrac{1}{2}\\int\\theta^2\\,ds)<\\infty$, this local martingale is a true martingale."
+            "explain": "Itô on $\\log Z_t$ gives $dZ_t=-Z_t\\theta_t\\,dB_t$ — drift-free. Under Novikov's condition $\\mathbb{E}\\exp(\\tfrac{1}{2}\\int\\theta^2\\,ds)<\\infty$, this local martingale is a true martingale."
           },
           {
             "type": "mcq",
@@ -65258,13 +65260,13 @@ window.MVQuizBank = {
             "q": "Darboux's theorem states that around every point of $(M^{2n},\\omega)$ there is a chart in which $\\omega$ equals which canonical form?",
             "choices": [
               "$\\sum_i x_i\\,dx_i$",
-              "$\\sum_i dp_i\\wedge dq_i$",
+              "$\\sum_i dq_i\\wedge dp_i$",
               "$dx_1\\wedge dx_2\\wedge\\cdots\\wedge dx_{2n}$",
               "$\\sum_i p_i\\,dq_i$"
             ],
             "answer": 1,
             "hint": "Pairs of coordinates wedged together.",
-            "explain": "Darboux: there exist local coordinates $(p_1,\\dots,p_n,q_1,\\dots,q_n)$ in which $\\omega = \\sum_{i=1}^n dp_i\\wedge dq_i$. The form $\\sum p_i\\,dq_i$ is the Liouville/tautological 1-form whose exterior derivative is the canonical $\\omega$ on $T^*N$."
+            "explain": "Darboux: there exist local coordinates $(p_1,\\dots,p_n,q_1,\\dots,q_n)$ in which $\\omega = \\sum_{i=1}^n dq_i\\wedge dp_i$. The form $\\sum p_i\\,dq_i$ is the Liouville/tautological 1-form whose exterior derivative (up to sign) is the canonical $\\omega$ on $T^*N$."
           },
           {
             "type": "mcq",
@@ -65284,7 +65286,7 @@ window.MVQuizBank = {
             "q": "Which of the following is NOT a corollary of Darboux's theorem?",
             "choices": [
               "Every symplectic manifold of dimension $2$ is locally area-preserving-equivalent to $(\\mathbb{R}^2, dx\\wedge dy)$.",
-              "Every symplectic chart can be chosen so that $\\omega = \\sum dp_i\\wedge dq_i$ on its domain.",
+              "Every symplectic chart can be chosen so that $\\omega = \\sum dq_i\\wedge dp_i$ on its domain.",
               "Every closed symplectic manifold is symplectomorphic to a torus.",
               "There is no local symplectic curvature invariant."
             ],
@@ -65346,13 +65348,13 @@ window.MVQuizBank = {
             "q": "On a symplectic manifold the Poisson bracket of $f,g\\in C^\\infty(M)$ is defined as...",
             "choices": [
               "$\\{f,g\\} = fg - gf$",
-              "$\\{f,g\\} = \\omega(X_f, X_g)$",
+              "$\\{f,g\\} = \\omega(X_g, X_f)$",
               "$\\{f,g\\} = df\\wedge dg$",
               "$\\{f,g\\} = \\nabla f\\cdot\\nabla g$"
             ],
             "answer": 1,
             "hint": "Plug the two Hamiltonian vector fields into $\\omega$.",
-            "explain": "By definition $\\{f,g\\} = \\omega(X_f,X_g) = X_f(g) = -X_g(f)$. The first equality is the definition; the others use $\\iota_{X_f}\\omega = df$. The bracket of ordinary functions is identically zero — they need to come from $\\omega$ to interact."
+            "explain": "By definition $\\{f,g\\} = \\omega(X_g,X_f) = X_f(g) = -X_g(f)$. Using $\\iota_{X_g}\\omega = dg$ and antisymmetry of $\\omega$: $\\omega(X_g,X_f) = -\\omega(X_f,X_g) = -df(X_g) = -X_g(f) = X_f(g)$. The bracket of ordinary functions (commutative product) is identically zero — they need to come from $\\omega$ to interact."
           },
           {
             "type": "mcq",
@@ -65409,7 +65411,7 @@ window.MVQuizBank = {
             ],
             "answer": 1,
             "hint": "Compute $\\dim$ and check $\\omega$ on tangent vectors of the zero section.",
-            "explain": "The zero section has dimension $\\dim N = n = \\frac12\\dim T^*N$, and its tangent vectors all have momentum coordinate zero, so $\\omega = \\sum dp_i\\wedge dq_i$ vanishes on them. More generally the graph of any closed 1-form $\\alpha\\in\\Omega^1(N)$ is a Lagrangian in $T^*N$."
+            "explain": "The zero section has dimension $\\dim N = n = \\frac12\\dim T^*N$, and its tangent vectors all have momentum coordinate zero, so $\\omega = \\sum dq_i\\wedge dp_i$ vanishes on them. More generally the graph of any closed 1-form $\\alpha\\in\\Omega^1(N)$ is a Lagrangian in $T^*N$."
           },
           {
             "type": "mcq",
@@ -66858,7 +66860,7 @@ window.MVQuizBank = {
               "constructing the étale fundamental group of a curve."
             ],
             "answer": 0,
-            "explain": "The Billera–Holmes–Vogtmann space of phylogenetic trees is naturally a tropical Grassmannian (Speyer–Sturmfels). Other applications include scheduling / shortest-path optimization (Hopfield-style $\\min$-plus algebras) and economic auctions.",
+            "explain": "The Billera–Holmes–Vogtmann space of phylogenetic trees is naturally a tropical Grassmannian (Speyer–Sturmfels). Other applications include scheduling / shortest-path optimization (Bellman–Ford and Floyd–Warshall are min-plus matrix powers) and economic auctions (Baldwin–Klemperer).",
             "hint": "Phylogenetics: discrete tree distances form a tropical structure."
           }
         ]

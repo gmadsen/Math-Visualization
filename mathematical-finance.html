@@ -279,7 +279,7 @@ function normCdf(x){
 <section id="black-scholes-model">
 <h2>1. The Black–Scholes model</h2>
 
-<p>The 1973 model of Black, Scholes, and Merton was the first arbitrage-free pricing theory rigorous enough to be calibrated against quoted market prices. It rests on three structural choices: (i) the asset $S_t$ follows <strong>geometric Brownian motion</strong> with constant drift $\mu$ and volatility $\sigma$, (ii) trading is frictionless and continuous in time, (iii) there is a riskless bond earning rate $r$.</p>
+<p>The 1973 model of Black, Scholes, and Merton was the first arbitrage-free pricing theory rigorous enough to be calibrated against quoted market prices. It rests on three structural choices: (i) the asset $S_t$ follows <strong>geometric Brownian motion</strong> with constant drift $\mu$ and volatility $\sigma$, (ii) trading is frictionless and continuous in time, (iii) there is a riskless bond earning rate $r$, and (iv) the asset pays no dividends — with a continuous dividend yield $q$ the formula becomes $C = Se^{-qT}\Phi(d_1) - Ke^{-rT}\Phi(d_2)$ with $r$ replaced by $r-q$ in $d_{1,2}$.</p>
 
 <p>The driving SDE is
 $$dS_t \;=\; \mu\,S_t\,dt + \sigma\,S_t\,dB_t, \qquad S_0=s.$$
@@ -1120,8 +1120,8 @@ with $\mathcal{L}^u V = b\cdot\nabla V + \tfrac{1}{2}\mathrm{tr}\bigl(\sigma\sig
     with $B^{(1)},B^{(2)}$ correlated. Two Brownian drivers, one tradable: the market is incomplete and the volatility-risk premium is a free parameter calibrated to market prices.</li>
   <li><strong>Jump-diffusion (Merton 1976).</strong> Add a compound Poisson process: $dS_t/S_{t-} = \mu\,dt+\sigma\,dB_t + (J-1)\,dN_t$, where $N$ is Poisson with rate $\lambda$ and $J$ is the random jump multiplier. Captures fat tails and crash risk in a tractable way — the resulting PDE has an integral term but pricing remains closed-form for European options.</li>
   <li><strong>Local volatility (Dupire 1994).</strong> Take $\sigma_{\mathrm{loc}}(t,S)$ as a deterministic function of state, chosen to <em>exactly fit</em> the entire implied surface via the Dupire formula
-    $$\sigma_{\mathrm{loc}}^2(K,T) \;=\; \frac{2\,\partial_T C(K,T)}{K^2\,\partial_{KK}C(K,T)}.$$
-    No new randomness, but the surface determines the local dynamics — and the model is famously bad at predicting how the surface itself evolves.</li>
+    $$\sigma_{\mathrm{loc}}^2(K,T) \;=\; \frac{2\,\partial_T C(K,T)}{K^2\,\partial_{KK}C(K,T)}$$
+    (stated here under $r=q=0$; the general form has $\partial_T C + (r-q)K\,\partial_K C + qC$ in the numerator). No new randomness, but the surface determines the local dynamics — and the model is famously bad at predicting how the surface itself evolves.</li>
 </ul>
 
 <div class="widget" id="w-vol-smile">

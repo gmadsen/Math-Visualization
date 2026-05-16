@@ -452,32 +452,39 @@ function drawNode(svg, x, y, label, opts={}){
       ]
     },
     conic: {
-      title: 'Tropical conic: 3 trivalent vertices, 6 unbounded rays, 3 internal edges',
-      vertices: [{id:'a',x:240,y:240,name:'A'},{id:'b',x:480,y:240,name:'B'},{id:'c',x:360,y:120,name:'C'}],
+      title: 'Smooth tropical conic: 4 trivalent vertices, 6 unbounded rays, 3 internal edges',
+      // Dual to the unit triangulation of Δ_2 into 4 small triangles. Vertex C is the central one
+      // (dual to the inverted central triangle); A, B, D sit on the three boundary triangles.
+      // Direction vectors are in math (y-up) coords; SVG end coords use the y-down convention.
+      vertices: [{id:'a',x:240,y:300,name:'A'},{id:'b',x:540,y:180,name:'B'},{id:'d',x:360,y:60,name:'D'},{id:'c',x:360,y:180,name:'C'}],
       edges: [
-        // internal edges (weight 1 each), direction is from THIS vertex
-        {from:'a', to:'b', dir:[1,0],   w:1, end:[480,240]},
-        {from:'b', to:'a', dir:[-1,0],  w:1, end:[240,240]},
-        {from:'a', to:'c', dir:[1,-1],  w:1, end:[360,120]},  // from a=(240,240), c=(360,120) -> primitive (1,-1)
-        {from:'c', to:'a', dir:[-1,1],  w:1, end:[240,240]},
-        {from:'b', to:'c', dir:[-1,-1], w:1, end:[360,120]},
-        {from:'c', to:'b', dir:[1,1],   w:1, end:[480,240]},
-        // 6 unbounded rays
-        {from:'a', to:null, dir:[-1,0], w:1, end:[60,240]},
-        {from:'a', to:null, dir:[0,1],  w:1, end:[240,360]},
-        {from:'b', to:null, dir:[1,0],  w:1, end:[660,240]},
-        {from:'b', to:null, dir:[0,1],  w:1, end:[480,360]},
-        {from:'c', to:null, dir:[-1,-1],w:1, end:[260,20]},
-        {from:'c', to:null, dir:[1,-1], w:1, end:[460,20]}
+        // 3 internal edges (each appears twice, once per endpoint)
+        {from:'c', to:'a', dir:[-1,-1], w:1, end:[240,300]},
+        {from:'a', to:'c', dir:[1,1],   w:1, end:[360,180]},
+        {from:'c', to:'b', dir:[1,0],   w:1, end:[540,180]},
+        {from:'b', to:'c', dir:[-1,0],  w:1, end:[360,180]},
+        {from:'c', to:'d', dir:[0,1],   w:1, end:[360,60]},
+        {from:'d', to:'c', dir:[0,-1],  w:1, end:[360,180]},
+        // 6 unbounded rays (2 from each of A, B, D)
+        {from:'a', to:null, dir:[-1,0], w:1, end:[60,300]},
+        {from:'a', to:null, dir:[0,-1], w:1, end:[240,360]},
+        {from:'b', to:null, dir:[0,-1], w:1, end:[540,360]},
+        {from:'b', to:null, dir:[1,1],  w:1, end:[660,60]},
+        {from:'d', to:null, dir:[-1,0], w:1, end:[180,60]},
+        {from:'d', to:null, dir:[1,1],  w:1, end:[540,-120]}
       ]
     },
     triple: {
-      title: 'Single trivalent vertex, weight-3 ray balanced by two weight-1 rays',
+      title: 'Single trivalent vertex, weight-3 ray balanced by two weight-1 rays (from f = x³ + y + 1)',
+      // Newton polygon = triangle (0,0),(3,0),(0,1). Primitive outward normals:
+      //   bottom edge (lattice length 3) → ray (0,-1) weight 3
+      //   left edge   (lattice length 1) → ray (-1,0) weight 1
+      //   hypotenuse  (lattice length 1) → ray (1,3)  weight 1
       vertices: [{id:'v',x:360,y:180,name:'V'}],
       edges: [
-        {from:'v', to:null, dir:[1,0],   w:3, end:[640,180]},
-        {from:'v', to:null, dir:[-1,0],  w:1, end:[180,180]},
-        {from:'v', to:null, dir:[-2,0],  w:1, end:[80,180]}
+        {from:'v', to:null, dir:[0,-1], w:3, end:[360,360]},
+        {from:'v', to:null, dir:[-1,0], w:1, end:[60,180]},
+        {from:'v', to:null, dir:[1,3],  w:1, end:[440,-60]}
       ]
     },
     bad: {
@@ -708,7 +715,7 @@ function drawNode(svg, x, y, label, opts={}){
 
 <p><strong>Bézout in disguise.</strong> Two plane curves of degrees $d_1, d_2$ in $\mathbb{P}^2(\mathbb{C})$ meet in $d_1 d_2$ points (counted with multiplicity). Tropically, the same count emerges as a <em>mixed volume</em>:</p>
 <p style="text-align:center">$|C_1 \cap C_2| \;=\; \mathrm{MV}\bigl(\mathrm{Newt}(f_1), \mathrm{Newt}(f_2)\bigr).$</p>
-<p>For two curves of degrees $d_1,d_2$ both inscribed in a triangle, $\mathrm{MV}(\Delta_{d_1}, \Delta_{d_2}) = d_1 d_2$ — recovering classical Bézout. The far-reaching <strong>Bernstein–Kushnirenko theorem</strong> generalises this: the number of solutions in $(\mathbb{C}^*)^n$ of a generic system $f_1 = \cdots = f_n = 0$ equals the mixed volume $n!\,\mathrm{MV}(\mathrm{Newt}(f_1), \ldots, \mathrm{Newt}(f_n))$.</p>
+<p>For two curves of degrees $d_1,d_2$ both inscribed in a triangle, $\mathrm{MV}(\Delta_{d_1}, \Delta_{d_2}) = d_1 d_2$ — recovering classical Bézout. The far-reaching <strong>Bernstein–Kushnirenko theorem</strong> generalises this: the number of solutions in $(\mathbb{C}^*)^n$ of a generic system $f_1 = \cdots = f_n = 0$ equals the mixed volume $\mathrm{MV}(\mathrm{Newt}(f_1), \ldots, \mathrm{Newt}(f_n))$ (using the normalized convention in which $\mathrm{MV}(\Delta_d, \ldots, \Delta_d) = d^n$, consistent with $\mathrm{MV}(\Delta_{d_1}, \Delta_{d_2}) = d_1 d_2$ above).</p>
 
 <p><strong>The stability problem.</strong> Naive set-theoretic intersection of tropical curves can be 1-dimensional: two tropical lines that share an unbounded ray meet along the entire ray, not in a point. The fix is to translate one curve generically and take a limit:</p>
 <p style="text-align:center">$C_1 \cdot_{\mathrm{stab}} C_2 \;:=\; \lim_{\varepsilon \to 0^+}\;C_1 \,\cap\, (C_2 + \varepsilon v),$</p>
@@ -1041,7 +1048,7 @@ function drawNode(svg, x, y, label, opts={}){
 
 <p>The signature accomplishment of tropical geometry is <strong>Mikhalkin's correspondence theorem</strong> (2005): the number of complex algebraic curves of degree $d$ and geometric genus $g$ in $\mathbb{P}^2$ passing through $3d - 1 + g$ generic points equals the number of tropical curves of the same combinatorial type passing through the tropicalized points, weighted by an explicit lattice multiplicity. Concretely, for genus zero,</p>
 <p style="text-align:center">$N_d \;=\; \sum_{\substack{T \text{ trop. curve through} \\ 3d-1 \text{ generic points}}} \mu(T),$</p>
-<p>where $\mu(T) = \prod_{v} \mathrm{mult}(v)$ is the product over trivalent vertices of $\det(u_1, u_2)$ (any two of the three primitive outgoing directions). For $d=1$ there is one tropical line through any 2 points: $N_1 = 1$. For $d=2$ there are tropical conics through any $5$ generic points, total weight $1$: $N_2 = 1$. For $d=3,4$: $N_3 = 12, N_4 = 620$. The combinatorial computation tracks the holomorphic count exactly.</p>
+<p>where $\mu(T) = \prod_{v} \mathrm{mult}(v)$ is the product over trivalent vertices of $|\det(u_1, u_2)|$ (any two of the three primitive outgoing directions; the absolute value makes the count orientation-independent). For $d=1$ there is one tropical line through any 2 points: $N_1 = 1$. For $d=2$ there are tropical conics through any $5$ generic points, total weight $1$: $N_2 = 1$. For $d=3,4$: $N_3 = 12, N_4 = 620$. The combinatorial computation tracks the holomorphic count exactly.</p>
 
 <div class="widget" id="w-mikhalkin">
   <div class="hd"><div class="ttl">Mikhalkin counts $N_d$</div><div class="hint">slide $d$ — see required points $3d-1$ and the GW count $N_d$ from the tropical sum</div></div>
@@ -1110,8 +1117,8 @@ function drawNode(svg, x, y, label, opts={}){
 <p>Tropical mathematics applies broadly:</p>
 <ul>
   <li><strong>Phylogenetics.</strong> The Billera–Holmes–Vogtmann space of phylogenetic trees on $n$ taxa is a fan in tropical projective space — the metric on tree space is the tropical metric. Speyer–Sturmfels identify it with the tropical Grassmannian $\mathrm{Gr}(2,n)^{\mathrm{trop}}$.</li>
-  <li><strong>Combinatorial optimization.</strong> Shortest-path algorithms, scheduling, and certain economic equilibria are computed in $(\min,+)$ algebra; Hopfield-Tank min-plus networks turn convex optimization into matrix products.</li>
-  <li><strong>Auctions and matching markets.</strong> Tropical methods underpin equilibrium analysis of multi-unit auctions (Tomas Klimpel, Elizabeth Baldwin, Paul Klemperer).</li>
+  <li><strong>Combinatorial optimization.</strong> Shortest-path algorithms, scheduling, and certain economic equilibria are computed in $(\min,+)$ algebra; the Bellman–Ford and Floyd–Warshall recurrences are literally min-plus matrix powers, and dynamic programming is tropical linear algebra in disguise.</li>
+  <li><strong>Auctions and matching markets.</strong> Tropical methods underpin equilibrium analysis of multi-unit auctions (Baldwin–Klemperer, &ldquo;Understanding preferences,&rdquo; <em>Econometrica</em> 2019).</li>
 </ul>
 
 <!-- callback-auto-begin -->

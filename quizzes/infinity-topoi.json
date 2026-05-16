@@ -255,12 +255,12 @@
           "q": "Hypercompletion is needed (i.e. $\\mathcal{X} \\neq \\mathcal{X}^\\wedge$) precisely when which property of the base fails?",
           "choices": [
             "When the base has finite cohomological dimension — finite-dim bases ARE the bad case.",
-            "When the base has infinite cohomological / Krull dimension — pathologies arise from unbounded-Postnikov-tower behavior.",
+            "When the base has infinite covering / cohomological dimension — pathologies arise from unbounded-Postnikov-tower behavior.",
             "When the base is non-Noetherian.",
             "When the base is non-affine."
           ],
           "answer": 1,
-          "explain": "The standard pathology: bases of infinite cohomological / Krull dimension produce $\\infty$-connective morphisms that are not equivalences. Concretely, $\\mathrm{Sh}_\\infty(\\Spec(\\prod_n k_n))$ for an infinite product of fields fails Whitehead. Bases of finite covering dimension (smooth manifolds, Noetherian schemes of finite Krull dimension) automatically have hypercomplete $\\infty$-toposes.",
+          "explain": "The standard pathology: bases of infinite covering / cohomological dimension produce $\\infty$-connective morphisms that are not equivalences. Concretely, $\\mathrm{Sh}_\\infty(\\Spec(\\prod_n k_n))$ for an infinite product of fields fails Whitehead — note this is a Krull-dimension-$0$ ring (every prime corresponds to an ultrafilter on $\\mathbb{N}$ and is maximal), so the pathology is genuinely about covering / cohomological dimension, not Krull dimension. Bases of finite covering dimension (smooth manifolds, Noetherian schemes of finite Krull dimension) automatically have hypercomplete $\\infty$-toposes — the implication finite-Krull $\\Rightarrow$ hypercomplete is real, but the converse direction (infinite-Krull $\\Rightarrow$ non-hypercomplete) is false.",
           "hint": "Hypercompletion's failure is about Postnikov-tower divergence — what makes Postnikov towers fail to converge?"
         },
         {
@@ -415,10 +415,10 @@
             "It is hypercomplete.",
             "Its 0-truncation $\\tau_{\\leq 0}\\mathrm{Sh}_\\infty(X_\\mathrm{ét})^\\wedge$ recovers the classical étale 1-topos $\\mathrm{Sh}_\\mathrm{ét}(X)$.",
             "It is the natural home for derived étale cohomology and $\\ell$-adic sheaves.",
-            "By the Lurie–Galois theorem, it determines $X$ up to a profinite Galois twist (étale homotopy type)."
+            "By the étale-homotopy-type reconstruction theorem (Artin–Mazur / Hoyois shape / Lurie SAG), it determines $X$ up to a profinite Galois twist."
           ],
           "answer": [0, 1, 2, 3],
-          "explain": "All four hold. (1) Finite Krull dimension is enough for hypercompletion to be automatic / harmless. (2) Truncation always recovers the 1-topos. (3) Derived étale theory naturally lives here. (4) Lurie's reconstruction (HTT 7.3 + Galois) recovers $X$ from $\\mathrm{Sh}_\\infty(X_\\mathrm{ét})^\\wedge$ up to Galois twist — étale homotopy type in modern language.",
+          "explain": "All four hold. (1) Finite Krull dimension is enough for hypercompletion to be automatic / harmless. (2) Truncation always recovers the 1-topos. (3) Derived étale theory naturally lives here. (4) The étale-homotopy-type reconstruction (Artin–Mazur LNM 100, 1969; Hoyois, J. Pure Appl. Algebra 2018; Lurie SAG) recovers $X$ from $\\mathrm{Sh}_\\infty(X_\\mathrm{ét})^\\wedge$ up to profinite Galois twist — étale homotopy type in modern language. (HTT §7.3 itself is proper base change, not the reconstruction theorem.)",
           "hint": "All four are core facts about the étale $\\infty$-topos."
         }
       ]

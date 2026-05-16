@@ -276,9 +276,9 @@ function drawNode(svg, x, y, label, opts={}){
 
 <p>Why is the dual-number axis the right "tangent direction"? Functorially, a $D$-point of any moduli space $\mathcal{M}$ is a pair (a $k$-point $[X_0]$, plus a tangent vector at $[X_0]$). So $\mathrm{Def}_{X_0}(D)$ literally <em>is</em> the tangent space to the moduli problem at $X_0$ — provided we have a moduli space at all. (Hartshorne, Sernesi, and Illusie all open with this observation; it is the gateway to every later structure theorem.)</p>
 
-<p>The simplest non-example shows what flatness does. Take $X_0 = \Spec\,k[x,y]/(xy)$, the node. The <strong>trivial deformation</strong> is $X_0 \times_k \Spec\,D = \Spec\,k[x,y,\epsilon]/(xy, \epsilon^2)$ — a node with a fattened point glued to it but no actual smoothing. Replacing $xy$ by $xy - \epsilon$ gives a <em>different</em> deformation $\Spec\,k[x,y,\epsilon]/(xy - \epsilon, \epsilon^2)$, which is again flat over $D$ but now <em>not</em> equivalent to the trivial one — it is the first-order trace of smoothing the node to a hyperbola $xy = t$. Cohomology will see this as a non-zero class in $H^1(X_0, T_{X_0})$; the proof-scrubber below is the bridge.</p>
+<p>The simplest non-example shows what flatness does. Take $X_0 = \Spec\,k[x,y]/(xy)$, the node. The <strong>trivial deformation</strong> is $X_0 \times_k \Spec\,D = \Spec\,k[x,y,\epsilon]/(xy, \epsilon^2)$ — a node with a fattened point glued to it but no actual smoothing. Replacing $xy$ by $xy - \epsilon$ gives a <em>different</em> deformation $\Spec\,k[x,y,\epsilon]/(xy - \epsilon, \epsilon^2)$, which is again flat over $D$ but now <em>not</em> equivalent to the trivial one — it is the first-order trace of smoothing the node to a hyperbola $xy = t$. Deformation cohomology sees this as a non-zero class in $T^1_{X_0} = \mathrm{Ext}^1_{\mathcal{O}_{X_0}}(\Omega^1_{X_0}, \mathcal{O}_{X_0})$ (the local-to-global $T^1$, which for the affine singular $X_0$ is genuinely nonzero even though $H^1(X_0, T_{X_0})=0$); the proof-scrubber below is the bridge. <em>Caveat:</em> the identity $T^1_{X_0} = H^1(X_0, T_{X_0})$ holds for $X_0$ <strong>smooth</strong>; on a singular scheme one must use $T^1$ (or $\mathrm{Ext}^1(\Omega^1, \mathcal{O})$, or §5's $\mathrm{Ext}^1(L_{X_0/k}, \mathcal{O})$) — they only agree when $X_0$ is smooth.</p>
 
-<p><strong>Worked example:</strong> for $X_0 = \Spec\,A_0$ affine smooth over $k$, every first-order deformation is trivial — equivalently, $T^1_{X_0} = H^1(X_0, T_{X_0})$ vanishes for $X_0$ affine. The Čech computation behind this is exactly the obstruction-free patching the scrubber walks through. The interesting examples are global (projective) or singular.</p>
+<p><strong>Worked example:</strong> for $X_0 = \Spec\,A_0$ affine smooth over $k$, every first-order deformation is trivial — equivalently, $T^1_{X_0} = H^1(X_0, T_{X_0}) = 0$ in the smooth affine case. The Čech computation behind this is exactly the obstruction-free patching the scrubber walks through. The interesting examples are global (projective) or singular.</p>
 
 <div class="widget" id="w-fod-scrub"></div>
 <script>
@@ -314,7 +314,7 @@ function drawNode(svg, x, y, label, opts={}){
       {
         title: "5. Recovery: $\\mathrm{Def}_{X_0}(D) = H^1(X_0, T_{X_0})$",
         body: "Conversely, every Čech cocycle $\\theta_{ij}$ glues the trivial pieces $U_i \\times \\Spec\\,D$ into a flat $D$-scheme $X$ with special fibre $X_0$. Coboundaries shift the trivialisations; the bijection $\\{\\text{first-order deformations}\\}/{\\sim} \\;\\longleftrightarrow\\; H^1(X_0, T_{X_0})$ is canonical and the foundation of every later result.",
-        svgInner: "<text x='30' y='80' font-size='14' fill='var(--yellow)'>$\\mathrm{Def}_{X_0}(D) \\;\\xrightarrow{\\sim}\\; H^1(X_0, T_{X_0})$</text><text x='30' y='115' font-size='13' fill='var(--mute)'>natural $k$-vector-space structure inherited from $H^1$</text><text x='30' y='150' font-size='13' fill='var(--green)'>node example: $\\dim H^1 = 1$ (one direction of smoothing)</text><text x='30' y='185' font-size='13' fill='var(--mute)'>compatible with Hartshorne III.9 base-change of flatness</text>"
+        svgInner: "<text x='30' y='80' font-size='14' fill='var(--yellow)'>$\\mathrm{Def}_{X_0}(D) \\;\\xrightarrow{\\sim}\\; H^1(X_0, T_{X_0})$</text><text x='30' y='115' font-size='13' fill='var(--mute)'>natural $k$-vector-space structure inherited from $H^1$</text><text x='30' y='150' font-size='13' fill='var(--green)'>node example: $\\dim T^1 = 1$ (one smoothing direction; on the singular affine $X_0$, $H^1(X_0, T_{X_0})=0$, so the right invariant is $T^1=\\mathrm{Ext}^1(\\Omega^1, \\mathcal{O})=k$)</text><text x='30' y='185' font-size='13' fill='var(--mute)'>compatible with Hartshorne III.9 base-change of flatness</text>"
       }
     ]
   });
@@ -535,7 +535,7 @@ function drawNode(svg, x, y, label, opts={}){
 <li><strong>(H1)</strong> For surjections $A' \twoheadrightarrow A$ in $\mathrm{Art}_k$ and any $A'' \to A$, the natural map $\mathrm{Def}(A' \times_A A'') \to \mathrm{Def}(A') \times_{\mathrm{Def}(A)} \mathrm{Def}(A'')$ is surjective.</li>
 <li><strong>(H2)</strong> When $A = k$ and $A' \twoheadrightarrow k$ is a small extension, the map in (H1) is bijective.</li>
 <li><strong>(H3)</strong> $\dim_k \mathrm{Def}(D) < \infty$ — the tangent space of the functor is finite-dimensional.</li>
-<li><strong>(H4)</strong> The map in (H1) is bijective for arbitrary $A$ (this strengthens (H1)+(H2)). When (H4) holds along with (H1)–(H3), $\mathrm{Def}_{X_0}$ is <strong>pro-representable</strong> by a complete local Noetherian $k$-algebra $R$.</li>
+<li><strong>(H4)</strong> For every small extension $A' \twoheadrightarrow A$, the diagonal map $\mathrm{Def}(A' \times_A A') \to \mathrm{Def}(A') \times_{\mathrm{Def}(A)} \mathrm{Def}(A')$ is bijective. When (H4) holds along with (H1)–(H3), $\mathrm{Def}_{X_0}$ is <strong>pro-representable</strong> by a complete local Noetherian $k$-algebra $R$.</li>
 </ul>
 
 <p>A <strong>hull</strong> is a complete local $k$-algebra $R$ together with a smooth, surjective natural transformation $h_R \to \mathrm{Def}_{X_0}$ inducing an isomorphism on tangent spaces. Schlessinger's theorem: $\mathrm{Def}_{X_0}$ has a hull iff (H1), (H2), and (H3) hold; it is pro-representable iff (H1)–(H4) all hold. For $X_0$ smooth projective, all four hold, and the hull lives at the heart of every deformation-space construction (Hilbert schemes, $\mathrm{Quot}$-schemes, moduli of stable bundles).</p>
@@ -630,7 +630,7 @@ function drawNode(svg, x, y, label, opts={}){
 
 <p>The point is uniformity: even when $X_0$ is singular and $T_{X_0} = \mathcal{H}om(\Omega^1_{X_0}, \mathcal{O}_{X_0})$ is the "wrong" object, $\mathrm{Ext}^i(L_{X_0/k}, \mathcal{O}_{X_0})$ is always the right one. Read Illusie's two-volume <em>Complexe cotangent et déformations</em> (SLN 239 + 283) once and the obstruction-theoretic fog clears.</p>
 
-<p><strong>Worked example.</strong> For $X_0 = \Spec\,k[x]/(x^2)$ (a fat point), $L_{X_0/k}$ has $\mathcal{H}^0 = \Omega^1 = k \cdot dx /(2x\,dx) \cong k$ and $\mathcal{H}^{-1} = (x^2)/(x^4) \cong k \cdot \overline{x^2}$ — both 1-dimensional. The deformation problem has $\mathrm{Ext}^1(L, k) = k$ (one direction: $x^2 = t$, smoothing the fat point) and $\mathrm{Ext}^2 = 0$ (no obstruction), correctly capturing $\mathrm{Def}(\text{fat point}) \cong \Spec\,k[\![t]\!]$.</p>
+<p><strong>Worked example.</strong> For $X_0 = \Spec\,k[x]/(x^2)$ (a fat point), the cotangent complex relative to the smooth ambient $\mathbb{A}^1 = \Spec\,k[x]$ has $\mathcal{H}^0(L_{X_0/\mathbb{A}^1}) = \Omega^1_{X_0/\mathbb{A}^1} = 0$ and $\mathcal{H}^{-1}(L_{X_0/\mathbb{A}^1}) = (x^2)/(x^4) \cong k\cdot\overline{x^2}\oplus k\cdot\overline{x^3}$ (rank 1 as $\mathcal{O}_{X_0} = k[x]/(x^2)$-module, $k$-dimension 2). For the absolute $L_{X_0/k}$, the transitivity triangle for $X_0\to\mathbb{A}^1\to\Spec\,k$ then assembles $\mathcal{H}^0 = \Omega^1_{X_0/k}\cong k\cdot dx$ from $\Omega^1_{\mathbb{A}^1/k}|_{X_0}$. The deformation problem has $\mathrm{Ext}^1(L, k) = k$ (one direction: $x^2 = t$, smoothing the fat point) and $\mathrm{Ext}^2 = 0$ (no obstruction), correctly capturing $\mathrm{Def}(\text{fat point}) \cong \Spec\,k[\![t]\!]$.</p>
 
 <div class="widget" id="w-cotangent-scrub"></div>
 <script>
@@ -871,7 +871,7 @@ function drawNode(svg, x, y, label, opts={}){
 
 <h3>Local algebra and Artin rings</h3>
 
-<p>First-order deformations of an object $X$ are $\Hom(\Omega^1, T_X)$ where $T_X$ is the tangent module; <a href="./commutative-algebra.html">commutative algebra</a> develops the local ring theory needed to interpret deformations over Artin local bases.</p>
+<p>First-order deformations of $X$ are classified by $\mathrm{Ext}^1_{\mathcal{O}_X}(\Omega^1_X, \mathcal{O}_X)$ (which agrees with $H^1(X, T_X)$ in the smooth case via $T_X = \mathcal{H}om(\Omega^1, \mathcal{O}_X)$); <a href="./commutative-algebra.html">commutative algebra</a> develops the local ring theory needed to interpret deformations over Artin local bases.</p>
 
 <h3>Schemes and obstruction theory</h3>
 

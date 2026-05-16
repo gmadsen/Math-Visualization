@@ -929,7 +929,7 @@ $$\mathcal{M}_{1,1}(R) \;=\; \left\{ \begin{array}{c} \text{elliptic curves } E/
     const t = +slider.value;
     const a = t, b = 1;
     const disc = -16*(4*a*a*a + 27*b*b);
-    const j = Math.abs(disc) < 1e-9 ? null : -1728 * (4*a*a*a) * 64 / disc;
+    const j = Math.abs(disc) < 1e-9 ? null : -1728 * 64 * a*a*a / disc;
     tv.textContent = `t = ${t.toFixed(2)}`;
     jv.textContent = j===null ? 'j = singular' : `j = ${j.toFixed(2)}`;
     dv.textContent = `\u0394 = ${disc.toFixed(2)}`;

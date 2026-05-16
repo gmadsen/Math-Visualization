@@ -740,7 +740,7 @@ $$\#E(\mathbb{F}_p) = p + 1 - a_p, \qquad |a_p| \le 2\sqrt p.$$
   <li><strong>SVP</strong> — find a shortest nonzero vector of $\Lambda$.</li>
   <li><strong>CVP</strong> — given a target $\mathbf{t}\in\mathbb{R}^n$, find the lattice point closest to it.</li>
 </ul>
-<p>Both are NP-hard in worst case (CVP exactly; SVP modulo a small approximation factor under randomized reductions). Even <em>approximating</em> them is hard for sub-polynomial factors.</p>
+<p>Both are NP-hard in worst case (CVP exactly; SVP modulo a small approximation factor under randomized reductions). Approximate-SVP is NP-hard up to almost-polynomial factors $n^{1/\log\log n}$ (Khot 2005; Haviv–Regev 2007); the <em>polynomial-factor</em> regime that lattice cryptography actually relies on is widely conjectured hard but not known NP-hard — which is exactly why LWE security is anchored to a quantum worst-case-to-average-case reduction.</p>
 
 <p>Regev's <strong>Learning With Errors (LWE)</strong> (2005) bridges worst-case lattice hardness to an average-case key exchange. Pick a secret $\mathbf{s}\in\mathbb{Z}_q^n$. Samples are pairs
 $$(\mathbf{a}_i,\ \langle \mathbf{a}_i, \mathbf{s}\rangle + e_i \bmod q),$$
@@ -849,7 +849,9 @@ with $\mathbf{a}_i$ uniform and $e_i$ small Gaussian noise. Without the noise, G
   <li>Prover sends response $s = r + cx$.</li>
   <li>Verifier accepts iff $g^s = t \cdot h^c$.</li>
 </ol>
-<p>Soundness: a prover who can answer two distinct challenges $c \ne c'$ for the same $t$ leaks $x = (s - s') / (c - c')$. Zero-knowledge: a simulator chooses $s$ and $c$ first, then sets $t = g^s / h^c$ — the resulting transcript is indistinguishable from a real one.</p>
+<p>Soundness: a prover who can answer two distinct challenges $c \ne c'$ for the same $t$ leaks $x = (s - s') / (c - c')$, where the inverse is taken modulo the order of $g$. Zero-knowledge: a simulator chooses $s$ and $c$ first, then sets $t = g^s / h^c$ — the resulting transcript is indistinguishable from a real one.</p>
+
+<div class="note"><strong>Group order, in production.</strong> The extractor needs $(c-c')$ to be invertible modulo the order of $g$. Real Schnorr therefore works in a <em>prime-order subgroup</em> of order $q\mid p-1$, so every nonzero difference is invertible. The toy widget below uses the full group $(\mathbb{Z}/p)^\times$ of order $p-1=22$ for clarity — composite, so for some $c\ne c'$ pairs the literal extractor formula isn't invertible, even though the protocol itself still completes correctly.</div>
 
 <p>Modern <strong>zk-SNARKs</strong> (Groth16 (2016), PLONK (2019), STARKs) compile <em>any</em> NP statement into a few-kilobyte non-interactive proof verifiable in milliseconds. They are the engine of Zcash's shielded transactions, Ethereum zk-rollups, and verifiable computation services. The <strong>Fiat–Shamir transform</strong> turns any honest-verifier interactive ZK protocol into a non-interactive one by replacing the verifier's random challenge with a hash of the transcript so far — a structural bridge from Schnorr to SNARK.</p>
 

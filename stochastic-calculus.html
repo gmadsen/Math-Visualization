@@ -678,21 +678,21 @@ Integrating, $X_t=x_0\exp((\mu-\sigma^2/2)t+\sigma B_t)$. Two surprises live her
 <section id="girsanov">
 <h2>4. Girsanov's theorem and change of measure</h2>
 
-<p>Drift is measure-relative. Given a real-valued adapted process $\theta_s$ satisfying Novikov's condition $\mathbb{E}\exp(\tfrac{1}{2}\int_0^T\theta_s^2\,ds)<\infty$, define
-$$Z_t=\exp\!\Big(\int_0^t\theta_s\,dB_s-\tfrac{1}{2}\int_0^t\theta_s^2\,ds\Big).$$
-By Itô on $\log Z$, $dZ_t=Z_t\,\theta_t\,dB_t$ — a strict Itô integral with no drift, hence $Z$ is a positive martingale with $\mathbb{E}[Z_t]=1$. Use $Z_T$ to define a new probability measure $\mathbb{Q}$ on $\mathcal{F}_T$ by $d\mathbb{Q}=Z_T\,d\mathbb{P}$. <strong>Girsanov's theorem</strong> says that under $\mathbb{Q}$,
-$$\tilde B_t = B_t - \int_0^t\theta_s\,ds$$
-is a standard Brownian motion. The drift $\int\theta\,ds$ has been absorbed into the change of measure.</p>
+<p>Drift is measure-relative. Given a real-valued adapted process $\theta_s$ satisfying Novikov's condition $\mathbb{E}\exp(\tfrac{1}{2}\int_0^T\theta_s^2\,ds)<\infty$, define (in the Shreve / Karatzas–Shreve sign convention)
+$$Z_t=\exp\!\Big(-\int_0^t\theta_s\,dB_s-\tfrac{1}{2}\int_0^t\theta_s^2\,ds\Big).$$
+By Itô on $\log Z$, $dZ_t=-Z_t\,\theta_t\,dB_t$ — a strict Itô integral with no drift, hence $Z$ is a positive martingale with $\mathbb{E}[Z_t]=1$. Use $Z_T$ to define a new probability measure $\mathbb{Q}$ on $\mathcal{F}_T$ by $d\mathbb{Q}=Z_T\,d\mathbb{P}$. <strong>Girsanov's theorem</strong> says that under $\mathbb{Q}$,
+$$\tilde B_t = B_t + \int_0^t\theta_s\,ds$$
+is a standard Brownian motion. Equivalently, $dB_t = d\tilde B_t - \theta_t\,dt$ — the drift $\int\theta\,ds$ has been absorbed into the change of measure.</p>
 
-<p><strong>Risk-neutral pricing.</strong> If the asset solves $dS_t=\mu S_t\,dt+\sigma S_t\,dB_t$ under the real-world measure $\mathbb{P}$, set $\theta=(\mu-r)/\sigma$ (the <em>market price of risk</em>). Under $\mathbb{Q}$,
-$$dS_t = \mu S_t\,dt + \sigma S_t(d\tilde B_t+\theta\,dt) = r S_t\,dt + \sigma S_t\,d\tilde B_t,$$
+<p><strong>Risk-neutral pricing.</strong> If the asset solves $dS_t=\mu S_t\,dt+\sigma S_t\,dB_t$ under the real-world measure $\mathbb{P}$, set $\theta=(\mu-r)/\sigma$ (the <em>market price of risk</em>). Substituting $dB_t = d\tilde B_t - \theta\,dt$, under $\mathbb{Q}$,
+$$dS_t = \mu S_t\,dt + \sigma S_t(d\tilde B_t-\theta\,dt) = (\mu-\sigma\theta)\,S_t\,dt + \sigma S_t\,d\tilde B_t = r S_t\,dt + \sigma S_t\,d\tilde B_t,$$
 so the discounted asset $e^{-rt}S_t$ becomes a martingale. Volatility $\sigma$ is unchanged; only the drift shifts. This is why the Black–Scholes price doesn't depend on $\mu$.</p>
 
-<p>The widget below shifts mass between two measures via a single $\theta$ slider: same Brownian path, two laws of $B_T$. The base law is $\mathcal{N}(0,T)$; under $\mathbb{Q}$ the law of $B_T$ becomes $\mathcal{N}(\theta T, T)$ — equivalently, $\tilde B_T=B_T-\theta T\sim\mathcal{N}(0,T)$.</p>
+<p>The widget below shifts mass between two measures via a single $\theta$ slider: same Brownian path, two laws of $B_T$. The base law is $\mathcal{N}(0,T)$; under $\mathbb{Q}$ the law of $B_T$ becomes $\mathcal{N}(-\theta T, T)$ — equivalently, $\tilde B_T=B_T+\theta T\sim\mathcal{N}(0,T)$.</p>
 
 <div class="widget" id="w-gir">
   <div class="hd"><div class="ttl">Girsanov: density of $B_T$ under $\mathbb{P}$ vs $\mathbb{Q}$</div><div class="hint">$\theta$ shifts the mean</div></div>
-  <svg id="gir-svg" viewBox="0 0 760 300" width="760" height="300"><title>Densities of B_T under P (centered) and Q (shifted by theta T) overlaid with Radon-Nikodym density</title></svg>
+  <svg id="gir-svg" viewBox="0 0 760 300" width="760" height="300"><title>Densities of B_T under P (centered) and Q (shifted by minus theta T) overlaid with Radon-Nikodym density</title></svg>
   <div class="row">
     <label for="gir-th">$\theta$</label>
     <input id="gir-th" type="range" min="-1.5" max="1.5" step="0.05" value="0.6">
@@ -732,10 +732,12 @@ so the discounted asset $e^{-rt}S_t$ becomes a martingale. Volatility $\sigma$ i
     thV.textContent='θ = '+th.toFixed(2);
     TV.textContent='T = '+T.toFixed(1);
     svg.innerHTML='';
+    // Shreve sign convention: dQ/dP = exp(-θ B_T - ½θ²T), so E_Q[B_T] = -θT.
+    const mQ = -th*T;
     // x-axis range
     const sd=Math.sqrt(T);
-    const xmin=Math.min(-3*sd, th*T-3*sd) - 0.3;
-    const xmax=Math.max( 3*sd, th*T+3*sd) + 0.3;
+    const xmin=Math.min(-3*sd, mQ-3*sd) - 0.3;
+    const xmax=Math.max( 3*sd, mQ+3*sd) + 0.3;
     const ymax=phi(0,0,T)*1.15;
     const X=v=>x0+(v-xmin)/(xmax-xmin)*(x1-x0);
     const Y=v=>y1-(v/ymax)*(y1-y0);
@@ -748,7 +750,7 @@ so the discounted asset $e^{-rt}S_t$ becomes a martingale. Volatility $\sigma$ i
     for(let i=0;i<=STEPS;i++){
       const x=xmin+(i/STEPS)*(xmax-xmin);
       const yP=phi(x,0,T);
-      const yQ=phi(x,th*T,T);
+      const yQ=phi(x,mQ,T);
       dP += (i===0?'M':'L')+X(x)+','+Y(yP)+' ';
       dQ += (i===0?'M':'L')+X(x)+','+Y(yQ)+' ';
     }
@@ -759,8 +761,8 @@ so the discounted asset $e^{-rt}S_t$ becomes a martingale. Volatility $\sigma$ i
     svg.appendChild(SVG('path',{d:dQ,fill:'none',stroke:'var(--cyan)','stroke-width':2}));
     // shift arrow at peaks
     const pkP=[X(0), Y(phi(0,0,T))];
-    const pkQ=[X(th*T), Y(phi(th*T,th*T,T))];
-    drawArrow(svg, pkP, pkQ, {color:'var(--pink)', label:'shift = θT', markerId:'gir-arr', width:1.5});
+    const pkQ=[X(mQ), Y(phi(mQ,mQ,T))];
+    drawArrow(svg, pkP, pkQ, {color:'var(--pink)', label:'shift = −θT', markerId:'gir-arr', width:1.5});
     // x ticks
     for(let k=0;k<=4;k++){
       const v=xmin+(k/4)*(xmax-xmin);
@@ -775,19 +777,19 @@ so the discounted asset $e^{-rt}S_t$ becomes a martingale. Volatility $\sigma$ i
       lg.appendChild(SVG('line',{x1:0,y1:y,x2:18,y2:y,stroke:col,'stroke-width':2}));
       const t=SVG('text',{x:24,y:y+4,'font-size':12,fill:col}); t.textContent=lab; lg.appendChild(t);
     }
-    le(0,'var(--yellow)','Bᴛ ~ 𝒩(0, T)   under ℙ');
-    le(16,'var(--cyan)', 'Bᴛ ~ 𝒩(θT, T)  under ℚ');
+    le(0,'var(--yellow)','Bᴛ ~ 𝒩(0, T)    under ℙ');
+    le(16,'var(--cyan)', 'Bᴛ ~ 𝒩(−θT, T)  under ℚ');
     svg.appendChild(lg);
     const cap=SVG('text',{x:W/2,y:20,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});
-    cap.textContent='dℚ/dℙ = exp(θ Bᴛ − ½θ²T) — same path, different mass';
+    cap.textContent='dℚ/dℙ = exp(−θ Bᴛ − ½θ²T) — same path, different mass';
     svg.appendChild(cap);
     // readout
     const ZbarMean = 1; // E_P[Z_T] = 1 by martingale prop
-    const tildeMean = 0; // E_Q[ B_T - θT ] = 0
+    const tildeMean = 0; // E_Q[ B_T + θT ] = 0
     out.textContent =
-      `density:  Zᴛ = exp(θ Bᴛ − ½θ²T),  𝔼ℙ[Zᴛ] = ${ZbarMean}\n`+
-      `under ℚ:  𝔼ℚ[Bᴛ] = θT = ${(th*T).toFixed(3)},  𝔼ℚ[Bᴛ − θT] = ${tildeMean}\n`+
-      `Brownian motion under ℚ:  ̃Bₜ = Bₜ − θ t  (drift absorbed into the measure)`;
+      `density:  Zᴛ = exp(−θ Bᴛ − ½θ²T),  𝔼ℙ[Zᴛ] = ${ZbarMean}\n`+
+      `under ℚ:  𝔼ℚ[Bᴛ] = −θT = ${mQ.toFixed(3)},  𝔼ℚ[Bᴛ + θT] = ${tildeMean}\n`+
+      `Brownian motion under ℚ:  ̃Bₜ = Bₜ + θ t  (drift absorbed into the measure)`;
   }
   thIn.addEventListener('input', draw);
   TIn.addEventListener('input', draw);

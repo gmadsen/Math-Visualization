@@ -310,7 +310,7 @@ For i.i.d. $\mathcal{N}(\mu,\sigma^2)$ samples, $(\sum X_i,\sum X_i^2)$ is suffi
 
 <p><strong>Worked example: sample variance.</strong> Two natural variance estimators are
 $$\hat\sigma^2_{\mathrm{MLE}}=\tfrac{1}{n}\sum(X_i-\bar X)^2,\qquad S^2=\tfrac{1}{n-1}\sum(X_i-\bar X)^2.$$
-The first has bias $-\sigma^2/n$ (downward); $S^2$ is unbiased — Bessel's correction. But $\hat\sigma^2_{\mathrm{MLE}}$ has smaller variance, so $\mathrm{MSE}(\hat\sigma^2_{\mathrm{MLE}})<\mathrm{MSE}(S^2)$ for moderate $n$. Bias is not the only thing to optimise.</p>
+The first has bias $-\sigma^2/n$ (downward); $S^2$ is unbiased — Bessel's correction. But $\hat\sigma^2_{\mathrm{MLE}}$ has smaller variance, so $\mathrm{MSE}(\hat\sigma^2_{\mathrm{MLE}})<\mathrm{MSE}(S^2)$ for every $n\ge 2$ in the Gaussian case (and in fact the $1/(n+1)$-divisor estimator dominates both). Bias is not the only thing to optimise.</p>
 
 <div class="widget" id="w-mse">
   <div class="hd"><div class="ttl">Bias–variance tradeoff</div><div class="hint">two estimators of $\sigma^2$, $n=10$</div></div>

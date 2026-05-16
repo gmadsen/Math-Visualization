@@ -731,7 +731,7 @@ A codeword is a polynomial of degree $&lt;k$ sampled at $n$ points. Two distinct
 
 <p><strong>Why MDS matters:</strong> any $k$ of the $n$ symbols suffice to reconstruct the message. Erase any $n-k$ coordinates (a so-called <em>erasure channel</em>) and Lagrange interpolation through the surviving samples returns $f$. That's also why Reed–Solomon is the standard for distributed-storage erasure coding.</p>
 
-<aside class="note"><strong>Generalisation.</strong> Replacing the line by an algebraic curve $X/\mathbb{F}_q$ of genus $g$ and the polynomial filter by sections of a divisor $D$ gives <strong>algebraic-geometric (Goppa) codes</strong>: $[n,k,d]_q$ with $k\ge \deg D - g + 1$ and $d\ge n-\deg D$. For curves with many $\mathbb{F}_q$-points (e.g. Hermitian, Suzuki, Drinfeld modular), AG codes beat the Gilbert–Varshamov bound for $q\ge 49$ — the <em>Tsfasman–Vlăduţ–Zink theorem</em>.</aside>
+<aside class="note"><strong>Generalisation.</strong> Replacing the line by an algebraic curve $X/\mathbb{F}_q$ of genus $g$ and the polynomial filter by sections of a divisor $D$ gives <strong>algebraic-geometric (Goppa) codes</strong>: $[n,k,d]_q$ with $k\ge \deg D - g + 1$ and $d\ge n-\deg D$. For curves with many $\mathbb{F}_q$-points (e.g. Hermitian, Suzuki, Drinfeld modular), AG codes beat the Gilbert–Varshamov bound for $q$ a prime-power square with $q\ge 49$ (i.e. $\sqrt q\ge 7$, so $q\in\{49,64,81,121,\dots\}$) — the <em>Tsfasman–Vlăduţ–Zink theorem</em>.</aside>
 
 <!-- callback-auto-begin -->
 <aside class="callback">
@@ -859,7 +859,7 @@ the least common multiple of the minimal polynomials of $\delta-1$ <em>consecuti
 })();
 </script>
 
-<p>Why this is non-trivial: the consecutive-roots window forces any non-zero codeword $c(x)$ to have $\ge \delta-1$ consecutive roots, which by a Vandermonde determinant argument forces $c(x)$ to have $\ge \delta$ non-zero coefficients (weight $\ge \delta$). The minimal polynomials $m_{\beta^i}(x)\in\mathbb{F}_q[x]$ lump together <strong>cyclotomic cosets</strong>: powers of $\beta$ related by $i\sim qi\pmod n$. Pick a window of $\delta-1$ consecutive powers; the actual $g(x)$ may carry extra roots dragged in by cosets, often giving the <em>true</em> distance $d&gt;\delta$ (Reed–Muller and Berlekamp–Massey-Solomon refinements live here).</p>
+<p>Why this is non-trivial: the consecutive-roots window forces any non-zero codeword $c(x)$ to have $\ge \delta-1$ consecutive roots, which by a Vandermonde determinant argument forces $c(x)$ to have $\ge \delta$ non-zero coefficients (weight $\ge \delta$). The minimal polynomials $m_{\beta^i}(x)\in\mathbb{F}_q[x]$ lump together <strong>cyclotomic cosets</strong>: powers of $\beta$ related by $i\sim qi\pmod n$. Pick a window of $\delta-1$ consecutive powers; the actual $g(x)$ may carry extra roots dragged in by cosets, often giving the <em>true</em> distance $d&gt;\delta$ (Reed–Muller and Berlekamp–Massey refinements live here).</p>
 
 <div class="quiz" data-concept="ct-bch"></div>
 </section>
@@ -1084,7 +1084,7 @@ measures how tightly they pack.</p>
 })();
 </script>
 
-<p>Why this lives inside coding theory: a lattice $\Lambda\subset\mathbb{R}^n$ projected modulo a sublattice $\Lambda'\subset\Lambda$ yields a finite code (the quotient $\Lambda/\Lambda'$ inherits a distance), and many high-rate lattices arise by <em>Construction A</em>: lift a binary linear code $C\subseteq \mathbb{F}_2^n$ to $\Lambda_C = \{x\in\mathbb{Z}^n: x\bmod 2\in C\}$. Hamming codes give the $D_n$ lattices; the extended Hamming $[8,4,4]$ gives $E_8$; the binary Golay $[24,12,8]$ gives a scaled Leech lattice (after a final $\mathbb{Z}/2$ twist). Channel codes and sphere packings are dual faces of the same problem.</p>
+<p>Why this lives inside coding theory: a lattice $\Lambda\subset\mathbb{R}^n$ projected modulo a sublattice $\Lambda'\subset\Lambda$ yields a finite code (the quotient $\Lambda/\Lambda'$ inherits a distance), and many high-rate lattices arise by <em>Construction A</em>: lift a binary linear code $C\subseteq \mathbb{F}_2^n$ to $\Lambda_C = \{x\in\mathbb{Z}^n: x\bmod 2\in C\}$. Single-parity-check codes $[n,n-1,2]$ give the $D_n$ lattices; the extended Hamming $[8,4,4]$ gives $E_8$; the binary Golay $[24,12,8]$ gives a scaled Leech lattice (after a final $\mathbb{Z}/2$ twist). Channel codes and sphere packings are dual faces of the same problem.</p>
 
 <!-- callback-auto-begin -->
 <aside class="callback">
