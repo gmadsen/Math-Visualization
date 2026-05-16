@@ -36482,7 +36482,7 @@ window.MVQuizBank = {
               "It's a numerical-stability trick with no physical meaning"
             ],
             "answer": 1,
-            "explain": "The CV model is really 'true motion is constant-acceleration with $a\\sim\\mathcal{N}(0,q)$, propagated through kinematics for time $\\Delta t$.' Integrating $a$ gives a velocity perturbation $a\\Delta t$ and a position perturbation $a\\Delta t^2/2$ — these are perfectly correlated (both depend on the same $a$), so $\\mathrm{Cov}(p,v) = q\\Delta t^3/2 \\cdot \\frac{1}{\\Delta t}\\cdot\\frac{\\Delta t^2}{2} = q\\Delta t^2/2$. A diagonal $Q$ would falsely treat them as independent and the filter would underestimate position uncertainty."
+            "explain": "The CV model is really 'true motion is constant-acceleration with white-noise acceleration of intensity $q$, integrated over $\\Delta t$.' Integrating $a$ gives a velocity perturbation $\\Delta v = \\int_0^{\\Delta t} a\\,ds$ and a position perturbation $\\Delta p = \\int_0^{\\Delta t}\\int_0^s a\\,du\\,ds$. Both are linear functionals of the same $a(s)$, so the cross-covariance is nonzero. The standard result is $\\mathrm{Cov}(\\Delta p,\\Delta v) = q\\,\\Delta t^2/2$, $\\mathrm{Var}(\\Delta v)=q\\,\\Delta t$, $\\mathrm{Var}(\\Delta p)=q\\,\\Delta t^3/3$ — the off-diagonal coupling reflects the shared origin in $a$. A diagonal $Q$ would falsely treat position and velocity perturbations as independent and the filter would underestimate position uncertainty."
           }
         ]
       }

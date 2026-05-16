@@ -1,6 +1,14 @@
 {
-  "generated": "2026-05-16T18:41:22.036Z",
+  "generated": "2026-05-16T18:50:36.572Z",
   "entries": [
+    {
+      "slug": "kalman-filtering-and-state-estimation",
+      "title": "Kalman filtering and state estimation",
+      "color": "p",
+      "tag": "",
+      "date": "2026-05-16",
+      "message": "feat: add Kalman filtering and state estimation topic"
+    },
     {
       "slug": "cocartesian-fibrations",
       "title": "Cocartesian fibrations",
