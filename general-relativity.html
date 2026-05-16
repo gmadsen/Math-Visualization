@@ -777,6 +777,7 @@ $$\Box\,\bar h_{\mu\nu} \;=\; -16\pi G\, T_{\mu\nu}.$$
     if(playing) loop();
     else if(raf){ cancelAnimationFrame(raf); raf=null; }
   });
+  hsl.addEventListener('input',()=>{ if(!playing) draw(); });
   function loop(){
     phase += 0.04;
     draw();
