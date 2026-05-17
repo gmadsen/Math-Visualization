@@ -218,6 +218,24 @@
       blurbEl.className = 'mvgp-blurb';
       blurbEl.textContent = blurb;
       el.appendChild(blurbEl);
+      // Render any $...$ / $$...$$ math in the blurb. 51 corpus blurbs
+      // contain raw KaTeX (e.g. "$\hat R_I = \varprojlim R/I^n$"); without
+      // this pass they render as literal source text. auto-render.min.js is
+      // loaded on every topic page; if it's missing (e.g. headless tests),
+      // we leave the text as-is.
+      if (typeof window.renderMathInElement === 'function') {
+        try {
+          window.renderMathInElement(blurbEl, {
+            delimiters: [
+              { left: '$$', right: '$$', display: true },
+              { left: '$',  right: '$',  display: false },
+              { left: '\\(', right: '\\)', display: false },
+              { left: '\\[', right: '\\]', display: true }
+            ],
+            throwOnError: false
+          });
+        } catch (_) {}
+      }
     }
 
     var foot = document.createElement('div');

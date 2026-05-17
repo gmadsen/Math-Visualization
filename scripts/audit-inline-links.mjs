@@ -21,9 +21,14 @@
 //         KaTeX spans ($…$, $$…$$, \(…\), \[…\]), or already-fenced auto
 //         anchors are skipped (delegated to forEachSectionProse + the
 //         audit-utils skip mask);
-//       * at most one anchor inserted per concept per section;
+//       * **at most one anchor per concept per page** (cross-section
+//         dedupe — the per-section variant pre-#226 wrapped the same
+//         concept 3× on capstone-cohomology-story);
 //       * if the page already contains any link to the same target anchor
-//         (anywhere), the concept is skipped entirely for that page.
+//         (anywhere), the concept is skipped entirely for that page;
+//       * **per-page blocklist** in audits/inline-links-blocklist.json
+//         suppresses (page, concept-id) pairs that human review rejected
+//         as wrong-target / inappropriate-level / awkward-position.
 //
 // Idempotency fence: auto-inserted anchors carry data-auto-inline-link="1".
 // --fix first strips every such anchor on the page (unwrapping to its text
@@ -35,7 +40,18 @@
 //   data-concept-id="<id>"   canonical concept id (for MVProgress lookups and
 //                             title lookup via window.__MVConcepts)
 //   data-blurb="<blurb>"     HTML-escaped 1–2 sentence summary, rendered
-//                             verbatim as text content in the popover body.
+//                             by KaTeX in the popover body so $...$ math
+//                             survives.
+//
+// JSON-source invariant. As of 2026-04-24 content/<topic>.json is the
+// source of truth and test-roundtrip --fix overwrites HTML from JSON. To
+// survive that wipe, --fix dispatches based on whether the page has a
+// content/<topic>.json:
+//   - JSON-sourced pages: inserts are applied to the source raw block
+//     via offset-mapping (see scripts/lib/render-doc.mjs). The HTML is
+//     then re-rendered by test-roundtrip on the next rebuild step.
+//   - Hand-authored pages (capstone story pages, pathway, etc.):
+//     inserts go directly to the HTML file (legacy path).
 //
 // CLI:
 //   node scripts/audit-inline-links.mjs
@@ -43,7 +59,7 @@
 //       regardless (informational — not a CI gate yet).
 //
 //   node scripts/audit-inline-links.mjs --fix
-//       Apply inserts to every topic page.
+//       Apply inserts to every topic page (JSON-aware).
 //
 //   node scripts/audit-inline-links.mjs --page <topic.html>
 //       Restrict to one page (combine with --fix for a pilot).
@@ -64,6 +80,11 @@ import {
   parseTopicHtmlSafe,
   recoverDroppedNodes,
 } from './lib/audit-utils.mjs';
+import {
+  loadTopicContent,
+  saveTopicContent,
+} from './lib/json-block-writer.mjs';
+import { renderDocWithRanges, findRangeAt } from './lib/render-doc.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const repoRoot = resolve(dirname(__filename), '..');
@@ -125,6 +146,39 @@ for (const topicId of model.topicIds) {
 vocab.sort((a, b) => b.title.length - a.title.length);
 
 // ─────────────────────────────────────────────────────────────────────────
+// Per-page blocklist.
+//
+// audits/inline-links-blocklist.json shape:
+//   {
+//     "version": 1,
+//     "blocks": {
+//       "<page.html>": { "<concept-id>": "<why-blocked comment>", … },
+//       …
+//     }
+//   }
+// The comment is for the human reader of the JSON; the script only consults
+// the keys. If the file is missing the blocklist is empty (audit still runs).
+
+const blocklistPath = resolve(repoRoot, 'audits', 'inline-links-blocklist.json');
+const blocklist = new Map(); // page -> Set<concept-id>
+if (existsSync(blocklistPath)) {
+  try {
+    const raw = JSON.parse(readFileSync(blocklistPath, 'utf8'));
+    const blocks = raw && raw.blocks;
+    if (blocks && typeof blocks === 'object') {
+      for (const [page, entries] of Object.entries(blocks)) {
+        const ids = new Set(
+          Array.isArray(entries) ? entries : Object.keys(entries || {}),
+        );
+        blocklist.set(page, ids);
+      }
+    }
+  } catch (e) {
+    console.warn(`audit-inline-links: failed to parse blocklist at ${blocklistPath}: ${e.message}`);
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────
 // Page discovery.
 
 const SPECIAL = new Set(['index.html', 'pathway.html']);
@@ -173,7 +227,7 @@ function sectionForOffset(sections, offset) {
   return best ? best.id : null;
 }
 
-function* findCandidatesInPage(html, pageTopic) {
+function* findCandidatesInPage(html, pageTopic, pageName) {
   const parseOptions = {
     blockTextElements: {
       script: true,
@@ -207,8 +261,12 @@ function* findCandidatesInPage(html, pageTopic) {
     }
   }
 
-  // Track (section -> concept-id) dedupe.
-  const emittedPerSection = new Map();
+  // Track concept-ids already emitted on this page (cross-section dedupe;
+  // upgrade from the per-section variant per pedagogy review on #225).
+  const emittedConceptIds = new Set();
+
+  // Resolve the per-page blocklist for this page name.
+  const pageBlocks = (pageName && blocklist.get(pageName)) || null;
 
   // Enumerate <p> elements in document order. Each <p>'s TextNodes are
   // visited via forEachSectionProse (which prunes skip-class and skip-tag
@@ -241,9 +299,10 @@ function* findCandidatesInPage(html, pageTopic) {
       if (v.topic === pageTopic) continue; // self-link suppression
       const anchorKey = `${v.page}#${v.anchor}`;
       if (existingLinkTargets.has(anchorKey)) continue;
-
-      const sectionKey = sectionId ? `${sectionId}::${v.id}` : null;
-      if (sectionKey && emittedPerSection.get(sectionKey)) continue;
+      // Page-level blocklist veto (rejected by human review on a prior --fix).
+      if (pageBlocks && pageBlocks.has(v.id)) continue;
+      // Cross-section dedupe: one anchor per concept per page.
+      if (emittedConceptIds.has(v.id)) continue;
 
       // Walk each TextNode in this paragraph; first admissible match wins.
       let found = null;
@@ -303,7 +362,7 @@ function* findCandidatesInPage(html, pageTopic) {
       const pLocal = found.globalIdx - pStart;
       for (let k = 0; k < found.len; k++) localMask[pLocal + k] = 1;
 
-      if (sectionKey) emittedPerSection.set(sectionKey, true);
+      emittedConceptIds.add(v.id);
 
       yield {
         section: sectionId,
@@ -338,33 +397,115 @@ function escAttr(s) {
     .replace(/'/g, '&#39;');
 }
 
-function applyFixToHtml(html, pageTopic) {
+function buildAnchorHtml(concept, phrase) {
+  const href = `./${concept.page}#${concept.anchor}`;
+  const idAttr = ` data-concept-id="${escAttr(concept.id)}"`;
+  const blurbAttr = concept.blurb
+    ? ` data-blurb="${escAttr(concept.blurb)}"`
+    : '';
+  return (
+    `<a href="${href}" data-auto-inline-link="1"` +
+    idAttr +
+    blurbAttr +
+    `>${phrase}</a>`
+  );
+}
+
+function applyFixToHtml(html, pageTopic, pageName) {
   // Strip first so candidate detection sees "clean" prose. All DOM node
   // ranges below are taken from the parsed `working` string, not the input.
   let working = stripAutoLinks(html);
 
   const inserts = [];
-  for (const cand of findCandidatesInPage(working, pageTopic)) {
+  for (const cand of findCandidatesInPage(working, pageTopic, pageName)) {
     inserts.push(cand);
   }
   // Sort descending by offset so splicing doesn't shift later offsets.
   inserts.sort((a, b) => b.globalIdx - a.globalIdx);
   for (const ins of inserts) {
-    const { concept, globalIdx, length, phrase } = ins;
-    const href = `./${concept.page}#${concept.anchor}`;
-    const idAttr = ` data-concept-id="${escAttr(concept.id)}"`;
-    const blurbAttr = concept.blurb
-      ? ` data-blurb="${escAttr(concept.blurb)}"`
-      : '';
-    const anchor =
-      `<a href="${href}" data-auto-inline-link="1"` +
-      idAttr +
-      blurbAttr +
-      `>${phrase}</a>`;
+    const anchor = buildAnchorHtml(ins.concept, ins.phrase);
     working =
-      working.slice(0, globalIdx) + anchor + working.slice(globalIdx + length);
+      working.slice(0, ins.globalIdx) + anchor + working.slice(ins.globalIdx + ins.length);
   }
   return { html: working, inserts: inserts.length };
+}
+
+// ─────────────────────────────────────────────────────────────────────────
+// JSON-aware --fix: strip auto-links from rawHead/rawBodyPrefix/rawBodySuffix
+// and from each raw/quiz block's html, then render the doc, find candidates
+// against the rendered HTML, and splice each candidate back into its source
+// block via offset mapping.
+//
+// Why offset mapping rather than content-addressed replace: the rendered
+// HTML's byte positions are O(1) lookups against the cumulative block
+// ranges, and the splice is unambiguous (one position, one length). A
+// content-addressed substring search inside a raw block would need a
+// uniqueness check (the same phrase may appear multiple times in one
+// block) that mirrors exactly what offset mapping already gives for free.
+
+function stripAutoLinksFromDoc(doc) {
+  doc.rawHead = stripAutoLinks(doc.rawHead);
+  doc.rawBodyPrefix = stripAutoLinks(doc.rawBodyPrefix);
+  doc.rawBodySuffix = stripAutoLinks(doc.rawBodySuffix);
+  for (const section of doc.sections) {
+    for (const block of section.blocks) {
+      if ((block.type === 'raw' || block.type === 'quiz') &&
+          typeof block.html === 'string') {
+        block.html = stripAutoLinks(block.html);
+      }
+    }
+  }
+}
+
+async function applyFixToJson(doc, pageTopic, pageName) {
+  // Strip first so candidate detection sees clean prose.
+  stripAutoLinksFromDoc(doc);
+
+  const { html, ranges } = await renderDocWithRanges(doc);
+
+  const candidates = [...findCandidatesInPage(html, pageTopic, pageName)];
+  // Sort descending by offset — splicing earliest offsets first would shift
+  // later candidates' positions inside their source block.
+  candidates.sort((a, b) => b.globalIdx - a.globalIdx);
+
+  let applied = 0;
+  let skipped = 0;
+  for (const cand of candidates) {
+    const range = findRangeAt(ranges, cand.globalIdx);
+    if (!range) { skipped++; continue; }
+    // Defensive: candidate must lie wholly inside the range.
+    if (cand.globalIdx + cand.length > range.end) { skipped++; continue; }
+
+    const offsetInRange = cand.globalIdx - range.start;
+    const anchor = buildAnchorHtml(cand.concept, cand.phrase);
+
+    if (range.kind === 'block') {
+      const block = range.block;
+      if ((block.type === 'raw' || block.type === 'quiz') &&
+          typeof block.html === 'string') {
+        const html = block.html;
+        block.html = html.slice(0, offsetInRange) + anchor + html.slice(offsetInRange + cand.length);
+        applied++;
+      } else {
+        // widget / widget-script render is computed from params; can't
+        // back-port a text mutation safely. Skip with a warning.
+        skipped++;
+      }
+    } else if (range.kind === 'rawHead') {
+      doc.rawHead = doc.rawHead.slice(0, offsetInRange) + anchor + doc.rawHead.slice(offsetInRange + cand.length);
+      applied++;
+    } else if (range.kind === 'rawBodyPrefix') {
+      doc.rawBodyPrefix = doc.rawBodyPrefix.slice(0, offsetInRange) + anchor + doc.rawBodyPrefix.slice(offsetInRange + cand.length);
+      applied++;
+    } else if (range.kind === 'rawBodySuffix') {
+      doc.rawBodySuffix = doc.rawBodySuffix.slice(0, offsetInRange) + anchor + doc.rawBodySuffix.slice(offsetInRange + cand.length);
+      applied++;
+    } else {
+      skipped++;
+    }
+  }
+
+  return { applied, skipped };
 }
 
 // ─────────────────────────────────────────────────────────────────────────
@@ -382,6 +523,11 @@ const perPage = new Map(); // page -> Array<candidate>
 const conceptsSeen = new Set();
 let pagesTouched = 0;
 let totalInserted = 0;
+let totalSkipped = 0;
+
+function contentJsonPath(topic) {
+  return resolve(repoRoot, 'content', `${topic}.json`);
+}
 
 for (const page of pages) {
   const pagePath = join(repoRoot, page);
@@ -390,19 +536,40 @@ for (const page of pages) {
   const html = readFileSync(pagePath, 'utf8');
 
   if (FIX) {
-    const { html: newHtml, inserts } = applyFixToHtml(html, pageTopic);
-    if (newHtml !== html) {
-      writeFileSync(pagePath, newHtml);
-      pagesTouched++;
+    const hasJsonSource = existsSync(contentJsonPath(pageTopic));
+    let postFixHtml; // rendered or on-disk HTML reflecting post-fix state
+    if (hasJsonSource) {
+      // JSON-aware path: write to content/<topic>.json so test-roundtrip
+      // doesn't wipe the change on the next rebuild.
+      const doc = loadTopicContent(pageTopic, repoRoot);
+      const { applied, skipped } = await applyFixToJson(doc, pageTopic, page);
+      const wrote = saveTopicContent(pageTopic, doc, repoRoot);
+      if (wrote) pagesTouched++;
+      totalInserted += applied;
+      totalSkipped += skipped;
+      // Render the post-fix doc in-memory so the report below sees the
+      // post-fix state (the HTML on disk is stale until test-roundtrip).
+      const { html: rendered } = await renderDocWithRanges(doc);
+      postFixHtml = rendered;
+    } else {
+      // Legacy HTML-direct path for hand-authored pages with no JSON source
+      // (capstone story pages, etc.). The HTML IS the source of truth here.
+      const { html: newHtml, inserts } = applyFixToHtml(html, pageTopic, page);
+      if (newHtml !== html) {
+        writeFileSync(pagePath, newHtml);
+        pagesTouched++;
+      }
+      totalInserted += inserts;
+      postFixHtml = newHtml;
     }
-    totalInserted += inserts;
-    // Also record the candidates for the final report.
-    const working = stripAutoLinks(html);
-    const cands = [...findCandidatesInPage(working, pageTopic)];
+    // Strip the auto-anchors we just inserted and re-run candidate detection
+    // to report what's left — should be 0 for a healthy --fix.
+    const stripped = stripAutoLinks(postFixHtml);
+    const cands = [...findCandidatesInPage(stripped, pageTopic, page)];
     if (cands.length > 0) perPage.set(page, cands);
     for (const c of cands) conceptsSeen.add(c.concept.id);
   } else {
-    const cands = [...findCandidatesInPage(html, pageTopic)];
+    const cands = [...findCandidatesInPage(html, pageTopic, page)];
     if (cands.length > 0) perPage.set(page, cands);
     for (const c of cands) conceptsSeen.add(c.concept.id);
   }
@@ -443,6 +610,9 @@ console.log(
 if (FIX) {
   console.log(`  pages touched: ${pagesTouched}`);
   console.log(`  anchors inserted: ${totalInserted}`);
+  if (totalSkipped > 0) {
+    console.log(`  candidates skipped (widget bytes, can't back-port): ${totalSkipped}`);
+  }
 }
 
 // Per the plan: audit mode is informational — exit 0 regardless. --fix also

@@ -2261,7 +2261,7 @@ function drawNode(svg, x, y, label, opts={}){
 </section>
 <section id="polyrings">
 <h2>14. Polynomial rings and irreducibility</h2>
-<p>Over a field $k$, the ring $k[x]$ is a Euclidean domain: its irreducibles are the prime elements, and every polynomial factors uniquely (up to units) into irreducibles. Over $\mathbb{Z}$, Gauss's lemma says a primitive polynomial in $\mathbb{Z}[x]$ is irreducible over $\mathbb{Z}$ iff it is irreducible over $\mathbb{Q}$.</p>
+<p>Over a field $k$, the ring $k[x]$ is a Euclidean domain: its irreducibles are the prime elements, and every polynomial factors uniquely (up to units) into irreducibles. Over $\mathbb{Z}$, <a href="./quadratic-reciprocity.html#gauss-lemma" data-auto-inline-link="1" data-concept-id="gauss-lemma-qr" data-blurb="The sign in (a/p) can be computed by counting how many multiples a,2a,...,(p-1)a/2 land past p/2.">Gauss's lemma</a> says a primitive polynomial in $\mathbb{Z}[x]$ is irreducible over $\mathbb{Z}$ iff it is irreducible over $\mathbb{Q}$.</p>
 <p>Two practical tests for a polynomial $f(x)=a_n x^n+\cdots+a_0\in\mathbb{Z}[x]$:</p>
 <p><span class="pill">rational-root</span> every rational root is $\pm p/q$ with $p\mid a_0$ and $q\mid a_n$; testing the finite list either finds a root (reducible) or rules out degree-$1$ factors.</p>
 <p><span class="pill">Eisenstein</span> if some prime $p$ satisfies $p\nmid a_n$, $p\mid a_i$ for all $i<n$, and $p^2\nmid a_0$, then $f$ is irreducible over $\mathbb{Q}$. After a substitution $x\mapsto x+c$, Eisenstein can be applied to many polynomials that don't directly satisfy it (e.g. the cyclotomic polynomial $\Phi_p(x)$ after the shift $x\mapsto x+1$).</p>

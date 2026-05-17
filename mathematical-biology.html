@@ -544,7 +544,7 @@ function drawNode(svg, x, y, label, opts={}){
 
 <p style="text-align:center">$dp_t \;=\; \sigma\, p(1-p)\,dt \;+\; \sqrt{p(1-p)}\,dW_t.$</p>
 
-<p>This is an Itô SDE on the unit interval: the drift $\sigma p(1-p)$ is the selection pressure, the diffusion coefficient $p(1-p)$ degenerates at the absorbing boundaries $\{0,1\}$. The infinitesimal generator is</p>
+<p>This is an Itô SDE on the unit interval: the drift $\sigma p(1-p)$ is the selection pressure, the diffusion coefficient $p(1-p)$ degenerates at the absorbing boundaries $\{0,1\}$. <a href="./semigroup-theory-evolution-equations.html#generator" data-auto-inline-link="1" data-concept-id="sg-infinitesimal-generator" data-blurb="The generator $A$ of $T(t)$ is $Ax=\lim_{t\to 0^+}(T(t)x-x)/t$ on the dense subspace $D(A)$ where the strong limit exists. $A$ is closed, generally unbounded, and uniquely determines $T$ — knowing the resolvent set and the values of $A$ on $D(A)$ is equivalent to knowing every $T(t)$. The differentiation identity $\frac{d}{dt}T(t)x=AT(t)x=T(t)Ax$ holds on $D(A)$, making $u(t)=T(t)u_0$ a classical $C^1$ solution of $u&#39;=Au$ when $u_0\in D(A)$, and a mild solution otherwise. Concrete domains record the Sobolev regularity $A$ requires: heat has $D(\Delta)=H^2$, translation $D(\partial_x)=W^{1,p}$, multiplication by bounded $m$ has $D(A)=L^2$ ($A$ already bounded). Boundedness of $A$ is equivalent to uniform continuity of $T$.">The infinitesimal generator</a> is</p>
 
 <p style="text-align:center">$\mathcal{L} \;=\; \tfrac{1}{2}\,p(1-p)\,\partial_p^2 \;+\; \sigma\, p(1-p)\,\partial_p,$</p>
 

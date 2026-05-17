@@ -264,7 +264,7 @@ function drawNode(svg, x, y, label, opts={}){
 
 <section id="trop-semiring">
 <h2>1. The tropical semiring</h2>
-<p>The <strong>tropical semiring</strong> $(\mathbb{R} \cup \{\infty\}, \oplus, \otimes)$ is built from real numbers by the substitution</p>
+<p>The <strong>tropical semiring</strong> $(\mathbb{R} \cup \{\infty\}, \oplus, \otimes)$ is built from <a href="./real-analysis.html#real-numbers" data-auto-inline-link="1" data-concept-id="real-numbers" data-blurb="The complete ordered field: least-upper-bound property, sequences and Cauchy completeness, and why Q isn&#39;t enough.">real numbers</a> by the substitution</p>
 <p style="text-align:center">$a \oplus b \;:=\; \min(a,b), \qquad a \otimes b \;:=\; a + b.$</p>
 <p>Both operations are commutative and associative; $\otimes$ distributes over $\oplus$ because $a + \min(b,c) = \min(a+b,a+c)$. The element $\infty$ is the additive identity ($\min(a,\infty)=a$) and $0$ is the multiplicative identity ($a+0=a$). What is missing is additive <em>inverses</em>: $\min(a,b)=\infty$ forces $a=b=\infty$, so most elements have no negative. Hence the structure is a semiring, not a ring — and it is the source of all the geometric peculiarities that follow.</p>
 
@@ -1109,7 +1109,7 @@ function drawNode(svg, x, y, label, opts={}){
 })();
 </script>
 
-<p>Beyond the plane, tropical methods compute Gromov–Witten invariants of toric surfaces, Hurwitz numbers, and double-Hurwitz numbers; the Cavalieri–Johnson–Markwig formulas express $\psi$-class intersections on $\overline{\mathcal{M}}_{g,n}$ as tropical sums.</p>
+<p>Beyond the plane, tropical methods compute <a href="./donaldson-thomas-and-gw-invariants.html#gw-invariants" data-auto-inline-link="1" data-concept-id="dtgw-gw-invariants" data-blurb="The Gromov–Witten invariant counts stable maps $f\colon (C, p_1,\ldots,p_n) \to X$ from a genus-$g$ nodal curve with $n$ marked points, representing a homology class $\beta \in H_2(X,\mathbb{Z})$. The moduli space $\overline{\mathcal{M}}_{g,n}(X,\beta)$ carries a virtual class of dimension $\int_\beta c_1(X) + (\dim X - 3)(1-g) + n$; on a CY3 with $n=0$ this is $0$, giving integer-looking but rational invariants $\mathrm{GW}_{g,\beta}(X) = \int_{[\overline{\mathcal{M}}_{g,0}(X,\beta)]^{\mathrm{vir}}} 1 \in \mathbb{Q}$. The full generating function $Z_{\mathrm{GW}}(X;u,Q) = \sum_{g,\beta} \mathrm{GW}_{g,\beta}\, u^{2g-2} Q^\beta$ packages every genus.">Gromov–Witten invariants</a> of toric surfaces, Hurwitz numbers, and double-Hurwitz numbers; the Cavalieri–Johnson–Markwig formulas express $\psi$-class intersections on $\overline{\mathcal{M}}_{g,n}$ as tropical sums.</p>
 
 <h3>Mirror symmetry: the SYZ picture</h3>
 <p><strong>Strominger–Yau–Zaslow</strong> (1996) proposed that mirror symmetry between Calabi–Yau pairs $(X, X^\vee)$ is fiberwise T-duality: $X \to B$ and $X^\vee \to B$ are special-Lagrangian torus fibrations over the same base $B$, and the mirror operation swaps each torus $T^n \subset X$ with its dual $\hat T^n \subset X^\vee$. The base $B$ is an integral affine manifold — the data of such a base is exactly the tropical building block. Singularities of the affine structure correspond to singular fibers (focus-focus points), and the <strong>Gross–Siebert program</strong> reconstructs the full Calabi–Yau pair from the pair (tropical base, singular locus) by a degeneration / scattering algorithm.</p>
@@ -1136,7 +1136,7 @@ function drawNode(svg, x, y, label, opts={}){
 <section id="connections">
 <h2>Connections</h2>
 
-<p>Tropical geometry is a young field with active frontiers: tropical foundations (matroids, semiring schemes), tropical Hodge theory (Itenberg–Katzarkov–Mikhalkin–Zharkov), and tropical compactifications of algebraic moduli. Many basic questions remain open, such as a complete characterisation of liftable tropical curves in higher genus, and a tropical analog of the Hodge conjecture.</p>
+<p>Tropical geometry is a young field with active frontiers: tropical foundations (matroids, semiring schemes), tropical Hodge theory (Itenberg–Katzarkov–Mikhalkin–Zharkov), and tropical compactifications of algebraic moduli. Many basic questions remain open, such as a complete characterisation of liftable tropical curves in higher genus, and a tropical analog of <a href="./hodge-theory.html#hodge-conjecture" data-auto-inline-link="1" data-concept-id="hodge-conjecture" data-blurb="Every rational class of pure Hodge type $(p,p)$ on a smooth projective $X/\mathbb{C}$ is the cycle class of an algebraic codim-$p$ cycle. Open since 1950, Clay Millennium prize. Known for $p=1$ (Lefschetz $(1,1)$) and on abelian varieties of dim $\le 4$.">the Hodge conjecture</a>.</p>
 
 <ul>
 <li><a href="./algebraic-curves-higher-genus.html#riemann-roch">Higher-genus algebraic curves — Riemann–Roch on a curve</a> — the classical theorem whose tropical mirror is Baker–Norine on metric graphs.</li>
