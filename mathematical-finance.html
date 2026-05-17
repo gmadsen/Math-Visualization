@@ -858,7 +858,7 @@ where the control $u_t\in U\subset\mathbb{R}^k$ is chosen by an agent observing 
 $$V(t,x) \;=\; \sup_{u}\,\mathbb{E}_{t,x}\!\left[\int_t^T f(s,X_s,u_s)\,ds \;+\; g(X_T)\right].$$
 Dynamic programming gives the <strong>Hamilton–Jacobi–Bellman equation</strong>:
 $$\partial_t V \;+\; \sup_{u\in U}\!\Bigl\{\mathcal{L}^u V(t,x) + f(t,x,u)\Bigr\} \;=\; 0, \qquad V(T,x)=g(x),$$
-with $\mathcal{L}^u V = b\cdot\nabla V + \tfrac{1}{2}\mathrm{tr}\bigl(\sigma\sigma^\top \nabla^2 V\bigr)$ the generator of $X$ under control $u$.</p>
+with $\mathcal{L}^u V = b\cdot\nabla V + \tfrac{1}{2}\tr\bigl(\sigma\sigma^\top \nabla^2 V\bigr)$ the generator of $X$ under control $u$.</p>
 
 <p>The supremum makes HJB <em>nonlinear</em>, in contrast to <a href="./stochastic-calculus.html#feynman-kac">Feynman–Kac</a> which is linear (the controlled process is fixed, only the expectation is computed). The argmax inside is an <strong>optimal feedback control</strong> $u^*(t,x)$. A <em>verification theorem</em> establishes that any smooth solution $V$ of the HJB equation satisfying suitable growth/terminal conditions equals the value function and the candidate $u^*$ is optimal — sufficient conditions for what dynamic programming derives heuristically.</p>
 

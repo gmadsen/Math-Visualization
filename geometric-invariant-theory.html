@@ -1343,7 +1343,7 @@ function drawNode(svg, x, y, label, opts={}){
 
 <p>Fix a finite quiver $Q$ (a directed graph) and a dimension vector $\mathbf{d}=(d_i)_{i\in Q_0}\in\mathbb{Z}_{\ge 0}^{Q_0}$. A representation of $Q$ assigns a $d_i$-dimensional vector space to each vertex and a linear map to each arrow:</p>
 
-<p style="text-align:center">$\mathrm{Rep}(Q,\mathbf{d})\;=\;\bigoplus_{a\colon i\to j}\mathrm{Hom}(\mathbb{C}^{d_i},\mathbb{C}^{d_j}),$</p>
+<p style="text-align:center">$\mathrm{Rep}(Q,\mathbf{d})\;=\;\bigoplus_{a\colon i\to j}\Hom(\mathbb{C}^{d_i},\mathbb{C}^{d_j}),$</p>
 
 <p>with $\mathrm{GL}(\mathbf{d})=\prod_i\mathrm{GL}(d_i)$ acting by simultaneous basis change. A <strong>stability character</strong> $\theta\in\mathbb{Z}^{Q_0}$ with $\sum\theta_i d_i=0$ defines a character of $\mathrm{GL}(\mathbf{d})$ via $g\mapsto\prod_i\det(g_i)^{\theta_i}$, linearising the trivial line bundle. King's theorem: a representation is GIT-(semi)stable under this linearization iff it is $\theta$-(semi)stable in the abstract sense (every nonzero subrepresentation $W$ has $\theta\cdot\dim W \le 0$). The GIT quotient is the moduli space of $\theta$-stable representations.</p>
 

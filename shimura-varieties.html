@@ -272,8 +272,8 @@ where $\mathbb{S} = \mathrm{Res}_{\mathbb{C}/\mathbb{R}} \mathbb{G}_m$ is the <e
 
 <ul>
 <li><strong>(SV1)</strong> The Hodge structure on $\mathfrak{g}$ defined by $\mathrm{Ad}\circ h$ has type $\{(-1,1), (0,0), (1,-1)\}$. Equivalently, $\mathfrak{g}_\mathbb{C} = \mathfrak{g}^{-1,1} \oplus \mathfrak{g}^{0,0} \oplus \mathfrak{g}^{1,-1}$.</li>
-<li><strong>(SV2)</strong> $\mathrm{ad}(h(i))$ is a Cartan involution on $G^{\mathrm{ad}}_\mathbb{R}$ (so the centralizer $K_h \subset G(\mathbb{R})$ is compact modulo center). This forces $X$ to be a Hermitian symmetric domain.</li>
-<li><strong>(SV3)</strong> $G^{\mathrm{ad}}$ has no $\mathbb{Q}$-factor on which $h$ becomes trivial — there are no $\mathbb{Q}$-rational redundancies.</li>
+<li><strong>(SV2)</strong> $\ad(h(i))$ is a Cartan involution on $G^{\ad}_\mathbb{R}$ (so the centralizer $K_h \subset G(\mathbb{R})$ is compact modulo center). This forces $X$ to be a Hermitian symmetric domain.</li>
+<li><strong>(SV3)</strong> $G^{\ad}$ has no $\mathbb{Q}$-factor on which $h$ becomes trivial — there are no $\mathbb{Q}$-rational redundancies.</li>
 </ul>
 
 <p>Under (SV1)–(SV3), the conjugacy class $X = G(\mathbb{R})/K_h$ is a finite disjoint union of <strong>Hermitian symmetric domains</strong>; the connected component $X^+$ is one of the bounded symmetric domains classified by Cartan. The two foundational examples make the abstract data concrete:</p>
@@ -402,7 +402,7 @@ a <em>finite</em> disjoint union of arithmetic quotients of the connected Hermit
 
 <div class="ok"><strong>Theorem (Baily–Borel).</strong> For neat $K$, $\mathrm{Sh}_K(G,X)$ is a smooth quasi-projective complex algebraic variety. Adding the <em>Baily–Borel boundary</em> compactifies it to a normal projective variety; smoother toroidal compactifications of Ash–Mumford–Rapoport–Tai refine this with explicit local fan data.</div>
 
-<p>The deeper miracle is that this complex variety descends to a number field. <strong>Shimura's reciprocity law / Deligne's canonical model theorem</strong> asserts: there is a canonical $E$-model $\mathrm{Sh}_K(G,X)_E$ over the reflex field $E = E(G,X)$, characterized by how it interacts with <strong>special points</strong> — points where the homomorphism $h$ factors through a maximal $\mathbb{Q}$-torus. Special points correspond to CM Hodge structures, and on them the Galois action of $\mathrm{Gal}(\overline{E}/E)$ is described explicitly by the reflex norm and class field theory of $E$.</p>
+<p>The deeper miracle is that this complex variety descends to a number field. <strong>Shimura's reciprocity law / Deligne's canonical model theorem</strong> asserts: there is a canonical $E$-model $\mathrm{Sh}_K(G,X)_E$ over the reflex field $E = E(G,X)$, characterized by how it interacts with <strong>special points</strong> — points where the homomorphism $h$ factors through a maximal $\mathbb{Q}$-torus. Special points correspond to CM Hodge structures, and on them the Galois action of $\Gal(\overline{E}/E)$ is described explicitly by the reflex norm and class field theory of $E$.</p>
 
 <div class="widget" id="w-canon">
   <div class="hd"><div class="ttl">Widget 2 · Adelic double-quotient counter</div><div class="hint">how many connected components does $\mathrm{Sh}_K$ have?</div></div>
@@ -501,7 +501,7 @@ a <em>finite</em> disjoint union of arithmetic quotients of the connected Hermit
 })();
 </script>
 
-<p>The adelic packaging is not cosmetic. Hecke correspondences come from <em>right multiplication by $g \in G(\mathbb{A}_f)$</em> on the second factor; the action of an unramified Hecke algebra at $p \nmid N$ becomes the obvious commuting algebra on the inverse system $\{\mathrm{Sh}_K\}$. This is what makes $H^*_{\mathrm{ét}}(\mathrm{Sh})$ a module for both $\mathrm{Gal}(\overline{E}/E)$ and the (adelic) Hecke algebra simultaneously — the seed of §5.</p>
+<p>The adelic packaging is not cosmetic. Hecke correspondences come from <em>right multiplication by $g \in G(\mathbb{A}_f)$</em> on the second factor; the action of an unramified Hecke algebra at $p \nmid N$ becomes the obvious commuting algebra on the inverse system $\{\mathrm{Sh}_K\}$. This is what makes $H^*_{\mathrm{ét}}(\mathrm{Sh})$ a module for both $\Gal(\overline{E}/E)$ and the (adelic) Hecke algebra simultaneously — the seed of §5.</p>
 
 <!-- callback-auto-begin -->
 <aside class="callback">
@@ -752,7 +752,7 @@ $$H^i_{\mathrm{ét}}\bigl( \mathrm{Sh}_K(G,X) \times_E \overline{E},\ \overline{
 This finite-dimensional $\overline{\mathbb{Q}}_\ell$-vector space carries <em>two commuting actions</em>:</p>
 
 <ul>
-<li>A continuous action of $\mathrm{Gal}(\overline{E}/E)$, by functoriality of étale cohomology.</li>
+<li>A continuous action of $\Gal(\overline{E}/E)$, by functoriality of étale cohomology.</li>
 <li>An action of the (adelic) Hecke algebra $\mathcal{H}(G(\mathbb{A}_f) /\!/ K)$, induced by the Hecke correspondences on the Shimura variety.</li>
 </ul>
 
@@ -760,14 +760,14 @@ This finite-dimensional $\overline{\mathbb{Q}}_\ell$-vector space carries <em>tw
 $$H^i_{\mathrm{ét}}\bigl( \mathrm{Sh}_K(G,X) \times \overline{E},\ \overline{\mathbb{Q}}_\ell \bigr)_\pi \;=\; \pi_f^K \otimes \rho_{\pi,\ell}.$$
 This is the canonical mechanism by which automorphic forms produce Galois representations.</p>
 
-<div class="ok"><strong>Eichler–Shimura ($\mathrm{GL}_2/\mathbb{Q}$).</strong> For a weight-$2$ newform $f \in S_2(\Gamma_0(N))$ with $q$-expansion $\sum a_n q^n$, the eigensystem $T_p \mapsto a_p$ singles out a $2$-dimensional Galois representation $\rho_{f,\ell} \colon \mathrm{Gal}(\overline{\mathbb{Q}}/\mathbb{Q}) \to \mathrm{GL}_2(\overline{\mathbb{Q}}_\ell)$ inside $H^1_{\mathrm{ét}}(X_0(N) \times \overline{\mathbb{Q}}, \overline{\mathbb{Q}}_\ell)$, with $\mathrm{tr}\,\rho_{f,\ell}(\mathrm{Frob}_p) = a_p$ for $p \nmid N\ell$.</div>
+<div class="ok"><strong>Eichler–Shimura ($\mathrm{GL}_2/\mathbb{Q}$).</strong> For a weight-$2$ newform $f \in S_2(\Gamma_0(N))$ with $q$-expansion $\sum a_n q^n$, the eigensystem $T_p \mapsto a_p$ singles out a $2$-dimensional Galois representation $\rho_{f,\ell} \colon \Gal(\overline{\mathbb{Q}}/\mathbb{Q}) \to \mathrm{GL}_2(\overline{\mathbb{Q}}_\ell)$ inside $H^1_{\mathrm{ét}}(X_0(N) \times \overline{\mathbb{Q}}, \overline{\mathbb{Q}}_\ell)$, with $\tr\,\rho_{f,\ell}(\mathrm{Frob}_p) = a_p$ for $p \nmid N\ell$.</div>
 
 <p>For higher rank and weight, this picture was generalized by Deligne (weight $\ge 2$ holomorphic), Carayol (Hilbert modular forms via Shimura curves, level-by-level), Brylinski–Labesse (totally real fields), Kottwitz (Siegel and unitary cases via the "stable trace formula on Shimura varieties"), and many others — culminating in Shin–Caraiani–Scholze for unitary groups and the modern derived-category approach of Fargues–Scholze on the Fargues–Fontaine curve.</p>
 
 <p>The widget below shows the <em>Hecke action on $H^1$ of $X_0(11)$</em> — a $1$-dimensional Hecke eigenspace, hence a single $2$-dim Galois representation, hence a single weight-$2$ newform: the modular elliptic curve $E_{11}$.</p>
 
 <div class="widget" id="w-coh">
-  <div class="hd"><div class="ttl">Widget 5 · Hecke eigenvalues on $H^1$ vs Frobenius traces</div><div class="hint">$T_p$ on $H^1(X_0(11), \mathbb{Q}_\ell)$ matches $\mathrm{tr}\,\rho_{11}(\mathrm{Frob}_p) = a_p(E_{11})$</div></div>
+  <div class="hd"><div class="ttl">Widget 5 · Hecke eigenvalues on $H^1$ vs Frobenius traces</div><div class="hint">$T_p$ on $H^1(X_0(11), \mathbb{Q}_\ell)$ matches $\tr\,\rho_{11}(\mathrm{Frob}_p) = a_p(E_{11})$</div></div>
   <div class="row">
     <label for="w-coh-N">level:</label>
     <select id="w-coh-N">
