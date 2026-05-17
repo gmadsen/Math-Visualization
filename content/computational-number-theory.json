@@ -105,7 +105,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./mathematics-and-cryptography.html#lattice-based\">Lattice-based cryptography</a> — the post-quantum schemes whose security rests on harder lattice problems beyond LLL.</li>\n    <li><a href=\"./complexity-theory.html#time\">Time complexity and big-O</a></li>\n    <li><a href=\"./mathematics-and-cryptography.html#lattice\">Lattice-based and post-quantum cryptography</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./mathematics-and-cryptography.html#lattice\">Lattice-based cryptography</a> — the post-quantum schemes whose security rests on harder lattice problems beyond LLL.</li>\n    <li><a href=\"./complexity-theory.html#time\">Time complexity and big-O</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {
           "type": "raw",
@@ -220,7 +220,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./algebraic-number-theory.html#prime-ideals\">Prime-ideal factorization in $\\mathcal O_K$</a> — the structural prerequisite Buchmann's factor base relies on.</li>\n    <li><a href=\"./algebraic-number-theory.html#class-group-units\">Class group & units</a> — the finiteness theorems being computed.</li>\n    <li><a href=\"./algebraic-number-theory.html#ramification\">Ideal factorization and ramification</a></li>\n    <li><a href=\"./algebraic-number-theory.html#units\">Class group and units</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./algebraic-number-theory.html#ramification\">Prime-ideal factorization in $\\mathcal O_K$</a> — the structural prerequisite Buchmann's factor base relies on.</li>\n    <li><a href=\"./algebraic-number-theory.html#units\">Class group & units</a> — the finiteness theorems being computed.</li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {
           "type": "quiz",
@@ -238,7 +238,7 @@
       "blocks": [
         {
           "type": "raw",
-          "html": "<section id=\"connections\">\n<h2>Connections</h2>\n\n<p>Computational number theory is where structural theorems become engineering. Open frontiers cluster around two questions: can the subexponential factoring barrier be broken classically (currently no candidate algorithm), and can post-quantum lattice schemes survive cryptanalytic improvements that chip away at LLL's gap to exact SVP?</p>\n\n<ul>\n<li><a href=\"./mathematics-and-cryptography.html#rsa\">RSA</a> — depends entirely on the conjectured hardness of <a href=\"#factoring\">factoring</a>.</li>\n<li><a href=\"./mathematics-and-cryptography.html#elliptic-curve\">ECC</a> — needs <a href=\"#ec-comp\">Schoof–SEA point counting</a> to certify curve order.</li>\n<li><a href=\"./algebraic-number-theory.html#class-group-units\">Algebraic number theory</a> — class numbers and regulators above small discriminant are computed, not proved by hand.</li>\n<li><a href=\"./complexity-theory.html#p-and-np\">Complexity theory</a> — primality is in $P$, factoring conjecturally is not; the gap is what cryptography monetizes.</li>\n<li><a href=\"./p-adic-numbers.html#hensel\">$p$-adic methods</a> — Hensel lifting underlies many efficient root-finding routines used inside these algorithms.</li>\n</ul>\n</section>\n\n"
+          "html": "<section id=\"connections\">\n<h2>Connections</h2>\n\n<p>Computational number theory is where structural theorems become engineering. Open frontiers cluster around two questions: can the subexponential factoring barrier be broken classically (currently no candidate algorithm), and can post-quantum lattice schemes survive cryptanalytic improvements that chip away at LLL's gap to exact SVP?</p>\n\n<ul>\n<li><a href=\"./mathematics-and-cryptography.html#rsa\">RSA</a> — depends entirely on the conjectured hardness of <a href=\"#factoring\">factoring</a>.</li>\n<li><a href=\"./mathematics-and-cryptography.html#ecc\">ECC</a> — needs <a href=\"#ec-comp\">Schoof–SEA point counting</a> to certify curve order.</li>\n<li><a href=\"./algebraic-number-theory.html#units\">Algebraic number theory</a> — class numbers and regulators above small discriminant are computed, not proved by hand.</li>\n<li><a href=\"./complexity-theory.html#p-np\">Complexity theory</a> — primality is in $P$, factoring conjecturally is not; the gap is what cryptography monetizes.</li>\n<li><a href=\"./p-adic-numbers.html#hensel\">$p$-adic methods</a> — Hensel lifting underlies many efficient root-finding routines used inside these algorithms.</li>\n</ul>\n</section>\n\n"
         }
       ]
     }
