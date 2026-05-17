@@ -1020,7 +1020,7 @@ $$L_b\, u \;=\; \lambda\, u^{(n+2)/n} \;=\; \lambda\, u^{(Q+2)/(Q-2)},$$
       svg.appendChild(rt);
     });
     if (active >= 0) {
-      out.textContent = `${rows[active].l}  ⟷  ${rows[active].r}\n\n${rows[active].m.replace(/\\Delta/g,'Δ').replace(/\\mathbb{H}/g,'H').replace(/\\mapsto/g,'↦').replace(/\\le/g,'≤').replace(/\\sim/g,'∼').replace(/\\hookrightarrow/g,'↪').replace(/\\theta/g,'θ').replace(/\\lambda/g,'λ').replace(/[\\$]/g,'').replace(/\\mathrm{[a-z]*}/g,'')}`;
+      out.textContent = `${tex2uni(rows[active].l)}  ⟷  ${tex2uni(rows[active].r)}\n\n${tex2uni(rows[active].m)}`;
     } else {
       out.textContent = 'Click a row on the left to see its CR analog and the structural mapping.';
     }
