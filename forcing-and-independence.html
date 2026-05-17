@@ -263,17 +263,17 @@ function drawNode(svg, x, y, label, opts={}){
 
 <p>Gödel had shown in 1940 that CH is <em>consistent</em> with ZFC, by building the constructible universe $L$. The other direction — is $\neg$CH also consistent? — sat open for two decades. Cohen's <strong>forcing</strong> answered yes, and along the way invented the most flexible tool in modern set theory: a way to construct, from a model $M$ of ZFC, a larger model $M[G]$ in which a designed list of new sets exists.</p>
 
-<p>The plot of this page: assemble a poset $\mathbb P$ of "partial information" called <em>conditions</em>; identify $\mathbb P$-generic filters $G$ over a countable model $M$; show that the extension $M[G]$ is again a model of ZFC and that statements about $G$ are decided by a syntactically defined <em>forcing relation</em> $p\Vdash\varphi$. Pick $\mathbb P=2^{<\omega}$ to add a new real, or its $\aleph_2$-fold product to add $\aleph_2$ reals at once and make CH fail. Then survey other independence theorems and Martin's axiom.</p>
+<p>The plot of this page: assemble a poset $\mathbb{P}$ of "partial information" called <em>conditions</em>; identify $\mathbb{P}$-generic filters $G$ over a countable model $M$; show that the extension $M[G]$ is again a model of ZFC and that statements about $G$ are decided by a syntactically defined <em>forcing relation</em> $p\Vdash\varphi$. Pick $\mathbb{P}=2^{<\omega}$ to add a new real, or its $\aleph_2$-fold product to add $\aleph_2$ reals at once and make CH fail. Then survey other independence theorems and Martin's axiom.</p>
 
 <section id="posets">
 <h2>1. Forcing posets and dense subsets</h2>
-<p>A <strong>forcing notion</strong> is a partially ordered set $(\mathbb P,\le)$ with a maximum element $\mathbb 1\in\mathbb P$. Read $p\le q$ as "$p$ is <em>stronger</em> than $q$" — $p$ commits to more about the unknown object you are building.</p>
+<p>A <strong>forcing notion</strong> is a partially ordered set $(\mathbb{P},\le)$ with a maximum element $\mathbb 1\in\mathbb{P}$. Read $p\le q$ as "$p$ is <em>stronger</em> than $q$" — $p$ commits to more about the unknown object you are building.</p>
 
 <div class="note"><strong>Sign conventions vary.</strong> Cohen and Kunen use $p\le q$ for "$p$ is stronger" (going down the order pins more bits). Some authors flip the order. We use Cohen/Kunen here. The maximum $\mathbb 1$ is the empty commitment — "I have decided nothing yet".</div>
 
-<p>The canonical example: <strong>Cohen forcing</strong> $\mathbb P=2^{<\omega}$, the set of finite binary strings, ordered by <em>extension</em>. The empty string $\langle\rangle=\mathbb 1$ is on top; $\langle 0\rangle$ and $\langle 1\rangle$ are stronger; each condition has exactly two immediate extensions. The poset is the infinite binary tree growing downward.</p>
+<p>The canonical example: <strong>Cohen forcing</strong> $\mathbb{P}=2^{<\omega}$, the set of finite binary strings, ordered by <em>extension</em>. The empty string $\langle\rangle=\mathbb 1$ is on top; $\langle 0\rangle$ and $\langle 1\rangle$ are stronger; each condition has exactly two immediate extensions. The poset is the infinite binary tree growing downward.</p>
 
-<p>A subset $D\subseteq\mathbb P$ is <strong>dense</strong> iff for every $p\in\mathbb P$ there exists $q\in D$ with $q\le p$. Density says: every condition can be extended into $D$. Each dense set is a question we want answered, and meeting it is an answer.</p>
+<p>A subset $D\subseteq\mathbb{P}$ is <strong>dense</strong> iff for every $p\in\mathbb{P}$ there exists $q\in D$ with $q\le p$. Density says: every condition can be extended into $D$. Each dense set is a question we want answered, and meeting it is an answer.</p>
 
 <div class="widget" id="w-poset">
   <div class="hd"><div class="ttl">Dense subsets in the Cohen poset $2^{&lt;\omega}$</div><div class="hint">click a &quot;question&quot; to highlight a dense set</div></div>
@@ -391,7 +391,7 @@ function drawNode(svg, x, y, label, opts={}){
 </section>
 <section id="generic">
 <h2>2. Generic filters and the model $M[G]$</h2>
-<p>Fix a countable transitive model $M\models$ ZFC and a poset $\mathbb P\in M$. A subset $G\subseteq\mathbb P$ is a <strong>filter</strong> if it is upward-closed ($p\in G,\ q\ge p\Rightarrow q\in G$) and downward-directed ($p,q\in G\Rightarrow\exists r\in G,\ r\le p,q$). It is $M$-<strong>generic</strong> if additionally:</p>
+<p>Fix a countable transitive model $M\models$ ZFC and a poset $\mathbb{P}\in M$. A subset $G\subseteq\mathbb{P}$ is a <strong>filter</strong> if it is upward-closed ($p\in G,\ q\ge p\Rightarrow q\in G$) and downward-directed ($p,q\in G\Rightarrow\exists r\in G,\ r\le p,q$). It is $M$-<strong>generic</strong> if additionally:</p>
 
 \[
 G\cap D \ne \emptyset \quad\text{for every dense } D\in M.
@@ -410,9 +410,9 @@ G\cap D \ne \emptyset \quad\text{for every dense } D\in M.
   <div class="readout" id="gen-out"></div>
 </div>
 
-<p>From a generic $G$ we construct $M[G]$ by interpreting <strong>$\mathbb P$-names</strong> from $M$. A name $\dot x\in M$ is a set of pairs $(\dot y, p)$; its evaluation is $\dot x_G = \{\,\dot y_G : (\dot y, p)\in\dot x \text{ for some } p\in G\,\}$. The model is $M[G] = \{\dot x_G : \dot x\in M\}$.</p>
+<p>From a generic $G$ we construct $M[G]$ by interpreting <strong>$\mathbb{P}$-names</strong> from $M$. A name $\dot x\in M$ is a set of pairs $(\dot y, p)$; its evaluation is $\dot x_G = \{\,\dot y_G : (\dot y, p)\in\dot x \text{ for some } p\in G\,\}$. The model is $M[G] = \{\dot x_G : \dot x\in M\}$.</p>
 
-<div class="ok"><strong>Three theorems (Cohen).</strong> For any countable transitive $M\models$ ZFC, any $\mathbb P\in M$, and any $M$-generic $G\subseteq\mathbb P$:
+<div class="ok"><strong>Three theorems (Cohen).</strong> For any countable transitive $M\models$ ZFC, any $\mathbb{P}\in M$, and any $M$-generic $G\subseteq\mathbb{P}$:
 <ul>
   <li><strong>Existence of $G$.</strong> $M$-generic filters always exist (in $V$, outside $M$).</li>
   <li><strong>$M\subseteq M[G]$ and $G\in M[G]$.</strong> The extension keeps everything from the ground model and exhibits $G$ as a set.</li>
@@ -571,13 +571,13 @@ key fact: r_G ∉ M.  the dense sets D_s = {p : p disagrees with s} for s ∈ (2
 </section>
 <section id="truth-lemma">
 <h2>3. The forcing relation and truth lemma</h2>
-<p>So far the construction has been semantic: pick $G$, look at $M[G]$. The miracle is that <em>everything true in $M[G]$ is decided by data already in $M$</em>. The bookkeeping device is the <strong>forcing relation</strong> $p\Vdash\varphi$, defined inside $M$ by recursion on the formula $\varphi$ (which is built from $\mathbb P$-names). Read $p\Vdash\varphi$ as "every generic $G$ containing $p$ makes $\varphi$ true in $M[G]$".</p>
+<p>So far the construction has been semantic: pick $G$, look at $M[G]$. The miracle is that <em>everything true in $M[G]$ is decided by data already in $M$</em>. The bookkeeping device is the <strong>forcing relation</strong> $p\Vdash\varphi$, defined inside $M$ by recursion on the formula $\varphi$ (which is built from $\mathbb{P}$-names). Read $p\Vdash\varphi$ as "every generic $G$ containing $p$ makes $\varphi$ true in $M[G]$".</p>
 
 <div class="ok"><strong>Forcing relation — three properties.</strong>
 <ul>
   <li><strong>Definability.</strong> The relation $\Vdash$ is definable in $M$. So $M$ knows which conditions force which formulas.</li>
   <li><strong>Monotonicity.</strong> If $p\Vdash\varphi$ and $q\le p$, then $q\Vdash\varphi$. Stronger conditions inherit forced statements.</li>
-  <li><strong>Density.</strong> For every $\varphi$, the set $\{p : p\Vdash\varphi \text{ or } p\Vdash\neg\varphi\}$ is dense in $\mathbb P$. So every generic decides every formula.</li>
+  <li><strong>Density.</strong> For every $\varphi$, the set $\{p : p\Vdash\varphi \text{ or } p\Vdash\neg\varphi\}$ is dense in $\mathbb{P}$. So every generic decides every formula.</li>
 </ul></div>
 
 <div class="ok"><strong>Truth lemma.</strong> For every formula $\varphi(\dot x_1,\dots,\dot x_n)$ in the forcing language and every $M$-generic $G$:
@@ -603,7 +603,7 @@ Equivalently: truth in $M[G]$ is decided by the conditions that ended up in $G$.
   <div class="readout" id="forces-out"></div>
 </div>
 
-<div class="note"><strong>Why "ZFC holds in $M[G]$".</strong> One proves <em>inside $M$</em> that for every ZFC axiom $\sigma$, the maximal condition $\mathbb 1$ forces $\sigma$. By the truth lemma (and $\mathbb 1\in G$ for every filter), $M[G]\models\sigma$. So $M[G]\models$ ZFC for every generic $G$, regardless of which $\mathbb P$ you used.</div>
+<div class="note"><strong>Why "ZFC holds in $M[G]$".</strong> One proves <em>inside $M$</em> that for every ZFC axiom $\sigma$, the maximal condition $\mathbb 1$ forces $\sigma$. By the truth lemma (and $\mathbb 1\in G$ for every filter), $M[G]\models\sigma$. So $M[G]\models$ ZFC for every generic $G$, regardless of which $\mathbb{P}$ you used.</div>
 
 <div class="quiz" data-concept="forcing-truth-lemma"></div><!-- backlinks-auto-begin -->
 <aside class="related">
@@ -679,7 +679,7 @@ density: for every φ, some extension q ≤ p decides φ either way.`;
 </section>
 <section id="cohen-reals">
 <h2>4. Cohen forcing for adding reals</h2>
-<p>The poset $\mathbb P=2^{<\omega}$ — the binary tree of finite strings — is <strong>Cohen forcing</strong>. A generic filter $G$ is a chain of finite strings cofinal in length, and its <em>collapse</em> is a single new infinite binary sequence:</p>
+<p>The poset $\mathbb{P}=2^{<\omega}$ — the binary tree of finite strings — is <strong>Cohen forcing</strong>. A generic filter $G$ is a chain of finite strings cofinal in length, and its <em>collapse</em> is a single new infinite binary sequence:</p>
 
 \[
 r_G \;=\; \bigcup_{p\in G} p \;\in\; 2^\omega.
@@ -703,12 +703,12 @@ r_G \;=\; \bigcup_{p\in G} p \;\in\; 2^\omega.
 <p>To add many new reals at once, take instead</p>
 
 \[
-\mathbb P \;=\; \operatorname{Fn}(\aleph_2\times\omega,\, 2),
+\mathbb{P} \;=\; \operatorname{Fn}(\aleph_2\times\omega,\, 2),
 \]
 
 <p>the set of <em>finite</em> partial functions from $\aleph_2\times\omega$ to $\{0,1\}$, ordered by extension. A condition is a finite list of commitments "at index $\alpha\in\aleph_2$ and bit position $n\in\omega$, the value is $b$". A generic $G$ defines $\aleph_2$ many distinct reals $r_\alpha\in 2^\omega$ in $M[G]$, indexed by $\alpha<\aleph_2^M$.</p>
 
-<div class="ok"><strong>Cardinal preservation.</strong> $\mathbb P$ has the <strong>countable chain condition (ccc)</strong>: every antichain is countable, by a $\Delta$-system argument on the finite supports. The <em>ccc preserves cardinals and cofinalities</em> — no $\aleph_\alpha^M$ collapses in $M[G]$. So $\aleph_2^{M[G]}=\aleph_2^M$, and the new reals stay distinct as elements of $2^\omega$ in $M[G]$.</div>
+<div class="ok"><strong>Cardinal preservation.</strong> $\mathbb{P}$ has the <strong>countable chain condition (ccc)</strong>: every antichain is countable, by a $\Delta$-system argument on the finite supports. The <em>ccc preserves cardinals and cofinalities</em> — no $\aleph_\alpha^M$ collapses in $M[G]$. So $\aleph_2^{M[G]}=\aleph_2^M$, and the new reals stay distinct as elements of $2^\omega$ in $M[G]$.</div>
 
 <p>Conclusion: $|2^\omega|^{M[G]}\ge\aleph_2^{M[G]} > \aleph_1^{M[G]}$, so $M[G]\models\neg\mathrm{CH}$. We will draw the picture in the next section.</p>
 
@@ -801,7 +801,7 @@ diagonalization against any old s ∈ M: the dense set D_s = {p : disagrees with
 </section>
 <section id="not-ch">
 <h2>5. Independence of the continuum hypothesis</h2>
-<p>Putting the pieces together. Let $M$ be a countable transitive model of ZFC + CH (Gödel's $L$ if you like). Let $\mathbb P=\operatorname{Fn}(\aleph_2^M\times\omega,2)$. Let $G$ be $M$-generic. Then:</p>
+<p>Putting the pieces together. Let $M$ be a countable transitive model of ZFC + CH (Gödel's $L$ if you like). Let $\mathbb{P}=\operatorname{Fn}(\aleph_2^M\times\omega,2)$. Let $G$ be $M$-generic. Then:</p>
 
 <table class="plain">
 <thead><tr><th>step</th><th>fact</th><th>tool</th></tr></thead>
@@ -951,7 +951,7 @@ Easton (1970): every "reasonable" function α ↦ 2^ℵ_α is consistent.`;
 </table>
 
 <h3>Martin's axiom — a parametric weakening of CH</h3>
-<p><strong>Martin's axiom MA</strong> says: for every ccc poset $\mathbb P$ and every family $\mathcal D$ of $<2^{\aleph_0}$ dense sets, a filter $G\subseteq\mathbb P$ meeting every $D\in\mathcal D$ exists. Under CH, MA is automatic (only countable families). Under $\neg$CH, it is a substantive axiom that asserts <em>generic-like</em> filters exist for small problems even though no truly generic filter does.</p>
+<p><strong>Martin's axiom MA</strong> says: for every ccc poset $\mathbb{P}$ and every family $\mathcal D$ of $<2^{\aleph_0}$ dense sets, a filter $G\subseteq\mathbb{P}$ meeting every $D\in\mathcal D$ exists. Under CH, MA is automatic (only countable families). Under $\neg$CH, it is a substantive axiom that asserts <em>generic-like</em> filters exist for small problems even though no truly generic filter does.</p>
 
 <p>MA + $\neg$CH is consistent (Solovay–Tennenbaum). It implies the Suslin hypothesis, that $2^{\aleph_0}$ is regular, that every Aronszajn tree is special, and many combinatorial principles. Working set theorists routinely treat MA as an "extra dial" sitting alongside ZFC.</p>
 
