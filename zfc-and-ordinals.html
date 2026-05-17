@@ -276,8 +276,8 @@ function drawNode(svg, x, y, label, opts={}){
 <tr><td><strong>Extensionality</strong></td><td>$\forall x\forall y\,[\forall z(z\in x\leftrightarrow z\in y)\to x=y]$</td><td>sets are determined by their elements</td></tr>
 <tr><td><strong>Pairing</strong></td><td>$\forall a\forall b\,\exists p\,(p=\{a,b\})$</td><td>$\{a\}$, $\{a,b\}$, ordered pair $(a,b)=\{\{a\},\{a,b\}\}$</td></tr>
 <tr><td><strong>Union</strong></td><td>$\forall F\,\exists U\,\forall x(x\in U \leftrightarrow \exists A\in F\,x\in A)$</td><td>$\bigcup F$ for any family $F$</td></tr>
-<tr><td><strong>Power set</strong></td><td>$\forall A\,\exists P\,\forall S(S\in P \leftrightarrow S\subseteq A)$</td><td>$\mathcal P(A)$, hence function spaces, $\mathbb R$</td></tr>
-<tr><td><strong>Infinity</strong></td><td>$\exists I\,(\emptyset\in I \wedge \forall x\in I\,x\cup\{x\}\in I)$</td><td>$\omega$, hence $\mathbb N$</td></tr>
+<tr><td><strong>Power set</strong></td><td>$\forall A\,\exists P\,\forall S(S\in P \leftrightarrow S\subseteq A)$</td><td>$\mathcal P(A)$, hence function spaces, $\mathbb{R}$</td></tr>
+<tr><td><strong>Infinity</strong></td><td>$\exists I\,(\emptyset\in I \wedge \forall x\in I\,x\cup\{x\}\in I)$</td><td>$\omega$, hence $\mathbb{N}$</td></tr>
 <tr><td><strong>Separation</strong> (schema)</td><td>$\forall A\,\exists B\,\forall x(x\in B\leftrightarrow x\in A\wedge\varphi(x))$</td><td>safe comprehension; blocks Russell</td></tr>
 <tr><td><strong>Replacement</strong> (schema)</td><td>image of a set under a definable functional class is a set</td><td>$V_\alpha$ for transfinite $\alpha$, recursion</td></tr>
 <tr><td><strong>Regularity</strong></td><td>$\forall A\ne\emptyset\,\exists x\in A\,(x\cap A=\emptyset)$</td><td>no $x\in x$, well-foundedness, ranks</td></tr>
@@ -526,7 +526,7 @@ $1 + \omega = \omega \ne \omega + 1$, and $2\cdot\omega = \omega \ne \omega\cdot
 <h3>The tower up to $\varepsilon_0$</h3>
 <p>Every ordinal $\alpha < \varepsilon_0$ has a unique <strong>Cantor normal form</strong>
 \[ \alpha = \omega^{\beta_1}\cdot n_1 + \omega^{\beta_2}\cdot n_2 + \cdots + \omega^{\beta_k}\cdot n_k \]
-with $\beta_1>\beta_2>\cdots>\beta_k$ and $n_i\in\mathbb N_{>0}$. The first ordinal not of this form is $\varepsilon_0 = \sup\{\omega,\omega^\omega,\omega^{\omega^\omega},\dots\}$ — the least fixed point of $\alpha\mapsto\omega^\alpha$. Despite the towering iterated exponentials, $\varepsilon_0$ is still <em>countable</em>; the smallest <em>uncountable</em> ordinal $\omega_1$ is wildly larger.</p>
+with $\beta_1>\beta_2>\cdots>\beta_k$ and $n_i\in\mathbb{N}_{>0}$. The first ordinal not of this form is $\varepsilon_0 = \sup\{\omega,\omega^\omega,\omega^{\omega^\omega},\dots\}$ — the least fixed point of $\alpha\mapsto\omega^\alpha$. Despite the towering iterated exponentials, $\varepsilon_0$ is still <em>countable</em>; the smallest <em>uncountable</em> ordinal $\omega_1$ is wildly larger.</p>
 
 <div class="note"><strong>Gentzen's theorem.</strong> Peano arithmetic cannot prove that $\varepsilon_0$ is well-founded. Adding well-foundedness of $\varepsilon_0$ as an extra principle (Gentzen, 1936) yields a consistency proof of PA. So $\varepsilon_0$ is, quantitatively, where the strength of PA runs out.</div>
 
@@ -667,7 +667,7 @@ the asymmetry is "left arg gets repeated, right arg is the count".`;
 
 <div class="ok"><strong>The aleph hierarchy.</strong>
 \[
-\aleph_0 = \omega = |\mathbb N|,\qquad \aleph_{\alpha+1} = (\aleph_\alpha)^+ = \text{least cardinal} > \aleph_\alpha,\qquad \aleph_\lambda = \sup_{\beta<\lambda}\aleph_\beta.
+\aleph_0 = \omega = |\mathbb{N}|,\qquad \aleph_{\alpha+1} = (\aleph_\alpha)^+ = \text{least cardinal} > \aleph_\alpha,\qquad \aleph_\lambda = \sup_{\beta<\lambda}\aleph_\beta.
 \]
 Every infinite cardinal is some $\aleph_\alpha$. The ordinal index $\alpha$ ranges over <em>all</em> ordinals — the alephs form a proper class.</div>
 
@@ -691,8 +691,8 @@ Every infinite cardinal is some $\aleph_\alpha$. The ordinal index $\alpha$ rang
 <div class="note"><strong>König's theorem.</strong> $\kappa^{\operatorname{cf}(\kappa)} > \kappa$, so e.g. $2^{\aleph_0}\ne\aleph_\omega$ — the continuum cannot have countable cofinality, eliminating one popular guess for its size.</div>
 
 <h3>The continuum</h3>
-<p>$|\mathbb R|=2^{\aleph_0}$, the <strong>cardinality of the continuum</strong>. Two-way embedding:
-$\mathbb R \hookrightarrow \mathcal P(\mathbb Q)$ via Dedekind cuts $r\mapsto\{q\in\mathbb Q:q<r\}$, and $\{0,1\}^{\mathbb N}\hookrightarrow\mathbb R$ via binary expansions (after handling the $0.0\overline 1=0.1\overline 0$ ambiguity). Cantor–Schröder–Bernstein closes the loop. The cardinal $2^{\aleph_0}$ is uncountable (Cantor's diagonal) and at least $\aleph_1$, but its exact aleph rank is the continuum hypothesis. The only ZFC constraint beyond $2^{\aleph_0}\geq\aleph_1$ is König's $\operatorname{cf}(2^{\aleph_0})>\omega$; by Easton's theorem $2^{\aleph_0}$ can consistently be any cardinal of uncountable cofinality.</p>
+<p>$|\mathbb{R}|=2^{\aleph_0}$, the <strong>cardinality of the continuum</strong>. Two-way embedding:
+$\mathbb{R} \hookrightarrow \mathcal P(\mathbb{Q})$ via Dedekind cuts $r\mapsto\{q\in\mathbb{Q}:q<r\}$, and $\{0,1\}^{\mathbb{N}}\hookrightarrow\mathbb{R}$ via binary expansions (after handling the $0.0\overline 1=0.1\overline 0$ ambiguity). Cantor–Schröder–Bernstein closes the loop. The cardinal $2^{\aleph_0}$ is uncountable (Cantor's diagonal) and at least $\aleph_1$, but its exact aleph rank is the continuum hypothesis. The only ZFC constraint beyond $2^{\aleph_0}\geq\aleph_1$ is König's $\operatorname{cf}(2^{\aleph_0})>\omega$; by Easton's theorem $2^{\aleph_0}$ can consistently be any cardinal of uncountable cofinality.</p>
 
 <!-- callback-auto-begin -->
 <aside class="callback">
@@ -851,13 +851,13 @@ picked so far: ${pick.filter(p=>p>=0).length}/${N}.
 </section>
 <section id="ch">
 <h2>6. The continuum hypothesis</h2>
-<p>Cantor proved $|\mathbb N| < |\mathbb R|$ in 1874, and conjectured the <strong>continuum hypothesis</strong>:</p>
+<p>Cantor proved $|\mathbb{N}| < |\mathbb{R}|$ in 1874, and conjectured the <strong>continuum hypothesis</strong>:</p>
 
 \[
 \text{(CH)}\qquad 2^{\aleph_0} = \aleph_1.
 \]
 
-<p>That is: there is no cardinal strictly between $\aleph_0$ and $|\mathbb R|$. He could not prove it. Hilbert listed it as Problem 1 in 1900. The resolution came in two halves:</p>
+<p>That is: there is no cardinal strictly between $\aleph_0$ and $|\mathbb{R}|$. He could not prove it. Hilbert listed it as Problem 1 in 1900. The resolution came in two halves:</p>
 
 <table class="plain">
 <thead><tr><th>year</th><th>who</th><th>what</th></tr></thead>
