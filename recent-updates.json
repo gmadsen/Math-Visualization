@@ -1,6 +1,14 @@
 {
-  "generated": "2026-05-17T16:21:07.501Z",
+  "generated": "2026-05-17T16:29:14.231Z",
   "entries": [
+    {
+      "slug": "operator-algebras",
+      "title": "Operator algebras",
+      "color": "c",
+      "tag": "",
+      "date": "2026-05-17",
+      "message": "fix: quality-pass — cross-page notation drift (Sharkovskii + K(H)) (#209)"
+    },
     {
       "slug": "kalman-filtering-and-state-estimation",
       "title": "Kalman filtering and state estimation",
@@ -325,14 +333,6 @@
       "slug": "mostow-rigidity",
       "title": "Mostow rigidity",
       "color": "v",
-      "tag": "",
-      "date": "2026-05-14",
-      "message": "fix: math-correctness audit pass — 75 topics across all 12 sections"
-    },
-    {
-      "slug": "operator-algebras",
-      "title": "Operator algebras",
-      "color": "c",
       "tag": "",
       "date": "2026-05-14",
       "message": "fix: math-correctness audit pass — 75 topics across all 12 sections"
