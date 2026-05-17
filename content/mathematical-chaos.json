@@ -345,7 +345,7 @@
               {
                 "title": "Realization: Sharkovsky's converse",
                 "body": "Sharkovsky also proved the converse: for every initial segment of his order, there exists a continuous $f$ realizing exactly the periods in that segment. The converse depends on intervals; on the circle, on higher-dim manifolds, on graphs, the analogous total order fails. The whole structure is a feature of the one-dimensional intermediate-value theorem, applied to a directed graph of intervals between consecutive orbit points.",
-                "svgInner": "<rect x='40' y='40' width='640' height='140' fill='none' stroke='var(--line)'/><text x='360' y='80' text-anchor='middle' font-size='13' fill='var(--ink)'>For every $S$ a closed initial segment of Sharkovsky's order,</text><text x='360' y='110' text-anchor='middle' font-size='13' fill='var(--ink)'>some continuous $f\\colon I\\to I$ has periods exactly $= S$.</text><text x='360' y='150' text-anchor='middle' font-size='12' fill='var(--cyan)'>(realized by tent-like maps with piecewise affine branches)</text>"
+                "svgInner": "<rect x='40' y='40' width='640' height='140' fill='none' stroke='var(--line)'/><text x='360' y='80' text-anchor='middle' font-size='13' fill='var(--ink)'>For every S a closed initial segment of Sharkovsky's order,</text><text x='360' y='110' text-anchor='middle' font-size='13' fill='var(--ink)'>some continuous f: I → I has periods exactly = S.</text><text x='360' y='150' text-anchor='middle' font-size='12' fill='var(--cyan)'>(realized by tent-like maps with piecewise affine branches)</text>"
               }
             ]
           }
