@@ -60,6 +60,7 @@ Longest-prefix match, so multi-word names work either `inject used-in-backlinks`
 | [`inject-breadcrumb.mjs`](./inject-breadcrumb.mjs) | Breadcrumb + prev/next-in-section in top nav. |
 | [`inject-display-prefs.mjs`](./inject-display-prefs.mjs) | `<script src="./js/display-prefs.js">` + CSS for widget/quiz hide toggle. |
 | [`inject-index-stats.mjs`](./inject-index-stats.mjs) | Keep `index.html` hero-tagline topic/concept counts live. |
+| [`inject-plan-snapshot.mjs`](./inject-plan-snapshot.mjs) | Auto-refresh PLAN.md's "Corpus snapshot" numeric fields (topics/concepts/capstones, widgets, quiz tiers, named-section sizes, verbatim slug count) from source-of-truth JSON. Audit mode exits 1 on drift, 2 on `SCHEMA DRIFT` (regex no longer matches PLAN.md prose, or a sanity-check guard fired). `--fix` rewrites. Wired into rebuild; companion test in `test-inject-plan-snapshot.mjs`. |
 | [`inject-page-metadata.mjs`](./inject-page-metadata.mjs) | `data-section` / `data-level` attributes on `<body>` (mutates `content/<topic>.json`'s `rawBodyPrefix`). Source of truth = `index.html` card section/level mapping. Default = audit-only; `--fix` writes. Wired into the rebuild chain so the `audit-cross-page-consistency.mjs` body-attr invariant stays satisfied automatically. |
 | [`inject-toc.mjs`](./inject-toc.mjs) | Auto-rebuild `<nav class="toc">` from each topic's `sections[]`. Labels are derived from `<h2>` (or `<h3>` for appendix-style sections), with `$…$` KaTeX preserved. The auto-generated entries are fenced with `<!-- toc-auto-{begin,end} -->`. Default = strict audit (exits 1 on any drift); `--fix` rewrites. Wired into the rebuild chain BEFORE roundtrip; CI's `--no-fix` mirror catches any hand-edit immediately. |
 | [`fix-a11y.mjs`](./fix-a11y.mjs) | Backfill SVG `<title>` + `<label for=>` wiring. |
@@ -87,6 +88,7 @@ Longest-prefix match, so multi-word names work either `inject used-in-backlinks`
 | [`test-find-matching-div.mjs`](./test-find-matching-div.mjs) | Unit tests for `findMatchingDivEnd()` in `extract-topic.mjs` — flat / nested / `<divider>` / whitespace-byte-class / runaway / multi-sibling fixtures for the bespoke byte-class checks at L59. |
 | [`test-ajv.mjs`](./test-ajv.mjs) | Unit tests for `lib/ajv.mjs:makeAjv()` — defaults, caller overrides (spread order), `addFormats` interop, end-to-end compile/validate. |
 | [`test-doc-drift.mjs`](./test-doc-drift.mjs) | Unit tests for `audit-doc-drift.mjs:computeCorpusTruth()` (synthetic concepts/+quizzes/ tree, all 10 truth fields) and `detectSnapshotDrift()` (regex-matching layer; clean / fully-drifted / partial / no-snapshot-line cases). |
+| [`test-inject-plan-snapshot.mjs`](./test-inject-plan-snapshot.mjs) | Unit tests for `inject-plan-snapshot.mjs`. Forks the real script with `MV_REPO_ROOT` pointing at tmpdir fixtures; covers in-sync exit 0, drift exit 1, fix-mode round-trip, three `SCHEMA DRIFT` exit-2 paths (missing verbatim-renderer, malformed capstones, zero-widget sanity gate), and the anchored-regex isolation against prose decoys elsewhere in PLAN.md. |
 | [`test-audit-accessibility.mjs`](./test-audit-accessibility.mjs) | Unit tests for `audit-accessibility.mjs:checkSvgViewbox()` — bare-svg violation, viewBox skip, tiny-icon skip, `<defs>`/thumb skip, `<script>`/`<pre>`/comment skip, mixed, unbalanced-`<script>` boundary. |
 | [`audit-starter-concepts.mjs`](./audit-starter-concepts.mjs) | Advisory audit: lists concepts with empty `prereqs` outside the foundation/prereq topic set (`naive-set-theory`, `algebra`, `real-analysis`, `complex-analysis`, `point-set-topology`, `algebraic-topology`, `projective-plane`) plus new-arc concepts whose prereqs all stay intra-topic. Both signal incomplete cross-topic upstream wiring. Always exits 0. |
 | [`audit-callbacks.mjs`](./audit-callbacks.mjs) | Cross-topic prereqs surface as `<aside class="callback">`. |
@@ -142,7 +144,7 @@ Longest-prefix match, so multi-word names work either `inject used-in-backlinks`
 Default path after any content edit:
 
 ```bash
-node scripts/rebuild.mjs           # 40 steps, fix-mode; bails on first failure
+node scripts/rebuild.mjs           # 42 steps, fix-mode; bails on first failure
 node scripts/rebuild.mjs --no-fix  # CI mirror (read-only; fails if anything drifted)
 node scripts/rebuild.mjs --only <step>
 ```
@@ -168,34 +170,36 @@ CI ([`.github/workflows/verify.yml`](../.github/workflows/verify.yml)) runs `reb
 13. `test-find-matching-div.mjs`
 14. `test-ajv.mjs`
 15. `test-doc-drift.mjs`
-16. `test-audit-accessibility.mjs`
-17. `validate-concepts.mjs`
-18. `audit-concept-latex.mjs`
-19. `validate-katex.mjs`
-20. `audit-no-inline-widgets.mjs`
-21. `audit-callbacks.mjs --fix`
-22. `inject-used-in-backlinks.mjs --fix`
-23. `inject-breadcrumb.mjs --fix`
-24. `inject-display-prefs.mjs --fix`
-25. `inject-index-stats.mjs --fix`
-26. `inject-page-metadata.mjs --fix`
-27. `inject-toc.mjs --fix`
-28. `fix-a11y.mjs --fix`
-29. `test-roundtrip.mjs --fix`
-30. `smoke-test.mjs`
-31. `test-topic-jsdom.mjs`
-32. `stats-coverage.mjs`
-33. `audit-notation.mjs`
-34. `audit-draft-index-cards.mjs`
-35. `audit-starter-concepts.mjs`
-36. `audit-worked-examples.mjs`
-37. `audit-blurb-question-alignment.mjs`
-38. `audit-hint-leakage.mjs`
-39. `audit-widget-interactivity.mjs --strict`
-40. `audit-doc-drift.mjs`
+16. `test-inject-plan-snapshot.mjs`
+17. `test-audit-accessibility.mjs`
+18. `validate-concepts.mjs`
+19. `audit-concept-latex.mjs`
+20. `validate-katex.mjs`
+21. `audit-no-inline-widgets.mjs`
+22. `audit-callbacks.mjs --fix`
+23. `inject-used-in-backlinks.mjs --fix`
+24. `inject-breadcrumb.mjs --fix`
+25. `inject-display-prefs.mjs --fix`
+26. `inject-index-stats.mjs --fix`
+27. `inject-plan-snapshot.mjs --fix`
+28. `inject-page-metadata.mjs --fix`
+29. `inject-toc.mjs --fix`
+30. `fix-a11y.mjs --fix`
+31. `test-roundtrip.mjs --fix`
+32. `smoke-test.mjs`
+33. `test-topic-jsdom.mjs`
+34. `stats-coverage.mjs`
+35. `audit-notation.mjs`
+36. `audit-draft-index-cards.mjs`
+37. `audit-starter-concepts.mjs`
+38. `audit-worked-examples.mjs`
+39. `audit-blurb-question-alignment.mjs`
+40. `audit-hint-leakage.mjs`
+41. `audit-widget-interactivity.mjs --strict`
+42. `audit-doc-drift.mjs`
 
 Round-trip is intentionally first among the post-injector steps so that smoke and topic-jsdom check the regenerated HTML, not stale on-disk HTML — otherwise a content/json edit that broke a topic page would pass its first rebuild and only fail the next one.
 
-`--only <step>` runs one step. Valid names: `concepts`, `quizzes`, `widgets-bundle`, `search`, `section-indexes`, `recent-updates`, `schema`, `widget-params`, `widget-renderers`, `widget-hydration`, `multi-iife-split`, `html-walk`, `find-matching-div`, `ajv`, `doc-drift-unit`, `a11y-unit`, `validate`, `concept-latex`, `katex`, `no-inline-widgets`, `callbacks`, `backlinks`, `breadcrumb`, `display-prefs`, `index-stats`, `page-metadata`, `toc`, `a11y`, `roundtrip`, `smoke`, `topic-jsdom`, `stats`, `notation`, `draft-cards`, `starter`, `worked-examples`, `blurb-question`, `hint-leakage`, `widget-interactivity`, `doc-drift`.
+`--only <step>` runs one step. Valid names: `concepts`, `quizzes`, `widgets-bundle`, `search`, `section-indexes`, `recent-updates`, `schema`, `widget-params`, `widget-renderers`, `widget-hydration`, `multi-iife-split`, `html-walk`, `find-matching-div`, `ajv`, `doc-drift-unit`, `plan-snapshot-unit`, `a11y-unit`, `validate`, `concept-latex`, `katex`, `no-inline-widgets`, `callbacks`, `backlinks`, `breadcrumb`, `display-prefs`, `index-stats`, `plan-snapshot`, `page-metadata`, `toc`, `a11y`, `roundtrip`, `smoke`, `topic-jsdom`, `stats`, `notation`, `draft-cards`, `starter`, `worked-examples`, `blurb-question`, `hint-leakage`, `widget-interactivity`, `doc-drift`.
 
 `inject-changelog-footer.mjs` is intentionally **not** in the rebuild chain — its output references "latest commit touching this page", but the commit that refreshes the changelog can't reference itself, so every post-commit audit would flag one-commit-behind drift forever. Run it manually (`node scripts/inject-changelog-footer.mjs`) before publishing or cutting a release; `--audit` mode reports stale pages without writing.

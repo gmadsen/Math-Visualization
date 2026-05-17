@@ -64,6 +64,7 @@ const STEPS = [
   { name: 'find-matching-div', script: 'test-find-matching-div.mjs', fix: false },
   { name: 'ajv',        script: 'test-ajv.mjs',                 fix: false },
   { name: 'doc-drift-unit', script: 'test-doc-drift.mjs',       fix: false },
+  { name: 'plan-snapshot-unit', script: 'test-inject-plan-snapshot.mjs', fix: false },
   { name: 'a11y-unit',  script: 'test-audit-accessibility.mjs', fix: false },
   { name: 'validate',   script: 'validate-concepts.mjs',        fix: false },
   { name: 'concept-latex', script: 'audit-concept-latex.mjs',   fix: false },
@@ -78,6 +79,7 @@ const STEPS = [
   { name: 'breadcrumb', script: 'inject-breadcrumb.mjs',        fix: true  },
   { name: 'display-prefs', script: 'inject-display-prefs.mjs',  fix: true  },
   { name: 'index-stats', script: 'inject-index-stats.mjs',      fix: true  },
+  { name: 'plan-snapshot', script: 'inject-plan-snapshot.mjs',  fix: true  },
   { name: 'page-metadata', script: 'inject-page-metadata.mjs',  fix: true  },
   // toc must run AFTER any step that mutates section structure (none currently
   // do, but this leaves room) and BEFORE roundtrip so the regenerated TOC
