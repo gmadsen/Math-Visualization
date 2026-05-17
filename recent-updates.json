@@ -1,6 +1,14 @@
 {
-  "generated": "2026-05-17T18:19:34.535Z",
+  "generated": "2026-05-17T18:27:03.505Z",
   "entries": [
+    {
+      "slug": "advanced-complex-analysis",
+      "title": "Advanced complex analysis",
+      "color": "p",
+      "tag": "",
+      "date": "2026-05-17",
+      "message": "fix: quality-pass — deprecated \\rm → \\mathrm{} in 3 quiz strings (#223)"
+    },
     {
       "slug": "operator-algebras",
       "title": "Operator algebras",
@@ -8,6 +16,14 @@
       "tag": "",
       "date": "2026-05-17",
       "message": "fix: quality-pass — cross-page notation drift (Sharkovskii + K(H)) (#209)"
+    },
+    {
+      "slug": "optimal-control-and-dynamic-programming",
+      "title": "Optimal control and dynamic programming",
+      "color": "p",
+      "tag": "",
+      "date": "2026-05-17",
+      "message": "fix: quality-pass — deprecated \\rm → \\mathrm{} in 3 quiz strings (#223)"
     },
     {
       "slug": "kalman-filtering-and-state-estimation",
@@ -546,14 +562,6 @@
       "message": "New topic: Mathematical finance & stochastic control (Control theory & optimization) (#175)"
     },
     {
-      "slug": "optimal-control-and-dynamic-programming",
-      "title": "Optimal control and dynamic programming",
-      "color": "p",
-      "tag": "",
-      "date": "2026-05-12",
-      "message": "New topic: Optimal control & dynamic programming (Control theory & optimization) (#176)"
-    },
-    {
       "slug": "geometric-invariant-theory",
       "title": "Geometric invariant theory",
       "color": "g",
@@ -720,14 +728,6 @@
       "tag": "",
       "date": "2026-05-02",
       "message": "Prereq backfill: real-analysis (+4 concepts) and algebra (+4 concepts) (#50)"
-    },
-    {
-      "slug": "advanced-complex-analysis",
-      "title": "Advanced complex analysis",
-      "color": "p",
-      "tag": "",
-      "date": "2026-05-02",
-      "message": "ACA expansion (5 graduate sections) + tagging tail (4 sections) (#49)"
     },
     {
       "slug": "galois",
