@@ -233,7 +233,7 @@
         },
         {
           "type": "raw",
-          "html": "\n</section>\n\n\n<!-- ═══════════════════════════════════════════════════════════════════\n     Connections outro — pedagogy reviewer's templated closure pattern.\n     Strong-corpus topics (measure-theory, functional-analysis, elliptic-\n     curves, commutative-algebra) all end with a short \"where this leads\"\n     section. Bottom-quartile topics tend to skip it; the scaffolder now\n     emits this stub so the no-closure habit doesn't recur on new topics.\n     Authoring agents: replace the bullet list with 3-5 real cross-topic\n     pointers and write 1-2 sentences naming open frontiers.\n═══════════════════════════════════════════════════════════════════ -->\n"
+          "html": "\n</section>\n\n"
         }
       ]
     },

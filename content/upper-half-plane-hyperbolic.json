@@ -497,7 +497,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<p><a href=\"./complex-analysis.html#holomorphic-function\" data-auto-inline-link=\"1\" data-concept-id=\"holomorphic-function\" data-blurb=\"Complex-differentiable on an open set; infinitely more rigid than real.\">Holomorphic functions</a> on $\\mathbb{H}$ that transform under $\\mathrm{SL}_2(\\mathbb{Z})$ by<br>\n$f\\!\\left(\\tfrac{az+b}{cz+d}\\right) = (cz+d)^k f(z)$<br>\nare called <strong>modular forms of weight $k$</strong>. They descend to sections of a line bundle on $F$ (with corners). The full theory picks up in <code>modular-forms.html</code> (forthcoming).</p>\n"
+          "html": "\n\n<p><a href=\"./complex-analysis.html#holomorphic-function\" data-auto-inline-link=\"1\" data-concept-id=\"holomorphic-function\" data-blurb=\"Complex-differentiable on an open set; infinitely more rigid than real.\">Holomorphic functions</a> on $\\mathbb{H}$ that transform under $\\mathrm{SL}_2(\\mathbb{Z})$ by<br>\n$f\\!\\left(\\tfrac{az+b}{cz+d}\\right) = (cz+d)^k f(z)$<br>\nare called <strong>modular forms of weight $k$</strong>. They descend to sections of a line bundle on $F$ (with corners). The full theory picks up in <code>modular-forms.html</code>.</p>\n"
         },
         {
           "type": "raw",
