@@ -651,11 +651,11 @@ Equivalently, $\pi_n\mathrm{U}$ is $2$-periodic and $\pi_n\mathrm{O}$ is $8$-per
     // domain circle (left)
     const cx1=170,cy1=140,r1=85;
     svg.appendChild(SVG('circle',{cx:cx1,cy:cy1,r:r1,fill:'none',stroke:'var(--mute)','stroke-width':1}));
-    svg.appendChild(SVG('text',{x:cx1,y:30,'text-anchor':'middle','font-size':14,fill:'var(--mute)'})).textContent='domain $S^1$';
+    svg.appendChild(SVG('text',{x:cx1,y:30,'text-anchor':'middle','font-size':14,fill:'var(--mute)'})).textContent='domain S¹';
     // codomain circle (right)
     const cx2=520,cy2=140,r2=85;
     svg.appendChild(SVG('circle',{cx:cx2,cy:cy2,r:r2,fill:'none',stroke:'var(--mute)','stroke-width':1}));
-    svg.appendChild(SVG('text',{x:cx2,y:30,'text-anchor':'middle','font-size':14,fill:'var(--mute)'})).textContent='codomain $S^1$';
+    svg.appendChild(SVG('text',{x:cx2,y:30,'text-anchor':'middle','font-size':14,fill:'var(--mute)'})).textContent='codomain S¹';
     // sample points and image
     const N = 96;
     const color = d>0?'var(--cyan)':(d<0?'var(--pink)':'var(--mute)');

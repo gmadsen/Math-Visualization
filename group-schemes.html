@@ -594,7 +594,7 @@ function drawNode(svg, x, y, label, opts={}){
     while(svg.firstChild) svg.removeChild(svg.firstChild);
     const headerY = 30;
     const tHead = SVG('text',{x:120, y:headerY, 'text-anchor':'middle','font-size':12, fill:'var(--mute)'}); tHead.textContent='Group $G$'; svg.appendChild(tHead);
-    const tHead2 = SVG('text',{x:360, y:headerY, 'text-anchor':'middle','font-size':12, fill:'var(--mute)'}); tHead2.textContent='Hopf algebra $A = \\mathcal{O}(G)$'; svg.appendChild(tHead2);
+    const tHead2 = SVG('text',{x:360, y:headerY, 'text-anchor':'middle','font-size':12, fill:'var(--mute)'}); tHead2.textContent='Hopf algebra A = 𝒪(G)'; svg.appendChild(tHead2);
     ROWS.forEach((row,i)=>{
       const y = 70 + i*50;
       const isActive = row.id===activeId;
