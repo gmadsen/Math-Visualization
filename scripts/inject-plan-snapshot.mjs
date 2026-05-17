@@ -54,9 +54,23 @@ if (!existsSync(planPath)) {
 // ---------------------------------------------------------------------------
 // Compute live counts
 // ---------------------------------------------------------------------------
+//
+// This script auto-rewrites PLAN.md numbers in --fix mode. If a count
+// silently drops (schema change, file rename, parse failure), the rewrite
+// would codify the wrong number with no signal. So every source is checked
+// for *shape* before being counted — schema mismatches exit 2 with a clear
+// "SCHEMA DRIFT" message rather than defaulting to a smaller value.
+
+function schemaExit(msg) {
+  console.error(`inject-plan-snapshot: SCHEMA DRIFT: ${msg}`);
+  process.exit(2);
+}
 
 const registry = JSON.parse(readFileSync(join(conceptsDir, 'index.json'), 'utf8'));
-const topicIds = Array.isArray(registry.topics) ? registry.topics : [];
+if (!Array.isArray(registry?.topics)) {
+  schemaExit('concepts/index.json missing `topics` array');
+}
+const topicIds = registry.topics;
 const topicCount = topicIds.length;
 
 let conceptCount = 0;
@@ -72,68 +86,109 @@ for (const t of topicIds) {
 }
 
 const capstonesJson = JSON.parse(readFileSync(join(conceptsDir, 'capstones.json'), 'utf8'));
-const capstoneCount = Array.isArray(capstonesJson.capstones)
-  ? capstonesJson.capstones.length
-  : Array.isArray(capstonesJson)
-    ? capstonesJson.length
-    : 0;
+if (!Array.isArray(capstonesJson?.capstones)) {
+  schemaExit(
+    'concepts/capstones.json missing `capstones` array — defaulting to 0 would silently overwrite PLAN.md'
+  );
+}
+const capstoneCount = capstonesJson.capstones.length;
 
-// Verbatim slugs: those whose index.mjs delegates to the shared verbatim renderer.
+// Verbatim slugs: those whose index.mjs delegates to the shared verbatim
+// renderer. Check the renderer file itself exists so an accidental rename of
+// `_shared/verbatim-renderer.mjs` doesn't silently zero the count.
+const verbatimRendererPath = join(widgetsDir, '_shared', 'verbatim-renderer.mjs');
+if (!existsSync(verbatimRendererPath)) {
+  schemaExit(
+    'widgets/_shared/verbatim-renderer.mjs not found — verbatim-slug detection broken'
+  );
+}
 const verbatimSlugs = new Set();
-for (const slug of readdirSync(widgetsDir)) {
+for (const entry of readdirSync(widgetsDir, { withFileTypes: true })) {
+  if (!entry.isDirectory()) continue;  // skip widgets/README.md, widgets/bundle.js
+  const slug = entry.name;
+  if (slug.startsWith('_')) continue;  // _shared, etc.
   const idxPath = join(widgetsDir, slug, 'index.mjs');
-  if (!existsSync(idxPath)) continue;
+  if (!existsSync(idxPath)) {
+    console.warn(`inject-plan-snapshot: widgets/${slug}/index.mjs missing — half-scaffolded?`);
+    continue;
+  }
   try {
     const code = readFileSync(idxPath, 'utf8');
     if (code.includes('_shared/verbatim-renderer')) verbatimSlugs.add(slug);
   } catch {
-    /* ignore unreadable */
+    console.warn(`inject-plan-snapshot: widgets/${slug}/index.mjs unreadable — skipped`);
   }
 }
 const verbatimCount = verbatimSlugs.size;
 
-// Widget block count across all content/<topic>.json sections.
+// Widget block count across all content/<topic>.json sections. Schema-assert
+// `sections` is an array so a renamed top-level key doesn't silently zero
+// the count (test-roundtrip.mjs only checks byte-identity, not schema shape).
 let widgetCount = 0;
+let topicsWithSections = 0;
 for (const f of readdirSync(contentDir)) {
   if (!f.endsWith('.json')) continue;
+  let j;
   try {
-    const j = JSON.parse(readFileSync(join(contentDir, f), 'utf8'));
-    for (const sec of j.sections || []) {
-      for (const b of sec.blocks || []) {
-        if (b && b.type === 'widget') widgetCount += 1;
-      }
-    }
+    j = JSON.parse(readFileSync(join(contentDir, f), 'utf8'));
   } catch {
-    /* parse errors are test-roundtrip.mjs's job */
+    continue;  // parse errors are test-roundtrip.mjs's job
+  }
+  if (!Array.isArray(j.sections)) {
+    console.warn(`inject-plan-snapshot: content/${f} has no \`sections\` array — skipped`);
+    continue;
+  }
+  topicsWithSections += 1;
+  for (const sec of j.sections) {
+    for (const b of sec.blocks || []) {
+      if (b && b.type === 'widget') widgetCount += 1;
+    }
   }
 }
+// Sanity: if zero topics contributed any widgets, something's wrong upstream.
+if (widgetCount === 0 && topicsWithSections > 0) {
+  schemaExit(
+    `${topicsWithSections} content files have \`sections\` arrays but produced zero widget blocks — block-type detection broken`
+  );
+}
 
-// Quiz tier totals.
+// Quiz tier totals. Warn on each malformed entry rather than silently dropping.
 let v1Count = 0;
 let hardCount = 0;
 let expertCount = 0;
 for (const f of readdirSync(quizzesDir)) {
   if (!f.endsWith('.json')) continue;
+  let j;
   try {
-    const j = JSON.parse(readFileSync(join(quizzesDir, f), 'utf8'));
-    const bank = j.quizzes || {};
-    for (const k of Object.keys(bank)) {
-      const e = bank[k];
-      if (!e || typeof e !== 'object') continue;
-      if (Array.isArray(e.questions)) v1Count += e.questions.length;
-      if (Array.isArray(e.hard)) hardCount += e.hard.length;
-      if (Array.isArray(e.expert)) expertCount += e.expert.length;
-    }
+    j = JSON.parse(readFileSync(join(quizzesDir, f), 'utf8'));
   } catch {
-    /* parse errors are validate-schema.mjs's job */
+    continue;  // parse errors are validate-schema.mjs's job
+  }
+  const bank = j.quizzes;
+  if (!bank || typeof bank !== 'object') {
+    console.warn(`inject-plan-snapshot: quizzes/${f} missing \`quizzes\` object — skipped`);
+    continue;
+  }
+  for (const k of Object.keys(bank)) {
+    const e = bank[k];
+    if (!e || typeof e !== 'object') {
+      console.warn(`inject-plan-snapshot: quizzes/${f} concept "${k}" is not an object — skipped`);
+      continue;
+    }
+    if (Array.isArray(e.questions)) v1Count += e.questions.length;
+    if (Array.isArray(e.hard)) hardCount += e.hard.length;
+    if (Array.isArray(e.expert)) expertCount += e.expert.length;
   }
 }
 
 // Section topic counts — currently only one section count is called out in
-// PLAN.md prose (Control theory & optimization). Add more entries to
-// `namedSections` if the snapshot ever calls out additional section sizes.
+// PLAN.md prose (Control theory & optimization). Add more entries if the
+// snapshot ever calls out additional section sizes.
 const sectionsJson = JSON.parse(readFileSync(join(conceptsDir, 'sections.json'), 'utf8'));
-const sectionsArr = Array.isArray(sectionsJson.sections) ? sectionsJson.sections : [];
+if (!Array.isArray(sectionsJson?.sections)) {
+  schemaExit('concepts/sections.json missing `sections` array');
+}
+const sectionsArr = sectionsJson.sections;
 function sectionTopicCount(id) {
   const s = sectionsArr.find((x) => x.id === id);
   return s && Array.isArray(s.topics) ? s.topics.length : 0;
@@ -148,24 +203,26 @@ const original = readFileSync(planPath, 'utf8');
 let updated = original;
 const drifts = [];
 
-function patchField({ re, name, oldFromMatch, newText, driftMessage }) {
+function patchField({ re, name, newText, driftMessage }) {
   const m = updated.match(re);
   if (!m) {
-    console.error(
-      `inject-plan-snapshot: pattern "${name}" not found in PLAN.md — schema drift in the bullet's prose, please review the script's regexes`
+    schemaExit(
+      `pattern "${name}" not found in PLAN.md — bullet prose changed, please update the script's regex`
     );
-    process.exit(2);
   }
   const driftMsg = driftMessage(m);
   if (driftMsg) drifts.push(driftMsg);
-  updated = updated.replace(re, newText);
+  // `newText` may be a plain string or a function of the match (used when the
+  // regex captures a prose prefix that must be preserved). Function replacer
+  // form avoids `$&`/`$1` interpretation regardless of which we pass.
+  const finalText = typeof newText === 'function' ? newText(m) : newText;
+  updated = updated.replace(re, () => finalText);
 }
 
 // "N topics, N concepts, N capstones"
 patchField({
   re: /^- (\d+) topics, (\d+) concepts, (\d+) capstones\s*$/m,
   name: 'topics/concepts/capstones',
-  oldFromMatch: (m) => [+m[1], +m[2], +m[3]],
   newText: `- ${topicCount} topics, ${conceptCount} concepts, ${capstoneCount} capstones`,
   driftMessage: (m) => {
     const [oT, oC, oCap] = [+m[1], +m[2], +m[3]];
@@ -178,7 +235,6 @@ patchField({
 patchField({
   re: /^- (\d+) widgets, 100% registry-driven\./m,
   name: 'widget count',
-  oldFromMatch: (m) => +m[1],
   newText: `- ${widgetCount} widgets, 100% registry-driven.`,
   driftMessage: (m) => (+m[1] === widgetCount ? null : `widgets ${+m[1]}→${widgetCount}`),
 });
@@ -187,7 +243,6 @@ patchField({
 patchField({
   re: /^- Quiz tiers: v1 = (\d+), hard = (\d+), expert = (\d+)/m,
   name: 'quiz tiers',
-  oldFromMatch: (m) => [+m[1], +m[2], +m[3]],
   newText: `- Quiz tiers: v1 = ${v1Count}, hard = ${hardCount}, expert = ${expertCount}`,
   driftMessage: (m) => {
     const [oV, oH, oE] = [+m[1], +m[2], +m[3]];
@@ -196,30 +251,40 @@ patchField({
   },
 });
 
-// "Control theory & optimization (section 12) has N topics"
+// "Control theory & optimization (section 12) has N topics" — anchored to
+// bullet line via `^- .*` so a quote of this phrase in surrounding prose
+// can't match accidentally. The captured prefix is preserved verbatim.
 patchField({
-  re: /Control theory & optimization \(section 12\) has (\d+) topics/,
+  re: /(^- .*?)Control theory & optimization \(section 12\) has (\d+) topics/m,
   name: 'CTO section topic count',
-  oldFromMatch: (m) => +m[1],
-  newText: `Control theory & optimization (section 12) has ${ctoTopicCount} topics`,
+  newText: (m) =>
+    `${m[1]}Control theory & optimization (section 12) has ${ctoTopicCount} topics`,
   driftMessage: (m) =>
-    +m[1] === ctoTopicCount ? null : `Control-theory topics ${+m[1]}→${ctoTopicCount}`,
+    +m[2] === ctoTopicCount ? null : `Control-theory topics ${+m[2]}→${ctoTopicCount}`,
 });
 
-// "Roughly N per-widget verbatim slugs"
+// "Roughly N per-widget verbatim slugs" — anchored similarly.
 patchField({
-  re: /Roughly (\d+) per-widget verbatim slugs/,
+  re: /(^- .*?)Roughly (\d+) per-widget verbatim slugs/m,
   name: 'verbatim slug count',
-  oldFromMatch: (m) => +m[1],
-  newText: `Roughly ${verbatimCount} per-widget verbatim slugs`,
+  newText: (m) => `${m[1]}Roughly ${verbatimCount} per-widget verbatim slugs`,
   driftMessage: (m) =>
-    +m[1] === verbatimCount ? null : `verbatim slugs ${+m[1]}→${verbatimCount}`,
+    +m[2] === verbatimCount ? null : `verbatim slugs ${+m[2]}→${verbatimCount}`,
 });
 
 // Snapshot date — only refresh when other numbers also drifted. Avoids
-// spurious CI failures on days where nothing about the corpus changed.
+// spurious CI failures on days where nothing about the corpus changed and
+// makes the date semantically tied to corpus change rather than build time
+// (it's a deliberately lagging indicator — hand-edits to non-numeric
+// snapshot prose won't bump it).
+//
 // Uses local date (not UTC) so the bump aligns with the human committer's
-// calendar day, not the build-box's timezone.
+// calendar day. Trade-off: CI runs in UTC, so a late-night commit (e.g.
+// 23:30 PT → 06:30 UTC next day) could in principle see a one-day skew
+// between local fix-mode and CI audit-mode. The "only-bump-on-other-drift"
+// guard absorbs this in practice: the date only refreshes when content
+// actually changed, and the local-vs-UTC discrepancy is invisible unless
+// some other field also moved within the same UTC day boundary.
 if (drifts.length > 0) {
   const d = new Date();
   const today = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
