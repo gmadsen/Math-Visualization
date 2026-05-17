@@ -488,7 +488,7 @@
           "choices": [
             "$\\partial_{\\bar z}f = \\mu\\,\\partial_z f$ a.e. with $\\|\\mu\\|_\\infty \\le k = (K-1)/(K+1) < 1$",
             "At a.e. point, $df$ sends round disks to ellipses of axis ratio $\\le K$",
-            "$f \\in W^{1,2}_{\\rm loc}$ with $|\\partial_z f|^2 + |\\partial_{\\bar z}f|^2 \\le \\frac{K+1/K}{2}\\,J_f$ a.e., where $J_f$ is the Jacobian",
+            "$f \\in W^{1,2}_{\\mathrm{loc}}$ with $|\\partial_z f|^2 + |\\partial_{\\bar z}f|^2 \\le \\frac{K+1/K}{2}\\,J_f$ a.e., where $J_f$ is the Jacobian",
             "$f$ is conformal",
             "$f$ is a homeomorphism that is the identity on $\\partial\\Omega$"
           ],

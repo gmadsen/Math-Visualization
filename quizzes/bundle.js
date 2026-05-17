@@ -2217,7 +2217,7 @@ window.MVQuizBank = {
             "choices": [
               "$\\partial_{\\bar z}f = \\mu\\,\\partial_z f$ a.e. with $\\|\\mu\\|_\\infty \\le k = (K-1)/(K+1) < 1$",
               "At a.e. point, $df$ sends round disks to ellipses of axis ratio $\\le K$",
-              "$f \\in W^{1,2}_{\\rm loc}$ with $|\\partial_z f|^2 + |\\partial_{\\bar z}f|^2 \\le \\frac{K+1/K}{2}\\,J_f$ a.e., where $J_f$ is the Jacobian",
+              "$f \\in W^{1,2}_{\\mathrm{loc}}$ with $|\\partial_z f|^2 + |\\partial_{\\bar z}f|^2 \\le \\frac{K+1/K}{2}\\,J_f$ a.e., where $J_f$ is the Jacobian",
               "$f$ is conformal",
               "$f$ is a homeomorphism that is the identity on $\\partial\\Omega$"
             ],
@@ -48471,14 +48471,14 @@ window.MVQuizBank = {
               "$\\bar P = (A^\\top A)^{-1}Q$"
             ],
             "answer": 1,
-            "explain": "Setting $\\dot P = 0$ in the Riccati ODE gives the *algebraic Riccati equation*, a quadratic matrix equation. Under controllability of $(A,B)$ and observability of $(A,Q^{1/2})$, it has a unique positive semidefinite solution $\\bar P$ for which $A_{\\rm cl}=A-BR^{-1}B^\\top\\bar P$ is Hurwitz (stable). This is the steady-state LQR feedback."
+            "explain": "Setting $\\dot P = 0$ in the Riccati ODE gives the *algebraic Riccati equation*, a quadratic matrix equation. Under controllability of $(A,B)$ and observability of $(A,Q^{1/2})$, it has a unique positive semidefinite solution $\\bar P$ for which $A_{\\mathrm{cl}}=A-BR^{-1}B^\\top\\bar P$ is Hurwitz (stable). This is the steady-state LQR feedback."
           },
           {
             "type": "numeric",
             "q": "Scalar LQR: $\\dot x = u$ (so $A=0$, $B=1$), $Q=1$, $R=1$. Compute the algebraic Riccati root $\\bar P$.",
             "answer": 1,
             "tol": 0.01,
-            "explain": "Algebraic Riccati: $0\\cdot \\bar P + \\bar P\\cdot 0 - \\bar P^2 + 1 = 0$, so $\\bar P^2 = 1$, $\\bar P = 1$ (taking the positive root). Feedback gain $K = \\bar P/R = 1$, closed-loop pole $A_{\\rm cl} = 0 - 1 = -1$ — open-loop integrator stabilised to a stable mode by the LQR controller.",
+            "explain": "Algebraic Riccati: $0\\cdot \\bar P + \\bar P\\cdot 0 - \\bar P^2 + 1 = 0$, so $\\bar P^2 = 1$, $\\bar P = 1$ (taking the positive root). Feedback gain $K = \\bar P/R = 1$, closed-loop pole $A_{\\mathrm{cl}} = 0 - 1 = -1$ — open-loop integrator stabilised to a stable mode by the LQR controller.",
             "hint": "For the scalar problem the Riccati is $-\\bar P^2 + 1 = 0$; solve for the non-negative root."
           }
         ]
