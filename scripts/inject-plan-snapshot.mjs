@@ -37,7 +37,11 @@ import { fileURLToPath } from 'node:url';
 import { writeIfChanged } from './lib/html-injector.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
-const repoRoot = resolve(dirname(__filename), '..');
+// `MV_REPO_ROOT` env override lets tests point the script at a fixture tree
+// without copying the script. Production callers don't set it.
+const repoRoot = process.env.MV_REPO_ROOT
+  ? resolve(process.env.MV_REPO_ROOT)
+  : resolve(dirname(__filename), '..');
 
 const FIX = process.argv.slice(2).includes('--fix');
 const planPath = join(repoRoot, 'PLAN.md');
