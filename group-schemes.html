@@ -593,7 +593,7 @@ function drawNode(svg, x, y, label, opts={}){
   function draw(activeId){
     while(svg.firstChild) svg.removeChild(svg.firstChild);
     const headerY = 30;
-    const tHead = SVG('text',{x:120, y:headerY, 'text-anchor':'middle','font-size':12, fill:'var(--mute)'}); tHead.textContent='Group $G$'; svg.appendChild(tHead);
+    const tHead = SVG('text',{x:120, y:headerY, 'text-anchor':'middle','font-size':12, fill:'var(--mute)'}); tHead.textContent='Group G'; svg.appendChild(tHead);
     const tHead2 = SVG('text',{x:360, y:headerY, 'text-anchor':'middle','font-size':12, fill:'var(--mute)'}); tHead2.textContent='Hopf algebra A = 𝒪(G)'; svg.appendChild(tHead2);
     ROWS.forEach((row,i)=>{
       const y = 70 + i*50;
@@ -686,7 +686,7 @@ function drawNode(svg, x, y, label, opts={}){
     });
     // legend
     const lg = SVG('text',{x:270,y:260,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
-    lg.textContent = 'top row: char 0 / coprime-to-$p$ → étale.   bottom row: char $p$ → connected pieces appear.';
+    lg.textContent = 'top row: char 0 / coprime-to-p → étale.   bottom row: char p → connected pieces appear.';
     svg.appendChild(lg);
     if(window.renderMathInElement){
       try { window.renderMathInElement(svg,{delimiters:[{left:'$',right:'$',display:false}],throwOnError:false}); } catch(e){}

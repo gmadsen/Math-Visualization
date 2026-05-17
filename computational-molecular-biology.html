@@ -916,7 +916,7 @@ function drawNode(svg, x, y, label, opts={}){
     }
     svg.appendChild(SVG('path',{d:dPath, fill:'none', stroke:'var(--cyan)','stroke-width':2}));
     // labels
-    svg.appendChild((function(){ const t=SVG('text',{x:ML+PW/2, y:MT+PH+36,'text-anchor':'middle','font-size':12, fill:'var(--mute)'}); t.textContent='derived-allele count $i$'; return t; })());
+    svg.appendChild((function(){ const t=SVG('text',{x:ML+PW/2, y:MT+PH+36,'text-anchor':'middle','font-size':12, fill:'var(--mute)'}); t.textContent='derived-allele count i'; return t; })());
     svg.appendChild((function(){ const t=SVG('text',{x:14, y:MT+PH/2,'text-anchor':'middle','font-size':12, fill:'var(--mute)','transform':`rotate(-90 14,${MT+PH/2})`}); t.textContent='ξᵢ (sites at frequency i/n)'; return t; })());
     // legend
     svg.appendChild(SVG('rect',{x:ML+PW-160, y:MT+10, width:14, height:14, fill:'var(--yellow)', opacity:0.75}));

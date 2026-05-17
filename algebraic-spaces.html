@@ -608,7 +608,7 @@ function drawNode(svg, x, y, label, opts={}){
     const txtP=SVG('text',{x:240,y:38,'text-anchor':'middle','font-size':12,fill:'var(--green)'});
     txtP.textContent = '𝑃 holds for f̃ ?'; svg.appendChild(txtP);
     const txtPp=SVG('text',{x:240,y:215,'text-anchor':'middle','font-size':12,fill:'var(--yellow)'});
-    txtPp.textContent = '⇔ 𝑃 holds for $f$'; svg.appendChild(txtPp);
+    txtPp.textContent = '⇔ 𝑃 holds for f'; svg.appendChild(txtPp);
     // re-typeset KaTeX
     if(window.renderMathInElement) window.renderMathInElement(svg,{delimiters:[
       {left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false},
