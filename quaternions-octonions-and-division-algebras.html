@@ -457,7 +457,7 @@ The map $q\mapsto\rho_q$ is a smooth group homomorphism $\mathrm{Sp}(1)\to\mathr
     // verts
     P.forEach(([u,v])=> svg.appendChild(SVG('circle',{cx:u,cy:v,r:2.5,fill:'var(--violet)'})));
     // mark a tagged vertex
-    svg.appendChild(SVG('circle',{cx:P[7][0],cy:P[7][1],r:5,fill:'var(--yellow)',stroke:'#111','stroke-width':1.2}));
+    svg.appendChild(SVG('circle',{cx:P[7][0],cy:P[7][1],r:5,fill:'var(--yellow)',stroke:'var(--ink)','stroke-width':1.2}));
     // readout
     const fmt = x => (x>=0?'+':'') + x.toFixed(3);
     document.getElementById('rot-out').textContent =
