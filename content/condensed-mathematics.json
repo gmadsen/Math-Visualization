@@ -27,7 +27,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./etale-cohomology.html#etale\">Étale morphisms</a></li>\n    <li><a href=\"./grothendieck-topologies-sites.html#sheaves-on-a-site\">Sheaves and sheafification</a></li>\n  </ul>\n</aside>\n\n"
+          "html": "\n\n"
         },
         {
           "type": "raw",
@@ -72,7 +72,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./derived-categories.html#derived-category\">The derived category $D(\\mathcal{A})$</a></li>\n  </ul>\n</aside>\n\n"
+          "html": "\n\n"
         },
         {
           "type": "raw",
@@ -158,7 +158,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./functional-analysis.html#hilbert\">Banach and Hilbert spaces</a></li>\n  </ul>\n</aside>\n\n"
+          "html": "\n\n"
         },
         {
           "type": "raw",
@@ -203,7 +203,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./type-theory-and-hott.html#models\">Models of HoTT</a></li>\n  </ul>\n</aside>\n\n"
+          "html": "\n\n"
         },
         {
           "type": "raw",
