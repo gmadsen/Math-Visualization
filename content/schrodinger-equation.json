@@ -38,7 +38,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./functional-analysis.html#bounded\">Bounded operators and adjoints</a></li>\n    <li><a href=\"./functional-analysis.html#hilbert\">Banach and Hilbert spaces</a></li>\n    <li><a href=\"./partial-differential-equations.html#classification\">Classification: elliptic / parabolic / hyperbolic</a></li>\n  </ul>\n</aside>\n\n"
+          "html": "\n\n"
         },
         {
           "type": "quiz",
