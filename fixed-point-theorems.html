@@ -470,7 +470,7 @@ so Caristi forces a fixed point. (Indeed $0$ is fixed; the orbit from any $x_0\i
 <!-- callback-auto-end --><p>The widget below makes the budget concrete on $T(x)=x-x^2/2$ with $\varphi(x)=2x$. The yellow line is the budget; violet bars mark $\varphi(x_k)$ at each iterate; pink segments on the axis show the displacement $|x_k-x_{k+1}|=x_k^2/2$ consumed at each step. Total displacement over the tail is bounded by $\varphi(x_0)$ — that is the Caristi inequality, integrated.</p>
 
 <div class="widget" id="w-caristi">
-  <div class="hd"><div class="ttl">Caristi: Lyapunov budget</div><div class="hint">Slide x_0; orbit displacement is capped by varphi.</div></div>
+  <div class="hd"><div class="ttl">Caristi: Lyapunov budget</div><div class="hint">Slide $x_0$; orbit displacement is capped by $\varphi$.</div></div>
   <div class="row">
     <label for="cs-x0">$x_0$: <input type="range" id="cs-x0" min="0.05" max="1" step="0.01" value="0.7"></label>
   </div>
@@ -532,7 +532,7 @@ so Caristi forces a fixed point. (Indeed $0$ is fixed; the orbit from any $x_0\i
     tfp.textContent = "x* = 0"; svg.appendChild(tfp);
     // axis labels
     const ax1 = SVG("text",{x:xS(1)+4,y:yS(0)+4,"font-size":12,fill:"var(--mute)"}); ax1.textContent="x"; svg.appendChild(ax1);
-    const ax2 = SVG("text",{x:xS(0)-14,y:yS(2)+4,"font-size":12,fill:"var(--mute)"}); ax2.textContent="varphi"; svg.appendChild(ax2);
+    const ax2 = SVG("text",{x:xS(0)-14,y:yS(2)+4,"font-size":12,fill:"var(--mute)"}); ax2.textContent="φ"; svg.appendChild(ax2);
     // legend
     const lg1 = SVG("text",{x:xS(0.45),y:yS(1.95),"font-size":11,fill:"var(--cyan)"}); lg1.textContent="T(x) = x - x^2/2"; svg.appendChild(lg1);
     const lg2 = SVG("text",{x:xS(0.45),y:yS(1.78),"font-size":11,fill:"var(--pink)"}); lg2.textContent="pink = orbit displacement on axis"; svg.appendChild(lg2);

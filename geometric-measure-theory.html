@@ -1436,7 +1436,7 @@ $$\mathcal{E}(u,K)\;=\;\int_{\Omega\setminus K}(u-g)^2\,dx \;+\;\alpha\int_{\Ome
 <p><strong>Mean-curvature flow and Cheeger inequalities.</strong> A <strong>Brakke flow</strong> is a weak solution of mean-curvature flow defined as a one-parameter family $\{V_t\}$ of varifolds whose mass decreases at the squared mean curvature: $\frac{d}{dt}\mathbf{M}(V_t)\le -\int|H|^2\,dV_t$. Past pinch-off / topology-change singularities the smooth flow ceases to make sense; the varifold formulation continues. The <strong>Cheeger constant</strong> $h(\Omega)=\inf_E P(E)/\min(|E|,|\Omega\setminus E|)$ — a perimeter-volume isoperimetric quotient — gives the Cheeger inequality $\lambda_1(\Omega)\ge h(\Omega)^2/4$, an isoperimetric lower bound on the Laplacian spectral gap. Cheeger uses the coarea bridge directly (level-set perimeter argument); Brakke flow uses varifold tangent-measure rectifiability and Allard-style regularity rather than coarea.</p>
 
 <div class="widget" id="gmt-plateau">
-  <div class="hd"><div class="ttl">Plateau in 2D / Mumford-Shah toggle</div><div class="hint">drag boundary points; widget shows the minimal connecting curve, then toggle to MS edge detection</div></div>
+  <div class="hd"><div class="ttl">Plateau in 2D / Mumford-Shah toggle</div><div class="hint">boundary points are fixed in this demo; the widget shows the minimal connecting curve, then toggle to MS edge detection</div></div>
   <div class="row">
     <button id="gmt-plat-plateau" class="active">Plateau: minimize length over chains with fixed boundary</button>
     <button id="gmt-plat-ms">Mumford-Shah: edge-set $K$ on a 1D signal</button>

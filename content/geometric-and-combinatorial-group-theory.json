@@ -178,7 +178,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<aside class=\"callback\">\n<div class=\"ttl\">See also</div>\n<ul>\n  <li><a href=\"./algebra.html#cosets\">Subgroups, cosets, Lagrange</a> — finite-index subgroups underwrite \"virtually\" in Gromov's theorem.</li>\n</ul>\n</aside>\n\n"
+          "html": "\n\n"
         },
         {
           "type": "quiz",

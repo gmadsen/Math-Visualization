@@ -853,7 +853,7 @@ $$\mathcal{L}_\theta(X, \bar Y) \;=\; -i\,d\theta(X,\bar Y) \quad\text{for}\;\; 
 
 <p>When $M = \{\rho = 0\}\subset\mathbb{C}^{n+1}$ has $\rho$ as a defining function, take $\theta = -\mathrm{Im}\,\partial\rho|_M$ as a contact 1-form (up to sign). Then the Levi form on $T^{1,0}M$ is exactly the restriction of the complex Hessian:</p>
 $$\mathcal{L}_\theta(X,\bar Y) \;=\; \sum_{j,k}\frac{\partial^2 \rho}{\partial z_j\partial\bar z_k}\,X_j\bar Y_k, \qquad X, Y\in T^{1,0}_pM.$$
-<p>So the Levi form on a real hypersurface is exactly what we used in §6 of <a href="./several-complex-variables.html#psh">Several complex variables</a>: the complex Hessian of the defining function, restricted to the complex-tangential directions.</p>
+<p>So the Levi form on a real hypersurface is exactly what we used in §2 of <a href="./several-complex-variables.html#psh">Several complex variables</a>: the complex Hessian of the defining function, restricted to the complex-tangential directions.</p>
 
 <div class="widget" id="w-levi-sphere">
   <div class="hd"><div class="ttl">Levi form of an ellipsoid in $\mathbb{C}^2$</div><div class="hint">slide the eccentricity; watch the Levi eigenvalues at a boundary point</div></div>
@@ -983,6 +983,9 @@ $$L_b\, u \;=\; \lambda\, u^{(n+2)/n} \;=\; \lambda\, u^{(Q+2)/(Q-2)},$$
 <script>
 (function(){
   const svg = $('#cd-svg'), out = $('#cd-out');
+  function tex2uni(s){
+    return s.replace(/\\Delta_g/g,'Δ_g').replace(/\\Delta_b/g,'Δ_b').replace(/\\Delta/g,'Δ').replace(/\\mathbb{H}/g,'H').replace(/\\mathbb{C}/g,'C').replace(/\\mathbb{R}/g,'R').replace(/\\mathbb\{[^}]*\}/g,'').replace(/\\theta/g,'θ').replace(/\\lambda/g,'λ').replace(/\\mapsto/g,'↦').replace(/\\subset/g,'⊂').replace(/[\\$]/g,'').replace(/\\mathrm\{[^}]*\}/g,'').replace(/\{|\}/g,'');
+  }
   const rows = [
     {l:'metric $g$', r:'contact 1-form $\\theta$', m:'A choice of metric in the Riemannian conformal class corresponds to a choice of $\\theta$ in the CR conformal class. Both are infinite-dimensional rescaling spaces.'},
     {l:'$\\Delta_g$ (Laplacian)', r:'$\\Delta_b$ (sublaplacian)', m:'$\\Delta_g$ is elliptic on the full tangent bundle; $\\Delta_b$ is sub-elliptic, missing the characteristic direction $T$. Hörmander hypoellipticity replaces ellipticity.'},
@@ -1007,17 +1010,17 @@ $$L_b\, u \;=\; \lambda\, u^{(n+2)/n} \;=\; \lambda\, u^{(Q+2)/(Q-2)},$$
       svg.appendChild(SVG('rect',{x:padX-4, y:y-16, width:colW, height:30, fill:hot ? 'var(--cyan)' : 'var(--panel2)', opacity:hot ? 0.25 : 0.55, stroke:'var(--line)', 'stroke-width':1, rx:5, style:'cursor:pointer'}))
         .addEventListener('click', ()=>{ render(i); });
       const lt = SVG('text',{x:padX+4, y:y+4, 'font-size':12, fill:'var(--ink)', style:'cursor:pointer'});
-      lt.textContent = row.l;
+      lt.textContent = tex2uni(row.l);
       lt.addEventListener('click', ()=>{ render(i); });
       svg.appendChild(lt);
       // arrow
       svg.appendChild(SVG('path',{d:`M ${padX+colW+8} ${y-2} L ${padX+colW+70} ${y-2}`, fill:'none', stroke:hot ? 'var(--yellow)' : 'var(--mute)', 'stroke-width':hot ? 1.6 : 1}));
       const rt = SVG('text',{x:padX+colW+78, y:y+4, 'font-size':12, fill: hot ? 'var(--yellow)' : 'var(--ink)'});
-      rt.textContent = row.r;
+      rt.textContent = tex2uni(row.r);
       svg.appendChild(rt);
     });
     if (active >= 0) {
-      out.textContent = `${rows[active].l}  ⟷  ${rows[active].r}\n\n${rows[active].m.replace(/\\Delta/g,'Δ').replace(/\\mathbb{H}/g,'H').replace(/\\mapsto/g,'↦').replace(/\\le/g,'≤').replace(/\\sim/g,'∼').replace(/\\hookrightarrow/g,'↪').replace(/\\theta/g,'θ').replace(/\\lambda/g,'λ').replace(/[\\$]/g,'').replace(/\\mathrm{[a-z]*}/g,'')}`;
+      out.textContent = `${tex2uni(rows[active].l)}  ⟷  ${tex2uni(rows[active].r)}\n\n${tex2uni(rows[active].m)}`;
     } else {
       out.textContent = 'Click a row on the left to see its CR analog and the structural mapping.';
     }
