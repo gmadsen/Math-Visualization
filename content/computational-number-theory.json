@@ -105,7 +105,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./mathematics-and-cryptography.html#lattice-based\">Lattice-based cryptography</a> — the post-quantum schemes whose security rests on harder lattice problems beyond LLL.</li>\n    <li><a href=\"./complexity-theory.html#time\">Time complexity and big-O</a></li>\n    <li><a href=\"./mathematics-and-cryptography.html#lattice\">Lattice-based and post-quantum cryptography</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./mathematics-and-cryptography.html#lattice\">Lattice-based cryptography</a> — the post-quantum schemes whose security rests on harder lattice problems beyond LLL.</li>\n    <li><a href=\"./complexity-theory.html#time\">Time complexity and big-O</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {
           "type": "raw",
