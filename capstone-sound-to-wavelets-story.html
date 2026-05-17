@@ -108,6 +108,8 @@
 </style>
 <link rel="stylesheet" href="./css/notebook.css">
 <script src="./js/theme-toggle.js"></script>
+<script src="./concepts/bundle.js" defer></script>
+<script src="./js/glossary-popover.js" defer></script>
 </head>
 <body data-level="capstone" data-c="pink">
 
@@ -323,7 +325,7 @@ $$\cdots \subset V_{-1} \subset V_0 \subset V_1 \subset V_2 \subset \cdots, \qqu
 $$\varphi(t) \;=\; \sqrt 2 \sum_k h_k\, \varphi(2t - k)$$
 <p>for a sequence of coefficients $\{h_k\}$. The wavelet is then</p>
 $$\psi(t) \;=\; \sqrt 2 \sum_k g_k\, \varphi(2t - k), \qquad g_k = (-1)^k h_{1-k}.$$
-<p>The coefficients $\{h_k\}$ form a discrete filter — a low-pass filter, in signal-processing language. The condition that $\{\varphi(t - k)\}$ is orthonormal becomes a condition on $\{h_k\}$: the filter must be a <strong>quadrature mirror filter</strong>, satisfying $\sum_k h_k h_{k+2\ell} = \delta_{\ell,0}$. Compactness of support translates to <em>finitely many</em> nonzero $h_k$; smoothness translates to <em>vanishing moments</em>: $\int t^m \psi(t)\, dt = 0$ for $m = 0, 1, \dots, p-1$. More vanishing moments means the wavelet is "blind" to polynomial trends and concentrates its sensitivity on departures from polynomial behaviour — exactly what you want for compression.</p>
+<p>The coefficients $\{h_k\}$ form a discrete filter — a low-pass filter, in signal-processing language. The condition that $\{\varphi(t - k)\}$ is orthonormal becomes a condition on $\{h_k\}$: the filter must be a <strong>quadrature mirror filter</strong>, satisfying $\sum_k h_k h_{k+2\ell} = \delta_{\ell,0}$. <a href="./point-set-topology.html#compact" data-auto-inline-link="1" data-concept-id="compactness" data-blurb="Every open cover has a finite subcover; preserved under continuous images; Heine–Borel, sequential compactness, and why compact Hausdorff is the right target category.">Compactness</a> of support translates to <em>finitely many</em> nonzero $h_k$; smoothness translates to <em>vanishing moments</em>: $\int t^m \psi(t)\, dt = 0$ for $m = 0, 1, \dots, p-1$. More vanishing moments means the wavelet is "blind" to polynomial trends and concentrates its sensitivity on departures from polynomial behaviour — exactly what you want for compression.</p>
 
 <p>Daubechies's tour de force was to show that for every $p \ge 1$ there is a finite filter $\{h_k\}_{k=0}^{2p-1}$ producing an orthonormal compactly-supported wavelet with $p$ vanishing moments. The case $p=1$ recovers Haar; $p=2$ gives the Daubechies <em>db2</em> wavelet, supported on an interval of length 3, $C^{0.55}$-Hölder, with two vanishing moments. As $p$ grows so do support length and smoothness, roughly linearly. The wavelet itself has no closed form — it is the fixed point of an iterated function system driven by the filter — but that does not matter, because everything one ever <em>computes</em> with wavelets is computed in terms of the filter coefficients.</p>
 
