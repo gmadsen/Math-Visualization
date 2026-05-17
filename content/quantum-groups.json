@@ -178,7 +178,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<h3>Lusztig's canonical basis</h3>\n<p>Lusztig constructed a distinguished $\\mathbb{Z}[q,q^{-1}]$-basis $\\mathbf B$ of the integral form of $U_q^-(\\mathfrak{g})$ that is</p>\n<ul>\n<li>bar-invariant: $\\overline q = q^{-1}$ fixes each basis element,</li>\n<li>has positive integer structure constants for multiplication and the bar involution,</li>\n<li>compatible with all highest-weight modules: each $V_\\lambda$ has a canonical basis subset of $\\mathbf B$.</li>\n</ul>\n<p>The positivity of these structure constants is a deep theorem; it was an early hint that there should be a categorification — vector-space dimensions whose Euler characteristic is the basis element. KLR algebras supply exactly such a categorification.</p>\n\n"
+          "html": "\n\n<h3>Lusztig's canonical basis</h3>\n<p>Lusztig constructed a distinguished $\\mathbb{Z}[q,q^{-1}]$-basis $\\mathbf{B}$ of the integral form of $U_q^-(\\mathfrak{g})$ that is</p>\n<ul>\n<li>bar-invariant: $\\overline q = q^{-1}$ fixes each basis element,</li>\n<li>has positive integer structure constants for multiplication and the bar involution,</li>\n<li>compatible with all highest-weight modules: each $V_\\lambda$ has a canonical basis subset of $\\mathbf{B}$.</li>\n</ul>\n<p>The positivity of these structure constants is a deep theorem; it was an early hint that there should be a categorification — vector-space dimensions whose Euler characteristic is the basis element. KLR algebras supply exactly such a categorification.</p>\n\n"
         },
         {
           "type": "raw",
