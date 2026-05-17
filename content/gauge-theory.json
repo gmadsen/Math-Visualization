@@ -121,7 +121,7 @@
         },
         {
           "type": "raw",
-          "html": "\n<p class=\"small\">The pink disk is a localized region of constant magnetic flux $F = B\\,dx\\wedge dy$. The blue circle is the Wilson loop $\\gamma$. The holonomy phase is $e^{i\\Phi}$ where $\\Phi$ is the flux through the part of the disk enclosed by $\\gamma$ — when the loop misses the flux tube the phase is $1$; when it fully encloses the tube the phase is $e^{i\\Phi_{\\mathrm total}}$.</p>\n\n"
+          "html": "\n<p class=\"small\">The pink disk is a localized region of constant magnetic flux $F = B\\,dx\\wedge dy$. The blue circle is the Wilson loop $\\gamma$. The holonomy phase is $e^{i\\Phi}$ where $\\Phi$ is the flux through the part of the disk enclosed by $\\gamma$ — when the loop misses the flux tube the phase is $1$; when it fully encloses the tube the phase is $e^{i\\Phi_{\\mathrm{total}}}$.</p>\n\n"
         },
         {
           "type": "quiz",

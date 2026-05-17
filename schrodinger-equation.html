@@ -361,10 +361,10 @@ $$ \tfrac{d}{dt}\|\psi(t)\|^2 = \tfrac{d}{dt}\langle \psi, \psi\rangle = \langle
     <div><a href="./schrodinger-equation.html#stationary">Schrödinger equation</a> · Stationary states and the eigenvalue problem</div>
 </aside>
 <!-- backlinks-auto-end -->
-<p>Below is what time evolution actually looks like in a confined system. A Gaussian wavepacket launched in the infinite square well $[0,\pi]$ decomposes as $\psi_0 = \sum_n c_n\varphi_n$ with $\varphi_n=\sqrt{2/\pi}\sin(nx)$, $E_n = n^2$. Each mode picks up a phase $e^{-iE_n t}$, and you recover $\psi(x,t)$ by summation. The packet reflects off the walls, scrambles into a comb of delta-like spikes (a fractional revival), and at $T_{\mathrm rev}=2\pi$ — the smallest time at which $e^{-iE_n T} = 1$ for every $n$, since all $E_n$ are integers — every phase resyncs and the original Gaussian reassembles itself. This is the simplest example of a <em>quantum revival</em>.</p>
+<p>Below is what time evolution actually looks like in a confined system. A Gaussian wavepacket launched in the infinite square well $[0,\pi]$ decomposes as $\psi_0 = \sum_n c_n\varphi_n$ with $\varphi_n=\sqrt{2/\pi}\sin(nx)$, $E_n = n^2$. Each mode picks up a phase $e^{-iE_n t}$, and you recover $\psi(x,t)$ by summation. The packet reflects off the walls, scrambles into a comb of delta-like spikes (a fractional revival), and at $T_{\mathrm{rev}}=2\pi$ — the smallest time at which $e^{-iE_n T} = 1$ for every $n$, since all $E_n$ are integers — every phase resyncs and the original Gaussian reassembles itself. This is the simplest example of a <em>quantum revival</em>.</p>
 
 <div class="widget" id="w-figure-time-dep-2">
-  <div class="hd"><div class="ttl">Wave packet in an infinite square well</div><div class="hint">Gaussian launched on $[0,\pi]$. Watch it reflect off the walls and recohere at the revival $T_{\mathrm rev}=2\pi$.</div></div>
+  <div class="hd"><div class="ttl">Wave packet in an infinite square well</div><div class="hint">Gaussian launched on $[0,\pi]$. Watch it reflect off the walls and recohere at the revival $T_{\mathrm{rev}}=2\pi$.</div></div>
   <div class="row">
     <label for="se-well-k">$k_0$</label>
     <input type="range" id="se-well-k" min="0" max="20" step="0.5" value="6">

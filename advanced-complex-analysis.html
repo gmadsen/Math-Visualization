@@ -932,9 +932,9 @@ In an orthonormal basis $\{\phi_n\}$ of $A^2(\Omega)$, $K_\Omega(z,w) = \sum_n \
 <p>$$\mu_f \;=\; \frac{\partial_{\bar z} f}{\partial_z f}\qquad\text{wherever }\partial_z f\ne 0.$$</p>
 <p>The infinitesimal map $df$ sends a unit disk to an ellipse with eccentricity $K = \frac{1+|\mu_f|}{1 - |\mu_f|}$, the <strong>dilatation</strong>. Conformal $\Leftrightarrow \mu = 0 \Leftrightarrow K = 1$.</p>
 
-<div class="note"><strong>Quasiconformal map.</strong> A homeomorphism $f:\Omega\to\Omega'$ between planar domains is $K$-quasiconformal if $f \in W^{1,2}_{\mathrm loc}$ (i.e., its first distributional partial derivatives are locally $L^2$) and $\|\mu_f\|_\infty \le k = (K-1)/(K+1) < 1$, equivalently the dilatation is essentially bounded by $K$.</div>
+<div class="note"><strong>Quasiconformal map.</strong> A homeomorphism $f:\Omega\to\Omega'$ between planar domains is $K$-quasiconformal if $f \in W^{1,2}_{\mathrm{loc}}$ (i.e., its first distributional partial derivatives are locally $L^2$) and $\|\mu_f\|_\infty \le k = (K-1)/(K+1) < 1$, equivalently the dilatation is essentially bounded by $K$.</div>
 
-<p>Because the bound is on $\|\mu_f\|_\infty$ — not on $\mu_f$ pointwise everywhere — quasiconformal maps need not be smooth. The right setting is Sobolev: $f\in W_{\mathrm loc}^{1,2}$ with the Beltrami equation holding distributionally.</p>
+<p>Because the bound is on $\|\mu_f\|_\infty$ — not on $\mu_f$ pointwise everywhere — quasiconformal maps need not be smooth. The right setting is Sobolev: $f\in W_{\mathrm{loc}}^{1,2}$ with the Beltrami equation holding distributionally.</p>
 
 <h3>The Beltrami equation</h3>
 <p>Solving $\partial_{\bar z}f = \mu\,\partial_z f$ for a given measurable $\mu$ is the <strong>Beltrami equation</strong>. The pioneering result is:</p>
@@ -953,14 +953,14 @@ In an orthonormal basis $\{\phi_n\}$ of $A^2(\Omega)$, $K_\Omega(z,w) = \sum_n \
 <p>Conformal-and-rigid $\to$ quasiconformal-and-flexible is the theme. The Beltrami equation is the bookkeeping device that makes 'small angle distortion' a precise and computable invariant.</p>
 
 <div class="widget" id="w-qc-warp">
-  <div class="hd"><div class="ttl">Beltrami warp</div><div class="hint">slide $\mu = \mu_{\mathrm re} + i\mu_{\mathrm im}$; watch the dilatation $K$</div></div>
+  <div class="hd"><div class="ttl">Beltrami warp</div><div class="hint">slide $\mu = \mu_{\mathrm{re}} + i\mu_{\mathrm{im}}$; watch the dilatation $K$</div></div>
   <div class="row">
-    <label for="qc-mre">$\mu_{\mathrm re}$:</label>
+    <label for="qc-mre">$\mu_{\mathrm{re}}$:</label>
     <input type="range" id="qc-mre" min="-0.7" max="0.7" step="0.02" value="0.4" />
     <span class="readout" id="qc-mre-out" style="min-width:3em;display:inline-block">0.40</span>
   </div>
   <div class="row">
-    <label for="qc-mim">$\mu_{\mathrm im}$:</label>
+    <label for="qc-mim">$\mu_{\mathrm{im}}$:</label>
     <input type="range" id="qc-mim" min="-0.7" max="0.7" step="0.02" value="0.0" />
     <span class="readout" id="qc-mim-out" style="min-width:3em;display:inline-block">0.00</span>
   </div>
