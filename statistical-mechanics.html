@@ -278,7 +278,7 @@ A probability density $\rho(q, p, t)$ carried by the flow satisfies the <em>Liou
 
 <p>The simplest stationary density is the one supported on a single energy shell — the <strong>microcanonical ensemble</strong>. Fix energy $E$ (and possibly other conserved quantities like total momentum) and put the uniform Liouville measure on a thin shell $\{E \le H(q,p) \le E + \Delta E\}$:</p>
 
-$$\rho_{\mathrm mc}(q, p) \;=\; \frac{\mathbf{1}\{E \le H \le E + \Delta E\}}{\Omega(E)\,\Delta E}, \qquad \Omega(E) = \int_\Gamma \delta(H(q, p) - E)\, d\Gamma.$$
+$$\rho_{\mathrm{mc}}(q, p) \;=\; \frac{\mathbf{1}\{E \le H \le E + \Delta E\}}{\Omega(E)\,\Delta E}, \qquad \Omega(E) = \int_\Gamma \delta(H(q, p) - E)\, d\Gamma.$$
 
 <p>Boltzmann's <strong>tombstone formula</strong> defines entropy from this microstate count:</p>
 
@@ -291,7 +291,7 @@ $$\frac{1}{T} \;=\; \frac{\partial S}{\partial E}.$$
 <p>This is a <em>derivation</em>, not a postulate: temperature is the rate at which microstate count grows with energy, and two systems brought into thermal contact equilibrate at common $\partial S/\partial E$ because the joint $\Omega_1(E_1)\Omega_2(E - E_1)$ is dominated by the saddle point that equates the two slopes.</p>
 
 <div class="note"><strong>Ergodic hypothesis.</strong> The microcanonical ensemble is the right ensemble at fixed $E$ if the dynamics is <em>ergodic</em>: time averages along a typical trajectory converge to ensemble averages over the energy shell,
-$$\lim_{T\to\infty}\frac{1}{T}\int_0^T f(\Phi_t(q_0, p_0))\,dt \;=\; \int_{\{H=E\}} f\, d\rho_{\mathrm mc} \quad \text{for $\rho_{\mathrm mc}$-a.e. $(q_0, p_0)$}.$$
+$$\lim_{T\to\infty}\frac{1}{T}\int_0^T f(\Phi_t(q_0, p_0))\,dt \;=\; \int_{\{H=E\}} f\, d\rho_{\mathrm{mc}} \quad \text{for $\rho_{\mathrm{mc}}$-a.e. $(q_0, p_0)$}.$$
 Ergodicity is delicate (KAM theory shows that integrable Hamiltonians are <em>not</em> ergodic — invariant tori block phase-space mixing), but the laboratory observation that macroscopic systems do reach thermal equilibrium suggests it is generically a good approximation, and the maximum-entropy derivation in §3 sidesteps this issue entirely.</div>
 
 <div class="widget" id="w-phase">
@@ -385,15 +385,15 @@ Ergodicity is delicate (KAM theory shows that integrable Hamiltonians are <em>no
 
 <p>The microcanonical ensemble fixes the total energy of an isolated system. In the laboratory we more often hold the <em>temperature</em> fixed by coupling the system to a much larger heat bath. The corresponding ensemble is the <strong>canonical ensemble</strong>, and its derivation is one of the cleanest arguments in physics.</p>
 
-<p>Take a system $S$ with Hamiltonian $H_S$ in contact with a bath $B$ with Hamiltonian $H_B$, the combined system isolated and at total energy $E_{\mathrm tot}$. Assume the coupling is weak so the joint Hamiltonian decomposes as $H_S + H_B$. The probability that $S$ is in microstate $i$ with energy $E_i$ is proportional to the number of bath microstates compatible with that condition:</p>
+<p>Take a system $S$ with Hamiltonian $H_S$ in contact with a bath $B$ with Hamiltonian $H_B$, the combined system isolated and at total energy $E_{\mathrm{tot}}$. Assume the coupling is weak so the joint Hamiltonian decomposes as $H_S + H_B$. The probability that $S$ is in microstate $i$ with energy $E_i$ is proportional to the number of bath microstates compatible with that condition:</p>
 
-$$P_i \;\propto\; \Omega_B(E_{\mathrm tot} - E_i) \;=\; \exp\!\bigl(S_B(E_{\mathrm tot} - E_i)/k_B\bigr).$$
+$$P_i \;\propto\; \Omega_B(E_{\mathrm{tot}} - E_i) \;=\; \exp\!\bigl(S_B(E_{\mathrm{tot}} - E_i)/k_B\bigr).$$
 
-<p>For a large bath, $E_i \ll E_{\mathrm tot}$ and we can Taylor-expand:</p>
+<p>For a large bath, $E_i \ll E_{\mathrm{tot}}$ and we can Taylor-expand:</p>
 
-$$S_B(E_{\mathrm tot} - E_i) \;\approx\; S_B(E_{\mathrm tot}) - E_i\,\frac{\partial S_B}{\partial E}\bigg|_{E_{\mathrm tot}} \;=\; S_B(E_{\mathrm tot}) - E_i/T.$$
+$$S_B(E_{\mathrm{tot}} - E_i) \;\approx\; S_B(E_{\mathrm{tot}}) - E_i\,\frac{\partial S_B}{\partial E}\bigg|_{E_{\mathrm{tot}}} \;=\; S_B(E_{\mathrm{tot}}) - E_i/T.$$
 
-<p>Higher-order corrections are suppressed by powers of $1/N_{\mathrm bath}$, so they vanish exactly in the thermodynamic limit. Substituting and absorbing the bath-only term into the normalization:</p>
+<p>Higher-order corrections are suppressed by powers of $1/N_{\mathrm{bath}}$, so they vanish exactly in the thermodynamic limit. Substituting and absorbing the bath-only term into the normalization:</p>
 
 <div class="note"><strong>Boltzmann distribution.</strong> A system in contact with a heat bath at temperature $T = 1/(k_B\beta)$ is described by the canonical density operator
 $$\rho \;=\; \frac{e^{-\beta H}}{Z(\beta)}, \qquad Z(\beta) = \tr\,e^{-\beta H},$$
@@ -777,7 +777,7 @@ $$Z(\beta, h) \;=\; \sum_{\{\sigma\}} e^{-\beta H(\sigma)}.$$
 
 <div class="note"><strong>Mean-field theory.</strong> Replace each neighbor of $\sigma_i$ by its average $\langle\sigma\rangle = m$. The effective single-spin Hamiltonian is $H_i = -(qJm + h)\sigma_i$ with $q$ the coordination number; thermal averaging gives the self-consistency
 $$m \;=\; \tanh\bigl(\beta(qJm + h)\bigr).$$
-At $h = 0$, this has only the trivial solution $m = 0$ for $\beta qJ \le 1$, but bifurcates to $m = \pm m_0(\beta)\ne 0$ for $\beta qJ > 1$. The mean-field critical temperature is $k_BT_c^{\mathrm MF} = qJ$, with critical exponent $m\sim(T_c-T)^{1/2}$ near the transition.</div>
+At $h = 0$, this has only the trivial solution $m = 0$ for $\beta qJ \le 1$, but bifurcates to $m = \pm m_0(\beta)\ne 0$ for $\beta qJ > 1$. The mean-field critical temperature is $k_BT_c^{\mathrm{MF}} = qJ$, with critical exponent $m\sim(T_c-T)^{1/2}$ near the transition.</div>
 
 <p>Mean-field theory is exact in <em>infinite</em> dimensions and increasingly accurate as $d$ grows, but in low dimensions it overestimates $T_c$ and gets the critical exponents wrong because it ignores fluctuations. The classical results:</p>
 
