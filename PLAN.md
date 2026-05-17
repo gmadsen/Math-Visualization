@@ -4,7 +4,7 @@ Forward-looking priorities for the notebook. Daily-workflow commands, one-time s
 
 When something ships, delete its bullet here. Don't keep a "Shipped recently" log — `git log` is the audit trail. The full step list of `rebuild.mjs` is in `scripts/rebuild.mjs` — refer to it rather than restating step names here.
 
-## Corpus snapshot (2026-05-16)
+## Corpus snapshot (2026-05-17)
 
 From `audits/coverage-stats.md` and `audits/starter-concepts.md`:
 
@@ -24,11 +24,9 @@ Lone deferred item: **microlocal sheaves and $\mathcal{D}$-modules connections**
 
 **Mathematical biology stays under Probability & statistics** (user decision, 2026-05-12). Wright–Fisher / Moran / Kimura diffusion / Kingman coalescent dominate; Lotka–Volterra and replicator dynamics sit as a deterministic detour. The section question is closed.
 
-## Quality audit — per-section pass
+## Action the quality-pass-2026-05 audit findings
 
-Systematic pedagogical-quality pass across the 190 topics. Per-topic dispatch is too expensive (190 agents); per-section batches (12 sections) are the right granularity. Each batch hands off to a `pedagogy-auditor` subagent that picks 2–3 representative topics in the section and cross-checks them against a reference topic for: notation drift, undefined jargon, tone mismatches, missing worked examples, unusual KaTeX macros. Findings collated under `audits/quality-pass-YYYY-MM.md`.
-
-Cap at 5 concurrent agents (ethernet rule); 12 sections in 3 waves of ~4.
+190 per-topic audits sit under `audits/quality-pass-2026-05/` (plus `_SUMMARY.md`). Per-PR fix loop is the standing workflow: pick a thematic bundle (callback dedup, helper-block restoration, silent 404s, notation drift, author-voice leaks, ...), verify each claim before editing (~30–50% of findings turn out already-fixed), ship as one PR with 3 read-only review agents posting on the PR. **Mine the directory before proposing a new audit pass.**
 
 ## Authoring polish — small
 
