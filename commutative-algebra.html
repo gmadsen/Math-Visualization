@@ -2553,7 +2553,7 @@ Proof: apply Noether normalization to find $k[y_1,\dots,y_d]\hookrightarrow B$ f
     msg += `transcendence basis: ${R.basis}\n\n`;
     msg += (R.dim === R.trdeg)
       ? '✓ dim = tr.deg (bridge theorem holds)'
-      : '⚠ mismatch (should not happen for f.g. domains)';
+      : '⚠ mismatch (unexpected for f.g. domains)';
     out.textContent = msg;
   }
   pick.addEventListener('change', draw);
