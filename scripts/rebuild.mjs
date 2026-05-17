@@ -78,6 +78,7 @@ const STEPS = [
   { name: 'breadcrumb', script: 'inject-breadcrumb.mjs',        fix: true  },
   { name: 'display-prefs', script: 'inject-display-prefs.mjs',  fix: true  },
   { name: 'index-stats', script: 'inject-index-stats.mjs',      fix: true  },
+  { name: 'plan-snapshot', script: 'inject-plan-snapshot.mjs',  fix: true  },
   { name: 'page-metadata', script: 'inject-page-metadata.mjs',  fix: true  },
   // toc must run AFTER any step that mutates section structure (none currently
   // do, but this leaves room) and BEFORE roundtrip so the regenerated TOC
