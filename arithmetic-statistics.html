@@ -26,7 +26,8 @@
         '\\Hom':'\\operatorname{Hom}',
         '\\tr':'\\operatorname{tr}',
         '\\ad':'\\operatorname{ad}',
-        '\\ind':'\\operatorname{ind}'
+        '\\ind':'\\operatorname{ind}',
+        '\\Sha':'\\text{Ш}'
       }
     });
   }
@@ -528,7 +529,7 @@ function drawNode(svg, x, y, label, opts={}){
 
 <p>Order elliptic curves $E:\,y^2=x^3+Ax+B$ over $\mathbb{Q}$ by naive height $H(E)=\max(|A|^3,|B|^2)$ (this is a "discriminant-flavored" height: see <a href="./heights-arithmetic-geometry.html#naive-height">naive heights</a>). For each prime $\ell$, the <strong>$\ell$-Selmer group</strong> $\mathrm{Sel}_\ell(E)$ sits in the exact sequence</p>
 
-<p style="text-align:center">$0\to E(\mathbb{Q})/\ell E(\mathbb{Q})\to\mathrm{Sel}_\ell(E)\to\sha(E)[\ell]\to 0,$</p>
+<p style="text-align:center">$0\to E(\mathbb{Q})/\ell E(\mathbb{Q})\to\mathrm{Sel}_\ell(E)\to\Sha(E)[\ell]\to 0,$</p>
 
 <p>so its size bounds $E(\mathbb{Q})$'s Mordell–Weil rank: $\mathrm{rk}\,E(\mathbb{Q})\le \log_\ell|\mathrm{Sel}_\ell(E)|$. Bhargava and Shankar (2010, 2013, 2014) computed the <em>average</em> size of $\mathrm{Sel}_\ell$ over the height-ordered family, for $\ell=2,3,4,5$.</p>
 
@@ -675,7 +676,7 @@ function drawNode(svg, x, y, label, opts={}){
 
 <ul>
   <li>Bhargava–Shankar Selmer averages (last section).</li>
-  <li>The Skinner–Urban / Skinner converse to BSD: if $\mathrm{rk}_\mathrm{an}\le 1$ and certain $p$-adic conditions, then $\mathrm{rk}_\mathrm{an}=\mathrm{rk}_\mathrm{alg}$ and $\sha$ is finite.</li>
+  <li>The Skinner–Urban / Skinner converse to BSD: if $\mathrm{rk}_\mathrm{an}\le 1$ and certain $p$-adic conditions, then $\mathrm{rk}_\mathrm{an}=\mathrm{rk}_\mathrm{alg}$ and $\Sha$ is finite.</li>
   <li>Parity considerations from the global root number.</li>
 </ul>
 
