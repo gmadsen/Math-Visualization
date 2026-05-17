@@ -253,7 +253,7 @@ function drawNode(svg, x, y, label, opts={}){
 
 <section class="hero">
   <h1>Quantum groups</h1>
-  <p class="sub">Deform the universal enveloping algebra $U(\mathfrak g)$ by a single parameter $q$ and the cocommutativity of group multiplication breaks: tensor products of representations no longer commute, but they almost do, witnessed by an $R$-matrix that satisfies the Yang–Baxter equation. The shadow of that single failure of symmetry runs through knot polynomials, integrable lattice models, and categorification.</p>
+  <p class="sub">Deform the universal enveloping algebra $U(\mathfrak{g})$ by a single parameter $q$ and the cocommutativity of group multiplication breaks: tensor products of representations no longer commute, but they almost do, witnessed by an $R$-matrix that satisfies the Yang–Baxter equation. The shadow of that single failure of symmetry runs through knot polynomials, integrable lattice models, and categorification.</p>
 </section>
 
 <section id="hopf">
@@ -274,8 +274,8 @@ function drawNode(svg, x, y, label, opts={}){
 <h3>Two prototypes</h3>
 <p>For a finite group $G$, the <strong>group algebra</strong> $\mathbb{C}[G]$ is a Hopf algebra with</p>
 <p>$$\Delta(g)=g\otimes g,\qquad \varepsilon(g)=1,\qquad S(g)=g^{-1}\quad (g\in G).$$</p>
-<p>It is cocommutative ($\tau\circ\Delta=\Delta$, where $\tau$ is the flip). For a Lie algebra $\mathfrak g$, the <strong>universal enveloping algebra</strong> $U(\mathfrak g)$ is also Hopf with</p>
-<p>$$\Delta(x)=x\otimes 1+1\otimes x,\qquad \varepsilon(x)=0,\qquad S(x)=-x\quad (x\in\mathfrak g),$$</p>
+<p>It is cocommutative ($\tau\circ\Delta=\Delta$, where $\tau$ is the flip). For a Lie algebra $\mathfrak{g}$, the <strong>universal enveloping algebra</strong> $U(\mathfrak{g})$ is also Hopf with</p>
+<p>$$\Delta(x)=x\otimes 1+1\otimes x,\qquad \varepsilon(x)=0,\qquad S(x)=-x\quad (x\in\mathfrak{g}),$$</p>
 <p>extended as algebra maps. Both are cocommutative — quantization will break this.</p>
 
 <div class="widget" id="hopf-axioms">
@@ -529,10 +529,10 @@ function drawNode(svg, x, y, label, opts={}){
 
 <section id="r-matrix">
 <h2>3. The universal $R$-matrix and Yang–Baxter</h2>
-<p>$U_q(\mathfrak g)$ is <strong>quasitriangular</strong>: there is an invertible element $R\in U_q(\mathfrak g)\widehat\otimes U_q(\mathfrak g)$ — the <em>universal $R$-matrix</em> — that intertwines the comultiplication with its opposite,</p>
-<p>$$\Delta^{op}(x) \;=\; R\,\Delta(x)\,R^{-1}\qquad\text{for all }x\in U_q(\mathfrak g),$$</p>
+<p>$U_q(\mathfrak{g})$ is <strong>quasitriangular</strong>: there is an invertible element $R\in U_q(\mathfrak{g})\widehat\otimes U_q(\mathfrak{g})$ — the <em>universal $R$-matrix</em> — that intertwines the comultiplication with its opposite,</p>
+<p>$$\Delta^{op}(x) \;=\; R\,\Delta(x)\,R^{-1}\qquad\text{for all }x\in U_q(\mathfrak{g}),$$</p>
 <p>and satisfies the <strong>Yang–Baxter equation</strong></p>
-<p>$$R_{12}\,R_{13}\,R_{23} \;=\; R_{23}\,R_{13}\,R_{12} \quad\text{in } U_q(\mathfrak g)^{\otimes 3}.$$</p>
+<p>$$R_{12}\,R_{13}\,R_{23} \;=\; R_{23}\,R_{13}\,R_{12} \quad\text{in } U_q(\mathfrak{g})^{\otimes 3}.$$</p>
 <p>Here $R_{ij}$ is $R$ inserted in the $i$-th and $j$-th tensor slots and identity elsewhere. For $U_q(\mathfrak{sl}_2)$ on $V_1\otimes V_1$ (with $V_1$ the 2-dimensional standard rep) the matrix in the basis $\{v\otimes v, v\otimes w, w\otimes v, w\otimes w\}$ reads</p>
 <p>$$R \;=\; \begin{pmatrix} q & 0 & 0 & 0 \\ 0 & 1 & q-q^{-1} & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & q \end{pmatrix}.$$</p>
 
@@ -750,7 +750,7 @@ function drawNode(svg, x, y, label, opts={}){
 </script>
 
 <h3>Lusztig's canonical basis</h3>
-<p>Lusztig constructed a distinguished $\mathbb{Z}[q,q^{-1}]$-basis $\mathbf B$ of the integral form of $U_q^-(\mathfrak g)$ that is</p>
+<p>Lusztig constructed a distinguished $\mathbb{Z}[q,q^{-1}]$-basis $\mathbf B$ of the integral form of $U_q^-(\mathfrak{g})$ that is</p>
 <ul>
 <li>bar-invariant: $\overline q = q^{-1}$ fixes each basis element,</li>
 <li>has positive integer structure constants for multiplication and the bar involution,</li>
@@ -779,8 +779,8 @@ function drawNode(svg, x, y, label, opts={}){
 <section id="knots">
 <h2>5. Reshetikhin–Turaev knot invariants</h2>
 <p>A <strong>framed oriented tangle</strong> is a 1-manifold with boundary in $\mathbb{R}^2\times[0,1]$ whose endpoints lie on $\mathbb{R}\times\{0,1\}$. Reshetikhin and Turaev built a tensor functor</p>
-<p>$$F\colon \mathbf{Tang}_V \;\to\; \mathrm{Rep}\bigl(U_q(\mathfrak g)\bigr)$$</p>
-<p>from the category of $V$-labelled tangles to $U_q(\mathfrak g)$-modules. The functor is forced by three pieces of data:</p>
+<p>$$F\colon \mathbf{Tang}_V \;\to\; \mathrm{Rep}\bigl(U_q(\mathfrak{g})\bigr)$$</p>
+<p>from the category of $V$-labelled tangles to $U_q(\mathfrak{g})$-modules. The functor is forced by three pieces of data:</p>
 <ul>
 <li><strong>Crossing</strong> $\mapsto$ braiding $c_{V,V} = \tau\circ R_{V,V}$,</li>
 <li><strong>Cup / cap</strong> $\mapsto$ evaluation / coevaluation on $V\otimes V^*$ (rigid duality),</li>
@@ -920,18 +920,18 @@ function drawNode(svg, x, y, label, opts={}){
 
 <section id="applications">
 <h2>6. Affine quantum groups, KZ, and categorification</h2>
-<p>The Drinfeld–Jimbo construction extends to the <strong>affine</strong> Lie algebras $\widehat{\mathfrak g}$, giving $U_q(\widehat{\mathfrak g})$. Its representations sit on top of an evaluation map $V(z) = V\otimes\mathbb{C}[z,z^{-1}]$ and the spectral $R$-matrix $R(z/w)$ depends on the ratio of evaluation parameters.</p>
+<p>The Drinfeld–Jimbo construction extends to the <strong>affine</strong> Lie algebras $\widehat{\mathfrak{g}}$, giving $U_q(\widehat{\mathfrak{g}})$. Its representations sit on top of an evaluation map $V(z) = V\otimes\mathbb{C}[z,z^{-1}]$ and the spectral $R$-matrix $R(z/w)$ depends on the ratio of evaluation parameters.</p>
 
 <h3>Integrable lattice models</h3>
 <p>For the six-vertex model, the Boltzmann weights of a vertex configuration are exactly the entries of the spectral $R$-matrix of $U_q(\widehat{\mathfrak{sl}_2})$ on $V_1\otimes V_1$. Yang–Baxter $R_{12}(u)R_{13}(u+v)R_{23}(v) = R_{23}(v)R_{13}(u+v)R_{12}(u)$ implies that transfer matrices at different spectral parameters commute, which is the algebraic source of integrability.</p>
 
 <h3>Drinfeld–Kohno: KZ monodromy</h3>
-<p>The Knizhnik–Zamolodchikov flat connection on $\mathrm{Conf}_n(\mathbb{C})$ with values in $\mathfrak g^{\otimes n}$ is</p>
+<p>The Knizhnik–Zamolodchikov flat connection on $\mathrm{Conf}_n(\mathbb{C})$ with values in $\mathfrak{g}^{\otimes n}$ is</p>
 <p>$$\nabla \;=\; d \;-\; \hbar\sum_{i<j}\,\dfrac{\Omega_{ij}}{z_i - z_j}\,d(z_i-z_j),$$</p>
-<p>where $\Omega = \sum_a x_a\otimes x^a$ is the Casimir element. <strong>Drinfeld–Kohno</strong>: the monodromy representation of the braid group $B_n$ on $\bigl(V_1\otimes\cdots\otimes V_n\bigr)$ is canonically equivalent to the representation defined by the $R$-matrix of $U_q(\mathfrak g)$ at $q = e^{i\pi\hbar}$. Differential geometry on configuration space matches the algebra of quantum groups.</p>
+<p>where $\Omega = \sum_a x_a\otimes x^a$ is the Casimir element. <strong>Drinfeld–Kohno</strong>: the monodromy representation of the braid group $B_n$ on $\bigl(V_1\otimes\cdots\otimes V_n\bigr)$ is canonically equivalent to the representation defined by the $R$-matrix of $U_q(\mathfrak{g})$ at $q = e^{i\pi\hbar}$. Differential geometry on configuration space matches the algebra of quantum groups.</p>
 
 <h3>Categorification</h3>
-<p>Khovanov–Lauda–Rouquier (KLR) constructed a graded 2-category $\mathcal U$ whose Grothendieck group is $U_q(\mathfrak g)_{\mathbb{Z}[q,q^{-1}]}$. Each $q^k$ becomes a grading shift; multiplication becomes composition of 1-morphisms; canonical-basis elements lift to indecomposable 1-morphisms. Khovanov homology categorifies the Jones polynomial: $V_K(q)$ becomes the Euler characteristic of a bigraded chain complex $\mathrm{Kh}^{\bullet,\bullet}(K)$, and the latter is a strictly stronger invariant (it detects the unknot).</p>
+<p>Khovanov–Lauda–Rouquier (KLR) constructed a graded 2-category $\mathcal{U}$ whose Grothendieck group is $U_q(\mathfrak{g})_{\mathbb{Z}[q,q^{-1}]}$. Each $q^k$ becomes a grading shift; multiplication becomes composition of 1-morphisms; canonical-basis elements lift to indecomposable 1-morphisms. Khovanov homology categorifies the Jones polynomial: $V_K(q)$ becomes the Euler characteristic of a bigraded chain complex $\mathrm{Kh}^{\bullet,\bullet}(K)$, and the latter is a strictly stronger invariant (it detects the unknot).</p>
 
 <div class="widget" id="application-map">
   <div class="hd"><div class="ttl">Where quantum groups appear</div><div class="hint">click a node — read where the $R$-matrix shows up</div></div>
@@ -987,14 +987,14 @@ function drawNode(svg, x, y, label, opts={}){
 <section id="connections">
 <h2>Connections</h2>
 
-<p>Quantum groups sit at the intersection of three live frontiers: the <em>quantum geometric Langlands program</em> (Gaitsgory–Lurie) replaces the classical Langlands sheaf-on-$\mathrm{Bun}_G$ picture with categories of $U_q(\mathfrak g)$-modules and predicts a duality interchanging $q$ and the Langlands dual; <em>2-Kac–Moody algebras</em> (Rouquier) categorify the entire Drinfeld–Jimbo machinery and link knot homology to derived categories of Lie-algebra representations; and <em>quantum cluster algebras</em> propose that canonical bases come from cluster monomials, but this is open in general type.</p>
+<p>Quantum groups sit at the intersection of three live frontiers: the <em>quantum geometric Langlands program</em> (Gaitsgory–Lurie) replaces the classical Langlands sheaf-on-$\mathrm{Bun}_G$ picture with categories of $U_q(\mathfrak{g})$-modules and predicts a duality interchanging $q$ and the Langlands dual; <em>2-Kac–Moody algebras</em> (Rouquier) categorify the entire Drinfeld–Jimbo machinery and link knot homology to derived categories of Lie-algebra representations; and <em>quantum cluster algebras</em> propose that canonical bases come from cluster monomials, but this is open in general type.</p>
 
 <ul>
 <li><a href="./lie-algebras.html#cartan-killing">Lie algebras — root systems and Cartan classification</a> — quantize root data, get a quantum group.</li>
-<li><a href="./representation-theory.html#tensor-dual">Representation theory — tensor and dual reps</a> — the braided monoidal category $\mathrm{Rep}(U_q(\mathfrak g))$ is the deformation of $\mathrm{Rep}(G)$.</li>
+<li><a href="./representation-theory.html#tensor-dual">Representation theory — tensor and dual reps</a> — the braided monoidal category $\mathrm{Rep}(U_q(\mathfrak{g}))$ is the deformation of $\mathrm{Rep}(G)$.</li>
 <li><a href="./category-theory.html#mon">Category theory — monoidal categories</a> — the natural home for braidings, ribbon structures, and quantum traces.</li>
 <li><a href="./algebraic-topology.html#intro">Algebraic topology</a> — knot polynomials and their categorifications connect 3-manifold topology back to algebra.</li>
-<li><a href="./moonshine.html#intro">Monstrous moonshine</a> — vertex operator algebras and their quantum-group cousins govern modular characters; affine $U_q(\widehat{\mathfrak g})$ is closely related.</li>
+<li><a href="./moonshine.html#intro">Monstrous moonshine</a> — vertex operator algebras and their quantum-group cousins govern modular characters; affine $U_q(\widehat{\mathfrak{g}})$ is closely related.</li>
 </ul>
 </section>
 

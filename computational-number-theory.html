@@ -448,22 +448,22 @@ function drawNode(svg, x, y, label, opts={}){
 <section id="class-group">
 <h2>6. Computing class groups & units</h2>
 
-<p>For a number field $K = \mathbb{Q}(\alpha)$ with ring of integers $\mathcal O_K$, two finiteness theorems govern the arithmetic:</p>
+<p>For a number field $K = \mathbb{Q}(\alpha)$ with ring of integers $\mathcal{O}_K$, two finiteness theorems govern the arithmetic:</p>
 
 <ul>
-<li>The class group $\mathrm{Cl}(K) = \mathcal I(\mathcal O_K) / P(\mathcal O_K)$ is finite — its order $h_K$ is the class number.</li>
-<li>The unit group $\mathcal O_K^\times \cong \mu(K) \oplus \mathbb{Z}^{r_1+r_2-1}$ is finitely generated (Dirichlet); the regulator $R_K$ is the covolume of the log-embedding lattice.</li>
+<li>The class group $\mathrm{Cl}(K) = \mathcal{I}(\mathcal{O}_K) / P(\mathcal{O}_K)$ is finite — its order $h_K$ is the class number.</li>
+<li>The unit group $\mathcal{O}_K^\times \cong \mu(K) \oplus \mathbb{Z}^{r_1+r_2-1}$ is finitely generated (Dirichlet); the regulator $R_K$ is the covolume of the log-embedding lattice.</li>
 </ul>
 
 <p><strong>Buchmann's algorithm</strong> (1990) computes $h_K$, $R_K$, and a system of fundamental units in subexponential time — provided the <strong>generalized Riemann hypothesis</strong> for Hecke $L$-functions of $K$ holds. The recipe:</p>
 
 <ol>
-<li><em>Fix a factor base.</em> Take all prime ideals $\mathfrak p$ of $\mathcal O_K$ with norm below a bound $B \approx (\log|\Delta_K|)^2$. Under GRH, these generate $\mathrm{Cl}(K)$.</li>
-<li><em>Collect relations.</em> Random elements $\alpha\in\mathcal O_K$ whose principal ideal $(\alpha)$ factors over the factor base give a relation vector in $\mathbb{Z}^{|S|}$, plus a logarithm vector recording $\log|\sigma_i(\alpha)|$ for each archimedean place.</li>
+<li><em>Fix a factor base.</em> Take all prime ideals $\mathfrak{p}$ of $\mathcal{O}_K$ with norm below a bound $B \approx (\log|\Delta_K|)^2$. Under GRH, these generate $\mathrm{Cl}(K)$.</li>
+<li><em>Collect relations.</em> Random elements $\alpha\in\mathcal{O}_K$ whose principal ideal $(\alpha)$ factors over the factor base give a relation vector in $\mathbb{Z}^{|S|}$, plus a logarithm vector recording $\log|\sigma_i(\alpha)|$ for each archimedean place.</li>
 <li><em>Reduce the lattice.</em> Apply LLL to the combined relation/log lattice; its Smith normal form yields the class-group invariants and a basis of fundamental units.</li>
 </ol>
 
-<p>The classical small example: $K = \mathbb{Q}(\sqrt{-5})$, $\mathcal O_K = \mathbb{Z}[\sqrt{-5}]$. The famous non-unique factorization $6 = 2\cdot 3 = (1+\sqrt{-5})(1-\sqrt{-5})$ is a relation in the factor base $S = \{\mathfrak p_2, \mathfrak p_3, \mathfrak p_3'\}$; after reduction the class group is $\mathbb{Z}/2\mathbb{Z}$, $h=2$.</p>
+<p>The classical small example: $K = \mathbb{Q}(\sqrt{-5})$, $\mathcal{O}_K = \mathbb{Z}[\sqrt{-5}]$. The famous non-unique factorization $6 = 2\cdot 3 = (1+\sqrt{-5})(1-\sqrt{-5})$ is a relation in the factor base $S = \{\mathfrak{p}_2, \mathfrak{p}_3, \mathfrak{p}_3'\}$; after reduction the class group is $\mathbb{Z}/2\mathbb{Z}$, $h=2$.</p>
 
 <div class="widget">
   <div class="hd"><div class="ttl">Buchmann — relation matrix to Smith normal form</div><div class="hint">Toggle relations on a small factor base for $\mathbb{Q}(\sqrt{-5})$; the SNF reveals the class group.</div></div>
@@ -480,7 +480,7 @@ function drawNode(svg, x, y, label, opts={}){
 <aside class="callback">
   <div class="ttl">See also</div>
   <ul>
-    <li><a href="./algebraic-number-theory.html#ramification">Prime-ideal factorization in $\mathcal O_K$</a> — the structural prerequisite Buchmann's factor base relies on.</li>
+    <li><a href="./algebraic-number-theory.html#ramification">Prime-ideal factorization in $\mathcal{O}_K$</a> — the structural prerequisite Buchmann's factor base relies on.</li>
     <li><a href="./algebraic-number-theory.html#units">Class group & units</a> — the finiteness theorems being computed.</li>
   </ul>
 </aside>

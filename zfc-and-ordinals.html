@@ -276,7 +276,7 @@ function drawNode(svg, x, y, label, opts={}){
 <tr><td><strong>Extensionality</strong></td><td>$\forall x\forall y\,[\forall z(z\in x\leftrightarrow z\in y)\to x=y]$</td><td>sets are determined by their elements</td></tr>
 <tr><td><strong>Pairing</strong></td><td>$\forall a\forall b\,\exists p\,(p=\{a,b\})$</td><td>$\{a\}$, $\{a,b\}$, ordered pair $(a,b)=\{\{a\},\{a,b\}\}$</td></tr>
 <tr><td><strong>Union</strong></td><td>$\forall F\,\exists U\,\forall x(x\in U \leftrightarrow \exists A\in F\,x\in A)$</td><td>$\bigcup F$ for any family $F$</td></tr>
-<tr><td><strong>Power set</strong></td><td>$\forall A\,\exists P\,\forall S(S\in P \leftrightarrow S\subseteq A)$</td><td>$\mathcal P(A)$, hence function spaces, $\mathbb{R}$</td></tr>
+<tr><td><strong>Power set</strong></td><td>$\forall A\,\exists P\,\forall S(S\in P \leftrightarrow S\subseteq A)$</td><td>$\mathcal{P}(A)$, hence function spaces, $\mathbb{R}$</td></tr>
 <tr><td><strong>Infinity</strong></td><td>$\exists I\,(\emptyset\in I \wedge \forall x\in I\,x\cup\{x\}\in I)$</td><td>$\omega$, hence $\mathbb{N}$</td></tr>
 <tr><td><strong>Separation</strong> (schema)</td><td>$\forall A\,\exists B\,\forall x(x\in B\leftrightarrow x\in A\wedge\varphi(x))$</td><td>safe comprehension; blocks Russell</td></tr>
 <tr><td><strong>Replacement</strong> (schema)</td><td>image of a set under a definable functional class is a set</td><td>$V_\alpha$ for transfinite $\alpha$, recursion</td></tr>
@@ -287,7 +287,7 @@ function drawNode(svg, x, y, label, opts={}){
 
 <div class="note"><strong>Why Separation, not Comprehension.</strong> The naive axiom $\exists B\,\forall x(x\in B\leftrightarrow\varphi(x))$ — for arbitrary $\varphi$ — gives Russell's paradox by taking $\varphi(x)\equiv x\notin x$. Separation requires an ambient set $A$, so $\{x\in A: x\notin x\}$ exists harmlessly (it is a subset of $A$), but the universal $R=\{x:x\notin x\}$ is never formed.</div>
 
-<p>The cumulative hierarchy $V$ is built by transfinite recursion on the ordinals: $V_0=\emptyset$, $V_{\alpha+1}=\mathcal P(V_\alpha)$, $V_\lambda=\bigcup_{\alpha<\lambda}V_\alpha$ at limits. Every set lies in some $V_\alpha$ (this is what regularity ensures), and the universe is the proper class $V=\bigcup_\alpha V_\alpha$. Click the rank slider:</p>
+<p>The cumulative hierarchy $V$ is built by transfinite recursion on the ordinals: $V_0=\emptyset$, $V_{\alpha+1}=\mathcal{P}(V_\alpha)$, $V_\lambda=\bigcup_{\alpha<\lambda}V_\alpha$ at limits. Every set lies in some $V_\alpha$ (this is what regularity ensures), and the universe is the proper class $V=\bigcup_\alpha V_\alpha$. Click the rank slider:</p>
 
 <div class="widget" id="w-cumulative">
   <div class="hd"><div class="ttl">Cumulative hierarchy $V_\alpha$</div><div class="hint">drag to climb the ranks</div></div>
@@ -692,7 +692,7 @@ Every infinite cardinal is some $\aleph_\alpha$. The ordinal index $\alpha$ rang
 
 <h3>The continuum</h3>
 <p>$|\mathbb{R}|=2^{\aleph_0}$, the <strong>cardinality of the continuum</strong>. Two-way embedding:
-$\mathbb{R} \hookrightarrow \mathcal P(\mathbb{Q})$ via Dedekind cuts $r\mapsto\{q\in\mathbb{Q}:q<r\}$, and $\{0,1\}^{\mathbb{N}}\hookrightarrow\mathbb{R}$ via binary expansions (after handling the $0.0\overline 1=0.1\overline 0$ ambiguity). Cantor–Schröder–Bernstein closes the loop. The cardinal $2^{\aleph_0}$ is uncountable (Cantor's diagonal) and at least $\aleph_1$, but its exact aleph rank is the continuum hypothesis. The only ZFC constraint beyond $2^{\aleph_0}\geq\aleph_1$ is König's $\operatorname{cf}(2^{\aleph_0})>\omega$; by Easton's theorem $2^{\aleph_0}$ can consistently be any cardinal of uncountable cofinality.</p>
+$\mathbb{R} \hookrightarrow \mathcal{P}(\mathbb{Q})$ via Dedekind cuts $r\mapsto\{q\in\mathbb{Q}:q<r\}$, and $\{0,1\}^{\mathbb{N}}\hookrightarrow\mathbb{R}$ via binary expansions (after handling the $0.0\overline 1=0.1\overline 0$ ambiguity). Cantor–Schröder–Bernstein closes the loop. The cardinal $2^{\aleph_0}$ is uncountable (Cantor's diagonal) and at least $\aleph_1$, but its exact aleph rank is the continuum hypothesis. The only ZFC constraint beyond $2^{\aleph_0}\geq\aleph_1$ is König's $\operatorname{cf}(2^{\aleph_0})>\omega$; by Easton's theorem $2^{\aleph_0}$ can consistently be any cardinal of uncountable cofinality.</p>
 
 <!-- callback-auto-begin -->
 <aside class="callback">
@@ -946,17 +946,17 @@ within that constraint, every aleph value is consistent with ZFC.`;
 <div class="bad"><strong>Why this is "more than ZFC".</strong> If ZFC + (∃ inaccessible) proves Con(ZFC), then by Gödel's second incompleteness theorem ZFC alone cannot prove the existence of an inaccessible (else ZFC would prove its own consistency). Inaccessibles are the bottom rung of the <em>large cardinal hierarchy</em>; above them sit Mahlo, weakly compact, measurable, …, supercompact, Woodin, and Reinhardt.</div>
 
 <h3>Grothendieck universes</h3>
-<p>A <strong>Grothendieck universe</strong> $\mathcal U$ is a transitive set with</p>
+<p>A <strong>Grothendieck universe</strong> $\mathcal{U}$ is a transitive set with</p>
 <ul>
-  <li>$x\in\mathcal U,\ y\in x \Rightarrow y\in\mathcal U$ (transitive),</li>
-  <li>$x,y\in\mathcal U \Rightarrow \{x,y\}\in\mathcal U$ (pairing closure),</li>
-  <li>$x\in\mathcal U \Rightarrow \mathcal P(x)\in\mathcal U$,</li>
-  <li>$\{x_i\}_{i\in I}$ a family with $I\in\mathcal U$ and each $x_i\in\mathcal U$ implies $\bigcup_i x_i \in\mathcal U$.</li>
+  <li>$x\in\mathcal{U},\ y\in x \Rightarrow y\in\mathcal{U}$ (transitive),</li>
+  <li>$x,y\in\mathcal{U} \Rightarrow \{x,y\}\in\mathcal{U}$ (pairing closure),</li>
+  <li>$x\in\mathcal{U} \Rightarrow \mathcal{P}(x)\in\mathcal{U}$,</li>
+  <li>$\{x_i\}_{i\in I}$ a family with $I\in\mathcal{U}$ and each $x_i\in\mathcal{U}$ implies $\bigcup_i x_i \in\mathcal{U}$.</li>
 </ul>
 
-<p>Theorem (Grothendieck): a set $\mathcal U$ with these closure properties is exactly $V_\kappa$ for $\kappa$ an inaccessible cardinal (in the uncountable case). The "universe axiom" — every set lies in <em>some</em> Grothendieck universe — is what SGA assumes to make category-theoretic constructions like $\mathbf{Set}$, $\mathbf{Cat}$, sheaf categories, derived functors all live coherently as actual sets rather than proper classes. It is equivalent to the existence of a proper class of inaccessibles.</p>
+<p>Theorem (Grothendieck): a set $\mathcal{U}$ with these closure properties is exactly $V_\kappa$ for $\kappa$ an inaccessible cardinal (in the uncountable case). The "universe axiom" — every set lies in <em>some</em> Grothendieck universe — is what SGA assumes to make category-theoretic constructions like $\mathbf{Set}$, $\mathbf{Cat}$, sheaf categories, derived functors all live coherently as actual sets rather than proper classes. It is equivalent to the existence of a proper class of inaccessibles.</p>
 
-<div class="note"><strong>Practical translation.</strong> When a category theorist says "let $\mathcal U$ be a universe and consider $\mathcal U$-small categories", they are implicitly assuming (at least) one inaccessible cardinal beyond ZFC. Most working mathematicians never notice; the few who care are usually doing higher-categorical foundations or set-theoretic universes.</div>
+<div class="note"><strong>Practical translation.</strong> When a category theorist says "let $\mathcal{U}$ be a universe and consider $\mathcal{U}$-small categories", they are implicitly assuming (at least) one inaccessible cardinal beyond ZFC. Most working mathematicians never notice; the few who care are usually doing higher-categorical foundations or set-theoretic universes.</div>
 
 <div class="widget" id="w-large">
   <div class="hd"><div class="ttl">Large cardinal tower</div><div class="hint">consistency strength climbs left → right</div></div>
