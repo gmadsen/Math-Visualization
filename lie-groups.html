@@ -338,7 +338,7 @@ function renderMat(container, M, p=3){
 <p>The classical examples are matrix Lie groups — closed subgroups of $\mathrm{GL}_n(\mathbb{R})$ or $\mathrm{GL}_n(\mathbb{C})$. A theorem of von Neumann and Cartan asserts that every closed subgroup of $\mathrm{GL}_n$ is automatically a smooth submanifold, hence a Lie group. So our zoo is large.</p>
 
 <table class="plain">
-<thead><tr><th>group</th><th>defining condition</th><th>$\dim_{\mathbb R}$</th><th>compact?</th><th>connected?</th></tr></thead>
+<thead><tr><th>group</th><th>defining condition</th><th>$\dim_{\mathbb{R}}$</th><th>compact?</th><th>connected?</th></tr></thead>
 <tbody>
 <tr><td>$\mathrm{GL}_n(\mathbb{R})$</td><td>$\det A \ne 0$</td><td>$n^2$</td><td>no</td><td>no (2 cmps)</td></tr>
 <tr><td>$\mathrm{SL}_n(\mathbb{R})$</td><td>$\det A = 1$</td><td>$n^2-1$</td><td>no</td><td>yes</td></tr>
@@ -514,7 +514,7 @@ $$\mathfrak{g} = T_e G,$$
 
 <p>For $\mathrm{O}(n)$: differentiate $A(t)^\top A(t) = I$ at $t=0$ to get $X^\top + X = 0$. So $\mathfrak{so}(n) = \mathfrak{o}(n)$ is the space of $n\times n$ skew-symmetric matrices, with the bracket $[X,Y] = XY - YX$ (one checks the result is again skew). Note that $\mathfrak{o}(n) = \mathfrak{so}(n)$ even though $\mathrm{O}(n)\ne\mathrm{SO}(n)$: the disconnected piece carries no extra infinitesimal information.</p>
 
-<p>For $\mathrm{SU}(n)$: the determinant condition $\det A(t) = 1$ linearises (using $\det e^{tX} = e^{t\tr{}X}$) to $\tr X = 0$. So $\mathfrak{su}(n)$ consists of $n\times n$ traceless skew-Hermitian matrices, and $\dim_{\mathbb R}\mathfrak{su}(n) = n^2-1$. In particular $\mathfrak{su}(2)$ is 3-dimensional with basis</p>
+<p>For $\mathrm{SU}(n)$: the determinant condition $\det A(t) = 1$ linearises (using $\det e^{tX} = e^{t\tr{}X}$) to $\tr X = 0$. So $\mathfrak{su}(n)$ consists of $n\times n$ traceless skew-Hermitian matrices, and $\dim_{\mathbb{R}}\mathfrak{su}(n) = n^2-1$. In particular $\mathfrak{su}(2)$ is 3-dimensional with basis</p>
 $$\frac{1}{2i}\sigma_1,\ \frac{1}{2i}\sigma_2,\ \frac{1}{2i}\sigma_3,$$
 <p>where $\sigma_k$ are the Pauli matrices.</p>
 

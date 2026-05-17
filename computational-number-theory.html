@@ -317,7 +317,7 @@ function drawNode(svg, x, y, label, opts={}){
   <div class="readout" id="rho-out">Click Trace.</div>
 </div>
 
-<p>For RSA-sized targets one needs <strong>Pollard's $p-1$</strong> (works when $p-1$ is smooth), the <strong>quadratic sieve</strong> (subexp $L_n[1/2, 1]$, good up to ~120 digits), and finally the <strong>number-field sieve</strong>. All three use the same recipe: collect relations of the form "smooth product equals smooth product modulo $n$" in a factor base, find a $\mathbb F_2$-linear dependence, extract a square root, take a $\gcd$.</p>
+<p>For RSA-sized targets one needs <strong>Pollard's $p-1$</strong> (works when $p-1$ is smooth), the <strong>quadratic sieve</strong> (subexp $L_n[1/2, 1]$, good up to ~120 digits), and finally the <strong>number-field sieve</strong>. All three use the same recipe: collect relations of the form "smooth product equals smooth product modulo $n$" in a factor base, find a $\mathbb{F}_2$-linear dependence, extract a square root, take a $\gcd$.</p>
 
 <div class="note">$L_n[\alpha, c] = \exp\!\Big(c\,(\log n)^\alpha (\log\log n)^{1-\alpha}\Big)$ interpolates between polynomial ($\alpha=0$) and exponential ($\alpha=1$). The factoring records sit at $\alpha = 1/3$.</div>
 
@@ -335,7 +335,7 @@ function drawNode(svg, x, y, label, opts={}){
 <section id="lll">
 <h2>3. LLL — short bases in polynomial time</h2>
 
-<p>A <strong>lattice</strong> $L\subset\mathbb R^n$ is the $\mathbb Z$-span of $n$ linearly independent vectors $b_1,\dots,b_n$. The shortest-vector problem (SVP) is NP-hard under randomized reductions. <strong>Lenstra–Lenstra–Lovász</strong> (1982) finds, in polynomial time, a basis whose first vector is at most $2^{(n-1)/2}$ times the true shortest — exponentially loose, yet enough to break a remarkable amount of cryptography.</p>
+<p>A <strong>lattice</strong> $L\subset\mathbb{R}^n$ is the $\mathbb{Z}$-span of $n$ linearly independent vectors $b_1,\dots,b_n$. The shortest-vector problem (SVP) is NP-hard under randomized reductions. <strong>Lenstra–Lenstra–Lovász</strong> (1982) finds, in polynomial time, a basis whose first vector is at most $2^{(n-1)/2}$ times the true shortest — exponentially loose, yet enough to break a remarkable amount of cryptography.</p>
 
 <p>The algorithm alternates two moves on the Gram–Schmidt orthogonalization $b_i^*$:</p>
 
@@ -356,7 +356,7 @@ function drawNode(svg, x, y, label, opts={}){
   <div class="readout" id="lll-out">Initial basis loaded.</div>
 </div>
 
-<p><strong>Coppersmith's theorem.</strong> Given a polynomial $f(x)\in\mathbb Z[x]$ of degree $d$ and a modulus $N$, all integer roots of $f \bmod N$ with $|x|<N^{1/d}$ can be recovered in polynomial time by building a lattice from shifted multiples of $f$ and applying LLL. This breaks low-exponent RSA whenever the message has stereotyped structure.</p>
+<p><strong>Coppersmith's theorem.</strong> Given a polynomial $f(x)\in\mathbb{Z}[x]$ of degree $d$ and a modulus $N$, all integer roots of $f \bmod N$ with $|x|<N^{1/d}$ can be recovered in polynomial time by building a lattice from shifted multiples of $f$ and applying LLL. This breaks low-exponent RSA whenever the message has stereotyped structure.</p>
 
 <p>LLL also accelerates: integer-relation detection (<code>PSLQ</code>), knapsack cryptanalysis, sub-routines inside Buchmann's class-group algorithm (§6), and post-quantum lattice cryptosystems whose hardness assumptions sit one notch above LLL's reach.</p>
 
@@ -419,11 +419,11 @@ function drawNode(svg, x, y, label, opts={}){
 <section id="ec-comp">
 <h2>5. Schoof's algorithm — counting points on elliptic curves</h2>
 
-<p>Given $E/\mathbb F_p$, Hasse's bound says $\#E(\mathbb F_p) = p+1-t$ with $|t|\le 2\sqrt p$. Brute-force counting is $O(p)$ — exponential in $\log p$. <strong>Schoof's algorithm</strong> (1985) computes $t$ in time polynomial in $\log p$, and was the first deep result of the kind. It is the algorithmic engine behind every standardized elliptic curve.</p>
+<p>Given $E/\mathbb{F}_p$, Hasse's bound says $\#E(\mathbb{F}_p) = p+1-t$ with $|t|\le 2\sqrt p$. Brute-force counting is $O(p)$ — exponential in $\log p$. <strong>Schoof's algorithm</strong> (1985) computes $t$ in time polynomial in $\log p$, and was the first deep result of the kind. It is the algorithmic engine behind every standardized elliptic curve.</p>
 
-<p>The trick: determine $t \bmod \ell$ for many small primes $\ell$, then reconstruct $t$ by CRT once $\prod \ell > 4\sqrt p$. To find $t \bmod \ell$, work on the $\ell$-torsion subgroup $E[\ell] \cong (\mathbb Z/\ell)^2$, represented by the $\ell$-th division polynomial $\psi_\ell(x)$. Frobenius $\phi_p(x,y) = (x^p, y^p)$ satisfies its characteristic equation</p>
+<p>The trick: determine $t \bmod \ell$ for many small primes $\ell$, then reconstruct $t$ by CRT once $\prod \ell > 4\sqrt p$. To find $t \bmod \ell$, work on the $\ell$-torsion subgroup $E[\ell] \cong (\mathbb{Z}/\ell)^2$, represented by the $\ell$-th division polynomial $\psi_\ell(x)$. Frobenius $\phi_p(x,y) = (x^p, y^p)$ satisfies its characteristic equation</p>
 <p style="text-align:center">$\phi_p^2 - t\,\phi_p + p \equiv 0 \quad \text{on } E[\ell].$</p>
-<p>For each candidate $t' \in \{0,1,\dots,\ell-1\}$, test whether the equation holds in $\mathbb F_p[x,y] / (\psi_\ell, E)$; the unique $t'$ that works is $t \bmod \ell$.</p>
+<p>For each candidate $t' \in \{0,1,\dots,\ell-1\}$, test whether the equation holds in $\mathbb{F}_p[x,y] / (\psi_\ell, E)$; the unique $t'$ that works is $t \bmod \ell$.</p>
 
 <div class="widget">
   <div class="hd"><div class="ttl">Schoof — CRT recovery of $t$</div><div class="hint">Toggle which small primes $\ell$ are used; watch the Hasse window collapse onto $t$.</div></div>
@@ -440,7 +440,7 @@ function drawNode(svg, x, y, label, opts={}){
   <div class="readout" id="sch-out">Each $\ell$ pins $t$ to a residue class.</div>
 </div>
 
-<p><strong>SEA</strong> (Schoof–Elkies–Atkin) speeds Schoof up by a factor of about $\ell$ when $\ell$ is an <em>Elkies prime</em> — when the modular polynomial $\Phi_\ell(j(E), Y)$ has a root in $\mathbb F_p$, meaning Frobenius has rational eigenvalues on $E[\ell]$. SEA is the algorithm that ECDSA-2.0 implementations actually run.</p>
+<p><strong>SEA</strong> (Schoof–Elkies–Atkin) speeds Schoof up by a factor of about $\ell$ when $\ell$ is an <em>Elkies prime</em> — when the modular polynomial $\Phi_\ell(j(E), Y)$ has a root in $\mathbb{F}_p$, meaning Frobenius has rational eigenvalues on $E[\ell]$. SEA is the algorithm that ECDSA-2.0 implementations actually run.</p>
 
 <div class="quiz" data-concept="cnt-elliptic-curves-computation"></div>
 </section>
@@ -448,25 +448,25 @@ function drawNode(svg, x, y, label, opts={}){
 <section id="class-group">
 <h2>6. Computing class groups & units</h2>
 
-<p>For a number field $K = \mathbb Q(\alpha)$ with ring of integers $\mathcal O_K$, two finiteness theorems govern the arithmetic:</p>
+<p>For a number field $K = \mathbb{Q}(\alpha)$ with ring of integers $\mathcal O_K$, two finiteness theorems govern the arithmetic:</p>
 
 <ul>
 <li>The class group $\mathrm{Cl}(K) = \mathcal I(\mathcal O_K) / P(\mathcal O_K)$ is finite — its order $h_K$ is the class number.</li>
-<li>The unit group $\mathcal O_K^\times \cong \mu(K) \oplus \mathbb Z^{r_1+r_2-1}$ is finitely generated (Dirichlet); the regulator $R_K$ is the covolume of the log-embedding lattice.</li>
+<li>The unit group $\mathcal O_K^\times \cong \mu(K) \oplus \mathbb{Z}^{r_1+r_2-1}$ is finitely generated (Dirichlet); the regulator $R_K$ is the covolume of the log-embedding lattice.</li>
 </ul>
 
 <p><strong>Buchmann's algorithm</strong> (1990) computes $h_K$, $R_K$, and a system of fundamental units in subexponential time — provided the <strong>generalized Riemann hypothesis</strong> for Hecke $L$-functions of $K$ holds. The recipe:</p>
 
 <ol>
 <li><em>Fix a factor base.</em> Take all prime ideals $\mathfrak p$ of $\mathcal O_K$ with norm below a bound $B \approx (\log|\Delta_K|)^2$. Under GRH, these generate $\mathrm{Cl}(K)$.</li>
-<li><em>Collect relations.</em> Random elements $\alpha\in\mathcal O_K$ whose principal ideal $(\alpha)$ factors over the factor base give a relation vector in $\mathbb Z^{|S|}$, plus a logarithm vector recording $\log|\sigma_i(\alpha)|$ for each archimedean place.</li>
+<li><em>Collect relations.</em> Random elements $\alpha\in\mathcal O_K$ whose principal ideal $(\alpha)$ factors over the factor base give a relation vector in $\mathbb{Z}^{|S|}$, plus a logarithm vector recording $\log|\sigma_i(\alpha)|$ for each archimedean place.</li>
 <li><em>Reduce the lattice.</em> Apply LLL to the combined relation/log lattice; its Smith normal form yields the class-group invariants and a basis of fundamental units.</li>
 </ol>
 
-<p>The classical small example: $K = \mathbb Q(\sqrt{-5})$, $\mathcal O_K = \mathbb Z[\sqrt{-5}]$. The famous non-unique factorization $6 = 2\cdot 3 = (1+\sqrt{-5})(1-\sqrt{-5})$ is a relation in the factor base $S = \{\mathfrak p_2, \mathfrak p_3, \mathfrak p_3'\}$; after reduction the class group is $\mathbb Z/2\mathbb Z$, $h=2$.</p>
+<p>The classical small example: $K = \mathbb{Q}(\sqrt{-5})$, $\mathcal O_K = \mathbb{Z}[\sqrt{-5}]$. The famous non-unique factorization $6 = 2\cdot 3 = (1+\sqrt{-5})(1-\sqrt{-5})$ is a relation in the factor base $S = \{\mathfrak p_2, \mathfrak p_3, \mathfrak p_3'\}$; after reduction the class group is $\mathbb{Z}/2\mathbb{Z}$, $h=2$.</p>
 
 <div class="widget">
-  <div class="hd"><div class="ttl">Buchmann — relation matrix to Smith normal form</div><div class="hint">Toggle relations on a small factor base for $\mathbb Q(\sqrt{-5})$; the SNF reveals the class group.</div></div>
+  <div class="hd"><div class="ttl">Buchmann — relation matrix to Smith normal form</div><div class="hint">Toggle relations on a small factor base for $\mathbb{Q}(\sqrt{-5})$; the SNF reveals the class group.</div></div>
   <div class="row">
     <button id="bu-add" class="active">add a relation</button>
     <button id="bu-reduce">compute SNF</button>
