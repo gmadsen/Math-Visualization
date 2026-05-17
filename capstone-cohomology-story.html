@@ -108,6 +108,8 @@
 </style>
 <link rel="stylesheet" href="./css/notebook.css">
 <script src="./js/theme-toggle.js"></script>
+<script src="./concepts/bundle.js" defer></script>
+<script src="./js/glossary-popover.js" defer></script>
 </head>
 <body data-level="capstone" data-c="violet">
 
@@ -213,7 +215,7 @@ The same complex pattern $\partial^2 = 0$ as in §1, the same "cocycles modulo c
 <!-- ───────────────────────────────────────────── § 3 ──── -->
 <section id="sheaf">
 <h2><span class="num">§3.</span> Sheaf cohomology, Čech and derived</h2>
-<p>The third costume looks at first like a different subject. We are no longer studying spaces as topological objects; we are studying schemes (or complex manifolds, or <a href="./point-set-topology.html#open" data-auto-inline-link="1" data-concept-id="open-sets" data-blurb="A topology as a family of open sets closed under arbitrary unions and finite intersections; bases, subspace and product topologies, with closure and interior as duals.">topological spaces</a> with extra data) and asking about <em>sheaves</em> on them — assignments $\mathcal{F}\colon U \mapsto \mathcal{F}(U)$ of an abelian group to each open set, compatible with restriction. The friendly half of the theory is the global sections functor
+<p>The third costume looks at first like a different subject. We are no longer studying spaces as topological objects; we are studying schemes (or complex manifolds, or topological spaces with extra data) and asking about <em>sheaves</em> on them — assignments $\mathcal{F}\colon U \mapsto \mathcal{F}(U)$ of an abelian group to each open set, compatible with restriction. The friendly half of the theory is the global sections functor
 $$\Gamma(X, \mathcal{F}) = \mathcal{F}(X) = H^0(X, \mathcal{F}).$$
 This is exact on the right but not on the left: a surjection $\mathcal{F} \twoheadrightarrow \mathcal{G}$ of sheaves does not in general induce a surjection on global sections. Some sections of $\mathcal{G}$ lift only locally, not globally.</p>
 
@@ -236,7 +238,7 @@ and all intermediate $H^i$ vanish. This is the entire input to a thousand explic
 
 <p>Serre duality is one of the deepest consequences. For a smooth projective scheme $X$ of dimension $n$ over a field, with dualizing sheaf $\omega_X$, there is a canonical isomorphism
 $$H^i(X, \mathcal{F}) \;\cong\; H^{n-i}(X, \mathcal{F}^\vee \otimes \omega_X)^\vee$$
-for any locally free coherent sheaf $\mathcal{F}$. This is the algebraic-geometric face of <a href="./cohomology-and-duality.html#poincare-duality" data-auto-inline-link="1" data-concept-id="cd-poincare-duality" data-blurb="For a closed oriented $n$-manifold $M$, the cap product with the fundamental class $[M]\in H_n(M)$ is an isomorphism $H^k(M)\cong H_{n-k}(M)$. Lefschetz duality handles the case with boundary. Worked example: a genus-$g$ surface has $b_0=b_2=1$, $b_1=2g$.">Poincaré duality</a> from §2 — the same combinatorial duality that takes $k$-cells to $(n-k)$-cells, projected onto the language of coherent sheaves. The two dualities are not just analogous; for a smooth projective complex variety they agree, via the comparison theorem we will meet in §4.</p>
+for any locally free coherent sheaf $\mathcal{F}$. This is the algebraic-geometric face of Poincaré duality from §2 — the same combinatorial duality that takes $k$-cells to $(n-k)$-cells, projected onto the language of coherent sheaves. The two dualities are not just analogous; for a smooth projective complex variety they agree, via the comparison theorem we will meet in §4.</p>
 
 <blockquote>The same complex pattern as before, but the "module" is now a sheaf and the "group" is now an open cover. The Čech complex is the bar resolution of an open cover: same combinatorics, applied to a different category.</blockquote>
 
@@ -256,7 +258,7 @@ for any locally free coherent sheaf $\mathcal{F}$. This is the algebraic-geometr
 <h2><span class="num">§4.</span> Algebraic de Rham and the Hodge filtration</h2>
 <p>The fourth costume is a synthesis. Replace the single sheaf $\mathcal{F}$ of §3 by a <em>complex</em> of sheaves — specifically, the de Rham complex
 $$\Omega^\bullet_{X/k} \;=\; \bigl(\mathcal{O}_X \xrightarrow{d} \Omega^1_{X/k} \xrightarrow{d} \Omega^2_{X/k} \xrightarrow{d} \cdots\bigr)$$
-of algebraic Kähler differential forms with the <a href="./differential-forms.html#d" data-auto-inline-link="1" data-concept-id="exterior-derivative" data-blurb="The exterior derivative extends gradient/curl/divergence and satisfies d^2=0.">exterior derivative</a> as differential — and take the hypercohomology
+of algebraic Kähler differential forms with the <a href="./differential-forms.html#d" data-auto-inline-link="1" data-concept-id="exterior-derivative" data-blurb="The exterior derivative $d$ extends gradient/curl/divergence and satisfies $d^2=0$.">exterior derivative</a> as differential — and take the hypercohomology
 $$H^*_{\mathrm{dR}}(X/k) \;=\; \mathbb{H}^*(X, \Omega^\bullet_{X/k}).$$
 This is the algebraic de Rham cohomology of $X$ over $k$. It is defined for any smooth scheme over any field of characteristic zero, with no transcendental input, no choice of metric or differentiable structure — purely algebraically, from the sheaves of differential forms and the universal derivation $d$.</p>
 
@@ -317,7 +319,7 @@ and the Hodge filtration $F^p$ on $H^n_{\mathrm{dR}}$ becomes simply $\bigoplus_
 <!-- ───────────────────────────────────────────── § 5 ──── -->
 <section id="etale">
 <h2><span class="num">§5.</span> Étale cohomology and the Weil conjectures</h2>
-<p>The fifth costume is the most abstract and the most spectacular in its <a href="./high-dimensional-geometry.html#applications" data-auto-inline-link="1" data-concept-id="hdg-applications" data-blurb="Compressed sensing (RIP via JL), random matrix theory (Marchenko–Pastur, Wigner), PAC bounds in statistical learning, and random tensors all rest on concentration of measure as the geometric backbone of modern high-dimensional data analysis.">applications</a>. The setup: we want a Weil cohomology theory for varieties over a finite field $\mathbb{F}_q$. That is, a contravariant functor $X \mapsto H^*(X)$ taking smooth projective varieties over $\mathbb{F}_q$ to graded $K$-vector spaces over some characteristic-zero field $K$, satisfying Künneth, <a href="./cohomology-and-duality.html#poincare-duality" data-auto-inline-link="1" data-concept-id="cd-poincare-duality" data-blurb="For a closed oriented $n$-manifold $M$, the cap product with the fundamental class $[M]\in H_n(M)$ is an isomorphism $H^k(M)\cong H_{n-k}(M)$. Lefschetz duality handles the case with boundary. Worked example: a genus-$g$ surface has $b_0=b_2=1$, $b_1=2g$.">Poincaré duality</a>, a Lefschetz fixed-point formula, and other axioms that André Weil distilled in 1949 from his proof of the Riemann hypothesis for curves over $\mathbb{F}_q$.</p>
+<p>The fifth costume is the most abstract and the most spectacular in its applications. The setup: we want a Weil cohomology theory for varieties over a finite field $\mathbb{F}_q$. That is, a contravariant functor $X \mapsto H^*(X)$ taking smooth projective varieties over $\mathbb{F}_q$ to graded $K$-vector spaces over some characteristic-zero field $K$, satisfying Künneth, Poincaré duality, a Lefschetz fixed-point formula, and other axioms that André Weil distilled in 1949 from his proof of the Riemann hypothesis for curves over $\mathbb{F}_q$.</p>
 
 <p>Singular cohomology won't do — there is no underlying topological space to take simplices of. Algebraic de Rham cohomology won't do either — in characteristic $p$ the de Rham complex is far better-behaved than one might have hoped, but Hodge-to-de Rham fails to degenerate in many examples (Mumford, Deligne–Illusie), and the resulting groups don't have the right comparison structure to extract Frobenius eigenvalues. What is needed is a theory that lives natively in characteristic $p$ but has $\mathbb{Q}_\ell$-coefficients, and that sees enough of the Galois-theoretic structure of $\overline{\mathbb{F}_q}/\mathbb{F}_q$ to support a Lefschetz formula.</p>
 

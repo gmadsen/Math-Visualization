@@ -13899,7 +13899,7 @@ window.__MVConcepts = {
           "prereqs": [
             "forms-and-wedge"
           ],
-          "blurb": "The exterior derivative extends gradient/curl/divergence and satisfies d^2=0.",
+          "blurb": "The exterior derivative $d$ extends gradient/curl/divergence and satisfies $d^2=0$.",
           "tags": [
             "foundation"
           ]

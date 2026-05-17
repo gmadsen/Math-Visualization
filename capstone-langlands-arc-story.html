@@ -117,6 +117,8 @@
 </style>
 <link rel="stylesheet" href="./css/notebook.css">
 <script src="./js/theme-toggle.js"></script>
+<script src="./concepts/bundle.js" defer></script>
+<script src="./js/glossary-popover.js" defer></script>
 </head>
 <body data-level="capstone" data-c="cyan">
 
@@ -270,7 +272,7 @@ and Hecke proved in the 1930s that $L(f,s)$ has <a href="./complex-analysis.html
 $$L(E, s) \;=\; L(f_E, s).$$
 Concretely: the trace of Frobenius on $\rho_{E,\ell}$ at every prime $p \nmid N\ell$ equals the $p$-th Fourier coefficient of $f_E$,
 $$a_p(E) \;=\; p + 1 - \#E(\mathbb{F}_p) \;=\; a_p(f_E).$$
-Two completely different recipes — one counting points on a cubic curve modulo $p$, one looking at Fourier expansions of <a href="./complex-analysis.html#holomorphic-function" data-auto-inline-link="1" data-concept-id="holomorphic-function" data-blurb="Complex-differentiable on an open set; infinitely more rigid than real.">holomorphic functions</a> on $\mathbb{H}$ — produce the same numbers, at every prime, simultaneously.</p>
+Two completely different recipes — one counting points on a cubic curve modulo $p$, one looking at Fourier expansions of holomorphic functions on $\mathbb{H}$ — produce the same numbers, at every prime, simultaneously.</p>
 
 <div class="figure">
   <svg viewBox="0 0 560 240" width="560" height="240" role="img" aria-label="Modularity matching for elliptic curves">
@@ -327,7 +329,7 @@ of irreducible admissible representations of the local groups $\GL_n(\mathbb{Q}_
 
 <p>The unramified local representations of $\GL_n(\mathbb{Q}_p)$ are classified by the <em>Satake isomorphism</em>, a beautiful piece of $p$-adic harmonic analysis. The spherical Hecke algebra $\mathcal{H}(\GL_n(\mathbb{Q}_p), \GL_n(\mathbb{Z}_p))$ — bi-invariant compactly supported functions under convolution — is canonically isomorphic to the algebra of symmetric Laurent polynomials in $n$ variables:
 $$\mathcal{H}(\GL_n(\mathbb{Q}_p), \GL_n(\mathbb{Z}_p)) \;\cong\; \mathbb{C}[X_1^{\pm 1}, \ldots, X_n^{\pm 1}]^{S_n}.$$
-An unramified $\pi_p$ is therefore determined by an unordered $n$-tuple of nonzero <a href="./complex-analysis.html#complex-numbers" data-auto-inline-link="1" data-concept-id="complex-numbers" data-blurb="Arithmetic on $\mathbb{C} = \mathbb{R}^2$ with multiplication; polar form $z = re^{i\theta}$ and the one-point compactification to the Riemann sphere $\hat{\mathbb{C}}$ via stereographic projection.">complex numbers</a> $(\alpha_{1,p}, \ldots, \alpha_{n,p})$ — its <em>Satake parameters</em> — and the local $L$-factor reads
+An unramified $\pi_p$ is therefore determined by an unordered $n$-tuple of nonzero complex numbers $(\alpha_{1,p}, \ldots, \alpha_{n,p})$ — its <em>Satake parameters</em> — and the local $L$-factor reads
 $$L_p(\pi, s) \;=\; \prod_{i=1}^n \bigl(1 - \alpha_{i,p}\, p^{-s}\bigr)^{-1}.$$
 Compare this with the local $L$-factor on the Galois side:
 $$L_p(\rho, s) \;=\; \det\!\bigl(I_n - \rho(\operatorname{Frob}_p) p^{-s}\bigr)^{-1} \;=\; \prod_{i=1}^n \bigl(1 - \beta_{i,p}\, p^{-s}\bigr)^{-1},$$

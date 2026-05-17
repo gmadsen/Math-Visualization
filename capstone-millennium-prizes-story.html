@@ -109,6 +109,8 @@
 </style>
 <link rel="stylesheet" href="./css/notebook.css">
 <script src="./js/theme-toggle.js"></script>
+<script src="./concepts/bundle.js" defer></script>
+<script src="./js/glossary-popover.js" defer></script>
 </head>
 <body data-level="capstone" data-c="orange">
 
@@ -208,7 +210,7 @@ What is genuinely known is the meta-theory of why this is hard. Several classes 
 <!-- ───────────────────────────────────────────── § 3 ──── -->
 <section id="hodge">
 <h2><span class="num">§3.</span> The Hodge Conjecture — algebraic versus analytic cycles</h2>
-<p><a href="./hodge-theory.html#hodge-conjecture" data-auto-inline-link="1" data-concept-id="hodge-conjecture" data-blurb="Every rational class of pure Hodge type $(p,p)$ on a smooth projective $X/\mathbb{C}$ is the cycle class of an algebraic codim-$p$ cycle. Open since 1950, Clay Millennium prize. Known for $p=1$ (Lefschetz $(1,1)$) and on abelian varieties of dim $\le 4$.">The Hodge Conjecture</a> asks a very precise question about a very abstract correspondence: it asks when a piece of cohomology comes from geometry. The setup requires a few ingredients, but the payoff is that all of them are objects mathematicians cared about long before anyone wrote down the conjecture.</p>
+<p>The Hodge Conjecture asks a very precise question about a very abstract correspondence: it asks when a piece of cohomology comes from geometry. The setup requires a few ingredients, but the payoff is that all of them are objects mathematicians cared about long before anyone wrote down the conjecture.</p>
 
 <p>Let $X$ be a smooth complex projective variety — a closed submanifold of some $\mathbb{CP}^N$ cut out by polynomial equations. Such a variety has two natures braided together. As a complex manifold, it carries de Rham cohomology $H^*(X, \mathbb{C})$ computed from differential forms. As a complex manifold of complex dimension $n$, the de Rham complex decomposes by bidegree:
 $$H^k(X, \mathbb{C}) \;=\; \bigoplus_{p+q = k} H^{p,q}(X), \qquad H^{p,q}(X) := \text{cohomology of forms of type } (p,q).$$
