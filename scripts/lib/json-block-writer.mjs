@@ -25,7 +25,7 @@
 // owns the fence wrap, the placement rules, and the write-if-changed
 // boilerplate.
 
-import { readFileSync, writeFileSync } from 'node:fs';
+import { readFileSync, writeFileSync, renameSync, unlinkSync } from 'node:fs';
 import { resolve } from 'node:path';
 
 // ---------------------------------------------------------------------------
@@ -58,7 +58,21 @@ export function saveTopicContent(topic, doc, repoRoot) {
     // File doesn't exist — write it.
   }
   if (prev === next) return false;
-  writeFileSync(path, next);
+  // Atomic write: stage to a sibling tmp file, then rename. Without this,
+  // a SIGKILL during a multi-topic --fix loop (e.g. OOM, Ctrl-C) can leave
+  // a half-written content/<topic>.json on disk; the next rebuild's
+  // test-roundtrip would then silently propagate the partial state to HTML.
+  // rename(2) is atomic within a filesystem, so the file is either the old
+  // bytes or the new bytes — never an in-progress prefix.
+  const tmp = path + '.tmp';
+  try {
+    writeFileSync(tmp, next);
+    renameSync(tmp, path);
+  } catch (err) {
+    // Clean up the tmp file if the rename failed (e.g. cross-device).
+    try { unlinkSync(tmp); } catch {}
+    throw err;
+  }
   return true;
 }
 

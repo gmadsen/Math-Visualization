@@ -234,7 +234,17 @@
             ],
             throwOnError: false
           });
-        } catch (_) {}
+        } catch (err) {
+          // renderMathInElement mutates the DOM in place; if its walker
+          // throws mid-pass, the blurb is left half-converted (some $...$
+          // turned into math spans, others stuck as literals). Restore the
+          // plain text so the reader at least sees the source consistently,
+          // and surface the error in devtools.
+          blurbEl.textContent = blurb;
+          if (typeof console !== 'undefined' && console.warn) {
+            console.warn('mv-glossary-popover: KaTeX render failed; falling back to plain text.', err);
+          }
+        }
       }
     }
 

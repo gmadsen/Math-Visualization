@@ -164,13 +164,26 @@ const blocklist = new Map(); // page -> Set<concept-id>
 if (existsSync(blocklistPath)) {
   try {
     const raw = JSON.parse(readFileSync(blocklistPath, 'utf8'));
-    const blocks = raw && raw.blocks;
-    if (blocks && typeof blocks === 'object') {
-      for (const [page, entries] of Object.entries(blocks)) {
-        const ids = new Set(
-          Array.isArray(entries) ? entries : Object.keys(entries || {}),
-        );
-        blocklist.set(page, ids);
+    if (!raw || typeof raw !== 'object' || raw === null) {
+      console.warn(`audit-inline-links: blocklist at ${blocklistPath} is not a JSON object — ignoring`);
+    } else if (!('blocks' in raw)) {
+      console.warn(`audit-inline-links: blocklist at ${blocklistPath} has no "blocks" key — ignoring`);
+    } else if (typeof raw.blocks !== 'object' || Array.isArray(raw.blocks) || raw.blocks === null) {
+      console.warn(`audit-inline-links: blocklist "blocks" field must be a plain object — ignoring`);
+    } else {
+      for (const [page, entries] of Object.entries(raw.blocks)) {
+        if (Array.isArray(entries)) {
+          // Legacy array form: ["concept-id-1", ...]
+          blocklist.set(page, new Set(entries.filter((x) => typeof x === 'string')));
+        } else if (entries && typeof entries === 'object') {
+          // Documented form: { "concept-id": "rationale", ... }
+          blocklist.set(page, new Set(Object.keys(entries)));
+        } else {
+          console.warn(
+            `audit-inline-links: blocklist entry "${page}" must be an array or object, ` +
+            `got ${typeof entries} — ignoring this page's blocks`
+          );
+        }
       }
     }
   } catch (e) {
@@ -469,12 +482,28 @@ async function applyFixToJson(doc, pageTopic, pageName) {
   candidates.sort((a, b) => b.globalIdx - a.globalIdx);
 
   let applied = 0;
-  let skipped = 0;
+  const skipDetails = { invariantViolation: 0, boundarySpan: 0, widgetBytes: 0, unknownKind: 0 };
   for (const cand of candidates) {
     const range = findRangeAt(ranges, cand.globalIdx);
-    if (!range) { skipped++; continue; }
+    if (!range) {
+      // findRangeAt returned null — renderer/findRangeAt out of sync. Should
+      // never happen; if it does it's an invariant violation worth surfacing.
+      console.warn(
+        `audit-inline-links: ${pageName} concept "${cand.concept.id}" — ` +
+        `offset ${cand.globalIdx} fell outside every block range (invariant violation)`
+      );
+      skipDetails.invariantViolation++;
+      continue;
+    }
     // Defensive: candidate must lie wholly inside the range.
-    if (cand.globalIdx + cand.length > range.end) { skipped++; continue; }
+    if (cand.globalIdx + cand.length > range.end) {
+      console.warn(
+        `audit-inline-links: ${pageName} concept "${cand.concept.id}" — ` +
+        `candidate spans the boundary of a ${range.kind} block (skipped)`
+      );
+      skipDetails.boundarySpan++;
+      continue;
+    }
 
     const offsetInRange = cand.globalIdx - range.start;
     const anchor = buildAnchorHtml(cand.concept, cand.phrase);
@@ -488,8 +517,14 @@ async function applyFixToJson(doc, pageTopic, pageName) {
         applied++;
       } else {
         // widget / widget-script render is computed from params; can't
-        // back-port a text mutation safely. Skip with a warning.
-        skipped++;
+        // back-port a text mutation safely. Warn so a human can decide
+        // whether to add a per-page blocklist entry or live with the gap.
+        console.warn(
+          `audit-inline-links: ${pageName} concept "${cand.concept.id}" — ` +
+          `matched inside a ${block.type} block (slug="${block.slug || block.ref || '?'}"); ` +
+          `can't back-port to widget params — skipped`
+        );
+        skipDetails.widgetBytes++;
       }
     } else if (range.kind === 'rawHead') {
       doc.rawHead = doc.rawHead.slice(0, offsetInRange) + anchor + doc.rawHead.slice(offsetInRange + cand.length);
@@ -501,11 +536,18 @@ async function applyFixToJson(doc, pageTopic, pageName) {
       doc.rawBodySuffix = doc.rawBodySuffix.slice(0, offsetInRange) + anchor + doc.rawBodySuffix.slice(offsetInRange + cand.length);
       applied++;
     } else {
-      skipped++;
+      console.warn(
+        `audit-inline-links: ${pageName} concept "${cand.concept.id}" — ` +
+        `unknown range kind "${range.kind}" (skipped)`
+      );
+      skipDetails.unknownKind++;
     }
   }
 
-  return { applied, skipped };
+  const skipped =
+    skipDetails.invariantViolation + skipDetails.boundarySpan +
+    skipDetails.widgetBytes + skipDetails.unknownKind;
+  return { applied, skipped, skipDetails };
 }
 
 // ─────────────────────────────────────────────────────────────────────────
@@ -562,10 +604,13 @@ for (const page of pages) {
       totalInserted += inserts;
       postFixHtml = newHtml;
     }
-    // Strip the auto-anchors we just inserted and re-run candidate detection
-    // to report what's left — should be 0 for a healthy --fix.
-    const stripped = stripAutoLinks(postFixHtml);
-    const cands = [...findCandidatesInPage(stripped, pageTopic, page)];
+    // Report what would remain on the post-fix page. We do NOT strip first —
+    // findCandidatesInPage uses existingLinkTargets to skip concepts already
+    // linked to (which includes the just-inserted anchors), so a healthy fix
+    // reports 0 candidates. Stripping first would silently re-discover the
+    // same anchors as candidates and inflate the count (codex-bot finding on
+    // PR #226).
+    const cands = [...findCandidatesInPage(postFixHtml, pageTopic, page)];
     if (cands.length > 0) perPage.set(page, cands);
     for (const c of cands) conceptsSeen.add(c.concept.id);
   } else {
