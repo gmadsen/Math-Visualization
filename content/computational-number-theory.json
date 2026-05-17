@@ -101,7 +101,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<p><strong>Coppersmith's theorem.</strong> Given a polynomial $f(x)\\in\\mathbb Z[x]$ of degree $d$ and a modulus $N$, all integer roots of $f \\bmod N$ with $|x|<N^{1/d}$ can be recovered in polynomial time by building a lattice from shifted multiples of $f$ and applying LLL. This breaks low-exponent RSA whenever the message has stereotyped structure.</p>\n\n<p>LLL also accelerates: integer-relation detection (<code>PSLQ</code>), knapsack cryptanalysis, sub-routines inside Buchmann's class-group algorithm (§6), and post-quantum lattice cryptosystems whose hardness assumptions sit one notch above LLL's reach.</p>\n\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./mathematics-and-cryptography.html#lattice-based\">Lattice-based cryptography</a> — the post-quantum schemes whose security rests on harder lattice problems beyond LLL.</li>\n  </ul>\n</aside>\n\n"
+          "html": "\n\n<p><strong>Coppersmith's theorem.</strong> Given a polynomial $f(x)\\in\\mathbb Z[x]$ of degree $d$ and a modulus $N$, all integer roots of $f \\bmod N$ with $|x|<N^{1/d}$ can be recovered in polynomial time by building a lattice from shifted multiples of $f$ and applying LLL. This breaks low-exponent RSA whenever the message has stereotyped structure.</p>\n\n<p>LLL also accelerates: integer-relation detection (<code>PSLQ</code>), knapsack cryptanalysis, sub-routines inside Buchmann's class-group algorithm (§6), and post-quantum lattice cryptosystems whose hardness assumptions sit one notch above LLL's reach.</p>\n\n"
         },
         {
           "type": "raw",
@@ -216,7 +216,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./algebraic-number-theory.html#prime-ideals\">Prime-ideal factorization in $\\mathcal O_K$</a> — the structural prerequisite Buchmann's factor base relies on.</li>\n    <li><a href=\"./algebraic-number-theory.html#class-group-units\">Class group & units</a> — the finiteness theorems being computed.</li>\n  </ul>\n</aside>\n\n"
+          "html": "\n\n"
         },
         {
           "type": "raw",
