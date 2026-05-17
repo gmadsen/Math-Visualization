@@ -8832,8 +8832,7 @@ window.__MVConcepts = {
           "prereqs": [
             "mt-types-and-saturation",
             "mt-elementary-equivalence",
-            "field-extensions-basics",
-            "sm-floer-homology-preview"
+            "field-extensions-basics"
           ],
           "blurb": "ACF (algebraically closed fields) is a model-complete theory: every embedding between models is elementary, so first-order truth transfers freely along extensions. Compactness + the Lefschetz principle yield Ax–Grothendieck — every injective polynomial map $\\mathbb{C}^n\\to\\mathbb{C}^n$ is surjective — by reduction to algebraic closures of finite fields. These transfer principles are the standard model-theoretic tools used in algebraic geometry.",
           "tags": [
@@ -20155,9 +20154,9 @@ window.__MVConcepts = {
     "Logic & Foundations": {
       "concepts": 49,
       "intra": 67,
-      "crossOut": 6,
+      "crossOut": 5,
       "crossIn": 21,
-      "density": 0.12244897959183673
+      "density": 0.10204081632653061
     },
     "Algebra & homological": {
       "concepts": 148,
@@ -20191,7 +20190,7 @@ window.__MVConcepts = {
       "concepts": 167,
       "intra": 276,
       "crossOut": 34,
-      "crossIn": 100,
+      "crossIn": 99,
       "density": 0.20359281437125748
     },
     "Number theory": {
