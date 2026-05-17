@@ -449,7 +449,7 @@ $$(\theta, t) \;\longmapsto\; (\theta + 2\pi t,\; t).$$
   const ax=240, ay=80; // annulus half-axes
   function render(){
     const n = parseFloat(slider.value);
-    label.innerHTML = `$n=${n.toFixed(2)}$`;
+    label.innerHTML = `n=${n.toFixed(2)}`;
     while(svg.firstChild) svg.removeChild(svg.firstChild);
     // outer annulus boundary (two ellipses)
     svg.appendChild(SVG('ellipse',{cx,cy,rx:ax,ry:ay,fill:'none',stroke:'var(--mute)','stroke-width':1.0}));
@@ -543,7 +543,7 @@ $$(\theta, t) \;\longmapsto\; (\theta + 2\pi t,\; t).$$
   const W=720, H=280, cx=W/2, cy=H/2;
   function render(){
     const lam = parseFloat(slider.value);
-    label.innerHTML = `$\\lambda=${lam.toFixed(2)}$`;
+    label.innerHTML = `λ=${lam.toFixed(2)}`;
     while(svg.firstChild) svg.removeChild(svg.firstChild);
     // background torus rectangle
     const RX = 280, RY = 100;

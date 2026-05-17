@@ -539,10 +539,10 @@ $$ \tfrac{1}{K}\, d(x,y) - C \;\le\; d(\widetilde f(x), \widetilde f(y)) \;\le\;
     lR.textContent = "Sⁿ⁻¹ = ∂ℍⁿ";
     svg.appendChild(lR);
     const arrL = SVG("text",{x:cxL,y:cy+R+25,"text-anchor":"middle","font-size":12,fill:"var(--mute)"});
-    arrL.textContent = "(K,C)-quasi-isometry $\\widetilde f$";
+    arrL.textContent = "(K,C)-quasi-isometry f̃";
     svg.appendChild(arrL);
     const arrR = SVG("text",{x:cxR,y:cy+R+25,"text-anchor":"middle","font-size":12,fill:"var(--mute)"});
-    arrR.textContent = "K'-quasi-conformal $\\partial\\widetilde f$";
+    arrR.textContent = "K'-quasi-conformal ∂f̃";
     svg.appendChild(arrR);
     // distortion label
     const eccLabel = SVG("text",{x:W/2,y:30,"text-anchor":"middle","font-size":13,fill:"var(--yellow)"});
@@ -731,7 +731,7 @@ $$ \mu(x) \;=\; \frac{D\partial\widetilde f(x)^T \, D\partial\widetilde f(x)}{\;
     svg.appendChild(concl);
   }
   const tt = SVG("text",{x:30,y:30,"font-size":13,fill:"var(--ink)","font-weight":600});
-  tt.textContent = "Symmetric space of $G$";
+  tt.textContent = "Symmetric space of G";
   svg.appendChild(tt);
 })();
 </script>
@@ -810,7 +810,7 @@ where $v_n$ is the volume of a regular ideal hyperbolic $n$-simplex. So simplici
     svg.appendChild(tk);
   }
   const xl = SVG("text",{x:(x0+x1)/2,y:y0+38,"text-anchor":"middle","font-size":12,fill:"var(--mute)"});
-  xl.textContent = "hyperbolic volume (recall $v_3 = 3\\Lambda(\\pi/6) \\approx 1.0149$ is the regular ideal-tetrahedron volume)";
+  xl.textContent = "hyperbolic volume (recall v₃ = 3·Λ(π/6) ≈ 1.0149 is the regular ideal-tetrahedron volume)";
   svg.appendChild(xl);
   // markers
   for(let i = 0; i < data.length; i++){
