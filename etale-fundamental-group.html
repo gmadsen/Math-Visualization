@@ -349,9 +349,9 @@ function drawNode(svg, x, y, label, opts={}){
     }
     // tag the fiber
     const tag = el('text', {x:x, y:sheetY(x,2)-12, 'font-size':11, fill:colors[i], 'text-anchor':'middle', 'font-weight':600});
-    tag.textContent = 'Y_x' + (i+1) + ' (3 points)';
+    tag.textContent = 'Y_x' + ['₁','₂','₃','₄','₅','₆','₇','₈','₉'][i] + ' (3 points)';
     fiberGroup.appendChild(tag);
-    out.textContent = 'fiber over $x_' + (i+1) + '$ has 3 geometric points — a torsor under $\\mathbb{Z}/3$ acting by deck transformation. degree of the cover is constant: ' + 'rank f_*O_Y = 3 everywhere.';
+    out.textContent = 'fiber over x' + ['₁','₂','₃','₄','₅','₆','₇','₈','₉'][i] + ' has 3 geometric points — a torsor under ℤ/3 acting by deck transformation. degree of the cover is constant: ' + 'rank f_*O_Y = 3 everywhere.';
     if(window.renderMathInElement) window.renderMathInElement(out, {throwOnError:false,
       strict:(c)=>c==='unicodeTextInMathMode'?'ignore':'warn', delimiters:[{left:'$',right:'$',display:false}]});
   }

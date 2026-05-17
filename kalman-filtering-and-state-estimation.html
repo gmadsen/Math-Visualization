@@ -323,9 +323,9 @@ function drawNode(svg, x, y, label, opts={}){
     // legend
     const lg = SVG('g',{transform:'translate('+(W-180)+',18)'});
     lg.appendChild(SVG('line',{x1:0,y1:8,x2:24,y2:8,stroke:'var(--cyan)','stroke-width':2}));
-    const t1 = SVG('text',{x:30,y:12,'font-size':12,fill:'var(--mute)'}); t1.textContent='true state $x_t$'; lg.appendChild(t1);
+    const t1 = SVG('text',{x:30,y:12,'font-size':12,fill:'var(--mute)'}); t1.textContent='true state xₜ'; lg.appendChild(t1);
     lg.appendChild(SVG('circle',{cx:12,cy:30,r:3,fill:'var(--yellow)'}));
-    const t2 = SVG('text',{x:30,y:34,'font-size':12,fill:'var(--mute)'}); t2.textContent='observation $y_t$'; lg.appendChild(t2);
+    const t2 = SVG('text',{x:30,y:34,'font-size':12,fill:'var(--mute)'}); t2.textContent='observation yₜ'; lg.appendChild(t2);
     svg.appendChild(lg);
     out.textContent = 'measured RMS error from truth: '+Math.sqrt(sse/N).toFixed(3)+'  (sensor sd √R = '+sd.toFixed(2)+')';
   }

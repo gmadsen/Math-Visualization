@@ -719,7 +719,7 @@ function smdGauss(rng){
       svg.appendChild(SVG('circle',{cx:positions[i][0],cy:positions[i][1],r:5.5,fill,stroke:'var(--bg)','stroke-width':1.2}));
     }
     const lbl = SVG('text',{x:ML+10, y:30, 'font-size':12, fill:'var(--mute)'});
-    lbl.textContent = 'vertex colour = sign of Fiedler vector $u_2$';
+    lbl.textContent = 'vertex colour = sign of Fiedler vector u₂';
     svg.appendChild(lbl);
     // ----- right panel: spectrum -----
     const RX = 380, RY = 60, RW = 300, RH = 200;
@@ -738,7 +738,7 @@ function smdGauss(rng){
       svg.appendChild(lbl1);
     }
     const tlbl = SVG('text',{x:RX+RW/2, y:RY-6, 'text-anchor':'middle','font-size':12, fill:'var(--mute)'});
-    tlbl.textContent = 'bottom 8 eigenvalues of $L$';
+    tlbl.textContent = 'bottom 8 eigenvalues of L';
     svg.appendChild(tlbl);
     // readout
     const gap = sortedEigs[K] - sortedEigs[K-1];
@@ -884,7 +884,7 @@ function smdGauss(rng){
       svg.appendChild(SVG('circle',{cx:RX+130 + scl*emb[i][0], cy:CY - scl*emb[i][1], r:4, fill:palette[Math.floor(i/sz)], opacity:0.9}));
     }
     const lbl2 = SVG('text',{x:RX+130, y:30, 'text-anchor':'middle','font-size':12, fill:'var(--mute)'});
-    lbl2.textContent='row-normalised embedding $(\\tilde u_2,\\tilde u_3)$'; svg.appendChild(lbl2);
+    lbl2.textContent='row-normalised embedding (ũ₂, ũ₃)'; svg.appendChild(lbl2);
     // compute angular spread inside each block
     const angles = emb.map(p=>Math.atan2(p[1],p[0]));
     function circSpread(arr){

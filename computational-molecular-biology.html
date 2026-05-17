@@ -916,13 +916,13 @@ function drawNode(svg, x, y, label, opts={}){
     }
     svg.appendChild(SVG('path',{d:dPath, fill:'none', stroke:'var(--cyan)','stroke-width':2}));
     // labels
-    svg.appendChild((function(){ const t=SVG('text',{x:ML+PW/2, y:MT+PH+36,'text-anchor':'middle','font-size':12, fill:'var(--mute)'}); t.textContent='derived-allele count $i$'; return t; })());
-    svg.appendChild((function(){ const t=SVG('text',{x:14, y:MT+PH/2,'text-anchor':'middle','font-size':12, fill:'var(--mute)','transform':`rotate(-90 14,${MT+PH/2})`}); t.textContent='$\\xi_i$ (sites at frequency $i/n$)'; return t; })());
+    svg.appendChild((function(){ const t=SVG('text',{x:ML+PW/2, y:MT+PH+36,'text-anchor':'middle','font-size':12, fill:'var(--mute)'}); t.textContent='derived-allele count i'; return t; })());
+    svg.appendChild((function(){ const t=SVG('text',{x:14, y:MT+PH/2,'text-anchor':'middle','font-size':12, fill:'var(--mute)','transform':`rotate(-90 14,${MT+PH/2})`}); t.textContent='ξᵢ (sites at frequency i/n)'; return t; })());
     // legend
     svg.appendChild(SVG('rect',{x:ML+PW-160, y:MT+10, width:14, height:14, fill:'var(--yellow)', opacity:0.75}));
-    svg.appendChild((function(){ const t=SVG('text',{x:ML+PW-140, y:MT+22,'font-size':12, fill:'var(--ink)'}); t.textContent='empirical $\\xi_i$'; return t; })());
+    svg.appendChild((function(){ const t=SVG('text',{x:ML+PW-140, y:MT+22,'font-size':12, fill:'var(--ink)'}); t.textContent='empirical ξᵢ'; return t; })());
     svg.appendChild(SVG('line',{x1:ML+PW-160, y1:MT+34, x2:ML+PW-146, y2:MT+34, stroke:'var(--cyan)','stroke-width':2}));
-    svg.appendChild((function(){ const t=SVG('text',{x:ML+PW-140, y:MT+38,'font-size':12, fill:'var(--ink)'}); t.textContent='expected $\\theta/i$'; return t; })());
+    svg.appendChild((function(){ const t=SVG('text',{x:ML+PW-140, y:MT+38,'font-size':12, fill:'var(--ink)'}); t.textContent='expected θ/i'; return t; })());
     // stats
     let S=0, pi=0;
     for(let i=1;i<n;i++){ S += xi[i]; pi += i*(n-i)*xi[i]; }

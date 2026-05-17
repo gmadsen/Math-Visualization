@@ -306,8 +306,8 @@ $$R_{\tilde g} \;=\; e^{-2u}\Bigl(R_g \;-\; 2(n-1)\,\Delta_g u \;-\; (n-1)(n-2)\
     const factor = Math.exp(u);
     // Two side-by-side panels: g and tilde g.
     const cx1 = 160, cx2 = 460, cy = 170, baseR = 60;
-    svg.appendChild(SVG('text',{x:cx1-44, y:60, 'font-size':13, fill:'var(--mute)'})).textContent = 'metric $g$';
-    svg.appendChild(SVG('text',{x:cx2-78, y:60, 'font-size':13, fill:'var(--mute)'})).textContent = 'metric $\\tilde g = e^{2u}g$';
+    svg.appendChild(SVG('text',{x:cx1-44, y:60, 'font-size':13, fill:'var(--mute)'})).textContent = 'metric g';
+    svg.appendChild(SVG('text',{x:cx2-78, y:60, 'font-size':13, fill:'var(--mute)'})).textContent = 'metric g̃ = e^(2u)g';
     // Panel 1: original
     svg.appendChild(SVG('circle',{cx:cx1, cy:cy, r:baseR, fill:'none', stroke:'var(--cyan)', 'stroke-width':1.4}));
     // Tangent vectors X (along +x) and Y (at 60deg).
