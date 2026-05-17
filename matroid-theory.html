@@ -438,7 +438,7 @@ This <strong>rank function</strong> $r : 2^E \to \mathbb{Z}_{\ge 0}$ is the seco
 <div class="note"><strong>Submodularity is the heart.</strong> The inequality $r(S \cup T) + r(S \cap T) \le r(S) + r(T)$ is the combinatorial fingerprint that distinguishes matroids from arbitrary simplicial complexes. It says rank exhibits "diminishing returns": adding $T$ on top of $S$ gains less than adding $T$ to a smaller intersection. This is exactly why the greedy algorithm works (§ 6).</div>
 
 <div class="widget" id="w-bases">
-  <div class="hd"><div class="ttl">Bases &amp;amp; rank explorer</div><div class="hint">pick a uniform $U_{r,n}$ and a subset; see all bases and the rank</div></div>
+  <div class="hd"><div class="ttl">Bases &amp; rank explorer</div><div class="hint">pick a uniform $U_{r,n}$ and a subset; see all bases and the rank</div></div>
   <div class="row">
     <label for="bases-n">$n$</label>
     <input type="range" id="bases-n" min="2" max="6" step="1" value="4">
@@ -608,7 +608,7 @@ This <strong>rank function</strong> $r : 2^E \to \mathbb{Z}_{\ge 0}$ is the seco
 <div class="note"><strong>$M(K_4)$ as a vector matroid.</strong> The complete graph $K_4$ on four vertices has six edges and rank $3$. Label the edges by the six $2$-subsets of a basis $\{e_1,e_2,e_3,e_4\}$ of $\mathbb{R}^4$: edge $\{i,j\} \mapsto e_i - e_j$. Forests of $K_4$ correspond exactly to linearly independent subsets of these difference vectors. So $M(K_4)$ is a vector matroid over <em>every</em> field, and in fact realises the rank-$3$ "$K_4$-geometry" used as a building block in finite geometry.</div>
 
 <div class="widget" id="w-graph">
-  <div class="hd"><div class="ttl">Graphic matroid: forests &amp;amp; cycles</div><div class="hint">click an edge to add or remove it from $F$; the widget reports independence &amp;amp; rank</div></div>
+  <div class="hd"><div class="ttl">Graphic matroid: forests &amp; cycles</div><div class="hint">click an edge to add or remove it from $F$; the widget reports independence &amp; rank</div></div>
   <svg id="graph-svg" viewBox="0 0 620 320" width="620" height="320"><title>Graphic matroid: forests and cycles</title></svg>
   <div class="row">
     <button id="graph-clear">clear $F$</button>
