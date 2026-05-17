@@ -95,6 +95,11 @@ export const TITLE_BLOCKLIST = new Set([
   'operators', 'set', 'integral', 'integrals', 'derivative', 'derivatives',
   'partition', 'partitions', 'period', 'periods', 'weight', 'level', 'index',
   'index.html', 'residue', 'residues',
+  // Generic section-header / plain-English nouns that appear as concept
+  // titles in places (e.g. a §11 "Applications" of a topic page) but
+  // produce wrong-target / awkward wraps when matched against ordinary
+  // prose. Added per PR #225 pedagogy review.
+  'applications', 'differentiation',
 ]);
 
 // Minimum title length: titles shorter than this are always skipped for

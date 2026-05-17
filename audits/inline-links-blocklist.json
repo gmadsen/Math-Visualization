@@ -1,0 +1,64 @@
+{
+  "version": 1,
+  "description": "Per-page concept-id blocks for audit-inline-links.mjs --fix. When the audit would wrap a phrase on the named page with a link to the listed concept, the candidate is suppressed. Use this for cases where the matcher's contextless heuristic produces a wrong-target / inappropriate-level / awkward-position link that human review has rejected. Each entry should carry a short comment explaining why; the audit script reads only the page→ids map.",
+  "blocks": {
+    "extremal-combinatorics.html": {
+      "cf-roth": "wrong Roth's theorem — extremal-combinatorics §X means Roth's 3-AP density theorem, but cf-roth is Roth's Diophantine approximation theorem (also Fields Medal, also 1955). Two different theorems by same person."
+    },
+    "model-theory-basics.html": {
+      "compactness": "§X means the model-theoretic compactness theorem (consistency of theories), not point-set compactness (every cover has a finite subcover)."
+    },
+    "zfc-and-ordinals.html": {
+      "compactness": "§X 'Compactness, Löwenheim–Skolem, and completeness' is the model-theoretic compactness theorem, paired with logic-side companions."
+    },
+    "variational-methods.html": {
+      "compactness": "§X splits the unit term 'concentration-compactness' (a single PDE method name) by wrapping only 'compactness'."
+    },
+    "forcing-and-independence.html": {
+      "completion-ca": "§X 'Boolean completion of a poset' is the regular-open-sets / Stone-space construction, not I-adic completion."
+    },
+    "etale-fundamental-group.html": {
+      "completion-ca": "§X 'profinite completion' of a topological/algebraic group is the inverse limit over finite-index quotients, not I-adic completion of a ring."
+    },
+    "infinity-topoi.html": {
+      "completion-ca": "§X 'a different completion of set with topology' is metaphorical ('completion' as 'extension/refinement'), not I-adic completion."
+    },
+    "partial-differential-equations.html": {
+      "metric-spaces": "§X 'gradient flows in metric spaces' is the Wasserstein / Ambrosio–Gigli–Savaré program — metric measure spaces with synthetic curvature, not basic ε–δ metric spaces."
+    },
+    "geometric-measure-theory.html": {
+      "metric-spaces": "§X 'Ambrosio–Kirchheim currents in metric spaces' is GMT-on-metric-measure-spaces (Cheeger differentiation), not basic ε–δ metric spaces.",
+      "compactness": "§X 'compactness theorems for variant function classes (BD, GSBV, GBD)' is BV-style compactness in function spaces, not point-set compactness."
+    },
+    "stochastic-processes-and-martingales.html": {
+      "cauchy-riemann": "§X 'discrete harmonic functions on a graph' is the discrete-time martingale / random-walk notion; cauchy-riemann is the complex-analytic system $u_x=v_y, u_y=-v_x$ — wrong concept."
+    },
+    "capstone-cohomology-story.html": {
+      "open-sets": "§3 uses 'topological spaces' loosely as 'manifolds-with-extra-data', not the formal point-set object",
+      "cd-poincare-duality": "wrapped 3× across §2/§3/§5 in PR #225; kept only the §2 introduction (hand-authored)",
+      "hdg-applications": "§5 'applications' is plain English (consequences/uses), not the high-dim-geometry topic"
+    },
+    "capstone-flt-story.html": {
+      "completion-ca": "§7 'completion' means finishing the Taniyama–Shimura–Weil proof, not I-adic completion"
+    },
+    "capstone-hodge-arc-story.html": {
+      "hdg-applications": "§2 'Applications' is inside a book title (Hodge's 'The Theory and Applications of Harmonic Integrals')",
+      "compactness": "§4 'compactness' is an everyday-precondition word in an active sentence about Hodge structures"
+    },
+    "capstone-langlands-arc-story.html": {
+      "complex-numbers": "§4 reader is parsing Satake parameters; doesn't need a complex-numbers primer",
+      "holomorphic-function": "§3 reader is already parsing newforms; doesn't need a holomorphic-function primer"
+    },
+    "capstone-local-global-story.html": {
+      "completion-ca": "lede + §2 + §5 + colophon mix metaphorical use ('completion gambit'), profinite completion (different construction), and redundant uses where 'completion' is already domain vocabulary",
+      "real-numbers": "lede 'real numbers $\\mathbb{R}$' is defined in the very next sentence"
+    },
+    "capstone-millennium-prizes-story.html": {
+      "hodge-conjecture": "§3 wraps the section opener 'The Hodge Conjecture' — awkward to link a section's title"
+    },
+    "capstone-sound-to-wavelets-story.html": {
+      "hdg-applications": "§6 'applications' is plain English in a list of practical use cases",
+      "real-differentiation": "§2 reader has already absorbed Fourier/convolution/Plancherel"
+    }
+  }
+}
