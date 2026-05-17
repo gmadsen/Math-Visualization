@@ -291,7 +291,7 @@ function drawNode(svg, x, y, label, opts={}){
     X:    {x:120, y:80,  label:'X',          info:'$X/k$ — the scheme. Frobenius on sections: $f\\mapsto f^p$.'},
     Xp:   {x:380, y:80,  label:'X^{(p)}',    info:'$X^{(p)}=X\\times_{k,\\sigma}k$ — Frobenius twist; same underlying topological space, but structure sheaf has coefficients pulled along $\\sigma\\colon k\\to k$, $\\lambda\\mapsto\\lambda^p$.'},
     Xback:{x:380, y:240, label:'X',           info:'second copy of $X/k$, the target of the absolute $F_X$.'},
-    Sk:   {x:120, y:240, label:'\\operatorname{Spec}\\,k', info:'base $\\operatorname{Spec}\\,k$. The structure map $X\\to\\operatorname{Spec}\\,k$ is what makes $X$ a $k$-scheme.'}
+    Sk:   {x:120, y:240, label:'\\Spec\\,k', info:'base $\\Spec\\,k$. The structure map $X\\to\\Spec\\,k$ is what makes $X$ a $k$-scheme.'}
   };
   svg.innerHTML='';
   const idKey = {X:'X', Xp:'Xp', Xback:'Xb', Sk:'Sk'};
@@ -312,7 +312,7 @@ function drawNode(svg, x, y, label, opts={}){
   drawArrow(svg,[nodes.X.x+30,nodes.X.y+22],[nodes.Xback.x-30,nodes.Xback.y-22],{color:'var(--pink)',curve:30,label:'F_X (absolute)',markerId:'arr-fx',width:2,dash:'5 3',labelSide:1});
   // click handler
   function info(k){
-    const map = {X:'X', Xp:'X^{(p)}', Xback:'X (target of F_X)', Sk:'\\operatorname{Spec}\\,k'};
+    const map = {X:'X', Xp:'X^{(p)}', Xback:'X (target of F_X)', Sk:'\\Spec\\,k'};
     out.textContent = `${k}: ${nodes[k].info.replace(/\\[A-Za-z]+\{?/g,'').replace(/\}/g,'').replace(/\$/g,'')}`;
   }
   svg.addEventListener('click', e=>{

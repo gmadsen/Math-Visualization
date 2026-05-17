@@ -773,7 +773,7 @@ $E_\Omega$ is an orthogonal projection for every Borel $\Omega$, and $E_\Omega E
   <li>Either $K-\lambda I$ is invertible, <em>or</em> $\lambda\in\sigma_p(K)$ with finite-dimensional eigenspace — never anything in between.</li>
 </ul>
 </div>
-<p>The non-zero spectrum is therefore discrete, with finite multiplicities and accumulating only at $0$ — exactly the picture from the compact spectral theorem, now without self-adjointness. The general <em>index</em> of a Fredholm operator $T$ is $\operatorname{ind}(T)=\dim\ker T - \dim\mathrm{coker} T\in\mathbb{Z}$, a homotopy invariant under norm-continuous deformations through Fredholm operators. For $K-\lambda I$ above, $\operatorname{ind}=0$ because $K\mapsto 0$ is a path of compact perturbations and $-\lambda I$ is invertible.</p>
+<p>The non-zero spectrum is therefore discrete, with finite multiplicities and accumulating only at $0$ — exactly the picture from the compact spectral theorem, now without self-adjointness. The general <em>index</em> of a Fredholm operator $T$ is $\ind(T)=\dim\ker T - \dim\mathrm{coker} T\in\mathbb{Z}$, a homotopy invariant under norm-continuous deformations through Fredholm operators. For $K-\lambda I$ above, $\ind=0$ because $K\mapsto 0$ is a path of compact perturbations and $-\lambda I$ is invertible.</p>
 <p>The classical model: integral equations $\varphi(x) - \lambda\int_0^1 k(x,y)\varphi(y)\,dy = f(x)$ with $L^2$ kernel. The compact operator $K\varphi(x)=\int k(x,y)\varphi(y)\,dy$ controls the equation; for $\lambda^{-1}\notin\sigma(K)$ there is a unique solution, otherwise the equation is solvable iff $f$ is orthogonal to all solutions of the homogeneous adjoint equation. Fredholm's 1903 paper invented this game — and it underlies modern elliptic-PDE theory and index theory.</p>
 
 <div class="widget">
@@ -855,15 +855,15 @@ $E_\Omega$ is an orthogonal projection for every Borel $\Omega$, and $E_\Omega E
 $$\mathcal{S}_p(H) \;=\; \Big\{T\in\mathcal{K}(H) : \|T\|_p^p := \sum_{n}s_n(T)^p < \infty\Big\},\qquad p\in[1,\infty).$$
 <p>The two cases that name themselves:</p>
 <ul>
-  <li>$\mathcal{S}_2$, the <strong>Hilbert–Schmidt</strong> operators. The norm $\|T\|_{HS}^2 = \sum\|Te_n\|^2 = \sum s_n(T)^2$ is independent of the orthonormal basis $(e_n)$, and $\mathcal{S}_2$ itself is a Hilbert space with inner product $\langle T,S\rangle_{HS}=\operatorname{tr}(S^*T)$. On $L^2(X,\mu)$, an integral operator $K_kf(x)=\int k(x,y)f(y)\,d\mu(y)$ is HS iff $k\in L^2(X\times X,\mu\otimes\mu)$, with $\|K_k\|_{HS}=\|k\|_2$.</li>
-  <li>$\mathcal{S}_1$, the <strong>trace-class</strong> operators. The functional $\operatorname{tr}(T)=\sum_n\langle Te_n,e_n\rangle$ converges absolutely on $\mathcal{S}_1$ and is independent of the ONB; it is positive on positive operators and satisfies $\operatorname{tr}(AB)=\operatorname{tr}(BA)$ when at least one factor is trace-class. For positive $T$, $\operatorname{tr}(T)=\sum s_n(T)$ — finiteness defines the ideal.</li>
+  <li>$\mathcal{S}_2$, the <strong>Hilbert–Schmidt</strong> operators. The norm $\|T\|_{HS}^2 = \sum\|Te_n\|^2 = \sum s_n(T)^2$ is independent of the orthonormal basis $(e_n)$, and $\mathcal{S}_2$ itself is a Hilbert space with inner product $\langle T,S\rangle_{HS}=\tr(S^*T)$. On $L^2(X,\mu)$, an integral operator $K_kf(x)=\int k(x,y)f(y)\,d\mu(y)$ is HS iff $k\in L^2(X\times X,\mu\otimes\mu)$, with $\|K_k\|_{HS}=\|k\|_2$.</li>
+  <li>$\mathcal{S}_1$, the <strong>trace-class</strong> operators. The functional $\tr(T)=\sum_n\langle Te_n,e_n\rangle$ converges absolutely on $\mathcal{S}_1$ and is independent of the ONB; it is positive on positive operators and satisfies $\tr(AB)=\tr(BA)$ when at least one factor is trace-class. For positive $T$, $\tr(T)=\sum s_n(T)$ — finiteness defines the ideal.</li>
 </ul>
 <p>The chain of inclusions matches summability:</p>
 $$\text{finite-rank}\;\subset\;\mathcal{S}_1\;\subset\;\mathcal{S}_2\;\subset\;\mathcal{S}_p\;\subset\;\mathcal{K}(H)\;\subset\;B(H),\qquad 1\le p\le\infty.$$
 <p>Hölder for Schatten norms: if $1/p+1/q=1/r$ then $\|TS\|_r\le\|T\|_p\|S\|_q$. The case $p=q=2$, $r=1$ is most useful: the product of two HS operators is trace-class.</p>
-<p><strong>Schatten duality.</strong> Pairing by $\langle T,S\rangle = \operatorname{tr}(TS)$ identifies</p>
+<p><strong>Schatten duality.</strong> Pairing by $\langle T,S\rangle = \tr(TS)$ identifies</p>
 $$\mathcal{K}(H)^*\cong\mathcal{S}_1, \qquad \mathcal{S}_1^*\cong B(H), \qquad \mathcal{S}_p^*\cong\mathcal{S}_q\;(1<p<\infty,\,1/p+1/q=1).$$
-<p>So $\mathcal{S}_1$ is the unique <em>predual</em> of $B(H)$: a normal state on $B(H)$ is the same as a positive trace-class operator $\rho$ with $\operatorname{tr}\rho=1$ — the <em>density matrix</em> of quantum statistical mechanics.</p>
+<p>So $\mathcal{S}_1$ is the unique <em>predual</em> of $B(H)$: a normal state on $B(H)$ is the same as a positive trace-class operator $\rho$ with $\tr\rho=1$ — the <em>density matrix</em> of quantum statistical mechanics.</p>
 
 <div class="widget">
   <div class="hd"><div class="ttl">Where does $\sum n^{-\alpha p}$ converge?</div><div class="hint">Cross the Schatten thresholds by sliding $\alpha,p$.</div></div>
@@ -947,7 +947,7 @@ $$\boxed{\;N(\lambda) \;\sim\; \frac{\omega_d\,|\Omega|}{(2\pi)^d}\,\lambda^{d/2
   <li><strong>The volume</strong> $|\Omega|$ — through the prefactor.</li>
 </ul>
 <p>The proof, in modern dress: a <em>semiclassical</em> argument. The trace of the heat kernel $e^{t\Delta}$ on $\Omega$ has the small-$t$ expansion</p>
-$$\operatorname{tr}\bigl(e^{t\Delta}\bigr) = \sum_n e^{-\lambda_n t} \sim \frac{|\Omega|}{(4\pi t)^{d/2}} - \frac{|\partial\Omega|}{4\,(4\pi t)^{(d-1)/2}} + O(t^{-(d-2)/2})\quad(t\to 0^+),$$
+$$\tr\bigl(e^{t\Delta}\bigr) = \sum_n e^{-\lambda_n t} \sim \frac{|\Omega|}{(4\pi t)^{d/2}} - \frac{|\partial\Omega|}{4\,(4\pi t)^{(d-1)/2}} + O(t^{-(d-2)/2})\quad(t\to 0^+),$$
 <p>and a Tauberian theorem (Karamata) inverts this to Weyl's law. The <em>second</em> coefficient gives the boundary length — Pleijel showed that you also hear the perimeter; the <em>third</em> gives the Euler characteristic. So you hear: $d$, $|\Omega|$, $|\partial\Omega|$, $\chi(\Omega)$.</p>
 <div class="note"><strong>Can you hear the shape of a drum?</strong> Mark Kac asked in 1966 whether $\sigma(-\Delta)$ determines $\Omega$ up to isometry. The answer is <em>no</em>: Gordon, Webb &amp; Wolpert (1992) constructed isospectral non-isometric polygonal domains. But you can hear $d$, $|\Omega|$, $|\partial\Omega|$, and the topology — Weyl, Pleijel, Kac.</div>
 <p>The same machinery extends to compact Riemannian manifolds (Minakshisundaram–Pleijel) and to elliptic pseudodifferential operators (Hörmander) — a corner of analysis where spectrum, geometry, and heat propagation are one story.</p>

@@ -588,11 +588,11 @@ $$J[u] \;=\; \mathbb{E}\Big[\int_0^T L(x_t,u_t,t)\,dt + \Phi(x_T)\Big].$$
 
 <h3>The controlled generator and stochastic HJB</h3>
 <p>For a fixed control $u$, the controlled diffusion has infinitesimal generator</p>
-$$\mathcal{L}^u \phi(x) \;=\; b(x,u,t)\cdot\nabla\phi(x) + \tfrac12 \operatorname{tr}\!\bigl(\sigma\sigma^\top\,D^2\phi(x)\bigr).$$
+$$\mathcal{L}^u \phi(x) \;=\; b(x,u,t)\cdot\nabla\phi(x) + \tfrac12 \tr\!\bigl(\sigma\sigma^\top\,D^2\phi(x)\bigr).$$
 <p>Bellman's principle now uses Itô's formula in place of the chain rule: $V(x_{t+\delta},t+\delta) - V(x_t,t) = (\partial_t V + \mathcal{L}^u V)\delta t + \text{martingale}$. The optimality condition is</p>
 $$\boxed{\;-\partial_t V \;=\; \inf_{u\in U}\Big\{\, L(x,u,t) + \mathcal{L}^u V(x,t)\,\Big\}, \qquad V(x,T)=\Phi(x).\;}$$
 <p>This is the <strong>stochastic HJB equation</strong> — now a <em>second-order</em> nonlinear PDE because $\mathcal{L}^u$ carries the diffusion's Laplacian-like term. The infimand expands to</p>
-$$L(x,u,t) + b(x,u,t)\cdot\nabla V + \tfrac12 \operatorname{tr}(\sigma\sigma^\top D^2 V).$$
+$$L(x,u,t) + b(x,u,t)\cdot\nabla V + \tfrac12 \tr(\sigma\sigma^\top D^2 V).$$
 <p>Deterministic control is the $\sigma\to 0$ limit — the second-order term vanishes and we recover the first-order HJB of §4. Curvature in the controls (Brownian noise) is paid for by curvature in the value (a Laplacian).</p>
 
 <h3>Merton's portfolio problem</h3>
