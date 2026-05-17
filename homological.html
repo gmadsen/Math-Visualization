@@ -2783,7 +2783,7 @@ The "two ways to compute the same answer" is the workhorse identity behind balan
 <p><strong>Examples to keep in mind.</strong></p>
 <ul>
 <li>$P_\bullet \otimes Q_\bullet$ — the tensor of two projective resolutions. Its total complex computes $\mathrm{Tor}^R_*$ from either side, which is what makes Tor balanced.</li>
-<li>$\mathrm{Hom}(P_\bullet, I_\bullet)$ — for a projective resolution $P_\bullet \to A$ and an injective resolution $B \to I_\bullet$. Computes $\mathrm{Ext}^*_R(A, B)$ from either argument.</li>
+<li>$\Hom(P_\bullet, I_\bullet)$ — for a projective resolution $P_\bullet \to A$ and an injective resolution $B \to I_\bullet$. Computes $\mathrm{Ext}^*_R(A, B)$ from either argument.</li>
 <li>The Čech–Cartan double complex used to prove independence of cover in sheaf cohomology.</li>
 </ul>
 
@@ -2813,7 +2813,7 @@ The isomorphism is canonical and natural in both arguments.</div>
 
 <p><strong>Why the symmetry is structural.</strong> This isn't just a calculation trick — it's why $\otimes_R$ is a <em>balanced</em> functor: the derived functor of an additive bifunctor that's right-exact in each argument separately can be computed by resolving either slot, and the two answers agree.</p>
 
-<p>The same balanced-functor argument applies to $\mathrm{Ext}^n_R(M, N)$: it can be computed using <em>either</em> a projective resolution of the first argument (apply $\mathrm{Hom}(-, N)$) or an injective resolution of the second argument (apply $\mathrm{Hom}(M, -)$), and the two computations agree. Note that Ext itself is <em>not</em> symmetric in $M, N$ — only the two computational paths are. Tor and Ext are the canonical examples of balanced derived functors.</p>
+<p>The same balanced-functor argument applies to $\mathrm{Ext}^n_R(M, N)$: it can be computed using <em>either</em> a projective resolution of the first argument (apply $\Hom(-, N)$) or an injective resolution of the second argument (apply $\Hom(M, -)$), and the two computations agree. Note that Ext itself is <em>not</em> symmetric in $M, N$ — only the two computational paths are. Tor and Ext are the canonical examples of balanced derived functors.</p>
 
 <div class="quiz" data-concept="tor-symmetry-ha"></div>
 
