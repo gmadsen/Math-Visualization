@@ -32,7 +32,7 @@
             "svgViewBox": "0 0 820 440",
             "svgWidthAttr": "820",
             "svgHeightAttr": "440",
-            "svgTitle": "Compass &amp;amp; straightedge stepper",
+            "svgTitle": "Compass &amp; straightedge stepper",
             "outputId": "cs-readout",
             "layout": "controls-first",
             "controlsLiteral": "    <label for=\"cs-pick\">construction:</label>\n    <select id=\"cs-pick\">\n      <option value=\"bisect\">perpendicular bisector of AB</option>\n      <option value=\"equilateral\" selected>equilateral triangle on AB</option>\n      <option value=\"sqrt2\">√2 from 0 and 1</option>\n      <option value=\"hexagon\">regular hexagon</option>\n      <option value=\"pentagon\">regular pentagon (Richmond)</option>\n      <option value=\"dblcube\">doubling the cube — impossible</option>\n    </select>\n    <button id=\"cs-prev\">◀ step</button>\n    <button id=\"cs-next\">step ▶</button>\n    <button id=\"cs-all\">show all</button>\n    <button id=\"cs-reset\">reset</button>\n    <span class=\"small\" id=\"cs-counter\"></span>",
