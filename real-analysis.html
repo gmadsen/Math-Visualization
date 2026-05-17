@@ -1998,9 +1998,9 @@ $$ f_\varepsilon(x) = (f * \eta_\varepsilon)(x) = \int f(y)\,\eta_\varepsilon(x-
 
 <h3>Arzelà–Ascoli</h3>
 
-<p>A family $\mathcal{F}\subseteq C[a,b]$ is <strong>pointwise bounded</strong> if $\sup_{f\in\mathcal F}|f(x)|<\infty$ for every $x$, and <strong>equicontinuous</strong> if for every $\varepsilon>0$ there is $\delta>0$ (independent of $f$) with $|x-y|<\delta\Rightarrow|f(x)-f(y)|<\varepsilon$ for all $f\in\mathcal F$.</p>
+<p>A family $\mathcal{F}\subseteq C[a,b]$ is <strong>pointwise bounded</strong> if $\sup_{f\in\mathcal{F}}|f(x)|<\infty$ for every $x$, and <strong>equicontinuous</strong> if for every $\varepsilon>0$ there is $\delta>0$ (independent of $f$) with $|x-y|<\delta\Rightarrow|f(x)-f(y)|<\varepsilon$ for all $f\in\mathcal{F}$.</p>
 
-<p><strong>Arzelà–Ascoli theorem.</strong> A set $\mathcal F\subseteq C[a,b]$ has compact closure (equivalently, every sequence in $\mathcal F$ has a uniformly convergent subsequence) if and only if it is pointwise bounded and equicontinuous.</p>
+<p><strong>Arzelà–Ascoli theorem.</strong> A set $\mathcal{F}\subseteq C[a,b]$ has compact closure (equivalently, every sequence in $\mathcal{F}$ has a uniformly convergent subsequence) if and only if it is pointwise bounded and equicontinuous.</p>
 
 <p>This is the gateway criterion for extracting uniformly convergent subsequences: existence proofs for differential equations (Peano), Montel's theorem on <a href="./complex-analysis.html#normal-families">normal families of holomorphic functions</a>, and the existence of minimizers in the calculus of variations all route through Arzelà–Ascoli.</p>
 
@@ -2404,7 +2404,7 @@ $$ \text{Lipschitz} \;\subsetneq\; \mathrm{AC} \;\subsetneq\; \mathrm{BV}\cap C 
 
 <p>Compactness produces finite subcovers from open covers, but for differentiation arguments one wants something more delicate: a <em>disjoint</em> subcollection that almost covers a target set, drawn from a family of intervals shrinking to every point. This is the Vitali covering lemma.</p>
 
-<p><strong>Definition.</strong> A family $\mathcal V$ of nondegenerate closed intervals in $\mathbb{R}$ is a <strong>Vitali cover</strong> of $E\subseteq\mathbb{R}$ if for every $x\in E$ and every $\varepsilon>0$ there is some $I\in\mathcal V$ with $x\in I$ and $|I|<\varepsilon$.</p>
+<p><strong>Definition.</strong> A family $\mathcal{V}$ of nondegenerate closed intervals in $\mathbb{R}$ is a <strong>Vitali cover</strong> of $E\subseteq\mathbb{R}$ if for every $x\in E$ and every $\varepsilon>0$ there is some $I\in\mathcal{V}$ with $x\in I$ and $|I|<\varepsilon$.</p>
 
 <p><strong>Vitali's 3-times covering lemma (finite form).</strong> Given any finite family $\{I_1,\dots,I_N\}$ of closed intervals in $\mathbb{R}$, there is a disjoint subcollection $\{I_{j_1},\dots,I_{j_m}\}$ such that the triples $\{3I_{j_1},\dots,3I_{j_m}\}$ (each $I_{j}$ scaled by $3$ about its center) cover $\bigcup_i I_i$. In particular, the disjoint subcollection has total length at least $\tfrac{1}{3}|\bigcup_i I_i|$.</p>
 

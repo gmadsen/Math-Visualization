@@ -1024,7 +1024,7 @@ $$-\frac{1}{n}\log_2 p(X_1,\ldots,X_n) \;=\; \frac{1}{n}\sum_{i=1}^n Y_i \;\xrig
 Read the conclusion: the random log-probability of a random sequence concentrates at $-nH(X)$. Almost every sequence the source emits has probability close to $2^{-nH(X)}$ — they are <em>nearly equiprobable</em>, even though most underlying alphabet symbols are not.</p>
 
 <p>The <strong>typical set</strong> $A_\varepsilon^{(n)}$ packages this:
-$$A_\varepsilon^{(n)} \;=\; \Big\{x^n\in\mathcal X^n : \Big|{-\tfrac{1}{n}\log_2 p(x^n) - H(X)}\Big| < \varepsilon\Big\}.$$
+$$A_\varepsilon^{(n)} \;=\; \Big\{x^n\in\mathcal{X}^n : \Big|{-\tfrac{1}{n}\log_2 p(x^n) - H(X)}\Big| < \varepsilon\Big\}.$$
 Three facts pin its shape — the AEP package:</p>
 <ul>
   <li><strong>High probability</strong>: $\Pr(A_\varepsilon^{(n)}) \to 1$ as $n\to\infty$ for any $\varepsilon>0$ (this is the convergence above, restated).</li>
@@ -1032,7 +1032,7 @@ Three facts pin its shape — the AEP package:</p>
   <li><strong>Size lower bound</strong>: $|A_\varepsilon^{(n)}| \ge (1-\varepsilon)\,2^{n(H(X)-\varepsilon)}$ for $n$ large. Mass concentrates on the typical set, and each sequence in it has probability at most $2^{-n(H(X)-\varepsilon)}$.</li>
 </ul>
 
-<p>So the typical set has cardinality $|A_\varepsilon^{(n)}| \;\dot=\; 2^{nH(X)}$ on the exponential scale, even though the ambient cube $\mathcal X^n$ has size $|\mathcal X|^n = 2^{n\log_2|\mathcal X|}$. Whenever $H(X) < \log_2|\mathcal X|$ the typical set is an exponentially <em>vanishing fraction</em> of the cube that nonetheless carries essentially all the probability — a high-dimensional thin shell.</p>
+<p>So the typical set has cardinality $|A_\varepsilon^{(n)}| \;\dot=\; 2^{nH(X)}$ on the exponential scale, even though the ambient cube $\mathcal{X}^n$ has size $|\mathcal{X}|^n = 2^{n\log_2|\mathcal{X}|}$. Whenever $H(X) < \log_2|\mathcal{X}|$ the typical set is an exponentially <em>vanishing fraction</em> of the cube that nonetheless carries essentially all the probability — a high-dimensional thin shell.</p>
 
 <div class="note"><strong>Why "equipartition."</strong> Inside the typical set, every sequence has probability within a factor of $2^{2n\varepsilon}$ of every other. To leading order they are uniform, and the source looks like a uniform distribution on $\approx 2^{nH}$ outcomes. The non-uniformity of $p$ has been hidden: it determines <em>how many</em> outcomes are typical, not their relative probabilities.</div>
 
@@ -1053,7 +1053,7 @@ Three facts pin its shape — the AEP package:</p>
 <section id="fisher-cramer-rao">
 <h2>8. Fisher information and the Cramér–Rao bound</h2>
 
-<p>Let $\{p_\theta : \theta\in\Theta\}$ be a family of densities (or pmfs) on $\mathcal X$, smoothly indexed by a scalar parameter $\theta$. The <strong>score</strong> at $\theta$ is the random variable
+<p>Let $\{p_\theta : \theta\in\Theta\}$ be a family of densities (or pmfs) on $\mathcal{X}$, smoothly indexed by a scalar parameter $\theta$. The <strong>score</strong> at $\theta$ is the random variable
 $$U_\theta(X) \;=\; \frac{\partial}{\partial\theta}\log p_\theta(X),$$
 the sensitivity of the log-likelihood to a perturbation of $\theta$. Differentiating $\int p_\theta(x)\,dx = 1$ under the integral gives $\mathbb{E}_\theta[U_\theta] = 0$ — the score has mean zero under its own model. Its variance is the <strong>Fisher information</strong>:
 $$I(\theta) \;=\; \mathrm{Var}_\theta(U_\theta) \;=\; \mathbb{E}_\theta\!\left[\Big(\partial_\theta\log p_\theta(X)\Big)^{\!2}\right] \;=\; -\,\mathbb{E}_\theta\!\left[\partial_\theta^{2}\log p_\theta(X)\right],$$
@@ -1069,9 +1069,9 @@ The proof is one line of Cauchy–Schwarz: $\mathrm{Cov}_\theta(\hat\theta, U_\t
 
 <p><strong>Worked example: Gaussian sample mean.</strong> Take $X_1,\ldots,X_n$ i.i.d. $\mathcal{N}(\theta,\sigma^2)$ with $\sigma^2$ known. The log-density is $\log p_\theta(x) = -\tfrac{1}{2}\log(2\pi\sigma^2) - (x-\theta)^2/(2\sigma^2)$, the score is $\partial_\theta\log p_\theta(X) = (X-\theta)/\sigma^2$, and Fisher information is $I(\theta) = \mathbb{E}[(X-\theta)^2/\sigma^4] = 1/\sigma^2$. For $n$ samples the bound reads
 $$\mathrm{Var}_\theta(\hat\theta_n) \;\ge\; \frac{\sigma^2}{n}.$$
-The sample mean $\bar X_n = \tfrac{1}{n}\sum X_i$ is unbiased with variance $\sigma^2/n$ — it attains the bound exactly, so $\bar X_n$ is the minimum-variance unbiased estimator. The same calculation shows the <a href="./mathematical-statistics.html#mle">MLE</a> of $\theta$ is $\bar X_n$; for regular models the MLE is asymptotically efficient ($\sqrt n(\hat\theta_{\mathrm{MLE}}-\theta)\Rightarrow\mathcal N(0, 1/I(\theta))$).</p>
+The sample mean $\bar X_n = \tfrac{1}{n}\sum X_i$ is unbiased with variance $\sigma^2/n$ — it attains the bound exactly, so $\bar X_n$ is the minimum-variance unbiased estimator. The same calculation shows the <a href="./mathematical-statistics.html#mle">MLE</a> of $\theta$ is $\bar X_n$; for regular models the MLE is asymptotically efficient ($\sqrt n(\hat\theta_{\mathrm{MLE}}-\theta)\Rightarrow\mathcal{N}(0, 1/I(\theta))$).</p>
 
-<div class="note"><strong>De Bruijn's identity.</strong> For a continuous random variable $X$ smoothed by independent Gaussian noise $\sqrt t\,Z$ with $Z\sim\mathcal N(0,1)$, the differential entropy $h(X+\sqrt t Z)$ obeys $\partial_t\,h(X+\sqrt t Z) = \tfrac{1}{2}J(X+\sqrt t Z)$, where $J$ is the Fisher information of the smoothed density with respect to a location parameter. Differential entropy and Fisher information are conjugate under heat-flow time — a deep link between information theory and the heat equation, and the engine behind Stam's inequality and the entropy-power inequality.</div>
+<div class="note"><strong>De Bruijn's identity.</strong> For a continuous random variable $X$ smoothed by independent Gaussian noise $\sqrt t\,Z$ with $Z\sim\mathcal{N}(0,1)$, the differential entropy $h(X+\sqrt t Z)$ obeys $\partial_t\,h(X+\sqrt t Z) = \tfrac{1}{2}J(X+\sqrt t Z)$, where $J$ is the Fisher information of the smoothed density with respect to a location parameter. Differential entropy and Fisher information are conjugate under heat-flow time — a deep link between information theory and the heat equation, and the engine behind Stam's inequality and the entropy-power inequality.</div>
 
 <p>Cramér–Rao is sharp but not always tight: biased estimators can beat $1/I(\theta)$ at the cost of bias (James–Stein, ridge); curved exponential families can have efficiency loss; and the bound assumes regularity (differentiability, support not depending on $\theta$). What it always gives is a clean statistical interpretation of $I(\theta)$ — a parameter is hard to estimate exactly when its likelihood is flat, easy when its likelihood is sharply peaked.</p>
 
