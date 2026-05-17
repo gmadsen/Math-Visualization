@@ -477,7 +477,7 @@
             3
           ],
           "hint": "Bipolar-type arguments; norm closure is strictly smaller.",
-          "explain": "For a convex subset of $B(H)$, weak and strong operator closures coincide (Kaplansky / Hahn–Banach). Ultraweak closure also agrees on norm-bounded convex sets. Norm closure is STRICTLY smaller than strong-operator closure in general — e.g., $K(H)$ is norm closed but its SOT closure in $B(H)$ is all of $B(H)$."
+          "explain": "For a convex subset of $B(H)$, weak and strong operator closures coincide (Kaplansky / Hahn–Banach). Ultraweak closure also agrees on norm-bounded convex sets. Norm closure is STRICTLY smaller than strong-operator closure in general — e.g., $\\mathcal{K}(H)$ is norm closed but its SOT closure in $B(H)$ is all of $B(H)$."
         },
         {
           "type": "mcq",
@@ -884,13 +884,13 @@
           "q": "Which $C^*$-algebra is NOT nuclear?",
           "choices": [
             "$C(X)$ for $X$ compact Hausdorff",
-            "$K(H)$ (compact operators)",
+            "$\\mathcal{K}(H)$ (compact operators)",
             "The reduced group $C^*$-algebra $C^*_r(F_2)$ of the free group on two generators",
             "$M_n(\\mathbb{C})$"
           ],
           "answer": 2,
           "hint": "Non-amenable groups give non-nuclear reduced group $C^*$-algebras.",
-          "explain": "$C^*_r(F_2)$ is NOT nuclear: $F_2$ is non-amenable, and the reduced $C^*$-algebra of a discrete group is nuclear iff the group is amenable (Lance). All commutative $C^*$-algebras are nuclear; $K(H)$ and $M_n(\\mathbb{C})$ are nuclear (AF algebras are)."
+          "explain": "$C^*_r(F_2)$ is NOT nuclear: $F_2$ is non-amenable, and the reduced $C^*$-algebra of a discrete group is nuclear iff the group is amenable (Lance). All commutative $C^*$-algebras are nuclear; $\\mathcal{K}(H)$ and $M_n(\\mathbb{C})$ are nuclear (AF algebras are)."
         },
         {
           "type": "mcq",
