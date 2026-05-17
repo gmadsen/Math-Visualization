@@ -1441,9 +1441,9 @@ function drawNode(svg, x, y, label, opts={}){
 
 <section id="projective-scheme">
 <h2>11. Projective schemes and Proj</h2>
-<p>The gluing of $\mathbb{P}^1$ in §7 was ad hoc — two copies of $\mathbb A^1$ along the overlap $y=1/x$. For higher-dimensional and more intricate projective geometry the <strong>Proj</strong> construction gives the uniform recipe. Start with a graded ring $S = \bigoplus_{d\geq 0} S_d$ — for example $S = k[x_0,\dots,x_n]$ with the usual grading by total degree.</p>
+<p>The gluing of $\mathbb{P}^1$ in §7 was ad hoc — two copies of $\mathbb{A}^1$ along the overlap $y=1/x$. For higher-dimensional and more intricate projective geometry the <strong>Proj</strong> construction gives the uniform recipe. Start with a graded ring $S = \bigoplus_{d\geq 0} S_d$ — for example $S = k[x_0,\dots,x_n]$ with the usual grading by total degree.</p>
 <p>Define $\operatorname{Proj}S$ as the set of <em>homogeneous</em> prime ideals $\mathfrak p\subset S$ not containing the <strong>irrelevant ideal</strong> $S_+ = \bigoplus_{d>0} S_d$. The topology is the Zariski topology inherited from homogeneous ideals, and the structure sheaf is built from localizations at homogeneous elements: for each homogeneous $f\in S_d$ with $d>0$, the basic open $D_+(f)$ is canonically identified with $\Spec(S_f)_0$, the degree-zero part of the localization.</p>
-<p>For $S=k[x_0,\dots,x_n]$ this reproduces classical $\mathbb P^n_k$: the opens $D_+(x_i)\cong \Spec{}k[x_0/x_i,\dots,x_n/x_i]\cong \mathbb A^n_k$ patch together exactly by "divide by $x_i$" transitions. For $S=k[x_0,\dots,x_n]/I$ with $I$ a homogeneous ideal, $\operatorname{Proj}S$ is the projective subscheme cut out by $I$ — hypersurfaces, complete intersections, projective varieties, and more.</p>
+<p>For $S=k[x_0,\dots,x_n]$ this reproduces classical $\mathbb{P}^n_k$: the opens $D_+(x_i)\cong \Spec{}k[x_0/x_i,\dots,x_n/x_i]\cong \mathbb{A}^n_k$ patch together exactly by "divide by $x_i$" transitions. For $S=k[x_0,\dots,x_n]/I$ with $I$ a homogeneous ideal, $\operatorname{Proj}S$ is the projective subscheme cut out by $I$ — hypersurfaces, complete intersections, projective varieties, and more.</p>
 <p>The payoff: every projective scheme is of the form $\operatorname{Proj}S$ for some graded ring, and conversely any finitely generated graded algebra over a field produces a projective scheme. This converts projective geometry into the algebra of graded rings, the same way $\Spec$ converted affine geometry into the algebra of commutative rings.</p>
 <div class="quiz" data-concept="projective-scheme"></div><!-- backlinks-auto-begin -->
 <aside class="related">
@@ -1549,14 +1549,14 @@ function drawNode(svg, x, y, label, opts={}){
 <p>Some examples that are good to keep in your head:</p>
 <ul>
   <li>$\dim \Spec k = 0$ (only the zero ideal).</li>
-  <li>$\dim \Spec\mathbb Z = 1$: chain $(0)\subsetneq (p)$.</li>
+  <li>$\dim \Spec\mathbb{Z} = 1$: chain $(0)\subsetneq (p)$.</li>
   <li>$\dim \Spec k[x_1,\dots,x_n] = n$: chain $(0)\subsetneq (x_1)\subsetneq (x_1,x_2)\subsetneq\cdots\subsetneq (x_1,\dots,x_n)$.</li>
-  <li>$\dim \Spec\mathbb Z[x_1,\dots,x_n] = n+1$: one extra step for the $\mathbb Z$ direction.</li>
-  <li>$\dim \mathbb P^n_k = n$ — gluing together $n+1$ copies of $\mathbb A^n$ preserves dimension.</li>
+  <li>$\dim \Spec\mathbb{Z}[x_1,\dots,x_n] = n+1$: one extra step for the $\mathbb{Z}$ direction.</li>
+  <li>$\dim \mathbb{P}^n_k = n$ — gluing together $n+1$ copies of $\mathbb{A}^n$ preserves dimension.</li>
 </ul>
 <p>Dimension is the scheme-theoretic version of "how many independent coordinates do I need". Height-one primes cut out codimension-one subschemes (divisors); height-$n$ primes in a regular local ring of dimension $n$ are closed points. The Krull dimension of the local ring $\mathcal O_{X,x}$ — an <strong>invariant of the point</strong> — is the <em>local</em> dimension of $X$ at $x$.</p>
 <div class="note">
-<p style="margin:.2rem 0">Dimension can behave badly for pathological rings, but for finite-type schemes over a field (or $\mathbb Z$) it is well-behaved and matches the geometric intuition. A variety is <em>equidimensional</em> if all irreducible components have the same dimension.</p>
+<p style="margin:.2rem 0">Dimension can behave badly for pathological rings, but for finite-type schemes over a field (or $\mathbb{Z}$) it is well-behaved and matches the geometric intuition. A variety is <em>equidimensional</em> if all irreducible components have the same dimension.</p>
 </div>
 <!-- callback-auto-begin -->
 <aside class="callback">
@@ -1574,15 +1574,15 @@ function drawNode(svg, x, y, label, opts={}){
 <h2>14. Fibers of a morphism over a point</h2>
 <p>A morphism of schemes $f\colon X\to Y$ breaks $X$ into <em>fibers</em>, one over each point $y\in Y$. Just as a morphism of varieties over $\mathbb{C}$ has fibers $f^{-1}(y)$, a scheme morphism has a scheme-theoretic fiber.</p>
 <p>The <strong>fiber over $y\in Y$</strong> is the scheme $$X_y \;=\; X\times_Y \Spec\kappa(y),$$ the fiber product with the residue field at $y$. Concretely, if $X=\Spec{}B$ and $Y=\Spec{}A$ with $f$ induced by $A\to B$, then $X_y = \Spec(B\otimes_A \kappa(y))$. The underlying set of $X_y$ is exactly the preimage $f^{-1}(y)\subseteq X$, with scheme structure that records multiplicities and residue-field extensions.</p>
-<p>The most arresting example is the structural morphism $f\colon \Spec\mathbb Z[x]\to \Spec\mathbb Z$. Its fibers depend on which point of the base we sit over:</p>
-<p><span class="pill">over $(p)$</span> the fiber is $\Spec(\mathbb Z[x]\otimes_{\mathbb Z}\mathbb F_p)=\Spec\mathbb F_p[x]$ — the affine line over $\mathbb F_p$. One for each prime $p$.</p>
-<p><span class="pill">over $(0)$</span> the <em>generic fiber</em> is $\Spec(\mathbb Z[x]\otimes_{\mathbb Z}\mathbb Q)=\Spec\mathbb Q[x]$ — the affine line over $\mathbb Q$.</p>
-<p>So $\Spec\mathbb Z[x]$ is a "family of affine lines parametrized by primes". This is the single picture that explains why number theorists and geometers can share a vocabulary: a Diophantine equation is a scheme over $\mathbb Z$, and reducing mod $p$ is just "looking at the fiber over $p$".</p>
+<p>The most arresting example is the structural morphism $f\colon \Spec\mathbb{Z}[x]\to \Spec\mathbb{Z}$. Its fibers depend on which point of the base we sit over:</p>
+<p><span class="pill">over $(p)$</span> the fiber is $\Spec(\mathbb{Z}[x]\otimes_{\mathbb{Z}}\mathbb{F}_p)=\Spec\mathbb{F}_p[x]$ — the affine line over $\mathbb{F}_p$. One for each prime $p$.</p>
+<p><span class="pill">over $(0)$</span> the <em>generic fiber</em> is $\Spec(\mathbb{Z}[x]\otimes_{\mathbb{Z}}\mathbb{Q})=\Spec\mathbb{Q}[x]$ — the affine line over $\mathbb{Q}$.</p>
+<p>So $\Spec\mathbb{Z}[x]$ is a "family of affine lines parametrized by primes". This is the single picture that explains why number theorists and geometers can share a vocabulary: a Diophantine equation is a scheme over $\mathbb{Z}$, and reducing mod $p$ is just "looking at the fiber over $p$".</p>
 
 <div class="widget" id="w-fiber">
   <div class="hd"><div class="ttl">Spec ℤ[x] → Spec ℤ — arithmetic surface by fibers</div><div class="hint">static schematic</div></div>
   <svg id="fiber-svg" viewBox="0 0 820 300" width="820" height="300"><title>Spec ℤ[x] → Spec ℤ — arithmetic surface by fibers</title></svg>
-  <div class="readout" id="fiber-readout">Each column is one fiber of $\Spec\mathbb Z[x]\to\Spec\mathbb Z$. The rightmost column is the generic fiber over $(0)$, of characteristic $0$.</div>
+  <div class="readout" id="fiber-readout">Each column is one fiber of $\Spec\mathbb{Z}[x]\to\Spec\mathbb{Z}$. The rightmost column is the generic fiber over $(0)$, of characteristic $0$.</div>
 </div>
 
 <p>The fiber $X_y$ can collapse, extend, or gain nilpotents depending on $y$ — that's precisely what "the family degenerates" means geometrically. Studying a morphism <em>is</em> studying how its fibers vary, and the dedicated page on <a href="./morphisms-fiber-products.html#fiber">morphisms and fiber products</a> develops this into the general theory of base change.</p>

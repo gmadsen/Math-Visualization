@@ -265,7 +265,7 @@ function drawNode(svg, x, y, label, opts={}){
 <section id="condensed-sets">
 <h2>1. Condensed sets: sheaves on the pro-étale site of a point</h2>
 
-<p>Topological spaces are awkward as a categorical foundation. Quotients fail to be Hausdorff, products with infinite factors are too coarse, the category of topological abelian groups is <em>not</em> abelian — surjections like $\mathbb Z_{\mathrm{disc}} \to \mathbb Z_p$ have zero cokernel on the underlying group level but a nontrivial topology, so the first isomorphism theorem breaks. Clausen and Scholze (2018–2019) propose to replace $\mathbf{Top}$ with a category of sheaves on a Grothendieck site whose covers are designed to make exactly the homological algebra one wants work.</p>
+<p>Topological spaces are awkward as a categorical foundation. Quotients fail to be Hausdorff, products with infinite factors are too coarse, the category of topological abelian groups is <em>not</em> abelian — surjections like $\mathbb{Z}_{\mathrm{disc}} \to \mathbb{Z}_p$ have zero cokernel on the underlying group level but a nontrivial topology, so the first isomorphism theorem breaks. Clausen and Scholze (2018–2019) propose to replace $\mathbf{Top}$ with a category of sheaves on a Grothendieck site whose covers are designed to make exactly the homological algebra one wants work.</p>
 
 <p>Let $*$ be a point and consider its <strong>pro-étale site</strong>: objects are <em>extremally disconnected</em> profinite sets (Stonean spaces — compact Hausdorff totally disconnected spaces in which the closure of every open set is open), morphisms are continuous maps, covers are finite jointly-surjective families. A <strong>condensed set</strong> is a sheaf on this site — equivalently a presheaf $X\colon \mathrm{ExtrDisc}^{\mathrm{op}} \to \mathrm{Set}$ satisfying the descent condition</p>
 
@@ -438,9 +438,9 @@ $$\underline T(S) \;:=\; \mathrm{Cont}(S, T),$$
 <li><strong>It has enough projectives and injectives.</strong> Sheafification of the free-module functor on extremally disconnected sets supplies projectives; an injective-resolution argument analogous to Grothendieck's tohoku theorem (every Grothendieck abelian category has enough injectives) supplies injectives.</li>
 </ul>
 
-<p>The contrast with topological abelian groups is sharp. Topological $\mathrm{Ab}$ is only <em>quasi-abelian</em> in Schneiders's sense: it has kernels and cokernels, but the canonical comparison $\mathrm{coim}\,f \to \mathrm{im}\,f$ is generally not an iso. The standard counterexample: the inclusion $\mathbb Q \hookrightarrow \mathbb R$ as topological abelian groups has trivial kernel (so coimage is $\mathbb Q$ with the subspace topology) and non-closed dense image (so image is $\mathbb R$); the comparison from coimage to image is injective with dense, non-closed image — not an isomorphism. In $\mathrm{Cond}(\mathrm{Ab})$ this pathology disappears because the underlying functor records only the descent data, not a fixed point-set topology.</p>
+<p>The contrast with topological abelian groups is sharp. Topological $\mathrm{Ab}$ is only <em>quasi-abelian</em> in Schneiders's sense: it has kernels and cokernels, but the canonical comparison $\mathrm{coim}\,f \to \mathrm{im}\,f$ is generally not an iso. The standard counterexample: the inclusion $\mathbb{Q} \hookrightarrow \mathbb{R}$ as topological abelian groups has trivial kernel (so coimage is $\mathbb{Q}$ with the subspace topology) and non-closed dense image (so image is $\mathbb{R}$); the comparison from coimage to image is injective with dense, non-closed image — not an isomorphism. In $\mathrm{Cond}(\mathrm{Ab})$ this pathology disappears because the underlying functor records only the descent data, not a fixed point-set topology.</p>
 
-<p>Topological subcategories embed cleanly: condensed Banach spaces, condensed locally compact abelian groups, and condensed finite-dimensional vector spaces are full subcategories. On Banach spaces the embedding is fully faithful as condensed abelian groups, and $\mathrm{Ext}^*$ in $\mathrm{Cond}(\mathrm{Ab})$ recovers continuous group cohomology. On locally compact abelian groups one recovers Pontryagin duality at the derived level — the duality $M \mapsto \underline{\mathrm{Hom}}(M, \mathbb T)$ is exact in $\mathrm{Cond}(\mathrm{Ab})$ where it was only a left-exact mess in topological $\mathrm{Ab}$.</p>
+<p>Topological subcategories embed cleanly: condensed Banach spaces, condensed locally compact abelian groups, and condensed finite-dimensional vector spaces are full subcategories. On Banach spaces the embedding is fully faithful as condensed abelian groups, and $\mathrm{Ext}^*$ in $\mathrm{Cond}(\mathrm{Ab})$ recovers continuous group cohomology. On locally compact abelian groups one recovers Pontryagin duality at the derived level — the duality $M \mapsto \underline{\mathrm{Hom}}(M, \mathbb{T})$ is exact in $\mathrm{Cond}(\mathrm{Ab})$ where it was only a left-exact mess in topological $\mathrm{Ab}$.</p>
 
 <p>Why this matters for downstream theory: every classical homological-algebra technique — derived functors, spectral sequences, Tor and Ext computations, six-functor formalism — runs on $D(\mathrm{Cond}(\mathrm{Ab}))$ without the case-by-case "is the limit complete? is the quotient Hausdorff?" hypotheses that bedevil functional analysis. The price is one universe-size axiom (Grothendieck universes for the site).</p>
 
@@ -575,31 +575,31 @@ $$\underline T(S) \;:=\; \mathrm{Cont}(S, T),$$
 <section id="solid">
 <h2>3. Solid abelian groups: the closed monoidal subcategory</h2>
 
-<p>Inside $\mathrm{Cond}(\mathrm{Ab})$ Clausen and Scholze isolate a full subcategory tailored to <em>completed</em> arithmetic and $p$-adic algebra: the <strong>solid abelian groups</strong>. Define the free condensed abelian group on a profinite set $S$ as $\mathbb Z[S]$ (the sheafification of the presheaf $T \mapsto \bigoplus_{S(T)} \mathbb Z$). One has a canonical comparison map</p>
+<p>Inside $\mathrm{Cond}(\mathrm{Ab})$ Clausen and Scholze isolate a full subcategory tailored to <em>completed</em> arithmetic and $p$-adic algebra: the <strong>solid abelian groups</strong>. Define the free condensed abelian group on a profinite set $S$ as $\mathbb{Z}[S]$ (the sheafification of the presheaf $T \mapsto \bigoplus_{S(T)} \mathbb{Z}$). One has a canonical comparison map</p>
 
-$$\alpha_S\colon \mathbb Z[S] \otimes M \;\longrightarrow\; \mathrm{Maps}(S, M)$$
+$$\alpha_S\colon \mathbb{Z}[S] \otimes M \;\longrightarrow\; \mathrm{Maps}(S, M)$$
 
-<p>from the levelwise tensor product to the condensed mapping object. A condensed abelian group $M$ is <strong>solid</strong> if $\alpha_S$ is an isomorphism for every profinite $S$ — equivalently, the <em>completed</em> tensor product $\widehat{\bigoplus}_{S}\mathbb Z\,\widehat\otimes\, M$ agrees with the genuine continuous-functions object.</p>
+<p>from the levelwise tensor product to the condensed mapping object. A condensed abelian group $M$ is <strong>solid</strong> if $\alpha_S$ is an isomorphism for every profinite $S$ — equivalently, the <em>completed</em> tensor product $\widehat{\bigoplus}_{S}\mathbb{Z}\,\widehat\otimes\, M$ agrees with the genuine continuous-functions object.</p>
 
 <p>The solidity condition picks out exactly those condensed abelian groups whose values on profinite probes reflect a complete topology in the appropriate sense. Concrete examples that are solid:</p>
 
 <ul>
-<li>Every <strong>profinite abelian group</strong> ($\mathbb Z_p$, $\widehat{\mathbb Z}$, finite groups, Galois groups);</li>
-<li><strong>Formal-power-series rings</strong> $\mathbb Z[[x]], \mathbb Z_p[[x]]$ as condensed abelian groups;</li>
+<li>Every <strong>profinite abelian group</strong> ($\mathbb{Z}_p$, $\widehat{\mathbb{Z}}$, finite groups, Galois groups);</li>
+<li><strong>Formal-power-series rings</strong> $\mathbb{Z}[[x]], \mathbb{Z}_p[[x]]$ as condensed abelian groups;</li>
 <li>Mittag-Leffler $\lim$'s of solid groups (closure under sequential limits with surjective transitions);</li>
-<li>$\mathbb Q_p, \mathbb C_p$ — the field of $p$-adic numbers and its completed algebraic closure.</li>
+<li>$\mathbb{Q}_p, \mathbb{C}_p$ — the field of $p$-adic numbers and its completed algebraic closure.</li>
 </ul>
 
 <p>And examples that are <em>not</em> solid:</p>
 
 <ul>
-<li>$\mathbb R$ as a condensed abelian group (it has a non-discrete <em>archimedean</em> topology — solidity is fundamentally non-archimedean);</li>
+<li>$\mathbb{R}$ as a condensed abelian group (it has a non-discrete <em>archimedean</em> topology — solidity is fundamentally non-archimedean);</li>
 <li>Complex Banach spaces (also archimedean).</li>
 </ul>
 
 <p>The key theorem (Clausen–Scholze): $\mathrm{Solid}(\mathrm{Ab}) \subset \mathrm{Cond}(\mathrm{Ab})$ is a <strong>closed monoidal abelian subcategory</strong>. It is closed under all small limits and colimits computed in $\mathrm{Cond}(\mathrm{Ab})$, under extensions in short exact sequences, and carries a "solid tensor product" $\otimes^{\blacksquare}$ that derives correctly. $\mathrm{Solid} \hookrightarrow \mathrm{Cond}$ is a reflective subcategory: solidification ${}^{\blacksquare}$ is left adjoint to the inclusion.</p>
 
-<p>Operationally this means: <em>the derived category $D(\mathrm{Solid}(\mathrm{Ab}))$ is the right home for completed/profinite topological algebra</em>. Tensor products of $\mathbb Z_p$ with itself give $\mathbb Z_p$ (idempotence of solid completion), $\mathrm{RHom}_{\mathrm{Solid}}(\mathbb Z, \mathbb Z_p)$ recovers $\mathbb Z_p$, and the Mayer–Vietoris / Čech sequences for solid sheaves on a $p$-adic ring all behave as a working algebraist would expect — and as classical topological-Ab homological algebra absolutely did not.</p>
+<p>Operationally this means: <em>the derived category $D(\mathrm{Solid}(\mathrm{Ab}))$ is the right home for completed/profinite topological algebra</em>. Tensor products of $\mathbb{Z}_p$ with itself give $\mathbb{Z}_p$ (idempotence of solid completion), $\mathrm{RHom}_{\mathrm{Solid}}(\mathbb{Z}, \mathbb{Z}_p)$ recovers $\mathbb{Z}_p$, and the Mayer–Vietoris / Čech sequences for solid sheaves on a $p$-adic ring all behave as a working algebraist would expect — and as classical topological-Ab homological algebra absolutely did not.</p>
 
 <div class="widget" id="cm-solid-test">
   <div class="hd"><div class="ttl">Solidity test: $\mathbb{Z}[S] \otimes M \xrightarrow{\alpha_S} \mathrm{Maps}(S, M)$ — iso or not?</div><div class="hint">pick a condensed abelian group; pick a profinite probe; widget computes both sides</div></div>
@@ -735,7 +735,7 @@ $$\alpha_S\colon \mathbb Z[S] \otimes M \;\longrightarrow\; \mathrm{Maps}(S, M)$
 <section id="liquid">
 <h2>4. Liquid $\mathbb{R}$-vector spaces</h2>
 
-<p>Solid theory is built around <em>non-archimedean</em> completion — Mittag-Leffler limits of finite-rank pieces. It is precisely the wrong setting for $\mathbb R$-vector spaces, which are the home of classical functional analysis. The category of <strong>condensed real vector spaces</strong> $\mathrm{Cond}(\mathrm{Vect}_{\mathbb R})$ is abelian (good), but does not have a satisfactory tensor product (bad — for analogous reasons that solid was needed: archimedean subtleties).</p>
+<p>Solid theory is built around <em>non-archimedean</em> completion — Mittag-Leffler limits of finite-rank pieces. It is precisely the wrong setting for $\mathbb{R}$-vector spaces, which are the home of classical functional analysis. The category of <strong>condensed real vector spaces</strong> $\mathrm{Cond}(\mathrm{Vect}_{\mathbb{R}})$ is abelian (good), but does not have a satisfactory tensor product (bad — for analogous reasons that solid was needed: archimedean subtleties).</p>
 
 <p>The fix: <strong>liquid</strong> structures, parameterised by a real number $0 < p \le 1$. A condensed real vector space $V$ is <strong>$p$-liquid</strong> if it admits a measure-like structure: a continuous bilinear pairing</p>
 
@@ -744,21 +744,21 @@ $$\mu\colon \mathcal{M}_p(V) \;\to\; V$$
 <p>where $\mathcal M_p(V)$ is the space of <em>$p$-summable measures with values in $V$</em>, satisfying axioms generalising "you can integrate a $p$-summable measure against a continuous function". When $p < 1$ the condition genuinely strengthens what $V$ is, and one obtains:</p>
 
 <ul>
-<li>$\mathrm{Liquid}_p(\mathbb R)$ is a full abelian subcategory of $\mathrm{Cond}(\mathrm{Vect}_{\mathbb R})$.</li>
+<li>$\mathrm{Liquid}_p(\mathbb{R})$ is a full abelian subcategory of $\mathrm{Cond}(\mathrm{Vect}_{\mathbb{R}})$.</li>
 <li>It is closed under (small) limits and colimits, kernels, cokernels, and extensions.</li>
-<li>It carries a <em>liquid tensor product</em> $\otimes^{\liq}$ (depending on $p$) that is symmetric monoidal and exact (so derives correctly to a derived tensor on $D(\mathrm{Liquid}_p(\mathbb R))$).</li>
+<li>It carries a <em>liquid tensor product</em> $\otimes^{\liq}$ (depending on $p$) that is symmetric monoidal and exact (so derives correctly to a derived tensor on $D(\mathrm{Liquid}_p(\mathbb{R}))$).</li>
 </ul>
 
 <p>The classical Banach tensor product $\widehat{\otimes}_\pi$ — the projective tensor product of Grothendieck — fails to be exact: there exist short exact sequences of Banach spaces $0 \to V' \to V \to V'' \to 0$ for which $0 \to V' \widehat\otimes_\pi W \to V \widehat\otimes_\pi W \to V'' \widehat\otimes_\pi W \to 0$ is not exact on the left. This pathology forces functional analysts to work with bornological / quasi-abelian replacements rather than honest derived categories. The liquid tensor product $\otimes^{\liq}$ fixes this — for Banach spaces in the appropriate range of $p$, the liquid tensor matches the projective tensor up to a controlled error and is exact.</p>
 
-<p>Classical objects sit inside $\mathrm{Liquid}_p(\mathbb R)$ as full subcategories:</p>
+<p>Classical objects sit inside $\mathrm{Liquid}_p(\mathbb{R})$ as full subcategories:</p>
 
 <ul>
 <li><strong>Banach spaces</strong> are $p$-liquid for every $0 < p \le 1$;</li>
 <li><strong>Fréchet spaces</strong> (countable inverse limits of Banach) are $p$-liquid;</li>
 <li><strong>Bornological vector spaces</strong> with reasonable boundedness structure;</li>
-<li><strong>$L^p$ spaces</strong> ($1 \le p < \infty$, as Banach spaces) embed into $\mathrm{Liquid}_{p'}(\mathbb R)$ for every $0 < p' \le 1$;</li>
-<li>$C(X, \mathbb R)$ for $X$ compact, locally convex topological vector spaces in general — the entire functional-analysis cast.</li>
+<li><strong>$L^p$ spaces</strong> ($1 \le p < \infty$, as Banach spaces) embed into $\mathrm{Liquid}_{p'}(\mathbb{R})$ for every $0 < p' \le 1$;</li>
+<li>$C(X, \mathbb{R})$ for $X$ compact, locally convex topological vector spaces in general — the entire functional-analysis cast.</li>
 </ul>
 
 <p>Why parameterise by $p$? The property strengthens as $p$ approaches $1$: $1$-liquid is the weakest condition (everything reasonable is $1$-liquid but the tensor product breaks at the boundary), and small $p$ is the most permissive end of the range (more spaces qualify, the tensor structure is well-behaved). The sweet spot for the theory is some $p_0 < 1$; for the headline theorem in §5, both the input and output sit in this $p$-liquid range, with a strict inequality $p' < p$ supplying the room to manoeuvre the proof requires.</p>
@@ -878,11 +878,11 @@ $$\mu\colon \mathcal{M}_p(V) \;\to\; V$$
 <section id="liquid-tensor-experiment">
 <h2>5. The Liquid Tensor Experiment</h2>
 
-<p>The homological cornerstone of the liquid theory is a concrete vanishing statement. Fix $0 < p' < p \le 1$, let $V$ be a $p$-liquid real vector space, and let $M_{p'}(S)$ denote the space of $p'$-summable measures on a profinite set $S$ with values in $\mathbb R$ (an explicit "completed measure" object). The theorem (Clausen–Scholze):</p>
+<p>The homological cornerstone of the liquid theory is a concrete vanishing statement. Fix $0 < p' < p \le 1$, let $V$ be a $p$-liquid real vector space, and let $M_{p'}(S)$ denote the space of $p'$-summable measures on a profinite set $S$ with values in $\mathbb{R}$ (an explicit "completed measure" object). The theorem (Clausen–Scholze):</p>
 
-$$\mathrm{Ext}^i_{\mathrm{Cond}(\mathbb R)}\bigl(M_{p'}(S),\, V\bigr) \;=\; 0 \qquad \text{for all } i \ge 1.$$
+$$\mathrm{Ext}^i_{\mathrm{Cond}(\mathbb{R})}\bigl(M_{p'}(S),\, V\bigr) \;=\; 0 \qquad \text{for all } i \ge 1.$$
 
-<p>Equivalently $M_{p'}(S)$ is "compact-projective" relative to $V$ — every short exact sequence ending in a $p$-liquid space splits when probed against $M_{p'}$. This is the technical engine that powers exactness of the liquid tensor product and the existence of well-behaved derived functors on $\mathrm{Liquid}(\mathbb R)$. Without it the liquid theory collapses.</p>
+<p>Equivalently $M_{p'}(S)$ is "compact-projective" relative to $V$ — every short exact sequence ending in a $p$-liquid space splits when probed against $M_{p'}$. This is the technical engine that powers exactness of the liquid tensor product and the existence of well-behaved derived functors on $\mathrm{Liquid}(\mathbb{R})$. Without it the liquid theory collapses.</p>
 
 <p>The proof is a tour de force of $50$+ pages, with intricate inequalities about $p'$-summable norms and a delicate induction whose base case relies on a real-analytic estimate Scholze called "the most fragile thing I have ever proved". In December 2020 Scholze posted a challenge on Kevin Buzzard's <em>Xena</em> blog: <em>formally verify this theorem in Lean</em>. None of his collaborators believed it was right; all of them lacked confidence in their own line-by-line check.</p>
 
@@ -1011,13 +1011,13 @@ $$\mathrm{Ext}^i_{\mathrm{Cond}(\mathbb R)}\bigl(M_{p'}(S),\, V\bigr) \;=\; 0 \q
 
 <p>Condensed mathematics is not an end in itself but a foundation for several adjacent enterprises that previously suffered the same "topological abelian groups don't form an abelian category" pathology. Three programmes have been explicitly rebuilt on condensed/solid/liquid foundations:</p>
 
-<h3>Analytic geometry over $\mathbb Q_p$</h3>
+<h3>Analytic geometry over $\mathbb{Q}_p$</h3>
 
-<p>Classical $p$-adic analytic geometry — rigid-analytic spaces (Tate), formal schemes (Raynaud), adic spaces (Huber), Berkovich spaces — each compromise differently between "preserve $p$-adic topology" and "have a tractable category of sheaves". Solid abelian groups give the first uniform answer: an <strong>analytic ring</strong> over $\mathbb Q_p$ is, in the Clausen–Scholze rebuild, a condensed ring $R$ together with a class of "discrete" $R$-modules (a full subcategory of $\mathrm{Cond}(R\text{-mod})$ closed under suitable operations). The classical rigid/adic/Berkovich examples all assemble into analytic rings; the resulting derived categories of completed coherent sheaves admit a six-functor formalism with proper-base-change, projection formula, Verdier duality — all the machinery $p$-adic Hodge theory needs but classical rigid-analytic frameworks struggled to provide.</p>
+<p>Classical $p$-adic analytic geometry — rigid-analytic spaces (Tate), formal schemes (Raynaud), adic spaces (Huber), Berkovich spaces — each compromise differently between "preserve $p$-adic topology" and "have a tractable category of sheaves". Solid abelian groups give the first uniform answer: an <strong>analytic ring</strong> over $\mathbb{Q}_p$ is, in the Clausen–Scholze rebuild, a condensed ring $R$ together with a class of "discrete" $R$-modules (a full subcategory of $\mathrm{Cond}(R\text{-mod})$ closed under suitable operations). The classical rigid/adic/Berkovich examples all assemble into analytic rings; the resulting derived categories of completed coherent sheaves admit a six-functor formalism with proper-base-change, projection formula, Verdier duality — all the machinery $p$-adic Hodge theory needs but classical rigid-analytic frameworks struggled to provide.</p>
 
 <h3>Prismatic cohomology and $p$-adic Hodge theory</h3>
 
-<p>Bhatt–Morrow–Scholze's <em>prismatic cohomology</em> $\mathrm{R}\Gamma_{\mathbb{\Delta}}(X/\mathbb Z_p)$ unifies étale, de Rham, and crystalline $p$-adic cohomology theories into one sheaf-theoretic object. Its natural derived-category home is solid abelian groups: prismatic cohomology lands in $D(\mathrm{Solid}(\mathbb Z_p))$, and the integral comparison theorems (étale-vs-prismatic, crystalline-vs-prismatic, de Rham-vs-prismatic) all become statements about quasi-isomorphisms in this fixed solid derived category, removing case-by-case "now we choose a topology / completion" passes.</p>
+<p>Bhatt–Morrow–Scholze's <em>prismatic cohomology</em> $\mathrm{R}\Gamma_{\mathbb{\Delta}}(X/\mathbb{Z}_p)$ unifies étale, de Rham, and crystalline $p$-adic cohomology theories into one sheaf-theoretic object. Its natural derived-category home is solid abelian groups: prismatic cohomology lands in $D(\mathrm{Solid}(\mathbb{Z}_p))$, and the integral comparison theorems (étale-vs-prismatic, crystalline-vs-prismatic, de Rham-vs-prismatic) all become statements about quasi-isomorphisms in this fixed solid derived category, removing case-by-case "now we choose a topology / completion" passes.</p>
 
 <h3>Analytic stacks</h3>
 
@@ -1134,13 +1134,13 @@ $$\mathrm{Ext}^i_{\mathrm{Cond}(\mathbb R)}\bigl(M_{p'}(S),\, V\bigr) \;=\; 0 \q
 <section id="connections">
 <h2>Connections</h2>
 
-<p>Condensed mathematics is the algebraic foundation Clausen and Scholze proposed to give topology, $p$-adic analysis, and functional analysis a single derived-category home. Open frontiers: the analytic-stacks programme is still under construction (Bonn lectures 2024 onward); the Fargues–Scholze geometric Langlands relies on condensed methods that the broader community is still digesting; integrating liquid theory with motivic cohomology for $\mathbb R$-coefficients is largely open. The Liquid Tensor Experiment closed one specific question while opening a much larger one — how much of working mathematics could profitably be ported to the condensed framework, and how much will be?</p>
+<p>Condensed mathematics is the algebraic foundation Clausen and Scholze proposed to give topology, $p$-adic analysis, and functional analysis a single derived-category home. Open frontiers: the analytic-stacks programme is still under construction (Bonn lectures 2024 onward); the Fargues–Scholze geometric Langlands relies on condensed methods that the broader community is still digesting; integrating liquid theory with motivic cohomology for $\mathbb{R}$-coefficients is largely open. The Liquid Tensor Experiment closed one specific question while opening a much larger one — how much of working mathematics could profitably be ported to the condensed framework, and how much will be?</p>
 
 <ul>
 <li><a href="./grothendieck-topologies-sites.html#sheaves-on-a-site">Grothendieck topologies &amp; sites — sheaves on $(C, J)$</a> — condensed sets are sheaves on the pro-étale site of a point; the entire framework is a sheaf-theoretic enlargement of $\mathbf{Top}$.</li>
 <li><a href="./derived-categories.html#derived-category">Derived categories — $D(\mathcal A)$</a> — solid and liquid theories are designed so that $D(\mathrm{Solid})$ and $D(\mathrm{Liquid})$ are well-behaved derived categories, replacing the failed $D(\mathrm{TopAb})$.</li>
-<li><a href="./functional-analysis.html#hilbert">Banach and Hilbert spaces</a> — Banach spaces sit inside $\mathrm{Liquid}_p(\mathbb R)$ as a full subcategory; the liquid tensor product replaces the projective tensor where exactness is needed.</li>
-<li><a href="./etale-cohomology.html#comparison">Comparison theorems: étale vs. singular, de Rham, crystalline</a> — prismatic cohomology lives naturally in $D(\mathrm{Solid}(\mathbb Z_p))$ and the integral comparison isomorphisms are statements there.</li>
+<li><a href="./functional-analysis.html#hilbert">Banach and Hilbert spaces</a> — Banach spaces sit inside $\mathrm{Liquid}_p(\mathbb{R})$ as a full subcategory; the liquid tensor product replaces the projective tensor where exactness is needed.</li>
+<li><a href="./etale-cohomology.html#comparison">Comparison theorems: étale vs. singular, de Rham, crystalline</a> — prismatic cohomology lives naturally in $D(\mathrm{Solid}(\mathbb{Z}_p))$ and the integral comparison isomorphisms are statements there.</li>
 <li><a href="./type-theory-and-hott.html#models">Models of HoTT</a> — the Liquid Tensor Experiment was formalised in Lean's <code>mathlib</code>; formal verification's cultural shift toward "verifying things mathematicians don't yet trust" arguably dates from this project.</li>
 </ul>
 </section>

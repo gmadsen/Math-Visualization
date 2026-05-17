@@ -1921,7 +1921,7 @@ satisfying two coherence diagrams — Mac&nbsp;Lane's <em>pentagon</em> for $\al
 
 <p>You have met dozens of examples: $(\mathsf{Set},\times,\{\ast\})$; $(\mathsf{Vect}_k,\otimes_k, k)$; $(R\mathsf{-Mod},\otimes_R, R)$; $(\mathsf{Top},\times,\ast)$; $(\mathsf{Ch}(R), \otimes, R[0])$; the endomorphism category $(\operatorname{End}(\mathcal{C}),\circ,\mathrm{id})$ of any category. A monoidal category is <strong>symmetric</strong> if it additionally carries a natural iso $\sigma_{A,B}\colon A\otimes B\xrightarrow{\sim} B\otimes A$ with $\sigma_{B,A}\circ\sigma_{A,B}=\mathrm{id}$ (and a hexagon coherence). It is <strong>braided</strong> if $\sigma$ satisfies only the hexagons — $\sigma^2\ne\mathrm{id}$ in general, which is how the category of representations of a quantum group gets its knot invariants.</p>
 
-<div class="note"><strong>Why monoidal matters.</strong> A monoidal category is the ambient setting for "algebraic structures internal to a category." A <em>monoid</em> in $(\mathcal{C},\otimes,I)$ is an object $M$ with $\mu\colon M\otimes M\to M$ and $\eta\colon I\to M$ satisfying associativity and unit axioms stated as commuting diagrams. A monoid in $(\mathsf{Set},\times)$ is an ordinary monoid; in $(\mathsf{Ab},\otimes_{\mathbb Z})$ it is a ring; in $(\mathsf{Vect}_k,\otimes_k)$ it is a $k$-algebra; in $(\operatorname{End}(\mathcal{C}),\circ)$ it is a monad. Monoidal structure is the syntax, and "monoid object" is the semantics.</div>
+<div class="note"><strong>Why monoidal matters.</strong> A monoidal category is the ambient setting for "algebraic structures internal to a category." A <em>monoid</em> in $(\mathcal{C},\otimes,I)$ is an object $M$ with $\mu\colon M\otimes M\to M$ and $\eta\colon I\to M$ satisfying associativity and unit axioms stated as commuting diagrams. A monoid in $(\mathsf{Set},\times)$ is an ordinary monoid; in $(\mathsf{Ab},\otimes_{\mathbb{Z}})$ it is a ring; in $(\mathsf{Vect}_k,\otimes_k)$ it is a $k$-algebra; in $(\operatorname{End}(\mathcal{C}),\circ)$ it is a monad. Monoidal structure is the syntax, and "monoid object" is the semantics.</div>
 
 <div class="widget" id="w-mon">
   <div class="hd"><div class="ttl">Monoid-in-a-monoidal-category dictionary</div><div class="hint">pick the ambient $(\mathcal{C},\otimes)$ · read off what a monoid object <em>is</em></div></div>
@@ -1929,7 +1929,7 @@ satisfying two coherence diagrams — Mac&nbsp;Lane's <em>pentagon</em> for $\al
     <label for="mon-pick">ambient category:</label>
     <select id="mon-pick">
       <option value="set">$(\mathsf{Set},\times,\{\ast\})$</option>
-      <option value="ab">$(\mathsf{Ab},\otimes_{\mathbb Z},\mathbb Z)$</option>
+      <option value="ab">$(\mathsf{Ab},\otimes_{\mathbb{Z}},\mathbb{Z})$</option>
       <option value="vect">$(\mathsf{Vect}_k,\otimes_k,k)$</option>
       <option value="rmod">$(R\text{-}\mathsf{Mod},\otimes_R,R)$</option>
       <option value="top">$(\mathsf{Top},\times,\ast)$</option>
