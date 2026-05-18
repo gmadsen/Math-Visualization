@@ -76,7 +76,13 @@ const STEPS = [
   // baseline lives at audits/inline-widgets-baseline.json and locks in
   // pre-existing legacy widgets so they don't keep accumulating.
   { name: 'no-inline-widgets', script: 'audit-no-inline-widgets.mjs', fix: false },
-  { name: 'callbacks',  script: 'audit-callbacks.mjs',          fix: true  },
+  // callbacks --strict promotes the audit-mode WARN on unfenced asides
+  // (PR #236) and the fence-mismatch finding (PR-I) into hard failures,
+  // mirroring inline-links --strict above. Without --strict in CI, an
+  // unfenced aside would be silently stripped on the next rebuild and
+  // its cross-link lost (see silent-failure-hunter on PR #236).
+  { name: 'callbacks',  script: 'audit-callbacks.mjs',          fix: true,
+    extraArgs: ['--strict'] },
   { name: 'backlinks',  script: 'inject-used-in-backlinks.mjs', fix: true  },
   { name: 'breadcrumb', script: 'inject-breadcrumb.mjs',        fix: true  },
   { name: 'display-prefs', script: 'inject-display-prefs.mjs',  fix: true  },

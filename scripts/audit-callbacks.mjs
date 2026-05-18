@@ -51,6 +51,12 @@ import {
 
 const argv = process.argv.slice(2);
 const FIX = argv.includes('--fix');
+// --strict promotes the audit-mode unfenced-aside WARN into a FAIL.
+// audit-inline-links uses the same pattern (see scripts/rebuild.mjs
+// step `inline-links` which always passes --strict). silent-failure-hunter
+// flagged on PR #236 that a WARN buried under 45 step banners would
+// still let cmb/dtgw-pattern PRs merge green. --strict is the gap-closer.
+const STRICT = argv.includes('--strict');
 
 const model = await loadContentModel();
 const { repoRoot, topics, concepts, ownerOf } = model;
@@ -741,34 +747,52 @@ function applyJsonFix(doc, hostKeys) {
 
 // Find every `<aside class="callback">` that sits OUTSIDE a
 // `<!-- callback-auto-begin -->...<!-- callback-auto-end -->` region.
-// Returns `[{ line, snippet }]` for each finding, where `line` is the 1-based
-// line number in the original HTML.
+// Returns `{ findings, fenceMismatch }` where:
+//   - `findings` = [{ line, snippet }] for each unfenced aside
+//   - `fenceMismatch` = boolean: true if the page has unbalanced fence
+//     comments (begin without end, or vice versa). When true, the page's
+//     entire post-strip body may contain "phantom" unfenced asides
+//     (the canonical fenced aside whose fence got corrupted) that aren't
+//     really drift — flag separately so the user is steered toward
+//     fixing the fence rather than removing the aside.
 //
 // **Why:** audit-callbacks --fix strips unfenced asides silently (see
 // stripUnfencedAsides above). In audit-mode (--no-fix, what CI runs)
-// there is no signal that an unfenced aside exists, so a hand-authored
+// there was no signal that an unfenced aside exists, so a hand-authored
 // "See also" that doesn't match the cross-topic-prereq graph is invisible
 // drift — it gets quietly nuked on the next `rebuild` and the cross-link is
 // lost. PR #234 surfaced exactly this case (cmb-rna-folding and
 // dtgw-topological-vertex each had one).
 //
-// We report findings as warnings, not failures: the right resolution may be
-// EITHER "remove the duplicate" (auto-injector owns the canonical block) OR
-// "preserve the cross-link by adding the corresponding cross-topic prereq".
-// Surfacing the list lets the user decide per case instead of forcing an
-// auto-strip.
+// The right resolution may be EITHER "remove the duplicate" (auto-injector
+// owns the canonical block) OR "preserve the cross-link by adding the
+// corresponding cross-topic prereq". The list surfaces it so the user
+// decides per case. With --strict, leftover findings fail the audit so CI
+// catches the drift instead of letting it merge under a noisy WARN.
 function findUnfencedCallbackAsides(html) {
-  const fencedRe = /<!--\s*callback-auto-begin\s*-->[\s\S]*?<!--\s*callback-auto-end\s*-->/g;
+  // Fence balance check: corrupted begin or end comment (e.g. typo'd
+  // `callback-auto-end_TYPO`) breaks the fenced-region regex, making
+  // the canonical aside look unfenced. Catch this BEFORE the strip so
+  // the user is steered toward fixing the fence — not removing the
+  // aside. silent-failure-hunter flagged this edge case on PR #236.
+  const beginCount = (html.match(/<!--\s*callback-auto-begin\s*-->/gi) || []).length;
+  const endCount   = (html.match(/<!--\s*callback-auto-end\s*-->/gi)   || []).length;
+  const fenceMismatch = beginCount !== endCount;
+
+  // Note: regex flags include /i for symmetry with UNFENCED_CALLBACK_RE
+  // (the stripper above) which uses /i. Corpus is all-lowercase today;
+  // /i is defensive against a future mixed-case fence comment.
+  const fencedRe = /<!--\s*callback-auto-begin\s*-->[\s\S]*?<!--\s*callback-auto-end\s*-->/gi;
   const stripped = html.replace(fencedRe, (m) => ' '.repeat(m.length));
-  const asideRe = /<aside\s+class=["']callback["'][^>]*>[\s\S]*?<\/aside>/g;
-  const out = [];
+  const asideRe = /<aside\s+class=["']callback["'][^>]*>[\s\S]*?<\/aside>/gi;
+  const findings = [];
   let m;
   while ((m = asideRe.exec(stripped))) {
     const line = html.slice(0, m.index).split('\n').length;
     const snippet = m[0].slice(0, 120).replace(/\s+/g, ' ');
-    out.push({ line, snippet });
+    findings.push({ line, snippet });
   }
-  return out;
+  return { findings, fenceMismatch, beginCount, endCount };
 }
 
 // Compute missing links for each anchor. Returns:
@@ -801,7 +825,13 @@ let hadMissing = false;
 const pagesWithMissing = new Set();
 // Surfaced as warnings in audit-mode only (--fix already strips these
 // via stripUnfencedAsides). Each entry: `${page}:${line} — <snippet>`.
+// With --strict, leftover findings fail the audit (matches the
+// audit-inline-links precedent in rebuild.mjs::extraArgs).
 const unfencedReport = [];
+// Page-level fence-comment imbalance (begin count != end count).
+// Reported separately because the right fix is "repair the fence",
+// not "remove the aside" — surfacing them together would mislead.
+const fenceMismatchReport = [];
 
 for (const topic of topics.values()) {
   const page = topic.page;
@@ -948,8 +978,19 @@ for (const topic of topics.values()) {
   // run gives the user a chance to either remove (duplicate) or preserve
   // (add the cross-topic prereq so the canonical fenced block carries it).
   if (!FIX) {
-    for (const f of findUnfencedCallbackAsides(origHtml)) {
-      unfencedReport.push(`${page}:${f.line} — ${f.snippet}`);
+    const { findings, fenceMismatch, beginCount, endCount } =
+      findUnfencedCallbackAsides(origHtml);
+    if (fenceMismatch) {
+      fenceMismatchReport.push(
+        `${page}: callback-auto fence comments unbalanced ` +
+        `(${beginCount} begin × ${endCount} end) — likely a typo'd ` +
+        `fence comment makes the canonical aside look unfenced; ` +
+        `fix the fence rather than removing the aside.`
+      );
+    } else {
+      for (const f of findings) {
+        unfencedReport.push(`${page}:${f.line} — ${f.snippet}`);
+      }
     }
   }
 }
@@ -963,12 +1004,23 @@ if (FIX) {
 console.log(`  links already present: ${existingCount}`);
 console.log('');
 
-// Audit-mode warning: unfenced asides flagged but not failing the build.
-// `--fix` already silently strips them via stripUnfencedAsides; CI runs
-// `--no-fix` so without this surfacing the strips were invisible drift.
+// Audit-mode reports. With --strict, leftover unfenced asides or fence
+// mismatches fail the build (matches the audit-inline-links precedent
+// in rebuild.mjs::extraArgs). Without --strict they're WARN only.
+if (!FIX && fenceMismatchReport.length > 0) {
+  console.log(
+    `${STRICT ? 'FAIL' : 'WARN'}: ${fenceMismatchReport.length} page(s) ` +
+    `with unbalanced callback-auto fence comments — typo or missing ` +
+    `<!-- callback-auto-{begin,end} --> marker likely.`
+  );
+  for (const line of fenceMismatchReport) console.log(`  - ${line}`);
+  console.log('');
+}
+
 if (!FIX && unfencedReport.length > 0) {
   console.log(
-    `WARN: ${unfencedReport.length} unfenced <aside class="callback"> in ${
+    `${STRICT ? 'FAIL' : 'WARN'}: ${unfencedReport.length} unfenced ` +
+    `<aside class="callback"> in ${
       new Set(unfencedReport.map((s) => s.split(':')[0])).size
     } page(s) — auto-injector doesn't own these blocks, ` +
     `--fix will silently strip them. Either remove (duplicate) or preserve ` +
@@ -978,9 +1030,24 @@ if (!FIX && unfencedReport.length > 0) {
   console.log('');
 }
 
-if (missingReport.length === 0) {
+// --strict exit: any leftover unfenced or fence-mismatch finding fails.
+// Mirrors audit-inline-links --strict (PR #227 precedent).
+const unfencedFailures = !FIX && STRICT &&
+  (unfencedReport.length > 0 || fenceMismatchReport.length > 0);
+
+if (missingReport.length === 0 && !unfencedFailures) {
   console.log('OK: every cross-topic prereq is reflected by a callback link on its host section.');
   process.exit(0);
+}
+
+if (unfencedFailures) {
+  console.log(
+    `audit-callbacks --strict: FAIL — ${unfencedReport.length} unfenced + ` +
+    `${fenceMismatchReport.length} fence-mismatch finding(s). ` +
+    `Either remove the unfenced aside, fix the corrupted fence, or add a ` +
+    `cross-topic prereq so the canonical fenced block carries the link.`
+  );
+  process.exit(1);
 }
 
 console.log(`MISSING (${pagesWithMissing.size} page(s)):`);
