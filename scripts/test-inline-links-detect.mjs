@@ -358,6 +358,71 @@ check('buildSkipMask: two adjacent $$ spans separated by prose stay correct', ()
 });
 
 // ---------------------------------------------------------------------------
+// PR-H: symmetric mask guards on the \(…\) and \[…\] scanners.
+//
+// silent-failure-hunter on PR #235 flagged that the `$$` fix (PR #235) was
+// correct but the same structural bug lived in three siblings:
+//   - single-`$`  scanner has outer `!mask[i]` but missing inner `!mask[j]`
+//   - `\(…\)`     scanner has NEITHER guard
+//   - `\[…\]`     scanner has NEITHER guard
+//
+// PR-H fixes the \(…\) and \[…\] cases. The single-`$` case is deferred:
+// adding the inner guard there regresses corpus rendering (see the
+// audit-utils.mjs single-$ block comment for the analysis).
+//
+// Fixture shape: an ODD count of the delimiter inside a script body.
+// EVEN counts self-cancel inside the script and hide the bug, as
+// pr-test-analyzer caught on PR #235 with the original $$ fixture.
+// ---------------------------------------------------------------------------
+
+check('buildSkipMask: \\( inside <script> does not pair with later prose \\)', () => {
+  // ODD count of \( in script (one), no closing \) in script. Pre-fix,
+  // the \(…\) scanner starts at the script-internal \(, then searches
+  // forward for the next \) — finds the close of the prose \(a\) span,
+  // masking everything between including the prose "between" word.
+  // With the fix, !mask[i] prevents starting inside the script.
+  const html =
+    '<p>before</p>' +
+    '<script>const open = "\\(";</script>' +
+    '<p>between \\(a\\) tail</p>';
+  const { mask } = buildSkipMask(html);
+
+  const betweenIdx = html.indexOf('between');
+  assert.ok(betweenIdx > 0, 'fixture: "between" must appear');
+  for (let k = 0; k < 'between'.length; k++) {
+    assert.equal(
+      mask[betweenIdx + k], 0,
+      `prose byte at "between"[${k}] must be unmasked (got mask=${mask[betweenIdx + k]})`
+    );
+  }
+
+  // The legitimate \(a\) span should still be masked.
+  const aIdx = html.indexOf('\\(a\\)');
+  assert.equal(mask[aIdx], 1, 'opening \\( of \\(a\\) must be masked');
+});
+
+check('buildSkipMask: \\[ inside <script> does not pair with later prose \\]', () => {
+  // Same shape as the \( case but with \[…\].
+  const html =
+    '<p>before</p>' +
+    '<script>const open = "\\[";</script>' +
+    '<p>between \\[a\\] tail</p>';
+  const { mask } = buildSkipMask(html);
+
+  const betweenIdx = html.indexOf('between');
+  assert.ok(betweenIdx > 0, 'fixture: "between" must appear');
+  for (let k = 0; k < 'between'.length; k++) {
+    assert.equal(
+      mask[betweenIdx + k], 0,
+      `prose byte at "between"[${k}] must be unmasked (got mask=${mask[betweenIdx + k]})`
+    );
+  }
+
+  const aIdx = html.indexOf('\\[a\\]');
+  assert.equal(mask[aIdx], 1, 'opening \\[ of \\[a\\] must be masked');
+});
+
+// ---------------------------------------------------------------------------
 
 if (failures.length > 0) {
   console.log('');

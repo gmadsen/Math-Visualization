@@ -281,6 +281,21 @@ export function buildSkipMask(html) {
     }
   }
   // $…$ (single-dollar)
+  //
+  // INTENTIONALLY missing the inner `!mask[j]` guard that the `$$` scanner
+  // gained in PR #235 and the `\(…\)` / `\[…\]` scanners gain in this PR.
+  // silent-failure-hunter flagged the asymmetry on PR #235, but adding
+  // the inner guard here regresses corpus rendering: on pages with
+  // consecutive prose spans like `…\Omega_t$</p>\n<p>are multivalued
+  // holomorphic functions on $S \setminus…`, the bug-vs-fix
+  // delta interacts with the audit-inline-links --fix strip-and-redetect
+  // path. Empirically, applying the inner guard here drops 4
+  // legitimate auto-inline-link anchors on calabi-yau-manifolds.html.
+  //
+  // Keeping the pre-PR-H behavior until the single-$ scanner's
+  // outer-loop advance is reasoned through more carefully (or the four
+  // scanners get refactored into one parameterized helper with explicit
+  // span-end semantics, as silent-failure-hunter recommended on PR #235).
   {
     let i = 0;
     while (i < html.length) {
@@ -313,11 +328,11 @@ export function buildSkipMask(html) {
   ]) {
     let i = 0;
     while (i < html.length - 1) {
-      if (html[i] === openL && html[i + 1] === openR) {
+      if (html[i] === openL && html[i + 1] === openR && !mask[i]) {
         const start = i;
         let j = i + 2;
         while (j < html.length - 1) {
-          if (html[j] === closeL && html[j + 1] === closeR) {
+          if (html[j] === closeL && html[j + 1] === closeR && !mask[j]) {
             maskRegion(mask, start, j + 2);
             i = j + 2;
             break;
