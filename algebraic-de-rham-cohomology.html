@@ -376,19 +376,19 @@ $$\Omega^\bullet_{X/k} : \quad \mathcal{O}_X \xrightarrow{d} \Omega^1_{X/k} \xri
 of length $\dim X$ on a smooth variety. The differentials are <em>not</em> $\mathcal{O}_X$-linear (Leibniz costs an $\mathcal{O}_X$-multiplication) — only $k$-linear — so $\Omega^\bullet_{X/k}$ is a complex in $\mathrm{D}(k\text{-mod on } X_{\mathrm{Zar}})$, not in $\mathrm{D}(\mathrm{QCoh}(X))$.</p>
 
 <p><strong>Algebraic de Rham cohomology</strong> is the hypercohomology of this complex:
-$$H^n_{dR}(X/k) := \mathbb{H}^n(X, \Omega^\bullet_{X/k}).$$
-The hypercohomology gadget is needed because $\Omega^\bullet_{X/k}$ is a complex of sheaves, not a single sheaf — naïvely taking $H^n$ of global sections forgets the higher sheaf cohomology of each individual $\Omega^p$. There are two equivalent computational handles. (i) The <em>Čech-de-Rham double complex:</em> on an affine cover $\{U_i\}$ build the double complex $C^p(\{U_i\}, \Omega^q_{X/k})$ with horizontal differential Čech and vertical differential de Rham; the total complex's cohomology is $H^*_{dR}(X/k)$. (ii) The <em>Hodge-to-de-Rham spectral sequence</em>:
-$$E_1^{p, q} = H^q(X, \Omega^p_{X/k}) \;\Longrightarrow\; H^{p+q}_{dR}(X/k),$$
+$$H^n_{\mathrm{dR}}(X/k) := \mathbb{H}^n(X, \Omega^\bullet_{X/k}).$$
+The hypercohomology gadget is needed because $\Omega^\bullet_{X/k}$ is a complex of sheaves, not a single sheaf — naïvely taking $H^n$ of global sections forgets the higher sheaf cohomology of each individual $\Omega^p$. There are two equivalent computational handles. (i) The <em>Čech-de-Rham double complex:</em> on an affine cover $\{U_i\}$ build the double complex $C^p(\{U_i\}, \Omega^q_{X/k})$ with horizontal differential Čech and vertical differential de Rham; the total complex's cohomology is $H^*_{\mathrm{dR}}(X/k)$. (ii) The <em>Hodge-to-de-Rham spectral sequence</em>:
+$$E_1^{p, q} = H^q(X, \Omega^p_{X/k}) \;\Longrightarrow\; H^{p+q}_{\mathrm{dR}}(X/k),$$
 which on a smooth projective variety over $\mathbb{C}$ degenerates at $E_1$ (Deligne's theorem) — the source of the Hodge decomposition.</p>
 
-<p><strong>Affine vs. projective.</strong> On affine $X = \Spec\,A$, every $\Omega^p$ is acyclic ($H^q(X, \Omega^p) = 0$ for $q \ge 1$) and the spectral sequence collapses to give $H^n_{dR}(X/k) = H^n(\Omega^\bullet_{A/k})$ — the cohomology of <em>global sections</em>, no sheafy correction needed. So computing $H^n_{dR}$ on $\mathbb{A}^n_k$ is just polynomial algebra. On projective $X$ the higher $H^q(X, \Omega^p)$ generally do not vanish, and the Čech computation or the spectral sequence is genuinely needed — most of the interesting Hodge theory lives there.</p>
+<p><strong>Affine vs. projective.</strong> On affine $X = \Spec\,A$, every $\Omega^p$ is acyclic ($H^q(X, \Omega^p) = 0$ for $q \ge 1$) and the spectral sequence collapses to give $H^n_{\mathrm{dR}}(X/k) = H^n(\Omega^\bullet_{A/k})$ — the cohomology of <em>global sections</em>, no sheafy correction needed. So computing $H^n_{\mathrm{dR}}$ on $\mathbb{A}^n_k$ is just polynomial algebra. On projective $X$ the higher $H^q(X, \Omega^p)$ generally do not vanish, and the Čech computation or the spectral sequence is genuinely needed — most of the interesting Hodge theory lives there.</p>
 
 <div class="widget" id="w-derham-scrub"></div>
 <script>
 (function(){
   if(!window.MVProofScrubber) return;
   const __h = MVProofScrubber.init('#w-derham-scrub', {
-    title: "$d^2 = 0$ on $\\Omega^\\bullet_{X/k}$, then $H^*_{dR}(\\mathbb{A}^1)$ and $H^*_{dR}(\\mathbb{P}^1)$",
+    title: "$d^2 = 0$ on $\\Omega^\\bullet_{X/k}$, then $H^*_{\mathrm{dR}}(\\mathbb{A}^1)$ and $H^*_{\mathrm{dR}}(\\mathbb{P}^1)$",
     hint: "drag the slider — or press play",
     viewBox: "0 0 480 220",
     autoplayMs: 2400,
@@ -414,14 +414,14 @@ which on a smooth projective variety over $\mathbb{C}$ degenerates at $E_1$ (Del
         svgInner: "<text x='30' y='60' font-size='13' fill='var(--ink)'>ω = α ∧ db ∈ Ω^p,  α ∈ Ω^{p−1}</text><text x='30' y='100' font-size='13' fill='var(--ink)'>d²(ω) = d²(α) ∧ db − dα ∧ d(db) = 0</text><text x='30' y='140' font-size='14' fill='var(--green)'>(Ω^•, d) is a chain complex</text>"
       },
       {
-        title: "Compute $H^*_{dR}(\\mathbb{A}^1_k)$",
-        body: "On $\\mathbb{A}^1$, $\\Omega^\\bullet$ is just $k[x] \\xrightarrow{d/dx \\cdot dx} k[x]\\,dx$. The differential is $f \\mapsto f'\\,dx$, surjective with kernel $k$ (constants — note $\\mathrm{char}\\,k = 0$ for the kernel-of-differentiation calculation; in $\\mathrm{char}\\,p$ it picks up $p$-th powers). So $H^0_{dR}(\\mathbb{A}^1) = k$ and $H^i_{dR}(\\mathbb{A}^1) = 0$ for $i \\ge 1$ — a point cohomologically, matching $\\mathbb{A}^1(\\mathbb{C}) \\simeq \\mathbb{C}$ being contractible.",
-        svgInner: "<text x='30' y='60' font-size='13' fill='var(--ink)'>Ω⁰_{A¹} = k[x]  →  Ω¹_{A¹} = k[x] dx</text><text x='30' y='100' font-size='13' fill='var(--yellow)'>f ↦ f' dx,  surjective,  ker = k</text><text x='30' y='140' font-size='14' fill='var(--green)'>H⁰_{dR} = k,  H^{≥1}_{dR} = 0  (contractible)</text>"
+        title: "Compute $H^*_{\mathrm{dR}}(\\mathbb{A}^1_k)$",
+        body: "On $\\mathbb{A}^1$, $\\Omega^\\bullet$ is just $k[x] \\xrightarrow{d/dx \\cdot dx} k[x]\\,dx$. The differential is $f \\mapsto f'\\,dx$, surjective with kernel $k$ (constants — note $\\mathrm{char}\\,k = 0$ for the kernel-of-differentiation calculation; in $\\mathrm{char}\\,p$ it picks up $p$-th powers). So $H^0_{\mathrm{dR}}(\\mathbb{A}^1) = k$ and $H^i_{\mathrm{dR}}(\\mathbb{A}^1) = 0$ for $i \\ge 1$ — a point cohomologically, matching $\\mathbb{A}^1(\\mathbb{C}) \\simeq \\mathbb{C}$ being contractible.",
+        svgInner: "<text x='30' y='60' font-size='13' fill='var(--ink)'>Ω⁰_{A¹} = k[x]  →  Ω¹_{A¹} = k[x] dx</text><text x='30' y='100' font-size='13' fill='var(--yellow)'>f ↦ f' dx,  surjective,  ker = k</text><text x='30' y='140' font-size='14' fill='var(--green)'>H⁰_{\mathrm{dR}} = k,  H^{≥1}_{\mathrm{dR}} = 0  (contractible)</text>"
       },
       {
-        title: "Compute $H^*_{dR}(\\mathbb{P}^1_k)$",
-        body: "Hodge spectral sequence: $E_1^{p,q} = H^q(\\mathbb{P}^1, \\Omega^p)$. Inputs: $H^0(\\mathbb{P}^1, \\mathcal{O}) = k$, $H^1(\\mathbb{P}^1, \\mathcal{O}) = 0$, $H^0(\\mathbb{P}^1, \\Omega^1) = H^0(\\mathcal{O}(-2)) = 0$, $H^1(\\mathbb{P}^1, \\Omega^1) = H^1(\\mathcal{O}(-2)) = k$ (Serre duality). Degenerates at $E_1$, so $H^0_{dR} = k$, $H^1_{dR} = 0$, $H^2_{dR} = k$ — matching $H^*(S^2; \\mathbb{C}) = \\mathbb{C}, 0, \\mathbb{C}$.",
-        svgInner: "<text x='30' y='50' font-size='13' fill='var(--ink)'>E₁ table for ℙ¹:</text><text x='30' y='80' font-size='12' fill='var(--mute)'>q=1: 0    k     ←  H¹(O), H¹(Ω¹)</text><text x='30' y='105' font-size='12' fill='var(--mute)'>q=0: k    0     ←  H⁰(O), H⁰(Ω¹)</text><text x='30' y='125' font-size='12' fill='var(--mute)'>     p=0  p=1</text><text x='30' y='160' font-size='14' fill='var(--green)'>H⁰_{dR} = k, H¹ = 0, H² = k  ✓ matches S²</text>"
+        title: "Compute $H^*_{\mathrm{dR}}(\\mathbb{P}^1_k)$",
+        body: "Hodge spectral sequence: $E_1^{p,q} = H^q(\\mathbb{P}^1, \\Omega^p)$. Inputs: $H^0(\\mathbb{P}^1, \\mathcal{O}) = k$, $H^1(\\mathbb{P}^1, \\mathcal{O}) = 0$, $H^0(\\mathbb{P}^1, \\Omega^1) = H^0(\\mathcal{O}(-2)) = 0$, $H^1(\\mathbb{P}^1, \\Omega^1) = H^1(\\mathcal{O}(-2)) = k$ (Serre duality). Degenerates at $E_1$, so $H^0_{\mathrm{dR}} = k$, $H^1_{\mathrm{dR}} = 0$, $H^2_{\mathrm{dR}} = k$ — matching $H^*(S^2; \\mathbb{C}) = \\mathbb{C}, 0, \\mathbb{C}$.",
+        svgInner: "<text x='30' y='50' font-size='13' fill='var(--ink)'>E₁ table for ℙ¹:</text><text x='30' y='80' font-size='12' fill='var(--mute)'>q=1: 0    k     ←  H¹(O), H¹(Ω¹)</text><text x='30' y='105' font-size='12' fill='var(--mute)'>q=0: k    0     ←  H⁰(O), H⁰(Ω¹)</text><text x='30' y='125' font-size='12' fill='var(--mute)'>     p=0  p=1</text><text x='30' y='160' font-size='14' fill='var(--green)'>H⁰_{\mathrm{dR}} = k, H¹ = 0, H² = k  ✓ matches S²</text>"
       }
     ]
   });
@@ -474,23 +474,23 @@ which on a smooth projective variety over $\mathbb{C}$ degenerates at $E_1$ (Del
 <h2>3. Comparison with Betti cohomology</h2>
 
 <p><strong>Grothendieck's algebraic-de-Rham theorem</strong> (1966): for $X$ a smooth (not necessarily proper) variety over $\mathbb{C}$, there is a canonical isomorphism
-$$H^*_{dR}(X/\mathbb{C}) \;\xrightarrow{\sim}\; H^*(X(\mathbb{C}); \mathbb{C}),$$
+$$H^*_{\mathrm{dR}}(X/\mathbb{C}) \;\xrightarrow{\sim}\; H^*(X(\mathbb{C}); \mathbb{C}),$$
 where the right-hand side is the singular cohomology of the underlying complex-analytic space with $\mathbb{C}$-coefficients. This is striking: the left-hand side is computed entirely in commutative algebra — modules of differentials of polynomial rings, hypercohomology of a complex of coherent sheaves on the Zariski site — while the right-hand side is the topology of $X$ as a CW-complex. The bridge is constructed by comparing the algebraic complex $\Omega^\bullet_{X/\mathbb{C}}$ with the analytic de Rham complex $\Omega^{\bullet, \mathrm{an}}_{X^{\mathrm{an}}}$ and invoking the Poincaré lemma plus GAGA.</p>
 
 <p><strong>Why is this a theorem at all?</strong> A priori the algebraic forms are vastly more restricted than smooth or analytic forms — only polynomial / rational coefficients are allowed. The miracle is that on a smooth complex variety the inclusion of complexes $\Omega^\bullet_{X/\mathbb{C}} \hookrightarrow \Omega^{\bullet, \mathrm{an}}_{X^{\mathrm{an}}}$ is a quasi-isomorphism on each Zariski open: the analytic Poincaré lemma says the analytic complex is a resolution of the constant sheaf $\underline{\mathbb{C}}$, and a result of Grothendieck (the ancestor of GAGA in this context) says the algebraic complex on $X^{\mathrm{an}}$ already computes the same thing. Singular = $H^*(X^{\mathrm{an}}; \underline{\mathbb{C}})$ then closes the loop.</p>
 
-<p><strong>Worked example — the punctured line $\mathbb{C}^*$.</strong> Take $X = \Spec\,\mathbb{C}[z, z^{-1}]$. As a topological space $X(\mathbb{C}) = \mathbb{C}^*$ deformation-retracts onto the unit circle, so $H^0(\mathbb{C}^*; \mathbb{C}) = \mathbb{C}$, $H^1(\mathbb{C}^*; \mathbb{C}) = \mathbb{C}$, all higher $= 0$. Algebraically: $\Omega^1_{X/\mathbb{C}} = \mathbb{C}[z, z^{-1}] \cdot dz$. The differential $d\colon \mathbb{C}[z, z^{-1}] \to \mathbb{C}[z, z^{-1}]\,dz$ sends $z^n \mapsto n\,z^{n-1}\,dz$. Image $= \mathrm{span}\{z^{n-1}\,dz : n \ne 0\}$ — every $z^{n-1}\,dz$ except $z^{-1}\,dz$. Hence $H^1_{dR}(X/\mathbb{C}) = \mathbb{C} \cdot \frac{dz}{z}$, recovering the topological $H^1$ with explicit algebraic generator $\omega = \frac{dz}{z}$.</p>
+<p><strong>Worked example — the punctured line $\mathbb{C}^*$.</strong> Take $X = \Spec\,\mathbb{C}[z, z^{-1}]$. As a topological space $X(\mathbb{C}) = \mathbb{C}^*$ deformation-retracts onto the unit circle, so $H^0(\mathbb{C}^*; \mathbb{C}) = \mathbb{C}$, $H^1(\mathbb{C}^*; \mathbb{C}) = \mathbb{C}$, all higher $= 0$. Algebraically: $\Omega^1_{X/\mathbb{C}} = \mathbb{C}[z, z^{-1}] \cdot dz$. The differential $d\colon \mathbb{C}[z, z^{-1}] \to \mathbb{C}[z, z^{-1}]\,dz$ sends $z^n \mapsto n\,z^{n-1}\,dz$. Image $= \mathrm{span}\{z^{n-1}\,dz : n \ne 0\}$ — every $z^{n-1}\,dz$ except $z^{-1}\,dz$. Hence $H^1_{\mathrm{dR}}(X/\mathbb{C}) = \mathbb{C} \cdot \frac{dz}{z}$, recovering the topological $H^1$ with explicit algebraic generator $\omega = \frac{dz}{z}$.</p>
 
-<p>This generator is the algebraic shadow of the winding-number cocycle: integrating $\frac{dz}{z}$ over the unit circle gives $2\pi i$, the canonical pairing between $H^1_{dR}$ and $H_1^{\mathrm{sing}}$. The same form makes sense over any field (it's a regular 1-form on $\mathbb{G}_m = \Spec\,k[z, z^{-1}]$), and its image in $H^1_{dR}(\mathbb{G}_m / k)$ is always the generator — the algebraic theory <em>predicts</em> the Betti answer.</p>
+<p>This generator is the algebraic shadow of the winding-number cocycle: integrating $\frac{dz}{z}$ over the unit circle gives $2\pi i$, the canonical pairing between $H^1_{\mathrm{dR}}$ and $H_1^{\mathrm{sing}}$. The same form makes sense over any field (it's a regular 1-form on $\mathbb{G}_m = \Spec\,k[z, z^{-1}]$), and its image in $H^1_{\mathrm{dR}}(\mathbb{G}_m / k)$ is always the generator — the algebraic theory <em>predicts</em> the Betti answer.</p>
 
-<p><strong>Caveats and refinements.</strong> The comparison <em>fails</em> if $X$ is singular (Grothendieck's theorem is for smooth $X$; you need de Rham of a desingularisation, or use Du Bois / mixed-Hodge complexes). It fails for non-finite-type schemes — the polynomial / rational-functions side becomes too small. Over a non-algebraically-closed base $k \subset \mathbb{C}$ the comparison still holds after extending scalars: $H^*_{dR}(X/k) \otimes_k \mathbb{C} \xrightarrow{\sim} H^*(X(\mathbb{C}); \mathbb{C})$. And the sharper <em>Deligne</em> version equips both sides with extra structure (mixed Hodge, weight filtration) so that the isomorphism respects more than just dimensions.</p>
+<p><strong>Caveats and refinements.</strong> The comparison <em>fails</em> if $X$ is singular (Grothendieck's theorem is for smooth $X$; you need de Rham of a desingularisation, or use Du Bois / mixed-Hodge complexes). It fails for non-finite-type schemes — the polynomial / rational-functions side becomes too small. Over a non-algebraically-closed base $k \subset \mathbb{C}$ the comparison still holds after extending scalars: $H^*_{\mathrm{dR}}(X/k) \otimes_k \mathbb{C} \xrightarrow{\sim} H^*(X(\mathbb{C}); \mathbb{C})$. And the sharper <em>Deligne</em> version equips both sides with extra structure (mixed Hodge, weight filtration) so that the isomorphism respects more than just dimensions.</p>
 
 <div class="widget" id="w-betti-scrub"></div>
 <script>
 (function(){
   if(!window.MVProofScrubber) return;
   const __h = MVProofScrubber.init('#w-betti-scrub', {
-    title: "Comparison on $\\mathbb{C}^*$: $H^1_{dR} \\xrightarrow{\\sim} H^1(\\mathbb{C}^*; \\mathbb{C})$ via $\\frac{dz}{z}$",
+    title: "Comparison on $\\mathbb{C}^*$: $H^1_{\mathrm{dR}} \\xrightarrow{\\sim} H^1(\\mathbb{C}^*; \\mathbb{C})$ via $\\frac{dz}{z}$",
     hint: "drag the slider — or press play",
     viewBox: "0 0 480 220",
     autoplayMs: 2400,
@@ -511,14 +511,14 @@ where the right-hand side is the singular cohomology of the underlying complex-a
         svgInner: "<text x='30' y='60' font-size='13' fill='var(--ink)'>d(z^n) = n z^{n−1} dz</text><text x='30' y='100' font-size='13' fill='var(--yellow)'>n = 0:  d(1) = 0</text><text x='30' y='130' font-size='13' fill='var(--yellow)'>n = −1 (m=−2): d(z⁻¹) = −z⁻² dz  — not z⁻¹ dz!</text><text x='30' y='170' font-size='14' fill='var(--green)'>im(d) = span{ z^m dz : m ≠ −1 }</text>"
       },
       {
-        title: "Read off $H^0_{dR}$ and $H^1_{dR}$",
-        body: "$H^0_{dR} = \\ker(d) = \\mathbb{C}$ (the constants — $d(\\sum a_n z^n) = 0 \\Leftrightarrow$ all $n a_n = 0$, so only $a_0$ survives). $H^1_{dR} = \\Omega^1 / \\mathrm{im}(d) = \\mathbb{C}\\,dz/z$ (the missing basis element). One-dimensional, generator $\\omega = \\frac{dz}{z}$.",
-        svgInner: "<text x='30' y='60' font-size='14' fill='var(--ink)'>H⁰_{dR}(X/ℂ) = ℂ  (just constants)</text><text x='30' y='110' font-size='14' fill='var(--green)'>H¹_{dR}(X/ℂ) = ℂ · dz/z</text><text x='30' y='150' font-size='13' fill='var(--mute)'>generator ω = dz/z = d(log z) — algebraic logarithm</text>"
+        title: "Read off $H^0_{\mathrm{dR}}$ and $H^1_{\mathrm{dR}}$",
+        body: "$H^0_{\mathrm{dR}} = \\ker(d) = \\mathbb{C}$ (the constants — $d(\\sum a_n z^n) = 0 \\Leftrightarrow$ all $n a_n = 0$, so only $a_0$ survives). $H^1_{\mathrm{dR}} = \\Omega^1 / \\mathrm{im}(d) = \\mathbb{C}\\,dz/z$ (the missing basis element). One-dimensional, generator $\\omega = \\frac{dz}{z}$.",
+        svgInner: "<text x='30' y='60' font-size='14' fill='var(--ink)'>H⁰_{\mathrm{dR}}(X/ℂ) = ℂ  (just constants)</text><text x='30' y='110' font-size='14' fill='var(--green)'>H¹_{\mathrm{dR}}(X/ℂ) = ℂ · dz/z</text><text x='30' y='150' font-size='13' fill='var(--mute)'>generator ω = dz/z = d(log z) — algebraic logarithm</text>"
       },
       {
         title: "Pair with the loop: $\\int_\\gamma \\frac{dz}{z} = 2\\pi i$",
-        body: "The comparison isomorphism $H^1_{dR} \\cong H^1(\\mathbb{C}^*; \\mathbb{C})$ is realised by the integration pairing: $\\langle [\\omega], [\\gamma] \\rangle = \\int_\\gamma \\omega$. For $\\omega = \\frac{dz}{z}$ and $\\gamma$ the unit circle: $\\int_\\gamma \\frac{dz}{z} = 2\\pi i \\ne 0$. Non-degenerate, so $[\\omega]$ generates $H^1_{dR}$ — exactly matching the topological $H^1$.",
-        svgInner: "<text x='30' y='55' font-size='13' fill='var(--ink)'>integration pairing  H¹_{dR} × H_1^{sing} → ℂ</text><text x='30' y='95' font-size='14' fill='var(--yellow)'>⟨ dz/z , γ ⟩ = ∫_γ dz/z = 2πi</text><text x='30' y='140' font-size='14' fill='var(--green)'>non-degenerate ⇒ Grothendieck comparison ✓</text><text x='30' y='180' font-size='12' fill='var(--mute)'>(over ℚ ⊂ ℂ: get a period in (2πi)·ℚ — transcendental!)</text>"
+        body: "The comparison isomorphism $H^1_{\mathrm{dR}} \\cong H^1(\\mathbb{C}^*; \\mathbb{C})$ is realised by the integration pairing: $\\langle [\\omega], [\\gamma] \\rangle = \\int_\\gamma \\omega$. For $\\omega = \\frac{dz}{z}$ and $\\gamma$ the unit circle: $\\int_\\gamma \\frac{dz}{z} = 2\\pi i \\ne 0$. Non-degenerate, so $[\\omega]$ generates $H^1_{\mathrm{dR}}$ — exactly matching the topological $H^1$.",
+        svgInner: "<text x='30' y='55' font-size='13' fill='var(--ink)'>integration pairing  H¹_{\mathrm{dR}} × H_1^{sing} → ℂ</text><text x='30' y='95' font-size='14' fill='var(--yellow)'>⟨ dz/z , γ ⟩ = ∫_γ dz/z = 2πi</text><text x='30' y='140' font-size='14' fill='var(--green)'>non-degenerate ⇒ Grothendieck comparison ✓</text><text x='30' y='180' font-size='12' fill='var(--mute)'>(over ℚ ⊂ ℂ: get a period in (2πi)·ℚ — transcendental!)</text>"
       }
     ]
   });
@@ -538,7 +538,7 @@ where the right-hand side is the singular cohomology of the underlying complex-a
 })();
 </script>
 
-<p><strong>Period numbers and transcendence.</strong> The comparison is canonical over $\mathbb{C}$ but over a smaller field $k$ it relates two distinct $k$-vector spaces: $H^*_{dR}(X/k)$ and $H^*(X(\mathbb{C}); k)$ (when $k \subset \mathbb{C}$). The change-of-basis matrix between them, computed via integrals like $\int_\gamma \omega$ for $\omega \in \Omega^\bullet$ and $\gamma$ a topological cycle, is the <strong>period matrix</strong> of $X$. For $X = \mathbb{G}_m$ the period is $2\pi i$; for elliptic curves the periods are the lattice generators; the Grothendieck period conjecture predicts the transcendence degree of the field generated by all periods of $X$.</p>
+<p><strong>Period numbers and transcendence.</strong> The comparison is canonical over $\mathbb{C}$ but over a smaller field $k$ it relates two distinct $k$-vector spaces: $H^*_{\mathrm{dR}}(X/k)$ and $H^*(X(\mathbb{C}); k)$ (when $k \subset \mathbb{C}$). The change-of-basis matrix between them, computed via integrals like $\int_\gamma \omega$ for $\omega \in \Omega^\bullet$ and $\gamma$ a topological cycle, is the <strong>period matrix</strong> of $X$. For $X = \mathbb{G}_m$ the period is $2\pi i$; for elliptic curves the periods are the lattice generators; the Grothendieck period conjecture predicts the transcendence degree of the field generated by all periods of $X$.</p>
 
 <!-- callback-auto-begin -->
 <aside class="callback">
@@ -566,18 +566,18 @@ where the right-hand side is the singular cohomology of the underlying complex-a
 <p>The de Rham complex $\Omega^\bullet_{X/k}$ comes equipped with a tautological decreasing filtration: forget the first $p$ terms. The <strong>trivial truncation</strong> $\sigma^{\ge p} \Omega^\bullet_{X/k}$ is the subcomplex
 $$0 \to 0 \to \cdots \to 0 \to \Omega^p_{X/k} \xrightarrow{d} \Omega^{p+1}_{X/k} \xrightarrow{d} \cdots,$$
 where the first $p$ entries are zero. The natural inclusion $\sigma^{\ge p} \Omega^\bullet \hookrightarrow \Omega^\bullet$ induces a map on hypercohomology, and the <strong>Hodge filtration</strong> is its image:
-$$F^p H^n_{dR}(X/k) := \mathrm{im}\big(\mathbb{H}^n(X, \sigma^{\ge p} \Omega^\bullet) \to H^n_{dR}(X/k)\big).$$
-This gives a chain $H^n_{dR}(X/k) = F^0 \supseteq F^1 \supseteq F^2 \supseteq \cdots$ that eventually drops to zero (after $n + 1$ steps for $n$-forms with $\dim X = n$).</p>
+$$F^p H^n_{\mathrm{dR}}(X/k) := \mathrm{im}\big(\mathbb{H}^n(X, \sigma^{\ge p} \Omega^\bullet) \to H^n_{\mathrm{dR}}(X/k)\big).$$
+This gives a chain $H^n_{\mathrm{dR}}(X/k) = F^0 \supseteq F^1 \supseteq F^2 \supseteq \cdots$ that eventually drops to zero (after $n + 1$ steps for $n$-forms with $\dim X = n$).</p>
 
 <p><strong>The Hodge-to-de-Rham spectral sequence.</strong> The trivial truncation is the canonical filtration whose associated graded computes $H^q$ of the cokernel — i.e. $H^q(X, \Omega^p_{X/k})$ — and its spectral sequence is exactly the Hodge-to-de-Rham one we met in §2:
-$$E_1^{p, q} = H^q(X, \Omega^p_{X/k}) \;\Longrightarrow\; H^{p+q}_{dR}(X/k).$$
-The associated graded of $F^\bullet$ on $H^n_{dR}$ is $\mathrm{gr}^p_F H^n = E_\infty^{p, n-p}$. <strong>Deligne's degeneration theorem:</strong> for $X$ smooth proper over $\mathbb{C}$ (and more generally smooth proper over any field of characteristic $0$, by Deligne–Illusie even for many positive-characteristic cases), this spectral sequence degenerates at $E_1$, so $\mathrm{gr}^p_F H^n_{dR}(X/\mathbb{C}) = H^{n-p}(X, \Omega^p_X)$.</p>
+$$E_1^{p, q} = H^q(X, \Omega^p_{X/k}) \;\Longrightarrow\; H^{p+q}_{\mathrm{dR}}(X/k).$$
+The associated graded of $F^\bullet$ on $H^n_{\mathrm{dR}}$ is $\mathrm{gr}^p_F H^n = E_\infty^{p, n-p}$. <strong>Deligne's degeneration theorem:</strong> for $X$ smooth proper over $\mathbb{C}$ (and more generally smooth proper over any field of characteristic $0$, by Deligne–Illusie even for many positive-characteristic cases), this spectral sequence degenerates at $E_1$, so $\mathrm{gr}^p_F H^n_{\mathrm{dR}}(X/\mathbb{C}) = H^{n-p}(X, \Omega^p_X)$.</p>
 
 <p><strong>Hodge decomposition.</strong> Combined with complex conjugation, $E_1$-degeneration upgrades the filtration to a direct-sum decomposition over $\mathbb{C}$:
-$$H^n(X(\mathbb{C}); \mathbb{C}) = H^n_{dR}(X/\mathbb{C}) = \bigoplus_{p + q = n} H^{p, q}(X), \qquad H^{p, q}(X) := H^q(X, \Omega^p_X),$$
+$$H^n(X(\mathbb{C}); \mathbb{C}) = H^n_{\mathrm{dR}}(X/\mathbb{C}) = \bigoplus_{p + q = n} H^{p, q}(X), \qquad H^{p, q}(X) := H^q(X, \Omega^p_X),$$
 with $\overline{H^{p, q}} = H^{q, p}$ (complex conjugation swaps $p$ and $q$, because conjugating an algebraic form swaps "holomorphic-degree" and "antiholomorphic-degree" in the underlying $C^\infty$ picture). The Hodge filtration is recovered as $F^p H^n = \bigoplus_{p' \ge p} H^{p', n-p'}$.</p>
 
-<p><strong>Worked example — $X = \mathbb{P}^n$.</strong> Bott vanishing gives $H^q(\mathbb{P}^n, \Omega^p) = \mathbb{C}$ if $p = q \le n$ and $0$ otherwise. So $H^{2k}_{dR}(\mathbb{P}^n) = H^{k, k}(\mathbb{P}^n) = \mathbb{C}$ and all odd-degree $H^{2k+1}_{dR}(\mathbb{P}^n) = 0$, with Hodge filtration $F^k H^{2k} = \mathbb{C}$, $F^{k+1} H^{2k} = 0$. For $\mathbb{P}^1$ this gives $F^0 H^0 = F^1 H^2 = \mathbb{C}$, all other steps trivial — a one-step filtration on each piece.</p>
+<p><strong>Worked example — $X = \mathbb{P}^n$.</strong> Bott vanishing gives $H^q(\mathbb{P}^n, \Omega^p) = \mathbb{C}$ if $p = q \le n$ and $0$ otherwise. So $H^{2k}_{\mathrm{dR}}(\mathbb{P}^n) = H^{k, k}(\mathbb{P}^n) = \mathbb{C}$ and all odd-degree $H^{2k+1}_{\mathrm{dR}}(\mathbb{P}^n) = 0$, with Hodge filtration $F^k H^{2k} = \mathbb{C}$, $F^{k+1} H^{2k} = 0$. For $\mathbb{P}^1$ this gives $F^0 H^0 = F^1 H^2 = \mathbb{C}$, all other steps trivial — a one-step filtration on each piece.</p>
 
 <div class="widget" id="w-hodge-filt-scrub"></div>
 <script>
@@ -596,30 +596,30 @@ with $\overline{H^{p, q}} = H^{q, p}$ (complex conjugation swaps $p$ and $q$, be
       },
       {
         title: "Apply to $\\Omega^\\bullet_{X/k}$ and take hypercohomology",
-        body: "The Hodge filtration on $H^n_{dR}(X/k)$ is $F^p H^n := \\mathrm{im}\\big(\\mathbb{H}^n(X, \\sigma^{\\ge p} \\Omega^\\bullet) \\to \\mathbb{H}^n(X, \\Omega^\\bullet)\\big)$. Decreasing in $p$. Eventually zero: $F^{n+1} H^n = 0$ since $\\sigma^{\\ge n+1}$ has no terms in degrees $\\le n$.",
-        svgInner: "<text x='30' y='60' font-size='13' fill='var(--ink)'>F^p H^n_{dR}(X) := im( ℍ^n(σ^{≥p}Ω•) → H^n_{dR} )</text><text x='30' y='100' font-size='13' fill='var(--ink)'>H^n_{dR} = F⁰ ⊇ F¹ ⊇ F² ⊇ … ⊇ F^{n+1} = 0</text><text x='30' y='140' font-size='13' fill='var(--mute)'>well-defined because σ^{≥p}Ω• → Ω• is a chain map</text>"
+        body: "The Hodge filtration on $H^n_{\mathrm{dR}}(X/k)$ is $F^p H^n := \\mathrm{im}\\big(\\mathbb{H}^n(X, \\sigma^{\\ge p} \\Omega^\\bullet) \\to \\mathbb{H}^n(X, \\Omega^\\bullet)\\big)$. Decreasing in $p$. Eventually zero: $F^{n+1} H^n = 0$ since $\\sigma^{\\ge n+1}$ has no terms in degrees $\\le n$.",
+        svgInner: "<text x='30' y='60' font-size='13' fill='var(--ink)'>F^p H^n_{\mathrm{dR}}(X) := im( ℍ^n(σ^{≥p}Ω•) → H^n_{\mathrm{dR}} )</text><text x='30' y='100' font-size='13' fill='var(--ink)'>H^n_{\mathrm{dR}} = F⁰ ⊇ F¹ ⊇ F² ⊇ … ⊇ F^{n+1} = 0</text><text x='30' y='140' font-size='13' fill='var(--mute)'>well-defined because σ^{≥p}Ω• → Ω• is a chain map</text>"
       },
       {
         title: "Hodge-to-de-Rham spectral sequence",
-        body: "The filtered complex $(\\Omega^\\bullet, \\sigma^{\\ge \\cdot})$ has spectral sequence $E_1^{p, q} = H^q(X, \\Omega^p_{X/k}) \\Rightarrow H^{p+q}_{dR}(X/k)$. The differentials $d_r$ go right $r$ and up $-(r-1)$ — encoding what \"obstructs\" purely Hodge-graded computation.",
-        svgInner: "<text x='30' y='50' font-size='13' fill='var(--ink)'>E₁^{p,q} = H^q(X, Ω^p)  ⇒  H^{p+q}_{dR}(X)</text><text x='30' y='90' font-size='13' fill='var(--yellow)'>d₁ : E₁^{p,q} → E₁^{p+1,q}  (induced by d on Ω•)</text><text x='30' y='125' font-size='13' fill='var(--yellow)'>d_r : E_r^{p,q} → E_r^{p+r, q-r+1}</text><text x='30' y='165' font-size='13' fill='var(--mute)'>nontrivial higher d_r ↔ filtration not purely graded</text>"
+        body: "The filtered complex $(\\Omega^\\bullet, \\sigma^{\\ge \\cdot})$ has spectral sequence $E_1^{p, q} = H^q(X, \\Omega^p_{X/k}) \\Rightarrow H^{p+q}_{\mathrm{dR}}(X/k)$. The differentials $d_r$ go right $r$ and up $-(r-1)$ — encoding what \"obstructs\" purely Hodge-graded computation.",
+        svgInner: "<text x='30' y='50' font-size='13' fill='var(--ink)'>E₁^{p,q} = H^q(X, Ω^p)  ⇒  H^{p+q}_{\mathrm{dR}}(X)</text><text x='30' y='90' font-size='13' fill='var(--yellow)'>d₁ : E₁^{p,q} → E₁^{p+1,q}  (induced by d on Ω•)</text><text x='30' y='125' font-size='13' fill='var(--yellow)'>d_r : E_r^{p,q} → E_r^{p+r, q-r+1}</text><text x='30' y='165' font-size='13' fill='var(--mute)'>nontrivial higher d_r ↔ filtration not purely graded</text>"
       },
       {
         title: "Deligne's degeneration: $E_1 = E_\\infty$ for $X$ smooth proper / $\\mathbb{C}$",
-        body: "Theorem (Deligne 1968): for $X$ smooth proper over $\\mathbb{C}$ (and many other settings — Deligne–Illusie covers $\\mathrm{char}\\,p$ via crystalline lifts), the Hodge-to-de-Rham spectral sequence degenerates at $E_1$. All $d_r = 0$ for $r \\ge 1$. Hence $\\mathrm{gr}^p_F H^n_{dR}(X/\\mathbb{C}) = E_\\infty^{p, n-p} = E_1^{p, n-p} = H^{n-p}(X, \\Omega^p_X)$.",
-        svgInner: "<text x='30' y='55' font-size='13' fill='var(--green)'>Theorem (Deligne):  X smooth proper / ℂ  ⇒  E₁ = E_∞</text><text x='30' y='95' font-size='14' fill='var(--yellow)'>gr^p_F H^n_{dR} = H^{n−p}(X, Ω^p)</text><text x='30' y='135' font-size='13' fill='var(--mute)'>so dim H^n_{dR} = Σ_{p+q=n} h^{p,q}  (Hodge-decomposes!)</text>"
+        body: "Theorem (Deligne 1968): for $X$ smooth proper over $\\mathbb{C}$ (and many other settings — Deligne–Illusie covers $\\mathrm{char}\\,p$ via crystalline lifts), the Hodge-to-de-Rham spectral sequence degenerates at $E_1$. All $d_r = 0$ for $r \\ge 1$. Hence $\\mathrm{gr}^p_F H^n_{\mathrm{dR}}(X/\\mathbb{C}) = E_\\infty^{p, n-p} = E_1^{p, n-p} = H^{n-p}(X, \\Omega^p_X)$.",
+        svgInner: "<text x='30' y='55' font-size='13' fill='var(--green)'>Theorem (Deligne):  X smooth proper / ℂ  ⇒  E₁ = E_∞</text><text x='30' y='95' font-size='14' fill='var(--yellow)'>gr^p_F H^n_{\mathrm{dR}} = H^{n−p}(X, Ω^p)</text><text x='30' y='135' font-size='13' fill='var(--mute)'>so dim H^n_{\mathrm{dR}} = Σ_{p+q=n} h^{p,q}  (Hodge-decomposes!)</text>"
       },
       {
         title: "Worked example: $\\mathbb{P}^1_\\mathbb{C}$",
-        body: "From §2 we have $H^0(\\mathbb{P}^1, \\mathcal{O}) = \\mathbb{C}$, $H^1(\\mathbb{P}^1, \\Omega^1) = \\mathbb{C}$, all other $H^q(\\Omega^p) = 0$. So $E_1$ has just two non-zero entries; $d_1 = 0$ trivially. $H^0_{dR} = H^{0,0} = \\mathbb{C}$, $H^2_{dR} = H^{1,1} = \\mathbb{C}$, $H^1_{dR} = 0$. Hodge filtration on $H^2$: $F^0 = F^1 = \\mathbb{C}$, $F^2 = 0$ — pure of type $(1,1)$.",
-        svgInner: "<text x='30' y='55' font-size='13' fill='var(--ink)'>ℙ¹ Hodge:  h^{0,0} = h^{1,1} = 1,  rest = 0</text><text x='30' y='95' font-size='13' fill='var(--yellow)'>F^0 H² = ℂ,  F¹ H² = ℂ,  F² H² = 0</text><text x='30' y='130' font-size='14' fill='var(--green)'>H²_{dR}(ℙ¹) is pure of Hodge type (1,1)  ✓</text>"
+        body: "From §2 we have $H^0(\\mathbb{P}^1, \\mathcal{O}) = \\mathbb{C}$, $H^1(\\mathbb{P}^1, \\Omega^1) = \\mathbb{C}$, all other $H^q(\\Omega^p) = 0$. So $E_1$ has just two non-zero entries; $d_1 = 0$ trivially. $H^0_{\mathrm{dR}} = H^{0,0} = \\mathbb{C}$, $H^2_{\mathrm{dR}} = H^{1,1} = \\mathbb{C}$, $H^1_{\mathrm{dR}} = 0$. Hodge filtration on $H^2$: $F^0 = F^1 = \\mathbb{C}$, $F^2 = 0$ — pure of type $(1,1)$.",
+        svgInner: "<text x='30' y='55' font-size='13' fill='var(--ink)'>ℙ¹ Hodge:  h^{0,0} = h^{1,1} = 1,  rest = 0</text><text x='30' y='95' font-size='13' fill='var(--yellow)'>F^0 H² = ℂ,  F¹ H² = ℂ,  F² H² = 0</text><text x='30' y='130' font-size='14' fill='var(--green)'>H²_{\mathrm{dR}}(ℙ¹) is pure of Hodge type (1,1)  ✓</text>"
       }
     ]
   });
 })();
 </script>
 
-<p><strong>Why the Hodge filtration is robust.</strong> Three properties make $F^\bullet$ the right structure to track. (i) <em>Functoriality:</em> $F^\bullet$ is preserved by pullback along morphisms of smooth proper varieties, so $f^*\colon H^n_{dR}(Y) \to H^n_{dR}(X)$ is a morphism of filtered vector spaces. (ii) <em>Defined over $k$:</em> unlike the Hodge decomposition $H^n = \bigoplus H^{p,q}$ (which uses complex conjugation and only exists over $\mathbb{C}$), the filtration $F^p H^n_{dR}(X/k)$ is defined for $X/k$ over any base — this is what makes "Hodge filtration" a well-formed concept in $p$-adic Hodge theory or over $\overline{\mathbb{F}_p}$. (iii) <em>Variation:</em> in a family $X \to S$, the filtration $F^\bullet$ varies holomorphically with the parameter (Griffiths transversality: $\nabla F^p \subseteq F^{p-1} \otimes \Omega^1_S$), giving the structure of a <strong>variation of Hodge structure</strong>.</p>
+<p><strong>Why the Hodge filtration is robust.</strong> Three properties make $F^\bullet$ the right structure to track. (i) <em>Functoriality:</em> $F^\bullet$ is preserved by pullback along morphisms of smooth proper varieties, so $f^*\colon H^n_{\mathrm{dR}}(Y) \to H^n_{\mathrm{dR}}(X)$ is a morphism of filtered vector spaces. (ii) <em>Defined over $k$:</em> unlike the Hodge decomposition $H^n = \bigoplus H^{p,q}$ (which uses complex conjugation and only exists over $\mathbb{C}$), the filtration $F^p H^n_{\mathrm{dR}}(X/k)$ is defined for $X/k$ over any base — this is what makes "Hodge filtration" a well-formed concept in $p$-adic Hodge theory or over $\overline{\mathbb{F}_p}$. (iii) <em>Variation:</em> in a family $X \to S$, the filtration $F^\bullet$ varies holomorphically with the parameter (Griffiths transversality: $\nabla F^p \subseteq F^{p-1} \otimes \Omega^1_S$), giving the structure of a <strong>variation of Hodge structure</strong>.</p>
 
 <!-- callback-auto-begin -->
 <aside class="callback">
@@ -834,9 +834,9 @@ $$\begin{array}{ccc}
 \end{array}$$
 The four cells encode: top — connectedness; middle row — holomorphic and antiholomorphic 1-forms (their dimensions equal by complex conjugation); bottom — the canonical class. Symmetry: $h^{p, q} = h^{q, p}$ holds (middle row), $h^{p, q} = h^{1-p, 1-q}$ holds (corners ↔ corners).</p>
 
-<p><strong>Computing $H^*_{dR}$.</strong> Reading off from the diamond and $E_1$-degeneration:
-$$H^0_{dR}(C/\mathbb{C}) = \mathbb{C}, \qquad H^1_{dR}(C/\mathbb{C}) = \mathbb{C}^{2g}, \qquad H^2_{dR}(C/\mathbb{C}) = \mathbb{C}.$$
-The total Betti is $\sum_i b_i = 1 + 2g + 1 = 2g + 2$ (sum of all Betti numbers); the Euler characteristic is the <em>alternating</em> sum $\chi(C) = \sum (-1)^i b_i = 1 - 2g + 1 = 2 - 2g$ ✓. (The two agree only at $g = 0$.) The Hodge filtration on $H^1_{dR}$ has just one nontrivial step: $F^1 H^1 = H^0(C, \Omega^1_C)$ (the holomorphic 1-forms, dimension $g$), $F^0 H^1 = H^1_{dR}$ (everything, dimension $2g$). The quotient $\mathrm{gr}^0_F = H^1(C, \mathcal{O}_C)$ has dimension $g$.</p>
+<p><strong>Computing $H^*_{\mathrm{dR}}$.</strong> Reading off from the diamond and $E_1$-degeneration:
+$$H^0_{\mathrm{dR}}(C/\mathbb{C}) = \mathbb{C}, \qquad H^1_{\mathrm{dR}}(C/\mathbb{C}) = \mathbb{C}^{2g}, \qquad H^2_{\mathrm{dR}}(C/\mathbb{C}) = \mathbb{C}.$$
+The total Betti is $\sum_i b_i = 1 + 2g + 1 = 2g + 2$ (sum of all Betti numbers); the Euler characteristic is the <em>alternating</em> sum $\chi(C) = \sum (-1)^i b_i = 1 - 2g + 1 = 2 - 2g$ ✓. (The two agree only at $g = 0$.) The Hodge filtration on $H^1_{\mathrm{dR}}$ has just one nontrivial step: $F^1 H^1 = H^0(C, \Omega^1_C)$ (the holomorphic 1-forms, dimension $g$), $F^0 H^1 = H^1_{\mathrm{dR}}$ (everything, dimension $2g$). The quotient $\mathrm{gr}^0_F = H^1(C, \mathcal{O}_C)$ has dimension $g$.</p>
 
 <div class="widget" id="w-curve-clickable">
   <div class="hd"><div class="ttl">Hodge diamond of a smooth projective curve $C$ of genus $g$</div><div class="hint">click any cell to see what it means + an example value</div></div>
@@ -851,7 +851,7 @@ The total Betti is $\sum_i b_i = 1 + 2g + 1 = 2g + 2$ (sum of all Betti numbers)
     <circle class="cv-pick" data-key="11" cx="240" cy="200" r="26" fill="var(--panel2)" stroke="var(--blue)"  stroke-width="1.8" style="cursor:pointer"/>
     <text x="240" y="206" text-anchor="middle" font-size="13" fill="var(--ink)" pointer-events="none">$h^{1,1}=1$</text>
     <!-- centre annotation -->
-    <text x="240" y="124" text-anchor="middle" font-size="11" fill="var(--mute)">$H^1_{dR}(C)$</text>
+    <text x="240" y="124" text-anchor="middle" font-size="11" fill="var(--mute)">$H^1_{\mathrm{dR}}(C)$</text>
     <text x="240" y="140" text-anchor="middle" font-size="11" fill="var(--mute)">$=\mathbb{C}^{2g}$</text>
     <!-- arrows showing the symmetries (subtle) -->
     <path d="M 184 138 Q 240 175 296 138" fill="none" stroke="var(--cyan)" stroke-width="1.2" opacity="0.6" stroke-dasharray="3 3" pointer-events="none"/>
@@ -866,10 +866,10 @@ The total Betti is $\sum_i b_i = 1 + 2g + 1 = 2g + 2$ (sum of all Betti numbers)
   const ro = document.getElementById('cv-readout');
   if(!ro) return;
   const TXT = {
-    '00': "$h^{0,0}(C) = \\dim H^0(C, \\mathcal{O}_C) = 1$ — global regular functions on a connected projective curve are just constants. Independent of $g$. Generates $H^0_{dR}(C) = \\mathbb{C}$.",
-    '10': "$h^{1,0}(C) = \\dim H^0(C, \\Omega^1_C) = g$ — the space of <strong>holomorphic 1-forms</strong>. This is the most natural definition of the genus over $\\mathbb{C}$. Lives in $F^1 H^1_{dR} \\subset H^1_{dR}(C)$.",
-    '01': "$h^{0,1}(C) = \\dim H^1(C, \\mathcal{O}_C) = g$. By Serre duality, $H^1(C, \\mathcal{O}_C) \\cong H^0(C, \\Omega^1_C)^\\vee$ — same dimension. Lives in $H^1_{dR} / F^1 = \\mathrm{gr}^0_F H^1_{dR}$, the antiholomorphic part.",
-    '11': "$h^{1,1}(C) = \\dim H^1(C, \\Omega^1_C) = 1$. Generated by the fundamental class $[\\omega]$ with $\\int_C \\omega = 1$; pairs with $h^{0,0}$ via Serre duality. Generates $H^2_{dR}(C) = \\mathbb{C}$.",
+    '00': "$h^{0,0}(C) = \\dim H^0(C, \\mathcal{O}_C) = 1$ — global regular functions on a connected projective curve are just constants. Independent of $g$. Generates $H^0_{\mathrm{dR}}(C) = \\mathbb{C}$.",
+    '10': "$h^{1,0}(C) = \\dim H^0(C, \\Omega^1_C) = g$ — the space of <strong>holomorphic 1-forms</strong>. This is the most natural definition of the genus over $\\mathbb{C}$. Lives in $F^1 H^1_{\mathrm{dR}} \\subset H^1_{\mathrm{dR}}(C)$.",
+    '01': "$h^{0,1}(C) = \\dim H^1(C, \\mathcal{O}_C) = g$. By Serre duality, $H^1(C, \\mathcal{O}_C) \\cong H^0(C, \\Omega^1_C)^\\vee$ — same dimension. Lives in $H^1_{\mathrm{dR}} / F^1 = \\mathrm{gr}^0_F H^1_{\mathrm{dR}}$, the antiholomorphic part.",
+    '11': "$h^{1,1}(C) = \\dim H^1(C, \\Omega^1_C) = 1$. Generated by the fundamental class $[\\omega]$ with $\\int_C \\omega = 1$; pairs with $h^{0,0}$ via Serre duality. Generates $H^2_{\mathrm{dR}}(C) = \\mathbb{C}$.",
   };
   document.querySelectorAll('#svg-curve-clickable .cv-pick').forEach(el => {
     el.addEventListener('click', () => {
@@ -883,7 +883,7 @@ The total Betti is $\sum_i b_i = 1 + 2g + 1 = 2g + 2$ (sum of all Betti numbers)
 })();
 </script>
 
-<p><strong>Worked example — an elliptic curve.</strong> $g = 1$. Diamond cells $1, 1, 1, 1$. $H^1_{dR} = \mathbb{C}^2$ with $F^1 = \mathbb{C}\langle dx/y \rangle$ and quotient $\mathbb{C}\langle x\,dx/y \rangle$ (in Weierstrass coordinates $y^2 = x^3 + ax + b$). The first form is holomorphic; the second is a "second-kind" form — algebraic, with poles, but representing a non-trivial de Rham class. Only the holomorphic form $dx/y$ produces the period lattice $\Lambda = \mathbb{Z}\omega_1 + \mathbb{Z}\omega_2 \subset \mathbb{C}$ (with $\omega_i = \int_{\gamma_i} dx/y$ over a basis of $H_1$) that defines the complex torus $\mathbb{C}/\Lambda \cong E$. The second-kind form $x\,dx/y$ produces the <em>quasi-periods</em> $\eta_i = \int_{\gamma_i} x\,dx/y$, the partners that satisfy the Legendre relation $\omega_1 \eta_2 - \omega_2 \eta_1 = 2\pi i$; together $\{dx/y, x\,dx/y\}$ form a basis of $H^1_{dR}(E)$ but only the first gives lattice generators.</p>
+<p><strong>Worked example — an elliptic curve.</strong> $g = 1$. Diamond cells $1, 1, 1, 1$. $H^1_{\mathrm{dR}} = \mathbb{C}^2$ with $F^1 = \mathbb{C}\langle dx/y \rangle$ and quotient $\mathbb{C}\langle x\,dx/y \rangle$ (in Weierstrass coordinates $y^2 = x^3 + ax + b$). The first form is holomorphic; the second is a "second-kind" form — algebraic, with poles, but representing a non-trivial de Rham class. Only the holomorphic form $dx/y$ produces the period lattice $\Lambda = \mathbb{Z}\omega_1 + \mathbb{Z}\omega_2 \subset \mathbb{C}$ (with $\omega_i = \int_{\gamma_i} dx/y$ over a basis of $H_1$) that defines the complex torus $\mathbb{C}/\Lambda \cong E$. The second-kind form $x\,dx/y$ produces the <em>quasi-periods</em> $\eta_i = \int_{\gamma_i} x\,dx/y$, the partners that satisfy the Legendre relation $\omega_1 \eta_2 - \omega_2 \eta_1 = 2\pi i$; together $\{dx/y, x\,dx/y\}$ form a basis of $H^1_{\mathrm{dR}}(E)$ but only the first gives lattice generators.</p>
 
 <p>Below: a sandbox that computes Hodge numbers for several smooth projective varieties — curves, $\mathbb{P}^n$, and a couple of surfaces — by formula. Edit the variety list and press Cmd/Ctrl-Enter to re-run.</p>
 
