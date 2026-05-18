@@ -44,9 +44,57 @@ const wantSlugs = new Set(argv.slice(1));
 // `"3.0"` parses to 3 and serialises back as `"3"`, breaking byte-identity.
 // Strategy: keep the original string when `String(Number(s)) !== s`,
 // otherwise store as a clean number for nicer schema validation.
+//
+// CRITICAL: the kept-string MUST match the schema's numeric pattern
+// (`^-?\d+(?:\.\d+)?$`). Otherwise the migration writes JSON that
+// silently fails validate-widget-params on the next rebuild. SFH on
+// PR #243 flagged the gap: `"1e3"`, `"+1"`, `".5"`, `"1."`, `"-0"`,
+// `"010"` all round-trip through `String(Number(…))` differently
+// from the source AND fail the schema pattern. Throw at parse time
+// rather than write invalid JSON. The migrate-script's existing
+// failure-summary path (line ~313) already prints enough context.
+// Allowlist for the verbatim labelAttrs string that gets spliced into
+// the rendered `<label…>` tag. Cosmetic (style, class) and a11y
+// (aria-*, data-*) attrs are accepted; event handlers (on*=), id (would
+// collide with the renderer's for-binding), and anything else throws.
+const LABEL_ATTR_NAME = /\s+([a-zA-Z][a-zA-Z0-9_-]*)\s*=\s*"/g;
+const LABEL_ATTR_ALLOWLIST = /^(?:style|class|data-[a-z][a-z0-9_-]*|aria-[a-z]+)$/;
+function assertLabelAttrsSafe(attrsString) {
+  if (!attrsString) return;
+  const seen = new Set();
+  let m;
+  LABEL_ATTR_NAME.lastIndex = 0;
+  while ((m = LABEL_ATTR_NAME.exec(attrsString))) {
+    const name = m[1].toLowerCase();
+    if (!LABEL_ATTR_ALLOWLIST.test(name)) {
+      throw new Error(
+        `labelAttrs contains disallowed attribute "${name}" — ` +
+        `slider-svg-2d's labelAttrs allowlist is style, class, data-*, aria-*. ` +
+        `Refusing to silently propagate. Source attrs: "${attrsString}".`
+      );
+    }
+    if (seen.has(name)) {
+      throw new Error(
+        `labelAttrs contains duplicate attribute "${name}" — ` +
+        `would render as an ambiguous tag. Source attrs: "${attrsString}".`
+      );
+    }
+    seen.add(name);
+  }
+}
+
+const NUMERIC_PATTERN = /^-?\d+(?:\.\d+)?$/;
 function preserveNumeric(s) {
   const n = Number(s);
-  return String(n) === s ? n : s;
+  if (String(n) === s) return n;
+  if (NUMERIC_PATTERN.test(s)) return s;
+  throw new Error(
+    `preserveNumeric: source value "${s}" cannot be preserved — neither ` +
+    `Number()-round-trippable nor schema-pattern-compatible. ` +
+    `slider-svg-2d's min/max/value/step pattern is /^-?\\d+(?:\\.\\d+)?$/. ` +
+    `Either normalize the source (e.g. "1e3" → "1000") or extend the ` +
+    `schema pattern + this regex to accept the new form.`
+  );
 }
 
 function parseControls(rowInner) {
@@ -84,6 +132,14 @@ function parseControls(rowInner) {
       const labelAttrsWithoutFor = forMatch
         ? labelAttrsRaw.slice(0, forMatch.index) + labelAttrsRaw.slice(forMatch.index + forMatch[0].length)
         : labelAttrsRaw;
+
+      // Allowlist: labelAttrs is verbatim-spliced into the rendered
+      // `<label…>` tag, so it can carry whatever the parser captures.
+      // Restrict to cosmetic/a11y attrs (style, class, data-*, aria-*).
+      // Refuses event handlers (on*=), id (would collide with for-binding),
+      // and anything else. SFH PR #243 flagged the gap — symmetric
+      // corruption survives byte-identity. Throw at parse time.
+      assertLabelAttrsSafe(labelAttrsWithoutFor);
 
       const labelEndIdx = rowInner.indexOf('</label>', openCloseIdx);
       if (labelEndIdx < 0) throw new Error('unterminated <label> in .row');
@@ -281,8 +337,40 @@ function parseVerbatimMarkup(bodyMarkup) {
   // Trailing prose: optional `<p class="small">...</p>` between the
   // readout and the wrapper's closing `</div>`. Several corpus widgets
   // (spectral-methods-data, etc.) embed an explanatory caption here.
-  const trailingMatch = bodyMarkup.match(/<p class="small">([\s\S]*?)<\/p>\s*<\/div>\s*$/);
-  const trailingProse = trailingMatch ? trailingMatch[1] : null;
+  //
+  // CRITICAL: count `<p class="small">` openings in the trailing
+  // region. The naive non-greedy `[\s\S]*?` regex silently merges
+  // multi-paragraph captures (SFH PR #243 finding) — `<p class="small">
+  // first</p><p class="small">second</p>` round-trips byte-identically
+  // because the renderer emits `<p class="small">{capture}</p>` and the
+  // capture contains the embedded `</p><p class="small">` boundary.
+  // The JSON then stores semantically corrupted prose. Throw if >1.
+  const trailingRegion = (() => {
+    // Find the region between the readout div close and the wrapper close.
+    // We look for the last `</div>` (wrapper close) and scan backwards
+    // from the SVG close for `<p class="small">` openings.
+    const svgEndIdx = bodyMarkup.indexOf('</svg>');
+    if (svgEndIdx < 0) return null;
+    const wrapperCloseIdx = bodyMarkup.lastIndexOf('</div>');
+    if (wrapperCloseIdx < svgEndIdx) return null;
+    return bodyMarkup.slice(svgEndIdx, wrapperCloseIdx);
+  })();
+  let trailingProse = null;
+  if (trailingRegion) {
+    const openings = (trailingRegion.match(/<p class="small">/g) || []).length;
+    if (openings > 1) {
+      throw new Error(
+        `multiple <p class="small"> blocks (${openings}) between readout and ` +
+        `wrapper close — slider-svg-2d's trailingProse param holds at most one. ` +
+        `Either merge the prose into a single paragraph in the source, or extend ` +
+        `the schema to accept an array of paragraphs.`
+      );
+    }
+    if (openings === 1) {
+      const m = trailingRegion.match(/<p class="small">([\s\S]*?)<\/p>/);
+      if (m) trailingProse = m[1];
+    }
+  }
 
   return { title, hint, controls, svg, readout, wrapperWidgetId, trailingProse };
 }

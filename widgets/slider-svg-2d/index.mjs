@@ -138,6 +138,16 @@ export function renderMarkup(params) {
   // Trailing prose: optional `<p class="small">…</p>` between readout
   // and closing wrapper, matching the corpus convention where a few
   // widgets carry an explanatory caption inside the widget block.
+  //
+  // SECURITY: trailingProse is rendered as HTML, NOT escaped — corpus
+  // captions contain `<em>`/`<a>`/`<code>` formatting and KaTeX `$…$`
+  // expressions that must reach the browser un-escaped. Source MUST be
+  // trusted (hand-authored corpus content extracted from topic HTML).
+  // If you ever wire this renderer to a user-input field (widget
+  // authoring UI, etc.), HTML-escape `trailingProse` upstream BEFORE
+  // it reaches this function or you get an XSS surface. SFH flagged
+  // this on PR #243; the migrate script also asserts at most one
+  // `<p class="small">` to prevent multi-paragraph capture corruption.
   const trailingMarkup = (typeof trailingProse === 'string' && trailingProse !== '')
     ? `\n  <p class="small">${trailingProse}</p>`
     : '';
