@@ -117,7 +117,7 @@
         },
         {
           "type": "raw",
-          "html": "\n<p class=\"small\">The orange bars are your distribution $\\{p_i\\}$ (the slider for $p_4$ is forced by normalization). The thin yellow bars overlay the canonical distribution at the unique $\\beta$ matching your $\\langle E\\rangle$. The bigger the gap between the two, the further your distribution is from the maximum-entropy fit at the same mean energy.</p>\n\n"
+          "html": "\n<p class=\"small\">The orange empirical bars are your distribution $\\{p_i\\}$ (the slider for $p_4$ is forced by normalization). The thin yellow bars overlay the canonical distribution at the unique $\\beta$ matching your $\\langle E\\rangle$. The bigger the gap between the two, the further your distribution is from the maximum-entropy fit at the same mean energy.</p>\n\n"
         },
         {
           "type": "raw",
@@ -289,7 +289,7 @@
         },
         {
           "type": "raw",
-          "html": "\n<p class=\"small\">5000 samples of $\\bar X_n$, the empirical mean of $n$ Bernoulli$(1/2)$ draws. The cyan histogram is the empirical distribution of $\\bar X_n$; the yellow curve is the Cramér prediction $\\propto e^{-n I(x)}$ with $I(x) = x\\log(2x) + (1-x)\\log(2(1-x))$ (the entropy of a $\\mathrm{Ber}(x)$ relative to $\\mathrm{Ber}(1/2)$). Near the mean $1/2$ the histogram is approximately Gaussian; in the tails the Cramér rate dominates.</p>\n\n"
+          "html": "\n<p class=\"small\">5000 samples of $\\bar X_n$, the empirical mean of $n$ Bernoulli$(1/2)$ draws. The cyan histogram is the empirical distribution of $\\bar X_n$; the yellow Cramér curve is the prediction $\\propto e^{-n I(x)}$ with $I(x) = x\\log(2x) + (1-x)\\log(2(1-x))$ (the entropy of a $\\mathrm{Ber}(x)$ relative to $\\mathrm{Ber}(1/2)$). Near the mean $1/2$ the histogram is approximately Gaussian; in the tails the Cramér rate dominates.</p>\n\n"
         },
         {
           "type": "raw",

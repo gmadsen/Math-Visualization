@@ -58,7 +58,7 @@
             "widgetId": "br",
             "title": "No-retraction lemma — the disk",
             "hint": "Drag the test point to see the ray construction.",
-            "bodyMarkup": "<div class=\"widget\">\n  <div class=\"hd\"><div class=\"ttl\">No-retraction lemma — the disk</div><div class=\"hint\">Drag the test point to see the ray construction.</div></div>\n  <svg id=\"br-svg\" viewBox=\"0 0 560 320\" width=\"100%\"><title>No-retraction lemma — the disk</title></svg>\n  <div class=\"readout\" id=\"br-out\">…</div>\n  <div class=\"note\">The blue draggable dot is $x$, the violet dot tracking it is $f(x)$. The ray from $f(x)$ through $x$ hits the boundary at $r(x)$. A fixed-point-free $f$ would make $r$ continuous on all of $D^2$ — the contradiction. Drag $x$ inside the disk.</div>\n</div>",
+            "bodyMarkup": "<div class=\"widget\">\n  <div class=\"hd\"><div class=\"ttl\">No-retraction lemma — the disk</div><div class=\"hint\">Drag the test point to see the ray construction.</div></div>\n  <svg id=\"br-svg\" viewBox=\"0 0 560 320\" width=\"100%\"><title>No-retraction lemma — the disk</title></svg>\n  <div class=\"readout\" id=\"br-out\">…</div>\n  <div class=\"note\">The blue draggable dot is $x$, the violet image dot tracking it is $f(x)$. The ray from $f(x)$ through $x$ hits the boundary at $r(x)$. A fixed-point-free $f$ would make $r$ continuous on all of $D^2$ — the contradiction. Drag $x$ inside the disk.</div>\n</div>",
             "bodyScript": ""
           }
         },

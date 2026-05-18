@@ -201,7 +201,7 @@
             "interaction": "svg-diagram",
             "widgetId": "w-gauss",
             "title": "Gauss's lemma visualizer",
-            "hint": "count the red dots",
+            "hint": "count the red lattice dots",
             "svgId": "gl-svg",
             "svgViewBox": "0 0 820 190",
             "svgWidthAttr": "820",

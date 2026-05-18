@@ -27,7 +27,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<p>The smooth cyan trace is what you'd love to know; the yellow dots are what the sensor hands you. As $R$ grows, the dots scatter further from the truth — and any honest estimate has to widen its error bars in response. That bookkeeping is what the rest of this page is about.</p>\n\n"
+          "html": "\n\n<p>The smooth cyan trace is what you'd love to know; the yellow noisy dots are what the sensor hands you. As $R$ grows, the dots scatter further from the truth — and any honest estimate has to widen its error bars in response. That bookkeeping is what the rest of this page is about.</p>\n\n"
         },
         {
           "type": "raw",

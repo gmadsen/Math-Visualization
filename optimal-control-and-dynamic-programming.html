@@ -571,7 +571,7 @@ $$TV(x) - TV'(x) \;\le\; \gamma\bigl(V(f(x,u^*)) - V'(f(x,u^*))\bigr) \;\le\; \g
   </div>
   <svg id="vi-svg" viewBox="0 0 580 320" width="580" height="320"><title>Value iteration on a 5x5 grid world with one goal and one obstacle</title></svg>
   <div class="readout" id="vi-out"></div>
-  <div class="note small">Agent moves N/S/E/W with cost 1, falls off the grid is forbidden (move ignored). The yellow square is the goal (reward 0, absorbing); the dark square is an obstacle (cost 10 to enter). Discount $\gamma=0.95$. Click "step" to apply the Bellman operator once: $V_{k+1}(x)\leftarrow\min_u\{c+\gamma V_k(x')\}$. Watch the value front sweep out from the goal, shaped by the obstacle. After ~25 iterations $V$ stabilises; arrows show the greedy policy.</div>
+  <div class="note small">Agent moves N/S/E/W with cost 1, falls off the grid is forbidden (move ignored). The outer yellow square is the goal (reward 0, absorbing); the dark square is an obstacle (cost 10 to enter). Discount $\gamma=0.95$. Click "step" to apply the Bellman operator once: $V_{k+1}(x)\leftarrow\min_u\{c+\gamma V_k(x')\}$. Watch the value front sweep out from the goal, shaped by the obstacle. After ~25 iterations $V$ stabilises; arrows show the greedy policy.</div>
 </div>
 
 <div class="quiz" data-concept="oc-dp"></div>

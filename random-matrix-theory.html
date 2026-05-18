@@ -509,7 +509,7 @@ function drawNode(svg, x, y, label, opts={}){
   </div>
   <svg id="sc-svg" viewBox="0 0 720 320" width="720" height="320"><title>Wigner semicircle convergence</title></svg>
   <div class="readout" id="sc-out"></div>
-  <p class="small">We sample a single $N\times N$ Wigner matrix with i.i.d.\ standard normal entries on/above the diagonal (Hermitised by symmetrising), compute its eigenvalues via tridiagonal QR, rescale by $1/\sqrt N$, and bin into a histogram. The yellow curve is $\rho_{\mathrm{sc}}(x)=\tfrac{1}{2\pi}\sqrt{4-x^2}$.</p>
+  <p class="small">We sample a single $N\times N$ Wigner matrix with i.i.d.\ standard normal entries on/above the diagonal (Hermitised by symmetrising), compute its eigenvalues via tridiagonal QR, rescale by $1/\sqrt N$, and bin into a histogram. The yellow overlay curve is $\rho_{\mathrm{sc}}(x)=\tfrac{1}{2\pi}\sqrt{4-x^2}$.</p>
 </div>
 <script>
 (function(){
@@ -1227,7 +1227,7 @@ function drawNode(svg, x, y, label, opts={}){
   </div>
   <svg id="un-svg" viewBox="0 0 720 280" width="720" height="280"><title>Universality of the semicircle</title></svg>
   <div class="readout" id="un-out"></div>
-  <p class="small">All three entry distributions have mean $0$ and variance $1$. A Wigner matrix of size $N=300$ with each is rebuilt on click; the empirical histogram of $\lambda/\sqrt N$ converges to the same yellow curve.</p>
+  <p class="small">All three entry distributions have mean $0$ and variance $1$. A Wigner matrix of size $N=300$ with each is rebuilt on click; the empirical histogram of $\lambda/\sqrt N$ converges to the same yellow semicircle curve.</p>
 </div>
 <script>
 (function(){
@@ -1466,7 +1466,7 @@ function drawNode(svg, x, y, label, opts={}){
   </div>
   <svg id="ks-svg" viewBox="0 0 720 300" width="720" height="300"><title>Katz–Sarnak low-zero densities</title></svg>
   <div class="readout" id="ks-out"></div>
-  <p class="small">The yellow curve is the one-level density of low-lying zeros for the selected symmetry type (for $U$, where the one-level density is the constant $1$, we instead plot Montgomery's pair correlation $R_2(x)$), normalised to mean zero spacing $1$. Vertical lines show the first few zeros of $\zeta(s)$ (cyan, in matched units) for visual comparison.</p>
+  <p class="small">The yellow plotted curve is the one-level density of low-lying zeros for the selected symmetry type (for $U$, where the one-level density is the constant $1$, we instead plot Montgomery's pair correlation $R_2(x)$), normalised to mean zero spacing $1$. Vertical lines show the first few zeros of $\zeta(s)$ (cyan, in matched units) for visual comparison.</p>
 </div>
 <script>
 (function(){
