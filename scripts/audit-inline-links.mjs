@@ -55,11 +55,16 @@
 //
 // CLI:
 //   node scripts/audit-inline-links.mjs
-//       Audit mode. Print candidates grouped by page/section. Exits 0
-//       regardless (informational — not a CI gate yet).
+//       Audit mode. Print candidates grouped by page/section. Exits 0.
 //
 //   node scripts/audit-inline-links.mjs --fix
 //       Apply inserts to every topic page (JSON-aware).
+//
+//   node scripts/audit-inline-links.mjs --strict
+//       Same as audit mode but exit nonzero if any candidate remains, OR
+//       any wrap on disk carries a `data-concept-id` that no longer
+//       resolves to a known concept. This is the CI-gate form;
+//       rebuild.mjs --no-fix passes --strict via the step's extraArgs.
 //
 //   node scripts/audit-inline-links.mjs --page <topic.html>
 //       Restrict to one page (combine with --fix for a pilot).
@@ -94,6 +99,7 @@ const repoRoot = resolve(dirname(__filename), '..');
 
 const argv = process.argv.slice(2);
 const FIX = argv.includes('--fix');
+const STRICT = argv.includes('--strict');
 let PAGE_FILTER = null;
 {
   const idx = argv.indexOf('--page');
@@ -240,7 +246,15 @@ function sectionForOffset(sections, offset) {
   return best ? best.id : null;
 }
 
-function* findCandidatesInPage(html, pageTopic, pageName) {
+// `isWritable(globalIdx, length)` — optional predicate the JSON-aware
+// caller passes to teach detection which offsets back-port to a source
+// raw block. When provided, matches landing on non-writable bytes (widget
+// renders) are skipped WITHOUT consuming the cross-section dedupe slot,
+// so the same concept can still be wrapped in a later raw-block mention
+// on the same page. Without this hook the per-page dedupe would
+// silently lock out a legitimate wrap whenever a widget-block first-match
+// happens to fire (code-reviewer finding on PR #226).
+function* findCandidatesInPage(html, pageTopic, pageName, isWritable) {
   const parseOptions = {
     blockTextElements: {
       script: true,
@@ -370,6 +384,16 @@ function* findCandidatesInPage(html, pageTopic, pageName) {
 
       if (!found) continue;
 
+      // JSON-aware writability check. If the match lands inside a widget
+      // block (which can't be back-ported), drop it WITHOUT marking dedupe
+      // — that way a later raw-block mention of the same concept can still
+      // win. The HTML-direct path passes no isWritable, so this is a no-op
+      // there (everything is writable in a hand-authored HTML page).
+      if (typeof isWritable === 'function' &&
+          !isWritable(found.globalIdx, found.len)) {
+        continue;
+      }
+
       // Reserve this range in the paragraph-local mask so shorter vocab
       // entries can't re-wrap inside it.
       const pLocal = found.globalIdx - pStart;
@@ -462,8 +486,19 @@ function stripAutoLinksFromDoc(doc) {
   doc.rawBodySuffix = stripAutoLinks(doc.rawBodySuffix);
   for (const section of doc.sections) {
     for (const block of section.blocks) {
+      // raw / quiz: html is verbatim.
+      // inline widget (no slug): html + optional script are verbatim too —
+      // strip both defensively in case a hand-paste copied an auto-link
+      // anchor into a widget block. Registry-driven widgets (with slug)
+      // render from params, so they have no html/script bytes to strip.
       if ((block.type === 'raw' || block.type === 'quiz') &&
           typeof block.html === 'string') {
+        block.html = stripAutoLinks(block.html);
+      } else if (block.type === 'widget' && !block.slug) {
+        if (typeof block.html === 'string')   block.html   = stripAutoLinks(block.html);
+        if (typeof block.script === 'string') block.script = stripAutoLinks(block.script);
+      } else if (block.type === 'widget-script' && !block.ref &&
+                 typeof block.html === 'string') {
         block.html = stripAutoLinks(block.html);
       }
     }
@@ -476,7 +511,25 @@ async function applyFixToJson(doc, pageTopic, pageName) {
 
   const { html, ranges } = await renderDocWithRanges(doc);
 
-  const candidates = [...findCandidatesInPage(html, pageTopic, pageName)];
+  // isWritable: tell findCandidatesInPage to drop matches that land in
+  // widget-block bytes WITHOUT consuming the per-page dedupe slot, so a
+  // later raw-block mention of the same concept can still wrap. Also
+  // catches boundary-span / invariant-violation cases at detection time
+  // rather than as a silent post-hoc skip.
+  function isWritable(globalIdx, length) {
+    const r = findRangeAt(ranges, globalIdx);
+    if (!r) return false;
+    if (globalIdx + length > r.end) return false;
+    if (r.kind === 'block') {
+      const b = r.block;
+      return (b.type === 'raw' || b.type === 'quiz') &&
+             typeof b.html === 'string';
+    }
+    // rawHead / rawBodyPrefix / rawBodySuffix are writable strings.
+    return true;
+  }
+
+  const candidates = [...findCandidatesInPage(html, pageTopic, pageName, isWritable)];
   // Sort descending by offset — splicing earliest offsets first would shift
   // later candidates' positions inside their source block.
   candidates.sort((a, b) => b.globalIdx - a.globalIdx);
@@ -660,6 +713,52 @@ if (FIX) {
   }
 }
 
-// Per the plan: audit mode is informational — exit 0 regardless. --fix also
-// exits 0 on success.
+// ─────────────────────────────────────────────────────────────────────────
+// Resolvability check: every existing wrap on disk should carry a
+// `data-concept-id` that resolves to a known concept. Stale ids mean a
+// rename or deletion silently broke the popover's title/mastery lookup.
+
+const knownConceptIds = new Set(vocab.map((v) => v.id));
+const staleByPage = new Map(); // page -> Set<id>
+{
+  const idRe = /<a\b[^>]*\bdata-auto-inline-link=["']1["'][^>]*\bdata-concept-id=["']([^"']+)["']/g;
+  for (const page of pages) {
+    const pagePath = join(repoRoot, page);
+    if (!existsSync(pagePath)) continue;
+    const html = readFileSync(pagePath, 'utf8');
+    let m;
+    while ((m = idRe.exec(html))) {
+      const id = m[1];
+      if (knownConceptIds.has(id)) continue;
+      if (!staleByPage.has(page)) staleByPage.set(page, new Set());
+      staleByPage.get(page).add(id);
+    }
+  }
+}
+
+let totalStale = 0;
+if (staleByPage.size > 0) {
+  console.log('');
+  console.log('Stale data-concept-id wraps (concept no longer in the bundle):');
+  for (const page of [...staleByPage.keys()].sort()) {
+    const ids = [...staleByPage.get(page)].sort();
+    totalStale += ids.length;
+    console.log(`  ${page}: ${ids.join(', ')}`);
+  }
+  console.log('');
+  console.log(`  ${totalStale} stale wrap(s) across ${staleByPage.size} page(s)`);
+}
+
+// Exit code: --strict fails on any leftover candidate or any stale id.
+// Audit-mode without --strict (and --fix mode in success) exits 0.
+if (STRICT && (totalCandidates > 0 || totalStale > 0)) {
+  console.log('');
+  if (totalCandidates > 0) {
+    console.log(`audit-inline-links --strict: FAIL — ${totalCandidates} candidate(s) un-wrapped (run with --fix)`);
+  }
+  if (totalStale > 0) {
+    console.log(`audit-inline-links --strict: FAIL — ${totalStale} stale data-concept-id(s) (rename in concepts/ or rerun --fix)`);
+  }
+  process.exit(1);
+}
 process.exit(0);

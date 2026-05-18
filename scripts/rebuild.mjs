@@ -93,6 +93,12 @@ const STEPS = [
   //   node scripts/inject-changelog-footer.mjs
   // before publishing, or wire into a pre-release hook.
   { name: 'a11y',       script: 'fix-a11y.mjs',                 fix: true  },
+  // inline-links runs BEFORE roundtrip so its JSON-aware --fix writes
+  // land in content/<topic>.json; roundtrip then re-renders HTML to
+  // match. --strict (always passed) makes --no-fix mode (CI) exit
+  // nonzero on any leftover candidate or stale data-concept-id wrap,
+  // turning the audit into a real gate.
+  { name: 'inline-links', script: 'audit-inline-links.mjs',     fix: true, extraArgs: ['--strict'] },
   // roundtrip runs FIRST in fix mode so smoke + topic-jsdom check the
   // regenerated HTML. Reversed order would let a content/json edit pass
   // smoke against stale HTML, leaving the failure to be caught only on
