@@ -303,14 +303,21 @@ check('makeIsWritable returns false for widget-block matches', () => {
 // ---------------------------------------------------------------------------
 
 check('buildSkipMask: $$ inside <script> does not pair with later prose $$', () => {
-  // Script body contains a literal "$$" inside a quoted string. After
-  // it, prose has a legitimate $$a$$ display-math span. The bug would
-  // pair script-$$ with the open of prose-$$, masking the prose
-  // "between" word. The fix: the $$ scanner now checks !mask[i] before
-  // triggering, so it never starts inside the script-mask.
+  // Script body contains an ODD number of literal `$$` tokens (here one).
+  // The buggy $$ scanner starts at the script-internal $$, doesn't find
+  // a closing $$ inside the script (only one $$ in there), then searches
+  // forward into prose and pairs with the open of $$a$$ — masking
+  // "between" along the way. The fix: the $$ scanner now checks
+  // !mask[i] before triggering, so it never starts inside the
+  // script-mask.
+  //
+  // NOTE: an EVEN number of script-internal $$ tokens (e.g. `"$$x$$"`)
+  // would self-cancel before the scanner reached prose, hiding the bug;
+  // an early draft of this test made that mistake and passed identically
+  // with and without the fix. pr-test-analyzer caught it on PR #235.
   const html =
     '<p>before</p>' +
-    '<script>const sentinel = "$$x = 1$$"; doSomething();</script>' +
+    '<script>const sentinel = "$$";</script>' +
     '<p>between $$a$$ tail</p>';
 
   const { mask } = buildSkipMask(html);
