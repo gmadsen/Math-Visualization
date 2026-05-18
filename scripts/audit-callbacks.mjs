@@ -739,6 +739,38 @@ function applyJsonFix(doc, hostKeys) {
   return { stripped, inserted, replaced, missingSections, staleAsides: staleHits, fidelityWarnings };
 }
 
+// Find every `<aside class="callback">` that sits OUTSIDE a
+// `<!-- callback-auto-begin -->...<!-- callback-auto-end -->` region.
+// Returns `[{ line, snippet }]` for each finding, where `line` is the 1-based
+// line number in the original HTML.
+//
+// **Why:** audit-callbacks --fix strips unfenced asides silently (see
+// stripUnfencedAsides above). In audit-mode (--no-fix, what CI runs)
+// there is no signal that an unfenced aside exists, so a hand-authored
+// "See also" that doesn't match the cross-topic-prereq graph is invisible
+// drift — it gets quietly nuked on the next `rebuild` and the cross-link is
+// lost. PR #234 surfaced exactly this case (cmb-rna-folding and
+// dtgw-topological-vertex each had one).
+//
+// We report findings as warnings, not failures: the right resolution may be
+// EITHER "remove the duplicate" (auto-injector owns the canonical block) OR
+// "preserve the cross-link by adding the corresponding cross-topic prereq".
+// Surfacing the list lets the user decide per case instead of forcing an
+// auto-strip.
+function findUnfencedCallbackAsides(html) {
+  const fencedRe = /<!--\s*callback-auto-begin\s*-->[\s\S]*?<!--\s*callback-auto-end\s*-->/g;
+  const stripped = html.replace(fencedRe, (m) => ' '.repeat(m.length));
+  const asideRe = /<aside\s+class=["']callback["'][^>]*>[\s\S]*?<\/aside>/g;
+  const out = [];
+  let m;
+  while ((m = asideRe.exec(stripped))) {
+    const line = html.slice(0, m.index).split('\n').length;
+    const snippet = m[0].slice(0, 120).replace(/\s+/g, ' ');
+    out.push({ line, snippet });
+  }
+  return out;
+}
+
 // Compute missing links for each anchor. Returns:
 //   { anchor, id, missing: string[] | null }
 //   `missing` = null when the section element itself can't be found.
@@ -767,6 +799,9 @@ let jsonPagesTouched = 0;
 let htmlPagesTouched = 0;
 let hadMissing = false;
 const pagesWithMissing = new Set();
+// Surfaced as warnings in audit-mode only (--fix already strips these
+// via stripUnfencedAsides). Each entry: `${page}:${line} — <snippet>`.
+const unfencedReport = [];
 
 for (const topic of topics.values()) {
   const page = topic.page;
@@ -907,6 +942,16 @@ for (const topic of topics.values()) {
     pagesWithMissing.add(page);
     missingReport.push(`${page}:\n${localMissing.join('\n')}`);
   }
+
+  // Audit-mode only: surface unfenced `<aside class="callback">` elements.
+  // --fix already strips them silently; flag them here so CI's --no-fix
+  // run gives the user a chance to either remove (duplicate) or preserve
+  // (add the cross-topic prereq so the canonical fenced block carries it).
+  if (!FIX) {
+    for (const f of findUnfencedCallbackAsides(origHtml)) {
+      unfencedReport.push(`${page}:${f.line} — ${f.snippet}`);
+    }
+  }
 }
 
 // ----- Report -----
@@ -917,6 +962,21 @@ if (FIX) {
 }
 console.log(`  links already present: ${existingCount}`);
 console.log('');
+
+// Audit-mode warning: unfenced asides flagged but not failing the build.
+// `--fix` already silently strips them via stripUnfencedAsides; CI runs
+// `--no-fix` so without this surfacing the strips were invisible drift.
+if (!FIX && unfencedReport.length > 0) {
+  console.log(
+    `WARN: ${unfencedReport.length} unfenced <aside class="callback"> in ${
+      new Set(unfencedReport.map((s) => s.split(':')[0])).size
+    } page(s) — auto-injector doesn't own these blocks, ` +
+    `--fix will silently strip them. Either remove (duplicate) or preserve ` +
+    `the cross-link by adding the matching cross-topic prereq.`
+  );
+  for (const line of unfencedReport) console.log(`  - ${line}`);
+  console.log('');
+}
 
 if (missingReport.length === 0) {
   console.log('OK: every cross-topic prereq is reflected by a callback link on its host section.');
