@@ -373,6 +373,18 @@ function* findCandidatesInPage(html, pageTopic, pageName, isWritable) {
             const postCh = html[globalIdx + len] || '';
             if (preCh === '$' || postCh === '$') skip = true;
           }
+          // JSON-aware writability: treat a widget-byte match like any
+          // other "skip this position and keep scanning" condition,
+          // rather than letting it stop the search and waste the vocab
+          // entry. Without this, a concept whose first mention in a <p>
+          // happens to land in widget-rendered bytes would never reach
+          // a later writable mention in the same paragraph (Codex bot
+          // finding on PR #227). The HTML-direct path passes no
+          // isWritable, so this branch is a no-op there.
+          if (!skip && typeof isWritable === 'function' &&
+              !isWritable(globalIdx, len)) {
+            skip = true;
+          }
           if (skip) {
             searchFrom = localIdxInNode + Math.max(1, len);
             continue;
@@ -383,16 +395,6 @@ function* findCandidatesInPage(html, pageTopic, pageName, isWritable) {
       }
 
       if (!found) continue;
-
-      // JSON-aware writability check. If the match lands inside a widget
-      // block (which can't be back-ported), drop it WITHOUT marking dedupe
-      // — that way a later raw-block mention of the same concept can still
-      // win. The HTML-direct path passes no isWritable, so this is a no-op
-      // there (everything is writable in a hand-authored HTML page).
-      if (typeof isWritable === 'function' &&
-          !isWritable(found.globalIdx, found.len)) {
-        continue;
-      }
 
       // Reserve this range in the paragraph-local mask so shorter vocab
       // entries can't re-wrap inside it.
