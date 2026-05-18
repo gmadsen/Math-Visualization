@@ -106,7 +106,7 @@ Longest-prefix match, so multi-word names work either `inject used-in-backlinks`
 | [`audit-hint-leakage.mjs`](./audit-hint-leakage.mjs) | "Leaky" quiz hints — keyword fingerprints, paraphrase of explain, derivation walks, count leaks, matching enumeration, ordering recipes. |
 | [`audit-worked-examples.mjs`](./audit-worked-examples.mjs) | Concepts missing a `**Worked example:**` block. |
 | [`audit-cross-topic-prereqs.mjs`](./audit-cross-topic-prereqs.mjs) | Suggested cross-topic prereq edges from prose/quiz co-mentions. |
-| [`audit-inline-links.mjs`](./audit-inline-links.mjs) | Unlinked concept-title mentions. `--fix` wraps first per section. |
+| [`audit-inline-links.mjs`](./audit-inline-links.mjs) | Unlinked concept-title mentions. `--fix` wraps first per *page* (JSON-aware; writes to `content/<topic>.json` raw blocks for JSON-sourced pages, HTML for hand-authored pages). `--strict` is the CI-gate form: exits nonzero on leftover candidates or stale `data-concept-id` wraps. Honors `audits/inline-links-blocklist.json` per-page suppressions. |
 | [`audit-backlinks.mjs`](./audit-backlinks.mjs) | Backlink structure ("Used in" distribution: dead-ends, hubs, orphaned hubs) + coupling-depth scoring per (concept, consumer) pair. |
 | [`audit-notation.mjs`](./audit-notation.mjs) | KaTeX macro / notation consistency. |
 | [`audit-widget-interactivity.mjs`](./audit-widget-interactivity.mjs) | Static vs. interactive widget classifier. |
@@ -185,21 +185,22 @@ CI ([`.github/workflows/verify.yml`](../.github/workflows/verify.yml)) runs `reb
 28. `inject-page-metadata.mjs --fix`
 29. `inject-toc.mjs --fix`
 30. `fix-a11y.mjs --fix`
-31. `test-roundtrip.mjs --fix`
-32. `smoke-test.mjs`
-33. `test-topic-jsdom.mjs`
-34. `stats-coverage.mjs`
-35. `audit-notation.mjs`
-36. `audit-draft-index-cards.mjs`
-37. `audit-starter-concepts.mjs`
-38. `audit-worked-examples.mjs`
-39. `audit-blurb-question-alignment.mjs`
-40. `audit-hint-leakage.mjs`
-41. `audit-widget-interactivity.mjs --strict`
-42. `audit-doc-drift.mjs`
+31. `audit-inline-links.mjs --fix --strict`
+32. `test-roundtrip.mjs --fix`
+33. `smoke-test.mjs`
+34. `test-topic-jsdom.mjs`
+35. `stats-coverage.mjs`
+36. `audit-notation.mjs`
+37. `audit-draft-index-cards.mjs`
+38. `audit-starter-concepts.mjs`
+39. `audit-worked-examples.mjs`
+40. `audit-blurb-question-alignment.mjs`
+41. `audit-hint-leakage.mjs`
+42. `audit-widget-interactivity.mjs --strict`
+43. `audit-doc-drift.mjs`
 
 Round-trip is intentionally first among the post-injector steps so that smoke and topic-jsdom check the regenerated HTML, not stale on-disk HTML — otherwise a content/json edit that broke a topic page would pass its first rebuild and only fail the next one.
 
-`--only <step>` runs one step. Valid names: `concepts`, `quizzes`, `widgets-bundle`, `search`, `section-indexes`, `recent-updates`, `schema`, `widget-params`, `widget-renderers`, `widget-hydration`, `multi-iife-split`, `html-walk`, `find-matching-div`, `ajv`, `doc-drift-unit`, `plan-snapshot-unit`, `a11y-unit`, `validate`, `concept-latex`, `katex`, `no-inline-widgets`, `callbacks`, `backlinks`, `breadcrumb`, `display-prefs`, `index-stats`, `plan-snapshot`, `page-metadata`, `toc`, `a11y`, `roundtrip`, `smoke`, `topic-jsdom`, `stats`, `notation`, `draft-cards`, `starter`, `worked-examples`, `blurb-question`, `hint-leakage`, `widget-interactivity`, `doc-drift`.
+`--only <step>` runs one step. Valid names: `concepts`, `quizzes`, `widgets-bundle`, `search`, `section-indexes`, `recent-updates`, `schema`, `widget-params`, `widget-renderers`, `widget-hydration`, `multi-iife-split`, `html-walk`, `find-matching-div`, `ajv`, `doc-drift-unit`, `plan-snapshot-unit`, `a11y-unit`, `validate`, `concept-latex`, `katex`, `no-inline-widgets`, `callbacks`, `backlinks`, `breadcrumb`, `display-prefs`, `index-stats`, `plan-snapshot`, `page-metadata`, `toc`, `a11y`, `inline-links`, `roundtrip`, `smoke`, `topic-jsdom`, `stats`, `notation`, `draft-cards`, `starter`, `worked-examples`, `blurb-question`, `hint-leakage`, `widget-interactivity`, `doc-drift`.
 
 `inject-changelog-footer.mjs` is intentionally **not** in the rebuild chain — its output references "latest commit touching this page", but the commit that refreshes the changelog can't reference itself, so every post-commit audit would flag one-commit-behind drift forever. Run it manually (`node scripts/inject-changelog-footer.mjs`) before publishing or cutting a release; `--audit` mode reports stale pages without writing.

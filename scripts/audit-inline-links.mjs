@@ -55,11 +55,16 @@
 //
 // CLI:
 //   node scripts/audit-inline-links.mjs
-//       Audit mode. Print candidates grouped by page/section. Exits 0
-//       regardless (informational — not a CI gate yet).
+//       Audit mode. Print candidates grouped by page/section. Exits 0.
 //
 //   node scripts/audit-inline-links.mjs --fix
 //       Apply inserts to every topic page (JSON-aware).
+//
+//   node scripts/audit-inline-links.mjs --strict
+//       Same as audit mode but exit nonzero if any candidate remains, OR
+//       any wrap on disk carries a `data-concept-id` that no longer
+//       resolves to a known concept. This is the CI-gate form;
+//       rebuild.mjs --no-fix passes --strict via the step's extraArgs.
 //
 //   node scripts/audit-inline-links.mjs --page <topic.html>
 //       Restrict to one page (combine with --fix for a pilot).
@@ -94,6 +99,7 @@ const repoRoot = resolve(dirname(__filename), '..');
 
 const argv = process.argv.slice(2);
 const FIX = argv.includes('--fix');
+const STRICT = argv.includes('--strict');
 let PAGE_FILTER = null;
 {
   const idx = argv.indexOf('--page');
@@ -240,7 +246,15 @@ function sectionForOffset(sections, offset) {
   return best ? best.id : null;
 }
 
-function* findCandidatesInPage(html, pageTopic, pageName) {
+// `isWritable(globalIdx, length)` — optional predicate the JSON-aware
+// caller passes to teach detection which offsets back-port to a source
+// raw block. When provided, matches landing on non-writable bytes (widget
+// renders) are skipped WITHOUT consuming the cross-section dedupe slot,
+// so the same concept can still be wrapped in a later raw-block mention
+// on the same page. Without this hook the per-page dedupe would
+// silently lock out a legitimate wrap whenever a widget-block first-match
+// happens to fire (code-reviewer finding on PR #226).
+function* findCandidatesInPage(html, pageTopic, pageName, isWritable) {
   const parseOptions = {
     blockTextElements: {
       script: true,
@@ -359,6 +373,18 @@ function* findCandidatesInPage(html, pageTopic, pageName) {
             const postCh = html[globalIdx + len] || '';
             if (preCh === '$' || postCh === '$') skip = true;
           }
+          // JSON-aware writability: treat a widget-byte match like any
+          // other "skip this position and keep scanning" condition,
+          // rather than letting it stop the search and waste the vocab
+          // entry. Without this, a concept whose first mention in a <p>
+          // happens to land in widget-rendered bytes would never reach
+          // a later writable mention in the same paragraph (Codex bot
+          // finding on PR #227). The HTML-direct path passes no
+          // isWritable, so this branch is a no-op there.
+          if (!skip && typeof isWritable === 'function' &&
+              !isWritable(globalIdx, len)) {
+            skip = true;
+          }
           if (skip) {
             searchFrom = localIdxInNode + Math.max(1, len);
             continue;
@@ -456,15 +482,42 @@ function applyFixToHtml(html, pageTopic, pageName) {
 // uniqueness check (the same phrase may appear multiple times in one
 // block) that mirrors exactly what offset mapping already gives for free.
 
-function stripAutoLinksFromDoc(doc) {
-  doc.rawHead = stripAutoLinks(doc.rawHead);
-  doc.rawBodyPrefix = stripAutoLinks(doc.rawBodyPrefix);
-  doc.rawBodySuffix = stripAutoLinks(doc.rawBodySuffix);
+function stripAutoLinksFromDoc(doc, pageName) {
+  // Wrap the per-field strip so we can surface a warning when an
+  // unexpected location (widget body, frame field) actually had bytes
+  // mutated. silent-failure-hunter on PR #227 flagged that a hand-paste
+  // into a widget script template literal would be silently unwrapped.
+  function stripIn(label, s) {
+    if (typeof s !== 'string') return s;
+    const next = stripAutoLinks(s);
+    if (next !== s && label !== 'raw-block' && label !== 'quiz-block') {
+      console.warn(
+        `audit-inline-links: ${pageName || '?'} — stripped auto-link anchor(s) from ` +
+        `unexpected location "${label}". If this anchor was hand-authored, ` +
+        `move it to a raw block or remove the data-auto-inline-link="1" attribute.`
+      );
+    }
+    return next;
+  }
+  doc.rawHead = stripIn('rawHead', doc.rawHead);
+  doc.rawBodyPrefix = stripIn('rawBodyPrefix', doc.rawBodyPrefix);
+  doc.rawBodySuffix = stripIn('rawBodySuffix', doc.rawBodySuffix);
   for (const section of doc.sections) {
     for (const block of section.blocks) {
+      // raw / quiz: html is verbatim.
+      // inline widget (no slug): html + optional script are verbatim too —
+      // strip both defensively in case a hand-paste copied an auto-link
+      // anchor into a widget block. Registry-driven widgets (with slug)
+      // render from params, so they have no html/script bytes to strip.
       if ((block.type === 'raw' || block.type === 'quiz') &&
           typeof block.html === 'string') {
-        block.html = stripAutoLinks(block.html);
+        block.html = stripIn(block.type === 'raw' ? 'raw-block' : 'quiz-block', block.html);
+      } else if (block.type === 'widget' && !block.slug) {
+        if (typeof block.html === 'string')   block.html   = stripIn('inline widget.html', block.html);
+        if (typeof block.script === 'string') block.script = stripIn('inline widget.script', block.script);
+      } else if (block.type === 'widget-script' && !block.ref &&
+                 typeof block.html === 'string') {
+        block.html = stripIn('inline widget-script.html', block.html);
       }
     }
   }
@@ -472,60 +525,47 @@ function stripAutoLinksFromDoc(doc) {
 
 async function applyFixToJson(doc, pageTopic, pageName) {
   // Strip first so candidate detection sees clean prose.
-  stripAutoLinksFromDoc(doc);
+  stripAutoLinksFromDoc(doc, pageName);
 
   const { html, ranges } = await renderDocWithRanges(doc);
 
-  const candidates = [...findCandidatesInPage(html, pageTopic, pageName)];
+  // isWritable: tell findCandidatesInPage to drop matches that land in
+  // widget-block bytes WITHOUT consuming the per-page dedupe slot, so a
+  // later raw-block mention of the same concept can still wrap. Also
+  // catches boundary-span / invariant-violation cases at detection time
+  // rather than as a silent post-hoc skip.
+  const isWritable = makeIsWritable(ranges);
+
+  const candidates = [...findCandidatesInPage(html, pageTopic, pageName, isWritable)];
   // Sort descending by offset — splicing earliest offsets first would shift
   // later candidates' positions inside their source block.
   candidates.sort((a, b) => b.globalIdx - a.globalIdx);
 
+  // isWritable above already filtered out widget-byte / boundary-span /
+  // out-of-range matches, so every surviving candidate's range is one of
+  // the writable kinds (raw/quiz block, rawHead, rawBodyPrefix,
+  // rawBodySuffix). The branches below are mutually exhaustive of those
+  // kinds; an unexpected range kind would mean isWritable and applyFix
+  // disagree, which is a programmer error worth surfacing.
   let applied = 0;
-  const skipDetails = { invariantViolation: 0, boundarySpan: 0, widgetBytes: 0, unknownKind: 0 };
+  let skipped = 0;
   for (const cand of candidates) {
     const range = findRangeAt(ranges, cand.globalIdx);
-    if (!range) {
-      // findRangeAt returned null — renderer/findRangeAt out of sync. Should
-      // never happen; if it does it's an invariant violation worth surfacing.
+    if (!range || cand.globalIdx + cand.length > range.end) {
       console.warn(
         `audit-inline-links: ${pageName} concept "${cand.concept.id}" — ` +
-        `offset ${cand.globalIdx} fell outside every block range (invariant violation)`
+        `isWritable/applyFix predicate mismatch at offset ${cand.globalIdx} (skipped)`
       );
-      skipDetails.invariantViolation++;
+      skipped++;
       continue;
     }
-    // Defensive: candidate must lie wholly inside the range.
-    if (cand.globalIdx + cand.length > range.end) {
-      console.warn(
-        `audit-inline-links: ${pageName} concept "${cand.concept.id}" — ` +
-        `candidate spans the boundary of a ${range.kind} block (skipped)`
-      );
-      skipDetails.boundarySpan++;
-      continue;
-    }
-
     const offsetInRange = cand.globalIdx - range.start;
     const anchor = buildAnchorHtml(cand.concept, cand.phrase);
-
     if (range.kind === 'block') {
       const block = range.block;
-      if ((block.type === 'raw' || block.type === 'quiz') &&
-          typeof block.html === 'string') {
-        const html = block.html;
-        block.html = html.slice(0, offsetInRange) + anchor + html.slice(offsetInRange + cand.length);
-        applied++;
-      } else {
-        // widget / widget-script render is computed from params; can't
-        // back-port a text mutation safely. Warn so a human can decide
-        // whether to add a per-page blocklist entry or live with the gap.
-        console.warn(
-          `audit-inline-links: ${pageName} concept "${cand.concept.id}" — ` +
-          `matched inside a ${block.type} block (slug="${block.slug || block.ref || '?'}"); ` +
-          `can't back-port to widget params — skipped`
-        );
-        skipDetails.widgetBytes++;
-      }
+      const html = block.html;
+      block.html = html.slice(0, offsetInRange) + anchor + html.slice(offsetInRange + cand.length);
+      applied++;
     } else if (range.kind === 'rawHead') {
       doc.rawHead = doc.rawHead.slice(0, offsetInRange) + anchor + doc.rawHead.slice(offsetInRange + cand.length);
       applied++;
@@ -538,16 +578,13 @@ async function applyFixToJson(doc, pageTopic, pageName) {
     } else {
       console.warn(
         `audit-inline-links: ${pageName} concept "${cand.concept.id}" — ` +
-        `unknown range kind "${range.kind}" (skipped)`
+        `isWritable accepted but applyFix saw unknown range kind "${range.kind}" (skipped)`
       );
-      skipDetails.unknownKind++;
+      skipped++;
     }
   }
 
-  const skipped =
-    skipDetails.invariantViolation + skipDetails.boundarySpan +
-    skipDetails.widgetBytes + skipDetails.unknownKind;
-  return { applied, skipped, skipDetails };
+  return { applied, skipped };
 }
 
 // ─────────────────────────────────────────────────────────────────────────
@@ -577,9 +614,11 @@ for (const page of pages) {
   const pageTopic = topicOfPage(page);
   const html = readFileSync(pagePath, 'utf8');
 
+  const hasJsonSource = existsSync(contentJsonPath(pageTopic));
+  let reportHtml = html;
+  let reportIsWritable = null; // unused on HTML-direct pages (everything writable)
+
   if (FIX) {
-    const hasJsonSource = existsSync(contentJsonPath(pageTopic));
-    let postFixHtml; // rendered or on-disk HTML reflecting post-fix state
     if (hasJsonSource) {
       // JSON-aware path: write to content/<topic>.json so test-roundtrip
       // doesn't wipe the change on the next rebuild.
@@ -589,10 +628,14 @@ for (const page of pages) {
       if (wrote) pagesTouched++;
       totalInserted += applied;
       totalSkipped += skipped;
-      // Render the post-fix doc in-memory so the report below sees the
-      // post-fix state (the HTML on disk is stale until test-roundtrip).
-      const { html: rendered } = await renderDocWithRanges(doc);
-      postFixHtml = rendered;
+      // Render the post-fix doc in-memory and keep the ranges so the
+      // recheck below can apply the same isWritable filter applyFixToJson
+      // used at write time. Without this, widget-byte-only matches would
+      // resurface in the recheck and falsely trip --strict in CI even
+      // though they're correctly un-fixable.
+      const { html: rendered, ranges } = await renderDocWithRanges(doc);
+      reportHtml = rendered;
+      reportIsWritable = makeIsWritable(ranges);
     } else {
       // Legacy HTML-direct path for hand-authored pages with no JSON source
       // (capstone story pages, etc.). The HTML IS the source of truth here.
@@ -602,22 +645,44 @@ for (const page of pages) {
         pagesTouched++;
       }
       totalInserted += inserts;
-      postFixHtml = newHtml;
+      reportHtml = newHtml;
     }
-    // Report what would remain on the post-fix page. We do NOT strip first —
-    // findCandidatesInPage uses existingLinkTargets to skip concepts already
-    // linked to (which includes the just-inserted anchors), so a healthy fix
-    // reports 0 candidates. Stripping first would silently re-discover the
-    // same anchors as candidates and inflate the count (codex-bot finding on
-    // PR #226).
-    const cands = [...findCandidatesInPage(postFixHtml, pageTopic, page)];
-    if (cands.length > 0) perPage.set(page, cands);
-    for (const c of cands) conceptsSeen.add(c.concept.id);
-  } else {
-    const cands = [...findCandidatesInPage(html, pageTopic, page)];
-    if (cands.length > 0) perPage.set(page, cands);
-    for (const c of cands) conceptsSeen.add(c.concept.id);
+  } else if (hasJsonSource) {
+    // Audit mode on a JSON-sourced page: load the JSON purely to build the
+    // ranges, so audit-mode candidate detection also drops widget-byte
+    // matches via isWritable. Without this, --no-fix mode (CI) would flag
+    // unfixable widget-byte candidates and --strict would fail spuriously.
+    const doc = loadTopicContent(pageTopic, repoRoot);
+    const { html: rendered, ranges } = await renderDocWithRanges(doc);
+    reportHtml = rendered;
+    reportIsWritable = makeIsWritable(ranges);
   }
+
+  // Report what remains on the (post-fix or pre-fix) page. We do NOT
+  // strip first — findCandidatesInPage uses existingLinkTargets to skip
+  // concepts already linked to (which includes any just-inserted
+  // anchors), so a healthy --fix run reports 0 candidates. Stripping
+  // first would silently re-discover the same anchors as candidates and
+  // inflate the count (codex-bot finding on PR #226).
+  const cands = [...findCandidatesInPage(reportHtml, pageTopic, page, reportIsWritable)];
+  if (cands.length > 0) perPage.set(page, cands);
+  for (const c of cands) conceptsSeen.add(c.concept.id);
+}
+
+// Helper used in both --fix and audit modes to build the writability
+// predicate from a render range list.
+function makeIsWritable(ranges) {
+  return function isWritable(globalIdx, length) {
+    const r = findRangeAt(ranges, globalIdx);
+    if (!r) return false;
+    if (globalIdx + length > r.end) return false;
+    if (r.kind === 'block') {
+      const b = r.block;
+      return (b.type === 'raw' || b.type === 'quiz') &&
+             typeof b.html === 'string';
+    }
+    return true;
+  };
 }
 
 // ─────────────────────────────────────────────────────────────────────────
@@ -656,10 +721,82 @@ if (FIX) {
   console.log(`  pages touched: ${pagesTouched}`);
   console.log(`  anchors inserted: ${totalInserted}`);
   if (totalSkipped > 0) {
-    console.log(`  candidates skipped (widget bytes, can't back-port): ${totalSkipped}`);
+    // Should be 0 in normal operation. Non-zero means isWritable and the
+    // applyFix range-kind dispatch disagree — see the per-page warnings.
+    console.log(`  candidates skipped (isWritable/applyFix mismatch): ${totalSkipped}`);
   }
 }
 
-// Per the plan: audit mode is informational — exit 0 regardless. --fix also
-// exits 0 on success.
+// ─────────────────────────────────────────────────────────────────────────
+// Resolvability check: every existing wrap should carry a `data-concept-id`
+// that resolves to a known concept. Stale ids mean a rename or deletion
+// silently broke the popover's title/mastery lookup.
+//
+// For JSON-sourced pages, we scan the rendered output of the in-memory
+// post-fix doc (not the on-disk HTML), so a same-rebuild JSON rename is
+// reflected before test-roundtrip writes the new HTML. Otherwise --strict
+// would fail spuriously on a stale HTML snapshot of a just-renamed concept.
+//
+// The anchor matcher is two-pass and attribute-order-agnostic: find every
+// `<a … data-auto-inline-link="1" …>` tag, then extract `data-concept-id`
+// from its attribute list regardless of position. Prevents a future
+// reordering in buildAnchorHtml from silently breaking the scan.
+
+const knownConceptIds = new Set(vocab.map((v) => v.id));
+const staleByPage = new Map(); // page -> Set<id>
+const anchorTagRe = /<a\b[^>]*\bdata-auto-inline-link=["']1["'][^>]*>/g;
+const conceptIdAttrRe = /\bdata-concept-id=["']([^"']+)["']/;
+async function scanForStale(page, html) {
+  let m;
+  while ((m = anchorTagRe.exec(html))) {
+    const tag = m[0];
+    const idMatch = tag.match(conceptIdAttrRe);
+    if (!idMatch) continue;
+    const id = idMatch[1];
+    if (knownConceptIds.has(id)) continue;
+    if (!staleByPage.has(page)) staleByPage.set(page, new Set());
+    staleByPage.get(page).add(id);
+  }
+}
+for (const page of pages) {
+  const pagePath = join(repoRoot, page);
+  if (!existsSync(pagePath)) continue;
+  const pageTopic = topicOfPage(page);
+  if (existsSync(contentJsonPath(pageTopic))) {
+    // JSON-sourced: render the current JSON in-memory so any rename
+    // applied earlier in this run is visible. The on-disk HTML is
+    // still stale until test-roundtrip catches up.
+    const doc = loadTopicContent(pageTopic, repoRoot);
+    const { html: rendered } = await renderDocWithRanges(doc);
+    await scanForStale(page, rendered);
+  } else {
+    await scanForStale(page, readFileSync(pagePath, 'utf8'));
+  }
+}
+
+let totalStale = 0;
+if (staleByPage.size > 0) {
+  console.log('');
+  console.log('Stale data-concept-id wraps (concept no longer in the bundle):');
+  for (const page of [...staleByPage.keys()].sort()) {
+    const ids = [...staleByPage.get(page)].sort();
+    totalStale += ids.length;
+    console.log(`  ${page}: ${ids.join(', ')}`);
+  }
+  console.log('');
+  console.log(`  ${totalStale} stale wrap(s) across ${staleByPage.size} page(s)`);
+}
+
+// Exit code: --strict fails on any leftover candidate or any stale id.
+// Audit-mode without --strict (and --fix mode in success) exits 0.
+if (STRICT && (totalCandidates > 0 || totalStale > 0)) {
+  console.log('');
+  if (totalCandidates > 0) {
+    console.log(`audit-inline-links --strict: FAIL — ${totalCandidates} candidate(s) un-wrapped (run with --fix)`);
+  }
+  if (totalStale > 0) {
+    console.log(`audit-inline-links --strict: FAIL — ${totalStale} stale data-concept-id(s) (rename in concepts/ or rerun --fix)`);
+  }
+  process.exit(1);
+}
 process.exit(0);
