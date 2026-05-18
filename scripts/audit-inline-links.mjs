@@ -82,6 +82,7 @@ import {
 } from './lib/audit-utils.mjs';
 import {
   findCandidatesInPage as findCandidatesInPageLib,
+  makeIsWritable as makeIsWritableLib,
   stripAutoLinks,
   escAttr,
   buildAnchorHtml,
@@ -465,20 +466,13 @@ for (const page of pages) {
   for (const c of cands) conceptsSeen.add(c.concept.id);
 }
 
-// Helper used in both --fix and audit modes to build the writability
-// predicate from a render range list.
+// Thin wrapper around the lib's makeIsWritable that supplies findRangeAt
+// from scripts/lib/render-doc.mjs. The lib version takes findRangeAt as
+// a parameter so it can stay test-importable without pulling render-doc
+// into the unit-test surface (the test mocks ranges with its own
+// findRangeAt). Local code keeps the same single-arg call shape.
 function makeIsWritable(ranges) {
-  return function isWritable(globalIdx, length) {
-    const r = findRangeAt(ranges, globalIdx);
-    if (!r) return false;
-    if (globalIdx + length > r.end) return false;
-    if (r.kind === 'block') {
-      const b = r.block;
-      return (b.type === 'raw' || b.type === 'quiz') &&
-             typeof b.html === 'string';
-    }
-    return true;
-  };
+  return makeIsWritableLib(ranges, findRangeAt);
 }
 
 // ─────────────────────────────────────────────────────────────────────────

@@ -127,6 +127,60 @@ check('isWritable that rejects EVERYTHING produces zero candidates', () => {
 });
 
 // ---------------------------------------------------------------------------
+// (1b) Edge cases the pr-test-analyzer flagged as worth hardening on PR #230.
+// ---------------------------------------------------------------------------
+
+check('all-widget-bytes across multiple paragraphs: zero candidates', () => {
+  // Both <p> mentions land on non-writable bytes; nothing should wrap.
+  // This catches a future refactor that misuses isWritable so it leaks
+  // dedupe state from non-writable matches (would yield 1 instead of 0).
+  const isWritable = () => false;
+  const cands = [...findCandidatesInPage(
+    PAGE_HTML, 'test-topic', 'test.html', QC_VOCAB, EMPTY_BLOCKLIST, isWritable,
+  )];
+  assert.equal(cands.length, 0);
+});
+
+check('same-paragraph: first match widget bytes, second match writable', () => {
+  // Two mentions inside ONE <p>. This exercises the inner `while` loop's
+  // `searchFrom` advance after isWritable rejects the first match,
+  // a different code path than the cross-paragraph case above.
+  const html = [
+    '<!doctype html><html><head><title>t</title></head><body>',
+    '<section id="alpha"><h2>A</h2>',
+    '<p>Intro Quasi-categories appears in widget bytes here, ' +
+      'then Quasi-categories reappears in writable bytes below.</p>',
+    '</section></body></html>',
+  ].join('\n');
+  const firstQc  = html.indexOf('Quasi-categories');
+  const secondQc = html.indexOf('Quasi-categories', firstQc + 1);
+  assert.ok(secondQc > firstQc, 'fixture: two intra-paragraph occurrences expected');
+  const isWritable = (offset, len) =>
+    !((offset < firstQc + PHRASE_LEN) && (offset + len > firstQc));
+  const cands = [...findCandidatesInPage(
+    html, 'test-topic', 'test.html', QC_VOCAB, EMPTY_BLOCKLIST, isWritable,
+  )];
+  assert.equal(cands.length, 1,
+    'inner-scan must advance past the widget-byte position and find the second match');
+  assert.equal(cands[0].globalIdx, secondQc,
+    `expected wrap at the SECOND intra-paragraph occurrence (offset ${secondQc}), got ${cands[0].globalIdx}`);
+});
+
+check('page with no <p> elements yields zero candidates', () => {
+  // Defensive: the detection walks <p>s; a page with none should be a no-op.
+  const html = [
+    '<!doctype html><html><head><title>t</title></head><body>',
+    '<section id="alpha"><h2>Quasi-categories heading only</h2></section>',
+    '</body></html>',
+  ].join('\n');
+  const cands = [...findCandidatesInPage(
+    html, 'test-topic', 'test.html', QC_VOCAB, EMPTY_BLOCKLIST,
+  )];
+  assert.equal(cands.length, 0,
+    'no <p> in the doc → no candidates (headings/section text are out of scope)');
+});
+
+// ---------------------------------------------------------------------------
 // (2) Self-link + existing-link suppressions.
 // ---------------------------------------------------------------------------
 
