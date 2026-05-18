@@ -2356,7 +2356,7 @@ Since $\chi(S^2) = 2$, the total defect of any polyhedron homeomorphic to a sphe
     var widget = document.getElementById('w-space');
     if (!widget) return;
 
-    // Register the <select> and the <input type="range"> (handles curve choice + t).
+    // Register the curve-picker <select> and the t-slider (handles curve choice + t).
     window.MVStateURL.register('space-curve', {
       inputs: ['#sc-pick', '#sc-t'],
       onRestore: function(){ /* input/change events trigger the widget's own draw */ }

@@ -886,17 +886,17 @@ then $S$ contains a nonzero lattice point.</div>
   <div class="hd"><div class="ttl">Minkowski lattice-body visualizer</div><div class="hint">basis · radius · $\ell^p$ ball</div></div>
   <div class="row">
     <label for="mink-a1">v₁ = (a₁,b₁):</label>
-    <input id="mink-a1" type="number" value="1" step="0.5" style="width:4.2em">
-    <input id="mink-b1" type="number" value="0" step="0.5" style="width:4.2em">
-    <label for="mink-b1">v₂ = (a₂,b₂):</label>
-    <input id="mink-a2" type="number" value="0.5" step="0.5" style="width:4.2em">
-    <input id="mink-b2" type="number" value="1.5" step="0.5" style="width:4.2em">
+    <input id="mink-a1" type="number" value="1" step="0.5" style="width:4.2em" aria-label="a₁ (first component of v₁)">
+    <input id="mink-b1" type="number" value="0" step="0.5" style="width:4.2em" aria-label="b₁ (second component of v₁)">
+    <label for="mink-a2">v₂ = (a₂,b₂):</label>
+    <input id="mink-a2" type="number" value="0.5" step="0.5" style="width:4.2em" aria-label="a₂ (first component of v₂)">
+    <input id="mink-b2" type="number" value="1.5" step="0.5" style="width:4.2em" aria-label="b₂ (second component of v₂)">
   </div>
   <div class="row">
-    <label for="mink-b2">radius r:</label>
+    <label for="mink-r">radius r:</label>
     <input id="mink-r" type="range" min="0.4" max="4" step="0.05" value="1.6">
     <span class="small" id="mink-rv"></span>
-    <label for="mink-r">ℓ^p norm, p:</label>
+    <label for="mink-p">ℓ^p norm, p:</label>
     <input id="mink-p" type="range" min="1" max="8" step="0.1" value="2">
     <span class="small" id="mink-pv"></span>
   </div>

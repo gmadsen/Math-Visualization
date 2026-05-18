@@ -22,8 +22,11 @@
 //   - svgId present: input-plot variant — an <svg> renders BEFORE the .row.
 
 // Canonical attribute order for <input>, matching the legacy hand-written
-// order so renderMarkup byte-matches the original source.
-const INPUT_ATTR_ORDER = ['type', 'id', 'value', 'min', 'max', 'step', 'placeholder', 'style'];
+// order so renderMarkup byte-matches the original source. `ariaLabel`
+// added per the a11y input-label sweep; placed last so widgets without
+// one remain byte-identical to their legacy source.
+const INPUT_ATTR_ORDER = ['type', 'id', 'value', 'min', 'max', 'step', 'placeholder', 'style', 'ariaLabel'];
+const ATTR_NAME_MAP = { ariaLabel: 'aria-label' };
 
 function renderInputElement(input) {
   // Build `<input …>` with attrs in canonical order, skipping any absent
@@ -35,7 +38,8 @@ function renderInputElement(input) {
       continue;
     }
     if (input[key] !== undefined) {
-      parts.push(`${key}="${input[key]}"`);
+      const attrName = ATTR_NAME_MAP[key] || key;
+      parts.push(`${attrName}="${input[key]}"`);
     }
   }
   return `<input ${parts.join(' ')}>`;

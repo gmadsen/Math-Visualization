@@ -323,7 +323,7 @@ $K_0(N)$ depends only on the primes $p \mid N$: away from those primes it agrees
     const row = document.createElement('div');
     row.className = 'row';
     row.innerHTML = '<label style="min-width:5em">$p = ' + p + '$, $v_p(\\det g_p) = $</label>'
-      + '<input type="range" min="0" max="3" step="1" value="0" data-p="' + p + '">'
+      + '<input type="range" min="0" max="3" step="1" value="0" data-p="' + p + '" aria-label="v_' + p + '(det g_p) at p=' + p + '">'
       + '<span class="pill" id="rp-val-' + p + '">0</span>';
     host.appendChild(row);
   });

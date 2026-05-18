@@ -91,6 +91,7 @@
               {
                 "id": "bf-d",
                 "type": "number",
+                "ariaLabel": "d (fourth term of (c²+d²))",
                 "value": "4",
                 "style": "width:4em"
               }
