@@ -18,18 +18,56 @@ function escapeHtml(s) {
 // Renders one control element. Order-sensitive — the caller joins the
 // outputs with "\n    " (4-space indent + newline) so the .row block
 // matches the prior verbatim formatting.
+//
+// Sliders support two markup shapes (per-control `format` field):
+//
+//   "nested" (default, spectral-theory style):
+//     <label>{label}<input id="{id}" type="range" min=… max=… [step=…] value=…></label>
+//
+//   "separate" (kahler-geometry / spectral-methods-data / mathematical-biology):
+//     <label for="{id}">{label}</label>
+//     <input type="range" id="{id}" min=… max=… [step=…] value=…>
+//
+// The two forms render identically in the browser but differ at the byte
+// level — preserve per-control so corpus migration roundtrips cleanly.
+// Input attribute order differs too: nested writes `id, type, …`;
+// separate writes `type, id, …` (the corpus convention for sibling
+// inputs). `labelAttrs` is a verbatim attribute string (with leading
+// space) spliced into the `<label …>` opening tag if present.
 function renderControl(c) {
   if (c.type === 'slider') {
-    const stepAttr = (typeof c.step === 'number') ? ` step="${c.step}"` : '';
-    return `<label>${c.label}<input id="${c.id}" type="range" min="${c.min}" max="${c.max}"${stepAttr} value="${c.value}"></label>`;
+    // step accepted as number OR string (string preserves `.0` suffix
+    // from source HTML so byte-identical migration roundtrips work).
+    // Use `c.step != null` rather than typeof check so both forms emit.
+    const stepAttr = (c.step != null && c.step !== '') ? ` step="${c.step}"` : '';
+    const labelAttrs = (typeof c.labelAttrs === 'string') ? c.labelAttrs : '';
+    const format = c.format || 'nested';
+    if (format === 'separate') {
+      return (
+        `<label${labelAttrs} for="${c.id}">${c.label}</label>\n` +
+        `    <input type="range" id="${c.id}" min="${c.min}" max="${c.max}"${stepAttr} value="${c.value}">`
+      );
+    }
+    return `<label${labelAttrs}>${c.label}<input id="${c.id}" type="range" min="${c.min}" max="${c.max}"${stepAttr} value="${c.value}"></label>`;
   }
   if (c.type === 'button') {
-    return `<button id="${c.id}">${c.text}</button>`;
+    const classAttr = (typeof c.class === 'string') ? ` class="${c.class}"` : '';
+    return `<button id="${c.id}"${classAttr}>${c.text}</button>`;
   }
   if (c.type === 'span') {
-    const cls = c.class || 'small';
+    // Three states (preserves spectral-theory backcompat while enabling
+    // kahler-geometry style):
+    //   - `class` undefined        → emit `class="small"` (corpus default,
+    //                                 matches PR #228 spectral-theory entries)
+    //   - `class` === ""           → emit no class attribute
+    //                                 (kahler-geometry style)
+    //   - `class` === non-empty    → emit `class="{value}"` verbatim
+    let classAttr;
+    if (c.class === undefined) classAttr = ' class="small"';
+    else if (c.class === '')   classAttr = '';
+    else                       classAttr = ` class="${c.class}"`;
     const text = c.text || '';
-    return `<span id="${c.id}" class="${cls}">${text}</span>`;
+    return `<span id="${c.id}"${classAttr}>${text}</span>`;
   }
   throw new Error(`slider-svg-2d: unknown control type "${c.type}"`);
 }
@@ -47,7 +85,7 @@ function readoutIdFromSvg(svgId) {
 
 export function renderMarkup(params) {
   if (!params) throw new TypeError('slider-svg-2d: params is required');
-  const { title, hint, controls, svg, readout } = params;
+  const { title, hint, controls, svg, readout, widgetId, wrapperHasId, trailingProse } = params;
   if (typeof title !== 'string') throw new TypeError('slider-svg-2d: title must be a string');
   if (typeof hint  !== 'string') throw new TypeError('slider-svg-2d: hint must be a string');
   if (!Array.isArray(controls) || controls.length === 0) {
@@ -68,16 +106,51 @@ export function renderMarkup(params) {
   // routed titles through DOM-API setters that escape `'` to `&#39;` etc.).
   // The header .ttl text is emitted as-is to match the existing pages,
   // which is fine because it's the literal author-written string.
-  const svgInner = `<title>${escapeHtml(title)}</title>`;
+  //
+  // Override the SVG title via `svg.title` if present (corpus convention:
+  // many widgets give the SVG a more specific accessibility name than the
+  // page header — e.g. header `$(p,q)$-bigrading explorer` vs SVG title
+  // `bidegree summands`). Falls back to the header title when omitted.
+  const svgTitleText = (typeof svg.title === 'string') ? svg.title : title;
+  const svgInner = `<title>${escapeHtml(svgTitleText)}</title>`;
+
+  // Wrapper id: opt-in via `wrapperHasId: true`. Two distinct uses of
+  // widgetId across the corpus require this split:
+  //
+  //   1. spectral-theory style: widgetId is metadata-only — used by
+  //      widget-script-block `ref` binding (see render-doc.mjs
+  //      buildWidgetById) to attach the trailing <script> to its
+  //      widget. The wrapper carries NO id. Set wrapperHasId: false
+  //      (or omit) so the renderer doesn't emit it on the wrapper.
+  //
+  //   2. kahler-geometry style: widgetId IS the wrapper id, used by
+  //      per-page CSS / scripts. The widget-script block has inline
+  //      html (not ref-bound). Set wrapperHasId: true.
+  //
+  // The two semantics couldn't be auto-distinguished at this layer —
+  // a single widget might serve both purposes simultaneously, and the
+  // renderer doesn't have access to sibling blocks. Explicit opt-in
+  // keeps the contract per-widget and unambiguous.
+  const wrapperIdAttr = (wrapperHasId && typeof widgetId === 'string' && widgetId !== '')
+    ? ` id="${widgetId}"`
+    : '';
+
+  // Trailing prose: optional `<p class="small">…</p>` between readout
+  // and closing wrapper, matching the corpus convention where a few
+  // widgets carry an explanatory caption inside the widget block.
+  const trailingMarkup = (typeof trailingProse === 'string' && trailingProse !== '')
+    ? `\n  <p class="small">${trailingProse}</p>`
+    : '';
 
   return (
-    `<div class="widget">\n` +
+    `<div class="widget"${wrapperIdAttr}>\n` +
     `  <div class="hd"><div class="ttl">${title}</div><div class="hint">${hint}</div></div>\n` +
     `  <div class="row">\n` +
     `    ${controlsMarkup}\n` +
     `  </div>\n` +
     `  <svg id="${svg.id}" viewBox="${svg.viewBox}" width="${svg.width}" height="${svg.height}">${svgInner}</svg>` +
-    readoutMarkup + '\n' +
+    readoutMarkup +
+    trailingMarkup + '\n' +
     `</div>`
   );
 }

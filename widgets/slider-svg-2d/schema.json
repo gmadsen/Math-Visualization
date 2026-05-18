@@ -23,7 +23,12 @@
     "widgetId": {
       "type": "string",
       "pattern": "^[A-Za-z][A-Za-z0-9_-]*$|^$",
-      "description": "Optional metadata-only DOM id label kept for parity with the legacy verbatim-renderer schema (which used it for widget-script ref-binding). The slider-svg-2d renderer does NOT emit it — the wrapping `<div class=\"widget\">` has no id, and the script's element lookups go through the explicit `id`s in `controls`, `svg`, and `readout`. Omit unless you have a non-trivial reason to keep it."
+      "description": "DOM id label for the widget. Two semantically distinct uses across the corpus, distinguished by `wrapperHasId`: (1) when `wrapperHasId` is false or omitted, widgetId is metadata-only — used by widget-script `ref` binding (see render-doc.mjs::buildWidgetById) to attach a trailing `<script>` block to its widget. The wrapper carries no id (spectral-theory style). (2) when `wrapperHasId` is true, widgetId IS the wrapper's `id` attribute, emitted as `<div class=\"widget\" id=\"{widgetId}\">` (kahler-geometry style). New widgets typically omit; preserve verbatim through migration so byte-identical roundtrip holds."
+    },
+    "wrapperHasId": {
+      "type": "boolean",
+      "default": false,
+      "description": "When true, emit `widgetId` as the wrapper div's `id` attribute. When false or omitted, keep the canonical slim wrapper `<div class=\"widget\">` (widgetId is then metadata-only — used by widget-script ref-binding). See `widgetId` description for the two corpus styles."
     },
     "title": {
       "type": "string",
@@ -47,11 +52,20 @@
             "properties": {
               "type": { "const": "slider" },
               "id":    { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
-              "label": { "type": "string", "description": "Label text wrapping the input. Rendered inside a <label> as `{label}<input …>`. May contain KaTeX $...$." },
-              "min":   { "type": "number" },
-              "max":   { "type": "number" },
-              "step":  { "type": "number", "exclusiveMinimum": 0, "description": "Optional; omitted from the rendered <input> when absent (browser default = 1). Must be positive when present." },
-              "value": { "type": "number", "description": "Initial value (the `value` attribute on <input>). The renderer enforces min ≤ value ≤ max." }
+              "label": { "type": "string", "description": "Label text wrapping or preceding the input (form-dependent — see `format`). May contain KaTeX $...$ and inline HTML (e.g. a trailing `<span>` for slider-value display)." },
+              "min":   { "type": ["number", "string"], "pattern": "^-?\\d+(?:\\.\\d+)?$" },
+              "max":   { "type": ["number", "string"], "pattern": "^-?\\d+(?:\\.\\d+)?$" },
+              "step":  { "type": ["number", "string"], "pattern": "^\\d+(?:\\.\\d+)?$", "description": "Optional; omitted from the rendered <input> when absent (browser default = 1). Number OR string — strings preserve a trailing `.0` suffix from the source HTML when present (so `\"1.0\"` renders as `step=\"1.0\"`, not `step=\"1\"`)." },
+              "value": { "type": ["number", "string"], "pattern": "^-?\\d+(?:\\.\\d+)?$", "description": "Initial value (the `value` attribute on <input>). Number OR string — strings preserve decimal formatting from the source HTML (`\"3.0\"` vs `\"3\"`)." },
+              "format": {
+                "enum": ["nested", "separate"],
+                "default": "nested",
+                "description": "Markup shape. `nested` (default) emits `<label>{label}<input id=\"{id}\" type=\"range\" …></label>` — input is a child of label. `separate` emits `<label for=\"{id}\">{label}</label>` followed by a sibling `<input type=\"range\" id=\"{id}\" …>`. Corpus split: spectral-theory uses nested; kahler-geometry / spectral-methods-data / mathematical-biology use separate. Preserved per-control so byte-identity holds across the variations."
+              },
+              "labelAttrs": {
+                "type": "string",
+                "description": "Optional verbatim attribute string spliced into the `<label …>` opening tag (e.g. ` style=\"margin-left:1rem\"`). Includes the leading space. Preserved verbatim so corpus-specific cosmetic CSS survives migration. Most widgets omit this."
+              }
             }
           },
           {
@@ -61,7 +75,8 @@
             "properties": {
               "type": { "const": "button" },
               "id":   { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
-              "text": { "type": "string" }
+              "text": { "type": "string" },
+              "class": { "type": "string", "description": "Optional CSS class on the button (e.g. `active` for a toggle-button group's pre-selected state). Omitted from the rendered `<button>` when absent." }
             }
           },
           {
@@ -71,7 +86,7 @@
             "properties": {
               "type":  { "const": "span" },
               "id":    { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
-              "class": { "type": "string", "default": "small", "description": "CSS class for the span. Default `small` matches the verbatim convention." },
+              "class": { "type": "string", "description": "CSS class for the span. Omit to emit a `<span>` with no class attribute (kahler-geometry style); set to `\"small\"` for the spectral-theory style." },
               "text":  { "type": "string", "default": "", "description": "Initial inner text; usually empty since the driving script fills it on first draw." }
             }
           }
@@ -86,7 +101,8 @@
         "id":      { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
         "viewBox": { "type": "string", "pattern": "^-?\\d+(?:\\.\\d+)? -?\\d+(?:\\.\\d+)? [1-9]\\d*(?:\\.\\d+)? [1-9]\\d*(?:\\.\\d+)?$", "description": "SVG viewBox `min-x min-y width height` — origin coordinates may be negative, but width and height must be positive (zero-sized SVG would be invisible)." },
         "width":   { "type": "number", "exclusiveMinimum": 0 },
-        "height":  { "type": "number", "exclusiveMinimum": 0 }
+        "height":  { "type": "number", "exclusiveMinimum": 0 },
+        "title":   { "type": "string", "description": "Optional override for the SVG's `<title>` accessibility name. When omitted, the renderer uses the header `title` field (the canonical convention — every spectral-theory widget matches). Many corpus widgets give the SVG a more specific accessibility label than the page header (e.g. header `$(p,q)$-bigrading explorer` vs SVG title `bidegree summands`); preserve that distinction through migration. HTML-escaped by the renderer." }
       }
     },
     "readout": {
@@ -108,6 +124,10 @@
       "type": "string",
       "description": "Verbatim driving `<script>(function(){ ... })();</script>` block. Each widget's draw logic is genuinely bespoke (axes, bars, level lines, curve sampling, …); only the chrome is shared. Named bodyScript (rather than `script`) so the XSS-lint passthrough in validate-widget-params.mjs covers it — the lint refuses to accept `<script>` inside ANY other param key.",
       "x-artifact": true
+    },
+    "trailingProse": {
+      "type": "string",
+      "description": "Optional `<p class=\"small\">...</p>` prose block emitted between the readout div and the wrapper's closing `</div>`. Some corpus widgets (spectral-methods-data, etc.) embed an explanatory caption inside the widget — this preserves it through migration. The renderer emits the prose verbatim wrapped in `<p class=\"small\">…</p>` with the appropriate indentation. Most widgets omit this field."
     }
   },
   "if": {
