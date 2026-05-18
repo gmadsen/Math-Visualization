@@ -53,15 +53,31 @@ const argv = process.argv.slice(2);
 const FIX = argv.includes('--fix');
 // --strict promotes the audit-mode unfenced-aside WARN into a FAIL,
 // matching the audit-callbacks --strict precedent (PR #240) and the
-// audit-inline-links --strict gate (PR #227). Per silent-failure-hunter
-// review on PR #236: inject-used-in-backlinks has the same shape as
-// audit-callbacks did (unfenced asides survive --fix without warning,
-// a hand-authored aside.related can mask a missing canonical block).
-// NOT wired into rebuild.mjs yet: one page in the corpus
-// (computational-molecular-biology.html §bwt-fm-index, line ~498) has
-// a hand-authored aside.related "Also worth knowing" that --strict
-// would fail on. Resolution is content-side (rename to a non-related
-// class or accept the warning) and orthogonal to this script change.
+// audit-inline-links --strict gate (PR #227).
+//
+// Risk this catches (silent-failure-hunter PR #236, finding #4):
+//   `hasPlain` check at line ~408 accepts ANY unfenced
+//   `<aside class="related">` in the section body as satisfying the
+//   "missing canonical block" check. So if the canonical fenced
+//   block is genuinely missing AND the section happens to carry a
+//   hand-authored aside.related (e.g., a "Also worth knowing"
+//   pedagogical note styled as backlinks), the audit thinks the
+//   section is covered when it isn't.
+//
+// NOTE: unlike audit-callbacks, inject-used-in-backlinks does NOT have
+// a `stripUnfencedAsides` --fix counterpart. `stripFencedBlock` (the
+// only strip in the --fix path) targets the named fence only.
+// Hand-authored aside.related blocks are NOT silently stripped on
+// rebuild — they're safe. The warning surfaces them because they can
+// silently MASK a missing canonical block, not because they're at risk.
+//
+// NOT wired into rebuild.mjs yet: corpus has ONE pre-existing
+// unfenced aside.related (`computational-molecular-biology.html`
+// §bwt-fm-index ~line 498, "Also worth knowing" Catalan/FM-index note).
+// Resolution is content-side and orthogonal to this script change —
+// see PR description Option B (clone aside.related CSS to a new class
+// name like aside.note and restyle the cmb-bwt aside) as the
+// recommended path before wiring --strict here as PR-L.
 const STRICT = argv.includes('--strict');
 
 const MAX_ITEMS = 6;
@@ -234,9 +250,11 @@ let sectionsUpdated = 0;
 let sectionsStripped = 0;
 const missingReport = [];
 const pagesWithIssues = new Set();
-// Surfaced as warnings in audit-mode only (--fix already strips unfenced
-// asides via stripFencedBlock chain). Each entry: `${page}:${line} — <snippet>`.
-// With --strict, leftover findings fail the audit.
+// Surfaced as warnings in audit-mode only. The risk these catch is that
+// the audit's `hasPlain` check (line ~408) accepts an unfenced
+// `<aside class="related">` as satisfying the missing-canonical-block
+// gate — masking a real omission. With --strict, leftover findings fail.
+// Each entry: `${page}:${line} — <snippet>`.
 const unfencedReport = [];
 // Page-level fence-comment imbalance — reported separately because the
 // right fix is "repair the fence", not "remove the aside".
@@ -509,10 +527,12 @@ if (unfencedReport.length > 0) {
     `${STRICT ? 'FAIL' : 'WARN'}: ${unfencedReport.length} unfenced ` +
     `<aside class="related"> in ${
       new Set(unfencedReport.map((s) => s.split(':')[0])).size
-    } page(s) — backlinks-injector doesn't own these blocks, ` +
-    `--fix will silently strip them. Either remove (duplicate) or ` +
-    `restyle the hand-authored content to a non-"related" class so ` +
-    `the strip leaves it alone.`
+    } page(s) — audit-mode treats any aside.related as satisfying ` +
+    `the "missing canonical backlinks block" gate, so a hand-authored ` +
+    `aside (e.g., "Also worth knowing") can mask a real omission. ` +
+    `Either accept the masking (the aside itself is safe — --fix does ` +
+    `not strip it), or restyle the hand-authored content to a non-` +
+    `"related" class so the audit can distinguish it from the canonical block.`
   );
   for (const line of unfencedReport) console.log(`  - ${line}`);
   console.log('');
@@ -543,7 +563,7 @@ if (missingReport.length > 0) {
 console.log(
   `inject-used-in-backlinks --strict: FAIL — ${unfencedReport.length} unfenced + ` +
   `${fenceMismatchReport.length} fence-mismatch finding(s). ` +
-  `Either remove the unfenced aside, fix the corrupted fence, or restyle the ` +
-  `hand-authored content to a non-"related" class.`
+  `Restyle the hand-authored aside.related to a non-"related" class so the ` +
+  `audit can distinguish it from canonical backlinks, or fix the corrupted fence.`
 );
 process.exit(1);
