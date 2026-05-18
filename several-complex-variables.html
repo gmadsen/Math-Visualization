@@ -258,7 +258,7 @@ function drawNode(svg, x, y, label, opts={}){
 
 <section class="hero">
   <h1>Several complex variables &amp; Stein manifolds</h1>
-  <p class="sub">In $\mathbb{C}^n$ for $n\ge 2$, isolated singularities are forbidden, the Riemann mapping theorem fails, and the geometry of a domain dictates whether holomorphic functions live there at all. This page walks the SCV canon: the Hartogs phenomenon, plurisubharmonic functions and the Levi form, Hörmander's $L^2$-solution to $\bar\partial$, pseudoconvexity and the Levi problem, Stein manifolds with Cartan's Theorems&nbsp;A and&nbsp;B, and the Cousin problems.</p>
+  <p class="sub">In $\mathbb{C}^n$ for $n\ge 2$, isolated singularities are forbidden, the <a href="./complex-analysis.html#riemann-mapping" data-auto-inline-link="1" data-concept-id="riemann-mapping" data-blurb="Any simply connected proper open U ⊂ C is conformally equivalent to D.">Riemann mapping theorem</a> fails, and the geometry of a domain dictates whether holomorphic functions live there at all. This page walks the SCV canon: the Hartogs phenomenon, plurisubharmonic functions and the Levi form, Hörmander's $L^2$-solution to $\bar\partial$, pseudoconvexity and the Levi problem, Stein manifolds with Cartan's Theorems&nbsp;A and&nbsp;B, and the Cousin problems.</p>
 </section>
 
 <section id="hartogs">
@@ -461,7 +461,7 @@ $$\bigl(\partial\bar\partial u\bigr)_{j\bar k} \;=\; \frac{\partial^2 u}{\partia
 
 <div class="ok"><strong>The $\bar\partial$-problem.</strong> Given a $\bar\partial$-closed $(0,q)$-form $\alpha$ on $\Omega\subset\mathbb{C}^n$ — meaning $\bar\partial\alpha=0$ — does there exist a $(0,q-1)$-form $u$ with $\bar\partial u = \alpha$, and how big can we keep $u$?</div>
 
-<p>For $q=1$ on a planar domain ($n=1$), this is the inhomogeneous Cauchy–Riemann equation $\partial_{\bar z} u = f$, always solvable on planar simply connected domains by the Cauchy–Pompeiu integral. In $n\ge 2$ the analytical situation is much more delicate, and the right tool is <strong>Hörmander's $L^2$ estimate</strong>.</p>
+<p>For $q=1$ on a planar domain ($n=1$), this is the inhomogeneous Cauchy–Riemann equation $\partial_{\bar z} u = f$, always solvable on planar <a href="./algebraic-topology.html#pi1" data-auto-inline-link="1" data-concept-id="simply-connected" data-blurb="Path-connected space with trivial fundamental group — the domain hypothesis behind existence theorems in complex analysis.">simply connected domains</a> by the Cauchy–Pompeiu integral. In $n\ge 2$ the analytical situation is much more delicate, and the right tool is <strong>Hörmander's $L^2$ estimate</strong>.</p>
 
 <div class="note"><strong>Hörmander (1965).</strong> Let $\Omega\subset\mathbb{C}^n$ be a pseudoconvex domain and $\varphi\colon\Omega\to\mathbb{R}$ a smooth strictly plurisubharmonic weight. For every $\bar\partial$-closed $(0,1)$-form $\alpha = \sum \alpha_j\, d\bar z_j$ with
 $$\int_\Omega |\alpha|^2_{i\partial\bar\partial\varphi}\,e^{-\varphi}\,dV \;<\; \infty,$$
@@ -741,7 +741,7 @@ Equivalently: $X$ admits a smooth strictly plurisubharmonic exhaustion $\rho\col
 
 <div class="ok"><strong>First Cousin theorem.</strong> The first Cousin problem on $\Omega$ is solvable for every choice of cover and local data $\Leftrightarrow H^1(\Omega,\mathcal{O}) = 0$. By Cartan's Theorem B, this holds whenever $\Omega$ is Stein.</div>
 
-<p>In one variable, $H^1(\Omega,\mathcal{O}) = 0$ for every open $\Omega\subset\mathbb{C}$ (use Mittag-Leffler), so the first Cousin problem is always solvable on planar domains — that is exactly the classical Mittag-Leffler theorem prescribing principal parts. In several variables, the obstruction is real on non-Stein domains: there exist domains $\Omega\subset\mathbb{C}^2$ with $H^1(\Omega,\mathcal{O})\ne 0$ where the first Cousin problem can fail.</p>
+<p>In one variable, $H^1(\Omega,\mathcal{O}) = 0$ for every open $\Omega\subset\mathbb{C}$ (use Mittag-Leffler), so the first Cousin problem is always solvable on planar domains — that is exactly the classical <a href="./advanced-complex-analysis.html#mittag-leffler" data-auto-inline-link="1" data-concept-id="aca-mittag-leffler" data-blurb="Dual to Weierstrass: prescribe a discrete pole set with principal parts and there is a meromorphic function realizing them, given by a convergent series of partial fractions plus a holomorphic correction. The witness is the cotangent partial-fraction expansion $\pi\cot\pi z = 1/z + \sum_{n\ne 0}(1/(z-n)+1/n)$.">Mittag-Leffler theorem</a> prescribing principal parts. In several variables, the obstruction is real on non-Stein domains: there exist domains $\Omega\subset\mathbb{C}^2$ with $H^1(\Omega,\mathcal{O})\ne 0$ where the first Cousin problem can fail.</p>
 
 <h3>The second Cousin problem (multiplicative, Weierstrass-style)</h3>
 <p>Given a cover $\{U_i\}$ and meromorphic $f_i\not\equiv 0$ on $U_i$ such that $f_i / f_j$ is nowhere-zero holomorphic on $U_i\cap U_j$, find a meromorphic $f$ on $\Omega$ with $f / f_i$ nowhere-zero holomorphic on each $U_i$. This is divisor data: the $f_i$ prescribe local zero / pole sets that match on overlaps, and $f$ realizes this divisor globally.</p>

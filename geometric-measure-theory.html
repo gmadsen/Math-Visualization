@@ -268,7 +268,7 @@ $$\int_\Omega u\,\partial_i\phi\,dx \;=\; -\int_\Omega \phi\,d(D_iu)\qquad\text{
 
 $$|Du|(\Omega)\;=\;\sup\Bigl\{\,\int_\Omega u\,\mathrm{div}\,\phi\,dx \,:\, \phi\in C^1_c(\Omega;\mathbb{R}^n),\,|\phi(x)|\le 1\,\Bigr\}.$$
 
-<p>Why widen $W^{1,1}$ to $\mathrm{BV}$? Because $W^{1,1}$ requires the gradient measure to be <em>absolutely continuous</em> with respect to Lebesgue measure, ruling out jumps. The Heaviside on $\mathbb{R}$ has $u'=\delta_0$ — a finite Radon measure but not in $L^1$ — so $H\in\mathrm{BV}_{\mathrm{loc}}\setminus W^{1,1}_{\mathrm{loc}}$. Every BV function admits a Radon-Nikodym-style decomposition</p>
+<p>Why widen $W^{1,1}$ to $\mathrm{BV}$? Because $W^{1,1}$ requires the gradient measure to be <em>absolutely continuous</em> with respect to <a href="./measure-theory.html#lebesgue" data-auto-inline-link="1" data-concept-id="lebesgue-measure" data-blurb="Apply Carathéodory to the length premeasure on intervals to get a translation-invariant complete measure on R; null sets and outer/inner regularity; non-measurable Vitali sets.">Lebesgue measure</a>, ruling out jumps. The Heaviside on $\mathbb{R}$ has $u'=\delta_0$ — a finite Radon measure but not in $L^1$ — so $H\in\mathrm{BV}_{\mathrm{loc}}\setminus W^{1,1}_{\mathrm{loc}}$. Every BV function admits a Radon-Nikodym-style decomposition</p>
 
 $$Du \;=\; \nabla u\,\mathcal{L}^n \;+\; (u^+-u^-)\,\nu_u\,\mathcal{H}^{n-1}\restriction J_u \;+\; D^c u,$$
 
@@ -914,7 +914,7 @@ $$S\;\subset\;S_0\,\cup\,\bigcup_{j=1}^\infty f_j(A_j),\qquad \mathcal{H}^k(S_0)
 
 $$\int_A J_f(x)\,d\mathcal{L}^k(x) \;=\; \int_{\mathbb{R}^n} \mathcal{H}^0\bigl(A\cap f^{-1}(y)\bigr)\,d\mathcal{H}^k(y),$$
 
-<p>where $J_f(x)=\sqrt{\det(Df(x)^T Df(x))}$ is the $k$-Jacobian. Read right-to-left: integrate the cardinality of preimage fibres against the $k$-dimensional Hausdorff measure on the image, and you recover the Jacobian-weighted Lebesgue integral on the source. When $f$ is injective and $A$ is a parameter region, the right side reduces to $\mathcal{H}^k(f(A))$ and the area formula becomes the classical change-of-variables / surface-area formula: $\mathcal{H}^k(f(A))=\int_A J_f\,d\mathcal{L}^k$. Non-injective $f$ multiply-covers parts of the image; the multiplicity factor $\mathcal{H}^0(A\cap f^{-1}(y))$ is exactly the correction.</p>
+<p>where $J_f(x)=\sqrt{\det(Df(x)^T Df(x))}$ is the $k$-Jacobian. Read right-to-left: integrate the cardinality of preimage fibres against the $k$-dimensional Hausdorff measure on the image, and you recover the Jacobian-weighted <a href="./measure-theory.html#integral" data-auto-inline-link="1" data-concept-id="lebesgue-integral" data-blurb="Integrate by partitioning the range, not the domain; agrees with Riemann when Riemann exists, but handles far more functions.">Lebesgue integral</a> on the source. When $f$ is injective and $A$ is a parameter region, the right side reduces to $\mathcal{H}^k(f(A))$ and the area formula becomes the classical change-of-variables / surface-area formula: $\mathcal{H}^k(f(A))=\int_A J_f\,d\mathcal{L}^k$. Non-injective $f$ multiply-covers parts of the image; the multiplicity factor $\mathcal{H}^0(A\cap f^{-1}(y))$ is exactly the correction.</p>
 
 <p><strong>Coarea formula.</strong> For Lipschitz $u:\mathbb{R}^n\to\mathbb{R}^m$ with $m\le n$ and integrable $g$:</p>
 

@@ -268,7 +268,7 @@ function drawNode(svg, x, y, label, opts={}){
 
 <p>An almost complex $J$ does not yet make $M$ a complex manifold — it only does so on each tangent space, point by point. To get honest holomorphic charts we need integrability. Complexify: $TM \otimes \mathbb{C} = T^{1,0} \oplus T^{0,1}$ where $T^{1,0}$ is the $+i$-eigenspace of $J$ and $T^{0,1}$ is its conjugate. This induces a bigrading
 $$\Omega^k(M;\mathbb{C}) = \bigoplus_{p+q=k} \Omega^{p,q}(M)$$
-on complex differential forms. The exterior derivative splits as $d = \partial + \bar\partial$ if and only if $J$ is integrable.</p>
+on complex differential forms. The <a href="./differential-forms.html#d" data-auto-inline-link="1" data-concept-id="exterior-derivative" data-blurb="The exterior derivative $d$ extends gradient/curl/divergence and satisfies $d^2=0$.">exterior derivative</a> splits as $d = \partial + \bar\partial$ if and only if $J$ is integrable.</p>
 
 <p><strong>Newlander–Nirenberg (1957).</strong> $J$ comes from a system of holomorphic charts iff the Nijenhuis tensor
 $$N_J(X,Y) = [X,Y] + J[JX,Y] + J[X,JY] - [JX,JY]$$
@@ -491,7 +491,7 @@ and the Kähler identities collapse them all together:
 $$\boxed{\;\Delta_d = 2\Delta_\partial = 2\Delta_{\bar\partial}\;}$$
 on a Kähler manifold. (On a general Hermitian manifold these three are unrelated.)</p>
 
-<p>Compactness now does the rest. Hodge theory says that on a compact Riemannian manifold, every de Rham class has a unique harmonic representative $\Delta_d \alpha = 0$. Because $\Delta_d$ commutes with the bigrading on a Kähler manifold (it is a multiple of $\Delta_{\bar\partial}$, which manifestly preserves $(p,q)$), harmonic forms decompose by type. The result is the <strong>Hodge decomposition</strong>:</p>
+<p><a href="./point-set-topology.html#compact" data-auto-inline-link="1" data-concept-id="compactness" data-blurb="Every open cover has a finite subcover; preserved under continuous images; Heine–Borel, sequential compactness, and why compact Hausdorff is the right target category.">Compactness</a> now does the rest. Hodge theory says that on a compact Riemannian manifold, every de Rham class has a unique harmonic representative $\Delta_d \alpha = 0$. Because $\Delta_d$ commutes with the bigrading on a Kähler manifold (it is a multiple of $\Delta_{\bar\partial}$, which manifestly preserves $(p,q)$), harmonic forms decompose by type. The result is the <strong>Hodge decomposition</strong>:</p>
 
 $$H^k(M;\mathbb{C}) \;=\; \bigoplus_{p+q=k} H^{p,q}(M), \qquad H^{p,q}(M) \cong H^q(M, \Omega^p_M).$$
 
@@ -501,7 +501,7 @@ $$H^k(M;\mathbb{C}) \;=\; \bigoplus_{p+q=k} H^{p,q}(M), \qquad H^{p,q}(M) \cong 
 <li><strong>Serre duality.</strong> The Hodge $*$ operator pairs $H^{p,q}$ with $H^{n-p,n-q}$, so $h^{p,q} = h^{n-p,n-q}$.</li>
 </ul>
 
-<p>Together these halve, then quarter, the Hodge diamond.</p>
+<p>Together these halve, then quarter, <a href="./calabi-yau-manifolds.html#hodge" data-auto-inline-link="1" data-concept-id="cy-hodge-numbers" data-blurb="Hodge numbers $h^{p,q} = \dim H^q(X, \Omega^p)$ form a diamond. For a CY $n$-fold, triviality of $K_X$ gives $h^{n,0} = h^{0,0} = 1$, and Kähler / Serre duality forces $h^{p,q} = h^{q,p} = h^{n-p,n-q}$. For a CY 3-fold the only free entries are $h^{1,1}$ and $h^{2,1}$, and the Euler characteristic is $\chi(X) = 2(h^{1,1} - h^{2,1})$.">the Hodge diamond</a>.</p>
 
 <div class="widget" id="w-diamond">
   <div class="hd"><div class="ttl">Hodge diamond explorer</div><div class="hint">pick complex dimension $n$ · independent entries highlighted</div></div>

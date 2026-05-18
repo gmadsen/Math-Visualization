@@ -255,7 +255,7 @@ function drawNode(svg, x, y, label, opts={}){
 
 <section class="hero">
   <h1>$L$-functions</h1>
-  <p class="sub">A single object — the $L$-function — binds together a Dirichlet series, an Euler product, an analytic continuation, and a functional equation. Its coefficients come from local data (a prime at a time); its global identities encode reciprocity. $\zeta(s)$ is the template, $L(E,s)$ and $L(f,s)$ are the arithmetic payload, and modularity makes them agree.</p>
+  <p class="sub">A single object — the $L$-function — binds together a Dirichlet series, an Euler product, an <a href="./complex-analysis.html#analytic-continuation" data-auto-inline-link="1" data-concept-id="analytic-continuation" data-blurb="The identity theorem lets a holomorphic germ extend uniquely along paths; loops around branch points produce monodromy, and $\log z$ or $\sqrt z$ live naturally on a Riemann surface rather than $\mathbb{C}\setminus\{0\}$.">analytic continuation</a>, and a functional equation. Its coefficients come from local data (a prime at a time); its global identities encode reciprocity. $\zeta(s)$ is the template, $L(E,s)$ and $L(f,s)$ are the arithmetic payload, and modularity makes them agree.</p>
 </section>
 
 <section id="unified">
@@ -1117,7 +1117,7 @@ and <strong>$L(f,s)$</strong> from Hecke eigenvalues of a weight-$2$ cusp form $
 $$L(E,s) \;=\; L(f,s).$$
 Equivalently: the Fourier coefficients of $f$ match the point-count data of $E$ prime by prime, $a_p(f) = a_p(E)$ for all primes $p$.</p>
 
-<p>This is the Modularity Theorem (Taylor–Wiles, Breuil–Conrad–Diamond–Taylor). It is the content of the statement "every elliptic curve over $\mathbb{Q}$ is modular." What does it buy?</p>
+<p>This is the <a href="./modularity-and-flt.html#modularity" data-auto-inline-link="1" data-concept-id="modularity-theorem" data-blurb="Every elliptic curve $E/\mathbb{Q}$ of conductor $N$ corresponds to a weight-2 newform $f_E \in S_2(\Gamma_0(N))$ with matching Frobenius traces $a_p(E) = a_p(f_E)$. Wiles + Taylor–Wiles (1995) handled the semistable case; BCDT (2001) extended to all $E/\mathbb{Q}$.">Modularity Theorem</a> (Taylor–Wiles, Breuil–Conrad–Diamond–Taylor). It is the content of the statement "every elliptic curve over $\mathbb{Q}$ is modular." What does it buy?</p>
 
 <ul>
   <li><strong>Analytic continuation.</strong> $L(E,s)$ only converges a priori on $\mathrm{Re}\,s > 3/2$. But $L(f,s)$, coming from a Mellin transform, continues entire to all of $\mathbb{C}$. Modularity transports that continuation back to $L(E,s)$.</li>

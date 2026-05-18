@@ -29,7 +29,7 @@ import {
   buildAnchorHtml,
   makeIsWritable,
 } from './lib/inline-links-detect.mjs';
-import { buildTitleRegex } from './lib/audit-utils.mjs';
+import { buildTitleRegex, buildSkipMask } from './lib/audit-utils.mjs';
 
 const failures = [];
 function check(name, fn) {
@@ -285,6 +285,69 @@ check('makeIsWritable returns false for widget-block matches', () => {
   const iw = makeIsWritable(ranges, findRangeAt);
   assert.equal(iw(10, 5), false, 'widget block cannot be back-ported');
   assert.equal(iw(60, 5), true,  'raw block is writable');
+});
+
+// ---------------------------------------------------------------------------
+// buildSkipMask: $$…$$ scanner must skip masked positions.
+//
+// Regression test for the bug silent-failure-hunter surfaced on PR #233:
+// the $$…$$ branch of buildSkipMask used to walk left-to-right without
+// checking `!mask[i]` (unlike the single-`$` branch). A `$$` literal
+// inside a `<script>` body (e.g. quoted string, template-literal
+// interpolation) would then pair with the next `$$` outside the script
+// and silently mask all prose between them. The downstream impact was
+// `audit-inline-links --fix` losing legitimate
+// `data-auto-inline-link="1"` anchors whose prose context was hidden by
+// the bogus mask — the symptom that first triggered the investigation
+// in PR #233.
+// ---------------------------------------------------------------------------
+
+check('buildSkipMask: $$ inside <script> does not pair with later prose $$', () => {
+  // Script body contains a literal "$$" inside a quoted string. After
+  // it, prose has a legitimate $$a$$ display-math span. The bug would
+  // pair script-$$ with the open of prose-$$, masking the prose
+  // "between" word. The fix: the $$ scanner now checks !mask[i] before
+  // triggering, so it never starts inside the script-mask.
+  const html =
+    '<p>before</p>' +
+    '<script>const sentinel = "$$x = 1$$"; doSomething();</script>' +
+    '<p>between $$a$$ tail</p>';
+
+  const { mask } = buildSkipMask(html);
+
+  const betweenIdx = html.indexOf('between');
+  assert.ok(betweenIdx > 0, 'fixture: "between" must appear');
+  for (let k = 0; k < 'between'.length; k++) {
+    assert.equal(
+      mask[betweenIdx + k], 0,
+      `prose byte at "between"[${k}] must be unmasked (got mask=${mask[betweenIdx + k]})`
+    );
+  }
+
+  const aOpenIdx = html.indexOf('$$a$$');
+  assert.ok(aOpenIdx > 0, 'fixture: "$$a$$" must appear');
+  assert.equal(mask[aOpenIdx], 1,     'opening $$ of $$a$$ must be masked');
+  assert.equal(mask[aOpenIdx + 4], 1, 'closing $$ of $$a$$ must be masked');
+
+  const tailIdx = html.indexOf('tail');
+  assert.equal(mask[tailIdx], 0, 'prose byte at "tail" must be unmasked');
+});
+
+check('buildSkipMask: two adjacent $$ spans separated by prose stay correct', () => {
+  // Companion guard: two legitimate $$ spans on the same page with
+  // prose between them. Both spans must be masked, prose must not.
+  // Regression target: any change to the $$ scanner's inner-loop close
+  // detection must not over-extend across prose.
+  const html = '$$a$$ between $$b$$';
+  const { mask } = buildSkipMask(html);
+
+  const betweenIdx = html.indexOf('between');
+  for (let k = 0; k < 'between'.length; k++) {
+    assert.equal(
+      mask[betweenIdx + k], 0,
+      `prose byte at "between"[${k}] must be unmasked`
+    );
+  }
 });
 
 // ---------------------------------------------------------------------------

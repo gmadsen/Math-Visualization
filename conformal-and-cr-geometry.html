@@ -264,7 +264,7 @@ function drawNode(svg, x, y, label, opts={}){
 
 <section class="hero">
   <h1>Conformal &amp; CR geometry</h1>
-  <p class="sub">Riemannian geometry, but you only get to keep angles. The story splits in two: in dimension $n\ge 3$ the conformal class $[g] = \{e^{2u}g\}$ produces the Yamabe equation $L_g u = \lambda u^{(n+2)/(n-2)}$, a critical-exponent PDE with the wrong embedding for compactness — solved by Trudinger, Aubin, and Schoen across 24 years. On odd-dimensional cousins — real hypersurfaces in $\mathbb{C}^{n+1}$ — the CR analog runs in parallel: contact 1-forms in place of metrics, the sublaplacian in place of the Laplacian, the Heisenberg group in place of Euclidean space, and the Levi form in place of the second fundamental form.</p>
+  <p class="sub">Riemannian geometry, but you only get to keep angles. The story splits in two: in dimension $n\ge 3$ the conformal class $[g] = \{e^{2u}g\}$ produces the Yamabe equation $L_g u = \lambda u^{(n+2)/(n-2)}$, a critical-exponent PDE with the wrong embedding for <a href="./point-set-topology.html#compact" data-auto-inline-link="1" data-concept-id="compactness" data-blurb="Every open cover has a finite subcover; preserved under continuous images; Heine–Borel, sequential compactness, and why compact Hausdorff is the right target category.">compactness</a> — solved by Trudinger, Aubin, and Schoen across 24 years. On odd-dimensional cousins — real hypersurfaces in $\mathbb{C}^{n+1}$ — the CR analog runs in parallel: contact 1-forms in place of metrics, the sublaplacian in place of the Laplacian, the Heisenberg group in place of Euclidean space, and the Levi form in place of the second fundamental form.</p>
 </section>
 
 <section id="conformal-class">
@@ -342,7 +342,7 @@ $$R_{\tilde g} \;=\; e^{-2u}\Bigl(R_g \;-\; 2(n-1)\,\Delta_g u \;-\; (n-1)(n-2)\
 </script>
 
 <h3>Why dimension 2 is special</h3>
-<p>In two dimensions, the conformal class on a Riemann surface is the <em>complex structure</em>. The Riemann mapping theorem and uniformization both come from the rigidity of $[g]$ in dimension $2$ — a conformal class is the same as a holomorphic atlas. Above dimension $2$ the conformal class no longer determines a complex structure (there are too few conformal vector fields for the dimension count to work), and conformal geometry becomes its own discipline of nonlinear PDE for $u\in C^\infty(M)$.</p>
+<p>In two dimensions, the conformal class on a Riemann surface is the <em>complex structure</em>. The <a href="./complex-analysis.html#riemann-mapping" data-auto-inline-link="1" data-concept-id="riemann-mapping" data-blurb="Any simply connected proper open U ⊂ C is conformally equivalent to D.">Riemann mapping theorem</a> and uniformization both come from the rigidity of $[g]$ in dimension $2$ — a conformal class is the same as a holomorphic atlas. Above dimension $2$ the conformal class no longer determines a complex structure (there are too few conformal vector fields for the dimension count to work), and conformal geometry becomes its own discipline of nonlinear PDE for $u\in C^\infty(M)$.</p>
 
 <!-- callback-auto-begin -->
 <aside class="callback">
@@ -727,7 +727,7 @@ $$\int_M Q_g\,dV_g \;+\; \frac{1}{4}\int_M |W_g|^2\,dV_g \;=\; 8\pi^2\,\chi(M),$
 <section id="cr-structure">
 <h2>5. CR structures and the Heisenberg model</h2>
 
-<p>Real hypersurfaces in $\mathbb{C}^{n+1}$ — boundaries of pseudoconvex domains, for instance — inherit a peculiar mixed structure. They have a real tangent bundle (so they admit real differentiation), but their tangent spaces also remember the complex structure of the ambient $\mathbb{C}^{n+1}$. CR geometry abstracts that mixed structure.</p>
+<p>Real hypersurfaces in $\mathbb{C}^{n+1}$ — boundaries of pseudoconvex domains, for instance — inherit a peculiar mixed structure. They have a real tangent bundle (so they admit real differentiation), but their <a href="./smooth-manifolds.html#tangent" data-auto-inline-link="1" data-concept-id="tangent-space-manifolds" data-blurb="T_pM has three equivalent definitions — equivalence classes of curves, chart velocities, and derivations of C^∞(M) — all naturally isomorphic.">tangent spaces</a> also remember the complex structure of the ambient $\mathbb{C}^{n+1}$. CR geometry abstracts that mixed structure.</p>
 
 <div class="note"><strong>Definition.</strong> A <em>CR structure</em> on a real $(2n+1)$-manifold $M$ is a pair $(H, J)$ where
 <ul>

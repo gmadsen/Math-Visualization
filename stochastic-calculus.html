@@ -811,7 +811,7 @@ The PDE evaluation problem reduces to averaging over Brownian paths.</p>
 
 <p><strong>The simplest case.</strong> With $b=0$, $\sigma=1$, $r=0$ this is just $\partial_t u+\tfrac{1}{2}\partial_{xx}u=0$, $u(T,x)=g(x)$ — the backward heat equation solved by Brownian convolution:
 $$u(t,x)=\mathbb{E}[g(B_T)\mid B_t=x]=\int_{-\infty}^\infty g(y)\,\frac{e^{-(y-x)^2/2(T-t)}}{\sqrt{2\pi(T-t)}}\,dy.$$
-The Brownian heat kernel is the Green's function. The widget below draws the heat-equation solution at a slider time $t$, both as the analytic Gaussian convolution (yellow) and as a Monte-Carlo estimate over Brownian paths (cyan dots) — visually the law of large numbers walking the PDE forward.</p>
+The Brownian heat kernel is the Green's function. The widget below draws the heat-equation solution at a slider time $t$, both as the analytic Gaussian convolution (yellow) and as a Monte-Carlo estimate over Brownian paths (cyan dots) — visually the <a href="./probability-theory.html#lln" data-auto-inline-link="1" data-concept-id="law-of-large-numbers" data-blurb="For i.i.d.\ integrable $X_n$ with mean $\mu$, $\bar X_N\to\mu$ — weakly by Chebyshev (WLLN), strongly by Kolmogorov (SLLN).">law of large numbers</a> walking the PDE forward.</p>
 
 <div class="widget" id="w-fk">
   <div class="hd"><div class="ttl">Heat-equation solution as Brownian expectation</div><div class="hint">$u(t,x)=\mathbb{E}[g(B_T)\mid B_t=x]$ · $g$ a bump</div></div>

@@ -268,7 +268,7 @@ function drawNode(svg, x, y, label, opts={}){
 
 <p>$T^*Q$ comes equipped, with no extra choices, with a 1-form: the <em>tautological</em> (or Liouville) form $\theta$. In any chart $(q^i, p_i)$ on $T^*Q$,</p>
 <p>$$\theta = \sum_{i=1}^n p_i\,dq^i.$$</p>
-<p>Its negative exterior derivative is the canonical symplectic form</p>
+<p>Its negative <a href="./differential-forms.html#d" data-auto-inline-link="1" data-concept-id="exterior-derivative" data-blurb="The exterior derivative $d$ extends gradient/curl/divergence and satisfies $d^2=0$.">exterior derivative</a> is the canonical symplectic form</p>
 <p>$$\omega = -d\theta = \sum_{i=1}^n dq^i\wedge dp_i.$$</p>
 <p>Each fibre $T^*_q Q$ is an $n$-dimensional vector space; together $\dim T^*Q = 2n$. The form $\omega$ is closed (since $\omega = d(-\theta)$) and non-degenerate (the matrix $\begin{pmatrix}0 & I\\ -I & 0\end{pmatrix}$ in canonical coordinates is invertible). Phase space is a symplectic manifold by birthright — and the natural coordinates $(q,p)$ are <em>already</em> Darboux.</p>
 
@@ -368,7 +368,7 @@ function drawNode(svg, x, y, label, opts={}){
 })();
 </script>
 
-<p>The picture above shows a small square in the $(q,p)$ plane evolving under the harmonic oscillator. The shape sheers and rotates, but the <em>area</em> never changes — this is Liouville's theorem (§2) made visible.</p>
+<p>The picture above shows a small square in the $(q,p)$ plane evolving under the harmonic oscillator. The shape sheers and rotates, but the <em>area</em> never changes — this is <a href="./complex-analysis.html#liouville" data-auto-inline-link="1" data-concept-id="liouville" data-blurb="Bounded entire ⇒ constant.">Liouville's theorem</a> (§2) made visible.</p>
 
 <aside class="note">
 <strong>Why $T^*Q$ and not $TQ$?</strong> Velocities $\dot q$ live in the tangent bundle; momenta $p_i = \partial L/\partial \dot q^i$ are linear functionals on velocities, hence cotangent vectors. The Legendre transform $TQ\to T^*Q$ sends a Lagrangian $L(q,\dot q)$ to a Hamiltonian $H(q,p)$ — when invertible, the two formulations are equivalent. Symplectic structure lives naturally on $T^*Q$ because $\theta$ is built without choosing a metric.

@@ -42,7 +42,7 @@
       "blocks": [
         {
           "type": "raw",
-          "html": "<section id=\"sphere\">\n<h2>2. The simplest examples: sphere and torus</h2>\n\n<h3>The Riemann sphere $\\mathbb{CP}^1$</h3>\n<p>Glue two copies of $\\mathbb{C}$ along $\\mathbb{C}^\\times$ by the transition $w = 1/z$. The result is topologically $S^2$ and is called the <em>Riemann sphere</em>; with coordinates it is the complex projective line $\\mathbb{CP}^1$. The point added to $\\mathbb{C}$ at infinity is genuinely a point of $X$ once you do this — in the $w$-chart it is just $w = 0$.</p>\n\n"
+          "html": "<section id=\"sphere\">\n<h2>2. The simplest examples: sphere and torus</h2>\n\n<h3>The Riemann sphere $\\mathbb{CP}^1$</h3>\n<p>Glue two copies of $\\mathbb{C}$ along $\\mathbb{C}^\\times$ by the transition $w = 1/z$. The result is topologically $S^2$ and is called the <em><a href=\"./complex-analysis.html#riemann-sphere\" data-auto-inline-link=\"1\" data-concept-id=\"riemann-sphere\" data-blurb=\"Stereographic projection; ∞ as a point; circles/lines unified.\">Riemann sphere</a></em>; with coordinates it is the complex projective line $\\mathbb{CP}^1$. The point added to $\\mathbb{C}$ at infinity is genuinely a point of $X$ once you do this — in the $w$-chart it is just $w = 0$.</p>\n\n"
         },
         {
           "type": "widget",

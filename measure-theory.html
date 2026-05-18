@@ -261,7 +261,7 @@ function drawNode(svg, x, y, label, opts={}){
 
 <section class="hero">
   <h1>Measure theory and the Lebesgue integral</h1>
-  <p class="sub">From the failure of the Riemann integral on pathological functions to a theory of integration that is closed under pointwise limits, with $L^p$ spaces as its Banach-space completion. A structured review.</p>
+  <p class="sub">From the failure of the Riemann integral on pathological functions to a theory of integration that is closed under pointwise limits, with $L^p$ spaces as its Banach-space <a href="./commutative-algebra.html#completion" data-auto-inline-link="1" data-concept-id="completion-ca" data-blurb="The $I$-adic completion $\hat R_I = \varprojlim_n R/I^n$ packages every &quot;approximate&quot; element by its residues. Produces $\mathbb{Z}_p$ from $\mathbb{Z}$, $k[[x]]$ from $k[x]$, and is the natural setting for Hensel&#39;s lemma and Krull&#39;s intersection theorem.">completion</a>. A structured review.</p>
 </section>
 
 <section id="intro">
@@ -1481,7 +1481,7 @@ Then $\int_0^1\!\int_0^1 f\,dx\,dy = -\pi/4$ while $\int_0^1\!\int_0^1 f\,dy\,dx
 
 <div class="ok"><strong>Hahn–Jordan decomposition.</strong> There is a measurable partition $X = P \sqcup N$ such that $\nu(E\cap P)\ge 0$ and $\nu(E\cap N)\le 0$ for every measurable $E$. Setting $\nu^+(E)=\nu(E\cap P)$ and $\nu^-(E)=-\nu(E\cap N)$ yields two mutually singular positive measures with $\nu = \nu^+ - \nu^-$, unique up to null-set adjustments. The <em>total variation</em> is $|\nu|=\nu^++\nu^-$.</div>
 
-<p><strong>Absolute continuity.</strong> Write $\nu\ll\mu$ (or "$\nu$ is absolutely continuous with respect to $\mu$") when $\mu(E)=0 \Rightarrow \nu(E)=0$ for every $E\in\mathcal{A}$. Write $\nu\perp\mu$ ("mutually singular") when there is a measurable partition $X=A\sqcup B$ with $\nu(A)=\mu(B)=0$.</p>
+<p><strong><a href="./real-analysis.html#absolute-continuity" data-auto-inline-link="1" data-concept-id="absolute-continuity" data-blurb="AC is the right class for the Lebesgue FTC: $f$ is AC iff $f(x)=f(a)+\int_a^x f&#39;(t)\,dt$ with $f&#39;\in L^1$. AC ⫋ BV, with the Cantor function as the canonical BV-but-not-AC counterexample.">Absolute continuity</a>.</strong> Write $\nu\ll\mu$ (or "$\nu$ is absolutely continuous with respect to $\mu$") when $\mu(E)=0 \Rightarrow \nu(E)=0$ for every $E\in\mathcal{A}$. Write $\nu\perp\mu$ ("mutually singular") when there is a measurable partition $X=A\sqcup B$ with $\nu(A)=\mu(B)=0$.</p>
 
 <div class="ok"><strong>Radon–Nikodym.</strong> Let $\mu$ be $\sigma$-finite and $\nu$ a $\sigma$-finite signed measure with $\nu\ll\mu$. Then there exists a $\mu$-measurable $f\colon X\to\mathbb{R}$, $\mu$-a.e. unique, such that
 $$ \nu(E) \;=\; \int_E f\,d\mu \qquad\text{for every } E\in\mathcal{A}. $$

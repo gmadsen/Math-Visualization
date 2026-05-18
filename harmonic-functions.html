@@ -427,7 +427,7 @@ function heatColor(t){
 <div class="note"><strong>Converse — Koebe's theorem.</strong> The MVP <em>characterises</em> harmonicity. If $u$ is continuous on $\Omega$ and satisfies $u(x) = $ ball average for every admissible ball, then $u$ is harmonic — and in particular $C^\infty$. So a single integral identity, applied at every scale, forces all derivatives to exist and a PDE to hold. This is the cleanest example of <em>elliptic regularity</em>.</div>
 <p>Two consequences fall out for free:</p>
 <p>(i) <strong>Smoothing.</strong> Convolution with a radial bump, or even just averaging on small balls, takes a continuous harmonic function to itself — but for a generic $u$ it strictly improves regularity. Iterated averaging is therefore a route to constructing harmonic approximations.</p>
-<p>(ii) <strong>Real analyticity.</strong> Going further: every harmonic function on a connected open set is real-analytic. Knowing $u$ on a tiny open ball pins it down everywhere, exactly as for holomorphic functions.</p>
+<p>(ii) <strong>Real analyticity.</strong> Going further: every harmonic function on a connected open set is real-analytic. Knowing $u$ on a tiny open ball pins it down everywhere, exactly as for <a href="./complex-analysis.html#holomorphic-function" data-auto-inline-link="1" data-concept-id="holomorphic-function" data-blurb="Complex-differentiable on an open set; infinitely more rigid than real.">holomorphic functions</a>.</p>
 
 <div class="widget" id="w-mvp">
   <div class="hd"><div class="ttl">Center value vs. circle average</div><div class="hint">drag the center / change the radius; compare $u(x_0)$ with the boundary average</div></div>
@@ -569,7 +569,7 @@ function heatColor(t){
 
 <section id="maximum">
 <h2>3. The maximum principle</h2>
-<p>From the mean value property the maximum principle drops out almost for free. If $u$ takes a value at $x_0$ which is its supremum on $\Omega$, then $u(x_0) = $ the average over any small ball around $x_0$, but the average can equal the maximum only if $u$ is constant on that ball. A connectedness argument propagates the constancy.</p>
+<p>From the mean value property the maximum principle drops out almost for free. If $u$ takes a value at $x_0$ which is its supremum on $\Omega$, then $u(x_0) = $ the average over any small ball around $x_0$, but the average can equal the maximum only if $u$ is constant on that ball. A <a href="./point-set-topology.html#connected" data-auto-inline-link="1" data-concept-id="connectedness" data-blurb="No separation into disjoint nonempty opens; path-connected implies connected; components partition the space.">connectedness</a> argument propagates the constancy.</p>
 <p><strong>Weak maximum principle.</strong> Let $u$ be harmonic on a bounded $\Omega$ and continuous on $\overline\Omega$. Then</p>
 <p>$$\max_{\overline\Omega} u \;=\; \max_{\partial\Omega} u, \qquad \min_{\overline\Omega} u \;=\; \min_{\partial\Omega} u.$$</p>
 <p><strong>Strong maximum principle.</strong> If $u$ attains its supremum at any interior point of a connected $\Omega$, then $u$ is constant on $\Omega$.</p>
@@ -885,7 +885,7 @@ function heatColor(t){
 
 <section id="harnack">
 <h2>5. Harnack's inequality</h2>
-<p>The Poisson formula gives an <em>uniform</em> control on the oscillation of positive harmonic functions. Suppose $u \ge 0$ is harmonic on $B(0, R)$ in $\mathbb{R}^n$. Then for every $|x| = r < R$,</p>
+<p>The Poisson formula gives an <em>uniform</em> control on the oscillation of positive <a href="./complex-analysis.html#harmonic-functions" data-auto-inline-link="1" data-concept-id="harmonic-functions" data-blurb="If $f = u + iv$ is holomorphic then $u$ and $v$ satisfy Laplace&#39;s equation $\Delta u = 0$; on simply connected domains every harmonic $u$ has a harmonic conjugate recovering a holomorphic lift.">harmonic functions</a>. Suppose $u \ge 0$ is harmonic on $B(0, R)$ in $\mathbb{R}^n$. Then for every $|x| = r < R$,</p>
 <p>$$\frac{R - r}{R + r}\cdot\Big(\frac{R}{R+r}\Big)^{\!n-2} u(0) \;\le\; u(x) \;\le\; \frac{R + r}{R - r}\cdot\Big(\frac{R}{R-r}\Big)^{\!n-2} u(0).$$</p>
 <p>In two dimensions this collapses to the textbook form</p>
 <p>$$\frac{R - r}{R + r}\,u(0) \;\le\; u(x) \;\le\; \frac{R + r}{R - r}\,u(0).$$</p>
@@ -1183,7 +1183,7 @@ function heatColor(t){
 
 <h3>Complex analysis</h3>
 
-<p>The real and imaginary parts of a holomorphic function are conjugate harmonic functions; <a href="./complex-analysis.html#analyticity">analyticity</a> and the Cauchy–Riemann equations are the genus-1 enrichment. The Poisson integral on the disk is the harmonic counterpart of the Cauchy integral formula.</p>
+<p>The real and imaginary parts of a holomorphic function are conjugate harmonic functions; <a href="./complex-analysis.html#analyticity">analyticity</a> and the Cauchy–Riemann equations are the genus-1 enrichment. The Poisson integral on the disk is the harmonic counterpart of the <a href="./complex-analysis.html#cauchy-integral-formula" data-auto-inline-link="1" data-concept-id="cauchy-integral-formula" data-blurb="$f(a) = \tfrac{1}{2\pi i}\oint f(z)/(z-a)\,dz$: boundary values determine interior values on a closed disk, and differentiation under the integral makes holomorphic functions $C^\infty$.">Cauchy integral formula</a>.</p>
 
 <h3>Partial differential equations</h3>
 
