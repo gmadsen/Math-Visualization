@@ -51,6 +51,18 @@ const contentDir = join(repoRoot, 'content');
 
 const argv = process.argv.slice(2);
 const FIX = argv.includes('--fix');
+// --strict promotes the audit-mode unfenced-aside WARN into a FAIL,
+// matching the audit-callbacks --strict precedent (PR #240) and the
+// audit-inline-links --strict gate (PR #227). Per silent-failure-hunter
+// review on PR #236: inject-used-in-backlinks has the same shape as
+// audit-callbacks did (unfenced asides survive --fix without warning,
+// a hand-authored aside.related can mask a missing canonical block).
+// NOT wired into rebuild.mjs yet: one page in the corpus
+// (computational-molecular-biology.html §bwt-fm-index, line ~498) has
+// a hand-authored aside.related "Also worth knowing" that --strict
+// would fail on. Resolution is content-side (rename to a non-related
+// class or accept the warning) and orthogonal to this script change.
+const STRICT = argv.includes('--strict');
 
 const MAX_ITEMS = 6;
 
@@ -222,6 +234,13 @@ let sectionsUpdated = 0;
 let sectionsStripped = 0;
 const missingReport = [];
 const pagesWithIssues = new Set();
+// Surfaced as warnings in audit-mode only (--fix already strips unfenced
+// asides via stripFencedBlock chain). Each entry: `${page}:${line} — <snippet>`.
+// With --strict, leftover findings fail the audit.
+const unfencedReport = [];
+// Page-level fence-comment imbalance — reported separately because the
+// right fix is "repair the fence", not "remove the aside".
+const fenceMismatchReport = [];
 
 for (const [hostTopic, d] of topicData) {
   const page = d.page || `${hostTopic}.html`;
@@ -409,6 +428,38 @@ for (const [hostTopic, d] of topicData) {
     pagesWithIssues.add(page);
     missingReport.push(`${page}:\n  ${pageIssues.join('\n  ')}`);
   }
+
+  // Audit-mode: surface unfenced `<aside class="related">` elements (mirrors
+  // audit-callbacks PR #236/PR #240). --fix silently strips them via the
+  // stripFencedBlock chain; without this warning a hand-authored aside.related
+  // is invisible drift, quietly nuked on the next rebuild.
+  //
+  // Also catches fence-balance mismatches (corrupted begin/end comment) so
+  // the user is steered toward fixing the fence rather than removing the
+  // aside.
+  if (!FIX) {
+    const beginCount =
+      (html.match(/<!--\s*backlinks-auto-begin\s*-->/gi) || []).length;
+    const endCount = (html.match(/<!--\s*backlinks-auto-end\s*-->/gi) || []).length;
+    if (beginCount !== endCount) {
+      fenceMismatchReport.push(
+        `${page}: backlinks-auto fence comments unbalanced ` +
+        `(${beginCount} begin × ${endCount} end) — likely a typo'd ` +
+        `fence comment makes the canonical aside look unfenced; ` +
+        `fix the fence rather than removing the aside.`
+      );
+    } else {
+      const fencedRe = /<!--\s*backlinks-auto-begin\s*-->[\s\S]*?<!--\s*backlinks-auto-end\s*-->/gi;
+      const stripped = html.replace(fencedRe, (m) => ' '.repeat(m.length));
+      const asideRe = /<aside\s+class=["']related["'][^>]*>[\s\S]*?<\/aside>/gi;
+      let m;
+      while ((m = asideRe.exec(stripped))) {
+        const line = html.slice(0, m.index).split('\n').length;
+        const snippet = m[0].slice(0, 120).replace(/\s+/g, ' ');
+        unfencedReport.push(`${page}:${line} — ${snippet}`);
+      }
+    }
+  }
 }
 
 // ----- Report -----
@@ -439,17 +490,60 @@ if (FIX) {
 // Audit mode.
 console.log(`  pages skipped (leaf): ${pagesSkipped}`);
 console.log('');
-if (missingReport.length === 0) {
+
+// Unfenced / fence-mismatch reports (PR-J). With --strict these become
+// failures; without --strict they're WARN only. Mirrors PR #240's
+// audit-callbacks --strict pattern.
+if (fenceMismatchReport.length > 0) {
+  console.log(
+    `${STRICT ? 'FAIL' : 'WARN'}: ${fenceMismatchReport.length} page(s) ` +
+    `with unbalanced backlinks-auto fence comments — typo or missing ` +
+    `<!-- backlinks-auto-{begin,end} --> marker likely.`
+  );
+  for (const line of fenceMismatchReport) console.log(`  - ${line}`);
+  console.log('');
+}
+
+if (unfencedReport.length > 0) {
+  console.log(
+    `${STRICT ? 'FAIL' : 'WARN'}: ${unfencedReport.length} unfenced ` +
+    `<aside class="related"> in ${
+      new Set(unfencedReport.map((s) => s.split(':')[0])).size
+    } page(s) — backlinks-injector doesn't own these blocks, ` +
+    `--fix will silently strip them. Either remove (duplicate) or ` +
+    `restyle the hand-authored content to a non-"related" class so ` +
+    `the strip leaves it alone.`
+  );
+  for (const line of unfencedReport) console.log(`  - ${line}`);
+  console.log('');
+}
+
+const unfencedFailures = STRICT &&
+  (unfencedReport.length > 0 || fenceMismatchReport.length > 0);
+
+if (missingReport.length === 0 && !unfencedFailures) {
   console.log(
     'OK: every concept with downstream consumers carries an <aside class="related"> block.',
   );
   process.exit(0);
 }
 
-console.log(`MISSING (${pagesWithIssues.size} page(s)):`);
-for (const line of missingReport) console.log(`  - ${line}`);
-console.log('');
+if (missingReport.length > 0) {
+  console.log(`MISSING (${pagesWithIssues.size} page(s)):`);
+  for (const line of missingReport) console.log(`  - ${line}`);
+  console.log('');
+  console.log(
+    `FAIL: ${pagesWithIssues.size} page(s) missing backlink asides. Re-run with --fix to insert.`,
+  );
+  process.exit(1);
+}
+
+// Reached here iff unfencedFailures (no missingReport). Exit nonzero
+// under --strict so CI can promote the WARN to a gate.
 console.log(
-  `FAIL: ${pagesWithIssues.size} page(s) missing backlink asides. Re-run with --fix to insert.`,
+  `inject-used-in-backlinks --strict: FAIL — ${unfencedReport.length} unfenced + ` +
+  `${fenceMismatchReport.length} fence-mismatch finding(s). ` +
+  `Either remove the unfenced aside, fix the corrupted fence, or restyle the ` +
+  `hand-authored content to a non-"related" class.`
 );
 process.exit(1);
