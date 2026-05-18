@@ -109,7 +109,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<p>Pick the homothetic options (disk–disk or square–square): the yellow $\\text{vol}^{1/n}$-curve sits exactly on the dashed straight chord — Brunn–Minkowski is sharp for similar bodies. Switch to disk–square: the same $\\text{vol}^{1/n}$-curve bulges above the chord — non-homothetic bodies enjoy a strict inequality, and the gap is what the isoperimetric deficit measures.</p>\n\n<div class=\"ok\"><strong>Consequence: isoperimetric inequality.</strong> Taking $B=\\varepsilon B^n$ and differentiating Brunn–Minkowski at $\\varepsilon=0$ yields $\\mathrm{surf}(K)\\ge n\\,\\omega_n^{1/n}\\,\\mathrm{vol}(K)^{(n-1)/n}$, with equality iff $K$ is a Euclidean ball. The same one-line argument also produces the Aleksandrov–Fenchel inequality, the master inequality on mixed volumes.</div>\n\n"
+          "html": "\n\n<p>Pick the homothetic options (disk–disk or square–square): the yellow $\\text{vol}^{1/n}$-curve sits exactly on the dashed chord — Brunn–Minkowski is sharp for similar bodies. Switch to disk–square: the same $\\text{vol}^{1/n}$-curve bulges above the chord — non-homothetic bodies enjoy a strict inequality, and the gap is what the isoperimetric deficit measures.</p>\n\n<div class=\"ok\"><strong>Consequence: isoperimetric inequality.</strong> Taking $B=\\varepsilon B^n$ and differentiating Brunn–Minkowski at $\\varepsilon=0$ yields $\\mathrm{surf}(K)\\ge n\\,\\omega_n^{1/n}\\,\\mathrm{vol}(K)^{(n-1)/n}$, with equality iff $K$ is a Euclidean ball. The same one-line argument also produces the Aleksandrov–Fenchel inequality, the master inequality on mixed volumes.</div>\n\n"
         },
         {
           "type": "quiz",

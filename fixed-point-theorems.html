@@ -349,7 +349,7 @@ function drawNode(svg, x, y, label, opts={}){
   </div>
   <svg id="sc-svg" viewBox="0 0 560 320" width="100%"><title>Compact image of a convex set</title></svg>
   <div class="readout" id="sc-out">…</div>
-  <div class="note">The yellow square is $C$. The shaded region is $T(C)$. When $T$ is compact, the image is contained in a small (precompact) set inside $C$ — Schauder forces a fixed point. Without compactness the image can escape any precompact neighborhood.</div>
+  <div class="note">The outer yellow square is the domain $C$. The shaded region inside is the image $T(C)$. When $T$ is compact, the image is contained in a small (precompact) set inside $C$ — Schauder forces a fixed point. Without compactness the image can escape any precompact neighborhood.</div>
 </div>
 
 <!-- callback-auto-begin -->
@@ -467,7 +467,7 @@ so Caristi forces a fixed point. (Indeed $0$ is fixed; the orbit from any $x_0\i
     <li><a href="./real-analysis.html#metric-completeness-baire">Metric completeness & Baire category</a></li>
   </ul>
 </aside>
-<!-- callback-auto-end --><p>The widget below makes the budget concrete on $T(x)=x-x^2/2$ with $\varphi(x)=2x$. The yellow line is the budget; violet bars mark $\varphi(x_k)$ at each iterate; pink segments on the axis show the displacement $|x_k-x_{k+1}|=x_k^2/2$ consumed at each step. Total displacement over the tail is bounded by $\varphi(x_0)$ — that is the Caristi inequality, integrated.</p>
+<!-- callback-auto-end --><p>The widget below makes the budget concrete on $T(x)=x-x^2/2$ with $\varphi(x)=2x$. The yellow straight line is the budget $\varphi$; vertical violet bars mark $\varphi(x_k)$ at each iterate; horizontal pink segments on the axis show the displacement $|x_k-x_{k+1}|=x_k^2/2$ consumed at each step. Total displacement over the tail is bounded by $\varphi(x_0)$ — that is the Caristi inequality, integrated.</p>
 
 <div class="widget" id="w-caristi">
   <div class="hd"><div class="ttl">Caristi: Lyapunov budget</div><div class="hint">Slide $x_0$; orbit displacement is capped by $\varphi$.</div></div>

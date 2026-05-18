@@ -103,7 +103,7 @@
             "widgetId": "sc",
             "title": "Compact image of a convex set",
             "hint": "Toggle whether $T$ is compact; watch the image shrink.",
-            "bodyMarkup": "<div class=\"widget\">\n  <div class=\"hd\"><div class=\"ttl\">Compact image of a convex set</div><div class=\"hint\">Toggle whether $T$ is compact; watch the image shrink.</div></div>\n  <div class=\"row\">\n    <button id=\"sc-compact\" class=\"active\">$T$ compact</button>\n    <button id=\"sc-noncompact\">$T$ non-compact</button>\n  </div>\n  <svg id=\"sc-svg\" viewBox=\"0 0 560 320\" width=\"100%\"><title>Compact image of a convex set</title></svg>\n  <div class=\"readout\" id=\"sc-out\">…</div>\n  <div class=\"note\">The yellow square is $C$. The shaded region is $T(C)$. When $T$ is compact, the image is contained in a small (precompact) set inside $C$ — Schauder forces a fixed point. Without compactness the image can escape any precompact neighborhood.</div>\n</div>",
+            "bodyMarkup": "<div class=\"widget\">\n  <div class=\"hd\"><div class=\"ttl\">Compact image of a convex set</div><div class=\"hint\">Toggle whether $T$ is compact; watch the image shrink.</div></div>\n  <div class=\"row\">\n    <button id=\"sc-compact\" class=\"active\">$T$ compact</button>\n    <button id=\"sc-noncompact\">$T$ non-compact</button>\n  </div>\n  <svg id=\"sc-svg\" viewBox=\"0 0 560 320\" width=\"100%\"><title>Compact image of a convex set</title></svg>\n  <div class=\"readout\" id=\"sc-out\">…</div>\n  <div class=\"note\">The outer yellow square is the domain $C$. The shaded region inside is the image $T(C)$. When $T$ is compact, the image is contained in a small (precompact) set inside $C$ — Schauder forces a fixed point. Without compactness the image can escape any precompact neighborhood.</div>\n</div>",
             "bodyScript": ""
           }
         },
@@ -229,7 +229,7 @@
         },
         {
           "type": "raw",
-          "html": "<p>The widget below makes the budget concrete on $T(x)=x-x^2/2$ with $\\varphi(x)=2x$. The yellow line is the budget; violet bars mark $\\varphi(x_k)$ at each iterate; pink segments on the axis show the displacement $|x_k-x_{k+1}|=x_k^2/2$ consumed at each step. Total displacement over the tail is bounded by $\\varphi(x_0)$ — that is the Caristi inequality, integrated.</p>\n\n"
+          "html": "<p>The widget below makes the budget concrete on $T(x)=x-x^2/2$ with $\\varphi(x)=2x$. The yellow straight line is the budget $\\varphi$; vertical violet bars mark $\\varphi(x_k)$ at each iterate; horizontal pink segments on the axis show the displacement $|x_k-x_{k+1}|=x_k^2/2$ consumed at each step. Total displacement over the tail is bounded by $\\varphi(x_0)$ — that is the Caristi inequality, integrated.</p>\n\n"
         },
         {
           "type": "widget",
