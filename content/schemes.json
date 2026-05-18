@@ -114,7 +114,7 @@
               },
               {
                 "kind": "raw",
-                "html": "<div class=\"row\">\n    <label for=\"c3\">p(x) =</label>\n    <input type=\"number\" id=\"c3\" value=\"1\" style=\"width:60px\">·x³ +\n    <input type=\"number\" id=\"c2\" value=\"0\" style=\"width:60px\">·x² +\n    <input type=\"number\" id=\"c1\" value=\"-1\" style=\"width:60px\">·x +\n    <input type=\"number\" id=\"c0\" value=\"0\" style=\"width:60px\">\n  </div>"
+                "html": "<div class=\"row\">\n    <label for=\"c3\">p(x) =</label>\n    <input type=\"number\" id=\"c3\" value=\"1\" style=\"width:60px\">·x³ +\n    <input type=\"number\" id=\"c2\" value=\"0\" style=\"width:60px\" aria-label=\"x² coefficient\">·x² +\n    <input type=\"number\" id=\"c1\" value=\"-1\" style=\"width:60px\" aria-label=\"x coefficient\">·x +\n    <input type=\"number\" id=\"c0\" value=\"0\" style=\"width:60px\" aria-label=\"constant term\">\n  </div>"
               },
               {
                 "kind": "raw",

@@ -1893,7 +1893,7 @@ reaches the trivial group in finitely many steps, where $G'=[G,G]$ is generated 
   CLASSES.forEach((c,i)=>{
     const tr = document.createElement('tr');
     tr.innerHTML = `
-      <td style="padding:.35rem .5rem"><input type="checkbox" ${on[i]?'checked':''} data-i="${i}"></td>
+      <td style="padding:.35rem .5rem"><input type="checkbox" ${on[i]?'checked':''} data-i="${i}" aria-label="include ${c.name} class"></td>
       <td style="padding:.35rem .5rem">${c.name}</td>
       <td style="padding:.35rem .5rem;font-family:ui-monospace,monospace">${c.rep}</td>
       <td style="padding:.35rem .5rem">${c.ctype}</td>

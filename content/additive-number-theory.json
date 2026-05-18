@@ -68,12 +68,14 @@
                 "id": "bf-a",
                 "type": "number",
                 "label": "$a^2+b^2$:",
+                "ariaLabel": "a (first term of (a²+b²))",
                 "value": "2",
                 "style": "width:4em"
               },
               {
                 "id": "bf-b",
                 "type": "number",
+                "ariaLabel": "b (second term of (a²+b²))",
                 "value": "3",
                 "style": "width:4em",
                 "trailingLabel": {
@@ -85,12 +87,14 @@
                 "id": "bf-c",
                 "type": "number",
                 "label": "$c^2+d^2$:",
+                "ariaLabel": "c (first term of (c²+d²))",
                 "value": "1",
                 "style": "width:4em"
               },
               {
                 "id": "bf-d",
                 "type": "number",
+                "ariaLabel": "d (second term of (c²+d²))",
                 "value": "4",
                 "style": "width:4em"
               }

@@ -105,6 +105,10 @@
             "type": "string",
             "description": "Raw inline style attr (e.g. \"width:4em\")."
           },
+          "ariaLabel": {
+            "type": "string",
+            "description": "Optional aria-label on the input. Use when the input has no visible <label>/trailing-label and a screen reader would otherwise read it as an unnamed field. Renders as aria-label=\"...\" on the input element."
+          },
           "trailingLabel": {
             "type": "object",
             "additionalProperties": false,
