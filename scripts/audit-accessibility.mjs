@@ -242,11 +242,30 @@ function checkButtons(html) {
 
 function checkInputs(html) {
   const violations = [];
+  // Strip <script>, <style>, and HTML comments before scanning. The auditor's
+  // regex would otherwise match `<input type="range">` substrings that appear
+  // inside JS template literals, prose comments, or documentation blocks —
+  // producing false positives that the only "fix" for is rephrasing the
+  // comment to dodge the regex (auditor-evasion, not an a11y win). Strip
+  // first so the scan reflects what the browser actually renders.
+  //
+  // Note: JS template strings inside <script> that CONSTRUCT <input> markup
+  // at runtime (e.g. row.innerHTML = '<input type="range" ...>') are NOT
+  // visible to this scan; they're inside the stripped <script> region. The
+  // input HAS to be reachable from the rendered DOM for a screen reader to
+  // encounter it — so we accept that we're trusting the static-HTML
+  // analysis is a sound under-approximation of runtime reality. (Runtime
+  // a11y is checked separately by axe/Pa11y if needed.)
+  let scan = html;
+  scan = scan.replace(/<script\b[\s\S]*?<\/script>/gi, ' ');
+  scan = scan.replace(/<style\b[\s\S]*?<\/style>/gi, ' ');
+  scan = scan.replace(/<!--[\s\S]*?-->/g, ' ');
+
   // Gather id → has associated <label for="id">.
   const labelFors = new Set();
   const lblRe = /<label\b([^>]*)>/gi;
   let lm;
-  while ((lm = lblRe.exec(html))) {
+  while ((lm = lblRe.exec(scan))) {
     const f = attr(`<label${lm[1]}>`, 'for');
     if (f) labelFors.add(f);
   }
@@ -254,13 +273,13 @@ function checkInputs(html) {
   const wrappingLabelRanges = [];
   const wrapRe = /<label\b[^>]*>([\s\S]*?)<\/label>/gi;
   let wm;
-  while ((wm = wrapRe.exec(html))) {
+  while ((wm = wrapRe.exec(scan))) {
     wrappingLabelRanges.push([wm.index, wrapRe.lastIndex]);
   }
 
   const inputRe = /<input\b([^>]*)\/?>/gi;
   let im;
-  while ((im = inputRe.exec(html))) {
+  while ((im = inputRe.exec(scan))) {
     const open = `<input${im[1]}>`;
     const type = (attr(open, 'type') || 'text').toLowerCase();
     if (type === 'hidden' || type === 'submit' || type === 'reset' || type === 'button') continue;
@@ -273,7 +292,9 @@ function checkInputs(html) {
     if (hasFor || hasAria || hasTitle || wrapped) continue;
     violations.push({
       msg: `<input type="${type}"> without associated label / aria-label`,
-      excerpt: snippet(html, im.index, 80),
+      // Excerpt from the stripped scan, not the original html, since
+      // im.index is into scan after script/style/comment stripping.
+      excerpt: snippet(scan, im.index, 80),
     });
   }
   return violations;

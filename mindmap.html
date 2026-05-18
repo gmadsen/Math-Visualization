@@ -1130,7 +1130,7 @@
     if(focusIdx !== null) applyFocus();
   }
   // Cover both `input` (live drag) and `change` (commit) — some browser/OS
-  // combinations emit only one of the two reliably for range inputs.
+  // combinations emit only one of the two reliably for <input type="range">.
   depthSlider.addEventListener('input', onDepthChange);
   depthSlider.addEventListener('change', onDepthChange);
   if(fullChainCheckbox){
