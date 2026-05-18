@@ -15937,7 +15937,6 @@ window.__MVWidgets = [
     "title": "slider-svg-2d widget params",
     "description": "Shared chrome renderer for the standard 'slider(s) + SVG + readout' interactive widget pattern. Pulls the slider config, SVG sizing, and readout id out of the previously-opaque verbatim bodyMarkup into typed params. The driving script stays as a `script` param (each widget's draw logic is genuinely bespoke), but the chrome HTML is generated deterministically from `controls` + `svg` + `readout`. First batch of the verbatim-slug hoisting effort (PLAN.md 'Hoist semantic params out of verbatim slugs').",
     "requiredParams": [
-      "widgetId",
       "title",
       "hint",
       "controls",

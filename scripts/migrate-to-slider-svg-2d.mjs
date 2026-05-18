@@ -4,7 +4,6 @@
 //
 // Usage:
 //   node scripts/migrate-to-slider-svg-2d.mjs <topic-slug> <verbatim-slug> [<verbatim-slug>…]
-//   node scripts/migrate-to-slider-svg-2d.mjs <topic-slug> --all-slider-slugs
 //
 // Behaviour:
 //   - Loads content/<topic-slug>.json
@@ -183,7 +182,14 @@ for (const section of doc.sections) {
     try {
       typed = parseVerbatimMarkup(old.bodyMarkup);
     } catch (e) {
-      console.error(`  ${block.slug}: parse error — ${e.message}`);
+      // Surface enough context for the developer to know WHICH widget on
+      // WHICH topic and at WHICH section the parser tripped — and reprint
+      // the markup head so the failure isn't indistinguishable from a
+      // parser bug vs an unexpected widget shape.
+      console.error(
+        `  ${topicSlug} § ${section.id} slug=${block.slug}: parse error — ${e.message}\n` +
+        `    markup head: ${(old.bodyMarkup || '').replace(/\s+/g, ' ').slice(0, 160)}…`
+      );
       failed++;
       continue;
     }
