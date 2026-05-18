@@ -364,7 +364,7 @@ function drawNode(svg, x, y, label, opts={}){
     <button id="wind-ex4">preset: wind −1</button>
     <span class="small" id="wind-count"></span>
   </div>
-  <div class="readout" id="wind-readout">Draw a loop that starts and ends near the basepoint (the yellow dot on the right of the unit circle). The widget tracks the continuous lift to ℝ and reports the integer endpoint — the winding number.</div>
+  <div class="readout" id="wind-readout">Draw a loop that starts and ends near the basepoint (the yellow draggable dot on the right of the unit circle). The widget tracks the continuous lift to ℝ and reports the integer endpoint — the winding number.</div>
 </div>
 
 <h3>A few more $\pi_1$'s to remember</h3>
@@ -450,7 +450,7 @@ function drawNode(svg, x, y, label, opts={}){
 
     if(pts.length<2){
       const hint = SVG('text',{x:220,y:cyL+170,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});
-      hint.textContent='start near the yellow dot, loop around, return';
+      hint.textContent='start near the yellow basepoint dot, loop around, return';
       svg.appendChild(hint);
       count.textContent = '';
       return;

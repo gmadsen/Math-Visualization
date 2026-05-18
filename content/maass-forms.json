@@ -23,7 +23,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<p>The yellow curve plots $\\lambda(r)=\\tfrac14+r^2$. The horizontal line at $\\lambda=\\tfrac14$ is the Selberg threshold: above it, $r$ is real and we are in the \"tempered\" regime; below it, $r$ becomes imaginary and we cross into exceptional territory. Switching the parameterisation to $s=\\tfrac12+t$ exhibits the exceptional eigenvalues directly.</p>\n\n"
+          "html": "\n\n<p>The yellow plotted curve shows $\\lambda(r)=\\tfrac14+r^2$. The horizontal line at $\\lambda=\\tfrac14$ is the Selberg threshold: above it, $r$ is real and we are in the \"tempered\" regime; below it, $r$ becomes imaginary and we cross into exceptional territory. Switching the parameterisation to $s=\\tfrac12+t$ exhibits the exceptional eigenvalues directly.</p>\n\n"
         },
         {
           "type": "quiz",
