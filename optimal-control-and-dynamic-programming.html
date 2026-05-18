@@ -257,7 +257,7 @@ function drawNode(svg, x, y, label, opts={}){
 
 <section class="hero">
   <h1>Optimal control and dynamic programming</h1>
-  <p class="sub">Two ways to ask the same question. <em>Pontryagin</em>: among all control trajectories, which one minimises cost? — answered by adjoint co-states and a pointwise Hamiltonian maximisation. <em>Bellman</em>: how good is the best policy from <em>here</em>? — answered by a value function that satisfies a first-order PDE, the Hamilton–Jacobi–Bellman equation. The two views are dual: HJB characteristics <em>are</em> Pontryagin extremals. Together they give the optimal-feedback law that closes the loop on every modern controller from autopilots to portfolio rebalancing.</p>
+  <p class="sub">Two ways to ask the same question. <em>Pontryagin</em>: among all control trajectories, which one minimises cost? — answered by adjoint co-states and a pointwise Hamiltonian maximisation. <em>Bellman</em>: how good is the best policy from <em>here</em>? — answered by a value function that satisfies a first-order PDE, <a href="./mathematical-finance.html#hjb" data-auto-inline-link="1" data-concept-id="mf-hjb" data-blurb="Dynamic programming for a controlled diffusion $dX_t=b(t,X_t,u_t)\,dt+\sigma(t,X_t,u_t)\,dB_t$ with running cost $f$ gives the value function $V(t,x)$ satisfying $\partial_t V+\sup_u\{\mathcal{L}^uV+f\}=0$; the supremum over admissible controls collapses the curse of dimensionality into a nonlinear PDE, and Merton&#39;s problem is its prototypical closed-form instance.">the Hamilton–Jacobi–Bellman equation</a>. The two views are dual: HJB characteristics <em>are</em> Pontryagin extremals. Together they give the optimal-feedback law that closes the loop on every modern controller from autopilots to portfolio rebalancing.</p>
 </section>
 
 <section id="problem">
@@ -338,7 +338,7 @@ $$\min_{u}\int_0^T L(x,u,t)\,dt \quad\text{s.t.}\quad \dot x = u$$
 <p>The trick that converts among them: append the running integral as a new state. Let $x_{n+1}(t)=\int_0^t L(x,u,s)\,ds$ with $\dot x_{n+1}=L$, $x_{n+1}(0)=0$. Then a Lagrange cost becomes a Mayer terminal cost $\Phi(x(T),x_{n+1}(T)) = x_{n+1}(T)$. Conversely a Mayer cost is trivially Bolza with $L\equiv 0$. <em>Bolza is the universal container.</em></p>
 
 <h3>Why control breaks Euler–Lagrange</h3>
-<p>The variational derivation rests on perturbing $x$ freely. When $u\in U$ is a closed set, you can't perturb $u^*$ in every direction — only into $U$. The Euler–Lagrange "set the derivative to zero" becomes "maximise (or minimise) over the admissible cone." The correct replacement is the <strong>Pontryagin maximum principle</strong>, which we meet next.</p>
+<p>The variational derivation rests on perturbing $x$ freely. When $u\in U$ is a closed set, you can't perturb $u^*$ in every direction — only into $U$. The Euler–Lagrange "set the derivative to zero" becomes "maximise (or minimise) over the admissible cone." The correct replacement is the <strong>Pontryagin <a href="./harmonic-functions.html#maximum" data-auto-inline-link="1" data-concept-id="hf-maximum-principle" data-blurb="Weak form: a harmonic $u$ on a bounded $\Omega$ attains $\sup u$ on $\partial\Omega$. Strong form: an interior maximum forces $u$ to be constant on the connected component. Together they yield uniqueness for the Dirichlet problem.">maximum principle</a></strong>, which we meet next.</p>
 
 <div class="widget" id="w-bolza">
   <div class="hd"><div class="ttl">Bolza ↔ Mayer state-augmentation</div><div class="hint">flip the toggle · same trajectory, two costs</div></div>
@@ -583,13 +583,13 @@ $$TV(x) - TV'(x) \;\le\; \gamma\bigl(V(f(x,u^*)) - V'(f(x,u^*))\bigr) \;\le\; \g
 
 <p>Real systems are noisy. The state equation becomes a controlled <em>stochastic</em> differential equation</p>
 $$dx_t \;=\; b(x_t, u_t, t)\,dt + \sigma(x_t, u_t, t)\,dW_t,\qquad x_0 = x,$$
-<p>driven by a Brownian motion $W_t\in\mathbb{R}^d$. The control $u_t$ is now <em>adapted</em> (depends only on the history of $W$ up to time $t$). The cost is</p>
+<p>driven by a <a href="./probability-theory.html#brownian" data-auto-inline-link="1" data-concept-id="brownian-motion" data-blurb="The continuous-time Gaussian process $(W_t)_{t\ge 0}$ with independent stationary increments $W_t-W_s\sim\mathcal{N}(0,t-s)$ — the scaling limit of random walks and the fundamental stochastic process.">Brownian motion</a> $W_t\in\mathbb{R}^d$. The control $u_t$ is now <em>adapted</em> (depends only on the history of $W$ up to time $t$). The cost is</p>
 $$J[u] \;=\; \mathbb{E}\Big[\int_0^T L(x_t,u_t,t)\,dt + \Phi(x_T)\Big].$$
 
 <h3>The controlled generator and stochastic HJB</h3>
 <p>For a fixed control $u$, the controlled diffusion has infinitesimal generator</p>
 $$\mathcal{L}^u \phi(x) \;=\; b(x,u,t)\cdot\nabla\phi(x) + \tfrac12 \tr\!\bigl(\sigma\sigma^\top\,D^2\phi(x)\bigr).$$
-<p>Bellman's principle now uses Itô's formula in place of the chain rule: $V(x_{t+\delta},t+\delta) - V(x_t,t) = (\partial_t V + \mathcal{L}^u V)\delta t + \text{martingale}$. The optimality condition is</p>
+<p>Bellman's principle now uses <a href="./stochastic-calculus.html#ito-formula" data-auto-inline-link="1" data-concept-id="sc-ito-formula" data-blurb="For $C^2$ functions and Itô process $X_t$, $df(X_t)=f&#39;(X_t)\,dX_t+\tfrac{1}{2}f&#39;&#39;(X_t)\,(dX_t)^2$ — the chain rule corrected by the quadratic-variation term that classical calculus misses; equivalently $f(B_t)=f(0)+\int_0^t f&#39;(B_s)\,dB_s+\tfrac{1}{2}\int_0^t f&#39;&#39;(B_s)\,ds$.">Itô's formula</a> in place of the chain rule: $V(x_{t+\delta},t+\delta) - V(x_t,t) = (\partial_t V + \mathcal{L}^u V)\delta t + \text{martingale}$. The optimality condition is</p>
 $$\boxed{\;-\partial_t V \;=\; \inf_{u\in U}\Big\{\, L(x,u,t) + \mathcal{L}^u V(x,t)\,\Big\}, \qquad V(x,T)=\Phi(x).\;}$$
 <p>This is the <strong>stochastic HJB equation</strong> — now a <em>second-order</em> nonlinear PDE because $\mathcal{L}^u$ carries the diffusion's Laplacian-like term. The infimand expands to</p>
 $$L(x,u,t) + b(x,u,t)\cdot\nabla V + \tfrac12 \tr(\sigma\sigma^\top D^2 V).$$

@@ -261,7 +261,7 @@ function drawNode(svg, x, y, label, opts={}){
 <h2>1. Dirichlet series and the half-plane of convergence</h2>
 <p>A <strong>Dirichlet series</strong> is a formal expression
 $$D(s) \;=\; \sum_{n=1}^{\infty} \frac{a_n}{n^s}, \qquad s \in \mathbb{C},$$
-where the coefficients $a_n$ are complex numbers. Power series live on discs; Dirichlet series live on right half-planes. Write $s = \sigma + it$. If the series converges absolutely at some $s_0 = \sigma_0 + it_0$, then
+where the coefficients $a_n$ are <a href="./complex-analysis.html#complex-numbers" data-auto-inline-link="1" data-concept-id="complex-numbers" data-blurb="Arithmetic on $\mathbb{C} = \mathbb{R}^2$ with multiplication; polar form $z = re^{i\theta}$ and the one-point compactification to the Riemann sphere $\hat{\mathbb{C}}$ via stereographic projection.">complex numbers</a>. Power series live on discs; Dirichlet series live on right half-planes. Write $s = \sigma + it$. If the series converges absolutely at some $s_0 = \sigma_0 + it_0$, then
 $$\sum_n \frac{|a_n|}{n^{\sigma_0}} < \infty \;\Longrightarrow\; \sum_n \frac{|a_n|}{n^{\sigma}} \le \sum_n \frac{|a_n|}{n^{\sigma_0}} < \infty$$
 for every $\sigma \ge \sigma_0$, because $n^{-\sigma} \le n^{-\sigma_0}$ when $n \ge 1$. So the set of $s$ at which $D(s)$ converges absolutely is a right half-plane
 $$\{\,s : \mathrm{Re}\,s > \sigma_a\,\}$$
@@ -850,7 +850,7 @@ $$\boxed{\;\Lambda(s) \;=\; \Lambda(1-s).\;}$$</p>
 $$\Lambda(s) \;=\; \int_0^\infty x^{s/2-1} \Bigl(\sum_{n\ge 1} e^{-\pi n^2 x}\Bigr) dx \;=\; \int_0^\infty x^{s/2-1}\, \tfrac{\theta(x) - 1}{2}\, dx,$$
 where $\theta(x) = \sum_{n\in\mathbb{Z}} e^{-\pi n^2 x}$ is the Jacobi theta function. The <strong>key fact</strong> is the modular transformation
 $$\theta(1/x) \;=\; \sqrt{x}\,\theta(x)$$
-(a consequence of Poisson summation). Split the integral at $x=1$, apply $\theta(1/x) = \sqrt x\, \theta(x)$ to the $[0,1]$ half, and the symmetry $s \leftrightarrow 1-s$ drops out after an elementary substitution. The formula also exhibits $\Lambda$ as meromorphic on $\mathbb{C}$ with simple poles only at $s=0$ and $s=1$ (so $\zeta$ has only the pole at $s=1$; the one at $0$ is eaten by $\Gamma(s/2)$).</p>
+(a consequence of <a href="./harmonic-analysis-fourier.html#poisson" data-auto-inline-link="1" data-concept-id="poisson-summation" data-blurb="$\sum_{n\in\mathbb{Z}} f(n) = \sum_{n\in\mathbb{Z}} \hat f(n)$ for Schwartz $f$. Specializing to a Gaussian gives the modular transformation of Jacobi&#39;s theta function — the analytic continuation of $\zeta(s)$ rests on this identity.">Poisson summation</a>). Split the integral at $x=1$, apply $\theta(1/x) = \sqrt x\, \theta(x)$ to the $[0,1]$ half, and the symmetry $s \leftrightarrow 1-s$ drops out after an elementary substitution. The formula also exhibits $\Lambda$ as meromorphic on $\mathbb{C}$ with simple poles only at $s=0$ and $s=1$ (so $\zeta$ has only the pole at $s=1$; the one at $0$ is eaten by $\Gamma(s/2)$).</p>
 
 <div class="widget" id="w-funceq">
   <div class="hd"><div class="ttl">Reflection $s \leftrightarrow 1-s$</div><div class="hint">drag $s$ on the critical line's axis</div></div>

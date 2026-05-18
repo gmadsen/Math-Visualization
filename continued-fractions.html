@@ -762,7 +762,7 @@ Solutions form a tree: from a base solution $(x,y,z)$ the <em>Vieta jump</em> $(
 
 <div class="ok"><strong>Markoff (1879).</strong> The Lagrange spectrum below $3$ is exactly $\{\sqrt{9-4/m^2}\,:\,m\text{ a Markoff number}\}$, and these values accumulate at $3$ from below.</div>
 
-<p>Above $3$ the structure gets wilder. <strong>Hall's theorem (1947)</strong>: the Lagrange spectrum contains an entire half-line $[\mu,\infty)$ — Hall's ray — so it has positive Lebesgue measure. The exact start of Hall's ray was pinned down by Freiman (1975) at $\mu=F\approx 4.5278\,\!\cdots\!$ explicit, with closed form $F=(2221564096+283748\sqrt{462})/491993569$; this value is Freiman's constant, and the spectrum below $F$ is a (very complicated) Cantor-like set.</p>
+<p>Above $3$ the structure gets wilder. <strong>Hall's theorem (1947)</strong>: the Lagrange spectrum contains an entire half-line $[\mu,\infty)$ — Hall's ray — so it has positive <a href="./measure-theory.html#lebesgue" data-auto-inline-link="1" data-concept-id="lebesgue-measure" data-blurb="Apply Carathéodory to the length premeasure on intervals to get a translation-invariant complete measure on R; null sets and outer/inner regularity; non-measurable Vitali sets.">Lebesgue measure</a>. The exact start of Hall's ray was pinned down by Freiman (1975) at $\mu=F\approx 4.5278\,\!\cdots\!$ explicit, with closed form $F=(2221564096+283748\sqrt{462})/491993569$; this value is Freiman's constant, and the spectrum below $F$ is a (very complicated) Cantor-like set.</p>
 
 <p>Below the value $3$ the Vieta-jump tree organises everything. The widget builds the tree by clicking on a triple to apply a Vieta jump; the readout displays the Markoff number, its Lagrange value, and a simple proof-of-concept of the unicity conjecture: each Markoff number determines its triple uniquely up to permutation (still open in general, conjectured by Frobenius 1913).</p>
 
@@ -840,7 +840,7 @@ Solutions form a tree: from a base solution $(x,y,z)$ the <em>Vieta jump</em> $(
 
 <p>Roth's theorem is an archimedean statement: it controls the rate at which $|\alpha-p/q|$ can be small, where $|\cdot|$ is the usual real absolute value. The same machinery generalises to other absolute values on $\mathbb{Q}$.</p>
 
-<p>Recall: every absolute value on $\mathbb{Q}$ is equivalent to the archimedean $|\cdot|_\infty$ or to a $p$-adic $|\cdot|_p$ for some prime $p$ (Ostrowski). Algebraic $\alpha\in\overline{\mathbb{Q}}$ embeds into the completion $\mathbb{Q}_p$ along each chosen place above $p$.</p>
+<p>Recall: every absolute value on $\mathbb{Q}$ is equivalent to the archimedean $|\cdot|_\infty$ or to a $p$-adic $|\cdot|_p$ for some prime $p$ (Ostrowski). Algebraic $\alpha\in\overline{\mathbb{Q}}$ embeds into the <a href="./commutative-algebra.html#completion" data-auto-inline-link="1" data-concept-id="completion-ca" data-blurb="The $I$-adic completion $\hat R_I = \varprojlim_n R/I^n$ packages every &quot;approximate&quot; element by its residues. Produces $\mathbb{Z}_p$ from $\mathbb{Z}$, $k[[x]]$ from $k[x]$, and is the natural setting for Hensel&#39;s lemma and Krull&#39;s intersection theorem.">completion</a> $\mathbb{Q}_p$ along each chosen place above $p$.</p>
 
 <div class="ok"><strong>Mahler–Ridout $p$-adic Roth.</strong> Fix a prime $p$ and an algebraic $\alpha\in\mathbb{Q}_p\setminus\mathbb{Q}$. For every $\varepsilon>0$, the inequality
 $$\Big|\alpha-\frac{a}{b}\Big|_p\;<\;\frac{1}{H(a/b)^{\,2+\varepsilon}}$$

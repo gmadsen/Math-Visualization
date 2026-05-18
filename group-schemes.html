@@ -267,7 +267,7 @@ function drawNode(svg, x, y, label, opts={}){
 
 <section class="hero">
   <h1>Group schemes</h1>
-  <p class="sub">$\mathbb{G}_a, \mathbb{G}_m, \mu_n, \alpha_p$: group objects in schemes, Hopf algebras, and torsors.</p>
+  <p class="sub">$\mathbb{G}_a, \mathbb{G}_m, \mu_n, \alpha_p$: group objects in schemes, <a href="./quantum-groups.html#hopf" data-auto-inline-link="1" data-concept-id="qg-hopf-algebras" data-blurb="A Hopf algebra packages multiplication $m$, unit $\eta$, comultiplication $\Delta$, counit $\varepsilon$, and antipode $S$ with compatibility axioms; the group ring $\mathbb{C}[G]$ with $\Delta(g)=g\otimes g$ and $S(g)=g^{-1}$ is the prototypical example, while $U(\mathfrak g)$ is the cocommutative Lie counterpart.">Hopf algebras</a>, and torsors.</p>
 </section>
 
 <section id="group-scheme-definition">
@@ -509,7 +509,7 @@ function drawNode(svg, x, y, label, opts={}){
   <li>a <em>counit</em> $\epsilon\colon A \to k$ (from $e\colon \Spec\,k \to G$),</li>
   <li>an <em>antipode</em> $S\colon A \to A$ (from $\iota\colon G \to G$),</li>
 </ul>
-<p>satisfying coassociativity, the counit law, and the antipode equation — the diagrams of §1 with every arrow reversed. The category of affine group schemes over $k$ is anti-equivalent to the category of commutative <a href="./quantum-groups.html#hopf" data-auto-inline-link="1" data-concept-id="qg-hopf-algebras" data-blurb="A Hopf algebra packages multiplication $m$, unit $\eta$, comultiplication $\Delta$, counit $\varepsilon$, and antipode $S$ with compatibility axioms; the group ring $\mathbb{C}[G]$ with $\Delta(g)=g\otimes g$ and $S(g)=g^{-1}$ is the prototypical example, while $U(\mathfrak g)$ is the cocommutative Lie counterpart.">Hopf algebras</a> over $k$. A morphism of group schemes corresponds to a morphism of Hopf algebras (algebra map respecting $\Delta, \epsilon, S$).</p>
+<p>satisfying coassociativity, the counit law, and the antipode equation — the diagrams of §1 with every arrow reversed. The category of affine group schemes over $k$ is anti-equivalent to the category of commutative Hopf algebras over $k$. A morphism of group schemes corresponds to a morphism of Hopf algebras (algebra map respecting $\Delta, \epsilon, S$).</p>
 
 <p>The dictionary is concrete. For $\mathbb{G}_m = \Spec\,k[t,t^{-1}]$, the multiplication $(a,b) \mapsto ab$ on units pulls back to $\Delta(t) = t \otimes t$; the identity element $1$ pulls back to $\epsilon(t) = 1$; and the inverse $a \mapsto a^{-1}$ pulls back to $S(t) = t^{-1}$. For $\mathbb{G}_a = \Spec\,k[t]$, addition $(a,b)\mapsto a+b$ pulls back to $\Delta(t) = t\otimes 1 + 1 \otimes t$; identity is $\epsilon(t) = 0$; inverse is $S(t) = -t$. The pattern is: every group-theoretic statement on points is dual to an algebraic identity in the Hopf algebra. <em>Cocommutative</em> Hopf algebras correspond to <em>commutative</em> group schemes (multiplication is symmetric).</p>
 

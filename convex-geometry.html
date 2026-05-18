@@ -265,7 +265,7 @@ function drawNode(svg, x, y, label, opts={}){
 <section id="bodies">
 <h2>1. Convex bodies & supporting hyperplanes</h2>
 
-<p>A <strong>convex body</strong> is a compact convex subset $K\subset\mathbb{R}^n$ with non-empty interior. Convexity says that for any $x,y\in K$ and $t\in[0,1]$ the point $(1-t)x+ty$ also lies in $K$. Compactness plus interior buys you both extremes — the boundary $\partial K$ is a closed hypersurface, and the volume $\mathrm{vol}(K)$ is a positive finite number.</p>
+<p>A <strong>convex body</strong> is a compact convex subset $K\subset\mathbb{R}^n$ with non-empty interior. Convexity says that for any $x,y\in K$ and $t\in[0,1]$ the point $(1-t)x+ty$ also lies in $K$. <a href="./point-set-topology.html#compact" data-auto-inline-link="1" data-concept-id="compactness" data-blurb="Every open cover has a finite subcover; preserved under continuous images; Heine–Borel, sequential compactness, and why compact Hausdorff is the right target category.">Compactness</a> plus interior buys you both extremes — the boundary $\partial K$ is a closed hypersurface, and the volume $\mathrm{vol}(K)$ is a positive finite number.</p>
 
 <p>Convex bodies are completely determined by their <em>support function</em>:</p>
 <p style="text-align:center">$h_K(u)=\sup_{x\in K}\,\langle u,x\rangle,\qquad u\in\mathbb{R}^n.$</p>
@@ -1021,7 +1021,7 @@ That is, every high-dimensional convex body hides an almost-Euclidean section of
 
 <p>The exponent on $\log n$ is sharp: cubes and cross-polytopes only have logarithmic-dimensional Euclidean sections. <em>Milman's proof</em> (1971) uses Lévy concentration on $S^{n-1}$ — the unit sphere concentrates around any $1$-Lipschitz function, and the norm $\|\cdot\|_K$ restricted to a random $k$-subspace fluctuates by less than $\varepsilon$ when $k\le c\,\varepsilon^2\log n$. The Lipschitz constant is controlled by the John ellipsoid (§5).</p>
 
-<p>The theorem is the geometric heart of high-dimensional probability: it says that <em>every</em> normed space, no matter how exotic, eventually behaves like Hilbert space on a small subspace, and the dimension grows only logarithmically in the ambient size. For applications in machine learning (Johnson–Lindenstrauss, random projections), this is the structural reason random sketches preserve geometry.</p>
+<p>The theorem is the geometric heart of high-dimensional probability: it says that <em>every</em> normed space, no matter how exotic, eventually behaves like Hilbert space on a small subspace, and the dimension grows only logarithmically in the ambient size. For applications in machine learning (<a href="./high-dimensional-geometry.html#jl" data-auto-inline-link="1" data-concept-id="hdg-johnson-lindenstrauss" data-blurb="Any $N$ points in $\mathbb{R}^n$ embed into $\mathbb{R}^k$ with $k=O(\varepsilon^{-2}\log N)$ via a random Gaussian projection while preserving every pairwise distance up to $1\pm\varepsilon$ — the workhorse dimension reduction of high-D ML.">Johnson–Lindenstrauss</a>, random projections), this is the structural reason random sketches preserve geometry.</p>
 
 <div class="widget" id="w-dvor">
   <div class="hd"><div class="ttl">Dvoretzky dimension vs $n$</div><div class="hint">slide $\varepsilon$ — watch $k(\varepsilon,n)$ grow logarithmically</div></div>

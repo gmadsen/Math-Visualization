@@ -1444,7 +1444,7 @@ encoded by a <strong>transition matrix</strong> $P\in[0,1]^{S\times S}$ with row
 
 <p>The space of transition matrices on $S$ is a semigroup under matrix multiplication, with identity $I$ (the trivial chain): semigroup composition $P^n=P\cdot P\cdots P$ encodes repeated application of the chain.</p>
 
-<p><strong>Stationary distributions.</strong> A row vector $\pi$ is <em>stationary</em> for $P$ if $\pi P=\pi$ and $\sum_i\pi_i=1$. Every finite-state chain has at least one stationary distribution (fixed-point theorem).</p>
+<p><strong><a href="./random-walks-and-mixing.html#stationary" data-auto-inline-link="1" data-concept-id="rw-stationary-distribution" data-blurb="Every finite irreducible aperiodic chain has a unique stationary $\pi$ that is the left Perron eigenvector of $P$; detailed balance $\pi_iP_{ij}=\pi_jP_{ji}$ identifies it for reversible chains.">Stationary distributions</a>.</strong> A row vector $\pi$ is <em>stationary</em> for $P$ if $\pi P=\pi$ and $\sum_i\pi_i=1$. Every finite-state chain has at least one stationary distribution (fixed-point theorem).</p>
 
 <p><strong>Fundamental ergodic theorem.</strong> If a finite-state chain is <em>irreducible</em> (every state is accessible from every other) and <em>aperiodic</em> (gcd of return times to each state is $1$), then:
 <ul>
@@ -1686,7 +1686,7 @@ This is the functional CLT: the CLT is the finite-dimensional projection at a si
 
 <p><strong>Worked example: Black–Scholes option pricing.</strong> Model stock price $S_t=S_0\exp((\mu-\sigma^2/2)t+\sigma W_t)$ — geometric Brownian motion. Under the risk-neutral measure, the Black–Scholes formula expresses a European call price as
 $$C(S_0,T)=S_0\Phi(d_1)-Ke^{-rT}\Phi(d_2),$$
-with $d_1=(\ln(S_0/K)+(r+\sigma^2/2)T)/(\sigma\sqrt{T})$, $d_2=d_1-\sigma\sqrt{T}$. Itô's formula applied to $e^{-rt}\ln S_t$ gives the computation; Brownian motion is the fundamental source of randomness in mathematical finance.</p>
+with $d_1=(\ln(S_0/K)+(r+\sigma^2/2)T)/(\sigma\sqrt{T})$, $d_2=d_1-\sigma\sqrt{T}$. <a href="./stochastic-calculus.html#ito-formula" data-auto-inline-link="1" data-concept-id="sc-ito-formula" data-blurb="For $C^2$ functions and Itô process $X_t$, $df(X_t)=f&#39;(X_t)\,dX_t+\tfrac{1}{2}f&#39;&#39;(X_t)\,(dX_t)^2$ — the chain rule corrected by the quadratic-variation term that classical calculus misses; equivalently $f(B_t)=f(0)+\int_0^t f&#39;(B_s)\,dB_s+\tfrac{1}{2}\int_0^t f&#39;&#39;(B_s)\,ds$.">Itô's formula</a> applied to $e^{-rt}\ln S_t$ gives the computation; Brownian motion is the fundamental source of randomness in mathematical finance.</p>
 
 <div class="widget" id="w-bm">
   <div class="hd"><div class="ttl">Brownian motion simulator</div><div class="hint">path $W_t$ on $[0,1]$, $\sqrt{N}$ scaling</div></div>

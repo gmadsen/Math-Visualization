@@ -345,7 +345,7 @@ function drawNode(svg, x, y, label, opts={}){
 
 $$H^i_{\text{ét}}(X,\mathbb{Q}_\ell) \;:=\; \Big(\varprojlim_n H^i_{\text{ét}}(X,\mathbb{Z}/\ell^n)\Big)\otimes_{\mathbb{Z}_\ell}\mathbb{Q}_\ell.$$
 
-<p>For $X$ smooth proper this is a finite-dimensional $\mathbb{Q}_\ell$-vector space with the expected formalism: Künneth, Poincaré duality, a Lefschetz trace formula, a cycle class map. The restriction $\ell\neq p$ is essential — $H^i_{\text{ét}}(X,\mathbb{Z}/p^n)$ sees Frobenius-kernel pathology and is handled by crystalline cohomology instead.</p>
+<p>For $X$ smooth proper this is a finite-dimensional $\mathbb{Q}_\ell$-vector space with the expected formalism: Künneth, <a href="./cohomology-and-duality.html#poincare-duality" data-auto-inline-link="1" data-concept-id="cd-poincare-duality" data-blurb="For a closed oriented $n$-manifold $M$, the cap product with the fundamental class $[M]\in H_n(M)$ is an isomorphism $H^k(M)\cong H_{n-k}(M)$. Lefschetz duality handles the case with boundary. Worked example: a genus-$g$ surface has $b_0=b_2=1$, $b_1=2g$.">Poincaré duality</a>, a Lefschetz trace formula, a cycle class map. The restriction $\ell\neq p$ is essential — $H^i_{\text{ét}}(X,\mathbb{Z}/p^n)$ sees Frobenius-kernel pathology and is handled by crystalline cohomology instead.</p>
 
 <div class="ok"><strong>Comparison theorem.</strong> If $X$ is a smooth projective variety over $\mathbb{C}$, then $H^i_{\text{ét}}(X,\mathbb{Q}_\ell)\cong H^i_{\text{sing}}(X(\mathbb{C}),\mathbb{Q})\otimes\mathbb{Q}_\ell$ for every $\ell$. The $\ell$-adic Betti numbers $b_i = \dim_{\mathbb{Q}_\ell}H^i_{\text{ét}}$ agree with the classical ones.</div>
 
@@ -467,7 +467,7 @@ $$H^i_{\text{ét}}(X,\mathbb{Q}_\ell) \;:=\; \Big(\varprojlim_n H^i_{\text{ét}}
 <section id="lefschetz">
 <h2>3. Grothendieck–Lefschetz fixed-point formula</h2>
 
-<p>The classical Lefschetz fixed-point theorem says: for a continuous self-map $f\colon X\to X$ of a nice compact space whose graph meets the diagonal transversally, the signed count of fixed points equals the alternating trace of $f$ on cohomology,</p>
+<p>The classical <a href="./fixed-point-theorems.html#lefschetz" data-auto-inline-link="1" data-concept-id="fpt-lefschetz" data-blurb="If the Lefschetz number $\Lambda(f)=\sum (-1)^k\,\tr(f_*\colon H_k\to H_k)$ is non-zero, then $f$ has a fixed point. Brouwer is the special case of a contractible space.">Lefschetz fixed-point theorem</a> says: for a continuous self-map $f\colon X\to X$ of a nice compact space whose graph meets the diagonal transversally, the signed count of fixed points equals the alternating trace of $f$ on cohomology,</p>
 
 $$\#\mathrm{Fix}(f) \;=\; \sum_i (-1)^i \,\mathrm{Tr}\big(f^*\,\big|\,H^i(X,\mathbb{Q})\big).$$
 
@@ -763,7 +763,7 @@ $$Z(X,t) \;=\; \prod_{i=0}^{2\dim X}\det\!\big(1 - t\,\operatorname{Frob}_q\,\bi
 
 <div class="note"><strong>The upshot.</strong> Point-counts over $\mathbb{F}_{q^m}$ for <em>all</em> $m$ are packaged into finitely many Frobenius eigenvalues, organized by cohomological degree. Étale cohomology is precisely what makes this packaging exist as a theorem, not an analogy.</div>
 
-<p>Deligne's bound $|\alpha| = q^{i/2}$ is a statement about geometry of complex numbers: after rescaling $\alpha \mapsto \alpha/\sqrt q$ on $H^1$, eigenvalues must lie on the unit circle. Sweep a family of elliptic curves and the two eigenvalues $\alpha_p(t), \bar\alpha_p(t)$ trace out complex-conjugate arcs. As $p$ varies (or as we range over a parameter $t$ in a family), the <em>angles</em> $\theta = \arg(\alpha/\sqrt q)$ distribute according to a measure — for a non-CM elliptic curve, Sato–Tate predicts $\tfrac2\pi\sin^2\theta\,d\theta$.</p>
+<p>Deligne's bound $|\alpha| = q^{i/2}$ is a statement about geometry of <a href="./complex-analysis.html#complex-numbers" data-auto-inline-link="1" data-concept-id="complex-numbers" data-blurb="Arithmetic on $\mathbb{C} = \mathbb{R}^2$ with multiplication; polar form $z = re^{i\theta}$ and the one-point compactification to the Riemann sphere $\hat{\mathbb{C}}$ via stereographic projection.">complex numbers</a>: after rescaling $\alpha \mapsto \alpha/\sqrt q$ on $H^1$, eigenvalues must lie on the unit circle. Sweep a family of elliptic curves and the two eigenvalues $\alpha_p(t), \bar\alpha_p(t)$ trace out complex-conjugate arcs. As $p$ varies (or as we range over a parameter $t$ in a family), the <em>angles</em> $\theta = \arg(\alpha/\sqrt q)$ distribute according to a measure — for a non-CM elliptic curve, Sato–Tate predicts $\tfrac2\pi\sin^2\theta\,d\theta$.</p>
 
 <div class="widget" id="w-stcircle">
   <div class="hd"><div class="ttl">Frobenius eigenvalue sweep on the Riemann sphere</div><div class="hint">normalized vs raw, sweep $a_q$ or $p$</div></div>
@@ -925,7 +925,7 @@ $$H^i_{\text{ét}}(X,\mathbb{Z}/\ell^n) \;\cong\; H^i_{\text{sing}}(X(\mathbb{C}
 
 <p>So the $\ell$-adic Betti numbers agree with the classical topological Betti numbers — the same integers, for every $\ell$, computed from totally different data. That independence from $\ell$ is itself a nontrivial consequence.</p>
 
-<p><strong>de Rham comparison</strong> (Grothendieck). Over a field $k$ of characteristic zero, smooth varieties carry algebraic de Rham cohomology $H^i_{\text{dR}}(X/k)$ computed from the Koszul complex of Kähler differentials. For $k=\mathbb{C}$,</p>
+<p><strong>de Rham comparison</strong> (Grothendieck). Over a field $k$ of characteristic zero, smooth varieties carry algebraic de Rham cohomology $H^i_{\text{dR}}(X/k)$ computed from the <a href="./commutative-algebra.html#koszul-complex" data-auto-inline-link="1" data-concept-id="koszul-complex-ca" data-blurb="Built from the exterior algebra of $R^n$ with differential $e_i \mapsto a_i$. Acyclic iff $(a_1,\ldots,a_n)$ is a regular sequence — turning the depth/regularity dichotomy into a homological certificate.">Koszul complex</a> of Kähler differentials. For $k=\mathbb{C}$,</p>
 
 $$H^i_{\text{dR}}(X/\mathbb{C}) \;\cong\; H^i_{\text{sing}}(X(\mathbb{C}),\mathbb{C}),$$
 

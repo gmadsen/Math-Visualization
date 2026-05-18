@@ -263,7 +263,7 @@ function drawNode(svg, x, y, label, opts={}){
 <section id="cramer">
 <h2>1. Cramér's theorem</h2>
 
-<p>Let $X_1,X_2,\ldots$ be i.i.d.\ real random variables with finite log-MGF
+<p>Let $X_1,X_2,\ldots$ be i.i.d.\ real <a href="./probability-theory.html#rv" data-auto-inline-link="1" data-concept-id="random-variables" data-blurb="A random variable is a measurable function $X:\Omega\to\mathbb{R}$; its law $\mathbb{P}_X$ is the push-forward measure on $(\mathbb{R},\mathcal{B})$.">random variables</a> with finite log-MGF
 $$\Lambda(\theta)=\log\mathbb{E}[e^{\theta X_1}]<\infty\quad\text{for }\theta\text{ in a neighbourhood of }0,$$
 and write $\bar X_n=\tfrac{1}{n}\sum_{i=1}^n X_i$ and $\mu=\mathbb{E}[X_1]$. The strong law gives $\bar X_n\to\mu$ a.s.; <strong>Cramér's theorem</strong> quantifies the rare event $\{\bar X_n\ge x\}$ for $x>\mu$:
 $$\lim_{n\to\infty}\frac{1}{n}\log\mathbb{P}(\bar X_n\ge x)=-I(x),\qquad I(x)=\sup_{\theta\in\mathbb{R}}\bigl\{\theta x-\Lambda(\theta)\bigr\}.$$
@@ -711,7 +711,7 @@ By Pinsker, $H\ge 2\|\nu-\mu\|_{TV}^2$, so KL controls every weaker metric.</p>
 $$\Lambda(\theta)\ :=\ \lim_{n\to\infty}\frac{1}{n}\log\mathbb{E}\bigl[e^{n\theta\bar X_n}\bigr].$$
 If this limit exists, is finite on a neighbourhood of $0$, and is <strong>essentially smooth</strong> (differentiable in the interior of its effective domain with $|\Lambda'|\to\infty$ at the boundary), then $\bar X_n$ satisfies an LDP with rate $I=\Lambda^*$.</p>
 
-<p>This covers a wide zoo: ergodic Markov chains (where $\Lambda$ comes from the Perron eigenvalue of the tilted transition operator), stationary Gaussian processes (where $\Lambda$ involves the spectral density), and bounded weakly dependent sums.</p>
+<p>This covers a wide zoo: ergodic <a href="./probability-theory.html#markov" data-auto-inline-link="1" data-concept-id="markov-chains" data-blurb="A memoryless stochastic process on a state space; transition matrices compose as a semigroup, and under irreducibility-plus-aperiodicity converge to a unique stationary distribution.">Markov chains</a> (where $\Lambda$ comes from the Perron eigenvalue of the tilted transition operator), stationary Gaussian processes (where $\Lambda$ involves the spectral density), and bounded weakly dependent sums.</p>
 
 <p><strong>Worked example: AR(1) chain.</strong> Let $X_n=\rho X_{n-1}+\xi_n$ with $\xi_n\sim\mathcal{N}(0,1)$ i.i.d., stationary mean $0$, variance $1/(1-\rho^2)$. The limiting log-MGF for $\bar X_n$ is
 $$\Lambda(\theta)=\frac{\theta^2}{2(1-\rho)^2},\qquad I(x)=\frac{(1-\rho)^2 x^2}{2}.$$
@@ -840,7 +840,7 @@ Persistence ($\rho>0$) <em>flattens</em> the rate function — large deviations 
 <p>The same machinery scales up to path space and to thermodynamics.</p>
 
 <h3>Schilder's theorem</h3>
-<p>Scaled Brownian motion $\sqrt\varepsilon\,W$ on $C([0,T];\mathbb{R}^d)$ satisfies an LDP at speed $1/\varepsilon$ with rate
+<p>Scaled <a href="./probability-theory.html#brownian" data-auto-inline-link="1" data-concept-id="brownian-motion" data-blurb="The continuous-time Gaussian process $(W_t)_{t\ge 0}$ with independent stationary increments $W_t-W_s\sim\mathcal{N}(0,t-s)$ — the scaling limit of random walks and the fundamental stochastic process.">Brownian motion</a> $\sqrt\varepsilon\,W$ on $C([0,T];\mathbb{R}^d)$ satisfies an LDP at speed $1/\varepsilon$ with rate
 $$I(\phi)=\frac{1}{2}\int_0^T|\dot\phi(t)|^2\,dt\qquad(\phi\text{ absolutely continuous, }\phi(0)=0)$$
 and $I(\phi)=+\infty$ otherwise. The minimum-action path between two points is a straight line — Brownian sample paths "want" to stay still, and any deviation costs Dirichlet energy.</p>
 

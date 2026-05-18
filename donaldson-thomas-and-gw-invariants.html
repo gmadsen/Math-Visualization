@@ -267,7 +267,7 @@ function drawNode(svg, x, y, label, opts={}){
 
 <p>Let $X$ be a smooth projective <strong>Calabi–Yau 3-fold</strong> over $\mathbb{C}$: complex dimension $3$, trivial canonical bundle $K_X \cong \mathcal{O}_X$, and a nowhere-vanishing holomorphic 3-form $\Omega \in H^{3,0}(X)$. The Donaldson–Thomas (DT) programme asks a simple-sounding question: <em>how many curves and points does $X$ contain, in each fixed homology class?</em> The answer requires a moduli space — and the right one isn't the space of literal curves, but the space of <strong>ideal sheaves</strong>.</p>
 
-<p>An <strong>ideal sheaf</strong> $\mathcal{I}_Z \subset \mathcal{O}_X$ is the kernel of a surjection $\mathcal{O}_X \twoheadrightarrow \mathcal{O}_Z$, where $Z \subset X$ is a closed subscheme. Equivalently, $\mathcal{I}_Z$ is a torsion-free sheaf of rank $1$ with $c_1 = 0$, so it differs from $\mathcal{O}_X$ only at higher Chern classes. We fix the topological invariants</p>
+<p>An <strong>ideal sheaf</strong> $\mathcal{I}_Z \subset \mathcal{O}_X$ is the kernel of a surjection $\mathcal{O}_X \twoheadrightarrow \mathcal{O}_Z$, where $Z \subset X$ is a closed subscheme. Equivalently, $\mathcal{I}_Z$ is a torsion-free sheaf of rank $1$ with $c_1 = 0$, so it differs from $\mathcal{O}_X$ only at higher <a href="./characteristic-classes.html#chern" data-auto-inline-link="1" data-concept-id="cc-chern-classes" data-blurb="A complex rank-$n$ bundle $E \to X$ has Chern classes $c_i(E) \in H^{2i}(X; \mathbb{Z})$, characterised by naturality, the Whitney sum $c(E\oplus F) = c(E)\smile c(F)$, and $c_1(\mathcal{O}(1)) = $ generator of $H^2(\mathbb{CP}^\infty;\mathbb{Z})$. The splitting principle reduces every computation to formal sums of line bundles, and the top Chern class $c_n(E)$ equals the Euler class of the underlying oriented real bundle.">Chern classes</a>. We fix the topological invariants</p>
 
 $$\mathrm{ch}_2(\mathcal{I}_Z) \;=\; -\beta \in H^4(X,\mathbb{Z}) \;=\; H_2(X,\mathbb{Z}), \qquad \mathrm{ch}_3(\mathcal{I}_Z) \;=\; -n \in H^6(X,\mathbb{Z}) \;=\; \mathbb{Z}.$$
 
@@ -391,7 +391,7 @@ $$I_n(X,\beta) \;=\; \{\mathcal{I}_Z \subset \mathcal{O}_X \;:\; \mathrm{ch}_2 =
 
 $$\phi \colon E^\bullet \;\longrightarrow\; \mathbb{L}_M$$
 
-<p>in the derived category, where $E^\bullet$ is a complex of locally free sheaves supported in degrees $-1$ and $0$, and $\mathbb{L}_M$ is the cotangent complex of $M$. The map must induce an isomorphism on $h^0$ and a surjection on $h^{-1}$. Unpacking: $h^0(E^\bullet)$ is the cotangent / tangent sheaf, while $h^{-1}(E^\bullet)$ is the <strong>obstruction sheaf</strong> $\mathcal{O}b$ — first-order deformations that fail to lift.</p>
+<p>in the derived category, where $E^\bullet$ is a complex of locally free sheaves supported in degrees $-1$ and $0$, and $\mathbb{L}_M$ is the cotangent complex of $M$. The map must induce an isomorphism on $h^0$ and a surjection on $h^{-1}$. Unpacking: $h^0(E^\bullet)$ is the cotangent / tangent sheaf, while $h^{-1}(E^\bullet)$ is the <strong>obstruction sheaf</strong> $\mathcal{O}b$ — <a href="./deformation-theory.html#first-order-deformation" data-auto-inline-link="1" data-concept-id="first-order-deformation" data-blurb="A first-order deformation of a scheme $X_0$ over a field $k$ is a flat $k[\epsilon]/\epsilon^2$-scheme $X$ with $X \otimes k = X_0$. Geometrically: a map from the dual numbers — the tangent direction in moduli space at $X_0$.">first-order deformations</a> that fail to lift.</p>
 
 <p>The <strong>virtual dimension</strong> is the rank:</p>
 

@@ -266,7 +266,7 @@ function drawNode(svg, x, y, label, opts={}){
 
 <section class="hero">
   <h1>Real analysis</h1>
-  <p class="sub">Undergraduate analysis on $\mathbb{R}$ and $\mathbb{R}^n$: completeness, continuity, differentiation, Riemann integration, uniform convergence, and the inverse/implicit function theorems. Metric spaces and general topology live on <a href="./point-set-topology.html">point-set topology</a>; Lebesgue measure and $L^p$ spaces are the subject of <a href="./measure-theory.html">measure theory</a>.</p>
+  <p class="sub">Undergraduate analysis on $\mathbb{R}$ and $\mathbb{R}^n$: completeness, continuity, differentiation, Riemann integration, uniform convergence, and the inverse/implicit function theorems. Metric spaces and general topology live on <a href="./point-set-topology.html">point-set topology</a>; <a href="./measure-theory.html#lebesgue" data-auto-inline-link="1" data-concept-id="lebesgue-measure" data-blurb="Apply Carathéodory to the length premeasure on intervals to get a translation-invariant complete measure on R; null sets and outer/inner regularity; non-measurable Vitali sets.">Lebesgue measure</a> and $L^p$ spaces are the subject of <a href="./measure-theory.html">measure theory</a>.</p>
 </section>
 
 <!-- =============================== §1 REAL NUMBERS =============================== -->
@@ -1050,7 +1050,7 @@ $$ D(F\circ G)(a) = DF(G(a))\circ DG(a),\qquad J_{F\circ G}(a) = J_F(G(a))\cdot 
 
 <p><strong>Fubini (Riemann form).</strong> If $f$ is Riemann-integrable on $B=[a,b]\times[c,d]$ and for each $x\in[a,b]$ the single-variable function $y\mapsto f(x,y)$ is Riemann-integrable on $[c,d]$, then the iterated integral equals the double integral:</p>
 $$ \iint_{B} f \;=\; \int_a^b\!\!\bigg(\int_c^d f(x,y)\,dy\bigg)dx \;=\; \int_c^d\!\!\bigg(\int_a^b f(x,y)\,dx\bigg)dy. $$
-<p>Continuity of $f$ is the usual sufficient hypothesis; Tonelli's theorem extends this to nonnegative measurable functions in the <a href="./measure-theory.html">measure-theoretic</a> setting.</p>
+<p>Continuity of $f$ is the usual sufficient hypothesis; Tonelli's theorem extends this to nonnegative <a href="./measure-theory.html#measurable" data-auto-inline-link="1" data-concept-id="measurable-functions" data-blurb="f measurable iff preimages of Borel sets are measurable; simple functions approximate measurable functions from below.">measurable functions</a> in the <a href="./measure-theory.html">measure-theoretic</a> setting.</p>
 
 <h3>Change of variables</h3>
 
@@ -1590,7 +1590,7 @@ $$ \frac{1}{R} = \limsup_{n\to\infty} |c_n|^{1/n}. $$
 <section id="metric-completeness-baire">
 <h2>11. Metric completeness &amp; Baire category</h2>
 
-<p>A metric space $(X,d)$ is <strong>complete</strong> if every Cauchy sequence converges in $X$. Completeness is not a topological property — the open interval $(0,1)$ is homeomorphic to $\mathbb{R}$ (which is complete), yet $(0,1)$ with the inherited metric is not complete: $1/n\to 0\notin(0,1)$. Every metric space has a unique (up to isometry) <strong>completion</strong> $\widehat X$: a complete metric space containing $X$ as a dense subspace. The standard construction mimics Cantor's completion of $\mathbb{Q}$: take equivalence classes of Cauchy sequences.</p>
+<p>A metric space $(X,d)$ is <strong>complete</strong> if every Cauchy sequence converges in $X$. Completeness is not a topological property — the open interval $(0,1)$ is homeomorphic to $\mathbb{R}$ (which is complete), yet $(0,1)$ with the inherited metric is not complete: $1/n\to 0\notin(0,1)$. Every metric space has a unique (up to isometry) <strong><a href="./commutative-algebra.html#completion" data-auto-inline-link="1" data-concept-id="completion-ca" data-blurb="The $I$-adic completion $\hat R_I = \varprojlim_n R/I^n$ packages every &quot;approximate&quot; element by its residues. Produces $\mathbb{Z}_p$ from $\mathbb{Z}$, $k[[x]]$ from $k[x]$, and is the natural setting for Hensel&#39;s lemma and Krull&#39;s intersection theorem.">completion</a></strong> $\widehat X$: a complete metric space containing $X$ as a dense subspace. The standard construction mimics Cantor's completion of $\mathbb{Q}$: take equivalence classes of Cauchy sequences.</p>
 
 <h3>Baire's theorem</h3>
 
@@ -1843,7 +1843,7 @@ $$ \frac{1}{R} = \limsup_{n\to\infty} |c_n|^{1/n}. $$
 
 <p>A <strong>bump function</strong> is a $C^\infty$ function with compact support. The prototype is</p>
 $$ \psi(x) = \begin{cases}\exp\!\big(-1/(1-x^2)\big), & |x| < 1,\\ 0, & |x|\ge 1.\end{cases} $$
-<p>$\psi$ is smooth on all of $\mathbb{R}$: the transition at $|x|=1$ is flat (every derivative of $\exp(-1/(1-x^2))$ vanishes as $|x|\to 1^-$), so the extension by zero yields a $C^\infty$ function. No polynomial can be compactly supported — a nonzero polynomial vanishing on an open interval is forced to be identically zero by the identity theorem. Bumps are the building block of smooth cutoffs and partitions of unity.</p>
+<p>$\psi$ is smooth on all of $\mathbb{R}$: the transition at $|x|=1$ is flat (every derivative of $\exp(-1/(1-x^2))$ vanishes as $|x|\to 1^-$), so the extension by zero yields a $C^\infty$ function. No polynomial can be compactly supported — a nonzero polynomial vanishing on an open interval is forced to be identically zero by the identity theorem. Bumps are the building block of smooth cutoffs and <a href="./smooth-manifolds.html#partition" data-auto-inline-link="1" data-concept-id="partition-of-unity" data-blurb="Subordinate partitions of unity exist on any smooth manifold and are the standard device for gluing local constructions into global ones.">partitions of unity</a>.</p>
 
 <h3>Mollification</h3>
 

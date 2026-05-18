@@ -238,14 +238,36 @@ export function buildSkipMask(html) {
     return n % 2 === 1;
   }
   // $$…$$
+  //
+  // Skip positions already covered by an earlier mask region (scripts /
+  // styles / comments / DOM containers). Without the `!mask[i]` /
+  // `!mask[j]` guards, a `$$` literal *inside* a `<script>` body that
+  // happens to use template-literal interpolation pairs with the next
+  // unrelated `$$` *outside* the script and masks every prose byte
+  // between them — exactly the bug that silently strips
+  // `data-auto-inline-link` anchors during `audit-inline-links --fix`
+  // because the bogus mask hides the real prose context. The
+  // single-dollar scanner below already has the `!mask[i]` guard; this
+  // block was missing the equivalent. See PR-E description for the
+  // 808-bogus-range corpus impact silent-failure-hunter surfaced.
   {
     let i = 0;
     while (i < html.length - 1) {
-      if (html[i] === '$' && html[i + 1] === '$' && !escapedAt(html, i)) {
+      if (
+        html[i] === '$' &&
+        html[i + 1] === '$' &&
+        !escapedAt(html, i) &&
+        !mask[i]
+      ) {
         const start = i;
         let j = i + 2;
         while (j < html.length - 1) {
-          if (html[j] === '$' && html[j + 1] === '$' && !escapedAt(html, j)) {
+          if (
+            html[j] === '$' &&
+            html[j + 1] === '$' &&
+            !escapedAt(html, j) &&
+            !mask[j]
+          ) {
             maskRegion(mask, start, j + 2);
             i = j + 2;
             break;

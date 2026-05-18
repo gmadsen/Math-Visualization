@@ -648,7 +648,7 @@ where $\pi_{\min}=\min_i\pi_i$. Big gap ⇒ fast mixing; tiny gap ⇒ either a n
 
 <p><strong>Why does $\lambda_2$ control the rate?</strong> Decompose any starting distribution in the basis of $P$-eigenvectors $u_1,\ldots,u_n$. The component along $u_1\propto\pi$ is preserved; every other component $\langle p,u_k\rangle$ decays by a factor of $\lambda_k$ per step. After $t$ steps the surviving contribution is at most $|\lambda_{\max\;{\rm nontrivial}}|^t$ in $\ell^2(\pi)$ — Cauchy–Schwarz then converts this to TV.</p>
 
-<p><strong>The two slow modes.</strong> $\lambda_2$ near $1$ marks a slow geometric mode that pools mass on one side of a sparse cut (Cheeger's inequality is the rigorous version). $\lambda_n$ near $-1$ marks a parity oscillation: the walk alternates between halves of a near-bipartite graph, and the parity needs many steps to relax.</p>
+<p><strong>The two slow modes.</strong> $\lambda_2$ near $1$ marks a slow geometric mode that pools mass on one side of a sparse cut (<a href="./spectral-graph-theory.html#cheeger" data-auto-inline-link="1" data-concept-id="cheeger-inequality" data-blurb="$\lambda_2/2 \le h(G) \le \sqrt{2 d \lambda_2}$ relates the algebraic connectivity to the edge-expansion constant $h(G)$. The proof&#39;s upper bound is the spectral sweep cut — a constant-factor approximation algorithm for sparsest cut.">Cheeger's inequality</a> is the rigorous version). $\lambda_n$ near $-1$ marks a parity oscillation: the walk alternates between halves of a near-bipartite graph, and the parity needs many steps to relax.</p>
 
 <div class="widget" id="w-eig">
   <div class="hd"><div class="ttl">Eigenvalue inspector</div><div class="hint">pick a graph · read off $\lambda_2$ and the gap</div></div>

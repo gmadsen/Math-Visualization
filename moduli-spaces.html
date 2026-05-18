@@ -262,7 +262,7 @@ function drawNode(svg, x, y, label, opts={}){
 <p>$$\text{type } X \;=\; \text{elliptic curves over } \mathbb{C}, \qquad \text{isomorphism} \;=\; \text{isomorphism of algebraic curves with marked origin.}$$</p>
 <p>The set of such curves, up to iso, is huge — but it admits a remarkably tidy parameter. Over $\mathbb{C}$, the $j$-invariant gives a bijection</p>
 <p>$$j\colon \{\text{elliptic curves}/\mathbb{C}\}/\!\cong \;\xrightarrow{\;\sim\;}\; \mathbb{A}^1(\mathbb{C}) = \mathbb{C}.$$</p>
-<p>So the <em>set</em> of iso classes is in bijection with the <em>set</em> of complex numbers. The moduli problem asks more: can we do this <em>geometrically</em>, so that the parameter space "feels" like a variety, and so that a family of curves over a base $B$ corresponds to a morphism $B \to \mathbb{A}^1$?</p>
+<p>So the <em>set</em> of iso classes is in bijection with the <em>set</em> of <a href="./complex-analysis.html#complex-numbers" data-auto-inline-link="1" data-concept-id="complex-numbers" data-blurb="Arithmetic on $\mathbb{C} = \mathbb{R}^2$ with multiplication; polar form $z = re^{i\theta}$ and the one-point compactification to the Riemann sphere $\hat{\mathbb{C}}$ via stereographic projection.">complex numbers</a>. The moduli problem asks more: can we do this <em>geometrically</em>, so that the parameter space "feels" like a variety, and so that a family of curves over a base $B$ corresponds to a morphism $B \to \mathbb{A}^1$?</p>
 
 <div class="note"><strong>Point-of-view shift.</strong> Classical geometry starts with a space and asks about its points. Moduli theory starts with a <em>class of objects</em> and tries to <em>build</em> a space whose points are those objects. Whether such a space exists, and in what category, is the subtle part.</div>
 
@@ -452,7 +452,7 @@ is a complete invariant over an algebraically closed field: two curves are $\mat
 
 <p>Their dimensions:</p>
 <p>$$\dim M_{g,n} \;=\; \begin{cases} \max(0,\, n-3) & g = 0,\\ n & g = 1,\\ 3g - 3 + n & g \ge 2. \end{cases}$$</p>
-<p>The $3g-3$ comes from Riemann–Roch / deformation theory: $\dim H^1(C, T_C) = 3g - 3$ is the dimension of first-order deformations of a smooth curve of genus $g \ge 2$.</p>
+<p>The $3g-3$ comes from Riemann–Roch / deformation theory: $\dim H^1(C, T_C) = 3g - 3$ is the dimension of <a href="./deformation-theory.html#first-order-deformation" data-auto-inline-link="1" data-concept-id="first-order-deformation" data-blurb="A first-order deformation of a scheme $X_0$ over a field $k$ is a flat $k[\epsilon]/\epsilon^2$-scheme $X$ with $X \otimes k = X_0$. Geometrically: a map from the dual numbers — the tangent direction in moduli space at $X_0$.">first-order deformations</a> of a smooth curve of genus $g \ge 2$.</p>
 
 <h3>Compactification: stable curves</h3>
 <p>The open moduli $M_{g,n}$ is not compact — curves can degenerate. Deligne and Mumford (1969) enlarge to the moduli of <strong>stable curves</strong>, giving a smooth proper Deligne–Mumford stack $\overline{\mathcal{M}}_{g,n}$ with coarse space $\overline{M}_{g,n}$.</p>
