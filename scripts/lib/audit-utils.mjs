@@ -283,19 +283,34 @@ export function buildSkipMask(html) {
   // $…$ (single-dollar)
   //
   // INTENTIONALLY missing the inner `!mask[j]` guard that the `$$` scanner
-  // gained in PR #235 and the `\(…\)` / `\[…\]` scanners gain in this PR.
-  // silent-failure-hunter flagged the asymmetry on PR #235, but adding
-  // the inner guard here regresses corpus rendering: on pages with
-  // consecutive prose spans like `…\Omega_t$</p>\n<p>are multivalued
-  // holomorphic functions on $S \setminus…`, the bug-vs-fix
-  // delta interacts with the audit-inline-links --fix strip-and-redetect
-  // path. Empirically, applying the inner guard here drops 4
-  // legitimate auto-inline-link anchors on calabi-yau-manifolds.html.
+  // gained in PR #235 and the `\(…\)` / `\[…\]` scanners gained in PR #238.
+  // silent-failure-hunter flagged the asymmetry on PR #235; PR #238
+  // attempted the fix and reverted it.
   //
-  // Keeping the pre-PR-H behavior until the single-$ scanner's
-  // outer-loop advance is reasoned through more carefully (or the four
-  // scanners get refactored into one parameterized helper with explicit
-  // span-end semantics, as silent-failure-hunter recommended on PR #235).
+  // Mechanism (silent-failure-hunter, PR #238 review):
+  //   The outer-loop advance is `i = j + 1` after pairing — it does NOT
+  //   re-scan masked bytes for a closer opener. With the inner
+  //   `!mask[j]` guard added, an unbalanced prose `$` open pairs with the
+  //   next UNMASKED `$` rather than the next ANY `$`, widening the
+  //   mis-pair radius across many paragraphs instead of stopping at the
+  //   nearest script-internal `$`. The pre-fix truncate-at-first-`$`
+  //   behavior is buggy in principle but self-limiting on this corpus.
+  //
+  // Empirical regression (verified by SFH at the buildSkipMask layer):
+  //   6607 bytes of mask divergence across 279 ranges on
+  //   calabi-yau-manifolds.html, dropping 4 auto-inline-link anchors
+  //   (holomorphic-function, k-chern-character,
+  //   dtgw-virtual-fundamental-class, dtgw-gw-invariants). The
+  //   "are multivalued holomorphic functions on" prose (line ~639) gets
+  //   masked because the prose paragraph's opening `$` pairs across
+  //   the page to a `$` many lines later instead of with the local
+  //   `$\Omega_t$` close.
+  //
+  // The clean fix (silent-failure-hunter, PR #235) is to extract the four
+  // KaTeX scanners into one parameterized helper with explicit span-end
+  // semantics — pin "no unmasked close ⇒ no span" or "span ends at tag
+  // boundary" as a deliberate choice rather than emerging from a
+  // particular guard combo.
   {
     let i = 0;
     while (i < html.length) {

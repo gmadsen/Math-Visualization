@@ -423,6 +423,68 @@ check('buildSkipMask: \\[ inside <script> does not pair with later prose \\]', (
 });
 
 // ---------------------------------------------------------------------------
+// PR-K: inner-guard companion tests for \(…\) and \[…\] scanners.
+//
+// The PR-H tests above exercised the OUTER `!mask[i]` guard via an odd
+// count of OPENING tokens in script. Code-reviewer and silent-failure-
+// hunter both flagged on PR #238 that the INNER `!mask[j]` guard wasn't
+// independently exercised — in both PR-H fixtures, the closing
+// delimiter sat in unmasked prose, so the inner check was satisfied
+// trivially.
+//
+// Inner-guard fixtures: an odd count of CLOSING tokens in script
+// (no closing token in prose after the open). Pre-fix, the scanner
+// opens at a prose `\(`/`\[`, then closes at the script-internal `\)`/`\]`,
+// masking everything between including any intervening prose. Post-fix,
+// the inner guard skips the script-internal close, no later prose close
+// exists, so no span is created and the intervening prose stays unmasked.
+// ---------------------------------------------------------------------------
+
+check('buildSkipMask: \\( inner guard skips script-internal \\)', () => {
+  // Open `\(` in prose. Close `\)` exists ONLY inside a script (odd
+  // count: one). No prose-side close after.
+  //
+  // Pre-fix: opens at prose `\(`, inner scan finds script-`\)`, pairs.
+  //   Masks from prose-open through script-close, including the "in
+  //   prose" word between them.
+  // Post-fix: opens at prose `\(`, inner scan skips script-`\)` due to
+  //   !mask[j], no more `\)` in document, inner loop breaks without
+  //   masking. "in prose" stays unmasked.
+  const html =
+    '<p>open \\(x in prose</p>' +
+    '<script>const close = "\\)";</script>' +
+    '<p>tail no close</p>';
+  const { mask } = buildSkipMask(html);
+
+  const idx = html.indexOf('in prose');
+  assert.ok(idx > 0, 'fixture: "in prose" must appear');
+  for (let k = 0; k < 'in prose'.length; k++) {
+    assert.equal(
+      mask[idx + k], 0,
+      `prose byte at "in prose"[${k}] must be unmasked (got mask=${mask[idx + k]})`
+    );
+  }
+});
+
+check('buildSkipMask: \\[ inner guard skips script-internal \\]', () => {
+  // Same shape as the \( inner case but with \[…\].
+  const html =
+    '<p>open \\[x in prose</p>' +
+    '<script>const close = "\\]";</script>' +
+    '<p>tail no close</p>';
+  const { mask } = buildSkipMask(html);
+
+  const idx = html.indexOf('in prose');
+  assert.ok(idx > 0, 'fixture: "in prose" must appear');
+  for (let k = 0; k < 'in prose'.length; k++) {
+    assert.equal(
+      mask[idx + k], 0,
+      `prose byte at "in prose"[${k}] must be unmasked (got mask=${mask[idx + k]})`
+    );
+  }
+});
+
+// ---------------------------------------------------------------------------
 
 if (failures.length > 0) {
   console.log('');
