@@ -67,6 +67,7 @@ const STEPS = [
   { name: 'plan-snapshot-unit', script: 'test-inject-plan-snapshot.mjs', fix: false },
   { name: 'a11y-unit',  script: 'test-audit-accessibility.mjs', fix: false },
   { name: 'slider-svg-2d-unit', script: 'test-slider-svg-2d.mjs', fix: false },
+  { name: 'inline-links-detect-unit', script: 'test-inline-links-detect.mjs', fix: false },
   { name: 'validate',   script: 'validate-concepts.mjs',        fix: false },
   { name: 'concept-latex', script: 'audit-concept-latex.mjs',   fix: false },
   { name: 'katex',      script: 'validate-katex.mjs',           fix: false },

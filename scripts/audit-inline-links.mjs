@@ -74,17 +74,18 @@ import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
   loadContentModel,
-  forEachSectionProse,
 } from './lib/content-model.mjs';
 import {
   TITLE_BLOCKLIST,
   MIN_TITLE_LEN,
   buildTitleRegex,
-  buildSkipMask,
-  buildSectionMap,
-  parseTopicHtmlSafe,
-  recoverDroppedNodes,
 } from './lib/audit-utils.mjs';
+import {
+  findCandidatesInPage as findCandidatesInPageLib,
+  stripAutoLinks,
+  escAttr,
+  buildAnchorHtml,
+} from './lib/inline-links-detect.mjs';
 import {
   loadTopicContent,
   saveTopicContent,
@@ -235,220 +236,15 @@ function topicOfPage(page) {
 //   - At most one candidate per (section, concept-id).
 //   - Don't match immediately adjacent to `$` (math-prose neighborhood noise).
 
-function sectionForOffset(sections, offset) {
-  let best = null;
-  for (const s of sections) {
-    if (offset >= s.start && offset < s.end) {
-      if (!s.id) continue;
-      if (!best || s.start > best.start) best = s;
-    }
-  }
-  return best ? best.id : null;
+// Thin wrapper around the lib's findCandidatesInPage that supplies the
+// module-level vocab + blocklist. The lib version takes them as explicit
+// parameters so scripts/test-inline-links-detect.mjs can exercise the
+// algorithm against a synthetic vocabulary without loading the real
+// corpus model.
+function findCandidatesInPage(html, pageTopic, pageName, isWritable) {
+  return findCandidatesInPageLib(html, pageTopic, pageName, vocab, blocklist, isWritable);
 }
 
-// `isWritable(globalIdx, length)` — optional predicate the JSON-aware
-// caller passes to teach detection which offsets back-port to a source
-// raw block. When provided, matches landing on non-writable bytes (widget
-// renders) are skipped WITHOUT consuming the cross-section dedupe slot,
-// so the same concept can still be wrapped in a later raw-block mention
-// on the same page. Without this hook the per-page dedupe would
-// silently lock out a legitimate wrap whenever a widget-block first-match
-// happens to fire (code-reviewer finding on PR #226).
-function* findCandidatesInPage(html, pageTopic, pageName, isWritable) {
-  const parseOptions = {
-    blockTextElements: {
-      script: true,
-      noscript: true,
-      style: true,
-      pre: true,
-    },
-  };
-  const parseResult = parseTopicHtmlSafe(html, parseOptions);
-  const root = parseResult.root;
-  if (parseResult.missingIds.length > 0) {
-    console.warn(
-      `  note: parser dropped ${parseResult.missingIds.length} section(s) ` +
-      `(${parseResult.missingIds.join(', ')}); recovering via subtree re-parse.`
-    );
-  }
-  const recoveredParagraphs = recoverDroppedNodes(parseResult, 'p', parseOptions);
-  const { mask } = buildSkipMask(html);
-  const sections = buildSectionMap(html);
-
-  // Collect existing link targets on the whole page so we can suppress
-  // concepts already linked by hand.
-  const existingLinkTargets = new Set();
-  {
-    const linkRe = /<a\b[^>]*\bhref=["']([^"']+)["'][^>]*>/gi;
-    let m;
-    while ((m = linkRe.exec(html))) {
-      const href = m[1];
-      const cleaned = href.replace(/^\.\//, '').split('?')[0];
-      existingLinkTargets.add(cleaned);
-    }
-  }
-
-  // Track concept-ids already emitted on this page (cross-section dedupe;
-  // upgrade from the per-section variant per pedagogy review on #225).
-  const emittedConceptIds = new Set();
-
-  // Resolve the per-page blocklist for this page name.
-  const pageBlocks = (pageName && blocklist.get(pageName)) || null;
-
-  // Enumerate <p> elements in document order. Each <p>'s TextNodes are
-  // visited via forEachSectionProse (which prunes skip-class and skip-tag
-  // subtrees). We keep a per-<p> local mask so a shorter title cannot wrap
-  // text already claimed by a longer title in the same paragraph.
-  // Recovered paragraphs (from parser-dropped sections) are merged in source
-  // order so the rest of the file's "document-order" convention holds even
-  // when a dropped section sits mid-document.
-  const paragraphs = [...root.querySelectorAll('p'), ...recoveredParagraphs]
-    .filter((p) => p && p.range)
-    .sort((a, b) => a.range[0] - b.range[0]);
-
-  for (const p of paragraphs) {
-    if (!p || !p.range) continue;
-    const pStart = p.range[0];
-    const pEnd = p.range[1];
-    const sectionId = sectionForOffset(sections, pStart);
-
-    // Collect prose TextNodes inside this paragraph, in source order.
-    const proseNodes = [];
-    forEachSectionProse(p, (textNode, info) => {
-      if (!textNode || !textNode.range) return;
-      proseNodes.push({ node: textNode, text: info.text, masked: info.masked });
-    });
-    if (proseNodes.length === 0) continue;
-
-    const localMask = new Uint8Array(pEnd - pStart);
-
-    for (const v of vocab) {
-      if (v.topic === pageTopic) continue; // self-link suppression
-      const anchorKey = `${v.page}#${v.anchor}`;
-      if (existingLinkTargets.has(anchorKey)) continue;
-      // Page-level blocklist veto (rejected by human review on a prior --fix).
-      if (pageBlocks && pageBlocks.has(v.id)) continue;
-      // Cross-section dedupe: one anchor per concept per page.
-      if (emittedConceptIds.has(v.id)) continue;
-
-      // Walk each TextNode in this paragraph; first admissible match wins.
-      let found = null;
-      scan: for (const { node, masked } of proseNodes) {
-        const nodeStart = node.range[0];
-        const nodeEnd = node.range[1];
-        let searchFrom = 0;
-        while (searchFrom < masked.length) {
-          const re = new RegExp(v.regex.source, 'i');
-          const m = masked.slice(searchFrom).match(re);
-          if (!m) break;
-          const localIdxInNode = searchFrom + m.index;
-          const globalIdx = nodeStart + localIdxInNode;
-          const len = m[0].length;
-          // Defensive: the match must lie entirely inside this TextNode and
-          // must not cross any bytes the audit-utils skip mask flags.
-          let skip = false;
-          if (globalIdx + len > nodeEnd) skip = true;
-          if (!skip) {
-            for (let k = 0; k < len; k++) {
-              if (mask[globalIdx + k]) {
-                skip = true;
-                break;
-              }
-            }
-          }
-          // Don't overlap a prior (longer-title) wrap in this same paragraph.
-          if (!skip) {
-            const pLocal = globalIdx - pStart;
-            for (let k = 0; k < len; k++) {
-              if (localMask[pLocal + k]) {
-                skip = true;
-                break;
-              }
-            }
-          }
-          // Neighborhood guard: "$X$ is a scheme" style — don't link right
-          // next to a dollar-sign.
-          if (!skip) {
-            const preCh = globalIdx > 0 ? html[globalIdx - 1] : '';
-            const postCh = html[globalIdx + len] || '';
-            if (preCh === '$' || postCh === '$') skip = true;
-          }
-          // JSON-aware writability: treat a widget-byte match like any
-          // other "skip this position and keep scanning" condition,
-          // rather than letting it stop the search and waste the vocab
-          // entry. Without this, a concept whose first mention in a <p>
-          // happens to land in widget-rendered bytes would never reach
-          // a later writable mention in the same paragraph (Codex bot
-          // finding on PR #227). The HTML-direct path passes no
-          // isWritable, so this branch is a no-op there.
-          if (!skip && typeof isWritable === 'function' &&
-              !isWritable(globalIdx, len)) {
-            skip = true;
-          }
-          if (skip) {
-            searchFrom = localIdxInNode + Math.max(1, len);
-            continue;
-          }
-          found = { globalIdx, len, text: m[0] };
-          break scan;
-        }
-      }
-
-      if (!found) continue;
-
-      // Reserve this range in the paragraph-local mask so shorter vocab
-      // entries can't re-wrap inside it.
-      const pLocal = found.globalIdx - pStart;
-      for (let k = 0; k < found.len; k++) localMask[pLocal + k] = 1;
-
-      emittedConceptIds.add(v.id);
-
-      yield {
-        section: sectionId,
-        concept: v,
-        phrase: found.text,
-        globalIdx: found.globalIdx,
-        length: found.len,
-      };
-    }
-  }
-}
-
-// ─────────────────────────────────────────────────────────────────────────
-// --fix: strip + re-insert.
-
-function stripAutoLinks(html) {
-  // <a … data-auto-inline-link="1" …>INNER</a> → INNER
-  // Allow any attribute order, any quoting.
-  const re = /<a\b[^>]*\bdata-auto-inline-link=["']1["'][^>]*>([\s\S]*?)<\/a>/gi;
-  return html.replace(re, (_m, inner) => inner);
-}
-
-// Escape a string for embedding inside an HTML double-quoted attribute value.
-// We cover &, <, >, " and ' for safety; blurbs come from concepts/*.json and
-// routinely contain e.g. "<", apostrophes, and ampersands.
-function escAttr(s) {
-  return String(s)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;');
-}
-
-function buildAnchorHtml(concept, phrase) {
-  const href = `./${concept.page}#${concept.anchor}`;
-  const idAttr = ` data-concept-id="${escAttr(concept.id)}"`;
-  const blurbAttr = concept.blurb
-    ? ` data-blurb="${escAttr(concept.blurb)}"`
-    : '';
-  return (
-    `<a href="${href}" data-auto-inline-link="1"` +
-    idAttr +
-    blurbAttr +
-    `>${phrase}</a>`
-  );
-}
 
 function applyFixToHtml(html, pageTopic, pageName) {
   // Strip first so candidate detection sees "clean" prose. All DOM node
