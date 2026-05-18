@@ -235,10 +235,6 @@
           "ref": "w-rna"
         },
         {
-          "type": "raw",
-          "html": "\n\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./enumerative-combinatorics.html\">Enumerative combinatorics</a> — non-crossing matchings are counted by Catalan numbers; the partition function $Z$ at $E\\equiv 0$ recovers $C_n$.</li>\n  </ul>\n</aside>\n\n"
-        },
-        {
           "type": "quiz",
           "concept": "cmb-rna-folding",
           "html": "<div class=\"quiz\" data-concept=\"cmb-rna-folding\"></div>"
