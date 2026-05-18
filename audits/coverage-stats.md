@@ -22,6 +22,7 @@ page has wired one in yet.
 | `clickable-diagram` | clickable-diagram | click | 2d | 79 | algebra, algebraic-number-theory, algebraic-topology, bezout, category-theory, fixed-point-theorems, frobenius-and-reciprocity, functional-analysis, functor-of-points, galois, homological, measure-theory, morphisms-fiber-products, naive-set-theory, operator-algebras, quadratic-reciprocity, real-analysis, riemannian-geometry, schemes, sheaves, stacks, wavelets |
 | `parametric-plot` | parametric-plot | slider | 2d | 11 | analytic-continuation, analytic-number-theory, expanders |
 | `schrodinger-figure` | schrodinger-figure | slider | 2d | 7 | schrodinger-equation |
+| `slider-svg-2d` | slider-readout | slider | 2d | 7 | spectral-theory |
 | `clickable-graph` | clickable-graph | click | 2d | 6 | adeles-and-ideles, riemannian-geometry, schemes, sheaves |
 | `hamiltonians-figure` | hamiltonians-figure | interact | 2d | 6 | hamiltonians-classical-mechanics |
 | `inline-code-cell` | inline-code-cell | edit | 2d | 6 | analytic-number-theory, convex-optimization, heights-arithmetic-geometry, mathematical-chaos, p-adic-numbers |
@@ -790,15 +791,8 @@ page has wired one in yet.
 | `sobolev-trace` | sobolev-trace | slider | 2d | 1 | sobolev-spaces-distributions |
 | `sobolev-variational` | sobolev-variational | slider | 2d | 1 | sobolev-spaces-distributions |
 | `sobolev-weak-derivative` | sobolev-weak-derivative | click | 2d | 1 | sobolev-spaces-distributions |
-| `spec-frd` | verbatim | slider | 2d | 1 | spectral-theory |
 | `spec-herm` | verbatim | click | 2d | 1 | spectral-theory |
-| `spec-lap` | verbatim | slider | 2d | 1 | spectral-theory |
-| `spec-n` | verbatim | slider | 2d | 1 | spectral-theory |
 | `spec-op` | verbatim | click | 2d | 1 | spectral-theory |
-| `spec-osc` | verbatim | slider | 2d | 1 | spectral-theory |
-| `spec-pvm` | verbatim | slider | 2d | 1 | spectral-theory |
-| `spec-sch` | verbatim | slider | 2d | 1 | spectral-theory |
-| `spec-wl` | verbatim | slider | 2d | 1 | spectral-theory |
 | `spectral-graph-theory-adjacency` | spectral-graph-theory-adjacency | click | 2d | 1 | spectral-graph-theory |
 | `spectral-graph-theory-bipartite` | spectral-graph-theory-bipartite | click | 2d | 1 | spectral-graph-theory |
 | `spectral-graph-theory-cheeger` | spectral-graph-theory-cheeger | slider | 2d | 1 | spectral-graph-theory |
@@ -934,7 +928,7 @@ page has wired one in yet.
 
 - Topics: **22**, concepts: **211**
 - Widgets: **182** (registry-driven: 182, inline: 0)
-  - by family: verbatim: 57, clickable-diagram: 41, button-stepper: 37, aca-figure: 5, recurrence-plotter: 2, inline-code-cell: 1, proof-scrubber: 1, numerical-fp-cancellation: 1, numerical-newton-iteration: 1, numerical-quadrature-error: 1, numerical-hilbert-conditioning: 1, numerical-ftcs-stability: 1, numerical-fem-hat-basis: 1, variational-fdiff: 1, variational-brachistochrone: 1, variational-direct-method: 1, variational-mountain-pass: 1, variational-isoperimetric: 1, variational-sphere-geodesic: 1, constraint-bifurcation-explorer: 1, julia-playground: 1, sobolev-pairing: 1, sobolev-weak-derivative: 1, sobolev-fractional-power: 1, sobolev-embedding-exponent: 1, sobolev-trace: 1, sobolev-newtonian-potential: 1, sobolev-variational: 1, harmonic-partial-sum: 1, harmonic-tent-transform: 1, harmonic-convolution: 1, harmonic-uncertainty: 1, harmonic-heat-evolution: 1, pde-classifier: 1, pde-heat-kernel: 1, pde-wave-dalembert: 1, pde-poisson-disk: 1, pde-weak-test: 1, pde-sobolev-embedding: 1, harmonic-functions-laplacian-heatmap: 1, harmonic-functions-mvp-circle: 1, harmonic-functions-maximum-locator: 1, harmonic-functions-poisson-extension: 1, harmonic-functions-harnack-corridor: 1, harmonic-functions-perron-supremum: 1
+  - by family: verbatim: 50, clickable-diagram: 41, button-stepper: 37, slider-readout: 7, aca-figure: 5, recurrence-plotter: 2, inline-code-cell: 1, proof-scrubber: 1, numerical-fp-cancellation: 1, numerical-newton-iteration: 1, numerical-quadrature-error: 1, numerical-hilbert-conditioning: 1, numerical-ftcs-stability: 1, numerical-fem-hat-basis: 1, variational-fdiff: 1, variational-brachistochrone: 1, variational-direct-method: 1, variational-mountain-pass: 1, variational-isoperimetric: 1, variational-sphere-geodesic: 1, constraint-bifurcation-explorer: 1, julia-playground: 1, sobolev-pairing: 1, sobolev-weak-derivative: 1, sobolev-fractional-power: 1, sobolev-embedding-exponent: 1, sobolev-trace: 1, sobolev-newtonian-potential: 1, sobolev-variational: 1, harmonic-partial-sum: 1, harmonic-tent-transform: 1, harmonic-convolution: 1, harmonic-uncertainty: 1, harmonic-heat-evolution: 1, pde-classifier: 1, pde-heat-kernel: 1, pde-wave-dalembert: 1, pde-poisson-disk: 1, pde-weak-test: 1, pde-sobolev-embedding: 1, harmonic-functions-laplacian-heatmap: 1, harmonic-functions-mvp-circle: 1, harmonic-functions-maximum-locator: 1, harmonic-functions-poisson-extension: 1, harmonic-functions-harnack-corridor: 1, harmonic-functions-perron-supremum: 1
   - by dimension: 2d: 181, 3d: 1
   - by gesture: click: 94, slider: 61, select: 10, interactive: 6, drag: 6, interact: 1, edit: 1, timeline: 1, step: 1, static: 1
 - Quizzes: **777** (v1: 592, hard: 185, expert: 0)
