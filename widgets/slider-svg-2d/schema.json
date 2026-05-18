@@ -1,0 +1,112 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/slider-svg-2d/schema.json",
+  "title": "slider-svg-2d widget params",
+  "description": "Shared chrome renderer for the standard 'slider(s) + SVG + readout' interactive widget pattern. Pulls the slider config, SVG sizing, and readout id out of the previously-opaque verbatim bodyMarkup into typed params. The driving script stays as a `script` param (each widget's draw logic is genuinely bespoke), but the chrome HTML is generated deterministically from `controls` + `svg` + `readout`. First batch of the verbatim-slug hoisting effort (PLAN.md 'Hoist semantic params out of verbatim slugs').",
+  "meta": {
+    "family": "slider-readout",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "interactive"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title",
+    "hint",
+    "controls",
+    "svg",
+    "readout",
+    "bodyScript"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$|^$",
+      "description": "DOM id for the widget root, or empty string when the original markup carried no id (most migrated widgets). Matches the verbatim slug's widgetId convention."
+    },
+    "title": {
+      "type": "string",
+      "description": "Header title shown in .hd > .ttl and also placed inside the SVG's <title> element. May contain KaTeX $...$."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Header hint shown in .hd > .hint. May contain KaTeX $...$."
+    },
+    "controls": {
+      "type": "array",
+      "description": "Ordered controls inside the .row above the SVG. Renders one element per item in source order. Most widgets have 1-3 sliders plus an optional status span; some add a toggle button.",
+      "items": {
+        "oneOf": [
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["type", "id", "label", "min", "max", "value"],
+            "properties": {
+              "type": { "const": "slider" },
+              "id":    { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
+              "label": { "type": "string", "description": "Label text wrapping the input. Rendered inside a <label> as `{label}<input …>`. May contain KaTeX $...$." },
+              "min":   { "type": "number" },
+              "max":   { "type": "number" },
+              "step":  { "type": "number", "description": "Optional; omitted from the rendered <input> when absent (browser default = 1)." },
+              "value": { "type": "number", "description": "Initial value (the `value` attribute on <input>)." }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["type", "id", "text"],
+            "properties": {
+              "type": { "const": "button" },
+              "id":   { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
+              "text": { "type": "string" }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["type", "id"],
+            "properties": {
+              "type":  { "const": "span" },
+              "id":    { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
+              "class": { "type": "string", "default": "small", "description": "CSS class for the span. Default `small` matches the verbatim convention." },
+              "text":  { "type": "string", "default": "", "description": "Initial inner text; usually empty since the driving script fills it on first draw." }
+            }
+          }
+        ]
+      }
+    },
+    "svg": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "viewBox", "width", "height"],
+      "properties": {
+        "id":      { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
+        "viewBox": { "type": "string", "pattern": "^-?\\d+(?:\\.\\d+)? -?\\d+(?:\\.\\d+)? \\d+(?:\\.\\d+)? \\d+(?:\\.\\d+)?$" },
+        "width":   { "type": "number" },
+        "height":  { "type": "number" }
+      }
+    },
+    "readout": {
+      "oneOf": [
+        { "type": "boolean", "description": "true: emit `<div class=\"readout\" id=\"{svg-id-without--svg}-readout\"></div>`; false: omit the readout div." },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["id"],
+          "properties": {
+            "id":    { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
+            "class": { "type": "string", "default": "readout", "description": "CSS class on the readout div. Default 'readout' matches the verbatim convention." }
+          },
+          "description": "Use when the readout id doesn't follow the `{svg-prefix}-readout` convention (e.g. when the SVG id is `kernel-svg` but the readout id is `kernel-readout` and you want explicit pairing)."
+        }
+      ]
+    },
+    "bodyScript": {
+      "type": "string",
+      "description": "Verbatim driving `<script>(function(){ ... })();</script>` block. Each widget's draw logic is genuinely bespoke (axes, bars, level lines, curve sampling, …); only the chrome is shared. Named bodyScript (rather than `script`) so the XSS-lint passthrough in validate-widget-params.mjs covers it — the lint refuses to accept `<script>` inside ANY other param key.",
+      "x-artifact": true
+    }
+  }
+}

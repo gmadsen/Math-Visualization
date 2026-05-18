@@ -15929,6 +15929,29 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "slider-svg-2d",
+    "family": "slider-readout",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "interactive",
+    "title": "slider-svg-2d widget params",
+    "description": "Shared chrome renderer for the standard 'slider(s) + SVG + readout' interactive widget pattern. Pulls the slider config, SVG sizing, and readout id out of the previously-opaque verbatim bodyMarkup into typed params. The driving script stays as a `script` param (each widget's draw logic is genuinely bespoke), but the chrome HTML is generated deterministically from `controls` + `svg` + `readout`. First batch of the verbatim-slug hoisting effort (PLAN.md 'Hoist semantic params out of verbatim slugs').",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "controls",
+      "svg",
+      "readout",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Shared chrome renderer for the standard interactive widget pattern:",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "sm-boltz",
     "family": "verbatim",
     "dimension": "2d",
@@ -16370,27 +16393,6 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "spec-frd",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "spec-frd widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Truncating compact $K$ to rank $r$\" widget on the spectral-theory topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs and re-derived meta by scripts/fixup-verbatim-widget-meta.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Truncating compact $K$ to rank $r$\" widget on `spectral-theory`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "spec-herm",
     "family": "verbatim",
     "dimension": "2d",
@@ -16412,48 +16414,6 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "spec-lap",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "spec-lap widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Dirichlet Laplacian eigenfunctions on $[0,1]$\" widget on the spectral-theory topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs and re-derived meta by scripts/fixup-verbatim-widget-meta.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Dirichlet Laplacian eigenfunctions on $[0,1]$\" widget on `spectral-theory`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "spec-n",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "spec-n widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Eigenvalue expansion of the Green's-function kernel $k(x,y)=\\min(x,y)-xy$\" widget on the spectral-theory topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs and re-derived meta by scripts/fixup-verbatim-widget-meta.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Eigenvalue expansion of the Green's-function kernel $k(x,y)=\\min(x,y)-xy$\" widget on `spectral-theory`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "spec-op",
     "family": "verbatim",
     "dimension": "2d",
@@ -16469,90 +16429,6 @@ window.__MVWidgets = [
       "bodyScript"
     ],
     "readmeExcerpt": "Bespoke verbatim slug for the \"Three operators on $\\ell^2(\\mathbb{Z})$\" widget on `spectral-theory`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "spec-osc",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "spec-osc widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Harmonic oscillator: $E_n = (n+\\tfrac12)\\hbar\\omega$\" widget on the spectral-theory topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs and re-derived meta by scripts/fixup-verbatim-widget-meta.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Harmonic oscillator: $E_n = (n+\\tfrac12)\\hbar\\omega$\" widget on `spectral-theory`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "spec-pvm",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "spec-pvm widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Projection-valued measure for $T = M_x$ on $L^2[0,1]$\" widget on the spectral-theory topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs and re-derived meta by scripts/fixup-verbatim-widget-meta.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Projection-valued measure for $T = M_x$ on $L^2[0,1]$\" widget on `spectral-theory`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "spec-sch",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "spec-sch widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Where does $\\sum n^{-\\alpha p}$ converge?\" widget on the spectral-theory topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs and re-derived meta by scripts/fixup-verbatim-widget-meta.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Where does $\\sum n^{-\\alpha p}$ converge?\" widget on `spectral-theory`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "spec-wl",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "spec-wl widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"$N(\\lambda)$ for the rectangle $[0,a]\\times[0,b]$\" widget on the spectral-theory topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs and re-derived meta by scripts/fixup-verbatim-widget-meta.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"$N(\\lambda)$ for the rectangle $[0,a]\\times[0,b]$\" widget on `spectral-theory`.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
