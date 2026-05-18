@@ -248,7 +248,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<p>The topological vertex is more than a calculational tool. Its existence reveals that DT/GW counts on toric CY3-folds are governed by the combinatorics of <strong>melting crystal</strong> models: the 3D partitions counted by $M(q)$ are configurations of a 3D Ising-style atomic crystal melted at temperature $\\log q$. The exact same combinatorial objects appear in the Hilbert series of $\\mathrm{Sym}^\\bullet(\\mathbb{C}^3)$, in the Schur–Weyl duality for $GL_\\infty$, and in the operator-algebra approach to Hurwitz numbers — a deep web of unifications hiding under one Schur function.</p>\n\n<aside class=\"callback\">\n<div class=\"ttl\">See also</div>\n<ul>\n<li><a href=\"./toric-varieties.html\">Toric varieties</a></li>\n</ul>\n</aside>\n\n"
+          "html": "\n\n<p>The topological vertex is more than a calculational tool. Its existence reveals that DT/GW counts on toric CY3-folds are governed by the combinatorics of <strong>melting crystal</strong> models: the 3D partitions counted by $M(q)$ are configurations of a 3D Ising-style atomic crystal melted at temperature $\\log q$. The exact same combinatorial objects appear in the Hilbert series of $\\mathrm{Sym}^\\bullet(\\mathbb{C}^3)$, in the Schur–Weyl duality for $GL_\\infty$, and in the operator-algebra approach to Hurwitz numbers — a deep web of unifications hiding under one Schur function.</p>\n\n"
         },
         {
           "type": "quiz",
