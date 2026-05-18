@@ -1156,7 +1156,7 @@
             "interaction": "svg-diagram",
             "widgetId": "w-yo2",
             "title": "Yoneda — element ↔ natural transformation",
-            "hint": "drag the yellow dot in $F(A)$ · watch $\\eta^x_C$ at every $C$",
+            "hint": "drag the yellow draggable point in $F(A)$ · watch $\\eta^x_C$ at every $C$",
             "svgId": "yo2-svg",
             "svgViewBox": "0 0 640 340",
             "svgWidthAttr": "640",
