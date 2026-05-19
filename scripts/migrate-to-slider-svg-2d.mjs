@@ -40,45 +40,182 @@ const wantSlugs = new Set(argv.slice(1));
 // ---------------------------------------------------------------------------
 // Parse a verbatim bodyMarkup string into slider-svg-2d typed params.
 
+// Preserve numeric source formatting when JS's Number() would lose info.
+// `"3.0"` parses to 3 and serialises back as `"3"`, breaking byte-identity.
+// Strategy: keep the original string when `String(Number(s)) !== s`,
+// otherwise store as a clean number for nicer schema validation.
+//
+// CRITICAL: the kept-string MUST match the schema's numeric pattern
+// (`^-?\d+(?:\.\d+)?$`). Otherwise the migration writes JSON that
+// silently fails validate-widget-params on the next rebuild. SFH on
+// PR #243 flagged the gap: `"1e3"`, `"+1"`, `".5"`, `"1."`, `"-0"`,
+// `"010"` all round-trip through `String(Number(…))` differently
+// from the source AND fail the schema pattern. Throw at parse time
+// rather than write invalid JSON. The migrate-script's existing
+// failure-summary path (line ~313) already prints enough context.
+// Allowlist for the verbatim labelAttrs string that gets spliced into
+// the rendered `<label…>` tag. Cosmetic (style, class) and a11y
+// (aria-*, data-*) attrs are accepted; event handlers (on*=), id (would
+// collide with the renderer's for-binding), and anything else throws.
+const LABEL_ATTR_NAME = /\s+([a-zA-Z][a-zA-Z0-9_-]*)\s*=\s*"/g;
+const LABEL_ATTR_ALLOWLIST = /^(?:style|class|data-[a-z][a-z0-9_-]*|aria-[a-z]+)$/;
+function assertLabelAttrsSafe(attrsString) {
+  if (!attrsString) return;
+  const seen = new Set();
+  let m;
+  LABEL_ATTR_NAME.lastIndex = 0;
+  while ((m = LABEL_ATTR_NAME.exec(attrsString))) {
+    const name = m[1].toLowerCase();
+    if (!LABEL_ATTR_ALLOWLIST.test(name)) {
+      throw new Error(
+        `labelAttrs contains disallowed attribute "${name}" — ` +
+        `slider-svg-2d's labelAttrs allowlist is style, class, data-*, aria-*. ` +
+        `Refusing to silently propagate. Source attrs: "${attrsString}".`
+      );
+    }
+    if (seen.has(name)) {
+      throw new Error(
+        `labelAttrs contains duplicate attribute "${name}" — ` +
+        `would render as an ambiguous tag. Source attrs: "${attrsString}".`
+      );
+    }
+    seen.add(name);
+  }
+}
+
+const NUMERIC_PATTERN = /^-?\d+(?:\.\d+)?$/;
+function preserveNumeric(s) {
+  const n = Number(s);
+  if (String(n) === s) return n;
+  if (NUMERIC_PATTERN.test(s)) return s;
+  throw new Error(
+    `preserveNumeric: source value "${s}" cannot be preserved — neither ` +
+    `Number()-round-trippable nor schema-pattern-compatible. ` +
+    `slider-svg-2d's min/max/value/step pattern is /^-?\\d+(?:\\.\\d+)?$/. ` +
+    `Either normalize the source (e.g. "1e3" → "1000") or extend the ` +
+    `schema pattern + this regex to accept the new form.`
+  );
+}
+
 function parseControls(rowInner) {
-  // Match <label>...<input id="..." type="range" min="..." max="..." [step="..."] value="..."></label>
-  // <button id="...">text</button>
-  // <span id="..." class="..."></span> or <span id="..."></span>
+  // Supported tokens in source order:
+  //   nested-slider:    <label[ ATTRS]>LABEL<input id="ID" type="range" min=… max=… [step=…] value=…></label>
+  //   separate-slider:  <label[ ATTRS] for="ID">LABEL</label>
+  //                     <input type="range" id="ID" min=… max=… [step=…] value=…>
+  //   button:           <button id="ID"[ class="CLASS"]>TEXT</button>
+  //   span:             <span id="ID"[ class="CLASS"]>TEXT?</span>
+  //
+  // The two slider forms render identically in the browser but differ at
+  // the byte level — both styles exist in the corpus (spectral-theory
+  // uses nested; kahler-geometry / spectral-methods-data / mathematical-
+  // biology use separate). The renderer emits exactly the parsed form so
+  // byte-identical roundtrip holds.
   const controls = [];
   let i = 0;
   while (i < rowInner.length) {
-    // Skip whitespace
     while (i < rowInner.length && /\s/.test(rowInner[i])) i++;
     if (i >= rowInner.length) break;
 
-    if (rowInner.startsWith('<label>', i)) {
-      const endIdx = rowInner.indexOf('</label>', i);
-      if (endIdx < 0) throw new Error('unterminated <label> in .row');
-      const inner = rowInner.slice(i + '<label>'.length, endIdx);
-      // <label> contains label text + <input ...>
-      const inputMatch = inner.match(/<input\s+([^>]+?)\s*\/?>/);
-      if (!inputMatch) throw new Error('label without <input>: ' + inner);
-      const inputAttrs = inputMatch[1];
-      const labelText = inner.slice(0, inputMatch.index).trimEnd();
-      const get = (name) => {
-        const m = inputAttrs.match(new RegExp(`\\b${name}="([^"]*)"`));
-        return m ? m[1] : null;
-      };
-      if (get('type') !== 'range') {
-        throw new Error('non-range input in .row not supported by slider-svg-2d: ' + inputAttrs);
+    if (rowInner.startsWith('<label', i)) {
+      // Distinguish nested vs separate by looking inside the <label> for
+      // an <input>. Nested: input is a child. Separate: input is a sibling
+      // immediately after </label>.
+      const openCloseIdx = rowInner.indexOf('>', i);
+      if (openCloseIdx < 0) throw new Error('unterminated <label> open tag');
+      const labelOpenTag = rowInner.slice(i, openCloseIdx + 1);
+      // Extract verbatim attribute string from the opening tag (everything
+      // between `<label` and `>`), preserved through to renderer.
+      // Strip `for="..."` separately (it's the form-binding attr, not
+      // arbitrary cosmetic). What's left becomes labelAttrs.
+      const labelAttrsRaw = labelOpenTag.slice('<label'.length, -1);
+      const forMatch = labelAttrsRaw.match(/\s*for="([^"]+)"/);
+      const labelAttrsWithoutFor = forMatch
+        ? labelAttrsRaw.slice(0, forMatch.index) + labelAttrsRaw.slice(forMatch.index + forMatch[0].length)
+        : labelAttrsRaw;
+
+      // Allowlist: labelAttrs is verbatim-spliced into the rendered
+      // `<label…>` tag, so it can carry whatever the parser captures.
+      // Restrict to cosmetic/a11y attrs (style, class, data-*, aria-*).
+      // Refuses event handlers (on*=), id (would collide with for-binding),
+      // and anything else. SFH PR #243 flagged the gap — symmetric
+      // corruption survives byte-identity. Throw at parse time.
+      assertLabelAttrsSafe(labelAttrsWithoutFor);
+
+      const labelEndIdx = rowInner.indexOf('</label>', openCloseIdx);
+      if (labelEndIdx < 0) throw new Error('unterminated <label> in .row');
+      const inner = rowInner.slice(openCloseIdx + 1, labelEndIdx);
+
+      const nestedInputMatch = inner.match(/<input\s+([^>]+?)\s*\/?>/);
+      let slider;
+      let advanceTo;
+      if (nestedInputMatch) {
+        // Nested form
+        const inputAttrs = nestedInputMatch[1];
+        const labelText = inner.slice(0, nestedInputMatch.index).trimEnd();
+        const get = (name) => {
+          const m = inputAttrs.match(new RegExp(`\\b${name}="([^"]*)"`));
+          return m ? m[1] : null;
+        };
+        if (get('type') !== 'range') {
+          throw new Error('non-range input in nested-label .row: ' + inputAttrs);
+        }
+        slider = {
+          type: 'slider',
+          id: get('id'),
+          label: labelText,
+          // Store numerics as strings when they have a trailing `.0` (or
+          // any decimal that JS's Number() would lose). Pure integers
+          // stay as JSON numbers for cleaner schema validation.
+          min: preserveNumeric(get('min')),
+          max: preserveNumeric(get('max')),
+          value: preserveNumeric(get('value')),
+        };
+        const step = get('step');
+        if (step !== null) slider.step = preserveNumeric(step);
+        advanceTo = labelEndIdx + '</label>'.length;
+      } else {
+        // Separate form: scan past </label> + whitespace for the sibling <input>.
+        const afterLabel = labelEndIdx + '</label>'.length;
+        let j = afterLabel;
+        while (j < rowInner.length && /\s/.test(rowInner[j])) j++;
+        if (!rowInner.startsWith('<input', j)) {
+          throw new Error('<label for="…"> not followed by <input>: ' + rowInner.slice(i, i + 80));
+        }
+        const inputCloseIdx = rowInner.indexOf('>', j);
+        if (inputCloseIdx < 0) throw new Error('unterminated <input> after separate-form label');
+        const inputAttrs = rowInner.slice(j + '<input'.length, inputCloseIdx).trim();
+        const get = (name) => {
+          const m = inputAttrs.match(new RegExp(`\\b${name}="([^"]*)"`));
+          return m ? m[1] : null;
+        };
+        if (get('type') !== 'range') {
+          throw new Error('non-range sibling input after <label for="…">: ' + inputAttrs);
+        }
+        const forId = forMatch ? forMatch[1] : get('id');
+        if (get('id') !== forId) {
+          throw new Error(
+            `separate-label/input id mismatch: label for="${forId}" but input id="${get('id')}"`
+          );
+        }
+        slider = {
+          type: 'slider',
+          id: get('id'),
+          label: inner.trim(),
+          // Store numerics as strings when they have a trailing `.0` (or
+          // any decimal that JS's Number() would lose). Pure integers
+          // stay as JSON numbers for cleaner schema validation.
+          min: preserveNumeric(get('min')),
+          max: preserveNumeric(get('max')),
+          value: preserveNumeric(get('value')),
+          format: 'separate',
+        };
+        const step = get('step');
+        if (step !== null) slider.step = preserveNumeric(step);
+        advanceTo = inputCloseIdx + 1;
       }
-      const slider = {
-        type: 'slider',
-        id: get('id'),
-        label: labelText,
-        min: Number(get('min')),
-        max: Number(get('max')),
-        value: Number(get('value')),
-      };
-      const step = get('step');
-      if (step !== null) slider.step = Number(step);
+      if (labelAttrsWithoutFor) slider.labelAttrs = labelAttrsWithoutFor;
       controls.push(slider);
-      i = endIdx + '</label>'.length;
+      i = advanceTo;
     } else if (rowInner.startsWith('<button', i)) {
       const closeStart = rowInner.indexOf('>', i);
       const endIdx = rowInner.indexOf('</button>', closeStart);
@@ -87,7 +224,10 @@ function parseControls(rowInner) {
       const text = rowInner.slice(closeStart + 1, endIdx);
       const idMatch = openTag.match(/\bid="([^"]+)"/);
       if (!idMatch) throw new Error('<button> without id: ' + openTag);
-      controls.push({ type: 'button', id: idMatch[1], text });
+      const button = { type: 'button', id: idMatch[1], text };
+      const classMatch = openTag.match(/\bclass="([^"]+)"/);
+      if (classMatch) button.class = classMatch[1];
+      controls.push(button);
       i = endIdx + '</button>'.length;
     } else if (rowInner.startsWith('<span', i)) {
       const closeStart = rowInner.indexOf('>', i);
@@ -99,7 +239,16 @@ function parseControls(rowInner) {
       const classMatch = openTag.match(/\bclass="([^"]+)"/);
       if (!idMatch) throw new Error('<span> without id: ' + openTag);
       const span = { type: 'span', id: idMatch[1] };
-      if (classMatch && classMatch[1] !== 'small') span.class = classMatch[1];
+      // Renderer's three-state rule for class:
+      //   undefined  → emit class="small"  (spectral-theory default)
+      //   ""         → emit no class attr  (kahler-geometry style)
+      //   non-empty  → emit verbatim
+      if (classMatch) {
+        if (classMatch[1] !== 'small') span.class = classMatch[1];
+        // else: omit the field → renderer defaults to class="small"
+      } else {
+        span.class = ''; // explicit empty → renderer omits the attribute
+      }
       if (text !== '') span.text = text;
       controls.push(span);
       i = endIdx + '</span>'.length;
@@ -111,15 +260,24 @@ function parseControls(rowInner) {
 }
 
 function parseVerbatimMarkup(bodyMarkup) {
-  // Expected shape:
-  // <div class="widget">
+  // Expected shapes (canonical + variations):
+  // <div class="widget"[ id="WIDGETID"]>
   //   <div class="hd"><div class="ttl">{title}</div><div class="hint">{hint}</div></div>
   //   <div class="row">
-  //     <controls>
+  //     <controls>  ← nested or separate slider form per parseControls
   //   </div>
   //   <svg id="..." viewBox="..." width="..." height="..."><title>{title}</title></svg>
   //   <div class="readout" id="..."></div>
   // </div>
+
+  // Wrapper opening tag — detect optional `id="..."`. When present, the
+  // renderer needs wrapperHasId=true so the byte-identical roundtrip
+  // preserves it (kahler-geometry / smd-w* style).
+  const wrapperOpenMatch = bodyMarkup.match(/^<div class="widget"(?:\s+id="([^"]+)")?\s*>/);
+  if (!wrapperOpenMatch) {
+    throw new Error('bodyMarkup does not begin with `<div class="widget"[ id=…]>`');
+  }
+  const wrapperWidgetId = wrapperOpenMatch[1] || null;
 
   const titleMatch = bodyMarkup.match(/<div class="ttl">([\s\S]*?)<\/div>/);
   const hintMatch  = bodyMarkup.match(/<div class="hint">([\s\S]*?)<\/div>/);
@@ -147,6 +305,22 @@ function parseVerbatimMarkup(bodyMarkup) {
     width: Number(svgMatch[3]),
     height: Number(svgMatch[4]),
   };
+  // Extract the SVG <title>...</title> text; preserve as override when
+  // it differs from the page header title (corpus convention — see
+  // renderer comment on svg.title for examples).
+  const svgTitleMatch = bodyMarkup.slice(svgMatch.index).match(/<title>([\s\S]*?)<\/title>/);
+  if (svgTitleMatch) {
+    const svgTitleText = svgTitleMatch[1];
+    // Reverse the renderer's HTML escape: only the 5 escaped chars need
+    // unescaping for round-trip fidelity. Most corpus titles are plain.
+    const unescaped = svgTitleText
+      .replace(/&amp;/g, '&')
+      .replace(/&lt;/g, '<')
+      .replace(/&gt;/g, '>')
+      .replace(/&quot;/g, '"')
+      .replace(/&#39;/g, "'");
+    if (unescaped !== title) svg.title = unescaped;
+  }
 
   // Readout: either `<div class="readout" id="...-readout"></div>` or absent.
   const readoutMatch = bodyMarkup.match(/<div class="readout" id="([^"]+)"><\/div>/);
@@ -160,7 +334,45 @@ function parseVerbatimMarkup(bodyMarkup) {
     }
   }
 
-  return { title, hint, controls, svg, readout };
+  // Trailing prose: optional `<p class="small">...</p>` between the
+  // readout and the wrapper's closing `</div>`. Several corpus widgets
+  // (spectral-methods-data, etc.) embed an explanatory caption here.
+  //
+  // CRITICAL: count `<p class="small">` openings in the trailing
+  // region. The naive non-greedy `[\s\S]*?` regex silently merges
+  // multi-paragraph captures (SFH PR #243 finding) — `<p class="small">
+  // first</p><p class="small">second</p>` round-trips byte-identically
+  // because the renderer emits `<p class="small">{capture}</p>` and the
+  // capture contains the embedded `</p><p class="small">` boundary.
+  // The JSON then stores semantically corrupted prose. Throw if >1.
+  const trailingRegion = (() => {
+    // Find the region between the readout div close and the wrapper close.
+    // We look for the last `</div>` (wrapper close) and scan backwards
+    // from the SVG close for `<p class="small">` openings.
+    const svgEndIdx = bodyMarkup.indexOf('</svg>');
+    if (svgEndIdx < 0) return null;
+    const wrapperCloseIdx = bodyMarkup.lastIndexOf('</div>');
+    if (wrapperCloseIdx < svgEndIdx) return null;
+    return bodyMarkup.slice(svgEndIdx, wrapperCloseIdx);
+  })();
+  let trailingProse = null;
+  if (trailingRegion) {
+    const openings = (trailingRegion.match(/<p class="small">/g) || []).length;
+    if (openings > 1) {
+      throw new Error(
+        `multiple <p class="small"> blocks (${openings}) between readout and ` +
+        `wrapper close — slider-svg-2d's trailingProse param holds at most one. ` +
+        `Either merge the prose into a single paragraph in the source, or extend ` +
+        `the schema to accept an array of paragraphs.`
+      );
+    }
+    if (openings === 1) {
+      const m = trailingRegion.match(/<p class="small">([\s\S]*?)<\/p>/);
+      if (m) trailingProse = m[1];
+    }
+  }
+
+  return { title, hint, controls, svg, readout, wrapperWidgetId, trailingProse };
 }
 
 // ---------------------------------------------------------------------------
@@ -194,8 +406,21 @@ for (const section of doc.sections) {
       continue;
     }
 
+    // Reconcile widgetId across the verbatim params and the wrapper's
+    // own id attribute (when present). Two cases:
+    //
+    //   (1) wrapperWidgetId present AND matches old.widgetId  → wrapperHasId=true,
+    //       widgetId stays as-is.
+    //   (2) wrapperWidgetId present BUT old.widgetId differs  → trust the
+    //       wrapper's id (it's what the page actually emits); old.widgetId
+    //       was likely a placeholder slug for widget-script ref-binding
+    //       that won't apply here. Use wrapperWidgetId as widgetId, set
+    //       wrapperHasId=true.
+    //   (3) wrapperWidgetId absent                            → widgetId
+    //       stays metadata-only (spectral-theory style), wrapperHasId omitted.
+    const newWidgetId = typed.wrapperWidgetId || old.widgetId || '';
     const newParams = {
-      widgetId: old.widgetId || '',
+      widgetId: newWidgetId,
       title: typed.title,
       hint:  typed.hint,
       controls: typed.controls,
@@ -203,6 +428,8 @@ for (const section of doc.sections) {
       readout: typed.readout,
       bodyScript: old.bodyScript || '',
     };
+    if (typed.wrapperWidgetId) newParams.wrapperHasId = true;
+    if (typed.trailingProse !== null) newParams.trailingProse = typed.trailingProse;
 
     // Safety: re-render and require byte-identity vs original bodyMarkup.
     const rendered = renderSliderSvg2d(newParams);
