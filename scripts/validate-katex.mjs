@@ -40,13 +40,14 @@
 // Zero dependencies: regex + string checks, runs from stock node.
 
 import { loadContentModel } from './lib/content-model.mjs';
-import { escapedAt, findDelimClose, extractSpans } from './lib/math-spans.mjs';
+import { escapedAt, extractSpans } from './lib/math-spans.mjs';
 
 const errors = [];   // [{ file, path, msg }]
 const warnings = []; // [{ file, path, msg }]
 
-// Math span extraction (`escapedAt`, `findDelimClose`, `extractSpans`) lives in
-// ./lib/math-spans.mjs so audits share one extractor — imported above.
+// Math span extraction (`escapedAt`, `extractSpans`, and the `findDelimClose`
+// helper `extractSpans` calls internally) lives in ./lib/math-spans.mjs so
+// audits share one extractor — the two names used here are imported above.
 
 // ─────────────────────────────────────────────────────────────────────────
 // Per-span structural checks.

@@ -23,15 +23,24 @@
 //     KaTeX cannot typeset inside SVG <text>; a `$…$` or `\command` there shows
 //     as raw source. Advisory.
 //
-// Scope: registered topics only (concepts/index.json order). Class A also
-// covers quiz banks (q / explain / choices / hint, plus hard & expert tiers)
-// and concept title/blurb. Exits 0 (advisory) unless `--strict`, which exits 1
-// if any CLASS A hit exists (the only reader-visible-bug class). `--write`
-// dumps audits/math-rendering-leaks.md.
+// Scope:
+//   - CLASS A prose + CLASS B inline-script scans run over EVERY top-level
+//     `*.html` (topics AND index/pathway/updates/capstone-story pages) — the
+//     tokenizer eats `<x` in math identically regardless of page role, and the
+//     non-topic pages are the most prose-heavy with the least other validation.
+//   - CLASS B also scans the shared runtime under `js/*.js` (`js/quiz.js`,
+//     `js/widget-*.js`, …): a missing single-`$` delimiter there silently
+//     no-ops `$…$` across every page that loads the file.
+//   - CLASS A also covers quiz banks (q / explain / choices / hint, plus hard &
+//     expert tiers) and concept/capstone title+blurb.
+//   - CLASS C (SVG <text>) stays topic-scoped — that's where widgets live.
+// Exits 0 (advisory) unless `--strict`, which exits 1 if any CLASS A hit exists
+// (the only reader-visible-bug class). `--write` dumps
+// audits/math-rendering-leaks.md.
 //
 // Zero runtime deps beyond the shared content model + span extractor.
 
-import { readFileSync, existsSync, writeFileSync } from 'node:fs';
+import { readFileSync, existsSync, readdirSync, writeFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { loadContentModel } from './lib/content-model.mjs';
@@ -50,19 +59,24 @@ const TEX_CMD = /\\[a-zA-Z]/;
 const classA = []; // { file, where, span, ch }
 const classB = []; // { file, snippet }
 const classC = []; // { file, text }
+const desync = []; // { file, where, err } — unbalanced delimiters: Class A scan may be incomplete here
 
 // ── CLASS A helpers ─────────────────────────────────────────────────────────
 
 // For small, ISOLATED strings (one quiz/concept field) the precise extractor is
-// safe — a single field rarely carries a stray odd `$` to desync the pairing.
+// usually safe — a single field rarely carries a stray odd `$`. But when it
+// DOES (an unclosed `$`, a literal "$5" mid-sentence), `extractSpans` mis-pairs
+// or aborts and a real `<x` hazard can slip through un-scanned. We surface that
+// (via the returned `errors`) as an advisory rather than silently dropping it,
+// so the field gets a human eyeball.
 function tagOpenHits(str) {
-  const { spans } = extractSpans(str);
+  const { spans, errors } = extractSpans(str);
   const hits = [];
   for (const sp of spans) {
     const m = sp.body.match(TAG_OPEN);
     if (m) hits.push({ span: sp.open + sp.body + sp.close, ch: m[0] });
   }
-  return hits;
+  return { hits, errors };
 }
 
 // For the large concatenated prose blob (a whole topic .html) extractSpans is
@@ -70,11 +84,21 @@ function tagOpenHits(str) {
 // flips parity and pairs `$`s across blocks, swallowing real `</p>`/`<div>`
 // markup into a bogus "span". Bounded, newline-aware regexes can't do that — a
 // `$…$` body excludes `$` and `\n`, so a match stays inside one inline span.
+// Two more guards keep the DISPLAY regexes (which must allow `$`/`\n` in the
+// body) honest:
+//   - `(?<!\\)` on each opener rejects an ESCAPED delimiter — `$\$$` (inline
+//     math showing a literal `$`) otherwise reads as a spurious `$$` opener and
+//     captures the following prose (incl. real `<strong>` tags) as a bogus
+//     display block. The single-char lookbehind covers the corpus's `\$`/`\(`
+//     usage; a doubled `\\$$` (literal backslash then display) is nonexistent.
+//   - The caps only stop a stray/unclosed delimiter from running away; at 4000
+//     they sit well above the longest real block, so a genuinely long block
+//     with a tag-open is NOT dropped as a false negative once `--strict` gates.
 const PROSE_DELIMS = [
-  /(?<!\$)\$([^$\n]{1,300})\$(?!\$)/g, // $…$ inline (single-line, not $$)
-  /\$\$([\s\S]{1,500}?)\$\$/g,         // $$…$$ display
-  /\\\(([\s\S]{1,300}?)\\\)/g,         // \(…\) inline
-  /\\\[([\s\S]{1,400}?)\\\]/g,         // \[…\] display
+  /(?<!\$)\$([^$\n]{1,600})\$(?!\$)/g,  // $…$ inline (single-line, not $$)
+  /(?<!\\)\$\$([\s\S]{1,4000}?)\$\$/g,  // $$…$$ display (opener not an escaped \$)
+  /(?<!\\)\\\(([\s\S]{1,600}?)\\\)/g,   // \(…\) inline
+  /(?<!\\)\\\[([\s\S]{1,4000}?)\\\]/g,  // \[…\] display
 ];
 
 function scanProseString(str, file, where) {
@@ -116,6 +140,13 @@ function scanScriptForBareRenderCalls(scriptText, file) {
   const re = /renderMathInElement\s*\(/g;
   let m;
   while ((m = re.exec(scriptText))) {
+    // Skip mentions inside a `//` line comment (doc prose describing the call,
+    // not a call site — e.g. "via renderMathInElement (if …)"). Cheap: is there
+    // a `//` between this line's start and the match? (A `//` inside a same-line
+    // string literal ahead of a real call is vanishingly rare and would only
+    // cost an advisory miss, never a false reader-visible bug.)
+    const lineStart = scriptText.lastIndexOf('\n', m.index) + 1;
+    if (scriptText.lastIndexOf('//', m.index) >= lineStart) continue;
     const tail = scriptText.slice(m.index, m.index + 240);
     // Has it any delimiters config at all?
     const hasDelimKey = /delimiters\s*:/.test(tail);
@@ -132,28 +163,42 @@ function scanScriptForBareRenderCalls(scriptText, file) {
 
 const model = await loadContentModel();
 
+// CLASS A prose + CLASS B inline-script scans over EVERY top-level `*.html`
+// (topics AND index/pathway/updates/capstone-story pages). The tokenizer eats
+// `<x` in math identically regardless of page role; the non-topic pages are
+// prose-heavy and otherwise lightly validated.
+for (const file of readdirSync(repoRoot).filter((f) => f.endsWith('.html')).sort()) {
+  const html = readFileSync(join(repoRoot, file), 'utf8');
+  // Strip <script>/<style> bodies before the prose scan: inside them the HTML
+  // tokenizer is in script/style-data state, so `<` is NOT a tag-open —
+  // scanning their JS (full of `i<n` loops, `$`-helpers) would be all FPs.
+  const prose = html
+    .replace(/<script\b[\s\S]*?<\/script>/gi, ' ')
+    .replace(/<style\b[\s\S]*?<\/style>/gi, ' ');
+  scanProseString(prose, file, 'prose');
+
+  // CLASS B: scan the (un-stripped) inline <script> bodies for bare render calls.
+  let sm;
+  const scriptRe = /<script\b[^>]*>([\s\S]*?)<\/script>/gi;
+  while ((sm = scriptRe.exec(html))) {
+    scanScriptForBareRenderCalls(sm[1], file);
+  }
+}
+
+// CLASS B from the shared runtime under js/. A `renderMathInElement(...)` call
+// here whose options omit a single-`$` delimiter silently no-ops `$…$` on every
+// page that loads the file — `js/quiz.js` alone is on every topic + capstone.
+const jsDir = join(repoRoot, 'js');
+if (existsSync(jsDir)) {
+  for (const f of readdirSync(jsDir).filter((n) => n.endsWith('.js')).sort()) {
+    scanScriptForBareRenderCalls(readFileSync(join(jsDir, f), 'utf8'), `js/${f}`);
+  }
+}
+
+// CLASS C (SVG <text>) + CLASS A (quiz banks) stay topic-scoped — that's where
+// widgets and quizzes live.
 for (const topicId of model.topicIds) {
   const topic = model.topics.get(topicId);
-
-  // CLASS A + B + C from the rendered topic HTML.
-  const htmlPath = join(repoRoot, `${topicId}.html`);
-  if (existsSync(htmlPath)) {
-    const html = readFileSync(htmlPath, 'utf8');
-    // Strip <script>/<style> bodies: inside them the HTML tokenizer is in
-    // script/style-data state, so `<` is NOT a tag-open — scanning their JS
-    // (full of `i<n` loops, `$`-helpers) would be all false positives.
-    const prose = html
-      .replace(/<script\b[\s\S]*?<\/script>/gi, ' ')
-      .replace(/<style\b[\s\S]*?<\/style>/gi, ' ');
-    scanProseString(prose, `${topicId}.html`, 'prose');
-
-    // CLASS B: scan the (un-stripped) <script> bodies for bare render calls.
-    let sm;
-    const scriptRe = /<script\b[^>]*>([\s\S]*?)<\/script>/gi;
-    while ((sm = scriptRe.exec(html))) {
-      scanScriptForBareRenderCalls(sm[1], `${topicId}.html`);
-    }
-  }
 
   // CLASS C: SVG <text> nodes carrying LaTeX (parsed DOM).
   if (topic && topic.html) {
@@ -169,9 +214,11 @@ for (const topicId of model.topicIds) {
   const bank = model.quizBanks.get(topicId);
   if (bank) {
     walkJsonStrings(bank, '', (str, path) => {
-      for (const h of tagOpenHits(str)) {
+      const { hits, errors } = tagOpenHits(str);
+      for (const h of hits) {
         classA.push({ file: `quizzes/${topicId}.json`, where: path, span: h.span, ch: h.ch });
       }
+      if (errors.length) desync.push({ file: `quizzes/${topicId}.json`, where: path, err: errors[0] });
     });
   }
 }
@@ -180,17 +227,21 @@ for (const topicId of model.topicIds) {
 for (const c of model.concepts.values()) {
   for (const [field, str] of [['title', c.title], ['blurb', c.blurb]]) {
     if (!str) continue;
-    for (const h of tagOpenHits(str)) {
+    const { hits, errors } = tagOpenHits(str);
+    for (const h of hits) {
       classA.push({ file: `concepts/${c.topic}.json`, where: `${c.id}.${field}`, span: h.span, ch: h.ch });
     }
+    if (errors.length) desync.push({ file: `concepts/${c.topic}.json`, where: `${c.id}.${field}`, err: errors[0] });
   }
 }
 for (const cap of model.capstones) {
   for (const [field, str] of [['title', cap.title], ['blurb', cap.blurb]]) {
     if (!str) continue;
-    for (const h of tagOpenHits(str)) {
-      classA.push({ file: 'concepts/capstones.json', where: `${cap.id || cap.topic}.${field}`, span: h.span, ch: h.ch });
+    const { hits, errors } = tagOpenHits(str);
+    for (const h of hits) {
+      classA.push({ file: 'concepts/capstones.json', where: `${cap.id}.${field}`, span: h.span, ch: h.ch });
     }
+    if (errors.length) desync.push({ file: 'concepts/capstones.json', where: `${cap.id}.${field}`, err: errors[0] });
   }
 }
 
@@ -204,6 +255,7 @@ log('');
 log(`CLASS A (HTML tag-open in math — content loss): ${classA.length}`);
 log(`CLASS B (renderMathInElement missing single-$): ${classB.length}`);
 log(`CLASS C (LaTeX in SVG <text>): ${classC.length}`);
+if (desync.length) log(`⚠ Unbalanced delimiters (Class A scan may be incomplete): ${desync.length}`);
 log('');
 
 if (classA.length) {
@@ -237,6 +289,18 @@ if (classC.length) {
   log('');
   for (const h of classC.sort((a, b) => a.file.localeCompare(b.file))) {
     log(`  ${h.file}  "${h.text}"`);
+  }
+  log('');
+}
+
+if (desync.length) {
+  log('## ⚠ Unbalanced delimiters — Class A scan may be incomplete  (advisory)');
+  log('A field with an odd / unclosed `$` (or a literal "$5" mid-sentence)');
+  log('desyncs the precise span extractor, so a real `<x` tag-open hazard could');
+  log('slip past un-scanned. Eyeball each and balance the delimiters.');
+  log('');
+  for (const h of desync.sort((a, b) => (a.file + a.where).localeCompare(b.file + b.where))) {
+    log(`  ${h.file}  ${h.where}  (${h.err})`);
   }
   log('');
 }
