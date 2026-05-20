@@ -956,10 +956,8 @@ Furthermore $\tau$ is a homomorphism from the smooth knot concordance group $\ma
     pill.textContent = `step ${i+1}/${steps.length}`;
     steps[i].draw(svg);
     const ttl = SVG('text',{x:360,y:30,'text-anchor':'middle','font-size':14,fill:'var(--ink)','font-weight':600}); ttl.textContent = steps[i].title; svg.appendChild(ttl);
-    out.textContent = steps[i].desc.replace(/\$/g,'').replace(/\\(setminus|nu|partial|cdots|to|rightsquigarrow|bullet|ker|mathbb|widehat|times|circ)/g, m => {
-      const map = {'\\setminus':'\\','\\nu':'ν','\\partial':'∂','\\cdots':'…','\\to':'→','\\rightsquigarrow':'⇝','\\bullet':'•','\\ker':'ker','\\mathbb':'','\\widehat':'̂','\\times':'×','\\circ':'∘'};
-      return map[m] || m;
-    }).replace(/\\\\/g,'').replace(/[{}]/g,'');
+    out.innerHTML = steps[i].desc;
+    if(window.renderMathInElement){ try{ renderMathInElement(out,{delimiters:[{left:'$',right:'$',display:false}],throwOnError:false}); }catch(e){} }
   }
   prev.addEventListener('click', ()=>{ i = (i-1+steps.length)%steps.length; render(); });
   next.addEventListener('click', ()=>{ i = (i+1)%steps.length; render(); });

@@ -548,6 +548,7 @@ where $U_{i_0 \cdots i_n} := U_{i_0} \cap \cdots \cap U_{i_n}$. For a sheaf, the
         out.innerHTML = `<span style="color:var(--pink)">incompatible</span>: ${issues.join('; ')}. Even the constant sheaf needs compatibility on overlaps — what changes is what counts as a "section" on each open, not the locality requirement.`;
       }
     }
+    if(window.renderMathInElement){ try{ renderMathInElement(out,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}],throwOnError:false}); }catch(e){} }
   }
 
   function setMode(m){
@@ -1422,6 +1423,7 @@ A section over $U$ is a choice of germ at each point that is locally represented
       // Since X has 2 components U, V, this is S × S (any (a,b) is allowed).
       out.innerHTML = `constant sheaf: $\\underline{S}(W) = $ locally-constant functions $W \\to S$. Since $X = U \\sqcup V$ has two components, $\\underline{S}(X) \\cong S \\times S$ (size $${n*n}$); the pair $(${a}, ${b})$ corresponds to a unique global section, sending $U \\mapsto ${a}$, $V \\mapsto ${b}$. Sheafification has multiplied the global sections from $${n}$ to $${n*n}$ — exactly what gluing demands when $X$ is disconnected.`;
     }
+    if(window.renderMathInElement){ try{ renderMathInElement(out,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}],throwOnError:false}); }catch(e){} }
   }
 
   rebuildOptions();

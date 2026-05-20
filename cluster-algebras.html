@@ -781,7 +781,7 @@ function drawNode(svg, x, y, label, opts={}){
         if(after){
           out.textContent =
             `Flipped diagonal (${before[0]}, ${before[1]}) → (${after[0]}, ${after[1]}).\n` +
-            `That's mutation $\\mu_d$ at the cluster variable $x_{(${before[0]},${before[1]})}$.\n` +
+            `That's a mutation μ at the cluster variable x(${before[0]}, ${before[1]}).\n` +
             `Total flips so far: ${flipCount}. Remaining diagonals: ${diags.length}.`;
         } else {
           out.textContent = `Diagonal (${before[0]}, ${before[1]}) is on the boundary of the current triangulation — cannot flip (this should not normally happen).`;
