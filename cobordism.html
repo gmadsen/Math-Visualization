@@ -636,12 +636,12 @@ via $Z\mapsto Z(\mathrm{pt})$. Adding tangential structure (orientation, spin, .
   if(!svg) return;
   const W=720, H=280;
   const data = {
-    s2:    {name:"$S^2$",                 bounds:true,  filler:"$D^3$ (closed ball)",     omega:"null in $\\Omega_2^O$",  color:"var(--green)"},
-    t2:    {name:"$T^2$",                 bounds:true,  filler:"genus-1 handlebody $V_1$", omega:"null in $\\Omega_2^O$",  color:"var(--green)"},
-    g2:    {name:"$\\Sigma_2$",          bounds:true,  filler:"genus-2 handlebody $V_2$", omega:"null in $\\Omega_2^O$",  color:"var(--green)"},
-    rp2:   {name:"$\\mathbb{RP}^2$",      bounds:false, filler:"no $3$-manifold has $\\mathbb{RP}^2$ as boundary", omega:"generates $\\Omega_2^O = \\mathbb{Z}/2$", color:"var(--pink)"},
-    kb:    {name:"Klein bottle $K$",      bounds:true,  filler:"twisted $I$-bundle over $S^1$", omega:"null in $\\Omega_2^O$ (since $K = \\partial$ twisted $I$-bundle)", color:"var(--green)"},
-    "rp2-rp2": {name:"$\\mathbb{RP}^2 \\sqcup \\mathbb{RP}^2$", bounds:true, filler:"$2[\\mathbb{RP}^2]=0$ in $\\mathbb{Z}/2$, so they jointly bound", omega:"null in $\\Omega_2^O$", color:"var(--green)"}
+    s2:    {name:"S²",                 bounds:true,  filler:"D³ (closed ball)",     omega:"null in Ω₂^O",  color:"var(--green)"},
+    t2:    {name:"T²",                 bounds:true,  filler:"genus-1 handlebody V₁", omega:"null in Ω₂^O",  color:"var(--green)"},
+    g2:    {name:"Σ₂",          bounds:true,  filler:"genus-2 handlebody V₂", omega:"null in Ω₂^O",  color:"var(--green)"},
+    rp2:   {name:"ℝP²",      bounds:false, filler:"no 3-manifold has ℝP² as boundary", omega:"generates Ω₂^O = ℤ/2", color:"var(--pink)"},
+    kb:    {name:"Klein bottle K",      bounds:true,  filler:"twisted I-bundle over S¹", omega:"null in Ω₂^O (since K = ∂ twisted I-bundle)", color:"var(--green)"},
+    "rp2-rp2": {name:"ℝP² ⊔ ℝP²", bounds:true, filler:"2[ℝP²]=0 in ℤ/2, so they jointly bound", omega:"null in Ω₂^O", color:"var(--green)"}
   };
   function draw(){
     while(svg.firstChild) svg.removeChild(svg.firstChild);
