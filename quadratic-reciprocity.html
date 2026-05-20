@@ -352,7 +352,7 @@ have a solution? If yes, call $a$ a <strong>quadratic residue</strong> (QR) mod 
     for(let x=1;x<p;x++) qr.add((x*x)%p);
     // table row: x, x^2 mod p
     const wrap = document.createElement('div');
-    wrap.innerHTML = '<div class="small" style="color:var(--mute);margin:.2rem 0">$x$ on top, $x^2 \\bmod p$ below</div>';
+    wrap.innerHTML = '<div class="small" style="color:var(--mute);margin:.2rem 0">x on top, x² mod p below</div>';
     const row1 = document.createElement('div'), row2 = document.createElement('div');
     for(let x=0;x<p;x++){
       const c1 = document.createElement('span'); c1.className='cell'; c1.textContent=x;
