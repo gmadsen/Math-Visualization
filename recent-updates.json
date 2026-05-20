@@ -1,6 +1,14 @@
 {
-  "generated": "2026-05-20T20:30:32.768Z",
+  "generated": "2026-05-20T20:40:26.182Z",
   "entries": [
+    {
+      "slug": "homotopy-theory",
+      "title": "Homotopy theory",
+      "color": "v",
+      "tag": "",
+      "date": "2026-05-20",
+      "message": "fix(widgets): render readout math in homotopy-theory + quadratic-reciprocity (#245)"
+    },
     {
       "slug": "advanced-complex-analysis",
       "title": "Advanced complex analysis",
@@ -296,14 +304,6 @@
       "tag": "",
       "date": "2026-05-14",
       "message": "fix: math-correctness audit pass — 75 topics across all 12 sections"
-    },
-    {
-      "slug": "homotopy-theory",
-      "title": "Homotopy theory",
-      "color": "v",
-      "tag": "",
-      "date": "2026-05-14",
-      "message": "fix: math-correctness audit pass — fourth batch (35 more topics)"
     },
     {
       "slug": "measure-theory",
