@@ -33833,7 +33833,7 @@ window.MVQuizBank = {
               "An injection but rarely surjective"
             ],
             "answer": 1,
-            "explain": "For $X$ with $\\pi_i=0$ for $i<n$ and $n\\ge 2$, Hurewicz gives $h\\colon\\pi_n(X)\\xrightarrow{\\sim}H_n(X;\\mathbb{Z})$. For $n=1$ the map is abelianisation $\\pi_1\\to H_1$ — surjective with kernel the commutator subgroup."
+            "explain": "For $X$ with $\\pi_i=0$ for $i \\lt n$ and $n\\ge 2$, Hurewicz gives $h\\colon\\pi_n(X)\\xrightarrow{\\sim}H_n(X;\\mathbb{Z})$. For $n=1$ the map is abelianisation $\\pi_1\\to H_1$ — surjective with kernel the commutator subgroup."
           },
           {
             "type": "mcq",
