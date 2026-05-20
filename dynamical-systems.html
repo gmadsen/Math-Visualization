@@ -1519,7 +1519,7 @@ Consequences: $\operatorname{div}X\equiv 0$ ⇒ flow preserves volume (<em>conse
       svg.appendChild(lbl);
       x = (2*x) % 1;
     }
-    out.textContent = `iterate binary digits of $x$ under $f(x)=2x\\bmod 1$; each row is the shift of the row above it.\nitinerary = sequence of leading bits (read down the left column): gives $\\sigma(x)\\in\\{0,1\\}^{\\mathbb{N}}$.`;
+    out.textContent = `iterate binary digits of x under f(x) = 2x mod 1; each row is the shift of the row above it.\nitinerary = sequence of leading bits (read down the left column): gives σ(x) ∈ {0,1}^ℕ.`;
   }
   xs.addEventListener('input', render); render();
 })();

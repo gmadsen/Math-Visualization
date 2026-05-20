@@ -652,9 +652,9 @@ via $Z\mapsto Z(\mathrm{pt})$. Adding tangential structure (orientation, spin, .
     const mx = 140, mw = 200, my = 70, mh = 110;
     svg.appendChild(SVG("rect",{x:mx,y:my,width:mw,height:mh,fill:"var(--panel)",stroke:d.color,"stroke-width":2,rx:6}));
     const t1 = SVG("text",{x:mx+mw/2,y:my+45,"text-anchor":"middle","font-size":15,fill:"var(--ink)"}); t1.textContent = "M ="; svg.appendChild(t1);
-    const t2 = SVG("text",{x:mx+mw/2,y:my+85,"text-anchor":"middle","font-size":18,fill:d.color,"font-weight":600}); t2.textContent = d.name; svg.appendChild(t2);
+    const t2 = SVG("text",{x:mx+mw/2,y:my+85,"text-anchor":"middle","font-size":18,fill:d.color,"font-weight":600}); t2.textContent = d.name.replace(/[$\\]/g,""); svg.appendChild(t2);
     // arrow
-    drawArrow(svg, [mx+mw, my+mh/2], [mx+mw+90, my+mh/2], {color:"var(--mute)", label: d.bounds ? "$\\partial$" : "?", labelSide:1, markerId:"bord-arr"});
+    drawArrow(svg, [mx+mw, my+mh/2], [mx+mw+90, my+mh/2], {color:"var(--mute)", label: d.bounds ? "∂" : "?", labelSide:1, markerId:"bord-arr"});
     // W box
     const wx = mx+mw+90, ww = 240;
     svg.appendChild(SVG("rect",{x:wx,y:my,width:ww,height:mh,fill:"var(--panel)",stroke: d.bounds ? "var(--green)":"var(--pink)","stroke-width":2,rx:6,"stroke-dasharray": d.bounds ? "" : "6 4"}));
