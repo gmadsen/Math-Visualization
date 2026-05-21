@@ -268,7 +268,7 @@
             "Periodic"
           ],
           "answer": 1,
-          "explain": "$\\log M(r)$ is a convex function of $\\log r$ on the annulus where $f$ is holomorphic. Convexity yields the standard interpolation inequality $M(r_2)^{\\log(r_3/r_1)} \\le M(r_1)^{\\log(r_3/r_2)} M(r_3)^{\\log(r_2/r_1)}$ for $r_1<r_2<r_3$."
+          "explain": "$\\log M(r)$ is a convex function of $\\log r$ on the annulus where $f$ is holomorphic. Convexity yields the standard interpolation inequality $M(r_2)^{\\log(r_3/r_1)} \\le M(r_1)^{\\log(r_3/r_2)} M(r_3)^{\\log(r_2/r_1)}$ for $r_1\\lt r_2\\lt r_3$."
         },
         {
           "type": "numeric",
@@ -304,7 +304,7 @@
             "$\\sum_{n=0}^\\infty|a_n|^p$ where $f = \\sum a_n z^n$"
           ],
           "answer": 0,
-          "explain": "$H^p(\\mathbb{D})$ is defined by $\\|f\\|_{H^p}^p = \\sup_{0<r<1}\\frac{1}{2\\pi}\\int_0^{2\\pi}|f(re^{i\\theta})|^p d\\theta < \\infty$. Bounded sup ($H^\\infty$) is the second option but a different space; area integrals define the Bergman space $A^p$, not Hardy."
+          "explain": "$H^p(\\mathbb{D})$ is defined by $\\|f\\|_{H^p}^p = \\sup_{0\\lt r<1}\\frac{1}{2\\pi}\\int_0^{2\\pi}|f(re^{i\\theta})|^p d\\theta < \\infty$. Bounded sup ($H^\\infty$) is the second option but a different space; area integrals define the Bergman space $A^p$, not Hardy."
         },
         {
           "type": "mcq",

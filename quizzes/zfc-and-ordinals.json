@@ -127,7 +127,7 @@
             "Because $\\mathbb R$ is well-ordered by the standard order"
           ],
           "answer": 1,
-          "explain": "$\\mathbb R\\hookrightarrow\\mathcal P(\\mathbb Q)\\cong 2^{\\aleph_0}$ by sending $r\\mapsto\\{q\\in\\mathbb Q: q<r\\}$. Conversely $2^{\\aleph_0}\\hookrightarrow\\mathbb R$ via binary expansions (after fixing the $0.0\\overline 1=0.1\\overline 0$ ambiguity). Cantor–Schröder–Bernstein gives the bijection."
+          "explain": "$\\mathbb R\\hookrightarrow\\mathcal P(\\mathbb Q)\\cong 2^{\\aleph_0}$ by sending $r\\mapsto\\{q\\in\\mathbb Q: q\\lt r\\}$. Conversely $2^{\\aleph_0}\\hookrightarrow\\mathbb R$ via binary expansions (after fixing the $0.0\\overline 1=0.1\\overline 0$ ambiguity). Cantor–Schröder–Bernstein gives the bijection."
         },
         {
           "type": "mcq",

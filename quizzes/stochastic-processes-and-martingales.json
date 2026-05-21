@@ -219,7 +219,7 @@
             "paths of finite total variation"
           ],
           "answer": 0,
-          "hint": "$W_0=0$, increments are independent and $\\mathcal{N}(0,t-s)$-distributed for $0\\le s<t$, and paths are continuous but nowhere differentiable.",
+          "hint": "$W_0=0$, increments are independent and $\\mathcal{N}(0,t-s)$-distributed for $0\\le s\\lt t$, and paths are continuous but nowhere differentiable.",
           "explain": "Independent stationary Gaussian increments $W_t-W_s\\sim\\mathcal{N}(0,t-s)$ and continuous (but nowhere differentiable, infinite total variation) paths characterise Brownian motion."
         },
         {

@@ -465,7 +465,7 @@ function drawNode(svg, x, y, label, opts={}){
 <p>More generally, $\Omega^k(M) := \Gamma(\Lambda^k T^*M)$ is the space of smooth $k$-forms, and</p>
 <p style="text-align:center">$\wedge\colon \Omega^k\otimes\Omega^\ell \to \Omega^{k+\ell}$</p>
 <p>is bilinear, associative, and graded-commutative: $\alpha\wedge\beta = (-1)^{k\ell}\,\beta\wedge\alpha$. A basis of $\Omega^k(\mathbb{R}^n)$ over $C^\infty(\mathbb{R}^n)$ is</p>
-<p style="text-align:center">$\{\,dx^{i_1}\wedge\cdots\wedge dx^{i_k}\ :\ 1\le i_1<i_2<\cdots<i_k\le n\,\},$</p>
+<p style="text-align:center">$\{\,dx^{i_1}\wedge\cdots\wedge dx^{i_k}\ :\ 1\le i_1&lt;i_2<\cdots&lt;i_k\le n\,\},$</p>
 <p>so $\dim \Omega^k(\mathbb{R}^n) = \binom{n}{k}$. In particular $\Omega^k=0$ for $k>n$, and $\Omega^n$ is one-dimensional (spanned by the volume form $dx^1\wedge\cdots\wedge dx^n$).</p>
 
 <div class="note"><strong>Antisymmetry = oriented-area.</strong> Plugging the same vector in twice into any alternating form gives $0$. Swapping inputs flips sign. So a $2$-form is the data of a signed area on every $2$-plane of tangent vectors — a "ruler for parallelograms." A $k$-form is a ruler for oriented $k$-parallelepipeds.</div>
@@ -623,7 +623,7 @@ function drawNode(svg, x, y, label, opts={}){
   <li>$d$ is a <strong>graded derivation</strong>: $d(\alpha\wedge\beta) = d\alpha\wedge\beta + (-1)^{|\alpha|}\alpha\wedge d\beta$;</li>
   <li>$d^2 = 0$, i.e. $d(d\omega)=0$ for every form.</li>
 </ul>
-<p>In coordinates on $\mathbb{R}^n$, write $\omega = \sum_I \omega_I\,dx^I$ for $I=(i_1<\cdots<i_k)$, then</p>
+<p>In coordinates on $\mathbb{R}^n$, write $\omega = \sum_I \omega_I\,dx^I$ for $I=(i_1<\cdots&lt;i_k)$, then</p>
 <p style="text-align:center">$d\omega = \sum_I \sum_j \frac{\partial \omega_I}{\partial x^j}\,dx^j\wedge dx^I.$</p>
 
 <h3>Recovering grad, curl, div</h3>

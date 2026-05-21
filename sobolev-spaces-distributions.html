@@ -719,20 +719,20 @@ $$H^s(\mathbb{R}^n) \;=\; \bigl\{u\in\mathcal{S}'(\mathbb{R}^n) : (1+|\xi|^2)^{s
 
 <p>The defining bound on $\|\partial^\alpha u\|_{L^p}$ controls $u$ itself in <em>better</em> norms — that is the content of the embedding theorems. Throughout, $\Omega\subseteq\mathbb{R}^n$ is bounded with sufficiently smooth boundary (Lipschitz suffices); the regularity assumption matters mostly for the first inclusion.</p>
 
-<p>Set the <strong>Sobolev exponent</strong> $p^* = \dfrac{np}{n-kp}$ when $kp<n$. Then:</p>
+<p>Set the <strong>Sobolev exponent</strong> $p^* = \dfrac{np}{n-kp}$ when $kp&lt;n$. Then:</p>
 
 <table class="plain">
 <thead><tr><th>regime</th><th>embedding</th><th>name</th></tr></thead>
 <tbody>
-<tr><td>$kp<n$</td><td>$W^{k,p}(\Omega)\hookrightarrow L^{p^*}(\Omega)$</td><td>Sobolev (subcritical)</td></tr>
+<tr><td>$kp&lt;n$</td><td>$W^{k,p}(\Omega)\hookrightarrow L^{p^*}(\Omega)$</td><td>Sobolev (subcritical)</td></tr>
 <tr><td>$kp=n$</td><td>$W^{k,p}\hookrightarrow L^q$ for all $q<\infty$ (not $L^\infty$)</td><td>borderline / Trudinger–Moser</td></tr>
 <tr><td>$kp>n$</td><td>$W^{k,p}\hookrightarrow C^{0,\gamma}$ with $\gamma = k - n/p$ (mod 1)</td><td>Morrey (Hölder continuity)</td></tr>
 </tbody>
 </table>
 
-<p>And separately, the <strong>Rellich–Kondrachov</strong> theorem upgrades a bounded inclusion to a <em>compact</em> one: the inclusion $W^{k,p}(\Omega)\hookrightarrow L^q(\Omega)$ is compact whenever $q<p^*$ in the subcritical regime, and is <em>never</em> compact at the endpoint $q=p^*$ — bubbling examples like $u_\varepsilon(x) = \varepsilon^{-(n-p)/p}\,\eta(x/\varepsilon)$ on $\mathbb{R}^n$ keep $\|u_\varepsilon\|_{W^{1,p}}$ and $\|u_\varepsilon\|_{L^{p^*}}$ both bounded but converge weakly to $0$ without any subsequence converging strongly in $L^{p^*}$.</p>
+<p>And separately, the <strong>Rellich–Kondrachov</strong> theorem upgrades a bounded inclusion to a <em>compact</em> one: the inclusion $W^{k,p}(\Omega)\hookrightarrow L^q(\Omega)$ is compact whenever $q&lt;p^*$ in the subcritical regime, and is <em>never</em> compact at the endpoint $q=p^*$ — bubbling examples like $u_\varepsilon(x) = \varepsilon^{-(n-p)/p}\,\eta(x/\varepsilon)$ on $\mathbb{R}^n$ keep $\|u_\varepsilon\|_{W^{1,p}}$ and $\|u_\varepsilon\|_{L^{p^*}}$ both bounded but converge weakly to $0$ without any subsequence converging strongly in $L^{p^*}$.</p>
 
-<div class="ok"><p><strong>Why Rellich is the workhorse.</strong> Compactness rescues weak-to-strong upgrades for solutions of elliptic PDEs: a sequence with bounded $W^{1,p}$ norm has an $L^q$-convergent subsequence whenever $q<p^*$, and this single fact powers regularity bootstrapping, the direct method of the calculus of variations, and the existence of minimisers for non-convex variational integrals.</p></div>
+<div class="ok"><p><strong>Why Rellich is the workhorse.</strong> Compactness rescues weak-to-strong upgrades for solutions of elliptic PDEs: a sequence with bounded $W^{1,p}$ norm has an $L^q$-convergent subsequence whenever $q&lt;p^*$, and this single fact powers regularity bootstrapping, the direct method of the calculus of variations, and the existence of minimisers for non-convex variational integrals.</p></div>
 
 <div class="widget" id="w-emb">
   <div class="hd"><div class="ttl">Sobolev exponent $p^* = np/(n-kp)$</div><div class="hint">vary $n$, $k$, $p$; verdict + Hölder index appear</div></div>

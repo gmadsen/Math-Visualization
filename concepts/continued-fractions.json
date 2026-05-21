@@ -10,7 +10,7 @@
       "prereqs": [
         "field-extensions-galois"
       ],
-      "blurb": "The continued-fraction algorithm $\\alpha=a_0+1/(a_1+1/(a_2+\\cdots))$ produces partial quotients $a_n=\\lfloor\\alpha_n\\rfloor$ and convergents $p_n/q_n$ via the recursion $p_n=a_n p_{n-1}+p_{n-2}$, $q_n=a_n q_{n-1}+q_{n-2}$. Each convergent is a best rational approximation: no $p/q$ with $q<q_n$ comes closer to $\\alpha$. Lagrange's theorem characterises real quadratic irrationals as exactly those whose continued fraction is eventually periodic.",
+      "blurb": "The continued-fraction algorithm $\\alpha=a_0+1/(a_1+1/(a_2+\\cdots))$ produces partial quotients $a_n=\\lfloor\\alpha_n\\rfloor$ and convergents $p_n/q_n$ via the recursion $p_n=a_n p_{n-1}+p_{n-2}$, $q_n=a_n q_{n-1}+q_{n-2}$. Each convergent is a best rational approximation: no $p/q$ with $q\\lt q_n$ comes closer to $\\alpha$. Lagrange's theorem characterises real quadratic irrationals as exactly those whose continued fraction is eventually periodic.",
       "tags": [
         "foundation",
         "classification"
@@ -51,7 +51,7 @@
         "cf-liouville",
         "naive-height-projective"
       ],
-      "blurb": "Roth (1955, Fields Medal) sharpened Liouville: for every algebraic irrational $\\alpha$ and $\\varepsilon>0$, there are only finitely many $p/q\\in\\mathbb{Q}$ with $|\\alpha-p/q|<q^{-2-\\varepsilon}$. The exponent $2$ is best possible by Dirichlet. The proof is famously ineffective — it gives no bound on the number or size of the exceptional $p/q$. The Schmidt subspace theorem is the multidimensional generalisation.",
+      "blurb": "Roth (1955, Fields Medal) sharpened Liouville: for every algebraic irrational $\\alpha$ and $\\varepsilon>0$, there are only finitely many $p/q\\in\\mathbb{Q}$ with $|\\alpha-p/q|\\lt q^{-2-\\varepsilon}$. The exponent $2$ is best possible by Dirichlet. The proof is famously ineffective — it gives no bound on the number or size of the exceptional $p/q$. The Schmidt subspace theorem is the multidimensional generalisation.",
       "tags": [
         "finiteness",
         "density"

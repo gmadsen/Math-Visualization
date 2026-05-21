@@ -764,7 +764,7 @@ $$ |f(x)-f(y)| \le |f(x)-f_N(x)| + |f_N(x)-f_N(y)| + |f_N(y)-f(y)|, $$
 <section id="riemann-integral">
 <h2>5. The Riemann integral</h2>
 
-<p>A <strong>partition</strong> of $[a,b]$ is a finite sequence $P\colon a=x_0<x_1<\cdots<x_n=b$. For a bounded $f\colon[a,b]\to\mathbb{R}$ define the <strong>upper and lower sums</strong></p>
+<p>A <strong>partition</strong> of $[a,b]$ is a finite sequence $P\colon a=x_0&lt;x_1<\cdots&lt;x_n=b$. For a bounded $f\colon[a,b]\to\mathbb{R}$ define the <strong>upper and lower sums</strong></p>
 $$ U(f,P)=\sum_{k=1}^n \Big(\sup_{[x_{k-1},x_k]} f\Big)(x_k-x_{k-1}),\qquad L(f,P)=\sum_{k=1}^n \Big(\inf_{[x_{k-1},x_k]} f\Big)(x_k-x_{k-1}). $$
 <p>Refining $P$ makes $U$ go down and $L$ go up. Define the <em>upper</em> and <em>lower</em> Darboux integrals as the $\inf_P U$ and $\sup_P L$. When these agree, $f$ is <strong>Riemann-integrable</strong> and their common value is $\int_a^b f$.</p>
 
@@ -1479,7 +1479,7 @@ $$ F(x, g(x)) = 0, \qquad g(a)=b. $$
 
 <p>A <strong>power series</strong> centered at $a$ is a formal sum $\sum_{n\ge 0} c_n (x-a)^n$. The <strong>Cauchy–Hadamard formula</strong> identifies a single number $R\in[0,\infty]$ — the <em>radius of convergence</em> — via</p>
 $$ \frac{1}{R} = \limsup_{n\to\infty} |c_n|^{1/n}. $$
-<p>The series converges absolutely for $|x-a|<R$, diverges for $|x-a|>R$, and boundary behavior at $|x-a|=R$ depends sensitively on the coefficients. A power series converges <em>uniformly</em> on every compact subset of the open disk $(a-R, a+R)$ (by the Weierstrass M-test), which is why term-by-term differentiation and integration are legal inside the radius.</p>
+<p>The series converges absolutely for $|x-a|&lt;R$, diverges for $|x-a|>R$, and boundary behavior at $|x-a|=R$ depends sensitively on the coefficients. A power series converges <em>uniformly</em> on every compact subset of the open disk $(a-R, a+R)$ (by the Weierstrass M-test), which is why term-by-term differentiation and integration are legal inside the radius.</p>
 
 <div class="widget" id="w-pseries">
   <div class="hd"><div class="ttl">Power-series partial sums</div><div class="hint">compare $S_N(x)$ (pink) to the true function (green dashed)</div></div>
@@ -2103,7 +2103,7 @@ $$ f_\varepsilon(x) = (f * \eta_\varepsilon)(x) = \int f(y)\,\eta_\varepsilon(x-
 <section id="bounded-variation">
 <h2>15. Bounded variation</h2>
 
-<p>For $f\colon[a,b]\to\mathbb{R}$ and a partition $P\colon a=x_0<x_1<\cdots<x_n=b$, the <em>variation along $P$</em> is</p>
+<p>For $f\colon[a,b]\to\mathbb{R}$ and a partition $P\colon a=x_0&lt;x_1<\cdots&lt;x_n=b$, the <em>variation along $P$</em> is</p>
 $$ V(f,P) \;=\; \sum_{i=1}^{n} |f(x_i)-f(x_{i-1})|. $$
 <p>The <strong>total variation</strong> of $f$ on $[a,b]$ is</p>
 $$ V_a^b(f) \;=\; \sup_{P} V(f,P), $$

@@ -148,7 +148,7 @@
             "$n-2i$ for $i\\le n/2$, else $0$."
           ],
           "answer": 1,
-          "explain": "Under $\\lambda(t)\\cdot(x,y)=(tx,t^{-1}y)$, the monomial $x^i y^{n-i}$ becomes $t^{i}\\cdot t^{-(n-i)}\\cdot x^i y^{n-i}=t^{2i-n}\\cdot x^i y^{n-i}$. So weight $2i-n$: negative for $i<n/2$, zero at $i=n/2$, positive for $i>n/2$. The Hilbert–Mumford weight $\\mu(f,\\lambda)=\\min\\{2i-n:a_i\\ne 0\\}$."
+          "explain": "Under $\\lambda(t)\\cdot(x,y)=(tx,t^{-1}y)$, the monomial $x^i y^{n-i}$ becomes $t^{i}\\cdot t^{-(n-i)}\\cdot x^i y^{n-i}=t^{2i-n}\\cdot x^i y^{n-i}$. So weight $2i-n$: negative for $i\\lt n/2$, zero at $i=n/2$, positive for $i>n/2$. The Hilbert–Mumford weight $\\mu(f,\\lambda)=\\min\\{2i-n:a_i\\ne 0\\}$."
         },
         {
           "type": "numeric",

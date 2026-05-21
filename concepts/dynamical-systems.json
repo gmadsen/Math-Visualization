@@ -150,7 +150,7 @@
         "dyn-chaos",
         "lebesgue-measure"
       ],
-      "blurb": "A measure-preserving $T$ is ergodic iff every invariant set has measure $0$ or $1$. Birkhoff: for ergodic $T$, time averages $\\tfrac{1}{N}\\sum_{k<N} f(T^k x)$ converge a.e. to the space average $\\int f\\,d\\mu$.",
+      "blurb": "A measure-preserving $T$ is ergodic iff every invariant set has measure $0$ or $1$. Birkhoff: for ergodic $T$, time averages $\\tfrac{1}{N}\\sum_{k\\lt N} f(T^k x)$ converge a.e. to the space average $\\int f\\,d\\mu$.",
       "tags": [
         "group-action"
       ]

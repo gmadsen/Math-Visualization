@@ -644,7 +644,7 @@
         },
         {
           "type": "mcq",
-          "q": "For $1<p<\\infty$ and $\\tfrac1p+\\tfrac1q=1$ on a $\\sigma$-finite measure space, the dual $(L^p)^*$ is isometrically identified with:",
+          "q": "For $1\\lt p<\\infty$ and $\\tfrac1p+\\tfrac1q=1$ on a $\\sigma$-finite measure space, the dual $(L^p)^*$ is isometrically identified with:",
           "choices": [
             "$L^p$ itself",
             "$L^q$ via $g\\mapsto\\bigl(f\\mapsto\\int fg\\,d\\mu\\bigr)$",
@@ -785,7 +785,7 @@
           "type": "multi-select",
           "q": "Which of the following spaces are reflexive?",
           "choices": [
-            "$\\ell^p$ for $1<p<\\infty$",
+            "$\\ell^p$ for $1\\lt p<\\infty$",
             "Hilbert space $H$",
             "$L^1[0,1]$",
             "$C[0,1]$ with sup norm",
@@ -795,7 +795,7 @@
             0,
             1
           ],
-          "explain": "$\\ell^p,L^p$ for $1<p<\\infty$ and Hilbert spaces are reflexive. $L^1$ is not ($L^{1**}=L^{\\infty *}\\supsetneq L^1$). $C[0,1]$ is not (its dual is measures, whose dual is much larger). $\\ell^\\infty$ is not (its dual contains Banach limits outside $\\ell^1$)."
+          "explain": "$\\ell^p,L^p$ for $1\\lt p<\\infty$ and Hilbert spaces are reflexive. $L^1$ is not ($L^{1**}=L^{\\infty *}\\supsetneq L^1$). $C[0,1]$ is not (its dual is measures, whose dual is much larger). $\\ell^\\infty$ is not (its dual contains Banach limits outside $\\ell^1$)."
         },
         {
           "type": "mcq",

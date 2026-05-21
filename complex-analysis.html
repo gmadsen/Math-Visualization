@@ -570,7 +570,7 @@ const C = {
 <section id="analyticity">
 <h2>11. Analyticity = holomorphy</h2>
 <p>From Cauchy's integral formula nearly everything follows.</p>
-<p>If $f$ is holomorphic on $D(z_0,R)$, then for any $a\in D(z_0,R)$, the geometric series in $1/(z-a) = 1/((z-z_0) - (a-z_0))$ converges uniformly on $|z-z_0|=r$ for $|a-z_0|<r<R$. Plugging into CIF and exchanging sum and integral,</p>
+<p>If $f$ is holomorphic on $D(z_0,R)$, then for any $a\in D(z_0,R)$, the geometric series in $1/(z-a) = 1/((z-z_0) - (a-z_0))$ converges uniformly on $|z-z_0|=r$ for $|a-z_0|&lt;r&lt;R$. Plugging into CIF and exchanging sum and integral,</p>
 <p>$$f(a) = \sum_{n=0}^\infty c_n (a-z_0)^n, \qquad c_n = \frac{1}{2\pi i}\oint \frac{f(z)}{(z-z_0)^{n+1}}dz = \frac{f^{(n)}(z_0)}{n!}.$$</p>
 <p>Holomorphic ⟺ analytic, with radius of convergence equal to the distance from $z_0$ to the nearest singularity.</p>
 <div class="widget" id="w-taylor">
@@ -716,7 +716,7 @@ const C = {
 
 <section id="singularity-classification">
 <h2>18. Classification of singularities</h2>
-<p>An isolated singularity at $z_0$ is a point where $f$ is holomorphic on some punctured disk $0<|z-z_0|<R$ but not at $z_0$ itself. The Laurent expansion (§17) sees three qualitatively different behaviours, distinguished entirely by the <em>principal part</em> $\sum_{n<0} c_n(z-z_0)^n$:</p>
+<p>An isolated singularity at $z_0$ is a point where $f$ is holomorphic on some punctured disk $0<|z-z_0|&lt;R$ but not at $z_0$ itself. The Laurent expansion (§17) sees three qualitatively different behaviours, distinguished entirely by the <em>principal part</em> $\sum_{n<0} c_n(z-z_0)^n$:</p>
 <p><span class="pill" style="color:var(--green)">removable</span> all $c_{n}=0$ for $n<0$ — $f$ extends holomorphically across $z_0$ (Riemann's removable-singularity theorem: this happens iff $f$ is bounded near $z_0$).</p>
 <p><span class="pill" style="color:var(--yellow)">pole of order $k$</span> $c_{-k}\ne 0$ but $c_n=0$ for $n<-k$ — $f$ blows up like $1/(z-z_0)^k$, and $\lim_{z\to z_0}|f(z)| = \infty$ in every direction.</p>
 <p><span class="pill" style="color:var(--pink)">essential</span> infinitely many $c_n\ne 0$ for $n<0$. Casorati–Weierstrass: $f$ comes arbitrarily close to every complex value in any neighbourhood of $z_0$. Picard sharpens this dramatically: $f$ <em>hits</em> every value (with at most one exception), infinitely often.</p>

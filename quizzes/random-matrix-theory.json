@@ -22,7 +22,7 @@
           "type": "multi-select",
           "q": "Select every statement that is true of the classical Wigner ensembles GOE, GUE, GSE.",
           "choices": [
-            "The joint eigenvalue density carries a factor $\\prod_{i<j}|\\lambda_i-\\lambda_j|^\\beta$.",
+            "The joint eigenvalue density carries a factor $\\prod_{i\\lt j}|\\lambda_i-\\lambda_j|^\\beta$.",
             "Above-diagonal entries are independent.",
             "All three ensembles have the same level-spacing statistics.",
             "The eigenvalues are real for all three ensembles."

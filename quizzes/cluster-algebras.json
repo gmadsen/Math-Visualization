@@ -193,7 +193,7 @@
           "type": "mcq",
           "q": "On the Grassmannian $\\mathrm{Gr}(2,n)$ of $2$-planes in $n$-space, the cluster algebra structure has which Plücker-coordinate description?",
           "choices": [
-            "Cluster variables are the Plücker coordinates $p_{ij}$ for all $1\\le i<j\\le n$; clusters are the maximal sets of pairwise non-crossing $p_{ij}$, equivalently triangulations of the $n$-gon.",
+            "Cluster variables are the Plücker coordinates $p_{ij}$ for all $1\\le i\\lt j\\le n$; clusters are the maximal sets of pairwise non-crossing $p_{ij}$, equivalently triangulations of the $n$-gon.",
             "Cluster variables are the determinants of all $2\\times 2$ minors of an $n\\times n$ matrix; clusters are bases of those minors.",
             "Cluster variables correspond to the Schubert varieties of $\\mathrm{Gr}(2,n)$.",
             "Cluster variables are the symmetric functions in $n$ variables."

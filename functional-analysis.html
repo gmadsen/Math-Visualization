@@ -444,7 +444,7 @@ $$\|x\|^2 = \|Px\|^2 + \|x-Px\|^2.$$
 $$x = \sum_{i\in I}\langle x,e_i\rangle e_i,\qquad \|x\|^2 = \sum_i|\langle x,e_i\rangle|^2\quad(\text{Parseval}).$$
 <p>Before that: for <em>any</em> orthonormal set, <strong>Bessel's inequality</strong> $\sum|\langle x,e_i\rangle|^2\le\|x\|^2$ holds. Equality (for every $x$) is equivalent to the set being an orthonormal basis (Parseval's theorem); equivalently, the only vector orthogonal to all $e_i$ is $0$. A separable Hilbert space has a countable orthonormal basis and is unitarily isomorphic to $\ell^2$ — all separable Hilbert spaces are, up to isomorphism, <em>the</em> Hilbert space.</p>
 <p><strong>Gram–Schmidt</strong> turns a linearly independent sequence $(v_n)$ into an orthonormal $(e_n)$ with the same span at every stage:</p>
-$$u_n = v_n - \sum_{k<n}\langle v_n, e_k\rangle e_k,\qquad e_n = u_n/\|u_n\|.$$
+$$u_n = v_n - \sum_{k&lt;n}\langle v_n, e_k\rangle e_k,\qquad e_n = u_n/\|u_n\|.$$
 
 <div class="widget" id="w-gs">
   <div class="hd"><div class="ttl">Gram–Schmidt in $\mathbb{R}^2$</div><div class="hint">drag $v_1, v_2, v_3$; watch the orthonormal frame emerge</div></div>
@@ -1138,7 +1138,7 @@ spectrum lies in: ${selfAdj ? 'ℝ (self-adjoint)' : skewAdj ? 'iℝ (skew-adjoi
 <p>Corollary: on a normed space, every bounded linear functional on a subspace extends to $X$ with the same norm. Consequence: $X^*$ separates points. This is what gives duality traction — the existence of "enough" linear functionals is not automatic and requires choice.</p>
 
 <h3>Hahn–Banach (separation form)</h3>
-<div class="note"><strong>Theorem.</strong> If $A, B$ are disjoint convex subsets of a normed space, $A$ open, then there is a continuous linear functional $\ell$ and $c\in\mathbb{R}$ with $\ell(a)<c\le\ell(b)$ for $a\in A, b\in B$. If $A$ is compact and $B$ closed, one can separate <em>strictly</em>: $\sup_A\ell<\inf_B\ell$.</div>
+<div class="note"><strong>Theorem.</strong> If $A, B$ are disjoint convex subsets of a normed space, $A$ open, then there is a continuous linear functional $\ell$ and $c\in\mathbb{R}$ with $\ell(a)&lt;c\le\ell(b)$ for $a\in A, b\in B$. If $A$ is compact and $B$ closed, one can separate <em>strictly</em>: $\sup_A\ell<\inf_B\ell$.</div>
 
 <p>Applications: existence of supporting hyperplanes, convex optimization duality, Mazur's theorem (weakly closed convex = strongly closed convex).</p>
 
@@ -1731,9 +1731,9 @@ ${fmt(Arec)}
 <p>Every Banach space $X$ has a dual $X^* = B(X,\mathbb{K})$. Understanding $X^*$ concretely is often half the job; it tells you which "tests" probe points of $X$.</p>
 
 <h3>$(L^p)^* = L^q$</h3>
-<div class="note"><strong>Theorem.</strong> Let $1<p<\infty$, $1/p+1/q=1$, and $(\Omega,\mu)$ be $\sigma$-finite. The map $g\mapsto \Lambda_g$, where $\Lambda_g(f)=\int fg\,d\mu$, is an isometric isomorphism $L^q\xrightarrow{\sim}(L^p)^*$.</div>
+<div class="note"><strong>Theorem.</strong> Let $1&lt;p<\infty$, $1/p+1/q=1$, and $(\Omega,\mu)$ be $\sigma$-finite. The map $g\mapsto \Lambda_g$, where $\Lambda_g(f)=\int fg\,d\mu$, is an isometric isomorphism $L^q\xrightarrow{\sim}(L^p)^*$.</div>
 
-<p>The edge cases are interesting: $(L^1)^*=L^\infty$ on a $\sigma$-finite space, but $(L^\infty)^*\supsetneq L^1$ — the dual of $L^\infty$ is the space of finitely-additive measures (so $L^\infty$ is not reflexive). For $1<p<\infty$, $L^p$ is reflexive ($X^{**}=X$) and uniformly convex.</p>
+<p>The edge cases are interesting: $(L^1)^*=L^\infty$ on a $\sigma$-finite space, but $(L^\infty)^*\supsetneq L^1$ — the dual of $L^\infty$ is the space of finitely-additive measures (so $L^\infty$ is not reflexive). For $1&lt;p<\infty$, $L^p$ is reflexive ($X^{**}=X$) and uniformly convex.</p>
 
 <h3>Riesz representation on Hilbert space</h3>
 <div class="note"><strong>Theorem (Riesz).</strong> Let $H$ be a Hilbert space. The map
@@ -1758,7 +1758,7 @@ $$\Big|\int fg\,d\mu\Big|\le\|f\|_p\|g\|_q\qquad\text{(Hölder)}.$$
 <table class="plain">
 <thead><tr><th>space</th><th>dual</th><th>reflexive?</th></tr></thead>
 <tbody>
-<tr><td>$\ell^p,\ L^p$ for $1<p<\infty$</td><td>$\ell^q,\ L^q$</td><td>yes</td></tr>
+<tr><td>$\ell^p,\ L^p$ for $1&lt;p<\infty$</td><td>$\ell^q,\ L^q$</td><td>yes</td></tr>
 <tr><td>Hilbert $H$</td><td>$H$ (via Riesz)</td><td>yes</td></tr>
 <tr><td>$\ell^1$</td><td>$\ell^\infty$</td><td>no</td></tr>
 <tr><td>$L^1$ on $\sigma$-finite</td><td>$L^\infty$</td><td>no</td></tr>
@@ -1772,7 +1772,7 @@ $$\Big|\int fg\,d\mu\Big|\le\|f\|_p\|g\|_q\qquad\text{(Hölder)}.$$
 <p>On $X$, the <strong>weak topology</strong> is the coarsest making every $\ell\in X^*$ continuous: $x_n\rightharpoonup x$ iff $\ell(x_n)\to\ell(x)$ for all $\ell\in X^*$. On $X^*$, the <strong>weak-* topology</strong> is the coarsest making evaluation-at-$x$ continuous for every $x\in X$. The <strong>Banach–Alaoglu theorem</strong> says the closed unit ball of $X^*$ is weak-* compact — an infinite-dimensional substitute for the Heine–Borel theorem, absolutely essential for existence-via-compactness arguments (minimizers, weak solutions to PDE, invariant measures).</p>
 
 <h3>Reflexivity</h3>
-<p>The natural map $J\colon X\to X^{**}$, $Jx(\ell)=\ell(x)$, is always an isometric embedding. $X$ is <strong>reflexive</strong> when $J$ is surjective. Hilbert spaces are reflexive (Riesz gives $H\cong H^*\cong H^{**}$); $L^p$ is reflexive for $1<p<\infty$; $L^1$, $L^\infty$, $C[0,1]$, $c_0$, and $\ell^1$ are <em>not</em>. Reflexivity is a compactness property: the unit ball of a reflexive space is weakly sequentially compact (Eberlein–Šmulian), which is why variational problems love reflexive spaces.</p>
+<p>The natural map $J\colon X\to X^{**}$, $Jx(\ell)=\ell(x)$, is always an isometric embedding. $X$ is <strong>reflexive</strong> when $J$ is surjective. Hilbert spaces are reflexive (Riesz gives $H\cong H^*\cong H^{**}$); $L^p$ is reflexive for $1&lt;p<\infty$; $L^1$, $L^\infty$, $C[0,1]$, $c_0$, and $\ell^1$ are <em>not</em>. Reflexivity is a compactness property: the unit ball of a reflexive space is weakly sequentially compact (Eberlein–Šmulian), which is why variational problems love reflexive spaces.</p>
 
 <h3>Widget — $L^2$ convergence of Fourier series</h3>
 <p>On $[-\pi,\pi]$, the exponentials $\{e^{ikx}/\sqrt{2\pi}\}_{k\in\mathbb{Z}}$ form an orthonormal basis of $L^2$; Parseval says partial sums converge in $L^2$ for every $L^2$ function. Pointwise convergence can fail at jumps (Gibbs).</p>
@@ -1912,7 +1912,7 @@ Pointwise near jumps: Gibbs overshoot ≈ 9% of the jump persists for every N �
 
 <p>The Riesz representation theorem is the statement that makes a Hilbert space into its own dual. Given a Hilbert space $H$, every bounded linear functional $\ell\in H^*$ is of the form $\ell(x)=\langle x,y\rangle$ for a <em>unique</em> $y\in H$, and the correspondence $y\leftrightarrow\ell$ is an isometric (conjugate-linear) bijection $H\cong H^*$. Concretely: to probe a Hilbert vector with a continuous linear test, you take an inner product with another Hilbert vector — nothing else is available.</p>
 
-<p>Two extensions of the Hilbert case are indispensable in analysis. On $L^p$-spaces with $1<p<\infty$, the pairing $\Lambda_g(f)=\int fg\,d\mu$ gives $(L^p)^*\cong L^q$ via Hölder's inequality $\bigl|\int fg\,d\mu\bigr|\le\|f\|_p\|g\|_q$ with $\tfrac1p+\tfrac1q=1$. On locally compact Hausdorff spaces, the <strong>Riesz–Markov–Kakutani theorem</strong> identifies $C_0(X)^*$ with the space $M(X)$ of finite regular Borel measures via $\mu\mapsto\int\cdot\,d\mu$. The single slogan is: <em>every continuous linear functional is integration against something</em>. Which "something" — a vector, a function, a measure — depends on the space.</p>
+<p>Two extensions of the Hilbert case are indispensable in analysis. On $L^p$-spaces with $1&lt;p<\infty$, the pairing $\Lambda_g(f)=\int fg\,d\mu$ gives $(L^p)^*\cong L^q$ via Hölder's inequality $\bigl|\int fg\,d\mu\bigr|\le\|f\|_p\|g\|_q$ with $\tfrac1p+\tfrac1q=1$. On locally compact Hausdorff spaces, the <strong>Riesz–Markov–Kakutani theorem</strong> identifies $C_0(X)^*$ with the space $M(X)$ of finite regular Borel measures via $\mu\mapsto\int\cdot\,d\mu$. The single slogan is: <em>every continuous linear functional is integration against something</em>. Which "something" — a vector, a function, a measure — depends on the space.</p>
 
 <div class="note"><strong>Why completeness matters.</strong> The representation $\ell(x)=\langle x,y\rangle$ is constructed via $M=\ker\ell$ and the 1-dimensional orthogonal complement $M^\perp$. Without the splitting $H=M\oplus M^\perp$ — which requires $M$ closed and $H$ complete — no such $y$ need exist. On an incomplete inner-product space the theorem fails.</div>
 
@@ -1957,7 +1957,7 @@ $$J\colon X\to X^{**},\qquad (Jx)(\ell) = \ell(x)\ \text{for } \ell\in X^*.$$
 <tbody>
 <tr><td>$\mathbb{R}^n,\mathbb{C}^n$ (any norm)</td><td>$\mathbb{K}^n$</td><td>$\mathbb{K}^n$</td><td>yes (trivially)</td></tr>
 <tr><td>Hilbert $H$</td><td>$H$ (Riesz)</td><td>$H$</td><td>yes</td></tr>
-<tr><td>$\ell^p,L^p$, $1<p<\infty$</td><td>$\ell^q,L^q$</td><td>$\ell^p,L^p$</td><td>yes</td></tr>
+<tr><td>$\ell^p,L^p$, $1&lt;p<\infty$</td><td>$\ell^q,L^q$</td><td>$\ell^p,L^p$</td><td>yes</td></tr>
 <tr><td>$\ell^1$</td><td>$\ell^\infty$</td><td>$(\ell^\infty)^*\supsetneq\ell^1$</td><td>no</td></tr>
 <tr><td>$L^1$ ($\sigma$-finite, non-atomic)</td><td>$L^\infty$</td><td>$(L^\infty)^*\supsetneq L^1$</td><td>no</td></tr>
 <tr><td>$\ell^\infty$</td><td>$(\ell^\infty)^*\supsetneq\ell^1$</td><td>huge</td><td>no</td></tr>
@@ -1977,7 +1977,7 @@ $$J\colon X\to X^{**},\qquad (Jx)(\ell) = \ell(x)\ \text{for } \ell\in X^*.$$
     <label for="refl-sp">space $X$</label>
     <select id="refl-sp">
       <option value="l2" selected>$\ell^2$ (Hilbert)</option>
-      <option value="lp3">$\ell^p$, $p=3$ ($1<p<\infty$)</option>
+      <option value="lp3">$\ell^p$, $p=3$ ($1\lt p<\infty$)</option>
       <option value="l1">$\ell^1$</option>
       <option value="linf">$\ell^\infty$</option>
       <option value="c0">$c_0$</option>

@@ -426,7 +426,7 @@ where $p_n$ is a polynomial chosen as a convergence-correction (a partial Taylor
 <p>a (now absolutely convergent) Mittag-Leffler expansion for the squared-cosecant. Setting $z=1/2$ recovers $\sum_{n\ge 0}1/(2n+1)^2 = \pi^2/8$, hence Euler's $\zeta(2) = \pi^2/6$.</p>
 
 <h3>Construction</h3>
-<p>The proof is a clean <a href="./point-set-topology.html#compact" data-auto-inline-link="1" data-concept-id="compactness" data-blurb="Every open cover has a finite subcover; preserved under continuous images; Heine–Borel, sequential compactness, and why compact Hausdorff is the right target category.">compactness</a>-and-correction argument. On the disk $|z|<R_n = |a_n|/2$, $P_n(1/(z-a_n))$ is holomorphic, hence has a Taylor expansion at $0$. Truncate this expansion to depth $d_n$ chosen so that the remainder is bounded by $2^{-n}$ on $|z|<R_n$. Set $p_n$ to be the truncated Taylor polynomial. Then on any fixed compact set $K\subset\mathbb{C}\setminus\{a_n\}$, all but finitely many tails $P_n(1/(z-a_n)) - p_n(z)$ are bounded by $2^{-n}$, so the series converges uniformly on compact sets minus the poles — exactly the meromorphic-function condition.</p>
+<p>The proof is a clean <a href="./point-set-topology.html#compact" data-auto-inline-link="1" data-concept-id="compactness" data-blurb="Every open cover has a finite subcover; preserved under continuous images; Heine–Borel, sequential compactness, and why compact Hausdorff is the right target category.">compactness</a>-and-correction argument. On the disk $|z|&lt;R_n = |a_n|/2$, $P_n(1/(z-a_n))$ is holomorphic, hence has a Taylor expansion at $0$. Truncate this expansion to depth $d_n$ chosen so that the remainder is bounded by $2^{-n}$ on $|z|&lt;R_n$. Set $p_n$ to be the truncated Taylor polynomial. Then on any fixed compact set $K\subset\mathbb{C}\setminus\{a_n\}$, all but finitely many tails $P_n(1/(z-a_n)) - p_n(z)$ are bounded by $2^{-n}$, so the series converges uniformly on compact sets minus the poles — exactly the meromorphic-function condition.</p>
 
 <p>The freedom to add an entire $g$ is the dual of the Weierstrass freedom: any two meromorphic functions with the same principal-part data differ by an entire function.</p>
 
@@ -453,7 +453,7 @@ where $p_n$ is a polynomial chosen as a convergence-correction (a partial Taylor
 
 <p>The <strong>Phragmén-Lindelöf principle</strong> rescues max modulus on a sector by trading boundedness on the boundary for a controlled growth condition: as long as $f$ doesn't grow too fast compared to the opening of the sector, the boundary estimate persists in the interior.</p>
 
-<div class="note"><strong>Phragmén-Lindelöf, sector form.</strong> Let $S = \{z = re^{i\theta} : 0<r, |\theta|<\pi/(2\alpha)\}$ be a sector of angular opening $\pi/\alpha$. Suppose $f$ is holomorphic on $S$, continuous on $\overline S$, and:
+<div class="note"><strong>Phragmén-Lindelöf, sector form.</strong> Let $S = \{z = re^{i\theta} : 0&lt;r, |\theta|<\pi/(2\alpha)\}$ be a sector of angular opening $\pi/\alpha$. Suppose $f$ is holomorphic on $S$, continuous on $\overline S$, and:
 <ol>
 <li>$|f(z)|\le M$ on $\partial S$ (the two boundary rays).</li>
 <li>There exist constants $C, \beta$ with $0\le \beta < \alpha$ such that $|f(z)|\le C e^{|z|^\beta}$ on $S$.</li>
@@ -532,7 +532,7 @@ $$M(r_2)^{\log(r_3/r_1)} \;\le\; M(r_1)^{\log(r_3/r_2)}\,M(r_3)^{\log(r_2/r_1)}.
 <p>A holomorphic function on the unit disk $\mathbb{D}$ has no obligation to extend to the boundary $\partial\mathbb{D}$. The function $\exp\bigl(\frac{z+1}{z-1}\bigr)$ is bounded and holomorphic on $\mathbb{D}$ but oscillates wildly as $z\to 1$ — no continuous boundary extension exists. Yet bounded holomorphic functions on $\mathbb{D}$ do have <em>almost everywhere</em> boundary values, and this is the gateway to a rich theory.</p>
 
 <p>The <strong>Hardy space</strong> $H^p(\mathbb{D})$ is defined for $0 < p \le \infty$ as the holomorphic functions on $\mathbb{D}$ whose $L^p$ norms on circles $|z|=r$ stay uniformly bounded:</p>
-<p>$$\|f\|_{H^p}^p \;=\; \sup_{0<r<1}\frac{1}{2\pi}\int_0^{2\pi}\bigl|f(re^{i\theta})\bigr|^p\,d\theta \;<\;\infty,\qquad 0<p<\infty,$$</p>
+<p>$$\|f\|_{H^p}^p \;=\; \sup_{0&lt;r<1}\frac{1}{2\pi}\int_0^{2\pi}\bigl|f(re^{i\theta})\bigr|^p\,d\theta \;<\;\infty,\qquad 0&lt;p<\infty,$$</p>
 <p>and $\|f\|_{H^\infty} = \sup_{z\in\mathbb{D}}|f(z)|$. The norms are nested: $H^\infty\subset H^2\subset H^p\subset H^{p'}$ for $p>p'$.</p>
 
 <h3>Fatou's boundary theorem</h3>
@@ -553,7 +553,7 @@ $B$ and $S$ are <em>inner functions</em>: holomorphic on $\mathbb{D}$ with $|f^*
 <p>The Blaschke product is the disk analog of $\prod E_p(z/a_n)$ in Weierstrass — a canonical factor encoding the zero set with the right convergence corrections. Each Blaschke factor $\phi_a(z) = (a-z)/(1-\overline a z)$ is a disk automorphism, with $|\phi_a(e^{i\theta})| = 1$.</p>
 
 <h3>The Hardy-Littlewood maximal inequality</h3>
-<p>Behind Fatou's theorem is a real-variable lemma: the <strong>Hardy-Littlewood maximal function</strong> $Mf(\theta) = \sup_{r}\frac{1}{2r}\int_{\theta-r}^{\theta+r}|f^*(e^{i\phi})|\,d\phi$ controls the radial limit. The maximal-function inequality $\|Mf\|_{L^p}\lesssim \|f\|_{L^p}$ for $1<p\le\infty$ is the engine that converts $L^p$ control on the circles $|z|=r$ into pointwise non-tangential convergence almost everywhere on the boundary. The case $p=1$ requires the substitute weak-type inequality and is part of the Calderón-Zygmund theory.</p>
+<p>Behind Fatou's theorem is a real-variable lemma: the <strong>Hardy-Littlewood maximal function</strong> $Mf(\theta) = \sup_{r}\frac{1}{2r}\int_{\theta-r}^{\theta+r}|f^*(e^{i\phi})|\,d\phi$ controls the radial limit. The maximal-function inequality $\|Mf\|_{L^p}\lesssim \|f\|_{L^p}$ for $1&lt;p\le\infty$ is the engine that converts $L^p$ control on the circles $|z|=r$ into pointwise non-tangential convergence almost everywhere on the boundary. The case $p=1$ requires the substitute weak-type inequality and is part of the Calderón-Zygmund theory.</p>
 
 <h3>Why $H^p$ matters</h3>
 <p>$H^p$ spaces are the natural setting for boundary-value problems on the disk, for moment problems, and for one-sided Fourier analysis. The shift operator $T:f(z)\mapsto z f(z)$ on $H^2(\mathbb{D})$ has a complete spectral theory in terms of the inner-outer factorization (Beurling's theorem on invariant subspaces). On the half-plane side, $H^p(\mathbb{H})$ governs the Paley-Wiener theorem connecting <a href="./complex-analysis.html#analytic-continuation" data-auto-inline-link="1" data-concept-id="analytic-continuation" data-blurb="The identity theorem lets a holomorphic germ extend uniquely along paths; loops around branch points produce monodromy, and $\log z$ or $\sqrt z$ live naturally on a Riemann surface rather than $\mathbb{C}\setminus\{0\}$.">analytic continuation</a> to band-limited Fourier transforms. The boundary trace map $H^p\to L^p$ is continuous and its image is exactly the $L^p$ functions whose Fourier coefficients vanish for negative frequencies — the analog of holomorphy in the frequency domain.</p>
@@ -805,7 +805,7 @@ $$m(r,a) + N(r,a) \;=\; T(r,f) + O(1)\quad\text{as } r \to \infty.$$
 <h2>11. Bergman kernels</h2>
 <p>For a bounded domain $\Omega \subset \mathbb{C}$, the <strong>Bergman space</strong> $A^2(\Omega)$ is the Hilbert space of holomorphic functions on $\Omega$ that are square-integrable for Lebesgue area measure $dA$:</p>
 <p>$$A^2(\Omega) \;=\; \bigl\{f:\Omega\to\mathbb{C}\ \text{holomorphic}\ \big|\ \int_\Omega |f|^2\,dA < \infty\bigr\},\qquad \langle f,g\rangle = \int_\Omega f\bar g\,dA.$$</p>
-<p>Boundedness of $\Omega$ is essential: on $\mathbb{C}$, the only $A^2$ function is $0$ (any $L^2$ holomorphic function on $\mathbb{C}$ vanishes by the mean-value property: $|f(0)|^2 \le \frac{1}{\pi R^2}\int_{|z|<R}|f|^2\,dA \le \|f\|_{A^2}^2/(\pi R^2) \to 0$ as $R\to\infty$).</p>
+<p>Boundedness of $\Omega$ is essential: on $\mathbb{C}$, the only $A^2$ function is $0$ (any $L^2$ holomorphic function on $\mathbb{C}$ vanishes by the mean-value property: $|f(0)|^2 \le \frac{1}{\pi R^2}\int_{|z|&lt;R}|f|^2\,dA \le \|f\|_{A^2}^2/(\pi R^2) \to 0$ as $R\to\infty$).</p>
 
 <h3>Reproducing kernel</h3>
 <p>The deciding feature: <em>point evaluation</em> $f \mapsto f(w)$ is bounded on $A^2(\Omega)$. To see this, the mean-value property gives $|f(w)| \le \frac{1}{\pi r^2} \int_{D_r(w)}|f|\,dA \le C_w \|f\|_{A^2}$ for any disk $D_r(w)\subset\Omega$. Boundedness of point evaluation is the defining feature of a <strong>reproducing kernel Hilbert space</strong> (RKHS); by Riesz representation there is a unique $K_w\in A^2(\Omega)$ with $f(w) = \langle f, K_w\rangle$ for all $f\in A^2(\Omega)$.</p>

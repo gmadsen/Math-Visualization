@@ -266,7 +266,7 @@ function drawNode(svg, x, y, label, opts={}){
 
 <p>How do you decide whether a 1024-bit integer is prime? Trial division costs $O(\sqrt n)$ — exponential in $\log n$ and hopeless. The path forward is Fermat's little theorem: if $p$ is prime and $\gcd(a,p)=1$, then $a^{p-1}\equiv 1\pmod p$. Compute $a^{n-1}\bmod n$ by fast exponentiation in $O(\log n)$ multiplies; if it isn't $1$, then $n$ is composite — and you've produced a <em>witness</em>.</p>
 
-<p>The trouble: <strong>Carmichael numbers</strong> like $561 = 3\cdot 11\cdot 17$ pass Fermat for every base coprime to $n$. <strong>Miller–Rabin</strong> patches the leak. Write $n-1 = 2^s \cdot d$ with $d$ odd. If $n$ is prime, then for any $a$ coprime to $n$, either $a^d\equiv 1$ or $a^{2^r d}\equiv -1$ for some $0\le r<s$ — there are no nontrivial square roots of $1$ modulo a prime. Any $a$ that fails both is a witness for compositeness.</p>
+<p>The trouble: <strong>Carmichael numbers</strong> like $561 = 3\cdot 11\cdot 17$ pass Fermat for every base coprime to $n$. <strong>Miller–Rabin</strong> patches the leak. Write $n-1 = 2^s \cdot d$ with $d$ odd. If $n$ is prime, then for any $a$ coprime to $n$, either $a^d\equiv 1$ or $a^{2^r d}\equiv -1$ for some $0\le r&lt;s$ — there are no nontrivial square roots of $1$ modulo a prime. Any $a$ that fails both is a witness for compositeness.</p>
 
 <div class="widget">
   <div class="hd"><div class="ttl">Miller–Rabin witness search</div><div class="hint">Pick $n$, pick a base $a$, watch the squaring chain.</div></div>
@@ -340,7 +340,7 @@ function drawNode(svg, x, y, label, opts={}){
 <p>The algorithm alternates two moves on the Gram–Schmidt orthogonalization $b_i^*$:</p>
 
 <ul>
-<li><strong>Size reduction:</strong> replace $b_i$ by $b_i - \lfloor \mu_{ij}\rceil b_j$ for $j<i$, where $\mu_{ij} = \langle b_i, b_j^*\rangle / \|b_j^*\|^2$.</li>
+<li><strong>Size reduction:</strong> replace $b_i$ by $b_i - \lfloor \mu_{ij}\rceil b_j$ for $j&lt;i$, where $\mu_{ij} = \langle b_i, b_j^*\rangle / \|b_j^*\|^2$.</li>
 <li><strong>Lovász swap:</strong> if $\|b_{i}^*\|^2 < (\delta - \mu_{i,i-1}^2)\|b_{i-1}^*\|^2$ for some $\delta\in(1/4, 1)$, swap $b_{i-1}$ and $b_i$.</li>
 </ul>
 
@@ -356,7 +356,7 @@ function drawNode(svg, x, y, label, opts={}){
   <div class="readout" id="lll-out">Initial basis loaded.</div>
 </div>
 
-<p><strong>Coppersmith's theorem.</strong> Given a polynomial $f(x)\in\mathbb{Z}[x]$ of degree $d$ and a modulus $N$, all integer roots of $f \bmod N$ with $|x|<N^{1/d}$ can be recovered in polynomial time by building a lattice from shifted multiples of $f$ and applying LLL. This breaks low-exponent RSA whenever the message has stereotyped structure.</p>
+<p><strong>Coppersmith's theorem.</strong> Given a polynomial $f(x)\in\mathbb{Z}[x]$ of degree $d$ and a modulus $N$, all integer roots of $f \bmod N$ with $|x|&lt;N^{1/d}$ can be recovered in polynomial time by building a lattice from shifted multiples of $f$ and applying LLL. This breaks low-exponent RSA whenever the message has stereotyped structure.</p>
 
 <p>LLL also accelerates: integer-relation detection (<code>PSLQ</code>), knapsack cryptanalysis, sub-routines inside Buchmann's class-group algorithm (§6), and post-quantum lattice cryptosystems whose hardness assumptions sit one notch above LLL's reach.</p>
 

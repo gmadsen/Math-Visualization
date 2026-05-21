@@ -11,7 +11,7 @@
         "random-variables",
         "algebraic-structures"
       ],
-      "blurb": "The three classical Wigner ensembles — GOE (real symmetric, $\\beta=1$), GUE (complex Hermitian, $\\beta=2$), GSE (quaternionic self-dual, $\\beta=4$) — pick i.i.d.\\ Gaussian entries respecting a symmetry. The Dyson index $\\beta\\in\\{1,2,4\\}$ records the dimension of the entry algebra over $\\mathbb{R}$ and tunes every downstream eigenvalue statistic via the joint density $\\prod_{i<j}|\\lambda_i-\\lambda_j|^\\beta e^{-\\beta\\sum\\lambda_i^2/4}$.",
+      "blurb": "The three classical Wigner ensembles — GOE (real symmetric, $\\beta=1$), GUE (complex Hermitian, $\\beta=2$), GSE (quaternionic self-dual, $\\beta=4$) — pick i.i.d.\\ Gaussian entries respecting a symmetry. The Dyson index $\\beta\\in\\{1,2,4\\}$ records the dimension of the entry algebra over $\\mathbb{R}$ and tunes every downstream eigenvalue statistic via the joint density $\\prod_{i\\lt j}|\\lambda_i-\\lambda_j|^\\beta e^{-\\beta\\sum\\lambda_i^2/4}$.",
       "tags": [
         "foundation",
         "classification"

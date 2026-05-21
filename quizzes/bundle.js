@@ -905,7 +905,7 @@ window.MVQuizBank = {
               "$|f(\\alpha)| = N^{1/k}$ for all $\\alpha$"
             ],
             "answer": 2,
-            "explain": "Weyl's inequality: if $\\alpha$ has rational approximation $a/q$ with $N^{1/k}<q<N^{k-1/k}$, then $|f(\\alpha)|\\ll N^{1/k}\\cdot N^{-\\sigma_k+\\varepsilon}$ with $\\sigma_k = 2^{1-k}$. This is a nontrivial saving — enough to absorb the minor-arc integral once $s$ is large enough."
+            "explain": "Weyl's inequality: if $\\alpha$ has rational approximation $a/q$ with $N^{1/k}\\lt q\\lt N^{k-1/k}$, then $|f(\\alpha)|\\ll N^{1/k}\\cdot N^{-\\sigma_k+\\varepsilon}$ with $\\sigma_k = 2^{1-k}$. This is a nontrivial saving — enough to absorb the minor-arc integral once $s$ is large enough."
           },
           {
             "type": "mcq",
@@ -1987,7 +1987,7 @@ window.MVQuizBank = {
               "Periodic"
             ],
             "answer": 1,
-            "explain": "$\\log M(r)$ is a convex function of $\\log r$ on the annulus where $f$ is holomorphic. Convexity yields the standard interpolation inequality $M(r_2)^{\\log(r_3/r_1)} \\le M(r_1)^{\\log(r_3/r_2)} M(r_3)^{\\log(r_2/r_1)}$ for $r_1<r_2<r_3$."
+            "explain": "$\\log M(r)$ is a convex function of $\\log r$ on the annulus where $f$ is holomorphic. Convexity yields the standard interpolation inequality $M(r_2)^{\\log(r_3/r_1)} \\le M(r_1)^{\\log(r_3/r_2)} M(r_3)^{\\log(r_2/r_1)}$ for $r_1\\lt r_2\\lt r_3$."
           },
           {
             "type": "numeric",
@@ -2023,7 +2023,7 @@ window.MVQuizBank = {
               "$\\sum_{n=0}^\\infty|a_n|^p$ where $f = \\sum a_n z^n$"
             ],
             "answer": 0,
-            "explain": "$H^p(\\mathbb{D})$ is defined by $\\|f\\|_{H^p}^p = \\sup_{0<r<1}\\frac{1}{2\\pi}\\int_0^{2\\pi}|f(re^{i\\theta})|^p d\\theta < \\infty$. Bounded sup ($H^\\infty$) is the second option but a different space; area integrals define the Bergman space $A^p$, not Hardy."
+            "explain": "$H^p(\\mathbb{D})$ is defined by $\\|f\\|_{H^p}^p = \\sup_{0\\lt r<1}\\frac{1}{2\\pi}\\int_0^{2\\pi}|f(re^{i\\theta})|^p d\\theta < \\infty$. Bounded sup ($H^\\infty$) is the second option but a different space; area integrals define the Bergman space $A^p$, not Hardy."
           },
           {
             "type": "mcq",
@@ -2947,7 +2947,7 @@ window.MVQuizBank = {
           },
           {
             "type": "mcq",
-            "q": "Let $p<q$ be primes with $p\\nmid(q-1)$, and $|G|=pq$. Which conclusion is correct?",
+            "q": "Let $p\\lt q$ be primes with $p\\nmid(q-1)$, and $|G|=pq$. Which conclusion is correct?",
             "choices": [
               "$G$ is cyclic of order $pq$",
               "$G$ is nonabelian and unique up to isomorphism",
@@ -2956,7 +2956,7 @@ window.MVQuizBank = {
             ],
             "answer": 0,
             "hint": "Show $n_p=1$ by combining Sylow's divisibility and congruence with the hypothesis $p\\nmid(q-1)$.",
-            "explain": "$n_q\\mid p$ and $n_q\\equiv 1\\pmod q$; since $p<q$, $n_q=1$. $n_p\\mid q$ and $n_p\\equiv 1\\pmod p$; the divisors of $q$ are $1,q$, and $q\\equiv 1\\pmod p$ would force $p\\mid(q-1)$, contradicting the hypothesis. Hence $n_p=1$. Both Sylows are normal and meet trivially, so $G\\cong\\mathbb{Z}/p\\times\\mathbb{Z}/q\\cong\\mathbb{Z}/pq$."
+            "explain": "$n_q\\mid p$ and $n_q\\equiv 1\\pmod q$; since $p\\lt q$, $n_q=1$. $n_p\\mid q$ and $n_p\\equiv 1\\pmod p$; the divisors of $q$ are $1,q$, and $q\\equiv 1\\pmod p$ would force $p\\mid(q-1)$, contradicting the hypothesis. Hence $n_p=1$. Both Sylows are normal and meet trivially, so $G\\cong\\mathbb{Z}/p\\times\\mathbb{Z}/q\\cong\\mathbb{Z}/pq$."
           },
           {
             "type": "numeric",
@@ -3047,7 +3047,7 @@ window.MVQuizBank = {
               "$f$ factors as $(x+1)(x^2-x+3)$"
             ],
             "answer": 0,
-            "explain": "Eisenstein needs: $p\\nmid a_n$ (leading), $p\\mid a_i$ for $i<n$, and $p^2\\nmid a_0$. With $p=3$: $3\\nmid 1$, $3\\mid 0$ and $3\\mid 3$, and $9\\nmid 3$. So $f$ is irreducible over $\\mathbb{Q}$ (and over $\\mathbb{Z}$ by Gauss's lemma)."
+            "explain": "Eisenstein needs: $p\\nmid a_n$ (leading), $p\\mid a_i$ for $i\\lt n$, and $p^2\\nmid a_0$. With $p=3$: $3\\nmid 1$, $3\\mid 0$ and $3\\mid 3$, and $9\\nmid 3$. So $f$ is irreducible over $\\mathbb{Q}$ (and over $\\mathbb{Z}$ by Gauss's lemma)."
           },
           {
             "type": "mcq",
@@ -4591,13 +4591,13 @@ window.MVQuizBank = {
             "q": "The Minkowski bound chains with the discriminant: for $K=\\mathbb{Q}(\\zeta_5)$ with $|\\Delta_K|=125$ and $(n,r_1,r_2)=(4,0,2)$, the bound is $M_K=\\left(\\tfrac{4}{\\pi}\\right)^2\\cdot\\tfrac{4!}{4^4}\\cdot\\sqrt{125}$. Which primes must be tested against the class group?",
             "choices": [
               "no primes; $M_K<2$",
-              "only $p=2$; $2<M_K<3$",
-              "only $p=2$ and $p=3$; $3<M_K<5$",
+              "only $p=2$; $2\\lt M_K<3$",
+              "only $p=2$ and $p=3$; $3\\lt M_K<5$",
               "only $p=5$; $M_K\\approx 5$"
             ],
             "answer": 1,
             "hint": "Compute $M_K\\approx 1.7$ to see only $p=2$ matters.",
-            "explain": "$M_K=\\left(\\tfrac{16}{\\pi^2}\\right)\\cdot\\tfrac{24}{256}\\cdot 5\\sqrt{5}\\approx 1.621\\cdot 0.09375\\cdot 11.18\\approx 1.70$. Since $1<M_K<2$, only the prime $p=2$ could contribute, but the only prime above $2$ is principal, so $h_K=1$ and $\\mathbb{Z}[\\zeta_5]$ is a PID."
+            "explain": "$M_K=\\left(\\tfrac{16}{\\pi^2}\\right)\\cdot\\tfrac{24}{256}\\cdot 5\\sqrt{5}\\approx 1.621\\cdot 0.09375\\cdot 11.18\\approx 1.70$. Since $1\\lt M_K<2$, only the prime $p=2$ could contribute, but the only prime above $2$ is principal, so $h_K=1$ and $\\mathbb{Z}[\\zeta_5]$ is a PID."
           }
         ]
       },
@@ -10316,7 +10316,7 @@ window.MVQuizBank = {
             "type": "mcq",
             "q": "On the Grassmannian $\\mathrm{Gr}(2,n)$ of $2$-planes in $n$-space, the cluster algebra structure has which Plücker-coordinate description?",
             "choices": [
-              "Cluster variables are the Plücker coordinates $p_{ij}$ for all $1\\le i<j\\le n$; clusters are the maximal sets of pairwise non-crossing $p_{ij}$, equivalently triangulations of the $n$-gon.",
+              "Cluster variables are the Plücker coordinates $p_{ij}$ for all $1\\le i\\lt j\\le n$; clusters are the maximal sets of pairwise non-crossing $p_{ij}$, equivalently triangulations of the $n$-gon.",
               "Cluster variables are the determinants of all $2\\times 2$ minors of an $n\\times n$ matrix; clusters are bases of those minors.",
               "Cluster variables correspond to the Schubert varieties of $\\mathrm{Gr}(2,n)$.",
               "Cluster variables are the symmetric functions in $n$ variables."
@@ -11212,7 +11212,7 @@ window.MVQuizBank = {
               "$d \\ge \\log_q n$."
             ],
             "answer": 0,
-            "explain": "Two distinct polynomials of degree $<k$ agree at $\\le k-1$ points (their difference has $<k$ roots), so they differ at $\\ge n-(k-1) = n-k+1$ points. The bound $d\\le n-k+1$ is therefore tight: Reed–Solomon meets Singleton.",
+            "explain": "Two distinct polynomials of degree $\\lt k$ agree at $\\le k-1$ points (their difference has $\\lt k$ roots), so they differ at $\\ge n-(k-1) = n-k+1$ points. The bound $d\\le n-k+1$ is therefore tight: Reed–Solomon meets Singleton.",
             "hint": "How many roots can $f-g$ have?"
           },
           {
@@ -14752,7 +14752,7 @@ window.MVQuizBank = {
             "type": "mcq",
             "q": "McCaskill's partition-function algorithm replaces Nussinov's $\\max$ with $\\sum$ to compute $Z=\\sum_S e^{-E(S)/RT}$. From $Z$ and similar quantities one can derive:",
             "choices": [
-              "Base-pair probabilities $P_{ij}=P(\\text{base }i\\text{ paired with }j\\mid \\text{equilibrium})$ for all $i<j$.",
+              "Base-pair probabilities $P_{ij}=P(\\text{base }i\\text{ paired with }j\\mid \\text{equilibrium})$ for all $i\\lt j$.",
               "The minimum-free-energy structure (which is necessarily the most probable structure).",
               "A guarantee that the most probable structure equals the structure that minimises free energy.",
               "Nothing about base-pair probabilities — McCaskill only gives the total partition function."
@@ -14771,7 +14771,7 @@ window.MVQuizBank = {
             "q": "Direct coupling analysis (DCA) for residue contact prediction fits which model to a deep multiple sequence alignment?",
             "choices": [
               "An independent-site model $P(x)=\\prod_i p_i(x_i)$.",
-              "A pairwise Markov random field (Potts model) $P(x)\\propto\\exp\\bigl(\\sum h_i(x_i)+\\sum_{i<j} J_{ij}(x_i,x_j)\\bigr)$.",
+              "A pairwise Markov random field (Potts model) $P(x)\\propto\\exp\\bigl(\\sum h_i(x_i)+\\sum_{i\\lt j} J_{ij}(x_i,x_j)\\bigr)$.",
               "A hidden Markov model in which the hidden chain runs along the sequence.",
               "A linear regression of one residue position against all others."
             ],
@@ -15743,7 +15743,7 @@ window.MVQuizBank = {
             "q": "Why are convergents called 'best approximations'?",
             "choices": [
               "They minimise $|\\alpha-p/q|$ among all rationals.",
-              "If $p/q$ is any rational with $0<q<q_n$, then $|q\\alpha-p|>|q_n\\alpha-p_n|$ — no rational of smaller denominator gets closer in the weighted sense.",
+              "If $p/q$ is any rational with $0\\lt q\\lt q_n$, then $|q\\alpha-p|>|q_n\\alpha-p_n|$ — no rational of smaller denominator gets closer in the weighted sense.",
               "They are the only rationals with $|\\alpha-p/q|<1/q^2$.",
               "They are the unique rationals $p/q$ with $q$ a Fibonacci number."
             ],
@@ -15757,7 +15757,7 @@ window.MVQuizBank = {
         "questions": [
           {
             "type": "mcq",
-            "q": "Hurwitz's theorem (1891) states: for every irrational $\\alpha$, there are infinitely many $p/q\\in\\mathbb{Q}$ with $|\\alpha-p/q|<C/q^2$. What is the optimal constant $C$?",
+            "q": "Hurwitz's theorem (1891) states: for every irrational $\\alpha$, there are infinitely many $p/q\\in\\mathbb{Q}$ with $|\\alpha-p/q|\\lt C/q^2$. What is the optimal constant $C$?",
             "choices": [
               "$C=1$",
               "$C=1/2$",
@@ -15808,17 +15808,17 @@ window.MVQuizBank = {
           },
           {
             "type": "numeric",
-            "q": "Liouville's constant is the explicit transcendental $L=\\sum_{n=1}^\\infty 10^{-n!}$. Its truncation $L_k=\\sum_{n=1}^k 10^{-n!}$ has the form $p_k/q_k$ with $q_k=10^{k!}$. What is the rational error exponent $r_k$ defined by $|L-L_k|<q_k^{-r_k}$, in the limit $k\\to\\infty$? (Enter $\\infty$ as a large number, say 999.)",
+            "q": "Liouville's constant is the explicit transcendental $L=\\sum_{n=1}^\\infty 10^{-n!}$. Its truncation $L_k=\\sum_{n=1}^k 10^{-n!}$ has the form $p_k/q_k$ with $q_k=10^{k!}$. What is the rational error exponent $r_k$ defined by $|L-L_k|\\lt q_k^{-r_k}$, in the limit $k\\to\\infty$? (Enter $\\infty$ as a large number, say 999.)",
             "answer": 999,
             "tol": 1,
-            "explain": "$|L-L_k|<2\\cdot 10^{-(k+1)!}$ and $q_k^n=10^{n\\cdot k!}$. So $|L-L_k|<q_k^{-r_k}$ holds iff $r_k\\le (k+1)!/k!-\\epsilon = k+1-\\epsilon$. The rational exponent $r_k\\to\\infty$, violating Liouville's bound for any algebraic degree $d$. So $L$ is transcendental — the first known transcendental, exhibited by Liouville in 1844, three decades before Hermite's $e$."
+            "explain": "$|L-L_k|<2\\cdot 10^{-(k+1)!}$ and $q_k^n=10^{n\\cdot k!}$. So $|L-L_k|\\lt q_k^{-r_k}$ holds iff $r_k\\le (k+1)!/k!-\\epsilon = k+1-\\epsilon$. The rational exponent $r_k\\to\\infty$, violating Liouville's bound for any algebraic degree $d$. So $L$ is transcendental — the first known transcendental, exhibited by Liouville in 1844, three decades before Hermite's $e$."
           },
           {
             "type": "mcq",
-            "q": "What is the contradiction Liouville extracts from a number $\\alpha$ admitting infinitely many rationals with $|\\alpha-p/q|<q^{-n}$ for arbitrary $n$?",
+            "q": "What is the contradiction Liouville extracts from a number $\\alpha$ admitting infinitely many rationals with $|\\alpha-p/q|\\lt q^{-n}$ for arbitrary $n$?",
             "choices": [
               "It contradicts Roth's theorem.",
-              "If $\\alpha$ were algebraic of degree $d$, then $|\\alpha-p/q|>C/q^d$, but the assumption gives $|\\alpha-p/q|<q^{-n}<C/q^d$ for $n>d$ and $q$ large — contradiction. So $\\alpha$ is transcendental.",
+              "If $\\alpha$ were algebraic of degree $d$, then $|\\alpha-p/q|>C/q^d$, but the assumption gives $|\\alpha-p/q|\\lt q^{-n}\\lt C/q^d$ for $n>d$ and $q$ large — contradiction. So $\\alpha$ is transcendental.",
               "It implies $\\alpha\\in\\mathbb{Q}$.",
               "It contradicts Hurwitz's theorem."
             ],
@@ -15834,13 +15834,13 @@ window.MVQuizBank = {
             "type": "mcq",
             "q": "Roth's theorem (1955) states: for every algebraic irrational $\\alpha$ and every $\\varepsilon>0$, there are only finitely many $p/q\\in\\mathbb{Q}$ with",
             "choices": [
-              "$|\\alpha-p/q|<q^{-d-\\varepsilon}$ where $d=\\deg\\alpha$",
-              "$|\\alpha-p/q|<q^{-2-\\varepsilon}$",
-              "$|\\alpha-p/q|<q^{-2}$",
-              "$|\\alpha-p/q|<q^{-3-\\varepsilon}$"
+              "$|\\alpha-p/q|\\lt q^{-d-\\varepsilon}$ where $d=\\deg\\alpha$",
+              "$|\\alpha-p/q|\\lt q^{-2-\\varepsilon}$",
+              "$|\\alpha-p/q|\\lt q^{-2}$",
+              "$|\\alpha-p/q|\\lt q^{-3-\\varepsilon}$"
             ],
             "answer": 1,
-            "explain": "Roth replaced Liouville's exponent $d$ by the universal $2+\\varepsilon$, independent of degree. The exponent $2$ is sharp: Dirichlet's theorem produces infinitely many $p/q$ with $|\\alpha-p/q|<q^{-2}$ for every irrational. So Roth's bound is the best possible polynomial-rate statement."
+            "explain": "Roth replaced Liouville's exponent $d$ by the universal $2+\\varepsilon$, independent of degree. The exponent $2$ is sharp: Dirichlet's theorem produces infinitely many $p/q$ with $|\\alpha-p/q|\\lt q^{-2}$ for every irrational. So Roth's bound is the best possible polynomial-rate statement."
           },
           {
             "type": "mcq",
@@ -18102,7 +18102,7 @@ window.MVQuizBank = {
             "q": "Compute $\\dim\\Omega^k(\\mathbb{R}^5)$ for $k=3$.",
             "answer": 10,
             "tol": 0.000001,
-            "explain": "$\\binom{5}{3}=10$. Basis elements are $dx^{i_1}\\wedge dx^{i_2}\\wedge dx^{i_3}$ with $i_1<i_2<i_3$ from $\\{1,2,3,4,5\\}$."
+            "explain": "$\\binom{5}{3}=10$. Basis elements are $dx^{i_1}\\wedge dx^{i_2}\\wedge dx^{i_3}$ with $i_1\\lt i_2\\lt i_3$ from $\\{1,2,3,4,5\\}$."
           }
         ]
       },
@@ -18164,7 +18164,7 @@ window.MVQuizBank = {
           },
           {
             "type": "mcq",
-            "q": "Order these steps in deriving $d^2f=0$ for a smooth function $f$ on $\\mathbb{R}^n$. Which ordering is correct? (I) Write $df=\\sum_i \\partial_i f\\,dx^i$. (II) Apply $d$ again: $d^2f=\\sum_{i,j}\\partial_j\\partial_i f\\,dx^j\\wedge dx^i$. (III) Note the sum over $i<j$ telescopes as $(\\partial_j\\partial_i f - \\partial_i\\partial_j f)dx^j\\wedge dx^i=0$ by Schwarz. (IV) Antisymmetry of $\\wedge$ pairs $(j,i)$ with $(i,j)$.",
+            "q": "Order these steps in deriving $d^2f=0$ for a smooth function $f$ on $\\mathbb{R}^n$. Which ordering is correct? (I) Write $df=\\sum_i \\partial_i f\\,dx^i$. (II) Apply $d$ again: $d^2f=\\sum_{i,j}\\partial_j\\partial_i f\\,dx^j\\wedge dx^i$. (III) Note the sum over $i\\lt j$ telescopes as $(\\partial_j\\partial_i f - \\partial_i\\partial_j f)dx^j\\wedge dx^i=0$ by Schwarz. (IV) Antisymmetry of $\\wedge$ pairs $(j,i)$ with $(i,j)$.",
             "choices": [
               "I → III → II → IV",
               "II → I → IV → III",
@@ -19331,7 +19331,7 @@ window.MVQuizBank = {
         "hard": [
           {
             "type": "mcq",
-            "q": "In Perron's formula the kernel $\\frac{1}{2\\pi i}\\int_{c-i\\infty}^{c+i\\infty}\\frac{x^s}{s}ds$ equals $1$ when $x>1$ and $0$ when $0<x<1$. Which contour-shifting argument produces this?",
+            "q": "In Perron's formula the kernel $\\frac{1}{2\\pi i}\\int_{c-i\\infty}^{c+i\\infty}\\frac{x^s}{s}ds$ equals $1$ when $x>1$ and $0$ when $0\\lt x<1$. Which contour-shifting argument produces this?",
             "choices": [
               "Close to the left for $x>1$ (picking up the pole of $1/s$ at $s=0$ with residue $1$); close to the right for $x<1$ (no poles enclosed, giving $0$)",
               "Close to the right for $x>1$ (no poles, giving $1$); close to the left for $x<1$ (pole gives $0$)",
@@ -20309,7 +20309,7 @@ window.MVQuizBank = {
           },
           {
             "type": "complex",
-            "q": "For the doubling map $f(x)=2x\\bmod 1$, give the 2-periodic orbit $\\{p,q\\}$ as $p+qi$, with $p<q$.",
+            "q": "For the doubling map $f(x)=2x\\bmod 1$, give the 2-periodic orbit $\\{p,q\\}$ as $p+qi$, with $p\\lt q$.",
             "answer": [
               0.3333333333333333,
               0.6666666666666667
@@ -20328,7 +20328,7 @@ window.MVQuizBank = {
             "q": "Iterate the logistic map $f_r(x)=rx(1-x)$ at $r=2.5$ from any $x_0\\in(0,1)$ for many steps. To what value does $x_n$ converge?",
             "answer": 0.6,
             "tol": 0.000001,
-            "explain": "For $1<r<3$ the non-zero fixed point $x^*=1-1/r$ is attracting. At $r=2.5$, $x^*=1-0.4=0.6$."
+            "explain": "For $1\\lt r<3$ the non-zero fixed point $x^*=1-1/r$ is attracting. At $r=2.5$, $x^*=1-0.4=0.6$."
           },
           {
             "type": "mcq",
@@ -20518,7 +20518,7 @@ window.MVQuizBank = {
               "Conclude $|T'(x)|=2$ almost everywhere in $[0,1]$."
             ],
             "choices": [
-              "Therefore $\\lambda=\\tfrac{1}{N}\\sum_{i<N}\\log|T'(x_i)|=\\log 2$ for every orbit.",
+              "Therefore $\\lambda=\\tfrac{1}{N}\\sum_{i\\lt N}\\log|T'(x_i)|=\\log 2$ for every orbit.",
               "Apply Birkhoff's ergodic theorem with Lebesgue-invariant measure: $\\lambda=\\int_0^1 \\log 2\\,dx=\\log 2$.",
               "Use Hartman–Grobman to linearize the map at each point.",
               "Apply Poincaré–Bendixson."
@@ -20822,7 +20822,7 @@ window.MVQuizBank = {
         "hard": [
           {
             "type": "complex",
-            "q": "By Birkhoff applied to $f(x)=x$ under $T(x)=2x\\bmod 1$, $\\tfrac{1}{N}\\sum_{k<N}T^k(x)\\to a$ for a.e. $x$. Give $a$ as $a+bi$.",
+            "q": "By Birkhoff applied to $f(x)=x$ under $T(x)=2x\\bmod 1$, $\\tfrac{1}{N}\\sum_{k\\lt N}T^k(x)\\to a$ for a.e. $x$. Give $a$ as $a+bi$.",
             "answer": [
               0.5,
               0
@@ -21817,11 +21817,11 @@ window.MVQuizBank = {
         "questions": [
           {
             "type": "numeric",
-            "q": "How many inversions does the permutation $\\sigma = (3, 1, 4, 2)$ in one-line notation have? (An inversion is a pair $i<j$ with $\\sigma(i) > \\sigma(j)$.)",
+            "q": "How many inversions does the permutation $\\sigma = (3, 1, 4, 2)$ in one-line notation have? (An inversion is a pair $i\\lt j$ with $\\sigma(i) > \\sigma(j)$.)",
             "answer": 3,
             "tol": 0,
             "explain": "Inverted pairs: $(3,1), (3,2), (4,2)$. Total $= 3$.",
-            "hint": "List all $i<j$ where $\\sigma(i) > \\sigma(j)$."
+            "hint": "List all $i\\lt j$ where $\\sigma(i) > \\sigma(j)$."
           },
           {
             "type": "numeric",
@@ -25011,7 +25011,7 @@ window.MVQuizBank = {
           },
           {
             "type": "mcq",
-            "q": "For $1<p<\\infty$ and $\\tfrac1p+\\tfrac1q=1$ on a $\\sigma$-finite measure space, the dual $(L^p)^*$ is isometrically identified with:",
+            "q": "For $1\\lt p<\\infty$ and $\\tfrac1p+\\tfrac1q=1$ on a $\\sigma$-finite measure space, the dual $(L^p)^*$ is isometrically identified with:",
             "choices": [
               "$L^p$ itself",
               "$L^q$ via $g\\mapsto\\bigl(f\\mapsto\\int fg\\,d\\mu\\bigr)$",
@@ -25152,7 +25152,7 @@ window.MVQuizBank = {
             "type": "multi-select",
             "q": "Which of the following spaces are reflexive?",
             "choices": [
-              "$\\ell^p$ for $1<p<\\infty$",
+              "$\\ell^p$ for $1\\lt p<\\infty$",
               "Hilbert space $H$",
               "$L^1[0,1]$",
               "$C[0,1]$ with sup norm",
@@ -25162,7 +25162,7 @@ window.MVQuizBank = {
               0,
               1
             ],
-            "explain": "$\\ell^p,L^p$ for $1<p<\\infty$ and Hilbert spaces are reflexive. $L^1$ is not ($L^{1**}=L^{\\infty *}\\supsetneq L^1$). $C[0,1]$ is not (its dual is measures, whose dual is much larger). $\\ell^\\infty$ is not (its dual contains Banach limits outside $\\ell^1$)."
+            "explain": "$\\ell^p,L^p$ for $1\\lt p<\\infty$ and Hilbert spaces are reflexive. $L^1$ is not ($L^{1**}=L^{\\infty *}\\supsetneq L^1$). $C[0,1]$ is not (its dual is measures, whose dual is much larger). $\\ell^\\infty$ is not (its dual contains Banach limits outside $\\ell^1$)."
           },
           {
             "type": "mcq",
@@ -27763,7 +27763,7 @@ window.MVQuizBank = {
               "$n-2i$ for $i\\le n/2$, else $0$."
             ],
             "answer": 1,
-            "explain": "Under $\\lambda(t)\\cdot(x,y)=(tx,t^{-1}y)$, the monomial $x^i y^{n-i}$ becomes $t^{i}\\cdot t^{-(n-i)}\\cdot x^i y^{n-i}=t^{2i-n}\\cdot x^i y^{n-i}$. So weight $2i-n$: negative for $i<n/2$, zero at $i=n/2$, positive for $i>n/2$. The Hilbert–Mumford weight $\\mu(f,\\lambda)=\\min\\{2i-n:a_i\\ne 0\\}$."
+            "explain": "Under $\\lambda(t)\\cdot(x,y)=(tx,t^{-1}y)$, the monomial $x^i y^{n-i}$ becomes $t^{i}\\cdot t^{-(n-i)}\\cdot x^i y^{n-i}=t^{2i-n}\\cdot x^i y^{n-i}$. So weight $2i-n$: negative for $i\\lt n/2$, zero at $i=n/2$, positive for $i>n/2$. The Hilbert–Mumford weight $\\mu(f,\\lambda)=\\min\\{2i-n:a_i\\ne 0\\}$."
           },
           {
             "type": "numeric",
@@ -30630,7 +30630,7 @@ window.MVQuizBank = {
             ],
             "answer": 0,
             "hint": "Apply Harnack on balls of radius $R \\to \\infty$.",
-            "explain": "For positive harmonic $u$ on $\\mathbb{R}^n$, Harnack on $B(0,R)$ gives $\\tfrac{R-r}{R+r}u(0) \\le u(x) \\le \\tfrac{R+r}{R-r}u(0)$ for $|x|<R$. Letting $R\\to\\infty$ with $r$ fixed pinches both bounds to $u(0)$, so $u\\equiv u(0)$. This is the harmonic Liouville theorem."
+            "explain": "For positive harmonic $u$ on $\\mathbb{R}^n$, Harnack on $B(0,R)$ gives $\\tfrac{R-r}{R+r}u(0) \\le u(x) \\le \\tfrac{R+r}{R-r}u(0)$ for $|x|\\lt R$. Letting $R\\to\\infty$ with $r$ fixed pinches both bounds to $u(0)$, so $u\\equiv u(0)$. This is the harmonic Liouville theorem."
           },
           {
             "type": "mcq",
@@ -39873,7 +39873,7 @@ window.MVQuizBank = {
         "questions": [
           {
             "type": "mcq",
-            "q": "The Feigenbaum constant $\\delta\\approx 4.6692\\ldots$ is the limit of which ratio along the logistic map's period-doubling cascade $r_1<r_2<\\cdots$?",
+            "q": "The Feigenbaum constant $\\delta\\approx 4.6692\\ldots$ is the limit of which ratio along the logistic map's period-doubling cascade $r_1\\lt r_2<\\cdots$?",
             "choices": [
               "$r_n / r_{n-1}$",
               "$(r_n - r_\\infty) / (r_{n-1} - r_\\infty)$",
@@ -41392,7 +41392,7 @@ window.MVQuizBank = {
               "Invoke the Radon–Nikodym theorem"
             ],
             "answer": 0,
-            "explain": "For any $\\varepsilon>0$, cover $E$ by open intervals $I_n$ with $\\sum m(I_n)<m(E)+\\varepsilon$; their union $U=\\bigcup I_n$ is open, contains $E$, and $m(U)\\le\\sum m(I_n)<m(E)+\\varepsilon$. Since $m(U)\\ge m(E)$ always, the infimum equals $m(E)$."
+            "explain": "For any $\\varepsilon>0$, cover $E$ by open intervals $I_n$ with $\\sum m(I_n)\\lt m(E)+\\varepsilon$; their union $U=\\bigcup I_n$ is open, contains $E$, and $m(U)\\le\\sum m(I_n)\\lt m(E)+\\varepsilon$. Since $m(U)\\ge m(E)$ always, the infimum equals $m(E)$."
           }
         ]
       },
@@ -43434,7 +43434,7 @@ window.MVQuizBank = {
           },
           {
             "type": "numeric",
-            "q": "Consider the linear orders $\\mathfrak{A}=(\\{0,1,2\\},<)$ and $\\mathfrak{B}=(\\{0,1,2,3\\},<)$. What is the largest $n$ for which Duplicator wins the $n$-round EF game on $\\mathfrak{A}$ vs $\\mathfrak{B}$? (Hint: for finite linear orders of sizes $m<n$, Duplicator wins the $k$-round game iff $\\min(m,n)\\ge 2^k-1$.)",
+            "q": "Consider the linear orders $\\mathfrak{A}=(\\{0,1,2\\},<)$ and $\\mathfrak{B}=(\\{0,1,2,3\\},<)$. What is the largest $n$ for which Duplicator wins the $n$-round EF game on $\\mathfrak{A}$ vs $\\mathfrak{B}$? (Hint: for finite linear orders of sizes $m\\lt n$, Duplicator wins the $k$-round game iff $\\min(m,n)\\ge 2^k-1$.)",
             "answer": 2,
             "tol": 0,
             "explain": "Standard fact (Libkin, <em>Elements of Finite Model Theory</em>, Thm 3.6): for finite linear orders Duplicator wins the $k$-round game iff $\\min(m,n)\\ge 2^k-1$. Here $\\min=3$. For $k=2$: $2^2-1=3\\le 3$ ✓ — Duplicator wins by matching each Spoiler pick to the element with the same number of points strictly below and above (any leftover slack absorbed at the larger structure's end). For $k=3$: $2^3-1=7>3$ — Spoiler wins by picking three elements in $\\mathfrak{B}$ whose successor/predecessor configuration cannot be reproduced in $\\mathfrak{A}$. So the largest winning $n$ is $\\boxed{2}$."
@@ -49996,7 +49996,7 @@ window.MVQuizBank = {
             "q": "The rational numbers $\\mathbb{Q}$ with the subspace topology from $\\mathbb{R}$ are totally disconnected: the only connected subsets are singletons. How many connected components does the subspace $\\{1/n : n\\ge 1\\}\\subset\\mathbb{R}$ have?",
             "answer": 0,
             "tol": 0.0001,
-            "explain": "Each point $\\{1/n\\}$ is isolated in the subspace (the sets $\\{1/n\\}=\\{x:1/(n+1)<x<1/(n-1)\\}\\cap S$ are open in $S$), so every singleton is a connected component. The subspace has countably infinitely many connected components — but the question asks for the count of components that are NOT singletons, which is $0$."
+            "explain": "Each point $\\{1/n\\}$ is isolated in the subspace (the sets $\\{1/n\\}=\\{x:1/(n+1)\\lt x<1/(n-1)\\}\\cap S$ are open in $S$), so every singleton is a connected component. The subspace has countably infinitely many connected components — but the question asks for the count of components that are NOT singletons, which is $0$."
           }
         ]
       },
@@ -50063,7 +50063,7 @@ window.MVQuizBank = {
             "type": "mcq",
             "q": "Urysohn's Lemma states: if $X$ is normal ($T_4$) and $A,B$ are disjoint closed sets, then there exists a continuous $f:X\\to[0,1]$ with $f|_A=0$ and $f|_B=1$. Which step is the key inductive construction in its proof?",
             "choices": [
-              "Assign open sets $U_r$ for each dyadic rational $r\\in[0,1]$ with $A\\subset U_r\\subset\\overline{U_r}\\subset U_s\\subset X\\setminus B$ for $r<s$, then set $f(x)=\\inf\\{r:x\\in U_r\\}$",
+              "Assign open sets $U_r$ for each dyadic rational $r\\in[0,1]$ with $A\\subset U_r\\subset\\overline{U_r}\\subset U_s\\subset X\\setminus B$ for $r\\lt s$, then set $f(x)=\\inf\\{r:x\\in U_r\\}$",
               "Use compactness of $A$ and $B$ to find a finite cover and define $f$ piecewise",
               "Apply the Tietze extension theorem directly to the indicator function of $A$",
               "Use second-countability to find a countable dense set of intermediate closed sets"
@@ -50073,7 +50073,7 @@ window.MVQuizBank = {
           },
           {
             "type": "mcq",
-            "q": "The Sorgenfrey line ($\\mathbb{R}$ with the lower-limit topology, basis $\\{[a,b):a<b\\}$) is $T_{3.5}$ (Tychonoff) but its square $\\mathbb{R}_\\ell^2$ is NOT normal. Which property does $\\mathbb{R}_\\ell^2$ fail that witnesses non-normality?",
+            "q": "The Sorgenfrey line ($\\mathbb{R}$ with the lower-limit topology, basis $\\{[a,b):a\\lt b\\}$) is $T_{3.5}$ (Tychonoff) but its square $\\mathbb{R}_\\ell^2$ is NOT normal. Which property does $\\mathbb{R}_\\ell^2$ fail that witnesses non-normality?",
             "choices": [
               "The anti-diagonal $\\{(x,-x):x\\in\\mathbb{R}\\}$ is closed and discrete, yet $\\mathbb{R}_\\ell^2$ is separable, contradicting Jones's lemma for normal spaces",
               "$\\mathbb{R}_\\ell^2$ is not Hausdorff because open sets in the product are too small",
@@ -50110,7 +50110,7 @@ window.MVQuizBank = {
             "q": "Why is the map $\\varphi\\colon A\\to A$, $a\\mapsto a^p$, a ring homomorphism when $A$ is an $\\mathbb{F}_p$-algebra?",
             "choices": [
               "Because $A$ is commutative.",
-              "Because the binomial coefficients $\\binom{p}{i}$ vanish in $\\mathbb{F}_p$ for $0<i<p$, so $(a+b)^p=a^p+b^p$.",
+              "Because the binomial coefficients $\\binom{p}{i}$ vanish in $\\mathbb{F}_p$ for $0\\lt i\\lt p$, so $(a+b)^p=a^p+b^p$.",
               "Because every element of $A$ is a unit.",
               "Because the characteristic equals zero."
             ],
@@ -50127,7 +50127,7 @@ window.MVQuizBank = {
               "$n^p$"
             ],
             "answer": 2,
-            "explain": "Locally with étale coordinates $x_1,\\ldots,x_n$, the basis of $F_*A$ over $A$ (where $A$ acts via $a\\mapsto a^p$) is $\\{x_1^{i_1}\\cdots x_n^{i_n}:0\\le i_j<p\\}$, which has cardinality $p^n$. The rank of $F_*\\mathcal{O}_X$ is $p^n$."
+            "explain": "Locally with étale coordinates $x_1,\\ldots,x_n$, the basis of $F_*A$ over $A$ (where $A$ acts via $a\\mapsto a^p$) is $\\{x_1^{i_1}\\cdots x_n^{i_n}:0\\le i_j\\lt p\\}$, which has cardinality $p^n$. The rank of $F_*\\mathcal{O}_X$ is $p^n$."
           },
           {
             "type": "mcq",
@@ -51111,7 +51111,7 @@ window.MVQuizBank = {
             "answer": 0.3679,
             "tol": 0.01,
             "hint": "Set $t=1$; this is the exponential tail formula.",
-            "explain": "At $t=1$: $\\mathbb{P}(Y>1)=\\mathbb{P}(-\\ln X>1)=\\mathbb{P}(X<e^{-1})=e^{-1}\\approx 0.3679$. In general $Y\\sim\\text{Exp}(1)$."
+            "explain": "At $t=1$: $\\mathbb{P}(Y>1)=\\mathbb{P}(-\\ln X>1)=\\mathbb{P}(X\\lt e^{-1})=e^{-1}\\approx 0.3679$. In general $Y\\sim\\text{Exp}(1)$."
           }
         ]
       },
@@ -51859,7 +51859,7 @@ window.MVQuizBank = {
               "$|W_t|$"
             ],
             "answer": 1,
-            "hint": "Compute $\\mathbb{E}[W_t^2\\mid\\mathcal{F}_s]$ for $s<t$.",
+            "hint": "Compute $\\mathbb{E}[W_t^2\\mid\\mathcal{F}_s]$ for $s\\lt t$.",
             "explain": "$\\mathbb{E}[W_t^2\\mid\\mathcal{F}_s]=W_s^2+(t-s)$, so $W_t^2-t$ is a martingale. Analogously, $e^{W_t-t/2}$ (not $e^{W_t}$) is the exponential martingale. $|W_t|$ is a sub-martingale, not a martingale."
           },
           {
@@ -53815,7 +53815,7 @@ window.MVQuizBank = {
             "type": "multi-select",
             "q": "Select every statement that is true of the classical Wigner ensembles GOE, GUE, GSE.",
             "choices": [
-              "The joint eigenvalue density carries a factor $\\prod_{i<j}|\\lambda_i-\\lambda_j|^\\beta$.",
+              "The joint eigenvalue density carries a factor $\\prod_{i\\lt j}|\\lambda_i-\\lambda_j|^\\beta$.",
               "Above-diagonal entries are independent.",
               "All three ensembles have the same level-spacing statistics.",
               "The eigenvalues are real for all three ensembles."
@@ -54422,14 +54422,14 @@ window.MVQuizBank = {
           },
           {
             "type": "proof-completion",
-            "q": "You are proving the intermediate value theorem: if $f\\colon[a,b]\\to\\mathbb{R}$ is continuous with $f(a)<0<f(b)$, then some $c\\in(a,b)$ has $f(c)=0$. The steps so far use the nested-interval bisection idea.",
+            "q": "You are proving the intermediate value theorem: if $f\\colon[a,b]\\to\\mathbb{R}$ is continuous with $f(a)<0\\lt f(b)$, then some $c\\in(a,b)$ has $f(c)=0$. The steps so far use the nested-interval bisection idea.",
             "steps": [
               "Set $S = \\{x\\in[a,b] : f(x) < 0\\}$. Since $a\\in S$, $S$ is nonempty, and $S$ is bounded above by $b$.",
               "Let $c = \\sup S \\in [a,b]$. By the least-upper-bound property of $\\mathbb{R}$, $c$ exists.",
               "We want to rule out $f(c)<0$ and $f(c)>0$, which will force $f(c)=0$."
             ],
             "choices": [
-              "If $f(c)<0$ then $c<b$, and by continuity there is $\\delta>0$ with $f(x)<0$ on $[c,c+\\delta)$; but then $c+\\delta/2\\in S$ contradicts $c=\\sup S$.",
+              "If $f(c)<0$ then $c\\lt b$, and by continuity there is $\\delta>0$ with $f(x)<0$ on $[c,c+\\delta)$; but then $c+\\delta/2\\in S$ contradicts $c=\\sup S$.",
               "Since $c$ is a supremum of $S$, it must lie in $S$, so $f(c)<0$; invoke Heine–Borel and conclude.",
               "Apply Rolle's theorem on $[a,b]$ to produce the root directly.",
               "Note that $f$ is uniformly continuous on $[a,b]$, so it extends to the one-point compactification."
@@ -54543,7 +54543,7 @@ window.MVQuizBank = {
           },
           {
             "type": "numeric",
-            "q": "The series $\\sum_{n=1}^\\infty \\frac{(-1)^n}{n} x^n$ converges uniformly on $[-r, r]$ for $0<r<1$. Using the Weierstrass M-test with $M_n = r^n/n$, compute $\\sum_{n=1}^{\\infty} M_n$ at $r=1/2$. (Give the exact decimal value to 4 places.)",
+            "q": "The series $\\sum_{n=1}^\\infty \\frac{(-1)^n}{n} x^n$ converges uniformly on $[-r, r]$ for $0\\lt r<1$. Using the Weierstrass M-test with $M_n = r^n/n$, compute $\\sum_{n=1}^{\\infty} M_n$ at $r=1/2$. (Give the exact decimal value to 4 places.)",
             "answer": 0.6931,
             "tol": 0.001,
             "explain": "$\\sum_{n=1}^\\infty (1/2)^n/n = -\\ln(1-1/2) = \\ln 2 \\approx 0.6931$. The M-test bound is $\\ln 2$, confirming absolute and uniform convergence on $[-1/2,\\,1/2]$."
@@ -54898,7 +54898,7 @@ window.MVQuizBank = {
             ],
             "answer": 0,
             "hint": "You need a geometric bound on $|a_n x^n|$.",
-            "explain": "Multiplying the bound $|a_n| < \\rho^{-n}$ by $|x|^n$ gives $|a_n x^n| < (|x|/\\rho)^n$, a convergent geometric series. So the power series converges absolutely for $|x|<R$. The reverse direction (divergence for $|x|>R$) uses a symmetric argument: infinitely many $|a_n|^{1/n}$ are near $1/R$, making terms not go to zero."
+            "explain": "Multiplying the bound $|a_n| < \\rho^{-n}$ by $|x|^n$ gives $|a_n x^n| < (|x|/\\rho)^n$, a convergent geometric series. So the power series converges absolutely for $|x|\\lt R$. The reverse direction (divergence for $|x|>R$) uses a symmetric argument: infinitely many $|a_n|^{1/n}$ are near $1/R$, making terms not go to zero."
           }
         ]
       },
@@ -55082,7 +55082,7 @@ window.MVQuizBank = {
             ],
             "answer": 0,
             "hint": "The key issue is making the tail sum's $k$-th derivatives converge.",
-            "explain": "The delicate step is controlling all lower derivatives. Scaling the cutoff support very narrowly (large $\\lambda_n$) makes each $f_n$'s $k$-th derivatives for $k<n$ tiny in sup norm. Choosing $\\lambda_n$ to enforce $\\|f_n^{(k)}\\|_\\infty < 2^{-n}$ for all $k<n$ makes $\\sum f_n^{(k)}$ converge uniformly for every $k$. Hence $f=\\sum f_n$ is smooth with the prescribed derivatives at $0$. The naive Taylor series (choice 3) can diverge everywhere except $x=0$."
+            "explain": "The delicate step is controlling all lower derivatives. Scaling the cutoff support very narrowly (large $\\lambda_n$) makes each $f_n$'s $k$-th derivatives for $k\\lt n$ tiny in sup norm. Choosing $\\lambda_n$ to enforce $\\|f_n^{(k)}\\|_\\infty < 2^{-n}$ for all $k\\lt n$ makes $\\sum f_n^{(k)}$ converge uniformly for every $k$. Hence $f=\\sum f_n$ is smooth with the prescribed derivatives at $0$. The naive Taylor series (choice 3) can diverge everywhere except $x=0$."
           },
           {
             "type": "mcq",
@@ -55249,7 +55249,7 @@ window.MVQuizBank = {
               3
             ],
             "hint": "Each step strictly drops a property: continuity of $f'$; uniform bound on the difference quotient; the AC inequality on disjoint intervals; closing the gap with the Cantor function.",
-            "explain": "On $[a,b]$ each containment is strict. $C^1 \\subsetneq$ Lipschitz: $f'$ continuous on a compact is bounded, so $f$ is Lipschitz with constant $\\sup|f'|$; $f(x)=|x|$ is Lipschitz but not $C^1$. Lipschitz $\\subsetneq$ AC: the AC sum is bounded by $L\\sum(b_k-a_k)<L\\delta$; $f(x)=\\sqrt{x}$ on $[0,1]$ is AC (its derivative $1/(2\\sqrt x)$ is in $L^1$) but not Lipschitz. AC $\\subsetneq$ BV $\\cap C$: AC functions are uniformly continuous and have finite variation (split $[a,b]$ into $\\lceil (b-a)/\\delta\\rceil$ chunks; the AC sum bounds the variation on each); the Cantor function is in BV $\\cap C$ but not AC. Hölder $C^{0,\\alpha}$ for $\\alpha<1$ is deliberately omitted: the Cantor function is $\\alpha$-Hölder for $\\alpha=\\log 2/\\log 3$ yet not AC, so Hölder and AC are incomparable on $[a,b]$ — Hölder does NOT imply AC (only $\\alpha=1$, i.e. Lipschitz, does)."
+            "explain": "On $[a,b]$ each containment is strict. $C^1 \\subsetneq$ Lipschitz: $f'$ continuous on a compact is bounded, so $f$ is Lipschitz with constant $\\sup|f'|$; $f(x)=|x|$ is Lipschitz but not $C^1$. Lipschitz $\\subsetneq$ AC: the AC sum is bounded by $L\\sum(b_k-a_k)\\lt L\\delta$; $f(x)=\\sqrt{x}$ on $[0,1]$ is AC (its derivative $1/(2\\sqrt x)$ is in $L^1$) but not Lipschitz. AC $\\subsetneq$ BV $\\cap C$: AC functions are uniformly continuous and have finite variation (split $[a,b]$ into $\\lceil (b-a)/\\delta\\rceil$ chunks; the AC sum bounds the variation on each); the Cantor function is in BV $\\cap C$ but not AC. Hölder $C^{0,\\alpha}$ for $\\alpha<1$ is deliberately omitted: the Cantor function is $\\alpha$-Hölder for $\\alpha=\\log 2/\\log 3$ yet not AC, so Hölder and AC are incomparable on $[a,b]$ — Hölder does NOT imply AC (only $\\alpha=1$, i.e. Lipschitz, does)."
           }
         ]
       },
@@ -55314,7 +55314,7 @@ window.MVQuizBank = {
             "answer": 0.5,
             "tol": 0.000001,
             "hint": "For small $r>0$, the integral counts the length of $[x-r,x+r]\\cap[0,1]$.",
-            "explain": "For $0<r<1$, $[1-r,1+r]\\cap[0,1] = [1-r,1]$ has length $r$, so the average is $r/(2r) = 1/2$. The point $x=1$ is therefore NOT a Lebesgue point of $f$ (the average converges to $1/2$, not to the value $f(1)=1$). The set of non-Lebesgue points has measure zero — here it is just $\\{0,1\\}$."
+            "explain": "For $0\\lt r<1$, $[1-r,1+r]\\cap[0,1] = [1-r,1]$ has length $r$, so the average is $r/(2r) = 1/2$. The point $x=1$ is therefore NOT a Lebesgue point of $f$ (the average converges to $1/2$, not to the value $f(1)=1$). The set of non-Lebesgue points has measure zero — here it is just $\\{0,1\\}$."
           },
           {
             "type": "multi-select",
@@ -60782,7 +60782,7 @@ window.MVQuizBank = {
               "A degeneracy followed by a face on the same index undoes the degeneracy."
             ],
             "answer": 0,
-            "explain": "Inserting two missing vertices in either order gives the same coface composite up to a relabeling shift, which is the cosimplicial identity $d^j d^i = d^i d^{j-1}$ for $i<j$. The other options describe the $s^j s^i$ identity (option 2) and two of the mixed face/degeneracy identities (options 3 and 4)."
+            "explain": "Inserting two missing vertices in either order gives the same coface composite up to a relabeling shift, which is the cosimplicial identity $d^j d^i = d^i d^{j-1}$ for $i\\lt j$. The other options describe the $s^j s^i$ identity (option 2) and two of the mixed face/degeneracy identities (options 3 and 4)."
           }
         ]
       },
@@ -62476,7 +62476,7 @@ window.MVQuizBank = {
               "$\\dfrac{v_1 v_2}{c}$"
             ],
             "answer": 1,
-            "explain": "The relativistic velocity-addition formula. It guarantees $|v_3|<c$ whenever $|v_1|,|v_2|<c$, and gives $v_3 = c$ iff one input was already $c$."
+            "explain": "The relativistic velocity-addition formula. It guarantees $|v_3|\\lt c$ whenever $|v_1|,|v_2|\\lt c$, and gives $v_3 = c$ iff one input was already $c$."
           }
         ]
       },
@@ -64816,7 +64816,7 @@ window.MVQuizBank = {
               "paths of finite total variation"
             ],
             "answer": 0,
-            "hint": "$W_0=0$, increments are independent and $\\mathcal{N}(0,t-s)$-distributed for $0\\le s<t$, and paths are continuous but nowhere differentiable.",
+            "hint": "$W_0=0$, increments are independent and $\\mathcal{N}(0,t-s)$-distributed for $0\\le s\\lt t$, and paths are continuous but nowhere differentiable.",
             "explain": "Independent stationary Gaussian increments $W_t-W_s\\sim\\mathcal{N}(0,t-s)$ and continuous (but nowhere differentiable, infinite total variation) paths characterise Brownian motion."
           },
           {
@@ -68252,7 +68252,7 @@ window.MVQuizBank = {
               "$\\psi$ is $N$ times continuously differentiable"
             ],
             "answer": 1,
-            "explain": "Vanishing-moment conditions are about $\\int x^k\\psi=0$ for $k<N$. Equivalently $\\hat\\psi(\\xi)$ has a zero of order $N$ at $\\xi=0$. They control how fast wavelet coefficients decay on smooth signals: if $f\\in C^N$ near $2^{-j}k$, then $|\\langle f,\\psi_{j,k}\\rangle|=O(2^{-j(N+1/2)})$."
+            "explain": "Vanishing-moment conditions are about $\\int x^k\\psi=0$ for $k\\lt N$. Equivalently $\\hat\\psi(\\xi)$ has a zero of order $N$ at $\\xi=0$. They control how fast wavelet coefficients decay on smooth signals: if $f\\in C^N$ near $2^{-j}k$, then $|\\langle f,\\psi_{j,k}\\rangle|=O(2^{-j(N+1/2)})$."
           },
           {
             "type": "mcq",
@@ -68432,7 +68432,7 @@ window.MVQuizBank = {
           },
           {
             "type": "mcq",
-            "q": "In a biorthogonal pair, what do the analysis vanishing moments $\\int x^k\\tilde\\psi(x)\\,dx=0$ for $k<\\tilde N$ control, versus the synthesis vanishing moments $\\int x^k\\psi(x)\\,dx=0$ for $k<N$?",
+            "q": "In a biorthogonal pair, what do the analysis vanishing moments $\\int x^k\\tilde\\psi(x)\\,dx=0$ for $k<\\tilde N$ control, versus the synthesis vanishing moments $\\int x^k\\psi(x)\\,dx=0$ for $k\\lt N$?",
             "choices": [
               "Both control the same thing — they always equal each other",
               "Analysis moments control compression of smooth signals (small $c_{j,k}$); synthesis moments control the smoothness of the reconstruction",
@@ -69055,7 +69055,7 @@ window.MVQuizBank = {
               "Because $\\mathbb R$ is well-ordered by the standard order"
             ],
             "answer": 1,
-            "explain": "$\\mathbb R\\hookrightarrow\\mathcal P(\\mathbb Q)\\cong 2^{\\aleph_0}$ by sending $r\\mapsto\\{q\\in\\mathbb Q: q<r\\}$. Conversely $2^{\\aleph_0}\\hookrightarrow\\mathbb R$ via binary expansions (after fixing the $0.0\\overline 1=0.1\\overline 0$ ambiguity). Cantor–Schröder–Bernstein gives the bijection."
+            "explain": "$\\mathbb R\\hookrightarrow\\mathcal P(\\mathbb Q)\\cong 2^{\\aleph_0}$ by sending $r\\mapsto\\{q\\in\\mathbb Q: q\\lt r\\}$. Conversely $2^{\\aleph_0}\\hookrightarrow\\mathbb R$ via binary expansions (after fixing the $0.0\\overline 1=0.1\\overline 0$ ambiguity). Cantor–Schröder–Bernstein gives the bijection."
           },
           {
             "type": "mcq",

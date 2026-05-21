@@ -62,6 +62,21 @@
     el.textContent = tex;
   }
 
+  // We read each option's label off `o.innerHTML` (so embedded markup like
+  // <sub>/<sup> survives). But innerHTML *re-escapes* a literal `<`/`>`/`&`
+  // inside the option's text — e.g. an authored `$1<p<\infty$` comes back as
+  // `$1&lt;p&lt;\infty$`. Handing that straight to KaTeX makes it choke on the
+  // `&`, leaving the option as a raw error badge. The TeX between `$…$` is
+  // source, not markup, so decode entity references back to characters before
+  // rendering. (The non-TeX HTML segments stay on the innerHTML path below so
+  // `&nbsp;` and real tags are preserved.)
+  const _decoder = typeof document !== 'undefined' ? document.createElement('textarea') : null;
+  function decodeEntities(s){
+    if(!_decoder || s.indexOf('&') < 0) return s;
+    _decoder.innerHTML = s;
+    return _decoder.value;
+  }
+
   // Split raw option innerHTML into text/html segments and $…$ TeX segments,
   // render accordingly into `target`.
   function renderMixed(target, raw){
@@ -72,7 +87,7 @@
     for(const part of parts){
       if(!part) continue;
       if(part.length >= 2 && part.charCodeAt(0) === 36 && part.charCodeAt(part.length - 1) === 36){
-        const tex = part.slice(1, -1);
+        const tex = decodeEntities(part.slice(1, -1));
         const span = document.createElement('span');
         renderTexInto(span, tex);
         target.appendChild(span);

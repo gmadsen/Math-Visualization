@@ -35,7 +35,7 @@
             "A degeneracy followed by a face on the same index undoes the degeneracy."
           ],
           "answer": 0,
-          "explain": "Inserting two missing vertices in either order gives the same coface composite up to a relabeling shift, which is the cosimplicial identity $d^j d^i = d^i d^{j-1}$ for $i<j$. The other options describe the $s^j s^i$ identity (option 2) and two of the mixed face/degeneracy identities (options 3 and 4)."
+          "explain": "Inserting two missing vertices in either order gives the same coface composite up to a relabeling shift, which is the cosimplicial identity $d^j d^i = d^i d^{j-1}$ for $i\\lt j$. The other options describe the $s^j s^i$ identity (option 2) and two of the mixed face/degeneracy identities (options 3 and 4)."
         }
       ]
     },

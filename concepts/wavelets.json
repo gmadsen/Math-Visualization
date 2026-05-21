@@ -41,7 +41,7 @@
       "tags": [
         "classification"
       ],
-      "blurb": "Compactly supported orthonormal wavelets with $N$ vanishing moments, $\\int x^k\\psi(x)\\,dx=0$ for $k<N$. Daubechies constructed them by spectral-factoring the polynomial $P(y)=\\sum_{k=0}^{N-1}\\binom{N-1+k}{k}y^k$ to obtain a quadrature mirror filter $h_n$ — the smoother the wavelet, the longer its support ($\\operatorname{supp}\\psi=[0,2N-1]$)."
+      "blurb": "Compactly supported orthonormal wavelets with $N$ vanishing moments, $\\int x^k\\psi(x)\\,dx=0$ for $k\\lt N$. Daubechies constructed them by spectral-factoring the polynomial $P(y)=\\sum_{k=0}^{N-1}\\binom{N-1+k}{k}y^k$ to obtain a quadrature mirror filter $h_n$ — the smoother the wavelet, the longer its support ($\\operatorname{supp}\\psi=[0,2N-1]$)."
     },
     {
       "id": "w-discrete-transform",

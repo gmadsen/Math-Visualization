@@ -141,6 +141,16 @@ const STEPS = [
   // regression.
   { name: 'widget-interactivity', script: 'audit-widget-interactivity.mjs',
     fix: false, extraArgs: ['--strict'] },
+  // CI gate: CLASS A math-rendering leaks — a raw `<letter` inside a `$…$` /
+  // `$$…$$` / `\(…\)` / `\[…\]` span, which the HTML tokenizer reads as a
+  // start-tag and swallows following prose (reader-visible content loss). The
+  // corpus was swept to zero; --strict fails if any reappears. Strict in BOTH
+  // fix and --no-fix mode so a regression is caught on the developer's machine
+  // before push (mirrors the widget-interactivity gate above). Fix a flagged
+  // hit with `node scripts/audit-math-rendering-leaks.mjs --fix` (rewrites
+  // `&lt;` in prose / `\lt ` in quiz+concept JSON), or hand-fix widget params.
+  { name: 'math-leaks', script: 'audit-math-rendering-leaks.mjs',
+    fix: false, extraArgs: ['--strict'] },
   { name: 'doc-drift',  script: 'audit-doc-drift.mjs',          fix: false },
 ];
 

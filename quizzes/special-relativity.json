@@ -72,7 +72,7 @@
             "$\\dfrac{v_1 v_2}{c}$"
           ],
           "answer": 1,
-          "explain": "The relativistic velocity-addition formula. It guarantees $|v_3|<c$ whenever $|v_1|,|v_2|<c$, and gives $v_3 = c$ iff one input was already $c$."
+          "explain": "The relativistic velocity-addition formula. It guarantees $|v_3|\\lt c$ whenever $|v_1|,|v_2|\\lt c$, and gives $v_3 = c$ iff one input was already $c$."
         }
       ]
     },

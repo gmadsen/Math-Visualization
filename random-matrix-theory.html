@@ -278,7 +278,7 @@ function drawNode(svg, x, y, label, opts={}){
 
 <p>In every case the entries above the diagonal are independent, complex/quaternion entries split into independent Gaussian real components, and the variance is calibrated so that the joint density of eigenvalues $\lambda_1\le\cdots\le\lambda_N$ has the explicit closed form</p>
 
-<p style="text-align:center">$p_\beta(\lambda)\;=\;\frac{1}{Z_{N,\beta}}\;\prod_{i<j}|\lambda_i-\lambda_j|^{\beta}\;e^{-\frac{\beta}{4}\sum_i \lambda_i^2}.$</p>
+<p style="text-align:center">$p_\beta(\lambda)\;=\;\frac{1}{Z_{N,\beta}}\;\prod_{i&lt;j}|\lambda_i-\lambda_j|^{\beta}\;e^{-\frac{\beta}{4}\sum_i \lambda_i^2}.$</p>
 
 <p>The Vandermonde factor $\prod|\lambda_i-\lambda_j|^\beta$ is <em>level repulsion</em>: eigenvalues hate being close, and the strength of the repulsion is the Dyson index $\beta$. Setting $\beta=0$ (the "Poisson" limit) would put i.i.d.\ eigenvalues on the line — and is exactly what real-symmetric-but-non-Wigner ensembles like integrable Hamiltonians give. The pattern is Berry's <em>conjectures of quantum chaos</em>: integrable spectra are Poisson, chaotic spectra are GOE/GUE.</p>
 
@@ -689,7 +689,7 @@ function drawNode(svg, x, y, label, opts={}){
 <ul>
   <li>$c<1$ (more samples than dimensions): bulk on $[(1-\sqrt c)^2,(1+\sqrt c)^2]$, soft edges, no zero eigenvalues.</li>
   <li>$c=1$ (square): lower edge touches zero — the density has a $1/\sqrt x$ singularity at $0$. The classical "barely-invertible" regime.</li>
-  <li>$c>1$ (more dimensions than samples): the rank of $\hat\Sigma$ is $\le n<p$, so $p-n$ eigenvalues are forced to $0$ — that's the $\delta_0$ atom of mass $1-1/c$.</li>
+  <li>$c>1$ (more dimensions than samples): the rank of $\hat\Sigma$ is $\le n&lt;p$, so $p-n$ eigenvalues are forced to $0$ — that's the $\delta_0$ atom of mass $1-1/c$.</li>
 </ul>
 
 <p>The atom at $0$ is not a smooth limit: it lives because the matrix is rank-deficient. Above it, the bulk still has the Marchenko–Pastur shape but on the shifted range $[(1-\sqrt c)^2,(1+\sqrt c)^2]$ (with $a=(1-\sqrt c)^2>0$ for $c>1$ as well).</p>

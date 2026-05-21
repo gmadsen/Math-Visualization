@@ -36,7 +36,10 @@
 //   - CLASS C (SVG <text>) stays topic-scoped — that's where widgets live.
 // Exits 0 (advisory) unless `--strict`, which exits 1 if any CLASS A hit exists
 // (the only reader-visible-bug class). `--write` dumps
-// audits/math-rendering-leaks.md.
+// audits/math-rendering-leaks.md. `--fix` rewrites every CLASS A hazard at its
+// source — `&lt;` in content/<topic>.json prose (single HTML parse), `\lt ` in
+// quiz/concept JSON (KaTeX source, dual-path safe) — then exits; re-run after
+// `rebuild.mjs` to confirm CLASS A is clear.
 //
 // Zero runtime deps beyond the shared content model + span extractor.
 
@@ -45,10 +48,14 @@ import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { loadContentModel } from './lib/content-model.mjs';
 import { extractSpans } from './lib/math-spans.mjs';
+import { loadTopicContent, saveTopicContent } from './lib/json-block-writer.mjs';
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const STRICT = process.argv.includes('--strict');
 const WRITE = process.argv.includes('--write');
+// `--fix` rewrites each CLASS A hazard at its source (content/quiz/concept JSON)
+// instead of reporting it — see the "── --fix" section below.
+const FIX = process.argv.includes('--fix');
 
 // `<` immediately followed by a letter, `/`, or `!` is an HTML tag-open /
 // end-tag / markup-declaration. `<` + digit / space / `\` is harmless.
@@ -94,12 +101,16 @@ function tagOpenHits(str) {
 //   - The caps only stop a stray/unclosed delimiter from running away; at 4000
 //     they sit well above the longest real block, so a genuinely long block
 //     with a tag-open is NOT dropped as a false negative once `--strict` gates.
-const PROSE_DELIMS = [
-  /(?<!\$)\$([^$\n]{1,600})\$(?!\$)/g,  // $…$ inline (single-line, not $$)
-  /(?<!\\)\$\$([\s\S]{1,4000}?)\$\$/g,  // $$…$$ display (opener not an escaped \$)
-  /(?<!\\)\\\(([\s\S]{1,600}?)\\\)/g,   // \(…\) inline
-  /(?<!\\)\\\[([\s\S]{1,4000}?)\\\]/g,  // \[…\] display
+// Each entry pairs a span matcher with a `wrap(body)` that rebuilds the span
+// from its delimiters — the matcher's capture group 1 is the body, so the
+// `--fix` pass can rewrite a body and re-emit the exact delimiters.
+const DELIMS = [
+  { re: /(?<!\$)\$([^$\n]{1,600})\$(?!\$)/g, wrap: (b) => `$${b}$` },   // $…$ inline (single-line, not $$)
+  { re: /(?<!\\)\$\$([\s\S]{1,4000}?)\$\$/g, wrap: (b) => `$$${b}$$` }, // $$…$$ display (opener not an escaped \$)
+  { re: /(?<!\\)\\\(([\s\S]{1,600}?)\\\)/g, wrap: (b) => `\\(${b}\\)` }, // \(…\) inline
+  { re: /(?<!\\)\\\[([\s\S]{1,4000}?)\\\]/g, wrap: (b) => `\\[${b}\\]` }, // \[…\] display
 ];
+const PROSE_DELIMS = DELIMS.map((d) => d.re);
 
 function scanProseString(str, file, where) {
   for (const re of PROSE_DELIMS) {
@@ -159,9 +170,149 @@ function scanScriptForBareRenderCalls(scriptText, file) {
   }
 }
 
+// ── --fix transform ───────────────────────────────────────────────────────
+// Rewrite the CLASS A hazard — `<` followed by a letter / `/` / `!` — INSIDE a
+// math-span body to a safe token, leaving `<`+digit/space/`\`, every `>`, and
+// everything OUTSIDE the span (real <p>/<div> tags, JS) untouched. We re-emit
+// each span via the matcher's `wrap`, so a span without a hazard is returned
+// byte-for-byte. The token differs by surface:
+//   - HTML prose (one HTML parse): `&lt;` — the browser decodes it back to `<`
+//     before KaTeX runs; matches the existing static-prose corpus convention.
+//   - KaTeX-source JSON fields (quiz `explain` is dual-path innerHTML + a
+//     textContent-derived hint; concept blurb feeds SVG labels / hover cards /
+//     dropdowns): `\lt ` — universal, survives the textContent path where
+//     `&lt;` would render literally or KaTeX-error.
+function fixSpans(str, token) {
+  if (typeof str !== 'string' || !str.includes('<')) return { out: str, n: 0 };
+  let n = 0;
+  let out = str;
+  for (const d of DELIMS) {
+    out = out.replace(new RegExp(d.re.source, d.re.flags), (full, body) => {
+      let changed = false;
+      const fixed = body.replace(/<([a-zA-Z/!])/g, (_m, c) => { changed = true; n++; return token + c; });
+      return changed ? d.wrap(fixed) : full;
+    });
+  }
+  return { out, n };
+}
+
+// CLASS A fix for raw HTML strings (content/<topic>.json rawHead / rawBody* /
+// raw blocks): apply `fixSpans` ONLY outside <script>/<style> regions. Those
+// bodies are script/style-data to the tokenizer — the SCAN strips them for the
+// same reason — and hold JS (`1<<n` bit-shifts, `` `${…}` `` template literals
+// with embedded `<strong>…</strong>`) that `fixSpans` would otherwise mangle.
+function fixProse(str) {
+  if (typeof str !== 'string') return { out: str, n: 0 };
+  let n = 0;
+  const parts = [];
+  const re = /<script\b[\s\S]*?<\/script>|<style\b[\s\S]*?<\/style>/gi;
+  let last = 0;
+  let m;
+  while ((m = re.exec(str))) {
+    const r = fixSpans(str.slice(last, m.index), '&lt;');
+    parts.push(r.out, m[0]); // fixed prose, then the script/style block verbatim
+    n += r.n;
+    last = m.index + m[0].length;
+  }
+  const tail = fixSpans(str.slice(last), '&lt;');
+  parts.push(tail.out);
+  n += tail.n;
+  return { out: parts.join(''), n };
+}
+
+// Apply `fixSpans` to every string in a quiz/concept JSON file, patching the
+// raw file text token-for-token rather than re-serializing. Re-serializing via
+// JSON.stringify would canonicalize layout and reformat any hand-authored
+// inline array (`"answer": [0,1,3]` → one element per line) — a noisy,
+// layout-only diff. Instead we collect each (original → fixed) string the
+// span-fixer changes and replace its exact JSON-encoded token in the text, so
+// only the changed string literals move and the file's formatting is preserved.
+// `fixSpans` only touches `<letter` inside a math span, and `$` appears only
+// inside JSON string values (never in JSON syntax), so this is safe for the
+// KaTeX-source banks (no embedded JS / HTML tags to mis-handle).
+function fixJsonFile(path, token) {
+  if (!existsSync(path)) return 0;
+  let text;
+  let obj;
+  try {
+    text = readFileSync(path, 'utf8');
+    obj = JSON.parse(text);
+  } catch {
+    return 0; // missing or malformed — leave it for the validators to flag
+  }
+  const pairs = new Map(); // original string -> fixed string (deduped)
+  let n = 0;
+  (function walk(node) {
+    if (typeof node === 'string') {
+      if (pairs.has(node)) return;
+      const r = fixSpans(node, token);
+      if (r.n > 0) { pairs.set(node, r.out); n += r.n; }
+      return;
+    }
+    if (Array.isArray(node)) { node.forEach(walk); return; }
+    if (node && typeof node === 'object') { Object.values(node).forEach(walk); }
+  })(obj);
+  if (pairs.size === 0) return 0;
+  for (const [orig, fixed] of pairs) {
+    // JSON.stringify gives each string's exact on-disk token (quotes + the same
+    // backslash/quote escaping the file uses), so the replace is layout-neutral.
+    text = text.split(JSON.stringify(orig)).join(JSON.stringify(fixed));
+  }
+  writeFileSync(path, text);
+  return n;
+}
+
+// NOTE on scope: --fix deliberately does NOT touch widget `params` in
+// content/<topic>.json. The same param key (`bodyMarkup`, `hint`, …) holds raw
+// JS in some widgets and HTML markup in others, and several keys are pure JS
+// (`bodyScript`, `scriptBodyLiteral`, `controlsLiteral`, `templateLiteral`, …),
+// so no key-name rule can tell prose from code — auto-rewriting would corrupt
+// `1<<n` shifts and `${…}` literals. A hazard that survives in widget markup
+// stays a (small, hand-fixable) CLASS A hit; the --strict gate is what flags it.
+async function runFix(model) {
+  let fixes = 0;
+  const report = [];
+  // CLASS A in topic prose → content/<topic>.json raw strings (`&lt;`).
+  for (const topicId of model.topicIds) {
+    let doc;
+    try { doc = loadTopicContent(topicId, repoRoot); } catch { continue; }
+    let n = 0;
+    for (const key of ['rawHead', 'rawBodyPrefix', 'rawBodySuffix']) {
+      const r = fixProse(doc[key]);
+      doc[key] = r.out; n += r.n;
+    }
+    for (const s of doc.sections || []) {
+      for (const b of s.blocks || []) {
+        if (b.type === 'raw' && typeof b.html === 'string') {
+          const r = fixProse(b.html); b.html = r.out; n += r.n;
+        }
+      }
+    }
+    if (n > 0 && saveTopicContent(topicId, doc, repoRoot)) { fixes += n; report.push(`  content/${topicId}.json  +${n}`); }
+  }
+  // CLASS A in quiz banks + concept graph → `\lt ` (KaTeX-source, dual-path safe).
+  for (const topicId of model.topicIds) {
+    for (const rel of [`quizzes/${topicId}.json`, `concepts/${topicId}.json`]) {
+      const n = fixJsonFile(join(repoRoot, rel), '\\lt ');
+      if (n > 0) { fixes += n; report.push(`  ${rel}  +${n}`); }
+    }
+  }
+  const capN = fixJsonFile(join(repoRoot, 'concepts', 'capstones.json'), '\\lt ');
+  if (capN > 0) { fixes += capN; report.push(`  concepts/capstones.json  +${capN}`); }
+
+  console.log(`audit-math-rendering-leaks --fix: rewrote ${fixes} CLASS A hazard(s)`);
+  if (report.length) console.log(report.sort().join('\n'));
+  console.log('\nNext: `node scripts/rebuild.mjs` (regenerate HTML + bundles), then re-run the audit (no flag) to confirm CLASS A is clear.');
+}
+
 // ── Main ─────────────────────────────────────────────────────────────────────
 
 const model = await loadContentModel();
+
+if (FIX) {
+  await runFix(model);
+  process.exit(0);
+}
 
 // CLASS A prose + CLASS B inline-script scans over EVERY top-level `*.html`
 // (topics AND index/pathway/updates/capstone-story pages). The tokenizer eats

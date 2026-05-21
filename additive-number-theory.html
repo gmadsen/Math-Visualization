@@ -382,7 +382,7 @@ if and only if $p\equiv 1\pmod 4$. The representation is then unique up to order
 <p>If $p=a^2+b^2$ with $p$ odd, reduce mod $4$: squares are $0$ or $1$, so $a^2+b^2\in\{0,1,2\}\pmod 4$. Since $p$ is odd, we need $a^2+b^2\equiv 1\pmod 4$, hence $p\equiv 1\pmod 4$.</p>
 
 <h3>The hard direction: Euler's descent</h3>
-<p>Assume $p\equiv 1\pmod 4$. Then $-1$ is a quadratic residue mod $p$ (by Euler's criterion, $(-1)^{(p-1)/2}=1$), so there is $m$ with $m^2\equiv -1\pmod p$, giving $m^2+1^2\equiv 0\pmod p$. Thus $p\mid a^2+b^2$ for some $a,b$ not both divisible by $p$. Now the descent: starting from a multiple $kp=a^2+b^2$ with $k<p$, one finds a smaller multiple $k'p=a'^2+b'^2$ with $k'<k$, using the Brahmagupta–Fibonacci identity
+<p>Assume $p\equiv 1\pmod 4$. Then $-1$ is a quadratic residue mod $p$ (by Euler's criterion, $(-1)^{(p-1)/2}=1$), so there is $m$ with $m^2\equiv -1\pmod p$, giving $m^2+1^2\equiv 0\pmod p$. Thus $p\mid a^2+b^2$ for some $a,b$ not both divisible by $p$. Now the descent: starting from a multiple $kp=a^2+b^2$ with $k&lt;p$, one finds a smaller multiple $k'p=a'^2+b'^2$ with $k'&lt;k$, using the Brahmagupta–Fibonacci identity
 $$(a^2+b^2)(c^2+d^2)=(ac+bd)^2+(ad-bc)^2.$$
 Iterating until $k=1$ produces $p=a^2+b^2$.</p>
 
@@ -791,8 +791,8 @@ $$n=a^2+b^2+c^2+d^2.$$</div>
 $$(a_1^2+a_2^2+a_3^2+a_4^2)(b_1^2+b_2^2+b_3^2+b_4^2) = c_1^2+c_2^2+c_3^2+c_4^2$$
   for explicit $c_i$ that are bilinear in $a,b$. (This is the norm form of the Hurwitz quaternions $\mathbb{H}_\mathbb{Z}$, exactly as Brahmagupta–Fibonacci is the norm form of $\mathbb{Z}[i]$.)</li>
   <li><strong>Reduce to primes.</strong> By (1), it suffices to show every prime $p$ is a sum of four squares.</li>
-  <li><strong>Prime step.</strong> For odd prime $p$, the sets $\{a^2\bmod p\}$ and $\{-1-b^2\bmod p\}$ each have $(p+1)/2$ elements, so they intersect: $\exists a,b$ with $a^2+b^2\equiv -1\pmod p$, i.e. $mp=a^2+b^2+1$ for some $m<p$.</li>
-  <li><strong>Descent.</strong> Starting from a positive multiple $mp$ with $1\le m<p$ that is a sum of four squares, produce a strictly smaller such multiple. Iterate to $m=1$.</li>
+  <li><strong>Prime step.</strong> For odd prime $p$, the sets $\{a^2\bmod p\}$ and $\{-1-b^2\bmod p\}$ each have $(p+1)/2$ elements, so they intersect: $\exists a,b$ with $a^2+b^2\equiv -1\pmod p$, i.e. $mp=a^2+b^2+1$ for some $m&lt;p$.</li>
+  <li><strong>Descent.</strong> Starting from a positive multiple $mp$ with $1\le m&lt;p$ that is a sum of four squares, produce a strictly smaller such multiple. Iterate to $m=1$.</li>
 </ol>
 
 <p>Jacobi improved Lagrange to a <em>count</em>:</p>

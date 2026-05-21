@@ -9,7 +9,7 @@
           "q": "Why is the map $\\varphi\\colon A\\to A$, $a\\mapsto a^p$, a ring homomorphism when $A$ is an $\\mathbb{F}_p$-algebra?",
           "choices": [
             "Because $A$ is commutative.",
-            "Because the binomial coefficients $\\binom{p}{i}$ vanish in $\\mathbb{F}_p$ for $0<i<p$, so $(a+b)^p=a^p+b^p$.",
+            "Because the binomial coefficients $\\binom{p}{i}$ vanish in $\\mathbb{F}_p$ for $0\\lt i\\lt p$, so $(a+b)^p=a^p+b^p$.",
             "Because every element of $A$ is a unit.",
             "Because the characteristic equals zero."
           ],
@@ -26,7 +26,7 @@
             "$n^p$"
           ],
           "answer": 2,
-          "explain": "Locally with étale coordinates $x_1,\\ldots,x_n$, the basis of $F_*A$ over $A$ (where $A$ acts via $a\\mapsto a^p$) is $\\{x_1^{i_1}\\cdots x_n^{i_n}:0\\le i_j<p\\}$, which has cardinality $p^n$. The rank of $F_*\\mathcal{O}_X$ is $p^n$."
+          "explain": "Locally with étale coordinates $x_1,\\ldots,x_n$, the basis of $F_*A$ over $A$ (where $A$ acts via $a\\mapsto a^p$) is $\\{x_1^{i_1}\\cdots x_n^{i_n}:0\\le i_j\\lt p\\}$, which has cardinality $p^n$. The rank of $F_*\\mathcal{O}_X$ is $p^n$."
         },
         {
           "type": "mcq",

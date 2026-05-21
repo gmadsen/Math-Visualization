@@ -272,13 +272,13 @@
           "q": "The Minkowski bound chains with the discriminant: for $K=\\mathbb{Q}(\\zeta_5)$ with $|\\Delta_K|=125$ and $(n,r_1,r_2)=(4,0,2)$, the bound is $M_K=\\left(\\tfrac{4}{\\pi}\\right)^2\\cdot\\tfrac{4!}{4^4}\\cdot\\sqrt{125}$. Which primes must be tested against the class group?",
           "choices": [
             "no primes; $M_K<2$",
-            "only $p=2$; $2<M_K<3$",
-            "only $p=2$ and $p=3$; $3<M_K<5$",
+            "only $p=2$; $2\\lt M_K<3$",
+            "only $p=2$ and $p=3$; $3\\lt M_K<5$",
             "only $p=5$; $M_K\\approx 5$"
           ],
           "answer": 1,
           "hint": "Compute $M_K\\approx 1.7$ to see only $p=2$ matters.",
-          "explain": "$M_K=\\left(\\tfrac{16}{\\pi^2}\\right)\\cdot\\tfrac{24}{256}\\cdot 5\\sqrt{5}\\approx 1.621\\cdot 0.09375\\cdot 11.18\\approx 1.70$. Since $1<M_K<2$, only the prime $p=2$ could contribute, but the only prime above $2$ is principal, so $h_K=1$ and $\\mathbb{Z}[\\zeta_5]$ is a PID."
+          "explain": "$M_K=\\left(\\tfrac{16}{\\pi^2}\\right)\\cdot\\tfrac{24}{256}\\cdot 5\\sqrt{5}\\approx 1.621\\cdot 0.09375\\cdot 11.18\\approx 1.70$. Since $1\\lt M_K<2$, only the prime $p=2$ could contribute, but the only prime above $2$ is principal, so $h_K=1$ and $\\mathbb{Z}[\\zeta_5]$ is a PID."
         }
       ]
     },

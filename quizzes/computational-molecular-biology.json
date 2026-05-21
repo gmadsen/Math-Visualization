@@ -224,7 +224,7 @@
           "type": "mcq",
           "q": "McCaskill's partition-function algorithm replaces Nussinov's $\\max$ with $\\sum$ to compute $Z=\\sum_S e^{-E(S)/RT}$. From $Z$ and similar quantities one can derive:",
           "choices": [
-            "Base-pair probabilities $P_{ij}=P(\\text{base }i\\text{ paired with }j\\mid \\text{equilibrium})$ for all $i<j$.",
+            "Base-pair probabilities $P_{ij}=P(\\text{base }i\\text{ paired with }j\\mid \\text{equilibrium})$ for all $i\\lt j$.",
             "The minimum-free-energy structure (which is necessarily the most probable structure).",
             "A guarantee that the most probable structure equals the structure that minimises free energy.",
             "Nothing about base-pair probabilities — McCaskill only gives the total partition function."
@@ -243,7 +243,7 @@
           "q": "Direct coupling analysis (DCA) for residue contact prediction fits which model to a deep multiple sequence alignment?",
           "choices": [
             "An independent-site model $P(x)=\\prod_i p_i(x_i)$.",
-            "A pairwise Markov random field (Potts model) $P(x)\\propto\\exp\\bigl(\\sum h_i(x_i)+\\sum_{i<j} J_{ij}(x_i,x_j)\\bigr)$.",
+            "A pairwise Markov random field (Potts model) $P(x)\\propto\\exp\\bigl(\\sum h_i(x_i)+\\sum_{i\\lt j} J_{ij}(x_i,x_j)\\bigr)$.",
             "A hidden Markov model in which the hidden chain runs along the sequence.",
             "A linear regression of one residue position against all others."
           ],

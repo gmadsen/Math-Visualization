@@ -274,7 +274,7 @@ function drawNode(svg, x, y, label, opts={}){
 <section id="absolute-frobenius">
 <h2>1. The absolute Frobenius and its pushforward</h2>
 
-<p>Let $k$ be a perfect field of characteristic $p$ and $X$ a scheme over $k$. The <strong>absolute Frobenius</strong> is the map $F_X\colon X\to X$ that is the identity on the underlying topological space and acts on sections of $\mathcal{O}_X$ by $f\mapsto f^p$. Over the affine piece $\Spec\,A$, $A$ a $k$-algebra, this is $\Spec$ of the ring map $\varphi\colon A\to A$, $a\mapsto a^p$ — a ring map only because the binomial coefficients $\binom{p}{i}$ vanish mod $p$ for $0<i<p$, so $(a+b)^p=a^p+b^p$.</p>
+<p>Let $k$ be a perfect field of characteristic $p$ and $X$ a scheme over $k$. The <strong>absolute Frobenius</strong> is the map $F_X\colon X\to X$ that is the identity on the underlying topological space and acts on sections of $\mathcal{O}_X$ by $f\mapsto f^p$. Over the affine piece $\Spec\,A$, $A$ a $k$-algebra, this is $\Spec$ of the ring map $\varphi\colon A\to A$, $a\mapsto a^p$ — a ring map only because the binomial coefficients $\binom{p}{i}$ vanish mod $p$ for $0&lt;i&lt;p$, so $(a+b)^p=a^p+b^p$.</p>
 
 <p>The absolute Frobenius is not a morphism over $k$ — it is the identity on residue fields only because $k$ is perfect, and even then it is $k$-<em>semilinear</em>: $\varphi(\lambda a)=\lambda^p a^p$, not $\lambda\varphi(a)$. To get a genuine $k$-morphism one introduces a base change. Write $X^{(p)} := X\times_{k,\sigma} k$, the Frobenius twist of $X$, where $\sigma\colon k\to k$ is the Frobenius of the base field. The <strong>relative Frobenius</strong> $F_{X/k}\colon X\to X^{(p)}$ is the unique $k$-morphism filling the square below; composing with the structure projection $X^{(p)}\to X$ recovers the absolute $F_X$.</p>
 
@@ -322,7 +322,7 @@ function drawNode(svg, x, y, label, opts={}){
 })();
 </script>
 
-<p>For $X=\Spec\,A$ smooth over $k$ of dimension $n$, the <strong>Frobenius pushforward</strong> $F_*\mathcal{O}_X$ is locally the $A$-module $A$, but with the new action given by Frobenius — that is, $a\cdot m := a^p m$. Equivalently, $F_*\mathcal{O}_X$ is a sheaf of $\mathcal{O}_X$-algebras locally free of rank $p^n$, with basis given by the monomials $x_1^{i_1}\cdots x_n^{i_n}$ for $0\le i_j<p$ (in a local étale coordinate system). It is finite locally free <em>only</em> for $F$ finite, which on smooth varieties is automatic; over a non-perfect field the picture deteriorates and many statements below require working over a perfect base.</p>
+<p>For $X=\Spec\,A$ smooth over $k$ of dimension $n$, the <strong>Frobenius pushforward</strong> $F_*\mathcal{O}_X$ is locally the $A$-module $A$, but with the new action given by Frobenius — that is, $a\cdot m := a^p m$. Equivalently, $F_*\mathcal{O}_X$ is a sheaf of $\mathcal{O}_X$-algebras locally free of rank $p^n$, with basis given by the monomials $x_1^{i_1}\cdots x_n^{i_n}$ for $0\le i_j&lt;p$ (in a local étale coordinate system). It is finite locally free <em>only</em> for $F$ finite, which on smooth varieties is automatic; over a non-perfect field the picture deteriorates and many statements below require working over a perfect base.</p>
 
 <div class="note"><strong>Frobenius is finite of degree $p^{\dim X}$.</strong> On a smooth $n$-fold the rank is $p^n$, so $F$ has degree $p^n$. This is the algebraic shadow of "raising to the $p$-th power is a $p$-to-$1$ map on the affine line."</div>
 

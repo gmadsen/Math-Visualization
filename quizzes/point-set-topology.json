@@ -370,7 +370,7 @@
           "q": "The rational numbers $\\mathbb{Q}$ with the subspace topology from $\\mathbb{R}$ are totally disconnected: the only connected subsets are singletons. How many connected components does the subspace $\\{1/n : n\\ge 1\\}\\subset\\mathbb{R}$ have?",
           "answer": 0,
           "tol": 0.0001,
-          "explain": "Each point $\\{1/n\\}$ is isolated in the subspace (the sets $\\{1/n\\}=\\{x:1/(n+1)<x<1/(n-1)\\}\\cap S$ are open in $S$), so every singleton is a connected component. The subspace has countably infinitely many connected components — but the question asks for the count of components that are NOT singletons, which is $0$."
+          "explain": "Each point $\\{1/n\\}$ is isolated in the subspace (the sets $\\{1/n\\}=\\{x:1/(n+1)\\lt x<1/(n-1)\\}\\cap S$ are open in $S$), so every singleton is a connected component. The subspace has countably infinitely many connected components — but the question asks for the count of components that are NOT singletons, which is $0$."
         }
       ]
     },
@@ -437,7 +437,7 @@
           "type": "mcq",
           "q": "Urysohn's Lemma states: if $X$ is normal ($T_4$) and $A,B$ are disjoint closed sets, then there exists a continuous $f:X\\to[0,1]$ with $f|_A=0$ and $f|_B=1$. Which step is the key inductive construction in its proof?",
           "choices": [
-            "Assign open sets $U_r$ for each dyadic rational $r\\in[0,1]$ with $A\\subset U_r\\subset\\overline{U_r}\\subset U_s\\subset X\\setminus B$ for $r<s$, then set $f(x)=\\inf\\{r:x\\in U_r\\}$",
+            "Assign open sets $U_r$ for each dyadic rational $r\\in[0,1]$ with $A\\subset U_r\\subset\\overline{U_r}\\subset U_s\\subset X\\setminus B$ for $r\\lt s$, then set $f(x)=\\inf\\{r:x\\in U_r\\}$",
             "Use compactness of $A$ and $B$ to find a finite cover and define $f$ piecewise",
             "Apply the Tietze extension theorem directly to the indicator function of $A$",
             "Use second-countability to find a countable dense set of intermediate closed sets"
@@ -447,7 +447,7 @@
         },
         {
           "type": "mcq",
-          "q": "The Sorgenfrey line ($\\mathbb{R}$ with the lower-limit topology, basis $\\{[a,b):a<b\\}$) is $T_{3.5}$ (Tychonoff) but its square $\\mathbb{R}_\\ell^2$ is NOT normal. Which property does $\\mathbb{R}_\\ell^2$ fail that witnesses non-normality?",
+          "q": "The Sorgenfrey line ($\\mathbb{R}$ with the lower-limit topology, basis $\\{[a,b):a\\lt b\\}$) is $T_{3.5}$ (Tychonoff) but its square $\\mathbb{R}_\\ell^2$ is NOT normal. Which property does $\\mathbb{R}_\\ell^2$ fail that witnesses non-normality?",
           "choices": [
             "The anti-diagonal $\\{(x,-x):x\\in\\mathbb{R}\\}$ is closed and discrete, yet $\\mathbb{R}_\\ell^2$ is separable, contradicting Jones's lemma for normal spaces",
             "$\\mathbb{R}_\\ell^2$ is not Hausdorff because open sets in the product are too small",

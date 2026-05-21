@@ -45,7 +45,7 @@
         "ct-distance",
         "polynomial-rings-irreducibility"
       ],
-      "blurb": "Encode messages as polynomials $f\\in\\mathbb{F}_q[x]_{<k}$ and transmit their values $f(\\alpha_1),\\dots,f(\\alpha_n)$ at $n\\le q$ distinct points. Two degree-$<k$ polynomials agree at $\\le k-1$ points, so $d=n-k+1$ exactly — Reed–Solomon codes are MDS. Berlekamp–Massey, Berlekamp–Welch, and Guruswami–Sudan decoders all exploit this algebraic structure.",
+      "blurb": "Encode messages as polynomials $f\\in\\mathbb{F}_q[x]_{\\lt k}$ and transmit their values $f(\\alpha_1),\\dots,f(\\alpha_n)$ at $n\\le q$ distinct points. Two degree-$\\lt k$ polynomials agree at $\\le k-1$ points, so $d=n-k+1$ exactly — Reed–Solomon codes are MDS. Berlekamp–Massey, Berlekamp–Welch, and Guruswami–Sudan decoders all exploit this algebraic structure.",
       "tags": [
         "duality"
       ]

@@ -67,7 +67,7 @@
         "dyn-ergodicity",
         "mchaos-symbolic-entropy"
       ],
-      "blurb": "Birkhoff's ergodic theorem: for measure-preserving $T$ and $\\mu$-integrable $f$, the time average $\\tfrac{1}{n}\\sum_{k<n}f(T^k x)$ converges $\\mu$-a.e. to a $T$-invariant function, equal to $\\int f\\,d\\mu$ when $T$ is ergodic. On a hyperbolic attractor the Sinai–Ruelle–Bowen measure is the unique invariant measure absolutely continuous along unstable manifolds: time averages of $f$ for Lebesgue-a.e. initial condition land on $\\int f\\,d\\mu_{\\mathrm{SRB}}$. SRB is what makes physical predictions from chaotic dynamics possible.",
+      "blurb": "Birkhoff's ergodic theorem: for measure-preserving $T$ and $\\mu$-integrable $f$, the time average $\\tfrac{1}{n}\\sum_{k\\lt n}f(T^k x)$ converges $\\mu$-a.e. to a $T$-invariant function, equal to $\\int f\\,d\\mu$ when $T$ is ergodic. On a hyperbolic attractor the Sinai–Ruelle–Bowen measure is the unique invariant measure absolutely continuous along unstable manifolds: time averages of $f$ for Lebesgue-a.e. initial condition land on $\\int f\\,d\\mu_{\\mathrm{SRB}}$. SRB is what makes physical predictions from chaotic dynamics possible.",
       "tags": [
         "classification",
         "completion"

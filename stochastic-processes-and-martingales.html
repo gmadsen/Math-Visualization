@@ -280,7 +280,7 @@ Read $\mathcal{F}_n$ as <em>the information available at time $n$</em>. Time adv
 $$\{\tau\le n\}\in\mathcal{F}_n\quad\text{for every }n.$$
 At time $n$, looking only at the data so far, you can decide whether stopping has happened. The first hitting time $\tau=\inf\{n:X_n\in B\}$ of a measurable set is always a stopping time; the <em>last</em> time the process was in $B$ before time $100$ is generally not — that requires looking at the future.</p>
 
-<p><strong>Worked example: hitting times of a random walk.</strong> Let $S_n$ be symmetric simple random walk on $\mathbb{Z}$ with $S_0=0$, and $\mathcal{F}_n=\sigma(S_0,\ldots,S_n)$. Then $\tau_a=\inf\{n:S_n=a\}$ is a stopping time: $\{\tau_a\le n\}=\bigcup_{k\le n}\{S_k=a\}\in\mathcal{F}_n$. The widget below lets you set bounds $a<0<b$, watch the walk evolve, and observe at which step the stopping rule fires.</p>
+<p><strong>Worked example: hitting times of a random walk.</strong> Let $S_n$ be symmetric simple random walk on $\mathbb{Z}$ with $S_0=0$, and $\mathcal{F}_n=\sigma(S_0,\ldots,S_n)$. Then $\tau_a=\inf\{n:S_n=a\}$ is a stopping time: $\{\tau_a\le n\}=\bigcup_{k\le n}\{S_k=a\}\in\mathcal{F}_n$. The widget below lets you set bounds $a<0&lt;b$, watch the walk evolve, and observe at which step the stopping rule fires.</p>
 
 <div class="widget" id="w-filtration">
   <div class="hd"><div class="ttl">Filtration &amp; stopping time</div><div class="hint">$\sigma$-algebras grow · $\tau$ fires when $S_n\in\{a,b\}$</div></div>
@@ -559,7 +559,7 @@ The theorem is a martingale's defining promise made global: the fair-game expect
 
 <div class="bad"><strong>Optional-stopping fails without the hypotheses.</strong> Symmetric simple random walk $S_n$ stopped at $\tau=\inf\{n:S_n=1\}$ has $\tau<\infty$ almost surely and $\mathbb{E}[S_\tau]=1\ne 0=\mathbb{E}[S_0]$ — none of the three sufficient conditions hold ($\tau$ is a.s.\ finite but unbounded; $M$ is not UI; $(S_{n\wedge\tau})$ wanders to $-\infty$ unboundedly). Drop the hypotheses and the conclusion fails.</div>
 
-<p><strong>Worked example: gambler's ruin.</strong> Symmetric random walk on $\{a,a+1,\ldots,b\}$ with $a<0<b$ starting at $S_0=0$, stopped at $\tau=\inf\{n:S_n\in\{a,b\}\}$. Both $S_n$ and $S_n^2-n$ are martingales; $(S_{n\wedge\tau})$ is bounded by $\max(|a|,b)$ and $\tau<\infty$ a.s., so case (3) of optional-stopping applies. Setting $p=\mathbb{P}(S_\tau=b)$:
+<p><strong>Worked example: gambler's ruin.</strong> Symmetric random walk on $\{a,a+1,\ldots,b\}$ with $a<0&lt;b$ starting at $S_0=0$, stopped at $\tau=\inf\{n:S_n\in\{a,b\}\}$. Both $S_n$ and $S_n^2-n$ are martingales; $(S_{n\wedge\tau})$ is bounded by $\max(|a|,b)$ and $\tau<\infty$ a.s., so case (3) of optional-stopping applies. Setting $p=\mathbb{P}(S_\tau=b)$:
 $$0=\mathbb{E}[S_\tau]=p\cdot b+(1-p)\cdot a\quad\Rightarrow\quad p=\frac{-a}{b-a}.$$
 Applying optional stopping to $S_n^2-n$ then yields the expected exit time:
 $$0=\mathbb{E}[S_\tau^2-\tau]=p\,b^2+(1-p)\,a^2-\mathbb{E}[\tau]\quad\Rightarrow\quad \mathbb{E}[\tau]=|a|\cdot b.$$</p>
@@ -979,7 +979,7 @@ For a martingale, $L^1$-convergence is equivalent to UI. When $(M_n)$ is UI, $M_
   <li>The exponential martingale $\exp(\theta W_t-\theta^2 t/2)$, $\theta\in\mathbb{R}$ — engine of Girsanov's change of measure.</li>
 </ul></p>
 
-<p><strong>Quadratic variation.</strong> For a partition $0=t_0<t_1<\cdots<t_n=t$ of $[0,t]$ with mesh $\to 0$,
+<p><strong>Quadratic variation.</strong> For a partition $0=t_0&lt;t_1<\cdots&lt;t_n=t$ of $[0,t]$ with mesh $\to 0$,
 $$\sum_{k}(W_{t_{k+1}}-W_{t_k})^2\;\xrightarrow{\mathbb{P}}\;t.$$
 The limit is deterministic — the <em>quadratic variation</em> $[W]_t=t$ a.s. Compare this with the total variation: $\sum_k|W_{t_{k+1}}-W_{t_k}|\to+\infty$. Brownian paths are wiggly enough that their quadratic variation is finite and linear in $t$, but rough enough that their total variation diverges. This is what makes ordinary Riemann–Stieltjes integration $\int f\,dW$ fail and forces the Itô integral.</p>
 
