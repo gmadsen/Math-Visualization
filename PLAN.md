@@ -4,7 +4,7 @@ Forward-looking priorities for the notebook. Daily-workflow commands, one-time s
 
 When something ships, delete its bullet here. Don't keep a "Shipped recently" log — `git log` is the audit trail. The full step list of `rebuild.mjs` is in `scripts/rebuild.mjs` — refer to it rather than restating step names here.
 
-## Corpus snapshot (2026-05-18)
+## Corpus snapshot (2026-05-21)
 
 From `audits/coverage-stats.md` and `audits/starter-concepts.md`:
 
