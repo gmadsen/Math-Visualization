@@ -13,11 +13,7 @@
             "Energy and mass are interconvertible.",
             "Accelerated frames are equivalent to gravitational fields."
           ],
-          "answer": [
-            0,
-            1,
-            2
-          ],
+          "answer": [0, 1, 2],
           "hint": "The equivalence principle belongs to GR, not SR.",
           "explain": "The relativity principle (covariance of physical laws) plus the constancy of $c$ together imply: (0) the relativistic addition law $(u+v)/(1+uv/c^2)$, since Galilean addition would change the speed of light; (1) frame-dependent simultaneity, from the Lorentz mixing of $t$ and $x$; (2) mass-energy equivalence $E=\\gamma mc^2$, from the Lorentz-invariant length of the 4-momentum. The equivalence principle (3) is the foundational postulate of *general* relativity, not special relativity."
         },
@@ -229,12 +225,7 @@
             "Alice sends an FTL signal from event $A$ to event $B$; since the signal exceeds $c$, $A$ and $B$ are spacelike-separated.",
             "The reply arrives at $A$ before the original signal was sent — a closed causal loop."
           ],
-          "answer": [
-            2,
-            1,
-            0,
-            3
-          ],
+          "answer": [2, 1, 0, 3],
           "hint": "Start with the original signal; end with the closed loop.",
           "explain": "(2) The original FTL signal $A\\to B$ has $\\Delta s^2>0$, so $A$ and $B$ are spacelike-separated. (1) Spacelike pairs admit boosts that flip their temporal order — pick one. (0) From $B$ (now \"earlier\" in $S'$), send an FTL reply back; in $S'$ this is again forward-in-time. (3) Transforming back, the reply arrives at $A$ before $A$ was sent — the tachyonic antitelephone. Each individual signal is fine in its own frame; what fails is the global consistency of cause and effect."
         },

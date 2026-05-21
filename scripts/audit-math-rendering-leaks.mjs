@@ -220,30 +220,45 @@ function fixProse(str) {
   return { out: parts.join(''), n };
 }
 
-// Recursively rewrite every string in a parsed JSON value with `fixSpans`.
-// `fixSpans` only touches `<letter` inside a math span, so visiting non-math
-// fields is a safe no-op.
-function fixJsonStrings(node, token) {
-  let n = 0;
-  if (Array.isArray(node)) {
-    for (let i = 0; i < node.length; i++) {
-      if (typeof node[i] === 'string') { const r = fixSpans(node[i], token); node[i] = r.out; n += r.n; }
-      else n += fixJsonStrings(node[i], token);
-    }
-  } else if (node && typeof node === 'object') {
-    for (const k of Object.keys(node)) {
-      if (typeof node[k] === 'string') { const r = fixSpans(node[k], token); node[k] = r.out; n += r.n; }
-      else n += fixJsonStrings(node[k], token);
-    }
-  }
-  return n;
-}
-
+// Apply `fixSpans` to every string in a quiz/concept JSON file, patching the
+// raw file text token-for-token rather than re-serializing. Re-serializing via
+// JSON.stringify would canonicalize layout and reformat any hand-authored
+// inline array (`"answer": [0,1,3]` → one element per line) — a noisy,
+// layout-only diff. Instead we collect each (original → fixed) string the
+// span-fixer changes and replace its exact JSON-encoded token in the text, so
+// only the changed string literals move and the file's formatting is preserved.
+// `fixSpans` only touches `<letter` inside a math span, and `$` appears only
+// inside JSON string values (never in JSON syntax), so this is safe for the
+// KaTeX-source banks (no embedded JS / HTML tags to mis-handle).
 function fixJsonFile(path, token) {
   if (!existsSync(path)) return 0;
-  const obj = JSON.parse(readFileSync(path, 'utf8'));
-  const n = fixJsonStrings(obj, token);
-  if (n > 0) writeFileSync(path, JSON.stringify(obj, null, 2) + '\n');
+  let text;
+  let obj;
+  try {
+    text = readFileSync(path, 'utf8');
+    obj = JSON.parse(text);
+  } catch {
+    return 0; // missing or malformed — leave it for the validators to flag
+  }
+  const pairs = new Map(); // original string -> fixed string (deduped)
+  let n = 0;
+  (function walk(node) {
+    if (typeof node === 'string') {
+      if (pairs.has(node)) return;
+      const r = fixSpans(node, token);
+      if (r.n > 0) { pairs.set(node, r.out); n += r.n; }
+      return;
+    }
+    if (Array.isArray(node)) { node.forEach(walk); return; }
+    if (node && typeof node === 'object') { Object.values(node).forEach(walk); }
+  })(obj);
+  if (pairs.size === 0) return 0;
+  for (const [orig, fixed] of pairs) {
+    // JSON.stringify gives each string's exact on-disk token (quotes + the same
+    // backslash/quote escaping the file uses), so the replace is layout-neutral.
+    text = text.split(JSON.stringify(orig)).join(JSON.stringify(fixed));
+  }
+  writeFileSync(path, text);
   return n;
 }
 

@@ -7,12 +7,7 @@
         {
           "type": "mcq",
           "q": "Which Dyson index $\\beta$ corresponds to the Gaussian Unitary Ensemble (GUE) of $N\\times N$ complex Hermitian matrices with i.i.d.\\ Gaussian entries?",
-          "choices": [
-            "$\\beta=1$",
-            "$\\beta=2$",
-            "$\\beta=4$",
-            "$\\beta=0$ (Poisson limit)"
-          ],
+          "choices": ["$\\beta=1$", "$\\beta=2$", "$\\beta=4$", "$\\beta=0$ (Poisson limit)"],
           "answer": 1,
           "explain": "$\\beta$ is the real dimension of the entry algebra: GOE uses $\\mathbb{R}$ ($\\beta=1$), GUE uses $\\mathbb{C}$ ($\\beta=2$), GSE uses $\\mathbb{H}$ ($\\beta=4$). The joint eigenvalue density carries the Vandermonde factor $\\prod|\\lambda_i-\\lambda_j|^\\beta$."
         },
@@ -32,11 +27,7 @@
             "All three ensembles have the same level-spacing statistics.",
             "The eigenvalues are real for all three ensembles."
           ],
-          "answer": [
-            0,
-            1,
-            3
-          ],
+          "answer": [0, 1, 3],
           "explain": "All three are sums of independent (above-diagonal) Gaussians respecting symmetry, all have real spectra (symmetric / Hermitian / self-dual), and all carry the Vandermonde-$\\beta$ joint density. Their level-spacing statistics differ — that's exactly what $\\beta$ controls."
         }
       ]
@@ -72,12 +63,7 @@
             "Conclude $\\mu_N\\Rightarrow\\rho_{\\mathrm{sc}}$ by Carleman's moment-determinacy criterion.",
             "Count: non-crossing pair-matchings of $2m$ edges = Catalan number $C_m$."
           ],
-          "answer": [
-            1,
-            0,
-            3,
-            2
-          ],
+          "answer": [1, 0, 3, 2],
           "explain": "The standard order: expand the trace into a walk sum; identify which walks survive the $N\\to\\infty$ limit (non-crossing pair-matchings only, by edge-coincidence and variance counting); count those matchings (Catalan); match the resulting moments to $\\rho_{\\mathrm{sc}}$ via Carleman."
         }
       ]
@@ -89,7 +75,7 @@
           "type": "numeric",
           "q": "For a $p\\times n$ matrix $X$ with i.i.d.\\ unit-variance entries and $c=p/n$, the bulk of the Marchenko–Pastur density is supported on $[(1-\\sqrt c)^2,(1+\\sqrt c)^2]$. For $c=1/4$, what is the upper edge $b=(1+\\sqrt c)^2$?",
           "answer": 2.25,
-          "tol": 0.000001,
+          "tol": 1e-6,
           "explain": "$\\sqrt{1/4}=1/2$, so $b=(1+1/2)^2=9/4=2.25$. The lower edge is $(1-1/2)^2=1/4=0.25$. As $c$ grows the support widens."
         },
         {
@@ -108,7 +94,7 @@
           "type": "numeric",
           "q": "For $c=2$ (twice as many dimensions as samples), what is the weight of the point mass at $0$ in the Marchenko–Pastur distribution?",
           "answer": 0.5,
-          "tol": 0.000001,
+          "tol": 1e-6,
           "explain": "The point-mass weight is $1-1/c$ for $c>1$, accounting for the $p-n$ zero eigenvalues of the rank-$n$ matrix $\\tfrac{1}{n}XX^\\top$ in dimension $p$. At $c=2$ that's $1-1/2=0.5$."
         }
       ]
@@ -137,11 +123,7 @@
             "Height function of TASEP with step initial condition.",
             "Largest eigenvalue of a Wishart $p\\times p$ sample covariance matrix at its upper edge."
           ],
-          "answer": [
-            0,
-            2,
-            3
-          ],
+          "answer": [0, 2, 3],
           "explain": "The KPZ universality class collects exactly these soft-edge / longest-path statistics under $F_2$ (curved or step initial data). The sample mean of i.i.d.\\ Gaussians is Gaussian by exact distribution, not Tracy–Widom — that's a different (Gaussian) universality class."
         },
         {
@@ -189,7 +171,7 @@
           "type": "numeric",
           "q": "Let $\\mu_1=\\mu_2=\\rho_1$ be the standard semicircle of radius $1$. The free additive convolution $\\mu_1\\boxplus\\mu_2$ is the semicircle of what radius?",
           "answer": 1.41421356,
-          "tol": 0.0001,
+          "tol": 1e-4,
           "explain": "Semicircles are stable under $\\boxplus$ with the rule $\\rho_{r_1}\\boxplus\\rho_{r_2}=\\rho_{\\sqrt{r_1^2+r_2^2}}$, equivalently $R_{\\rho_r}(z)=r^2 z/4$ so $R_{\\rho_1}+R_{\\rho_1}=z/2$, which is the $R$-transform of $\\rho_{\\sqrt 2}$. Radius $\\sqrt 2\\approx 1.414$."
         }
       ]
@@ -218,11 +200,7 @@
             "Universality holds at the soft edge as well, with Tracy–Widom as the limit.",
             "Universality holds only for Gaussian entries; non-Gaussian Wigner matrices have ensemble-specific local laws."
           ],
-          "answer": [
-            0,
-            1,
-            2
-          ],
+          "answer": [0, 1, 2],
           "explain": "Bulk sine-kernel and edge Tracy–Widom are both universal across Wigner ensembles satisfying mild moment / tail conditions. The whole point of the universality theorems is that the limit law is <em>not</em> ensemble-specific."
         },
         {
@@ -245,24 +223,14 @@
         {
           "type": "matching",
           "q": "Match each natural $L$-function family to its Katz–Sarnak symmetry type.",
-          "left": [
-            "$U(N)$ unitary",
-            "$\\mathrm{USp}(2N)$ symplectic",
-            "$O^+(2N)$ even orthogonal",
-            "$O^-(2N+1)$ odd orthogonal"
-          ],
+          "left": ["$U(N)$ unitary", "$\\mathrm{USp}(2N)$ symplectic", "$O^+(2N)$ even orthogonal", "$O^-(2N+1)$ odd orthogonal"],
           "right": [
             "$L(s,E)$ with global root number $w(E)=-1$",
             "quadratic Dirichlet $L(s,\\chi_d)$",
             "the singleton $\\{\\zeta\\}$",
             "$L(s,E)$ with global root number $w(E)=+1$"
           ],
-          "answer": [
-            3,
-            1,
-            0,
-            2
-          ],
+          "answer": [3, 1, 0, 2],
           "explain": "$\\zeta$ alone gives unitary statistics (Montgomery's pair correlation). Quadratic Dirichlet $L$-functions form a symplectic family with a forced sign in their functional equation. Elliptic-curve $L$-functions split by root number: $w(E)=+1$ gives even orthogonal $O^+$ (no forced zero at $s=\\tfrac12$), $w(E)=-1$ gives odd orthogonal $O^-$ (forced zero at $s=\\tfrac12$, contributing a $\\delta_0$ to the one-level density)."
         },
         {

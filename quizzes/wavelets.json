@@ -210,12 +210,7 @@
             "Update: $a_n\\leftarrow a_n^{(0)} + \\tfrac12 d_n$",
             "Output the coarse stream $(a_n)$ and detail stream $(d_n)$"
           ],
-          "answer": [
-            0,
-            1,
-            2,
-            3
-          ],
+          "answer": [0, 1, 2, 3],
           "explain": "Lifting always begins with the lazy split (separate evens and odds), then alternates predict and update. Predict uses the current evens to guess the odds and stores the residual as detail; update uses those residuals to correct the evens so the coarse signal still has the right average. Each step is a triangular linear map, so reversing the order with opposite signs gives the inverse — perfect reconstruction is automatic."
         },
         {
@@ -257,11 +252,7 @@
             "Both $\\tilde\\psi$ and $\\psi$ can be symmetric (linear-phase)",
             "Parseval's identity $\\|f\\|_2^2=\\sum|c_{j,k}|^2$ holds"
           ],
-          "answer": [
-            0,
-            2,
-            3
-          ],
+          "answer": [0, 2, 3],
           "explain": "Biorthogonality is exactly the Kronecker pairing between dual families (1). Analysis pairs against the dual, synthesis sums against the primal — that's the whole point (3). The CDF construction shows symmetry is achievable on both sides (4). Statement (2) is false: $\\{\\psi_{j,k}\\}$ is a Riesz basis, not an orthonormal basis, in general — that is the price paid for symmetry. Statement (5) fails too: without orthogonality the energy splits as $\\|f\\|_2^2\\asymp\\sum|c_{j,k}|^2$ (norm-equivalence), not equality."
         },
         {

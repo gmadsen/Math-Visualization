@@ -112,11 +112,7 @@
             "Baum–Welch is an instance of expectation–maximisation in which the E-step uses forward/backward to compute hidden-state posteriors.",
             "Baum–Welch returns the global maximum-likelihood parameters."
           ],
-          "answer": [
-            0,
-            1,
-            2
-          ],
+          "answer": [0, 1, 2],
           "explain": "First three are standard. Baum–Welch is EM and only guarantees convergence to a <em>local</em> optimum of the (non-convex) likelihood; restarting from many initialisations is the usual workaround.",
           "hint": "EM monotonically increases the likelihood but can get stuck — which fact does that contradict?"
         }
@@ -194,11 +190,7 @@
             "Strongly positive $D$ is consistent with balancing selection or a population bottleneck (excess of intermediate-frequency variants).",
             "Tajima's $D$ requires phased haplotype data; it cannot be computed from unphased SNP counts."
           ],
-          "answer": [
-            0,
-            1,
-            2
-          ],
+          "answer": [0, 1, 2],
           "explain": "The first three are textbook. The last is wrong: $\\hat\\pi$ is the average pairwise difference and $\\hat\\theta_W$ is the Watterson estimator — both are computable from unphased SNP frequencies. Tajima's $D$ is one of the simplest neutrality tests precisely because it needs no haplotype information.",
           "hint": "What inputs do the pairwise-difference and Watterson estimators actually need?"
         }
@@ -268,17 +260,14 @@
             "Mutual information requires Gaussian assumptions on the residue distribution that fail for discrete amino acids.",
             "Mutual information is computationally intractable for $L > 50$ residues."
           ],
-          "answer": [
-            0,
-            1
-          ],
+          "answer": [0, 1],
           "explain": "Direct vs indirect coupling and phylogenetic redundancy are real well-known limitations addressed by DCA and reweighting. Choice 3 is wrong — mutual information is a discrete, non-parametric quantity. Choice 4 is wrong — pairwise MI is $\\Theta(L^2)$ to compute and trivial for any realistic $L$.",
           "hint": "Two of the four reasons are honest practical concerns; the other two are made-up technical claims that don't apply."
         },
         {
           "type": "numeric",
           "q": "A protein of length $L=200$ residues has a contact map. If contacts are defined by $C_\\alpha$–$C_\\alpha$ distance $\\le 8$ Å and the protein has on average $4L$ contacts (a standard empirical figure), what fraction of the upper-triangle entries of the $L\\times L$ map are non-zero? Express as a percentage rounded to 1 decimal place.",
-          "answer": 4,
+          "answer": 4.0,
           "tol": 0.2,
           "explain": "There are $\\binom{L}{2}=\\binom{200}{2}=19900$ unordered residue pairs. With $4L=800$ contacts, the density is $800/19900 \\approx 0.0402 = 4.0\\%$. The contact map is sparse — that sparsity is what makes coevolution-based prediction tractable.",
           "hint": "$\\binom{L}{2}$ pairs in the upper triangle; divide the contact count by that."
