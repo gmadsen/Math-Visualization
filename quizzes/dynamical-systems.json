@@ -411,7 +411,7 @@
         },
         {
           "type": "complex",
-          "q": "For the doubling map $f(x)=2x\\bmod 1$, give the 2-periodic orbit $\\{p,q\\}$ as $p+qi$, with $p<q$.",
+          "q": "For the doubling map $f(x)=2x\\bmod 1$, give the 2-periodic orbit $\\{p,q\\}$ as $p+qi$, with $p\\lt q$.",
           "answer": [
             0.3333333333333333,
             0.6666666666666667
@@ -430,7 +430,7 @@
           "q": "Iterate the logistic map $f_r(x)=rx(1-x)$ at $r=2.5$ from any $x_0\\in(0,1)$ for many steps. To what value does $x_n$ converge?",
           "answer": 0.6,
           "tol": 0.000001,
-          "explain": "For $1<r<3$ the non-zero fixed point $x^*=1-1/r$ is attracting. At $r=2.5$, $x^*=1-0.4=0.6$."
+          "explain": "For $1\\lt r<3$ the non-zero fixed point $x^*=1-1/r$ is attracting. At $r=2.5$, $x^*=1-0.4=0.6$."
         },
         {
           "type": "mcq",
@@ -620,7 +620,7 @@
             "Conclude $|T'(x)|=2$ almost everywhere in $[0,1]$."
           ],
           "choices": [
-            "Therefore $\\lambda=\\tfrac{1}{N}\\sum_{i<N}\\log|T'(x_i)|=\\log 2$ for every orbit.",
+            "Therefore $\\lambda=\\tfrac{1}{N}\\sum_{i\\lt N}\\log|T'(x_i)|=\\log 2$ for every orbit.",
             "Apply Birkhoff's ergodic theorem with Lebesgue-invariant measure: $\\lambda=\\int_0^1 \\log 2\\,dx=\\log 2$.",
             "Use Hartman–Grobman to linearize the map at each point.",
             "Apply Poincaré–Bendixson."
@@ -924,7 +924,7 @@
       "hard": [
         {
           "type": "complex",
-          "q": "By Birkhoff applied to $f(x)=x$ under $T(x)=2x\\bmod 1$, $\\tfrac{1}{N}\\sum_{k<N}T^k(x)\\to a$ for a.e. $x$. Give $a$ as $a+bi$.",
+          "q": "By Birkhoff applied to $f(x)=x$ under $T(x)=2x\\bmod 1$, $\\tfrac{1}{N}\\sum_{k\\lt N}T^k(x)\\to a$ for a.e. $x$. Give $a$ as $a+bi$.",
           "answer": [
             0.5,
             0

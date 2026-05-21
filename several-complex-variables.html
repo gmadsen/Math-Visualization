@@ -267,9 +267,9 @@ function drawNode(svg, x, y, label, opts={}){
 
 <div class="note"><strong>Hartogs's extension theorem (1906).</strong> Let $\Omega\subset\mathbb{C}^n$ ($n\ge 2$) be a domain and $K\subset\Omega$ a compact set with $\Omega\setminus K$ connected. Every holomorphic $f\colon \Omega\setminus K\to\mathbb{C}$ extends uniquely to a holomorphic function on all of $\Omega$.</div>
 
-<p>The cleanest test case is the <strong>Hartogs figure</strong>. Fix radii $0<r<1$ and consider, in $\mathbb{C}^2$ with coordinates $(z_1,z_2)$, the open set</p>
+<p>The cleanest test case is the <strong>Hartogs figure</strong>. Fix radii $0&lt;r<1$ and consider, in $\mathbb{C}^2$ with coordinates $(z_1,z_2)$, the open set</p>
 $$H_r \;=\; \bigl\{|z_1|<1,\, r<|z_2|<1\bigr\}\,\cup\,\bigl\{r<|z_1|<1,\, |z_2|<1\bigr\}.$$
-<p>This is the bidisk $\mathbb{D}^2$ with a smaller closed bidisk removed — concretely, the polydisk shell. Hartogs proves that any holomorphic function on $H_r$ extends to all of $\mathbb{D}^2$. The argument is concrete: for fixed $z_1$ with $|z_1|<r$, the map $z_2\mapsto f(z_1,z_2)$ is defined only for $r<|z_2|<1$, where it has a Laurent expansion $\sum_{k\in\mathbb{Z}} c_k(z_1)\,z_2^k$. The Cauchy integrals defining the negative-power coefficients $c_k(z_1)$ for $k<0$ depend holomorphically on $z_1$ on the larger set $|z_1|<1$ (since $f$ is holomorphic on $r<|z_1|<1$ for $|z_2|<1$), and they vanish there because the inner-radius integral can be deformed to zero. By the identity principle, $c_k(z_1)\equiv 0$ for $k<0$ everywhere on $|z_1|<1$ — so $f$ has no negative powers in $z_2$ at all, and the Taylor part defines the extension.</p>
+<p>This is the bidisk $\mathbb{D}^2$ with a smaller closed bidisk removed — concretely, the polydisk shell. Hartogs proves that any holomorphic function on $H_r$ extends to all of $\mathbb{D}^2$. The argument is concrete: for fixed $z_1$ with $|z_1|&lt;r$, the map $z_2\mapsto f(z_1,z_2)$ is defined only for $r<|z_2|<1$, where it has a Laurent expansion $\sum_{k\in\mathbb{Z}} c_k(z_1)\,z_2^k$. The Cauchy integrals defining the negative-power coefficients $c_k(z_1)$ for $k<0$ depend holomorphically on $z_1$ on the larger set $|z_1|<1$ (since $f$ is holomorphic on $r<|z_1|<1$ for $|z_2|<1$), and they vanish there because the inner-radius integral can be deformed to zero. By the identity principle, $c_k(z_1)\equiv 0$ for $k<0$ everywhere on $|z_1|<1$ — so $f$ has no negative powers in $z_2$ at all, and the Taylor part defines the extension.</p>
 
 <p>Iterating this lemma across nested compact holes gives the general statement: in dimension $n\ge 2$, any compact set in a connected domain is a removable obstacle for holomorphic functions. The phenomenon has no one-dimensional shadow because in $\mathbb{C}$ the boundary of a compact hole disconnects $\Omega\setminus K$ — the connectivity hypothesis fails immediately.</p>
 
@@ -636,7 +636,7 @@ Equivalently: $X$ admits a smooth strictly plurisubharmonic exhaustion $\rho\col
 <h3>The proof in three moves</h3>
 <p>The Cartan theorems for $\mathcal{F}=\mathcal{O}_X$ (the structure sheaf, the easiest case) reduce to the following:</p>
 <ol>
-<li><strong>Stein exhaustion.</strong> Choose a smooth strictly PSH exhaustion $\rho\colon X\to\mathbb{R}$. The sublevel sets $X_c = \{\rho<c\}$ are an increasing exhaustion of $X$ by strictly pseudoconvex relatively compact open sets.</li>
+<li><strong>Stein exhaustion.</strong> Choose a smooth strictly PSH exhaustion $\rho\colon X\to\mathbb{R}$. The sublevel sets $X_c = \{\rho&lt;c\}$ are an increasing exhaustion of $X$ by strictly pseudoconvex relatively compact open sets.</li>
 <li><strong>Hörmander on each $X_c$.</strong> Solve $\bar\partial$ with $L^2$ control on each $X_c$ via the Hörmander estimate, with a weight tailored to dominate the desired data on $X_c$.</li>
 <li><strong>Approximation and limit.</strong> Use Runge-type approximation to extend solutions from $X_c$ to $X_{c'}$ for $c'>c$, and pass to the limit. The cohomology vanishes because every Čech cocycle is the $\bar\partial$-coboundary of a controllable function.</li>
 </ol>

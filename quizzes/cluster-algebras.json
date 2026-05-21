@@ -33,7 +33,11 @@
             "$B$ is skew-symmetric: $B = -B^T$.",
             "$B$ is invertible over $\\mathbb{Z}$."
           ],
-          "answer": [0, 1, 3],
+          "answer": [
+            0,
+            1,
+            3
+          ],
           "explain": "The exchange matrix is skew-symmetric (equivalently, encodes a quiver) with integer entries. It need not be invertible — type $A_2$ already has $\\det B = 1$ but type $A_3$ has $\\det B = 0$ in some orientations."
         }
       ]
@@ -68,7 +72,11 @@
             "Identify vertex $k$ and read off the signs of the entries in column $k$ of the exchange matrix $B$.",
             "Update the exchange matrix $B\\mapsto B'$ by negating row $k$ and column $k$, and adjusting all other entries by $b'_{ij}=b_{ij}+\\mathrm{sgn}(b_{ik})\\max(b_{ik}b_{kj},0)$."
           ],
-          "answer": [1, 0, 2],
+          "answer": [
+            1,
+            0,
+            2
+          ],
           "explain": "Mutation is a recipe in three movements: locate the vertex, exchange the cluster variable via the binomial relation, then update the exchange matrix. Doing the matrix step before the variable step is an equally valid presentation, but the canonical order is read $B$ → exchange variable → update $B$."
         }
       ]
@@ -144,7 +152,11 @@
             "Triangulations of a once-punctured $n$-gon with tagged arcs (Fomin–Shapiro–Thurston); exchange graph is the type-$D$ generalized associahedron of Fomin–Reading.",
             "Exceptional cluster algebras with no surface model; first defined by Fomin–Zelevinsky from the corresponding Dynkin diagrams; $42, 70, 128$ cluster variables (= almost positive roots) respectively, with $833, 4160, 25080$ clusters."
           ],
-          "answer": [0, 1, 2],
+          "answer": [
+            0,
+            1,
+            2
+          ],
           "explain": "Type $A_n$ ↔ unpunctured polygon, exchange polytope = Stasheff associahedron. Type $D_n$ ↔ once-punctured polygon with tagged arcs (FST 2008), exchange polytope = type-$D$ generalized associahedron of Fomin–Reading. (The cyclohedron is the type $B_n/C_n$ generalized associahedron, not type $D_n$.) The exceptional types $E_{6,7,8}$ admit no surface model: they have $42, 70, 128$ cluster variables (= almost positive roots) and $833, 4160, 25080$ clusters respectively, with cluster counts given by the Catalan-like product $\\prod_i (h+e_i+1)/(e_i+1)$ over the exponents of the root system."
         }
       ]
@@ -181,7 +193,12 @@
             "Cluster-tilting objects biject with seeds of $\\mathcal{A}_Q$.",
             "$\\mathcal{C}_Q$ is hereditary (every short exact sequence splits)."
           ],
-          "answer": [0, 1, 2, 3],
+          "answer": [
+            0,
+            1,
+            2,
+            3
+          ],
           "explain": "All four are theorems of Buan–Marsh–Reineke–Reiten–Todorov / Keller. The cluster category is NOT hereditary — it is triangulated 2-CY, and almost-split triangles (Iyama–Yoshino exchange triangles) play the role of mutation."
         }
       ]
@@ -193,7 +210,7 @@
           "type": "mcq",
           "q": "On the Grassmannian $\\mathrm{Gr}(2,n)$ of $2$-planes in $n$-space, the cluster algebra structure has which Plücker-coordinate description?",
           "choices": [
-            "Cluster variables are the Plücker coordinates $p_{ij}$ for all $1\\le i<j\\le n$; clusters are the maximal sets of pairwise non-crossing $p_{ij}$, equivalently triangulations of the $n$-gon.",
+            "Cluster variables are the Plücker coordinates $p_{ij}$ for all $1\\le i\\lt j\\le n$; clusters are the maximal sets of pairwise non-crossing $p_{ij}$, equivalently triangulations of the $n$-gon.",
             "Cluster variables are the determinants of all $2\\times 2$ minors of an $n\\times n$ matrix; clusters are bases of those minors.",
             "Cluster variables correspond to the Schubert varieties of $\\mathrm{Gr}(2,n)$.",
             "Cluster variables are the symmetric functions in $n$ variables."
@@ -218,7 +235,12 @@
             "Donaldson–Thomas invariants of quivers and the wall-crossing formulas of Kontsevich–Soibelman.",
             "The classification of finite simple groups."
           ],
-          "answer": [0, 1, 2, 3],
+          "answer": [
+            0,
+            1,
+            2,
+            3
+          ],
           "explain": "Cluster combinatorics surface across total positivity, higher Teichmüller theory, scattering diagrams / mirror symmetry, and DT-theory wall-crossing. They have NOT (so far!) entered the classification of finite simple groups in any essential way."
         }
       ]

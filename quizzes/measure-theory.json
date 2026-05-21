@@ -201,7 +201,7 @@
             "Invoke the Radon–Nikodym theorem"
           ],
           "answer": 0,
-          "explain": "For any $\\varepsilon>0$, cover $E$ by open intervals $I_n$ with $\\sum m(I_n)<m(E)+\\varepsilon$; their union $U=\\bigcup I_n$ is open, contains $E$, and $m(U)\\le\\sum m(I_n)<m(E)+\\varepsilon$. Since $m(U)\\ge m(E)$ always, the infimum equals $m(E)$."
+          "explain": "For any $\\varepsilon>0$, cover $E$ by open intervals $I_n$ with $\\sum m(I_n)\\lt m(E)+\\varepsilon$; their union $U=\\bigcup I_n$ is open, contains $E$, and $m(U)\\le\\sum m(I_n)\\lt m(E)+\\varepsilon$. Since $m(U)\\ge m(E)$ always, the infimum equals $m(E)$."
         }
       ]
     },

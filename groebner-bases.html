@@ -741,8 +741,8 @@ Equivalently: for every $f\in I\setminus\{0\}$, some $\mathrm{LT}(g_i)$ divides 
 
 <p>By construction, the leading terms of the two summands are both equal to $\gamma$ (with cancellable coefficients), so they cancel; whatever survives is a polynomial in $\langle f,g\rangle$ whose leading monomial is strictly smaller than $\gamma$ — a "syzygy" exposing structure that neither $f$ nor $g$ revealed alone.</p>
 
-<div class="note"><strong>Buchberger's criterion.</strong> Fix a monomial order. A finite generating set $G = \{g_1,\dots,g_s\}$ of an ideal $I$ is a Gröbner basis if and only if for every pair $(i,j)$ with $i<j$, the remainder of $S(g_i,g_j)$ on division by $G$ is zero:
-$$\overline{S(g_i,g_j)}^G = 0 \quad\text{for all }i<j.$$</div>
+<div class="note"><strong>Buchberger's criterion.</strong> Fix a monomial order. A finite generating set $G = \{g_1,\dots,g_s\}$ of an ideal $I$ is a Gröbner basis if and only if for every pair $(i,j)$ with $i&lt;j$, the remainder of $S(g_i,g_j)$ on division by $G$ is zero:
+$$\overline{S(g_i,g_j)}^G = 0 \quad\text{for all }i&lt;j.$$</div>
 
 <p>The "only if" direction is straightforward: if $G$ is a Gröbner basis then $S(g_i,g_j)\in I$ has all leading terms divisible by some $\mathrm{LT}(g_k)$, so division reduces it to $0$. The "if" direction is the content — it says S-polynomial obstructions are the <em>only</em> obstructions. The proof reorganizes any element of $I$ as a linear combination of $g_i$ in which cancellations between leading terms factor through S-polynomials.</p>
 
@@ -878,7 +878,7 @@ $$\overline{S(g_i,g_j)}^G = 0 \quad\text{for all }i<j.$$</div>
 
 <ol>
 <li>Set $G \leftarrow F$.</li>
-<li>Repeat: for each pair $(g_i, g_j)\in G$ with $i<j$, compute $r_{ij} = \overline{S(g_i, g_j)}^G$. If some $r_{ij}\ne 0$, set $G \leftarrow G\cup\{r_{ij}\}$ and repeat from the beginning.</li>
+<li>Repeat: for each pair $(g_i, g_j)\in G$ with $i&lt;j$, compute $r_{ij} = \overline{S(g_i, g_j)}^G$. If some $r_{ij}\ne 0$, set $G \leftarrow G\cup\{r_{ij}\}$ and repeat from the beginning.</li>
 <li>If every pair gives $r_{ij} = 0$, return $G$.</li>
 </ol>
 </div>

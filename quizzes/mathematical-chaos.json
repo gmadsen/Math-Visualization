@@ -50,7 +50,7 @@
       "questions": [
         {
           "type": "mcq",
-          "q": "The Feigenbaum constant $\\delta\\approx 4.6692\\ldots$ is the limit of which ratio along the logistic map's period-doubling cascade $r_1<r_2<\\cdots$?",
+          "q": "The Feigenbaum constant $\\delta\\approx 4.6692\\ldots$ is the limit of which ratio along the logistic map's period-doubling cascade $r_1\\lt r_2<\\cdots$?",
           "choices": [
             "$r_n / r_{n-1}$",
             "$(r_n - r_\\infty) / (r_{n-1} - r_\\infty)$",

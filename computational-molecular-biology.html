@@ -959,7 +959,7 @@ function drawNode(svg, x, y, label, opts={}){
 
 <p><strong>Nussinov</strong> (1978) maximises the number of pairs by the DP recurrence</p>
 
-<p style="text-align:center">$W_{ij} = \max\!\Bigl(W_{i+1,j},\ W_{i,j-1},\ W_{i+1,j-1} + \delta(x_i,x_j),\ \max_{i<k<j} W_{ik} + W_{k+1,j}\Bigr),$</p>
+<p style="text-align:center">$W_{ij} = \max\!\Bigl(W_{i+1,j},\ W_{i,j-1},\ W_{i+1,j-1} + \delta(x_i,x_j),\ \max_{i&lt;k&lt;j} W_{ik} + W_{k+1,j}\Bigr),$</p>
 
 <p>with $\delta(a,b)=1$ if $(a,b)$ is a legal pair and $-\infty$ otherwise. $O(n^3)$ time, $O(n^2)$ space.</p>
 
@@ -980,7 +980,7 @@ function drawNode(svg, x, y, label, opts={}){
   </div>
   <svg id="rna-svg" viewBox="0 0 720 360" width="720" height="360"><title>Nussinov DP dot plot</title></svg>
   <div class="readout" id="rna-out"></div>
-  <p class="small">Left: the Nussinov DP triangle $(i,j)$ with $i<j$, coloured by $W_{ij}$ (deeper cyan = more pairs achievable in $x[i..j]$). Yellow dots mark base-pairs in one optimal traceback. Right: the dot-bracket secondary-structure string and the lower-triangular dot plot of $W$. Watson–Crick + wobble pairs are allowed.</p>
+  <p class="small">Left: the Nussinov DP triangle $(i,j)$ with $i\lt j$, coloured by $W_{ij}$ (deeper cyan = more pairs achievable in $x[i..j]$). Yellow dots mark base-pairs in one optimal traceback. Right: the dot-bracket secondary-structure string and the lower-triangular dot plot of $W$. Watson–Crick + wobble pairs are allowed.</p>
 </div>
 <script>
 (function(){
@@ -1089,7 +1089,7 @@ function drawNode(svg, x, y, label, opts={}){
 
 <p>The first signal-extraction method was just mutual information $I(x_i;x_j)$ between alignment columns. But MI conflates <em>direct</em> couplings with <em>indirect</em> ones — if $i$ couples to $k$ and $k$ couples to $j$, then $i$ and $j$ are correlated without touching. <strong>Direct coupling analysis</strong> (DCA) fixes this by fitting a Potts model</p>
 
-<p style="text-align:center">$P(x_1,\dots,x_L) \;\propto\; \exp\!\Bigl(\sum_i h_i(x_i) + \sum_{i<j} J_{ij}(x_i, x_j)\Bigr)$</p>
+<p style="text-align:center">$P(x_1,\dots,x_L) \;\propto\; \exp\!\Bigl(\sum_i h_i(x_i) + \sum_{i&lt;j} J_{ij}(x_i, x_j)\Bigr)$</p>
 
 <p>to the column-frequency statistics of the alignment, by pseudo-likelihood or mean-field inversion of the covariance matrix. The Frobenius norm $\|J_{ij}\|_F$ then ranks contacts; with an MSA of $\gtrsim 5L$ effective sequences and the correct reweighting for phylogenetic redundancy, top-$L$ DCA predictions hit $\sim 60{-}80\%$ accuracy on monomeric proteins.</p>
 

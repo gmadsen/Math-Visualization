@@ -60,7 +60,7 @@
           "type": "numeric",
           "q": "Let $u(x,y) = x^2 - y^2$ (harmonic on $\\mathbb{R}^2$). What is the average value of $u$ on the circle of radius $2$ centered at the origin?",
           "answer": 0,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "hint": "Use the MVP: the circular average equals $u(0,0)$.",
           "explain": "By the MVP the average of a harmonic function on any sphere centered at a point is the value at that point. Here $u(0,0)=0$, so the average is $0$. (Direct computation with $x = 2\\cos\\theta$, $y = 2\\sin\\theta$ gives $\\int_0^{2\\pi} 4\\cos 2\\theta \\, d\\theta / (2\\pi) = 0$, confirming.)"
         },
@@ -112,7 +112,7 @@
           "type": "numeric",
           "q": "$u$ is harmonic on the open unit disk and continuous on the closed disk, with boundary values $u(e^{i\\theta}) = 3 + 5\\cos\\theta$. Determine $u(0)$.",
           "answer": 3,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "hint": "Use the MVP at the center of the disk; integrate the boundary data over $[0, 2\\pi]$ and divide by $2\\pi$.",
           "explain": "By the MVP, $u(0) = \\frac{1}{2\\pi}\\int_0^{2\\pi}(3 + 5\\cos\\theta)\\,d\\theta = 3$. Equivalently, $u(z) = 3 + 5\\,\\mathrm{Re}(z) = 3 + \\tfrac{5}{2}(z+\\bar z)$ is the harmonic extension and $u(0)=3$."
         }
@@ -138,7 +138,7 @@
           "type": "numeric",
           "q": "The Dirichlet problem on the unit disk has boundary data $g(\\theta) = \\cos(2\\theta)$. The Poisson integral solution evaluated at $z = re^{i\\theta}$ is $u(re^{i\\theta}) = r^2\\cos(2\\theta)$. Compute $u(\\tfrac{1}{2}, 0)$.",
           "answer": 0.25,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "hint": "$z = \\tfrac{1}{2}$ means $r = \\tfrac{1}{2}$, $\\theta = 0$.",
           "explain": "Plug in $r=\\tfrac{1}{2}$, $\\theta=0$: $u = (\\tfrac{1}{2})^2 \\cdot \\cos 0 = \\tfrac{1}{4}$. More generally, the Poisson integral acts on $e^{in\\theta}$ as multiplication by $r^{|n|}$, so $\\cos(n\\theta) = \\tfrac{1}{2}(e^{in\\theta}+e^{-in\\theta})$ extends to $r^n\\cos(n\\theta)$."
         },
@@ -164,7 +164,7 @@
           "type": "numeric",
           "q": "Let $u$ be positive and harmonic on the disk $B(0, R)$ in $\\mathbb{R}^2$, with $u(0) = 1$. Use Harnack's inequality at $r = R/2$ to give the largest possible value of $u(x)$ for $|x| = R/2$.",
           "answer": 3,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "hint": "Plug $r = R/2$ into the Harnack bound $\\tfrac{R+r}{R-r} u(0)$.",
           "explain": "Harnack: $u(x) \\le \\tfrac{R+r}{R-r}u(0) = \\tfrac{R + R/2}{R - R/2}\\cdot 1 = \\tfrac{3R/2}{R/2} = 3$. Sharpness is achieved (in the limit) by Poisson kernels with mass concentrated near a single boundary point."
         },
@@ -179,7 +179,7 @@
           ],
           "answer": 0,
           "hint": "Apply Harnack on balls of radius $R \\to \\infty$.",
-          "explain": "For positive harmonic $u$ on $\\mathbb{R}^n$, Harnack on $B(0,R)$ gives $\\tfrac{R-r}{R+r}u(0) \\le u(x) \\le \\tfrac{R+r}{R-r}u(0)$ for $|x|<R$. Letting $R\\to\\infty$ with $r$ fixed pinches both bounds to $u(0)$, so $u\\equiv u(0)$. This is the harmonic Liouville theorem."
+          "explain": "For positive harmonic $u$ on $\\mathbb{R}^n$, Harnack on $B(0,R)$ gives $\\tfrac{R-r}{R+r}u(0) \\le u(x) \\le \\tfrac{R+r}{R-r}u(0)$ for $|x|\\lt R$. Letting $R\\to\\infty$ with $r$ fixed pinches both bounds to $u(0)$, so $u\\equiv u(0)$. This is the harmonic Liouville theorem."
         },
         {
           "type": "mcq",

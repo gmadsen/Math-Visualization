@@ -662,7 +662,7 @@
             "$|f(\\alpha)| = N^{1/k}$ for all $\\alpha$"
           ],
           "answer": 2,
-          "explain": "Weyl's inequality: if $\\alpha$ has rational approximation $a/q$ with $N^{1/k}<q<N^{k-1/k}$, then $|f(\\alpha)|\\ll N^{1/k}\\cdot N^{-\\sigma_k+\\varepsilon}$ with $\\sigma_k = 2^{1-k}$. This is a nontrivial saving — enough to absorb the minor-arc integral once $s$ is large enough."
+          "explain": "Weyl's inequality: if $\\alpha$ has rational approximation $a/q$ with $N^{1/k}\\lt q\\lt N^{k-1/k}$, then $|f(\\alpha)|\\ll N^{1/k}\\cdot N^{-\\sigma_k+\\varepsilon}$ with $\\sigma_k = 2^{1-k}$. This is a nontrivial saving — enough to absorb the minor-arc integral once $s$ is large enough."
         },
         {
           "type": "mcq",

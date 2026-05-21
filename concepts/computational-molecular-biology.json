@@ -77,7 +77,7 @@
       "prereqs": [
         "cmb-sequence-alignment"
       ],
-      "blurb": "A pseudoknot-free secondary structure is a non-crossing matching on the bases of an RNA strand; Nussinov maximises pair count, $W_{ij}=\\max(W_{i+1,j},\\,W_{i,j-1},\\,W_{i+1,j-1}+\\delta(x_i,x_j),\\,\\max_{i<k<j}W_{ik}+W_{k+1,j})$, in $O(n^3)$. Zuker's algorithm minimises a Turner free energy summed over stacked-pair, hairpin, internal-loop, and multi-loop terms. McCaskill's partition function $Z=\\sum_S e^{-E(S)/RT}$ replaces max with sum and yields base-pair probabilities.",
+      "blurb": "A pseudoknot-free secondary structure is a non-crossing matching on the bases of an RNA strand; Nussinov maximises pair count, $W_{ij}=\\max(W_{i+1,j},\\,W_{i,j-1},\\,W_{i+1,j-1}+\\delta(x_i,x_j),\\,\\max_{i\\lt k\\lt j}W_{ik}+W_{k+1,j})$, in $O(n^3)$. Zuker's algorithm minimises a Turner free energy summed over stacked-pair, hairpin, internal-loop, and multi-loop terms. McCaskill's partition function $Z=\\sum_S e^{-E(S)/RT}$ replaces max with sum and yields base-pair probabilities.",
       "tags": [
         "completion"
       ]

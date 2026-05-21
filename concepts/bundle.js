@@ -423,7 +423,7 @@ window.__MVConcepts = {
             "random-variables",
             "algebraic-structures"
           ],
-          "blurb": "The three classical Wigner ensembles — GOE (real symmetric, $\\beta=1$), GUE (complex Hermitian, $\\beta=2$), GSE (quaternionic self-dual, $\\beta=4$) — pick i.i.d.\\ Gaussian entries respecting a symmetry. The Dyson index $\\beta\\in\\{1,2,4\\}$ records the dimension of the entry algebra over $\\mathbb{R}$ and tunes every downstream eigenvalue statistic via the joint density $\\prod_{i<j}|\\lambda_i-\\lambda_j|^\\beta e^{-\\beta\\sum\\lambda_i^2/4}$.",
+          "blurb": "The three classical Wigner ensembles — GOE (real symmetric, $\\beta=1$), GUE (complex Hermitian, $\\beta=2$), GSE (quaternionic self-dual, $\\beta=4$) — pick i.i.d.\\ Gaussian entries respecting a symmetry. The Dyson index $\\beta\\in\\{1,2,4\\}$ records the dimension of the entry algebra over $\\mathbb{R}$ and tunes every downstream eigenvalue statistic via the joint density $\\prod_{i\\lt j}|\\lambda_i-\\lambda_j|^\\beta e^{-\\beta\\sum\\lambda_i^2/4}$.",
           "tags": [
             "foundation",
             "classification"
@@ -877,7 +877,7 @@ window.__MVConcepts = {
             "ct-distance",
             "polynomial-rings-irreducibility"
           ],
-          "blurb": "Encode messages as polynomials $f\\in\\mathbb{F}_q[x]_{<k}$ and transmit their values $f(\\alpha_1),\\dots,f(\\alpha_n)$ at $n\\le q$ distinct points. Two degree-$<k$ polynomials agree at $\\le k-1$ points, so $d=n-k+1$ exactly — Reed–Solomon codes are MDS. Berlekamp–Massey, Berlekamp–Welch, and Guruswami–Sudan decoders all exploit this algebraic structure.",
+          "blurb": "Encode messages as polynomials $f\\in\\mathbb{F}_q[x]_{\\lt k}$ and transmit their values $f(\\alpha_1),\\dots,f(\\alpha_n)$ at $n\\le q$ distinct points. Two degree-$\\lt k$ polynomials agree at $\\le k-1$ points, so $d=n-k+1$ exactly — Reed–Solomon codes are MDS. Berlekamp–Massey, Berlekamp–Welch, and Guruswami–Sudan decoders all exploit this algebraic structure.",
           "tags": [
             "duality"
           ]
@@ -1307,7 +1307,7 @@ window.__MVConcepts = {
           "prereqs": [
             "cmb-sequence-alignment"
           ],
-          "blurb": "A pseudoknot-free secondary structure is a non-crossing matching on the bases of an RNA strand; Nussinov maximises pair count, $W_{ij}=\\max(W_{i+1,j},\\,W_{i,j-1},\\,W_{i+1,j-1}+\\delta(x_i,x_j),\\,\\max_{i<k<j}W_{ik}+W_{k+1,j})$, in $O(n^3)$. Zuker's algorithm minimises a Turner free energy summed over stacked-pair, hairpin, internal-loop, and multi-loop terms. McCaskill's partition function $Z=\\sum_S e^{-E(S)/RT}$ replaces max with sum and yields base-pair probabilities.",
+          "blurb": "A pseudoknot-free secondary structure is a non-crossing matching on the bases of an RNA strand; Nussinov maximises pair count, $W_{ij}=\\max(W_{i+1,j},\\,W_{i,j-1},\\,W_{i+1,j-1}+\\delta(x_i,x_j),\\,\\max_{i\\lt k\\lt j}W_{ik}+W_{k+1,j})$, in $O(n^3)$. Zuker's algorithm minimises a Turner free energy summed over stacked-pair, hairpin, internal-loop, and multi-loop terms. McCaskill's partition function $Z=\\sum_S e^{-E(S)/RT}$ replaces max with sum and yields base-pair probabilities.",
           "tags": [
             "completion"
           ]
@@ -2161,7 +2161,7 @@ window.__MVConcepts = {
             "dyn-ergodicity",
             "mchaos-symbolic-entropy"
           ],
-          "blurb": "Birkhoff's ergodic theorem: for measure-preserving $T$ and $\\mu$-integrable $f$, the time average $\\tfrac{1}{n}\\sum_{k<n}f(T^k x)$ converges $\\mu$-a.e. to a $T$-invariant function, equal to $\\int f\\,d\\mu$ when $T$ is ergodic. On a hyperbolic attractor the Sinai–Ruelle–Bowen measure is the unique invariant measure absolutely continuous along unstable manifolds: time averages of $f$ for Lebesgue-a.e. initial condition land on $\\int f\\,d\\mu_{\\mathrm{SRB}}$. SRB is what makes physical predictions from chaotic dynamics possible.",
+          "blurb": "Birkhoff's ergodic theorem: for measure-preserving $T$ and $\\mu$-integrable $f$, the time average $\\tfrac{1}{n}\\sum_{k\\lt n}f(T^k x)$ converges $\\mu$-a.e. to a $T$-invariant function, equal to $\\int f\\,d\\mu$ when $T$ is ergodic. On a hyperbolic attractor the Sinai–Ruelle–Bowen measure is the unique invariant measure absolutely continuous along unstable manifolds: time averages of $f$ for Lebesgue-a.e. initial condition land on $\\int f\\,d\\mu_{\\mathrm{SRB}}$. SRB is what makes physical predictions from chaotic dynamics possible.",
           "tags": [
             "classification",
             "completion"
@@ -3847,7 +3847,7 @@ window.__MVConcepts = {
           "prereqs": [
             "field-extensions-galois"
           ],
-          "blurb": "The continued-fraction algorithm $\\alpha=a_0+1/(a_1+1/(a_2+\\cdots))$ produces partial quotients $a_n=\\lfloor\\alpha_n\\rfloor$ and convergents $p_n/q_n$ via the recursion $p_n=a_n p_{n-1}+p_{n-2}$, $q_n=a_n q_{n-1}+q_{n-2}$. Each convergent is a best rational approximation: no $p/q$ with $q<q_n$ comes closer to $\\alpha$. Lagrange's theorem characterises real quadratic irrationals as exactly those whose continued fraction is eventually periodic.",
+          "blurb": "The continued-fraction algorithm $\\alpha=a_0+1/(a_1+1/(a_2+\\cdots))$ produces partial quotients $a_n=\\lfloor\\alpha_n\\rfloor$ and convergents $p_n/q_n$ via the recursion $p_n=a_n p_{n-1}+p_{n-2}$, $q_n=a_n q_{n-1}+q_{n-2}$. Each convergent is a best rational approximation: no $p/q$ with $q\\lt q_n$ comes closer to $\\alpha$. Lagrange's theorem characterises real quadratic irrationals as exactly those whose continued fraction is eventually periodic.",
           "tags": [
             "foundation",
             "classification"
@@ -3888,7 +3888,7 @@ window.__MVConcepts = {
             "cf-liouville",
             "naive-height-projective"
           ],
-          "blurb": "Roth (1955, Fields Medal) sharpened Liouville: for every algebraic irrational $\\alpha$ and $\\varepsilon>0$, there are only finitely many $p/q\\in\\mathbb{Q}$ with $|\\alpha-p/q|<q^{-2-\\varepsilon}$. The exponent $2$ is best possible by Dirichlet. The proof is famously ineffective — it gives no bound on the number or size of the exceptional $p/q$. The Schmidt subspace theorem is the multidimensional generalisation.",
+          "blurb": "Roth (1955, Fields Medal) sharpened Liouville: for every algebraic irrational $\\alpha$ and $\\varepsilon>0$, there are only finitely many $p/q\\in\\mathbb{Q}$ with $|\\alpha-p/q|\\lt q^{-2-\\varepsilon}$. The exponent $2$ is best possible by Dirichlet. The proof is famously ineffective — it gives no bound on the number or size of the exceptional $p/q$. The Schmidt subspace theorem is the multidimensional generalisation.",
           "tags": [
             "finiteness",
             "density"
@@ -5007,7 +5007,7 @@ window.__MVConcepts = {
             "sr-postulates",
             "lie-group-definition"
           ],
-          "blurb": "A boost along $x$ between frames with relative speed $v$ is $t'=\\gamma(t-vx/c^2)$, $x'=\\gamma(x-vt)$, with $\\gamma=1/\\sqrt{1-v^2/c^2}$ and the transverse coordinates unchanged. Composing two boosts in the same direction yields a third with $v_3=(v_1+v_2)/(1+v_1v_2/c^2)$ — speeds add hyperbolically, not linearly, and $|v|<c$ is preserved by composition. The boosts along a single axis form a one-parameter Lie group isomorphic to $\\mathbb{R}$ under rapidity addition $\\xi=\\operatorname{artanh}\\beta$, embedded in the full Lorentz group $\\mathrm{O}(1,3)$ as the symmetry group of inertial relabelings.",
+          "blurb": "A boost along $x$ between frames with relative speed $v$ is $t'=\\gamma(t-vx/c^2)$, $x'=\\gamma(x-vt)$, with $\\gamma=1/\\sqrt{1-v^2/c^2}$ and the transverse coordinates unchanged. Composing two boosts in the same direction yields a third with $v_3=(v_1+v_2)/(1+v_1v_2/c^2)$ — speeds add hyperbolically, not linearly, and $|v|\\lt c$ is preserved by composition. The boosts along a single axis form a one-parameter Lie group isomorphic to $\\mathbb{R}$ under rapidity addition $\\xi=\\operatorname{artanh}\\beta$, embedded in the full Lorentz group $\\mathrm{O}(1,3)$ as the symmetry group of inertial relabelings.",
           "tags": [
             "group-action",
             "classification"
@@ -5061,7 +5061,7 @@ window.__MVConcepts = {
           "prereqs": [
             "sr-minkowski"
           ],
-          "blurb": "Two events are causally connected only when timelike or null separated; the future light cone of an event is invariant under proper orthochronous Lorentz transformations $\\mathrm{SO}^+(1,3)$, so the relation \"$q$ lies in the causal future of $p$\" is frame-independent. Spacelike-separated events admit boosted frames in which their temporal order reverses — \"simultaneity\" is a frame-dependent slicing of spacetime — and superluminal signals would close a causal loop (the tachyonic antitelephone), letting one send messages into one's own past. The hard speed limit $|v|<c$ for information and matter is therefore not a kinematic accident but a consistency requirement of the geometry.",
+          "blurb": "Two events are causally connected only when timelike or null separated; the future light cone of an event is invariant under proper orthochronous Lorentz transformations $\\mathrm{SO}^+(1,3)$, so the relation \"$q$ lies in the causal future of $p$\" is frame-independent. Spacelike-separated events admit boosted frames in which their temporal order reverses — \"simultaneity\" is a frame-dependent slicing of spacetime — and superluminal signals would close a causal loop (the tachyonic antitelephone), letting one send messages into one's own past. The hard speed limit $|v|\\lt c$ for information and matter is therefore not a kinematic accident but a consistency requirement of the geometry.",
           "tags": [
             "classification",
             "foundation"
@@ -7768,7 +7768,7 @@ window.__MVConcepts = {
           "tags": [
             "classification"
           ],
-          "blurb": "Compactly supported orthonormal wavelets with $N$ vanishing moments, $\\int x^k\\psi(x)\\,dx=0$ for $k<N$. Daubechies constructed them by spectral-factoring the polynomial $P(y)=\\sum_{k=0}^{N-1}\\binom{N-1+k}{k}y^k$ to obtain a quadrature mirror filter $h_n$ — the smoother the wavelet, the longer its support ($\\operatorname{supp}\\psi=[0,2N-1]$)."
+          "blurb": "Compactly supported orthonormal wavelets with $N$ vanishing moments, $\\int x^k\\psi(x)\\,dx=0$ for $k\\lt N$. Daubechies constructed them by spectral-factoring the polynomial $P(y)=\\sum_{k=0}^{N-1}\\binom{N-1+k}{k}y^k$ to obtain a quadrature mirror filter $h_n$ — the smoother the wavelet, the longer its support ($\\operatorname{supp}\\psi=[0,2N-1]$)."
         },
         {
           "id": "w-discrete-transform",
@@ -12453,7 +12453,7 @@ window.__MVConcepts = {
             "dyn-chaos",
             "lebesgue-measure"
           ],
-          "blurb": "A measure-preserving $T$ is ergodic iff every invariant set has measure $0$ or $1$. Birkhoff: for ergodic $T$, time averages $\\tfrac{1}{N}\\sum_{k<N} f(T^k x)$ converge a.e. to the space average $\\int f\\,d\\mu$.",
+          "blurb": "A measure-preserving $T$ is ergodic iff every invariant set has measure $0$ or $1$. Birkhoff: for ergodic $T$, time averages $\\tfrac{1}{N}\\sum_{k\\lt N} f(T^k x)$ converge a.e. to the space average $\\int f\\,d\\mu$.",
           "tags": [
             "group-action"
           ]
@@ -12835,7 +12835,7 @@ window.__MVConcepts = {
           "prereqs": [
             "hf-poisson-kernel"
           ],
-          "blurb": "For positive harmonic $u$ on $B(0,R)$ and $|x|=r<R$: $\\tfrac{R-r}{R+r}u(0) \\le u(x) \\le \\tfrac{R+r}{R-r}u(0)$. Consequence: a positive harmonic function on $\\mathbb{R}^n$ is constant (Liouville for harmonic functions).",
+          "blurb": "For positive harmonic $u$ on $B(0,R)$ and $|x|=r\\lt R$: $\\tfrac{R-r}{R+r}u(0) \\le u(x) \\le \\tfrac{R+r}{R-r}u(0)$. Consequence: a positive harmonic function on $\\mathbb{R}^n$ is constant (Liouville for harmonic functions).",
           "tags": [
             "foundation"
           ]
@@ -13460,7 +13460,7 @@ window.__MVConcepts = {
           "prereqs": [
             "it-mutual-information"
           ],
-          "blurb": "The capacity of a discrete memoryless channel is $C=\\max_{p_X}I(X;Y)$. Shannon's noisy-channel theorem: any rate $R<C$ admits codes with vanishing error as block length grows, and any $R>C$ has error bounded away from $0$ — capacity is the sharp threshold.",
+          "blurb": "The capacity of a discrete memoryless channel is $C=\\max_{p_X}I(X;Y)$. Shannon's noisy-channel theorem: any rate $R\\lt C$ admits codes with vanishing error as block length grows, and any $R>C$ has error bounded away from $0$ — capacity is the sharp threshold.",
           "tags": [
             "duality"
           ]

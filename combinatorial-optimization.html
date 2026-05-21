@@ -575,7 +575,7 @@ function drawNode(svg, x, y, label, opts={}){
 
 <p>This is LP duality in disguise: the LP $\max\sum_{e\,\text{out of}\,s} f(e)$ subject to capacities and conservation has the cut-LP as its dual, and the constraint matrix (incidence + capacity) is totally unimodular, so the optimum is integral when capacities are integers.</p>
 
-<p>The algorithmic side is the <strong>augmenting-path</strong> idea. Define the <em>residual graph</em> $G_f$: for each edge $e=(u,v)$ with $f(e)<c(e)$, add a forward residual edge of capacity $c(e)-f(e)$; for each edge with $f(e)>0$, add a backward residual edge of capacity $f(e)$. An augmenting path is any $s$–$t$ path in $G_f$; pushing flow equal to its bottleneck capacity along the path strictly improves $|f|$. When no augmenting path exists, the reachable vertices from $s$ in $G_f$ define a min cut, and we are done.</p>
+<p>The algorithmic side is the <strong>augmenting-path</strong> idea. Define the <em>residual graph</em> $G_f$: for each edge $e=(u,v)$ with $f(e)&lt;c(e)$, add a forward residual edge of capacity $c(e)-f(e)$; for each edge with $f(e)>0$, add a backward residual edge of capacity $f(e)$. An augmenting path is any $s$–$t$ path in $G_f$; pushing flow equal to its bottleneck capacity along the path strictly improves $|f|$. When no augmenting path exists, the reachable vertices from $s$ in $G_f$ define a min cut, and we are done.</p>
 
 <p>Choosing augmenting paths via BFS (shortest-edge-count) gives the <strong>Edmonds–Karp algorithm</strong>, whose $O(|V||E|^2)$ bound is the first proof that max-flow is strongly polynomial.</p>
 

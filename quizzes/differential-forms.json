@@ -56,7 +56,7 @@
           "q": "Compute $\\dim\\Omega^k(\\mathbb{R}^5)$ for $k=3$.",
           "answer": 10,
           "tol": 0.000001,
-          "explain": "$\\binom{5}{3}=10$. Basis elements are $dx^{i_1}\\wedge dx^{i_2}\\wedge dx^{i_3}$ with $i_1<i_2<i_3$ from $\\{1,2,3,4,5\\}$."
+          "explain": "$\\binom{5}{3}=10$. Basis elements are $dx^{i_1}\\wedge dx^{i_2}\\wedge dx^{i_3}$ with $i_1\\lt i_2\\lt i_3$ from $\\{1,2,3,4,5\\}$."
         }
       ]
     },
@@ -118,7 +118,7 @@
         },
         {
           "type": "mcq",
-          "q": "Order these steps in deriving $d^2f=0$ for a smooth function $f$ on $\\mathbb{R}^n$. Which ordering is correct? (I) Write $df=\\sum_i \\partial_i f\\,dx^i$. (II) Apply $d$ again: $d^2f=\\sum_{i,j}\\partial_j\\partial_i f\\,dx^j\\wedge dx^i$. (III) Note the sum over $i<j$ telescopes as $(\\partial_j\\partial_i f - \\partial_i\\partial_j f)dx^j\\wedge dx^i=0$ by Schwarz. (IV) Antisymmetry of $\\wedge$ pairs $(j,i)$ with $(i,j)$.",
+          "q": "Order these steps in deriving $d^2f=0$ for a smooth function $f$ on $\\mathbb{R}^n$. Which ordering is correct? (I) Write $df=\\sum_i \\partial_i f\\,dx^i$. (II) Apply $d$ again: $d^2f=\\sum_{i,j}\\partial_j\\partial_i f\\,dx^j\\wedge dx^i$. (III) Note the sum over $i\\lt j$ telescopes as $(\\partial_j\\partial_i f - \\partial_i\\partial_j f)dx^j\\wedge dx^i=0$ by Schwarz. (IV) Antisymmetry of $\\wedge$ pairs $(j,i)$ with $(i,j)$.",
           "choices": [
             "I → III → II → IV",
             "II → I → IV → III",

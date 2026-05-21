@@ -108,11 +108,11 @@
       "questions": [
         {
           "type": "numeric",
-          "q": "How many inversions does the permutation $\\sigma = (3, 1, 4, 2)$ in one-line notation have? (An inversion is a pair $i<j$ with $\\sigma(i) > \\sigma(j)$.)",
+          "q": "How many inversions does the permutation $\\sigma = (3, 1, 4, 2)$ in one-line notation have? (An inversion is a pair $i\\lt j$ with $\\sigma(i) > \\sigma(j)$.)",
           "answer": 3,
           "tol": 0,
           "explain": "Inverted pairs: $(3,1), (3,2), (4,2)$. Total $= 3$.",
-          "hint": "List all $i<j$ where $\\sigma(i) > \\sigma(j)$."
+          "hint": "List all $i\\lt j$ where $\\sigma(i) > \\sigma(j)$."
         },
         {
           "type": "numeric",

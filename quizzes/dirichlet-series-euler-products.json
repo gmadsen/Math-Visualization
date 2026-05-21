@@ -323,7 +323,7 @@
       "hard": [
         {
           "type": "mcq",
-          "q": "In Perron's formula the kernel $\\frac{1}{2\\pi i}\\int_{c-i\\infty}^{c+i\\infty}\\frac{x^s}{s}ds$ equals $1$ when $x>1$ and $0$ when $0<x<1$. Which contour-shifting argument produces this?",
+          "q": "In Perron's formula the kernel $\\frac{1}{2\\pi i}\\int_{c-i\\infty}^{c+i\\infty}\\frac{x^s}{s}ds$ equals $1$ when $x>1$ and $0$ when $0\\lt x<1$. Which contour-shifting argument produces this?",
           "choices": [
             "Close to the left for $x>1$ (picking up the pole of $1/s$ at $s=0$ with residue $1$); close to the right for $x<1$ (no poles enclosed, giving $0$)",
             "Close to the right for $x>1$ (no poles, giving $1$); close to the left for $x<1$ (pole gives $0$)",

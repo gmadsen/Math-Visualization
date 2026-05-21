@@ -61,7 +61,7 @@
       "prereqs": [
         "it-mutual-information"
       ],
-      "blurb": "The capacity of a discrete memoryless channel is $C=\\max_{p_X}I(X;Y)$. Shannon's noisy-channel theorem: any rate $R<C$ admits codes with vanishing error as block length grows, and any $R>C$ has error bounded away from $0$ — capacity is the sharp threshold.",
+      "blurb": "The capacity of a discrete memoryless channel is $C=\\max_{p_X}I(X;Y)$. Shannon's noisy-channel theorem: any rate $R\\lt C$ admits codes with vanishing error as block length grows, and any $R>C$ has error bounded away from $0$ — capacity is the sharp threshold.",
       "tags": [
         "duality"
       ]

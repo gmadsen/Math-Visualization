@@ -145,7 +145,7 @@
             "$d \\ge \\log_q n$."
           ],
           "answer": 0,
-          "explain": "Two distinct polynomials of degree $<k$ agree at $\\le k-1$ points (their difference has $<k$ roots), so they differ at $\\ge n-(k-1) = n-k+1$ points. The bound $d\\le n-k+1$ is therefore tight: Reed–Solomon meets Singleton.",
+          "explain": "Two distinct polynomials of degree $\\lt k$ agree at $\\le k-1$ points (their difference has $\\lt k$ roots), so they differ at $\\ge n-(k-1) = n-k+1$ points. The bound $d\\le n-k+1$ is therefore tight: Reed–Solomon meets Singleton.",
           "hint": "How many roots can $f-g$ have?"
         },
         {

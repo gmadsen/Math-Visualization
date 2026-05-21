@@ -118,14 +118,14 @@
         },
         {
           "type": "proof-completion",
-          "q": "You are proving the intermediate value theorem: if $f\\colon[a,b]\\to\\mathbb{R}$ is continuous with $f(a)<0<f(b)$, then some $c\\in(a,b)$ has $f(c)=0$. The steps so far use the nested-interval bisection idea.",
+          "q": "You are proving the intermediate value theorem: if $f\\colon[a,b]\\to\\mathbb{R}$ is continuous with $f(a)<0\\lt f(b)$, then some $c\\in(a,b)$ has $f(c)=0$. The steps so far use the nested-interval bisection idea.",
           "steps": [
             "Set $S = \\{x\\in[a,b] : f(x) < 0\\}$. Since $a\\in S$, $S$ is nonempty, and $S$ is bounded above by $b$.",
             "Let $c = \\sup S \\in [a,b]$. By the least-upper-bound property of $\\mathbb{R}$, $c$ exists.",
             "We want to rule out $f(c)<0$ and $f(c)>0$, which will force $f(c)=0$."
           ],
           "choices": [
-            "If $f(c)<0$ then $c<b$, and by continuity there is $\\delta>0$ with $f(x)<0$ on $[c,c+\\delta)$; but then $c+\\delta/2\\in S$ contradicts $c=\\sup S$.",
+            "If $f(c)<0$ then $c\\lt b$, and by continuity there is $\\delta>0$ with $f(x)<0$ on $[c,c+\\delta)$; but then $c+\\delta/2\\in S$ contradicts $c=\\sup S$.",
             "Since $c$ is a supremum of $S$, it must lie in $S$, so $f(c)<0$; invoke Heine–Borel and conclude.",
             "Apply Rolle's theorem on $[a,b]$ to produce the root directly.",
             "Note that $f$ is uniformly continuous on $[a,b]$, so it extends to the one-point compactification."
@@ -239,7 +239,7 @@
         },
         {
           "type": "numeric",
-          "q": "The series $\\sum_{n=1}^\\infty \\frac{(-1)^n}{n} x^n$ converges uniformly on $[-r, r]$ for $0<r<1$. Using the Weierstrass M-test with $M_n = r^n/n$, compute $\\sum_{n=1}^{\\infty} M_n$ at $r=1/2$. (Give the exact decimal value to 4 places.)",
+          "q": "The series $\\sum_{n=1}^\\infty \\frac{(-1)^n}{n} x^n$ converges uniformly on $[-r, r]$ for $0\\lt r<1$. Using the Weierstrass M-test with $M_n = r^n/n$, compute $\\sum_{n=1}^{\\infty} M_n$ at $r=1/2$. (Give the exact decimal value to 4 places.)",
           "answer": 0.6931,
           "tol": 0.001,
           "explain": "$\\sum_{n=1}^\\infty (1/2)^n/n = -\\ln(1-1/2) = \\ln 2 \\approx 0.6931$. The M-test bound is $\\ln 2$, confirming absolute and uniform convergence on $[-1/2,\\,1/2]$."
@@ -594,7 +594,7 @@
           ],
           "answer": 0,
           "hint": "You need a geometric bound on $|a_n x^n|$.",
-          "explain": "Multiplying the bound $|a_n| < \\rho^{-n}$ by $|x|^n$ gives $|a_n x^n| < (|x|/\\rho)^n$, a convergent geometric series. So the power series converges absolutely for $|x|<R$. The reverse direction (divergence for $|x|>R$) uses a symmetric argument: infinitely many $|a_n|^{1/n}$ are near $1/R$, making terms not go to zero."
+          "explain": "Multiplying the bound $|a_n| < \\rho^{-n}$ by $|x|^n$ gives $|a_n x^n| < (|x|/\\rho)^n$, a convergent geometric series. So the power series converges absolutely for $|x|\\lt R$. The reverse direction (divergence for $|x|>R$) uses a symmetric argument: infinitely many $|a_n|^{1/n}$ are near $1/R$, making terms not go to zero."
         }
       ]
     },
@@ -778,7 +778,7 @@
           ],
           "answer": 0,
           "hint": "The key issue is making the tail sum's $k$-th derivatives converge.",
-          "explain": "The delicate step is controlling all lower derivatives. Scaling the cutoff support very narrowly (large $\\lambda_n$) makes each $f_n$'s $k$-th derivatives for $k<n$ tiny in sup norm. Choosing $\\lambda_n$ to enforce $\\|f_n^{(k)}\\|_\\infty < 2^{-n}$ for all $k<n$ makes $\\sum f_n^{(k)}$ converge uniformly for every $k$. Hence $f=\\sum f_n$ is smooth with the prescribed derivatives at $0$. The naive Taylor series (choice 3) can diverge everywhere except $x=0$."
+          "explain": "The delicate step is controlling all lower derivatives. Scaling the cutoff support very narrowly (large $\\lambda_n$) makes each $f_n$'s $k$-th derivatives for $k\\lt n$ tiny in sup norm. Choosing $\\lambda_n$ to enforce $\\|f_n^{(k)}\\|_\\infty < 2^{-n}$ for all $k\\lt n$ makes $\\sum f_n^{(k)}$ converge uniformly for every $k$. Hence $f=\\sum f_n$ is smooth with the prescribed derivatives at $0$. The naive Taylor series (choice 3) can diverge everywhere except $x=0$."
         },
         {
           "type": "mcq",
@@ -945,7 +945,7 @@
             3
           ],
           "hint": "Each step strictly drops a property: continuity of $f'$; uniform bound on the difference quotient; the AC inequality on disjoint intervals; closing the gap with the Cantor function.",
-          "explain": "On $[a,b]$ each containment is strict. $C^1 \\subsetneq$ Lipschitz: $f'$ continuous on a compact is bounded, so $f$ is Lipschitz with constant $\\sup|f'|$; $f(x)=|x|$ is Lipschitz but not $C^1$. Lipschitz $\\subsetneq$ AC: the AC sum is bounded by $L\\sum(b_k-a_k)<L\\delta$; $f(x)=\\sqrt{x}$ on $[0,1]$ is AC (its derivative $1/(2\\sqrt x)$ is in $L^1$) but not Lipschitz. AC $\\subsetneq$ BV $\\cap C$: AC functions are uniformly continuous and have finite variation (split $[a,b]$ into $\\lceil (b-a)/\\delta\\rceil$ chunks; the AC sum bounds the variation on each); the Cantor function is in BV $\\cap C$ but not AC. Hölder $C^{0,\\alpha}$ for $\\alpha<1$ is deliberately omitted: the Cantor function is $\\alpha$-Hölder for $\\alpha=\\log 2/\\log 3$ yet not AC, so Hölder and AC are incomparable on $[a,b]$ — Hölder does NOT imply AC (only $\\alpha=1$, i.e. Lipschitz, does)."
+          "explain": "On $[a,b]$ each containment is strict. $C^1 \\subsetneq$ Lipschitz: $f'$ continuous on a compact is bounded, so $f$ is Lipschitz with constant $\\sup|f'|$; $f(x)=|x|$ is Lipschitz but not $C^1$. Lipschitz $\\subsetneq$ AC: the AC sum is bounded by $L\\sum(b_k-a_k)\\lt L\\delta$; $f(x)=\\sqrt{x}$ on $[0,1]$ is AC (its derivative $1/(2\\sqrt x)$ is in $L^1$) but not Lipschitz. AC $\\subsetneq$ BV $\\cap C$: AC functions are uniformly continuous and have finite variation (split $[a,b]$ into $\\lceil (b-a)/\\delta\\rceil$ chunks; the AC sum bounds the variation on each); the Cantor function is in BV $\\cap C$ but not AC. Hölder $C^{0,\\alpha}$ for $\\alpha<1$ is deliberately omitted: the Cantor function is $\\alpha$-Hölder for $\\alpha=\\log 2/\\log 3$ yet not AC, so Hölder and AC are incomparable on $[a,b]$ — Hölder does NOT imply AC (only $\\alpha=1$, i.e. Lipschitz, does)."
         }
       ]
     },
@@ -1010,7 +1010,7 @@
           "answer": 0.5,
           "tol": 0.000001,
           "hint": "For small $r>0$, the integral counts the length of $[x-r,x+r]\\cap[0,1]$.",
-          "explain": "For $0<r<1$, $[1-r,1+r]\\cap[0,1] = [1-r,1]$ has length $r$, so the average is $r/(2r) = 1/2$. The point $x=1$ is therefore NOT a Lebesgue point of $f$ (the average converges to $1/2$, not to the value $f(1)=1$). The set of non-Lebesgue points has measure zero — here it is just $\\{0,1\\}$."
+          "explain": "For $0\\lt r<1$, $[1-r,1+r]\\cap[0,1] = [1-r,1]$ has length $r$, so the average is $r/(2r) = 1/2$. The point $x=1$ is therefore NOT a Lebesgue point of $f$ (the average converges to $1/2$, not to the value $f(1)=1$). The set of non-Lebesgue points has measure zero — here it is just $\\{0,1\\}$."
         },
         {
           "type": "multi-select",

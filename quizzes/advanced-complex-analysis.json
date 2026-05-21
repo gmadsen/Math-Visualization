@@ -268,7 +268,7 @@
             "Periodic"
           ],
           "answer": 1,
-          "explain": "$\\log M(r)$ is a convex function of $\\log r$ on the annulus where $f$ is holomorphic. Convexity yields the standard interpolation inequality $M(r_2)^{\\log(r_3/r_1)} \\le M(r_1)^{\\log(r_3/r_2)} M(r_3)^{\\log(r_2/r_1)}$ for $r_1<r_2<r_3$."
+          "explain": "$\\log M(r)$ is a convex function of $\\log r$ on the annulus where $f$ is holomorphic. Convexity yields the standard interpolation inequality $M(r_2)^{\\log(r_3/r_1)} \\le M(r_1)^{\\log(r_3/r_2)} M(r_3)^{\\log(r_2/r_1)}$ for $r_1\\lt r_2\\lt r_3$."
         },
         {
           "type": "numeric",
@@ -304,7 +304,7 @@
             "$\\sum_{n=0}^\\infty|a_n|^p$ where $f = \\sum a_n z^n$"
           ],
           "answer": 0,
-          "explain": "$H^p(\\mathbb{D})$ is defined by $\\|f\\|_{H^p}^p = \\sup_{0<r<1}\\frac{1}{2\\pi}\\int_0^{2\\pi}|f(re^{i\\theta})|^p d\\theta < \\infty$. Bounded sup ($H^\\infty$) is the second option but a different space; area integrals define the Bergman space $A^p$, not Hardy."
+          "explain": "$H^p(\\mathbb{D})$ is defined by $\\|f\\|_{H^p}^p = \\sup_{0\\lt r<1}\\frac{1}{2\\pi}\\int_0^{2\\pi}|f(re^{i\\theta})|^p d\\theta < \\infty$. Bounded sup ($H^\\infty$) is the second option but a different space; area integrals define the Bergman space $A^p$, not Hardy."
         },
         {
           "type": "mcq",
@@ -350,7 +350,12 @@
             "$f(\\mathbb{D})$ contains a univalent disk of radius $\\ge B$",
             "Near an essential singularity, every value taken $\\infty$-often (≤ 1 exception)"
           ],
-          "answer": [0, 1, 2, 3],
+          "answer": [
+            0,
+            1,
+            2,
+            3
+          ],
           "hint": "Order by strength: bounded $\\Rightarrow$ trivial; one omitted value qualitative; a universal univalent radius is the quantitative geometric refinement; great Picard is the local form near essential singularities.",
           "explain": "The Picard-Bloch progression: qualitative omitted-value statements (Liouville, little Picard, great Picard) versus the quantitative geometric refinement (Bloch). The Bloch constant $B \\ge \\sqrt{3}/4$ is universal — independent of $f$ — which is exactly what makes Bloch quantitative."
         },
@@ -395,7 +400,12 @@
             "Nevanlinna height — overall growth of $f$",
             "The defect at $a$: asymptotic 'avoidance' of $a$"
           ],
-          "answer": [0, 1, 2, 3],
+          "answer": [
+            0,
+            1,
+            2,
+            3
+          ],
           "hint": "Proximity is an integral over the circle; counting is a sum over zeros/poles inside the disk.",
           "explain": "$m$ and $N$ are the two halves of the first main theorem $m(r,a) + N(r,a) = T(r,f) + O(1)$, which says $T$ is independent of $a \\in \\hat{\\mathbb{C}}$. The defect $\\delta(a)$ records how much $f$ avoids $a$ asymptotically; the second main theorem then bounds $\\sum_a \\delta(a) \\le 2$, recovering Picard."
         },
@@ -492,7 +502,11 @@
             "$f$ is conformal",
             "$f$ is a homeomorphism that is the identity on $\\partial\\Omega$"
           ],
-          "answer": [0, 1, 2],
+          "answer": [
+            0,
+            1,
+            2
+          ],
           "hint": "Conformal corresponds to $K=1$, the special case — not the general definition. Three equivalent characterizations are correct.",
           "explain": "(0) is the analytic definition; (1) is the geometric definition (eccentricity bounded by $K$); (2) is the metric/distortion form, equivalent to the Beltrami inequality after rearranging. (3) is the strict subset $K=1$, not the general case. (4) (boundary identity) has no relation to quasiconformality — many qc maps move boundary points."
         },
@@ -532,7 +546,11 @@
             "$\\Omega$ is convex in the Euclidean sense",
             "$\\Omega$ has smooth boundary"
           ],
-          "answer": [0, 1, 2],
+          "answer": [
+            0,
+            1,
+            2
+          ],
           "hint": "Levi's problem (Oka-Bremermann-Norguet) gives the equivalence of three intrinsic conditions; convexity is sufficient but not necessary.",
           "explain": "(0) = (1) = (2) are the three classical characterizations: plurisubharmonic exhaustion, holomorphic convexity, Levi pseudoconvex boundary. (3) is sufficient but strictly stronger — the bidisk is pseudoconvex but not convex. (4) is irrelevant — any pseudoconvex domain can be approximated by smooth ones, but pseudoconvexity does not require smooth boundary."
         },
@@ -545,7 +563,11 @@
             "Every simply connected proper domain is biholomorphic to the unit ball (Riemann mapping)",
             "Two simply connected proper domains can fail to be biholomorphic to each other (e.g. bidisk vs. ball)"
           ],
-          "answer": [0, 1, 3],
+          "answer": [
+            0,
+            1,
+            3
+          ],
           "hint": "Three of these are higher-dimensional novelties; the false statement is the Riemann-mapping-style classification.",
           "explain": "(0) Hartogs forces extension across compact holes for $n\\ge 2$; in $n=1$ the punctured disk admits $1/z$. (1) Hartogs implies no isolated singularities for $n\\ge 2$. (2) The Riemann mapping theorem FAILS for $n\\ge 2$ — Poincaré (1907) showed the bidisk and the ball in $\\mathbb{C}^2$ are simply connected but not biholomorphic. (3) is the contrapositive — biholomorphism classification of simply connected domains genuinely shatters in higher dimensions."
         }

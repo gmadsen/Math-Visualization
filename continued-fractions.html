@@ -272,7 +272,7 @@ seeded by $p_{-1}=1,\,p_0=a_0$ and $q_{-1}=0,\,q_0=1$. Two basic identities foll
 $$p_n q_{n-1}-p_{n-1}q_n=(-1)^{n-1},\qquad \alpha-\frac{p_n}{q_n}=\frac{(-1)^n}{q_n(q_{n+1}+q_n\beta_{n+2})}\;,$$
 where $\beta_k\in[0,1)$ is the tail. So consecutive convergents straddle $\alpha$ and the error decays at least as $1/(q_n q_{n+1})\le 1/q_n^2$.</p>
 
-<div class="note"><strong>Best-approximation property.</strong> The convergents $p_n/q_n$ are exactly the rationals $p/q$ such that no other rational with denominator $\le q$ is closer to $\alpha$. More precisely: if $0<q<q_{n+1}$ and $p/q\ne p_n/q_n$, then $|q\alpha-p|>|q_n\alpha-p_n|$. The recursion $p_n=a_n p_{n-1}+p_{n-2}$ is hill-climbing among rationals.</div>
+<div class="note"><strong>Best-approximation property.</strong> The convergents $p_n/q_n$ are exactly the rationals $p/q$ such that no other rational with denominator $\le q$ is closer to $\alpha$. More precisely: if $0&lt;q&lt;q_{n+1}$ and $p/q\ne p_n/q_n$, then $|q\alpha-p|>|q_n\alpha-p_n|$. The recursion $p_n=a_n p_{n-1}+p_{n-2}$ is hill-climbing among rationals.</div>
 
 <p>The widget below builds the convergents for any real you type. Try $\pi$, $\sqrt{2}$, $e$, or the golden ratio $\varphi=(1+\sqrt{5})/2$; watch the partial quotients $a_n$ and the error $q_n^2|\alpha-p_n/q_n|$ side by side. For $\pi=[3;7,15,1,292,1,1,\ldots]$ the entry $a_4=292$ is what makes $355/113$ astonishingly accurate — a large partial quotient means the previous convergent is very close.</p>
 
@@ -537,7 +537,7 @@ is transcendental. The truncations $L_n=\sum_{k=1}^n 10^{-k!}$ are rationals $p_
 $$\Big|L-\frac{p_n}{q_n}\Big|\;<\;2\cdot 10^{-(n+1)!}\;=\;2\,q_n^{-(n+1)}.$$
 For any algebraic degree $d$ this beats $q_n^{-d}$ once $n\ge d$, contradicting Liouville's inequality. Hence $L$ is transcendental.</div>
 
-<p>Liouville constants are now defined as any irrational $\alpha$ admitting infinitely many $p/q$ with $|\alpha-p/q|<q^{-n}$ for every $n\ge 1$. They form a comeagre but Lebesgue-null set in $\mathbb{R}$, so most reals are <em>not</em> Liouville — yet finding non-Liouville transcendentals (e.g. $e,\pi$) is a separate, harder problem that needs Hermite, Lindemann, and ultimately Roth.</p>
+<p>Liouville constants are now defined as any irrational $\alpha$ admitting infinitely many $p/q$ with $|\alpha-p/q|&lt;q^{-n}$ for every $n\ge 1$. They form a comeagre but Lebesgue-null set in $\mathbb{R}$, so most reals are <em>not</em> Liouville — yet finding non-Liouville transcendentals (e.g. $e,\pi$) is a separate, harder problem that needs Hermite, Lindemann, and ultimately Roth.</p>
 
 <p>The widget builds a Liouville-style number with adjustable gap-rate. Set the exponent $\beta$; the construction $\alpha=\sum 10^{-\lfloor\beta^k\rfloor}$ produces an irrational with explicit good rational approximations. For $\beta\ge d$ the bound exceeds Liouville's threshold and forces transcendence over algebraic numbers of degree $\le d$.</p>
 
@@ -610,7 +610,7 @@ For any algebraic degree $d$ this beats $q_n^{-d}$ once $n\ge d$, contradicting 
 $$\Big|\alpha-\frac{p}{q}\Big|\;<\;\frac{1}{q^{2+\varepsilon}}$$
 has only finitely many solutions $p/q\in\mathbb{Q}$.</div>
 
-<p>This was awarded the Fields Medal in 1958. The exponent $2$ is sharp on the upper side because Dirichlet's pigeonhole argument always produces infinitely many $p/q$ with $|\alpha-p/q|<q^{-2}$ for any irrational. Roth shows the gap between Dirichlet (which is universal: trivial lower bound on approximability) and the actual approximability of algebraic numbers is the smallest possible.</p>
+<p>This was awarded the Fields Medal in 1958. The exponent $2$ is sharp on the upper side because Dirichlet's pigeonhole argument always produces infinitely many $p/q$ with $|\alpha-p/q|&lt;q^{-2}$ for any irrational. Roth shows the gap between Dirichlet (which is universal: trivial lower bound on approximability) and the actual approximability of algebraic numbers is the smallest possible.</p>
 
 <table class="plain">
 <thead><tr><th>theorem</th><th>year</th><th>exponent</th><th>effective?</th></tr></thead>
@@ -861,7 +861,7 @@ are contained in a finite union of proper rational subspaces of $\mathbb{Q}^n$.<
 <p>The widget tabulates the $S$-unit form of Roth at each absolute value, picking $S$ from a small list. It demonstrates the surprising symmetry: archimedean and $p$-adic places enter Roth on equal footing once one passes through the multiplicative $\prod_v$ formulation.</p>
 
 <div class="widget" id="w-pa">
-  <div class="hd"><div class="ttl">Roth at multiple places</div><div class="hint">$\prod_{v\in S}\min(1,|\alpha-p/q|_v)<H(p/q)^{-2-\varepsilon}$</div></div>
+  <div class="hd"><div class="ttl">Roth at multiple places</div><div class="hint">$\prod_{v\in S}\min(1,|\alpha-p/q|_v)\lt H(p/q)^{-2-\varepsilon}$</div></div>
   <div class="row">
     <label for="pa-S">place set $S$</label>
     <select id="pa-S">

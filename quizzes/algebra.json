@@ -651,7 +651,7 @@
         },
         {
           "type": "mcq",
-          "q": "Let $p<q$ be primes with $p\\nmid(q-1)$, and $|G|=pq$. Which conclusion is correct?",
+          "q": "Let $p\\lt q$ be primes with $p\\nmid(q-1)$, and $|G|=pq$. Which conclusion is correct?",
           "choices": [
             "$G$ is cyclic of order $pq$",
             "$G$ is nonabelian and unique up to isomorphism",
@@ -660,7 +660,7 @@
           ],
           "answer": 0,
           "hint": "Show $n_p=1$ by combining Sylow's divisibility and congruence with the hypothesis $p\\nmid(q-1)$.",
-          "explain": "$n_q\\mid p$ and $n_q\\equiv 1\\pmod q$; since $p<q$, $n_q=1$. $n_p\\mid q$ and $n_p\\equiv 1\\pmod p$; the divisors of $q$ are $1,q$, and $q\\equiv 1\\pmod p$ would force $p\\mid(q-1)$, contradicting the hypothesis. Hence $n_p=1$. Both Sylows are normal and meet trivially, so $G\\cong\\mathbb{Z}/p\\times\\mathbb{Z}/q\\cong\\mathbb{Z}/pq$."
+          "explain": "$n_q\\mid p$ and $n_q\\equiv 1\\pmod q$; since $p\\lt q$, $n_q=1$. $n_p\\mid q$ and $n_p\\equiv 1\\pmod p$; the divisors of $q$ are $1,q$, and $q\\equiv 1\\pmod p$ would force $p\\mid(q-1)$, contradicting the hypothesis. Hence $n_p=1$. Both Sylows are normal and meet trivially, so $G\\cong\\mathbb{Z}/p\\times\\mathbb{Z}/q\\cong\\mathbb{Z}/pq$."
         },
         {
           "type": "numeric",
@@ -751,7 +751,7 @@
             "$f$ factors as $(x+1)(x^2-x+3)$"
           ],
           "answer": 0,
-          "explain": "Eisenstein needs: $p\\nmid a_n$ (leading), $p\\mid a_i$ for $i<n$, and $p^2\\nmid a_0$. With $p=3$: $3\\nmid 1$, $3\\mid 0$ and $3\\mid 3$, and $9\\nmid 3$. So $f$ is irreducible over $\\mathbb{Q}$ (and over $\\mathbb{Z}$ by Gauss's lemma)."
+          "explain": "Eisenstein needs: $p\\nmid a_n$ (leading), $p\\mid a_i$ for $i\\lt n$, and $p^2\\nmid a_0$. With $p=3$: $3\\nmid 1$, $3\\mid 0$ and $3\\mid 3$, and $9\\nmid 3$. So $f$ is irreducible over $\\mathbb{Q}$ (and over $\\mathbb{Z}$ by Gauss's lemma)."
         },
         {
           "type": "mcq",
