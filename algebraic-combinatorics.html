@@ -319,7 +319,7 @@ function drawNode(svg, x, y, label, opts={}){
       [[1,2,4],[3],[5]],   // valid SYT
       [[1,2,2],[2],[3]],   // valid SSYT
       [[1,2,3],[1],[2]],   // INVALID: column 1 has 1 then 1
-      [[1,1,2],[2],[2]]    // valid SSYT (col1 1<2<2? 2 not<2 -> INVALID)
+      [[1,1,2],[2],[2]]    // INVALID: column 1 is 1,2,2 — 2 is not < 2 (columns must be STRICTLY increasing)
     ]}
   };
   let cur='22', idx=0;
