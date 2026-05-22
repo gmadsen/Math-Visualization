@@ -24,6 +24,7 @@ window.__MVConcepts = {
       "mathematical-chaos",
       "kalman-filtering-and-state-estimation",
       "statistical-learning-theory",
+      "markov-decision-processes",
       "several-complex-variables",
       "khovanov-homology",
       "shimura-varieties",
@@ -410,7 +411,8 @@ window.__MVConcepts = {
       "positive-characteristic-ag": "advanced",
       "computational-molecular-biology": "advanced",
       "kalman-filtering-and-state-estimation": "advanced",
-      "statistical-learning-theory": "advanced"
+      "statistical-learning-theory": "advanced",
+      "markov-decision-processes": "standard"
     }
   },
   "topics": {
@@ -2363,6 +2365,69 @@ window.__MVConcepts = {
           "tags": [
             "classification"
           ]
+        }
+      ]
+    },
+    "markov-decision-processes": {
+      "topic": "markov-decision-processes",
+      "title": "Markov decision processes",
+      "page": "markov-decision-processes.html",
+      "concepts": [
+        {
+          "id": "mdp-formulation",
+          "title": "The MDP model",
+          "anchor": "formulation",
+          "prereqs": [
+            "markov-chains"
+          ],
+          "blurb": "A Markov decision process is a tuple (S, A, P(s'|s,a), R(s,a), γ): a controlled Markov chain where an action picks the transition distribution and earns a reward, and a discounted-return objective defines what to optimize. Policies (deterministic/stochastic, stationary) collapse it back to a plain Markov chain."
+        },
+        {
+          "id": "mdp-value-functions",
+          "title": "Value functions & Bellman expectation",
+          "anchor": "value-functions",
+          "prereqs": [
+            "mdp-formulation"
+          ],
+          "blurb": "The state-value V^π and action-value Q^π of a fixed policy satisfy the linear Bellman expectation equations; for a finite MDP policy evaluation is the unique solve V^π = (I − γP^π)^{-1} R^π."
+        },
+        {
+          "id": "mdp-bellman-optimality",
+          "title": "Bellman optimality",
+          "anchor": "bellman-optimality",
+          "prereqs": [
+            "mdp-value-functions",
+            "oc-dp"
+          ],
+          "blurb": "Replacing the policy-average with a max-over-actions gives the nonlinear Bellman optimality equation V* = max_a Q*(s,a); a greedy policy w.r.t. V* is optimal, and a deterministic stationary optimal policy always exists."
+        },
+        {
+          "id": "mdp-value-iteration",
+          "title": "Value iteration & contraction",
+          "anchor": "value-iteration",
+          "prereqs": [
+            "mdp-bellman-optimality",
+            "fpt-banach"
+          ],
+          "blurb": "The Bellman optimality operator T is a γ-contraction in the sup-norm, so by Banach it has the unique fixed point V*; value iteration V_{k+1}=TV_k converges geometrically, ‖V_k − V*‖∞ ≤ γ^k‖V_0 − V*‖∞."
+        },
+        {
+          "id": "mdp-policy-iteration",
+          "title": "Policy iteration",
+          "anchor": "policy-iteration",
+          "prereqs": [
+            "mdp-bellman-optimality"
+          ],
+          "blurb": "Alternating exact policy evaluation with greedy improvement gives a monotonically improving sequence of policies; since there are finitely many deterministic policies, policy iteration reaches an exactly optimal one in finitely many rounds."
+        },
+        {
+          "id": "mdp-horizons",
+          "title": "Discounting & horizons",
+          "anchor": "horizons",
+          "prereqs": [
+            "mdp-value-functions"
+          ],
+          "blurb": "The discount γ keeps the return finite and sets the effective horizon 1/(1−γ); discounted, finite-horizon (time-dependent, backward induction), and average-reward (the γ→1 limit) objectives sit on a spectrum."
         }
       ]
     },
@@ -20002,7 +20067,8 @@ window.__MVConcepts = {
           "combinatorial-optimization",
           "convex-optimization",
           "mathematical-finance",
-          "kalman-filtering-and-state-estimation"
+          "kalman-filtering-and-state-estimation",
+          "markov-decision-processes"
         ],
         "color": "p"
       },
@@ -20310,7 +20376,8 @@ window.__MVConcepts = {
     "positive-characteristic-ag": "advanced",
     "computational-molecular-biology": "advanced",
     "kalman-filtering-and-state-estimation": "advanced",
-    "statistical-learning-theory": "advanced"
+    "statistical-learning-theory": "advanced",
+    "markov-decision-processes": "standard"
   },
   "newArc": [
     "elementary-topos-theory",
@@ -20355,14 +20422,14 @@ window.__MVConcepts = {
       "concepts": 211,
       "intra": 368,
       "crossOut": 39,
-      "crossIn": 74,
+      "crossIn": 75,
       "density": 0.1848341232227488
     },
     "Probability & statistics": {
       "concepts": 83,
       "intra": 134,
       "crossOut": 23,
-      "crossIn": 31,
+      "crossIn": 32,
       "density": 0.27710843373493976
     },
     "Geometry & topology": {
@@ -20408,11 +20475,11 @@ window.__MVConcepts = {
       "density": 0.5797101449275363
     },
     "Control theory & optimization": {
-      "concepts": 34,
-      "intra": 32,
-      "crossOut": 18,
+      "concepts": 40,
+      "intra": 38,
+      "crossOut": 20,
       "crossIn": 1,
-      "density": 0.5294117647058824
+      "density": 0.5
     },
     "Learning theory & data science": {
       "concepts": 6,

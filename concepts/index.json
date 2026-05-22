@@ -27,15 +27,15 @@
 
     "kalman-filtering-and-state-estimation",
 
-
-
-
-
-
-
-
-
     "statistical-learning-theory",
+
+
+
+
+
+    "markov-decision-processes",
+
+
 
     "several-complex-variables",
     "khovanov-homology",
@@ -423,6 +423,7 @@
     "positive-characteristic-ag": "advanced",
     "computational-molecular-biology": "advanced",
     "kalman-filtering-and-state-estimation": "advanced",
-    "statistical-learning-theory": "advanced"
+    "statistical-learning-theory": "advanced",
+    "markov-decision-processes": "standard"
   }
 }

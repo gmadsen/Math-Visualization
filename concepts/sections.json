@@ -285,7 +285,8 @@
         "combinatorial-optimization",
         "convex-optimization",
         "mathematical-finance",
-        "kalman-filtering-and-state-estimation"
+        "kalman-filtering-and-state-estimation",
+        "markov-decision-processes"
       ],
       "color": "p"
     },

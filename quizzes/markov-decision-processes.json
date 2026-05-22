@@ -1,0 +1,226 @@
+{
+  "topic": "markov-decision-processes",
+  "quizzes": {
+    "mdp-formulation": {
+      "title": "The MDP model",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which property is the defining feature that makes a controlled process a Markov decision process?",
+          "choices": [
+            "The reward is always positive",
+            "The next state and reward depend only on the current state and action, not on the full history",
+            "Every action is available in every state",
+            "The discount factor equals 1"
+          ],
+          "answer": 1,
+          "explain": "The Markov property is that the transition $P(s'\\mid s,a)$ and reward $R(s,a)$ depend only on the current state-action pair, not on how you arrived. That memorylessness is exactly what lets a single value function summarize the future."
+        },
+        {
+          "type": "numeric",
+          "q": "In a state $s$ with action $a$, the transition row is $P(s_1\\mid s,a)=0.3$, $P(s_2\\mid s,a)=0.5$. If these are the only reachable states besides $s$ itself, what must $P(s\\mid s,a)$ equal?",
+          "answer": 0.2,
+          "tol": 0.001,
+          "explain": "Each row $P(\\cdot\\mid s,a)$ is a probability distribution over next states, so it must sum to $1$. Here $0.3+0.5=0.8$, leaving $P(s\\mid s,a)=1-0.8=0.2$."
+        },
+        {
+          "type": "multi-select",
+          "q": "Select every statement that is true about policies in a finite discounted MDP.",
+          "choices": [
+            "A deterministic stationary policy is a map π: S → A",
+            "Fixing a policy turns the MDP into an ordinary Markov chain with kernel P^π",
+            "A stochastic policy assigns a probability distribution π(a|s) over actions",
+            "Every policy must change its action choice over time to be useful"
+          ],
+          "answer": [0, 1, 2],
+          "explain": "A deterministic stationary policy is a state-to-action map; a stochastic one gives a distribution over actions per state; and once a policy is fixed the MDP reduces to the Markov chain $P^\\pi(s'\\mid s)=\\sum_a\\pi(a\\mid s)P(s'\\mid s,a)$. Statement 4 is false — for discounted MDPs a single stationary (time-invariant) policy is optimal."
+        }
+      ]
+    },
+    "mdp-value-functions": {
+      "title": "Value functions & Bellman expectation",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "A state $s$ self-loops to itself with probability 1 under policy π, earning reward $R=1$ every step, with discount $\\gamma=0.9$. What is $V^\\pi(s)$?",
+          "answer": 10,
+          "tol": 0.05,
+          "explain": "The return is the geometric series $\\sum_{t\\ge 0}\\gamma^t\\cdot 1 = \\frac{1}{1-\\gamma} = \\frac{1}{1-0.9}=10$. Equivalently the Bellman expectation equation $V^\\pi(s)=1+0.9\\,V^\\pi(s)$ solves to $V^\\pi(s)=10$."
+        },
+        {
+          "type": "numeric",
+          "q": "Compute one Bellman-expectation backup. Action $a$ in state $s$ has $R(s,a)=5$ and goes to $s'_1$ with prob $0.8$ and $s'_2$ with prob $0.2$. The current value estimates are $V(s'_1)=10$, $V(s'_2)=0$, and $\\gamma=0.9$. What is $Q^\\pi(s,a)=R+\\gamma\\sum P\\cdot V$?",
+          "answer": 12.2,
+          "tol": 0.05,
+          "explain": "$Q^\\pi(s,a)=5+0.9\\,(0.8\\cdot 10 + 0.2\\cdot 0)=5+0.9\\cdot 8 = 5+7.2 = 12.2$."
+        },
+        {
+          "type": "mcq",
+          "q": "Why does the policy-evaluation linear system $(I-\\gamma P^\\pi)V^\\pi = R^\\pi$ have a unique solution for a finite MDP with $\\gamma<1$?",
+          "choices": [
+            "Because $P^\\pi$ is symmetric",
+            "Because $\\gamma<1$ and $P^\\pi$ is stochastic, so $I-\\gamma P^\\pi$ is invertible",
+            "Because $R^\\pi$ is always nonnegative",
+            "Because there is only one policy"
+          ],
+          "answer": 1,
+          "explain": "A stochastic matrix has spectral radius $1$, so $\\gamma P^\\pi$ has spectral radius $\\le\\gamma<1$; hence $I-\\gamma P^\\pi$ is invertible and $V^\\pi=(I-\\gamma P^\\pi)^{-1}R^\\pi$ is the unique solution."
+        }
+      ]
+    },
+    "mdp-bellman-optimality": {
+      "title": "Bellman optimality",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "How does the Bellman optimality equation differ from the Bellman expectation equation?",
+          "choices": [
+            "It replaces the discount γ with 1",
+            "It replaces the policy-weighted average over actions with a maximum over actions",
+            "It drops the transition probabilities",
+            "It removes the reward term"
+          ],
+          "answer": 1,
+          "explain": "The expectation equation averages over the policy's action distribution; the optimality equation takes $\\max_a$ instead: $V^*(s)=\\max_a\\{R(s,a)+\\gamma\\sum_{s'}P(s'\\mid s,a)V^*(s')\\}$. The max is what makes it nonlinear."
+        },
+        {
+          "type": "mcq",
+          "q": "Once $Q^*(s,a)$ is known, how do you extract an optimal policy?",
+          "choices": [
+            "Pick the action that minimizes $Q^*(s,a)$",
+            "Pick any action uniformly at random",
+            "Act greedily: $\\pi^*(s)\\in\\arg\\max_a Q^*(s,a)$",
+            "Average all actions weighted by $Q^*$"
+          ],
+          "answer": 2,
+          "explain": "A greedy policy with respect to the optimal action-values is optimal: $\\pi^*(s)\\in\\arg\\max_a Q^*(s,a)$. (We maximize because rewards are being accumulated.)"
+        },
+        {
+          "type": "multi-select",
+          "q": "Select every statement that holds for a finite discounted MDP.",
+          "choices": [
+            "There always exists a deterministic stationary optimal policy",
+            "An optimal policy is optimal from every start state simultaneously",
+            "The Bellman optimality equation is linear in V*",
+            "V*(s) = max over policies of V^π(s)"
+          ],
+          "answer": [0, 1, 3],
+          "explain": "Finite discounted MDPs admit a deterministic stationary optimal policy that is optimal from every state, and $V^*(s)=\\max_\\pi V^\\pi(s)$ by definition. Statement 3 is false: the $\\max_a$ makes the optimality equation nonlinear (it has a kink), which is why a matrix inverse does not solve it."
+        }
+      ]
+    },
+    "mdp-value-iteration": {
+      "title": "Value iteration & contraction",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Why does value iteration $V_{k+1}=TV_k$ converge to a unique fixed point from any starting $V_0$?",
+          "choices": [
+            "Because $T$ is linear",
+            "Because $T$ is a γ-contraction in the sup-norm, so the Banach fixed-point theorem applies",
+            "Because $V_0$ must be chosen as $V^*$",
+            "Because the state space is infinite"
+          ],
+          "answer": 1,
+          "explain": "$T$ satisfies $\\|TU-TV\\|_\\infty\\le\\gamma\\|U-V\\|_\\infty$ with $\\gamma<1$, a contraction on the complete space $(\\mathbb R^{|S|},\\|\\cdot\\|_\\infty)$. Banach's theorem then gives a unique fixed point ($V^*$) and convergence from any seed."
+        },
+        {
+          "type": "numeric",
+          "q": "Value iteration starts with $\\|V_0 - V^*\\|_\\infty = 10$ and $\\gamma = 0.9$. The guaranteed bound is $\\|V_k - V^*\\|_\\infty \\le \\gamma^k\\|V_0-V^*\\|_\\infty$. What is the bound after $k=2$ steps?",
+          "answer": 8.1,
+          "tol": 0.05,
+          "explain": "$\\gamma^k\\,\\|V_0-V^*\\|_\\infty = 0.9^2\\cdot 10 = 0.81\\cdot 10 = 8.1$. The error shrinks geometrically by a factor of $\\gamma$ each backup."
+        },
+        {
+          "type": "mcq",
+          "q": "How does the discount factor $\\gamma$ affect the convergence rate of value iteration?",
+          "choices": [
+            "Larger γ (closer to 1) makes convergence faster",
+            "Larger γ (closer to 1) makes convergence slower",
+            "γ has no effect on the rate",
+            "Convergence only happens when γ = 1"
+          ],
+          "answer": 1,
+          "explain": "The per-step error contracts by the factor $\\gamma$, so the rate is $\\gamma^k$. As $\\gamma\\to 1$ the contraction weakens toward $1$ and convergence slows dramatically — the price of caring about the distant future."
+        }
+      ]
+    },
+    "mdp-policy-iteration": {
+      "title": "Policy iteration",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What two steps make up one round of policy iteration?",
+          "choices": [
+            "Random restart, then gradient descent",
+            "Policy evaluation (solve V^π), then policy improvement (greedy w.r.t. V^π)",
+            "Sort states, then prune actions",
+            "Take a single Bellman backup, then normalize"
+          ],
+          "answer": 1,
+          "explain": "Each round exactly evaluates the current policy ($V^\\pi=(I-\\gamma P^\\pi)^{-1}R^\\pi$), then improves it by acting greedily with respect to that value. Repeat until the policy stops changing."
+        },
+        {
+          "type": "mcq",
+          "q": "Why does policy iteration terminate in finitely many rounds at an exactly optimal policy?",
+          "choices": [
+            "Because it only converges in the limit, like value iteration",
+            "Because each round strictly improves the policy and there are only finitely many deterministic policies",
+            "Because γ must equal 0",
+            "Because the value function is always 0"
+          ],
+          "answer": 1,
+          "explain": "The policy improvement theorem guarantees $V^{\\pi_{k+1}}\\ge V^{\\pi_k}$ with strict improvement until the policy is greedy w.r.t. its own value (hence optimal). With only $|A|^{|S|}$ deterministic policies, a strictly improving sequence must stop after finitely many rounds."
+        },
+        {
+          "type": "multi-select",
+          "q": "Select every correct contrast between value iteration and policy iteration.",
+          "choices": [
+            "Value iteration does cheap inexact backups and converges geometrically in the limit",
+            "Policy iteration does an expensive exact evaluation each round but converges in finitely many rounds",
+            "Both are instances of generalized policy iteration",
+            "Policy iteration can never reach the optimal policy"
+          ],
+          "answer": [0, 1, 2],
+          "explain": "Value iteration repeats cheap one-step backups, converging only in the limit at rate $\\gamma^k$; policy iteration solves an exact linear system per round but converges in a small finite number of rounds. Both are points on the generalized-policy-iteration spectrum. Statement 4 is false — policy iteration terminates exactly at $\\pi^*$."
+        }
+      ]
+    },
+    "mdp-horizons": {
+      "title": "Discounting & horizons",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "For a discount factor $\\gamma = 0.95$, what is the effective horizon $1/(1-\\gamma)$ (in steps)?",
+          "answer": 20,
+          "tol": 0.1,
+          "explain": "$\\frac{1}{1-\\gamma}=\\frac{1}{1-0.95}=\\frac{1}{0.05}=20$. Rewards much beyond about $20$ steps contribute almost nothing to the discounted return."
+        },
+        {
+          "type": "mcq",
+          "q": "What is the main qualitative difference between the optimal policy of a finite-horizon MDP and that of an infinite-horizon discounted MDP?",
+          "choices": [
+            "The finite-horizon optimal policy is generally time-dependent (nonstationary)",
+            "The finite-horizon MDP has no optimal policy",
+            "The discounted MDP requires a different reward at each state",
+            "There is no difference"
+          ],
+          "answer": 0,
+          "explain": "With a fixed number $N$ of steps remaining, the best action depends on how many steps are left (solved by backward induction $V_n$), so the optimal policy is time-dependent. In the infinite-horizon discounted case a single stationary policy is optimal."
+        },
+        {
+          "type": "mcq",
+          "q": "The average-reward objective $\\lim_{N\\to\\infty}\\frac1N\\mathbb E[\\sum_{t=0}^{N-1}R_t]$ is best described as:",
+          "choices": [
+            "The same as the discounted objective with γ = 0",
+            "The γ → 1 limit, used when no natural discounting exists",
+            "Always equal to the total undiscounted reward",
+            "Only defined for deterministic MDPs"
+          ],
+          "answer": 1,
+          "explain": "Average-reward optimizes the per-step gain and is the $\\gamma\\to 1$ limiting regime; it is used when the process runs indefinitely with no natural discount. The plain undiscounted sum $\\sum_t R_t$ diverges, which is why the per-step average (and its own gain–bias Bellman machinery) is needed."
+        }
+      ]
+    }
+  }
+}
