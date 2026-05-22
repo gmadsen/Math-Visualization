@@ -1,5 +1,5 @@
 {
-  "generated": "2026-05-22T11:57:09.477Z",
+  "generated": "2026-05-22T12:22:22.558Z",
   "entries": [
     {
       "slug": "algebraic-combinatorics",
@@ -7,7 +7,7 @@
       "color": "v",
       "tag": "",
       "date": "2026-05-22",
-      "message": "feat: algebraic-combinatorics — Wave 3 (Combinatorics)"
+      "message": "feat: algebraic-combinatorics — Wave 3 (Combinatorics) (#258)"
     },
     {
       "slug": "game-theory",
