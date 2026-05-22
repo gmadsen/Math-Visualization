@@ -20758,7 +20758,6 @@ window.__MVConcepts = {
           "high-dimensional-geometry",
           "random-matrix-theory",
           "mathematical-biology",
-          "spectral-methods-data",
           "computational-molecular-biology"
         ],
         "color": "g"
@@ -20792,8 +20791,7 @@ window.__MVConcepts = {
           "mapping-class-groups",
           "surgery-theory",
           "heegaard-floer",
-          "convex-geometry",
-          "topological-data-analysis"
+          "convex-geometry"
         ],
         "color": "v"
       },
@@ -20832,7 +20830,6 @@ window.__MVConcepts = {
           "upper-half-plane-hyperbolic",
           "modular-forms",
           "theta-functions",
-          "partitions-generating-functions",
           "hecke-operators",
           "dirichlet-series-euler-products",
           "analytic-continuation",
@@ -20911,6 +20908,7 @@ window.__MVConcepts = {
           "extremal-combinatorics",
           "simplicial-complexes-combinatorial",
           "enumerative-combinatorics",
+          "partitions-generating-functions",
           "designs",
           "expanders",
           "coding-theory"
@@ -20964,7 +20962,9 @@ window.__MVConcepts = {
           "deep-learning-theory",
           "information-geometry",
           "diffusion-and-score-based-models",
-          "causal-inference"
+          "causal-inference",
+          "topological-data-analysis",
+          "spectral-methods-data"
         ],
         "color": "b"
       }
@@ -21326,18 +21326,18 @@ window.__MVConcepts = {
       "density": 0.1848341232227488
     },
     "Probability & statistics": {
-      "concepts": 83,
-      "intra": 134,
-      "crossOut": 23,
-      "crossIn": 43,
-      "density": 0.27710843373493976
+      "concepts": 76,
+      "intra": 124,
+      "crossOut": 20,
+      "crossIn": 46,
+      "density": 0.2631578947368421
     },
     "Geometry & topology": {
-      "concepts": 167,
-      "intra": 276,
-      "crossOut": 34,
-      "crossIn": 100,
-      "density": 0.20359281437125748
+      "concepts": 160,
+      "intra": 268,
+      "crossOut": 33,
+      "crossIn": 101,
+      "density": 0.20625
     },
     "Number theory": {
       "concepts": 128,
@@ -21347,11 +21347,11 @@ window.__MVConcepts = {
       "density": 0.4453125
     },
     "Modular forms & L-functions": {
-      "concepts": 121,
-      "intra": 181,
-      "crossOut": 65,
-      "crossIn": 24,
-      "density": 0.5371900826446281
+      "concepts": 116,
+      "intra": 172,
+      "crossOut": 64,
+      "crossIn": 28,
+      "density": 0.5517241379310345
     },
     "Algebraic geometry": {
       "concepts": 213,
@@ -21361,11 +21361,11 @@ window.__MVConcepts = {
       "density": 0.3568075117370892
     },
     "Combinatorics & graph theory": {
-      "concepts": 88,
-      "intra": 90,
-      "crossOut": 31,
+      "concepts": 93,
+      "intra": 95,
+      "crossOut": 36,
       "crossIn": 5,
-      "density": 0.3522727272727273
+      "density": 0.3870967741935484
     },
     "Mathematical physics": {
       "concepts": 69,
@@ -21382,11 +21382,11 @@ window.__MVConcepts = {
       "density": 0.39655172413793105
     },
     "Learning theory & data science": {
-      "concepts": 42,
-      "intra": 46,
-      "crossOut": 22,
+      "concepts": 56,
+      "intra": 60,
+      "crossOut": 30,
       "crossIn": 1,
-      "density": 0.5238095238095238
+      "density": 0.5357142857142857
     }
   }
 };
