@@ -23,6 +23,7 @@ window.__MVConcepts = {
       "topological-data-analysis",
       "mathematical-chaos",
       "kalman-filtering-and-state-estimation",
+      "statistical-learning-theory",
       "several-complex-variables",
       "khovanov-homology",
       "shimura-varieties",
@@ -406,7 +407,8 @@ window.__MVConcepts = {
       "donaldson-thomas-and-gw-invariants": "advanced",
       "positive-characteristic-ag": "advanced",
       "computational-molecular-biology": "advanced",
-      "kalman-filtering-and-state-estimation": "advanced"
+      "kalman-filtering-and-state-estimation": "advanced",
+      "statistical-learning-theory": "advanced"
     }
   },
   "topics": {
@@ -2272,6 +2274,90 @@ window.__MVConcepts = {
             "markov-chains"
           ],
           "blurb": "A constant-velocity model in the plane has state $(p_x,p_y,v_x,v_y)$ with $F$ a block-upper-triangular shear and $Q$ injecting noise into the velocity components. Observing position only ($H=[I_2\\;0]$) lets the filter infer velocity from the way successive position errors correlate — the off-diagonal blocks of $\\Sigma_t$ encode that inference, which is why a Kalman tracker beats every position-only smoother.",
+          "tags": [
+            "classification"
+          ]
+        }
+      ]
+    },
+    "statistical-learning-theory": {
+      "topic": "statistical-learning-theory",
+      "title": "Statistical learning theory",
+      "page": "statistical-learning-theory.html",
+      "concepts": [
+        {
+          "id": "slt-erm",
+          "title": "Empirical risk minimization",
+          "anchor": "erm",
+          "prereqs": [
+            "expectation-moments",
+            "law-of-large-numbers"
+          ],
+          "blurb": "Population risk $R(h)=\\mathbb{E}[\\ell(h(X),Y)]$ is what we want small; we only see the empirical risk $\\widehat R(h)=\\frac1m\\sum\\ell$. ERM picks $h_S=\\arg\\min\\widehat R$. Excess risk splits into estimation + approximation error; the generalization gap $R(h_S)-\\widehat R(h_S)$ measures honesty.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "slt-pac",
+          "title": "PAC learning & sample complexity",
+          "anchor": "pac",
+          "prereqs": [
+            "slt-erm",
+            "ld-cramer-theorem"
+          ],
+          "blurb": "A class is $(\\varepsilon,\\delta)$-PAC-learnable if $m\\ge m_{\\mathcal{H}}(\\varepsilon,\\delta)$ samples suffice for $R(h_S)\\le\\min R+\\varepsilon$ w.p. $1-\\delta$. Hoeffding + union bound give the finite-class bounds $m\\gtrsim\\frac1\\varepsilon(\\ln|\\mathcal{H}|+\\ln\\frac1\\delta)$ (realizable) and $\\frac{2}{\\varepsilon^2}(\\ln|\\mathcal{H}|+\\ln\\frac2\\delta)$ (agnostic).",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "slt-vc",
+          "title": "VC dimension & shattering",
+          "anchor": "vc",
+          "prereqs": [
+            "slt-pac"
+          ],
+          "blurb": "The growth function $\\Pi_{\\mathcal{H}}(m)$ counts realizable dichotomies; a set is shattered if all $2^m$ labelings are realized, and the VC dimension is the largest shattered set. Sauer–Shelah collapses an exponential count to $\\Pi_{\\mathcal{H}}(m)\\le(em/d)^d$. Thresholds 1, intervals 2, half-planes in $\\mathbb{R}^d$ $d{+}1$, rectangles 4.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "slt-uniform-convergence",
+          "title": "Uniform convergence & the fundamental theorem",
+          "anchor": "uniform-convergence",
+          "prereqs": [
+            "slt-vc",
+            "slt-pac"
+          ],
+          "blurb": "Uniform convergence — $\\sup_h|R(h)-\\widehat R(h)|\\le\\varepsilon$ — is exactly what makes ERM safe. The VC bound $R(h)\\le\\widehat R(h)+O(\\sqrt{(d\\ln(m/d)+\\ln(1/\\delta))/m})$ decays like $\\sqrt{d/m}$. The Fundamental Theorem: PAC-learnable $\\iff$ finite VC dim $\\iff$ uniform convergence $\\iff$ ERM works.",
+          "tags": [
+            "duality"
+          ]
+        },
+        {
+          "id": "slt-rademacher",
+          "title": "Rademacher complexity & margins",
+          "anchor": "rademacher",
+          "prereqs": [
+            "slt-uniform-convergence",
+            "hdg-talagrand"
+          ],
+          "blurb": "The data-dependent capacity $\\widehat{\\mathfrak{R}}_S(\\mathcal{H})=\\mathbb{E}_\\sigma[\\sup_h\\frac1m\\sum\\sigma_i h(x_i)]$ measures correlation with noise. Via McDiarmid: $R(h)\\le\\widehat R(h)+2\\widehat{\\mathfrak{R}}_S+O(\\sqrt{\\ln(1/\\delta)/m})$. Talagrand contraction peels off the loss; margin bounds give the dimension-free $BR/(\\gamma\\sqrt m)$ rate behind SVMs and boosting.",
+          "tags": [
+            "duality"
+          ]
+        },
+        {
+          "id": "slt-bias-variance",
+          "title": "Bias–variance, regularization & SRM",
+          "anchor": "bias-variance",
+          "prereqs": [
+            "slt-erm",
+            "ms-estimators"
+          ],
+          "blurb": "Squared error decomposes as $\\text{bias}^2+\\text{variance}+\\sigma^2$, tracing the classic U-shaped test error (with a modern double-descent caveat). Regularization ($\\ell_2$ ridge, $\\ell_1$ lasso) is constrained ERM; structural risk minimization chooses capacity to balance fit against the complexity penalty.",
           "tags": [
             "classification"
           ]
@@ -19842,7 +19928,9 @@ window.__MVConcepts = {
         "id": "learning-theory-and-data-science",
         "title": "Learning theory & data science",
         "description": "The mathematics behind learning from data: statistical learning theory, kernels and reproducing-kernel Hilbert spaces, neural-network theory, probabilistic graphical models, information geometry, score-based generative models, and causal inference.",
-        "topics": [],
+        "topics": [
+          "statistical-learning-theory"
+        ],
         "color": "b"
       }
     ]
@@ -20138,7 +20226,8 @@ window.__MVConcepts = {
     "donaldson-thomas-and-gw-invariants": "advanced",
     "positive-characteristic-ag": "advanced",
     "computational-molecular-biology": "advanced",
-    "kalman-filtering-and-state-estimation": "advanced"
+    "kalman-filtering-and-state-estimation": "advanced",
+    "statistical-learning-theory": "advanced"
   },
   "newArc": [
     "elementary-topos-theory",
@@ -20190,7 +20279,7 @@ window.__MVConcepts = {
       "concepts": 83,
       "intra": 134,
       "crossOut": 23,
-      "crossIn": 26,
+      "crossIn": 31,
       "density": 0.27710843373493976
     },
     "Geometry & topology": {
@@ -20243,11 +20332,11 @@ window.__MVConcepts = {
       "density": 0.5294117647058824
     },
     "Learning theory & data science": {
-      "concepts": 0,
-      "intra": 0,
-      "crossOut": 0,
+      "concepts": 6,
+      "intra": 6,
+      "crossOut": 5,
       "crossIn": 0,
-      "density": 0
+      "density": 0.8333333333333334
     }
   }
 };

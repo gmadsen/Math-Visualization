@@ -1,0 +1,237 @@
+{
+  "topic": "statistical-learning-theory",
+  "quizzes": {
+    "slt-erm": {
+      "title": "Empirical risk minimization",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Empirical risk minimization returns $h_S=\\arg\\min_{h\\in\\mathcal{H}}\\widehat R(h)$. Why can $\\widehat R(h_S)$ be a badly optimistic estimate of $R(h_S)$?",
+          "choices": [
+            "Because $\\widehat R$ uses the wrong loss function",
+            "Because $h_S$ is selected using the same sample on which $\\widehat R$ is evaluated, biasing it downward",
+            "Because the law of large numbers does not apply to averages of losses",
+            "Because $R(h_S)$ ignores the noise in $Y$"
+          ],
+          "answer": 1,
+          "explain": "For a single fixed $h$, $\\widehat R(h)$ is unbiased for $R(h)$. But $h_S$ is chosen to minimize the empirical risk on the very same data, so $\\widehat R(h_S)$ is biased low — this selection effect is exactly what uniform convergence over $\\mathcal{H}$ is needed to control."
+        },
+        {
+          "type": "mcq",
+          "q": "Under $0$–$1$ loss for binary classification with $\\eta(x)=\\mathbb{P}(Y=1\\mid X=x)$, the Bayes-optimal predictor is:",
+          "choices": [
+            "$h^\\star(x)=\\eta(x)$",
+            "$h^\\star(x)=\\mathbf{1}[\\eta(x)\\ge \\tfrac12]$",
+            "$h^\\star(x)=\\mathbb{E}[Y\\mid X=x]$ rounded to the nearest training label",
+            "$h^\\star(x)=\\arg\\min_{h\\in\\mathcal{H}} R(h)$"
+          ],
+          "answer": 1,
+          "explain": "The Bayes classifier predicts the more likely label: $\\mathbf{1}[\\eta(x)\\ge\\tfrac12]$. Its risk is the irreducible Bayes risk $R^\\star$. The regression function $\\mathbb{E}[Y\\mid X=x]=\\eta(x)$ is Bayes-optimal for squared loss, not $0$–$1$ loss."
+        },
+        {
+          "type": "multi-select",
+          "q": "The excess risk $R(h_S)-R^\\star$ splits into estimation error and approximation error. Select every statement that is correct.",
+          "choices": [
+            "Enlarging $\\mathcal{H}$ tends to decrease approximation error",
+            "Enlarging $\\mathcal{H}$ tends to decrease estimation error",
+            "Approximation error is $R(h^\\star_{\\mathcal{H}})-R^\\star$, the gap between the best-in-class and the Bayes risk",
+            "Estimation error is $R(h_S)-R(h^\\star_{\\mathcal{H}})$, the cost of learning from a finite sample"
+          ],
+          "answer": [0, 2, 3],
+          "explain": "A richer class lowers approximation error (it can represent more) but raises estimation error (more ways to overfit a finite sample). Approximation error $=R(h^\\star_{\\mathcal{H}})-R^\\star$ and estimation error $=R(h_S)-R(h^\\star_{\\mathcal{H}})$; option 2 has the wrong direction for estimation error."
+        }
+      ]
+    },
+    "slt-pac": {
+      "title": "PAC learning & sample complexity",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "Realizable PAC with a finite class: using $m\\ge\\frac1\\varepsilon\\big(\\ln|\\mathcal{H}|+\\ln\\frac1\\delta\\big)$, how many samples suffice for $|\\mathcal{H}|=e^{10}$, $\\varepsilon=0.1$, $\\delta=e^{-2}$? (Report the bound rounded to the nearest integer.)",
+          "answer": 120,
+          "tol": 1,
+          "explain": "$\\ln|\\mathcal{H}|=10$, $\\ln(1/\\delta)=2$, so $m\\ge\\frac{1}{0.1}(10+2)=10\\cdot 12=120$."
+        },
+        {
+          "type": "mcq",
+          "q": "Hoeffding's inequality bounds $\\mathbb{P}(|\\frac1m\\sum Z_i-\\mu|>t)$ for i.i.d. $Z_i\\in[0,1]$ by:",
+          "choices": [
+            "$\\tfrac{1}{mt^2}$ (Chebyshev rate)",
+            "$2e^{-2mt^2}$ (sub-Gaussian rate)",
+            "$2e^{-mt}$ (sub-exponential rate)",
+            "$e^{-mt^2/\\sigma^2}$ with $\\sigma^2$ the variance"
+          ],
+          "answer": 1,
+          "explain": "Hoeffding gives the sub-Gaussian tail $2e^{-2mt^2}$ for bounded summands — no variance estimate needed. Applied to losses $\\ell(h(x_i),y_i)\\in[0,1]$, $\\widehat R(h)$ concentrates around $R(h)$ at deviation scale $1/\\sqrt m$."
+        },
+        {
+          "type": "mcq",
+          "q": "Why does the agnostic finite-class sample complexity scale as $1/\\varepsilon^2$ while the realizable one scales as $1/\\varepsilon$?",
+          "choices": [
+            "Agnostic learning needs a two-sided Hoeffding bound at level $\\varepsilon/2$, whose exponent $e^{-m\\varepsilon^2/2}$ forces $m\\propto 1/\\varepsilon^2$",
+            "Realizable learning uses a larger hypothesis class",
+            "Agnostic learning ignores the union bound",
+            "The realizable bound is simply loose by a factor of $1/\\varepsilon$"
+          ],
+          "answer": 0,
+          "explain": "In the realizable case only consistent hypotheses ($\\widehat R=0$) survive, giving a one-sided multiplicative-Chernoff rate $\\propto 1/\\varepsilon$. The agnostic case must control two-sided deviations of magnitude $\\varepsilon/2$, and Hoeffding's $e^{-m\\varepsilon^2/2}$ forces $m\\propto 1/\\varepsilon^2$ — the price of label noise."
+        }
+      ]
+    },
+    "slt-vc": {
+      "title": "VC dimension & shattering",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "What is the VC dimension of the class of half-planes (affine threshold classifiers) in $\\mathbb{R}^2$?",
+          "answer": 3,
+          "tol": 0,
+          "explain": "Half-planes in $\\mathbb{R}^d$ have VC dimension $d+1$, so $d=2$ gives $3$. Three points in general position are shattered (all $8$ labelings are linearly separable), but no $4$ points can be — e.g. the XOR labeling of a square is not linearly separable."
+        },
+        {
+          "type": "mcq",
+          "q": "The Sauer–Shelah lemma states that if $\\mathrm{VC}(\\mathcal{H})=d<\\infty$ then for $m\\ge d$:",
+          "choices": [
+            "$\\Pi_{\\mathcal{H}}(m)=2^m$ for all $m$",
+            "$\\Pi_{\\mathcal{H}}(m)\\le\\sum_{i=0}^{d}\\binom{m}{i}\\le(em/d)^d$ — polynomial in $m$",
+            "$\\Pi_{\\mathcal{H}}(m)\\le m^2$ regardless of $d$",
+            "$\\Pi_{\\mathcal{H}}(m)\\le 2^d$, independent of $m$"
+          ],
+          "answer": 1,
+          "explain": "Finite VC dimension forces the growth function from exponential ($2^m$) down to a degree-$d$ polynomial: $\\Pi_{\\mathcal{H}}(m)\\le\\sum_{i\\le d}\\binom{m}{i}\\le(em/d)^d$. This polynomial bound is what makes infinite classes learnable, replacing $\\ln|\\mathcal{H}|$ by $\\approx d\\ln(em/d)$."
+        },
+        {
+          "type": "matching",
+          "q": "Match each concept class to its VC dimension.",
+          "left": ["1", "2", "4", "d+1"],
+          "right": [
+            "Thresholds $\\mathbf{1}[x\\ge a]$ on $\\mathbb{R}$",
+            "Intervals $\\mathbf{1}[x\\in[a,b]]$ on $\\mathbb{R}$",
+            "Axis-aligned rectangles in $\\mathbb{R}^2$",
+            "Half-planes in $\\mathbb{R}^d$"
+          ],
+          "answer": [0, 1, 2, 3],
+          "explain": "Thresholds shatter 1 point but not 2 (can't realize $(1,0)$ left-to-right): VC 1. Intervals shatter 2 but not 3 (can't realize $1,0,1$): VC 2. Axis-aligned rectangles shatter 4 points but not 5: VC 4. Half-planes in $\\mathbb{R}^d$: VC $d+1$."
+        }
+      ]
+    },
+    "slt-uniform-convergence": {
+      "title": "Uniform convergence & the fundamental theorem",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "As the sample size $m$ grows with the VC dimension $d$ held fixed, the VC generalization bound $O\\!\\big(\\sqrt{(d\\ln(m/d)+\\ln(1/\\delta))/m}\\big)$ behaves like:",
+          "choices": [
+            "$\\Theta(d/m)$ — linear decay",
+            "$\\Theta(\\sqrt{d/m})$ up to a $\\sqrt{\\ln m}$ factor — it tends to $0$",
+            "$\\Theta(1)$ — it does not vanish",
+            "$\\Theta(\\sqrt{m/d})$ — it grows"
+          ],
+          "answer": 1,
+          "explain": "The dominant term is $\\sqrt{d\\ln(m/d)/m}\\to 0$ as $m\\to\\infty$: the bound decays essentially like $\\sqrt{d/m}$ (with a mild logarithmic factor). More data tightens it; more capacity $d$ loosens it."
+        },
+        {
+          "type": "multi-select",
+          "q": "By the Fundamental Theorem of Statistical Learning (binary classes, $0$–$1$ loss), which of the following are equivalent to '$\\mathcal{H}$ has finite VC dimension'?",
+          "choices": [
+            "$\\mathcal{H}$ is agnostic-PAC-learnable",
+            "$\\mathcal{H}$ has the uniform convergence property",
+            "Every ERM rule is a successful learner for $\\mathcal{H}$",
+            "$\\mathcal{H}$ is finite"
+          ],
+          "answer": [0, 1, 2],
+          "explain": "The theorem chains finite VC dimension $\\iff$ uniform convergence $\\iff$ (agnostic and realizable) PAC-learnability $\\iff$ ERM succeeds. Finiteness of $\\mathcal{H}$ is sufficient but not necessary — half-planes are infinite yet have VC dimension $d+1$."
+        },
+        {
+          "type": "mcq",
+          "q": "Uniform convergence ($\\sup_h|R(h)-\\widehat R(h)|\\le\\varepsilon$) implies that ERM's output $h_S$ satisfies:",
+          "choices": [
+            "$R(h_S)=\\widehat R(h_S)$ exactly",
+            "$R(h_S)\\le R(h^\\star_{\\mathcal{H}})+2\\varepsilon$",
+            "$R(h_S)=R^\\star$",
+            "$\\widehat R(h_S)\\le\\varepsilon$ always"
+          ],
+          "answer": 1,
+          "explain": "Chaining: $R(h_S)\\le\\widehat R(h_S)+\\varepsilon\\le\\widehat R(h^\\star_{\\mathcal{H}})+\\varepsilon\\le R(h^\\star_{\\mathcal{H}})+2\\varepsilon$. The middle step uses that $h_S$ minimizes empirical risk; the outer two use uniform convergence applied to $h_S$ and to $h^\\star_{\\mathcal{H}}$."
+        }
+      ]
+    },
+    "slt-rademacher": {
+      "title": "Rademacher complexity & margins",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "For the class of ALL $\\pm1$-valued functions on $m$ fixed points, what is the empirical Rademacher complexity $\\widehat{\\mathfrak{R}}_S=\\mathbb{E}_\\sigma[\\sup_h\\frac1m\\sum_i\\sigma_i h(x_i)]$?",
+          "answer": 1,
+          "tol": 1e-9,
+          "explain": "The class realizes every sign pattern, so for any $\\sigma$ we pick $h(x_i)=\\sigma_i$, giving $\\frac1m\\sum\\sigma_i^2=\\frac1m\\sum 1=1$. Hence $\\widehat{\\mathfrak{R}}_S=1$ — maximal capacity. A class that fits arbitrary noise perfectly cannot generalize."
+        },
+        {
+          "type": "mcq",
+          "q": "In the Rademacher bound $R(h)\\le\\widehat R(h)+2\\,\\widehat{\\mathfrak{R}}_S(\\ell\\circ\\mathcal{H})+3\\sqrt{\\ln(2/\\delta)/(2m)}$, where does the leading factor of $2$ come from?",
+          "choices": [
+            "From the two-sided nature of the loss",
+            "From the symmetrization (ghost-sample) step that introduces the Rademacher signs",
+            "From the union bound over two hypotheses",
+            "From the variance being at most $1/2$"
+          ],
+          "answer": 1,
+          "explain": "The $2$ is the symmetrization constant: bounding $\\mathbb{E}\\sup_h(R-\\widehat R)$ by introducing an independent ghost sample and Rademacher signs costs a factor of $2$ in front of $\\widehat{\\mathfrak{R}}_S$. McDiarmid then converts the expectation bound into a high-probability bound, contributing the $\\sqrt{\\ln(2/\\delta)/(2m)}$ term."
+        },
+        {
+          "type": "mcq",
+          "q": "Margin-based bounds for $\\|w\\|\\le B$ linear classifiers on $\\|x\\|\\le R$ data generalize at rate $\\tilde O\\!\\big(BR/(\\gamma\\sqrt m)\\big)$ for margin $\\gamma$. The striking feature is that this rate is:",
+          "choices": [
+            "Independent of the ambient dimension — only $B$, $R$, $\\gamma$, $m$ enter",
+            "Independent of the margin $\\gamma$",
+            "Exponentially small in the dimension",
+            "Proportional to the number of support vectors squared"
+          ],
+          "answer": 0,
+          "explain": "Because $\\widehat{\\mathfrak{R}}_S$ of the norm-bounded linear class is $\\le BR/\\sqrt m$ (Cauchy–Schwarz + Jensen), the bound has no explicit dependence on dimension. This dimension-freeness is exactly why large-margin SVMs and boosting generalize despite enormous parameter counts."
+        }
+      ]
+    },
+    "slt-bias-variance": {
+      "title": "Bias–variance, regularization & SRM",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "In the squared-error decomposition $\\mathbb{E}_S[(\\hat f_S(x)-y)^2]=\\text{bias}^2+\\text{variance}+\\sigma^2$, which term does a richer (more flexible) model class primarily reduce?",
+          "choices": [
+            "Variance",
+            "The noise floor $\\sigma^2$",
+            "Bias",
+            "All three equally"
+          ],
+          "answer": 2,
+          "explain": "A more flexible class can approximate $f$ more closely, lowering bias — but it is more sensitive to the particular sample, raising variance. The noise $\\sigma^2$ is irreducible (the Bayes floor). The optimal complexity sits at the bottom of the resulting U-shaped total error."
+        },
+        {
+          "type": "mcq",
+          "q": "Which property distinguishes lasso ($\\ell_1$) regularization from ridge ($\\ell_2$)?",
+          "choices": [
+            "Lasso never reduces variance",
+            "Lasso's constraint region has corners on the axes, so it drives some coefficients exactly to zero — producing sparse models",
+            "Ridge produces sparse models while lasso does not",
+            "Lasso increases bias to zero"
+          ],
+          "answer": 1,
+          "explain": "The $\\ell_1$ ball is a cross-polytope with vertices on the coordinate axes; the constrained optimum often lands on a corner, zeroing out coefficients (variable selection). Ridge's $\\ell_2$ ball is smooth, so it shrinks all coefficients toward $0$ but rarely sets any exactly to $0$."
+        },
+        {
+          "type": "mcq",
+          "q": "Structural risk minimization chooses among nested classes $\\mathcal{H}_1\\subset\\mathcal{H}_2\\subset\\cdots$ by minimizing:",
+          "choices": [
+            "Empirical risk alone, over the largest class",
+            "Empirical risk plus a capacity penalty $\\mathrm{pen}(d_k,m,\\delta)$, balancing fit against complexity",
+            "The VC dimension alone",
+            "The training accuracy on a single held-out point"
+          ],
+          "answer": 1,
+          "explain": "SRM minimizes the guaranteed risk — empirical risk plus the complexity penalty from the uniform-convergence bound. This automates the choice of capacity, formalizing the U-curve's minimum: large classes fit better but pay a bigger penalty."
+        }
+      ]
+    }
+  }
+}

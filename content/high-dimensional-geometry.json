@@ -195,7 +195,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./high-dimensional-geometry.html#applications\">High-dimensional geometry</a> · Applications</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./high-dimensional-geometry.html#applications\">High-dimensional geometry</a> · Applications</div>\n    <div><a href=\"./statistical-learning-theory.html#rademacher\">Statistical learning theory</a> · Rademacher complexity &amp; margins</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

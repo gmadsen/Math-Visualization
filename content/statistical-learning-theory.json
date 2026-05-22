@@ -1,0 +1,473 @@
+{
+  "topic": "statistical-learning-theory",
+  "rawHead": "<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\" />\n<meta name=\"viewport\" content=\"width=device-width,initial-scale=1\" />\n<title>Statistical learning theory</title>\n<link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css\">\n<script defer src=\"https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js\"></script>\n<script defer src=\"https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js\"></script>\n<script>\n(function(){\n  function renderAll(){\n    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }\n    renderMathInElement(document.body,{\n      delimiters:[\n        {left:'$$',right:'$$',display:true},\n        {left:'$',right:'$',display:false},\n        {left:'\\\\(',right:'\\\\)',display:false},\n        {left:'\\\\[',right:'\\\\]',display:true}\n      ],\n      throwOnError:false,\n      strict:(c)=>c==='unicodeTextInMathMode'?'ignore':'warn',\n      macros:{\n        '\\\\Spec':'\\\\operatorname{Spec}',\n        '\\\\Gal':'\\\\operatorname{Gal}',\n        '\\\\Hom':'\\\\operatorname{Hom}',\n        '\\\\tr':'\\\\operatorname{tr}',\n        '\\\\ad':'\\\\operatorname{ad}',\n        '\\\\ind':'\\\\operatorname{ind}'\n      }\n    });\n  }\n  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);\n  else renderAll();\n})();\n</script>\n<style>\n  :root{\n    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;\n    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;\n    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;\n    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;\n  }\n  *{box-sizing:border-box}\n  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);\n    font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",Inter,Roboto,sans-serif;\n    font-size:17px;line-height:1.65}\n  a{color:var(--blue)}\n  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;\n    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}\n  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}\n  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}\n  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}\n  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}\n  p{margin:0.7rem 0}\n  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}\n  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;\n    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}\n  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}\n  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}\n  .widget .hd .hint{color:var(--mute);font-size:.85rem}\n  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}\n  .row label{color:var(--mute);font-size:.88rem}\n  input[type=\"text\"],input[type=\"number\"],select{\n    background:#0b0f16;color:var(--ink);border:1px solid var(--line);\n    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}\n  input[type=\"range\"]{accent-color:var(--yellow);flex:1;max-width:260px}\n  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);\n    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}\n  button:hover{background:#242c3e}\n  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}\n  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;\n    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;\n    min-height:1.6em;white-space:pre-wrap;word-break:break-word}\n  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);\n    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}\n  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;\n    margin:1rem 0;border-radius:0 6px 6px 0}\n  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;\n    margin:1rem 0;border-radius:0 6px 6px 0}\n  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;\n    margin:1rem 0;border-radius:0 6px 6px 0}\n  svg{display:block;margin:0 auto;max-width:100%}\n  svg text{fill:var(--ink);font-family:inherit}\n  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);\n    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;\n    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}\n  nav.toc a{color:var(--mute);text-decoration:none}\n  nav.toc a:hover{color:var(--yellow)}\n  /* sticky sidebar TOC (wide screens only; narrow screens fall back to top-nav) */\n  aside.sidetoc{position:fixed;top:4.2rem;\n    left:max(1rem, calc(50% - 440px - 220px));\n    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;\n    padding-right:1rem;border-right:1px solid var(--line);\n    font-size:.88rem;z-index:5}\n  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;\n    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}\n  aside.sidetoc ol{list-style:none;padding:0;margin:0}\n  aside.sidetoc li{margin:0}\n  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;\n    border-left:2px solid transparent;line-height:1.35;\n    transition:color 120ms ease, border-color 120ms ease}\n  aside.sidetoc a:hover{color:var(--ink)}\n  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}\n  @media (max-width:1180px){ aside.sidetoc{display:none} }\n  @media (min-width:1181px){ nav.toc a[href^=\"#\"]{display:none} }\n  .hero{padding:3rem 0 1rem}\n  .small{font-size:.88rem;color:var(--mute)}\n  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}\n  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}\n  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}\n  table.plain th{color:var(--mute);font-weight:500}\n  /* callback-css-auto-begin */\n  aside.callback{\n    margin:1.2rem 0;padding:.7rem 1rem;\n    background:rgba(88,196,221,0.05);\n    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);\n    border-radius:0 6px 6px 0;\n    font-size:.93rem;\n  }\n  aside.callback .ttl{\n    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;\n    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;\n  }\n  aside.callback ul{margin:0;padding-left:1.1rem}\n  aside.callback ul li{margin:.15rem 0}\n  aside.callback a{color:inherit}\n/* callback-css-auto-end */\n  details.changelog{\n    margin:2rem 0 1rem;padding:.6rem .9rem;\n    background:rgba(0,0,0,0.22);\n    border-radius:6px;\n    font-size:.85rem;\n  }\n  details.changelog summary{\n    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;\n    font-size:.7rem;color:var(--mute,#8c9aa6);\n  }\n  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}\n  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}\n  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}\n  aside.related{\n    margin:1.2rem 0;padding:.7rem 1rem;\n    background:color-mix(in srgb, var(--mute) 6%, transparent);\n    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);\n    border-radius:0 6px 6px 0;\n    font-size:.93rem;\n  }\n  aside.related .ttl{\n    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;\n    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;\n  }\n  aside.related > div{margin:.15rem 0}\n  aside.related .more{color:var(--mute);font-style:italic}\n  aside.related a{color:inherit}\n  /* display-prefs-css-auto-begin */\n  html[data-hide-widgets] .widget { display: none !important; }\n  html[data-hide-quizzes] .quiz { display: none !important; }\n  html[data-hide-lineage] .lineage-strip { display: none !important; }\n  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }\n  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }\n  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }\n  .mv-display-toggle--off { opacity: 0.35; }\n  /* display-prefs-css-auto-end */\n</style>\n<!-- breadcrumb-head-auto-begin -->\n<script src=\"./js/section-map.js\"></script>\n<script src=\"./js/breadcrumb.js\"></script>\n<script src=\"./js/glossary-popover.js\" defer></script>\n<link rel=\"stylesheet\" media=\"print\" href=\"./css/print.css\">\n<link rel=\"stylesheet\" href=\"./css/theme-light.css\">\n<script src=\"./js/theme-toggle.js\"></script>\n<script src=\"./concepts/bundle.js\" defer></script>\n<script src=\"./js/topic-hotkeys.js\" defer></script>\n<script src=\"./js/topic-lineage.js\" defer></script>\n<!-- breadcrumb-head-auto-end -->\n<script src=\"./js/progress.js\"></script>\n<script src=\"./js/quiz.js\"></script>\n<script src=\"./js/katex-select.js\"></script>\n<script src=\"./js/widget-diagram-editor.js\"></script>\n<script src=\"./quizzes/bundle.js\"></script>\n<script src=\"./js/sidetoc.js\"></script>\n<!-- display-prefs-head-auto-begin -->\n<script src=\"./js/display-prefs.js\"></script>\n<!-- display-prefs-head-auto-end -->\n</head>\n",
+  "rawBodyPrefix": "<body data-section=\"learning-theory-and-data-science\" data-level=\"advanced\">\n<script>\nconst $ = (s,r=document)=>r.querySelector(s);\nconst $$ = (s,r=document)=>[...r.querySelectorAll(s)];\nconst SVG = (tag,attrs={})=>{\n  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);\n  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);\n  return e;\n};\n// draw an arrow marker def once per svg (idempotent)\nfunction ensureArrow(svg, id, color){\n  let defs = svg.querySelector('defs');\n  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }\n  if(defs.querySelector('#'+id)) return;\n  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});\n  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));\n  defs.appendChild(mk);\n}\n// curved arrow between two pixel points, with optional label\nfunction drawArrow(svg, p1, p2, opts={}){\n  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;\n  ensureArrow(svg, markerId, color);\n  const [x1,y1]=p1, [x2,y2]=p2;\n  const dx=x2-x1, dy=y2-y1;\n  const L = Math.hypot(dx,dy) || 1;\n  const ux=dx/L, uy=dy/L;\n  // shorten endpoints\n  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;\n  const ax=x1+ux*pad1, ay=y1+uy*pad1;\n  const bx=x2-ux*pad2, by=y2-uy*pad2;\n  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;\n  const path = SVG('path',{\n    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,\n    fill:'none', stroke:color, 'stroke-width':width,\n    'marker-end':`url(#${markerId})`\n  });\n  if(dash) path.setAttribute('stroke-dasharray', dash);\n  svg.appendChild(path);\n  if(label){\n    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,\n      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});\n    t.textContent = label;\n    svg.appendChild(t);\n  }\n  return path;\n}\nfunction drawNode(svg, x, y, label, opts={}){\n  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;\n  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));\n  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});\n  t.textContent = label;\n  svg.appendChild(t);\n}\n</script>\n\n<nav class=\"toc\"><a href=\"./index.html\" style=\"color:var(--violet);font-weight:500\">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class=\"breadcrumb\"></div><span class=\"nav-links\"><a class=\"nav-link\" href=\"./pathway.html\">Pathway</a><a class=\"nav-link\" href=\"./tours.html\">Tours</a><a class=\"nav-link\" href=\"./history.html\">History</a><a class=\"nav-link\" href=\"./tags.html\">Themes</a><a class=\"nav-link\" href=\"./mindmap.html\">Mindmap</a><a class=\"nav-link\" href=\"./search.html\">Search</a></span><span class=\"mv-theme-slot\"></span><!-- breadcrumb-nav-auto-end -->\n<!-- toc-auto-begin -->\n  <a href=\"#erm\">1&nbsp;Empirical&nbsp;risk&nbsp;minimization</a>\n  <a href=\"#pac\">2&nbsp;PAC&nbsp;learning&nbsp;&amp;&nbsp;sample&nbsp;complexity</a>\n  <a href=\"#vc\">3&nbsp;VC&nbsp;dimension&nbsp;&amp;&nbsp;shattering</a>\n  <a href=\"#uniform-convergence\">4&nbsp;Uniform&nbsp;convergence&nbsp;&amp;&nbsp;the&nbsp;fundamental&nbsp;theorem</a>\n  <a href=\"#rademacher\">5&nbsp;Rademacher&nbsp;complexity&nbsp;&amp;&nbsp;margins</a>\n  <a href=\"#bias-variance\">6&nbsp;Bias–variance,&nbsp;regularization&nbsp;&amp;&nbsp;SRM</a>\n  <a href=\"#connections\">7&nbsp;Connections</a>\n<!-- toc-auto-end -->\n</nav>\n<!-- lineage-mount-auto-begin --><div id=\"mv-lineage-mount\" class=\"lineage-strip\" hidden></div><!-- lineage-mount-auto-end -->\n\n<aside class=\"sidetoc\" aria-label=\"Table of contents\"></aside>\n\n<main>\n\n<section class=\"hero\">\n  <h1>Statistical learning theory</h1>\n  <p class=\"sub\">When does minimizing error on the data you have control error on the data you haven't seen? The geometry of a hypothesis class — counted by VC dimension and Rademacher complexity — answers exactly.</p>\n</section>\n\n",
+  "sections": [
+    {
+      "id": "erm",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"erm\">\n<h2>1. Empirical risk minimization</h2>\n<p>A learning problem fixes an unknown distribution $\\mathcal{D}$ over $\\mathcal{X}\\times\\mathcal{Y}$ and a loss $\\ell(\\hat y, y)\\ge 0$. The thing we actually want to make small is the <strong>population risk</strong> (or expected risk) of a predictor $h\\colon\\mathcal{X}\\to\\mathcal{Y}$:</p>\n<p style=\"text-align:center\">$R(h)=\\mathbb{E}_{(X,Y)\\sim\\mathcal{D}}\\big[\\ell(h(X),Y)\\big].$</p>\n<p>We never see $\\mathcal{D}$ — only a sample $S=\\{(x_i,y_i)\\}_{i=1}^{m}$ drawn i.i.d. from it. So we minimize a proxy, the <strong>empirical risk</strong>:</p>\n<p style=\"text-align:center\">$\\widehat R(h)=\\frac{1}{m}\\sum_{i=1}^{m}\\ell(h(x_i),y_i).$</p>\n<p>The <strong>empirical risk minimizer</strong> over a chosen hypothesis class $\\mathcal{H}$ is $h_S=\\arg\\min_{h\\in\\mathcal{H}}\\widehat R(h)$. The best <em>any</em> predictor could do — over all <a href=\"./measure-theory.html#measurable\" data-auto-inline-link=\"1\" data-concept-id=\"measurable-functions\" data-blurb=\"f measurable iff preimages of Borel sets are measurable; simple functions approximate measurable functions from below.\">measurable functions</a>, ignoring $\\mathcal{H}$ — is achieved by the <strong>Bayes predictor</strong>. For squared loss it is the regression function $h^\\star(x)=\\mathbb{E}[Y\\mid X=x]$; for $0$–$1$ loss in binary classification it is the plug-in rule $h^\\star(x)=\\mathbf{1}[\\,\\eta(x)\\ge\\tfrac12\\,]$ with $\\eta(x)=\\mathbb{P}(Y=1\\mid X=x)$, whose risk is the irreducible <strong>Bayes risk</strong> $R^\\star$.</p>\n\n<h3>Common losses</h3>\n<table class=\"plain\">\n<thead><tr><th>loss</th><th>formula</th><th>used for</th></tr></thead>\n<tbody>\n<tr><td>$0$–$1$</td><td>$\\mathbf{1}[\\hat y\\neq y]$</td><td>classification error (non-convex)</td></tr>\n<tr><td>squared</td><td>$(\\hat y - y)^2$</td><td>regression</td></tr>\n<tr><td>hinge</td><td>$\\max(0,\\,1-y\\hat y)$, $y\\in\\{\\pm1\\}$</td><td>SVMs (convex surrogate of $0$–$1$)</td></tr>\n<tr><td>logistic</td><td>$\\log_2\\!\\big(1+e^{-y\\hat y}\\big)$</td><td>logistic regression (convex surrogate)</td></tr>\n</tbody>\n</table>\n\n<h3>The two sources of error</h3>\n<p>Write $h^\\star_{\\mathcal{H}}=\\arg\\min_{h\\in\\mathcal{H}}R(h)$ for the best predictor <em>in the class</em>. Then the excess risk of the learned $h_S$ splits cleanly:</p>\n<p style=\"text-align:center\">$\\underbrace{R(h_S)-R^\\star}_{\\text{excess risk}}=\\underbrace{\\big(R(h_S)-R(h^\\star_{\\mathcal{H}})\\big)}_{\\text{estimation error}}+\\underbrace{\\big(R(h^\\star_{\\mathcal{H}})-R^\\star\\big)}_{\\text{approximation error}}.$</p>\n<p>Approximation error shrinks as $\\mathcal{H}$ grows richer; estimation error <em>grows</em>, because a richer class overfits the finite sample. The quantity we can measure on held-out data tracks the gap between the proxy and the truth — the <strong>generalization gap</strong> $R(h_S)-\\widehat R(h_S)$. ERM is honest only when this gap is small.</p>\n\n<div class=\"note\"><strong>Worked mini-example.</strong> Take $\\mathcal{X}=[0,1]$, label $Y=\\mathbf{1}[X\\ge\\tfrac12]$ deterministically, so $R^\\star=0$. With $\\mathcal{H}$ = degree-$d$ polynomial thresholds and $m=20$ noisy points, the degree-$1$ class has $\\widehat R\\approx 0.1$ but small generalization gap; the degree-$15$ class drives $\\widehat R\\to 0$ by wiggling through every point, yet $R(h_S)$ climbs to $\\approx 0.3$. Empirical risk fell while true risk rose: textbook overfitting.</div>\n\n<p>The widget runs exactly this experiment. Slide the model complexity and watch the two curves diverge.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "parametric-plot",
+          "params": {
+            "interaction": "single-mode",
+            "widgetId": "w-erm",
+            "svgId": "erm-svg",
+            "outputId": "erm-out",
+            "title": "Empirical vs. true risk",
+            "hint": "raise complexity — watch empirical risk fall while true risk turns up",
+            "viewBox": "0 0 640 300",
+            "svgWidth": 640,
+            "svgHeight": 300,
+            "svgTitle": "Empirical risk versus population risk as model complexity grows",
+            "outputInitial": "",
+            "sliders": [
+              {
+                "id": "erm-cx",
+                "outId": "erm-cx-lbl",
+                "label": "model complexity $d$:",
+                "min": 0,
+                "max": 15,
+                "step": 1,
+                "init": 1
+              },
+              {
+                "id": "erm-m",
+                "outId": "erm-m-lbl",
+                "label": "sample size $m$:",
+                "min": 8,
+                "max": 60,
+                "step": 1,
+                "init": 20
+              }
+            ],
+            "buttons": [
+              {
+                "id": "erm-resample",
+                "label": "resample"
+              }
+            ],
+            "bodyScript": "  const svg=$('#erm-svg'), out=$('#erm-out');\n  const cx=$('#erm-cx'), cxL=$('#erm-cx-lbl'), mSl=$('#erm-m'), mL=$('#erm-m-lbl'), resample=$('#erm-resample');\n  const W=640,H=300, padL=54, padR=20, padT=22, padB=40;\n  const x0=padL, x1=W-padR, y0=H-padB, y1=padT;\n  let pts=[]; // {x,y} in [0,1]^2 (y is noisy label/target)\n  // ground truth: smooth step centered at 0.5\n  function truth(x){ return 1/(1+Math.exp(-12*(x-0.5))); }\n  function gen(m){\n    pts=[];\n    for(let i=0;i<m;i++){\n      const x=Math.random();\n      const noise=(Math.random()-0.5)*0.5;\n      pts.push({x, y:Math.max(0,Math.min(1, truth(x)+noise))});\n    }\n  }\n  // fit polynomial of degree d by least squares (normal equations, small d)\n  function fit(d){\n    const n=pts.length;\n    const X=[]; const Y=[];\n    for(const p of pts){ const row=[]; for(let j=0;j<=d;j++) row.push(Math.pow(p.x,j)); X.push(row); Y.push(p.y); }\n    // XtX (d+1 square), XtY\n    const k=d+1;\n    const A=Array.from({length:k},()=>new Array(k).fill(0));\n    const b=new Array(k).fill(0);\n    for(let r=0;r<n;r++) for(let i=0;i<k;i++){ b[i]+=X[r][i]*Y[r]; for(let j=0;j<k;j++) A[i][j]+=X[r][i]*X[r][j]; }\n    // ridge nudge for numerical stability at high degree\n    for(let i=0;i<k;i++) A[i][i]+=1e-6;\n    return solve(A,b);\n  }\n  function solve(A,b){ // Gaussian elimination\n    const k=b.length; const M=A.map((row,i)=>[...row,b[i]]);\n    for(let c=0;c<k;c++){\n      let piv=c; for(let r=c+1;r<k;r++) if(Math.abs(M[r][c])>Math.abs(M[piv][c])) piv=r;\n      [M[c],M[piv]]=[M[piv],M[c]];\n      const d=M[c][c]||1e-12;\n      for(let j=c;j<=k;j++) M[c][j]/=d;\n      for(let r=0;r<k;r++){ if(r===c) continue; const f=M[r][c]; for(let j=c;j<=k;j++) M[r][j]-=f*M[c][j]; }\n    }\n    return M.map(row=>row[k]);\n  }\n  function evalP(coef,x){ let s=0; for(let j=0;j<coef.length;j++) s+=coef[j]*Math.pow(x,j); return s; }\n  function mse(coef,sample){ let s=0; for(const p of sample) s+=Math.pow(evalP(coef,p.x)-p.y,2); return s/sample.length; }\n  function trueRisk(coef){ // integrate (p(x)-truth(x))^2 over [0,1] numerically + noise variance\n    let s=0; const N=200;\n    for(let i=0;i<N;i++){ const x=(i+0.5)/N; s+=Math.pow(evalP(coef,x)-truth(x),2); }\n    return s/N + (0.25*0.25)/3; // + Var of uniform(-0.25,0.25) noise = (0.5)^2/12\n  }\n  const SX=x=>x0+x*(x1-x0);\n  const SY=y=>y0+y*(y1-y0);\n  function render(){\n    svg.innerHTML='';\n    const d=+cx.value;\n    cxL.textContent='degree '+d;\n    mL.textContent=pts.length+' points';\n    // axes\n    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x1,y2:y0,stroke:'var(--line)','stroke-width':1}));\n    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x0,y2:y1,stroke:'var(--line)','stroke-width':1}));\n    const ax=SVG('text',{x:(x0+x1)/2,y:H-8,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}); ax.textContent='x'; svg.appendChild(ax);\n    const ay=SVG('text',{x:14,y:(y0+y1)/2,'text-anchor':'middle','font-size':12,fill:'var(--mute)',transform:`rotate(-90 14 ${(y0+y1)/2})`}); ay.textContent='y'; svg.appendChild(ay);\n    // truth curve\n    let dt='M';\n    for(let i=0;i<=120;i++){ const x=i/120; dt+=` ${SX(x).toFixed(1)} ${SY(truth(x)).toFixed(1)}`; }\n    svg.appendChild(SVG('path',{d:dt,fill:'none',stroke:'var(--mute)','stroke-width':1.4,'stroke-dasharray':'5 4'}));\n    // fitted curve\n    const coef=fit(d);\n    let df='M';\n    for(let i=0;i<=200;i++){ const x=i/200; const yy=Math.max(-0.3,Math.min(1.3,evalP(coef,x))); df+=` ${SX(x).toFixed(1)} ${SY(yy).toFixed(1)}`; }\n    svg.appendChild(SVG('path',{d:df,fill:'none',stroke:'var(--yellow)','stroke-width':2.2}));\n    // data points\n    for(const p of pts) svg.appendChild(SVG('circle',{cx:SX(p.x),cy:SY(p.y),r:3.4,fill:'var(--blue)',opacity:0.85}));\n    // legend\n    function leg(x,y,c,t){ svg.appendChild(SVG('line',{x1:x,y1:y,x2:x+22,y2:y,stroke:c,'stroke-width':2.4})); const tt=SVG('text',{x:x+28,y:y+4,'font-size':11,fill:'var(--mute)'}); tt.textContent=t; svg.appendChild(tt); }\n    leg(x1-150,y1+6,'var(--mute)','truth');\n    leg(x1-150,y1+22,'var(--yellow)','fit (deg '+d+')');\n    const emp=mse(coef,pts), tr=trueRisk(coef);\n    out.textContent =\n      `degree d = ${d}, sample size m = ${pts.length}\\n`+\n      `empirical risk  R̂(h_S) = ${emp.toFixed(4)}\\n`+\n      `population risk R(h_S) ≈ ${tr.toFixed(4)}   (noise floor ≈ 0.0208)\\n`+\n      `generalization gap R − R̂ = ${(tr-emp).toFixed(4)}` +\n      (d>=8 ? '   ← overfitting: gap blows up' : (d<=1 ? '   ← underfitting: both high' : ''));\n  }\n  cx.addEventListener('input',render);\n  mSl.addEventListener('input',()=>{ gen(+mSl.value); render(); });\n  resample.addEventListener('click',()=>{ gen(+mSl.value); render(); });\n  gen(+mSl.value); render();"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-erm"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./probability-theory.html#expectation\">Expectation, variance, and moments</a></li>\n    <li><a href=\"./probability-theory.html#lln\">Law of large numbers</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./statistical-learning-theory.html#bias-variance\">Statistical learning theory</a> · Bias–variance, regularization &amp; SRM</div>\n    <div><a href=\"./statistical-learning-theory.html#pac\">Statistical learning theory</a> · PAC learning &amp; sample complexity</div>\n</aside>\n<!-- backlinks-auto-end -->"
+        },
+        {
+          "type": "quiz",
+          "concept": "slt-erm",
+          "html": "<div class=\"quiz\" data-concept=\"slt-erm\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "pac",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"pac\">\n<h2>2. PAC learning &amp; sample complexity</h2>\n<p>How <em>much</em> data do we need? The <strong>Probably Approximately Correct</strong> framework (Valiant, 1984) makes the question precise. A class $\\mathcal{H}$ is <strong>PAC-learnable</strong> if there is a learner and a function $m_{\\mathcal{H}}(\\varepsilon,\\delta)$ such that for every distribution $\\mathcal{D}$, with probability at least $1-\\delta$ over a sample of size $m\\ge m_{\\mathcal{H}}(\\varepsilon,\\delta)$, the output $h_S$ satisfies $R(h_S)\\le \\min_{h\\in\\mathcal{H}}R(h)+\\varepsilon$. \"Approximately\" is $\\varepsilon$; \"probably\" is $1-\\delta$.</p>\n<p>Two regimes:</p>\n<ul>\n  <li><strong>Realizable</strong>: some $h\\in\\mathcal{H}$ has $R(h)=0$ (the target is in the class, noise-free). Here we ask only that $R(h_S)\\le\\varepsilon$.</li>\n  <li><strong>Agnostic</strong>: no such guarantee — we compete with the best-in-class $\\min_{h}R(h)$, which may be positive.</li>\n</ul>\n\n<h3>Hoeffding's inequality — the engine</h3>\n<p>If $Z_1,\\dots,Z_m$ are i.i.d. in $[0,1]$ with mean $\\mu$, then for every $t>0$,</p>\n<p style=\"text-align:center\">$\\mathbb{P}\\!\\left(\\Big|\\tfrac1m\\textstyle\\sum_i Z_i-\\mu\\Big|>t\\right)\\le 2e^{-2mt^2}.$</p>\n<p>Fix one hypothesis $h$: its losses $\\ell(h(x_i),y_i)\\in[0,1]$ are i.i.d. with mean $R(h)$, so $\\widehat R(h)$ concentrates around $R(h)$ at the sub-Gaussian rate $e^{-2mt^2}$. The deviation scale is $\\sqrt{1/m}$.</p>\n\n<h3>The finite-class bound</h3>\n<p><strong>Agnostic, $|\\mathcal{H}|<\\infty$.</strong> Apply Hoeffding to each $h$ at level $t=\\varepsilon/2$ and union-bound over the class: $\\mathbb{P}(\\exists h:\\ |\\widehat R(h)-R(h)|>\\tfrac\\varepsilon2)\\le 2|\\mathcal{H}|e^{-m\\varepsilon^2/2}$. Setting this to $\\delta$ and solving gives the sample complexity</p>\n<p style=\"text-align:center\">$m\\ \\ge\\ \\dfrac{2}{\\varepsilon^{2}}\\Big(\\ln|\\mathcal{H}|+\\ln\\tfrac{2}{\\delta}\\Big)\\qquad\\text{(agnostic).}$</p>\n<p><strong>Realizable</strong> the rate is faster — only the consistent hypotheses survive, so a single-sided multiplicative-Chernoff argument gives</p>\n<p style=\"text-align:center\">$m\\ \\ge\\ \\dfrac{1}{\\varepsilon}\\Big(\\ln|\\mathcal{H}|+\\ln\\tfrac{1}{\\delta}\\Big)\\qquad\\text{(realizable).}$</p>\n<p>The dependence is $1/\\varepsilon$ realizable versus $1/\\varepsilon^{2}$ agnostic — the price of noise. Both grow only as $\\ln|\\mathcal{H}|$: doubling the number of bits to describe a hypothesis only adds a constant per bit.</p>\n\n<div class=\"note\"><strong>Worked mini-example.</strong> A class of $|\\mathcal{H}|=2^{20}\\approx 10^6$ hypotheses (20-bit descriptions), target accuracy $\\varepsilon=0.1$, confidence $\\delta=0.05$. Realizable: $m\\ge\\tfrac1{0.1}(20\\ln 2+\\ln 20)\\approx 10\\,(13.86+3.00)=169$ samples. Agnostic: $m\\ge\\tfrac2{0.01}(13.86+\\ln 40)\\approx 200\\,(13.86+3.69)=3510$ samples. Same class, $\\sim20\\times$ more data once noise enters.</div>\n\n<p>Drag the sliders below to read the required $m$ straight off the formula.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "parametric-plot",
+          "params": {
+            "interaction": "single-mode",
+            "widgetId": "w-pac",
+            "svgId": "pac-svg",
+            "outputId": "pac-out",
+            "title": "Sample-complexity calculator",
+            "hint": "finite hypothesis class, realizable vs. agnostic",
+            "viewBox": "0 0 640 200",
+            "svgWidth": 640,
+            "svgHeight": 200,
+            "svgTitle": "Required sample size versus accuracy for the realizable and agnostic bounds",
+            "outputInitial": "",
+            "sliders": [
+              {
+                "id": "pac-eps",
+                "outId": "pac-eps-lbl",
+                "label": "accuracy $\\varepsilon$:",
+                "min": 0.01,
+                "max": 0.5,
+                "step": 0.01,
+                "init": 0.1
+              },
+              {
+                "id": "pac-del",
+                "outId": "pac-del-lbl",
+                "label": "confidence: $\\delta$:",
+                "min": 0.01,
+                "max": 0.5,
+                "step": 0.01,
+                "init": 0.05
+              },
+              {
+                "id": "pac-h",
+                "outId": "pac-h-lbl",
+                "label": "class size $\\log_2|\\mathcal{H}|$:",
+                "min": 1,
+                "max": 40,
+                "step": 1,
+                "init": 20
+              }
+            ],
+            "bodyScript": "  const eps=$('#pac-eps'), epsL=$('#pac-eps-lbl'), del=$('#pac-del'), delL=$('#pac-del-lbl');\n  const hSl=$('#pac-h'), hL=$('#pac-h-lbl'), out=$('#pac-out'), svg=$('#pac-svg');\n  const W=640,H=200, padL=54,padR=20,padT=20,padB=40;\n  const x0=padL,x1=W-padR,y0=H-padB,y1=padT;\n  function compute(){\n    const e=+eps.value, d=+del.value, lh=(+hSl.value)*Math.LN2; // ln|H|\n    const real=Math.ceil((1/e)*(lh+Math.log(1/d)));\n    const agno=Math.ceil((2/(e*e))*(lh+Math.log(2/d)));\n    return {e,d,lh,real,agno};\n  }\n  function render(){\n    const {e,d,lh,real,agno}=compute();\n    epsL.textContent='ε = '+e.toFixed(2);\n    delL.textContent='δ = '+d.toFixed(2);\n    hL.textContent='|H| = 2^'+hSl.value+'  (ln|H| = '+lh.toFixed(2)+')';\n    out.innerHTML =\n      'Realizable: $m \\\\ge \\\\frac{1}{\\\\varepsilon}\\\\!\\\\left(\\\\ln|\\\\mathcal{H}|+\\\\ln\\\\frac1\\\\delta\\\\right) = '+real+'$ &nbsp;samples<br>'+\n      'Agnostic: &nbsp;$m \\\\ge \\\\frac{2}{\\\\varepsilon^{2}}\\\\!\\\\left(\\\\ln|\\\\mathcal{H}|+\\\\ln\\\\frac2\\\\delta\\\\right) = '+agno+'$ &nbsp;samples';\n    if(window.renderMathInElement) window.renderMathInElement(out,{throwOnError:false,\n      strict:(c)=>c==='unicodeTextInMathMode'?'ignore':'warn',delimiters:[{left:'$',right:'$',display:false}]});\n    // plot agnostic m vs eps (log-y) for current delta, |H|\n    svg.innerHTML='';\n    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x1,y2:y0,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x0,y2:y1,stroke:'var(--line)'}));\n    const ax=SVG('text',{x:(x0+x1)/2,y:H-8,'text-anchor':'middle','font-size':11,fill:'var(--mute)'}); ax.textContent='accuracy ε'; svg.appendChild(ax);\n    const ay=SVG('text',{x:14,y:(y0+y1)/2,'text-anchor':'middle','font-size':11,fill:'var(--mute)',transform:`rotate(-90 14 ${(y0+y1)/2})`}); ay.textContent='m (log)'; svg.appendChild(ay);\n    const emin=0.02, emax=0.5;\n    const mAt=(ee)=> (2/(ee*ee))*(lh+Math.log(2/d));\n    const mvals=[]; for(let i=0;i<=120;i++){ const ee=emin+(emax-emin)*i/120; mvals.push(mAt(ee)); }\n    const lmax=Math.log(Math.max(...mvals)), lmin=Math.log(Math.min(...mvals));\n    const SX=ee=>x0+(ee-emin)/(emax-emin)*(x1-x0);\n    const SY=m=>y0+(Math.log(m)-lmin)/((lmax-lmin)||1)*(y1-y0);\n    let dpath='M';\n    for(let i=0;i<=120;i++){ const ee=emin+(emax-emin)*i/120; dpath+=` ${SX(ee).toFixed(1)} ${SY(mAt(ee)).toFixed(1)}`; }\n    svg.appendChild(SVG('path',{d:dpath,fill:'none',stroke:'var(--cyan)','stroke-width':2.2}));\n    // marker at current eps\n    svg.appendChild(SVG('circle',{cx:SX(e),cy:SY(agno),r:5,fill:'var(--yellow)'}));\n    const lbl=SVG('text',{x:SX(e),y:SY(agno)-10,'text-anchor':'middle','font-size':11,fill:'var(--yellow)'}); lbl.textContent='m='+agno; svg.appendChild(lbl);\n  }\n  [eps,del,hSl].forEach(el=>el.addEventListener('input',render));\n  render();"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-pac"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./large-deviations.html#cramer\">Cramér's theorem</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./statistical-learning-theory.html#uniform-convergence\">Statistical learning theory</a> · Uniform convergence &amp; the fundamental theorem</div>\n    <div><a href=\"./statistical-learning-theory.html#vc\">Statistical learning theory</a> · VC dimension &amp; shattering</div>\n</aside>\n<!-- backlinks-auto-end -->"
+        },
+        {
+          "type": "quiz",
+          "concept": "slt-pac",
+          "html": "<div class=\"quiz\" data-concept=\"slt-pac\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "vc",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"vc\">\n<h2>3. VC dimension &amp; shattering</h2>\n<p>The finite-class bound is useless for infinite $\\mathcal{H}$ — half-planes in $\\mathbb{R}^2$ form an uncountable class with $\\ln|\\mathcal{H}|=\\infty$. Yet such classes <em>are</em> learnable. The fix is to count not hypotheses but the <strong>distinct behaviors</strong> the class can exhibit on a finite sample.</p>\n<p>Fix points $x_1,\\dots,x_m$. A <strong>dichotomy</strong> is a labeling $(h(x_1),\\dots,h(x_m))\\in\\{0,1\\}^m$ realized by some $h\\in\\mathcal{H}$. The <strong>growth function</strong> counts them:</p>\n<p style=\"text-align:center\">$\\Pi_{\\mathcal{H}}(m)=\\max_{x_1,\\dots,x_m}\\big|\\{(h(x_1),\\dots,h(x_m)):h\\in\\mathcal{H}\\}\\big|\\ \\le\\ 2^m.$</p>\n<p>A set of $m$ points is <strong>shattered</strong> if $\\mathcal{H}$ realizes all $2^m$ labelings on it. The <strong>VC dimension</strong> $\\mathrm{VC}(\\mathcal{H})$ is the size of the largest shattered set (possibly $\\infty$).</p>\n\n<h3>Sauer–Shelah lemma</h3>\n<p>The crucial dichotomy: either $\\Pi_{\\mathcal{H}}(m)=2^m$ for all $m$ (infinite VC dim), or it is eventually <em>polynomial</em>. If $\\mathrm{VC}(\\mathcal{H})=d<\\infty$ then</p>\n<p style=\"text-align:center\">$\\Pi_{\\mathcal{H}}(m)\\ \\le\\ \\sum_{i=0}^{d}\\binom{m}{i}\\ \\le\\ \\Big(\\frac{em}{d}\\Big)^{d}\\quad(m\\ge d).$</p>\n<p>So a finite VC dimension collapses an exponential count to a degree-$d$ polynomial — the discrete miracle that makes infinite classes learnable. The effective \"$\\ln|\\mathcal{H}|$\" becomes $\\ln\\Pi_{\\mathcal{H}}(m)\\approx d\\ln(em/d)$.</p>\n\n<h3>VC dimensions to memorize</h3>\n<table class=\"plain\">\n<thead><tr><th>class</th><th>VC dim</th></tr></thead>\n<tbody>\n<tr><td>thresholds $\\mathbf{1}[x\\ge a]$ on $\\mathbb{R}$</td><td>$1$</td></tr>\n<tr><td>intervals $\\mathbf{1}[x\\in[a,b]]$ on $\\mathbb{R}$</td><td>$2$</td></tr>\n<tr><td>half-planes / affine classifiers in $\\mathbb{R}^d$</td><td>$d+1$</td></tr>\n<tr><td>axis-aligned rectangles in $\\mathbb{R}^2$</td><td>$4$</td></tr>\n</tbody>\n</table>\n\n<div class=\"note\"><strong>Worked mini-example (thresholds, VC = 1).</strong> One point $\\{x_1\\}$ is shattered: $h(x_1)=0$ via $a>x_1$ and $h(x_1)=1$ via $a\\le x_1$. But two points $x_1 \\lt x_2$ cannot get the labeling $(1,0)$ — a threshold that fires on the smaller point necessarily fires on the larger. So no $2$-set is shattered: $\\mathrm{VC}=1$. For axis-aligned rectangles, four points in a \"diamond\" (top/bottom/left/right extremes) are shattered, but no $5$ points can be — one always lies in the convex hull of the bounding box of the others, so it can't be excluded while keeping them.</div>\n\n<p>The widget lets you place points, pick a concept class, flip the target labeling, and see whether that dichotomy is realizable — and whether the whole point set is shattered.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "parametric-plot",
+          "params": {
+            "interaction": "multi-mode",
+            "widgetId": "w-vc",
+            "svgId": "vc-svg",
+            "outputId": "vc-out",
+            "title": "Shattering explorer",
+            "hint": "click points to flip their target label; pick a class",
+            "viewBox": "0 0 640 300",
+            "svgWidth": 640,
+            "svgHeight": 300,
+            "svgTitle": "Shattering explorer: realize a labeling with a chosen concept class",
+            "outputInitial": "",
+            "pick": {
+              "id": "vc-class",
+              "label": "concept class:",
+              "options": [
+                {
+                  "value": "threshold",
+                  "label": "thresholds on a line (VC 1)"
+                },
+                {
+                  "value": "interval",
+                  "label": "intervals on a line (VC 2)"
+                },
+                {
+                  "value": "halfplane",
+                  "label": "half-planes in $\\mathbb{R}^2$ (VC 3)",
+                  "selected": true
+                }
+              ]
+            },
+            "buttons": [
+              {
+                "id": "vc-reset",
+                "label": "reset points"
+              }
+            ],
+            "modes": {
+              "threshold": {},
+              "interval": {},
+              "halfplane": {}
+            },
+            "initialMode": "halfplane",
+            "bodyScript": "  const svg=$('#vc-svg'), out=$('#vc-out'), cls=$('#vc-class'), reset=$('#vc-reset');\n  const W=640,H=300;\n  let pts=[]; // {x,y,label} label in {0,1}\n  function defaults(kind){\n    if(kind==='threshold'||kind==='interval'){\n      pts=[{x:160,y:150,label:1},{x:320,y:150,label:0},{x:480,y:150,label:1}];\n    } else {\n      pts=[{x:200,y:90,label:1},{x:440,y:110,label:0},{x:300,y:230,label:1}];\n    }\n  }\n  // ---- realizability tests ----\n  function thresholdRealizable(){ // 1D: order by x; label must be monotone of form 0..0 1..1 OR 1..1 0..0\n    const s=[...pts].sort((a,b)=>a.x-b.x).map(p=>p.label);\n    // a threshold h(x)=1[x>=a] or 1[x<=a]; realizable iff labels are \"sorted\" one way\n    const asc=isStep(s), desc=isStep([...s].reverse());\n    return asc||desc;\n  }\n  function isStep(arr){ // all 0s then all 1s\n    let seen1=false;\n    for(const v of arr){ if(v===1) seen1=true; else if(seen1) return false; }\n    return true;\n  }\n  function intervalRealizable(){ // 1D interval: the 1-labels must be contiguous in x-order (or all 0)\n    const s=[...pts].sort((a,b)=>a.x-b.x).map(p=>p.label);\n    let started=false,ended=false;\n    for(const v of s){ if(v===1){ if(ended) return false; started=true; } else if(started) ended=true; }\n    return true;\n  }\n  function halfplaneRealizable(){ // linearly separable in 2D: brute-force LP via small perceptron / convex check\n    const pos=pts.filter(p=>p.label===1), neg=pts.filter(p=>p.label===0);\n    if(pos.length===0||neg.length===0) return true;\n    // perceptron with bias on a few hundred passes\n    let w=[0,0], b=0;\n    for(let it=0;it<2000;it++){\n      let ok=true;\n      for(const p of pts){ const s=w[0]*p.x+w[1]*p.y+b; const t=p.label===1?1:-1;\n        if(s*t<=0){ ok=false; w[0]+=t*p.x*0.0005; w[1]+=t*p.y*0.0005; b+=t*0.5; } }\n      if(ok) return true;\n    }\n    // fallback exact: convex hulls disjoint? approximate by final perceptron check\n    for(const p of pts){ const s=w[0]*p.x+w[1]*p.y+b; const t=p.label===1?1:-1; if(s*t<=0) return false; }\n    return true;\n  }\n  function realizable(){\n    const k=cls.value;\n    if(k==='threshold') return thresholdRealizable();\n    if(k==='interval') return intervalRealizable();\n    return halfplaneRealizable();\n  }\n  function vcOf(k){ return k==='threshold'?1:k==='interval'?2:3; }\n  // shattered? test all 2^n labelings realizable for current class & point positions\n  function shattered(){\n    const n=pts.length, saved=pts.map(p=>p.label);\n    let allOK=true;\n    for(let m=0;m<(1<<n);m++){\n      for(let i=0;i<n;i++) pts[i].label=(m>>i)&1;\n      if(!realizable()){ allOK=false; break; }\n    }\n    pts.forEach((p,i)=>p.label=saved[i]);\n    return allOK;\n  }\n  function render(){\n    svg.innerHTML='';\n    const k=cls.value;\n    // draw separating hint geometry\n    if(k==='threshold'||k==='interval'){\n      svg.appendChild(SVG('line',{x1:60,y1:150,x2:580,y2:150,stroke:'var(--line)','stroke-width':1.5}));\n    }\n    const rz=realizable();\n    // points\n    for(const p of pts){\n      const fill=p.label===1?'var(--cyan)':'var(--pink)';\n      svg.appendChild(SVG('circle',{cx:p.x,cy:p.y,r:11,fill,stroke:'var(--ink)','stroke-width':1.5,style:'cursor:pointer','data-pt':pts.indexOf(p)}));\n      const t=SVG('text',{x:p.x,y:p.y+4,'text-anchor':'middle','font-size':12,fill:'#0b0d10','font-weight':700,'pointer-events':'none'});\n      t.textContent=p.label; svg.appendChild(t);\n    }\n    // legend\n    const lg=SVG('text',{x:60,y:280,'font-size':11,fill:'var(--mute)'}); lg.textContent='label 1 = cyan, 0 = pink — click a point to flip'; svg.appendChild(lg);\n    const sh=shattered();\n    out.textContent =\n      `class: ${k} (VC = ${vcOf(k)}),  points placed: ${pts.length}\\n`+\n      `current labeling realizable? ${rz?'YES ✓':'NO ✗'}\\n`+\n      `is this point set shattered (all 2^${pts.length} = ${1<<pts.length} labelings realizable)? ${sh?'YES — shattered':'NO'}`;\n  }\n  svg.addEventListener('click',e=>{\n    const i=e.target&&e.target.getAttribute&&e.target.getAttribute('data-pt');\n    if(i!==null&&i!==undefined){ const idx=+i; pts[idx].label=pts[idx].label?0:1; render(); }\n  });\n  cls.addEventListener('change',()=>{ defaults(cls.value); render(); });\n  reset.addEventListener('click',()=>{ defaults(cls.value); render(); });\n  defaults('halfplane'); render();"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-vc"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "quiz",
+          "concept": "slt-vc",
+          "html": "<div class=\"quiz\" data-concept=\"slt-vc\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./statistical-learning-theory.html#uniform-convergence\">Statistical learning theory</a> · Uniform convergence &amp; the fundamental theorem</div>\n</aside>\n<!-- backlinks-auto-end -->"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "uniform-convergence",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"uniform-convergence\">\n<h2>4. Uniform convergence &amp; the fundamental theorem</h2>\n<p>Hoeffding controls a <em>single</em> hypothesis. ERM needs more: because $h_S$ is chosen <em>after</em> seeing the data, its empirical risk is biased downward. We need the gap small <strong>simultaneously for every $h$</strong>. A class has the <strong><a href=\"./real-analysis.html#uniform-convergence\" data-auto-inline-link=\"1\" data-concept-id=\"uniform-convergence\" data-blurb=\"Uniform vs pointwise convergence of function sequences, Weierstrass M-test, and why uniform limits preserve continuity and integrability.\">uniform convergence</a> property</strong> if for every $\\varepsilon,\\delta$ there is $m$ so that with probability $\\ge1-\\delta$,</p>\n<p style=\"text-align:center\">$\\sup_{h\\in\\mathcal{H}}\\big|R(h)-\\widehat R(h)\\big|\\le\\varepsilon.$</p>\n<p>Uniform convergence is exactly what makes ERM safe: if every empirical risk is within $\\varepsilon$ of its true value, then $R(h_S)\\le\\widehat R(h_S)+\\varepsilon\\le\\widehat R(h^\\star_{\\mathcal{H}})+\\varepsilon\\le R(h^\\star_{\\mathcal{H}})+2\\varepsilon$.</p>\n\n<h3>The VC generalization bound</h3>\n<p>Replacing $\\ln|\\mathcal{H}|$ by $\\ln\\Pi_{\\mathcal{H}}(2m)\\lesssim d\\ln(m/d)$ in the union bound (and handling the data-dependence by the symmetrization / ghost-sample trick) yields: with probability $\\ge1-\\delta$, for all $h\\in\\mathcal{H}$,</p>\n<p style=\"text-align:center\">$R(h)\\ \\le\\ \\widehat R(h)+O\\!\\left(\\sqrt{\\dfrac{d\\ln(m/d)+\\ln(1/\\delta)}{m}}\\right).$</p>\n<p>The estimation error decays like $\\sqrt{d/m}$: more data helps as $1/\\sqrt m$, more capacity hurts as $\\sqrt d$. Inverting gives the agnostic sample complexity $m=\\Theta\\!\\big((d+\\ln(1/\\delta))/\\varepsilon^{2}\\big)$ (and $\\Theta((d+\\ln(1/\\delta))/\\varepsilon)$ realizable).</p>\n\n<div class=\"note\"><strong>The Fundamental Theorem of Statistical Learning.</strong> For a class $\\mathcal{H}$ of binary classifiers under $0$–$1$ loss, the following are equivalent:\n<ul>\n  <li>$\\mathcal{H}$ has the uniform convergence property;</li>\n  <li>$\\mathcal{H}$ is agnostic-PAC-learnable;</li>\n  <li>$\\mathcal{H}$ is PAC-learnable (realizable);</li>\n  <li>any ERM rule is a successful learner for $\\mathcal{H}$;</li>\n  <li>$\\mathcal{H}$ has finite VC dimension.</li>\n</ul>\nA single integer $d=\\mathrm{VC}(\\mathcal{H})$ decides learnability and pins the sample complexity to $\\Theta((d+\\ln(1/\\delta))/\\varepsilon^2)$.</div>\n\n<div class=\"note\"><strong>Worked mini-example.</strong> Linear classifiers in $\\mathbb{R}^{10}$ have $d=11$. For $\\varepsilon=0.1,\\ \\delta=0.05$ the theorem promises learnability with $m=\\Theta((11+\\ln 20)/0.01)\\approx \\Theta(1400)$ samples — finite, distribution-free, no matter how adversarial $\\mathcal{D}$ is. Contrast a class of infinite VC dimension (e.g. all finite unions of intervals): no finite sample suffices uniformly, and ERM can be made to fail.</div>\n\n<p>The widget plots the VC bound and the underlying growth function against the sample size $m$ for a chosen VC dimension.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "parametric-plot",
+          "params": {
+            "interaction": "single-mode",
+            "widgetId": "w-uc",
+            "svgId": "uc-svg",
+            "outputId": "uc-out",
+            "title": "The VC bound shrinking",
+            "hint": "watch the bound and growth function vs. sample size $m$",
+            "viewBox": "0 0 640 320",
+            "svgWidth": 640,
+            "svgHeight": 320,
+            "svgTitle": "VC generalization bound versus sample size for a chosen VC dimension",
+            "outputInitial": "",
+            "sliders": [
+              {
+                "id": "uc-d",
+                "outId": "uc-d-lbl",
+                "label": "VC dimension $d$:",
+                "min": 1,
+                "max": 30,
+                "step": 1,
+                "init": 5
+              },
+              {
+                "id": "uc-del",
+                "outId": "uc-del-lbl",
+                "label": "confidence $\\delta$:",
+                "min": 0.01,
+                "max": 0.3,
+                "step": 0.01,
+                "init": 0.05
+              }
+            ],
+            "bodyScript": "  const svg=$('#uc-svg'), out=$('#uc-out'), dSl=$('#uc-d'), dL=$('#uc-d-lbl'), delSl=$('#uc-del'), delL=$('#uc-del-lbl');\n  const W=640,H=320,padL=56,padR=20,padT=24,padB=42;\n  const x0=padL,x1=W-padR,y0=H-padB,y1=padT;\n  const mMin=10,mMax=20000;\n  function bound(m,d,del){ // O(.) with constant 1: sqrt((d ln(2m/d) + ln(1/del))/m), capped at 1\n    const v=(d*Math.log(2*m/d)+Math.log(1/del))/m;\n    return Math.min(1, Math.sqrt(v));\n  }\n  function render(){\n    svg.innerHTML='';\n    const d=+dSl.value, del=+delSl.value;\n    dL.textContent='d = '+d;\n    delL.textContent='δ = '+del.toFixed(2);\n    // axes (log-x)\n    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x1,y2:y0,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x0,y2:y1,stroke:'var(--line)'}));\n    const lminX=Math.log(mMin),lmaxX=Math.log(mMax);\n    const SX=m=>x0+(Math.log(m)-lminX)/(lmaxX-lminX)*(x1-x0);\n    const SY=v=>y0+v*(y1-y0); // v in [0,1]\n    // gridlines y\n    for(let g=0;g<=1.0001;g+=0.25){ svg.appendChild(SVG('line',{x1:x0,y1:SY(g),x2:x1,y2:SY(g),stroke:'var(--line)','stroke-dasharray':'2 5',opacity:0.5}));\n      const tg=SVG('text',{x:x0-8,y:SY(g)+4,'text-anchor':'end','font-size':10,fill:'var(--mute)'}); tg.textContent=g.toFixed(2); svg.appendChild(tg); }\n    // x ticks\n    [10,100,1000,10000].forEach(m=>{ const tx=SVG('text',{x:SX(m),y:y0+16,'text-anchor':'middle','font-size':10,fill:'var(--mute)'}); tx.textContent=m>=1000?(m/1000)+'k':m; svg.appendChild(tx);\n      svg.appendChild(SVG('line',{x1:SX(m),y1:y0,x2:SX(m),y2:y0+4,stroke:'var(--mute)'})); });\n    const ax=SVG('text',{x:(x0+x1)/2,y:H-6,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}); ax.textContent='sample size m (log scale)'; svg.appendChild(ax);\n    const ay=SVG('text',{x:16,y:(y0+y1)/2,'text-anchor':'middle','font-size':12,fill:'var(--mute)',transform:`rotate(-90 16 ${(y0+y1)/2})`}); ay.textContent='generalization bound'; svg.appendChild(ay);\n    // bound curve\n    let path='M';\n    for(let i=0;i<=200;i++){ const lm=lminX+(lmaxX-lminX)*i/200; const m=Math.exp(lm); path+=` ${SX(m).toFixed(1)} ${SY(bound(m,d,del)).toFixed(1)}`; }\n    svg.appendChild(SVG('path',{d:path,fill:'none',stroke:'var(--yellow)','stroke-width':2.4}));\n    // mark m where bound drops below 0.1\n    let mStar=null; for(let m=mMin;m<=mMax;m*=1.02){ if(bound(m,d,del)<=0.1){ mStar=Math.round(m); break; } }\n    if(mStar){ svg.appendChild(SVG('line',{x1:SX(mStar),y1:y0,x2:SX(mStar),y2:SY(0.1),stroke:'var(--cyan)','stroke-dasharray':'4 4'}));\n      svg.appendChild(SVG('circle',{cx:SX(mStar),cy:SY(0.1),r:4,fill:'var(--cyan)'})); }\n    out.textContent =\n      `VC dim d = ${d}, δ = ${del.toFixed(2)}\\n`+\n      `bound ≈ √((d·ln(2m/d) + ln(1/δ)) / m)  — decays like √(d/m)\\n`+\n      (mStar?`sample size to push bound below 0.1: m ≈ ${mStar.toLocaleString()}`:'bound stays above 0.1 on this range');\n  }\n  dSl.addEventListener('input',render); delSl.addEventListener('input',render);\n  render();"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-uc"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "quiz",
+          "concept": "slt-uniform-convergence",
+          "html": "<div class=\"quiz\" data-concept=\"slt-uniform-convergence\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./statistical-learning-theory.html#rademacher\">Statistical learning theory</a> · Rademacher complexity &amp; margins</div>\n</aside>\n<!-- backlinks-auto-end -->"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "rademacher",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"rademacher\">\n<h2>5. Rademacher complexity &amp; margins</h2>\n<p>VC dimension is combinatorial and distribution-free — which is also its weakness: it ignores the data distribution and is hard to extend past binary labels. <strong>Rademacher complexity</strong> is the data-dependent, real-valued upgrade. Let $\\sigma=(\\sigma_1,\\dots,\\sigma_m)$ be i.i.d. <strong>Rademacher</strong> signs ($\\pm1$ each with probability $\\tfrac12$). The <strong>empirical Rademacher complexity</strong> of a function class $\\mathcal{F}$ on a sample $S=(x_1,\\dots,x_m)$ is</p>\n<p style=\"text-align:center\">$\\widehat{\\mathfrak{R}}_S(\\mathcal{F})=\\mathbb{E}_{\\sigma}\\!\\left[\\sup_{f\\in\\mathcal{F}}\\frac1m\\sum_{i=1}^{m}\\sigma_i f(x_i)\\right].$</p>\n<p>It measures how well the class can <em>correlate with pure noise</em>: a rich class fits random signs (large $\\widehat{\\mathfrak{R}}_S$), a rigid class cannot. This is precisely capacity.</p>\n\n<h3>The Rademacher generalization bound</h3>\n<p>Via McDiarmid's bounded-differences inequality (changing one sample point moves $\\sup_h(R-\\widehat R)$ by at most $1/m$) plus symmetrization, with probability $\\ge1-\\delta$, for all $h\\in\\mathcal{H}$ (loss in $[0,1]$):</p>\n<p style=\"text-align:center\">$R(h)\\ \\le\\ \\widehat R(h)+2\\,\\widehat{\\mathfrak{R}}_S(\\ell\\circ\\mathcal{H})+3\\sqrt{\\dfrac{\\ln(2/\\delta)}{2m}}.$</p>\n<p>The factor of $2$ in front of $\\widehat{\\mathfrak{R}}_S$ is the symmetrization constant. <strong>Talagrand's contraction lemma</strong> lets us peel the loss off: if $\\ell(\\cdot,y)$ is $L$-Lipschitz then $\\widehat{\\mathfrak{R}}_S(\\ell\\circ\\mathcal{H})\\le L\\,\\widehat{\\mathfrak{R}}_S(\\mathcal{H})$, so we only ever need to bound the complexity of the raw class.</p>\n\n<h3>Margins</h3>\n<p>For a linear class with $\\|w\\|\\le B$ on inputs with $\\|x\\|\\le R$, Cauchy–Schwarz and Jensen give $\\widehat{\\mathfrak{R}}_S(\\mathcal{H})\\le BR/\\sqrt m$ — <em>dimension-free</em>. Combined with a margin loss, this yields the <strong>margin bound</strong>: a classifier achieving margin $\\gamma$ on the training set generalizes at rate $\\tilde O(BR/(\\gamma\\sqrt m))$, independent of the ambient dimension. This is the theory behind support-vector machines and AdaBoost: confident, large-margin fits generalize even when the parameter count is huge.</p>\n\n<div class=\"note\"><strong>Worked mini-example.</strong> The full class of $\\pm1$-valued functions on $m$ fixed points has $\\widehat{\\mathfrak{R}}_S=1$: it realizes every sign pattern, so $\\sup_f\\frac1m\\sum\\sigma_i f(x_i)=\\frac1m\\sum|\\sigma_i|=1$ for every $\\sigma$. A single constant function $f\\equiv1$ has $\\widehat{\\mathfrak{R}}_S=\\mathbb{E}_\\sigma|\\frac1m\\sum\\sigma_i|=\\Theta(1/\\sqrt m)\\to0$. Capacity is the gap between these.</div>\n\n<p>The widget draws fresh random Rademacher labels on a fixed point set, fits the best-correlating hypothesis in your chosen class, and accumulates the running average — the empirical Rademacher complexity.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "parametric-plot",
+          "params": {
+            "interaction": "multi-mode",
+            "widgetId": "w-rad",
+            "svgId": "rad-svg",
+            "outputId": "rad-out",
+            "title": "Fitting noise: Rademacher complexity",
+            "hint": "resample $\\pm1$ signs; compare a simple vs. rich class",
+            "viewBox": "0 0 640 280",
+            "svgWidth": 640,
+            "svgHeight": 280,
+            "svgTitle": "Best correlation of a hypothesis class with random Rademacher labels",
+            "outputInitial": "",
+            "pick": {
+              "id": "rad-class",
+              "label": "class:",
+              "options": [
+                {
+                  "value": "threshold",
+                  "label": "thresholds (simple)",
+                  "selected": true
+                },
+                {
+                  "value": "all",
+                  "label": "all sign patterns (rich)"
+                }
+              ]
+            },
+            "buttons": [
+              {
+                "id": "rad-step",
+                "label": "draw signs"
+              },
+              {
+                "id": "rad-run",
+                "label": "draw ×50"
+              },
+              {
+                "id": "rad-reset",
+                "label": "reset average"
+              }
+            ],
+            "modes": {
+              "threshold": {},
+              "all": {}
+            },
+            "initialMode": "threshold",
+            "bodyScript": "  const svg=$('#rad-svg'), out=$('#rad-out'), cls=$('#rad-class');\n  const step=$('#rad-step'), run=$('#rad-run'), reset=$('#rad-reset');\n  const W=640,H=280;\n  const m=11;\n  const xs=[]; for(let i=0;i<m;i++) xs.push(60+i*52); // fixed points on a line\n  const yMid=150;\n  let signs=new Array(m).fill(1);\n  let sum=0, count=0;\n  function bestCorr(signs){\n    const k=cls.value;\n    if(k==='all'){\n      // class realizes every sign pattern: sup (1/m) Σ σ_i h(x_i) with h=±1 free => pick h_i=σ_i => (1/m)Σ1 = 1\n      return {val:1, h:signs.slice()};\n    }\n    // thresholds: h(x)=±1[x>=a] over all a and both polarities; choose split + sign maximizing correlation\n    let best=-Infinity, bestH=null;\n    for(let split=0;split<=m;split++){\n      for(const pol of [1,-1]){\n        // h(x_i)= pol if i>=split else -pol\n        let c=0; const h=[];\n        for(let i=0;i<m;i++){ const hi=(i>=split? pol : -pol); h.push(hi); c+=signs[i]*hi; }\n        if(c/m>best){ best=c/m; bestH=h; }\n      }\n    }\n    return {val:best, h:bestH};\n  }\n  function draw(){\n    svg.innerHTML='';\n    svg.appendChild(SVG('line',{x1:40,y1:yMid,x2:W-30,y2:yMid,stroke:'var(--line)','stroke-width':1.5}));\n    const {val,h}=bestCorr(signs);\n    for(let i=0;i<m;i++){\n      // sign label above\n      const sUp=signs[i]===1;\n      const c=sUp?'var(--cyan)':'var(--pink)';\n      svg.appendChild(SVG('circle',{cx:xs[i],cy:yMid,r:9,fill:c,stroke:'var(--ink)','stroke-width':1.3}));\n      const t=SVG('text',{x:xs[i],y:yMid+4,'text-anchor':'middle','font-size':12,fill:'#0b0d10','font-weight':700});\n      t.textContent=signs[i]===1?'+':'−'; svg.appendChild(t);\n      // best-fit hypothesis marker (whether it agrees)\n      const agree=h[i]===signs[i];\n      const my=h[i]===1?yMid-34:yMid+34;\n      svg.appendChild(SVG('rect',{x:xs[i]-7,y:my-7,width:14,height:14,rx:3,fill:agree?'var(--green)':'var(--panel2)',stroke:agree?'var(--green)':'var(--line)','stroke-width':1.3}));\n    }\n    const cap1=SVG('text',{x:50,y:60,'font-size':11,fill:'var(--cyan)'}); cap1.textContent='σ = random ±1 signs (circles)'; svg.appendChild(cap1);\n    const cap2=SVG('text',{x:50,y:H-30,'font-size':11,fill:'var(--green)'}); cap2.textContent='best hypothesis h (squares: above=+1, below=−1, green=agrees with σ)'; svg.appendChild(cap2);\n    const avg=count? sum/count : 0;\n    out.textContent =\n      `class: ${cls.value==='all'?'all sign patterns (rich)':'thresholds (simple)'},  m = ${m} points\\n`+\n      `this draw: best correlation (1/m)Σ σ_i h(x_i) = ${val.toFixed(3)}\\n`+\n      `running empirical Rademacher complexity R̂_S = E_σ[sup_h …] ≈ ${avg.toFixed(3)}   (over ${count} draws)\\n`+\n      (cls.value==='all'?'rich class fits any signs ⇒ R̂_S = 1':'simple class ⇒ R̂_S = Θ(1/√m) ≈ '+(1/Math.sqrt(m)).toFixed(3));\n  }\n  function newSigns(){ for(let i=0;i<m;i++) signs[i]=Math.random()<0.5?1:-1; sum+=bestCorr(signs).val; count++; }\n  step.addEventListener('click',()=>{ newSigns(); draw(); });\n  run.addEventListener('click',()=>{ for(let i=0;i<50;i++) newSigns(); draw(); });\n  reset.addEventListener('click',()=>{ sum=0; count=0; signs=new Array(m).fill(1); draw(); });\n  cls.addEventListener('change',()=>{ sum=0; count=0; draw(); });\n  newSigns(); draw();"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-rad"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./high-dimensional-geometry.html#talagrand\">Talagrand's inequality</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "quiz",
+          "concept": "slt-rademacher",
+          "html": "<div class=\"quiz\" data-concept=\"slt-rademacher\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "bias-variance",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"bias-variance\">\n<h2>6. Bias–variance, regularization &amp; SRM</h2>\n<p>For squared loss there is a second, sharper decomposition. Fix $x$, let the data be $y=f(x)+\\text{noise}$ with $\\mathrm{Var}(\\text{noise})=\\sigma^2$, and let $\\hat f_S(x)$ be the prediction of a learner trained on a random sample $S$. Averaging over $S$:</p>\n<p style=\"text-align:center\">$\\mathbb{E}_S\\big[(\\hat f_S(x)-y)^2\\big]=\\underbrace{\\big(\\mathbb{E}_S[\\hat f_S(x)]-f(x)\\big)^2}_{\\text{bias}^2}+\\underbrace{\\mathrm{Var}_S\\!\\big(\\hat f_S(x)\\big)}_{\\text{variance}}+\\underbrace{\\sigma^2}_{\\text{noise}}.$</p>\n<p>Bias is systematic error from a class too rigid to represent $f$ (the approximation error of §1); variance is sensitivity to which particular sample you drew (estimation error). Noise $\\sigma^2$ is irreducible — the Bayes floor. As complexity rises, bias falls and variance climbs: the total test error traces the classic <strong>U-shape</strong>, with an optimal complexity at the bottom.</p>\n\n<div class=\"note\"><strong>Modern caveat — double descent.</strong> The clean U is the under-parameterized story. As models pass the interpolation threshold (enough capacity to fit the data exactly), test error can <em>fall again</em> — the \"double descent\" curve. The classical bias–variance tradeoff governs the first descent; implicit regularization of overparameterized fits governs the second.</div>\n\n<h3>Regularization as constrained ERM</h3>\n<p>Rather than picking a class size by hand, add a penalty: $\\min_h\\ \\widehat R(h)+\\lambda\\,\\Omega(h)$. By Lagrangian duality this equals constrained ERM, $\\min\\{\\widehat R(h):\\Omega(h)\\le t\\}$. Two staples:</p>\n<ul>\n  <li><strong>Ridge ($\\ell_2$):</strong> $\\Omega(w)=\\|w\\|_2^2$. Shrinks coefficients smoothly toward $0$ — trades a little bias for a large variance reduction.</li>\n  <li><strong>Lasso ($\\ell_1$):</strong> $\\Omega(w)=\\|w\\|_1$. The polytope corners of the $\\ell_1$ ball force exact zeros — sparse, selective models.</li>\n</ul>\n<p>Increasing $\\lambda$ moves you left along the complexity axis: more bias, less variance. Regularization is a knob on the same tradeoff.</p>\n\n<h3>Structural risk minimization</h3>\n<p>SRM (Vapnik) formalizes the choice. Nest the hypothesis classes $\\mathcal{H}_1\\subset\\mathcal{H}_2\\subset\\cdots$ by capacity (e.g. by VC dimension $d_k$), and minimize the <em>guaranteed risk</em> — empirical risk plus the §4 complexity penalty:</p>\n<p style=\"text-align:center\">$h_{\\mathrm{SRM}}=\\arg\\min_{k}\\ \\arg\\min_{h\\in\\mathcal{H}_k}\\ \\widehat R(h)+\\mathrm{pen}(d_k,m,\\delta).$</p>\n<p>The penalty makes the method automatically balance fit against capacity — the principled version of the U-curve's minimum.</p>\n\n<div class=\"note\"><strong>Worked mini-example.</strong> Polynomial regression on $m=30$ points from $f(x)=\\sin(2\\pi x)+\\text{noise}$, $\\sigma=0.2$. Degree $1$: high bias ($\\approx0.25$), tiny variance — underfits the sine. Degree $9$: near-zero bias, variance $\\approx0.4$ — wild between data points. Degree $3$ sits at the U's bottom, total error $\\approx\\sigma^2+0.03$. Ridge with moderate $\\lambda$ lets even degree $9$ behave like an effective degree $\\sim3$ by shrinking the high-order coefficients.</div>\n\n<p>The widget plots bias², variance, and their sum (plus the noise floor) against model complexity — find the optimum.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "parametric-plot",
+          "params": {
+            "interaction": "single-mode",
+            "widgetId": "w-bv",
+            "svgId": "bv-svg",
+            "outputId": "bv-out",
+            "title": "The bias–variance tradeoff",
+            "hint": "slide complexity — read off the optimum at the U's bottom",
+            "viewBox": "0 0 640 320",
+            "svgWidth": 640,
+            "svgHeight": 320,
+            "svgTitle": "Bias squared, variance, and total error versus model complexity",
+            "outputInitial": "",
+            "sliders": [
+              {
+                "id": "bv-cx",
+                "outId": "bv-cx-lbl",
+                "label": "model complexity:",
+                "min": 0,
+                "max": 100,
+                "step": 1,
+                "init": 30
+              },
+              {
+                "id": "bv-noise",
+                "outId": "bv-noise-lbl",
+                "label": "noise floor $\\sigma^2$:",
+                "min": 0,
+                "max": 0.4,
+                "step": 0.01,
+                "init": 0.1
+              }
+            ],
+            "bodyScript": "  const svg=$('#bv-svg'), out=$('#bv-out'), cxSl=$('#bv-cx'), cxL=$('#bv-cx-lbl'), nSl=$('#bv-noise'), nL=$('#bv-noise-lbl');\n  const W=640,H=320,padL=56,padR=20,padT=24,padB=42;\n  const x0=padL,x1=W-padR,y0=H-padB,y1=padT;\n  // complexity c in [0,1]; bias^2 falls, variance rises\n  function bias2(c){ return 0.9*Math.exp(-4.5*c); }\n  function variance(c){ return 0.04+0.85*Math.pow(c,2.2); }\n  function render(){\n    svg.innerHTML='';\n    const c=(+cxSl.value)/100, noise=+nSl.value;\n    cxL.textContent='complexity = '+(+cxSl.value)+'%';\n    nL.textContent='σ² = '+noise.toFixed(2);\n    // axes\n    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x1,y2:y0,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x0,y2:y1,stroke:'var(--line)'}));\n    const ymax=1.4;\n    const SX=cc=>x0+cc*(x1-x0);\n    const SY=v=>y0+(v/ymax)*(y1-y0);\n    // gridlines\n    for(let g=0;g<=ymax+0.001;g+=0.2){ svg.appendChild(SVG('line',{x1:x0,y1:SY(g),x2:x1,y2:SY(g),stroke:'var(--line)','stroke-dasharray':'2 5',opacity:0.45}));\n      const tg=SVG('text',{x:x0-8,y:SY(g)+4,'text-anchor':'end','font-size':10,fill:'var(--mute)'}); tg.textContent=g.toFixed(1); svg.appendChild(tg); }\n    const ax=SVG('text',{x:(x0+x1)/2,y:H-6,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}); ax.textContent='model complexity →'; svg.appendChild(ax);\n    const ay=SVG('text',{x:16,y:(y0+y1)/2,'text-anchor':'middle','font-size':12,fill:'var(--mute)',transform:`rotate(-90 16 ${(y0+y1)/2})`}); ay.textContent='error'; svg.appendChild(ay);\n    function curve(fn,col,w){ let p='M'; for(let i=0;i<=160;i++){ const cc=i/160; p+=` ${SX(cc).toFixed(1)} ${SY(fn(cc)).toFixed(1)}`; } svg.appendChild(SVG('path',{d:p,fill:'none',stroke:col,'stroke-width':w})); }\n    curve(cc=>bias2(cc),'var(--pink)',2);\n    curve(cc=>variance(cc),'var(--cyan)',2);\n    curve(cc=>bias2(cc)+variance(cc)+noise,'var(--yellow)',2.6);\n    // noise floor\n    svg.appendChild(SVG('line',{x1:x0,y1:SY(noise),x2:x1,y2:SY(noise),stroke:'var(--mute)','stroke-dasharray':'4 4'}));\n    // optimum (min of total)\n    let bestc=0,bestv=Infinity; for(let i=0;i<=400;i++){ const cc=i/400; const v=bias2(cc)+variance(cc)+noise; if(v<bestv){bestv=v;bestc=cc;} }\n    svg.appendChild(SVG('line',{x1:SX(bestc),y1:y0,x2:SX(bestc),y2:y1,stroke:'var(--green)','stroke-dasharray':'4 4',opacity:0.8}));\n    // current-complexity marker\n    const tot=bias2(c)+variance(c)+noise;\n    svg.appendChild(SVG('circle',{cx:SX(c),cy:SY(tot),r:5,fill:'var(--yellow)'}));\n    // legend\n    function leg(x,y,col,t){ svg.appendChild(SVG('line',{x1:x,y1:y,x2:x+20,y2:y,stroke:col,'stroke-width':2.4})); const tt=SVG('text',{x:x+26,y:y+4,'font-size':11,fill:'var(--mute)'}); tt.textContent=t; svg.appendChild(tt); }\n    leg(x1-150,y1+4,'var(--pink)','bias²');\n    leg(x1-150,y1+20,'var(--cyan)','variance');\n    leg(x1-150,y1+36,'var(--yellow)','total');\n    out.textContent =\n      `complexity = ${(+cxSl.value)}%   (optimum ≈ ${Math.round(bestc*100)}%)\\n`+\n      `bias² = ${bias2(c).toFixed(3)},  variance = ${variance(c).toFixed(3)},  noise σ² = ${noise.toFixed(2)}\\n`+\n      `total test error = ${tot.toFixed(3)}` +\n      (c<bestc-0.08?'   ← underfit: bias dominates':(c>bestc+0.08?'   ← overfit: variance dominates':'   ← near optimum'));\n  }\n  cxSl.addEventListener('input',render); nSl.addEventListener('input',render);\n  render();"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-bv"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./mathematical-statistics.html#estimators\">Point estimators: bias, consistency, MSE, sufficiency</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "quiz",
+          "concept": "slt-bias-variance",
+          "html": "<div class=\"quiz\" data-concept=\"slt-bias-variance\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n\n\n\n<!-- ═══════════════════════════════════════════════════════════════════\n     Connections outro — pedagogy reviewer's templated closure pattern.\n     Strong-corpus topics (measure-theory, functional-analysis, elliptic-\n     curves, commutative-algebra) all end with a short \"where this leads\"\n     section. Bottom-quartile topics tend to skip it; the scaffolder now\n     emits this stub so the no-closure habit doesn't recur on new topics.\n     Authoring agents: replace the bullet list with 3-5 real cross-topic\n     pointers and write 1-2 sentences naming open frontiers.\n═══════════════════════════════════════════════════════════════════ -->\n"
+        }
+      ]
+    },
+    {
+      "id": "connections",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"connections\">\n<h2>Connections</h2>\n\n<p>The classical theory above is a complete story for finite-VC classes — and yet it spectacularly fails to explain why hugely overparameterized neural networks generalize. Deep nets have effectively infinite VC dimension and can fit pure noise, so the uniform-convergence bounds are vacuous; the modern frontier (implicit regularization, the double-descent curve, norm- and margin-based bounds, the neural-tangent-kernel regime) is an active attempt to find the <em>right</em> capacity measure. Kernel methods reframe the linear theory of §5 in a feature Hilbert space, and reinforcement learning extends the i.i.d. story to dependent data.</p>\n\n<ul>\n<li><a href=\"./high-dimensional-geometry.html#talagrand\">High-dimensional geometry — concentration of measure</a> — Talagrand's inequality and McDiarmid bounded differences are the probabilistic engine behind every uniform-convergence and Rademacher bound here.</li>\n<li><a href=\"./large-deviations.html#cramer\">Large deviations — Cramér's theorem</a> — the exponential tail rate that sharpens Hoeffding and quantifies how fast empirical risk concentrates.</li>\n<li><a href=\"./probability-theory.html#lln\">Probability theory — the law of large numbers</a> — generalization is uniform LLN: empirical risk converges to population risk simultaneously over the whole class.</li>\n<li><a href=\"./mathematical-statistics.html#estimators\">Mathematical statistics — estimators</a> — ERM is M-estimation; bias, variance, and consistency are the statistician's language for the same tradeoffs.</li>\n<li><a href=\"./convex-optimization.html#subgradients\">Convex optimization — subgradients</a> — convex surrogate losses (hinge, logistic) and $\\ell_1/\\ell_2$ regularization make ERM a tractable convex program.</li>\n<li><a href=\"./information-theory.html#kl-divergence\">Information theory — KL divergence</a> — PAC-Bayes bounds and the MDL principle recast capacity control as a KL penalty between posterior and prior over hypotheses.</li>\n</ul>\n\n<p class=\"small\">Forward to come: kernel methods (the RKHS view of large-margin classifiers) and deep-learning theory (why uniform convergence breaks and what replaces it) build directly on these foundations.</p>\n</section>\n\n"
+        }
+      ]
+    }
+  ],
+  "rawBodySuffix": "</main>\n\n<script>\n(function(){\n  function start(){ if(window.MVQuiz) MVQuiz.init('statistical-learning-theory'); }\n  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);\n  else start();\n})();\n</script>\n<details class=\"changelog\">\n  <summary>changelog</summary>\n  <table>\n    <tbody>\n      <tr><td>2026-05-22</td><td>initial version</td></tr>\n    </tbody>\n  </table>\n</details>\n\n</body>\n</html>\n"
+}
