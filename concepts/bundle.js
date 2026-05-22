@@ -27,6 +27,7 @@ window.__MVConcepts = {
       "markov-decision-processes",
       "ramsey-theory",
       "order-theory-and-lattices",
+      "algebraic-combinatorics",
       "game-theory",
       "kernel-methods-and-rkhs",
       "reinforcement-learning",
@@ -307,6 +308,7 @@ window.__MVConcepts = {
       "graph-theory-fundamentals": "prereq",
       "ramsey-theory": "standard",
       "order-theory-and-lattices": "standard",
+      "algebraic-combinatorics": "standard",
       "spectral-graph-theory": "standard",
       "matroid-theory": "standard",
       "probabilistic-method": "standard",
@@ -2583,6 +2585,70 @@ window.__MVConcepts = {
             "ot-lattices"
           ],
           "blurb": "A complete lattice has meets and joins of arbitrary subsets. Knaster–Tarski: any monotone map on a complete lattice has a complete lattice of fixed points, with a least fixed point equal to the meet of all pre-fixed points."
+        }
+      ]
+    },
+    "algebraic-combinatorics": {
+      "topic": "algebraic-combinatorics",
+      "title": "Algebraic combinatorics",
+      "page": "algebraic-combinatorics.html",
+      "concepts": [
+        {
+          "id": "ac-partitions-tableaux",
+          "title": "Partitions, Young diagrams & tableaux",
+          "anchor": "tableaux",
+          "prereqs": [
+            "ec-partition-theory"
+          ],
+          "blurb": "An integer partition is drawn as a Young diagram; filling its cells with numbers gives a Young tableau. Standard tableaux use each of 1..n once with strictly increasing rows and columns; semistandard tableaux weakly increase along rows and strictly increase down columns."
+        },
+        {
+          "id": "ac-hook-length",
+          "title": "The hook length formula",
+          "anchor": "hook-length",
+          "prereqs": [
+            "ac-partitions-tableaux"
+          ],
+          "blurb": "The number of standard Young tableaux of shape lambda is n! divided by the product of the hook lengths, where each cell's hook counts the cell, its arm, and its leg. A closed product formula for an otherwise intricate count."
+        },
+        {
+          "id": "ac-symmetric-functions",
+          "title": "Symmetric functions",
+          "anchor": "symmetric",
+          "prereqs": [
+            "ac-partitions-tableaux"
+          ],
+          "blurb": "The ring of symmetric functions has several bases indexed by partitions: monomial, elementary, complete homogeneous, and power-sum. Newton's identities convert between the e, h, and p families."
+        },
+        {
+          "id": "ac-schur",
+          "title": "Schur functions",
+          "anchor": "schur",
+          "prereqs": [
+            "ac-symmetric-functions"
+          ],
+          "blurb": "The Schur function s_lambda is the generating function summing x to the content over all semistandard tableaux of shape lambda. Equivalently it is the Jacobi-Trudi determinant det(h_{lambda_i - i + j}), and the Schur functions form an orthonormal basis of the symmetric functions."
+        },
+        {
+          "id": "ac-rsk",
+          "title": "The RSK correspondence",
+          "anchor": "rsk",
+          "prereqs": [
+            "ac-partitions-tableaux",
+            "ec-permutation-statistics"
+          ],
+          "blurb": "Robinson-Schensted-Knuth bijects permutations with pairs (P, Q) of standard tableaux of the same shape, built by row insertion (bumping). The bijection proves the sum of (f^lambda)^2 over partitions of n equals n!, and the first row length records the longest increasing subsequence."
+        },
+        {
+          "id": "ac-representation",
+          "title": "Representation-theoretic meaning",
+          "anchor": "representation",
+          "prereqs": [
+            "ac-schur",
+            "ac-rsk",
+            "induction-and-young"
+          ],
+          "blurb": "The irreducible representations of the symmetric group S_n are indexed by partitions of n, with dimension equal to the number of standard tableaux; Schur functions are the characters of the GL_n irreducibles (Schur-Weyl duality), and the Littlewood-Richardson coefficients compute both Schur products and induction/restriction."
         }
       ]
     },
@@ -20439,6 +20505,7 @@ window.__MVConcepts = {
           "graph-theory-fundamentals",
           "ramsey-theory",
           "order-theory-and-lattices",
+          "algebraic-combinatorics",
           "spectral-graph-theory",
           "matroid-theory",
           "probabilistic-method",
@@ -20682,6 +20749,7 @@ window.__MVConcepts = {
     "graph-theory-fundamentals": "prereq",
     "ramsey-theory": "standard",
     "order-theory-and-lattices": "standard",
+    "algebraic-combinatorics": "standard",
     "spectral-graph-theory": "standard",
     "matroid-theory": "standard",
     "probabilistic-method": "standard",
@@ -20830,7 +20898,7 @@ window.__MVConcepts = {
       "concepts": 148,
       "intra": 224,
       "crossOut": 25,
-      "crossIn": 99,
+      "crossIn": 100,
       "density": 0.16891891891891891
     },
     "Higher categories & toposes": {
@@ -20883,11 +20951,11 @@ window.__MVConcepts = {
       "density": 0.3568075117370892
     },
     "Combinatorics & graph theory": {
-      "concepts": 76,
-      "intra": 75,
-      "crossOut": 29,
+      "concepts": 82,
+      "intra": 83,
+      "crossOut": 30,
       "crossIn": 5,
-      "density": 0.3815789473684211
+      "density": 0.36585365853658536
     },
     "Mathematical physics": {
       "concepts": 69,

@@ -1,5 +1,5 @@
 {
-  "generated": "2026-05-22T11:14:33.582Z",
+  "generated": "2026-05-22T11:45:40.678Z",
   "entries": [
     {
       "slug": "game-theory",
@@ -39,7 +39,7 @@
       "color": "b",
       "tag": "",
       "date": "2026-05-22",
-      "message": "feat: probabilistic-graphical-models — Wave 2 (Learning theory)"
+      "message": "feat: probabilistic-graphical-models — Wave 2 (Learning theory) (#257)"
     },
     {
       "slug": "ramsey-theory",
