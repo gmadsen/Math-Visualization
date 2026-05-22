@@ -622,7 +622,7 @@ $$ f \text{ measurable } \iff \{x\in X:f(x)>t\}\in\mathcal{A} \ \text{for all } 
 
 <p><strong>Closure properties.</strong> Sums, products, and pointwise suprema/infima of measurable functions are measurable; pointwise limits (where defined) are measurable; compositions $g\circ f$ are measurable for Borel $g$. The closure under pointwise limits is a decisive advantage over the continuous functions.</p>
 
-<p><strong>Simple function approximation.</strong> A <em>simple function</em> $\varphi=\sum_{k=1}^N c_k\,\mathbf{1}_{E_k}$ ($E_k\in\mathcal{A}$, $c_k\ge 0$) is measurable by construction. For any measurable $f\colon X\to[0,\infty]$ define the dyadic floor
+<p><strong>Simple <a href="./reinforcement-learning.html#function-approx" data-auto-inline-link="1" data-concept-id="rl-function-approx" data-blurb="When the state space is large or continuous, replace the table with a parametric Q(s,a;w) and learn w by semi-gradient TD. Combining bootstrapping, off-policy training, and function approximation is the deadly triad — together they can diverge.">function approximation</a>.</strong> A <em>simple function</em> $\varphi=\sum_{k=1}^N c_k\,\mathbf{1}_{E_k}$ ($E_k\in\mathcal{A}$, $c_k\ge 0$) is measurable by construction. For any measurable $f\colon X\to[0,\infty]$ define the dyadic floor
 $$ \varphi_n(x) \;=\; \min\!\bigl(n,\ 2^{-n}\lfloor 2^n f(x)\rfloor\bigr), $$
 so $\varphi_n$ is simple, $0\le\varphi_n\nearrow f$ pointwise, and uniformly on $\{f\le M\}$ for any $M$. Every integration theorem below bootstraps up from simple functions along this ladder.</p>
 

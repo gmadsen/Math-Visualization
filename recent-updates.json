@@ -1,5 +1,5 @@
 {
-  "generated": "2026-05-22T09:56:23.079Z",
+  "generated": "2026-05-22T10:36:17.933Z",
   "entries": [
     {
       "slug": "game-theory",
@@ -15,7 +15,7 @@
       "color": "b",
       "tag": "",
       "date": "2026-05-22",
-      "message": "feat: kernel-methods-and-rkhs — Wave 2 (Learning theory)"
+      "message": "feat: kernel-methods-and-rkhs — Wave 2 (Learning theory) (#255)"
     },
     {
       "slug": "markov-decision-processes",
@@ -40,6 +40,14 @@
       "tag": "",
       "date": "2026-05-22",
       "message": "feat: ramsey-theory — Wave 2 (Combinatorics) (#252)"
+    },
+    {
+      "slug": "reinforcement-learning",
+      "title": "Reinforcement learning",
+      "color": "p",
+      "tag": "",
+      "date": "2026-05-22",
+      "message": "feat: reinforcement-learning — Wave 2 (Control / model-free)"
     },
     {
       "slug": "graph-theory-fundamentals",

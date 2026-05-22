@@ -356,6 +356,7 @@ function drawNode(svg, x, y, label, opts={}){
 <aside class="related">
   <div class="ttl">Used in</div>
     <div><a href="./markov-decision-processes.html#value-functions">Markov decision processes</a> · Value functions &amp; Bellman expectation</div>
+    <div><a href="./reinforcement-learning.html#setup">Reinforcement learning</a> · The RL problem</div>
 </aside>
 <!-- backlinks-auto-end --><div class="quiz" data-concept="mdp-formulation"></div>
 </section>
@@ -454,6 +455,7 @@ function drawNode(svg, x, y, label, opts={}){
   <div class="ttl">Used in</div>
     <div><a href="./markov-decision-processes.html#bellman-optimality">Markov decision processes</a> · Bellman optimality</div>
     <div><a href="./markov-decision-processes.html#horizons">Markov decision processes</a> · Discounting &amp; horizons</div>
+    <div><a href="./reinforcement-learning.html#td">Reinforcement learning</a> · Temporal-difference learning</div>
 </aside>
 <!-- backlinks-auto-end -->
 </section>
@@ -641,7 +643,12 @@ function drawNode(svg, x, y, label, opts={}){
     <li><a href="./fixed-point-theorems.html#banach">Banach contraction principle</a></li>
   </ul>
 </aside>
-<!-- callback-auto-end --><div class="quiz" data-concept="mdp-value-iteration"></div>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./reinforcement-learning.html#q-learning">Reinforcement learning</a> · Q-learning &amp; SARSA</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="mdp-value-iteration"></div>
 </section>
 
 <section id="policy-iteration">
@@ -792,7 +799,7 @@ function drawNode(svg, x, y, label, opts={}){
 <section id="connections">
 <h2>Connections</h2>
 
-<p>The MDP is the discrete, stochastic backbone of sequential decision-making. The frontier is what happens when its clean assumptions break: when the state is only partially observed (POMDPs, where the belief state restores Markovianness but explodes the state space), when $P$ and $R$ are unknown and must be learned from samples (reinforcement learning), and when $\mathcal S$ is too large to enumerate (function approximation, where the contraction guarantees can fail). Even the basics — average-reward optimality, robust MDPs against an adversarial kernel — remain active research.</p>
+<p>The MDP is the discrete, stochastic backbone of sequential decision-making. The frontier is what happens when its clean assumptions break: when the state is only partially observed (POMDPs, where the belief state restores Markovianness but explodes the state space), when $P$ and $R$ are unknown and must be learned from samples (reinforcement learning), and when $\mathcal S$ is too large to enumerate (<a href="./reinforcement-learning.html#function-approx" data-auto-inline-link="1" data-concept-id="rl-function-approx" data-blurb="When the state space is large or continuous, replace the table with a parametric Q(s,a;w) and learn w by semi-gradient TD. Combining bootstrapping, off-policy training, and function approximation is the deadly triad — together they can diverge.">function approximation</a>, where the contraction guarantees can fail). Even the basics — average-reward optimality, robust MDPs against an adversarial kernel — remain active research.</p>
 
 <ul>
 <li><a href="./probability-theory.html#markov">Probability theory — Markov chains</a> — fixing a policy collapses an MDP to the chain $P^\pi$; stationary distributions and mixing govern average-reward MDPs.</li>
