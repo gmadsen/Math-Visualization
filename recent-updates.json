@@ -1,5 +1,5 @@
 {
-  "generated": "2026-05-22T12:37:11.572Z",
+  "generated": "2026-05-22T13:16:47.965Z",
   "entries": [
     {
       "slug": "algebraic-combinatorics",
@@ -47,7 +47,15 @@
       "color": "v",
       "tag": "",
       "date": "2026-05-22",
-      "message": "feat: polytopes-and-ehrhart — Wave 3 (Combinatorics)"
+      "message": "feat: polytopes-and-ehrhart — Wave 3 (Combinatorics) (#259)"
+    },
+    {
+      "slug": "pomdps-and-belief-states",
+      "title": "POMDPs and belief states",
+      "color": "p",
+      "tag": "",
+      "date": "2026-05-22",
+      "message": "feat: pomdps-and-belief-states — Wave 3 (Control / partial observability)"
     },
     {
       "slug": "probabilistic-graphical-models",

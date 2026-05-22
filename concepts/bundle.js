@@ -32,6 +32,7 @@ window.__MVConcepts = {
       "game-theory",
       "kernel-methods-and-rkhs",
       "reinforcement-learning",
+      "pomdps-and-belief-states",
       "probabilistic-graphical-models",
       "several-complex-variables",
       "khovanov-homology",
@@ -428,7 +429,8 @@ window.__MVConcepts = {
       "probabilistic-graphical-models": "advanced",
       "markov-decision-processes": "standard",
       "game-theory": "standard",
-      "reinforcement-learning": "standard"
+      "reinforcement-learning": "standard",
+      "pomdps-and-belief-states": "standard"
     }
   },
   "topics": {
@@ -2906,6 +2908,71 @@ window.__MVConcepts = {
             "rl-td"
           ],
           "blurb": "Parameterise the policy π(a|s;θ) directly and ascend the policy-gradient theorem ∇J(θ) = E[∇log π(a|s;θ) Qᵖ(s,a)]. REINFORCE plugs in the sampled return; subtracting a baseline reduces variance without bias, and actor–critic learns the baseline as a critic."
+        }
+      ]
+    },
+    "pomdps-and-belief-states": {
+      "topic": "pomdps-and-belief-states",
+      "title": "POMDPs and belief states",
+      "page": "pomdps-and-belief-states.html",
+      "concepts": [
+        {
+          "id": "pomdp-model",
+          "title": "The POMDP model",
+          "anchor": "model",
+          "prereqs": [
+            "mdp-formulation"
+          ],
+          "blurb": "A POMDP adds an observation set Ω and an observation function Z(o|s',a) to an MDP (S, A, T, R, γ): the agent never sees the state s, only a noisy observation o drawn from Z. The Tiger problem — two hidden states, a noisy 'listen' action — is the canonical example."
+        },
+        {
+          "id": "pomdp-belief",
+          "title": "Belief states & the Bayes update",
+          "anchor": "belief",
+          "prereqs": [
+            "pomdp-model",
+            "conditional-bayes"
+          ],
+          "blurb": "Lacking the state, the agent tracks a belief b ∈ Δ(S), a distribution over states. After action a and observation o the belief updates by Bayes filtering — predict b'(s')=Σ_s T(s'|s,a)b(s), then correct by Z(o|s',a) and renormalize. The belief is a sufficient statistic for the entire history."
+        },
+        {
+          "id": "pomdp-belief-mdp",
+          "title": "The belief MDP",
+          "anchor": "belief-mdp",
+          "prereqs": [
+            "pomdp-belief",
+            "mdp-bellman-optimality"
+          ],
+          "blurb": "Because the belief is a sufficient statistic, a POMDP is equivalent to a fully observable MDP over the continuous belief simplex, with transition given by the belief update and reward ρ(b,a)=Σ_s b(s)R(s,a). All MDP theory — the Bellman equation, optimal value, greedy policies — applies, at the cost of a continuous state space."
+        },
+        {
+          "id": "pomdp-value-function",
+          "title": "Piecewise-linear convex value",
+          "anchor": "value-function",
+          "prereqs": [
+            "pomdp-belief-mdp",
+            "co-convex-sets-functions"
+          ],
+          "blurb": "The optimal value of the belief MDP is piecewise-linear and convex (PWLC): V*(b)=max_{α∈Γ} α·b over a finite set of α-vectors, each α an |S|-vector encoding the value of a conditional plan. The upper envelope of finitely many linear pieces is exactly a convex, piecewise-linear function."
+        },
+        {
+          "id": "pomdp-exact",
+          "title": "Exact value iteration",
+          "anchor": "exact",
+          "prereqs": [
+            "pomdp-value-function"
+          ],
+          "blurb": "The exact DP backup maps a set of α-vectors to a new set by a cross-sum over observations followed by a max over actions, then prunes α-vectors that are dominated everywhere on the simplex (an LP feasibility check). Finite-horizon POMDPs are PSPACE-complete; the α-vector set can grow doubly exponentially."
+        },
+        {
+          "id": "pomdp-point-based",
+          "title": "Point-based methods",
+          "anchor": "point-based",
+          "prereqs": [
+            "pomdp-value-function",
+            "pomdp-exact"
+          ],
+          "blurb": "Point-based value iteration (PBVI, SARSOP) backs up α-vectors only at a sampled, finite set B of belief points, keeping at most |B| α-vectors. The result is a value lower bound that climbs toward V* as B grows — near-optimal in practice while sidestepping the exact backup's blowup."
         }
       ]
     },
@@ -20615,7 +20682,8 @@ window.__MVConcepts = {
           "kalman-filtering-and-state-estimation",
           "markov-decision-processes",
           "game-theory",
-          "reinforcement-learning"
+          "reinforcement-learning",
+          "pomdps-and-belief-states"
         ],
         "color": "p"
       },
@@ -20934,7 +21002,8 @@ window.__MVConcepts = {
     "probabilistic-graphical-models": "advanced",
     "markov-decision-processes": "standard",
     "game-theory": "standard",
-    "reinforcement-learning": "standard"
+    "reinforcement-learning": "standard",
+    "pomdps-and-belief-states": "standard"
   },
   "newArc": [
     "elementary-topos-theory",
@@ -20986,7 +21055,7 @@ window.__MVConcepts = {
       "concepts": 83,
       "intra": 134,
       "crossOut": 23,
-      "crossIn": 35,
+      "crossIn": 36,
       "density": 0.27710843373493976
     },
     "Geometry & topology": {
@@ -21032,11 +21101,11 @@ window.__MVConcepts = {
       "density": 0.5797101449275363
     },
     "Control theory & optimization": {
-      "concepts": 52,
-      "intra": 53,
-      "crossOut": 22,
+      "concepts": 58,
+      "intra": 62,
+      "crossOut": 23,
       "crossIn": 3,
-      "density": 0.4230769230769231
+      "density": 0.39655172413793105
     },
     "Learning theory & data science": {
       "concepts": 18,

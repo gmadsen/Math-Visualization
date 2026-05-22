@@ -73,7 +73,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./markov-decision-processes.html#value-functions\">Markov decision processes</a> · Value functions &amp; Bellman expectation</div>\n    <div><a href=\"./reinforcement-learning.html#setup\">Reinforcement learning</a> · The RL problem</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./markov-decision-processes.html#value-functions\">Markov decision processes</a> · Value functions &amp; Bellman expectation</div>\n    <div><a href=\"./pomdps-and-belief-states.html#model\">POMDPs and belief states</a> · The POMDP model</div>\n    <div><a href=\"./reinforcement-learning.html#setup\">Reinforcement learning</a> · The RL problem</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "quiz",
@@ -194,7 +194,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./markov-decision-processes.html#policy-iteration\">Markov decision processes</a> · Policy iteration</div>\n    <div><a href=\"./markov-decision-processes.html#value-iteration\">Markov decision processes</a> · Value iteration &amp; contraction</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./markov-decision-processes.html#policy-iteration\">Markov decision processes</a> · Policy iteration</div>\n    <div><a href=\"./markov-decision-processes.html#value-iteration\">Markov decision processes</a> · Value iteration &amp; contraction</div>\n    <div><a href=\"./pomdps-and-belief-states.html#belief-mdp\">POMDPs and belief states</a> · The belief MDP</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "quiz",

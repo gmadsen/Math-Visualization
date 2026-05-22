@@ -1,0 +1,849 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Pomdps and belief states</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false,
+      strict:(c)=>c==='unicodeTextInMathMode'?'ignore':'warn',
+      macros:{
+        '\\Spec':'\\operatorname{Spec}',
+        '\\Gal':'\\operatorname{Gal}',
+        '\\Hom':'\\operatorname{Hom}',
+        '\\tr':'\\operatorname{tr}',
+        '\\ad':'\\operatorname{ad}',
+        '\\ind':'\\operatorname{ind}'
+      }
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  /* sticky sidebar TOC (wide screens only; narrow screens fall back to top-nav) */
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+  /* callback-css-auto-begin */
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+/* callback-css-auto-end */
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
+  /* display-prefs-css-auto-begin */
+  html[data-hide-widgets] .widget { display: none !important; }
+  html[data-hide-quizzes] .quiz { display: none !important; }
+  html[data-hide-lineage] .lineage-strip { display: none !important; }
+  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }
+  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }
+  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }
+  .mv-display-toggle--off { opacity: 0.35; }
+  /* display-prefs-css-auto-end */
+</style>
+<!-- breadcrumb-head-auto-begin -->
+<script src="./js/section-map.js"></script>
+<script src="./js/breadcrumb.js"></script>
+<script src="./js/glossary-popover.js" defer></script>
+<link rel="stylesheet" media="print" href="./css/print.css">
+<link rel="stylesheet" href="./css/theme-light.css">
+<script src="./js/theme-toggle.js"></script>
+<script src="./concepts/bundle.js" defer></script>
+<script src="./js/topic-hotkeys.js" defer></script>
+<script src="./js/topic-lineage.js" defer></script>
+<!-- breadcrumb-head-auto-end -->
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./js/katex-select.js"></script>
+<script src="./js/widget-diagram-editor.js"></script>
+<script src="./quizzes/bundle.js"></script>
+<script src="./js/sidetoc.js"></script>
+<!-- display-prefs-head-auto-begin -->
+<script src="./js/display-prefs.js"></script>
+<!-- display-prefs-head-auto-end -->
+</head>
+<body data-section="control-theory-and-optimization" data-level="intermediate">
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+// draw an arrow marker def once per svg (idempotent)
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+// curved arrow between two pixel points, with optional label
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  // shorten endpoints
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><span class="nav-links"><a class="nav-link" href="./pathway.html">Pathway</a><a class="nav-link" href="./tours.html">Tours</a><a class="nav-link" href="./history.html">History</a><a class="nav-link" href="./tags.html">Themes</a><a class="nav-link" href="./mindmap.html">Mindmap</a><a class="nav-link" href="./search.html">Search</a></span><span class="mv-theme-slot"></span><!-- breadcrumb-nav-auto-end -->
+<!-- toc-auto-begin -->
+  <a href="#model">1&nbsp;The&nbsp;POMDP&nbsp;model</a>
+  <a href="#belief">2&nbsp;Belief&nbsp;states&nbsp;&amp;&nbsp;the&nbsp;Bayes&nbsp;update</a>
+  <a href="#belief-mdp">3&nbsp;The&nbsp;belief&nbsp;MDP</a>
+  <a href="#value-function">4&nbsp;Piecewise-linear&nbsp;convex&nbsp;value</a>
+  <a href="#exact">5&nbsp;Exact&nbsp;value&nbsp;iteration</a>
+  <a href="#point-based">6&nbsp;Point-based&nbsp;methods</a>
+  <a href="#connections">7&nbsp;Connections</a>
+<!-- toc-auto-end -->
+</nav>
+<!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>POMDPs and belief states</h1>
+  <p class="sub">When the agent can't see the state — only noisy observations — it must act on a <em>belief</em>, a distribution over states; this restores a Markov problem over the continuous belief simplex, whose optimal value is piecewise-linear and convex.</p>
+</section>
+
+<section id="model">
+<h2>1. The POMDP model</h2>
+<p>A <a href="./markov-decision-processes.html#formulation">Markov decision process</a> assumes the agent always knows which state it is in. Drop that assumption and you get a <strong>partially observable Markov decision process</strong> (POMDP): the world still evolves as an MDP, but the agent never sees the state $s$ — only a noisy <strong>observation</strong> $o$. Formally a POMDP is a tuple</p>
+<p style="text-align:center">$\mathcal M = (\mathcal S,\ \mathcal A,\ T,\ R,\ \Omega,\ Z,\ \gamma)$</p>
+<p>extending the MDP $(\mathcal S,\mathcal A,T,R,\gamma)$ — with transition kernel $T(s'\mid s,a)$ and reward $R(s,a)$ — by a set of <strong>observations</strong> $\Omega$ and an <strong>observation function</strong> $Z(o\mid s',a)$, the probability of perceiving $o$ after action $a$ lands the world in the (hidden) state $s'$. Each row $Z(\cdot\mid s',a)$ is a distribution over $\Omega$, just as each $T(\cdot\mid s,a)$ is a distribution over $\mathcal S$.</p>
+<div class="note"><strong>The Tiger problem (running example).</strong> Two states: the tiger is behind the left door ($\textsf{TL}$) or the right door ($\textsf{TR}$). Three actions: <em>listen</em>, <em>open-left</em>, <em>open-right</em>. Listening leaves the tiger where it is ($T=\mathrm{Id}$) and returns a noisy growl: $Z(\text{hear-left}\mid\textsf{TL},\text{listen})=0.85$ and $Z(\text{hear-left}\mid\textsf{TR},\text{listen})=0.15$ — the ear is right $85\%$ of the time. Opening a door is the gamble: open the tiger-free door for a reward, open the tiger's door for a big penalty. Crucially the agent only ever hears growls; it never directly sees the tiger.</div>
+<p>Pick an action and sample an observation. The hidden true state is fixed (tiger-left) so you can see how listening leaks information through $Z$ while opening a door produces no informative observation at all.</p>
+
+<div class="widget" id="w-model">
+  <div class="hd"><div class="ttl">The Tiger POMDP: hidden state vs. noisy observation</div><div class="hint">the true state is hidden; only listening leaks a noisy clue through Z</div></div>
+  <svg id="model-svg" viewBox="0 0 640 300" width="640" height="300"><title>The Tiger problem: a hidden state behind two doors and the noisy observation returned by listening</title></svg>
+  <div class="row">
+    <label for="model-acc">listening accuracy $Z(\text{hear-left}\mid\textsf{TL})$:</label>
+    <input type="range" id="model-acc" min="0.5" max="0.99" step="0.01" value="0.85">
+    <span class="small" id="model-acc-lbl"></span>
+  </div>
+  <div class="row">
+    <button id="model-listen">listen (sample o)</button>
+    <button id="model-openL">open-left</button>
+    <button id="model-openR">open-right</button>
+  </div>
+  <div class="readout" id="model-out"></div>
+</div><script>
+(function(){
+  const svg=$('#model-svg'), out=$('#model-out');
+  const accSl=$('#model-acc'), accL=$('#model-acc-lbl');
+  const bL=$('#model-listen'), bOL=$('#model-openL'), bOR=$('#model-openR');
+  const W=640,H=300;
+  // hidden true state: 0 = tiger-left (TL), 1 = tiger-right (TR). Fixed at TL for the demo.
+  const trueState=0;
+  let lastAction=null, lastObs=null;
+  function render(){
+    const acc=+accSl.value; accL.textContent='Z(hear-left | TL) = '+acc.toFixed(2);
+    svg.innerHTML='';
+    // two doors
+    const doorY=70, doorW=150, doorH=140;
+    const dx=[110, 380];
+    for(let d=0;d<2;d++){
+      const isTiger = (trueState===d);
+      svg.appendChild(SVG('rect',{x:dx[d],y:doorY,width:doorW,height:doorH,rx:8,fill:'var(--panel2)',stroke: isTiger?'var(--pink)':'var(--green)','stroke-width':2}));
+      const lbl=SVG('text',{x:dx[d]+doorW/2,y:doorY-12,'text-anchor':'middle','font-size':13,fill:'var(--mute)'}); lbl.textContent=(d===0?'LEFT door':'RIGHT door'); svg.appendChild(lbl);
+      const inside=SVG('text',{x:dx[d]+doorW/2,y:doorY+doorH/2+5,'text-anchor':'middle','font-size':15,fill: isTiger?'var(--pink)':'var(--green)','font-weight':600});
+      inside.textContent = isTiger?'TIGER (hidden)':'(safe, hidden)'; svg.appendChild(inside);
+    }
+    // observation banner
+    const banY=250;
+    const obsTxt=SVG('text',{x:W/2,y:banY,'text-anchor':'middle','font-size':14,fill:'var(--yellow)','font-weight':600});
+    if(lastAction==='listen') obsTxt.textContent='you heard: '+(lastObs===0?'a growl on the LEFT':'a growl on the RIGHT');
+    else if(lastAction) obsTxt.textContent='you opened a door — no informative observation';
+    else obsTxt.textContent='choose an action below';
+    svg.appendChild(obsTxt);
+    // lines
+    const rows=[];
+    rows.push('hidden true state: tiger-LEFT (the agent never sees this)');
+    if(lastAction==='listen'){
+      const pHearLeft = (trueState===0)? acc : (1-acc);
+      rows.push('action: listen   →   observation o = hear-'+(lastObs===0?'left':'right'));
+      rows.push('Z(hear-left | TL, listen) = '+acc.toFixed(2)+'    Z(hear-right | TL, listen) = '+(1-acc).toFixed(2));
+      rows.push('listening leaves the state unchanged (T = Id) but the growl is noisy — it is right '+(acc*100).toFixed(0)+'% of the time');
+    } else if(lastAction==='open-left' || lastAction==='open-right'){
+      const opened = lastAction==='open-left'?0:1;
+      const safe = (opened!==trueState);
+      rows.push('action: '+lastAction+'   →   '+(safe?'no tiger behind that door (reward)':'the tiger was there (big penalty)'));
+      rows.push('opening yields no informative observation: Z(o | s\', open) is uninformative — the gamble resolves the episode.');
+    } else {
+      rows.push('press “listen” to sample a noisy observation, or open a door to gamble.');
+    }
+    out.textContent = rows.join('\n');
+  }
+  function sampleListen(){ const acc=+accSl.value; const pHearLeft=(trueState===0)?acc:(1-acc); lastAction='listen'; lastObs=(Math.random()<pHearLeft)?0:1; render(); }
+  bL.addEventListener('click',sampleListen);
+  bOL.addEventListener('click',()=>{ lastAction='open-left'; lastObs=null; render(); });
+  bOR.addEventListener('click',()=>{ lastAction='open-right'; lastObs=null; render(); });
+  accSl.addEventListener('input',render);
+  render();
+})();
+</script><!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./markov-decision-processes.html#formulation">The MDP model</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./pomdps-and-belief-states.html#belief">POMDPs and belief states</a> · Belief states &amp; the Bayes update</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="pomdp-model"></div>
+</section>
+
+<section id="belief">
+<h2>2. Belief states &amp; the Bayes update</h2>
+<p>Since the state is hidden, the agent acts on what it can compute: a <strong>belief</strong> $b\in\Delta(\mathcal S)$, a probability distribution over states with $b(s)\ge 0$ and $\sum_s b(s)=1$. For the two-state Tiger problem the belief is a single number $b=b(\textsf{TL})\in[0,1]$ (with $b(\textsf{TR})=1-b$): the entire belief space is the segment $[0,1]$.</p>
+<p>After taking action $a$ and seeing observation $o$, the belief updates by <strong>Bayes filtering</strong> — a <em>predict</em> step followed by a <em>correct</em> step:</p>
+<p style="text-align:center">$\displaystyle b^{a,o}(s') \;=\; \eta\;\underbrace{Z(o\mid s',a)}_{\text{correct}}\;\underbrace{\sum_{s} T(s'\mid s,a)\,b(s)}_{\text{predict}},\qquad \eta=\Big(\textstyle\sum_{s'} Z(o\mid s',a)\sum_s T(s'\mid s,a)b(s)\Big)^{-1}.$</p>
+<p>The inner sum pushes the prior $b$ through the dynamics $T$ (the prediction); multiplying by the observation likelihood $Z(o\mid s',a)$ is the Bayesian correction; $\eta$ renormalizes so $b^{a,o}$ is again a distribution. This is exactly recursive <a href="./probability-theory.html#bayes">Bayes' rule</a> applied one step at a time. The remarkable consequence: $b$ is a <strong>sufficient statistic</strong> for the full action-observation history. Two histories that yield the same belief are interchangeable for every future decision, so the agent can throw the history away and keep only $b$.</p>
+<div class="note"><strong>Worked mini-example.</strong> Start undecided, $b=0.5$, and listen. Listening leaves the state fixed, so the predict step keeps $(0.5,0.5)$. Suppose you hear a growl on the left, with accuracy $0.85$: correct by $Z$ to get $b'(\textsf{TL})\propto 0.85\cdot 0.5=0.425$ and $b'(\textsf{TR})\propto 0.15\cdot 0.5=0.075$. Normalize by $\eta=1/(0.425+0.075)=2$: $b'(\textsf{TL})=0.85$, $b'(\textsf{TR})=0.15$. One growl moved you from $0.5$ to $0.85$. Hear another left growl and the belief sharpens further toward certainty; a right growl pulls it back.</div>
+<p>Press the listen buttons to feed in growls and watch the belief march toward certainty; <em>reset / open</em> returns you to the maximally uncertain $b=0.5$.</p>
+
+<div class="widget" id="w-belief">
+  <div class="hd"><div class="ttl">Belief update: Bayes filtering on the Tiger problem</div><div class="hint">each growl multiplies by Z and renormalizes — predict then correct</div></div>
+  <svg id="belief-svg" viewBox="0 0 640 220" width="640" height="220"><title>The belief over the tiger's side, a point in the segment from 0 to 1, updated by listening</title></svg>
+  <div class="row">
+    <label for="belief-acc">listening accuracy:</label>
+    <input type="range" id="belief-acc" min="0.5" max="0.99" step="0.01" value="0.85">
+    <span class="small" id="belief-acc-lbl"></span>
+  </div>
+  <div class="row">
+    <button id="belief-hL">listen → hear left</button>
+    <button id="belief-hR">listen → hear right</button>
+    <button id="belief-reset">reset / open (b = 0.5)</button>
+  </div>
+  <div class="readout" id="belief-out"></div>
+</div><script>
+(function(){
+  const svg=$('#belief-svg'), out=$('#belief-out');
+  const accSl=$('#belief-acc'), accL=$('#belief-acc-lbl');
+  const hL=$('#belief-hL'), hR=$('#belief-hR'), rs=$('#belief-reset');
+  const W=640,H=220, padL=60, padR=60, axY=110;
+  let b=0.5, hist=[];
+  function update(obsLeft){
+    const acc=+accSl.value;
+    // listen: T = Id, so predict leaves b unchanged. Correct by Z, then normalize.
+    // Z(hear-left | TL)=acc, Z(hear-left | TR)=1-acc.
+    const zL = obsLeft? acc : (1-acc);      // Z(o | TL)
+    const zR = obsLeft? (1-acc) : acc;      // Z(o | TR)
+    const num = zL*b, den = zL*b + zR*(1-b);
+    b = num/den;
+    hist.push(obsLeft?'L':'R');
+  }
+  function render(){
+    const acc=+accSl.value; accL.textContent='accuracy = '+acc.toFixed(2);
+    svg.innerHTML='';
+    const x0=padL, x1=W-padR;
+    // the belief segment [0,1]
+    svg.appendChild(SVG('line',{x1:x0,y1:axY,x2:x1,y2:axY,stroke:'var(--line)','stroke-width':2}));
+    // ticks at 0,0.5,1
+    [[0,'b=0  (certain TR)'],[0.5,'0.5'],[1,'b=1  (certain TL)']].forEach(([t,lab])=>{
+      const x=x0+(x1-x0)*t;
+      svg.appendChild(SVG('line',{x1:x,y1:axY-6,x2:x,y2:axY+6,stroke:'var(--mute)','stroke-width':1}));
+      const tx=SVG('text',{x:x,y:axY+26,'text-anchor':'middle','font-size':11,fill:'var(--mute)'}); tx.textContent=lab; svg.appendChild(tx);
+    });
+    const bx=x0+(x1-x0)*b;
+    svg.appendChild(SVG('circle',{cx:bx,cy:axY,r:8,fill:'var(--yellow)',stroke:'var(--bg)','stroke-width':2}));
+    const bl=SVG('text',{x:bx,y:axY-16,'text-anchor':'middle','font-size':13,fill:'var(--yellow)','font-weight':600}); bl.textContent='b(TL) = '+b.toFixed(3); svg.appendChild(bl);
+    const ttl=SVG('text',{x:W/2,y:34,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}); ttl.textContent='belief = a point on the 1-D simplex (the segment [0,1])'; svg.appendChild(ttl);
+    out.textContent =
+      'belief b(TL) = '+b.toFixed(4)+'    b(TR) = '+(1-b).toFixed(4)+'    (sums to 1 — a distribution over the two hidden states)\n'+
+      'growls heard so far: '+(hist.length? hist.join(' ') : '(none yet)')+'\n'+
+      'each listen: predict (T=Id, b unchanged) → correct by Z(o|·) → renormalize.  More agreeing growls ⇒ belief → certainty; a contrary growl pulls it back.\n'+
+      'b is a sufficient statistic: it summarizes the entire history, so the agent can act on b alone.';
+  }
+  hL.addEventListener('click',()=>{ update(true); render(); });
+  hR.addEventListener('click',()=>{ update(false); render(); });
+  rs.addEventListener('click',()=>{ b=0.5; hist=[]; render(); });
+  accSl.addEventListener('input',render);
+  render();
+})();
+</script><!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./probability-theory.html#bayes">Conditional probability and Bayes' rule</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./pomdps-and-belief-states.html#belief-mdp">POMDPs and belief states</a> · The belief MDP</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="pomdp-belief"></div>
+</section>
+
+<section id="belief-mdp">
+<h2>3. The belief MDP</h2>
+<p>Because the belief is a sufficient statistic, a POMDP is <strong>equivalent to a fully observable MDP whose states are beliefs</strong>. This <em>belief MDP</em> $(\Delta(\mathcal S),\mathcal A,\tau,\rho,\gamma)$ has:</p>
+<ul>
+<li>state space the (continuous) belief simplex $\Delta(\mathcal S)$ — for two states, the segment $[0,1]$;</li>
+<li>reward $\displaystyle \rho(b,a)=\sum_s b(s)\,R(s,a)$, the belief-weighted average of the underlying rewards;</li>
+<li>transition $\tau(b'\mid b,a)=\sum_{o:\,b^{a,o}=b'} P(o\mid b,a)$, where the next belief is the deterministic update $b^{a,o}$ and $P(o\mid b,a)=\sum_{s'}Z(o\mid s',a)\sum_s T(s'\mid s,a)b(s)$ is the probability of seeing $o$.</li>
+</ul>
+<p>So given an action $a$, the belief jumps to one of finitely many successor beliefs $b^{a,o}$ — one per observation $o$ — with probabilities $P(o\mid b,a)$. Now <em>everything</em> from the <a href="./markov-decision-processes.html#bellman-optimality">MDP theory</a> applies verbatim: the Bellman optimality equation</p>
+<p style="text-align:center">$\displaystyle V^*(b)=\max_{a}\Big\{\rho(b,a)+\gamma\sum_{o}P(o\mid b,a)\,V^*(b^{a,o})\Big\}$</p>
+<p>characterizes the optimal value, and a greedy policy in belief space is optimal. The only — but serious — catch is that the state space is now a continuum: we cannot tabulate one value per state. The structure of $V^*$ over that continuum, developed next, is what rescues computation.</p>
+<div class="note"><strong>Worked mini-example.</strong> From $b=0.5$ in the Tiger problem, the listen action sends the belief to one of two successors: hearing left lands at $b^{\text{listen,L}}=0.85$ and hearing right at $b^{\text{listen,R}}=0.15$ (by the symmetric Bayes update). At $b=0.5$ each growl is equally likely, $P(\text{hear-left}\mid b)=0.5\cdot 0.85+0.5\cdot 0.15=0.5$, so the belief MDP transitions to $0.85$ or $0.15$ each with probability $0.5$ — a genuine stochastic transition in belief space, even though the underlying tiger never moved.</div>
+<p>Pick an action and watch where the belief can land. Listening fans out into two successor beliefs (one per growl); opening a door ends the episode (it resets the belief to $0.5$ for the next episode).</p>
+
+<div class="widget" id="w-bmdp">
+  <div class="hd"><div class="ttl">The belief MDP: transitions on the simplex</div><div class="hint">an action sends b to its successor beliefs b^{a,o}, weighted by P(o|b,a)</div></div>
+  <svg id="bmdp-svg" viewBox="0 0 640 260" width="640" height="260"><title>Belief-MDP transitions: the current belief fans out to successor beliefs under the listen action</title></svg>
+  <div class="row">
+    <label for="bmdp-b">current belief $b(\textsf{TL})$:</label>
+    <input type="range" id="bmdp-b" min="0.02" max="0.98" step="0.01" value="0.5">
+    <span class="small" id="bmdp-b-lbl"></span>
+  </div>
+  <div class="row">
+    <label for="bmdp-acc">listening accuracy:</label>
+    <input type="range" id="bmdp-acc" min="0.5" max="0.99" step="0.01" value="0.85">
+    <span class="small" id="bmdp-acc-lbl"></span>
+  </div>
+  <div class="row">
+    <button id="bmdp-listen">action: listen</button>
+    <button id="bmdp-open">action: open a door</button>
+  </div>
+  <div class="readout" id="bmdp-out"></div>
+</div><script>
+(function(){
+  const svg=$('#bmdp-svg'), out=$('#bmdp-out');
+  const bSl=$('#bmdp-b'), bL=$('#bmdp-b-lbl'), accSl=$('#bmdp-acc'), accL=$('#bmdp-acc-lbl');
+  const listenBtn=$('#bmdp-listen'), openBtn=$('#bmdp-open');
+  const W=640,H=260, padL=60, padR=60, topY=70, botY=200;
+  let mode='listen';
+  function bayes(b,acc,obsLeft){ const zL=obsLeft?acc:(1-acc), zR=obsLeft?(1-acc):acc; return (zL*b)/(zL*b+zR*(1-b)); }
+  function xOf(t){ return padL+(W-padL-padR)*t; }
+  function drawAxis(y,label){
+    svg.appendChild(SVG('line',{x1:padL,y1:y,x2:W-padR,y2:y,stroke:'var(--line)','stroke-width':2}));
+    [0,0.5,1].forEach(t=>{ const x=xOf(t); svg.appendChild(SVG('line',{x1:x,y1:y-5,x2:x,y2:y+5,stroke:'var(--mute)','stroke-width':1})); });
+    const lab=SVG('text',{x:padL-8,y:y+4,'text-anchor':'end','font-size':11,fill:'var(--mute)'}); lab.textContent=label; svg.appendChild(lab);
+  }
+  function render(){
+    const b=+bSl.value, acc=+accSl.value; bL.textContent='b(TL) = '+b.toFixed(2); accL.textContent='accuracy = '+acc.toFixed(2);
+    listenBtn.classList.toggle('active',mode==='listen'); openBtn.classList.toggle('active',mode==='open');
+    svg.innerHTML='';
+    drawAxis(topY,'before');
+    drawAxis(botY,'after');
+    // current belief on the top axis
+    const xb=xOf(b);
+    svg.appendChild(SVG('circle',{cx:xb,cy:topY,r:7,fill:'var(--yellow)',stroke:'var(--bg)','stroke-width':2}));
+    const cl=SVG('text',{x:xb,y:topY-12,'text-anchor':'middle','font-size':12,fill:'var(--yellow)','font-weight':600}); cl.textContent='b='+b.toFixed(2); svg.appendChild(cl);
+    let txt;
+    if(mode==='listen'){
+      const bLft=bayes(b,acc,true), bRgt=bayes(b,acc,false);
+      const pL = acc*b+(1-acc)*(1-b);   // P(hear-left | b)
+      const pR = 1-pL;
+      [[bLft,pL,'hear-left','var(--cyan)'],[bRgt,pR,'hear-right','var(--pink)']].forEach(([bn,p,name,col])=>{
+        const xn=xOf(bn);
+        drawArrow(svg,[xb,topY+8],[xn,botY-8],{color:col,markerId:'bmdp-'+name,width:2});
+        svg.appendChild(SVG('circle',{cx:xn,cy:botY,r:7,fill:col,stroke:'var(--bg)','stroke-width':2}));
+        const t=SVG('text',{x:xn,y:botY+22,'text-anchor':'middle','font-size':11,fill:col}); t.textContent=name+'  p='+p.toFixed(2); svg.appendChild(t);
+        const t2=SVG('text',{x:xn,y:botY-12,'text-anchor':'middle','font-size':11,fill:col}); t2.textContent="b'="+bn.toFixed(2); svg.appendChild(t2);
+      });
+      txt='action = listen   (T = Id, so the belief moves only through the observation)\n'+
+        'successor beliefs:  hear-left → '+bLft.toFixed(3)+'  with P='+pL.toFixed(3)+'      hear-right → '+bRgt.toFixed(3)+'  with P='+pR.toFixed(3)+'\n'+
+        'reward ρ(b, listen) = -1 (a small listening cost), independent of which growl you hear.\n'+
+        'this is a genuine stochastic transition in belief space — the Bellman equation V*(b)=max_a{ρ+γΣ_o P(o|b,a)V*(b^{a,o})} runs over a CONTINUUM of beliefs.';
+    } else {
+      const xn=xOf(0.5);
+      drawArrow(svg,[xb,topY+8],[xn,botY-8],{color:'var(--green)',markerId:'bmdp-open',width:2});
+      svg.appendChild(SVG('circle',{cx:xn,cy:botY,r:7,fill:'var(--green)',stroke:'var(--bg)','stroke-width':2}));
+      const t=SVG('text',{x:xn,y:botY+22,'text-anchor':'middle','font-size':11,fill:'var(--green)'}); t.textContent='reset to 0.5'; svg.appendChild(t);
+      txt='action = open a door   →   the episode ends; reward ρ(b, open) = Σ_s b(s)R(s, open) is the belief-weighted reward.\n'+
+        'opening yields no informative observation, so the next episode restarts at the uninformative belief b = 0.5.\n'+
+        'ρ(b, open-right) = b·R(TL,open-right) + (1-b)·R(TR,open-right)  — at b far from 0.5 one door is clearly worth the gamble.';
+    }
+    out.textContent=txt;
+  }
+  listenBtn.addEventListener('click',()=>{ mode='listen'; render(); });
+  openBtn.addEventListener('click',()=>{ mode='open'; render(); });
+  bSl.addEventListener('input',render);
+  accSl.addEventListener('input',render);
+  render();
+})();
+</script><!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./markov-decision-processes.html#bellman-optimality">Bellman optimality</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./pomdps-and-belief-states.html#value-function">POMDPs and belief states</a> · Piecewise-linear convex value</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="pomdp-belief-mdp"></div>
+</section>
+
+<section id="value-function">
+<h2>4. Piecewise-linear convex value</h2>
+<p>The belief MDP has a continuous state space, so its value function is a function $V^*:\Delta(\mathcal S)\to\mathbb R$ over the simplex. The structural miracle of POMDPs is that, for finite horizons, this $V^*$ is <strong>piecewise-linear and convex</strong> (PWLC):</p>
+<p style="text-align:center">$\displaystyle V^*(b)=\max_{\alpha\in\Gamma}\ \alpha\cdot b=\max_{\alpha\in\Gamma}\ \sum_s \alpha(s)\,b(s),$</p>
+<p>for a finite set $\Gamma$ of <strong>$\alpha$-vectors</strong>. Each $\alpha\in\Gamma$ is an $|\mathcal S|$-vector: its entry $\alpha(s)$ is the value, <em>if the true state were $s$</em>, of committing to one particular <em>conditional plan</em> (a fixed action followed by an observation-contingent continuation). The expected value of that plan under belief $b$ is the linear function $\alpha\cdot b$. The optimal value picks the best plan at each belief, so $V^*$ is the upper envelope of finitely many lines — a <a href="./convex-optimization.html#convex-sets-functions">convex, piecewise-linear function</a>. Convexity has a meaning: the agent values information, so $V^*$ is highest at the certain corners $b\in\{0,1\}$ and dips in the uncertain middle.</p>
+<div class="note"><strong>Worked mini-example.</strong> With the belief coordinate $b=b(\textsf{TL})$ so that $\alpha\cdot b=\alpha(\textsf{TL})\,b+\alpha(\textsf{TR})\,(1-b)$, consider three plans. "Always open-right" is great when the tiger is left and disastrous when right: $\alpha_R=(10,-100)$, the line $110\,b-100$. "Always open-left" is the mirror: $\alpha_L=(-100,10)$, the line $10-110\,b$. They cross at $b=0.5$. A third plan "listen, then decide" has a flatter, higher line near the middle, $\alpha_{\text{listen}}\approx(2,2)$ minus a small cost — so near $b=0.5$ <em>listening dominates</em> both open plans (it is worth paying to gather information), while near the certain corners opening the obviously-safe door wins. $V^*$ is the upper envelope of all three.</div>
+<p>Toggle the $\alpha$-vectors on and off. The thick yellow curve is the upper envelope $V(b)=\max_\alpha\alpha\cdot b$ — note it is convex and piecewise-linear, with a kink wherever the maximizing plan changes.</p>
+
+<div class="widget" id="w-vfn">
+  <div class="hd"><div class="ttl">PWLC value: α-vectors and their upper envelope</div><div class="hint">each α is a line over b∈[0,1]; V*(b)=max_α α·b is convex & piecewise-linear</div></div>
+  <svg id="vfn-svg" viewBox="0 0 640 320" width="640" height="320"><title>Several alpha-vectors drawn as lines over the belief and their convex piecewise-linear upper envelope</title></svg>
+  <div class="row">
+    <label for="vfn-b">evaluate at belief $b(\textsf{TL})$:</label>
+    <input type="range" id="vfn-b" min="0" max="1" step="0.01" value="0.5">
+    <span class="small" id="vfn-b-lbl"></span>
+  </div>
+  <div class="row">
+    <button id="vfn-tL">toggle open-left plan</button>
+    <button id="vfn-tR">toggle open-right plan</button>
+    <button id="vfn-tLis">toggle listen plan</button>
+  </div>
+  <div class="readout" id="vfn-out"></div>
+</div><script>
+(function(){
+  const svg=$('#vfn-svg'), out=$('#vfn-out');
+  const bSl=$('#vfn-b'), bL=$('#vfn-b-lbl');
+  const tL=$('#vfn-tL'), tR=$('#vfn-tR'), tLis=$('#vfn-tLis');
+  const W=640,H=320, padL=58, padR=24, padT=24, padB=46;
+  // alpha = [alpha(TL), alpha(TR)]; value at b = alpha(TL)*b + alpha(TR)*(1-b)
+  const ALPHAS=[
+    {name:'open-right', a:[10,-100], col:'var(--pink)', on:true},
+    {name:'open-left',  a:[-100,10], col:'var(--cyan)', on:true},
+    {name:'listen',     a:[1.5,1.5], col:'var(--violet)', on:true}
+  ];
+  function val(al,b){ return al[0]*b + al[1]*(1-b); }
+  const yMin=-100, yMax=15;
+  function xOf(b){ return padL+(W-padL-padR)*b; }
+  function yOf(v){ return padT+(H-padT-padB)*(1-(v-yMin)/(yMax-yMin)); }
+  function render(){
+    const b=+bSl.value; bL.textContent='b(TL) = '+b.toFixed(2);
+    svg.innerHTML='';
+    // axes
+    svg.appendChild(SVG('line',{x1:padL,y1:padT,x2:padL,y2:H-padB,stroke:'var(--line)','stroke-width':1}));
+    svg.appendChild(SVG('line',{x1:padL,y1:yOf(0),x2:W-padR,y2:yOf(0),stroke:'var(--line)','stroke-width':1}));
+    [0,0.5,1].forEach(t=>{ const x=xOf(t); const tx=SVG('text',{x:x,y:H-padB+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'}); tx.textContent='b='+t; svg.appendChild(tx); });
+    const yl=SVG('text',{x:padL-8,y:padT+4,'text-anchor':'end','font-size':11,fill:'var(--mute)'}); yl.textContent='value'; svg.appendChild(yl);
+    const xl=SVG('text',{x:W-padR,y:H-padB+18,'text-anchor':'end','font-size':11,fill:'var(--mute)'}); xl.textContent='belief b(TL)'; svg.appendChild(xl);
+    // each active alpha-vector as a line
+    const active=ALPHAS.filter(A=>A.on);
+    active.forEach((A,i)=>{
+      svg.appendChild(SVG('line',{x1:xOf(0),y1:yOf(val(A.a,0)),x2:xOf(1),y2:yOf(val(A.a,1)),stroke:A.col,'stroke-width':1.6,'stroke-dasharray':'4 3'}));
+      const lg=SVG('text',{x:W-padR,y:padT+14+i*15,'text-anchor':'end','font-size':11,fill:A.col}); lg.textContent='α['+A.name+'] = ('+A.a[0]+', '+A.a[1]+')'; svg.appendChild(lg);
+    });
+    // upper envelope V(b)=max over active alphas, sampled
+    if(active.length){
+      let path='';
+      for(let i=0;i<=100;i++){ const bb=i/100; let best=-1e18, who=null; for(const A of active){ const v=val(A.a,bb); if(v>best){best=v;who=A;} } path+=(i?' L':'M')+xOf(bb)+' '+yOf(best); }
+      svg.appendChild(SVG('path',{d:path,fill:'none',stroke:'var(--yellow)','stroke-width':3}));
+      // marker at the queried belief
+      let best=-1e18, who=null; for(const A of active){ const v=val(A.a,b); if(v>best){best=v;who=A;} }
+      svg.appendChild(SVG('circle',{cx:xOf(b),cy:yOf(best),r:6,fill:'var(--yellow)',stroke:'var(--bg)','stroke-width':2}));
+      out.textContent =
+        'active α-vectors: '+active.map(A=>A.name).join(', ')+'\n'+
+        'V(b) = max_α α·b   at b = '+b.toFixed(2)+'  →  '+best.toFixed(2)+'   (best plan here: '+who.name+')\n'+
+        'the envelope is CONVEX and piecewise-linear; each kink is a belief where the optimal plan switches.\n'+
+        'convexity = the value of information: V* peaks at the certain corners b=0,1 and sags in the uncertain middle.';
+    } else {
+      out.textContent='no α-vectors active — toggle some on. With none, there is no value function to draw.';
+    }
+  }
+  tL.addEventListener('click',()=>{ const A=ALPHAS.find(x=>x.name==='open-left'); A.on=!A.on; tL.classList.toggle('active',A.on); render(); });
+  tR.addEventListener('click',()=>{ const A=ALPHAS.find(x=>x.name==='open-right'); A.on=!A.on; tR.classList.toggle('active',A.on); render(); });
+  tLis.addEventListener('click',()=>{ const A=ALPHAS.find(x=>x.name==='listen'); A.on=!A.on; tLis.classList.toggle('active',A.on); render(); });
+  tL.classList.add('active'); tR.classList.add('active'); tLis.classList.add('active');
+  bSl.addEventListener('input',render);
+  render();
+})();
+</script><!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./convex-optimization.html#convex-sets-functions">Convex sets, functions, and the Legendre–Fenchel transform</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./pomdps-and-belief-states.html#exact">POMDPs and belief states</a> · Exact value iteration</div>
+    <div><a href="./pomdps-and-belief-states.html#point-based">POMDPs and belief states</a> · Point-based methods</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="pomdp-value-function"></div>
+</section>
+
+<section id="exact">
+<h2>5. Exact value iteration</h2>
+<p>Value iteration for POMDPs maps a set $\Gamma$ of $\alpha$-vectors to a new set $\Gamma'$ representing the backed-up value $V'=TV$. The <strong>exact DP backup</strong> has two stages. First, for each action $a$ and each observation $o$, form the per-observation backprojections of every $\alpha\in\Gamma$:</p>
+<p style="text-align:center">$\displaystyle \alpha^{a,o}(s)=\sum_{s'} Z(o\mid s',a)\,T(s'\mid s,a)\,\alpha(s').$</p>
+<p>Then for each action take a <strong>cross-sum over observations</strong> — pick one backprojected vector per observation and add them, together with the immediate reward — to build a candidate plan:</p>
+<p style="text-align:center">$\displaystyle \alpha^a = R(\cdot,a) + \gamma\sum_{o}\alpha^{a,o_{(\cdot)}},\qquad \Gamma'=\bigcup_a\{\text{all such }\alpha^a\}.$</p>
+<p>This is the Monahan/Sondik enumeration. The trouble is the count: choosing one vector per observation gives $|\Gamma|^{|\Omega|}$ combinations <em>per action</em>, so $|\Gamma'|$ can be as large as $|\mathcal A|\,|\Gamma|^{|\Omega|}$ — a doubly-exponential blowup over the horizon. The remedy is <strong>pruning</strong>: an $\alpha$-vector that is never the maximizer at any belief on the simplex contributes nothing to the upper envelope and is deleted. "Is there a belief $b$ where $\alpha$ strictly beats all the others?" is a <em>linear program</em>; if it is infeasible, $\alpha$ is dominated and discarded. Even with pruning, finite-horizon POMDP planning is <strong>PSPACE-complete</strong>.</p>
+<div class="note"><strong>Worked mini-example.</strong> On the Tiger problem one backup over the three base plans (open-left, open-right, listen) with two observations generates a fistful of candidate $\alpha$-vectors — the cross-sum produces one per (action, observation-assignment). Many lie strictly below the envelope formed by the survivors: e.g. a plan that opens-left after hearing a <em>right</em> growl is dominated everywhere by the plan that opens-right then. Pruning's LP detects exactly these and removes them, leaving only the handful of vectors that surface on the upper envelope.</div>
+<p>Press <em>one exact backup</em> to generate the candidate $\alpha$-vectors, then watch pruning delete the dominated ones (drawn dashed and faded) and keep the survivors (solid) that form the envelope.</p>
+
+<div class="widget" id="w-exact">
+  <div class="hd"><div class="ttl">One exact backup: generate, then prune</div><div class="hint">the cross-sum makes many candidate α-vectors; an LP prunes the dominated ones</div></div>
+  <svg id="exact-svg" viewBox="0 0 640 320" width="640" height="320"><title>Candidate alpha-vectors from one exact POMDP backup, with dominated ones pruned away</title></svg>
+  <div class="row">
+    <label for="exact-gamma">discount $\gamma$:</label>
+    <input type="range" id="exact-gamma" min="0.5" max="0.99" step="0.01" value="0.9">
+    <span class="small" id="exact-gamma-lbl"></span>
+  </div>
+  <div class="row">
+    <button id="exact-gen">one exact backup (generate)</button>
+    <button id="exact-prune">prune dominated</button>
+    <button id="exact-reset">reset</button>
+  </div>
+  <div class="readout" id="exact-out"></div>
+</div><script>
+(function(){
+  const svg=$('#exact-svg'), out=$('#exact-out');
+  const gSl=$('#exact-gamma'), gL=$('#exact-gamma-lbl');
+  const gen=$('#exact-gen'), prune=$('#exact-prune'), reset=$('#exact-reset');
+  const W=640,H=320, padL=58, padR=24, padT=24, padB=46;
+  // belief coord b = b(TL); value at b = a[0]*b + a[1]*(1-b)
+  function val(a,b){ return a[0]*b + a[1]*(1-b); }
+  const yMin=-110, yMax=20;
+  function xOf(b){ return padL+(W-padL-padR)*b; }
+  function yOf(v){ return padT+(H-padT-padB)*(1-(v-yMin)/(yMax-yMin)); }
+  let cands=[], phase='empty';
+  function generate(){
+    const g=+gSl.value;
+    // A small but honest candidate set for the Tiger backup (illustrative α-vectors).
+    // Survivors: open-right, open-left, and listen-then-decide. The rest are dominated everywhere.
+    cands=[
+      {name:'open-right',           a:[10,-100]},
+      {name:'open-left',            a:[-100,10]},
+      {name:'listen→decide',        a:[ 2*g+ -1, 2*g + -1]},   // flat, near the middle
+      {name:'open-left if hear-R',  a:[-95,-40]},               // dominated cross-sum
+      {name:'open-right if hear-L', a:[-40,-95]},               // dominated cross-sum
+      {name:'always open-left(dom)',a:[-100,5]},                // dominated by open-left
+      {name:'always open-right(dom)',a:[5,-100]}                // dominated by open-right
+    ];
+    phase='generated';
+  }
+  function dominatedEverywhere(A, others){
+    // A is dominated if for some other vector B, B·b >= A·b for ALL b in [0,1] (sampled densely).
+    for(const B of others){ if(B===A) continue; let dom=true; for(let i=0;i<=50;i++){ const b=i/50; if(val(B.a,b) < val(A.a,b) - 1e-9){ dom=false; break; } } if(dom) return true; }
+    return false;
+  }
+  function doPrune(){
+    if(phase==='empty') return;
+    for(const A of cands){ A.pruned = dominatedEverywhere(A, cands); }
+    phase='pruned';
+  }
+  function render(){
+    const g=+gSl.value; gL.textContent='γ = '+g.toFixed(2);
+    svg.innerHTML='';
+    svg.appendChild(SVG('line',{x1:padL,y1:padT,x2:padL,y2:H-padB,stroke:'var(--line)','stroke-width':1}));
+    svg.appendChild(SVG('line',{x1:padL,y1:yOf(0),x2:W-padR,y2:yOf(0),stroke:'var(--line)','stroke-width':1}));
+    [0,0.5,1].forEach(t=>{ const tx=SVG('text',{x:xOf(t),y:H-padB+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'}); tx.textContent='b='+t; svg.appendChild(tx); });
+    const xl=SVG('text',{x:W-padR,y:H-padB+18,'text-anchor':'end','font-size':11,fill:'var(--mute)'}); xl.textContent='belief b(TL)'; svg.appendChild(xl);
+    if(phase==='empty'){ out.textContent='press “one exact backup (generate)” to enumerate candidate α-vectors via the cross-sum over observations.'; return; }
+    cands.forEach((A,i)=>{
+      const faded = (phase==='pruned' && A.pruned);
+      svg.appendChild(SVG('line',{x1:xOf(0),y1:yOf(val(A.a,0)),x2:xOf(1),y2:yOf(val(A.a,1)),stroke: faded?'var(--mute)':'var(--cyan)','stroke-width': faded?1:2,'stroke-dasharray': faded?'3 4':'0', opacity: faded?0.4:1}));
+    });
+    // survivors envelope
+    const surv=cands.filter(A=> phase!=='pruned' || !A.pruned);
+    let path='';
+    for(let i=0;i<=100;i++){ const b=i/100; let best=-1e18; for(const A of surv){ best=Math.max(best,val(A.a,b)); } path+=(i?' L':'M')+xOf(b)+' '+yOf(best); }
+    svg.appendChild(SVG('path',{d:path,fill:'none',stroke:'var(--yellow)','stroke-width':3}));
+    const nDom = cands.filter(A=>A.pruned).length;
+    out.textContent =
+      'discount γ = '+g.toFixed(2)+'\n'+
+      'candidates generated by the cross-sum: '+cands.length+'   '+(phase==='pruned'? ('→ pruned '+nDom+' dominated, '+(cands.length-nDom)+' survive') : '(now press “prune dominated”)')+'\n'+
+      (phase==='pruned'
+        ? 'survivors form the upper envelope (yellow); the faded dashed lines are α-vectors no belief ever selects — the LP found them infeasible-to-dominate.'
+        : 'a backup can make up to |A|·|Γ|^|Ω| candidates — doubly exponential. Pruning (an LP feasibility check per vector) keeps only those that surface on the envelope.')+'\n'+
+      'even after pruning, finite-horizon POMDP planning is PSPACE-complete.';
+  }
+  gen.addEventListener('click',()=>{ generate(); render(); });
+  prune.addEventListener('click',()=>{ doPrune(); render(); });
+  reset.addEventListener('click',()=>{ cands=[]; phase='empty'; render(); });
+  gSl.addEventListener('input',()=>{ if(phase!=='empty'){ generate(); } render(); });
+  render();
+})();
+</script><div class="quiz" data-concept="pomdp-exact"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./pomdps-and-belief-states.html#point-based">POMDPs and belief states</a> · Point-based methods</div>
+</aside>
+<!-- backlinks-auto-end -->
+</section>
+
+<section id="point-based">
+<h2>6. Point-based methods</h2>
+<p>Exact value iteration is defeated by the doubly-exponential $\alpha$-vector blowup. <strong>Point-based value iteration</strong> (PBVI, and its anytime descendant SARSOP) sidesteps it with one idea: only ever back up the value at a finite, sampled set $B=\{b_1,\dots,b_m\}$ of belief points. For each $b\in B$ the backup keeps the <em>single</em> best $\alpha$-vector at that belief, so the set $\Gamma$ never grows beyond $|B|$ vectors — bounded, regardless of horizon.</p>
+<p>Because every kept $\alpha$-vector is the value of a genuinely realizable conditional plan, $\max_{\alpha\in\Gamma}\alpha\cdot b$ can never exceed $V^*(b)$: point-based methods produce a <strong>lower bound</strong> on the optimal value. Adding more (and better-placed) belief points adds plans and lifts the bound monotonically toward $V^*$. The belief set is usually grown by simulating reachable beliefs from the initial $b_0$, since those are the only beliefs the agent will actually encounter — concentrating effort where it pays. The result is near-optimal in practice on problems far too large for exact VI.</p>
+<div class="note"><strong>Worked mini-example.</strong> Seed PBVI on the Tiger problem with the single belief $B=\{0.5\}$. The best plan there is "listen" (information is most valuable when you are most uncertain), so the bound is low and flat. Add the reachable beliefs $\{0.15,0.85\}$ that one growl produces, and "open the confident door" plans enter $\Gamma$, raising the bound near the corners. Keep sampling toward $\{0.03,0.97,\dots\}$ and the lower-bound envelope climbs to hug the true PWLC $V^*$ — never crossing above it.</div>
+<p>Press <em>add belief point</em> to sample a new reachable belief, then <em>back up</em> to refit one $\alpha$-vector per point. The yellow lower-bound envelope climbs toward the faint true $V^*$ as $B$ grows; it never rises above it.</p>
+
+<div class="widget" id="w-pbvi">
+  <div class="hd"><div class="ttl">Point-based VI: a lower bound climbing to V*</div><div class="hint">back up only at sampled beliefs; ≤|B| α-vectors; a lower bound on V*</div></div>
+  <svg id="pbvi-svg" viewBox="0 0 640 320" width="640" height="320"><title>Point-based value iteration: the lower-bound envelope rising toward the true value as belief points are added</title></svg>
+  <div class="row">
+    <label for="pbvi-b">query belief $b(\textsf{TL})$:</label>
+    <input type="range" id="pbvi-b" min="0" max="1" step="0.01" value="0.5">
+    <span class="small" id="pbvi-b-lbl"></span>
+  </div>
+  <div class="row">
+    <button id="pbvi-add">add belief point + back up</button>
+    <button id="pbvi-reset">reset to B = {0.5}</button>
+  </div>
+  <div class="readout" id="pbvi-out"></div>
+</div><script>
+(function(){
+  const svg=$('#pbvi-svg'), out=$('#pbvi-out');
+  const bSl=$('#pbvi-b'), bL=$('#pbvi-b-lbl');
+  const add=$('#pbvi-add'), reset=$('#pbvi-reset');
+  const W=640,H=320, padL=58, padR=24, padT=24, padB=46;
+  // TRUE PWLC V* of the Tiger problem (illustrative): upper envelope of these α-vectors.
+  const STAR=[ [10,-100], [-100,10], [3.5,3.5] ];
+  function val(a,b){ return a[0]*b + a[1]*(1-b); }
+  function vstar(b){ let m=-1e18; for(const a of STAR) m=Math.max(m,val(a,b)); return m; }
+  // The plan-library PBVI can pick from at any belief: pick the α maximizing α·b among these.
+  const LIB=[ [10,-100], [-100,10], [3.5,3.5], [-30,-30] ];
+  function bestAlphaAt(b){ let best=null,bv=-1e18; for(const a of LIB){ const v=val(a,b); if(v>bv){bv=v;best=a;} } return best; }
+  const yMin=-110, yMax=20;
+  function xOf(b){ return padL+(W-padL-padR)*b; }
+  function yOf(v){ return padT+(H-padT-padB)*(1-(v-yMin)/(yMax-yMin)); }
+  // a fixed schedule of reachable belief points to sample, in order
+  const SCHED=[0.5, 0.85, 0.15, 0.97, 0.03, 0.7, 0.3];
+  let B=[0.5], gamma=[];
+  function backup(){ // keep one α per belief point (dedup identical vectors)
+    const set=[]; for(const b of B){ const a=bestAlphaAt(b); if(!set.some(x=>x[0]===a[0]&&x[1]===a[1])) set.push(a); } gamma=set;
+  }
+  function lb(b){ if(!gamma.length) return null; let m=-1e18; for(const a of gamma) m=Math.max(m,val(a,b)); return m; }
+  function render(){
+    const b=+bSl.value; bL.textContent='b(TL) = '+b.toFixed(2);
+    svg.innerHTML='';
+    svg.appendChild(SVG('line',{x1:padL,y1:padT,x2:padL,y2:H-padB,stroke:'var(--line)','stroke-width':1}));
+    svg.appendChild(SVG('line',{x1:padL,y1:yOf(0),x2:W-padR,y2:yOf(0),stroke:'var(--line)','stroke-width':1}));
+    [0,0.5,1].forEach(t=>{ const tx=SVG('text',{x:xOf(t),y:H-padB+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'}); tx.textContent='b='+t; svg.appendChild(tx); });
+    const xl=SVG('text',{x:W-padR,y:H-padB+18,'text-anchor':'end','font-size':11,fill:'var(--mute)'}); xl.textContent='belief b(TL)'; svg.appendChild(xl);
+    // true V* (faint)
+    let sp=''; for(let i=0;i<=100;i++){ const bb=i/100; sp+=(i?' L':'M')+xOf(bb)+' '+yOf(vstar(bb)); }
+    svg.appendChild(SVG('path',{d:sp,fill:'none',stroke:'var(--mute)','stroke-width':1.6,'stroke-dasharray':'5 4'}));
+    const lgs=SVG('text',{x:W-padR,y:padT+14,'text-anchor':'end','font-size':11,fill:'var(--mute)'}); lgs.textContent='true V* (PWLC)'; svg.appendChild(lgs);
+    // lower-bound envelope
+    if(gamma.length){
+      let lp=''; for(let i=0;i<=100;i++){ const bb=i/100; lp+=(i?' L':'M')+xOf(bb)+' '+yOf(lb(bb)); }
+      svg.appendChild(SVG('path',{d:lp,fill:'none',stroke:'var(--yellow)','stroke-width':3}));
+      const lgy=SVG('text',{x:W-padR,y:padT+30,'text-anchor':'end','font-size':11,fill:'var(--yellow)'}); lgy.textContent='PBVI lower bound'; svg.appendChild(lgy);
+    }
+    // belief points
+    for(const bp of B){ svg.appendChild(SVG('circle',{cx:xOf(bp),cy:yOf(0),r:4,fill:'var(--green)'})); }
+    // query marker
+    const lbq=lb(b), vsq=vstar(b);
+    if(lbq!==null){ svg.appendChild(SVG('circle',{cx:xOf(b),cy:yOf(lbq),r:6,fill:'var(--yellow)',stroke:'var(--bg)','stroke-width':2})); }
+    svg.appendChild(SVG('circle',{cx:xOf(b),cy:yOf(vsq),r:4,fill:'var(--mute)'}));
+    out.textContent =
+      'belief set B = { '+B.map(x=>x.toFixed(2)).join(', ')+' }   (|B| = '+B.length+',  α-vectors kept = '+gamma.length+')\n'+
+      'at query b = '+b.toFixed(2)+':   PBVI lower bound = '+(lbq===null?'—':lbq.toFixed(2))+'     true V* = '+vsq.toFixed(2)+(lbq===null?'':('     gap = '+(vsq-lbq).toFixed(2)))+'\n'+
+      'each backup keeps ONE α-vector per belief point, so |Γ| ≤ |B| — bounded, unlike exact VI.\n'+
+      'the bound is a LOWER bound (every kept α is a realizable plan) and climbs toward V* as more reachable beliefs are sampled.';
+  }
+  add.addEventListener('click',()=>{ const next=SCHED[B.length % SCHED.length]; if(!B.some(x=>Math.abs(x-next)<1e-6)) B.push(next); backup(); render(); });
+  reset.addEventListener('click',()=>{ B=[0.5]; gamma=[]; render(); });
+  bSl.addEventListener('input',render);
+  backup(); render();
+})();
+</script><div class="quiz" data-concept="pomdp-point-based"></div>
+</section>
+
+<section id="connections">
+<h2>Connections</h2>
+
+<p>The belief state is the conceptual fix for partial observability — it restores the Markov property at the price of a continuous, exponentially large state space, and that tension is exactly where the frontier lives. Exact solution is PSPACE-complete, so practical work is all approximation: point-based solvers (SARSOP), online tree search (POMCP, DESPOT) that plan from the current belief without representing $V^*$ everywhere, and, in deep RL, learning a belief implicitly with a recurrent network instead of computing it. Continuous-state and continuous-observation POMDPs, and robustness to a misspecified model $Z$, remain genuinely hard.</p>
+
+<ul>
+<li><a href="./markov-decision-processes.html#formulation">Markov decision processes — the MDP model</a> — a POMDP is an MDP plus observations; the belief MDP shows it <em>is</em> an MDP, just over the belief simplex.</li>
+<li><a href="./probability-theory.html#bayes">Probability theory — conditioning &amp; Bayes' rule</a> — the belief update is one step of recursive Bayesian filtering: predict through $T$, correct by $Z$, renormalize.</li>
+<li><a href="./kalman-filtering-and-state-estimation.html#problem">Kalman filtering — state estimation</a> — the continuous-state, Gaussian analogue of belief filtering: the same predict-correct loop, with the belief a Gaussian summarized by its mean and covariance.</li>
+<li><a href="./convex-optimization.html#convex-sets-functions">Convex optimization — convex functions</a> — $V^*$ being a max of linear pieces is exactly a convex, piecewise-linear function; pruning dominated $\alpha$-vectors is a linear-feasibility test.</li>
+<li><a href="./reinforcement-learning.html#setup">Reinforcement learning — the RL problem</a> — when $T$, $R$, and even $Z$ are unknown, model-free RL on POMDPs learns the belief implicitly (e.g. with recurrent policies) rather than computing it.</li>
+</ul>
+</section>
+
+</main>
+
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('pomdps-and-belief-states'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+})();
+</script>
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-05-22</td><td>initial version</td></tr>
+    </tbody>
+  </table>
+</details>
+
+</body>
+</html>

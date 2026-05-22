@@ -51764,6 +51764,241 @@ window.MVQuizBank = {
       }
     }
   },
+  "pomdps-and-belief-states": {
+    "topic": "pomdps-and-belief-states",
+    "quizzes": {
+      "pomdp-model": {
+        "title": "The POMDP model",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What does a POMDP add to an ordinary MDP $(\\mathcal S,\\mathcal A,T,R,\\gamma)$?",
+            "choices": [
+              "A second discount factor for observations",
+              "An observation set $\\Omega$ and an observation function $Z(o\\mid s',a)$; the agent sees $o$, not the state $s$",
+              "A guarantee that the state is always fully observed",
+              "A continuous action space"
+            ],
+            "answer": 1,
+            "explain": "A POMDP is the tuple $(\\mathcal S,\\mathcal A,T,R,\\Omega,Z,\\gamma)$: it keeps the MDP machinery but the agent never sees $s$ directly, only an observation $o$ drawn from $Z(o\\mid s',a)$ after landing in $s'$. The partial observability is the whole point."
+          },
+          {
+            "type": "multi-select",
+            "q": "In the Tiger problem, select every statement that is correct.",
+            "choices": [
+              "There are two hidden states: tiger-left and tiger-right",
+              "The actions are listen, open-left, and open-right",
+              "Listening returns a noisy observation of which side the tiger is on",
+              "Opening a door reveals the true state with no risk"
+            ],
+            "answer": [
+              0,
+              1,
+              2
+            ],
+            "explain": "The Tiger problem has two states (tiger-left / tiger-right), three actions (listen, open-left, open-right), and listening yields a noisy observation correlated with the tiger's side. Opening a door is exactly the risky act — you commit without knowing the true state, which is why gathering evidence by listening first has value."
+          },
+          {
+            "type": "mcq",
+            "q": "Why can't the agent in a POMDP simply act with a policy $\\pi(a\\mid s)$ that maps states to actions, as in an MDP?",
+            "choices": [
+              "Because the reward function is unknown",
+              "Because the state $s$ is hidden — the agent never observes it, so a state-indexed policy is unusable",
+              "Because the discount factor is $1$",
+              "Because there are infinitely many states"
+            ],
+            "answer": 1,
+            "explain": "A POMDP policy cannot read $s$ because $s$ is never observed. The agent only has the history of actions and observations to act on; the next section shows that summarizing that history as a belief restores something a policy can map from."
+          }
+        ]
+      },
+      "pomdp-belief": {
+        "title": "Belief states & the Bayes update",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "Start at belief $b(\\text{left})=0.5$ in the Tiger problem and take the listen action. Listening keeps the state fixed and returns 'hear-tiger-left' with accuracy $0.85$ (so $Z(\\text{hear-left}\\mid\\text{left})=0.85$, $Z(\\text{hear-left}\\mid\\text{right})=0.15$). After hearing 'tiger-left', what is the updated belief $b'(\\text{left})$?",
+            "answer": 0.85,
+            "tol": 0.01,
+            "explain": "Listen does not change the state, so the predict step leaves $(0.5,0.5)$. The correct step weights by the observation: $b'(\\text{left})\\propto 0.85\\cdot 0.5=0.425$ and $b'(\\text{right})\\propto 0.15\\cdot 0.5=0.075$. Normalizing by $\\eta=1/(0.425+0.075)=2$ gives $b'(\\text{left})=0.85$."
+          },
+          {
+            "type": "mcq",
+            "q": "The belief update $b^{a,o}(s')=\\eta\\,Z(o\\mid s',a)\\sum_s T(s'\\mid s,a)\\,b(s)$ is exactly which classical procedure?",
+            "choices": [
+              "Gradient descent on the value function",
+              "Bayes filtering: a predict step (push $b$ through $T$) followed by a correct step (multiply by the observation likelihood $Z$) and renormalize",
+              "Linear programming",
+              "A max over actions"
+            ],
+            "answer": 1,
+            "explain": "The inner sum $\\sum_s T(s'\\mid s,a)b(s)$ is the prediction (prior pushed through the dynamics); multiplying by $Z(o\\mid s',a)$ is the Bayesian correction by the observation likelihood; $\\eta$ renormalizes. This is precisely recursive Bayes filtering."
+          },
+          {
+            "type": "mcq",
+            "q": "What does it mean that the belief $b$ is a 'sufficient statistic' for the history?",
+            "choices": [
+              "The belief is always uniform",
+              "Conditioning on $b$ makes future optimal behaviour independent of the full action-observation history — $b$ carries everything the history says about the state",
+              "The belief equals the true state",
+              "The belief never changes once initialized"
+            ],
+            "answer": 1,
+            "explain": "Two histories that produce the same belief are interchangeable for decision-making: the optimal action and value depend on the history only through $b$. That is exactly what lets us replace the growing history with the fixed-dimensional belief and recover a Markov problem."
+          }
+        ]
+      },
+      "pomdp-belief-mdp": {
+        "title": "The belief MDP",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A POMDP is equivalent to a fully observable MDP over which state space?",
+            "choices": [
+              "The original finite state set $\\mathcal S$",
+              "The continuous belief simplex $\\Delta(\\mathcal S)$, with the belief update as transition",
+              "The set of observations $\\Omega$",
+              "The set of deterministic policies"
+            ],
+            "answer": 1,
+            "explain": "Because the belief is a sufficient statistic, the POMDP becomes an MDP whose 'states' are beliefs $b\\in\\Delta(\\mathcal S)$. The transition is the (stochastic, observation-driven) belief update, and the reward is $\\rho(b,a)=\\sum_s b(s)R(s,a)$. The price of full observability is a continuous state space."
+          },
+          {
+            "type": "numeric",
+            "q": "In the Tiger problem suppose $R(\\text{left},\\text{open-right})=10$ (tiger on the left, you open the right door — safe) and $R(\\text{right},\\text{open-right})=-100$ (tiger on the right — you opened its door). At belief $b(\\text{left})=0.85$, what is the belief-MDP reward $\\rho(b,\\text{open-right})=\\sum_s b(s)\\,R(s,\\text{open-right})$?",
+            "answer": -6.5,
+            "tol": 0.05,
+            "explain": "The belief-MDP reward is the belief-weighted average of the underlying state rewards: $\\rho(b,\\text{open-right})=0.85\\cdot 10 + 0.15\\cdot(-100)=8.5-15=-6.5$. Even at $85\\%$ confidence the tiger is on the left, the small chance of the $-100$ catastrophe drags the expected reward negative — which is why listening more first can be worth it."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is solving the belief MDP harder than solving the original MDP even though it is 'fully observable'?",
+            "choices": [
+              "Because rewards become negative",
+              "Because the state space is now continuous (the whole simplex), so the Bellman equation is over uncountably many beliefs",
+              "Because the discount factor disappears",
+              "Because the Markov property no longer holds"
+            ],
+            "answer": 1,
+            "explain": "The belief MDP is genuinely Markov and the Bellman optimality equation applies, but its state space is the continuous belief simplex. We can no longer just tabulate one value per state; the structure of $V^*$ over that continuum (PWLC) is what the next section exploits."
+          }
+        ]
+      },
+      "pomdp-value-function": {
+        "title": "Piecewise-linear convex value",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For a finite-horizon POMDP, the optimal value function $V^*$ over the belief simplex is:",
+            "choices": [
+              "Always linear in $b$",
+              "Piecewise-linear and convex (PWLC): the upper envelope $\\max_{\\alpha\\in\\Gamma}\\alpha\\cdot b$ of finitely many linear pieces",
+              "Strictly concave",
+              "Discontinuous everywhere"
+            ],
+            "answer": 1,
+            "explain": "Each conditional plan has a value that is linear in the belief (an $\\alpha$-vector dotted with $b$), and $V^*$ takes the best plan at each belief, i.e. the pointwise max. A max of linear functions is convex and piecewise-linear — that is the PWLC structure."
+          },
+          {
+            "type": "mcq",
+            "q": "What does a single $\\alpha$-vector represent?",
+            "choices": [
+              "A probability distribution over states",
+              "The value, as a function of the underlying state, of committing to one particular conditional plan; $\\alpha\\cdot b$ is that plan's expected value at belief $b$",
+              "The observation function $Z$",
+              "A single belief point"
+            ],
+            "answer": 1,
+            "explain": "An $\\alpha$-vector is an $|\\mathcal S|$-vector whose $s$-th entry is the value of executing a fixed conditional plan starting from true state $s$. Its dot product with the belief, $\\alpha\\cdot b=\\sum_s\\alpha(s)b(s)$, is that plan's expected value under the belief; the optimal value picks the best $\\alpha$ at each $b$."
+          },
+          {
+            "type": "numeric",
+            "q": "Two plans give $\\alpha_L=(10,-100)$ (always open-right: great if tiger is left, disastrous if right) and $\\alpha_R=(-100,10)$ (always open-left), where the belief coordinate is $b=b(\\text{left})$ so $\\alpha\\cdot b = \\alpha(\\text{left})\\,b+\\alpha(\\text{right})(1-b)$. At which belief $b$ do the two lines cross?",
+            "answer": 0.5,
+            "tol": 0.01,
+            "explain": "$\\alpha_L\\cdot b = 10b-100(1-b)=110b-100$ and $\\alpha_R\\cdot b=-100b+10(1-b)=10-110b$. Setting them equal: $110b-100=10-110b\\Rightarrow 220b=110\\Rightarrow b=0.5$. By symmetry the two doors are equally good only at the uniform belief; off-center, the higher-probability side wins."
+          }
+        ]
+      },
+      "pomdp-exact": {
+        "title": "Exact value iteration",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Roughly why does exact POMDP value iteration blow up?",
+            "choices": [
+              "The discount factor exceeds 1",
+              "One backup can generate up to $|\\mathcal A|\\,|\\Gamma|^{|\\Omega|}$ new $\\alpha$-vectors (a cross-sum over observations), so $|\\Gamma|$ can grow doubly exponentially in the horizon",
+              "The belief becomes negative",
+              "There is no fixed point"
+            ],
+            "answer": 1,
+            "explain": "The DP backup cross-sums one $\\alpha$-vector choice per observation, for each action — giving on the order of $|\\mathcal A|\\,|\\Gamma|^{|\\Omega|}$ candidates per step. Iterated, the count explodes doubly exponentially; finite-horizon POMDP planning is PSPACE-complete."
+          },
+          {
+            "type": "mcq",
+            "q": "What does $\\alpha$-vector pruning remove, and how is the test posed?",
+            "choices": [
+              "Vectors with negative entries, by inspection",
+              "An $\\alpha$-vector that is dominated — never the maximizer at any belief on the simplex — detected by an LP feasibility check",
+              "Every vector except the first",
+              "Vectors that sum to more than 1"
+            ],
+            "answer": 1,
+            "explain": "If some other $\\alpha'$ satisfies $\\alpha'\\cdot b\\ge\\alpha\\cdot b$ for all $b$ in the simplex, then $\\alpha$ never contributes to the upper envelope and is pruned. 'Is there a belief where $\\alpha$ strictly wins?' is a linear program; if it is infeasible, $\\alpha$ is dominated and discarded."
+          },
+          {
+            "type": "numeric",
+            "q": "Suppose a backup generates 12 candidate $\\alpha$-vectors but the pruning LP finds that 9 of them are dominated everywhere on the simplex. How many $\\alpha$-vectors survive into the next $\\Gamma$?",
+            "answer": 3,
+            "tol": 0.001,
+            "explain": "Pruning keeps only the non-dominated vectors: $12-9=3$ survive. Pruning is what keeps the otherwise doubly-exponential set from growing without bound, though in the worst case very few are dominated."
+          }
+        ]
+      },
+      "pomdp-point-based": {
+        "title": "Point-based methods",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "How does point-based value iteration (PBVI / SARSOP) keep the $\\alpha$-vector set bounded?",
+            "choices": [
+              "It discards the value function entirely",
+              "It backs up $\\alpha$-vectors only at a finite sampled set $B$ of belief points, keeping at most one $\\alpha$-vector per $b\\in B$",
+              "It uses a discount factor of 0",
+              "It enumerates every possible plan"
+            ],
+            "answer": 1,
+            "explain": "Instead of representing $V$ exactly everywhere, PBVI maintains $\\alpha$-vectors only for a sampled belief set $B$, keeping at most $|B|$ of them. The set size is fixed by $|B|$, not by the exploding exact backup."
+          },
+          {
+            "type": "mcq",
+            "q": "The value function produced by point-based methods is a:",
+            "choices": [
+              "Upper bound on $V^*$ that decreases with more points",
+              "Lower bound on $V^*$ that climbs toward $V^*$ as the belief set $B$ grows",
+              "Exact equal to $V^*$ after one backup",
+              "Quantity unrelated to $V^*$"
+            ],
+            "answer": 1,
+            "explain": "Each $\\alpha$-vector kept by PBVI is the value of a realizable conditional plan, so $\\max_\\alpha\\alpha\\cdot b$ never exceeds $V^*(b)$ — it is a lower bound. Sampling more (and better-placed) belief points adds plans and lifts the bound toward $V^*$, giving the near-optimal behaviour seen in practice."
+          },
+          {
+            "type": "mcq",
+            "q": "Compared with exact value iteration, point-based methods trade away what for tractability?",
+            "choices": [
+              "The Markov property",
+              "Exact optimality everywhere — they are approximate, near-optimal only near the sampled (typically reachable) beliefs",
+              "The use of a belief state",
+              "The discount factor"
+            ],
+            "answer": 1,
+            "explain": "By only backing up at sampled beliefs, point-based methods give up the exact-everywhere guarantee of full value iteration. In exchange they stay computationally bounded and, by concentrating $B$ on reachable beliefs, are near-optimal where it matters."
+          }
+        ]
+      }
+    }
+  },
   "positive-characteristic-ag": {
     "topic": "positive-characteristic-ag",
     "quizzes": {
