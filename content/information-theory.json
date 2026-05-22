@@ -140,7 +140,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./information-theory.html#fisher-cramer-rao\">Information theory</a> · Fisher information and the Cramér–Rao bound</div>\n    <div><a href=\"./mathematical-statistics.html#mle\">Mathematical statistics</a> · Maximum likelihood and the score equation</div>\n    <div><a href=\"./probabilistic-graphical-models.html#variational\">Probabilistic graphical models</a> · Variational inference</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./information-geometry.html#kl-fisher\">Information geometry</a> · KL divergence &amp; its local metric</div>\n    <div><a href=\"./information-theory.html#fisher-cramer-rao\">Information theory</a> · Fisher information and the Cramér–Rao bound</div>\n    <div><a href=\"./mathematical-statistics.html#mle\">Mathematical statistics</a> · Maximum likelihood and the score equation</div>\n    <div><a href=\"./probabilistic-graphical-models.html#variational\">Probabilistic graphical models</a> · Variational inference</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "quiz",
@@ -343,6 +343,10 @@
         {
           "type": "raw",
           "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./mathematical-statistics.html#mle\">Maximum likelihood and the score equation</a></li>\n    <li><a href=\"./mathematical-statistics.html#cramer-rao\">Cramér–Rao bound, UMVU, Rao–Blackwell</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./information-geometry.html#fisher-metric\">Information geometry</a> · The Fisher information metric</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "quiz",

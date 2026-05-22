@@ -1,5 +1,5 @@
 {
-  "generated": "2026-05-22T14:07:18.176Z",
+  "generated": "2026-05-22T14:43:37.069Z",
   "entries": [
     {
       "slug": "algebraic-combinatorics",
@@ -15,7 +15,7 @@
       "color": "b",
       "tag": "",
       "date": "2026-05-22",
-      "message": "feat: deep-learning-theory — Wave 3 (Learning theory)"
+      "message": "feat: deep-learning-theory — Wave 3 (Learning theory) (#261)"
     },
     {
       "slug": "game-theory",

@@ -39,7 +39,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./convex-optimization.html#subgradients\">Convex optimization</a> · Subgradients and first-order optimality</div>\n    <div><a href=\"./pomdps-and-belief-states.html#value-function\">POMDPs and belief states</a> · Piecewise-linear convex value</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./convex-optimization.html#subgradients\">Convex optimization</a> · Subgradients and first-order optimality</div>\n    <div><a href=\"./information-geometry.html#exponential-families\">Information geometry</a> · Exponential families &amp; dual coordinates</div>\n    <div><a href=\"./pomdps-and-belief-states.html#value-function\">POMDPs and belief states</a> · Piecewise-linear convex value</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "quiz",

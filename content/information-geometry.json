@@ -1,0 +1,451 @@
+{
+  "topic": "information-geometry",
+  "rawHead": "<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\" />\n<meta name=\"viewport\" content=\"width=device-width,initial-scale=1\" />\n<title>Information geometry</title>\n<link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css\">\n<script defer src=\"https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js\"></script>\n<script defer src=\"https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js\"></script>\n<script>\n(function(){\n  function renderAll(){\n    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }\n    renderMathInElement(document.body,{\n      delimiters:[\n        {left:'$$',right:'$$',display:true},\n        {left:'$',right:'$',display:false},\n        {left:'\\\\(',right:'\\\\)',display:false},\n        {left:'\\\\[',right:'\\\\]',display:true}\n      ],\n      throwOnError:false,\n      strict:(c)=>c==='unicodeTextInMathMode'?'ignore':'warn',\n      macros:{\n        '\\\\Spec':'\\\\operatorname{Spec}',\n        '\\\\Gal':'\\\\operatorname{Gal}',\n        '\\\\Hom':'\\\\operatorname{Hom}',\n        '\\\\tr':'\\\\operatorname{tr}',\n        '\\\\ad':'\\\\operatorname{ad}',\n        '\\\\ind':'\\\\operatorname{ind}'\n      }\n    });\n  }\n  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);\n  else renderAll();\n})();\n</script>\n<style>\n  :root{\n    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;\n    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;\n    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;\n    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;\n  }\n  *{box-sizing:border-box}\n  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);\n    font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",Inter,Roboto,sans-serif;\n    font-size:17px;line-height:1.65}\n  a{color:var(--blue)}\n  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;\n    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}\n  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}\n  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}\n  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}\n  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}\n  p{margin:0.7rem 0}\n  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}\n  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;\n    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}\n  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}\n  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}\n  .widget .hd .hint{color:var(--mute);font-size:.85rem}\n  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}\n  .row label{color:var(--mute);font-size:.88rem}\n  input[type=\"text\"],input[type=\"number\"],select{\n    background:#0b0f16;color:var(--ink);border:1px solid var(--line);\n    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}\n  input[type=\"range\"]{accent-color:var(--yellow);flex:1;max-width:260px}\n  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);\n    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}\n  button:hover{background:#242c3e}\n  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}\n  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;\n    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;\n    min-height:1.6em;white-space:pre-wrap;word-break:break-word}\n  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);\n    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}\n  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;\n    margin:1rem 0;border-radius:0 6px 6px 0}\n  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;\n    margin:1rem 0;border-radius:0 6px 6px 0}\n  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;\n    margin:1rem 0;border-radius:0 6px 6px 0}\n  svg{display:block;margin:0 auto;max-width:100%}\n  svg text{fill:var(--ink);font-family:inherit}\n  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);\n    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;\n    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}\n  nav.toc a{color:var(--mute);text-decoration:none}\n  nav.toc a:hover{color:var(--yellow)}\n  /* sticky sidebar TOC (wide screens only; narrow screens fall back to top-nav) */\n  aside.sidetoc{position:fixed;top:4.2rem;\n    left:max(1rem, calc(50% - 440px - 220px));\n    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;\n    padding-right:1rem;border-right:1px solid var(--line);\n    font-size:.88rem;z-index:5}\n  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;\n    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}\n  aside.sidetoc ol{list-style:none;padding:0;margin:0}\n  aside.sidetoc li{margin:0}\n  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;\n    border-left:2px solid transparent;line-height:1.35;\n    transition:color 120ms ease, border-color 120ms ease}\n  aside.sidetoc a:hover{color:var(--ink)}\n  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}\n  @media (max-width:1180px){ aside.sidetoc{display:none} }\n  @media (min-width:1181px){ nav.toc a[href^=\"#\"]{display:none} }\n  .hero{padding:3rem 0 1rem}\n  .small{font-size:.88rem;color:var(--mute)}\n  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}\n  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}\n  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}\n  table.plain th{color:var(--mute);font-weight:500}\n  /* callback-css-auto-begin */\n  aside.callback{\n    margin:1.2rem 0;padding:.7rem 1rem;\n    background:rgba(88,196,221,0.05);\n    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);\n    border-radius:0 6px 6px 0;\n    font-size:.93rem;\n  }\n  aside.callback .ttl{\n    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;\n    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;\n  }\n  aside.callback ul{margin:0;padding-left:1.1rem}\n  aside.callback ul li{margin:.15rem 0}\n  aside.callback a{color:inherit}\n/* callback-css-auto-end */\n  details.changelog{\n    margin:2rem 0 1rem;padding:.6rem .9rem;\n    background:rgba(0,0,0,0.22);\n    border-radius:6px;\n    font-size:.85rem;\n  }\n  details.changelog summary{\n    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;\n    font-size:.7rem;color:var(--mute,#8c9aa6);\n  }\n  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}\n  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}\n  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}\n  aside.related{\n    margin:1.2rem 0;padding:.7rem 1rem;\n    background:color-mix(in srgb, var(--mute) 6%, transparent);\n    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);\n    border-radius:0 6px 6px 0;\n    font-size:.93rem;\n  }\n  aside.related .ttl{\n    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;\n    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;\n  }\n  aside.related > div{margin:.15rem 0}\n  aside.related .more{color:var(--mute);font-style:italic}\n  aside.related a{color:inherit}\n  /* display-prefs-css-auto-begin */\n  html[data-hide-widgets] .widget { display: none !important; }\n  html[data-hide-quizzes] .quiz { display: none !important; }\n  html[data-hide-lineage] .lineage-strip { display: none !important; }\n  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }\n  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }\n  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }\n  .mv-display-toggle--off { opacity: 0.35; }\n  /* display-prefs-css-auto-end */\n</style>\n<!-- breadcrumb-head-auto-begin -->\n<script src=\"./js/section-map.js\"></script>\n<script src=\"./js/breadcrumb.js\"></script>\n<script src=\"./js/glossary-popover.js\" defer></script>\n<link rel=\"stylesheet\" media=\"print\" href=\"./css/print.css\">\n<link rel=\"stylesheet\" href=\"./css/theme-light.css\">\n<script src=\"./js/theme-toggle.js\"></script>\n<script src=\"./concepts/bundle.js\" defer></script>\n<script src=\"./js/topic-hotkeys.js\" defer></script>\n<script src=\"./js/topic-lineage.js\" defer></script>\n<!-- breadcrumb-head-auto-end -->\n<script src=\"./js/progress.js\"></script>\n<script src=\"./js/quiz.js\"></script>\n<script src=\"./js/katex-select.js\"></script>\n<script src=\"./js/widget-diagram-editor.js\"></script>\n<script src=\"./quizzes/bundle.js\"></script>\n<script src=\"./js/sidetoc.js\"></script>\n<!-- display-prefs-head-auto-begin -->\n<script src=\"./js/display-prefs.js\"></script>\n<!-- display-prefs-head-auto-end -->\n</head>\n",
+  "rawBodyPrefix": "<body data-section=\"learning-theory-and-data-science\" data-level=\"intermediate\">\n<script>\nconst $ = (s,r=document)=>r.querySelector(s);\nconst $$ = (s,r=document)=>[...r.querySelectorAll(s)];\nconst SVG = (tag,attrs={})=>{\n  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);\n  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);\n  return e;\n};\n// draw an arrow marker def once per svg (idempotent)\nfunction ensureArrow(svg, id, color){\n  let defs = svg.querySelector('defs');\n  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }\n  if(defs.querySelector('#'+id)) return;\n  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});\n  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));\n  defs.appendChild(mk);\n}\n// curved arrow between two pixel points, with optional label\nfunction drawArrow(svg, p1, p2, opts={}){\n  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;\n  ensureArrow(svg, markerId, color);\n  const [x1,y1]=p1, [x2,y2]=p2;\n  const dx=x2-x1, dy=y2-y1;\n  const L = Math.hypot(dx,dy) || 1;\n  const ux=dx/L, uy=dy/L;\n  // shorten endpoints\n  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;\n  const ax=x1+ux*pad1, ay=y1+uy*pad1;\n  const bx=x2-ux*pad2, by=y2-uy*pad2;\n  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;\n  const path = SVG('path',{\n    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,\n    fill:'none', stroke:color, 'stroke-width':width,\n    'marker-end':`url(#${markerId})`\n  });\n  if(dash) path.setAttribute('stroke-dasharray', dash);\n  svg.appendChild(path);\n  if(label){\n    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,\n      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});\n    t.textContent = label;\n    svg.appendChild(t);\n  }\n  return path;\n}\nfunction drawNode(svg, x, y, label, opts={}){\n  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;\n  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));\n  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});\n  t.textContent = label;\n  svg.appendChild(t);\n}\n</script>\n\n<nav class=\"toc\"><a href=\"./index.html\" style=\"color:var(--violet);font-weight:500\">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class=\"breadcrumb\"></div><span class=\"nav-links\"><a class=\"nav-link\" href=\"./pathway.html\">Pathway</a><a class=\"nav-link\" href=\"./tours.html\">Tours</a><a class=\"nav-link\" href=\"./history.html\">History</a><a class=\"nav-link\" href=\"./tags.html\">Themes</a><a class=\"nav-link\" href=\"./mindmap.html\">Mindmap</a><a class=\"nav-link\" href=\"./search.html\">Search</a></span><span class=\"mv-theme-slot\"></span><!-- breadcrumb-nav-auto-end -->\n<!-- toc-auto-begin -->\n  <a href=\"#statistical-manifold\">1&nbsp;Statistical&nbsp;manifolds</a>\n  <a href=\"#fisher-metric\">2&nbsp;The&nbsp;Fisher&nbsp;information&nbsp;metric</a>\n  <a href=\"#kl-fisher\">3&nbsp;KL&nbsp;divergence&nbsp;&amp;&nbsp;its&nbsp;local&nbsp;metric</a>\n  <a href=\"#natural-gradient\">4&nbsp;The&nbsp;natural&nbsp;gradient</a>\n  <a href=\"#exponential-families\">5&nbsp;Exponential&nbsp;families&nbsp;&amp;&nbsp;dual&nbsp;coordinates</a>\n  <a href=\"#dual-geometry\">6&nbsp;Dual&nbsp;connections&nbsp;&amp;&nbsp;the&nbsp;Pythagorean&nbsp;theorem</a>\n  <a href=\"#connections\">7&nbsp;Connections</a>\n<!-- toc-auto-end -->\n</nav>\n<!-- lineage-mount-auto-begin --><div id=\"mv-lineage-mount\" class=\"lineage-strip\" hidden></div><!-- lineage-mount-auto-end -->\n\n<aside class=\"sidetoc\" aria-label=\"Table of contents\"></aside>\n\n<main>\n\n<section class=\"hero\">\n  <h1>Information geometry</h1>\n  <p class=\"sub\">A family of probability distributions is a curved manifold, and the natural way to measure distance on it — the Fisher information — turns statistics into Riemannian geometry, with KL divergence as its squared infinitesimal length.</p>\n</section>\n\n",
+  "sections": [
+    {
+      "id": "statistical-manifold",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"statistical-manifold\">\n<h2>1. Statistical manifolds</h2>\n<p>The founding idea of information geometry: a parametric family of probability distributions is not just a set, it is a <strong>manifold</strong>. Fix a sample space and a family $\\mathcal{M}=\\{p_\\theta : \\theta\\in\\Theta\\}$ smoothly parameterized by $\\theta=(\\theta^1,\\dots,\\theta^d)$. Then $\\theta$ is a coordinate chart, each distribution is a point, and a smooth curve $\\theta(t)$ is a path through distribution space.</p>\n<p>What is a tangent vector? Moving infinitesimally along the coordinate $\\theta^i$ changes the log-density, so the natural representative of the direction $\\partial_i$ is the <strong>score</strong></p>\n<p style=\"text-align:center\">$\\partial_i\\,\\ell_\\theta(x)\\ =\\ \\partial_i\\log p_\\theta(x), \\qquad \\ell_\\theta:=\\log p_\\theta.$</p>\n<div class=\"note\"><strong>The score is mean-zero.</strong> For any regular family, differentiating the normalization $\\int p_\\theta\\,dx=1$ gives\n$$\\mathbb{E}_\\theta[\\partial_i\\ell_\\theta]\\ =\\ \\int \\frac{\\partial_i p_\\theta}{p_\\theta}\\,p_\\theta\\,dx\\ =\\ \\partial_i\\!\\int p_\\theta\\,dx\\ =\\ 0.$$\nSo the score lives in the space of mean-zero random variables — and its covariance, computed in the next section, will be the metric.</div>\n<p>Identifying tangent vectors with score functions makes the tangent space at $\\theta$ an inner-product space inside $L^2(p_\\theta)$. That inner product is the Fisher metric, and it is what makes $\\mathcal{M}$ <em>Riemannian</em>. The whole subject is the study of this one geometric structure on families of distributions.</p>\n\n<h3>Worked mini-example: the Gaussian upper half-plane</h3>\n<p>Take the one-dimensional Gaussian family $N(\\mu,\\sigma^2)$ with $p_{(\\mu,\\sigma)}(x)=\\tfrac{1}{\\sigma\\sqrt{2\\pi}}\\exp\\!\\big(-\\tfrac{(x-\\mu)^2}{2\\sigma^2}\\big)$. The coordinates are $\\mu\\in\\mathbb{R}$ and $\\sigma > 0$, so as a manifold the family is the open <strong>upper half-plane</strong> $\\{(\\mu,\\sigma):\\sigma > 0\\}$. The two scores are $\\partial_\\mu\\ell=(x-\\mu)/\\sigma^2$ and $\\partial_\\sigma\\ell=\\big((x-\\mu)^2-\\sigma^2\\big)/\\sigma^3$, each manifestly mean-zero under $p_{(\\mu,\\sigma)}$.</p>\n\n<p>The widget puts a point at $(\\mu,\\sigma)$ in the upper half-plane and draws the Gaussian density it names. Drag the sliders and watch the same point on the manifold correspond to a moving bell curve.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "parametric-plot",
+          "params": {
+            "interaction": "single-mode",
+            "widgetId": "w-manifold",
+            "svgId": "manifold-svg",
+            "outputId": "manifold-out",
+            "title": "Each point is a distribution",
+            "hint": "drag (μ, σ) in the half-plane (top) — the Gaussian density it names is drawn below",
+            "viewBox": "0 0 640 360",
+            "svgWidth": 640,
+            "svgHeight": 360,
+            "svgTitle": "The Gaussian family as the upper half-plane: a point (mu, sigma) and the bell curve it names",
+            "outputInitial": "",
+            "sliders": [
+              {
+                "id": "mf-mu",
+                "outId": "mf-mu-lbl",
+                "label": "mean $\\mu$:",
+                "min": -3,
+                "max": 3,
+                "step": 0.1,
+                "init": 0
+              },
+              {
+                "id": "mf-sig",
+                "outId": "mf-sig-lbl",
+                "label": "std. dev. $\\sigma$:",
+                "min": 0.3,
+                "max": 3,
+                "step": 0.1,
+                "init": 1
+              }
+            ],
+            "bodyScript": "  const svg=$('#manifold-svg'), out=$('#manifold-out'), muSl=$('#mf-mu'), muL=$('#mf-mu-lbl'), sgSl=$('#mf-sig'), sgL=$('#mf-sig-lbl');\n  const W=640,H=360;\n  // top panel: the (mu, sigma) upper half-plane manifold\n  const mp={x0:48,x1:W-18,y0:24,y1:150};   // y0 top (sigma max), y1 bottom (sigma=0)\n  const MU0=-3,MU1=3, SG1=3.2;             // sigma in (0, SG1]\n  const MX=mu=>mp.x0+(mu-MU0)/(MU1-MU0)*(mp.x1-mp.x0);\n  const MY=sg=>mp.y1-(sg/SG1)*(mp.y1-mp.y0);\n  // bottom panel: the density p(x)\n  const dp={x0:48,x1:W-18,y0:H-30,y1:200};\n  const A=-7,B=7;\n  const DX=x=>dp.x0+(x-A)/(B-A)*(dp.x1-dp.x0);\n  let dlo=0,dhi=1.4; const DY=y=>dp.y0-(y-dlo)/(dhi-dlo)*(dp.y0-dp.y1);\n  function dens(x,mu,sg){ return Math.exp(-(x-mu)*(x-mu)/(2*sg*sg))/(sg*Math.sqrt(2*Math.PI)); }\n  function render(){\n    svg.innerHTML='';\n    const mu=+muSl.value, sg=+sgSl.value; muL.textContent='μ = '+mu.toFixed(1); sgL.textContent='σ = '+sg.toFixed(1);\n    // ---- manifold panel ----\n    svg.appendChild(SVG('rect',{x:mp.x0,y:mp.y0,width:mp.x1-mp.x0,height:mp.y1-mp.y0,fill:'none',stroke:'var(--line)'}));\n    // sigma=0 boundary (the deleted edge of the half-plane)\n    svg.appendChild(SVG('line',{x1:mp.x0,y1:mp.y1,x2:mp.x1,y2:mp.y1,stroke:'var(--pink)','stroke-width':1.5,'stroke-dasharray':'4 3'}));\n    const bl=SVG('text',{x:mp.x1-4,y:mp.y1-5,'text-anchor':'end','font-size':10,fill:'var(--pink)'}); bl.textContent='σ = 0 (boundary, not in M)'; svg.appendChild(bl);\n    const tlt=SVG('text',{x:mp.x0+4,y:mp.y0+13,'font-size':11,fill:'var(--mute)'}); tlt.textContent='manifold M = upper half-plane (μ, σ)'; svg.appendChild(tlt);\n    const axm=SVG('text',{x:(mp.x0+mp.x1)/2,y:mp.y1+15,'text-anchor':'middle','font-size':11,fill:'var(--mute)'}); axm.textContent='μ'; svg.appendChild(axm);\n    // a faint grid of sample points\n    for(let gm=-3;gm<=3;gm+=1) for(let gs=0.5;gs<=3;gs+=0.5){ svg.appendChild(SVG('circle',{cx:MX(gm),cy:MY(gs),r:1.3,fill:'var(--line)'})); }\n    // the chosen point\n    svg.appendChild(SVG('circle',{cx:MX(mu),cy:MY(sg),r:5.5,fill:'var(--yellow)',stroke:'#111','stroke-width':1}));\n    const plbl=SVG('text',{x:MX(mu)+9,y:MY(sg)-7,'font-size':11,fill:'var(--yellow)'}); plbl.textContent='p_θ'; svg.appendChild(plbl);\n    // ---- density panel ----\n    svg.appendChild(SVG('line',{x1:dp.x0,y1:dp.y0,x2:dp.x1,y2:dp.y0,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:dp.x0,y1:dp.y0,x2:dp.x0,y2:dp.y1,stroke:'var(--line)'}));\n    const axd=SVG('text',{x:(dp.x0+dp.x1)/2,y:H-6,'text-anchor':'middle','font-size':11,fill:'var(--mute)'}); axd.textContent='x'; svg.appendChild(axd);\n    const ayd=SVG('text',{x:dp.x0+6,y:dp.y1-4,'font-size':11,fill:'var(--mute)'}); ayd.textContent='p_θ(x)'; svg.appendChild(ayd);\n    let d='M', N=240;\n    for(let i=0;i<=N;i++){ const x=A+(B-A)*i/N; d+=` ${DX(x).toFixed(1)} ${DY(dens(x,mu,sg)).toFixed(1)}`; }\n    svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--yellow)','stroke-width':2.2}));\n    // mark the mean\n    svg.appendChild(SVG('line',{x1:DX(mu),y1:dp.y0,x2:DX(mu),y2:DY(dens(mu,mu,sg)),stroke:'var(--cyan)','stroke-width':1,'stroke-dasharray':'3 3'}));\n    out.textContent =\n      `point on M:  (μ, σ) = (${mu.toFixed(2)}, ${sg.toFixed(2)})\\n`+\n      `scores at a sample x:  ∂_μℓ = (x−μ)/σ²,  ∂_σℓ = ((x−μ)²−σ²)/σ³\\n`+\n      `both have E_θ[score] = 0  —  the tangent space sits in mean-zero L²(p_θ)`;\n  }\n  muSl.addEventListener('input',render);\n  sgSl.addEventListener('input',render);\n  render();"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-manifold"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./riemannian-geometry.html#metric\">Riemannian metrics</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./information-geometry.html#exponential-families\">Information geometry</a> · Exponential families &amp; dual coordinates</div>\n    <div><a href=\"./information-geometry.html#fisher-metric\">Information geometry</a> · The Fisher information metric</div>\n</aside>\n<!-- backlinks-auto-end -->"
+        },
+        {
+          "type": "quiz",
+          "concept": "ig-statistical-manifold",
+          "html": "<div class=\"quiz\" data-concept=\"ig-statistical-manifold\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "fisher-metric",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"fisher-metric\">\n<h2>2. The Fisher information metric</h2>\n<p>The tangent space at $\\theta$ is spanned by scores; equip it with the $L^2(p_\\theta)$ inner product of scores and you get the <strong>Fisher information metric</strong></p>\n<p style=\"text-align:center\">$g_{ij}(\\theta)\\ =\\ \\mathbb{E}_\\theta\\!\\big[\\,\\partial_i\\ell_\\theta\\,\\partial_j\\ell_\\theta\\,\\big].$</p>\n<p>Differentiating the mean-zero identity $\\mathbb{E}_\\theta[\\partial_j\\ell_\\theta]=0$ once more in $\\theta^i$ produces a second, equivalent form — the metric is also <em>minus</em> the expected Hessian of the log-likelihood:</p>\n<div class=\"note\"><strong>Two faces of one matrix.</strong>\n$$g_{ij}(\\theta)\\ =\\ \\mathbb{E}_\\theta[\\partial_i\\ell_\\theta\\,\\partial_j\\ell_\\theta]\\ =\\ -\\,\\mathbb{E}_\\theta[\\partial_i\\partial_j\\ell_\\theta].$$\nThe first form shows $G(\\theta)=(g_{ij})$ is a covariance, hence symmetric positive semidefinite; the second connects it to the curvature of the log-likelihood. It is a genuine $(0,2)$-tensor: under a smooth reparameterization $\\theta\\mapsto\\phi$ with Jacobian $J$, $G_\\phi=J^{-\\top}G_\\theta J^{-1}$, so geodesic distances between distributions are <strong>coordinate-free</strong>.</div>\n<p>Because $G$ transforms tensorially, the length of a curve of distributions $\\int\\!\\sqrt{\\dot\\theta^\\top G(\\theta)\\,\\dot\\theta}\\,dt$ depends only on the path of distributions, not on how we labeled them. This is the precise sense in which the Fisher metric is the <em>intrinsic</em> geometry of a statistical model — and Cramér–Rao gives it its statistical meaning: the inverse metric $G^{-1}$ lower-bounds the covariance of any unbiased estimator, $\\operatorname{Var}_\\theta(\\hat\\theta)\\succeq G(\\theta)^{-1}$.</p>\n\n<h3>Worked mini-example: the Gaussian is hyperbolic</h3>\n<p>For $N(\\mu,\\sigma^2)$, using the scores from §1: $g_{\\mu\\mu}=\\mathbb{E}[(x-\\mu)^2]/\\sigma^4=1/\\sigma^2$, the cross term $g_{\\mu\\sigma}=0$ by symmetry, and $g_{\\sigma\\sigma}=\\mathbb{E}[((x-\\mu)^2-\\sigma^2)^2]/\\sigma^6=2/\\sigma^2$. So</p>\n<p style=\"text-align:center\">$G(\\mu,\\sigma)=\\operatorname{diag}\\!\\Big(\\tfrac{1}{\\sigma^2},\\ \\tfrac{2}{\\sigma^2}\\Big).$</p>\n<p>This is (up to the constant $2$) <a href=\"./upper-half-plane-hyperbolic.html#metric\" data-auto-inline-link=\"1\" data-concept-id=\"hyperbolic-metric\" data-blurb=\"The metric ds^2=(dx^2+dy^2)/y^2 rescales Euclidean length by height, making the boundary infinitely far away.\">the hyperbolic metric</a> of the upper half-plane: a Fisher ball of fixed radius is <em>small</em> in $(\\mu,\\sigma)$ coordinates when $\\sigma$ is small, because the factor $1/\\sigma^2$ blows up there — nearby small-variance Gaussians are easy to tell apart, so they are far in Fisher length.</p>\n\n<p>The widget draws unit Fisher balls $\\{\\delta:\\delta^\\top G(\\theta)\\delta=r^2\\}$ across the half-plane and compares the Fisher distance of a step to its Euclidean length. Move the base point toward small $\\sigma$ and watch the balls shrink.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "parametric-plot",
+          "params": {
+            "interaction": "single-mode",
+            "widgetId": "w-fisher",
+            "svgId": "fisher-svg",
+            "outputId": "fisher-out",
+            "title": "The Fisher metric is hyperbolic",
+            "hint": "move (μ, σ); the ellipses are unit Fisher balls — they shrink as σ → 0",
+            "viewBox": "0 0 640 360",
+            "svgWidth": 640,
+            "svgHeight": 360,
+            "svgTitle": "Unit Fisher balls on the Gaussian half-plane shrink toward sigma = 0",
+            "outputInitial": "",
+            "sliders": [
+              {
+                "id": "fm-mu",
+                "outId": "fm-mu-lbl",
+                "label": "base $\\mu$:",
+                "min": -2.5,
+                "max": 2.5,
+                "step": 0.1,
+                "init": 0
+              },
+              {
+                "id": "fm-sig",
+                "outId": "fm-sig-lbl",
+                "label": "base $\\sigma$:",
+                "min": 0.4,
+                "max": 3,
+                "step": 0.1,
+                "init": 2
+              }
+            ],
+            "buttons": [
+              {
+                "id": "fm-balls",
+                "label": "field of balls"
+              }
+            ],
+            "bodyScript": "  const svg=$('#fisher-svg'), out=$('#fisher-out'), muSl=$('#fm-mu'), muL=$('#fm-mu-lbl'), sgSl=$('#fm-sig'), sgL=$('#fm-sig-lbl'), bBtn=$('#fm-balls');\n  const W=640,H=360, padL=50,padR=20,padT=24,padB=40;\n  const x0=padL,x1=W-padR,y0=H-padB,y1=padT;\n  const MU0=-3,MU1=3, SG0=0,SG1=3.4;\n  const MX=mu=>x0+(mu-MU0)/(MU1-MU0)*(x1-x0);\n  const MY=sg=>y0-(sg-SG0)/(SG1-SG0)*(y0-y1);\n  let showField=true;\n  // Fisher metric of the Gaussian: G = diag(1/sig^2, 2/sig^2). A unit ball delta^T G delta = r^2\n  // has semi-axes r*sig (mu-direction) and r*sig/sqrt(2) (sigma-direction).\n  function ball(mu,sg,r,color,wd){\n    // axis lengths in parameter space, mapped to pixels\n    const aMu=r*sg, aSg=r*sg/Math.SQRT2;\n    const rxPix=Math.abs(MX(mu+aMu)-MX(mu));\n    const ryPix=Math.abs(MY(sg+aSg)-MY(sg));\n    svg.appendChild(SVG('ellipse',{cx:MX(mu),cy:MY(sg),rx:rxPix,ry:ryPix,fill:'none',stroke:color,'stroke-width':wd}));\n  }\n  function render(){\n    svg.innerHTML='';\n    const mu=+muSl.value, sg=+sgSl.value; muL.textContent='μ = '+mu.toFixed(1); sgL.textContent='σ = '+sg.toFixed(1);\n    // frame + axes\n    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x1,y2:y0,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x0,y2:y1,stroke:'var(--line)'}));\n    const axm=SVG('text',{x:(x0+x1)/2,y:H-8,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}); axm.textContent='μ'; svg.appendChild(axm);\n    const axs=SVG('text',{x:16,y:(y0+y1)/2,'text-anchor':'middle','font-size':12,fill:'var(--mute)',transform:`rotate(-90 16 ${(y0+y1)/2})`}); axs.textContent='σ'; svg.appendChild(axs);\n    // field of unit Fisher balls\n    if(showField){\n      for(let gm=-2.5;gm<=2.5;gm+=1.25) for(let gs=0.4;gs<=3.0;gs+=0.55){ ball(gm,gs,0.5,'var(--violet)',1); }\n    }\n    // highlighted ball at the base point\n    ball(mu,sg,0.5,'var(--cyan)',2.2);\n    svg.appendChild(SVG('circle',{cx:MX(mu),cy:MY(sg),r:4,fill:'var(--yellow)'}));\n    // a step of fixed Euclidean size and its Fisher length\n    const dMu=0.6, dSg=0.6;\n    const gMM=1/(sg*sg), gSS=2/(sg*sg);\n    const fisherLen=Math.sqrt(gMM*dMu*dMu + gSS*dSg*dSg);\n    const euclLen=Math.hypot(dMu,dSg);\n    drawArrow(svg,[MX(mu),MY(sg)],[MX(mu+dMu),MY(sg+dSg)],{color:'var(--yellow)',markerId:'fm-arr',width:2});\n    out.textContent =\n      `base (μ, σ) = (${mu.toFixed(2)}, ${sg.toFixed(2)})\\n`+\n      `Fisher matrix G = diag(1/σ², 2/σ²) = diag(${gMM.toFixed(3)}, ${gSS.toFixed(3)})\\n`+\n      `a step δ = (0.6, 0.6):  Euclidean ‖δ‖ = ${euclLen.toFixed(3)},  Fisher ‖δ‖_G = ${fisherLen.toFixed(3)}\\n`+\n      (sg<1 ? '→ small σ: G is large, the same parameter step is LONG in Fisher length'\n            : '→ large σ: G is small, the same parameter step is SHORT in Fisher length');\n  }\n  muSl.addEventListener('input',render);\n  sgSl.addEventListener('input',render);\n  bBtn.addEventListener('click',()=>{ showField=!showField; bBtn.classList.toggle('active',!showField); render(); });\n  render();"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-fisher"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./information-theory.html#fisher-cramer-rao\">Fisher information and the Cramér–Rao bound</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./information-geometry.html#kl-fisher\">Information geometry</a> · KL divergence &amp; its local metric</div>\n    <div><a href=\"./information-geometry.html#natural-gradient\">Information geometry</a> · The natural gradient</div>\n</aside>\n<!-- backlinks-auto-end -->"
+        },
+        {
+          "type": "quiz",
+          "concept": "ig-fisher-metric",
+          "html": "<div class=\"quiz\" data-concept=\"ig-fisher-metric\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "kl-fisher",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"kl-fisher\">\n<h2>3. KL divergence &amp; its local metric</h2>\n<p>The most natural measure of how different two distributions are is the <strong>Kullback–Leibler divergence</strong></p>\n<p style=\"text-align:center\">$\\mathrm{KL}(p\\,\\|\\,q)\\ =\\ \\mathbb{E}_{p}\\!\\Big[\\log\\tfrac{p(x)}{q(x)}\\Big]\\ \\ge\\ 0,$</p>\n<p>with equality iff $p=q$. But KL is <em>not</em> a distance: it is <strong>asymmetric</strong>, $\\mathrm{KL}(p\\,\\|\\,q)\\ne\\mathrm{KL}(q\\,\\|\\,p)$, and it fails the triangle inequality. So how does it relate to the Riemannian Fisher metric of §2?</p>\n<div class=\"note\"><strong>KL is locally the Fisher quadratic.</strong> Fix $\\theta$ and expand $\\mathrm{KL}(p_\\theta\\,\\|\\,p_{\\theta+\\delta})$ in the small displacement $\\delta$. At $\\delta=0$ the value is $0$ (a minimum) and the gradient is $0$, so the leading term is the Hessian — and that Hessian is exactly the Fisher matrix:\n$$\\mathrm{KL}(p_\\theta\\,\\|\\,p_{\\theta+\\delta})\\ =\\ \\tfrac12\\,\\delta^\\top G(\\theta)\\,\\delta\\ +\\ O(\\|\\delta\\|^3).$$\nThe same expansion holds for the reversed $\\mathrm{KL}(p_{\\theta+\\delta}\\,\\|\\,p_\\theta)$ — the asymmetry of KL only appears at <em>third</em> order, so to second order both directions agree and equal the symmetric Fisher form.</div>\n<p>This is the bridge between statistics and geometry: KL has no metric structure globally, but its infinitesimal behaviour <em>is</em> a metric, and that metric is Fisher. Squared Riemannian length, in the small, is twice the KL divergence. It is why minimizing KL (as in maximum likelihood) is, locally, steepest descent in the Fisher geometry — the subject of §4.</p>\n\n<h3>Worked mini-example: two Bernoullis vs. the Fisher quadratic</h3>\n<p>For Bernoulli$(p)$ the Fisher information is $g(p)=1/(p(1-p))$. Compare the exact KL of two nearby Bernoullis with the quadratic approximation: at $p=0.5$, $g=4$, so $\\mathrm{KL}(p\\,\\|\\,p+\\delta)\\approx \\tfrac12\\cdot 4\\cdot\\delta^2=2\\delta^2$. For $\\delta=0.02$ this predicts $0.0008$; the exact KL is $0.000800\\ldots$ — agreement to the digits shown, with the gap growing only like $\\delta^3$.</p>\n\n<p>The widget overlays exact $\\mathrm{KL}(p_\\theta\\,\\|\\,p_{\\theta+\\delta})$ against the parabola $\\tfrac12 g(\\theta)\\delta^2$ as a function of $\\delta$. Shrink the window and watch the two curves become indistinguishable near $\\delta=0$.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "parametric-plot",
+          "params": {
+            "interaction": "single-mode",
+            "widgetId": "w-klfisher",
+            "svgId": "klfisher-svg",
+            "outputId": "klfisher-out",
+            "title": "KL ≈ ½ Fisher",
+            "hint": "shrink the window — exact KL and the Fisher parabola agree to 2nd order",
+            "viewBox": "0 0 640 340",
+            "svgWidth": 640,
+            "svgHeight": 340,
+            "svgTitle": "Exact KL divergence versus the Fisher quadratic as the displacement shrinks",
+            "outputInitial": "",
+            "sliders": [
+              {
+                "id": "kf-p",
+                "outId": "kf-p-lbl",
+                "label": "base $\\theta=p$:",
+                "min": 0.1,
+                "max": 0.9,
+                "step": 0.05,
+                "init": 0.5
+              },
+              {
+                "id": "kf-win",
+                "outId": "kf-win-lbl",
+                "label": "window $|\\delta|\\le$:",
+                "min": 0.02,
+                "max": 0.4,
+                "step": 0.02,
+                "init": 0.3
+              }
+            ],
+            "bodyScript": "  const svg=$('#klfisher-svg'), out=$('#klfisher-out'), pSl=$('#kf-p'), pL=$('#kf-p-lbl'), wSl=$('#kf-win'), wL=$('#kf-win-lbl');\n  const W=640,H=340, padL=56,padR=20,padT=24,padB=40;\n  const x0=padL,x1=W-padR,y0=H-padB,y1=padT;\n  // Bernoulli(p): KL(p || q) and Fisher g(p)=1/(p(1-p))\n  function klBer(p,q){ q=Math.min(0.999,Math.max(0.001,q));\n    let s=0; if(p>0) s+=p*Math.log(p/q); if(p<1) s+=(1-p)*Math.log((1-p)/(1-q)); return s; }\n  function fisher(p){ return 1/(p*(1-p)); }\n  function render(){\n    svg.innerHTML='';\n    const p=+pSl.value, win=+wSl.value; pL.textContent='p = '+p.toFixed(2); wL.textContent='±'+win.toFixed(2);\n    const g=fisher(p);\n    // y-range: max of the two curves at the window edge\n    const yMax=Math.max(klBer(p,p+win), klBer(p,p-win), 0.5*g*win*win)*1.15 + 1e-6;\n    const DX=d=>x0+(d+win)/(2*win)*(x1-x0);\n    const DY=v=>y0-(v/yMax)*(y0-y1);\n    // axes\n    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x1,y2:y0,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:DX(0),y1:y0,x2:DX(0),y2:y1,stroke:'var(--line)','stroke-dasharray':'3 3'}));\n    const axd=SVG('text',{x:(x0+x1)/2,y:H-8,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}); axd.textContent='displacement δ'; svg.appendChild(axd);\n    const axv=SVG('text',{x:18,y:(y0+y1)/2,'text-anchor':'middle','font-size':12,fill:'var(--mute)',transform:`rotate(-90 18 ${(y0+y1)/2})`}); axv.textContent='divergence'; svg.appendChild(axv);\n    const N=200; let dk='M', df='M', maxRel=0;\n    for(let i=0;i<=N;i++){ const d=-win+2*win*i/N; const kl=klBer(p,p+d); const fq=0.5*g*d*d;\n      dk+=` ${DX(d).toFixed(1)} ${DY(kl).toFixed(1)}`; df+=` ${DX(d).toFixed(1)} ${DY(fq).toFixed(1)}`;\n      if(kl>1e-6) maxRel=Math.max(maxRel,Math.abs(kl-fq)/kl); }\n    svg.appendChild(SVG('path',{d:dk,fill:'none',stroke:'var(--yellow)','stroke-width':2.4}));\n    svg.appendChild(SVG('path',{d:df,fill:'none',stroke:'var(--cyan)','stroke-width':2,'stroke-dasharray':'6 4'}));\n    function leg(x,y,co,t,dash){ const ln=SVG('line',{x1:x,y1:y,x2:x+22,y2:y,stroke:co,'stroke-width':2.4}); if(dash) ln.setAttribute('stroke-dasharray','6 4'); svg.appendChild(ln); const tt=SVG('text',{x:x+28,y:y+4,'font-size':11,fill:'var(--mute)'}); tt.textContent=t; svg.appendChild(tt); }\n    leg(x0+10,y1+8,'var(--yellow)','exact KL(p∥p+δ)');\n    leg(x0+10,y1+24,'var(--cyan)','½ g(p) δ²  (Fisher)',true);\n    const klEdge=klBer(p,p+win), fqEdge=0.5*g*win*win;\n    out.textContent =\n      `p = ${p.toFixed(2)},  Fisher g(p) = 1/(p(1−p)) = ${g.toFixed(3)}\\n`+\n      `at δ = +${win.toFixed(2)}:  exact KL = ${klEdge.toFixed(5)},  ½ g δ² = ${fqEdge.toFixed(5)}\\n`+\n      `max relative gap on window = ${(maxRel*100).toFixed(1)}%  (→ 0 like δ as the window shrinks)`;\n  }\n  pSl.addEventListener('input',render);\n  wSl.addEventListener('input',render);\n  render();"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-klfisher"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./information-theory.html#kl-divergence\">Kullback–Leibler divergence</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./information-geometry.html#dual-geometry\">Information geometry</a> · Dual connections &amp; the Pythagorean theorem</div>\n</aside>\n<!-- backlinks-auto-end -->"
+        },
+        {
+          "type": "quiz",
+          "concept": "ig-kl-fisher",
+          "html": "<div class=\"quiz\" data-concept=\"ig-kl-fisher\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "natural-gradient",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"natural-gradient\">\n<h2>4. The natural gradient</h2>\n<p>Gradient descent updates $\\theta\\leftarrow\\theta-\\eta\\,\\nabla L(\\theta)$. But $\\nabla L$ is a <strong>covector</strong> — it transforms with the inverse Jacobian under reparameterization — whereas a step in parameter space is a <strong>vector</strong>. Subtracting a covector from a vector is geometrically illegitimate, and the practical symptom is that ordinary gradient descent depends on how you coordinatize the model: rescale or skew $\\theta$ and the trajectory changes.</p>\n<p>The fix is to raise the index with the Fisher metric. The <strong>natural gradient</strong> is</p>\n<p style=\"text-align:center\">$\\tilde\\nabla L(\\theta)\\ =\\ G(\\theta)^{-1}\\,\\nabla L(\\theta).$</p>\n<div class=\"note\"><strong>Steepest descent in the Fisher metric.</strong> Among all unit-Fisher-length steps $\\delta^\\top G\\,\\delta=\\varepsilon^2$, the one that decreases $L$ fastest points along $-G^{-1}\\nabla L$. Because $G^{-1}$ is exactly the metric raising-of-index, $\\tilde\\nabla L$ is a true tangent vector, and the flow $\\dot\\theta=-G^{-1}\\nabla L$ traces the <strong>same curve of distributions</strong> in every parameterization. The ordinary gradient flow does not.</div>\n<p>Two consequences. First, <strong>invariance</strong>: the natural-gradient path is intrinsic to the model, immune to the arbitrary choice of coordinates. Second, <strong>conditioning</strong>: where the Fisher metric is badly anisotropic — a parameter that the data constrains tightly in one direction and loosely in another — the $G^{-1}$ factor automatically rescales each direction, so natural-gradient descent does not zig-zag down narrow valleys the way vanilla descent does. In maximum likelihood this is exactly Fisher scoring, and it underlies the asymptotic efficiency of the MLE.</p>\n\n<h3>Worked mini-example: a skewed reparameterization</h3>\n<p>Take a likelihood whose level sets are circles in coordinates $\\theta$, so vanilla GD heads straight to the optimum. Now reparameterize by stretching one axis by a factor of $10$. In the new coordinates the level sets are thin ellipses; vanilla GD zig-zags badly because it ignores the metric. The natural gradient, using $G^{-1}$, undoes the stretch and again heads straight — its path matches the original, confirming invariance.</p>\n\n<p>The widget runs vanilla and natural gradient descent side by side on an ill-conditioned quadratic. Crank the skew and watch the vanilla path zig-zag while the natural-gradient path stays straight.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "parametric-plot",
+          "params": {
+            "interaction": "single-mode",
+            "widgetId": "w-natgrad",
+            "svgId": "natgrad-svg",
+            "outputId": "natgrad-out",
+            "title": "Natural gradient ignores the coordinates",
+            "hint": "raise the skew — the vanilla path zig-zags, the natural-gradient path stays straight",
+            "viewBox": "0 0 640 360",
+            "svgWidth": 640,
+            "svgHeight": 360,
+            "svgTitle": "Vanilla versus natural gradient descent on an ill-conditioned objective",
+            "outputInitial": "",
+            "sliders": [
+              {
+                "id": "ng-skew",
+                "outId": "ng-skew-lbl",
+                "label": "coordinate skew $\\kappa$:",
+                "min": 1,
+                "max": 12,
+                "step": 0.5,
+                "init": 6
+              },
+              {
+                "id": "ng-lr",
+                "outId": "ng-lr-lbl",
+                "label": "step size $\\eta$:",
+                "min": 0.02,
+                "max": 0.3,
+                "step": 0.01,
+                "init": 0.12
+              }
+            ],
+            "bodyScript": "  const svg=$('#natgrad-svg'), out=$('#natgrad-out'), kSl=$('#ng-skew'), kL=$('#ng-skew-lbl'), lrSl=$('#ng-lr'), lrL=$('#ng-lr-lbl');\n  const W=640,H=360, padL=44,padR=18,padT=22,padB=38;\n  const x0=padL,x1=W-padR,y0=H-padB,y1=padT;\n  const A=-2.6,B=2.6;   // both axes\n  const SX=u=>x0+(u-A)/(B-A)*(x1-x0);\n  const SY=v=>y0-(v-A)/(B-A)*(y0-y1);\n  // Objective in skewed coords (u,v): L = 1/2 (u^2 + (v/kappa)^2)*?  We model an ill-conditioned\n  // quadratic L(z)=1/2 z^T H z with H=diag(1, kappa^2) so the v-direction is steep.\n  // Fisher metric of the model in these coords is G=diag(1, kappa^2) (matching the conditioning).\n  // Vanilla GD: z <- z - eta*grad,  grad=H z.   Natural GD: z <- z - eta*G^{-1} grad = z - eta*(H/G) z.\n  function render(){\n    svg.innerHTML='';\n    const kappa=+kSl.value, eta=+lrSl.value; kL.textContent='κ = '+kappa.toFixed(1); lrL.textContent='η = '+eta.toFixed(2);\n    const Huu=1, Hvv=kappa*kappa;       // Hessian / conditioning\n    const Guu=1, Gvv=kappa*kappa;       // Fisher metric matches the conditioning\n    // axes\n    svg.appendChild(SVG('line',{x1:x0,y1:SY(0),x2:x1,y2:SY(0),stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:SX(0),y1:y0,x2:SX(0),y2:y1,stroke:'var(--line)'}));\n    const oc=SVG('text',{x:SX(0)+6,y:SY(0)-6,'font-size':10,fill:'var(--mute)'}); oc.textContent='θ*'; svg.appendChild(oc);\n    // contour ellipses of L: u^2 + kappa^2 v^2 = c\n    for(const c of [0.4,1.0,1.8,2.8]){ const ru=Math.sqrt(c), rv=Math.sqrt(c)/kappa;\n      const rxPix=Math.abs(SX(ru)-SX(0)), ryPix=Math.abs(SY(rv)-SY(0));\n      svg.appendChild(SVG('ellipse',{cx:SX(0),cy:SY(0),rx:rxPix,ry:ryPix,fill:'none',stroke:'var(--line)','stroke-width':1})); }\n    // run both descents from the same start\n    const start=[2.2, 2.0/kappa + 0.4];   // start off-axis so the zig-zag is visible\n    function run(natural){ let u=start[0], v=start[1]; const path=[[u,v]];\n      for(let s=0;s<60;s++){ let gu=Huu*u, gv=Hvv*v; if(natural){ gu/=Guu; gv/=Gvv; } u-=eta*gu; v-=eta*gv; path.push([u,v]); if(Math.hypot(u,v)<1e-3) break; } return path; }\n    function drawPath(path,color,dash){ let d='M'; for(const[u,v] of path) d+=` ${SX(u).toFixed(1)} ${SY(v).toFixed(1)}`;\n      const pth=SVG('path',{d,fill:'none',stroke:color,'stroke-width':2}); if(dash) pth.setAttribute('stroke-dasharray','6 4'); svg.appendChild(pth);\n      for(const[u,v] of path) svg.appendChild(SVG('circle',{cx:SX(u),cy:SY(v),r:1.8,fill:color})); }\n    const vp=run(false), np=run(true);\n    drawPath(vp,'var(--pink)',false);\n    drawPath(np,'var(--cyan)',true);\n    svg.appendChild(SVG('circle',{cx:SX(start[0]),cy:SY(start[1]),r:4.5,fill:'var(--yellow)'}));\n    function leg(x,y,co,t,dash){ const ln=SVG('line',{x1:x,y1:y,x2:x+22,y2:y,stroke:co,'stroke-width':2.4}); if(dash) ln.setAttribute('stroke-dasharray','6 4'); svg.appendChild(ln); const tt=SVG('text',{x:x+28,y:y+4,'font-size':11,fill:'var(--mute)'}); tt.textContent=t; svg.appendChild(tt); }\n    leg(x1-180,y1+8,'var(--pink)','vanilla GD');\n    leg(x1-180,y1+24,'var(--cyan)','natural GD',true);\n    const vEnd=Math.hypot(vp[vp.length-1][0],vp[vp.length-1][1]);\n    const nEnd=Math.hypot(np[np.length-1][0],np[np.length-1][1]);\n    out.textContent =\n      `condition number κ² = ${(kappa*kappa).toFixed(0)},  step η = ${eta.toFixed(2)}\\n`+\n      `after 60 steps:  vanilla dist to θ* = ${vEnd.toFixed(3)},  natural dist = ${nEnd.toFixed(3)}\\n`+\n      `G⁻¹∇L rescales each axis by the metric: the natural path is straight & κ-independent`;\n  }\n  kSl.addEventListener('input',render);\n  lrSl.addEventListener('input',render);\n  render();"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-natgrad"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "quiz",
+          "concept": "ig-natural-gradient",
+          "html": "<div class=\"quiz\" data-concept=\"ig-natural-gradient\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "exponential-families",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"exponential-families\">\n<h2>5. Exponential families &amp; dual coordinates</h2>\n<p>Information geometry is sharpest on <strong>exponential families</strong>, the models</p>\n<p style=\"text-align:center\">$p_\\theta(x)\\ =\\ \\exp\\!\\big(\\theta\\cdot T(x)-\\psi(\\theta)\\big),$</p>\n<p>where $T(x)$ is the sufficient statistic, $\\theta$ the <strong>natural parameter</strong>, and $\\psi(\\theta)=\\log\\!\\int e^{\\theta\\cdot T(x)}\\,dx$ the <strong>log-partition function</strong> (a normalizer). Gaussians, Bernoulli, Poisson, exponential, gamma — all of them.</p>\n<div class=\"note\"><strong>The log-partition does all the work.</strong> $\\psi$ is convex, and its derivatives are moments of $T$:\n$$\\nabla\\psi(\\theta)=\\mathbb{E}_\\theta[T]=:\\eta,\\qquad \\nabla^2\\psi(\\theta)=\\operatorname{Cov}_\\theta[T]=G(\\theta).$$\nThe gradient of $\\psi$ defines the <strong>dual (expectation) coordinates</strong> $\\eta$ — the mean of the sufficient statistic — and the Hessian of $\\psi$ <em>is the Fisher metric</em>. Convexity of $\\psi$ and positive-semidefiniteness of $G$ are the same fact.</div>\n<p>Because $\\psi$ is convex, its <strong>Legendre–Fenchel transform</strong> $\\psi^*(\\eta)=\\sup_\\theta(\\theta\\cdot\\eta-\\psi(\\theta))$ exists, and the map $\\theta\\mapsto\\eta=\\nabla\\psi(\\theta)$ is a bijection with inverse $\\eta\\mapsto\\theta=\\nabla\\psi^*(\\eta)$. So an exponential family carries <strong>two</strong> coordinate systems, dual under Legendre: the natural parameters $\\theta$ (in which the family is exponentially “flat”) and the expectation parameters $\\eta$ (in which mixtures are flat). This is the <strong>dually-flat</strong> structure that §6 exploits.</p>\n\n<h3>Worked mini-example: Bernoulli is the logit–probability duality</h3>\n<p>Bernoulli$(p)$ with $T(x)=x\\in\\{0,1\\}$ is exponential-family with natural parameter $\\theta=\\log\\!\\frac{p}{1-p}$ (the <strong>logit</strong>) and log-partition $\\psi(\\theta)=\\log(1+e^\\theta)$. Then</p>\n<p style=\"text-align:center\">$\\eta=\\psi'(\\theta)=\\frac{e^\\theta}{1+e^\\theta}=\\sigma(\\theta)=p,\\qquad \\psi''(\\theta)=p(1-p)=G(\\theta).$</p>\n<p>So the natural-to-mean map $\\theta\\mapsto\\eta$ is exactly the logistic sigmoid $\\sigma$, i.e. the inverse of the logit — the same logit–probability pair every classifier uses. The dual potential is $\\psi^*(\\eta)=\\eta\\log\\eta+(1-\\eta)\\log(1-\\eta)$, the negative binary entropy.</p>\n\n<p>The widget shows the convex $\\psi$, the tangent line of slope $\\eta$ at the chosen $\\theta$, and the Legendre dual point. Slide $\\theta$ and watch $\\eta=\\nabla\\psi(\\theta)$ sweep through the mean coordinate.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "parametric-plot",
+          "params": {
+            "interaction": "single-mode",
+            "widgetId": "w-expfam",
+            "svgId": "expfam-svg",
+            "outputId": "expfam-out",
+            "title": "θ ↔ η by Legendre duality",
+            "hint": "slide θ; η = ∇ψ(θ) is the tangent slope and the mean coordinate",
+            "viewBox": "0 0 640 360",
+            "svgWidth": 640,
+            "svgHeight": 360,
+            "svgTitle": "The convex log-partition and its Legendre dual mean coordinate for Bernoulli / Gaussian",
+            "outputInitial": "",
+            "sliders": [
+              {
+                "id": "ef-theta",
+                "outId": "ef-theta-lbl",
+                "label": "natural $\\theta$:",
+                "min": -4,
+                "max": 4,
+                "step": 0.1,
+                "init": 0.5
+              }
+            ],
+            "buttons": [
+              {
+                "id": "ef-fam",
+                "label": "Bernoulli / Gaussian-mean"
+              }
+            ],
+            "bodyScript": "  const svg=$('#expfam-svg'), out=$('#expfam-out'), thSl=$('#ef-theta'), thL=$('#ef-theta-lbl'), famBtn=$('#ef-fam');\n  const W=640,H=360, padL=52,padR=20,padT=24,padB=40;\n  const x0=padL,x1=W-padR,y0=H-padB,y1=padT;\n  let bernoulli=true;\n  // Bernoulli: psi(t)=log(1+e^t), eta=sigma(t) in (0,1).\n  // Gaussian with known variance 1, mean theta: psi(t)=t^2/2, eta=t (the mean).\n  function psi(t){ return bernoulli ? Math.log(1+Math.exp(t)) : 0.5*t*t; }\n  function dpsi(t){ return bernoulli ? 1/(1+Math.exp(-t)) : t; }       // eta\n  function d2psi(t){ const s=1/(1+Math.exp(-t)); return bernoulli ? s*(1-s) : 1; } // Fisher\n  const A=-4,B=4;\n  const SX=t=>x0+(t-A)/(B-A)*(x1-x0);\n  function render(){\n    svg.innerHTML='';\n    const th=+thSl.value; thL.textContent='θ = '+th.toFixed(2);\n    famBtn.textContent = bernoulli ? 'family: Bernoulli' : 'family: Gaussian mean';\n    // y-range of psi over the window\n    let pmax=Math.max(psi(A),psi(B))*1.1+0.5;\n    const SY=v=>y0-(v/pmax)*(y0-y1);\n    // axes\n    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x1,y2:y0,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:SX(0),y1:y0,x2:SX(0),y2:y1,stroke:'var(--line)','stroke-dasharray':'3 3'}));\n    const axt=SVG('text',{x:(x0+x1)/2,y:H-8,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}); axt.textContent='natural parameter θ'; svg.appendChild(axt);\n    const axp=SVG('text',{x:18,y:(y0+y1)/2,'text-anchor':'middle','font-size':12,fill:'var(--mute)',transform:`rotate(-90 18 ${(y0+y1)/2})`}); axp.textContent='ψ(θ)'; svg.appendChild(axp);\n    // convex psi\n    let d='M', N=200; for(let i=0;i<=N;i++){ const t=A+(B-A)*i/N; d+=` ${SX(t).toFixed(1)} ${SY(psi(t)).toFixed(1)}`; }\n    svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--violet)','stroke-width':2.4}));\n    // tangent at theta: slope = eta = dpsi(theta)\n    const eta=dpsi(th), p0=psi(th);\n    const tL=A, tR=B; const yL=p0+eta*(tL-th), yR=p0+eta*(tR-th);\n    svg.appendChild(SVG('line',{x1:SX(tL),y1:SY(yL),x2:SX(tR),y2:SY(yR),stroke:'var(--cyan)','stroke-width':1.4,'stroke-dasharray':'5 4'}));\n    // point of tangency\n    svg.appendChild(SVG('circle',{cx:SX(th),cy:SY(p0),r:5,fill:'var(--yellow)'}));\n    // mark the slope-eta as a little rise/run triangle\n    const tri=SVG('text',{x:SX(th)+10,y:SY(p0)-8,'font-size':11,fill:'var(--cyan)'}); tri.textContent='slope = η = '+eta.toFixed(3); svg.appendChild(tri);\n    const fisher=d2psi(th);\n    out.textContent =\n      `family: ${bernoulli?'Bernoulli (θ = logit)':'Gaussian, known σ=1 (θ = mean)'}\\n`+\n      `natural θ = ${th.toFixed(2)}   →   dual η = ∇ψ(θ) = ${eta.toFixed(4)}` + (bernoulli?'  = σ(θ) = p':'  = mean') + `\\n`+\n      `Fisher G(θ) = ψ″(θ) = ${fisher.toFixed(4)}` + (bernoulli?'  = p(1−p)':'  = 1') + `\\n`+\n      `θ ↔ η is the Legendre transform; ψ convex ⇔ G ⪰ 0`;\n  }\n  thSl.addEventListener('input',render);\n  famBtn.addEventListener('click',()=>{ bernoulli=!bernoulli; famBtn.classList.toggle('active',!bernoulli); render(); });\n  render();"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-expfam"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./convex-optimization.html#convex-sets-functions\">Convex sets, functions, and the Legendre–Fenchel transform</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./information-geometry.html#dual-geometry\">Information geometry</a> · Dual connections &amp; the Pythagorean theorem</div>\n</aside>\n<!-- backlinks-auto-end -->"
+        },
+        {
+          "type": "quiz",
+          "concept": "ig-exponential-families",
+          "html": "<div class=\"quiz\" data-concept=\"ig-exponential-families\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "dual-geometry",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"dual-geometry\">\n<h2>6. Dual connections &amp; the Pythagorean theorem</h2>\n<p>The dually-flat structure of §5 means a statistical manifold carries not one but a <strong>pair</strong> of flat affine connections. The <strong>e-connection</strong> (exponential) makes the natural coordinates $\\theta$ affine — its geodesics are exponential mixtures $p_t\\propto p_0^{1-t}p_1^{t}$. The <strong>m-connection</strong> (mixture) makes the expectation coordinates $\\eta$ affine — its geodesics are ordinary mixtures $p_t=(1-t)p_0+t\\,p_1$.</p>\n<div class=\"note\"><strong>Dual connections.</strong> The pair $(\\nabla^{(e)},\\nabla^{(m)})$ is dual with respect to the Fisher metric $g$:\n$$X\\,g(Y,Z)\\ =\\ g\\big(\\nabla^{(e)}_X Y,\\,Z\\big)\\ +\\ g\\big(Y,\\,\\nabla^{(m)}_X Z\\big).$$\nNeither connection alone is the Levi-Civita connection of $g$ (their average is). KL divergence is the <strong>canonical (Bregman) divergence</strong> of this structure: $\\mathrm{KL}(p_{\\theta_1}\\,\\|\\,p_{\\theta_2})=B_\\psi(\\theta_2,\\theta_1)=\\psi(\\theta_2)-\\psi(\\theta_1)-\\nabla\\psi(\\theta_1)\\cdot(\\theta_2-\\theta_1)$.</div>\n<p>The payoff is a genuinely geometric law for KL. Define orthogonality by the Fisher metric. Then:</p>\n<div class=\"ok\"><strong>Information-geometric Pythagorean theorem.</strong> If the m-geodesic from $p$ to $q$ meets the e-geodesic from $q$ to $r$ <em>orthogonally</em> at $q$, then\n$$\\mathrm{KL}(p\\,\\|\\,r)\\ =\\ \\mathrm{KL}(p\\,\\|\\,q)\\ +\\ \\mathrm{KL}(q\\,\\|\\,r).$$</div>\n<p>This is the engine behind <strong>information projection</strong>: projecting a distribution onto a model is dropping a geodesic perpendicular, and the projection is the KL-closest point. It is the geometry of the <strong>EM algorithm</strong> (alternating e- and m-projections), of maximum-entropy inference, and of mean-field variational methods.</p>\n\n<h3>Worked mini-example: projecting onto a 2-D Gaussian submanifold</h3>\n<p>Take the family of unit-variance bivariate Gaussians $N(\\eta, I_2)$, coordinatized by the mean $\\eta=(\\eta_1,\\eta_2)$. Here KL is exactly a squared Euclidean distance, $\\mathrm{KL}(N(a)\\,\\|\\,N(b))=\\tfrac12\\|a-b\\|^2$, so the Fisher metric is the flat $I_2$ and the dual connections coincide with ordinary lines. Fix an <strong>e-flat submanifold</strong> $S$ (a line of means) and a point $p$ off it. Let $q$ be the foot of the perpendicular from $p$ to $S$ — the information (m-)projection — and let $r$ be any other point of $S$. The leg $p\\to q$ is perpendicular to the leg $q\\to r$ along $S$, so the right triangle gives, exactly, $\\mathrm{KL}(p\\,\\|\\,r)=\\mathrm{KL}(p\\,\\|\\,q)+\\mathrm{KL}(q\\,\\|\\,r)$ — literally the Pythagorean theorem.</p>\n\n<p>The widget puts $p$, the submanifold $S$, and a movable $r\\in S$ in the mean plane; “snap $q$” drops the perpendicular foot. Watch the three KLs become additive exactly when the legs are orthogonal at $q$.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "parametric-plot",
+          "params": {
+            "interaction": "single-mode",
+            "widgetId": "w-pythag",
+            "svgId": "pythag-svg",
+            "outputId": "pythag-out",
+            "title": "The KL Pythagorean theorem",
+            "hint": "place q on the foot of the perpendicular — the three KLs become additive",
+            "viewBox": "0 0 640 360",
+            "svgWidth": 640,
+            "svgHeight": 360,
+            "svgTitle": "An e-geodesic meeting an m-geodesic orthogonally makes KL additive",
+            "outputInitial": "",
+            "sliders": [
+              {
+                "id": "py-py",
+                "outId": "py-py-lbl",
+                "label": "$p$ height $\\eta_{p,2}$:",
+                "min": 0.5,
+                "max": 3.5,
+                "step": 0.1,
+                "init": 2.6
+              },
+              {
+                "id": "py-ang",
+                "outId": "py-ang-lbl",
+                "label": "submanifold $S$ angle:",
+                "min": -40,
+                "max": 40,
+                "step": 1,
+                "init": 16
+              },
+              {
+                "id": "py-q",
+                "outId": "py-q-lbl",
+                "label": "$q$ along $S$:",
+                "min": -2.6,
+                "max": 2.6,
+                "step": 0.1,
+                "init": -0.4
+              }
+            ],
+            "buttons": [
+              {
+                "id": "py-snap",
+                "label": "snap q to the foot"
+              }
+            ],
+            "bodyScript": "  const svg=$('#pythag-svg'), out=$('#pythag-out'), pySl=$('#py-py'), pyL=$('#py-py-lbl'), angSl=$('#py-ang'), angL=$('#py-ang-lbl'), qSl=$('#py-q'), qL=$('#py-q-lbl'), snapBtn=$('#py-snap');\n  const W=640,H=360, padL=46,padR=18,padT=22,padB=38;\n  const x0=padL,x1=W-padR,y0=H-padB,y1=padT;\n  // 2-D Gaussians N(eta, I): KL(N(a)||N(b)) = 1/2 |a-b|^2 — a true squared Euclidean distance,\n  // so Fisher = I, e- and m-geodesics are straight lines, and the Pythagorean theorem is exact\n  // when the legs meet at a right angle. S is an e-flat line; r is a fixed point of S; q slides\n  // along S. The additive identity holds exactly when q is the perpendicular foot of p onto S.\n  const A=-3.2,B=3.2;\n  const SX=u=>x0+(u-A)/(B-A)*(x1-x0);\n  const SY=v=>y0-(v-A)/(B-A)*(y0-y1);\n  function kl(a,b){ const dx=a[0]-b[0], dy=a[1]-b[1]; return 0.5*(dx*dx+dy*dy); }\n  // S passes through the fixed anchor c0 with direction set by the angle slider; r sits at s=2.2.\n  const c0=[-0.4,0.2], rS=2.2;\n  function render(){\n    svg.innerHTML='';\n    const py=+pySl.value, ang=(+angSl.value)*Math.PI/180, qt=+qSl.value;\n    pyL.textContent='η_p,2 = '+py.toFixed(1); angL.textContent=(+angSl.value)+'°'; qL.textContent='s = '+qt.toFixed(1);\n    const dir=[Math.cos(ang),Math.sin(ang)];                 // unit direction of S\n    const p=[0.6, py];                                       // point off the submanifold\n    const r=[c0[0]+rS*dir[0], c0[1]+rS*dir[1]];              // r: fixed point of S\n    const q=[c0[0]+qt*dir[0], c0[1]+qt*dir[1]];              // q: slides along S\n    // perpendicular foot of p onto S, as an s-value\n    const footS=(p[0]-c0[0])*dir[0]+(p[1]-c0[1])*dir[1];\n    const onFoot=Math.abs(qt-footS)<0.06;\n    // axes\n    svg.appendChild(SVG('line',{x1:x0,y1:SY(0),x2:x1,y2:SY(0),stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:SX(0),y1:y0,x2:SX(0),y2:y1,stroke:'var(--line)'}));\n    const axu=SVG('text',{x:x1-6,y:SY(0)-6,'text-anchor':'end','font-size':11,fill:'var(--mute)'}); axu.textContent='η₁'; svg.appendChild(axu);\n    const axv=SVG('text',{x:SX(0)+6,y:y1+10,'font-size':11,fill:'var(--mute)'}); axv.textContent='η₂'; svg.appendChild(axv);\n    // the e-flat submanifold S (a full line through the frame)\n    const tBig=8; const sa=[c0[0]-tBig*dir[0],c0[1]-tBig*dir[1]], sb=[c0[0]+tBig*dir[0],c0[1]+tBig*dir[1]];\n    svg.appendChild(SVG('line',{x1:SX(sa[0]),y1:SY(sa[1]),x2:SX(sb[0]),y2:SY(sb[1]),stroke:'var(--violet)','stroke-width':2}));\n    const slbl=SVG('text',{x:SX(sb[0])-2,y:SY(sb[1])-6,'text-anchor':'end','font-size':11,fill:'var(--violet)','font-style':'italic'}); slbl.textContent='e-flat submanifold S'; svg.appendChild(slbl);\n    // legs: m-geodesic p->q and e-geodesic (along S) q->r\n    drawArrow(svg,[SX(p[0]),SY(p[1])],[SX(q[0]),SY(q[1])],{color:'var(--cyan)',markerId:'py-m',width:2.4,label:'m-geodesic'});\n    drawArrow(svg,[SX(q[0]),SY(q[1])],[SX(r[0]),SY(r[1])],{color:'var(--pink)',markerId:'py-e',width:2.4,label:'e-geodesic'});\n    // little right-angle square at q when q is the perpendicular foot\n    if(onFoot){ const u=dir, n=[-dir[1],dir[0]]; const sz=0.28;\n      const k1=[q[0]+sz*u[0],q[1]+sz*u[1]], k2=[q[0]+sz*u[0]+sz*n[0],q[1]+sz*u[1]+sz*n[1]], k3=[q[0]+sz*n[0],q[1]+sz*n[1]];\n      svg.appendChild(SVG('path',{d:`M${SX(q[0])} ${SY(q[1])} L${SX(k1[0])} ${SY(k1[1])} L${SX(k2[0])} ${SY(k2[1])} L${SX(k3[0])} ${SY(k3[1])} Z`,fill:'none',stroke:'var(--green)','stroke-width':1.4})); }\n    // points\n    function pt(z,color,lab,dx,dy){ svg.appendChild(SVG('circle',{cx:SX(z[0]),cy:SY(z[1]),r:5.5,fill:color,stroke:'#111','stroke-width':1})); const tt=SVG('text',{x:SX(z[0])+dx,y:SY(z[1])+dy,'font-size':12,fill:color,'font-weight':600}); tt.textContent=lab; svg.appendChild(tt); }\n    pt(p,'var(--yellow)','p',9,-7); pt(q,'var(--green)','q',9,16); pt(r,'var(--pink)','r',9,-7);\n    // the three KLs\n    const klpr=kl(p,r), klpq=kl(p,q), klqr=kl(q,r);\n    const sum=klpq+klqr, resid=sum-klpr;\n    out.textContent =\n      `KL(N(a)∥N(b)) = ½|a−b|²  (unit-variance 2-D Gaussians, Fisher = I)\\n`+\n      `KL(p∥q) = ${klpq.toFixed(4)},  KL(q∥r) = ${klqr.toFixed(4)},  KL(p∥r) = ${klpr.toFixed(4)}\\n`+\n      `KL(p∥q)+KL(q∥r) = ${sum.toFixed(4)}   vs   KL(p∥r) = ${klpr.toFixed(4)}   (residual ${resid>=0?'+':''}${resid.toFixed(4)})\\n`+\n      (onFoot ? '✓ Pythagorean: m-leg ⟂ e-leg at q — KL is exactly additive'\n              : '→ q is off the perpendicular foot: residual ' + resid.toFixed(3) + ' (snap q to the foot for KL additivity)');\n  }\n  pySl.addEventListener('input',render);\n  angSl.addEventListener('input',render);\n  qSl.addEventListener('input',render);\n  snapBtn.addEventListener('click',()=>{\n    const py=+pySl.value, ang=(+angSl.value)*Math.PI/180; const dir=[Math.cos(ang),Math.sin(ang)]; const p=[0.6,py];\n    const footS=(p[0]-c0[0])*dir[0]+(p[1]-c0[1])*dir[1];\n    qSl.value=Math.max(-2.6,Math.min(2.6,footS)); render();\n  });\n  render();"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-pythag"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "quiz",
+          "concept": "ig-dual-geometry",
+          "html": "<div class=\"quiz\" data-concept=\"ig-dual-geometry\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "connections",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"connections\">\n<h2>Connections</h2>\n\n<p>Information geometry sits at the meeting point of statistics, differential geometry, and machine learning. It is far from closed: the geometry of <em>singular</em> models (neural networks, mixtures) where the Fisher metric degenerates is the subject of Watanabe's singular learning theory, and the right geometry for non-parametric and quantum statistical models is still being worked out. What surprises a beginner is that the “obvious” Euclidean distance between parameters is almost never the right one — the Fisher metric, forced on us by invariance, is.</p>\n\n<ul>\n<li><a href=\"./riemannian-geometry.html#metric\">Riemannian geometry — Riemannian metrics</a> — the Fisher metric makes a statistical model a Riemannian manifold, so geodesics, curvature, and volume all carry over.</li>\n<li><a href=\"./information-theory.html#fisher-cramer-rao\">Information theory — Fisher information &amp; Cramér–Rao</a> — the same matrix $G$ that is our metric is the estimation-theoretic information bound $\\operatorname{Var}(\\hat\\theta)\\succeq G^{-1}$.</li>\n<li><a href=\"./information-theory.html#kl-divergence\">Information theory — KL divergence</a> — the global divergence whose infinitesimal form is the Fisher metric and whose Bregman identity gives the Pythagorean theorem.</li>\n<li><a href=\"./mathematical-statistics.html#mle\">Mathematical statistics — maximum likelihood</a> and <a href=\"./mathematical-statistics.html#cramer-rao\">Cramér–Rao</a> — natural-gradient ascent is Fisher scoring, and asymptotic efficiency of the MLE is the statement that its covariance attains $G^{-1}$.</li>\n<li><a href=\"./convex-optimization.html#convex-sets-functions\">Convex optimization — convex functions &amp; the Legendre transform</a> — the convex log-partition $\\psi$ and its Legendre dual $\\psi^*$ are exactly the dual coordinates of an exponential family.</li>\n<li><a href=\"./deep-learning-theory.html#optimization\">Deep learning theory — non-convex optimization</a> — natural-gradient and its approximations (K-FAC) are how the Fisher geometry enters the training of large models.</li>\n</ul>\n</section>\n\n"
+        }
+      ]
+    }
+  ],
+  "rawBodySuffix": "</main>\n\n<script>\n(function(){\n  function start(){ if(window.MVQuiz) MVQuiz.init('information-geometry'); }\n  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);\n  else start();\n})();\n</script>\n<details class=\"changelog\">\n  <summary>changelog</summary>\n  <table>\n    <tbody>\n      <tr><td>2026-05-22</td><td>initial version</td></tr>\n    </tbody>\n  </table>\n</details>\n\n</body>\n</html>\n"
+}

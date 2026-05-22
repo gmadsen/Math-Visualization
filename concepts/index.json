@@ -43,6 +43,7 @@
 
     "probabilistic-graphical-models",
     "deep-learning-theory",
+    "information-geometry",
 
     "several-complex-variables",
     "khovanov-homology",
@@ -438,6 +439,7 @@
     "kernel-methods-and-rkhs": "advanced",
     "probabilistic-graphical-models": "advanced",
     "deep-learning-theory": "advanced",
+    "information-geometry": "advanced",
     "markov-decision-processes": "standard",
     "game-theory": "standard",
     "reinforcement-learning": "standard",
