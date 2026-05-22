@@ -19837,6 +19837,13 @@ window.__MVConcepts = {
           "kalman-filtering-and-state-estimation"
         ],
         "color": "p"
+      },
+      {
+        "id": "learning-theory-and-data-science",
+        "title": "Learning theory & data science",
+        "description": "The mathematics behind learning from data: statistical learning theory, kernels and reproducing-kernel Hilbert spaces, neural-network theory, probabilistic graphical models, information geometry, score-based generative models, and causal inference.",
+        "topics": [],
+        "color": "b"
       }
     ]
   },
@@ -20234,6 +20241,13 @@ window.__MVConcepts = {
       "crossOut": 18,
       "crossIn": 1,
       "density": 0.5294117647058824
+    },
+    "Learning theory & data science": {
+      "concepts": 0,
+      "intra": 0,
+      "crossOut": 0,
+      "crossIn": 0,
+      "density": 0
     }
   }
 };

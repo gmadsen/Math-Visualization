@@ -23,6 +23,7 @@ reach into upstream foundations or stay within their own cluster.
 | Combinatorics & graph theory | 58 | 56 | 27 | 5 | 0.466 |
 | Mathematical physics | 69 | 75 | 40 | 4 | 0.580 |
 | Control theory & optimization | 34 | 32 | 18 | 1 | 0.529 |
+| Learning theory & data science | 0 | 0 | 0 | 0 | 0.000 |
 
 ## EMPTY — concepts with no prereqs (4)
 

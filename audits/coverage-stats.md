@@ -1001,6 +1001,16 @@ page has wired one in yet.
 - Quizzes: **102** (v1: 102, hard: 0, expert: 0)
   - by type: mcq: 67, numeric: 21, multi-select: 6, matching: 4, spot-the-error: 2, ordering: 2
 
+### Learning theory & data science
+
+- Topics: **0**, concepts: **0**
+- Widgets: **0** (registry-driven: 0, inline: 0)
+  - by family: _(none)_
+  - by dimension: _(none)_
+  - by gesture: _(none)_
+- Quizzes: **0** (v1: 0, hard: 0, expert: 0)
+  - by type: _(none)_
+
 ## Per-topic
 
 - `random-matrix-theory` (Probability & statistics) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
