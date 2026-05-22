@@ -577,10 +577,12 @@
   // fit its container; viewBox + preserveAspectRatio handle the scale.
   const STAGE_W = 2000, STAGE_H = 1200;
 
-  // Section anchors arranged on a 10-spoke ring. Order chosen so subjects
+  // Section anchors arranged on a 13-spoke ring. Order chosen so subjects
   // that share many cross-topic edges sit adjacent: classical-spine on the
   // right (Algebra → Higher cats → AG → NT → MF), payoff/applied on the
-  // bottom (Combinatorics → Analysis → Probability), G&T closes the loop.
+  // bottom (Combinatorics → Analysis → Probability → Learning theory),
+  // G&T closes the loop. Every section title in concepts/sections.json MUST
+  // appear here or forceLayout dereferences an undefined anchor (a.x).
   const SECTION_ANCHOR = (() => {
     const cx = STAGE_W / 2, cy = STAGE_H / 2 + 20;
     // Anchor ring is elliptical, sized so the natural cluster bbox matches
@@ -590,18 +592,19 @@
     const rx = STAGE_W * 0.48;
     const ry = STAGE_H * 0.30;
     const order = [
-      'Logic & Foundations',            // 0° (top)
-      'Algebra & homological',          // ~30°
-      'Higher categories & toposes',    // ~60°
-      'Algebraic geometry',             // ~90°
-      'Number theory',                  // ~120°
-      'Modular forms & L-functions',    // ~150°
-      'Combinatorics & graph theory',   // ~180° (bottom)
-      'Control theory & optimization',  // ~210°
-      'Analysis',                       // ~240°
-      'Mathematical physics',           // ~270°
-      'Probability & statistics',       // ~300°
-      'Geometry & topology'             // ~330°
+      'Logic & Foundations',             // 0° (top)
+      'Algebra & homological',           // ~28°
+      'Higher categories & toposes',     // ~55°
+      'Algebraic geometry',              // ~83°
+      'Number theory',                   // ~111°
+      'Modular forms & L-functions',     // ~138°
+      'Combinatorics & graph theory',    // ~166° (≈ bottom of ring)
+      'Control theory & optimization',   // ~194°
+      'Analysis',                        // ~222°
+      'Mathematical physics',            // ~249°
+      'Probability & statistics',        // ~277°
+      'Learning theory & data science',  // ~305° — seated by Probability (most cross-edges)
+      'Geometry & topology'              // ~332°
     ];
     const anchors = {};
     for (let i = 0; i < order.length; i++) {

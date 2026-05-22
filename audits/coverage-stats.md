@@ -2,12 +2,12 @@
 
 ## Corpus totals
 
-- Topics: **191**, concepts: **1326**
-- Widgets: **1355** (registry-driven: 1355, inline: 0)
-- Quizzes: **5172** (v1: 3936, hard: 1223, expert: 13)
-- Quiz types: mcq: 3389, numeric: 1238, multi-select: 249, matching: 106, ordering: 83, spot-the-error: 53, complex: 29, proof-completion: 21, construction: 2, guess-my-rule: 2
+- Topics: **192**, concepts: **1332**
+- Widgets: **1361** (registry-driven: 1361, inline: 0)
+- Quizzes: **5190** (v1: 3954, hard: 1223, expert: 13)
+- Quiz types: mcq: 3401, numeric: 1241, multi-select: 251, matching: 107, ordering: 83, spot-the-error: 53, complex: 29, proof-completion: 21, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their section: **150**
-- Concepts lacking a hard-tier quiz: **888**
+- Concepts lacking a hard-tier quiz: **894**
 
 ## Per-slug registry adoption
 
@@ -21,7 +21,7 @@ page has wired one in yet.
 | `button-stepper` | button-stepper | click | 2d | 343 | L-functions, additive-number-theory, adeles-and-ideles, algebra, algebraic-number-theory, algebraic-topology, analytic-continuation, bezout, bsd, category-theory, class-field-theory, complex-analysis, differential-geometry, dirichlet-series-euler-products, dynamical-systems, etale-cohomology, frobenius-and-reciprocity, functional-analysis, functor-of-points, galois, galois-representations, hecke-operators, homological, lie-groups, measure-theory, modular-forms, modularity-and-flt, moduli-spaces, moonshine, morphisms-fiber-products, naive-set-theory, operator-algebras, p-adic-numbers, partitions-generating-functions, point-set-topology, probability-theory, projective-plane, quadratic-forms-genus-theory, quadratic-reciprocity, representation-theory, riemann-surfaces, riemannian-geometry, sato-tate, schemes, sheaf-cohomology, sheaves, singular-cubics-reduction, smooth-manifolds, stacks, theta-functions, upper-half-plane-hyperbolic, zeta-values |
 | `clickable-diagram` | clickable-diagram | click | 2d | 79 | algebra, algebraic-number-theory, algebraic-topology, bezout, category-theory, fixed-point-theorems, frobenius-and-reciprocity, functional-analysis, functor-of-points, galois, homological, measure-theory, morphisms-fiber-products, naive-set-theory, operator-algebras, quadratic-reciprocity, real-analysis, riemannian-geometry, schemes, sheaves, stacks, wavelets |
 | `slider-svg-2d` | slider-readout | slider | 2d | 20 | kahler-geometry, spectral-methods-data, spectral-theory |
-| `parametric-plot` | parametric-plot | slider | 2d | 11 | analytic-continuation, analytic-number-theory, expanders |
+| `parametric-plot` | parametric-plot | slider | 2d | 17 | analytic-continuation, analytic-number-theory, expanders, statistical-learning-theory |
 | `schrodinger-figure` | schrodinger-figure | slider | 2d | 7 | schrodinger-equation |
 | `clickable-graph` | clickable-graph | click | 2d | 6 | adeles-and-ideles, riemannian-geometry, schemes, sheaves |
 | `hamiltonians-figure` | hamiltonians-figure | interact | 2d | 6 | hamiltonians-classical-mechanics |
@@ -1003,13 +1003,13 @@ page has wired one in yet.
 
 ### Learning theory & data science
 
-- Topics: **0**, concepts: **0**
-- Widgets: **0** (registry-driven: 0, inline: 0)
-  - by family: _(none)_
-  - by dimension: _(none)_
-  - by gesture: _(none)_
-- Quizzes: **0** (v1: 0, hard: 0, expert: 0)
-  - by type: _(none)_
+- Topics: **1**, concepts: **6**
+- Widgets: **6** (registry-driven: 6, inline: 0)
+  - by family: parametric-plot: 6
+  - by dimension: 2d: 6
+  - by gesture: slider: 6
+- Quizzes: **18** (v1: 18, hard: 0, expert: 0)
+  - by type: mcq: 12, numeric: 3, multi-select: 2, matching: 1
 
 ## Per-topic
 
@@ -1032,6 +1032,7 @@ page has wired one in yet.
 - `topological-data-analysis` (Geometry & topology) — concepts=7, widgets=6 (slug=6), quiz=21 (v1=21, hard=0, expert=0)
 - `mathematical-chaos` (Analysis) — concepts=7, widgets=9 (slug=9), quiz=21 (v1=21, hard=0, expert=0)
 - `kalman-filtering-and-state-estimation` (Control theory & optimization) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
+- `statistical-learning-theory` (Learning theory & data science) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `several-complex-variables` (Analysis) — concepts=6, widgets=5 (slug=5), quiz=18 (v1=18, hard=0, expert=0)
 - `khovanov-homology` (Geometry & topology) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `shimura-varieties` (Modular forms & L-functions) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)

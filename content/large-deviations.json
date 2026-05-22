@@ -41,7 +41,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./high-dimensional-geometry.html#applications\">High-dimensional geometry</a> · Applications</div>\n    <div><a href=\"./large-deviations.html#rate-function\">Large deviations</a> · Rate functions and convex duality</div>\n    <div><a href=\"./statistical-mechanics.html#large-deviations-equilibrium\">Statistical mechanics</a> · Large deviations and equilibrium fluctuations</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./high-dimensional-geometry.html#applications\">High-dimensional geometry</a> · Applications</div>\n    <div><a href=\"./large-deviations.html#rate-function\">Large deviations</a> · Rate functions and convex duality</div>\n    <div><a href=\"./statistical-learning-theory.html#pac\">Statistical learning theory</a> · PAC learning &amp; sample complexity</div>\n    <div><a href=\"./statistical-mechanics.html#large-deviations-equilibrium\">Statistical mechanics</a> · Large deviations and equilibrium fluctuations</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

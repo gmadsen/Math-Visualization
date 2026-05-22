@@ -25,15 +25,17 @@
     "topological-data-analysis",
     "mathematical-chaos",
 
-
-
-
-
-
-
-
-
     "kalman-filtering-and-state-estimation",
+
+
+
+
+
+
+
+
+
+    "statistical-learning-theory",
 
     "several-complex-variables",
     "khovanov-homology",
@@ -418,6 +420,7 @@
     "donaldson-thomas-and-gw-invariants": "advanced",
     "positive-characteristic-ag": "advanced",
     "computational-molecular-biology": "advanced",
-    "kalman-filtering-and-state-estimation": "advanced"
+    "kalman-filtering-and-state-estimation": "advanced",
+    "statistical-learning-theory": "advanced"
   }
 }

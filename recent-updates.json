@@ -1,6 +1,14 @@
 {
-  "generated": "2026-05-22T01:00:15.002Z",
+  "generated": "2026-05-22T05:24:54.242Z",
   "entries": [
+    {
+      "slug": "statistical-learning-theory",
+      "title": "Statistical learning theory",
+      "color": "b",
+      "tag": "",
+      "date": "2026-05-21",
+      "message": "feat: statistical-learning-theory — first topic of section 13 + section debut"
+    },
     {
       "slug": "algebra",
       "title": "Abstract algebra",
