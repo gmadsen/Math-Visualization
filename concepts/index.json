@@ -45,6 +45,7 @@
     "deep-learning-theory",
     "information-geometry",
     "diffusion-and-score-based-models",
+    "causal-inference",
 
     "several-complex-variables",
     "khovanov-homology",
@@ -442,6 +443,7 @@
     "deep-learning-theory": "advanced",
     "information-geometry": "advanced",
     "diffusion-and-score-based-models": "advanced",
+    "causal-inference": "advanced",
     "markov-decision-processes": "standard",
     "game-theory": "standard",
     "reinforcement-learning": "standard",

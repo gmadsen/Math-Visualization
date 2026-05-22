@@ -37,6 +37,7 @@ window.__MVConcepts = {
       "deep-learning-theory",
       "information-geometry",
       "diffusion-and-score-based-models",
+      "causal-inference",
       "several-complex-variables",
       "khovanov-homology",
       "shimura-varieties",
@@ -433,6 +434,7 @@ window.__MVConcepts = {
       "deep-learning-theory": "advanced",
       "information-geometry": "advanced",
       "diffusion-and-score-based-models": "advanced",
+      "causal-inference": "advanced",
       "markov-decision-processes": "standard",
       "game-theory": "standard",
       "reinforcement-learning": "standard",
@@ -3236,6 +3238,70 @@ window.__MVConcepts = {
             "dsm-reverse"
           ],
           "blurb": "The deterministic probability-flow ODE $dx_t=[f(x,t)-\\tfrac12 g(t)^2\\nabla\\log p_t(x)]\\,dt$ has the same marginals $p_t$ as the stochastic reverse SDE (it solves the same Fokker–Planck via the continuity equation). It gives a deterministic DDIM-style sampler and a continuous normalizing flow with exact likelihoods."
+        }
+      ]
+    },
+    "causal-inference": {
+      "topic": "causal-inference",
+      "title": "Causal inference",
+      "page": "causal-inference.html",
+      "concepts": [
+        {
+          "id": "ci-scm",
+          "title": "Structural causal models",
+          "anchor": "scm",
+          "prereqs": [
+            "pgm-bayes-nets"
+          ],
+          "blurb": "A structural causal model is a DAG $G$ plus structural equations $X_i := f_i(\\mathrm{pa}_i, U_i)$ with independent exogenous noise $U_i$. It entails an observational distribution that factorizes exactly like a Bayes net, $p(x)=\\prod_i p(x_i\\mid \\mathrm{pa}_i)$ — but the equations carry extra causal commitments the joint alone cannot express."
+        },
+        {
+          "id": "ci-interventions",
+          "title": "Interventions & the do-operator",
+          "anchor": "interventions",
+          "prereqs": [
+            "ci-scm"
+          ],
+          "blurb": "An intervention $\\operatorname{do}(X=x)$ is graph surgery: delete every arrow into $X$ and clamp $X=x$. The truncated factorization (g-formula) $p(v\\mid \\operatorname{do}(x))=\\prod_{i:\\,V_i\\neq X} p(v_i\\mid \\mathrm{pa}_i)$ then gives the interventional law, which differs from the observational conditional $p(y\\mid x)$ exactly when confounding is present."
+        },
+        {
+          "id": "ci-confounding",
+          "title": "Confounding & the backdoor criterion",
+          "anchor": "confounding",
+          "prereqs": [
+            "ci-interventions",
+            "conditional-bayes"
+          ],
+          "blurb": "A backdoor path $X\\leftarrow\\cdots\\rightarrow Y$ creates spurious association. A set $Z$ is admissible if it blocks all backdoor paths from $X$ to $Y$ and contains no descendant of $X$; then the adjustment formula $p(y\\mid \\operatorname{do}(x))=\\sum_z p(y\\mid x,z)\\,p(z)$ recovers the causal effect. Simpson's paradox is the dramatic failure of ignoring an admissible $Z$."
+        },
+        {
+          "id": "ci-do-calculus",
+          "title": "Identification & do-calculus",
+          "anchor": "do-calculus",
+          "prereqs": [
+            "ci-confounding"
+          ],
+          "blurb": "Identification asks when $p(y\\mid \\operatorname{do}(x))$ is computable from observational data alone. Pearl's three rules of do-calculus — insertion/deletion of observations, action/observation exchange, and insertion/deletion of actions — are complete (Shpitser–Pearl) for this question. The front-door criterion identifies an effect through a mediator even when an unobserved confounder blocks the backdoor."
+        },
+        {
+          "id": "ci-counterfactuals",
+          "title": "Counterfactuals",
+          "anchor": "counterfactuals",
+          "prereqs": [
+            "ci-scm",
+            "ci-interventions"
+          ],
+          "blurb": "The third rung of the ladder asks 'would $Y$ have differed had $X$ been $x'$, given what actually happened?'. On an SCM it is computed by abduction (infer the noise $U$ from the evidence), action ($\\operatorname{do}(X=x')$ on the updated model), and prediction. Potential outcomes $Y_x$ and the consistency rule $Y=Y_X$ connect this to the Neyman–Rubin framework."
+        },
+        {
+          "id": "ci-estimation",
+          "title": "Estimating causal effects",
+          "anchor": "estimation",
+          "prereqs": [
+            "ci-confounding",
+            "ms-estimators"
+          ],
+          "blurb": "The average treatment effect is $\\tau=\\mathbb{E}[Y_1]-\\mathbb{E}[Y_0]$. Under ignorability $\\{Y_0,Y_1\\}\\perp X\\mid Z$ and positivity (overlap), $\\tau$ is estimable from data by covariate adjustment, by inverse-propensity weighting with $e(z)=P(X{=}1\\mid z)$, or by doubly-robust combinations. A randomized experiment makes ignorability hold by design, with $Z$ empty."
         }
       ]
     },
@@ -20897,7 +20963,8 @@ window.__MVConcepts = {
           "probabilistic-graphical-models",
           "deep-learning-theory",
           "information-geometry",
-          "diffusion-and-score-based-models"
+          "diffusion-and-score-based-models",
+          "causal-inference"
         ],
         "color": "b"
       }
@@ -21206,6 +21273,7 @@ window.__MVConcepts = {
     "deep-learning-theory": "advanced",
     "information-geometry": "advanced",
     "diffusion-and-score-based-models": "advanced",
+    "causal-inference": "advanced",
     "markov-decision-processes": "standard",
     "game-theory": "standard",
     "reinforcement-learning": "standard",
@@ -21261,7 +21329,7 @@ window.__MVConcepts = {
       "concepts": 83,
       "intra": 134,
       "crossOut": 23,
-      "crossIn": 41,
+      "crossIn": 43,
       "density": 0.27710843373493976
     },
     "Geometry & topology": {
@@ -21314,11 +21382,11 @@ window.__MVConcepts = {
       "density": 0.39655172413793105
     },
     "Learning theory & data science": {
-      "concepts": 36,
-      "intra": 39,
-      "crossOut": 20,
+      "concepts": 42,
+      "intra": 46,
+      "crossOut": 22,
       "crossIn": 1,
-      "density": 0.5555555555555556
+      "density": 0.5238095238095238
     }
   }
 };

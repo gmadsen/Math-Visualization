@@ -1,5 +1,5 @@
 {
-  "generated": "2026-05-22T15:34:41.677Z",
+  "generated": "2026-05-22T16:02:21.458Z",
   "entries": [
     {
       "slug": "algebraic-combinatorics",
@@ -23,7 +23,7 @@
       "color": "b",
       "tag": "",
       "date": "2026-05-22",
-      "message": "feat: diffusion-and-score-based-models — Wave 3 (Learning theory)"
+      "message": "feat: diffusion-and-score-based-models — Wave 3 (Learning theory) (#263)"
     },
     {
       "slug": "game-theory",
