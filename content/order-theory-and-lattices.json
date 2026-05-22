@@ -1,0 +1,417 @@
+{
+  "topic": "order-theory-and-lattices",
+  "rawHead": "<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\" />\n<meta name=\"viewport\" content=\"width=device-width,initial-scale=1\" />\n<title>Order theory and lattices</title>\n<link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css\">\n<script defer src=\"https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js\"></script>\n<script defer src=\"https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js\"></script>\n<script>\n(function(){\n  function renderAll(){\n    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }\n    renderMathInElement(document.body,{\n      delimiters:[\n        {left:'$$',right:'$$',display:true},\n        {left:'$',right:'$',display:false},\n        {left:'\\\\(',right:'\\\\)',display:false},\n        {left:'\\\\[',right:'\\\\]',display:true}\n      ],\n      throwOnError:false,\n      strict:(c)=>c==='unicodeTextInMathMode'?'ignore':'warn',\n      macros:{\n        '\\\\Spec':'\\\\operatorname{Spec}',\n        '\\\\Gal':'\\\\operatorname{Gal}',\n        '\\\\Hom':'\\\\operatorname{Hom}',\n        '\\\\tr':'\\\\operatorname{tr}',\n        '\\\\ad':'\\\\operatorname{ad}',\n        '\\\\ind':'\\\\operatorname{ind}'\n      }\n    });\n  }\n  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);\n  else renderAll();\n})();\n</script>\n<style>\n  :root{\n    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;\n    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;\n    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;\n    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;\n  }\n  *{box-sizing:border-box}\n  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);\n    font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",Inter,Roboto,sans-serif;\n    font-size:17px;line-height:1.65}\n  a{color:var(--blue)}\n  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;\n    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}\n  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}\n  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}\n  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}\n  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}\n  p{margin:0.7rem 0}\n  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}\n  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;\n    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}\n  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}\n  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}\n  .widget .hd .hint{color:var(--mute);font-size:.85rem}\n  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}\n  .row label{color:var(--mute);font-size:.88rem}\n  input[type=\"text\"],input[type=\"number\"],select{\n    background:#0b0f16;color:var(--ink);border:1px solid var(--line);\n    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}\n  input[type=\"range\"]{accent-color:var(--yellow);flex:1;max-width:260px}\n  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);\n    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}\n  button:hover{background:#242c3e}\n  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}\n  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;\n    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;\n    min-height:1.6em;white-space:pre-wrap;word-break:break-word}\n  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);\n    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}\n  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;\n    margin:1rem 0;border-radius:0 6px 6px 0}\n  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;\n    margin:1rem 0;border-radius:0 6px 6px 0}\n  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;\n    margin:1rem 0;border-radius:0 6px 6px 0}\n  svg{display:block;margin:0 auto;max-width:100%}\n  svg text{fill:var(--ink);font-family:inherit}\n  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);\n    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;\n    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}\n  nav.toc a{color:var(--mute);text-decoration:none}\n  nav.toc a:hover{color:var(--yellow)}\n  /* sticky sidebar TOC (wide screens only; narrow screens fall back to top-nav) */\n  aside.sidetoc{position:fixed;top:4.2rem;\n    left:max(1rem, calc(50% - 440px - 220px));\n    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;\n    padding-right:1rem;border-right:1px solid var(--line);\n    font-size:.88rem;z-index:5}\n  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;\n    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}\n  aside.sidetoc ol{list-style:none;padding:0;margin:0}\n  aside.sidetoc li{margin:0}\n  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;\n    border-left:2px solid transparent;line-height:1.35;\n    transition:color 120ms ease, border-color 120ms ease}\n  aside.sidetoc a:hover{color:var(--ink)}\n  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}\n  @media (max-width:1180px){ aside.sidetoc{display:none} }\n  @media (min-width:1181px){ nav.toc a[href^=\"#\"]{display:none} }\n  .hero{padding:3rem 0 1rem}\n  .small{font-size:.88rem;color:var(--mute)}\n  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}\n  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}\n  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}\n  table.plain th{color:var(--mute);font-weight:500}\n  /* callback-css-auto-begin */\n  aside.callback{\n    margin:1.2rem 0;padding:.7rem 1rem;\n    background:rgba(88,196,221,0.05);\n    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);\n    border-radius:0 6px 6px 0;\n    font-size:.93rem;\n  }\n  aside.callback .ttl{\n    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;\n    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;\n  }\n  aside.callback ul{margin:0;padding-left:1.1rem}\n  aside.callback ul li{margin:.15rem 0}\n  aside.callback a{color:inherit}\n/* callback-css-auto-end */\n  details.changelog{\n    margin:2rem 0 1rem;padding:.6rem .9rem;\n    background:rgba(0,0,0,0.22);\n    border-radius:6px;\n    font-size:.85rem;\n  }\n  details.changelog summary{\n    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;\n    font-size:.7rem;color:var(--mute,#8c9aa6);\n  }\n  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}\n  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}\n  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}\n  aside.related{\n    margin:1.2rem 0;padding:.7rem 1rem;\n    background:color-mix(in srgb, var(--mute) 6%, transparent);\n    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);\n    border-radius:0 6px 6px 0;\n    font-size:.93rem;\n  }\n  aside.related .ttl{\n    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;\n    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;\n  }\n  aside.related > div{margin:.15rem 0}\n  aside.related .more{color:var(--mute);font-style:italic}\n  aside.related a{color:inherit}\n  /* display-prefs-css-auto-begin */\n  html[data-hide-widgets] .widget { display: none !important; }\n  html[data-hide-quizzes] .quiz { display: none !important; }\n  html[data-hide-lineage] .lineage-strip { display: none !important; }\n  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }\n  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }\n  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }\n  .mv-display-toggle--off { opacity: 0.35; }\n  /* display-prefs-css-auto-end */\n</style>\n<!-- breadcrumb-head-auto-begin -->\n<script src=\"./js/section-map.js\"></script>\n<script src=\"./js/breadcrumb.js\"></script>\n<script src=\"./js/glossary-popover.js\" defer></script>\n<link rel=\"stylesheet\" media=\"print\" href=\"./css/print.css\">\n<link rel=\"stylesheet\" href=\"./css/theme-light.css\">\n<script src=\"./js/theme-toggle.js\"></script>\n<script src=\"./concepts/bundle.js\" defer></script>\n<script src=\"./js/topic-hotkeys.js\" defer></script>\n<script src=\"./js/topic-lineage.js\" defer></script>\n<!-- breadcrumb-head-auto-end -->\n<script src=\"./js/progress.js\"></script>\n<script src=\"./js/quiz.js\"></script>\n<script src=\"./js/katex-select.js\"></script>\n<script src=\"./js/widget-diagram-editor.js\"></script>\n<script src=\"./quizzes/bundle.js\"></script>\n<script src=\"./js/sidetoc.js\"></script>\n<!-- display-prefs-head-auto-begin -->\n<script src=\"./js/display-prefs.js\"></script>\n<!-- display-prefs-head-auto-end -->\n</head>\n",
+  "rawBodyPrefix": "<body data-section=\"combinatorics-and-graph-theory\" data-level=\"intermediate\">\n<script>\nconst $ = (s,r=document)=>r.querySelector(s);\nconst $$ = (s,r=document)=>[...r.querySelectorAll(s)];\nconst SVG = (tag,attrs={})=>{\n  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);\n  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);\n  return e;\n};\n// draw an arrow marker def once per svg (idempotent)\nfunction ensureArrow(svg, id, color){\n  let defs = svg.querySelector('defs');\n  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }\n  if(defs.querySelector('#'+id)) return;\n  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});\n  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));\n  defs.appendChild(mk);\n}\n// curved arrow between two pixel points, with optional label\nfunction drawArrow(svg, p1, p2, opts={}){\n  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;\n  ensureArrow(svg, markerId, color);\n  const [x1,y1]=p1, [x2,y2]=p2;\n  const dx=x2-x1, dy=y2-y1;\n  const L = Math.hypot(dx,dy) || 1;\n  const ux=dx/L, uy=dy/L;\n  // shorten endpoints\n  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;\n  const ax=x1+ux*pad1, ay=y1+uy*pad1;\n  const bx=x2-ux*pad2, by=y2-uy*pad2;\n  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;\n  const path = SVG('path',{\n    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,\n    fill:'none', stroke:color, 'stroke-width':width,\n    'marker-end':`url(#${markerId})`\n  });\n  if(dash) path.setAttribute('stroke-dasharray', dash);\n  svg.appendChild(path);\n  if(label){\n    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,\n      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});\n    t.textContent = label;\n    svg.appendChild(t);\n  }\n  return path;\n}\nfunction drawNode(svg, x, y, label, opts={}){\n  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;\n  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));\n  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});\n  t.textContent = label;\n  svg.appendChild(t);\n}\n</script>\n\n<nav class=\"toc\"><a href=\"./index.html\" style=\"color:var(--violet);font-weight:500\">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class=\"breadcrumb\"></div><span class=\"nav-links\"><a class=\"nav-link\" href=\"./pathway.html\">Pathway</a><a class=\"nav-link\" href=\"./tours.html\">Tours</a><a class=\"nav-link\" href=\"./history.html\">History</a><a class=\"nav-link\" href=\"./tags.html\">Themes</a><a class=\"nav-link\" href=\"./mindmap.html\">Mindmap</a><a class=\"nav-link\" href=\"./search.html\">Search</a></span><span class=\"mv-theme-slot\"></span><!-- breadcrumb-nav-auto-end -->\n<!-- toc-auto-begin -->\n  <a href=\"#posets\">1&nbsp;Posets,&nbsp;Hasse&nbsp;diagrams,&nbsp;chains&nbsp;&amp;&nbsp;antichains</a>\n  <a href=\"#lattices\">2&nbsp;Lattices:&nbsp;meet&nbsp;&amp;&nbsp;join</a>\n  <a href=\"#dilworth\">3&nbsp;Dilworth's&nbsp;theorem</a>\n  <a href=\"#sperner\">4&nbsp;Sperner&nbsp;&amp;&nbsp;the&nbsp;Boolean&nbsp;lattice</a>\n  <a href=\"#mobius\">5&nbsp;Möbius&nbsp;functions&nbsp;&amp;&nbsp;inversion</a>\n  <a href=\"#completeness\">6&nbsp;Complete&nbsp;lattices&nbsp;&amp;&nbsp;Knaster–Tarski</a>\n  <a href=\"#connections\">7&nbsp;Connections</a>\n<!-- toc-auto-end -->\n</nav>\n<!-- lineage-mount-auto-begin --><div id=\"mv-lineage-mount\" class=\"lineage-strip\" hidden></div><!-- lineage-mount-auto-end -->\n\n<aside class=\"sidetoc\" aria-label=\"Table of contents\"></aside>\n\n<main>\n\n<section class=\"hero\">\n  <h1>Order theory and lattices</h1>\n  <p class=\"sub\">A partial order is just three axioms — reflexive, antisymmetric, transitive — but from them grow Hasse diagrams, meets and joins, the duality of chains and antichains, and fixed-point theorems that anchor everything from logic to denotational semantics.</p>\n</section>\n\n",
+  "sections": [
+    {
+      "id": "posets",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"posets\">\n<h2>1. Posets, Hasse diagrams, chains &amp; antichains</h2>\n<p>A <strong>partial order</strong> on a set $P$ is a relation $\\le$ that is</p>\n<ul>\n  <li><em>reflexive</em>: $a \\le a$ for all $a$;</li>\n  <li><em>antisymmetric</em>: if $a \\le b$ and $b \\le a$ then $a = b$;</li>\n  <li><em>transitive</em>: if $a \\le b$ and $b \\le c$ then $a \\le c$.</li>\n</ul>\n<p>The pair $(P, \\le)$ is a <strong>partially ordered set</strong>, or <em>poset</em>. The word <em>partial</em> is the whole point: two elements $a, b$ may be <strong>incomparable</strong>, with neither $a \\le b$ nor $b \\le a$. Drop antisymmetry and you have a preorder; add the demand that any two elements be comparable (<em>totality</em>) and you have a chain.</p>\n<p>Canonical examples: the divisors of an integer ordered by divisibility, the subsets of a set ordered by inclusion, the subspaces of a vector space, the open sets of a topology. A partial order is, structurally, just a special binary relation — the same raw material as an equivalence relation, but with antisymmetry replacing symmetry.</p>\n\n<h3>Hasse diagrams</h3>\n<p>Drawing every comparable pair clutters the picture, because transitivity forces most edges. The <strong>Hasse diagram</strong> instead draws only the <em>covering relations</em>: $y$ <em>covers</em> $x$ when $x < y$ and no $z$ satisfies $x < z < y$. Elements are placed so that larger ones sit higher, and we read off $x \\le y$ by following an upward path. Formally the Hasse diagram is the <em>transitive reduction</em> of the order relation — the minimal set of edges whose transitive closure recovers $\\le$.</p>\n\n<h3>Chains, antichains, height and width</h3>\n<p>A <strong>chain</strong> is a subset that is totally ordered (every two of its elements are comparable); an <strong>antichain</strong> is a subset of pairwise <em>incomparable</em> elements. The <strong>height</strong> of a finite poset is the size of its longest chain; the <strong>width</strong> is the size of its largest antichain. These two numbers are the protagonists of Dilworth and Mirsky in §3.</p>\n\n<div class=\"note\"><strong>Worked mini-example.</strong> The divisor lattice of $30$ — divisors $\\{1,2,3,5,6,10,15,30\\}$ under divisibility — is isomorphic to the Boolean lattice $B_3$ of subsets of $\\{2,3,5\\}$ (send each divisor to its set of prime factors). A chain is $1 \\mid 2 \\mid 6 \\mid 30$ (length $4$ = height); an antichain is $\\{6,10,15\\}$, the three elements with two prime factors (width $3 = \\binom{3}{1}$ at the middle... in fact $\\binom{3}{1}=3$ at each non-extreme level, and the widest level here has size $3$).</div>\n\n<p>Click any two nodes in the divisor lattice of $30$ below: the widget reports whether they are comparable, highlights a maximal chain through a clicked element, or highlights the largest antichain. The height and width readouts update live.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "parametric-plot",
+          "params": {
+            "interaction": "single-mode",
+            "widgetId": "w-posets",
+            "svgId": "posets-svg",
+            "outputId": "posets-out",
+            "title": "Hasse diagram of the divisor lattice of 30",
+            "hint": "click nodes to test comparability, grow a chain, or see the widest antichain",
+            "viewBox": "0 0 600 360",
+            "svgWidth": 600,
+            "svgHeight": 360,
+            "svgTitle": "Hasse diagram of the divisors of 30 under divisibility, isomorphic to the Boolean lattice B3",
+            "outputInitial": "",
+            "sliders": [
+              {
+                "id": "posets-mode",
+                "outId": "posets-mode-lbl",
+                "label": "mode (0 compare, 1 chain, 2 antichain):",
+                "min": 0,
+                "max": 2,
+                "step": 1,
+                "init": 0
+              }
+            ],
+            "buttons": [
+              {
+                "id": "posets-clear",
+                "label": "clear selection"
+              }
+            ],
+            "bodyScript": "  const svg=$('#posets-svg'), out=$('#posets-out');\n  const modeSl=$('#posets-mode'), modeL=$('#posets-mode-lbl'), clearBtn=$('#posets-clear');\n  const W=600,H=360;\n  // divisor lattice of 30 ~ B_3 of {2,3,5}; nodes laid out by number of prime factors (rank)\n  const nodes=[\n    {n:1, rank:0, x:300},\n    {n:2, rank:1, x:150}, {n:3, rank:1, x:300}, {n:5, rank:1, x:450},\n    {n:6, rank:2, x:150}, {n:10, rank:2, x:300}, {n:15, rank:2, x:450},\n    {n:30, rank:3, x:300}\n  ];\n  const ys={0:320,1:235,2:130,3:45};\n  for(const v of nodes) v.y=ys[v.rank];\n  const byN={}; for(const v of nodes) byN[v.n]=v;\n  function divides(a,b){ return b%a===0; }\n  // covering edges: a covers b when a|b, a!=b, no c strictly between\n  const covers=[];\n  for(const a of nodes) for(const b of nodes){\n    if(a.n!==b.n && divides(a.n,b.n)){\n      let mid=false;\n      for(const c of nodes) if(c.n!==a.n && c.n!==b.n && divides(a.n,c.n) && divides(c.n,b.n)) mid=true;\n      if(!mid) covers.push([a.n,b.n]);\n    }\n  }\n  let sel=[]; // up to two selected n-values\n  function comparable(a,b){ return divides(a,b) || divides(b,a); }\n  // maximal chain through one node: greedily extend down then up\n  function chainThrough(n){\n    let chain=[n];\n    let cur=n;\n    while(true){ const below=nodes.filter(v=>divides(v.n,cur)&&v.n!==cur).sort((p,q)=>q.n-p.n); let nxt=null; for(const v of below){ if(covers.some(e=>e[0]===v.n&&e[1]===cur)){nxt=v.n;break;} } if(nxt===null) break; chain.unshift(nxt); cur=nxt; }\n    cur=n;\n    while(true){ const above=nodes.filter(v=>divides(cur,v.n)&&v.n!==cur).sort((p,q)=>p.n-q.n); let nxt=null; for(const v of above){ if(covers.some(e=>e[0]===cur&&e[1]===v.n)){nxt=v.n;break;} } if(nxt===null) break; chain.push(nxt); cur=nxt; }\n    return chain;\n  }\n  const widestAntichain=[6,10,15]; // the rank-2 (and rank-1) levels have width 3\n  function render(){\n    const mode=+modeSl.value;\n    modeL.textContent = mode===0?'comparability (click 2 nodes)' : mode===1?'maximal chain (click 1 node)' : 'largest antichain';\n    svg.innerHTML='';\n    // highlighted edge/element sets\n    let hiNodes=new Set(), hiEdges=new Set();\n    let msg='';\n    if(mode===0){\n      sel.forEach(n=>hiNodes.add(n));\n      if(sel.length===2){ msg = sel[0]+' and '+sel[1]+' are '+(comparable(sel[0],sel[1])?'COMPARABLE ('+(divides(sel[0],sel[1])?sel[0]+' | '+sel[1]:sel[1]+' | '+sel[0])+')':'INCOMPARABLE (neither divides the other)'); }\n      else msg='click two nodes to test comparability';\n    } else if(mode===1){\n      if(sel.length>=1){ const ch=chainThrough(sel[sel.length-1]); ch.forEach(n=>hiNodes.add(n)); for(let i=0;i+1<ch.length;i++) hiEdges.add(ch[i]+'-'+ch[i+1]); msg='maximal chain through '+sel[sel.length-1]+': '+ch.join(' | ')+'   (length '+ch.length+')'; }\n      else msg='click a node to grow a maximal chain through it';\n    } else {\n      widestAntichain.forEach(n=>hiNodes.add(n)); msg='largest antichain: {'+widestAntichain.join(', ')+'} — three pairwise-incomparable divisors (width = 3)';\n    }\n    // draw edges\n    for(const [a,b] of covers){ const va=byN[a], vb=byN[b]; const hi=hiEdges.has(a+'-'+b);\n      svg.appendChild(SVG('line',{x1:va.x,y1:va.y,x2:vb.x,y2:vb.y,stroke: hi?'var(--yellow)':'var(--line)','stroke-width':hi?3.5:1.5,opacity:hi?1:0.7})); }\n    // draw nodes\n    for(const v of nodes){ const hi=hiNodes.has(v.n);\n      drawNode(svg,v.x,v.y,v.n,{r:18, fill: hi?'var(--panel)':'var(--panel2)', stroke: hi?'var(--yellow)':'var(--violet)', fontSize:13}); }\n    // height/width caption (viewport coords)\n    const cap=SVG('text',{x:20,y:24,'font-size':12,fill:'var(--mute)'}); cap.textContent='divisor lattice of 30  ≅  Boolean lattice B₃    height = 4 (longest chain)    width = 3 (largest antichain)'; svg.appendChild(cap);\n    out.textContent = msg;\n  }\n  svg.addEventListener('click',(ev)=>{\n    const pt=svg.getBoundingClientRect(); const sx=W/pt.width, sy=H/pt.height;\n    const mx=(ev.clientX-pt.left)*sx, my=(ev.clientY-pt.top)*sy;\n    let best=null,bd=1e9; for(const v of nodes){ const dd=(v.x-mx)**2+(v.y-my)**2; if(dd<bd){bd=dd;best=v;} }\n    if(best && bd<900){ const mode=+modeSl.value; if(mode===0){ sel.push(best.n); if(sel.length>2) sel=sel.slice(-2); } else { sel=[best.n]; } render(); }\n  });\n  modeSl.addEventListener('input',()=>{ sel=[]; render(); });\n  clearBtn.addEventListener('click',()=>{ sel=[]; render(); });\n  render();"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-posets"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./naive-set-theory.html#sets\">Sets and functions</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./order-theory-and-lattices.html#dilworth\">Order theory and lattices</a> · Dilworth's theorem</div>\n    <div><a href=\"./order-theory-and-lattices.html#lattices\">Order theory and lattices</a> · Lattices: meet &amp; join</div>\n    <div><a href=\"./order-theory-and-lattices.html#mobius\">Order theory and lattices</a> · Möbius functions &amp; inversion</div>\n    <div><a href=\"./order-theory-and-lattices.html#sperner\">Order theory and lattices</a> · Sperner &amp; the Boolean lattice</div>\n</aside>\n<!-- backlinks-auto-end -->"
+        },
+        {
+          "type": "quiz",
+          "concept": "ot-posets",
+          "html": "<div class=\"quiz\" data-concept=\"ot-posets\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "lattices",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"lattices\">\n<h2>2. Lattices: meet &amp; join</h2>\n<p>A poset is a <strong>lattice</strong> when every pair of elements $a, b$ has both</p>\n<ul>\n  <li>a <strong>meet</strong> $a \\wedge b$ — the <em>greatest lower bound</em>, the largest element below both;</li>\n  <li>a <strong>join</strong> $a \\vee b$ — the <em>least upper bound</em>, the smallest element above both.</li>\n</ul>\n<p>On the divisor lattice these are $\\gcd$ and $\\operatorname{lcm}$; on the Boolean lattice of subsets they are $\\cap$ and $\\cup$. A lattice with a bottom $\\hat 0$ and top $\\hat 1$ is <strong>bounded</strong> (every finite lattice is). Meet and join are commutative, associative, idempotent, and absorptive — so a lattice can equally be defined algebraically as a set with two such operations.</p>\n\n<h3>Distributive and modular lattices</h3>\n<p>The richest lattices satisfy the <strong>distributive law</strong> $a \\wedge (b \\vee c) = (a \\wedge b) \\vee (a \\wedge c)$ (equivalently its dual). A weaker condition is <strong>modularity</strong>: $a \\le c$ implies $a \\vee (b \\wedge c) = (a \\vee b) \\wedge c$. Distributive $\\Rightarrow$ modular, never the reverse.</p>\n<p>What makes these conditions clean is that each is detected by a single forbidden sublattice:</p>\n<p style=\"text-align:center\">a lattice is <strong>modular</strong> $\\iff$ it has no sublattice isomorphic to the pentagon $N_5$;</p>\n<p style=\"text-align:center\">a lattice is <strong>distributive</strong> $\\iff$ it has no sublattice isomorphic to $N_5$ <em>or</em> to the diamond $M_3$.</p>\n<p>$N_5$ is the five-element non-modular lattice (a chain of length $3$ with one extra element bypassing the middle); $M_3$ is the diamond with three incomparable atoms between $\\hat 0$ and $\\hat 1$. $M_3$ is modular but not distributive, which is exactly why distributivity must forbid <em>both</em> $M_3$ and $N_5$ while modularity forbids only $N_5$. (These are Birkhoff's and Dedekind's theorems.)</p>\n\n<div class=\"note\"><strong>Worked mini-example ($M_3$ fails distributivity).</strong> Take distinct atoms $a,b,c$ in $M_3$. Then $a \\wedge (b \\vee c) = a \\wedge \\hat 1 = a$, but $(a \\wedge b) \\vee (a \\wedge c) = \\hat 0 \\vee \\hat 0 = \\hat 0 \\ne a$. So $M_3$ is not distributive — yet it is modular, since it contains no pentagon $N_5$.</div>\n\n<p>Pick a lattice from the menu — the divisor lattice of $30$ ($\\cong B_3$, distributive), the Boolean lattice $B_3$ itself, the diamond $M_3$, or the pentagon $N_5$ — then click two elements to see their meet and join highlighted. The readout reports whether the lattice is distributive and/or modular.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "parametric-plot",
+          "params": {
+            "interaction": "multi-mode",
+            "widgetId": "w-lattices",
+            "svgId": "lattices-svg",
+            "outputId": "lattices-out",
+            "title": "Meet and join in four lattices",
+            "hint": "pick a lattice, click two elements; readout flags distributive / modular",
+            "viewBox": "0 0 600 360",
+            "svgWidth": 600,
+            "svgHeight": 360,
+            "svgTitle": "Computing the meet and join of two chosen lattice elements, with distributivity and modularity flags",
+            "outputInitial": "",
+            "pick": {
+              "id": "lattices-pick",
+              "label": "lattice:",
+              "options": [
+                {
+                  "value": "div30",
+                  "label": "divisor lattice of $30$ ($\\cong B_3$, distributive)",
+                  "selected": true
+                },
+                {
+                  "value": "b3",
+                  "label": "Boolean lattice $B_3$ (distributive)"
+                },
+                {
+                  "value": "m3",
+                  "label": "diamond $M_3$ (modular, not distributive)"
+                },
+                {
+                  "value": "n5",
+                  "label": "pentagon $N_5$ (not modular)"
+                }
+              ]
+            },
+            "buttons": [
+              {
+                "id": "lattices-clear",
+                "label": "clear selection"
+              }
+            ],
+            "modes": {
+              "div30": {},
+              "b3": {},
+              "m3": {},
+              "n5": {}
+            },
+            "initialMode": "div30",
+            "bodyScript": "  const svg=$('#lattices-svg'), out=$('#lattices-out'), pick=$('#lattices-pick');\n  const clearBtn=$('#lattices-clear');\n  const W=600,H=360;\n  // each lattice: nodes {id,x,y,label}, leq(a,b) predicate via reachability on covers\n  const LAT={};\n  // divisor lattice of 30\n  LAT.div30={ name:'divisor lattice of 30 (≅ B₃)', distributive:true, modular:true,\n    nodes:[{id:'1',x:300,y:320},{id:'2',x:150,y:225},{id:'3',x:300,y:225},{id:'5',x:450,y:225},{id:'6',x:150,y:120},{id:'10',x:300,y:120},{id:'15',x:450,y:120},{id:'30',x:300,y:35}],\n    covers:[['1','2'],['1','3'],['1','5'],['2','6'],['2','10'],['3','6'],['3','15'],['5','10'],['5','15'],['6','30'],['10','30'],['15','30']] };\n  // Boolean B3 over {a,b,c}\n  LAT.b3={ name:'Boolean lattice B₃', distributive:true, modular:true,\n    nodes:[{id:'∅',x:300,y:320},{id:'a',x:150,y:225},{id:'b',x:300,y:225},{id:'c',x:450,y:225},{id:'ab',x:150,y:120},{id:'ac',x:300,y:120},{id:'bc',x:450,y:120},{id:'abc',x:300,y:35}],\n    covers:[['∅','a'],['∅','b'],['∅','c'],['a','ab'],['a','ac'],['b','ab'],['b','bc'],['c','ac'],['c','bc'],['ab','abc'],['ac','abc'],['bc','abc']] };\n  // diamond M3\n  LAT.m3={ name:'diamond M₃', distributive:false, modular:true,\n    nodes:[{id:'0',x:300,y:300},{id:'a',x:160,y:180},{id:'b',x:300,y:180},{id:'c',x:440,y:180},{id:'1',x:300,y:60}],\n    covers:[['0','a'],['0','b'],['0','c'],['a','1'],['b','1'],['c','1']] };\n  // pentagon N5\n  LAT.n5={ name:'pentagon N₅', distributive:false, modular:false,\n    nodes:[{id:'0',x:300,y:310},{id:'a',x:170,y:200},{id:'b',x:170,y:90},{id:'c',x:430,y:200},{id:'1',x:300,y:35}],\n    covers:[['0','a'],['a','b'],['b','1'],['0','c'],['c','1']] };\n  let cur='div30', sel=[];\n  function reach(L){ // transitive closure: leq[x][y]\n    const ids=L.nodes.map(n=>n.id); const leq={}; ids.forEach(i=>{leq[i]={}; ids.forEach(j=>leq[i][j]=(i===j));});\n    L.covers.forEach(([a,b])=>leq[a][b]=true);\n    let changed=true; while(changed){ changed=false; for(const x of ids) for(const y of ids) if(leq[x][y]) for(const z of ids) if(leq[y][z]&&!leq[x][z]){leq[x][z]=true;changed=true;} }\n    return leq;\n  }\n  function meet(L,leq,a,b){ // greatest lower bound\n    const lower=L.nodes.map(n=>n.id).filter(z=>leq[z][a]&&leq[z][b]);\n    return lower.find(z=>lower.every(w=>leq[w][z]));\n  }\n  function join(L,leq,a,b){ const upper=L.nodes.map(n=>n.id).filter(z=>leq[a][z]&&leq[b][z]);\n    return upper.find(z=>upper.every(w=>leq[z][w])); }\n  function render(){\n    const L=LAT[cur]; const leq=reach(L);\n    svg.innerHTML='';\n    let hi=new Set(sel), mEl=null, jEl=null;\n    if(sel.length===2){ mEl=meet(L,leq,sel[0],sel[1]); jEl=join(L,leq,sel[0],sel[1]); if(mEl)hi.add(mEl); if(jEl)hi.add(jEl); }\n    const byId={}; L.nodes.forEach(n=>byId[n.id]=n);\n    for(const [a,b] of L.covers){ const va=byId[a],vb=byId[b];\n      svg.appendChild(SVG('line',{x1:va.x,y1:va.y,x2:vb.x,y2:vb.y,stroke:'var(--line)','stroke-width':1.5,opacity:0.7})); }\n    for(const n of L.nodes){ let fill='var(--panel2)', stroke='var(--violet)';\n      if(n.id===mEl){ stroke='var(--cyan)'; fill='var(--panel)'; }\n      else if(n.id===jEl){ stroke='var(--pink)'; fill='var(--panel)'; }\n      else if(sel.includes(n.id)){ stroke='var(--yellow)'; fill='var(--panel)'; }\n      drawNode(svg,n.x,n.y,n.id,{r:19,fill,stroke,fontSize:12}); }\n    const cap=SVG('text',{x:20,y:24,'font-size':12,fill:'var(--mute)'}); cap.textContent=L.name+'    cyan = meet (∧)    pink = join (∨)'; svg.appendChild(cap);\n    let msg;\n    if(sel.length===2) msg=sel[0]+' ∧ '+sel[1]+' = '+mEl+'    (greatest lower bound)\\n'+sel[0]+' ∨ '+sel[1]+' = '+jEl+'    (least upper bound)';\n    else msg='click two elements to compute their meet and join';\n    msg += '\\nlattice is '+(L.distributive?'DISTRIBUTIVE (no M₃ and no N₅ sublattice)':'NOT distributive')+'; '+(L.modular?'MODULAR (no N₅ sublattice)':'NOT modular (contains N₅)');\n    out.textContent=msg;\n  }\n  svg.addEventListener('click',(ev)=>{\n    const L=LAT[cur]; const pt=svg.getBoundingClientRect(); const sx=W/pt.width, sy=H/pt.height;\n    const mx=(ev.clientX-pt.left)*sx, my=(ev.clientY-pt.top)*sy;\n    let best=null,bd=1e9; for(const n of L.nodes){ const dd=(n.x-mx)**2+(n.y-my)**2; if(dd<bd){bd=dd;best=n;} }\n    if(best && bd<1100){ sel.push(best.id); if(sel.length>2) sel=sel.slice(-2); render(); }\n  });\n  pick.addEventListener('change',()=>{ cur=pick.value; sel=[]; render(); });\n  clearBtn.addEventListener('click',()=>{ sel=[]; render(); });\n  render();"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-lattices"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "quiz",
+          "concept": "ot-lattices",
+          "html": "<div class=\"quiz\" data-concept=\"ot-lattices\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./order-theory-and-lattices.html#completeness\">Order theory and lattices</a> · Complete lattices &amp; Knaster–Tarski</div>\n</aside>\n<!-- backlinks-auto-end -->"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "dilworth",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"dilworth\">\n<h2>3. Dilworth's theorem</h2>\n<p>Chains and antichains are dual obstructions, and a finite poset balances them exactly.</p>\n<p style=\"text-align:center\"><strong>Dilworth's theorem (1950).</strong> In any finite poset, the size of a largest antichain (the <em>width</em>) equals the minimum number of chains needed to cover all the elements.</p>\n<p>One inequality is immediate: a single chain meets any antichain in at most one element, so if the width is $w$ you certainly need at least $w$ chains to cover the poset. The depth of the theorem is the reverse — that $w$ chains always <em>suffice</em>. The standard proof is by induction on $|P|$, or as a slick corollary of König's theorem on bipartite matchings.</p>\n\n<h3>Mirsky's dual</h3>\n<p>Swapping the roles of chains and antichains gives the dual statement.</p>\n<p style=\"text-align:center\"><strong>Mirsky's theorem (1971).</strong> In any finite poset, the size of a longest chain (the <em>height</em>) equals the minimum number of antichains needed to cover all the elements.</p>\n<p>Mirsky's direction is the easy one: rank each element by the length of the longest chain ending at it, and the elements of equal rank form antichains — a covering by exactly <em>height</em>-many antichains. Together, Dilworth and Mirsky say chains and antichains are perfectly dual covering resources.</p>\n\n<div class=\"note\"><strong>Worked mini-example.</strong> On the divisor lattice of $12$ ($\\{1,2,3,4,6,12\\}$), the largest antichain is $\\{4,6\\}$ (or $\\{2,3\\}$), so the width is $2$. Dilworth then promises a cover by $2$ chains, and indeed $1 \\mid 2 \\mid 4 \\mid 12$ together with $3 \\mid 6$ covers all six divisors. Dually the longest chain $1 \\mid 2 \\mid 4 \\mid 12$ has length $4$ = height, and the rank levels $\\{1\\}, \\{2,3\\}, \\{4,6\\}, \\{12\\}$ are $4$ antichains covering the poset (Mirsky).</div>\n\n<p>Step through the divisor lattice of $12$ below: the widget extracts a maximum antichain and a minimum chain cover and shows the two numbers coincide. Toggle to Mirsky's view to see the longest chain matched against the antichain (rank-level) cover.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "parametric-plot",
+          "params": {
+            "interaction": "single-mode",
+            "widgetId": "w-dilworth",
+            "svgId": "dilworth-svg",
+            "outputId": "dilworth-out",
+            "title": "Dilworth & Mirsky on the divisor lattice of 12",
+            "hint": "width = min chain cover (Dilworth); height = min antichain cover (Mirsky)",
+            "viewBox": "0 0 600 340",
+            "svgWidth": 600,
+            "svgHeight": 340,
+            "svgTitle": "Dilworth's theorem (antichain vs chain cover) and Mirsky's dual (chain vs antichain cover) on the divisors of 12",
+            "outputInitial": "",
+            "sliders": [
+              {
+                "id": "dilworth-view",
+                "outId": "dilworth-view-lbl",
+                "label": "view (0 Dilworth, 1 Mirsky):",
+                "min": 0,
+                "max": 1,
+                "step": 1,
+                "init": 0
+              }
+            ],
+            "bodyScript": "  const svg=$('#dilworth-svg'), out=$('#dilworth-out');\n  const viewSl=$('#dilworth-view'), viewL=$('#dilworth-view-lbl');\n  const W=600,H=340;\n  // divisor lattice of 12\n  const nodes=[{n:1,x:300,y:300},{n:2,x:200,y:210},{n:3,x:400,y:210},{n:4,x:200,y:120},{n:6,x:400,y:120},{n:12,x:300,y:35}];\n  const byN={}; nodes.forEach(v=>byN[v.n]=v);\n  function divides(a,b){ return b%a===0; }\n  const covers=[];\n  for(const a of nodes) for(const b of nodes) if(a.n!==b.n && divides(a.n,b.n)){ let mid=false; for(const c of nodes) if(c.n!==a.n&&c.n!==b.n&&divides(a.n,c.n)&&divides(c.n,b.n)) mid=true; if(!mid) covers.push([a.n,b.n]); }\n  const chainCover=[[1,2,4,12],[3,6]]; // width 2 -> 2 chains\n  const antichain=[4,6];                // width = 2\n  const longestChain=[1,2,4,12];        // height = 4\n  const rankLevels=[[1],[2,3],[4,6],[12]]; // 4 antichains (Mirsky)\n  const chainColors=['var(--cyan)','var(--pink)','var(--green)'];\n  const acColors=['var(--yellow)','var(--cyan)','var(--pink)','var(--green)'];\n  function render(){\n    const view=+viewSl.value;\n    viewL.textContent = view===0?'Dilworth: antichain vs chain cover':'Mirsky: longest chain vs antichain cover';\n    svg.innerHTML='';\n    for(const [a,b] of covers){ const va=byN[a],vb=byN[b]; svg.appendChild(SVG('line',{x1:va.x,y1:va.y,x2:vb.x,y2:vb.y,stroke:'var(--line)','stroke-width':1.5,opacity:0.6})); }\n    let msg='';\n    if(view===0){\n      // color each node by which cover-chain it belongs to\n      const colorOf={}; chainCover.forEach((ch,i)=>ch.forEach(n=>colorOf[n]=chainColors[i]));\n      const acSet=new Set(antichain);\n      for(const v of nodes){ const isAc=acSet.has(v.n);\n        drawNode(svg,v.x,v.y,v.n,{r:18,fill: isAc?'var(--panel)':'var(--panel2)', stroke: colorOf[v.n]||'var(--violet)', fontSize:13}); }\n      // ring the antichain elements\n      for(const n of antichain){ const v=byN[n]; svg.appendChild(SVG('circle',{cx:v.x,cy:v.y,r:24,fill:'none',stroke:'var(--ink)','stroke-width':2,'stroke-dasharray':'4 3'})); }\n      const cap=SVG('text',{x:20,y:24,'font-size':12,fill:'var(--mute)'}); cap.textContent='dashed ring = maximum antichain    node color = which cover-chain'; svg.appendChild(cap);\n      msg='maximum antichain {'+antichain.join(', ')+'} has size 2 = WIDTH\\n'+'minimum chain cover: {'+chainCover.map(c=>c.join('|')).join('}, {')+'} = 2 chains\\n'+'width = min chain cover = 2  ✓  (Dilworth)';\n    } else {\n      const colorOf={}; rankLevels.forEach((lv,i)=>lv.forEach(n=>colorOf[n]=acColors[i]));\n      const chainSet=new Set(longestChain);\n      // highlight the chain edges\n      for(let i=0;i+1<longestChain.length;i++){ const va=byN[longestChain[i]],vb=byN[longestChain[i+1]]; svg.appendChild(SVG('line',{x1:va.x,y1:va.y,x2:vb.x,y2:vb.y,stroke:'var(--ink)','stroke-width':3.5})); }\n      for(const v of nodes){ drawNode(svg,v.x,v.y,v.n,{r:18,fill: chainSet.has(v.n)?'var(--panel)':'var(--panel2)', stroke: colorOf[v.n]||'var(--violet)', fontSize:13}); }\n      const cap=SVG('text',{x:20,y:24,'font-size':12,fill:'var(--mute)'}); cap.textContent='bold edges = longest chain    node color = which rank-level antichain'; svg.appendChild(cap);\n      msg='longest chain {'+longestChain.join(' | ')+'} has length 4 = HEIGHT\\n'+'antichain (rank-level) cover: '+rankLevels.map(l=>'{'+l.join(',')+'}').join(', ')+' = 4 antichains\\n'+'height = min antichain cover = 4  ✓  (Mirsky)';\n    }\n    out.textContent=msg;\n  }\n  viewSl.addEventListener('input',render);\n  render();"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-dilworth"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "quiz",
+          "concept": "ot-dilworth",
+          "html": "<div class=\"quiz\" data-concept=\"ot-dilworth\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "sperner",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"sperner\">\n<h2>4. Sperner &amp; the Boolean lattice</h2>\n<p>The <strong>Boolean lattice</strong> $B_n$ is the poset of all subsets of an $n$-element set ordered by inclusion; meet is $\\cap$, join is $\\cup$, bottom is $\\varnothing$, top is the whole set. It is the universal distributive lattice and the natural home of Sperner's question: <em>how large can a family of subsets be if none contains another?</em> Such a family is precisely an <strong>antichain</strong> in $B_n$ — a <em>Sperner family</em>.</p>\n<p style=\"text-align:center\"><strong>Sperner's theorem (1928).</strong> The largest antichain in $B_n$ has size $\\binom{n}{\\lfloor n/2\\rfloor}$, attained by the middle layer of all $\\lfloor n/2\\rfloor$-element subsets.</p>\n<p>The subsets of $B_n$ split into $n+1$ <strong>layers</strong> by cardinality; layer $k$ has $\\binom{n}{k}$ subsets and is itself an antichain (equal-size sets never contain one another). The binomial coefficients peak at the middle, so the middle layer is the obvious large antichain. Sperner's content is that you can do no better with a <em>mixed</em> family.</p>\n\n<h3>The LYM proof</h3>\n<p>The cleanest argument is the <strong>LYM inequality</strong> (Lubell–Yamamoto–Meshalkin): for any antichain $\\mathcal{F}$ in $B_n$,</p>\n<p style=\"text-align:center\">$\\displaystyle \\sum_{A \\in \\mathcal{F}} \\frac{1}{\\binom{n}{|A|}} \\le 1.$</p>\n<p>Lubell's one-line proof: a uniformly random maximal chain $\\varnothing \\subset \\cdots \\subset [n]$ passes through each fixed set $A$ with probability $1/\\binom{n}{|A|}$, and it can hit the antichain $\\mathcal F$ at most once, so the probabilities sum to at most $1$. Since every term is at least $1/\\binom{n}{\\lfloor n/2\\rfloor}$, we get $|\\mathcal{F}| \\le \\binom{n}{\\lfloor n/2\\rfloor}$ — Sperner's bound. The full extremal-set development of LYM lives in <a href=\"./extremal-combinatorics.html#sperner\">extremal combinatorics</a>; here we keep the poset framing and cross-link the proof rather than re-deriving it.</p>\n\n<div class=\"note\"><strong>Worked mini-example.</strong> In $B_4$ the layer sizes are $1,4,6,4,1$. The middle layer (the six $2$-element subsets) is the largest antichain, of size $\\binom{4}{2}=6$ — and no clever mix of small and large subsets beats $6$, by LYM. In $B_3$ the layers are $1,3,3,1$: the maximum antichain has size $\\binom{3}{1}=3$, and there are two extremal middle layers.</div>\n\n<p>Slide $n$ to draw the layers of $B_n$ as a stack of binomial coefficients. The widget highlights the middle layer, prints $\\binom{n}{\\lfloor n/2\\rfloor}$, and shows the LYM sum hitting its maximum exactly on the middle-layer antichain.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "parametric-plot",
+          "params": {
+            "interaction": "single-mode",
+            "widgetId": "w-sperner",
+            "svgId": "sperner-svg",
+            "outputId": "sperner-out",
+            "title": "Layers of the Boolean lattice B_n",
+            "hint": "the middle layer is the largest antichain, size C(n, floor(n/2))",
+            "viewBox": "0 0 600 340",
+            "svgWidth": 600,
+            "svgHeight": 340,
+            "svgTitle": "Binomial-coefficient layers of the Boolean lattice B_n with the middle (largest-antichain) layer highlighted",
+            "outputInitial": "",
+            "sliders": [
+              {
+                "id": "sperner-n",
+                "outId": "sperner-n-lbl",
+                "label": "dimension $n$:",
+                "min": 2,
+                "max": 8,
+                "step": 1,
+                "init": 4
+              }
+            ],
+            "bodyScript": "  const svg=$('#sperner-svg'), out=$('#sperner-out');\n  const nSl=$('#sperner-n'), nL=$('#sperner-n-lbl');\n  const W=600,H=340;\n  function binom(n,k){ if(k<0||k>n) return 0; let r=1; for(let i=0;i<k;i++) r=r*(n-i)/(i+1); return Math.round(r); }\n  function render(){\n    const n=+nSl.value; nL.textContent='n = '+n;\n    svg.innerHTML='';\n    const layers=[]; for(let k=0;k<=n;k++) layers.push(binom(n,k));\n    const mid=Math.floor(n/2); const maxSize=binom(n,mid);\n    const top=40, rowH=Math.min(40,(H-90)/(n+1)), cx=W/2;\n    const maxBarW=W-160; const unit=maxBarW/maxSize;\n    for(let k=0;k<=n;k++){ const y=top+(n-k)*rowH; const w=layers[k]*unit; const isMid=(k===mid);\n      svg.appendChild(SVG('rect',{x:cx-w/2,y,width:Math.max(w,2),height:rowH-8,rx:5,\n        fill: isMid?'var(--yellow)':'var(--violet)', opacity: isMid?0.95:0.6, stroke:'var(--line)'}));\n      const lab=SVG('text',{x:cx-w/2-10,y:y+(rowH-8)/2+4,'text-anchor':'end','font-size':11,fill:'var(--mute)'}); lab.textContent='|A|='+k; svg.appendChild(lab);\n      const cnt=SVG('text',{x:cx+w/2+8,y:y+(rowH-8)/2+4,'font-size':11,fill: isMid?'var(--yellow)':'var(--mute)','font-weight':isMid?700:400}); cnt.textContent='C('+n+','+k+')='+layers[k]; svg.appendChild(cnt);\n    }\n    // LYM sum for the middle-layer antichain: maxSize * (1/maxSize) = 1\n    const lymMid = maxSize * (1/binom(n,mid));\n    out.textContent =\n      'Boolean lattice B'+n+'    layer sizes: '+layers.join(', ')+'\\n'+\n      'middle layer |A| = '+mid+'  is the largest antichain, size  C('+n+','+mid+') = '+maxSize+'   (Sperner)\\n'+\n      'LYM check on the middle layer:  '+maxSize+' × 1/C('+n+','+mid+') = '+maxSize+'/'+binom(n,mid)+' = '+lymMid.toFixed(2)+'  ≤ 1  (tight)\\n'+\n      'every antichain in B'+n+' has at most '+maxSize+' sets; the LYM sum Σ 1/C(n,|A|) ≤ 1 forces it.';\n  }\n  nSl.addEventListener('input',render);\n  render();"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-sperner"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./extremal-combinatorics.html#sperner\">Sperner's theorem &amp; the LYM inequality (extremal-set proof)</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "quiz",
+          "concept": "ot-sperner",
+          "html": "<div class=\"quiz\" data-concept=\"ot-sperner\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "mobius",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"mobius\">\n<h2>5. Möbius functions &amp; inversion</h2>\n<p>Inclusion–exclusion, the inversion formula for the number-theoretic $\\mu$, and a dozen other \"alternating-sign\" identities are all one theorem in disguise — the <strong>Möbius function of a poset</strong>, introduced by Gian-Carlo Rota.</p>\n<p>Let $P$ be a locally finite poset (every interval $[x,y]$ is finite). Its Möbius function $\\mu : \\{(x,y) : x \\le y\\} \\to \\mathbb{Z}$ is defined recursively by</p>\n<p style=\"text-align:center\">$\\mu(x,x) = 1, \\qquad \\mu(x,y) = -\\!\\!\\sum_{x \\le z < y} \\mu(x,z) \\quad (x < y).$</p>\n<p>Equivalently $\\sum_{x \\le z \\le y} \\mu(x,z) = 0$ whenever $x < y$: the Möbius function is the inverse, in the <em>incidence algebra</em> of $P$, of the constant function $\\zeta(x,y) = 1$.</p>\n\n<h3>Möbius inversion</h3>\n<p>The payoff is an inversion principle. If $g(x) = \\sum_{y \\le x} f(y)$ for all $x$, then</p>\n<p style=\"text-align:center\">$\\displaystyle f(x) = \\sum_{y \\le x} \\mu(y,x)\\, g(y).$</p>\n<p>Two specializations recover classical theorems:</p>\n<ul>\n  <li>On the <strong>Boolean lattice</strong> $B_n$, $\\mu(A,B) = (-1)^{|B \\setminus A|}$, and Möbius inversion is exactly the <a href=\"./enumerative-combinatorics.html#inclusion-exclusion\">inclusion–exclusion</a> formula with its alternating signs.</li>\n  <li>On the <strong>divisor lattice</strong> (positive integers under divisibility), $\\mu(1,n)$ is the number-theoretic $\\mu(n)$ — $0$ if $n$ is not squarefree, else $(-1)^{(\\text{number of prime factors})}$ — and inversion becomes classical Möbius inversion $g(n) = \\sum_{d\\mid n} f(d) \\Leftrightarrow f(n) = \\sum_{d\\mid n}\\mu(n/d)g(d)$.</li>\n</ul>\n\n<div class=\"note\"><strong>Worked mini-example.</strong> On $B_2$ (subsets of $\\{a,b\\}$): $\\mu(\\varnothing,\\varnothing)=1$, $\\mu(\\varnothing,\\{a\\}) = -1$, $\\mu(\\varnothing,\\{b\\})=-1$, and $\\mu(\\varnothing,\\{a,b\\}) = -(1 + (-1) + (-1)) = 1 = (-1)^2$. The signs $+,-,-,+$ are exactly the inclusion–exclusion pattern $|A\\cup B| = |A|+|B|-|A\\cap B|$. On the divisor side, $\\mu(1,12)=0$ because $12=2^2\\cdot 3$ is not squarefree, while $\\mu(1,30)=(-1)^3=-1$.</div>\n\n<p>Pick a poset — the Boolean lattice $B_3$ or the divisor lattice of $30$ — and a target element $y$. The widget computes $\\mu(\\hat 0, z)$ up the interval to $y$ by the recursion and displays the signed values; on the Boolean lattice they are $\\pm 1$ by parity, on the divisor lattice they are the number-theoretic $\\mu$.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "parametric-plot",
+          "params": {
+            "interaction": "multi-mode",
+            "widgetId": "w-mobius",
+            "svgId": "mobius-svg",
+            "outputId": "mobius-out",
+            "title": "Möbius function of a poset",
+            "hint": "computes mu(0,y) by recursion; B3 gives inclusion-exclusion signs, divisors give classical mu",
+            "viewBox": "0 0 600 340",
+            "svgWidth": 600,
+            "svgHeight": 340,
+            "svgTitle": "The Mobius function values from the bottom element across the Boolean lattice B3 or the divisor lattice of 30",
+            "outputInitial": "",
+            "pick": {
+              "id": "mobius-pick",
+              "label": "poset:",
+              "options": [
+                {
+                  "value": "b3",
+                  "label": "Boolean lattice $B_3$ (signs $(-1)^{|A|}$)",
+                  "selected": true
+                },
+                {
+                  "value": "div30",
+                  "label": "divisor lattice of $30$ (number-theoretic $\\mu$)"
+                }
+              ]
+            },
+            "modes": {
+              "b3": {},
+              "div30": {}
+            },
+            "initialMode": "b3",
+            "bodyScript": "  const svg=$('#mobius-svg'), out=$('#mobius-out'), pick=$('#mobius-pick');\n  const W=600,H=340;\n  const POS={};\n  POS.b3={ name:'Boolean lattice B₃', bottom:'∅',\n    nodes:[{id:'∅',x:300,y:300},{id:'a',x:150,y:210},{id:'b',x:300,y:210},{id:'c',x:450,y:210},{id:'ab',x:150,y:120},{id:'ac',x:300,y:120},{id:'bc',x:450,y:120},{id:'abc',x:300,y:35}],\n    covers:[['∅','a'],['∅','b'],['∅','c'],['a','ab'],['a','ac'],['b','ab'],['b','bc'],['c','ac'],['c','bc'],['ab','abc'],['ac','abc'],['bc','abc']] };\n  POS.div30={ name:'divisor lattice of 30', bottom:'1',\n    nodes:[{id:'1',x:300,y:300},{id:'2',x:150,y:210},{id:'3',x:300,y:210},{id:'5',x:450,y:210},{id:'6',x:150,y:120},{id:'10',x:300,y:120},{id:'15',x:450,y:120},{id:'30',x:300,y:35}],\n    covers:[['1','2'],['1','3'],['1','5'],['2','6'],['2','10'],['3','6'],['3','15'],['5','10'],['5','15'],['6','30'],['10','30'],['15','30']] };\n  let cur='b3';\n  function reach(P){ const ids=P.nodes.map(n=>n.id); const leq={}; ids.forEach(i=>{leq[i]={}; ids.forEach(j=>leq[i][j]=(i===j));}); P.covers.forEach(([a,b])=>leq[a][b]=true); let ch=true; while(ch){ch=false; for(const x of ids) for(const y of ids) if(leq[x][y]) for(const z of ids) if(leq[y][z]&&!leq[x][z]){leq[x][z]=true;ch=true;}} return leq; }\n  function mobiusFrom(P,leq,x){ // mu(x,y) for all y>=x, by recursion\n    const ids=P.nodes.map(n=>n.id).filter(y=>leq[x][y]);\n    // order by interval size (number of z with x<=z<=y)\n    ids.sort((p,q)=> ids.filter(z=>leq[x][z]&&leq[z][p]).length - ids.filter(z=>leq[x][z]&&leq[z][q]).length );\n    const mu={};\n    for(const y of ids){ if(y===x){ mu[y]=1; continue; } let s=0; for(const z of ids) if(z!==y && leq[x][z] && leq[z][y]) s+=mu[z]; mu[y]=-s; }\n    return mu;\n  }\n  function render(){\n    const P=POS[cur]; const leq=reach(P); const x=P.bottom; const mu=mobiusFrom(P,leq,x);\n    svg.innerHTML='';\n    const byId={}; P.nodes.forEach(n=>byId[n.id]=n);\n    for(const [a,b] of P.covers){ const va=byId[a],vb=byId[b]; svg.appendChild(SVG('line',{x1:va.x,y1:va.y,x2:vb.x,y2:vb.y,stroke:'var(--line)','stroke-width':1.5,opacity:0.6})); }\n    for(const n of P.nodes){ const m=mu[n.id]; const stroke = m===undefined?'var(--violet)':(m>0?'var(--cyan)':m<0?'var(--pink)':'var(--mute)');\n      drawNode(svg,n.x,n.y,n.id,{r:18,fill:'var(--panel2)',stroke,fontSize:12});\n      if(m!==undefined){ const t=SVG('text',{x:n.x+24,y:n.y+5,'font-size':12,fill:stroke,'font-weight':600}); t.textContent='μ='+m; svg.appendChild(t); } }\n    const cap=SVG('text',{x:20,y:24,'font-size':12,fill:'var(--mute)'}); cap.textContent=P.name+'    μ('+x+', · )    cyan = +,  pink = −,  grey = 0'; svg.appendChild(cap);\n    const ids=P.nodes.map(n=>n.id).filter(y=>leq[x][y]);\n    const lines=ids.map(y=>'μ('+x+','+y+') = '+mu[y]);\n    let extra = cur==='b3' ? 'on B₃ the values are (−1)^|set|, the inclusion–exclusion signs.' : 'on the divisor lattice μ(1,n) is the number-theoretic μ(n): −1 for one or three primes, +1 for two, 0 if not squarefree.';\n    out.textContent = lines.join('   ') + '\\n' + extra;\n  }\n  pick.addEventListener('change',()=>{ cur=pick.value; render(); });\n  render();"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-mobius"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./enumerative-combinatorics.html#inclusion-exclusion\">Inclusion–exclusion (the $B_n$ specialization of Möbius inversion)</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "quiz",
+          "concept": "ot-mobius",
+          "html": "<div class=\"quiz\" data-concept=\"ot-mobius\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "completeness",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"completeness\">\n<h2>6. Complete lattices &amp; Knaster–Tarski</h2>\n<p>A lattice gives meets and joins of <em>pairs</em>; a <strong>complete lattice</strong> gives them for <em>arbitrary</em> subsets. Formally, every $S \\subseteq L$ has a meet $\\bigwedge S$ and a join $\\bigvee S$. Taking $S = L$ produces a global bottom $\\hat 0 = \\bigwedge L$ and top $\\hat 1 = \\bigvee L$, and taking $S = \\varnothing$ gives $\\bigvee \\varnothing = \\hat 0$, $\\bigwedge \\varnothing = \\hat 1$. Every finite lattice is complete; the powerset $(\\mathcal{P}(X), \\subseteq)$ and the lattice of subgroups of a group are infinite examples.</p>\n\n<h3>Knaster–Tarski</h3>\n<p>Completeness is exactly the hypothesis that turns \"monotone map\" into \"has a fixed point\" — with no continuity, no metric, no contraction.</p>\n<p style=\"text-align:center\"><strong>Knaster–Tarski theorem.</strong> Let $L$ be a complete lattice and $f : L \\to L$ monotone (order-preserving: $x \\le y \\Rightarrow f(x) \\le f(y)$). Then the set of fixed points of $f$ is itself a complete lattice. In particular $f$ has a <strong>least</strong> fixed point</p>\n<p style=\"text-align:center\">$\\displaystyle \\operatorname{lfp}(f) = \\bigwedge \\{ x \\in L : f(x) \\le x \\}$</p>\n<p>(the meet of all <em>pre-fixed points</em>) and, dually, a greatest fixed point $\\bigvee\\{x : x \\le f(x)\\}$.</p>\n<p>The proof is a two-line miracle: let $a = \\bigwedge\\{x : f(x) \\le x\\}$. For each such $x$, $a \\le x$ so $f(a) \\le f(x) \\le x$; taking the meet over all $x$ gives $f(a) \\le a$, so $a$ is a pre-fixed point. Then $f(a) \\le a$ gives $f(f(a)) \\le f(a)$, so $f(a)$ is also pre-fixed, whence $a \\le f(a)$. Antisymmetry forces $f(a) = a$.</p>\n\n<h3>Galois connections</h3>\n<p>The same machinery powers <strong>Galois connections</strong>: a pair of monotone maps $f : P \\to Q$, $g : Q \\to P$ with $f(p) \\le q \\iff p \\le g(q)$. The composites $g \\circ f$ and $f \\circ g$ are <em>closure</em> and <em>kernel</em> operators whose fixed points are the \"closed\" elements — the abstract skeleton behind Galois theory's field/group correspondence, and behind closure operators throughout algebra and logic.</p>\n\n<div class=\"note\"><strong>Worked mini-example.</strong> On the complete lattice $[0,1]$ (an interval, ordered as usual), the monotone map $f(x) = \\tfrac{1}{2}(x + x^2)$ has fixed points where $f(x)=x$, i.e. $x^2 = x$, so $x = 0$ or $x = 1$. The least fixed point is $0$ (iterating $f$ from $0$ stays at $0$); the greatest is $1$. Knaster–Tarski guarantees both without any limit argument, and Kleene's refinement says that for Scott-continuous $f$ the least fixed point is reached by iterating $f$ from $\\hat 0$.</div>\n\n<p>Iterate a monotone map on a finite chain lattice $\\{0,1,\\dots,m\\}$ below: starting from the bottom $\\hat 0$, the widget applies $f$ repeatedly and converges upward to the least fixed point, exactly as Knaster–Tarski (and Kleene) promise.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "parametric-plot",
+          "params": {
+            "interaction": "single-mode",
+            "widgetId": "w-completeness",
+            "svgId": "completeness-svg",
+            "outputId": "completeness-out",
+            "title": "Iterating to the least fixed point",
+            "hint": "a monotone map on a complete lattice; Kleene iteration from the bottom reaches the lfp",
+            "viewBox": "0 0 600 300",
+            "svgWidth": 600,
+            "svgHeight": 300,
+            "svgTitle": "Iterating a monotone map upward from the bottom of a finite chain lattice to its least fixed point (Knaster-Tarski)",
+            "outputInitial": "",
+            "sliders": [
+              {
+                "id": "completeness-m",
+                "outId": "completeness-m-lbl",
+                "label": "chain length $m$:",
+                "min": 4,
+                "max": 12,
+                "step": 1,
+                "init": 8
+              }
+            ],
+            "buttons": [
+              {
+                "id": "completeness-step",
+                "label": "step iteration"
+              },
+              {
+                "id": "completeness-reset",
+                "label": "reset to ⊥"
+              }
+            ],
+            "bodyScript": "  const svg=$('#completeness-svg'), out=$('#completeness-out');\n  const mSl=$('#completeness-m'), mL=$('#completeness-m-lbl'), stepBtn=$('#completeness-step'), resetBtn=$('#completeness-reset');\n  const W=600,H=300;\n  let m=+mSl.value;\n  // monotone f on {0..m}: f(k)=min(m, floor((k+m+2)/2)) is non-decreasing; lfp where f(k)=k\n  function f(k){ return Math.min(m, Math.floor((k + m + 2)/2)); }\n  let cur=0, history=[0], done=false;\n  function reset(){ m=+mSl.value; cur=0; history=[0]; done=false; }\n  function step(){ if(done) return; const nx=f(cur); if(nx===cur){ done=true; return; } cur=nx; history.push(cur); if(cur>=m) done=true; }\n  function lfp(){ let k=0; for(let i=0;i<=m+1;i++){ const nx=f(k); if(nx===k) return k; k=nx; } return k; }\n  function render(){\n    m=+mSl.value; mL.textContent='m = '+m;\n    if(history.some(h=>h>m)) reset();\n    svg.innerHTML='';\n    const pad=60, span=W-2*pad, n=m+1;\n    const y=150; const fixed=lfp();\n    // draw the chain 0..m as nodes left->right (also = bottom..top)\n    for(let k=0;k<=m;k++){ const x=pad+span*k/Math.max(m,1);\n      let stroke='var(--violet)', fill='var(--panel2)';\n      if(k===cur){ stroke='var(--yellow)'; fill='var(--panel)'; }\n      else if(history.includes(k)){ stroke='var(--cyan)'; }\n      if(k===fixed){ fill='var(--panel)'; }\n      drawNode(svg,x,y,k,{r:15,fill,stroke,fontSize:12});\n      // f(k) arrow above\n      const fk=f(k); const x2=pad+span*fk/Math.max(m,1);\n      if(fk!==k) drawArrow(svg,[x,y-18],[x2,y-18],{color:'var(--mute)',curve:18,markerId:'cmp-arr',width:1});\n    }\n    // mark the lfp\n    const xf=pad+span*fixed/Math.max(m,1); svg.appendChild(SVG('circle',{cx:xf,cy:y,r:22,fill:'none',stroke:'var(--green)','stroke-width':2.5,'stroke-dasharray':'4 3'}));\n    const cap=SVG('text',{x:20,y:28,'font-size':12,fill:'var(--mute)'}); cap.textContent='chain lattice {0,…,'+m+'}    arrows show f(k)    green ring = least fixed point    yellow = current iterate'; svg.appendChild(cap);\n    const lab=SVG('text',{x:xf,y:y+44,'text-anchor':'middle','font-size':12,fill:'var(--green)'}); lab.textContent='lfp = '+fixed; svg.appendChild(lab);\n    out.textContent =\n      'monotone map f on the complete lattice {0,…,'+m+'},  f(k) = min('+m+', ⌊(k+'+m+'+2)/2⌋)\\n'+\n      'iterating from ⊥ = 0:  '+history.join(' → ')+(done?'  (stabilized)':'  (press step)')+'\\n'+\n      'least fixed point = ⋀{x : f(x) ≤ x} = '+fixed+'   (Knaster–Tarski; reached from below by Kleene iteration)\\n'+\n      'monotonicity alone — no metric, no contraction — guarantees this fixed point exists.';\n  }\n  mSl.addEventListener('input',()=>{ reset(); render(); });\n  stepBtn.addEventListener('click',()=>{ step(); render(); });\n  resetBtn.addEventListener('click',()=>{ reset(); render(); });\n  reset(); render();"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-completeness"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "quiz",
+          "concept": "ot-completeness",
+          "html": "<div class=\"quiz\" data-concept=\"ot-completeness\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "connections",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"connections\">\n<h2>Connections</h2>\n\n<p>Order theory is the connective tissue of mathematics: wherever something is \"built up\" — sets by inclusion, integers by divisibility, propositions by entailment, types by subtyping, opens by containment — a poset is lurking, and meets/joins/fixed points become the load-bearing operations. The frontier is less about open problems than about reach: lattice theory underwrites the semantics of programming languages (domains and denotational fixed points), the algebraic side of logic (Heyting and Boolean algebras), and the formal-concept analysis of data, while the duality theorems (Birkhoff, Stone, Priestley) keep revealing that \"spaces\" and \"lattices\" are two views of one object.</p>\n\n<ul>\n<li><a href=\"./naive-set-theory.html#sets\">Naive set theory — sets, functions &amp; relations</a> — a partial order is just a binary relation with three axioms; the powerset under inclusion is the prototype lattice.</li>\n<li><a href=\"./extremal-combinatorics.html#sperner\">Extremal combinatorics — Sperner &amp; LYM</a> — the extremal-set proof of the Boolean-lattice antichain bound, the engine behind §4.</li>\n<li><a href=\"./enumerative-combinatorics.html#inclusion-exclusion\">Enumerative combinatorics — inclusion–exclusion</a> — the special case of Möbius inversion on the Boolean lattice, with its alternating signs.</li>\n<li><a href=\"./category-theory.html#adj\">Category theory — Yoneda, limits &amp; adjunctions</a> — a poset is a thin category, meet and join are products and coproducts, and Galois connections are adjoint functors in miniature.</li>\n<li><a href=\"./fixed-point-theorems.html#banach\">Fixed-point theorems — Banach contraction</a> — the metric counterpart of Knaster–Tarski: a contraction gives a <em>unique</em> fixed point reached by iteration, where the order-theoretic theorem needs only monotonicity but gives a whole lattice of fixed points.</li>\n</ul>\n</section>\n\n"
+        }
+      ]
+    }
+  ],
+  "rawBodySuffix": "</main>\n\n<script>\n(function(){\n  function start(){ if(window.MVQuiz) MVQuiz.init('order-theory-and-lattices'); }\n  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);\n  else start();\n})();\n</script>\n<details class=\"changelog\">\n  <summary>changelog</summary>\n  <table>\n    <tbody>\n      <tr><td>2026-05-22</td><td>initial version</td></tr>\n    </tbody>\n  </table>\n</details>\n\n</body>\n</html>\n"
+}

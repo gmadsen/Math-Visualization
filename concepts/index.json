@@ -31,6 +31,7 @@
 
     "markov-decision-processes",
     "ramsey-theory",
+    "order-theory-and-lattices",
 
 
 
@@ -313,6 +314,7 @@
     "algebraic-de-rham-cohomology": "standard",
     "graph-theory-fundamentals": "prereq",
     "ramsey-theory": "standard",
+    "order-theory-and-lattices": "standard",
     "spectral-graph-theory": "standard",
     "matroid-theory": "standard",
     "probabilistic-method": "standard",

@@ -1,5 +1,5 @@
 {
-  "generated": "2026-05-22T07:48:10.210Z",
+  "generated": "2026-05-22T08:15:29.613Z",
   "entries": [
     {
       "slug": "markov-decision-processes",
@@ -15,7 +15,7 @@
       "color": "v",
       "tag": "",
       "date": "2026-05-22",
-      "message": "feat: ramsey-theory — Wave 2 (Combinatorics)"
+      "message": "feat: ramsey-theory — Wave 2 (Combinatorics) (#252)"
     },
     {
       "slug": "graph-theory-fundamentals",
