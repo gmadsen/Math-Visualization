@@ -42,12 +42,11 @@ Already covered, do **not** duplicate: LP/simplex/duality/network-flows/matching
 
 - `pomdps-and-belief-states` — partial observability, belief MDP, point-based methods
 - `reinforcement-learning` — TD, Q-learning, policy gradients, actor–critic (model-free)
-- `game-theory` — Nash, minimax, cooperative/non-cooperative, mechanism design (LP-duality prereq lives in `combinatorial-optimization`)
 
 ### Sequencing
 
 - **Wave 1 (floors): ✅ complete** — `statistical-learning-theory` #249, `graph-theory-fundamentals` #250, `markov-decision-processes` #251.
-- **Wave 2 (build up):** `game-theory`, `kernel-methods-and-rkhs`, `reinforcement-learning`, `probabilistic-graphical-models`
+- **Wave 2 (build up):** `kernel-methods-and-rkhs`, `reinforcement-learning`, `probabilistic-graphical-models`
 - **Wave 3 (integrative):** `algebraic-combinatorics`, `polytopes-and-ehrhart`, `pomdps-and-belief-states`, `deep-learning-theory`, `information-geometry`, `diffusion-and-score-based-models`, `causal-inference`
 
 ### Follow-on (don't block the above)
