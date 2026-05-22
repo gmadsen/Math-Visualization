@@ -1,0 +1,244 @@
+{
+  "topic": "order-theory-and-lattices",
+  "quizzes": {
+    "ot-posets": {
+      "title": "Posets, Hasse diagrams, chains & antichains",
+      "questions": [
+        {
+          "type": "multi-select",
+          "q": "Which of these properties must a relation $\\le$ satisfy to be a partial order on a set $P$?",
+          "choices": [
+            "Reflexive: $a \\le a$ for every $a$",
+            "Antisymmetric: $a \\le b$ and $b \\le a$ together force $a = b$",
+            "Transitive: $a \\le b$ and $b \\le c$ force $a \\le c$",
+            "Total: any two elements $a, b$ satisfy $a \\le b$ or $b \\le a$"
+          ],
+          "answer": [
+            0,
+            1,
+            2
+          ],
+          "explain": "A partial order is reflexive, antisymmetric, and transitive. Totality is the extra axiom that upgrades a partial order to a total (linear) order, so it is not required of a poset — incomparable pairs are exactly what 'partial' allows."
+        },
+        {
+          "type": "mcq",
+          "q": "In the divisor lattice of $12$ (positive divisors ordered by divisibility), what is the width — the size of the largest antichain?",
+          "choices": [
+            "$1$",
+            "$2$",
+            "$3$",
+            "$6$"
+          ],
+          "answer": 1,
+          "explain": "The divisors are $1,2,3,4,6,12$. Dropping the global bottom $1$ and top $12$ leaves $\\{2,3,4,6\\}$. The pairwise-incomparable sets are $\\{2,3\\}$, $\\{3,4\\}$, and $\\{4,6\\}$ — each of size $2$. None grows to three elements, since $2 \\mid 4$, $2 \\mid 6$, and $3 \\mid 6$ each create a comparability. So the width is $2$."
+        },
+        {
+          "type": "mcq",
+          "q": "A Hasse diagram of a finite poset draws an edge from $x$ up to $y$ exactly when:",
+          "choices": [
+            "$x \\le y$ (any comparable pair)",
+            "$y$ covers $x$: $x < y$ and no $z$ satisfies $x < z < y$",
+            "$x$ and $y$ are incomparable",
+            "$x \\le y$ and $x, y$ lie in the same chain"
+          ],
+          "answer": 1,
+          "explain": "A Hasse diagram is the transitive reduction of the order: it draws only covering relations, where $x < y$ with nothing strictly between. All other comparabilities are recovered by following upward paths, so the diagram stays uncluttered."
+        }
+      ]
+    },
+    "ot-lattices": {
+      "title": "Lattices: meet & join",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "In the divisor lattice of $30$ (which is isomorphic to the Boolean lattice $B_3$), what are the meet $6 \\wedge 10$ and join $6 \\vee 10$?",
+          "choices": [
+            "meet $= 2$, join $= 30$",
+            "meet $= 30$, join $= 2$",
+            "meet $= 1$, join $= 60$",
+            "meet $= 2$, join $= 60$"
+          ],
+          "answer": 0,
+          "explain": "On the divisor lattice, meet is $\\gcd$ and join is $\\operatorname{lcm}$. So $6 \\wedge 10 = \\gcd(6,10) = 2$ and $6 \\vee 10 = \\operatorname{lcm}(6,10) = 30$. Both stay inside the divisors of $30$, as a lattice requires."
+        },
+        {
+          "type": "mcq",
+          "q": "Which forbidden-sublattice characterization is correct?",
+          "choices": [
+            "A lattice is distributive iff it has no $N_5$ or $M_3$ sublattice; it is modular iff it has no $N_5$ sublattice",
+            "A lattice is modular iff it has no $M_3$ sublattice; distributive iff no $N_5$",
+            "A lattice is distributive iff it has no $N_5$; modular iff no $M_3$",
+            "Distributive and modular are the same condition: no $M_3$ sublattice"
+          ],
+          "answer": 0,
+          "explain": "Modular $\\iff$ no pentagon $N_5$ sublattice. Distributive $\\iff$ no $N_5$ and no diamond $M_3$ sublattice. Since distributive forbids strictly more, every distributive lattice is modular but not conversely: $M_3$ is modular yet not distributive."
+        },
+        {
+          "type": "mcq",
+          "q": "The diamond $M_3$ (three incomparable middle elements between a bottom $\\hat 0$ and top $\\hat 1$) fails distributivity. Why is it still modular?",
+          "choices": [
+            "Because it contains no $N_5$ (pentagon) sublattice",
+            "Because it has only five elements",
+            "Because all three middle elements are incomparable",
+            "Because $\\hat 0 \\wedge \\hat 1 = \\hat 0$"
+          ],
+          "answer": 0,
+          "explain": "Modularity is exactly the absence of an $N_5$ sublattice, and $M_3$ contains no pentagon, so it is modular. It fails distributivity because, for distinct middle atoms $a,b,c$, $a \\wedge (b \\vee c) = a \\wedge \\hat 1 = a$ but $(a \\wedge b) \\vee (a \\wedge c) = \\hat 0 \\vee \\hat 0 = \\hat 0$."
+        }
+      ]
+    },
+    "ot-dilworth": {
+      "title": "Dilworth's theorem",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Dilworth's theorem states that in any finite poset:",
+          "choices": [
+            "the largest antichain has the same size as the minimum number of chains covering the poset",
+            "the longest chain has the same size as the minimum number of chains covering the poset",
+            "every antichain is contained in some maximal chain",
+            "the number of chains equals the number of antichains"
+          ],
+          "answer": 0,
+          "explain": "Dilworth: in a finite poset, max antichain size (the width) equals the minimum number of chains needed to cover all elements. One direction is easy (each chain meets an antichain at most once); the equality is the content of the theorem."
+        },
+        {
+          "type": "mcq",
+          "q": "Mirsky's theorem is the dual of Dilworth. What does it equate?",
+          "choices": [
+            "longest chain size $=$ minimum number of antichains covering the poset",
+            "longest antichain size $=$ minimum number of chains",
+            "number of minimal elements $=$ number of maximal elements",
+            "width $=$ height for every finite poset"
+          ],
+          "answer": 0,
+          "explain": "Mirsky's theorem swaps chains and antichains: the length of a longest chain equals the minimum number of antichains needed to cover the poset. The easy bound is that a chain hits each antichain at most once; the partition into 'rank levels' achieves equality."
+        },
+        {
+          "type": "numeric",
+          "q": "Consider the divisor lattice of $12$: divisors $1,2,3,4,6,12$ ordered by divisibility. Its width is $2$. By Dilworth, what is the minimum number of chains needed to cover all six divisors?",
+          "answer": 2,
+          "tol": 0,
+          "explain": "Dilworth says the minimum chain cover equals the width, which is $2$. Indeed $1 \\mid 2 \\mid 4 \\mid 12$ is one chain and $3 \\mid 6$ is another, covering all six divisors with $2$ chains."
+        }
+      ]
+    },
+    "ot-sperner": {
+      "title": "Sperner & the Boolean lattice",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "In the Boolean lattice $B_4$ (all subsets of a $4$-element set, ordered by inclusion), Sperner's theorem says the largest antichain is the middle layer. How many subsets does it contain?",
+          "answer": 6,
+          "tol": 0,
+          "explain": "The largest antichain in $B_n$ has size $\\binom{n}{\\lfloor n/2\\rfloor}$. For $n=4$ this is $\\binom{4}{2} = 6$: the six $2$-element subsets, no one of which contains another."
+        },
+        {
+          "type": "mcq",
+          "q": "Sperner's theorem is proved via the LYM inequality. Which inequality is it?",
+          "choices": [
+            "$\\sum_{A \\in \\mathcal{F}} \\dfrac{1}{\\binom{n}{|A|}} \\le 1$ for any antichain $\\mathcal{F}$ in $B_n$",
+            "$\\sum_{A \\in \\mathcal{F}} \\binom{n}{|A|} \\le 2^n$",
+            "$|\\mathcal{F}| \\le 2^{n-1}$ for any antichain",
+            "$\\sum_{A \\in \\mathcal{F}} |A| \\le n \\cdot 2^{n-1}$"
+          ],
+          "answer": 0,
+          "explain": "The LYM (Lubell–Yamamoto–Meshalkin) inequality says $\\sum_{A\\in\\mathcal F} 1/\\binom{n}{|A|} \\le 1$ for any antichain. Since each term is at least $1/\\binom{n}{\\lfloor n/2\\rfloor}$, the antichain has at most $\\binom{n}{\\lfloor n/2\\rfloor}$ members — Sperner's bound."
+        },
+        {
+          "type": "mcq",
+          "q": "Why is an antichain in the Boolean lattice $B_n$ the same thing as a 'Sperner family' of sets?",
+          "choices": [
+            "Because incomparable subsets are exactly those where neither contains the other",
+            "Because all subsets in an antichain have the same size",
+            "Because antichains must avoid the empty set",
+            "Because the join of any two members is the full set"
+          ],
+          "answer": 0,
+          "explain": "In $B_n$ the order is inclusion, so two subsets are comparable iff one contains the other. An antichain is a family no member of which contains another — exactly a Sperner family. (They need not all have the same size, though the extremal one does.)"
+        }
+      ]
+    },
+    "ot-mobius": {
+      "title": "Möbius functions & inversion",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The Möbius function of a poset is defined recursively by $\\mu(x,x) = 1$ and, for $x < y$:",
+          "choices": [
+            "$\\mu(x,y) = -\\sum_{x \\le z < y} \\mu(x,z)$",
+            "$\\mu(x,y) = \\sum_{x \\le z < y} \\mu(x,z)$",
+            "$\\mu(x,y) = -\\mu(x,x)$",
+            "$\\mu(x,y) = \\prod_{x \\le z \\le y} \\mu(x,z)$"
+          ],
+          "answer": 0,
+          "explain": "The defining recursion is $\\mu(x,x)=1$ and $\\mu(x,y) = -\\sum_{x \\le z < y} \\mu(x,z)$ for $x < y$. Equivalently $\\sum_{x \\le z \\le y}\\mu(x,z) = 0$ when $x < y$, which is what makes Möbius inversion work."
+        },
+        {
+          "type": "numeric",
+          "q": "In the number-theoretic Möbius function on the divisor lattice, $\\mu(1, n)$ is the classical $\\mu(n)$. What is $\\mu(1, 30)$, where $30 = 2 \\cdot 3 \\cdot 5$?",
+          "answer": -1,
+          "tol": 0,
+          "explain": "On the divisor lattice $\\mu(1,n) = \\mu(n)$, the classical Möbius function: $0$ if $n$ is not squarefree, else $(-1)^k$ for $k$ prime factors. Since $30 = 2\\cdot 3\\cdot 5$ is squarefree with $k=3$ primes, $\\mu(30) = (-1)^3 = -1$."
+        },
+        {
+          "type": "mcq",
+          "q": "On the Boolean lattice $B_n$, Möbius inversion specializes to which familiar principle?",
+          "choices": [
+            "Inclusion–exclusion",
+            "The pigeonhole principle",
+            "The binomial theorem",
+            "Cauchy–Schwarz"
+          ],
+          "answer": 0,
+          "explain": "On $B_n$ the Möbius function is $\\mu(A,B) = (-1)^{|B \\setminus A|}$ for $A \\subseteq B$, so Möbius inversion $f(x) = \\sum_{y \\le x}\\mu(y,x)g(y)$ becomes the alternating-sign inclusion–exclusion formula. The divisor lattice version recovers classical number-theoretic Möbius inversion."
+        }
+      ]
+    },
+    "ot-completeness": {
+      "title": "Complete lattices & Knaster–Tarski",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What distinguishes a complete lattice from an ordinary lattice?",
+          "choices": [
+            "Every subset (not just every pair) has a meet and a join",
+            "It is finite",
+            "It is distributive",
+            "It has no infinite chains"
+          ],
+          "answer": 0,
+          "explain": "A lattice guarantees meets and joins of finite (in particular two-element) subsets. A complete lattice strengthens this to arbitrary subsets, including infinite ones — which in particular gives a global bottom $\\hat 0 = \\bigwedge L$ and top $\\hat 1 = \\bigvee L$."
+        },
+        {
+          "type": "mcq",
+          "q": "The Knaster–Tarski theorem says that a monotone (order-preserving) map $f$ on a complete lattice $L$ has a least fixed point equal to:",
+          "choices": [
+            "$\\bigwedge \\{ x : f(x) \\le x \\}$, the meet of all pre-fixed points",
+            "$\\bigvee \\{ x : x \\le f(x) \\}$, the join of all post-fixed points",
+            "the bottom element $\\hat 0$ always",
+            "the unique $x$ with $f(x) = x$"
+          ],
+          "answer": 0,
+          "explain": "Knaster–Tarski: the set of fixed points of a monotone $f$ on a complete lattice is itself a complete lattice. The least fixed point is $\\bigwedge\\{x : f(x) \\le x\\}$, the meet of all pre-fixed points; dually the greatest is the join of all post-fixed points. Fixed points need not be unique."
+        },
+        {
+          "type": "multi-select",
+          "q": "Select every true statement about Knaster–Tarski and order-theoretic fixed points.",
+          "choices": [
+            "Monotonicity of $f$, not continuity, is what the theorem requires",
+            "The fixed points of $f$ form a complete lattice, so a least and a greatest fixed point always exist",
+            "It applies to any complete lattice, including infinite ones",
+            "Unlike the Banach fixed-point theorem, it needs a metric and a contraction"
+          ],
+          "answer": [
+            0,
+            1,
+            2
+          ],
+          "explain": "Knaster–Tarski needs only monotonicity on a complete lattice (no metric, no contraction, no continuity), and it guarantees a whole complete lattice of fixed points — hence a least and greatest. That is precisely the contrast with Banach's theorem, which is metric and yields a unique fixed point; so the fourth statement is false."
+        }
+      ]
+    }
+  }
+}

@@ -26,6 +26,7 @@ window.__MVConcepts = {
       "statistical-learning-theory",
       "markov-decision-processes",
       "ramsey-theory",
+      "order-theory-and-lattices",
       "several-complex-variables",
       "khovanov-homology",
       "shimura-varieties",
@@ -301,6 +302,7 @@ window.__MVConcepts = {
       "algebraic-de-rham-cohomology": "standard",
       "graph-theory-fundamentals": "prereq",
       "ramsey-theory": "standard",
+      "order-theory-and-lattices": "standard",
       "spectral-graph-theory": "standard",
       "matroid-theory": "standard",
       "probabilistic-method": "standard",
@@ -2510,6 +2512,69 @@ window.__MVConcepts = {
           "tags": [
             "classification"
           ]
+        }
+      ]
+    },
+    "order-theory-and-lattices": {
+      "topic": "order-theory-and-lattices",
+      "title": "Order theory and lattices",
+      "page": "order-theory-and-lattices.html",
+      "concepts": [
+        {
+          "id": "ot-posets",
+          "title": "Posets, Hasse diagrams, chains & antichains",
+          "anchor": "posets",
+          "prereqs": [
+            "sets-functions"
+          ],
+          "blurb": "A partial order is a reflexive, antisymmetric, transitive relation; its Hasse diagram is the transitive reduction. Chains are totally ordered subsets, antichains are mutually incomparable ones, and their extremes give the height and width of the poset."
+        },
+        {
+          "id": "ot-lattices",
+          "title": "Lattices: meet & join",
+          "anchor": "lattices",
+          "prereqs": [
+            "ot-posets"
+          ],
+          "blurb": "A lattice is a poset in which every pair has a meet (greatest lower bound) and a join (least upper bound). Distributive and modular lattices are pinned down by the forbidden sublattices M3 and N5."
+        },
+        {
+          "id": "ot-dilworth",
+          "title": "Dilworth's theorem",
+          "anchor": "dilworth",
+          "prereqs": [
+            "ot-posets"
+          ],
+          "blurb": "In any finite poset the size of a largest antichain equals the minimum number of chains needed to cover it. Mirsky's dual swaps the roles: the longest chain equals the minimum number of antichains covering the poset."
+        },
+        {
+          "id": "ot-sperner",
+          "title": "Sperner & the Boolean lattice",
+          "anchor": "sperner",
+          "prereqs": [
+            "ot-posets",
+            "sperner-lym"
+          ],
+          "blurb": "The Boolean lattice B_n of subsets ordered by inclusion has its largest antichain at the middle layer, of size C(n, floor(n/2)). This is Sperner's theorem, proved by the LYM inequality."
+        },
+        {
+          "id": "ot-mobius",
+          "title": "Möbius functions & inversion",
+          "anchor": "mobius",
+          "prereqs": [
+            "ot-posets",
+            "ec-inclusion-exclusion"
+          ],
+          "blurb": "Every locally finite poset carries a Möbius function defined by mu(x,x)=1 and mu(x,y) = -sum over x<=z<y of mu(x,z). Möbius inversion generalizes inclusion-exclusion (on the Boolean lattice) and classical number-theoretic Möbius inversion (on the divisor lattice)."
+        },
+        {
+          "id": "ot-completeness",
+          "title": "Complete lattices & Knaster–Tarski",
+          "anchor": "completeness",
+          "prereqs": [
+            "ot-lattices"
+          ],
+          "blurb": "A complete lattice has meets and joins of arbitrary subsets. Knaster–Tarski: any monotone map on a complete lattice has a complete lattice of fixed points, with a least fixed point equal to the meet of all pre-fixed points."
         }
       ]
     },
@@ -20110,6 +20175,7 @@ window.__MVConcepts = {
         "topics": [
           "graph-theory-fundamentals",
           "ramsey-theory",
+          "order-theory-and-lattices",
           "spectral-graph-theory",
           "matroid-theory",
           "probabilistic-method",
@@ -20348,6 +20414,7 @@ window.__MVConcepts = {
     "algebraic-de-rham-cohomology": "standard",
     "graph-theory-fundamentals": "prereq",
     "ramsey-theory": "standard",
+    "order-theory-and-lattices": "standard",
     "spectral-graph-theory": "standard",
     "matroid-theory": "standard",
     "probabilistic-method": "standard",
@@ -20485,7 +20552,7 @@ window.__MVConcepts = {
       "concepts": 49,
       "intra": 67,
       "crossOut": 5,
-      "crossIn": 22,
+      "crossIn": 23,
       "density": 0.10204081632653061
     },
     "Algebra & homological": {
@@ -20545,11 +20612,11 @@ window.__MVConcepts = {
       "density": 0.3568075117370892
     },
     "Combinatorics & graph theory": {
-      "concepts": 70,
-      "intra": 68,
-      "crossOut": 28,
+      "concepts": 76,
+      "intra": 75,
+      "crossOut": 29,
       "crossIn": 5,
-      "density": 0.4
+      "density": 0.3815789473684211
     },
     "Mathematical physics": {
       "concepts": 69,
