@@ -14,7 +14,7 @@ reach into upstream foundations or stay within their own cluster.
 | Logic & Foundations | 49 | 67 | 5 | 23 | 0.102 |
 | Algebra & homological | 148 | 224 | 25 | 99 | 0.169 |
 | Higher categories & toposes | 45 | 68 | 23 | 4 | 0.511 |
-| Analysis | 211 | 368 | 39 | 75 | 0.185 |
+| Analysis | 211 | 368 | 39 | 76 | 0.185 |
 | Probability & statistics | 83 | 134 | 23 | 32 | 0.277 |
 | Geometry & topology | 167 | 276 | 34 | 99 | 0.204 |
 | Number theory | 128 | 180 | 57 | 40 | 0.445 |
@@ -22,10 +22,10 @@ reach into upstream foundations or stay within their own cluster.
 | Algebraic geometry | 213 | 328 | 76 | 35 | 0.357 |
 | Combinatorics & graph theory | 76 | 75 | 29 | 5 | 0.382 |
 | Mathematical physics | 69 | 75 | 40 | 4 | 0.580 |
-| Control theory & optimization | 40 | 38 | 20 | 1 | 0.500 |
+| Control theory & optimization | 46 | 45 | 21 | 1 | 0.457 |
 | Learning theory & data science | 6 | 6 | 5 | 0 | 0.833 |
 
-## EMPTY — concepts with no prereqs (4)
+## EMPTY — concepts with no prereqs (5)
 
 Concepts whose `prereqs` field is `[]` and whose owning topic is *not*
 a foundation/prereq topic. Almost always indicates a missing cross-
@@ -38,6 +38,7 @@ at brand-new progress alongside genuine entry points like
 | advanced-complex-analysis | `aca-overview` | The graduate landscape |
 | coding-theory | `ct-distance` | Hamming distance and the Singleton bound |
 | convex-geometry | `cg-convex-bodies` | Convex bodies & supporting hyperplanes |
+| game-theory | `gt-normal-form` | Normal-form games & dominance |
 | tropical-geometry | `trop-semiring` | The tropical semiring |
 
 ## THIN-NEW — new-arc concepts with intra-topic-only prereqs (13)

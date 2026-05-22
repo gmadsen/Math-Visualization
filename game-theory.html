@@ -1,0 +1,873 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Game theory</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false,
+      strict:(c)=>c==='unicodeTextInMathMode'?'ignore':'warn',
+      macros:{
+        '\\Spec':'\\operatorname{Spec}',
+        '\\Gal':'\\operatorname{Gal}',
+        '\\Hom':'\\operatorname{Hom}',
+        '\\tr':'\\operatorname{tr}',
+        '\\ad':'\\operatorname{ad}',
+        '\\ind':'\\operatorname{ind}'
+      }
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  /* sticky sidebar TOC (wide screens only; narrow screens fall back to top-nav) */
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+  /* callback-css-auto-begin */
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+/* callback-css-auto-end */
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
+  /* display-prefs-css-auto-begin */
+  html[data-hide-widgets] .widget { display: none !important; }
+  html[data-hide-quizzes] .quiz { display: none !important; }
+  html[data-hide-lineage] .lineage-strip { display: none !important; }
+  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }
+  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }
+  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }
+  .mv-display-toggle--off { opacity: 0.35; }
+  /* display-prefs-css-auto-end */
+</style>
+<!-- breadcrumb-head-auto-begin -->
+<script src="./js/section-map.js"></script>
+<script src="./js/breadcrumb.js"></script>
+<script src="./js/glossary-popover.js" defer></script>
+<link rel="stylesheet" media="print" href="./css/print.css">
+<link rel="stylesheet" href="./css/theme-light.css">
+<script src="./js/theme-toggle.js"></script>
+<script src="./concepts/bundle.js" defer></script>
+<script src="./js/topic-hotkeys.js" defer></script>
+<script src="./js/topic-lineage.js" defer></script>
+<!-- breadcrumb-head-auto-end -->
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./js/katex-select.js"></script>
+<script src="./js/widget-diagram-editor.js"></script>
+<script src="./quizzes/bundle.js"></script>
+<script src="./js/sidetoc.js"></script>
+<!-- display-prefs-head-auto-begin -->
+<script src="./js/display-prefs.js"></script>
+<!-- display-prefs-head-auto-end -->
+</head>
+<body data-section="control-theory-and-optimization" data-level="intermediate">
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+// draw an arrow marker def once per svg (idempotent)
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+// curved arrow between two pixel points, with optional label
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  // shorten endpoints
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><span class="nav-links"><a class="nav-link" href="./pathway.html">Pathway</a><a class="nav-link" href="./tours.html">Tours</a><a class="nav-link" href="./history.html">History</a><a class="nav-link" href="./tags.html">Themes</a><a class="nav-link" href="./mindmap.html">Mindmap</a><a class="nav-link" href="./search.html">Search</a></span><span class="mv-theme-slot"></span><!-- breadcrumb-nav-auto-end -->
+<!-- toc-auto-begin -->
+  <a href="#normal-form">1&nbsp;Normal-form&nbsp;games&nbsp;&amp;&nbsp;dominance</a>
+  <a href="#nash">2&nbsp;Nash&nbsp;equilibrium</a>
+  <a href="#minimax">3&nbsp;Zero-sum&nbsp;games&nbsp;&amp;&nbsp;the&nbsp;minimax&nbsp;theorem</a>
+  <a href="#mixed">4&nbsp;Mixed&nbsp;strategies&nbsp;&amp;&nbsp;indifference</a>
+  <a href="#cooperative">5&nbsp;Cooperative&nbsp;games:&nbsp;core&nbsp;&amp;&nbsp;Shapley&nbsp;value</a>
+  <a href="#mechanism">6&nbsp;Mechanism&nbsp;design&nbsp;&amp;&nbsp;auctions</a>
+  <a href="#connections">7&nbsp;Connections</a>
+<!-- toc-auto-end -->
+</nav>
+<!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Game theory</h1>
+  <p class="sub">When several rational agents each optimize against the others, equilibrium replaces optimization — and a handful of fixed-point and duality theorems pin down what "solving" a game even means, from the Prisoner's Dilemma to Vickrey auctions.</p>
+</section>
+
+<section id="normal-form">
+<h2>1. Normal-form games &amp; dominance</h2>
+<p>A finite game in <strong>normal form</strong> (or <em>strategic form</em>) is the data</p>
+<ul>
+  <li>a finite set of <strong>players</strong> $\{1, \dots, n\}$;</li>
+  <li>for each player $i$, a finite set $S_i$ of <strong>pure strategies</strong>;</li>
+  <li>for each player $i$, a <strong>payoff function</strong> $u_i : S_1 \times \cdots \times S_n \to \mathbb{R}$ defined on the <em>profiles</em> $s = (s_1, \dots, s_n)$ of everyone's choices.</li>
+</ul>
+<p>Players move simultaneously: there is no notion of who goes first (that timing belongs to the extensive, game-tree, form). Write $s_{-i}$ for the profile of everyone except $i$, so $u_i(s_i, s_{-i})$ is $i$'s payoff. A two-player game is a pair of <strong>payoff matrices</strong> — equivalently a single <em>bimatrix</em> whose $(i,j)$ entry is the pair $(u_1, u_2)$.</p>
+
+<h3>Dominance</h3>
+<p>A pure strategy $s_i$ is <strong>strictly dominated</strong> by $s_i'$ when</p>
+<p style="text-align:center">$u_i(s_i', s_{-i}) > u_i(s_i, s_{-i}) \quad\text{for every } s_{-i},$</p>
+<p>i.e. $s_i'$ does strictly better against <em>every</em> opponent profile. It is <strong>weakly dominated</strong> if the inequality is $\ge$ everywhere and strict somewhere. A strictly dominated strategy is never played in any equilibrium, so <em>iterated elimination of strictly dominated strategies</em> is the first solving move.</p>
+
+<div class="note"><strong>The Prisoner's Dilemma.</strong> Two suspects each choose Cooperate (stay silent) or Defect (confess). Payoffs (higher is better): both Cooperate $\to (3,3)$; both Defect $\to (1,1)$; one Defects while the other Cooperates $\to (5,0)$ for the defector. Hold the opponent fixed: against Cooperate, Defecting gives $5 > 3$; against Defect, Defecting gives $1 > 0$. So <strong>Defect strictly dominates Cooperate</strong> for each player, and $(D,D)$ is the unique equilibrium — even though $(C,C)$ Pareto-dominates it, paying $3$ each instead of $1$. Individually rational play yields a collectively worse outcome.</div>
+
+<p>Edit the four payoff pairs of the $2 \times 2$ bimatrix below with the sliders. The widget shades any strictly dominated row or column and names the dominance relation; start from the Prisoner's Dilemma preset and watch Defect dominate.</p>
+
+<div class="widget" id="w-normal-form">
+  <div class="hd"><div class="ttl">Editable 2×2 bimatrix & strict dominance</div><div class="hint">drag payoffs; shaded row/column is strictly dominated</div></div>
+  <svg id="nf-svg" viewBox="0 0 600 320" width="600" height="320"><title>An editable two-by-two bimatrix game with strictly dominated rows and columns shaded</title></svg>
+  <div class="row">
+    <label for="nf-cc-r">Row payoff at (C,C):</label>
+    <input type="range" id="nf-cc-r" min="0" max="5" step="1" value="3">
+    <span class="small" id="nf-cc-r-lbl"></span>
+  </div>
+  <div class="row">
+    <label for="nf-cd-r">Row payoff at (C,D):</label>
+    <input type="range" id="nf-cd-r" min="0" max="5" step="1" value="0">
+    <span class="small" id="nf-cd-r-lbl"></span>
+  </div>
+  <div class="row">
+    <label for="nf-dc-r">Row payoff at (D,C):</label>
+    <input type="range" id="nf-dc-r" min="0" max="5" step="1" value="5">
+    <span class="small" id="nf-dc-r-lbl"></span>
+  </div>
+  <div class="row">
+    <label for="nf-dd-r">Row payoff at (D,D):</label>
+    <input type="range" id="nf-dd-r" min="0" max="5" step="1" value="1">
+    <span class="small" id="nf-dd-r-lbl"></span>
+  </div>
+  <div class="row">
+    <button id="nf-reset">reset to Prisoner's Dilemma</button>
+  </div>
+  <div class="readout" id="nf-out"></div>
+</div><script>
+(function(){
+  const svg=$('#nf-svg'), out=$('#nf-out');
+  const sl={cc:$('#nf-cc-r'),cd:$('#nf-cd-r'),dc:$('#nf-dc-r'),dd:$('#nf-dd-r')};
+  const lb={cc:$('#nf-cc-r-lbl'),cd:$('#nf-cd-r-lbl'),dc:$('#nf-dc-r-lbl'),dd:$('#nf-dd-r-lbl')};
+  const resetBtn=$('#nf-reset');
+  // symmetric game: column payoffs are the transpose of row payoffs.
+  // row strategies 0=Cooperate,1=Defect ; col strategies 0=Cooperate,1=Defect
+  function payoffs(){
+    const R=[[+sl.cc.value,+sl.cd.value],[+sl.dc.value,+sl.dd.value]];
+    // symmetric: column player's payoff at (rowStrat i, colStrat j) = R[j][i]
+    const C=[[R[0][0],R[1][0]],[R[0][1],R[1][1]]];
+    return {R,C};
+  }
+  function rowDom(R){ // returns [winner,loser] if a row strictly dominates the other
+    for(const [i,k] of [[0,1],[1,0]]) if([0,1].every(j=>R[i][j] > R[k][j])) return [i,k];
+    return null;
+  }
+  function colDom(C){
+    for(const [j,l] of [[0,1],[1,0]]) if([0,1].every(i=>C[i][j] > C[i][l])) return [j,l];
+    return null;
+  }
+  const names=['C (cooperate)','D (defect)'];
+  function render(){
+    for(const k in sl) lb[k].textContent=sl[k].value;
+    const {R,C}=payoffs();
+    const rd=rowDom(R), cd=colDom(C);
+    svg.innerHTML='';
+    const x0=170,y0=70,cw=190,ch=95; // grid origin and cell size
+    // shade dominated row / column
+    if(rd){ const loser=rd[1]; svg.appendChild(SVG('rect',{x:x0,y:y0+loser*ch,width:cw*2,height:ch,fill:'var(--pink)',opacity:0.16})); }
+    if(cd){ const loser=cd[1]; svg.appendChild(SVG('rect',{x:x0+loser*cw,y:y0,width:cw,height:ch*2,fill:'var(--cyan)',opacity:0.14})); }
+    // grid lines
+    for(let r=0;r<=2;r++) svg.appendChild(SVG('line',{x1:x0,y1:y0+r*ch,x2:x0+2*cw,y2:y0+r*ch,stroke:'var(--line)','stroke-width':1.2}));
+    for(let c=0;c<=2;c++) svg.appendChild(SVG('line',{x1:x0+c*cw,y1:y0,x2:x0+c*cw,y2:y0+2*ch,stroke:'var(--line)','stroke-width':1.2}));
+    // headers
+    const colHdr=SVG('text',{x:x0+cw,y:y0-32,'text-anchor':'middle','font-size':13,fill:'var(--mute)'}); colHdr.textContent='Column player'; svg.appendChild(colHdr);
+    const rowHdr=SVG('text',{x:x0-118,y:y0+ch,'text-anchor':'middle','font-size':13,fill:'var(--mute)','transform':'rotate(-90 '+(x0-118)+' '+(y0+ch)+')'}); rowHdr.textContent='Row player'; svg.appendChild(rowHdr);
+    for(let j=0;j<2;j++){ const t=SVG('text',{x:x0+cw*j+cw/2,y:y0-10,'text-anchor':'middle','font-size':12,fill:'var(--violet)','font-weight':600}); t.textContent=names[j]; svg.appendChild(t); }
+    for(let i=0;i<2;i++){ const t=SVG('text',{x:x0-12,y:y0+ch*i+ch/2,'text-anchor':'end','font-size':12,fill:'var(--violet)','font-weight':600}); t.textContent=names[i]; svg.appendChild(t); }
+    // cell entries (Row, Col)
+    for(let i=0;i<2;i++) for(let j=0;j<2;j++){
+      const cx=x0+cw*j+cw/2, cy=y0+ch*i+ch/2;
+      const tr=SVG('text',{x:cx,y:cy-4,'text-anchor':'middle','font-size':18,fill:'var(--yellow)','font-weight':700}); tr.textContent='('+R[i][j]+', '+C[i][j]+')'; svg.appendChild(tr);
+      const sub=SVG('text',{x:cx,y:cy+18,'text-anchor':'middle','font-size':10,fill:'var(--mute)'}); sub.textContent='row, col'; svg.appendChild(sub);
+    }
+    let msg='';
+    if(rd) msg += 'Row: '+names[rd[0]]+' strictly dominates '+names[rd[1]]+' (shaded).\n';
+    else msg += 'Row: no strictly dominated strategy.\n';
+    if(cd) msg += 'Column: '+names[cd[0]]+' strictly dominates '+names[cd[1]]+' (shaded).';
+    else msg += 'Column: no strictly dominated strategy.';
+    if(rd&&cd&&rd[0]===1&&cd[0]===1) msg += '\nDominance picks out ('+names[1].split(' ')[0]+','+names[1].split(' ')[0]+') — the unique equilibrium.';
+    out.textContent=msg;
+  }
+  for(const k in sl) sl[k].addEventListener('input',render);
+  resetBtn.addEventListener('click',()=>{ sl.cc.value=3; sl.cd.value=0; sl.dc.value=5; sl.dd.value=1; render(); });
+  render();
+})();
+</script>
+<div class="quiz" data-concept="gt-normal-form"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./game-theory.html#cooperative">Game theory</a> · Cooperative games: core &amp; Shapley value</div>
+    <div><a href="./game-theory.html#nash">Game theory</a> · Nash equilibrium</div>
+    <div><a href="./game-theory.html#minimax">Game theory</a> · Zero-sum games &amp; the minimax theorem</div>
+</aside>
+<!-- backlinks-auto-end -->
+</section>
+
+<section id="nash">
+<h2>2. Nash equilibrium</h2>
+<p>Dominance rarely solves a game outright. The central solution concept is the <strong>Nash equilibrium</strong>: a strategy profile $s^* = (s_1^*, \dots, s_n^*)$ such that no player can strictly increase their own payoff by deviating unilaterally,</p>
+<p style="text-align:center">$u_i(s_i^*, s_{-i}^*) \ge u_i(s_i, s_{-i}^*) \quad\text{for all } s_i \in S_i \text{ and all } i.$</p>
+<p>Equivalently each $s_i^*$ is a <strong>best response</strong> to $s_{-i}^*$: writing $\mathrm{BR}_i(s_{-i}) = \arg\max_{s_i} u_i(s_i, s_{-i})$, a Nash equilibrium is a profile where everyone simultaneously best-responds, $s_i^* \in \mathrm{BR}_i(s_{-i}^*)$ for all $i$. It is a <em>mutual</em> best-response condition — not a welfare maximum (the Prisoner's Dilemma equilibrium is Pareto-inferior).</p>
+
+<h3>Mixed strategies and existence</h3>
+<p>A <strong>mixed strategy</strong> $x_i$ is a probability distribution over $S_i$; payoffs extend by expectation, $u_i(x) = \mathbb{E}_{s \sim x}[u_i(s)]$. Pure equilibria may fail to exist (matching pennies has none), but mixed ones never do.</p>
+<p style="text-align:center"><strong>Nash's theorem (1950).</strong> Every finite game has at least one Nash equilibrium in mixed strategies.</p>
+<p>The proof is a fixed-point argument. The best-response correspondence $\mathrm{BR} : \Delta \rightrightarrows \Delta$ on the compact convex product of strategy simplices $\Delta = \prod_i \Delta(S_i)$ is nonempty-, convex-valued and has a closed graph, so <a href="./fixed-point-theorems.html#kakutani">Kakutani's fixed-point theorem</a> gives a fixed point $x^*$ with $x^* \in \mathrm{BR}(x^*)$ — exactly a Nash equilibrium. (For symmetric games one can run <a href="./fixed-point-theorems.html#brouwer">Brouwer</a> on a single simplex instead.)</p>
+
+<div class="note"><strong>Worked mini-example.</strong> In the coordination game $\{A,B\}$ with payoffs $(2,2)$ at $(A,A)$, $(1,1)$ at $(B,B)$, and $(0,0)$ off-diagonal, both $(A,A)$ and $(B,B)$ are pure equilibria: at each, switching drops a player to $0$. There is a third, mixed equilibrium found by the indifference principle of §4: the column player must make Row indifferent, $2q = 1(1-q)$, giving $q = \tfrac13$, and symmetrically $p = \tfrac13$.</div>
+
+<p>Edit the bimatrix below; the widget marks every cell that is a pure-strategy best response for each player (a pure Nash equilibrium is a cell best for <em>both</em>) and solves the indifference equations for an interior mixed equilibrium when one exists.</p>
+
+<div class="widget" id="w-nash">
+  <div class="hd"><div class="ttl">All Nash equilibria of an editable 2×2 game</div><div class="hint">pick a classic game or edit payoffs; finds pure cells + the interior mixed NE</div></div>
+  <svg id="nash-svg" viewBox="0 0 600 330" width="600" height="330"><title>Pure best-response cells and the interior mixed Nash equilibrium of a two-by-two game</title></svg>
+  <div class="row">
+    <label for="nash-pick">game:</label>
+    <select id="nash-pick">
+      <option value="coord" selected>coordination ($(A,A),(B,B)$ both pure NE)</option>
+      <option value="pd">Prisoner's Dilemma (unique pure NE)</option>
+      <option value="mp">matching pennies (only a mixed NE)</option>
+      <option value="bos">battle of the sexes (two pure + one mixed)</option>
+    </select>
+  </div>
+  <div class="readout" id="nash-out"></div>
+</div><script>
+(function(){
+  const svg=$('#nash-svg'), out=$('#nash-out'), pick=$('#nash-pick');
+  const W=600,H=330;
+  // each game: R[i][j], C[i][j] for row strat i, col strat j ; labels for the two strategies
+  const GAMES={
+    coord:{name:'coordination',rows:['A','B'],cols:['A','B'],R:[[2,0],[0,1]],C:[[2,0],[0,1]]},
+    pd:{name:"Prisoner's Dilemma",rows:['C','D'],cols:['C','D'],R:[[3,0],[5,1]],C:[[3,5],[0,1]]},
+    mp:{name:'matching pennies',rows:['H','T'],cols:['H','T'],R:[[1,-1],[-1,1]],C:[[-1,1],[1,-1]]},
+    bos:{name:'battle of the sexes',rows:['O','F'],cols:['O','F'],R:[[2,0],[0,1]],C:[[1,0],[0,2]]}
+  };
+  let cur='coord';
+  function pureNE(R,C){ const res=[]; for(let i=0;i<2;i++) for(let j=0;j<2;j++){ if(R[i][j] >= R[1-i][j] && C[i][j] >= C[i][1-j]) res.push([i,j]); } return res; }
+  function bestRow(R,j){ return R[0][j] >= R[1][j] ? [0] : [1]; } // index of row best response to col j (ties->both handled below)
+  function rowBR(R,j){ const a=R[0][j],b=R[1][j]; if(a>b) return [0]; if(b>a) return [1]; return [0,1]; }
+  function colBR(C,i){ const a=C[i][0],b=C[i][1]; if(a>b) return [0]; if(b>a) return [1]; return [0,1]; }
+  function mixedNE(R,C){
+    // p = prob row plays strat0 making COL indifferent
+    const Adenom=(C[0][0]-C[0][1])-(C[1][0]-C[1][1]);
+    const Bnum=(C[1][0]-C[1][1]);
+    const p = Adenom!==0 ? -Bnum/Adenom : null;
+    // q = prob col plays strat0 making ROW indifferent
+    const A2=(R[0][0]-R[1][0])-(R[0][1]-R[1][1]);
+    const B2=(R[0][1]-R[1][1]);
+    const q = A2!==0 ? -B2/A2 : null;
+    const ok = p!==null && q!==null && p>1e-9 && p<1-1e-9 && q>1e-9 && q<1-1e-9;
+    return {p,q,ok};
+  }
+  function render(){
+    const G=GAMES[cur]; const {R,C}=G; svg.innerHTML='';
+    const pures=pureNE(R,C);
+    const x0=180,y0=80,cw=180,ch=95;
+    // highlight pure NE cells
+    for(const [i,j] of pures) svg.appendChild(SVG('rect',{x:x0+j*cw,y:y0+i*ch,width:cw,height:ch,fill:'var(--green)',opacity:0.18}));
+    for(let r=0;r<=2;r++) svg.appendChild(SVG('line',{x1:x0,y1:y0+r*ch,x2:x0+2*cw,y2:y0+r*ch,stroke:'var(--line)','stroke-width':1.2}));
+    for(let c=0;c<=2;c++) svg.appendChild(SVG('line',{x1:x0+c*cw,y1:y0,x2:x0+c*cw,y2:y0+2*ch,stroke:'var(--line)','stroke-width':1.2}));
+    const colHdr=SVG('text',{x:x0+cw,y:y0-30,'text-anchor':'middle','font-size':13,fill:'var(--mute)'}); colHdr.textContent='Column'; svg.appendChild(colHdr);
+    const rowHdr=SVG('text',{x:x0-100,y:y0+ch,'text-anchor':'middle','font-size':13,fill:'var(--mute)','transform':'rotate(-90 '+(x0-100)+' '+(y0+ch)+')'}); rowHdr.textContent='Row'; svg.appendChild(rowHdr);
+    for(let j=0;j<2;j++){ const t=SVG('text',{x:x0+cw*j+cw/2,y:y0-10,'text-anchor':'middle','font-size':13,fill:'var(--violet)','font-weight':600}); t.textContent=G.cols[j]; svg.appendChild(t); }
+    for(let i=0;i<2;i++){ const t=SVG('text',{x:x0-12,y:y0+ch*i+ch/2,'text-anchor':'end','font-size':13,fill:'var(--violet)','font-weight':600}); t.textContent=G.rows[i]; svg.appendChild(t); }
+    // mark best responses: underline Row payoff if row best-responds (per column); ring Col payoff if col best-responds (per row)
+    for(let i=0;i<2;i++) for(let j=0;j<2;j++){
+      const cx=x0+cw*j+cw/2, cy=y0+ch*i+ch/2;
+      const rBR = rowBR(R,j).includes(i);
+      const cBR = colBR(C,i).includes(j);
+      const tr=SVG('text',{x:cx,y:cy+5,'text-anchor':'middle','font-size':17,'font-weight':700}); tr.textContent='('+R[i][j]+', '+C[i][j]+')';
+      tr.setAttribute('fill', (rBR&&cBR)?'var(--green)':'var(--yellow)'); svg.appendChild(tr);
+      let tag='';
+      if(rBR) tag+='R★'; if(cBR) tag+=(tag?'  ':'')+'C★';
+      if(tag){ const tg=SVG('text',{x:cx,y:cy+24,'text-anchor':'middle','font-size':10,fill:'var(--mute)'}); tg.textContent=tag+' best response'; svg.appendChild(tg); }
+    }
+    const mix=mixedNE(R,C);
+    let msg=G.name+'\n';
+    if(pures.length) msg += 'pure Nash equilibria: '+pures.map(([i,j])=>'('+G.rows[i]+','+G.cols[j]+')').join(', ')+'\n';
+    else msg += 'pure Nash equilibria: none\n';
+    if(mix.ok) msg += 'mixed NE: Row plays '+G.rows[0]+' w.p. '+mix.p.toFixed(3)+', Col plays '+G.cols[0]+' w.p. '+mix.q.toFixed(3)+'   (indifference)';
+    else msg += 'no interior (fully mixed) NE — equilibrium play is pure';
+    out.textContent=msg;
+  }
+  pick.addEventListener('change',()=>{ cur=pick.value; render(); });
+  render();
+})();
+</script>
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./fixed-point-theorems.html#kakutani">Kakutani's fixed-point theorem</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./game-theory.html#mechanism">Game theory</a> · Mechanism design &amp; auctions</div>
+    <div><a href="./game-theory.html#mixed">Game theory</a> · Mixed strategies &amp; indifference</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="gt-nash"></div>
+</section>
+
+<section id="minimax">
+<h2>3. Zero-sum games &amp; the minimax theorem</h2>
+<p>A two-player game is <strong>zero-sum</strong> when $u_1 + u_2 = 0$: one player's gain is exactly the other's loss. Encode it by a single matrix $A$ — the row player chooses a mixed strategy $x \in \Delta_m$, the column player $y \in \Delta_n$, and the row player's expected payoff is $x^\top A y$ (the column player's is $-x^\top A y$). Row maximizes, Column minimizes.</p>
+<p>The row player can <em>guarantee</em> at least $\max_x \min_y x^\top A y$ (the <strong>max-min</strong>, secured before seeing $y$); the column player can <em>hold</em> the row player to at most $\min_y \max_x x^\top A y$ (the <strong>min-max</strong>). Always max-min $\le$ min-max — but von Neumann showed they coincide.</p>
+<p style="text-align:center"><strong>Minimax theorem (von Neumann, 1928).</strong> For every finite zero-sum game,</p>
+<p style="text-align:center">$\displaystyle \max_{x \in \Delta_m} \min_{y \in \Delta_n} x^\top A y \;=\; \min_{y \in \Delta_n} \max_{x \in \Delta_m} x^\top A y \;=\; v,$</p>
+<p>the common number $v$ being the <strong>value</strong> of the game. Optimal $x^*, y^*$ form a (mixed) Nash equilibrium, and against an optimal opponent each guarantees exactly $v$.</p>
+
+<h3>Equivalence to LP duality</h3>
+<p>Maximizing the guaranteed payoff is a <a href="./combinatorial-optimization.html#duality">linear program</a>: maximize $v$ subject to $x^\top A \ge v\,\mathbf{1}^\top$, $\mathbf{1}^\top x = 1$, $x \ge 0$. Its <strong>dual</strong> is precisely the column player's value-minimization LP. <em>Strong duality</em> forces the two optimal objectives to be equal — which is exactly $\max_x\min_y = \min_y\max_x = v$. So the minimax theorem and LP strong duality are two views of one fact; an optimal $(x^*, y^*)$ is a primal–dual pair of LP solutions.</p>
+
+<div class="note"><strong>Worked mini-example.</strong> Matching pennies as zero-sum has $A = \begin{pmatrix} 1 & -1 \\ -1 & 1\end{pmatrix}$. There is no pure saddle (each entry is one player's best and the other's worst). Solving for the mix that makes the opponent indifferent gives $x^* = y^* = (\tfrac12, \tfrac12)$ and value $v = x^\top A y = \tfrac14(1 - 1 - 1 + 1) = 0$. For a general $2\times 2$ with no saddle, $v = \dfrac{a_{11}a_{22} - a_{12}a_{21}}{a_{11}+a_{22}-a_{12}-a_{21}}$.</div>
+
+<p>Edit the four entries of the zero-sum payoff matrix below. The widget detects a pure saddle point if one exists, otherwise computes the optimal mixed strategies and the value $v$ — and reports them as a matched primal/dual LP pair.</p>
+
+<div class="widget" id="w-minimax">
+  <div class="hd"><div class="ttl">Value of an editable zero-sum 2×2 game</div><div class="hint">drag entries of A (row payoff); finds the saddle or the optimal mix + value v</div></div>
+  <svg id="mm-svg" viewBox="0 0 600 320" width="600" height="320"><title>The value and optimal mixed strategies of an editable zero-sum two-by-two game</title></svg>
+  <div class="row">
+    <label for="mm-a11">$a_{11}$:</label>
+    <input type="range" id="mm-a11" min="-3" max="3" step="1" value="1">
+    <span class="small" id="mm-a11-lbl"></span>
+  </div>
+  <div class="row">
+    <label for="mm-a12">$a_{12}$:</label>
+    <input type="range" id="mm-a12" min="-3" max="3" step="1" value="-1">
+    <span class="small" id="mm-a12-lbl"></span>
+  </div>
+  <div class="row">
+    <label for="mm-a21">$a_{21}$:</label>
+    <input type="range" id="mm-a21" min="-3" max="3" step="1" value="-1">
+    <span class="small" id="mm-a21-lbl"></span>
+  </div>
+  <div class="row">
+    <label for="mm-a22">$a_{22}$:</label>
+    <input type="range" id="mm-a22" min="-3" max="3" step="1" value="1">
+    <span class="small" id="mm-a22-lbl"></span>
+  </div>
+  <div class="row">
+    <button id="mm-reset">reset to matching pennies</button>
+  </div>
+  <div class="readout" id="mm-out"></div>
+</div><script>
+(function(){
+  const svg=$('#mm-svg'), out=$('#mm-out');
+  const sl={a11:$('#mm-a11'),a12:$('#mm-a12'),a21:$('#mm-a21'),a22:$('#mm-a22')};
+  const lb={a11:$('#mm-a11-lbl'),a12:$('#mm-a12-lbl'),a21:$('#mm-a21-lbl'),a22:$('#mm-a22-lbl')};
+  const resetBtn=$('#mm-reset');
+  function solve(A){
+    const rowMins=[Math.min(A[0][0],A[0][1]),Math.min(A[1][0],A[1][1])];
+    const maximin=Math.max(rowMins[0],rowMins[1]);
+    const colMaxs=[Math.max(A[0][0],A[1][0]),Math.max(A[0][1],A[1][1])];
+    const minimax=Math.min(colMaxs[0],colMaxs[1]);
+    if(maximin===minimax){
+      // pure saddle: find a cell that is a row-max within its column and a col-min within its row
+      for(let i=0;i<2;i++) for(let j=0;j<2;j++){ if(A[i][j]===Math.max(A[0][j],A[1][j]) && A[i][j]===Math.min(A[i][0],A[i][1])) return {pure:true,value:A[i][j],i,j}; }
+      return {pure:true,value:maximin};
+    }
+    const den=A[0][0]+A[1][1]-A[0][1]-A[1][0];
+    const p=(A[1][1]-A[1][0])/den;          // prob row plays row 1
+    const q=(A[1][1]-A[0][1])/den;          // prob col plays col 1
+    const v=(A[0][0]*A[1][1]-A[0][1]*A[1][0])/den;
+    return {pure:false,value:v,p,q};
+  }
+  function render(){
+    for(const k in sl) lb[k].textContent=sl[k].value;
+    const A=[[+sl.a11.value,+sl.a12.value],[+sl.a21.value,+sl.a22.value]];
+    const S=solve(A); svg.innerHTML='';
+    const x0=160,y0=80,cw=150,ch=90;
+    if(S.pure && S.i!=null) svg.appendChild(SVG('rect',{x:x0+S.j*cw,y:y0+S.i*ch,width:cw,height:ch,fill:'var(--green)',opacity:0.2}));
+    for(let r=0;r<=2;r++) svg.appendChild(SVG('line',{x1:x0,y1:y0+r*ch,x2:x0+2*cw,y2:y0+r*ch,stroke:'var(--line)','stroke-width':1.2}));
+    for(let c=0;c<=2;c++) svg.appendChild(SVG('line',{x1:x0+c*cw,y1:y0,x2:x0+c*cw,y2:y0+2*ch,stroke:'var(--line)','stroke-width':1.2}));
+    const ch1=SVG('text',{x:x0+cw,y:y0-30,'text-anchor':'middle','font-size':13,fill:'var(--mute)'}); ch1.textContent='Column (minimizer)'; svg.appendChild(ch1);
+    const rh=SVG('text',{x:x0-90,y:y0+ch,'text-anchor':'middle','font-size':13,fill:'var(--mute)','transform':'rotate(-90 '+(x0-90)+' '+(y0+ch)+')'}); rh.textContent='Row (maximizer)'; svg.appendChild(rh);
+    for(let i=0;i<2;i++) for(let j=0;j<2;j++){ const cx=x0+cw*j+cw/2, cy=y0+ch*i+ch/2; const t=SVG('text',{x:cx,y:cy+6,'text-anchor':'middle','font-size':20,fill:'var(--yellow)','font-weight':700}); t.textContent=A[i][j]; svg.appendChild(t); }
+    // strategy weight bars (right side) when mixed
+    let msg='';
+    if(S.pure){
+      msg='PURE SADDLE POINT: max-min = min-max = '+S.value+'\nvalue v = '+S.value+'    (a pure-strategy Nash equilibrium; no mixing needed)';
+    } else {
+      const p=S.p,q=S.q;
+      msg='no pure saddle (max-min < min-max), so the players mix:\n'+
+          'Row optimal x* = ('+p.toFixed(3)+', '+(1-p).toFixed(3)+')   [PRIMAL LP solution]\n'+
+          'Col optimal y* = ('+q.toFixed(3)+', '+(1-q).toFixed(3)+')   [DUAL LP solution]\n'+
+          'value  v = max_x min_y xᵀAy = min_y max_x xᵀAy = '+S.value.toFixed(3)+'\n'+
+          'primal optimum = dual optimum = v  (LP strong duality = minimax)';
+    }
+    out.textContent=msg;
+  }
+  for(const k in sl) sl[k].addEventListener('input',render);
+  resetBtn.addEventListener('click',()=>{ sl.a11.value=1; sl.a12.value=-1; sl.a21.value=-1; sl.a22.value=1; render(); });
+  render();
+})();
+</script>
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./combinatorial-optimization.html#duality">LP duality &amp; strong duality</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./game-theory.html#mixed">Game theory</a> · Mixed strategies &amp; indifference</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="gt-minimax"></div>
+</section>
+
+<section id="mixed">
+<h2>4. Mixed strategies &amp; indifference</h2>
+<p>A <strong>mixed strategy</strong> for player $i$ is a distribution $x_i \in \Delta(S_i)$; its <strong>support</strong> is the set of pure strategies receiving positive probability. The engine for computing mixed equilibria by hand is the <strong>indifference principle</strong>.</p>
+<p style="text-align:center"><strong>Indifference principle.</strong> If $x^*$ is a Nash equilibrium and pure strategies $s_i, s_i'$ are both in the support of $x_i^*$, then $u_i(s_i, x_{-i}^*) = u_i(s_i', x_{-i}^*)$ — player $i$ is indifferent among all strategies they actually mix over.</p>
+<p>The reason is immediate: if one supported strategy paid strictly more, $i$ would shift all weight to it, contradicting equilibrium. The consequence is a system of equations. To find a fully mixed equilibrium of a $2 \times 2$ game you do <em>not</em> solve for your own probabilities from your own payoffs — you choose <em>your</em> mix to make the <em>opponent</em> indifferent, because their willingness to randomize is what holds your mix in place.</p>
+
+<div class="note"><strong>Worked mini-example (matching pennies).</strong> Row wins $+1$ on a match, loses $1$ on a mismatch; Column is the opposite. Let Column play Heads with probability $q$. Row's expected payoff to Heads is $q(1) + (1-q)(-1) = 2q - 1$; to Tails it is $q(-1) + (1-q)(1) = 1 - 2q$. Setting them equal, $2q - 1 = 1 - 2q \Rightarrow q = \tfrac12$. By symmetry Row also plays $\tfrac12$/$\tfrac12$, so the unique equilibrium is $\big((\tfrac12,\tfrac12),(\tfrac12,\tfrac12)\big)$ — there is no pure equilibrium, yet Nash's theorem still delivers this mixed one.</div>
+
+<p>Fix Column's mix at probability $p$ of playing the first action and slide $p$ below. The widget plots Row's expected payoff to each of Row's pure actions as a function of $p$; the crossing point is the value of $p$ that makes Row <strong>indifferent</strong> — Column's equilibrium mix. (Start on matching pennies; the lines cross at $p = \tfrac12$.)</p>
+
+<div class="widget" id="w-mixed">
+  <div class="hd"><div class="ttl">Indifference: Row's payoffs vs Column's mix p</div><div class="hint">slide p; the crossing is the indifference point = Column's equilibrium mix</div></div>
+  <svg id="mx-svg" viewBox="0 0 600 340" width="600" height="340"><title>Row player's expected payoff to each pure action as a function of the column player's mixing probability, with the indifference crossing marked</title></svg>
+  <div class="row">
+    <label for="mx-game">game:</label>
+    <select id="mx-game">
+      <option value="mp" selected>matching pennies (crossing at $p=\tfrac12$)</option>
+      <option value="bos">battle of the sexes</option>
+    </select>
+  </div>
+  <div class="row">
+    <label for="mx-p">Column plays action 1 w.p. $p$:</label>
+    <input type="range" id="mx-p" min="0" max="1" step="0.01" value="0.3">
+    <span class="small" id="mx-p-lbl"></span>
+  </div>
+  <div class="readout" id="mx-out"></div>
+</div><script>
+(function(){
+  const svg=$('#mx-svg'), out=$('#mx-out'), gameSel=$('#mx-game');
+  const pSl=$('#mx-p'), pL=$('#mx-p-lbl');
+  const W=600,H=340;
+  // Row payoff matrix R[i][j]: i = Row action (0/1), j = Col action (0/1).
+  // Row's EU to action i, given Col plays action0 w.p. p: p*R[i][0] + (1-p)*R[i][1]
+  const GAMES={
+    mp:{name:'matching pennies',acts:['Heads','Tails'],R:[[1,-1],[-1,1]]},
+    bos:{name:'battle of the sexes (Row)',acts:['Opera','Football'],R:[[2,0],[0,1]]}
+  };
+  let cur='mp';
+  function euRow(R,i,p){ return p*R[i][0] + (1-p)*R[i][1]; }
+  function crossing(R){ // p where euRow(0)=euRow(1)
+    const A=(R[0][0]-R[0][1])-(R[1][0]-R[1][1]);
+    const B=(R[0][1]-R[1][1]);
+    return A!==0 ? -B/A : null;
+  }
+  function render(){
+    const G=GAMES[cur], R=G.R; const p=+pSl.value; pL.textContent='p = '+p.toFixed(2);
+    svg.innerHTML='';
+    const padL=70,padR=40,padT=40,padB=50;
+    const pw=W-padL-padR, phh=H-padT-padB;
+    // y-range over all payoffs
+    const vals=[R[0][0],R[0][1],R[1][0],R[1][1]];
+    let ymin=Math.min(...vals), ymax=Math.max(...vals); if(ymin===ymax){ymin-=1;ymax+=1;} const pad=(ymax-ymin)*0.15; ymin-=pad; ymax+=pad;
+    const X=pp=>padL+pp*pw;
+    const Y=v=>padT+(ymax-v)/(ymax-ymin)*phh;
+    // axes
+    svg.appendChild(SVG('line',{x1:padL,y1:padT,x2:padL,y2:padT+phh,stroke:'var(--line)','stroke-width':1.5}));
+    svg.appendChild(SVG('line',{x1:padL,y1:Y(0),x2:padL+pw,y2:Y(0),stroke:'var(--line)','stroke-width':1}));
+    // x ticks at p=0,0.5,1
+    for(const tp of [0,0.5,1]){ svg.appendChild(SVG('line',{x1:X(tp),y1:padT+phh,x2:X(tp),y2:padT+phh+5,stroke:'var(--mute)'})); const t=SVG('text',{x:X(tp),y:padT+phh+20,'text-anchor':'middle','font-size':11,fill:'var(--mute)'}); t.textContent='p='+tp; svg.appendChild(t); }
+    const xlab=SVG('text',{x:padL+pw/2,y:H-8,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}); xlab.textContent="Column's probability p on action 1"; svg.appendChild(xlab);
+    const ylab=SVG('text',{x:18,y:padT+phh/2,'text-anchor':'middle','font-size':12,fill:'var(--mute)','transform':'rotate(-90 18 '+(padT+phh/2)+')'}); ylab.textContent="Row's expected payoff"; svg.appendChild(ylab);
+    // two payoff lines
+    const cols=['var(--cyan)','var(--pink)'];
+    for(let i=0;i<2;i++){ const y0=euRow(R,i,0), y1=euRow(R,i,1); svg.appendChild(SVG('line',{x1:X(0),y1:Y(y1),x2:X(1),y2:Y(y0),stroke:cols[i],'stroke-width':2.5})); const t=SVG('text',{x:X(1)-4,y:Y(y0)-6,'text-anchor':'end','font-size':12,fill:cols[i],'font-weight':600}); t.textContent='play '+G.acts[i]; svg.appendChild(t); }
+    // crossing
+    const pc=crossing(R);
+    if(pc!==null && pc>=0 && pc<=1){ const yc=euRow(R,0,pc); svg.appendChild(SVG('line',{x1:X(pc),y1:padT,x2:X(pc),y2:padT+phh,stroke:'var(--yellow)','stroke-dasharray':'4 3','stroke-width':1.5})); svg.appendChild(SVG('circle',{cx:X(pc),cy:Y(yc),r:6,fill:'var(--yellow)',stroke:'#111','stroke-width':1.5})); const t=SVG('text',{x:X(pc),y:padT-8,'text-anchor':'middle','font-size':12,fill:'var(--yellow)','font-weight':700}); t.textContent='indifference  p* = '+pc.toFixed(3); svg.appendChild(t); }
+    // moving marker at current p on both lines
+    for(let i=0;i<2;i++){ svg.appendChild(SVG('circle',{cx:X(p),cy:Y(euRow(R,i,p)),r:4,fill:cols[i]})); }
+    svg.appendChild(SVG('line',{x1:X(p),y1:padT,x2:X(p),y2:padT+phh,stroke:'var(--mute)','stroke-dasharray':'2 4','stroke-width':1}));
+    let msg=G.name+'\n'+
+      "at p = "+p.toFixed(2)+":  Row's EU("+G.acts[0]+") = "+euRow(R,0,p).toFixed(3)+",  EU("+G.acts[1]+") = "+euRow(R,1,p).toFixed(3)+'\n';
+    if(pc!==null && pc>=0 && pc<=1) msg += 'indifference at p* = '+pc.toFixed(3)+': Row is indifferent, so this is Column\u2019s equilibrium mix.';
+    else msg += 'no interior indifference point — Row strictly prefers one action for all p (a pure best response).';
+    out.textContent=msg;
+  }
+  gameSel.addEventListener('change',()=>{ cur=gameSel.value; render(); });
+  pSl.addEventListener('input',render);
+  render();
+})();
+</script>
+<div class="quiz" data-concept="gt-mixed"></div>
+</section>
+
+<section id="cooperative">
+<h2>5. Cooperative games: core &amp; Shapley value</h2>
+<p>The games so far are <em>non-cooperative</em>: players act alone. In a <strong>cooperative (transferable-utility) game</strong> the primitive is instead a <strong>characteristic function</strong> $v : 2^N \to \mathbb{R}$ with $v(\varnothing) = 0$, assigning to each <em>coalition</em> $S \subseteq N$ the total payoff $v(S)$ its members can secure and freely divide. The question is no longer "what will each player do?" but "how should the grand coalition's worth $v(N)$ be split?"</p>
+
+<h3>The core</h3>
+<p>An <strong>allocation</strong> $x = (x_1, \dots, x_n)$ with $\sum_i x_i = v(N)$ is in the <strong>core</strong> when no coalition can do better on its own:</p>
+<p style="text-align:center">$\displaystyle \sum_{i \in S} x_i \;\ge\; v(S) \quad\text{for every } S \subseteq N.$</p>
+<p>If some $S$ had $\sum_{i\in S}x_i < v(S)$, its members would secede and split $v(S)$ among themselves. The core can be a large set, a single point, or — for genuinely competitive games — <strong>empty</strong> (the three-player majority game has empty core: any split is blocked by the two players who got less).</p>
+
+<h3>The Shapley value</h3>
+<p>The core may be empty or huge, so it gives no canonical answer. The <strong>Shapley value</strong> does: it is the unique allocation satisfying four axioms — <em>efficiency</em> (shares sum to $v(N)$), <em>symmetry</em> (interchangeable players get equal shares), the <em>dummy</em> axiom (a player adding nothing to any coalition gets $0$), and <em>additivity</em> (the value of a sum of games is the sum of values). Shapley's formula is the <strong>average marginal contribution over all orderings</strong>:</p>
+<p style="text-align:center">$\displaystyle \varphi_i(v) = \frac{1}{n!} \sum_{\text{orderings } \pi} \big[\, v(P_i^\pi \cup \{i\}) - v(P_i^\pi) \,\big],$</p>
+<p>where $P_i^\pi$ is the set of players preceding $i$ in ordering $\pi$. Equivalently $\varphi_i = \sum_{S \not\ni i} \frac{|S|!\,(n-|S|-1)!}{n!}\,[v(S\cup\{i\}) - v(S)]$.</p>
+
+<div class="note"><strong>Worked mini-example (glove game).</strong> Players $1, 2$ each own a left glove; player $3$ owns a right glove. A matched pair sells for $1$; an unmatched pile is worthless, so $v(S) = \min(\#\text{left in } S, \#\text{right in } S)$. Player $3$ holds the scarce side. Averaging marginal contributions over all $3! = 6$ orderings gives $\varphi = \big(\tfrac16, \tfrac16, \tfrac23\big)$ — the scarce right-glove owner captures two-thirds. (The core here is the single point $(0,0,1)$, and the Shapley value differs from it: efficiency and symmetry, not coalitional stability, are what the Shapley value enforces.)</div>
+
+<p>Pick a $3$-player game below — glove, the essential-player game, or majority voting — and the widget walks all $6$ orderings, accumulating each player's marginal contribution, and reports the Shapley value $\varphi = (\varphi_1, \varphi_2, \varphi_3)$.</p>
+
+<div class="widget" id="w-cooperative">
+  <div class="hd"><div class="ttl">Shapley value of a 3-player cooperative game</div><div class="hint">pick a game; the bars are the Shapley value = average marginal contribution</div></div>
+  <svg id="co-svg" viewBox="0 0 600 340" width="600" height="340"><title>Shapley value of a three-player transferable-utility game as average marginal contribution over all orderings</title></svg>
+  <div class="row">
+    <label for="co-game">3-player game $v(S)$:</label>
+    <select id="co-game">
+      <option value="glove" selected>glove market (players 1,2 left; 3 right)</option>
+      <option value="essential">essential player ($v=1$ iff $1\in S$ and $|S|\ge2$)</option>
+      <option value="majority">majority voting ($v=1$ iff $|S|\ge2$)</option>
+    </select>
+  </div>
+  <div class="readout" id="co-out"></div>
+</div><script>
+(function(){
+  const svg=$('#co-svg'), out=$('#co-out'), gameSel=$('#co-game');
+  const W=600,H=340;
+  // characteristic functions on bitmask of {player0,player1,player2}
+  const V={
+    glove:(m)=>{ const left=(m&1)+((m>>1)&1); const right=(m>>2)&1; return Math.min(left,right); },
+    essential:(m)=>{ const has0=(m&1)!==0; const size=(m&1)+((m>>1)&1)+((m>>2)&1); if(size===3) return 1; return (has0&&size>=2)?1:0; },
+    majority:(m)=>{ const size=(m&1)+((m>>1)&1)+((m>>2)&1); return size>=2?1:0; }
+  };
+  const NAMES={glove:'glove market',essential:'essential player 1',majority:'3-player majority'};
+  let cur='glove';
+  function perms(arr){ if(arr.length<=1) return [arr]; let res=[]; for(let i=0;i<arr.length;i++){ const rest=arr.slice(0,i).concat(arr.slice(i+1)); for(const p of perms(rest)) res.push([arr[i],...p]); } return res; }
+  function shapley(v){ const orders=perms([0,1,2]); const phi=[0,0,0]; const detail=[]; for(const o of orders){ let mask=0; const row=[]; for(const i of o){ const before=v(mask); const after=v(mask|(1<<i)); phi[i]+=after-before; row.push({i,marg:after-before}); mask|=(1<<i); } detail.push({order:o,row}); } return {phi:phi.map(x=>x/orders.length),detail}; }
+  function render(){
+    const v=V[cur]; const {phi,detail}=shapley(v); svg.innerHTML='';
+    // bar chart of phi_i
+    const padL=70,padB=60,padT=50; const bw=90, gap=60; const baseY=H-padB; const maxPhi=Math.max(1, ...phi);
+    const scale=(H-padT-padB)/maxPhi;
+    const cols=['var(--cyan)','var(--violet)','var(--green)'];
+    svg.appendChild(SVG('line',{x1:padL-10,y1:baseY,x2:W-30,y2:baseY,stroke:'var(--line)','stroke-width':1.5}));
+    for(let i=0;i<3;i++){ const x=padL+i*(bw+gap); const h=phi[i]*scale; svg.appendChild(SVG('rect',{x,y:baseY-h,width:bw,height:Math.max(h,1),rx:5,fill:cols[i],opacity:0.85,stroke:'var(--line)'})); const val=SVG('text',{x:x+bw/2,y:baseY-h-8,'text-anchor':'middle','font-size':14,fill:cols[i],'font-weight':700}); val.textContent=phi[i].toFixed(3); svg.appendChild(val); const lab=SVG('text',{x:x+bw/2,y:baseY+22,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}); lab.textContent='player '+(i+1); svg.appendChild(lab); }
+    const cap=SVG('text',{x:padL-10,y:30,'font-size':12,fill:'var(--mute)'}); cap.textContent=NAMES[cur]+"   \u2014   Shapley value \u03c6 = average marginal contribution over 6 orderings"; svg.appendChild(cap);
+    const sum=phi[0]+phi[1]+phi[2];
+    // show the 6 orderings with marginal contributions
+    let lines=detail.map(d=>{ const seq=d.order.map(i=>i+1).join('\u2192'); const margs=d.row.map(r=>'p'+(r.i+1)+':'+r.marg).join(' '); return '  '+seq+'   ['+margs+']'; }).join('\n');
+    out.textContent =
+      NAMES[cur]+'\n'+
+      'Shapley value \u03c6 = ('+phi.map(x=>x.toFixed(3)).join(', ')+')   sum = '+sum.toFixed(3)+' = v(N)  (efficiency)\n'+
+      'orderings (marginal contribution of each player as they join):\n'+lines;
+  }
+  gameSel.addEventListener('change',()=>{ cur=gameSel.value; render(); });
+  render();
+})();
+</script>
+<div class="quiz" data-concept="gt-cooperative"></div>
+</section>
+
+<section id="mechanism">
+<h2>6. Mechanism design &amp; auctions</h2>
+<p><strong>Mechanism design</strong> is game theory run backwards: instead of analyzing a fixed game, the designer chooses the <em>rules</em> so that self-interested play produces a desired outcome — "reverse game theory." Each agent $i$ holds private information (a <strong>type</strong> $\theta_i$, e.g. a valuation); a mechanism collects reports and maps them to an outcome plus payments. A mechanism is <strong>incentive compatible</strong> (truthful) when reporting one's true type is optimal.</p>
+<p>The sharpest form is <strong>dominant-strategy incentive compatibility</strong> (DSIC): truth-telling is optimal <em>no matter what others report</em>. Single-item auctions are the cleanest laboratory.</p>
+
+<h3>First-price vs second-price</h3>
+<ul>
+  <li><strong>First-price sealed bid:</strong> highest bidder wins and pays <em>their own bid</em>. Bidding your value $v_i$ yields zero surplus when you win, so rational bidders <em>shade</em> below $v_i$; the optimal shade depends on beliefs about rivals, so truthful bidding is <strong>not</strong> a dominant strategy and equilibrium needs a Bayesian model.</li>
+  <li><strong>Second-price (Vickrey) sealed bid:</strong> highest bidder wins but pays the <em>second-highest</em> bid. Now your bid only decides <em>whether</em> you win, never <em>what</em> you pay.</li>
+</ul>
+<p style="text-align:center"><strong>Vickrey's theorem.</strong> In a sealed-bid second-price auction, bidding your true valuation is a (weakly) dominant strategy.</p>
+<p><em>Why.</em> Fix the others' bids; let $b^* = \max_{j\ne i} b_j$. If $v_i > b^*$ you want to win and any truthful bid $b_i = v_i$ does, at price $b^*$, for surplus $v_i - b^* > 0$; raising or lowering your bid cannot improve this and risks winning when $v_i < b^*$ (a loss) or losing when $v_i > b^*$. So $b_i = v_i$ is never beaten. The single-item Vickrey auction is the simplest <strong>VCG</strong> mechanism: each winner pays the externality they impose — the value the runner-up forgoes.</p>
+
+<div class="note"><strong>Worked mini-example.</strong> Three bidders value the item at $\$10, \$7, \$4$ and bid truthfully. The $\$10$ bidder wins. In a <em>second-price</em> auction they pay $\$7$ (surplus $\$3$); in a <em>first-price</em> auction, truthful bids would have them pay $\$10$ (surplus $\$0$) — which is exactly why first-price bidders shade down. Both award the item efficiently, to the highest-value bidder.</div>
+
+<p>Set three bidders' valuations and watch first-price (pay your bid) versus second-price (pay the runner-up's bid) outcomes. Toggle the winning bidder to a non-truthful bid in the second-price auction and confirm it can only hurt — the truthfulness lever.</p>
+
+<div class="widget" id="w-mechanism">
+  <div class="hd"><div class="ttl">First-price vs second-price (Vickrey) auction</div><div class="hint">set valuations; shade bidder 1's bid to test truthfulness in the second-price auction</div></div>
+  <svg id="mech-svg" viewBox="0 0 600 330" width="600" height="330"><title>Comparing first-price and second-price auction outcomes with three bidders, illustrating truthful bidding as a dominant strategy in the second-price auction</title></svg>
+  <div class="row">
+    <label for="mech-v1">bidder 1 valuation $v_1$:</label>
+    <input type="range" id="mech-v1" min="0" max="12" step="1" value="10">
+    <span class="small" id="mech-v1-lbl"></span>
+  </div>
+  <div class="row">
+    <label for="mech-v2">bidder 2 valuation $v_2$:</label>
+    <input type="range" id="mech-v2" min="0" max="12" step="1" value="7">
+    <span class="small" id="mech-v2-lbl"></span>
+  </div>
+  <div class="row">
+    <label for="mech-v3">bidder 3 valuation $v_3$:</label>
+    <input type="range" id="mech-v3" min="0" max="12" step="1" value="4">
+    <span class="small" id="mech-v3-lbl"></span>
+  </div>
+  <div class="row">
+    <label for="mech-shade">bidder 1 second-price bid (vs $v_1$):</label>
+    <input type="range" id="mech-shade" min="0" max="12" step="1" value="10">
+    <span class="small" id="mech-shade-lbl"></span>
+  </div>
+  <div class="readout" id="mech-out"></div>
+</div><script>
+(function(){
+  const svg=$('#mech-svg'), out=$('#mech-out');
+  const sl={v1:$('#mech-v1'),v2:$('#mech-v2'),v3:$('#mech-v3'),shade:$('#mech-shade')};
+  const lb={v1:$('#mech-v1-lbl'),v2:$('#mech-v2-lbl'),v3:$('#mech-v3-lbl'),shade:$('#mech-shade-lbl')};
+  const W=600,H=330;
+  function render(){
+    for(const k in sl) lb[k].textContent=sl[k].value;
+    const vals=[+sl.v1.value,+sl.v2.value,+sl.v3.value];
+    const b1=+sl.shade.value;
+    // truthful bids for the comparison; bidder 1 may deviate to b1 in the second-price test
+    const bidsTruth=vals.slice();
+    const bidsDev=[b1,vals[1],vals[2]];
+    svg.innerHTML='';
+    // bar chart of valuations
+    const padL=80,baseY=210,bw=90,gap=60,maxV=Math.max(1,...vals,b1);
+    const scale=140/maxV;
+    const cols=['var(--cyan)','var(--violet)','var(--green)'];
+    svg.appendChild(SVG('line',{x1:padL-10,y1:baseY,x2:W-30,y2:baseY,stroke:'var(--line)','stroke-width':1.5}));
+    for(let i=0;i<3;i++){ const x=padL+i*(bw+gap); const h=vals[i]*scale; svg.appendChild(SVG('rect',{x,y:baseY-h,width:bw,height:Math.max(h,1),rx:5,fill:cols[i],opacity:0.8,stroke:'var(--line)'})); const t=SVG('text',{x:x+bw/2,y:baseY-h-8,'text-anchor':'middle','font-size':13,fill:cols[i],'font-weight':700}); t.textContent='v='+vals[i]; svg.appendChild(t); const lab=SVG('text',{x:x+bw/2,y:baseY+22,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}); lab.textContent='bidder '+(i+1); svg.appendChild(lab); }
+    // mark bidder 1's deviating bid as a dashed cap
+    if(b1!==vals[0]){ const x=padL; const hb=b1*scale; svg.appendChild(SVG('line',{x1:x-4,y1:baseY-hb,x2:x+bw+4,y2:baseY-hb,stroke:'var(--yellow)','stroke-dasharray':'4 3','stroke-width':2})); const t=SVG('text',{x:x+bw/2,y:baseY-hb-6,'text-anchor':'middle','font-size':11,fill:'var(--yellow)'}); t.textContent='bid '+b1; svg.appendChild(t); }
+    // outcomes
+    function auction(bids,price){ // price: 'first' or 'second'
+      let order=bids.map((b,i)=>({b,i})).sort((a,c)=>c.b-a.b);
+      const winner=order[0].i; const pay = price==='first' ? order[0].b : order[1].b;
+      return {winner,pay};
+    }
+    const fp=auction(bidsTruth,'first');
+    const sp=auction(bidsTruth,'second');
+    const spDev=auction(bidsDev,'second');
+    const truthWinner=sp.winner;
+    const surplusTruth = truthWinner===0 ? vals[0]-sp.pay : 0;
+    // surplus to bidder 1 under deviation
+    const dev1Wins = spDev.winner===0;
+    const surplusDev = dev1Wins ? vals[0]-spDev.pay : 0;
+    let msg='';
+    msg += 'truthful bids = valuations ('+vals.join(', ')+')\n';
+    msg += 'FIRST-PRICE (truthful):  bidder '+(fp.winner+1)+' wins, pays '+fp.pay+' = own bid  \u2192 surplus '+(vals[fp.winner]-fp.pay)+'  (so first-price bidders shade DOWN)\n';
+    msg += 'SECOND-PRICE (truthful): bidder '+(sp.winner+1)+' wins, pays '+sp.pay+' = runner-up bid  \u2192 surplus '+(vals[sp.winner]-sp.pay)+'\n';
+    msg += '\nTruthfulness test (bidder 1 bids '+b1+' instead of v₁='+vals[0]+', second-price):\n';
+    if(b1===vals[0]) msg += '  bidding truthfully \u2192 bidder 1 surplus '+surplusTruth+'. Try shading the bid to see it never helps.';
+    else { msg += '  bidder '+(spDev.winner+1)+' now wins; bidder 1 surplus = '+surplusDev+(surplusDev<=surplusTruth?'  \u2264  truthful surplus '+surplusTruth+'  \u2192 deviation does NOT help':'  > truthful?!'); msg += '\n  \u2192 truthful bidding weakly dominates: your bid never sets your price, so honesty is optimal.'; }
+    out.textContent=msg;
+  }
+  for(const k in sl) sl[k].addEventListener('input',render);
+  render();
+})();
+</script>
+<div class="quiz" data-concept="gt-mechanism"></div>
+</section>
+
+<section id="connections">
+<h2>Connections</h2>
+
+<p>Equilibrium existence rests on fixed-point theorems and the value of a zero-sum game <em>is</em> LP duality, so game theory sits at the crossroads of optimization, analysis, and economics. The open frontiers are computational and dynamic: finding a Nash equilibrium is <strong>PPAD</strong>-complete (believed intractable in general), and a beginner who expects equilibria to be efficiently computable, unique, or socially optimal is surprised on all three counts. Multi-agent reinforcement learning and stochastic (Markov) games — where players face a controlled Markov process rather than a one-shot matrix — are where these statics become a live dynamic theory.</p>
+
+<ul>
+<li><a href="./fixed-point-theorems.html#kakutani">Fixed-point theorems — Kakutani &amp; Brouwer</a> — the engine behind Nash's existence proof; the best-response correspondence has a fixed point.</li>
+<li><a href="./combinatorial-optimization.html#duality">Combinatorial optimization — LP duality</a> — strong duality is the minimax theorem; optimal zero-sum strategies are a primal/dual pair.</li>
+<li><a href="./convex-optimization.html#lagrangian-duality">Convex optimization — Lagrangian duality</a> — the convex-analytic generalization of the saddle-point structure that minimax exhibits.</li>
+<li><a href="./markov-decision-processes.html#formulation">Markov decision processes</a> — a single-agent controlled Markov chain; stochastic games are the multi-agent generalization where game theory and dynamic programming meet.</li>
+<li><a href="./optimal-control-and-dynamic-programming.html#dp">Optimal control &amp; dynamic programming</a> — sequential decision-making whose multi-agent extension (differential games) carries equilibrium into continuous time.</li>
+</ul>
+</section>
+
+</main>
+
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('game-theory'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+})();
+</script>
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-05-22</td><td>initial version</td></tr>
+    </tbody>
+  </table>
+</details>
+
+</body>
+</html>

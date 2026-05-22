@@ -27,6 +27,7 @@ window.__MVConcepts = {
       "markov-decision-processes",
       "ramsey-theory",
       "order-theory-and-lattices",
+      "game-theory",
       "several-complex-variables",
       "khovanov-homology",
       "shimura-varieties",
@@ -416,7 +417,8 @@ window.__MVConcepts = {
       "computational-molecular-biology": "advanced",
       "kalman-filtering-and-state-estimation": "advanced",
       "statistical-learning-theory": "advanced",
-      "markov-decision-processes": "standard"
+      "markov-decision-processes": "standard",
+      "game-theory": "standard"
     }
   },
   "topics": {
@@ -2575,6 +2577,68 @@ window.__MVConcepts = {
             "ot-lattices"
           ],
           "blurb": "A complete lattice has meets and joins of arbitrary subsets. Knaster–Tarski: any monotone map on a complete lattice has a complete lattice of fixed points, with a least fixed point equal to the meet of all pre-fixed points."
+        }
+      ]
+    },
+    "game-theory": {
+      "topic": "game-theory",
+      "title": "Game theory",
+      "page": "game-theory.html",
+      "concepts": [
+        {
+          "id": "gt-normal-form",
+          "title": "Normal-form games & dominance",
+          "anchor": "normal-form",
+          "prereqs": [],
+          "blurb": "A finite game in normal form is players, strategy sets, and payoff matrices. A strategy is strictly dominated if some alternative does strictly better against every opponent profile; the Prisoner's Dilemma is the canonical example where dominance forces an inefficient outcome."
+        },
+        {
+          "id": "gt-nash",
+          "title": "Nash equilibrium",
+          "anchor": "nash",
+          "prereqs": [
+            "gt-normal-form",
+            "fpt-kakutani"
+          ],
+          "blurb": "A Nash equilibrium is a strategy profile in which no player can profitably deviate. Nash's theorem guarantees that every finite game has at least one equilibrium in mixed strategies — proved via the Kakutani fixed-point theorem applied to the best-response correspondence."
+        },
+        {
+          "id": "gt-minimax",
+          "title": "Zero-sum games & the minimax theorem",
+          "anchor": "minimax",
+          "prereqs": [
+            "gt-normal-form",
+            "lp-duality"
+          ],
+          "blurb": "In a two-player zero-sum game, von Neumann's minimax theorem says max-min equals min-max, defining the value of the game. The optimal mixed strategies are the solution of a primal/dual linear-programming pair, so the theorem is exactly LP duality in disguise."
+        },
+        {
+          "id": "gt-mixed",
+          "title": "Mixed strategies & indifference",
+          "anchor": "mixed",
+          "prereqs": [
+            "gt-nash",
+            "gt-minimax"
+          ],
+          "blurb": "A mixed strategy randomizes over pure actions. The indifference principle says that in a mixed equilibrium each player is indifferent among the pure strategies in the support of the other's mix — the lever that lets you solve a 2×2 game like matching pennies by hand."
+        },
+        {
+          "id": "gt-cooperative",
+          "title": "Cooperative games: core & Shapley value",
+          "anchor": "cooperative",
+          "prereqs": [
+            "gt-normal-form"
+          ],
+          "blurb": "A transferable-utility game assigns a worth v(S) to each coalition. The core is the set of allocations no coalition can improve upon (possibly empty); the Shapley value is the unique allocation satisfying efficiency, symmetry, the dummy axiom and additivity, equal to a player's average marginal contribution over all orderings."
+        },
+        {
+          "id": "gt-mechanism",
+          "title": "Mechanism design & auctions",
+          "anchor": "mechanism",
+          "prereqs": [
+            "gt-nash"
+          ],
+          "blurb": "Mechanism design engineers the rules so that self-interested play yields a desired outcome. In a second-price (Vickrey) auction — a single-item VCG mechanism — bidding your true valuation is a dominant strategy, unlike the first-price auction where bidders shade their bids."
         }
       ]
     },
@@ -20217,7 +20281,8 @@ window.__MVConcepts = {
           "convex-optimization",
           "mathematical-finance",
           "kalman-filtering-and-state-estimation",
-          "markov-decision-processes"
+          "markov-decision-processes",
+          "game-theory"
         ],
         "color": "p"
       },
@@ -20528,7 +20593,8 @@ window.__MVConcepts = {
     "computational-molecular-biology": "advanced",
     "kalman-filtering-and-state-estimation": "advanced",
     "statistical-learning-theory": "advanced",
-    "markov-decision-processes": "standard"
+    "markov-decision-processes": "standard",
+    "game-theory": "standard"
   },
   "newArc": [
     "elementary-topos-theory",
@@ -20573,7 +20639,7 @@ window.__MVConcepts = {
       "concepts": 211,
       "intra": 368,
       "crossOut": 39,
-      "crossIn": 75,
+      "crossIn": 76,
       "density": 0.1848341232227488
     },
     "Probability & statistics": {
@@ -20626,11 +20692,11 @@ window.__MVConcepts = {
       "density": 0.5797101449275363
     },
     "Control theory & optimization": {
-      "concepts": 40,
-      "intra": 38,
-      "crossOut": 20,
+      "concepts": 46,
+      "intra": 45,
+      "crossOut": 21,
       "crossIn": 1,
-      "density": 0.5
+      "density": 0.45652173913043476
     },
     "Learning theory & data science": {
       "concepts": 6,

@@ -1,0 +1,236 @@
+{
+  "topic": "game-theory",
+  "quizzes": {
+    "gt-normal-form": {
+      "title": "Normal-form games & dominance",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "In the Prisoner's Dilemma each player chooses Cooperate or Defect, with payoffs (higher is better): if both Cooperate each gets $3$; if both Defect each gets $1$; if one Defects while the other Cooperates the defector gets $5$ and the cooperator gets $0$. Which statement is correct?",
+          "choices": [
+            "Defect strictly dominates Cooperate for each player, so $(D,D)$ is the unique Nash equilibrium even though $(C,C)$ Pareto-dominates it",
+            "Cooperate strictly dominates Defect, so $(C,C)$ is the unique equilibrium",
+            "Neither strategy dominates the other, so there is no pure equilibrium",
+            "$(C,C)$ is the unique Nash equilibrium because it maximizes total payoff"
+          ],
+          "answer": 0,
+          "explain": "Hold the opponent fixed. If they Cooperate, Defecting gives $5 > 3$; if they Defect, Defecting gives $1 > 0$. So Defect beats Cooperate against every opponent action — it strictly dominates. Both players reason this way, landing on $(D,D)$ with payoff $1$ each, even though $(C,C)$ gives $3$ each. The conflict between individual incentives and the Pareto-superior outcome is the whole point of the dilemma."
+        },
+        {
+          "type": "mcq",
+          "q": "A pure strategy $s_i$ of player $i$ is strictly dominated when:",
+          "choices": [
+            "there is another strategy $s_i'$ giving player $i$ strictly higher payoff for every strategy profile of the opponents",
+            "$s_i$ gives a lower payoff than $s_i'$ for at least one opponent profile",
+            "$s_i$ is never a best response to any single opponent strategy",
+            "$s_i$ gives player $i$ the lowest payoff in the entire matrix"
+          ],
+          "answer": 0,
+          "explain": "Strict dominance requires that the dominating strategy $s_i'$ beat $s_i$ against every opponent profile, simultaneously. (Weak dominance only asks for $\\ge$ everywhere with strict somewhere.) A strictly dominated strategy is never played in any Nash equilibrium, which is why iterated elimination of strictly dominated strategies is a sound first step."
+        },
+        {
+          "type": "multi-select",
+          "q": "Which data are part of the specification of a finite game in normal (strategic) form?",
+          "choices": [
+            "A finite set of players",
+            "For each player, a finite set of pure strategies",
+            "For each player, a payoff function on the profiles of all players' strategies",
+            "A fixed order in which players move"
+          ],
+          "answer": [0, 1, 2],
+          "explain": "Normal form is exactly (players, strategy sets, payoff functions). It is simultaneous-move by construction — there is no notion of move order; that timing structure belongs to the extensive (game-tree) form, not the normal form."
+        }
+      ]
+    },
+    "gt-nash": {
+      "title": "Nash equilibrium",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A strategy profile $s^* = (s_1^*, \\dots, s_n^*)$ is a Nash equilibrium when:",
+          "choices": [
+            "no player can strictly increase their own payoff by unilaterally changing strategy while the others hold fixed",
+            "every player is using a strictly dominant strategy",
+            "the sum of all players' payoffs is maximized",
+            "all players receive equal payoffs"
+          ],
+          "answer": 0,
+          "explain": "Nash equilibrium is a mutual best-response condition: each $s_i^*$ is a best response to $s_{-i}^*$, so no unilateral deviation helps. It need not maximize total welfare (the Prisoner's Dilemma equilibrium does not), need not be symmetric, and need not involve dominant strategies."
+        },
+        {
+          "type": "mcq",
+          "q": "Nash's existence theorem guarantees that every finite game has at least one Nash equilibrium. In what sense, and via what tool?",
+          "choices": [
+            "In mixed strategies, proved by applying Kakutani's fixed-point theorem to the best-response correspondence",
+            "In pure strategies, proved by backward induction",
+            "In mixed strategies, proved by the simplex method",
+            "Only for zero-sum games, proved by LP duality"
+          ],
+          "answer": 0,
+          "explain": "Pure equilibria can fail to exist (matching pennies has none). Nash's theorem secures a mixed-strategy equilibrium for every finite game. The proof puts the best-response correspondence on the compact convex product of strategy simplices and applies Kakutani's fixed-point theorem; a fixed point is precisely a profile where everyone best-responds to everyone, i.e. a Nash equilibrium."
+        },
+        {
+          "type": "mcq",
+          "q": "Consider the $2\\times2$ coordination game where players pick A or B: payoffs are $(2,2)$ at $(A,A)$, $(1,1)$ at $(B,B)$, and $(0,0)$ at the two mismatched cells. Which are the pure Nash equilibria?",
+          "choices": [
+            "$(A,A)$ and $(B,B)$",
+            "$(A,A)$ only",
+            "$(A,B)$ and $(B,A)$",
+            "There are no pure equilibria"
+          ],
+          "answer": 0,
+          "explain": "At $(A,A)$ neither player gains by switching to B (payoff drops $2 \\to 0$); same at $(B,B)$ ($1 \\to 0$). The mismatched cells are not equilibria — either player can move to a matching cell and raise their payoff from $0$. So both $(A,A)$ and $(B,B)$ are pure Nash equilibria (there is also a mixed one); coordination games typically have multiple equilibria."
+        }
+      ]
+    },
+    "gt-minimax": {
+      "title": "Zero-sum games & the minimax theorem",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Von Neumann's minimax theorem for a two-player zero-sum game with payoff matrix $A$ (row player maximizes $x^\\top A y$, column player minimizes) states that:",
+          "choices": [
+            "$\\max_x \\min_y x^\\top A y = \\min_y \\max_x x^\\top A y$, the common value being the value $v$ of the game",
+            "$\\max_x \\min_y x^\\top A y < \\min_y \\max_x x^\\top A y$ in general",
+            "the game always has a pure-strategy saddle point",
+            "the value of the game is the average of all matrix entries"
+          ],
+          "answer": 0,
+          "explain": "The max-min (what the row player can guarantee) always lower-bounds the min-max (what the column player can hold them to). Minimax asserts equality once mixed strategies are allowed: $\\max_x\\min_y x^\\top A y = \\min_y\\max_x x^\\top A y = v$. A pure saddle point exists only when the game has one; mixing is what closes the gap in general."
+        },
+        {
+          "type": "mcq",
+          "q": "Why is the minimax theorem said to be equivalent to LP duality?",
+          "choices": [
+            "The row player's optimal mixed strategy solves a linear program whose dual is solved by the column player's optimal strategy, and strong duality forces the two optimal values to coincide at $v$",
+            "Because every zero-sum game is itself a linear program with no constraints",
+            "Because the simplex method is the only way to find a Nash equilibrium",
+            "Because LP duality only applies to symmetric games"
+          ],
+          "answer": 0,
+          "explain": "Maximizing the value the row player can guarantee is an LP (maximize $v$ subject to $x^\\top A \\ge v\\mathbf{1}$, $x$ a distribution). Its dual is exactly the column player's value-minimization LP. Strong duality says the optimal primal and dual objectives are equal — which is precisely $\\max_x\\min_y = \\min_y\\max_x = v$. So minimax and LP strong duality are two faces of one theorem."
+        },
+        {
+          "type": "numeric",
+          "q": "Matching pennies as a zero-sum game has payoff matrix $A = \\begin{pmatrix} 1 & -1 \\\\ -1 & 1 \\end{pmatrix}$ (row player's payoff). What is the value $v$ of the game?",
+          "answer": 0,
+          "tol": 0,
+          "explain": "By symmetry each player mixes $(\\tfrac12,\\tfrac12)$. Then $x^\\top A y = \\tfrac14(1-1-1+1) = 0$, and neither player can do better, so the value is $v = 0$. There is no pure saddle point — the equality $\\max_x\\min_y = \\min_y\\max_x = 0$ holds only because mixed strategies are allowed."
+        }
+      ]
+    },
+    "gt-mixed": {
+      "title": "Mixed strategies & indifference",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The indifference principle for a mixed Nash equilibrium says that:",
+          "choices": [
+            "each player makes the other indifferent among all pure strategies in the support of that other player's mix",
+            "each player is indifferent among all of their own pure strategies, used or not",
+            "both players must receive the same expected payoff",
+            "a player only randomizes over strategies that strictly dominate the rest"
+          ],
+          "answer": 0,
+          "explain": "If a player randomizes over several pure strategies in equilibrium, every one of those must yield the same expected payoff against the opponent's mix — otherwise the player would shift all weight to the best one. So in a mixed equilibrium, each player chooses their own probabilities to make the opponent exactly indifferent over the opponent's support. This is the equation you solve to find the mix."
+        },
+        {
+          "type": "numeric",
+          "q": "In matching pennies the row player wins $+1$ on a match and loses $1$ on a mismatch (column player opposite). Let the column player play Heads with probability $q$. For the row player to be indifferent between Heads and Tails, what value must $q$ take?",
+          "answer": 0.5,
+          "tol": 0.01,
+          "explain": "Row's payoff to Heads is $q(1) + (1-q)(-1) = 2q - 1$; to Tails it is $q(-1) + (1-q)(1) = 1 - 2q$. Indifference $2q-1 = 1-2q$ gives $q = \\tfrac12$. By symmetry the row player also mixes $\\tfrac12$/$\\tfrac12$, so the unique (mixed) Nash equilibrium is $\\big((\\tfrac12,\\tfrac12),(\\tfrac12,\\tfrac12)\\big)$."
+        },
+        {
+          "type": "mcq",
+          "q": "Matching pennies has no pure-strategy Nash equilibrium. Why does an equilibrium still exist?",
+          "choices": [
+            "Nash's theorem guarantees a mixed equilibrium for every finite game; here it is each player mixing $\\tfrac12$/$\\tfrac12$",
+            "Because one player has a strictly dominant strategy",
+            "Because the game is symmetric, the diagonal cells are equilibria",
+            "It does not — matching pennies is a counterexample to Nash's theorem"
+          ],
+          "answer": 0,
+          "explain": "In every pure cell of matching pennies one player wants to switch (the loser flips to win), so no pure equilibrium exists. But Nash's theorem promises a mixed equilibrium, and the indifference computation gives it: both players randomize uniformly, making each indifferent and removing any profitable deviation."
+        }
+      ]
+    },
+    "gt-cooperative": {
+      "title": "Cooperative games: core & Shapley value",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "In a transferable-utility cooperative game with characteristic function $v$, an allocation $x = (x_1,\\dots,x_n)$ is in the core when:",
+          "choices": [
+            "$\\sum_i x_i = v(N)$ (efficiency) and $\\sum_{i\\in S} x_i \\ge v(S)$ for every coalition $S$ (no coalition can do better alone)",
+            "$x_i = v(\\{i\\})$ for every player",
+            "every player receives the same amount $v(N)/n$",
+            "$x_i$ equals player $i$'s Shapley value"
+          ],
+          "answer": 0,
+          "explain": "The core is the set of efficient allocations of the grand coalition's worth $v(N)$ that are coalitionally stable: no subset $S$ could secure more than $\\sum_{i\\in S}x_i$ by breaking away, i.e. $\\sum_{i\\in S}x_i \\ge v(S)$ for all $S$. The core can be large, a single point, or empty; the Shapley value need not lie in it."
+        },
+        {
+          "type": "numeric",
+          "q": "Three players form a $1$-unit-value game: $v(S) = 1$ for any coalition $S$ containing player $1$ and at least one other player, $v(N) = 1$, and $v(S) = 0$ for all coalitions of size $\\le 1$ and for $\\{2,3\\}$. Player $1$ is essential to every productive coalition. What is the Shapley value $\\varphi_1$ of player $1$?",
+          "answer": 0.6667,
+          "tol": 0.01,
+          "explain": "Average player $1$'s marginal contribution over all $3! = 6$ orderings. Player $1$ contributes $1$ unless they arrive first (no coalition yet, contributes $0$): they arrive first in $2$ of the $6$ orderings. So $\\varphi_1 = \\tfrac{1}{6}(0+0+1+1+1+1) = \\tfrac{4}{6} = \\tfrac{2}{3} \\approx 0.667$. Players $2$ and $3$ split the remaining $\\tfrac13$ equally, $\\varphi_2 = \\varphi_3 = \\tfrac16$."
+        },
+        {
+          "type": "multi-select",
+          "q": "The Shapley value is the unique allocation rule satisfying which axioms?",
+          "choices": [
+            "Efficiency: the payoffs sum to $v(N)$",
+            "Symmetry: interchangeable players get equal shares",
+            "Dummy (null) player: a player contributing nothing to any coalition gets $0$",
+            "Additivity: the value of a sum of two games is the sum of the values"
+          ],
+          "answer": [0, 1, 2, 3],
+          "explain": "Shapley's theorem: there is exactly one value satisfying efficiency, symmetry, the dummy axiom, and additivity, and it is the average marginal contribution $\\varphi_i = \\frac{1}{n!}\\sum_{\\text{orderings}} [v(\\text{predecessors}\\cup\\{i\\}) - v(\\text{predecessors})]$. All four axioms are needed for uniqueness."
+        }
+      ]
+    },
+    "gt-mechanism": {
+      "title": "Mechanism design & auctions",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "In a sealed-bid second-price (Vickrey) auction for a single item, the highest bidder wins and pays the second-highest bid. Why is bidding your true valuation a dominant strategy?",
+          "choices": [
+            "Your bid only decides whether you win, never what you pay (that is set by others), so bidding truthfully wins exactly the profitable auctions and never causes a loss",
+            "Because the seller forces all bidders to bid their valuation",
+            "Because the second-highest bid always equals your valuation",
+            "Because shading your bid downward increases the price you pay"
+          ],
+          "answer": 0,
+          "explain": "Your own bid in a second-price auction never sets your price — the runner-up's bid does. Bidding above your value can only make you win a too-expensive auction (paying more than it is worth); bidding below can only make you lose an auction you would have profited from. Bidding exactly your value $v_i$ is weakly dominant: you win iff the price is below $v_i$, which is exactly when winning is profitable. The single-item Vickrey auction is the simplest VCG mechanism."
+        },
+        {
+          "type": "mcq",
+          "q": "How does a first-price auction (winner pays their own bid) differ strategically from a second-price auction?",
+          "choices": [
+            "In a first-price auction bidders shade their bids below their valuations to leave room for surplus, so truthful bidding is not a dominant strategy",
+            "In a first-price auction truthful bidding is still dominant",
+            "A first-price auction always raises more revenue with certainty",
+            "The two auctions always produce identical bids"
+          ],
+          "answer": 0,
+          "explain": "In a first-price auction your bid is your price, so bidding your true value $v_i$ yields zero surplus when you win. Rational bidders shade down, and the optimal shade depends on beliefs about rivals — so truthtelling is not dominant and equilibrium bidding requires a Bayesian model. The second-price auction removes this coupling, which is exactly why truthful bidding becomes dominant there."
+        },
+        {
+          "type": "mcq",
+          "q": "Suppose three bidders have valuations $\\$10$, $\\$7$, $\\$4$ for an item and all bid truthfully in a second-price auction. Who wins and what do they pay?",
+          "choices": [
+            "The $\\$10$ bidder wins and pays $\\$7$",
+            "The $\\$10$ bidder wins and pays $\\$10$",
+            "The $\\$7$ bidder wins and pays $\\$4$",
+            "The $\\$10$ bidder wins and pays $\\$4$"
+          ],
+          "answer": 0,
+          "explain": "Highest bidder wins (the $\\$10$ valuation) and pays the second-highest bid, $\\$7$. Their surplus is $\\$10 - \\$7 = \\$3 > 0$, confirming truthful bidding was safe. The mechanism allocates the item efficiently (to the highest-value bidder) while charging the externality the winner imposes — the runner-up's forgone value."
+        }
+      ]
+    }
+  }
+}
