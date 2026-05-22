@@ -184,7 +184,7 @@
 <script src="./js/display-prefs.js"></script>
 <!-- display-prefs-head-auto-end -->
 </head>
-<body data-section="learning-theory-and-data-science" data-level="intermediate">
+<body data-section="learning-theory-and-data-science" data-level="advanced">
 <script>
 const $ = (s,r=document)=>r.querySelector(s);
 const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
@@ -567,7 +567,7 @@ The same expansion holds for the reversed $\mathrm{KL}(p_{\theta+\delta}\,\|\,p_
   </div>
   <div class="row">
     <label for="ng-lr">step size $\eta$:</label>
-    <input type="range" id="ng-lr" min="0.02" max="0.3" step="0.01" value="0.12">
+    <input type="range" id="ng-lr" min="0.02" max="0.3" step="0.01" value="0.04">
     <span class="small" id="ng-lr-lbl"></span>
   </div>
   <div class="readout" id="natgrad-out"></div>
@@ -599,7 +599,7 @@ The same expansion holds for the reversed $\mathrm{KL}(p_{\theta+\delta}\,\|\,p_
     // run both descents from the same start
     const start=[2.2, 2.0/kappa + 0.4];   // start off-axis so the zig-zag is visible
     function run(natural){ let u=start[0], v=start[1]; const path=[[u,v]];
-      for(let s=0;s<60;s++){ let gu=Huu*u, gv=Hvv*v; if(natural){ gu/=Guu; gv/=Gvv; } u-=eta*gu; v-=eta*gv; path.push([u,v]); if(Math.hypot(u,v)<1e-3) break; } return path; }
+      for(let s=0;s<60;s++){ let gu=Huu*u, gv=Hvv*v; if(natural){ gu/=Guu; gv/=Gvv; } u-=eta*gu; v-=eta*gv; path.push([u,v]); if(Math.hypot(u,v)<1e-3 || Math.abs(u)>1e3 || Math.abs(v)>1e3) break; } return path; }
     function drawPath(path,color,dash){ let d='M'; for(const[u,v] of path) d+=` ${SX(u).toFixed(1)} ${SY(v).toFixed(1)}`;
       const pth=SVG('path',{d,fill:'none',stroke:color,'stroke-width':2}); if(dash) pth.setAttribute('stroke-dasharray','6 4'); svg.appendChild(pth);
       for(const[u,v] of path) svg.appendChild(SVG('circle',{cx:SX(u),cy:SY(v),r:1.8,fill:color})); }
@@ -612,9 +612,10 @@ The same expansion holds for the reversed $\mathrm{KL}(p_{\theta+\delta}\,\|\,p_
     leg(x1-180,y1+24,'var(--cyan)','natural GD',true);
     const vEnd=Math.hypot(vp[vp.length-1][0],vp[vp.length-1][1]);
     const nEnd=Math.hypot(np[np.length-1][0],np[np.length-1][1]);
+    const vDiv = !isFinite(vEnd) || vEnd > 50;
     out.textContent =
       `condition number κ² = ${(kappa*kappa).toFixed(0)},  step η = ${eta.toFixed(2)}\n`+
-      `after 60 steps:  vanilla dist to θ* = ${vEnd.toFixed(3)},  natural dist = ${nEnd.toFixed(3)}\n`+
+      (vDiv ? `vanilla GD DIVERGES here (η·κ² = ${(eta*kappa*kappa).toFixed(1)} > 2): the step overshoots the steep axis\n` : `after 60 steps:  vanilla dist to θ* = ${vEnd.toFixed(3)},  natural dist = ${nEnd.toFixed(3)}\n`)+
       `G⁻¹∇L rescales each axis by the metric: the natural path is straight & κ-independent`;
   }
   kSl.addEventListener('input',render);
@@ -748,7 +749,7 @@ $$\mathrm{KL}(p\,\|\,r)\ =\ \mathrm{KL}(p\,\|\,q)\ +\ \mathrm{KL}(q\,\|\,r).$$</
   </div>
   <div class="row">
     <label for="py-q">$q$ along $S$:</label>
-    <input type="range" id="py-q" min="-2.6" max="2.6" step="0.1" value="-0.4">
+    <input type="range" id="py-q" min="-3" max="3" step="0.1" value="-0.4">
     <span class="small" id="py-q-lbl"></span>
   </div>
   <div class="row">
@@ -816,7 +817,7 @@ $$\mathrm{KL}(p\,\|\,r)\ =\ \mathrm{KL}(p\,\|\,q)\ +\ \mathrm{KL}(q\,\|\,r).$$</
   snapBtn.addEventListener('click',()=>{
     const py=+pySl.value, ang=(+angSl.value)*Math.PI/180; const dir=[Math.cos(ang),Math.sin(ang)]; const p=[0.6,py];
     const footS=(p[0]-c0[0])*dir[0]+(p[1]-c0[1])*dir[1];
-    qSl.value=Math.max(-2.6,Math.min(2.6,footS)); render();
+    qSl.value=Math.max(-3.0,Math.min(3.0,footS)); render();
   });
   render();
 })();
