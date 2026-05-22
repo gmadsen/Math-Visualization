@@ -1,5 +1,5 @@
 {
-  "generated": "2026-05-22T12:22:22.558Z",
+  "generated": "2026-05-22T12:37:11.572Z",
   "entries": [
     {
       "slug": "algebraic-combinatorics",
@@ -40,6 +40,14 @@
       "tag": "",
       "date": "2026-05-22",
       "message": "feat: order-theory-and-lattices — Wave 2 (Combinatorics) (#253)"
+    },
+    {
+      "slug": "polytopes-and-ehrhart",
+      "title": "Polytopes and Ehrhart theory",
+      "color": "v",
+      "tag": "",
+      "date": "2026-05-22",
+      "message": "feat: polytopes-and-ehrhart — Wave 3 (Combinatorics)"
     },
     {
       "slug": "probabilistic-graphical-models",
