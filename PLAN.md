@@ -36,13 +36,12 @@ A 16-topic program agreed with the user to flesh out the thinnest sections (Comb
 
 Already covered, do **not** duplicate: LP/simplex/duality/network-flows/matching/polyhedral (`combinatorial-optimization`); Bellman/DP/stochastic-DP/HJB/Pontryagin/LQR (`optimal-control-and-dynamic-programming`); SGD/proximal/online/interior-point (`convex-optimization`).
 
-- `pomdps-and-belief-states` — partial observability, belief MDP, point-based methods
 
 ### Sequencing
 
 - **Wave 1 (floors): ✅ complete** — `statistical-learning-theory` #249, `graph-theory-fundamentals` #250, `markov-decision-processes` #251.
 - **Wave 2 (build up): ✅ complete** — `ramsey-theory` #252, `order-theory-and-lattices` #253, `game-theory` #254, `kernel-methods-and-rkhs` #255, `reinforcement-learning` #256, `probabilistic-graphical-models` #257.
-- **Wave 3 (integrative):** `pomdps-and-belief-states`, `deep-learning-theory`, `information-geometry`, `diffusion-and-score-based-models`, `causal-inference`
+- **Wave 3 (integrative):** `deep-learning-theory`, `information-geometry`, `diffusion-and-score-based-models`, `causal-inference`
 
 ### Follow-on (don't block the above)
 
