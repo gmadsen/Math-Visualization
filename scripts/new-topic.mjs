@@ -66,6 +66,7 @@ const SECTIONS = [
   'Combinatorics & graph theory',
   'Mathematical physics',
   'Control theory & optimization',
+  'Learning theory & data science',
 ];
 
 // Per-section default card color palette for the placeholder thumb. The
@@ -87,6 +88,7 @@ const SECTION_PALETTE = new Map([
   ['Mathematical physics',         { klass: 'p', cssVar: '--pink'   }],
   ['Combinatorics & graph theory', { klass: 'v', cssVar: '--violet' }],
   ['Control theory & optimization', { klass: 'p', cssVar: '--pink'  }],
+  ['Learning theory & data science', { klass: 'b', cssVar: '--blue' }],
 ]);
 
 // Accept shorthand aliases for convenience. Map them to the canonical name.
@@ -135,6 +137,13 @@ const SECTION_ALIASES = new Map([
   ['control theory & optimization', 'Control theory & optimization'],
   ['control and optimization', 'Control theory & optimization'],
   ['optimization', 'Control theory & optimization'],
+  ['learning-theory-and-data-science', 'Learning theory & data science'],
+  ['learning theory & data science', 'Learning theory & data science'],
+  ['learning-theory', 'Learning theory & data science'],
+  ['learning theory', 'Learning theory & data science'],
+  ['data-science', 'Learning theory & data science'],
+  ['machine-learning', 'Learning theory & data science'],
+  ['ml', 'Learning theory & data science'],
 ]);
 
 // concepts/index.json layout: blank-line-separated groups. The first 7
@@ -144,7 +153,7 @@ const SECTION_ALIASES = new Map([
 // in one of the 7 regular sections, and if the topic is also a capstone the
 // authoring agent manually migrates it to the capstones group + adds an
 // entry to concepts/capstones.json.
-const CAPSTONES_GROUP_INDEX = 12; // 0-based, immediately after the 12 SECTIONS
+const CAPSTONES_GROUP_INDEX = 13; // 0-based, immediately after the 13 SECTIONS
 
 function usage() {
   console.error('usage: node scripts/new-topic.mjs <topic-slug> <section>');

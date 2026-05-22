@@ -12,9 +12,9 @@ From `audits/coverage-stats.md` and `audits/starter-concepts.md`:
 - 150 concepts lack a widget in their owning section
 - 1355 widgets, 100% registry-driven. Interactive baseline gated via `audits/static-widgets-baseline.json`
 - Quiz tiers: v1 = 3936, hard = 1223, expert = 13 (intentionally bottom-of-list — see "Out of scope")
-- Tag coverage: 99.1% across all 12 sections; tagging effort effectively complete
+- Tag coverage: 99.1% across all 12 populated sections; tagging effort effectively complete
 - 11 narrative-tour story pages on disk, all wired into Tours 1–11
-- All 12 sections open with content; Control theory & optimization (section 12) has 5 topics
+- 13 sections registered; 12 have content — Control theory & optimization (section 12) has 5 topics. Section 13, **Learning theory & data science**, was opened empty on 2026-05-21; first topics queued under the breadth-expansion program below.
 
 ## Breadth-expansion program (locked 2026-05-21)
 
