@@ -1,5 +1,5 @@
 {
-  "generated": "2026-05-22T16:02:21.458Z",
+  "generated": "2026-05-22T16:11:53.393Z",
   "entries": [
     {
       "slug": "algebraic-combinatorics",
@@ -8,6 +8,14 @@
       "tag": "",
       "date": "2026-05-22",
       "message": "feat: algebraic-combinatorics — Wave 3 (Combinatorics) (#258)"
+    },
+    {
+      "slug": "causal-inference",
+      "title": "Causal inference",
+      "color": "b",
+      "tag": "",
+      "date": "2026-05-22",
+      "message": "feat: causal-inference — Wave 3 (Learning theory) — final topic of the 16-topic program"
     },
     {
       "slug": "deep-learning-theory",
