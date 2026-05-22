@@ -1,6 +1,14 @@
 {
-  "generated": "2026-05-22T05:43:40.956Z",
+  "generated": "2026-05-22T06:21:48.537Z",
   "entries": [
+    {
+      "slug": "graph-theory-fundamentals",
+      "title": "Graph theory fundamentals",
+      "color": "v",
+      "tag": "",
+      "date": "2026-05-21",
+      "message": "feat: graph-theory-fundamentals — Combinatorics section floor (Wave 1)"
+    },
     {
       "slug": "statistical-learning-theory",
       "title": "Statistical learning theory",

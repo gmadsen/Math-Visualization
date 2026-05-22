@@ -244,6 +244,7 @@
       "title": "Combinatorics & graph theory",
       "description": "Spectral and extremal combinatorics, the probabilistic method, matroids, designs, and expanders.",
       "topics": [
+        "graph-theory-fundamentals",
         "spectral-graph-theory",
         "matroid-theory",
         "probabilistic-method",

@@ -184,6 +184,7 @@ window.__MVConcepts = {
       "group-schemes",
       "etale-fundamental-group",
       "deformation-theory",
+      "graph-theory-fundamentals",
       "spectral-graph-theory",
       "matroid-theory",
       "probabilistic-method",
@@ -296,6 +297,7 @@ window.__MVConcepts = {
       "group-schemes": "standard",
       "deformation-theory": "standard",
       "algebraic-de-rham-cohomology": "standard",
+      "graph-theory-fundamentals": "prereq",
       "spectral-graph-theory": "standard",
       "matroid-theory": "standard",
       "probabilistic-method": "standard",
@@ -18362,6 +18364,85 @@ window.__MVConcepts = {
         }
       ]
     },
+    "graph-theory-fundamentals": {
+      "topic": "graph-theory-fundamentals",
+      "title": "Graph theory fundamentals",
+      "page": "graph-theory-fundamentals.html",
+      "concepts": [
+        {
+          "id": "gtf-basics",
+          "title": "Graphs, degrees & the handshake lemma",
+          "anchor": "basics",
+          "prereqs": [
+            "sets-functions"
+          ],
+          "blurb": "A graph is a vertex set with a symmetric edge relation. The handshake lemma — $\\sum_v \\deg(v) = 2|E|$ — forces the number of odd-degree vertices to be even.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "gtf-trees",
+          "title": "Connectivity, trees & spanning trees",
+          "anchor": "trees",
+          "prereqs": [
+            "gtf-basics"
+          ],
+          "blurb": "Connected acyclic graphs are trees: $n$ vertices, $n-1$ edges, a unique path between any two vertices. Cayley's formula counts $n^{n-2}$ labeled trees, and every connected graph has a spanning tree.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "gtf-euler-hamilton",
+          "title": "Eulerian & Hamiltonian",
+          "anchor": "euler-hamilton",
+          "prereqs": [
+            "gtf-trees"
+          ],
+          "blurb": "Euler's theorem: a connected graph has an Eulerian circuit iff every vertex has even degree (an open trail iff exactly two vertices are odd). Hamiltonicity — visiting every vertex once — has no such easy test and is NP-complete.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "gtf-planarity",
+          "title": "Planarity & Euler's formula",
+          "anchor": "planarity",
+          "prereqs": [
+            "gtf-trees"
+          ],
+          "blurb": "A connected plane graph satisfies $V - E + F = 2$. The corollary $E \\le 3V - 6$ (and $E \\le 2V - 4$ when triangle-free) certifies non-planarity; Kuratowski–Wagner pin it to forbidden $K_5$ and $K_{3,3}$ minors.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "gtf-coloring",
+          "title": "Graph coloring",
+          "anchor": "coloring",
+          "prereqs": [
+            "gtf-trees"
+          ],
+          "blurb": "The chromatic number $\\chi(G)$ is the fewest colors for a proper vertex coloring. Greedy gives $\\chi \\le \\Delta + 1$; Brooks' theorem sharpens this except for complete graphs and odd cycles, and planar graphs need at most five (in fact four) colors.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "gtf-matching",
+          "title": "Matchings & Hall's theorem",
+          "anchor": "matching",
+          "prereqs": [
+            "gtf-basics"
+          ],
+          "blurb": "A matching is a set of disjoint edges. Hall's marriage theorem characterizes when a bipartite graph has a perfect matching ($|N(S)| \\ge |S|$ for all $S$); König's theorem equates maximum matching with minimum vertex cover, both reached by augmenting paths.",
+          "tags": [
+            "duality"
+          ]
+        }
+      ]
+    },
     "spectral-graph-theory": {
       "topic": "spectral-graph-theory",
       "title": "Spectral graph theory",
@@ -19880,6 +19961,7 @@ window.__MVConcepts = {
         "title": "Combinatorics & graph theory",
         "description": "Spectral and extremal combinatorics, the probabilistic method, matroids, designs, and expanders.",
         "topics": [
+          "graph-theory-fundamentals",
           "spectral-graph-theory",
           "matroid-theory",
           "probabilistic-method",
@@ -20115,6 +20197,7 @@ window.__MVConcepts = {
     "group-schemes": "standard",
     "deformation-theory": "standard",
     "algebraic-de-rham-cohomology": "standard",
+    "graph-theory-fundamentals": "prereq",
     "spectral-graph-theory": "standard",
     "matroid-theory": "standard",
     "probabilistic-method": "standard",
@@ -20251,7 +20334,7 @@ window.__MVConcepts = {
       "concepts": 49,
       "intra": 67,
       "crossOut": 5,
-      "crossIn": 21,
+      "crossIn": 22,
       "density": 0.10204081632653061
     },
     "Algebra & homological": {
@@ -20311,11 +20394,11 @@ window.__MVConcepts = {
       "density": 0.3568075117370892
     },
     "Combinatorics & graph theory": {
-      "concepts": 58,
-      "intra": 56,
-      "crossOut": 27,
+      "concepts": 64,
+      "intra": 61,
+      "crossOut": 28,
       "crossIn": 5,
-      "density": 0.46551724137931033
+      "density": 0.4375
     },
     "Mathematical physics": {
       "concepts": 69,
