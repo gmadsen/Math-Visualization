@@ -467,7 +467,7 @@ $$x_t\mid x_0\ \sim\ N\!\Big(\sqrt{\bar\alpha_t}\,x_0,\ (1-\bar\alpha_t)\,I\Big)
 As $t$ grows, $\bar\alpha_t\to0$: the mean shrinks to $0$ and the variance rises to $1$, so $p_t\to N(0,I)$ regardless of the data. The closed form is the engine of efficient training — you can jump straight to $x_t$ in one step, no simulation needed.</div>
 <p>So the marginal $p_t$ is the data distribution <em>convolved</em> with a Gaussian of growing width (after a deterministic shrink): the modes blur and merge, drifting toward the origin, until nothing of the data structure survives. That $N(0,I)$ endpoint is the prior we will sample from when we generate.</p>
 <h3>Worked mini-example: a two-spike data distribution melting</h3>
-<p>Take data concentrated on two narrow spikes near $\pm 2.3$. With constant $\beta$, at time $t$ the mean factor is $\sqrt{\bar\alpha_t}=e^{-t/2}$ and each spike has variance $(1-\bar\alpha_t)+\bar\alpha_t\sigma_0^2$. Early on, two distinct bumps remain; once $\bar\alpha_t\approx0$ they have merged into a single $N(0,1)$ bell. The transition is smooth and entirely determined by $\bar\alpha_t$.</p>
+<p>Take data concentrated on two narrow spikes near $-2.2$ and $+2.4$. With constant $\beta$, at time $t$ the mean factor is $\sqrt{\bar\alpha_t}=e^{-t/2}$ and each spike has variance $(1-\bar\alpha_t)+\bar\alpha_t\sigma_0^2$. Early on, two distinct bumps remain; once $\bar\alpha_t\approx0$ they have merged into a single $N(0,1)$ bell. The transition is smooth and entirely determined by $\bar\alpha_t$.</p>
 <p>Slide $t$ in the widget and watch the perturbed marginal $p_t$ (yellow) blur from the two-spike data toward the standard Gaussian prior (dashed grey).</p>
 
 <div class="widget" id="w-forward">
