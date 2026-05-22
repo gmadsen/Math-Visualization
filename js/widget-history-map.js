@@ -295,6 +295,7 @@
       });
       g.dataset.idx = i;
       g.dataset.naturalColor = newestColor;
+      g._bx = x; g._by = y; // base position, for counter-scaling in applyZoom
       g.style.setProperty('--era-color', newestColor);
       // Pin size: scales with sqrt(count), capped at 11px outer radius.
       const rOuter = Math.min(11, 4.5 + Math.sqrt(cl.events.length) * 1.6);
@@ -573,6 +574,13 @@
     }
     function applyZoom(){
       zoomLayer.setAttribute('transform', `translate(${zTx.toFixed(2)} ${zTy.toFixed(2)}) scale(${zScale.toFixed(3)})`);
+      // Counter-scale each pin by 1/zScale so the markers hold a constant
+      // on-screen size as the map zooms (semantic zoom) — only their positions
+      // spread apart, matching the mindmap's node behaviour.
+      const inv = 1 / zScale;
+      for(const g of pinNodes){
+        g.setAttribute('transform', `translate(${g._bx.toFixed(1)},${g._by.toFixed(1)}) scale(${inv.toFixed(4)})`);
+      }
     }
     function setZoom(next, cx, cy){
       const n = Math.max(ZOOM_MIN, Math.min(ZOOM_MAX, next));

@@ -303,7 +303,7 @@
   .tl .axis-tick line{stroke:var(--line)}
   .tl .axis-tick text{fill:var(--mute);font-size:11px;font-variant-numeric:tabular-nums}
   .tl .axis-zero line{stroke:var(--mute);stroke-dasharray:3 3}
-  .tl .event-dot{cursor:pointer;transition:transform 120ms ease;outline:none}
+  .tl .event-dot{cursor:pointer;outline:none}
   .tl .event-dot circle{stroke:#0b0f16;stroke-width:1.4;transition:r 120ms ease,filter 120ms ease}
   .tl .event-dot:hover circle{filter:drop-shadow(0 0 6px var(--era-color,var(--yellow)))}
   .tl .event-dot:focus-visible circle{stroke:var(--cyan);stroke-width:2.2;
@@ -344,7 +344,7 @@
   .map .equator{stroke:var(--mute);stroke-dasharray:3 3;stroke-width:.6;opacity:.5}
   .map .continent{fill:var(--panel2);stroke:var(--line);stroke-width:.7;
     transition:fill 200ms ease}
-  .map .pin{cursor:pointer;transition:transform 120ms ease;outline:none}
+  .map .pin{cursor:pointer;outline:none}
   /* Pin stroke was `#0b0f16` matching the SVG background, which made each
      pin look cut OUT of any continent it sat over (a dark halo eaten into
      the panel-2 continent fill — the "map artifact" effect). Switch to a

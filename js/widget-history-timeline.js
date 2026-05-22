@@ -623,6 +623,14 @@
       if(vbX < 0) vbX = 0;
       if(vbX + w > VIEW_W) vbX = VIEW_W - w;
       svg.setAttribute('viewBox', `${vbX.toFixed(2)} 0 ${w.toFixed(2)} ${VIEW_H}`);
+      // The `meet` viewBox scales all content by ~zScale; counter-scale each
+      // event-dot by 1/zScale so the markers hold a constant on-screen size
+      // (the year scrubber + axis still rescale, which is the intended camera).
+      const inv = 1 / zScale;
+      for(let i = 0; i < dotNodes.length; i++){
+        const p = placements[i];
+        dotNodes[i].setAttribute('transform', `translate(${p.x},${p.y}) scale(${inv.toFixed(4)})`);
+      }
     }
     function setZoom(next, cursorX /* in viewBox coords */){
       const n = Math.max(ZOOM_MIN, Math.min(ZOOM_MAX, next));
