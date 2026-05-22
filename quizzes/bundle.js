@@ -28241,6 +28241,253 @@ window.MVQuizBank = {
       }
     }
   },
+  "graph-theory-fundamentals": {
+    "topic": "graph-theory-fundamentals",
+    "quizzes": {
+      "gtf-basics": {
+        "title": "Graphs, degrees & the handshake lemma",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "A simple graph has degree sequence $(4, 3, 3, 2, 2)$. How many edges does it have?",
+            "answer": 7,
+            "tol": 0,
+            "explain": "By the handshake lemma $\\sum_v \\deg(v) = 2|E|$. Here the degrees sum to $4+3+3+2+2 = 14$, so $|E| = 14/2 = 7$."
+          },
+          {
+            "type": "mcq",
+            "q": "Which of the following can NOT be the degree sequence of a simple graph?",
+            "choices": [
+              "$(3, 3, 2, 2, 2)$",
+              "$(4, 3, 2, 2, 1)$",
+              "$(2, 2, 1, 1, 1)$",
+              "$(1, 1, 1, 1)$"
+            ],
+            "answer": 2,
+            "explain": "The handshake lemma says the number of odd-degree vertices must be even. The sequence $(2,2,1,1,1)$ has three odd entries, an odd count, so it sums to $7$ — not twice any integer. The others all have an even number of odd degrees."
+          },
+          {
+            "type": "multi-select",
+            "q": "Select every statement that the handshake lemma $\\sum_v \\deg(v) = 2|E|$ directly implies.",
+            "choices": [
+              "The sum of all vertex degrees is even",
+              "The number of vertices of odd degree is even",
+              "Every vertex must have even degree",
+              "A graph with an odd number of edges has at least one vertex of odd degree"
+            ],
+            "answer": [
+              0,
+              1
+            ],
+            "explain": "Since $\\sum \\deg(v) = 2|E|$ is even, the odd-degree vertices must pair up, so their count is even. The lemma does not force every degree to be even (option 3 is false), and a triangle has $3$ edges but all even degrees? No — a triangle has all degree $2$ and $3$ edges, so option 4 is also false."
+          }
+        ]
+      },
+      "gtf-trees": {
+        "title": "Connectivity, trees & spanning trees",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "By Cayley's formula, how many distinct labeled spanning trees does the complete graph $K_4$ have?",
+            "answer": 16,
+            "tol": 0,
+            "explain": "Cayley's formula counts $n^{n-2}$ labeled trees on $n$ vertices. For $n = 4$ that is $4^{4-2} = 4^2 = 16$, which is also the number of spanning trees of $K_4$."
+          },
+          {
+            "type": "mcq",
+            "q": "A tree on $n$ vertices has how many edges, and how many paths between a given pair of distinct vertices?",
+            "choices": [
+              "$n$ edges; at least two paths",
+              "$n-1$ edges; exactly one path",
+              "$n-1$ edges; exactly two paths",
+              "$n+1$ edges; exactly one path"
+            ],
+            "answer": 1,
+            "explain": "A tree is connected and acyclic, so it has exactly $n-1$ edges. Acyclicity plus connectivity means there is exactly one path between any two vertices; a second path would create a cycle."
+          },
+          {
+            "type": "multi-select",
+            "q": "Let $G$ be a connected graph on $n$ vertices. Select every statement that is always true.",
+            "choices": [
+              "$G$ has at least $n-1$ edges",
+              "Every connected graph has a spanning tree",
+              "Adding any edge to a spanning tree of $G$ creates exactly one cycle",
+              "If $G$ has exactly $n-1$ edges then $G$ is a tree"
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "explain": "A connected graph needs at least $n-1$ edges and always contains a spanning tree (delete edges from cycles until acyclic). Adding any non-tree edge to a tree closes the unique path between its endpoints into exactly one cycle. A connected graph with exactly $n-1$ edges is acyclic, hence a tree."
+          }
+        ]
+      },
+      "gtf-euler-hamilton": {
+        "title": "Eulerian & Hamiltonian",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "By Euler's theorem, a connected graph has an Eulerian circuit (a closed walk using every edge exactly once) if and only if:",
+            "choices": [
+              "every vertex has even degree",
+              "exactly two vertices have odd degree",
+              "the graph is a tree",
+              "every vertex has degree at least $n/2$"
+            ],
+            "answer": 0,
+            "explain": "Euler's theorem: a connected graph has an Eulerian circuit iff every vertex has even degree. With exactly two odd-degree vertices it has an open Eulerian trail (starting and ending at the two odd vertices) but no circuit. Degree $\\ge n/2$ is the Dirac condition for Hamiltonicity, a different notion."
+          },
+          {
+            "type": "mcq",
+            "q": "How many vertices of odd degree does the complete graph $K_5$ have, and is it Eulerian?",
+            "choices": [
+              "0 odd vertices; Eulerian",
+              "5 odd vertices; not Eulerian",
+              "5 even vertices; Eulerian",
+              "2 odd vertices; has an open Eulerian trail"
+            ],
+            "answer": 2,
+            "explain": "In $K_5$ every vertex has degree $4$, which is even, so there are $0$ odd-degree vertices and $K_5$ is connected — hence it has an Eulerian circuit. (Option 1 confuses degree parity; degree $4$ is even.)"
+          },
+          {
+            "type": "multi-select",
+            "q": "Select every statement that correctly contrasts Eulerian and Hamiltonian questions.",
+            "choices": [
+              "Whether a graph is Eulerian can be checked in linear time by reading off vertex-degree parities",
+              "Deciding whether a graph has a Hamiltonian cycle is NP-complete",
+              "An Eulerian circuit uses every edge once; a Hamiltonian cycle uses every vertex once",
+              "Every Eulerian graph is automatically Hamiltonian"
+            ],
+            "answer": [
+              0,
+              1,
+              2
+            ],
+            "explain": "Euler's degree test is a fast local check; Hamiltonicity has no such characterization and is NP-complete. The two notions are independent — an Eulerian graph need not be Hamiltonian and vice versa, so option 4 is false."
+          }
+        ]
+      },
+      "gtf-planarity": {
+        "title": "Planarity & Euler's formula",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "A connected planar graph is drawn with $V = 6$ vertices and $E = 9$ edges. By Euler's formula $V - E + F = 2$, how many faces $F$ (including the outer face) does the drawing have?",
+            "answer": 5,
+            "tol": 0,
+            "explain": "Euler's formula gives $F = 2 - V + E = 2 - 6 + 9 = 5$. This count is independent of the particular planar embedding."
+          },
+          {
+            "type": "mcq",
+            "q": "Using the corollary $E \\le 3V - 6$ for a simple connected planar graph with $V \\ge 3$, why is $K_5$ non-planar?",
+            "choices": [
+              "$K_5$ has a vertex of degree $5$, exceeding the planar limit",
+              "$K_5$ has $V = 5$, $E = 10$, but $3V - 6 = 9 \\lt 10$, violating the bound",
+              "$K_5$ is bipartite, and bipartite graphs are never planar",
+              "$K_5$ contains a $K_{3,3}$ subdivision"
+            ],
+            "answer": 1,
+            "explain": "For $K_5$, $V = 5$ and $E = \\binom{5}{2} = 10$, while $3V - 6 = 9$. Since $10 \\gt 9$ the edge bound is violated, so $K_5$ cannot be planar. ($K_5$ is not bipartite, and the bound — not a $K_{3,3}$ subdivision — is what this corollary uses.)"
+          },
+          {
+            "type": "mcq",
+            "q": "Which pair of graphs are the forbidden minors of the Kuratowski–Wagner characterization of planarity?",
+            "choices": [
+              "$K_4$ and $K_{2,3}$",
+              "$K_5$ and $K_{3,3}$",
+              "$C_5$ and $K_4$",
+              "$K_6$ and the Petersen graph"
+            ],
+            "answer": 1,
+            "explain": "Wagner's theorem: a graph is planar iff it contains neither $K_5$ nor $K_{3,3}$ as a minor (equivalently, by Kuratowski, no subdivision of either). The triangle-free bound $E \\le 2V - 4$ is what rules out $K_{3,3}$, which has $E = 9 \\gt 2\\cdot 6 - 4 = 8$."
+          }
+        ]
+      },
+      "gtf-coloring": {
+        "title": "Graph coloring",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "What is the chromatic number $\\chi(C_5)$ of the $5$-cycle?",
+            "answer": 3,
+            "tol": 0,
+            "explain": "An even cycle is bipartite ($\\chi = 2$), but an odd cycle is not: $C_5$ cannot be properly $2$-colored, and $3$ colors suffice. Odd cycles are exactly one of the two Brooks-theorem exceptions where $\\chi = \\Delta + 1$."
+          },
+          {
+            "type": "mcq",
+            "q": "Greedy coloring always uses at most $\\Delta + 1$ colors, where $\\Delta$ is the maximum degree. Brooks' theorem says $\\chi(G) \\le \\Delta$ EXCEPT for which graphs?",
+            "choices": [
+              "trees and forests",
+              "complete graphs and odd cycles",
+              "planar graphs",
+              "bipartite graphs"
+            ],
+            "answer": 1,
+            "explain": "Brooks' theorem: for a connected graph that is neither a complete graph $K_n$ ($\\chi = n = \\Delta + 1$) nor an odd cycle ($\\chi = 3 = \\Delta + 1$), the chromatic number satisfies $\\chi(G) \\le \\Delta$. Those two families are the only ones forcing the full greedy bound $\\Delta + 1$."
+          },
+          {
+            "type": "multi-select",
+            "q": "Select every statement about coloring planar graphs that is correct.",
+            "choices": [
+              "Every planar graph is $5$-colorable, and this has an elementary proof",
+              "Every planar graph is $4$-colorable, but the proof (the Four Color Theorem) is deep and computer-assisted",
+              "Some planar graphs require $5$ colors",
+              "Bipartite planar graphs are $2$-colorable"
+            ],
+            "answer": [
+              0,
+              1,
+              3
+            ],
+            "explain": "The Five Color Theorem has a short discharging/recoloring proof; the Four Color Theorem (Appel–Haken) is much deeper and computer-assisted. No planar graph needs $5$ colors (option 3 contradicts the 4CT). Bipartite graphs — planar or not — are $2$-colorable by definition."
+          }
+        ]
+      },
+      "gtf-matching": {
+        "title": "Matchings & Hall's theorem",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Hall's marriage theorem states that a bipartite graph with parts $X, Y$ has a matching saturating $X$ if and only if:",
+            "choices": [
+              "$|X| = |Y|$",
+              "$|N(S)| \\ge |S|$ for every subset $S \\subseteq X$",
+              "every vertex of $X$ has degree at least $1$",
+              "the graph is connected"
+            ],
+            "answer": 1,
+            "explain": "Hall's condition: every subset $S$ of $X$ has at least $|S|$ neighbors in $Y$. If some $S$ has $|N(S)| \\lt |S|$, those vertices cannot all be matched (pigeonhole). The condition is both necessary and sufficient."
+          },
+          {
+            "type": "mcq",
+            "q": "A bipartite graph has parts $X = \\{x_1, x_2, x_3\\}$ and $Y$, with $N(x_1) = N(x_2) = N(x_3) = \\{y_1, y_2\\}$. Does it have a matching saturating $X$?",
+            "choices": [
+              "Yes, by König's theorem",
+              "No: the set $S = X$ has $|N(S)| = 2 \\lt 3 = |S|$, violating Hall's condition",
+              "Yes, since each $x_i$ has degree $2$",
+              "Cannot be determined without knowing $|Y|$"
+            ],
+            "answer": 1,
+            "explain": "All three vertices of $X$ share the same two neighbors, so $S = X$ has $N(S) = \\{y_1, y_2\\}$, giving $|N(S)| = 2 \\lt 3 = |S|$. Hall's condition fails, so no matching can saturate $X$ — at most two of the three can be matched."
+          },
+          {
+            "type": "mcq",
+            "q": "König's theorem applies to bipartite graphs. What equality does it assert?",
+            "choices": [
+              "maximum matching = maximum independent set",
+              "maximum matching size = minimum vertex cover size",
+              "chromatic number = clique number",
+              "number of edges = number of vertices minus components"
+            ],
+            "answer": 1,
+            "explain": "König's theorem: in a bipartite graph the size of a maximum matching equals the size of a minimum vertex cover. This min-max duality is the bipartite special case of the LP-duality behind max-flow / min-cut; augmenting paths construct both a maximum matching and a witnessing cover."
+          }
+        ]
+      }
+    }
+  },
   "groebner-bases": {
     "topic": "groebner-bases",
     "quizzes": {

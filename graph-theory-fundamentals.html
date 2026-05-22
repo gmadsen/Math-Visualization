@@ -1,0 +1,865 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Graph theory fundamentals</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false,
+      strict:(c)=>c==='unicodeTextInMathMode'?'ignore':'warn',
+      macros:{
+        '\\Spec':'\\operatorname{Spec}',
+        '\\Gal':'\\operatorname{Gal}',
+        '\\Hom':'\\operatorname{Hom}',
+        '\\tr':'\\operatorname{tr}',
+        '\\ad':'\\operatorname{ad}',
+        '\\ind':'\\operatorname{ind}'
+      }
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  /* sticky sidebar TOC (wide screens only; narrow screens fall back to top-nav) */
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+  /* callback-css-auto-begin */
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+/* callback-css-auto-end */
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
+  /* display-prefs-css-auto-begin */
+  html[data-hide-widgets] .widget { display: none !important; }
+  html[data-hide-quizzes] .quiz { display: none !important; }
+  html[data-hide-lineage] .lineage-strip { display: none !important; }
+  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }
+  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }
+  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }
+  .mv-display-toggle--off { opacity: 0.35; }
+  /* display-prefs-css-auto-end */
+</style>
+<!-- breadcrumb-head-auto-begin -->
+<script src="./js/section-map.js"></script>
+<script src="./js/breadcrumb.js"></script>
+<script src="./js/glossary-popover.js" defer></script>
+<link rel="stylesheet" media="print" href="./css/print.css">
+<link rel="stylesheet" href="./css/theme-light.css">
+<script src="./js/theme-toggle.js"></script>
+<script src="./concepts/bundle.js" defer></script>
+<script src="./js/topic-hotkeys.js" defer></script>
+<script src="./js/topic-lineage.js" defer></script>
+<!-- breadcrumb-head-auto-end -->
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./js/katex-select.js"></script>
+<script src="./js/widget-diagram-editor.js"></script>
+<script src="./quizzes/bundle.js"></script>
+<script src="./js/sidetoc.js"></script>
+<!-- display-prefs-head-auto-begin -->
+<script src="./js/display-prefs.js"></script>
+<!-- display-prefs-head-auto-end -->
+</head>
+<body data-section="combinatorics-and-graph-theory" data-level="prereq">
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+// draw an arrow marker def once per svg (idempotent)
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+// curved arrow between two pixel points, with optional label
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  // shorten endpoints
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><span class="nav-links"><a class="nav-link" href="./pathway.html">Pathway</a><a class="nav-link" href="./tours.html">Tours</a><a class="nav-link" href="./history.html">History</a><a class="nav-link" href="./tags.html">Themes</a><a class="nav-link" href="./mindmap.html">Mindmap</a><a class="nav-link" href="./search.html">Search</a></span><span class="mv-theme-slot"></span><!-- breadcrumb-nav-auto-end -->
+<!-- toc-auto-begin -->
+  <a href="#basics">1&nbsp;Graphs,&nbsp;degrees&nbsp;&amp;&nbsp;the&nbsp;handshake&nbsp;lemma</a>
+  <a href="#trees">2&nbsp;Connectivity,&nbsp;trees&nbsp;&amp;&nbsp;spanning&nbsp;trees</a>
+  <a href="#euler-hamilton">3&nbsp;Eulerian&nbsp;&amp;&nbsp;Hamiltonian</a>
+  <a href="#planarity">4&nbsp;Planarity&nbsp;&amp;&nbsp;Euler's&nbsp;formula</a>
+  <a href="#coloring">5&nbsp;Graph&nbsp;coloring</a>
+  <a href="#matching">6&nbsp;Matchings&nbsp;&amp;&nbsp;Hall's&nbsp;theorem</a>
+  <a href="#connections">7&nbsp;Connections</a>
+<!-- toc-auto-end -->
+</nav>
+<!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Graph theory fundamentals</h1>
+  <p class="sub">The whole language of networks — degrees, trees, tours, planar drawings, colorings, and matchings — built from one idea: a set of dots and a symmetric relation saying which pairs are joined.</p>
+</section>
+
+<section id="basics">
+<h2>1. Graphs, degrees &amp; the handshake lemma</h2>
+<p>A <strong>(simple, undirected) graph</strong> is a pair $G=(V,E)$: a finite set $V$ of <em>vertices</em> and a set $E$ of <em>edges</em>, each edge an unordered pair $\{u,v\}$ of distinct vertices. Equivalently $E$ is a <a href="./naive-set-theory.html#sets">symmetric, irreflexive relation</a> on $V$ — adjacency. We write $u\sim v$ when $\{u,v\}\in E$. The number of vertices $n=|V|$ is the <em>order</em>; $m=|E|$ is the <em>size</em>.</p>
+<p>The <strong>degree</strong> $\deg(v)$ is the number of edges meeting $v$. The richest graph on $n$ vertices is the <strong>complete graph</strong> $K_n$, with every pair joined: $\binom{n}{2}=\tfrac{n(n-1)}2$ edges and every vertex of degree $n-1$.</p>
+
+<h3>The handshake lemma</h3>
+<p>Sum the degrees over all vertices. Each edge $\{u,v\}$ is counted exactly twice — once at $u$, once at $v$ — so</p>
+<p style="text-align:center">$\displaystyle\sum_{v\in V}\deg(v)=2\,|E|.$</p>
+<p>The right side is even, so the left side is too. Splitting the sum by parity, the even-degree vertices contribute an even total, hence the <em>odd</em>-degree vertices must also contribute an even total — which forces their <strong>count</strong> to be even. This is the handshake lemma: <strong>in any graph the number of vertices of odd degree is even.</strong> (At a party, the number of people who shook hands an odd number of times is even.)</p>
+
+<div class="note"><strong>Worked mini-example.</strong> Can a graph have degree sequence $(3,3,3,3,3)$? The degrees sum to $15$, which is odd — but $\sum_v\deg(v)=2|E|$ must be even. So no such graph exists: five vertices each of odd degree $3$ would be five odd-degree vertices, an odd count, contradicting the lemma. By contrast $(3,3,2,2,2)$ sums to $12=2\cdot 6$, so it can (and does) describe a $6$-edge graph.</div>
+
+<p>Build a graph below: each new random edge bumps two degrees and the running total $\sum\deg$ stays locked at exactly $2|E|$.</p>
+
+<div class="widget" id="w-hand">
+  <div class="hd"><div class="ttl">Handshake counter</div><div class="hint">add edges — the degree sum tracks 2|E| exactly</div></div>
+  <svg id="hand-svg" viewBox="0 0 640 320" width="640" height="320"><title>A growing graph illustrating the handshake lemma</title></svg>
+  <div class="row">
+    <label for="hand-n">number of vertices $n$:</label>
+    <input type="range" id="hand-n" min="3" max="9" step="1" value="6">
+    <span class="small" id="hand-n-lbl"></span>
+  </div>
+  <div class="row">
+    <button id="hand-add">add random edge</button>
+    <button id="hand-clear">clear edges</button>
+  </div>
+  <div class="readout" id="hand-out"></div>
+</div><script>
+(function(){
+  const svg=$('#hand-svg'), out=$('#hand-out');
+  const nSl=$('#hand-n'), nL=$('#hand-n-lbl'), add=$('#hand-add'), clr=$('#hand-clear');
+  const W=640,H=320, cx=W/2, cy=H/2-6, R=120;
+  let n=+nSl.value, edges=[]; // edges as "i-j" with i<j
+  function key(i,j){ return i<j? i+'-'+j : j+'-'+i; }
+  function positions(){
+    const p=[];
+    for(let i=0;i<n;i++){ const a=-Math.PI/2 + 2*Math.PI*i/n; p.push([cx+R*Math.cos(a), cy+R*Math.sin(a)]); }
+    return p;
+  }
+  function maxEdges(){ return n*(n-1)/2; }
+  function addRandom(){
+    if(edges.length>=maxEdges()) return;
+    let tries=0;
+    while(tries++<400){
+      const i=Math.floor(Math.random()*n), j=Math.floor(Math.random()*n);
+      if(i===j) continue;
+      const k=key(i,j);
+      if(!edges.includes(k)){ edges.push(k); return; }
+    }
+  }
+  function render(){
+    nL.textContent='n = '+n;
+    const p=positions();
+    svg.innerHTML='';
+    const deg=new Array(n).fill(0);
+    for(const e of edges){ const [i,j]=e.split('-').map(Number); deg[i]++; deg[j]++; }
+    // edges
+    for(const e of edges){ const [i,j]=e.split('-').map(Number);
+      svg.appendChild(SVG('line',{x1:p[i][0],y1:p[i][1],x2:p[j][0],y2:p[j][1],stroke:'var(--cyan)','stroke-width':2,opacity:0.85})); }
+    // vertices
+    for(let i=0;i<n;i++){
+      const odd=deg[i]%2===1;
+      drawNode(svg,p[i][0],p[i][1], deg[i], {r:16, fill:'var(--panel2)', stroke: odd?'var(--pink)':'var(--green)'});
+    }
+    const sum=deg.reduce((a,b)=>a+b,0);
+    const odds=deg.filter(d=>d%2===1).length;
+    out.textContent =
+      'edges |E| = '+edges.length+'   (max for n='+n+' is '+maxEdges()+')\n'+
+      'degree sum  Σ deg(v) = '+sum+'      2|E| = '+(2*edges.length)+'   '+(sum===2*edges.length?'✓ equal':'✗')+'\n'+
+      'odd-degree vertices (pink): '+odds+'   →  always even '+(odds%2===0?'✓':'✗');
+  }
+  nSl.addEventListener('input',()=>{ n=+nSl.value; edges=[]; render(); });
+  add.addEventListener('click',()=>{ addRandom(); render(); });
+  clr.addEventListener('click',()=>{ edges=[]; render(); });
+  // seed a couple of edges so the readout is non-trivial on load
+  addRandom(); addRandom(); render();
+})();
+</script>
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./naive-set-theory.html#sets">Sets and functions</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./graph-theory-fundamentals.html#trees">Graph theory fundamentals</a> · Connectivity, trees &amp; spanning trees</div>
+    <div><a href="./graph-theory-fundamentals.html#matching">Graph theory fundamentals</a> · Matchings &amp; Hall's theorem</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="gtf-basics"></div>
+</section>
+
+<section id="trees">
+<h2>2. Connectivity, trees &amp; spanning trees</h2>
+<p>A <strong>walk</strong> is a sequence of vertices each adjacent to the next; a <strong>path</strong> repeats no vertex. $G$ is <strong>connected</strong> if every pair of vertices is joined by a path; the maximal connected pieces are its <strong>components</strong>. Adding an edge can only merge components, never split them — so $k$ edges added to $n$ isolated vertices leave at least $n-k$ components.</p>
+<p>A <strong>cycle</strong> is a closed path of length $\ge 3$. A connected, acyclic graph is a <strong>tree</strong>. Trees are the leanest connected graphs, and the following are all equivalent for a graph on $n$ vertices:</p>
+<ul>
+  <li>$G$ is a tree (connected and acyclic);</li>
+  <li>$G$ is connected with exactly $n-1$ edges;</li>
+  <li>$G$ is acyclic with exactly $n-1$ edges;</li>
+  <li>any two vertices are joined by a <em>unique</em> path.</li>
+</ul>
+<p>Uniqueness of paths is the defining flavor: a second path between two vertices would close a cycle. Removing any edge of a tree disconnects it; adding any edge creates exactly one cycle.</p>
+
+<h3>Spanning trees and Cayley's formula</h3>
+<p>A <strong>spanning tree</strong> of a connected $G$ is a subgraph that is a tree touching every vertex. Every connected graph has one — keep deleting an edge from any cycle until none remain. How many spanning trees does the complete graph have? <strong>Cayley's formula</strong> answers it:</p>
+<p style="text-align:center">$\#\{\text{labeled trees on } n \text{ vertices}\}=n^{\,n-2}.$</p>
+<p>So $K_n$ has $n^{n-2}$ spanning trees. (Kirchhoff's matrix-tree theorem generalizes this to any graph via a Laplacian cofactor.)</p>
+
+<div class="note"><strong>Worked mini-example.</strong> For $n=4$ Cayley gives $4^{2}=16$ labeled trees, so $K_4$ has $16$ spanning trees: $4$ "stars" (one center joined to the other three) and $12$ "paths" (orderings of the $4$ labels up to reversal, $4!/2=12$). For $n=2$ the formula reads $2^{0}=1$ — a single edge — and for $n=3$, $3^{1}=3$ paths, matching the three ways to pick the middle vertex.</div>
+
+<p>Slide $n$ to read $n^{n-2}$ and sample a random labeled tree; watch how the component count drops as you grow a tree edge by edge.</p>
+
+<div class="widget" id="w-tree">
+  <div class="hd"><div class="ttl">Cayley counter & random tree</div><div class="hint">sample a labeled tree on n vertices; n^(n-2) of them exist</div></div>
+  <svg id="tree-svg" viewBox="0 0 640 320" width="640" height="320"><title>A random labeled spanning tree on n vertices and the Cayley count</title></svg>
+  <div class="row">
+    <label for="tree-n">vertices $n$:</label>
+    <input type="range" id="tree-n" min="2" max="9" step="1" value="5">
+    <span class="small" id="tree-n-lbl"></span>
+  </div>
+  <div class="row">
+    <button id="tree-sample">sample a random tree</button>
+  </div>
+  <div class="readout" id="tree-out"></div>
+</div><script>
+(function(){
+  const svg=$('#tree-svg'), out=$('#tree-out');
+  const nSl=$('#tree-n'), nL=$('#tree-n-lbl'), sample=$('#tree-sample');
+  const W=640,H=320, cx=W/2, cy=H/2-6, R=120;
+  let n=+nSl.value, treeEdges=[];
+  // random Prüfer sequence -> labeled tree (uniform over all n^(n-2) trees)
+  function randomTree(){
+    if(n<2){ treeEdges=[]; return; }
+    if(n===2){ treeEdges=[[0,1]]; return; }
+    const L=n-2, seq=[];
+    for(let i=0;i<L;i++) seq.push(Math.floor(Math.random()*n));
+    const degree=new Array(n).fill(1);
+    for(const s of seq) degree[s]++;
+    const edges=[];
+    const seqCopy=[...seq];
+    for(const s of seqCopy){
+      // smallest leaf
+      let leaf=-1; for(let v=0;v<n;v++){ if(degree[v]===1){ leaf=v; break; } }
+      edges.push([leaf,s]); degree[leaf]--; degree[s]--;
+    }
+    // last edge: the two remaining degree-1 vertices
+    const rem=[]; for(let v=0;v<n;v++) if(degree[v]===1) rem.push(v);
+    edges.push([rem[0],rem[1]]);
+    treeEdges=edges;
+  }
+  function positions(){
+    const p=[];
+    for(let i=0;i<n;i++){ const a=-Math.PI/2 + 2*Math.PI*i/n; p.push([cx+R*Math.cos(a), cy+R*Math.sin(a)]); }
+    return p;
+  }
+  function fmt(x){ return x>=1e6 ? x.toExponential(3) : String(x); }
+  function render(){
+    nL.textContent='n = '+n;
+    const p=positions();
+    svg.innerHTML='';
+    // component count as the tree is grown edge-by-edge (here: full tree => 1 component)
+    for(const [i,j] of treeEdges)
+      svg.appendChild(SVG('line',{x1:p[i][0],y1:p[i][1],x2:p[j][0],y2:p[j][1],stroke:'var(--yellow)','stroke-width':2.2}));
+    for(let i=0;i<n;i++) drawNode(svg,p[i][0],p[i][1], i+1, {r:16, fill:'var(--panel2)', stroke:'var(--blue)'});
+    const cayley = n>=2 ? Math.pow(n,n-2) : 0;
+    const comps = n - treeEdges.length; // each tree edge reduces component count by 1 (acyclic)
+    out.textContent =
+      'n = '+n+'   labeled trees: n^(n-2) = '+n+'^'+(n-2)+' = '+fmt(cayley)+'\n'+
+      'sampled tree edges: '+treeEdges.length+'   (a tree on n vertices has n-1 = '+(n-1)+' edges)\n'+
+      'components after adding all '+treeEdges.length+' edges: '+comps+'   (connected ⇔ 1 component)';
+  }
+  nSl.addEventListener('input',()=>{ n=+nSl.value; randomTree(); render(); });
+  sample.addEventListener('click',()=>{ randomTree(); render(); });
+  randomTree(); render();
+})();
+</script>
+<div class="quiz" data-concept="gtf-trees"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./graph-theory-fundamentals.html#euler-hamilton">Graph theory fundamentals</a> · Eulerian &amp; Hamiltonian</div>
+    <div><a href="./graph-theory-fundamentals.html#coloring">Graph theory fundamentals</a> · Graph coloring</div>
+    <div><a href="./graph-theory-fundamentals.html#planarity">Graph theory fundamentals</a> · Planarity &amp; Euler's formula</div>
+</aside>
+<!-- backlinks-auto-end -->
+</section>
+
+<section id="euler-hamilton">
+<h2>3. Eulerian &amp; Hamiltonian</h2>
+<p>Two famous traversal questions look superficially alike but have wildly different difficulty. An <strong>Eulerian circuit</strong> is a closed walk using <em>every edge exactly once</em>; a <strong>Hamiltonian cycle</strong> is a cycle visiting <em>every vertex exactly once</em>.</p>
+
+<h3>Euler's theorem (the easy one)</h3>
+<p>Euler settled the Königsberg bridges in 1736 with a parity argument. Every time a closed walk passes <em>through</em> a vertex it uses two incident edges — one in, one out — so each vertex's edges must pair up:</p>
+<p style="text-align:center"><strong>A connected graph has an Eulerian circuit $\iff$ every vertex has even degree.</strong></p>
+<p>If exactly two vertices are odd, there is no circuit but there <em>is</em> an open <strong>Eulerian trail</strong> starting at one odd vertex and ending at the other. More than two odd vertices: no Eulerian trail at all. This is a <em>local</em> condition — just read off the degree parities — so Eulerianness is decidable in linear time.</p>
+
+<h3>Hamiltonicity (the hard one)</h3>
+<p>There is no comparable local test. Deciding whether a graph has a Hamiltonian cycle is <strong>NP-complete</strong>. We have only <em>sufficient</em> conditions, e.g. <strong>Dirac's theorem</strong>: if $n\ge 3$ and every vertex has degree $\ge n/2$, then $G$ is Hamiltonian. The two notions are independent: a graph can be Eulerian but not Hamiltonian, or vice versa.</p>
+
+<div class="note"><strong>Worked mini-example.</strong> The Königsberg multigraph has four landmasses of degrees $3,3,3,5$ — four odd vertices, so no Eulerian trail (Euler's negative answer). The complete graph $K_5$ has every vertex of even degree $4$, so it <em>is</em> Eulerian; it is also Hamiltonian (any cyclic order of the $5$ vertices works). But $K_{2,3}$ is Eulerian-free (its degree-$2$ side meets degree-$3$ vertices: degrees $3,3,2,2,2$ give two odd vertices, so it has a trail but no circuit) and not Hamiltonian (any cycle must alternate sides, impossible with unequal parts).</div>
+
+<p>Toggle edges of a small graph; the readout reports the degree-parity test for Eulerianness and brute-checks for a Hamiltonian cycle.</p>
+
+<div class="widget" id="w-euler">
+  <div class="hd"><div class="ttl">Eulerian / Hamiltonian tester</div><div class="hint">click edges on/off — even-degree ⇒ Eulerian; Hamiltonicity is brute-checked</div></div>
+  <svg id="euler-svg" viewBox="0 0 640 320" width="640" height="320"><title>Toggle edges and test Eulerian and Hamiltonian properties</title></svg>
+  <div class="row">
+    <label for="euler-n">vertices $n$:</label>
+    <input type="range" id="euler-n" min="4" max="7" step="1" value="5">
+    <span class="small" id="euler-n-lbl"></span>
+  </div>
+  <div class="row">
+    <button id="euler-cycle">cycle preset</button>
+    <button id="euler-complete">complete preset</button>
+    <button id="euler-clear">clear</button>
+  </div>
+  <div class="readout" id="euler-out"></div>
+</div><script>
+(function(){
+  const svg=$('#euler-svg'), out=$('#euler-out');
+  const nSl=$('#euler-n'), nL=$('#euler-n-lbl');
+  const presetC=$('#euler-cycle'), presetK=$('#euler-complete'), clr=$('#euler-clear');
+  const W=640,H=320, cx=W/2, cy=H/2-6, R=120;
+  let n=+nSl.value, adj=[];
+  function reset(){ adj=Array.from({length:n},()=>new Array(n).fill(0)); }
+  function toggle(i,j){ if(i===j) return; adj[i][j]=adj[j][i]=adj[i][j]?0:1; }
+  function cyclePreset(){ reset(); for(let i=0;i<n;i++){ const j=(i+1)%n; adj[i][j]=adj[j][i]=1; } }
+  function completePreset(){ reset(); for(let i=0;i<n;i++) for(let j=i+1;j<n;j++){ adj[i][j]=adj[j][i]=1; } }
+  function positions(){ const p=[]; for(let i=0;i<n;i++){ const a=-Math.PI/2 + 2*Math.PI*i/n; p.push([cx+R*Math.cos(a), cy+R*Math.sin(a)]); } return p; }
+  function degrees(){ return adj.map(row=>row.reduce((a,b)=>a+b,0)); }
+  function edgeCount(){ let m=0; for(let i=0;i<n;i++) for(let j=i+1;j<n;j++) m+=adj[i][j]; return m; }
+  function connectedOnUsed(){ // connected ignoring isolated vertices
+    const used=[]; for(let i=0;i<n;i++) if(degrees()[i]>0) used.push(i);
+    if(used.length===0) return false;
+    const seen=new Set([used[0]]), stack=[used[0]];
+    while(stack.length){ const v=stack.pop(); for(let w=0;w<n;w++) if(adj[v][w] && !seen.has(w)){ seen.add(w); stack.push(w); } }
+    return used.every(v=>seen.has(v));
+  }
+  function hamiltonian(){ // brute force over permutations fixing vertex 0
+    if(edgeCount()<n) return false;
+    const rest=[]; for(let i=1;i<n;i++) rest.push(i);
+    let found=false;
+    function perm(arr,k){
+      if(found) return;
+      if(k===arr.length){
+        const cyc=[0,...arr];
+        for(let i=0;i<cyc.length;i++){ const a=cyc[i], b=cyc[(i+1)%cyc.length]; if(!adj[a][b]) return; }
+        found=true; return;
+      }
+      for(let i=k;i<arr.length;i++){ [arr[k],arr[i]]=[arr[i],arr[k]]; perm(arr,k+1); [arr[k],arr[i]]=[arr[i],arr[k]]; }
+    }
+    perm(rest,0); return found;
+  }
+  function render(){
+    nL.textContent='n = '+n;
+    const p=positions();
+    svg.innerHTML='';
+    for(let i=0;i<n;i++) for(let j=i+1;j<n;j++) if(adj[i][j])
+      svg.appendChild(SVG('line',{x1:p[i][0],y1:p[i][1],x2:p[j][0],y2:p[j][1],stroke:'var(--cyan)','stroke-width':2,opacity:0.85}));
+    // clickable midpoint pads for every possible edge
+    for(let i=0;i<n;i++) for(let j=i+1;j<n;j++){
+      const mx=(p[i][0]+p[j][0])/2, my=(p[i][1]+p[j][1])/2;
+      const pad=SVG('circle',{cx:mx,cy:my,r:7,fill: adj[i][j]?'var(--yellow)':'transparent',
+        stroke:'var(--line)','stroke-width':1, style:'cursor:pointer', 'data-i':i, 'data-j':j});
+      svg.appendChild(pad);
+    }
+    const deg=degrees();
+    for(let i=0;i<n;i++){ const odd=deg[i]%2===1; drawNode(svg,p[i][0],p[i][1], deg[i], {r:16, fill:'var(--panel2)', stroke: odd?'var(--pink)':'var(--green)'}); }
+    const odds=deg.filter(d=>d%2===1).length;
+    const conn=connectedOnUsed();
+    let euler;
+    if(!conn) euler='no (graph on its edges is disconnected)';
+    else if(odds===0) euler='YES — Eulerian circuit (all degrees even)';
+    else if(odds===2) euler='trail only (exactly 2 odd vertices), no circuit';
+    else euler='no ('+odds+' odd-degree vertices)';
+    const ham=hamiltonian();
+    out.textContent =
+      'click a small dot on an edge slot to toggle that edge.\n'+
+      'degrees: ['+deg.join(', ')+']   odd-degree count: '+odds+'\n'+
+      'Eulerian: '+euler+'\n'+
+      'Hamiltonian cycle exists? '+(ham?'YES ✓':'no')+'   (brute-forced — NP-complete in general)';
+  }
+  svg.addEventListener('click',e=>{
+    const t=e.target;
+    if(t && t.hasAttribute && t.hasAttribute('data-i')){ toggle(+t.getAttribute('data-i'), +t.getAttribute('data-j')); render(); }
+  });
+  nSl.addEventListener('input',()=>{ n=+nSl.value; cyclePreset(); render(); });
+  presetC.addEventListener('click',()=>{ cyclePreset(); render(); });
+  presetK.addEventListener('click',()=>{ completePreset(); render(); });
+  clr.addEventListener('click',()=>{ reset(); render(); });
+  cyclePreset(); render();
+})();
+</script>
+<div class="quiz" data-concept="gtf-euler-hamilton"></div>
+</section>
+
+<section id="planarity">
+<h2>4. Planarity &amp; Euler's formula</h2>
+<p>A graph is <strong>planar</strong> if it can be drawn in the plane with no edges crossing. Such a drawing carves the plane into <strong>faces</strong> (regions), counting the unbounded outer region as one face. Euler discovered that for any connected plane graph the alternating count is invariant:</p>
+<p style="text-align:center">$V - E + F = 2.$</p>
+<p>This is Euler's polyhedron formula in disguise (cube: $8-12+6=2$). The proof is induction on edges: a tree has $F=1$ and $E=V-1$, giving $V-(V-1)+1=2$; each added edge either closes a new face ($F{+}1$) or links a new vertex ($V{+}1$), and both moves preserve $V-E+F$.</p>
+
+<h3>The edge bound and forbidden minors</h3>
+<p>Euler's formula caps how dense a planar graph can be. In a simple planar graph with $V\ge 3$, every face is bounded by at least $3$ edges and every edge borders $2$ faces, so $3F\le 2E$. Substituting into $F=2-V+E$ gives the workhorse corollary:</p>
+<p style="text-align:center">$E \le 3V-6\qquad\text{(and } E\le 2V-4 \text{ if triangle-free).}$</p>
+<p>Violating the bound certifies non-planarity. The complete characterization is <strong>Kuratowski–Wagner</strong>: a graph is planar iff it contains no <strong>$K_5$</strong> and no <strong>$K_{3,3}$</strong> as a minor (equivalently no subdivision of either).</p>
+
+<div class="note"><strong>Worked mini-example.</strong> $K_5$: $V=5$, $E=\binom 52=10$, and $3V-6=9\lt 10$ — the bound fails, so $K_5$ is non-planar. $K_{3,3}$: it is triangle-free (bipartite) with $V=6$, $E=9$, and the sharper $2V-4=8\lt 9$ — non-planar too. Both are minimal obstructions: delete any edge of either and the result becomes planar. The octahedron ($V=6$, $E=12$, $F=8$) sits right at $E=3V-6=12$ — a maximal planar (triangulated) graph.</div>
+
+<p>Add edges to a layout and watch $V-E+F=2$ hold until the edge bound $E\le 3V-6$ is breached, flagging non-planarity.</p>
+
+<div class="widget" id="w-planar">
+  <div class="hd"><div class="ttl">Euler's formula checker</div><div class="hint">add edges; V−E+F=2 holds, and E≤3V−6 flags density</div></div>
+  <svg id="planar-svg" viewBox="0 0 640 320" width="640" height="320"><title>Euler's formula and the planar edge bound as edges are added</title></svg>
+  <div class="row">
+    <label for="planar-n">vertices $V$:</label>
+    <input type="range" id="planar-n" min="4" max="8" step="1" value="6">
+    <span class="small" id="planar-n-lbl"></span>
+  </div>
+  <div class="row">
+    <button id="planar-add">add an edge</button>
+    <button id="planar-tri">triangulate (maximal planar)</button>
+    <button id="planar-clear">clear to spanning tree</button>
+  </div>
+  <div class="readout" id="planar-out"></div>
+</div><script>
+(function(){
+  const svg=$('#planar-svg'), out=$('#planar-out');
+  const nSl=$('#planar-n'), nL=$('#planar-n-lbl');
+  const add=$('#planar-add'), tri=$('#planar-tri'), clr=$('#planar-clear');
+  const W=640,H=320, cx=W/2, cy=H/2-6, R=118;
+  let V=+nSl.value, edges=[];
+  function key(i,j){ return i<j? i+'-'+j : j+'-'+i; }
+  function positions(){ const p=[]; for(let i=0;i<V;i++){ const a=-Math.PI/2 + 2*Math.PI*i/V; p.push([cx+R*Math.cos(a), cy+R*Math.sin(a)]); } return p; }
+  function spanningTree(){ edges=[]; for(let i=1;i<V;i++) edges.push(key(0,i)); } // star: V-1 edges
+  function addOne(){
+    for(let i=0;i<V;i++) for(let j=i+1;j<V;j++){ const k=key(i,j); if(!edges.includes(k)){ edges.push(k); return true; } }
+    return false;
+  }
+  function triangulate(){ // outer cycle + one hub fan = maximal planar (3V-6 edges)
+    edges=[];
+    for(let i=0;i<V;i++) edges.push(key(i,(i+1)%V)); // outer cycle
+    for(let i=2;i<V-1;i++) edges.push(key(0,i));     // fan from vertex 0 across the polygon
+  }
+  function render(){
+    nL.textContent='V = '+V;
+    const p=positions();
+    svg.innerHTML='';
+    for(const e of edges){ const [i,j]=e.split('-').map(Number);
+      svg.appendChild(SVG('line',{x1:p[i][0],y1:p[i][1],x2:p[j][0],y2:p[j][1],stroke:'var(--cyan)','stroke-width':1.8,opacity:0.85})); }
+    for(let i=0;i<V;i++) drawNode(svg,p[i][0],p[i][1], i+1, {r:14, fill:'var(--panel2)', stroke:'var(--violet)'});
+    const E=edges.length;
+    const bound=3*V-6;
+    // For a CONNECTED planar embedding, F = 2 - V + E (Euler). We report that planar face count.
+    const F=2 - V + E;
+    const planarOK = E<=bound;
+    out.textContent =
+      'V = '+V+'   E = '+E+'   planar-embedding faces F = 2 − V + E = '+F+'\n'+
+      'Euler check: V − E + F = '+V+' − '+E+' + '+F+' = '+(V-E+F)+'   (= 2 ✓)\n'+
+      'edge bound 3V − 6 = '+bound+'   →  E '+(E<=bound?'≤':'>')+' 3V−6   '+
+        (planarOK?'within the planar limit':'EXCEEDS the bound ⇒ NOT planar (contains a K5 or K3,3 minor)');
+  }
+  nSl.addEventListener('input',()=>{ V=+nSl.value; spanningTree(); render(); });
+  add.addEventListener('click',()=>{ addOne(); render(); });
+  tri.addEventListener('click',()=>{ triangulate(); render(); });
+  clr.addEventListener('click',()=>{ spanningTree(); render(); });
+  spanningTree(); render();
+})();
+</script>
+<div class="quiz" data-concept="gtf-planarity"></div>
+</section>
+
+<section id="coloring">
+<h2>5. Graph coloring</h2>
+<p>A <strong>proper $k$-coloring</strong> assigns one of $k$ colors to each vertex so that adjacent vertices differ. The <strong>chromatic number</strong> $\chi(G)$ is the smallest such $k$. Coloring models conflict-free scheduling: vertices are tasks, edges are conflicts, colors are time slots. Bipartite graphs are exactly the $2$-colorable ones (no odd cycle); $\chi(K_n)=n$; $\chi(C_n)=2$ for even $n$ and $3$ for odd $n$.</p>
+
+<h3>Greedy and Brooks</h3>
+<p>Color vertices one at a time in some order, always picking the smallest color not yet used by an already-colored neighbor. A vertex has at most $\Delta$ neighbors, so some color in $\{1,\dots,\Delta+1\}$ is always free:</p>
+<p style="text-align:center">$\chi(G)\le \Delta+1.$</p>
+<p>The order matters — a clever order can do far better than a bad one, though finding the optimum is NP-hard. <strong>Brooks' theorem</strong> sharpens the greedy bound: a connected graph has $\chi(G)\le\Delta$ <em>unless</em> it is a complete graph (then $\chi=\Delta+1=n$) or an odd cycle (then $\chi=3=\Delta+1$). Those two families are the only ones needing the extra color.</p>
+
+<h3>Planar graphs</h3>
+<p>Planar graphs are special: the <strong>Five Color Theorem</strong> has a clean discharging/recoloring proof, while the <strong>Four Color Theorem</strong> (Appel–Haken, 1976) — that four colors always suffice — is the deep result, proved by reducing to thousands of computer-checked configurations.</p>
+
+<div class="note"><strong>Worked mini-example.</strong> The $5$-cycle $C_5$ has $\Delta=2$, so greedy promises $\chi\le 3$. It is an odd cycle, so it is not bipartite ($\chi\ne 2$) and indeed $\chi(C_5)=3$ — a Brooks exception. The Petersen graph has $\Delta=3$ but is neither complete nor an odd cycle, so Brooks gives $\chi\le 3$, and in fact $\chi=3$. Meanwhile $K_4$ (which is planar) needs all $4$ colors, saturating the Four Color bound.</p></div>
+
+<p>Pick a graph and a vertex order, then run <a href="./matroid-theory.html#greedy" data-auto-inline-link="1" data-concept-id="matroid-greedy" data-blurb="Sort elements by decreasing weight and greedily add each if independence holds. Rado–Edmonds: a hereditary family is a matroid iff this greedy algorithm produces a maximum-weight independent set for every weight function.">the greedy algorithm</a> and read off the colors used against the $\Delta+1$ ceiling.</p>
+
+<div class="widget" id="w-color">
+  <div class="hd"><div class="ttl">Greedy coloring</div><div class="hint">choose a graph and an ordering; greedy uses ≤ Δ+1 colors</div></div>
+  <svg id="color-svg" viewBox="0 0 640 320" width="640" height="320"><title>Greedy vertex coloring of a chosen graph in a chosen order</title></svg>
+  <div class="row">
+    <label for="color-graph">graph:</label>
+    <select id="color-graph">
+      <option value="c5" selected>odd cycle $C_5$ (Brooks exception)</option>
+      <option value="k4">complete graph $K_4$</option>
+      <option value="petersen">Petersen graph</option>
+      <option value="wheel">wheel $W_6$</option>
+    </select>
+  </div>
+  <div class="row">
+    <button id="color-order">reshuffle order</button>
+    <button id="color-run">run greedy</button>
+  </div>
+  <div class="readout" id="color-out"></div>
+</div><script>
+(function(){
+  const svg=$('#color-svg'), out=$('#color-out'), pick=$('#color-graph');
+  const shuffle=$('#color-order'), run=$('#color-run');
+  const W=640,H=320, cx=W/2, cy=H/2-6;
+  const palette=['var(--yellow)','var(--cyan)','var(--pink)','var(--green)','var(--violet)','var(--orange)'];
+  let graph=null, order=[], colors=[];
+  function ring(n,r,ox,oy){ const p=[]; for(let i=0;i<n;i++){ const a=-Math.PI/2+2*Math.PI*i/n; p.push([ (ox||cx)+r*Math.cos(a), (oy||cy)+r*Math.sin(a) ]); } return p; }
+  function build(kind){
+    if(kind==='c5'){ const pos=ring(5,120); const adj=[[1,4],[0,2],[1,3],[2,4],[3,0]]; return mk(pos,adj); }
+    if(kind==='k4'){ const pos=ring(4,110); const adj=[[1,2,3],[0,2,3],[0,1,3],[0,1,2]]; return mk(pos,adj); }
+    if(kind==='wheel'){ // hub + C5 rim => W6 (6 vertices)
+      const rim=ring(5,118); const pos=[[cx,cy],...rim];
+      const adj=[[1,2,3,4,5],[0,2,5],[0,1,3],[0,2,4],[0,3,5],[0,4,1]]; return mk(pos,adj); }
+    // petersen: outer 5-cycle (0..4) + inner pentagram (5..9), spokes i<->i+5
+    const outer=ring(5,135), inner=ring(5,68);
+    const pos=[...outer,...inner];
+    const adj=Array.from({length:10},()=>[]);
+    for(let i=0;i<5;i++){ link(adj,i,(i+1)%5); link(adj,i,i+5); link(adj,5+i,5+((i+2)%5)); }
+    return {pos,adj};
+  }
+  function link(adj,a,b){ if(!adj[a].includes(b)) adj[a].push(b); if(!adj[b].includes(a)) adj[b].push(a); }
+  function mk(pos,adj){ return {pos,adj}; }
+  function newOrder(){ order=graph.pos.map((_,i)=>i); for(let i=order.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [order[i],order[j]]=[order[j],order[i]]; } }
+  function greedy(){
+    const n=graph.pos.length; colors=new Array(n).fill(-1);
+    for(const v of order){ const used=new Set(); for(const w of graph.adj[v]) if(colors[w]>=0) used.add(colors[w]);
+      let c=0; while(used.has(c)) c++; colors[v]=c; }
+  }
+  function render(){
+    svg.innerHTML='';
+    const {pos,adj}=graph;
+    const seen=new Set();
+    for(let i=0;i<pos.length;i++) for(const j of adj[i]){ const k=i<j?i+'-'+j:j+'-'+i; if(seen.has(k)) continue; seen.add(k);
+      svg.appendChild(SVG('line',{x1:pos[i][0],y1:pos[i][1],x2:pos[j][0],y2:pos[j][1],stroke:'var(--line)','stroke-width':1.6})); }
+    let Delta=0; for(let i=0;i<adj.length;i++) Delta=Math.max(Delta,adj[i].length);
+    for(let i=0;i<pos.length;i++){
+      const col = colors[i]>=0 ? palette[colors[i]%palette.length] : 'var(--panel2)';
+      drawNode(svg,pos[i][0],pos[i][1], colors[i]>=0?(colors[i]+1):'', {r:15, fill:col, stroke:'var(--ink)', textColor:'#0b0d10'});
+    }
+    const usedColors = new Set(colors.filter(c=>c>=0)).size;
+    let brooks;
+    const isComplete = adj.every(a=>a.length===adj.length-1);
+    const isOddCycle = adj.every(a=>a.length===2) && (adj.length%2===1);
+    if(isComplete) brooks='complete graph ⇒ χ = Δ+1 = '+adj.length;
+    else if(isOddCycle) brooks='odd cycle ⇒ χ = 3 = Δ+1 (Brooks exception)';
+    else brooks='neither complete nor odd cycle ⇒ Brooks: χ ≤ Δ = '+Delta;
+    out.textContent =
+      'order: ['+order.map(v=>v+1).join(', ')+']\n'+
+      'max degree Δ = '+Delta+'   greedy ceiling Δ+1 = '+(Delta+1)+'\n'+
+      'colors used by greedy: '+(usedColors||'(press “run greedy”)')+'\n'+
+      brooks;
+  }
+  function reset(){ graph=build(pick.value); newOrder(); colors=graph.pos.map(()=>-1); render(); }
+  pick.addEventListener('change',reset);
+  shuffle.addEventListener('click',()=>{ newOrder(); colors=graph.pos.map(()=>-1); render(); });
+  run.addEventListener('click',()=>{ greedy(); render(); });
+  reset();
+})();
+</script>
+<div class="quiz" data-concept="gtf-coloring"></div>
+</section>
+
+<section id="matching">
+<h2>6. Matchings &amp; Hall's theorem</h2>
+<p>A <strong>matching</strong> $M\subseteq E$ is a set of edges no two of which share a vertex. A vertex in some edge of $M$ is <em>matched</em>; a matching is <strong>perfect</strong> if it covers all vertices. The <strong>bipartite</strong> case — vertices split into parts $X$ and $Y$, all edges crossing — is the cleanest and most useful (job assignments, the "marriage problem").</p>
+
+<h3>Hall's marriage theorem</h3>
+<p>When can we match every vertex of $X$ into $Y$? Write $N(S)$ for the set of all neighbors of a subset $S\subseteq X$. If some $S$ has fewer neighbors than members, those members cannot all be matched. Hall (1935) proved this obvious obstruction is the <em>only</em> one:</p>
+<p style="text-align:center"><strong>$X$ can be matched into $Y$ $\iff$ $|N(S)|\ge |S|$ for every $S\subseteq X$.</strong></p>
+
+<h3>Augmenting paths and König</h3>
+<p>Matchings are built by <strong>augmenting paths</strong>: a path that alternates non-matching/matching edges and starts and ends at unmatched vertices. Flipping every edge along it grows $M$ by one. Berge's theorem says $M$ is maximum iff no augmenting path exists — the algorithmic heart of bipartite matching. The min-max dual is <strong>König's theorem</strong>: in a bipartite graph,</p>
+<p style="text-align:center">$\max\ \text{matching size}=\min\ \text{vertex-cover size},$</p>
+<p>the bipartite shadow of LP duality / max-flow–min-cut. (For general graphs the analogue is the Tutte–Berge formula.)</p>
+
+<div class="note"><strong>Worked mini-example.</strong> Three applicants $x_1,x_2,x_3$ all qualified only for the same two jobs $y_1,y_2$: take $S=\{x_1,x_2,x_3\}$, then $N(S)=\{y_1,y_2\}$ so $|N(S)|=2\lt 3=|S|$ — Hall fails, no full assignment exists, and a maximum matching has size $2$. By König a minimum vertex cover also has size $2$ (the two jobs cover every edge). Add a third job $y_3$ adjacent to $x_3$ and Hall's condition is restored: a perfect matching $x_1y_1,x_2y_2,x_3y_3$ appears.</div>
+
+<p>Toggle edges of a bipartite graph; the widget runs augmenting paths to a maximum matching and checks Hall's condition over all subsets of $X$.</p>
+
+<div class="widget" id="w-match">
+  <div class="hd"><div class="ttl">Bipartite matching & Hall</div><div class="hint">click cells to toggle edges; max matching via augmenting paths</div></div>
+  <svg id="match-svg" viewBox="0 0 640 340" width="640" height="340"><title>Bipartite matching with Hall-condition and König check</title></svg>
+  <div class="row">
+    <label for="match-k">vertices per side $|X|=|Y|$:</label>
+    <input type="range" id="match-k" min="2" max="5" step="1" value="4">
+    <span class="small" id="match-k-lbl"></span>
+  </div>
+  <div class="row">
+    <button id="match-rand">random bipartite graph</button>
+    <button id="match-clear">clear edges</button>
+  </div>
+  <div class="readout" id="match-out"></div>
+</div><script>
+(function(){
+  const svg=$('#match-svg'), out=$('#match-out');
+  const kSl=$('#match-k'), kL=$('#match-k-lbl'), rand=$('#match-rand'), clr=$('#match-clear');
+  const W=640,H=340;
+  let k=+kSl.value, adj=[]; // adj[i][j]=1 means x_i ~ y_j
+  function reset(){ adj=Array.from({length:k},()=>new Array(k).fill(0)); }
+  function randomize(){ reset(); for(let i=0;i<k;i++) for(let j=0;j<k;j++) if(Math.random()<0.45) adj[i][j]=1; }
+  function xPos(i){ const top=70, gap=(H-120)/(k-1||1); return [180, top + i*gap]; }
+  function yPos(j){ const top=70, gap=(H-120)/(k-1||1); return [460, top + j*gap]; }
+  // max bipartite matching (Kuhn / augmenting paths). matchY[j] = i matched to y_j (or -1)
+  function maxMatching(){
+    const matchY=new Array(k).fill(-1);
+    function aug(i,vis){
+      for(let j=0;j<k;j++){ if(adj[i][j] && !vis[j]){ vis[j]=true;
+        if(matchY[j]===-1 || aug(matchY[j],vis)){ matchY[j]=i; return true; } } }
+      return false;
+    }
+    let size=0;
+    for(let i=0;i<k;i++){ const vis=new Array(k).fill(false); if(aug(i,vis)) size++; }
+    return {matchY,size};
+  }
+  function hallViolation(){ // find S ⊆ X with |N(S)| < |S| (brute over subsets)
+    for(let mask=1;mask<(1<<k);mask++){
+      const S=[]; for(let i=0;i<k;i++) if(mask&(1<<i)) S.push(i);
+      const N=new Set();
+      for(const i of S) for(let j=0;j<k;j++) if(adj[i][j]) N.add(j);
+      if(N.size<S.length) return {S,N:[...N]};
+    }
+    return null;
+  }
+  function render(){
+    kL.textContent='|X| = |Y| = '+k;
+    svg.innerHTML='';
+    const {matchY,size}=maxMatching();
+    const inM=new Set(); for(let j=0;j<k;j++) if(matchY[j]>=0) inM.add(matchY[j]+'-'+j);
+    // all edges
+    for(let i=0;i<k;i++) for(let j=0;j<k;j++) if(adj[i][j]){
+      const a=xPos(i), b=yPos(j), m=inM.has(i+'-'+j);
+      svg.appendChild(SVG('line',{x1:a[0],y1:a[1],x2:b[0],y2:b[1],
+        stroke: m?'var(--green)':'var(--line)', 'stroke-width': m?3:1.4, opacity: m?1:0.7})); }
+    // clickable toggle pads near the X side for each (i,j)
+    for(let i=0;i<k;i++) for(let j=0;j<k;j++){
+      const a=xPos(i), b=yPos(j); const px=a[0]+(b[0]-a[0])*0.28, py=a[1]+(b[1]-a[1])*0.28;
+      svg.appendChild(SVG('circle',{cx:px,cy:py,r:6, fill: adj[i][j]?'var(--cyan)':'transparent',
+        stroke:'var(--line)','stroke-width':1, style:'cursor:pointer','data-i':i,'data-j':j})); }
+    for(let i=0;i<k;i++){ const a=xPos(i); drawNode(svg,a[0],a[1],'x'+(i+1),{r:16,fill:'var(--panel2)',stroke:'var(--violet)',fontSize:12}); }
+    for(let j=0;j<k;j++){ const b=yPos(j); drawNode(svg,b[0],b[1],'y'+(j+1),{r:16,fill:'var(--panel2)',stroke:'var(--blue)',fontSize:12}); }
+    const hv=hallViolation();
+    const perfect = size===k;
+    out.textContent =
+      'click a small dot to toggle edge x_i — y_j.   matched edges are thick green.\n'+
+      'maximum matching size = '+size+'   (perfect needs '+k+')   '+(perfect?'PERFECT ✓':'')+'\n'+
+      'König: min vertex cover = max matching = '+size+'\n'+
+      (hv ? "Hall FAILS: S = {"+hv.S.map(i=>'x'+(i+1)).join(',')+"} has |N(S)| = "+hv.N.length+" < "+hv.S.length+" = |S|"
+          : "Hall's condition holds for every S ⊆ X  ✓"+(perfect?' (so X is fully matched)':''));
+  }
+  svg.addEventListener('click',e=>{ const t=e.target;
+    if(t && t.hasAttribute && t.hasAttribute('data-i')){ const i=+t.getAttribute('data-i'), j=+t.getAttribute('data-j'); adj[i][j]=adj[i][j]?0:1; render(); } });
+  kSl.addEventListener('input',()=>{ k=+kSl.value; randomize(); render(); });
+  rand.addEventListener('click',()=>{ randomize(); render(); });
+  clr.addEventListener('click',()=>{ reset(); render(); });
+  randomize(); render();
+})();
+</script>
+<div class="quiz" data-concept="gtf-matching"></div>
+</section>
+
+<section id="connections">
+<h2>Connections</h2>
+
+<p>These six ideas are the trunk from which the rest of the section grows. Connectivity becomes a spectral question once you encode a graph as a matrix; the handshake lemma and planar face counts are the entry point to topological combinatorics; matching's min-max duality is the combinatorial face of linear programming. The frontier here is less about settling questions than about how hard they are: Eulerian is trivial, Hamiltonian is NP-complete, and the gap between them is a microcosm of complexity theory.</p>
+
+<ul>
+<li><a href="./spectral-graph-theory.html#adjacency-laplacian">Spectral graph theory — adjacency &amp; Laplacian</a> — connectivity and components reappear as the spectrum and kernel of $L=D-A$.</li>
+<li><a href="./extremal-combinatorics.html#turan">Extremal combinatorics — Turán's theorem</a> — once you can count edges and forbid subgraphs, you ask how many edges force a $K_{r+1}$.</li>
+<li><a href="./simplicial-complexes-combinatorial.html#fvec">Simplicial complexes — the f-vector &amp; Euler characteristic</a> — Euler's $V-E+F=2$ is the genus-$0$ case of the topological invariant $\chi$.</li>
+<li><a href="./combinatorial-optimization.html#duality">Combinatorial optimization — LP duality</a> — König's max-matching = min-cover is the integral shadow of LP duality and max-flow–min-cut.</li>
+<li><a href="./probabilistic-method.html#linearity">Probabilistic method — linearity of expectation</a> — random graphs and colorings turn these existence questions into expectation calculations.</li>
+</ul>
+</section>
+
+</main>
+
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('graph-theory-fundamentals'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+})();
+</script>
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-05-22</td><td>initial version</td></tr>
+    </tbody>
+  </table>
+</details>
+
+</body>
+</html>
