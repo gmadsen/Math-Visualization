@@ -466,9 +466,9 @@ function drawNode(svg, x, y, label, opts={}){
     let normsq=0; for(const bi of bumps) for(const bj of bumps) normsq+=bi.a*bj.a*k(bi.c,bj.c);
     out.textContent =
       'bumps: '+bumps.map(b=>b.a.toFixed(0)+'·k('+b.c+',·)').join('  +  ')+'\n'+
-      'direct sum            f(x) = Σ αᵢ k(xᵢ,x) = '+direct.toFixed(4)+'\n'+
-      'inner product  ⟨f, k(x,·)⟩ = Σ αᵢ k(xᵢ,x) = '+inner.toFixed(4)+'\n'+
-      'reproducing property: the two agree '+(Math.abs(direct-inner)<1e-9?'✓':'✗')+'\n'+
+      'evaluate f at x:        f(x) = Σ αᵢ k(xᵢ,x) = '+direct.toFixed(4)+'\n'+
+      'RKHS inner product:  ⟨f, k(x,·)⟩ = Σ αᵢ ⟨k(xᵢ,·), k(x,·)⟩ = Σ αᵢ k(xᵢ,x) = '+inner.toFixed(4)+'\n'+
+      'the middle step is the reproducing property ⟨k(xᵢ,·), k(x,·)⟩ = k(xᵢ,x) — which is exactly why the inner product equals the evaluation '+(Math.abs(direct-inner)<1e-9?'✓':'✗')+'\n'+
       '‖f‖²_H = αᵀKα = '+normsq.toFixed(4)+'   (RKHS norm — a smoothness penalty)';
   }
   q.addEventListener('input',render); sig.addEventListener('input',render);
@@ -871,7 +871,7 @@ $$f^\star=\sum_{i=1}^{n}\alpha_i\,k(x_i,\cdot),\qquad \alpha\in\mathbb{R}^n.$$
     out.textContent =
       'n = '+data.length+' observations,  σ_ℓ = '+(+sig.value).toFixed(2)+',  σ² = '+(+noise.value).toFixed(3)+'\n'+
       'posterior mean  m(x*) = k*ᵀ(K+σ²I)⁻¹ y     (= kernel ridge with λ=σ²)\n'+
-      'predictive var  k(x*,x*) − k*ᵀ(K+σ²I)⁻¹k*  → near σ² at data,  → prior far away\n'+
+      'posterior var  var[f(x*)] = k(x*,x*) − k*ᵀ(K+σ²I)⁻¹k*  → shrinks near data,  → prior k(x*,x*) far away  (predicting a new y adds σ²)\n'+
       (showSamples?'showing 3 posterior sample functions':'press “draw 3 samples” to see functions from the posterior');
   }
   sig.addEventListener('input',()=>{ render(); }); noise.addEventListener('input',render);
