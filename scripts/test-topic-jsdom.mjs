@@ -679,8 +679,8 @@ if (RUN_EXTRAS) describe('pathway.html jsdom', () => {
 // structural shape (no sidetoc, no <section>s, no quizzes) so the generic
 // topic boot test would mis-fire. Targeted regression checks:
 //   - boots without script errors
-//   - all 505 nodes render
-//   - per-section stats table populates with 7 section rows
+//   - the concept graph renders (≥ 500 edges)
+//   - per-section stats table populates with 13 section rows (one per section)
 //   - gap-list orphan + capstone panels populate
 //   - depth slider's input/change events update focusDepth (it must be live
 //     before the user clicks anything, since clicking with depth=2 vs depth=4
