@@ -1,0 +1,899 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Probabilistic graphical models</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false,
+      strict:(c)=>c==='unicodeTextInMathMode'?'ignore':'warn',
+      macros:{
+        '\\Spec':'\\operatorname{Spec}',
+        '\\Gal':'\\operatorname{Gal}',
+        '\\Hom':'\\operatorname{Hom}',
+        '\\tr':'\\operatorname{tr}',
+        '\\ad':'\\operatorname{ad}',
+        '\\ind':'\\operatorname{ind}'
+      }
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  /* sticky sidebar TOC (wide screens only; narrow screens fall back to top-nav) */
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+  /* callback-css-auto-begin */
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+/* callback-css-auto-end */
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
+  /* display-prefs-css-auto-begin */
+  html[data-hide-widgets] .widget { display: none !important; }
+  html[data-hide-quizzes] .quiz { display: none !important; }
+  html[data-hide-lineage] .lineage-strip { display: none !important; }
+  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }
+  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }
+  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }
+  .mv-display-toggle--off { opacity: 0.35; }
+  /* display-prefs-css-auto-end */
+</style>
+<!-- breadcrumb-head-auto-begin -->
+<script src="./js/section-map.js"></script>
+<script src="./js/breadcrumb.js"></script>
+<script src="./js/glossary-popover.js" defer></script>
+<link rel="stylesheet" media="print" href="./css/print.css">
+<link rel="stylesheet" href="./css/theme-light.css">
+<script src="./js/theme-toggle.js"></script>
+<script src="./concepts/bundle.js" defer></script>
+<script src="./js/topic-hotkeys.js" defer></script>
+<script src="./js/topic-lineage.js" defer></script>
+<!-- breadcrumb-head-auto-end -->
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./js/katex-select.js"></script>
+<script src="./js/widget-diagram-editor.js"></script>
+<script src="./quizzes/bundle.js"></script>
+<script src="./js/sidetoc.js"></script>
+<!-- display-prefs-head-auto-begin -->
+<script src="./js/display-prefs.js"></script>
+<!-- display-prefs-head-auto-end -->
+</head>
+<body data-section="learning-theory-and-data-science" data-level="intermediate">
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+// draw an arrow marker def once per svg (idempotent)
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+// curved arrow between two pixel points, with optional label
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  // shorten endpoints
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><span class="nav-links"><a class="nav-link" href="./pathway.html">Pathway</a><a class="nav-link" href="./tours.html">Tours</a><a class="nav-link" href="./history.html">History</a><a class="nav-link" href="./tags.html">Themes</a><a class="nav-link" href="./mindmap.html">Mindmap</a><a class="nav-link" href="./search.html">Search</a></span><span class="mv-theme-slot"></span><!-- breadcrumb-nav-auto-end -->
+<!-- toc-auto-begin -->
+  <a href="#bayes-nets">1&nbsp;Bayesian&nbsp;networks</a>
+  <a href="#mrf">2&nbsp;Markov&nbsp;random&nbsp;fields</a>
+  <a href="#inference">3&nbsp;Exact&nbsp;inference</a>
+  <a href="#belief-propagation">4&nbsp;Belief&nbsp;propagation</a>
+  <a href="#variational">5&nbsp;Variational&nbsp;inference</a>
+  <a href="#sampling">6&nbsp;MCMC&nbsp;&amp;&nbsp;Gibbs&nbsp;sampling</a>
+  <a href="#connections">7&nbsp;Connections</a>
+<!-- toc-auto-end -->
+</nav>
+<!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Probabilistic graphical models</h1>
+  <p class="sub">A graph drawn over <a href="./probability-theory.html#rv" data-auto-inline-link="1" data-concept-id="random-variables" data-blurb="A random variable is a measurable function $X:\Omega\to\mathbb{R}$; its law $\mathbb{P}_X$ is the push-forward measure on $(\mathbb{R},\mathcal{B})$.">random variables</a> turns an exponentially large joint distribution into a product of small local factors — and the same graph tells you which inferences are easy, which are hard, and how to approximate the rest.</p>
+</section>
+
+<section id="bayes-nets">
+<h2>1. Bayesian networks</h2>
+<p>A joint distribution over $n$ binary variables has $2^n-1$ free parameters — hopeless to store or learn for any interesting $n$. A <strong>Bayesian network</strong> tames this by drawing a <strong>directed acyclic graph</strong> (DAG) over the variables and asserting that each variable depends directly only on its parents. The chain rule for a DAG then factorizes the joint into a product of small <em>local conditionals</em>:</p>
+<p style="text-align:center">$p(x_1,\dots,x_n)=\prod_{i=1}^{n} p\big(x_i \mid \mathrm{pa}(i)\big),$</p>
+<p>where $\mathrm{pa}(i)$ is the set of parents of node $i$. Each factor is a small conditional probability table indexed only by a node and its parents, so the parameter count drops from exponential in $n$ to a sum of small local tables.</p>
+
+<div class="note"><strong>Worked mini-example — counting parameters.</strong> Take the classic alarm network with $C\to A$, $C\to R$ (a cause $C$ with two effects $A,R$), all binary. The factorization $p(C)\,p(A \mid C)\,p(R \mid C)$ needs $1+2+2=5$ parameters. The full joint over three binary variables needs $2^3-1=7$. The savings grow explosively with the network: structure <em>is</em> compression.</div>
+
+<h3>Conditional independence and d-separation</h3>
+<p>The graph encodes more than a factorization — it encodes a whole list of conditional independence statements, read off purely topologically by <strong>d-separation</strong>. A path between $A$ and $B$ is <em>blocked</em> by a conditioning set $Z$ according to the three local structures it passes through:</p>
+<ul>
+<li><strong>Chain</strong> $A\to C\to B$: blocked iff $C\in Z$.</li>
+<li><strong>Fork</strong> $A\leftarrow C\to B$ (common cause): blocked iff $C\in Z$.</li>
+<li><strong>Collider</strong> $A\to C\leftarrow B$ (common effect, the <em>v-structure</em>): blocked iff <em>neither</em> $C$ nor any descendant of $C$ is in $Z$.</li>
+</ul>
+<p>If every path from $A$ to $B$ is blocked by $Z$, then $A\perp B \mid Z$. The collider rule is the famous trap and runs <em>opposite</em> to the other two: an unobserved collider blocks the path (so $A\perp B$ marginally), while <strong>observing</strong> the collider — or any of its descendants — <em>opens</em> it, making $A$ and $B$ dependent. This is <em>explaining away</em>: two independent causes of an observed effect become coupled once the effect is known.</p>
+
+<div class="note"><strong>Worked mini-example — a collider query.</strong> In the network $\text{Rain}\to\text{WetGrass}\leftarrow\text{Sprinkler}$, rain and the sprinkler are independent causes: $\text{Rain}\perp\text{Sprinkler}$. But once you <em>observe</em> wet grass, learning it did not rain makes the sprinkler more likely — they are now dependent: $\text{Rain}\not\perp\text{Sprinkler}\mid\text{WetGrass}$. Observing the collider opened the path.</div>
+
+<p>Toggle evidence on the sprinkler/rain/wet-grass network below, read off the factorization and a posterior, and run a d-separation query to watch the collider rule flip the verdict.</p>
+
+<div class="widget" id="w-bn">
+  <div class="hd"><div class="ttl">The sprinkler network: factorization, posterior & d-separation</div><div class="hint">toggle evidence; the collider rule flips when WetGrass is observed</div></div>
+  <svg id="bn-svg" viewBox="0 0 640 300" width="640" height="300"><title>A three-node Bayesian network with Rain and Sprinkler as causes of WetGrass; toggle evidence and run a d-separation query</title></svg>
+  <div class="row">
+    <label for="bn-pr">prior $P(\text{Rain})$:</label>
+    <input type="range" id="bn-pr" min="0.05" max="0.95" step="0.05" value="0.3">
+    <span class="small" id="bn-pr-lbl"></span>
+  </div>
+  <div class="row">
+    <button id="bn-rain">observe Rain</button>
+    <button id="bn-spr">observe Sprinkler</button>
+    <button id="bn-wet">observe WetGrass</button>
+    <button id="bn-clear">clear evidence</button>
+  </div>
+  <div class="readout" id="bn-out"></div>
+</div><script>
+(function(){
+  const svg=$('#bn-svg'), out=$('#bn-out'), pr=$('#bn-pr'), prL=$('#bn-pr-lbl');
+  const bRain=$('#bn-rain'), bSpr=$('#bn-spr'), bWet=$('#bn-wet'), bClear=$('#bn-clear');
+  const W=640,H=300;
+  // fixed CPTs (R=rain, S=sprinkler, both causes of W=wet grass)
+  const pS=0.4;                     // P(Sprinkler)
+  function pWgivenRS(r,s){           // P(WetGrass=1 | R=r, S=s)
+    if(r&&s) return 0.99; if(r&&!s) return 0.9; if(!r&&s) return 0.9; return 0.05;
+  }
+  // evidence: each of R,S,W is null (unobserved) or 0/1
+  let ev={R:null,S:null,W:null};
+  // enumerate full joint over (R,S,W) consistent with evidence; return posteriors + Z
+  function infer(){
+    const pR=+pr.value;
+    let Z=0; const post={R:[0,0],S:[0,0],W:[0,0]};
+    for(let r=0;r<2;r++) for(let s=0;s<2;s++) for(let w=0;w<2;w++){
+      if(ev.R!==null&&ev.R!==r) continue;
+      if(ev.S!==null&&ev.S!==s) continue;
+      if(ev.W!==null&&ev.W!==w) continue;
+      const pw=pWgivenRS(r,s); const pjoint=(r?pR:1-pR)*(s?pS:1-pS)*(w?pw:1-pw);
+      Z+=pjoint; post.R[r]+=pjoint; post.S[s]+=pjoint; post.W[w]+=pjoint;
+    }
+    for(const k of ['R','S','W']){ post[k][0]/=Z; post[k][1]/=Z; }
+    return {post,Z};
+  }
+  // d-separation of R and S given current evidence set Z (here the only path is the collider R->W<-S)
+  function rsDependentGivenW(){ return ev.W!==null; } // observing collider W (a descendant set is empty here) opens the path
+  function nodeColor(name){ const v=ev[name]; if(v===null) return 'var(--panel2)'; return v? 'var(--green)' : 'var(--pink)'; }
+  function render(){
+    svg.innerHTML='';
+    prL.textContent='P(Rain) = '+(+pr.value).toFixed(2);
+    bRain.classList.toggle('active', ev.R!==null);
+    bSpr.classList.toggle('active', ev.S!==null);
+    bWet.classList.toggle('active', ev.W!==null);
+    // node positions: Rain (top-left), Sprinkler (top-right), WetGrass (bottom-center)
+    const R=[180,80], S=[460,80], Wn=[320,210];
+    drawArrow(svg, R, Wn, {color:'var(--blue)', markerId:'arr-bn', width:1.8});
+    drawArrow(svg, S, Wn, {color:'var(--blue)', markerId:'arr-bn', width:1.8});
+    drawNode(svg, R[0],R[1],'R',{r:26,fill:nodeColor('R'),stroke:'var(--cyan)'});
+    drawNode(svg, S[0],S[1],'S',{r:26,fill:nodeColor('S'),stroke:'var(--cyan)'});
+    drawNode(svg, Wn[0],Wn[1],'W',{r:26,fill:nodeColor('W'),stroke:'var(--yellow)'});
+    function cap(x,y,t,c){ const e=SVG('text',{x,y,'text-anchor':'middle','font-size':12,fill:c||'var(--mute)'}); e.textContent=t; svg.appendChild(e); }
+    cap(R[0],R[1]-34,'Rain'); cap(S[0],S[1]-34,'Sprinkler'); cap(Wn[0],Wn[1]+44,'WetGrass');
+    const {post,Z}=infer();
+    const dep=rsDependentGivenW();
+    function ed(name){ const v=ev[name]; return v===null?'—':(v?'true':'false'); }
+    out.textContent =
+      'factorization:  p(R,S,W) = P(R)·P(S)·P(W | R,S)\n'+
+      'evidence:  R='+ed('R')+',  S='+ed('S')+',  W='+ed('W')+'   (green=true, pink=false, grey=unobserved)\n'+
+      'posteriors:  P(Rain=1 | evidence) = '+post.R[1].toFixed(3)+',   P(Sprinkler=1 | evidence) = '+post.S[1].toFixed(3)+',   P(WetGrass=1 | evidence) = '+post.W[1].toFixed(3)+'\n'+
+      'd-separation query  Rain ⟂ Sprinkler ?  the only path is the collider R→W←S:\n'+
+      (dep ? '  WetGrass observed ⇒ collider OPEN ⇒ Rain and Sprinkler are DEPENDENT (explaining away)'
+           : '  WetGrass unobserved ⇒ collider BLOCKED ⇒ Rain ⟂ Sprinkler (independent)');
+  }
+  function toggle(name){ ev[name] = (ev[name]===null) ? 1 : (ev[name]===1 ? 0 : null); render(); }
+  bRain.addEventListener('click',()=>toggle('R'));
+  bSpr.addEventListener('click',()=>toggle('S'));
+  bWet.addEventListener('click',()=>toggle('W'));
+  bClear.addEventListener('click',()=>{ ev={R:null,S:null,W:null}; render(); });
+  pr.addEventListener('input',render);
+  render();
+})();
+</script>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./probability-theory.html#bayes">Conditional probability and Bayes' rule</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./probabilistic-graphical-models.html#inference">Probabilistic graphical models</a> · Exact inference</div>
+    <div><a href="./probabilistic-graphical-models.html#mrf">Probabilistic graphical models</a> · Markov random fields</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="pgm-bayes-nets"></div>
+</section>
+
+<section id="mrf">
+<h2>2. Markov random fields</h2>
+<p>Not every dependency has a natural direction. Pixels in an image, spins in a magnet, words in a sentence influence their neighbors <em>symmetrically</em>. For these we use an <strong>undirected</strong> graphical model — a <strong>Markov random field</strong> (MRF), also called a Markov network. There are no parents and no conditional tables; instead the joint factorizes over the <strong>cliques</strong> of the graph as a product of nonnegative <strong>potentials</strong> $\psi_c$:</p>
+<p style="text-align:center">$p(x)=\frac1Z\prod_{c\in\mathcal{C}}\psi_c(x_c),\qquad Z=\sum_{x}\prod_{c}\psi_c(x_c).$</p>
+<p>Writing each potential as $\psi_c(x_c)=\exp(-E_c(x_c))$ turns the product into the <strong>Gibbs / Boltzmann</strong> form</p>
+<p style="text-align:center">$p(x)=\frac1Z\exp\!\Big(-\sum_{c} E_c(x_c)\Big),$</p>
+<p>where $E_c$ is the energy of clique $c$ and $Z$ is the partition function. Low-energy configurations are exponentially more probable; the temperature (built into the scale of $E$) controls how sharply.</p>
+
+<div class="note"><strong>Hammersley–Clifford.</strong> The deep fact tying the graph to the factorization: for a <strong>strictly positive</strong> distribution $p(x) > 0$, $p$ is Markov with respect to a graph $G$ (i.e. separation in $G$ implies conditional independence) <em>if and only if</em> $p$ is a Gibbs distribution factoring over the cliques of $G$. Strict positivity cannot be dropped — deterministic constraints (zeros in $p$) can satisfy the Markov property without admitting a clique factorization.</div>
+
+<h3>The Markov blanket</h3>
+<p>In an MRF the <strong>Markov blanket</strong> of a node is simply its set of graph <em>neighbors</em>: conditioned on its neighbors, a node is independent of every other variable. Hence the <em>full conditional</em> simplifies dramatically,</p>
+<p style="text-align:center">$p(x_i \mid x_{-i}) = p\big(x_i \mid x_{\mathcal{N}(i)}\big)\propto \prod_{c\ni i}\psi_c(x_c),$</p>
+<p>and — crucially — the intractable global $Z$ <em>cancels</em>, leaving only a local normalization over the few values of $x_i$. This is exactly what makes Gibbs sampling (§6) cheap. (In a directed network the blanket is larger: parents, children, and the children's other co-parents.)</p>
+
+<div class="note"><strong>Worked mini-example — the Ising model.</strong> Spins $x_i\in\{-1,+1\}$ on a grid with edge potentials favoring agreement: $E=-J\sum_{(i,j)\in\text{edges}} x_i x_j$. The full conditional of one spin is $p(x_i=+1 \mid x_{\mathcal{N}(i)})=\sigma\!\big(2J\sum_{j\in\mathcal{N}(i)} x_j\big)$, a logistic in the sum of its four neighbors — local, and $Z$-free. At low temperature (large $J$) neighbors align into large domains; at high temperature the grid is a random speckle.</div>
+
+<p>Slide the temperature on a small Ising grid below and watch the energy, the magnetization, and the local conditional of the highlighted spin respond.</p>
+
+<div class="widget" id="w-mrf">
+  <div class="hd"><div class="ttl">Ising MRF: energy & a local conditional</div><div class="hint">lower temperature ⇒ neighbors align; the conditional uses only the Markov blanket</div></div>
+  <svg id="mrf-svg" viewBox="0 0 640 320" width="640" height="320"><title>A 6 by 6 Ising grid colored by spin, with the energy and a single spin's full conditional from its four neighbors</title></svg>
+  <div class="row">
+    <label for="mrf-T">temperature $T$:</label>
+    <input type="range" id="mrf-T" min="0.2" max="5" step="0.1" value="2.2">
+    <span class="small" id="mrf-T-lbl"></span>
+  </div>
+  <div class="row">
+    <button id="mrf-relax">relax 200 sweeps</button>
+    <button id="mrf-reset">reset random</button>
+  </div>
+  <div class="readout" id="mrf-out"></div>
+</div><script>
+(function(){
+  const svg=$('#mrf-svg'), out=$('#mrf-out'), Tsl=$('#mrf-T'), TL=$('#mrf-T-lbl'), relax=$('#mrf-relax'), reset=$('#mrf-reset');
+  const W=640,H=320, N=6, J=1;
+  // deterministic PRNG so the page is reproducible
+  let seed=12345; function rnd(){ seed=(seed*1664525+1013904223)>>>0; return seed/4294967296; }
+  let spin=[];
+  function initGrid(){ seed=12345; spin=[]; for(let i=0;i<N;i++){ spin.push([]); for(let j=0;j<N;j++) spin[i].push(rnd()<0.5?-1:1); } }
+  function neigh(i,j){ const ns=[]; if(i>0)ns.push([i-1,j]); if(i<N-1)ns.push([i+1,j]); if(j>0)ns.push([i,j-1]); if(j<N-1)ns.push([i,j+1]); return ns; }
+  function energy(){ let E=0; for(let i=0;i<N;i++) for(let j=0;j<N;j++){ if(i<N-1) E-=J*spin[i][j]*spin[i+1][j]; if(j<N-1) E-=J*spin[i][j]*spin[i][j+1]; } return E; }
+  function magnet(){ let m=0; for(let i=0;i<N;i++) for(let j=0;j<N;j++) m+=spin[i][j]; return m/(N*N); }
+  function sweep(){ const T=+Tsl.value; for(let i=0;i<N;i++) for(let j=0;j<N;j++){ let s=0; for(const [a,b] of neigh(i,j)) s+=spin[a][b]; const pPlus=1/(1+Math.exp(-2*J*s/T)); spin[i][j]= rnd()<pPlus?1:-1; } }
+  const cx=2, cy=2; // highlighted spin for the conditional readout
+  function render(){
+    svg.innerHTML='';
+    TL.textContent='T = '+(+Tsl.value).toFixed(1);
+    const gx=40, gy=30, cell=42;
+    for(let i=0;i<N;i++) for(let j=0;j<N;j++){
+      const up=spin[i][j]===1;
+      svg.appendChild(SVG('rect',{x:gx+j*cell,y:gy+i*cell,width:cell-3,height:cell-3,rx:5,fill:up?'var(--cyan)':'var(--violet)',opacity:0.85}));
+    }
+    // highlight the (cx,cy) spin and its blanket
+    svg.appendChild(SVG('rect',{x:gx+cy*cell-2,y:gy+cx*cell-2,width:cell+1,height:cell+1,rx:6,fill:'none',stroke:'var(--yellow)','stroke-width':3}));
+    for(const [a,b] of neigh(cx,cy)) svg.appendChild(SVG('rect',{x:gx+b*cell-1,y:gy+a*cell-1,width:cell-1,height:cell-1,rx:5,fill:'none',stroke:'var(--green)','stroke-width':2,'stroke-dasharray':'4 3'}));
+    function leg(x,y,c,t){ svg.appendChild(SVG('rect',{x,y:y-9,width:14,height:14,rx:3,fill:c})); const tt=SVG('text',{x:x+20,y:y+3,'font-size':12,fill:'var(--mute)'}); tt.textContent=t; svg.appendChild(tt); }
+    leg(330,60,'var(--cyan)','spin = +1'); leg(330,86,'var(--violet)','spin = −1');
+    const t1=SVG('text',{x:330,y:120,'font-size':12,fill:'var(--yellow)'}); t1.textContent='yellow box: the highlighted spin'; svg.appendChild(t1);
+    const t2=SVG('text',{x:330,y:140,'font-size':12,fill:'var(--green)'}); t2.textContent='green dashes: its Markov blanket'; svg.appendChild(t2);
+    const t3=SVG('text',{x:330,y:160,'font-size':12,fill:'var(--mute)'}); t3.textContent='(= its neighbors, all the conditional needs)'; svg.appendChild(t3);
+    // local conditional for the highlighted spin
+    const T=+Tsl.value; let s=0; for(const [a,b] of neigh(cx,cy)) s+=spin[a][b];
+    const pPlus=1/(1+Math.exp(-2*J*s/T));
+    out.textContent =
+      'p(x) = (1/Z) exp(−E),   E = −J Σ x_i x_j   over edges,   J = 1\n'+
+      'energy E = '+energy().toFixed(1)+',    magnetization = '+magnet().toFixed(3)+'\n'+
+      'highlighted spin: neighbor sum Σ x_j = '+s+'\n'+
+      'full conditional  p(x = +1 | blanket) = σ(2J·Σ x_j / T) = '+pPlus.toFixed(3)+'   — uses only the 4 neighbors; Z cancels';
+  }
+  Tsl.addEventListener('input',render);
+  relax.addEventListener('click',()=>{ for(let k=0;k<200;k++) sweep(); render(); });
+  reset.addEventListener('click',()=>{ initGrid(); render(); });
+  initGrid(); render();
+})();
+</script>
+
+<div class="quiz" data-concept="pgm-mrf"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./probabilistic-graphical-models.html#sampling">Probabilistic graphical models</a> · MCMC &amp; Gibbs sampling</div>
+</aside>
+<!-- backlinks-auto-end -->
+</section>
+
+<section id="inference">
+<h2>3. Exact inference</h2>
+<p>Having a compact factorization is only half the battle; we still need to answer queries. The two basic ones are the <strong>marginal</strong> $p(x_q)=\sum_{x_{-q}}p(x)$ — summing out everything but the query — and the <strong>MAP</strong> $\arg\max_x p(x)$. Done naively, the sum runs over exponentially many configurations. <strong>Variable elimination</strong> makes it tractable by exploiting distributivity: a sum only interacts with the factors that mention the variable being summed.</p>
+<p style="text-align:center">$\sum_{x_k}\prod_{c}\psi_c(x_c) = \Big(\prod_{c:\,x_k\notin c}\psi_c\Big)\underbrace{\sum_{x_k}\prod_{c:\,x_k\in c}\psi_c}_{\text{new factor }\tau(\cdot)}.$</p>
+<p>So to eliminate $x_k$: gather the factors containing it, multiply them, sum out $x_k$, and reinsert the resulting factor $\tau$ over the remaining variables. Repeat down an <strong>elimination order</strong> until only the query remains.</p>
+
+<div class="note"><strong>Worked mini-example — a chain marginal.</strong> For the chain MRF $X_1 - X_2 - X_3 - X_4$ with pairwise potentials, compute $p(x_4)$ by eliminating left to right: $\tau_2(x_2)=\sum_{x_1}\psi_{12}(x_1,x_2)$, then $\tau_3(x_3)=\sum_{x_2}\psi_{23}(x_2,x_3)\,\tau_2(x_2)$, then $\tau_4(x_4)=\sum_{x_3}\psi_{34}(x_3,x_4)\,\tau_3(x_3)$, and normalize. Every intermediate factor is over a single variable, so each step is cheap — the chain has treewidth 1.</div>
+
+<h3>Treewidth — the cost of inference</h3>
+<p>The expense is not the number of variables but the size of the largest intermediate factor produced. When you eliminate a variable you create a factor over all of its <em>current</em> neighbors, which also adds <em>fill-in</em> edges connecting those neighbors. The largest such scope, over the best possible elimination order, defines the <strong>treewidth</strong> of the graph, and the running time is exponential in it:</p>
+<p style="text-align:center">$\text{cost}\approx \sum_k (\text{values})^{\,|\text{factor at step }k|}\ =\ O\!\big(n\cdot v^{\,w+1}\big),$</p>
+<p>with $w$ the induced width of the order and $v$ the variable arity. Trees and chains have $w=1$ (linear-time inference); a dense $m\times m$ grid has $w=O(m)$ (intractable). Choosing the optimal order is itself NP-hard, but good heuristics (min-fill, min-degree) work well. The <strong>junction tree</strong> algorithm organizes the surviving factors into a tree of cliques so that <em>all</em> marginals can be read off in one calibration — the foundation of belief propagation in §4.</p>
+
+<p>Pick an elimination order on a small chain network below and watch the factors combine step by step into the requested marginal — and see the induced width the order produces.</p>
+
+<div class="widget" id="w-ve">
+  <div class="hd"><div class="ttl">Variable elimination on a chain</div><div class="hint">step through the eliminations; watch factors combine into the marginal</div></div>
+  <svg id="ve-svg" viewBox="0 0 640 280" width="640" height="280"><title>Variable elimination on a four-node chain, eliminating one variable per step to produce the marginal of the query node</title></svg>
+  <div class="row">
+    <label for="ve-coupling">edge coupling (agreement strength):</label>
+    <input type="range" id="ve-coupling" min="0" max="3" step="0.1" value="1.2">
+    <span class="small" id="ve-coupling-lbl"></span>
+  </div>
+  <div class="row">
+    <button id="ve-step">eliminate next variable</button>
+    <button id="ve-reset">reset</button>
+  </div>
+  <div class="readout" id="ve-out"></div>
+</div><script>
+(function(){
+  const svg=$('#ve-svg'), out=$('#ve-out'), cpl=$('#ve-coupling'), cplL=$('#ve-coupling-lbl'), step=$('#ve-step'), reset=$('#ve-reset');
+  const W=640,H=280, N=4; // chain X1-X2-X3-X4, binary, query = X4
+  // edge potential ψ(a,b) = exp(coupling) if a==b else 1
+  function psi(a,b){ return a===b ? Math.exp(+cpl.value) : 1; }
+  // node singleton biases (deterministic, mild) to make the marginal non-uniform
+  const bias=[[1,1.4],[1,1],[1.3,1],[1,1.1]]; // [P~(0),P~(1)] up to scale, per node
+  // factors: start with singletons f_i(x_i) and pairwise g_{i,i+1}(x_i,x_{i+1})
+  // elimination order eliminates X1, then X2, then X3, leaving marginal over X4.
+  let elimStep=0; // 0..3 (3 = done, marginal ready)
+  // compute the chain marginal of X4 by eliminating X1,X2,X3 in order; capture intermediate τ
+  function run(){
+    // tau over current frontier variable; start as singleton on X1
+    let tau=[bias[0][0], bias[0][1]]; // factor over X1
+    const log=[];
+    log.push('start: τ(X1) = singleton bias = ['+tau.map(t=>t.toFixed(2)).join(', ')+']');
+    // eliminate X1: τ2(x2) = Σ_{x1} τ(x1) ψ(x1,x2) · bias(X2)
+    function elimInto(prevTau, nextNode){
+      const res=[0,0];
+      for(let xn=0;xn<2;xn++){ let s=0; for(let xp=0;xp<2;xp++) s+=prevTau[xp]*psi(xp,xn); res[xn]=s*bias[nextNode][xn]; }
+      return res;
+    }
+    let cur=tau; const taus=[tau];
+    for(let k=1;k<N;k++){ cur=elimInto(cur,k); taus.push(cur);
+      log.push('eliminate X'+k+':  τ(X'+(k+1)+') = Σ_{x'+k+'} τ(X'+k+')·ψ(x'+k+',x'+(k+1)+')·b(X'+(k+1)+') = ['+cur.map(t=>t.toFixed(3)).join(', ')+']');
+    }
+    const Z=cur[0]+cur[1]; const marg=[cur[0]/Z,cur[1]/Z];
+    return {taus,log,marg};
+  }
+  function render(){
+    svg.innerHTML='';
+    cplL.textContent='coupling = '+(+cpl.value).toFixed(1);
+    const {taus,log,marg}=run();
+    // draw chain
+    const xs=[110,250,390,530], y=90;
+    for(let i=0;i<N-1;i++){
+      const eliminated = i < elimStep; // edge consumed if its left endpoint already eliminated
+      svg.appendChild(SVG('line',{x1:xs[i],y1:y,x2:xs[i+1],y2:y,stroke:eliminated?'var(--line)':'var(--blue)','stroke-width':eliminated?1:2.4,'stroke-dasharray':eliminated?'4 4':null}));
+    }
+    for(let i=0;i<N;i++){
+      const gone = i < elimStep;
+      const isQuery = i===N-1;
+      drawNode(svg, xs[i], y, 'X'+(i+1), {r:24, fill: gone?'var(--panel)':(isQuery?'var(--yellow)':'var(--panel2)'), stroke: gone?'var(--line)':(isQuery?'var(--yellow)':'var(--cyan)'), textColor: gone?'var(--mute)':'#fff'});
+      if(gone){ const x=SVG('text',{x:xs[i],y:y-32,'text-anchor':'middle','font-size':16,fill:'var(--pink)'}); x.textContent='Σ'; svg.appendChild(x); }
+    }
+    const lbl=SVG('text',{x:xs[N-1],y:y+44,'text-anchor':'middle','font-size':12,fill:'var(--yellow)'}); lbl.textContent='query'; svg.appendChild(lbl);
+    // status text in svg
+    const st=SVG('text',{x:W/2,y:160,'text-anchor':'middle','font-size':13,fill:'var(--mute)'});
+    st.textContent = elimStep===0 ? 'press “eliminate next variable” to push the sum inward' : (elimStep>=N-1 ? 'all of X1,X2,X3 eliminated — marginal over X4 ready' : 'eliminated X1.. so far');
+    svg.appendChild(st);
+    const shown = log.slice(0, elimStep+1).join('\n');
+    out.textContent =
+      'chain X1—X2—X3—X4 (binary), edge ψ(a,b)=exp(coupling)·[a=b]+[a≠b], query = X4\n'+
+      shown+'\n'+
+      (elimStep>=N-1 ? ('\nmarginal  p(X4) = ['+marg.map(m=>m.toFixed(3)).join(', ')+']  (normalized)\ninduced width of this left-to-right order = 1  ⇒  linear-time (treewidth 1)' )
+                     : '\n(induced width so far = 1: each τ is over a single variable)');
+  }
+  cpl.addEventListener('input',render);
+  step.addEventListener('click',()=>{ if(elimStep<N-1){ elimStep++; render(); } });
+  reset.addEventListener('click',()=>{ elimStep=0; render(); });
+  render();
+})();
+</script>
+
+<div class="quiz" data-concept="pgm-inference"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./probabilistic-graphical-models.html#belief-propagation">Probabilistic graphical models</a> · Belief propagation</div>
+    <div><a href="./probabilistic-graphical-models.html#variational">Probabilistic graphical models</a> · Variational inference</div>
+</aside>
+<!-- backlinks-auto-end -->
+</section>
+
+<section id="belief-propagation">
+<h2>4. Belief propagation</h2>
+<p>Variable elimination answers <em>one</em> marginal at a time and repeats work for each query. <strong>Belief propagation</strong> (BP), the <strong>sum–product</strong> algorithm, computes <em>all</em> marginals at once by passing local <strong>messages</strong> along the edges of a <strong>factor graph</strong> — a bipartite graph with a node for each variable and a square node for each factor. Two kinds of message flow:</p>
+<p style="text-align:center">$\mu_{x\to f}(x)=\!\!\prod_{g\in\mathcal{N}(x)\setminus f}\!\!\mu_{g\to x}(x),\qquad \mu_{f\to x}(x)=\sum_{x_{\mathcal{N}(f)\setminus x}}\!\! f(x_{\mathcal{N}(f)})\!\!\prod_{y\in\mathcal{N}(f)\setminus x}\!\!\mu_{y\to f}(y).$</p>
+<p>A variable's message to a factor is the product of everything it has heard from its <em>other</em> factors; a factor's message to a variable sums the factor against everything it has heard from its <em>other</em> variables. Once messages have flowed, the marginal at a node is the (normalized) product of all incoming factor messages:</p>
+<p style="text-align:center">$p(x)\ \propto\ \prod_{f\in\mathcal{N}(x)}\mu_{f\to x}(x).$</p>
+
+<div class="note"><strong>Exact on trees.</strong> When the factor graph is a tree, there is a unique path between any two nodes, so messages never double-count. A single sweep of leaves-to-root followed by root-to-leaves messages computes <em>every</em> marginal exactly — belief propagation is variable elimination run simultaneously in all directions, sharing the intermediate factors. This is the junction-tree calibration of §3 specialized to a tree.</div>
+
+<h3>Loopy belief propagation</h3>
+<p>On a graph with <strong>cycles</strong> the message equations still make sense, and iterating them — <strong>loopy BP</strong> — is one of the most successful approximate inference methods (it underlies modern error-correcting decoders). But the guarantees evaporate: evidence can circulate around a loop and be counted more than once, the iteration may oscillate rather than converge, and even at a fixed point the marginals are only approximate. It works astonishingly well in practice on many graphs nonetheless.</p>
+
+<div class="note"><strong>Worked mini-example — a three-node chain.</strong> For the tree factor graph $X_1 - f_{12} - X_2 - f_{23} - X_3$, the message from the left leaf is $\mu_{f_{12}\to X_2}(x_2)=\sum_{x_1} f_{12}(x_1,x_2)\,\mu_{X_1\to f_{12}}(x_1)$, and symmetrically from the right. The marginal $p(x_2)\propto\mu_{f_{12}\to X_2}(x_2)\,\mu_{f_{23}\to X_2}(x_2)$ — the two halves of the chain meet at $X_2$. Compare with the §3 elimination: same arithmetic, organized for reuse.</div>
+
+<p>Step the messages through a small tree factor graph below and watch them combine into the node marginals — exactly, in two sweeps.</p>
+
+<div class="widget" id="w-bp">
+  <div class="hd"><div class="ttl">Sum–product messages on a tree</div><div class="hint">step the sweeps; marginals are products of incoming messages</div></div>
+  <svg id="bp-svg" viewBox="0 0 640 300" width="640" height="300"><title>Belief propagation messages flowing along a three-variable chain factor graph and combining into node marginals</title></svg>
+  <div class="row">
+    <label for="bp-agree">pairwise agreement strength:</label>
+    <input type="range" id="bp-agree" min="0" max="3" step="0.1" value="1.3">
+    <span class="small" id="bp-agree-lbl"></span>
+  </div>
+  <div class="row">
+    <button id="bp-step">advance one message</button>
+    <button id="bp-reset">reset</button>
+  </div>
+  <div class="readout" id="bp-out"></div>
+</div><script>
+(function(){
+  const svg=$('#bp-svg'), out=$('#bp-out'), ag=$('#bp-agree'), agL=$('#bp-agree-lbl'), step=$('#bp-step'), reset=$('#bp-reset');
+  const W=640,H=300; // chain factor graph: X1 - f12 - X2 - f23 - X3, binary
+  function f(a,b){ return a===b ? Math.exp(+ag.value) : 1; }     // pairwise factor
+  const node=[[0.6,1.4],[1,1],[1.3,0.7]];                         // X1,X2,X3 singleton factors
+  function norm(v){ const s=v[0]+v[1]; return [v[0]/s, v[1]/s]; }
+  // messages we will fill, in sweep order (leaves -> center -> leaves)
+  // step 0: none; 1: μ f12->X2 ; 2: μ f23->X2 ; 3: marginal X2 ; 4: μ f12->X1 & f23->X3 + marginals X1,X3 (done)
+  let s=0;
+  function compute(){
+    // incoming variable->factor from leaves are just the leaf singletons
+    const mX1f=[node[0][0],node[0][1]];
+    const mX3f=[node[2][0],node[2][1]];
+    // μ f12 -> X2 (x2) = Σ_x1 f(x1,x2)·mX1f(x1)
+    const mf12_X2=[0,0]; for(let x2=0;x2<2;x2++){ let t=0; for(let x1=0;x1<2;x1++) t+=f(x1,x2)*mX1f[x1]; mf12_X2[x2]=t; }
+    const mf23_X2=[0,0]; for(let x2=0;x2<2;x2++){ let t=0; for(let x3=0;x3<2;x3++) t+=f(x2,x3)*mX3f[x3]; mf23_X2[x2]=t; }
+    // marginal X2 ∝ node(X2)·mf12_X2·mf23_X2
+    const margX2=norm([node[1][0]*mf12_X2[0]*mf23_X2[0], node[1][1]*mf12_X2[1]*mf23_X2[1]]);
+    // back-sweep: μ X2->f12 = node(X2)·mf23_X2 ; μ f12->X1(x1)=Σ_x2 f(x1,x2)·μ X2->f12(x2)
+    const mX2_f12=[node[1][0]*mf23_X2[0], node[1][1]*mf23_X2[1]];
+    const mf12_X1=[0,0]; for(let x1=0;x1<2;x1++){ let t=0; for(let x2=0;x2<2;x2++) t+=f(x1,x2)*mX2_f12[x2]; mf12_X1[x1]=t; }
+    const mX2_f23=[node[1][0]*mf12_X2[0], node[1][1]*mf12_X2[1]];
+    const mf23_X3=[0,0]; for(let x3=0;x3<2;x3++){ let t=0; for(let x2=0;x2<2;x2++) t+=f(x2,x3)*mX2_f23[x2]; mf23_X3[x3]=t; }
+    const margX1=norm([node[0][0]*mf12_X1[0], node[0][1]*mf12_X1[1]]);
+    const margX3=norm([node[2][0]*mf23_X3[0], node[2][1]*mf23_X3[1]]);
+    return {mf12_X2:norm(mf12_X2),mf23_X2:norm(mf23_X2),margX1,margX2,margX3};
+  }
+  function render(){
+    svg.innerHTML='';
+    agL.textContent='agreement = '+(+ag.value).toFixed(1);
+    const r=compute();
+    const y=90; const X1=[90,y],F12=[210,y],X2=[330,y],F23=[450,y],X3=[570,y];
+    // edges
+    [[X1,F12],[F12,X2],[X2,F23],[F23,X3]].forEach(([a,b])=>svg.appendChild(SVG('line',{x1:a[0],y1:a[1],x2:b[0],y2:b[1],stroke:'var(--line)','stroke-width':2})));
+    // factors as squares
+    function fac(p){ svg.appendChild(SVG('rect',{x:p[0]-12,y:p[1]-12,width:24,height:24,fill:'var(--panel2)',stroke:'var(--pink)','stroke-width':1.8})); }
+    fac(F12); fac(F23);
+    drawNode(svg,X1[0],X1[1],'X₁',{r:22,stroke:'var(--cyan)'});
+    drawNode(svg,X2[0],X2[1],'X₂',{r:22,stroke:'var(--cyan)'});
+    drawNode(svg,X3[0],X3[1],'X₃',{r:22,stroke:'var(--cyan)'});
+    function flbl(p,t){ const e=SVG('text',{x:p[0],y:p[1]+30,'text-anchor':'middle','font-size':11,fill:'var(--pink)'}); e.textContent=t; svg.appendChild(e); }
+    flbl(F12,'f₁₂'); flbl(F23,'f₂₃');
+    // animate message arrows up to step s
+    function msg(a,b,color){ drawArrow(svg,a,b,{color,markerId:'arr-bp-'+color.replace(/[^a-z]/g,''),width:2,curve:-22}); }
+    if(s>=1) msg(F12,X2,'var(--yellow)');
+    if(s>=2) msg(F23,X2,'var(--yellow)');
+    if(s>=4){ msg(F12,X1,'var(--green)'); msg(F23,X3,'var(--green)'); }
+    const steps=[
+      'press “advance one message” to flow the sum–product messages',
+      'forward: μ(f₁₂→X₂) = Σ_{x₁} f₁₂(x₁,x₂)·μ(X₁→f₁₂)(x₁) = ['+r.mf12_X2.map(v=>v.toFixed(3)).join(', ')+']',
+      'forward: μ(f₂₃→X₂) = Σ_{x₃} f₂₃(x₂,x₃)·μ(X₃→f₂₃)(x₃) = ['+r.mf23_X2.map(v=>v.toFixed(3)).join(', ')+']',
+      'marginal at X₂ ∝ b(X₂)·μ(f₁₂→X₂)·μ(f₂₃→X₂)  ⇒  p(X₂) = ['+r.margX2.map(v=>v.toFixed(3)).join(', ')+']',
+      'back-sweep done: p(X₁) = ['+r.margX1.map(v=>v.toFixed(3)).join(', ')+'],  p(X₃) = ['+r.margX3.map(v=>v.toFixed(3)).join(', ')+']  — all marginals exact in two sweeps'
+    ];
+    out.textContent =
+      'factor graph  X₁ — f₁₂ — X₂ — f₂₃ — X₃  (binary), f(a,b)=exp(agreement)·[a=b]+[a≠b]\n'+
+      steps.slice(0, s+1).join('\n');
+  }
+  ag.addEventListener('input',render);
+  step.addEventListener('click',()=>{ if(s<4){ s++; render(); } });
+  reset.addEventListener('click',()=>{ s=0; render(); });
+  render();
+})();
+</script>
+
+<div class="quiz" data-concept="pgm-belief-propagation"></div>
+</section>
+
+<section id="variational">
+<h2>5. Variational inference</h2>
+<p>When the graph has high treewidth and loopy BP is unreliable, we abandon exactness and <em>optimize</em> instead. <strong>Variational inference</strong> picks a tractable family $\mathcal{Q}$ and finds the member $q(z)$ closest to the true posterior $p(z \mid x)$ in <a href="./information-theory.html#kl-divergence">Kullback–Leibler divergence</a>:</p>
+<p style="text-align:center">$q^\star=\arg\min_{q\in\mathcal{Q}}\ \mathrm{KL}\big(q(z)\,\|\,p(z \mid x)\big).$</p>
+<p>We cannot evaluate that KL directly — it contains the intractable $p(z \mid x)$. The trick is the <strong>evidence lower bound</strong> (ELBO). Starting from $\log p(x)$ and inserting $q$,</p>
+<p style="text-align:center">$\log p(x) = \underbrace{\mathbb{E}_{q}\!\big[\log p(x,z)\big]-\mathbb{E}_{q}\!\big[\log q(z)\big]}_{\mathrm{ELBO}(q)}\ +\ \underbrace{\mathrm{KL}\big(q(z)\,\|\,p(z \mid x)\big)}_{\ge\, 0}.$</p>
+
+<div class="note"><strong>The key inequality.</strong> Since $\mathrm{KL}\ge 0$ always (with equality iff $q=p(\cdot \mid x)$), the identity gives $\mathrm{ELBO}(q)=\log p(x)-\mathrm{KL}\le\log p(x)$ — the ELBO is a <em>lower bound</em> on the log-evidence. And because $\log p(x)$ does not depend on $q$, <strong>maximizing the ELBO is exactly minimizing $\mathrm{KL}(q\,\|\,p(\cdot \mid x))$.</strong> The intractable posterior never appears in the ELBO — only the tractable joint $p(x,z)$ and the entropy of $q$ — so we can actually optimize it.</div>
+
+<h3>Mean-field and coordinate ascent</h3>
+<p>The simplest tractable family is <strong>mean-field</strong>: assume $q$ factorizes over the latent variables,</p>
+<p style="text-align:center">$q(z)=\prod_{j} q_j(z_j).$</p>
+<p>Holding every other factor fixed and maximizing the ELBO over $q_j$ gives the closed-form <strong>coordinate-ascent</strong> (CAVI) update</p>
+<p style="text-align:center">$\log q_j(z_j)\ =\ \mathbb{E}_{q_{-j}}\!\big[\log p(x,z)\big] + \text{const},$</p>
+<p>i.e. each factor is the expected log-joint under the <em>other</em> factors, exponentiated and normalized. Cycling these updates monotonically increases the ELBO to a local optimum. The price of the factorization: $q$ cannot represent posterior correlations, and mean-field characteristically <em>under</em>estimates posterior variance.</p>
+
+<div class="note"><strong>Worked mini-example — the ELBO gap.</strong> Approximate a correlated bivariate Gaussian posterior by a factorized $q=q_1(z_1)q_2(z_2)$. CAVI drives $q$ to the product of the conditionals' shapes; as it iterates, the ELBO climbs toward $\log p(x)$ and the gap $\mathrm{KL}(q\,\|\,p)$ shrinks — but it cannot reach zero, because no product distribution can capture the tilt of a correlated Gaussian. The residual gap is the cost of the mean-field assumption.</div>
+
+<p>Run CAVI on a target below and watch the ELBO rise while $\mathrm{KL}(q\,\|\,p)$ falls as the bound tightens.</p>
+
+<div class="widget" id="w-vi">
+  <div class="hd"><div class="ttl">Mean-field CAVI: ELBO up, KL down</div><div class="hint">step coordinate ascent; ELBO + KL = log p(x) stays fixed</div></div>
+  <svg id="vi-svg" viewBox="0 0 640 300" width="640" height="300"><title>Coordinate-ascent variational inference tightening the evidence lower bound while the KL divergence to the posterior shrinks</title></svg>
+  <div class="row">
+    <label for="vi-corr">target correlation $\rho$:</label>
+    <input type="range" id="vi-corr" min="0" max="0.9" step="0.05" value="0.6">
+    <span class="small" id="vi-corr-lbl"></span>
+  </div>
+  <div class="row">
+    <button id="vi-step">CAVI step</button>
+    <button id="vi-reset">reset</button>
+  </div>
+  <div class="readout" id="vi-out"></div>
+</div><script>
+(function(){
+  const svg=$('#vi-svg'), out=$('#vi-out'), corr=$('#vi-corr'), corrL=$('#vi-corr-lbl'), step=$('#vi-step'), reset=$('#vi-reset');
+  const W=640,H=300, padL=70, padR=20, padT=24, padB=46;
+  const x0=padL,x1=W-padR,y0=H-padB,y1=padT;
+  // target: zero-mean bivariate Gaussian, unit variances, correlation ρ.
+  // log p(x) ≡ 0 reference (we measure ELBO relative to the constant evidence; report ELBO and KL).
+  // For a unit-variance correlated Gaussian, the optimal mean-field q has variances (1-ρ²) each.
+  // Track CAVI's q-variance v (shared by symmetry) starting at 1 (prior), converging to 1-ρ².
+  let history=[]; // {iter, elbo, kl}
+  let v=1.0;
+  const maxIter=14;
+  function klAndElbo(vq){
+    const rho=+corr.value;
+    // KL(q ‖ p) for zero-mean Gaussians with Σ_q=diag(vq,vq), Σ_p=[[1,ρ],[ρ,1]]
+    const detP=1-rho*rho;
+    // Σ_p^{-1} = 1/detP [[1,-ρ],[-ρ,1]]
+    const trace=(1/detP)*(vq+vq); // tr(Σp^{-1} Σq) = (1/detP)(1·vq + 1·vq)
+    const k=2;
+    const logdet=Math.log(detP) - 2*Math.log(vq); // ln(detΣp/detΣq), detΣq = vq²
+    const kl=0.5*(trace - k + logdet);
+    // evidence log p(x): use a fixed reference value so ELBO = ref - kl is displayable
+    const logpx=0; // reference
+    return {kl:Math.max(kl,0), elbo:logpx-Math.max(kl,0)};
+  }
+  function reseed(){ v=1.0; history=[]; const r=klAndElbo(v); history.push({iter:0,elbo:r.elbo,kl:r.kl}); }
+  function doStep(){
+    if(history.length-1>=maxIter) return;
+    const rho=+corr.value; const target=1-rho*rho;
+    v = v + 0.55*(target - v); // damped move toward CAVI fixed point (monotone)
+    const r=klAndElbo(v); history.push({iter:history.length, elbo:r.elbo, kl:r.kl});
+  }
+  function render(){
+    svg.innerHTML='';
+    corrL.textContent='ρ = '+(+corr.value).toFixed(2);
+    // axes
+    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x1,y2:y0,stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x0,y2:y1,stroke:'var(--line)'}));
+    const klMax=Math.max(0.5, ...history.map(h=>h.kl), 1e-6);
+    const lo=-klMax*1.05, hi=klMax*0.15; // ELBO is negative (=-kl), KL positive
+    const SX=i=>x0+(i/maxIter)*(x1-x0);
+    const SY=val=>y0+(val-lo)/((hi-lo)||1)*(y1-y0);
+    // zero line (log p(x) reference)
+    svg.appendChild(SVG('line',{x1:x0,y1:SY(0),x2:x1,y2:SY(0),stroke:'var(--mute)','stroke-dasharray':'5 4'}));
+    const zt=SVG('text',{x:x1-6,y:SY(0)-6,'text-anchor':'end','font-size':11,fill:'var(--mute)'}); zt.textContent='log p(x) (evidence)'; svg.appendChild(zt);
+    // ELBO curve (rising toward 0)
+    let de='M', dk='M';
+    history.forEach((h,i)=>{ de+=' '+SX(h.iter).toFixed(1)+' '+SY(h.elbo).toFixed(1); dk+=' '+SX(h.iter).toFixed(1)+' '+SY(h.kl).toFixed(1); });
+    svg.appendChild(SVG('path',{d:de,fill:'none',stroke:'var(--yellow)','stroke-width':2.4}));
+    svg.appendChild(SVG('path',{d:dk,fill:'none',stroke:'var(--pink)','stroke-width':2.4}));
+    history.forEach(h=>{ svg.appendChild(SVG('circle',{cx:SX(h.iter),cy:SY(h.elbo),r:3,fill:'var(--yellow)'})); svg.appendChild(SVG('circle',{cx:SX(h.iter),cy:SY(h.kl),r:3,fill:'var(--pink)'})); });
+    function leg(x,y,c,t){ svg.appendChild(SVG('line',{x1:x,y1:y,x2:x+20,y2:y,stroke:c,'stroke-width':2.4})); const tt=SVG('text',{x:x+26,y:y+4,'font-size':11,fill:'var(--mute)'}); tt.textContent=t; svg.appendChild(tt); }
+    leg(x0+10,y1+10,'var(--yellow)','ELBO(q)'); leg(x0+10,y1+28,'var(--pink)','KL(q ‖ p)');
+    const cap=SVG('text',{x:(x0+x1)/2,y:H-10,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}); cap.textContent='CAVI iteration'; svg.appendChild(cap);
+    const last=history[history.length-1]; const rho=+corr.value; const resid=klAndElbo(1-rho*rho).kl;
+    out.textContent =
+      'log p(x) = ELBO(q) + KL(q ‖ p(·|x)),  KL ≥ 0  ⇒  ELBO ≤ log p(x)\n'+
+      'iteration '+last.iter+' of '+maxIter+':   ELBO = '+last.elbo.toFixed(4)+'   (relative to evidence reference 0)\n'+
+      'KL(q ‖ p) = '+last.kl.toFixed(4)+'   — every CAVI step raises the ELBO and lowers this gap\n'+
+      (rho>0.001 ? ('mean-field cannot capture correlation ρ='+rho.toFixed(2)+': KL bottoms out at '+resid.toFixed(4)+' > 0 (the cost of factorizing)')
+                 : 'ρ = 0: target already factorizes, so CAVI drives KL all the way to 0 (ELBO meets log p(x))');
+  }
+  corr.addEventListener('input',()=>{ reseed(); render(); });
+  step.addEventListener('click',()=>{ doStep(); render(); });
+  reset.addEventListener('click',()=>{ reseed(); render(); });
+  reseed(); render();
+})();
+</script>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./information-theory.html#kl-divergence">Kullback–Leibler divergence</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><div class="quiz" data-concept="pgm-variational"></div>
+</section>
+
+<section id="sampling">
+<h2>6. MCMC &amp; Gibbs sampling</h2>
+<p>Variational inference is fast but biased by its family. The complementary approach is to <em>sample</em>: draw configurations $x^{(1)},x^{(2)},\dots$ whose distribution converges to the target $p$, then estimate any expectation by a long-run average, $\mathbb{E}_p[h]\approx\frac1M\sum_t h(x^{(t)})$. We cannot sample $p$ directly — it has an intractable $Z$ — so we build a <strong>Markov chain</strong> whose <strong>stationary distribution</strong> is exactly $p$. This is <strong>Markov chain Monte Carlo</strong> (MCMC).</p>
+
+<h3>Gibbs sampling</h3>
+<p>The workhorse for graphical models is <strong>Gibbs sampling</strong>. Sweep the variables in turn, and resample each from its <strong>full conditional</strong> given the current values of all the others:</p>
+<p style="text-align:center">$x_i^{(t+1)}\ \sim\ p\big(x_i \mid x_{-i}^{(t)}\big)\ =\ p\big(x_i \mid x_{\mathcal{N}(i)}^{(t)}\big).$</p>
+<p>The second equality is the §2 Markov-blanket property: the full conditional depends only on $x_i$'s neighbors, and the intractable global $Z$ <em>cancels</em>, so each draw is a cheap local computation. Each update leaves $p$ invariant; for a connected (ergodic) model the chain forgets its start and its marginal converges to $p$.</p>
+
+<div class="note"><strong>Why it works.</strong> Resampling $x_i$ from $p(x_i \mid x_{-i})$ preserves $p$ as the stationary distribution: if $x_{-i}$ is already distributed as $p$'s marginal, then redrawing $x_i$ from the exact conditional returns a sample from the full $p$. Composing such moves keeps $p$ invariant, and ergodicity then forces convergence — regardless of where the chain started. The samples are <em>correlated</em> across sweeps, not independent; that autocorrelation (the mixing time) is the price of MCMC.</div>
+
+<div class="note"><strong>Worked mini-example — Gibbs on two variables.</strong> For a correlated bivariate target, alternately draw $z_1\sim p(z_1 \mid z_2)$ then $z_2\sim p(z_2 \mid z_1)$. Each conditional of a Gaussian is itself Gaussian (a closed form), so each step is trivial; the chain traces a staircase that fills out the correlated cloud. The empirical histogram of the visited states converges to the true joint as the number of sweeps grows.</div>
+
+<p>Run Gibbs sampling on the Ising grid below — each spin is resampled from its Markov-blanket conditional — and watch the empirical magnetization distribution settle toward the target as the chain mixes.</p>
+
+<div class="widget" id="w-gibbs">
+  <div class="hd"><div class="ttl">Gibbs sampling on the Ising grid</div><div class="hint">each spin resampled from its Markov blanket; the histogram converges to the target</div></div>
+  <svg id="gibbs-svg" viewBox="0 0 640 320" width="640" height="320"><title>Gibbs sampling sweeps over a 6 by 6 Ising grid, with a running histogram of the magnetization converging to the stationary distribution</title></svg>
+  <div class="row">
+    <label for="gibbs-T">temperature $T$:</label>
+    <input type="range" id="gibbs-T" min="0.5" max="5" step="0.1" value="2.6">
+    <span class="small" id="gibbs-T-lbl"></span>
+  </div>
+  <div class="row">
+    <button id="gibbs-step">run 50 sweeps</button>
+    <button id="gibbs-reset">reset chain</button>
+  </div>
+  <div class="readout" id="gibbs-out"></div>
+</div><script>
+(function(){
+  const svg=$('#gibbs-svg'), out=$('#gibbs-out'), Tsl=$('#gibbs-T'), TL=$('#gibbs-T-lbl'), step=$('#gibbs-step'), reset=$('#gibbs-reset');
+  const W=640,H=320, N=6, J=1;
+  let seed=98765; function rnd(){ seed=(seed*1664525+1013904223)>>>0; return seed/4294967296; }
+  let spin=[], samples=[], sweeps=0;
+  const BINS=11; // magnetization buckets from -1..1
+  function initGrid(){ seed=98765; spin=[]; for(let i=0;i<N;i++){ spin.push([]); for(let j=0;j<N;j++) spin[i].push(rnd()<0.5?-1:1); } samples=new Array(BINS).fill(0); sweeps=0; }
+  function neigh(i,j){ const ns=[]; if(i>0)ns.push([i-1,j]); if(i<N-1)ns.push([i+1,j]); if(j>0)ns.push([i,j-1]); if(j<N-1)ns.push([i,j+1]); return ns; }
+  function magnet(){ let m=0; for(let i=0;i<N;i++) for(let j=0;j<N;j++) m+=spin[i][j]; return m/(N*N); }
+  function gibbsSweep(){ const T=+Tsl.value; for(let i=0;i<N;i++) for(let j=0;j<N;j++){ let s=0; for(const [a,b] of neigh(i,j)) s+=spin[a][b]; const pPlus=1/(1+Math.exp(-2*J*s/T)); spin[i][j]= rnd()<pPlus?1:-1; } }
+  function record(){ const m=magnet(); let b=Math.round((m+1)/2*(BINS-1)); b=Math.max(0,Math.min(BINS-1,b)); samples[b]++; }
+  function run(k){ for(let t=0;t<k;t++){ gibbsSweep(); record(); sweeps++; } }
+  function render(){
+    svg.innerHTML='';
+    TL.textContent='T = '+(+Tsl.value).toFixed(1);
+    // left: grid
+    const gx=24, gy=40, cell=34;
+    for(let i=0;i<N;i++) for(let j=0;j<N;j++){ const up=spin[i][j]===1; svg.appendChild(SVG('rect',{x:gx+j*cell,y:gy+i*cell,width:cell-3,height:cell-3,rx:4,fill:up?'var(--cyan)':'var(--violet)',opacity:0.85})); }
+    const gl=SVG('text',{x:gx,y:gy-12,'font-size':12,fill:'var(--mute)'}); gl.textContent='current state (cyan +1 / violet −1)'; svg.appendChild(gl);
+    // right: histogram of magnetization
+    const hx0=300, hx1=W-24, hy0=H-50, hy1=50;
+    svg.appendChild(SVG('line',{x1:hx0,y1:hy0,x2:hx1,y2:hy0,stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:hx0,y1:hy0,x2:hx0,y2:hy1,stroke:'var(--line)'}));
+    const total=samples.reduce((a,b)=>a+b,0)||1;
+    const maxFrac=Math.max(0.1, ...samples.map(c=>c/total));
+    const bw=(hx1-hx0)/BINS;
+    for(let b=0;b<BINS;b++){ const frac=samples[b]/total; const h=(frac/maxFrac)*(hy0-hy1); svg.appendChild(SVG('rect',{x:hx0+b*bw+2,y:hy0-h,width:bw-4,height:h,rx:2,fill:'var(--yellow)',opacity:0.9})); }
+    const hl=SVG('text',{x:(hx0+hx1)/2,y:hy1-16,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}); hl.textContent='empirical P(magnetization)'; svg.appendChild(hl);
+    const ax=SVG('text',{x:(hx0+hx1)/2,y:H-18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'}); ax.textContent='magnetization  −1 ……… 0 ……… +1'; svg.appendChild(ax);
+    out.textContent =
+      'Gibbs: resample each spin x_i ~ p(x_i | blanket) = σ(2J·Σ_neighbors / T)  — Z cancels, blanket only\n'+
+      'sweeps so far: '+sweeps+',   current magnetization = '+magnet().toFixed(3)+'\n'+
+      'the chain leaves the Ising distribution invariant ⇒ stationary = target; the histogram is the empirical P(magnetization)\n'+
+      (sweeps<60 ? 'still warming up — run more sweeps to let the chain mix' : (+Tsl.value<1.6 ? 'low T: target concentrates on aligned states (peaks near ±1) — slow mixing' : 'high T: target spreads around 0 — fast mixing'));
+  }
+  Tsl.addEventListener('input',render);
+  step.addEventListener('click',()=>{ run(50); render(); });
+  reset.addEventListener('click',()=>{ initGrid(); render(); });
+  initGrid(); render();
+})();
+</script>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./probability-theory.html#markov">Markov chains</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><div class="quiz" data-concept="pgm-sampling"></div>
+</section>
+
+
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     Connections outro — pedagogy reviewer's templated closure pattern.
+═══════════════════════════════════════════════════════════════════ -->
+<section id="connections">
+<h2>Connections</h2>
+
+<p>Graphical models are the grammar that lets probability scale: the same factorization that compresses the joint also tells you, structurally, which inferences are linear-time and which are NP-hard, and the inference toolkit — elimination, message passing, variational bounds, MCMC — recurs across every quantitative science. Open frontiers are mostly about <em>learning</em> the structure and parameters from data, doing inference at the scale of deep models (amortized and stochastic variational inference, normalizing flows), and pushing causal versions of d-separation into reliable causal discovery. A beginner is often surprised that exact inference is hopeless in general (it is #P-hard) — the elegance of the factorization does not buy tractable answers for free.</p>
+
+<ul>
+<li><a href="./probability-theory.html#bayes">Probability theory — conditional probability &amp; Bayes' rule</a> — every directed factor $p(x_i\mid\mathrm{pa}(i))$ and every posterior query is Bayes' rule applied locally on the graph.</li>
+<li><a href="./probability-theory.html#markov">Probability theory — Markov chains</a> — MCMC <em>is</em> a Markov chain engineered to have the target as its stationary distribution; convergence rests on that theory.</li>
+<li><a href="./information-theory.html#kl-divergence">Information theory — KL divergence</a> — the ELBO is built from the KL between the variational $q$ and the true posterior, so variational inference is information geometry in disguise.</li>
+<li><a href="./statistical-learning-theory.html#erm">Statistical learning theory — empirical risk minimization</a> — fitting a graphical model's parameters by maximum likelihood is regularized ERM, and the structure controls the model's capacity.</li>
+<li><a href="./random-walks-and-mixing.html#mcmc">Random walks &amp; mixing — MCMC and mixing times</a> — how fast Gibbs sampling gives usable estimates is exactly a mixing-time question about the chain's spectral gap.</li>
+</ul>
+
+<p class="small">A <a href="./kernel-methods-and-rkhs.html#gp">Gaussian process</a> is itself a graphical model — a jointly Gaussian field whose covariance kernel induces the (dense) dependency graph — so the kernel machinery and the graphical-model machinery describe the same object from two directions. Forward to come: deep generative models and probabilistic programming, where the graph is written as code and inference is automatic.</p>
+</section>
+
+</main>
+
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('probabilistic-graphical-models'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+})();
+</script>
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-05-22</td><td>initial version</td></tr>
+    </tbody>
+  </table>
+</details>
+
+</body>
+</html>

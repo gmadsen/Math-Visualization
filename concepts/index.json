@@ -38,7 +38,7 @@
     "kernel-methods-and-rkhs",
     "reinforcement-learning",
 
-
+    "probabilistic-graphical-models",
 
     "several-complex-variables",
     "khovanov-homology",
@@ -430,6 +430,7 @@
     "kalman-filtering-and-state-estimation": "advanced",
     "statistical-learning-theory": "advanced",
     "kernel-methods-and-rkhs": "advanced",
+    "probabilistic-graphical-models": "advanced",
     "markov-decision-processes": "standard",
     "game-theory": "standard",
     "reinforcement-learning": "standard"

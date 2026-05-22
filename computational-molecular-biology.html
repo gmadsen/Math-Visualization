@@ -669,7 +669,7 @@ function drawNode(svg, x, y, label, opts={}){
 
 <p style="text-align:center">$L_v(s) \;=\; \Bigl[\sum_{t\in\Sigma} P_{st}(\ell_{vc_1})\,L_{c_1}(t)\Bigr] \cdot \Bigl[\sum_{t\in\Sigma} P_{st}(\ell_{vc_2})\,L_{c_2}(t)\Bigr].$</p>
 
-<p>Leaves are initialised as indicator vectors $L_{\mathrm{leaf}}(s) = \mathbf{1}[s=x_{\mathrm{leaf}}]$. The total column likelihood is $\sum_s \pi(s) L_{\mathrm{root}}(s)$. This is just the sum-product (belief propagation) algorithm on a tree — exact and linear in the number of leaves.</p>
+<p>Leaves are initialised as indicator vectors $L_{\mathrm{leaf}}(s) = \mathbf{1}[s=x_{\mathrm{leaf}}]$. The total column likelihood is $\sum_s \pi(s) L_{\mathrm{root}}(s)$. This is just the sum-product (<a href="./probabilistic-graphical-models.html#belief-propagation" data-auto-inline-link="1" data-concept-id="pgm-belief-propagation" data-blurb="The sum–product algorithm computes all marginals at once by passing messages along the edges of a factor graph. On a tree it is exact in two sweeps; on a graph with cycles, loopy belief propagation iterates the same updates as a fast approximation that need not converge.">belief propagation</a>) algorithm on a tree — exact and linear in the number of leaves.</p>
 
 <p>Three classes of tree-building method:</p>
 

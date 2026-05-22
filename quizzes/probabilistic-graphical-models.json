@@ -1,0 +1,217 @@
+{
+  "topic": "probabilistic-graphical-models",
+  "quizzes": {
+    "pgm-bayes-nets": {
+      "title": "Bayesian networks",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A Bayesian network has edges $A\\to C$, $B\\to C$, and $C\\to D$. Which factorization of the joint $p(A,B,C,D)$ does the graph assert?",
+          "choices": [
+            "$p(A)\\,p(B)\\,p(C\\mid A,B)\\,p(D\\mid C)$",
+            "$p(A)\\,p(B)\\,p(C)\\,p(D)$",
+            "$p(A\\mid C)\\,p(B\\mid C)\\,p(C\\mid D)\\,p(D)$",
+            "$p(A,B,C,D)$ with no factorization (the graph adds nothing)"
+          ],
+          "answer": 0,
+          "explain": "The chain rule for a DAG is $p(x)=\\prod_i p(x_i\\mid \\mathrm{pa}(i))$. Here $A$ and $B$ have no parents, $C$ has parents $\\{A,B\\}$, and $D$ has parent $\\{C\\}$, giving $p(A)\\,p(B)\\,p(C\\mid A,B)\\,p(D\\mid C)$. Each factor is a small conditional table indexed only by a node and its parents."
+        },
+        {
+          "type": "mcq",
+          "q": "In the v-structure $A\\to C\\leftarrow B$ (a collider at $C$), with no other edges, when are $A$ and $B$ dependent?",
+          "choices": [
+            "Always, regardless of what is observed",
+            "Only when $C$ (or a descendant of $C$) is observed; if nothing is observed, $A\\perp B$",
+            "Only when $C$ is unobserved",
+            "Never; $A$ and $B$ are independent in every conditioning"
+          ],
+          "answer": 1,
+          "explain": "This is the collider rule of d-separation, the classic trap. With the collider $C$ unobserved the path $A\\to C\\leftarrow B$ is blocked, so $A\\perp B$ marginally. Observing $C$ (or any descendant of $C$) opens the path and makes $A$ and $B$ dependent — the 'explaining away' effect. This is the opposite of a chain or fork, where observing the middle node blocks the path."
+        },
+        {
+          "type": "numeric",
+          "q": "Four binary variables. The full joint table over $(A,B,C,D)$ needs $2^4-1=15$ free parameters. For the network $A\\to C$, $B\\to C$, $C\\to D$, how many free parameters does the factorization $p(A)p(B)p(C\\mid A,B)p(D\\mid C)$ need in total?",
+          "answer": 7,
+          "tol": 0.5,
+          "explain": "Count free parameters per conditional table (one row sums to 1, so a binary node needs 1 parameter per parent configuration): $p(A)$ needs 1, $p(B)$ needs 1, $p(C\\mid A,B)$ needs $2^2=4$ (one per $(A,B)$ setting), and $p(D\\mid C)$ needs $2$. Total $1+1+4+2=7$, versus 15 for the full joint — the structural savings of conditional independence."
+        }
+      ]
+    },
+    "pgm-mrf": {
+      "title": "Markov random fields",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A Markov random field factorizes its joint distribution as:",
+          "choices": [
+            "$p(x)=\\prod_i p(x_i\\mid \\mathrm{pa}(i))$ over directed parents",
+            "$p(x)=\\frac1Z\\prod_c \\psi_c(x_c)$, a product of nonnegative potentials over the cliques $c$ of the graph",
+            "$p(x)=\\frac1Z\\sum_c \\psi_c(x_c)$",
+            "$p(x)=\\prod_i p(x_i)$, fully independent"
+          ],
+          "answer": 1,
+          "explain": "An MRF is undirected: it has no parents, so it factorizes over cliques as $p(x)=\\frac1Z\\prod_c\\psi_c(x_c)$ with potentials $\\psi_c\\ge0$ and partition function $Z=\\sum_x\\prod_c\\psi_c(x_c)$. Writing $\\psi_c=\\exp(-E_c)$ gives the equivalent Gibbs/Boltzmann form $p(x)\\propto\\exp(-\\sum_c E_c(x))$."
+        },
+        {
+          "type": "mcq",
+          "q": "The Hammersley–Clifford theorem states that, for a strictly positive distribution $p(x) > 0$:",
+          "choices": [
+            "$p$ is Markov with respect to a graph $G$ iff $p$ is a Gibbs distribution factoring over the cliques of $G$",
+            "Every distribution is Gibbs over the complete graph",
+            "$p$ has no Markov structure unless the graph is a tree",
+            "The partition function $Z$ equals 1"
+          ],
+          "answer": 0,
+          "explain": "Hammersley–Clifford is the undirected analogue of the BN factorization theorem: for strictly positive $p$, the global Markov property with respect to $G$ (separation in the graph implies conditional independence) is equivalent to a Gibbs factorization over the cliques of $G$. Strict positivity is essential — deterministic constraints can break the equivalence."
+        },
+        {
+          "type": "mcq",
+          "q": "In an MRF, the full conditional $p(x_i\\mid x_{-i})$ of a node depends only on:",
+          "choices": [
+            "the values of all other nodes",
+            "the values of $x_i$'s neighbors in the graph — its Markov blanket",
+            "only $x_i$ itself",
+            "the partition function $Z$"
+          ],
+          "answer": 1,
+          "explain": "In an MRF the Markov blanket of a node is exactly its set of graph neighbors: conditioned on its neighbors, a node is independent of everything else. So $p(x_i\\mid x_{-i})=p(x_i\\mid x_{\\mathcal{N}(i)})$, and the global partition function $Z$ cancels in the conditional. (In a Bayesian network the blanket is larger: parents, children, and the children's other co-parents.)"
+        }
+      ]
+    },
+    "pgm-inference": {
+      "title": "Exact inference",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Variable elimination computes a marginal by:",
+          "choices": [
+            "summing the full joint table over all unwanted variables at once",
+            "pushing each summation as far inside the factor product as possible, so it acts only on the factors containing that variable, then multiplying and summing one variable at a time",
+            "inverting the joint covariance matrix",
+            "drawing samples and averaging"
+          ],
+          "answer": 1,
+          "explain": "Variable elimination exploits distributivity: $\\sum_{x_k}\\prod_c\\psi_c=\\big(\\prod_{c:\\,x_k\\notin c}\\psi_c\\big)\\sum_{x_k}\\prod_{c:\\,x_k\\in c}\\psi_c$. Only the factors mentioning $x_k$ participate in its sum; the result is a new factor multiplied back in. Eliminating one variable at a time avoids ever materializing the full joint."
+        },
+        {
+          "type": "mcq",
+          "q": "The computational cost of variable elimination is governed by:",
+          "choices": [
+            "the number of nodes only",
+            "the size of the largest intermediate factor, i.e. exponential in the treewidth induced by the elimination order",
+            "the number of edges only",
+            "always exponential in the total number of variables, regardless of structure"
+          ],
+          "answer": 1,
+          "explain": "Each step builds a factor over the eliminated variable plus all its current neighbors; the largest such scope, minus one, over the best ordering is the treewidth. Cost is exponential in this width, not in the number of variables — a chain or tree has treewidth 1 and is linear-time, while a dense grid has large treewidth and is hard. Choosing a good elimination order is itself NP-hard."
+        },
+        {
+          "type": "numeric",
+          "q": "Consider the chain MRF $X_1 - X_2 - X_3$ with binary variables and pairwise potentials $\\psi_{12}(x_1,x_2)$ and $\\psi_{23}(x_2,x_3)$. Eliminating $X_1$ first produces a new factor $\\tau(x_2)=\\sum_{x_1}\\psi_{12}(x_1,x_2)$. Over how many values of $x_2$ is this intermediate factor $\\tau$ defined?",
+          "answer": 2,
+          "tol": 0.5,
+          "explain": "Summing out $x_1$ from $\\psi_{12}(x_1,x_2)$ leaves a function of $x_2$ alone, and $x_2$ is binary, so $\\tau$ has 2 entries. The largest scope in this elimination is a single variable, so the chain has treewidth 1 and inference is linear in the chain length — the reason chains and trees are easy."
+        }
+      ]
+    },
+    "pgm-belief-propagation": {
+      "title": "Belief propagation",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The sum–product (belief propagation) algorithm computes marginals by:",
+          "choices": [
+            "passing messages between nodes and factors along the edges of a factor graph, then combining incoming messages at each node",
+            "matrix-inverting the joint distribution",
+            "enumerating every joint configuration",
+            "gradient descent on the log-likelihood"
+          ],
+          "answer": 0,
+          "explain": "Belief propagation passes two kinds of messages on a factor graph — variable-to-factor $\\mu_{x\\to f}$ and factor-to-variable $\\mu_{f\\to x}$ — each a product/sum over the rest of the graph behind that edge. A node's marginal is the (normalized) product of all incoming factor messages. It reuses shared subcomputations, computing every marginal in roughly the cost of one."
+        },
+        {
+          "type": "mcq",
+          "q": "On what graphs is belief propagation exact, and what happens otherwise?",
+          "choices": [
+            "Exact on any graph",
+            "Exact on trees (graphs with no cycles), where two message sweeps suffice; on graphs with cycles, loopy BP is an iterative approximation that may not converge",
+            "Exact only on complete graphs",
+            "Never exact; always an approximation"
+          ],
+          "answer": 1,
+          "explain": "On a tree there is a unique path between any two nodes, so messages factor cleanly and a leaves-to-root then root-to-leaves sweep gives exact marginals. On a graph with cycles the same updates can be iterated (loopy BP) as a popular approximation, but messages may double-count evidence circulating around loops, and convergence is not guaranteed."
+        }
+      ]
+    },
+    "pgm-variational": {
+      "title": "Variational inference",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Using $\\log p(x)=\\mathrm{ELBO}(q)+\\mathrm{KL}\\big(q(z)\\,\\|\\,p(z\\mid x)\\big)$, why is the ELBO a lower bound on the evidence $\\log p(x)$, and what does maximizing it accomplish?",
+          "choices": [
+            "Because $\\mathrm{KL}\\ge0$, so $\\mathrm{ELBO}=\\log p(x)-\\mathrm{KL}\\le\\log p(x)$; since $\\log p(x)$ is fixed in $q$, maximizing the ELBO minimizes $\\mathrm{KL}(q\\,\\|\\,p(\\cdot\\mid x))$",
+            "Because the ELBO equals $\\log p(x)$ exactly for every $q$",
+            "Because $\\mathrm{KL}\\le 0$ always",
+            "Because the ELBO is the entropy of $q$"
+          ],
+          "answer": 0,
+          "explain": "KL divergence is nonnegative and zero only when $q=p(\\cdot\\mid x)$. So $\\mathrm{ELBO}=\\log p(x)-\\mathrm{KL}\\le\\log p(x)$, with equality at the true posterior. Because $\\log p(x)$ does not depend on $q$, pushing the ELBO up is exactly pulling $\\mathrm{KL}(q\\,\\|\\,p(\\cdot\\mid x))$ down — turning intractable inference into tractable optimization over $q$."
+        },
+        {
+          "type": "mcq",
+          "q": "The mean-field family makes which assumption, and how is it optimized?",
+          "choices": [
+            "$q(z)=\\prod_j q_j(z_j)$ factorizes over the latent variables, optimized by coordinate ascent (CAVI) with update $\\log q_j(z_j)\\propto \\mathbb{E}_{-j}[\\log p(x,z)]$",
+            "$q(z)=p(z\\mid x)$ exactly",
+            "$q$ is a single Gaussian centered at the MAP estimate",
+            "$q$ has full covariance and is solved in closed form"
+          ],
+          "answer": 0,
+          "explain": "Mean-field assumes the variational posterior factorizes, $q(z)=\\prod_j q_j(z_j)$. Holding all other factors fixed, the optimal $j$-th factor is $\\log q_j(z_j)=\\mathbb{E}_{q_{-j}}[\\log p(x,z)]+\\mathrm{const}$. Cycling these coordinate-ascent updates (CAVI) monotonically increases the ELBO to a local optimum. The factorization sacrifices the ability to capture posterior correlations."
+        },
+        {
+          "type": "mcq",
+          "q": "Variational inference and MCMC are both used when exact inference is intractable. A key qualitative difference is:",
+          "choices": [
+            "VI turns inference into a deterministic optimization that converges fast but is only approximate (biased by the variational family); MCMC is asymptotically exact but can be slow to mix",
+            "VI is asymptotically exact while MCMC is always biased",
+            "they always give identical answers",
+            "MCMC requires the posterior to be Gaussian"
+          ],
+          "answer": 0,
+          "explain": "VI fits a $q$ from a restricted family by maximizing the ELBO: fast and deterministic, but the answer is biased by the family (e.g. mean-field underestimates posterior variance). MCMC such as Gibbs sampling draws correlated samples whose distribution converges to the exact target, so it is asymptotically unbiased, but may need many iterations to mix. The trade-off is speed-with-bias versus exactness-with-cost."
+        }
+      ]
+    },
+    "pgm-sampling": {
+      "title": "MCMC & Gibbs sampling",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "In Gibbs sampling, each variable $x_i$ is updated by drawing a fresh value from:",
+          "choices": [
+            "its full conditional $p(x_i\\mid x_{-i})$, which depends only on its Markov blanket",
+            "its marginal $p(x_i)$",
+            "the uniform distribution",
+            "the joint $p(x)$ directly"
+          ],
+          "answer": 0,
+          "explain": "Gibbs sampling sweeps the variables, resampling each from its full conditional given the current values of all others, $p(x_i\\mid x_{-i})$. Because of the Markov-blanket property, this conditional only involves $x_i$'s blanket (neighbors in an MRF), so each update is cheap. The intractable normalizer $Z$ cancels within the conditional."
+        },
+        {
+          "type": "mcq",
+          "q": "Why does running Gibbs sampling (or any valid MCMC) eventually produce samples from the target distribution $p$?",
+          "choices": [
+            "The samples are drawn i.i.d. from $p$ directly",
+            "The updates define a Markov chain whose stationary (invariant) distribution is $p$, so the chain's distribution converges to $p$ and long-run averages estimate $\\mathbb{E}_p[\\,\\cdot\\,]$",
+            "Because every chain converges to the uniform distribution",
+            "Because the ELBO is maximized"
+          ],
+          "answer": 1,
+          "explain": "Gibbs sampling builds a Markov chain whose transition kernel leaves $p$ invariant (each full-conditional update preserves $p$ as its stationary distribution). For an ergodic chain the marginal converges to that stationary $p$ regardless of the start, and time-averages along the trajectory converge to expectations under $p$. The samples are correlated, not independent — this is the price of MCMC."
+        }
+      ]
+    }
+  }
+}

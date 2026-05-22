@@ -1,0 +1,49 @@
+{
+  "topic": "probabilistic-graphical-models",
+  "title": "Probabilistic graphical models",
+  "page": "probabilistic-graphical-models.html",
+  "concepts": [
+    {
+      "id": "pgm-bayes-nets",
+      "title": "Bayesian networks",
+      "anchor": "bayes-nets",
+      "prereqs": ["conditional-bayes"],
+      "blurb": "A directed acyclic graph factorizes a joint distribution as $p(x)=\\prod_i p(x_i\\mid \\mathrm{pa}(i))$, trading the exponential full table for a product of small conditionals. Conditional independence is read off the graph by d-separation, whose collider (v-structure) rule is the classic trap: an unobserved collider blocks, but observing it (or a descendant) opens the path."
+    },
+    {
+      "id": "pgm-mrf",
+      "title": "Markov random fields",
+      "anchor": "mrf",
+      "prereqs": ["pgm-bayes-nets"],
+      "blurb": "An undirected model factorizes over the cliques of its graph as a Gibbs distribution $p(x)\\propto\\exp(-\\sum_c E_c(x))$. Hammersley–Clifford: a strictly positive distribution is Markov with respect to a graph iff it is Gibbs over that graph's cliques. The Markov blanket of a node is its set of neighbors."
+    },
+    {
+      "id": "pgm-inference",
+      "title": "Exact inference",
+      "anchor": "inference",
+      "prereqs": ["pgm-bayes-nets"],
+      "blurb": "Marginal and MAP queries are computed by variable elimination: push sums past factors that don't depend on the eliminated variable, multiply the rest, and sum out. The cost is exponential in the treewidth induced by the elimination order; the junction tree organizes the reusable intermediate factors."
+    },
+    {
+      "id": "pgm-belief-propagation",
+      "title": "Belief propagation",
+      "anchor": "belief-propagation",
+      "prereqs": ["pgm-inference"],
+      "blurb": "The sum–product algorithm computes all marginals at once by passing messages along the edges of a factor graph. On a tree it is exact in two sweeps; on a graph with cycles, loopy belief propagation iterates the same updates as a fast approximation that need not converge."
+    },
+    {
+      "id": "pgm-variational",
+      "title": "Variational inference",
+      "anchor": "variational",
+      "prereqs": ["pgm-inference", "it-kl-divergence"],
+      "blurb": "Approximate an intractable posterior $p(z\\mid x)$ by a tractable $q(z)$ that minimizes $\\mathrm{KL}(q\\,\\|\\,p)$. The decomposition $\\log p(x)=\\mathrm{ELBO}(q)+\\mathrm{KL}(q\\,\\|\\,p(\\cdot\\mid x))$ shows the ELBO lower-bounds the evidence, so maximizing it minimizes the KL. Mean-field $q=\\prod_j q_j$ is optimized by coordinate ascent (CAVI)."
+    },
+    {
+      "id": "pgm-sampling",
+      "title": "MCMC & Gibbs sampling",
+      "anchor": "sampling",
+      "prereqs": ["pgm-mrf", "markov-chains"],
+      "blurb": "When exact and variational inference are intractable, sample. Gibbs sampling resamples each $x_i$ from its full conditional $p(x_i\\mid x_{-i})$ — which depends only on its Markov blanket — building a Markov chain whose stationary distribution is the target, so long-run averages estimate any expectation."
+    }
+  ]
+}
