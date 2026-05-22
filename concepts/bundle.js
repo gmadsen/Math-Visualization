@@ -35,6 +35,7 @@ window.__MVConcepts = {
       "pomdps-and-belief-states",
       "probabilistic-graphical-models",
       "deep-learning-theory",
+      "information-geometry",
       "several-complex-variables",
       "khovanov-homology",
       "shimura-varieties",
@@ -429,6 +430,7 @@ window.__MVConcepts = {
       "kernel-methods-and-rkhs": "advanced",
       "probabilistic-graphical-models": "advanced",
       "deep-learning-theory": "advanced",
+      "information-geometry": "advanced",
       "markov-decision-processes": "standard",
       "game-theory": "standard",
       "reinforcement-learning": "standard",
@@ -3103,6 +3105,71 @@ window.__MVConcepts = {
             "dlt-generalization"
           ],
           "blurb": "Among the many zero-loss interpolants, gradient descent from zero selects the minimum-ℓ2-norm solution for least squares and the max-margin direction for separable classification. This implicit regularization, not parameter count, explains generalization."
+        }
+      ]
+    },
+    "information-geometry": {
+      "topic": "information-geometry",
+      "title": "Information geometry",
+      "page": "information-geometry.html",
+      "concepts": [
+        {
+          "id": "ig-statistical-manifold",
+          "title": "Statistical manifolds",
+          "anchor": "statistical-manifold",
+          "prereqs": [
+            "riemannian-metrics"
+          ],
+          "blurb": "A parametric family of probability distributions $\\{p_\\theta\\}$ is a smooth manifold whose coordinates are the parameters $\\theta$ and whose tangent vectors are the score functions $\\partial_i\\log p_\\theta$. The Gaussian family $\\{N(\\mu,\\sigma^2)\\}$ is the running example: the upper half-plane $\\sigma>0$."
+        },
+        {
+          "id": "ig-fisher-metric",
+          "title": "The Fisher information metric",
+          "anchor": "fisher-metric",
+          "prereqs": [
+            "ig-statistical-manifold",
+            "it-fisher-and-cramer-rao"
+          ],
+          "blurb": "The Fisher information $g_{ij}(\\theta)=\\mathbb{E}_\\theta[\\partial_i\\ell\\,\\partial_j\\ell]=-\\mathbb{E}_\\theta[\\partial_i\\partial_j\\ell]$ is a Riemannian metric on the statistical manifold, reparameterization-covariant. For the Gaussian it is $\\operatorname{diag}(1/\\sigma^2,\\,2/\\sigma^2)$ — the hyperbolic metric."
+        },
+        {
+          "id": "ig-kl-fisher",
+          "title": "KL divergence & its local metric",
+          "anchor": "kl-fisher",
+          "prereqs": [
+            "ig-fisher-metric",
+            "it-kl-divergence"
+          ],
+          "blurb": "KL divergence is nonnegative and asymmetric, so it is not a distance — but its second-order Taylor expansion is $\\tfrac12\\,\\delta^\\top G(\\theta)\\,\\delta$. The Fisher metric is precisely the local quadratic form of KL."
+        },
+        {
+          "id": "ig-natural-gradient",
+          "title": "The natural gradient",
+          "anchor": "natural-gradient",
+          "prereqs": [
+            "ig-fisher-metric"
+          ],
+          "blurb": "The natural gradient $\\tilde\\nabla L=G(\\theta)^{-1}\\nabla L$ is the steepest-descent direction measured in the Fisher metric. Unlike the ordinary gradient it is invariant to reparameterization, so it follows the same path no matter how the model is coordinatized."
+        },
+        {
+          "id": "ig-exponential-families",
+          "title": "Exponential families & dual coordinates",
+          "anchor": "exponential-families",
+          "prereqs": [
+            "ig-statistical-manifold",
+            "co-convex-sets-functions"
+          ],
+          "blurb": "An exponential family $p_\\theta(x)=\\exp(\\theta\\cdot T(x)-\\psi(\\theta))$ has a convex log-partition $\\psi$ with $\\nabla^2\\psi=G$. The Legendre transform gives the dual expectation coordinates $\\eta=\\nabla\\psi(\\theta)=\\mathbb{E}_\\theta[T]$, making the manifold dually flat."
+        },
+        {
+          "id": "ig-dual-geometry",
+          "title": "Dual connections & the Pythagorean theorem",
+          "anchor": "dual-geometry",
+          "prereqs": [
+            "ig-exponential-families",
+            "ig-kl-fisher"
+          ],
+          "blurb": "The e-connection and m-connection are dual with respect to the Fisher metric. KL is the canonical Bregman divergence of this dually-flat structure, and obeys the information-geometric Pythagorean theorem $\\mathrm{KL}(p\\,\\|\\,r)=\\mathrm{KL}(p\\,\\|\\,q)+\\mathrm{KL}(q\\,\\|\\,r)$ when an e-geodesic meets an m-geodesic orthogonally."
         }
       ]
     },
@@ -20762,7 +20829,8 @@ window.__MVConcepts = {
           "statistical-learning-theory",
           "kernel-methods-and-rkhs",
           "probabilistic-graphical-models",
-          "deep-learning-theory"
+          "deep-learning-theory",
+          "information-geometry"
         ],
         "color": "b"
       }
@@ -21069,6 +21137,7 @@ window.__MVConcepts = {
     "kernel-methods-and-rkhs": "advanced",
     "probabilistic-graphical-models": "advanced",
     "deep-learning-theory": "advanced",
+    "information-geometry": "advanced",
     "markov-decision-processes": "standard",
     "game-theory": "standard",
     "reinforcement-learning": "standard",
@@ -21124,14 +21193,14 @@ window.__MVConcepts = {
       "concepts": 83,
       "intra": 134,
       "crossOut": 23,
-      "crossIn": 36,
+      "crossIn": 38,
       "density": 0.27710843373493976
     },
     "Geometry & topology": {
       "concepts": 167,
       "intra": 276,
       "crossOut": 34,
-      "crossIn": 99,
+      "crossIn": 100,
       "density": 0.20359281437125748
     },
     "Number theory": {
@@ -21173,15 +21242,15 @@ window.__MVConcepts = {
       "concepts": 58,
       "intra": 62,
       "crossOut": 23,
-      "crossIn": 4,
+      "crossIn": 5,
       "density": 0.39655172413793105
     },
     "Learning theory & data science": {
-      "concepts": 24,
-      "intra": 27,
-      "crossOut": 13,
+      "concepts": 30,
+      "intra": 33,
+      "crossOut": 17,
       "crossIn": 1,
-      "density": 0.5416666666666666
+      "density": 0.5666666666666667
     }
   }
 };

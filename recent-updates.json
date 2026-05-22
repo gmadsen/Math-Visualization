@@ -1,5 +1,5 @@
 {
-  "generated": "2026-05-22T14:07:18.176Z",
+  "generated": "2026-05-22T14:57:21.894Z",
   "entries": [
     {
       "slug": "algebraic-combinatorics",
@@ -15,7 +15,7 @@
       "color": "b",
       "tag": "",
       "date": "2026-05-22",
-      "message": "feat: deep-learning-theory — Wave 3 (Learning theory)"
+      "message": "feat: deep-learning-theory — Wave 3 (Learning theory) (#261)"
     },
     {
       "slug": "game-theory",
@@ -24,6 +24,14 @@
       "tag": "",
       "date": "2026-05-22",
       "message": "feat: game-theory — Wave 2 (Control / decision-making) (#254)"
+    },
+    {
+      "slug": "information-geometry",
+      "title": "Information geometry",
+      "color": "b",
+      "tag": "",
+      "date": "2026-05-22",
+      "message": "feat: information-geometry — Wave 3 (Learning theory)"
     },
     {
       "slug": "kernel-methods-and-rkhs",

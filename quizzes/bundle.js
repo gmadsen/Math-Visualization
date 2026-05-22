@@ -35837,6 +35837,255 @@ window.MVQuizBank = {
       }
     }
   },
+  "information-geometry": {
+    "topic": "information-geometry",
+    "quizzes": {
+      "ig-statistical-manifold": {
+        "title": "Statistical manifolds",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "On a statistical manifold $\\{p_\\theta\\}$, a tangent vector $\\partial_i$ at the point $\\theta$ is naturally identified with which random variable?",
+            "choices": [
+              "the density $p_\\theta(x)$ itself",
+              "the score $\\partial_i\\log p_\\theta(x)$",
+              "the log-likelihood $\\log p_\\theta(x)$",
+              "the cumulative distribution function $F_\\theta(x)$"
+            ],
+            "answer": 1,
+            "explain": "Moving along the coordinate $\\theta^i$ changes the log-density by $\\partial_i\\log p_\\theta$, so the tangent direction $\\partial_i$ is represented by the score function. This is what lets an inner product of scores define a Riemannian metric on the family."
+          },
+          {
+            "type": "mcq",
+            "q": "Why does the Gaussian family $\\{N(\\mu,\\sigma^2)\\}$ form the (open) upper half-plane as a manifold?",
+            "choices": [
+              "because $\\mu$ ranges over $\\mathbb{R}$ and $\\sigma$ is constrained to $\\sigma > 0$",
+              "because both $\\mu$ and $\\sigma$ must be positive",
+              "because the density is symmetric about its mean",
+              "because the family is one-dimensional"
+            ],
+            "answer": 0,
+            "explain": "The coordinates are $(\\mu,\\sigma)$ with $\\mu\\in\\mathbb{R}$ and $\\sigma > 0$, which is exactly the upper half-plane $\\{(\\mu,\\sigma):\\sigma > 0\\}$. The Fisher metric will turn this into a hyperbolic geometry."
+          },
+          {
+            "type": "numeric",
+            "q": "The expected score of any regular family vanishes: $\\mathbb{E}_\\theta[\\partial_i\\log p_\\theta]=\\,?$",
+            "answer": 0,
+            "tol": 0,
+            "explain": "$\\mathbb{E}_\\theta[\\partial_i\\log p_\\theta]=\\int (\\partial_i p_\\theta/p_\\theta)\\,p_\\theta\\,dx=\\partial_i\\int p_\\theta\\,dx=\\partial_i 1=0$. The score is mean-zero, which is why its covariance — the Fisher information — is the natural metric."
+          }
+        ]
+      },
+      "ig-fisher-metric": {
+        "title": "The Fisher information metric",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Writing $\\ell=\\log p_\\theta$, the Fisher metric admits two equal forms. Which equality is correct?",
+            "choices": [
+              "$g_{ij}=\\mathbb{E}_\\theta[\\partial_i\\ell\\,\\partial_j\\ell]=+\\mathbb{E}_\\theta[\\partial_i\\partial_j\\ell]$",
+              "$g_{ij}=\\mathbb{E}_\\theta[\\partial_i\\ell\\,\\partial_j\\ell]=-\\mathbb{E}_\\theta[\\partial_i\\partial_j\\ell]$",
+              "$g_{ij}=\\mathbb{E}_\\theta[\\partial_i\\partial_j\\ell]=\\operatorname{Var}_\\theta[\\ell]$",
+              "$g_{ij}=\\mathbb{E}_\\theta[(\\partial_i\\ell)^2]$ only when $i=j$, and is otherwise undefined"
+            ],
+            "answer": 1,
+            "explain": "Differentiating $\\mathbb{E}_\\theta[\\partial_j\\ell]=0$ once more gives $\\mathbb{E}_\\theta[\\partial_i\\partial_j\\ell]+\\mathbb{E}_\\theta[\\partial_i\\ell\\,\\partial_j\\ell]=0$, so $g_{ij}=\\mathbb{E}[\\partial_i\\ell\\,\\partial_j\\ell]=-\\mathbb{E}[\\partial_i\\partial_j\\ell]$ — the score covariance equals minus the expected log-likelihood Hessian."
+          },
+          {
+            "type": "mcq",
+            "q": "For the Gaussian family in coordinates $(\\mu,\\sigma)$, the Fisher metric is:",
+            "choices": [
+              "$\\operatorname{diag}(1,\\,1)$",
+              "$\\operatorname{diag}(\\sigma^2,\\,\\sigma^2)$",
+              "$\\operatorname{diag}(1/\\sigma^2,\\,2/\\sigma^2)$",
+              "$\\operatorname{diag}(1/\\sigma^2,\\,1/\\sigma^2)$"
+            ],
+            "answer": 2,
+            "explain": "From $\\ell=-\\tfrac12\\log(2\\pi\\sigma^2)-(x-\\mu)^2/(2\\sigma^2)$ one computes $g_{\\mu\\mu}=1/\\sigma^2$ and $g_{\\sigma\\sigma}=2/\\sigma^2$, with no cross term. The factor of $2$ on the $\\sigma$ direction is what makes the metric hyperbolic rather than flat."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which statements about the Fisher metric are true?",
+            "choices": [
+              "It is reparameterization-covariant: it transforms as a $(0,2)$-tensor under a smooth change of coordinates",
+              "It is positive semidefinite (positive definite for an identifiable family)",
+              "On the Gaussian $(\\mu,\\sigma)$ plane, Fisher distance between two same-mean Gaussians grows without bound as their common $\\sigma\\to 0$",
+              "It depends on the chosen parameterization in a way that changes geodesic distances between distributions"
+            ],
+            "answer": [
+              0,
+              1,
+              2
+            ],
+            "explain": "The metric is a genuine $(0,2)$-tensor, so distances between distributions are coordinate-free even though the matrix $G(\\theta)$ looks parameterization-dependent (option 4 is the false one). It is the covariance of the score, hence positive semidefinite. Because $g_{\\sigma\\sigma}=2/\\sigma^2$ blows up as $\\sigma\\to0$, distinguishing nearby small variances is 'cheap' in Fisher length, so paths toward $\\sigma=0$ have infinite length."
+          }
+        ]
+      },
+      "ig-kl-fisher": {
+        "title": "KL divergence & its local metric",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Expanding $\\mathrm{KL}(p_\\theta\\,\\|\\,p_{\\theta+\\delta})$ to second order in $\\delta$ gives:",
+            "choices": [
+              "$\\delta^\\top G(\\theta)\\,\\delta + O(\\delta^3)$",
+              "$\\tfrac12\\,\\delta^\\top G(\\theta)\\,\\delta + O(\\delta^3)$",
+              "$G(\\theta)\\,\\delta + O(\\delta^2)$",
+              "$\\tfrac12\\,\\delta^\\top G(\\theta)^{-1}\\,\\delta + O(\\delta^3)$"
+            ],
+            "answer": 1,
+            "explain": "KL has a zero value and zero gradient at $\\delta=0$ (it is minimized there), so the leading term is the Hessian. That Hessian is exactly the Fisher matrix, giving $\\mathrm{KL}(p_\\theta\\,\\|\\,p_{\\theta+\\delta})=\\tfrac12\\,\\delta^\\top G(\\theta)\\,\\delta+O(\\delta^3)$."
+          },
+          {
+            "type": "mcq",
+            "q": "Why can KL divergence not be a Riemannian distance, even though it controls the Fisher metric locally?",
+            "choices": [
+              "because it can be negative",
+              "because it is asymmetric and does not satisfy the triangle inequality",
+              "because it is only defined for Gaussians",
+              "because it ignores the variance of the distributions"
+            ],
+            "answer": 1,
+            "explain": "$\\mathrm{KL}(p\\,\\|\\,q)\\ge 0$ with equality iff $p=q$, but $\\mathrm{KL}(p\\,\\|\\,q)\\ne\\mathrm{KL}(q\\,\\|\\,p)$ in general and it fails the triangle inequality. It is a divergence, not a metric — yet its infinitesimal symmetrization is the (symmetric) Fisher metric."
+          },
+          {
+            "type": "numeric",
+            "q": "Two Gaussians share variance $\\sigma^2=4$ and differ in mean by $\\delta\\mu$. Using $\\mathrm{KL}\\approx\\tfrac12 g_{\\mu\\mu}\\,(\\delta\\mu)^2$ with $g_{\\mu\\mu}=1/\\sigma^2$, what is the quadratic-approximation coefficient $\\tfrac12 g_{\\mu\\mu}$ multiplying $(\\delta\\mu)^2$?",
+            "answer": 0.125,
+            "tol": 0.001,
+            "explain": "$g_{\\mu\\mu}=1/\\sigma^2=1/4$, so $\\tfrac12 g_{\\mu\\mu}=1/8=0.125$. Indeed for two equal-variance Gaussians $\\mathrm{KL}=(\\delta\\mu)^2/(2\\sigma^2)$ exactly, and the Fisher quadratic reproduces this with no higher-order correction in the mean direction."
+          }
+        ]
+      },
+      "ig-natural-gradient": {
+        "title": "The natural gradient",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The natural gradient of a loss $L(\\theta)$ is:",
+            "choices": [
+              "$\\nabla L$, the ordinary (Euclidean) gradient",
+              "$G(\\theta)\\,\\nabla L$",
+              "$G(\\theta)^{-1}\\,\\nabla L$",
+              "$\\nabla L / \\|\\nabla L\\|$"
+            ],
+            "answer": 2,
+            "explain": "Steepest descent under the constraint that the step has a fixed Fisher length $\\delta^\\top G\\,\\delta$ points along $-G^{-1}\\nabla L$. Preconditioning the gradient by the inverse metric is what makes the direction live in the right (covector→vector) space."
+          },
+          {
+            "type": "mcq",
+            "q": "The natural gradient is invariant to reparameterization, but the ordinary gradient is not. The reason is that:",
+            "choices": [
+              "$\\nabla L$ transforms as a covector while a descent step should be a vector; $G^{-1}$ is exactly the metric raising-of-index that fixes this",
+              "the natural gradient is always smaller in norm",
+              "the ordinary gradient is only defined in Cartesian coordinates",
+              "reparameterization never changes any gradient"
+            ],
+            "answer": 0,
+            "explain": "Under a change of coordinates $\\nabla L$ transforms with the inverse Jacobian (a covector), so following $-\\nabla L$ gives a path that depends on the chart. Contracting with $G^{-1}$ raises the index, producing a genuine tangent vector; the resulting flow $\\dot\\theta=-G^{-1}\\nabla L$ is the same curve of distributions in every parameterization."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which are correct about the natural gradient on a statistical model?",
+            "choices": [
+              "It coincides with the ordinary gradient when the Fisher metric is the identity",
+              "It corrects for ill-conditioning introduced by a skewed parameterization",
+              "For maximum-likelihood estimation it relates to Fisher scoring / asymptotic efficiency",
+              "It requires the loss to be convex in $\\theta$"
+            ],
+            "answer": [
+              0,
+              1,
+              2
+            ],
+            "explain": "When $G=I$ the preconditioner is trivial and $\\tilde\\nabla L=\\nabla L$. Where $G$ is far from the identity (skewed/ill-conditioned coordinates) the $G^{-1}$ factor rescales each direction so descent is well-conditioned, and the natural-gradient update is the Fisher-scoring step underlying efficient MLE. Convexity is not required — only that $G$ be invertible."
+          }
+        ]
+      },
+      "ig-exponential-families": {
+        "title": "Exponential families & dual coordinates",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For an exponential family $p_\\theta(x)=\\exp(\\theta\\cdot T(x)-\\psi(\\theta))$, the dual (expectation) coordinate $\\eta$ equals:",
+            "choices": [
+              "$\\nabla\\psi(\\theta)=\\mathbb{E}_\\theta[T]$",
+              "$\\nabla^2\\psi(\\theta)$",
+              "$\\psi(\\theta)$ itself",
+              "$\\theta$"
+            ],
+            "answer": 0,
+            "explain": "Differentiating the log-partition gives $\\nabla\\psi(\\theta)=\\mathbb{E}_\\theta[T(x)]=\\eta$, the mean of the sufficient statistic. The Legendre transform of $\\psi$ then expresses $\\theta=\\nabla\\psi^*(\\eta)$, so $\\theta$ and $\\eta$ are dual coordinate systems."
+          },
+          {
+            "type": "mcq",
+            "q": "For a Bernoulli$(p)$ written as a one-parameter exponential family, the natural parameter $\\theta$ and the dual coordinate $\\eta$ are:",
+            "choices": [
+              "$\\theta=p$ and $\\eta=1-p$",
+              "$\\theta=\\log\\!\\frac{p}{1-p}$ (logit) and $\\eta=p$, with $\\psi(\\theta)=\\log(1+e^\\theta)$",
+              "$\\theta=p$ and $\\eta=\\log p$",
+              "$\\theta=e^p$ and $\\eta=\\log(1+e^p)$"
+            ],
+            "answer": 1,
+            "explain": "With $T(x)=x$, the Bernoulli pmf is $\\exp(\\theta x-\\log(1+e^\\theta))$ where $\\theta=\\log\\frac{p}{1-p}$. Then $\\psi(\\theta)=\\log(1+e^\\theta)$ and $\\eta=\\psi'(\\theta)=\\sigma(\\theta)=p$. The natural-to-mean map is exactly the logit-to-probability sigmoid."
+          },
+          {
+            "type": "mcq",
+            "q": "How is the Fisher metric of an exponential family related to its log-partition $\\psi$?",
+            "choices": [
+              "$G(\\theta)=\\nabla\\psi(\\theta)$",
+              "$G(\\theta)=\\nabla^2\\psi(\\theta)$, the Hessian of $\\psi$",
+              "$G(\\theta)=\\psi(\\theta)\\,I$",
+              "$G$ is unrelated to $\\psi$"
+            ],
+            "answer": 1,
+            "explain": "$\\nabla^2\\psi(\\theta)=\\operatorname{Cov}_\\theta[T]$, which is exactly the Fisher information. So $\\psi$ being convex (its Hessian is a covariance, hence positive semidefinite) is the same fact as the Fisher metric being positive semidefinite."
+          }
+        ]
+      },
+      "ig-dual-geometry": {
+        "title": "Dual connections & the Pythagorean theorem",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "In a dually-flat manifold, KL divergence is realized as:",
+            "choices": [
+              "a squared Riemannian distance",
+              "the Bregman divergence of the convex potential $\\psi$",
+              "the Euclidean distance between natural parameters",
+              "always exactly symmetric in its two arguments"
+            ],
+            "answer": 1,
+            "explain": "KL is the canonical divergence of the dually-flat structure: $\\mathrm{KL}(p_{\\theta_1}\\,\\|\\,p_{\\theta_2})=B_\\psi(\\theta_2,\\theta_1)$, the Bregman divergence of the convex log-partition $\\psi$. It is not a squared distance and not symmetric."
+          },
+          {
+            "type": "mcq",
+            "q": "The information-geometric Pythagorean theorem states $\\mathrm{KL}(p\\,\\|\\,r)=\\mathrm{KL}(p\\,\\|\\,q)+\\mathrm{KL}(q\\,\\|\\,r)$ exactly when:",
+            "choices": [
+              "$p$, $q$, $r$ are all Gaussian",
+              "the m-geodesic from $p$ to $q$ meets the e-geodesic from $q$ to $r$ orthogonally (in the Fisher metric)",
+              "$q$ is the midpoint of $p$ and $r$",
+              "the three distributions are equally spaced"
+            ],
+            "answer": 1,
+            "explain": "When the mixture (m-) geodesic $p\\to q$ is orthogonal at $q$ to the exponential (e-) geodesic $q\\to r$ with respect to the Fisher metric, the Bregman/KL three-point identity collapses to the additive Pythagorean relation. This is the geometry behind information projection and the EM algorithm."
+          },
+          {
+            "type": "mcq",
+            "q": "The e-connection and m-connection are 'dual' with respect to the Fisher metric $g$. Concretely this means:",
+            "choices": [
+              "they are the same connection",
+              "parallel transport by the two connections preserves the metric inner product jointly: $g$ is parallel under the pair, even though neither alone is the Levi-Civita connection",
+              "both are the Levi-Civita connection of $g$",
+              "they are duals only on the Gaussian family"
+            ],
+            "answer": 1,
+            "explain": "Duality means $X\\,g(Y,Z)=g(\\nabla^{(e)}_X Y,Z)+g(Y,\\nabla^{(m)}_X Z)$: transporting one factor by the e-connection and the other by the m-connection together preserves the inner product. Their average is the metric (Levi-Civita) connection, but each on its own is flat in its affine coordinates ($\\theta$ for e, $\\eta$ for m)."
+          }
+        ]
+      }
+    }
+  },
   "information-theory": {
     "topic": "information-theory",
     "quizzes": {
