@@ -24,7 +24,6 @@ A 16-topic program agreed with the user to flesh out the thinnest sections (Comb
 
 **Opened empty in PR #248** — registered in `concepts/sections.json` (id `learning-theory-and-data-science`, color `b` blue), wired into `new-topic.mjs` (SECTIONS/palette/aliases + `CAPSTONES_GROUP_INDEX` 12→13), and the 12→13 references in AGENTS.md + the jsdom section-stats test bumped. The section's `index.html` `.sec` header + grid and the generated `sections/learning-theory-and-data-science.html` landing page debut with the **first topic card** (mirrors how Control opened in #171). Scaffold topics with `node scripts/new-topic.mjs <slug> learning-theory`; in the same PR, add the slug to the section's `topics` array in `sections.json` (new-topic.mjs doesn't touch sections.json) and replace the draft index card so `audit-draft-index-cards` (a CI gate) stays green.
 
-- `diffusion-and-score-based-models` — score matching, reverse SDE; bridges `stochastic-calculus`
 - `causal-inference` — do-calculus, structural causal models
 
 ### Combinatorics & graph theory — build the missing foundation layer
@@ -39,7 +38,7 @@ Already covered, do **not** duplicate: LP/simplex/duality/network-flows/matching
 
 - **Wave 1 (floors): ✅ complete** — `statistical-learning-theory` #249, `graph-theory-fundamentals` #250, `markov-decision-processes` #251.
 - **Wave 2 (build up): ✅ complete** — `ramsey-theory` #252, `order-theory-and-lattices` #253, `game-theory` #254, `kernel-methods-and-rkhs` #255, `reinforcement-learning` #256, `probabilistic-graphical-models` #257.
-- **Wave 3 (integrative):** `diffusion-and-score-based-models`, `causal-inference`
+- **Wave 3 (integrative):** `causal-inference` (last of the 16-topic program)
 
 ### Follow-on (don't block the above)
 
