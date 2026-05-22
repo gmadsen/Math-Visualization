@@ -276,7 +276,7 @@ function drawNode(svg, x, y, label, opts={}){
 <tr><td>$0$–$1$</td><td>$\mathbf{1}[\hat y\neq y]$</td><td>classification error (non-convex)</td></tr>
 <tr><td>squared</td><td>$(\hat y - y)^2$</td><td>regression</td></tr>
 <tr><td>hinge</td><td>$\max(0,\,1-y\hat y)$, $y\in\{\pm1\}$</td><td>SVMs (convex surrogate of $0$–$1$)</td></tr>
-<tr><td>logistic</td><td>$\log_2\!\big(1+e^{-y\hat y}\big)$</td><td>logistic regression (convex surrogate)</td></tr>
+<tr><td>logistic</td><td>$\ln\!\big(1+e^{-y\hat y}\big)$</td><td>logistic regression (convex surrogate)</td></tr>
 </tbody>
 </table>
 
@@ -843,7 +843,7 @@ A single integer $d=\mathrm{VC}(\mathcal{H})$ decides learnability and pins the 
       `class: ${cls.value==='all'?'all sign patterns (rich)':'thresholds (simple)'},  m = ${m} points\n`+
       `this draw: best correlation (1/m)Σ σ_i h(x_i) = ${val.toFixed(3)}\n`+
       `running empirical Rademacher complexity R̂_S = E_σ[sup_h …] ≈ ${avg.toFixed(3)}   (over ${count} draws)\n`+
-      (cls.value==='all'?'rich class fits any signs ⇒ R̂_S = 1':'simple class ⇒ R̂_S = Θ(1/√m) ≈ '+(1/Math.sqrt(m)).toFixed(3));
+      (cls.value==='all'?'rich class fits any signs ⇒ R̂_S = 1':'simple class ⇒ R̂_S = Θ(1/√m): shrinks as m grows; the value above is the empirical estimate at m = '+m);
   }
   function newSigns(){ for(let i=0;i<m;i++) signs[i]=Math.random()<0.5?1:-1; sum+=bestCorr(signs).val; count++; }
   step.addEventListener('click',()=>{ newSigns(); draw(); });
