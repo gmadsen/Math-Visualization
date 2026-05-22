@@ -1,0 +1,448 @@
+{
+  "topic": "ramsey-theory",
+  "rawHead": "<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\" />\n<meta name=\"viewport\" content=\"width=device-width,initial-scale=1\" />\n<title>Ramsey theory</title>\n<link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css\">\n<script defer src=\"https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js\"></script>\n<script defer src=\"https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js\"></script>\n<script>\n(function(){\n  function renderAll(){\n    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }\n    renderMathInElement(document.body,{\n      delimiters:[\n        {left:'$$',right:'$$',display:true},\n        {left:'$',right:'$',display:false},\n        {left:'\\\\(',right:'\\\\)',display:false},\n        {left:'\\\\[',right:'\\\\]',display:true}\n      ],\n      throwOnError:false,\n      strict:(c)=>c==='unicodeTextInMathMode'?'ignore':'warn',\n      macros:{\n        '\\\\Spec':'\\\\operatorname{Spec}',\n        '\\\\Gal':'\\\\operatorname{Gal}',\n        '\\\\Hom':'\\\\operatorname{Hom}',\n        '\\\\tr':'\\\\operatorname{tr}',\n        '\\\\ad':'\\\\operatorname{ad}',\n        '\\\\ind':'\\\\operatorname{ind}'\n      }\n    });\n  }\n  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);\n  else renderAll();\n})();\n</script>\n<style>\n  :root{\n    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;\n    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;\n    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;\n    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;\n  }\n  *{box-sizing:border-box}\n  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);\n    font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",Inter,Roboto,sans-serif;\n    font-size:17px;line-height:1.65}\n  a{color:var(--blue)}\n  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;\n    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}\n  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}\n  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}\n  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}\n  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}\n  p{margin:0.7rem 0}\n  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}\n  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;\n    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}\n  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}\n  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}\n  .widget .hd .hint{color:var(--mute);font-size:.85rem}\n  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}\n  .row label{color:var(--mute);font-size:.88rem}\n  input[type=\"text\"],input[type=\"number\"],select{\n    background:#0b0f16;color:var(--ink);border:1px solid var(--line);\n    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}\n  input[type=\"range\"]{accent-color:var(--yellow);flex:1;max-width:260px}\n  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);\n    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}\n  button:hover{background:#242c3e}\n  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}\n  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;\n    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;\n    min-height:1.6em;white-space:pre-wrap;word-break:break-word}\n  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);\n    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}\n  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;\n    margin:1rem 0;border-radius:0 6px 6px 0}\n  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;\n    margin:1rem 0;border-radius:0 6px 6px 0}\n  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;\n    margin:1rem 0;border-radius:0 6px 6px 0}\n  svg{display:block;margin:0 auto;max-width:100%}\n  svg text{fill:var(--ink);font-family:inherit}\n  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);\n    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;\n    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}\n  nav.toc a{color:var(--mute);text-decoration:none}\n  nav.toc a:hover{color:var(--yellow)}\n  /* sticky sidebar TOC (wide screens only; narrow screens fall back to top-nav) */\n  aside.sidetoc{position:fixed;top:4.2rem;\n    left:max(1rem, calc(50% - 440px - 220px));\n    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;\n    padding-right:1rem;border-right:1px solid var(--line);\n    font-size:.88rem;z-index:5}\n  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;\n    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}\n  aside.sidetoc ol{list-style:none;padding:0;margin:0}\n  aside.sidetoc li{margin:0}\n  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;\n    border-left:2px solid transparent;line-height:1.35;\n    transition:color 120ms ease, border-color 120ms ease}\n  aside.sidetoc a:hover{color:var(--ink)}\n  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}\n  @media (max-width:1180px){ aside.sidetoc{display:none} }\n  @media (min-width:1181px){ nav.toc a[href^=\"#\"]{display:none} }\n  .hero{padding:3rem 0 1rem}\n  .small{font-size:.88rem;color:var(--mute)}\n  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}\n  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}\n  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}\n  table.plain th{color:var(--mute);font-weight:500}\n  /* callback-css-auto-begin */\n  aside.callback{\n    margin:1.2rem 0;padding:.7rem 1rem;\n    background:rgba(88,196,221,0.05);\n    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);\n    border-radius:0 6px 6px 0;\n    font-size:.93rem;\n  }\n  aside.callback .ttl{\n    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;\n    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;\n  }\n  aside.callback ul{margin:0;padding-left:1.1rem}\n  aside.callback ul li{margin:.15rem 0}\n  aside.callback a{color:inherit}\n/* callback-css-auto-end */\n  details.changelog{\n    margin:2rem 0 1rem;padding:.6rem .9rem;\n    background:rgba(0,0,0,0.22);\n    border-radius:6px;\n    font-size:.85rem;\n  }\n  details.changelog summary{\n    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;\n    font-size:.7rem;color:var(--mute,#8c9aa6);\n  }\n  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}\n  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}\n  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}\n  aside.related{\n    margin:1.2rem 0;padding:.7rem 1rem;\n    background:color-mix(in srgb, var(--mute) 6%, transparent);\n    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);\n    border-radius:0 6px 6px 0;\n    font-size:.93rem;\n  }\n  aside.related .ttl{\n    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;\n    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;\n  }\n  aside.related > div{margin:.15rem 0}\n  aside.related .more{color:var(--mute);font-style:italic}\n  aside.related a{color:inherit}\n  /* display-prefs-css-auto-begin */\n  html[data-hide-widgets] .widget { display: none !important; }\n  html[data-hide-quizzes] .quiz { display: none !important; }\n  html[data-hide-lineage] .lineage-strip { display: none !important; }\n  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }\n  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }\n  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }\n  .mv-display-toggle--off { opacity: 0.35; }\n  /* display-prefs-css-auto-end */\n</style>\n<!-- breadcrumb-head-auto-begin -->\n<script src=\"./js/section-map.js\"></script>\n<script src=\"./js/breadcrumb.js\"></script>\n<script src=\"./js/glossary-popover.js\" defer></script>\n<link rel=\"stylesheet\" media=\"print\" href=\"./css/print.css\">\n<link rel=\"stylesheet\" href=\"./css/theme-light.css\">\n<script src=\"./js/theme-toggle.js\"></script>\n<script src=\"./concepts/bundle.js\" defer></script>\n<script src=\"./js/topic-hotkeys.js\" defer></script>\n<script src=\"./js/topic-lineage.js\" defer></script>\n<!-- breadcrumb-head-auto-end -->\n<script src=\"./js/progress.js\"></script>\n<script src=\"./js/quiz.js\"></script>\n<script src=\"./js/katex-select.js\"></script>\n<script src=\"./js/widget-diagram-editor.js\"></script>\n<script src=\"./quizzes/bundle.js\"></script>\n<script src=\"./js/sidetoc.js\"></script>\n<!-- display-prefs-head-auto-begin -->\n<script src=\"./js/display-prefs.js\"></script>\n<!-- display-prefs-head-auto-end -->\n</head>\n",
+  "rawBodyPrefix": "<body data-section=\"combinatorics-and-graph-theory\" data-level=\"intermediate\">\n<script>\nconst $ = (s,r=document)=>r.querySelector(s);\nconst $$ = (s,r=document)=>[...r.querySelectorAll(s)];\nconst SVG = (tag,attrs={})=>{\n  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);\n  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);\n  return e;\n};\n// draw an arrow marker def once per svg (idempotent)\nfunction ensureArrow(svg, id, color){\n  let defs = svg.querySelector('defs');\n  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }\n  if(defs.querySelector('#'+id)) return;\n  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});\n  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));\n  defs.appendChild(mk);\n}\n// curved arrow between two pixel points, with optional label\nfunction drawArrow(svg, p1, p2, opts={}){\n  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;\n  ensureArrow(svg, markerId, color);\n  const [x1,y1]=p1, [x2,y2]=p2;\n  const dx=x2-x1, dy=y2-y1;\n  const L = Math.hypot(dx,dy) || 1;\n  const ux=dx/L, uy=dy/L;\n  // shorten endpoints\n  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;\n  const ax=x1+ux*pad1, ay=y1+uy*pad1;\n  const bx=x2-ux*pad2, by=y2-uy*pad2;\n  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;\n  const path = SVG('path',{\n    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,\n    fill:'none', stroke:color, 'stroke-width':width,\n    'marker-end':`url(#${markerId})`\n  });\n  if(dash) path.setAttribute('stroke-dasharray', dash);\n  svg.appendChild(path);\n  if(label){\n    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,\n      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});\n    t.textContent = label;\n    svg.appendChild(t);\n  }\n  return path;\n}\nfunction drawNode(svg, x, y, label, opts={}){\n  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;\n  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));\n  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});\n  t.textContent = label;\n  svg.appendChild(t);\n}\n</script>\n\n<nav class=\"toc\"><a href=\"./index.html\" style=\"color:var(--violet);font-weight:500\">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class=\"breadcrumb\"></div><span class=\"nav-links\"><a class=\"nav-link\" href=\"./pathway.html\">Pathway</a><a class=\"nav-link\" href=\"./tours.html\">Tours</a><a class=\"nav-link\" href=\"./history.html\">History</a><a class=\"nav-link\" href=\"./tags.html\">Themes</a><a class=\"nav-link\" href=\"./mindmap.html\">Mindmap</a><a class=\"nav-link\" href=\"./search.html\">Search</a></span><span class=\"mv-theme-slot\"></span><!-- breadcrumb-nav-auto-end -->\n<!-- toc-auto-begin -->\n  <a href=\"#pigeonhole\">1&nbsp;Pigeonhole&nbsp;&amp;&nbsp;$R(3,3)=6$</a>\n  <a href=\"#finite\">2&nbsp;Ramsey's&nbsp;theorem&nbsp;(finite)</a>\n  <a href=\"#bounds\">3&nbsp;Bounds&nbsp;&amp;&nbsp;the&nbsp;exponential&nbsp;gap</a>\n  <a href=\"#infinite\">4&nbsp;Infinite&nbsp;Ramsey</a>\n  <a href=\"#van-der-waerden\">5&nbsp;Van&nbsp;der&nbsp;Waerden</a>\n  <a href=\"#hales-jewett\">6&nbsp;Hales–Jewett</a>\n  <a href=\"#connections\">7&nbsp;Connections</a>\n<!-- toc-auto-end -->\n</nav>\n<!-- lineage-mount-auto-begin --><div id=\"mv-lineage-mount\" class=\"lineage-strip\" hidden></div><!-- lineage-mount-auto-end -->\n\n<aside class=\"sidetoc\" aria-label=\"Table of contents\"></aside>\n\n<main>\n\n<section class=\"hero\">\n  <h1>Ramsey theory</h1>\n  <p class=\"sub\">Complete disorder is impossible: every structure large enough — a colored graph, a long interval of integers, a high-dimensional cube — is forced to contain an orderly monochromatic piece.</p>\n</section>\n\n",
+  "sections": [
+    {
+      "id": "pigeonhole",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"pigeonhole\">\n<h2>1. Pigeonhole &amp; $R(3,3)=6$</h2>\n<p>The whole subject grows from one humble seed, the <strong>pigeonhole principle</strong>: if $n+1$ objects go into $n$ boxes, some box holds at least two. Push it a little — $kn+1$ objects into $n$ boxes forces a box with $\\ge k+1$ — and you get the engine that manufactures order out of any large enough mess.</p>\n<p>Here is the founding example. Color every edge of the <a href=\"./graph-theory-fundamentals.html#basics\">complete graph</a> $K_6$ either red or blue, however you like. <strong>Claim: you cannot avoid a monochromatic triangle.</strong> Fix any vertex $v$. It has $5$ incident edges in two colors, so by pigeonhole at least $\\lceil 5/2\\rceil = 3$ of them share a color — say $v$ has red edges to $a,b,c$. Now look at the triangle $a,b,c$:</p>\n<ul>\n  <li>if any one of $ab, bc, ca$ is red, it forms a red triangle with $v$;</li>\n  <li>otherwise all three of $ab, bc, ca$ are blue — a blue triangle.</li>\n</ul>\n<p>Either way a single color closes a triangle. So $R(3,3)\\le 6$, where $R(3,3)$ is the least $n$ forcing a monochromatic triangle in every $2$-coloring of $K_n$.</p>\n\n<h3>Why $5$ is not enough</h3>\n<p>The bound is tight: $K_5$ has a $2$-coloring with no monochromatic triangle. Place the $5$ vertices on a pentagon and color the $5$ <em>rim</em> edges red — that red graph is the $5$-cycle $C_5$, which has no triangle. The remaining $5$ edges are the pentagon's diagonals, forming the complementary $5$-cycle (a pentagram); color them blue, again triangle-free. Neither color contains a triangle, so $R(3,3)> 5$. Combined with the upper bound, $R(3,3)=6$ exactly.</p>\n\n<div class=\"note\"><strong>Worked mini-example.</strong> Try to extend the pentagon coloring to $K_6$: add a sixth vertex $v$ and color its $5$ edges. Whatever you do, $3$ of them are one color — say red to $a,b,c$. The original pentagon coloring already places <em>some</em> edge among any three rim/diagonal vertices; you will find either a red edge inside $\\{a,b,c\\}$ (red triangle with $v$) or all-blue $\\{a,b,c\\}$ (blue triangle). The clean $K_5$ witness simply has no room to grow.</div>\n\n<p>Recolor the edges of $K_6$ below. The widget hunts for monochromatic triangles after each randomization; switch to $K_5$ and load the pentagon coloring to see the unique escape that vanishes at $n=6$.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "parametric-plot",
+          "params": {
+            "interaction": "single-mode",
+            "widgetId": "w-pigeon",
+            "svgId": "pigeon-svg",
+            "outputId": "pigeon-out",
+            "title": "R(3,3) edge-coloring",
+            "hint": "K6 always forces a monochromatic triangle; K5 has one escape",
+            "viewBox": "0 0 640 360",
+            "svgWidth": 640,
+            "svgHeight": 360,
+            "svgTitle": "Two-coloring the edges of K5 or K6 and searching for a monochromatic triangle",
+            "outputInitial": "",
+            "sliders": [
+              {
+                "id": "pigeon-n",
+                "outId": "pigeon-n-lbl",
+                "label": "vertices $n$:",
+                "min": 5,
+                "max": 6,
+                "step": 1,
+                "init": 6
+              }
+            ],
+            "buttons": [
+              {
+                "id": "pigeon-recolor",
+                "label": "random 2-coloring"
+              },
+              {
+                "id": "pigeon-c5",
+                "label": "pentagon coloring (n=5)"
+              }
+            ],
+            "bodyScript": "  const svg=$('#pigeon-svg'), out=$('#pigeon-out');\n  const nSl=$('#pigeon-n'), nL=$('#pigeon-n-lbl'), recolor=$('#pigeon-recolor'), c5btn=$('#pigeon-c5');\n  const W=640,H=360, cx=W/2, cy=H/2-6, R=132;\n  const RED='var(--pink)', BLUE='var(--blue)';\n  let n=+nSl.value, col={}; // col['i-j'] = 0 red / 1 blue\n  function key(i,j){ return i<j? i+'-'+j : j+'-'+i; }\n  function positions(){ const p=[]; for(let i=0;i<n;i++){ const a=-Math.PI/2 + 2*Math.PI*i/n; p.push([cx+R*Math.cos(a), cy+R*Math.sin(a)]); } return p; }\n  function randomize(){ col={}; for(let i=0;i<n;i++) for(let j=i+1;j<n;j++) col[key(i,j)] = Math.random()<0.5?0:1; }\n  function pentagon(){ n=5; nSl.value='5'; col={}; for(let i=0;i<5;i++) for(let j=i+1;j<5;j++){ const d=(j-i+5)%5; col[key(i,j)] = (d===1||d===4)?0:1; } } // rim red, diagonals blue\n  function findMono(c){ // first monochromatic triangle in color c, else null\n    for(let i=0;i<n;i++) for(let j=i+1;j<n;j++) for(let k=j+1;k<n;k++)\n      if(col[key(i,j)]===c && col[key(i,k)]===c && col[key(j,k)]===c) return [i,j,k];\n    return null;\n  }\n  function render(){\n    nL.textContent='n = '+n;\n    const p=positions();\n    svg.innerHTML='';\n    const triR=findMono(0), triB=findMono(1);\n    const hi=new Set();\n    function mark(t){ if(t){ hi.add(key(t[0],t[1])); hi.add(key(t[0],t[2])); hi.add(key(t[1],t[2])); } }\n    mark(triR); mark(triB);\n    for(let i=0;i<n;i++) for(let j=i+1;j<n;j++){ const k=key(i,j); const c=col[k];\n      const hit=hi.has(k);\n      svg.appendChild(SVG('line',{x1:p[i][0],y1:p[i][1],x2:p[j][0],y2:p[j][1],\n        stroke: c===0?RED:BLUE, 'stroke-width': hit?5:2, opacity: hit?1:0.55})); }\n    for(let i=0;i<n;i++) drawNode(svg,p[i][0],p[i][1], i+1, {r:15, fill:'var(--panel2)', stroke:'var(--violet)'});\n    let msg;\n    if(triR && triB) msg='red triangle on {'+triR.map(x=>x+1).join(',')+'} AND blue triangle on {'+triB.map(x=>x+1).join(',')+'}';\n    else if(triR) msg='monochromatic RED triangle on vertices {'+triR.map(x=>x+1).join(',')+'}';\n    else if(triB) msg='monochromatic BLUE triangle on vertices {'+triB.map(x=>x+1).join(',')+'}';\n    else msg='NO monochromatic triangle — a valid escape coloring';\n    out.textContent =\n      'n = '+n+'   edges 2-colored: '+(n*(n-1)/2)+'   (highlighted edges form a forced triangle)\\n'+\n      (n===6 ? 'K6: pigeonhole guarantees a monochromatic triangle in EVERY coloring (R(3,3) ≤ 6)\\n'\n             : 'K5: the pentagon coloring escapes — proving R(3,3) > 5\\n')+\n      'result: '+msg;\n  }\n  nSl.addEventListener('input',()=>{ n=+nSl.value; randomize(); render(); });\n  recolor.addEventListener('click',()=>{ randomize(); render(); });\n  c5btn.addEventListener('click',()=>{ pentagon(); render(); });\n  randomize(); render();"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-pigeon"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./graph-theory-fundamentals.html#basics\">Graphs, degrees & the handshake lemma</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./ramsey-theory.html#finite\">Ramsey theory</a> · Ramsey's theorem (finite)</div>\n</aside>\n<!-- backlinks-auto-end -->"
+        },
+        {
+          "type": "quiz",
+          "concept": "rt-pigeonhole",
+          "html": "<div class=\"quiz\" data-concept=\"rt-pigeonhole\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "finite",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"finite\">\n<h2>2. Ramsey's theorem (finite)</h2>\n<p>The $K_6$ argument was special, but the phenomenon is universal. Frank Ramsey (1930) proved that for <em>every</em> target there is a threshold past which monochromatic structure is unavoidable.</p>\n<p style=\"text-align:center\"><strong>Ramsey's theorem (graph form).</strong> For all $s,t\\ge 2$ there is a least integer $R(s,t)$ such that every $2$-edge-coloring of $K_{R(s,t)}$ contains a red $K_s$ or a blue $K_t$.</p>\n<p>The previous section computed one entry, $R(3,3)=6$. The diagonal numbers $R(s):=R(s,s)$ are the headline cases. The boundary values are easy: a red edge or a blue $K_t$ is forced in $K_t$ once one color must appear, giving $R(2,t)=t$ and symmetrically $R(s,2)=s$.</p>\n\n<h3>The Erdős–Szekeres recurrence</h3>\n<p>Finiteness — and a usable bound — comes from a single inductive step. Take $N=R(s-1,t)+R(s,t-1)$ vertices and pick one, $v$. Its $N-1$ edges split into red neighbors $r$ and blue neighbors $b$ with $r+b=N-1=R(s-1,t)+R(s,t-1)-1$. By pigeonhole either $r\\ge R(s-1,t)$ or $b\\ge R(s,t-1)$.</p>\n<ul>\n  <li>If $r\\ge R(s-1,t)$: among the red neighbors lives a red $K_{s-1}$ or a blue $K_t$. A red $K_{s-1}$ plus $v$ (all-red edges) is a red $K_s$. Done.</li>\n  <li>If $b\\ge R(s,t-1)$: symmetrically, a blue $K_{t-1}$ plus $v$ gives a blue $K_t$.</li>\n</ul>\n<p>So the recurrence holds:</p>\n<p style=\"text-align:center\">$R(s,t)\\le R(s-1,t)+R(s,t-1).$</p>\n<p>This is exactly Pascal's rule, and the base cases $R(2,t)=t=\\binom{t}{1}$ match $\\binom{(s)+(t)-2}{(s)-1}$ at the boundary. Induction then delivers the binomial bound:</p>\n<p style=\"text-align:center\">$R(s,t)\\le\\binom{s+t-2}{s-1}.$</p>\n<p>In particular $R(s,s)\\le\\binom{2s-2}{s-1}\\le 4^{\\,s-1}$, so the diagonal Ramsey numbers are at most exponential.</p>\n\n<div class=\"note\"><strong>Worked mini-example.</strong> $R(3,4)\\le R(2,4)+R(3,3)=4+6=10$. The binomial bound gives $\\binom{3+4-2}{3-1}=\\binom{5}{2}=10$ too. A parity refinement (when both summands in the recurrence are even, the sum can be cut by $1$) sharpens this to $R(3,4)=9$, the known exact value. Likewise $R(3,5)=14$ and $R(4,4)=18$ — every one of these still sits under its binomial ceiling.</div>\n\n<p>Slide $s$ and $t$ to read the recurrence bound built from smaller Ramsey numbers, the binomial ceiling, and the few exact values mathematicians have actually nailed down.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "parametric-plot",
+          "params": {
+            "interaction": "single-mode",
+            "widgetId": "w-finite",
+            "svgId": "finite-svg",
+            "outputId": "finite-out",
+            "title": "Ramsey number bounds R(s,t)",
+            "hint": "the recurrence and binomial ceiling vs the scarce known exact values",
+            "viewBox": "0 0 640 300",
+            "svgWidth": 640,
+            "svgHeight": 300,
+            "svgTitle": "Upper bounds and known exact values of the Ramsey number R(s,t)",
+            "outputInitial": "",
+            "sliders": [
+              {
+                "id": "finite-s",
+                "outId": "finite-s-lbl",
+                "label": "$s$:",
+                "min": 2,
+                "max": 7,
+                "step": 1,
+                "init": 3
+              },
+              {
+                "id": "finite-t",
+                "outId": "finite-t-lbl",
+                "label": "$t$:",
+                "min": 2,
+                "max": 7,
+                "step": 1,
+                "init": 4
+              }
+            ],
+            "bodyScript": "  const svg=$('#finite-svg'), out=$('#finite-out');\n  const sSl=$('#finite-s'), sL=$('#finite-s-lbl'), tSl=$('#finite-t'), tL=$('#finite-t-lbl');\n  const W=640,H=300;\n  // memoized recurrence bound: R(2,t)=t, R(s,2)=s, else R(s-1,t)+R(s,t-1)\n  const memo={};\n  function recBound(s,t){\n    if(s===2) return t; if(t===2) return s;\n    const k=s+'-'+t; if(memo[k]!==undefined) return memo[k];\n    return memo[k]=recBound(s-1,t)+recBound(s,t-1);\n  }\n  function binom(a,b){ if(b<0||b>a) return 0; let r=1; for(let i=0;i<b;i++) r=r*(a-i)/(i+1); return Math.round(r); }\n  // small table of known exact (or interval) values, keyed s<=t\n  const known={ '2-2':'2','3-3':'6','3-4':'9','3-5':'14','3-6':'18','3-7':'23','4-4':'18','4-5':'25','4-6':'36–40 (open)','5-5':'43–48 (open)','6-6':'102–161 (open)','7-7':'205–497 (open)' };\n  function lookup(s,t){ const a=Math.min(s,t), b=Math.max(s,t); return known[a+'-'+b]; }\n  function bar(x,y,w,h,fill,lab){ svg.appendChild(SVG('rect',{x,y,width:w,height:h,fill,rx:4,opacity:0.9})); const tx=SVG('text',{x:x+w+8,y:y+h*0.5+4,'font-size':13,fill:'var(--ink)'}); tx.textContent=lab; svg.appendChild(tx); }\n  function render(){\n    let s=+sSl.value, t=+tSl.value; sL.textContent='s = '+s; tL.textContent='t = '+t;\n    svg.innerHTML='';\n    const rec=recBound(s,t), bin=binom(s+t-2,s-1);\n    const exact=lookup(s,t);\n    const maxV=Math.max(rec,bin, exact && /^[0-9]+$/.test(exact)?+exact:0, 1);\n    const x0=140, fullW=380;\n    const sc=v=> fullW * v / maxV;\n    bar(x0, 60, sc(rec), 30, 'var(--violet)', 'recurrence ≤ '+rec);\n    bar(x0, 110, sc(bin), 30, 'var(--cyan)', 'binomial C('+(s+t-2)+','+(s-1)+') = '+bin);\n    const exTxt = exact ? ('R('+s+','+t+') = '+exact) : 'R('+s+','+t+') — not catalogued here';\n    if(exact && /^[0-9]+$/.test(exact)) bar(x0, 160, sc(+exact), 30, 'var(--yellow)', exTxt);\n    else { const tx=SVG('text',{x:x0,y:178,'font-size':13,fill:'var(--mute)'}); tx.textContent=exTxt; svg.appendChild(tx); }\n    const cap=SVG('text',{x:x0,y:40,'font-size':13,fill:'var(--mute)'}); cap.textContent='upper bounds vs the known exact value'; svg.appendChild(cap);\n    out.textContent =\n      'R('+s+','+t+'):  recurrence bound R(s-1,t)+R(s,t-1) = '+rec+'\\n'+\n      '          binomial bound C(s+t-2, s-1) = C('+(s+t-2)+','+(s-1)+') = '+bin+'\\n'+\n      '          known exact value: '+(exact||'unknown / not listed')+'\\n'+\n      'the recurrence proves finiteness; exact values are scarce and stop being known around the diagonal R(5,5).';\n  }\n  sSl.addEventListener('input',render); tSl.addEventListener('input',render);\n  render();"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-finite"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "quiz",
+          "concept": "rt-finite-ramsey",
+          "html": "<div class=\"quiz\" data-concept=\"rt-finite-ramsey\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./ramsey-theory.html#bounds\">Ramsey theory</a> · Bounds &amp; the exponential gap</div>\n    <div><a href=\"./ramsey-theory.html#infinite\">Ramsey theory</a> · Infinite Ramsey</div>\n    <div><a href=\"./ramsey-theory.html#van-der-waerden\">Ramsey theory</a> · Van der Waerden</div>\n</aside>\n<!-- backlinks-auto-end -->"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "bounds",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"bounds\">\n<h2>3. Bounds &amp; the exponential gap</h2>\n<p>The recurrence pins the diagonal number from above at $R(s,s)\\le 4^{\\,s-1}$. The matching lower bound is one of the most celebrated arguments in combinatorics, and it is not constructive: Erdős (1947) showed a good coloring <em>exists</em> without exhibiting one.</p>\n\n<h3>The probabilistic lower bound</h3>\n<p>Color each edge of $K_n$ red or blue independently with probability $\\tfrac12$. A fixed set of $s$ vertices spans $\\binom{s}{2}$ edges; it is monochromatic with probability $2\\cdot 2^{-\\binom{s}{2}}=2^{1-\\binom{s}{2}}$. By <a href=\"./probabilistic-method.html#linearity\">linearity of expectation</a>, the expected number of monochromatic $K_s$ is</p>\n<p style=\"text-align:center\">$\\mathbb{E}[X]=\\binom{n}{s}\\,2^{\\,1-\\binom{s}{2}}.$</p>\n<p>If $\\mathbb{E}[X]< 1$ then, since $X$ is a nonnegative integer, some coloring has $X=0$ — no monochromatic $K_s$ at all — and therefore $R(s,s)> n$. A short estimate shows $\\mathbb{E}[X]< 1$ whenever $n\\le 2^{s/2}$ (for $s\\ge 3$), giving</p>\n<p style=\"text-align:center\">$R(s,s)> 2^{\\,s/2}.$</p>\n<p>This is the dedicated probabilistic-method derivation's home; we cross-link it rather than re-deriving the constants here.</p>\n\n<h3>The gap</h3>\n<p>Stacking the two bounds:</p>\n<p style=\"text-align:center\">$2^{\\,s/2}\\;<\\; R(s,s)\\;<\\; 4^{\\,s}.$</p>\n<p>The base of the exponential is somewhere between $\\sqrt2\\approx 1.414$ and $4$, and pinning it down is a famous open problem. For seventy-five years only lower-order factors moved; in $2023$ Campos, Griffiths, Morris &amp; Sahasrabudhe proved $R(s,s)\\le(4-\\varepsilon)^s$ for an explicit $\\varepsilon> 0$ — the first improvement to the <em>base</em> of the upper bound, and still far from closing the gap.</p>\n\n<div class=\"note\"><strong>Worked mini-example (scarcity).</strong> Exact diagonal values stop almost immediately: $R(3,3)=6$, $R(4,4)=18$, and then $R(5,5)$ is <em>unknown</em> — bounded only in $[43,48]$. Erdős's quip: if aliens demanded $R(5,5)$ or they destroy Earth, we should marshal every mathematician and computer; but if they demanded $R(6,6)$, we should attack the aliens. The widget plots the two exponential curves and overlays the handful of known points to make the chasm visible.</div>\n\n<p>Slide $s$ to compare $2^{s/2}$ and $4^{s}$ on a log scale and watch the known exact values (where they exist) sit far down inside the gap.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "parametric-plot",
+          "params": {
+            "interaction": "single-mode",
+            "widgetId": "w-bounds",
+            "svgId": "bounds-svg",
+            "outputId": "bounds-out",
+            "title": "The exponential gap",
+            "hint": "log-scale plot of 2^(s/2) vs 4^s with known R(s,s) points",
+            "viewBox": "0 0 640 340",
+            "svgWidth": 640,
+            "svgHeight": 340,
+            "svgTitle": "Diagonal Ramsey number lower and upper bounds on a logarithmic scale",
+            "outputInitial": "",
+            "sliders": [
+              {
+                "id": "bounds-s",
+                "outId": "bounds-s-lbl",
+                "label": "diagonal $s$:",
+                "min": 3,
+                "max": 12,
+                "step": 1,
+                "init": 6
+              }
+            ],
+            "bodyScript": "  const svg=$('#bounds-svg'), out=$('#bounds-out');\n  const sSl=$('#bounds-s'), sL=$('#bounds-s-lbl');\n  const W=640,H=340;\n  const x0=70, y0=H-50, plotW=W-150, plotH=H-90;\n  const sMin=3, sMax=12;\n  function lower(s){ return Math.pow(2, s/2); }\n  function upper(s){ return Math.pow(4, s); }\n  // known diagonal values (midpoint for open intervals)\n  const known={ 3:6, 4:18 };\n  const interval={ 5:[43,48], 6:[102,161] };\n  function render(){\n    const sCur=+sSl.value; sL.textContent='s = '+sCur;\n    svg.innerHTML='';\n    const logMax=Math.log10(upper(sMax))*1.05;\n    const sx=s=> x0 + plotW*(s-sMin)/(sMax-sMin);\n    const ly=v=> y0 - plotH*Math.log10(Math.max(v,1))/logMax;\n    // axes\n    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x0+plotW,y2:y0,stroke:'var(--line)','stroke-width':1.4}));\n    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x0,y2:y0-plotH,stroke:'var(--line)','stroke-width':1.4}));\n    for(let e=0;e<=7;e++){ const yy=ly(Math.pow(10,e)); if(yy<y0-plotH-2) break; svg.appendChild(SVG('line',{x1:x0,y1:yy,x2:x0+plotW,y2:yy,stroke:'var(--line)','stroke-width':0.6,opacity:0.4})); const tt=SVG('text',{x:x0-8,y:yy+4,'text-anchor':'end','font-size':11,fill:'var(--mute)'}); tt.textContent='10^'+e; svg.appendChild(tt); }\n    function curve(fn,color){ let d=''; for(let s=sMin;s<=sMax;s+=0.25){ d+=(d?'L':'M')+sx(s)+' '+ly(fn(s)); } svg.appendChild(SVG('path',{d,fill:'none',stroke:color,'stroke-width':2.2})); }\n    curve(upper,'var(--pink)');\n    curve(lower,'var(--cyan)');\n    // labels\n    const lu=SVG('text',{x:sx(sMax)+6,y:ly(upper(sMax))+4,'font-size':12,fill:'var(--pink)'}); lu.textContent='4^s'; svg.appendChild(lu);\n    const ll=SVG('text',{x:sx(sMax)+6,y:ly(lower(sMax))+4,'font-size':12,fill:'var(--cyan)'}); ll.textContent='2^(s/2)'; svg.appendChild(ll);\n    // x ticks\n    for(let s=sMin;s<=sMax;s++){ const tt=SVG('text',{x:sx(s),y:y0+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'}); tt.textContent=s; svg.appendChild(tt); }\n    // known points\n    for(const s in known){ svg.appendChild(SVG('circle',{cx:sx(+s),cy:ly(known[s]),r:5,fill:'var(--yellow)',stroke:'var(--ink)'})); }\n    for(const s in interval){ const [lo,hi]=interval[s]; svg.appendChild(SVG('line',{x1:sx(+s),y1:ly(lo),x2:sx(+s),y2:ly(hi),stroke:'var(--yellow)','stroke-width':3})); }\n    // current-s vertical guide\n    svg.appendChild(SVG('line',{x1:sx(sCur),y1:y0,x2:sx(sCur),y2:y0-plotH,stroke:'var(--violet)','stroke-width':1,'stroke-dasharray':'4 4'}));\n    const lo=lower(sCur), up=upper(sCur);\n    const exact = known[sCur] ? String(known[sCur]) : (interval[sCur]? interval[sCur][0]+'–'+interval[sCur][1]+' (open)' : 'unknown');\n    function fmt(x){ return x>=1e5 ? x.toExponential(2) : Math.round(x); }\n    out.textContent =\n      's = '+sCur+'\\n'+\n      'lower bound  2^(s/2) = '+fmt(lo)+'   <   R(s,s)   <   4^s = '+fmt(up)+'\\n'+\n      'known R('+sCur+','+sCur+'): '+exact+'\\n'+\n      'yellow dots/bars = catalogued values; they vanish past s = 6. closing the base of the exponential is open.';\n  }\n  sSl.addEventListener('input',render);\n  render();"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-bounds"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./probabilistic-method.html#ramsey\">Ramsey lower bound $R(k,k)\\ge 2^{k/2}$</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "quiz",
+          "concept": "rt-bounds",
+          "html": "<div class=\"quiz\" data-concept=\"rt-bounds\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "infinite",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"infinite\">\n<h2>4. Infinite Ramsey</h2>\n<p>Drop the finiteness and the statement gets cleaner, not harder. Write $[\\mathbb{N}]^2$ for the set of unordered pairs of natural numbers.</p>\n<p style=\"text-align:center\"><strong>Infinite Ramsey theorem.</strong> Every $2$-coloring of $[\\mathbb{N}]^2$ has an infinite <em>homogeneous</em> set: an infinite $H\\subseteq\\mathbb{N}$ such that all pairs $\\{i,j\\}\\subseteq H$ get the same color.</p>\n\n<h3>The construction</h3>\n<p>Build a sequence $a_0,a_1,a_2,\\dots$ and a shrinking pool. Start with $a_0=0$ and the pool $S_0=\\mathbb{N}\\setminus\\{0\\}$. The pairs from $a_0$ to $S_0$ are $2$-colored, so by pigeonhole one color $c_0$ is used to infinitely many of them; let $S_1\\subseteq S_0$ be that infinite monochromatic neighborhood and set $a_1=\\min S_1$. Repeat: from $a_1$, infinitely many edges into $S_1$ share a color $c_1$; keep that infinite pool $S_2$, set $a_2=\\min S_2$; and so on. Each $a_k$ comes tagged with a color $c_k$ such that <em>every</em> later $a_j$ ($j> k$) joins $a_k$ in color $c_k$.</p>\n<p>Now the colors $c_0,c_1,c_2,\\dots$ are an infinite $2$-coloring of indices, so one color — say red — recurs infinitely often, at indices $k_0< k_1<\\cdots$. The set $H=\\{a_{k_0},a_{k_1},\\dots\\}$ is infinite, and any pair $\\{a_{k_p},a_{k_q}\\}$ with $p< q$ is colored $c_{k_p}=$ red. So $H$ is an infinite red-homogeneous set.</p>\n\n<h3>Infinite ⟹ finite (compactness)</h3>\n<p>The infinite theorem implies the finite one. Suppose, for contradiction, that for some $s$ no finite $N$ forced an $s$-clique-or-anticlique: then for every $N$ there is a bad $2$-coloring of $K_N$. These bad colorings form an infinite, finitely-branching tree (a coloring of $K_{N+1}$ restricts to one of $K_N$), so by <strong>König's lemma</strong> there is an infinite branch — a $2$-coloring of all of $[\\mathbb{N}]^2$ with no monochromatic $K_s$, hence no infinite homogeneous set. That contradicts infinite Ramsey. So a finite threshold must exist after all — a slick non-constructive proof of finiteness that gives no bound at all.</p>\n\n<div class=\"note\"><strong>Worked mini-example.</strong> Color $\\{i,j\\}$ red if $\\lfloor\\log_2 i\\rfloor=\\lfloor\\log_2 j\\rfloor$ (same binary length) and blue otherwise. Each \"length class\" $\\{2^k,\\dots,2^{k+1}-1\\}$ is finite, so no infinite red set exists — but picking one integer from each length class gives an infinite set whose pairs are all blue. Infinite Ramsey guarantees such an infinite monochromatic set must exist, here visibly blue.</div>\n\n<p>Step the construction below: at each stage the widget picks the current vertex, finds its majority color into the remaining pool, and grows the homogeneous set one vertex at a time.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "parametric-plot",
+          "params": {
+            "interaction": "single-mode",
+            "widgetId": "w-infinite",
+            "svgId": "infinite-svg",
+            "outputId": "infinite-out",
+            "title": "Building the infinite monochromatic set",
+            "hint": "step the pigeonhole construction; the homogeneous set grows one vertex per step",
+            "viewBox": "0 0 640 320",
+            "svgWidth": 640,
+            "svgHeight": 320,
+            "svgTitle": "Stepwise construction of an infinite monochromatic set from a 2-coloring of pairs",
+            "outputInitial": "",
+            "sliders": [
+              {
+                "id": "infinite-n",
+                "outId": "infinite-n-lbl",
+                "label": "shown vertices $0..n{-}1$:",
+                "min": 8,
+                "max": 16,
+                "step": 1,
+                "init": 12
+              }
+            ],
+            "buttons": [
+              {
+                "id": "infinite-step",
+                "label": "step construction"
+              },
+              {
+                "id": "infinite-reset",
+                "label": "new coloring / reset"
+              }
+            ],
+            "bodyScript": "  const svg=$('#infinite-svg'), out=$('#infinite-out');\n  const nSl=$('#infinite-n'), nL=$('#infinite-n-lbl'), stepBtn=$('#infinite-step'), resetBtn=$('#infinite-reset');\n  const W=640,H=320; const RED='var(--pink)', BLUE='var(--blue)';\n  let n=+nSl.value, color=[], chosen=[], chosenCol=[], pool=[], cur=null, curCol=null, done=false;\n  function key(i,j){ return i<j? i+'-'+j : j+'-'+i; }\n  function newColoring(){ color={}; for(let i=0;i<n;i++) for(let j=i+1;j<n;j++) color[key(i,j)]=Math.random()<0.5?0:1; }\n  function reset(){ newColoring(); chosen=[]; chosenCol=[]; pool=[]; for(let i=0;i<n;i++) pool.push(i); cur=null; curCol=null; done=false; }\n  function step(){\n    if(done) return;\n    if(pool.length<=1){ done=true; return; }\n    const v=pool[0]; const rest=pool.slice(1);\n    let red=[], blue=[]; for(const w of rest){ (color[key(v,w)]===0?red:blue).push(w); }\n    const majRed = red.length>=blue.length;\n    cur=v; curCol=majRed?0:1;\n    chosen.push(v); chosenCol.push(curCol);\n    pool = majRed?red:blue;\n  }\n  function xpos(i){ const top=46; return [70 + (W-110)*i/(n-1||1), top + (i%2)*0]; }\n  function render(){\n    nL.textContent='n = '+n;\n    svg.innerHTML='';\n    const rowY=70;\n    const inChosen=new Set(chosen); const inPool=new Set(pool);\n    // draw selected monochromatic edges among chosen-with-later (only those committed)\n    for(let p=0;p<chosen.length;p++){ const v=chosen[p], c=chosenCol[p];\n      for(let q=p+1;q<chosen.length;q++){ const w=chosen[q];\n        const a=[70+(W-110)*v/(n-1||1), rowY], b=[70+(W-110)*w/(n-1||1), rowY];\n        const mx=(a[0]+b[0])/2, my=rowY+30+18*(q-p);\n        svg.appendChild(SVG('path',{d:'M'+a[0]+' '+a[1]+' Q '+mx+' '+my+' '+b[0]+' '+b[1],fill:'none',stroke:c===0?RED:BLUE,'stroke-width':2.4,opacity:0.9})); } }\n    for(let i=0;i<n;i++){ const x=70+(W-110)*i/(n-1||1);\n      let fill='var(--panel2)', stroke='var(--line)';\n      if(inChosen.has(i)){ const idx=chosen.indexOf(i); stroke = chosenCol[idx]===0?RED:BLUE; fill='var(--panel)'; }\n      else if(inPool.has(i)){ stroke='var(--violet)'; }\n      else { fill='#0b0f16'; }\n      drawNode(svg,x,rowY,i,{r:13,fill,stroke,fontSize:12}); }\n    // legend in viewport coords\n    const lg=SVG('text',{x:70,y:H-40,'font-size':12,fill:'var(--mute)'}); lg.textContent='outlined = pool remaining   colored = chosen (edge color to all later chosen)   dim = discarded'; svg.appendChild(lg);\n    const colName=curCol===null?'—':(curCol===0?'red':'blue');\n    out.textContent =\n      'homogeneous set so far: {'+chosen.join(', ')+'}'+(chosen.length?'':' (press “step construction”)')+'\\n'+\n      'last vertex picked: '+(cur===null?'—':cur)+'   its majority color into the pool: '+colName+'\\n'+\n      'pool remaining: {'+pool.join(', ')+'}   '+(done?'(pool exhausted in this finite window — the real construction never stops)':'')+'\\n'+\n      'each chosen vertex joins ALL later chosen vertices in one color; an infinite repeat of one color gives the infinite monochromatic set.';\n  }\n  nSl.addEventListener('input',()=>{ n=+nSl.value; reset(); render(); });\n  stepBtn.addEventListener('click',()=>{ step(); render(); });\n  resetBtn.addEventListener('click',()=>{ reset(); render(); });\n  reset(); render();"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-infinite"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "quiz",
+          "concept": "rt-infinite-ramsey",
+          "html": "<div class=\"quiz\" data-concept=\"rt-infinite-ramsey\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "van-der-waerden",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"van-der-waerden\">\n<h2>5. Van der Waerden</h2>\n<p>Ramsey's theorem lives on graphs; the same \"order is unavoidable\" principle has an arithmetic incarnation. Color the integers and you are forced to monochromatic arithmetic progressions.</p>\n<p style=\"text-align:center\"><strong>Van der Waerden's theorem (1927).</strong> For all $r,k$ there is a least $W(r,k)$ such that every $r$-coloring of $\\{1,2,\\dots,N\\}$ with $N\\ge W(r,k)$ contains a monochromatic $k$-term arithmetic progression $a,\\,a+d,\\,\\dots,\\,a+(k-1)d$ (with $d\\ge 1$).</p>\n<p>An arithmetic progression (AP) is the additive analogue of a clique: a perfectly regular pattern that no finite coloring of a long enough interval can dodge. Note this is a statement about <em>partition</em> regularity — splitting $\\{1,\\dots,N\\}$ into $r$ color classes can never make all classes AP-free.</p>\n\n<h3>What is and isn't known</h3>\n<p>Existence is elementary (a clever double induction on $k$ and $r$), but it gives monstrous bounds. The classical proof yields a function growing faster than any primitive-recursive function — Ackermann-type. Gowers later proved a merely tower-free upper bound,</p>\n<p style=\"text-align:center\">$W(r,k)\\le 2^{\\,2^{\\,r^{\\,2^{\\,2^{\\,k+9}}}}},$</p>\n<p>still astronomically large. Exact values are known only for tiny parameters: $W(2,3)=9$, $W(2,4)=35$, $W(2,5)=178$, $W(3,3)=27$. The density refinement — that any subset of $\\{1,\\dots,N\\}$ of positive density (not just a color class) contains long APs — is <strong>Szemerédi's theorem</strong>, far deeper than the coloring version.</p>\n\n<div class=\"note\"><strong>Worked mini-example.</strong> $W(2,3)=9$: any red/blue coloring of $\\{1,\\dots,9\\}$ has a monochromatic $3$-AP, but $\\{1,\\dots,8\\}$ can be dodged — the coloring $\\texttt{RRBBRRBB}$ (i.e. $1,2$ red, $3,4$ blue, $5,6$ red, $7,8$ blue) has no monochromatic $3$-term AP. Add the $9$th element in either color and a progression like $1,5,9$ (all red) is forced. Color $\\{1,\\dots,n\\}$ in the widget and hunt for the shortest forced progression.</div>\n\n<p>Pick a coloring of $\\{1,\\dots,n\\}$ — choose the number of colors and let the widget randomize or accept the parity pattern — and it highlights the first monochromatic $k$-term arithmetic progression it finds.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "parametric-plot",
+          "params": {
+            "interaction": "single-mode",
+            "widgetId": "w-vdw",
+            "svgId": "vdw-svg",
+            "outputId": "vdw-out",
+            "title": "Monochromatic arithmetic progressions",
+            "hint": "color {1..n}; the widget finds a monochromatic k-term AP",
+            "viewBox": "0 0 640 200",
+            "svgWidth": 640,
+            "svgHeight": 200,
+            "svgTitle": "Coloring an interval of integers and locating a monochromatic arithmetic progression",
+            "outputInitial": "",
+            "sliders": [
+              {
+                "id": "vdw-n",
+                "outId": "vdw-n-lbl",
+                "label": "interval length $n$:",
+                "min": 6,
+                "max": 30,
+                "step": 1,
+                "init": 12
+              },
+              {
+                "id": "vdw-r",
+                "outId": "vdw-r-lbl",
+                "label": "colors $r$:",
+                "min": 2,
+                "max": 4,
+                "step": 1,
+                "init": 2
+              },
+              {
+                "id": "vdw-k",
+                "outId": "vdw-k-lbl",
+                "label": "AP length $k$:",
+                "min": 3,
+                "max": 5,
+                "step": 1,
+                "init": 3
+              }
+            ],
+            "buttons": [
+              {
+                "id": "vdw-rand",
+                "label": "random coloring"
+              },
+              {
+                "id": "vdw-parity",
+                "label": "block pattern"
+              }
+            ],
+            "bodyScript": "  const svg=$('#vdw-svg'), out=$('#vdw-out');\n  const nSl=$('#vdw-n'), nL=$('#vdw-n-lbl'), rSl=$('#vdw-r'), rL=$('#vdw-r-lbl'), kSl=$('#vdw-k'), kL=$('#vdw-k-lbl');\n  const rand=$('#vdw-rand'), parity=$('#vdw-parity');\n  const W=640,H=200;\n  const palette=['var(--pink)','var(--blue)','var(--green)','var(--yellow)'];\n  let n=+nSl.value, r=+rSl.value, k=+kSl.value, col=[];\n  function randomize(){ col=[]; for(let i=0;i<n;i++) col.push(Math.floor(Math.random()*r)); }\n  function blockPattern(){ col=[]; const blk=Math.max(1,Math.floor(2)); for(let i=0;i<n;i++) col.push(Math.floor(i/2)%r); } // RRBB.. style\n  function findAP(){ // first monochromatic k-term AP, smallest (a,d)\n    for(let d=1; d*(k-1) < n; d++){\n      for(let a=0; a + d*(k-1) < n; a++){\n        const c=col[a]; let ok=true;\n        for(let t=1;t<k;t++) if(col[a+d*t]!==c){ ok=false; break; }\n        if(ok){ const idx=[]; for(let t=0;t<k;t++) idx.push(a+d*t); return {c,idx,d}; }\n      }\n    }\n    return null;\n  }\n  function render(){\n    n=+nSl.value; r=+rSl.value; k=+kSl.value;\n    nL.textContent='n = '+n; rL.textContent='r = '+r; kL.textContent='k = '+k;\n    if(col.length!==n) randomize();\n    svg.innerHTML='';\n    const ap=findAP();\n    const hit=new Set(ap?ap.idx:[]);\n    const pad=40, gap=(W-2*pad)/Math.max(n-1,1), boxW=Math.min(gap*0.78, 26), y=80;\n    for(let i=0;i<n;i++){ const x=pad+i*gap;\n      svg.appendChild(SVG('rect',{x:x-boxW/2,y,width:boxW,height:34,rx:5,fill:palette[col[i]%palette.length],\n        stroke: hit.has(i)?'var(--ink)':'var(--line)','stroke-width': hit.has(i)?3:1,opacity: hit.has(i)?1:0.78}));\n      const t=SVG('text',{x,y:y+22,'text-anchor':'middle','font-size':12,fill:'#0b0d10','font-weight':600}); t.textContent=(i+1); svg.appendChild(t);\n    }\n    if(ap){ // draw connecting bracket under the AP\n      const xs=ap.idx.map(i=>pad+i*gap);\n      svg.appendChild(SVG('path',{d:'M'+xs[0]+' '+(y+44)+' L'+xs[xs.length-1]+' '+(y+44),stroke:'var(--ink)','stroke-width':2}));\n    }\n    const colName=ap?(['red','blue','green','yellow'][ap.c]):'—';\n    out.textContent =\n      'colored {1..'+n+'} with '+r+' colors; searching for a monochromatic '+k+'-term AP\\n'+\n      (ap ? ('FOUND: '+colName+' AP at positions {'+ap.idx.map(i=>i+1).join(', ')+'}  (common difference d = '+ap.d+')')\n          : 'no monochromatic '+k+'-AP in this window — try a longer interval (Van der Waerden guarantees one once n ≥ W(r,k))')+'\\n'+\n      'reference: W(2,3)=9, W(2,4)=35, W(3,3)=27 — existence is certain, but the thresholds explode.';\n  }\n  function refreshAndDraw(reColor){ if(reColor) randomize(); render(); }\n  nSl.addEventListener('input',()=>{ n=+nSl.value; randomize(); render(); });\n  rSl.addEventListener('input',()=>{ r=+rSl.value; randomize(); render(); });\n  kSl.addEventListener('input',()=>{ k=+kSl.value; render(); });\n  rand.addEventListener('click',()=>{ randomize(); render(); });\n  parity.addEventListener('click',()=>{ blockPattern(); render(); });\n  randomize(); render();"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-vdw"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "quiz",
+          "concept": "rt-van-der-waerden",
+          "html": "<div class=\"quiz\" data-concept=\"rt-van-der-waerden\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./ramsey-theory.html#hales-jewett\">Ramsey theory</a> · Hales–Jewett</div>\n</aside>\n<!-- backlinks-auto-end -->"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "hales-jewett",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"hales-jewett\">\n<h2>6. Hales–Jewett</h2>\n<p>Van der Waerden is itself the shadow of a more structural theorem about high-dimensional cubes. Work in $[t]^n$, the strings of length $n$ over the alphabet $\\{1,\\dots,t\\}$ — think of an $n$-dimensional tic-tac-toe board with side $t$.</p>\n<p>A <strong>combinatorial line</strong> is the cube's analogue of a winning row. Choose a nonempty set $W$ of <em>wildcard</em> coordinates and fix the others; as the wildcards move <em>together</em> through $1,2,\\dots,t$, they trace out $t$ strings. For instance in $[3]^2$ the line with both coordinates wildcard is $\\{11,22,33\\}$; the line with first coordinate wildcard and second fixed at $2$ is $\\{12,22,32\\}$.</p>\n<p style=\"text-align:center\"><strong>Hales–Jewett theorem (1963).</strong> For all $t,r$ there is a dimension $HJ(t,r)$ such that every $r$-coloring of $[t]^n$ with $n\\ge HJ(t,r)$ contains a monochromatic combinatorial line.</p>\n<p>This is a purely <em>combinatorial</em> statement — no arithmetic, no geometry, just strings — which is exactly why it is so strong: it has no \"edge effects\" to exploit.</p>\n\n<h3>Hales–Jewett ⟹ Van der Waerden</h3>\n<p>Map a string $x=(x_1,\\dots,x_n)\\in[t]^n$ to the integer $\\phi(x)=\\sum_{i=1}^{n}(x_i-1)\\,t^{\\,i-1}$, its base-$t$ value. An $r$-coloring of $\\{0,\\dots,t^n-1\\}$ pulls back to an $r$-coloring of $[t]^n$. Under $\\phi$, a combinatorial line with wildcard set $W$ becomes</p>\n<p style=\"text-align:center\">$\\phi=a,\\;a+d,\\;\\dots,\\;a+(t-1)d,\\qquad d=\\sum_{i\\in W}t^{\\,i-1}\\ge 1,$</p>\n<p>a $t$-term arithmetic progression. So a monochromatic combinatorial line maps to a monochromatic $t$-term AP, and $HJ(t,r)$ furnishes a valid $W(r,t)$. Hales–Jewett is the master theorem; Van der Waerden is the projection to one dimension.</p>\n\n<h3>The density version</h3>\n<p>The <strong>density Hales–Jewett theorem (DHJ)</strong> replaces \"every coloring has a monochromatic line\" with \"every subset of $[t]^n$ of positive density contains a combinatorial line,\" once $n$ is large. Proved by the first <em>Polymath</em> collaboration (2009), DHJ implies Szemerédi's theorem the same way HJ implies Van der Waerden — it is the structural summit of the whole edifice.</p>\n\n<div class=\"note\"><strong>Worked mini-example.</strong> In $[3]^2$ (a $3\\times 3$ grid of strings $11,12,\\dots,33$) the combinatorial lines are the three rows (first coordinate wildcard), the three columns (second coordinate wildcard), and the main diagonal $\\{11,22,33\\}$ (both wildcard) — but <em>not</em> the anti-diagonal $\\{13,22,31\\}$, since the two coordinates move in opposite directions there. With $r=2$ colors and $n=2$ you can still $2$-color $[3]^2$ avoiding a monochromatic line, so $HJ(3,2)> 2$; you must climb to higher $n$.</div>\n\n<p>Pick a coordinate to make the wildcard (or both) and the widget draws the resulting combinatorial line on the $[3]^n$ grid, then shows its image as an arithmetic progression of base-$3$ values.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "parametric-plot",
+          "params": {
+            "interaction": "single-mode",
+            "widgetId": "w-hj",
+            "svgId": "hj-svg",
+            "outputId": "hj-out",
+            "title": "Combinatorial lines in [t]^2",
+            "hint": "pick wildcard coordinate(s); a line projects to an arithmetic progression",
+            "viewBox": "0 0 640 360",
+            "svgWidth": 640,
+            "svgHeight": 360,
+            "svgTitle": "A combinatorial line in the grid [t]^2 and its image as an arithmetic progression",
+            "outputInitial": "",
+            "sliders": [
+              {
+                "id": "hj-t",
+                "outId": "hj-t-lbl",
+                "label": "alphabet size $t$:",
+                "min": 3,
+                "max": 5,
+                "step": 1,
+                "init": 3
+              },
+              {
+                "id": "hj-which",
+                "outId": "hj-which-lbl",
+                "label": "wildcard pattern (1=coord 1, 2=coord 2, 3=both):",
+                "min": 1,
+                "max": 3,
+                "step": 1,
+                "init": 3
+              },
+              {
+                "id": "hj-fixed",
+                "outId": "hj-fixed-lbl",
+                "label": "fixed value on the non-wildcard coord:",
+                "min": 1,
+                "max": 5,
+                "step": 1,
+                "init": 1
+              }
+            ],
+            "buttons": [
+              {
+                "id": "hj-next",
+                "label": "cycle wildcard pattern"
+              }
+            ],
+            "bodyScript": "  const svg=$('#hj-svg'), out=$('#hj-out');\n  const tSl=$('#hj-t'), tL=$('#hj-t-lbl'), wSl=$('#hj-which'), wL=$('#hj-which-lbl'), fSl=$('#hj-fixed'), fL=$('#hj-fixed-lbl');\n  const nextBtn=$('#hj-next');\n  const W=640,H=360;\n  let t=+tSl.value, which=+wSl.value, fixed=+fSl.value;\n  function lineCells(){ // returns array of [c1,c2] forming the combinatorial line\n    const cells=[];\n    const fx=Math.min(fixed,t);\n    for(let v=1;v<=t;v++){\n      if(which===3) cells.push([v,v]);\n      else if(which===1) cells.push([v,fx]);\n      else cells.push([fx,v]);\n    }\n    return cells;\n  }\n  function phi(c1,c2){ return (c1-1) + (c2-1)*t; } // base-t value of (c1,c2)\n  function render(){\n    t=+tSl.value; which=+wSl.value; fixed=Math.min(+fSl.value,t);\n    tL.textContent='t = '+t; fL.textContent='fixed = '+fixed;\n    wL.textContent = which===3?'both coords wildcard' : which===1?'coord 1 wildcard' : 'coord 2 wildcard';\n    svg.innerHTML='';\n    const cells=lineCells();\n    const inLine=new Set(cells.map(c=>c[0]+'-'+c[1]));\n    // grid: c1 = column (x), c2 = row (y), origin bottom-left\n    const pad=70, cell=Math.min((W-2*pad)/t, 64), gx=pad, gy=60;\n    for(let c2=t;c2>=1;c2--) for(let c1=1;c1<=t;c1++){\n      const x=gx+(c1-1)*cell, y=gy+(t-c2)*cell;\n      const on=inLine.has(c1+'-'+c2);\n      svg.appendChild(SVG('rect',{x,y,width:cell-8,height:cell-8,rx:6,\n        fill: on?'var(--cyan)':'var(--panel2)', stroke:'var(--line)','stroke-width':1, opacity: on?0.95:0.7}));\n      const lab=SVG('text',{x:x+(cell-8)/2,y:y+(cell-8)/2+5,'text-anchor':'middle','font-size':13,\n        fill: on?'#0b0d10':'var(--ink)','font-weight': on?700:400}); lab.textContent=''+c1+c2; svg.appendChild(lab);\n    }\n    // projection: arithmetic progression of phi-values below the grid\n    const vals=cells.map(c=>phi(c[0],c[1])).sort((a,b)=>a-b);\n    const baseY=gy + t*cell + 36;\n    const lab2=SVG('text',{x:gx,y:baseY-12,'font-size':12,fill:'var(--mute)'}); lab2.textContent='base-'+t+' values φ(c) form an arithmetic progression:'; svg.appendChild(lab2);\n    const span=(W-2*pad), maxV=t*t;\n    for(let i=0;i<vals.length;i++){ const x=gx + span*vals[i]/Math.max(maxV-1,1);\n      svg.appendChild(SVG('circle',{cx:x,cy:baseY+16,r:11,fill:'var(--yellow)',stroke:'var(--ink)'}));\n      const tx=SVG('text',{x,y:baseY+21,'text-anchor':'middle','font-size':11,fill:'#0b0d10','font-weight':600}); tx.textContent=vals[i]; svg.appendChild(tx);\n      if(i>0){ const xp=gx + span*vals[i-1]/Math.max(maxV-1,1); svg.appendChild(SVG('line',{x1:xp+11,y1:baseY+16,x2:x-11,y2:baseY+16,stroke:'var(--line)','stroke-width':1.4})); }\n    }\n    const d = vals.length>1 ? vals[1]-vals[0] : 0;\n    out.textContent =\n      'cube [t]^2 with t = '+t+'    line = {'+cells.map(c=>''+c[0]+c[1]).join(', ')+'}\\n'+\n      'wildcard: '+(which===3?'both coordinates move together':(which===1?'coordinate 1 moves, coordinate 2 fixed at '+fixed:'coordinate 2 moves, coordinate 1 fixed at '+fixed))+'\\n'+\n      'projected φ-values: '+vals.join(', ')+'   →  arithmetic progression with common difference d = '+d+'\\n'+\n      'so a combinatorial line maps to a '+t+'-term AP: Hales–Jewett ⇒ Van der Waerden.';\n  }\n  nextBtn.addEventListener('click',()=>{ which = which%3 + 1; wSl.value=String(which); render(); });\n  tSl.addEventListener('input',render); wSl.addEventListener('input',render); fSl.addEventListener('input',render);\n  render();"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-hj"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "quiz",
+          "concept": "rt-hales-jewett",
+          "html": "<div class=\"quiz\" data-concept=\"rt-hales-jewett\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "connections",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"connections\">\n<h2>Connections</h2>\n\n<p>Ramsey theory's slogan — complete disorder is impossible — is settled in spirit but wide open in the numbers. The exact diagonal $R(s,s)$ is unknown past $s=4$, the base of its exponential is uncertain to within a factor of $\\sqrt2$ versus $4$, and the Van der Waerden numbers $W(r,k)$ are uncomputed beyond a handful of cases. The frontier is quantitative: <em>how large</em> must a structure be before order is forced, and what is the true growth rate? The density versions (Szemerédi, DHJ) trade coloring for measure and reach far deeper, connecting Ramsey theory to ergodic theory and analysis.</p>\n\n<ul>\n<li><a href=\"./probabilistic-method.html#ramsey\">Probabilistic method — the Ramsey lower bound</a> — the full derivation of $R(s,s)> 2^{s/2}$ by random coloring, the founding example of the probabilistic method.</li>\n<li><a href=\"./extremal-combinatorics.html#ramsey\">Extremal combinatorics — Ramsey numbers</a> — Ramsey's theorem alongside Schur's theorem, sum-free sets, and the Turán-type counterpoint of forbidding a fixed subgraph globally.</li>\n<li><a href=\"./extremal-combinatorics.html#turan\">Extremal combinatorics — Turán's theorem</a> — the dual question: not \"any partition forces order\" but \"how many edges force a clique.\"</li>\n<li><a href=\"./graph-theory-fundamentals.html#basics\">Graph theory fundamentals — graphs &amp; the handshake lemma</a> — the complete graph $K_n$ and edge-counting underpinning every clique argument here.</li>\n<li><a href=\"./graph-theory-fundamentals.html#coloring\">Graph theory fundamentals — graph coloring</a> — vertex coloring is the constructive cousin of the edge-coloring games Ramsey theory plays.</li>\n</ul>\n</section>\n\n"
+        }
+      ]
+    }
+  ],
+  "rawBodySuffix": "</main>\n\n<script>\n(function(){\n  function start(){ if(window.MVQuiz) MVQuiz.init('ramsey-theory'); }\n  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);\n  else start();\n})();\n</script>\n<details class=\"changelog\">\n  <summary>changelog</summary>\n  <table>\n    <tbody>\n      <tr><td>2026-05-22</td><td>initial version</td></tr>\n    </tbody>\n  </table>\n</details>\n\n</body>\n</html>\n"
+}

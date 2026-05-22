@@ -25,6 +25,7 @@ window.__MVConcepts = {
       "kalman-filtering-and-state-estimation",
       "statistical-learning-theory",
       "markov-decision-processes",
+      "ramsey-theory",
       "several-complex-variables",
       "khovanov-homology",
       "shimura-varieties",
@@ -299,6 +300,7 @@ window.__MVConcepts = {
       "deformation-theory": "standard",
       "algebraic-de-rham-cohomology": "standard",
       "graph-theory-fundamentals": "prereq",
+      "ramsey-theory": "standard",
       "spectral-graph-theory": "standard",
       "matroid-theory": "standard",
       "probabilistic-method": "standard",
@@ -2428,6 +2430,86 @@ window.__MVConcepts = {
             "mdp-value-functions"
           ],
           "blurb": "The discount γ keeps the return finite and sets the effective horizon 1/(1−γ); discounted, finite-horizon (time-dependent, backward induction), and average-reward (the γ→1 limit) objectives sit on a spectrum."
+        }
+      ]
+    },
+    "ramsey-theory": {
+      "topic": "ramsey-theory",
+      "title": "Ramsey theory",
+      "page": "ramsey-theory.html",
+      "concepts": [
+        {
+          "id": "rt-pigeonhole",
+          "title": "Pigeonhole & $R(3,3)=6$",
+          "anchor": "pigeonhole",
+          "prereqs": [
+            "gtf-basics"
+          ],
+          "blurb": "The pigeonhole principle forces structure: among the $5$ edges at a vertex of a $2$-colored $K_6$, three share a color, and those three endpoints close a monochromatic triangle. So $R(3,3)\\le 6$; the pentagon coloring of $K_5$ (red $C_5$, blue chords) has no monochromatic triangle, so $R(3,3)=6$.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "rt-finite-ramsey",
+          "title": "Ramsey's theorem (finite)",
+          "anchor": "finite",
+          "prereqs": [
+            "rt-pigeonhole"
+          ],
+          "blurb": "For all $s,t$ there is a least $R(s,t)$ such that every $2$-edge-coloring of $K_{R(s,t)}$ has a red $K_s$ or a blue $K_t$. The Erdős–Szekeres recurrence $R(s,t)\\le R(s-1,t)+R(s,t-1)$ proves existence and gives the binomial bound $R(s,t)\\le\\binom{s+t-2}{s-1}$.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "rt-bounds",
+          "title": "Bounds & the exponential gap",
+          "anchor": "bounds",
+          "prereqs": [
+            "rt-finite-ramsey",
+            "ramsey-lower-bound"
+          ],
+          "blurb": "The diagonal number is pinned only between $2^{s/2}< R(s,s)< 4^s$: the lower bound is Erdős's probabilistic existence argument, the upper bound the binomial recurrence. Closing this exponential gap is a central open problem; exact values are scarce — $R(4,4)=18$ but $R(5,5)$ is only known to lie in $[43,48]$.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "rt-infinite-ramsey",
+          "title": "Infinite Ramsey",
+          "anchor": "infinite",
+          "prereqs": [
+            "rt-finite-ramsey"
+          ],
+          "blurb": "Every $2$-coloring of the pairs $[\\mathbb{N}]^2$ has an infinite monochromatic set: build a nested sequence of vertices, each pinning a majority color among later vertices, then extract a color used infinitely often. A König's-lemma / compactness argument deduces the finite theorem from the infinite one.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "rt-van-der-waerden",
+          "title": "Van der Waerden",
+          "anchor": "van-der-waerden",
+          "prereqs": [
+            "rt-finite-ramsey"
+          ],
+          "blurb": "For every $r,k$ there is $W(r,k)$ so that any $r$-coloring of $\\{1,\\dots,W(r,k)\\}$ contains a monochromatic $k$-term arithmetic progression. Existence is elementary but the bounds are towering: the known upper bounds on $W(r,k)$ grow faster than any primitive-recursive function in the classical proof.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "rt-hales-jewett",
+          "title": "Hales–Jewett",
+          "anchor": "hales-jewett",
+          "prereqs": [
+            "rt-van-der-waerden"
+          ],
+          "blurb": "For every alphabet size $t$ and color count $r$ there is a dimension $HJ(t,r)$ so that every $r$-coloring of the cube $[t]^n$ ($n\\ge HJ$) contains a monochromatic combinatorial line. Projecting coordinates to a base-$t$ value turns a line into an arithmetic progression, so Hales–Jewett implies Van der Waerden.",
+          "tags": [
+            "classification"
+          ]
         }
       ]
     },
@@ -20027,6 +20109,7 @@ window.__MVConcepts = {
         "description": "Spectral and extremal combinatorics, the probabilistic method, matroids, designs, and expanders.",
         "topics": [
           "graph-theory-fundamentals",
+          "ramsey-theory",
           "spectral-graph-theory",
           "matroid-theory",
           "probabilistic-method",
@@ -20264,6 +20347,7 @@ window.__MVConcepts = {
     "deformation-theory": "standard",
     "algebraic-de-rham-cohomology": "standard",
     "graph-theory-fundamentals": "prereq",
+    "ramsey-theory": "standard",
     "spectral-graph-theory": "standard",
     "matroid-theory": "standard",
     "probabilistic-method": "standard",
@@ -20461,11 +20545,11 @@ window.__MVConcepts = {
       "density": 0.3568075117370892
     },
     "Combinatorics & graph theory": {
-      "concepts": 64,
-      "intra": 61,
+      "concepts": 70,
+      "intra": 68,
       "crossOut": 28,
       "crossIn": 5,
-      "density": 0.4375
+      "density": 0.4
     },
     "Mathematical physics": {
       "concepts": 69,

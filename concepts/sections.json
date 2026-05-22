@@ -245,6 +245,7 @@
       "description": "Spectral and extremal combinatorics, the probabilistic method, matroids, designs, and expanders.",
       "topics": [
         "graph-theory-fundamentals",
+        "ramsey-theory",
         "spectral-graph-theory",
         "matroid-theory",
         "probabilistic-method",
