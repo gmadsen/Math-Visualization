@@ -565,8 +565,8 @@ function drawNode(svg, x, y, label, opts={}){
     } else {
       const p=S.p,q=S.q;
       msg='no pure saddle (max-min < min-max), so the players mix:\n'+
-          'Row optimal x* = ('+(1-p).toFixed(3)+', '+p.toFixed(3)+')   [PRIMAL LP solution]\n'+
-          'Col optimal y* = ('+(1-q).toFixed(3)+', '+q.toFixed(3)+')   [DUAL LP solution]\n'+
+          'Row optimal x* = ('+p.toFixed(3)+', '+(1-p).toFixed(3)+')   [PRIMAL LP solution]\n'+
+          'Col optimal y* = ('+q.toFixed(3)+', '+(1-q).toFixed(3)+')   [DUAL LP solution]\n'+
           'value  v = max_x min_y xᵀAy = min_y max_x xᵀAy = '+S.value.toFixed(3)+'\n'+
           'primal optimum = dual optimum = v  (LP strong duality = minimax)';
     }
@@ -762,7 +762,7 @@ function drawNode(svg, x, y, label, opts={}){
 <p>Set three bidders' valuations and watch first-price (pay your bid) versus second-price (pay the runner-up's bid) outcomes. Toggle the winning bidder to a non-truthful bid in the second-price auction and confirm it can only hurt — the truthfulness lever.</p>
 
 <div class="widget" id="w-mechanism">
-  <div class="hd"><div class="ttl">First-price vs second-price (Vickrey) auction</div><div class="hint">set valuations; shade bidder 1's bit to test truthfulness in the second-price auction</div></div>
+  <div class="hd"><div class="ttl">First-price vs second-price (Vickrey) auction</div><div class="hint">set valuations; shade bidder 1's bid to test truthfulness in the second-price auction</div></div>
   <svg id="mech-svg" viewBox="0 0 600 330" width="600" height="330"><title>Comparing first-price and second-price auction outcomes with three bidders, illustrating truthful bidding as a dominant strategy in the second-price auction</title></svg>
   <div class="row">
     <label for="mech-v1">bidder 1 valuation $v_1$:</label>

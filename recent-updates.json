@@ -1,6 +1,14 @@
 {
-  "generated": "2026-05-22T08:59:06.533Z",
+  "generated": "2026-05-22T09:12:42.213Z",
   "entries": [
+    {
+      "slug": "game-theory",
+      "title": "Game theory",
+      "color": "p",
+      "tag": "",
+      "date": "2026-05-22",
+      "message": "feat: game-theory — Wave 2 (Control / decision-making)"
+    },
     {
       "slug": "markov-decision-processes",
       "title": "Markov decision processes",
