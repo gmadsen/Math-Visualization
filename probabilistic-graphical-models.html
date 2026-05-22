@@ -398,7 +398,7 @@ function drawNode(svg, x, y, label, opts={}){
 <p>Slide the temperature on a small Ising grid below and watch the energy, the magnetization, and the local conditional of the highlighted spin respond.</p>
 
 <div class="widget" id="w-mrf">
-  <div class="hd"><div class="ttl">Ising MRF: energy & a local conditional</div><div class="hint">lower temperature ⇒ neighbors align; the conditional uses only the Markov blanket</div></div>
+  <div class="hd"><div class="ttl">Ising MRF: energy & a local conditional</div><div class="hint">lower temperature ⇒ neighbors align; the conditional uses only the Markov blanket. The button runs stochastic Gibbs sweeps (sampling), not deterministic energy minimization.</div></div>
   <svg id="mrf-svg" viewBox="0 0 640 320" width="640" height="320"><title>A 6 by 6 Ising grid colored by spin, with the energy and a single spin's full conditional from its four neighbors</title></svg>
   <div class="row">
     <label for="mrf-T">temperature $T$:</label>
@@ -406,7 +406,7 @@ function drawNode(svg, x, y, label, opts={}){
     <span class="small" id="mrf-T-lbl"></span>
   </div>
   <div class="row">
-    <button id="mrf-relax">relax 200 sweeps</button>
+    <button id="mrf-relax">run 200 Gibbs sweeps</button>
     <button id="mrf-reset">reset random</button>
   </div>
   <div class="readout" id="mrf-out"></div>

@@ -100,7 +100,7 @@
             "svgId": "mrf-svg",
             "outputId": "mrf-out",
             "title": "Ising MRF: energy & a local conditional",
-            "hint": "lower temperature ⇒ neighbors align; the conditional uses only the Markov blanket",
+            "hint": "lower temperature ⇒ neighbors align; the conditional uses only the Markov blanket. The button runs stochastic Gibbs sweeps (sampling), not deterministic energy minimization.",
             "viewBox": "0 0 640 320",
             "svgWidth": 640,
             "svgHeight": 320,
@@ -120,7 +120,7 @@
             "buttons": [
               {
                 "id": "mrf-relax",
-                "label": "relax 200 sweeps"
+                "label": "run 200 Gibbs sweeps"
               },
               {
                 "id": "mrf-reset",
