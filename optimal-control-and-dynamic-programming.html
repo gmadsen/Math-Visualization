@@ -553,7 +553,7 @@ $$V_n(x) \;=\; \min_{u\in U}\Big\{\, c(x,u) + V_{n+1}\bigl(f(x,u)\bigr)\Big\},\q
 $$V(x) \;=\; \min_{u}\Big\{ c(x,u) + \gamma\,V\bigl(f(x,u)\bigr)\Big\}.$$
 <p>Define the Bellman operator $T\colon V\mapsto TV$ on the right. Then $T$ is a $\gamma$-contraction in sup-norm: $\|TV - TV'\|_\infty \le \gamma\|V-V'\|_\infty$. By the Banach fixed-point theorem, iterating $V_{k+1}=TV_k$ from any seed converges geometrically to the unique fixed point — the <em>true</em> value function. This is <strong>value iteration</strong>; convergence rate is $\gamma^k$.</p>
 
-<p>An accelerated cousin: <strong>policy iteration</strong> alternates (i) <em>policy evaluation</em>: solve the linear system $V^\pi = c^\pi + \gamma P^\pi V^\pi$ for the value of the current policy $\pi$, and (ii) <em>policy improvement</em>: $\pi'(x) = \arg\min_u\{c(x,u)+\gamma V^\pi(f(x,u))\}$. Howard (1960): policy iteration converges in finitely many steps on finite state spaces, with monotone improvement at each step.</p>
+<p>An accelerated cousin: <strong><a href="./markov-decision-processes.html#policy-iteration" data-auto-inline-link="1" data-concept-id="mdp-policy-iteration" data-blurb="Alternating exact policy evaluation with greedy improvement gives a monotonically improving sequence of policies; since there are finitely many deterministic policies, policy iteration reaches an exactly optimal one in finitely many rounds.">policy iteration</a></strong> alternates (i) <em>policy evaluation</em>: solve the linear system $V^\pi = c^\pi + \gamma P^\pi V^\pi$ for the value of the current policy $\pi$, and (ii) <em>policy improvement</em>: $\pi'(x) = \arg\min_u\{c(x,u)+\gamma V^\pi(f(x,u))\}$. Howard (1960): policy iteration converges in finitely many steps on finite state spaces, with monotone improvement at each step.</p>
 
 <h3>The contraction-mapping proof in one line</h3>
 <p>For any $V, V'$ and any state $x$, let $u^*$ achieve $\min$ in $TV(x)$:</p>
@@ -574,7 +574,12 @@ $$TV(x) - TV'(x) \;\le\; \gamma\bigl(V(f(x,u^*)) - V'(f(x,u^*))\bigr) \;\le\; \g
   <div class="note small">Agent moves N/S/E/W with cost 1, falls off the grid is forbidden (move ignored). The outer yellow square is the goal (reward 0, absorbing); the dark square is an obstacle (cost 10 to enter). Discount $\gamma=0.95$. Click "step" to apply the Bellman operator once: $V_{k+1}(x)\leftarrow\min_u\{c+\gamma V_k(x')\}$. Watch the value front sweep out from the goal, shaped by the obstacle. After ~25 iterations $V$ stabilises; arrows show the greedy policy.</div>
 </div>
 
-<div class="quiz" data-concept="oc-dp"></div>
+<div class="quiz" data-concept="oc-dp"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./markov-decision-processes.html#bellman-optimality">Markov decision processes</a> · Bellman optimality</div>
+</aside>
+<!-- backlinks-auto-end -->
 
 </section>
 

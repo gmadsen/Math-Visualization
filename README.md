@@ -23,7 +23,7 @@ Alongside each handwritten `<topic>.html`, the repo also carries a structured `c
 
 ## Learning pathways
 
-Start from [`pathway.html`](./pathway.html) to explore prerequisite graphs for capstone goals — pick any of the 34 capstones and the DAG layers every prereq concept by depth. For free-form exploration over the entire 1338-concept graph (no goal required), [`mindmap.html`](./mindmap.html) renders a section-clustered force-directed layout: click a node to focus its k-hop neighborhood, filter by section/level/mastery, and a structural-stats panel surfaces uneven prereq density across the thirteen sections. Both views read the same concept graph; pathway is goal-targeted, mindmap is free-explore.
+Start from [`pathway.html`](./pathway.html) to explore prerequisite graphs for capstone goals — pick any of the 34 capstones and the DAG layers every prereq concept by depth. For free-form exploration over the entire 1344-concept graph (no goal required), [`mindmap.html`](./mindmap.html) renders a section-clustered force-directed layout: click a node to focus its k-hop neighborhood, filter by section/level/mastery, and a structural-stats panel surfaces uneven prereq density across the thirteen sections. Both views read the same concept graph; pathway is goal-targeted, mindmap is free-explore.
 
 Each concept carries up to three quiz tiers — v1 (required), hard (unlocked after v1), and expert (unlocked after hard). Mastery is tracked in `localStorage` and lights up downstream concepts `locked → ready → mastered`, Brilliant-style. Topic cards on the index may carry a level badge: `prereq`, `advanced`, or `capstone`.
 
@@ -234,6 +234,7 @@ Each concept carries up to three quiz tiers — v1 (required), hard (unlocked af
 - [Optimal control and dynamic programming](./optimal-control-and-dynamic-programming.html) — Pontryagin's maximum principle, Hamilton–Jacobi–Bellman PDE, linear-quadratic regulator and the Riccati equation, discrete-time Bellman equation with value/policy iteration, stochastic dynamic programming and the Merton portfolio problem.
 - [Convex optimization](./convex-optimization.html) — convex sets/functions and the Legendre–Fenchel transform, subgradients and the constrained first-order condition, Lagrangian duality with Slater + KKT, conic programming (LP/QP/SOCP/SDP) and the Goemans–Williamson MAX-CUT relaxation, gradient and proximal methods (Nesterov acceleration, ISTA/FISTA), interior-point methods and self-concordance, stochastic and online convex optimization (SGD, mirror descent).
 - [Kalman filtering and state estimation](./kalman-filtering-and-state-estimation.html) — draft — fill in once the page has real content
+- [Markov decision processes](./markov-decision-processes.html) — sequential decision-making under uncertainty: the MDP model, Bellman expectation/optimality equations, the γ-contraction behind value iteration, policy iteration, and discounted/finite/average-reward horizons.
 
 ### Learning theory & data science
 - [Statistical learning theory](./statistical-learning-theory.html) — when minimizing training error controls true error: empirical risk minimization, PAC learnability, VC dimension and shattering, uniform-convergence and Rademacher generalization bounds, and the bias–variance tradeoff behind regularization.

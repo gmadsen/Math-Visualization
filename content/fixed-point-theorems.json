@@ -31,7 +31,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./fixed-point-theorems.html#applications\">Fixed-point theorems</a> · Applications across mathematics</div>\n    <div><a href=\"./fixed-point-theorems.html#brouwer\">Fixed-point theorems</a> · Brouwer fixed-point theorem</div>\n    <div><a href=\"./fixed-point-theorems.html#caristi\">Fixed-point theorems</a> · Caristi's fixed-point theorem</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./fixed-point-theorems.html#applications\">Fixed-point theorems</a> · Applications across mathematics</div>\n    <div><a href=\"./fixed-point-theorems.html#brouwer\">Fixed-point theorems</a> · Brouwer fixed-point theorem</div>\n    <div><a href=\"./fixed-point-theorems.html#caristi\">Fixed-point theorems</a> · Caristi's fixed-point theorem</div>\n    <div><a href=\"./markov-decision-processes.html#value-iteration\">Markov decision processes</a> · Value iteration &amp; contraction</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "quiz",

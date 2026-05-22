@@ -1,0 +1,411 @@
+{
+  "topic": "markov-decision-processes",
+  "rawHead": "<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\" />\n<meta name=\"viewport\" content=\"width=device-width,initial-scale=1\" />\n<title>Markov decision processes</title>\n<link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css\">\n<script defer src=\"https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js\"></script>\n<script defer src=\"https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js\"></script>\n<script>\n(function(){\n  function renderAll(){\n    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }\n    renderMathInElement(document.body,{\n      delimiters:[\n        {left:'$$',right:'$$',display:true},\n        {left:'$',right:'$',display:false},\n        {left:'\\\\(',right:'\\\\)',display:false},\n        {left:'\\\\[',right:'\\\\]',display:true}\n      ],\n      throwOnError:false,\n      strict:(c)=>c==='unicodeTextInMathMode'?'ignore':'warn',\n      macros:{\n        '\\\\Spec':'\\\\operatorname{Spec}',\n        '\\\\Gal':'\\\\operatorname{Gal}',\n        '\\\\Hom':'\\\\operatorname{Hom}',\n        '\\\\tr':'\\\\operatorname{tr}',\n        '\\\\ad':'\\\\operatorname{ad}',\n        '\\\\ind':'\\\\operatorname{ind}'\n      }\n    });\n  }\n  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);\n  else renderAll();\n})();\n</script>\n<style>\n  :root{\n    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;\n    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;\n    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;\n    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;\n  }\n  *{box-sizing:border-box}\n  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);\n    font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",Inter,Roboto,sans-serif;\n    font-size:17px;line-height:1.65}\n  a{color:var(--blue)}\n  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;\n    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}\n  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}\n  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}\n  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}\n  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}\n  p{margin:0.7rem 0}\n  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}\n  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;\n    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}\n  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}\n  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}\n  .widget .hd .hint{color:var(--mute);font-size:.85rem}\n  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}\n  .row label{color:var(--mute);font-size:.88rem}\n  input[type=\"text\"],input[type=\"number\"],select{\n    background:#0b0f16;color:var(--ink);border:1px solid var(--line);\n    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}\n  input[type=\"range\"]{accent-color:var(--yellow);flex:1;max-width:260px}\n  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);\n    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}\n  button:hover{background:#242c3e}\n  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}\n  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;\n    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;\n    min-height:1.6em;white-space:pre-wrap;word-break:break-word}\n  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);\n    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}\n  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;\n    margin:1rem 0;border-radius:0 6px 6px 0}\n  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;\n    margin:1rem 0;border-radius:0 6px 6px 0}\n  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;\n    margin:1rem 0;border-radius:0 6px 6px 0}\n  svg{display:block;margin:0 auto;max-width:100%}\n  svg text{fill:var(--ink);font-family:inherit}\n  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);\n    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;\n    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}\n  nav.toc a{color:var(--mute);text-decoration:none}\n  nav.toc a:hover{color:var(--yellow)}\n  /* sticky sidebar TOC (wide screens only; narrow screens fall back to top-nav) */\n  aside.sidetoc{position:fixed;top:4.2rem;\n    left:max(1rem, calc(50% - 440px - 220px));\n    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;\n    padding-right:1rem;border-right:1px solid var(--line);\n    font-size:.88rem;z-index:5}\n  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;\n    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}\n  aside.sidetoc ol{list-style:none;padding:0;margin:0}\n  aside.sidetoc li{margin:0}\n  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;\n    border-left:2px solid transparent;line-height:1.35;\n    transition:color 120ms ease, border-color 120ms ease}\n  aside.sidetoc a:hover{color:var(--ink)}\n  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}\n  @media (max-width:1180px){ aside.sidetoc{display:none} }\n  @media (min-width:1181px){ nav.toc a[href^=\"#\"]{display:none} }\n  .hero{padding:3rem 0 1rem}\n  .small{font-size:.88rem;color:var(--mute)}\n  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}\n  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}\n  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}\n  table.plain th{color:var(--mute);font-weight:500}\n  /* callback-css-auto-begin */\n  aside.callback{\n    margin:1.2rem 0;padding:.7rem 1rem;\n    background:rgba(88,196,221,0.05);\n    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);\n    border-radius:0 6px 6px 0;\n    font-size:.93rem;\n  }\n  aside.callback .ttl{\n    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;\n    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;\n  }\n  aside.callback ul{margin:0;padding-left:1.1rem}\n  aside.callback ul li{margin:.15rem 0}\n  aside.callback a{color:inherit}\n/* callback-css-auto-end */\n  details.changelog{\n    margin:2rem 0 1rem;padding:.6rem .9rem;\n    background:rgba(0,0,0,0.22);\n    border-radius:6px;\n    font-size:.85rem;\n  }\n  details.changelog summary{\n    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;\n    font-size:.7rem;color:var(--mute,#8c9aa6);\n  }\n  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}\n  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}\n  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}\n  aside.related{\n    margin:1.2rem 0;padding:.7rem 1rem;\n    background:color-mix(in srgb, var(--mute) 6%, transparent);\n    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);\n    border-radius:0 6px 6px 0;\n    font-size:.93rem;\n  }\n  aside.related .ttl{\n    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;\n    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;\n  }\n  aside.related > div{margin:.15rem 0}\n  aside.related .more{color:var(--mute);font-style:italic}\n  aside.related a{color:inherit}\n  /* display-prefs-css-auto-begin */\n  html[data-hide-widgets] .widget { display: none !important; }\n  html[data-hide-quizzes] .quiz { display: none !important; }\n  html[data-hide-lineage] .lineage-strip { display: none !important; }\n  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }\n  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }\n  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }\n  .mv-display-toggle--off { opacity: 0.35; }\n  /* display-prefs-css-auto-end */\n</style>\n<!-- breadcrumb-head-auto-begin -->\n<script src=\"./js/section-map.js\"></script>\n<script src=\"./js/breadcrumb.js\"></script>\n<script src=\"./js/glossary-popover.js\" defer></script>\n<link rel=\"stylesheet\" media=\"print\" href=\"./css/print.css\">\n<link rel=\"stylesheet\" href=\"./css/theme-light.css\">\n<script src=\"./js/theme-toggle.js\"></script>\n<script src=\"./concepts/bundle.js\" defer></script>\n<script src=\"./js/topic-hotkeys.js\" defer></script>\n<script src=\"./js/topic-lineage.js\" defer></script>\n<!-- breadcrumb-head-auto-end -->\n<script src=\"./js/progress.js\"></script>\n<script src=\"./js/quiz.js\"></script>\n<script src=\"./js/katex-select.js\"></script>\n<script src=\"./js/widget-diagram-editor.js\"></script>\n<script src=\"./quizzes/bundle.js\"></script>\n<script src=\"./js/sidetoc.js\"></script>\n<!-- display-prefs-head-auto-begin -->\n<script src=\"./js/display-prefs.js\"></script>\n<!-- display-prefs-head-auto-end -->\n</head>\n",
+  "rawBodyPrefix": "<body data-section=\"control-theory-and-optimization\" data-level=\"intermediate\">\n<script>\nconst $ = (s,r=document)=>r.querySelector(s);\nconst $$ = (s,r=document)=>[...r.querySelectorAll(s)];\nconst SVG = (tag,attrs={})=>{\n  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);\n  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);\n  return e;\n};\n// draw an arrow marker def once per svg (idempotent)\nfunction ensureArrow(svg, id, color){\n  let defs = svg.querySelector('defs');\n  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }\n  if(defs.querySelector('#'+id)) return;\n  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});\n  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));\n  defs.appendChild(mk);\n}\n// curved arrow between two pixel points, with optional label\nfunction drawArrow(svg, p1, p2, opts={}){\n  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;\n  ensureArrow(svg, markerId, color);\n  const [x1,y1]=p1, [x2,y2]=p2;\n  const dx=x2-x1, dy=y2-y1;\n  const L = Math.hypot(dx,dy) || 1;\n  const ux=dx/L, uy=dy/L;\n  // shorten endpoints\n  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;\n  const ax=x1+ux*pad1, ay=y1+uy*pad1;\n  const bx=x2-ux*pad2, by=y2-uy*pad2;\n  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;\n  const path = SVG('path',{\n    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,\n    fill:'none', stroke:color, 'stroke-width':width,\n    'marker-end':`url(#${markerId})`\n  });\n  if(dash) path.setAttribute('stroke-dasharray', dash);\n  svg.appendChild(path);\n  if(label){\n    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,\n      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});\n    t.textContent = label;\n    svg.appendChild(t);\n  }\n  return path;\n}\nfunction drawNode(svg, x, y, label, opts={}){\n  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;\n  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));\n  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});\n  t.textContent = label;\n  svg.appendChild(t);\n}\n</script>\n\n<nav class=\"toc\"><a href=\"./index.html\" style=\"color:var(--violet);font-weight:500\">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class=\"breadcrumb\"></div><span class=\"nav-links\"><a class=\"nav-link\" href=\"./pathway.html\">Pathway</a><a class=\"nav-link\" href=\"./tours.html\">Tours</a><a class=\"nav-link\" href=\"./history.html\">History</a><a class=\"nav-link\" href=\"./tags.html\">Themes</a><a class=\"nav-link\" href=\"./mindmap.html\">Mindmap</a><a class=\"nav-link\" href=\"./search.html\">Search</a></span><span class=\"mv-theme-slot\"></span><!-- breadcrumb-nav-auto-end -->\n<!-- toc-auto-begin -->\n  <a href=\"#formulation\">1&nbsp;The&nbsp;MDP&nbsp;model</a>\n  <a href=\"#value-functions\">2&nbsp;Value&nbsp;functions&nbsp;&amp;&nbsp;Bellman&nbsp;expectation</a>\n  <a href=\"#bellman-optimality\">3&nbsp;Bellman&nbsp;optimality</a>\n  <a href=\"#value-iteration\">4&nbsp;Value&nbsp;iteration&nbsp;&amp;&nbsp;contraction</a>\n  <a href=\"#policy-iteration\">5&nbsp;Policy&nbsp;iteration</a>\n  <a href=\"#horizons\">6&nbsp;Discounting&nbsp;&amp;&nbsp;horizons</a>\n  <a href=\"#connections\">7&nbsp;Connections</a>\n<!-- toc-auto-end -->\n</nav>\n<!-- lineage-mount-auto-begin --><div id=\"mv-lineage-mount\" class=\"lineage-strip\" hidden></div><!-- lineage-mount-auto-end -->\n\n<aside class=\"sidetoc\" aria-label=\"Table of contents\"></aside>\n\n<main>\n\n<section class=\"hero\">\n  <h1>Markov decision processes</h1>\n  <p class=\"sub\">A controlled Markov chain with rewards: at each state you pick an action, the world transitions stochastically, and a single discounted-reward objective makes “optimal behaviour” a sharply defined fixed-point problem.</p>\n</section>\n\n",
+  "sections": [
+    {
+      "id": "formulation",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"formulation\">\n<h2>1. The MDP model</h2>\n<p>A <strong>Markov decision process</strong> formalises sequential decision-making under uncertainty. It is a tuple</p>\n<p style=\"text-align:center\">$\\mathcal M = (\\mathcal S,\\ \\mathcal A,\\ P,\\ R,\\ \\gamma)$</p>\n<p>where $\\mathcal S$ is a (here finite) set of <strong>states</strong>, $\\mathcal A$ a set of <strong>actions</strong>, $P(s'\\mid s,a)$ the <strong>transition kernel</strong> giving the probability of landing in $s'$ after taking action $a$ in state $s$, $R(s,a)$ the (expected) <strong>reward</strong> for that choice, and $\\gamma\\in[0,1)$ a <strong>discount factor</strong>. The defining <em>Markov property</em>: the next state and reward depend only on the current $(s,a)$, not on the history. An MDP is exactly a <a href=\"./probability-theory.html#markov\">Markov chain</a> that you steer — for each fixed action the rows $P(\\cdot\\mid s,a)$ are a stochastic matrix.</p>\n<p>A <strong>policy</strong> $\\pi$ says how to act. A <em>deterministic stationary</em> policy is a map $\\pi:\\mathcal S\\to\\mathcal A$; a <em>stochastic</em> policy gives a distribution $\\pi(a\\mid s)$ over actions. Stationary means it does not depend on time. Fixing a policy collapses the MDP back to a plain Markov chain with one-step kernel $P^\\pi(s'\\mid s)=\\sum_a \\pi(a\\mid s)\\,P(s'\\mid s,a)$ and reward $R^\\pi(s)=\\sum_a\\pi(a\\mid s)R(s,a)$. The goal is to maximise the expected <strong>discounted return</strong> $\\;\\mathbb E\\big[\\sum_{t\\ge 0}\\gamma^t R(S_t,A_t)\\big]$.</p>\n<div class=\"note\"><strong>Worked mini-example.</strong> The widget below is the running example for the whole page: three states $s_0$ (Start), $s_1$ (Wait), $s_2$ (Goal, absorbing), each with two actions $a$ (advance) and $b$ (stay/idle). From $s_1$, action $a$ reaches the goal with probability $0.8$ and slips back to $s_0$ with probability $0.2$ — a genuinely stochastic transition — and pays $R(s_1,a)=5$. Idling at $s_1$ costs $R(s_1,b)=-1$. The goal $s_2$ pays $+1$ every step forever, so already $V$ at $s_2$ will be $1+\\gamma+\\gamma^2+\\dots=\\tfrac{1}{1-\\gamma}$. Notice each row of $P(\\cdot\\mid s,a)$ sums to $1$.</div>\n<p>Pick an action to apply at every state and slide $\\gamma$; the diagram shows the transition probabilities $P(s'\\mid s,a)$ and the rewards $R(s,a)$ that those choices induce.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "parametric-plot",
+          "params": {
+            "interaction": "multi-mode",
+            "widgetId": "w-mdp",
+            "svgId": "mdp-svg",
+            "outputId": "mdp-out",
+            "title": "The 3-state running MDP",
+            "hint": "choose the action applied everywhere; read off P(s'|s,a) and R(s,a)",
+            "viewBox": "0 0 640 320",
+            "svgWidth": 640,
+            "svgHeight": 320,
+            "svgTitle": "A three-state Markov decision process with transitions and rewards for the chosen action",
+            "outputInitial": "",
+            "pick": {
+              "id": "mdp-action",
+              "label": "action applied at every state:",
+              "options": [
+                {
+                  "value": "a",
+                  "label": "$a$ — advance",
+                  "selected": true
+                },
+                {
+                  "value": "b",
+                  "label": "$b$ — stay / idle"
+                }
+              ]
+            },
+            "sliders": [
+              {
+                "id": "mdp-gamma",
+                "outId": "mdp-gamma-lbl",
+                "label": "discount $\\gamma$:",
+                "min": 0,
+                "max": 0.99,
+                "step": 0.01,
+                "init": 0.9
+              }
+            ],
+            "modes": {
+              "a": {},
+              "b": {}
+            },
+            "initialMode": "a",
+            "bodyScript": "  const svg=$('#mdp-svg'), out=$('#mdp-out');\n  const gSl=$('#mdp-gamma'), gL=$('#mdp-gamma-lbl'), pick=$('#mdp-action');\n  const W=640,H=320;\n  // Canonical 3-state MDP. States: 0=Start, 1=Wait, 2=Goal(absorbing).\n  // Actions per state: 'a' (advance) and 'b' (stay/idle).\n  const P={ 0:{a:[[1,1.0]], b:[[0,1.0]]},\n            1:{a:[[2,0.8],[0,0.2]], b:[[1,1.0]]},\n            2:{a:[[2,1.0]], b:[[2,1.0]]} };\n  const R={ 0:{a:0, b:0}, 1:{a:5, b:-1}, 2:{a:1, b:1} };\n  const names=['s0 Start','s1 Wait','s2 Goal'];\n  const pos=[[150,170],[370,170],[560,170]];\n  function render(){\n    const g=+gSl.value; gL.textContent='γ = '+g.toFixed(2);\n    const act=pick.value; // 'a' or 'b'\n    svg.innerHTML='';\n    // draw transition arrows for the chosen action, from each non-terminal state\n    for(let s=0;s<3;s++){\n      const outs=P[s][act];\n      for(const [sp,p] of outs){\n        if(sp===s){\n          // self-loop drawn as a small arc above\n          const [x,y]=pos[s];\n          svg.appendChild(SVG('path',{d:`M${x-14} ${y-16} C ${x-40} ${y-70}, ${x+40} ${y-70}, ${x+14} ${y-16}`,\n            fill:'none',stroke:'var(--cyan)','stroke-width':2,'marker-end':'url(#mdp-arrh)'}));\n          const t=SVG('text',{x:x,y:y-58,'text-anchor':'middle','font-size':12,fill:'var(--cyan)'});\n          t.textContent='p='+p.toFixed(2); svg.appendChild(t);\n        } else {\n          drawArrow(svg,pos[s],pos[sp],{color:'var(--cyan)',curve: sp<s?34:-18,markerId:'mdp-arrh',width:2,label:'p='+p.toFixed(2),labelSide: sp<s?0:1});\n        }\n      }\n    }\n    // nodes\n    for(let s=0;s<3;s++){\n      drawNode(svg,pos[s][0],pos[s][1], 's'+s, {r:22, fill:'var(--panel2)', stroke: s===2?'var(--green)':'var(--violet)'});\n    }\n    // reward labels under each node for this action\n    for(let s=0;s<3;s++){\n      const t=SVG('text',{x:pos[s][0],y:pos[s][1]+42,'text-anchor':'middle','font-size':12,fill:'var(--yellow)'});\n      t.textContent='R(s'+s+','+act+') = '+R[s][act];\n      svg.appendChild(t);\n    }\n    const rows=[];\n    for(let s=0;s<3;s++){\n      const outs=P[s][act].map(([sp,p])=>'P(s'+sp+'|s'+s+','+act+')='+p.toFixed(2)).join('  ');\n      rows.push('s'+s+':  R='+R[s][act]+'    '+outs);\n    }\n    out.textContent =\n      'action chosen at every state: '+(act==='a'?'a (advance)':'b (stay/idle)')+'    discount γ = '+g.toFixed(2)+'\\n'+\n      rows.join('\\n')+'\\n'+\n      'each row is a probability distribution over next states: it sums to 1 ✓  (the Markov property: next state depends only on (s,a))';\n  }\n  ensureArrow(svg,'mdp-arrh','var(--cyan)');\n  gSl.addEventListener('input',render);\n  pick.addEventListener('change',render);\n  render();"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-mdp"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./probability-theory.html#markov\">Markov chains</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./markov-decision-processes.html#value-functions\">Markov decision processes</a> · Value functions &amp; Bellman expectation</div>\n</aside>\n<!-- backlinks-auto-end -->"
+        },
+        {
+          "type": "quiz",
+          "concept": "mdp-formulation",
+          "html": "<div class=\"quiz\" data-concept=\"mdp-formulation\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "value-functions",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"value-functions\">\n<h2>2. Value functions &amp; Bellman expectation</h2>\n<p>Fix a policy $\\pi$. Its <strong>state-value function</strong> measures how good it is to be in $s$ and follow $\\pi$ thereafter:</p>\n<p style=\"text-align:center\">$\\displaystyle V^\\pi(s) = \\mathbb E_\\pi\\!\\Big[\\sum_{t\\ge 0}\\gamma^t R(S_t,A_t)\\,\\Big|\\, S_0=s\\Big].$</p>\n<p>Peeling off the first step gives the <strong>Bellman expectation equation</strong>, a linear fixed-point relation:</p>\n<p style=\"text-align:center\">$\\displaystyle V^\\pi(s) = \\sum_{a}\\pi(a\\mid s)\\sum_{s'}P(s'\\mid s,a)\\big[\\,R(s,a)+\\gamma\\,V^\\pi(s')\\,\\big].$</p>\n<p>The companion <strong>action-value</strong> (or $Q$-) function fixes the first action and then follows $\\pi$:</p>\n<p style=\"text-align:center\">$\\displaystyle Q^\\pi(s,a) = R(s,a)+\\gamma\\sum_{s'}P(s'\\mid s,a)\\,V^\\pi(s'),\\qquad V^\\pi(s)=\\sum_a\\pi(a\\mid s)\\,Q^\\pi(s,a).$</p>\n<p>For a finite MDP the expectation equation is a system of $|\\mathcal S|$ <em>linear</em> equations $V^\\pi = R^\\pi + \\gamma P^\\pi V^\\pi$, i.e. $(I-\\gamma P^\\pi)V^\\pi = R^\\pi$. Because $\\gamma<1$ and $P^\\pi$ is stochastic, $I-\\gamma P^\\pi$ is invertible, so $V^\\pi=(I-\\gamma P^\\pi)^{-1}R^\\pi$ is the <em>unique</em> solution. This is <strong>policy evaluation</strong>.</p>\n<div class=\"note\"><strong>Worked mini-example.</strong> Take the always-advance policy $\\pi\\equiv a$ at $\\gamma=0.9$ on the running MDP. The goal self-loops, so $V^\\pi(s_2)=\\tfrac{1}{1-0.9}=10$. Then $V^\\pi(s_1)=5+0.9(0.8\\cdot 10 + 0.2\\,V^\\pi(s_0))$ and $V^\\pi(s_0)=0+0.9\\,V^\\pi(s_1)$ — two equations in two unknowns whose solution is $V^\\pi(s_0)\\approx 13.10$, $V^\\pi(s_1)\\approx 14.56$. Idling instead at $s_1$ (policy $b$ there) leaves you stuck collecting $-1$ forever: $V^\\pi(s_1)=\\tfrac{-1}{1-0.9}=-10$.</div>\n<p>Choose the action $\\pi$ takes at $s_0$ and $s_1$ (the goal $s_2$ always self-loops), slide $\\gamma$, and read the solved $V^\\pi$ and $Q^\\pi$.</p>\n\n<div class=\"row\">\n  <label for=\"vf-p0\">π(s0):</label>\n  <select id=\"vf-p0\"><option value=\"a\" selected>a — advance</option><option value=\"b\">b — stay</option></select>\n  <label for=\"vf-p1\">π(s1):</label>\n  <select id=\"vf-p1\"><option value=\"a\" selected>a — advance</option><option value=\"b\">b — idle</option></select>\n</div>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "parametric-plot",
+          "params": {
+            "interaction": "single-mode",
+            "widgetId": "w-vf",
+            "svgId": "vf-svg",
+            "outputId": "vf-out",
+            "title": "Policy evaluation: V^π and Q^π",
+            "hint": "set π at s0,s1; the Bellman expectation equations are solved exactly",
+            "viewBox": "0 0 640 300",
+            "svgWidth": 640,
+            "svgHeight": 300,
+            "svgTitle": "State values under a chosen deterministic policy on the running MDP",
+            "outputInitial": "",
+            "sliders": [
+              {
+                "id": "vf-gamma",
+                "outId": "vf-gamma-lbl",
+                "label": "discount $\\gamma$:",
+                "min": 0,
+                "max": 0.99,
+                "step": 0.01,
+                "init": 0.9
+              }
+            ],
+            "buttons": [],
+            "bodyScript": "  const svg=$('#vf-svg'), out=$('#vf-out');\n  const gSl=$('#vf-gamma'), gL=$('#vf-gamma-lbl');\n  const p0=$('#vf-p0'), p1=$('#vf-p1');\n  const W=640,H=300;\n  const P={ 0:{a:[[1,1.0]], b:[[0,1.0]]},\n            1:{a:[[2,0.8],[0,0.2]], b:[[1,1.0]]},\n            2:{a:[[2,1.0]], b:[[2,1.0]]} };\n  const R={ 0:{a:0, b:0}, 1:{a:5, b:-1}, 2:{a:1, b:1} };\n  const pos=[[150,150],[370,150],[560,150]];\n  // deterministic policy pi: pi[s] in {'a','b'}; s2 forced to 'a' (only sensible action there)\n  function evalPolicy(pi,g){\n    let V=[0,0,0];\n    for(let it=0;it<2000;it++){\n      const Vn=[0,0,0];\n      for(let s=0;s<3;s++){ const act=pi[s]; let v=R[s][act]; for(const [sp,p] of P[s][act]) v+=g*p*V[sp]; Vn[s]=v; }\n      let d=0; for(let s=0;s<3;s++) d=Math.max(d,Math.abs(Vn[s]-V[s]));\n      V=Vn; if(d<1e-9) break;\n    }\n    return V;\n  }\n  function qOf(pi,V,g){ // Q^pi(s, action chosen) for display\n    const Q={};\n    for(let s=0;s<3;s++){ Q[s]={}; for(const act of ['a','b']){ let q=R[s][act]; for(const [sp,p] of P[s][act]) q+=g*p*V[sp]; Q[s][act]=q; } }\n    return Q;\n  }\n  function render(){\n    const g=+gSl.value; gL.textContent='γ = '+g.toFixed(2);\n    const pi={0:p0.value,1:p1.value,2:'a'};\n    const V=evalPolicy(pi,g);\n    const Q=qOf(pi,V,g);\n    svg.innerHTML='';\n    for(let s=0;s<3;s++){ const act=pi[s];\n      for(const [sp,p] of P[s][act]){\n        if(sp===s){ const [x,y]=pos[s];\n          svg.appendChild(SVG('path',{d:`M${x-14} ${y-16} C ${x-40} ${y-66}, ${x+40} ${y-66}, ${x+14} ${y-16}`,fill:'none',stroke:'var(--cyan)','stroke-width':2,'marker-end':'url(#vf-arrh)'}));\n        } else {\n          drawArrow(svg,pos[s],pos[sp],{color:'var(--cyan)',curve: sp<s?34:-18,markerId:'vf-arrh',width:2});\n        }\n      }\n    }\n    for(let s=0;s<3;s++){\n      drawNode(svg,pos[s][0],pos[s][1], 's'+s, {r:22, fill:'var(--panel2)', stroke: s===2?'var(--green)':'var(--violet)'});\n      const t=SVG('text',{x:pos[s][0],y:pos[s][1]+44,'text-anchor':'middle','font-size':13,fill:'var(--yellow)','font-weight':600});\n      t.textContent='V='+V[s].toFixed(2); svg.appendChild(t);\n      const t2=SVG('text',{x:pos[s][0],y:pos[s][1]-34,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});\n      t2.textContent='π(s'+s+')='+pi[s]; svg.appendChild(t2);\n    }\n    out.textContent =\n      'policy  π: s0→'+pi[0]+'   s1→'+pi[1]+'   s2→a      γ = '+g.toFixed(2)+'\\n'+\n      'V^π  =  ( '+V.map(v=>v.toFixed(3)).join(',  ')+' )   — the unique solution of the Bellman expectation equations\\n'+\n      'check at s1:  V^π(s1) = R(s1,'+pi[1]+') + γ·Σ P·V = '+R[1][pi[1]]+' + '+g.toFixed(2)+'·(linear combo) = '+V[1].toFixed(3)+' ✓\\n'+\n      'Q^π(s1,a) = '+Q[1].a.toFixed(3)+'    Q^π(s1,b) = '+Q[1].b.toFixed(3)+'   (V^π(s1)=Q^π(s1,π(s1)) = '+Q[1][pi[1]].toFixed(3)+')';\n  }\n  ensureArrow(svg,'vf-arrh','var(--cyan)');\n  gSl.addEventListener('input',render);\n  p0.addEventListener('change',render);\n  p1.addEventListener('change',render);\n  render();",
+            "hdHtml": "<div class=\"ttl\">Policy evaluation: $V^\\pi$ and $Q^\\pi$</div><div class=\"hint\">set π at s0,s1; the Bellman expectation equations are solved exactly</div>"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-vf"
+        },
+        {
+          "type": "quiz",
+          "concept": "mdp-value-functions",
+          "html": "<div class=\"quiz\" data-concept=\"mdp-value-functions\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./markov-decision-processes.html#bellman-optimality\">Markov decision processes</a> · Bellman optimality</div>\n    <div><a href=\"./markov-decision-processes.html#horizons\">Markov decision processes</a> · Discounting &amp; horizons</div>\n</aside>\n<!-- backlinks-auto-end -->"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "bellman-optimality",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"bellman-optimality\">\n<h2>3. Bellman optimality</h2>\n<p>Among all policies there is a best achievable value at each state, the <strong>optimal value function</strong> $V^*(s)=\\max_\\pi V^\\pi(s)$. It satisfies the <strong>Bellman optimality equation</strong> — the expectation equation with the policy average replaced by a maximum over actions:</p>\n<p style=\"text-align:center\">$\\displaystyle V^*(s) = \\max_{a}\\Big\\{\\,R(s,a)+\\gamma\\sum_{s'}P(s'\\mid s,a)\\,V^*(s')\\,\\Big\\} = \\max_a Q^*(s,a),$</p>\n<p>with the optimal action-value $Q^*(s,a)=R(s,a)+\\gamma\\sum_{s'}P(s'\\mid s,a)\\,V^*(s')$. This is a <em>nonlinear</em> system (the max is the kink), so it is not solved by a matrix inverse — that is what the next two sections are for. The discrete-time Bellman recursion is precisely the <a href=\"./optimal-control-and-dynamic-programming.html#dp\">dynamic-programming principle of optimality</a> specialised to a stationary, infinite-horizon, discounted problem.</p>\n<p>Once $V^*$ (equivalently $Q^*$) is known, an <strong>optimal policy</strong> is read off greedily:</p>\n<p style=\"text-align:center\">$\\displaystyle \\pi^*(s) \\in \\arg\\max_a\\ Q^*(s,a) = \\arg\\max_a\\Big\\{R(s,a)+\\gamma\\sum_{s'}P(s'\\mid s,a)V^*(s')\\Big\\}.$</p>\n<p>A central theorem: every finite discounted MDP has at least one <em>deterministic stationary</em> optimal policy, and it is simultaneously optimal from <em>every</em> start state. You never need to randomise or to remember the clock to act optimally.</p>\n<div class=\"note\"><strong>Worked mini-example.</strong> On the running MDP the goal contributes $V^*(s_2)=\\tfrac{1}{1-\\gamma}$. Advancing dominates idling everywhere: at $s_1$, $Q^*(s_1,a)=5+\\gamma(0.8\\,V^*(s_2)+0.2\\,V^*(s_0))$ beats $Q^*(s_1,b)=-1+\\gamma V^*(s_1)$, and at $s_0$, $Q^*(s_0,a)=\\gamma V^*(s_1)$ beats $Q^*(s_0,b)=\\gamma V^*(s_0)$. So $\\pi^*\\equiv a$ for every $\\gamma\\in[0,1)$; at $\\gamma=0.9$ the optimal values are $V^*\\approx(13.10,\\,14.56,\\,10)$.</div>\n<p>Slide $\\gamma$ and watch $V^*$, the per-action $Q^*$ comparison, and the greedy optimal policy (drawn in green).</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "parametric-plot",
+          "params": {
+            "interaction": "single-mode",
+            "widgetId": "w-opt",
+            "svgId": "opt-svg",
+            "outputId": "opt-out",
+            "title": "Bellman optimality: V*, Q* and the greedy policy",
+            "hint": "the max-over-actions backup gives V*; greedy(Q*) gives π*",
+            "viewBox": "0 0 640 300",
+            "svgWidth": 640,
+            "svgHeight": 300,
+            "svgTitle": "Optimal value function and greedy optimal policy on the running MDP",
+            "outputInitial": "",
+            "sliders": [
+              {
+                "id": "opt-gamma",
+                "outId": "opt-gamma-lbl",
+                "label": "discount $\\gamma$:",
+                "min": 0,
+                "max": 0.99,
+                "step": 0.01,
+                "init": 0.9
+              }
+            ],
+            "buttons": [],
+            "bodyScript": "  const svg=$('#opt-svg'), out=$('#opt-out');\n  const gSl=$('#opt-gamma'), gL=$('#opt-gamma-lbl');\n  const W=640,H=300;\n  const P={ 0:{a:[[1,1.0]], b:[[0,1.0]]},\n            1:{a:[[2,0.8],[0,0.2]], b:[[1,1.0]]},\n            2:{a:[[2,1.0]], b:[[2,1.0]]} };\n  const R={ 0:{a:0, b:0}, 1:{a:5, b:-1}, 2:{a:1, b:1} };\n  const pos=[[150,150],[370,150],[560,150]];\n  function optimal(g){\n    let V=[0,0,0];\n    for(let it=0;it<5000;it++){\n      const Vn=[0,0,0];\n      for(let s=0;s<3;s++){ let best=-1e18; for(const act of ['a','b']){ let q=R[s][act]; for(const [sp,p] of P[s][act]) q+=g*p*V[sp]; best=Math.max(best,q);} Vn[s]=best; }\n      let d=0; for(let s=0;s<3;s++) d=Math.max(d,Math.abs(Vn[s]-V[s]));\n      V=Vn; if(d<1e-10) break;\n    }\n    const Q={}, pol={};\n    for(let s=0;s<3;s++){ Q[s]={}; for(const act of ['a','b']){ let q=R[s][act]; for(const [sp,p] of P[s][act]) q+=g*p*V[sp]; Q[s][act]=q; }\n      pol[s]= Q[s].a>=Q[s].b ? 'a':'b'; }\n    return {V,Q,pol};\n  }\n  function render(){\n    const g=+gSl.value; gL.textContent='γ = '+g.toFixed(2);\n    const {V,Q,pol}=optimal(g);\n    svg.innerHTML='';\n    // draw the GREEDY optimal action's transitions\n    for(let s=0;s<3;s++){ const act=pol[s];\n      for(const [sp,p] of P[s][act]){\n        if(sp===s){ const [x,y]=pos[s];\n          svg.appendChild(SVG('path',{d:`M${x-14} ${y-16} C ${x-40} ${y-66}, ${x+40} ${y-66}, ${x+14} ${y-16}`,fill:'none',stroke:'var(--green)','stroke-width':2.4,'marker-end':'url(#opt-arrh)'}));\n        } else {\n          drawArrow(svg,pos[s],pos[sp],{color:'var(--green)',curve: sp<s?34:-18,markerId:'opt-arrh',width:2.4});\n        }\n      }\n    }\n    for(let s=0;s<3;s++){\n      drawNode(svg,pos[s][0],pos[s][1], 's'+s, {r:22, fill:'var(--panel2)', stroke: s===2?'var(--green)':'var(--violet)'});\n      const t=SVG('text',{x:pos[s][0],y:pos[s][1]+44,'text-anchor':'middle','font-size':13,fill:'var(--yellow)','font-weight':600});\n      t.textContent='V*='+V[s].toFixed(2); svg.appendChild(t);\n      const t2=SVG('text',{x:pos[s][0],y:pos[s][1]-34,'text-anchor':'middle','font-size':12,fill:'var(--green)','font-weight':600});\n      t2.textContent='π*(s'+s+')='+pol[s]; svg.appendChild(t2);\n    }\n    out.textContent =\n      'γ = '+g.toFixed(2)+'\\n'+\n      'V*  =  ( '+V.map(v=>v.toFixed(3)).join(',  ')+' )      greedy optimal policy  π*: s0→'+pol[0]+'  s1→'+pol[1]+'  s2→'+pol[2]+'\\n'+\n      'Q*(s1,a) = '+Q[1].a.toFixed(3)+'   ≥   Q*(s1,b) = '+Q[1].b.toFixed(3)+'   ⇒  V*(s1)=max_a Q*(s1,a)='+Math.max(Q[1].a,Q[1].b).toFixed(3)+'\\n'+\n      'Q*(s0,a) = '+Q[0].a.toFixed(3)+'   vs   Q*(s0,b) = '+Q[0].b.toFixed(3)+'    (advancing beats idling: the max picks a)';\n  }\n  ensureArrow(svg,'opt-arrh','var(--green)');\n  gSl.addEventListener('input',render);\n  render();"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-opt"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./optimal-control-and-dynamic-programming.html#dp\">Discrete-time DP and the Bellman equation</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./markov-decision-processes.html#policy-iteration\">Markov decision processes</a> · Policy iteration</div>\n    <div><a href=\"./markov-decision-processes.html#value-iteration\">Markov decision processes</a> · Value iteration &amp; contraction</div>\n</aside>\n<!-- backlinks-auto-end -->"
+        },
+        {
+          "type": "quiz",
+          "concept": "mdp-bellman-optimality",
+          "html": "<div class=\"quiz\" data-concept=\"mdp-bellman-optimality\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "value-iteration",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"value-iteration\">\n<h2>4. Value iteration &amp; contraction</h2>\n<p>Define the <strong>Bellman optimality operator</strong> $T$ acting on value functions by</p>\n<p style=\"text-align:center\">$\\displaystyle (TV)(s) = \\max_a\\Big\\{R(s,a)+\\gamma\\sum_{s'}P(s'\\mid s,a)V(s')\\Big\\}.$</p>\n<p>Then $V^*$ is exactly the fixed point $TV^*=V^*$. The key analytic fact: $T$ is a <strong>$\\gamma$-contraction</strong> in the sup-norm $\\lVert V\\rVert_\\infty=\\max_s|V(s)|$. For any two value functions $U,V$,</p>\n<p style=\"text-align:center\">$\\lVert TU - TV\\rVert_\\infty \\le \\gamma\\,\\lVert U-V\\rVert_\\infty,$</p>\n<p>because the inner expectation is an average (a convex combination, non-expansive) scaled by $\\gamma$, and $\\max_a$ is itself $1$-Lipschitz in the sup-norm. By the <a href=\"./fixed-point-theorems.html#banach\">Banach fixed-point theorem</a>, on the complete metric space $(\\mathbb R^{|\\mathcal S|},\\lVert\\cdot\\rVert_\\infty)$ a contraction has a <em>unique</em> fixed point and the iteration converges to it from any seed. That iteration is <strong>value iteration</strong>: $V_{k+1}=TV_k$, and</p>\n<p style=\"text-align:center\">$\\lVert V_k - V^*\\rVert_\\infty \\le \\gamma^k\\,\\lVert V_0 - V^*\\rVert_\\infty.$</p>\n<p>So the error shrinks geometrically at rate $\\gamma$ — a clean, dimension-free guarantee. Smaller $\\gamma$ converges faster; $\\gamma$ near $1$ converges slowly (the price of caring about the far future).</p>\n<div class=\"note\"><strong>Worked mini-example.</strong> Start from $V_0\\equiv 0$ at $\\gamma=0.9$. The optimal values are $V^*=(13.10,\\,14.56,\\,10)$, so the initial sup-error is $\\lVert V_0-V^*\\rVert_\\infty=14.56$ — carried by the start states $s_0,s_1$, whose value has to propagate back from the goal. The absorbing goal $s_2$ is the easy case: $V_k(s_2)=\\tfrac{1-\\gamma^k}{1-\\gamma}$ gives $|V_k(s_2)-V^*(s_2)|=\\gamma^k\\cdot 10$, contracting at <em>exactly</em> $\\gamma$ — but that is the smallest gap, not the largest. The sup-norm error obeys the guarantee $\\lVert V_k-V^*\\rVert_\\infty\\le\\gamma^k\\cdot 14.56$ and runs ahead of it: the readout sequence is $14.56,\\,13.10,\\,8.84,\\dots$, with the per-step ratio $\\le\\gamma$ (and well below it once value reaches the start states).</div>\n<p>Press <em>one backup</em> repeatedly. The yellow curve is the true sup-error $\\lVert V_k-V^*\\rVert_\\infty$; the dashed line is the $\\gamma^k$ guarantee. The per-step ratio printed in the readout never exceeds $\\gamma$.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "parametric-plot",
+          "params": {
+            "interaction": "single-mode",
+            "widgetId": "w-vi",
+            "svgId": "vi-svg",
+            "outputId": "vi-out",
+            "title": "Value iteration: the γ-contraction",
+            "hint": "each backup V←TV cuts ‖V−V*‖∞ by a factor ≤ γ",
+            "viewBox": "0 0 640 300",
+            "svgWidth": 640,
+            "svgHeight": 300,
+            "svgTitle": "Geometric convergence of value iteration error bounded by gamma to the k",
+            "outputInitial": "",
+            "sliders": [
+              {
+                "id": "vi-gamma",
+                "outId": "vi-gamma-lbl",
+                "label": "discount $\\gamma$:",
+                "min": 0.5,
+                "max": 0.99,
+                "step": 0.01,
+                "init": 0.9
+              }
+            ],
+            "buttons": [
+              {
+                "id": "vi-step",
+                "label": "one backup V ← TV"
+              },
+              {
+                "id": "vi-reset",
+                "label": "reset to V₀ = 0"
+              }
+            ],
+            "bodyScript": "  const svg=$('#vi-svg'), out=$('#vi-out');\n  const gSl=$('#vi-gamma'), gL=$('#vi-gamma-lbl'), step=$('#vi-step'), reset=$('#vi-reset');\n  const W=640,H=300, padL=70, padR=30, padT=24, padB=46;\n  const P={ 0:{a:[[1,1.0]], b:[[0,1.0]]},\n            1:{a:[[2,0.8],[0,0.2]], b:[[1,1.0]]},\n            2:{a:[[2,1.0]], b:[[2,1.0]]} };\n  const R={ 0:{a:0, b:0}, 1:{a:5, b:-1}, 2:{a:1, b:1} };\n  function optimalV(g){\n    let V=[0,0,0];\n    for(let it=0;it<5000;it++){ const Vn=[0,0,0];\n      for(let s=0;s<3;s++){ let best=-1e18; for(const act of ['a','b']){ let q=R[s][act]; for(const [sp,p] of P[s][act]) q+=g*p*V[sp]; best=Math.max(best,q);} Vn[s]=best; }\n      let d=0; for(let s=0;s<3;s++) d=Math.max(d,Math.abs(Vn[s]-V[s])); V=Vn; if(d<1e-12) break; }\n    return V;\n  }\n  function backup(V,g){ const Vn=[0,0,0];\n    for(let s=0;s<3;s++){ let best=-1e18; for(const act of ['a','b']){ let q=R[s][act]; for(const [sp,p] of P[s][act]) q+=g*p*V[sp]; best=Math.max(best,q);} Vn[s]=best; }\n    return Vn; }\n  let g=+gSl.value, Vk=[0,0,0], k=0, errs=[];\n  function err(V){ const Vs=optimalV(g); let d=0; for(let s=0;s<3;s++) d=Math.max(d,Math.abs(V[s]-Vs[s])); return d; }\n  function doReset(){ g=+gSl.value; Vk=[0,0,0]; k=0; errs=[err(Vk)]; render(); }\n  function render(){\n    gL.textContent='γ = '+g.toFixed(2);\n    svg.innerHTML='';\n    // log-scale-ish error plot of ||V_k - V*||inf vs k, plus the gamma^k bound envelope\n    const e0=errs[0]||1;\n    const xs=(i)=> padL + (W-padL-padR)*(errs.length>1? i/(errs.length-1):0);\n    const maxE=Math.max(e0,1e-9);\n    const ys=(v)=> padT + (H-padT-padB)*(1 - v/maxE);\n    // axes\n    svg.appendChild(SVG('line',{x1:padL,y1:padT,x2:padL,y2:H-padB,stroke:'var(--line)','stroke-width':1}));\n    svg.appendChild(SVG('line',{x1:padL,y1:H-padB,x2:W-padR,y2:H-padB,stroke:'var(--line)','stroke-width':1}));\n    const yl=SVG('text',{x:padL-8,y:padT+4,'text-anchor':'end','font-size':11,fill:'var(--mute)'}); yl.textContent='‖V_k−V*‖∞'; svg.appendChild(yl);\n    const xl=SVG('text',{x:W-padR,y:H-padB+18,'text-anchor':'end','font-size':11,fill:'var(--mute)'}); xl.textContent='iteration k'; svg.appendChild(xl);\n    // gamma^k * e0 envelope (the contraction guarantee)\n    let bound='';\n    for(let i=0;i<errs.length;i++){ const v=e0*Math.pow(g,i); bound+=(i?' L':'M')+xs(i)+' '+ys(v); }\n    if(errs.length>1) svg.appendChild(SVG('path',{d:bound,fill:'none',stroke:'var(--mute)','stroke-width':1.4,'stroke-dasharray':'5 4'}));\n    // actual error curve\n    let path='';\n    for(let i=0;i<errs.length;i++){ path+=(i?' L':'M')+xs(i)+' '+ys(errs[i]); }\n    if(errs.length>1) svg.appendChild(SVG('path',{d:path,fill:'none',stroke:'var(--yellow)','stroke-width':2.4}));\n    for(let i=0;i<errs.length;i++) svg.appendChild(SVG('circle',{cx:xs(i),cy:ys(errs[i]),r:3.5,fill:'var(--yellow)'}));\n    // legend\n    const lg=SVG('text',{x:W-padR,y:padT+14,'text-anchor':'end','font-size':11,fill:'var(--yellow)'}); lg.textContent='actual error'; svg.appendChild(lg);\n    const lg2=SVG('text',{x:W-padR,y:padT+30,'text-anchor':'end','font-size':11,fill:'var(--mute)'}); lg2.textContent='γ^k·error_0  bound'; svg.appendChild(lg2);\n    const ratio = errs.length>=2 ? errs[errs.length-1]/errs[errs.length-2] : null;\n    out.textContent =\n      'γ = '+g.toFixed(2)+'    step k = '+k+'\\n'+\n      'V_'+k+' = ( '+Vk.map(v=>v.toFixed(3)).join(',  ')+' )      V* = ( '+optimalV(g).map(v=>v.toFixed(3)).join(',  ')+' )\\n'+\n      '‖V_'+k+' − V*‖∞ = '+errs[errs.length-1].toFixed(5)+(ratio!==null? ('     last ratio = '+ratio.toFixed(4)+'  ≤  γ = '+g.toFixed(2)+'  ✓'):'')+'\\n'+\n      'each Bellman-optimality backup contracts the sup-distance to V* by a factor ≤ γ; the dashed line is the γ^k guarantee';\n  }\n  step.addEventListener('click',()=>{ Vk=backup(Vk,g); k++; errs.push(err(Vk)); render(); });\n  reset.addEventListener('click',doReset);\n  gSl.addEventListener('input',()=>{ doReset(); });\n  doReset();"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-vi"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./fixed-point-theorems.html#banach\">Banach contraction principle</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "quiz",
+          "concept": "mdp-value-iteration",
+          "html": "<div class=\"quiz\" data-concept=\"mdp-value-iteration\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "policy-iteration",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"policy-iteration\">\n<h2>5. Policy iteration</h2>\n<p><strong>Policy iteration</strong> alternates two exact steps until the policy stops changing:</p>\n<ol>\n<li><strong>Policy evaluation.</strong> Solve $V^{\\pi_k}=(I-\\gamma P^{\\pi_k})^{-1}R^{\\pi_k}$ for the current policy (the linear system of §2).</li>\n<li><strong>Policy improvement.</strong> Set $\\pi_{k+1}(s)\\in\\arg\\max_a\\big\\{R(s,a)+\\gamma\\sum_{s'}P(s'\\mid s,a)V^{\\pi_k}(s')\\big\\}$, the greedy policy with respect to $V^{\\pi_k}$.</li>\n</ol>\n<p>The <strong>policy improvement theorem</strong> guarantees $V^{\\pi_{k+1}}\\ge V^{\\pi_k}$ pointwise, with strict improvement at some state unless $\\pi_k$ is already greedy w.r.t. its own value — in which case $V^{\\pi_k}$ satisfies the Bellman <em>optimality</em> equation and $\\pi_k=\\pi^*$. Because there are only finitely many deterministic policies ($|\\mathcal A|^{|\\mathcal S|}$ of them) and each round strictly improves until stable, policy iteration <strong>terminates in finitely many iterations</strong> at an exactly optimal policy.</p>\n<p>Contrast with value iteration: value iteration does cheap inexact backups and converges only in the limit (geometrically); policy iteration does an expensive exact solve each round but converges in a small <em>finite</em> number of rounds — typically very few. They are two ends of the <em>generalised policy iteration</em> spectrum, and modified policy iteration interpolates by doing a few evaluation sweeps instead of a full solve.</p>\n<div class=\"note\"><strong>Worked mini-example.</strong> Seed with the lazy policy $\\pi_0:s_0\\to b,\\,s_1\\to b$ (idle everywhere but the goal) at $\\gamma=0.9$. Evaluation gives $V^{\\pi_0}=(0,-10,10)$ — idling at $s_1$ is a $-10$ trap. Greedy improvement repairs $s_1$ first (advancing from $s_0$ into a $-10$ state still looks bad), giving $\\pi_1:s_0\\to b,\\,s_1\\to a$. Re-evaluating yields $V^{\\pi_1}=(0,12.2,10)$; now advancing from $s_0$ pays off, so greedy flips $s_0$ too, giving $\\pi_2\\equiv a$. A final evaluation $V^{\\pi_2}\\approx(13.10,14.56,10)$ is greedy-stable. So the optimal policy is reached after <strong>two improvement steps</strong> (and one more round confirms stability).</div>\n<p>Press <em>evaluate + improve</em> to step the loop from the lazy seed; watch $V$ jump and the policy (pink) flip, then stabilise.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "parametric-plot",
+          "params": {
+            "interaction": "single-mode",
+            "widgetId": "w-pi",
+            "svgId": "pi-svg",
+            "outputId": "pi-out",
+            "title": "Policy iteration: evaluate, then improve",
+            "hint": "exact evaluate + greedy improve; converges in finitely many rounds",
+            "viewBox": "0 0 640 270",
+            "svgWidth": 640,
+            "svgHeight": 270,
+            "svgTitle": "Policy iteration converging from a lazy seed policy on the running MDP",
+            "outputInitial": "",
+            "sliders": [
+              {
+                "id": "pi-gamma",
+                "outId": "pi-gamma-lbl",
+                "label": "discount $\\gamma$:",
+                "min": 0,
+                "max": 0.99,
+                "step": 0.01,
+                "init": 0.9
+              }
+            ],
+            "buttons": [
+              {
+                "id": "pi-step",
+                "label": "evaluate + improve"
+              },
+              {
+                "id": "pi-reset",
+                "label": "reset to lazy policy"
+              }
+            ],
+            "bodyScript": "  const svg=$('#pi-svg'), out=$('#pi-out');\n  const gSl=$('#pi-gamma'), gL=$('#pi-gamma-lbl'), step=$('#pi-step'), reset=$('#pi-reset');\n  const W=640,H=270;\n  const P={ 0:{a:[[1,1.0]], b:[[0,1.0]]},\n            1:{a:[[2,0.8],[0,0.2]], b:[[1,1.0]]},\n            2:{a:[[2,1.0]], b:[[2,1.0]]} };\n  const R={ 0:{a:0, b:0}, 1:{a:5, b:-1}, 2:{a:1, b:1} };\n  const pos=[[150,120],[370,120],[560,120]];\n  let g=+gSl.value, pi={0:'b',1:'b',2:'a'}, V=[0,0,0], iter=0, stable=false;\n  function evalPolicy(p,gg){ let Vv=[0,0,0];\n    for(let it=0;it<3000;it++){ const Vn=[0,0,0];\n      for(let s=0;s<3;s++){ const act=p[s]; let v=R[s][act]; for(const [sp,q] of P[s][act]) v+=gg*q*Vv[sp]; Vn[s]=v; }\n      let d=0; for(let s=0;s<3;s++) d=Math.max(d,Math.abs(Vn[s]-Vv[s])); Vv=Vn; if(d<1e-10) break; }\n    return Vv; }\n  function greedy(Vv,gg){ const np={};\n    for(let s=0;s<3;s++){ let qa=R[s].a,qb=R[s].b; for(const [sp,q] of P[s].a) qa+=gg*q*Vv[sp]; for(const [sp,q] of P[s].b) qb+=gg*q*Vv[sp]; np[s]= qa>=qb?'a':'b'; }\n    return np; }\n  function doReset(){ g=+gSl.value; pi={0:'b',1:'b',2:'a'}; V=evalPolicy(pi,g); iter=0; stable=false; render(); }\n  function render(){\n    gL.textContent='γ = '+g.toFixed(2);\n    svg.innerHTML='';\n    for(let s=0;s<3;s++){ const act=pi[s];\n      for(const [sp,p] of P[s][act]){\n        if(sp===s){ const [x,y]=pos[s];\n          svg.appendChild(SVG('path',{d:`M${x-14} ${y-16} C ${x-40} ${y-64}, ${x+40} ${y-64}, ${x+14} ${y-16}`,fill:'none',stroke:'var(--pink)','stroke-width':2.2,'marker-end':'url(#pi-arrh)'}));\n        } else { drawArrow(svg,pos[s],pos[sp],{color:'var(--pink)',curve: sp<s?34:-18,markerId:'pi-arrh',width:2.2}); }\n      }\n    }\n    for(let s=0;s<3;s++){\n      drawNode(svg,pos[s][0],pos[s][1], 's'+s, {r:22, fill:'var(--panel2)', stroke: s===2?'var(--green)':'var(--violet)'});\n      const t=SVG('text',{x:pos[s][0],y:pos[s][1]+44,'text-anchor':'middle','font-size':13,fill:'var(--yellow)','font-weight':600}); t.textContent='V='+V[s].toFixed(2); svg.appendChild(t);\n      const t2=SVG('text',{x:pos[s][0],y:pos[s][1]-34,'text-anchor':'middle','font-size':12,fill:'var(--pink)','font-weight':600}); t2.textContent='π(s'+s+')='+pi[s]; svg.appendChild(t2);\n    }\n    out.textContent =\n      'γ = '+g.toFixed(2)+'    policy-iteration round = '+iter+'\\n'+\n      'current policy  π: s0→'+pi[0]+'  s1→'+pi[1]+'  s2→'+pi[2]+'\\n'+\n      'V^π (exact policy-evaluation solve) = ( '+V.map(v=>v.toFixed(3)).join(',  ')+' )\\n'+\n      (stable? 'policy is STABLE — greedy(V^π) = π, so π = π* is optimal. Converged in finitely many rounds ✓'\n             : 'press “evaluate + improve”: solve V^π, then set π ← greedy(V^π). Monotone improvement, finite #policies ⇒ finite convergence.');\n  }\n  step.addEventListener('click',()=>{ if(stable) return;\n    V=evalPolicy(pi,g);\n    const np=greedy(V,g);\n    let same=true; for(let s=0;s<3;s++) if(np[s]!==pi[s]) same=false;\n    pi=np; iter++; if(same){ stable=true; } render(); });\n  reset.addEventListener('click',doReset);\n  gSl.addEventListener('input',doReset);\n  doReset();"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-pi"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "quiz",
+          "concept": "mdp-policy-iteration",
+          "html": "<div class=\"quiz\" data-concept=\"mdp-policy-iteration\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "horizons",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"horizons\">\n<h2>6. Discounting &amp; horizons</h2>\n<p>Why discount at all? The factor $\\gamma\\in[0,1)$ keeps the infinite sum $\\sum_{t\\ge 0}\\gamma^t R_t$ finite (when rewards are bounded), encodes a preference for sooner rewards, and — crucially — is what makes $T$ a contraction. The geometric weights $\\gamma^t$ decay, and the scale on which they matter is the <strong>effective horizon</strong></p>\n<p style=\"text-align:center\">$\\displaystyle H_{\\mathrm{eff}} \\approx \\frac{1}{1-\\gamma}.$</p>\n<p>The weight placed on the reward at $t=H_{\\mathrm{eff}}$ is $\\gamma^{1/(1-\\gamma)}\\to e^{-1}\\approx 0.368$ as $\\gamma\\to 1$, so $1/(1-\\gamma)$ is the \"$1/e$ time-constant\" of the discount: rewards much beyond it are nearly invisible. $\\gamma=0.9$ looks roughly $10$ steps ahead; $\\gamma=0.99$, about $100$. As $\\gamma\\to 1$ the agent becomes far-sighted but the contraction rate degrades to $1$ and value iteration slows to a crawl.</p>\n<p>Three standard objectives sit on a spectrum:</p>\n<ul>\n<li><strong>Discounted</strong> ($\\gamma<1$): maximise $\\mathbb E[\\sum_t\\gamma^t R_t]$. A stationary deterministic optimal policy always exists — the case this whole page treats.</li>\n<li><strong>Finite-horizon</strong> ($N$ steps): maximise $\\mathbb E[\\sum_{t=0}^{N-1}R_t]$, solved by <em>backward</em> induction $V_n(s)=\\max_a\\{R(s,a)+\\sum_{s'}P(s'\\mid s,a)V_{n+1}(s')\\}$ from $V_N\\equiv 0$. The optimal policy is generally <em>time-dependent</em>: what is optimal with $10$ steps left differs from $1$ step left.</li>\n<li><strong>Average-reward</strong> (the $\\gamma\\to 1$ limit): maximise the per-step gain $\\lim_{N\\to\\infty}\\tfrac1N\\mathbb E[\\sum_{t=0}^{N-1}R_t]$, used when there is no natural discounting and the process runs indefinitely; it needs its own (Bellman) gain–bias machinery since the undiscounted sum diverges.</li>\n</ul>\n<div class=\"note\"><strong>Worked mini-example.</strong> At the goal $s_2$ the value is the discounted geometric series $V^*(s_2)=\\sum_{t\\ge 0}\\gamma^t\\cdot 1=\\tfrac{1}{1-\\gamma}$, which is literally the effective horizon. So $\\gamma=0.9\\Rightarrow 10$, $\\gamma=0.95\\Rightarrow 20$, $\\gamma=0.99\\Rightarrow 100$ — moving $\\gamma$ from $0.9$ to $0.99$ multiplies the goal's value tenfold while making value iteration roughly ten times slower.</div>\n<p>Slide $\\gamma$ to watch the discount weights $\\gamma^t$ decay and the effective-horizon marker $1/(1-\\gamma)$ slide right.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "parametric-plot",
+          "params": {
+            "interaction": "single-mode",
+            "widgetId": "w-hz",
+            "svgId": "hz-svg",
+            "outputId": "hz-out",
+            "title": "Discounting & the effective horizon",
+            "hint": "γ^t weights decay; the 1/(1−γ) marker is the effective horizon",
+            "viewBox": "0 0 640 300",
+            "svgWidth": 640,
+            "svgHeight": 300,
+            "svgTitle": "Geometric discount weights and the effective horizon one over one minus gamma",
+            "outputInitial": "",
+            "sliders": [
+              {
+                "id": "hz-gamma",
+                "outId": "hz-gamma-lbl",
+                "label": "discount $\\gamma$:",
+                "min": 0.5,
+                "max": 0.99,
+                "step": 0.005,
+                "init": 0.9
+              }
+            ],
+            "buttons": [],
+            "bodyScript": "  const svg=$('#hz-svg'), out=$('#hz-out');\n  const gSl=$('#hz-gamma'), gL=$('#hz-gamma-lbl');\n  const W=640,H=300, padL=58, padR=24, padT=22, padB=44;\n  function render(){\n    const g=+gSl.value; gL.textContent='γ = '+g.toFixed(3);\n    svg.innerHTML='';\n    // plot discount weights gamma^t for t=0..T and shade the effective horizon 1/(1-g)\n    const T=40;\n    const xs=(t)=> padL + (W-padL-padR)*(t/T);\n    const ys=(w)=> padT + (H-padT-padB)*(1-w); // weight in [0,1]\n    svg.appendChild(SVG('line',{x1:padL,y1:padT,x2:padL,y2:H-padB,stroke:'var(--line)','stroke-width':1}));\n    svg.appendChild(SVG('line',{x1:padL,y1:H-padB,x2:W-padR,y2:H-padB,stroke:'var(--line)','stroke-width':1}));\n    const yl=SVG('text',{x:padL-8,y:padT+4,'text-anchor':'end','font-size':11,fill:'var(--mute)'}); yl.textContent='weight γ^t'; svg.appendChild(yl);\n    const xl=SVG('text',{x:W-padR,y:H-padB+18,'text-anchor':'end','font-size':11,fill:'var(--mute)'}); xl.textContent='time step t'; svg.appendChild(xl);\n    // effective horizon marker\n    const Heff=1/(1-g);\n    if(Heff<=T){ const x=xs(Heff);\n      svg.appendChild(SVG('line',{x1:x,y1:padT,x2:x,y2:H-padB,stroke:'var(--green)','stroke-width':1.4,'stroke-dasharray':'5 4'}));\n      const tt=SVG('text',{x:x+5,y:padT+14,'text-anchor':'start','font-size':11,fill:'var(--green)'}); tt.textContent='1/(1−γ) ≈ '+Heff.toFixed(1); svg.appendChild(tt);\n    }\n    let path='';\n    for(let t=0;t<=T;t++){ const w=Math.pow(g,t); path+=(t?' L':'M')+xs(t)+' '+ys(w); }\n    svg.appendChild(SVG('path',{d:path,fill:'none',stroke:'var(--yellow)','stroke-width':2.4}));\n    // a half-life style reference: weight at t=Heff is g^(1/(1-g)) -> ~ 1/e\n    const wHeff=Math.pow(g,Heff);\n    const Hf=1/(1-g);\n    out.textContent =\n      'γ = '+g.toFixed(3)+'\\n'+\n      'effective horizon  ≈  1/(1−γ)  =  '+Hf.toFixed(2)+' steps   (rewards beyond a few of these contribute almost nothing)\\n'+\n      'weight on the reward at t = 1/(1−γ) is γ^{1/(1−γ)} ≈ '+wHeff.toFixed(3)+'  →  about 1/e ≈ 0.368 as γ→1\\n'+\n      'finite-horizon: sum the first N rewards (no discount needed, but the optimal policy becomes time-dependent).\\n'+\n      'average-reward: the γ→1 limit, optimize lim (1/N)Σ R_t — the per-step gain, used when no discounting is natural.';\n  }\n  gSl.addEventListener('input',render);\n  render();"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-hz"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "quiz",
+          "concept": "mdp-horizons",
+          "html": "<div class=\"quiz\" data-concept=\"mdp-horizons\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "connections",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"connections\">\n<h2>Connections</h2>\n\n<p>The MDP is the discrete, stochastic backbone of sequential decision-making. The frontier is what happens when its clean assumptions break: when the state is only partially observed (POMDPs, where the belief state restores Markovianness but explodes the state space), when $P$ and $R$ are unknown and must be learned from samples (reinforcement learning), and when $\\mathcal S$ is too large to enumerate (function approximation, where the contraction guarantees can fail). Even the basics — average-reward optimality, robust MDPs against an adversarial kernel — remain active research.</p>\n\n<ul>\n<li><a href=\"./probability-theory.html#markov\">Probability theory — Markov chains</a> — fixing a policy collapses an MDP to the chain $P^\\pi$; stationary distributions and mixing govern average-reward MDPs.</li>\n<li><a href=\"./optimal-control-and-dynamic-programming.html#dp\">Optimal control &amp; dynamic programming — discrete-time Bellman equation</a> — the continuous HJB / Pontryagin cousin; the discounted MDP is its stationary, stochastic specialisation.</li>\n<li><a href=\"./fixed-point-theorems.html#banach\">Fixed-point theorems — Banach contraction</a> — the abstract engine behind value iteration's existence, uniqueness, and geometric convergence.</li>\n<li><a href=\"./convex-optimization.html#lp\">Convex optimization — linear programming</a> — a finite discounted MDP is exactly solvable as an LP in the value variables, the third classical algorithm alongside value and policy iteration.</li>\n<li><a href=\"./optimal-control-and-dynamic-programming.html#stochastic\">Optimal control — stochastic control</a> — adds noise and continuous state to the same Bellman backbone, the bridge toward stochastic dynamic programming.</li>\n</ul>\n</section>\n\n"
+        }
+      ]
+    }
+  ],
+  "rawBodySuffix": "</main>\n\n<script>\n(function(){\n  function start(){ if(window.MVQuiz) MVQuiz.init('markov-decision-processes'); }\n  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);\n  else start();\n})();\n</script>\n<details class=\"changelog\">\n  <summary>changelog</summary>\n  <table>\n    <tbody>\n      <tr><td>2026-05-22</td><td>initial version</td></tr>\n    </tbody>\n  </table>\n</details>\n\n</body>\n</html>\n"
+}
