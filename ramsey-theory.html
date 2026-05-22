@@ -402,7 +402,7 @@ function drawNode(svg, x, y, label, opts={}){
   }
   function binom(a,b){ if(b<0||b>a) return 0; let r=1; for(let i=0;i<b;i++) r=r*(a-i)/(i+1); return Math.round(r); }
   // small table of known exact (or interval) values, keyed s<=t
-  const known={ '2-2':'2','3-3':'6','3-4':'9','3-5':'14','3-6':'18','3-7':'23','4-4':'18','4-5':'25','4-6':'36–40 (open)','5-5':'43–48 (open)','6-6':'102–161 (open)','7-7':'205–497 (open)' };
+  const known={ '2-2':'2','3-3':'6','3-4':'9','3-5':'14','3-6':'18','3-7':'23','4-4':'18','4-5':'25','4-6':'36–40 (open)','5-5':'43–48 (open)','6-6':'102–165 (open)','7-7':'205–540 (open)' };
   function lookup(s,t){ const a=Math.min(s,t), b=Math.max(s,t); return known[a+'-'+b]; }
   function bar(x,y,w,h,fill,lab){ svg.appendChild(SVG('rect',{x,y,width:w,height:h,fill,rx:4,opacity:0.9})); const tx=SVG('text',{x:x+w+8,y:y+h*0.5+4,'font-size':13,fill:'var(--ink)'}); tx.textContent=lab; svg.appendChild(tx); }
   function render(){

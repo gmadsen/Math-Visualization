@@ -54315,10 +54315,10 @@ window.MVQuizBank = {
         "questions": [
           {
             "type": "numeric",
-            "q": "Use the Erdős–Szekeres recurrence $R(s,t)\\le R(s-1,t)+R(s,t-1)$ with the base values $R(2,t)=t$ and $R(s,2)=s$ to bound $R(3,4)$. What number does the recurrence give as an upper bound? (It is in fact the exact value.)",
-            "answer": 9,
+            "q": "Use the Erdős–Szekeres recurrence $R(s,t)\\le R(s-1,t)+R(s,t-1)$ with base values $R(2,t)=t$ and $R(s,2)=s$. What upper bound does the recurrence itself give for $R(3,4)$?",
+            "answer": 10,
             "tol": 0,
-            "explain": "$R(3,4)\\le R(2,4)+R(3,3)$. With $R(2,4)=4$ and $R(3,3)=6$ this gives $R(3,4)\\le 10$ — but parity sharpens it to $9$. Reading instead $R(3,4)\\le R(2,4)+R(3,3)=4+6=10$ and using the standard refinement that when both summands are even the bound drops by $1$ gives $R(3,4)=9$, the known exact value."
+            "explain": "$R(3,4)\\le R(2,4)+R(3,3)=4+6=10$. (The exact value is $R(3,4)=9$: the Greenwood–Gleason parity refinement lowers the bound by $1$ when both summands are even.)"
           },
           {
             "type": "mcq",
