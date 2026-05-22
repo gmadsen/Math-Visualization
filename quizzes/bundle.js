@@ -51817,7 +51817,7 @@ window.MVQuizBank = {
         "questions": [
           {
             "type": "numeric",
-            "q": "Start at belief $b(\\text{left})=0.5$ in the Tiger problem and take the listen action. Listening keeps the state fixed and returns 'hear-tiger-left' with accuracy $0.85$ (so $Z(\\text{TL}\\mid\\text{left})=0.85$, $Z(\\text{TL}\\mid\\text{right})=0.15$). After hearing 'tiger-left', what is the updated belief $b'(\\text{left})$?",
+            "q": "Start at belief $b(\\text{left})=0.5$ in the Tiger problem and take the listen action. Listening keeps the state fixed and returns 'hear-tiger-left' with accuracy $0.85$ (so $Z(\\text{hear-left}\\mid\\text{left})=0.85$, $Z(\\text{hear-left}\\mid\\text{right})=0.15$). After hearing 'tiger-left', what is the updated belief $b'(\\text{left})$?",
             "answer": 0.85,
             "tol": 0.01,
             "explain": "Listen does not change the state, so the predict step leaves $(0.5,0.5)$. The correct step weights by the observation: $b'(\\text{left})\\propto 0.85\\cdot 0.5=0.425$ and $b'(\\text{right})\\propto 0.15\\cdot 0.5=0.075$. Normalizing by $\\eta=1/(0.425+0.075)=2$ gives $b'(\\text{left})=0.85$."
