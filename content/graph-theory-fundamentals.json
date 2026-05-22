@@ -63,7 +63,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./graph-theory-fundamentals.html#trees\">Graph theory fundamentals</a> · Connectivity, trees &amp; spanning trees</div>\n    <div><a href=\"./graph-theory-fundamentals.html#matching\">Graph theory fundamentals</a> · Matchings &amp; Hall's theorem</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./graph-theory-fundamentals.html#trees\">Graph theory fundamentals</a> · Connectivity, trees &amp; spanning trees</div>\n    <div><a href=\"./graph-theory-fundamentals.html#matching\">Graph theory fundamentals</a> · Matchings &amp; Hall's theorem</div>\n    <div><a href=\"./ramsey-theory.html#pigeonhole\">Ramsey theory</a> · Pigeonhole &amp; $R(3,3)=6$</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "quiz",

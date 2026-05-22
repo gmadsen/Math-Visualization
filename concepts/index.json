@@ -29,11 +29,12 @@
 
     "statistical-learning-theory",
 
-
-
-
-
     "markov-decision-processes",
+    "ramsey-theory",
+
+
+
+
 
 
 
@@ -311,6 +312,7 @@
     "deformation-theory": "standard",
     "algebraic-de-rham-cohomology": "standard",
     "graph-theory-fundamentals": "prereq",
+    "ramsey-theory": "standard",
     "spectral-graph-theory": "standard",
     "matroid-theory": "standard",
     "probabilistic-method": "standard",
