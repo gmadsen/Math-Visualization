@@ -22,7 +22,7 @@ A 16-topic program agreed with the user to flesh out the thinnest sections (Comb
 
 ### New section 13 — Learning theory & data science
 
-Register: `concepts/sections.json` (id `learning-theory-and-data-science`, color `b` blue, placed after `control-theory-and-optimization`), `index.html` section grid, `sections/<id>.html`, and the 12→13 references in AGENTS.md/README section enumerations.
+**Opened empty in PR #248** — registered in `concepts/sections.json` (id `learning-theory-and-data-science`, color `b` blue), wired into `new-topic.mjs` (SECTIONS/palette/aliases + `CAPSTONES_GROUP_INDEX` 12→13), and the 12→13 references in AGENTS.md + the jsdom section-stats test bumped. The section's `index.html` `.sec` header + grid and the generated `sections/learning-theory-and-data-science.html` landing page debut with the **first topic card** (mirrors how Control opened in #171). Scaffold topics with `node scripts/new-topic.mjs <slug> learning-theory`; in the same PR, add the slug to the section's `topics` array in `sections.json` (new-topic.mjs doesn't touch sections.json) and replace the draft index card so `audit-draft-index-cards` (a CI gate) stays green.
 
 - `statistical-learning-theory` — PAC, VC dimension, Rademacher complexity, ERM, bias–variance (section floor)
 - `kernel-methods-and-rkhs` — RKHS, representer theorem, SVMs, GP link
