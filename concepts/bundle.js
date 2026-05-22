@@ -30,6 +30,7 @@ window.__MVConcepts = {
       "game-theory",
       "kernel-methods-and-rkhs",
       "reinforcement-learning",
+      "probabilistic-graphical-models",
       "several-complex-variables",
       "khovanov-homology",
       "shimura-varieties",
@@ -420,6 +421,7 @@ window.__MVConcepts = {
       "kalman-filtering-and-state-estimation": "advanced",
       "statistical-learning-theory": "advanced",
       "kernel-methods-and-rkhs": "advanced",
+      "probabilistic-graphical-models": "advanced",
       "markov-decision-processes": "standard",
       "game-theory": "standard",
       "reinforcement-learning": "standard"
@@ -2773,6 +2775,69 @@ window.__MVConcepts = {
             "rl-td"
           ],
           "blurb": "Parameterise the policy π(a|s;θ) directly and ascend the policy-gradient theorem ∇J(θ) = E[∇log π(a|s;θ) Qᵖ(s,a)]. REINFORCE plugs in the sampled return; subtracting a baseline reduces variance without bias, and actor–critic learns the baseline as a critic."
+        }
+      ]
+    },
+    "probabilistic-graphical-models": {
+      "topic": "probabilistic-graphical-models",
+      "title": "Probabilistic graphical models",
+      "page": "probabilistic-graphical-models.html",
+      "concepts": [
+        {
+          "id": "pgm-bayes-nets",
+          "title": "Bayesian networks",
+          "anchor": "bayes-nets",
+          "prereqs": [
+            "conditional-bayes"
+          ],
+          "blurb": "A directed acyclic graph factorizes a joint distribution as $p(x)=\\prod_i p(x_i\\mid \\mathrm{pa}(i))$, trading the exponential full table for a product of small conditionals. Conditional independence is read off the graph by d-separation, whose collider (v-structure) rule is the classic trap: an unobserved collider blocks, but observing it (or a descendant) opens the path."
+        },
+        {
+          "id": "pgm-mrf",
+          "title": "Markov random fields",
+          "anchor": "mrf",
+          "prereqs": [
+            "pgm-bayes-nets"
+          ],
+          "blurb": "An undirected model factorizes over the cliques of its graph as a Gibbs distribution $p(x)\\propto\\exp(-\\sum_c E_c(x))$. Hammersley–Clifford: a strictly positive distribution is Markov with respect to a graph iff it is Gibbs over that graph's cliques. The Markov blanket of a node is its set of neighbors."
+        },
+        {
+          "id": "pgm-inference",
+          "title": "Exact inference",
+          "anchor": "inference",
+          "prereqs": [
+            "pgm-bayes-nets"
+          ],
+          "blurb": "Marginal and MAP queries are computed by variable elimination: push sums past factors that don't depend on the eliminated variable, multiply the rest, and sum out. The cost is exponential in the treewidth induced by the elimination order; the junction tree organizes the reusable intermediate factors."
+        },
+        {
+          "id": "pgm-belief-propagation",
+          "title": "Belief propagation",
+          "anchor": "belief-propagation",
+          "prereqs": [
+            "pgm-inference"
+          ],
+          "blurb": "The sum–product algorithm computes all marginals at once by passing messages along the edges of a factor graph. On a tree it is exact in two sweeps; on a graph with cycles, loopy belief propagation iterates the same updates as a fast approximation that need not converge."
+        },
+        {
+          "id": "pgm-variational",
+          "title": "Variational inference",
+          "anchor": "variational",
+          "prereqs": [
+            "pgm-inference",
+            "it-kl-divergence"
+          ],
+          "blurb": "Approximate an intractable posterior $p(z\\mid x)$ by a tractable $q(z)$ that minimizes $\\mathrm{KL}(q\\,\\|\\,p)$. The decomposition $\\log p(x)=\\mathrm{ELBO}(q)+\\mathrm{KL}(q\\,\\|\\,p(\\cdot\\mid x))$ shows the ELBO lower-bounds the evidence, so maximizing it minimizes the KL. Mean-field $q=\\prod_j q_j$ is optimized by coordinate ascent (CAVI)."
+        },
+        {
+          "id": "pgm-sampling",
+          "title": "MCMC & Gibbs sampling",
+          "anchor": "sampling",
+          "prereqs": [
+            "pgm-mrf",
+            "markov-chains"
+          ],
+          "blurb": "When exact and variational inference are intractable, sample. Gibbs sampling resamples each $x_i$ from its full conditional $p(x_i\\mid x_{-i})$ — which depends only on its Markov blanket — building a Markov chain whose stationary distribution is the target, so long-run averages estimate any expectation."
         }
       ]
     },
@@ -20427,7 +20492,8 @@ window.__MVConcepts = {
         "description": "The mathematics behind learning from data: statistical learning theory, kernels and reproducing-kernel Hilbert spaces, neural-network theory, probabilistic graphical models, information geometry, score-based generative models, and causal inference.",
         "topics": [
           "statistical-learning-theory",
-          "kernel-methods-and-rkhs"
+          "kernel-methods-and-rkhs",
+          "probabilistic-graphical-models"
         ],
         "color": "b"
       }
@@ -20730,6 +20796,7 @@ window.__MVConcepts = {
     "kalman-filtering-and-state-estimation": "advanced",
     "statistical-learning-theory": "advanced",
     "kernel-methods-and-rkhs": "advanced",
+    "probabilistic-graphical-models": "advanced",
     "markov-decision-processes": "standard",
     "game-theory": "standard",
     "reinforcement-learning": "standard"
@@ -20784,7 +20851,7 @@ window.__MVConcepts = {
       "concepts": 83,
       "intra": 134,
       "crossOut": 23,
-      "crossIn": 32,
+      "crossIn": 35,
       "density": 0.27710843373493976
     },
     "Geometry & topology": {
@@ -20837,11 +20904,11 @@ window.__MVConcepts = {
       "density": 0.4230769230769231
     },
     "Learning theory & data science": {
-      "concepts": 12,
-      "intra": 13,
-      "crossOut": 9,
+      "concepts": 18,
+      "intra": 18,
+      "crossOut": 12,
       "crossIn": 1,
-      "density": 0.75
+      "density": 0.6666666666666666
     }
   }
 };

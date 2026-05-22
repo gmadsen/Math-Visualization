@@ -1,5 +1,5 @@
 {
-  "generated": "2026-05-22T10:36:17.933Z",
+  "generated": "2026-05-22T11:14:33.582Z",
   "entries": [
     {
       "slug": "game-theory",
@@ -34,6 +34,14 @@
       "message": "feat: order-theory-and-lattices — Wave 2 (Combinatorics) (#253)"
     },
     {
+      "slug": "probabilistic-graphical-models",
+      "title": "Probabilistic graphical models",
+      "color": "b",
+      "tag": "",
+      "date": "2026-05-22",
+      "message": "feat: probabilistic-graphical-models — Wave 2 (Learning theory)"
+    },
+    {
       "slug": "ramsey-theory",
       "title": "Ramsey theory",
       "color": "v",
@@ -47,7 +55,7 @@
       "color": "p",
       "tag": "",
       "date": "2026-05-22",
-      "message": "feat: reinforcement-learning — Wave 2 (Control / model-free)"
+      "message": "feat: reinforcement-learning — Wave 2 (Control / model-free) (#256)"
     },
     {
       "slug": "graph-theory-fundamentals",

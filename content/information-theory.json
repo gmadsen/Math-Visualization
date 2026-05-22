@@ -140,7 +140,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./information-theory.html#fisher-cramer-rao\">Information theory</a> · Fisher information and the Cramér–Rao bound</div>\n    <div><a href=\"./mathematical-statistics.html#mle\">Mathematical statistics</a> · Maximum likelihood and the score equation</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./information-theory.html#fisher-cramer-rao\">Information theory</a> · Fisher information and the Cramér–Rao bound</div>\n    <div><a href=\"./mathematical-statistics.html#mle\">Mathematical statistics</a> · Maximum likelihood and the score equation</div>\n    <div><a href=\"./probabilistic-graphical-models.html#variational\">Probabilistic graphical models</a> · Variational inference</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "quiz",

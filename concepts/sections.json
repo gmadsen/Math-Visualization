@@ -300,7 +300,8 @@
       "description": "The mathematics behind learning from data: statistical learning theory, kernels and reproducing-kernel Hilbert spaces, neural-network theory, probabilistic graphical models, information geometry, score-based generative models, and causal inference.",
       "topics": [
         "statistical-learning-theory",
-        "kernel-methods-and-rkhs"
+        "kernel-methods-and-rkhs",
+        "probabilistic-graphical-models"
       ],
       "color": "b"
     }
