@@ -183,7 +183,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./enumerative-combinatorics.html#bijections\">Enumerative combinatorics</a> · Bijective proofs</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./algebraic-combinatorics.html#rsk\">Algebraic combinatorics</a> · The RSK correspondence</div>\n    <div><a href=\"./enumerative-combinatorics.html#bijections\">Enumerative combinatorics</a> · Bijective proofs</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -232,7 +232,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./enumerative-combinatorics.html#bijections\">Enumerative combinatorics</a> · Bijective proofs</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./algebraic-combinatorics.html#tableaux\">Algebraic combinatorics</a> · Partitions, Young diagrams &amp; tableaux</div>\n    <div><a href=\"./enumerative-combinatorics.html#bijections\">Enumerative combinatorics</a> · Bijective proofs</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -272,7 +272,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<h3>RSK and Young tableaux</h3>\n\n<p>The <strong>Robinson–Schensted–Knuth correspondence</strong> is a bijection between non-negative integer matrices and pairs $(P, Q)$ of semistandard Young tableaux of the same shape. Restricted to permutation matrices it bijects $S_n$ with pairs of <em>standard</em> tableaux of the same shape, yielding the spectacular identity</p>\n\n<p style=\"text-align:center\">$\\displaystyle n! \\;=\\; \\sum_{\\lambda \\vdash n} f^\\lambda \\cdot f^\\lambda \\;=\\; \\sum_{\\lambda \\vdash n} (f^\\lambda)^2,$</p>\n\n<p>where $f^\\lambda$ is the number of standard Young tableaux of shape $\\lambda$. The tableau pair carries an enormous amount of structure: the shape determines the longest increasing subsequence (Schensted's theorem), and RSK underlies the entire combinatorics of symmetric functions, Schur polynomials, and representations of $S_n$.</p>\n\n"
+          "html": "\n\n<h3>RSK and Young tableaux</h3>\n\n<p>The <strong>Robinson–Schensted–Knuth correspondence</strong> is a bijection between non-negative integer matrices and pairs $(P, Q)$ of semistandard Young tableaux of the same shape. Restricted to permutation matrices it bijects $S_n$ with pairs of <em>standard</em> tableaux of the same shape, yielding the spectacular identity</p>\n\n<p style=\"text-align:center\">$\\displaystyle n! \\;=\\; \\sum_{\\lambda \\vdash n} f^\\lambda \\cdot f^\\lambda \\;=\\; \\sum_{\\lambda \\vdash n} (f^\\lambda)^2,$</p>\n\n<p>where $f^\\lambda$ is the number of standard Young tableaux of shape $\\lambda$. The tableau pair carries an enormous amount of structure: the shape determines the longest increasing subsequence (Schensted's theorem), and RSK underlies the entire combinatorics of <a href=\"./algebraic-combinatorics.html#symmetric\" data-auto-inline-link=\"1\" data-concept-id=\"ac-symmetric-functions\" data-blurb=\"The ring of symmetric functions has several bases indexed by partitions: monomial, elementary, complete homogeneous, and power-sum. Newton&#39;s identities convert between the e, h, and p families.\">symmetric functions</a>, Schur polynomials, and representations of $S_n$.</p>\n\n"
         },
         {
           "type": "quiz",

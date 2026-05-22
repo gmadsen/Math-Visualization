@@ -1,0 +1,478 @@
+{
+  "topic": "algebraic-combinatorics",
+  "rawHead": "<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\" />\n<meta name=\"viewport\" content=\"width=device-width,initial-scale=1\" />\n<title>Algebraic combinatorics</title>\n<link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css\">\n<script defer src=\"https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js\"></script>\n<script defer src=\"https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js\"></script>\n<script>\n(function(){\n  function renderAll(){\n    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }\n    renderMathInElement(document.body,{\n      delimiters:[\n        {left:'$$',right:'$$',display:true},\n        {left:'$',right:'$',display:false},\n        {left:'\\\\(',right:'\\\\)',display:false},\n        {left:'\\\\[',right:'\\\\]',display:true}\n      ],\n      throwOnError:false,\n      strict:(c)=>c==='unicodeTextInMathMode'?'ignore':'warn',\n      macros:{\n        '\\\\Spec':'\\\\operatorname{Spec}',\n        '\\\\Gal':'\\\\operatorname{Gal}',\n        '\\\\Hom':'\\\\operatorname{Hom}',\n        '\\\\tr':'\\\\operatorname{tr}',\n        '\\\\ad':'\\\\operatorname{ad}',\n        '\\\\ind':'\\\\operatorname{ind}'\n      }\n    });\n  }\n  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);\n  else renderAll();\n})();\n</script>\n<style>\n  :root{\n    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;\n    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;\n    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;\n    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;\n  }\n  *{box-sizing:border-box}\n  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);\n    font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",Inter,Roboto,sans-serif;\n    font-size:17px;line-height:1.65}\n  a{color:var(--blue)}\n  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;\n    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}\n  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}\n  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}\n  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}\n  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}\n  p{margin:0.7rem 0}\n  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}\n  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;\n    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}\n  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}\n  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}\n  .widget .hd .hint{color:var(--mute);font-size:.85rem}\n  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}\n  .row label{color:var(--mute);font-size:.88rem}\n  input[type=\"text\"],input[type=\"number\"],select{\n    background:#0b0f16;color:var(--ink);border:1px solid var(--line);\n    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}\n  input[type=\"range\"]{accent-color:var(--yellow);flex:1;max-width:260px}\n  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);\n    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}\n  button:hover{background:#242c3e}\n  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}\n  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;\n    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;\n    min-height:1.6em;white-space:pre-wrap;word-break:break-word}\n  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);\n    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}\n  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;\n    margin:1rem 0;border-radius:0 6px 6px 0}\n  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;\n    margin:1rem 0;border-radius:0 6px 6px 0}\n  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;\n    margin:1rem 0;border-radius:0 6px 6px 0}\n  svg{display:block;margin:0 auto;max-width:100%}\n  svg text{fill:var(--ink);font-family:inherit}\n  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);\n    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;\n    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}\n  nav.toc a{color:var(--mute);text-decoration:none}\n  nav.toc a:hover{color:var(--yellow)}\n  /* sticky sidebar TOC (wide screens only; narrow screens fall back to top-nav) */\n  aside.sidetoc{position:fixed;top:4.2rem;\n    left:max(1rem, calc(50% - 440px - 220px));\n    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;\n    padding-right:1rem;border-right:1px solid var(--line);\n    font-size:.88rem;z-index:5}\n  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;\n    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}\n  aside.sidetoc ol{list-style:none;padding:0;margin:0}\n  aside.sidetoc li{margin:0}\n  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;\n    border-left:2px solid transparent;line-height:1.35;\n    transition:color 120ms ease, border-color 120ms ease}\n  aside.sidetoc a:hover{color:var(--ink)}\n  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}\n  @media (max-width:1180px){ aside.sidetoc{display:none} }\n  @media (min-width:1181px){ nav.toc a[href^=\"#\"]{display:none} }\n  .hero{padding:3rem 0 1rem}\n  .small{font-size:.88rem;color:var(--mute)}\n  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}\n  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}\n  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}\n  table.plain th{color:var(--mute);font-weight:500}\n  /* callback-css-auto-begin */\n  aside.callback{\n    margin:1.2rem 0;padding:.7rem 1rem;\n    background:rgba(88,196,221,0.05);\n    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);\n    border-radius:0 6px 6px 0;\n    font-size:.93rem;\n  }\n  aside.callback .ttl{\n    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;\n    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;\n  }\n  aside.callback ul{margin:0;padding-left:1.1rem}\n  aside.callback ul li{margin:.15rem 0}\n  aside.callback a{color:inherit}\n/* callback-css-auto-end */\n  details.changelog{\n    margin:2rem 0 1rem;padding:.6rem .9rem;\n    background:rgba(0,0,0,0.22);\n    border-radius:6px;\n    font-size:.85rem;\n  }\n  details.changelog summary{\n    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;\n    font-size:.7rem;color:var(--mute,#8c9aa6);\n  }\n  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}\n  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}\n  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}\n  aside.related{\n    margin:1.2rem 0;padding:.7rem 1rem;\n    background:color-mix(in srgb, var(--mute) 6%, transparent);\n    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);\n    border-radius:0 6px 6px 0;\n    font-size:.93rem;\n  }\n  aside.related .ttl{\n    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;\n    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;\n  }\n  aside.related > div{margin:.15rem 0}\n  aside.related .more{color:var(--mute);font-style:italic}\n  aside.related a{color:inherit}\n  /* display-prefs-css-auto-begin */\n  html[data-hide-widgets] .widget { display: none !important; }\n  html[data-hide-quizzes] .quiz { display: none !important; }\n  html[data-hide-lineage] .lineage-strip { display: none !important; }\n  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }\n  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }\n  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }\n  .mv-display-toggle--off { opacity: 0.35; }\n  /* display-prefs-css-auto-end */\n</style>\n<!-- breadcrumb-head-auto-begin -->\n<script src=\"./js/section-map.js\"></script>\n<script src=\"./js/breadcrumb.js\"></script>\n<script src=\"./js/glossary-popover.js\" defer></script>\n<link rel=\"stylesheet\" media=\"print\" href=\"./css/print.css\">\n<link rel=\"stylesheet\" href=\"./css/theme-light.css\">\n<script src=\"./js/theme-toggle.js\"></script>\n<script src=\"./concepts/bundle.js\" defer></script>\n<script src=\"./js/topic-hotkeys.js\" defer></script>\n<script src=\"./js/topic-lineage.js\" defer></script>\n<!-- breadcrumb-head-auto-end -->\n<script src=\"./js/progress.js\"></script>\n<script src=\"./js/quiz.js\"></script>\n<script src=\"./js/katex-select.js\"></script>\n<script src=\"./js/widget-diagram-editor.js\"></script>\n<script src=\"./quizzes/bundle.js\"></script>\n<script src=\"./js/sidetoc.js\"></script>\n<!-- display-prefs-head-auto-begin -->\n<script src=\"./js/display-prefs.js\"></script>\n<!-- display-prefs-head-auto-end -->\n</head>\n",
+  "rawBodyPrefix": "<body data-section=\"combinatorics-and-graph-theory\" data-level=\"intermediate\">\n<script>\nconst $ = (s,r=document)=>r.querySelector(s);\nconst $$ = (s,r=document)=>[...r.querySelectorAll(s)];\nconst SVG = (tag,attrs={})=>{\n  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);\n  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);\n  return e;\n};\n// draw an arrow marker def once per svg (idempotent)\nfunction ensureArrow(svg, id, color){\n  let defs = svg.querySelector('defs');\n  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }\n  if(defs.querySelector('#'+id)) return;\n  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});\n  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));\n  defs.appendChild(mk);\n}\n// curved arrow between two pixel points, with optional label\nfunction drawArrow(svg, p1, p2, opts={}){\n  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;\n  ensureArrow(svg, markerId, color);\n  const [x1,y1]=p1, [x2,y2]=p2;\n  const dx=x2-x1, dy=y2-y1;\n  const L = Math.hypot(dx,dy) || 1;\n  const ux=dx/L, uy=dy/L;\n  // shorten endpoints\n  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;\n  const ax=x1+ux*pad1, ay=y1+uy*pad1;\n  const bx=x2-ux*pad2, by=y2-uy*pad2;\n  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;\n  const path = SVG('path',{\n    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,\n    fill:'none', stroke:color, 'stroke-width':width,\n    'marker-end':`url(#${markerId})`\n  });\n  if(dash) path.setAttribute('stroke-dasharray', dash);\n  svg.appendChild(path);\n  if(label){\n    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,\n      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});\n    t.textContent = label;\n    svg.appendChild(t);\n  }\n  return path;\n}\nfunction drawNode(svg, x, y, label, opts={}){\n  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;\n  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));\n  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});\n  t.textContent = label;\n  svg.appendChild(t);\n}\n</script>\n\n<nav class=\"toc\"><a href=\"./index.html\" style=\"color:var(--violet);font-weight:500\">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class=\"breadcrumb\"></div><span class=\"nav-links\"><a class=\"nav-link\" href=\"./pathway.html\">Pathway</a><a class=\"nav-link\" href=\"./tours.html\">Tours</a><a class=\"nav-link\" href=\"./history.html\">History</a><a class=\"nav-link\" href=\"./tags.html\">Themes</a><a class=\"nav-link\" href=\"./mindmap.html\">Mindmap</a><a class=\"nav-link\" href=\"./search.html\">Search</a></span><span class=\"mv-theme-slot\"></span><!-- breadcrumb-nav-auto-end -->\n<!-- toc-auto-begin -->\n  <a href=\"#tableaux\">1&nbsp;Partitions,&nbsp;Young&nbsp;diagrams&nbsp;&amp;&nbsp;tableaux</a>\n  <a href=\"#hook-length\">2&nbsp;The&nbsp;hook&nbsp;length&nbsp;formula</a>\n  <a href=\"#symmetric\">3&nbsp;Symmetric&nbsp;functions</a>\n  <a href=\"#schur\">4&nbsp;Schur&nbsp;functions</a>\n  <a href=\"#rsk\">5&nbsp;The&nbsp;RSK&nbsp;correspondence</a>\n  <a href=\"#representation\">6&nbsp;Representation-theoretic&nbsp;meaning</a>\n  <a href=\"#connections\">7&nbsp;Connections</a>\n<!-- toc-auto-end -->\n</nav>\n<!-- lineage-mount-auto-begin --><div id=\"mv-lineage-mount\" class=\"lineage-strip\" hidden></div><!-- lineage-mount-auto-end -->\n\n<aside class=\"sidetoc\" aria-label=\"Table of contents\"></aside>\n\n<main>\n\n<section class=\"hero\">\n  <h1>Algebraic combinatorics</h1>\n  <p class=\"sub\">A single picture — a box-stack called a Young diagram — quietly indexes the irreducible representations of the symmetric group, a basis for symmetric functions, and a bijection that turns permutations into pairs of tableaux: this is where counting and algebra become the same subject.</p>\n</section>\n\n",
+  "sections": [
+    {
+      "id": "tableaux",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"tableaux\">\n<h2>1. Partitions, Young diagrams &amp; tableaux</h2>\n<p>An <strong>integer partition</strong> of $n$ is a weakly decreasing sequence $\\lambda = (\\lambda_1 \\ge \\lambda_2 \\ge \\cdots \\ge \\lambda_k \\ge 1)$ of positive integers with $|\\lambda| = \\lambda_1 + \\cdots + \\lambda_k = n$; we write $\\lambda \\vdash n$. Its <strong>Young diagram</strong> is the left-justified array of $n$ cells with $\\lambda_i$ cells in row $i$. The diagram of $\\lambda = (3,2)$ is two rows, of lengths $3$ and $2$.</p>\n<p>Reflecting the diagram across its main diagonal — turning rows into columns — gives the <strong>conjugate partition</strong> $\\lambda'$, whose $j$-th part counts the cells in column $j$. So $(3,2)' = (2,2,1)$, and conjugation is an involution: $(\\lambda')' = \\lambda$.</p>\n\n<h3>Standard and semistandard tableaux</h3>\n<p>A <strong>Young tableau</strong> is a filling of the cells of a diagram with numbers. Two filling rules dominate the subject:</p>\n<ul>\n  <li>A <strong>standard Young tableau</strong> (SYT) of shape $\\lambda \\vdash n$ uses each of $1, 2, \\ldots, n$ exactly once, with entries <em>strictly</em> increasing left to right along every row and <em>strictly</em> increasing top to bottom down every column.</li>\n  <li>A <strong>semistandard Young tableau</strong> (SSYT) draws entries from a fixed alphabet (say $\\{1, \\ldots, N\\}$, with repeats allowed), and asks rows to <em>weakly</em> increase left to right while columns <em>strictly</em> increase top to bottom.</li>\n</ul>\n<p>The row-weak / column-strict asymmetry is the whole engineering of the subject: it is exactly what makes the count of SSYT a polynomial (the Schur function of §4) and the count of SYT a representation dimension (§6). The number of SYT of shape $\\lambda$ is written $f^\\lambda$.</p>\n\n<div class=\"note\"><strong>Worked mini-example.</strong> Shape $\\lambda = (2,2) \\vdash 4$ has exactly two standard tableaux, since the top-left cell must be $1$, the bottom-right must be $4$, and the only choice is whether $2$ goes right or down: the fillings $\\begin{smallmatrix}1&2\\\\3&4\\end{smallmatrix}$ and $\\begin{smallmatrix}1&3\\\\2&4\\end{smallmatrix}$. So $f^{(2,2)} = 2$ — a number we will recompute three different ways across this page.</div>\n\n<p>Pick a shape below and step through a candidate filling. The widget validates the row-weak and column-strict conditions live, reports whether the filling is a valid SSYT (and whether it is in fact standard), and counts the cells.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "parametric-plot",
+          "params": {
+            "interaction": "multi-mode",
+            "widgetId": "w-tableaux",
+            "svgId": "tableaux-svg",
+            "outputId": "tableaux-out",
+            "title": "Young diagrams and the SSYT conditions",
+            "hint": "pick a shape, cycle fillings; the readout checks row-weak / column-strict",
+            "viewBox": "0 0 600 300",
+            "svgWidth": 600,
+            "svgHeight": 300,
+            "svgTitle": "A Young diagram of a chosen shape with a candidate filling, validating the row-weak and column-strict semistandard conditions",
+            "outputInitial": "",
+            "pick": {
+              "id": "tableaux-shape",
+              "label": "shape $\\lambda$:",
+              "options": [
+                {
+                  "value": "22",
+                  "label": "$\\lambda = (2,2)$",
+                  "selected": true
+                },
+                {
+                  "value": "32",
+                  "label": "$\\lambda = (3,2)$"
+                },
+                {
+                  "value": "311",
+                  "label": "$\\lambda = (3,1,1)$"
+                }
+              ]
+            },
+            "buttons": [
+              {
+                "id": "tableaux-next",
+                "label": "next candidate filling"
+              }
+            ],
+            "modes": {
+              "22": {},
+              "32": {},
+              "311": {}
+            },
+            "initialMode": "22",
+            "bodyScript": "  const svg=$('#tableaux-svg'), out=$('#tableaux-out'), pick=$('#tableaux-shape');\n  const nextBtn=$('#tableaux-next');\n  const W=600,H=300, cell=46, ox=210, oy=40;\n  // each shape: lambda + a small list of candidate fillings (row-major arrays of arrays)\n  const SHAPES={\n    '22':{ lam:[2,2], fills:[\n      [[1,2],[3,4]],   // valid SYT\n      [[1,3],[2,4]],   // valid SYT\n      [[1,1],[2,3]],   // valid SSYT, not standard (repeat)\n      [[1,2],[1,3]],   // INVALID: column 1 has 1 then 1 (not strict)\n      [[2,1],[3,4]]    // INVALID: row 1 not weakly increasing\n    ]},\n    '32':{ lam:[3,2], fills:[\n      [[1,2,3],[4,5]],   // valid SYT\n      [[1,1,2],[2,3]],   // valid SSYT\n      [[1,3,5],[2,4]],   // valid SYT\n      [[1,1,1],[1,2]],   // INVALID: column 1 has 1 then 1\n      [[1,2,2],[2,3]]    // valid SSYT (col1 1<2, col2 2<3)\n    ]},\n    '311':{ lam:[3,1,1], fills:[\n      [[1,2,3],[4],[5]],   // valid SYT\n      [[1,2,4],[3],[5]],   // valid SYT\n      [[1,2,2],[2],[3]],   // valid SSYT\n      [[1,2,3],[1],[2]],   // INVALID: column 1 has 1 then 1\n      [[1,1,2],[2],[2]]    // INVALID: column 1 is 1,2,2 — 2 is not < 2 (columns must be STRICTLY increasing)\n    ]}\n  };\n  let cur='22', idx=0;\n  function conj(lam){ const m=lam[0]; const c=[]; for(let j=0;j<m;j++){ let k=0; for(const r of lam) if(r>j) k++; c.push(k);} return c; }\n  function validate(lam,fill){\n    let rowOK=true, colOK=true;\n    // rows weakly increasing\n    for(let i=0;i<lam.length;i++){ for(let j=1;j<lam[i];j++){ if(fill[i][j] < fill[i][j-1]) rowOK=false; } }\n    // columns strictly increasing\n    const m=lam[0];\n    for(let j=0;j<m;j++){ for(let i=1;i<lam.length;i++){ if(lam[i]>j && lam[i-1]>j){ if(!(fill[i][j] > fill[i-1][j])) colOK=false; } } }\n    return {rowOK,colOK};\n  }\n  function isStandard(lam,fill){ const n=lam.reduce((a,b)=>a+b,0); const seen=new Set(); let strictRow=true, strictCol=true;\n    for(let i=0;i<lam.length;i++) for(let j=0;j<lam[i];j++) seen.add(fill[i][j]);\n    if(seen.size!==n) return false;\n    for(let v=1;v<=n;v++) if(!seen.has(v)) return false;\n    for(let i=0;i<lam.length;i++) for(let j=1;j<lam[i];j++) if(!(fill[i][j] > fill[i][j-1])) strictRow=false;\n    return strictRow; }\n  function render(){\n    const sh=SHAPES[cur], lam=sh.lam, fill=sh.fills[idx];\n    svg.innerHTML='';\n    const {rowOK,colOK}=validate(lam,fill);\n    const ok = rowOK && colOK;\n    const std = ok && isStandard(lam,fill);\n    const ncells = lam.reduce((a,b)=>a+b,0);\n    // draw cells\n    for(let i=0;i<lam.length;i++){ for(let j=0;j<lam[i];j++){\n      const x=ox+j*cell, y=oy+i*cell;\n      svg.appendChild(SVG('rect',{x,y,width:cell-3,height:cell-3,rx:5,\n        fill: ok? 'var(--panel)' : 'var(--panel2)',\n        stroke: ok? 'var(--green)' : 'var(--pink)', 'stroke-width':1.8}));\n      const t=SVG('text',{x:x+(cell-3)/2,y:y+(cell-3)/2+5,'text-anchor':'middle','font-size':18,fill:'var(--ink)','font-weight':600});\n      t.textContent=fill[i][j]; svg.appendChild(t);\n    } }\n    const cap=SVG('text',{x:20,y:26,'font-size':12,fill:'var(--mute)'}); cap.textContent='shape  '+lam.join(',')+'   conjugate  '+conj(lam).join(',')+'   ('+ncells+' cells)'; svg.appendChild(cap);\n    const verdict = ok ? (std? 'valid STANDARD tableau (uses 1..'+ncells+' once, strict rows and columns)' : 'valid SEMISTANDARD tableau (rows weak, columns strict)')\n                       : ('NOT semistandard: '+(!rowOK? 'a row fails to weakly increase' : 'a column fails to strictly increase'));\n    out.textContent =\n      'filling '+(idx+1)+' of '+sh.fills.length+':  rows '+(rowOK?'weakly increase ✓':'FAIL ✗')+'   columns '+(colOK?'strictly increase ✓':'FAIL ✗')+'\\n'+verdict;\n  }\n  pick.addEventListener('change',()=>{ cur=pick.value; idx=0; render(); });\n  nextBtn.addEventListener('click',()=>{ const sh=SHAPES[cur]; idx=(idx+1)%sh.fills.length; render(); });\n  render();"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-tableaux"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./enumerative-combinatorics.html#partitions\">Enumerative combinatorics — integer partitions &amp; Euler's product</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./algebraic-combinatorics.html#symmetric\">Algebraic combinatorics</a> · Symmetric functions</div>\n    <div><a href=\"./algebraic-combinatorics.html#hook-length\">Algebraic combinatorics</a> · The hook length formula</div>\n    <div><a href=\"./algebraic-combinatorics.html#rsk\">Algebraic combinatorics</a> · The RSK correspondence</div>\n</aside>\n<!-- backlinks-auto-end -->"
+        },
+        {
+          "type": "quiz",
+          "concept": "ac-partitions-tableaux",
+          "html": "<div class=\"quiz\" data-concept=\"ac-partitions-tableaux\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "hook-length",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"hook-length\">\n<h2>2. The hook length formula</h2>\n<p>How many standard tableaux does a shape have? A direct enumeration explodes, but there is a clean closed form. The <strong>hook</strong> of a cell $c$ in a Young diagram consists of $c$ itself, the cells strictly to its right in the same row (the <em>arm</em>), and the cells strictly below it in the same column (the <em>leg</em>). The <strong>hook length</strong> is</p>\n<p style=\"text-align:center\">$\\mathrm{hook}(c) = \\mathrm{arm}(c) + \\mathrm{leg}(c) + 1.$</p>\n<p style=\"text-align:center\"><strong>Frame–Robinson–Thrall hook length formula (1954).</strong> For $\\lambda \\vdash n$,</p>\n<p style=\"text-align:center\">$\\displaystyle f^\\lambda \\;=\\; \\frac{n!}{\\displaystyle\\prod_{c \\in \\lambda} \\mathrm{hook}(c)}.$</p>\n<p>That a product of small integers always divides $n!$ to an integer is itself a small miracle; the formula has elegant probabilistic proofs (the Greene–Nijenhuis–Wilf hook walk) and a determinantal one.</p>\n\n<div class=\"note\"><strong>Worked mini-example.</strong> For $\\lambda = (2,2)$ the four hook lengths are $3, 2, 2, 1$ (the top-left cell sees one arm cell and one leg cell, so its hook is $1+1+1 = 3$). Then $f^{(2,2)} = 4! / (3 \\cdot 2 \\cdot 2 \\cdot 1) = 24/12 = 2$, matching the two tableaux we wrote by hand in §1. For the hook $\\lambda = (3,1)$ the hooks are $4, 2, 1, 1$ and $f^{(3,1)} = 24/8 = 3$.</div>\n\n<p>Pick a shape: the widget prints each cell's hook length, forms the product, divides into $n!$, and cross-checks the result against a brute-force count of all standard fillings.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "parametric-plot",
+          "params": {
+            "interaction": "multi-mode",
+            "widgetId": "w-hook",
+            "svgId": "hook-svg",
+            "outputId": "hook-out",
+            "title": "Hook lengths and the count of standard tableaux",
+            "hint": "each cell shows its hook; the readout computes n! / product and verifies",
+            "viewBox": "0 0 600 300",
+            "svgWidth": 600,
+            "svgHeight": 300,
+            "svgTitle": "Each cell of a Young diagram labelled with its hook length, with the hook length formula evaluated and cross-checked against a direct count",
+            "outputInitial": "",
+            "pick": {
+              "id": "hook-shape",
+              "label": "shape $\\lambda$:",
+              "options": [
+                {
+                  "value": "22",
+                  "label": "$\\lambda = (2,2)$",
+                  "selected": true
+                },
+                {
+                  "value": "31",
+                  "label": "$\\lambda = (3,1)$"
+                },
+                {
+                  "value": "32",
+                  "label": "$\\lambda = (3,2)$"
+                },
+                {
+                  "value": "221",
+                  "label": "$\\lambda = (2,2,1)$"
+                }
+              ]
+            },
+            "modes": {
+              "22": {},
+              "31": {},
+              "32": {},
+              "221": {}
+            },
+            "initialMode": "22",
+            "bodyScript": "  const svg=$('#hook-svg'), out=$('#hook-out'), pick=$('#hook-shape');\n  const W=600,H=300, cell=46, ox=200, oy=40;\n  const SHAPES={ '22':[2,2], '31':[3,1], '32':[3,2], '221':[2,2,1] };\n  let cur='22';\n  function fact(n){ let r=1; for(let i=2;i<=n;i++) r*=i; return r; }\n  function conj(lam){ const m=lam[0]; const c=[]; for(let j=0;j<m;j++){ let k=0; for(const r of lam) if(r>j) k++; c.push(k);} return c; }\n  function hookOf(lam,i,j){ const cj=conj(lam); const arm=lam[i]-j-1; const leg=cj[j]-i-1; return arm+leg+1; }\n  // brute-force count of SYT: fill 1..n into cells so each cell's left and up neighbours are already filled\n  function countSYT(lam){ const n=lam.reduce((a,b)=>a+b,0); const cells=[]; for(let i=0;i<lam.length;i++) for(let j=0;j<lam[i];j++) cells.push([i,j]); const T={}; const key=(i,j)=>i+','+j; let cnt=0; (function rec(v){ if(v>n){cnt++;return;} for(const [i,j] of cells){ if(T[key(i,j)]) continue; if(j>0 && !T[key(i,j-1)]) continue; if(i>0 && !T[key(i-1,j)]) continue; T[key(i,j)]=v; rec(v+1); delete T[key(i,j)]; } })(1); return cnt; }\n  function render(){\n    const lam=SHAPES[cur]; const n=lam.reduce((a,b)=>a+b,0);\n    svg.innerHTML='';\n    let prod=1; const hookStrs=[];\n    for(let i=0;i<lam.length;i++){ for(let j=0;j<lam[i];j++){\n      const h=hookOf(lam,i,j); prod*=h; hookStrs.push(h);\n      const x=ox+j*cell, y=oy+i*cell;\n      svg.appendChild(SVG('rect',{x,y,width:cell-3,height:cell-3,rx:5,fill:'var(--panel)',stroke:'var(--violet)','stroke-width':1.8}));\n      const t=SVG('text',{x:x+(cell-3)/2,y:y+(cell-3)/2+6,'text-anchor':'middle','font-size':18,fill:'var(--yellow)','font-weight':700});\n      t.textContent=h; svg.appendChild(t);\n    } }\n    const formula=fact(n)/prod; const direct=countSYT(lam); const agree=(formula===direct);\n    const cap=SVG('text',{x:20,y:26,'font-size':12,fill:'var(--mute)'}); cap.textContent='shape '+lam.join(',')+'   (each cell shows its hook length = arm + leg + 1)'; svg.appendChild(cap);\n    out.textContent =\n      'hook lengths: '+hookStrs.join(' · ')+'    product = '+prod+'\\n'+\n      'hook length formula:  f^λ = '+n+'! / '+prod+' = '+fact(n)+' / '+prod+' = '+formula+'\\n'+\n      'direct count of standard tableaux = '+direct+'   '+(agree?'✓ they agree':'✗ MISMATCH');\n  }\n  pick.addEventListener('change',()=>{ cur=pick.value; render(); });\n  render();"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-hook"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "quiz",
+          "concept": "ac-hook-length",
+          "html": "<div class=\"quiz\" data-concept=\"ac-hook-length\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "symmetric",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"symmetric\">\n<h2>3. Symmetric functions</h2>\n<p>A polynomial in $x_1, \\ldots, x_N$ is <strong>symmetric</strong> if it is unchanged by every permutation of the variables. Stabilizing in the number of variables and grading by degree gives the <strong>ring of symmetric functions</strong> $\\Lambda = \\bigoplus_d \\Lambda^d$. Each graded piece $\\Lambda^d$ has finite dimension equal to the number of partitions of $d$, and there are four classical bases, all indexed by partitions:</p>\n<ul>\n  <li><strong>monomial</strong> $m_\\lambda$ — the sum of all distinct monomials whose exponent multiset is $\\lambda$ (e.g. $m_{(2,1)} = \\sum x_i^2 x_j$ over $i \\ne j$);</li>\n  <li><strong>elementary</strong> $e_\\lambda = e_{\\lambda_1} e_{\\lambda_2}\\cdots$, where $e_k = \\sum_{i_1 \\, <\\, \\cdots \\, <\\, i_k} x_{i_1}\\cdots x_{i_k}$ is the sum of squarefree degree-$k$ monomials;</li>\n  <li><strong>complete homogeneous</strong> $h_\\lambda = h_{\\lambda_1} h_{\\lambda_2}\\cdots$, where $h_k = \\sum_{i_1 \\, \\le\\, \\cdots \\, \\le\\, i_k} x_{i_1}\\cdots x_{i_k}$ is the sum of <em>all</em> degree-$k$ monomials;</li>\n  <li><strong>power sum</strong> $p_\\lambda = p_{\\lambda_1} p_{\\lambda_2}\\cdots$, where $p_k = \\sum_i x_i^k$.</li>\n</ul>\n<p>The $e_k$ and $h_k$ differ only by whether repeated indices are allowed; in two variables $e_2 = x_1 x_2$ but $h_2 = x_1^2 + x_1 x_2 + x_2^2$.</p>\n\n<h3>Newton's identities</h3>\n<p>The power sums tie the $e$ and $h$ families together by a recursion. <strong>Newton's identities</strong> read</p>\n<p style=\"text-align:center\">$\\displaystyle p_k - e_1 p_{k-1} + e_2 p_{k-2} - \\cdots + (-1)^{k-1} e_{k-1} p_1 + (-1)^k k\\, e_k = 0,$</p>\n<p>so $p_1 = e_1$, then $p_2 = e_1 p_1 - 2e_2$, and so on — each $p_k$ is a polynomial in the $e$'s and conversely. Over $\\mathbb{Q}$ the power sums are themselves a basis, which is why $\\Lambda$ is a polynomial ring on either the $e_k$ or the $p_k$.</p>\n\n<div class=\"note\"><strong>Worked mini-example ($N = 2$).</strong> With variables $x_1, x_2$: $e_1 = x_1 + x_2 = p_1$, $e_2 = x_1 x_2$, $p_2 = x_1^2 + x_2^2$, and $h_2 = x_1^2 + x_1 x_2 + x_2^2$. Newton's second identity $p_2 = e_1 p_1 - 2e_2 = (x_1+x_2)^2 - 2x_1 x_2 = x_1^2 + x_2^2$ checks out, and $h_2 = e_1^2 - e_2 = p_2/1 + e_2$ relates the families.</div>\n\n<p>Pick a basis and a small partition; the widget expands the chosen symmetric function in $N = 3$ variables and prints its monomials, so you can compare $e_\\lambda$ against $h_\\lambda$ against $p_\\lambda$ on the same shape.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "parametric-plot",
+          "params": {
+            "interaction": "multi-mode",
+            "widgetId": "w-symmetric",
+            "svgId": "symmetric-svg",
+            "outputId": "symmetric-out",
+            "title": "Expanding e, h, and p in three variables",
+            "hint": "pick a basis and partition; readout lists the monomials in x1,x2,x3",
+            "viewBox": "0 0 600 220",
+            "svgWidth": 600,
+            "svgHeight": 220,
+            "svgTitle": "Expansion of an elementary, complete homogeneous, or power-sum symmetric function for a chosen partition in three variables",
+            "outputInitial": "",
+            "pick": {
+              "id": "symmetric-basis",
+              "label": "basis:",
+              "options": [
+                {
+                  "value": "e",
+                  "label": "elementary $e_\\lambda$",
+                  "selected": true
+                },
+                {
+                  "value": "h",
+                  "label": "complete $h_\\lambda$"
+                },
+                {
+                  "value": "p",
+                  "label": "power sum $p_\\lambda$"
+                }
+              ]
+            },
+            "sliders": [
+              {
+                "id": "symmetric-lam",
+                "outId": "symmetric-lam-lbl",
+                "label": "partition $\\lambda$ (1=(1), 2=(2), 3=(1,1), 4=(2,1)):",
+                "min": 1,
+                "max": 4,
+                "step": 1,
+                "init": 2
+              }
+            ],
+            "modes": {
+              "e": {},
+              "h": {},
+              "p": {}
+            },
+            "initialMode": "e",
+            "bodyScript": "  const svg=$('#symmetric-svg'), out=$('#symmetric-out'), pick=$('#symmetric-basis');\n  const lamSl=$('#symmetric-lam'), lamL=$('#symmetric-lam-lbl');\n  const N=3; // x1,x2,x3\n  const PARTS={ 1:[1], 2:[2], 3:[1,1], 4:[2,1] };\n  let cur='e';\n  // a monomial is an exponent vector [a1,a2,a3]; multiply by tensoring sums of monomials\n  function key(v){ return v.join(','); }\n  function addPoly(poly, vec, coef){ const k=key(vec); poly[k]=(poly[k]||0)+coef; if(poly[k]===0) delete poly[k]; }\n  function mulPoly(A,B){ const C={}; for(const ka in A){ const va=ka.split(',').map(Number); for(const kb in B){ const vb=kb.split(',').map(Number); const v=va.map((x,i)=>x+vb[i]); addPoly(C,v,A[ka]*B[kb]); } } return C; }\n  // single-part generators\n  function e_k(k){ const P={}; // squarefree degree-k: choose k distinct indices\n    const idx=[...Array(N).keys()]; const combos=[]; (function ch(start,acc){ if(acc.length===k){combos.push(acc.slice());return;} for(let i=start;i<N;i++){acc.push(i); ch(i+1,acc); acc.pop();} })(0,[]);\n    for(const c of combos){ const v=Array(N).fill(0); c.forEach(i=>v[i]=1); addPoly(P,v,1);} return P; }\n  function h_k(k){ const P={}; // all degree-k monomials (with repetition)\n    (function gen(start,rem,v){ if(rem===0){ addPoly(P,v.slice(),1); return; } for(let i=start;i<N;i++){ v[i]++; gen(i,rem-1,v); v[i]--; } })(0,k,Array(N).fill(0)); return P; }\n  function p_k(k){ const P={}; for(let i=0;i<N;i++){ const v=Array(N).fill(0); v[i]=k; addPoly(P,v,1);} return P; }\n  function gen(basis,k){ return basis==='e'? e_k(k) : basis==='h'? h_k(k) : p_k(k); }\n  function expandLambda(basis,lam){ let P={ [key(Array(N).fill(0))]:1 }; for(const part of lam) P=mulPoly(P,gen(basis,part)); return P; }\n  function monoStr(vec){ const parts=[]; for(let i=0;i<N;i++){ if(vec[i]===0) continue; parts.push('x'+(i+1)+(vec[i]>1?'^'+vec[i]:'')); } return parts.length? parts.join('') : '1'; }\n  function render(){\n    const sym = +lamSl.value; const lam=PARTS[sym];\n    lamL.textContent='λ = ('+lam.join(',')+')';\n    const sub = (cur==='e'?'e':cur==='h'?'h':'p');\n    const P = expandLambda(cur,lam);\n    // sort monomials by descending exponent vector\n    const entries = Object.entries(P).map(([k,c])=>[k.split(',').map(Number),c]).sort((a,b)=>{ for(let i=0;i<N;i++){ if(b[0][i]!==a[0][i]) return b[0][i]-a[0][i]; } return 0; });\n    svg.innerHTML='';\n    const head=SVG('text',{x:W2(),y:60,'text-anchor':'middle','font-size':22,fill:'var(--yellow)','font-weight':700}); head.textContent=sub+'_('+lam.join(',')+')  in  x1, x2, x3'; svg.appendChild(head);\n    const nterms = entries.length, ndeg = lam.reduce((a,b)=>a+b,0);\n    const info=SVG('text',{x:W2(),y:110,'text-anchor':'middle','font-size':14,fill:'var(--mute)'}); info.textContent='degree '+ndeg+',  '+nterms+' distinct monomials'; svg.appendChild(info);\n    // build a readable polynomial string\n    const str = entries.map(([v,c])=> (c===1?'':c)+monoStr(v)).join(' + ');\n    const poly=SVG('text',{x:W2(),y:160,'text-anchor':'middle','font-size':15,fill:'var(--cyan)'}); poly.textContent = str.length>78? '(see readout)' : str; svg.appendChild(poly);\n    let note='';\n    if(cur==='e' && sym===2) note='note: e_(2) = x1x2 + x1x3 + x2x3 has only squarefree terms';\n    else if(cur==='h' && sym===2) note='note: h_(2) adds the squares x1^2, x2^2, x3^2 that e_(2) omits';\n    else if(cur==='p') note='note: p_k = sum of pure k-th powers; products give cross terms';\n    out.textContent =\n      sub+'_('+lam.join(',')+')(x1,x2,x3) = '+str+'\\n'+\n      'degree '+ndeg+',  '+nterms+' monomials'+(note? '\\n'+note : '');\n  }\n  function W2(){ return 300; }\n  pick.addEventListener('change',()=>{ cur=pick.value; render(); });\n  lamSl.addEventListener('input',render);\n  render();"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-symmetric"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "quiz",
+          "concept": "ac-symmetric-functions",
+          "html": "<div class=\"quiz\" data-concept=\"ac-symmetric-functions\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./algebraic-combinatorics.html#schur\">Algebraic combinatorics</a> · Schur functions</div>\n</aside>\n<!-- backlinks-auto-end -->"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "schur",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"schur\">\n<h2>4. Schur functions</h2>\n<p>The fifth — and most important — basis of $\\Lambda$ is combinatorial. For $\\lambda \\vdash n$, the <strong>Schur function</strong> is the generating function over semistandard tableaux:</p>\n<p style=\"text-align:center\">$\\displaystyle s_\\lambda(x_1, x_2, \\ldots) \\;=\\; \\sum_{T \\,\\in\\, \\mathrm{SSYT}(\\lambda)} x^{\\mathrm{content}(T)}, \\qquad x^{\\mathrm{content}(T)} = \\prod_i x_i^{(\\#\\, i\\text{'s in } T)}.$</p>\n<p>That this is symmetric — invariant under permuting the variables — is the Bender–Knuth involution, and is not obvious from the definition. The coefficient of the monomial $x^\\mu$ in $s_\\lambda$ is the <strong>Kostka number</strong> $K_{\\lambda\\mu}$, the number of SSYT of shape $\\lambda$ and content $\\mu$.</p>\n\n<h3>The Jacobi–Trudi determinant</h3>\n<p>Schur functions also have a purely algebraic face. The <strong>Jacobi–Trudi formula</strong> writes them as a determinant in the complete homogeneous functions:</p>\n<p style=\"text-align:center\">$\\displaystyle s_\\lambda \\;=\\; \\det\\bigl(h_{\\lambda_i - i + j}\\bigr)_{1 \\le i, j \\le \\ell}, \\qquad h_0 = 1,\\ h_{ <\\, 0} = 0.$</p>\n<p>For $\\lambda = (2,1)$ this is the $2 \\times 2$ determinant $\\det\\!\\begin{pmatrix} h_2 & h_3 \\\\ h_0 & h_1\\end{pmatrix} = h_2 h_1 - h_3$. The $\\{s_\\lambda\\}$ form an <strong>orthonormal basis</strong> of $\\Lambda$ under the Hall inner product $\\langle s_\\lambda, s_\\mu\\rangle = \\delta_{\\lambda\\mu}$ — the property that makes them the right basis for representation theory in §6.</p>\n\n<div class=\"note\"><p><strong>Worked mini-example.</strong> In three variables, $s_{(2,1)}(x_1, x_2, x_3)$ sums over the $8$ semistandard tableaux of shape $(2,1)$ with entries in $\\{1,2,3\\}$, giving</p>\n<p style=\"text-align:center\">$s_{(2,1)} = x_1^2 x_2 + x_1^2 x_3 + x_1 x_2^2 + x_1 x_3^2 + x_2^2 x_3 + x_2 x_3^2 + 2\\,x_1 x_2 x_3.$</p>\n<p>The coefficient $2$ on $x_1 x_2 x_3$ is the Kostka number $K_{(2,1),(1,1,1)} = 2$ — the two SSYT $\\begin{smallmatrix}1&2\\\\3\\end{smallmatrix}$ and $\\begin{smallmatrix}1&3\\\\2\\end{smallmatrix}$ of content $(1,1,1)$. Setting all $x_i = 1$ gives $8$, agreeing with both the SSYT count and the Jacobi–Trudi value $h_2 h_1 - h_3 = 6\\cdot 3 - 10 = 8$.</div>\n\n<p>Pick a shape and a number of variables; the widget enumerates the SSYT, draws a few, and prints $s_\\lambda$ as a sum of monomials with multiplicities — the Kostka numbers laid bare.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "parametric-plot",
+          "params": {
+            "interaction": "multi-mode",
+            "widgetId": "w-schur",
+            "svgId": "schur-svg",
+            "outputId": "schur-out",
+            "title": "Schur functions as a sum over semistandard tableaux",
+            "hint": "pick a shape and #variables; the readout lists s_lambda monomial by monomial",
+            "viewBox": "0 0 600 260",
+            "svgWidth": 600,
+            "svgHeight": 260,
+            "svgTitle": "Enumerating the semistandard tableaux of a chosen shape and assembling the Schur function as a sum of content monomials with Kostka multiplicities",
+            "outputInitial": "",
+            "pick": {
+              "id": "schur-shape",
+              "label": "shape $\\lambda$:",
+              "options": [
+                {
+                  "value": "21",
+                  "label": "$\\lambda = (2,1)$",
+                  "selected": true
+                },
+                {
+                  "value": "2",
+                  "label": "$\\lambda = (2)$"
+                },
+                {
+                  "value": "11",
+                  "label": "$\\lambda = (1,1)$"
+                },
+                {
+                  "value": "22",
+                  "label": "$\\lambda = (2,2)$"
+                }
+              ]
+            },
+            "sliders": [
+              {
+                "id": "schur-vars",
+                "outId": "schur-vars-lbl",
+                "label": "number of variables $N$:",
+                "min": 2,
+                "max": 3,
+                "step": 1,
+                "init": 3
+              }
+            ],
+            "modes": {
+              "2": {},
+              "11": {},
+              "21": {},
+              "22": {}
+            },
+            "initialMode": "21",
+            "bodyScript": "  const svg=$('#schur-svg'), out=$('#schur-out'), pick=$('#schur-shape');\n  const varSl=$('#schur-vars'), varL=$('#schur-vars-lbl');\n  const SHAPES={ '21':[2,1], '2':[2], '11':[1,1], '22':[2,2] };\n  let cur='21';\n  function ssytList(lam,N){ const cells=[]; for(let i=0;i<lam.length;i++) for(let j=0;j<lam[i];j++) cells.push([i,j]); const res=[]; const T={}; const key=(i,j)=>i+','+j;\n    (function rec(idx){ if(idx===cells.length){ const snap={}; for(const k in T) snap[k]=T[k]; res.push(snap); return; } const [i,j]=cells[idx]; for(let v=1;v<=N;v++){ if(j>0 && T[key(i,j-1)]>v) continue; if(i>0 && !(T[key(i-1,j)]<v)) continue; T[key(i,j)]=v; rec(idx+1); delete T[key(i,j)]; } })(0); return res; }\n  function content(t,N){ const c=Array(N).fill(0); for(const k in t) c[t[k]-1]++; return c; }\n  function monoStr(vec){ const parts=[]; for(let i=0;i<vec.length;i++){ if(vec[i]===0) continue; parts.push('x'+(i+1)+(vec[i]>1?'^'+vec[i]:'')); } return parts.length? parts.join('') : '1'; }\n  function render(){\n    const lam=SHAPES[cur]; const N=+varSl.value; varL.textContent='N = '+N;\n    const ts=ssytList(lam,N);\n    // monomial multiplicities = Kostka numbers\n    const mono={}; for(const t of ts){ const c=content(t,N); const k=c.join(','); mono[k]=(mono[k]||0)+1; }\n    const entries=Object.entries(mono).map(([k,c])=>[k.split(',').map(Number),c]).sort((a,b)=>{ for(let i=0;i<N;i++){ if(b[0][i]!==a[0][i]) return b[0][i]-a[0][i]; } return 0; });\n    svg.innerHTML='';\n    // draw up to 4 example tableaux\n    const showN=Math.min(4,ts.length); const cell=34, gap=24; const totW=showN*(lam[0]*cell+gap); let sx=(600-totW)/2 + 10;\n    for(let s=0;s<showN;s++){ const t=ts[s]; const baseX=sx+s*(lam[0]*cell+gap), baseY=40;\n      for(let i=0;i<lam.length;i++){ for(let j=0;j<lam[i];j++){ const x=baseX+j*cell, y=baseY+i*cell;\n        svg.appendChild(SVG('rect',{x,y,width:cell-2,height:cell-2,rx:4,fill:'var(--panel)',stroke:'var(--violet)','stroke-width':1.5}));\n        const tx=SVG('text',{x:x+(cell-2)/2,y:y+(cell-2)/2+5,'text-anchor':'middle','font-size':15,fill:'var(--ink)','font-weight':600}); tx.textContent=t[i+','+j]; svg.appendChild(tx);\n      } } }\n    const cap=SVG('text',{x:300,y:24,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}); cap.textContent='shape '+lam.join(',')+'   entries in {1..'+N+'}   ('+ts.length+' SSYT'+(ts.length>showN?', first '+showN+' shown':'')+')'; svg.appendChild(cap);\n    const total=SVG('text',{x:300,y:200,'text-anchor':'middle','font-size':13,fill:'var(--cyan)'}); total.textContent='s_'+lam.join('')+'(1'+(N===3?',1,1':',1')+') = '+ts.length+'  (set all x_i = 1)'; svg.appendChild(total);\n    const str=entries.map(([v,c])=> (c===1?'':c)+monoStr(v)).join(' + ');\n    out.textContent =\n      's_('+lam.join(',')+')(x1..x'+N+') = '+str+'\\n'+\n      'total SSYT = '+ts.length+';  a coefficient k > 1 is the Kostka number K(λ, that content)';\n  }\n  pick.addEventListener('change',()=>{ cur=pick.value; render(); });\n  varSl.addEventListener('input',render);\n  render();"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-schur"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "quiz",
+          "concept": "ac-schur",
+          "html": "<div class=\"quiz\" data-concept=\"ac-schur\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./algebraic-combinatorics.html#representation\">Algebraic combinatorics</a> · Representation-theoretic meaning</div>\n</aside>\n<!-- backlinks-auto-end -->"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "rsk",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"rsk\">\n<h2>5. The RSK correspondence</h2>\n<p>The deepest single fact in this circle of ideas is a bijection. The <strong>Robinson–Schensted–Knuth correspondence</strong> matches each permutation $w$ of $\\{1, \\ldots, n\\}$ with an ordered pair $(P, Q)$ of standard Young tableaux of the <em>same</em> shape $\\lambda \\vdash n$. (Knuth's generalization replaces permutations by words or nonnegative-integer matrices and lands in pairs of semistandard tableaux.)</p>\n\n<h3>Schensted row insertion</h3>\n<p>The pair is built one entry at a time by <strong>row insertion</strong> (\"bumping\"). To insert a value $x$ into a tableau $P$: scan the first row for the leftmost entry strictly greater than $x$. If none exists, append $x$ to the end of the row and stop. Otherwise replace that entry by $x$ — the displaced entry is <em>bumped</em> down and inserted into the next row by the same rule. Each insertion adds exactly one cell; the recording tableau $Q$ writes the step number $i$ into whichever cell was newly created at step $i$, so $P$ and $Q$ grow in lockstep and share a shape.</p>\n<p>Counting both sides of the bijection — permutations on the left, same-shape tableau pairs on the right — gives the headline identity</p>\n<p style=\"text-align:center\">$\\displaystyle \\sum_{\\lambda \\vdash n} \\bigl(f^\\lambda\\bigr)^2 \\;=\\; n!.$</p>\n<p>And by Schensted's theorem, the length of the first row of the common shape equals the length of the longest <em>increasing</em> subsequence of $w$ (the first column gives the longest decreasing one).</p>\n\n<div class=\"note\"><strong>Worked mini-example.</strong> Insert $3, 1, 4, 2$ in turn. Start $P = \\fbox{3}$. Inserting $1$ bumps $3$ to a new row: $\\begin{smallmatrix}1\\\\3\\end{smallmatrix}$. Inserting $4$ appends to row $1$: $\\begin{smallmatrix}1&4\\\\3\\end{smallmatrix}$. Inserting $2$ bumps $4$ down to row $2$: $P = \\begin{smallmatrix}1&2\\\\3&4\\end{smallmatrix}$, with $Q = \\begin{smallmatrix}1&3\\\\2&4\\end{smallmatrix}$, both of shape $(2,2)$. The first row has length $2$, and indeed the longest increasing subsequence of $3142$ has length $2$ (e.g. $1,2$ or $3,4$).</div>\n\n<p>Type a permutation of $\\{1, \\ldots, n\\}$ (or use the slider to pick a preset) and step through the insertions. The widget shows the bumping path, the growing $P$ and $Q$, and the final shape.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "parametric-plot",
+          "params": {
+            "interaction": "single-mode",
+            "widgetId": "w-rsk",
+            "svgId": "rsk-svg",
+            "outputId": "rsk-out",
+            "title": "RSK row insertion: a permutation becomes a pair (P, Q)",
+            "hint": "step through the bumping; P is the insertion tableau, Q records cell creation order",
+            "viewBox": "0 0 600 280",
+            "svgWidth": 600,
+            "svgHeight": 280,
+            "svgTitle": "Building the insertion tableau P and recording tableau Q from a permutation by Schensted row insertion, one entry at a time",
+            "outputInitial": "",
+            "sliders": [
+              {
+                "id": "rsk-perm",
+                "outId": "rsk-perm-lbl",
+                "label": "permutation preset:",
+                "min": 0,
+                "max": 3,
+                "step": 1,
+                "init": 0
+              },
+              {
+                "id": "rsk-step",
+                "outId": "rsk-step-lbl",
+                "label": "insertions so far:",
+                "min": 0,
+                "max": 5,
+                "step": 1,
+                "init": 5
+              }
+            ],
+            "bodyScript": "  const svg=$('#rsk-svg'), out=$('#rsk-out');\n  const permSl=$('#rsk-perm'), permL=$('#rsk-perm-lbl');\n  const stepSl=$('#rsk-step'), stepL=$('#rsk-step-lbl');\n  const PRESETS=[ [3,1,4,2], [2,4,1,3], [1,2,3,4], [4,3,2,5,1] ];\n  // row-insert x into P (array of rows); return new P and the row index where a cell was created\n  function rowInsert(P,x){ const Q2=P.map(r=>r.slice()); let r=0, cur=x; while(true){ if(!Q2[r]) Q2[r]=[]; const row=Q2[r]; let pos=row.findIndex(e=>e>cur); if(pos===-1){ row.push(cur); return {P:Q2, row:r, col:row.length-1}; } else { const tmp=row[pos]; row[pos]=cur; cur=tmp; r++; } } }\n  // longest increasing subsequence length\n  function lis(arr){ const tails=[]; for(const x of arr){ let lo=0,hi=tails.length; while(lo<hi){ const m=(lo+hi)>>1; if(tails[m]<x) lo=m+1; else hi=m; } tails[lo]=x; } return tails.length; }\n  function drawTab(svg,rows,baseX,baseY,title,accent){ const cell=32; const t=SVG('text',{x:baseX,y:baseY-10,'font-size':13,fill:accent,'font-weight':700}); t.textContent=title; svg.appendChild(t);\n    for(let i=0;i<rows.length;i++){ for(let j=0;j<rows[i].length;j++){ const x=baseX+j*cell, y=baseY+i*cell;\n      svg.appendChild(SVG('rect',{x,y,width:cell-2,height:cell-2,rx:4,fill:'var(--panel)',stroke:accent,'stroke-width':1.5}));\n      const tx=SVG('text',{x:x+(cell-2)/2,y:y+(cell-2)/2+5,'text-anchor':'middle','font-size':14,fill:'var(--ink)','font-weight':600}); tx.textContent=rows[i][j]; svg.appendChild(tx);\n    } } }\n  function render(){\n    const pi=+permSl.value; const w=PRESETS[pi]; const n=w.length;\n    permL.textContent='w = '+w.join(' ');\n    stepSl.max=n; let k=+stepSl.value; if(k>n){ k=n; stepSl.value=n; }\n    stepL.textContent=k+' / '+n;\n    // run RSK for first k insertions\n    let P=[], Q=[];\n    for(let s=0;s<k;s++){ const {P:np,row,col}=rowInsert(P,w[s]); P=np; if(!Q[row]) Q[row]=[]; Q[row][col]=s+1; }\n    svg.innerHTML='';\n    const cap=SVG('text',{x:300,y:24,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}); cap.textContent='permutation '+w.map((v,i)=> i<k? '['+v+']' : v).join(' ')+'   (bracketed = inserted)'; svg.appendChild(cap);\n    drawTab(svg,P,90,70,'P (insertion)','var(--cyan)');\n    drawTab(svg,Q,360,70,'Q (recording)','var(--pink)');\n    const shape=P.map(r=>r.length);\n    let msg='inserted '+k+' of '+n+' values: '+w.slice(0,k).join(', ')+(k<n?'   (move the step slider to continue)':'');\n    msg+='\\nP shape = ('+shape.join(',')+')'+(k===n? '   — equals Q shape (RSK pairs share a shape)':'');\n    if(k===n){ msg+='\\nlongest increasing subsequence of w has length '+lis(w)+' = length of the first row of P (Schensted)'; }\n    out.textContent=msg;\n  }\n  permSl.addEventListener('input',()=>{ stepSl.value=PRESETS[+permSl.value].length; render(); });\n  stepSl.addEventListener('input',render);\n  render();"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-rsk"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./enumerative-combinatorics.html#permutation-stats\">Enumerative combinatorics — permutation statistics</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./algebraic-combinatorics.html#representation\">Algebraic combinatorics</a> · Representation-theoretic meaning</div>\n</aside>\n<!-- backlinks-auto-end -->"
+        },
+        {
+          "type": "quiz",
+          "concept": "ac-rsk",
+          "html": "<div class=\"quiz\" data-concept=\"ac-rsk\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "representation",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"representation\">\n<h2>6. Representation-theoretic meaning</h2>\n<p>Everything on this page is shadowed by representation theory; the tableaux were never just combinatorics.</p>\n\n<h3>Irreducibles of the symmetric group</h3>\n<p>The irreducible complex representations of the symmetric group $S_n$ — the <strong>Specht modules</strong> $S^\\lambda$ — are indexed by partitions $\\lambda \\vdash n$, and</p>\n<p style=\"text-align:center\">$\\dim S^\\lambda = f^\\lambda = \\#\\,\\mathrm{SYT}(\\lambda).$</p>\n<p>The general identity $\\sum_{\\text{irreps}} (\\dim)^2 = |G|$ becomes, for $G = S_n$, exactly $\\sum_{\\lambda \\vdash n} (f^\\lambda)^2 = n!$ — the very identity RSK proved bijectively in §5. So RSK is a combinatorial proof of the class equation for $S_n$.</p>\n\n<h3>Schur–Weyl duality in one line</h3>\n<p>On the general linear side, the Schur function $s_\\lambda$ is the <strong>character</strong> of the irreducible polynomial representation of $GL_N(\\mathbb{C})$ with highest weight $\\lambda$: $s_\\lambda(x_1, \\ldots, x_N)$ is the trace of a diagonal matrix $\\mathrm{diag}(x_1, \\ldots, x_N)$ acting on that representation. <strong>Schur–Weyl duality</strong> packages this: the actions of $S_n$ and $GL_N$ on $(\\mathbb{C}^N)^{\\otimes n}$ commute and jointly decompose it as $\\bigoplus_{\\lambda} S^\\lambda \\otimes V_\\lambda^{GL}$, the same $\\lambda$ indexing both factors.</p>\n\n<h3>The Littlewood–Richardson rule</h3>\n<p>One combinatorial rule governs all the structure constants. The <strong>Littlewood–Richardson coefficients</strong> $c^\\lambda_{\\mu\\nu}$ are defined by the Schur product</p>\n<p style=\"text-align:center\">$\\displaystyle s_\\mu \\, s_\\nu \\;=\\; \\sum_\\lambda c^\\lambda_{\\mu\\nu}\\, s_\\lambda,$</p>\n<p>and by the characteristic map they <em>simultaneously</em> count tensor-product multiplicities of $GL_N$ irreducibles and the multiplicity of $S^\\lambda$ in the induction $\\mathrm{Ind}_{S_{|\\mu|} \\times S_{|\\nu|}}^{S_n}(S^\\mu \\boxtimes S^\\nu)$. They are computed by counting Littlewood–Richardson skew tableaux (the special case $\\nu = (1)$ is Pieri's rule: $s_\\mu s_{(1)} = \\sum s_\\lambda$ over all $\\lambda$ obtained by adding one box).</p>\n\n<div class=\"note\"><strong>Worked mini-example.</strong> For $S_3$ the three partitions $(3), (2,1), (1,1,1)$ give dimensions $f^{(3)} = 1$ (trivial), $f^{(2,1)} = 2$ (standard), $f^{(1,1,1)} = 1$ (sign), and $1^2 + 2^2 + 1^2 = 6 = 3!$. On the Schur side, $s_{(1)} s_{(1)} = s_{(2)} + s_{(1,1)}$ realizes $c^{(2)}_{(1)(1)} = c^{(1,1)}_{(1)(1)} = 1$ — the decomposition of $\\mathbb{C}^N \\otimes \\mathbb{C}^N$ into its symmetric and antisymmetric squares.</div>\n\n<p>Slide $n$ to draw the irreducible dimensions of $S_n$ as a bar chart over the partitions $\\lambda \\vdash n$. The widget sums the squares and checks the total is exactly $n!$.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "parametric-plot",
+          "params": {
+            "interaction": "single-mode",
+            "widgetId": "w-rep",
+            "svgId": "rep-svg",
+            "outputId": "rep-out",
+            "title": "Irreducible dimensions of S_n over the partitions of n",
+            "hint": "each bar is dim S^lambda = #SYT(lambda); the squares sum to n!",
+            "viewBox": "0 0 600 320",
+            "svgWidth": 600,
+            "svgHeight": 320,
+            "svgTitle": "Bar chart of the dimensions of the irreducible representations of the symmetric group S_n indexed by partitions of n, verifying that the sum of squared dimensions equals n factorial",
+            "outputInitial": "",
+            "sliders": [
+              {
+                "id": "rep-n",
+                "outId": "rep-n-lbl",
+                "label": "$n$ (order of $S_n$):",
+                "min": 2,
+                "max": 6,
+                "step": 1,
+                "init": 4
+              }
+            ],
+            "bodyScript": "  const svg=$('#rep-svg'), out=$('#rep-out');\n  const nSl=$('#rep-n'), nL=$('#rep-n-lbl');\n  const W=600,H=320;\n  function fact(n){ let r=1; for(let i=2;i<=n;i++) r*=i; return r; }\n  function parts(n,max){ max=max||n; if(n===0) return [[]]; const res=[]; for(let k=Math.min(n,max);k>=1;k--){ for(const t of parts(n-k,k)) res.push([k,...t]); } return res; }\n  function conj(lam){ const m=lam[0]; const c=[]; for(let j=0;j<m;j++){ let k=0; for(const r of lam) if(r>j) k++; c.push(k);} return c; }\n  function nSYT(lam){ const n=lam.reduce((a,b)=>a+b,0); const cj=conj(lam); let prod=1; for(let i=0;i<lam.length;i++){ for(let j=0;j<lam[i];j++){ const arm=lam[i]-j-1, leg=cj[j]-i-1; prod*=(arm+leg+1); } } return fact(n)/prod; }\n  function render(){\n    const n=+nSl.value; nL.textContent='n = '+n;\n    const ps=parts(n); const dims=ps.map(nSYT);\n    const maxD=Math.max(...dims); const sumSq=dims.reduce((a,d)=>a+d*d,0);\n    svg.innerHTML='';\n    const padL=50, padR=20, padT=50, padB=70; const plotW=W-padL-padR, plotH=H-padT-padB;\n    const bw=plotW/ps.length;\n    for(let i=0;i<ps.length;i++){ const d=dims[i]; const h=plotH*d/maxD; const x=padL+i*bw, y=padT+plotH-h;\n      svg.appendChild(SVG('rect',{x:x+bw*0.12,y,width:bw*0.76,height:h,rx:4,fill:'var(--cyan)',opacity:0.85,stroke:'var(--line)'}));\n      const dl=SVG('text',{x:x+bw/2,y:y-6,'text-anchor':'middle','font-size':12,fill:'var(--yellow)','font-weight':700}); dl.textContent=d; svg.appendChild(dl);\n      const pl=SVG('text',{x:x+bw/2,y:padT+plotH+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'}); pl.textContent='('+ps[i].join(',')+')'; svg.appendChild(pl);\n      const sq=SVG('text',{x:x+bw/2,y:padT+plotH+34,'text-anchor':'middle','font-size':10,fill:'var(--mute)'}); sq.textContent=d+'²='+(d*d); svg.appendChild(sq);\n    }\n    svg.appendChild(SVG('line',{x1:padL,y1:padT+plotH,x2:W-padR,y2:padT+plotH,stroke:'var(--line)','stroke-width':1.2}));\n    const cap=SVG('text',{x:300,y:26,'text-anchor':'middle','font-size':13,fill:'var(--mute)'}); cap.textContent='dim of each irreducible of S'+n+'  =  #SYT(λ)  over the '+ps.length+' partitions λ ⊢ '+n; svg.appendChild(cap);\n    const ok=(sumSq===fact(n));\n    out.textContent =\n      'partitions of '+n+': '+ps.map(p=>'('+p.join(',')+')').join(', ')+'\\n'+\n      'dimensions f^λ: '+dims.join(', ')+'\\n'+\n      'Σ (dim)² = '+dims.map(d=>d+'²').join(' + ')+' = '+sumSq+'   and   '+n+'! = '+fact(n)+'   '+(ok?'✓ equal':'✗ MISMATCH');\n  }\n  nSl.addEventListener('input',render);\n  render();"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-rep"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./representation-theory.html#young\">Representation theory — Young tableaux &amp; irreps of $S_n$</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "quiz",
+          "concept": "ac-representation",
+          "html": "<div class=\"quiz\" data-concept=\"ac-representation\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "connections",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"connections\">\n<h2>Connections</h2>\n\n<p>Algebraic combinatorics is the dictionary between counting and algebra, and the dictionary keeps growing. Macdonald polynomials deform the Schur functions with two parameters $(q,t)$ and connect to Hall–Littlewood and Jack polynomials, affine Lie algebras, and the geometry of Hilbert schemes; the combinatorics of crystals gives a uniform model for tableaux across all Lie types; and even the innocent-looking Littlewood–Richardson coefficients are only conjecturally understood from the standpoint of computational complexity (whether $c^\\lambda_{\\mu\\nu} > 0$ is decidable in polynomial time, and the Kronecker coefficients of $S_n$ remain genuinely mysterious).</p>\n\n<ul>\n<li><a href=\"./enumerative-combinatorics.html#partitions\">Enumerative combinatorics — integer partitions</a> — the underlying objects $\\lambda \\vdash n$, their generating functions, and Euler's product.</li>\n<li><a href=\"./enumerative-combinatorics.html#permutation-stats\">Enumerative combinatorics — permutation statistics</a> — the source data RSK transforms, and where descents and the longest increasing subsequence live.</li>\n<li><a href=\"./representation-theory.html#young\">Representation theory — Young tableaux &amp; irreps of $S_n$</a> — the Specht modules whose dimensions are the $f^\\lambda$ of §2 and §6.</li>\n<li><a href=\"./representation-theory.html#characters\">Representation theory — characters &amp; orthogonality</a> — Schur functions are characters; the Hall inner product mirrors character orthogonality.</li>\n<li><a href=\"./order-theory-and-lattices.html#posets\">Order theory and lattices — posets &amp; Hasse diagrams</a> — Young's lattice orders all partitions by containment of diagrams, and its saturated chains <em>are</em> the standard tableaux.</li>\n</ul>\n</section>\n\n"
+        }
+      ]
+    }
+  ],
+  "rawBodySuffix": "</main>\n\n<script>\n(function(){\n  function start(){ if(window.MVQuiz) MVQuiz.init('algebraic-combinatorics'); }\n  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);\n  else start();\n})();\n</script>\n<details class=\"changelog\">\n  <summary>changelog</summary>\n  <table>\n    <tbody>\n      <tr><td>2026-05-22</td><td>initial version</td></tr>\n    </tbody>\n  </table>\n</details>\n\n</body>\n</html>\n"
+}

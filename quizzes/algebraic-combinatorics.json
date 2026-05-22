@@ -1,0 +1,226 @@
+{
+  "topic": "algebraic-combinatorics",
+  "quizzes": {
+    "ac-partitions-tableaux": {
+      "title": "Partitions, Young diagrams & tableaux",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A filling of the Young diagram of shape $\\lambda = (2,2)$ is a <em>semistandard</em> Young tableau (SSYT) exactly when:",
+          "choices": [
+            "rows strictly increase left to right and columns strictly increase top to bottom",
+            "rows weakly increase left to right and columns strictly increase top to bottom",
+            "rows weakly increase and columns weakly increase",
+            "every entry from $1$ to $n$ appears exactly once"
+          ],
+          "answer": 1,
+          "explain": "An SSYT is row-weak and column-strict: entries weakly increase along each row (repeats allowed) and strictly increase down each column. The all-distinct $1\\ldots n$ condition with strict rows is instead the definition of a <em>standard</em> Young tableau (SYT)."
+        },
+        {
+          "type": "multi-select",
+          "q": "Let $\\lambda = (3,1)$ with conjugate $\\lambda' = (2,1,1)$. Which statements are true?",
+          "choices": [
+            "$\\lambda$ is a partition of $n = 4$",
+            "The Young diagram of $\\lambda$ has $4$ cells",
+            "Conjugation reflects the diagram across its main diagonal, swapping rows and columns",
+            "$\\lambda$ and $\\lambda'$ always have the same number of parts"
+          ],
+          "answer": [0, 1, 2],
+          "explain": "$\\lambda=(3,1)$ has $|\\lambda| = 3+1 = 4$, so it partitions $4$ and its diagram has $4$ cells. The conjugate $\\lambda'$ is the transpose: its $j$-th part counts cells in column $j$, i.e. the diagram reflected across the main diagonal. The number of parts of $\\lambda'$ equals $\\lambda_1$ (the longest row), not the number of parts of $\\lambda$ in general — here $\\lambda$ has $2$ parts but $\\lambda'=(2,1,1)$ has $3$."
+        },
+        {
+          "type": "mcq",
+          "q": "Is the filling $\\begin{smallmatrix}1 & 1 & 2\\\\ 2 & 3\\end{smallmatrix}$ of shape $(3,2)$ a valid semistandard Young tableau (entries from $\\{1,2,3\\}$)?",
+          "choices": [
+            "Yes: rows weakly increase and columns strictly increase",
+            "No: the first row $1,1,2$ is not strictly increasing",
+            "No: column $1$ has $1$ then $2$, which is not allowed",
+            "No: the entry $3$ may not appear in a $3$-cell row"
+          ],
+          "answer": 0,
+          "explain": "Row $1$ is $1,1,2$ (weakly increasing, repeats allowed — fine for SSYT) and row $2$ is $2,3$. Column $1$ is $1 < 2$ and column $2$ is $1 < 3$, both strictly increasing. So it is a valid SSYT. (It would <em>not</em> be standard, since entries repeat and are not the distinct values $1\\ldots5$.)"
+        }
+      ]
+    },
+    "ac-hook-length": {
+      "title": "The hook length formula",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "For $\\lambda = (2,2)$ the cell hook lengths are $3, 2, 2, 1$. The hook length formula gives the number of standard Young tableaux as $f^\\lambda = n! / \\prod \\text{hook}(c)$. Compute $f^{(2,2)}$.",
+          "answer": 2,
+          "tol": 0,
+          "explain": "Here $n = 4$, so $f^{(2,2)} = 4! / (3\\cdot 2\\cdot 2\\cdot 1) = 24/12 = 2$. The two standard tableaux fill $(2,2)$ as $\\begin{smallmatrix}1&2\\\\3&4\\end{smallmatrix}$ and $\\begin{smallmatrix}1&3\\\\2&4\\end{smallmatrix}$."
+        },
+        {
+          "type": "numeric",
+          "q": "For $\\lambda = (3,1)$ the hook lengths are $4, 2, 1, 1$. How many standard Young tableaux does it have?",
+          "answer": 3,
+          "tol": 0,
+          "explain": "$n = 4$ and $\\prod \\text{hook} = 4\\cdot 2\\cdot 1\\cdot 1 = 8$, so $f^{(3,1)} = 24/8 = 3$. (The corner cell of the first row has hook $4 = $ arm $2$ + leg $1$ + the cell itself.)"
+        },
+        {
+          "type": "mcq",
+          "q": "The hook length of a cell $c$ in a Young diagram is defined as:",
+          "choices": [
+            "the number of cells directly below $c$",
+            "the number of cells in the same row plus the same column",
+            "$\\text{arm}(c) + \\text{leg}(c) + 1$: cells strictly to the right, plus cells strictly below, plus $c$ itself",
+            "the row index plus the column index of $c$"
+          ],
+          "answer": 2,
+          "explain": "The hook of $c$ consists of $c$, the cells to its right in the same row (the arm), and the cells below it in the same column (the leg). So $\\text{hook}(c) = \\text{arm}(c) + \\text{leg}(c) + 1$. The product of all hook lengths divides $n!$ to give $f^\\lambda$."
+        }
+      ]
+    },
+    "ac-symmetric-functions": {
+      "title": "Symmetric functions",
+      "questions": [
+        {
+          "type": "multi-select",
+          "q": "Which of the following are bases of the ring $\\Lambda$ of symmetric functions, each indexed by partitions?",
+          "choices": [
+            "the monomial symmetric functions $m_\\lambda$",
+            "the elementary symmetric functions $e_\\lambda$",
+            "the complete homogeneous symmetric functions $h_\\lambda$",
+            "the power-sum symmetric functions $p_\\lambda$"
+          ],
+          "answer": [0, 1, 2, 3],
+          "explain": "All four families $\\{m_\\lambda\\}, \\{e_\\lambda\\}, \\{h_\\lambda\\}, \\{p_\\lambda\\}$ are bases of $\\Lambda$ (the power sums require coefficients in $\\mathbb{Q}$, but still span). The Schur functions $s_\\lambda$ are a fifth, distinguished basis."
+        },
+        {
+          "type": "mcq",
+          "q": "In two variables $x_1, x_2$, the elementary symmetric function $e_2$ and the complete homogeneous $h_2$ are:",
+          "choices": [
+            "$e_2 = x_1 x_2$ and $h_2 = x_1^2 + x_1 x_2 + x_2^2$",
+            "$e_2 = x_1^2 + x_2^2$ and $h_2 = x_1 x_2$",
+            "$e_2 = h_2 = x_1 x_2$",
+            "$e_2 = x_1 + x_2$ and $h_2 = x_1^2 + x_2^2$"
+          ],
+          "answer": 0,
+          "explain": "$e_2$ sums over strictly increasing index pairs: $e_2 = x_1 x_2$. The complete $h_2$ sums all degree-$2$ monomials: $h_2 = x_1^2 + x_1 x_2 + x_2^2$. In general $e_k$ uses distinct factors while $h_k$ allows repeats."
+        },
+        {
+          "type": "mcq",
+          "q": "Newton's identities relate the power sums $p_k$ to the elementary symmetric functions. The first one reads:",
+          "choices": [
+            "$p_1 = e_1$",
+            "$p_1 = 2 e_1$",
+            "$p_1 = e_1^2$",
+            "$p_1 = e_2$"
+          ],
+          "answer": 0,
+          "explain": "Both $p_1 = \\sum_i x_i$ and $e_1 = \\sum_i x_i$ are the sum of the variables, so $p_1 = e_1$. The next identity is $p_2 = e_1 p_1 - 2 e_2$; Newton's identities recursively express every $p_k$ in the $e$'s (and vice versa)."
+        }
+      ]
+    },
+    "ac-schur": {
+      "title": "Schur functions",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The Schur function $s_\\lambda$ is defined combinatorially as:",
+          "choices": [
+            "$\\sum_T x^{\\text{content}(T)}$ summed over all semistandard Young tableaux $T$ of shape $\\lambda$",
+            "the product of the hook lengths of $\\lambda$",
+            "$\\sum_T x^{\\text{content}(T)}$ summed over all <em>standard</em> tableaux of shape $\\lambda$",
+            "the number of partitions of $|\\lambda|$"
+          ],
+          "answer": 0,
+          "explain": "$s_\\lambda = \\sum_T x^{\\text{content}(T)}$ over SSYT $T$ of shape $\\lambda$, where $\\text{content}(T)$ records how many times each value appears. The coefficient of the monomial $x^\\mu$ is the Kostka number $K_{\\lambda\\mu}$, the number of SSYT of shape $\\lambda$ and content $\\mu$."
+        },
+        {
+          "type": "numeric",
+          "q": "How many semistandard Young tableaux of shape $\\lambda = (2,1)$ have entries drawn from $\\{1,2,3\\}$? (Equivalently, $s_{(2,1)}(1,1,1)$ — the total number of monomials counted with multiplicity in $s_{(2,1)}(x_1,x_2,x_3)$.)",
+          "answer": 8,
+          "tol": 0,
+          "explain": "There are $8$ such SSYT. As monomials, $s_{(2,1)}(x_1,x_2,x_3) = x_1^2 x_2 + x_1^2 x_3 + x_1 x_2^2 + x_1 x_3^2 + x_2^2 x_3 + x_2 x_3^2 + 2\\,x_1 x_2 x_3$. The coefficient $2$ on $x_1 x_2 x_3$ is the Kostka number $K_{(2,1),(1,1,1)} = 2$, and the total count is $6 + 2 = 8$."
+        },
+        {
+          "type": "mcq",
+          "q": "The Jacobi-Trudi formula expresses a Schur function as a determinant. For $\\lambda = (2,1)$ it gives:",
+          "choices": [
+            "$s_{(2,1)} = \\det\\begin{pmatrix} h_2 & h_3\\\\ h_0 & h_1\\end{pmatrix} = h_2 h_1 - h_3$",
+            "$s_{(2,1)} = h_2 + h_1$",
+            "$s_{(2,1)} = h_2 \\cdot h_1$",
+            "$s_{(2,1)} = \\det\\begin{pmatrix} h_1 & h_2\\\\ h_0 & h_1\\end{pmatrix}$"
+          ],
+          "answer": 0,
+          "explain": "Jacobi-Trudi: $s_\\lambda = \\det(h_{\\lambda_i - i + j})$. For $\\lambda = (2,1)$ the $2\\times 2$ matrix has entries $h_{\\lambda_i - i + j}$, giving $\\begin{pmatrix}h_2 & h_3\\\\ h_0 & h_1\\end{pmatrix}$ and $s_{(2,1)} = h_2 h_1 - h_3$ (using $h_0 = 1$). Checking at $x_1=x_2=x_3=1$: $h_1=3, h_2=6, h_3=10$, so $6\\cdot 3 - 10 = 8$, matching the SSYT count."
+        }
+      ]
+    },
+    "ac-rsk": {
+      "title": "The RSK correspondence",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The Robinson-Schensted-Knuth correspondence is a bijection between permutations of $\\{1,\\ldots,n\\}$ and:",
+          "choices": [
+            "pairs $(P, Q)$ of standard Young tableaux of the <em>same</em> shape $\\lambda \\vdash n$",
+            "single standard tableaux with $n$ cells",
+            "partitions of $n$",
+            "pairs of standard tableaux of arbitrary (possibly different) shapes"
+          ],
+          "answer": 0,
+          "explain": "RSK bijects each permutation with an ordered pair $(P, Q)$ of standard Young tableaux of the <em>same</em> shape $\\lambda \\vdash n$ ($P$ is the insertion tableau, $Q$ the recording tableau). Counting both sides gives $\\sum_{\\lambda \\vdash n} (f^\\lambda)^2 = n!$."
+        },
+        {
+          "type": "numeric",
+          "q": "Summing over all partitions $\\lambda$ of $n$, the RSK bijection proves $\\sum_{\\lambda \\vdash n} (f^\\lambda)^2 = \\,?$, where $f^\\lambda$ is the number of standard Young tableaux of shape $\\lambda$. Enter the value for $n = 4$.",
+          "answer": 24,
+          "tol": 0,
+          "explain": "RSK gives $\\sum_{\\lambda \\vdash n}(f^\\lambda)^2 = n!$. For $n = 4$ the dimensions are $f^{(4)}=1, f^{(3,1)}=3, f^{(2,2)}=2, f^{(2,1,1)}=3, f^{(1^4)}=1$, and $1^2 + 3^2 + 2^2 + 3^2 + 1^2 = 1+9+4+9+1 = 24 = 4!$."
+        },
+        {
+          "type": "mcq",
+          "q": "Applying Schensted row insertion (RSK) to the permutation $3\\,1\\,4\\,2$ yields a pair $(P, Q)$. What is the common shape of $P$ and $Q$?",
+          "choices": [
+            "$(2,2)$",
+            "$(4)$",
+            "$(3,1)$",
+            "$(1,1,1,1)$"
+          ],
+          "answer": 0,
+          "explain": "Row-inserting $3,1,4,2$ in turn: $3$; then $1$ bumps $3$ to a new row; then $4$ joins the first row; then $2$ bumps $4$ down. The insertion tableau is $P = \\begin{smallmatrix}1&2\\\\3&4\\end{smallmatrix}$ with recording $Q = \\begin{smallmatrix}1&3\\\\2&4\\end{smallmatrix}$, both of shape $(2,2)$. The first row length $2$ equals the longest increasing subsequence (e.g. $3,4$ or $1,2$)."
+        }
+      ]
+    },
+    "ac-representation": {
+      "title": "Representation-theoretic meaning",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The irreducible representations of the symmetric group $S_n$ over $\\mathbb{C}$ are indexed by:",
+          "choices": [
+            "partitions $\\lambda \\vdash n$, with $\\dim = f^\\lambda$ the number of standard Young tableaux of shape $\\lambda$",
+            "the integers $1, 2, \\ldots, n$",
+            "conjugacy classes only, with no dimension formula",
+            "permutations of $\\{1,\\ldots,n\\}$"
+          ],
+          "answer": 0,
+          "explain": "The irreducible $S_n$-modules (Specht modules) are indexed by partitions $\\lambda \\vdash n$, and $\\dim S^\\lambda = f^\\lambda$, the number of standard Young tableaux of shape $\\lambda$. Summing $\\sum_\\lambda (\\dim)^2 = \\sum_\\lambda (f^\\lambda)^2 = n! = |S_n|$ recovers the general class-equation identity."
+        },
+        {
+          "type": "numeric",
+          "q": "Using $\\dim S^\\lambda = f^\\lambda$ and $\\lambda = (2,1) \\vdash 3$ (hook lengths $3,1,1$), what is the dimension of the corresponding irreducible representation of $S_3$?",
+          "answer": 2,
+          "tol": 0,
+          "explain": "$f^{(2,1)} = 3! / (3\\cdot 1\\cdot 1) = 6/3 = 2$. This is the $2$-dimensional standard representation of $S_3$. The three irreducibles of $S_3$ have dimensions $1$ (trivial, $\\lambda=(3)$), $2$ (standard, $\\lambda=(2,1)$), and $1$ (sign, $\\lambda=(1,1,1)$), with $1^2 + 2^2 + 1^2 = 6 = 3!$."
+        },
+        {
+          "type": "mcq",
+          "q": "The Littlewood-Richardson coefficients $c^\\lambda_{\\mu\\nu}$ appear in the Schur-function product $s_\\mu s_\\nu = \\sum_\\lambda c^\\lambda_{\\mu\\nu}\\, s_\\lambda$. What else do they compute?",
+          "choices": [
+            "the multiplicities in inducing/restricting $S_n$ representations along $S_{|\\mu|}\\times S_{|\\nu|}$, and tensor-product multiplicities of $GL$ irreducibles",
+            "the hook lengths of $\\lambda$",
+            "the number of partitions of $n$",
+            "nothing further — they are specific to symmetric functions"
+          ],
+          "answer": 0,
+          "explain": "By the characteristic map (Schur functions are the characters of $GL_n$ irreducibles, Schur-Weyl duality), $c^\\lambda_{\\mu\\nu}$ simultaneously counts: the Schur-product multiplicity, the tensor-product multiplicity of $GL_n$ irreducibles, and the multiplicity of $S^\\lambda$ in the induction $\\mathrm{Ind}_{S_{|\\mu|}\\times S_{|\\nu|}}^{S_n}(S^\\mu \\boxtimes S^\\nu)$. They are counted by Littlewood-Richardson skew tableaux."
+        }
+      ]
+    }
+  }
+}

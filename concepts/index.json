@@ -32,6 +32,7 @@
     "markov-decision-processes",
     "ramsey-theory",
     "order-theory-and-lattices",
+    "algebraic-combinatorics",
 
     "game-theory",
 
@@ -316,6 +317,7 @@
     "graph-theory-fundamentals": "prereq",
     "ramsey-theory": "standard",
     "order-theory-and-lattices": "standard",
+    "algebraic-combinatorics": "standard",
     "spectral-graph-theory": "standard",
     "matroid-theory": "standard",
     "probabilistic-method": "standard",
