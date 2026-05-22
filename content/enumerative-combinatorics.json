@@ -134,7 +134,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./enumerative-combinatorics.html#partitions\">Enumerative combinatorics</a> · Integer partitions and Euler's product</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./enumerative-combinatorics.html#partitions\">Enumerative combinatorics</a> · Integer partitions and Euler's product</div>\n    <div><a href=\"./polytopes-and-ehrhart.html#series\">Polytopes and Ehrhart theory</a> · The Ehrhart series &amp; h*-vector</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

@@ -275,6 +275,10 @@
         },
         {
           "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./polytopes-and-ehrhart.html#euler\">Polytopes and Ehrhart theory</a> · Faces &amp; the Euler relation</div>\n</aside>\n<!-- backlinks-auto-end -->"
+        },
+        {
+          "type": "raw",
           "html": "\n</section>\n\n"
         }
       ]

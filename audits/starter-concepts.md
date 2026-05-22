@@ -20,9 +20,9 @@ reach into upstream foundations or stay within their own cluster.
 | Number theory | 128 | 180 | 57 | 40 | 0.445 |
 | Modular forms & L-functions | 121 | 181 | 65 | 24 | 0.537 |
 | Algebraic geometry | 213 | 328 | 76 | 35 | 0.357 |
-| Combinatorics & graph theory | 82 | 83 | 30 | 5 | 0.366 |
+| Combinatorics & graph theory | 88 | 90 | 31 | 5 | 0.352 |
 | Mathematical physics | 69 | 75 | 40 | 4 | 0.580 |
-| Control theory & optimization | 52 | 53 | 22 | 2 | 0.423 |
+| Control theory & optimization | 52 | 53 | 22 | 3 | 0.423 |
 | Learning theory & data science | 18 | 18 | 12 | 1 | 0.667 |
 
 ## EMPTY — concepts with no prereqs (5)

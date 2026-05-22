@@ -28,6 +28,7 @@ window.__MVConcepts = {
       "ramsey-theory",
       "order-theory-and-lattices",
       "algebraic-combinatorics",
+      "polytopes-and-ehrhart",
       "game-theory",
       "kernel-methods-and-rkhs",
       "reinforcement-learning",
@@ -309,6 +310,7 @@ window.__MVConcepts = {
       "ramsey-theory": "standard",
       "order-theory-and-lattices": "standard",
       "algebraic-combinatorics": "standard",
+      "polytopes-and-ehrhart": "standard",
       "spectral-graph-theory": "standard",
       "matroid-theory": "standard",
       "probabilistic-method": "standard",
@@ -2649,6 +2651,69 @@ window.__MVConcepts = {
             "induction-and-young"
           ],
           "blurb": "The irreducible representations of the symmetric group S_n are indexed by partitions of n, with dimension equal to the number of standard tableaux; Schur functions are the characters of the GL_n irreducibles (Schur-Weyl duality), and the Littlewood-Richardson coefficients compute both Schur products and induction/restriction."
+        }
+      ]
+    },
+    "polytopes-and-ehrhart": {
+      "topic": "polytopes-and-ehrhart",
+      "title": "Polytopes and Ehrhart theory",
+      "page": "polytopes-and-ehrhart.html",
+      "concepts": [
+        {
+          "id": "pe-polytopes",
+          "title": "Convex polytopes: V- and H-representations",
+          "anchor": "polytopes",
+          "prereqs": [
+            "polyhedral"
+          ],
+          "blurb": "A convex polytope is at once the convex hull of finitely many vertices (V-representation) and a bounded intersection of half-spaces (H-representation); the Minkowski–Weyl theorem says these two descriptions coincide, and the faces of a polytope organize into the face lattice."
+        },
+        {
+          "id": "pe-faces-euler",
+          "title": "Faces & the Euler relation",
+          "anchor": "euler",
+          "prereqs": [
+            "pe-polytopes",
+            "gtf-planarity"
+          ],
+          "blurb": "The f-vector records how many faces a polytope has in each dimension, and the Euler–Poincaré relation Σ(−1)ⁱ fᵢ = 1−(−1)ᵈ ties these counts together — specializing to V−E+F = 2 for 3-dimensional polytopes."
+        },
+        {
+          "id": "pe-pick",
+          "title": "Pick's theorem",
+          "anchor": "pick",
+          "prereqs": [
+            "pe-polytopes"
+          ],
+          "blurb": "For a lattice polygon, Pick's theorem computes the area as I + B/2 − 1 from the interior and boundary lattice-point counts — a self-contained two-dimensional miracle that turns out to be the d = 2 case of Ehrhart theory."
+        },
+        {
+          "id": "pe-ehrhart",
+          "title": "The Ehrhart polynomial",
+          "anchor": "ehrhart",
+          "prereqs": [
+            "pe-pick"
+          ],
+          "blurb": "For a lattice d-polytope P, the lattice-point count L_P(t) = #(tP ∩ ℤᵈ) of the t-fold dilate is a degree-d polynomial in t, with leading coefficient the volume of P and constant term 1."
+        },
+        {
+          "id": "pe-reciprocity",
+          "title": "Ehrhart–Macdonald reciprocity",
+          "anchor": "reciprocity",
+          "prereqs": [
+            "pe-ehrhart"
+          ],
+          "blurb": "Evaluating the Ehrhart polynomial at negative integers counts interior lattice points: (−1)ᵈ L_P(−t) = L_{P°}(t), Macdonald's reciprocity law relating the closed polytope to its interior."
+        },
+        {
+          "id": "pe-ehrhart-series",
+          "title": "The Ehrhart series & h*-vector",
+          "anchor": "series",
+          "prereqs": [
+            "pe-ehrhart",
+            "ec-recurrences-and-gen-fun"
+          ],
+          "blurb": "Packaging the Ehrhart polynomial into a generating function gives Σ L_P(t) zᵗ = h*(z)/(1−z)^{d+1}; Stanley's nonnegativity theorem makes the h*-vector a sequence of nonnegative integers summing to the normalized volume d!·vol(P)."
         }
       ]
     },
@@ -20506,6 +20571,7 @@ window.__MVConcepts = {
           "ramsey-theory",
           "order-theory-and-lattices",
           "algebraic-combinatorics",
+          "polytopes-and-ehrhart",
           "spectral-graph-theory",
           "matroid-theory",
           "probabilistic-method",
@@ -20750,6 +20816,7 @@ window.__MVConcepts = {
     "ramsey-theory": "standard",
     "order-theory-and-lattices": "standard",
     "algebraic-combinatorics": "standard",
+    "polytopes-and-ehrhart": "standard",
     "spectral-graph-theory": "standard",
     "matroid-theory": "standard",
     "probabilistic-method": "standard",
@@ -20951,11 +21018,11 @@ window.__MVConcepts = {
       "density": 0.3568075117370892
     },
     "Combinatorics & graph theory": {
-      "concepts": 82,
-      "intra": 83,
-      "crossOut": 30,
+      "concepts": 88,
+      "intra": 90,
+      "crossOut": 31,
       "crossIn": 5,
-      "density": 0.36585365853658536
+      "density": 0.3522727272727273
     },
     "Mathematical physics": {
       "concepts": 69,
@@ -20968,7 +21035,7 @@ window.__MVConcepts = {
       "concepts": 52,
       "intra": 53,
       "crossOut": 22,
-      "crossIn": 2,
+      "crossIn": 3,
       "density": 0.4230769230769231
     },
     "Learning theory & data science": {

@@ -245,7 +245,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./combinatorial-optimization.html#approximation\">Combinatorial optimization</a> · LP rounding and approximation algorithms</div>\n    <div><a href=\"./convex-geometry.html#polytopes\">Convex geometry</a> · Polytopes &amp; the f-vector</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./combinatorial-optimization.html#approximation\">Combinatorial optimization</a> · LP rounding and approximation algorithms</div>\n    <div><a href=\"./convex-geometry.html#polytopes\">Convex geometry</a> · Polytopes &amp; the f-vector</div>\n    <div><a href=\"./polytopes-and-ehrhart.html#polytopes\">Polytopes and Ehrhart theory</a> · Convex polytopes: V- and H-representations</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

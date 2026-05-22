@@ -2,12 +2,12 @@
 
 ## Corpus totals
 
-- Topics: **201**, concepts: **1386**
-- Widgets: **1415** (registry-driven: 1415, inline: 0)
-- Quizzes: **5350** (v1: 4114, hard: 1223, expert: 13)
-- Quiz types: mcq: 3512, numeric: 1272, multi-select: 269, matching: 107, ordering: 83, spot-the-error: 53, complex: 29, proof-completion: 21, construction: 2, guess-my-rule: 2
+- Topics: **202**, concepts: **1392**
+- Widgets: **1421** (registry-driven: 1421, inline: 0)
+- Quizzes: **5368** (v1: 4132, hard: 1223, expert: 13)
+- Quiz types: mcq: 3523, numeric: 1279, multi-select: 269, matching: 107, ordering: 83, spot-the-error: 53, complex: 29, proof-completion: 21, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their section: **150**
-- Concepts lacking a hard-tier quiz: **948**
+- Concepts lacking a hard-tier quiz: **954**
 
 ## Per-slug registry adoption
 
@@ -20,7 +20,7 @@ page has wired one in yet.
 |---|---|---|---|---:|---|
 | `button-stepper` | button-stepper | click | 2d | 343 | L-functions, additive-number-theory, adeles-and-ideles, algebra, algebraic-number-theory, algebraic-topology, analytic-continuation, bezout, bsd, category-theory, class-field-theory, complex-analysis, differential-geometry, dirichlet-series-euler-products, dynamical-systems, etale-cohomology, frobenius-and-reciprocity, functional-analysis, functor-of-points, galois, galois-representations, hecke-operators, homological, lie-groups, measure-theory, modular-forms, modularity-and-flt, moduli-spaces, moonshine, morphisms-fiber-products, naive-set-theory, operator-algebras, p-adic-numbers, partitions-generating-functions, point-set-topology, probability-theory, projective-plane, quadratic-forms-genus-theory, quadratic-reciprocity, representation-theory, riemann-surfaces, riemannian-geometry, sato-tate, schemes, sheaf-cohomology, sheaves, singular-cubics-reduction, smooth-manifolds, stacks, theta-functions, upper-half-plane-hyperbolic, zeta-values |
 | `clickable-diagram` | clickable-diagram | click | 2d | 79 | algebra, algebraic-number-theory, algebraic-topology, bezout, category-theory, fixed-point-theorems, frobenius-and-reciprocity, functional-analysis, functor-of-points, galois, homological, measure-theory, morphisms-fiber-products, naive-set-theory, operator-algebras, quadratic-reciprocity, real-analysis, riemannian-geometry, schemes, sheaves, stacks, wavelets |
-| `parametric-plot` | parametric-plot | slider | 2d | 71 | algebraic-combinatorics, analytic-continuation, analytic-number-theory, expanders, game-theory, graph-theory-fundamentals, kernel-methods-and-rkhs, markov-decision-processes, order-theory-and-lattices, probabilistic-graphical-models, ramsey-theory, reinforcement-learning, statistical-learning-theory |
+| `parametric-plot` | parametric-plot | slider | 2d | 77 | algebraic-combinatorics, analytic-continuation, analytic-number-theory, expanders, game-theory, graph-theory-fundamentals, kernel-methods-and-rkhs, markov-decision-processes, order-theory-and-lattices, polytopes-and-ehrhart, probabilistic-graphical-models, ramsey-theory, reinforcement-learning, statistical-learning-theory |
 | `slider-svg-2d` | slider-readout | slider | 2d | 20 | kahler-geometry, spectral-methods-data, spectral-theory |
 | `schrodinger-figure` | schrodinger-figure | slider | 2d | 7 | schrodinger-equation |
 | `clickable-graph` | clickable-graph | click | 2d | 6 | adeles-and-ideles, riemannian-geometry, schemes, sheaves |
@@ -973,13 +973,13 @@ page has wired one in yet.
 
 ### Combinatorics & graph theory
 
-- Topics: **13**, concepts: **82**
-- Widgets: **82** (registry-driven: 82, inline: 0)
-  - by family: parametric-plot: 28, verbatim: 7, designs-bibd-calculator: 1, designs-fisher-incidence: 1, designs-fano-plane: 1, designs-mols-construction: 1, designs-hamming-fano: 1, designs-round-robin: 1, expanders-vertex-expansion: 1, expanders-zigzag-product: 1, spectral-graph-theory-adjacency: 1, spectral-graph-theory-components: 1, spectral-graph-theory-fiedler: 1, spectral-graph-theory-cheeger: 1, spectral-graph-theory-random-walk: 1, spectral-graph-theory-bipartite: 1, spectral-graph-theory-clustering: 1, matroid-axiom-checker: 1, matroid-bases-rank-explorer: 1, matroid-graph-forests: 1, matroid-flats-stepper: 1, matroid-dual-explorer: 1, matroid-greedy-vs-nonmatroid: 1, matroid-tutte-polynomial: 1, probabilistic-method-existence: 1, probabilistic-method-ramsey: 1, probabilistic-method-linearity: 1, probabilistic-method-alterations: 1, probabilistic-method-lll: 1, probabilistic-method-threshold: 1, probabilistic-method-concentration: 1, extremal-combinatorics-turan: 1, extremal-combinatorics-kst: 1, extremal-combinatorics-erdos-stone: 1, extremal-combinatorics-ramsey: 1, extremal-combinatorics-sperner: 1, extremal-combinatorics-removal: 1, simplicial-complexes-combinatorial-faces: 1, simplicial-complexes-combinatorial-fh: 1, simplicial-complexes-combinatorial-nerve: 1, simplicial-complexes-combinatorial-shell: 1, simplicial-complexes-combinatorial-sr: 1, simplicial-complexes-combinatorial-persistence: 1, enumerative-combinatorics-pascal: 1, enumerative-combinatorics-venn: 1, enumerative-combinatorics-genfun: 1, enumerative-combinatorics-perm: 1, enumerative-combinatorics-young: 1, enumerative-combinatorics-bijection: 1
-  - by dimension: 2d: 82
-  - by gesture: slider: 43, click: 31, step: 8
-- Quizzes: **246** (v1: 246, hard: 0, expert: 0)
-  - by type: mcq: 167, numeric: 52, multi-select: 23, matching: 2, spot-the-error: 1, ordering: 1
+- Topics: **14**, concepts: **88**
+- Widgets: **88** (registry-driven: 88, inline: 0)
+  - by family: parametric-plot: 34, verbatim: 7, designs-bibd-calculator: 1, designs-fisher-incidence: 1, designs-fano-plane: 1, designs-mols-construction: 1, designs-hamming-fano: 1, designs-round-robin: 1, expanders-vertex-expansion: 1, expanders-zigzag-product: 1, spectral-graph-theory-adjacency: 1, spectral-graph-theory-components: 1, spectral-graph-theory-fiedler: 1, spectral-graph-theory-cheeger: 1, spectral-graph-theory-random-walk: 1, spectral-graph-theory-bipartite: 1, spectral-graph-theory-clustering: 1, matroid-axiom-checker: 1, matroid-bases-rank-explorer: 1, matroid-graph-forests: 1, matroid-flats-stepper: 1, matroid-dual-explorer: 1, matroid-greedy-vs-nonmatroid: 1, matroid-tutte-polynomial: 1, probabilistic-method-existence: 1, probabilistic-method-ramsey: 1, probabilistic-method-linearity: 1, probabilistic-method-alterations: 1, probabilistic-method-lll: 1, probabilistic-method-threshold: 1, probabilistic-method-concentration: 1, extremal-combinatorics-turan: 1, extremal-combinatorics-kst: 1, extremal-combinatorics-erdos-stone: 1, extremal-combinatorics-ramsey: 1, extremal-combinatorics-sperner: 1, extremal-combinatorics-removal: 1, simplicial-complexes-combinatorial-faces: 1, simplicial-complexes-combinatorial-fh: 1, simplicial-complexes-combinatorial-nerve: 1, simplicial-complexes-combinatorial-shell: 1, simplicial-complexes-combinatorial-sr: 1, simplicial-complexes-combinatorial-persistence: 1, enumerative-combinatorics-pascal: 1, enumerative-combinatorics-venn: 1, enumerative-combinatorics-genfun: 1, enumerative-combinatorics-perm: 1, enumerative-combinatorics-young: 1, enumerative-combinatorics-bijection: 1
+  - by dimension: 2d: 88
+  - by gesture: slider: 49, click: 31, step: 8
+- Quizzes: **264** (v1: 264, hard: 0, expert: 0)
+  - by type: mcq: 178, numeric: 59, multi-select: 23, matching: 2, spot-the-error: 1, ordering: 1
 
 ### Mathematical physics
 
@@ -1037,6 +1037,7 @@ page has wired one in yet.
 - `ramsey-theory` (Combinatorics & graph theory) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `order-theory-and-lattices` (Combinatorics & graph theory) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `algebraic-combinatorics` (Combinatorics & graph theory) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
+- `polytopes-and-ehrhart` (Combinatorics & graph theory) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `game-theory` (Control theory & optimization) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `kernel-methods-and-rkhs` (Learning theory & data science) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `reinforcement-learning` (Control theory & optimization) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)

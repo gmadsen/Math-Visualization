@@ -23,7 +23,7 @@ Alongside each handwritten `<topic>.html`, the repo also carries a structured `c
 
 ## Learning pathways
 
-Start from [`pathway.html`](./pathway.html) to explore prerequisite graphs for capstone goals — pick any of the 34 capstones and the DAG layers every prereq concept by depth. For free-form exploration over the entire 1386-concept graph (no goal required), [`mindmap.html`](./mindmap.html) renders a section-clustered force-directed layout: click a node to focus its k-hop neighborhood, filter by section/level/mastery, and a structural-stats panel surfaces uneven prereq density across the thirteen sections. Both views read the same concept graph; pathway is goal-targeted, mindmap is free-explore.
+Start from [`pathway.html`](./pathway.html) to explore prerequisite graphs for capstone goals — pick any of the 34 capstones and the DAG layers every prereq concept by depth. For free-form exploration over the entire 1392-concept graph (no goal required), [`mindmap.html`](./mindmap.html) renders a section-clustered force-directed layout: click a node to focus its k-hop neighborhood, filter by section/level/mastery, and a structural-stats panel surfaces uneven prereq density across the thirteen sections. Both views read the same concept graph; pathway is goal-targeted, mindmap is free-explore.
 
 Each concept carries up to three quiz tiers — v1 (required), hard (unlocked after v1), and expert (unlocked after hard). Mastery is tracked in `localStorage` and lights up downstream concepts `locked → ready → mastered`, Brilliant-style. Topic cards on the index may carry a level badge: `prereq`, `advanced`, or `capstone`.
 
@@ -219,6 +219,7 @@ Each concept carries up to three quiz tiers — v1 (required), hard (unlocked af
 - [Ramsey theory](./ramsey-theory.html) — "complete disorder is impossible": pigeonhole and R(3,3)=6, Ramsey numbers and the recurrence/exponential bounds, infinite Ramsey, and the Van der Waerden / Hales–Jewett theorems on monochromatic arithmetic progressions and combinatorial lines.
 - [Order theory and lattices](./order-theory-and-lattices.html) — posets and Hasse diagrams, lattices with meet/join, Dilworth's and Sperner's theorems on chains and antichains, Möbius functions and inversion (generalizing inclusion–exclusion), and Knaster–Tarski fixed points on complete lattices.
 - [Algebraic combinatorics](./algebraic-combinatorics.html) — integer partitions and Young tableaux, the hook length formula, symmetric functions (monomial/elementary/complete/power-sum) and the Schur basis, the RSK correspondence, and the partition-indexed irreducibles of Sₙ and GLₙ.
+- [Polytopes and Ehrhart theory](./polytopes-and-ehrhart.html) — convex polytopes (V/H-representations, the face lattice, the Euler relation), Pick's theorem, the Ehrhart polynomial counting lattice points in dilates, Ehrhart–Macdonald reciprocity, and the h\*-vector / Ehrhart series.
 
 ### Mathematical physics
 - [Schrödinger equation](./schrodinger-equation.html) — wave functions, eigenstates, harmonic oscillator, hydrogen atom, scattering

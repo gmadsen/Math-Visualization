@@ -1,0 +1,216 @@
+{
+  "topic": "polytopes-and-ehrhart",
+  "quizzes": {
+    "pe-polytopes": {
+      "title": "Convex polytopes: V- and H-representations",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The Minkowski–Weyl theorem states that for a bounded set in $\\mathbb{R}^d$, the following two descriptions coincide:",
+          "choices": [
+            "the convex hull of finitely many points (V-representation) and a bounded intersection of finitely many half-spaces (H-representation)",
+            "the convex hull of finitely many points and the linear span of those points",
+            "a bounded intersection of half-spaces and an unbounded polyhedral cone",
+            "the set of vertices and the set of edges of a graph"
+          ],
+          "answer": 0,
+          "explain": "Minkowski–Weyl: every polytope is both $\\mathrm{conv}(v_1,\\ldots,v_n)$ for finitely many vertices (the V-representation) and a bounded intersection $\\{x : Ax \\le b\\}$ of finitely many half-spaces (the H-representation). Boundedness is essential — an unbounded intersection of half-spaces is a polyhedron, not a polytope."
+        },
+        {
+          "type": "mcq",
+          "q": "A <em>face</em> of a convex polytope $P$ is:",
+          "choices": [
+            "any subset of $P$ that is convex",
+            "the intersection of $P$ with a supporting hyperplane (together with $\\varnothing$ and $P$ itself)",
+            "any of the half-spaces appearing in the H-representation",
+            "the convex hull of any two vertices"
+          ],
+          "answer": 1,
+          "explain": "A face is $P \\cap H$ where $H$ is a supporting hyperplane (one with $P$ entirely on one side), plus the improper faces $\\varnothing$ and $P$. Vertices, edges, and facets are the faces of dimension $0$, $1$, and $d-1$. The faces ordered by inclusion form the face lattice."
+        },
+        {
+          "type": "numeric",
+          "q": "A square in the plane has $4$ vertices and $4$ edges. Including the empty face $\\varnothing$ and the whole square $P$ as improper faces, how many faces does its face lattice contain in total?",
+          "answer": 10,
+          "tol": 0,
+          "explain": "The face lattice of a square has $1$ empty face, $4$ vertices, $4$ edges, and $1$ top face (the square itself): $1 + 4 + 4 + 1 = 10$. This is the bounded lattice $\\hat 0 < \\text{vertices} < \\text{edges} < \\hat 1$ ordered by inclusion."
+        }
+      ]
+    },
+    "pe-faces-euler": {
+      "title": "Faces & the Euler relation",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "A cube has $V = 8$ vertices, $E = 12$ edges, and $F = 6$ faces. Compute $V - E + F$.",
+          "answer": 2,
+          "tol": 0,
+          "explain": "$V - E + F = 8 - 12 + 6 = 2$, the Euler relation for a $3$-dimensional polytope. This is the case $d = 3$ of the Euler–Poincaré relation $\\sum_{i=0}^{d-1}(-1)^i f_i = 1 - (-1)^d = 2$, since $f_0 - f_1 + f_2 = 2$."
+        },
+        {
+          "type": "mcq",
+          "q": "The Euler–Poincaré relation for a $d$-dimensional polytope reads $\\sum_{i=0}^{d-1}(-1)^i f_i = 1 - (-1)^d$, where $f_i$ counts the $i$-dimensional faces. For an octahedron ($V=6$, $E=12$, $F=8$), which is true?",
+          "choices": [
+            "$V - E + F = 6 - 12 + 8 = 2$, as the relation requires for $d = 3$",
+            "$V - E + F = 0$ because the octahedron is self-dual",
+            "$V + E + F = 26$ is the relevant invariant",
+            "the relation fails for the octahedron because it is not simplicial"
+          ],
+          "answer": 0,
+          "explain": "$V - E + F = 6 - 12 + 8 = 2$. The Euler relation $f_0 - f_1 + f_2 = 2$ holds for every $3$-polytope regardless of duality or whether it is simplicial; the octahedron is in fact simplicial (all faces are triangles), but that is not needed here."
+        },
+        {
+          "type": "mcq",
+          "q": "The <em>f-vector</em> of a $3$-dimensional polytope is the tuple:",
+          "choices": [
+            "$(f_0, f_1, f_2) = (\\text{# vertices}, \\text{# edges}, \\text{# 2-faces})$",
+            "$(\\text{volume}, \\text{surface area}, \\text{diameter})$",
+            "the list of vertex coordinates",
+            "the coefficients of the Ehrhart polynomial"
+          ],
+          "answer": 0,
+          "explain": "The f-vector $(f_0, f_1, \\ldots, f_{d-1})$ records the number of faces in each dimension. For a $3$-polytope it is $(f_0, f_1, f_2) = (V, E, F)$, and the Euler relation $f_0 - f_1 + f_2 = 2$ is the single linear relation these counts always satisfy. (Simplicial polytopes satisfy the further Dehn–Sommerville equations.)"
+        }
+      ]
+    },
+    "pe-pick": {
+      "title": "Pick's theorem",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Pick's theorem expresses the area of a lattice polygon in terms of its interior lattice points $I$ and boundary lattice points $B$ as:",
+          "choices": [
+            "$\\mathrm{Area} = I + B/2 - 1$",
+            "$\\mathrm{Area} = I + B - 1$",
+            "$\\mathrm{Area} = I/2 + B - 1$",
+            "$\\mathrm{Area} = I + B/2 + 1$"
+          ],
+          "answer": 0,
+          "explain": "Pick's theorem: a polygon with all vertices at lattice points has $\\mathrm{Area} = I + B/2 - 1$, where $I$ is the number of interior lattice points and $B$ the number of boundary lattice points. It is the $d = 2$ instance of Ehrhart theory."
+        },
+        {
+          "type": "numeric",
+          "q": "Consider the lattice triangle with vertices $(0,0)$, $(2,0)$, $(0,2)$. It has $I = 0$ interior lattice points and $B = 6$ boundary lattice points (the $3$ vertices plus the edge midpoints $(1,0)$, $(0,1)$, $(1,1)$). Use Pick's theorem to compute its area.",
+          "answer": 2,
+          "tol": 0,
+          "explain": "Pick: $\\mathrm{Area} = I + B/2 - 1 = 0 + 6/2 - 1 = 0 + 3 - 1 = 2$. The shoelace formula confirms this: $\\tfrac12|2\\cdot 2 - 0| = 2$. The $6$ boundary points are the $3$ vertices and the $3$ edge midpoints, and no lattice point lies strictly inside, so $I = 0$."
+        },
+        {
+          "type": "numeric",
+          "q": "A lattice polygon has $I = 4$ interior lattice points and $B = 8$ boundary lattice points. What is its area, by Pick's theorem?",
+          "answer": 7,
+          "tol": 0,
+          "explain": "$\\mathrm{Area} = I + B/2 - 1 = 4 + 8/2 - 1 = 4 + 4 - 1 = 7$."
+        }
+      ]
+    },
+    "pe-ehrhart": {
+      "title": "The Ehrhart polynomial",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "For a lattice $d$-polytope $P$, the Ehrhart function $L_P(t) = \\#(tP \\cap \\mathbb{Z}^d)$ counting lattice points in the $t$-fold dilate is:",
+          "choices": [
+            "a polynomial in $t$ of degree $d$, with leading coefficient $\\mathrm{vol}(P)$ and constant term $L_P(0) = 1$",
+            "an exponential function of $t$",
+            "always equal to the volume of $tP$",
+            "a polynomial of degree $d+1$ with constant term $0$"
+          ],
+          "answer": 0,
+          "explain": "Ehrhart's theorem: $L_P(t)$ agrees with a polynomial of degree $d = \\dim P$ for all integers $t \\ge 0$. Its leading coefficient is $\\mathrm{vol}(P)$ (lattice point counts approximate volume as $t \\to \\infty$), and $L_P(0) = 1$ (the dilate $0\\cdot P$ is a single point)."
+        },
+        {
+          "type": "mcq",
+          "q": "The unit square $[0,1]^2$ has Ehrhart polynomial:",
+          "choices": [
+            "$L(t) = (t+1)^2 = t^2 + 2t + 1$",
+            "$L(t) = t^2$",
+            "$L(t) = (t+1)(t+2)/2$",
+            "$L(t) = 4t$"
+          ],
+          "answer": 0,
+          "explain": "The dilate $t[0,1]^2 = [0,t]^2$ contains the lattice points $\\{0,1,\\ldots,t\\}^2$, which is $(t+1)^2$ points. So $L(t) = (t+1)^2 = t^2 + 2t + 1$: leading coefficient $1 = \\mathrm{vol}$ of the square, and $L(0) = 1$. The middle coefficient $2$ is half the boundary lattice-area $4$."
+        },
+        {
+          "type": "numeric",
+          "q": "The standard triangle $\\mathrm{conv}\\{(0,0),(1,0),(0,1)\\}$ has Ehrhart polynomial $L(t) = (t+1)(t+2)/2$. Its leading coefficient equals its area. What is that area (the leading coefficient of $L$)?",
+          "answer": 0.5,
+          "tol": 0.001,
+          "explain": "$L(t) = (t+1)(t+2)/2 = \\tfrac12 t^2 + \\tfrac32 t + 1$, so the leading coefficient is $\\tfrac12$, equal to $\\mathrm{vol}(P) = \\tfrac12$ (the area of the standard triangle). The constant term is $L(0) = 1$, as Ehrhart's theorem requires."
+        }
+      ]
+    },
+    "pe-reciprocity": {
+      "title": "Ehrhart–Macdonald reciprocity",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Ehrhart–Macdonald reciprocity relates the Ehrhart polynomial $L_P$ at negative integers to interior lattice-point counts via:",
+          "choices": [
+            "$(-1)^d L_P(-t) = L_{P^\\circ}(t)$, where $P^\\circ$ is the interior of $P$",
+            "$L_P(-t) = -L_P(t)$",
+            "$L_P(-t) = L_P(t)$ (the polynomial is even)",
+            "$(-1)^d L_P(-t) = \\mathrm{vol}(tP)$"
+          ],
+          "answer": 0,
+          "explain": "Macdonald's reciprocity: for a lattice $d$-polytope, $(-1)^d L_P(-t)$ equals $L_{P^\\circ}(t) = \\#(\\mathrm{int}(tP) \\cap \\mathbb{Z}^d)$, the count of <em>interior</em> lattice points of the dilate. So one polynomial encodes both the closed and the open counts."
+        },
+        {
+          "type": "mcq",
+          "q": "The unit square has $L(t) = (t+1)^2$. By reciprocity ($d = 2$), the number of interior lattice points of $t[0,1]^2$ is $(-1)^2 L(-t) = L(-t)$, which equals:",
+          "choices": [
+            "$(t-1)^2$",
+            "$(t+1)^2$",
+            "$t^2$",
+            "$(t-1)(t-2)/2$"
+          ],
+          "answer": 0,
+          "explain": "$L(-t) = (-t+1)^2 = (t-1)^2$, and $(-1)^2 = 1$, so the interior count is $(t-1)^2$. Directly: the interior lattice points of $[0,t]^2$ are $\\{1,\\ldots,t-1\\}^2$, which is $(t-1)^2$ points. The two agree, confirming reciprocity."
+        },
+        {
+          "type": "numeric",
+          "q": "Using $L(t) = (t+1)^2$ for the unit square and reciprocity, how many lattice points lie strictly inside the dilate $3[0,1]^2 = [0,3]^2$?",
+          "answer": 4,
+          "tol": 0,
+          "explain": "The interior count is $(t-1)^2$; at $t = 3$ this is $(3-1)^2 = 2^2 = 4$. Indeed the strictly-interior lattice points of $[0,3]^2$ are $\\{1,2\\}^2 = \\{(1,1),(1,2),(2,1),(2,2)\\}$, exactly $4$ of them."
+        }
+      ]
+    },
+    "pe-ehrhart-series": {
+      "title": "The Ehrhart series & h*-vector",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The Ehrhart series of a lattice $d$-polytope $P$ is the generating function $\\mathrm{Ehr}_P(z) = \\sum_{t \\ge 0} L_P(t)\\, z^t$. Stanley's theorem writes it as:",
+          "choices": [
+            "$\\dfrac{h^*(z)}{(1-z)^{d+1}}$, where $h^*(z) = h^*_0 + h^*_1 z + \\cdots + h^*_d z^d$ has nonnegative integer coefficients",
+            "$\\dfrac{1}{(1-z)^d}$ with no numerator",
+            "a polynomial of degree $d$ in $z$",
+            "$\\dfrac{\\mathrm{vol}(P)}{1-z}$"
+          ],
+          "answer": 0,
+          "explain": "Since $L_P$ is a degree-$d$ polynomial, its generating function is rational with denominator $(1-z)^{d+1}$: $\\mathrm{Ehr}_P(z) = h^*(z)/(1-z)^{d+1}$. Stanley's nonnegativity theorem says the numerator's coefficients — the h*-vector $(h^*_0,\\ldots,h^*_d)$ — are nonnegative integers."
+        },
+        {
+          "type": "mcq",
+          "q": "The h*-vector $(h^*_0, \\ldots, h^*_d)$ of a lattice $d$-polytope $P$ always satisfies $h^*_0 = 1$ and $\\sum_i h^*_i = $:",
+          "choices": [
+            "$d! \\cdot \\mathrm{vol}(P)$, the normalized volume of $P$",
+            "$\\mathrm{vol}(P)$",
+            "$d + 1$",
+            "$L_P(1)$"
+          ],
+          "answer": 0,
+          "explain": "$h^*_0 = 1$ always (from $L_P(0) = 1$), and $h^*(1) = \\sum_i h^*_i = d!\\cdot\\mathrm{vol}(P)$, the normalized volume — an integer for lattice polytopes. For the standard triangle ($d=2$, $\\mathrm{vol} = \\tfrac12$) this sum is $2!\\cdot\\tfrac12 = 1$, so $h^* = (1,0,0)$."
+        },
+        {
+          "type": "numeric",
+          "q": "The unit square has $L(t) = (t+1)^2$ and $d = 2$, with $h^*$-vector $(1,1,0)$. The sum $\\sum_i h^*_i$ equals the normalized volume $d!\\cdot\\mathrm{vol}(P)$. Compute $d!\\cdot\\mathrm{vol}(P)$ for the unit square.",
+          "answer": 2,
+          "tol": 0,
+          "explain": "The unit square has $\\mathrm{vol} = 1$ and $d = 2$, so the normalized volume is $2!\\cdot 1 = 2$. The h*-vector $(1,1,0)$ sums to $1 + 1 + 0 = 2$, matching. (Its Ehrhart series is $\\sum_t (t+1)^2 z^t = (1+z)/(1-z)^3$.)"
+        }
+      ]
+    }
+  }
+}
