@@ -199,7 +199,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./fixed-point-theorems.html#applications\">Fixed-point theorems</a> · Applications across mathematics</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./fixed-point-theorems.html#applications\">Fixed-point theorems</a> · Applications across mathematics</div>\n    <div><a href=\"./game-theory.html#nash\">Game theory</a> · Nash equilibrium</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

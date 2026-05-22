@@ -288,7 +288,8 @@
         "convex-optimization",
         "mathematical-finance",
         "kalman-filtering-and-state-estimation",
-        "markov-decision-processes"
+        "markov-decision-processes",
+        "game-theory"
       ],
       "color": "p"
     },

@@ -35,7 +35,7 @@
 
 
 
-
+    "game-theory",
 
 
 
@@ -428,6 +428,7 @@
     "computational-molecular-biology": "advanced",
     "kalman-filtering-and-state-estimation": "advanced",
     "statistical-learning-theory": "advanced",
-    "markov-decision-processes": "standard"
+    "markov-decision-processes": "standard",
+    "game-theory": "standard"
   }
 }
