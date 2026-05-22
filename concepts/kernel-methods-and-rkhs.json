@@ -1,0 +1,49 @@
+{
+  "topic": "kernel-methods-and-rkhs",
+  "title": "Kernel methods and RKHS",
+  "page": "kernel-methods-and-rkhs.html",
+  "concepts": [
+    {
+      "id": "km-kernels",
+      "title": "Positive-definite kernels & the kernel trick",
+      "anchor": "kernels",
+      "prereqs": ["slt-erm"],
+      "blurb": "A kernel $k(x,y)$ is positive-definite iff every Gram matrix $[k(x_i,x_j)]$ is PSD. Mercer's theorem makes $k(x,y)=\\langle\\varphi(x),\\varphi(y)\\rangle$ an inner product in a feature space, so any inner-product algorithm runs nonlinearly by swapping in $k$ — the kernel trick."
+    },
+    {
+      "id": "km-rkhs",
+      "title": "Reproducing kernel Hilbert spaces",
+      "anchor": "rkhs",
+      "prereqs": ["km-kernels", "banach-hilbert-spaces", "riesz-representation"],
+      "blurb": "The RKHS $\\mathcal{H}_k$ is the Hilbert space where evaluation $f\\mapsto f(x)$ is bounded; Riesz then gives a representer $k(x,\\cdot)$ with the reproducing property $f(x)=\\langle f,k(x,\\cdot)\\rangle$. Moore–Aronszajn: every PD kernel determines a unique RKHS."
+    },
+    {
+      "id": "km-representer",
+      "title": "The representer theorem",
+      "anchor": "representer",
+      "prereqs": ["km-rkhs"],
+      "blurb": "Minimizing $\\sum_i L(f(x_i),y_i)+\\lambda\\lVert f\\rVert_{\\mathcal{H}}^2$ over an infinite-dimensional RKHS has a solution living in the finite span $\\{k(x_i,\\cdot)\\}$, so $f=\\sum_i\\alpha_i k(x_i,\\cdot)$. Kernel ridge regression solves $\\alpha=(K+\\lambda I)^{-1}y$."
+    },
+    {
+      "id": "km-svm",
+      "title": "Support vector machines",
+      "anchor": "svm",
+      "prereqs": ["km-representer", "co-lagrangian-duality", "slt-rademacher"],
+      "blurb": "The max-margin classifier minimizes $\\tfrac12\\lVert w\\rVert^2+C\\sum\\xi_i$; its Lagrangian dual is a QP in $\\alpha$ touching the data only through $k(x_i,x_j)$. Support vectors are the points with nonzero $\\alpha_i$, and the margin bound explains its dimension-free generalization."
+    },
+    {
+      "id": "km-gp",
+      "title": "Gaussian processes",
+      "anchor": "gp",
+      "prereqs": ["km-kernels"],
+      "blurb": "A Gaussian process is a distribution over functions whose finite marginals are Gaussian with covariance $k$. GP regression returns a posterior mean $m(x_*)=k_*^\\top(K+\\sigma^2 I)^{-1}y$ and a predictive variance — kernel ridge plus calibrated uncertainty."
+    },
+    {
+      "id": "km-mercer",
+      "title": "Mercer's theorem & feature maps",
+      "anchor": "mercer",
+      "prereqs": ["km-kernels", "spectral-theorem-fa"],
+      "blurb": "Mercer diagonalizes the integral operator $T_k f=\\int k(\\cdot,y)f(y)\\,dy$: a continuous PD kernel expands as $k(x,y)=\\sum_j\\lambda_j\\varphi_j(x)\\varphi_j(y)$, giving an explicit feature map $\\varphi(x)=(\\sqrt{\\lambda_j}\\varphi_j(x))_j$. Random Fourier features approximate the RBF kernel via Bochner's theorem."
+    }
+  ]
+}
