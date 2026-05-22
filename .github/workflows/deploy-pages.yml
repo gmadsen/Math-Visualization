@@ -1,0 +1,47 @@
+name: Deploy to GitHub Pages
+
+# Publishes the site to GitHub Pages on every push to main. Replaces the legacy
+# Jekyll build, which (a) choked on KaTeX `{{` in topic HTML (Liquid parse error
+# → whole-site build failure) and (b) could not serialize concurrent builds, so
+# a PR merge plus the recent-updates auto-commit landing seconds apart collided
+# and errored. This workflow uploads the already-committed static files verbatim
+# — no Jekyll, no rebuild step — so "what's in the repo is what's served".
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Serialize deploys. cancel-in-progress:false makes a second deploy queue behind
+# the first rather than collide — the exact failure mode the legacy builder hit.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Drop files that should not be served
+        # .git would expose the full repo on the static host; CLAUDE.md is a
+        # symlink (→ AGENTS.md) and serves no purpose on the live site.
+        run: rm -rf .git && rm -f CLAUDE.md
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+      - name: Upload site artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
