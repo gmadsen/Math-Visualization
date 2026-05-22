@@ -24,7 +24,6 @@ A 16-topic program agreed with the user to flesh out the thinnest sections (Comb
 
 **Opened empty in PR #248** — registered in `concepts/sections.json` (id `learning-theory-and-data-science`, color `b` blue), wired into `new-topic.mjs` (SECTIONS/palette/aliases + `CAPSTONES_GROUP_INDEX` 12→13), and the 12→13 references in AGENTS.md + the jsdom section-stats test bumped. The section's `index.html` `.sec` header + grid and the generated `sections/learning-theory-and-data-science.html` landing page debut with the **first topic card** (mirrors how Control opened in #171). Scaffold topics with `node scripts/new-topic.mjs <slug> learning-theory`; in the same PR, add the slug to the section's `topics` array in `sections.json` (new-topic.mjs doesn't touch sections.json) and replace the draft index card so `audit-draft-index-cards` (a CI gate) stays green.
 
-- `kernel-methods-and-rkhs` — RKHS, representer theorem, SVMs, GP link
 - `deep-learning-theory` — universal approximation, NTK, expressivity, implicit bias, double descent (absorbs non-convex optimization; the convex side lives in `convex-optimization`)
 - `probabilistic-graphical-models` — Bayes nets, MRFs, belief propagation, variational inference
 - `information-geometry` — Fisher metric, natural gradient, exponential families as manifolds
@@ -46,7 +45,7 @@ Already covered, do **not** duplicate: LP/simplex/duality/network-flows/matching
 ### Sequencing
 
 - **Wave 1 (floors): ✅ complete** — `statistical-learning-theory` #249, `graph-theory-fundamentals` #250, `markov-decision-processes` #251.
-- **Wave 2 (build up):** `kernel-methods-and-rkhs`, `reinforcement-learning`, `probabilistic-graphical-models`
+- **Wave 2 (build up):** `reinforcement-learning`, `probabilistic-graphical-models`
 - **Wave 3 (integrative):** `algebraic-combinatorics`, `polytopes-and-ehrhart`, `pomdps-and-belief-states`, `deep-learning-theory`, `information-geometry`, `diffusion-and-score-based-models`, `causal-inference`
 
 ### Follow-on (don't block the above)
