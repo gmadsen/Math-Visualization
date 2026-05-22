@@ -16,9 +16,53 @@ From `audits/coverage-stats.md` and `audits/starter-concepts.md`:
 - 11 narrative-tour story pages on disk, all wired into Tours 1–11
 - All 12 sections open with content; Control theory & optimization (section 12) has 5 topics
 
+## Breadth-expansion program (locked 2026-05-21)
+
+A 16-topic program agreed with the user to flesh out the thinnest sections (Combinatorics opened at the advanced level with no foundation layer; Control had only 5 topics) and add a 13th section for ML / learning theory. Dependency-ordered into three waves. **Delete each slug below as its page ships.** Always check existing coverage before drafting — see the per-section "already covered" notes.
+
+### New section 13 — Learning theory & data science
+
+Register: `concepts/sections.json` (id `learning-theory-and-data-science`, color `b` blue, placed after `control-theory-and-optimization`), `index.html` section grid, `sections/<id>.html`, and the 12→13 references in AGENTS.md/README section enumerations.
+
+- `statistical-learning-theory` — PAC, VC dimension, Rademacher complexity, ERM, bias–variance (section floor)
+- `kernel-methods-and-rkhs` — RKHS, representer theorem, SVMs, GP link
+- `deep-learning-theory` — universal approximation, NTK, expressivity, implicit bias, double descent (absorbs non-convex optimization; the convex side lives in `convex-optimization`)
+- `probabilistic-graphical-models` — Bayes nets, MRFs, belief propagation, variational inference
+- `information-geometry` — Fisher metric, natural gradient, exponential families as manifolds
+- `diffusion-and-score-based-models` — score matching, reverse SDE; bridges `stochastic-calculus`
+- `causal-inference` — do-calculus, structural causal models
+
+### Combinatorics & graph theory — build the missing foundation layer
+
+- `graph-theory-fundamentals` — connectivity, trees, planarity, coloring, matchings, Menger/Hall/König (the floor the section currently lacks)
+- `ramsey-theory` — finite/infinite Ramsey, Van der Waerden, Hales–Jewett (charter-listed in AGENTS.md §10 but was absent)
+- `algebraic-combinatorics` — symmetric functions, Young tableaux, RSK, Schur
+- `order-theory-and-lattices` — posets, Möbius inversion, Dilworth, Sperner
+- `polytopes-and-ehrhart` — Ehrhart polynomials, lattice points, face lattices (the polyhedral-combinatorics side already lives in `combinatorial-optimization`)
+
+### Control theory & optimization — the decision-making half
+
+Already covered, do **not** duplicate: LP/simplex/duality/network-flows/matching/polyhedral (`combinatorial-optimization`); Bellman/DP/stochastic-DP/HJB/Pontryagin/LQR (`optimal-control-and-dynamic-programming`); SGD/proximal/online/interior-point (`convex-optimization`).
+
+- `markov-decision-processes` — formal discrete MDP, value/policy iteration, contraction mappings (distinct from optimal-control's continuous HJB flavor; prereq for POMDP + RL)
+- `pomdps-and-belief-states` — partial observability, belief MDP, point-based methods
+- `reinforcement-learning` — TD, Q-learning, policy gradients, actor–critic (model-free)
+- `game-theory` — Nash, minimax, cooperative/non-cooperative, mechanism design (LP-duality prereq lives in `combinatorial-optimization`)
+
+### Sequencing
+
+- **Wave 1 (floors):** `graph-theory-fundamentals`, `statistical-learning-theory`, `markov-decision-processes`
+- **Wave 2 (build up):** `ramsey-theory`, `order-theory-and-lattices`, `game-theory`, `kernel-methods-and-rkhs`, `reinforcement-learning`, `probabilistic-graphical-models`
+- **Wave 3 (integrative):** `algebraic-combinatorics`, `polytopes-and-ehrhart`, `pomdps-and-belief-states`, `deep-learning-theory`, `information-geometry`, `diffusion-and-score-based-models`, `causal-inference`
+
+### Follow-on (don't block the above)
+
+- Lightweight **taxonomy audit** of existing placements once the new sections exist — e.g. `partitions-generating-functions` sits under Modular forms (eta-function link) but is core combinatorics; `topological-data-analysis` under Geometry vs the data cluster. Separate advisory pass.
+- **Arithmetic geometry** is already covered in depth (~18 topics across Number theory + Algebraic geometry + Modular forms, incl. `heights-arithmetic-geometry`). No standalone page needed unless the corpus wants a connective landing.
+
 ## Missing-topic candidates
 
-The five Tier-1 catalog gaps (combinatorial optimization, math finance, optimal control, DT/GW, positive-characteristic AG) all shipped in PRs #173–#177. The "specialty" trio (TDA, mathematical chaos, computational molecular biology) shipped in PRs #180–#181. **The active candidate list is empty.** Re-prime it after the next Harvard / Princeton / MIT / Berkeley / Caltech catalog comparison.
+The five Tier-1 catalog gaps (combinatorial optimization, math finance, optimal control, DT/GW, positive-characteristic AG) all shipped in PRs #173–#177. The "specialty" trio (TDA, mathematical chaos, computational molecular biology) shipped in PRs #180–#181. Beyond the locked breadth-expansion program above, re-prime this list after the next Harvard / Princeton / MIT / Berkeley / Caltech catalog comparison.
 
 Lone deferred item: **microlocal sheaves and $\mathcal{D}$-modules connections** — partially covered by `d-modules` + `microlocal-analysis`; standalone page only if the corpus pursues a deeper sheaf-theoretic-analysis direction.
 
