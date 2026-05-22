@@ -29,6 +29,7 @@ window.__MVConcepts = {
       "order-theory-and-lattices",
       "game-theory",
       "kernel-methods-and-rkhs",
+      "reinforcement-learning",
       "several-complex-variables",
       "khovanov-homology",
       "shimura-varieties",
@@ -420,7 +421,8 @@ window.__MVConcepts = {
       "statistical-learning-theory": "advanced",
       "kernel-methods-and-rkhs": "advanced",
       "markov-decision-processes": "standard",
-      "game-theory": "standard"
+      "game-theory": "standard",
+      "reinforcement-learning": "standard"
     }
   },
   "topics": {
@@ -2707,6 +2709,70 @@ window.__MVConcepts = {
             "spectral-theorem-fa"
           ],
           "blurb": "Mercer diagonalizes the integral operator $T_k f=\\int k(\\cdot,y)f(y)\\,dy$: a continuous PD kernel expands as $k(x,y)=\\sum_j\\lambda_j\\varphi_j(x)\\varphi_j(y)$, giving an explicit feature map $\\varphi(x)=(\\sqrt{\\lambda_j}\\varphi_j(x))_j$. Random Fourier features approximate the RBF kernel via Bochner's theorem."
+        }
+      ]
+    },
+    "reinforcement-learning": {
+      "topic": "reinforcement-learning",
+      "title": "Reinforcement learning",
+      "page": "reinforcement-learning.html",
+      "concepts": [
+        {
+          "id": "rl-setup",
+          "title": "The RL problem",
+          "anchor": "setup",
+          "prereqs": [
+            "mdp-formulation"
+          ],
+          "blurb": "Reinforcement learning is an MDP whose transition kernel P and reward R are unknown: the agent must learn good behaviour from sampled interaction. The central tension is exploration (gathering data) versus exploitation (acting on what is known), formalised by the ε-greedy rule."
+        },
+        {
+          "id": "rl-monte-carlo",
+          "title": "Monte Carlo prediction & control",
+          "anchor": "monte-carlo",
+          "prereqs": [
+            "rl-setup"
+          ],
+          "blurb": "Estimate Vᵖ(s) = E[Gₜ | sₜ = s] by averaging the actual sampled returns observed after visiting s. First-visit and every-visit variants give unbiased estimates without ever needing P or R, but require complete episodes."
+        },
+        {
+          "id": "rl-td",
+          "title": "Temporal-difference learning",
+          "anchor": "td",
+          "prereqs": [
+            "rl-setup",
+            "mdp-value-functions"
+          ],
+          "blurb": "TD(0) updates V(s) toward the bootstrapped target r + γV(s′) using the TD error δ = r + γV(s′) − V(s). It learns online from single transitions and trades Monte Carlo's variance for bootstrapping bias."
+        },
+        {
+          "id": "rl-q-learning",
+          "title": "Q-learning & SARSA",
+          "anchor": "q-learning",
+          "prereqs": [
+            "rl-td",
+            "mdp-value-iteration"
+          ],
+          "blurb": "Q-learning is off-policy sampled value iteration: Q(s,a) ← Q(s,a) + α[r + γ maxₐ′ Q(s′,a′) − Q(s,a)]. SARSA is its on-policy cousin using the action actually taken. Both converge under Robbins–Monro step sizes as stochastic approximation to a Bellman fixed point."
+        },
+        {
+          "id": "rl-function-approx",
+          "title": "Function approximation",
+          "anchor": "function-approx",
+          "prereqs": [
+            "rl-q-learning",
+            "slt-erm"
+          ],
+          "blurb": "When the state space is large or continuous, replace the table with a parametric Q(s,a;w) and learn w by semi-gradient TD. Combining bootstrapping, off-policy training, and function approximation is the deadly triad — together they can diverge."
+        },
+        {
+          "id": "rl-policy-gradient",
+          "title": "Policy gradients",
+          "anchor": "policy-gradient",
+          "prereqs": [
+            "rl-td"
+          ],
+          "blurb": "Parameterise the policy π(a|s;θ) directly and ascend the policy-gradient theorem ∇J(θ) = E[∇log π(a|s;θ) Qᵖ(s,a)]. REINFORCE plugs in the sampled return; subtracting a baseline reduces variance without bias, and actor–critic learns the baseline as a critic."
         }
       ]
     },
@@ -20350,7 +20416,8 @@ window.__MVConcepts = {
           "mathematical-finance",
           "kalman-filtering-and-state-estimation",
           "markov-decision-processes",
-          "game-theory"
+          "game-theory",
+          "reinforcement-learning"
         ],
         "color": "p"
       },
@@ -20664,7 +20731,8 @@ window.__MVConcepts = {
     "statistical-learning-theory": "advanced",
     "kernel-methods-and-rkhs": "advanced",
     "markov-decision-processes": "standard",
-    "game-theory": "standard"
+    "game-theory": "standard",
+    "reinforcement-learning": "standard"
   },
   "newArc": [
     "elementary-topos-theory",
@@ -20762,17 +20830,17 @@ window.__MVConcepts = {
       "density": 0.5797101449275363
     },
     "Control theory & optimization": {
-      "concepts": 46,
-      "intra": 45,
-      "crossOut": 21,
+      "concepts": 52,
+      "intra": 53,
+      "crossOut": 22,
       "crossIn": 2,
-      "density": 0.45652173913043476
+      "density": 0.4230769230769231
     },
     "Learning theory & data science": {
       "concepts": 12,
       "intra": 13,
       "crossOut": 9,
-      "crossIn": 0,
+      "crossIn": 1,
       "density": 0.75
     }
   }

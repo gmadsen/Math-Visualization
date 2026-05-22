@@ -1,0 +1,236 @@
+{
+  "topic": "reinforcement-learning",
+  "quizzes": {
+    "rl-setup": {
+      "title": "The RL problem",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What precisely distinguishes a reinforcement-learning problem from solving a Markov decision process by dynamic programming?",
+          "choices": [
+            "RL uses a discount factor and MDPs do not",
+            "In RL the transition kernel P and reward R are unknown and must be learned from sampled interaction",
+            "RL has no states, only actions",
+            "RL requires the environment to be deterministic"
+          ],
+          "answer": 1,
+          "explain": "An RL problem is an MDP whose model — the transition kernel $P(s'\\mid s,a)$ and reward $R(s,a)$ — is unknown. Value/policy iteration assume the model is given; RL instead learns optimal behaviour from sampled transitions $(s,a,r,s')$."
+        },
+        {
+          "type": "mcq",
+          "q": "Under an ε-greedy policy with ε = 0.1 in a state with 4 available actions, what is the probability the greedy (currently best) action is taken?",
+          "choices": [
+            "0.10",
+            "0.90",
+            "0.925",
+            "0.25"
+          ],
+          "answer": 2,
+          "explain": "With probability $1-\\varepsilon=0.9$ you take the greedy action outright, and with probability $\\varepsilon=0.1$ you choose uniformly among all $4$ actions, which includes the greedy one with probability $1/4$. Total $= 0.9 + 0.1\\cdot\\tfrac14 = 0.9 + 0.025 = 0.925$."
+        },
+        {
+          "type": "multi-select",
+          "q": "Select every statement that correctly describes the exploration–exploitation tradeoff and the on/off-policy distinction.",
+          "choices": [
+            "Pure exploitation can lock onto a suboptimal action whose true value was never sampled",
+            "Off-policy methods can learn about a target policy while behaving under a different (exploratory) policy",
+            "On-policy methods evaluate and improve the same policy that generates the data",
+            "Exploration is unnecessary once any reward has been observed"
+          ],
+          "answer": [0, 1, 2],
+          "explain": "Exploitation alone risks committing to an action whose value estimate is high only by chance, so some exploration is needed for consistency. Off-policy learning separates the behaviour policy (which explores) from the target policy being learned; on-policy learning ties them together. Statement 4 is false — a single observed reward says nothing about untried alternatives."
+        }
+      ]
+    },
+    "rl-monte-carlo": {
+      "title": "Monte Carlo prediction & control",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "An episode visits state $s$ then observes the reward sequence $r_1 = 1,\\ r_2 = 0,\\ r_3 = 2$ before terminating, with discount $\\gamma = 0.5$. What is the sampled return $G$ used to update $V(s)$?",
+          "answer": 1.5,
+          "tol": 0.001,
+          "explain": "$G = r_1 + \\gamma r_2 + \\gamma^2 r_3 = 1 + 0.5\\cdot 0 + 0.25\\cdot 2 = 1 + 0 + 0.5 = 1.5$. Monte Carlo uses this complete discounted return as its (unbiased) sample of $V^\\pi(s)$."
+        },
+        {
+          "type": "mcq",
+          "q": "Why is the Monte Carlo estimate of $V^\\pi(s)$ — the average of sampled returns from $s$ — an unbiased estimator?",
+          "choices": [
+            "Because it bootstraps from the current value estimates",
+            "Because each sampled return $G_t$ is itself a draw whose expectation given $s_t=s$ is exactly $V^\\pi(s)$",
+            "Because it requires knowing the transition kernel P",
+            "Because $\\gamma$ is set to 1"
+          ],
+          "answer": 1,
+          "explain": "By definition $V^\\pi(s)=\\mathbb E_\\pi[G_t\\mid s_t=s]$, so each observed return is a sample whose mean is the target. Averaging samples is therefore unbiased — and crucially uses no model of $P$ or $R$. (Unlike TD, MC does not bootstrap.)"
+        },
+        {
+          "type": "mcq",
+          "q": "What is the difference between first-visit and every-visit Monte Carlo for estimating $V^\\pi(s)$?",
+          "choices": [
+            "First-visit averages the return only from the first time s is reached in each episode; every-visit averages from all visits",
+            "First-visit uses γ = 0 and every-visit uses γ = 1",
+            "First-visit is off-policy and every-visit is on-policy",
+            "There is no difference"
+          ],
+          "answer": 0,
+          "explain": "First-visit MC averages the return following only the first occurrence of $s$ within each episode; every-visit MC averages the returns following every occurrence. Both converge to $V^\\pi(s)$ as the number of visits grows."
+        }
+      ]
+    },
+    "rl-td": {
+      "title": "Temporal-difference learning",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "Apply one TD(0) update. Currently $V(s) = 2$ and $V(s') = 5$. The agent observes reward $r = 1$ on the transition $s \\to s'$, with $\\gamma = 0.9$ and step size $\\alpha = 0.1$. What is the TD error $\\delta = r + \\gamma V(s') - V(s)$?",
+          "answer": 3.5,
+          "tol": 0.001,
+          "explain": "$\\delta = r + \\gamma V(s') - V(s) = 1 + 0.9\\cdot 5 - 2 = 1 + 4.5 - 2 = 3.5$. The update is then $V(s)\\leftarrow V(s)+\\alpha\\delta = 2 + 0.1\\cdot 3.5 = 2.35$."
+        },
+        {
+          "type": "mcq",
+          "q": "What does it mean to say TD(0) 'bootstraps', and how does that contrast with Monte Carlo?",
+          "choices": [
+            "TD waits for the episode to end; MC updates every step",
+            "TD updates toward a target r + γV(s′) built from its own current estimate; MC updates toward the full sampled return",
+            "TD requires the model P; MC does not",
+            "They are identical when γ = 0"
+          ],
+          "answer": 1,
+          "explain": "Bootstrapping means the update target $r+\\gamma V(s')$ reuses the current value estimate $V(s')$ rather than waiting for the actual return. Monte Carlo instead targets the complete sampled return $G_t$, which needs the episode to finish. This is the bias (TD) vs. variance (MC) tradeoff."
+        },
+        {
+          "type": "mcq",
+          "q": "At the true value function $V^\\pi$, what is the expected TD error $\\mathbb E[\\delta] = \\mathbb E[r + \\gamma V^\\pi(s') - V^\\pi(s)]$ for a transition out of state $s$ under policy π?",
+          "choices": [
+            "Strictly positive",
+            "Zero",
+            "Equal to γ",
+            "Undefined"
+          ],
+          "answer": 1,
+          "explain": "The Bellman expectation equation says $V^\\pi(s)=\\mathbb E[r+\\gamma V^\\pi(s')]$, so $\\mathbb E[\\delta]=\\mathbb E[r+\\gamma V^\\pi(s')]-V^\\pi(s)=0$. The true value is exactly the TD fixed point: on average there is nothing left to correct."
+        }
+      ]
+    },
+    "rl-q-learning": {
+      "title": "Q-learning & SARSA",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "Apply one Q-learning update. Currently $Q(s,a) = 4$. The agent takes $a$, gets reward $r = 2$, and lands in $s'$ where $Q(s',a_1') = 3$ and $Q(s',a_2') = 7$. With $\\gamma = 0.5$ and $\\alpha = 0.1$, what is the new $Q(s,a)$ after the update $Q(s,a) \\leftarrow Q(s,a) + \\alpha[r + \\gamma \\max_{a'} Q(s',a') - Q(s,a)]$?",
+          "answer": 4.15,
+          "tol": 0.001,
+          "explain": "The bootstrapped target uses $\\max_{a'}Q(s',a')=\\max(3,7)=7$: target $= r+\\gamma\\cdot 7 = 2 + 0.5\\cdot 7 = 5.5$. Then $Q(s,a)\\leftarrow 4 + 0.1\\,(5.5-4) = 4 + 0.1\\cdot 1.5 = 4.15$."
+        },
+        {
+          "type": "mcq",
+          "q": "What is the precise difference between the Q-learning and SARSA update targets?",
+          "choices": [
+            "Q-learning uses $\\max_{a'} Q(s',a')$ (off-policy); SARSA uses $Q(s',a')$ for the action $a'$ actually taken next (on-policy)",
+            "Q-learning has no discount factor; SARSA does",
+            "SARSA uses the max and Q-learning uses the actual action",
+            "They differ only in the learning rate α"
+          ],
+          "answer": 0,
+          "explain": "Q-learning bootstraps off the greedy action $\\max_{a'}Q(s',a')$ regardless of what the behaviour policy does — off-policy. SARSA (state-action-reward-state-action) bootstraps off the action $a'$ the agent actually takes next under its current policy — on-policy."
+        },
+        {
+          "type": "mcq",
+          "q": "Q-learning's convergence to $Q^*$ is justified by stochastic-approximation theory. Which condition on the step sizes $\\alpha_t$ (Robbins–Monro) is required?",
+          "choices": [
+            "$\\alpha_t$ must be constant for all t",
+            "$\\sum_t \\alpha_t < \\infty$ and $\\sum_t \\alpha_t^2 = \\infty$",
+            "$\\sum_t \\alpha_t = \\infty$ and $\\sum_t \\alpha_t^2 < \\infty$",
+            "$\\alpha_t$ must increase over time"
+          ],
+          "answer": 2,
+          "explain": "The Robbins–Monro conditions $\\sum_t\\alpha_t=\\infty$ (steps large enough to reach anywhere) and $\\sum_t\\alpha_t^2<\\infty$ (steps shrink fast enough to average out sampling noise) make Q-learning a stochastic approximation to the fixed point of the Bellman-optimality operator — the same $\\gamma$-contraction that drives value iteration, now driven by samples."
+        }
+      ]
+    },
+    "rl-function-approx": {
+      "title": "Function approximation",
+      "questions": [
+        {
+          "type": "multi-select",
+          "q": "The 'deadly triad' names three ingredients whose combination can make value-based RL diverge. Select the three.",
+          "choices": [
+            "Bootstrapping (TD-style targets that reuse the current estimate)",
+            "Off-policy training (learning a target policy from data generated differently)",
+            "Function approximation (a parametric value function rather than a table)",
+            "Using a discount factor γ < 1"
+          ],
+          "answer": [0, 1, 2],
+          "explain": "The deadly triad is bootstrapping + off-policy training + function approximation. Each alone is fine; together the contraction guarantee can fail and the parameters can diverge. A discount $\\gamma<1$ is benign — indeed it is what makes the tabular operator a contraction."
+        },
+        {
+          "type": "mcq",
+          "q": "Why move from a tabular Q to a parametric $Q(s,a;w)$ with semi-gradient TD?",
+          "choices": [
+            "To guarantee convergence in every setting",
+            "To generalize value estimates across states when the state space is too large or continuous to enumerate",
+            "Because tables cannot store negative values",
+            "To eliminate the need for a reward signal"
+          ],
+          "answer": 1,
+          "explain": "A lookup table needs one entry per state(-action), which is hopeless for large or continuous spaces. A parametric approximator shares parameters so that experience at one state informs nearby states — generalization, the same concern as empirical risk minimization in statistical learning. (It comes at the cost of the convergence guarantees the tabular case enjoys.)"
+        },
+        {
+          "type": "mcq",
+          "q": "Deep Q-networks (DQN) stabilize off-policy training with function approximation primarily by using:",
+          "choices": [
+            "A larger discount factor",
+            "Experience replay and a slowly-updated target network",
+            "Removing the max operator",
+            "Switching to first-visit Monte Carlo"
+          ],
+          "answer": 1,
+          "explain": "DQN mitigates the deadly triad in practice with an experience-replay buffer (decorrelating samples and reusing data) and a separate target network whose weights are held fixed for many steps (stabilizing the bootstrap target). Neither removes the divergence risk in theory, but together they make deep value learning workable."
+        }
+      ]
+    },
+    "rl-policy-gradient": {
+      "title": "Policy gradients",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The policy-gradient theorem gives $\\nabla_\\theta J(\\theta) = \\mathbb E_{\\pi_\\theta}[\\nabla_\\theta \\log \\pi_\\theta(a\\mid s)\\, Q^{\\pi_\\theta}(s,a)]$. What does REINFORCE use in place of $Q^{\\pi_\\theta}(s,a)$?",
+          "choices": [
+            "The known transition kernel P",
+            "The sampled (Monte Carlo) return $G_t$ from that state-action onward",
+            "The maximum over actions of Q",
+            "A fixed constant"
+          ],
+          "answer": 1,
+          "explain": "REINFORCE is the Monte Carlo policy-gradient method: it replaces the unknown $Q^{\\pi_\\theta}(s,a)$ with the actual sampled return $G_t$, giving the unbiased estimator $\\nabla_\\theta\\log\\pi_\\theta(a_t\\mid s_t)\\,G_t$ that needs no model."
+        },
+        {
+          "type": "mcq",
+          "q": "Subtracting a state-dependent baseline $b(s)$ to form $\\nabla_\\theta \\log \\pi_\\theta(a\\mid s)\\,[Q^{\\pi_\\theta}(s,a) - b(s)]$ has what effect on the gradient estimate?",
+          "choices": [
+            "It introduces bias but lowers variance",
+            "It leaves the estimate unbiased and typically reduces its variance",
+            "It always increases the variance",
+            "It changes the optimal policy"
+          ],
+          "answer": 1,
+          "explain": "Because $\\mathbb E_a[\\nabla_\\theta\\log\\pi_\\theta(a\\mid s)\\,b(s)] = b(s)\\,\\nabla_\\theta\\sum_a\\pi_\\theta(a\\mid s)=b(s)\\,\\nabla_\\theta 1 = 0$, the baseline adds zero in expectation: the estimator stays unbiased. A well-chosen $b(s)$ (e.g. $\\approx V^{\\pi_\\theta}(s)$) shrinks the magnitude of the multiplier and so reduces variance."
+        },
+        {
+          "type": "mcq",
+          "q": "What distinguishes an actor–critic method from plain REINFORCE?",
+          "choices": [
+            "Actor–critic removes the policy and keeps only a value function",
+            "Actor–critic uses a learned value function (the critic) as the baseline / bootstrap, while the actor is the parameterized policy",
+            "Actor–critic requires a known model P",
+            "Actor–critic can only be applied to deterministic policies"
+          ],
+          "answer": 1,
+          "explain": "Actor–critic keeps the parameterized policy (the actor) but replaces the Monte Carlo return with an estimate from a learned value function (the critic), which serves as the baseline and lets the actor update from incomplete episodes via bootstrapping — combining policy gradients with TD-style value learning."
+        }
+      ]
+    }
+  }
+}

@@ -289,7 +289,8 @@
         "mathematical-finance",
         "kalman-filtering-and-state-estimation",
         "markov-decision-processes",
-        "game-theory"
+        "game-theory",
+        "reinforcement-learning"
       ],
       "color": "p"
     },

@@ -1,0 +1,880 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Reinforcement learning</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false,
+      strict:(c)=>c==='unicodeTextInMathMode'?'ignore':'warn',
+      macros:{
+        '\\Spec':'\\operatorname{Spec}',
+        '\\Gal':'\\operatorname{Gal}',
+        '\\Hom':'\\operatorname{Hom}',
+        '\\tr':'\\operatorname{tr}',
+        '\\ad':'\\operatorname{ad}',
+        '\\ind':'\\operatorname{ind}'
+      }
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  /* sticky sidebar TOC (wide screens only; narrow screens fall back to top-nav) */
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+  /* callback-css-auto-begin */
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+/* callback-css-auto-end */
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
+  /* display-prefs-css-auto-begin */
+  html[data-hide-widgets] .widget { display: none !important; }
+  html[data-hide-quizzes] .quiz { display: none !important; }
+  html[data-hide-lineage] .lineage-strip { display: none !important; }
+  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }
+  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }
+  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }
+  .mv-display-toggle--off { opacity: 0.35; }
+  /* display-prefs-css-auto-end */
+</style>
+<!-- breadcrumb-head-auto-begin -->
+<script src="./js/section-map.js"></script>
+<script src="./js/breadcrumb.js"></script>
+<script src="./js/glossary-popover.js" defer></script>
+<link rel="stylesheet" media="print" href="./css/print.css">
+<link rel="stylesheet" href="./css/theme-light.css">
+<script src="./js/theme-toggle.js"></script>
+<script src="./concepts/bundle.js" defer></script>
+<script src="./js/topic-hotkeys.js" defer></script>
+<script src="./js/topic-lineage.js" defer></script>
+<!-- breadcrumb-head-auto-end -->
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./js/katex-select.js"></script>
+<script src="./js/widget-diagram-editor.js"></script>
+<script src="./quizzes/bundle.js"></script>
+<script src="./js/sidetoc.js"></script>
+<!-- display-prefs-head-auto-begin -->
+<script src="./js/display-prefs.js"></script>
+<!-- display-prefs-head-auto-end -->
+</head>
+<body data-section="control-theory-and-optimization" data-level="intermediate">
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+// draw an arrow marker def once per svg (idempotent)
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+// curved arrow between two pixel points, with optional label
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  // shorten endpoints
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><span class="nav-links"><a class="nav-link" href="./pathway.html">Pathway</a><a class="nav-link" href="./tours.html">Tours</a><a class="nav-link" href="./history.html">History</a><a class="nav-link" href="./tags.html">Themes</a><a class="nav-link" href="./mindmap.html">Mindmap</a><a class="nav-link" href="./search.html">Search</a></span><span class="mv-theme-slot"></span><!-- breadcrumb-nav-auto-end -->
+<!-- toc-auto-begin -->
+  <a href="#setup">1&nbsp;The&nbsp;RL&nbsp;problem</a>
+  <a href="#monte-carlo">2&nbsp;Monte&nbsp;Carlo&nbsp;prediction&nbsp;&amp;&nbsp;control</a>
+  <a href="#td">3&nbsp;Temporal-difference&nbsp;learning</a>
+  <a href="#q-learning">4&nbsp;Q-learning&nbsp;&amp;&nbsp;SARSA</a>
+  <a href="#function-approx">5&nbsp;Function&nbsp;approximation</a>
+  <a href="#policy-gradient">6&nbsp;Policy&nbsp;gradients</a>
+  <a href="#connections">7&nbsp;Connections</a>
+<!-- toc-auto-end -->
+</nav>
+<!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Reinforcement learning</h1>
+  <p class="sub">The model-free face of the Markov decision process: with the transition kernel and reward unknown, the agent must learn optimal behaviour from sampled interaction alone &mdash; balancing exploration against exploitation.</p>
+</section>
+
+<section id="setup">
+<h2>1. The RL problem</h2>
+<p>A <a href="./markov-decision-processes.html#formulation">Markov decision process</a> $(\mathcal S,\mathcal A,P,R,\gamma)$ becomes a <strong>reinforcement-learning</strong> problem the moment we erase $P$ and $R$. The agent no longer has the model; it only gets to <em>act</em> and <em>observe</em>. At each step it sees the state $s_t$, picks an action $a_t$, and the environment hands back a reward $r_{t+1}$ and a next state $s_{t+1}\sim P(\cdot\mid s_t,a_t)$ &mdash; one sampled transition $(s_t,a_t,r_{t+1},s_{t+1})$ at a time. Where dynamic programming on a known MDP <em>computes</em> $V^*$, reinforcement learning must <em>estimate</em> it from this stream of experience.</p>
+<p>The objective is unchanged: maximise the expected <strong>discounted return</strong></p>
+<p style="text-align:center">$\displaystyle G_t = \sum_{k\ge 0}\gamma^k\, r_{t+k+1},\qquad V^\pi(s)=\mathbb E_\pi[G_t\mid s_t=s].$</p>
+<p>What is new is the <strong>exploration&ndash;exploitation tradeoff</strong>. To improve, the agent must <em>exploit</em> what it currently believes is best; but to discover better options it must sometimes <em>explore</em> actions whose value is still uncertain. The simplest reconciliation is the <strong>$\varepsilon$-greedy</strong> rule: with probability $1-\varepsilon$ take the action with the highest current estimate, and with probability $\varepsilon$ pick uniformly at random. Two orthogonal axes organise the algorithms ahead: <em>model-free</em> (learn values/policies directly, this whole page) versus <em>model-based</em> (first learn $\hat P,\hat R$, then plan); and <em>on-policy</em> (evaluate the very policy that generates the data) versus <em>off-policy</em> (learn about a target policy while behaving under another).</p>
+<div class="note"><strong>Worked mini-example.</strong> The widget runs an $\varepsilon$-greedy agent on a 5-state chain $s_0\!-\!s_1\!-\!s_2\!-\!s_3\!-\!s_4$. The action <em>right</em> advances toward the absorbing goal $s_4$ (reward $+1$ on arrival); <em>left</em> retreats. The agent does not know this &mdash; it only sees rewards as they arrive. Early on, a high $\varepsilon$ wanders; as $\varepsilon\to 0$ behaviour collapses onto whatever currently looks best, which is good only if exploration has already found the goal. Slide $\varepsilon$ and step the agent to feel the tension.</div>
+<p>Set the exploration rate $\varepsilon$, then step the agent. The readout tallies steps, the running greedy choice at each state, and total reward collected.</p>
+
+<div class="widget" id="w-setup">
+  <div class="hd"><div class="ttl">An ε-greedy agent on a 5-state chain</div><div class="hint">high ε explores; low ε exploits the current best guess</div></div>
+  <svg id="setup-svg" viewBox="0 0 640 230" width="640" height="230"><title>An epsilon-greedy agent taking sampled steps along a five-state chain toward a goal</title></svg>
+  <div class="row">
+    <label for="setup-eps">exploration $\varepsilon$:</label>
+    <input type="range" id="setup-eps" min="0" max="1" step="0.05" value="0.3">
+    <span class="small" id="setup-eps-lbl"></span>
+  </div>
+  <div class="row">
+    <button id="setup-step">take 1 step</button>
+    <button id="setup-run">run 20 steps</button>
+    <button id="setup-reset">reset</button>
+  </div>
+  <div class="readout" id="setup-out"></div>
+</div><script>
+(function(){
+  const svg=$('#setup-svg'), out=$('#setup-out');
+  const eSl=$('#setup-eps'), eL=$('#setup-eps-lbl'), step=$('#setup-step'), run=$('#setup-run'), reset=$('#setup-reset');
+  const N=5, GOAL=4;
+  const pos=[];
+  for(let s=0;s<N;s++) pos.push([90+s*115, 95]);
+  // deterministic chain dynamics the AGENT does not know: right -> s+1, left -> s-1 (clamped). reward +1 only on entering GOAL.
+  // a tiny seeded PRNG so the demo is reproducible (no Math.random nondeterminism in the readout description)
+  let seed=12345;
+  function rnd(){ seed=(seed*1103515245+12345)&0x7fffffff; return seed/0x7fffffff; }
+  // running action-value estimates Q[s][a], a in {0:left,1:right}; the agent learns these online (simple incremental average of immediate reward proxy)
+  let Q, s, steps, total, lastMsg;
+  function doReset(){ Q=[]; for(let i=0;i<N;i++) Q.push([0,0]); s=0; steps=0; total=0; lastMsg='press a step button'; render(); }
+  function greedy(st){ return Q[st][1]>=Q[st][0] ? 1 : 0; } // tie -> right
+  function takeStep(){
+    if(s===GOAL){ s=0; } // restart episode at the start state on reaching the goal
+    const eps=+eSl.value;
+    const explore = rnd()<eps;
+    const a = explore ? (rnd()<0.5?0:1) : greedy(s);
+    const ns = a===1 ? Math.min(N-1,s+1) : Math.max(0,s-1);
+    const r = (ns===GOAL && s!==GOAL) ? 1 : 0;
+    // crude online update toward observed reward (illustrative; real value learning is in later sections)
+    Q[s][a] += 0.2*(r - Q[s][a]);
+    total += r; steps++;
+    lastMsg = 'step '+steps+': at s'+s+' chose '+(a===1?'right':'left')+(explore?' (explore)':' (greedy)')+' → s'+ns+', reward '+r;
+    s=ns; render();
+  }
+  function render(){
+    const eps=+eSl.value; eL.textContent='ε = '+eps.toFixed(2);
+    svg.innerHTML='';
+    // chain edges
+    for(let i=0;i<N-1;i++) drawArrow(svg,pos[i],pos[i+1],{color:'var(--line)',markerId:'setup-arrh',width:1.4});
+    for(let i=0;i<N;i++){
+      const isGoal=i===GOAL, here=i===s;
+      drawNode(svg,pos[i][0],pos[i][1],'s'+i,{r:24, fill: here?'var(--panel2)':'var(--panel)', stroke: isGoal?'var(--green)': here?'var(--yellow)':'var(--violet)'});
+      const g=greedy(i);
+      const t=SVG('text',{x:pos[i][0],y:pos[i][1]+44,'text-anchor':'middle','font-size':11,fill:'var(--cyan)'});
+      t.textContent='greedy: '+(g===1?'→':'←'); svg.appendChild(t);
+    }
+    // agent marker
+    svg.appendChild(SVG('circle',{cx:pos[s][0],cy:pos[s][1]-38,r:6,fill:'var(--yellow)'}));
+    const gl=SVG('text',{x:pos[GOAL][0],y:pos[GOAL][1]-44,'text-anchor':'middle','font-size':11,fill:'var(--green)'}); gl.textContent='GOAL +1'; svg.appendChild(gl);
+    out.textContent =
+      'ε = '+eps.toFixed(2)+'    P and R are UNKNOWN to the agent — it only sees sampled (s,a,r,s′)\n'+
+      lastMsg+'\n'+
+      'agent now at s'+s+'    total reward = '+total+'    over '+steps+' steps\n'+
+      'with prob 1−ε take greedy action; with prob ε explore uniformly. Exploration is what lets it discover the goal at all.';
+  }
+  ensureArrow(svg,'setup-arrh','var(--line)');
+  step.addEventListener('click',takeStep);
+  run.addEventListener('click',()=>{ for(let i=0;i<20;i++) takeStep(); });
+  reset.addEventListener('click',doReset);
+  eSl.addEventListener('input',render);
+  doReset();
+})();
+</script>
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./markov-decision-processes.html#formulation">The MDP model</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./reinforcement-learning.html#monte-carlo">Reinforcement learning</a> · Monte Carlo prediction &amp; control</div>
+    <div><a href="./reinforcement-learning.html#td">Reinforcement learning</a> · Temporal-difference learning</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="rl-setup"></div>
+</section>
+
+<section id="monte-carlo">
+<h2>2. Monte Carlo prediction &amp; control</h2>
+<p>The most direct way to estimate $V^\pi$ without a model is to take the definition literally. Run the policy to the end of an episode, record the realised return $G_t$ following each visited state, and <strong>average</strong> those returns:</p>
+<p style="text-align:center">$\displaystyle G_t = \sum_{k\ge 0}\gamma^k r_{t+k+1},\qquad \hat V^\pi(s) = \frac{1}{|\{t: s_t=s\}|}\sum_{t:\,s_t=s} G_t.$</p>
+<p>Because $V^\pi(s)=\mathbb E_\pi[G_t\mid s_t=s]$ by definition, each observed return is a sample whose expectation is exactly the target, so the average is an <strong>unbiased</strong> estimator and converges to $V^\pi(s)$ by the <a href="./probability-theory.html#lln" data-auto-inline-link="1" data-concept-id="law-of-large-numbers" data-blurb="For i.i.d.\ integrable $X_n$ with mean $\mu$, $\bar X_N\to\mu$ — weakly by Chebyshev (WLLN), strongly by Kolmogorov (SLLN).">law of large numbers</a> as the number of visits grows. No transition kernel, no reward function &mdash; only complete trajectories. This is <strong>Monte Carlo prediction</strong>.</p>
+<p>Two bookkeeping conventions: <strong>first-visit</strong> MC averages the return following only the <em>first</em> time $s$ appears in each episode; <strong>every-visit</strong> MC averages over <em>all</em> occurrences. Both are consistent. The price of MC is variance (a return is a sum of many random rewards) and the requirement that episodes <em>terminate</em> &mdash; you cannot update until the episode is over. Pairing prediction with $\varepsilon$-greedy improvement on the resulting estimates gives <strong>Monte Carlo control</strong>.</p>
+<div class="note"><strong>Worked mini-example.</strong> An episode visits $s$, then collects rewards $r_1=1,\ r_2=0,\ r_3=2$ before terminating, with $\gamma=0.5$. The sampled return is $G = 1 + 0.5\cdot 0 + 0.25\cdot 2 = 1.5$. Each new episode contributes another such sample; the running average is the MC estimate of $V^\pi(s)$. The widget draws returns from a state whose true value is $V^\pi=2$ and shows the running mean converging to it &mdash; with visible noise that shrinks like $1/\sqrt{n}$.</div>
+<p>Press <em>sample an episode</em> repeatedly. Each yellow dot is one sampled return $G_t$; the running average (the MC estimate) homes in on the true $V^\pi$ (green dashed).</p>
+
+<div class="widget" id="w-mc">
+  <div class="hd"><div class="ttl">Monte Carlo: averaging sampled returns</div><div class="hint">each dot is a return Gₜ; the running mean → V^π</div></div>
+  <svg id="mc-svg" viewBox="0 0 640 300" width="640" height="300"><title>Sampled Monte Carlo returns and their running average converging to the true state value</title></svg>
+  <div class="row">
+    <label for="mc-gamma">discount $\gamma$:</label>
+    <input type="range" id="mc-gamma" min="0" max="0.99" step="0.01" value="0.9">
+    <span class="small" id="mc-gamma-lbl"></span>
+  </div>
+  <div class="row">
+    <button id="mc-step">sample an episode</button>
+    <button id="mc-run">sample 25</button>
+    <button id="mc-reset">reset</button>
+  </div>
+  <div class="readout" id="mc-out"></div>
+</div><script>
+(function(){
+  const svg=$('#mc-svg'), out=$('#mc-out');
+  const gSl=$('#mc-gamma'), gL=$('#mc-gamma-lbl'), step=$('#mc-step'), run=$('#mc-run'), reset=$('#mc-reset');
+  const W=640,H=300, padL=58, padR=24, padT=22, padB=44;
+  // toy environment: from state s, each episode lasts ~ geometric length, rewards are noisy with mean chosen so true V^pi = 2 at gamma=0.9.
+  // We generate returns directly with mean Vtrue(gamma) and bounded noise; running mean must converge to Vtrue.
+  let seed=987654321;
+  function rnd(){ seed=(seed*1103515245+12345)&0x7fffffff; return seed/0x7fffffff; }
+  function VtrueOf(g){ // a reward of (1-g)*2 received every step forever has return = 2 for all g; we sample noisy versions
+    return 2; }
+  let g, returns, sum;
+  function doReset(){ g=+gSl.value; returns=[]; sum=0; render(); }
+  function sampleReturn(){
+    // simulate a finite episode: per-step reward = base + noise, base chosen so discounted sum ~ Vtrue
+    g=+gSl.value;
+    const Vtrue=VtrueOf(g);
+    const base=(1-g)*Vtrue; // per-step reward whose infinite discounted sum is exactly Vtrue
+    let G=0, disc=1, T=40;
+    for(let t=0;t<T;t++){ const r=base + (rnd()-0.5)*0.8; G+=disc*r; disc*=g; }
+    returns.push(G); sum+=G; render();
+  }
+  function render(){
+    g=+gSl.value; gL.textContent='γ = '+g.toFixed(2);
+    const Vtrue=VtrueOf(g);
+    svg.innerHTML='';
+    const n=returns.length;
+    const xmax=Math.max(25,n);
+    const xs=(i)=> padL + (W-padL-padR)*(i/xmax);
+    const vlo=Vtrue-2.2, vhi=Vtrue+2.2;
+    const ys=(v)=> padT + (H-padT-padB)*(1-(v-vlo)/(vhi-vlo));
+    svg.appendChild(SVG('line',{x1:padL,y1:padT,x2:padL,y2:H-padB,stroke:'var(--line)','stroke-width':1}));
+    svg.appendChild(SVG('line',{x1:padL,y1:H-padB,x2:W-padR,y2:H-padB,stroke:'var(--line)','stroke-width':1}));
+    const yl=SVG('text',{x:padL-8,y:padT+4,'text-anchor':'end','font-size':11,fill:'var(--mute)'}); yl.textContent='return / mean'; svg.appendChild(yl);
+    const xl=SVG('text',{x:W-padR,y:H-padB+18,'text-anchor':'end','font-size':11,fill:'var(--mute)'}); xl.textContent='episode #'; svg.appendChild(xl);
+    // true value line
+    svg.appendChild(SVG('line',{x1:padL,y1:ys(Vtrue),x2:W-padR,y2:ys(Vtrue),stroke:'var(--green)','stroke-width':1.4,'stroke-dasharray':'5 4'}));
+    const tv=SVG('text',{x:W-padR,y:ys(Vtrue)-6,'text-anchor':'end','font-size':11,fill:'var(--green)'}); tv.textContent='true V^π = '+Vtrue.toFixed(2); svg.appendChild(tv);
+    // sampled returns as dots
+    for(let i=0;i<n;i++) svg.appendChild(SVG('circle',{cx:xs(i+1),cy:ys(returns[i]),r:3,fill:'var(--mute)'}));
+    // running mean curve
+    let path='', running=0;
+    for(let i=0;i<n;i++){ running+=returns[i]; const m=running/(i+1); path+=(i?' L':'M')+xs(i+1)+' '+ys(m); }
+    if(n>1) svg.appendChild(SVG('path',{d:path,fill:'none',stroke:'var(--yellow)','stroke-width':2.4}));
+    for(let i=0,r2=0;i<n;i++){ r2+=returns[i]; svg.appendChild(SVG('circle',{cx:xs(i+1),cy:ys(r2/(i+1)),r:2.5,fill:'var(--yellow)'})); }
+    const mean=n? sum/n : 0;
+    out.textContent =
+      'γ = '+g.toFixed(2)+'    episodes sampled = '+n+'\n'+
+      (n? ('latest sampled return Gₜ = '+returns[n-1].toFixed(3)+'    running MC estimate = '+mean.toFixed(3)) : 'press “sample an episode”')+'\n'+
+      'true V^π = '+Vtrue.toFixed(2)+'   error |estimate − V^π| = '+(n? Math.abs(mean-Vtrue).toFixed(3):'—')+'\n'+
+      'each Gₜ is an unbiased sample of V^π(s); the average converges (LLN), with noise shrinking ~ 1/√n. No model of P or R is used.';
+  }
+  step.addEventListener('click',sampleReturn);
+  run.addEventListener('click',()=>{ for(let i=0;i<25;i++) sampleReturn(); });
+  reset.addEventListener('click',doReset);
+  gSl.addEventListener('input',doReset);
+  doReset();
+})();
+</script>
+<div class="quiz" data-concept="rl-monte-carlo"></div>
+</section>
+
+<section id="td">
+<h2>3. Temporal-difference learning</h2>
+<p>Monte Carlo waits for the episode to end. <strong>Temporal-difference (TD) learning</strong> does not: it updates after every single transition by <em>bootstrapping</em> &mdash; replacing the unknown tail of the return with the current estimate of the next state's value. The one-step <strong>TD(0)</strong> update is</p>
+<p style="text-align:center">$\displaystyle V(s)\;\leftarrow\; V(s) + \alpha\,\underbrace{\big[\,r + \gamma V(s') - V(s)\,\big]}_{\textstyle \delta},$</p>
+<p>where $\alpha$ is the step size and the bracketed quantity is the <strong>TD error</strong></p>
+<p style="text-align:center">$\displaystyle \delta \;=\; r + \gamma V(s') - V(s).$</p>
+<p>The target $r+\gamma V(s')$ is exactly one term of the <a href="./markov-decision-processes.html#value-functions">Bellman expectation equation</a>, now <em>sampled</em> rather than averaged over $P$. At the true value function $V^\pi$ the Bellman equation $V^\pi(s)=\mathbb E[r+\gamma V^\pi(s')]$ forces $\mathbb E[\delta]=0$: on average there is nothing left to correct, so $V^\pi$ is the <strong>TD fixed point</strong>.</p>
+<p>TD versus MC is a <strong>bias&ndash;variance</strong> tradeoff. MC's target, the full return, is unbiased but high-variance (a long sum of random rewards). TD's target bootstraps off a current estimate $V(s')$, so it is <em>biased</em> while that estimate is wrong, but it has far lower variance (it depends on one reward and one transition). TD also learns online and from incomplete, even non-terminating, streams. These are the two endpoints; $n$-step returns and TD($\lambda$) interpolate between them.</p>
+<div class="note"><strong>Worked mini-example.</strong> Suppose $V(s)=2$ and $V(s')=5$. The agent takes the transition $s\to s'$ and observes reward $r=1$, with $\gamma=0.9$ and $\alpha=0.1$. The TD error is $\delta = 1 + 0.9\cdot 5 - 2 = 3.5$, so $V(s)\leftarrow 2 + 0.1\cdot 3.5 = 2.35$. One transition nudges $V(s)$ a tenth of the way toward its bootstrapped target $r+\gamma V(s')=5.5$. The widget runs TD(0) along the same 5-state chain and compares its error trajectory to Monte Carlo's.</div>
+<p>Pick TD(0) or Monte Carlo, set the step size $\alpha$, and run sweeps. The yellow curve is the value-estimate error $\lVert V-V^\pi\rVert_\infty$ over updates; the readout prints the latest TD error $\delta$ and the update it triggers.</p>
+
+<div class="widget" id="w-td">
+  <div class="hd"><div class="ttl">TD(0) vs Monte Carlo on a chain</div><div class="hint">TD bootstraps off V(s′); MC waits for the full return</div></div>
+  <svg id="td-svg" viewBox="0 0 640 300" width="640" height="300"><title>Value-estimate error under TD(0) versus Monte Carlo updates on a five-state chain</title></svg>
+  <div class="row">
+    <label for="td-method">learning method:</label>
+    <select id="td-method">
+      <option value="td" selected>TD(0) — bootstrap $r+\gamma V(s')$</option>
+      <option value="mc">Monte Carlo — full return $G_t$</option>
+    </select>
+  </div>
+  <div class="row">
+    <label for="td-alpha">step size $\alpha$:</label>
+    <input type="range" id="td-alpha" min="0.02" max="0.6" step="0.02" value="0.2">
+    <span class="small" id="td-alpha-lbl"></span>
+  </div>
+  <div class="row">
+    <button id="td-step">one episode/sweep</button>
+    <button id="td-run">run 30</button>
+    <button id="td-reset">reset V = 0</button>
+  </div>
+  <div class="readout" id="td-out"></div>
+</div><script>
+(function(){
+  const svg=$('#td-svg'), out=$('#td-out');
+  const aSl=$('#td-alpha'), aL=$('#td-alpha-lbl'), method=$('#td-method'), step=$('#td-step'), run=$('#td-run'), reset=$('#td-reset');
+  const W=640,H=300, padL=58, padR=24, padT=22, padB=44;
+  const N=5, GOAL=4, gamma=0.9;
+  // known true V^pi for the fixed policy 'always right' on the chain: reaching GOAL gives +1, gamma-discounted by distance.
+  // V^pi(s) = gamma^(GOAL-1-s) for s<GOAL (reward +1 on entering GOAL), V(GOAL)=0 (terminal).
+  const Vtrue=[]; for(let s=0;s<N;s++) Vtrue.push(s<GOAL? Math.pow(gamma,GOAL-1-s):0);
+  let V, errs, lastMsg;
+  function err(){ let d=0; for(let s=0;s<GOAL;s++) d=Math.max(d,Math.abs(V[s]-Vtrue[s])); return d; }
+  function doReset(){ V=new Array(N).fill(0); errs=[err()]; lastMsg='press a run button'; render(); }
+  function tdSweep(){ const a=+aSl.value;
+    // one episode under 'always right' from s0 to GOAL, TD(0) update each transition
+    let s=0, last='';
+    while(s<GOAL){ const ns=s+1; const r=(ns===GOAL)?1:0; const d=r+gamma*V[ns]-V[s];
+      const before=V[s]; V[s]+=a*d; if(s===GOAL-1) last='δ at s'+s+' = '+r+'+'+gamma+'·V(s'+ns+')−V(s'+s+') = '+d.toFixed(3)+'  ⇒ V(s'+s+'): '+before.toFixed(3)+'→'+V[s].toFixed(3); s=ns; }
+    errs.push(err()); lastMsg=last; }
+  function mcSweep(){ const a=+aSl.value;
+    // one episode under 'always right'; compute returns then constant-alpha MC update
+    const traj=[]; let s=0; while(s<GOAL){ const ns=s+1; const r=(ns===GOAL)?1:0; traj.push([s,r]); s=ns; }
+    // returns from each visited state
+    let G=0; const Gs=new Array(traj.length);
+    for(let i=traj.length-1;i>=0;i--){ G=traj[i][1]+gamma*G; Gs[i]=G; }
+    let last='';
+    for(let i=0;i<traj.length;i++){ const st=traj[i][0]; const before=V[st]; V[st]+=a*(Gs[i]-V[st]); if(st===GOAL-1) last='Gₜ at s'+st+' = '+Gs[i].toFixed(3)+'  ⇒ V(s'+st+'): '+before.toFixed(3)+'→'+V[st].toFixed(3); }
+    errs.push(err()); lastMsg=last; }
+  function sweep(){ if(method.value==='td') tdSweep(); else mcSweep(); render(); }
+  function render(){
+    const a=+aSl.value; aL.textContent='α = '+a.toFixed(2);
+    svg.innerHTML='';
+    const e0=Math.max(errs[0],1e-6);
+    const xmax=Math.max(30,errs.length-1);
+    const xs=(i)=> padL+(W-padL-padR)*(errs.length>1? i/xmax:0);
+    const ys=(v)=> padT+(H-padT-padB)*(1-v/e0);
+    svg.appendChild(SVG('line',{x1:padL,y1:padT,x2:padL,y2:H-padB,stroke:'var(--line)','stroke-width':1}));
+    svg.appendChild(SVG('line',{x1:padL,y1:H-padB,x2:W-padR,y2:H-padB,stroke:'var(--line)','stroke-width':1}));
+    const yl=SVG('text',{x:padL-8,y:padT+4,'text-anchor':'end','font-size':11,fill:'var(--mute)'}); yl.textContent='‖V−V^π‖∞'; svg.appendChild(yl);
+    const xl=SVG('text',{x:W-padR,y:H-padB+18,'text-anchor':'end','font-size':11,fill:'var(--mute)'}); xl.textContent='episode / sweep'; svg.appendChild(xl);
+    let path='';
+    for(let i=0;i<errs.length;i++) path+=(i?' L':'M')+xs(i)+' '+ys(errs[i]);
+    const col= method.value==='td' ? 'var(--yellow)':'var(--cyan)';
+    if(errs.length>1) svg.appendChild(SVG('path',{d:path,fill:'none',stroke:col,'stroke-width':2.4}));
+    for(let i=0;i<errs.length;i++) svg.appendChild(SVG('circle',{cx:xs(i),cy:ys(errs[i]),r:3,fill:col}));
+    const lg=SVG('text',{x:W-padR,y:padT+14,'text-anchor':'end','font-size':11,fill:col}); lg.textContent=(method.value==='td'?'TD(0)':'Monte Carlo')+' error'; svg.appendChild(lg);
+    out.textContent =
+      'method = '+(method.value==='td'?'TD(0): target r+γV(s′), bootstrapped':'Monte Carlo: target Gₜ, full sampled return')+'    α = '+a.toFixed(2)+'    γ = '+gamma+'\n'+
+      'V = ( '+V.map(v=>v.toFixed(3)).join(',  ')+' )      V^π = ( '+Vtrue.map(v=>v.toFixed(3)).join(',  ')+' )\n'+
+      lastMsg+'\n'+
+      '‖V−V^π‖∞ = '+errs[errs.length-1].toFixed(4)+'    TD has low-variance biased targets; MC has unbiased high-variance targets.';
+  }
+  step.addEventListener('click',sweep);
+  run.addEventListener('click',()=>{ for(let i=0;i<30;i++) sweep(); });
+  reset.addEventListener('click',doReset);
+  aSl.addEventListener('input',render);
+  method.addEventListener('change',doReset);
+  doReset();
+})();
+</script>
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./markov-decision-processes.html#value-functions">Value functions &amp; the Bellman expectation equation</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./reinforcement-learning.html#policy-gradient">Reinforcement learning</a> · Policy gradients</div>
+    <div><a href="./reinforcement-learning.html#q-learning">Reinforcement learning</a> · Q-learning &amp; SARSA</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="rl-td"></div>
+</section>
+
+<section id="q-learning">
+<h2>4. Q-learning &amp; SARSA</h2>
+<p>TD(0) estimates $V^\pi$ for a <em>fixed</em> policy. To learn how to <em>act</em> we estimate action-values $Q(s,a)$, from which a greedy policy can be read off without a model. <strong>Q-learning</strong> applies the TD idea to the Bellman <em>optimality</em> backup:</p>
+<p style="text-align:center">$\displaystyle Q(s,a)\;\leftarrow\; Q(s,a) + \alpha\Big[\,r + \gamma\,\max_{a'} Q(s',a') - Q(s,a)\Big].$</p>
+<p>The target uses $\max_{a'}Q(s',a')$ &mdash; the value of acting <em>optimally</em> from $s'$ &mdash; no matter which action the agent's behaviour policy actually takes next. That makes Q-learning <strong>off-policy</strong>: it learns $Q^*$ while behaving under any sufficiently exploratory policy (e.g. $\varepsilon$-greedy). Its on-policy sibling <strong>SARSA</strong> (state&ndash;action&ndash;reward&ndash;state&ndash;action) instead bootstraps off the action $a'$ actually taken:</p>
+<p style="text-align:center">$\displaystyle Q(s,a)\;\leftarrow\; Q(s,a) + \alpha\Big[\,r + \gamma\, Q(s',a') - Q(s,a)\Big].$</p>
+<p>So SARSA evaluates and improves the very (exploratory) policy it follows, which makes it more conservative near risk; Q-learning targets the greedy optimum directly.</p>
+<p>Why does Q-learning converge to $Q^*$? Each update is a <strong>stochastic-approximation</strong> step (Robbins&ndash;Monro) toward a sampled version of the Bellman-optimality operator $T$. That $T$ is the same $\gamma$-contraction that drives <a href="./markov-decision-processes.html#value-iteration">value iteration</a>; provided every $(s,a)$ is visited infinitely often and the step sizes satisfy $\sum_t\alpha_t=\infty$, $\sum_t\alpha_t^2 < \infty$ (steps big enough to travel anywhere, small enough to average out noise), $Q$ converges to $Q^*$ with probability $1$ &mdash; sampled value iteration.</p>
+<div class="note"><strong>Worked mini-example.</strong> Take $Q(s,a)=4$. The agent does $a$, gets $r=2$, lands in $s'$ with $Q(s',a_1')=3,\ Q(s',a_2')=7$, and $\gamma=0.5,\ \alpha=0.1$. <em>Q-learning</em> bootstraps off $\max(3,7)=7$: target $=2+0.5\cdot 7=5.5$, so $Q(s,a)\leftarrow 4+0.1(5.5-4)=4.15$. <em>SARSA</em>, if the next action actually taken were the one with value $3$, would use target $=2+0.5\cdot 3=3.5$ and give $Q(s,a)\leftarrow 4+0.1(3.5-4)=3.95$. Same data, different bootstrap.</div>
+<p>Run Q-learning (or toggle SARSA) on the chain with an $\varepsilon$-greedy behaviour policy. Watch the greedy policy (green arrows) and the $Q$-values converge; slide $\varepsilon$ and $\alpha$.</p>
+
+<div class="widget" id="w-ql">
+  <div class="hd"><div class="ttl">Q-learning / SARSA on the chain</div><div class="hint">off-policy max vs on-policy actual next action</div></div>
+  <svg id="ql-svg" viewBox="0 0 640 240" width="640" height="240"><title>Q-learning and SARSA converging to the greedy optimal policy on a five-state chain</title></svg>
+  <div class="row">
+    <label for="ql-algo">algorithm:</label>
+    <select id="ql-algo">
+      <option value="q" selected>Q-learning — target uses $\max_{a'} Q(s',a')$</option>
+      <option value="sarsa">SARSA — target uses $Q(s',a')$ actually taken</option>
+    </select>
+  </div>
+  <div class="row">
+    <label for="ql-eps">exploration $\varepsilon$:</label>
+    <input type="range" id="ql-eps" min="0.05" max="1" step="0.05" value="0.3">
+    <span class="small" id="ql-eps-lbl"></span>
+  </div>
+  <div class="row">
+    <label for="ql-alpha">step size $\alpha$:</label>
+    <input type="range" id="ql-alpha" min="0.05" max="0.8" step="0.05" value="0.3">
+    <span class="small" id="ql-alpha-lbl"></span>
+  </div>
+  <div class="row">
+    <button id="ql-run">run 50 episodes</button>
+    <button id="ql-reset">reset Q = 0</button>
+  </div>
+  <div class="readout" id="ql-out"></div>
+</div><script>
+(function(){
+  const svg=$('#ql-svg'), out=$('#ql-out');
+  const eSl=$('#ql-eps'), eL=$('#ql-eps-lbl'), aSl=$('#ql-alpha'), aL=$('#ql-alpha-lbl'), algo=$('#ql-algo'), run=$('#ql-run'), reset=$('#ql-reset');
+  const N=5, GOAL=4, gamma=0.9;
+  const pos=[]; for(let s=0;s<N;s++) pos.push([90+s*115,100]);
+  // actions: 0=left,1=right. deterministic chain. reward +1 on entering GOAL, small step cost -0.02 otherwise.
+  let seed=2468013579;
+  function rnd(){ seed=(seed*1103515245+12345)&0x7fffffff; return seed/0x7fffffff; }
+  // true optimal Q*(s,right) ~ gamma^(GOAL-1-s) (minus tiny step costs); the greedy optimum is 'always right'.
+  let Q, episodes;
+  function doReset(){ Q=[]; for(let s=0;s<N;s++) Q.push([0,0]); episodes=0; render(); }
+  function eps(){ return +eSl.value; }
+  function greedyA(s){ return Q[s][1]>=Q[s][0]?1:0; }
+  function chooseA(s){ return rnd()<eps() ? (rnd()<0.5?0:1) : greedyA(s); }
+  function episode(){ const a0lr=+aSl.value, onPolicy=(algo.value==='sarsa');
+    let s=0, a=chooseA(s), guard=0;
+    while(s<GOAL && guard++<200){ const ns = a===1?Math.min(N-1,s+1):Math.max(0,s-1);
+      const r=(ns===GOAL && s!==GOAL)?1:-0.02;
+      const na = chooseA(ns);
+      let target;
+      if(ns===GOAL){ target=r; }
+      else if(onPolicy){ target=r+gamma*Q[ns][na]; }
+      else { target=r+gamma*Math.max(Q[ns][0],Q[ns][1]); }
+      Q[s][a]+= a0lr*(target-Q[s][a]);
+      s=ns; a=na; }
+    episodes++; }
+  function render(){
+    eL.textContent='ε = '+eps().toFixed(2); aL.textContent='α = '+(+aSl.value).toFixed(2);
+    svg.innerHTML='';
+    for(let i=0;i<N-1;i++) drawArrow(svg,pos[i],pos[i+1],{color:'var(--line)',markerId:'ql-arrh',width:1.3});
+    for(let s=0;s<N;s++){
+      const isGoal=s===GOAL, g=greedyA(s);
+      drawNode(svg,pos[s][0],pos[s][1],'s'+s,{r:24, fill:'var(--panel2)', stroke:isGoal?'var(--green)':'var(--violet)'});
+      if(!isGoal){ const ga=SVG('text',{x:pos[s][0],y:pos[s][1]-34,'text-anchor':'middle','font-size':14,fill:'var(--green)','font-weight':700}); ga.textContent=(g===1?'→':'←'); svg.appendChild(ga); }
+      const q=SVG('text',{x:pos[s][0],y:pos[s][1]+44,'text-anchor':'middle','font-size':10.5,fill:'var(--yellow)'});
+      q.textContent='Q→'+Q[s][1].toFixed(2)+' Q←'+Q[s][0].toFixed(2); svg.appendChild(q);
+    }
+    const gl=SVG('text',{x:pos[GOAL][0],y:pos[GOAL][1]-44,'text-anchor':'middle','font-size':11,fill:'var(--green)'}); gl.textContent='GOAL +1'; svg.appendChild(gl);
+    const greedyStr=[]; for(let s=0;s<GOAL;s++) greedyStr.push((greedyA(s)===1?'→':'←'));
+    out.textContent =
+      'algorithm = '+(algo.value==='q'?'Q-learning (off-policy, max over a′)':'SARSA (on-policy, actual a′)')+'    ε = '+eps().toFixed(2)+'    α = '+(+aSl.value).toFixed(2)+'\n'+
+      'episodes trained = '+episodes+'    γ = '+gamma+'\n'+
+      'greedy policy over s0..s3:  '+greedyStr.join('  ')+'   (optimum is → → → →)\n'+
+      'Q(s,right): '+[0,1,2,3].map(s=>Q[s][1].toFixed(3)).join(', ')+'    converges to Q* as a sampled, ε-greedy version of value iteration.';
+  }
+  ensureArrow(svg,'ql-arrh','var(--line)');
+  run.addEventListener('click',()=>{ for(let i=0;i<50;i++) episode(); render(); });
+  reset.addEventListener('click',doReset);
+  eSl.addEventListener('input',render);
+  aSl.addEventListener('input',render);
+  algo.addEventListener('change',doReset);
+  doReset();
+})();
+</script>
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./markov-decision-processes.html#value-iteration">Value iteration &amp; the γ-contraction</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./reinforcement-learning.html#function-approx">Reinforcement learning</a> · Function approximation</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="rl-q-learning"></div>
+</section>
+
+<section id="function-approx">
+<h2>5. Function approximation</h2>
+<p>A lookup table needs one entry per state (or state&ndash;action) pair. That is hopeless when $\mathcal S$ is enormous (a chessboard, a screen of pixels) or continuous. The fix is to replace the table with a <strong>parametric</strong> value function $\hat V(s;w)$ or $\hat Q(s,a;w)$ &mdash; linear in features $\hat V(s;w)=w^\top\phi(s)$, or a neural network &mdash; and learn the weight vector $w$. Now experience at one state <em>generalises</em> to similar states through shared parameters, the same concern as <a href="./statistical-learning-theory.html#erm">empirical risk minimisation</a>: we fit a function from finite samples and hope it transfers.</p>
+<p>The natural update is <strong>semi-gradient TD</strong>. Treating the TD target $r+\gamma\hat V(s';w)$ as fixed, descend the squared TD error:</p>
+<p style="text-align:center">$\displaystyle w \;\leftarrow\; w + \alpha\,\big[\,r + \gamma\hat V(s';w) - \hat V(s;w)\,\big]\,\nabla_w \hat V(s;w).$</p>
+<p>It is called <em>semi</em>-gradient because we do not differentiate through the bootstrapped target &mdash; that is what keeps it a fixed-point iteration rather than honest gradient descent, and it is also where trouble can start.</p>
+<div class="bad"><strong>The deadly triad.</strong> Three ingredients, each harmless alone, can together make value learning <em>diverge</em>: (1) <strong>bootstrapping</strong> (TD-style targets that reuse the current estimate), (2) <strong>off-policy</strong> training (learning a target policy from data drawn under another), and (3) <strong>function approximation</strong> (a parametric, shared-parameter value function). The $\gamma$-contraction that guaranteed tabular convergence operates in the wrong norm once projection onto the function class enters; weights can blow up. Tabular Q-learning is safe because it lacks ingredient (3).</div>
+<p>In practice, <strong>DQN</strong> tames the triad with two tricks: an <em>experience-replay</em> buffer (store transitions and sample minibatches, decorrelating the data and reusing it) and a slowly-updated <em>target network</em> (hold the bootstrap target's weights fixed for many steps so the moving target stops chasing itself).</p>
+<div class="note"><strong>Worked mini-example.</strong> Fit a <em>linear</em> value $\hat V(s;w)=w_1\phi_1(s)+w_0$ to a true value function that grows along the chain, using semi-gradient TD. The widget shows the line $\hat V(\cdot;w)$ tilting toward the true values (green dots) as $w$ updates &mdash; generalisation in action: each update at one state moves the whole line, helping nearby states for free. Push $\alpha$ too high and watch the fit oscillate, a baby version of instability.</div>
+<p>Step the semi-gradient TD updates and watch the linear fit $\hat V(s;w)$ (yellow line) approach the true value function (green dots). Slide $\alpha$; large $\alpha$ overshoots.</p>
+
+<div class="widget" id="w-fa">
+  <div class="hd"><div class="ttl">Linear function approximation by semi-gradient TD</div><div class="hint">one weight vector w generalizes across all states</div></div>
+  <svg id="fa-svg" viewBox="0 0 640 300" width="640" height="300"><title>A linear value function fit to the true chain values by semi-gradient temporal-difference updates</title></svg>
+  <div class="row">
+    <label for="fa-alpha">step size $\alpha$:</label>
+    <input type="range" id="fa-alpha" min="0.01" max="0.4" step="0.01" value="0.08">
+    <span class="small" id="fa-alpha-lbl"></span>
+  </div>
+  <div class="row">
+    <button id="fa-step">10 semi-gradient updates</button>
+    <button id="fa-run">run 200</button>
+    <button id="fa-reset">reset w = 0</button>
+  </div>
+  <div class="readout" id="fa-out"></div>
+</div><script>
+(function(){
+  const svg=$('#fa-svg'), out=$('#fa-out');
+  const aSl=$('#fa-alpha'), aL=$('#fa-alpha-lbl'), step=$('#fa-step'), run=$('#fa-run'), reset=$('#fa-reset');
+  const W=640,H=300, padL=58, padR=24, padT=24, padB=46;
+  const N=6, gamma=0.9;
+  // true value function along the chain: V*(s) grows toward a goal at the right end. Use V*(s)=gamma^(N-1-s).
+  const Vtrue=[]; for(let s=0;s<N;s++) Vtrue.push(Math.pow(gamma,N-1-s));
+  // feature phi(s) = [s/(N-1), 1]; linear value Vhat(s)=w1*phi1 + w0.
+  function phi(s){ return [s/(N-1), 1]; }
+  let w, updates;
+  let seed=314159265;
+  function rnd(){ seed=(seed*1103515245+12345)&0x7fffffff; return seed/0x7fffffff; }
+  function Vhat(s){ const p=phi(s); return w[0]*p[0]+w[1]*p[1]; }
+  function doReset(){ w=[0,0]; updates=0; render(); }
+  function update(){ const a=+aSl.value;
+    // pick a random transition s -> s+1 (toward goal); reward 0 except entering goal where target uses Vtrue end value
+    const s=Math.floor(rnd()*(N-1)); const ns=s+1;
+    const r = (ns===N-1)? (1-gamma)*Vtrue[ns] : 0; // shaped so the TD fixed point matches Vtrue along the ramp
+    const target = (ns===N-1)? Vtrue[ns] : r + gamma*Vhat(ns);
+    const tderr = target - Vhat(s);
+    const p=phi(s);
+    w[0]+= a*tderr*p[0]; w[1]+= a*tderr*p[1];
+    updates++; }
+  function render(){
+    const a=+aSl.value; aL.textContent='α = '+a.toFixed(2);
+    svg.innerHTML='';
+    const xs=(s)=> padL+(W-padL-padR)*(s/(N-1));
+    const vlo=-0.2, vhi=1.4;
+    const ys=(v)=> padT+(H-padT-padB)*(1-(v-vlo)/(vhi-vlo));
+    svg.appendChild(SVG('line',{x1:padL,y1:padT,x2:padL,y2:H-padB,stroke:'var(--line)','stroke-width':1}));
+    svg.appendChild(SVG('line',{x1:padL,y1:ys(0),x2:W-padR,y2:ys(0),stroke:'var(--line)','stroke-width':1}));
+    const yl=SVG('text',{x:padL-8,y:padT+4,'text-anchor':'end','font-size':11,fill:'var(--mute)'}); yl.textContent='value'; svg.appendChild(yl);
+    const xl=SVG('text',{x:W-padR,y:H-padB+18,'text-anchor':'end','font-size':11,fill:'var(--mute)'}); xl.textContent='state s'; svg.appendChild(xl);
+    // true values (green dots)
+    for(let s=0;s<N;s++) svg.appendChild(SVG('circle',{cx:xs(s),cy:ys(Vtrue[s]),r:4.5,fill:'var(--green)'}));
+    // linear fit (yellow line) over the chain
+    let path='';
+    for(let s=0;s<N;s++) path+=(s?' L':'M')+xs(s)+' '+ys(Vhat(s));
+    svg.appendChild(SVG('path',{d:path,fill:'none',stroke:'var(--yellow)','stroke-width':2.4}));
+    for(let s=0;s<N;s++) svg.appendChild(SVG('circle',{cx:xs(s),cy:ys(Vhat(s)),r:3,fill:'var(--yellow)'}));
+    const lg=SVG('text',{x:W-padR,y:padT+14,'text-anchor':'end','font-size':11,fill:'var(--green)'}); lg.textContent='true V (dots)'; svg.appendChild(lg);
+    const lg2=SVG('text',{x:W-padR,y:padT+30,'text-anchor':'end','font-size':11,fill:'var(--yellow)'}); lg2.textContent='V̂(s;w) linear fit'; svg.appendChild(lg2);
+    let mse=0; for(let s=0;s<N;s++) mse+=Math.pow(Vhat(s)-Vtrue[s],2); mse/=N;
+    out.textContent =
+      'α = '+a.toFixed(2)+'    semi-gradient TD updates = '+updates+'\n'+
+      'weights w = ( slope '+w[0].toFixed(4)+',  bias '+w[1].toFixed(4)+' )   →   one vector covers ALL states\n'+
+      'V̂ = ( '+[0,1,2,3,4,5].slice(0,N).map(s=>Vhat(s).toFixed(3)).join(', ')+' )\n'+
+      'mean-squared fit error = '+mse.toFixed(5)+'    each update moves the whole line — that is generalization. Large α can overshoot.';
+  }
+  step.addEventListener('click',()=>{ for(let i=0;i<10;i++) update(); render(); });
+  run.addEventListener('click',()=>{ for(let i=0;i<200;i++) update(); render(); });
+  reset.addEventListener('click',doReset);
+  aSl.addEventListener('input',render);
+  doReset();
+})();
+</script>
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./statistical-learning-theory.html#erm">Empirical risk minimisation &amp; generalisation</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><div class="quiz" data-concept="rl-function-approx"></div>
+</section>
+
+<section id="policy-gradient">
+<h2>6. Policy gradients</h2>
+<p>Value-based methods learn $Q$ and act greedily. <strong>Policy-gradient</strong> methods skip the value function as the object of interest and optimise a <em>parameterised policy</em> $\pi_\theta(a\mid s)$ directly by gradient ascent on the expected return $J(\theta)=\mathbb E_{\pi_\theta}[G_0]$. This is natural for continuous action spaces and for stochastic optimal policies. The difficulty is that $\theta$ affects $J$ both through which actions are chosen <em>and</em> through the state distribution they induce &mdash; yet the <strong>policy-gradient theorem</strong> shows the messy state-distribution term drops out:</p>
+<p style="text-align:center">$\displaystyle \nabla_\theta J(\theta) \;=\; \mathbb E_{\pi_\theta}\!\big[\,\nabla_\theta \log \pi_\theta(a\mid s)\,\; Q^{\pi_\theta}(s,a)\,\big].$</p>
+<p>The estimator is an expectation we can sample: follow the policy, and weight the score $\nabla_\theta\log\pi_\theta(a\mid s)$ by how good the action turned out. <strong>REINFORCE</strong> is the Monte Carlo instance &mdash; it replaces the unknown $Q^{\pi_\theta}(s,a)$ with the sampled return $G_t$:</p>
+<p style="text-align:center">$\displaystyle \nabla_\theta J(\theta) \approx \nabla_\theta\log\pi_\theta(a_t\mid s_t)\,G_t.$</p>
+<p>This is unbiased but high-variance. The cure is a <strong>baseline</strong> $b(s)$: replace $G_t$ by $G_t-b(s)$. Because $\mathbb E_a[\nabla_\theta\log\pi_\theta(a\mid s)\,b(s)] = b(s)\,\nabla_\theta\sum_a\pi_\theta(a\mid s)=b(s)\,\nabla_\theta 1 = 0$, subtracting any state-dependent baseline leaves the gradient <em>unbiased</em> while shrinking its variance. The best baseline is roughly $V^{\pi_\theta}(s)$, so $G_t-V(s)$ measures how much better the action did than expected &mdash; the <em>advantage</em>. Learning that baseline as a value function gives <strong>actor&ndash;critic</strong>: the <em>actor</em> $\pi_\theta$ updates from the policy gradient, while a <em>critic</em> $\hat V$ (trained by TD) supplies the baseline and lets the actor bootstrap from incomplete episodes.</p>
+<div class="note"><strong>Worked mini-example.</strong> A two-action softmax policy at a single state, $\pi_\theta(\text{right})=\sigma(\theta)$, with the right action paying a higher expected reward. The REINFORCE estimator $\nabla_\theta\log\pi_\theta(a)\,(G-b)$ pushes $\theta$ up whenever a sampled right-action beats the baseline, so $\sigma(\theta)\to 1$ and $J(\theta)$ climbs. The widget plots $J(\theta)$ rising under gradient ascent; toggle the baseline to see the variance of the steps drop without changing where they head.</div>
+<p>Run REINFORCE gradient ascent on the toy policy. The yellow curve is $J(\theta)$ climbing toward the optimum; toggle the baseline and watch the step-to-step jitter shrink.</p>
+
+<div class="widget" id="w-pg">
+  <div class="hd"><div class="ttl">REINFORCE: policy-gradient ascent</div><div class="hint">a baseline cuts variance without bias</div></div>
+  <svg id="pg-svg" viewBox="0 0 640 300" width="640" height="300"><title>Expected return increasing under REINFORCE policy-gradient ascent on a toy softmax policy</title></svg>
+  <div class="row">
+    <label for="pg-base">variance reduction:</label>
+    <select id="pg-base">
+      <option value="off" selected>no baseline ($b=0$)</option>
+      <option value="on">with baseline $b(s)\approx V(s)$</option>
+    </select>
+  </div>
+  <div class="row">
+    <label for="pg-lr">learning rate $\eta$:</label>
+    <input type="range" id="pg-lr" min="0.05" max="1" step="0.05" value="0.3">
+    <span class="small" id="pg-lr-lbl"></span>
+  </div>
+  <div class="row">
+    <button id="pg-step">one ascent step</button>
+    <button id="pg-run">run 40 steps</button>
+    <button id="pg-reset">reset θ = 0</button>
+  </div>
+  <div class="readout" id="pg-out"></div>
+</div><script>
+(function(){
+  const svg=$('#pg-svg'), out=$('#pg-out');
+  const lrSl=$('#pg-lr'), lrL=$('#pg-lr-lbl'), base=$('#pg-base'), step=$('#pg-step'), run=$('#pg-run'), reset=$('#pg-reset');
+  const W=640,H=300, padL=58, padR=24, padT=24, padB=46;
+  // single-state, two actions: right (reward mean 1) vs left (reward mean 0). softmax over one parameter:
+  // pi(right)=sigma(theta). J(theta)=pi(right)*1 + pi(left)*0 = sigma(theta). optimum theta->+inf, J->1.
+  let seed=271828182;
+  function rnd(){ seed=(seed*1103515245+12345)&0x7fffffff; return seed/0x7fffffff; }
+  function gauss(){ // Box-Muller, seeded
+    let u=rnd()||1e-9, v=rnd(); return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v); }
+  function sig(x){ return 1/(1+Math.exp(-x)); }
+  const rMeanRight=1, rMeanLeft=0, noiseSd=0.6;
+  let theta, Js, steps, Vbaseline;
+  function doReset(){ theta=0; steps=0; Vbaseline=0; Js=[sig(theta)]; render(); }
+  function ascentStep(){ const eta=+lrSl.value, useBase=(base.value==='on');
+    // sample one action from the softmax, observe noisy reward, form REINFORCE estimator
+    const p=sig(theta);
+    const a = rnd()<p ? 1 : 0; // 1=right,0=left
+    const r = (a===1? rMeanRight: rMeanLeft) + gauss()*noiseSd;
+    const b = useBase? Vbaseline : 0;
+    // score for softmax over two actions, single param theta on the 'right' logit:
+    // d/dtheta log pi(a) = (a - p)
+    const score = (a - p);
+    const grad = score*(r - b);
+    theta += eta*grad;
+    // update running value baseline toward observed reward (the critic, simplified)
+    Vbaseline += 0.1*(r - Vbaseline);
+    steps++; Js.push(sig(theta)); }
+  function render(){
+    const eta=+lrSl.value; lrL.textContent='η = '+eta.toFixed(2);
+    svg.innerHTML='';
+    const xmax=Math.max(40,Js.length-1);
+    const xs=(i)=> padL+(W-padL-padR)*(Js.length>1? i/xmax:0);
+    const ys=(v)=> padT+(H-padT-padB)*(1-v); // J in [0,1]
+    svg.appendChild(SVG('line',{x1:padL,y1:padT,x2:padL,y2:H-padB,stroke:'var(--line)','stroke-width':1}));
+    svg.appendChild(SVG('line',{x1:padL,y1:H-padB,x2:W-padR,y2:H-padB,stroke:'var(--line)','stroke-width':1}));
+    const yl=SVG('text',{x:padL-8,y:padT+4,'text-anchor':'end','font-size':11,fill:'var(--mute)'}); yl.textContent='J(θ) = π(right)'; svg.appendChild(yl);
+    const xl=SVG('text',{x:W-padR,y:H-padB+18,'text-anchor':'end','font-size':11,fill:'var(--mute)'}); xl.textContent='ascent step'; svg.appendChild(xl);
+    // optimum line J=1
+    svg.appendChild(SVG('line',{x1:padL,y1:ys(1),x2:W-padR,y2:ys(1),stroke:'var(--green)','stroke-width':1.2,'stroke-dasharray':'5 4'}));
+    const tg=SVG('text',{x:W-padR,y:ys(1)+14,'text-anchor':'end','font-size':11,fill:'var(--green)'}); tg.textContent='optimum J → 1'; svg.appendChild(tg);
+    let path='';
+    for(let i=0;i<Js.length;i++) path+=(i?' L':'M')+xs(i)+' '+ys(Js[i]);
+    if(Js.length>1) svg.appendChild(SVG('path',{d:path,fill:'none',stroke:'var(--yellow)','stroke-width':2.4}));
+    for(let i=0;i<Js.length;i++) svg.appendChild(SVG('circle',{cx:xs(i),cy:ys(Js[i]),r:2.5,fill:'var(--yellow)'}));
+    const lg=SVG('text',{x:W-padR,y:padT+14,'text-anchor':'end','font-size':11,fill:'var(--yellow)'}); lg.textContent='J(θ) trajectory'; svg.appendChild(lg);
+    out.textContent =
+      'baseline = '+(base.value==='on'?'ON (b ≈ V(s), running estimate '+Vbaseline.toFixed(3)+')':'OFF (b = 0)')+'    η = '+eta.toFixed(2)+'\n'+
+      'θ = '+theta.toFixed(3)+'    π(right) = σ(θ) = '+sig(theta).toFixed(3)+'    J(θ) = '+sig(theta).toFixed(3)+'    steps = '+steps+'\n'+
+      'REINFORCE estimator:  ∇θ log π(a)·(G − b) = (a − π(right))·(r − b)\n'+
+      'subtracting a state baseline leaves the gradient unbiased (E[score·b]=0) but shrinks the variance of each step — smoother climb.';
+  }
+  step.addEventListener('click',()=>{ ascentStep(); render(); });
+  run.addEventListener('click',()=>{ for(let i=0;i<40;i++) ascentStep(); render(); });
+  reset.addEventListener('click',doReset);
+  lrSl.addEventListener('input',render);
+  base.addEventListener('change',doReset);
+  doReset();
+})();
+</script>
+<div class="quiz" data-concept="rl-policy-gradient"></div>
+</section>
+
+<section id="connections">
+<h2>Connections</h2>
+
+<p>Reinforcement learning is the empirical face of the same Bellman backbone that dynamic programming attacks analytically: it trades a known model for sampled experience and inherits all the model-free difficulties that creates. The live frontier is exactly where the clean theory frays &mdash; the deadly triad and the (still incomplete) convergence theory for deep value learning, sample efficiency (real interaction is expensive), exploration in high dimensions far beyond $\varepsilon$-greedy, and partial observability, where the agent no longer sees the Markov state at all. Deep reinforcement learning married policy gradients and Q-learning to neural networks to play Go and control robots, but the stability guarantees of the tabular case largely did not survive the trip.</p>
+
+<ul>
+<li><a href="./markov-decision-processes.html#formulation">Markov decision processes &mdash; the MDP model</a> &mdash; RL is exactly an MDP with $P$ and $R$ unknown; every value here is a sampled estimate of an MDP quantity.</li>
+<li><a href="./markov-decision-processes.html#value-iteration">Markov decision processes &mdash; value iteration</a> &mdash; Q-learning is its sampled, model-free shadow, driven by the same $\gamma$-contraction.</li>
+<li><a href="./optimal-control-and-dynamic-programming.html#dp">Optimal control &amp; dynamic programming &mdash; the Bellman equation</a> &mdash; the continuous, model-based cousin; RL is dynamic programming when you cannot write down the dynamics.</li>
+<li><a href="./statistical-learning-theory.html#erm">Statistical learning theory &mdash; empirical risk minimisation</a> &mdash; function approximation in RL is a learning problem: generalising a value function across states from finite data.</li>
+<li><a href="./optimal-control-and-dynamic-programming.html#stochastic">Optimal control &mdash; stochastic control</a> &mdash; the same discounted objective under noise, the bridge between control-theoretic and learning-based viewpoints.</li>
+</ul>
+
+<p>Two directions this page only gestures at, not yet in the notebook: <em>partially observed</em> MDPs (POMDPs), where a belief state restores the Markov property at the cost of an explosion in dimension; and <em>deep reinforcement learning</em>, where the value function or policy is a deep network and the analysis of when learning is stable is genuinely open.</p>
+</section>
+
+</main>
+
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('reinforcement-learning'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+})();
+</script>
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-05-22</td><td>initial version</td></tr>
+    </tbody>
+  </table>
+</details>
+
+</body>
+</html>
