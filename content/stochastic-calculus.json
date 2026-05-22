@@ -99,7 +99,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./mathematical-finance.html#merton-portfolio\">Mathematical finance &amp; stochastic control</a> · Optimal portfolio selection (Merton)</div>\n    <div><a href=\"./mathematical-finance.html#bs-pde\">Mathematical finance &amp; stochastic control</a> · The Black–Scholes PDE</div>\n    <div><a href=\"./stochastic-calculus.html#feynman-kac\">Stochastic calculus</a> · Feynman–Kac formula</div>\n    <div><a href=\"./stochastic-calculus.html#girsanov\">Stochastic calculus</a> · Girsanov's theorem</div>\n    <div><a href=\"./stochastic-calculus.html#sde\">Stochastic calculus</a> · Stochastic differential equations</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./diffusion-and-score-based-models.html#reverse\">Diffusion and score based models</a> · The reverse-time SDE</div>\n    <div><a href=\"./mathematical-finance.html#merton-portfolio\">Mathematical finance &amp; stochastic control</a> · Optimal portfolio selection (Merton)</div>\n    <div><a href=\"./mathematical-finance.html#bs-pde\">Mathematical finance &amp; stochastic control</a> · The Black–Scholes PDE</div>\n    <div><a href=\"./stochastic-calculus.html#feynman-kac\">Stochastic calculus</a> · Feynman–Kac formula</div>\n    <div><a href=\"./stochastic-calculus.html#girsanov\">Stochastic calculus</a> · Girsanov's theorem</div>\n    <div><a href=\"./stochastic-calculus.html#sde\">Stochastic calculus</a> · Stochastic differential equations</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -149,7 +149,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./mathematical-biology.html#kimura\">Mathematical biology</a> · Genetic drift and the Kimura diffusion</div>\n    <div><a href=\"./mathematical-finance.html#black-scholes-model\">Mathematical finance &amp; stochastic control</a> · The Black–Scholes model</div>\n    <div><a href=\"./stochastic-calculus.html#feynman-kac\">Stochastic calculus</a> · Feynman–Kac formula</div>\n    <div><a href=\"./stochastic-calculus.html#girsanov\">Stochastic calculus</a> · Girsanov's theorem</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./diffusion-and-score-based-models.html#langevin\">Diffusion and score based models</a> · Langevin dynamics</div>\n    <div><a href=\"./mathematical-biology.html#kimura\">Mathematical biology</a> · Genetic drift and the Kimura diffusion</div>\n    <div><a href=\"./mathematical-finance.html#black-scholes-model\">Mathematical finance &amp; stochastic control</a> · The Black–Scholes model</div>\n    <div><a href=\"./stochastic-calculus.html#feynman-kac\">Stochastic calculus</a> · Feynman–Kac formula</div>\n    <div><a href=\"./stochastic-calculus.html#girsanov\">Stochastic calculus</a> · Girsanov's theorem</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

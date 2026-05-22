@@ -36,6 +36,7 @@ window.__MVConcepts = {
       "probabilistic-graphical-models",
       "deep-learning-theory",
       "information-geometry",
+      "diffusion-and-score-based-models",
       "several-complex-variables",
       "khovanov-homology",
       "shimura-varieties",
@@ -431,6 +432,7 @@ window.__MVConcepts = {
       "probabilistic-graphical-models": "advanced",
       "deep-learning-theory": "advanced",
       "information-geometry": "advanced",
+      "diffusion-and-score-based-models": "advanced",
       "markov-decision-processes": "standard",
       "game-theory": "standard",
       "reinforcement-learning": "standard",
@@ -3170,6 +3172,70 @@ window.__MVConcepts = {
             "ig-kl-fisher"
           ],
           "blurb": "The e-connection and m-connection are dual with respect to the Fisher metric. KL is the canonical Bregman divergence of this dually-flat structure, and obeys the information-geometric Pythagorean theorem $\\mathrm{KL}(p\\,\\|\\,r)=\\mathrm{KL}(p\\,\\|\\,q)+\\mathrm{KL}(q\\,\\|\\,r)$ when an e-geodesic meets an m-geodesic orthogonally."
+        }
+      ]
+    },
+    "diffusion-and-score-based-models": {
+      "topic": "diffusion-and-score-based-models",
+      "title": "Diffusion and score based models",
+      "page": "diffusion-and-score-based-models.html",
+      "concepts": [
+        {
+          "id": "dsm-score",
+          "title": "The score function",
+          "anchor": "score",
+          "prereqs": [
+            "brownian-motion"
+          ],
+          "blurb": "The (Stein) score of a density is $s(x)=\\nabla_x\\log p(x)$, a vector field pointing uphill toward regions of high density. Because $\\nabla\\log(\\tilde p/Z)=\\nabla\\log\\tilde p$, the intractable normalizing constant $Z$ drops out — the score sees only the shape of the density, never its scale."
+        },
+        {
+          "id": "dsm-langevin",
+          "title": "Langevin dynamics",
+          "anchor": "langevin",
+          "prereqs": [
+            "dsm-score",
+            "sc-sde-existence"
+          ],
+          "blurb": "The overdamped Langevin SDE $dx_t=\\tfrac12 s(x_t)\\,dt+dW_t$ uses only the score and has $p$ as its stationary distribution (the stationary Fokker–Planck equation is solved by $p$). Run it long enough from any start and the empirical distribution converges to the target — sampling from drift and noise alone."
+        },
+        {
+          "id": "dsm-forward",
+          "title": "The forward noising process",
+          "anchor": "forward",
+          "prereqs": [
+            "dsm-score"
+          ],
+          "blurb": "A fixed forward SDE $dx_t=f(x,t)\\,dt+g(t)\\,dW_t$ — e.g. the variance-preserving / Ornstein–Uhlenbeck process $dx=-\\tfrac12\\beta x\\,dt+\\sqrt{\\beta}\\,dW$ — gradually turns data into pure Gaussian noise. The perturbed marginal $x_t\\mid x_0$ is the closed-form Gaussian $N(x_0 e^{-\\frac12\\int\\beta},(1-e^{-\\int\\beta})I)$."
+        },
+        {
+          "id": "dsm-reverse",
+          "title": "The reverse-time SDE",
+          "anchor": "reverse",
+          "prereqs": [
+            "dsm-forward",
+            "sc-ito-formula"
+          ],
+          "blurb": "Anderson's 1982 reverse-time SDE $dx_t=[f(x,t)-g(t)^2\\nabla\\log p_t(x)]\\,dt+g(t)\\,d\\bar W_t$, run backward from noise at $t=T$, undoes the forward process. Generation is therefore solving this reverse SDE — which needs the time-dependent score $\\nabla\\log p_t$."
+        },
+        {
+          "id": "dsm-score-matching",
+          "title": "Training: denoising score matching",
+          "anchor": "score-matching",
+          "prereqs": [
+            "dsm-reverse",
+            "slt-erm"
+          ],
+          "blurb": "You never know $\\nabla\\log p_t$, so you learn it. Denoising score matching (Vincent 2011) minimizes $\\mathbb{E}\\,\\lVert s_\\theta(\\tilde x,t)-\\nabla_{\\tilde x}\\log p(\\tilde x\\mid x)\\rVert^2$; for Gaussian noise the target is $-(\\tilde x-x)/\\sigma^2$, so the network learns to predict the noise (the $\\varepsilon$-prediction parameterization)."
+        },
+        {
+          "id": "dsm-probability-flow",
+          "title": "The probability-flow ODE",
+          "anchor": "probability-flow",
+          "prereqs": [
+            "dsm-reverse"
+          ],
+          "blurb": "The deterministic probability-flow ODE $dx_t=[f(x,t)-\\tfrac12 g(t)^2\\nabla\\log p_t(x)]\\,dt$ has the same marginals $p_t$ as the stochastic reverse SDE (it solves the same Fokker–Planck via the continuity equation). It gives a deterministic DDIM-style sampler and a continuous normalizing flow with exact likelihoods."
         }
       ]
     },
@@ -20830,7 +20896,8 @@ window.__MVConcepts = {
           "kernel-methods-and-rkhs",
           "probabilistic-graphical-models",
           "deep-learning-theory",
-          "information-geometry"
+          "information-geometry",
+          "diffusion-and-score-based-models"
         ],
         "color": "b"
       }
@@ -21138,6 +21205,7 @@ window.__MVConcepts = {
     "probabilistic-graphical-models": "advanced",
     "deep-learning-theory": "advanced",
     "information-geometry": "advanced",
+    "diffusion-and-score-based-models": "advanced",
     "markov-decision-processes": "standard",
     "game-theory": "standard",
     "reinforcement-learning": "standard",
@@ -21193,7 +21261,7 @@ window.__MVConcepts = {
       "concepts": 83,
       "intra": 134,
       "crossOut": 23,
-      "crossIn": 38,
+      "crossIn": 41,
       "density": 0.27710843373493976
     },
     "Geometry & topology": {
@@ -21246,11 +21314,11 @@ window.__MVConcepts = {
       "density": 0.39655172413793105
     },
     "Learning theory & data science": {
-      "concepts": 30,
-      "intra": 33,
-      "crossOut": 17,
+      "concepts": 36,
+      "intra": 39,
+      "crossOut": 20,
       "crossIn": 1,
-      "density": 0.5666666666666667
+      "density": 0.5555555555555556
     }
   }
 };

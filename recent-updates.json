@@ -1,5 +1,5 @@
 {
-  "generated": "2026-05-22T14:57:21.894Z",
+  "generated": "2026-05-22T15:24:37.044Z",
   "entries": [
     {
       "slug": "algebraic-combinatorics",
@@ -31,7 +31,7 @@
       "color": "b",
       "tag": "",
       "date": "2026-05-22",
-      "message": "feat: information-geometry — Wave 3 (Learning theory)"
+      "message": "feat: information-geometry — Wave 3 (Learning theory) (#262)"
     },
     {
       "slug": "kernel-methods-and-rkhs",

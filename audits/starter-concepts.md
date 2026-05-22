@@ -15,7 +15,7 @@ reach into upstream foundations or stay within their own cluster.
 | Algebra & homological | 148 | 224 | 25 | 100 | 0.169 |
 | Higher categories & toposes | 45 | 68 | 23 | 4 | 0.511 |
 | Analysis | 211 | 368 | 39 | 79 | 0.185 |
-| Probability & statistics | 83 | 134 | 23 | 38 | 0.277 |
+| Probability & statistics | 83 | 134 | 23 | 41 | 0.277 |
 | Geometry & topology | 167 | 276 | 34 | 100 | 0.204 |
 | Number theory | 128 | 180 | 57 | 40 | 0.445 |
 | Modular forms & L-functions | 121 | 181 | 65 | 24 | 0.537 |
@@ -23,7 +23,7 @@ reach into upstream foundations or stay within their own cluster.
 | Combinatorics & graph theory | 88 | 90 | 31 | 5 | 0.352 |
 | Mathematical physics | 69 | 75 | 40 | 4 | 0.580 |
 | Control theory & optimization | 58 | 62 | 23 | 5 | 0.397 |
-| Learning theory & data science | 30 | 33 | 17 | 1 | 0.567 |
+| Learning theory & data science | 36 | 39 | 20 | 1 | 0.556 |
 
 ## EMPTY — concepts with no prereqs (5)
 
