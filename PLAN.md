@@ -42,14 +42,13 @@ A 16-topic program agreed with the user to flesh out the thinnest sections (Comb
 
 Already covered, do **not** duplicate: LP/simplex/duality/network-flows/matching/polyhedral (`combinatorial-optimization`); Bellman/DP/stochastic-DP/HJB/Pontryagin/LQR (`optimal-control-and-dynamic-programming`); SGD/proximal/online/interior-point (`convex-optimization`).
 
-- `markov-decision-processes` — formal discrete MDP, value/policy iteration, contraction mappings (distinct from optimal-control's continuous HJB flavor; prereq for POMDP + RL)
 - `pomdps-and-belief-states` — partial observability, belief MDP, point-based methods
 - `reinforcement-learning` — TD, Q-learning, policy gradients, actor–critic (model-free)
 - `game-theory` — Nash, minimax, cooperative/non-cooperative, mechanism design (LP-duality prereq lives in `combinatorial-optimization`)
 
 ### Sequencing
 
-- **Wave 1 (floors):** `markov-decision-processes` (`statistical-learning-theory` #249, `graph-theory-fundamentals` #250 shipped)
+- **Wave 1 (floors): ✅ complete** — `statistical-learning-theory` #249, `graph-theory-fundamentals` #250, `markov-decision-processes` #251.
 - **Wave 2 (build up):** `ramsey-theory`, `order-theory-and-lattices`, `game-theory`, `kernel-methods-and-rkhs`, `reinforcement-learning`, `probabilistic-graphical-models`
 - **Wave 3 (integrative):** `algebraic-combinatorics`, `polytopes-and-ehrhart`, `pomdps-and-belief-states`, `deep-learning-theory`, `information-geometry`, `diffusion-and-score-based-models`, `causal-inference`
 
