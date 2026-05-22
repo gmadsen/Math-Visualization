@@ -28279,7 +28279,7 @@ window.MVQuizBank = {
               0,
               1
             ],
-            "explain": "Since $\\sum \\deg(v) = 2|E|$ is even, the odd-degree vertices must pair up, so their count is even. The lemma does not force every degree to be even (option 3 is false), and a triangle has $3$ edges but all even degrees? No — a triangle has all degree $2$ and $3$ edges, so option 4 is also false."
+            "explain": "Because $\\sum_v \\deg(v)=2|E|$ is always even: the degree sum is even (statement 1 ✓), and since the even-degree vertices contribute an even total, the odd-degree vertices must pair up, so their count is even (statement 2 ✓). The lemma does NOT force every vertex to have even degree (statement 3 ✗ — a path has two degree-1 ends), and it does not tie the parity of $|E|$ to odd-degree vertices (statement 4 ✗ — a triangle has $|E|=3$ odd yet every vertex has even degree $2$)."
           }
         ]
       },

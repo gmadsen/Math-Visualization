@@ -572,7 +572,7 @@ function drawNode(svg, x, y, label, opts={}){
 
 <div class="note"><strong>Worked mini-example.</strong> $K_5$: $V=5$, $E=\binom 52=10$, and $3V-6=9\lt 10$ — the bound fails, so $K_5$ is non-planar. $K_{3,3}$: it is triangle-free (bipartite) with $V=6$, $E=9$, and the sharper $2V-4=8\lt 9$ — non-planar too. Both are minimal obstructions: delete any edge of either and the result becomes planar. The octahedron ($V=6$, $E=12$, $F=8$) sits right at $E=3V-6=12$ — a maximal planar (triangulated) graph.</div>
 
-<p>Add edges to a layout and watch $V-E+F=2$ hold until the edge bound $E\le 3V-6$ is breached, flagging non-planarity.</p>
+<p>Add edges to the circle layout and watch the Euler face count $F=E-V+2$ and the density bound $E\le 3V-6$; once $E$ exceeds it the graph cannot be planar. Vertices in convex position cap at $E=2V-3$, so the bound itself is reached only with interior vertices — like the octahedron.</p>
 
 <div class="widget" id="w-planar">
   <div class="hd"><div class="ttl">Euler's formula checker</div><div class="hint">add edges; V−E+F=2 holds, and E≤3V−6 flags density</div></div>
@@ -584,7 +584,7 @@ function drawNode(svg, x, y, label, opts={}){
   </div>
   <div class="row">
     <button id="planar-add">add an edge</button>
-    <button id="planar-tri">triangulate (maximal planar)</button>
+    <button id="planar-tri">fan-triangulate</button>
     <button id="planar-clear">clear to spanning tree</button>
   </div>
   <div class="readout" id="planar-out"></div>
@@ -602,7 +602,7 @@ function drawNode(svg, x, y, label, opts={}){
     for(let i=0;i<V;i++) for(let j=i+1;j<V;j++){ const k=key(i,j); if(!edges.includes(k)){ edges.push(k); return true; } }
     return false;
   }
-  function triangulate(){ // outer cycle + one hub fan = maximal planar (3V-6 edges)
+  function triangulate(){ // outer cycle + fan from v0 = 2V−3 edges (the max for vertices in convex position)
     edges=[];
     for(let i=0;i<V;i++) edges.push(key(i,(i+1)%V)); // outer cycle
     for(let i=2;i<V-1;i++) edges.push(key(0,i));     // fan from vertex 0 across the polygon
@@ -616,14 +616,15 @@ function drawNode(svg, x, y, label, opts={}){
     for(let i=0;i<V;i++) drawNode(svg,p[i][0],p[i][1], i+1, {r:14, fill:'var(--panel2)', stroke:'var(--violet)'});
     const E=edges.length;
     const bound=3*V-6;
-    // For a CONNECTED planar embedding, F = 2 - V + E (Euler). We report that planar face count.
-    const F=2 - V + E;
     const planarOK = E<=bound;
-    out.textContent =
-      'V = '+V+'   E = '+E+'   planar-embedding faces F = 2 − V + E = '+F+'\n'+
-      'Euler check: V − E + F = '+V+' − '+E+' + '+F+' = '+(V-E+F)+'   (= 2 ✓)\n'+
-      'edge bound 3V − 6 = '+bound+'   →  E '+(E<=bound?'≤':'>')+' 3V−6   '+
-        (planarOK?'within the planar limit':'EXCEEDS the bound ⇒ NOT planar (contains a K5 or K3,3 minor)');
+    const F=E - V + 2;  // Euler: face count of a CONNECTED planar embedding
+    out.textContent = planarOK
+      ? ('V = '+V+'   E = '+E+'   (E ≤ 3V−6 = '+bound+', within the planar limit)\n'+
+         'Euler then fixes the faces: F = E − V + 2 = '+F+'  (connected planar drawing)\n'+
+         'fan-triangulating the circle reaches E = 2V−3 = '+(2*V-3)+' — the most for vertices in convex position; the 3V−6 bound (e.g. the octahedron) needs interior vertices')
+      : ('V = '+V+'   E = '+E+'\n'+
+         'E > 3V−6 = '+bound+'  ⇒  NOT planar (every drawing crosses; contains a K5 or K3,3 minor)\n'+
+         'Euler\x27s V − E + F = 2 holds only for planar graphs — no consistent face count here');
   }
   nSl.addEventListener('input',()=>{ V=+nSl.value; spanningTree(); render(); });
   add.addEventListener('click',()=>{ addOne(); render(); });

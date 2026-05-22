@@ -32,8 +32,11 @@
             "Every vertex must have even degree",
             "A graph with an odd number of edges has at least one vertex of odd degree"
           ],
-          "answer": [0, 1],
-          "explain": "Since $\\sum \\deg(v) = 2|E|$ is even, the odd-degree vertices must pair up, so their count is even. The lemma does not force every degree to be even (option 3 is false), and a triangle has $3$ edges but all even degrees? No — a triangle has all degree $2$ and $3$ edges, so option 4 is also false."
+          "answer": [
+            0,
+            1
+          ],
+          "explain": "Because $\\sum_v \\deg(v)=2|E|$ is always even: the degree sum is even (statement 1 ✓), and since the even-degree vertices contribute an even total, the odd-degree vertices must pair up, so their count is even (statement 2 ✓). The lemma does NOT force every vertex to have even degree (statement 3 ✗ — a path has two degree-1 ends), and it does not tie the parity of $|E|$ to odd-degree vertices (statement 4 ✗ — a triangle has $|E|=3$ odd yet every vertex has even degree $2$)."
         }
       ]
     },
@@ -68,7 +71,12 @@
             "Adding any edge to a spanning tree of $G$ creates exactly one cycle",
             "If $G$ has exactly $n-1$ edges then $G$ is a tree"
           ],
-          "answer": [0, 1, 2, 3],
+          "answer": [
+            0,
+            1,
+            2,
+            3
+          ],
           "explain": "A connected graph needs at least $n-1$ edges and always contains a spanning tree (delete edges from cycles until acyclic). Adding any non-tree edge to a tree closes the unique path between its endpoints into exactly one cycle. A connected graph with exactly $n-1$ edges is acyclic, hence a tree."
         }
       ]
@@ -109,7 +117,11 @@
             "An Eulerian circuit uses every edge once; a Hamiltonian cycle uses every vertex once",
             "Every Eulerian graph is automatically Hamiltonian"
           ],
-          "answer": [0, 1, 2],
+          "answer": [
+            0,
+            1,
+            2
+          ],
           "explain": "Euler's degree test is a fast local check; Hamiltonicity has no such characterization and is NP-complete. The two notions are independent — an Eulerian graph need not be Hamiltonian and vice versa, so option 4 is false."
         }
       ]
@@ -181,7 +193,11 @@
             "Some planar graphs require $5$ colors",
             "Bipartite planar graphs are $2$-colorable"
           ],
-          "answer": [0, 1, 3],
+          "answer": [
+            0,
+            1,
+            3
+          ],
           "explain": "The Five Color Theorem has a short discharging/recoloring proof; the Four Color Theorem (Appel–Haken) is much deeper and computer-assisted. No planar graph needs $5$ colors (option 3 contradicts the 4CT). Bipartite graphs — planar or not — are $2$-colorable by definition."
         }
       ]
