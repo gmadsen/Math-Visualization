@@ -71,7 +71,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./probabilistic-graphical-models.html#inference\">Probabilistic graphical models</a> · Exact inference</div>\n    <div><a href=\"./probabilistic-graphical-models.html#mrf\">Probabilistic graphical models</a> · Markov random fields</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./causal-inference.html#scm\">Causal inference</a> · Structural causal models</div>\n    <div><a href=\"./probabilistic-graphical-models.html#inference\">Probabilistic graphical models</a> · Exact inference</div>\n    <div><a href=\"./probabilistic-graphical-models.html#mrf\">Probabilistic graphical models</a> · Markov random fields</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "quiz",

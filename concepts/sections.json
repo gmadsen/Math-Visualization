@@ -307,7 +307,8 @@
         "probabilistic-graphical-models",
         "deep-learning-theory",
         "information-geometry",
-        "diffusion-and-score-based-models"
+        "diffusion-and-score-based-models",
+        "causal-inference"
       ],
       "color": "b"
     }

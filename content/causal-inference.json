@@ -1,0 +1,442 @@
+{
+  "topic": "causal-inference",
+  "rawHead": "<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\" />\n<meta name=\"viewport\" content=\"width=device-width,initial-scale=1\" />\n<title>Causal inference</title>\n<link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css\">\n<script defer src=\"https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js\"></script>\n<script defer src=\"https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js\"></script>\n<script>\n(function(){\n  function renderAll(){\n    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }\n    renderMathInElement(document.body,{\n      delimiters:[\n        {left:'$$',right:'$$',display:true},\n        {left:'$',right:'$',display:false},\n        {left:'\\\\(',right:'\\\\)',display:false},\n        {left:'\\\\[',right:'\\\\]',display:true}\n      ],\n      throwOnError:false,\n      strict:(c)=>c==='unicodeTextInMathMode'?'ignore':'warn',\n      macros:{\n        '\\\\Spec':'\\\\operatorname{Spec}',\n        '\\\\Gal':'\\\\operatorname{Gal}',\n        '\\\\Hom':'\\\\operatorname{Hom}',\n        '\\\\tr':'\\\\operatorname{tr}',\n        '\\\\ad':'\\\\operatorname{ad}',\n        '\\\\ind':'\\\\operatorname{ind}'\n      }\n    });\n  }\n  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);\n  else renderAll();\n})();\n</script>\n<style>\n  :root{\n    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;\n    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;\n    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;\n    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;\n  }\n  *{box-sizing:border-box}\n  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);\n    font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",Inter,Roboto,sans-serif;\n    font-size:17px;line-height:1.65}\n  a{color:var(--blue)}\n  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;\n    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}\n  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}\n  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}\n  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}\n  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}\n  p{margin:0.7rem 0}\n  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}\n  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;\n    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}\n  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}\n  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}\n  .widget .hd .hint{color:var(--mute);font-size:.85rem}\n  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}\n  .row label{color:var(--mute);font-size:.88rem}\n  input[type=\"text\"],input[type=\"number\"],select{\n    background:#0b0f16;color:var(--ink);border:1px solid var(--line);\n    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}\n  input[type=\"range\"]{accent-color:var(--yellow);flex:1;max-width:260px}\n  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);\n    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}\n  button:hover{background:#242c3e}\n  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}\n  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;\n    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;\n    min-height:1.6em;white-space:pre-wrap;word-break:break-word}\n  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);\n    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}\n  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;\n    margin:1rem 0;border-radius:0 6px 6px 0}\n  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;\n    margin:1rem 0;border-radius:0 6px 6px 0}\n  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;\n    margin:1rem 0;border-radius:0 6px 6px 0}\n  svg{display:block;margin:0 auto;max-width:100%}\n  svg text{fill:var(--ink);font-family:inherit}\n  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);\n    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;\n    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}\n  nav.toc a{color:var(--mute);text-decoration:none}\n  nav.toc a:hover{color:var(--yellow)}\n  /* sticky sidebar TOC (wide screens only; narrow screens fall back to top-nav) */\n  aside.sidetoc{position:fixed;top:4.2rem;\n    left:max(1rem, calc(50% - 440px - 220px));\n    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;\n    padding-right:1rem;border-right:1px solid var(--line);\n    font-size:.88rem;z-index:5}\n  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;\n    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}\n  aside.sidetoc ol{list-style:none;padding:0;margin:0}\n  aside.sidetoc li{margin:0}\n  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;\n    border-left:2px solid transparent;line-height:1.35;\n    transition:color 120ms ease, border-color 120ms ease}\n  aside.sidetoc a:hover{color:var(--ink)}\n  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}\n  @media (max-width:1180px){ aside.sidetoc{display:none} }\n  @media (min-width:1181px){ nav.toc a[href^=\"#\"]{display:none} }\n  .hero{padding:3rem 0 1rem}\n  .small{font-size:.88rem;color:var(--mute)}\n  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}\n  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}\n  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}\n  table.plain th{color:var(--mute);font-weight:500}\n  /* callback-css-auto-begin */\n  aside.callback{\n    margin:1.2rem 0;padding:.7rem 1rem;\n    background:rgba(88,196,221,0.05);\n    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);\n    border-radius:0 6px 6px 0;\n    font-size:.93rem;\n  }\n  aside.callback .ttl{\n    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;\n    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;\n  }\n  aside.callback ul{margin:0;padding-left:1.1rem}\n  aside.callback ul li{margin:.15rem 0}\n  aside.callback a{color:inherit}\n/* callback-css-auto-end */\n  details.changelog{\n    margin:2rem 0 1rem;padding:.6rem .9rem;\n    background:rgba(0,0,0,0.22);\n    border-radius:6px;\n    font-size:.85rem;\n  }\n  details.changelog summary{\n    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;\n    font-size:.7rem;color:var(--mute,#8c9aa6);\n  }\n  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}\n  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}\n  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}\n  aside.related{\n    margin:1.2rem 0;padding:.7rem 1rem;\n    background:color-mix(in srgb, var(--mute) 6%, transparent);\n    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);\n    border-radius:0 6px 6px 0;\n    font-size:.93rem;\n  }\n  aside.related .ttl{\n    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;\n    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;\n  }\n  aside.related > div{margin:.15rem 0}\n  aside.related .more{color:var(--mute);font-style:italic}\n  aside.related a{color:inherit}\n  /* display-prefs-css-auto-begin */\n  html[data-hide-widgets] .widget { display: none !important; }\n  html[data-hide-quizzes] .quiz { display: none !important; }\n  html[data-hide-lineage] .lineage-strip { display: none !important; }\n  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }\n  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }\n  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }\n  .mv-display-toggle--off { opacity: 0.35; }\n  /* display-prefs-css-auto-end */\n</style>\n<!-- breadcrumb-head-auto-begin -->\n<script src=\"./js/section-map.js\"></script>\n<script src=\"./js/breadcrumb.js\"></script>\n<script src=\"./js/glossary-popover.js\" defer></script>\n<link rel=\"stylesheet\" media=\"print\" href=\"./css/print.css\">\n<link rel=\"stylesheet\" href=\"./css/theme-light.css\">\n<script src=\"./js/theme-toggle.js\"></script>\n<script src=\"./concepts/bundle.js\" defer></script>\n<script src=\"./js/topic-hotkeys.js\" defer></script>\n<script src=\"./js/topic-lineage.js\" defer></script>\n<!-- breadcrumb-head-auto-end -->\n<script src=\"./js/progress.js\"></script>\n<script src=\"./js/quiz.js\"></script>\n<script src=\"./js/katex-select.js\"></script>\n<script src=\"./js/widget-diagram-editor.js\"></script>\n<script src=\"./quizzes/bundle.js\"></script>\n<script src=\"./js/sidetoc.js\"></script>\n<!-- display-prefs-head-auto-begin -->\n<script src=\"./js/display-prefs.js\"></script>\n<!-- display-prefs-head-auto-end -->\n</head>\n",
+  "rawBodyPrefix": "<body data-section=\"learning-theory-and-data-science\" data-level=\"advanced\">\n<script>\nconst $ = (s,r=document)=>r.querySelector(s);\nconst $$ = (s,r=document)=>[...r.querySelectorAll(s)];\nconst SVG = (tag,attrs={})=>{\n  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);\n  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);\n  return e;\n};\n// draw an arrow marker def once per svg (idempotent)\nfunction ensureArrow(svg, id, color){\n  let defs = svg.querySelector('defs');\n  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }\n  if(defs.querySelector('#'+id)) return;\n  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});\n  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));\n  defs.appendChild(mk);\n}\n// curved arrow between two pixel points, with optional label\nfunction drawArrow(svg, p1, p2, opts={}){\n  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;\n  ensureArrow(svg, markerId, color);\n  const [x1,y1]=p1, [x2,y2]=p2;\n  const dx=x2-x1, dy=y2-y1;\n  const L = Math.hypot(dx,dy) || 1;\n  const ux=dx/L, uy=dy/L;\n  // shorten endpoints\n  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;\n  const ax=x1+ux*pad1, ay=y1+uy*pad1;\n  const bx=x2-ux*pad2, by=y2-uy*pad2;\n  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;\n  const path = SVG('path',{\n    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,\n    fill:'none', stroke:color, 'stroke-width':width,\n    'marker-end':`url(#${markerId})`\n  });\n  if(dash) path.setAttribute('stroke-dasharray', dash);\n  svg.appendChild(path);\n  if(label){\n    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,\n      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});\n    t.textContent = label;\n    svg.appendChild(t);\n  }\n  return path;\n}\nfunction drawNode(svg, x, y, label, opts={}){\n  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;\n  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));\n  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});\n  t.textContent = label;\n  svg.appendChild(t);\n}\n</script>\n\n<nav class=\"toc\"><a href=\"./index.html\" style=\"color:var(--violet);font-weight:500\">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class=\"breadcrumb\"></div><span class=\"nav-links\"><a class=\"nav-link\" href=\"./pathway.html\">Pathway</a><a class=\"nav-link\" href=\"./tours.html\">Tours</a><a class=\"nav-link\" href=\"./history.html\">History</a><a class=\"nav-link\" href=\"./tags.html\">Themes</a><a class=\"nav-link\" href=\"./mindmap.html\">Mindmap</a><a class=\"nav-link\" href=\"./search.html\">Search</a></span><span class=\"mv-theme-slot\"></span><!-- breadcrumb-nav-auto-end -->\n<!-- toc-auto-begin -->\n  <a href=\"#scm\">1&nbsp;Structural&nbsp;causal&nbsp;models</a>\n  <a href=\"#interventions\">2&nbsp;Interventions&nbsp;&amp;&nbsp;the&nbsp;do-operator</a>\n  <a href=\"#confounding\">3&nbsp;Confounding&nbsp;&amp;&nbsp;the&nbsp;backdoor&nbsp;criterion</a>\n  <a href=\"#do-calculus\">4&nbsp;Identification&nbsp;&amp;&nbsp;do-calculus</a>\n  <a href=\"#counterfactuals\">5&nbsp;Counterfactuals</a>\n  <a href=\"#estimation\">6&nbsp;Estimating&nbsp;causal&nbsp;effects</a>\n  <a href=\"#connections\">7&nbsp;Connections</a>\n<!-- toc-auto-end -->\n</nav>\n<!-- lineage-mount-auto-begin --><div id=\"mv-lineage-mount\" class=\"lineage-strip\" hidden></div><!-- lineage-mount-auto-end -->\n\n<aside class=\"sidetoc\" aria-label=\"Table of contents\"></aside>\n\n<main>\n\n<section class=\"hero\">\n  <h1>Causal inference</h1>\n  <p class=\"sub\">The mathematics of cause and effect — structural equations, the surgery of intervention, and counterfactual reasoning — that lets you climb Pearl's ladder from <em>seeing</em> to <em>doing</em> to <em>imagining what would have been</em>.</p>\n</section>\n\n",
+  "sections": [
+    {
+      "id": "scm",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"scm\">\n<h2>1. Structural causal models</h2>\n<p>A probability distribution tells you how variables <em>co-occur</em>; it is silent about what happens if you reach in and <em>change</em> one. To talk about cause and effect we need more structure than a joint. A <strong>structural causal model</strong> (SCM) supplies it: a <strong>directed acyclic graph</strong> $G$ over the variables together with a <strong>structural equation</strong> for each node,</p>\n<p style=\"text-align:center\">$X_i \\;:=\\; f_i\\big(\\mathrm{pa}_i,\\; U_i\\big),\\qquad U_1,\\dots,U_n \\text{ mutually independent},$</p>\n<p>where $\\mathrm{pa}_i$ are the graph parents of $X_i$ and $U_i$ is an <strong>exogenous noise</strong> term carrying everything outside the model. The assignment $:=$ is deliberately not an equation: it is a <em>mechanism</em>, read left-to-right, that says how $X_i$ is produced from its causes. The independent noises (a <strong>Markovian</strong> model) make every dependence in the data flow through the arrows.</p>\n\n<h3>The entailed distribution</h3>\n<p>Pushing the noise through the equations induces an <strong>observational distribution</strong> that factorizes exactly like a <a href=\"./probabilistic-graphical-models.html#bayes-nets\">Bayes net</a>:</p>\n<p style=\"text-align:center\">$p(x_1,\\dots,x_n) \\;=\\; \\prod_{i=1}^{n} p\\big(x_i \\mid \\mathrm{pa}_i\\big)$ &nbsp;&nbsp;(the causal Markov factorization).</p>\n<p>So an SCM <em>is</em> a Bayes net plus a reading of the arrows as mechanisms. The catch — the whole reason the subject exists — is that the joint does not determine the SCM. Two models with reversed arrows, $X\\to Y$ and $X\\leftarrow Y$, are <strong>Markov-equivalent</strong> and can entail the very same $p(x,y)$, yet they answer questions about interventions in opposite ways. Causal claims live in the equations, not in the distribution they happen to produce.</p>\n\n<div class=\"note\"><strong>Worked mini-example — a confounded chain.</strong> Take $Z := U_Z$, $X := f_X(Z, U_X)$, $Y := f_Y(X, Z, U_Y)$ on the graph $Z\\to X$, $Z\\to Y$, $X\\to Y$. The entailed joint factorizes as $p(z)\\,p(x \\mid z)\\,p(y \\mid x,z)$. Read causally: $Z$ is a common cause (a confounder) of both $X$ and $Y$, and $X$ also affects $Y$ directly. The same factorization is a perfectly ordinary Bayes net — only the SCM's promise that these conditionals are <em>autonomous mechanisms</em> licenses us to mutilate one of them in the next section.</div>\n\n<p>Set the structural coefficients and noise of a small linear SCM below, propagate the equations, and read off the entailed joint and the implied correlations.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "parametric-plot",
+          "params": {
+            "interaction": "single-mode",
+            "widgetId": "w-scm",
+            "svgId": "scm-svg",
+            "outputId": "scm-out",
+            "title": "A linear SCM: equations entail the joint",
+            "hint": "set the structural coefficients; the arrows are mechanisms, the joint is what they produce",
+            "viewBox": "0 0 640 300",
+            "svgWidth": 640,
+            "svgHeight": 300,
+            "svgTitle": "A three-node structural causal model with confounder Z, treatment X and outcome Y; sliders set the structural coefficients and the entailed joint statistics are read off",
+            "outputInitial": "",
+            "sliders": [
+              {
+                "id": "scm-a",
+                "outId": "scm-a-lbl",
+                "label": "$Z\\to X$ coefficient $a$:",
+                "min": -2,
+                "max": 2,
+                "step": 0.1,
+                "init": 1.2
+              },
+              {
+                "id": "scm-b",
+                "outId": "scm-b-lbl",
+                "label": "$X\\to Y$ coefficient $b$ (the causal effect):",
+                "min": -2,
+                "max": 2,
+                "step": 0.1,
+                "init": 0.8
+              },
+              {
+                "id": "scm-c",
+                "outId": "scm-c-lbl",
+                "label": "$Z\\to Y$ coefficient $c$:",
+                "min": -2,
+                "max": 2,
+                "step": 0.1,
+                "init": 1
+              }
+            ],
+            "bodyScript": "  const svg=$('#scm-svg'), out=$('#scm-out');\n  const a=$('#scm-a'), aL=$('#scm-a-lbl'), b=$('#scm-b'), bL=$('#scm-b-lbl'), c=$('#scm-c'), cL=$('#scm-c-lbl');\n  const W=640,H=300;\n  // Linear-Gaussian SCM, all exogenous noises standard normal & independent:\n  //   Z := Uz                       Var(Z)=1\n  //   X := a Z + Ux                  Var(X)=a^2+1\n  //   Y := b X + c Z + Uy            Var(Y)=b^2 Var(X)+c^2+2 b c a + 1\n  // Closed-form covariances (mean zero throughout).\n  function stats(){\n    const A=+a.value, B=+b.value, C=+c.value;\n    const vZ=1, vX=A*A+1;\n    const covXZ=A;                       // Cov(X,Z)=a\n    const vY=B*B*vX + C*C + 2*B*C*A + 1; // expand Var(bX+cZ+Uy)\n    const covXY=B*vX + C*covXZ;          // Cov(X,Y)=b Var(X)+c Cov(X,Z)\n    const covYZ=B*covXZ + C*vZ;          // Cov(Y,Z)=b Cov(X,Z)+c\n    const corrXY=covXY/Math.sqrt(vX*vY);\n    return {A,B,C,vZ,vX,vY,covXZ,covXY,covYZ,corrXY};\n  }\n  function render(){\n    svg.innerHTML='';\n    const s=stats();\n    aL.textContent='a = '+s.A.toFixed(1); bL.textContent='b = '+s.B.toFixed(1); cL.textContent='c = '+s.C.toFixed(1);\n    const Z=[320,70], X=[170,210], Y=[470,210];\n    drawArrow(svg, Z, X, {color:'var(--violet)', markerId:'arr-scm', width:2, label:'a', labelSide:0});\n    drawArrow(svg, X, Y, {color:'var(--yellow)', markerId:'arr-scm', width:2.4, label:'b'});\n    drawArrow(svg, Z, Y, {color:'var(--violet)', markerId:'arr-scm', width:2, label:'c'});\n    drawNode(svg, Z[0],Z[1],'Z',{r:26,fill:'var(--panel2)',stroke:'var(--violet)'});\n    drawNode(svg, X[0],X[1],'X',{r:26,fill:'var(--panel2)',stroke:'var(--cyan)'});\n    drawNode(svg, Y[0],Y[1],'Y',{r:26,fill:'var(--panel2)',stroke:'var(--yellow)'});\n    function cap(x,y,t){ const e=SVG('text',{x,y,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}); e.textContent=t; svg.appendChild(e); }\n    cap(Z[0],Z[1]-34,'confounder'); cap(X[0],X[1]+44,'treatment'); cap(Y[0],Y[1]+44,'outcome');\n    out.textContent =\n      'structural equations:   Z := Uz,   X := a·Z + Ux,   Y := b·X + c·Z + Uy   (Uz,Ux,Uy iid standard normal)\\n'+\n      'entailed joint factorizes as  p(z,x,y) = p(z)·p(x | z)·p(y | x,z)\\n'+\n      'Var(Z) = '+s.vZ.toFixed(2)+',   Var(X) = '+s.vX.toFixed(2)+',   Var(Y) = '+s.vY.toFixed(2)+'\\n'+\n      'Cov(X,Z) = '+s.covXZ.toFixed(2)+',   Cov(X,Y) = '+s.covXY.toFixed(2)+',   Cov(Y,Z) = '+s.covYZ.toFixed(2)+'\\n'+\n      'observed corr(X,Y) = '+s.corrXY.toFixed(3)+'   — this mixes the direct effect b with the confounding path through Z (slope b + c·a/Var(X)).';\n  }\n  a.addEventListener('input',render);\n  b.addEventListener('input',render);\n  c.addEventListener('input',render);\n  render();"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-scm"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./probabilistic-graphical-models.html#bayes-nets\">Bayesian networks</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./causal-inference.html#counterfactuals\">Causal inference</a> · Counterfactuals</div>\n    <div><a href=\"./causal-inference.html#interventions\">Causal inference</a> · Interventions &amp; the do-operator</div>\n</aside>\n<!-- backlinks-auto-end -->"
+        },
+        {
+          "type": "quiz",
+          "concept": "ci-scm",
+          "html": "<div class=\"quiz\" data-concept=\"ci-scm\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "interventions",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"interventions\">\n<h2>2. Interventions &amp; the do-operator</h2>\n<p>The second rung of the ladder is <em>doing</em>. To express \"set $X$ to the value $x$, by external force, regardless of its usual causes\" we use the <strong>do-operator</strong>. An intervention $\\operatorname{do}(X=x)$ is <strong>graph surgery</strong>: delete every arrow <em>into</em> $X$, replace its structural equation by the constant $X:=x$, and leave every other mechanism alone. The arrows <em>out</em> of $X$ stay — that is precisely how the intervention propagates to the outcome.</p>\n\n<p>On the mutilated graph the entailed distribution is the <strong>truncated factorization</strong> (also the g-formula): drop the factor for the intervened node and clamp its value,</p>\n<p style=\"text-align:center\">$p\\big(v \\mid \\operatorname{do}(X=x)\\big) \\;=\\; \\prod_{i:\\, V_i \\neq X} p\\big(v_i \\mid \\mathrm{pa}_i\\big)\\bigg|_{X=x}.$</p>\n\n<div class=\"bad\"><strong>Conditioning is not intervening.</strong> In general $p\\big(y \\mid \\operatorname{do}(X=x)\\big) \\neq p\\big(y \\mid X=x\\big)$. Observing $X=x$ is filtering the world to cases where $X$ happened to equal $x$ — which also tells you about $X$'s causes, and through them about $Y$. Intervening manufactures $X=x$, severing it from its causes. The two coincide only when there is no <em>backdoor</em> from $X$ to $Y$ — that is, no confounding (next section).</div>\n\n<div class=\"note\"><strong>Worked mini-example — surgery on the confounded chain.</strong> On $Z\\to X$, $Z\\to Y$, $X\\to Y$ the observational law is $p(z)\\,p(x \\mid z)\\,p(y \\mid x,z)$. Intervening cuts $Z\\to X$, dropping the factor $p(x \\mid z)$: $p\\big(z,y \\mid \\operatorname{do}(x)\\big) = p(z)\\,p(y \\mid x,z)$, so $p\\big(y \\mid \\operatorname{do}(x)\\big)=\\sum_z p(y \\mid x,z)\\,p(z)$. Compare conditioning, $p(y \\mid x)=\\sum_z p(y \\mid x,z)\\,p(z \\mid x)$, which weights $Z$ by the <em>post-selection</em> $p(z \\mid x)$. The two differ exactly because $p(z) \\neq p(z \\mid x)$ when $Z\\to X$.</div>\n\n<p>Toggle between <em>observing</em> $X=1$ (conditioning) and <em>doing</em> $\\operatorname{do}(X=1)$ (surgery) on a confounded graph below, and watch the two outcome distributions for $Y$ separate.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "parametric-plot",
+          "params": {
+            "interaction": "single-mode",
+            "widgetId": "w-do",
+            "svgId": "do-svg",
+            "outputId": "do-out",
+            "title": "Observe X vs do(X): two different worlds",
+            "hint": "the strength of confounding sets how far conditioning drifts from intervening",
+            "viewBox": "0 0 640 320",
+            "svgWidth": 640,
+            "svgHeight": 320,
+            "svgTitle": "A confounded graph with Z causing X and Y; a toggle switches between conditioning on X equals 1 and intervening with do of X equals 1, comparing the two outcome distributions",
+            "outputInitial": "",
+            "sliders": [
+              {
+                "id": "do-conf",
+                "outId": "do-conf-lbl",
+                "label": "confounding strength (how much $Z$ drives $X$):",
+                "min": 0,
+                "max": 1,
+                "step": 0.05,
+                "init": 0.7
+              }
+            ],
+            "buttons": [
+              {
+                "id": "do-obs",
+                "label": "observe X = 1"
+              },
+              {
+                "id": "do-int",
+                "label": "do(X = 1)"
+              }
+            ],
+            "bodyScript": "  const svg=$('#do-svg'), out=$('#do-out'), conf=$('#do-conf'), confL=$('#do-conf-lbl'), bObs=$('#do-obs'), bInt=$('#do-int');\n  const W=640,H=320;\n  // Binary confounded model Z -> X, Z -> Y, X -> Y. All binary.\n  // P(Z=1)=0.5. P(X=1 | Z) depends on confounding strength s: a high-Z patient is more likely treated.\n  // P(Y=1 | X,Z): both the treatment X and the confounder Z raise recovery.\n  let mode='obs'; // 'obs' = condition on X=1, 'int' = do(X=1)\n  const pZ=0.5;\n  function pXgivenZ(z){ const s=+conf.value; return z? 0.5+0.45*s : 0.5-0.45*s; } // s=0 -> X⟂Z\n  function pYgivenXZ(x,z){ let p=0.30; if(x) p+=0.30; if(z) p+=0.25; return p; }   // X is the true cause (+0.30)\n  // P(Y=1 | X=1)   = Σ_z P(Y=1|1,z) P(z|X=1)        (conditioning: reweight Z by posterior)\n  // P(Y=1 | do(X=1)) = Σ_z P(Y=1|1,z) P(z)          (intervention: Z keeps its marginal)\n  function results(){\n    // posterior P(z | X=1)\n    const num1=pXgivenZ(1)*pZ, num0=pXgivenZ(0)*(1-pZ); const den=num1+num0;\n    const postZ1=num1/den, postZ0=num0/den;\n    const obs = pYgivenXZ(1,1)*postZ1 + pYgivenXZ(1,0)*postZ0;\n    const intv= pYgivenXZ(1,1)*pZ    + pYgivenXZ(1,0)*(1-pZ);\n    // also the true causal contrast P(Y=1|do(X=1)) - P(Y=1|do(X=0))\n    const intv0= pYgivenXZ(0,1)*pZ + pYgivenXZ(0,0)*(1-pZ);\n    return {obs,intv,ate:intv-intv0,postZ1};\n  }\n  function render(){\n    svg.innerHTML='';\n    confL.textContent='confounding = '+(+conf.value).toFixed(2);\n    bObs.classList.toggle('active', mode==='obs');\n    bInt.classList.toggle('active', mode==='int');\n    const r=results();\n    const cut = (mode==='int'); // do(X=1) cuts the Z->X arrow\n    const Z=[320,60], X=[170,180], Y=[470,180];\n    if(!cut) drawArrow(svg, Z, X, {color:'var(--violet)', markerId:'arr-do', width:2});\n    else { // draw the severed arrow as a faint dashed stub with a scissors cue\n      drawArrow(svg, Z, X, {color:'var(--line)', markerId:'arr-do-cut', width:1.5, dash:'5 5'});\n      const sc=SVG('text',{x:245,y:118,'font-size':18,fill:'var(--pink)'}); sc.textContent='✂'; svg.appendChild(sc);\n    }\n    drawArrow(svg, Z, Y, {color:'var(--violet)', markerId:'arr-do', width:2});\n    drawArrow(svg, X, Y, {color:'var(--yellow)', markerId:'arr-do', width:2.4});\n    drawNode(svg, Z[0],Z[1],'Z',{r:24,fill:'var(--panel2)',stroke:'var(--violet)'});\n    drawNode(svg, X[0],X[1],'X=1',{r:26,fill: cut?'var(--green)':'var(--panel2)',stroke:'var(--cyan)'});\n    drawNode(svg, Y[0],Y[1],'Y',{r:24,fill:'var(--panel2)',stroke:'var(--yellow)'});\n    function cap(x,y,t,c){ const e=SVG('text',{x,y,'text-anchor':'middle','font-size':12,fill:c||'var(--mute)'}); e.textContent=t; svg.appendChild(e); }\n    cap(Z[0],Z[1]-32,'confounder Z'); cap(X[0],X[1]+44, cut?'set by intervention':'treatment'); cap(Y[0],Y[1]+40,'recovery Y');\n    // two bars comparing P(Y=1) under the current mode and the other one\n    function bar(x,label,val,col){ const bx=x, by=270, bw=120, full=120; svg.appendChild(SVG('rect',{x:bx,y:by-full,width:bw,height:full,rx:4,fill:'var(--panel2)'})); svg.appendChild(SVG('rect',{x:bx,y:by-full*val,width:bw,height:full*val,rx:4,fill:col,opacity:0.9})); const t=SVG('text',{x:bx+bw/2,y:by+18,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}); t.textContent=label; svg.appendChild(t); const v=SVG('text',{x:bx+bw/2,y:by-full*val-6,'text-anchor':'middle','font-size':12,fill:col}); v.textContent=val.toFixed(3); svg.appendChild(v); }\n    bar(360,'P(Y=1 | X=1)', r.obs, mode==='obs'?'var(--cyan)':'var(--mute)');\n    bar(500,'P(Y=1 | do X=1)', r.intv, mode==='int'?'var(--green)':'var(--mute)');\n    const head = mode==='obs'\n      ? 'CONDITIONING on X=1: keep only treated units, reweight Z by the posterior P(Z | X=1)'\n      : 'INTERVENING do(X=1): cut Z→X, so Z keeps its marginal P(Z); the truncated factorization';\n    out.textContent =\n      head+'\\n'+\n      'P(Y=1 | X=1)      = Σ_z P(Y=1 | 1,z)·P(z | X=1)   = '+r.obs.toFixed(3)+'   (posterior P(Z=1 | X=1) = '+r.postZ1.toFixed(3)+')\\n'+\n      'P(Y=1 | do(X=1))  = Σ_z P(Y=1 | 1,z)·P(z)         = '+r.intv.toFixed(3)+'\\n'+\n      'gap (confounding bias) = '+(r.obs-r.intv).toFixed(3)+'   — vanishes only when Z does not drive X (confounding = 0)\\n'+\n      'true causal effect  P(Y=1|do(X=1)) − P(Y=1|do(X=0)) = '+r.ate.toFixed(3)+'   (the genuine lift from treating)';\n  }\n  conf.addEventListener('input',render);\n  bObs.addEventListener('click',()=>{ mode='obs'; render(); });\n  bInt.addEventListener('click',()=>{ mode='int'; render(); });\n  render();"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-do"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "quiz",
+          "concept": "ci-interventions",
+          "html": "<div class=\"quiz\" data-concept=\"ci-interventions\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./causal-inference.html#confounding\">Causal inference</a> · Confounding &amp; the backdoor criterion</div>\n    <div><a href=\"./causal-inference.html#counterfactuals\">Causal inference</a> · Counterfactuals</div>\n</aside>\n<!-- backlinks-auto-end -->"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "confounding",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"confounding\">\n<h2>3. Confounding &amp; the backdoor criterion</h2>\n<p>The gap between $p(y \\mid \\operatorname{do}(x))$ and $p(y \\mid x)$ has a name: <strong>confounding</strong>. It is created by a <strong>backdoor path</strong> — any path from $X$ to $Y$ that begins with an arrow <em>into</em> $X$, e.g. $X\\leftarrow Z\\rightarrow Y$. Such a path is a non-causal conduit of association: it makes $X$ and $Y$ move together for reasons that have nothing to do with $X$ causing $Y$.</p>\n\n<p>The fix is to <strong>adjust</strong> — to compare treated and untreated units <em>within</em> levels of a well-chosen set $Z$. The <strong>backdoor criterion</strong> says exactly which sets work. A set $Z$ is <em>admissible</em> relative to $(X,Y)$ if</p>\n<ul>\n<li>$Z$ blocks every backdoor path from $X$ to $Y$ (in the <a href=\"./probabilistic-graphical-models.html#bayes-nets\">d-separation</a> sense), and</li>\n<li>no node in $Z$ is a descendant of $X$.</li>\n</ul>\n<p>The second clause matters: adjusting for a descendant of $X$ (especially a <em>collider</em> or a mediator) can open new spurious paths or eat part of the very effect you want. When $Z$ is admissible, the interventional law is recovered by the <strong>adjustment formula</strong>:</p>\n<p style=\"text-align:center\">$p\\big(y \\mid \\operatorname{do}(x)\\big) \\;=\\; \\sum_z p\\big(y \\mid x, z\\big)\\,p(z).$</p>\n<p>Note the weight is the <em>marginal</em> $p(z)$, not $p(z \\mid x)$ — the signature of surgery. (One subtlety from <a href=\"./probabilistic-graphical-models.html#bayes-nets\">d-separation</a>: a backdoor path that runs through a <em>collider</em> is already blocked when the collider is unobserved, so you must not adjust for it to \"close\" the path — doing so would open it.)</p>\n\n<div class=\"bad\"><strong>Simpson's paradox.</strong> A drug is given more often to sicker patients. Within each risk group it <em>helps</em>; pooled across groups it appears to <em>hurt</em>. Aggregating without adjusting for the risk confounder $Z$ lets the population mix masquerade as a treatment effect — and the aggregate trend can literally reverse the within-stratum trend.</div>\n\n<div class=\"note\"><strong>Worked mini-example — the numbers.</strong> Recovery rates, treated vs untreated:\n<table class=\"plain\"><thead><tr><th>stratum</th><th>treated</th><th>untreated</th><th>within-stratum effect</th></tr></thead>\n<tbody>\n<tr><td>low risk</td><td>93/100 = 0.93</td><td>87/100 = 0.87</td><td>+0.06</td></tr>\n<tr><td>high risk</td><td>73/100 = 0.73</td><td>69/100 = 0.69</td><td>+0.04</td></tr>\n<tr><td><strong>pooled</strong></td><td>(73+93)/200 ... see below</td><td>...</td><td>can go negative</td></tr>\n</tbody></table>\nThe drug helps in <em>both</em> strata (+0.06 and +0.04). But if the treated group is dominated by high-risk patients and the untreated group by low-risk ones, the pooled treated rate is pulled down toward 0.73 while the pooled untreated rate is pulled up toward 0.87 — and the naive aggregate contrast turns <em>negative</em>. The adjustment formula $\\sum_z p(y \\mid x,z)\\,p(z)$ averages the within-stratum effects against the <em>population</em> risk mix and restores the correct positive sign.</div>\n\n<p>Slide the allocation imbalance below to drive Simpson's paradox, then adjust for the confounder and watch the reversal vanish.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "parametric-plot",
+          "params": {
+            "interaction": "single-mode",
+            "widgetId": "w-simpson",
+            "svgId": "simpson-svg",
+            "outputId": "simpson-out",
+            "title": "Simpson's paradox: pooled vs adjusted",
+            "hint": "the same per-stratum numbers; only the allocation changes — adjusting recovers the truth",
+            "viewBox": "0 0 640 320",
+            "svgWidth": 640,
+            "svgHeight": 320,
+            "svgTitle": "Bars comparing the within-stratum treatment effect, the pooled naive effect, and the confounder-adjusted effect as the treatment allocation across risk strata is varied",
+            "outputInitial": "",
+            "sliders": [
+              {
+                "id": "simp-alloc",
+                "outId": "simp-alloc-lbl",
+                "label": "allocation skew (fraction of treated who are high-risk):",
+                "min": 0.1,
+                "max": 0.9,
+                "step": 0.05,
+                "init": 0.75
+              }
+            ],
+            "buttons": [
+              {
+                "id": "simp-adjust",
+                "label": "show adjusted effect"
+              },
+              {
+                "id": "simp-reset",
+                "label": "hide adjusted"
+              }
+            ],
+            "bodyScript": "  const svg=$('#simpson-svg'), out=$('#simpson-out'), alloc=$('#simp-alloc'), allocL=$('#simp-alloc-lbl'), bAdj=$('#simp-adjust'), bReset=$('#simp-reset');\n  const W=640,H=320;\n  // Fixed within-stratum recovery rates (the drug helps in BOTH strata).\n  const rLowT=0.93, rLowU=0.87, rHighT=0.73, rHighU=0.69;\n  const pHigh=0.5; // population is half high-risk, half low-risk (the marginal P(Z) used for adjustment)\n  let showAdj=false;\n  function compute(){\n    const fHighT=+alloc.value;     // of the treated, this fraction are high-risk\n    const fHighU=1-fHighT;         // mirror: untreated skew the opposite way (the confounding)\n    // pooled (naive) rates, weighting each arm by its OWN stratum mix\n    const pooledT = fHighT*rHighT + (1-fHighT)*rLowT;\n    const pooledU = fHighU*rHighU + (1-fHighU)*rLowU;\n    const naive = pooledT - pooledU;\n    // adjusted: average within-stratum effects against the POPULATION mix pHigh\n    const adjT = pHigh*rHighT + (1-pHigh)*rLowT;\n    const adjU = pHigh*rHighU + (1-pHigh)*rLowU;\n    const adjusted = adjT - adjU;\n    const wLow=rLowT-rLowU, wHigh=rHighT-rHighU;\n    return {naive,adjusted,wLow,wHigh,pooledT,pooledU};\n  }\n  function render(){\n    svg.innerHTML='';\n    allocL.textContent='skew = '+(+alloc.value).toFixed(2);\n    bAdj.classList.toggle('active', showAdj);\n    const r=compute();\n    // zero baseline, bars centered\n    const baseY=180, scale=520; // px per unit effect\n    svg.appendChild(SVG('line',{x1:60,y1:baseY,x2:W-30,y2:baseY,stroke:'var(--mute)','stroke-dasharray':'4 4'}));\n    const z0=SVG('text',{x:50,y:baseY+4,'text-anchor':'end','font-size':11,fill:'var(--mute)'}); z0.textContent='0'; svg.appendChild(z0);\n    function bar(x,label,val,col){ const bw=90; const h=val*scale; const top=val>=0?baseY-h:baseY; svg.appendChild(SVG('rect',{x,y:top,width:bw,height:Math.abs(h),rx:4,fill:col,opacity:0.9})); const t=SVG('text',{x:x+bw/2,y:baseY+(val>=0?24:-8),'text-anchor':'middle','font-size':11,fill:'var(--mute)'}); t.textContent=label; svg.appendChild(t); const v=SVG('text',{x:x+bw/2,y:(val>=0?baseY-h-6:baseY+h+16),'text-anchor':'middle','font-size':12,fill:col}); v.textContent=(val>=0?'+':'')+val.toFixed(3); svg.appendChild(v); }\n    bar(90,'low-risk effect', r.wLow, 'var(--green)');\n    bar(200,'high-risk effect', r.wHigh, 'var(--green)');\n    bar(340,'pooled (naive)', r.naive, r.naive<0?'var(--pink)':'var(--cyan)');\n    if(showAdj) bar(470,'adjusted', r.adjusted, 'var(--yellow)');\n    const cap=SVG('text',{x:W/2,y:30,'text-anchor':'middle','font-size':13,fill:'var(--mute)'}); cap.textContent='treatment effect on recovery (higher = drug helps)'; svg.appendChild(cap);\n    out.textContent =\n      'within-stratum effects (fixed):  low-risk = +'+r.wLow.toFixed(3)+',   high-risk = +'+r.wHigh.toFixed(3)+'   — the drug helps in BOTH strata\\n'+\n      'pooled (naive)  P(Y=1|X=1) − P(Y=1|X=0) = '+r.pooledT.toFixed(3)+' − '+r.pooledU.toFixed(3)+' = '+(r.naive>=0?'+':'')+r.naive.toFixed(3)+(r.naive<0?'   ← REVERSED! Simpson\\'s paradox':'')+'\\n'+\n      (showAdj\n        ? 'adjusted (backdoor)  Σ_z [P(Y=1|X=1,z) − P(Y=1|X=0,z)]·P(z) = +'+r.adjusted.toFixed(3)+'   — averages the true within-stratum effects against the population risk mix; sign restored'\n        : 'press \"show adjusted effect\" to apply Σ_z P(Y|x,z)·P(z) and recover the truth');\n  }\n  alloc.addEventListener('input',render);\n  bAdj.addEventListener('click',()=>{ showAdj=true; render(); });\n  bReset.addEventListener('click',()=>{ showAdj=false; render(); });\n  render();"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-simpson"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./probability-theory.html#bayes\">Conditional probability &amp; Bayes' rule</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./causal-inference.html#estimation\">Causal inference</a> · Estimating causal effects</div>\n    <div><a href=\"./causal-inference.html#do-calculus\">Causal inference</a> · Identification &amp; do-calculus</div>\n</aside>\n<!-- backlinks-auto-end -->"
+        },
+        {
+          "type": "quiz",
+          "concept": "ci-confounding",
+          "html": "<div class=\"quiz\" data-concept=\"ci-confounding\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "do-calculus",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"do-calculus\">\n<h2>4. Identification &amp; do-calculus</h2>\n<p>The backdoor formula needs an admissible set you can actually measure. When the confounder is <strong>unobserved</strong>, no backdoor adjustment exists — yet the effect may <em>still</em> be computable from data. The general question is <strong>identification</strong>: can $p\\big(y \\mid \\operatorname{do}(x)\\big)$ be rewritten using only the observational distribution $p$? If yes, passive data suffices; if no, you genuinely need an experiment or extra assumptions.</p>\n\n<h3>The three rules</h3>\n<p>Pearl's <strong>do-calculus</strong> is a complete proof system for this. Writing $G_{\\overline{X}}$ for the graph with arrows <em>into</em> $X$ removed and $G_{\\underline{X}}$ for arrows <em>out of</em> $X$ removed, the three rules let you manipulate expressions with $\\operatorname{do}$ terms:</p>\n<ul>\n<li><strong>Rule 1 (insert/delete observations):</strong> $p(y \\mid \\operatorname{do}(x), z, w) = p(y \\mid \\operatorname{do}(x), w)$ when $Y$ and $Z$ are d-separated by $X,W$ in $G_{\\overline{X}}$.</li>\n<li><strong>Rule 2 (action/observation exchange):</strong> a $\\operatorname{do}(z)$ may be downgraded to a mere observation $z$ when $Y$ and $Z$ are d-separated by $X,W$ in $G_{\\overline{X}\\underline{Z}}$.</li>\n<li><strong>Rule 3 (insert/delete actions):</strong> a $\\operatorname{do}(z)$ may be dropped when $Y$ and $Z$ are d-separated by $X,W$ in the suitably mutilated graph (no remaining causal path from $Z$ to $Y$).</li>\n</ul>\n<p>The deep result (<strong>Shpitser–Pearl completeness</strong>): if an effect is identifiable, repeated application of these rules will reduce it to a $\\operatorname{do}$-free expression; if no such reduction exists, the effect is <em>provably non-identifiable</em> (the \"bow arc\" — an unobserved confounder sitting directly across $X\\to Y$ with no mediator — is the canonical unidentifiable case).</p>\n\n<h3>The front-door criterion</h3>\n<p>The signature payoff is the <strong>front-door criterion</strong>. Suppose $X\\to M\\to Y$ with an <em>unobserved</em> confounder $U$ feeding both $X$ and $Y$. The backdoor $X\\leftarrow U\\rightarrow Y$ cannot be blocked — $U$ is unmeasured. But if the mediator $M$ intercepts all of $X$'s effect on $Y$ and has no unblocked backdoor of its own, do-calculus identifies the effect through $M$:</p>\n<p style=\"text-align:center\">$p\\big(y \\mid \\operatorname{do}(x)\\big) \\;=\\; \\sum_m p\\big(m \\mid x\\big)\\,\\sum_{x'} p\\big(y \\mid m, x'\\big)\\,p\\big(x'\\big).$</p>\n<p>Read it as two identifiable hops chained together: $X\\to M$ has no backdoor (so $p(m \\mid x)$ is already causal), and the effect of $M$ on $Y$ is identified by adjusting for $X$ (the inner sum over $x'$).</p>\n\n<div class=\"note\"><strong>Worked mini-example — smoking → tar → cancer.</strong> Let $X$ = smoking, $M$ = tar deposits in the lungs, $Y$ = cancer, with an unobserved genetic confounder $U$ that affects both the urge to smoke and cancer risk. We cannot adjust for $U$. But tar is (assume) caused only by smoking and causes cancer only through itself: $X\\to M\\to Y$. The front-door formula $\\sum_m p(m \\mid x)\\sum_{x'} p(y \\mid m,x')\\,p(x')$ recovers the causal effect of smoking on cancer purely from observed smoking, tar, and cancer frequencies — no measurement of the genetic confounder required.</div>\n\n<p>Tune the front-door example below: vary how strongly the unobserved confounder corrupts the naive association, and watch the front-door estimate stay locked on the true causal effect while the naive correlation drifts.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "parametric-plot",
+          "params": {
+            "interaction": "single-mode",
+            "widgetId": "w-frontdoor",
+            "svgId": "fd-svg",
+            "outputId": "fd-out",
+            "title": "Front-door: identify through the mediator",
+            "hint": "the unobserved U corrupts the naive estimate; the front-door formula is immune",
+            "viewBox": "0 0 640 320",
+            "svgWidth": 640,
+            "svgHeight": 320,
+            "svgTitle": "The smoking-tar-cancer front-door graph with an unobserved confounder U; a slider varies the confounding and compares the naive association, the front-door estimate, and the true causal effect",
+            "outputInitial": "",
+            "sliders": [
+              {
+                "id": "fd-u",
+                "outId": "fd-u-lbl",
+                "label": "unobserved confounding $U$ (corrupts the naive estimate):",
+                "min": 0,
+                "max": 0.45,
+                "step": 0.05,
+                "init": 0.3
+              }
+            ],
+            "bodyScript": "  const svg=$('#fd-svg'), out=$('#fd-out'), u=$('#fd-u'), uL=$('#fd-u-lbl');\n  const W=640,H=320;\n  // Front-door model X -> M -> Y, with unobserved U -> X and U -> Y.  All binary, U binary 50/50.\n  // Mechanisms (the causal truth, fixed):\n  //   P(M=1 | X) = 0.15 + 0.70*X     (smoking strongly produces tar; NOT affected by U)\n  //   P(Y=1 | M,U) = 0.10 + 0.55*M + g*U   (tar causes cancer; U also raises cancer)\n  //   P(X=1 | U) = 0.5 - k + 2k*U    where k = confounding slider (U raises urge to smoke)\n  function pMgivenX(x){ return 0.15 + 0.70*x; }\n  function pYgivenMU(m,uu,g){ return 0.10 + 0.55*m + g*uu; }\n  function pXgivenU(uu,k){ return 0.5 - k + 2*k*uu; }\n  function compute(){\n    const k=+u.value; const g=k; // tie U's outcome effect to its strength for a clean single knob\n    // ---- build the full observational table over (U,X,M,Y), U uniform ----\n    // we need observational P(x'), P(m|x), P(y|m,x') for the front-door formula, which use NO U.\n    // marginal P(X=x') = Σ_u P(x'|u)·0.5\n    // do it explicitly: P(X=1)=0.5*P(X1|U1)+0.5*P(X1|U0)\n    const pX1 = 0.5*pXgivenU(1,k) + 0.5*pXgivenU(0,k); const pX0=1-pX1;\n    // P(M=1 | X=x') = pMgivenX(x') (M independent of U given X)\n    // P(Y=1 | M=m, X=x') = Σ_u P(Y1|m,u)·P(u | M=m,X=x'); since M⟂U|X and U⟂M, P(u|M,X)=P(u|X)\n    function pUgivenX(uu,xp){ const num=(uu? pXgivenU(1,k):pXgivenU(0,k))*0.5; const den=(xp? pX1:pX0); // careful: this is P(u|X=1)\n      // recompute properly for X=xp\n      const pXgU1 = pXgivenU(1,k), pXgU0=pXgivenU(0,k);\n      const joint1 = (xp? pXgU1 : 1-pXgU1)*0.5; // U=1\n      const joint0 = (xp? pXgU0 : 1-pXgU0)*0.5; // U=0\n      const Z=joint1+joint0; return uu? joint1/Z : joint0/Z;\n    }\n    function pY1givenMX(m,xp){ return pYgivenMU(m,1,g)*pUgivenX(1,xp) + pYgivenMU(m,0,g)*pUgivenX(0,xp); }\n    // ---- front-door estimate of P(Y=1 | do(X=1)) and do(X=0) ----\n    function frontdoor(xset){ let s=0; for(let m=0;m<2;m++){ const pm=(m? pMgivenX(xset):1-pMgivenX(xset)); let inner=0; for(let xp=0;xp<2;xp++){ inner += pY1givenMX(m,xp)*(xp? pX1:pX0); } s += pm*inner; } return s; }\n    const fdEffect = frontdoor(1) - frontdoor(0);\n    // ---- the TRUE causal effect from the mechanisms: P(Y=1|do X) = Σ_m P(m|x) Σ_u P(Y1|m,u)·0.5 ----\n    function truth(xset){ let s=0; for(let m=0;m<2;m++){ const pm=(m? pMgivenX(xset):1-pMgivenX(xset)); let yy=0; for(let uu=0;uu<2;uu++) yy += pYgivenMU(m,uu,g)*0.5; s += pm*yy; } return s; }\n    const trueEffect = truth(1)-truth(0);\n    // ---- naive observational association P(Y=1|X=1)-P(Y=1|X=0) ----\n    function pY1givenX(xset){ let s=0; for(let uu=0;uu<2;uu++){ const pu_x = pUgivenX(uu,xset); let ym=0; for(let m=0;m<2;m++){ const pm=(m? pMgivenX(xset):1-pMgivenX(xset)); ym += pm*pYgivenMU(m,uu,g); } s += pu_x*ym; } return s; }\n    const naive = pY1givenX(1)-pY1givenX(0);\n    return {fdEffect,trueEffect,naive,k};\n  }\n  function render(){\n    svg.innerHTML='';\n    uL.textContent='U = '+(+u.value).toFixed(2);\n    const r=compute();\n    const Xn=[120,150], Mn=[320,150], Yn=[520,150], Un=[320,50];\n    drawArrow(svg, Xn, Mn, {color:'var(--yellow)', markerId:'arr-fd', width:2.4});\n    drawArrow(svg, Mn, Yn, {color:'var(--yellow)', markerId:'arr-fd', width:2.4});\n    drawArrow(svg, Un, Xn, {color:'var(--pink)', markerId:'arr-fd-u', width:2, dash:'5 4'});\n    drawArrow(svg, Un, Yn, {color:'var(--pink)', markerId:'arr-fd-u', width:2, dash:'5 4'});\n    drawNode(svg, Xn[0],Xn[1],'X',{r:24,fill:'var(--panel2)',stroke:'var(--cyan)'});\n    drawNode(svg, Mn[0],Mn[1],'M',{r:24,fill:'var(--panel2)',stroke:'var(--green)'});\n    drawNode(svg, Yn[0],Yn[1],'Y',{r:24,fill:'var(--panel2)',stroke:'var(--yellow)'});\n    drawNode(svg, Un[0],Un[1],'U',{r:22,fill:'var(--panel)',stroke:'var(--pink)'});\n    function cap(x,y,t,c){ const e=SVG('text',{x,y,'text-anchor':'middle','font-size':12,fill:c||'var(--mute)'}); e.textContent=t; svg.appendChild(e); }\n    cap(Xn[0],Xn[1]+42,'smoking'); cap(Mn[0],Mn[1]+42,'tar'); cap(Yn[0],Yn[1]+42,'cancer'); cap(Un[0]+90,Un[1],'U: unobserved (genes)','var(--pink)');\n    // bars\n    function bar(x,label,val,col){ const bw=120, baseY=290, full=110; svg.appendChild(SVG('rect',{x,y:baseY-full,width:bw,height:full,rx:4,fill:'var(--panel2)'})); svg.appendChild(SVG('rect',{x,y:baseY-full*Math.max(0,val)/0.45,width:bw,height:full*Math.max(0,val)/0.45,rx:4,fill:col,opacity:0.9})); const t=SVG('text',{x:x+bw/2,y:baseY+16,'text-anchor':'middle','font-size':11,fill:'var(--mute)'}); t.textContent=label; svg.appendChild(t); const v=SVG('text',{x:x+bw/2,y:baseY-full*Math.max(0,val)/0.45-6,'text-anchor':'middle','font-size':12,fill:col}); v.textContent=val.toFixed(3); svg.appendChild(v); }\n    bar(120,'naive assoc.', r.naive, r.naive>r.trueEffect+0.005?'var(--pink)':'var(--cyan)');\n    bar(270,'front-door', r.fdEffect, 'var(--green)');\n    bar(420,'true effect', r.trueEffect, 'var(--yellow)');\n    out.textContent =\n      'front-door:  P(Y=1 | do(X=1)) − P(Y=1 | do(X=0)),  identified WITHOUT measuring U:\\n'+\n      '   Σ_m P(m | x) · Σ_{x\\u2032} P(y | m, x\\u2032) · P(x\\u2032)\\n'+\n      'naive association  P(Y=1|X=1) − P(Y=1|X=0) = '+r.naive.toFixed(3)+'   ← inflated by the unobserved U\\n'+\n      'front-door estimate                          = '+r.fdEffect.toFixed(3)+'\\n'+\n      'true causal effect (from the mechanisms)     = '+r.trueEffect.toFixed(3)+'\\n'+\n      (Math.abs(r.fdEffect-r.trueEffect)<1e-3\n        ? 'front-door matches the truth exactly — and stays put as U grows, while the naive association drifts up with the confounding.'\n        : 'front-door tracks the truth; the gap to the naive association is the confounding bias U injects.');\n  }\n  u.addEventListener('input',render);\n  render();"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-frontdoor"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "quiz",
+          "concept": "ci-do-calculus",
+          "html": "<div class=\"quiz\" data-concept=\"ci-do-calculus\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "counterfactuals",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"counterfactuals\">\n<h2>5. Counterfactuals</h2>\n<p>The top rung is <em>imagining</em>: \"this patient took the drug and recovered — would they have recovered <em>anyway</em>, without it?\" This is a <strong>counterfactual</strong>, written $Y_{x'}$, a statement about a world that did not happen, conditioned on the world that did. Interventions cannot answer it: $\\operatorname{do}(X=x')$ gives a <em>population</em> distribution, averaged over a fresh draw of the noise, whereas a counterfactual is about <em>this</em> unit, whose hidden circumstances we partly learn from the facts.</p>\n\n<h3>Abduction – action – prediction</h3>\n<p>An SCM computes counterfactuals in three steps:</p>\n<ol>\n<li><strong>Abduction.</strong> Use the observed evidence $E$ to update the distribution of the exogenous noise: $p(U) \\rightarrow p(U \\mid E)$. This is where the individual enters — the noise encodes everything idiosyncratic about this unit.</li>\n<li><strong>Action.</strong> Apply $\\operatorname{do}(X=x')$ to the model: replace $X$'s equation with the constant $x'$, keeping the updated noise.</li>\n<li><strong>Prediction.</strong> Compute $Y$ in the modified model under $p(U \\mid E)$. The result is $Y_{x'} \\mid E$.</li>\n</ol>\n\n<h3>Potential outcomes</h3>\n<p>The <strong>Neyman–Rubin</strong> framework writes the same content as a pair of <strong>potential outcomes</strong> $\\{Y_0, Y_1\\}$ for each unit — what would happen under control and under treatment. Only one is ever observed (the \"fundamental problem of causal inference\"), linked to data by <strong>consistency</strong>:</p>\n<p style=\"text-align:center\">$Y \\;=\\; Y_X \\qquad\\text{(the observed outcome is the potential outcome under the treatment actually received).}$</p>\n<p>The two languages are equivalent: $Y_x$ is exactly the prediction output of abduction–action–prediction with $\\operatorname{do}(X=x)$, and consistency is the prediction step run at the <em>factual</em> treatment.</p>\n\n<div class=\"note\"><strong>Worked mini-example — a linear SCM, 3 steps.</strong> Take $Y := 2X + U_Y$ with the noise $U_Y$ unknown a priori. We observe a unit with $X=1$ and $Y=5$.\n<br><strong>Abduction:</strong> from $5 = 2\\cdot 1 + U_Y$ we infer $U_Y = 3$ for this unit (the evidence pins the noise exactly in this deterministic case).\n<br><strong>Action:</strong> ask the counterfactual $X' = 0$, i.e. $\\operatorname{do}(X=0)$, holding $U_Y = 3$.\n<br><strong>Prediction:</strong> $Y_{0} = 2\\cdot 0 + 3 = 3$. So <em>this</em> unit would have had $Y=3$ had it not been treated — the individual treatment effect is $5 - 3 = 2 = b$. Note we did <em>not</em> redraw the noise; that is what makes it a statement about this unit, not the population.</div>\n\n<p>Run the counterfactual query below on a concrete linear SCM: observe a factual $(X,Y)$, abduct the noise, intervene on $X$, and read off the counterfactual outcome.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "parametric-plot",
+          "params": {
+            "interaction": "single-mode",
+            "widgetId": "w-cf",
+            "svgId": "cf-svg",
+            "outputId": "cf-out",
+            "title": "Counterfactual on an SCM: abduct, act, predict",
+            "hint": "the abducted noise is held fixed — that's what makes it about THIS unit",
+            "viewBox": "0 0 640 300",
+            "svgWidth": 640,
+            "svgHeight": 300,
+            "svgTitle": "A linear structural causal model with a factual observation; sliders set the factual treatment and the counterfactual treatment, and the three-step computation of the counterfactual outcome is shown",
+            "outputInitial": "",
+            "sliders": [
+              {
+                "id": "cf-xfact",
+                "outId": "cf-xfact-lbl",
+                "label": "factual treatment $X$ (what actually happened):",
+                "min": 0,
+                "max": 4,
+                "step": 0.5,
+                "init": 1
+              },
+              {
+                "id": "cf-yfact",
+                "outId": "cf-yfact-lbl",
+                "label": "factual outcome $Y$ (what we observed):",
+                "min": 0,
+                "max": 12,
+                "step": 0.5,
+                "init": 5
+              },
+              {
+                "id": "cf-xcf",
+                "outId": "cf-xcf-lbl",
+                "label": "counterfactual treatment $X'$ (the \"what if\"):",
+                "min": 0,
+                "max": 4,
+                "step": 0.5,
+                "init": 0
+              }
+            ],
+            "bodyScript": "  const svg=$('#cf-svg'), out=$('#cf-out');\n  const xf=$('#cf-xfact'), xfL=$('#cf-xfact-lbl'), yf=$('#cf-yfact'), yfL=$('#cf-yfact-lbl'), xc=$('#cf-xcf'), xcL=$('#cf-xcf-lbl');\n  const W=640,H=300, b=2; // structural equation Y := b·X + U_Y, b fixed = 2\n  function render(){\n    svg.innerHTML='';\n    const X=+xf.value, Yobs=+yf.value, Xp=+xc.value;\n    xfL.textContent='X = '+X.toFixed(1); yfL.textContent='Y = '+Yobs.toFixed(1); xcL.textContent='X\\u2032 = '+Xp.toFixed(1);\n    // ABDUCTION: from Y = b·X + U  ⇒  U = Y − b·X (deterministic SCM pins U exactly)\n    const U = Yobs - b*X;\n    // ACTION + PREDICTION: Y' = b·X' + U  (same U!)\n    const Ycf = b*Xp + U;\n    const ite = Ycf - Yobs; // individual-level effect of changing X to X'\n    // diagram: factual world vs counterfactual world\n    function world(cx, title, xv, yv, uv, col){\n      const t=SVG('text',{x:cx,y:36,'text-anchor':'middle','font-size':13,fill:col,'font-weight':600}); t.textContent=title; svg.appendChild(t);\n      const Xn=[cx-70,110], Yn=[cx+70,110], Un=[cx+70,40];\n      drawArrow(svg, Xn, Yn, {color:col, markerId:'arr-cf-'+col.replace(/[^a-z]/g,''), width:2.2, label:'·b'});\n      drawArrow(svg, Un, Yn, {color:'var(--mute)', markerId:'arr-cf-u', width:1.5, dash:'4 3'});\n      drawNode(svg, Xn[0],Xn[1], xv.toFixed(1), {r:22,fill:'var(--panel2)',stroke:'var(--cyan)'});\n      drawNode(svg, Yn[0],Yn[1], yv.toFixed(1), {r:22,fill:'var(--panel2)',stroke:col});\n      drawNode(svg, Un[0],Un[1], 'U='+uv.toFixed(1), {r:20,fill:'var(--panel)',stroke:'var(--mute)',fontSize:11});\n      const lx=SVG('text',{x:Xn[0],y:Xn[1]+38,'text-anchor':'middle','font-size':11,fill:'var(--mute)'}); lx.textContent='X'; svg.appendChild(lx);\n      const ly=SVG('text',{x:Yn[0],y:Yn[1]+38,'text-anchor':'middle','font-size':11,fill:'var(--mute)'}); ly.textContent='Y'; svg.appendChild(ly);\n    }\n    world(170,'factual world', X, Yobs, U, 'var(--yellow)');\n    world(470,'counterfactual world', Xp, Ycf, U, 'var(--green)');\n    const mid=SVG('text',{x:W/2,y:200,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}); mid.textContent='same abducted noise U bridges the two worlds'; svg.appendChild(mid);\n    out.textContent =\n      'structural equation:   Y := b·X + U,   b = '+b+'\\n'+\n      '1) ABDUCTION:   observe X='+X.toFixed(1)+', Y='+Yobs.toFixed(1)+'  ⇒  U = Y − b·X = '+Yobs.toFixed(1)+' − '+b+'·'+X.toFixed(1)+' = '+U.toFixed(1)+'\\n'+\n      '2) ACTION:      do(X = '+Xp.toFixed(1)+'),  holding the SAME U = '+U.toFixed(1)+'\\n'+\n      '3) PREDICTION:  Y_{X\\u2032} = b·X\\u2032 + U = '+b+'·'+Xp.toFixed(1)+' + '+U.toFixed(1)+' = '+Ycf.toFixed(1)+'\\n'+\n      'counterfactual: had X been '+Xp.toFixed(1)+' instead of '+X.toFixed(1)+', this unit would have had Y = '+Ycf.toFixed(1)+'\\n'+\n      'individual treatment effect  Y_{X\\u2032} − Y = '+ite.toFixed(1)+'   (consistency: at X\\u2032 = X the two worlds coincide, Y_{X} = Y).';\n  }\n  xf.addEventListener('input',render);\n  yf.addEventListener('input',render);\n  xc.addEventListener('input',render);\n  render();"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-cf"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "quiz",
+          "concept": "ci-counterfactuals",
+          "html": "<div class=\"quiz\" data-concept=\"ci-counterfactuals\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "estimation",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"estimation\">\n<h2>6. Estimating causal effects</h2>\n<p>So far the laws have been exact. In practice we have a finite sample and must <em>estimate</em>. The headline target is the <strong>average treatment effect</strong> (ATE), the population contrast of potential outcomes:</p>\n<p style=\"text-align:center\">$\\tau \\;=\\; \\mathbb{E}\\big[Y_1\\big] - \\mathbb{E}\\big[Y_0\\big].$</p>\n<p>The naive plug-in $\\widehat{\\mathbb{E}}[Y \\mid X{=}1] - \\widehat{\\mathbb{E}}[Y \\mid X{=}0]$ estimates $\\tau$ only when treatment is unconfounded. What licenses estimation in general are two <a href=\"./mathematical-statistics.html#estimators\">assumptions</a>:</p>\n<ul>\n<li><strong>Ignorability</strong> (no unobserved confounding): $\\{Y_0, Y_1\\} \\perp X \\mid Z$. Within a stratum of the covariates $Z$, treatment is as-good-as-random with respect to the potential outcomes.</li>\n<li><strong>Positivity / overlap:</strong> $0 \\,<\\, e(z) \\,<\\, 1$ for the <strong>propensity score</strong> $e(z) = P(X{=}1 \\mid Z{=}z)$. Every covariate profile has some chance of either arm, so no comparison is pure extrapolation.</li>\n</ul>\n<p>Under both, $\\tau$ is identified, and the two workhorses are:</p>\n<p style=\"text-align:center\">adjustment: $\\;\\widehat{\\tau} = \\dfrac1n\\sum_z \\big[\\widehat{\\mathbb{E}}[Y \\mid 1,z] - \\widehat{\\mathbb{E}}[Y \\mid 0,z]\\big]\\widehat{p}(z), \\qquad$ IPW: $\\;\\widehat{\\mathbb{E}}[Y_1] = \\dfrac1n\\sum_{i} \\dfrac{X_i\\,Y_i}{e(Z_i)}.$</p>\n<p>The <strong>inverse-propensity</strong> estimator upweights treated units that were <em>unlikely</em> to be treated, manufacturing a pseudo-population in which $X \\perp Z$. <strong>Doubly-robust</strong> estimators combine an outcome model with IPW and stay consistent if <em>either</em> model is right. A <strong>randomized experiment</strong> sidesteps all of this: randomization forces ignorability by design with $Z$ empty and $e(z) \\equiv \\tfrac12$, which is why the RCT is the gold standard.</p>\n\n<div class=\"note\"><strong>Worked mini-example — the bias adjustment removes.</strong> Suppose high-$Z$ units recover more <em>and</em> are treated more. The naive contrast credits the treatment with the recovery that $Z$ would have delivered anyway — a positive bias. Stratifying on $Z$ (adjustment) or reweighting by $1/e(Z)$ (IPW) strips that bias out: each treated high-$Z$ unit, being over-represented, is shrunk back toward the population mix, and the estimate converges to the true $\\tau$.</div>\n\n<p>Draw samples from a confounded population below and compare the naive difference-in-means against the adjustment / IPW estimators — watch the bias the naive estimate carries and the adjusted estimates remove.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "parametric-plot",
+          "params": {
+            "interaction": "single-mode",
+            "widgetId": "w-ate",
+            "svgId": "ate-svg",
+            "outputId": "ate-out",
+            "title": "Estimating the ATE: naive vs adjustment vs IPW",
+            "hint": "stronger confounding ⇒ bigger naive bias; adjustment and IPW stay near the truth",
+            "viewBox": "0 0 640 300",
+            "svgWidth": 640,
+            "svgHeight": 300,
+            "svgTitle": "Bars comparing the true ATE, the naive difference in means, the covariate-adjusted estimate, and the inverse-propensity-weighted estimate as confounding strength and sample size vary",
+            "outputInitial": "",
+            "sliders": [
+              {
+                "id": "ate-conf",
+                "outId": "ate-conf-lbl",
+                "label": "confounding strength (how much $Z$ drives treatment):",
+                "min": 0,
+                "max": 0.45,
+                "step": 0.05,
+                "init": 0.35
+              },
+              {
+                "id": "ate-n",
+                "outId": "ate-n-lbl",
+                "label": "sample size $n$:",
+                "min": 200,
+                "max": 4000,
+                "step": 200,
+                "init": 2000
+              }
+            ],
+            "buttons": [
+              {
+                "id": "ate-draw",
+                "label": "draw a new sample"
+              }
+            ],
+            "bodyScript": "  const svg=$('#ate-svg'), out=$('#ate-out'), conf=$('#ate-conf'), confL=$('#ate-conf-lbl'), nsl=$('#ate-n'), nL=$('#ate-n-lbl'), bDraw=$('#ate-draw');\n  const W=640,H=300;\n  // Confounded binary model. Z ~ Bernoulli(0.5). e(z)=P(X=1|z)=0.5 + s·(2z-1) (high-Z treated more).\n  // P(Y=1 | X,Z) = 0.30 + TAU*X + 0.30*Z, with the TRUE per-unit effect TAU = 0.20 (constant).\n  const TAU=0.20;\n  let seed=24681; function rnd(){ seed=(seed*1664525+1013904223)>>>0; return seed/4294967296; }\n  function eZ(z){ const s=+conf.value; return 0.5 + s*(2*z-1); }\n  function pY1(x,z){ return 0.30 + TAU*x + 0.30*z; }\n  function draw(){\n    const n=Math.round(+nsl.value); const s=+conf.value;\n    // accumulators for the three estimators\n    let sumYt=0,nt=0, sumYc=0,nc=0;                 // naive diff-in-means\n    const strat={0:{yt:0,nt:0,yc:0,nc:0,n:0}, 1:{yt:0,nt:0,yc:0,nc:0,n:0}}; // adjustment\n    let ipw1=0, ipw0=0;                              // IPW sums (Σ X Y/e + Σ (1-X)Y/(1-e))\n    for(let i=0;i<n;i++){\n      const z = rnd()<0.5?1:0;\n      const x = rnd()<eZ(z)?1:0;\n      const y = rnd()<pY1(x,z)?1:0;\n      if(x){ sumYt+=y; nt++; } else { sumYc+=y; nc++; }\n      const st=strat[z]; st.n++; if(x){ st.yt+=y; st.nt++; } else { st.yc+=y; st.nc++; }\n      const e=eZ(z);\n      if(x) ipw1 += y/e; else ipw0 += y/(1-e);\n    }\n    const naive = (nt? sumYt/nt:0) - (nc? sumYc/nc:0);\n    // adjustment: Σ_z [ Ȳ(1,z) − Ȳ(0,z) ] · p̂(z)\n    let adj=0; for(const z of [0,1]){ const st=strat[z]; const e1=st.nt? st.yt/st.nt:0, e0=st.nc? st.yc/st.nc:0; adj += (e1-e0)*(st.n/n); }\n    const ipw = ipw1/n - ipw0/n;\n    return {n,naive,adj,ipw,truth:TAU};\n  }\n  let res=null;\n  function render(){\n    svg.innerHTML='';\n    confL.textContent='confounding = '+(+conf.value).toFixed(2);\n    nL.textContent='n = '+Math.round(+nsl.value);\n    if(!res) res=draw();\n    const baseY=210, full=160, scale=full/0.5; // 0..0.5 effect range\n    svg.appendChild(SVG('line',{x1:90,y1:baseY,x2:W-30,y2:baseY,stroke:'var(--mute)'}));\n    // true effect reference line\n    const ty=baseY-res.truth*scale; svg.appendChild(SVG('line',{x1:90,y1:ty,x2:W-30,y2:ty,stroke:'var(--yellow)','stroke-dasharray':'5 4'}));\n    const tl=SVG('text',{x:W-32,y:ty-6,'text-anchor':'end','font-size':11,fill:'var(--yellow)'}); tl.textContent='true ATE = '+res.truth.toFixed(2); svg.appendChild(tl);\n    function bar(x,label,val,col){ const bw=110; const h=val*scale; svg.appendChild(SVG('rect',{x,y:baseY-h,width:bw,height:Math.abs(h),rx:4,fill:col,opacity:0.9})); const t=SVG('text',{x:x+bw/2,y:baseY+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'}); t.textContent=label; svg.appendChild(t); const v=SVG('text',{x:x+bw/2,y:baseY-h-6,'text-anchor':'middle','font-size':12,fill:col}); v.textContent=val.toFixed(3); svg.appendChild(v); }\n    bar(120,'naive', res.naive, 'var(--pink)');\n    bar(280,'adjustment', res.adj, 'var(--cyan)');\n    bar(440,'IPW', res.ipw, 'var(--green)');\n    const cap=SVG('text',{x:W/2,y:40,'text-anchor':'middle','font-size':13,fill:'var(--mute)'}); cap.textContent='estimated average treatment effect'; svg.appendChild(cap);\n    out.textContent =\n      'true ATE  τ = E[Y₁] − E[Y₀] = '+res.truth.toFixed(3)+'   (constant per-unit effect built into the model)\\n'+\n      'naive diff-in-means       = '+res.naive.toFixed(3)+'   bias = '+(res.naive-res.truth>=0?'+':'')+(res.naive-res.truth).toFixed(3)+'   ← confounding inflates it\\n'+\n      'covariate adjustment      = '+res.adj.toFixed(3)+'   Σ_z [Ȳ(1,z) − Ȳ(0,z)]·p̂(z)\\n'+\n      'inverse-propensity (IPW)  = '+res.ipw.toFixed(3)+'   (1/n) Σ [ X·Y/e(Z) − (1−X)·Y/(1−e(Z)) ]\\n'+\n      'sample size n = '+res.n+'.  Adjustment and IPW both target the true τ; the naive estimate carries the confounding bias. Draw again to see sampling noise.';\n  }\n  conf.addEventListener('input',()=>{ res=draw(); render(); });\n  nsl.addEventListener('input',()=>{ res=draw(); render(); });\n  bDraw.addEventListener('click',()=>{ res=draw(); render(); });\n  render();"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-ate"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./mathematical-statistics.html#estimators\">Estimators, bias and variance</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "quiz",
+          "concept": "ci-estimation",
+          "html": "<div class=\"quiz\" data-concept=\"ci-estimation\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n\n\n<!-- ═══════════════════════════════════════════════════════════════════\n     Connections outro — pedagogy reviewer's templated closure pattern.\n═══════════════════════════════════════════════════════════════════ -->\n"
+        }
+      ]
+    },
+    {
+      "id": "connections",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"connections\">\n<h2>Connections</h2>\n\n<p>Causal inference grafts a layer of <em>mechanism</em> onto the probabilistic machinery: the same DAG that a graphical model uses to compress a joint becomes, under the structural reading, a calculus of interventions and counterfactuals. The open frontiers are mostly about doing this without a hand-drawn graph — <em>causal discovery</em> (learning the DAG from data, where Markov equivalence leaves the arrows only partly oriented), identification with latent confounders beyond the front/backdoor templates, and policy learning that treats interventions as decisions. A beginner is often surprised that more data never fixes confounding: bias from an unmeasured common cause does not shrink with $n$, which is exactly why the structural questions cannot be reduced to better statistics.</p>\n\n<ul>\n<li><a href=\"./probabilistic-graphical-models.html#bayes-nets\">Probabilistic graphical models — Bayesian networks &amp; d-separation</a> — a causal graph <em>is</em> a Bayes net; the entailed factorization and the d-separation rules (especially the collider) are reused wholesale to read off backdoor paths.</li>\n<li><a href=\"./probability-theory.html#bayes\">Probability theory — conditional probability &amp; Bayes' rule</a> — the adjustment formula and the abduction step are Bayesian conditioning applied to the right (post-surgery) distribution.</li>\n<li><a href=\"./mathematical-statistics.html#estimators\">Mathematical statistics — estimators, bias &amp; variance</a> — the ATE is a parameter, and IPW / doubly-robust estimators are studied with the same bias–variance and consistency tools.</li>\n<li><a href=\"./statistical-learning-theory.html#erm\">Statistical learning theory — empirical risk minimization</a> — outcome models and propensity models are fitted by ERM, so the capacity-control story carries straight over to the nuisance functions of doubly-robust estimation.</li>\n<li><a href=\"./reinforcement-learning.html#setup\">Reinforcement learning — Markov decision processes</a> — an RL action is an intervention $\\operatorname{do}(a)$, and off-policy evaluation is exactly the counterfactual question \"what reward <em>would</em> a different policy have earned?\", estimated with importance weights that are propensity ratios in disguise.</li>\n</ul>\n\n<p class=\"small\">Forward to come: causal discovery and structure learning, instrumental-variable and regression-discontinuity designs, mediation analysis, and causal representation learning, where the latent variables of a deep generative model are themselves endowed with a causal graph.</p>\n</section>\n\n"
+        }
+      ]
+    }
+  ],
+  "rawBodySuffix": "</main>\n\n<script>\n(function(){\n  function start(){ if(window.MVQuiz) MVQuiz.init('causal-inference'); }\n  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);\n  else start();\n})();\n</script>\n<details class=\"changelog\">\n  <summary>changelog</summary>\n  <table>\n    <tbody>\n      <tr><td>2026-05-22</td><td>initial version</td></tr>\n    </tbody>\n  </table>\n</details>\n\n</body>\n</html>\n"
+}

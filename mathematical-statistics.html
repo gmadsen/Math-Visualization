@@ -340,6 +340,7 @@ The first has bias $-\sigma^2/n$ (downward); $S^2$ is unbiased — Bessel's corr
 <!-- callback-auto-end --><!-- backlinks-auto-begin -->
 <aside class="related">
   <div class="ttl">Used in</div>
+    <div><a href="./causal-inference.html#estimation">Causal inference</a> · Estimating causal effects</div>
     <div><a href="./mathematical-statistics.html#cramer-rao">Mathematical statistics</a> · Cramér–Rao bound, UMVU, Rao–Blackwell</div>
     <div><a href="./mathematical-statistics.html#mle">Mathematical statistics</a> · Maximum likelihood and the score equation</div>
     <div><a href="./statistical-learning-theory.html#bias-variance">Statistical learning theory</a> · Bias–variance, regularization &amp; SRM</div>
@@ -1061,7 +1062,7 @@ At $p=1/2$, this is $\mathcal{N}(0,1/4)$.</p>
 <section id="connections">
 <h2>Connections</h2>
 
-<p>Mathematical statistics is the inferential face of probability — every result here treats samples drawn from a probability law and asks what those samples reveal. Live frontiers: high-dimensional asymptotics where $p/n$ does not vanish (random matrix corrections to MLE), causal inference (where conditional distributions encode counterfactuals, not just associations), and the bridge to learning theory (PAC bounds, empirical risk minimisation as MLE under model misspecification).</p>
+<p>Mathematical statistics is the inferential face of probability — every result here treats samples drawn from a probability law and asks what those samples reveal. Live frontiers: high-dimensional asymptotics where $p/n$ does not vanish (random matrix corrections to MLE), causal inference (where conditional distributions encode <a href="./causal-inference.html#counterfactuals" data-auto-inline-link="1" data-concept-id="ci-counterfactuals" data-blurb="The third rung of the ladder asks &#39;would $Y$ have differed had $X$ been $x&#39;$, given what actually happened?&#39;. On an SCM it is computed by abduction (infer the noise $U$ from the evidence), action ($\operatorname{do}(X=x&#39;)$ on the updated model), and prediction. Potential outcomes $Y_x$ and the consistency rule $Y=Y_X$ connect this to the Neyman–Rubin framework.">counterfactuals</a>, not just associations), and the bridge to learning theory (PAC bounds, empirical risk minimisation as MLE under model misspecification).</p>
 
 <ul>
   <li><a href="./probability-theory.html#clt">Probability theory — central limit theorem</a> — the asymptotic engine that makes MLE, delta method, and Wilks calibrate.</li>

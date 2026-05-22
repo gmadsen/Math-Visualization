@@ -1,5 +1,5 @@
 {
-  "generated": "2026-05-22T15:34:41.677Z",
+  "generated": "2026-05-22T16:11:53.393Z",
   "entries": [
     {
       "slug": "algebraic-combinatorics",
@@ -8,6 +8,14 @@
       "tag": "",
       "date": "2026-05-22",
       "message": "feat: algebraic-combinatorics — Wave 3 (Combinatorics) (#258)"
+    },
+    {
+      "slug": "causal-inference",
+      "title": "Causal inference",
+      "color": "b",
+      "tag": "",
+      "date": "2026-05-22",
+      "message": "feat: causal-inference — Wave 3 (Learning theory) — final topic of the 16-topic program"
     },
     {
       "slug": "deep-learning-theory",
@@ -23,7 +31,7 @@
       "color": "b",
       "tag": "",
       "date": "2026-05-22",
-      "message": "feat: diffusion-and-score-based-models — Wave 3 (Learning theory)"
+      "message": "feat: diffusion-and-score-based-models — Wave 3 (Learning theory) (#263)"
     },
     {
       "slug": "game-theory",

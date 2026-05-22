@@ -1,0 +1,240 @@
+{
+  "topic": "causal-inference",
+  "quizzes": {
+    "ci-scm": {
+      "title": "Structural causal models",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A structural causal model over $\\{Z,X,Y\\}$ has equations $Z:=U_Z$, $X:=f_X(Z,U_X)$, $Y:=f_Y(X,Z,U_Y)$ with the exogenous $U_Z,U_X,U_Y$ mutually independent. Which observational factorization does it entail?",
+          "choices": [
+            "$p(z,x,y)=p(z)\\,p(x\\mid z)\\,p(y\\mid x,z)$",
+            "$p(z,x,y)=p(z)\\,p(x)\\,p(y)$",
+            "$p(z,x,y)=p(x)\\,p(z\\mid x)\\,p(y\\mid z)$",
+            "$p(z,x,y)=p(z\\mid x,y)\\,p(x\\mid y)\\,p(y)$"
+          ],
+          "answer": 0,
+          "explain": "Each structural equation $X_i:=f_i(\\mathrm{pa}_i,U_i)$ with independent noise induces the conditional $p(x_i\\mid \\mathrm{pa}_i)$, and the DAG factorizes the joint as $\\prod_i p(x_i\\mid \\mathrm{pa}_i)$ — exactly the Bayes-net factorization. Here $Z$ has no parents, $X$ has parent $Z$, and $Y$ has parents $\\{X,Z\\}$, giving $p(z)\\,p(x\\mid z)\\,p(y\\mid x,z)$."
+        },
+        {
+          "type": "mcq",
+          "q": "Two different SCMs can entail the very same observational distribution $p(x)$ yet disagree about interventions. What does this tell you?",
+          "choices": [
+            "The observational joint alone does not determine causal effects; the structural equations (the arrows) carry information beyond $p(x)$",
+            "One of the two SCMs must be wrong",
+            "Interventions are always determined by $p(x)$",
+            "The two SCMs must have the same DAG"
+          ],
+          "answer": 0,
+          "explain": "An SCM commits to more than the joint it entails: the directed equations say which variable responds to which under intervention. Markov-equivalent DAGs (e.g. $X\\to Y$ vs $X\\leftarrow Y$) can give identical $p(x,y)$ but opposite answers to $\\operatorname{do}(X)$. This is why causal questions need a causal model, not just a fitted distribution."
+        },
+        {
+          "type": "numeric",
+          "q": "An SCM over four binary variables has DAG $Z\\to X\\to Y$ and $Z\\to Y$. Counting one free parameter per parent configuration of each binary node, how many free parameters does the entailed factorization $p(z)\\,p(x\\mid z)\\,p(y\\mid x,z)$ have?",
+          "answer": 7,
+          "tol": 0.5,
+          "explain": "$p(z)$ needs $1$; $p(x\\mid z)$ needs one per value of $z$, so $2$; $p(y\\mid x,z)$ needs one per $(x,z)$ pair, so $2^2=4$. Total $1+2+4=7$, versus $2^3-1=7$ for the full joint here — but the structure still pins down the causal direction the raw table cannot."
+        }
+      ]
+    },
+    "ci-interventions": {
+      "title": "Interventions & the do-operator",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What does the intervention $\\operatorname{do}(X=x)$ do to the causal graph?",
+          "choices": [
+            "Deletes all arrows pointing into $X$ and sets $X=x$, leaving every other equation untouched",
+            "Deletes all arrows pointing out of $X$",
+            "Conditions on $X=x$ without changing the graph",
+            "Removes the node $X$ from the graph entirely"
+          ],
+          "answer": 0,
+          "explain": "$\\operatorname{do}(X=x)$ is graph surgery (mutilation): cut the incoming arrows so $X$ no longer listens to its old causes, clamp $X=x$, and keep all other structural equations as they were. The arrows out of $X$ stay — that is how the intervention propagates downstream to $Y$."
+        },
+        {
+          "type": "mcq",
+          "q": "In a confounded graph $X\\leftarrow Z\\rightarrow Y$ with $X\\rightarrow Y$, why does $p(y\\mid \\operatorname{do}(x))$ generally differ from $p(y\\mid x)$?",
+          "choices": [
+            "Conditioning on $X=x$ also reweights $Z$ through the backdoor $X\\leftarrow Z\\rightarrow Y$; surgery cuts $X\\leftarrow Z$ so $Z$ keeps its original distribution",
+            "The do-operator changes the value of $Y$ directly",
+            "They never differ — conditioning and intervening are the same",
+            "Because $p(y\\mid \\operatorname{do}(x))$ ignores the edge $X\\to Y$"
+          ],
+          "answer": 0,
+          "explain": "Observing $X=x$ tells you about $Z$ via the backdoor path, so $p(y\\mid x)$ mixes the causal effect with $Z$-driven association. Intervening deletes $X\\leftarrow Z$, so $Z$ is no longer informed by $X$ and retains its marginal $p(z)$ — the truncated factorization $p(y\\mid \\operatorname{do}(x))=\\sum_z p(y\\mid x,z)\\,p(z)$. The two agree only when no such backdoor (confounding) exists."
+        },
+        {
+          "type": "ordering",
+          "q": "Order the steps for computing $p(v\\mid \\operatorname{do}(X=x))$ from an SCM via the truncated factorization.",
+          "items": [
+            "Write the observational factorization $p(v)=\\prod_i p(v_i\\mid \\mathrm{pa}_i)$",
+            "Delete the factor $p(x\\mid \\mathrm{pa}_X)$ for the intervened node $X$",
+            "Clamp $X=x$ in the surviving factors",
+            "Read off $p(v\\mid \\operatorname{do}(x))=\\prod_{i:\\,V_i\\neq X} p(v_i\\mid \\mathrm{pa}_i)$ evaluated at $X=x$"
+          ],
+          "answer": [0, 1, 2, 3],
+          "explain": "The g-formula drops exactly the mechanism of the intervened variable (its arrows-in are cut) and evaluates the remaining product at the clamped value. Everything else — the noise distributions and the other structural conditionals — is untouched, which is what makes the interventional law differ from the observational conditional."
+        }
+      ]
+    },
+    "ci-confounding": {
+      "title": "Confounding & the backdoor criterion",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A set $Z$ satisfies the backdoor criterion relative to $(X,Y)$ if:",
+          "choices": [
+            "$Z$ blocks every backdoor path from $X$ to $Y$ and no node in $Z$ is a descendant of $X$",
+            "$Z$ contains every variable in the graph",
+            "$Z$ blocks the direct path $X\\to Y$",
+            "$Z$ is a descendant of $X$ that mediates the effect"
+          ],
+          "answer": 0,
+          "explain": "The backdoor criterion has two clauses: (1) $Z$ blocks all paths from $X$ to $Y$ that start with an arrow into $X$ (the backdoor, confounding paths), and (2) $Z$ includes no descendant of $X$ — adjusting for a descendant can reopen paths or block part of the very effect you want. When both hold, $p(y\\mid \\operatorname{do}(x))=\\sum_z p(y\\mid x,z)\\,p(z)$."
+        },
+        {
+          "type": "numeric",
+          "q": "Simpson's paradox. A drug is given more often to a sicker group. Among the LOW-risk stratum, recovery is $0.93$ on drug vs $0.87$ on placebo; among the HIGH-risk stratum, $0.73$ on drug vs $0.69$ on placebo — the drug helps in BOTH strata. The within-stratum (adjusted) treatment effect for the high-risk group is $0.73-0.69$. Enter that number.",
+          "answer": 0.04,
+          "tol": 0.005,
+          "explain": "The correct, confounder-adjusted effect compares treated vs untreated WITHIN a stratum of the confounder $Z$ (risk): $0.73-0.69=0.04$ for the high-risk group (and $0.93-0.87=0.06$ for the low-risk group). Both are positive. Simpson's paradox is that the AGGREGATE rates can reverse this — pooling lets the drug look worse because it was preferentially given to the high-risk group, who recover less for reasons that have nothing to do with the drug. Adjusting for $Z$ recovers the truth."
+        },
+        {
+          "type": "mcq",
+          "q": "On the confounded graph $X\\leftarrow Z\\rightarrow Y$, $X\\rightarrow Y$, with $Z$ observed, what does the adjustment formula $\\sum_z p(y\\mid x,z)\\,p(z)$ compute?",
+          "choices": [
+            "$p(y\\mid \\operatorname{do}(x))$ — the genuine causal effect, with the $Z$-confounding removed",
+            "$p(y\\mid x)$ — the naive observational conditional",
+            "$p(x\\mid y)$ — the reversed conditional",
+            "$p(z\\mid x,y)$ — the posterior over the confounder"
+          ],
+          "answer": 0,
+          "explain": "Because $Z$ satisfies the backdoor criterion here (it blocks the single backdoor path $X\\leftarrow Z\\rightarrow Y$ and is not a descendant of $X$), the adjustment formula equals the interventional distribution $p(y\\mid \\operatorname{do}(x))$. Note the weight is the marginal $p(z)$, not $p(z\\mid x)$: surgery on $X$ leaves $Z$ at its original distribution."
+        }
+      ]
+    },
+    "ci-do-calculus": {
+      "title": "Identification & do-calculus",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What does it mean for a causal effect $p(y\\mid \\operatorname{do}(x))$ to be 'identifiable' from a causal graph?",
+          "choices": [
+            "It can be written entirely in terms of the observational distribution $p$ — computable from data without running the experiment",
+            "It can be estimated only by performing a randomized trial",
+            "The graph contains no unobserved variables",
+            "The effect equals the observational conditional $p(y\\mid x)$"
+          ],
+          "answer": 0,
+          "explain": "Identifiability is a graph-theoretic property: the interventional quantity can be reduced, using the rules of do-calculus, to an expression in the observational distribution alone. If it is identifiable you can compute it from passively collected data; if not, no amount of observational data suffices and you genuinely need an experiment or extra assumptions."
+        },
+        {
+          "type": "mcq",
+          "q": "The front-door criterion identifies $p(y\\mid \\operatorname{do}(x))$ in the graph $X\\to M\\to Y$ with an UNOBSERVED confounder $U$ pointing into both $X$ and $Y$. Why can the backdoor adjustment NOT be used here, but the front-door formula can?",
+          "choices": [
+            "The backdoor path $X\\leftarrow U\\rightarrow Y$ cannot be blocked because $U$ is unobserved; the front-door formula instead chains the identifiable effects $X\\to M$ and $M\\to Y$ through the observed mediator $M$",
+            "There is no backdoor path in this graph",
+            "The mediator $M$ is a descendant of $U$",
+            "The front-door formula requires $U$ to be observed too"
+          ],
+          "answer": 0,
+          "explain": "An admissible backdoor set would have to contain $U$ to block $X\\leftarrow U\\rightarrow Y$, but $U$ is unobserved, so no observed set works. The front-door route uses the mediator: $X\\to M$ has no unblocked backdoor, and $M\\to Y$ is identifiable adjusting for $X$. Composing them gives $p(y\\mid \\operatorname{do}(x))=\\sum_m p(m\\mid x)\\sum_{x'} p(y\\mid m,x')\\,p(x')$."
+        },
+        {
+          "type": "multi-select",
+          "q": "Which statements about Pearl's three rules of do-calculus are correct?",
+          "choices": [
+            "They are complete for identifiability: if an effect is identifiable, repeated application of the three rules will derive a do-free expression",
+            "Rule 2 governs when an action $\\operatorname{do}(z)$ can be exchanged for a mere observation of $z$",
+            "They let you delete a $\\operatorname{do}$ term whenever there are no causal paths from that node to the outcome left in the mutilated graph",
+            "They can identify any effect even when crucial confounders are unobserved and the graph offers no front-door or backdoor route"
+          ],
+          "answer": [0, 1, 2],
+          "explain": "Rule 1 handles inserting/deleting observations, Rule 2 the action/observation exchange, Rule 3 the insertion/deletion of actions; together they are sound and (Shpitser–Pearl) complete — failure to reduce to a do-free form means the effect is genuinely non-identifiable. The last option is false: some graphs (e.g. the 'bow arc' with an unobserved confounder directly on $X\\to Y$ and no mediator) are provably non-identifiable."
+        }
+      ]
+    },
+    "ci-counterfactuals": {
+      "title": "Counterfactuals",
+      "questions": [
+        {
+          "type": "ordering",
+          "q": "Order the three steps of computing a counterfactual $Y_{x'}$ on an SCM, given factual evidence $E$.",
+          "items": [
+            "Abduction: update the distribution of the exogenous noise $U$ to $p(U\\mid E)$ using the observed evidence",
+            "Action: apply $\\operatorname{do}(X=x')$ to the SCM, replacing $X$'s equation by the constant $x'$",
+            "Prediction: compute the distribution of $Y$ in the modified model under the updated noise"
+          ],
+          "answer": [0, 1, 2],
+          "explain": "Counterfactuals are the third rung. Abduction infers what the unobserved background factors $U$ must have been to produce the facts; the action surgically sets $X=x'$ on the SAME inferred world; prediction reads off $Y$. Crucially the noise is held at its posterior $p(U\\mid E)$ throughout — that is what makes the query about the same individual rather than a fresh draw."
+        },
+        {
+          "type": "mcq",
+          "q": "Why is a counterfactual query strictly stronger than an interventional one — why can't $\\operatorname{do}(X=x')$ alone answer 'would this particular patient have recovered had they taken the drug'?",
+          "choices": [
+            "$\\operatorname{do}(X=x')$ gives the population distribution under intervention; the counterfactual conditions on this individual's actual outcome by fixing their exogenous noise via abduction",
+            "They are identical — counterfactual and interventional queries always coincide",
+            "The do-operator cannot set $X$ to a value it never took",
+            "Counterfactuals ignore the structural equations"
+          ],
+          "answer": 0,
+          "explain": "An intervention answers 'what happens on average if we set $X=x'$' over a fresh draw of the noise. A counterfactual answers 'what would have happened to THIS unit, whose noise we partly learn from the observed facts.' The abduction step ($p(U\\mid E)$) is exactly the extra ingredient; without it you lose the individual-level information."
+        },
+        {
+          "type": "mcq",
+          "q": "In the Neyman–Rubin potential-outcomes framework, the consistency rule states:",
+          "choices": [
+            "$Y=Y_X$ — the observed outcome equals the potential outcome under the treatment actually received",
+            "$Y_0=Y_1$ — the two potential outcomes are always equal",
+            "$Y=\\mathbb{E}[Y_1]-\\mathbb{E}[Y_0]$",
+            "$Y_x$ is independent of $X$ unconditionally"
+          ],
+          "answer": 0,
+          "explain": "Consistency links the observed world to the counterfactual one: the realized $Y$ is the potential outcome corresponding to the treatment level the unit actually got, $Y=Y_X$. It is the bridge that lets potential-outcome assumptions (like ignorability) translate into statements about observable data, and it is exactly the 'prediction' output of abduction–action–prediction on an SCM."
+        }
+      ]
+    },
+    "ci-estimation": {
+      "title": "Estimating causal effects",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The average treatment effect (ATE) for a binary treatment is defined as:",
+          "choices": [
+            "$\\tau=\\mathbb{E}[Y_1]-\\mathbb{E}[Y_0]$, the contrast of potential outcomes averaged over the population",
+            "$\\tau=\\mathbb{E}[Y\\mid X{=}1]-\\mathbb{E}[Y\\mid X{=}0]$, always, with no assumptions",
+            "$\\tau=\\mathbb{E}[Y_1]\\,/\\,\\mathbb{E}[Y_0]$",
+            "$\\tau=\\mathbb{E}[X\\mid Y{=}1]$"
+          ],
+          "answer": 0,
+          "explain": "The ATE is the population-average difference between the two potential outcomes, $\\mathbb{E}[Y_1]-\\mathbb{E}[Y_0]$. The naive observed contrast $\\mathbb{E}[Y\\mid X{=}1]-\\mathbb{E}[Y\\mid X{=}0]$ equals it only under no confounding (e.g. randomization); in general the naive contrast is biased by the confounders that drive treatment assignment."
+        },
+        {
+          "type": "mcq",
+          "q": "What pair of assumptions licenses estimating the ATE from observational data by adjusting for covariates $Z$?",
+          "choices": [
+            "Ignorability $\\{Y_0,Y_1\\}\\perp X\\mid Z$ (no unobserved confounding) and positivity $0 < e(z) < 1$ (overlap)",
+            "Only that the sample size is large",
+            "That treatment is binary and the outcome is continuous",
+            "That the propensity score $e(z)$ is exactly $0$ or $1$"
+          ],
+          "answer": 0,
+          "explain": "Ignorability says that, within strata of $Z$, treatment is as-good-as-random with respect to the potential outcomes — this is what makes the within-stratum contrast causal. Positivity (overlap) requires every covariate profile to have a nonzero chance of either treatment, so the comparison is not extrapolated. Both are needed: ignorability without overlap leaves cells where the effect is unestimable; randomization secures both by design with $Z$ empty."
+        },
+        {
+          "type": "mcq",
+          "q": "The inverse-propensity-weighting (IPW) estimator $\\widehat{\\mathbb{E}}[Y_1]=\\frac1n\\sum_i \\frac{X_i Y_i}{e(Z_i)}$ removes confounding bias by:",
+          "choices": [
+            "Reweighting treated units by the inverse of their propensity $e(Z_i)=P(X{=}1\\mid Z_i)$, creating a pseudo-population in which treatment is independent of $Z$",
+            "Discarding all treated units",
+            "Weighting each unit by its outcome $Y_i$",
+            "Setting every weight to $1$, i.e. the naive average"
+          ],
+          "answer": 0,
+          "explain": "IPW upweights treated units that were unlikely to be treated (small $e(Z_i)$) and downweights those that were almost certain to be, undoing the confounder-driven imbalance in who got treatment. The reweighted sample behaves like a randomized one, so the weighted average estimates $\\mathbb{E}[Y_1]$. Overlap (positivity) matters because tiny $e(Z_i)$ blow up the weights and the variance; doubly-robust estimators combine IPW with an outcome model to stay consistent if either is correct."
+        }
+      ]
+    }
+  }
+}
