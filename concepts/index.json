@@ -42,6 +42,7 @@
     "pomdps-and-belief-states",
 
     "probabilistic-graphical-models",
+    "deep-learning-theory",
 
     "several-complex-variables",
     "khovanov-homology",
@@ -436,6 +437,7 @@
     "statistical-learning-theory": "advanced",
     "kernel-methods-and-rkhs": "advanced",
     "probabilistic-graphical-models": "advanced",
+    "deep-learning-theory": "advanced",
     "markov-decision-processes": "standard",
     "game-theory": "standard",
     "reinforcement-learning": "standard",

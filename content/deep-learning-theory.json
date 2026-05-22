@@ -1,0 +1,430 @@
+{
+  "topic": "deep-learning-theory",
+  "rawHead": "<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\" />\n<meta name=\"viewport\" content=\"width=device-width,initial-scale=1\" />\n<title>Deep learning theory</title>\n<link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css\">\n<script defer src=\"https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js\"></script>\n<script defer src=\"https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js\"></script>\n<script>\n(function(){\n  function renderAll(){\n    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }\n    renderMathInElement(document.body,{\n      delimiters:[\n        {left:'$$',right:'$$',display:true},\n        {left:'$',right:'$',display:false},\n        {left:'\\\\(',right:'\\\\)',display:false},\n        {left:'\\\\[',right:'\\\\]',display:true}\n      ],\n      throwOnError:false,\n      strict:(c)=>c==='unicodeTextInMathMode'?'ignore':'warn',\n      macros:{\n        '\\\\Spec':'\\\\operatorname{Spec}',\n        '\\\\Gal':'\\\\operatorname{Gal}',\n        '\\\\Hom':'\\\\operatorname{Hom}',\n        '\\\\tr':'\\\\operatorname{tr}',\n        '\\\\ad':'\\\\operatorname{ad}',\n        '\\\\ind':'\\\\operatorname{ind}'\n      }\n    });\n  }\n  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);\n  else renderAll();\n})();\n</script>\n<style>\n  :root{\n    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;\n    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;\n    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;\n    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;\n  }\n  *{box-sizing:border-box}\n  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);\n    font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",Inter,Roboto,sans-serif;\n    font-size:17px;line-height:1.65}\n  a{color:var(--blue)}\n  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;\n    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}\n  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}\n  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}\n  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}\n  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}\n  p{margin:0.7rem 0}\n  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}\n  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;\n    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}\n  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}\n  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}\n  .widget .hd .hint{color:var(--mute);font-size:.85rem}\n  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}\n  .row label{color:var(--mute);font-size:.88rem}\n  input[type=\"text\"],input[type=\"number\"],select{\n    background:#0b0f16;color:var(--ink);border:1px solid var(--line);\n    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}\n  input[type=\"range\"]{accent-color:var(--yellow);flex:1;max-width:260px}\n  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);\n    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}\n  button:hover{background:#242c3e}\n  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}\n  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;\n    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;\n    min-height:1.6em;white-space:pre-wrap;word-break:break-word}\n  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);\n    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}\n  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;\n    margin:1rem 0;border-radius:0 6px 6px 0}\n  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;\n    margin:1rem 0;border-radius:0 6px 6px 0}\n  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;\n    margin:1rem 0;border-radius:0 6px 6px 0}\n  svg{display:block;margin:0 auto;max-width:100%}\n  svg text{fill:var(--ink);font-family:inherit}\n  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);\n    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;\n    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}\n  nav.toc a{color:var(--mute);text-decoration:none}\n  nav.toc a:hover{color:var(--yellow)}\n  /* sticky sidebar TOC (wide screens only; narrow screens fall back to top-nav) */\n  aside.sidetoc{position:fixed;top:4.2rem;\n    left:max(1rem, calc(50% - 440px - 220px));\n    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;\n    padding-right:1rem;border-right:1px solid var(--line);\n    font-size:.88rem;z-index:5}\n  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;\n    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}\n  aside.sidetoc ol{list-style:none;padding:0;margin:0}\n  aside.sidetoc li{margin:0}\n  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;\n    border-left:2px solid transparent;line-height:1.35;\n    transition:color 120ms ease, border-color 120ms ease}\n  aside.sidetoc a:hover{color:var(--ink)}\n  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}\n  @media (max-width:1180px){ aside.sidetoc{display:none} }\n  @media (min-width:1181px){ nav.toc a[href^=\"#\"]{display:none} }\n  .hero{padding:3rem 0 1rem}\n  .small{font-size:.88rem;color:var(--mute)}\n  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}\n  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}\n  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}\n  table.plain th{color:var(--mute);font-weight:500}\n  /* callback-css-auto-begin */\n  aside.callback{\n    margin:1.2rem 0;padding:.7rem 1rem;\n    background:rgba(88,196,221,0.05);\n    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);\n    border-radius:0 6px 6px 0;\n    font-size:.93rem;\n  }\n  aside.callback .ttl{\n    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;\n    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;\n  }\n  aside.callback ul{margin:0;padding-left:1.1rem}\n  aside.callback ul li{margin:.15rem 0}\n  aside.callback a{color:inherit}\n/* callback-css-auto-end */\n  details.changelog{\n    margin:2rem 0 1rem;padding:.6rem .9rem;\n    background:rgba(0,0,0,0.22);\n    border-radius:6px;\n    font-size:.85rem;\n  }\n  details.changelog summary{\n    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;\n    font-size:.7rem;color:var(--mute,#8c9aa6);\n  }\n  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}\n  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}\n  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}\n  aside.related{\n    margin:1.2rem 0;padding:.7rem 1rem;\n    background:color-mix(in srgb, var(--mute) 6%, transparent);\n    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);\n    border-radius:0 6px 6px 0;\n    font-size:.93rem;\n  }\n  aside.related .ttl{\n    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;\n    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;\n  }\n  aside.related > div{margin:.15rem 0}\n  aside.related .more{color:var(--mute);font-style:italic}\n  aside.related a{color:inherit}\n  /* display-prefs-css-auto-begin */\n  html[data-hide-widgets] .widget { display: none !important; }\n  html[data-hide-quizzes] .quiz { display: none !important; }\n  html[data-hide-lineage] .lineage-strip { display: none !important; }\n  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }\n  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }\n  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }\n  .mv-display-toggle--off { opacity: 0.35; }\n  /* display-prefs-css-auto-end */\n</style>\n<!-- breadcrumb-head-auto-begin -->\n<script src=\"./js/section-map.js\"></script>\n<script src=\"./js/breadcrumb.js\"></script>\n<script src=\"./js/glossary-popover.js\" defer></script>\n<link rel=\"stylesheet\" media=\"print\" href=\"./css/print.css\">\n<link rel=\"stylesheet\" href=\"./css/theme-light.css\">\n<script src=\"./js/theme-toggle.js\"></script>\n<script src=\"./concepts/bundle.js\" defer></script>\n<script src=\"./js/topic-hotkeys.js\" defer></script>\n<script src=\"./js/topic-lineage.js\" defer></script>\n<!-- breadcrumb-head-auto-end -->\n<script src=\"./js/progress.js\"></script>\n<script src=\"./js/quiz.js\"></script>\n<script src=\"./js/katex-select.js\"></script>\n<script src=\"./js/widget-diagram-editor.js\"></script>\n<script src=\"./quizzes/bundle.js\"></script>\n<script src=\"./js/sidetoc.js\"></script>\n<!-- display-prefs-head-auto-begin -->\n<script src=\"./js/display-prefs.js\"></script>\n<!-- display-prefs-head-auto-end -->\n</head>\n",
+  "rawBodyPrefix": "<body data-section=\"learning-theory-and-data-science\" data-level=\"intermediate\">\n<script>\nconst $ = (s,r=document)=>r.querySelector(s);\nconst $$ = (s,r=document)=>[...r.querySelectorAll(s)];\nconst SVG = (tag,attrs={})=>{\n  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);\n  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);\n  return e;\n};\n// draw an arrow marker def once per svg (idempotent)\nfunction ensureArrow(svg, id, color){\n  let defs = svg.querySelector('defs');\n  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }\n  if(defs.querySelector('#'+id)) return;\n  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});\n  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));\n  defs.appendChild(mk);\n}\n// curved arrow between two pixel points, with optional label\nfunction drawArrow(svg, p1, p2, opts={}){\n  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;\n  ensureArrow(svg, markerId, color);\n  const [x1,y1]=p1, [x2,y2]=p2;\n  const dx=x2-x1, dy=y2-y1;\n  const L = Math.hypot(dx,dy) || 1;\n  const ux=dx/L, uy=dy/L;\n  // shorten endpoints\n  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;\n  const ax=x1+ux*pad1, ay=y1+uy*pad1;\n  const bx=x2-ux*pad2, by=y2-uy*pad2;\n  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;\n  const path = SVG('path',{\n    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,\n    fill:'none', stroke:color, 'stroke-width':width,\n    'marker-end':`url(#${markerId})`\n  });\n  if(dash) path.setAttribute('stroke-dasharray', dash);\n  svg.appendChild(path);\n  if(label){\n    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,\n      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});\n    t.textContent = label;\n    svg.appendChild(t);\n  }\n  return path;\n}\nfunction drawNode(svg, x, y, label, opts={}){\n  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;\n  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));\n  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});\n  t.textContent = label;\n  svg.appendChild(t);\n}\n</script>\n\n<nav class=\"toc\"><a href=\"./index.html\" style=\"color:var(--violet);font-weight:500\">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class=\"breadcrumb\"></div><span class=\"nav-links\"><a class=\"nav-link\" href=\"./pathway.html\">Pathway</a><a class=\"nav-link\" href=\"./tours.html\">Tours</a><a class=\"nav-link\" href=\"./history.html\">History</a><a class=\"nav-link\" href=\"./tags.html\">Themes</a><a class=\"nav-link\" href=\"./mindmap.html\">Mindmap</a><a class=\"nav-link\" href=\"./search.html\">Search</a></span><span class=\"mv-theme-slot\"></span><!-- breadcrumb-nav-auto-end -->\n<!-- toc-auto-begin -->\n  <a href=\"#universal-approximation\">1&nbsp;Universal&nbsp;approximation</a>\n  <a href=\"#expressivity\">2&nbsp;Depth&nbsp;&amp;&nbsp;expressivity</a>\n  <a href=\"#ntk\">3&nbsp;The&nbsp;neural&nbsp;tangent&nbsp;kernel</a>\n  <a href=\"#optimization\">4&nbsp;Non-convex&nbsp;optimization</a>\n  <a href=\"#generalization\">5&nbsp;The&nbsp;generalization&nbsp;puzzle&nbsp;&amp;&nbsp;double&nbsp;descent</a>\n  <a href=\"#implicit-bias\">6&nbsp;Implicit&nbsp;bias&nbsp;of&nbsp;gradient&nbsp;descent</a>\n  <a href=\"#connections\">7&nbsp;Connections</a>\n<!-- toc-auto-end -->\n</nav>\n<!-- lineage-mount-auto-begin --><div id=\"mv-lineage-mount\" class=\"lineage-strip\" hidden></div><!-- lineage-mount-auto-end -->\n\n<aside class=\"sidetoc\" aria-label=\"Table of contents\"></aside>\n\n<main>\n\n<section class=\"hero\">\n  <h1>Deep learning theory</h1>\n  <p class=\"sub\">Why do deep neural networks work? Three questions — can they represent the target (approximation), can training find it (optimization), and does fitting the data control error on new data (generalization) — and the surprising answers that overturn the classical theory.</p>\n</section>\n\n",
+  "sections": [
+    {
+      "id": "universal-approximation",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"universal-approximation\">\n<h2>1. Universal approximation</h2>\n<p>Start with the most basic question: can a neural network even <em>represent</em> the function we want? A one-hidden-layer network with input $x\\in\\mathbb{R}^n$, $m$ hidden units, activation $\\sigma$, and a linear output computes</p>\n<p style=\"text-align:center\">$f(x)=\\sum_{i=1}^{m} c_i\\,\\sigma(w_i\\cdot x + b_i).$</p>\n<p>The <strong>universal approximation theorem</strong> (Cybenko 1989 for sigmoidal $\\sigma$; Hornik 1991 for any non-polynomial $\\sigma$; Leshno et al. 1993 for the sharp condition) says these finite sums are <strong>dense</strong> in $C(K)$, the continuous functions on a compact set $K\\subset\\mathbb{R}^n$, in the sup norm:</p>\n<div class=\"note\"><strong>Theorem (universal approximation).</strong> Let $\\sigma\\colon\\mathbb{R}\\to\\mathbb{R}$ be continuous and <em>not</em> a polynomial. Then for every $g\\in C(K)$ and every $\\varepsilon &gt; 0$ there exist $m\\in\\mathbb{N}$, weights $w_i$, biases $b_i$, and coefficients $c_i$ with\n$$\\sup_{x\\in K}\\Big|\\,g(x)-\\sum_{i=1}^{m} c_i\\,\\sigma(w_i\\cdot x+b_i)\\,\\Big| &lt; \\varepsilon.$$</div>\n<p>Two things to internalize. First, this is a statement about <strong>width</strong>, not depth: a single hidden layer suffices, but the number of units $m$ needed to reach accuracy $\\varepsilon$ is the resource that must grow. Second, the hypothesis on $\\sigma$ is tight — <em>non-polynomial</em> is exactly the condition. A polynomial activation would only ever produce polynomials of bounded degree, a finite-dimensional space that cannot be dense in $C(K)$.</p>\n<p>The theorem is an existence result: it promises an approximant exists but says nothing about how large $m$ must be (it can be exponential in $1/\\varepsilon$ for badly behaved targets) nor whether gradient descent can <em>find</em> the weights. Those are the optimization and generalization questions of the later sections.</p>\n\n<h3>Worked mini-example: a bump from two ReLUs</h3>\n<p>With $\\sigma=\\mathrm{ReLU}$, $\\sigma(t)=\\max(0,t)$, two units already build a one-sided ramp and four units a localized bump. The difference $\\mathrm{ReLU}(t)-\\mathrm{ReLU}(t-1)$ is a unit-height ramp that saturates; differencing two shifted ramps gives a plateau. Summing many narrow plateaus tiles any continuous profile — this is the constructive heart of the proof for $n=1$.</p>\n\n<p>The widget fits a fixed target curve with a one-hidden-layer ReLU network and reports the sup-norm error. Raise the width $m$ and watch the approximation tighten and the error fall.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "parametric-plot",
+          "params": {
+            "interaction": "single-mode",
+            "widgetId": "w-ua",
+            "svgId": "ua-svg",
+            "outputId": "ua-out",
+            "title": "Width buys accuracy",
+            "hint": "raise the number of hidden units — the sup-norm error falls",
+            "viewBox": "0 0 640 320",
+            "svgWidth": 640,
+            "svgHeight": 320,
+            "svgTitle": "A one-hidden-layer ReLU network approximating a target curve as width grows",
+            "outputInitial": "",
+            "sliders": [
+              {
+                "id": "ua-m",
+                "outId": "ua-m-lbl",
+                "label": "hidden units $m$:",
+                "min": 1,
+                "max": 40,
+                "step": 1,
+                "init": 4
+              }
+            ],
+            "buttons": [
+              {
+                "id": "ua-act",
+                "label": "ReLU / sigmoid"
+              }
+            ],
+            "bodyScript": "  const svg=$('#ua-svg'), out=$('#ua-out'), mSl=$('#ua-m'), mL=$('#ua-m-lbl'), actBtn=$('#ua-act');\n  const W=640,H=320, padL=48,padR=18,padT=20,padB=36;\n  const x0=padL,x1=W-padR,y0=H-padB,y1=padT;\n  const A=-1, B=1;            // input domain [A,B]\n  let useRelu=true;\n  // target: a smooth bump-ish continuous function on [-1,1]\n  function target(x){ return 0.6*Math.sin(3*x) + 0.35*Math.exp(-9*(x-0.3)*(x-0.3)); }\n  // Build an interpolant of the target with m units.\n  // ReLU: fit a piecewise-linear interpolant through m+1 equally spaced knots, written in the ReLU basis.\n  // sigmoid: place m steep sigmoids as a staircase matching the target at knot midpoints.\n  function knots(m){ const ks=[]; for(let i=0;i<=m;i++) ks.push(A+(B-A)*i/m); return ks; }\n  function fReLU(x,m){\n    // piecewise-linear interpolant of target at m+1 knots\n    const ks=knots(m);\n    if(x<=ks[0]) return target(ks[0]);\n    for(let i=1;i<ks.length;i++){ if(x<=ks[i]){ const t=(x-ks[i-1])/(ks[i]-ks[i-1]); return target(ks[i-1])*(1-t)+target(ks[i])*t; } }\n    return target(ks[ks.length-1]);\n  }\n  function fSig(x,m){\n    // sum of m steep logistic ramps approximating the same interpolant\n    const ks=knots(m); const k=12; let s=target(ks[0]);\n    for(let i=1;i<ks.length;i++){ const step=target(ks[i])-target(ks[i-1]); const c=(ks[i-1]+ks[i])/2; s+=step/(1+Math.exp(-k*(x-c))); }\n    return s;\n  }\n  function net(x,m){ return useRelu?fReLU(x,m):fSig(x,m); }\n  const SX=x=>x0+(x-A)/(B-A)*(x1-x0);\n  let lo=-1.1, hi=1.1;\n  const SY=y=>y0+(y-lo)/(hi-lo)*(y1-y0);\n  function render(){\n    svg.innerHTML='';\n    const m=+mSl.value; mL.textContent=m+(m===1?' unit':' units');\n    // axes\n    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x1,y2:y0,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x0,y2:y1,stroke:'var(--line)'}));\n    const ax=SVG('text',{x:(x0+x1)/2,y:H-8,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}); ax.textContent='x'; svg.appendChild(ax);\n    const ay=SVG('text',{x:14,y:(y0+y1)/2,'text-anchor':'middle','font-size':12,fill:'var(--mute)',transform:`rotate(-90 14 ${(y0+y1)/2})`}); ay.textContent='f(x)'; svg.appendChild(ay);\n    // target curve\n    let dt='M', N=240;\n    for(let i=0;i<=N;i++){ const x=A+(B-A)*i/N; dt+=` ${SX(x).toFixed(1)} ${SY(target(x)).toFixed(1)}`; }\n    svg.appendChild(SVG('path',{d:dt,fill:'none',stroke:'var(--mute)','stroke-width':1.6,'stroke-dasharray':'5 4'}));\n    // network approximation + track sup error\n    let df='M', sup=0;\n    for(let i=0;i<=N;i++){ const x=A+(B-A)*i/N; const fv=net(x,m); df+=` ${SX(x).toFixed(1)} ${SY(fv).toFixed(1)}`; sup=Math.max(sup,Math.abs(fv-target(x))); }\n    svg.appendChild(SVG('path',{d:df,fill:'none',stroke:'var(--yellow)','stroke-width':2.2}));\n    // knot markers\n    const ks=knots(m);\n    for(const kx of ks) svg.appendChild(SVG('circle',{cx:SX(kx),cy:SY(net(kx,m)),r:2.6,fill:'var(--cyan)'}));\n    // legend\n    function leg(x,y,co,t){ svg.appendChild(SVG('line',{x1:x,y1:y,x2:x+20,y2:y,stroke:co,'stroke-width':2.4})); const tt=SVG('text',{x:x+26,y:y+4,'font-size':11,fill:'var(--mute)'}); tt.textContent=t; svg.appendChild(tt); }\n    leg(x1-150,y1+6,'var(--mute)','target g');\n    leg(x1-150,y1+22,'var(--yellow)',(useRelu?'ReLU net':'sigmoid net')+' (m='+m+')');\n    out.textContent =\n      `activation: ${useRelu?'ReLU':'sigmoid'},  hidden units m = ${m}\\n`+\n      `sup-norm error  max|f - g|  =  ${sup.toFixed(4)}\\n`+\n      (sup<0.02 ? '→ within ε = 0.02 — universal approximation realized'\n               : '→ raise m to drive the error toward 0');\n  }\n  mSl.addEventListener('input',render);\n  actBtn.addEventListener('click',()=>{ useRelu=!useRelu; actBtn.classList.toggle('active',!useRelu); render(); });\n  render();"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-ua"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./statistical-learning-theory.html#erm\">Empirical risk minimization</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./deep-learning-theory.html#expressivity\">Deep learning theory</a> · Depth &amp; expressivity</div>\n    <div><a href=\"./deep-learning-theory.html#ntk\">Deep learning theory</a> · The neural tangent kernel</div>\n</aside>\n<!-- backlinks-auto-end -->"
+        },
+        {
+          "type": "quiz",
+          "concept": "dlt-universal-approximation",
+          "html": "<div class=\"quiz\" data-concept=\"dlt-universal-approximation\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "expressivity",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"expressivity\">\n<h2>2. Depth &amp; expressivity</h2>\n<p>Universal approximation says width suffices — but at what cost? The companion question is <strong>expressivity</strong>: how complex a function can a network of a given size compute, and why is <em>depth</em> worth more than width? The cleanest setting is the ReLU network, because every such network computes a <strong>continuous piecewise-linear</strong> function.</p>\n<p>Each ReLU unit splits its input space with a hyperplane: it is linear on each side of $\\{w\\cdot x+b=0\\}$. Composing and summing units partitions the input domain into <strong>linear regions</strong>, on each of which the whole network is an affine map. Counting these regions measures expressive power.</p>\n<div class=\"note\"><strong>Region count: width vs. depth.</strong> A single layer of $m$ ReLU units on a $1$-D input creates at most $m+1$ linear pieces — the count grows <em>linearly</em> in width. But stacking $L$ layers can compose foldings: a layer that folds the line in half doubles the number of pieces of whatever it is applied to. So $L$ layers of width $w$ can produce on the order of $w^{L}$ regions — <em>exponential</em> in depth. (Telgarsky 2016 makes this a hard separation: there are functions a depth-$L$ network represents with $O(L)$ units that any depth-$O(1)$ network needs $2^{\\Omega(L)}$ units to approximate.)</div>\n<p>The mental image: each layer acts like a paper fold. One fold of a sawtooth doubles its teeth. After $L$ folds you have $2^{L}$ teeth from only $O(L)$ parameters — a depth that no shallow network can match without exponential width. This is the formal sense in which <em>deep</em> learning is more than <em>wide</em> learning.</p>\n\n<h3>Worked mini-example: the sawtooth</h3>\n<p>Let $T(x)=\\mathrm{ReLU}(2x)-\\mathrm{ReLU}(4x-2)$ on $[0,1]$ be the triangle (tent) map: it rises then falls, one peak. The $L$-fold composition $T^{\\circ L}$ is a sawtooth with $2^{L-1}$ peaks, hence $2^{L}$ linear regions — yet it is built from $L$ layers of just two units each. A shallow ReLU net needs $\\Omega(2^{L})$ units to match it.</p>\n\n<p>The widget composes the tent map to a chosen depth and reports the linear-region count growing exponentially while the unit count grows linearly.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "parametric-plot",
+          "params": {
+            "interaction": "single-mode",
+            "widgetId": "w-ex",
+            "svgId": "ex-svg",
+            "outputId": "ex-out",
+            "title": "Depth folds the line",
+            "hint": "increase depth — linear regions grow exponentially, units only linearly",
+            "viewBox": "0 0 640 320",
+            "svgWidth": 640,
+            "svgHeight": 320,
+            "svgTitle": "A composed ReLU tent map: linear regions double with each layer of depth",
+            "outputInitial": "",
+            "sliders": [
+              {
+                "id": "ex-L",
+                "outId": "ex-L-lbl",
+                "label": "depth $L$ (layers):",
+                "min": 1,
+                "max": 8,
+                "step": 1,
+                "init": 3
+              }
+            ],
+            "bodyScript": "  const svg=$('#ex-svg'), out=$('#ex-out'), LSl=$('#ex-L'), LL=$('#ex-L-lbl');\n  const W=640,H=320, padL=44,padR=18,padT=20,padB=36;\n  const x0=padL,x1=W-padR,y0=H-padB,y1=padT;\n  // tent map T(x) = ReLU(2x) - ReLU(4x-2), maps [0,1]->[0,1], one peak at x=0.5\n  function tent(x){ return Math.max(0,2*x) - Math.max(0,4*x-2); }\n  function compose(x,L){ let v=x; for(let i=0;i<L;i++) v=tent(v); return v; }\n  const SX=x=>x0+x*(x1-x0);\n  const SY=y=>y0+y*(y1-y0);\n  function render(){\n    svg.innerHTML='';\n    const L=+LSl.value; LL.textContent='L = '+L;\n    // axes\n    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x1,y2:y0,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x0,y2:y1,stroke:'var(--line)'}));\n    const ax=SVG('text',{x:(x0+x1)/2,y:H-8,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}); ax.textContent='x'; svg.appendChild(ax);\n    const ay=SVG('text',{x:14,y:(y0+y1)/2,'text-anchor':'middle','font-size':12,fill:'var(--mute)',transform:`rotate(-90 14 ${(y0+y1)/2})`}); ay.textContent='f(x)'; svg.appendChild(ay);\n    // the composed sawtooth: sample finely (it is exactly piecewise linear with 2^L pieces)\n    const N=2048; let d='M';\n    for(let i=0;i<=N;i++){ const x=i/N; d+=` ${SX(x).toFixed(2)} ${SY(compose(x,L)).toFixed(2)}`; }\n    svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--yellow)','stroke-width':1.8}));\n    const regions=Math.pow(2,L);   // linear regions of the L-fold tent\n    const peaks=Math.pow(2,L-1);\n    const units=2*L;               // 2 ReLU units per layer\n    out.textContent =\n      `depth L = ${L}   (2 units/layer → ${units} ReLU units total)\\n`+\n      `linear regions = 2^${L} = ${regions}\\n`+\n      `peaks (oscillations) = 2^(L-1) = ${peaks}\\n`+\n      `regions per unit = ${(regions/units).toFixed(2)}  — a shallow net needs ~${regions} units to match`;\n  }\n  LSl.addEventListener('input',render);\n  render();"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-ex"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "quiz",
+          "concept": "dlt-expressivity",
+          "html": "<div class=\"quiz\" data-concept=\"dlt-expressivity\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "ntk",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"ntk\">\n<h2>3. The neural tangent kernel</h2>\n<p>How does training actually move the weights? In the <strong>infinite-width limit</strong> a startling simplification appears (Jacot, Gabriel &amp; Hongler 2018). Linearize the network around its initialization $\\theta_0$:</p>\n<p style=\"text-align:center\">$f(x;\\theta)\\ \\approx\\ f(x;\\theta_0)+\\nabla_\\theta f(x;\\theta_0)\\cdot(\\theta-\\theta_0).$</p>\n<p>Gradient descent on the squared loss then moves $\\theta$ only through this linear model, and the relevant geometry is captured by the <strong>neural tangent kernel</strong></p>\n<p style=\"text-align:center\">$\\Theta(x,x')\\ =\\ \\big\\langle\\nabla_\\theta f(x;\\theta_0),\\ \\nabla_\\theta f(x';\\theta_0)\\big\\rangle.$</p>\n<div class=\"note\"><strong>Theorem (NTK regime).</strong> As the width $\\to\\infty$ with the standard parametrization, (i) $\\Theta$ converges at initialization to a <em>deterministic</em> kernel $\\Theta_\\infty$ depending only on the architecture, and (ii) $\\Theta$ stays <em>constant</em> throughout training. Consequently full-batch gradient descent on the squared loss drives $f$ to the <strong>kernel regression</strong> solution with kernel $\\Theta_\\infty$:\n$$f_\\infty(x)=\\Theta_\\infty(x,X)\\,\\Theta_\\infty(X,X)^{-1}\\,y.$$</div>\n<p>This is the <strong>lazy training</strong> picture: the weights barely move (each individual weight changes by $O(1/\\sqrt{\\text{width}})$), the network stays essentially equal to its own linearization, and the whole nonlinear apparatus collapses to a fixed positive-definite kernel. Training a wide net by gradient descent <em>is</em> kernel regression — and the kernel is an <a href=\"./kernel-methods-and-rkhs.html#rkhs\">RKHS</a> kernel, so the entire representer-theorem machinery applies.</p>\n<p>The NTK is both a triumph and a limitation. It rigorously explains why overparameterized nets train to zero loss and generalize in a regime we understand. But real finite-width nets are <em>not</em> lazy — feature learning (the kernel changing during training) is exactly what the NTK linearization throws away, and is believed to be where deep learning's advantage over fixed kernels lives.</p>\n\n<h3>Worked mini-example: the NTK of a one-unit linear model</h3>\n<p>Take $f(x;w,a)=a\\,(w\\cdot x)$ with scalar $a$ and vector $w$. Then $\\nabla_a f=w\\cdot x$ and $\\nabla_w f=a\\,x$, so at init $(a_0,w_0)$,\n$$\\Theta(x,x')=(w_0\\cdot x)(w_0\\cdot x')+a_0^2\\,(x\\cdot x').$$\nIt is a deterministic positive-definite kernel built from inner products — already a kernel before any training, exactly as the theorem predicts.</p>\n\n<p>The widget trains a finite-width ReLU net by gradient descent and overlays the NTK kernel-regression prediction. Increase the width and watch the two curves converge.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "parametric-plot",
+          "params": {
+            "interaction": "single-mode",
+            "widgetId": "w-ntk",
+            "svgId": "ntk-svg",
+            "outputId": "ntk-out",
+            "title": "Wide net = kernel regression",
+            "hint": "increase width — the trained net converges to the NTK prediction",
+            "viewBox": "0 0 640 320",
+            "svgWidth": 640,
+            "svgHeight": 320,
+            "svgTitle": "A trained finite-width ReLU network converging to the neural-tangent-kernel regression prediction as width grows",
+            "outputInitial": "",
+            "sliders": [
+              {
+                "id": "ntk-w",
+                "outId": "ntk-w-lbl",
+                "label": "width $m$:",
+                "min": 4,
+                "max": 300,
+                "step": 4,
+                "init": 40
+              }
+            ],
+            "buttons": [
+              {
+                "id": "ntk-re",
+                "label": "resample init"
+              }
+            ],
+            "bodyScript": "  const svg=$('#ntk-svg'), out=$('#ntk-out'), wSl=$('#ntk-w'), wL=$('#ntk-w-lbl'), reBtn=$('#ntk-re');\n  const W=640,H=320, padL=44,padR=18,padT=20,padB=36;\n  const x0=padL,x1=W-padR,y0=H-padB,y1=padT;\n  let seed=12345;\n  function rng(){ seed=(seed*1103515245+12345)&0x7fffffff; return seed/0x7fffffff; }\n  function gauss(){ let u=0,v=0; while(u===0)u=rng(); while(v===0)v=rng(); return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v); }\n  const A=-1,B=1;\n  function target(x){ return Math.sin(2.5*x)+0.3*x; }\n  let Xtr=[]; for(let i=0;i<8;i++) Xtr.push(A+(B-A)*i/7);\n  const Ytr=Xtr.map(target);\n  const relu=t=>Math.max(0,t), drelu=t=>t>0?1:0;\n  // Build a width-m 1-hidden-layer net at init (NTK parametrization: output scaled by 1/sqrt(m)).\n  function makeNet(m){\n    const w=[],b=[],a=[];\n    for(let i=0;i<m;i++){ w.push(gauss()); b.push(gauss()*0.5); a.push(gauss()); }\n    const sc=1/Math.sqrt(m);\n    function fwd(W,Bb,Aa,x){ let s=0; for(let i=0;i<m;i++) s+=Aa[i]*relu(W[i]*x+Bb[i]); return sc*s; }\n    return {w,b,a,sc,fwd:x=>fwd(w,b,a,x)};\n  }\n  // Parameter-gradient (Jacobian row) of net output at x for current params.\n  function grad(net,x){ const m=net.w.length, g=new Array(3*m); for(let i=0;i<m;i++){ const z=net.w[i]*x+net.b[i]; const h=relu(z), d=drelu(z);\n      g[i]=net.sc*net.a[i]*d*x;        // dw_i\n      g[m+i]=net.sc*net.a[i]*d;        // db_i\n      g[2*m+i]=net.sc*h;               // da_i\n    } return g; }\n  function dot(p,q){ let s=0; for(let i=0;i<p.length;i++) s+=p[i]*q[i]; return s; }\n  // Empirical NTK between two inputs at init.\n  function ntkEmp(net,x,xp){ return dot(grad(net,x),grad(net,xp)); }\n  function solve(Kmat,rhs){ const k=rhs.length; const M=Kmat.map((r,i)=>[...r,rhs[i]]);\n    for(let c=0;c<k;c++){ let p=c; for(let r=c+1;r<k;r++) if(Math.abs(M[r][c])>Math.abs(M[p][c])) p=r; [M[c],M[p]]=[M[p],M[c]]; const d=M[c][c]||1e-12; for(let j=c;j<=k;j++) M[c][j]/=d; for(let r=0;r<k;r++){ if(r===c)continue; const fct=M[r][c]; for(let j=c;j<=k;j++) M[r][j]-=fct*M[c][j]; } }\n    return M.map(r=>r[k]); }\n  // Frozen snapshot of a net's init params (train() mutates in place, so the kernel needs a copy).\n  function freeze(net){ const m=net.w.length, w=net.w.slice(),b=net.b.slice(),a=net.a.slice(),sc=net.sc;\n    return {w,b,a,sc,fwd:x=>{ let s=0; for(let i=0;i<m;i++) s+=a[i]*relu(w[i]*x+b[i]); return sc*s; }}; }\n  // Kernel regression with the empirical NTK around init: f0 + K(x,X) K(X,X)^-1 (y - f0(X)).\n  function ntkRegressor(net0){ const net=freeze(net0); const n=Xtr.length; const f0=Xtr.map(net.fwd);\n    const Kg=Array.from({length:n},()=>new Array(n).fill(0));\n    for(let i=0;i<n;i++) for(let j=0;j<n;j++){ Kg[i][j]=ntkEmp(net,Xtr[i],Xtr[j]); if(i===j) Kg[i][j]+=1e-6; }\n    const alpha=solve(Kg, Ytr.map((y,i)=>y-f0[i]));\n    return x=>{ let s=net.fwd(x); for(let i=0;i<n;i++) s+=alpha[i]*ntkEmp(net,x,Xtr[i]); return s; }; }\n  // Train the SAME net by gradient descent; also report the relative weight movement (lazy-training signature).\n  function train(net){ const m=net.w.length; const lr=1.0;\n    const w0=net.w.slice(),b0=net.b.slice(),a0=net.a.slice();\n    let trainLoss=0;\n    for(let ep=0; ep<9000; ep++){ const gw=new Array(m).fill(0),gb=new Array(m).fill(0),ga=new Array(m).fill(0);\n      trainLoss=0;\n      for(let s=0;s<Xtr.length;s++){ const x=Xtr[s]; const e=net.fwd(x)-Ytr[s]; trainLoss+=e*e;\n        for(let i=0;i<m;i++){ const z=net.w[i]*x+net.b[i]; const h=relu(z),d=drelu(z); ga[i]+=e*net.sc*h; const da=e*net.sc*net.a[i]*d; gw[i]+=da*x; gb[i]+=da; } }\n      const inv=lr/Xtr.length; for(let i=0;i<m;i++){ net.a[i]-=ga[i]*inv; net.w[i]-=gw[i]*inv; net.b[i]-=gb[i]*inv; } }\n    // relative parameter movement ‖θ−θ₀‖ / ‖θ₀‖\n    let num=0,den=0; for(let i=0;i<m;i++){ num+=(net.w[i]-w0[i])**2+(net.b[i]-b0[i])**2+(net.a[i]-a0[i])**2; den+=w0[i]**2+b0[i]**2+a0[i]**2; }\n    const rel=Math.sqrt(num)/Math.sqrt(den);\n    return {fwd:x=>net.fwd(x), rel, trainLoss:trainLoss/Xtr.length}; }\n  const SX=x=>x0+(x-A)/(B-A)*(x1-x0);\n  let lo=-1.6, hi=1.6; const SY=y=>y0+(y-lo)/(hi-lo)*(y1-y0);\n  function render(){\n    svg.innerHTML='';\n    const m=+wSl.value; wL.textContent='m = '+m;\n    const net=makeNet(m);                                      // one net\n    const ntkPred=ntkRegressor(net);                           // kernel regression at THIS net's init\n    const tr=train(net); const fwd=tr.fwd;                     // then train the SAME net by GD\n    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x1,y2:y0,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x0,y2:y1,stroke:'var(--line)'}));\n    const ax=SVG('text',{x:(x0+x1)/2,y:H-8,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}); ax.textContent='x'; svg.appendChild(ax);\n    let dn='M', N=160, diff=0;\n    for(let i=0;i<=N;i++){ const x=A+(B-A)*i/N; dn+=` ${SX(x).toFixed(1)} ${SY(ntkPred(x)).toFixed(1)}`; }\n    svg.appendChild(SVG('path',{d:dn,fill:'none',stroke:'var(--cyan)','stroke-width':2.4}));\n    let df='M';\n    for(let i=0;i<=N;i++){ const x=A+(B-A)*i/N; const fv=fwd(x); df+=` ${SX(x).toFixed(1)} ${SY(fv).toFixed(1)}`; diff=Math.max(diff,Math.abs(fv-ntkPred(x))); }\n    svg.appendChild(SVG('path',{d:df,fill:'none',stroke:'var(--yellow)','stroke-width':2,'stroke-dasharray':'6 4'}));\n    for(let i=0;i<Xtr.length;i++) svg.appendChild(SVG('circle',{cx:SX(Xtr[i]),cy:SY(Ytr[i]),r:4,fill:'var(--pink)'}));\n    function leg(x,y,co,t,dash){ const ln=SVG('line',{x1:x,y1:y,x2:x+20,y2:y,stroke:co,'stroke-width':2.4}); if(dash) ln.setAttribute('stroke-dasharray','6 4'); svg.appendChild(ln); const tt=SVG('text',{x:x+26,y:y+4,'font-size':11,fill:'var(--mute)'}); tt.textContent=t; svg.appendChild(tt); }\n    leg(x1-190,y1+6,'var(--cyan)','NTK kernel regression');\n    leg(x1-190,y1+22,'var(--yellow)','trained width-'+m+' net',true);\n    out.textContent =\n      `width m = ${m},  training loss = ${tr.trainLoss.toExponential(1)}\\n`+\n      `relative weight movement ‖θ−θ₀‖/‖θ₀‖ = ${tr.rel.toFixed(3)}   (→ 0 like 1/√m: lazy training)\\n`+\n      `max | trained net − NTK prediction | = ${diff.toFixed(3)}\\n`+\n      (tr.rel<0.35 ? '→ weights barely moved — the net ≈ its linearization = NTK kernel regression'\n                   : '→ at small width the weights move a lot; widen it to enter the lazy regime');\n  }\n  wSl.addEventListener('input',render);\n  reBtn.addEventListener('click',()=>{ seed=(seed*7+101)&0x7fffffff; render(); });\n  render();"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-ntk"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./kernel-methods-and-rkhs.html#rkhs\">Reproducing kernel Hilbert spaces</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./deep-learning-theory.html#optimization\">Deep learning theory</a> · Non-convex optimization</div>\n</aside>\n<!-- backlinks-auto-end -->"
+        },
+        {
+          "type": "quiz",
+          "concept": "dlt-ntk",
+          "html": "<div class=\"quiz\" data-concept=\"dlt-ntk\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "optimization",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"optimization\">\n<h2>4. Non-convex optimization</h2>\n<p>The training loss $L(\\theta)=\\frac1n\\sum_i(f(x_i;\\theta)-y_i)^2$ is <strong>non-convex</strong> in $\\theta$ — it has saddle points, flat regions, and in principle bad local minima. Classical optimization theory offers no guarantee that gradient descent reaches a global minimum. And yet stochastic gradient descent reliably drives deep nets to (near) zero training loss. Why?</p>\n<p>The modern answer is <strong>overparameterization</strong>: when the number of parameters far exceeds the number of data points, the loss landscape becomes <em>benign</em>. There are so many directions to descend that bad isolated minima essentially vanish, and the set of global minimizers forms a high-dimensional connected manifold. The sharp version uses the <strong>Polyak–Łojasiewicz (PL)</strong> condition.</p>\n<div class=\"note\"><strong>PL condition $\\Rightarrow$ linear convergence.</strong> $L$ satisfies the PL inequality with constant $\\mu &gt; 0$ if\n$$\\tfrac12\\,\\|\\nabla L(\\theta)\\|^2\\ \\ge\\ \\mu\\,\\big(L(\\theta)-L^\\star\\big)\\quad\\text{for all }\\theta.$$\nThis does <em>not</em> require convexity. Under PL with an $\\ell$-smooth $L$, gradient descent with step $\\eta=1/\\ell$ converges <strong>linearly</strong>:\n$$L(\\theta_t)-L^\\star\\ \\le\\ \\big(1-\\tfrac{\\mu}{\\ell}\\big)^{t}\\,\\big(L(\\theta_0)-L^\\star\\big).$$</div>\n<p>The point is that PL replaces \"the landscape is bowl-shaped (convex)\" with the far weaker \"the gradient is large whenever the loss is large.\" Overparameterized networks satisfy a PL-type condition in a neighborhood of initialization — essentially because the tangent kernel (§3) is positive-definite there, so the gradient cannot vanish until the loss does. That is enough for global linear convergence even though $L$ has no global convex structure.</p>\n<p>SGD adds a twist: its gradient noise is anisotropic, larger in sharp directions, which biases iterates toward <strong>flat minima</strong> — empirically the ones that generalize. So the optimizer's noise is not just tolerated but is part of why the solution it finds is good.</p>\n\n<h3>Worked mini-example: width smooths the landscape</h3>\n<p>Fit $f(x;\\theta)$ to two points with a one-unit model: the loss surface in the two weights has a curved valley with a saddle, and GD can stall. Add units: the global-minimum set inflates to a manifold, the saddles between basins disappear, and GD started anywhere flows straight down. The very thing that makes the model \"too big\" is what makes it easy to optimize.</p>\n\n<p>The widget runs gradient descent on a $1$-D loss landscape; a single knob interpolates from a rugged (under-parameterized) landscape to a benign PL landscape. Watch GD get stuck, then flow freely.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "parametric-plot",
+          "params": {
+            "interaction": "single-mode",
+            "widgetId": "w-opt",
+            "svgId": "opt-svg",
+            "outputId": "opt-out",
+            "title": "Overparameterization benigns the loss",
+            "hint": "raise overparameterization — the rugged landscape becomes PL and GD descends freely",
+            "viewBox": "0 0 640 320",
+            "svgWidth": 640,
+            "svgHeight": 320,
+            "svgTitle": "Gradient descent on a 1-D loss landscape that becomes benign as overparameterization increases",
+            "outputInitial": "",
+            "sliders": [
+              {
+                "id": "opt-p",
+                "outId": "opt-p-lbl",
+                "label": "overparameterization:",
+                "min": 0,
+                "max": 100,
+                "step": 1,
+                "init": 10
+              },
+              {
+                "id": "opt-x",
+                "outId": "opt-x-lbl",
+                "label": "GD start $\\theta_0$:",
+                "min": -28,
+                "max": 28,
+                "step": 1,
+                "init": -22
+              }
+            ],
+            "buttons": [
+              {
+                "id": "opt-run",
+                "label": "run GD"
+              }
+            ],
+            "bodyScript": "  const svg=$('#opt-svg'), out=$('#opt-out'), pSl=$('#opt-p'), pL=$('#opt-p-lbl'), xSl=$('#opt-x'), xL=$('#opt-x-lbl'), runBtn=$('#opt-run');\n  const W=640,H=320, padL=44,padR=18,padT=20,padB=36;\n  const x0=padL,x1=W-padR,y0=H-padB,y1=padT;\n  const A=-3,B=3; // theta domain\n  // Landscape interpolates: rugged (sin ripples + global bowl) -> pure bowl (PL) as p->1.\n  // L(t) = 0.5 t^2 + (1-p)*0.9*(1-cos(5t))  ; p in [0,1]. Rugged term vanishes -> convex bowl.\n  function lossP(t,p){ return 0.5*t*t + (1-p)*0.9*(1-Math.cos(5*t)); }\n  function dloss(t,p){ return t + (1-p)*0.9*5*Math.sin(5*t); }\n  const SX=t=>x0+(t-A)/(B-A)*(x1-x0);\n  let lo=0, hi=6; const SY=v=>y0+(v-lo)/(hi-lo)*(y1-y0);\n  function render(runPath){\n    svg.innerHTML='';\n    const p=(+pSl.value)/100; pL.textContent=Math.round(p*100)+'% (1−rugged='+p.toFixed(2)+')';\n    const t0=(+xSl.value)/10; xL.textContent='θ₀ = '+t0.toFixed(1);\n    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x1,y2:y0,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x0,y2:y1,stroke:'var(--line)'}));\n    const ax=SVG('text',{x:(x0+x1)/2,y:H-8,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}); ax.textContent='parameter θ'; svg.appendChild(ax);\n    const ay=SVG('text',{x:14,y:(y0+y1)/2,'text-anchor':'middle','font-size':12,fill:'var(--mute)',transform:`rotate(-90 14 ${(y0+y1)/2})`}); ay.textContent='loss L(θ)'; svg.appendChild(ay);\n    // landscape\n    let d='M', N=400;\n    for(let i=0;i<=N;i++){ const t=A+(B-A)*i/N; d+=` ${SX(t).toFixed(1)} ${SY(Math.min(hi,lossP(t,p))).toFixed(1)}`; }\n    svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--violet)','stroke-width':2}));\n    // run GD\n    let t=t0; const lr=0.06; const traj=[t];\n    for(let s=0;s<200;s++){ t=t-lr*dloss(t,p); t=Math.max(A,Math.min(B,t)); traj.push(t); }\n    // draw trajectory dots\n    for(let i=0;i<traj.length;i+=8){ const tt=traj[i]; svg.appendChild(SVG('circle',{cx:SX(tt),cy:SY(Math.min(hi,lossP(tt,p))),r:2.6,fill:'var(--yellow)',opacity:0.8})); }\n    // start + end markers\n    svg.appendChild(SVG('circle',{cx:SX(t0),cy:SY(Math.min(hi,lossP(t0,p))),r:5,fill:'var(--pink)'}));\n    svg.appendChild(SVG('circle',{cx:SX(t),cy:SY(Math.min(hi,lossP(t,p))),r:5,fill:'var(--green)'}));\n    const Lend=lossP(t,p);\n    const reached = Math.abs(t) < 0.15;\n    out.textContent =\n      `start θ₀ = ${t0.toFixed(2)},  GD landed at θ = ${t.toFixed(3)},  L = ${Lend.toFixed(4)}\\n`+\n      (p>0.85 ? 'landscape is (near) convex / PL — GD reaches the global min from anywhere'\n              : 'rugged landscape — GD can be trapped in a local basin near the start') + '\\n' +\n      (reached ? '✓ reached the global minimum θ* = 0' : '✗ stuck in a local minimum');\n  }\n  pSl.addEventListener('input',()=>render());\n  xSl.addEventListener('input',()=>render());\n  runBtn.addEventListener('click',()=>render(true));\n  render();"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-opt"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./convex-optimization.html#gradient-proximal\">Gradient and proximal methods</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./deep-learning-theory.html#implicit-bias\">Deep learning theory</a> · Implicit bias of gradient descent</div>\n    <div><a href=\"./deep-learning-theory.html#generalization\">Deep learning theory</a> · The generalization puzzle &amp; double descent</div>\n</aside>\n<!-- backlinks-auto-end -->"
+        },
+        {
+          "type": "quiz",
+          "concept": "dlt-optimization",
+          "html": "<div class=\"quiz\" data-concept=\"dlt-optimization\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "generalization",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"generalization\">\n<h2>5. The generalization puzzle &amp; double descent</h2>\n<p>Here is the scandal. A deep net with millions of parameters can fit a training set of <strong>random labels</strong> to zero error (Zhang et al. 2017) — its capacity is effectively unbounded, its VC dimension astronomically larger than the sample size. The classical theory of §4 in <a href=\"./statistical-learning-theory.html#rademacher\">statistical learning theory</a> then predicts catastrophic overfitting: the uniform-convergence bound $R\\le\\widehat R+O(\\sqrt{d/n})$ is <strong>vacuous</strong> (the bound exceeds $1$). Yet on <em>real</em> labels the same network generalizes beautifully. The classical capacity-control picture is simply the wrong lens.</p>\n<p>The empirical signature of the modern regime is <strong>double descent</strong> (Belkin et al. 2019). Plot test error against model size:</p>\n<ul>\n<li><strong>Underparameterized</strong> ($p&lt;n$): the classical U-shaped bias–variance curve. Test error falls, then rises as the model starts to overfit.</li>\n<li><strong>Interpolation threshold</strong> ($p=n$): the model has just enough capacity to fit every training point exactly. Test error <em>peaks</em> here — the fit is forced through every point with no slack, so the interpolant is wildly unstable.</li>\n<li><strong>Overparameterized</strong> ($p&gt;n$): a <em>second descent</em>. With many interpolating solutions available, gradient descent's implicit bias (§6) selects a smooth, low-norm one, and test error falls again — often below the classical sweet spot.</li>\n</ul>\n<div class=\"note\"><strong>Why the peak, then descent.</strong> At $p=n$ there is exactly one interpolant and it is determined by an ill-conditioned linear system: tiny label noise blows up. For $p&gt;n$ the interpolant is underdetermined, so the learner gets to <em>choose</em> among many — and choosing the minimum-norm one (the next section) is a strong implicit regularizer. More parameters means more freedom to pick a <em>simpler</em> interpolant. Capacity and complexity come apart.</div>\n<p>So \"more parameters always overfits\" is false in the interpolating regime. The right complexity measure is not parameter count but something like the <em>norm</em> of the learned solution, which can shrink as the model grows.</p>\n\n<h3>Worked mini-example</h3>\n<p>Random-feature ridgeless regression with $p$ features on $n=40$ noisy points reproduces the curve exactly: test error climbs as $p\\to n$ (the Gram matrix becomes singular), spikes at $p=n$, then falls as $p$ grows past $n$ and the minimum-norm interpolant smooths out.</p>\n\n<p>The widget plots the double-descent test-error curve against model size, marking the interpolation threshold $p=n$.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "parametric-plot",
+          "params": {
+            "interaction": "single-mode",
+            "widgetId": "w-gen",
+            "svgId": "gen-svg",
+            "outputId": "gen-out",
+            "title": "The double-descent curve",
+            "hint": "slide model size across the interpolation threshold p = n",
+            "viewBox": "0 0 640 320",
+            "svgWidth": 640,
+            "svgHeight": 320,
+            "svgTitle": "Test error versus model size showing the classical U then a second descent past the interpolation threshold",
+            "outputInitial": "",
+            "sliders": [
+              {
+                "id": "gen-p",
+                "outId": "gen-p-lbl",
+                "label": "model size $p$:",
+                "min": 2,
+                "max": 200,
+                "step": 1,
+                "init": 20
+              },
+              {
+                "id": "gen-noise",
+                "outId": "gen-noise-lbl",
+                "label": "label noise:",
+                "min": 0,
+                "max": 100,
+                "step": 1,
+                "init": 30
+              }
+            ],
+            "bodyScript": "  const svg=$('#gen-svg'), out=$('#gen-out'), pSl=$('#gen-p'), pL=$('#gen-p-lbl'), nzSl=$('#gen-noise'), nzL=$('#gen-noise-lbl');\n  const W=640,H=320, padL=48,padR=18,padT=22,padB=40;\n  const x0=padL,x1=W-padR,y0=H-padB,y1=padT;\n  const n=40;       // training set size -> interpolation threshold at p = n\n  const pmin=2, pmax=200;\n  // Stylized but faithful double-descent test-error curve.\n  // classical bias-variance for p<n: bias ~ 1/p, variance ~ p/(n-p) (blows up as p->n^-)\n  // peak at p=n; for p>n minimum-norm interpolant: variance ~ n/(p-n) decaying, plus irreducible noise floor.\n  function testErr(p,nz){\n    const noise=nz; const floor=0.15+0.6*noise;\n    if(p<n){ const bias=1.2/p; const varc=noise*(p/(n-p+0.0001)); return floor*0.3 + bias + 0.04*varc; }\n    if(p===n){ return 3.5 + 4*noise; }\n    const over=p-n; const varc=noise*(n/(over+1)); return floor + 0.15 + 0.6*varc + 0.0; \n  }\n  const SX=p=>x0+(p-pmin)/(pmax-pmin)*(x1-x0);\n  function render(){\n    svg.innerHTML='';\n    const p=+pSl.value; const nz=(+nzSl.value)/100;\n    pL.textContent='p = '+p+(p===n?'  (= n: interpolation threshold)':(p<n?'  (< n)':'  (> n)'));\n    nzL.textContent='σ² = '+nz.toFixed(2);\n    // compute curve + y-scale\n    const ps=[]; const es=[];\n    for(let q=pmin;q<=pmax;q++){ ps.push(q); es.push(Math.min(8,testErr(q,nz))); }\n    const emax=Math.max(...es), emin=0;\n    const SY=v=>y0+(v-emin)/((emax-emin)||1)*(y1-y0);\n    // axes\n    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x1,y2:y0,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x0,y2:y1,stroke:'var(--line)'}));\n    const ax=SVG('text',{x:(x0+x1)/2,y:H-8,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}); ax.textContent='model size p'; svg.appendChild(ax);\n    const ay=SVG('text',{x:14,y:(y0+y1)/2,'text-anchor':'middle','font-size':12,fill:'var(--mute)',transform:`rotate(-90 14 ${(y0+y1)/2})`}); ay.textContent='test error'; svg.appendChild(ay);\n    // interpolation threshold marker\n    svg.appendChild(SVG('line',{x1:SX(n),y1:y0,x2:SX(n),y2:y1,stroke:'var(--pink)','stroke-width':1.2,'stroke-dasharray':'4 4'}));\n    const tl=SVG('text',{x:SX(n)+4,y:y1+14,'font-size':11,fill:'var(--pink)'}); tl.textContent='p = n'; svg.appendChild(tl);\n    // curve\n    let d='M';\n    for(let i=0;i<ps.length;i++){ d+=` ${SX(ps[i]).toFixed(1)} ${SY(es[i]).toFixed(1)}`; }\n    svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--yellow)','stroke-width':2.2}));\n    // current marker\n    const ecur=Math.min(8,testErr(p,nz));\n    svg.appendChild(SVG('circle',{cx:SX(p),cy:SY(ecur),r:5,fill:'var(--cyan)'}));\n    let regime = p<n? 'under-parameterized: classical U-shape' : (p===n? 'AT the interpolation threshold — error peaks' : 'over-parameterized: second descent');\n    out.textContent =\n      `model size p = ${p},  data n = ${n},  noise σ² = ${nz.toFixed(2)}\\n`+\n      `test error ≈ ${ecur.toFixed(3)}\\n`+\n      `regime: ${regime}\\n`+\n      (p>n? '→ many interpolants exist; GD picks the min-norm one (see §6) and error drops' : (p<n? '→ raising p first helps (less bias) then hurts (variance) toward p=n' : '→ the single interpolant is ill-conditioned; classical bounds are vacuous here'));\n  }\n  pSl.addEventListener('input',render);\n  nzSl.addEventListener('input',render);\n  render();"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-gen"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./statistical-learning-theory.html#rademacher\">Rademacher complexity & margins</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./deep-learning-theory.html#implicit-bias\">Deep learning theory</a> · Implicit bias of gradient descent</div>\n</aside>\n<!-- backlinks-auto-end -->"
+        },
+        {
+          "type": "quiz",
+          "concept": "dlt-generalization",
+          "html": "<div class=\"quiz\" data-concept=\"dlt-generalization\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "implicit-bias",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"implicit-bias\">\n<h2>6. Implicit bias of gradient descent</h2>\n<p>Double descent leaves a question hanging: when many parameter settings fit the training data perfectly, <em>which one</em> does gradient descent pick? The answer is the key to generalization without explicit regularization — GD has an <strong>implicit bias</strong> toward special, low-complexity solutions.</p>\n<h3>Least squares: the minimum-norm interpolant</h3>\n<p>Consider an underdetermined linear system $Xw=y$ with $X\\in\\mathbb{R}^{n\\times p}$, $p&gt;n$, so infinitely many $w$ interpolate. Gradient descent on the squared loss <strong>started from $w_0=0$</strong> stays in the row space of $X$ and converges to the unique <strong>minimum-$\\ell_2$-norm</strong> solution:</p>\n<p style=\"text-align:center\">$w_\\star\\ =\\ \\arg\\min_{Xw=y}\\|w\\|_2\\ =\\ X^{\\top}(XX^{\\top})^{-1}y.$</p>\n<p>No regularizer was written down — yet GD behaves <em>as if</em> it minimized $\\|w\\|_2$ subject to fitting the data. The reason is geometric: gradients of the squared loss lie in the row space of $X$, so iterates never leave $w_0+\\mathrm{row}(X)$; the unique interpolant there is the min-norm one.</p>\n<h3>Separable classification: the max-margin solution</h3>\n<p>For binary classification on linearly separable data with the logistic or exponential loss, the loss has no finite minimizer — the optimizer pushes $\\|w\\|\\to\\infty$. But the <em>direction</em> converges (Soudry et al. 2018): $w(t)/\\|w(t)\\|$ tends to the $\\ell_2$ <strong>max-margin</strong> (hard-SVM) separator</p>\n<p style=\"text-align:center\">$\\hat w\\ =\\ \\arg\\min\\|w\\|_2\\quad\\text{s.t.}\\quad y_i\\,(w\\cdot x_i)\\ge1\\ \\forall i.$</p>\n<div class=\"note\"><strong>The unified message.</strong> Among the infinitely many zero-loss solutions, gradient descent silently selects the one of <em>minimum norm</em> (regression) or <em>maximum margin</em> (classification). This implicit regularization — not any explicit penalty — is a leading explanation for why overparameterized networks generalize: the optimizer's geometry, not the model's size, controls complexity.</div>\n\n<h3>Worked mini-example: $w_\\star=X^{\\top}(XX^{\\top})^{-1}y$</h3>\n<p>Take $n=1$, $p=2$, the single equation $w_1+2w_2=5$. Infinitely many solutions; the minimum-norm one is found by $X^{\\top}(XX^{\\top})^{-1}y$ with $X=[1\\ 2]$: $XX^{\\top}=5$, so $w_\\star=[1,2]^{\\top}\\cdot 5/5=[1,2]^{\\top}$, giving $w_\\star=(1,2)$, $\\|w_\\star\\|^2=5$. Every other solution, e.g. $(5,0)$ with norm$^2=25$, is larger. GD from $0$ lands exactly on $(1,2)$.</p>\n\n<p>The widget runs GD from the origin on an underdetermined least-squares problem and shows the iterate converging to the minimum-norm point on the solution line; toggle to the separable-classification view to watch the boundary rotate to the max-margin direction.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "parametric-plot",
+          "params": {
+            "interaction": "multi-mode",
+            "widgetId": "w-ib",
+            "svgId": "ib-svg",
+            "outputId": "ib-out",
+            "title": "GD picks the special solution",
+            "hint": "min-norm interpolant, or max-margin separator",
+            "viewBox": "0 0 640 340",
+            "svgWidth": 640,
+            "svgHeight": 340,
+            "svgTitle": "Gradient descent converging to the minimum-norm interpolant or the maximum-margin separator",
+            "outputInitial": "",
+            "pick": {
+              "id": "ib-mode",
+              "label": "implicit bias of:",
+              "options": [
+                {
+                  "value": "minnorm",
+                  "label": "least squares $\\to$ min-norm",
+                  "selected": true
+                },
+                {
+                  "value": "maxmargin",
+                  "label": "separable class. $\\to$ max-margin"
+                }
+              ]
+            },
+            "buttons": [
+              {
+                "id": "ib-step",
+                "label": "GD steps"
+              }
+            ],
+            "modes": {
+              "minnorm": {},
+              "maxmargin": {}
+            },
+            "initialMode": "minnorm",
+            "bodyScript": "  const svg=$('#ib-svg'), out=$('#ib-out'), modeSel=$('#ib-mode'), stepBtn=$('#ib-step');\n  const W=640,H=340;\n  // ---------- view: w-space [-1,5] x [-1,5] mapped to pixels ----------\n  const padL=48,padR=18,padT=20,padB=40; const x0=padL,x1=W-padR,y0=H-padB,y1=padT;\n  const A=-1,B=5;\n  const SX=v=>x0+(v-A)/(B-A)*(x1-x0);\n  const SY=v=>y0+(v-A)/(B-A)*(y1-y0);  // note y0>y1, larger v higher up\n  function axes(xlab,ylab){\n    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x1,y2:y0,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x0,y2:y1,stroke:'var(--line)'}));\n    const ax=SVG('text',{x:(x0+x1)/2,y:H-8,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}); ax.textContent=xlab; svg.appendChild(ax);\n    const ay=SVG('text',{x:14,y:(y0+y1)/2,'text-anchor':'middle','font-size':12,fill:'var(--mute)',transform:`rotate(-90 14 ${(y0+y1)/2})`}); ay.textContent=ylab; svg.appendChild(ay);\n  }\n  // ---------- MIN-NORM mode: single eqn w1 + 2 w2 = 5 in R^2 ----------\n  function renderMinNorm(){\n    svg.innerHTML='';\n    axes('w₁','w₂');\n    // solution line w1 = 5 - 2 w2  (param by w2)\n    let d='M';\n    for(let i=0;i<=100;i++){ const w2=A+(B-A)*i/100; const w1=5-2*w2; d+=` ${SX(w1).toFixed(1)} ${SY(w2).toFixed(1)}`; }\n    svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--violet)','stroke-width':2}));\n    const sl=SVG('text',{x:SX(4.2),y:SY(0.0)-6,'font-size':11,fill:'var(--violet)'}); sl.textContent='w₁ + 2w₂ = 5 (interpolants)'; svg.appendChild(sl);\n    // GD from 0 on (1/2)(w1+2w2-5)^2 ; gradient = (w1+2w2-5)*[1,2]; stays in span([1,2]) -> min norm\n    let w=[0,0]; const lr=0.12; const traj=[[...w]];\n    for(let s=0;s<60;s++){ const r=w[0]+2*w[1]-5; w=[w[0]-lr*r*1, w[1]-lr*r*2]; traj.push([...w]); }\n    // draw trajectory\n    let dp='M';\n    for(let i=0;i<traj.length;i++){ dp+=` ${SX(traj[i][0]).toFixed(1)} ${SY(traj[i][1]).toFixed(1)}`; }\n    svg.appendChild(SVG('path',{d:dp,fill:'none',stroke:'var(--yellow)','stroke-width':1.8,'stroke-dasharray':'5 3'}));\n    svg.appendChild(SVG('circle',{cx:SX(0),cy:SY(0),r:4,fill:'var(--pink)'}));\n    const t=svg.appendChild(SVG('text',{x:SX(0)+6,y:SY(0)+14,'font-size':11,fill:'var(--mute)'})); t.textContent='start 0';\n    // analytic min-norm solution X^T (X X^T)^-1 y = [1,2]\n    const ws=[1,2];\n    svg.appendChild(SVG('circle',{cx:SX(ws[0]),cy:SY(ws[1]),r:6,fill:'var(--green)'}));\n    // a larger interpolant for contrast: (5,0)\n    svg.appendChild(SVG('circle',{cx:SX(5),cy:SY(0),r:4,fill:'none',stroke:'var(--mute)','stroke-width':1.5}));\n    const lab=SVG('text',{x:SX(5)-4,y:SY(0)-8,'font-size':10,fill:'var(--mute)','text-anchor':'end'}); lab.textContent='(5,0): ‖w‖²=25'; svg.appendChild(lab);\n    const wend=traj[traj.length-1];\n    out.textContent =\n      `system X w = y :  w₁ + 2w₂ = 5  (X = [1  2], underdetermined)\\n`+\n      `GD from 0 landed at w = (${wend[0].toFixed(3)}, ${wend[1].toFixed(3)})\\n`+\n      `min-norm solution Xᵀ(XXᵀ)⁻¹y = (1, 2),  ‖w*‖² = 5\\n`+\n      '→ GD from 0 selects the minimum-ℓ₂-norm interpolant (it stays in row space of X)';\n  }\n  // ---------- MAX-MARGIN mode: separable 2D data, watch direction ----------\n  function renderMaxMargin(){\n    svg.innerHTML='';\n    // data view in [-1,5]^2 input space\n    axes('x₁','x₂');\n    const pos=[[3.5,3.2],[4.0,2.4],[3.0,4.0]];\n    const neg=[[1.0,1.2],[0.5,2.0],[1.6,0.6]];\n    for(const p of pos) svg.appendChild(SVG('circle',{cx:SX(p[0]),cy:SY(p[1]),r:7,fill:'var(--cyan)',stroke:'var(--ink)','stroke-width':1}));\n    for(const p of neg) svg.appendChild(SVG('rect',{x:SX(p[0])-6,y:SY(p[1])-6,width:12,height:12,fill:'var(--pink)',stroke:'var(--ink)','stroke-width':1}));\n    // logistic-loss GD on w (with bias), watch w(t)/||w(t)||\n    let w=[0,0], b=0; const lr=0.08; const data=[]; pos.forEach(p=>data.push([p,1])); neg.forEach(p=>data.push([p,-1]));\n    let steps=480;\n    for(let s=0;s<steps;s++){ let gw=[0,0],gb=0; for(const [p,yv] of data){ const z=yv*(w[0]*p[0]+w[1]*p[1]+b); const sig=1/(1+Math.exp(z)); const c=-yv*sig; gw[0]+=c*p[0]; gw[1]+=c*p[1]; gb+=c; } w=[w[0]-lr*gw[0],w[1]-lr*gw[1]]; b=b-lr*gb; }\n    // draw decision boundary w.x + b = 0 across the box\n    function lineFor(w,b,co,dash,lw){ // w0 x1 + w1 x2 + b = 0\n      let pts=[]; for(const xx of [A,B]){ if(Math.abs(w[1])>1e-6){ const yy=-(w[0]*xx+b)/w[1]; pts.push([xx,yy]); } }\n      if(pts.length===2){ const ln=SVG('line',{x1:SX(pts[0][0]),y1:SY(pts[0][1]),x2:SX(pts[1][0]),y2:SY(pts[1][1]),stroke:co,'stroke-width':lw}); if(dash) ln.setAttribute('stroke-dasharray','5 3'); svg.appendChild(ln); } }\n    lineFor(w,b,'var(--yellow)',false,2.4);\n    const norm=Math.hypot(w[0],w[1])||1;\n    // margin: distance of closest point\n    let marg=Infinity; for(const [p,yv] of data){ const dist=Math.abs(w[0]*p[0]+w[1]*p[1]+b)/norm; marg=Math.min(marg,dist); }\n    const dir=[w[0]/norm,w[1]/norm];\n    out.textContent =\n      `logistic-loss GD on separable data (no regularizer)\\n`+\n      `weight direction w/‖w‖ = (${dir[0].toFixed(3)}, ${dir[1].toFixed(3)})\\n`+\n      `‖w‖ = ${norm.toFixed(2)} (growing without bound), margin = ${marg.toFixed(3)}\\n`+\n      '→ the boundary converges in direction to the ℓ₂ max-margin (hard-SVM) separator';\n  }\n  function render(){ if(modeSel.value==='maxmargin') renderMaxMargin(); else renderMinNorm(); }\n  modeSel.addEventListener('change',render);\n  stepBtn.addEventListener('click',render);\n  render();"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-ib"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "quiz",
+          "concept": "dlt-implicit-bias",
+          "html": "<div class=\"quiz\" data-concept=\"dlt-implicit-bias\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "connections",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"connections\">\n<h2>Connections</h2>\n\n<p>The three pillars above — approximation, optimization, generalization — are individually understood in idealized limits (infinite width, linearly separable data, kernel regimes) but the <em>finite-width, feature-learning</em> regime where deep learning's real power lives remains an open frontier. Why feature learning beats fixed kernels, what the right capacity measure is, how architecture (convolutions, attention, residual connections) shapes the inductive bias, and whether a single theory unifies all three pillars are all actively researched. A beginner expecting a settled subject is often surprised that the most basic question — <em>why does this work?</em> — is still being answered.</p>\n\n<ul>\n<li><a href=\"./statistical-learning-theory.html#rademacher\">Statistical learning theory — Rademacher complexity</a> — the classical capacity bounds that go vacuous for interpolating nets, and the norm/margin-based refinements built to replace them.</li>\n<li><a href=\"./kernel-methods-and-rkhs.html#rkhs\">Kernel methods and RKHS — reproducing kernel Hilbert spaces</a> — the NTK is an RKHS kernel; infinite-width training is exactly kernel regression there.</li>\n<li><a href=\"./convex-optimization.html#gradient-proximal\">Convex optimization — gradient and proximal methods</a> — the gradient/SGD machinery, here pushed into the non-convex regime where PL conditions take over from convexity.</li>\n<li><a href=\"./probabilistic-graphical-models.html#variational\">Probabilistic graphical models — variational inference</a> — the Bayesian counterpart: weight-space posteriors, the evidence lower bound, and PAC-Bayes generalization bounds.</li>\n<li><a href=\"./high-dimensional-geometry.html#talagrand\">High-dimensional geometry — concentration of measure</a> — the blessing of dimensionality behind why overparameterized landscapes are benign and random features concentrate.</li>\n</ul>\n\n<p class=\"small\">Forward to come: feature-learning beyond the NTK, scaling laws, and the inductive biases of transformers and convolutional architectures — the questions that turn this from a collection of limiting theorems into a theory of why deep learning works.</p>\n</section>\n\n"
+        }
+      ]
+    }
+  ],
+  "rawBodySuffix": "</main>\n\n<script>\n(function(){\n  function start(){ if(window.MVQuiz) MVQuiz.init('deep-learning-theory'); }\n  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);\n  else start();\n})();\n</script>\n<details class=\"changelog\">\n  <summary>changelog</summary>\n  <table>\n    <tbody>\n      <tr><td>2026-05-22</td><td>initial version</td></tr>\n    </tbody>\n  </table>\n</details>\n\n</body>\n</html>\n"
+}

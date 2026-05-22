@@ -23,7 +23,7 @@ Alongside each handwritten `<topic>.html`, the repo also carries a structured `c
 
 ## Learning pathways
 
-Start from [`pathway.html`](./pathway.html) to explore prerequisite graphs for capstone goals — pick any of the 34 capstones and the DAG layers every prereq concept by depth. For free-form exploration over the entire 1398-concept graph (no goal required), [`mindmap.html`](./mindmap.html) renders a section-clustered force-directed layout: click a node to focus its k-hop neighborhood, filter by section/level/mastery, and a structural-stats panel surfaces uneven prereq density across the thirteen sections. Both views read the same concept graph; pathway is goal-targeted, mindmap is free-explore.
+Start from [`pathway.html`](./pathway.html) to explore prerequisite graphs for capstone goals — pick any of the 34 capstones and the DAG layers every prereq concept by depth. For free-form exploration over the entire 1404-concept graph (no goal required), [`mindmap.html`](./mindmap.html) renders a section-clustered force-directed layout: click a node to focus its k-hop neighborhood, filter by section/level/mastery, and a structural-stats panel surfaces uneven prereq density across the thirteen sections. Both views read the same concept graph; pathway is goal-targeted, mindmap is free-explore.
 
 Each concept carries up to three quiz tiers — v1 (required), hard (unlocked after v1), and expert (unlocked after hard). Mastery is tracked in `localStorage` and lights up downstream concepts `locked → ready → mastered`, Brilliant-style. Topic cards on the index may carry a level badge: `prereq`, `advanced`, or `capstone`.
 
@@ -247,6 +247,7 @@ Each concept carries up to three quiz tiers — v1 (required), hard (unlocked af
 - [Statistical learning theory](./statistical-learning-theory.html) — when minimizing training error controls true error: empirical risk minimization, PAC learnability, VC dimension and shattering, uniform-convergence and Rademacher generalization bounds, and the bias–variance tradeoff behind regularization.
 - [Kernel methods and RKHS](./kernel-methods-and-rkhs.html) — positive-definite kernels and the kernel trick, reproducing kernel Hilbert spaces (reproducing property, Moore–Aronszajn), the representer theorem, support vector machines, Gaussian-process regression, and Mercer's theorem with random Fourier features.
 - [Probabilistic graphical models](./probabilistic-graphical-models.html) — Bayesian networks and d-separation, Markov random fields and the Hammersley–Clifford / Gibbs factorization, exact inference (variable elimination, sum–product belief propagation), and approximate inference (the ELBO + mean-field variational inference, Gibbs/MCMC sampling).
+- [Deep learning theory](./deep-learning-theory.html) — universal approximation, depth/expressivity and ReLU linear regions, the neural tangent kernel (training as kernel regression), non-convex optimization and the PL condition, the double-descent generalization puzzle, and the implicit bias of gradient descent (min-norm / max-margin).
 
 ## Resetting progress
 

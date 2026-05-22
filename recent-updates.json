@@ -1,5 +1,5 @@
 {
-  "generated": "2026-05-22T13:16:47.965Z",
+  "generated": "2026-05-22T13:54:19.700Z",
   "entries": [
     {
       "slug": "algebraic-combinatorics",
@@ -55,7 +55,7 @@
       "color": "p",
       "tag": "",
       "date": "2026-05-22",
-      "message": "feat: pomdps-and-belief-states — Wave 3 (Control / partial observability)"
+      "message": "feat: pomdps-and-belief-states — Wave 3 (Control / partial observability) (#260)"
     },
     {
       "slug": "probabilistic-graphical-models",
