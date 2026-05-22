@@ -14,35 +14,13 @@ From `audits/coverage-stats.md` and `audits/starter-concepts.md`:
 - Quiz tiers: v1 = 4222, hard = 1223, expert = 13 (intentionally bottom-of-list — see "Out of scope")
 - Tag coverage: 99.1% across all 12 populated sections; tagging effort effectively complete
 - 11 narrative-tour story pages on disk, all wired into Tours 1–11
-- 13 sections registered; 12 have content — Control theory & optimization (section 12) has 9 topics. Section 13, **Learning theory & data science**, was opened empty on 2026-05-21; first topics queued under the breadth-expansion program below.
+- **All 13 sections now have content** — Control theory & optimization (section 12) has 9 topics, Learning theory & data science (section 13) has 7.
 
-## Breadth-expansion program (locked 2026-05-21)
+## Taxonomy & connective follow-ups
 
-A 16-topic program agreed with the user to flesh out the thinnest sections (Combinatorics opened at the advanced level with no foundation layer; Control had only 5 topics) and add a 13th section for ML / learning theory. Dependency-ordered into three waves. **Delete each slug below as its page ships.** Always check existing coverage before drafting — see the per-section "already covered" notes.
+The 16-topic breadth-expansion program (locked 2026-05-21) is **complete** — it opened section 13 *Learning theory & data science* (7 topics: statistical-learning-theory, kernel-methods-and-rkhs, probabilistic-graphical-models, deep-learning-theory, information-geometry, diffusion-and-score-based-models, causal-inference), built the Combinatorics foundation layer (graph-theory-fundamentals, ramsey-theory, order-theory-and-lattices, algebraic-combinatorics, polytopes-and-ehrhart), and added Control's decision-making half (markov-decision-processes, game-theory, reinforcement-learning, pomdps-and-belief-states). `git log` is the trail.
 
-### New section 13 — Learning theory & data science
-
-**Opened empty in PR #248** — registered in `concepts/sections.json` (id `learning-theory-and-data-science`, color `b` blue), wired into `new-topic.mjs` (SECTIONS/palette/aliases + `CAPSTONES_GROUP_INDEX` 12→13), and the 12→13 references in AGENTS.md + the jsdom section-stats test bumped. The section's `index.html` `.sec` header + grid and the generated `sections/learning-theory-and-data-science.html` landing page debut with the **first topic card** (mirrors how Control opened in #171). Scaffold topics with `node scripts/new-topic.mjs <slug> learning-theory`; in the same PR, add the slug to the section's `topics` array in `sections.json` (new-topic.mjs doesn't touch sections.json) and replace the draft index card so `audit-draft-index-cards` (a CI gate) stays green.
-
-- `causal-inference` — do-calculus, structural causal models
-
-### Combinatorics & graph theory — build the missing foundation layer
-
-
-### Control theory & optimization — the decision-making half
-
-Already covered, do **not** duplicate: LP/simplex/duality/network-flows/matching/polyhedral (`combinatorial-optimization`); Bellman/DP/stochastic-DP/HJB/Pontryagin/LQR (`optimal-control-and-dynamic-programming`); SGD/proximal/online/interior-point (`convex-optimization`).
-
-
-### Sequencing
-
-- **Wave 1 (floors): ✅ complete** — `statistical-learning-theory` #249, `graph-theory-fundamentals` #250, `markov-decision-processes` #251.
-- **Wave 2 (build up): ✅ complete** — `ramsey-theory` #252, `order-theory-and-lattices` #253, `game-theory` #254, `kernel-methods-and-rkhs` #255, `reinforcement-learning` #256, `probabilistic-graphical-models` #257.
-- **Wave 3 (integrative):** `causal-inference` (last of the 16-topic program)
-
-### Follow-on (don't block the above)
-
-- Lightweight **taxonomy audit** of existing placements once the new sections exist — e.g. `partitions-generating-functions` sits under Modular forms (eta-function link) but is core combinatorics; `topological-data-analysis` under Geometry vs the data cluster. Separate advisory pass.
+- Lightweight **taxonomy audit** of existing placements now that the new sections exist — e.g. `partitions-generating-functions` sits under Modular forms (eta-function link) but is core combinatorics; `topological-data-analysis` under Geometry vs the data cluster. Separate advisory pass.
 - **Arithmetic geometry** is already covered in depth (~18 topics across Number theory + Algebraic geometry + Modular forms, incl. `heights-arithmetic-geometry`). No standalone page needed unless the corpus wants a connective landing.
 
 ## Missing-topic candidates
