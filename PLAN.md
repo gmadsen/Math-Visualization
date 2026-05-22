@@ -31,7 +31,6 @@ A 16-topic program agreed with the user to flesh out the thinnest sections (Comb
 
 ### Combinatorics & graph theory — build the missing foundation layer
 
-- `algebraic-combinatorics` — symmetric functions, Young tableaux, RSK, Schur
 - `polytopes-and-ehrhart` — Ehrhart polynomials, lattice points, face lattices (the polyhedral-combinatorics side already lives in `combinatorial-optimization`)
 
 ### Control theory & optimization — the decision-making half
@@ -44,7 +43,7 @@ Already covered, do **not** duplicate: LP/simplex/duality/network-flows/matching
 
 - **Wave 1 (floors): ✅ complete** — `statistical-learning-theory` #249, `graph-theory-fundamentals` #250, `markov-decision-processes` #251.
 - **Wave 2 (build up): ✅ complete** — `ramsey-theory` #252, `order-theory-and-lattices` #253, `game-theory` #254, `kernel-methods-and-rkhs` #255, `reinforcement-learning` #256, `probabilistic-graphical-models` #257.
-- **Wave 3 (integrative):** `algebraic-combinatorics`, `polytopes-and-ehrhart`, `pomdps-and-belief-states`, `deep-learning-theory`, `information-geometry`, `diffusion-and-score-based-models`, `causal-inference`
+- **Wave 3 (integrative):** `polytopes-and-ehrhart` (`algebraic-combinatorics` #258 shipped), `pomdps-and-belief-states`, `deep-learning-theory`, `information-geometry`, `diffusion-and-score-based-models`, `causal-inference`
 
 ### Follow-on (don't block the above)
 
