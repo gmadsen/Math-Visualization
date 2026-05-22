@@ -72,8 +72,15 @@
   .edge.focus.in{stroke:var(--blue)}
   .edge.focus.out{stroke:var(--pink)}
   .node{cursor:pointer}
-  .node circle.bg{stroke:var(--line);stroke-width:1.2;
-    transition:stroke 120ms ease, stroke-width 120ms ease}
+  /* Counter-scale radius + stroke by the zoom factor --zk (set on the stage in
+     applyView) so nodes hold a constant on-screen size at any zoom — semantic
+     zoom matching the labels below. --r0 (the base radius in px) is set per
+     circle in buildNodes; the `r` presentation attribute stays as a fallback
+     for browsers without CSS geometry-property support. */
+  .node circle.bg{stroke:var(--line);
+    r:calc(var(--r0, 5px) / var(--zk, 1));
+    stroke-width:calc(1.2px / var(--zk, 1));
+    transition:stroke 120ms ease}
   /* Labels are inside the panned/zoomed <g>, so SVG font-size is multiplied
      by the stage's `scale(k)`. To keep labels visually at ~10.5px on screen
      regardless of zoom, font-size is divided by --zk (set on the stage in
@@ -89,11 +96,11 @@
      Without this, ~1050 labels at high zoom paint as a wall of overlap. */
   .node text.lbl{display:none}
   .node.show-lbl text.lbl{display:initial}
-  .node.cap circle.bg{stroke-width:2.2}
+  .node.cap circle.bg{stroke-width:calc(2.2px / var(--zk, 1))}
   .node.dim circle.bg{opacity:.18}
   .node.dim text.lbl{opacity:.18}
-  .node.focus circle.bg{stroke:var(--yellow);stroke-width:2.6;filter:drop-shadow(0 0 4px rgba(255,216,102,0.6))}
-  .node.match circle.bg{stroke:var(--yellow);stroke-width:2}
+  .node.focus circle.bg{stroke:var(--yellow);stroke-width:calc(2.6px / var(--zk, 1));filter:drop-shadow(0 0 4px rgba(255,216,102,0.6))}
+  .node.match circle.bg{stroke:var(--yellow);stroke-width:calc(2px / var(--zk, 1))}
   .node.mastered circle.bg{fill:rgba(131,193,103,0.32)}
   .node.ready circle.bg{stroke:var(--yellow)}
   .stats-row{display:flex;flex-wrap:wrap;gap:.7rem .9rem;margin-bottom:.7rem;
@@ -788,6 +795,7 @@
 
   // Per-node + per-edge DOM cache.
   const nodeEls = new Array(nodes.length);
+  const lblEls = new Array(nodes.length);
   const edgeEls = new Array(edges.length);
 
   function nodeRadius(n){
@@ -820,7 +828,8 @@
 
       const c = document.createElementNS(NS, 'circle');
       c.setAttribute('class', 'bg');
-      c.setAttribute('r', nodeRadius(n));
+      c.setAttribute('r', nodeRadius(n)); // fallback for browsers without CSS `r`
+      c.style.setProperty('--r0', nodeRadius(n) + 'px'); // CSS counter-scales by --zk
       c.setAttribute('fill', n.color);
       c.setAttribute('fill-opacity', '0.55');
       g.appendChild(c);
@@ -839,7 +848,7 @@
       t.textContent = n.title.replace(/\$([^$]+)\$/g, '$1');
       g.appendChild(t);
 
-      nodeEls[i] = g; frag.appendChild(g);
+      nodeEls[i] = g; lblEls[i] = t; frag.appendChild(g);
     });
     nodeLayer.appendChild(frag);
   }
@@ -927,6 +936,9 @@
       } else {
         placed.push({ x0, y0, x1, y1 });
         nodeEls[o.i].classList.add('show-lbl');
+        // Counter-scale the label's local x-offset by k so its on-screen gap
+        // from the (constant-size) node stays fixed at all zoom levels.
+        lblEls[o.i].setAttribute('x', ((nodeRadius(o.n) + 3) / k).toFixed(2));
       }
     }
     // Clear `show-lbl` on every node that wasn't in the candidate set
