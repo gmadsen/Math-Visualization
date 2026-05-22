@@ -34,6 +34,7 @@ window.__MVConcepts = {
       "reinforcement-learning",
       "pomdps-and-belief-states",
       "probabilistic-graphical-models",
+      "deep-learning-theory",
       "several-complex-variables",
       "khovanov-homology",
       "shimura-varieties",
@@ -427,6 +428,7 @@ window.__MVConcepts = {
       "statistical-learning-theory": "advanced",
       "kernel-methods-and-rkhs": "advanced",
       "probabilistic-graphical-models": "advanced",
+      "deep-learning-theory": "advanced",
       "markov-decision-processes": "standard",
       "game-theory": "standard",
       "reinforcement-learning": "standard",
@@ -3036,6 +3038,71 @@ window.__MVConcepts = {
             "markov-chains"
           ],
           "blurb": "When exact and variational inference are intractable, sample. Gibbs sampling resamples each $x_i$ from its full conditional $p(x_i\\mid x_{-i})$ — which depends only on its Markov blanket — building a Markov chain whose stationary distribution is the target, so long-run averages estimate any expectation."
+        }
+      ]
+    },
+    "deep-learning-theory": {
+      "topic": "deep-learning-theory",
+      "title": "Deep learning theory",
+      "page": "deep-learning-theory.html",
+      "concepts": [
+        {
+          "id": "dlt-universal-approximation",
+          "title": "Universal approximation",
+          "anchor": "universal-approximation",
+          "prereqs": [
+            "slt-erm"
+          ],
+          "blurb": "A one-hidden-layer network with a non-polynomial activation and enough units approximates any continuous function on a compact set to arbitrary accuracy (Cybenko/Hornik). It is a statement about width as the resource, not depth, and is purely existential — it says nothing about training."
+        },
+        {
+          "id": "dlt-expressivity",
+          "title": "Depth & expressivity",
+          "anchor": "expressivity",
+          "prereqs": [
+            "dlt-universal-approximation"
+          ],
+          "blurb": "A ReLU network computes a continuous piecewise-linear function whose linear-region count grows only linearly in width but can grow exponentially in depth. This depth separation (Telgarsky) is the formal sense in which deep beats wide."
+        },
+        {
+          "id": "dlt-ntk",
+          "title": "The neural tangent kernel",
+          "anchor": "ntk",
+          "prereqs": [
+            "dlt-universal-approximation",
+            "km-rkhs"
+          ],
+          "blurb": "In the infinite-width limit, gradient descent on a network behaves like kernel regression with the fixed neural tangent kernel Θ(x,x')=⟨∇_θf(x),∇_θf(x')⟩. Weights barely move (lazy training) and the net stays equal to its own linearization."
+        },
+        {
+          "id": "dlt-optimization",
+          "title": "Non-convex optimization",
+          "anchor": "optimization",
+          "prereqs": [
+            "dlt-ntk",
+            "co-gradient-proximal"
+          ],
+          "blurb": "The training loss is non-convex, yet SGD finds global minima. Overparameterization makes the landscape benign: a Polyak–Łojasiewicz condition (‖∇L‖²≥2μ(L−L*)) holds near init, giving gradient descent linear convergence without convexity."
+        },
+        {
+          "id": "dlt-generalization",
+          "title": "The generalization puzzle & double descent",
+          "anchor": "generalization",
+          "prereqs": [
+            "dlt-optimization",
+            "slt-rademacher"
+          ],
+          "blurb": "Overparameterized nets fit random labels yet generalize on real data, so classical VC/Rademacher bounds are vacuous. Test error follows a double-descent curve: a classical U, a peak at the interpolation threshold p=n, then a second descent."
+        },
+        {
+          "id": "dlt-implicit-bias",
+          "title": "Implicit bias of gradient descent",
+          "anchor": "implicit-bias",
+          "prereqs": [
+            "dlt-optimization",
+            "dlt-generalization"
+          ],
+          "blurb": "Among the many zero-loss interpolants, gradient descent from zero selects the minimum-ℓ2-norm solution for least squares and the max-margin direction for separable classification. This implicit regularization, not parameter count, explains generalization."
         }
       ]
     },
@@ -20694,7 +20761,8 @@ window.__MVConcepts = {
         "topics": [
           "statistical-learning-theory",
           "kernel-methods-and-rkhs",
-          "probabilistic-graphical-models"
+          "probabilistic-graphical-models",
+          "deep-learning-theory"
         ],
         "color": "b"
       }
@@ -21000,6 +21068,7 @@ window.__MVConcepts = {
     "statistical-learning-theory": "advanced",
     "kernel-methods-and-rkhs": "advanced",
     "probabilistic-graphical-models": "advanced",
+    "deep-learning-theory": "advanced",
     "markov-decision-processes": "standard",
     "game-theory": "standard",
     "reinforcement-learning": "standard",
@@ -21104,15 +21173,15 @@ window.__MVConcepts = {
       "concepts": 58,
       "intra": 62,
       "crossOut": 23,
-      "crossIn": 3,
+      "crossIn": 4,
       "density": 0.39655172413793105
     },
     "Learning theory & data science": {
-      "concepts": 18,
-      "intra": 18,
-      "crossOut": 12,
+      "concepts": 24,
+      "intra": 27,
+      "crossOut": 13,
       "crossIn": 1,
-      "density": 0.6666666666666666
+      "density": 0.5416666666666666
     }
   }
 };

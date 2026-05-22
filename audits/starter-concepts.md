@@ -22,8 +22,8 @@ reach into upstream foundations or stay within their own cluster.
 | Algebraic geometry | 213 | 328 | 76 | 35 | 0.357 |
 | Combinatorics & graph theory | 88 | 90 | 31 | 5 | 0.352 |
 | Mathematical physics | 69 | 75 | 40 | 4 | 0.580 |
-| Control theory & optimization | 58 | 62 | 23 | 3 | 0.397 |
-| Learning theory & data science | 18 | 18 | 12 | 1 | 0.667 |
+| Control theory & optimization | 58 | 62 | 23 | 4 | 0.397 |
+| Learning theory & data science | 24 | 27 | 13 | 1 | 0.542 |
 
 ## EMPTY — concepts with no prereqs (5)
 

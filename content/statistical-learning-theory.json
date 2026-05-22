@@ -68,7 +68,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./kernel-methods-and-rkhs.html#kernels\">Kernel methods and RKHS</a> · Positive-definite kernels &amp; the kernel trick</div>\n    <div><a href=\"./reinforcement-learning.html#function-approx\">Reinforcement learning</a> · Function approximation</div>\n    <div><a href=\"./statistical-learning-theory.html#bias-variance\">Statistical learning theory</a> · Bias–variance, regularization &amp; SRM</div>\n    <div><a href=\"./statistical-learning-theory.html#pac\">Statistical learning theory</a> · PAC learning &amp; sample complexity</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./deep-learning-theory.html#universal-approximation\">Deep learning theory</a> · Universal approximation</div>\n    <div><a href=\"./kernel-methods-and-rkhs.html#kernels\">Kernel methods and RKHS</a> · Positive-definite kernels &amp; the kernel trick</div>\n    <div><a href=\"./reinforcement-learning.html#function-approx\">Reinforcement learning</a> · Function approximation</div>\n    <div><a href=\"./statistical-learning-theory.html#bias-variance\">Statistical learning theory</a> · Bias–variance, regularization &amp; SRM</div>\n    <div><a href=\"./statistical-learning-theory.html#pac\">Statistical learning theory</a> · PAC learning &amp; sample complexity</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "quiz",
@@ -382,7 +382,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./kernel-methods-and-rkhs.html#svm\">Kernel methods and RKHS</a> · Support vector machines</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./deep-learning-theory.html#generalization\">Deep learning theory</a> · The generalization puzzle &amp; double descent</div>\n    <div><a href=\"./kernel-methods-and-rkhs.html#svm\">Kernel methods and RKHS</a> · Support vector machines</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "quiz",

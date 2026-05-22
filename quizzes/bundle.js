@@ -17304,6 +17304,257 @@ window.MVQuizBank = {
       }
     }
   },
+  "deep-learning-theory": {
+    "topic": "deep-learning-theory",
+    "quizzes": {
+      "dlt-universal-approximation": {
+        "title": "Universal approximation",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The universal approximation theorem for one-hidden-layer networks $f(x)=\\sum_i c_i\\,\\sigma(w_i\\cdot x+b_i)$ is fundamentally a statement about:",
+            "choices": [
+              "the depth of the network",
+              "the width (number of hidden units) of the network",
+              "the smoothness of the activation $\\sigma$",
+              "the dimension $n$ of the input"
+            ],
+            "answer": 1,
+            "explain": "Cybenko/Hornik show a single hidden layer already gives density in $C(K)$; the resource that must grow to reach accuracy $\\varepsilon$ is the number of units $m$ — the width. Depth is not required (and the theorem says nothing about it)."
+          },
+          {
+            "type": "mcq",
+            "q": "For the finite sums $\\sum_i c_i\\,\\sigma(w_i\\cdot x+b_i)$ to be dense in $C(K)$, the activation $\\sigma$ must be:",
+            "choices": [
+              "bounded and monotone",
+              "continuous and non-polynomial",
+              "infinitely differentiable",
+              "a sigmoid specifically"
+            ],
+            "answer": 1,
+            "explain": "Leshno et al. (1993) gave the sharp condition: a continuous $\\sigma$ yields a universal approximator iff it is not a polynomial. A polynomial activation only ever produces polynomials of bounded degree — a finite-dimensional space that cannot be dense in $C(K)$."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which statements about the universal approximation theorem are correct?",
+            "choices": [
+              "It guarantees that a suitable network exists for any target accuracy $\\varepsilon$",
+              "It bounds how many units are needed (polynomially in $1/\\varepsilon$)",
+              "It guarantees gradient descent will find the approximating weights",
+              "It is an existence (density) result, not a constructive or trainability result"
+            ],
+            "answer": [
+              0,
+              3
+            ],
+            "explain": "The theorem is purely existential: an approximant exists for every $\\varepsilon$, but the width needed can be exponential in $1/\\varepsilon$ for hard targets, and the theorem says nothing about whether optimization can find the weights — those are the separate optimization and generalization questions."
+          }
+        ]
+      },
+      "dlt-expressivity": {
+        "title": "Depth & expressivity",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A feedforward network with ReLU activations computes a function that is:",
+            "choices": [
+              "smooth (infinitely differentiable) everywhere",
+              "continuous and piecewise-linear",
+              "always convex",
+              "a polynomial of degree equal to the depth"
+            ],
+            "answer": 1,
+            "explain": "Each ReLU is piecewise-linear, and sums and compositions of piecewise-linear maps are piecewise-linear. So the whole network is continuous and piecewise-linear, partitioning the input into linear regions on each of which it is affine."
+          },
+          {
+            "type": "numeric",
+            "q": "The tent map $T$ has one peak; its $L$-fold composition $T^{\\circ L}$ has $2^L$ linear regions, built from $L$ layers of $2$ units each. With depth $L=6$, how many linear regions does the network produce?",
+            "answer": 64,
+            "tol": 0,
+            "explain": "$2^L = 2^6 = 64$ linear regions from only $2L=12$ ReLU units — exponential in depth, linear in width. A shallow network would need $\\Omega(2^6)$ units to match it."
+          },
+          {
+            "type": "mcq",
+            "q": "Depth separation (Telgarsky) says that some functions a deep ReLU net represents with $O(L)$ units require a shallow net to have:",
+            "choices": [
+              "$O(L)$ units as well",
+              "$O(L^2)$ units",
+              "exponentially many, $2^{\\Omega(L)}$, units",
+              "no shallow net can ever represent them"
+            ],
+            "answer": 2,
+            "explain": "The sawtooth with $2^L$ oscillations is computed by $O(L)$ units when depth is allowed, but any constant-depth network needs $2^{\\Omega(L)}$ units to approximate it. Shallow nets can represent it — just at exponential width cost."
+          }
+        ]
+      },
+      "dlt-ntk": {
+        "title": "The neural tangent kernel",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The neural tangent kernel is defined as:",
+            "choices": [
+              "$\\Theta(x,x') = f(x;\\theta_0)\\,f(x';\\theta_0)$",
+              "$\\Theta(x,x') = \\langle\\nabla_\\theta f(x;\\theta_0),\\,\\nabla_\\theta f(x';\\theta_0)\\rangle$",
+              "$\\Theta(x,x') = \\langle x, x'\\rangle$",
+              "$\\Theta(x,x') = \\exp(-\\|x-x'\\|^2)$"
+            ],
+            "answer": 1,
+            "explain": "The NTK is the inner product of the parameter-gradients of the network output at initialization: $\\Theta(x,x')=\\langle\\nabla_\\theta f(x;\\theta_0),\\nabla_\\theta f(x';\\theta_0)\\rangle$. It is the kernel governing how the linearized network evolves under gradient descent."
+          },
+          {
+            "type": "mcq",
+            "q": "In the infinite-width limit, training a network by gradient descent on the squared loss is equivalent to:",
+            "choices": [
+              "minimizing a non-convex loss with no closed form",
+              "kernel regression with the fixed kernel $\\Theta_\\infty$",
+              "principal component analysis of the data",
+              "a random forest"
+            ],
+            "answer": 1,
+            "explain": "As width $\\to\\infty$, $\\Theta$ becomes deterministic and stays constant during training, so the net stays equal to its linearization and gradient descent drives it to the kernel-regression solution $f_\\infty(x)=\\Theta_\\infty(x,X)\\,\\Theta_\\infty(X,X)^{-1}y$."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which statements describe the 'lazy training' / NTK regime of an infinitely wide network?",
+            "choices": [
+              "Individual weights move by only $O(1/\\sqrt{\\text{width}})$ during training",
+              "The tangent kernel $\\Theta$ changes substantially as training proceeds",
+              "The network stays approximately equal to its linearization around $\\theta_0$",
+              "Feature learning (the kernel adapting to data) is captured by this regime"
+            ],
+            "answer": [
+              0,
+              2
+            ],
+            "explain": "In the lazy regime the weights barely move and the net behaves like its linearization with a fixed kernel. Precisely what the linearization throws away is feature learning — the kernel changing during training — which is believed to be where finite-width nets beat fixed kernels."
+          }
+        ]
+      },
+      "dlt-optimization": {
+        "title": "Non-convex optimization",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The Polyak–Łojasiewicz (PL) inequality $\\tfrac12\\|\\nabla L(\\theta)\\|^2 \\ge \\mu\\,(L(\\theta)-L^\\star)$ guarantees that gradient descent:",
+            "choices": [
+              "converges only if $L$ is convex",
+              "converges linearly to the global minimum value even when $L$ is non-convex",
+              "may converge to a bad local minimum",
+              "diverges unless the step size is tiny"
+            ],
+            "answer": 1,
+            "explain": "PL does not require convexity — it only demands that the gradient is large whenever the loss is far from optimal. Under PL with smoothness, GD contracts the suboptimality by a factor $(1-\\mu/\\ell)$ each step, i.e. linear convergence to the global minimum value."
+          },
+          {
+            "type": "mcq",
+            "q": "Why does overparameterization help optimization of a non-convex training loss?",
+            "choices": [
+              "It makes the loss exactly convex",
+              "It removes all critical points",
+              "It makes the global-minimizer set a high-dimensional manifold and the landscape PL-like near init, so descent directions always exist until the loss is zero",
+              "It shrinks the number of parameters to optimize"
+            ],
+            "answer": 2,
+            "explain": "With far more parameters than data, the zero-loss set is a high-dimensional connected manifold, bad isolated minima essentially vanish, and a PL-type condition (driven by the positive-definite tangent kernel near init) holds — so the gradient cannot vanish until the loss does."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which statements about training deep nets with SGD are correct?",
+            "choices": [
+              "The training loss as a function of the weights is non-convex",
+              "SGD's gradient noise biases iterates toward flat minima",
+              "Convexity is necessary for gradient descent to reach a global minimum",
+              "A PL condition can replace convexity to guarantee global convergence"
+            ],
+            "answer": [
+              0,
+              1,
+              3
+            ],
+            "explain": "The loss is non-convex, yet a PL condition (not convexity) suffices for global linear convergence, and SGD's anisotropic noise biases the iterate toward flat minima that tend to generalize. Convexity is sufficient but not necessary."
+          }
+        ]
+      },
+      "dlt-generalization": {
+        "title": "The generalization puzzle & double descent",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Deep nets can fit a training set of completely random labels to zero error. The consequence for classical uniform-convergence bounds $R\\le\\widehat R + O(\\sqrt{d/n})$ is that they are:",
+            "choices": [
+              "tight and informative",
+              "vacuous — the bound exceeds 1 because the effective capacity $d$ is enormous",
+              "exactly zero",
+              "negative"
+            ],
+            "answer": 1,
+            "explain": "Fitting random labels means the effective capacity (VC dimension) is astronomically larger than the sample size $n$, so $\\sqrt{d/n}\\gg1$ and the bound on the $[0,1]$-valued risk exceeds 1 — true but useless. Capacity-counting is the wrong lens for interpolating nets."
+          },
+          {
+            "type": "mcq",
+            "q": "In the double-descent curve of test error versus model size $p$, the error peaks at:",
+            "choices": [
+              "$p=0$ (no parameters)",
+              "the interpolation threshold $p=n$, where the model just barely fits every training point",
+              "$p\\to\\infty$",
+              "$p = n/2$"
+            ],
+            "answer": 1,
+            "explain": "At $p=n$ there is essentially one interpolant, determined by an ill-conditioned system, so tiny label noise is amplified and test error spikes. Below $p=n$ it is the classical U; above $p=n$ a second descent sets in."
+          },
+          {
+            "type": "mcq",
+            "q": "Why does test error often DESCEND again once the model is overparameterized ($p>n$)?",
+            "choices": [
+              "more parameters always memorize less",
+              "the variance term vanishes identically",
+              "many interpolants exist, and gradient descent's implicit bias selects a smooth, low-norm one",
+              "the training loss stops being zero"
+            ],
+            "answer": 2,
+            "explain": "Past the threshold the interpolation problem is underdetermined, so the learner can choose among many zero-loss solutions; GD's implicit bias toward the minimum-norm interpolant acts as a strong regularizer, and test error falls. Capacity and complexity decouple."
+          }
+        ]
+      },
+      "dlt-implicit-bias": {
+        "title": "Implicit bias of gradient descent",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Gradient descent from $w_0=0$ on the squared loss of an underdetermined system $Xw=y$ ($p>n$) converges to:",
+            "choices": [
+              "an arbitrary interpolant depending on the random seed",
+              "the minimum-$\\ell_2$-norm interpolant $w_\\star = X^\\top(XX^\\top)^{-1}y$",
+              "the all-zeros vector",
+              "the maximum-norm interpolant"
+            ],
+            "answer": 1,
+            "explain": "Gradients of the squared loss lie in the row space of $X$, so iterates from $0$ never leave $\\mathrm{row}(X)$; the unique interpolant there is the minimum-$\\ell_2$-norm solution $X^\\top(XX^\\top)^{-1}y$. GD implicitly minimizes $\\|w\\|_2$ with no explicit penalty."
+          },
+          {
+            "type": "numeric",
+            "q": "For the single equation $w_1 + 2w_2 = 5$ in $\\mathbb{R}^2$, the minimum-$\\ell_2$-norm solution is $X^\\top(XX^\\top)^{-1}y$ with $X=[1\\ 2]$, $y=5$. What is $\\|w_\\star\\|^2$ (the squared norm of that solution)?",
+            "answer": 5,
+            "tol": 0.01,
+            "explain": "$XX^\\top=1^2+2^2=5$, so $w_\\star=[1,2]^\\top\\cdot(5/5)=(1,2)$ and $\\|w_\\star\\|^2=1+4=5$. Any other interpolant, e.g. $(5,0)$ with norm$^2=25$, is larger — GD from $0$ lands on $(1,2)$."
+          },
+          {
+            "type": "mcq",
+            "q": "On linearly separable data with the logistic (or exponential) loss, gradient descent has no finite minimizer, but the weight DIRECTION $w(t)/\\|w(t)\\|$ converges to:",
+            "choices": [
+              "a random direction",
+              "the $\\ell_2$ max-margin (hard-SVM) separator",
+              "the average of the data points",
+              "the first principal component"
+            ],
+            "answer": 1,
+            "explain": "Soudry et al. (2018): the loss pushes $\\|w\\|\\to\\infty$, but the normalized direction converges to the maximum-margin separator $\\arg\\min\\|w\\|$ s.t. $y_i(w\\cdot x_i)\\ge1$. GD implicitly maximizes the margin — implicit regularization for classification."
+          }
+        ]
+      }
+    }
+  },
   "deformation-theory": {
     "topic": "deformation-theory",
     "quizzes": {

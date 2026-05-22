@@ -252,7 +252,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./convex-optimization.html#stochastic-online\">Convex optimization</a> · Stochastic and online convex optimization</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./convex-optimization.html#stochastic-online\">Convex optimization</a> · Stochastic and online convex optimization</div>\n    <div><a href=\"./deep-learning-theory.html#optimization\">Deep learning theory</a> · Non-convex optimization</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

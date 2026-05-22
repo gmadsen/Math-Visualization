@@ -304,7 +304,8 @@
       "topics": [
         "statistical-learning-theory",
         "kernel-methods-and-rkhs",
-        "probabilistic-graphical-models"
+        "probabilistic-graphical-models",
+        "deep-learning-theory"
       ],
       "color": "b"
     }
