@@ -1,5 +1,5 @@
 {
-  "generated": "2026-05-22T16:21:00.574Z",
+  "generated": "2026-05-22T20:15:59.948Z",
   "entries": [
     {
       "slug": "algebraic-combinatorics",
@@ -716,7 +716,7 @@
     {
       "slug": "spectral-methods-data",
       "title": "Spectral methods for massive data sets",
-      "color": "c",
+      "color": "b",
       "tag": "",
       "date": "2026-05-14",
       "message": "fix: math-correctness audit pass — third batch (15 more topics)"
@@ -764,7 +764,7 @@
     {
       "slug": "topological-data-analysis",
       "title": "Topological data analysis",
-      "color": "g",
+      "color": "b",
       "tag": "",
       "date": "2026-05-13",
       "message": "New topics rollup: Convex geometry + TDA + Mathematical chaos (#181)"

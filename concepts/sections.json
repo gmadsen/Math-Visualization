@@ -102,7 +102,6 @@
         "high-dimensional-geometry",
         "random-matrix-theory",
         "mathematical-biology",
-        "spectral-methods-data",
         "computational-molecular-biology"
       ],
       "color": "g"
@@ -136,8 +135,7 @@
         "mapping-class-groups",
         "surgery-theory",
         "heegaard-floer",
-        "convex-geometry",
-        "topological-data-analysis"
+        "convex-geometry"
       ],
       "color": "v"
     },
@@ -176,7 +174,6 @@
         "upper-half-plane-hyperbolic",
         "modular-forms",
         "theta-functions",
-        "partitions-generating-functions",
         "hecke-operators",
         "dirichlet-series-euler-products",
         "analytic-continuation",
@@ -255,6 +252,7 @@
         "extremal-combinatorics",
         "simplicial-complexes-combinatorial",
         "enumerative-combinatorics",
+        "partitions-generating-functions",
         "designs",
         "expanders",
         "coding-theory"
@@ -308,7 +306,9 @@
         "deep-learning-theory",
         "information-geometry",
         "diffusion-and-score-based-models",
-        "causal-inference"
+        "causal-inference",
+        "topological-data-analysis",
+        "spectral-methods-data"
       ],
       "color": "b"
     }

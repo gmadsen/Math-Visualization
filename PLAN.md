@@ -14,13 +14,12 @@ From `audits/coverage-stats.md` and `audits/starter-concepts.md`:
 - Quiz tiers: v1 = 4222, hard = 1223, expert = 13 (intentionally bottom-of-list — see "Out of scope")
 - Tag coverage: 99.1% across all 12 populated sections; tagging effort effectively complete
 - 11 narrative-tour story pages on disk, all wired into Tours 1–11
-- **All 13 sections now have content** — Control theory & optimization (section 12) has 9 topics, Learning theory & data science (section 13) has 7.
+- **All 13 sections now have content** — Control theory & optimization (section 12) has 9 topics, Learning theory & data science (section 13) has 9.
 
 ## Taxonomy & connective follow-ups
 
 The 16-topic breadth-expansion program (locked 2026-05-21) is **complete** — it opened section 13 *Learning theory & data science* (7 topics: statistical-learning-theory, kernel-methods-and-rkhs, probabilistic-graphical-models, deep-learning-theory, information-geometry, diffusion-and-score-based-models, causal-inference), built the Combinatorics foundation layer (graph-theory-fundamentals, ramsey-theory, order-theory-and-lattices, algebraic-combinatorics, polytopes-and-ehrhart), and added Control's decision-making half (markov-decision-processes, game-theory, reinforcement-learning, pomdps-and-belief-states). `git log` is the trail.
 
-- Lightweight **taxonomy audit** of existing placements now that the new sections exist — e.g. `partitions-generating-functions` sits under Modular forms (eta-function link) but is core combinatorics; `topological-data-analysis` under Geometry vs the data cluster. Separate advisory pass.
 - **Arithmetic geometry** is already covered in depth (~18 topics across Number theory + Algebraic geometry + Modular forms, incl. `heights-arithmetic-geometry`). No standalone page needed unless the corpus wants a connective landing.
 
 ## Missing-topic candidates
