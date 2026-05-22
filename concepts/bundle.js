@@ -28,6 +28,7 @@ window.__MVConcepts = {
       "ramsey-theory",
       "order-theory-and-lattices",
       "game-theory",
+      "kernel-methods-and-rkhs",
       "several-complex-variables",
       "khovanov-homology",
       "shimura-varieties",
@@ -417,6 +418,7 @@ window.__MVConcepts = {
       "computational-molecular-biology": "advanced",
       "kalman-filtering-and-state-estimation": "advanced",
       "statistical-learning-theory": "advanced",
+      "kernel-methods-and-rkhs": "advanced",
       "markov-decision-processes": "standard",
       "game-theory": "standard"
     }
@@ -2639,6 +2641,72 @@ window.__MVConcepts = {
             "gt-nash"
           ],
           "blurb": "Mechanism design engineers the rules so that self-interested play yields a desired outcome. In a second-price (Vickrey) auction — a single-item VCG mechanism — bidding your true valuation is a dominant strategy, unlike the first-price auction where bidders shade their bids."
+        }
+      ]
+    },
+    "kernel-methods-and-rkhs": {
+      "topic": "kernel-methods-and-rkhs",
+      "title": "Kernel methods and RKHS",
+      "page": "kernel-methods-and-rkhs.html",
+      "concepts": [
+        {
+          "id": "km-kernels",
+          "title": "Positive-definite kernels & the kernel trick",
+          "anchor": "kernels",
+          "prereqs": [
+            "slt-erm"
+          ],
+          "blurb": "A kernel $k(x,y)$ is positive-definite iff every Gram matrix $[k(x_i,x_j)]$ is PSD. Mercer's theorem makes $k(x,y)=\\langle\\varphi(x),\\varphi(y)\\rangle$ an inner product in a feature space, so any inner-product algorithm runs nonlinearly by swapping in $k$ — the kernel trick."
+        },
+        {
+          "id": "km-rkhs",
+          "title": "Reproducing kernel Hilbert spaces",
+          "anchor": "rkhs",
+          "prereqs": [
+            "km-kernels",
+            "banach-hilbert-spaces",
+            "riesz-representation"
+          ],
+          "blurb": "The RKHS $\\mathcal{H}_k$ is the Hilbert space where evaluation $f\\mapsto f(x)$ is bounded; Riesz then gives a representer $k(x,\\cdot)$ with the reproducing property $f(x)=\\langle f,k(x,\\cdot)\\rangle$. Moore–Aronszajn: every PD kernel determines a unique RKHS."
+        },
+        {
+          "id": "km-representer",
+          "title": "The representer theorem",
+          "anchor": "representer",
+          "prereqs": [
+            "km-rkhs"
+          ],
+          "blurb": "Minimizing $\\sum_i L(f(x_i),y_i)+\\lambda\\lVert f\\rVert_{\\mathcal{H}}^2$ over an infinite-dimensional RKHS has a solution living in the finite span $\\{k(x_i,\\cdot)\\}$, so $f=\\sum_i\\alpha_i k(x_i,\\cdot)$. Kernel ridge regression solves $\\alpha=(K+\\lambda I)^{-1}y$."
+        },
+        {
+          "id": "km-svm",
+          "title": "Support vector machines",
+          "anchor": "svm",
+          "prereqs": [
+            "km-representer",
+            "co-lagrangian-duality",
+            "slt-rademacher"
+          ],
+          "blurb": "The max-margin classifier minimizes $\\tfrac12\\lVert w\\rVert^2+C\\sum\\xi_i$; its Lagrangian dual is a QP in $\\alpha$ touching the data only through $k(x_i,x_j)$. Support vectors are the points with nonzero $\\alpha_i$, and the margin bound explains its dimension-free generalization."
+        },
+        {
+          "id": "km-gp",
+          "title": "Gaussian processes",
+          "anchor": "gp",
+          "prereqs": [
+            "km-kernels"
+          ],
+          "blurb": "A Gaussian process is a distribution over functions whose finite marginals are Gaussian with covariance $k$. GP regression returns a posterior mean $m(x_*)=k_*^\\top(K+\\sigma^2 I)^{-1}y$ and a predictive variance — kernel ridge plus calibrated uncertainty."
+        },
+        {
+          "id": "km-mercer",
+          "title": "Mercer's theorem & feature maps",
+          "anchor": "mercer",
+          "prereqs": [
+            "km-kernels",
+            "spectral-theorem-fa"
+          ],
+          "blurb": "Mercer diagonalizes the integral operator $T_k f=\\int k(\\cdot,y)f(y)\\,dy$: a continuous PD kernel expands as $k(x,y)=\\sum_j\\lambda_j\\varphi_j(x)\\varphi_j(y)$, giving an explicit feature map $\\varphi(x)=(\\sqrt{\\lambda_j}\\varphi_j(x))_j$. Random Fourier features approximate the RBF kernel via Bochner's theorem."
         }
       ]
     },
@@ -20291,7 +20359,8 @@ window.__MVConcepts = {
         "title": "Learning theory & data science",
         "description": "The mathematics behind learning from data: statistical learning theory, kernels and reproducing-kernel Hilbert spaces, neural-network theory, probabilistic graphical models, information geometry, score-based generative models, and causal inference.",
         "topics": [
-          "statistical-learning-theory"
+          "statistical-learning-theory",
+          "kernel-methods-and-rkhs"
         ],
         "color": "b"
       }
@@ -20593,6 +20662,7 @@ window.__MVConcepts = {
     "computational-molecular-biology": "advanced",
     "kalman-filtering-and-state-estimation": "advanced",
     "statistical-learning-theory": "advanced",
+    "kernel-methods-and-rkhs": "advanced",
     "markov-decision-processes": "standard",
     "game-theory": "standard"
   },
@@ -20639,7 +20709,7 @@ window.__MVConcepts = {
       "concepts": 211,
       "intra": 368,
       "crossOut": 39,
-      "crossIn": 76,
+      "crossIn": 79,
       "density": 0.1848341232227488
     },
     "Probability & statistics": {
@@ -20695,15 +20765,15 @@ window.__MVConcepts = {
       "concepts": 46,
       "intra": 45,
       "crossOut": 21,
-      "crossIn": 1,
+      "crossIn": 2,
       "density": 0.45652173913043476
     },
     "Learning theory & data science": {
-      "concepts": 6,
-      "intra": 6,
-      "crossOut": 5,
+      "concepts": 12,
+      "intra": 13,
+      "crossOut": 9,
       "crossIn": 0,
-      "density": 0.8333333333333334
+      "density": 0.75
     }
   }
 };

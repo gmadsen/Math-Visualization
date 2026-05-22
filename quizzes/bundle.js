@@ -36980,6 +36980,246 @@ window.MVQuizBank = {
       }
     }
   },
+  "kernel-methods-and-rkhs": {
+    "topic": "kernel-methods-and-rkhs",
+    "quizzes": {
+      "km-kernels": {
+        "title": "Positive-definite kernels & the kernel trick",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A symmetric function $k\\colon\\mathcal{X}\\times\\mathcal{X}\\to\\mathbb{R}$ is a positive-definite (Mercer) kernel precisely when:",
+            "choices": [
+              "$k(x,y) > 0$ for all $x,y$",
+              "$k(x,x) = 1$ for all $x$",
+              "For every finite set $x_1,\\dots,x_n$, the Gram matrix $K=[k(x_i,x_j)]$ is positive semidefinite",
+              "$k$ is continuous and bounded"
+            ],
+            "answer": 2,
+            "explain": "Positive-definiteness of a kernel is a statement about every finite Gram matrix being PSD ($c^\\top K c \\ge 0$ for all $c$), not about the sign of $k$'s values. The RBF kernel, for instance, is everywhere positive but that is irrelevant; what matters is $K\\succeq 0$, which is equivalent (Mercer) to $k(x,y)=\\langle\\varphi(x),\\varphi(y)\\rangle$ for some feature map."
+          },
+          {
+            "type": "multi-select",
+            "q": "Let $k_1,k_2$ be PD kernels on $\\mathcal{X}$. Select every construction that is guaranteed to yield a PD kernel.",
+            "choices": [
+              "$k_1+k_2$",
+              "$k_1 - k_2$",
+              "$k_1\\cdot k_2$ (pointwise product)",
+              "$c\\,k_1$ for a constant $c \\ge 0$"
+            ],
+            "answer": [
+              0,
+              2,
+              3
+            ],
+            "explain": "PD kernels form a convex cone closed under products: sums, nonnegative scalings, and pointwise (Schur/Hadamard) products of PSD Gram matrices stay PSD. The difference $k_1-k_2$ can fail — subtracting can make an eigenvalue negative, so it is not guaranteed PD."
+          },
+          {
+            "type": "numeric",
+            "q": "For the RBF kernel $k(x,y)=\\exp(-\\lVert x-y\\rVert^2/(2\\sigma^2))$, what is $k(x,x)$ for any single point $x$?",
+            "answer": 1,
+            "tol": 1e-9,
+            "explain": "$\\lVert x-x\\rVert^2=0$, so $k(x,x)=\\exp(0)=1$. Every RBF Gram matrix therefore has all-ones diagonal, and because $k(x,y)\\le 1$ off the diagonal it is a correlation-matrix-like PSD matrix — confirming the RBF is a valid PD kernel."
+          }
+        ]
+      },
+      "km-rkhs": {
+        "title": "Reproducing kernel Hilbert spaces",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The defining (reproducing) property of the RKHS $\\mathcal{H}_k$ of a kernel $k$ is that for every $f\\in\\mathcal{H}_k$ and every point $x$:",
+            "choices": [
+              "$f(x) = \\langle f, k(x,\\cdot)\\rangle_{\\mathcal{H}_k}$",
+              "$f(x) = \\lVert f\\rVert_{\\mathcal{H}_k}\\, k(x,x)$",
+              "$\\langle f, f\\rangle_{\\mathcal{H}_k} = \\int f(x)^2\\,dx$",
+              "$f(x) = \\sum_i f(x_i)$"
+            ],
+            "answer": 0,
+            "explain": "Evaluation at $x$ is realized as an inner product against the representer $k(x,\\cdot)$: $f(x)=\\langle f,k(x,\\cdot)\\rangle$. Taking $f=k(y,\\cdot)$ recovers $k(y,x)=\\langle k(y,\\cdot),k(x,\\cdot)\\rangle$, so the kernel is the Gram of its own representers."
+          },
+          {
+            "type": "mcq",
+            "q": "Why does the bounded-evaluation requirement force the existence of the representer $k(x,\\cdot)$?",
+            "choices": [
+              "Because every Hilbert space is finite-dimensional",
+              "Because the evaluation functional $\\delta_x\\colon f\\mapsto f(x)$ is a bounded linear functional, so the Riesz representation theorem supplies a unique vector representing it",
+              "Because $k$ is continuous",
+              "Because the Gram matrix is invertible"
+            ],
+            "answer": 1,
+            "explain": "An RKHS is exactly a Hilbert space of functions on which every evaluation functional $\\delta_x$ is bounded. The Riesz representation theorem then gives a unique $g_x\\in\\mathcal{H}$ with $\\delta_x(f)=\\langle f,g_x\\rangle$; that representer is $k(x,\\cdot)$, which is how the kernel is recovered from the space."
+          },
+          {
+            "type": "mcq",
+            "q": "Moore–Aronszajn says that:",
+            "choices": [
+              "Every Hilbert space is an RKHS",
+              "Every positive-definite kernel corresponds to a unique RKHS for which it is the reproducing kernel",
+              "Every RKHS is finite-dimensional",
+              "Two different kernels can share the same RKHS norm"
+            ],
+            "answer": 1,
+            "explain": "The Moore–Aronszajn theorem establishes a bijection: each PD kernel $k$ has exactly one RKHS $\\mathcal{H}_k$ reproducing it (built by completing the span of $\\{k(x,\\cdot)\\}$ under $\\langle k(x,\\cdot),k(y,\\cdot)\\rangle=k(x,y)$). Not every Hilbert space of functions is an RKHS — $L^2$ is not, since evaluation is not even well defined there."
+          }
+        ]
+      },
+      "km-representer": {
+        "title": "The representer theorem",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The representer theorem guarantees that any minimizer of $\\sum_{i=1}^n L(f(x_i),y_i)+\\lambda\\lVert f\\rVert_{\\mathcal{H}}^2$ over the (possibly infinite-dimensional) RKHS $\\mathcal{H}$ has the form:",
+            "choices": [
+              "$f = \\sum_{i=1}^n \\alpha_i\\, k(x_i,\\cdot)$ for some coefficients $\\alpha_i\\in\\mathbb{R}$",
+              "$f$ is a constant function",
+              "$f$ is the kernel $k$ itself",
+              "$f = \\sum_{i=1}^n \\alpha_i\\, x_i$ (a linear combination of the inputs)"
+            ],
+            "answer": 0,
+            "explain": "Decompose any candidate $f=f_\\parallel+f_\\perp$ into its projection onto $\\mathrm{span}\\{k(x_i,\\cdot)\\}$ and an orthogonal part. By the reproducing property $f_\\perp$ does not change any $f(x_i)$ (the data fit), yet it strictly increases $\\lVert f\\rVert^2$; so the optimum has $f_\\perp=0$, collapsing an infinite-dimensional search to the $n$ coefficients $\\alpha_i$."
+          },
+          {
+            "type": "mcq",
+            "q": "For kernel ridge regression with squared loss, the optimal coefficient vector $\\alpha$ (where $f=\\sum_i\\alpha_i k(x_i,\\cdot)$) satisfies:",
+            "choices": [
+              "$\\alpha = K^{-1} y$",
+              "$\\alpha = (K+\\lambda I)^{-1} y$, where $K=[k(x_i,x_j)]$ is the Gram matrix",
+              "$\\alpha = (K^\\top K)^{-1}K^\\top y$",
+              "$\\alpha = \\lambda K y$"
+            ],
+            "answer": 1,
+            "explain": "Substituting $f=\\sum_i\\alpha_i k(x_i,\\cdot)$ gives objective $\\lVert K\\alpha-y\\rVert^2+\\lambda\\alpha^\\top K\\alpha$; setting the gradient to zero yields $K(K+\\lambda I)\\alpha=Ky$, hence $\\alpha=(K+\\lambda I)^{-1}y$. The $\\lambda I$ shift also makes the system well-conditioned even when $K$ is singular."
+          },
+          {
+            "type": "numeric",
+            "q": "Two points with Gram matrix $K=\\left(\\begin{smallmatrix}1&0\\\\0&1\\end{smallmatrix}\\right)$ (so $k(x_1,x_2)=0$), targets $y=(2,4)^\\top$, regularization $\\lambda=1$. Using $\\alpha=(K+\\lambda I)^{-1}y$, what is $\\alpha_1$?",
+            "answer": 1,
+            "tol": 1e-9,
+            "explain": "$K+\\lambda I=\\left(\\begin{smallmatrix}2&0\\\\0&2\\end{smallmatrix}\\right)$, so $\\alpha=\\tfrac12 y=(1,2)^\\top$ and $\\alpha_1=1$. With orthogonal features the two coordinates decouple and each is shrunk by the factor $1/(1+\\lambda)=\\tfrac12$."
+          }
+        ]
+      },
+      "km-svm": {
+        "title": "Support vector machines",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The soft-margin SVM dual is $\\max_\\alpha \\sum_i\\alpha_i-\\tfrac12\\sum_{i,j}\\alpha_i\\alpha_j y_i y_j k(x_i,x_j)$ subject to $0\\le\\alpha_i\\le C$ and $\\sum_i\\alpha_i y_i=0$. Why is this the gateway to nonlinear classification?",
+            "choices": [
+              "Because it eliminates the bias term $b$",
+              "Because the data enter only through inner products $k(x_i,x_j)$, so replacing the linear kernel by any PD kernel gives a nonlinear boundary at no extra cost",
+              "Because it has fewer variables than the primal",
+              "Because $\\alpha_i$ are always integers"
+            ],
+            "answer": 1,
+            "explain": "The dual depends on the inputs solely through the Gram entries $k(x_i,x_j)=\\langle\\varphi(x_i),\\varphi(x_j)\\rangle$. The kernel trick then swaps in an RBF or polynomial kernel to learn a linear separator in feature space — a curved boundary in the original space — without ever forming $\\varphi$."
+          },
+          {
+            "type": "mcq",
+            "q": "After solving the SVM dual, the support vectors are exactly the training points with:",
+            "choices": [
+              "the largest norm $\\lVert x_i\\rVert$",
+              "label $y_i=+1$",
+              "nonzero dual coefficient $\\alpha_i>0$ — the points on or inside the margin",
+              "the smallest training loss"
+            ],
+            "answer": 2,
+            "explain": "Complementary slackness in the KKT conditions forces $\\alpha_i=0$ for points strictly outside the margin (correctly classified with room to spare). Only points on the margin or violating it get $\\alpha_i>0$; these support vectors alone determine $w=\\sum_i\\alpha_i y_i\\varphi(x_i)$ and hence the decision boundary."
+          },
+          {
+            "type": "mcq",
+            "q": "What role does the regularization parameter $C$ play in the soft-margin SVM?",
+            "choices": [
+              "It sets the kernel bandwidth",
+              "It bounds the dual variables ($0\\le\\alpha_i\\le C$) and trades margin width against the hinge-loss penalty on violations — large $C$ penalizes misclassification harder",
+              "It is the number of support vectors",
+              "It scales the labels $y_i$"
+            ],
+            "answer": 1,
+            "explain": "$C$ weights the slack penalty $C\\sum_i\\xi_i$ in the primal; in the dual it caps each $\\alpha_i$ at $C$. Large $C$ insists on few violations (narrow, hard margin, more overfitting risk); small $C$ tolerates violations for a wider margin (more regularization)."
+          }
+        ]
+      },
+      "km-gp": {
+        "title": "Gaussian processes",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A Gaussian process $f\\sim\\mathcal{GP}(m,k)$ is best described as:",
+            "choices": [
+              "A single Gaussian random variable",
+              "A distribution over functions such that every finite vector $(f(x_1),\\dots,f(x_n))$ is jointly Gaussian with covariance $[k(x_i,x_j)]$",
+              "A kernel that integrates to one",
+              "A neural network with Gaussian weights"
+            ],
+            "answer": 1,
+            "explain": "A GP is specified by a mean function and a covariance kernel; its defining property is that any finite collection of function values is multivariate Gaussian with covariance given by the kernel Gram matrix. The kernel thus encodes prior beliefs about smoothness and length scale of the unknown function."
+          },
+          {
+            "type": "mcq",
+            "q": "For noisy GP regression with observations $y=f(X)+\\varepsilon$, $\\varepsilon\\sim\\mathcal{N}(0,\\sigma^2 I)$, the posterior mean at a test point $x_*$ is:",
+            "choices": [
+              "$m(x_*)=k_*^\\top K^{-1} y$ with no noise term",
+              "$m(x_*)=k_*^\\top (K+\\sigma^2 I)^{-1} y$, where $k_*=(k(x_*,x_i))_i$",
+              "$m(x_*)=k(x_*,x_*)$",
+              "$m(x_*)=\\tfrac1n\\sum_i y_i$"
+            ],
+            "answer": 1,
+            "explain": "Conditioning the joint Gaussian on the data gives posterior mean $m(x_*)=k_*^\\top(K+\\sigma^2 I)^{-1}y$ — identical in form to kernel ridge with $\\lambda=\\sigma^2$. The matching predictive variance is $k(x_*,x_*)-k_*^\\top(K+\\sigma^2 I)^{-1}k_*$, which the point-estimate ridge regression does not provide."
+          },
+          {
+            "type": "mcq",
+            "q": "How does the GP posterior predictive variance $k(x_*,x_*)-k_*^\\top(K+\\sigma^2 I)^{-1}k_*$ behave as $x_*$ moves far from all training points (for a kernel like the RBF that decays with distance)?",
+            "choices": [
+              "It shrinks to zero",
+              "It grows back toward the prior variance $k(x_*,x_*)$, because $k_*\\to 0$ leaves the subtracted term negligible",
+              "It becomes negative",
+              "It stays exactly constant everywhere"
+            ],
+            "answer": 1,
+            "explain": "Far from data the cross-covariances $k_*$ decay to $0$, so the subtracted term vanishes and the variance returns to the prior $k(x_*,x_*)$ — the GP reports high uncertainty where it has seen no data. Near training points $k_*$ is large and the variance collapses, giving the characteristic narrowing uncertainty band."
+          }
+        ]
+      },
+      "km-mercer": {
+        "title": "Mercer's theorem & feature maps",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Mercer's theorem expands a continuous PD kernel on a compact domain as $k(x,y)=\\sum_j\\lambda_j\\varphi_j(x)\\varphi_j(y)$. What are the $(\\lambda_j,\\varphi_j)$?",
+            "choices": [
+              "Arbitrary orthonormal functions and weights",
+              "The eigenvalues and eigenfunctions of the integral operator $T_k f=\\int k(\\cdot,y)f(y)\\,dy$, with $\\lambda_j\\ge 0$",
+              "The training labels and inputs",
+              "The Fourier coefficients of $x\\mapsto x$"
+            ],
+            "answer": 1,
+            "explain": "Mercer is the spectral theorem applied to the compact, self-adjoint, positive integral operator $T_k$: it has a discrete nonnegative spectrum $\\lambda_j$ with orthonormal eigenfunctions $\\varphi_j$, and $k$ is the resulting eigen-expansion. This makes $\\varphi(x)=(\\sqrt{\\lambda_j}\\,\\varphi_j(x))_j$ an explicit feature map with $k(x,y)=\\langle\\varphi(x),\\varphi(y)\\rangle$."
+          },
+          {
+            "type": "mcq",
+            "q": "Random Fourier features approximate the RBF kernel by sampling frequencies $\\omega$ and using features $z(x)=\\sqrt{2/D}\\,\\cos(\\omega^\\top x+b)$. Which theorem licenses this?",
+            "choices": [
+              "The representer theorem",
+              "Bochner's theorem: a continuous shift-invariant PD kernel is the Fourier transform of a nonnegative measure, so $k(x-y)=\\mathbb{E}_\\omega[\\cos(\\omega^\\top(x-y))]$",
+              "The central limit theorem",
+              "The Riesz representation theorem"
+            ],
+            "answer": 1,
+            "explain": "Bochner's theorem identifies shift-invariant PD kernels with Fourier transforms of nonnegative (here Gaussian) spectral measures. Writing $k(x-y)$ as an expectation of $\\cos(\\omega^\\top(x-y))$ over that measure lets a Monte-Carlo average of $D$ random features give an unbiased, finite-dimensional approximation $z(x)^\\top z(y)\\approx k(x,y)$ that converges as $D\\to\\infty$."
+          },
+          {
+            "type": "numeric",
+            "q": "Mercer requires the integral operator $T_k$ to be positive, i.e. all its eigenvalues satisfy $\\lambda_j\\ge L$. What is the value of this lower bound $L$?",
+            "answer": 0,
+            "tol": 1e-9,
+            "explain": "A PD kernel yields a positive (semidefinite) integral operator, so every eigenvalue is $\\ge 0$; the lower bound is $L=0$. Strictly positive-definite kernels push all $\\lambda_j>0$, but the theorem only needs $\\lambda_j\\ge 0$ for the eigen-expansion and the feature map $\\sqrt{\\lambda_j}\\varphi_j$ to be real."
+          }
+        ]
+      }
+    }
+  },
   "khovanov-homology": {
     "topic": "khovanov-homology",
     "quizzes": {

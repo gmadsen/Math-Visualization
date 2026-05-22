@@ -1,0 +1,552 @@
+{
+  "topic": "kernel-methods-and-rkhs",
+  "rawHead": "<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\" />\n<meta name=\"viewport\" content=\"width=device-width,initial-scale=1\" />\n<title>Kernel methods and rkhs</title>\n<link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css\">\n<script defer src=\"https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js\"></script>\n<script defer src=\"https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js\"></script>\n<script>\n(function(){\n  function renderAll(){\n    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }\n    renderMathInElement(document.body,{\n      delimiters:[\n        {left:'$$',right:'$$',display:true},\n        {left:'$',right:'$',display:false},\n        {left:'\\\\(',right:'\\\\)',display:false},\n        {left:'\\\\[',right:'\\\\]',display:true}\n      ],\n      throwOnError:false,\n      strict:(c)=>c==='unicodeTextInMathMode'?'ignore':'warn',\n      macros:{\n        '\\\\Spec':'\\\\operatorname{Spec}',\n        '\\\\Gal':'\\\\operatorname{Gal}',\n        '\\\\Hom':'\\\\operatorname{Hom}',\n        '\\\\tr':'\\\\operatorname{tr}',\n        '\\\\ad':'\\\\operatorname{ad}',\n        '\\\\ind':'\\\\operatorname{ind}'\n      }\n    });\n  }\n  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);\n  else renderAll();\n})();\n</script>\n<style>\n  :root{\n    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;\n    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;\n    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;\n    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;\n  }\n  *{box-sizing:border-box}\n  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);\n    font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",Inter,Roboto,sans-serif;\n    font-size:17px;line-height:1.65}\n  a{color:var(--blue)}\n  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;\n    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}\n  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}\n  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}\n  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}\n  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}\n  p{margin:0.7rem 0}\n  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}\n  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;\n    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}\n  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}\n  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}\n  .widget .hd .hint{color:var(--mute);font-size:.85rem}\n  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}\n  .row label{color:var(--mute);font-size:.88rem}\n  input[type=\"text\"],input[type=\"number\"],select{\n    background:#0b0f16;color:var(--ink);border:1px solid var(--line);\n    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}\n  input[type=\"range\"]{accent-color:var(--yellow);flex:1;max-width:260px}\n  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);\n    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}\n  button:hover{background:#242c3e}\n  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}\n  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;\n    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;\n    min-height:1.6em;white-space:pre-wrap;word-break:break-word}\n  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);\n    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}\n  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;\n    margin:1rem 0;border-radius:0 6px 6px 0}\n  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;\n    margin:1rem 0;border-radius:0 6px 6px 0}\n  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;\n    margin:1rem 0;border-radius:0 6px 6px 0}\n  svg{display:block;margin:0 auto;max-width:100%}\n  svg text{fill:var(--ink);font-family:inherit}\n  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);\n    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;\n    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}\n  nav.toc a{color:var(--mute);text-decoration:none}\n  nav.toc a:hover{color:var(--yellow)}\n  /* sticky sidebar TOC (wide screens only; narrow screens fall back to top-nav) */\n  aside.sidetoc{position:fixed;top:4.2rem;\n    left:max(1rem, calc(50% - 440px - 220px));\n    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;\n    padding-right:1rem;border-right:1px solid var(--line);\n    font-size:.88rem;z-index:5}\n  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;\n    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}\n  aside.sidetoc ol{list-style:none;padding:0;margin:0}\n  aside.sidetoc li{margin:0}\n  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;\n    border-left:2px solid transparent;line-height:1.35;\n    transition:color 120ms ease, border-color 120ms ease}\n  aside.sidetoc a:hover{color:var(--ink)}\n  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}\n  @media (max-width:1180px){ aside.sidetoc{display:none} }\n  @media (min-width:1181px){ nav.toc a[href^=\"#\"]{display:none} }\n  .hero{padding:3rem 0 1rem}\n  .small{font-size:.88rem;color:var(--mute)}\n  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}\n  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}\n  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}\n  table.plain th{color:var(--mute);font-weight:500}\n  /* callback-css-auto-begin */\n  aside.callback{\n    margin:1.2rem 0;padding:.7rem 1rem;\n    background:rgba(88,196,221,0.05);\n    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);\n    border-radius:0 6px 6px 0;\n    font-size:.93rem;\n  }\n  aside.callback .ttl{\n    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;\n    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;\n  }\n  aside.callback ul{margin:0;padding-left:1.1rem}\n  aside.callback ul li{margin:.15rem 0}\n  aside.callback a{color:inherit}\n/* callback-css-auto-end */\n  details.changelog{\n    margin:2rem 0 1rem;padding:.6rem .9rem;\n    background:rgba(0,0,0,0.22);\n    border-radius:6px;\n    font-size:.85rem;\n  }\n  details.changelog summary{\n    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;\n    font-size:.7rem;color:var(--mute,#8c9aa6);\n  }\n  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}\n  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}\n  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}\n  aside.related{\n    margin:1.2rem 0;padding:.7rem 1rem;\n    background:color-mix(in srgb, var(--mute) 6%, transparent);\n    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);\n    border-radius:0 6px 6px 0;\n    font-size:.93rem;\n  }\n  aside.related .ttl{\n    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;\n    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;\n  }\n  aside.related > div{margin:.15rem 0}\n  aside.related .more{color:var(--mute);font-style:italic}\n  aside.related a{color:inherit}\n  /* display-prefs-css-auto-begin */\n  html[data-hide-widgets] .widget { display: none !important; }\n  html[data-hide-quizzes] .quiz { display: none !important; }\n  html[data-hide-lineage] .lineage-strip { display: none !important; }\n  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }\n  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }\n  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }\n  .mv-display-toggle--off { opacity: 0.35; }\n  /* display-prefs-css-auto-end */\n</style>\n<!-- breadcrumb-head-auto-begin -->\n<script src=\"./js/section-map.js\"></script>\n<script src=\"./js/breadcrumb.js\"></script>\n<script src=\"./js/glossary-popover.js\" defer></script>\n<link rel=\"stylesheet\" media=\"print\" href=\"./css/print.css\">\n<link rel=\"stylesheet\" href=\"./css/theme-light.css\">\n<script src=\"./js/theme-toggle.js\"></script>\n<script src=\"./concepts/bundle.js\" defer></script>\n<script src=\"./js/topic-hotkeys.js\" defer></script>\n<script src=\"./js/topic-lineage.js\" defer></script>\n<!-- breadcrumb-head-auto-end -->\n<script src=\"./js/progress.js\"></script>\n<script src=\"./js/quiz.js\"></script>\n<script src=\"./js/katex-select.js\"></script>\n<script src=\"./js/widget-diagram-editor.js\"></script>\n<script src=\"./quizzes/bundle.js\"></script>\n<script src=\"./js/sidetoc.js\"></script>\n<!-- display-prefs-head-auto-begin -->\n<script src=\"./js/display-prefs.js\"></script>\n<!-- display-prefs-head-auto-end -->\n</head>\n",
+  "rawBodyPrefix": "<body data-section=\"learning-theory-and-data-science\" data-level=\"intermediate\">\n<script>\nconst $ = (s,r=document)=>r.querySelector(s);\nconst $$ = (s,r=document)=>[...r.querySelectorAll(s)];\nconst SVG = (tag,attrs={})=>{\n  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);\n  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);\n  return e;\n};\n// draw an arrow marker def once per svg (idempotent)\nfunction ensureArrow(svg, id, color){\n  let defs = svg.querySelector('defs');\n  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }\n  if(defs.querySelector('#'+id)) return;\n  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});\n  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));\n  defs.appendChild(mk);\n}\n// curved arrow between two pixel points, with optional label\nfunction drawArrow(svg, p1, p2, opts={}){\n  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;\n  ensureArrow(svg, markerId, color);\n  const [x1,y1]=p1, [x2,y2]=p2;\n  const dx=x2-x1, dy=y2-y1;\n  const L = Math.hypot(dx,dy) || 1;\n  const ux=dx/L, uy=dy/L;\n  // shorten endpoints\n  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;\n  const ax=x1+ux*pad1, ay=y1+uy*pad1;\n  const bx=x2-ux*pad2, by=y2-uy*pad2;\n  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;\n  const path = SVG('path',{\n    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,\n    fill:'none', stroke:color, 'stroke-width':width,\n    'marker-end':`url(#${markerId})`\n  });\n  if(dash) path.setAttribute('stroke-dasharray', dash);\n  svg.appendChild(path);\n  if(label){\n    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,\n      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});\n    t.textContent = label;\n    svg.appendChild(t);\n  }\n  return path;\n}\nfunction drawNode(svg, x, y, label, opts={}){\n  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;\n  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));\n  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});\n  t.textContent = label;\n  svg.appendChild(t);\n}\n</script>\n\n<nav class=\"toc\"><a href=\"./index.html\" style=\"color:var(--violet);font-weight:500\">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class=\"breadcrumb\"></div><span class=\"nav-links\"><a class=\"nav-link\" href=\"./pathway.html\">Pathway</a><a class=\"nav-link\" href=\"./tours.html\">Tours</a><a class=\"nav-link\" href=\"./history.html\">History</a><a class=\"nav-link\" href=\"./tags.html\">Themes</a><a class=\"nav-link\" href=\"./mindmap.html\">Mindmap</a><a class=\"nav-link\" href=\"./search.html\">Search</a></span><span class=\"mv-theme-slot\"></span><!-- breadcrumb-nav-auto-end -->\n<!-- toc-auto-begin -->\n  <a href=\"#kernels\">1&nbsp;Positive-definite&nbsp;kernels&nbsp;&amp;&nbsp;the&nbsp;kernel&nbsp;trick</a>\n  <a href=\"#rkhs\">2&nbsp;Reproducing&nbsp;kernel&nbsp;Hilbert&nbsp;spaces</a>\n  <a href=\"#representer\">3&nbsp;The&nbsp;representer&nbsp;theorem</a>\n  <a href=\"#svm\">4&nbsp;Support&nbsp;vector&nbsp;machines</a>\n  <a href=\"#gp\">5&nbsp;Gaussian&nbsp;processes</a>\n  <a href=\"#mercer\">6&nbsp;Mercer's&nbsp;theorem&nbsp;&amp;&nbsp;feature&nbsp;maps</a>\n  <a href=\"#connections\">7&nbsp;Connections</a>\n<!-- toc-auto-end -->\n</nav>\n<!-- lineage-mount-auto-begin --><div id=\"mv-lineage-mount\" class=\"lineage-strip\" hidden></div><!-- lineage-mount-auto-end -->\n\n<aside class=\"sidetoc\" aria-label=\"Table of contents\"></aside>\n\n<main>\n\n<section class=\"hero\">\n  <h1>Kernel methods and RKHS</h1>\n  <p class=\"sub\">A single positive-definite kernel turns linear algorithms into nonlinear ones, builds an infinite-dimensional Hilbert space of functions you can still optimize over a finite sample, and unifies ridge regression, support vector machines, and Gaussian processes under one inner product.</p>\n</section>\n\n",
+  "sections": [
+    {
+      "id": "kernels",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"kernels\">\n<h2>1. Positive-definite kernels &amp; the kernel trick</h2>\n<p>A great many learning algorithms — least squares, the perceptron, PCA, ridge regression — touch the data only through <strong>inner products</strong> $\\langle x_i,x_j\\rangle$. The <strong>kernel trick</strong> is the observation that we may replace every such inner product by a <strong>kernel</strong> $k(x_i,x_j)$, and so long as $k$ is a legitimate inner product in <em>some</em> feature space the algorithm runs unchanged — but now nonlinearly in the original inputs.</p>\n<p>Formally, fix a feature map $\\varphi\\colon\\mathcal{X}\\to\\mathcal{F}$ into a Hilbert space and set $k(x,y)=\\langle\\varphi(x),\\varphi(y)\\rangle_{\\mathcal{F}}$. The point of the trick is that we never build $\\varphi$ — for the Gaussian kernel $\\mathcal{F}$ is infinite-dimensional — yet we can compute $k$ in closed form.</p>\n\n<h3>Which $k$ are inner products?</h3>\n<p>A symmetric $k\\colon\\mathcal{X}\\times\\mathcal{X}\\to\\mathbb{R}$ is a <strong>positive-definite (Mercer) kernel</strong> iff for every finite set $x_1,\\dots,x_n$ the <strong>Gram matrix</strong></p>\n<p style=\"text-align:center\">$K=[\\,k(x_i,x_j)\\,]_{i,j=1}^{n}\\quad\\text{is positive semidefinite:}\\quad c^\\top K c=\\Big\\lVert\\textstyle\\sum_i c_i\\varphi(x_i)\\Big\\rVert^2\\ge 0\\ \\ \\forall c.$</p>\n<p>The equality on the right is the whole story: $c^\\top K c$ is the squared norm of $\\sum_i c_i\\varphi(x_i)$, which cannot be negative. Conversely (Moore–Aronszajn, §2) every PSD-Gram kernel <em>is</em> an inner product in a canonical feature space. PD kernels form a convex cone closed under sums, nonnegative scalings, and pointwise products.</p>\n\n<h3>The standard kernels</h3>\n<table class=\"plain\">\n<thead><tr><th>kernel</th><th>formula</th><th>feature space</th></tr></thead>\n<tbody>\n<tr><td>linear</td><td>$k(x,y)=x^\\top y$</td><td>$\\varphi(x)=x$ (no lift)</td></tr>\n<tr><td>polynomial, degree $d$</td><td>$k(x,y)=(x^\\top y+c)^{d}$</td><td>all monomials up to degree $d$</td></tr>\n<tr><td>RBF / Gaussian</td><td>$k(x,y)=\\exp\\!\\big(-\\lVert x-y\\rVert^2/(2\\sigma^2)\\big)$</td><td>infinite-dimensional</td></tr>\n</tbody>\n</table>\n<p>The bandwidth $\\sigma$ controls locality: small $\\sigma$ makes $k(x,\\cdot)$ a sharp bump (each point influences only its neighbors); large $\\sigma$ makes it broad and smooth. Note $k(x,x)=1$ for the RBF, so its Gram matrix has unit diagonal.</p>\n\n<div class=\"note\"><strong>Worked mini-example — the RBF Gram is PSD.</strong> For any points and coefficients, $c^\\top K c=\\sum_{i,j}c_i c_j e^{-\\lVert x_i-x_j\\rVert^2/(2\\sigma^2)}$. Bochner's theorem (§6) writes $e^{-\\lVert x-y\\rVert^2/(2\\sigma^2)}=\\mathbb{E}_\\omega[\\cos(\\omega^\\top(x-y))]=\\mathbb{E}_\\omega[\\langle z_\\omega(x),z_\\omega(y)\\rangle]$ for explicit features $z_\\omega$, so $c^\\top K c=\\mathbb{E}_\\omega\\lVert\\sum_i c_i z_\\omega(x_i)\\rVert^2\\ge 0$. The RBF is PD for every $\\sigma > 0$.</div>\n\n<p>Pick a kernel, set its parameters, and watch $k(x_0,\\cdot)$ as a function of a moving point — and read off the smallest eigenvalue of a sample Gram matrix to confirm it stays $\\ge 0$.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "parametric-plot",
+          "params": {
+            "interaction": "multi-mode",
+            "widgetId": "w-kernels",
+            "svgId": "kernels-svg",
+            "outputId": "kernels-out",
+            "title": "Kernel shapes & the Gram matrix",
+            "hint": "pick a kernel; the curve is $k(x_0,\\cdot)$, the readout checks PSD",
+            "viewBox": "0 0 640 300",
+            "svgWidth": 640,
+            "svgHeight": 300,
+            "svgTitle": "Kernel as a function of one argument, with a positive-semidefiniteness check on a sample Gram matrix",
+            "outputInitial": "",
+            "pick": {
+              "id": "kernels-kind",
+              "label": "kernel:",
+              "options": [
+                {
+                  "value": "linear",
+                  "label": "linear $k=x^\\top y$"
+                },
+                {
+                  "value": "poly",
+                  "label": "polynomial $(x^\\top y+1)^d$"
+                },
+                {
+                  "value": "rbf",
+                  "label": "RBF $\\exp(-\\lVert x-y\\rVert^2/(2\\sigma^2))$",
+                  "selected": true
+                }
+              ]
+            },
+            "sliders": [
+              {
+                "id": "kernels-p1",
+                "outId": "kernels-p1-lbl",
+                "label": "bandwidth $\\sigma$ / degree $d$:",
+                "min": 0.2,
+                "max": 4,
+                "step": 0.1,
+                "init": 1
+              }
+            ],
+            "modes": {
+              "linear": {
+                "sliderDefaults": {
+                  "kernels-p1": {
+                    "min": 0.2,
+                    "max": 4,
+                    "step": 0.1,
+                    "init": 1
+                  }
+                }
+              },
+              "poly": {
+                "sliderDefaults": {
+                  "kernels-p1": {
+                    "min": 1,
+                    "max": 6,
+                    "step": 1,
+                    "init": 2
+                  }
+                }
+              },
+              "rbf": {
+                "sliderDefaults": {
+                  "kernels-p1": {
+                    "min": 0.2,
+                    "max": 4,
+                    "step": 0.1,
+                    "init": 1
+                  }
+                }
+              }
+            },
+            "initialMode": "rbf",
+            "bodyScript": "  const svg=$('#kernels-svg'), out=$('#kernels-out'), kind=$('#kernels-kind'), p1=$('#kernels-p1'), p1L=$('#kernels-p1-lbl');\n  const W=640,H=300,padL=52,padR=20,padT=22,padB=42;\n  const x0=padL,x1=W-padR,y0=H-padB,y1=padT;\n  const xmin=-3,xmax=3;          // 1D inputs\n  const center=0.6;              // x0 for k(x0, .)\n  function applyDefaults(){\n    const m={linear:{min:0.2,max:4,step:0.1,init:1},poly:{min:1,max:6,step:1,init:2},rbf:{min:0.2,max:4,step:0.1,init:1}}[kind.value];\n    p1.min=m.min;p1.max=m.max;p1.step=m.step;p1.value=m.init;\n  }\n  function k(a,b){\n    const v=+p1.value;\n    if(kind.value==='linear') return a*b;\n    if(kind.value==='poly') return Math.pow(a*b+1, v);\n    return Math.exp(-((a-b)*(a-b))/(2*v*v));        // rbf\n  }\n  // small sample Gram matrix + smallest eigenvalue via Jacobi (symmetric)\n  function gram(){\n    const xs=[-2,-1,-0.3,0.4,1.2,2.1];\n    const n=xs.length, A=[];\n    for(let i=0;i<n;i++){ A.push([]); for(let j=0;j<n;j++) A[i].push(k(xs[i],xs[j])); }\n    return {A,n};\n  }\n  function eigMinMax(A,n){\n    // Jacobi eigenvalue iteration on a symmetric matrix\n    const M=A.map(r=>r.slice());\n    for(let sweep=0;sweep<60;sweep++){\n      let p=0,q=1,off=0;\n      for(let i=0;i<n;i++) for(let j=i+1;j<n;j++){ if(Math.abs(M[i][j])>off){ off=Math.abs(M[i][j]); p=i; q=j; } }\n      if(off<1e-10) break;\n      const app=M[p][p],aqq=M[q][q],apq=M[p][q];\n      const phi=0.5*Math.atan2(2*apq, aqq-app);\n      const c=Math.cos(phi), s=Math.sin(phi);\n      for(let i=0;i<n;i++){ const mip=M[i][p],miq=M[i][q]; M[i][p]=c*mip-s*miq; M[i][q]=s*mip+c*miq; }\n      for(let i=0;i<n;i++){ const mpi=M[p][i],mqi=M[q][i]; M[p][i]=c*mpi-s*mqi; M[q][i]=s*mpi+c*mqi; }\n    }\n    const ev=[]; for(let i=0;i<n;i++) ev.push(M[i][i]);\n    return {min:Math.min(...ev), max:Math.max(...ev)};\n  }\n  function render(){\n    svg.innerHTML='';\n    const v=+p1.value;\n    p1L.textContent = kind.value==='poly' ? ('degree d = '+v) : (kind.value==='rbf' ? ('σ = '+v.toFixed(1)) : ('(unused for linear)'));\n    // axes\n    svg.appendChild(SVG('line',{x1:x0,y1:(y0+y1)/2,x2:x1,y2:(y0+y1)/2,stroke:'var(--line)','stroke-width':1}));\n    svg.appendChild(SVG('line',{x1:x0+(center-xmin)/(xmax-xmin)*(x1-x0),y1:y1,x2:x0+(center-xmin)/(xmax-xmin)*(x1-x0),y2:y0,stroke:'var(--line)','stroke-dasharray':'3 5',opacity:0.6}));\n    // value range for y-scaling\n    const vals=[]; for(let i=0;i<=200;i++){ const x=xmin+(xmax-xmin)*i/200; vals.push(k(center,x)); }\n    const vmax=Math.max(...vals,0.01), vmin=Math.min(...vals,-0.01);\n    const SX=x=>x0+(x-xmin)/(xmax-xmin)*(x1-x0);\n    const SY=val=>y0+(val-vmin)/((vmax-vmin)||1)*(y1-y0);\n    let dpath='M';\n    for(let i=0;i<=200;i++){ const x=xmin+(xmax-xmin)*i/200; dpath+=' '+SX(x).toFixed(1)+' '+SY(k(center,x)).toFixed(1); }\n    svg.appendChild(SVG('path',{d:dpath,fill:'none',stroke:'var(--yellow)','stroke-width':2.4}));\n    // mark center\n    svg.appendChild(SVG('circle',{cx:SX(center),cy:SY(k(center,center)),r:4,fill:'var(--cyan)'}));\n    const lbl=SVG('text',{x:SX(center),y:SY(k(center,center))-9,'text-anchor':'middle','font-size':11,fill:'var(--cyan)'}); lbl.textContent='x₀='+center; svg.appendChild(lbl);\n    const cap=SVG('text',{x:(x0+x1)/2,y:H-8,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}); cap.textContent='second argument  →   curve is k(x₀, ·)'; svg.appendChild(cap);\n    const {A,n}=gram(); const {min,max}=eigMinMax(A,n);\n    out.textContent =\n      'kernel: '+kind.value+(kind.value==='poly'?('  (degree '+v+')'):(kind.value==='rbf'?('  (σ = '+v.toFixed(1)+')'):''))+'\\n'+\n      'k(x₀,x₀) = '+k(center,center).toFixed(3)+'\\n'+\n      '6×6 sample Gram matrix eigenvalues:  min = '+min.toFixed(4)+',  max = '+max.toFixed(4)+'\\n'+\n      (min>=-1e-6 ? 'min eigenvalue ≥ 0  ⇒  Gram is PSD ✓  (valid PD kernel)' : 'NEGATIVE eigenvalue ✗  — not a valid kernel here');\n  }\n  kind.addEventListener('change',()=>{ applyDefaults(); render(); });\n  p1.addEventListener('input',render);\n  applyDefaults(); render();"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-kernels"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./statistical-learning-theory.html#erm\">Empirical risk minimization</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./kernel-methods-and-rkhs.html#gp\">Kernel methods and RKHS</a> · Gaussian processes</div>\n    <div><a href=\"./kernel-methods-and-rkhs.html#mercer\">Kernel methods and RKHS</a> · Mercer's theorem &amp; feature maps</div>\n    <div><a href=\"./kernel-methods-and-rkhs.html#rkhs\">Kernel methods and RKHS</a> · Reproducing kernel Hilbert spaces</div>\n</aside>\n<!-- backlinks-auto-end -->"
+        },
+        {
+          "type": "quiz",
+          "concept": "km-kernels",
+          "html": "<div class=\"quiz\" data-concept=\"km-kernels\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "rkhs",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"rkhs\">\n<h2>2. Reproducing kernel Hilbert spaces</h2>\n<p>The kernel trick promised a feature space; the RKHS makes it canonical. A <strong>reproducing kernel Hilbert space</strong> $\\mathcal{H}_k$ is a Hilbert space of functions $f\\colon\\mathcal{X}\\to\\mathbb{R}$ in which the evaluation functional $\\delta_x\\colon f\\mapsto f(x)$ is <em>bounded</em> for every $x$ — small changes in $f$ (in norm) cannot produce wild swings in any pointwise value.</p>\n\n<h3>The reproducing property</h3>\n<p>Boundedness of $\\delta_x$ is exactly the hypothesis of the <strong>Riesz representation theorem</strong>: a bounded linear functional on a Hilbert space is inner product against a unique vector. Call that vector $k(x,\\cdot)$. Then for every $f$,</p>\n<p style=\"text-align:center\">$f(x)=\\delta_x(f)=\\langle f,\\,k(x,\\cdot)\\rangle_{\\mathcal{H}_k}\\qquad\\text{(reproducing property).}$</p>\n<p>Apply it to $f=k(y,\\cdot)$ to get $k(y,x)=\\langle k(y,\\cdot),k(x,\\cdot)\\rangle$ — the kernel is the Gram of its own representers, so $\\varphi(x):=k(x,\\cdot)$ is the canonical feature map and $k$ is positive-definite automatically.</p>\n\n<div class=\"note\"><strong>Moore–Aronszajn.</strong> The correspondence runs both ways: every positive-definite kernel $k$ is the reproducing kernel of one and only one RKHS. Build it by taking finite combinations $f=\\sum_i\\alpha_i k(x_i,\\cdot)$, defining $\\langle\\sum_i\\alpha_i k(x_i,\\cdot),\\sum_j\\beta_j k(y_j,\\cdot)\\rangle=\\sum_{i,j}\\alpha_i\\beta_j k(x_i,y_j)$, and completing. PD-ness makes this a genuine inner product; uniqueness is then forced.</div>\n\n<h3>The norm penalizes wiggliness</h3>\n<p>For $f=\\sum_i\\alpha_i k(x_i,\\cdot)$ the squared norm is $\\lVert f\\rVert_{\\mathcal{H}}^2=\\sum_{i,j}\\alpha_i\\alpha_j k(x_i,x_j)=\\alpha^\\top K\\alpha$. For the RBF kernel this norm grows with the high-frequency content of $f$, so $\\lVert\\cdot\\rVert_{\\mathcal{H}}$ is a smoothness penalty — the seed of regularization in §3. Not every function space is an RKHS: $L^2$ is not, because two functions equal almost everywhere have the same norm yet different pointwise values, so $\\delta_x$ is not even well defined.</p>\n\n<div class=\"note\"><strong>Worked mini-example.</strong> Place two RBF bumps with $\\alpha=(1,-1)$ at $x_1=-1,x_2=1$, so $f=k(-1,\\cdot)-k(1,\\cdot)$. Evaluate at $x=0$ two ways: directly, $f(0)=k(-1,0)-k(1,0)=e^{-1/2}-e^{-1/2}=0$; or as the inner product $\\langle f,k(0,\\cdot)\\rangle=\\alpha_1 k(-1,0)+\\alpha_2 k(1,0)=0$. They agree — that <em>is</em> the reproducing property.</div>\n\n<p>Place kernel bumps (drag the coefficient slider, click to add at the marked centers), then evaluate $f$ at a query point and compare the two computations.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "parametric-plot",
+          "params": {
+            "interaction": "single-mode",
+            "widgetId": "w-rkhs",
+            "svgId": "rkhs-svg",
+            "outputId": "rkhs-out",
+            "title": "Building f = Σ αᵢ k(xᵢ,·)",
+            "hint": "evaluate f two ways — direct sum vs. inner product",
+            "viewBox": "0 0 640 300",
+            "svgWidth": 640,
+            "svgHeight": 300,
+            "svgTitle": "A function built as a sum of kernel bumps, evaluated by the reproducing property",
+            "outputInitial": "",
+            "sliders": [
+              {
+                "id": "rkhs-q",
+                "outId": "rkhs-q-lbl",
+                "label": "query point $x$:",
+                "min": -3,
+                "max": 3,
+                "step": 0.05,
+                "init": 0
+              },
+              {
+                "id": "rkhs-sig",
+                "outId": "rkhs-sig-lbl",
+                "label": "bandwidth $\\sigma$:",
+                "min": 0.3,
+                "max": 2,
+                "step": 0.1,
+                "init": 0.8
+              }
+            ],
+            "buttons": [
+              {
+                "id": "rkhs-flip",
+                "label": "flip last coeff sign"
+              },
+              {
+                "id": "rkhs-reset",
+                "label": "reset bumps"
+              }
+            ],
+            "bodyScript": "  const svg=$('#rkhs-svg'), out=$('#rkhs-out'), q=$('#rkhs-q'), qL=$('#rkhs-q-lbl'), sig=$('#rkhs-sig'), sigL=$('#rkhs-sig-lbl');\n  const flip=$('#rkhs-flip'), reset=$('#rkhs-reset');\n  const W=640,H=300,padL=46,padR=20,padT=20,padB=40;\n  const x0=padL,x1=W-padR,y0=H-padB,y1=padT;\n  const xmin=-3,xmax=3;\n  let bumps=[{c:-1,a:1},{c:1,a:-1}]; // {center, alpha}\n  function k(a,b){ const s=+sig.value; return Math.exp(-((a-b)*(a-b))/(2*s*s)); }\n  function f(x){ let s=0; for(const b of bumps) s+=b.a*k(b.c,x); return s; }\n  const SX=x=>x0+(x-xmin)/(xmax-xmin)*(x1-x0);\n  function render(){\n    svg.innerHTML='';\n    const qx=+q.value;\n    qL.textContent='x = '+qx.toFixed(2);\n    sigL.textContent='σ = '+(+sig.value).toFixed(1);\n    // y range\n    const vals=[]; for(let i=0;i<=200;i++){ const x=xmin+(xmax-xmin)*i/200; vals.push(f(x)); }\n    const vmax=Math.max(...vals,0.5), vmin=Math.min(...vals,-0.5);\n    const SY=v=>y0+(v-vmin)/((vmax-vmin)||1)*(y1-y0);\n    // zero axis\n    svg.appendChild(SVG('line',{x1:x0,y1:SY(0),x2:x1,y2:SY(0),stroke:'var(--line)'}));\n    // individual bumps faint\n    for(const b of bumps){ let dp='M'; for(let i=0;i<=160;i++){ const x=xmin+(xmax-xmin)*i/160; dp+=' '+SX(x).toFixed(1)+' '+SY(b.a*k(b.c,x)).toFixed(1); } svg.appendChild(SVG('path',{d:dp,fill:'none',stroke:'var(--violet)','stroke-width':1,opacity:0.5,'stroke-dasharray':'3 3'})); }\n    // total f\n    let dpath='M'; for(let i=0;i<=200;i++){ const x=xmin+(xmax-xmin)*i/200; dpath+=' '+SX(x).toFixed(1)+' '+SY(f(x)).toFixed(1); }\n    svg.appendChild(SVG('path',{d:dpath,fill:'none',stroke:'var(--yellow)','stroke-width':2.4}));\n    // bump centers\n    for(const b of bumps) svg.appendChild(SVG('circle',{cx:SX(b.c),cy:SY(0),r:4,fill:b.a>=0?'var(--cyan)':'var(--pink)'}));\n    // query vertical + dot\n    svg.appendChild(SVG('line',{x1:SX(qx),y1:y1,x2:SX(qx),y2:y0,stroke:'var(--green)','stroke-dasharray':'4 4'}));\n    svg.appendChild(SVG('circle',{cx:SX(qx),cy:SY(f(qx)),r:5,fill:'var(--green)'}));\n    // two evaluations\n    const direct=f(qx);\n    let inner=0; for(const b of bumps) inner+=b.a*k(b.c,qx); // <f, k(x,.)> = Σ α_i k(x_i, x)\n    let normsq=0; for(const bi of bumps) for(const bj of bumps) normsq+=bi.a*bj.a*k(bi.c,bj.c);\n    out.textContent =\n      'bumps: '+bumps.map(b=>b.a.toFixed(0)+'·k('+b.c+',·)').join('  +  ')+'\\n'+\n      'evaluate f at x:        f(x) = Σ αᵢ k(xᵢ,x) = '+direct.toFixed(4)+'\\n'+\n      'RKHS inner product:  ⟨f, k(x,·)⟩ = Σ αᵢ ⟨k(xᵢ,·), k(x,·)⟩ = Σ αᵢ k(xᵢ,x) = '+inner.toFixed(4)+'\\n'+\n      'the middle step is the reproducing property ⟨k(xᵢ,·), k(x,·)⟩ = k(xᵢ,x) — which is exactly why the inner product equals the evaluation '+(Math.abs(direct-inner)<1e-9?'✓':'✗')+'\\n'+\n      '‖f‖²_H = αᵀKα = '+normsq.toFixed(4)+'   (RKHS norm — a smoothness penalty)';\n  }\n  q.addEventListener('input',render); sig.addEventListener('input',render);\n  flip.addEventListener('click',()=>{ if(bumps.length){ bumps[bumps.length-1].a*=-1; render(); } });\n  reset.addEventListener('click',()=>{ bumps=[{c:-1,a:1},{c:1,a:-1}]; render(); });\n  // click on the plot adds a bump at the nearest of three preset centers\n  svg.addEventListener('click',e=>{\n    const r=svg.getBoundingClientRect();\n    const px=(e.clientX-r.left)/r.width*W;\n    const xData=xmin+(px-x0)/((x1-x0)||1)*(xmax-xmin);\n    if(xData<xmin||xData>xmax) return;\n    bumps.push({c:Math.round(xData*2)/2, a:1});\n    render();\n  });\n  render();"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-rkhs"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./functional-analysis.html#hilbert\">Banach and Hilbert spaces</a></li>\n    <li><a href=\"./functional-analysis.html#riesz\">Riesz representation theorem</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./kernel-methods-and-rkhs.html#representer\">Kernel methods and RKHS</a> · The representer theorem</div>\n</aside>\n<!-- backlinks-auto-end -->"
+        },
+        {
+          "type": "quiz",
+          "concept": "km-rkhs",
+          "html": "<div class=\"quiz\" data-concept=\"km-rkhs\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "representer",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"representer\">\n<h2>3. The representer theorem</h2>\n<p>We want to learn a function $f\\in\\mathcal{H}_k$ from data by regularized empirical risk minimization:</p>\n<p style=\"text-align:center\">$\\min_{f\\in\\mathcal{H}_k}\\ \\sum_{i=1}^{n} L\\big(f(x_i),y_i\\big)+\\lambda\\,\\lVert f\\rVert_{\\mathcal{H}_k}^{2},\\qquad\\lambda > 0.$</p>\n<p>The search space $\\mathcal{H}_k$ is infinite-dimensional. The miracle is that the solution is not.</p>\n\n<div class=\"note\"><strong>Representer theorem (Kimeldorf–Wahba; Schölkopf–Herbrich–Smola).</strong> For any loss $L$ and any strictly increasing regularizer of $\\lVert f\\rVert_{\\mathcal{H}}$, a minimizer admits the finite representation\n$$f^\\star=\\sum_{i=1}^{n}\\alpha_i\\,k(x_i,\\cdot),\\qquad \\alpha\\in\\mathbb{R}^n.$$\n<strong>Proof sketch.</strong> Split $f=f_\\parallel+f_\\perp$, with $f_\\parallel\\in\\mathrm{span}\\{k(x_i,\\cdot)\\}$ and $f_\\perp$ orthogonal to it. By the reproducing property $f(x_j)=\\langle f,k(x_j,\\cdot)\\rangle=\\langle f_\\parallel,k(x_j,\\cdot)\\rangle=f_\\parallel(x_j)$, so $f_\\perp$ never affects the loss term. But $\\lVert f\\rVert^2=\\lVert f_\\parallel\\rVert^2+\\lVert f_\\perp\\rVert^2$, so any $f_\\perp\\neq 0$ strictly inflates the penalty. The optimum sets $f_\\perp=0$. $\\square$</div>\n\n<p>An infinite-dimensional variational problem collapses to $n$ <a href=\"./real-analysis.html#real-numbers\" data-auto-inline-link=\"1\" data-concept-id=\"real-numbers\" data-blurb=\"The complete ordered field: least-upper-bound property, sequences and Cauchy completeness, and why Q isn&#39;t enough.\">real numbers</a> — and the data enter only through the Gram matrix $K$.</p>\n\n<h3>Kernel ridge regression</h3>\n<p>Take squared loss $L(f(x_i),y_i)=(f(x_i)-y_i)^2$. Writing $f=\\sum_i\\alpha_i k(x_i,\\cdot)$ gives $f(x_j)=(K\\alpha)_j$ and $\\lVert f\\rVert^2=\\alpha^\\top K\\alpha$, so the objective is $\\lVert K\\alpha-y\\rVert^2+\\lambda\\,\\alpha^\\top K\\alpha$. The gradient vanishes at $K(K+\\lambda I)\\alpha=Ky$, and since $K\\succeq 0$ the canonical solution is</p>\n<p style=\"text-align:center\">$\\boxed{\\ \\alpha=(K+\\lambda I)^{-1}y\\ }.$</p>\n<p>The $\\lambda I$ shift moves every eigenvalue of $K$ up by $\\lambda > 0$, so the inverse always exists and is numerically stable even when $K$ is singular — the regularizer and the conditioning fix are the same act.</p>\n\n<div class=\"note\"><strong>Worked mini-example.</strong> Two points with $k(x_1,x_2)=0.5$, $y=(1,0)^\\top$, $\\lambda=0.5$. Then $K+\\lambda I=\\left(\\begin{smallmatrix}1.5&0.5\\\\0.5&1.5\\end{smallmatrix}\\right)$, $\\det=2$, inverse $\\tfrac12\\left(\\begin{smallmatrix}1.5&-0.5\\\\-0.5&1.5\\end{smallmatrix}\\right)$, so $\\alpha=(0.75,-0.25)^\\top$. The negative $\\alpha_2$ pulls the fit down near $x_2$ to honor its $0$ label against the smoothing pressure of the shared bump.</div>\n\n<p>Slide $\\lambda$ and watch the fit $f=\\sum_i\\alpha_i k(x_i,\\cdot)$ go from interpolating wiggles ($\\lambda\\to 0$) to a flat, heavily smoothed curve (large $\\lambda$). The coefficients are recomputed live via $(K+\\lambda I)^{-1}y$.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "parametric-plot",
+          "params": {
+            "interaction": "single-mode",
+            "widgetId": "w-rep",
+            "svgId": "rep-svg",
+            "outputId": "rep-out",
+            "title": "Kernel ridge regression",
+            "hint": "α = (K + λI)⁻¹ y — slide λ from interpolation to smoothing",
+            "viewBox": "0 0 640 320",
+            "svgWidth": 640,
+            "svgHeight": 320,
+            "svgTitle": "Kernel ridge regression fit as the regularization strength varies",
+            "outputInitial": "",
+            "sliders": [
+              {
+                "id": "rep-lam",
+                "outId": "rep-lam-lbl",
+                "label": "regularization $\\lambda$:",
+                "min": 0.001,
+                "max": 2,
+                "step": 0.001,
+                "init": 0.1
+              },
+              {
+                "id": "rep-sig",
+                "outId": "rep-sig-lbl",
+                "label": "bandwidth $\\sigma$:",
+                "min": 0.2,
+                "max": 2,
+                "step": 0.05,
+                "init": 0.6
+              }
+            ],
+            "buttons": [
+              {
+                "id": "rep-resample",
+                "label": "resample data"
+              }
+            ],
+            "bodyScript": "  const svg=$('#rep-svg'), out=$('#rep-out'), lam=$('#rep-lam'), lamL=$('#rep-lam-lbl'), sig=$('#rep-sig'), sigL=$('#rep-sig-lbl'), resample=$('#rep-resample');\n  const W=640,H=320,padL=48,padR=20,padT=22,padB=42;\n  const x0=padL,x1=W-padR,y0=H-padB,y1=padT;\n  const xmin=0,xmax=1;\n  let pts=[]; // {x,y}\n  function truth(x){ return Math.sin(2*Math.PI*x); }\n  function gen(){ pts=[]; const n=7; for(let i=0;i<n;i++){ const x=(i+0.5)/n; pts.push({x, y:truth(x)+(Math.random()-0.5)*0.5}); } }\n  function k(a,b){ const s=+sig.value; return Math.exp(-((a-b)*(a-b))/(2*s*s)); }\n  // Gaussian elimination solver for (K+λI) α = y\n  function solve(A,b){ const n=b.length; const M=A.map((r,i)=>[...r,b[i]]);\n    for(let c=0;c<n;c++){ let piv=c; for(let r=c+1;r<n;r++) if(Math.abs(M[r][c])>Math.abs(M[piv][c])) piv=r; [M[c],M[piv]]=[M[piv],M[c]];\n      const d=M[c][c]||1e-12; for(let j=c;j<=n;j++) M[c][j]/=d;\n      for(let r=0;r<n;r++){ if(r===c) continue; const fct=M[r][c]; for(let j=c;j<=n;j++) M[r][j]-=fct*M[c][j]; } }\n    return M.map(r=>r[n]); }\n  function fitAlpha(){\n    const n=pts.length, K=[], y=[];\n    for(let i=0;i<n;i++){ K.push([]); for(let j=0;j<n;j++) K[i].push(k(pts[i].x,pts[j].x)); y.push(pts[i].y); }\n    const lamv=+lam.value; const A=K.map((r,i)=>r.map((v,j)=>v+(i===j?lamv:0)));\n    return {alpha:solve(A,y), K};\n  }\n  function predict(alpha,x){ let s=0; for(let i=0;i<pts.length;i++) s+=alpha[i]*k(pts[i].x,x); return s; }\n  const SX=x=>x0+(x-xmin)/(xmax-xmin)*(x1-x0);\n  function render(){\n    svg.innerHTML='';\n    lamL.textContent='λ = '+(+lam.value).toFixed(3);\n    sigL.textContent='σ = '+(+sig.value).toFixed(2);\n    const {alpha}=fitAlpha();\n    const SY=v=>y0+(v-(-1.8))/(3.6)*(y1-y0); // fixed [-1.8,1.8]\n    // zero axis + frame\n    svg.appendChild(SVG('line',{x1:x0,y1:SY(0),x2:x1,y2:SY(0),stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x0,y2:y1,stroke:'var(--line)'}));\n    // truth dashed\n    let dt='M'; for(let i=0;i<=160;i++){ const x=xmin+(xmax-xmin)*i/160; dt+=' '+SX(x).toFixed(1)+' '+SY(truth(x)).toFixed(1); }\n    svg.appendChild(SVG('path',{d:dt,fill:'none',stroke:'var(--mute)','stroke-width':1.3,'stroke-dasharray':'5 4'}));\n    // fit\n    let df='M'; for(let i=0;i<=200;i++){ const x=xmin+(xmax-xmin)*i/200; df+=' '+SX(x).toFixed(1)+' '+SY(predict(alpha,x)).toFixed(1); }\n    svg.appendChild(SVG('path',{d:df,fill:'none',stroke:'var(--yellow)','stroke-width':2.4}));\n    // data\n    for(const p of pts) svg.appendChild(SVG('circle',{cx:SX(p.x),cy:SY(p.y),r:4,fill:'var(--blue)'}));\n    // legend\n    function leg(x,y,c,t){ svg.appendChild(SVG('line',{x1:x,y1:y,x2:x+20,y2:y,stroke:c,'stroke-width':2.2})); const tt=SVG('text',{x:x+26,y:y+4,'font-size':11,fill:'var(--mute)'}); tt.textContent=t; svg.appendChild(tt); }\n    leg(x1-160,y1+6,'var(--mute)','truth sin(2πx)'); leg(x1-160,y1+22,'var(--yellow)','kernel ridge fit');\n    const cap=SVG('text',{x:(x0+x1)/2,y:H-8,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}); cap.textContent='x'; svg.appendChild(cap);\n    out.textContent =\n      'n = '+pts.length+' points,  σ = '+(+sig.value).toFixed(2)+',  λ = '+(+lam.value).toFixed(3)+'\\n'+\n      'solved α = (K + λI)⁻¹ y  via Gaussian elimination\\n'+\n      'α = ['+alpha.map(a=>a.toFixed(2)).join(', ')+']\\n'+\n      (+lam.value<0.02 ? 'λ→0: f interpolates the noisy data (wiggly, low bias / high variance)' :\n       (+lam.value>1 ? 'large λ: f is heavily smoothed toward 0 (high bias / low variance)' :\n       'moderate λ: f tracks the underlying sin(2πx)'));\n  }\n  lam.addEventListener('input',render); sig.addEventListener('input',render);\n  resample.addEventListener('click',()=>{ gen(); render(); });\n  gen(); render();"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-rep"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "quiz",
+          "concept": "km-representer",
+          "html": "<div class=\"quiz\" data-concept=\"km-representer\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./kernel-methods-and-rkhs.html#svm\">Kernel methods and RKHS</a> · Support vector machines</div>\n</aside>\n<!-- backlinks-auto-end -->"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "svm",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"svm\">\n<h2>4. Support vector machines</h2>\n<p>For binary labels $y_i\\in\\{\\pm1\\}$, the <strong>maximum-margin</strong> classifier seeks the separating hyperplane $w^\\top\\varphi(x)+b=0$ that stands as far as possible from both classes. The geometric margin of a separating $(w,b)$ is $1/\\lVert w\\rVert$, so maximizing margin is minimizing $\\lVert w\\rVert$. Allowing slack $\\xi_i\\ge 0$ for non-separable data gives the <strong>soft-margin primal</strong>:</p>\n<p style=\"text-align:center\">$\\min_{w,b,\\xi}\\ \\tfrac12\\lVert w\\rVert^2+C\\sum_{i=1}^{n}\\xi_i\\quad\\text{s.t.}\\quad y_i\\big(w^\\top\\varphi(x_i)+b\\big)\\ge 1-\\xi_i,\\ \\ \\xi_i\\ge 0.$</p>\n<p>The penalty $C$ trades margin width against violations: large $C$ punishes misclassification hard (narrow, hard margin); small $C$ tolerates it for a wider margin.</p>\n\n<h3>The dual — where the kernel enters</h3>\n<p>Forming the Lagrangian and eliminating $w,b,\\xi$ via the KKT conditions yields the <strong>dual QP</strong>:</p>\n<p style=\"text-align:center\">$\\max_{\\alpha}\\ \\sum_{i}\\alpha_i-\\tfrac12\\sum_{i,j}\\alpha_i\\alpha_j\\,y_i y_j\\,k(x_i,x_j)\\quad\\text{s.t.}\\quad 0\\le\\alpha_i\\le C,\\ \\ \\sum_i\\alpha_i y_i=0.$</p>\n<p>The inputs appear <em>only</em> through $k(x_i,x_j)=\\langle\\varphi(x_i),\\varphi(x_j)\\rangle$. Swap the linear kernel for an RBF and the same QP returns a curved boundary — the kernel trick at work. The solution recovers $w=\\sum_i\\alpha_i y_i\\varphi(x_i)$, and the decision function</p>\n<p style=\"text-align:center\">$g(x)=\\operatorname{sign}\\Big(\\sum_i\\alpha_i y_i\\,k(x_i,x)+b\\Big)$</p>\n<p>also touches the data only through kernels.</p>\n\n<h3>Support vectors</h3>\n<p>Complementary slackness forces $\\alpha_i=0$ for every point strictly outside the margin. The points with $\\alpha_i > 0$ — on the margin or violating it — are the <strong>support vectors</strong>; they alone determine the boundary. Discard the rest and the solution is unchanged. The margin generalization bound (Rademacher complexity $\\le BR/\\sqrt m$) explains why a large-margin SVM generalizes even in a huge feature space: the rate is dimension-free.</p>\n\n<div class=\"note\"><strong>Worked mini-example — a 2-point dual.</strong> One positive at $x_+$, one negative at $x_-$, hard margin ($C=\\infty$). The constraint $\\sum_i\\alpha_i y_i=0$ forces $\\alpha_+=\\alpha_-=:\\alpha$. The objective becomes $2\\alpha-\\tfrac12\\alpha^2\\big(k(x_+,x_+)+k(x_-,x_-)-2k(x_+,x_-)\\big)=2\\alpha-\\tfrac12\\alpha^2\\lVert\\varphi(x_+)-\\varphi(x_-)\\rVert^2$. Maximizing gives $\\alpha=2/\\lVert\\varphi(x_+)-\\varphi(x_-)\\rVert^2$ and a margin of $1/\\lVert w\\rVert=\\tfrac12\\lVert\\varphi(x_+)-\\varphi(x_-)\\rVert$ — exactly the perpendicular bisector, as it must be.</div>\n\n<p>Place two clouds of points, pick a kernel, slide $C$, and watch the boundary, the margin, and which points become support vectors (ringed).</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "parametric-plot",
+          "params": {
+            "interaction": "multi-mode",
+            "widgetId": "w-svm",
+            "svgId": "svm-svg",
+            "outputId": "svm-out",
+            "title": "SVM decision boundary & support vectors",
+            "hint": "linear vs. RBF kernel; slide C; ringed points are support vectors",
+            "viewBox": "0 0 640 360",
+            "svgWidth": 640,
+            "svgHeight": 360,
+            "svgTitle": "Support vector machine decision boundary, margin, and support vectors for two point clouds",
+            "outputInitial": "",
+            "pick": {
+              "id": "svm-kernel",
+              "label": "kernel:",
+              "options": [
+                {
+                  "value": "linear",
+                  "label": "linear (straight boundary)"
+                },
+                {
+                  "value": "rbf",
+                  "label": "RBF (curved boundary)",
+                  "selected": true
+                }
+              ]
+            },
+            "sliders": [
+              {
+                "id": "svm-C",
+                "outId": "svm-C-lbl",
+                "label": "penalty $C$:",
+                "min": 0.1,
+                "max": 20,
+                "step": 0.1,
+                "init": 5
+              },
+              {
+                "id": "svm-sig",
+                "outId": "svm-sig-lbl",
+                "label": "RBF bandwidth $\\sigma$:",
+                "min": 0.4,
+                "max": 3,
+                "step": 0.1,
+                "init": 1.2
+              }
+            ],
+            "buttons": [
+              {
+                "id": "svm-resample",
+                "label": "resample points"
+              }
+            ],
+            "modes": {
+              "linear": {
+                "sliderDefaults": {
+                  "svm-C": {
+                    "min": 0.1,
+                    "max": 20,
+                    "step": 0.1,
+                    "init": 5
+                  }
+                }
+              },
+              "rbf": {
+                "sliderDefaults": {
+                  "svm-C": {
+                    "min": 0.1,
+                    "max": 20,
+                    "step": 0.1,
+                    "init": 5
+                  }
+                }
+              }
+            },
+            "initialMode": "rbf",
+            "bodyScript": "  const svg=$('#svm-svg'), out=$('#svm-out'), kern=$('#svm-kernel'), CSl=$('#svm-C'), CL=$('#svm-C-lbl'), sig=$('#svm-sig'), sigL=$('#svm-sig-lbl'), resample=$('#svm-resample');\n  const W=640,H=360,padL=30,padR=30,padT=20,padB=20;\n  const x0=padL,x1=W-padR,y0=H-padB,y1=padT;\n  const dmin=-3.2,dmax=3.2;\n  let pts=[]; // {x,y,label}\n  function gen(){\n    pts=[];\n    for(let i=0;i<7;i++) pts.push({x:-1.4+(Math.random()-0.5)*2.0, y:0.2+(Math.random()-0.5)*3.0, label:1});\n    for(let i=0;i<7;i++) pts.push({x: 1.4+(Math.random()-0.5)*2.0, y:-0.2+(Math.random()-0.5)*3.0, label:-1});\n  }\n  function k(a,b){\n    if(kern.value==='linear') return a.x*b.x+a.y*b.y;\n    const s=+sig.value; const dx=a.x-b.x, dy=a.y-b.y; return Math.exp(-(dx*dx+dy*dy)/(2*s*s));\n  }\n  // Train the dual by simplified SMO-style projected coordinate ascent on α (0<=α<=C, Σ α_i y_i = 0).\n  let alpha=[], bbias=0;\n  function train(){\n    const n=pts.length, C=+CSl.value;\n    alpha=new Array(n).fill(0);\n    const K=[]; for(let i=0;i<n;i++){ K.push([]); for(let j=0;j<n;j++) K[i].push(k(pts[i],pts[j])); }\n    const y=pts.map(p=>p.label);\n    function fval(i){ let s=0; for(let j=0;j<n;j++) s+=alpha[j]*y[j]*K[i][j]; return s+bbias; }\n    // SMO: optimize pairs (i,j)\n    for(let pass=0;pass<400;pass++){\n      let changed=0;\n      for(let i=0;i<n;i++){\n        const Ei=fval(i)-y[i];\n        if((y[i]*Ei<-1e-3 && alpha[i]<C)||(y[i]*Ei>1e-3 && alpha[i]>0)){\n          let j=(i+1+Math.floor(Math.random()*(n-1)))%n;\n          const Ej=fval(j)-y[j];\n          const ai=alpha[i], aj=alpha[j];\n          let L,Hh;\n          if(y[i]!==y[j]){ L=Math.max(0,aj-ai); Hh=Math.min(C,C+aj-ai); }\n          else { L=Math.max(0,ai+aj-C); Hh=Math.min(C,ai+aj); }\n          if(L===Hh) continue;\n          const eta=2*K[i][j]-K[i][i]-K[j][j];\n          if(eta>=0) continue;\n          let ajn=aj-y[j]*(Ei-Ej)/eta;\n          ajn=Math.min(Hh,Math.max(L,ajn));\n          if(Math.abs(ajn-aj)<1e-6) continue;\n          const ain=ai+y[i]*y[j]*(aj-ajn);\n          // bias update\n          const b1=bbias-Ei-y[i]*(ain-ai)*K[i][i]-y[j]*(ajn-aj)*K[i][j];\n          const b2=bbias-Ej-y[i]*(ain-ai)*K[i][j]-y[j]*(ajn-aj)*K[j][j];\n          alpha[i]=ain; alpha[j]=ajn;\n          if(ain>0&&ain<C) bbias=b1; else if(ajn>0&&ajn<C) bbias=b2; else bbias=(b1+b2)/2;\n          changed++;\n        }\n      }\n      if(changed===0) pass+= (pass>30?400:0);\n    }\n  }\n  function decide(qx,qy){ const n=pts.length; let s=0; for(let j=0;j<n;j++) s+=alpha[j]*pts[j].label*k(pts[j],{x:qx,y:qy}); return s+bbias; }\n  const SX=x=>x0+(x-dmin)/(dmax-dmin)*(x1-x0);\n  const SY=y=>y0+(y-dmin)/(dmax-dmin)*(y1-y0); // note y axis flipped via y0->y1\n  function render(){\n    svg.innerHTML='';\n    CL.textContent='C = '+(+CSl.value).toFixed(1);\n    sigL.textContent = kern.value==='rbf' ? ('σ = '+(+sig.value).toFixed(1)) : '(linear: σ unused)';\n    train();\n    // decision-region shading via a coarse grid\n    const G=40;\n    for(let gi=0;gi<G;gi++) for(let gj=0;gj<G;gj++){\n      const gx=dmin+(dmax-dmin)*(gi+0.5)/G, gy=dmin+(dmax-dmin)*(gj+0.5)/G;\n      const d=decide(gx,gy);\n      const col = d>=0 ? 'rgba(125,224,214,0.10)' : 'rgba(224,122,95,0.10)';\n      svg.appendChild(SVG('rect',{x:SX(gx-( dmax-dmin)/(2*G)),y:SY(gy+(dmax-dmin)/(2*G)),width:(x1-x0)/G+1,height:(y0-y1)/G+1,fill:col}));\n    }\n    // boundary + margins via marching the grid for level sets d = 0, ±1 (draw small segments where sign flips)\n    function drawLevel(level,color,dash){\n      const N=120;\n      for(let gi=0;gi<N;gi++){ for(let gj=0;gj<N;gj++){\n        const gx=dmin+(dmax-dmin)*gi/N, gy=dmin+(dmax-dmin)*gj/N, h=(dmax-dmin)/N;\n        const a=decide(gx,gy)-level, b=decide(gx+h,gy)-level, c=decide(gx,gy+h)-level;\n        if(a*b<0){ const t=a/(a-b); svg.appendChild(SVG('circle',{cx:SX(gx+t*h),cy:SY(gy),r:0.9,fill:color})); }\n        if(a*c<0){ const t=a/(a-c); svg.appendChild(SVG('circle',{cx:SX(gx),cy:SY(gy+t*h),r:0.9,fill:color})); }\n      }}\n    }\n    drawLevel(0,'var(--yellow)'); drawLevel(1,'var(--mute)'); drawLevel(-1,'var(--mute)');\n    // points\n    const C=+CSl.value; let nsv=0;\n    for(let i=0;i<pts.length;i++){\n      const p=pts[i]; const sv=alpha[i]>1e-4;\n      if(sv) nsv++;\n      const fill=p.label===1?'var(--cyan)':'var(--pink)';\n      if(sv) svg.appendChild(SVG('circle',{cx:SX(p.x),cy:SY(p.y),r:9,fill:'none',stroke:'var(--yellow)','stroke-width':2}));\n      svg.appendChild(SVG('circle',{cx:SX(p.x),cy:SY(p.y),r:5,fill,stroke:'var(--ink)','stroke-width':1}));\n    }\n    // legend\n    const lg=SVG('text',{x:x0+4,y:y1+10,'font-size':11,fill:'var(--mute)'}); lg.textContent='cyan=+1, pink=−1, ringed=support vector, yellow=boundary, grey=margins'; svg.appendChild(lg);\n    let trainErr=0; for(const p of pts) if(Math.sign(decide(p.x,p.y))!==p.label) trainErr++;\n    out.textContent =\n      'kernel: '+kern.value+(kern.value==='rbf'?('  (σ='+(+sig.value).toFixed(1)+')'):'')+',  C = '+C.toFixed(1)+'\\n'+\n      'support vectors (α_i > 0): '+nsv+' of '+pts.length+'   bias b = '+bbias.toFixed(3)+'\\n'+\n      'training misclassifications: '+trainErr+'\\n'+\n      'decision: g(x) = sign(Σ αᵢyᵢ k(xᵢ,x) + b) — touches data only through the kernel';\n  }\n  kern.addEventListener('change',render); CSl.addEventListener('input',render); sig.addEventListener('input',render);\n  resample.addEventListener('click',()=>{ gen(); render(); });\n  gen(); render();"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-svm"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./convex-optimization.html#lagrangian-duality\">Lagrangian duality and the KKT system</a></li>\n    <li><a href=\"./statistical-learning-theory.html#rademacher\">Rademacher complexity &amp; margins</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "quiz",
+          "concept": "km-svm",
+          "html": "<div class=\"quiz\" data-concept=\"km-svm\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "gp",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"gp\">\n<h2>5. Gaussian processes</h2>\n<p>The same kernel that ran ridge regression also defines a <em>prior over functions</em>. A <strong>Gaussian process</strong> $f\\sim\\mathcal{GP}(m,k)$ is a collection of <a href=\"./probability-theory.html#rv\" data-auto-inline-link=\"1\" data-concept-id=\"random-variables\" data-blurb=\"A random variable is a measurable function $X:\\Omega\\to\\mathbb{R}$; its law $\\mathbb{P}_X$ is the push-forward measure on $(\\mathbb{R},\\mathcal{B})$.\">random variables</a> $\\{f(x)\\}_{x\\in\\mathcal{X}}$ such that every finite subset is jointly Gaussian: $(f(x_1),\\dots,f(x_n))\\sim\\mathcal{N}\\big(m(X),\\,K\\big)$ with $K=[k(x_i,x_j)]$. The kernel <em>is</em> the covariance — it encodes how strongly nearby function values co-vary, hence the smoothness and length scale of the prior.</p>\n\n<h3>GP regression</h3>\n<p>Observe noisy data $y=f(X)+\\varepsilon$, $\\varepsilon\\sim\\mathcal{N}(0,\\sigma^2 I)$. The joint distribution of the training targets $y$ and a test value $f(x_*)$ is Gaussian, and conditioning gives a closed-form Gaussian posterior with</p>\n<p style=\"text-align:center\">$m(x_*)=k_*^\\top(K+\\sigma^2 I)^{-1}y,\\qquad \\mathbb{V}[f(x_*)]=k(x_*,x_*)-k_*^\\top(K+\\sigma^2 I)^{-1}k_*,$</p>\n<p>where $k_*=(k(x_*,x_1),\\dots,k(x_*,x_n))^\\top$. The posterior mean is <em>identical</em> to kernel ridge regression with $\\lambda=\\sigma^2$ — the representer theorem in disguise. What GP regression adds for free is the predictive <strong>variance</strong>: it shrinks to near $\\sigma^2$ at the data and swells back to the prior $k(x_*,x_*)$ far from any observation, giving calibrated error bars.</p>\n\n<div class=\"note\"><strong>Worked mini-example.</strong> A single observation $y_1$ at $x_1$ with RBF kernel ($k(x,x)=1$), noise $\\sigma^2$. Then $m(x_*)=\\dfrac{k(x_*,x_1)}{1+\\sigma^2}\\,y_1$ and $\\mathbb{V}[f(x_*)]=1-\\dfrac{k(x_*,x_1)^2}{1+\\sigma^2}$. At $x_*=x_1$ the mean is $y_1/(1+\\sigma^2)$ (shrunk toward $0$ by the noise) and the variance is $1-1/(1+\\sigma^2)=\\sigma^2/(1+\\sigma^2)$ — small. As $x_*$ moves away, $k(x_*,x_1)\\to 0$, the mean reverts to the prior $0$, and the variance climbs back to $1$.</div>\n\n<p>Place observations, slide the bandwidth and noise, and watch the posterior mean curve plus its $\\pm 2$ standard-deviation band — and draw posterior sample functions to see the distribution itself.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "parametric-plot",
+          "params": {
+            "interaction": "single-mode",
+            "widgetId": "w-gp",
+            "svgId": "gp-svg",
+            "outputId": "gp-out",
+            "title": "Gaussian process regression",
+            "hint": "posterior mean + uncertainty band; click to add data",
+            "viewBox": "0 0 640 340",
+            "svgWidth": 640,
+            "svgHeight": 340,
+            "svgTitle": "Gaussian process posterior mean and predictive uncertainty band",
+            "outputInitial": "",
+            "sliders": [
+              {
+                "id": "gp-sig",
+                "outId": "gp-sig-lbl",
+                "label": "bandwidth $\\sigma_\\ell$:",
+                "min": 0.1,
+                "max": 1.5,
+                "step": 0.05,
+                "init": 0.4
+              },
+              {
+                "id": "gp-noise",
+                "outId": "gp-noise-lbl",
+                "label": "noise $\\sigma^2$:",
+                "min": 0.001,
+                "max": 0.3,
+                "step": 0.001,
+                "init": 0.02
+              }
+            ],
+            "buttons": [
+              {
+                "id": "gp-sample",
+                "label": "draw 3 samples"
+              },
+              {
+                "id": "gp-reset",
+                "label": "reset data"
+              }
+            ],
+            "bodyScript": "  const svg=$('#gp-svg'), out=$('#gp-out'), sig=$('#gp-sig'), sigL=$('#gp-sig-lbl'), noise=$('#gp-noise'), noiseL=$('#gp-noise-lbl'), sampleBtn=$('#gp-sample'), reset=$('#gp-reset');\n  const W=640,H=340,padL=46,padR=20,padT=22,padB=42;\n  const x0=padL,x1=W-padR,y0=H-padB,y1=padT;\n  const xmin=0,xmax=1, ylo=-2.2,yhi=2.2;\n  let data=[{x:0.2,y:0.7},{x:0.5,y:-0.4},{x:0.8,y:0.9}];\n  let showSamples=false;\n  function k(a,b){ const s=+sig.value; return Math.exp(-((a-b)*(a-b))/(2*s*s)); }\n  function solve(A,b){ const n=b.length; const M=A.map((r,i)=>[...r,b[i]]);\n    for(let c=0;c<n;c++){ let piv=c; for(let r=c+1;r<n;r++) if(Math.abs(M[r][c])>Math.abs(M[piv][c])) piv=r; [M[c],M[piv]]=[M[piv],M[c]];\n      const d=M[c][c]||1e-12; for(let j=c;j<=n;j++) M[c][j]/=d;\n      for(let r=0;r<n;r++){ if(r===c) continue; const fct=M[r][c]; for(let j=c;j<=n;j++) M[r][j]-=fct*M[c][j]; } }\n    return M.map(r=>r[n]); }\n  // returns Kinv (n×n) and y vector\n  function inverseKy(){\n    const n=data.length, Kn=+noise.value;\n    const A=[]; for(let i=0;i<n;i++){ A.push([]); for(let j=0;j<n;j++) A[i].push(k(data[i].x,data[j].x)+(i===j?Kn:0)); }\n    // build inverse columnwise by solving A x = e_i\n    const inv=Array.from({length:n},()=>new Array(n).fill(0));\n    for(let c=0;c<n;c++){ const e=new Array(n).fill(0); e[c]=1; const col=solve(A.map(r=>r.slice()),e); for(let r=0;r<n;r++) inv[r][c]=col[r]; }\n    const y=data.map(d=>d.y);\n    return {inv,y,n};\n  }\n  function posterior(xstar,inv,y,n){\n    const ks=data.map(d=>k(xstar,d.x));\n    let mean=0; for(let i=0;i<n;i++){ let row=0; for(let j=0;j<n;j++) row+=inv[i][j]*y[j]; mean+=ks[i]*row; }\n    // variance = k** - ks^T inv ks\n    let quad=0; for(let i=0;i<n;i++) for(let j=0;j<n;j++) quad+=ks[i]*inv[i][j]*ks[j];\n    const varr=Math.max(0, k(xstar,xstar)-quad);\n    return {mean, sd:Math.sqrt(varr)};\n  }\n  const SX=x=>x0+(x-xmin)/(xmax-xmin)*(x1-x0);\n  const SY=v=>y0+(v-ylo)/(yhi-ylo)*(y1-y0);\n  function render(){\n    svg.innerHTML='';\n    sigL.textContent='σ_ℓ = '+(+sig.value).toFixed(2);\n    noiseL.textContent='σ² = '+(+noise.value).toFixed(3);\n    // frame\n    svg.appendChild(SVG('line',{x1:x0,y1:SY(0),x2:x1,y2:SY(0),stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x0,y2:y1,stroke:'var(--line)'}));\n    const N=120;\n    const xs=[],means=[],sds=[];\n    let inv=null,y=null,n=0;\n    if(data.length>0){ const r=inverseKy(); inv=r.inv; y=r.y; n=r.n; }\n    for(let i=0;i<=N;i++){ const x=xmin+(xmax-xmin)*i/N; xs.push(x);\n      if(n>0){ const p=posterior(x,inv,y,n); means.push(p.mean); sds.push(p.sd); } else { means.push(0); sds.push(1); } }\n    // uncertainty band ±2 sd\n    let top='M', bot='';\n    for(let i=0;i<=N;i++){ top+=' '+SX(xs[i]).toFixed(1)+' '+SY(means[i]+2*sds[i]).toFixed(1); }\n    for(let i=N;i>=0;i--){ bot+=' '+SX(xs[i]).toFixed(1)+' '+SY(means[i]-2*sds[i]).toFixed(1); }\n    svg.appendChild(SVG('path',{d:top+' L'+bot+' Z',fill:'rgba(125,224,214,0.16)',stroke:'none'}));\n    // posterior samples (optional): mean + sd*standard normal, smoothed by reusing one normal per sample via correlated noise approx\n    if(showSamples && n>0){\n      for(let s=0;s<3;s++){\n        const cols=['var(--violet)','var(--pink)','var(--green)'][s];\n        // simple correlated draw: a slow random function = sum of a few cosines, scaled by sd\n        const a=[]; for(let m=0;m<5;m++) a.push((Math.random()*2-1));\n        let dp='M';\n        for(let i=0;i<=N;i++){ let g=0; for(let m=0;m<5;m++) g+=a[m]*Math.cos((m+1)*Math.PI*xs[i]); g/=2.2; dp+=' '+SX(xs[i]).toFixed(1)+' '+SY(means[i]+sds[i]*g).toFixed(1); }\n        svg.appendChild(SVG('path',{d:dp,fill:'none',stroke:cols,'stroke-width':1,opacity:0.7}));\n      }\n    }\n    // posterior mean\n    let dm='M'; for(let i=0;i<=N;i++) dm+=' '+SX(xs[i]).toFixed(1)+' '+SY(means[i]).toFixed(1);\n    svg.appendChild(SVG('path',{d:dm,fill:'none',stroke:'var(--yellow)','stroke-width':2.4}));\n    // data\n    for(const d of data) svg.appendChild(SVG('circle',{cx:SX(d.x),cy:SY(d.y),r:4.5,fill:'var(--blue)',stroke:'var(--ink)','stroke-width':1}));\n    const cap=SVG('text',{x:(x0+x1)/2,y:H-8,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}); cap.textContent='x   —   yellow: posterior mean,  cyan band: ±2 sd,  click to add data'; svg.appendChild(cap);\n    out.textContent =\n      'n = '+data.length+' observations,  σ_ℓ = '+(+sig.value).toFixed(2)+',  σ² = '+(+noise.value).toFixed(3)+'\\n'+\n      'posterior mean  m(x*) = k*ᵀ(K+σ²I)⁻¹ y     (= kernel ridge with λ=σ²)\\n'+\n      'posterior var  var[f(x*)] = k(x*,x*) − k*ᵀ(K+σ²I)⁻¹k*  → shrinks near data,  → prior k(x*,x*) far away  (predicting a new y adds σ²)\\n'+\n      (showSamples?'showing 3 posterior sample functions':'press “draw 3 samples” to see functions from the posterior');\n  }\n  sig.addEventListener('input',()=>{ render(); }); noise.addEventListener('input',render);\n  sampleBtn.addEventListener('click',()=>{ showSamples=true; render(); });\n  reset.addEventListener('click',()=>{ data=[{x:0.2,y:0.7},{x:0.5,y:-0.4},{x:0.8,y:0.9}]; showSamples=false; render(); });\n  svg.addEventListener('click',e=>{\n    const r=svg.getBoundingClientRect();\n    const px=(e.clientX-r.left)/r.width*W, py=(e.clientY-r.top)/r.height*H;\n    const xData=xmin+(px-x0)/((x1-x0)||1)*(xmax-xmin);\n    const yData=ylo+(py-y0)/((y1-y0)||1)*(yhi-ylo);\n    if(xData<xmin||xData>xmax||yData<ylo||yData>yhi) return;\n    data.push({x:xData,y:yData}); render();\n  });\n  render();"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-gp"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./probability-theory.html#clt\">The central limit theorem &amp; the Gaussian</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "quiz",
+          "concept": "km-gp",
+          "html": "<div class=\"quiz\" data-concept=\"km-gp\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "mercer",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"mercer\">\n<h2>6. Mercer's theorem &amp; feature maps</h2>\n<p>We have used \"$k(x,y)=\\langle\\varphi(x),\\varphi(y)\\rangle$ for some $\\varphi$\" repeatedly. Mercer's theorem makes $\\varphi$ explicit by diagonalizing the kernel as an operator. Define the <strong>integral operator</strong> on $L^2(\\mathcal{X},\\mu)$ for a compact domain,</p>\n<p style=\"text-align:center\">$(T_k f)(x)=\\int_{\\mathcal{X}} k(x,y)\\,f(y)\\,d\\mu(y).$</p>\n<p>For a continuous PD kernel, $T_k$ is compact, self-adjoint, and positive — exactly the hypotheses of the spectral theorem. So it has a discrete spectrum $\\lambda_1\\ge\\lambda_2\\ge\\cdots\\ge 0$ with orthonormal eigenfunctions $\\varphi_j$, and</p>\n<p style=\"text-align:center\">$\\boxed{\\ k(x,y)=\\sum_{j\\ge 1}\\lambda_j\\,\\varphi_j(x)\\,\\varphi_j(y)\\ }\\quad\\text{(uniformly convergent).}$</p>\n\n<h3>The explicit feature map</h3>\n<p>Read off $\\varphi(x)=\\big(\\sqrt{\\lambda_1}\\,\\varphi_1(x),\\sqrt{\\lambda_2}\\,\\varphi_2(x),\\dots\\big)$, and indeed $\\langle\\varphi(x),\\varphi(y)\\rangle=\\sum_j\\lambda_j\\varphi_j(x)\\varphi_j(y)=k(x,y)$. The eigenvalues $\\lambda_j$ measure how much of the kernel lives along each eigen-direction; rapidly decaying $\\lambda_j$ (as for the RBF) means the effective feature space is low-dimensional even though it is formally infinite — the basis of low-rank Nyström approximations.</p>\n\n<h3>Random Fourier features</h3>\n<p>For shift-invariant kernels $k(x,y)=\\kappa(x-y)$, <strong>Bochner's theorem</strong> says $\\kappa$ is the Fourier transform of a nonnegative measure $p(\\omega)$. For the RBF, $p$ is itself Gaussian, and</p>\n<p style=\"text-align:center\">$k(x,y)=\\mathbb{E}_{\\omega\\sim p}\\big[\\cos(\\omega^\\top(x-y))\\big]\\approx\\frac1D\\sum_{r=1}^{D} z_{\\omega_r}(x)\\,z_{\\omega_r}(y),\\quad z_\\omega(x)=\\sqrt2\\cos(\\omega^\\top x+b).$</p>\n<p>Sampling $D$ frequencies gives an explicit, finite, $D$-dimensional feature map whose inner product is an unbiased estimate of $k$, converging as $D\\to\\infty$ at rate $O(1/\\sqrt D)$. This is how kernel methods scale to millions of points: approximate the infinite feature map by a random finite one.</p>\n\n<div class=\"note\"><strong>Worked mini-example.</strong> The eigenvalues of the RBF integral operator under a Gaussian input density decay <em>geometrically</em>, $\\lambda_j\\propto r^{j}$ with $r < 1$. Truncating after a handful of terms reconstructs $k$ to high accuracy — quantifying the \"effectively low-dimensional\" intuition. Random Fourier features reach the same accuracy by Monte Carlo instead of eigen-decomposition.</div>\n\n<p>Slide the number of random features $D$ and watch the approximation $\\frac1D\\sum_r z_{\\omega_r}(x)z_{\\omega_r}(0)$ converge to the true RBF kernel $k(x,0)$.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "parametric-plot",
+          "params": {
+            "interaction": "single-mode",
+            "widgetId": "w-mercer",
+            "svgId": "mercer-svg",
+            "outputId": "mercer-out",
+            "title": "Random Fourier features converging to the RBF",
+            "hint": "raise D — the random-feature kernel approaches the true RBF",
+            "viewBox": "0 0 640 300",
+            "svgWidth": 640,
+            "svgHeight": 300,
+            "svgTitle": "Random Fourier feature approximation of the RBF kernel as the number of features grows",
+            "outputInitial": "",
+            "sliders": [
+              {
+                "id": "mercer-D",
+                "outId": "mercer-D-lbl",
+                "label": "random features $D$:",
+                "min": 1,
+                "max": 400,
+                "step": 1,
+                "init": 10
+              },
+              {
+                "id": "mercer-sig",
+                "outId": "mercer-sig-lbl",
+                "label": "bandwidth $\\sigma$:",
+                "min": 0.3,
+                "max": 2,
+                "step": 0.1,
+                "init": 1
+              }
+            ],
+            "buttons": [
+              {
+                "id": "mercer-resample",
+                "label": "resample frequencies"
+              }
+            ],
+            "bodyScript": "  const svg=$('#mercer-svg'), out=$('#mercer-out'), DSl=$('#mercer-D'), DL=$('#mercer-D-lbl'), sig=$('#mercer-sig'), sigL=$('#mercer-sig-lbl'), resample=$('#mercer-resample');\n  const W=640,H=300,padL=48,padR=20,padT=22,padB=42;\n  const x0=padL,x1=W-padR,y0=H-padB,y1=padT;\n  const xmin=-3,xmax=3;\n  // For RBF exp(-r^2/(2σ^2)) the spectral density is N(0, 1/σ^2). Sample many; use first D.\n  let freqs=[], phases=[];\n  function gauss(){ let u=0,v=0; while(u===0)u=Math.random(); while(v===0)v=Math.random(); return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v); }\n  function resampleFreqs(){ freqs=[]; phases=[]; for(let i=0;i<400;i++){ freqs.push(gauss()/(+sig.value)); phases.push(Math.random()*2*Math.PI); } }\n  function trueK(x){ const s=+sig.value; return Math.exp(-(x*x)/(2*s*s)); } // k(x,0)\n  function approxK(x,D){ // (1/D) Σ z(x) z(0),  z=√2 cos(ω·x+b)\n    let s=0; for(let r=0;r<D;r++){ const zx=Math.SQRT2*Math.cos(freqs[r]*x+phases[r]); const z0=Math.SQRT2*Math.cos(freqs[r]*0+phases[r]); s+=zx*z0; } return s/D;\n  }\n  const SX=x=>x0+(x-xmin)/(xmax-xmin)*(x1-x0);\n  const SY=v=>y0+(v-(-0.6))/(1.8)*(y1-y0); // range [-0.6, 1.2]\n  function render(){\n    svg.innerHTML='';\n    const D=+DSl.value;\n    DL.textContent='D = '+D;\n    sigL.textContent='σ = '+(+sig.value).toFixed(1);\n    // frame\n    svg.appendChild(SVG('line',{x1:x0,y1:SY(0),x2:x1,y2:SY(0),stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x0,y2:y1,stroke:'var(--line)'}));\n    // true RBF\n    let dt='M'; for(let i=0;i<=200;i++){ const x=xmin+(xmax-xmin)*i/200; dt+=' '+SX(x).toFixed(1)+' '+SY(trueK(x)).toFixed(1); }\n    svg.appendChild(SVG('path',{d:dt,fill:'none',stroke:'var(--cyan)','stroke-width':2.6}));\n    // approximation\n    let da='M', err=0, cnt=0; for(let i=0;i<=200;i++){ const x=xmin+(xmax-xmin)*i/200; const a=approxK(x,D); da+=' '+SX(x).toFixed(1)+' '+SY(a).toFixed(1); err+=(a-trueK(x))*(a-trueK(x)); cnt++; }\n    svg.appendChild(SVG('path',{d:da,fill:'none',stroke:'var(--yellow)','stroke-width':1.8,opacity:0.95}));\n    // legend\n    function leg(x,y,c,t){ svg.appendChild(SVG('line',{x1:x,y1:y,x2:x+20,y2:y,stroke:c,'stroke-width':2.4})); const tt=SVG('text',{x:x+26,y:y+4,'font-size':11,fill:'var(--mute)'}); tt.textContent=t; svg.appendChild(tt); }\n    leg(x1-200,y1+6,'var(--cyan)','true RBF k(x,0)'); leg(x1-200,y1+22,'var(--yellow)','random-feature approx (D='+D+')');\n    const cap=SVG('text',{x:(x0+x1)/2,y:H-8,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}); cap.textContent='x   (second argument fixed at 0)'; svg.appendChild(cap);\n    const rmse=Math.sqrt(err/cnt);\n    out.textContent =\n      'D = '+D+' random Fourier features,  σ = '+(+sig.value).toFixed(1)+'\\n'+\n      'k(x,0) ≈ (1/D) Σ_r √2 cos(ωᵣx+bᵣ)·√2 cos(bᵣ),   ωᵣ ~ N(0, 1/σ²)  (Bochner)\\n'+\n      'RMS error vs. true RBF over x∈[−3,3]: '+rmse.toFixed(4)+'\\n'+\n      (D<8 ? 'few features: noisy approximation' : (D>120 ? 'many features: tight — error decays like 1/√D' : 'converging toward the true kernel as D grows'));\n  }\n  DSl.addEventListener('input',render);\n  sig.addEventListener('input',()=>{ resampleFreqs(); render(); });\n  resample.addEventListener('click',()=>{ resampleFreqs(); render(); });\n  resampleFreqs(); render();"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-mercer"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./functional-analysis.html#spectral\">Spectral theorem viewpoint</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "quiz",
+          "concept": "km-mercer",
+          "html": "<div class=\"quiz\" data-concept=\"km-mercer\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n\n\n\n<!-- ═══════════════════════════════════════════════════════════════════\n     Connections outro — pedagogy reviewer's templated closure pattern.\n═══════════════════════════════════════════════════════════════════ -->\n"
+        }
+      ]
+    },
+    {
+      "id": "connections",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"connections\">\n<h2>Connections</h2>\n\n<p>Kernels are the bridge from the linear theory to its nonlinear, infinite-dimensional cousin — and yet the same RKHS view that explains classical kernel machines is now central to deep-learning theory: the <em>neural tangent kernel</em> shows that infinitely wide networks train as kernel regression, so the representer theorem and these generalization bounds resurface where you least expect them. Open frontiers include learning the kernel itself (multiple-kernel learning, deep kernels), scaling exact GP inference past the $O(n^3)$ cost of $(K+\\sigma^2 I)^{-1}$, and understanding when the random-feature approximation suffices.</p>\n\n<ul>\n<li><a href=\"./statistical-learning-theory.html#erm\">Statistical learning theory — empirical risk minimization</a> — kernel methods are regularized ERM in an RKHS; the margin and Rademacher bounds there are exactly what makes large-margin SVMs generalize.</li>\n<li><a href=\"./functional-analysis.html#riesz\">Functional analysis — Riesz representation</a> — boundedness of evaluation plus Riesz is what conjures the reproducing representer $k(x,\\cdot)$ in the first place.</li>\n<li><a href=\"./functional-analysis.html#spectral\">Functional analysis — the spectral theorem</a> — Mercer's expansion is the spectral decomposition of the kernel integral operator, supplying the explicit feature map.</li>\n<li><a href=\"./convex-optimization.html#lagrangian-duality\">Convex optimization — Lagrangian duality</a> — the SVM dual QP and its support-vector sparsity come straight from KKT and complementary slackness.</li>\n<li><a href=\"./probability-theory.html#clt\">Probability theory — the Gaussian</a> — a Gaussian process is the function-space lift of the multivariate normal, with the kernel as covariance.</li>\n</ul>\n\n<p class=\"small\">Forward to come: deep-learning theory (the neural tangent kernel and what replaces <a href=\"./real-analysis.html#uniform-convergence\" data-auto-inline-link=\"1\" data-concept-id=\"uniform-convergence\" data-blurb=\"Uniform vs pointwise convergence of function sequences, Weierstrass M-test, and why uniform limits preserve continuity and integrability.\">uniform convergence</a>) and scalable inference (inducing-point and random-feature approximations) build directly on this RKHS foundation.</p>\n</section>\n\n"
+        }
+      ]
+    }
+  ],
+  "rawBodySuffix": "</main>\n\n<script>\n(function(){\n  function start(){ if(window.MVQuiz) MVQuiz.init('kernel-methods-and-rkhs'); }\n  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);\n  else start();\n})();\n</script>\n<details class=\"changelog\">\n  <summary>changelog</summary>\n  <table>\n    <tbody>\n      <tr><td>2026-05-22</td><td>initial version</td></tr>\n    </tbody>\n  </table>\n</details>\n\n</body>\n</html>\n"
+}

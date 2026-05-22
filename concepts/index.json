@@ -33,11 +33,11 @@
     "ramsey-theory",
     "order-theory-and-lattices",
 
-
-
     "game-theory",
 
 
+
+    "kernel-methods-and-rkhs",
 
     "several-complex-variables",
     "khovanov-homology",
@@ -428,6 +428,7 @@
     "computational-molecular-biology": "advanced",
     "kalman-filtering-and-state-estimation": "advanced",
     "statistical-learning-theory": "advanced",
+    "kernel-methods-and-rkhs": "advanced",
     "markov-decision-processes": "standard",
     "game-theory": "standard"
   }

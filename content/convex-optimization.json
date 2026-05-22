@@ -156,7 +156,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./convex-optimization.html#conic-sdp\">Convex optimization</a> · Conic programming: LP, QP, SOCP, SDP</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./convex-optimization.html#conic-sdp\">Convex optimization</a> · Conic programming: LP, QP, SOCP, SDP</div>\n    <div><a href=\"./kernel-methods-and-rkhs.html#svm\">Kernel methods and RKHS</a> · Support vector machines</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "quiz",

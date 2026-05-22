@@ -122,7 +122,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./advanced-complex-analysis.html#bergman\">Advanced complex analysis</a> · Bergman kernels</div>\n    <div><a href=\"./condensed-mathematics.html#liquid\">Condensed mathematics</a> · Liquid $\\mathbb{R}$-vector spaces</div>\n    <div><a href=\"./convex-optimization.html#convex-sets-functions\">Convex optimization</a> · Convex sets, functions, and the Legendre–Fenchel transform</div>\n    <div><a href=\"./fixed-point-theorems.html#schauder\">Fixed-point theorems</a> · Schauder fixed-point theorem</div>\n    <div><a href=\"./functional-analysis.html#opnorm\">Functional analysis</a> · Bounded linear operators and the operator norm</div>\n    <div><a href=\"./functional-analysis.html#bounded\">Functional analysis</a> · Bounded operators and adjoints</div>\n    <div class=\"more\">… and 13 more.</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./advanced-complex-analysis.html#bergman\">Advanced complex analysis</a> · Bergman kernels</div>\n    <div><a href=\"./condensed-mathematics.html#liquid\">Condensed mathematics</a> · Liquid $\\mathbb{R}$-vector spaces</div>\n    <div><a href=\"./convex-optimization.html#convex-sets-functions\">Convex optimization</a> · Convex sets, functions, and the Legendre–Fenchel transform</div>\n    <div><a href=\"./fixed-point-theorems.html#schauder\">Fixed-point theorems</a> · Schauder fixed-point theorem</div>\n    <div><a href=\"./functional-analysis.html#opnorm\">Functional analysis</a> · Bounded linear operators and the operator norm</div>\n    <div><a href=\"./functional-analysis.html#bounded\">Functional analysis</a> · Bounded operators and adjoints</div>\n    <div class=\"more\">… and 14 more.</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -513,7 +513,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./functional-analysis.html#spec-class\">Functional analysis</a> · Spectrum classification: point, continuous, residual</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./functional-analysis.html#spec-class\">Functional analysis</a> · Spectrum classification: point, continuous, residual</div>\n    <div><a href=\"./kernel-methods-and-rkhs.html#mercer\">Kernel methods and RKHS</a> · Mercer's theorem &amp; feature maps</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -661,7 +661,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./functional-analysis.html#adjoint\">Functional analysis</a> · Adjoint operator on Hilbert space</div>\n    <div><a href=\"./functional-analysis.html#reflexivity\">Functional analysis</a> · Reflexivity</div>\n    <div><a href=\"./operator-algebras.html#states\">Operator algebras</a> · States and pure states</div>\n    <div><a href=\"./partial-differential-equations.html#regularity\">Partial differential equations</a> · Lax–Milgram, elliptic regularity, embedding</div>\n    <div><a href=\"./sobolev-spaces-distributions.html#variational\">Sobolev spaces &amp; distributions</a> · Variational Poisson problem &amp; Lax–Milgram</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./functional-analysis.html#adjoint\">Functional analysis</a> · Adjoint operator on Hilbert space</div>\n    <div><a href=\"./functional-analysis.html#reflexivity\">Functional analysis</a> · Reflexivity</div>\n    <div><a href=\"./kernel-methods-and-rkhs.html#rkhs\">Kernel methods and RKHS</a> · Reproducing kernel Hilbert spaces</div>\n    <div><a href=\"./operator-algebras.html#states\">Operator algebras</a> · States and pure states</div>\n    <div><a href=\"./partial-differential-equations.html#regularity\">Partial differential equations</a> · Lax–Milgram, elliptic regularity, embedding</div>\n    <div><a href=\"./sobolev-spaces-distributions.html#variational\">Sobolev spaces &amp; distributions</a> · Variational Poisson problem &amp; Lax–Milgram</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

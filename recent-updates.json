@@ -1,5 +1,5 @@
 {
-  "generated": "2026-05-22T09:12:42.213Z",
+  "generated": "2026-05-22T09:56:23.079Z",
   "entries": [
     {
       "slug": "game-theory",
@@ -7,7 +7,15 @@
       "color": "p",
       "tag": "",
       "date": "2026-05-22",
-      "message": "feat: game-theory — Wave 2 (Control / decision-making)"
+      "message": "feat: game-theory — Wave 2 (Control / decision-making) (#254)"
+    },
+    {
+      "slug": "kernel-methods-and-rkhs",
+      "title": "Kernel methods and RKHS",
+      "color": "b",
+      "tag": "",
+      "date": "2026-05-22",
+      "message": "feat: kernel-methods-and-rkhs — Wave 2 (Learning theory)"
     },
     {
       "slug": "markov-decision-processes",
