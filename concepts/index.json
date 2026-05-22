@@ -39,6 +39,7 @@
 
     "kernel-methods-and-rkhs",
     "reinforcement-learning",
+    "pomdps-and-belief-states",
 
     "probabilistic-graphical-models",
 
@@ -437,6 +438,7 @@
     "probabilistic-graphical-models": "advanced",
     "markov-decision-processes": "standard",
     "game-theory": "standard",
-    "reinforcement-learning": "standard"
+    "reinforcement-learning": "standard",
+    "pomdps-and-belief-states": "standard"
   }
 }

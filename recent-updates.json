@@ -1,5 +1,5 @@
 {
-  "generated": "2026-05-22T12:37:11.572Z",
+  "generated": "2026-05-22T13:05:40.857Z",
   "entries": [
     {
       "slug": "algebraic-combinatorics",
@@ -47,7 +47,7 @@
       "color": "v",
       "tag": "",
       "date": "2026-05-22",
-      "message": "feat: polytopes-and-ehrhart — Wave 3 (Combinatorics)"
+      "message": "feat: polytopes-and-ehrhart — Wave 3 (Combinatorics) (#259)"
     },
     {
       "slug": "probabilistic-graphical-models",

@@ -292,7 +292,8 @@
         "kalman-filtering-and-state-estimation",
         "markov-decision-processes",
         "game-theory",
-        "reinforcement-learning"
+        "reinforcement-learning",
+        "pomdps-and-belief-states"
       ],
       "color": "p"
     },
