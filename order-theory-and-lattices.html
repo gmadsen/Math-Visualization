@@ -278,7 +278,7 @@ function drawNode(svg, x, y, label, opts={}){
 <h3>Chains, antichains, height and width</h3>
 <p>A <strong>chain</strong> is a subset that is totally ordered (every two of its elements are comparable); an <strong>antichain</strong> is a subset of pairwise <em>incomparable</em> elements. The <strong>height</strong> of a finite poset is the size of its longest chain; the <strong>width</strong> is the size of its largest antichain. These two numbers are the protagonists of Dilworth and Mirsky in §3.</p>
 
-<div class="note"><strong>Worked mini-example.</strong> The divisor lattice of $30$ — divisors $\{1,2,3,5,6,10,15,30\}$ under divisibility — is isomorphic to the Boolean lattice $B_3$ of subsets of $\{2,3,5\}$ (send each divisor to its set of prime factors). A chain is $1 \mid 2 \mid 6 \mid 30$ (length $4$ = height); an antichain is $\{6,10,15\}$, the three elements with two prime factors (width $3 = \binom{3}{1}$ at the middle... in fact $\binom{3}{1}=3$ at each non-extreme level, and the widest level here has size $3$).</div>
+<div class="note"><strong>Worked mini-example.</strong> The divisor lattice of $30$ — divisors $\{1,2,3,5,6,10,15,30\}$ under divisibility — is isomorphic to the Boolean lattice $B_3$ of subsets of $\{2,3,5\}$ (send each divisor to its set of prime factors). A chain is $1 \mid 2 \mid 6 \mid 30$ (length $4$ = height); an antichain is $\{6,10,15\}$ — the three two-prime-factor divisors, matching the $\binom{3}{2}=3$ size-$2$ subsets of $B_3$. The two middle layers (sizes $\binom{3}{1}=\binom{3}{2}=3$) are the widest, so the width is $3$.</div>
 
 <p>Click any two nodes in the divisor lattice of $30$ below: the widget reports whether they are comparable, highlights a maximal chain through a clicked element, or highlights the largest antichain. The height and width readouts update live.</p>
 
@@ -755,38 +755,41 @@ function drawNode(svg, x, y, label, opts={}){
   const mSl=$('#completeness-m'), mL=$('#completeness-m-lbl'), stepBtn=$('#completeness-step'), resetBtn=$('#completeness-reset');
   const W=600,H=300;
   let m=+mSl.value;
-  // monotone f on {0..m}: f(k)=min(m, floor((k+m+2)/2)) is non-decreasing; lfp where f(k)=k
-  function f(k){ return Math.min(m, Math.floor((k + m + 2)/2)); }
+  // f clamps k into [a,b]; monotone (non-decreasing). Every k in [a,b] is a fixed
+  // point, so the fixed-point set is the interval [a,b] — itself a complete
+  // sublattice with least element a and greatest element b (Knaster-Tarski).
+  function bounds(mm){ return { a: Math.max(1, Math.floor(mm/3)), b: Math.min(mm-1, Math.ceil(2*mm/3)) }; }
+  function f(k){ const bb=bounds(m); return Math.max(bb.a, Math.min(bb.b, k)); }
   let cur=0, history=[0], done=false;
   function reset(){ m=+mSl.value; cur=0; history=[0]; done=false; }
-  function step(){ if(done) return; const nx=f(cur); if(nx===cur){ done=true; return; } cur=nx; history.push(cur); if(cur>=m) done=true; }
-  function lfp(){ let k=0; for(let i=0;i<=m+1;i++){ const nx=f(k); if(nx===k) return k; k=nx; } return k; }
+  function step(){ if(done) return; const nx=f(cur); if(nx===cur){ done=true; return; } cur=nx; history.push(cur); if(cur===f(cur)) done=true; }
   function render(){
     m=+mSl.value; mL.textContent='m = '+m;
     if(history.some(h=>h>m)) reset();
     svg.innerHTML='';
-    const pad=60, span=W-2*pad, n=m+1;
-    const y=150; const fixed=lfp();
-    // draw the chain 0..m as nodes left->right (also = bottom..top)
+    const bb=bounds(m), a=bb.a, b=bb.b;
+    const pad=60, span=W-2*pad; const y=150;
     for(let k=0;k<=m;k++){ const x=pad+span*k/Math.max(m,1);
+      const isFixed=(k>=a && k<=b);
       let stroke='var(--violet)', fill='var(--panel2)';
+      if(isFixed) stroke='var(--green)';
       if(k===cur){ stroke='var(--yellow)'; fill='var(--panel)'; }
-      else if(history.includes(k)){ stroke='var(--cyan)'; }
-      if(k===fixed){ fill='var(--panel)'; }
+      else if(history.includes(k)) stroke='var(--cyan)';
       drawNode(svg,x,y,k,{r:15,fill,stroke,fontSize:12});
-      // f(k) arrow above
-      const fk=f(k); const x2=pad+span*fk/Math.max(m,1);
+      const fk=f(k), x2=pad+span*fk/Math.max(m,1);
       if(fk!==k) drawArrow(svg,[x,y-18],[x2,y-18],{color:'var(--mute)',curve:18,markerId:'cmp-arr',width:1});
     }
-    // mark the lfp
-    const xf=pad+span*fixed/Math.max(m,1); svg.appendChild(SVG('circle',{cx:xf,cy:y,r:22,fill:'none',stroke:'var(--green)','stroke-width':2.5,'stroke-dasharray':'4 3'}));
-    const cap=SVG('text',{x:20,y:28,'font-size':12,fill:'var(--mute)'}); cap.textContent='chain lattice {0,…,'+m+'}    arrows show f(k)    green ring = least fixed point    yellow = current iterate'; svg.appendChild(cap);
-    const lab=SVG('text',{x:xf,y:y+44,'text-anchor':'middle','font-size':12,fill:'var(--green)'}); lab.textContent='lfp = '+fixed; svg.appendChild(lab);
+    const xa=pad+span*a/Math.max(m,1), xb=pad+span*b/Math.max(m,1);
+    svg.appendChild(SVG('circle',{cx:xa,cy:y,r:22,fill:'none',stroke:'var(--green)','stroke-width':2.5}));
+    svg.appendChild(SVG('circle',{cx:xb,cy:y,r:22,fill:'none',stroke:'var(--green)','stroke-width':2.5,'stroke-dasharray':'4 3'}));
+    const cap=SVG('text',{x:20,y:28,'font-size':12,fill:'var(--mute)'}); cap.textContent='chain lattice {0,...,'+m+'}   arrows show f(k)   green = fixed points   solid ring = lfp, dashed = gfp'; svg.appendChild(cap);
+    const la=SVG('text',{x:xa,y:y+44,'text-anchor':'middle','font-size':12,fill:'var(--green)'}); la.textContent='lfp = '+a; svg.appendChild(la);
+    const lb=SVG('text',{x:xb,y:y+44,'text-anchor':'middle','font-size':12,fill:'var(--green)'}); lb.textContent='gfp = '+b; svg.appendChild(lb);
     out.textContent =
-      'monotone map f on the complete lattice {0,…,'+m+'},  f(k) = min('+m+', ⌊(k+'+m+'+2)/2⌋)\n'+
-      'iterating from ⊥ = 0:  '+history.join(' → ')+(done?'  (stabilized)':'  (press step)')+'\n'+
-      'least fixed point = ⋀{x : f(x) ≤ x} = '+fixed+'   (Knaster–Tarski; reached from below by Kleene iteration)\n'+
-      'monotonicity alone — no metric, no contraction — guarantees this fixed point exists.';
+      'monotone map f on the complete lattice {0,...,'+m+'}:  f(k) = clamp(k, '+a+', '+b+')\n'+
+      'iterating from the bottom 0:  '+history.join(' -> ')+(done?'  (stabilized at the lfp)':'  (press step)')+'\n'+
+      'fixed points = the whole interval ['+a+', '+b+'] — a sublattice with least '+a+' (lfp, reached from the bottom) and greatest '+b+' (gfp, reached from the top '+m+')\n'+
+      'Knaster-Tarski: monotonicity alone — no metric, no contraction — makes the fixed-point set a nonempty complete lattice.';
   }
   mSl.addEventListener('input',()=>{ reset(); render(); });
   stepBtn.addEventListener('click',()=>{ step(); render(); });

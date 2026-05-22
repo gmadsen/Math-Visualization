@@ -29,7 +29,7 @@
             "$3$",
             "$6$"
           ],
-          "answer": 2,
+          "answer": 1,
           "explain": "The divisors are $1,2,3,4,6,12$. Dropping the global bottom $1$ and top $12$ leaves $\\{2,3,4,6\\}$. The pairwise-incomparable sets are $\\{2,3\\}$, $\\{3,4\\}$, and $\\{4,6\\}$ — each of size $2$. None grows to three elements, since $2 \\mid 4$, $2 \\mid 6$, and $3 \\mid 6$ each create a comparability. So the width is $2$."
         },
         {

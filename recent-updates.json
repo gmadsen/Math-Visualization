@@ -1,5 +1,5 @@
 {
-  "generated": "2026-05-22T08:15:29.613Z",
+  "generated": "2026-05-22T08:28:17.509Z",
   "entries": [
     {
       "slug": "markov-decision-processes",
@@ -8,6 +8,14 @@
       "tag": "",
       "date": "2026-05-22",
       "message": "feat: markov-decision-processes — Control decision-making floor (#251)"
+    },
+    {
+      "slug": "order-theory-and-lattices",
+      "title": "Order theory and lattices",
+      "color": "v",
+      "tag": "",
+      "date": "2026-05-22",
+      "message": "feat: order-theory-and-lattices — Wave 2 (Combinatorics)"
     },
     {
       "slug": "ramsey-theory",
