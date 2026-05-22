@@ -1,5 +1,5 @@
 {
-  "generated": "2026-05-22T06:52:32.589Z",
+  "generated": "2026-05-22T07:05:07.432Z",
   "entries": [
     {
       "slug": "graph-theory-fundamentals",
@@ -8,6 +8,14 @@
       "tag": "",
       "date": "2026-05-21",
       "message": "feat: graph-theory-fundamentals — Combinatorics section floor (#250)"
+    },
+    {
+      "slug": "markov-decision-processes",
+      "title": "Markov decision processes",
+      "color": "p",
+      "tag": "",
+      "date": "2026-05-21",
+      "message": "feat: markov-decision-processes — Control section decision-making floor (Wave 1)"
     },
     {
       "slug": "statistical-learning-theory",
