@@ -33,7 +33,6 @@ A 16-topic program agreed with the user to flesh out the thinnest sections (Comb
 
 ### Combinatorics & graph theory — build the missing foundation layer
 
-- `ramsey-theory` — finite/infinite Ramsey, Van der Waerden, Hales–Jewett (charter-listed in AGENTS.md §10 but was absent)
 - `algebraic-combinatorics` — symmetric functions, Young tableaux, RSK, Schur
 - `order-theory-and-lattices` — posets, Möbius inversion, Dilworth, Sperner
 - `polytopes-and-ehrhart` — Ehrhart polynomials, lattice points, face lattices (the polyhedral-combinatorics side already lives in `combinatorial-optimization`)
@@ -49,7 +48,7 @@ Already covered, do **not** duplicate: LP/simplex/duality/network-flows/matching
 ### Sequencing
 
 - **Wave 1 (floors): ✅ complete** — `statistical-learning-theory` #249, `graph-theory-fundamentals` #250, `markov-decision-processes` #251.
-- **Wave 2 (build up):** `ramsey-theory`, `order-theory-and-lattices`, `game-theory`, `kernel-methods-and-rkhs`, `reinforcement-learning`, `probabilistic-graphical-models`
+- **Wave 2 (build up):** `order-theory-and-lattices`, `game-theory`, `kernel-methods-and-rkhs`, `reinforcement-learning`, `probabilistic-graphical-models`
 - **Wave 3 (integrative):** `algebraic-combinatorics`, `polytopes-and-ehrhart`, `pomdps-and-belief-states`, `deep-learning-theory`, `information-geometry`, `diffusion-and-score-based-models`, `causal-inference`
 
 ### Follow-on (don't block the above)
