@@ -306,7 +306,8 @@
         "kernel-methods-and-rkhs",
         "probabilistic-graphical-models",
         "deep-learning-theory",
-        "information-geometry"
+        "information-geometry",
+        "diffusion-and-score-based-models"
       ],
       "color": "b"
     }

@@ -1,0 +1,426 @@
+{
+  "topic": "diffusion-and-score-based-models",
+  "rawHead": "<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\" />\n<meta name=\"viewport\" content=\"width=device-width,initial-scale=1\" />\n<title>Diffusion and score based models</title>\n<link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css\">\n<script defer src=\"https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js\"></script>\n<script defer src=\"https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js\"></script>\n<script>\n(function(){\n  function renderAll(){\n    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }\n    renderMathInElement(document.body,{\n      delimiters:[\n        {left:'$$',right:'$$',display:true},\n        {left:'$',right:'$',display:false},\n        {left:'\\\\(',right:'\\\\)',display:false},\n        {left:'\\\\[',right:'\\\\]',display:true}\n      ],\n      throwOnError:false,\n      strict:(c)=>c==='unicodeTextInMathMode'?'ignore':'warn',\n      macros:{\n        '\\\\Spec':'\\\\operatorname{Spec}',\n        '\\\\Gal':'\\\\operatorname{Gal}',\n        '\\\\Hom':'\\\\operatorname{Hom}',\n        '\\\\tr':'\\\\operatorname{tr}',\n        '\\\\ad':'\\\\operatorname{ad}',\n        '\\\\ind':'\\\\operatorname{ind}'\n      }\n    });\n  }\n  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);\n  else renderAll();\n})();\n</script>\n<style>\n  :root{\n    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;\n    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;\n    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;\n    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;\n  }\n  *{box-sizing:border-box}\n  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);\n    font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",Inter,Roboto,sans-serif;\n    font-size:17px;line-height:1.65}\n  a{color:var(--blue)}\n  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;\n    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}\n  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}\n  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}\n  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}\n  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}\n  p{margin:0.7rem 0}\n  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}\n  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;\n    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}\n  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}\n  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}\n  .widget .hd .hint{color:var(--mute);font-size:.85rem}\n  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}\n  .row label{color:var(--mute);font-size:.88rem}\n  input[type=\"text\"],input[type=\"number\"],select{\n    background:#0b0f16;color:var(--ink);border:1px solid var(--line);\n    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}\n  input[type=\"range\"]{accent-color:var(--yellow);flex:1;max-width:260px}\n  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);\n    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}\n  button:hover{background:#242c3e}\n  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}\n  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;\n    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;\n    min-height:1.6em;white-space:pre-wrap;word-break:break-word}\n  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);\n    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}\n  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;\n    margin:1rem 0;border-radius:0 6px 6px 0}\n  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;\n    margin:1rem 0;border-radius:0 6px 6px 0}\n  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;\n    margin:1rem 0;border-radius:0 6px 6px 0}\n  svg{display:block;margin:0 auto;max-width:100%}\n  svg text{fill:var(--ink);font-family:inherit}\n  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);\n    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;\n    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}\n  nav.toc a{color:var(--mute);text-decoration:none}\n  nav.toc a:hover{color:var(--yellow)}\n  /* sticky sidebar TOC (wide screens only; narrow screens fall back to top-nav) */\n  aside.sidetoc{position:fixed;top:4.2rem;\n    left:max(1rem, calc(50% - 440px - 220px));\n    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;\n    padding-right:1rem;border-right:1px solid var(--line);\n    font-size:.88rem;z-index:5}\n  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;\n    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}\n  aside.sidetoc ol{list-style:none;padding:0;margin:0}\n  aside.sidetoc li{margin:0}\n  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;\n    border-left:2px solid transparent;line-height:1.35;\n    transition:color 120ms ease, border-color 120ms ease}\n  aside.sidetoc a:hover{color:var(--ink)}\n  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}\n  @media (max-width:1180px){ aside.sidetoc{display:none} }\n  @media (min-width:1181px){ nav.toc a[href^=\"#\"]{display:none} }\n  .hero{padding:3rem 0 1rem}\n  .small{font-size:.88rem;color:var(--mute)}\n  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}\n  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}\n  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}\n  table.plain th{color:var(--mute);font-weight:500}\n  /* callback-css-auto-begin */\n  aside.callback{\n    margin:1.2rem 0;padding:.7rem 1rem;\n    background:rgba(88,196,221,0.05);\n    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);\n    border-radius:0 6px 6px 0;\n    font-size:.93rem;\n  }\n  aside.callback .ttl{\n    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;\n    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;\n  }\n  aside.callback ul{margin:0;padding-left:1.1rem}\n  aside.callback ul li{margin:.15rem 0}\n  aside.callback a{color:inherit}\n/* callback-css-auto-end */\n  details.changelog{\n    margin:2rem 0 1rem;padding:.6rem .9rem;\n    background:rgba(0,0,0,0.22);\n    border-radius:6px;\n    font-size:.85rem;\n  }\n  details.changelog summary{\n    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;\n    font-size:.7rem;color:var(--mute,#8c9aa6);\n  }\n  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}\n  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}\n  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}\n  aside.related{\n    margin:1.2rem 0;padding:.7rem 1rem;\n    background:color-mix(in srgb, var(--mute) 6%, transparent);\n    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);\n    border-radius:0 6px 6px 0;\n    font-size:.93rem;\n  }\n  aside.related .ttl{\n    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;\n    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;\n  }\n  aside.related > div{margin:.15rem 0}\n  aside.related .more{color:var(--mute);font-style:italic}\n  aside.related a{color:inherit}\n  /* display-prefs-css-auto-begin */\n  html[data-hide-widgets] .widget { display: none !important; }\n  html[data-hide-quizzes] .quiz { display: none !important; }\n  html[data-hide-lineage] .lineage-strip { display: none !important; }\n  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }\n  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }\n  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }\n  .mv-display-toggle--off { opacity: 0.35; }\n  /* display-prefs-css-auto-end */\n</style>\n<!-- breadcrumb-head-auto-begin -->\n<script src=\"./js/section-map.js\"></script>\n<script src=\"./js/breadcrumb.js\"></script>\n<script src=\"./js/glossary-popover.js\" defer></script>\n<link rel=\"stylesheet\" media=\"print\" href=\"./css/print.css\">\n<link rel=\"stylesheet\" href=\"./css/theme-light.css\">\n<script src=\"./js/theme-toggle.js\"></script>\n<script src=\"./concepts/bundle.js\" defer></script>\n<script src=\"./js/topic-hotkeys.js\" defer></script>\n<script src=\"./js/topic-lineage.js\" defer></script>\n<!-- breadcrumb-head-auto-end -->\n<script src=\"./js/progress.js\"></script>\n<script src=\"./js/quiz.js\"></script>\n<script src=\"./js/katex-select.js\"></script>\n<script src=\"./js/widget-diagram-editor.js\"></script>\n<script src=\"./quizzes/bundle.js\"></script>\n<script src=\"./js/sidetoc.js\"></script>\n<!-- display-prefs-head-auto-begin -->\n<script src=\"./js/display-prefs.js\"></script>\n<!-- display-prefs-head-auto-end -->\n</head>\n",
+  "rawBodyPrefix": "<body data-section=\"learning-theory-and-data-science\" data-level=\"advanced\">\n<script>\nconst $ = (s,r=document)=>r.querySelector(s);\nconst $$ = (s,r=document)=>[...r.querySelectorAll(s)];\nconst SVG = (tag,attrs={})=>{\n  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);\n  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);\n  return e;\n};\n// draw an arrow marker def once per svg (idempotent)\nfunction ensureArrow(svg, id, color){\n  let defs = svg.querySelector('defs');\n  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }\n  if(defs.querySelector('#'+id)) return;\n  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});\n  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));\n  defs.appendChild(mk);\n}\n// curved arrow between two pixel points, with optional label\nfunction drawArrow(svg, p1, p2, opts={}){\n  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;\n  ensureArrow(svg, markerId, color);\n  const [x1,y1]=p1, [x2,y2]=p2;\n  const dx=x2-x1, dy=y2-y1;\n  const L = Math.hypot(dx,dy) || 1;\n  const ux=dx/L, uy=dy/L;\n  // shorten endpoints\n  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;\n  const ax=x1+ux*pad1, ay=y1+uy*pad1;\n  const bx=x2-ux*pad2, by=y2-uy*pad2;\n  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;\n  const path = SVG('path',{\n    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,\n    fill:'none', stroke:color, 'stroke-width':width,\n    'marker-end':`url(#${markerId})`\n  });\n  if(dash) path.setAttribute('stroke-dasharray', dash);\n  svg.appendChild(path);\n  if(label){\n    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,\n      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});\n    t.textContent = label;\n    svg.appendChild(t);\n  }\n  return path;\n}\nfunction drawNode(svg, x, y, label, opts={}){\n  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;\n  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));\n  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});\n  t.textContent = label;\n  svg.appendChild(t);\n}\n</script>\n\n<nav class=\"toc\"><a href=\"./index.html\" style=\"color:var(--violet);font-weight:500\">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class=\"breadcrumb\"></div><span class=\"nav-links\"><a class=\"nav-link\" href=\"./pathway.html\">Pathway</a><a class=\"nav-link\" href=\"./tours.html\">Tours</a><a class=\"nav-link\" href=\"./history.html\">History</a><a class=\"nav-link\" href=\"./tags.html\">Themes</a><a class=\"nav-link\" href=\"./mindmap.html\">Mindmap</a><a class=\"nav-link\" href=\"./search.html\">Search</a></span><span class=\"mv-theme-slot\"></span><!-- breadcrumb-nav-auto-end -->\n<!-- toc-auto-begin -->\n  <a href=\"#score\">1&nbsp;The&nbsp;score&nbsp;function</a>\n  <a href=\"#langevin\">2&nbsp;Langevin&nbsp;dynamics</a>\n  <a href=\"#forward\">3&nbsp;The&nbsp;forward&nbsp;noising&nbsp;process</a>\n  <a href=\"#reverse\">4&nbsp;The&nbsp;reverse-time&nbsp;SDE</a>\n  <a href=\"#score-matching\">5&nbsp;Training:&nbsp;denoising&nbsp;score&nbsp;matching</a>\n  <a href=\"#probability-flow\">6&nbsp;The&nbsp;probability-flow&nbsp;ODE</a>\n  <a href=\"#connections\">7&nbsp;Connections</a>\n<!-- toc-auto-end -->\n</nav>\n<!-- lineage-mount-auto-begin --><div id=\"mv-lineage-mount\" class=\"lineage-strip\" hidden></div><!-- lineage-mount-auto-end -->\n\n<aside class=\"sidetoc\" aria-label=\"Table of contents\"></aside>\n\n<main>\n\n<section class=\"hero\">\n  <h1>Diffusion and score-based models</h1>\n  <p class=\"sub\">Modern generative diffusion turns sampling into geometry: a fixed process noises data into a Gaussian, and running it backward — guided only by the score $\\nabla\\log p_t$ — generates new samples from nothing but noise.</p>\n</section>\n\n",
+  "sections": [
+    {
+      "id": "score",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"score\">\n<h2>1. The score function</h2>\n<p>Generative diffusion is built on one object: the <strong>(Stein) score</strong> of a probability density,</p>\n<p style=\"text-align:center\">$s(x)\\ =\\ \\nabla_x\\log p(x).$</p>\n<p>It is a <em>vector field</em> on the data space, and at every point it tells you the direction of steepest increase of the log-density — it points uphill, toward where the data lives. Where $p$ has a mode the score vanishes; on the flanks it points back inward.</p>\n<div class=\"note\"><strong>The normalizer disappears.</strong> Suppose you only know an <em>unnormalized</em> density $\\tilde p$, with the true density $p=\\tilde p/Z$ and $Z=\\int\\tilde p\\,dx$ an intractable constant. Then\n$$\\nabla_x\\log p(x)\\ =\\ \\nabla_x\\big[\\log\\tilde p(x)-\\log Z\\big]\\ =\\ \\nabla_x\\log\\tilde p(x),$$\nbecause $\\log Z$ does not depend on $x$. The score sees the <em>shape</em> of the density and is blind to its scale. This is what makes score-based methods work where likelihood-based ones stall: you never have to compute the partition function.</div>\n<h3>Worked mini-example: the Gaussian score is linear</h3>\n<p>For $p=N(\\mu,\\sigma^2)$, $\\log p(x)=-\\tfrac{(x-\\mu)^2}{2\\sigma^2}-\\log(\\sigma\\sqrt{2\\pi})$, so</p>\n<p style=\"text-align:center\">$s(x)\\ =\\ \\nabla_x\\log p(x)\\ =\\ -\\,\\frac{x-\\mu}{\\sigma^2}.$</p>\n<p>It is a straight line through $\\mu$ with slope $-1/\\sigma^2$: zero at the mean, negative to its right, positive to its left — always pushing back toward $\\mu$. For a two-component mixture $p=w\\,N(\\mu_1,\\sigma^2)+(1-w)\\,N(\\mu_2,\\sigma^2)$ the score is $s(x)=p'(x)/p(x)$, a curve that vanishes at each mode and at the valley between them and points toward whichever mode is nearer.</p>\n<p>The widget draws a 1-D Gaussian mixture (top) and its score $s(x)=\\nabla\\log p(x)$ (bottom). The green arrows on the axis show the score's direction — they always flow uphill, toward the modes.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "parametric-plot",
+          "params": {
+            "interaction": "single-mode",
+            "widgetId": "w-score",
+            "svgId": "score-svg",
+            "outputId": "score-out",
+            "title": "The score points uphill",
+            "hint": "top: a 1-D mixture p(x); bottom: its score s(x)=∇log p(x); arrows flow toward the modes",
+            "viewBox": "0 0 640 360",
+            "svgWidth": 640,
+            "svgHeight": 360,
+            "svgTitle": "A 1-D Gaussian mixture density and its score function pointing toward the modes",
+            "outputInitial": "",
+            "sliders": [
+              {
+                "id": "sc-w1",
+                "outId": "sc-w1-lbl",
+                "label": "left weight $w$:",
+                "min": 0.1,
+                "max": 0.9,
+                "step": 0.05,
+                "init": 0.5
+              },
+              {
+                "id": "sc-sig",
+                "outId": "sc-sig-lbl",
+                "label": "component $\\sigma$:",
+                "min": 0.4,
+                "max": 1.6,
+                "step": 0.1,
+                "init": 0.8
+              }
+            ],
+            "bodyScript": "  const svg=$('#score-svg'), out=$('#score-out'), w1Sl=$('#sc-w1'), w1L=$('#sc-w1-lbl'), sgSl=$('#sc-sig'), sgL=$('#sc-sig-lbl');\n  const W=640,H=360, padL=48,padR=20;\n  // two fixed mixture means; weights and component std come from sliders\n  const mu=[-1.6,1.8];\n  const A=-6,B=6;\n  // top panel: density p(x); bottom panel: score s(x)=p'(x)/p(x)\n  const tp={x0:padL,x1:W-padR,y0:168,y1:24};\n  const bp={x0:padL,x1:W-padR,y0:H-30,y1:206};\n  const PX=x=>tp.x0+(x-A)/(B-A)*(tp.x1-tp.x0);\n  function comp(x,m,s){ return Math.exp(-(x-m)*(x-m)/(2*s*s))/(s*Math.sqrt(2*Math.PI)); }\n  function dens(x,w1,s){ return w1*comp(x,mu[0],s)+(1-w1)*comp(x,mu[1],s); }\n  function dcomp(x,m,s){ return -(x-m)/(s*s)*comp(x,m,s); }   // d/dx of one Gaussian\n  function ddens(x,w1,s){ return w1*dcomp(x,mu[0],s)+(1-w1)*dcomp(x,mu[1],s); }\n  function score(x,w1,s){ const p=dens(x,w1,s); return p>1e-9 ? ddens(x,w1,s)/p : 0; }\n  function render(){\n    svg.innerHTML='';\n    const w1=+w1Sl.value, s=+sgSl.value; w1L.textContent='w = '+w1.toFixed(2); sgL.textContent='σ = '+s.toFixed(1);\n    // sample the curves\n    const N=300; let pmax=1e-6, smax=1e-6;\n    const xs=[], ps=[], ss=[];\n    for(let i=0;i<=N;i++){ const x=A+(B-A)*i/N; const p=dens(x,w1,s), sc=score(x,w1,s);\n      xs.push(x); ps.push(p); ss.push(sc); pmax=Math.max(pmax,p); smax=Math.max(smax,Math.abs(sc)); }\n    smax=Math.min(smax,8);   // clip the score scale so it stays readable\n    const PY=v=>tp.y0-(v/pmax)*(tp.y0-tp.y1);\n    const SY=v=>{ const mid=(bp.y0+bp.y1)/2; return mid-(Math.max(-smax,Math.min(smax,v))/smax)*(mid-bp.y1); };\n    // --- density panel ---\n    svg.appendChild(SVG('line',{x1:tp.x0,y1:tp.y0,x2:tp.x1,y2:tp.y0,stroke:'var(--line)'}));\n    const t1=SVG('text',{x:tp.x0+4,y:tp.y1+12,'font-size':11,fill:'var(--mute)'}); t1.textContent='density p(x)'; svg.appendChild(t1);\n    let dp='M'; for(let i=0;i<=N;i++) dp+=` ${PX(xs[i]).toFixed(1)} ${PY(ps[i]).toFixed(1)}`;\n    svg.appendChild(SVG('path',{d:dp,fill:'none',stroke:'var(--yellow)','stroke-width':2.4}));\n    // --- score panel ---\n    const mid=(bp.y0+bp.y1)/2;\n    svg.appendChild(SVG('line',{x1:bp.x0,y1:mid,x2:bp.x1,y2:mid,stroke:'var(--line)'}));\n    const t2=SVG('text',{x:bp.x0+4,y:bp.y1+12,'font-size':11,fill:'var(--mute)'}); t2.textContent='score s(x) = d/dx log p(x)'; svg.appendChild(t2);\n    const axd=SVG('text',{x:(bp.x0+bp.x1)/2,y:H-6,'text-anchor':'middle','font-size':11,fill:'var(--mute)'}); axd.textContent='x'; svg.appendChild(axd);\n    let ds='M'; for(let i=0;i<=N;i++) ds+=` ${PX(xs[i]).toFixed(1)} ${SY(ss[i]).toFixed(1)}`;\n    svg.appendChild(SVG('path',{d:ds,fill:'none',stroke:'var(--cyan)','stroke-width':2.2}));\n    // mark the two modes (score crosses zero, pointing inward)\n    for(const m of mu){ svg.appendChild(SVG('line',{x1:PX(m),y1:tp.y1,x2:PX(m),y2:bp.y0,stroke:'var(--violet)','stroke-width':1,'stroke-dasharray':'3 4'})); }\n    // a couple of score arrows on the x-axis showing flow toward density\n    for(const x of [-4,-3,0,3,4]){ const sc=score(x,w1,s); const len=Math.max(-1,Math.min(1,sc/3))*26;\n      drawArrow(svg,[PX(x),mid+34],[PX(x)+len,mid+34],{color:'var(--green)',markerId:'sc-arr',width:1.6,pad1:0,pad2:6}); }\n    out.textContent =\n      `mixture: w·N(${mu[0]}, σ²) + (1−w)·N(${mu[1]}, σ²),  w = ${w1.toFixed(2)}, σ = ${s.toFixed(1)}\\n`+\n      `s(x) = ∇ log p(x) = p'(x)/p(x)  — the normalizer Z is gone (∇ log(p̃/Z) = ∇ log p̃)\\n`+\n      `green arrows = score direction: they point uphill, toward the nearer mode (s = 0 at each mode/valley)`;\n  }\n  w1Sl.addEventListener('input',render);\n  sgSl.addEventListener('input',render);\n  render();"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-score"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./probability-theory.html#brownian\">Brownian motion</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./diffusion-and-score-based-models.html#langevin\">Diffusion and score based models</a> · Langevin dynamics</div>\n    <div><a href=\"./diffusion-and-score-based-models.html#forward\">Diffusion and score based models</a> · The forward noising process</div>\n</aside>\n<!-- backlinks-auto-end -->"
+        },
+        {
+          "type": "quiz",
+          "concept": "dsm-score",
+          "html": "<div class=\"quiz\" data-concept=\"dsm-score\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "langevin",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"langevin\">\n<h2>2. Langevin dynamics</h2>\n<p>If the score is all you have, can you still sample from $p$? Yes — through <strong>Langevin dynamics</strong>, the overdamped stochastic differential equation</p>\n<p style=\"text-align:center\">$dx_t\\ =\\ \\tfrac12\\,s(x_t)\\,dt\\ +\\ dW_t\\ =\\ \\tfrac12\\,\\nabla\\log p(x_t)\\,dt\\ +\\ dW_t,$</p>\n<p>where $W_t$ is standard Brownian motion. The drift climbs the log-density; the noise keeps the walker exploring instead of collapsing onto a single mode.</p>\n<div class=\"note\"><strong>$p$ is the stationary distribution.</strong> The Fokker–Planck (forward Kolmogorov) equation for drift $b=\\tfrac12\\nabla\\log p$ and unit diffusion is\n$$\\partial_t\\rho\\ =\\ -\\nabla\\!\\cdot\\!\\big(b\\,\\rho\\big)+\\tfrac12\\nabla^2\\rho.$$\nPlug in the candidate $\\rho=p$. Since $b\\,p=\\tfrac12 p\\,\\nabla\\log p=\\tfrac12\\nabla p$, the right-hand side is $-\\tfrac12\\nabla^2 p+\\tfrac12\\nabla^2 p=0$. The drift exactly cancels the diffusion: $p$ is invariant, and under mild conditions the law of $x_t$ converges to $p$ from any start. The probability current vanishes, the hallmark of detailed balance.</div>\n<p>So sampling reduces to integrating an SDE whose only input is the score — no $Z$, no inverse-CDF, no rejection. Discretizing with step $\\Delta t$ gives the update $x\\leftarrow x+\\tfrac12 s(x)\\,\\Delta t+\\sqrt{\\Delta t}\\,\\varepsilon$, $\\varepsilon\\sim N(0,1)$. This is exactly the inner loop that turns a learned score into samples.</p>\n<h3>Worked mini-example: crossing between two modes</h3>\n<p>Take the symmetric mixture $\\tfrac12 N(-1.8,\\,0.7^2)+\\tfrac12 N(1.8,\\,0.7^2)$. Pure gradient ascent on $\\log p$ would trap a walker in whichever basin it started in. The Langevin noise term lets it occasionally hop the valley between the modes, so the long-run empirical distribution recovers <em>both</em> bumps in the right $50/50$ proportion — not just the nearest one.</p>\n<p>The widget runs $4000$ particles from a wide $N(0,3^2)$ start, using only the mixture's score. Increase the number of steps and watch the histogram (cyan) converge to the target density (yellow).</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "parametric-plot",
+          "params": {
+            "interaction": "single-mode",
+            "widgetId": "w-langevin",
+            "svgId": "lang-svg",
+            "outputId": "lang-out",
+            "title": "Sampling from the score alone",
+            "hint": "4000 particles run the Langevin SDE from a wide start; the histogram converges to the target",
+            "viewBox": "0 0 640 360",
+            "svgWidth": 640,
+            "svgHeight": 360,
+            "svgTitle": "Langevin particles converging to a two-mode mixture using only the score",
+            "outputInitial": "",
+            "sliders": [
+              {
+                "id": "lg-steps",
+                "outId": "lg-steps-lbl",
+                "label": "steps:",
+                "min": 0,
+                "max": 300,
+                "step": 10,
+                "init": 150
+              },
+              {
+                "id": "lg-dt",
+                "outId": "lg-dt-lbl",
+                "label": "step $\\Delta t$:",
+                "min": 0.005,
+                "max": 0.05,
+                "step": 0.005,
+                "init": 0.02
+              }
+            ],
+            "buttons": [
+              {
+                "id": "lg-run",
+                "label": "re-run"
+              }
+            ],
+            "bodyScript": "  const svg=$('#lang-svg'), out=$('#lang-out'), nSl=$('#lg-steps'), nL=$('#lg-steps-lbl'), dtSl=$('#lg-dt'), dtL=$('#lg-dt-lbl'), runBtn=$('#lg-run');\n  const W=640,H=360, padL=44,padR=20,padT=22,padB=40;\n  const x0=padL,x1=W-padR,y0=H-padB,y1=padT;\n  const mu=[-1.8,1.8], s=0.7, w1=0.5;   // fixed target mixture\n  const A=-6,B=6;\n  const PX=x=>x0+(x-A)/(B-A)*(x1-x0);\n  // deterministic RNG (Mulberry32) so the picture is reproducible\n  function mk(seed){ return function(){ seed|=0; seed=seed+0x6D2B79F5|0; let t=Math.imul(seed^seed>>>15,1|seed); t=t+Math.imul(t^t>>>7,61|t)^t; return ((t^t>>>14)>>>0)/4294967296; }; }\n  function gauss(rng){ let u=0,v=0; while(u===0)u=rng(); while(v===0)v=rng(); return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v); }\n  function comp(x,m){ return Math.exp(-(x-m)*(x-m)/(2*s*s))/(s*Math.sqrt(2*Math.PI)); }\n  function dens(x){ return w1*comp(x,mu[0])+(1-w1)*comp(x,mu[1]); }\n  function dcomp(x,m){ return -(x-m)/(s*s)*comp(x,m); }\n  function score(x){ const p=dens(x); return p>1e-9 ? (w1*dcomp(x,mu[0])+(1-w1)*dcomp(x,mu[1]))/p : 0; }\n  function render(){\n    svg.innerHTML='';\n    const steps=Math.round(+nSl.value), dt=+dtSl.value; nL.textContent=steps+' steps'; dtL.textContent='dt = '+dt.toFixed(3);\n    // run M particles from a wide N(0, 3^2) init using only the score\n    const M=4000, rng=mk(20240522);\n    const xs=new Float64Array(M);\n    for(let i=0;i<M;i++) xs[i]=3*gauss(rng);\n    for(let k=0;k<steps;k++){ for(let i=0;i<M;i++){ xs[i]+=0.5*score(xs[i])*dt + Math.sqrt(dt)*gauss(rng); } }\n    // histogram\n    const NB=48; const bins=new Float64Array(NB);\n    for(let i=0;i<M;i++){ const x=xs[i]; if(x<A||x>B) continue; const b=Math.min(NB-1,Math.floor((x-A)/(B-A)*NB)); bins[b]++; }\n    const bw=(B-A)/NB; let area=0; for(let b=0;b<NB;b++) area+=bins[b]*bw;\n    // target density curve for overlay (scale to same vertical units)\n    let pmax=1e-6; for(let i=0;i<=200;i++){ pmax=Math.max(pmax,dens(A+(B-A)*i/200)); }\n    const hmax=Math.max(pmax, Math.max(...bins)/(M*bw))*1.15;\n    const HY=v=>y0-(v/hmax)*(y0-y1);\n    // axes\n    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x1,y2:y0,stroke:'var(--line)'}));\n    const axd=SVG('text',{x:(x0+x1)/2,y:H-8,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}); axd.textContent='x'; svg.appendChild(axd);\n    // bars\n    for(let b=0;b<NB;b++){ const xL=A+b*bw; const h=bins[b]/(M*bw); if(h<=0) continue;\n      svg.appendChild(SVG('rect',{x:PX(xL),y:HY(h),width:PX(xL+bw)-PX(xL)-1,height:y0-HY(h),fill:'var(--cyan)','fill-opacity':0.5})); }\n    // target curve\n    let dp='M'; for(let i=0;i<=240;i++){ const x=A+(B-A)*i/240; dp+=` ${PX(x).toFixed(1)} ${HY(dens(x)).toFixed(1)}`; }\n    svg.appendChild(SVG('path',{d:dp,fill:'none',stroke:'var(--yellow)','stroke-width':2.4}));\n    function leg(x,y,co,t){ svg.appendChild(SVG('rect',{x,y:y-8,width:14,height:10,fill:co,'fill-opacity':co==='var(--cyan)'?0.5:1})); const tt=SVG('text',{x:x+20,y:y,'font-size':11,fill:'var(--mute)'}); tt.textContent=t; svg.appendChild(tt); }\n    leg(x0+10,y1+10,'var(--cyan)','Langevin particles (histogram)');\n    leg(x0+10,y1+26,'var(--yellow)','target mixture p(x)');\n    // crude TV-style mismatch measure\n    let mism=0; for(let b=0;b<NB;b++){ const xc=A+(b+0.5)*bw; mism+=Math.abs(bins[b]/(M*bw)-dens(xc))*bw; }\n    out.textContent =\n      `target = ½ N(${mu[0]}, ${s}²) + ½ N(${mu[1]}, ${s}²);  ${M} particles from a wide N(0, 3²) start\\n`+\n      `update: x ← x + ½ s(x) dt + √dt · ε,  using ONLY the score s(x) = ∇ log p(x)\\n`+\n      `after ${steps} steps:  histogram–target L¹ mismatch ≈ ${mism.toFixed(3)}  ` +\n      (steps>=120 ? '— converged to both modes' : '— increase steps to converge');\n  }\n  nSl.addEventListener('input',render);\n  dtSl.addEventListener('input',render);\n  runBtn.addEventListener('click',render);\n  render();"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-langevin"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./stochastic-calculus.html#sde\">Stochastic differential equations</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "quiz",
+          "concept": "dsm-langevin",
+          "html": "<div class=\"quiz\" data-concept=\"dsm-langevin\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "forward",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"forward\">\n<h2>3. The forward noising process</h2>\n<p>Diffusion models flip the problem around. Instead of sampling the data directly, they fix a <strong>forward process</strong> that gradually destroys the data — turning it into pure noise — and then learn to run that process in reverse. The forward process is a simple, data-independent SDE</p>\n<p style=\"text-align:center\">$dx_t\\ =\\ f(x,t)\\,dt\\ +\\ g(t)\\,dW_t,\\qquad x_0\\sim p_{\\text{data}},$</p>\n<p>chosen so the marginal $p_t$ of $x_t$ flows from the data distribution at $t=0$ toward a tractable Gaussian as $t\\to T$. The canonical choice is the <strong>variance-preserving (VP)</strong>, or Ornstein–Uhlenbeck, process</p>\n<p style=\"text-align:center\">$dx_t\\ =\\ -\\tfrac12\\,\\beta(t)\\,x_t\\,dt\\ +\\ \\sqrt{\\beta(t)}\\,dW_t.$</p>\n<div class=\"note\"><strong>The perturbed marginal is a closed-form Gaussian.</strong> Because $f$ is linear in $x$ and $g$ depends only on $t$, the transition kernel stays Gaussian for all $t$. Writing $\\bar\\alpha_t=e^{-\\int_0^t\\beta(s)\\,ds}$,\n$$x_t\\mid x_0\\ \\sim\\ N\\!\\Big(\\sqrt{\\bar\\alpha_t}\\,x_0,\\ (1-\\bar\\alpha_t)\\,I\\Big).$$\nAs $t$ grows, $\\bar\\alpha_t\\to0$: the mean shrinks to $0$ and the variance rises to $1$, so $p_t\\to N(0,I)$ regardless of the data. The closed form is the engine of efficient training — you can jump straight to $x_t$ in one step, no simulation needed.</div>\n<p>So the marginal $p_t$ is the data distribution <em>convolved</em> with a Gaussian of growing width (after a deterministic shrink): the modes blur and merge, drifting toward the origin, until nothing of the data structure survives. That $N(0,I)$ endpoint is the prior we will sample from when we generate.</p>\n<h3>Worked mini-example: a two-spike data distribution melting</h3>\n<p>Take data concentrated on two narrow spikes near $-2.2$ and $+2.4$. With constant $\\beta$, at time $t$ the mean factor is $\\sqrt{\\bar\\alpha_t}=e^{-t/2}$ and each spike has variance $(1-\\bar\\alpha_t)+\\bar\\alpha_t\\sigma_0^2$. Early on, two distinct bumps remain; once $\\bar\\alpha_t\\approx0$ they have merged into a single $N(0,1)$ bell. The transition is smooth and entirely determined by $\\bar\\alpha_t$.</p>\n<p>Slide $t$ in the widget and watch the perturbed marginal $p_t$ (yellow) blur from the two-spike data toward the standard Gaussian prior (dashed grey).</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "parametric-plot",
+          "params": {
+            "interaction": "single-mode",
+            "widgetId": "w-forward",
+            "svgId": "fwd-svg",
+            "outputId": "fwd-out",
+            "title": "Data melts into Gaussian noise",
+            "hint": "slide t — the perturbed marginal p_t blurs from the data toward the N(0,1) prior",
+            "viewBox": "0 0 640 360",
+            "svgWidth": 640,
+            "svgHeight": 360,
+            "svgTitle": "The forward VP/OU process blurring a two-mode data distribution toward N(0,1)",
+            "outputInitial": "",
+            "sliders": [
+              {
+                "id": "fw-t",
+                "outId": "fw-t-lbl",
+                "label": "time $t$:",
+                "min": 0,
+                "max": 4,
+                "step": 0.05,
+                "init": 0
+              }
+            ],
+            "bodyScript": "  const svg=$('#fwd-svg'), out=$('#fwd-out'), tSl=$('#fw-t'), tL=$('#fw-t-lbl');\n  const W=640,H=360, padL=46,padR=20,padT=24,padB=40;\n  const x0=padL,x1=W-padR,y0=H-padB,y1=padT;\n  // data = two-delta-ish mixture of narrow Gaussians; OU forward with constant beta\n  const mu=[-2.2,2.4], s0=0.45, w1=0.5, beta=1.0;\n  const A=-6,B=6;\n  const PX=x=>x0+(x-A)/(B-A)*(x1-x0);\n  function comp(x,m,s){ return Math.exp(-(x-m)*(x-m)/(2*s*s))/(s*Math.sqrt(2*Math.PI)); }\n  function render(){\n    svg.innerHTML='';\n    const t=+tSl.value; tL.textContent='t = '+t.toFixed(2);\n    // OU marginal of x_t | x_0: mean sqrt(abar)*x0, var (1-abar) + abar*s0^2 (convolve data with kernel)\n    const abar=Math.exp(-beta*t);              // = e^{-\\int beta}\n    const mean=m=>Math.sqrt(abar)*m;\n    const varc=(1-abar)+abar*s0*s0;            // variance of each blurred component\n    const sc=Math.sqrt(varc);\n    function pt(x){ return w1*comp(x,mean(mu[0]),sc)+(1-w1)*comp(x,mean(mu[1]),sc); }\n    function prior(x){ return comp(x,0,1); }   // N(0,1) target of the forward process\n    // scale\n    let pmax=1e-6; for(let i=0;i<=240;i++){ pmax=Math.max(pmax,pt(A+(B-A)*i/240)); }\n    pmax=Math.max(pmax, comp(0,0,1));\n    const PY=v=>y0-(v/pmax)*(y0-y1);\n    // axes\n    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x1,y2:y0,stroke:'var(--line)'}));\n    const axd=SVG('text',{x:(x0+x1)/2,y:H-8,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}); axd.textContent='x'; svg.appendChild(axd);\n    // prior N(0,1) dashed\n    let pr='M'; for(let i=0;i<=240;i++){ const x=A+(B-A)*i/240; pr+=` ${PX(x).toFixed(1)} ${PY(prior(x)).toFixed(1)}`; }\n    svg.appendChild(SVG('path',{d:pr,fill:'none',stroke:'var(--mute)','stroke-width':1.4,'stroke-dasharray':'5 4'}));\n    // perturbed marginal p_t\n    let dp='M'; for(let i=0;i<=240;i++){ const x=A+(B-A)*i/240; dp+=` ${PX(x).toFixed(1)} ${PY(pt(x)).toFixed(1)}`; }\n    svg.appendChild(SVG('path',{d:dp,fill:'none',stroke:'var(--yellow)','stroke-width':2.6}));\n    function leg(x,y,co,t,dash){ const ln=SVG('line',{x1:x,y1:y,x2:x+22,y2:y,stroke:co,'stroke-width':2.4}); if(dash) ln.setAttribute('stroke-dasharray','5 4'); svg.appendChild(ln); const tt=SVG('text',{x:x+28,y:y+4,'font-size':11,fill:'var(--mute)'}); tt.textContent=t; svg.appendChild(tt); }\n    leg(x0+10,y1+10,'var(--yellow)','perturbed marginal p_t(x)');\n    leg(x0+10,y1+26,'var(--mute)','prior N(0,1)',true);\n    out.textContent =\n      `forward (VP/OU):  dx = −½β x dt + √β dW,   β = ${beta.toFixed(1)}\\n`+\n      `x_t | x₀ ~ N( √āₜ·x₀, (1−āₜ)·I ),   āₜ = e^{−∫β} = ${abar.toFixed(3)}\\n`+\n      `at t = ${t.toFixed(2)}:  mean shrink √āₜ = ${Math.sqrt(abar).toFixed(3)},  comp. std = ${sc.toFixed(3)}  ` +\n      (abar<0.05 ? '— essentially pure N(0,1) noise' : '— modes still visible');\n  }\n  tSl.addEventListener('input',render);\n  render();"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-forward"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "quiz",
+          "concept": "dsm-forward",
+          "html": "<div class=\"quiz\" data-concept=\"dsm-forward\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./diffusion-and-score-based-models.html#reverse\">Diffusion and score based models</a> · The reverse-time SDE</div>\n</aside>\n<!-- backlinks-auto-end -->"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "reverse",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"reverse\">\n<h2>4. The reverse-time SDE</h2>\n<p>The forward process is easy and useless on its own — it only destroys. The payoff is a remarkable theorem: every diffusion has a <strong>reverse-time companion</strong>, another SDE whose marginals are the forward ones run backward in time. This is <strong>Anderson's reverse-time SDE</strong> (1982). If the forward process is $dx=f(x,t)\\,dt+g(t)\\,dW_t$, then</p>\n<p style=\"text-align:center\">$dx_t\\ =\\ \\big[\\,f(x,t)\\ -\\ g(t)^2\\,\\nabla_x\\log p_t(x)\\,\\big]\\,dt\\ +\\ g(t)\\,d\\bar W_t,$</p>\n<p>integrated <em>backward</em> from $t=T$ to $t=0$, where $\\bar W_t$ is a Brownian motion running in reverse time.</p>\n<div class=\"note\"><strong>Generation = solving the reverse SDE.</strong> Start with a draw from the easy prior $x_T\\sim N(0,I)$ and integrate the reverse SDE down to $t=0$; the result is a sample from $p_{\\text{data}}$. The only new ingredient relative to the forward process is the <strong>time-dependent score</strong> $\\nabla_x\\log p_t(x)$ — the score of each perturbed marginal — appearing in the drift correction $-\\,g(t)^2\\,\\nabla\\log p_t$. Note the weight: the score enters at the <em>full</em> $g(t)^2$ (the probability-flow ODE of §6 will use half this).</div>\n<p>This is the whole architecture of a diffusion model. The forward process gives a curriculum of progressively noisier marginals $p_t$; the reverse SDE walks back up that curriculum, and the score $\\nabla\\log p_t$ is the compass at every noise level. Everything left to do is to <em>obtain</em> those scores — which is the training problem of §5.</p>\n<h3>Worked mini-example: reconstructing the two spikes</h3>\n<p>For our VP process with a Gaussian-mixture data law, the perturbed marginal $p_t$ stays a Gaussian mixture, so its score is available in closed form. Starting $4000$ particles at the $N(0,1)$ prior ($t=T=4$) and integrating the reverse SDE downward, the cloud splits and migrates back to the two data spikes — exactly inverting the melting of §3. Because the score is exact here, the recovered histogram matches the true $p_t$ at every stopping time.</p>\n<p>The widget integrates the reverse SDE from $t=T$ down to a stopping time you choose. Lower $t$ toward $0$ and watch the particle histogram (pink) reconstruct the data distribution, tracking the true marginal $p_t$ (yellow).</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "parametric-plot",
+          "params": {
+            "interaction": "single-mode",
+            "widgetId": "w-reverse",
+            "svgId": "rev-svg",
+            "outputId": "rev-out",
+            "title": "Generating by reversing the SDE",
+            "hint": "start from noise at t=T, integrate the reverse SDE down to t; the histogram rebuilds the data",
+            "viewBox": "0 0 640 360",
+            "svgWidth": 640,
+            "svgHeight": 360,
+            "svgTitle": "Integrating Anderson's reverse-time SDE from noise back to the data distribution",
+            "outputInitial": "",
+            "sliders": [
+              {
+                "id": "rv-t",
+                "outId": "rv-t-lbl",
+                "label": "stop at $t$:",
+                "min": 0,
+                "max": 4,
+                "step": 0.05,
+                "init": 0
+              }
+            ],
+            "buttons": [
+              {
+                "id": "rv-run",
+                "label": "re-run"
+              }
+            ],
+            "bodyScript": "  const svg=$('#rev-svg'), out=$('#rev-out'), tSl=$('#rv-t'), tL=$('#rv-t-lbl'), runBtn=$('#rv-run');\n  const W=640,H=360, padL=44,padR=20,padT=22,padB=40;\n  const x0=padL,x1=W-padR,y0=H-padB,y1=padT;\n  const mu=[-2.2,2.4], s0=0.45, w1=0.5, beta=1.0, T=4.0;\n  const A=-6,B=6;\n  const PX=x=>x0+(x-A)/(B-A)*(x1-x0);\n  function mk(seed){ return function(){ seed|=0; seed=seed+0x6D2B79F5|0; let t=Math.imul(seed^seed>>>15,1|seed); t=t+Math.imul(t^t>>>7,61|t)^t; return ((t^t>>>14)>>>0)/4294967296; }; }\n  function gauss(rng){ let u=0,v=0; while(u===0)u=rng(); while(v===0)v=rng(); return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v); }\n  function comp(x,m,s){ return Math.exp(-(x-m)*(x-m)/(2*s*s))/(s*Math.sqrt(2*Math.PI)); }\n  // closed-form score of the perturbed marginal p_t (mixture stays a mixture under linear OU)\n  function scoreT(x,t){ const abar=Math.exp(-beta*t); const sc=Math.sqrt((1-abar)+abar*s0*s0);\n    const m0=Math.sqrt(abar)*mu[0], m1=Math.sqrt(abar)*mu[1];\n    const a=w1*comp(x,m0,sc), b=(1-w1)*comp(x,m1,sc); const p=a+b;\n    if(p<1e-12) return 0; const dlog=(a*(-(x-m0)/(sc*sc))+b*(-(x-m1)/(sc*sc)))/p; return dlog; }\n  function densData(x){ return w1*comp(x,mu[0],s0)+(1-w1)*comp(x,mu[1],s0); }\n  function render(){\n    svg.innerHTML='';\n    const tStop=+tSl.value; tL.textContent='t = '+tStop.toFixed(2);\n    // integrate the reverse SDE from t=T down to tStop, M particles starting at N(0,1)\n    const M=4000, K=400, dt=(T)/K, rng=mk(7777);\n    const xs=new Float64Array(M); for(let i=0;i<M;i++) xs[i]=gauss(rng);\n    let t=T;\n    // g(t)^2 = beta (constant), f = -1/2 beta x\n    for(let k=0;k<K;k++){ if(t<=tStop+1e-9) break;\n      for(let i=0;i<M;i++){ const x=xs[i]; const drift=(-0.5*beta*x) - beta*scoreT(x,t); xs[i]=x - drift*dt + Math.sqrt(beta*dt)*gauss(rng); }\n      t-=dt; }\n    // histogram of particles at the stopping time\n    const NB=48, bins=new Float64Array(NB), bw=(B-A)/NB;\n    for(let i=0;i<M;i++){ const x=xs[i]; if(x<A||x>B) continue; bins[Math.min(NB-1,Math.floor((x-A)/(B-A)*NB))]++; }\n    // overlay: true p_t at the stopping time\n    const abar=Math.exp(-beta*tStop), sc=Math.sqrt((1-abar)+abar*s0*s0);\n    function ptrue(x){ return w1*comp(x,Math.sqrt(abar)*mu[0],sc)+(1-w1)*comp(x,Math.sqrt(abar)*mu[1],sc); }\n    let pmax=1e-6; for(let i=0;i<=200;i++){ pmax=Math.max(pmax,ptrue(A+(B-A)*i/200)); }\n    const hmax=Math.max(pmax, Math.max(...bins)/(M*bw))*1.15;\n    const HY=v=>y0-(v/hmax)*(y0-y1);\n    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x1,y2:y0,stroke:'var(--line)'}));\n    const axd=SVG('text',{x:(x0+x1)/2,y:H-8,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}); axd.textContent='x'; svg.appendChild(axd);\n    for(let b=0;b<NB;b++){ const xL=A+b*bw; const h=bins[b]/(M*bw); if(h<=0) continue;\n      svg.appendChild(SVG('rect',{x:PX(xL),y:HY(h),width:PX(xL+bw)-PX(xL)-1,height:y0-HY(h),fill:'var(--pink)','fill-opacity':0.45})); }\n    let dp='M'; for(let i=0;i<=240;i++){ const x=A+(B-A)*i/240; dp+=` ${PX(x).toFixed(1)} ${HY(ptrue(x)).toFixed(1)}`; }\n    svg.appendChild(SVG('path',{d:dp,fill:'none',stroke:'var(--yellow)','stroke-width':2.4}));\n    function leg(x,y,co,t,bar){ if(bar){ svg.appendChild(SVG('rect',{x,y:y-8,width:14,height:10,fill:co,'fill-opacity':0.45})); } else { svg.appendChild(SVG('line',{x1:x,y1:y-3,x2:x+22,y2:y-3,stroke:co,'stroke-width':2.4})); } const tt=SVG('text',{x:x+(bar?20:28),y:y,'font-size':11,fill:'var(--mute)'}); tt.textContent=t; svg.appendChild(tt); }\n    leg(x0+10,y1+10,'var(--pink)','reverse-SDE particles at t',true);\n    leg(x0+10,y1+26,'var(--yellow)','true marginal p_t(x)',false);\n    out.textContent =\n      `reverse SDE:  dx = [ f − g² ∇log p_t ] dt + g dW̄,   f = −½βx,  g² = β = ${beta.toFixed(1)}\\n`+\n      `start: ${M} samples from the N(0,1) prior at t = T = ${T.toFixed(1)}; integrate backward to t\\n`+\n      `at t = ${tStop.toFixed(2)}:  particles match the true p_t  ` +\n      (tStop<0.05 ? '— fully reconstructed the two-mode data distribution' : '— lower t to finish denoising');\n  }\n  tSl.addEventListener('input',render);\n  runBtn.addEventListener('click',render);\n  render();"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-reverse"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./stochastic-calculus.html#ito-formula\">Itô's formula</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./diffusion-and-score-based-models.html#probability-flow\">Diffusion and score based models</a> · The probability-flow ODE</div>\n    <div><a href=\"./diffusion-and-score-based-models.html#score-matching\">Diffusion and score based models</a> · Training: denoising score matching</div>\n</aside>\n<!-- backlinks-auto-end -->"
+        },
+        {
+          "type": "quiz",
+          "concept": "dsm-reverse",
+          "html": "<div class=\"quiz\" data-concept=\"dsm-reverse\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "score-matching",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"score-matching\">\n<h2>5. Training: denoising score matching</h2>\n<p>The reverse SDE needs $\\nabla_x\\log p_t(x)$, but $p_t$ — the data convolved with noise — is exactly what we do not know in closed form. The fix is to <strong>learn</strong> a score network $s_\\theta(x,t)$. The naive objective, <em>explicit</em> score matching $\\mathbb{E}\\,\\lVert s_\\theta(x)-\\nabla\\log p_t(x)\\rVert^2$, is useless because it contains the unknown target. The breakthrough is <strong>denoising score matching</strong> (Vincent, 2011).</p>\n<div class=\"note\"><strong>Match the conditional score instead.</strong> Noise each datapoint, $\\tilde x=x+\\sigma\\varepsilon$ with $\\varepsilon\\sim N(0,I)$, so the perturbation kernel is $q_\\sigma(\\tilde x\\mid x)=N(\\tilde x;x,\\sigma^2 I)$. Minimize\n$$\\mathcal{L}_{\\text{DSM}}(\\theta)\\ =\\ \\mathbb{E}_{x,\\tilde x}\\Big\\lVert\\, s_\\theta(\\tilde x)\\ -\\ \\nabla_{\\tilde x}\\log q_\\sigma(\\tilde x\\mid x)\\,\\Big\\rVert^2 .$$\nVincent's theorem says this has the <em>same</em> minimizer as explicit score matching: the optimum is $s_\\theta(\\tilde x)=\\nabla\\log p_\\sigma(\\tilde x)$, the true marginal score. We replaced an intractable target by a per-sample target we can write down.</div>\n<p>And that target is beautifully simple. For the Gaussian kernel, $\\log q_\\sigma(\\tilde x\\mid x)=-\\lVert\\tilde x-x\\rVert^2/(2\\sigma^2)+\\text{const}$, so</p>\n<p style=\"text-align:center\">$\\nabla_{\\tilde x}\\log q_\\sigma(\\tilde x\\mid x)\\ =\\ -\\,\\frac{\\tilde x-x}{\\sigma^2}\\ =\\ -\\,\\frac{\\varepsilon}{\\sigma}.$</p>\n<div class=\"note\"><strong>Predicting the score is predicting the noise.</strong> Since the target is $-\\varepsilon/\\sigma$, you can reparameterize the network to output $\\varepsilon_\\theta(\\tilde x,t)$ and train a plain mean-squared error $\\mathbb{E}\\lVert\\varepsilon_\\theta(\\tilde x,t)-\\varepsilon\\rVert^2$. This <strong>$\\varepsilon$-prediction</strong> form is what DDPM and its descendants actually optimize — and it is identical, up to the scale $-1/\\sigma$, to learning the score.</div>\n<h3>Worked mini-example: fitting the mixture score</h3>\n<p>Generate clean samples from the mixture, noise each by $\\sigma$, and regress a small basis onto the conditional targets $-(\\tilde x-x)/\\sigma^2$. The averaging over the random clean source $x$ behind each noised $\\tilde x$ is exactly what makes the learned function approach the <em>marginal</em> score $\\nabla\\log p_\\sigma$, not any single conditional. With enough basis functions the fit (cyan) tracks the true perturbed score (yellow).</p>\n<p>The widget fits a score model by DSM on noised samples of the mixture and overlays it against the true score $\\nabla\\log p_\\sigma$. Raise $\\sigma$ to see how the target smooths out, and add basis functions to tighten the fit.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "parametric-plot",
+          "params": {
+            "interaction": "single-mode",
+            "widgetId": "w-score-matching",
+            "svgId": "sm-svg",
+            "outputId": "sm-out",
+            "title": "Learning the score by denoising",
+            "hint": "DSM regresses on the target −(x̃−x)/σ²; the learned s_θ tracks the true perturbed score",
+            "viewBox": "0 0 640 360",
+            "svgWidth": 640,
+            "svgHeight": 360,
+            "svgTitle": "A score model fit by denoising score matching compared to the true mixture score",
+            "outputInitial": "",
+            "sliders": [
+              {
+                "id": "sm-sig",
+                "outId": "sm-sig-lbl",
+                "label": "noise $\\sigma$:",
+                "min": 0.3,
+                "max": 1.5,
+                "step": 0.1,
+                "init": 0.6
+              },
+              {
+                "id": "sm-n",
+                "outId": "sm-n-lbl",
+                "label": "model capacity:",
+                "min": 4,
+                "max": 24,
+                "step": 2,
+                "init": 12
+              }
+            ],
+            "buttons": [
+              {
+                "id": "sm-fit",
+                "label": "re-fit"
+              }
+            ],
+            "bodyScript": "  const svg=$('#sm-svg'), out=$('#sm-out'), sgSl=$('#sm-sig'), sgL=$('#sm-sig-lbl'), nSl=$('#sm-n'), nL=$('#sm-n-lbl'), fitBtn=$('#sm-fit');\n  const W=640,H=360, padL=48,padR=20,padT=22,padB=40;\n  const x0=padL,x1=W-padR,y0=H-padB,y1=padT;\n  const mu=[-1.8,1.8], sdata=0.5, w1=0.5;   // clean data mixture\n  const A=-6,B=6;\n  const PX=x=>x0+(x-A)/(B-A)*(x1-x0);\n  function mk(seed){ return function(){ seed|=0; seed=seed+0x6D2B79F5|0; let t=Math.imul(seed^seed>>>15,1|seed); t=t+Math.imul(t^t>>>7,61|t)^t; return ((t^t>>>14)>>>0)/4294967296; }; }\n  function gauss(rng){ let u=0,v=0; while(u===0)u=rng(); while(v===0)v=rng(); return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v); }\n  function comp(x,m,s){ return Math.exp(-(x-m)*(x-m)/(2*s*s))/(s*Math.sqrt(2*Math.PI)); }\n  // true score of the sigma-perturbed data: convolve mixture with N(0,sigma^2)\n  function trueScore(x,sig){ const sc=Math.sqrt(sdata*sdata+sig*sig);\n    const a=w1*comp(x,mu[0],sc), b=(1-w1)*comp(x,mu[1],sc); const p=a+b; if(p<1e-12) return 0;\n    return (a*(-(x-mu[0])/(sc*sc))+b*(-(x-mu[1])/(sc*sc)))/p; }\n  function render(){\n    svg.innerHTML='';\n    const sig=+sgSl.value, n=Math.round(+nSl.value); sgL.textContent='σ = '+sig.toFixed(2); nL.textContent=n+' basis fns';\n    // build a denoising-score-matching fit: sample (x, xtilde), regress on a small RBF basis\n    // targets are the conditional score -(xtilde - x)/sigma^2 -- pure DSM\n    const rng=mk(424242), M=3000;\n    const centers=[]; for(let j=0;j<n;j++) centers.push(A+ (B-A)*(j+0.5)/n);\n    const h=(B-A)/n*0.9;\n    function feat(x){ const f=new Array(n+1); for(let j=0;j<n;j++) f[j]=Math.exp(-((x-centers[j])**2)/(2*h*h)); f[n]=1; return f; }\n    // normal equations (ridge) on the DSM objective\n    const dimn=n+1; const ATA=[]; for(let i=0;i<dimn;i++){ ATA.push(new Float64Array(dimn)); } const ATb=new Float64Array(dimn);\n    for(let i=0;i<M;i++){ // draw clean x from mixture, then noised xtilde\n      const which=rng()<w1?0:1; const x=mu[which]+sdata*gauss(rng); const xt=x+sig*gauss(rng);\n      const target=-(xt-x)/(sig*sig); const f=feat(xt);\n      for(let a=0;a<dimn;a++){ ATb[a]+=f[a]*target; for(let b=0;b<dimn;b++) ATA[a][b]+=f[a]*f[b]; } }\n    const lam=1e-2*M; for(let i=0;i<dimn;i++) ATA[i][i]+=lam;\n    // solve via Gaussian elimination\n    const Aug=[]; for(let i=0;i<dimn;i++){ Aug.push(Float64Array.from([...ATA[i],ATb[i]])); }\n    for(let c=0;c<dimn;c++){ let piv=c; for(let r=c+1;r<dimn;r++) if(Math.abs(Aug[r][c])>Math.abs(Aug[piv][c])) piv=r; [Aug[c],Aug[piv]]=[Aug[piv],Aug[c]];\n      const d=Aug[c][c]||1e-9; for(let k=c;k<=dimn;k++) Aug[c][k]/=d; for(let r=0;r<dimn;r++){ if(r===c) continue; const fct=Aug[r][c]; for(let k=c;k<=dimn;k++) Aug[r][k]-=fct*Aug[c][k]; } }\n    const wgt=new Float64Array(dimn); for(let i=0;i<dimn;i++) wgt[i]=Aug[i][dimn];\n    function smodel(x){ const f=feat(x); let s=0; for(let a=0;a<dimn;a++) s+=wgt[a]*f[a]; return s; }\n    // plot true vs fitted score\n    let smax=1e-6; for(let i=0;i<=200;i++){ const x=A+(B-A)*i/200; smax=Math.max(smax,Math.abs(trueScore(x,sig)),Math.abs(smodel(x))); }\n    smax=Math.min(smax,8);\n    const mid=(y0+y1)/2; const SY=v=>mid-(Math.max(-smax,Math.min(smax,v))/smax)*(mid-y1);\n    svg.appendChild(SVG('line',{x1:x0,y1:mid,x2:x1,y2:mid,stroke:'var(--line)'}));\n    const axd=SVG('text',{x:(x0+x1)/2,y:H-8,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}); axd.textContent='x̃ (noised input)'; svg.appendChild(axd);\n    let dt='M', dm='M', mse=0, cnt=0;\n    for(let i=0;i<=240;i++){ const x=A+(B-A)*i/240; const ts=trueScore(x,sig), ms=smodel(x);\n      dt+=` ${PX(x).toFixed(1)} ${SY(ts).toFixed(1)}`; dm+=` ${PX(x).toFixed(1)} ${SY(ms).toFixed(1)}`;\n      if(x>-4&&x<4){ mse+=(ts-ms)**2; cnt++; } }\n    svg.appendChild(SVG('path',{d:dt,fill:'none',stroke:'var(--yellow)','stroke-width':2.6}));\n    svg.appendChild(SVG('path',{d:dm,fill:'none',stroke:'var(--cyan)','stroke-width':2,'stroke-dasharray':'6 4'}));\n    function leg(x,y,co,t,dash){ const ln=SVG('line',{x1:x,y1:y,x2:x+22,y2:y,stroke:co,'stroke-width':2.4}); if(dash) ln.setAttribute('stroke-dasharray','6 4'); svg.appendChild(ln); const tt=SVG('text',{x:x+28,y:y+4,'font-size':11,fill:'var(--mute)'}); tt.textContent=t; svg.appendChild(tt); }\n    leg(x0+10,y1+10,'var(--yellow)','true score ∇ log p_σ');\n    leg(x0+10,y1+26,'var(--cyan)','learned s_θ (DSM)',true);\n    out.textContent =\n      `DSM objective:  min_θ E‖ s_θ(x̃) − ∇_x̃ log q_σ(x̃|x) ‖²,  q_σ(x̃|x) = N(x, σ²)\\n`+\n      `conditional target = −(x̃ − x)/σ² = −ε/σ   (⇒ the net predicts the noise ε)\\n`+\n      `fit with ${n} RBF basis fns:  mean-squared score error on [−4,4] ≈ ${(mse/cnt).toFixed(4)}`;\n  }\n  sgSl.addEventListener('input',render);\n  nSl.addEventListener('input',render);\n  fitBtn.addEventListener('click',render);\n  render();"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-score-matching"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./statistical-learning-theory.html#erm\">Empirical risk minimization</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "quiz",
+          "concept": "dsm-score-matching",
+          "html": "<div class=\"quiz\" data-concept=\"dsm-score-matching\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "probability-flow",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"probability-flow\">\n<h2>6. The probability-flow ODE</h2>\n<p>The reverse SDE injects fresh noise at every step. Surprisingly, there is a fully <strong>deterministic</strong> sampler with the very same marginals — the <strong>probability-flow ODE</strong></p>\n<p style=\"text-align:center\">$\\frac{dx_t}{dt}\\ =\\ f(x,t)\\ -\\ \\tfrac12\\,g(t)^2\\,\\nabla_x\\log p_t(x).$</p>\n<p>No $dW$ term; the score now enters at <em>half</em> the weight it has in the reverse SDE.</p>\n<div class=\"note\"><strong>Same marginals, from the Fokker–Planck identity.</strong> The density $p_t$ of the forward SDE obeys the Fokker–Planck equation, which can be rewritten as a <em>continuity equation</em>\n$$\\partial_t p_t\\ +\\ \\nabla\\!\\cdot\\!\\big(p_t\\,v_t\\big)\\ =\\ 0,\\qquad v_t(x)=f(x,t)-\\tfrac12 g(t)^2\\nabla\\log p_t(x).$$\nA continuity equation is precisely the statement that the deterministic flow $\\dot x=v_t(x)$ transports the densities $p_t$. So the ODE and the SDE share every time-marginal $p_t$ — only their individual sample paths differ (smooth vs. jittery).</div>\n<p>This unlocks two things the stochastic sampler cannot offer. First, a deterministic generator: fix the initial noise and you get a reproducible output, the basis of <strong>DDIM</strong>-style fast samplers and of latent interpolation. Second, an <strong>exact likelihood</strong>: the ODE is a continuous normalizing flow, so the instantaneous change-of-variables formula $\\frac{d}{dt}\\log p_t(x_t)=-\\nabla\\!\\cdot v_t(x_t)$ integrates to a tractable $\\log$-density — diffusion models can report exact bits-per-dim. Black-box adaptive ODE solvers also let you generate in far fewer function evaluations.</p>\n<h3>Worked mini-example: two paths to the same distribution</h3>\n<p>Run both samplers from the <em>same</em> noise draws at $t=T$. The reverse-SDE trajectories rattle stochastically as they descend; the PF-ODE trajectories are smooth deterministic curves. Yet the cloud of endpoints at $t=0$ has the same two-mode law under both — the marginals are identical even though no single path is. The fraction landing in the right-hand mode agrees between the two samplers up to sampling noise.</p>\n<p>The widget overlays reverse-SDE paths (pink, noisy) against PF-ODE paths (cyan, smooth) from shared starting points, time running noise→data. Add paths and compare: different routes, same destination distribution.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "parametric-plot",
+          "params": {
+            "interaction": "single-mode",
+            "widgetId": "w-probability-flow",
+            "svgId": "pf-svg",
+            "outputId": "pf-out",
+            "title": "Stochastic vs. deterministic sampling",
+            "hint": "same start at t=T: SDE paths jitter, PF-ODE paths are smooth — same endpoint distribution",
+            "viewBox": "0 0 640 360",
+            "svgWidth": 640,
+            "svgHeight": 360,
+            "svgTitle": "Reverse-SDE trajectories versus probability-flow ODE trajectories sharing the same marginals",
+            "outputInitial": "",
+            "sliders": [
+              {
+                "id": "pf-k",
+                "outId": "pf-k-lbl",
+                "label": "trajectories:",
+                "min": 4,
+                "max": 24,
+                "step": 2,
+                "init": 12
+              }
+            ],
+            "buttons": [
+              {
+                "id": "pf-run",
+                "label": "re-run"
+              }
+            ],
+            "bodyScript": "  const svg=$('#pf-svg'), out=$('#pf-out'), kSl=$('#pf-k'), kL=$('#pf-k-lbl'), runBtn=$('#pf-run');\n  const W=640,H=360, padL=44,padR=20,padT=22,padB=40;\n  const x0=padL,x1=W-padR,y0=H-padB,y1=padT;\n  const mu=[-2.2,2.4], s0=0.45, w1=0.5, beta=1.0, T=4.0;\n  const A=-6,B=6;\n  const TX=t=>x0+(1-t/T)*(x1-x0);     // time runs T (left) -> 0 (right), generation direction\n  const XY=x=>y0-((x-A)/(B-A))*(y0-y1);\n  function mk(seed){ return function(){ seed|=0; seed=seed+0x6D2B79F5|0; let t=Math.imul(seed^seed>>>15,1|seed); t=t+Math.imul(t^t>>>7,61|t)^t; return ((t^t>>>14)>>>0)/4294967296; }; }\n  function gauss(rng){ let u=0,v=0; while(u===0)u=rng(); while(v===0)v=rng(); return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v); }\n  function comp(x,m,s){ return Math.exp(-(x-m)*(x-m)/(2*s*s))/(s*Math.sqrt(2*Math.PI)); }\n  function scoreT(x,t){ const abar=Math.exp(-beta*t); const sc=Math.sqrt((1-abar)+abar*s0*s0);\n    const m0=Math.sqrt(abar)*mu[0], m1=Math.sqrt(abar)*mu[1];\n    const a=w1*comp(x,m0,sc), b=(1-w1)*comp(x,m1,sc); const p=a+b; if(p<1e-12) return 0;\n    return (a*(-(x-m0)/(sc*sc))+b*(-(x-m1)/(sc*sc)))/p; }\n  function render(){\n    svg.innerHTML='';\n    const nTraj=Math.round(+kSl.value); kL.textContent=nTraj+' paths each';\n    const K=300, dt=T/K, rng=mk(31337);\n    // shared starting points at t=T so SDE & ODE paths start identically\n    const starts=[]; for(let i=0;i<nTraj;i++) starts.push(1.0*gauss(rng));\n    // axes / frame\n    svg.appendChild(SVG('rect',{x:x0,y:y1,width:x1-x0,height:y0-y1,fill:'none',stroke:'var(--line)'}));\n    const axt=SVG('text',{x:(x0+x1)/2,y:H-8,'text-anchor':'middle','font-size':11,fill:'var(--mute)'}); axt.textContent='time:  noise (t=T, left)  →  data (t=0, right)'; svg.appendChild(axt);\n    const axx=SVG('text',{x:14,y:(y0+y1)/2,'text-anchor':'middle','font-size':11,fill:'var(--mute)',transform:`rotate(-90 14 ${(y0+y1)/2})`}); axx.textContent='x'; svg.appendChild(axx);\n    // mark the two data modes on the right edge\n    for(const m of mu){ svg.appendChild(SVG('line',{x1:x0,y1:XY(m),x2:x1,y2:XY(m),stroke:'var(--violet)','stroke-width':1,'stroke-dasharray':'2 5'})); }\n    const endsSDE=[], endsODE=[];\n    // SDE paths (pink)\n    for(let i=0;i<nTraj;i++){ let x=starts[i], t=T; let d=`M ${TX(t).toFixed(1)} ${XY(x).toFixed(1)}`;\n      for(let k=0;k<K;k++){ const drift=(-0.5*beta*x)-beta*scoreT(x,t); x=x-drift*dt+Math.sqrt(beta*dt)*gauss(rng); t-=dt; d+=` L ${TX(Math.max(0,t)).toFixed(1)} ${XY(x).toFixed(1)}`; }\n      endsSDE.push(x); svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--pink)','stroke-width':1,'stroke-opacity':0.7})); }\n    // PF-ODE paths (cyan) -- deterministic, half-weight score, no noise\n    for(let i=0;i<nTraj;i++){ let x=starts[i], t=T; let d=`M ${TX(t).toFixed(1)} ${XY(x).toFixed(1)}`;\n      for(let k=0;k<K;k++){ const vel=(-0.5*beta*x)-0.5*beta*scoreT(x,t); x=x-vel*dt; t-=dt; d+=` L ${TX(Math.max(0,t)).toFixed(1)} ${XY(x).toFixed(1)}`; }\n      endsODE.push(x); svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--cyan)','stroke-width':1.4})); }\n    function leg(x,y,co,t){ svg.appendChild(SVG('line',{x1:x,y1:y,x2:x+22,y2:y,stroke:co,'stroke-width':2.2})); const tt=SVG('text',{x:x+28,y:y+4,'font-size':11,fill:'var(--mute)'}); tt.textContent=t; svg.appendChild(tt); }\n    leg(x0+10,y1+14,'var(--pink)','reverse SDE (stochastic)');\n    leg(x0+10,y1+30,'var(--cyan)','PF ODE (deterministic)');\n    function frac(ends){ let n=0; for(const e of ends) if(e>0) n++; return n/ends.length; }\n    out.textContent =\n      `reverse SDE:  dx = [f − g²∇log p_t] dt + g dW̄    (noisy paths)\\n`+\n      `PF ODE:       dx = [f − ½ g²∇log p_t] dt          (smooth, deterministic paths)\\n`+\n      `same start (t=T), DIFFERENT paths, SAME endpoint law:  +mode share — SDE ${(frac(endsSDE)*100).toFixed(0)}%, ODE ${(frac(endsODE)*100).toFixed(0)}%`;\n  }\n  kSl.addEventListener('input',render);\n  runBtn.addEventListener('click',render);\n  render();"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-probability-flow"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "quiz",
+          "concept": "dsm-probability-flow",
+          "html": "<div class=\"quiz\" data-concept=\"dsm-probability-flow\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n\n"
+        }
+      ]
+    },
+    {
+      "id": "connections",
+      "blocks": [
+        {
+          "type": "raw",
+          "html": "<section id=\"connections\">\n<h2>Connections</h2>\n\n<p>Score-based diffusion is among the most active areas in machine learning, and the mathematics is far from settled. Sharp convergence rates for the discretized reverse SDE, the geometry of the learned score field, optimal noise schedules, the few-step distillation of the PF-ODE, and the bridge to flow-matching and stochastic interpolants are all under active development. What surprises a newcomer is how little is needed: a single learned vector field, the score, drives an entire generative model — and the same object connects to estimation theory, statistical physics, and optimal transport.</p>\n\n<ul>\n<li><a href=\"./stochastic-calculus.html#sde\">Stochastic calculus — stochastic differential equations</a> — the forward, reverse, and Langevin processes are all SDEs; existence/uniqueness and the OU solution come from here.</li>\n<li><a href=\"./stochastic-calculus.html#ito-formula\">Stochastic calculus — Itô's formula</a> — the Fokker–Planck/continuity machinery behind the reverse SDE and the probability-flow ODE rests on Itô calculus.</li>\n<li><a href=\"./probability-theory.html#brownian\">Probability theory — Brownian motion</a> — the $dW_t$ driving every diffusion is the Wiener process, and its Gaussian increments make the VP marginals closed-form.</li>\n<li><a href=\"./statistical-learning-theory.html#erm\">Statistical learning theory — empirical risk minimization</a> — denoising score matching is an ERM problem: minimize an empirical mean-squared loss over a hypothesis class of score networks.</li>\n<li><a href=\"./deep-learning-theory.html#optimization\">Deep learning theory — non-convex optimization</a> — in practice the score $s_\\theta$ is a deep network (a U-Net or transformer), trained by the same optimization story.</li>\n<li><a href=\"./information-geometry.html#statistical-manifold\">Information geometry — statistical manifolds</a> — the score $\\nabla_x\\log p$ here and the Fisher score $\\nabla_\\theta\\log p_\\theta$ there are siblings; both make the log-density's gradient the central object.</li>\n</ul>\n</section>\n\n"
+        }
+      ]
+    }
+  ],
+  "rawBodySuffix": "</main>\n\n<script>\n(function(){\n  function start(){ if(window.MVQuiz) MVQuiz.init('diffusion-and-score-based-models'); }\n  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);\n  else start();\n})();\n</script>\n<details class=\"changelog\">\n  <summary>changelog</summary>\n  <table>\n    <tbody>\n      <tr><td>2026-05-22</td><td>initial version</td></tr>\n    </tbody>\n  </table>\n</details>\n\n</body>\n</html>\n"
+}

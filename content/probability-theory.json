@@ -829,7 +829,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./mathematical-biology.html#kimura\">Mathematical biology</a> · Genetic drift and the Kimura diffusion</div>\n    <div><a href=\"./mathematical-finance.html#black-scholes-model\">Mathematical finance &amp; stochastic control</a> · The Black–Scholes model</div>\n    <div><a href=\"./stochastic-calculus.html#ito-integral\">Stochastic calculus</a> · Itô integral</div>\n    <div><a href=\"./stochastic-processes-and-martingales.html#continuous-martingales\">Stochastic processes and martingales</a> · Continuous-time martingales and Brownian motion</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./diffusion-and-score-based-models.html#score\">Diffusion and score based models</a> · The score function</div>\n    <div><a href=\"./mathematical-biology.html#kimura\">Mathematical biology</a> · Genetic drift and the Kimura diffusion</div>\n    <div><a href=\"./mathematical-finance.html#black-scholes-model\">Mathematical finance &amp; stochastic control</a> · The Black–Scholes model</div>\n    <div><a href=\"./stochastic-calculus.html#ito-integral\">Stochastic calculus</a> · Itô integral</div>\n    <div><a href=\"./stochastic-processes-and-martingales.html#continuous-martingales\">Stochastic processes and martingales</a> · Continuous-time martingales and Brownian motion</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

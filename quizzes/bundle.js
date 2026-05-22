@@ -19201,6 +19201,251 @@ window.MVQuizBank = {
       }
     }
   },
+  "diffusion-and-score-based-models": {
+    "topic": "diffusion-and-score-based-models",
+    "quizzes": {
+      "dsm-score": {
+        "title": "The score function",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The (Stein) score of a density $p$ is defined as:",
+            "choices": [
+              "$p(x)$ normalized to integrate to one",
+              "$\\nabla_x\\log p(x)$",
+              "$\\nabla_\\theta\\log p_\\theta(x)$, the gradient in the parameters",
+              "$-\\log p(x)$, the surprisal"
+            ],
+            "answer": 1,
+            "explain": "The score in the diffusion sense is the gradient of the log-density in the data variable $x$: $s(x)=\\nabla_x\\log p(x)$. (The statistical Fisher score is instead $\\nabla_\\theta\\log p_\\theta$, a gradient in the parameters — same word, different variable.) It is a vector field pointing toward higher density."
+          },
+          {
+            "type": "mcq",
+            "q": "Write an unnormalized density as $p(x)=\\tilde p(x)/Z$ with $Z=\\int\\tilde p$. Why is the score immune to the normalizing constant $Z$?",
+            "choices": [
+              "because $Z=1$ for every probability density",
+              "because $\\nabla_x\\log p=\\nabla_x[\\log\\tilde p-\\log Z]=\\nabla_x\\log\\tilde p$, and $\\log Z$ is a constant in $x$",
+              "because $Z$ cancels only when $p$ is Gaussian",
+              "because the score is computed before normalizing"
+            ],
+            "answer": 1,
+            "explain": "Since $\\log p=\\log\\tilde p-\\log Z$ and $Z$ does not depend on $x$, its gradient vanishes: $\\nabla_x\\log p=\\nabla_x\\log\\tilde p$. This is the central convenience of the score — it captures the shape of the density without ever needing the (usually intractable) partition function $Z$."
+          },
+          {
+            "type": "numeric",
+            "q": "For $p=N(\\mu,\\sigma^2)$ the score is $s(x)=-(x-\\mu)/\\sigma^2$. With $\\mu=2$, $\\sigma^2=4$, evaluate $s(6)$.",
+            "answer": -1,
+            "tol": 0.001,
+            "explain": "$s(x)=\\nabla_x\\big[-\\tfrac{(x-\\mu)^2}{2\\sigma^2}-\\log(\\sigma\\sqrt{2\\pi})\\big]=-(x-\\mu)/\\sigma^2$. At $x=6$: $-(6-2)/4=-1$. The score is negative to the right of the mean, pushing samples back toward $\\mu$, and its magnitude grows linearly with distance."
+          }
+        ]
+      },
+      "dsm-langevin": {
+        "title": "Langevin dynamics",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The overdamped Langevin SDE $dx_t=\\tfrac12\\,s(x_t)\\,dt+dW_t$ samples from $p$. What information about the target does running it require?",
+            "choices": [
+              "the full normalized density $p$ including $Z$",
+              "only the score $s(x)=\\nabla\\log p(x)$",
+              "the cumulative distribution function of $p$",
+              "an exact formula for the modes of $p$"
+            ],
+            "answer": 1,
+            "explain": "The drift is $\\tfrac12\\nabla\\log p$ and the diffusion is standard Brownian motion, so the only thing you feed the integrator is the score. You never need the normalizing constant $Z$ — which is exactly why score-based sampling is attractive for unnormalized models."
+          },
+          {
+            "type": "mcq",
+            "q": "Why does $p$ stay invariant under the Langevin SDE $dx=\\tfrac12\\nabla\\log p\\,dt+dW$?",
+            "choices": [
+              "because the drift is divergence-free",
+              "because the stationary Fokker–Planck equation $\\nabla\\!\\cdot\\!(\\tfrac12 p\\nabla\\log p)=\\tfrac12\\nabla^2 p$ is solved by $p$, so the probability current vanishes",
+              "because Brownian motion alone preserves every density",
+              "because the SDE is time-reversible for any drift"
+            ],
+            "answer": 1,
+            "explain": "The stationary Fokker–Planck (forward Kolmogorov) equation for drift $b=\\tfrac12\\nabla\\log p$ and unit diffusion is $0=-\\nabla\\!\\cdot\\!(b\\,\\rho)+\\tfrac12\\nabla^2\\rho$. Substituting $\\rho=p$ and $b\\,p=\\tfrac12 p\\nabla\\log p=\\tfrac12\\nabla p$ gives $-\\tfrac12\\nabla^2 p+\\tfrac12\\nabla^2 p=0$. The drift exactly balances diffusion, so $p$ is stationary."
+          },
+          {
+            "type": "mcq",
+            "q": "You run Langevin dynamics with the score of a two-component Gaussian mixture, starting all particles in one wide blob. After enough steps the empirical histogram:",
+            "choices": [
+              "collapses to a single point at the global mode",
+              "approaches the two-bump mixture density, with mass split between the modes",
+              "spreads out to a uniform distribution",
+              "stays exactly where it started because the score is zero"
+            ],
+            "answer": 1,
+            "explain": "Langevin dynamics has $p$ as its stationary law, so the histogram converges to the target mixture — both bumps, in the right proportion. The noise term lets particles escape one basin and cross to the other; without it the deterministic flow would only climb to the nearest mode."
+          }
+        ]
+      },
+      "dsm-forward": {
+        "title": "The forward noising process",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "In the variance-preserving (OU) forward process $dx=-\\tfrac12\\beta x\\,dt+\\sqrt{\\beta}\\,dW$, what happens to the data distribution as $t$ grows?",
+            "choices": [
+              "it sharpens toward a point mass at the origin",
+              "it relaxes toward the standard Gaussian $N(0,I)$",
+              "it diverges with unbounded variance",
+              "it stays exactly equal to the data distribution"
+            ],
+            "answer": 1,
+            "explain": "The linear drift $-\\tfrac12\\beta x$ pulls samples toward the origin while the $\\sqrt{\\beta}$ noise injects variance; the two balance at unit variance, so the marginal relaxes to $N(0,I)$. This is why the forward process gives a tractable, data-independent prior to start generation from."
+          },
+          {
+            "type": "mcq",
+            "q": "For the OU forward SDE, the conditional marginal $x_t\\mid x_0$ is which closed-form distribution? (Write $\\bar\\alpha_t=e^{-\\int_0^t\\beta(s)\\,ds}$.)",
+            "choices": [
+              "$N\\big(x_0,\\,t\\,I\\big)$",
+              "$N\\big(\\sqrt{\\bar\\alpha_t}\\,x_0,\\,(1-\\bar\\alpha_t)I\\big)$",
+              "$\\mathrm{Uniform}$ on a ball of radius $t$",
+              "$N\\big(x_0 e^{-t},\\,e^{-t}I\\big)$"
+            ],
+            "answer": 1,
+            "explain": "Because $f$ is linear and $g$ depends only on $t$, the transition kernel stays Gaussian. Solving the moment ODEs gives mean $\\sqrt{\\bar\\alpha_t}\\,x_0=x_0 e^{-\\frac12\\int\\beta}$ and covariance $(1-\\bar\\alpha_t)I$. The closed form lets you sample $x_t$ at any time in one shot — no need to simulate the SDE step by step during training."
+          },
+          {
+            "type": "numeric",
+            "q": "With constant $\\beta$ so that $\\int_0^t\\beta=\\log 4$ (i.e. $\\bar\\alpha_t=e^{-\\log 4}=1/4$), what is the variance of $x_t\\mid x_0$? (data is 1-D)",
+            "answer": 0.75,
+            "tol": 0.001,
+            "explain": "Variance is $1-\\bar\\alpha_t=1-1/4=3/4=0.75$. The mean factor is $\\sqrt{\\bar\\alpha_t}=1/2$, so $x_t\\mid x_0\\sim N(x_0/2,\\,0.75)$ — already heavily noised, halfway to the $N(0,1)$ prior at this $t$."
+          }
+        ]
+      },
+      "dsm-reverse": {
+        "title": "The reverse-time SDE",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Anderson's reverse-time SDE for a forward process $dx=f\\,dt+g\\,dW$ is:",
+            "choices": [
+              "$dx=f\\,dt+g\\,d\\bar W$ (just run the same SDE backward)",
+              "$dx=[f-g^2\\nabla\\log p_t(x)]\\,dt+g\\,d\\bar W$",
+              "$dx=[f+g^2\\nabla\\log p_t(x)]\\,dt+g\\,d\\bar W$",
+              "$dx=-f\\,dt-g\\,d\\bar W$"
+            ],
+            "answer": 1,
+            "explain": "Anderson (1982): the time-reversal of $dx=f\\,dt+g\\,dW$ is $dx=[f-g^2\\nabla\\log p_t(x)]\\,dt+g\\,d\\bar W_t$, integrated backward in time with $\\bar W$ a reverse-time Brownian motion. The drift gains a $-g^2\\nabla\\log p_t$ correction built from the time-dependent score; running it from noise reconstructs the data distribution."
+          },
+          {
+            "type": "mcq",
+            "q": "What is the single quantity the reverse-time SDE needs that the forward SDE does not?",
+            "choices": [
+              "the normalizing constant $Z$ of the data density",
+              "the time-dependent score $\\nabla\\log p_t(x)$ of the perturbed marginals",
+              "a second independent Brownian motion",
+              "the exact data samples $x_0$"
+            ],
+            "answer": 1,
+            "explain": "The forward SDE uses only the fixed $f$ and $g$. The reverse SDE additionally needs $\\nabla\\log p_t(x)$ — the score of each noised marginal — entering through the $-g^2\\nabla\\log p_t$ drift. This is precisely the quantity a neural network is trained to approximate."
+          },
+          {
+            "type": "mcq",
+            "q": "In the score-correction drift of the reverse SDE, the score appears multiplied by which factor?",
+            "choices": [
+              "$g(t)$",
+              "$g(t)^2$",
+              "$\\tfrac12 g(t)^2$",
+              "$g(t)^3$"
+            ],
+            "answer": 1,
+            "explain": "The reverse-SDE drift is $f-g(t)^2\\nabla\\log p_t$, so the score is weighted by the full $g(t)^2$. (Contrast the probability-flow ODE, where the same score enters with the half-weight $\\tfrac12 g^2$ — that factor-of-two difference is exactly what makes one stochastic and the other deterministic while sharing marginals.)"
+          }
+        ]
+      },
+      "dsm-score-matching": {
+        "title": "Training: denoising score matching",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Denoising score matching (Vincent 2011) trains $s_\\theta$ by minimizing which objective?",
+            "choices": [
+              "$\\mathbb{E}\\,\\lVert s_\\theta(x)-\\nabla\\log p(x)\\rVert^2$, using the unknown true score directly",
+              "$\\mathbb{E}_{x,\\tilde x}\\,\\lVert s_\\theta(\\tilde x)-\\nabla_{\\tilde x}\\log q_\\sigma(\\tilde x\\mid x)\\rVert^2$, matching the tractable conditional score",
+              "$\\mathbb{E}\\,[-\\log p_\\theta(x)]$, the negative log-likelihood",
+              "$\\mathbb{E}\\,\\lVert x-\\tilde x\\rVert^2$, plain denoising MSE"
+            ],
+            "answer": 1,
+            "explain": "DSM replaces the intractable target $\\nabla\\log p_\\sigma(\\tilde x)$ with the per-sample conditional score $\\nabla_{\\tilde x}\\log q_\\sigma(\\tilde x\\mid x)$, which IS known. Vincent's theorem: the two objectives have the same minimizer, so fitting the easy conditional target recovers the true marginal score $\\nabla\\log p_\\sigma$."
+          },
+          {
+            "type": "mcq",
+            "q": "For Gaussian noising $q_\\sigma(\\tilde x\\mid x)=N(x,\\sigma^2 I)$, the DSM target $\\nabla_{\\tilde x}\\log q_\\sigma(\\tilde x\\mid x)$ equals:",
+            "choices": [
+              "$-(\\tilde x-x)/\\sigma^2$",
+              "$+(\\tilde x-x)/\\sigma^2$",
+              "$(\\tilde x-x)$",
+              "$-\\tilde x/\\sigma^2$"
+            ],
+            "answer": 0,
+            "explain": "$\\log q_\\sigma(\\tilde x\\mid x)=-\\lVert\\tilde x-x\\rVert^2/(2\\sigma^2)+\\text{const}$, whose $\\tilde x$-gradient is $-(\\tilde x-x)/\\sigma^2$. Since $\\tilde x=x+\\sigma\\varepsilon$ with $\\varepsilon\\sim N(0,I)$, this target is $-\\varepsilon/\\sigma$ — pointing back toward the clean data."
+          },
+          {
+            "type": "mcq",
+            "q": "Because the DSM target is $-(\\tilde x-x)/\\sigma^2=-\\varepsilon/\\sigma$, learning the score is equivalent to:",
+            "choices": [
+              "predicting the clean image $x$ exactly with no uncertainty",
+              "predicting the noise $\\varepsilon$ that was added (the $\\varepsilon$-prediction parameterization)",
+              "predicting the normalizing constant $Z$",
+              "predicting the time $t$ at which the sample was noised"
+            ],
+            "answer": 1,
+            "explain": "Up to the known scale $-1/\\sigma$, the score target is the noise direction $\\varepsilon$. So a network can be reparameterized to output $\\varepsilon_\\theta(\\tilde x,t)$ and trained with a plain MSE to the sampled noise — the $\\varepsilon$-prediction objective used by DDPM, equivalent to score matching."
+          }
+        ]
+      },
+      "dsm-probability-flow": {
+        "title": "The probability-flow ODE",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The probability-flow ODE associated with $dx=f\\,dt+g\\,dW$ is:",
+            "choices": [
+              "$dx=[f-g^2\\nabla\\log p_t]\\,dt$",
+              "$dx=[f-\\tfrac12 g^2\\nabla\\log p_t]\\,dt$",
+              "$dx=f\\,dt$",
+              "$dx=[f-\\tfrac12 g^2\\nabla\\log p_t]\\,dt+g\\,dW$"
+            ],
+            "answer": 1,
+            "explain": "The probability-flow ODE is $dx=[f-\\tfrac12 g^2\\nabla\\log p_t]\\,dt$ — deterministic (no $dW$), with the score entering at half the weight it has in the reverse SDE. It is obtained by rewriting the Fokker–Planck equation as a continuity equation $\\partial_t p_t+\\nabla\\!\\cdot(p_t v_t)=0$ with velocity $v_t=f-\\tfrac12 g^2\\nabla\\log p_t$."
+          },
+          {
+            "type": "mcq",
+            "q": "What does the probability-flow ODE share with the stochastic reverse SDE?",
+            "choices": [
+              "the individual sample trajectories are identical",
+              "the time-marginal distributions $p_t$ are identical, even though the paths differ",
+              "neither requires the score",
+              "both add the same amount of injected noise"
+            ],
+            "answer": 1,
+            "explain": "By construction both transport the same densities $p_t$ — they solve the same Fokker–Planck/continuity equation — so they have identical marginals at every time. But the ODE is deterministic and the SDE is noisy, so a single sample follows a different path under each; only the distribution of endpoints matches."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which are genuine advantages of the deterministic probability-flow ODE over the stochastic sampler?",
+            "choices": [
+              "it gives a deterministic (DDIM-style) sampler with reproducible outputs from a fixed seed",
+              "as a continuous normalizing flow it yields exact log-likelihoods via the instantaneous change-of-variables formula",
+              "it eliminates the need to know the score $\\nabla\\log p_t$",
+              "it can use fast adaptive ODE solvers, often with far fewer function evaluations"
+            ],
+            "answer": [
+              0,
+              1,
+              3
+            ],
+            "explain": "The ODE is deterministic (reproducible, DDIM-style), is a continuous normalizing flow so the change-of-variables formula gives exact likelihoods, and admits black-box ODE solvers for few-step sampling. It does NOT remove the need for the score — the velocity field $f-\\tfrac12 g^2\\nabla\\log p_t$ still contains it, just at half weight."
+          }
+        ]
+      }
+    }
+  },
   "dirac-equation": {
     "topic": "dirac-equation",
     "quizzes": {
