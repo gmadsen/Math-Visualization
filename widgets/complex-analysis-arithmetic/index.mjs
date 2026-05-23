@@ -60,7 +60,9 @@ export function renderScript(params) {
     `  var NS = 'http://www.w3.org/2000/svg';\n` +
     `  function mk(tag, attrs, text){ var e = document.createElementNS(NS, tag); for(var k in attrs){ e.setAttribute(k, attrs[k]); } if(text!=null) e.textContent = text; return e; }\n` +
     `  var mode = 'mul';\n` +
-    `  var CX=270, CY=148, SC=58;\n` +
+    `  // SC small enough that the largest result (|z|+|w| or |z||w| up to 3.6 at the slider\n` +
+    `  // maxima of 1.8) stays inside the 540x290 viewBox: 3.6*32 = 115 < min(CY, 290-CY).\n` +
+    `  var CX=270, CY=148, SC=32;\n` +
     `  function PX(x){ return CX + x*SC; } function PY(y){ return CY - y*SC; }\n` +
     `  function vec(p, color, label, w){ \n` +
     `    svg.appendChild(mk('line', {x1:CX, y1:CY, x2:PX(p[0]), y2:PY(p[1]), stroke:color, 'stroke-width':w||2}));\n` +
@@ -88,12 +90,19 @@ export function renderScript(params) {
     `    // readout\n` +
     `    var modZ=Math.hypot(z[0],z[1]), modW=Math.hypot(w[0],w[1]), modR=Math.hypot(res[0],res[1]);\n` +
     `    var argZ=Math.atan2(z[1],z[0]), argW=Math.atan2(w[1],w[0]), argR=Math.atan2(res[1],res[0]);\n` +
+    `    function argStr(mod, ang){ return mod<1e-9 ? 'undefined' : ang.toFixed(2); } // arg(0) is undefined\n` +
     `    var lines = [];\n` +
-    `    lines.push('z = ' + fmtC(z) + '    (|z| = ' + modZ.toFixed(2) + ',  arg z = ' + argZ.toFixed(2) + ')');\n` +
-    `    lines.push('w = ' + fmtC(w) + '    (|w| = ' + modW.toFixed(2) + ',  arg w = ' + argW.toFixed(2) + ')');\n` +
+    `    lines.push('z = ' + fmtC(z) + '    (|z| = ' + modZ.toFixed(2) + ',  arg z = ' + argStr(modZ, argZ) + ')');\n` +
+    `    lines.push('w = ' + fmtC(w) + '    (|w| = ' + modW.toFixed(2) + ',  arg w = ' + argStr(modW, argW) + ')');\n` +
     `    if(mode==='mul'){\n` +
-    `      lines.push('z\\u00b7w = ' + fmtC(res) + '    (|z\\u00b7w| = ' + modR.toFixed(2) + ',  arg = ' + argR.toFixed(2) + ')');\n` +
-    `      lines.push('MULTIPLY = rotate + scale:  |z\\u00b7w| = |z||w| = ' + (modZ*modW).toFixed(2) + ',  arg(z\\u00b7w) = arg z + arg w = ' + (argZ+argW).toFixed(2) + ' (mod 2\\u03c0). Multiplying by w rotates z by arg w and scales it by |w|.');\n` +
+    `      lines.push('z\\u00b7w = ' + fmtC(res) + '    (|z\\u00b7w| = ' + modR.toFixed(2) + ',  arg = ' + argStr(modR, argR) + ')');\n` +
+    `      if(modZ<1e-9 || modW<1e-9){\n` +
+    `        lines.push('MULTIPLY: |z\\u00b7w| = |z||w| = 0, so z\\u00b7w = 0 \\u2014 its argument is undefined (you cannot rotate/scale by a zero-length number).');\n` +
+    `      } else {\n` +
+    `        // arg z + arg w can exceed \\u03c0; reduce it to the principal value so it matches arg(z\\u00b7w).\n` +
+    `        var sumArg = argZ + argW; while(sumArg > Math.PI) sumArg -= 2*Math.PI; while(sumArg <= -Math.PI) sumArg += 2*Math.PI;\n` +
+    `        lines.push('MULTIPLY = rotate + scale:  |z\\u00b7w| = |z||w| = ' + (modZ*modW).toFixed(2) + ',  arg z + arg w = ' + (argZ+argW).toFixed(2) + ' \\u2261 ' + sumArg.toFixed(2) + ' (mod 2\\u03c0) = arg(z\\u00b7w). Multiplying by w rotates z by arg w and scales it by |w|.');\n` +
+    `      }\n` +
     `    } else {\n` +
     `      lines.push('z+w = ' + fmtC(res) + '    (|z+w| = ' + modR.toFixed(2) + ')');\n` +
     `      lines.push('ADD = translate (tip-to-tail):  z+w is the diagonal of the parallelogram on z and w \\u2014 the same vector addition as in \\u211d\\u00b2.');\n` +
