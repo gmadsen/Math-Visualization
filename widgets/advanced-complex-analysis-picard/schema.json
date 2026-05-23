@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/advanced-complex-analysis-picard/schema.json",
+  "title": "advanced-complex-analysis-picard widget params",
+  "description": "Picard value-coverage explorer (serves both Little and Great Picard). The reader picks a function and a radius; the widget samples the domain (a disk |z|≤R for entire functions, or a punctured disk 0<|z|≤r around an essential singularity) and shades which values of the w-plane get hit. Little Picard: a non-constant entire function omits at most one value (e^z misses only 0; z² and sin z miss nothing). Great Picard: near an essential singularity f takes every value, with at most one exception, infinitely often (e^{1/z} misses only 0 even on an arbitrarily small punctured disk; sin(1/z) misses nothing). The omitted value, if any, is marked. The function eval is intrinsic (a `kind` enum); params carry the case menu.",
+  "meta": {
+    "family": "advanced-complex-analysis-picard",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["widgetId", "title", "functions"],
+  "properties": {
+    "widgetId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id; the script derives -sel/-r/-svg/-out." },
+    "title": { "type": "string", "description": "Display title rendered inside .hd > .ttl." },
+    "hint": { "type": "string", "description": "Optional short hint rendered inside .hd > .hint." },
+    "functions": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 6,
+      "description": "Each function offered in the dropdown.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "label", "kind", "domain"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[A-Za-z0-9_-]+$", "description": "Stable option value." },
+          "label": { "type": "string", "description": "Plain-text dropdown label, e.g. 'e^z'." },
+          "kind": {
+            "type": "string",
+            "enum": ["ez", "z2", "sinz", "einvz", "sininvz"],
+            "description": "Which f to evaluate."
+          },
+          "domain": {
+            "type": "string",
+            "enum": ["disk", "punctured"],
+            "description": "disk = |z| ≤ R (entire functions, Little Picard); punctured = 0 < |z| ≤ r around z=0 (essential singularity, Great Picard)."
+          },
+          "omit": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["re", "im"],
+            "description": "The single omitted value, if any (marked on the w-plane). Omit the field for surjective cases.",
+            "properties": { "re": { "type": "number" }, "im": { "type": "number" } }
+          },
+          "note": { "type": "string", "maxLength": 120, "description": "Optional plain-text remark about this case." }
+        }
+      }
+    }
+  }
+}
