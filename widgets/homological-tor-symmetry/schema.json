@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/homological-tor-symmetry/schema.json",
+  "title": "homological-tor-symmetry widget params",
+  "description": "Symmetry-of-Tor explorer over ℤ. The reader picks m and n; the widget computes Tor₁ᶻ(ℤ/m, ℤ/n) two ways — by resolving ℤ/m (0→ℤ→×m→ℤ→ℤ/m→0, tensor with ℤ/n, take ker(×m) on ℤ/n) and by resolving ℤ/n (symmetric) — and shows both give ℤ/gcd(m,n), so Tor doesn't care which argument you resolve. The gcd arithmetic is intrinsic; params carry only chrome.",
+  "meta": {
+    "family": "homological-tor-symmetry",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["widgetId", "title"],
+  "properties": {
+    "widgetId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id; the script derives -m/-n/-svg/-out." },
+    "title": { "type": "string", "description": "Display title rendered inside .hd > .ttl." },
+    "hint": { "type": "string", "description": "Optional short hint rendered inside .hd > .hint." }
+  }
+}

@@ -10135,6 +10135,42 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "homological-double-complex",
+    "family": "homological-double-complex",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory",
+    "title": "homological-double-complex widget params",
+    "description": "Double-complex / total-complex explorer. A grid of objects C^{p,q} carries a horizontal differential d^h (→ p+1) and a vertical d^v (→ q+1) with d^h²=d^v²=0 and d^h d^v + d^v d^h = 0. The reader slides a total degree n; the widget highlights the anti-diagonal p+q=n whose direct sum is the total complex Tot^n, and shows the total differential D = d^h + d^v whose square vanishes by anticommutativity, making Tot a single complex. The grid geometry is intrinsic; params carry only the grid size and chrome.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Double-complex / total-complex explorer, introduced on `homological.html` §12. Bespoke semantic module — the grid geometry is intrinsic; params carry the grid size and chrome.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "homological-tor-symmetry",
+    "family": "homological-tor-symmetry",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory",
+    "title": "homological-tor-symmetry widget params",
+    "description": "Symmetry-of-Tor explorer over ℤ. The reader picks m and n; the widget computes Tor₁ᶻ(ℤ/m, ℤ/n) two ways — by resolving ℤ/m (0→ℤ→×m→ℤ→ℤ/m→0, tensor with ℤ/n, take ker(×m) on ℤ/n) and by resolving ℤ/n (symmetric) — and shows both give ℤ/gcd(m,n), so Tor doesn't care which argument you resolve. The gcd arithmetic is intrinsic; params carry only chrome.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Symmetry-of-Tor explorer over $\\mathbb{Z}$, introduced on `homological.html` §13. Bespoke semantic module — the gcd arithmetic is intrinsic; params carry only chrome.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "homotopy-theory-w1",
     "family": "verbatim",
     "dimension": "2d",
