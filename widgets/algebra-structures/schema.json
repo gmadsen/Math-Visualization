@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/algebra-structures/schema.json",
+  "title": "algebra-structures widget params",
+  "description": "Group → ring → field hierarchy explorer (the \"one, two, three operations\" framing). Six set buttons (ℕ, ℤ, ℤ/5, ℤ/6, ℚ, M₂(ℝ)); for each, three ✓/✗ rows show how far up the tower it climbs — abelian group under +? ring? field? — each with a one-line reason. ℕ fails at the group level (no inverses); ℤ and M₂(ℝ) are rings but not fields (ℤ: only ±1 invertible; M₂: noncommutative + singular matrices); ℤ/6 is a ring with zero divisors; ℤ/5 and ℚ are fields. Classifications are intrinsic; params carry only chrome.",
+  "meta": {
+    "family": "algebra-structures",
+    "dimension": "2d",
+    "gesture": "select",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id; the script derives -svg/-out and the six set-button ids."
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title rendered inside .hd > .ttl."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional short hint rendered inside .hd > .hint."
+    }
+  }
+}
