@@ -242,6 +242,27 @@
         },
         {
           "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget",
+          "slug": "harmonic-poisson",
+          "params": {
+            "widgetId": "w-harmonic-poisson",
+            "title": "Poisson summation and the theta functional equation",
+            "hint": "Slide t: Σf(n) = Σf̂(n) for the Gaussian gives θ(1/t) = √t·θ(t). Self-dual at t=1."
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-harmonic-poisson"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "raw",
           "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./complex-analysis.html#analytic-continuation\">Analytic continuation</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {
@@ -311,6 +332,27 @@
         {
           "type": "raw",
           "html": "<section id=\"pontryagin\">\n<h2>8. Pontryagin duality (teaser)</h2>\n\n<p>Fourier series on $\\mathbb{T}$ and the Fourier transform on $\\mathbb{R}$ are not two theorems — they are <em>one</em> theorem in two key signatures. The unifying frame is <strong>Pontryagin duality</strong> on locally compact abelian (LCA) groups.</p>\n\n<p>For $G$ an LCA group, the <strong>dual group</strong> is</p>\n$$\\widehat G \\;=\\; \\Hom_{\\mathrm{cts}}(G,\\, U(1)) \\;=\\; \\{\\text{continuous group homomorphisms } \\chi\\colon G\\to U(1)\\}.$$\n<p>Endow $\\widehat G$ with the compact-open topology. It is also LCA, and the canonical map $G\\to\\widehat{\\widehat G}$, $g\\mapsto (\\chi\\mapsto \\chi(g))$, is a topological group isomorphism. The classical Fourier theorems are special cases:</p>\n\n<table class=\"plain\">\n<thead><tr><th>$G$</th><th>$\\widehat G$</th><th>\"Fourier transform\"</th></tr></thead>\n<tbody>\n<tr><td>$\\mathbb{R}$</td><td>$\\mathbb{R}$ (self-dual via $\\chi_\\xi(x) = e^{2\\pi i \\xi x}$)</td><td>continuous Fourier transform</td></tr>\n<tr><td>$\\mathbb{T} = \\mathbb{R}/\\mathbb{Z}$</td><td>$\\mathbb{Z}$ (via $\\chi_n(x) = e^{2\\pi i n x}$)</td><td>Fourier <em>series</em>: $\\hat f \\in \\ell^2(\\mathbb{Z})$</td></tr>\n<tr><td>$\\mathbb{Z}$</td><td>$\\mathbb{T}$</td><td>discrete-time Fourier transform</td></tr>\n<tr><td>$\\mathbb{Z}/N$</td><td>$\\mathbb{Z}/N$ (self-dual finite)</td><td>discrete Fourier transform (DFT)</td></tr>\n<tr><td>$\\mathbb{Q}_p$</td><td>$\\mathbb{Q}_p$ (self-dual via additive characters)</td><td>$p$-adic Fourier analysis</td></tr>\n<tr><td>$\\mathbb{A}_K = \\prod'_v K_v$ (adèles)</td><td>$\\mathbb{A}_K$ (self-dual)</td><td>adelic harmonic analysis (Tate's thesis)</td></tr>\n</tbody>\n</table>\n\n<p>The <strong>Plancherel theorem</strong> says: with appropriately compatible Haar measures on $G$ and $\\widehat G$, the Fourier transform $\\mathcal{F}\\colon L^1(G)\\cap L^2(G) \\to L^2(\\widehat G)$ extends to a unitary isomorphism $L^2(G)\\xrightarrow{\\sim} L^2(\\widehat G)$. Setting $G = \\mathbb{R}$ recovers classical Plancherel; $G = \\mathbb{T}$ recovers Parseval; $G = \\mathbb{Z}/N$ is unitarity of the DFT matrix divided by $\\sqrt N$.</p>\n\n<div class=\"note\"><strong>Looking ahead.</strong> Tate (1950) used Pontryagin duality on the adèles $\\mathbb{A}_K$ to give a unified, conceptual proof of the analytic continuation and functional equation of Hecke L-functions — the same Poisson-summation idea (§6) lifted to LCA groups. This is the bridge from harmonic analysis to modern automorphic forms.</div>\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget",
+          "slug": "harmonic-pontryagin",
+          "params": {
+            "widgetId": "w-harmonic-pontryagin",
+            "title": "Pontryagin duality: G and its dual Ĝ",
+            "hint": "Pick a group: dualizing swaps discrete ↔ compact (ℤ ↔ T) and fixes ℝ, ℤ/N."
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-harmonic-pontryagin"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
         },
         {
           "type": "quiz",

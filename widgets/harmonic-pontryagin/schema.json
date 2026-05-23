@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/harmonic-pontryagin/schema.json",
+  "title": "harmonic-pontryagin widget params",
+  "description": "Pontryagin-duality gallery. Four tabs (ℝ, T=ℝ/ℤ, ℤ, ℤ/N) show a locally compact abelian group G and its dual Ĝ=Hom_cts(G,U(1)), drawing each as its characteristic picture (line / circle / discrete dots / roots of unity) so the discrete↔compact swap (ℤ↔T) is visible, with the character formula, the corresponding Fourier transform, and the double-dual Ĝ̂≅G. Self-dual cases (ℝ, ℤ/N) are flagged. Structural; params carry only chrome.",
+  "meta": {
+    "family": "harmonic-pontryagin",
+    "dimension": "2d",
+    "gesture": "select",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id; the script derives -svg/-out and the four group-tab button ids."
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title rendered inside .hd > .ttl."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional short hint rendered inside .hd > .hint."
+    }
+  }
+}
