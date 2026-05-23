@@ -234,6 +234,44 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "advanced-complex-analysis-hardy-spaces",
+    "family": "advanced-complex-analysis-hardy-spaces",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory",
+    "title": "advanced-complex-analysis-hardy-spaces widget params",
+    "description": "Fatou-boundary-values explorer. The reader picks a bounded holomorphic function on the unit disk and a boundary angle θ; the widget draws the radius to e^{iθ} and plots |f(re^{iθ})| as r→1, showing the radial limit converging to the Fatou boundary value f*(e^{iθ}). A Blaschke factor has |f*|=1 everywhere; (1+z)/2 has |f*|=|cos(θ/2)|; the singular inner function exp((z+1)/(z−1)) has |f*|=1 for almost every θ but its radial limit at the single point z=1 (θ=0) is 0 — the measure-zero exceptional set Fatou's theorem allows. The function eval is intrinsic (a `kind` enum); params carry the case menu.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "functions"
+    ],
+    "readmeExcerpt": "Fatou-boundary-values explorer, introduced on `advanced-complex-analysis.html` §8. Bespoke semantic module — the function eval is intrinsic (a `kind` enum); params carry only the case menu.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "advanced-complex-analysis-landscape",
+    "family": "advanced-complex-analysis-landscape",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory",
+    "title": "advanced-complex-analysis-landscape widget params",
+    "description": "Thematic map of an overview/landscape section. The reader clicks one of the page's threads and sees its one-line idea plus the member theorems as in-page anchor links, so the section's organizing structure becomes navigable. Pure data widget — params carry the threads and their members.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "threads"
+    ],
+    "readmeExcerpt": "Thematic map for the overview/landscape section of `advanced-complex-analysis.html` §1. Bespoke data-only module — params carry the threads and their member theorems; no math, just navigation.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "advanced-complex-analysis-mittag-leffler",
     "family": "advanced-complex-analysis-mittag-leffler",
     "dimension": "2d",

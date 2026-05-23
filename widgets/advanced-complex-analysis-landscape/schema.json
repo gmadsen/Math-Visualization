@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/advanced-complex-analysis-landscape/schema.json",
+  "title": "advanced-complex-analysis-landscape widget params",
+  "description": "Thematic map of an overview/landscape section. The reader clicks one of the page's threads and sees its one-line idea plus the member theorems as in-page anchor links, so the section's organizing structure becomes navigable. Pure data widget — params carry the threads and their members.",
+  "meta": {
+    "family": "advanced-complex-analysis-landscape",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["widgetId", "title", "threads"],
+  "properties": {
+    "widgetId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id; the script derives -tabs/-body." },
+    "title": { "type": "string", "description": "Display title rendered inside .hd > .ttl." },
+    "hint": { "type": "string", "description": "Optional short hint rendered inside .hd > .hint." },
+    "threads": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 6,
+      "description": "Each organizing thread of the section.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "name", "blurb", "members"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[A-Za-z0-9_-]+$", "description": "Stable option value." },
+          "name": { "type": "string", "description": "Plain-text thread name (the tab label)." },
+          "blurb": { "type": "string", "maxLength": 240, "description": "Plain-text one-to-two-line description of the thread's idea." },
+          "members": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 8,
+            "description": "The theorems/topics in this thread, as in-page anchor links.",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["label", "anchor"],
+              "properties": {
+                "label": { "type": "string", "description": "Plain-text link label." },
+                "anchor": { "type": "string", "pattern": "^[A-Za-z0-9_-]+$", "description": "Target section id on the same page (href becomes #anchor)." }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
