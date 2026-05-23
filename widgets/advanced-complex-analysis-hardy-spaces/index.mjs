@@ -23,7 +23,7 @@ export function renderMarkup(params) {
     `    <label for="${widgetId}-sel">$f$ on $\\mathbb{D}$</label>\n` +
     `    <select id="${widgetId}-sel">\n${options}\n    </select>\n` +
     `    <label for="${widgetId}-t">angle $\\theta$</label>\n` +
-    `    <input type="range" id="${widgetId}-t" min="-3.14159" max="3.14159" value="0.9" step="0.02">\n` +
+    `    <input type="range" id="${widgetId}-t" min="-3.14" max="3.14" value="0.9" step="0.02">\n` +
     `    <span class="pill" id="${widgetId}-tval">θ = 0.90</span>\n` +
     `  </div>\n` +
     `  <svg id="${widgetId}-svg" viewBox="0 0 540 260" width="540" height="260" role="img" aria-label="The radius to e^{iθ} in the disk, and |f| along it as r→1"><title>Fatou's theorem: a bounded holomorphic function on the disk has radial boundary values almost everywhere</title></svg>\n` +
@@ -56,6 +56,12 @@ export function renderScript(params) {
     `    return cexp(cdiv([z[0]+1, z[1]], [z[0]-1, z[1]])); // singInner exp((z+1)/(z-1))\n` +
     `  }\n` +
     `  function absF(kind, r, th){ var w=feval(kind, [r*Math.cos(th), r*Math.sin(th)]); return Math.hypot(w[0], w[1]); }\n` +
+    `  // exact radial boundary value |f*(e^{i th})| (not a finite-r sample — the true limit)\n` +
+    `  function fstar(kind, th){\n` +
+    `    if(kind==='blaschke') return 1;                                  // inner: |f*| = 1 everywhere\n` +
+    `    if(kind==='half') return Math.abs(Math.cos(th/2));               // |(1+e^{i th})/2| = |cos(th/2)|\n` +
+    `    return Math.abs(th) < 1e-9 ? 0 : 1;                              // singInner: 1 a.e., 0 at the lone point z=1\n` +
+    `  }\n` +
     `  var Lx=112, Ly=130, LR=96;            // disk panel\n` +
     `  var PX0=258, PW=252, PYb=212, PTop=36, PH=176, YHI=1.18; // |f| vs r plot\n` +
     `  function PX(r){ return PX0 + r*PW; } function PY(v){ return PYb - Math.min(v,YHI)/YHI*PH; }\n` +
@@ -80,16 +86,18 @@ export function renderScript(params) {
     `    svg.appendChild(mk('text', {x:PX0+4, y:PTop+10, 'font-size':10, fill:'var(--cyan)'}, '|f(r e^{iθ})|'));\n` +
     `    var pts=[], i, r; for(i=0;i<=200;i++){ r=0.999*i/200; pts.push(PX(r).toFixed(1)+','+PY(absF(g.kind,r,th)).toFixed(1)); }\n` +
     `    svg.appendChild(mk('polyline', {points:pts.join(' '), fill:'none', stroke:'var(--cyan)', 'stroke-width':2}));\n` +
-    `    var fb = absF(g.kind, 0.9995, th);\n` +
+    `    var fb = fstar(g.kind, th); // exact limit, marked at r=1\n` +
     `    svg.appendChild(mk('circle', {cx:PX(1), cy:PY(fb), r:4, fill:'var(--yellow)'}));\n` +
     `    svg.appendChild(mk('text', {x:PX(1)-4, y:PY(fb)-6, 'text-anchor':'end', 'font-size':10, fill:'var(--yellow)'}, 'f*'));\n` +
     `    // ---- readout ----\n` +
     `    var lines=[];\n` +
     `    lines.push('Fatou: a bounded holomorphic f on \\ud835\\udd3b has a radial (non-tangential) limit f*(e^{i\\u03b8}) for ALMOST EVERY \\u03b8.');\n` +
-    `    lines.push('Along this radius |f(r e^{i\\u03b8})| \\u2192 |f*(e^{i\\u03b8})| \\u2248 ' + fb.toFixed(3) + ' as r \\u2192 1.');\n` +
+    `    lines.push('Along this radius |f(r e^{i\\u03b8})| \\u2192 its Fatou boundary value |f*(e^{i\\u03b8})| = ' + fb.toFixed(3) + ' as r \\u2192 1 (yellow marker).');\n` +
     `    if(g.kind==='blaschke'){ lines.push('A Blaschke factor is an inner function: |f*| = 1 at EVERY \\u03b8 (it maps the boundary circle to itself).'); }\n` +
     `    else if(g.kind==='half'){ lines.push('(1+z)/2 extends continuously: |f*(e^{i\\u03b8})| = |cos(\\u03b8/2)| \\u2014 a genuine non-constant boundary function.'); }\n` +
-    `    else { lines.push('exp((z+1)/(z\\u22121)) is a singular inner function: |f*| = 1 for almost every \\u03b8, yet at the single point z = 1 (\\u03b8 = 0) the radial limit is 0 \\u2014 set \\u03b8 = 0 to see it. That lone bad point is the measure-zero exceptional set Fatou allows.'); }\n` +
+    `    else { lines.push('exp((z+1)/(z\\u22121)) is a singular inner function: |f*| = 1 for almost every \\u03b8, yet at the single point z = 1 (\\u03b8 = 0) the radial limit is 0 \\u2014 set \\u03b8 = 0. That lone bad point is the measure-zero exceptional set Fatou allows.');\n` +
+    `      if(Math.abs(th) > 1e-9 && Math.abs(th) < 0.3){ lines.push('Note: very close to z = 1 the approach is extremely slow \\u2014 the curve can still be far below its limit 1 at the plot\\u2019s edge, even though f* = 1 there.'); }\n` +
+    `    }\n` +
     `    if(g.note) lines.push(g.note);\n` +
     `    out.textContent = lines.join('\\n');\n` +
     `  }\n` +
