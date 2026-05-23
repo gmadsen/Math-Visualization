@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/schemes-dimension/schema.json",
+  "title": "schemes-dimension widget params",
+  "description": "Krull-dimension explorer. The reader picks a ring and the widget draws a maximal chain of prime ideals p_0 ⊊ p_1 ⊊ … ⊊ p_d as a ladder, with each prime's geometric meaning (V(p_i) is a closed subscheme whose dimension drops by one down the chain). The Krull dimension is the length d of the longest such chain — the generic point (0) at the top has dimension d, the maximal ideal at the bottom is a dimension-0 point. The chain and geometry come from params.",
+  "meta": {
+    "family": "schemes-dimension",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["widgetId", "title", "rings"],
+  "properties": {
+    "widgetId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id; the script derives -sel/-svg/-out." },
+    "title": { "type": "string", "description": "Display title rendered inside .hd > .ttl." },
+    "hint": { "type": "string", "description": "Optional short hint rendered inside .hd > .hint." },
+    "rings": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 6,
+      "description": "Each ring offered in the dropdown.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "label", "steps"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[A-Za-z0-9_-]+$", "description": "Stable option value." },
+          "label": { "type": "string", "description": "Plain-text ring label." },
+          "steps": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 5,
+            "description": "The chain p_0 ⊊ … ⊊ p_d, top (smallest, =(0)) to bottom (maximal). Krull dim = length-1. Each step pairs the ideal with its geometry, so the two can never desync.",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["ideal", "geom"],
+              "properties": {
+                "ideal": { "type": "string", "description": "The prime ideal p_i (e.g. '(x,y)')." },
+                "geom": { "type": "string", "description": "The geometric meaning of V(p_i) (e.g. 'the point (0,0)')." }
+              }
+            }
+          },
+          "note": { "type": "string", "maxLength": 130, "description": "Optional plain-text remark." }
+        }
+      }
+    }
+  }
+}
