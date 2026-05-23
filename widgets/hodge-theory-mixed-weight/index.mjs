@@ -58,9 +58,10 @@ export function renderScript(params) {
     `      svg.appendChild(mk('text', {x:bx+bw-14, y:y+bh/2+5, 'text-anchor':'end', 'font-size':12, fill:'var(--ink)'}, pc.label + '   (dim ' + pc.dim + ')'));\n` +
     `    }\n` +
     `    var totalDim = pieces.reduce(function(a,b){ return a + b.dim; }, 0);\n` +
-    `    var mixed = pieces.length > 1;\n` +
+    `    var wset = {}; pieces.forEach(function(pc){ wset[pc.weight] = 1; }); var nWeights = Object.keys(wset).length;\n` +
+    `    var mixed = nWeights > 1; // mixedness = more than one distinct weight, not more than one row\n` +
     `    var lines = [];\n` +
-    `    lines.push(ex.space + '   total dim = ' + totalDim + (mixed ? '   (genuinely MIXED: ' + pieces.length + ' weights)' : '   (PURE: a single weight)'));\n` +
+    `    lines.push(ex.space + '   total dim = ' + totalDim + (mixed ? '   (genuinely MIXED: ' + nWeights + ' weights)' : '   (PURE: a single weight)'));\n` +
     `    lines.push('weight filtration W\\u2022 :  each graded piece gr\\u1d42\\u2099 = W\\u2099 / W\\u2099\\u208b\\u2081 is a pure Hodge structure of weight n');\n` +
     `    if(ex.note){ lines.push(''); lines.push(ex.note); }\n` +
     `    out.textContent = lines.join('\\n');\n` +
