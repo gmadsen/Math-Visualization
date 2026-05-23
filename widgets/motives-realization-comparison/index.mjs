@@ -91,7 +91,8 @@ export function renderScript(params) {
     `      svg.appendChild(mk('text', {x:x+bw/2, y:by+56, 'text-anchor':'middle', 'font-size':10, fill:'var(--mute)'}, 'b'+SUP[i]));\n` +
     `    }\n` +
     `    // realization cards\n` +
-    `    var m = THEORIES.length, cardW = 134, cgap = (W - 20 - m*cardW)/(m-1), cy = 108, cardH = 92, cstartX = 10;\n` +
+    `    var m = THEORIES.length, cardW = 134, cgap = m > 1 ? (W - 20 - m*cardW)/(m-1) : 0, cy = 108, cardH = 92;\n` +
+    `    var cstartX = m > 1 ? 10 : (W - cardW)/2; // centre a lone card instead of dividing by zero\n` +
     `    for(var j=0;j<m;j++){\n` +
     `      var t = THEORIES[j];\n` +
     `      var cxp = cstartX + j*(cardW+cgap);\n` +
