@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/complex-analysis-normal-families/schema.json",
+  "title": "complex-analysis-normal-families widget params",
+  "description": "Montel's-theorem explorer for normal families. The reader picks a sequence of holomorphic functions f_n and steps n; the widget plots Re f_n along a compact slice of the disk (with the earlier terms ghosted) and the uniform bound. Montel: a family uniformly bounded on compact sets is normal — every sequence has a locally-uniformly-convergent subsequence. Bounded families (z^n→0, z/n→0, and the rotations e^{in}z whose FULL sequence does not converge but which still has convergent subsequences) stay inside the bound; the unbounded family n·z escapes and is not normal. The function eval is intrinsic (a `kind` enum); params carry the case menu.",
+  "meta": {
+    "family": "complex-analysis-normal-families",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["widgetId", "title", "families"],
+  "properties": {
+    "widgetId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id; the script derives -sel/-n/-svg/-out." },
+    "title": { "type": "string", "description": "Display title rendered inside .hd > .ttl." },
+    "hint": { "type": "string", "description": "Optional short hint rendered inside .hd > .hint." },
+    "families": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 6,
+      "description": "Each sequence (f_n) offered in the dropdown.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "label", "kind"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[A-Za-z0-9_-]+$", "description": "Stable option value." },
+          "label": { "type": "string", "description": "Plain-text dropdown label, e.g. 'f_n = z^n'." },
+          "kind": {
+            "type": "string",
+            "enum": ["zn", "shrink", "rot", "unbounded"],
+            "description": "Which sequence: zn = z^n; shrink = z/n; rot = e^{i n}·z (bounded, full sequence diverges); unbounded = n·z."
+          },
+          "note": { "type": "string", "maxLength": 120, "description": "Optional plain-text remark about this sequence." }
+        }
+      }
+    }
+  }
+}

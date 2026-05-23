@@ -3668,6 +3668,25 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "complex-analysis-normal-families",
+    "family": "complex-analysis-normal-families",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory",
+    "title": "complex-analysis-normal-families widget params",
+    "description": "Montel's-theorem explorer for normal families. The reader picks a sequence of holomorphic functions f_n and steps n; the widget plots Re f_n along a compact slice of the disk (with the earlier terms ghosted) and the uniform bound. Montel: a family uniformly bounded on compact sets is normal — every sequence has a locally-uniformly-convergent subsequence. Bounded families (z^n→0, z/n→0, and the rotations e^{in}z whose FULL sequence does not converge but which still has convergent subsequences) stay inside the bound; the unbounded family n·z escapes and is not normal. The function eval is intrinsic (a `kind` enum); params carry the case menu.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "families"
+    ],
+    "readmeExcerpt": "Montel's-theorem explorer, introduced on `complex-analysis.html` §24. Bespoke semantic module — the sequence eval is intrinsic (a `kind` enum); params carry only the case menu.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "complex-analysis-open-mapping",
     "family": "complex-analysis-open-mapping",
     "dimension": "2d",
@@ -3700,6 +3719,25 @@ window.__MVWidgets = [
       "integrands"
     ],
     "readmeExcerpt": "Real-integrals-by-residues widget, introduced on `complex-analysis.html` §19 (residue theorem). Complements the section's draggable contour widget by showing the upper-half-plane closing technique for real integrals. Bespoke semantic module — the $2\\pi i\\cdot\\Sigma$ arithmetic and contour drawing are intrinsic; params carry each integrand's poles, residues, and answer.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "complex-analysis-riemann-mapping",
+    "family": "complex-analysis-riemann-mapping",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory",
+    "title": "complex-analysis-riemann-mapping widget params",
+    "description": "Riemann-mapping-theorem explorer. The reader picks a canonical simply-connected region (upper/right half-plane, first quadrant, horizontal strip) and the widget draws its grid beside the image under an explicit conformal map onto the unit disk. The grid stays orthogonal (the maps are conformal), the region fills the disk, and the marked base point maps to the centre 0 — a concrete instance of the Riemann mapping theorem: every simply-connected proper open subset of ℂ is conformally equivalent to the disk. The map eval is intrinsic (a `kind` enum); params carry the case menu.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "regions"
+    ],
+    "readmeExcerpt": "Riemann-mapping-theorem explorer, introduced on `complex-analysis.html` §25. Bespoke semantic module — the conformal-map eval is intrinsic (a `kind` enum); params carry only the case menu.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
