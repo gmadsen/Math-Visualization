@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/schemes-proj/schema.json",
+  "title": "schemes-proj widget params",
+  "description": "Proj / projective-line explorer. ℙ¹ = Proj k[x₀,x₁] is covered by two affine charts U₀ = {x₀≠0} with coordinate t = x₁/x₀ and U₁ = {x₁≠0} with coordinate s = x₀/x₁ = 1/t. The reader sweeps a point [x₀:x₁] = [cos θ : sin θ] around ℙ¹; the widget shows its coordinate in each chart and the transition t = 1/s on the overlap, including the two points each chart misses ([1:0] is the origin of U₀ but ∞ of U₁, and [0:1] vice versa). The geometry is intrinsic; params carry only chrome.",
+  "meta": {
+    "family": "schemes-proj",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["widgetId", "title"],
+  "properties": {
+    "widgetId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id; the script derives -th/-svg/-out." },
+    "title": { "type": "string", "description": "Display title rendered inside .hd > .ttl." },
+    "hint": { "type": "string", "description": "Optional short hint rendered inside .hd > .hint." }
+  }
+}

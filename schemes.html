@@ -1583,6 +1583,58 @@ function drawNode(svg, x, y, label, opts={}){
 <p>Every scheme is a locally ringed space: on $\Spec{}R$ the stalk at the prime $\mathfrak{p}$ is the localization $R_{\mathfrak{p}}$, which is local by construction, with maximal ideal $\mathfrak{p} R_{\mathfrak{p}}$. Conversely, a <strong>scheme</strong> is defined as a locally ringed space that is locally isomorphic to $\Spec$ of a ring — this is the invariant definition that doesn't depend on a choice of open cover.</p>
 <p>The "locally ringed" part is doing real work. A morphism of ringed spaces $f\colon (X,\mathcal{O}_X)\to (Y,\mathcal{O}_Y)$ is a continuous map plus a pullback $f^\sharp\colon \mathcal{O}_Y \to f_*\mathcal{O}_X$. A morphism of <em>locally ringed</em> spaces also requires that the induced map on stalks $\mathcal{O}_{Y,f(x)}\to \mathcal{O}_{X,x}$ is <em>local</em>: it sends the maximal ideal into the maximal ideal. Without that condition, maps between schemes would not correspond to ring homomorphisms; with it, $\Spec$ becomes a fully faithful contravariant functor from commutative rings to locally ringed spaces.</p>
 <p>In short: "sheaf of rings whose stalks detect a unique point of vanishing" is precisely the structure needed to glue $\Spec$'s into a category of honest geometric objects.</p>
+
+<div class="widget" id="w-schemes-stalk">
+  <div class="hd"><div class="ttl">The stalk is local: units are functions that don’t vanish</div><div class="hint">Slide a: f is a unit at a iff f(a)≠0; the functions vanishing at a are the maximal ideal.</div></div>
+  <div class="row">
+    <label for="w-schemes-stalk-a">point $a$ on $\mathbb{A}^1$</label>
+    <input type="range" id="w-schemes-stalk-a" min="-3" max="3" value="0.6" step="0.05">
+    <span class="pill" id="w-schemes-stalk-aval">a = 0.60</span>
+  </div>
+  <svg id="w-schemes-stalk-svg" viewBox="0 0 540 250" width="540" height="250" role="img" aria-label="Sample functions on the affine line, marked unit or non-unit at the chosen point"><title>Local rings: the stalk at a point is local; the non-units are exactly the functions vanishing there</title></svg>
+  <div class="readout" id="w-schemes-stalk-out"></div>
+</div><script>
+/* schemes-stalk widget: w-schemes-stalk */
+(function(){
+  var FNS = [{"id":"x","label":"x","coeffs":[0,1]},{"id":"xm1","label":"x − 1","coeffs":[-1,1]},{"id":"x2m1","label":"x² − 1","coeffs":[-1,0,1]},{"id":"x2p1","label":"x² + 1","coeffs":[1,0,1]}];
+  var aIn=document.getElementById('w-schemes-stalk-a'), aL=document.getElementById('w-schemes-stalk-aval');
+  var svg=document.getElementById('w-schemes-stalk-svg'), out=document.getElementById('w-schemes-stalk-out');
+  if(!aIn || !aL || !svg || !out) return;
+  var NS='http://www.w3.org/2000/svg';
+  function mk(tag, attrs, text){ var e=document.createElementNS(NS, tag); for(var k in attrs){ e.setAttribute(k, attrs[k]); } if(text!=null) e.textContent=text; return e; }
+  function peval(c, x){ var r=0, i; for(i=c.length-1;i>=0;i--) r=r*x+c[i]; return r; }
+  var XR=3, YR=4, PX0=44, PW=420, PYc=120, PHh=92;
+  function PX(x){ return PX0 + (x+XR)/(2*XR)*PW; } function PY(v){ return PYc - Math.max(-YR,Math.min(YR,v))/YR*PHh; }
+  var COLORS=['var(--cyan)','var(--green)','var(--violet)','var(--orange)','var(--blue)'];
+  function draw(){
+    var a=+aIn.value; aL.textContent='a = '+a.toFixed(2);
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    // axes
+    svg.appendChild(mk('line', {x1:PX0, y1:PYc, x2:PX0+PW, y2:PYc, stroke:'var(--line)'}));
+    svg.appendChild(mk('line', {x1:PX(0), y1:PYc-PHh, x2:PX(0), y2:PYc+PHh, stroke:'var(--line)'}));
+    // vertical line at the point a
+    svg.appendChild(mk('line', {x1:PX(a), y1:PYc-PHh, x2:PX(a), y2:PYc+PHh, stroke:'var(--mute)', 'stroke-dasharray':'3 3'}));
+    svg.appendChild(mk('text', {x:PX(a), y:PYc+PHh+16, 'text-anchor':'middle', 'font-size':10, fill:'var(--mute)'}, 'a = '+a.toFixed(2)));
+    // function curves + value dots at a
+    var i, x, j; for(j=0;j<FNS.length;j++){ var f=FNS[j], col=COLORS[j%COLORS.length], pts=[];
+      for(i=0;i<=200;i++){ x=-XR+2*XR*i/200; var v=peval(f.coeffs,x); if(v>=-YR-0.1 && v<=YR+0.1) pts.push(PX(x).toFixed(1)+','+PY(v).toFixed(1)); }
+      svg.appendChild(mk('polyline', {points:pts.join(' '), fill:'none', stroke:col, 'stroke-width':1.6, opacity:0.85}));
+      var fa=peval(f.coeffs,a), unit=Math.abs(fa)>1e-9;
+      svg.appendChild(mk('circle', {cx:PX(a), cy:PY(fa), r:4, fill: unit?col:'var(--pink)', stroke: unit?'none':'var(--pink)'})); }
+    svg.appendChild(mk('text', {x:PX0+PW, y:PYc-PHh+10, 'text-anchor':'end', 'font-size':10, fill:'var(--mute)'}, 'x \u2208 [\u22123,3]'));
+    // readout
+    var units=[], nonunits=[]; FNS.forEach(function(f){ var fa=peval(f.coeffs,a); if(Math.abs(fa)>1e-9) units.push(f.label+' ('+fa.toFixed(2)+')'); else nonunits.push(f.label); });
+    var lines=[];
+    lines.push('The stalk O_a = germs of functions near a (= k[x] localized at (x\u2212a)) is a LOCAL ring: f is a UNIT iff f(a) \u2260 0, and the non-units {f : f(a)=0} are its unique maximal ideal m_a. The residue field O_a/m_a = k via f \u21a6 f(a).');
+    lines.push('At a = ' + a.toFixed(2) + ':  units (f(a)\u22600): ' + (units.join(', ')||'\u2014') + '.');
+    lines.push('  in m_a (f(a)=0, i.e. a is a root): ' + (nonunits.join(', ')||'none \u2014 slide a onto a root to land in m_a') + '.');
+    out.textContent=lines.join('\n');
+  }
+  aIn.addEventListener('input', draw);
+  draw();
+})();
+</script>
+
 <div class="quiz" data-concept="locally-ringed-space"></div><!-- backlinks-auto-begin -->
 <aside class="related">
   <div class="ttl">Used in</div>
@@ -1598,6 +1650,62 @@ function drawNode(svg, x, y, label, opts={}){
 <p>Define $\operatorname{Proj}S$ as the set of <em>homogeneous</em> prime ideals $\mathfrak{p}\subset S$ not containing the <strong>irrelevant ideal</strong> $S_+ = \bigoplus_{d>0} S_d$. The topology is the Zariski topology inherited from homogeneous ideals, and the structure sheaf is built from localizations at homogeneous elements: for each homogeneous $f\in S_d$ with $d>0$, the basic open $D_+(f)$ is canonically identified with $\Spec(S_f)_0$, the degree-zero part of the localization.</p>
 <p>For $S=k[x_0,\dots,x_n]$ this reproduces classical $\mathbb{P}^n_k$: the opens $D_+(x_i)\cong \Spec{}k[x_0/x_i,\dots,x_n/x_i]\cong \mathbb{A}^n_k$ patch together exactly by "divide by $x_i$" transitions. For $S=k[x_0,\dots,x_n]/I$ with $I$ a homogeneous ideal, $\operatorname{Proj}S$ is the projective subscheme cut out by $I$ — hypersurfaces, complete intersections, projective varieties, and more.</p>
 <p>The payoff: every projective scheme is of the form $\operatorname{Proj}S$ for some graded ring, and conversely any finitely generated graded algebra over a field produces a projective scheme. This converts projective geometry into the algebra of graded rings, the same way $\Spec$ converted affine geometry into the algebra of commutative rings.</p>
+
+<div class="widget" id="w-schemes-proj">
+  <div class="hd"><div class="ttl">ℙ¹ = Proj k[x₀,x₁]: two charts glued by t = 1/s</div><div class="hint">Sweep the point: read off its coordinate t in chart U₀ and s in U₁.</div></div>
+  <div class="row">
+    <label for="w-schemes-proj-th">point $[x_0:x_1]$ around $\mathbb{P}^1$</label>
+    <input type="range" id="w-schemes-proj-th" min="0" max="3.0543261909900763" value="0.5235987755982988" step="0.08726646259971647">
+  </div>
+  <svg id="w-schemes-proj-svg" viewBox="0 0 540 250" width="540" height="250" role="img" aria-label="A point of the projective line and its coordinate in each of the two affine charts"><title>Proj: the projective line glued from two affine charts U0 and U1 by t = 1/s</title></svg>
+  <div class="readout" id="w-schemes-proj-out"></div>
+</div><script>
+/* schemes-proj widget: w-schemes-proj */
+(function(){
+  var thIn=document.getElementById('w-schemes-proj-th');
+  var svg=document.getElementById('w-schemes-proj-svg'), out=document.getElementById('w-schemes-proj-out');
+  if(!thIn || !svg || !out) return;
+  var NS='http://www.w3.org/2000/svg';
+  function mk(tag, attrs, text){ var e=document.createElementNS(NS, tag); for(var k in attrs){ e.setAttribute(k, attrs[k]); } if(text!=null) e.textContent=text; return e; }
+  var Cx=270, Cyc=86, Rs=66;       // semicircle (ℙ¹)
+  var LCx=270, LHalf=190, U0y=164, U1y=212; // chart lines
+  function squash(v){ return v/(1+Math.abs(v)); } // R ∪ {∞} -> (-1,1], ∞ -> ±1
+  function fmt(v, inf){ return inf ? '\u221e' : v.toFixed(2); }
+  function chartLine(y, label, coord, val, isInf){
+    svg.appendChild(mk('line', {x1:LCx-LHalf, y1:y, x2:LCx+LHalf, y2:y, stroke:'var(--line)'}));
+    svg.appendChild(mk('circle', {cx:LCx, cy:y, r:2, fill:'var(--mute)'}));
+    svg.appendChild(mk('text', {x:LCx, y:y+14, 'text-anchor':'middle', 'font-size':8.5, fill:'var(--mute)'}, '0'));
+    svg.appendChild(mk('text', {x:LCx+LHalf, y:y-5, 'text-anchor':'end', 'font-size':8.5, fill:'var(--mute)'}, '\u2192 \u221e'));
+    svg.appendChild(mk('text', {x:LCx-LHalf, y:y-5, 'font-size':9, fill:'var(--mute)'}, label));
+    var px = LCx + squash(val)*LHalf;
+    svg.appendChild(mk('circle', {cx: isInf? LCx+LHalf : px, cy:y, r:4.5, fill: isInf?'var(--mute)':'var(--yellow)'}));
+    svg.appendChild(mk('text', {x:(isInf?LCx+LHalf:px), y:y-9, 'text-anchor':'middle', 'font-size':9, fill: isInf?'var(--mute)':'var(--yellow)'}, coord+'='+fmt(val,isInf))); }
+  function draw(){
+    var th=+thIn.value, x0=Math.cos(th), x1=Math.sin(th);
+    var t = Math.abs(x0)<1e-4 ? Infinity : x1/x0;  // U0 coord (∞ at the pole [0:1])
+    var s = Math.abs(x1)<1e-4 ? Infinity : x0/x1;  // U1 coord = 1/t (∞ at the pole [1:0])
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    // ℙ¹ as a semicircle (antipodal x0:x1 identified ⇒ θ∈[0,π))
+    var arc=[], i; for(i=0;i<=60;i++){ var a=Math.PI*i/60; arc.push((Cx+Rs*Math.cos(a)).toFixed(1)+','+(Cyc-Rs*Math.sin(a)).toFixed(1)); }
+    svg.appendChild(mk('polyline', {points:arc.join(' '), fill:'none', stroke:'var(--cyan)', 'stroke-width':1.8}));
+    var Px=Cx+Rs*Math.cos(th), Py=Cyc-Rs*Math.sin(th);
+    svg.appendChild(mk('circle', {cx:Px, cy:Py, r:5, fill:'var(--pink)'}));
+    svg.appendChild(mk('text', {x:Px, y:Py-9, 'text-anchor':'middle', 'font-size':10, fill:'var(--pink)'}, '[' + x0.toFixed(2) + ':' + x1.toFixed(2) + ']'));
+    svg.appendChild(mk('text', {x:Cx, y:18, 'text-anchor':'middle', 'font-size':11, fill:'var(--mute)', 'font-style':'italic'}, '\u2119\u00b9 = Proj k[x\u2080,x\u2081]'));
+    chartLine(U0y, 'U\u2080: t = x\u2081/x\u2080', 't', isFinite(t)?t:0, !isFinite(t));
+    chartLine(U1y, 'U\u2081: s = x\u2080/x\u2081', 's', isFinite(s)?s:0, !isFinite(s));
+    // readout
+    var lines=[];
+    lines.push('\u2119\u00b9 = Proj k[x\u2080,x\u2081] is covered by two affine lines: U\u2080 = {x\u2080\u22600}, coordinate t = x\u2081/x\u2080, and U\u2081 = {x\u2081\u22600}, coordinate s = x\u2080/x\u2081. On the overlap (both \u22600) they glue by t = 1/s.');
+    lines.push('Point [' + x0.toFixed(2) + ':' + x1.toFixed(2) + ']:  t = ' + (isFinite(t)?t.toFixed(2):'\u221e (not in U\u2080)') + ',  s = ' + (isFinite(s)?s.toFixed(2):'\u221e (not in U\u2081)') + '.');
+    lines.push('Two points sit in only one chart: [1:0] is t=0 in U\u2080 but missing from U\u2081 (s=\u221e), and [0:1] is s=0 in U\u2081 but the \u201cpoint at infinity\u201d of U\u2080 (t=\u221e). Glue the two lines at their ends and you get the whole projective line. (Drawn here are the real points \u211d\u2119\u00b9; over \u2102 the same charts cover the Riemann sphere.)');
+    out.textContent=lines.join('\n');
+  }
+  thIn.addEventListener('input', draw);
+  draw();
+})();
+</script>
+
 <div class="quiz" data-concept="projective-scheme"></div><!-- backlinks-auto-begin -->
 <aside class="related">
   <div class="ttl">Used in</div>

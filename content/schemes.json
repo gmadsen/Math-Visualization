@@ -712,6 +712,63 @@
           "html": "<section id=\"locally-ringed-space\">\n<h2>10. Locally ringed spaces</h2>\n<p>A <strong>ringed space</strong> is a topological space $X$ together with a sheaf of rings $\\mathcal{O}_X$. A ringed space is <strong>locally ringed</strong> if for every point $x\\in X$ the stalk $\\mathcal{O}_{X,x}$ is a local ring — a ring with exactly one maximal ideal $\\mathfrak{m}_x$. Its residue field is $\\kappa(x) = \\mathcal{O}_{X,x}/\\mathfrak{m}_x$.</p>\n<p>Every scheme is a locally ringed space: on $\\Spec{}R$ the stalk at the prime $\\mathfrak{p}$ is the localization $R_{\\mathfrak{p}}$, which is local by construction, with maximal ideal $\\mathfrak{p} R_{\\mathfrak{p}}$. Conversely, a <strong>scheme</strong> is defined as a locally ringed space that is locally isomorphic to $\\Spec$ of a ring — this is the invariant definition that doesn't depend on a choice of open cover.</p>\n<p>The \"locally ringed\" part is doing real work. A morphism of ringed spaces $f\\colon (X,\\mathcal{O}_X)\\to (Y,\\mathcal{O}_Y)$ is a continuous map plus a pullback $f^\\sharp\\colon \\mathcal{O}_Y \\to f_*\\mathcal{O}_X$. A morphism of <em>locally ringed</em> spaces also requires that the induced map on stalks $\\mathcal{O}_{Y,f(x)}\\to \\mathcal{O}_{X,x}$ is <em>local</em>: it sends the maximal ideal into the maximal ideal. Without that condition, maps between schemes would not correspond to ring homomorphisms; with it, $\\Spec$ becomes a fully faithful contravariant functor from commutative rings to locally ringed spaces.</p>\n<p>In short: \"sheaf of rings whose stalks detect a unique point of vanishing\" is precisely the structure needed to glue $\\Spec$'s into a category of honest geometric objects.</p>\n"
         },
         {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget",
+          "slug": "schemes-stalk",
+          "params": {
+            "widgetId": "w-schemes-stalk",
+            "title": "The stalk is local: units are functions that don’t vanish",
+            "hint": "Slide a: f is a unit at a iff f(a)≠0; the functions vanishing at a are the maximal ideal.",
+            "functions": [
+              {
+                "id": "x",
+                "label": "x",
+                "coeffs": [
+                  0,
+                  1
+                ]
+              },
+              {
+                "id": "xm1",
+                "label": "x − 1",
+                "coeffs": [
+                  -1,
+                  1
+                ]
+              },
+              {
+                "id": "x2m1",
+                "label": "x² − 1",
+                "coeffs": [
+                  -1,
+                  0,
+                  1
+                ]
+              },
+              {
+                "id": "x2p1",
+                "label": "x² + 1",
+                "coeffs": [
+                  1,
+                  0,
+                  1
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-schemes-stalk"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
           "type": "quiz",
           "concept": "locally-ringed-space",
           "html": "<div class=\"quiz\" data-concept=\"locally-ringed-space\"></div>"
@@ -732,6 +789,27 @@
         {
           "type": "raw",
           "html": "<section id=\"projective-scheme\">\n<h2>11. Projective schemes and Proj</h2>\n<p>The gluing of $\\mathbb{P}^1$ in §7 was ad hoc — two copies of $\\mathbb{A}^1$ along the overlap $y=1/x$. For higher-dimensional and more intricate projective geometry the <strong>Proj</strong> construction gives the uniform recipe. Start with a graded ring $S = \\bigoplus_{d\\geq 0} S_d$ — for example $S = k[x_0,\\dots,x_n]$ with the usual grading by total degree.</p>\n<p>Define $\\operatorname{Proj}S$ as the set of <em>homogeneous</em> prime ideals $\\mathfrak{p}\\subset S$ not containing the <strong>irrelevant ideal</strong> $S_+ = \\bigoplus_{d>0} S_d$. The topology is the Zariski topology inherited from homogeneous ideals, and the structure sheaf is built from localizations at homogeneous elements: for each homogeneous $f\\in S_d$ with $d>0$, the basic open $D_+(f)$ is canonically identified with $\\Spec(S_f)_0$, the degree-zero part of the localization.</p>\n<p>For $S=k[x_0,\\dots,x_n]$ this reproduces classical $\\mathbb{P}^n_k$: the opens $D_+(x_i)\\cong \\Spec{}k[x_0/x_i,\\dots,x_n/x_i]\\cong \\mathbb{A}^n_k$ patch together exactly by \"divide by $x_i$\" transitions. For $S=k[x_0,\\dots,x_n]/I$ with $I$ a homogeneous ideal, $\\operatorname{Proj}S$ is the projective subscheme cut out by $I$ — hypersurfaces, complete intersections, projective varieties, and more.</p>\n<p>The payoff: every projective scheme is of the form $\\operatorname{Proj}S$ for some graded ring, and conversely any finitely generated graded algebra over a field produces a projective scheme. This converts projective geometry into the algebra of graded rings, the same way $\\Spec$ converted affine geometry into the algebra of commutative rings.</p>\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget",
+          "slug": "schemes-proj",
+          "params": {
+            "widgetId": "w-schemes-proj",
+            "title": "ℙ¹ = Proj k[x₀,x₁]: two charts glued by t = 1/s",
+            "hint": "Sweep the point: read off its coordinate t in chart U₀ and s in U₁."
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-schemes-proj"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
         },
         {
           "type": "quiz",
