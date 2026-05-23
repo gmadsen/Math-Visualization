@@ -205,6 +205,132 @@
           "html": "<section id=\"filtration\">\n<h2>3. The Hodge filtration $F^\\bullet$ — algebraic incarnation</h2>\n\n<p>The Hodge decomposition is gorgeous over $\\mathbb{C}$ but uses the Kähler metric and complex conjugation; neither is purely algebraic. The <em>Hodge filtration</em> packages the same data using only algebraic input. Define</p>\n\n$$F^p H^n(X; \\mathbb{C}) := \\bigoplus_{p' \\ge p} H^{p', n-p'}(X) \\;=\\; H^{p,n-p} \\oplus H^{p+1,n-p-1} \\oplus \\cdots \\oplus H^{n,0}.$$\n\n<p>Then $F^p$ is a decreasing filtration: $F^0 \\supset F^1 \\supset \\cdots \\supset F^n \\supset F^{n+1} = 0$, and the Hodge decomposition is recovered by the relation</p>\n\n$$H^n(X; \\mathbb{C}) = F^p \\oplus \\overline{F^{n-p+1}} \\quad \\text{for every } p.$$\n\n<p>So filtration + complex conjugation = decomposition. The pair $(H^n(X; \\mathbb{Q}), F^\\bullet H^n(X; \\mathbb{C}))$ is the Hodge data without invoking harmonic forms.</p>\n\n<p><b>Why this matters algebraically.</b> The de Rham complex $\\Omega^\\bullet_X$ has a \"stupid\" filtration $\\sigma^{\\ge p} \\Omega^\\bullet_X = (0 \\to \\cdots \\to 0 \\to \\Omega^p \\to \\Omega^{p+1} \\to \\cdots)$ — kill everything in degree $< p$. Taking hypercohomology gives a spectral sequence:</p>\n\n$$E_1^{p,q} = H^q(X, \\Omega^p_X) \\;\\Rightarrow\\; H^{p+q}_\\dR(X).$$\n\n<p>This is the <b>Hodge-to-de-Rham spectral sequence</b>. The miracle for smooth projective $X$ over $\\mathbb{C}$ is that it <em>degenerates at $E_1$</em>: $E_\\infty^{p,q} = E_1^{p,q}$. Equivalently, the Hodge filtration $F^p H^n_\\dR(X) := \\mathrm{im}(\\mathbb{H}^n(X, \\sigma^{\\ge p} \\Omega^\\bullet_X) \\to H^n_\\dR(X))$ is well-defined, and the associated graded $\\mathrm{gr}^p_F H^n_\\dR(X) = H^{n-p}(X, \\Omega^p_X)$.</p>\n\n<p>So algebraic de Rham cohomology with the Hodge filtration recovers the entire Dolbeault decomposition. The filtration is defined purely algebraically — over the same field $X$ is defined over (in particular it is rational when $X$ is) — while the conjugation-symmetric splitting into $H^{p,q} \\oplus H^{q,p}$ is not, since complex conjugation requires a real structure on $H^n(X; \\mathbb{C})$.</p>\n\n"
         },
         {
+          "type": "widget",
+          "slug": "hodge-theory-filtration-scrubber",
+          "params": {
+            "widgetId": "w-hodge-filtration",
+            "title": "The Hodge filtration F^p, step by step",
+            "hint": "pick a degree n, scrub the threshold p; yellow = the part inside F^p",
+            "varieties": [
+              {
+                "id": "p2",
+                "label": "P^2 — projective plane (d = 2)",
+                "h": [
+                  [
+                    1,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    1,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    1
+                  ]
+                ]
+              },
+              {
+                "id": "genus2",
+                "label": "Genus-2 curve (d = 1)",
+                "h": [
+                  [
+                    1,
+                    2
+                  ],
+                  [
+                    2,
+                    1
+                  ]
+                ]
+              },
+              {
+                "id": "k3",
+                "label": "K3 surface (d = 2)",
+                "h": [
+                  [
+                    1,
+                    0,
+                    1
+                  ],
+                  [
+                    0,
+                    20,
+                    0
+                  ],
+                  [
+                    1,
+                    0,
+                    1
+                  ]
+                ]
+              },
+              {
+                "id": "ab2",
+                "label": "Abelian surface (d = 2)",
+                "h": [
+                  [
+                    1,
+                    2,
+                    1
+                  ],
+                  [
+                    2,
+                    4,
+                    2
+                  ],
+                  [
+                    1,
+                    2,
+                    1
+                  ]
+                ]
+              },
+              {
+                "id": "quintic",
+                "label": "Quintic Calabi–Yau 3-fold (d = 3)",
+                "h": [
+                  [
+                    1,
+                    0,
+                    0,
+                    1
+                  ],
+                  [
+                    0,
+                    1,
+                    101,
+                    0
+                  ],
+                  [
+                    0,
+                    101,
+                    1,
+                    0
+                  ],
+                  [
+                    1,
+                    0,
+                    0,
+                    1
+                  ]
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-hodge-filtration"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
           "type": "quiz",
           "concept": "hodge-filtration-structure",
           "html": "<div class=\"quiz\" data-concept=\"hodge-filtration-structure\"></div>"
@@ -254,7 +380,83 @@
       "blocks": [
         {
           "type": "raw",
-          "html": "<section id=\"mixed-hodge\">\n<h2>5. Mixed Hodge structures (Deligne)</h2>\n\n<p>The Hodge decomposition fails for non-compact or singular varieties. As a first orientation: the cohomology of $\\mathbb{C}^* = \\mathbb{C} \\setminus \\{0\\}$ is $H^1(\\mathbb{C}^*; \\mathbb{Q}) \\cong \\mathbb{Q}$, and as a mixed Hodge structure it is in fact <em>pure of weight $2$</em> — namely the Tate twist $\\mathbb{Q}(-1)$ (the dual of $\\mathbb{Q}(1) = 2\\pi i\\,\\mathbb{Q} \\subset \\mathbb{C}$). So $\\mathbb{C}^*$ alone does not yet exhibit nontrivial weight-filtration extensions; for that one needs genuinely mixed examples. Two prototypes that <em>do</em> show extensions:</p>\n<ul>\n  <li><strong>Open elliptic curve $E \\setminus \\{p\\}$.</strong> Removing one point from a smooth elliptic curve gives $H^1(E \\setminus \\{p\\}; \\mathbb{Q})$ as a nontrivial extension $0 \\to H^1(E) \\to H^1(E \\setminus \\{p\\}) \\to \\mathbb{Q}(-1) \\to 0$, mixing the pure weight-$1$ piece $H^1(E)$ with a weight-$2$ quotient. The extension class is the Abel–Jacobi image of the divisor $(p) - (0)$ — this is exactly how mixed Hodge encodes algebraic-cycle data.</li>\n  <li><strong>Nodal cubic (singular projective).</strong> The projective nodal cubic $X\\colon y^2 z = x^2(x+z)$ has $H^1(X; \\mathbb{Q}) \\cong \\mathbb{Q}$, and that one-dimensional space is pure of weight $0$ (it records the loop around the node) — sitting inside the punctured-curve cohomology as the kernel of restriction to the normalization, which witnesses a nontrivial extension between weights $0$ and $1$.</li>\n</ul>\n\n<p>Deligne's <b>mixed Hodge structures</b> (1971-74) repair the failure. A mixed $\\mathbb{Q}$-Hodge structure is the data of:</p>\n<ul>\n  <li>a $\\mathbb{Q}$-vector space $V_\\mathbb{Q}$,</li>\n  <li>an increasing <em>weight filtration</em> $W_\\bullet$ on $V_\\mathbb{Q}$,</li>\n  <li>a decreasing <em>Hodge filtration</em> $F^\\bullet$ on $V_\\mathbb{C}$,</li>\n</ul>\n<p>such that the induced filtrations make each <em>graded piece</em> $\\mathrm{gr}^W_n V := W_n / W_{n-1}$ a pure Hodge structure of weight $n$ (with the induced Hodge filtration).</p>\n\n<p>So a mixed Hodge structure is \"pure Hodge structures glued by extensions across weights.\"</p>\n\n<svg viewBox=\"0 0 540 200\" width=\"540\" height=\"200\" style=\"margin:1rem auto\" role=\"img\" aria-labelledby=\"mhs-svg-title mhs-svg-desc\">\n  <title id=\"mhs-svg-title\">Mixed Hodge structure as a stack of pure pieces</title>\n  <desc id=\"mhs-svg-desc\">A vertical stack of three rectangles labelled gr^W_2, gr^W_1, gr^W_0 from top to bottom — each a pure Hodge structure of the indicated weight. The full mixed Hodge structure V is built from these by extensions; the Hodge and weight filtrations both pass through and induce the right structure on each graded piece.</desc>\n  <text x=\"270\" y=\"22\" text-anchor=\"middle\" font-size=\"13\" fill=\"var(--mute)\" font-style=\"italic\">\n    Mixed Hodge structure: pure pieces stacked by weight\n  </text>\n  <rect x=\"160\" y=\"40\" width=\"220\" height=\"40\" rx=\"6\" fill=\"color-mix(in srgb, var(--cyan) 16%, var(--panel))\" stroke=\"var(--cyan)\"/>\n  <text x=\"270\" y=\"65\" text-anchor=\"middle\" font-size=\"13\" fill=\"var(--cyan)\" font-weight=\"600\">gr^W_2 V — pure of weight 2</text>\n  <rect x=\"160\" y=\"92\" width=\"220\" height=\"40\" rx=\"6\" fill=\"color-mix(in srgb, var(--green) 14%, var(--panel))\" stroke=\"var(--green)\"/>\n  <text x=\"270\" y=\"117\" text-anchor=\"middle\" font-size=\"13\" fill=\"var(--green)\" font-weight=\"600\">gr^W_1 V — pure of weight 1</text>\n  <rect x=\"160\" y=\"144\" width=\"220\" height=\"40\" rx=\"6\" fill=\"color-mix(in srgb, var(--yellow) 14%, var(--panel))\" stroke=\"var(--yellow)\"/>\n  <text x=\"270\" y=\"169\" text-anchor=\"middle\" font-size=\"13\" fill=\"var(--yellow)\" font-weight=\"600\">gr^W_0 V — pure of weight 0</text>\n  <text x=\"430\" y=\"65\" text-anchor=\"start\" font-size=\"11\" fill=\"var(--mute)\" font-style=\"italic\">↑ heaviest</text>\n  <text x=\"430\" y=\"169\" text-anchor=\"start\" font-size=\"11\" fill=\"var(--mute)\" font-style=\"italic\">↓ lightest</text>\n</svg>\n\n<p>Deligne's theorem: every complex variety $X$ — smooth or singular, compact or open — has a canonical mixed Hodge structure on $H^n(X; \\mathbb{Q})$, functorial in $X$. Smoothness controls the Hodge filtration; properness controls the weight filtration. The pure case (smooth + projective) collapses the weight filtration to a single weight $n$ — recovering the Hodge decomposition.</p>\n\n<p>The category $\\MHS_\\mathbb{Q}$ of mixed Hodge structures is abelian (not semisimple — extensions are nontrivial), Tannakian, and contains $\\HS_\\mathbb{Q}^{\\mathrm{pure}}$ as the full subcategory of pure objects.</p>\n\n"
+          "html": "<section id=\"mixed-hodge\">\n<h2>5. Mixed Hodge structures (Deligne)</h2>\n\n<p>The Hodge decomposition fails for non-compact or singular varieties. As a first orientation: the cohomology of $\\mathbb{C}^* = \\mathbb{C} \\setminus \\{0\\}$ is $H^1(\\mathbb{C}^*; \\mathbb{Q}) \\cong \\mathbb{Q}$, and as a mixed Hodge structure it is in fact <em>pure of weight $2$</em> — namely the Tate twist $\\mathbb{Q}(-1)$ (the dual of $\\mathbb{Q}(1) = 2\\pi i\\,\\mathbb{Q} \\subset \\mathbb{C}$). So $\\mathbb{C}^*$ alone does not yet exhibit nontrivial weight-filtration extensions; for that one needs genuinely mixed examples. Two prototypes that <em>do</em> show extensions:</p>\n<ul>\n  <li><strong>Open elliptic curve $E \\setminus \\{p\\}$.</strong> Removing one point from a smooth elliptic curve gives $H^1(E \\setminus \\{p\\}; \\mathbb{Q})$ as a nontrivial extension $0 \\to H^1(E) \\to H^1(E \\setminus \\{p\\}) \\to \\mathbb{Q}(-1) \\to 0$, mixing the pure weight-$1$ piece $H^1(E)$ with a weight-$2$ quotient. The extension class is the Abel–Jacobi image of the divisor $(p) - (0)$ — this is exactly how mixed Hodge encodes algebraic-cycle data.</li>\n  <li><strong>Nodal cubic (singular projective).</strong> The projective nodal cubic $X\\colon y^2 z = x^2(x+z)$ has $H^1(X; \\mathbb{Q}) \\cong \\mathbb{Q}$, and that one-dimensional space is pure of weight $0$ (it records the loop around the node) — sitting inside the punctured-curve cohomology as the kernel of restriction to the normalization, which witnesses a nontrivial extension between weights $0$ and $1$.</li>\n</ul>\n\n<p>Deligne's <b>mixed Hodge structures</b> (1971-74) repair the failure. A mixed $\\mathbb{Q}$-Hodge structure is the data of:</p>\n<ul>\n  <li>a $\\mathbb{Q}$-vector space $V_\\mathbb{Q}$,</li>\n  <li>an increasing <em>weight filtration</em> $W_\\bullet$ on $V_\\mathbb{Q}$,</li>\n  <li>a decreasing <em>Hodge filtration</em> $F^\\bullet$ on $V_\\mathbb{C}$,</li>\n</ul>\n<p>such that the induced filtrations make each <em>graded piece</em> $\\mathrm{gr}^W_n V := W_n / W_{n-1}$ a pure Hodge structure of weight $n$ (with the induced Hodge filtration).</p>\n\n<p>So a mixed Hodge structure is \"pure Hodge structures glued by extensions across weights.\"</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "hodge-theory-mixed-weight",
+          "params": {
+            "widgetId": "w-hodge-mixed",
+            "title": "Mixed Hodge structures — pick an example",
+            "hint": "each block is a graded piece gr^W_n, pure of weight n; >1 block = genuinely mixed",
+            "examples": [
+              {
+                "id": "smooth-E",
+                "label": "Smooth elliptic curve E",
+                "space": "H¹(E)",
+                "pieces": [
+                  {
+                    "weight": 1,
+                    "dim": 2,
+                    "label": "H¹(E)"
+                  }
+                ],
+                "note": "A smooth projective curve: H¹ is PURE of weight 1 (weight = cohomological degree) — the baseline before any mixing."
+              },
+              {
+                "id": "cstar",
+                "label": "ℂ* = ℂ ∖ {0}",
+                "space": "H¹(ℂ*)",
+                "pieces": [
+                  {
+                    "weight": 2,
+                    "dim": 1,
+                    "label": "ℚ(−1)"
+                  }
+                ],
+                "note": "H¹(ℂ*) is pure of weight 2 — the Tate twist ℚ(−1). Weight 2 ≠ degree 1: removing points raises weights."
+              },
+              {
+                "id": "open-E",
+                "label": "Open elliptic curve E ∖ {p}",
+                "space": "H¹(E ∖ {p})",
+                "pieces": [
+                  {
+                    "weight": 1,
+                    "dim": 2,
+                    "label": "H¹(E)"
+                  },
+                  {
+                    "weight": 2,
+                    "dim": 1,
+                    "label": "ℚ(−1)"
+                  }
+                ],
+                "note": "Genuinely MIXED: 0 → H¹(E) → H¹(E∖{p}) → ℚ(−1) → 0. A weight-1 piece extended by a weight-2 quotient; the extension class is the Abel–Jacobi image of (p) − (0)."
+              },
+              {
+                "id": "nodal",
+                "label": "Nodal cubic (projective)",
+                "space": "H¹(nodal cubic)",
+                "pieces": [
+                  {
+                    "weight": 0,
+                    "dim": 1,
+                    "label": "ℚ (loop at the node)"
+                  }
+                ],
+                "note": "H¹ is pure of weight 0 — it records the loop around the node, LOWER than a smooth curve’s weight-1 H¹. Singularities lower weights."
+              }
+            ]
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-hodge-mixed"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n<p>Deligne's theorem: every complex variety $X$ — smooth or singular, compact or open — has a canonical mixed Hodge structure on $H^n(X; \\mathbb{Q})$, functorial in $X$. Smoothness controls the Hodge filtration; properness controls the weight filtration. The pure case (smooth + projective) collapses the weight filtration to a single weight $n$ — recovering the Hodge decomposition.</p>\n\n<p>The category $\\MHS_\\mathbb{Q}$ of mixed Hodge structures is abelian (not semisimple — extensions are nontrivial), Tannakian, and contains $\\HS_\\mathbb{Q}^{\\mathrm{pure}}$ as the full subcategory of pure objects.</p>\n\n"
         },
         {
           "type": "quiz",

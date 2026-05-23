@@ -63,7 +63,7 @@ export function renderScript(params) {
     `  function draw(){\n` +
     `    var v = byId[sel.value] || DATA[0];\n` +
     `    var h = v.h, d = h.length - 1; // dimension is derived from the matrix, never a separate field\n` +
-    `    function H(p,q){ return (h[p] && h[p][q] != null) ? h[p][q] : 0; } // guards ragged/short rows\n` +
+    `    function hpq(p,q){ return (h[p] && h[p][q] != null) ? h[p][q] : 0; } // guards ragged/short rows\n` +
     `    while(svg.firstChild) svg.removeChild(svg.firstChild);\n` +
     `    var dn = Math.max(1, d);\n` +
     `    var dx = Math.min(52, (W - 130) / (2 * dn));\n` +
@@ -88,7 +88,7 @@ export function renderScript(params) {
     `        var g = mk('g', {'style':'cursor:pointer'});\n` +
     `        g.setAttribute('data-p', p); g.setAttribute('data-q', q);\n` +
     `        g.appendChild(mk('circle', {cx:x, cy:y, r:r, fill:'var(--panel2)', stroke:stroke, 'stroke-width':sw}));\n` +
-    `        g.appendChild(mk('text', {x:x, y:y+5, 'text-anchor':'middle', 'font-size':14, 'font-weight':'600', fill:'var(--ink)'}, String(H(p,q))));\n` +
+    `        g.appendChild(mk('text', {x:x, y:y+5, 'text-anchor':'middle', 'font-size':14, 'font-weight':'600', fill:'var(--ink)'}, String(hpq(p,q))));\n` +
     `        g.appendChild(mk('text', {x:x, y:y+r+12, 'text-anchor':'middle', 'font-size':10, fill:'var(--mute)'}, pqLabel(p,q)));\n` +
     `        (function(pp,qq){ g.addEventListener('click', function(){ picked = (picked && picked.p===pp && picked.q===qq) ? null : {p:pp,q:qq}; draw(); }); })(p,q);\n` +
     `        svg.appendChild(g);\n` +
@@ -96,20 +96,20 @@ export function renderScript(params) {
     `    }\n` +
     `    // readout\n` +
     `    var betti = [];\n` +
-    `    for(var nn=0; nn<=2*d; nn++){ var s=0; for(var pp=0; pp<=d; pp++){ var qq=nn-pp; if(qq>=0 && qq<=d) s+=H(pp,qq); } betti.push(s); }\n` +
+    `    for(var nn=0; nn<=2*d; nn++){ var s=0; for(var pp=0; pp<=d; pp++){ var qq=nn-pp; if(qq>=0 && qq<=d) s+=hpq(pp,qq); } betti.push(s); }\n` +
     `    var total = betti.reduce(function(a,b){return a+b;},0);\n` +
     `    var euler = betti.reduce(function(a,b,i){ return a + (i%2? -b : b); }, 0);\n` +
     `    var bettiStr = betti.map(function(b,i){ return 'b'+SUB[i]+'='+b; }).join('  ');\n` +
     `    // symmetry laws\n` +
     `    var hodgeOK = true, dualOK = true;\n` +
-    `    for(var a=0; a<=d; a++){ for(var b=0; b<=d; b++){ if(H(a,b)!==H(b,a)) hodgeOK=false; if(H(a,b)!==H(d-a,d-b)) dualOK=false; } }\n` +
+    `    for(var a=0; a<=d; a++){ for(var b=0; b<=d; b++){ if(hpq(a,b)!==hpq(b,a)) hodgeOK=false; if(hpq(a,b)!==hpq(d-a,d-b)) dualOK=false; } }\n` +
     `    var lines = [];\n` +
     `    lines.push('Betti numbers (row sums):  ' + bettiStr);\n` +
     `    lines.push('total dim H* = ' + total + '     Euler characteristic = ' + euler);\n` +
     `    lines.push('Hodge symmetry  h(p,q)=h(q,p): ' + (hodgeOK?'\\u2713':'\\u2717') + '     Poincare duality  h(p,q)=h(d\\u2212p,d\\u2212q): ' + (dualOK?'\\u2713':'\\u2717'));\n` +
     `    if(v.note) lines.push(v.note);\n` +
     `    if(picked){\n` +
-    `      var pv = H(picked.p,picked.q), cv = H(picked.q,picked.p), dv = H(d-picked.p,d-picked.q);\n` +
+    `      var pv = hpq(picked.p,picked.q), cv = hpq(picked.q,picked.p), dv = hpq(d-picked.p,d-picked.q);\n` +
     `      lines.push('');\n` +
     `      lines.push('selected  h(' + picked.p + ',' + picked.q + ') = ' + pv + '   \\u2022   conjugate h(' + picked.q + ',' + picked.p + ') = ' + cv + '   \\u2022   Poincare-dual h(' + (d-picked.p) + ',' + (d-picked.q) + ') = ' + dv);\n` +
     `    } else {\n` +
