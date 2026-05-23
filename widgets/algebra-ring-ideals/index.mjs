@@ -50,7 +50,7 @@ export function renderScript(params) {
     `    var quotDomain = (n===0) || prime;        // Z/0=Z domain; Z/p field; composite has zero-divisors; Z/1=0\n` +
     `    var quotField  = prime;\n` +
     `    var qname = (n===0)?'\\u2124':(n===1?'0 (the zero ring)':'\\u2124/'+n);\n` +
-    `    txt(280, 26, 'ideal (' + n + ') \\u2286 \\u2124   \\u2014   quotient ring ' + (n<=1?qname:'\\u2124/'+n), {anchor:'middle', size:13, fill:'var(--yellow)', weight:600});\n` +
+    `    txt(280, 26, 'ideal (' + n + ') \\u2286 \\u2124   \\u2014   quotient ring ' + qname, {anchor:'middle', size:13, fill:'var(--yellow)', weight:600});\n` +
     `    badge(120, 64, '(' + n + ') is a PRIME ideal', idealPrime);\n` +
     `    badge(120, 92, '(' + n + ') is a MAXIMAL ideal', idealMax);\n` +
     `    badge(120, 120, '\\u2124/' + (n<=1?'('+n+')':n) + ' is an integral DOMAIN', quotDomain);\n` +

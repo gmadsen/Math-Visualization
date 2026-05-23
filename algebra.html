@@ -1471,7 +1471,7 @@ function drawNode(svg, x, y, label, opts={}){
     var quotDomain = (n===0) || prime;        // Z/0=Z domain; Z/p field; composite has zero-divisors; Z/1=0
     var quotField  = prime;
     var qname = (n===0)?'\u2124':(n===1?'0 (the zero ring)':'\u2124/'+n);
-    txt(280, 26, 'ideal (' + n + ') \u2286 \u2124   \u2014   quotient ring ' + (n<=1?qname:'\u2124/'+n), {anchor:'middle', size:13, fill:'var(--yellow)', weight:600});
+    txt(280, 26, 'ideal (' + n + ') \u2286 \u2124   \u2014   quotient ring ' + qname, {anchor:'middle', size:13, fill:'var(--yellow)', weight:600});
     badge(120, 64, '(' + n + ') is a PRIME ideal', idealPrime);
     badge(120, 92, '(' + n + ') is a MAXIMAL ideal', idealMax);
     badge(120, 120, '\u2124/' + (n<=1?'('+n+')':n) + ' is an integral DOMAIN', quotDomain);
@@ -1544,7 +1544,7 @@ function drawNode(svg, x, y, label, opts={}){
     { tower:['\u211a','\u211a(\u221a2)','\u211a(\u221a2,\u221a3)'], steps:['2','2'], minp:'x\u00b2\u22122, then x\u00b2\u22123', deg:4, basis:'1, \u221a2, \u221a3, \u221a6',
       note:'Build in two steps: [\u211a(\u221a2):\u211a]=2, then \u221a3 still has minimal polynomial x\u00b2\u22123 over \u211a(\u221a2) (it is not already there), so [\u211a(\u221a2,\u221a3):\u211a(\u221a2)]=2. The TOWER LAW multiplies: [\u211a(\u221a2,\u221a3):\u211a] = 2\u00b72 = 4, with \u211a-basis {1, \u221a2, \u221a3, \u221a6}.' },
     { tower:['\u211a','\u211a(\u221b2)'], steps:['3'], minp:'x\u00b3 \u2212 2', deg:3, basis:'1, \u221b2, \u221b4',
-      note:'\u221b2 is a root of x\u00b3\u22122, irreducible over \u211a (Eisenstein at 2), so [\u211a(\u221b2):\u211a]=3 with \u211a-basis {1, \u221b2, \u221b4}. Note \u211a(\u221b2) is NOT the splitting field of x\u00b3\u22122 \u2014 it is missing the complex roots \u221b2\u00b7\u03c9; the full splitting field has degree 6.' },
+      note:'\u221b2 is a root of x\u00b3\u22122, irreducible over \u211a (Eisenstein at 2), so [\u211a(\u221b2):\u211a]=3 with \u211a-basis {1, \u221b2, \u221b4}. Note \u211a(\u221b2) is NOT the splitting field of x\u00b3\u22122 \u2014 it is missing the complex roots \u221b2\u00b7\u03c9 (\u03c9 a primitive cube root of unity); the full splitting field \u211a(\u221b2,\u03c9) has degree 6.' },
     { tower:['\u211a','\u211a(i)'], steps:['2'], minp:'x\u00b2 + 1', deg:2, basis:'1, i',
       note:'i is a root of x\u00b2+1, irreducible over \u211a (no real roots), so [\u211a(i):\u211a]=2 with \u211a-basis {1, i}. This is the Gaussian field; \u211a(i) \u2245 \u211a[x]/(x\u00b2+1).' }
   ];
