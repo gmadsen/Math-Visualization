@@ -943,6 +943,75 @@ $$\sigma_x=\begin{pmatrix}0&1\\1&0\end{pmatrix},\quad
 \sigma_z=\begin{pmatrix}1&0\\0&-1\end{pmatrix}$$
 <p>are self-adjoint, unitary, and traceless. Each has spectrum $\{-1,+1\}$ and the two spectral projections are $(I\pm\sigma_k)/2$. This is the simplest nontrivial illustration of the spectral theorem in finite dimensions: each $\sigma_k = (+1)\cdot P_+^{(k)} + (-1)\cdot P_-^{(k)}$, and the three bases are mutually unbiased.</p>
 
+
+<div class="widget" id="w-fa-operator-norm">
+  <div class="hd"><div class="ttl">The operator norm is the largest singular value</div><div class="hint">Drag the entries: T sends the unit circle to an ellipse; the major semi-axis is the operator norm.</div></div>
+  <div class="row">
+    <label for="w-fa-operator-norm-a">a</label>
+    <input type="range" id="w-fa-operator-norm-a" min="-2" max="2" value="1.4" step="0.1">
+    <label for="w-fa-operator-norm-b">b</label>
+    <input type="range" id="w-fa-operator-norm-b" min="-2" max="2" value="0.5" step="0.1">
+    <label for="w-fa-operator-norm-c">c</label>
+    <input type="range" id="w-fa-operator-norm-c" min="-2" max="2" value="0.0" step="0.1">
+    <label for="w-fa-operator-norm-d">d</label>
+    <input type="range" id="w-fa-operator-norm-d" min="-2" max="2" value="0.9" step="0.1">
+    <span class="pill" id="w-fa-operator-norm-norm">‖T‖ = 1.40</span>
+  </div>
+  <svg id="w-fa-operator-norm-svg" viewBox="0 0 540 280" width="540" height="280" role="img" aria-label="The unit circle and its image ellipse under T"><title>Operator norm: T maps the unit circle to an ellipse whose major semi-axis is ‖T‖</title></svg>
+  <div class="readout" id="w-fa-operator-norm-out"></div>
+</div><script>
+/* functional-analysis-operator-norm widget: w-fa-operator-norm */
+(function(){
+  var aIn=document.getElementById('w-fa-operator-norm-a'), bIn=document.getElementById('w-fa-operator-norm-b'), cIn=document.getElementById('w-fa-operator-norm-c'), dIn=document.getElementById('w-fa-operator-norm-d');
+  var normL=document.getElementById('w-fa-operator-norm-norm');
+  var svg=document.getElementById('w-fa-operator-norm-svg'), out=document.getElementById('w-fa-operator-norm-out');
+  if(!aIn || !bIn || !cIn || !dIn || !normL || !svg || !out) return;
+  var NS='http://www.w3.org/2000/svg';
+  function mk(tag, attrs, text){ var e=document.createElementNS(NS, tag); for(var k in attrs){ e.setAttribute(k, attrs[k]); } if(text!=null) e.textContent=text; return e; }
+  var CX=270, CY=140, SC=42;
+  function PX(x){ return CX + x*SC; } function PY(y){ return CY - y*SC; }
+  function draw(){
+    var a=+aIn.value, b=+bIn.value, c=+cIn.value, d=+dIn.value;
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    // singular values: eigenvalues of M = T^T T = [[p,q],[q,r]]
+    var p=a*a+c*c, r=b*b+d*d, q=a*b+c*d;
+    var mid=(p+r)/2, dis=Math.sqrt(Math.max(0,((p-r)/2)*((p-r)/2)+q*q));
+    var lmax=mid+dis, lmin=Math.max(0, mid-dis);
+    var smax=Math.sqrt(lmax), smin=Math.sqrt(lmin);
+    // right singular vector for sigma_max (eigenvector of M for lmax)
+    var vx, vy; if(Math.abs(q)>1e-9){ vx=lmax-r; vy=q; } else { if(p>=r){ vx=1; vy=0; } else { vx=0; vy=1; } }
+    var vn=Math.hypot(vx,vy)||1; vx/=vn; vy/=vn;
+    normL.textContent='‖T‖ = ' + smax.toFixed(2);
+    // axes
+    svg.appendChild(mk('line', {x1:CX-150, y1:CY, x2:CX+150, y2:CY, stroke:'var(--line)'}));
+    svg.appendChild(mk('line', {x1:CX, y1:CY-128, x2:CX, y2:CY+128, stroke:'var(--line)'}));
+    // unit circle (domain)
+    svg.appendChild(mk('circle', {cx:CX, cy:CY, r:SC, fill:'none', stroke:'var(--mute)', 'stroke-width':1.3, 'stroke-dasharray':'4 3'}));
+    svg.appendChild(mk('text', {x:CX+SC+2, y:CY-4, 'font-size':9, fill:'var(--mute)'}, 'unit circle'));
+    // image ellipse: T(cos θ, sin θ)
+    var pts=[], i, th, x, y; for(i=0;i<=120;i++){ th=2*Math.PI*i/120; x=a*Math.cos(th)+b*Math.sin(th); y=c*Math.cos(th)+d*Math.sin(th); pts.push(PX(x).toFixed(1)+','+PY(y).toFixed(1)); }
+    svg.appendChild(mk('polyline', {points:pts.join(' '), fill:'color-mix(in srgb, var(--cyan) 10%, transparent)', stroke:'var(--cyan)', 'stroke-width':1.8}));
+    // max-stretch unit vector x* and its image Tx*
+    var Tx=a*vx+b*vy, Ty=c*vx+d*vy;
+    svg.appendChild(mk('line', {x1:CX, y1:CY, x2:PX(vx), y2:PY(vy), stroke:'var(--yellow)', 'stroke-width':1.5}));
+    svg.appendChild(mk('circle', {cx:PX(vx), cy:PY(vy), r:3.5, fill:'var(--yellow)'}));
+    svg.appendChild(mk('text', {x:PX(vx)+5, y:PY(vy)-4, 'font-size':10, fill:'var(--yellow)'}, 'x*'));
+    svg.appendChild(mk('line', {x1:CX, y1:CY, x2:PX(Tx), y2:PY(Ty), stroke:'var(--pink)', 'stroke-width':2}));
+    svg.appendChild(mk('circle', {cx:PX(Tx), cy:PY(Ty), r:4, fill:'var(--pink)'}));
+    svg.appendChild(mk('text', {x:PX(Tx)+5, y:PY(Ty)-4, 'font-size':10, fill:'var(--pink)'}, 'T x*  (length ‖T‖)'));
+    // readout
+    var det=a*d-b*c;
+    var lines=[];
+    lines.push('T = [[' + a.toFixed(1) + ', ' + b.toFixed(1) + '], [' + c.toFixed(1) + ', ' + d.toFixed(1) + ']].   ‖T‖ = sup_{‖x‖\u22641} ‖Tx‖.');
+    lines.push('The unit circle maps to an ellipse; ‖T‖ is its major semi-axis = the largest singular value \u03c3_max = ' + smax.toFixed(3) + ' (attained at x*).');
+    lines.push('Minor semi-axis \u03c3_min = ' + smin.toFixed(3) + '.   |det T| = \u03c3_max\u00b7\u03c3_min = ' + Math.abs(det).toFixed(3) + ' (the area scale). ' + (smin<0.02?'\u03c3_min \u2248 0: T is nearly rank-deficient \u2014 the ellipse collapses to a segment.':''));
+    out.textContent=lines.join('\n');
+  }
+  [aIn,bIn,cIn,dIn].forEach(function(s){ s.addEventListener('input', draw); });
+  draw();
+})();
+</script>
+
 <div class="quiz" data-concept="bounded-operators-fa"></div>
 <!-- callback-auto-begin -->
 <aside class="callback">
@@ -2107,6 +2176,81 @@ note: ${d.note}`;
 <p><strong>Examples.</strong> The extreme points of the closed unit ball of $\ell^1$ are $\{\pm e_n\}_{n=1}^\infty$, where $e_n$ is the $n$-th standard basis vector — a countable, totally disconnected set whose closed convex hull is nevertheless the entire ball. The extreme points of the closed unit ball of $L^\infty[0,1]$ are the <a href="./measure-theory.html#measurable" data-auto-inline-link="1" data-concept-id="measurable-functions" data-blurb="f measurable iff preimages of Borel sets are measurable; simple functions approximate measurable functions from below.">measurable functions</a> of modulus 1 a.e. The closed unit ball of $L^1[0,1]$ has <em>no</em> extreme points at all — any unit-norm $f$ splits as $\tfrac{1}{2}(g+h)$ with $g, h$ distinct unit-norm functions via mass partition. By Krein–Milman, this forces $L^1$ to <em>not</em> be the dual of any Banach space.</p>
 
 <p><strong>Bauer's <a href="./harmonic-functions.html#maximum" data-auto-inline-link="1" data-concept-id="hf-maximum-principle" data-blurb="Weak form: a harmonic $u$ on a bounded $\Omega$ attains $\sup u$ on $\partial\Omega$. Strong form: an interior maximum forces $u$ to be constant on the connected component. Together they yield uniqueness for the Dirichlet problem.">maximum principle</a>.</strong> A convex upper semicontinuous functional on a compact convex set attains its maximum at an extreme point — the dual to Banach–Alaoglu's existence half. This drives the variational arguments in extremal problems and the algebraic characterization of dual spaces.</p>
+
+
+<div class="widget" id="w-fa-krein-milman">
+  <div class="hd"><div class="ttl">Extreme points generate a compact convex set</div><div class="hint">Slide the probe: vertices and curved boundary are extreme; flat-edge interiors are not.</div></div>
+  <div class="row">
+    <label for="w-fa-krein-milman-sel">convex set $K$</label>
+    <select id="w-fa-krein-milman-sel">
+      <option value="triangle" selected>triangle</option>
+      <option value="pentagon">pentagon</option>
+      <option value="disk">disk</option>
+      <option value="halfdisk">half-disk</option>
+    </select>
+    <label for="w-fa-krein-milman-t">probe boundary</label>
+    <input type="range" id="w-fa-krein-milman-t" min="0" max="1" value="0.13" step="0.004">
+  </div>
+  <svg id="w-fa-krein-milman-svg" viewBox="0 0 540 290" width="540" height="290" role="img" aria-label="A compact convex set with its extreme points highlighted"><title>Krein–Milman: a compact convex set is the closed convex hull of its extreme points</title></svg>
+  <div class="readout" id="w-fa-krein-milman-out"></div>
+</div><script>
+/* functional-analysis-krein-milman widget: w-fa-krein-milman */
+(function(){
+  var SHAPES = [{"id":"triangle","label":"triangle","kind":"polygon","n":3,"note":"ext(K) = the 3 vertices; every other point is a convex combination of them."},{"id":"pentagon","label":"pentagon","kind":"polygon","n":5,"note":"ext(K) = the 5 vertices."},{"id":"disk","label":"disk","kind":"disk","note":"A strictly convex set: EVERY boundary point is extreme."},{"id":"halfdisk","label":"half-disk","kind":"halfdisk","note":"The curved arc is extreme; the diameter (a flat edge) contributes only its two endpoints."}];
+  var byId = {}; SHAPES.forEach(function(s){ byId[s.id] = s; });
+  var sel = document.getElementById('w-fa-krein-milman-sel');
+  var tIn = document.getElementById('w-fa-krein-milman-t');
+  var svg = document.getElementById('w-fa-krein-milman-svg'), out = document.getElementById('w-fa-krein-milman-out');
+  if(!sel || !tIn || !svg || !out) return;
+  var NS='http://www.w3.org/2000/svg';
+  function mk(tag, attrs, text){ var e=document.createElementNS(NS, tag); for(var k in attrs){ e.setAttribute(k, attrs[k]); } if(text!=null) e.textContent=text; return e; }
+  var CX=270, CY=150, R=96;
+  function PX(x){ return CX + x*R; } function PY(y){ return CY - y*R; }
+  var ARCF = Math.PI/(Math.PI+2); // arc-length fraction of the half-disk boundary
+  // boundary point (unit-scaled), and whether it is an extreme point, per kind
+  function verts(n){ var v=[], k; for(k=0;k<n;k++){ var ph=Math.PI/2 + 2*Math.PI*k/n; v.push([Math.cos(ph), Math.sin(ph)]); } return v; }
+  function bpoint(sh, t){
+    if(sh.kind==='disk'){ var a=2*Math.PI*t; return {p:[Math.cos(a),Math.sin(a)], ext:true}; }
+    if(sh.kind==='halfdisk'){
+      if(t < ARCF){ var th=Math.PI*(t/ARCF); return {p:[Math.cos(th),Math.sin(th)], ext:true}; }
+      var s=(t-ARCF)/(1-ARCF), x=-1+2*s; var corner=(s<0.03||s>0.97); return {p:[x,0], ext:corner, edge:[[-1,0],[1,0]], s:s}; }
+    var V=verts(sh.n||4), n=V.length, seg=t*n, k=Math.floor(seg)%n, ss=seg-Math.floor(seg);
+    var A=V[k], B=V[(k+1)%n]; var p=[A[0]+ss*(B[0]-A[0]), A[1]+ss*(B[1]-A[1])];
+    return {p:p, ext:(Math.min(ss,1-ss)<0.022), edge:[A,B], s:ss};
+  }
+  function draw(){
+    var sh = byId[sel.value] || SHAPES[0], t=+tIn.value;
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    // filled set (sample the boundary)
+    var fill=[], i; for(i=0;i<160;i++){ var q=bpoint(sh, i/160).p; fill.push(PX(q[0]).toFixed(1)+','+PY(q[1]).toFixed(1)); }
+    svg.appendChild(mk('polygon', {points:fill.join(' '), fill:'color-mix(in srgb, var(--cyan) 9%, transparent)', stroke:'var(--cyan)', 'stroke-width':1.4}));
+    // extreme set highlight
+    if(sh.kind==='polygon'){ verts(sh.n||4).forEach(function(v){ svg.appendChild(mk('circle', {cx:PX(v[0]), cy:PY(v[1]), r:5, fill:'var(--pink)'})); }); }
+    else if(sh.kind==='disk'){ svg.appendChild(mk('circle', {cx:CX, cy:CY, r:R, fill:'none', stroke:'var(--pink)', 'stroke-width':3})); }
+    else { var arc=[]; for(i=0;i<=80;i++){ var th=Math.PI*i/80; arc.push(PX(Math.cos(th)).toFixed(1)+','+PY(Math.sin(th)).toFixed(1)); } svg.appendChild(mk('polyline', {points:arc.join(' '), fill:'none', stroke:'var(--pink)', 'stroke-width':3})); [[-1,0],[1,0]].forEach(function(v){ svg.appendChild(mk('circle', {cx:PX(v[0]), cy:PY(v[1]), r:5, fill:'var(--pink)'})); }); }
+    // probe point
+    var b=bpoint(sh, t), p=b.p;
+    if(!b.ext && b.edge){ // witness: P = midpoint of x,y on the same edge
+      var A=b.edge[0], B=b.edge[1], ex=B[0]-A[0], ey=B[1]-A[1]; var h=Math.min(b.s, 1-b.s, 0.32);
+      var x1=[p[0]-h*ex, p[1]-h*ey], x2=[p[0]+h*ex, p[1]+h*ey];
+      svg.appendChild(mk('line', {x1:PX(x1[0]), y1:PY(x1[1]), x2:PX(x2[0]), y2:PY(x2[1]), stroke:'var(--yellow)', 'stroke-width':2}));
+      [x1,x2].forEach(function(v){ svg.appendChild(mk('circle', {cx:PX(v[0]), cy:PY(v[1]), r:3.5, fill:'var(--yellow)'})); });
+    }
+    svg.appendChild(mk('circle', {cx:PX(p[0]), cy:PY(p[1]), r:4.5, fill: b.ext?'var(--pink)':'var(--orange)', stroke:'#fff', 'stroke-width':1}));
+    svg.appendChild(mk('text', {x:CX, y:18, 'text-anchor':'middle', 'font-size':11, fill:'var(--mute)', 'font-style':'italic'}, 'extreme points in pink'));
+    // readout
+    var extDesc = sh.kind==='polygon' ? ('its ' + (sh.n||4) + ' vertices') : (sh.kind==='disk' ? 'its entire boundary circle' : 'the curved arc plus the two corners');
+    var lines=[];
+    lines.push('Krein\u2013Milman: a compact convex set K is the closed convex hull of its extreme points ext(K). Here ext(K) = ' + extDesc + '.');
+    if(b.ext){ lines.push('The probe point IS extreme: it is not the midpoint of any segment lying in K \u2014 you cannot write it as \u00bd(x+y) with x \u2260 y in K.'); }
+    else { lines.push('The probe point is NOT extreme: it lies inside a flat edge, so it equals \u00bd(x+y) for the two yellow points x \u2260 y in K. Interior-of-edge points are averages, never extreme.'); }
+    if(sh.note) lines.push(sh.note);
+    out.textContent=lines.join('\n');
+  }
+  sel.addEventListener('change', draw); tIn.addEventListener('input', draw);
+  draw();
+})();
+</script>
 
 <div class="quiz" data-concept="krein-milman"></div>
 

@@ -7627,6 +7627,43 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "functional-analysis-krein-milman",
+    "family": "functional-analysis-krein-milman",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory",
+    "title": "functional-analysis-krein-milman widget params",
+    "description": "Krein–Milman / extreme-points explorer. The reader picks a compact convex set and slides a probe point around its boundary; the widget highlights the extreme points (a polygon's vertices, a disk's whole boundary circle, a half-disk's curved arc) and, when the probe lands on a non-extreme boundary point, draws the segment witnessing it as the midpoint of two other points of the set. The point geometry is intrinsic (a `kind` enum); params carry the shape menu.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "shapes"
+    ],
+    "readmeExcerpt": "Krein–Milman / extreme-points explorer, introduced on `functional-analysis.html` §15. Bespoke semantic module — the point geometry is intrinsic (a `kind` enum); params carry only the shape menu.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "functional-analysis-operator-norm",
+    "family": "functional-analysis-operator-norm",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory",
+    "title": "functional-analysis-operator-norm widget params",
+    "description": "Operator-norm explorer for a 2×2 matrix. The reader adjusts the four entries of T; the widget maps the unit circle to its image ellipse and reports ‖T‖ = sup_{‖x‖≤1}‖Tx‖, which equals the largest singular value σ_max (the major semi-axis of the ellipse). The unit vector achieving the sup and its image are marked, and the smallest singular value σ_min (minor semi-axis) is shown too. The singular-value computation is intrinsic; params carry only the initial matrix.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Operator-norm explorer, introduced on `functional-analysis.html` §4. Bespoke semantic module — the singular-value computation is intrinsic; params carry only the initial matrix.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "gal-three-impossibilities",
     "family": "verbatim",
     "dimension": "2d",

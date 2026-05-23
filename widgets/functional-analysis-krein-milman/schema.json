@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/functional-analysis-krein-milman/schema.json",
+  "title": "functional-analysis-krein-milman widget params",
+  "description": "Krein–Milman / extreme-points explorer. The reader picks a compact convex set and slides a probe point around its boundary; the widget highlights the extreme points (a polygon's vertices, a disk's whole boundary circle, a half-disk's curved arc) and, when the probe lands on a non-extreme boundary point, draws the segment witnessing it as the midpoint of two other points of the set. The point geometry is intrinsic (a `kind` enum); params carry the shape menu.",
+  "meta": {
+    "family": "functional-analysis-krein-milman",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["widgetId", "title", "shapes"],
+  "properties": {
+    "widgetId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id; the script derives -sel/-t/-svg/-out." },
+    "title": { "type": "string", "description": "Display title rendered inside .hd > .ttl." },
+    "hint": { "type": "string", "description": "Optional short hint rendered inside .hd > .hint." },
+    "shapes": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 6,
+      "description": "Each compact convex set offered in the dropdown.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "label", "kind"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[A-Za-z0-9_-]+$", "description": "Stable option value." },
+          "label": { "type": "string", "description": "Plain-text dropdown label." },
+          "kind": {
+            "type": "string",
+            "enum": ["polygon", "disk", "halfdisk"],
+            "description": "polygon (uses `n` vertices); disk (all boundary extreme); halfdisk (arc extreme, diameter not)."
+          },
+          "n": { "type": "integer", "minimum": 3, "maximum": 8, "description": "Vertex count for kind=polygon." },
+          "note": { "type": "string", "maxLength": 120, "description": "Optional plain-text remark." }
+        }
+      }
+    }
+  }
+}
