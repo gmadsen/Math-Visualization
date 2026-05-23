@@ -9418,6 +9418,25 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "hodge-theory-hodge-diamond",
+    "family": "hodge-theory-hodge-diamond",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory",
+    "title": "hodge-theory-hodge-diamond widget params",
+    "description": "Interactive Hodge-diamond explorer. The reader picks a variety from a dropdown and its Hodge numbers h^{p,q} fill a rotated diamond grid; clicking an entry highlights its Hodge-conjugate (q,p) and Poincaré-dual (d-p,d-q) partners, and the readout reports the Betti numbers (row sums), total dimension, Euler characteristic, and a live check of the two symmetry laws. Fully data-driven: each variety carries its complex dimension and a (d+1)x(d+1) matrix of Hodge numbers, so a non-HTML frontend can rebuild the diamond from params alone.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "varieties"
+    ],
+    "readmeExcerpt": "Interactive Hodge-diamond explorer, introduced on `hodge-theory.html` §2 (the Hodge decomposition theorem) to replace the section's static illustrative diamond with a live, data-driven one. Bespoke semantic module — the diamond geometry, Betti/Euler arithmetic, and the two symmetry-law checks are all computed from the per-variety Hodge matrix in `params`, so a non-HTML frontend can rebuild it from the schema alone.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "homotopy-theory-w1",
     "family": "verbatim",
     "dimension": "2d",
