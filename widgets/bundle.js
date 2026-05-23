@@ -7627,6 +7627,44 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "functional-analysis-bounded-continuous",
+    "family": "functional-analysis-bounded-continuous",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory",
+    "title": "functional-analysis-bounded-continuous widget params",
+    "description": "Bounded-vs-continuous explorer. The reader picks a linear operator on a function space and steps a test family x_n (here sin(nx) on L²[0,π]); the widget plots the amplification ratio ‖T x_n‖/‖x_n‖ against n. A bounded operator caps the ratio (multiplication is flat at the constant, the Volterra integral decays to 0 — both continuous); the derivative d/dx grows the ratio like n without bound, so it is UNBOUNDED, hence DISCONTINUOUS — a phenomenon only possible in infinite dimensions. The norm ratios are computed in closed form (a `kind` enum); params carry the case menu.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "operators"
+    ],
+    "readmeExcerpt": "Bounded-vs-continuous explorer, introduced on `functional-analysis.html` §4. Bespoke semantic module — the norm ratios are computed in closed form (a `kind` enum); params carry the case menu. (Distinct from the §3 operator-norm widget, which computes $\\|T\\|$ for a $2\\times2$ matrix; this one is about the bounded$\\iff$continuous dichotomy and the existence of *unbounded* operators.)",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "functional-analysis-krein-milman",
+    "family": "functional-analysis-krein-milman",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory",
+    "title": "functional-analysis-krein-milman widget params",
+    "description": "Krein–Milman / extreme-points explorer. The reader picks a compact convex set and slides a probe point around its boundary; the widget highlights the extreme points (a polygon's vertices, a disk's whole boundary circle, a half-disk's curved arc) and, when the probe lands on a non-extreme boundary point, draws the segment witnessing it as the midpoint of two other points of the set. The point geometry is intrinsic (a `kind` enum); params carry the shape menu.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "shapes"
+    ],
+    "readmeExcerpt": "Krein–Milman / extreme-points explorer, introduced on `functional-analysis.html` §15. Bespoke semantic module — the point geometry is intrinsic (a `kind` enum); params carry only the shape menu.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "gal-three-impossibilities",
     "family": "verbatim",
     "dimension": "2d",

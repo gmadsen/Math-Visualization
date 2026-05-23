@@ -253,6 +253,47 @@
           "html": "<section id=\"bounded\">\n<h2>4. Bounded linear operators</h2>\n<p>Let $X,Y$ be normed spaces. A linear map $T\\colon X\\to Y$ is <strong>bounded</strong> when</p>\n$$\\|T\\| := \\sup_{\\|x\\|\\le 1}\\|Tx\\|_Y < \\infty.$$\n<p>For linear maps, bounded $\\iff$ continuous $\\iff$ continuous at $0$. The collection</p>\n$$B(X,Y) = \\{T\\colon X\\to Y\\text{ bounded linear}\\}$$\n<p>is itself a normed space under the operator norm, and <em>complete whenever $Y$ is</em> — a lovely \"completeness is contagious\" result. When $Y=X$, $B(X)=B(X,X)$ is a Banach algebra under composition.</p>\n\n<h3>The dual space</h3>\n<p>The <strong>dual</strong> $X^* := B(X,\\mathbb{K})$ is always a Banach space (the scalars are complete). A vector can be probed with linear functionals — this is the engine of weak convergence, duality, and optimization.</p>\n\n<h3>Examples to live with</h3>\n<table class=\"plain\">\n<thead><tr><th>operator</th><th>space</th><th>operator norm</th></tr></thead>\n<tbody>\n<tr><td>unilateral shift $(x_1,x_2,\\ldots)\\mapsto(0,x_1,x_2,\\ldots)$</td><td>$\\ell^2$</td><td>$1$ (isometry, not surjective)</td></tr>\n<tr><td>multiplication $M_g f = gf$, $g\\in L^\\infty$</td><td>$L^2(\\Omega,\\mu)$</td><td>$\\|g\\|_\\infty$</td></tr>\n<tr><td>integral operator $(Tf)(x)=\\int k(x,y)f(y)\\,dy$</td><td>$L^2(\\Omega)$ with $k\\in L^2(\\Omega^2)$</td><td>$\\le\\|k\\|_{L^2(\\Omega^2)}$ (Hilbert–Schmidt)</td></tr>\n<tr><td>differentiation $f\\mapsto f'$</td><td>$C^1[0,1]\\to C[0,1]$</td><td>$1$ (bounded — because of $C^1$ norm)</td></tr>\n<tr><td>differentiation $f\\mapsto f'$</td><td>$C[0,1]\\to C[0,1]$ dense domain</td><td>$\\infty$ — <em>unbounded</em> on the sup norm</td></tr>\n</tbody>\n</table>\n\n<p>An <strong>isometry</strong> satisfies $\\|Tx\\|=\\|x\\|$ for all $x$; it is always injective, norm-preserving, not necessarily surjective (as the shift shows). A surjective isometry between Banach spaces is an <strong>isometric isomorphism</strong>.</p>\n\n<div class=\"note\"><strong>Why \"bounded\" is the right word.</strong> A linear map takes $0\\to 0$, so continuity at any point is equivalent to continuity at $0$. Continuity at $0$ means $Tx\\to 0$ whenever $x\\to 0$; that is exactly $\\|Tx\\|\\le C\\|x\\|$ for some $C$. So bounded = continuous = Lipschitz with constant $\\|T\\|$.</div>\n\n<h3>Adjoints</h3>\n<p>On a Hilbert space, every $T\\in B(H)$ has a unique <strong>adjoint</strong> $T^*\\in B(H)$ defined by</p>\n$$\\langle Tx,y\\rangle = \\langle x,T^*y\\rangle,\\qquad\\forall x,y\\in H.$$\n<p>Then $\\|T^*\\|=\\|T\\|$ and $\\|T^*T\\|=\\|T\\|^2$ (the <strong>$C^*$-identity</strong>). We call $T$ <em>self-adjoint</em> if $T^*=T$, <em>normal</em> if $T^*T=TT^*$, <em>unitary</em> if $T^*T=TT^*=I$. Self-adjoint operators have real spectrum; unitaries have spectrum on the unit circle; normal operators are the class for which the spectral theorem holds in its cleanest form.</p>\n\n<p>On a Banach space, the adjoint $T^*\\colon Y^*\\to X^*$ lives between <em>different</em> spaces, defined by $(T^*\\phi)(x)=\\phi(Tx)$. Norms still match, $\\|T^*\\|=\\|T\\|$, but the $C^*$-identity fails without a compatible inner product.</p>\n\n<h3>A tiny operator algebra sampler</h3>\n<p>On the two-dimensional Hilbert space $\\mathbb{C}^2$, the <em>Pauli matrices</em></p>\n$$\\sigma_x=\\begin{pmatrix}0&1\\\\1&0\\end{pmatrix},\\quad\n\\sigma_y=\\begin{pmatrix}0&-i\\\\i&0\\end{pmatrix},\\quad\n\\sigma_z=\\begin{pmatrix}1&0\\\\0&-1\\end{pmatrix}$$\n<p>are self-adjoint, unitary, and traceless. Each has spectrum $\\{-1,+1\\}$ and the two spectral projections are $(I\\pm\\sigma_k)/2$. This is the simplest nontrivial illustration of the spectral theorem in finite dimensions: each $\\sigma_k = (+1)\\cdot P_+^{(k)} + (-1)\\cdot P_-^{(k)}$, and the three bases are mutually unbiased.</p>\n\n"
         },
         {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget",
+          "slug": "functional-analysis-bounded-continuous",
+          "params": {
+            "widgetId": "w-fa-bounded-continuous",
+            "title": "Bounded = continuous (and the derivative is neither)",
+            "hint": "Step n: bounded operators cap the amplification ratio; d/dx blows it up.",
+            "operators": [
+              {
+                "id": "mult",
+                "label": "T = 2·Id  (multiplication)",
+                "kind": "mult",
+                "note": "Ratio is exactly 2 for all n: bounded with ‖T‖ = 2, hence continuous."
+              },
+              {
+                "id": "volterra",
+                "label": "V f = ∫₀ˣ f  (Volterra integral)",
+                "kind": "volterra",
+                "note": "Ratio √3/n → 0: bounded (in fact compact), hence continuous."
+              },
+              {
+                "id": "deriv",
+                "label": "D = d/dx  (derivative)",
+                "kind": "deriv",
+                "note": "Ratio = n → ∞: unbounded, hence DISCONTINUOUS — sin(nx)/n → 0 but its derivative does not."
+              }
+            ]
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-fa-bounded-continuous"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
           "type": "quiz",
           "concept": "bounded-operators-fa",
           "html": "<div class=\"quiz\" data-concept=\"bounded-operators-fa\"></div>"
@@ -803,6 +844,55 @@
         {
           "type": "raw",
           "html": "<section id=\"krein-milman\">\n<h2>15. Krein–Milman theorem</h2>\n\n<p>Once Banach–Alaoglu provides the compactness, the next question is: what is the <em>structure</em> of a compact convex set? The Krein–Milman theorem reduces it to its extreme points.</p>\n\n<p>An <strong>extreme point</strong> of a convex set $K$ is a point $e \\in K$ that is not in the relative interior of any line segment in $K$: if $e = \\tfrac{1}{2}(x+y)$ with $x, y \\in K$, then $x = y = e$. Write $\\mathrm{ext}(K)$ for the set of extreme points.</p>\n\n<div class=\"ok\"><strong>Krein–Milman.</strong> Let $K$ be a nonempty compact convex subset of a locally convex topological vector space. Then $K$ is the closed convex hull of its extreme points: $K = \\overline{\\operatorname{conv}}\\,\\mathrm{ext}(K)$.</div>\n\n<p><strong>Examples.</strong> The extreme points of the closed unit ball of $\\ell^1$ are $\\{\\pm e_n\\}_{n=1}^\\infty$, where $e_n$ is the $n$-th standard basis vector — a countable, totally disconnected set whose closed convex hull is nevertheless the entire ball. The extreme points of the closed unit ball of $L^\\infty[0,1]$ are the <a href=\"./measure-theory.html#measurable\" data-auto-inline-link=\"1\" data-concept-id=\"measurable-functions\" data-blurb=\"f measurable iff preimages of Borel sets are measurable; simple functions approximate measurable functions from below.\">measurable functions</a> of modulus 1 a.e. The closed unit ball of $L^1[0,1]$ has <em>no</em> extreme points at all — any unit-norm $f$ splits as $\\tfrac{1}{2}(g+h)$ with $g, h$ distinct unit-norm functions via mass partition. By Krein–Milman, this forces $L^1$ to <em>not</em> be the dual of any Banach space.</p>\n\n<p><strong>Bauer's <a href=\"./harmonic-functions.html#maximum\" data-auto-inline-link=\"1\" data-concept-id=\"hf-maximum-principle\" data-blurb=\"Weak form: a harmonic $u$ on a bounded $\\Omega$ attains $\\sup u$ on $\\partial\\Omega$. Strong form: an interior maximum forces $u$ to be constant on the connected component. Together they yield uniqueness for the Dirichlet problem.\">maximum principle</a>.</strong> A convex upper semicontinuous functional on a compact convex set attains its maximum at an extreme point — the dual to Banach–Alaoglu's existence half. This drives the variational arguments in extremal problems and the algebraic characterization of dual spaces.</p>\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget",
+          "slug": "functional-analysis-krein-milman",
+          "params": {
+            "widgetId": "w-fa-krein-milman",
+            "title": "Extreme points generate a compact convex set",
+            "hint": "Slide the probe: vertices and curved boundary are extreme; flat-edge interiors are not.",
+            "shapes": [
+              {
+                "id": "triangle",
+                "label": "triangle",
+                "kind": "polygon",
+                "n": 3,
+                "note": "ext(K) = the 3 vertices; every other point is a convex combination of them."
+              },
+              {
+                "id": "pentagon",
+                "label": "pentagon",
+                "kind": "polygon",
+                "n": 5,
+                "note": "ext(K) = the 5 vertices."
+              },
+              {
+                "id": "disk",
+                "label": "disk",
+                "kind": "disk",
+                "note": "A strictly convex set: EVERY boundary point is extreme."
+              },
+              {
+                "id": "halfdisk",
+                "label": "half-disk",
+                "kind": "halfdisk",
+                "note": "The curved arc is extreme; the diameter (a flat edge) contributes only its two endpoints."
+              }
+            ]
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-fa-krein-milman"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
         },
         {
           "type": "quiz",
