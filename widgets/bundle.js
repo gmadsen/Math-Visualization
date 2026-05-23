@@ -7665,6 +7665,43 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "functional-analysis-riesz",
+    "family": "functional-analysis-riesz",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory",
+    "title": "functional-analysis-riesz widget params",
+    "description": "Riesz-representation explorer in the plane. The reader sets a representing vector v; the bounded linear functional ℓ(x)=⟨x,v⟩ is shown by its parallel level lines (perpendicular to v), with the kernel ℓ=0 through the origin. A movable test point x shows ℓ(x)=⟨x,v⟩ as a signed projection, and the readout reports ‖ℓ‖=‖v‖ — the isometry H ≅ H* of the theorem. The geometry is intrinsic; params carry only the initial v.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Riesz-representation explorer, introduced on `functional-analysis.html` §11. Bespoke semantic module — the geometry is intrinsic; params carry only the initial representing vector.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "functional-analysis-weak-convergence",
+    "family": "functional-analysis-weak-convergence",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory",
+    "title": "functional-analysis-weak-convergence widget params",
+    "description": "Weak-convergence explorer in ℓ². The orthonormal basis e_n converges WEAKLY to 0 — for every test vector y, ⟨e_n,y⟩ = y_n → 0 (since Σ|y_n|² < ∞) — yet ‖e_n‖ = 1 for all n, so it does NOT converge in norm. The reader picks a test vector y and slides n; the widget shows y's components as bars (the n-th bar is ⟨e_n,y⟩), the constant ‖e_n‖ = 1 line, and the readout contrasts weak vs strong convergence. The component values come from params.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "vectors"
+    ],
+    "readmeExcerpt": "Weak-convergence explorer, introduced on `functional-analysis.html` §13. Bespoke semantic module — the component values come from params.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "gal-three-impossibilities",
     "family": "verbatim",
     "dimension": "2d",

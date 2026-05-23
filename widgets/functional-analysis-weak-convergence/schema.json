@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/functional-analysis-weak-convergence/schema.json",
+  "title": "functional-analysis-weak-convergence widget params",
+  "description": "Weak-convergence explorer in ℓ². The orthonormal basis e_n converges WEAKLY to 0 — for every test vector y, ⟨e_n,y⟩ = y_n → 0 (since Σ|y_n|² < ∞) — yet ‖e_n‖ = 1 for all n, so it does NOT converge in norm. The reader picks a test vector y and slides n; the widget shows y's components as bars (the n-th bar is ⟨e_n,y⟩), the constant ‖e_n‖ = 1 line, and the readout contrasts weak vs strong convergence. The component values come from params.",
+  "meta": {
+    "family": "functional-analysis-weak-convergence",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["widgetId", "title", "vectors"],
+  "properties": {
+    "widgetId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id; the script derives -sel/-n/-svg/-out." },
+    "title": { "type": "string", "description": "Display title rendered inside .hd > .ttl." },
+    "hint": { "type": "string", "description": "Optional short hint rendered inside .hd > .hint." },
+    "vectors": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 4,
+      "description": "Each test vector y ∈ ℓ² offered in the dropdown.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "label", "comps"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[A-Za-z0-9_-]+$", "description": "Stable option value." },
+          "label": { "type": "string", "description": "Plain-text dropdown label." },
+          "comps": {
+            "type": "array",
+            "minItems": 4,
+            "maxItems": 18,
+            "items": { "type": "number" },
+            "description": "The components y_1, y_2, … of the test vector (⟨e_n,y⟩ = y_n)."
+          },
+          "note": { "type": "string", "maxLength": 130, "description": "Optional plain-text remark." }
+        }
+      }
+    }
+  }
+}

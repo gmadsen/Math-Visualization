@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/functional-analysis-riesz/schema.json",
+  "title": "functional-analysis-riesz widget params",
+  "description": "Riesz-representation explorer in the plane. The reader sets a representing vector v; the bounded linear functional ℓ(x)=⟨x,v⟩ is shown by its parallel level lines (perpendicular to v), with the kernel ℓ=0 through the origin. A movable test point x shows ℓ(x)=⟨x,v⟩ as a signed projection, and the readout reports ‖ℓ‖=‖v‖ — the isometry H ≅ H* of the theorem. The geometry is intrinsic; params carry only the initial v.",
+  "meta": {
+    "family": "functional-analysis-riesz",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["widgetId", "title"],
+  "properties": {
+    "widgetId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id; the script derives -vx/-vy/-th/-svg/-out." },
+    "title": { "type": "string", "description": "Display title rendered inside .hd > .ttl." },
+    "hint": { "type": "string", "description": "Optional short hint rendered inside .hd > .hint." },
+    "v0": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": { "type": "number" },
+      "description": "Initial representing vector [vx, vy] (default [1.3, 0.8])."
+    }
+  }
+}
