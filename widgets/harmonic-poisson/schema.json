@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/harmonic-poisson/schema.json",
+  "title": "harmonic-poisson widget params",
+  "description": "Poisson-summation / theta explorer. Applies Σ_n f(n)=Σ_n f̂(n) to the Gaussian f_t(x)=e^{-π t x^2} (transform f̂_t(ξ)=t^{-1/2}e^{-πξ^2/t}) to exhibit the modular transformation of Jacobi's theta function θ(t)=Σ_n e^{-π n^2 t}: θ(t)=t^{-1/2}θ(1/t), i.e. θ(1/t)=√t·θ(t). A slider t draws the space-side and frequency-side Gaussians with their integer-lattice samples and prints both lattice sums, which agree to floating precision; t=1 is the self-dual fixed point. Readout ties it to Riemann's ζ functional equation. Arithmetic is intrinsic; params carry only chrome.",
+  "meta": {
+    "family": "harmonic-poisson",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id; the script derives -t (slider), -tval (pill), -svg, -out."
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title rendered inside .hd > .ttl."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional short hint rendered inside .hd > .hint."
+    }
+  }
+}

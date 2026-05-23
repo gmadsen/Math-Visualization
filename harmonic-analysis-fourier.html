@@ -854,6 +854,58 @@ $$\theta(t) := \sum_{n\in\mathbb{Z}} e^{-\pi n^2 t},\qquad \theta(1/t) \;=\; \sq
 $$f(x) = \sum_{n\in\mathbb{Z}} f\!\left(\frac{n}{2W}\right) \mathrm{sinc}\big(2W x - n\big).$$
 <p>Lower the sampling rate and you get aliasing — the high frequencies fold back onto the lattice in exactly the Poisson-summation pattern.</p>
 
+
+<div class="widget" id="w-harmonic-poisson">
+  <div class="hd"><div class="ttl">Poisson summation and the theta functional equation</div><div class="hint">Slide t: Σf(n) = Σf̂(n) for the Gaussian gives θ(1/t) = √t·θ(t). Self-dual at t=1.</div></div>
+  <div class="row">
+    <label for="w-harmonic-poisson-t">scale $t$</label>
+    <input type="range" id="w-harmonic-poisson-t" min="0.25" max="4" value="1" step="0.05">
+    <span class="pill" id="w-harmonic-poisson-tval">t = 1.00</span>
+  </div>
+  <svg id="w-harmonic-poisson-svg" viewBox="0 0 560 230" width="560" height="230" role="img" aria-label="Poisson summation applied to a Gaussian, giving the theta functional equation"><title>Poisson summation: the Gaussian and its Fourier transform, lattice sums equal</title></svg>
+  <div class="readout" id="w-harmonic-poisson-out"></div>
+</div><script>
+/* harmonic-poisson widget: w-harmonic-poisson */
+(function(){
+  var tIn=document.getElementById('w-harmonic-poisson-t'), tL=document.getElementById('w-harmonic-poisson-tval');
+  var svg=document.getElementById('w-harmonic-poisson-svg'), out=document.getElementById('w-harmonic-poisson-out');
+  if(!tIn || !tL || !svg || !out) return;
+  var NS='http://www.w3.org/2000/svg';
+  function mk(tag, attrs, text){ var e=document.createElementNS(NS, tag); for(var k in attrs){ e.setAttribute(k, attrs[k]); } if(text!=null) e.textContent=text; return e; }
+  function txt(x,y,s,opt){ opt=opt||{}; svg.appendChild(mk('text', {x:x, y:y, 'text-anchor':opt.anchor||'middle', 'font-size':opt.size||11, fill:opt.fill||'var(--ink)', 'font-weight':opt.weight||'normal', 'font-style':opt.italic?'italic':'normal'}, s)); }
+  function theta(s){ var v=0; for(var n=-12;n<=12;n++) v+=Math.exp(-Math.PI*n*n*s); return v; }
+  // draw a Gaussian a*e^{-π b x^2} over [-3,3] into the panel at (px,py,pw,ph), marking integer samples
+  function gauss(px,py,pw,ph, b, amp, col, label){
+    var x0=-3, x1=3, sx=function(x){ return px + (x-x0)/(x1-x0)*pw; }, sy=function(y){ return py+ph - y/amp*(ph-6); };
+    svg.appendChild(mk('line', {x1:px, y1:py+ph, x2:px+pw, y2:py+ph, stroke:'var(--line)', 'stroke-width':1}));
+    var d=''; for(var i=0;i<=120;i++){ var x=x0+(x1-x0)*i/120, y=amp*Math.exp(-Math.PI*b*x*x); d+=(i?'L':'M')+sx(x).toFixed(1)+' '+sy(y).toFixed(1); }
+    svg.appendChild(mk('path', {d:d, fill:'none', stroke:col, 'stroke-width':1.8}));
+    for(var m=-3;m<=3;m++){ var yy=amp*Math.exp(-Math.PI*b*m*m); svg.appendChild(mk('circle', {cx:sx(m), cy:sy(yy), r:2.6, fill:col})); svg.appendChild(mk('line',{x1:sx(m),y1:py+ph,x2:sx(m),y2:sy(yy),stroke:col,'stroke-width':0.6,opacity:0.5})); }
+    txt(px+pw/2, py-4, label, {size:10, fill:col}); }
+  function draw(){
+    var t=+tIn.value; tL.textContent='t = '+t.toFixed(2);
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    var th=theta(t), dual=Math.pow(t,-0.5)*theta(1/t);
+    txt(280, 20, 'Poisson summation:  \u03a3\u2099 f(n) = \u03a3\u2099 f\u0302(n),   with f(x)=e^{-\u03c0 t x\u00b2},  f\u0302(\u03be)=t^{-1/2} e^{-\u03c0\u03be\u00b2/t}', {size:10, fill:'var(--mute)', italic:true});
+    // two panels: space side (f_t) and frequency side (f_hat)
+    gauss(40, 44, 220, 110, t, 1, 'var(--yellow)', 'f(x) = e^{-\u03c0 t x\u00b2}   (samples at x\u2208\u2124)');
+    gauss(300, 44, 220, 110, 1/t, Math.pow(t,-0.5), 'var(--cyan)', 'f\u0302(\u03be) = t^{-1/2} e^{-\u03c0\u03be\u00b2/t}   (samples at \u03be\u2208\u2124)');
+    txt(150, 172, '\u03a3\u2099 f(n) = \u03b8(t) = ' + th.toFixed(5), {size:11, fill:'var(--yellow)'});
+    txt(410, 172, '\u03a3\u2099 f\u0302(n) = t^{-1/2}\u03b8(1/t) = ' + dual.toFixed(5), {size:11, fill:'var(--cyan)'});
+    txt(280, 198, '\u21d2  \u03b8(1/t) = \u221at\u00b7\u03b8(t)   ' + (Math.abs(th-dual)<1e-4 ? '\u2713 equal' : ''), {size:13, fill:'var(--green)', weight:600});
+    if(Math.abs(t-1)<0.03) txt(280, 218, 't = 1: the Gaussian is its own Fourier transform (self-dual fixed point)', {size:10, fill:'var(--violet)', italic:true});
+    // readout
+    var lines=[];
+    lines.push('Poisson summation \u03a3\u2099f(n)=\u03a3\u2099f\u0302(n) applied to the Gaussian f(x)=e^{-\u03c0tx\u00b2} (whose transform is f\u0302(\u03be)=t^{-1/2}e^{-\u03c0\u03be\u00b2/t}) gives the modular transformation of Jacobi\u2019s theta function \u03b8(t)=\u03a3\u2099 e^{-\u03c0n\u00b2t}: namely \u03b8(t) = t^{-1/2}\u03b8(1/t), i.e. \u03b8(1/t)=\u221at\u00b7\u03b8(t).');
+    lines.push('At t=' + t.toFixed(2) + ':  \u03b8(t) = ' + th.toFixed(6) + ',   t^{-1/2}\u03b8(1/t) = ' + dual.toFixed(6) + '  \u2014 equal to floating precision. As t grows the space-side Gaussian narrows and the frequency-side widens (and vice versa); they coincide only at t=1, the self-dual fixed point.');
+    lines.push('This is the analytic seed of Riemann\u2019s 1859 functional equation: \u03be(s)=\u03c0^{-s/2}\u0393(s/2)\u03b6(s) satisfies \u03be(s)=\u03be(1-s), proved by feeding exactly this \u03b8 transformation into a Mellin transform.');
+    out.textContent=lines.join('\n');
+  }
+  tIn.addEventListener('input', draw);
+  draw();
+})();
+</script>
+
 <!-- callback-auto-begin -->
 <aside class="callback">
   <div class="ttl">See also</div>
@@ -1019,6 +1071,72 @@ $$\widehat G \;=\; \Hom_{\mathrm{cts}}(G,\, U(1)) \;=\; \{\text{continuous group
 <p>The <strong>Plancherel theorem</strong> says: with appropriately compatible Haar measures on $G$ and $\widehat G$, the Fourier transform $\mathcal{F}\colon L^1(G)\cap L^2(G) \to L^2(\widehat G)$ extends to a unitary isomorphism $L^2(G)\xrightarrow{\sim} L^2(\widehat G)$. Setting $G = \mathbb{R}$ recovers classical Plancherel; $G = \mathbb{T}$ recovers Parseval; $G = \mathbb{Z}/N$ is unitarity of the DFT matrix divided by $\sqrt N$.</p>
 
 <div class="note"><strong>Looking ahead.</strong> Tate (1950) used Pontryagin duality on the adèles $\mathbb{A}_K$ to give a unified, conceptual proof of the analytic continuation and functional equation of Hecke L-functions — the same Poisson-summation idea (§6) lifted to LCA groups. This is the bridge from harmonic analysis to modern automorphic forms.</div>
+
+
+<div class="widget" id="w-harmonic-pontryagin">
+  <div class="hd"><div class="ttl">Pontryagin duality: G and its dual Ĝ</div><div class="hint">Pick a group: dualizing swaps discrete ↔ compact (ℤ ↔ T) and fixes ℝ, ℤ/N.</div></div>
+  <div class="row">
+    <button type="button" id="w-harmonic-pontryagin-g0">$\mathbb{R}$</button>
+    <button type="button" id="w-harmonic-pontryagin-g1">$\mathbb{T}=\mathbb{R}/\mathbb{Z}$</button>
+    <button type="button" id="w-harmonic-pontryagin-g2">$\mathbb{Z}$</button>
+    <button type="button" id="w-harmonic-pontryagin-g3">$\mathbb{Z}/N$</button>
+  </div>
+  <svg id="w-harmonic-pontryagin-svg" viewBox="0 0 560 250" width="560" height="250" role="img" aria-label="A gallery of locally compact abelian groups and their Pontryagin duals"><title>Pontryagin duality: G and its dual group, the discrete–compact swap, and the double dual</title></svg>
+  <div class="readout" id="w-harmonic-pontryagin-out"></div>
+</div><script>
+/* harmonic-pontryagin widget: w-harmonic-pontryagin */
+(function(){
+  var svg=document.getElementById('w-harmonic-pontryagin-svg'), out=document.getElementById('w-harmonic-pontryagin-out');
+  var btns=[0,1,2,3].map(function(i){ return document.getElementById('w-harmonic-pontryagin-g'+i); });
+  if(!svg || !out || btns.some(function(b){ return !b; })) return;
+  var NS='http://www.w3.org/2000/svg';
+  function mk(tag, attrs, text){ var e=document.createElementNS(NS, tag); for(var k in attrs){ e.setAttribute(k, attrs[k]); } if(text!=null) e.textContent=text; return e; }
+  function txt(x,y,s,opt){ opt=opt||{}; svg.appendChild(mk('text', {x:x, y:y, 'text-anchor':opt.anchor||'middle', 'font-size':opt.size||11, fill:opt.fill||'var(--ink)', 'font-weight':opt.weight||'normal', 'font-style':opt.italic?'italic':'normal'}, s)); }
+  function pic(kind, cx, cy, col){
+    if(kind==='line'){ svg.appendChild(mk('line',{x1:cx-55,y1:cy,x2:cx+55,y2:cy,stroke:col,'stroke-width':2}));
+      svg.appendChild(mk('path',{d:'M'+(cx+55)+' '+cy+' L'+(cx+47)+' '+(cy-4)+' L'+(cx+47)+' '+(cy+4)+' Z',fill:col}));
+      svg.appendChild(mk('path',{d:'M'+(cx-55)+' '+cy+' L'+(cx-47)+' '+(cy-4)+' L'+(cx-47)+' '+(cy+4)+' Z',fill:col})); }
+    else if(kind==='circle'){ svg.appendChild(mk('circle',{cx:cx,cy:cy,r:34,fill:'none',stroke:col,'stroke-width':2})); }
+    else if(kind==='dots'){ for(var i=-3;i<=3;i++) svg.appendChild(mk('circle',{cx:cx+i*16,cy:cy,r:3,fill:col})); txt(cx-62,cy+4,'\u22ef',{fill:'var(--mute)',size:13}); txt(cx+62,cy+4,'\u22ef',{fill:'var(--mute)',size:13}); }
+    else if(kind==='roots'){ var N=6; svg.appendChild(mk('circle',{cx:cx,cy:cy,r:34,fill:'none',stroke:'var(--line)','stroke-width':1,'stroke-dasharray':'3 3'}));
+      for(var k=0;k<N;k++){ var a=-Math.PI/2 + k*2*Math.PI/N; svg.appendChild(mk('circle',{cx:cx+34*Math.cos(a),cy:cy+34*Math.sin(a),r:3.4,fill:col})); } } }
+  var SCEN=[
+    { G:'\u211d', Gh:'\u211d', chi:'\u03c7_\u03be(x) = e^{2\u03c0i\u03bex}', ft:'continuous Fourier transform', Gp:'line', Ghp:'line', Gt:'continuous, non-compact', Ght:'continuous, non-compact', self:true,
+      note:'\u211d is self-dual: every continuous character is x\u21a6e^{2\u03c0i\u03bex} for a unique \u03be\u2208\u211d. The \u201cFourier transform\u201d is the usual one on the line.' },
+    { G:'\u0054 = \u211d/\u2124', Gh:'\u2124', chi:'\u03c7_n(x) = e^{2\u03c0inx}', ft:'Fourier series (f\u0302 \u2208 \u2113\u00b2(\u2124))', Gp:'circle', Ghp:'dots', Gt:'compact', Ght:'discrete', self:false,
+      note:'The circle \u0054 is COMPACT; its dual is the DISCRETE group \u2124 (the Fourier modes n). Compact \u2194 discrete is the central swap of Pontryagin duality.' },
+    { G:'\u2124', Gh:'\u0054', chi:'\u03c7_\u03b8(m) = e^{2\u03c0im\u03b8}', ft:'discrete-time Fourier transform', Gp:'dots', Ghp:'circle', Gt:'discrete', Ght:'compact', self:false,
+      note:'\u2124 is DISCRETE; its dual is the COMPACT circle \u0054 (\u03b8\u2208[0,1)). Exactly the mirror image of the \u0054\u2194\u2124 case \u2014 dualizing swaps discrete and compact.' },
+    { G:'\u2124/N', Gh:'\u2124/N', chi:'\u03c7_k(j) = e^{2\u03c0ijk/N}', ft:'discrete Fourier transform (DFT)', Gp:'roots', Ghp:'roots', Gt:'finite (here N=6)', Ght:'finite (here N=6)', self:true,
+      note:'A finite cyclic group is self-dual: the N characters \u03c7_k(j)=e^{2\u03c0ijk/N} are the N-th roots of unity, themselves indexed by \u2124/N. This is the DFT, the engine of the FFT.' }
+  ];
+  var sel=0;
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    btns.forEach(function(b,i){ var on=(i===sel); b.classList.toggle('active', on); b.setAttribute('aria-pressed', on?'true':'false'); });
+    var S=SCEN[sel];
+    txt(280, 24, 'G = ' + S.G + '        \u011c = Hom_cts(G, U(1)) = ' + S.Gh + '        (' + S.ft + ')', {size:12, fill:'var(--ink)', weight:600});
+    // left: G
+    txt(150, 70, 'G = ' + S.G, {size:13, fill:'var(--yellow)', weight:600});
+    pic(S.Gp, 150, 120, 'var(--yellow)');
+    txt(150, 172, S.Gt, {size:10, fill:'var(--mute)'});
+    // arrow
+    txt(280, 116, '\u2192', {size:24, fill:'var(--pink)'});
+    txt(280, 96, 'dual', {size:10, fill:'var(--pink)'});
+    txt(280, 136, '\u03c7\u2208\u011c', {size:10, fill:'var(--mute)'});
+    // right: Ghat
+    txt(410, 70, '\u011c = ' + S.Gh, {size:13, fill:'var(--cyan)', weight:600});
+    pic(S.Ghp, 410, 120, 'var(--cyan)');
+    txt(410, 172, S.Ght, {size:10, fill:'var(--mute)'});
+    // double dual + character
+    txt(280, 200, S.self ? ('G \u2245 \u011c (self-dual);   the dual of \u011c is again G  \u2014 Pontryagin double duality') : ('the dual of \u011c is again G  \u2014 Pontryagin: dualizing twice returns G'), {size:11, fill:'var(--green)', weight:600});
+    txt(280, 224, 'characters:  ' + S.chi, {size:11, fill:'var(--violet)'});
+    out.textContent = S.note + '\n\nPontryagin duality unifies the Fourier theorems: \u011c = Hom_cts(G,U(1)) with the compact-open topology is again locally compact abelian, and the canonical map from G to the dual of \u011c is an isomorphism. Dualizing swaps DISCRETE and COMPACT (\u2124\u2194\u0054), and fixes the self-dual groups (\u211d, \u2124/N, and also \u211a_p and the ad\u00e8les \u2014 the setting of Tate\u2019s thesis).';
+  }
+  btns.forEach(function(b,i){ b.addEventListener('click', function(){ sel=i; draw(); }); });
+  draw();
+})();
+</script>
 
 <div class="quiz" data-concept="pontryagin-duality"></div>
 </section>

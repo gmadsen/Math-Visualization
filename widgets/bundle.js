@@ -9465,6 +9465,42 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "harmonic-poisson",
+    "family": "harmonic-poisson",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory",
+    "title": "harmonic-poisson widget params",
+    "description": "Poisson-summation / theta explorer. Applies Σ_n f(n)=Σ_n f̂(n) to the Gaussian f_t(x)=e^{-π t x^2} (transform f̂_t(ξ)=t^{-1/2}e^{-πξ^2/t}) to exhibit the modular transformation of Jacobi's theta function θ(t)=Σ_n e^{-π n^2 t}: θ(t)=t^{-1/2}θ(1/t), i.e. θ(1/t)=√t·θ(t). A slider t draws the space-side and frequency-side Gaussians with their integer-lattice samples and prints both lattice sums, which agree to floating precision; t=1 is the self-dual fixed point. Readout ties it to Riemann's ζ functional equation. Arithmetic is intrinsic; params carry only chrome.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Poisson-summation / theta explorer, introduced on `harmonic-analysis-fourier.html` §6 (*Poisson summation*). Bespoke semantic module — the arithmetic is intrinsic; params carry only chrome.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "harmonic-pontryagin",
+    "family": "harmonic-pontryagin",
+    "dimension": "2d",
+    "gesture": "select",
+    "role": "exploratory",
+    "title": "harmonic-pontryagin widget params",
+    "description": "Pontryagin-duality gallery. Four tabs (ℝ, T=ℝ/ℤ, ℤ, ℤ/N) show a locally compact abelian group G and its dual Ĝ=Hom_cts(G,U(1)), drawing each as its characteristic picture (line / circle / discrete dots / roots of unity) so the discrete↔compact swap (ℤ↔T) is visible, with the character formula, the corresponding Fourier transform, and the double-dual Ĝ̂≅G. Self-dual cases (ℝ, ℤ/N) are flagged. Structural; params carry only chrome.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Pontryagin-duality gallery, introduced on `harmonic-analysis-fourier.html` §8 (*Pontryagin duality*). Bespoke semantic module — a structural diagram; params carry only chrome.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "harmonic-tent-transform",
     "family": "harmonic-tent-transform",
     "dimension": "2d",
