@@ -75,9 +75,9 @@ export function renderScript(params) {
     `    pic(S.Ghp, 410, 120, 'var(--cyan)');\n` +
     `    txt(410, 172, S.Ght, {size:10, fill:'var(--mute)'});\n` +
     `    // double dual + character\n` +
-    `    txt(280, 200, S.self ? ('G \\u2245 \\u011c (self-dual);   \\u011c\\u0302 \\u2245 G  \\u2014 Pontryagin double duality') : ('\\u011c\\u0302 \\u2245 G  \\u2014 Pontryagin: dualizing twice returns G'), {size:11, fill:'var(--green)', weight:600});\n` +
+    `    txt(280, 200, S.self ? ('G \\u2245 \\u011c (self-dual);   the dual of \\u011c is again G  \\u2014 Pontryagin double duality') : ('the dual of \\u011c is again G  \\u2014 Pontryagin: dualizing twice returns G'), {size:11, fill:'var(--green)', weight:600});\n` +
     `    txt(280, 224, 'characters:  ' + S.chi, {size:11, fill:'var(--violet)'});\n` +
-    `    out.textContent = S.note + '\\n\\nPontryagin duality unifies the Fourier theorems: \\u011c = Hom_cts(G,U(1)) with the compact-open topology is again locally compact abelian, and G \\u2192 \\u011c\\u0302 is an isomorphism. Dualizing swaps DISCRETE and COMPACT (\\u2124\\u2194\\u0054), and fixes the self-dual groups (\\u211d, \\u2124/N, and also \\u211a_p and the ad\\u00e8les \\u2014 the setting of Tate\\u2019s thesis).';\n` +
+    `    out.textContent = S.note + '\\n\\nPontryagin duality unifies the Fourier theorems: \\u011c = Hom_cts(G,U(1)) with the compact-open topology is again locally compact abelian, and the canonical map from G to the dual of \\u011c is an isomorphism. Dualizing swaps DISCRETE and COMPACT (\\u2124\\u2194\\u0054), and fixes the self-dual groups (\\u211d, \\u2124/N, and also \\u211a_p and the ad\\u00e8les \\u2014 the setting of Tate\\u2019s thesis).';\n` +
     `  }\n` +
     `  btns.forEach(function(b,i){ b.addEventListener('click', function(){ sel=i; draw(); }); });\n` +
     `  draw();\n` +
