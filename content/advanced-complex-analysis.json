@@ -227,6 +227,41 @@
           "html": "<section id=\"mittag-leffler\">\n<h2>5. Mittag-Leffler theorem</h2>\n<p>Weierstrass tells us we can prescribe a zero set on the entire-function side. Mittag-Leffler is the dual statement on the meromorphic side: we can prescribe a pole set together with the principal parts at those poles.</p>\n\n<p>A <strong>principal part</strong> at $a$ is the polar piece of the Laurent expansion: a finite sum $P_n(1/(z-a)) = c_{-k}/(z-a)^k + \\cdots + c_{-1}/(z-a)$. The principal part is exactly the obstruction to extending holomorphically across $a$: $f$ minus its principal part is holomorphic at $a$.</p>\n\n<div class=\"note\"><strong>Mittag-Leffler theorem.</strong> Let $\\{a_n\\}$ be a discrete sequence in $\\mathbb{C}$ with $|a_n|\\to\\infty$, and let $P_n(w)$ be a polynomial in $w$ with $P_n(0) = 0$ for each $n$. Then there exists a meromorphic function on $\\mathbb{C}$ with principal part $P_n(1/(z-a_n))$ at each $a_n$ and no other poles. It can be written as\n$$f(z) = \\sum_{n=1}^\\infty \\Bigl[P_n\\!\\left(\\tfrac{1}{z-a_n}\\right) - p_n(z)\\Bigr] + g(z),$$\nwhere $p_n$ is a polynomial chosen as a convergence-correction (a partial Taylor series of $P_n(1/(z-a_n))$ at $z=0$, truncated to depth depending on $|a_n|$) and $g$ is any entire function.</div>\n\n<p>The convergence correction is the analog of the exponential correction in Weierstrass: each individual term $P_n(1/(z-a_n))$ produces a divergent series in general (think of harmonic-like decay), so we subtract the leading Taylor terms of each principal part at $0$ to get a convergent series. The corrections $p_n$ are entire (in fact polynomial), so they do not change the principal parts.</p>\n\n<h3>The cotangent expansion</h3>\n<p>The classical witness: $\\pi\\cot(\\pi z)$ has simple poles at every integer $n$, each with residue $1$. The principal part at $n$ is $1/(z-n)$. The Mittag-Leffler series is</p>\n<p>$$\\pi\\cot(\\pi z) \\;=\\; \\frac{1}{z} \\;+\\; \\sum_{n\\ne 0}\\!\\left(\\frac{1}{z-n} + \\frac{1}{n}\\right).$$</p>\n<p>The corrections $+1/n$ are exactly what's needed: $1/(z-n) + 1/n = z/(n(z-n))$, which decays like $1/n^2$ — convergent. Without the corrections, the bare series $\\sum 1/(z-n)$ diverges (compare $\\sum 1/n$).</p>\n\n<p>This identity is the analytic engine behind several gems. Differentiating gives</p>\n<p>$$\\frac{\\pi^2}{\\sin^2(\\pi z)} \\;=\\; \\sum_{n\\in\\mathbb{Z}}\\frac{1}{(z-n)^2},$$</p>\n<p>a (now absolutely convergent) Mittag-Leffler expansion for the squared-cosecant. Setting $z=1/2$ recovers $\\sum_{n\\ge 0}1/(2n+1)^2 = \\pi^2/8$, hence Euler's $\\zeta(2) = \\pi^2/6$.</p>\n\n<h3>Construction</h3>\n<p>The proof is a clean <a href=\"./point-set-topology.html#compact\" data-auto-inline-link=\"1\" data-concept-id=\"compactness\" data-blurb=\"Every open cover has a finite subcover; preserved under continuous images; Heine–Borel, sequential compactness, and why compact Hausdorff is the right target category.\">compactness</a>-and-correction argument. On the disk $|z|&lt;R_n = |a_n|/2$, $P_n(1/(z-a_n))$ is holomorphic, hence has a Taylor expansion at $0$. Truncate this expansion to depth $d_n$ chosen so that the remainder is bounded by $2^{-n}$ on $|z|&lt;R_n$. Set $p_n$ to be the truncated Taylor polynomial. Then on any fixed compact set $K\\subset\\mathbb{C}\\setminus\\{a_n\\}$, all but finitely many tails $P_n(1/(z-a_n)) - p_n(z)$ are bounded by $2^{-n}$, so the series converges uniformly on compact sets minus the poles — exactly the meromorphic-function condition.</p>\n\n<p>The freedom to add an entire $g$ is the dual of the Weierstrass freedom: any two meromorphic functions with the same principal-part data differ by an entire function.</p>\n\n"
         },
         {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget",
+          "slug": "advanced-complex-analysis-mittag-leffler",
+          "params": {
+            "widgetId": "w-aca-mittag-leffler",
+            "title": "Mittag-Leffler: building a function from its poles",
+            "hint": "Add pole terms and watch the prescribed poles lock in, one pair at a time.",
+            "functions": [
+              {
+                "id": "cot",
+                "label": "π cot(πz)",
+                "kind": "cot",
+                "note": "Simple poles at every integer: π cot(πz) = 1/z + Σ 2z/(z²−n²)."
+              },
+              {
+                "id": "csc2",
+                "label": "π²/sin²(πz)",
+                "kind": "csc2",
+                "note": "Double poles at every integer: π²/sin²(πz) = Σ 1/(z−n)²."
+              }
+            ]
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-aca-mittag-leffler"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
           "type": "quiz",
           "concept": "aca-mittag-leffler",
           "html": "<div class=\"quiz\" data-concept=\"aca-mittag-leffler\"></div>"
@@ -251,6 +286,41 @@
         {
           "type": "raw",
           "html": "<section id=\"phragmen-lindelof\">\n<h2>6. Phragmén-Lindelöf principle</h2>\n<p>The maximum modulus principle says: if $f$ is holomorphic on a bounded domain $D$ and continuous on $\\overline D$, then $|f|$ attains its max on the boundary $\\partial D$. The hypothesis 'bounded' is essential — on an unbounded domain there is a 'missing arc at infinity' to which the boundary statement does not extend.</p>\n\n<p>Counterexample: on the right half-plane $\\{\\operatorname{Re} z>0\\}$, the function $f(z) = e^z$ is bounded by $1$ on the imaginary boundary ($|e^{iy}|=1$) but blows up exponentially as $\\operatorname{Re} z\\to\\infty$. So plain max modulus is false on unbounded domains.</p>\n\n<p>The <strong>Phragmén-Lindelöf principle</strong> rescues max modulus on a sector by trading boundedness on the boundary for a controlled growth condition: as long as $f$ doesn't grow too fast compared to the opening of the sector, the boundary estimate persists in the interior.</p>\n\n<div class=\"note\"><strong>Phragmén-Lindelöf, sector form.</strong> Let $S = \\{z = re^{i\\theta} : 0&lt;r, |\\theta|<\\pi/(2\\alpha)\\}$ be a sector of angular opening $\\pi/\\alpha$. Suppose $f$ is holomorphic on $S$, continuous on $\\overline S$, and:\n<ol>\n<li>$|f(z)|\\le M$ on $\\partial S$ (the two boundary rays).</li>\n<li>There exist constants $C, \\beta$ with $0\\le \\beta < \\alpha$ such that $|f(z)|\\le C e^{|z|^\\beta}$ on $S$.</li>\n</ol>\nThen $|f(z)|\\le M$ throughout $S$.</div>\n\n<p>The key constraint is $\\beta < \\alpha$, with strict inequality. The exponent $\\alpha$ measures the 'narrowness' of the sector — narrower sectors permit more aggressive growth — and the function is allowed to grow no faster than $e^{|z|^\\beta}$ for some $\\beta$ strictly below the threshold.</p>\n\n<h3>Why the example $e^z$ on the right half-plane is critical</h3>\n<p>The right half-plane has opening $\\pi$, so $\\alpha = 1$. The function $e^z$ has $|e^z| = e^{\\operatorname{Re} z} \\le e^{|z|}$, growth at exponent $\\beta = 1 = \\alpha$ exactly. This sits on the boundary of the Phragmén-Lindelöf condition: $\\beta < \\alpha$ fails (with strict inequality), so the conclusion need not hold. And indeed $|e^z|$ is bounded by $1$ on the imaginary axis but blows up in the half-plane — exhibiting failure at the critical exponent.</p>\n\n<p>If we had $\\beta < 1$ (any sub-exponential growth) on the right half-plane, the conclusion holds. The principle is sharp; the threshold is fully optimal.</p>\n\n<h3>Proof sketch via auxiliary growth</h3>\n<p>Choose $\\gamma$ with $\\beta < \\gamma < \\alpha$. Multiply $f$ by an auxiliary $g_\\varepsilon(z) = e^{-\\varepsilon z^\\gamma}$ (with a fixed branch on the sector). On the boundary, $|f g_\\varepsilon|\\le M\\cdot 1 = M$ since $|g_\\varepsilon|\\le 1$ on the rays. The growth of $f g_\\varepsilon$ is at most $e^{|z|^\\beta - \\varepsilon|z|^\\gamma\\cos(\\gamma\\theta)}$. The cosine factor stays bounded below away from $0$ on the sector (this is where $\\gamma<\\alpha$ is used), so $|f g_\\varepsilon|\\to 0$ as $|z|\\to\\infty$. Now apply ordinary max modulus: $|f g_\\varepsilon|\\le M$ on the bounded subdomain, and taking $\\varepsilon\\to 0$ gives $|f|\\le M$ on the sector.</p>\n\n<h3>Three-lines theorem and applications</h3>\n<p>The strip version (between two parallel lines) is the <strong>Hadamard three-lines theorem</strong>: if $f$ is bounded and holomorphic on the strip $a\\le\\operatorname{Re} z\\le b$, then $\\log\\sup_{\\operatorname{Re} z = x}|f|$ is convex in $x$. This is the engine inside the Riesz-Thorin interpolation theorem: bounding an operator on $L^{p_0}$ and $L^{p_1}$ gives a bound on $L^{p_\\theta}$ via a holomorphic family of operators living on a strip, with norm controlled by Phragmén-Lindelöf.</p>\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget",
+          "slug": "advanced-complex-analysis-phragmen-lindelof",
+          "params": {
+            "widgetId": "w-aca-phragmen-lindelof",
+            "title": "Phragmén-Lindelöf: bounded boundary ≠ bounded interior",
+            "hint": "e^z is bounded on the boundary but blows up inside — a growth bound is needed.",
+            "functions": [
+              {
+                "id": "ez",
+                "label": "e^z  (order 1 — borderline)",
+                "kind": "ez",
+                "note": "Bounded (=1) on the imaginary axis, but e^r on the real axis. The max principle fails without a growth bound."
+              },
+              {
+                "id": "decay",
+                "label": "e^{−√z}  (order ½)",
+                "kind": "decay",
+                "note": "Order ½ < 1 and ≤ 1 everywhere: it satisfies Phragmén-Lindelöf, so the boundary bound controls the interior."
+              }
+            ]
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-aca-phragmen-lindelof"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
         },
         {
           "type": "raw",
