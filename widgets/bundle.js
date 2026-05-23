@@ -3442,6 +3442,24 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "complex-analysis-arithmetic",
+    "family": "complex-analysis-arithmetic",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory",
+    "title": "complex-analysis-arithmetic widget params",
+    "description": "Argand-plane arithmetic explorer. The reader adjusts two complex numbers z and w (each by modulus and argument) and toggles between addition and multiplication; the widget draws z, w and the result in the plane, with the parallelogram for z+w and the angle-addition / length-scaling for z·w. The headline is that multiplication is rotation-plus-scaling: |zw| = |z||w| and arg(zw) = arg z + arg w. The arithmetic is intrinsic; params carry only the initial z and w.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Argand-plane arithmetic explorer, introduced on `complex-analysis.html` §1. Bespoke semantic module — the arithmetic is intrinsic; params carry only the initial $z$ and $w$.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "complex-analysis-cauchy-formula",
     "family": "complex-analysis-cauchy-formula",
     "dimension": "2d",
@@ -3568,6 +3586,25 @@ window.__MVWidgets = [
       "cases"
     ],
     "readmeExcerpt": "Laurent-series annulus explorer, introduced on `complex-analysis.html` §17. Bespoke semantic module — the function eval and Laurent partial sums are intrinsic (kind/seriesKind enums); params carry the case menu + series text.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "complex-analysis-liouville",
+    "family": "complex-analysis-liouville",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory",
+    "title": "complex-analysis-liouville widget params",
+    "description": "Liouville's-theorem / Cauchy-estimate explorer. The reader picks an entire function f and a radius R; the widget computes M_R = max_{|z|=R}|f| numerically and plots the Cauchy estimate bound M_R/R against R, together with the actual |f'(0)|. The point: |f'(0)| ≤ M_R/R for every R, so if f is BOUNDED (M_R ≤ M) the bound → 0 as R → ∞, forcing f' = 0 and hence f constant — Liouville's theorem. For genuinely entire non-constant f (z, 2z+1, z², e^z) the bound is finite or diverges, never collapsing to 0. The function eval is intrinsic (a `kind` enum); params carry the case menu plus each f's |f'(0)|.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "functions"
+    ],
+    "readmeExcerpt": "Liouville's-theorem / Cauchy-estimate explorer, introduced on `complex-analysis.html` §12. Bespoke semantic module — the function eval and $M_R = \\max_{|z|=R}|f|$ are intrinsic (a `kind` enum); params carry the case menu and each $f$'s $|f'(0)|$.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
