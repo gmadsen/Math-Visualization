@@ -48,6 +48,7 @@ export function renderScript(params) {
     `  if(!sel || !rIn || !rL || !svg || !out) return;\n` +
     `  var NS = 'http://www.w3.org/2000/svg';\n` +
     `  function mk(tag, attrs, text){ var e = document.createElementNS(NS, tag); for(var k in attrs){ e.setAttribute(k, attrs[k]); } if(text!=null) e.textContent = text; return e; }\n` +
+    `  function omitStr(o){ var s = '' + o.re; if(Math.abs(o.im) > 1e-9) s += (o.im>0?'+':'\\u2212') + Math.abs(o.im) + 'i'; return s; }\n` +
     `  function cmul(p,q){ return [p[0]*q[0]-p[1]*q[1], p[0]*q[1]+p[1]*q[0]]; }\n` +
     `  function cdiv(p,q){ var d=q[0]*q[0]+q[1]*q[1]; return [(p[0]*q[0]+p[1]*q[1])/d, (p[1]*q[0]-p[0]*q[1])/d]; }\n` +
     `  function cexp(p){ var e=Math.exp(p[0]); return [e*Math.cos(p[1]), e*Math.sin(p[1])]; }\n` +
@@ -91,15 +92,15 @@ export function renderScript(params) {
     `    svg.appendChild(mk('text', {x:Cx, y:18, 'text-anchor':'middle', 'font-size':11, fill:'var(--mute)', 'font-style':'italic'}, 'values hit in the w-plane (cyan)'));\n` +
     `    // omitted value marker\n` +
     `    if(g.omit){ var ox=WX(g.omit.re), oy=WY(g.omit.im); svg.appendChild(mk('circle', {cx:ox, cy:oy, r:5, fill:'var(--panel)', stroke:'var(--pink)', 'stroke-width':2}));\n` +
-    `      svg.appendChild(mk('text', {x:ox+9, y:oy+4, 'font-size':10, fill:'var(--pink)'}, 'omitted: ' + g.omit.re + (g.omit.im?('+'+g.omit.im+'i'):''))); }\n` +
+    `      svg.appendChild(mk('text', {x:ox+9, y:oy+4, 'font-size':10, fill:'var(--pink)'}, 'omitted: ' + omitStr(g.omit))); }\n` +
     `    // readout\n` +
     `    var domTxt = punctured ? ('the punctured disk 0 < |z| \\u2264 ' + R.toFixed(1)) : ('the disk |z| \\u2264 ' + R.toFixed(1));\n` +
     `    var lines = [];\n` +
     `    if(punctured){ lines.push('Great Picard: near an essential singularity, f takes every value \\u2014 with at most one exception \\u2014 infinitely often.'); }\n` +
     `    else { lines.push('Little Picard: a non-constant entire function omits at most ONE value of \\u2102.'); }\n` +
     `    lines.push('Cyan = values f attains on ' + domTxt + ' (within |w| \\u2264 ' + W + ').');\n` +
-    `    if(g.omit){ lines.push('This f omits exactly w = ' + g.omit.re + (g.omit.im?('+'+g.omit.im+'i'):'') + ' \\u2014 the dark hole at the pink ring. ' + (punctured?'Shrink the radius: the hole never fills, but everything else stays covered.':'Grow R: the covered region swells toward all of \\u2102 except that one point.')); }\n` +
-    `    else { lines.push('This f omits NO value: the whole window fills in (it is surjective onto \\u2102' + (punctured?', taking every value infinitely often).':').')); }\n` +
+    `    if(g.omit){ lines.push('This f omits exactly the single value w = ' + omitStr(g.omit) + ' (pink ring): the map gets arbitrarily close but never equals it. Being one point, it leaves no gap at this grid resolution. ' + (punctured?'Shrink the radius: the coverage is UNCHANGED \\u2014 every value but this one, infinitely often.':'Grow R: the covered region keeps swelling toward all of \\u2102 except that one point.')); }\n` +
+    `    else { lines.push('This f omits NO value \\u2014 it is surjective onto \\u2102' + (punctured?', taking every value infinitely often near the singularity.':'; as R grows the window fills in completely.')); }\n` +
     `    if(g.note) lines.push(g.note);\n` +
     `    out.textContent = lines.join('\\n');\n` +
     `  }\n` +
