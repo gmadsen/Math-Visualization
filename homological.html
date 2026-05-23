@@ -2789,6 +2789,58 @@ The "two ways to compute the same answer" is the workhorse identity behind balan
 
 <p>Double complexes are the technical universal donor: any time you encounter "compute $X$ in two different ways and compare," there's a double complex underneath.</p>
 
+
+<div class="widget" id="w-homological-double-complex">
+  <div class="hd"><div class="ttl">Total complex: the diagonal of a double complex</div><div class="hint">Slide n: Tot^n collects the anti-diagonal p+q=n; D = d^h + (−1)^p d^v.</div></div>
+  <div class="row">
+    <label for="w-homological-double-complex-n">total degree $n$</label>
+    <input type="range" id="w-homological-double-complex-n" min="0" max="6" value="2" step="1">
+    <span class="pill" id="w-homological-double-complex-nval">n = 2</span>
+  </div>
+  <svg id="w-homological-double-complex-svg" viewBox="0 0 540 290" width="540" height="290" role="img" aria-label="A double complex grid with the total-complex diagonal highlighted"><title>Double complex: the total complex Tot^n is the direct sum along the diagonal p+q=n</title></svg>
+  <div class="readout" id="w-homological-double-complex-out"></div>
+</div><script>
+/* homological-double-complex widget: w-homological-double-complex */
+(function(){
+  var N = 4;
+  var nIn=document.getElementById('w-homological-double-complex-n'), nL=document.getElementById('w-homological-double-complex-nval');
+  var svg=document.getElementById('w-homological-double-complex-svg'), out=document.getElementById('w-homological-double-complex-out');
+  if(!nIn || !nL || !svg || !out) return;
+  var NS='http://www.w3.org/2000/svg';
+  function mk(tag, attrs, text){ var e=document.createElementNS(NS, tag); for(var k in attrs){ e.setAttribute(k, attrs[k]); } if(text!=null) e.textContent=text; return e; }
+  function arrow(x1,y1,x2,y2,col,on){ var ang=Math.atan2(y2-y1,x2-x1), L=Math.hypot(x2-x1,y2-y1), ux=(x2-x1)/L, uy=(y2-y1)/L; var ex=x2-ux*8, ey=y2-uy*8;
+    svg.appendChild(mk('line', {x1:x1+ux*16, y1:y1+uy*16, x2:ex, y2:ey, stroke:col, 'stroke-width':on?2:1.2, opacity:on?1:0.5}));
+    svg.appendChild(mk('path', {d:'M'+ex+' '+ey+' L'+(ex-7*ux+3*uy)+' '+(ey-7*uy-3*ux)+' L'+(ex-7*ux-3*uy)+' '+(ey-7*uy+3*ux)+' Z', fill:col, opacity:on?1:0.5})); }
+  var X0=110, Y0=240, dx=(N>4?86:104), dy=(N>4?52:62);
+  function PX(p){ return X0 + p*dx; } function PY(q){ return Y0 - q*dy; }
+  function draw(){
+    var n=+nIn.value; nL.textContent='n = '+n;
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    var p,q;
+    // arrows: d^h (→ p+1) and d^v (→ q+1, drawn upward)
+    for(p=0;p<N;p++) for(q=0;q<N;q++){
+      if(p+1<N) arrow(PX(p),PY(q),PX(p+1),PY(q),'var(--mute)', (p+q===n)&&(p+1+q===n+1));
+      if(q+1<N) arrow(PX(p),PY(q),PX(p),PY(q+1),'var(--mute)', false); }
+    // nodes
+    for(p=0;p<N;p++) for(q=0;q<N;q++){ var on=(p+q===n);
+      svg.appendChild(mk('circle', {cx:PX(p), cy:PY(q), r:on?15:12, fill: on?'color-mix(in srgb, var(--yellow) 30%, transparent)':'var(--panel2)', stroke: on?'var(--yellow)':'var(--line)', 'stroke-width':on?2:1}));
+      svg.appendChild(mk('text', {x:PX(p), y:PY(q)+4, 'text-anchor':'middle', 'font-size':10, fill: on?'var(--yellow)':'var(--mute)'}, p+','+q)); }
+    // axis labels
+    svg.appendChild(mk('text', {x:PX(N-1)+24, y:PY(0)+4, 'font-size':10, fill:'var(--mute)'}, 'p \u2192  (d^h)'));
+    svg.appendChild(mk('text', {x:PX(0)-4, y:PY(N-1)-16, 'text-anchor':'middle', 'font-size':10, fill:'var(--mute)'}, 'q \u2191 (d^v)'));
+    // readout
+    var summands=[]; for(q=0;q<N;q++){ p=n-q; if(p>=0 && p<N) summands.push('C^{'+p+','+q+'}'); }
+    var lines=[];
+    lines.push('A double complex C^{p,q} has two anticommuting differentials: d^h: C^{p,q}\u2192C^{p+1,q} and d^v: C^{p,q}\u2192C^{p,q+1}, with d^h\u00b2 = d^v\u00b2 = 0 and d^h d^v + d^v d^h = 0.');
+    lines.push('The TOTAL complex collects each anti-diagonal: Tot^n = \u2295_{p+q=n} C^{p,q}. Here Tot^' + n + ' = ' + (summands.join(' \u2295 ') || '0') + ' (highlighted).');
+    lines.push('Its total differential D = d^h + (\u22121)^p d^v maps Tot^n \u2192 Tot^{n+1}; the sign + anticommutativity give D\u00b2 = 0, so Tot is a single complex (the engine behind Tor symmetry and spectral sequences).');
+    out.textContent=lines.join('\n');
+  }
+  nIn.addEventListener('input', draw);
+  draw();
+})();
+</script>
+
 <div class="quiz" data-concept="double-complex-ha"></div>
 
 </section>
@@ -2814,6 +2866,53 @@ The isomorphism is canonical and natural in both arguments.</div>
 <p><strong>Why the symmetry is structural.</strong> This isn't just a calculation trick — it's why $\otimes_R$ is a <em>balanced</em> functor: the derived functor of an additive bifunctor that's right-exact in each argument separately can be computed by resolving either slot, and the two answers agree.</p>
 
 <p>The same balanced-functor argument applies to $\mathrm{Ext}^n_R(M, N)$: it can be computed using <em>either</em> a projective resolution of the first argument (apply $\Hom(-, N)$) or an injective resolution of the second argument (apply $\Hom(M, -)$), and the two computations agree. Note that Ext itself is <em>not</em> symmetric in $M, N$ — only the two computational paths are. Tor and Ext are the canonical examples of balanced derived functors.</p>
+
+
+<div class="widget" id="w-homological-tor-symmetry">
+  <div class="hd"><div class="ttl">Tor doesn’t care which argument you resolve</div><div class="hint">Resolve ℤ/m or ℤ/n — both give Tor₁ = ℤ/gcd(m,n).</div></div>
+  <div class="row">
+    <label for="w-homological-tor-symmetry-m">$m$</label>
+    <input type="range" id="w-homological-tor-symmetry-m" min="2" max="12" value="6" step="1">
+    <label for="w-homological-tor-symmetry-n">$n$</label>
+    <input type="range" id="w-homological-tor-symmetry-n" min="2" max="12" value="4" step="1">
+    <span class="pill" id="w-homological-tor-symmetry-mn">m=6, n=4</span>
+  </div>
+  <svg id="w-homological-tor-symmetry-svg" viewBox="0 0 540 230" width="540" height="230" role="img" aria-label="Tor computed two ways, both giving the same group"><title>Symmetry of Tor: resolving either argument gives the same Tor group</title></svg>
+  <div class="readout" id="w-homological-tor-symmetry-out"></div>
+</div><script>
+/* homological-tor-symmetry widget: w-homological-tor-symmetry */
+(function(){
+  var mIn=document.getElementById('w-homological-tor-symmetry-m'), nIn=document.getElementById('w-homological-tor-symmetry-n'), mnL=document.getElementById('w-homological-tor-symmetry-mn');
+  var svg=document.getElementById('w-homological-tor-symmetry-svg'), out=document.getElementById('w-homological-tor-symmetry-out');
+  if(!mIn || !nIn || !mnL || !svg || !out) return;
+  var NS='http://www.w3.org/2000/svg';
+  function mk(tag, attrs, text){ var e=document.createElementNS(NS, tag); for(var k in attrs){ e.setAttribute(k, attrs[k]); } if(text!=null) e.textContent=text; return e; }
+  function gcd(a,b){ while(b){ var t=a%b; a=b; b=t; } return a; }
+  function grp(g){ return g===1 ? '\u2124/1 = 0' : '\u2124/'+g; }
+  function col(x, head, lines, gstr){
+    svg.appendChild(mk('text', {x:x, y:46, 'text-anchor':'middle', 'font-size':11, fill:'var(--cyan)', 'font-weight':600}, head));
+    lines.forEach(function(L,i){ svg.appendChild(mk('text', {x:x, y:72+i*22, 'text-anchor':'middle', 'font-size':11, fill:'var(--ink)'}, L)); });
+    svg.appendChild(mk('text', {x:x, y:72+lines.length*22+6, 'text-anchor':'middle', 'font-size':13, fill:'var(--yellow)'}, 'Tor\u2081 = ' + gstr)); }
+  function draw(){
+    var m=+mIn.value, n=+nIn.value, g=gcd(m,n); mnL.textContent='m='+m+', n='+n;
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    svg.appendChild(mk('text', {x:270, y:22, 'text-anchor':'middle', 'font-size':11, fill:'var(--mute)', 'font-style':'italic'}, 'two routes to Tor\u2081\u1d3f(\u2124/'+m+', \u2124/'+n+')'));
+    col(140, 'resolve \u2124/'+m, ['0 \u2192 \u2124 \u2192\u00d7'+m+'\u2192 \u2124 \u2192 \u2124/'+m+' \u2192 0', '\u2297 \u2124/'+n+':   \u2124/'+n+' \u2192\u00d7'+m+'\u2192 \u2124/'+n, 'Tor\u2081 = ker(\u00d7'+m+' on \u2124/'+n+')'], grp(g));
+    col(400, 'resolve \u2124/'+n, ['0 \u2192 \u2124 \u2192\u00d7'+n+'\u2192 \u2124 \u2192 \u2124/'+n+' \u2192 0', '\u2297 \u2124/'+m+':   \u2124/'+m+' \u2192\u00d7'+n+'\u2192 \u2124/'+m, 'Tor\u2081 = ker(\u00d7'+n+' on \u2124/'+m+')'], grp(g));
+    // the ≅ between them
+    svg.appendChild(mk('text', {x:270, y:150, 'text-anchor':'middle', 'font-size':22, fill:'var(--pink)'}, '\u2245'));
+    svg.appendChild(mk('text', {x:270, y:200, 'text-anchor':'middle', 'font-size':12, fill:'var(--green)'}, 'both = ' + grp(g) + '   (gcd(' + m + ',' + n + ') = ' + g + ')'));
+    // readout
+    var lines=[];
+    lines.push('Tor\u2081\u1d3f(\u2124/' + m + ', \u2124/' + n + ') = ker(\u00d7' + m + ' : \u2124/' + n + ' \u2192 \u2124/' + n + ') = { x : ' + m + 'x \u2261 0 mod ' + n + ' } = \u2124/gcd(' + m + ',' + n + ') = ' + grp(g) + '.');
+    lines.push('Resolving the OTHER factor gives ker(\u00d7' + n + ' on \u2124/' + m + ') = ' + grp(g) + ' \u2014 the SAME group. That is the symmetry of Tor: Tor\u2099(M,N) \u2245 Tor\u2099(N,M).');
+    lines.push('The clean proof resolves BOTH at once: form the double complex P\u2022 \u2297 Q\u2022 and take its total homology \u2014 the two routes are its two filtrations.');
+    out.textContent=lines.join('\n');
+  }
+  mIn.addEventListener('input', draw); nIn.addEventListener('input', draw);
+  draw();
+})();
+</script>
 
 <div class="quiz" data-concept="tor-symmetry-ha"></div>
 

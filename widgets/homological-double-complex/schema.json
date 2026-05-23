@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/homological-double-complex/schema.json",
+  "title": "homological-double-complex widget params",
+  "description": "Double-complex / total-complex explorer. A grid of objects C^{p,q} carries a horizontal differential d^h (→ p+1) and a vertical d^v (→ q+1) with d^h²=d^v²=0 and d^h d^v + d^v d^h = 0. The reader slides a total degree n; the widget highlights the anti-diagonal p+q=n whose direct sum is the total complex Tot^n, and shows the total differential D = d^h + (−1)^p d^v that makes Tot a single complex. The grid geometry is intrinsic; params carry only the grid size and chrome.",
+  "meta": {
+    "family": "homological-double-complex",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["widgetId", "title"],
+  "properties": {
+    "widgetId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id; the script derives -n/-svg/-out." },
+    "title": { "type": "string", "description": "Display title rendered inside .hd > .ttl." },
+    "hint": { "type": "string", "description": "Optional short hint rendered inside .hd > .hint." },
+    "size": { "type": "integer", "minimum": 3, "maximum": 5, "description": "Grid is size×size (p,q ∈ 0..size−1). Default 4." }
+  }
+}
