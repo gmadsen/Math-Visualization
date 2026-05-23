@@ -63,8 +63,8 @@ export function renderScript(params) {
     `    var g = byId[sel.value] || FNS[0], r = +rIn.value;\n` +
     `    rL.textContent = 'r = ' + r.toFixed(2);\n` +
     `    while(svg.firstChild) svg.removeChild(svg.firstChild);\n` +
-    `    var N = 360, img = [], maxAbs = 0;\n` +
-    `    for(var i=0;i<=N;i++){ var t=2*Math.PI*i/N, z=[r*Math.cos(t), r*Math.sin(t)], w=f(g.kind, z); if(w && isFinite(w[0]) && isFinite(w[1])){ img.push(w); var a=Math.hypot(w[0],w[1]); if(a>maxAbs) maxAbs=a; } else img.push(null); }\n` +
+    `    var N = 360, img = [], maxAbs = 0, hitPole = false;\n` +
+    `    for(var i=0;i<=N;i++){ var t=2*Math.PI*i/N, z=[r*Math.cos(t), r*Math.sin(t)], w=f(g.kind, z); if(w && isFinite(w[0]) && isFinite(w[1])){ img.push(w); var a=Math.hypot(w[0],w[1]); if(a>maxAbs) maxAbs=a; } else { img.push(null); hitPole = true; } }\n` +
     `    // auto-scale image to the panel (clip extreme so a pole/essential stays framed)\n` +
     `    var cap = Math.min(maxAbs, 60), sc = cap>0 ? 95/cap : 1, CX=420, CY=125;\n` +
     `    function WX(u){ return CX + u*sc; } function WY(v){ return CY - v*sc; }\n` +
@@ -83,7 +83,8 @@ export function renderScript(params) {
     `    svg.appendChild(mk('rect', {x:470, y:210, width:80, height:24, rx:9, fill:'color-mix(in srgb, '+col+' 22%, var(--panel))', stroke:col, 'stroke-width':1}));\n` +
     `    svg.appendChild(mk('text', {x:510, y:226, 'text-anchor':'middle', 'font-size':11, 'font-weight':'600', fill:col}, ty.t));\n` +
     `    var lines = [];\n` +
-    `    lines.push('image of |z| = ' + r.toFixed(2) + ':  max|f| \\u2248 ' + (maxAbs>999?'>999':maxAbs.toFixed(2)));\n` +
+    `    if(hitPole) lines.push('the contour |z| = ' + r.toFixed(2) + ' passes through a pole \\u2014 max|f| is UNBOUNDED there (nudge r off it).');\n` +
+    `    else lines.push('image of |z| = ' + r.toFixed(2) + ':  max|f| \\u2248 ' + (maxAbs>999?'>999':maxAbs.toFixed(2)));\n` +
     `    lines.push('principal part: ' + g.laurent);\n` +
     `    if(g.behavior) lines.push(g.behavior);\n` +
     `    out.textContent = lines.join('\\n');\n` +
