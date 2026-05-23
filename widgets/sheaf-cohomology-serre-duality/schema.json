@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/sheaf-cohomology-serre-duality/schema.json",
+  "title": "sheaf-cohomology-serre-duality widget params",
+  "description": "Serre-duality reflection explorer for O(d) on P^n. Sliders pick n, the twist d, and a degree i; the widget pairs the cell (i,d) with its Serre dual (n-i, -d-n-1) — since omega_{P^n}=O(-(n+1)) — and shows the two cohomology dimensions agree, realizing H^i(O(d)) ≅ H^{n-i}(O(-d-n-1))^∨. A reflected d-number-line marks d and d'=-d-n-1 about the axis d=-(n+1)/2. Distinct from the §7 dimension-table widget: this one foregrounds the duality pairing (the reflection symmetry), not the table itself. Dimensions are intrinsic (Serre's theorem); params carry only chrome.",
+  "meta": {
+    "family": "sheaf-cohomology-serre-duality",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id; the script derives -n/-d/-i sliders, their pills, -svg, and -out."
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title rendered inside .hd > .ttl."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional short hint rendered inside .hd > .hint."
+    }
+  }
+}

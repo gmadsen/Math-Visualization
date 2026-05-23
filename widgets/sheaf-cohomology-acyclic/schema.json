@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/sheaf-cohomology-acyclic/schema.json",
+  "title": "sheaf-cohomology-acyclic widget params",
+  "description": "Acyclic-resolution explorer for derived-functor sheaf cohomology H^i(X,F)=R^iΓ. Three tabs show three flavours of Γ-acyclic resolution that all compute the same H^i: Godement (flabby, the canonical R^iΓ construction), de Rham (fine, on a manifold, giving H^p_dR=H^p(X,ℝ)), and Čech (affine cover, the Leray comparison, how you actually compute on schemes). Each tab draws the resolution chain F→A^0→A^1→A^2→⋯, the apply-Γ step (left-exact, exactness lost), and what taking cohomology computes. The readout notes R^0Γ=Γ(F) and that R^{>0}Γ measures the failure of right-exactness. Structural; params carry only chrome.",
+  "meta": {
+    "family": "sheaf-cohomology-acyclic",
+    "dimension": "2d",
+    "gesture": "select",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id; the script derives -svg/-out and the three resolution-tab button ids."
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title rendered inside .hd > .ttl."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional short hint rendered inside .hd > .hint."
+    }
+  }
+}
