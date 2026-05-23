@@ -62,7 +62,7 @@ export function renderScript(params) {
     `    var lines=[];\n` +
     `    lines.push('Spec \\u2124 = { (0) } \\u222a { (p) : p prime }. The integer f acts as a \\u201cfunction\\u201d; its value at (p) is f mod p.');\n` +
     `    lines.push('n = ' + facStr + '.   V(n) = { primes p with n \\u2208 (p) } = { p : p | n } = ' + (primeList || '\\u2205 (n is a unit \\u2014 the empty closed set)') + '.');\n` +
-    `    lines.push('Closed sets are these finite sets of CLOSED points. The generic point (0) is in no V(n) (n\\u22651): its closure is all of Spec \\u2124, so it lies in every nonempty OPEN set \\u2014 that is what \\u201cgeneric\\u201d means.');\n` +
+    `    lines.push('Every PROPER closed set is such a finite set of CLOSED points (the only non-proper one is V(0) = all of Spec \\u2124). The generic point (0) is in no V(n) (n\\u22651): its closure is all of Spec \\u2124, so it lies in every nonempty OPEN set \\u2014 that is what \\u201cgeneric\\u201d means.');\n` +
     `    out.textContent=lines.join('\\n');\n` +
     `  }\n` +
     `  nIn.addEventListener('input', draw);\n` +

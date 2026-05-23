@@ -53,7 +53,7 @@ export function renderScript(params) {
     `      svg.appendChild(mk('circle', {cx:LX, cy:y, r:r, fill: i===0?'color-mix(in srgb, var(--violet) 22%, transparent)':'color-mix(in srgb, var(--cyan) 18%, transparent)', stroke: i===0?'var(--violet)':'var(--cyan)', 'stroke-width':1.5}));\n` +
     `      // prime label (left) + geometry (right)\n` +
     `      svg.appendChild(mk('text', {x:LX-r-10, y:y+4, 'text-anchor':'end', 'font-size':12, fill: i===0?'var(--violet)':'var(--ink)'}, chain[i]));\n` +
-    `      svg.appendChild(mk('text', {x:LX+r+12, y:y+1, 'font-size':11, fill:'var(--ink)'}, 'V('+chain[i]+') = ' + geom[i]));\n` +
+    `      svg.appendChild(mk('text', {x:LX+r+12, y:y+1, 'font-size':11, fill:'var(--ink)'}, 'V('+chain[i]+') = ' + (geom[i]||'\\u2026')));\n` +
     `      svg.appendChild(mk('text', {x:LX+r+12, y:y+14, 'font-size':9, fill:'var(--mute)'}, 'dim ' + dimHere));\n` +
     `      // ⊊ between rungs\n` +
     `      if(i<L-1) svg.appendChild(mk('text', {x:LX-12, y:y+step/2+4, 'text-anchor':'end', 'font-size':12, fill:'var(--mute)'}, '\\u228a')); }\n` +
