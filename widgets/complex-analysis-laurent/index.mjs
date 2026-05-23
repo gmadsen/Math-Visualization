@@ -72,8 +72,12 @@ export function renderScript(params) {
     `    // shaded annulus: outer disk minus inner disk\n` +
     `    svg.appendChild(mk('circle', {cx:CX, cy:CY, r:rOutD*SC, fill:'color-mix(in srgb, var(--cyan) 10%, transparent)', stroke:'var(--cyan)', 'stroke-width':1.2, 'stroke-dasharray': c.rOut>2.3?'4 3':''}));\n` +
     `    if(c.rIn>0.001){ svg.appendChild(mk('circle', {cx:CX, cy:CY, r:c.rIn*SC, fill:'var(--panel)', stroke:'var(--cyan)', 'stroke-width':1.2})); }\n` +
-    `    svg.appendChild(mk('circle', {cx:CX, cy:CY, r:2.5, fill:'var(--pink)'}));\n` +
-    `    svg.appendChild(mk('text', {x:CX+5, y:CY+13, 'font-size':9, fill:'var(--pink)'}, '0'));\n` +
+    `    // Origin is a singularity in every case: draw it as an OPEN dot (excluded point).\n` +
+    `    // For punctured annuli (rIn=0) the panel-filled ring punches a visible hole into the\n` +
+    `    // shading, so the region reads as the disk MINUS the point z=0 (not a finite inner disk).\n` +
+    `    var punctured = c.rIn < 0.001;\n` +
+    `    svg.appendChild(mk('circle', {cx:CX, cy:CY, r:3.5, fill:'var(--panel)', stroke:'var(--pink)', 'stroke-width':1.5}));\n` +
+    `    svg.appendChild(mk('text', {x:CX+8, y:CY+13, 'font-size':9, fill:'var(--pink)'}, punctured ? '0 excluded' : '0'));\n` +
     `    svg.appendChild(mk('text', {x:CX, y:18, 'text-anchor':'middle', 'font-size':11, fill:'var(--mute)', 'font-style':'italic'}, 'annulus of convergence'));\n` +
     `    // test point at mid-radius, fixed angle\n` +
     `    var rt = (c.rIn + rOutD)/2, ang = 0.7, z=[rt*Math.cos(ang), rt*Math.sin(ang)];\n` +
