@@ -80,6 +80,7 @@ export function renderScript(params) {
     `    lines.push('Weierstrass: an entire function is a product over its zeros (times e^{g}). Here ' + g.label + ' = ' + prod + '.');\n` +
     `    lines.push('P_' + N + ' is the product of the first ' + N + ' factor(s): its zeros (pink) sit at the prescribed points, and adding factors locks in more of them.');\n` +
     `    lines.push('As N grows P_N \\u2192 the target (dashed) on wider and wider intervals \\u2014 the canonical product converges.');\n` +
+    `    lines.push('Beyond the last included zero (near the edges) P_N has not settled yet and overshoots; at N = ' + N + ' the match is good out to about |x| \\u2248 ' + N + '. Raise N to extend it.');\n` +
     `    if(g.note) lines.push(g.note);\n` +
     `    out.textContent = lines.join('\\n');\n` +
     `  }\n` +
