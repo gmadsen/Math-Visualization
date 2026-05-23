@@ -69,7 +69,8 @@ export function renderScript(params) {
     `    var bstr = [];\n` +
     `    for(var d=0; d<=maxDeg; d++){ bstr.push('b' + sup(d) + '=' + (betti[d]||0)); }\n` +
     `    var lines = [];\n` +
-    `    lines.push('h(X) = ' + pieces.map(function(p){ return p.label + ((p.mult||1)>1 ? ('^{\\u2295'+(p.mult)+'}') : ''); }).join(' \\u2295 '));\n` +
+    `    var terms = []; pieces.forEach(function(p){ var m = p.mult||1; for(var t=0;t<m;t++) terms.push(p.label); });\n` +
+    `    lines.push('h(X) = ' + terms.join(' \\u2295 '));\n` +
     `    lines.push('Tate motives 𝕃\\u2071 = \\u211a(\\u2212i) are 1-dimensional of pure type (i,i); the h\\u00b9 pieces carry the transcendental part.');\n` +
     `    lines.push('Betti realization (dim per degree):  ' + bstr.join('  '));\n` +
     `    if(v.note){ lines.push(''); lines.push(v.note); }\n` +

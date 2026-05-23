@@ -289,7 +289,7 @@
               {
                 "id": "p1p1",
                 "label": "P^1 × P^1 — quadric surface",
-                "note": "Künneth: h(ℙ¹×ℙ¹) = 𝟙 ⊕ 𝕃^{⊕2} ⊕ 𝕃².",
+                "note": "Künneth: h(ℙ¹×ℙ¹) = h(ℙ¹) ⊗ h(ℙ¹), which gives two copies of 𝕃 in degree 2.",
                 "pieces": [
                   {
                     "label": "𝟙",
@@ -477,7 +477,7 @@
                 "name": "num = hom (D)",
                 "statement": "numerical and homological equivalence agree",
                 "status": "open",
-                "reason": "Follows from (B) + (I) by Kleiman (1968); it makes Mot^hom = Mot^num, Tannakian, and lets the motivic Galois group exist. Open in general because (B), (I) are."
+                "reason": "Follows from (B) + (I) by Kleiman (1968); it makes Mot^hom = Mot^num, Tannakian, and lets the motivic Galois group exist. Open in general because (B), (I) are — though it holds in the special cases where they are known (abelian varieties, surfaces)."
               },
               {
                 "id": "jannsen",
