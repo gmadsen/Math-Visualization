@@ -433,6 +433,63 @@
         },
         {
           "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget",
+          "slug": "complex-analysis-cauchy-theorem",
+          "params": {
+            "widgetId": "w-cauchy-theorem",
+            "title": "Cauchy’s theorem: ∮ of a holomorphic f is zero",
+            "hint": "Deform the contour: ∮ is unchanged, and = 0 when f is holomorphic inside.",
+            "functions": [
+              {
+                "id": "z",
+                "label": "z",
+                "kind": "z",
+                "note": "Entire — holomorphic everywhere, so ∮ = 0 around any closed loop."
+              },
+              {
+                "id": "z2",
+                "label": "z²",
+                "kind": "z2"
+              },
+              {
+                "id": "ez",
+                "label": "e^z",
+                "kind": "ez",
+                "note": "Entire: e^z has no singularities, so the contour integral always vanishes."
+              },
+              {
+                "id": "sinz",
+                "label": "sin z",
+                "kind": "sinz"
+              },
+              {
+                "id": "inv_zm",
+                "label": "1/(z − 1.6)  (pole outside C)",
+                "kind": "inv_zm",
+                "note": "The pole at 1.6 is outside C, so f is holomorphic inside and ∮ = 0."
+              },
+              {
+                "id": "inv_z",
+                "label": "1/z  (pole at 0, inside C)",
+                "kind": "inv_z",
+                "note": "The enclosed pole violates the hypothesis: ∮ = 2πi, not 0."
+              }
+            ]
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-cauchy-theorem"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "raw",
           "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./algebraic-topology.html#pi1\">Simply connected domains</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {
@@ -456,6 +513,51 @@
         {
           "type": "raw",
           "html": "<section id=\"cauchy-integral-formula\">\n<h2>10. Cauchy integral formula</h2>\n<p>If $f$ is holomorphic on a domain containing the closed disk $\\overline{D(z_0,r)}$, then for every interior point $a\\in D(z_0,r)$,</p>\n<p>$$f(a) \\;=\\; \\frac{1}{2\\pi i}\\oint_{|z-z_0|=r}\\frac{f(z)}{z-a}\\,dz.$$</p>\n<p>The values of $f$ on the boundary determine $f$ in the interior — a phenomenon with no analogue in real analysis. Differentiating under the integral $n$ times,</p>\n<p>$$f^{(n)}(a) \\;=\\; \\frac{n!}{2\\pi i}\\oint \\frac{f(z)}{(z-a)^{n+1}}\\,dz.$$</p>\n<p>Holomorphic functions are <em>infinitely</em> differentiable. That is the main miracle.</p>\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget",
+          "slug": "complex-analysis-cauchy-formula",
+          "params": {
+            "widgetId": "w-cauchy-formula",
+            "title": "Cauchy integral formula: recovering f(a) from the boundary",
+            "hint": "Slide a across the contour: the integral gives f(a) inside, 0 outside.",
+            "functions": [
+              {
+                "id": "z2",
+                "label": "z²",
+                "kind": "z2",
+                "note": "Inside, the integral returns a² = f(a) exactly."
+              },
+              {
+                "id": "ez",
+                "label": "e^z",
+                "kind": "ez",
+                "note": "The boundary values of e^z determine e^a at every interior point a."
+              },
+              {
+                "id": "cosz",
+                "label": "cos z",
+                "kind": "cosz"
+              },
+              {
+                "id": "z",
+                "label": "z",
+                "kind": "z"
+              }
+            ]
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-cauchy-formula"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
         },
         {
           "type": "quiz",

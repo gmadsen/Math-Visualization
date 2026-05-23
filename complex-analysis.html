@@ -705,6 +705,98 @@ const C = {
 <p><strong>Cauchy's theorem (star-shaped form).</strong> If $f$ is holomorphic on a star-shaped open set $U$ and $\gamma\subset U$ is a closed contour, then $\oint_\gamma f\,dz = 0$.</p>
 <p>Sketch: holomorphic $f$ on a star-shaped (in particular simply connected) domain has an antiderivative $F$ — define $F(z) = \int_{z_*}^z f$ along straight rays from the star centre. Then $\oint f\,dz = F(\text{end}) - F(\text{start}) = 0$ for a closed loop. Equivalently: by Stokes, $\oint_\gamma f\,dz = \iint_D df\wedge dz$, but $df = f'\,dz$ so $df\wedge dz = 0$.</p>
 <p>The general (Goursat) version drops the $C^1$ hypothesis on $f'$ and works for any simply connected $U$. The proof bisects triangles and is elegant; we won't reproduce it here.</p>
+
+<div class="widget" id="w-cauchy-theorem">
+  <div class="hd"><div class="ttl">Cauchy’s theorem: ∮ of a holomorphic f is zero</div><div class="hint">Deform the contour: ∮ is unchanged, and = 0 when f is holomorphic inside.</div></div>
+  <div class="row">
+    <label for="w-cauchy-theorem-sel">$f(z)$</label>
+    <select id="w-cauchy-theorem-sel">
+      <option value="z" selected>z</option>
+      <option value="z2">z²</option>
+      <option value="ez">e^z</option>
+      <option value="sinz">sin z</option>
+      <option value="inv_zm">1/(z − 1.6)  (pole outside C)</option>
+      <option value="inv_z">1/z  (pole at 0, inside C)</option>
+    </select>
+    <label for="w-cauchy-theorem-d">deform $C$</label>
+    <input type="range" id="w-cauchy-theorem-d" min="0" max="0.45" value="0.2" step="0.01">
+    <span class="pill" id="w-cauchy-theorem-dval">deform = 0.20</span>
+  </div>
+  <svg id="w-cauchy-theorem-svg" viewBox="0 0 540 280" width="540" height="280" role="img" aria-label="A closed contour C in the plane, with any enclosed pole marked"><title>Cauchy's theorem: the contour integral of a holomorphic function around a closed loop is zero</title></svg>
+  <div class="readout" id="w-cauchy-theorem-out"></div>
+</div><script>
+/* complex-analysis-cauchy-theorem widget: w-cauchy-theorem */
+(function(){
+  var FNS = [{"id":"z","label":"z","kind":"z","note":"Entire — holomorphic everywhere, so ∮ = 0 around any closed loop."},{"id":"z2","label":"z²","kind":"z2"},{"id":"ez","label":"e^z","kind":"ez","note":"Entire: e^z has no singularities, so the contour integral always vanishes."},{"id":"sinz","label":"sin z","kind":"sinz"},{"id":"inv_zm","label":"1/(z − 1.6)  (pole outside C)","kind":"inv_zm","note":"The pole at 1.6 is outside C, so f is holomorphic inside and ∮ = 0."},{"id":"inv_z","label":"1/z  (pole at 0, inside C)","kind":"inv_z","note":"The enclosed pole violates the hypothesis: ∮ = 2πi, not 0."}];
+  var byId = {}; FNS.forEach(function(g){ byId[g.id] = g; });
+  var sel = document.getElementById('w-cauchy-theorem-sel');
+  var dIn = document.getElementById('w-cauchy-theorem-d'), dL = document.getElementById('w-cauchy-theorem-dval');
+  var svg = document.getElementById('w-cauchy-theorem-svg');
+  var out = document.getElementById('w-cauchy-theorem-out');
+  if(!sel || !dIn || !dL || !svg || !out) return;
+  var NS = 'http://www.w3.org/2000/svg';
+  function mk(tag, attrs, text){ var e = document.createElementNS(NS, tag); for(var k in attrs){ e.setAttribute(k, attrs[k]); } if(text!=null) e.textContent = text; return e; }
+  function cmul(p,q){ return [p[0]*q[0]-p[1]*q[1], p[0]*q[1]+p[1]*q[0]]; }
+  function cdiv(p,q){ var d=q[0]*q[0]+q[1]*q[1]; return [(p[0]*q[0]+p[1]*q[1])/d, (p[1]*q[0]-p[0]*q[1])/d]; }
+  function cexp(p){ var e=Math.exp(p[0]); return [e*Math.cos(p[1]), e*Math.sin(p[1])]; }
+  function feval(kind, z){
+    if(kind==='z') return z;
+    if(kind==='z2') return cmul(z,z);
+    if(kind==='ez') return cexp(z);
+    if(kind==='sinz') return [Math.sin(z[0])*Math.cosh(z[1]), Math.cos(z[0])*Math.sinh(z[1])];
+    if(kind==='inv_z') return cdiv([1,0], z);
+    if(kind==='inv_zm') return cdiv([1,0], [z[0]-1.6, z[1]]);
+    return z;
+  }
+  var R0 = 1.0, K = 5;            // base radius and number of wobble lobes
+  function rho(amp, th){ return R0 + amp*Math.sin(K*th); }
+  function zAt(amp, th){ var r=rho(amp,th); return [r*Math.cos(th), r*Math.sin(th)]; }
+  function zPrime(amp, th){ var rp=amp*K*Math.cos(K*th), r=rho(amp,th); return cmul([rp, r], [Math.cos(th), Math.sin(th)]); }
+  function contourIntegral(kind, amp){
+    var N=720, acc=[0,0], j, th, term;
+    for(j=0;j<N;j++){ th=2*Math.PI*j/N; term=cmul(feval(kind, zAt(amp,th)), zPrime(amp,th)); acc=[acc[0]+term[0], acc[1]+term[1]]; }
+    var h=2*Math.PI/N; return [acc[0]*h, acc[1]*h];
+  }
+  var CX=270, CY=140, SC=82;
+  function PX(x){ return CX + x*SC; } function PY(y){ return CY - y*SC; }
+  function draw(){
+    var g = byId[sel.value] || FNS[0], amp = +dIn.value;
+    dL.textContent = 'deform = ' + amp.toFixed(2);
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    svg.appendChild(mk('line', {x1:CX-150, y1:CY, x2:CX+170, y2:CY, stroke:'var(--line)'}));
+    svg.appendChild(mk('line', {x1:CX, y1:CY-128, x2:CX, y2:CY+128, stroke:'var(--line)'}));
+    // contour
+    var pts=[], i, th; for(i=0;i<=200;i++){ th=2*Math.PI*i/200; var z=zAt(amp,th); pts.push(PX(z[0]).toFixed(1)+','+PY(z[1]).toFixed(1)); }
+    svg.appendChild(mk('polyline', {points:pts.join(' '), fill:'color-mix(in srgb, var(--cyan) 8%, transparent)', stroke:'var(--cyan)', 'stroke-width':1.8}));
+    // CCW direction tick (a small arrowhead near theta=0)
+    var za=zAt(amp,0.0), zb=zAt(amp,0.14);
+    svg.appendChild(mk('text', {x:PX(za[0])+6, y:PY(za[1])-2, 'font-size':12, fill:'var(--cyan)'}, '\u2192'));
+    svg.appendChild(mk('text', {x:CX, y:20, 'text-anchor':'middle', 'font-size':11, fill:'var(--mute)', 'font-style':'italic'}, 'closed contour C (counter-clockwise)'));
+    // poles (only the cases that have one)
+    if(g.kind==='inv_z'){ svg.appendChild(mk('circle', {cx:PX(0), cy:PY(0), r:4, fill:'var(--orange)'})); svg.appendChild(mk('text', {x:PX(0)+7, y:PY(0)+13, 'font-size':10, fill:'var(--orange)'}, 'pole (inside)')); }
+    else if(g.kind==='inv_zm'){ svg.appendChild(mk('circle', {cx:PX(1.6), cy:PY(0), r:4, fill:'var(--orange)'})); svg.appendChild(mk('text', {x:PX(1.6)+7, y:PY(0)+4, 'font-size':10, fill:'var(--orange)'}, 'pole (outside)')); svg.appendChild(mk('circle', {cx:CX, cy:CY, r:2.5, fill:'var(--mute)'})); }
+    else { svg.appendChild(mk('circle', {cx:CX, cy:CY, r:2.5, fill:'var(--mute)'})); }
+    // integral
+    var I = contourIntegral(g.kind, amp), mag = Math.hypot(I[0], I[1]);
+    function fmt(v){ return (Math.abs(v)<1e-6?0:v).toFixed(4); }
+    var lines = [];
+    lines.push('\u222e_C f(z) dz = ' + fmt(I[0]) + ' + ' + fmt(I[1]) + 'i.');
+    if(g.kind==='inv_z'){
+      lines.push('\u2248 2\u03c0i \u2248 6.2832 i \u2014 the pole at 0 is ENCLOSED, so f is not holomorphic inside C and Cauchy\u2019s theorem does not apply (this is the residue, 2\u03c0i\u00b7Res = 2\u03c0i).');
+    } else if(g.kind==='inv_zm'){
+      lines.push('\u2248 0 \u2014 f has a pole at 1.6, but it lies OUTSIDE C, so f is holomorphic inside and Cauchy\u2019s theorem gives \u222e = 0.');
+    } else {
+      lines.push('\u2248 0 \u2014 f is holomorphic on and inside C, so Cauchy\u2019s theorem gives \u222e_C f dz = 0.');
+    }
+    if(g.note) lines.push(g.note);
+    lines.push('Drag \u201cdeform C\u201d: the contour wobbles but \u222e is unchanged \u2014 the integral depends only on what C encloses, not on its shape (deformation invariance).');
+    out.textContent = lines.join('\n');
+  }
+  sel.addEventListener('change', draw); dIn.addEventListener('input', draw);
+  draw();
+})();
+</script>
+
 <!-- callback-auto-begin -->
 <aside class="callback">
   <div class="ttl">See also</div>
@@ -729,6 +821,91 @@ const C = {
 <p>The values of $f$ on the boundary determine $f$ in the interior — a phenomenon with no analogue in real analysis. Differentiating under the integral $n$ times,</p>
 <p>$$f^{(n)}(a) \;=\; \frac{n!}{2\pi i}\oint \frac{f(z)}{(z-a)^{n+1}}\,dz.$$</p>
 <p>Holomorphic functions are <em>infinitely</em> differentiable. That is the main miracle.</p>
+
+<div class="widget" id="w-cauchy-formula">
+  <div class="hd"><div class="ttl">Cauchy integral formula: recovering f(a) from the boundary</div><div class="hint">Slide a across the contour: the integral gives f(a) inside, 0 outside.</div></div>
+  <div class="row">
+    <label for="w-cauchy-formula-sel">holomorphic $f(z)$</label>
+    <select id="w-cauchy-formula-sel">
+      <option value="z2" selected>z²</option>
+      <option value="ez">e^z</option>
+      <option value="cosz">cos z</option>
+      <option value="z">z</option>
+    </select>
+    <label for="w-cauchy-formula-a">base point $a$</label>
+    <input type="range" id="w-cauchy-formula-a" min="-2.2" max="2.2" value="0.4" step="0.05">
+    <span class="pill" id="w-cauchy-formula-aval">a = 0.40</span>
+  </div>
+  <svg id="w-cauchy-formula-svg" viewBox="0 0 540 280" width="540" height="280" role="img" aria-label="A circle C and a base point a, inside or outside it"><title>Cauchy integral formula: the contour integral recovers f(a) for a inside C</title></svg>
+  <div class="readout" id="w-cauchy-formula-out"></div>
+</div><script>
+/* complex-analysis-cauchy-formula widget: w-cauchy-formula */
+(function(){
+  var FNS = [{"id":"z2","label":"z²","kind":"z2","note":"Inside, the integral returns a² = f(a) exactly."},{"id":"ez","label":"e^z","kind":"ez","note":"The boundary values of e^z determine e^a at every interior point a."},{"id":"cosz","label":"cos z","kind":"cosz"},{"id":"z","label":"z","kind":"z"}];
+  var byId = {}; FNS.forEach(function(g){ byId[g.id] = g; });
+  var sel = document.getElementById('w-cauchy-formula-sel');
+  var aIn = document.getElementById('w-cauchy-formula-a'), aL = document.getElementById('w-cauchy-formula-aval');
+  var svg = document.getElementById('w-cauchy-formula-svg');
+  var out = document.getElementById('w-cauchy-formula-out');
+  if(!sel || !aIn || !aL || !svg || !out) return;
+  var NS = 'http://www.w3.org/2000/svg';
+  function mk(tag, attrs, text){ var e = document.createElementNS(NS, tag); for(var k in attrs){ e.setAttribute(k, attrs[k]); } if(text!=null) e.textContent = text; return e; }
+  function cmul(p,q){ return [p[0]*q[0]-p[1]*q[1], p[0]*q[1]+p[1]*q[0]]; }
+  function cdiv(p,q){ var d=q[0]*q[0]+q[1]*q[1]; return [(p[0]*q[0]+p[1]*q[1])/d, (p[1]*q[0]-p[0]*q[1])/d]; }
+  function cexp(p){ var e=Math.exp(p[0]); return [e*Math.cos(p[1]), e*Math.sin(p[1])]; }
+  function feval(kind, z){
+    if(kind==='z') return z;
+    if(kind==='z2') return cmul(z,z);
+    if(kind==='ez') return cexp(z);
+    if(kind==='cosz') return [Math.cos(z[0])*Math.cosh(z[1]), -Math.sin(z[0])*Math.sinh(z[1])];
+    return z;
+  }
+  var R = 1.3;
+  function cauchyIntegral(kind, a){
+    // (1/2πi) ∮_C f(z)/(z−a) dz,  z(θ)=R e^{iθ},  z'(θ)=i R e^{iθ}
+    var N=1440, acc=[0,0], j, th, z, zp, integ;
+    for(j=0;j<N;j++){ th=2*Math.PI*j/N; z=[R*Math.cos(th), R*Math.sin(th)]; zp=[-R*Math.sin(th), R*Math.cos(th)];
+      integ=cmul(cdiv(feval(kind, z), [z[0]-a, z[1]]), zp); acc=[acc[0]+integ[0], acc[1]+integ[1]]; }
+    var h=2*Math.PI/N, raw=[acc[0]*h, acc[1]*h];
+    return cdiv(raw, [0, 2*Math.PI]); // divide by 2πi
+  }
+  var CX=270, CY=140, SC=72;
+  function PX(x){ return CX + x*SC; } function PY(y){ return CY - y*SC; }
+  function fmt(v){ return (Math.abs(v)<1e-4?0:v).toFixed(4); }
+  function draw(){
+    var g = byId[sel.value] || FNS[0], a = +aIn.value;
+    aL.textContent = 'a = ' + a.toFixed(2);
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    svg.appendChild(mk('line', {x1:CX-170, y1:CY, x2:CX+170, y2:CY, stroke:'var(--line)'}));
+    svg.appendChild(mk('line', {x1:CX, y1:CY-110, x2:CX, y2:CY+110, stroke:'var(--line)'}));
+    svg.appendChild(mk('circle', {cx:CX, cy:CY, r:R*SC, fill:'color-mix(in srgb, var(--cyan) 7%, transparent)', stroke:'var(--cyan)', 'stroke-width':1.8}));
+    svg.appendChild(mk('text', {x:CX, y:20, 'text-anchor':'middle', 'font-size':11, fill:'var(--mute)', 'font-style':'italic'}, 'contour C: |z| = 1.3'));
+    var near = Math.abs(Math.abs(a) - R) < 0.08, inside = Math.abs(a) < R - 1e-9;
+    var col = near ? 'var(--orange)' : (inside ? 'var(--yellow)' : 'var(--mute)');
+    svg.appendChild(mk('circle', {cx:PX(a), cy:PY(0), r:4.5, fill:col}));
+    svg.appendChild(mk('text', {x:PX(a), y:PY(0)-9, 'text-anchor':'middle', 'font-size':10, fill:col}, 'a'));
+    var I = cauchyIntegral(g.kind, a), fa = feval(g.kind, [a,0]);
+    var lines = [];
+    if(near){
+      // a is on (or within a quadrature node of) the contour: the integrand is singular, so
+      // the numeric value is meaningless (NaN / huge). Don't print it — just explain.
+      lines.push('(1/2\u03c0i) \u222e_C f(z)/(z\u2212a) dz is undefined here.');
+      lines.push('a sits ON (or right next to) the contour |z| = 1.3, where the integrand blows up and the formula does not apply. Move a clearly inside or outside.');
+    } else if(inside){
+      lines.push('(1/2\u03c0i) \u222e_C f(z)/(z\u2212a) dz = ' + fmt(I[0]) + ' + ' + fmt(I[1]) + 'i.');
+      lines.push('a = ' + a.toFixed(2) + ' is INSIDE C, and f(a) = ' + fmt(fa[0]) + ' + ' + fmt(fa[1]) + 'i. They match \u2014 the Cauchy integral formula: the contour integral reads off the value f(a).');
+    } else {
+      lines.push('(1/2\u03c0i) \u222e_C f(z)/(z\u2212a) dz = ' + fmt(I[0]) + ' + ' + fmt(I[1]) + 'i.');
+      lines.push('a = ' + a.toFixed(2) + ' is OUTSIDE C, so f(z)/(z\u2212a) is holomorphic inside and the integral is 0 \u2014 the formula recovers a value only for points the contour encloses.');
+    }
+    if(g.note) lines.push(g.note);
+    out.textContent = lines.join('\n');
+  }
+  sel.addEventListener('change', draw); aIn.addEventListener('input', draw);
+  draw();
+})();
+</script>
+
 <div class="quiz" data-concept="cauchy-integral-formula"></div><!-- backlinks-auto-begin -->
 <aside class="related">
   <div class="ttl">Used in</div>
