@@ -11,6 +11,97 @@
           "html": "<section id=\"overview\">\n<h2>1. The graduate landscape</h2>\n<p>Undergraduate complex analysis stops once <a href=\"./complex-analysis.html#cauchy-theorem\" data-auto-inline-link=\"1\" data-concept-id=\"cauchy-theorem\" data-blurb=\"∫_γ f dz = 0 on simply connected domains.\">Cauchy's theorem</a>, the residue calculus, and conformal mapping are in hand. The graduate sequence picks up four threads that classical textbooks leave dangling, all asking sharper versions of the same question: <em>what makes entire and meromorphic functions special, and how do they behave at the edges of their domain — at infinity, at an essential singularity, on the boundary of a disk?</em></p>\n\n<p>The four threads are:</p>\n\n<ul>\n<li><strong>Value distribution.</strong> Liouville says a bounded entire function is constant. <a href=\"#picard-little\">Little Picard</a> sharpens this to: a non-constant entire function omits at most one value. <a href=\"#picard-great\">Great Picard</a> upgrades Casorati-Weierstrass at an essential singularity from \"dense image\" to \"every value, infinitely often, with at most one exception.\" Bloch's theorem (a cousin we touch on only in passing) gives a quantitative geometric statement: a holomorphic function on the disk with $|f'(0)|=1$ contains a disk of universal radius in its image.</li>\n<li><strong>Construction theorems.</strong> Polynomials factor as $\\prod(z-a_k)$. <a href=\"#weierstrass-factorization\">Weierstrass</a> generalizes this to entire functions with prescribed zero set, paying for convergence with exponential corrections. <a href=\"#mittag-leffler\">Mittag-Leffler</a> is the dual statement on the meromorphic side: prescribe poles and principal parts, get a meromorphic function via convergent partial fractions.</li>\n<li><strong>Growth and maximum-modulus.</strong> The maximum modulus principle (an undergraduate result) needs an unbounded analog: <a href=\"#phragmen-lindelof\">Phragmén-Lindelöf</a> says max modulus survives on an unbounded sector if you bound growth at infinity, and <a href=\"#hadamard-three-circles\">Hadamard's three-circles theorem</a> upgrades this to a precise convexity statement on annuli — the workhorse behind the Riesz-Thorin and Hadamard interpolation theorems.</li>\n<li><strong>Boundary behavior.</strong> A holomorphic function on the disk needs no boundary values in general — but if you control the $L^p$ norm on circles $|z|=r$, you land in the <a href=\"#hardy-spaces\">Hardy space</a> $H^p(\\mathbb{D})$, and Fatou's theorem produces non-tangential boundary values almost everywhere. The inner-outer factorization $f = B\\cdot S\\cdot O$ is the analog of Weierstrass on the disk side.</li>\n</ul>\n\n<p>Each thread is internally tight (the theorems chain) and the threads cross-link: Picard's proof uses the modular function $\\lambda$, which lives on the upper half-plane; the Hardy-space inner-outer factorization is a Weierstrass theorem on the disk; Phragmén-Lindelöf is the engine inside Hadamard three-circles. The remainder of this page walks the four threads in order.</p>\n\n"
         },
         {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget",
+          "slug": "advanced-complex-analysis-landscape",
+          "params": {
+            "widgetId": "w-aca-landscape",
+            "title": "The four threads of graduate complex analysis",
+            "hint": "Click a thread to see the theorems it chains together.",
+            "threads": [
+              {
+                "id": "value",
+                "name": "Value distribution",
+                "blurb": "How widely do entire and meromorphic functions spread their values? From Liouville to Picard: a non-constant entire function omits at most one value; near an essential singularity it hits every value, infinitely often.",
+                "members": [
+                  {
+                    "label": "Little Picard",
+                    "anchor": "picard-little"
+                  },
+                  {
+                    "label": "Great Picard",
+                    "anchor": "picard-great"
+                  },
+                  {
+                    "label": "Bloch",
+                    "anchor": "bloch"
+                  },
+                  {
+                    "label": "Nevanlinna theory",
+                    "anchor": "nevanlinna"
+                  }
+                ]
+              },
+              {
+                "id": "construction",
+                "name": "Construction theorems",
+                "blurb": "Prescribe the singular data and build the function. Weierstrass builds an entire function from its zeros (with exponential convergence factors); Mittag-Leffler builds a meromorphic function from its poles and principal parts.",
+                "members": [
+                  {
+                    "label": "Weierstrass factorization",
+                    "anchor": "weierstrass-factorization"
+                  },
+                  {
+                    "label": "Mittag-Leffler",
+                    "anchor": "mittag-leffler"
+                  }
+                ]
+              },
+              {
+                "id": "growth",
+                "name": "Growth & maximum-modulus",
+                "blurb": "The maximum modulus principle on unbounded or annular domains. Phragmen-Lindelof trades a growth bound at infinity for control; Hadamard three-circles sharpens it to a convexity statement.",
+                "members": [
+                  {
+                    "label": "Phragmen-Lindelof",
+                    "anchor": "phragmen-lindelof"
+                  },
+                  {
+                    "label": "Hadamard three-circles",
+                    "anchor": "hadamard-three-circles"
+                  }
+                ]
+              },
+              {
+                "id": "boundary",
+                "name": "Boundary behavior",
+                "blurb": "What happens at the edge of the disk? Controlling the Lp norm on circles lands you in a Hardy space, and Fatou produces non-tangential boundary values almost everywhere; Bergman kernels organize the L2 theory.",
+                "members": [
+                  {
+                    "label": "Hardy spaces & Fatou",
+                    "anchor": "hardy-spaces"
+                  },
+                  {
+                    "label": "Bergman kernels",
+                    "anchor": "bergman"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-aca-landscape"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
           "type": "quiz",
           "concept": "aca-overview",
           "html": "<div class=\"quiz\" data-concept=\"aca-overview\"></div>"
@@ -419,6 +510,47 @@
         {
           "type": "raw",
           "html": "<section id=\"hardy-spaces\">\n<h2>8. Hardy spaces and Fatou boundary</h2>\n<p>A holomorphic function on the unit disk $\\mathbb{D}$ has no obligation to extend to the boundary $\\partial\\mathbb{D}$. The function $\\exp\\bigl(\\frac{z+1}{z-1}\\bigr)$ is bounded and holomorphic on $\\mathbb{D}$ but oscillates wildly as $z\\to 1$ — no continuous boundary extension exists. Yet bounded holomorphic functions on $\\mathbb{D}$ do have <em>almost everywhere</em> boundary values, and this is the gateway to a rich theory.</p>\n\n<p>The <strong>Hardy space</strong> $H^p(\\mathbb{D})$ is defined for $0 < p \\le \\infty$ as the holomorphic functions on $\\mathbb{D}$ whose $L^p$ norms on circles $|z|=r$ stay uniformly bounded:</p>\n<p>$$\\|f\\|_{H^p}^p \\;=\\; \\sup_{0&lt;r<1}\\frac{1}{2\\pi}\\int_0^{2\\pi}\\bigl|f(re^{i\\theta})\\bigr|^p\\,d\\theta \\;<\\;\\infty,\\qquad 0&lt;p<\\infty,$$</p>\n<p>and $\\|f\\|_{H^\\infty} = \\sup_{z\\in\\mathbb{D}}|f(z)|$. The norms are nested: $H^\\infty\\subset H^2\\subset H^p\\subset H^{p'}$ for $p>p'$.</p>\n\n<h3>Fatou's boundary theorem</h3>\n<div class=\"note\"><strong>Fatou's theorem.</strong> If $f\\in H^p(\\mathbb{D})$ for some $p\\ge 1$, then for almost every $\\theta\\in [0,2\\pi)$, the non-tangential limit $$f^*(e^{i\\theta}) \\;=\\; \\lim_{z\\to e^{i\\theta},\\;z\\in\\Gamma_\\theta} f(z)$$ exists, where $\\Gamma_\\theta$ is any Stolz cone with vertex at $e^{i\\theta}$. Moreover $f^*\\in L^p(\\partial\\mathbb{D})$ and $\\|f^*\\|_{L^p(\\partial\\mathbb{D})} = \\|f\\|_{H^p}$.</div>\n\n<p>The 'non-tangential' qualifier is sharp: there exist bounded holomorphic functions on $\\mathbb{D}$ with no <em>tangential</em> limit at certain boundary points. But within a Stolz cone — a cone of fixed aperture pointing into the disk — the limit exists almost everywhere.</p>\n\n<h3>Inner-outer factorization</h3>\n<p>The structural theorem of Hardy spaces is the <strong>inner-outer factorization</strong>, the disk-side analog of Weierstrass:</p>\n<div class=\"note\"><strong>Inner-outer factorization.</strong> Every $f\\in H^p(\\mathbb{D})$ with $f\\not\\equiv 0$ factors uniquely (up to a unimodular constant) as $f = B\\cdot S\\cdot O$, where:\n<ul>\n<li><span class=\"pill\" style=\"color:var(--cyan)\">$B$ Blaschke product</span> $B(z) = z^m\\prod_n \\frac{|a_n|}{a_n}\\cdot\\frac{a_n - z}{1 - \\overline{a_n}z}$, encoding the zeros $\\{a_n\\}$ of $f$ (which must satisfy $\\sum (1-|a_n|)<\\infty$ for the product to converge).</li>\n<li><span class=\"pill\" style=\"color:var(--violet)\">$S$ singular inner factor</span> $S(z) = \\exp\\!\\bigl(-\\int\\frac{e^{i\\theta}+z}{e^{i\\theta}-z}\\,d\\mu(\\theta)\\bigr)$ for a positive singular measure $\\mu$ on $\\partial\\mathbb{D}$ — captures the boundary 'mass' of $f$ that is not absolutely continuous.</li>\n<li><span class=\"pill\" style=\"color:var(--yellow)\">$O$ outer function</span> $O(z) = \\exp\\!\\bigl(\\int\\frac{e^{i\\theta}+z}{e^{i\\theta}-z}\\log|f^*(e^{i\\theta})|\\,\\frac{d\\theta}{2\\pi}\\bigr)$ — the unique zero-free, non-singular factor whose log-modulus is the Poisson integral of $\\log|f^*|$.</li>\n</ul>\n$B$ and $S$ are <em>inner functions</em>: holomorphic on $\\mathbb{D}$ with $|f^*(e^{i\\theta})| = 1$ a.e. on $\\partial\\mathbb{D}$.</div>\n\n<p>The Blaschke product is the disk analog of $\\prod E_p(z/a_n)$ in Weierstrass — a canonical factor encoding the zero set with the right convergence corrections. Each Blaschke factor $\\phi_a(z) = (a-z)/(1-\\overline a z)$ is a disk automorphism, with $|\\phi_a(e^{i\\theta})| = 1$.</p>\n\n<h3>The Hardy-Littlewood maximal inequality</h3>\n<p>Behind Fatou's theorem is a real-variable lemma: the <strong>Hardy-Littlewood maximal function</strong> $Mf(\\theta) = \\sup_{r}\\frac{1}{2r}\\int_{\\theta-r}^{\\theta+r}|f^*(e^{i\\phi})|\\,d\\phi$ controls the radial limit. The maximal-function inequality $\\|Mf\\|_{L^p}\\lesssim \\|f\\|_{L^p}$ for $1&lt;p\\le\\infty$ is the engine that converts $L^p$ control on the circles $|z|=r$ into pointwise non-tangential convergence almost everywhere on the boundary. The case $p=1$ requires the substitute weak-type inequality and is part of the Calderón-Zygmund theory.</p>\n\n<h3>Why $H^p$ matters</h3>\n<p>$H^p$ spaces are the natural setting for boundary-value problems on the disk, for moment problems, and for one-sided Fourier analysis. The shift operator $T:f(z)\\mapsto z f(z)$ on $H^2(\\mathbb{D})$ has a complete spectral theory in terms of the inner-outer factorization (Beurling's theorem on invariant subspaces). On the half-plane side, $H^p(\\mathbb{H})$ governs the Paley-Wiener theorem connecting <a href=\"./complex-analysis.html#analytic-continuation\" data-auto-inline-link=\"1\" data-concept-id=\"analytic-continuation\" data-blurb=\"The identity theorem lets a holomorphic germ extend uniquely along paths; loops around branch points produce monodromy, and $\\log z$ or $\\sqrt z$ live naturally on a Riemann surface rather than $\\mathbb{C}\\setminus\\{0\\}$.\">analytic continuation</a> to band-limited Fourier transforms. The boundary trace map $H^p\\to L^p$ is continuous and its image is exactly the $L^p$ functions whose Fourier coefficients vanish for negative frequencies — the analog of holomorphy in the frequency domain.</p>\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget",
+          "slug": "advanced-complex-analysis-hardy-spaces",
+          "params": {
+            "widgetId": "w-aca-hardy-spaces",
+            "title": "Fatou: radial boundary values almost everywhere",
+            "hint": "Slide the angle and watch |f| along the radius settle to the boundary value.",
+            "functions": [
+              {
+                "id": "blaschke",
+                "label": "(z−0.5)/(1−0.5z)  — Blaschke factor",
+                "kind": "blaschke",
+                "note": "An inner function: |f*| = 1 at every angle. It is a conformal automorphism of the disk."
+              },
+              {
+                "id": "half",
+                "label": "(1+z)/2",
+                "kind": "half",
+                "note": "Continuous up to the boundary; |f*(e^{iθ})| = |cos(θ/2)| varies with the angle."
+              },
+              {
+                "id": "singInner",
+                "label": "exp((z+1)/(z−1))  — singular inner",
+                "kind": "singInner",
+                "note": "|f*| = 1 a.e., but the radial limit at z = 1 (θ = 0) is 0 — set θ = 0 to see the one exceptional point."
+              }
+            ]
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-aca-hardy-spaces"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
         },
         {
           "type": "raw",
