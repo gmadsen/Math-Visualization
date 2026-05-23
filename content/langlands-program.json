@@ -40,9 +40,9 @@
               },
               {
                 "id": "lfn",
-                "left": "L(s, ρ)",
-                "right": "L(s, π)",
-                "detail": "Reciprocity: the Galois L-function L(s,ρ) — the Euler product ∏_p det(I − ρ(Frob_p)·p^(−s))^(−1) — equals the automorphic L-function L(s,π) (Godement–Jacquet) at every place. This equality IS the correspondence."
+                "left": "L(ρ, s)",
+                "right": "L(π, s)",
+                "detail": "Reciprocity: the Galois L-function L(ρ,s) — the Euler product ∏_p det(I − ρ(Frob_p)·p^(−s))^(−1) — equals the automorphic L-function L(π,s) (Godement–Jacquet) at every place. This equality IS the correspondence."
               },
               {
                 "id": "cond",
