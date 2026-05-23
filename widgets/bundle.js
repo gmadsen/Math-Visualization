@@ -234,6 +234,44 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "advanced-complex-analysis-three-circles",
+    "family": "advanced-complex-analysis-three-circles",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory",
+    "title": "advanced-complex-analysis-three-circles widget params",
+    "description": "Hadamard three-circles explorer. For a chosen holomorphic f the widget computes M(r) = max_{|z|=r}|f| numerically and plots log M(r) against log r, showing it is CONVEX. Two sliders pick the inner and outer radii r1 < r3; the chord between (log r1, log M(r1)) and (log r3, log M(r3)) is drawn, and at the log-midpoint r2 = sqrt(r1 r3) the widget checks log M(r2) ≤ ½(log M(r1)+log M(r3)), i.e. M(r2)² ≤ M(r1)M(r3) — the three-circles inequality. Monomials z^a give log M = a log r (linear, the equality case); e^z and polynomials bow strictly below the chord. The function eval is intrinsic (a `kind` enum); params carry the case menu.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "functions"
+    ],
+    "readmeExcerpt": "Hadamard three-circles explorer, introduced on `advanced-complex-analysis.html` §7. Bespoke semantic module — the function eval and $M(r)=\\max_{|z|=r}|f|$ are intrinsic (a `kind` enum); params carry only the case menu.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "advanced-complex-analysis-weierstrass",
+    "family": "advanced-complex-analysis-weierstrass",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory",
+    "title": "advanced-complex-analysis-weierstrass widget params",
+    "description": "Weierstrass-factorization explorer. The reader picks an entire function with a known canonical product and steps the number of factors N; the widget plots the partial product P_N along the real axis against the target function, so the zeros pin down one at a time and P_N converges to the function. sin(πz)/(πz) = ∏(1−z²/n²) (zeros at the nonzero integers) and cos(πz) = ∏(1−4z²/(2n−1)²) (zeros at the half-integers) are the classic genus-0 examples. The product eval is intrinsic (a `kind` enum); params carry the case menu.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "functions"
+    ],
+    "readmeExcerpt": "Weierstrass-factorization explorer, introduced on `advanced-complex-analysis.html` §4. Bespoke semantic module — the partial-product eval is intrinsic (a `kind` enum); params carry only the case menu.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "ak-apps",
     "family": "verbatim",
     "dimension": "2d",

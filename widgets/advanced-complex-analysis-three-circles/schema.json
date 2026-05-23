@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/advanced-complex-analysis-three-circles/schema.json",
+  "title": "advanced-complex-analysis-three-circles widget params",
+  "description": "Hadamard three-circles explorer. For a chosen holomorphic f the widget computes M(r) = max_{|z|=r}|f| numerically and plots log M(r) against log r, showing it is CONVEX. Two sliders pick the inner and outer radii r1 < r3; the chord between (log r1, log M(r1)) and (log r3, log M(r3)) is drawn, and at the log-midpoint r2 = sqrt(r1 r3) the widget checks log M(r2) ≤ ½(log M(r1)+log M(r3)), i.e. M(r2)² ≤ M(r1)M(r3) — the three-circles inequality. Monomials z^a give log M = a log r (linear, the equality case); e^z and polynomials bow strictly below the chord. The function eval is intrinsic (a `kind` enum); params carry the case menu.",
+  "meta": {
+    "family": "advanced-complex-analysis-three-circles",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["widgetId", "title", "functions"],
+  "properties": {
+    "widgetId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id; the script derives -sel/-r1/-r3/-svg/-out." },
+    "title": { "type": "string", "description": "Display title rendered inside .hd > .ttl." },
+    "hint": { "type": "string", "description": "Optional short hint rendered inside .hd > .hint." },
+    "functions": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 6,
+      "description": "Each holomorphic function offered in the dropdown.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "label", "kind"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[A-Za-z0-9_-]+$", "description": "Stable option value." },
+          "label": { "type": "string", "description": "Plain-text dropdown label, e.g. 'e^z'." },
+          "kind": {
+            "type": "string",
+            "enum": ["z2", "ez", "poly3", "expz2"],
+            "description": "Which f: z2 = z^2 (log M linear); ez = e^z; poly3 = 1+z+z^3; expz2 = e^z + z^2."
+          },
+          "note": { "type": "string", "maxLength": 120, "description": "Optional plain-text remark about this case." }
+        }
+      }
+    }
+  }
+}

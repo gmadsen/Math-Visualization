@@ -396,6 +396,73 @@ converges to an entire function with a zero of order $m$ at $0$, simple zeros at
 <p>$$\frac{1}{\Gamma(z)} \;=\; z e^{\gamma z}\prod_{n=1}^\infty\left(1+\frac{z}{n}\right)e^{-z/n},$$</p>
 <p>where $\gamma$ is the Euler-Mascheroni constant. The factor $e^{-z/n}$ is the exponential correction in $E_1(-z/n)$; the prefactor $e^{\gamma z}$ comes from the freedom to multiply by $e^{h(z)}$. Hadamard's later refinement (Hadamard factorization) sharpens Weierstrass for entire functions of finite order $\rho$: the correction $h(z)$ is then a polynomial with $\deg h \le \lfloor\rho\rfloor$ (the genus).</p>
 
+
+<div class="widget" id="w-aca-weierstrass">
+  <div class="hd"><div class="ttl">Weierstrass: building an entire function from its zeros</div><div class="hint">Add factors and watch the prescribed zeros lock in, one pair at a time.</div></div>
+  <div class="row">
+    <label for="w-aca-weierstrass-sel">function</label>
+    <select id="w-aca-weierstrass-sel">
+      <option value="sinc" selected>sin(πz)/(πz)</option>
+      <option value="cosp">cos(πz)</option>
+    </select>
+    <label for="w-aca-weierstrass-n">factors $N$</label>
+    <input type="range" id="w-aca-weierstrass-n" min="1" max="12" value="3" step="1">
+    <span class="pill" id="w-aca-weierstrass-nval">N = 3</span>
+  </div>
+  <svg id="w-aca-weierstrass-svg" viewBox="0 0 540 250" width="540" height="250" role="img" aria-label="The partial product P_N along the real axis against the target function"><title>Weierstrass factorization: the partial product converges to the entire function as factors are added</title></svg>
+  <div class="readout" id="w-aca-weierstrass-out"></div>
+</div><script>
+/* advanced-complex-analysis-weierstrass widget: w-aca-weierstrass */
+(function(){
+  var FNS = [{"id":"sinc","label":"sin(πz)/(πz)","kind":"sinc","note":"Zeros at every nonzero integer: sin(πz)/(πz) = ∏(1 − z²/n²)."},{"id":"cosp","label":"cos(πz)","kind":"cosp","note":"Zeros at the half-integers: cos(πz) = ∏(1 − 4z²/(2n−1)²)."}];
+  var byId = {}; FNS.forEach(function(g){ byId[g.id] = g; });
+  var sel = document.getElementById('w-aca-weierstrass-sel');
+  var nIn = document.getElementById('w-aca-weierstrass-n'), nL = document.getElementById('w-aca-weierstrass-nval');
+  var svg = document.getElementById('w-aca-weierstrass-svg');
+  var out = document.getElementById('w-aca-weierstrass-out');
+  if(!sel || !nIn || !nL || !svg || !out) return;
+  var NS = 'http://www.w3.org/2000/svg';
+  function mk(tag, attrs, text){ var e = document.createElementNS(NS, tag); for(var k in attrs){ e.setAttribute(k, attrs[k]); } if(text!=null) e.textContent = text; return e; }
+  function partial(kind, x, N){ var p=1, n; if(kind==='sinc'){ for(n=1;n<=N;n++) p*=(1 - x*x/(n*n)); } else { for(n=1;n<=N;n++){ var d=(2*n-1); p*=(1 - 4*x*x/(d*d)); } } return p; }
+  function target(kind, x){ if(kind==='sinc') return Math.abs(x)<1e-9 ? 1 : Math.sin(Math.PI*x)/(Math.PI*x); return Math.cos(Math.PI*x); }
+  function zeros(kind, N){ var z=[], n; for(n=1;n<=N;n++){ if(kind==='sinc'){ z.push(n); z.push(-n); } else { z.push((2*n-1)/2); z.push(-(2*n-1)/2); } } return z; }
+  var XR=4, YR=1.5;
+  var PX0=50, PW=460, PYc=128, PHh=92;
+  function PX(x){ return PX0 + (x+XR)/(2*XR)*PW; }
+  function PY(v){ var c=Math.max(-YR, Math.min(YR, v)); return PYc - c/YR*PHh; }
+  function draw(){
+    var g = byId[sel.value] || FNS[0], N=+nIn.value;
+    nL.textContent = 'N = ' + N;
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    // axes
+    svg.appendChild(mk('line', {x1:PX0, y1:PYc, x2:PX0+PW, y2:PYc, stroke:'var(--line)'}));
+    svg.appendChild(mk('line', {x1:PX(0), y1:PYc-PHh, x2:PX(0), y2:PYc+PHh, stroke:'var(--line)'}));
+    svg.appendChild(mk('text', {x:PX0+PW, y:PYc+16, 'text-anchor':'end', 'font-size':10, fill:'var(--mute)'}, 'x \u2208 [\u22124, 4]'));
+    // target (faint)
+    var i, x, tp=[]; for(i=0;i<=240;i++){ x=-XR+2*XR*i/240; tp.push(PX(x).toFixed(1)+','+PY(target(g.kind,x)).toFixed(1)); }
+    svg.appendChild(mk('polyline', {points:tp.join(' '), fill:'none', stroke:'var(--mute)', 'stroke-width':1.2, 'stroke-dasharray':'4 3'}));
+    // partial product (clipped where it leaves the band, drawn in segments)
+    var seg=[]; function flush(){ if(seg.length>1) svg.appendChild(mk('polyline', {points:seg.join(' '), fill:'none', stroke:'var(--cyan)', 'stroke-width':2})); seg=[]; }
+    for(i=0;i<=360;i++){ x=-XR+2*XR*i/360; var v=partial(g.kind,x,N); if(v>=-YR-0.02 && v<=YR+0.02){ seg.push(PX(x).toFixed(1)+','+PY(v).toFixed(1)); } else { flush(); } }
+    flush();
+    // prescribed zeros locked in so far
+    zeros(g.kind, N).forEach(function(z){ if(Math.abs(z)<=XR) svg.appendChild(mk('circle', {cx:PX(z), cy:PYc, r:3, fill:'var(--pink)'})); });
+    svg.appendChild(mk('text', {x:PX(0)+6, y:PYc-PHh+12, 'font-size':10, fill:'var(--cyan)'}, 'P_' + N + ' (partial product)'));
+    svg.appendChild(mk('text', {x:PX0+PW, y:PYc-PHh+12, 'text-anchor':'end', 'font-size':10, fill:'var(--mute)'}, 'target (dashed)'));
+    // readout
+    var prod = g.kind==='sinc' ? '\u220f(1 \u2212 z\u00b2/n\u00b2)' : '\u220f(1 \u2212 4z\u00b2/(2n\u22121)\u00b2)';
+    var lines=[];
+    lines.push('Weierstrass: an entire function is a product over its zeros (times e^{g}). Here ' + g.label + ' = ' + prod + '.');
+    lines.push('P_' + N + ' is the product of the first ' + N + ' factor(s): its zeros (pink) sit at the prescribed points, and adding factors locks in more of them.');
+    lines.push('As N grows P_N \u2192 the target (dashed) on wider and wider intervals \u2014 the canonical product converges.');
+    if(g.note) lines.push(g.note);
+    out.textContent = lines.join('\n');
+  }
+  sel.addEventListener('change', draw); nIn.addEventListener('input', draw);
+  draw();
+})();
+</script>
+
 <div class="quiz" data-concept="aca-weierstrass-factorization"></div><!-- backlinks-auto-begin -->
 <aside class="related">
   <div class="ttl">Used in</div>
@@ -511,6 +578,92 @@ $$M(r_2)^{\log(r_3/r_1)} \;\le\; M(r_1)^{\log(r_3/r_2)}\,M(r_3)^{\log(r_2/r_1)}.
 
 <h3>Three-lines, three-circles, three-spheres</h3>
 <p>The statement has cousins for strips (three-lines, where $\log M$ is convex in $\operatorname{Re} z$), for <a href="./complex-analysis.html#harmonic-functions" data-auto-inline-link="1" data-concept-id="harmonic-functions" data-blurb="If $f = u + iv$ is holomorphic then $u$ and $v$ satisfy Laplace&#39;s equation $\Delta u = 0$; on simply connected domains every harmonic $u$ has a harmonic conjugate recovering a holomorphic lift.">harmonic functions</a> (three-spheres, where the maximum on a sphere is convex in $\log r$), and for $L^p$ norms (the Hadamard interpolation theorem, where $\log\|f\|_p$ is a convex function of $1/p$). All three sit on the same foundation: a maximum-modulus or sub-mean-value principle plus a clever auxiliary function. Phragmén-Lindelöf enters when the strip or sector is unbounded; on a closed annulus, plain max modulus suffices.</p>
+
+
+<div class="widget" id="w-aca-three-circles">
+  <div class="hd"><div class="ttl">Three circles: log M(r) is convex in log r</div><div class="hint">The curve never rises above any chord — that is the three-circles inequality.</div></div>
+  <div class="row">
+    <label for="w-aca-three-circles-sel">$f(z)$</label>
+    <select id="w-aca-three-circles-sel">
+      <option value="z2" selected>z²</option>
+      <option value="ez">e^z</option>
+      <option value="poly3">1 + z + z³</option>
+      <option value="expz2">e^z + z²</option>
+    </select>
+    <label for="w-aca-three-circles-r1">$r_1$</label>
+    <input type="range" id="w-aca-three-circles-r1" min="0.4" max="2" value="0.7" step="0.05">
+    <label for="w-aca-three-circles-r3">$r_3$</label>
+    <input type="range" id="w-aca-three-circles-r3" min="2.5" max="6" value="4.5" step="0.05">
+  </div>
+  <svg id="w-aca-three-circles-svg" viewBox="0 0 540 250" width="540" height="250" role="img" aria-label="log M(r) plotted against log r, with the three-circles chord"><title>Hadamard's three-circles theorem: log M(r) is a convex function of log r</title></svg>
+  <div class="readout" id="w-aca-three-circles-out"></div>
+</div><script>
+/* advanced-complex-analysis-three-circles widget: w-aca-three-circles */
+(function(){
+  var FNS = [{"id":"z2","label":"z²","kind":"z2","note":"log M(r) = 2 log r is exactly linear — the equality case of the inequality."},{"id":"ez","label":"e^z","kind":"ez","note":"M(r)=e^r, so log M = r = e^{log r}: strictly convex in log r."},{"id":"poly3","label":"1 + z + z³","kind":"poly3","note":"A polynomial: log M is convex, bowing below every chord."},{"id":"expz2","label":"e^z + z²","kind":"expz2"}];
+  var byId = {}; FNS.forEach(function(g){ byId[g.id] = g; });
+  var sel = document.getElementById('w-aca-three-circles-sel');
+  var r1In = document.getElementById('w-aca-three-circles-r1'), r3In = document.getElementById('w-aca-three-circles-r3');
+  var svg = document.getElementById('w-aca-three-circles-svg');
+  var out = document.getElementById('w-aca-three-circles-out');
+  if(!sel || !r1In || !r3In || !svg || !out) return;
+  var NS = 'http://www.w3.org/2000/svg';
+  function mk(tag, attrs, text){ var e = document.createElementNS(NS, tag); for(var k in attrs){ e.setAttribute(k, attrs[k]); } if(text!=null) e.textContent = text; return e; }
+  function cmul(p,q){ return [p[0]*q[0]-p[1]*q[1], p[0]*q[1]+p[1]*q[0]]; }
+  function cexp(p){ var e=Math.exp(p[0]); return [e*Math.cos(p[1]), e*Math.sin(p[1])]; }
+  function feval(kind, z){
+    if(kind==='z2') return cmul(z,z);
+    if(kind==='ez') return cexp(z);
+    if(kind==='poly3'){ var z3=cmul(cmul(z,z),z); return [1+z[0]+z3[0], z[1]+z3[1]]; }
+    if(kind==='expz2'){ var e=cexp(z), z2=cmul(z,z); return [e[0]+z2[0], e[1]+z2[1]]; }
+    return z;
+  }
+  function logM(kind, r){ var m=0, i, th, w; for(i=0;i<144;i++){ th=2*Math.PI*i/144; w=feval(kind, [r*Math.cos(th), r*Math.sin(th)]); var a=Math.hypot(w[0],w[1]); if(a>m) m=a; } return Math.log(Math.max(m,1e-12)); }
+  var RMIN=0.35, RMAX=6, Lmin=Math.log(RMIN), Lmax=Math.log(RMAX);
+  var PX0=58, PY0=205, PW=448, PH=170;
+  function draw(){
+    var g = byId[sel.value] || FNS[0];
+    var r1=+r1In.value, r3=+r3In.value; if(r3<=r1) r3=r1+0.5;
+    var r2=Math.sqrt(r1*r3);
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    // sample log M over the range, track y-extent
+    var NS2=100, i, samples=[], yMin=1e9, yMax=-1e9;
+    for(i=0;i<=NS2;i++){ var lr=Lmin+(Lmax-Lmin)*i/NS2; var lm=logM(g.kind, Math.exp(lr)); samples.push([lr,lm]); if(lm<yMin)yMin=lm; if(lm>yMax)yMax=lm; }
+    var pad=(yMax-yMin)*0.1||1; yMin-=pad; yMax+=pad;
+    function PX(lr){ return PX0 + (lr-Lmin)/(Lmax-Lmin)*PW; }
+    function PY(v){ return PY0 - (v-yMin)/(yMax-yMin)*PH; }
+    // axes
+    svg.appendChild(mk('line', {x1:PX0, y1:PY0, x2:PX0+PW, y2:PY0, stroke:'var(--line)'}));
+    svg.appendChild(mk('line', {x1:PX0, y1:PY0, x2:PX0, y2:PY0-PH, stroke:'var(--line)'}));
+    svg.appendChild(mk('text', {x:PX0+PW, y:PY0+16, 'text-anchor':'end', 'font-size':10, fill:'var(--mute)'}, 'log r \u2192'));
+    svg.appendChild(mk('text', {x:PX0-8, y:PY0-PH+8, 'text-anchor':'end', 'font-size':10, fill:'var(--mute)'}, 'log M(r)'));
+    // the convex curve
+    var pts=samples.map(function(s){ return PX(s[0]).toFixed(1)+','+PY(s[1]).toFixed(1); });
+    svg.appendChild(mk('polyline', {points:pts.join(' '), fill:'none', stroke:'var(--cyan)', 'stroke-width':2}));
+    // chord between r1 and r3
+    var L1=Math.log(r1), L3=Math.log(r3), L2=Math.log(r2);
+    var m1=logM(g.kind,r1), m3=logM(g.kind,r3), m2=logM(g.kind,r2);
+    svg.appendChild(mk('line', {x1:PX(L1), y1:PY(m1), x2:PX(L3), y2:PY(m3), stroke:'var(--yellow)', 'stroke-width':1.4, 'stroke-dasharray':'5 3'}));
+    // markers at r1, r2, r3
+    [[L1,m1,'r\u2081'],[L3,m3,'r\u2083']].forEach(function(p){ svg.appendChild(mk('circle', {cx:PX(p[0]), cy:PY(p[1]), r:3.5, fill:'var(--yellow)'})); svg.appendChild(mk('text', {x:PX(p[0]), y:PY0+16, 'text-anchor':'middle', 'font-size':10, fill:'var(--yellow)'}, p[2])); });
+    var chordAt2=(m1+m3)/2; // chord value at the log-midpoint
+    svg.appendChild(mk('line', {x1:PX(L2), y1:PY(m2), x2:PX(L2), y2:PY(chordAt2), stroke:'var(--pink)', 'stroke-width':1.4}));
+    svg.appendChild(mk('circle', {cx:PX(L2), cy:PY(m2), r:4, fill:'var(--pink)'}));
+    svg.appendChild(mk('text', {x:PX(L2), y:PY0+16, 'text-anchor':'middle', 'font-size':10, fill:'var(--pink)'}, 'r\u2082'));
+    // readout
+    var ok = m2 <= chordAt2 + 1e-6;
+    var lines=[];
+    lines.push('Hadamard: log M(r) is a CONVEX function of log r, so the curve never rises above any chord.');
+    lines.push('r\u2081 = ' + r1.toFixed(2) + ',  r\u2082 = \u221a(r\u2081r\u2083) = ' + r2.toFixed(2) + ',  r\u2083 = ' + r3.toFixed(2) + '.');
+    lines.push('log M(r\u2082) = ' + m2.toFixed(3) + '   ' + (ok?'\u2264':'>') + '   \u00bd(log M(r\u2081)+log M(r\u2083)) = ' + chordAt2.toFixed(3) + '   \u21d2   M(r\u2082)\u00b2 \u2264 M(r\u2081)\u00b7M(r\u2083). ' + (ok?'\u2713':''));
+    if(g.kind==='z2') lines.push('For z^a, log M = a\u00b7log r is exactly linear in log r \u2014 the boundary case where the inequality is an equality.');
+    if(g.note) lines.push(g.note);
+    out.textContent = lines.join('\n');
+  }
+  sel.addEventListener('change', draw); r1In.addEventListener('input', draw); r3In.addEventListener('input', draw);
+  draw();
+})();
+</script>
 
 <!-- callback-auto-begin -->
 <aside class="callback">
