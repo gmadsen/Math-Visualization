@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/complex-analysis-conformal-map/schema.json",
+  "title": "complex-analysis-conformal-map widget params",
+  "description": "Conformal-map visualizer. A grid of horizontal and vertical lines in the z-plane (left) is mapped by a chosen holomorphic function to its image (right); because holomorphic maps are conformal, the image grid lines still cross at right angles everywhere f'≠0. The reader picks the map; the readout names f, f', and any critical points where conformality fails. The function evaluation is intrinsic (selected by a `kind` enum); params carry the map menu.",
+  "meta": {
+    "family": "complex-analysis-conformal-map",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["widgetId", "title", "maps"],
+  "properties": {
+    "widgetId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id; the script derives -sel/-svg/-out." },
+    "title": { "type": "string", "description": "Display title rendered inside .hd > .ttl." },
+    "hint": { "type": "string", "description": "Optional short hint rendered inside .hd > .hint." },
+    "maps": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 8,
+      "description": "The holomorphic maps offered in the dropdown.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "label", "kind"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[A-Za-z0-9_-]+$", "description": "Stable option value." },
+          "label": { "type": "string", "description": "Plain-text dropdown label (no LaTeX)." },
+          "kind": {
+            "type": "string",
+            "enum": ["sq", "cube", "exp", "inv", "mobius", "joukowski"],
+            "description": "Which holomorphic function: z², z³, e^z, 1/z, (z−1)/(z+1), or ½(z+1/z)."
+          },
+          "deriv": { "type": "string", "maxLength": 40, "description": "Optional plain-text f'(z) for the readout." },
+          "critical": { "type": "string", "maxLength": 70, "description": "Optional plain-text note on critical points (where f'=0, conformality fails)." }
+        }
+      }
+    }
+  }
+}

@@ -167,6 +167,71 @@
           "html": "<section id=\"cauchy-riemann\">\n<h2>5. Cauchy–Riemann equations</h2>\n<p>Write $f = u+iv$, viewed as a map $\\mathbb{R}^2\\to\\mathbb{R}^2$. Real-differentiability gives a Jacobian</p>\n<p>$$Df = \\begin{pmatrix} u_x & u_y \\\\ v_x & v_y \\end{pmatrix}.$$</p>\n<p>For $f$ to be complex-differentiable, this Jacobian must commute with multiplication by $i$ — i.e.\\ it must be a similarity matrix (a rotation composed with a scaling). A short calculation shows this is equivalent to the <strong>Cauchy–Riemann equations</strong></p>\n<p>$$u_x = v_y, \\qquad u_y = -v_x,$$</p>\n<p>and then $f'(z_0) = u_x + i v_x = v_y - i u_y$.</p>\n"
         },
         {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget",
+          "slug": "complex-analysis-conformal-map",
+          "params": {
+            "widgetId": "w-conformal",
+            "title": "Holomorphic = conformal",
+            "hint": "a grid and its image; the image still meets at right angles where f′ ≠ 0",
+            "maps": [
+              {
+                "id": "sq",
+                "label": "w = z²",
+                "kind": "sq",
+                "deriv": "2z",
+                "critical": "critical point at z = 0 (angles double there)"
+              },
+              {
+                "id": "cube",
+                "label": "w = z³",
+                "kind": "cube",
+                "deriv": "3z²",
+                "critical": "critical point at z = 0 (angles triple there)"
+              },
+              {
+                "id": "exp",
+                "label": "w = e^z",
+                "kind": "exp",
+                "deriv": "e^z",
+                "critical": "no critical points (e^z is never 0) — conformal everywhere"
+              },
+              {
+                "id": "inv",
+                "label": "w = 1/z",
+                "kind": "inv",
+                "deriv": "−1/z²",
+                "critical": "no finite critical points; z = 0 ↦ ∞"
+              },
+              {
+                "id": "mobius",
+                "label": "w = (z−1)/(z+1)",
+                "kind": "mobius",
+                "deriv": "2/(z+1)²",
+                "critical": "a Möbius map — conformal on the whole Riemann sphere"
+              },
+              {
+                "id": "joukowski",
+                "label": "w = ½(z + 1/z)",
+                "kind": "joukowski",
+                "deriv": "½(1 − 1/z²)",
+                "critical": "critical points at z = ±1"
+              }
+            ]
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-conformal"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
           "type": "quiz",
           "concept": "cauchy-riemann",
           "html": "<div class=\"quiz\" data-concept=\"cauchy-riemann\"></div>"
@@ -562,6 +627,126 @@
         {
           "type": "raw",
           "html": "<section id=\"residue-theorem\">\n<h2>19. Residue theorem</h2>\n<p>The <strong>residue</strong> of $f$ at $z_0$ is</p>\n<p>$$\\operatorname{Res}(f,z_0) \\;=\\; c_{-1} \\;=\\; \\frac{1}{2\\pi i}\\oint f\\,dz.$$</p>\n<p>For a simple pole $\\operatorname{Res}(f,z_0) = \\lim_{z\\to z_0}(z-z_0)f(z)$. For a pole of order $k$, $\\operatorname{Res}(f,z_0) = \\dfrac{1}{(k-1)!}\\lim_{z\\to z_0}\\dfrac{d^{k-1}}{dz^{k-1}}\\bigl((z-z_0)^k f(z)\\bigr)$.</p>\n<div class=\"note\"><strong>Residue theorem.</strong> Let $\\gamma$ be a positively oriented simple closed contour bounding a region $D$, with $f$ holomorphic on a neighbourhood of $\\overline D$ except for finitely many isolated singularities $z_k\\in D$. Then $$\\oint_\\gamma f\\,dz \\;=\\; 2\\pi i\\sum_k \\operatorname{Res}(f, z_k).$$</div>\n<p>Real definite integrals fall to this, almost mechanically. Famous example: closing $\\int_{-\\infty}^\\infty\\frac{dx}{x^2+1}$ in the upper half-plane with a giant semicircle. The semicircular piece tends to $0$ (the integrand decays), the only pole inside is $z=i$ with residue $1/(2i)$, and so the integral is $2\\pi i\\cdot 1/(2i) = \\pi$. Replace the integrand by $e^{ix}/(x^2+1)$ and the answer is $\\pi/e$.</p>\n<p>Try it: the contour widget in §contour-integral above already computes $\\oint f\\,dz$ as $2\\pi i \\sum\\mathrm{Res}$ for the enclosed poles. Drag a vertex over a pole to see the sum jump.</p>\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget",
+          "slug": "complex-analysis-residue-real-integral",
+          "params": {
+            "widgetId": "w-residue-real",
+            "title": "Real integrals by residues",
+            "hint": "close in the upper half-plane; ∫ = 2πi · Σ Res over the enclosed poles",
+            "integrands": [
+              {
+                "id": "inv-sq1",
+                "label": "1/(x²+1)",
+                "result": "π",
+                "note": "The classic: one pole i inside, residue 1/(2i) = −i/2, so the integral is 2πi·(−i/2) = π.",
+                "poles": [
+                  {
+                    "re": 0,
+                    "im": 1,
+                    "resRe": 0,
+                    "resIm": -0.5,
+                    "label": "i"
+                  },
+                  {
+                    "re": 0,
+                    "im": -1,
+                    "resRe": 0,
+                    "resIm": 0.5,
+                    "label": "−i"
+                  }
+                ]
+              },
+              {
+                "id": "inv-sq2",
+                "label": "1/(x²+1)²",
+                "result": "π/2",
+                "note": "A double pole at i; its residue is −i/4.",
+                "poles": [
+                  {
+                    "re": 0,
+                    "im": 1,
+                    "resRe": 0,
+                    "resIm": -0.25,
+                    "label": "i (order 2)"
+                  },
+                  {
+                    "re": 0,
+                    "im": -1,
+                    "resRe": 0,
+                    "resIm": 0.25
+                  }
+                ]
+              },
+              {
+                "id": "quartic",
+                "label": "1/(x⁴+1)",
+                "result": "π/√2 ≈ 2.221",
+                "note": "Two enclosed poles: the primitive 8th roots e^{iπ/4} and e^{i3π/4}.",
+                "poles": [
+                  {
+                    "re": 0.7071,
+                    "im": 0.7071,
+                    "resRe": -0.1768,
+                    "resIm": -0.1768
+                  },
+                  {
+                    "re": -0.7071,
+                    "im": 0.7071,
+                    "resRe": 0.1768,
+                    "resIm": -0.1768
+                  },
+                  {
+                    "re": 0.7071,
+                    "im": -0.7071,
+                    "resRe": -0.1768,
+                    "resIm": 0.1768
+                  },
+                  {
+                    "re": -0.7071,
+                    "im": -0.7071,
+                    "resRe": 0.1768,
+                    "resIm": 0.1768
+                  }
+                ]
+              },
+              {
+                "id": "cos",
+                "label": "cos(x)/(x²+1)",
+                "result": "π/e ≈ 1.156",
+                "note": "Use e^{ix}/(x²+1) and take real parts; closing in the UHP, only z = i contributes, with residue e^{−1}/(2i).",
+                "poles": [
+                  {
+                    "re": 0,
+                    "im": 1,
+                    "resRe": 0,
+                    "resIm": -0.18394,
+                    "label": "i"
+                  },
+                  {
+                    "re": 0,
+                    "im": -1,
+                    "resRe": 0,
+                    "resIm": 1.359,
+                    "label": "−i"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-residue-real"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
         },
         {
           "type": "quiz",

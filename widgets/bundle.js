@@ -3423,6 +3423,44 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "complex-analysis-conformal-map",
+    "family": "complex-analysis-conformal-map",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory",
+    "title": "complex-analysis-conformal-map widget params",
+    "description": "Conformal-map visualizer. A grid of horizontal and vertical lines in the z-plane (left) is mapped by a chosen holomorphic function to its image (right); because holomorphic maps are conformal, the image grid lines still cross at right angles everywhere f'≠0. The reader picks the map; the readout names f, f', and any critical points where conformality fails. The function evaluation is intrinsic (selected by a `kind` enum); params carry the map menu.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "maps"
+    ],
+    "readmeExcerpt": "Conformal-map visualizer, introduced on `complex-analysis.html` §5 (Cauchy–Riemann). Bespoke semantic module — the function evaluation and grid plotting are intrinsic (selected by a `kind` enum); params carry the map menu.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "complex-analysis-residue-real-integral",
+    "family": "complex-analysis-residue-real-integral",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory",
+    "title": "complex-analysis-residue-real-integral widget params",
+    "description": "Real integrals by residues. The reader picks an integrand; the widget draws the upper-half-plane semicircular contour (real axis + large arc, whose contribution → 0), plots the integrand's poles (those in the upper half-plane are enclosed and highlighted), and computes ∫_{-∞}^∞ f dx = 2πi · Σ Res over the enclosed poles, matching the closed form. The 2πi·Σ arithmetic is intrinsic; params carry each integrand's poles, residues, and answer.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "integrands"
+    ],
+    "readmeExcerpt": "Real-integrals-by-residues widget, introduced on `complex-analysis.html` §19 (residue theorem). Complements the section's draggable contour widget by showing the upper-half-plane closing technique for real integrals. Bespoke semantic module — the $2\\pi i\\cdot\\Sigma$ arithmetic and contour drawing are intrinsic; params carry each integrand's poles, residues, and answer.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "complex-multiplication-w1",
     "family": "verbatim",
     "dimension": "2d",
