@@ -41,7 +41,7 @@ export function renderScript(params) {
     `  if(!nIn || !nL || !svg || !out) return;\n` +
     `  var NS='http://www.w3.org/2000/svg';\n` +
     `  function mk(tag, attrs, text){ var e=document.createElementNS(NS, tag); for(var k in attrs){ e.setAttribute(k, attrs[k]); } if(text!=null) e.textContent=text; return e; }\n` +
-    `  function arrow(x1,y1,x2,y2,col,on){ var ang=Math.atan2(y2-y1,x2-x1), L=Math.hypot(x2-x1,y2-y1), ux=(x2-x1)/L, uy=(y2-y1)/L; var ex=x2-ux*8, ey=y2-uy*8;\n` +
+    `  function arrow(x1,y1,x2,y2,col,on){ var L=Math.hypot(x2-x1,y2-y1), ux=(x2-x1)/L, uy=(y2-y1)/L; var ex=x2-ux*8, ey=y2-uy*8;\n` +
     `    svg.appendChild(mk('line', {x1:x1+ux*16, y1:y1+uy*16, x2:ex, y2:ey, stroke:col, 'stroke-width':on?2:1.2, opacity:on?1:0.5}));\n` +
     `    svg.appendChild(mk('path', {d:'M'+ex+' '+ey+' L'+(ex-7*ux+3*uy)+' '+(ey-7*uy-3*ux)+' L'+(ex-7*ux-3*uy)+' '+(ey-7*uy+3*ux)+' Z', fill:col, opacity:on?1:0.5})); }\n` +
     `  var X0=110, Y0=240, dx=(N>4?86:104), dy=(N>4?52:62);\n` +
@@ -50,10 +50,12 @@ export function renderScript(params) {
     `    var n=+nIn.value; nL.textContent='n = '+n;\n` +
     `    while(svg.firstChild) svg.removeChild(svg.firstChild);\n` +
     `    var p,q;\n` +
-    `    // arrows: d^h (→ p+1) and d^v (→ q+1, drawn upward)\n` +
-    `    for(p=0;p<N;p++) for(q=0;q<N;q++){\n` +
-    `      if(p+1<N) arrow(PX(p),PY(q),PX(p+1),PY(q),'var(--mute)', (p+q===n)&&(p+1+q===n+1));\n` +
-    `      if(q+1<N) arrow(PX(p),PY(q),PX(p),PY(q+1),'var(--mute)', false); }\n` +
+    `    // arrows: d^h (→ p+1) and d^v (→ q+1, drawn upward). An arrow whose SOURCE\n` +
+    `    // (p,q) is on the diagonal p+q=n is a component of D: Tot^n → Tot^{n+1}, so\n` +
+    `    // highlight both the horizontal and vertical arrows leaving that diagonal.\n` +
+    `    for(p=0;p<N;p++) for(q=0;q<N;q++){ var srcOn=(p+q===n), acol=srcOn?'var(--yellow)':'var(--mute)';\n` +
+    `      if(p+1<N) arrow(PX(p),PY(q),PX(p+1),PY(q), acol, srcOn);\n` +
+    `      if(q+1<N) arrow(PX(p),PY(q),PX(p),PY(q+1), acol, srcOn); }\n` +
     `    // nodes\n` +
     `    for(p=0;p<N;p++) for(q=0;q<N;q++){ var on=(p+q===n);\n` +
     `      svg.appendChild(mk('circle', {cx:PX(p), cy:PY(q), r:on?15:12, fill: on?'color-mix(in srgb, var(--yellow) 30%, transparent)':'var(--panel2)', stroke: on?'var(--yellow)':'var(--line)', 'stroke-width':on?2:1}));\n` +
@@ -65,8 +67,8 @@ export function renderScript(params) {
     `    var summands=[]; for(q=0;q<N;q++){ p=n-q; if(p>=0 && p<N) summands.push('C^{'+p+','+q+'}'); }\n` +
     `    var lines=[];\n` +
     `    lines.push('A double complex C^{p,q} has two anticommuting differentials: d^h: C^{p,q}\\u2192C^{p+1,q} and d^v: C^{p,q}\\u2192C^{p,q+1}, with d^h\\u00b2 = d^v\\u00b2 = 0 and d^h d^v + d^v d^h = 0.');\n` +
-    `    lines.push('The TOTAL complex collects each anti-diagonal: Tot^n = \\u2295_{p+q=n} C^{p,q}. Here Tot^' + n + ' = ' + (summands.join(' \\u2295 ') || '0') + ' (highlighted).');\n` +
-    `    lines.push('Its total differential D = d^h + (\\u22121)^p d^v maps Tot^n \\u2192 Tot^{n+1}; the sign + anticommutativity give D\\u00b2 = 0, so Tot is a single complex (the engine behind Tor symmetry and spectral sequences).');\n` +
+    `    lines.push('The TOTAL complex collects each anti-diagonal: Tot^n = \\u2295_{p+q=n} C^{p,q}. Here Tot^' + n + ' = ' + summands.join(' \\u2295 ') + ' (highlighted nodes; the bold arrows leaving them are the components of D).');\n` +
+    `    lines.push('Its total differential D = d^h + d^v maps Tot^n \\u2192 Tot^{n+1}; anticommutativity (d^h d^v + d^v d^h = 0) gives D\\u00b2 = 0, so Tot is a single complex (the engine behind Tor symmetry and spectral sequences).');\n` +
     `    out.textContent=lines.join('\\n');\n` +
     `  }\n` +
     `  nIn.addEventListener('input', draw);\n` +

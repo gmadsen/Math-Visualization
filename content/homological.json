@@ -869,7 +869,7 @@
           "params": {
             "widgetId": "w-homological-double-complex",
             "title": "Total complex: the diagonal of a double complex",
-            "hint": "Slide n: Tot^n collects the anti-diagonal p+q=n; D = d^h + (−1)^p d^v.",
+            "hint": "Slide n: Tot^n collects the anti-diagonal p+q=n; D = d^h + d^v.",
             "size": 4
           }
         },

@@ -2791,7 +2791,7 @@ The "two ways to compute the same answer" is the workhorse identity behind balan
 
 
 <div class="widget" id="w-homological-double-complex">
-  <div class="hd"><div class="ttl">Total complex: the diagonal of a double complex</div><div class="hint">Slide n: Tot^n collects the anti-diagonal p+q=n; D = d^h + (−1)^p d^v.</div></div>
+  <div class="hd"><div class="ttl">Total complex: the diagonal of a double complex</div><div class="hint">Slide n: Tot^n collects the anti-diagonal p+q=n; D = d^h + d^v.</div></div>
   <div class="row">
     <label for="w-homological-double-complex-n">total degree $n$</label>
     <input type="range" id="w-homological-double-complex-n" min="0" max="6" value="2" step="1">
@@ -2808,7 +2808,7 @@ The "two ways to compute the same answer" is the workhorse identity behind balan
   if(!nIn || !nL || !svg || !out) return;
   var NS='http://www.w3.org/2000/svg';
   function mk(tag, attrs, text){ var e=document.createElementNS(NS, tag); for(var k in attrs){ e.setAttribute(k, attrs[k]); } if(text!=null) e.textContent=text; return e; }
-  function arrow(x1,y1,x2,y2,col,on){ var ang=Math.atan2(y2-y1,x2-x1), L=Math.hypot(x2-x1,y2-y1), ux=(x2-x1)/L, uy=(y2-y1)/L; var ex=x2-ux*8, ey=y2-uy*8;
+  function arrow(x1,y1,x2,y2,col,on){ var L=Math.hypot(x2-x1,y2-y1), ux=(x2-x1)/L, uy=(y2-y1)/L; var ex=x2-ux*8, ey=y2-uy*8;
     svg.appendChild(mk('line', {x1:x1+ux*16, y1:y1+uy*16, x2:ex, y2:ey, stroke:col, 'stroke-width':on?2:1.2, opacity:on?1:0.5}));
     svg.appendChild(mk('path', {d:'M'+ex+' '+ey+' L'+(ex-7*ux+3*uy)+' '+(ey-7*uy-3*ux)+' L'+(ex-7*ux-3*uy)+' '+(ey-7*uy+3*ux)+' Z', fill:col, opacity:on?1:0.5})); }
   var X0=110, Y0=240, dx=(N>4?86:104), dy=(N>4?52:62);
@@ -2817,10 +2817,12 @@ The "two ways to compute the same answer" is the workhorse identity behind balan
     var n=+nIn.value; nL.textContent='n = '+n;
     while(svg.firstChild) svg.removeChild(svg.firstChild);
     var p,q;
-    // arrows: d^h (→ p+1) and d^v (→ q+1, drawn upward)
-    for(p=0;p<N;p++) for(q=0;q<N;q++){
-      if(p+1<N) arrow(PX(p),PY(q),PX(p+1),PY(q),'var(--mute)', (p+q===n)&&(p+1+q===n+1));
-      if(q+1<N) arrow(PX(p),PY(q),PX(p),PY(q+1),'var(--mute)', false); }
+    // arrows: d^h (→ p+1) and d^v (→ q+1, drawn upward). An arrow whose SOURCE
+    // (p,q) is on the diagonal p+q=n is a component of D: Tot^n → Tot^{n+1}, so
+    // highlight both the horizontal and vertical arrows leaving that diagonal.
+    for(p=0;p<N;p++) for(q=0;q<N;q++){ var srcOn=(p+q===n), acol=srcOn?'var(--yellow)':'var(--mute)';
+      if(p+1<N) arrow(PX(p),PY(q),PX(p+1),PY(q), acol, srcOn);
+      if(q+1<N) arrow(PX(p),PY(q),PX(p),PY(q+1), acol, srcOn); }
     // nodes
     for(p=0;p<N;p++) for(q=0;q<N;q++){ var on=(p+q===n);
       svg.appendChild(mk('circle', {cx:PX(p), cy:PY(q), r:on?15:12, fill: on?'color-mix(in srgb, var(--yellow) 30%, transparent)':'var(--panel2)', stroke: on?'var(--yellow)':'var(--line)', 'stroke-width':on?2:1}));
@@ -2832,8 +2834,8 @@ The "two ways to compute the same answer" is the workhorse identity behind balan
     var summands=[]; for(q=0;q<N;q++){ p=n-q; if(p>=0 && p<N) summands.push('C^{'+p+','+q+'}'); }
     var lines=[];
     lines.push('A double complex C^{p,q} has two anticommuting differentials: d^h: C^{p,q}\u2192C^{p+1,q} and d^v: C^{p,q}\u2192C^{p,q+1}, with d^h\u00b2 = d^v\u00b2 = 0 and d^h d^v + d^v d^h = 0.');
-    lines.push('The TOTAL complex collects each anti-diagonal: Tot^n = \u2295_{p+q=n} C^{p,q}. Here Tot^' + n + ' = ' + (summands.join(' \u2295 ') || '0') + ' (highlighted).');
-    lines.push('Its total differential D = d^h + (\u22121)^p d^v maps Tot^n \u2192 Tot^{n+1}; the sign + anticommutativity give D\u00b2 = 0, so Tot is a single complex (the engine behind Tor symmetry and spectral sequences).');
+    lines.push('The TOTAL complex collects each anti-diagonal: Tot^n = \u2295_{p+q=n} C^{p,q}. Here Tot^' + n + ' = ' + summands.join(' \u2295 ') + ' (highlighted nodes; the bold arrows leaving them are the components of D).');
+    lines.push('Its total differential D = d^h + d^v maps Tot^n \u2192 Tot^{n+1}; anticommutativity (d^h d^v + d^v d^h = 0) gives D\u00b2 = 0, so Tot is a single complex (the engine behind Tor symmetry and spectral sequences).');
     out.textContent=lines.join('\n');
   }
   nIn.addEventListener('input', draw);

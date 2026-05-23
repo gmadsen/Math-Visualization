@@ -10141,7 +10141,7 @@ window.__MVWidgets = [
     "gesture": "interact",
     "role": "exploratory",
     "title": "homological-double-complex widget params",
-    "description": "Double-complex / total-complex explorer. A grid of objects C^{p,q} carries a horizontal differential d^h (→ p+1) and a vertical d^v (→ q+1) with d^h²=d^v²=0 and d^h d^v + d^v d^h = 0. The reader slides a total degree n; the widget highlights the anti-diagonal p+q=n whose direct sum is the total complex Tot^n, and shows the total differential D = d^h + (−1)^p d^v that makes Tot a single complex. The grid geometry is intrinsic; params carry only the grid size and chrome.",
+    "description": "Double-complex / total-complex explorer. A grid of objects C^{p,q} carries a horizontal differential d^h (→ p+1) and a vertical d^v (→ q+1) with d^h²=d^v²=0 and d^h d^v + d^v d^h = 0. The reader slides a total degree n; the widget highlights the anti-diagonal p+q=n whose direct sum is the total complex Tot^n, and shows the total differential D = d^h + d^v whose square vanishes by anticommutativity, making Tot a single complex. The grid geometry is intrinsic; params carry only the grid size and chrome.",
     "requiredParams": [
       "widgetId",
       "title"
