@@ -17,7 +17,7 @@ export function renderMarkup(params) {
     `  <div class="hd"><div class="ttl">${escapeHtml(title)}</div>${hintHtml}</div>\n` +
     `  <div class="row">\n` +
     `    <label for="${widgetId}-th">point $[x_0:x_1]$ around $\\mathbb{P}^1$</label>\n` +
-    `    <input type="range" id="${widgetId}-th" min="0" max="3.14159" value="0.6" step="0.01">\n` +
+    `    <input type="range" id="${widgetId}-th" min="0" max="3.0543261909900763" value="0.5235987755982988" step="0.08726646259971647">\n` +
     `  </div>\n` +
     `  <svg id="${widgetId}-svg" viewBox="0 0 540 250" width="540" height="250" role="img" aria-label="A point of the projective line and its coordinate in each of the two affine charts"><title>Proj: the projective line glued from two affine charts U0 and U1 by t = 1/s</title></svg>\n` +
     `  <div class="readout" id="${widgetId}-out"></div>\n` +
@@ -51,8 +51,8 @@ export function renderScript(params) {
     `    svg.appendChild(mk('text', {x:(isInf?LCx+LHalf:px), y:y-9, 'text-anchor':'middle', 'font-size':9, fill: isInf?'var(--mute)':'var(--yellow)'}, coord+'='+fmt(val,isInf))); }\n` +
     `  function draw(){\n` +
     `    var th=+thIn.value, x0=Math.cos(th), x1=Math.sin(th);\n` +
-    `    var t = Math.abs(x0)<1e-6 ? Infinity : x1/x0;  // U0 coord\n` +
-    `    var s = Math.abs(x1)<1e-6 ? Infinity : x0/x1;  // U1 coord = 1/t\n` +
+    `    var t = Math.abs(x0)<1e-4 ? Infinity : x1/x0;  // U0 coord (∞ at the pole [0:1])\n` +
+    `    var s = Math.abs(x1)<1e-4 ? Infinity : x0/x1;  // U1 coord = 1/t (∞ at the pole [1:0])\n` +
     `    while(svg.firstChild) svg.removeChild(svg.firstChild);\n` +
     `    // ℙ¹ as a semicircle (antipodal x0:x1 identified ⇒ θ∈[0,π))\n` +
     `    var arc=[], i; for(i=0;i<=60;i++){ var a=Math.PI*i/60; arc.push((Cx+Rs*Math.cos(a)).toFixed(1)+','+(Cyc-Rs*Math.sin(a)).toFixed(1)); }\n` +
@@ -67,7 +67,7 @@ export function renderScript(params) {
     `    var lines=[];\n` +
     `    lines.push('\\u2119\\u00b9 = Proj k[x\\u2080,x\\u2081] is covered by two affine lines: U\\u2080 = {x\\u2080\\u22600}, coordinate t = x\\u2081/x\\u2080, and U\\u2081 = {x\\u2081\\u22600}, coordinate s = x\\u2080/x\\u2081. On the overlap (both \\u22600) they glue by t = 1/s.');\n` +
     `    lines.push('Point [' + x0.toFixed(2) + ':' + x1.toFixed(2) + ']:  t = ' + (isFinite(t)?t.toFixed(2):'\\u221e (not in U\\u2080)') + ',  s = ' + (isFinite(s)?s.toFixed(2):'\\u221e (not in U\\u2081)') + '.');\n` +
-    `    lines.push('Two points sit in only one chart: [1:0] is t=0 in U\\u2080 but missing from U\\u2081 (s=\\u221e), and [0:1] is s=0 in U\\u2081 but the \\u201cpoint at infinity\\u201d of U\\u2080 (t=\\u221e). Glue the two lines at their ends and you get the whole projective line.');\n` +
+    `    lines.push('Two points sit in only one chart: [1:0] is t=0 in U\\u2080 but missing from U\\u2081 (s=\\u221e), and [0:1] is s=0 in U\\u2081 but the \\u201cpoint at infinity\\u201d of U\\u2080 (t=\\u221e). Glue the two lines at their ends and you get the whole projective line. (Drawn here are the real points \\u211d\\u2119\\u00b9; over \\u2102 the same charts cover the Riemann sphere.)');\n` +
     `    out.textContent=lines.join('\\n');\n` +
     `  }\n` +
     `  thIn.addEventListener('input', draw);\n` +
