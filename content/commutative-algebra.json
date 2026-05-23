@@ -419,6 +419,27 @@
           "html": "<section id=\"completion\">\n<h2>9. Completion</h2>\n\n<p>Completion is the second universal construction (after localization §8): instead of inverting elements, you inject every Cauchy sequence as a limit. For a ring $R$ and an ideal $I$:</p>\n\n$$\\hat R_I \\;=\\; \\varprojlim_{n} R/I^n \\;=\\; \\Big\\{\\,(r_n) \\in \\prod_n R/I^n \\;:\\; r_{n+1} \\equiv r_n \\pmod{I^n}\\,\\Big\\}.$$\n\n<p>The map $R \\to \\hat R_I$, $r \\mapsto (r \\bmod I^n)_n$, is the universal continuous ring map into an $I$-adically complete topological ring.</p>\n\n<div class=\"ok\"><strong>Canonical examples.</strong>\n<ul>\n<li>$R = \\mathbb{Z}$, $I = (p)$ → $\\hat R_I = \\mathbb{Z}_p$, the $p$-adic integers.</li>\n<li>$R = k[x]$, $I = (x)$ → $\\hat R_I = k[\\![x]\\!]$, formal power series.</li>\n<li>$R = \\mathcal{O}_X$, $I = \\mathfrak{m}_x$ → the local ring $\\widehat{\\mathcal{O}}_{X,x}$ at a point of a scheme — the algebraic model of \"infinitesimal neighborhood of $x$.\"</li>\n</ul></div>\n\n<p>For a Noetherian local ring $(R, \\mathfrak{m})$, completion has three structural payoffs:</p>\n\n<ul>\n<li><strong>Faithful flatness.</strong> $\\hat R$ is faithfully flat over $R$, so completion preserves and reflects exact sequences. Proofs about $R$ that go via $\\hat R$ are legitimate.</li>\n<li><strong>Krull's intersection theorem.</strong> $\\bigcap_n \\mathfrak{m}^n = 0$ in any Noetherian local ring — equivalently, $R$ injects into $\\hat R$.</li>\n<li><strong>Hensel's lemma.</strong> If $R$ is complete local, every factorization of a polynomial in $R/\\mathfrak{m}[x]$ as a product of coprime factors lifts to a factorization in $R[x]$. The lifting principle that makes $p$-adic methods work.</li>\n</ul>\n\n<p>Cohen's structure theorem then says every complete Noetherian local ring containing a field is (formally) a power series ring over its residue field modulo regular relations: $\\hat R \\cong k[\\![x_1,\\ldots,x_d]\\!] / (f_1,\\ldots,f_r)$. Local algebra reduces to formal-series algebra after completion.</p>\n\n"
         },
         {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget",
+          "slug": "commutative-algebra-completion",
+          "params": {
+            "widgetId": "w-commutative-algebra-completion",
+            "title": "The p-adic integers: ℤ_p = lim ℤ/pⁿ",
+            "hint": "Pick a prime and an element; watch the coherent residue tower. −1 = …(p−1)(p−1)."
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-commutative-algebra-completion"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
           "type": "quiz",
           "concept": "completion-ca",
           "html": "<div class=\"quiz\" data-concept=\"completion-ca\"></div>"
@@ -708,6 +729,27 @@
         {
           "type": "raw",
           "html": "<section id=\"koszul-complex\">\n<h2>16. Koszul complex</h2>\n\n<p>The Koszul complex turns \"regularity of a sequence\" — the most basic tightness condition on commutative-algebra inputs — into a homological vanishing statement. It's the bridge from element-level conditions (ideal-theoretic depth) to module-level resolutions.</p>\n\n<p>Given $R$-module elements $a_1,\\ldots,a_n \\in R$, the <strong>Koszul complex</strong> $K_\\bullet(a_1,\\ldots,a_n)$ is the exterior algebra $\\Lambda^\\bullet R^n$ as a graded $R$-module, with differential</p>\n\n$$d(e_{i_1}\\wedge\\cdots\\wedge e_{i_k}) \\;=\\; \\sum_{j=1}^{k} (-1)^{j-1}\\, a_{i_j}\\, e_{i_1}\\wedge\\cdots\\widehat{e_{i_j}}\\cdots\\wedge e_{i_k}.$$\n\n<p>Concretely $K_0 = R$, $K_n = R$, and $K_k = \\Lambda^k R^n = R^{\\binom{n}{k}}$ in between. The differential satisfies $d^2 = 0$ exactly because $a_i \\cdot a_j = a_j \\cdot a_i$.</p>\n\n<div class=\"ok\"><strong>Regularity ⇔ acyclicity.</strong> $a_1,\\ldots,a_n$ is a <em>regular sequence</em> on $R$ (each $a_i$ is a non-zero-divisor on $R/(a_1,\\ldots,a_{i-1})$) if and only if $K_\\bullet(a_1,\\ldots,a_n)$ is exact in positive degrees, with $H_0 = R/(a_1,\\ldots,a_n)$.</div>\n\n<p><strong>Three uses.</strong></p>\n<ul>\n<li><strong>Free resolutions.</strong> When the sequence is regular, the Koszul complex is a finite free resolution of $R/(a_1,\\ldots,a_n)$ — usable to compute $\\mathrm{Tor}^R_*$ and $\\mathrm{Ext}^*_R$ against the quotient.</li>\n<li><strong>Detecting depth.</strong> $\\mathrm{depth}_I(M)$, the length of the longest $M$-regular sequence in an ideal $I$, equals the smallest $i$ for which $H^i(K^\\bullet(a_1,\\ldots,a_n; M)) \\ne 0$ when $(a_1,\\ldots,a_n)$ generate $I$ — Koszul cohomology computes depth.</li>\n<li><strong>Geometric meaning.</strong> $K_\\bullet(a_1,\\ldots,a_n)$ resolves the structure sheaf of the closed subscheme cut out by $(a_1,\\ldots,a_n)$ when that subscheme is a complete intersection. The Koszul complex is the algebraic shadow of \"intersection of $n$ hypersurfaces.\"</li>\n</ul>\n\n<p>For depth and regular-sequence-style reasoning <em>beyond</em> the regular case, the appropriate generalization is the <a href=\"./homological.html#derived-functors\">derived-functor</a> machinery — Tor, Ext, and resolutions. Koszul is the prototype every Tor calculation specializes to in the simplest geometric case.</p>\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget",
+          "slug": "commutative-algebra-koszul",
+          "params": {
+            "widgetId": "w-commutative-algebra-koszul",
+            "title": "The Koszul complex K(a₁,…,aₙ)",
+            "hint": "Slide n: ranks are binomials C(n,k) summing to 2ⁿ; regular sequence ⇔ acyclic."
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-commutative-algebra-koszul"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
         },
         {
           "type": "quiz",

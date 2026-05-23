@@ -1756,6 +1756,74 @@ $$\hat R_I \;=\; \varprojlim_{n} R/I^n \;=\; \Big\{\,(r_n) \in \prod_n R/I^n \;:
 
 <p>Cohen's structure theorem then says every complete Noetherian local ring containing a field is (formally) a power series ring over its residue field modulo regular relations: $\hat R \cong k[\![x_1,\ldots,x_d]\!] / (f_1,\ldots,f_r)$. Local algebra reduces to formal-series algebra after completion.</p>
 
+
+<div class="widget" id="w-commutative-algebra-completion">
+  <div class="hd"><div class="ttl">The p-adic integers: ℤ_p = lim ℤ/pⁿ</div><div class="hint">Pick a prime and an element; watch the coherent residue tower. −1 = …(p−1)(p−1).</div></div>
+  <div class="row">
+    <span class="pill">prime $p$</span>
+    <button type="button" id="w-commutative-algebra-completion-p2">2</button>
+    <button type="button" id="w-commutative-algebra-completion-p3">3</button>
+    <button type="button" id="w-commutative-algebra-completion-p5">5</button>
+    <button type="button" id="w-commutative-algebra-completion-p7">7</button>
+  </div>
+  <div class="row">
+    <span class="pill">element</span>
+    <button type="button" id="w-commutative-algebra-completion-e0">$-1$</button>
+    <button type="button" id="w-commutative-algebra-completion-e1">$13$</button>
+    <button type="button" id="w-commutative-algebra-completion-e2">$1/(1-p)$</button>
+  </div>
+  <svg id="w-commutative-algebra-completion-svg" viewBox="0 0 560 250" width="560" height="250" role="img" aria-label="The p-adic integers as the inverse limit of Z mod p to the n"><title>Completion: Z_p = lim Z/p^n as a tower of coherent residues with a p-adic digit expansion</title></svg>
+  <div class="readout" id="w-commutative-algebra-completion-out"></div>
+</div><script>
+/* commutative-algebra-completion widget: w-commutative-algebra-completion */
+(function(){
+  var svg=document.getElementById('w-commutative-algebra-completion-svg'), out=document.getElementById('w-commutative-algebra-completion-out');
+  var pB={2:document.getElementById('w-commutative-algebra-completion-p2'),3:document.getElementById('w-commutative-algebra-completion-p3'),5:document.getElementById('w-commutative-algebra-completion-p5'),7:document.getElementById('w-commutative-algebra-completion-p7')};
+  var eB=[document.getElementById('w-commutative-algebra-completion-e0'),document.getElementById('w-commutative-algebra-completion-e1'),document.getElementById('w-commutative-algebra-completion-e2')];
+  if(!svg||!out|| !pB[2]||!pB[3]||!pB[5]||!pB[7] || eB.some(function(b){return !b;})) return;
+  var NS='http://www.w3.org/2000/svg';
+  function mk(tag, attrs, text){ var e=document.createElementNS(NS, tag); for(var k in attrs){ e.setAttribute(k, attrs[k]); } if(text!=null) e.textContent=text; return e; }
+  function txt(x,y,s,opt){ opt=opt||{}; svg.appendChild(mk('text', {x:x, y:y, 'text-anchor':opt.anchor||'start', 'font-size':opt.size||11, fill:opt.fill||'var(--ink)', 'font-weight':opt.weight||'normal', 'font-style':opt.italic?'italic':'normal'}, s)); }
+  // residue r_n = element mod p^n in [0, p^n)
+  function resid(elt, p, n){ var pn=Math.pow(p,n);
+    if(elt===0) return pn-1;            // -1  = ...(p-1)(p-1)
+    if(elt===1) return 13 % pn;          // 13
+    return (pn-1)/(p-1); }                // 1/(1-p) = 1+p+p^2+...
+  var NAME=['\u22121','13','1/(1\u2212p)'];
+  var p=5, elt=0;
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    for(var k in pB){ var on=(+k===p); pB[k].classList.toggle('active',on); pB[k].setAttribute('aria-pressed',on?'true':'false'); }
+    eB.forEach(function(b,i){ var on=(i===elt); b.classList.toggle('active',on); b.setAttribute('aria-pressed',on?'true':'false'); });
+    var N=6, r=[]; for(var n=0;n<=N;n++) r.push(n===0?0:resid(elt,p,n));
+    var digits=[]; for(var kk=0;kk<N;kk++) digits.push((r[kk+1]-r[kk])/Math.pow(p,kk));
+    txt(280, 22, '\u2124_' + p + ' = lim \u2124/' + p + '\u207f   (coherent residues: r_{n+1} \u2261 r_n mod ' + p + '\u207f)', {anchor:'middle', size:11, fill:'var(--mute)', italic:true});
+    // digit expansion
+    var ds=digits.slice().reverse().join('');
+    txt(280, 48, NAME[elt] + '  =  \u2026' + ds + '   (base ' + p + ', digits low\u2192high: ' + digits.join(' ') + ')', {anchor:'middle', size:12, fill:'var(--yellow)', weight:600});
+    // coherent residue tower
+    var x0=120, y0=80, dy=24;
+    for(var m=1;m<=N;m++){ var y=y0+(m-1)*dy;
+      txt(x0, y, 'mod ' + p + '^' + m + ':', {anchor:'end', size:11, fill:'var(--mute)'});
+      txt(x0+14, y, '' + r[m], {size:13, fill:'var(--cyan)', weight:600});
+      txt(x0+90, y, '=  ' + digits.slice(0,m).map(function(d,i){ return d+'\u00b7'+p+'^'+i; }).join(' + '), {size:10, fill:'var(--ink)'});
+      if(m<N) svg.appendChild(mk('text', {x:x0-40, y:y+dy-7, 'font-size':12, fill:'var(--green)'}, '\u2193 reduce'));
+    }
+    // readout
+    var lines=[];
+    lines.push('Completion at I=(' + p + '): \u2124_' + p + ' = lim\u2190 \u2124/' + p + '\u207f is the set of coherent towers (r_n) with r_n \u2208 \u2124/' + p + '\u207f and r_{n+1} \u2261 r_n (mod ' + p + '\u207f). Equivalently, formal base-' + p + ' expansions \u03a3 d_k ' + p + '^k with digits d_k \u2208 {0,\u2026,' + (p-1) + '} \u2014 but infinitely many digits to the LEFT.');
+    if(elt===0) lines.push('Here \u22121 = \u2026' + digits.join('') + ' (every digit ' + (p-1) + '): indeed (' + (p-1) + ')(1+' + p + '+' + p + '\u00b2+\u2026) sums to \u22121, since each partial residue is ' + p + '\u207f\u22121 \u2261 \u22121 (mod ' + p + '\u207f). A non-unit-looking series that IS \u22121 \u2014 the hallmark of completion.');
+    else if(elt===2) lines.push('Here 1/(1\u2212' + p + ') = 1+' + p + '+' + p + '\u00b2+\u2026 (every digit 1): the geometric series converges ' + p + '-adically because ' + p + '^k \u2192 0, and (1\u2212' + p + ')(1+' + p + '+\u2026)=1. A non-integer rational living in \u2124_' + p + '.');
+    else lines.push('Here 13 is an ordinary integer; its tower stabilizes once ' + p + '\u207f > 13, so its expansion is the finite base-' + p + ' form of 13 followed by zeros \u2014 \u2124 sits inside \u2124_' + p + ' as the eventually-terminating towers.');
+    lines.push('Why completion matters: \u2124_' + p + ' is faithfully flat over \u2124_{(' + p + ')}, \u2229_n (' + p + ')^n = 0 (Krull intersection), and Hensel\u2019s lemma lifts factorizations from \u2124/' + p + ' \u2014 the algebraic model of an infinitesimal neighbourhood.');
+    out.textContent=lines.join('\n');
+  }
+  for(var k in pB){ (function(kk){ pB[kk].addEventListener('click', function(){ p=+kk; draw(); }); })(k); }
+  eB.forEach(function(b,i){ b.addEventListener('click', function(){ elt=i; draw(); }); });
+  draw();
+})();
+</script>
+
 <div class="quiz" data-concept="completion-ca"></div>
 
 </section>
@@ -2631,6 +2699,59 @@ $$d(e_{i_1}\wedge\cdots\wedge e_{i_k}) \;=\; \sum_{j=1}^{k} (-1)^{j-1}\, a_{i_j}
 </ul>
 
 <p>For depth and regular-sequence-style reasoning <em>beyond</em> the regular case, the appropriate generalization is the <a href="./homological.html#derived-functors">derived-functor</a> machinery — Tor, Ext, and resolutions. Koszul is the prototype every Tor calculation specializes to in the simplest geometric case.</p>
+
+
+<div class="widget" id="w-commutative-algebra-koszul">
+  <div class="hd"><div class="ttl">The Koszul complex K(a₁,…,aₙ)</div><div class="hint">Slide n: ranks are binomials C(n,k) summing to 2ⁿ; regular sequence ⇔ acyclic.</div></div>
+  <div class="row">
+    <label for="w-commutative-algebra-koszul-n">number of elements $n$</label>
+    <input type="range" id="w-commutative-algebra-koszul-n" min="1" max="4" value="3" step="1">
+    <span class="pill" id="w-commutative-algebra-koszul-nval">n = 3</span>
+  </div>
+  <svg id="w-commutative-algebra-koszul-svg" viewBox="0 0 560 230" width="560" height="230" role="img" aria-label="The Koszul complex with binomial ranks"><title>Koszul complex K(a_1,...,a_n): the exterior algebra with binomial ranks; regular sequence iff acyclic</title></svg>
+  <div class="readout" id="w-commutative-algebra-koszul-out"></div>
+</div><script>
+/* commutative-algebra-koszul widget: w-commutative-algebra-koszul */
+(function(){
+  var nIn=document.getElementById('w-commutative-algebra-koszul-n'), nL=document.getElementById('w-commutative-algebra-koszul-nval');
+  var svg=document.getElementById('w-commutative-algebra-koszul-svg'), out=document.getElementById('w-commutative-algebra-koszul-out');
+  if(!nIn||!nL||!svg||!out) return;
+  var NS='http://www.w3.org/2000/svg';
+  function mk(tag, attrs, text){ var e=document.createElementNS(NS, tag); for(var k in attrs){ e.setAttribute(k, attrs[k]); } if(text!=null) e.textContent=text; return e; }
+  function txt(x,y,s,opt){ opt=opt||{}; svg.appendChild(mk('text', {x:x, y:y, 'text-anchor':opt.anchor||'middle', 'font-size':opt.size||11, fill:opt.fill||'var(--ink)', 'font-weight':opt.weight||'normal', 'font-style':opt.italic?'italic':'normal'}, s)); }
+  function binom(n,k){ if(k<0||k>n) return 0; var r=1; for(var j=0;j<k;j++){ r=r*(n-j)/(j+1); } return Math.round(r); }
+  function draw(){
+    var n=+nIn.value; nL.textContent='n = '+n;
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    var tot=Math.pow(2,n);
+    txt(280, 22, 'K\u2022(a\u2081,\u2026,a_' + n + ') = \u039b\u2022R^' + n + ',   total rank \u03a3_k C(' + n + ',k) = 2^' + n + ' = ' + tot, {size:11, fill:'var(--mute)', italic:true});
+    // chain of boxes K_n -> ... -> K_0 (d lowers degree)
+    var terms=n+1, x0=80, x1=478, y=92, bw=Math.min(70, (x1-x0)/terms - 8);
+    function cx(i){ return x0 + (terms<=1? (x1-x0)/2 : i*(x1-x0)/(terms-1)); }   // i=0 is K_n (left), i=terms-1 is K_0 (right)
+    txt(cx(0)-bw/2-8, y+4, '0 \u2192', {anchor:'end', size:11, fill:'var(--mute)'});
+    for(var i=0;i<terms;i++){ var k=n-i, rk=binom(n,k), X=cx(i);
+      svg.appendChild(mk('rect', {x:X-bw/2, y:y-15, width:bw, height:30, rx:5, fill: (k===0)?'color-mix(in srgb, var(--yellow) 18%, transparent)':'var(--panel2)', stroke:(k===0)?'var(--yellow)':'var(--cyan)', 'stroke-width':1.4}));
+      txt(X, y+4, (rk===1?'R':'R^'+rk), {size:12, fill:(k===0)?'var(--yellow)':'var(--ink)'});
+      txt(X, y-24, 'K_' + k, {size:9, fill:'var(--mute)'});
+      txt(X, y+30, 'C(' + n + ',' + k + ')=' + rk, {size:8, fill:'var(--mute)'});
+      if(i<terms-1){ var xm=(cx(i)+cx(i+1))/2; txt(xm, y+4, '\u2192', {size:15, fill:'var(--cyan)'}); txt(xm, y-10, 'd', {size:9, fill:'var(--cyan)', italic:true}); }
+    }
+    txt(cx(terms-1)+bw/2+8, y+4, '\u2192 0', {size:11, fill:'var(--mute)', anchor:'start'});
+    // facts
+    txt(280, 150, 'Euler characteristic  \u03a3_k (\u22121)^k C(' + n + ',k) = (1\u22121)^' + n + ' = 0', {size:11, fill:'var(--ink)'});
+    txt(280, 176, 'regular sequence  \u21d4  exact in positive degrees,  with  H\u2080 = R/(a\u2081,\u2026,a_' + n + ')', {size:12, fill:'var(--green)', weight:600});
+    // readout
+    var lines=[];
+    lines.push('The Koszul complex K\u2022(a\u2081,\u2026,a_' + n + ') is the exterior algebra \u039b\u2022R^' + n + ' with differential d(e_{i\u2081}\u2227\u2026\u2227e_{i_k}) = \u03a3_j (\u22121)^{j\u22121} a_{i_j} e_{i\u2081}\u2227\u2026\u0302e_{i_j}\u2026\u2227e_{i_k}. So K_k = \u039b^k R^' + n + ' = R^{C(' + n + ',k)}; here the ranks are ' + Array.from({length:n+1},function(_,k){return binom(n,k);}).join(', ') + ' (sum 2^' + n + ' = ' + tot + '). d\u00b2 = 0 holds precisely because a_i a_j = a_j a_i.');
+    if(n===1) lines.push('n=1:  0 \u2192 R \u2192(\u00d7a\u2081)\u2192 R \u2192 0.  H\u2080 = R/(a\u2081); H\u2081 = ker(\u00d7a\u2081) = ann(a\u2081). So a\u2081 is a regular element (non-zero-divisor) iff H\u2081 = 0.');
+    else if(n===2) lines.push('n=2:  0 \u2192 R \u2192 R\u00b2 \u2192 R \u2192 0 with d\u2082=(\u2212a\u2082, a\u2081)\u1d40 and d\u2081=(a\u2081, a\u2082).  H\u2080 = R/(a\u2081,a\u2082); H\u2081 vanishes iff every relation a\u2081x = \u2212a\u2082y is Koszul-trivial \u2014 i.e. (a\u2081,a\u2082) is a regular sequence.');
+    lines.push('Theorem: a\u2081,\u2026,a_' + n + ' is a REGULAR SEQUENCE (each a_i a non-zero-divisor on R/(a\u2081,\u2026,a_{i\u22121})) \u21d2 K\u2022 is exact in positive degrees, H\u2080 = R/(a\u2081,\u2026,a_' + n + '). The converse holds when R is Noetherian local (or graded with the a_i in the irrelevant ideal) \u2014 the standard setting here \u2014 giving the clean \u21d4. Then K\u2022 is a finite free RESOLUTION of that quotient \u2014 used to compute Tor and Ext against it, and to read off depth (the length of a maximal regular sequence in an ideal).');
+    out.textContent=lines.join('\n');
+  }
+  nIn.addEventListener('input', draw);
+  draw();
+})();
+</script>
 
 <div class="quiz" data-concept="koszul-complex-ca"></div>
 

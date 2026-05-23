@@ -3328,6 +3328,24 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "commutative-algebra-completion",
+    "family": "commutative-algebra-completion",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory",
+    "title": "commutative-algebra-completion widget params",
+    "description": "p-adic completion explorer realizing ℤ_p = lim ℤ/pⁿ. Pick a prime p ∈ {2,3,5,7} and an element (−1, 13, or 1/(1−p)); the widget shows the p-adic digit expansion Σ d_k pᵏ and the tower of coherent residues r_n = element mod pⁿ with r_{n+1} ≡ r_n (mod pⁿ). −1 is the all-(p−1) expansion, 1/(1−p)=1+p+p²+… is the all-1 expansion, and 13 is an ordinary integer whose tower stabilizes. Readout covers faithful flatness, Krull intersection, and Hensel's lemma. Arithmetic is intrinsic; params carry only chrome.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "p-adic completion explorer, introduced on `commutative-algebra.html` §9 (*Completion*). Bespoke semantic module — the arithmetic is intrinsic; params carry only chrome.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "commutative-algebra-flatness",
     "family": "parametric-plot",
     "dimension": "2d",
@@ -3379,6 +3397,24 @@ window.__MVWidgets = [
       "bodyScript"
     ],
     "readmeExcerpt": "Bespoke registry entry for the `w-int` widget on `commutative-algebra.html`. Carries the widget's full `<div class=\"widget\" id=\"…\">…</div>` markup and its driving `<script>` tag verbatim as artifact strings so the byte-identical round-trip gate passes. The widget closes over topic-specific data shapes that don't generalize to a shared family slug, so the bytes are preserved as-is rather than re-encoded into structured params.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "commutative-algebra-koszul",
+    "family": "commutative-algebra-koszul",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory",
+    "title": "commutative-algebra-koszul widget params",
+    "description": "Koszul-complex explorer. A slider n (1–4) draws K_•(a_1,…,a_n)=Λ•R^n as the chain 0→K_n→…→K_1→K_0→0 with free-module ranks K_k=R^{C(n,k)} (binomials summing to 2^n), the alternating-sum Euler characteristic Σ(−1)^k C(n,k)=0, and the theorem: a_1,…,a_n is a regular sequence ⇔ the complex is exact in positive degrees with H_0=R/(a_1,…,a_n). The readout gives the contraction differential, why d²=0 (commutativity), the explicit n=1,2 cases, and the uses (free resolutions for Tor/Ext, depth). Combinatorics are intrinsic; params carry only chrome.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Koszul-complex explorer, introduced on `commutative-algebra.html` §16 (*Koszul complex*). Bespoke semantic module — the combinatorics are intrinsic; params carry only chrome.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,

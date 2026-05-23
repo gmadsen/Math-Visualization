@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/commutative-algebra-koszul/schema.json",
+  "title": "commutative-algebra-koszul widget params",
+  "description": "Koszul-complex explorer. A slider n (1–4) draws K_•(a_1,…,a_n)=Λ•R^n as the chain 0→K_n→…→K_1→K_0→0 with free-module ranks K_k=R^{C(n,k)} (binomials summing to 2^n), the alternating-sum Euler characteristic Σ(−1)^k C(n,k)=0, and the theorem: a_1,…,a_n is a regular sequence ⇔ the complex is exact in positive degrees with H_0=R/(a_1,…,a_n). The readout gives the contraction differential, why d²=0 (commutativity), the explicit n=1,2 cases, and the uses (free resolutions for Tor/Ext, depth). Combinatorics are intrinsic; params carry only chrome.",
+  "meta": {
+    "family": "commutative-algebra-koszul",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id; the script derives -n (slider), -nval (pill), -svg, -out."
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title rendered inside .hd > .ttl."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional short hint rendered inside .hd > .hint."
+    }
+  }
+}
