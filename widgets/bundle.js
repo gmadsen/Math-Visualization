@@ -3346,6 +3346,24 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "commutative-algebra-dedekind",
+    "family": "commutative-algebra-dedekind",
+    "dimension": "2d",
+    "gesture": "select",
+    "role": "exploratory",
+    "title": "commutative-algebra-dedekind widget params",
+    "description": "Dedekind ideal-factorization explorer in Z[√−5]. Two buttons expand the two element factorizations of 6 (2·3 and (1+√−5)(1−√−5)) into prime ideals; both refine to the SAME prime-ideal factorization (6)=p₂²·p₃·p₃′ where p₂=(2,1+√−5), p₃=(3,1+√−5), p₃′=(3,1−√−5) — unique factorization restored at the ideal level even though Z[√−5] is not a UFD. Readout covers the Dedekind axioms, the ramify/split behavior, the class group Cl(R)=Z/2 measuring the gap to a UFD, and the DVR-at-each-prime localization. Arithmetic is intrinsic; params carry only chrome.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Dedekind ideal-factorization explorer, introduced on `commutative-algebra.html` §14 (*Discrete valuation rings and Dedekind domains*). Bespoke semantic module — the arithmetic is intrinsic; params carry only chrome.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "commutative-algebra-flatness",
     "family": "parametric-plot",
     "dimension": "2d",
