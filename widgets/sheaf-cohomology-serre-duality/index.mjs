@@ -56,7 +56,7 @@ export function renderScript(params) {
     `    svg.appendChild(mk('rect', {x:x-w/2, y:y, width:w, height:54, rx:6, fill:'var(--panel2)', stroke:stroke, 'stroke-width':1.6}));\n` +
     `    txt(x, y+22, lines[0], {size:13, fill:tcol, weight:600}); txt(x, y+42, lines[1], {size:12, fill:'var(--ink)'}); }\n` +
     `  function draw(){\n` +
-    `    var n=+nIn.value, d=+dIn.value, i=+iIn.value; if(i>n) i=n;\n` +
+    `    var n=+nIn.value, d=+dIn.value, i=+iIn.value; if(i>n){ i=n; iIn.value=i; }\n` +
     `    nL.textContent='n = '+n; dL.textContent='d = '+d; iL.textContent='i = '+i;\n` +
     `    while(svg.firstChild) svg.removeChild(svg.firstChild);\n` +
     `    var dd = -d-n-1, ii = n-i;            // Serre-dual cell\n` +
@@ -69,7 +69,7 @@ export function renderScript(params) {
     `    var agree = (h1===h2);\n` +
     `    txt(280, 150, agree ? ('\\u2713  dims agree: ' + h1 + ' = ' + h2) : ('mismatch: ' + h1 + ' \\u2260 ' + h2), {size:13, fill: agree?'var(--green)':'var(--pink)', weight:600});\n` +
     `    // d number-line with the reflection about d = -(n+1)/2\n` +
-    `    var axis=-(n+1)/2, x0=60, x1=500, dmin=-9, dmax=9, sx=function(v){ return x0 + (v-dmin)/(dmax-dmin)*(x1-x0); };\n` +
+    `    var axis=-(n+1)/2, x0=60, x1=500, dmin=-13, dmax=9, sx=function(v){ return x0 + (v-dmin)/(dmax-dmin)*(x1-x0); };\n` +
     `    svg.appendChild(mk('line', {x1:x0, y1:190, x2:x1, y2:190, stroke:'var(--line)', 'stroke-width':1}));\n` +
     `    svg.appendChild(mk('line', {x1:sx(axis), y1:180, x2:sx(axis), y2:200, stroke:'var(--violet)', 'stroke-width':1.5, 'stroke-dasharray':'3 2'}));\n` +
     `    txt(sx(axis), 214, 'reflect about d = ' + (axis) , {size:9, fill:'var(--violet)'});\n` +

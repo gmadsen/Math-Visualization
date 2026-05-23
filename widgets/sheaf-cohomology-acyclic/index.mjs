@@ -41,7 +41,7 @@ export function renderScript(params) {
     `  function cell(x,y,label,stroke){ var w=66,h=30; svg.appendChild(mk('rect', {x:x-w/2, y:y-h/2, width:w, height:h, rx:5, fill:'var(--panel2)', stroke:stroke, 'stroke-width':1.5})); txt(x, y+4, label, {size:12, fill:'var(--ink)'}); }\n` +
     `  var SCEN=[\n` +
     `    { aug:'F', chain:['G\\u2070(F)','G\\u00b9(F)','G\\u00b2(F)'], col:'var(--yellow)',\n` +
-    `      note:'Godement: G\\u1d4f(F) = \\u220f over points of the stalks \\u2014 FLABBY (every restriction surjects), hence \\u0393-acyclic. Canonical and always exists; this is essentially the R\\u2071\\u0393 definition made concrete.',\n` +
+    `      note:'Godement: G\\u2070(F) = \\u220f over points of the stalks of F (higher G\\u1d4f iterate the same construction on cokernels) \\u2014 FLABBY (every restriction surjects), hence \\u0393-acyclic. Canonical and always exists; this is essentially the R\\u2071\\u0393 definition made concrete.',\n` +
     `      computes:'H\\u2071(X,F) = R\\u2071\\u0393(X,F)' },\n` +
     `    { aug:'\\u211d', chain:['\\u03a9\\u2070','\\u03a9\\u00b9','\\u03a9\\u00b2'], col:'var(--green)',\n` +
     `      note:'On a smooth manifold the de Rham complex 0\\u2192\\u211d\\u2192\\u03a9\\u2070\\u2192\\u03a9\\u00b9\\u2192\\u22ef is a resolution (Poincar\\u00e9 lemma); each \\u03a9\\u1d56 is FINE (partitions of unity) hence acyclic. Taking \\u0393 gives global forms.',\n` +

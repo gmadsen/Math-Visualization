@@ -587,7 +587,7 @@ When $f$ is an affine morphism of schemes and $\mathcal{F}$ is quasi-coherent, $
   function cell(x,y,label,stroke){ var w=66,h=30; svg.appendChild(mk('rect', {x:x-w/2, y:y-h/2, width:w, height:h, rx:5, fill:'var(--panel2)', stroke:stroke, 'stroke-width':1.5})); txt(x, y+4, label, {size:12, fill:'var(--ink)'}); }
   var SCEN=[
     { aug:'F', chain:['G\u2070(F)','G\u00b9(F)','G\u00b2(F)'], col:'var(--yellow)',
-      note:'Godement: G\u1d4f(F) = \u220f over points of the stalks \u2014 FLABBY (every restriction surjects), hence \u0393-acyclic. Canonical and always exists; this is essentially the R\u2071\u0393 definition made concrete.',
+      note:'Godement: G\u2070(F) = \u220f over points of the stalks of F (higher G\u1d4f iterate the same construction on cokernels) \u2014 FLABBY (every restriction surjects), hence \u0393-acyclic. Canonical and always exists; this is essentially the R\u2071\u0393 definition made concrete.',
       computes:'H\u2071(X,F) = R\u2071\u0393(X,F)' },
     { aug:'\u211d', chain:['\u03a9\u2070','\u03a9\u00b9','\u03a9\u00b2'], col:'var(--green)',
       note:'On a smooth manifold the de Rham complex 0\u2192\u211d\u2192\u03a9\u2070\u2192\u03a9\u00b9\u2192\u22ef is a resolution (Poincar\u00e9 lemma); each \u03a9\u1d56 is FINE (partitions of unity) hence acyclic. Taking \u0393 gives global forms.',
@@ -1020,7 +1020,7 @@ Combine with Serre duality ($H^1(L) \cong H^0(\omega_C \otimes L^{-1})^\vee$, $\
     svg.appendChild(mk('rect', {x:x-w/2, y:y, width:w, height:54, rx:6, fill:'var(--panel2)', stroke:stroke, 'stroke-width':1.6}));
     txt(x, y+22, lines[0], {size:13, fill:tcol, weight:600}); txt(x, y+42, lines[1], {size:12, fill:'var(--ink)'}); }
   function draw(){
-    var n=+nIn.value, d=+dIn.value, i=+iIn.value; if(i>n) i=n;
+    var n=+nIn.value, d=+dIn.value, i=+iIn.value; if(i>n){ i=n; iIn.value=i; }
     nL.textContent='n = '+n; dL.textContent='d = '+d; iL.textContent='i = '+i;
     while(svg.firstChild) svg.removeChild(svg.firstChild);
     var dd = -d-n-1, ii = n-i;            // Serre-dual cell
@@ -1033,7 +1033,7 @@ Combine with Serre duality ($H^1(L) \cong H^0(\omega_C \otimes L^{-1})^\vee$, $\
     var agree = (h1===h2);
     txt(280, 150, agree ? ('\u2713  dims agree: ' + h1 + ' = ' + h2) : ('mismatch: ' + h1 + ' \u2260 ' + h2), {size:13, fill: agree?'var(--green)':'var(--pink)', weight:600});
     // d number-line with the reflection about d = -(n+1)/2
-    var axis=-(n+1)/2, x0=60, x1=500, dmin=-9, dmax=9, sx=function(v){ return x0 + (v-dmin)/(dmax-dmin)*(x1-x0); };
+    var axis=-(n+1)/2, x0=60, x1=500, dmin=-13, dmax=9, sx=function(v){ return x0 + (v-dmin)/(dmax-dmin)*(x1-x0); };
     svg.appendChild(mk('line', {x1:x0, y1:190, x2:x1, y2:190, stroke:'var(--line)', 'stroke-width':1}));
     svg.appendChild(mk('line', {x1:sx(axis), y1:180, x2:sx(axis), y2:200, stroke:'var(--violet)', 'stroke-width':1.5, 'stroke-dasharray':'3 2'}));
     txt(sx(axis), 214, 'reflect about d = ' + (axis) , {size:9, fill:'var(--violet)'});
