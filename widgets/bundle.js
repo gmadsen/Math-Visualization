@@ -3479,6 +3479,44 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "complex-analysis-fta",
+    "family": "complex-analysis-fta",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory",
+    "title": "complex-analysis-fta widget params",
+    "description": "Fundamental-theorem-of-algebra winding-number explorer. The reader picks a monic polynomial p and a radius R; the widget draws the circle |z|=R in the z-plane (with the polynomial's roots) and the image curve p(R e^{iθ}) in the w-plane, and reports the winding number of that image around 0 — which equals the number of roots inside |z|<R. Sweeping R shows the winding climb from 0 (small R, no roots) to deg p (large R, all roots), so the image must sweep across 0: p has a root. The polynomial eval + winding count are intrinsic; params carry the case menu (coefficients + roots for plotting).",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "cases"
+    ],
+    "readmeExcerpt": "Fundamental-theorem-of-algebra winding-number explorer, introduced on `complex-analysis.html` §13. Bespoke semantic module — polynomial evaluation and the winding-number count are intrinsic; params carry only the case menu.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "complex-analysis-harmonic",
+    "family": "complex-analysis-harmonic",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory",
+    "title": "complex-analysis-harmonic widget params",
+    "description": "Harmonic-function mean-value explorer. The reader picks a harmonic u = Re f and a circle (center on the real axis, radius r); the left panel shows the circle with boundary points colored by whether u there exceeds (cyan) or trails (pink) the center value, and the right panel plots u along the circle against the dashed average line. The readout confirms the average equals u(center) — the mean-value property — so the center is neither a max nor a min (the maximum principle). The function eval is intrinsic (a `kind` enum); params carry the case menu.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "cases"
+    ],
+    "readmeExcerpt": "Harmonic-function mean-value explorer, introduced on `complex-analysis.html` §26. Bespoke semantic module — the harmonic function eval is intrinsic (a `kind` enum); params carry only the case menu.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "complex-analysis-laurent",
     "family": "complex-analysis-laurent",
     "dimension": "2d",
