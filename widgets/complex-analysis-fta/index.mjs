@@ -46,7 +46,7 @@ export function renderScript(params) {
     `  var rIn = document.getElementById('${widgetId}-r'), rL = document.getElementById('${widgetId}-rval');\n` +
     `  var svg = document.getElementById('${widgetId}-svg');\n` +
     `  var out = document.getElementById('${widgetId}-out');\n` +
-    `  if(!sel || !rIn || !svg || !out) return;\n` +
+    `  if(!sel || !rIn || !rL || !svg || !out) return;\n` +
     `  var NS = 'http://www.w3.org/2000/svg';\n` +
     `  function mk(tag, attrs, text){ var e = document.createElementNS(NS, tag); for(var k in attrs){ e.setAttribute(k, attrs[k]); } if(text!=null) e.textContent = text; return e; }\n` +
     `  function cmul(p,q){ return [p[0]*q[0]-p[1]*q[1], p[0]*q[1]+p[1]*q[0]]; }\n` +
@@ -71,6 +71,7 @@ export function renderScript(params) {
     `      var m=Math.hypot(w[0],w[1]); if(m>maxMod) maxMod=m; if(m<minMod) minMod=m;\n` +
     `      var ang=Math.atan2(w[1], w[0]); if(prev!==null){ var d=ang-prev; while(d>Math.PI)d-=2*Math.PI; while(d<=-Math.PI)d+=2*Math.PI; total+=d; } prev=ang; }\n` +
     `    var winding = Math.round(total/(2*Math.PI));\n` +
+    `    var onCircle = minMod < 0.04*maxMod; // a root sits (near) on |z| = R: winding is ill-defined\n` +
     `    var sc = WR/maxMod;\n` +
     `    svg.appendChild(mk('line', {x1:WCX-100, y1:WCY, x2:WCX+100, y2:WCY, stroke:'var(--line)'}));\n` +
     `    svg.appendChild(mk('line', {x1:WCX, y1:WCY-100, x2:WCX, y2:WCY+100, stroke:'var(--line)'}));\n` +
@@ -82,9 +83,8 @@ export function renderScript(params) {
     `    svg.appendChild(mk('circle', {cx:WCX, cy:WCY, r:3.5, fill:'var(--pink)'}));\n` +
     `    svg.appendChild(mk('text', {x:WCX+7, y:WCY+13, 'font-size':9, fill:'var(--pink)'}, 'w = 0'));\n` +
     `    svg.appendChild(mk('text', {x:WCX, y:24, 'text-anchor':'middle', 'font-size':11, fill:'var(--mute)', 'font-style':'italic'}, 'image  w = p(z)'));\n` +
-    `    svg.appendChild(mk('text', {x:WCX, y:280, 'text-anchor':'middle', 'font-size':12, fill:'var(--violet)'}, 'winding number = ' + winding));\n` +
+    `    svg.appendChild(mk('text', {x:WCX, y:280, 'text-anchor':'middle', 'font-size':12, fill:'var(--violet)'}, 'winding number = ' + (onCircle ? '\\u2014' : winding)));\n` +
     `    // ----- readout -----\n` +
-    `    var onCircle = minMod < 0.04*maxMod;\n` +
     `    var lines = [];\n` +
     `    lines.push('p(z) = ' + c.label + ',   deg p = ' + n + '.');\n` +
     `    lines.push('On |z| = R = ' + R.toFixed(2) + ':  ' + inside + ' of ' + n + ' root(s) lie inside.');\n` +

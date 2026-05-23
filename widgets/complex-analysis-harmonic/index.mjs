@@ -49,7 +49,7 @@ export function renderScript(params) {
     `  var pill = document.getElementById('${widgetId}-pill');\n` +
     `  var svg = document.getElementById('${widgetId}-svg');\n` +
     `  var out = document.getElementById('${widgetId}-out');\n` +
-    `  if(!sel || !cxIn || !rIn || !svg || !out) return;\n` +
+    `  if(!sel || !cxIn || !rIn || !pill || !svg || !out) return;\n` +
     `  var NS = 'http://www.w3.org/2000/svg';\n` +
     `  function mk(tag, attrs, text){ var e = document.createElementNS(NS, tag); for(var k in attrs){ e.setAttribute(k, attrs[k]); } if(text!=null) e.textContent = text; return e; }\n` +
     `  function u(kind, x, y){\n` +
@@ -70,7 +70,7 @@ export function renderScript(params) {
     `    var N=360, i, th, vals=[], sum=0, vmin=Infinity, vmax=-Infinity;\n` +
     `    for(i=0;i<N;i++){ th=2*Math.PI*i/N; var v=u(c.kind, cx+r*Math.cos(th), cy+r*Math.sin(th)); vals.push(v); sum+=v; if(v<vmin)vmin=v; if(v>vmax)vmax=v; }\n` +
     `    var avg = sum/N;\n` +
-    `    var encloses0 = (c.kind==='re_inv') && (Math.hypot(cx,cy) < r);\n` +
+    `    var encloses0 = (c.kind==='re_inv') && (Math.hypot(cx,cy) <= r + 1e-9); // disk contains OR the circle touches z=0\n` +
     `    // ----- left: z-plane circle + boundary signs -----\n` +
     `    svg.appendChild(mk('line', {x1:LCX-110, y1:LCY, x2:LCX+110, y2:LCY, stroke:'var(--line)'}));\n` +
     `    svg.appendChild(mk('line', {x1:LCX, y1:LCY-110, x2:LCX, y2:LCY+110, stroke:'var(--line)'}));\n` +
@@ -94,13 +94,17 @@ export function renderScript(params) {
     `      svg.appendChild(mk('polyline', {points:pts.join(' '), fill:'none', stroke:'var(--green)', 'stroke-width':1.8}));\n` +
     `      // average line\n` +
     `      svg.appendChild(mk('line', {x1:PX0, y1:PY(avg), x2:PX0+PW, y2:PY(avg), stroke:'var(--yellow)', 'stroke-width':1.4, 'stroke-dasharray':'5 3'}));\n` +
-    `      svg.appendChild(mk('text', {x:PX0+PW, y:PY(avg)-4, 'text-anchor':'end', 'font-size':10, fill:'var(--yellow)'}, 'mean = u(c)'));\n` +
+    `      svg.appendChild(mk('text', {x:PX0+PW, y:PY(avg)-4, 'text-anchor':'end', 'font-size':10, fill:'var(--yellow)'}, encloses0 ? 'boundary mean \\u2260 u(c)' : 'mean = u(c)'));\n` +
     `    }\n` +
     `    // ----- readout -----\n` +
     `    var lines = [];\n` +
-    `    lines.push('u = ' + c.label + '  is harmonic:  \\u0394u = u_xx + u_yy = 0.');\n` +
+    `    lines.push(c.kind==='re_inv'\n` +
+    `      ? 'u = ' + c.label + '  is harmonic on \\u2102 \\u2216 {0}:  \\u0394u = 0 everywhere except the origin.'\n` +
+    `      : 'u = ' + c.label + '  is harmonic:  \\u0394u = u_xx + u_yy = 0.');\n` +
     `    if(encloses0){\n` +
-    `      lines.push('This circle encloses the singularity at z = 0, where u is NOT harmonic \\u2014 so the mean-value property need not hold here. Move the center out so 0 lies outside the disk.');\n` +
+    `      lines.push('This circle encloses (or touches) the singularity at z = 0, where u is NOT harmonic \\u2014 so the mean-value property need not hold: the boundary average differs from u(c). Move the center out so 0 lies outside the disk.');\n` +
+    `    } else if(isNaN(avg)){\n` +
+    `      lines.push('The boundary average is undefined here \\u2014 the circle passes through a singularity. Nudge the center or radius.');\n` +
     `    } else {\n` +
     `      lines.push('Mean of u over the circle = ' + avg.toFixed(4) + '.   u at the center c = (' + cx.toFixed(2) + ', 0) is ' + uc.toFixed(4) + '.');\n` +
     `      lines.push('They agree \\u2014 the MEAN-VALUE property: a harmonic function equals the average of its boundary values.');\n` +
