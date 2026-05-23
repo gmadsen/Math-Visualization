@@ -446,6 +446,28 @@
         },
         {
           "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget",
+          "slug": "homological-les-sphere",
+          "params": {
+            "widgetId": "w-homological-les-sphere",
+            "title": "Computing Hₙ(Sⁿ) by Mayer–Vietoris",
+            "hint": "Slide n: the connecting map ∂ is flanked by zeros, so Hₙ(Sⁿ) ≅ Hₙ₋₁(Sⁿ⁻¹).",
+            "maxDim": 6
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-homological-les-sphere"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "raw",
           "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./algebraic-topology.html#homology\">Singular homology</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {
@@ -937,6 +959,27 @@
         {
           "type": "raw",
           "html": "<section id=\"cartan-eilenberg\">\n<h2>14. Cartan–Eilenberg resolutions</h2>\n\n<p>The two-dimensional analog of a projective (or injective) resolution: where a single module gets resolved by a complex, an entire chain complex gets resolved by a <em>double complex</em>.</p>\n\n<p>Given a chain complex $C^\\bullet$ in an abelian category with enough projectives, a <strong>Cartan–Eilenberg resolution</strong> is a double complex $P^{\\bullet,\\bullet}$ together with a quasi-isomorphism $P^{\\bullet,\\bullet} \\to C^\\bullet$ (treated as a double complex concentrated in row 0) satisfying:</p>\n\n<ul>\n<li>Each $P^{p,q}$ is projective.</li>\n<li>For each row $p$, $P^{p,\\bullet} \\to C^p$ is a projective resolution of $C^p$.</li>\n<li>The induced maps on cycles, boundaries, and homology — $Z^p(P^{\\bullet,\\bullet}), B^p(P^{\\bullet,\\bullet}), H^p(P^{\\bullet,\\bullet})$ in the horizontal direction — are projective resolutions of $Z^p(C^\\bullet), B^p(C^\\bullet), H^p(C^\\bullet)$ respectively.</li>\n</ul>\n\n<p>The third condition is what distinguishes a Cartan–Eilenberg resolution from a \"rowwise resolution\"; it's needed to make the constructions naturally functorial.</p>\n\n<div class=\"ok\"><strong>Existence and uniqueness.</strong> Every chain complex bounded below admits a Cartan–Eilenberg resolution, and any two are chain-homotopy equivalent as double complexes. Dually for injective resolutions of complexes bounded above.</div>\n\n<p><strong>Two big uses.</strong></p>\n<ul>\n<li><strong>Hyper-derived functors.</strong> For a left-exact functor $F$ and a chain complex $C^\\bullet$, the hyper-derived functor $\\mathbb{R}^n F(C^\\bullet)$ is computed as $H^n(F(P^{\\bullet,\\bullet}))$ for any Cartan–Eilenberg resolution. This generalizes derived functors from a single object to a complex.</li>\n<li><strong>Grothendieck spectral sequence.</strong> The composition spectral sequence $\\mathbb{R}^p G \\circ \\mathbb{R}^q F \\Rightarrow \\mathbb{R}^{p+q}(GF)$ for left-exact $F$ followed by left-exact $G$ comes from applying $G$ to a Cartan–Eilenberg resolution of $F$-acyclics. It's the spectral sequence behind Leray (sheaf cohomology of a pushforward), the Lyndon–Hochschild–Serre sequence (group cohomology of an extension), and the Eilenberg–Moore sequence in topology.</li>\n</ul>\n\n<p>Cartan–Eilenberg resolutions are how you do <em>derived</em> homological algebra one level up: not a derived functor of an object, but of a complex of objects, with all the spectral-sequence machinery the second dimension brings.</p>\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget",
+          "slug": "homological-cartan-eilenberg",
+          "params": {
+            "widgetId": "w-homological-cartan-eilenberg",
+            "title": "Resolving a complex by a double complex",
+            "hint": "Three tabs: the complex, the column resolutions, then the Z/B/H resolutions."
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-homological-cartan-eilenberg"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
         },
         {
           "type": "quiz",

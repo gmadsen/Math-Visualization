@@ -1696,6 +1696,79 @@ B_1 & \to & B_2 & \to & B_3 & \to & B_4 & \to & B_5.
 
 <div class="note">Mayer–Vietoris is the long exact sequence attached to the SES $0\to C_\bullet(U\cap V)\to C_\bullet(U)\oplus C_\bullet(V)\to C_\bullet(U\cup V)\to 0$. It computes $H_*(S^n)$ in one line: gluing two $n$-disks along an equatorial $S^{n-1}$ gives $H_n(S^n)\cong H_{n-1}(S^{n-1})$, hence inductively $H_n(S^n)\cong\mathbb{Z}$.</div>
 
+
+<div class="widget" id="w-homological-les-sphere">
+  <div class="hd"><div class="ttl">Computing Hₙ(Sⁿ) by Mayer–Vietoris</div><div class="hint">Slide n: the connecting map ∂ is flanked by zeros, so Hₙ(Sⁿ) ≅ Hₙ₋₁(Sⁿ⁻¹).</div></div>
+  <div class="row">
+    <label for="w-homological-les-sphere-n">sphere $S^n$, $n$</label>
+    <input type="range" id="w-homological-les-sphere-n" min="1" max="6" value="3" step="1">
+    <span class="pill" id="w-homological-les-sphere-nval">n = 3</span>
+  </div>
+  <svg id="w-homological-les-sphere-svg" viewBox="0 0 560 300" width="560" height="300" role="img" aria-label="Mayer–Vietoris computation of the homology of an n-sphere"><title>Computing H_*(S^n) via the Mayer–Vietoris long exact sequence</title></svg>
+  <div class="readout" id="w-homological-les-sphere-out"></div>
+</div><script>
+/* homological-les-sphere widget: w-homological-les-sphere */
+(function(){
+  var nIn=document.getElementById('w-homological-les-sphere-n'), nL=document.getElementById('w-homological-les-sphere-nval');
+  var svg=document.getElementById('w-homological-les-sphere-svg'), out=document.getElementById('w-homological-les-sphere-out');
+  if(!nIn || !nL || !svg || !out) return;
+  var NS='http://www.w3.org/2000/svg';
+  function mk(tag, attrs, text){ var e=document.createElementNS(NS, tag); for(var k in attrs){ e.setAttribute(k, attrs[k]); } if(text!=null) e.textContent=text; return e; }
+  function txt(x,y,s,opt){ opt=opt||{}; svg.appendChild(mk('text', {x:x, y:y, 'text-anchor':opt.anchor||'middle', 'font-size':opt.size||12, fill:opt.fill||'var(--ink)', 'font-style':opt.italic?'italic':'normal', 'font-weight':opt.weight||'normal'}, s)); }
+  function grp(k,n){ return (k===0 || k===n) ? '\u2124' : '0'; }
+  function draw(){
+    var n=+nIn.value; nL.textContent='n = '+n;
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    txt(280, 24, 'S^' + n + ' = U \u222a V with U, V contractible hemispheres and U\u2229V \u2243 S^' + (n-1), {size:11, fill:'var(--mute)', italic:true});
+    // --- the MV long exact sequence chunk at the top degree k=n ---
+    if(n>=2){
+      txt(280, 58, 'Mayer\u2013Vietoris at degree k = ' + n + ':', {size:11, fill:'var(--cyan)', weight:600});
+      var yA=92;
+      txt(70,  yA, '0', {size:14, fill:'var(--mute)'});
+      txt(70,  yA+18, 'H_' + n + '(U)\u2295H_' + n + '(V)', {size:9, fill:'var(--mute)'});
+      txt(150, yA, '\u2192', {size:16, fill:'var(--mute)'});
+      txt(232, yA, 'H_' + n + '(S^' + n + ')', {size:14, fill:'var(--yellow)', weight:600});
+      txt(330, yA, '\u2192', {size:16, fill:'var(--pink)'});
+      txt(330, yA-14, '\u2202', {size:13, fill:'var(--pink)'});
+      txt(430, yA, 'H_' + (n-1) + '(S^' + (n-1) + ')', {size:14, fill:'var(--yellow)', weight:600});
+      txt(510, yA, '\u2192', {size:16, fill:'var(--mute)'});
+      txt(540, yA, '0', {size:14, fill:'var(--mute)'});
+      txt(540, yA+18, 'H_' + (n-1) + '(U)\u2295H_' + (n-1) + '(V)', {size:9, fill:'var(--mute)'});
+      txt(330, yA+22, 'flanked by 0 \u21d2 \u2202 is an isomorphism', {size:10, fill:'var(--green)'});
+    } else {
+      txt(280, 58, 'Base case n = 1:', {size:11, fill:'var(--cyan)', weight:600});
+      txt(280, 92, 'H_1(S^1) = \u2124', {size:16, fill:'var(--yellow)', weight:600});
+      txt(280, 112, '(the circle has one independent 1-cycle)', {size:10, fill:'var(--mute)'});
+    }
+    // --- descent ladder H_n(S^n) ≅ ... ≅ H_1(S^1) = ℤ ---
+    txt(280, 150, 'Descent ladder (iterate MV down the dimensions):', {size:11, fill:'var(--cyan)', weight:600});
+    var parts=[]; for(var k=n;k>=1;k--){ parts.push('H_' + k + '(S^' + k + ')'); }
+    var ladder = parts.join('  \u2245  ') + '  =  \u2124';
+    txt(280, 174, ladder, {size: (n>=6?10:12), fill:'var(--ink)'});
+    // --- Betti table for S^n ---
+    txt(280, 212, 'Homology of S^' + n + ':', {size:11, fill:'var(--cyan)', weight:600});
+    var degs=[]; for(var d=0;d<=n;d++) degs.push(d);
+    var bw=Math.min(64, Math.floor(480/(n+1))), x0=280-(n+1)*bw/2, by=232, bh=40;
+    degs.forEach(function(d){ var on=(grp(d,n)==='\u2124'); var cx=x0+d*bw+bw/2;
+      svg.appendChild(mk('rect', {x:x0+d*bw+2, y:by, width:bw-4, height:bh, rx:4, fill: on?'color-mix(in srgb, var(--yellow) 22%, transparent)':'var(--panel2)', stroke: on?'var(--yellow)':'var(--line)', 'stroke-width':1}));
+      txt(cx, by+16, 'H_' + d, {size:10, fill:'var(--mute)'});
+      txt(cx, by+32, grp(d,n), {size:13, fill: on?'var(--yellow)':'var(--mute)', weight: on?600:400}); });
+    // --- readout ---
+    var lines=[];
+    lines.push('Cover S^' + n + ' = U \u222a V by two contractible hemispheres; their intersection deformation-retracts onto the equator S^' + (n-1) + '. The short exact sequence of singular chains 0\u2192C(U\u2229V)\u2192C(U)\u2295C(V)\u2192C(S^' + n + ')\u21920 gives the Mayer\u2013Vietoris long exact sequence.');
+    if(n>=2){
+      lines.push('Since U, V are contractible, H_k(U)\u2295H_k(V) = 0 for all k \u2265 1. So in the chunk H_' + n + '(U)\u2295H_' + n + '(V) \u2192 H_' + n + '(S^' + n + ') \u2192\u2202 H_' + (n-1) + '(S^' + (n-1) + ') \u2192 H_' + (n-1) + '(U)\u2295H_' + (n-1) + '(V) the two outer terms vanish, forcing the connecting map \u2202 to be an isomorphism: H_' + n + '(S^' + n + ') \u2245 H_' + (n-1) + '(S^' + (n-1) + ').');
+      lines.push('Iterating down to the base case H_1(S^1) = \u2124 gives H_' + n + '(S^' + n + ') \u2245 \u2124. Together with H_0(S^' + n + ') = \u2124 (S^' + n + ' is connected), every other H_k(S^' + n + ') = 0.');
+    } else {
+      lines.push('At n = 1 the base case is computed directly: H_1(S^1) = \u2124 (one independent loop) and H_0(S^1) = \u2124 (connected); all higher H_k = 0. This anchors the descent ladder for every larger sphere.');
+    }
+    out.textContent=lines.join('\n');
+  }
+  nIn.addEventListener('input', draw);
+  draw();
+})();
+</script>
+
 <!-- callback-auto-begin -->
 <aside class="callback">
   <div class="ttl">See also</div>
@@ -2944,6 +3017,83 @@ The isomorphism is canonical and natural in both arguments.</div>
 </ul>
 
 <p>Cartan–Eilenberg resolutions are how you do <em>derived</em> homological algebra one level up: not a derived functor of an object, but of a complex of objects, with all the spectral-sequence machinery the second dimension brings.</p>
+
+
+<div class="widget" id="w-homological-cartan-eilenberg">
+  <div class="hd"><div class="ttl">Resolving a complex by a double complex</div><div class="hint">Three tabs: the complex, the column resolutions, then the Z/B/H resolutions.</div></div>
+  <div class="row">
+    <button type="button" id="w-homological-cartan-eilenberg-m1">1 · the complex $C^\bullet$</button>
+    <button type="button" id="w-homological-cartan-eilenberg-m2">2 · resolve each column</button>
+    <button type="button" id="w-homological-cartan-eilenberg-m3">3 · resolve $Z,B,H$</button>
+  </div>
+  <svg id="w-homological-cartan-eilenberg-svg" viewBox="0 0 540 300" width="540" height="300" role="img" aria-label="A Cartan–Eilenberg resolution: a complex resolved by a double complex of projectives"><title>Cartan–Eilenberg resolution: a double complex of projectives resolving a complex</title></svg>
+  <div class="readout" id="w-homological-cartan-eilenberg-out"></div>
+</div><script>
+/* homological-cartan-eilenberg widget: w-homological-cartan-eilenberg */
+(function(){
+  var svg=document.getElementById('w-homological-cartan-eilenberg-svg'), out=document.getElementById('w-homological-cartan-eilenberg-out');
+  var btns=[document.getElementById('w-homological-cartan-eilenberg-m1'), document.getElementById('w-homological-cartan-eilenberg-m2'), document.getElementById('w-homological-cartan-eilenberg-m3')];
+  if(!svg || !out || btns.some(function(b){ return !b; })) return;
+  var NS='http://www.w3.org/2000/svg';
+  function mk(tag, attrs, text){ var e=document.createElementNS(NS, tag); for(var k in attrs){ e.setAttribute(k, attrs[k]); } if(text!=null) e.textContent=text; return e; }
+  function box(cx, cy, label, stroke, fill, tcol){ var w=92, h=30;
+    svg.appendChild(mk('rect', {x:cx-w/2, y:cy-h/2, width:w, height:h, rx:5, fill:fill, stroke:stroke, 'stroke-width':1.4}));
+    svg.appendChild(mk('text', {x:cx, y:cy+4, 'text-anchor':'middle', 'font-size':12, fill:tcol}, label)); }
+  function arr(x1,y1,x2,y2,col,dashed,head){ var L=Math.hypot(x2-x1,y2-y1); if(!L) return; var ux=(x2-x1)/L, uy=(y2-y1)/L;
+    var a={x1:x1, y1:y1, x2:x2, y2:y2, stroke:col, 'stroke-width':1.4}; if(dashed) a['stroke-dasharray']='4 3'; svg.appendChild(mk('line', a));
+    if(head!==false){ var ex=x2, ey=y2; svg.appendChild(mk('path', {d:'M'+ex+' '+ey+' L'+(ex-7*ux+3*uy)+' '+(ey-7*uy-3*ux)+' L'+(ex-7*ux-3*uy)+' '+(ey-7*uy+3*ux)+' Z', fill:col})); } }
+  function lab(x,y,s,col,sz,anch){ svg.appendChild(mk('text', {x:x, y:y, 'text-anchor':anch||'middle', 'font-size':sz||10, fill:col||'var(--mute)'}, s)); }
+  var CX=[140,290,440];      // columns p = 0,1,2
+  var yC=262, yP0=192, yP1=122, yDots=72;
+  var mode=1;
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    var pOn=(mode>=2), pHi=(mode===3);
+    // axis hints
+    lab(20, yC+4, 'C\u2022', 'var(--mute)', 11, 'start');
+    if(pOn) lab(20, (yP0+yP1)/2, 'P\u2022,\u2022', pHi?'var(--cyan)':'var(--mute)', 11, 'start');
+    // the projective double complex P^{p,q} (modes 2,3)
+    if(pOn){
+      var pStroke=pHi?'var(--cyan)':'var(--line)';
+      var pFill=pHi?'color-mix(in srgb, var(--cyan) 16%, transparent)':'var(--panel2)';
+      var pTcol=pHi?'var(--cyan)':'var(--ink)';
+      for(var p=0;p<3;p++){ var cx=CX[p];
+        lab(cx, yDots, '\u22ee', 'var(--mute)', 16);
+        arr(cx, yDots+6, cx, yP1-16, 'var(--line)', false, true);
+        box(cx, yP1, 'P^{'+p+',1}', pStroke, pFill, pTcol);
+        box(cx, yP0, 'P^{'+p+',0}', pStroke, pFill, pTcol);
+        arr(cx, yP1+15, cx, yP0-15, 'var(--mute)', false, true);          // resolution map down
+        arr(cx, yP0+15, cx, yC-15, 'var(--green)', false, true);           // augmentation onto C^p
+      }
+      // horizontal lifted differential across the P rows (mode 3 only)
+      if(pHi){ [yP0,yP1].forEach(function(yy){ for(var p=0;p<2;p++){ arr(CX[p]+46, yy, CX[p+1]-46, yy, 'var(--cyan)', false, true); } }); }
+    }
+    // the complex C^• (always)
+    for(var p2=0;p2<3;p2++){ box(CX[p2], yC, 'C^'+p2, 'var(--yellow)', 'color-mix(in srgb, var(--yellow) 18%, transparent)', 'var(--yellow)'); }
+    for(var p3=0;p3<2;p3++){ arr(CX[p3]+46, yC, CX[p3+1]-46, yC, 'var(--yellow)', false, true); }
+    lab((CX[0]+CX[1])/2, yC+22, 'd', 'var(--yellow)', 11);
+    // mode-3 Z/B/H annotation
+    if(pHi){ lab(290, 24, 'horizontal Z^p, B^p, H^p of P\u2022,\u2022  \u2192  projective resolutions of  Z^p(C), B^p(C), H^p(C)', 'var(--green)', 10); }
+    // button active styling (house convention: .active class)
+    btns.forEach(function(b,i){ var on=(i+1===mode); b.classList.toggle('active', on); b.setAttribute('aria-pressed', on?'true':'false'); });
+    // readout
+    var lines=[];
+    if(mode===1){
+      lines.push('A Cartan\u2013Eilenberg resolution resolves not a single object but an entire complex. Start with a cochain complex C\u2022 (bottom row), with differential d: C^p \u2192 C^{p+1}.');
+      lines.push('Where one module is resolved by a complex of projectives, a whole complex is resolved by a DOUBLE complex of projectives. Step through the tabs to build it.');
+    } else if(mode===2){
+      lines.push('Conditions 1\u20132: every P^{p,q} is projective, and for each p the column P^{p,\u2022} \u2192 C^p is a projective resolution of C^p (the green augmentation arrows, with each column exact). This makes P\u2022,\u2022 a double complex of projectives sitting over C\u2022.');
+      lines.push('By itself this is only a "rowwise resolution" \u2014 enough to resolve each term, but not yet functorial.');
+    } else {
+      lines.push('Condition 3 (the distinguishing one): taking horizontal cycles Z^p, boundaries B^p, and homology H^p of the double complex P\u2022,\u2022 yields PROJECTIVE RESOLUTIONS of Z^p(C\u2022), B^p(C\u2022), and H^p(C\u2022) respectively. A plain rowwise resolution can fail this; it is exactly what makes the construction natural/functorial.');
+      lines.push('Payoffs: (i) hyper-derived functors \u211d^nF(C\u2022) = H^n(F(P\u2022,\u2022)) extend derived functors from an object to a complex; (ii) the Grothendieck spectral sequence \u211d^pG \u2218 \u211d^qF \u21d2 \u211d^{p+q}(GF) \u2014 behind Leray, Lyndon\u2013Hochschild\u2013Serre, and Eilenberg\u2013Moore.');
+    }
+    out.textContent=lines.join('\n');
+  }
+  btns.forEach(function(b,i){ b.addEventListener('click', function(){ mode=i+1; draw(); }); });
+  draw();
+})();
+</script>
 
 <div class="quiz" data-concept="cartan-eilenberg-ha"></div>
 
