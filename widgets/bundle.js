@@ -16037,6 +16037,24 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "schemes-residue-field",
+    "family": "schemes-residue-field",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory",
+    "title": "schemes-residue-field widget params",
+    "description": "Residue-field / evaluation explorer over Spec ℤ. The reader slides an integer f = n; the widget shows its value at each point of Spec ℤ — at a prime (p) the residue field is κ((p)) = 𝔽_p and the value is n mod p, while at the generic point (0) the residue field is κ((0)) = ℚ and the value is n itself. The point of the picture: 'evaluating f at a point' produces values in DIFFERENT fields at different points, and n vanishes at (p) exactly when p | n. The arithmetic is intrinsic; params carry only chrome.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Residue-field / evaluation explorer over $\\operatorname{Spec}\\mathbb{Z}$, introduced on `schemes.html` §9. Bespoke semantic module — the arithmetic is intrinsic; params carry only chrome.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "schemes-spec",
     "family": "schemes-spec",
     "dimension": "2d",
@@ -16049,6 +16067,26 @@ window.__MVWidgets = [
       "title"
     ],
     "readmeExcerpt": "Prime-spectrum explorer for $\\operatorname{Spec}\\mathbb{Z}$, introduced on `schemes.html` §1. Bespoke semantic module — the prime arithmetic is intrinsic; params carry only chrome.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "schemes-specialization",
+    "family": "schemes-specialization",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory",
+    "title": "schemes-specialization widget params",
+    "description": "Generic-points / specialization explorer. A small excerpt of Spec R is drawn as a poset by height — the generic point at the top, curve generic points in the middle, closed points at the bottom — with edges p → q whenever p ⊊ q (p specializes to q). Clicking a point highlights its closure V(p) = {q : p ⊆ q}, the irreducible subvariety it is the generic point of. The poset (nodes + specialization edges) comes from params.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "nodes",
+      "edges"
+    ],
+    "readmeExcerpt": "Generic-points / specialization explorer, introduced on `schemes.html` §8. Bespoke semantic module — the poset (nodes + specialization edges) comes from params.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
