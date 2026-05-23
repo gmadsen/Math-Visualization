@@ -234,6 +234,44 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "advanced-complex-analysis-mittag-leffler",
+    "family": "advanced-complex-analysis-mittag-leffler",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory",
+    "title": "advanced-complex-analysis-mittag-leffler widget params",
+    "description": "Mittag-Leffler explorer (the meromorphic dual of Weierstrass factorization). The reader picks a meromorphic function with a known principal-part expansion and steps the number of pole-terms N; the widget plots the partial sum along the real axis against the target, so the prescribed poles appear one pair at a time and the sum converges. π cot(πz) = 1/z + Σ 2z/(z²−n²) (simple poles at the integers) and π²/sin²(πz) = Σ 1/(z−n)² (double poles at the integers) are the classic examples. The partial-sum eval is intrinsic (a `kind` enum); params carry the case menu.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "functions"
+    ],
+    "readmeExcerpt": "Mittag-Leffler explorer, introduced on `advanced-complex-analysis.html` §5. The meromorphic dual of the Weierstrass-factorization widget. Bespoke semantic module — the partial-sum eval is intrinsic (a `kind` enum); params carry only the case menu.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "advanced-complex-analysis-phragmen-lindelof",
+    "family": "advanced-complex-analysis-phragmen-lindelof",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory",
+    "title": "advanced-complex-analysis-phragmen-lindelof widget params",
+    "description": "Phragmén–Lindelöf explorer on the right half-plane. The reader picks a function and a ray angle α (0 = real axis / interior bisector, π/2 = imaginary axis / boundary); the widget plots log|f| along that ray against the boundary and bisector references. e^z is BOUNDED on the boundary (|e^z|=1 on the imaginary axis) yet blows up on the real axis — the naive maximum principle fails on an unbounded domain, and Phragmén–Lindelöf restores it only by adding a growth bound (order < 1 for the half-plane), which e^z (order 1) sits on the borderline of. e^{−√z} has order ½ and stays ≤ 1 everywhere, so it satisfies the hypotheses and the boundary bound controls the interior. The function eval is intrinsic (a `kind` enum); params carry the case menu.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "functions"
+    ],
+    "readmeExcerpt": "Phragmén–Lindelöf explorer on the right half-plane, introduced on `advanced-complex-analysis.html` §6. Bespoke semantic module — the function eval is intrinsic (a `kind` enum); params carry only the case menu.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "advanced-complex-analysis-picard",
     "family": "advanced-complex-analysis-picard",
     "dimension": "2d",
