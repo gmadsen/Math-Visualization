@@ -1440,6 +1440,62 @@ function drawNode(svg, x, y, label, opts={}){
 <p>For commutative rings, the analogue of a normal subgroup is an <strong>ideal</strong>: a subset $I\subseteq R$ closed under addition and under multiplication by <em>any</em> ring element, i.e. $rI\subseteq I$ for every $r\in R$. Ideals are exactly the kernels of ring homomorphisms, and the quotient ring $R/I$ is well-defined with the usual coset arithmetic $(r+I)+(s+I)=r+s+I,\ (r+I)(s+I)=rs+I$.</p>
 <p>Two sub-species matter most. A <strong>prime ideal</strong> $\mathfrak{p}$ satisfies $ab\in\mathfrak{p}\Rightarrow a\in\mathfrak{p}$ or $b\in\mathfrak{p}$, equivalently $R/\mathfrak{p}$ is an integral domain. A <strong>maximal ideal</strong> $\mathfrak{m}$ is a proper ideal with no proper ideal strictly containing it, equivalently $R/\mathfrak{m}$ is a field. Concretely in $\mathbb{Z}$ the prime ideals are $(0)$ and $(p)$ for $p$ prime, and the maximal ideals are exactly $(p)$; this is why $\mathbb{Z}/(p)=\mathbb{F}_p$ is a field while $\mathbb{Z}/(6)$ is not even a domain (since $2\cdot 3\equiv 0$).</p>
 <p>The Third Isomorphism Theorem for rings, $R/I \big/ (J/I)\cong R/J$ whenever $I\subseteq J$, shows that passing to a quotient just collapses ideals above $I$ onto the corresponding ideals of $R/I$. This is the algebraic counterpart of restricting to a closed subscheme in algebraic geometry.</p>
+
+<div class="widget" id="w-algebra-ring-ideals">
+  <div class="hd"><div class="ttl">Ideals of ℤ: prime, maximal, and the quotient</div><div class="hint">Slide n: is (n) prime? maximal? is ℤ/n a domain? a field? Composite n has zero divisors.</div></div>
+  <div class="row">
+    <label for="w-algebra-ring-ideals-n">modulus $n$ in $\mathbb{Z}/(n)$</label>
+    <input type="range" id="w-algebra-ring-ideals-n" min="0" max="12" value="6" step="1">
+    <span class="pill" id="w-algebra-ring-ideals-nval">n = 6</span>
+  </div>
+  <svg id="w-algebra-ring-ideals-svg" viewBox="0 0 560 220" width="560" height="220" role="img" aria-label="Classifying the ideal (n) in Z and the quotient Z/n"><title>Ideals in Z: (n) is prime iff n=0 or n is prime; maximal iff n is prime; Z/n is a field iff n is prime</title></svg>
+  <div class="readout" id="w-algebra-ring-ideals-out"></div>
+</div><script>
+/* algebra-ring-ideals widget: w-algebra-ring-ideals */
+(function(){
+  var nIn=document.getElementById('w-algebra-ring-ideals-n'), nL=document.getElementById('w-algebra-ring-ideals-nval');
+  var svg=document.getElementById('w-algebra-ring-ideals-svg'), out=document.getElementById('w-algebra-ring-ideals-out');
+  if(!nIn||!nL||!svg||!out) return;
+  var NS='http://www.w3.org/2000/svg';
+  function mk(tag, attrs, text){ var e=document.createElementNS(NS, tag); for(var k in attrs){ e.setAttribute(k, attrs[k]); } if(text!=null) e.textContent=text; return e; }
+  function txt(x,y,s,opt){ opt=opt||{}; svg.appendChild(mk('text', {x:x, y:y, 'text-anchor':opt.anchor||'start', 'font-size':opt.size||12, fill:opt.fill||'var(--ink)', 'font-weight':opt.weight||'normal', 'font-style':opt.italic?'italic':'normal'}, s)); }
+  function isprime(k){ if(k<2) return false; for(var d=2;d*d<=k;d++){ if(k%d===0) return false; } return true; }
+  function badge(x,y,label,ok){ svg.appendChild(mk('text',{x:x,y:y,'font-size':14,fill:ok?'var(--green)':'var(--pink)'},ok?'\u2713':'\u2717')); txt(x+18,y,label,{size:12,fill:'var(--ink)'}); }
+  function smallFactor(n){ for(var d=2;d*d<=n;d++){ if(n%d===0) return d; } return n; }
+  function draw(){
+    var n=+nIn.value; nL.textContent='n = '+n;
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    var prime=isprime(n);
+    var idealPrime = (n===0) || prime;       // (0) is prime in Z; (p) prime; (1) and composite are not
+    var idealMax   = prime;                   // (p) maximal; (0) not (Z not a field); (1) not proper
+    var quotDomain = (n===0) || prime;        // Z/0=Z domain; Z/p field; composite has zero-divisors; Z/1=0
+    var quotField  = prime;
+    var qname = (n===0)?'\u2124':(n===1?'0 (the zero ring)':'\u2124/'+n);
+    txt(280, 26, 'ideal (' + n + ') \u2286 \u2124   \u2014   quotient ring ' + qname, {anchor:'middle', size:13, fill:'var(--yellow)', weight:600});
+    badge(120, 64, '(' + n + ') is a PRIME ideal', idealPrime);
+    badge(120, 92, '(' + n + ') is a MAXIMAL ideal', idealMax);
+    badge(120, 120, '\u2124/' + (n<=1?'('+n+')':n) + ' is an integral DOMAIN', quotDomain);
+    badge(120, 148, '\u2124/' + (n<=1?'('+n+')':n) + ' is a FIELD', quotField);
+    // witness / note
+    if(n>=4 && !prime){ var a=smallFactor(n), b=n/a; txt(280, 182, 'zero divisors: ' + a + '\u00b7' + b + ' = ' + n + ' \u2261 0 (mod ' + n + '),  ' + a + ',' + b + ' \u2260 0  \u21d2 not a domain', {anchor:'middle', size:11, fill:'var(--pink)'}); }
+    else if(prime){ txt(280, 182, '\u2124/' + n + ' = F_' + n + ': every nonzero element is invertible', {anchor:'middle', size:11, fill:'var(--green)'}); }
+    else if(n===0){ txt(280, 182, '(0) is prime since \u2124 is a domain, but not maximal since \u2124 is not a field', {anchor:'middle', size:11, fill:'var(--mute)'}); }
+    else { txt(280, 182, '(1) = \u2124 is not a proper ideal; \u2124/1 = 0 is the zero ring', {anchor:'middle', size:11, fill:'var(--mute)'}); }
+    txt(280, 206, '\u2124/n field \u21d4 (n) maximal \u21d4 n prime;     \u2124/n domain \u21d4 (n) prime \u21d4 n prime or 0', {anchor:'middle', size:10, fill:'var(--mute)', italic:true});
+    // readout
+    var lines=[];
+    lines.push('An ideal I\u2286R is closed under addition and under multiplication by any ring element; it is exactly the kernel of a ring map, and R/I is the quotient ring. (n)\u2286\u2124 is the set of multiples of ' + n + '.');
+    if(prime) lines.push('n = ' + n + ' is prime, so (' + n + ') is MAXIMAL (no ideal strictly between (' + n + ') and \u2124), hence also prime. Equivalently \u2124/' + n + ' = F_' + n + ' is a FIELD (so in particular an integral domain). R/m is a field \u21d4 the ideal m is maximal; R/p is a domain \u21d4 the ideal p is prime.');
+    else if(n===0) lines.push('(0) is PRIME because \u2124 is an integral domain (ab=0 \u21d2 a=0 or b=0), so \u2124/(0)=\u2124 is a domain. But (0) is NOT maximal \u2014 it sits below every (p) \u2014 and \u2124 is not a field. This is the dimension-1 picture: (0) \u228a (p), a chain of primes of length 1.');
+    else if(n===1) lines.push('(1) = \u2124 is the whole ring, not a proper ideal, so it counts as neither prime nor maximal; the quotient \u2124/1 collapses to the zero ring {0}.');
+    else { var a=smallFactor(n), b=n/a; lines.push('n = ' + n + ' is composite (' + n + ' = ' + a + '\u00b7' + b + '), so (' + n + ') is NOT prime: ' + a + '\u00b7' + b + ' \u2208 (' + n + ') yet neither factor is. \u2124/' + n + ' then has ZERO DIVISORS (' + a + '\u00b7' + b + ' \u2261 0), so it is not an integral domain \u2014 and certainly not a field. The classic contrast: \u2124/' + n + ' vs the field \u2124/p.'); }
+    out.textContent=lines.join('\n');
+  }
+  nIn.addEventListener('input', draw);
+  draw();
+})();
+</script>
+
 <div class="quiz" data-concept="ring-ideals"></div>
 <!-- backlinks-auto-begin -->
 <aside class="related">
@@ -1460,6 +1516,63 @@ function drawNode(svg, x, y, label, opts={}){
 <p>A <strong>field extension</strong> $F\subseteq K$ turns $K$ into an $F$-vector space; its dimension $[K:F]$ is the <em>degree</em> of the extension. An element $\alpha\in K$ is <em>algebraic</em> over $F$ if $p(\alpha)=0$ for some nonzero $p\in F[x]$, and <em>transcendental</em> otherwise. For algebraic $\alpha$, the set of polynomials killing $\alpha$ is an ideal of $F[x]$ — and since $F[x]$ is a principal ideal domain, that ideal is $(m_\alpha)$ for a unique monic irreducible $m_\alpha$, the <strong>minimal polynomial</strong>.</p>
 <p>Adjoining $\alpha$ gives $F(\alpha)\cong F[x]/(m_\alpha)$ by the evaluation map $x\mapsto \alpha$ and the First Isomorphism Theorem: the kernel is exactly $(m_\alpha)$, so the image — a subring of $K$ — is isomorphic to the quotient, which is a field because $(m_\alpha)$ is maximal whenever $m_\alpha$ is irreducible. Its dimension over $F$ is $\deg m_\alpha$, so $[F(\alpha):F]=\deg m_\alpha$. The Tower Law $[L:F]=[L:K]\cdot[K:F]$ then multiplies degrees through a chain $F\subseteq K\subseteq L$, e.g. $[\mathbb{Q}(\sqrt{2},\sqrt{3}):\mathbb{Q}]=2\cdot 2=4$.</p>
 <p>A polynomial $f\in F[x]$ of degree $n$ <em>splits</em> in an extension $K/F$ if $f=c\prod_{i=1}^n(x-\alpha_i)$ with each $\alpha_i\in K$; the smallest such $K$ is the <strong>splitting field</strong> of $f$, always algebraic and of finite degree $\le n!$. Splitting fields are the springboard for Galois theory, where automorphisms of $K$ fixing $F$ permute the roots of $f$.</p>
+
+<div class="widget" id="w-algebra-field-tower">
+  <div class="hd"><div class="ttl">Field extensions and the Tower Law</div><div class="hint">Pick an extension of ℚ: degree = deg(min poly), and the Tower Law multiplies up a chain.</div></div>
+  <div class="row">
+    <span class="pill">extension</span>
+    <button type="button" id="w-algebra-field-tower-e0">$\mathbb{Q}(\sqrt{2})$</button>
+    <button type="button" id="w-algebra-field-tower-e1">$\mathbb{Q}(\sqrt{2},\sqrt{3})$</button>
+    <button type="button" id="w-algebra-field-tower-e2">$\mathbb{Q}(\sqrt[3]{2})$</button>
+    <button type="button" id="w-algebra-field-tower-e3">$\mathbb{Q}(i)$</button>
+  </div>
+  <svg id="w-algebra-field-tower-svg" viewBox="0 0 560 230" width="560" height="230" role="img" aria-label="A field extension over Q drawn as a tower with multiplying degrees"><title>Field extensions: the Tower Law multiplies degrees; degree of a simple extension is the degree of the minimal polynomial</title></svg>
+  <div class="readout" id="w-algebra-field-tower-out"></div>
+</div><script>
+/* algebra-field-tower widget: w-algebra-field-tower */
+(function(){
+  var svg=document.getElementById('w-algebra-field-tower-svg'), out=document.getElementById('w-algebra-field-tower-out');
+  var btns=[0,1,2,3].map(function(i){ return document.getElementById('w-algebra-field-tower-e'+i); });
+  if(!svg||!out||btns.some(function(b){return !b;})) return;
+  var NS='http://www.w3.org/2000/svg';
+  function mk(tag, attrs, text){ var e=document.createElementNS(NS, tag); for(var k in attrs){ e.setAttribute(k, attrs[k]); } if(text!=null) e.textContent=text; return e; }
+  function txt(x,y,s,opt){ opt=opt||{}; svg.appendChild(mk('text', {x:x, y:y, 'text-anchor':opt.anchor||'middle', 'font-size':opt.size||12, fill:opt.fill||'var(--ink)', 'font-weight':opt.weight||'normal', 'font-style':opt.italic?'italic':'normal'}, s)); }
+  // each scenario: tower nodes (bottom..top) with the step degree between consecutive, total degree, basis, readout
+  var SCEN=[
+    { tower:['\u211a','\u211a(\u221a2)'], steps:['2'], minp:'x\u00b2 \u2212 2', deg:2, basis:'1, \u221a2',
+      note:'\u221a2 is a root of the irreducible x\u00b2\u22122 over \u211a (Eisenstein at 2), so its minimal polynomial has degree 2 and [\u211a(\u221a2):\u211a] = deg(min poly) = 2. A \u211a-basis is {1, \u221a2}.' },
+    { tower:['\u211a','\u211a(\u221a2)','\u211a(\u221a2,\u221a3)'], steps:['2','2'], minp:'x\u00b2\u22122, then x\u00b2\u22123', deg:4, basis:'1, \u221a2, \u221a3, \u221a6',
+      note:'Build in two steps: [\u211a(\u221a2):\u211a]=2, then \u221a3 still has minimal polynomial x\u00b2\u22123 over \u211a(\u221a2) (it is not already there), so [\u211a(\u221a2,\u221a3):\u211a(\u221a2)]=2. The TOWER LAW multiplies: [\u211a(\u221a2,\u221a3):\u211a] = 2\u00b72 = 4, with \u211a-basis {1, \u221a2, \u221a3, \u221a6}.' },
+    { tower:['\u211a','\u211a(\u221b2)'], steps:['3'], minp:'x\u00b3 \u2212 2', deg:3, basis:'1, \u221b2, \u221b4',
+      note:'\u221b2 is a root of x\u00b3\u22122, irreducible over \u211a (Eisenstein at 2), so [\u211a(\u221b2):\u211a]=3 with \u211a-basis {1, \u221b2, \u221b4}. Note \u211a(\u221b2) is NOT the splitting field of x\u00b3\u22122 \u2014 it is missing the complex roots \u221b2\u00b7\u03c9 (\u03c9 a primitive cube root of unity); the full splitting field \u211a(\u221b2,\u03c9) has degree 6.' },
+    { tower:['\u211a','\u211a(i)'], steps:['2'], minp:'x\u00b2 + 1', deg:2, basis:'1, i',
+      note:'i is a root of x\u00b2+1, irreducible over \u211a (no real roots), so [\u211a(i):\u211a]=2 with \u211a-basis {1, i}. This is the Gaussian field; \u211a(i) \u2245 \u211a[x]/(x\u00b2+1).' }
+  ];
+  var sel=0;
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    btns.forEach(function(b,i){ var on=(i===sel); b.classList.toggle('active',on); b.setAttribute('aria-pressed',on?'true':'false'); });
+    var S=SCEN[sel], N=S.tower.length;
+    // vertical tower: bottom Q at y=190, top at y=50
+    var x=180, yBot=188, yTop=56, dy=(yBot-yTop)/(N-1);
+    for(var i=0;i<N;i++){ var y=yBot-i*dy;
+      svg.appendChild(mk('rect', {x:x-70, y:y-15, width:140, height:30, rx:6, fill:(i===N-1)?'color-mix(in srgb, var(--yellow) 18%, transparent)':'var(--panel2)', stroke:(i===N-1)?'var(--yellow)':'var(--cyan)', 'stroke-width':1.4}));
+      txt(x, y+4, S.tower[i], {size:13, fill:(i===N-1)?'var(--yellow)':'var(--ink)'});
+      if(i<N-1){ var ym=y-dy/2; svg.appendChild(mk('line',{x1:x,y1:y-15,x2:x,y2:y-dy+15,stroke:'var(--mute)','stroke-width':1.2})); txt(x+16, ym+4, 'deg ' + S.steps[i], {anchor:'start', size:11, fill:'var(--green)'}); }
+    }
+    // right column: total degree + basis
+    txt(400, 70, '[' + S.tower[N-1] + ' : \u211a] = ' + S.steps.join('\u00b7') + ' = ' + S.deg, {size:13, fill:'var(--yellow)', weight:600});
+    txt(400, 98, 'min. polynomial: ' + S.minp, {size:11, fill:'var(--ink)'});
+    txt(400, 124, '\u211a-basis:', {size:11, fill:'var(--mute)'});
+    txt(400, 144, '{ ' + S.basis + ' }', {size:12, fill:'var(--cyan)'});
+    txt(400, 172, '(dim = ' + S.deg + ' as a \u211a-vector space)', {size:10, fill:'var(--mute)'});
+    out.textContent = S.note + '\n\nA field extension F\u2286K makes K a vector space over F; its dimension [K:F] is the degree. For a simple algebraic extension F(\u03b1), [F(\u03b1):F] = deg of the minimal polynomial of \u03b1 (the monic irreducible generating the ideal of polynomials killing \u03b1), and F(\u03b1) \u2245 F[x]/(m_\u03b1). The Tower Law [L:F] = [L:K]\u00b7[K:F] multiplies degrees up a chain.';
+  }
+  btns.forEach(function(b,i){ b.addEventListener('click', function(){ sel=i; draw(); }); });
+  draw();
+})();
+</script>
+
 <div class="quiz" data-concept="field-extensions-basics"></div>
 <!-- backlinks-auto-begin -->
 <aside class="related">

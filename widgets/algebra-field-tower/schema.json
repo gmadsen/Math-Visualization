@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/algebra-field-tower/schema.json",
+  "title": "algebra-field-tower widget params",
+  "description": "Field-extension tower explorer. Four buttons (ℚ(√2), ℚ(√2,√3), ℚ(∛2), ℚ(i)) draw the extension over ℚ as a vertical tower with the step-degree on each edge, the total degree [K:ℚ] = product of steps (Tower Law), the minimal polynomial(s), and a ℚ-basis. Shows that the degree of a simple algebraic extension equals the degree of the minimal polynomial, and that ℚ(√2,√3) is degree 2·2=4. Extension data is intrinsic; params carry only chrome.",
+  "meta": {
+    "family": "algebra-field-tower",
+    "dimension": "2d",
+    "gesture": "select",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id; the script derives -svg/-out and the four extension-button ids."
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title rendered inside .hd > .ttl."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional short hint rendered inside .hd > .hint."
+    }
+  }
+}
