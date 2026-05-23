@@ -3,10 +3,10 @@
 ## Corpus totals
 
 - Topics: **207**, concepts: **1422**
-- Widgets: **1482** (registry-driven: 1482, inline: 0)
+- Widgets: **1484** (registry-driven: 1484, inline: 0)
 - Quizzes: **5458** (v1: 4222, hard: 1223, expert: 13)
 - Quiz types: mcq: 3591, numeric: 1291, multi-select: 277, matching: 107, ordering: 85, spot-the-error: 53, complex: 29, proof-completion: 21, construction: 2, guess-my-rule: 2
-- Concepts lacking a widget in their section: **119**
+- Concepts lacking a widget in their section: **117**
 - Concepts lacking a hard-tier quiz: **984**
 
 ## Per-slug registry adoption
@@ -46,6 +46,8 @@ page has wired one in yet.
 | `aca-hartogs-shell` | aca-figure | slider | 2d | 1 | advanced-complex-analysis |
 | `aca-nevanlinna-characteristic` | aca-figure | slider | 2d | 1 | advanced-complex-analysis |
 | `aca-quasiconformal-warp` | aca-figure | slider | 2d | 1 | advanced-complex-analysis |
+| `advanced-complex-analysis-three-circles` | advanced-complex-analysis-three-circles | interact | 2d | 1 | advanced-complex-analysis |
+| `advanced-complex-analysis-weierstrass` | advanced-complex-analysis-weierstrass | interact | 2d | 1 | advanced-complex-analysis |
 | `ak-Q` | verbatim | click | 2d | 1 | algebraic-k-theory-foundations |
 | `ak-apps` | verbatim | click | 2d | 1 | algebraic-k-theory-foundations |
 | `ak-k0` | verbatim | click | 2d | 1 | algebraic-k-theory-foundations |
@@ -945,10 +947,10 @@ page has wired one in yet.
 ### Analysis
 
 - Topics: **22**, concepts: **211**
-- Widgets: **202** (registry-driven: 202, inline: 0)
-  - by family: verbatim: 50, clickable-diagram: 41, button-stepper: 37, slider-readout: 7, aca-figure: 5, recurrence-plotter: 2, inline-code-cell: 1, proof-scrubber: 1, numerical-fp-cancellation: 1, numerical-newton-iteration: 1, numerical-quadrature-error: 1, numerical-hilbert-conditioning: 1, numerical-ftcs-stability: 1, numerical-fem-hat-basis: 1, variational-fdiff: 1, variational-brachistochrone: 1, variational-direct-method: 1, variational-mountain-pass: 1, variational-isoperimetric: 1, variational-sphere-geodesic: 1, constraint-bifurcation-explorer: 1, complex-analysis-arithmetic: 1, complex-analysis-riemann-sphere: 1, complex-analysis-conformal-map: 1, complex-analysis-conformal-grid: 1, complex-analysis-cauchy-theorem: 1, complex-analysis-cauchy-formula: 1, complex-analysis-liouville: 1, complex-analysis-fta: 1, complex-analysis-max-modulus: 1, complex-analysis-open-mapping: 1, complex-analysis-schwarz-lemma: 1, complex-analysis-laurent: 1, complex-analysis-singularity-zoo: 1, complex-analysis-residue-real-integral: 1, complex-analysis-argument-principle: 1, complex-analysis-disk-automorphism: 1, complex-analysis-normal-families: 1, complex-analysis-riemann-mapping: 1, complex-analysis-harmonic: 1, complex-analysis-monodromy: 1, julia-playground: 1, sobolev-pairing: 1, sobolev-weak-derivative: 1, sobolev-fractional-power: 1, sobolev-embedding-exponent: 1, sobolev-trace: 1, sobolev-newtonian-potential: 1, sobolev-variational: 1, harmonic-partial-sum: 1, harmonic-tent-transform: 1, harmonic-convolution: 1, harmonic-uncertainty: 1, harmonic-heat-evolution: 1, pde-classifier: 1, pde-heat-kernel: 1, pde-wave-dalembert: 1, pde-poisson-disk: 1, pde-weak-test: 1, pde-sobolev-embedding: 1, harmonic-functions-laplacian-heatmap: 1, harmonic-functions-mvp-circle: 1, harmonic-functions-maximum-locator: 1, harmonic-functions-poisson-extension: 1, harmonic-functions-harnack-corridor: 1, harmonic-functions-perron-supremum: 1
-  - by dimension: 2d: 201, 3d: 1
-  - by gesture: click: 94, slider: 61, interact: 21, select: 10, interactive: 6, drag: 6, edit: 1, timeline: 1, step: 1, static: 1
+- Widgets: **204** (registry-driven: 204, inline: 0)
+  - by family: verbatim: 50, clickable-diagram: 41, button-stepper: 37, slider-readout: 7, aca-figure: 5, recurrence-plotter: 2, inline-code-cell: 1, proof-scrubber: 1, advanced-complex-analysis-weierstrass: 1, advanced-complex-analysis-three-circles: 1, numerical-fp-cancellation: 1, numerical-newton-iteration: 1, numerical-quadrature-error: 1, numerical-hilbert-conditioning: 1, numerical-ftcs-stability: 1, numerical-fem-hat-basis: 1, variational-fdiff: 1, variational-brachistochrone: 1, variational-direct-method: 1, variational-mountain-pass: 1, variational-isoperimetric: 1, variational-sphere-geodesic: 1, constraint-bifurcation-explorer: 1, complex-analysis-arithmetic: 1, complex-analysis-riemann-sphere: 1, complex-analysis-conformal-map: 1, complex-analysis-conformal-grid: 1, complex-analysis-cauchy-theorem: 1, complex-analysis-cauchy-formula: 1, complex-analysis-liouville: 1, complex-analysis-fta: 1, complex-analysis-max-modulus: 1, complex-analysis-open-mapping: 1, complex-analysis-schwarz-lemma: 1, complex-analysis-laurent: 1, complex-analysis-singularity-zoo: 1, complex-analysis-residue-real-integral: 1, complex-analysis-argument-principle: 1, complex-analysis-disk-automorphism: 1, complex-analysis-normal-families: 1, complex-analysis-riemann-mapping: 1, complex-analysis-harmonic: 1, complex-analysis-monodromy: 1, julia-playground: 1, sobolev-pairing: 1, sobolev-weak-derivative: 1, sobolev-fractional-power: 1, sobolev-embedding-exponent: 1, sobolev-trace: 1, sobolev-newtonian-potential: 1, sobolev-variational: 1, harmonic-partial-sum: 1, harmonic-tent-transform: 1, harmonic-convolution: 1, harmonic-uncertainty: 1, harmonic-heat-evolution: 1, pde-classifier: 1, pde-heat-kernel: 1, pde-wave-dalembert: 1, pde-poisson-disk: 1, pde-weak-test: 1, pde-sobolev-embedding: 1, harmonic-functions-laplacian-heatmap: 1, harmonic-functions-mvp-circle: 1, harmonic-functions-maximum-locator: 1, harmonic-functions-poisson-extension: 1, harmonic-functions-harnack-corridor: 1, harmonic-functions-perron-supremum: 1
+  - by dimension: 2d: 203, 3d: 1
+  - by gesture: click: 94, slider: 61, interact: 23, select: 10, interactive: 6, drag: 6, edit: 1, timeline: 1, step: 1, static: 1
 - Quizzes: **777** (v1: 592, hard: 185, expert: 0)
   - by type: mcq: 487, numeric: 162, multi-select: 40, matching: 29, ordering: 22, complex: 14, spot-the-error: 11, proof-completion: 10, construction: 1, guess-my-rule: 1
 
@@ -1115,7 +1117,7 @@ page has wired one in yet.
 - `quantum-field-theory` (Mathematical physics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `toric-varieties` (Algebraic geometry) — concepts=6, widgets=5 (slug=5), quiz=18 (v1=18, hard=0, expert=0)
 - `statistical-mechanics` (Mathematical physics) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
-- `advanced-complex-analysis` (Analysis) — concepts=13, widgets=5 (slug=5), quiz=39 (v1=39, hard=0, expert=0)
+- `advanced-complex-analysis` (Analysis) — concepts=13, widgets=7 (slug=7), quiz=39 (v1=39, hard=0, expert=0)
 - `groebner-bases` (Algebra & homological) — concepts=8, widgets=8 (slug=8), quiz=24 (v1=24, hard=0, expert=0)
 - `mathematical-statistics` (Probability & statistics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `numerical-analysis` (Analysis) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)

@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/advanced-complex-analysis-weierstrass/schema.json",
+  "title": "advanced-complex-analysis-weierstrass widget params",
+  "description": "Weierstrass-factorization explorer. The reader picks an entire function with a known canonical product and steps the number of factors N; the widget plots the partial product P_N along the real axis against the target function, so the zeros pin down one at a time and P_N converges to the function. sin(πz)/(πz) = ∏(1−z²/n²) (zeros at the nonzero integers) and cos(πz) = ∏(1−4z²/(2n−1)²) (zeros at the half-integers) are the classic genus-0 examples. The product eval is intrinsic (a `kind` enum); params carry the case menu.",
+  "meta": {
+    "family": "advanced-complex-analysis-weierstrass",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["widgetId", "title", "functions"],
+  "properties": {
+    "widgetId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id; the script derives -sel/-n/-svg/-out." },
+    "title": { "type": "string", "description": "Display title rendered inside .hd > .ttl." },
+    "hint": { "type": "string", "description": "Optional short hint rendered inside .hd > .hint." },
+    "functions": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 4,
+      "description": "Each entire function with a canonical product offered in the dropdown.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "label", "kind"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[A-Za-z0-9_-]+$", "description": "Stable option value." },
+          "label": { "type": "string", "description": "Plain-text dropdown label, e.g. 'sin(πz)/(πz)'." },
+          "kind": {
+            "type": "string",
+            "enum": ["sinc", "cosp"],
+            "description": "sinc = sin(πz)/(πz) = ∏(1−z²/n²); cosp = cos(πz) = ∏(1−4z²/(2n−1)²)."
+          },
+          "note": { "type": "string", "maxLength": 120, "description": "Optional plain-text remark about this product." }
+        }
+      }
+    }
+  }
+}

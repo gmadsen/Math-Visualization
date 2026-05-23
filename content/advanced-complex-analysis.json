@@ -81,6 +81,41 @@
           "html": "<section id=\"weierstrass-factorization\">\n<h2>4. Weierstrass factorization</h2>\n<p>A polynomial of degree $n$ factors as $c\\prod_{k=1}^n (z-a_k)$, the product running over its zero set. <strong>Weierstrass factorization</strong> generalizes this to entire functions: prescribe a zero set, get an entire function vanishing on it.</p>\n\n<p>The naïve product $\\prod_n(1 - z/a_n)$ over an infinite zero sequence $a_n\\to\\infty$ generally diverges — the terms approach $1$, but not fast enough. Weierstrass's idea is to multiply each factor by an exponential correction so the corrected factor approaches $1$ rapidly enough for the product to converge.</p>\n\n<h3>Elementary factors</h3>\n<div class=\"note\"><strong>Elementary factor of order $p$.</strong> $$E_p(z) = (1-z)\\exp\\!\\left(z + \\tfrac{z^2}{2} + \\cdots + \\tfrac{z^p}{p}\\right),\\qquad E_0(z) = 1-z.$$\nThe exponential is precisely the truncated Taylor series of $-\\log(1-z)$. Consequently $\\log E_p(z) = -\\sum_{k>p} z^k/k = O(z^{p+1})$ near $z=0$, and one shows $|E_p(z) - 1|\\le |z|^{p+1}$ for $|z|\\le 1$.</div>\n\n<p>The elementary factor still has a simple zero at $z=1$ (from the $(1-z)$ piece) but is much closer to $1$ on a disk than $(1-z)$ alone — exactly the rate of decay needed to make an infinite product convergent.</p>\n\n<div class=\"note\"><strong>Weierstrass factorization theorem.</strong> Let $\\{a_n\\}$ be a discrete sequence in $\\mathbb{C}$ with $|a_n|\\to\\infty$, and let $m\\ge 0$ be an integer. There exist integers $p_n\\ge 0$ such that\n$$f(z) = z^m \\prod_{n=1}^\\infty E_{p_n}\\!\\left(\\frac{z}{a_n}\\right)$$\nconverges to an entire function with a zero of order $m$ at $0$, simple zeros at each $a_n$ (with prescribed multiplicities by repeating $a_n$), and no other zeros. Moreover any entire function $g$ with this prescribed zero set has the form $g(z) = e^{h(z)} f(z)$ for some entire $h$.</div>\n\n<p>The $e^{h(z)}$ is the slack: two entire functions with the same zeros differ by a nowhere-vanishing entire function, and a nowhere-vanishing entire function is the exponential of an entire function (lift $\\log f$ to the simply connected $\\mathbb{C}$).</p>\n\n<h3>The sine product</h3>\n<p>The classical witness: $\\sin(\\pi z)$ has zeros exactly at $\\mathbb{Z}$. Pairing $\\pm n$ in the Weierstrass product gives the celebrated identity</p>\n<p>$$\\sin(\\pi z) \\;=\\; \\pi z \\prod_{n=1}^\\infty \\left(1 - \\frac{z^2}{n^2}\\right).$$</p>\n\n<p>Pairing was needed: the unpaired product $\\prod (1 - z/n)$ diverges, but $\\prod(1 - z^2/n^2) = \\prod(1-z/n)(1+z/n)$ does not — the two divergences cancel. Equivalently, the elementary factor $E_1(z/n)$ already includes the linear correction; the sine product is the result of doing this correctly.</p>\n\n<p>Setting $z = 1/2$ rearranges into the Wallis product $\\prod_{n\\ge 1}(1 - 1/(4n^2)) = 2/\\pi$. Setting $z = 1/3$ gives $\\prod(1 - 1/(9n^2)) = 3\\sqrt{3}/(2\\pi)$. The Weierstrass product is a vending machine for these identities.</p>\n\n<h3>The Gamma function</h3>\n<p>The other canonical Weierstrass product is for $1/\\Gamma(z)$, an entire function with simple zeros at $0,-1,-2,\\ldots$:</p>\n<p>$$\\frac{1}{\\Gamma(z)} \\;=\\; z e^{\\gamma z}\\prod_{n=1}^\\infty\\left(1+\\frac{z}{n}\\right)e^{-z/n},$$</p>\n<p>where $\\gamma$ is the Euler-Mascheroni constant. The factor $e^{-z/n}$ is the exponential correction in $E_1(-z/n)$; the prefactor $e^{\\gamma z}$ comes from the freedom to multiply by $e^{h(z)}$. Hadamard's later refinement (Hadamard factorization) sharpens Weierstrass for entire functions of finite order $\\rho$: the correction $h(z)$ is then a polynomial with $\\deg h \\le \\lfloor\\rho\\rfloor$ (the genus).</p>\n\n"
         },
         {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget",
+          "slug": "advanced-complex-analysis-weierstrass",
+          "params": {
+            "widgetId": "w-aca-weierstrass",
+            "title": "Weierstrass: building an entire function from its zeros",
+            "hint": "Add factors and watch the prescribed zeros lock in, one pair at a time.",
+            "functions": [
+              {
+                "id": "sinc",
+                "label": "sin(πz)/(πz)",
+                "kind": "sinc",
+                "note": "Zeros at every nonzero integer: sin(πz)/(πz) = ∏(1 − z²/n²)."
+              },
+              {
+                "id": "cosp",
+                "label": "cos(πz)",
+                "kind": "cosp",
+                "note": "Zeros at the half-integers: cos(πz) = ∏(1 − 4z²/(2n−1)²)."
+              }
+            ]
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-aca-weierstrass"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
           "type": "quiz",
           "concept": "aca-weierstrass-factorization",
           "html": "<div class=\"quiz\" data-concept=\"aca-weierstrass-factorization\"></div>"
@@ -153,6 +188,52 @@
         {
           "type": "raw",
           "html": "<section id=\"hadamard-three-circles\">\n<h2>7. Hadamard's three-circles theorem</h2>\n<p>Phragmén-Lindelöf gives qualitative max-modulus on unbounded domains. Hadamard's <strong>three-circles theorem</strong> sharpens this on annuli to a precise <em>convexity</em> statement, and it is the workhorse behind interpolation theorems and growth bounds throughout analysis.</p>\n\n<p>Let $f$ be holomorphic on the annulus $r_1 \\le |z| \\le r_3$, and define $M(r) = \\max_{|z|=r}|f(z)|$ — the supremum of $|f|$ on the circle of radius $r$.</p>\n\n<div class=\"note\"><strong>Hadamard's three-circles theorem.</strong> $\\log M(r)$ is a convex function of $\\log r$ on $[\\log r_1, \\log r_3]$. Equivalently, for $r_1 < r_2 < r_3$,\n$$M(r_2)^{\\log(r_3/r_1)} \\;\\le\\; M(r_1)^{\\log(r_3/r_2)}\\,M(r_3)^{\\log(r_2/r_1)}.$$</div>\n\n<h3>Why convexity of $\\log M(r)$ in $\\log r$?</h3>\n<p>The function $r^a$ has $\\log M(r) = a\\log r$, exactly linear in $\\log r$. The three-circles theorem says: among all holomorphic functions, the power functions $z^a$ are extremal — they make $\\log M$ exactly linear, and every other holomorphic function gives <em>at most</em> the linear interpolation, not more. This is convexity (in the $\\log\\log$ sense), and convex functions are exactly those with this 'no chord goes above' property.</p>\n\n<p>The proof is a clean application of the maximum modulus principle to an auxiliary function. Fix $r_1 < r_2 < r_3$. Choose a real exponent $a$ such that $M(r_1) r_1^a = M(r_3) r_3^a$ — this is the slope that makes the bounds equal at the endpoints. Now consider $g(z) = z^a f(z)$ (with a branch of $z^a$ on a slit annulus). On both the inner and outer boundary, $|g| = M(r_1)r_1^a = M(r_3)r_3^a$. By max modulus, $|g|\\le$ this same value throughout, in particular on $|z|=r_2$. Rearranging gives the inequality.</p>\n\n<p>(The branch issue is real: $z^a$ for non-integer $a$ is multi-valued. The standard fix is to argue with $|z|^a |f(z)|$, which is the well-defined modulus of any branch, or to slit the annulus and use Phragmén-Lindelöf-type arguments.)</p>\n\n<h3>Worked example</h3>\n<p>Suppose $f$ is holomorphic on $1\\le|z|\\le 4$ with $M(1) = 1$ and $M(4) = 16$. The convexity bound on $M(2)$ comes from interpolating $\\log M$ between $\\log 1 = 0$ and $\\log 4$:</p>\n<p>$$\\log M(2) \\;\\le\\; \\frac{\\log 4 - \\log 2}{\\log 4}\\log M(1) \\;+\\; \\frac{\\log 2}{\\log 4}\\log M(4) \\;=\\; 0 + \\tfrac12\\log 16 \\;=\\; \\log 4.$$</p>\n<p>So $M(2)\\le 4$. The bound is achieved by $f(z) = z^2$: $M(1) = 1$, $M(2) = 4$, $M(4) = 16$, so $\\log M$ is exactly linear in $\\log r$.</p>\n\n<h3>Three-lines, three-circles, three-spheres</h3>\n<p>The statement has cousins for strips (three-lines, where $\\log M$ is convex in $\\operatorname{Re} z$), for <a href=\"./complex-analysis.html#harmonic-functions\" data-auto-inline-link=\"1\" data-concept-id=\"harmonic-functions\" data-blurb=\"If $f = u + iv$ is holomorphic then $u$ and $v$ satisfy Laplace&#39;s equation $\\Delta u = 0$; on simply connected domains every harmonic $u$ has a harmonic conjugate recovering a holomorphic lift.\">harmonic functions</a> (three-spheres, where the maximum on a sphere is convex in $\\log r$), and for $L^p$ norms (the Hadamard interpolation theorem, where $\\log\\|f\\|_p$ is a convex function of $1/p$). All three sit on the same foundation: a maximum-modulus or sub-mean-value principle plus a clever auxiliary function. Phragmén-Lindelöf enters when the strip or sector is unbounded; on a closed annulus, plain max modulus suffices.</p>\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget",
+          "slug": "advanced-complex-analysis-three-circles",
+          "params": {
+            "widgetId": "w-aca-three-circles",
+            "title": "Three circles: log M(r) is convex in log r",
+            "hint": "The curve never rises above any chord — that is the three-circles inequality.",
+            "functions": [
+              {
+                "id": "z2",
+                "label": "z²",
+                "kind": "z2",
+                "note": "log M(r) = 2 log r is exactly linear — the equality case of the inequality."
+              },
+              {
+                "id": "ez",
+                "label": "e^z",
+                "kind": "ez",
+                "note": "M(r)=e^r, so log M = r = e^{log r}: strictly convex in log r."
+              },
+              {
+                "id": "poly3",
+                "label": "1 + z + z³",
+                "kind": "poly3",
+                "note": "A polynomial: log M is convex, bowing below every chord."
+              },
+              {
+                "id": "expz2",
+                "label": "e^z + z²",
+                "kind": "expz2"
+              }
+            ]
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-aca-three-circles"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
         },
         {
           "type": "raw",
