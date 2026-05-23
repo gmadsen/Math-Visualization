@@ -308,6 +308,95 @@ function drawNode(svg, x, y, label, opts={}){
 
 <p>Little Picard generalizes immediately: an entire function whose image lies in a Riemann surface that admits a holomorphic universal cover by the disk (a hyperbolic Riemann surface) must be constant. The omitted-pair theorem is the special case of $\mathbb{C}\setminus\{0,1\}$.</p>
 
+
+<div class="widget" id="w-picard-little">
+  <div class="hd"><div class="ttl">Little Picard: an entire function omits at most one value</div><div class="hint">e^z misses only 0; z² and sin z miss nothing.</div></div>
+  <div class="row">
+    <label for="w-picard-little-sel">$f(z)$</label>
+    <select id="w-picard-little-sel">
+      <option value="ez" selected>e^z</option>
+      <option value="z2">z²</option>
+      <option value="sinz">sin z</option>
+    </select>
+    <label for="w-picard-little-r">radius</label>
+    <input type="range" id="w-picard-little-r" min="0.4" max="4" value="2" step="0.1">
+    <span class="pill" id="w-picard-little-rval">2.0</span>
+  </div>
+  <svg id="w-picard-little-svg" viewBox="0 0 540 290" width="540" height="290" role="img" aria-label="The values of the w-plane attained by f, with any omitted value marked"><title>Picard's theorems: which values an entire function (or one near an essential singularity) attains</title></svg>
+  <div class="readout" id="w-picard-little-out"></div>
+</div><script>
+/* advanced-complex-analysis-picard widget: w-picard-little */
+(function(){
+  var FNS = [{"id":"ez","label":"e^z","kind":"ez","domain":"disk","omit":{"re":0,"im":0},"note":"e^z is never 0 — that single omitted value is the most Little Picard allows."},{"id":"z2","label":"z²","kind":"z2","domain":"disk","note":"Surjective onto ℂ: |z|≤R covers the disk |w|≤R²."},{"id":"sinz","label":"sin z","kind":"sinz","domain":"disk","note":"sin z takes every complex value — it omits nothing."}];
+  var byId = {}; FNS.forEach(function(g){ byId[g.id] = g; });
+  var sel = document.getElementById('w-picard-little-sel');
+  var rIn = document.getElementById('w-picard-little-r'), rL = document.getElementById('w-picard-little-rval');
+  var svg = document.getElementById('w-picard-little-svg');
+  var out = document.getElementById('w-picard-little-out');
+  if(!sel || !rIn || !rL || !svg || !out) return;
+  var NS = 'http://www.w3.org/2000/svg';
+  function mk(tag, attrs, text){ var e = document.createElementNS(NS, tag); for(var k in attrs){ e.setAttribute(k, attrs[k]); } if(text!=null) e.textContent = text; return e; }
+  function omitStr(o){ var s = '' + o.re; if(Math.abs(o.im) > 1e-9) s += (o.im>0?'+':'\u2212') + Math.abs(o.im) + 'i'; return s; }
+  function cmul(p,q){ return [p[0]*q[0]-p[1]*q[1], p[0]*q[1]+p[1]*q[0]]; }
+  function cdiv(p,q){ var d=q[0]*q[0]+q[1]*q[1]; return [(p[0]*q[0]+p[1]*q[1])/d, (p[1]*q[0]-p[0]*q[1])/d]; }
+  function cexp(p){ var e=Math.exp(p[0]); return [e*Math.cos(p[1]), e*Math.sin(p[1])]; }
+  function csin(p){ return [Math.sin(p[0])*Math.cosh(p[1]), Math.cos(p[0])*Math.sinh(p[1])]; }
+  function feval(kind, z){
+    if(kind==='ez') return cexp(z);
+    if(kind==='z2') return cmul(z,z);
+    if(kind==='sinz') return csin(z);
+    if(kind==='einvz') return cexp(cdiv([1,0], z));
+    if(kind==='sininvz') return csin(cdiv([1,0], z));
+    return z;
+  }
+  var W=3.4, NC=30, Cx=270, Cy=146, S=39;
+  function WX(x){ return Cx + x*S; } function WY(y){ return Cy - y*S; }
+  function draw(){
+    var g = byId[sel.value] || FNS[0], R = +rIn.value;
+    rL.textContent = R.toFixed(1);
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    // sample the domain, mark which w-cells are hit
+    var hit = new Array(NC*NC); for(var q=0;q<hit.length;q++) hit[q]=false;
+    var punctured = (g.domain==='punctured'), z, w, i1, i2, a, b;
+    function mark(w){ if(w[0]>=-W && w[0]<W && w[1]>=-W && w[1]<W){ hit[Math.floor((w[1]+W)/(2*W)*NC)*NC + Math.floor((w[0]+W)/(2*W)*NC)]=true; } }
+    if(!punctured){
+      // disk |z| <= R: dense polar grid (radial step kept below the w-cell size)
+      var nr=130, nt=170; for(i1=1;i1<=nr;i1++){ var rho=R*i1/nr; for(i2=0;i2<nt;i2++){ var th=2*Math.PI*i2/nt; mark(feval(g.kind, [rho*Math.cos(th), rho*Math.sin(th)])); } }
+    } else {
+      // punctured 0<|z|<=R around an essential singularity: sample in the u = 1/z plane
+      // (the natural log/arg domain for e^u, sin u). z = 1/u lies in 0<|z|<=R iff |u| >= 1/R.
+      // Box must reach the high-winding preimages: as R shrinks, hitting a value needs |u| >= 1/R,
+      // so for e^{1/z} large |Im u| (winding k=+-1,...) and for sin(1/z) large |Re u| (many periods).
+      var bx = (g.kind==='einvz') ? [-3.4, 1.35, -7.6, 7.6] : [-7.4, 7.4, -2.4, 2.4];
+      var inv2 = 1/(R*R), nx=190, ny=190; for(i1=0;i1<=nx;i1++){ a = bx[0] + (bx[1]-bx[0])*i1/nx;
+        for(i2=0;i2<=ny;i2++){ b = bx[2] + (bx[3]-bx[2])*i2/ny; if(a*a+b*b < inv2) continue; z=cdiv([1,0],[a,b]); mark(feval(g.kind, z)); } }
+    }
+    // window + axes
+    svg.appendChild(mk('line', {x1:Cx-W*S, y1:Cy, x2:Cx+W*S, y2:Cy, stroke:'var(--line)'}));
+    svg.appendChild(mk('line', {x1:Cx, y1:Cy-W*S, x2:Cx, y2:Cy+W*S, stroke:'var(--line)'}));
+    // covered cells, as one path
+    var cw=2*W/NC, d='', c, rr; for(rr=0;rr<NC;rr++){ for(c=0;c<NC;c++){ if(hit[rr*NC+c]){ var wx0=-W+c*cw, wy0=-W+rr*cw; var x0=WX(wx0), x1=WX(wx0+cw), yb=WY(wy0), yt=WY(wy0+cw); d+='M'+x0.toFixed(1)+' '+yt.toFixed(1)+'H'+x1.toFixed(1)+'V'+yb.toFixed(1)+'H'+x0.toFixed(1)+'Z'; } } }
+    if(d) svg.appendChild(mk('path', {d:d, fill:'var(--cyan)', opacity:0.5, stroke:'none'}));
+    svg.appendChild(mk('text', {x:Cx, y:18, 'text-anchor':'middle', 'font-size':11, fill:'var(--mute)', 'font-style':'italic'}, 'values hit in the w-plane (cyan)'));
+    // omitted value marker
+    if(g.omit){ var ox=WX(g.omit.re), oy=WY(g.omit.im); svg.appendChild(mk('circle', {cx:ox, cy:oy, r:5, fill:'var(--panel)', stroke:'var(--pink)', 'stroke-width':2}));
+      svg.appendChild(mk('text', {x:ox+9, y:oy+4, 'font-size':10, fill:'var(--pink)'}, 'omitted: ' + omitStr(g.omit))); }
+    // readout
+    var domTxt = punctured ? ('the punctured disk 0 < |z| \u2264 ' + R.toFixed(1)) : ('the disk |z| \u2264 ' + R.toFixed(1));
+    var lines = [];
+    if(punctured){ lines.push('Great Picard: near an essential singularity, f takes every value \u2014 with at most one exception \u2014 infinitely often.'); }
+    else { lines.push('Little Picard: a non-constant entire function omits at most ONE value of \u2102.'); }
+    lines.push('Cyan = values f attains on ' + domTxt + ' (within |w| \u2264 ' + W + ').');
+    if(g.omit){ lines.push('This f omits exactly the single value w = ' + omitStr(g.omit) + ' (pink ring): the map gets arbitrarily close but never equals it. Being one point, it leaves no gap at this grid resolution. ' + (punctured?'Shrink the radius: the coverage is UNCHANGED \u2014 every value but this one, infinitely often.':'Grow R: the covered region keeps swelling toward all of \u2102 except that one point.')); }
+    else { lines.push('This f omits NO value \u2014 it is surjective onto \u2102' + (punctured?', taking every value infinitely often near the singularity.':'; as R grows the window fills in completely.')); }
+    if(g.note) lines.push(g.note);
+    out.textContent = lines.join('\n');
+  }
+  sel.addEventListener('change', draw); rIn.addEventListener('input', draw);
+  draw();
+})();
+</script>
+
 <!-- callback-auto-begin -->
 <aside class="callback">
   <div class="ttl">See also</div>
@@ -347,6 +436,94 @@ function drawNode(svg, x, y, label, opts={}){
 <p>The 'at most one exception' bound is sharp: $e^{1/z}$ near $0$ omits exactly $\{0\}$. Translating gives essential singularities omitting any single prescribed value. But omitting two near an essential singularity — impossible.</p>
 
 <p>The proofs of little and great Picard are essentially the same: in both cases one lifts through the universal cover $\lambda:\mathbb{H}\to\mathbb{C}\setminus\{0,1\}$ and applies Liouville (or its local analog, the Schwarz lemma). Modern proofs via Schottky's theorem and Montel's theorem give a quantitative form: there is an explicit bound on $|f|$ on a disk, depending only on the omitted values and the disk radius, which forces the singularity to be removable or polar — incompatible with 'essential.'</p>
+
+
+<div class="widget" id="w-picard-great">
+  <div class="hd"><div class="ttl">Great Picard: every value (bar one) near an essential singularity</div><div class="hint">Shrink the punctured disk — e^{1/z} still hits everything except 0.</div></div>
+  <div class="row">
+    <label for="w-picard-great-sel">$f(z)$</label>
+    <select id="w-picard-great-sel">
+      <option value="einvz" selected>e^{1/z}  (essential singularity at 0)</option>
+      <option value="sininvz">sin(1/z)  (essential singularity at 0)</option>
+    </select>
+    <label for="w-picard-great-r">radius</label>
+    <input type="range" id="w-picard-great-r" min="0.4" max="4" value="2" step="0.1">
+    <span class="pill" id="w-picard-great-rval">2.0</span>
+  </div>
+  <svg id="w-picard-great-svg" viewBox="0 0 540 290" width="540" height="290" role="img" aria-label="The values of the w-plane attained by f, with any omitted value marked"><title>Picard's theorems: which values an entire function (or one near an essential singularity) attains</title></svg>
+  <div class="readout" id="w-picard-great-out"></div>
+</div><script>
+/* advanced-complex-analysis-picard widget: w-picard-great */
+(function(){
+  var FNS = [{"id":"einvz","label":"e^{1/z}  (essential singularity at 0)","kind":"einvz","domain":"punctured","omit":{"re":0,"im":0},"note":"On ANY punctured disk around 0, e^{1/z} attains every value except 0, infinitely often."},{"id":"sininvz","label":"sin(1/z)  (essential singularity at 0)","kind":"sininvz","domain":"punctured","note":"sin(1/z) omits no value at all near 0 — the Great Picard exception simply isn’t used."}];
+  var byId = {}; FNS.forEach(function(g){ byId[g.id] = g; });
+  var sel = document.getElementById('w-picard-great-sel');
+  var rIn = document.getElementById('w-picard-great-r'), rL = document.getElementById('w-picard-great-rval');
+  var svg = document.getElementById('w-picard-great-svg');
+  var out = document.getElementById('w-picard-great-out');
+  if(!sel || !rIn || !rL || !svg || !out) return;
+  var NS = 'http://www.w3.org/2000/svg';
+  function mk(tag, attrs, text){ var e = document.createElementNS(NS, tag); for(var k in attrs){ e.setAttribute(k, attrs[k]); } if(text!=null) e.textContent = text; return e; }
+  function omitStr(o){ var s = '' + o.re; if(Math.abs(o.im) > 1e-9) s += (o.im>0?'+':'\u2212') + Math.abs(o.im) + 'i'; return s; }
+  function cmul(p,q){ return [p[0]*q[0]-p[1]*q[1], p[0]*q[1]+p[1]*q[0]]; }
+  function cdiv(p,q){ var d=q[0]*q[0]+q[1]*q[1]; return [(p[0]*q[0]+p[1]*q[1])/d, (p[1]*q[0]-p[0]*q[1])/d]; }
+  function cexp(p){ var e=Math.exp(p[0]); return [e*Math.cos(p[1]), e*Math.sin(p[1])]; }
+  function csin(p){ return [Math.sin(p[0])*Math.cosh(p[1]), Math.cos(p[0])*Math.sinh(p[1])]; }
+  function feval(kind, z){
+    if(kind==='ez') return cexp(z);
+    if(kind==='z2') return cmul(z,z);
+    if(kind==='sinz') return csin(z);
+    if(kind==='einvz') return cexp(cdiv([1,0], z));
+    if(kind==='sininvz') return csin(cdiv([1,0], z));
+    return z;
+  }
+  var W=3.4, NC=30, Cx=270, Cy=146, S=39;
+  function WX(x){ return Cx + x*S; } function WY(y){ return Cy - y*S; }
+  function draw(){
+    var g = byId[sel.value] || FNS[0], R = +rIn.value;
+    rL.textContent = R.toFixed(1);
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    // sample the domain, mark which w-cells are hit
+    var hit = new Array(NC*NC); for(var q=0;q<hit.length;q++) hit[q]=false;
+    var punctured = (g.domain==='punctured'), z, w, i1, i2, a, b;
+    function mark(w){ if(w[0]>=-W && w[0]<W && w[1]>=-W && w[1]<W){ hit[Math.floor((w[1]+W)/(2*W)*NC)*NC + Math.floor((w[0]+W)/(2*W)*NC)]=true; } }
+    if(!punctured){
+      // disk |z| <= R: dense polar grid (radial step kept below the w-cell size)
+      var nr=130, nt=170; for(i1=1;i1<=nr;i1++){ var rho=R*i1/nr; for(i2=0;i2<nt;i2++){ var th=2*Math.PI*i2/nt; mark(feval(g.kind, [rho*Math.cos(th), rho*Math.sin(th)])); } }
+    } else {
+      // punctured 0<|z|<=R around an essential singularity: sample in the u = 1/z plane
+      // (the natural log/arg domain for e^u, sin u). z = 1/u lies in 0<|z|<=R iff |u| >= 1/R.
+      // Box must reach the high-winding preimages: as R shrinks, hitting a value needs |u| >= 1/R,
+      // so for e^{1/z} large |Im u| (winding k=+-1,...) and for sin(1/z) large |Re u| (many periods).
+      var bx = (g.kind==='einvz') ? [-3.4, 1.35, -7.6, 7.6] : [-7.4, 7.4, -2.4, 2.4];
+      var inv2 = 1/(R*R), nx=190, ny=190; for(i1=0;i1<=nx;i1++){ a = bx[0] + (bx[1]-bx[0])*i1/nx;
+        for(i2=0;i2<=ny;i2++){ b = bx[2] + (bx[3]-bx[2])*i2/ny; if(a*a+b*b < inv2) continue; z=cdiv([1,0],[a,b]); mark(feval(g.kind, z)); } }
+    }
+    // window + axes
+    svg.appendChild(mk('line', {x1:Cx-W*S, y1:Cy, x2:Cx+W*S, y2:Cy, stroke:'var(--line)'}));
+    svg.appendChild(mk('line', {x1:Cx, y1:Cy-W*S, x2:Cx, y2:Cy+W*S, stroke:'var(--line)'}));
+    // covered cells, as one path
+    var cw=2*W/NC, d='', c, rr; for(rr=0;rr<NC;rr++){ for(c=0;c<NC;c++){ if(hit[rr*NC+c]){ var wx0=-W+c*cw, wy0=-W+rr*cw; var x0=WX(wx0), x1=WX(wx0+cw), yb=WY(wy0), yt=WY(wy0+cw); d+='M'+x0.toFixed(1)+' '+yt.toFixed(1)+'H'+x1.toFixed(1)+'V'+yb.toFixed(1)+'H'+x0.toFixed(1)+'Z'; } } }
+    if(d) svg.appendChild(mk('path', {d:d, fill:'var(--cyan)', opacity:0.5, stroke:'none'}));
+    svg.appendChild(mk('text', {x:Cx, y:18, 'text-anchor':'middle', 'font-size':11, fill:'var(--mute)', 'font-style':'italic'}, 'values hit in the w-plane (cyan)'));
+    // omitted value marker
+    if(g.omit){ var ox=WX(g.omit.re), oy=WY(g.omit.im); svg.appendChild(mk('circle', {cx:ox, cy:oy, r:5, fill:'var(--panel)', stroke:'var(--pink)', 'stroke-width':2}));
+      svg.appendChild(mk('text', {x:ox+9, y:oy+4, 'font-size':10, fill:'var(--pink)'}, 'omitted: ' + omitStr(g.omit))); }
+    // readout
+    var domTxt = punctured ? ('the punctured disk 0 < |z| \u2264 ' + R.toFixed(1)) : ('the disk |z| \u2264 ' + R.toFixed(1));
+    var lines = [];
+    if(punctured){ lines.push('Great Picard: near an essential singularity, f takes every value \u2014 with at most one exception \u2014 infinitely often.'); }
+    else { lines.push('Little Picard: a non-constant entire function omits at most ONE value of \u2102.'); }
+    lines.push('Cyan = values f attains on ' + domTxt + ' (within |w| \u2264 ' + W + ').');
+    if(g.omit){ lines.push('This f omits exactly the single value w = ' + omitStr(g.omit) + ' (pink ring): the map gets arbitrarily close but never equals it. Being one point, it leaves no gap at this grid resolution. ' + (punctured?'Shrink the radius: the coverage is UNCHANGED \u2014 every value but this one, infinitely often.':'Grow R: the covered region keeps swelling toward all of \u2102 except that one point.')); }
+    else { lines.push('This f omits NO value \u2014 it is surjective onto \u2102' + (punctured?', taking every value infinitely often near the singularity.':'; as R grows the window fills in completely.')); }
+    if(g.note) lines.push(g.note);
+    out.textContent = lines.join('\n');
+  }
+  sel.addEventListener('change', draw); rIn.addEventListener('input', draw);
+  draw();
+})();
+</script>
 
 <!-- callback-auto-begin -->
 <aside class="callback">

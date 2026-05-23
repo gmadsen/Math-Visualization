@@ -234,6 +234,25 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "advanced-complex-analysis-picard",
+    "family": "advanced-complex-analysis-picard",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory",
+    "title": "advanced-complex-analysis-picard widget params",
+    "description": "Picard value-coverage explorer (serves both Little and Great Picard). The reader picks a function and a radius; the widget samples the domain (a disk |z|≤R for entire functions, or a punctured disk 0<|z|≤r around an essential singularity) and shades which values of the w-plane get hit. Little Picard: a non-constant entire function omits at most one value (e^z misses only 0; z² and sin z miss nothing). Great Picard: near an essential singularity f takes every value, with at most one exception, infinitely often (e^{1/z} misses only 0 even on an arbitrarily small punctured disk; sin(1/z) misses nothing). The omitted value, if any, is marked. The function eval is intrinsic (a `kind` enum); params carry the case menu.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "functions"
+    ],
+    "readmeExcerpt": "Picard value-coverage explorer, used on `advanced-complex-analysis.html` §2 (Little Picard) and §3 (Great Picard). Bespoke semantic module — the function eval and the value-coverage sampling are intrinsic (a `kind` enum); params carry only the case menu. One slug serves both sections via two widget instances with different function lists.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "advanced-complex-analysis-three-circles",
     "family": "advanced-complex-analysis-three-circles",
     "dimension": "2d",
