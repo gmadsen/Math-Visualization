@@ -2606,6 +2606,64 @@ Every nonzero element factors uniquely as $u\pi^n$ ($u$ a unit, $n \ge 0$); valu
 
 <p>The class group $\mathrm{Cl}(R) = (\text{fractional ideals}) / (\text{principal ideals})$ measures how far a Dedekind domain is from a UFD. Finiteness of the class group is one of the deep theorems in number theory — handled in <a href="./algebraic-number-theory.html">algebraic number theory</a>.</p>
 
+
+<div class="widget" id="w-commutative-algebra-dedekind">
+  <div class="hd"><div class="ttl">Dedekind: ideals factor uniquely (ℤ[√−5])</div><div class="hint">6 = 2·3 = (1+√−5)(1−√−5) as elements, but (6) = p₂²p₃p₃′ uniquely as ideals.</div></div>
+  <div class="row">
+    <span class="pill">factor 6 as</span>
+    <button type="button" id="w-commutative-algebra-dedekind-a">$2\cdot 3$</button>
+    <button type="button" id="w-commutative-algebra-dedekind-b">$(1+\sqrt{-5})(1-\sqrt{-5})$</button>
+  </div>
+  <svg id="w-commutative-algebra-dedekind-svg" viewBox="0 0 560 250" width="560" height="250" role="img" aria-label="In Z[sqrt -5], 6 has two element factorizations but one prime-ideal factorization"><title>Dedekind domains: ideals factor uniquely into primes even when elements do not</title></svg>
+  <div class="readout" id="w-commutative-algebra-dedekind-out"></div>
+</div><script>
+/* commutative-algebra-dedekind widget: w-commutative-algebra-dedekind */
+(function(){
+  var svg=document.getElementById('w-commutative-algebra-dedekind-svg'), out=document.getElementById('w-commutative-algebra-dedekind-out');
+  var bA=document.getElementById('w-commutative-algebra-dedekind-a'), bB=document.getElementById('w-commutative-algebra-dedekind-b');
+  if(!svg||!out||!bA||!bB) return;
+  var NS='http://www.w3.org/2000/svg';
+  function mk(tag, attrs, text){ var e=document.createElementNS(NS, tag); for(var k in attrs){ e.setAttribute(k, attrs[k]); } if(text!=null) e.textContent=text; return e; }
+  function txt(x,y,s,opt){ opt=opt||{}; svg.appendChild(mk('text', {x:x, y:y, 'text-anchor':opt.anchor||'middle', 'font-size':opt.size||12, fill:opt.fill||'var(--ink)', 'font-weight':opt.weight||'normal', 'font-style':opt.italic?'italic':'normal'}, s)); }
+  function box(cx,cy,w,label,col){ svg.appendChild(mk('rect', {x:cx-w/2, y:cy-15, width:w, height:30, rx:5, fill:'var(--panel2)', stroke:col, 'stroke-width':1.4})); txt(cx, cy+4, label, {size:12, fill:'var(--ink)'}); }
+  function arr(x1,y1,x2,y2){ svg.appendChild(mk('line',{x1:x1,y1:y1,x2:x2,y2:y2,stroke:'var(--mute)','stroke-width':1})); var a=Math.atan2(y2-y1,x2-x1); svg.appendChild(mk('path',{d:'M'+x2+' '+y2+' L'+(x2-7*Math.cos(a-0.4))+' '+(y2-7*Math.sin(a-0.4))+' L'+(x2-7*Math.cos(a+0.4))+' '+(y2-7*Math.sin(a+0.4))+' Z',fill:'var(--mute)'})); }
+  var sel='a';
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    bA.classList.toggle('active',sel==='a'); bA.setAttribute('aria-pressed',sel==='a');
+    bB.classList.toggle('active',sel==='b'); bB.setAttribute('aria-pressed',sel==='b');
+    txt(280, 22, 'R = \u2124[\u221a\u22125] (a Dedekind domain, but NOT a UFD)', {size:11, fill:'var(--mute)', italic:true});
+    // element factorization (top)
+    var f1, f2;
+    if(sel==='a'){ f1='(2)'; f2='(3)'; txt(280, 50, '6 = 2 \u00b7 3   (two irreducibles)', {size:13, fill:'var(--yellow)', weight:600}); }
+    else { f1='(1+\u221a\u22125)'; f2='(1\u2212\u221a\u22125)'; txt(280, 50, '6 = (1+\u221a\u22125)(1\u2212\u221a\u22125)   (two more irreducibles)', {size:13, fill:'var(--yellow)', weight:600}); }
+    box(170, 86, 90, f1, 'var(--yellow)'); box(390, 86, 110, f2, 'var(--yellow)');
+    // expand each principal ideal into primes
+    var e1, e2;
+    if(sel==='a'){ e1=['p\u2082','p\u2082']; e2=['p\u2083',"p\u2083'"]; }
+    else { e1=['p\u2082','p\u2083']; e2=['p\u2082',"p\u2083'"]; }
+    arr(170,101,170,131); arr(390,101,390,131);
+    txt(170, 150, f1 + ' = ' + e1.join('\u00b7'), {size:12, fill:'var(--cyan)'});
+    txt(390, 150, f2 + ' = ' + e2.join('\u00b7'), {size:12, fill:'var(--cyan)'});
+    // converge to (6)
+    arr(190,162,265,186); arr(380,162,300,186);
+    txt(280, 200, '(6) = p\u2082\u00b2 \u00b7 p\u2083 \u00b7 p\u2083\u2032', {size:15, fill:'var(--green)', weight:600});
+    txt(280, 222, 'same prime-ideal factorization from BOTH element factorizations \u2014 unique!', {size:10, fill:'var(--green)'});
+    txt(280, 240, 'p\u2082 = (2, 1+\u221a\u22125),   p\u2083 = (3, 1+\u221a\u22125),   p\u2083\u2032 = (3, 1\u2212\u221a\u22125)', {size:10, fill:'var(--mute)'});
+    // readout
+    var lines=[];
+    lines.push('In R = \u2124[\u221a\u22125], the element 6 factors two genuinely different ways into irreducibles: 6 = 2\u00b73 = (1+\u221a\u22125)(1\u2212\u221a\u22125). So R is not a unique factorization domain.');
+    lines.push('But R is a DEDEKIND domain (dimension 1, Noetherian, integrally closed), so every nonzero ideal factors uniquely into PRIME ideals. Here (2) = p\u2082\u00b2 (2 ramifies), (3) = p\u2083\u00b7p\u2083\u2032 (3 splits), and (1+\u221a\u22125) = p\u2082\u00b7p\u2083, (1\u2212\u221a\u22125) = p\u2082\u00b7p\u2083\u2032 (each has norm 6 = 2\u00b73).');
+    lines.push('Both element factorizations refine to the SAME ideal factorization (6) = p\u2082\u00b2\u00b7p\u2083\u00b7p\u2083\u2032 \u2014 unique factorization is restored at the level of ideals. The class group Cl(R) (here \u2124/2) measures exactly how far the prime ideals p\u2082, p\u2083 are from being principal, i.e. how far R is from a UFD.');
+    lines.push('DVR connection: localizing R at any nonzero prime p gives a DVR \u2014 a local PID with a uniformizer \u03c0 and valuation v_p, where every element is u\u03c0\u207f and every ideal is (\u03c0\u207f). Dedekind = \u201cDVR at every prime,\u201d the one-dimensional regular local model glued over the curve/number-ring.');
+    out.textContent=lines.join('\n');
+  }
+  bA.addEventListener('click', function(){ sel='a'; draw(); });
+  bB.addEventListener('click', function(){ sel='b'; draw(); });
+  draw();
+})();
+</script>
+
 <div class="quiz" data-concept="dvr-dedekind-ca"></div><!-- backlinks-auto-begin -->
 <aside class="related">
   <div class="ttl">Used in</div>

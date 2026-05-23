@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/commutative-algebra-dedekind/schema.json",
+  "title": "commutative-algebra-dedekind widget params",
+  "description": "Dedekind ideal-factorization explorer in Z[√−5]. Two buttons expand the two element factorizations of 6 (2·3 and (1+√−5)(1−√−5)) into prime ideals; both refine to the SAME prime-ideal factorization (6)=p₂²·p₃·p₃′ where p₂=(2,1+√−5), p₃=(3,1+√−5), p₃′=(3,1−√−5) — unique factorization restored at the ideal level even though Z[√−5] is not a UFD. Readout covers the Dedekind axioms, the ramify/split behavior, the class group Cl(R)=Z/2 measuring the gap to a UFD, and the DVR-at-each-prime localization. Arithmetic is intrinsic; params carry only chrome.",
+  "meta": {
+    "family": "commutative-algebra-dedekind",
+    "dimension": "2d",
+    "gesture": "select",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id; the script derives -svg/-out and the two factorization-button ids."
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title rendered inside .hd > .ttl."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional short hint rendered inside .hd > .hint."
+    }
+  }
+}
