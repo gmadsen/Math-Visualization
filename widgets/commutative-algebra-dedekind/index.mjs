@@ -43,8 +43,8 @@ export function renderScript(params) {
     `  var sel='a';\n` +
     `  function draw(){\n` +
     `    while(svg.firstChild) svg.removeChild(svg.firstChild);\n` +
-    `    bA.classList.toggle('active',sel==='a'); bA.setAttribute('aria-pressed',sel==='a');\n` +
-    `    bB.classList.toggle('active',sel==='b'); bB.setAttribute('aria-pressed',sel==='b');\n` +
+    `    bA.classList.toggle('active',sel==='a'); bA.setAttribute('aria-pressed',sel==='a'?'true':'false');\n` +
+    `    bB.classList.toggle('active',sel==='b'); bB.setAttribute('aria-pressed',sel==='b'?'true':'false');\n` +
     `    txt(280, 22, 'R = \\u2124[\\u221a\\u22125] (a Dedekind domain, but NOT a UFD)', {size:11, fill:'var(--mute)', italic:true});\n` +
     `    // element factorization (top)\n` +
     `    var f1, f2;\n` +
@@ -67,7 +67,7 @@ export function renderScript(params) {
     `    var lines=[];\n` +
     `    lines.push('In R = \\u2124[\\u221a\\u22125], the element 6 factors two genuinely different ways into irreducibles: 6 = 2\\u00b73 = (1+\\u221a\\u22125)(1\\u2212\\u221a\\u22125). So R is not a unique factorization domain.');\n` +
     `    lines.push('But R is a DEDEKIND domain (dimension 1, Noetherian, integrally closed), so every nonzero ideal factors uniquely into PRIME ideals. Here (2) = p\\u2082\\u00b2 (2 ramifies), (3) = p\\u2083\\u00b7p\\u2083\\u2032 (3 splits), and (1+\\u221a\\u22125) = p\\u2082\\u00b7p\\u2083, (1\\u2212\\u221a\\u22125) = p\\u2082\\u00b7p\\u2083\\u2032 (each has norm 6 = 2\\u00b73).');\n` +
-    `    lines.push('Both element factorizations refine to the SAME ideal factorization (6) = p\\u2082\\u00b2\\u00b7p\\u2083\\u00b7p\\u2083\\u2032 \\u2014 unique factorization is restored at the level of ideals. The class group Cl(R) (here \\u2124/2) measures exactly how far the prime ideals p\\u2082, p\\u2083 are from being principal, i.e. how far R is from a UFD.');\n` +
+    `    lines.push('Both element factorizations refine to the SAME ideal factorization (6) = p\\u2082\\u00b2\\u00b7p\\u2083\\u00b7p\\u2083\\u2032 \\u2014 unique factorization is restored at the level of ideals. The class group Cl(R) (here \\u2124/2) measures exactly how far the (non-principal) prime ideals p\\u2082, p\\u2083, p\\u2083\\u2032 are from being principal, i.e. how far R is from a UFD.');\n` +
     `    lines.push('DVR connection: localizing R at any nonzero prime p gives a DVR \\u2014 a local PID with a uniformizer \\u03c0 and valuation v_p, where every element is u\\u03c0\\u207f and every ideal is (\\u03c0\\u207f). Dedekind = \\u201cDVR at every prime,\\u201d the one-dimensional regular local model glued over the curve/number-ring.');\n` +
     `    out.textContent=lines.join('\\n');\n` +
     `  }\n` +
