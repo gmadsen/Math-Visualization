@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/complex-analysis-arithmetic/schema.json",
+  "title": "complex-analysis-arithmetic widget params",
+  "description": "Argand-plane arithmetic explorer. The reader adjusts two complex numbers z and w (each by modulus and argument) and toggles between addition and multiplication; the widget draws z, w and the result in the plane, with the parallelogram for z+w and the angle-addition / length-scaling for z·w. The headline is that multiplication is rotation-plus-scaling: |zw| = |z||w| and arg(zw) = arg z + arg w. The arithmetic is intrinsic; params carry only the initial z and w.",
+  "meta": {
+    "family": "complex-analysis-arithmetic",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["widgetId", "title"],
+  "properties": {
+    "widgetId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id; the script derives -mode/-zr/-za/-wr/-wa/-svg/-out." },
+    "title": { "type": "string", "description": "Display title rendered inside .hd > .ttl." },
+    "hint": { "type": "string", "description": "Optional short hint rendered inside .hd > .hint." },
+    "z0": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["re", "im"],
+      "description": "Initial value of z (default 1.3 + 0.5i).",
+      "properties": { "re": { "type": "number" }, "im": { "type": "number" } }
+    },
+    "w0": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["re", "im"],
+      "description": "Initial value of w (default i, so z·w starts as a 90° rotation).",
+      "properties": { "re": { "type": "number" }, "im": { "type": "number" } }
+    }
+  }
+}

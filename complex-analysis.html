@@ -308,6 +308,95 @@ const C = {
 <p><strong>Conjugate, modulus, inverse.</strong> The conjugate $\bar z = x-iy$ is reflection across the real axis. Then $z\bar z = |z|^2 = r^2$, which gives $z^{-1} = \bar z / |z|^2$ — division reduces to multiplication by a conjugate.</p>
 <div class="note"><strong>Why $\mathbb{C}$ is the algebraic closure of $\mathbb{R}$.</strong> Adjoining a single root of $x^2+1=0$ to $\mathbb{R}$ already produces a field in which <em>every</em> polynomial of positive degree splits — the fundamental theorem of algebra (§13). One quadratic root is all the algebra needs; everything else is forced.</div>
 <p>Geometrically, $\mathbb{C}$ is just $\mathbb{R}^2$ as a metric space. What's new is the multiplicative structure, and the surprise of complex analysis is how much rigidity that single binary operation buys. The next sections lift the picture to the Riemann sphere $\hat{\mathbb{C}} = \mathbb{C}\cup\{\infty\}$, where Möbius maps act as global rotations.</p>
+
+<div class="widget" id="w-arithmetic">
+  <div class="hd"><div class="ttl">Arithmetic on the Argand plane: add vs multiply</div><div class="hint">Multiplying by w rotates by arg w and scales by |w|.</div></div>
+  <div class="row">
+    <button id="w-arithmetic-mul" class="active">z × w</button>
+    <button id="w-arithmetic-add">z + w</button>
+  </div>
+  <div class="row">
+    <label for="w-arithmetic-zr">|z|</label>
+    <input type="range" id="w-arithmetic-zr" min="0" max="1.8" value="1.39" step="0.05">
+    <label for="w-arithmetic-za">arg z</label>
+    <input type="range" id="w-arithmetic-za" min="-3.14" max="3.14" value="0.37" step="0.05">
+  </div>
+  <div class="row">
+    <label for="w-arithmetic-wr">|w|</label>
+    <input type="range" id="w-arithmetic-wr" min="0" max="1.8" value="1.00" step="0.05">
+    <label for="w-arithmetic-wa">arg w</label>
+    <input type="range" id="w-arithmetic-wa" min="-3.14" max="3.14" value="1.57" step="0.05">
+  </div>
+  <svg id="w-arithmetic-svg" viewBox="0 0 540 290" width="540" height="290" role="img" aria-label="The Argand plane with z, w and their sum or product"><title>Complex arithmetic on the Argand plane: addition translates, multiplication rotates and scales</title></svg>
+  <div class="readout" id="w-arithmetic-out"></div>
+</div><script>
+/* complex-analysis-arithmetic widget: w-arithmetic */
+(function(){
+  var mul = document.getElementById('w-arithmetic-mul'), add = document.getElementById('w-arithmetic-add');
+  var zr = document.getElementById('w-arithmetic-zr'), za = document.getElementById('w-arithmetic-za');
+  var wr = document.getElementById('w-arithmetic-wr'), wa = document.getElementById('w-arithmetic-wa');
+  var svg = document.getElementById('w-arithmetic-svg');
+  var out = document.getElementById('w-arithmetic-out');
+  if(!mul || !add || !zr || !za || !wr || !wa || !svg || !out) return;
+  var NS = 'http://www.w3.org/2000/svg';
+  function mk(tag, attrs, text){ var e = document.createElementNS(NS, tag); for(var k in attrs){ e.setAttribute(k, attrs[k]); } if(text!=null) e.textContent = text; return e; }
+  var mode = 'mul';
+  // SC small enough that the largest result (|z|+|w| or |z||w| up to 3.6 at the slider
+  // maxima of 1.8) stays inside the 540x290 viewBox: 3.6*32 = 115 < min(CY, 290-CY).
+  var CX=270, CY=148, SC=32;
+  function PX(x){ return CX + x*SC; } function PY(y){ return CY - y*SC; }
+  function vec(p, color, label, w){ 
+    svg.appendChild(mk('line', {x1:CX, y1:CY, x2:PX(p[0]), y2:PY(p[1]), stroke:color, 'stroke-width':w||2}));
+    svg.appendChild(mk('circle', {cx:PX(p[0]), cy:PY(p[1]), r:3.5, fill:color}));
+    if(label) svg.appendChild(mk('text', {x:PX(p[0])+7, y:PY(p[1])-5, 'font-size':12, fill:color, 'font-weight':600}, label));
+  }
+  function fmtC(p){ var a=p[0], b=p[1]; var rs=(Math.abs(a)<0.005?0:a).toFixed(2); var is=(Math.abs(b)<0.005?0:b).toFixed(2); return rs + (b>=0?' + ':' \u2212 ') + Math.abs(is) + 'i'; }
+  function draw(){
+    var Rz=+zr.value, Az=+za.value, Rw=+wr.value, Aw=+wa.value;
+    var z=[Rz*Math.cos(Az), Rz*Math.sin(Az)], w=[Rw*Math.cos(Aw), Rw*Math.sin(Aw)];
+    var res = mode==='mul' ? [z[0]*w[0]-z[1]*w[1], z[0]*w[1]+z[1]*w[0]] : [z[0]+w[0], z[1]+w[1]];
+    mul.className = mode==='mul'?'active':''; add.className = mode==='add'?'active':'';
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    // axes + unit circle
+    svg.appendChild(mk('line', {x1:CX-170, y1:CY, x2:CX+170, y2:CY, stroke:'var(--line)'}));
+    svg.appendChild(mk('line', {x1:CX, y1:CY-130, x2:CX, y2:CY+130, stroke:'var(--line)'}));
+    svg.appendChild(mk('circle', {cx:CX, cy:CY, r:SC, fill:'none', stroke:'var(--line)', 'stroke-dasharray':'2 3'}));
+    svg.appendChild(mk('text', {x:CX+SC+2, y:CY-4, 'font-size':9, fill:'var(--mute)'}, '1'));
+    if(mode==='add'){
+      svg.appendChild(mk('line', {x1:PX(z[0]), y1:PY(z[1]), x2:PX(res[0]), y2:PY(res[1]), stroke:'var(--green)', 'stroke-width':1, 'stroke-dasharray':'3 3'}));
+      svg.appendChild(mk('line', {x1:PX(w[0]), y1:PY(w[1]), x2:PX(res[0]), y2:PY(res[1]), stroke:'var(--blue)', 'stroke-width':1, 'stroke-dasharray':'3 3'}));
+    }
+    vec(z, 'var(--blue)', 'z', 2); vec(w, 'var(--green)', 'w', 2);
+    vec(res, 'var(--yellow)', mode==='mul'?'z\u00b7w':'z+w', 2.4);
+    // readout
+    var modZ=Math.hypot(z[0],z[1]), modW=Math.hypot(w[0],w[1]), modR=Math.hypot(res[0],res[1]);
+    var argZ=Math.atan2(z[1],z[0]), argW=Math.atan2(w[1],w[0]), argR=Math.atan2(res[1],res[0]);
+    function argStr(mod, ang){ return mod<1e-9 ? 'undefined' : ang.toFixed(2); } // arg(0) is undefined
+    var lines = [];
+    lines.push('z = ' + fmtC(z) + '    (|z| = ' + modZ.toFixed(2) + ',  arg z = ' + argStr(modZ, argZ) + ')');
+    lines.push('w = ' + fmtC(w) + '    (|w| = ' + modW.toFixed(2) + ',  arg w = ' + argStr(modW, argW) + ')');
+    if(mode==='mul'){
+      lines.push('z\u00b7w = ' + fmtC(res) + '    (|z\u00b7w| = ' + modR.toFixed(2) + ',  arg = ' + argStr(modR, argR) + ')');
+      if(modZ<1e-9 || modW<1e-9){
+        lines.push('MULTIPLY: |z\u00b7w| = |z||w| = 0, so z\u00b7w = 0 \u2014 its argument is undefined (you cannot rotate/scale by a zero-length number).');
+      } else {
+        // arg z + arg w can exceed \u03c0; reduce it to the principal value so it matches arg(z\u00b7w).
+        var sumArg = argZ + argW; while(sumArg > Math.PI) sumArg -= 2*Math.PI; while(sumArg <= -Math.PI) sumArg += 2*Math.PI;
+        lines.push('MULTIPLY = rotate + scale:  |z\u00b7w| = |z||w| = ' + (modZ*modW).toFixed(2) + ',  arg z + arg w = ' + (argZ+argW).toFixed(2) + ' \u2261 ' + sumArg.toFixed(2) + ' (mod 2\u03c0) = arg(z\u00b7w). Multiplying by w rotates z by arg w and scales it by |w|.');
+      }
+    } else {
+      lines.push('z+w = ' + fmtC(res) + '    (|z+w| = ' + modR.toFixed(2) + ')');
+      lines.push('ADD = translate (tip-to-tail):  z+w is the diagonal of the parallelogram on z and w \u2014 the same vector addition as in \u211d\u00b2.');
+    }
+    out.textContent = lines.join('\n');
+  }
+  mul.addEventListener('click', function(){ mode='mul'; draw(); });
+  add.addEventListener('click', function(){ mode='add'; draw(); });
+  [zr,za,wr,wa].forEach(function(s){ s.addEventListener('input', draw); });
+  draw();
+})();
+</script>
+
 <div class="quiz" data-concept="complex-numbers"></div><!-- backlinks-auto-begin -->
 <aside class="related">
   <div class="ttl">Used in</div>
@@ -959,6 +1048,93 @@ const C = {
 <p>Since $f$ is entire, $r$ may be taken arbitrarily large, forcing $f'(z_0)=0$. The point $z_0$ was arbitrary, so $f$ is constant.</p>
 <p>Two quick consequences worth holding in mind. First, $\sin z$ and $\cos z$ are entire but unbounded on $\mathbb{C}$ (they grow like $e^{|y|}$ off the real axis). Second, every nonconstant polynomial is entire and unbounded — which is exactly what the next section, the FTA, will turn into a proof that polynomials must have roots.</p>
 <div class="note"><strong>Sharper version.</strong> If $|f(z)|\le A + B|z|^k$ for $|z|$ large, then $f$ is a polynomial of degree $\le k$. The same CIF estimate kills $f^{(k+1)}$.</div>
+
+<div class="widget" id="w-liouville">
+  <div class="hd"><div class="ttl">Liouville: a bounded entire function is constant</div><div class="hint">Watch the Cauchy bound M_R/R: it reaches 0 only if f is bounded.</div></div>
+  <div class="row">
+    <label for="w-liouville-sel">entire $f(z)$</label>
+    <select id="w-liouville-sel">
+      <option value="const" selected>f = 2 (constant)</option>
+      <option value="z">z</option>
+      <option value="affine">2z + 1</option>
+      <option value="z2">z²</option>
+      <option value="ez">e^z</option>
+    </select>
+    <label for="w-liouville-r">radius $R$</label>
+    <input type="range" id="w-liouville-r" min="0.5" max="8" value="2" step="0.1">
+    <span class="pill" id="w-liouville-rval">R = 2.0</span>
+  </div>
+  <svg id="w-liouville-svg" viewBox="0 0 540 250" width="540" height="250" role="img" aria-label="The Cauchy estimate bound M_R/R plotted against the radius R"><title>Liouville's theorem: the Cauchy estimate |f'(0)| ≤ M_R/R collapses to 0 only when f is bounded</title></svg>
+  <div class="readout" id="w-liouville-out"></div>
+</div><script>
+/* complex-analysis-liouville widget: w-liouville */
+(function(){
+  var FNS = [{"id":"const","label":"f = 2 (constant)","kind":"const","fp0":0,"note":"Bounded ⇒ M_R/R → 0 ⇒ f′ ≡ 0 ⇒ constant. This IS Liouville."},{"id":"z","label":"z","kind":"z","fp0":1,"note":"Unbounded: M_R = R, so the bound sits at 1 and never reaches 0."},{"id":"affine","label":"2z + 1","kind":"affine","fp0":2,"note":"M_R = 2R+1, so the bound → 2 = |f′(0)| — tight but never 0."},{"id":"z2","label":"z²","kind":"z2","fp0":0,"note":"M_R = R²: polynomial growth, the bound diverges as R grows."},{"id":"ez","label":"e^z","kind":"ez","fp0":1,"note":"The canonical non-constant entire function — and necessarily unbounded."}];
+  var byId = {}; FNS.forEach(function(g){ byId[g.id] = g; });
+  var sel = document.getElementById('w-liouville-sel');
+  var rIn = document.getElementById('w-liouville-r'), rL = document.getElementById('w-liouville-rval');
+  var svg = document.getElementById('w-liouville-svg');
+  var out = document.getElementById('w-liouville-out');
+  if(!sel || !rIn || !rL || !svg || !out) return;
+  var NS = 'http://www.w3.org/2000/svg';
+  function mk(tag, attrs, text){ var e = document.createElementNS(NS, tag); for(var k in attrs){ e.setAttribute(k, attrs[k]); } if(text!=null) e.textContent = text; return e; }
+  function cmul(p,q){ return [p[0]*q[0]-p[1]*q[1], p[0]*q[1]+p[1]*q[0]]; }
+  function cexp(p){ var e=Math.exp(p[0]); return [e*Math.cos(p[1]), e*Math.sin(p[1])]; }
+  function feval(kind, z){
+    if(kind==='const') return [2,0];
+    if(kind==='z') return z;
+    if(kind==='affine') return [2*z[0]+1, 2*z[1]];
+    if(kind==='z2') return cmul(z,z);
+    if(kind==='ez') return cexp(z);
+    return z;
+  }
+  function maxMod(kind, R){ var m=0, i, th, w; for(i=0;i<180;i++){ th=2*Math.PI*i/180; w=feval(kind, [R*Math.cos(th), R*Math.sin(th)]); var a=Math.hypot(w[0],w[1]); if(a>m) m=a; } return m; }
+  function bound(kind, R){ return maxMod(kind, R)/R; }
+  var RMIN=0.5, RMAX=8, YMAX=10;
+  var PX0=64, PY0=210, PW=440, PH=176;
+  function PX(R){ return PX0 + (R-RMIN)/(RMAX-RMIN)*PW; }
+  function PY(v){ return PY0 - Math.min(v,YMAX)/YMAX*PH; }
+  function draw(){
+    var g = byId[sel.value] || FNS[0], R = +rIn.value;
+    rL.textContent = 'R = ' + R.toFixed(1);
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    // axes
+    svg.appendChild(mk('line', {x1:PX0, y1:PY0, x2:PX0+PW, y2:PY0, stroke:'var(--line)'}));
+    svg.appendChild(mk('line', {x1:PX0, y1:PY0, x2:PX0, y2:PY0-PH, stroke:'var(--line)'}));
+    svg.appendChild(mk('text', {x:PX0+PW, y:PY0+16, 'text-anchor':'end', 'font-size':10, fill:'var(--mute)'}, 'R \u2192 ' + RMAX));
+    svg.appendChild(mk('text', {x:PX0-8, y:PY0-PH+4, 'text-anchor':'end', 'font-size':10, fill:'var(--mute)'}, YMAX + ''));
+    svg.appendChild(mk('text', {x:PX0-8, y:PY0, 'text-anchor':'end', 'font-size':10, fill:'var(--mute)'}, '0'));
+    // |f'(0)| reference line
+    if(g.fp0 <= YMAX){ svg.appendChild(mk('line', {x1:PX0, y1:PY(g.fp0), x2:PX0+PW, y2:PY(g.fp0), stroke:'var(--pink)', 'stroke-width':1.3, 'stroke-dasharray':'4 3'}));
+      svg.appendChild(mk('text', {x:PX0+PW, y:PY(g.fp0)-4, 'text-anchor':'end', 'font-size':10, fill:'var(--pink)'}, '|f\u2032(0)| = ' + g.fp0)); }
+    // Cauchy bound curve M_R/R
+    var pts=[], i, RR; for(i=0;i<=120;i++){ RR=RMIN+(RMAX-RMIN)*i/120; pts.push(PX(RR).toFixed(1)+','+PY(bound(g.kind,RR)).toFixed(1)); }
+    svg.appendChild(mk('polyline', {points:pts.join(' '), fill:'none', stroke:'var(--cyan)', 'stroke-width':1.8}));
+    svg.appendChild(mk('text', {x:PX0+8, y:PY0-PH+12, 'font-size':10, fill:'var(--cyan)'}, 'M_R / R   (Cauchy bound on |f\u2032(0)|)'));
+    // current R marker
+    var b = bound(g.kind, R);
+    svg.appendChild(mk('line', {x1:PX(R), y1:PY0, x2:PX(R), y2:PY0-PH, stroke:'var(--mute)', 'stroke-dasharray':'2 3'}));
+    svg.appendChild(mk('circle', {cx:PX(R), cy:PY(b), r:4, fill:'var(--yellow)'}));
+    svg.appendChild(mk('text', {x:PX(R), y:PY0+16, 'text-anchor':'middle', 'font-size':10, fill:'var(--yellow)'}, 'R=' + R.toFixed(1)));
+    // readout
+    var MR = maxMod(g.kind, R);
+    var lines = [];
+    lines.push('Cauchy estimate:  |f\u2032(0)| \u2264 (max_{|z|=R} |f|) / R = M_R / R.');
+    lines.push('At R = ' + R.toFixed(1) + ':  M_R = ' + MR.toFixed(2) + ',  so the bound is M_R/R = ' + b.toFixed(3) + '.   Actual |f\u2032(0)| = ' + g.fp0 + '.');
+    if(g.kind==='const'){ lines.push('M_R = 2 stays bounded, so M_R/R = 2/R \u2192 0 as R \u2192 \u221e \u21d2 |f\u2032(0)| = 0. A bounded entire function has zero derivative everywhere \u21d2 it is CONSTANT. That is Liouville\u2019s theorem.'); }
+    else if(g.kind==='z'){ lines.push('M_R = R, so M_R/R = 1 for every R \u2014 the bound never collapses to 0 (and indeed |f\u2032(0)| = 1). z is unbounded, so Liouville does not apply.'); }
+    else if(g.kind==='affine'){ lines.push('M_R = 2R+1, so M_R/R \u2192 2 = |f\u2032(0)|. Unbounded, so the bound stays positive \u2014 no contradiction.'); }
+    else if(g.kind==='z2'){ lines.push('M_R = R\u00b2, so M_R/R = R \u2192 \u221e. Polynomial growth: f is unbounded and the estimate gives no ceiling as R grows.'); }
+    else { lines.push('M_R = e^R, so M_R/R = e^R/R \u2192 \u221e explosively. e^z is the canonical non-constant entire function \u2014 necessarily unbounded.'); }
+    if(g.note) lines.push(g.note);
+    lines.push('The estimate forces f\u2032 = 0 only if M_R stays bounded as R \u2192 \u221e. Bounded + entire \u21d2 constant.');
+    out.textContent = lines.join('\n');
+  }
+  sel.addEventListener('change', draw); rIn.addEventListener('input', draw);
+  draw();
+})();
+</script>
+
 <div class="quiz" data-concept="liouville"></div><!-- backlinks-auto-begin -->
 <aside class="related">
   <div class="ttl">Used in</div>
