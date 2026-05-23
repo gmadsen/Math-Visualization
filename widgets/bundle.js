@@ -13278,6 +13278,25 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "motives-chow-decomposition",
+    "family": "motives-chow-decomposition",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory",
+    "title": "motives-chow-decomposition widget params",
+    "description": "Chow-motive decomposition viewer. The reader picks a variety and sees its motive h(X) split into pieces — Tate motives 𝟙 = ℚ(0), 𝕃 = ℚ(−1), 𝕃², … (each 1-dimensional, pure type (i,i)) plus the 'interesting' h^1 pieces of curves. Each piece shows which cohomological degree it realizes into and its dimension, and the readout recovers the Betti numbers. Data-driven: each variety carries its list of motive pieces in params.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "varieties"
+    ],
+    "readmeExcerpt": "Chow-motive decomposition viewer, introduced on `motives.html` §3. Bespoke semantic module — each variety carries its list of motive summands in params.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "motives-realization-comparison",
     "family": "motives-realization-comparison",
     "dimension": "2d",
@@ -13292,6 +13311,25 @@ window.__MVWidgets = [
       "theories"
     ],
     "readmeExcerpt": "Interactive realization-functor explorer, introduced on `motives.html` §1 (the cohomology zoo) to give the page its first interactive widget. It complements the section's static factorization diagram (SmProj → Mot(k) → realizations): the diagram motivates *why* a universal cohomology should exist; this widget lets the reader poke concrete varieties and watch the punchline — every realization has the same Betti numbers, only the extra structure differs.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "motives-standard-conjectures",
+    "family": "motives-standard-conjectures",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory",
+    "title": "motives-standard-conjectures widget params",
+    "description": "Status browser for Grothendieck's standard conjectures and the unconditional results around them. The reader clicks an item (Lefschetz B, Künneth C, Hodge standard I, num=hom D, plus theorems like Jannsen semisimplicity, mixed Tate motives, Voevodsky's DM) and the readout gives its statement, status (known / partial / open), and what is known. Data-driven: each item carries its status and explanation in params.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "items"
+    ],
+    "readmeExcerpt": "Status browser for Grothendieck's standard conjectures, introduced on `motives.html` §8. Bespoke semantic module — each item's status and explanation live in params.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
