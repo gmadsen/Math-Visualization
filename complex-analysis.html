@@ -919,6 +919,75 @@ const C = {
 <p><strong>Schwarz–Pick.</strong> Removing the assumption $f(0)=0$ and conjugating by Möbius maps gives the version that respects the hyperbolic geometry of $\mathbb{D}$:</p>
 <p>$$\left|\frac{f(z)-f(w)}{1-\overline{f(w)}f(z)}\right| \;\le\; \left|\frac{z-w}{1-\bar w z}\right|.$$</p>
 <p>Holomorphic self-maps of the disk are <em>nonexpanding</em> in the Poincaré metric, and equality at one pair forces $f$ to be a Möbius automorphism — a holomorphic isometry. Every disk automorphism therefore has the form $z\mapsto e^{i\theta}(z-a)/(1-\bar a z)$ (§23), parameterized by a phase and a fixed point in $\mathbb{D}$. Schwarz is the seed of all uniformization-flavored arguments downstream: it powers the proof of the Riemann mapping theorem (§25) and the classification of $\mathrm{Aut}(\mathbb{D})$.</p>
+
+<div class="widget" id="w-schwarz">
+  <div class="hd"><div class="ttl">The Schwarz bound |f| ≤ |z|</div><div class="hint">contractions stay below the diagonal; only rotations lie on it</div></div>
+  <div class="row">
+    <label for="w-schwarz-sel">f : 𝔻→𝔻, f(0)=0</label>
+    <select id="w-schwarz-sel">
+      <option value="sq" selected>z²</option>
+      <option value="cube">z³</option>
+      <option value="rot">e^(iπ/4)·z (rotation)</option>
+      <option value="blaschke">z·(z−½)/(1−½z)</option>
+    </select>
+    <label for="w-schwarz-dir">ray $\arg z$</label>
+    <input type="range" id="w-schwarz-dir" min="0" max="6.283" value="0.6" step="0.02">
+    <span class="pill" id="w-schwarz-dirval">arg = 0.60</span>
+  </div>
+  <svg id="w-schwarz-svg" viewBox="0 0 540 250" width="540" height="250" role="img" aria-label="|f(z)| against |z| with the Schwarz bound"><title>Schwarz lemma: |f(z)| ≤ |z| with equality only for rotations</title></svg>
+  <div class="readout" id="w-schwarz-out"></div>
+</div><script>
+/* complex-analysis-schwarz-lemma widget: w-schwarz */
+(function(){
+  var FNS = [{"id":"sq","label":"z²","kind":"sq","fp0":"0","note":"A contraction: |f| = |z|², strictly below the bound."},{"id":"cube","label":"z³","kind":"cube","fp0":"0","note":"|f| = |z|³ — an even faster contraction."},{"id":"rot","label":"e^(iπ/4)·z (rotation)","kind":"rot","fp0":"1","note":"A rotation: |f| = |z| everywhere — the equality case, |f′(0)| = 1."},{"id":"blaschke","label":"z·(z−½)/(1−½z)","kind":"blaschke0","fp0":"1/2","note":"A Blaschke product; |f| < |z| strictly, |f′(0)| = ½."}];
+  var byId = {}; FNS.forEach(function(g){ byId[g.id] = g; });
+  var sel = document.getElementById('w-schwarz-sel');
+  var dir = document.getElementById('w-schwarz-dir'), dirL = document.getElementById('w-schwarz-dirval');
+  var svg = document.getElementById('w-schwarz-svg');
+  var out = document.getElementById('w-schwarz-out');
+  if(!sel || !dir || !svg || !out) return;
+  var NS = 'http://www.w3.org/2000/svg';
+  function mk(tag, attrs, text){ var e = document.createElementNS(NS, tag); for(var k in attrs){ e.setAttribute(k, attrs[k]); } if(text!=null) e.textContent = text; return e; }
+  function cmul(p,q){ return [p[0]*q[0]-p[1]*q[1], p[0]*q[1]+p[1]*q[0]]; }
+  function cdiv(p,q){ var d=q[0]*q[0]+q[1]*q[1]; return [(p[0]*q[0]+p[1]*q[1])/d, (p[1]*q[0]-p[0]*q[1])/d]; }
+  var A = 0.5; // Blaschke parameter (real)
+  function f(kind, z){
+    if(kind==='sq') return cmul(z,z);
+    if(kind==='cube') return cmul(cmul(z,z), z);
+    if(kind==='rot'){ var e=[Math.cos(Math.PI/4), Math.sin(Math.PI/4)]; return cmul(e, z); }
+    if(kind==='blaschke0'){ var num=[z[0]-A, z[1]], den=[1-A*z[0], -A*z[1]]; return cmul(z, cdiv(num, den)); }
+    return z;
+  }
+  // plot box
+  var PX0=70, PY0=210, PW=420, PH=170; // axes origin bottom-left, width, height
+  function X(r){ return PX0 + r*PW; } function Y(v){ return PY0 - v*PH; }
+  function draw(){
+    var g = byId[sel.value] || FNS[0], th = +dir.value;
+    dirL.textContent = 'arg = ' + th.toFixed(2);
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    // axes
+    svg.appendChild(mk('line', {x1:PX0, y1:PY0, x2:PX0+PW, y2:PY0, stroke:'var(--line)'}));
+    svg.appendChild(mk('line', {x1:PX0, y1:PY0, x2:PX0, y2:PY0-PH, stroke:'var(--line)'}));
+    svg.appendChild(mk('text', {x:PX0+PW, y:PY0+16, 'text-anchor':'end', 'font-size':10, fill:'var(--mute)'}, '|z| \u2192 1'));
+    svg.appendChild(mk('text', {x:PX0-8, y:PY0-PH, 'text-anchor':'end', 'font-size':10, fill:'var(--mute)'}, '|f|'));
+    // bound line |f| = |z| (the diagonal)
+    svg.appendChild(mk('line', {x1:X(0), y1:Y(0), x2:X(1), y2:Y(1), stroke:'var(--pink)', 'stroke-width':1.2, 'stroke-dasharray':'4 3'}));
+    svg.appendChild(mk('text', {x:X(0.82), y:Y(0.82)-6, 'font-size':10, fill:'var(--pink)'}, 'bound |f| = |z|'));
+    // the curve |f(r e^{i th})| vs r
+    var pts=[], touch=true; for(var i=0;i<=100;i++){ var r=i/100, z=[r*Math.cos(th), r*Math.sin(th)], w=f(g.kind, z), m=Math.hypot(w[0],w[1]); if(r>0.001 && m < r-1e-4) touch=false; pts.push(X(r)+','+Y(Math.min(m,1.05))); }
+    svg.appendChild(mk('polyline', {points:pts.join(' '), fill:'none', stroke:'var(--cyan)', 'stroke-width':1.8}));
+    svg.appendChild(mk('text', {x:X(0.96), y:Y(0.18), 'text-anchor':'end', 'font-size':10, fill:'var(--cyan)'}, '|f(z)| along the ray'));
+    var lines = [];
+    lines.push('Schwarz: f : 𝔻→𝔻 with f(0)=0 \u21d2 |f(z)| \u2264 |z| and |f\u2032(0)| \u2264 1.');
+    lines.push('|f\u2032(0)| = ' + (g.fp0 || '?') + '.   This f: the |f| curve lies ' + (touch ? 'ON the bound (a rotation — equality everywhere).' : 'strictly BELOW the bound (a genuine contraction).'));
+    if(g.note) lines.push(g.note);
+    out.textContent = lines.join('\n');
+  }
+  sel.addEventListener('change', draw); dir.addEventListener('input', draw);
+  draw();
+})();
+</script>
+
 <div class="quiz" data-concept="schwarz-lemma"></div><!-- backlinks-auto-begin -->
 <aside class="related">
   <div class="ttl">Used in</div>
@@ -945,6 +1014,83 @@ const C = {
 <p>Same function, two utterly different Laurent series — uniqueness is per annulus, not per function.</p>
 <p><strong>Worked example: $e^{1/z}$ around $z_0=0$.</strong> Substitute into the Taylor series for $e^w$: $e^{1/z} = \sum_{n=0}^\infty \frac{1}{n! z^n}$. Infinitely many negative-power coefficients — an essential singularity (§18), and the residue is $c_{-1}=1$.</p>
 <p>The coefficient $c_{-1}$ is the <strong>residue</strong> of $f$ at $z_0$, the only one that survives integration around a small loop. That observation drives §19, the residue theorem, which turns awkward real integrals into mechanical contour calculations.</p>
+
+<div class="widget" id="w-laurent">
+  <div class="hd"><div class="ttl">Same f, different annulus — different Laurent series</div><div class="hint">pick the annulus and add terms; the partial sum converges to f there</div></div>
+  <div class="row">
+    <label for="w-laurent-sel">function · annulus</label>
+    <select id="w-laurent-sel">
+      <option value="zzm1-inner" selected>1/(z(z−1)) on 0&lt;|z|&lt;1</option>
+      <option value="zzm1-outer">1/(z(z−1)) on |z|&gt;1</option>
+      <option value="exp">e^(1/z) on |z|&gt;0</option>
+    </select>
+    <label for="w-laurent-n">terms $N$</label>
+    <input type="range" id="w-laurent-n" min="1" max="30" value="6" step="1">
+    <span class="pill" id="w-laurent-nval">N = 6</span>
+  </div>
+  <svg id="w-laurent-svg" viewBox="0 0 540 240" width="540" height="240" role="img" aria-label="The annulus of convergence and a test point"><title>Laurent series: the annulus of convergence and partial-sum convergence</title></svg>
+  <div class="readout" id="w-laurent-out"></div>
+</div><script>
+/* complex-analysis-laurent widget: w-laurent */
+(function(){
+  var CASES = [{"id":"zzm1-inner","label":"1/(z(z−1)) on 0<|z|<1","kind":"inv_zzm1","seriesKind":"inner_zzm1","rIn":0,"rOut":1,"series":"−1/z − 1 − z − z² − z³ − …"},{"id":"zzm1-outer","label":"1/(z(z−1)) on |z|>1","kind":"inv_zzm1","seriesKind":"outer_zzm1","rIn":1,"rOut":5,"series":"z⁻² + z⁻³ + z⁻⁴ + …"},{"id":"exp","label":"e^(1/z) on |z|>0","kind":"exp_invz","seriesKind":"exp_invz","rIn":0,"rOut":5,"series":"1 + 1/z + 1/(2! z²) + 1/(3! z³) + …","converge":"converges on the whole punctured plane — everywhere except z = 0"}];
+  var byId = {}; CASES.forEach(function(c){ byId[c.id] = c; });
+  var sel = document.getElementById('w-laurent-sel');
+  var nIn = document.getElementById('w-laurent-n'), nL = document.getElementById('w-laurent-nval');
+  var svg = document.getElementById('w-laurent-svg');
+  var out = document.getElementById('w-laurent-out');
+  if(!sel || !nIn || !svg || !out) return;
+  var NS = 'http://www.w3.org/2000/svg';
+  function mk(tag, attrs, text){ var e = document.createElementNS(NS, tag); for(var k in attrs){ e.setAttribute(k, attrs[k]); } if(text!=null) e.textContent = text; return e; }
+  function cmul(p,q){ return [p[0]*q[0]-p[1]*q[1], p[0]*q[1]+p[1]*q[0]]; }
+  function cdiv(p,q){ var d=q[0]*q[0]+q[1]*q[1]; return [(p[0]*q[0]+p[1]*q[1])/d, (p[1]*q[0]-p[0]*q[1])/d]; }
+  function cexp(p){ var e=Math.exp(p[0]); return [e*Math.cos(p[1]), e*Math.sin(p[1])]; }
+  function fval(kind, z){
+    if(kind==='inv_zzm1') return cdiv([1,0], cmul(z, [z[0]-1, z[1]]));
+    if(kind==='exp_invz') return cexp(cdiv([1,0], z));
+    return z;
+  }
+  function partial(seriesKind, z, N){
+    var inv = cdiv([1,0], z), s, pw, k, fac;
+    if(seriesKind==='inner_zzm1'){ s=[-inv[0], -inv[1]]; pw=[1,0]; for(k=0;k<=N;k++){ s=[s[0]-pw[0], s[1]-pw[1]]; pw=cmul(pw, z); } return s; }
+    if(seriesKind==='outer_zzm1'){ s=[0,0]; pw=cmul(inv,inv); for(k=2;k<=N+1;k++){ s=[s[0]+pw[0], s[1]+pw[1]]; pw=cmul(pw, inv); } return s; }
+    if(seriesKind==='exp_invz'){ s=[0,0]; pw=[1,0]; fac=1; for(k=0;k<=N;k++){ if(k>0) fac*=k; s=[s[0]+pw[0]/fac, s[1]+pw[1]/fac]; pw=cmul(pw, inv); } return s; }
+    return [0,0];
+  }
+  var CX=130, CY=120, SC=44; // z-plane: 1 unit = SC px
+  function ZX(x){ return CX + x*SC; } function ZY(y){ return CY - y*SC; }
+  function draw(){
+    var c = byId[sel.value] || CASES[0], N = +nIn.value;
+    nL.textContent = 'N = ' + N;
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    var rOutD = Math.min(c.rOut, 2.3);
+    // shaded annulus: outer disk minus inner disk
+    svg.appendChild(mk('circle', {cx:CX, cy:CY, r:rOutD*SC, fill:'color-mix(in srgb, var(--cyan) 10%, transparent)', stroke:'var(--cyan)', 'stroke-width':1.2, 'stroke-dasharray': c.rOut>2.3?'4 3':''}));
+    if(c.rIn>0.001){ svg.appendChild(mk('circle', {cx:CX, cy:CY, r:c.rIn*SC, fill:'var(--panel)', stroke:'var(--cyan)', 'stroke-width':1.2})); }
+    // Origin is a singularity in every case: draw it as an OPEN dot (excluded point).
+    // For punctured annuli (rIn=0) the panel-filled ring punches a visible hole into the
+    // shading, so the region reads as the disk MINUS the point z=0 (not a finite inner disk).
+    var punctured = c.rIn < 0.001;
+    svg.appendChild(mk('circle', {cx:CX, cy:CY, r:3.5, fill:'var(--panel)', stroke:'var(--pink)', 'stroke-width':1.5}));
+    svg.appendChild(mk('text', {x:CX+8, y:CY+13, 'font-size':9, fill:'var(--pink)'}, punctured ? '0 excluded' : '0'));
+    svg.appendChild(mk('text', {x:CX, y:18, 'text-anchor':'middle', 'font-size':11, fill:'var(--mute)', 'font-style':'italic'}, 'annulus of convergence'));
+    // test point at mid-radius, fixed angle
+    var rt = (c.rIn + rOutD)/2, ang = 0.7, z=[rt*Math.cos(ang), rt*Math.sin(ang)];
+    svg.appendChild(mk('circle', {cx:ZX(z[0]), cy:ZY(z[1]), r:4, fill:'var(--yellow)'}));
+    svg.appendChild(mk('text', {x:ZX(z[0])+7, y:ZY(z[1]), 'font-size':10, fill:'var(--yellow)'}, 'test z'));
+    var fz = fval(c.kind, z), sN = partial(c.seriesKind, z, N), err = Math.hypot(fz[0]-sN[0], fz[1]-sN[1]);
+    var lines = [];
+    lines.push('Laurent series on this annulus:  f(z) = ' + c.series);
+    lines.push('at the test point z = ' + z[0].toFixed(2) + ' + ' + z[1].toFixed(2) + 'i:');
+    lines.push('  S_' + N + ' = ' + sN[0].toFixed(4) + ' + ' + sN[1].toFixed(4) + 'i      f = ' + fz[0].toFixed(4) + ' + ' + fz[1].toFixed(4) + 'i');
+    lines.push('  |f \u2212 S_' + N + '| = ' + err.toExponential(2) + '   \u2192 0 as N grows (' + (c.converge || 'converges on the annulus, diverges outside it') + ').');
+    out.textContent = lines.join('\n');
+  }
+  sel.addEventListener('change', draw); nIn.addEventListener('input', draw);
+  draw();
+})();
+</script>
+
 <div class="quiz" data-concept="laurent-series"></div><!-- backlinks-auto-begin -->
 <aside class="related">
   <div class="ttl">Used in</div>

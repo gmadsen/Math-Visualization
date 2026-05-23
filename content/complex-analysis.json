@@ -664,6 +664,57 @@
           "html": "<section id=\"schwarz-lemma\">\n<h2>16. Schwarz lemma</h2>\n<p><strong>Schwarz lemma.</strong> If $f\\colon\\mathbb{D}\\to\\mathbb{D}$ is holomorphic with $f(0)=0$, then $|f(z)|\\le |z|$ and $|f'(0)|\\le 1$. Equality at any interior $z$ forces $f(z) = e^{i\\theta}z$.</p>\n<p><em>Proof.</em> Define $g(z) = f(z)/z$ — holomorphic on $\\mathbb{D}$ because $f(0)=0$ removes the apparent singularity (§18). On the circle $|z|=r<1$, $|g(z)|\\le 1/r$. Maximum modulus (§14) propagates the bound to the interior, then $r\\to 1$ gives $|g|\\le 1$ everywhere. Equality at any interior point makes $|g|$ attain its max inside $\\mathbb{D}$, forcing $g$ to be a constant of modulus $1$.</p>\n<p>The lemma is short to state, but the consequences are sweeping. It is a <em>rigidity</em> result: a self-map of the disk fixing $0$ is either a rotation or strictly contracts the origin. There is no \"dilation by $0.99$ near $0$ then expansion further out\" — the boundary constraint nails everything down.</p>\n<p><strong>Schwarz–Pick.</strong> Removing the assumption $f(0)=0$ and conjugating by Möbius maps gives the version that respects the hyperbolic geometry of $\\mathbb{D}$:</p>\n<p>$$\\left|\\frac{f(z)-f(w)}{1-\\overline{f(w)}f(z)}\\right| \\;\\le\\; \\left|\\frac{z-w}{1-\\bar w z}\\right|.$$</p>\n<p>Holomorphic self-maps of the disk are <em>nonexpanding</em> in the Poincaré metric, and equality at one pair forces $f$ to be a Möbius automorphism — a holomorphic isometry. Every disk automorphism therefore has the form $z\\mapsto e^{i\\theta}(z-a)/(1-\\bar a z)$ (§23), parameterized by a phase and a fixed point in $\\mathbb{D}$. Schwarz is the seed of all uniformization-flavored arguments downstream: it powers the proof of the Riemann mapping theorem (§25) and the classification of $\\mathrm{Aut}(\\mathbb{D})$.</p>\n"
         },
         {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget",
+          "slug": "complex-analysis-schwarz-lemma",
+          "params": {
+            "widgetId": "w-schwarz",
+            "title": "The Schwarz bound |f| ≤ |z|",
+            "hint": "contractions stay below the diagonal; only rotations lie on it",
+            "functions": [
+              {
+                "id": "sq",
+                "label": "z²",
+                "kind": "sq",
+                "fp0": "0",
+                "note": "A contraction: |f| = |z|², strictly below the bound."
+              },
+              {
+                "id": "cube",
+                "label": "z³",
+                "kind": "cube",
+                "fp0": "0",
+                "note": "|f| = |z|³ — an even faster contraction."
+              },
+              {
+                "id": "rot",
+                "label": "e^(iπ/4)·z (rotation)",
+                "kind": "rot",
+                "fp0": "1",
+                "note": "A rotation: |f| = |z| everywhere — the equality case, |f′(0)| = 1."
+              },
+              {
+                "id": "blaschke",
+                "label": "z·(z−½)/(1−½z)",
+                "kind": "blaschke0",
+                "fp0": "1/2",
+                "note": "A Blaschke product; |f| < |z| strictly, |f′(0)| = ½."
+              }
+            ]
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-schwarz"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
           "type": "quiz",
           "concept": "schwarz-lemma",
           "html": "<div class=\"quiz\" data-concept=\"schwarz-lemma\"></div>"
@@ -684,6 +735,57 @@
         {
           "type": "raw",
           "html": "<section id=\"laurent-series\">\n<h2>17. Laurent series</h2>\n<p>Drop the assumption that $f$ is holomorphic on the whole disc; allow an isolated singularity at $z_0$. On any annulus $r_1 < |z - z_0| < r_2$ on which $f$ is holomorphic, we have a unique <strong>Laurent expansion</strong></p>\n<p>$$f(z) \\;=\\; \\sum_{n=-\\infty}^\\infty c_n (z-z_0)^n,$$</p>\n<p>convergent on the annulus and divergent outside. The coefficients are still given by Cauchy's formula:</p>\n<p>$$c_n = \\frac{1}{2\\pi i}\\oint_{|z-z_0|=r}\\frac{f(z)}{(z-z_0)^{n+1}}\\,dz, \\qquad r_1 < r < r_2.$$</p>\n<p>The radius $r$ inside the annulus does not matter — Cauchy's theorem says the integral is contour-independent in the holomorphic region. Split into the <strong>regular part</strong> $\\sum_{n\\ge 0} c_n(z-z_0)^n$ and the <strong>principal part</strong> $\\sum_{n<0} c_n(z-z_0)^n$. The regular part is just the Taylor series you would get if $z_0$ were a nice point; the principal part is the bookkeeping for whatever singularity $f$ has at $z_0$, and §18 reads off the type of singularity directly from how many negative-power terms appear.</p>\n<p><strong>Worked example: $f(z) = \\dfrac{1}{z(z-1)}$ around $z_0=0$.</strong> Partial fractions give $f(z) = -\\frac{1}{z} - \\frac{1}{1-z}$. On the annulus $0<|z|<1$, expand the second term as a geometric series:</p>\n<p>$$f(z) = -\\frac{1}{z} - \\sum_{n=0}^\\infty z^n \\;=\\; -\\frac{1}{z} - 1 - z - z^2 - \\cdots.$$</p>\n<p>Same $f$, different annulus $|z|>1$: now $\\frac{1}{1-z} = -\\frac{1}{z}\\cdot\\frac{1}{1-1/z} = -\\sum_{n=0}^\\infty z^{-n-1}$, giving</p>\n<p>$$f(z) = -\\frac{1}{z} + \\sum_{n=0}^\\infty z^{-n-1} \\;=\\; \\sum_{n=2}^\\infty z^{-n}.$$</p>\n<p>Same function, two utterly different Laurent series — uniqueness is per annulus, not per function.</p>\n<p><strong>Worked example: $e^{1/z}$ around $z_0=0$.</strong> Substitute into the Taylor series for $e^w$: $e^{1/z} = \\sum_{n=0}^\\infty \\frac{1}{n! z^n}$. Infinitely many negative-power coefficients — an essential singularity (§18), and the residue is $c_{-1}=1$.</p>\n<p>The coefficient $c_{-1}$ is the <strong>residue</strong> of $f$ at $z_0$, the only one that survives integration around a small loop. That observation drives §19, the residue theorem, which turns awkward real integrals into mechanical contour calculations.</p>\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget",
+          "slug": "complex-analysis-laurent",
+          "params": {
+            "widgetId": "w-laurent",
+            "title": "Same f, different annulus — different Laurent series",
+            "hint": "pick the annulus and add terms; the partial sum converges to f there",
+            "cases": [
+              {
+                "id": "zzm1-inner",
+                "label": "1/(z(z−1)) on 0<|z|<1",
+                "kind": "inv_zzm1",
+                "seriesKind": "inner_zzm1",
+                "rIn": 0,
+                "rOut": 1,
+                "series": "−1/z − 1 − z − z² − z³ − …"
+              },
+              {
+                "id": "zzm1-outer",
+                "label": "1/(z(z−1)) on |z|>1",
+                "kind": "inv_zzm1",
+                "seriesKind": "outer_zzm1",
+                "rIn": 1,
+                "rOut": 5,
+                "series": "z⁻² + z⁻³ + z⁻⁴ + …"
+              },
+              {
+                "id": "exp",
+                "label": "e^(1/z) on |z|>0",
+                "kind": "exp_invz",
+                "seriesKind": "exp_invz",
+                "rIn": 0,
+                "rOut": 5,
+                "series": "1 + 1/z + 1/(2! z²) + 1/(3! z³) + …",
+                "converge": "converges on the whole punctured plane — everywhere except z = 0"
+              }
+            ]
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-laurent"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
         },
         {
           "type": "quiz",
