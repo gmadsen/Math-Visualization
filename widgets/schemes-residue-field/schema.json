@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/schemes-residue-field/schema.json",
+  "title": "schemes-residue-field widget params",
+  "description": "Residue-field / evaluation explorer over Spec ℤ. The reader slides an integer f = n; the widget shows its value at each point of Spec ℤ — at a prime (p) the residue field is κ((p)) = 𝔽_p and the value is n mod p, while at the generic point (0) the residue field is κ((0)) = ℚ and the value is n itself. The point of the picture: 'evaluating f at a point' produces values in DIFFERENT fields at different points, and n vanishes at (p) exactly when p | n. The arithmetic is intrinsic; params carry only chrome.",
+  "meta": {
+    "family": "schemes-residue-field",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["widgetId", "title"],
+  "properties": {
+    "widgetId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id; the script derives -n/-svg/-out." },
+    "title": { "type": "string", "description": "Display title rendered inside .hd > .ttl." },
+    "hint": { "type": "string", "description": "Optional short hint rendered inside .hd > .hint." }
+  }
+}
