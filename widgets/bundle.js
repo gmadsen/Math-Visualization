@@ -10915,6 +10915,27 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "langlands-reciprocity-dictionary",
+    "family": "langlands-reciprocity-dictionary",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory",
+    "title": "langlands-reciprocity-dictionary widget params",
+    "description": "Interactive two-column dictionary for the Langlands correspondence. Each row pairs an object on the arithmetic/Galois side with its counterpart on the automorphic side; clicking a row highlights the matched pair and shows what the correspondence asserts about it (local-global compatibility, equal L-functions, GL_1 = class field theory, GL_2 = modularity, …). Data-driven: the column headers and the matched rows live in params, so a non-HTML frontend can rebuild the table from the schema alone.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "left",
+      "right",
+      "rows"
+    ],
+    "readmeExcerpt": "Interactive two-column dictionary for the Langlands correspondence, introduced on `langlands-program.html` §1 (the philosophy) to give the page its first interactive widget. It complements the section's static two-column figure (arithmetic | analytic, \"L-functions match\"): the figure states the slogan, the widget unpacks the specific correspondences row by row.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "large-dev-cramer-tilt",
     "family": "large-dev-cramer-tilt",
     "dimension": "2d",

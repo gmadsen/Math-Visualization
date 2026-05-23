@@ -3,10 +3,10 @@
 ## Corpus totals
 
 - Topics: **207**, concepts: **1422**
-- Widgets: **1451** (registry-driven: 1451, inline: 0)
+- Widgets: **1452** (registry-driven: 1452, inline: 0)
 - Quizzes: **5458** (v1: 4222, hard: 1223, expert: 13)
 - Quiz types: mcq: 3591, numeric: 1291, multi-select: 277, matching: 107, ordering: 85, spot-the-error: 53, complex: 29, proof-completion: 21, construction: 2, guess-my-rule: 2
-- Concepts lacking a widget in their section: **150**
+- Concepts lacking a widget in their section: **149**
 - Concepts lacking a hard-tier quiz: **984**
 
 ## Per-slug registry adoption
@@ -542,6 +542,7 @@ page has wired one in yet.
 | `knot-polynomials-homfly` | knot-polynomials-homfly | step | 2d | 1 | knot-polynomials |
 | `knot-polynomials-reidemeister` | knot-polynomials-reidemeister | click | 2d | 1 | knot-polynomials |
 | `knot-polynomials-rmatrix` | knot-polynomials-rmatrix | slider | 2d | 1 | knot-polynomials |
+| `langlands-reciprocity-dictionary` | langlands-reciprocity-dictionary | interact | 2d | 1 | langlands-program |
 | `large-dev-cramer-tilt` | large-dev-cramer-tilt | slider | 2d | 1 | large-deviations |
 | `large-dev-gartner-ar1` | large-dev-gartner-ar1 | slider | 2d | 1 | large-deviations |
 | `large-dev-rate-gallery` | large-dev-rate-gallery | toggle | 2d | 1 | large-deviations |
@@ -954,10 +955,10 @@ page has wired one in yet.
 ### Modular forms & L-functions
 
 - Topics: **19**, concepts: **116**
-- Widgets: **138** (registry-driven: 138, inline: 0)
-  - by family: button-stepper: 85, verbatim: 18, parametric-plot: 5, svg-illustration: 4, lattice-visualizer: 2, voa-mode-bookkeeping: 1, voa-axiom-map: 1, voa-virasoro-bracket: 1, voa-character-coeffs: 1, voa-mckay-thompson: 1, voa-construction-zoo: 1, automorphic-restricted-product: 1, automorphic-strong-approximation: 1, automorphic-three-conditions: 1, automorphic-dictionary: 1, automorphic-satake-parameters: 1, automorphic-conductor-ladder: 1, automorphic-local-factor-builder: 1, automorphic-eisenstein-residue: 1, automorphic-functoriality-transfers: 1, modular-curves-fundamental-domain: 1, modular-curves-lattice-cyclic-subgroup: 1, modular-curves-hecke-summands: 1, modular-curves-eichler-shimura: 1, modular-curves-genus-growth: 1, modular-curves-cusps-and-wn: 1, modular-curves-atkin-lehner-newforms: 1, modular-curves-heegner-hypothesis: 1, modular-curves-mazur-torsion: 1
-  - by dimension: 2d: 138
-  - by gesture: click: 111, slider: 13, step: 8, static: 4, select: 2
+- Widgets: **139** (registry-driven: 139, inline: 0)
+  - by family: button-stepper: 85, verbatim: 18, parametric-plot: 5, svg-illustration: 4, lattice-visualizer: 2, langlands-reciprocity-dictionary: 1, voa-mode-bookkeeping: 1, voa-axiom-map: 1, voa-virasoro-bracket: 1, voa-character-coeffs: 1, voa-mckay-thompson: 1, voa-construction-zoo: 1, automorphic-restricted-product: 1, automorphic-strong-approximation: 1, automorphic-three-conditions: 1, automorphic-dictionary: 1, automorphic-satake-parameters: 1, automorphic-conductor-ladder: 1, automorphic-local-factor-builder: 1, automorphic-eisenstein-residue: 1, automorphic-functoriality-transfers: 1, modular-curves-fundamental-domain: 1, modular-curves-lattice-cyclic-subgroup: 1, modular-curves-hecke-summands: 1, modular-curves-eichler-shimura: 1, modular-curves-genus-growth: 1, modular-curves-cusps-and-wn: 1, modular-curves-atkin-lehner-newforms: 1, modular-curves-heegner-hypothesis: 1, modular-curves-mazur-torsion: 1
+  - by dimension: 2d: 139
+  - by gesture: click: 111, slider: 13, step: 8, static: 4, select: 2, interact: 1
 - Quizzes: **528** (v1: 348, hard: 180, expert: 0)
   - by type: mcq: 351, numeric: 158, multi-select: 12, matching: 4, ordering: 2, spot-the-error: 1
 
@@ -1072,7 +1073,7 @@ page has wired one in yet.
 - `model-categories` (Algebra & homological) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `condensed-mathematics` (Algebra & homological) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `hodge-theory` (Algebraic geometry) — concepts=8, widgets=0 (slug=0), quiz=24 (v1=24, hard=0, expert=0)
-- `langlands-program` (Modular forms & L-functions) — concepts=8, widgets=0 (slug=0), quiz=24 (v1=24, hard=0, expert=0)
+- `langlands-program` (Modular forms & L-functions) — concepts=8, widgets=1 (slug=1), quiz=24 (v1=24, hard=0, expert=0)
 - `microlocal-analysis` (Analysis) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `geometric-measure-theory` (Analysis) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `semigroup-theory-evolution-equations` (Analysis) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
@@ -1243,8 +1244,8 @@ page has wired one in yet.
 - `hodge-conjecture` (hodge-theory)
 - `period-domains-vhs` (hodge-theory)
 - `hodge-as-realization` (hodge-theory)
-- `langlands-philosophy` (langlands-program)
 - `l-functions-langlands-bridge` (langlands-program)
+- `local-langlands-gl-n` (langlands-program)
 
 ### Concepts missing a hard-tier quiz (top 20)
 
