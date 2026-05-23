@@ -85,12 +85,16 @@ export function renderScript(params) {
     `    svg.appendChild(mk('text', {x:PX(a), y:PY(0)-9, 'text-anchor':'middle', 'font-size':10, fill:col}, 'a'));\n` +
     `    var I = cauchyIntegral(g.kind, a), fa = feval(g.kind, [a,0]);\n` +
     `    var lines = [];\n` +
-    `    lines.push('(1/2\\u03c0i) \\u222e_C f(z)/(z\\u2212a) dz = ' + fmt(I[0]) + ' + ' + fmt(I[1]) + 'i.');\n` +
     `    if(near){\n` +
+    `      // a is on (or within a quadrature node of) the contour: the integrand is singular, so\n` +
+    `      // the numeric value is meaningless (NaN / huge). Don't print it — just explain.\n` +
+    `      lines.push('(1/2\\u03c0i) \\u222e_C f(z)/(z\\u2212a) dz is undefined here.');\n` +
     `      lines.push('a sits ON (or right next to) the contour |z| = 1.3, where the integrand blows up and the formula does not apply. Move a clearly inside or outside.');\n` +
     `    } else if(inside){\n` +
+    `      lines.push('(1/2\\u03c0i) \\u222e_C f(z)/(z\\u2212a) dz = ' + fmt(I[0]) + ' + ' + fmt(I[1]) + 'i.');\n` +
     `      lines.push('a = ' + a.toFixed(2) + ' is INSIDE C, and f(a) = ' + fmt(fa[0]) + ' + ' + fmt(fa[1]) + 'i. They match \\u2014 the Cauchy integral formula: the contour integral reads off the value f(a).');\n` +
     `    } else {\n` +
+    `      lines.push('(1/2\\u03c0i) \\u222e_C f(z)/(z\\u2212a) dz = ' + fmt(I[0]) + ' + ' + fmt(I[1]) + 'i.');\n` +
     `      lines.push('a = ' + a.toFixed(2) + ' is OUTSIDE C, so f(z)/(z\\u2212a) is holomorphic inside and the integral is 0 \\u2014 the formula recovers a value only for points the contour encloses.');\n` +
     `    }\n` +
     `    if(g.note) lines.push(g.note);\n` +

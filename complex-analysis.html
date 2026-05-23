@@ -886,12 +886,16 @@ const C = {
     svg.appendChild(mk('text', {x:PX(a), y:PY(0)-9, 'text-anchor':'middle', 'font-size':10, fill:col}, 'a'));
     var I = cauchyIntegral(g.kind, a), fa = feval(g.kind, [a,0]);
     var lines = [];
-    lines.push('(1/2\u03c0i) \u222e_C f(z)/(z\u2212a) dz = ' + fmt(I[0]) + ' + ' + fmt(I[1]) + 'i.');
     if(near){
+      // a is on (or within a quadrature node of) the contour: the integrand is singular, so
+      // the numeric value is meaningless (NaN / huge). Don't print it — just explain.
+      lines.push('(1/2\u03c0i) \u222e_C f(z)/(z\u2212a) dz is undefined here.');
       lines.push('a sits ON (or right next to) the contour |z| = 1.3, where the integrand blows up and the formula does not apply. Move a clearly inside or outside.');
     } else if(inside){
+      lines.push('(1/2\u03c0i) \u222e_C f(z)/(z\u2212a) dz = ' + fmt(I[0]) + ' + ' + fmt(I[1]) + 'i.');
       lines.push('a = ' + a.toFixed(2) + ' is INSIDE C, and f(a) = ' + fmt(fa[0]) + ' + ' + fmt(fa[1]) + 'i. They match \u2014 the Cauchy integral formula: the contour integral reads off the value f(a).');
     } else {
+      lines.push('(1/2\u03c0i) \u222e_C f(z)/(z\u2212a) dz = ' + fmt(I[0]) + ' + ' + fmt(I[1]) + 'i.');
       lines.push('a = ' + a.toFixed(2) + ' is OUTSIDE C, so f(z)/(z\u2212a) is holomorphic inside and the integral is 0 \u2014 the formula recovers a value only for points the contour encloses.');
     }
     if(g.note) lines.push(g.note);
