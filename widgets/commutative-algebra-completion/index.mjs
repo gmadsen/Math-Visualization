@@ -52,7 +52,7 @@ export function renderScript(params) {
     `    if(elt===0) return pn-1;            // -1  = ...(p-1)(p-1)\n` +
     `    if(elt===1) return 13 % pn;          // 13\n` +
     `    return (pn-1)/(p-1); }                // 1/(1-p) = 1+p+p^2+...\n` +
-    `  var ELT=['\\u22121','13','1/(1\\u2212p)'], NAME=['\\u22121','13','1/(1\\u2212p)'];\n` +
+    `  var NAME=['\\u22121','13','1/(1\\u2212p)'];\n` +
     `  var p=5, elt=0;\n` +
     `  function draw(){\n` +
     `    while(svg.firstChild) svg.removeChild(svg.firstChild);\n` +
@@ -75,7 +75,7 @@ export function renderScript(params) {
     `    // readout\n` +
     `    var lines=[];\n` +
     `    lines.push('Completion at I=(' + p + '): \\u2124_' + p + ' = lim\\u2190 \\u2124/' + p + '\\u207f is the set of coherent towers (r_n) with r_n \\u2208 \\u2124/' + p + '\\u207f and r_{n+1} \\u2261 r_n (mod ' + p + '\\u207f). Equivalently, formal base-' + p + ' expansions \\u03a3 d_k ' + p + '^k with digits d_k \\u2208 {0,\\u2026,' + (p-1) + '} \\u2014 but infinitely many digits to the LEFT.');\n` +
-    `    if(elt===0) lines.push('Here \\u22121 = ' + digits.join('') + '\\u2026 (every digit ' + (p-1) + '): indeed (' + (p-1) + ')(1+' + p + '+' + p + '\\u00b2+\\u2026) sums to \\u22121, since each partial residue is ' + p + '\\u207f\\u22121 \\u2261 \\u22121 (mod ' + p + '\\u207f). A non-unit-looking series that IS \\u22121 \\u2014 the hallmark of completion.');\n` +
+    `    if(elt===0) lines.push('Here \\u22121 = \\u2026' + digits.join('') + ' (every digit ' + (p-1) + '): indeed (' + (p-1) + ')(1+' + p + '+' + p + '\\u00b2+\\u2026) sums to \\u22121, since each partial residue is ' + p + '\\u207f\\u22121 \\u2261 \\u22121 (mod ' + p + '\\u207f). A non-unit-looking series that IS \\u22121 \\u2014 the hallmark of completion.');\n` +
     `    else if(elt===2) lines.push('Here 1/(1\\u2212' + p + ') = 1+' + p + '+' + p + '\\u00b2+\\u2026 (every digit 1): the geometric series converges ' + p + '-adically because ' + p + '^k \\u2192 0, and (1\\u2212' + p + ')(1+' + p + '+\\u2026)=1. A non-integer rational living in \\u2124_' + p + '.');\n` +
     `    else lines.push('Here 13 is an ordinary integer; its tower stabilizes once ' + p + '\\u207f > 13, so its expansion is the finite base-' + p + ' form of 13 followed by zeros \\u2014 \\u2124 sits inside \\u2124_' + p + ' as the eventually-terminating towers.');\n` +
     `    lines.push('Why completion matters: \\u2124_' + p + ' is faithfully flat over \\u2124_{(' + p + ')}, \\u2229_n (' + p + ')^n = 0 (Krull intersection), and Hensel\\u2019s lemma lifts factorizations from \\u2124/' + p + ' \\u2014 the algebraic model of an infinitesimal neighbourhood.');\n` +

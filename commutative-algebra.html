@@ -1789,7 +1789,7 @@ $$\hat R_I \;=\; \varprojlim_{n} R/I^n \;=\; \Big\{\,(r_n) \in \prod_n R/I^n \;:
     if(elt===0) return pn-1;            // -1  = ...(p-1)(p-1)
     if(elt===1) return 13 % pn;          // 13
     return (pn-1)/(p-1); }                // 1/(1-p) = 1+p+p^2+...
-  var ELT=['\u22121','13','1/(1\u2212p)'], NAME=['\u22121','13','1/(1\u2212p)'];
+  var NAME=['\u22121','13','1/(1\u2212p)'];
   var p=5, elt=0;
   function draw(){
     while(svg.firstChild) svg.removeChild(svg.firstChild);
@@ -1812,7 +1812,7 @@ $$\hat R_I \;=\; \varprojlim_{n} R/I^n \;=\; \Big\{\,(r_n) \in \prod_n R/I^n \;:
     // readout
     var lines=[];
     lines.push('Completion at I=(' + p + '): \u2124_' + p + ' = lim\u2190 \u2124/' + p + '\u207f is the set of coherent towers (r_n) with r_n \u2208 \u2124/' + p + '\u207f and r_{n+1} \u2261 r_n (mod ' + p + '\u207f). Equivalently, formal base-' + p + ' expansions \u03a3 d_k ' + p + '^k with digits d_k \u2208 {0,\u2026,' + (p-1) + '} \u2014 but infinitely many digits to the LEFT.');
-    if(elt===0) lines.push('Here \u22121 = ' + digits.join('') + '\u2026 (every digit ' + (p-1) + '): indeed (' + (p-1) + ')(1+' + p + '+' + p + '\u00b2+\u2026) sums to \u22121, since each partial residue is ' + p + '\u207f\u22121 \u2261 \u22121 (mod ' + p + '\u207f). A non-unit-looking series that IS \u22121 \u2014 the hallmark of completion.');
+    if(elt===0) lines.push('Here \u22121 = \u2026' + digits.join('') + ' (every digit ' + (p-1) + '): indeed (' + (p-1) + ')(1+' + p + '+' + p + '\u00b2+\u2026) sums to \u22121, since each partial residue is ' + p + '\u207f\u22121 \u2261 \u22121 (mod ' + p + '\u207f). A non-unit-looking series that IS \u22121 \u2014 the hallmark of completion.');
     else if(elt===2) lines.push('Here 1/(1\u2212' + p + ') = 1+' + p + '+' + p + '\u00b2+\u2026 (every digit 1): the geometric series converges ' + p + '-adically because ' + p + '^k \u2192 0, and (1\u2212' + p + ')(1+' + p + '+\u2026)=1. A non-integer rational living in \u2124_' + p + '.');
     else lines.push('Here 13 is an ordinary integer; its tower stabilizes once ' + p + '\u207f > 13, so its expansion is the finite base-' + p + ' form of 13 followed by zeros \u2014 \u2124 sits inside \u2124_' + p + ' as the eventually-terminating towers.');
     lines.push('Why completion matters: \u2124_' + p + ' is faithfully flat over \u2124_{(' + p + ')}, \u2229_n (' + p + ')^n = 0 (Krull intersection), and Hensel\u2019s lemma lifts factorizations from \u2124/' + p + ' \u2014 the algebraic model of an infinitesimal neighbourhood.');
@@ -2726,9 +2726,9 @@ $$d(e_{i_1}\wedge\cdots\wedge e_{i_k}) \;=\; \sum_{j=1}^{k} (-1)^{j-1}\, a_{i_j}
     var tot=Math.pow(2,n);
     txt(280, 22, 'K\u2022(a\u2081,\u2026,a_' + n + ') = \u039b\u2022R^' + n + ',   total rank \u03a3_k C(' + n + ',k) = 2^' + n + ' = ' + tot, {size:11, fill:'var(--mute)', italic:true});
     // chain of boxes K_n -> ... -> K_0 (d lowers degree)
-    var terms=n+1, x0=70, x1=500, y=92, bw=Math.min(70, (x1-x0)/terms - 8);
+    var terms=n+1, x0=80, x1=478, y=92, bw=Math.min(70, (x1-x0)/terms - 8);
     function cx(i){ return x0 + (terms<=1? (x1-x0)/2 : i*(x1-x0)/(terms-1)); }   // i=0 is K_n (left), i=terms-1 is K_0 (right)
-    txt(40, y+4, '0 \u2192', {size:11, fill:'var(--mute)'});
+    txt(cx(0)-bw/2-8, y+4, '0 \u2192', {anchor:'end', size:11, fill:'var(--mute)'});
     for(var i=0;i<terms;i++){ var k=n-i, rk=binom(n,k), X=cx(i);
       svg.appendChild(mk('rect', {x:X-bw/2, y:y-15, width:bw, height:30, rx:5, fill: (k===0)?'color-mix(in srgb, var(--yellow) 18%, transparent)':'var(--panel2)', stroke:(k===0)?'var(--yellow)':'var(--cyan)', 'stroke-width':1.4}));
       txt(X, y+4, (rk===1?'R':'R^'+rk), {size:12, fill:(k===0)?'var(--yellow)':'var(--ink)'});
@@ -2736,7 +2736,7 @@ $$d(e_{i_1}\wedge\cdots\wedge e_{i_k}) \;=\; \sum_{j=1}^{k} (-1)^{j-1}\, a_{i_j}
       txt(X, y+30, 'C(' + n + ',' + k + ')=' + rk, {size:8, fill:'var(--mute)'});
       if(i<terms-1){ var xm=(cx(i)+cx(i+1))/2; txt(xm, y+4, '\u2192', {size:15, fill:'var(--cyan)'}); txt(xm, y-10, 'd', {size:9, fill:'var(--cyan)', italic:true}); }
     }
-    txt(x1+20, y+4, '\u2192 0', {size:11, fill:'var(--mute)', anchor:'start'});
+    txt(cx(terms-1)+bw/2+8, y+4, '\u2192 0', {size:11, fill:'var(--mute)', anchor:'start'});
     // facts
     txt(280, 150, 'Euler characteristic  \u03a3_k (\u22121)^k C(' + n + ',k) = (1\u22121)^' + n + ' = 0', {size:11, fill:'var(--ink)'});
     txt(280, 176, 'regular sequence  \u21d4  exact in positive degrees,  with  H\u2080 = R/(a\u2081,\u2026,a_' + n + ')', {size:12, fill:'var(--green)', weight:600});
@@ -2745,7 +2745,7 @@ $$d(e_{i_1}\wedge\cdots\wedge e_{i_k}) \;=\; \sum_{j=1}^{k} (-1)^{j-1}\, a_{i_j}
     lines.push('The Koszul complex K\u2022(a\u2081,\u2026,a_' + n + ') is the exterior algebra \u039b\u2022R^' + n + ' with differential d(e_{i\u2081}\u2227\u2026\u2227e_{i_k}) = \u03a3_j (\u22121)^{j\u22121} a_{i_j} e_{i\u2081}\u2227\u2026\u0302e_{i_j}\u2026\u2227e_{i_k}. So K_k = \u039b^k R^' + n + ' = R^{C(' + n + ',k)}; here the ranks are ' + Array.from({length:n+1},function(_,k){return binom(n,k);}).join(', ') + ' (sum 2^' + n + ' = ' + tot + '). d\u00b2 = 0 holds precisely because a_i a_j = a_j a_i.');
     if(n===1) lines.push('n=1:  0 \u2192 R \u2192(\u00d7a\u2081)\u2192 R \u2192 0.  H\u2080 = R/(a\u2081); H\u2081 = ker(\u00d7a\u2081) = ann(a\u2081). So a\u2081 is a regular element (non-zero-divisor) iff H\u2081 = 0.');
     else if(n===2) lines.push('n=2:  0 \u2192 R \u2192 R\u00b2 \u2192 R \u2192 0 with d\u2082=(\u2212a\u2082, a\u2081)\u1d40 and d\u2081=(a\u2081, a\u2082).  H\u2080 = R/(a\u2081,a\u2082); H\u2081 vanishes iff every relation a\u2081x = \u2212a\u2082y is Koszul-trivial \u2014 i.e. (a\u2081,a\u2082) is a regular sequence.');
-    lines.push('Theorem: a\u2081,\u2026,a_' + n + ' is a REGULAR SEQUENCE (each a_i a non-zero-divisor on R/(a\u2081,\u2026,a_{i\u22121})) \u21d4 K\u2022 is exact in positive degrees, H\u2080 = R/(a\u2081,\u2026,a_' + n + '). Then K\u2022 is a finite free RESOLUTION of that quotient \u2014 used to compute Tor and Ext against it, and to read off depth (the length of a maximal regular sequence in an ideal).');
+    lines.push('Theorem: a\u2081,\u2026,a_' + n + ' is a REGULAR SEQUENCE (each a_i a non-zero-divisor on R/(a\u2081,\u2026,a_{i\u22121})) \u21d2 K\u2022 is exact in positive degrees, H\u2080 = R/(a\u2081,\u2026,a_' + n + '). The converse holds when R is Noetherian local (or graded with the a_i in the irrelevant ideal) \u2014 the standard setting here \u2014 giving the clean \u21d4. Then K\u2022 is a finite free RESOLUTION of that quotient \u2014 used to compute Tor and Ext against it, and to read off depth (the length of a maximal regular sequence in an ideal).');
     out.textContent=lines.join('\n');
   }
   nIn.addEventListener('input', draw);
