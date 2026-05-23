@@ -46,26 +46,28 @@ export function renderScript(params) {
     `  if(!sel || !nIn || !nL || !svg || !out) return;\n` +
     `  var NS='http://www.w3.org/2000/svg';\n` +
     `  function mk(tag, attrs, text){ var e=document.createElementNS(NS, tag); for(var k in attrs){ e.setAttribute(k, attrs[k]); } if(text!=null) e.textContent=text; return e; }\n` +
-    `  var PX0=52, PW=466, PY0=200, PH=150;\n` +
+    `  var PX0=52, PW=466, PTop=30, PBot=206;\n` +
     `  function draw(){\n` +
     `    var g = byId[sel.value] || VECS[0], comps = g.comps, N = comps.length;\n` +
     `    var n = Math.min(+nIn.value, N); nL.textContent = 'n = ' + n;\n` +
     `    while(svg.firstChild) svg.removeChild(svg.firstChild);\n` +
-    `    var yHi = 1.1; // components are ≤ 1 here, and ‖e_n‖ = 1\n` +
-    `    function BX(i){ return PX0 + (i-0.5)/N*PW; } function PY(v){ return PY0 - v/yHi*PH; }\n` +
-    `    var bw = 0.62*PW/N;\n` +
-    `    // axes + the constant ‖e_n‖ = 1 line\n` +
-    `    svg.appendChild(mk('line', {x1:PX0, y1:PY0, x2:PX0+PW, y2:PY0, stroke:'var(--line)'}));\n` +
+    `    // data-driven y-range (always includes the norm-1 line and the baseline 0; supports negative y_k)\n` +
+    `    var maxC=1, minC=0, ci; for(ci=0;ci<comps.length;ci++){ if(comps[ci]>maxC)maxC=comps[ci]; if(comps[ci]<minC)minC=comps[ci]; }\n` +
+    `    var yHi=maxC*1.08, yLo=minC*1.08;\n` +
+    `    function BX(i){ return PX0 + (i-0.5)/N*PW; } function PY(v){ return PBot - (v-yLo)/(yHi-yLo)*(PBot-PTop); }\n` +
+    `    var bw = 0.62*PW/N, base=PY(0);\n` +
+    `    // baseline (k-axis at y=0) + the constant ‖e_n‖ = 1 line\n` +
+    `    svg.appendChild(mk('line', {x1:PX0, y1:base, x2:PX0+PW, y2:base, stroke:'var(--line)'}));\n` +
     `    svg.appendChild(mk('line', {x1:PX0, y1:PY(1), x2:PX0+PW, y2:PY(1), stroke:'var(--pink)', 'stroke-width':1.4, 'stroke-dasharray':'5 3'}));\n` +
     `    svg.appendChild(mk('text', {x:PX0+PW, y:PY(1)-4, 'text-anchor':'end', 'font-size':10, fill:'var(--pink)'}, '‖e_n‖ = 1 (constant)'));\n` +
-    `    svg.appendChild(mk('text', {x:PX0+PW, y:PY0+16, 'text-anchor':'end', 'font-size':10, fill:'var(--mute)'}, 'component index k'));\n` +
-    `    // component bars  y_k = ⟨e_k, y⟩\n` +
-    `    var i; for(i=1;i<=N;i++){ var h=comps[i-1], hb=Math.abs(h); var on=(i===n);\n` +
-    `      svg.appendChild(mk('rect', {x:(BX(i)-bw/2).toFixed(1), y:PY(hb).toFixed(1), width:bw.toFixed(1), height:(PY0-PY(hb)).toFixed(1), fill: on?'var(--yellow)':'color-mix(in srgb, var(--cyan) 55%, transparent)'})); }\n` +
+    `    svg.appendChild(mk('text', {x:PX0+PW, y:base+16, 'text-anchor':'end', 'font-size':10, fill:'var(--mute)'}, 'component index k'));\n` +
+    `    // signed component bars  y_k = ⟨e_k, y⟩\n` +
+    `    var i; for(i=1;i<=N;i++){ var h=comps[i-1], on=(i===n), yk=PY(h);\n` +
+    `      svg.appendChild(mk('rect', {x:(BX(i)-bw/2).toFixed(1), y:Math.min(base,yk).toFixed(1), width:bw.toFixed(1), height:Math.abs(yk-base).toFixed(1), fill: on?'var(--yellow)':'color-mix(in srgb, var(--cyan) 55%, transparent)'})); }\n` +
     `    // highlight ⟨e_n, y⟩\n` +
     `    var yn = comps[n-1];\n` +
-    `    svg.appendChild(mk('text', {x:BX(n), y:PY(Math.abs(yn))-6, 'text-anchor':'middle', 'font-size':10, fill:'var(--yellow)'}, '⟨e_' + n + ',y⟩ = ' + yn.toFixed(2)));\n` +
-    `    svg.appendChild(mk('text', {x:PX0, y:PY0-PH+4, 'font-size':10, fill:'var(--mute)'}, 'components |y_k| (cyan), with k = n highlighted'));\n` +
+    `    svg.appendChild(mk('text', {x:BX(n), y:(yn>=0?PY(yn)-6:PY(yn)+12), 'text-anchor':'middle', 'font-size':10, fill:'var(--yellow)'}, '⟨e_' + n + ',y⟩ = ' + yn.toFixed(2)));\n` +
+    `    svg.appendChild(mk('text', {x:PX0, y:PTop+4, 'font-size':10, fill:'var(--mute)'}, 'components y_k (cyan), k = n highlighted'));\n` +
     `    // readout\n` +
     `    var lines=[];\n` +
     `    lines.push('The orthonormal basis e_n converges WEAKLY to 0: for every y ∈ ℓ², ⟨e_n,y⟩ = y_n → 0 (because Σ|y_n|² = ‖y‖² < ∞ forces the terms to 0).');\n` +

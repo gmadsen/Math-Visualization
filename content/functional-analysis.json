@@ -888,6 +888,27 @@
                   0.01
                 ],
                 "note": "Geometric decay: ⟨e_n,y⟩ → 0 quickly."
+              },
+              {
+                "id": "alt",
+                "label": "y_k = (-0.75)^{k-1}  (alternating)",
+                "comps": [
+                  1,
+                  -0.75,
+                  0.563,
+                  -0.422,
+                  0.316,
+                  -0.237,
+                  0.178,
+                  -0.133,
+                  0.1,
+                  -0.075,
+                  0.056,
+                  -0.042,
+                  0.032,
+                  -0.024
+                ],
+                "note": "Alternating signs: ⟨e_n,y⟩ alternates but |⟨e_n,y⟩| → 0, so still e_n ⇀ 0."
               }
             ]
           }

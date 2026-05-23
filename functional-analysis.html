@@ -2191,6 +2191,7 @@ note: ${d.note}`;
       <option value="harmonic" selected>y_k = 1/k</option>
       <option value="finite">y = (1, .7, .4, .2, 0, …)</option>
       <option value="geom">y_k = 0.7^{k-1}</option>
+      <option value="alt">y_k = (-0.75)^{k-1}  (alternating)</option>
     </select>
     <label for="w-fa-weak-n">basis index $n$</label>
     <input type="range" id="w-fa-weak-n" min="1" max="14" value="3" step="1">
@@ -2201,7 +2202,7 @@ note: ${d.note}`;
 </div><script>
 /* functional-analysis-weak-convergence widget: w-fa-weak */
 (function(){
-  var VECS = [{"id":"harmonic","label":"y_k = 1/k","comps":[1,0.5,0.333,0.25,0.2,0.167,0.143,0.125,0.111,0.1,0.091,0.083,0.077,0.071],"note":"Σ 1/k² < ∞, so y ∈ ℓ²; the components (hence ⟨e_n,y⟩) tend to 0."},{"id":"finite","label":"y = (1, .7, .4, .2, 0, …)","comps":[1,0.7,0.4,0.2,0,0,0,0,0,0,0,0,0,0],"note":"A finitely-supported y: ⟨e_n,y⟩ is exactly 0 once n exceeds the support."},{"id":"geom","label":"y_k = 0.7^{k-1}","comps":[1,0.7,0.49,0.343,0.24,0.168,0.118,0.082,0.058,0.04,0.028,0.02,0.014,0.01],"note":"Geometric decay: ⟨e_n,y⟩ → 0 quickly."}];
+  var VECS = [{"id":"harmonic","label":"y_k = 1/k","comps":[1,0.5,0.333,0.25,0.2,0.167,0.143,0.125,0.111,0.1,0.091,0.083,0.077,0.071],"note":"Σ 1/k² < ∞, so y ∈ ℓ²; the components (hence ⟨e_n,y⟩) tend to 0."},{"id":"finite","label":"y = (1, .7, .4, .2, 0, …)","comps":[1,0.7,0.4,0.2,0,0,0,0,0,0,0,0,0,0],"note":"A finitely-supported y: ⟨e_n,y⟩ is exactly 0 once n exceeds the support."},{"id":"geom","label":"y_k = 0.7^{k-1}","comps":[1,0.7,0.49,0.343,0.24,0.168,0.118,0.082,0.058,0.04,0.028,0.02,0.014,0.01],"note":"Geometric decay: ⟨e_n,y⟩ → 0 quickly."},{"id":"alt","label":"y_k = (-0.75)^{k-1}  (alternating)","comps":[1,-0.75,0.563,-0.422,0.316,-0.237,0.178,-0.133,0.1,-0.075,0.056,-0.042,0.032,-0.024],"note":"Alternating signs: ⟨e_n,y⟩ alternates but |⟨e_n,y⟩| → 0, so still e_n ⇀ 0."}];
   var byId = {}; VECS.forEach(function(g){ byId[g.id] = g; });
   var sel = document.getElementById('w-fa-weak-sel');
   var nIn = document.getElementById('w-fa-weak-n'), nL = document.getElementById('w-fa-weak-nval');
@@ -2209,26 +2210,28 @@ note: ${d.note}`;
   if(!sel || !nIn || !nL || !svg || !out) return;
   var NS='http://www.w3.org/2000/svg';
   function mk(tag, attrs, text){ var e=document.createElementNS(NS, tag); for(var k in attrs){ e.setAttribute(k, attrs[k]); } if(text!=null) e.textContent=text; return e; }
-  var PX0=52, PW=466, PY0=200, PH=150;
+  var PX0=52, PW=466, PTop=30, PBot=206;
   function draw(){
     var g = byId[sel.value] || VECS[0], comps = g.comps, N = comps.length;
     var n = Math.min(+nIn.value, N); nL.textContent = 'n = ' + n;
     while(svg.firstChild) svg.removeChild(svg.firstChild);
-    var yHi = 1.1; // components are ≤ 1 here, and ‖e_n‖ = 1
-    function BX(i){ return PX0 + (i-0.5)/N*PW; } function PY(v){ return PY0 - v/yHi*PH; }
-    var bw = 0.62*PW/N;
-    // axes + the constant ‖e_n‖ = 1 line
-    svg.appendChild(mk('line', {x1:PX0, y1:PY0, x2:PX0+PW, y2:PY0, stroke:'var(--line)'}));
+    // data-driven y-range (always includes the norm-1 line and the baseline 0; supports negative y_k)
+    var maxC=1, minC=0, ci; for(ci=0;ci<comps.length;ci++){ if(comps[ci]>maxC)maxC=comps[ci]; if(comps[ci]<minC)minC=comps[ci]; }
+    var yHi=maxC*1.08, yLo=minC*1.08;
+    function BX(i){ return PX0 + (i-0.5)/N*PW; } function PY(v){ return PBot - (v-yLo)/(yHi-yLo)*(PBot-PTop); }
+    var bw = 0.62*PW/N, base=PY(0);
+    // baseline (k-axis at y=0) + the constant ‖e_n‖ = 1 line
+    svg.appendChild(mk('line', {x1:PX0, y1:base, x2:PX0+PW, y2:base, stroke:'var(--line)'}));
     svg.appendChild(mk('line', {x1:PX0, y1:PY(1), x2:PX0+PW, y2:PY(1), stroke:'var(--pink)', 'stroke-width':1.4, 'stroke-dasharray':'5 3'}));
     svg.appendChild(mk('text', {x:PX0+PW, y:PY(1)-4, 'text-anchor':'end', 'font-size':10, fill:'var(--pink)'}, '‖e_n‖ = 1 (constant)'));
-    svg.appendChild(mk('text', {x:PX0+PW, y:PY0+16, 'text-anchor':'end', 'font-size':10, fill:'var(--mute)'}, 'component index k'));
-    // component bars  y_k = ⟨e_k, y⟩
-    var i; for(i=1;i<=N;i++){ var h=comps[i-1], hb=Math.abs(h); var on=(i===n);
-      svg.appendChild(mk('rect', {x:(BX(i)-bw/2).toFixed(1), y:PY(hb).toFixed(1), width:bw.toFixed(1), height:(PY0-PY(hb)).toFixed(1), fill: on?'var(--yellow)':'color-mix(in srgb, var(--cyan) 55%, transparent)'})); }
+    svg.appendChild(mk('text', {x:PX0+PW, y:base+16, 'text-anchor':'end', 'font-size':10, fill:'var(--mute)'}, 'component index k'));
+    // signed component bars  y_k = ⟨e_k, y⟩
+    var i; for(i=1;i<=N;i++){ var h=comps[i-1], on=(i===n), yk=PY(h);
+      svg.appendChild(mk('rect', {x:(BX(i)-bw/2).toFixed(1), y:Math.min(base,yk).toFixed(1), width:bw.toFixed(1), height:Math.abs(yk-base).toFixed(1), fill: on?'var(--yellow)':'color-mix(in srgb, var(--cyan) 55%, transparent)'})); }
     // highlight ⟨e_n, y⟩
     var yn = comps[n-1];
-    svg.appendChild(mk('text', {x:BX(n), y:PY(Math.abs(yn))-6, 'text-anchor':'middle', 'font-size':10, fill:'var(--yellow)'}, '⟨e_' + n + ',y⟩ = ' + yn.toFixed(2)));
-    svg.appendChild(mk('text', {x:PX0, y:PY0-PH+4, 'font-size':10, fill:'var(--mute)'}, 'components |y_k| (cyan), with k = n highlighted'));
+    svg.appendChild(mk('text', {x:BX(n), y:(yn>=0?PY(yn)-6:PY(yn)+12), 'text-anchor':'middle', 'font-size':10, fill:'var(--yellow)'}, '⟨e_' + n + ',y⟩ = ' + yn.toFixed(2)));
+    svg.appendChild(mk('text', {x:PX0, y:PTop+4, 'font-size':10, fill:'var(--mute)'}, 'components y_k (cyan), k = n highlighted'));
     // readout
     var lines=[];
     lines.push('The orthonormal basis e_n converges WEAKLY to 0: for every y ∈ ℓ², ⟨e_n,y⟩ = y_n → 0 (because Σ|y_n|² = ‖y‖² < ∞ forces the terms to 0).');
