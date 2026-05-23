@@ -11,6 +11,27 @@
           "html": "<section id=\"intro\">\n<h2>1. One, two, three operations</h2>\n<p>The structures of algebra are what you get when you demand that a set comes equipped with one or two operations that behave like familiar arithmetic. You relax different axioms to get different structures:</p>\n<p><span class=\"pill\">group</span> one associative operation, an identity, and inverses. Models <em>symmetry</em>: the invertible transformations of anything.</p>\n<p><span class=\"pill\">ring</span> two operations — addition (abelian group) and multiplication (associative, distributive). Models <em>arithmetic</em> like $\\mathbb{Z}$, $\\mathbb{Z}[x]$, matrices.</p>\n<p><span class=\"pill\">field</span> a ring where multiplication is also a group on nonzero elements. Models <em>numbers</em> — places you can solve linear equations. $\\mathbb{Q},\\mathbb{R},\\mathbb{C}$, and, crucially, the finite fields $\\mathbb{F}_{p^n}$.</p>\n<p>Everything below is a tour through examples where you can actually <em>poke</em> the axioms.</p>\n"
         },
         {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget",
+          "slug": "algebra-structures",
+          "params": {
+            "widgetId": "w-algebra-structures",
+            "title": "One, two, three operations: group → ring → field",
+            "hint": "Pick a set: how far up the group → ring → field tower does it climb?"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-algebra-structures"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
           "type": "quiz",
           "concept": "algebraic-structures",
           "html": "<div class=\"quiz\" data-concept=\"algebraic-structures\"></div>"

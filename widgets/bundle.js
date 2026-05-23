@@ -529,6 +529,24 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "algebra-structures",
+    "family": "algebra-structures",
+    "dimension": "2d",
+    "gesture": "select",
+    "role": "exploratory",
+    "title": "algebra-structures widget params",
+    "description": "Group → ring → field hierarchy explorer (the \"one, two, three operations\" framing). Six set buttons (ℕ, ℤ, ℤ/5, ℤ/6, ℚ, M₂(ℝ)); for each, three ✓/✗ rows show how far up the tower it climbs — abelian group under +? ring? field? — each with a one-line reason. ℕ fails at the group level (no inverses); ℤ and M₂(ℝ) are rings but not fields (ℤ: only ±1 invertible; M₂: noncommutative + singular matrices); ℤ/6 is a ring with zero divisors; ℤ/5 and ℚ are fields. Classifications are intrinsic; params carry only chrome.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Group → ring → field hierarchy explorer, introduced on `algebra.html` §1 (*One, two, three operations*). Bespoke semantic module — the classifications are intrinsic; params carry only chrome.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "algebraic-curves-canonical-embedding-scrubber",
     "family": "algebraic-curves-canonical-embedding-scrubber",
     "dimension": "2d",
