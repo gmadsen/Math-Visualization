@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/complex-analysis-singularity-zoo/schema.json",
+  "title": "complex-analysis-singularity-zoo widget params",
+  "description": "Isolated-singularity classifier. The reader picks a function with a singularity at 0 (removable, a pole, or essential) and shrinks the radius r of a small circle |z|=r; the widget plots the image f(|z|=r) in the w-plane and tracks max|f| as r→0. Removable stays bounded, a pole grows like r^{-k}, and an essential singularity sweeps a wild, ever-widening curve (Casorati–Weierstrass / Picard). The function evaluation is intrinsic (a `kind` enum); params carry the menu and the per-function classification text.",
+  "meta": {
+    "family": "complex-analysis-singularity-zoo",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["widgetId", "title", "functions"],
+  "properties": {
+    "widgetId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id; the script derives -sel/-r/-svg/-out." },
+    "title": { "type": "string", "description": "Display title rendered inside .hd > .ttl." },
+    "hint": { "type": "string", "description": "Optional short hint rendered inside .hd > .hint." },
+    "functions": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 8,
+      "description": "The functions offered in the dropdown.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "label", "kind", "type", "laurent"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[A-Za-z0-9_-]+$", "description": "Stable option value." },
+          "label": { "type": "string", "description": "Plain-text dropdown label, e.g. 'sin(z)/z'." },
+          "kind": {
+            "type": "string",
+            "enum": ["sinz_z", "inv_z", "inv_z2z", "exp_invz"],
+            "description": "Which function to evaluate: sin(z)/z, 1/z, 1/(z³−z²), e^{1/z}."
+          },
+          "type": {
+            "type": "string",
+            "enum": ["removable", "pole", "essential"],
+            "description": "The singularity type at 0 (sets the badge colour)."
+          },
+          "laurent": { "type": "string", "maxLength": 60, "description": "Plain-text principal part / Laurent description." },
+          "behavior": { "type": "string", "description": "Optional one-line r→0 behaviour note shown in the readout." }
+        }
+      }
+    }
+  }
+}

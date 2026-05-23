@@ -325,6 +325,92 @@ const C = {
 <p>For complex analysis the right ambient space is not $\mathbb{C}$ but its one-point compactification, the <strong>Riemann sphere</strong> $\hat{\mathbb{C}} = \mathbb{C}\cup\{\infty\}$. Place the sphere of radius $\tfrac12$ tangent to the plane at the origin and project from the north pole; this is <em>stereographic projection</em>. The plane corresponds to the sphere minus the north pole, and the formal symbol $\infty$ is the north pole itself.</p>
 <p>Two facts make stereographic projection the natural picture:</p>
 <p><span class="pill">conformal</span> it preserves angles, and <span class="pill">circles ↔ circles</span> it sends circles on the sphere to circles or lines in the plane (a line being a "circle through $\infty$").</p>
+
+<div class="widget" id="w-riemann-sphere">
+  <div class="hd"><div class="ttl">Stereographic projection</div><div class="hint">set |z| and arg z; watch the image climb the sphere — |z|→∞ reaches the north pole</div></div>
+  <div class="row">
+    <label for="w-riemann-sphere-preset">jump to</label>
+    <select id="w-riemann-sphere-preset">
+      <option value="one" selected>z = 1 (on the equator)</option>
+      <option value="i">z = i</option>
+      <option value="half">z = 0.5 (southern hemisphere)</option>
+      <option value="two">z = 2 (northern hemisphere)</option>
+      <option value="big">|z| = 2.6 (climbing toward ∞)</option>
+    </select>
+  </div>
+  <div class="row">
+    <label for="w-riemann-sphere-mod">$|z|$</label>
+    <input type="range" id="w-riemann-sphere-mod" min="0" max="2.6" value="1" step="0.02">
+    <span class="pill" id="w-riemann-sphere-modval">|z| = 1</span>
+    <label for="w-riemann-sphere-arg">$\arg z$</label>
+    <input type="range" id="w-riemann-sphere-arg" min="0" max="6.283" value="0.6" step="0.02">
+    <span class="pill" id="w-riemann-sphere-argval">arg = 0.6</span>
+  </div>
+  <svg id="w-riemann-sphere-svg" viewBox="0 0 520 330" width="520" height="330" role="img" aria-label="Stereographic projection of a point onto the Riemann sphere"><title>Riemann sphere: stereographic projection from the north pole</title></svg>
+  <div class="readout" id="w-riemann-sphere-out"></div>
+</div><script>
+/* complex-analysis-riemann-sphere widget: w-riemann-sphere */
+(function(){
+  var PRE = [{"id":"one","label":"z = 1 (on the equator)","mod":1,"arg":0},{"id":"i","label":"z = i","mod":1,"arg":1.5708},{"id":"half","label":"z = 0.5 (southern hemisphere)","mod":0.5,"arg":0.6},{"id":"two","label":"z = 2 (northern hemisphere)","mod":2,"arg":0.6},{"id":"big","label":"|z| = 2.6 (climbing toward ∞)","mod":2.6,"arg":0.6}];
+  var pById = {}; PRE.forEach(function(p){ pById[p.id] = p; });
+  var modIn = document.getElementById('w-riemann-sphere-mod'), modL = document.getElementById('w-riemann-sphere-modval');
+  var argIn = document.getElementById('w-riemann-sphere-arg'), argL = document.getElementById('w-riemann-sphere-argval');
+  var preset = document.getElementById('w-riemann-sphere-preset');
+  var svg = document.getElementById('w-riemann-sphere-svg');
+  var out = document.getElementById('w-riemann-sphere-out');
+  if(!modIn || !argIn || !svg || !out) return;
+  var NS = 'http://www.w3.org/2000/svg';
+  function mk(tag, attrs, text){ var e = document.createElementNS(NS, tag); for(var k in attrs){ e.setAttribute(k, attrs[k]); } if(text!=null) e.textContent = text; return e; }
+  var SC = 62, CX = 235, CY = 220, cosA = Math.cos(0.62), sinA = Math.sin(0.62), F = 0.5;
+  function P(X,Y,Z){ return [CX + SC*(X + Y*F*cosA), CY - SC*(Z + Y*F*sinA)]; }
+  function stereo(x,y){ var r2 = x*x + y*y, d = 1 + r2; return [x/d, y/d, r2/d]; }
+  function ring(rad, z0, n){ var pts=[]; for(var i=0;i<=n;i++){ var t=2*Math.PI*i/n; var p=P(rad*Math.cos(t), rad*Math.sin(t), z0); pts.push(p[0].toFixed(1)+','+p[1].toFixed(1)); } return pts.join(' '); }
+  function meridian(phi, n){ var pts=[]; for(var i=0;i<=n;i++){ var psi=Math.PI*i/n; var p=P(0.5*Math.sin(psi)*Math.cos(phi), 0.5*Math.sin(psi)*Math.sin(phi), 0.5+0.5*Math.cos(psi)); pts.push(p[0].toFixed(1)+','+p[1].toFixed(1)); } return pts.join(' '); }
+  function draw(){
+    var mod = +modIn.value, arg = +argIn.value;
+    modL.textContent = '|z| = ' + mod.toFixed(2); argL.textContent = 'arg = ' + arg.toFixed(2);
+    var x = mod*Math.cos(arg), y = mod*Math.sin(arg);
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    // tangent plane at Z=0: concentric circles + axes (faint)
+    [0.5,1,1.5,2].forEach(function(rr){ svg.appendChild(mk('polyline', {points:ring(rr,0,48), fill:'none', stroke:'var(--line)', 'stroke-width':0.7})); });
+    var ax1=P(-2.2,0,0), ax2=P(2.2,0,0), ay1=P(0,-2.2,0), ay2=P(0,2.2,0);
+    svg.appendChild(mk('line', {x1:ax1[0], y1:ax1[1], x2:ax2[0], y2:ax2[1], stroke:'var(--line)', 'stroke-width':0.7}));
+    svg.appendChild(mk('line', {x1:ay1[0], y1:ay1[1], x2:ay2[0], y2:ay2[1], stroke:'var(--line)', 'stroke-width':0.7}));
+    // sphere wireframe: latitudes + 2 meridians; equator highlighted
+    [0.12,0.3,0.7,0.88].forEach(function(z0){ var r0=Math.sqrt(Math.max(0,0.25-(z0-0.5)*(z0-0.5))); svg.appendChild(mk('polyline', {points:ring(r0,z0,48), fill:'none', stroke:'var(--mute)', 'stroke-width':0.7, 'stroke-opacity':0.5})); });
+    svg.appendChild(mk('polyline', {points:meridian(0,40), fill:'none', stroke:'var(--mute)', 'stroke-width':0.7, 'stroke-opacity':0.5}));
+    svg.appendChild(mk('polyline', {points:meridian(Math.PI/2,40), fill:'none', stroke:'var(--mute)', 'stroke-width':0.7, 'stroke-opacity':0.5}));
+    svg.appendChild(mk('polyline', {points:ring(0.5,0.5,48), fill:'none', stroke:'var(--cyan)', 'stroke-width':1.2, 'stroke-opacity':0.8}));
+    // poles
+    var N = P(0,0,1), S = P(0,0,0);
+    svg.appendChild(mk('circle', {cx:N[0], cy:N[1], r:3.5, fill:'var(--pink)'}));
+    svg.appendChild(mk('text', {x:N[0]+8, y:N[1]-2, 'font-size':11, fill:'var(--pink)'}, 'N = \u221e'));
+    svg.appendChild(mk('text', {x:S[0]+6, y:S[1]+13, 'font-size':10, fill:'var(--mute)'}, '0'));
+    // the point z in the plane, its image P_z, the projection ray N -> z
+    var s = stereo(x,y), pz = P(s[0],s[1],s[2]), zp = P(x,y,0);
+    svg.appendChild(mk('line', {x1:N[0], y1:N[1], x2:zp[0], y2:zp[1], stroke:'var(--yellow)', 'stroke-width':1, 'stroke-dasharray':'3 3', 'stroke-opacity':0.8}));
+    svg.appendChild(mk('circle', {cx:zp[0], cy:zp[1], r:4, fill:'var(--yellow)'}));
+    svg.appendChild(mk('text', {x:zp[0]+7, y:zp[1]+4, 'font-size':11, fill:'var(--yellow)'}, 'z'));
+    svg.appendChild(mk('circle', {cx:pz[0], cy:pz[1], r:4.5, fill:'var(--green)'}));
+    svg.appendChild(mk('text', {x:pz[0]+7, y:pz[1]+4, 'font-size':11, fill:'var(--green)'}, 'P(z)'));
+    // readout
+    var lines = [];
+    lines.push('z = ' + x.toFixed(2) + ' + ' + y.toFixed(2) + 'i      |z| = ' + mod.toFixed(2));
+    lines.push('image on sphere:  (' + s[0].toFixed(2) + ', ' + s[1].toFixed(2) + ', ' + s[2].toFixed(2) + ')   [height ' + s[2].toFixed(2) + ']');
+    var where = mod < 0.98 ? 'southern hemisphere (toward 0)' : (mod > 1.02 ? 'northern hemisphere (toward \u221e)' : 'the equator');
+    lines.push('|z| ' + (mod<0.98?'<':(mod>1.02?'>':'=')) + ' 1  \u21d2  image on ' + where + '.');
+    lines.push('');
+    lines.push('Stereographic projection from N is conformal and sends circles\u2194circles (a line = a circle through \u221e). As |z|\u2192\u221e the image \u2192 N.');
+    out.textContent = lines.join('\n');
+  }
+  modIn.addEventListener('input', function(){ if(preset) preset.selectedIndex = -1; draw(); });
+  argIn.addEventListener('input', function(){ if(preset) preset.selectedIndex = -1; draw(); });
+  if(preset){ preset.addEventListener('change', function(){ var p = pById[preset.value]; if(p){ modIn.value = p.mod; argIn.value = p.arg; draw(); } }); }
+  if(preset && PRE.length){ var p0 = PRE[0]; modIn.value = p0.mod; argIn.value = p0.arg; }
+  draw();
+})();
+</script>
+
 <div class="quiz" data-concept="riemann-sphere"></div><!-- backlinks-auto-begin -->
 <aside class="related">
   <div class="ttl">Used in</div>
@@ -812,6 +898,82 @@ const C = {
 <p><strong><a href="./hamiltonians-classical-mechanics.html#applications" data-auto-inline-link="1" data-concept-id="hcm-applications" data-blurb="The harmonic oscillator $H=\tfrac12(p^2+\omega^2 q^2)$ is the cleanest integrable system; its phase portrait is concentric ellipses. The Kepler problem $H=\tfrac{|p|^2}{2m}-\tfrac{k}{|q|}$ is super-integrable — angular momentum and the Laplace–Runge–Lenz vector pin orbits to closed conics. The free rigid body, geodesic flow on a Riemannian manifold, and convex billiards round out the canonical examples; the three-body problem is famously not integrable.">Worked examples</a> around $z_0=0$.</strong> $\dfrac{\sin z}{z}$ has Laurent series $1 - \frac{z^2}{6} + \frac{z^4}{120} - \cdots$ — no negative powers, so the singularity is removable; defining $f(0)=1$ gives an entire function. $\dfrac{1}{z^3 - z^2}$ at $z_0=0$ behaves like $-\frac{1}{z^2}$, a pole of order $2$. And $e^{1/z}$ has the Laurent series $\sum_{n\ge 0} \frac{1}{n!\,z^n}$ from §17 — infinitely many negative powers, an essential singularity. Picard guarantees $e^{1/z}$ hits every nonzero complex value infinitely often as $z\to 0$ (the missing exception is $0$ itself).</p>
 <p><strong>Pole-vs-zero duality.</strong> $f$ has a pole of order $k$ at $z_0$ iff $1/f$ has a zero of order $k$ at $z_0$. This symmetry is what lets §20 count poles and zeros on equal footing in the argument principle.</p>
 <p>Singularities and their orders are exactly the data the residue theorem (§19) needs: the residue at a pole of order $k$ is $c_{-1}$, computable from the Taylor expansion of $(z-z_0)^k f(z)$ without ever finding the full Laurent series.</p>
+
+<div class="widget" id="w-singularity-zoo">
+  <div class="hd"><div class="ttl">Classify the singularity at 0</div><div class="hint">shrink r and watch the image of |z|=r: bounded, blowing up, or wild</div></div>
+  <div class="row">
+    <label for="w-singularity-zoo-sel">f(z)</label>
+    <select id="w-singularity-zoo-sel">
+      <option value="sinz" selected>sin(z)/z</option>
+      <option value="pole1">1/z</option>
+      <option value="pole2">1/(z³ − z²)</option>
+      <option value="ess">e^{1/z}</option>
+    </select>
+    <label for="w-singularity-zoo-r">radius $r$</label>
+    <input type="range" id="w-singularity-zoo-r" min="0.15" max="1.2" value="0.6" step="0.01">
+    <span class="pill" id="w-singularity-zoo-rval">r = 0.60</span>
+  </div>
+  <svg id="w-singularity-zoo-svg" viewBox="0 0 560 250" width="560" height="250" role="img" aria-label="Image of the circle |z|=r under the chosen function"><title>Classifying a singularity by the image of a small circle</title></svg>
+  <div class="readout" id="w-singularity-zoo-out"></div>
+</div><script>
+/* complex-analysis-singularity-zoo widget: w-singularity-zoo */
+(function(){
+  var FNS = [{"id":"sinz","label":"sin(z)/z","kind":"sinz_z","type":"removable","laurent":"none (Taylor 1 − z²/6 + …); set f(0)=1","behavior":"Bounded as r→0 (Riemann’s removable-singularity theorem) — the image stays a small loop near f(0)=1."},{"id":"pole1","label":"1/z","kind":"inv_z","type":"pole","laurent":"1/z (simple pole, k=1)","behavior":"|f| = 1/r on |z|=r → ∞; the image is the circle |w| = 1/r, growing as r shrinks."},{"id":"pole2","label":"1/(z³ − z²)","kind":"inv_z2z","type":"pole","laurent":"≈ −1/z² near 0 (pole of order 2)","behavior":"|f| ~ 1/r² → ∞ even faster; near 0 the function behaves like −1/z²."},{"id":"ess","label":"e^{1/z}","kind":"exp_invz","type":"essential","laurent":"Σ 1/(n! zⁿ), n ≥ 0 (infinitely many negative powers)","behavior":"Casorati–Weierstrass: the image is dense; Picard — e^{1/z} hits every nonzero value infinitely often as r→0."}];
+  var byId = {}; FNS.forEach(function(g){ byId[g.id] = g; });
+  var sel = document.getElementById('w-singularity-zoo-sel');
+  var rIn = document.getElementById('w-singularity-zoo-r'), rL = document.getElementById('w-singularity-zoo-rval');
+  var svg = document.getElementById('w-singularity-zoo-svg');
+  var out = document.getElementById('w-singularity-zoo-out');
+  if(!sel || !rIn || !svg || !out) return;
+  var NS = 'http://www.w3.org/2000/svg';
+  function mk(tag, attrs, text){ var e = document.createElementNS(NS, tag); for(var k in attrs){ e.setAttribute(k, attrs[k]); } if(text!=null) e.textContent = text; return e; }
+  function cmul(p,q){ return [p[0]*q[0]-p[1]*q[1], p[0]*q[1]+p[1]*q[0]]; }
+  function cdiv(p,q){ var d=q[0]*q[0]+q[1]*q[1]; return [(p[0]*q[0]+p[1]*q[1])/d, (p[1]*q[0]-p[0]*q[1])/d]; }
+  function cexp(p){ var e=Math.exp(p[0]); return [e*Math.cos(p[1]), e*Math.sin(p[1])]; }
+  function csin(p){ return [Math.sin(p[0])*Math.cosh(p[1]), Math.cos(p[0])*Math.sinh(p[1])]; }
+  function f(kind, z){
+    if(kind==='sinz_z'){ if(z[0]===0 && z[1]===0) return [1,0]; return cdiv(csin(z), z); }
+    if(kind==='inv_z') return cdiv([1,0], z);
+    if(kind==='inv_z2z'){ var z2=cmul(z,z), den=cmul(z2,[z[0]-1,z[1]]); return cdiv([1,0], den); }
+    if(kind==='exp_invz') return cexp(cdiv([1,0], z));
+    return z;
+  }
+  var TYPE = { removable:{c:'--green',t:'removable'}, pole:{c:'--yellow',t:'pole'}, essential:{c:'--pink',t:'essential'} };
+  function draw(){
+    var g = byId[sel.value] || FNS[0], r = +rIn.value;
+    rL.textContent = 'r = ' + r.toFixed(2);
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    var N = 360, img = [], maxAbs = 0;
+    for(var i=0;i<=N;i++){ var t=2*Math.PI*i/N, z=[r*Math.cos(t), r*Math.sin(t)], w=f(g.kind, z); if(w && isFinite(w[0]) && isFinite(w[1])){ img.push(w); var a=Math.hypot(w[0],w[1]); if(a>maxAbs) maxAbs=a; } else img.push(null); }
+    // auto-scale image to the panel (clip extreme so a pole/essential stays framed)
+    var cap = Math.min(maxAbs, 60), sc = cap>0 ? 95/cap : 1, CX=420, CY=125;
+    function WX(u){ return CX + u*sc; } function WY(v){ return CY - v*sc; }
+    // left: the domain circle |z|=r
+    var dz=[]; for(var k=0;k<=64;k++){ var tt=2*Math.PI*k/64; dz.push((140+r*70*Math.cos(tt)).toFixed(1)+','+(125-r*70*Math.sin(tt)).toFixed(1)); }
+    svg.appendChild(mk('text', {x:140, y:22, 'text-anchor':'middle', 'font-size':11, fill:'var(--mute)', 'font-style':'italic'}, 'domain: |z| = r'));
+    svg.appendChild(mk('text', {x:420, y:22, 'text-anchor':'middle', 'font-size':11, fill:'var(--mute)', 'font-style':'italic'}, 'image: f(|z| = r)'));
+    svg.appendChild(mk('circle', {cx:140, cy:125, r:2, fill:'var(--mute)'}));
+    svg.appendChild(mk('polyline', {points:dz.join(' '), fill:'none', stroke:'var(--cyan)', 'stroke-width':1.2}));
+    // right: image curve as segments
+    svg.appendChild(mk('circle', {cx:CX, cy:CY, r:2, fill:'var(--mute)'}));
+    var ty = TYPE[g.type] || TYPE.pole, col = 'var(' + ty.c + ')';
+    var seg=[]; function flush(){ if(seg.length>1) svg.appendChild(mk('polyline', {points:seg.join(' '), fill:'none', stroke:col, 'stroke-width':1.2})); seg=[]; }
+    for(var j=0;j<img.length;j++){ var w=img[j]; if(!w || Math.hypot(w[0],w[1])>cap*1.05){ flush(); continue; } seg.push(WX(w[0]).toFixed(1)+','+WY(w[1]).toFixed(1)); } flush();
+    // badge
+    svg.appendChild(mk('rect', {x:470, y:210, width:80, height:24, rx:9, fill:'color-mix(in srgb, '+col+' 22%, var(--panel))', stroke:col, 'stroke-width':1}));
+    svg.appendChild(mk('text', {x:510, y:226, 'text-anchor':'middle', 'font-size':11, 'font-weight':'600', fill:col}, ty.t));
+    var lines = [];
+    lines.push('image of |z| = ' + r.toFixed(2) + ':  max|f| \u2248 ' + (maxAbs>999?'>999':maxAbs.toFixed(2)));
+    lines.push('principal part: ' + g.laurent);
+    if(g.behavior) lines.push(g.behavior);
+    out.textContent = lines.join('\n');
+  }
+  sel.addEventListener('change', draw);
+  rIn.addEventListener('input', draw);
+  draw();
+})();
+</script>
+
 <div class="quiz" data-concept="singularity-classification"></div><!-- backlinks-auto-begin -->
 <aside class="related">
   <div class="ttl">Used in</div>

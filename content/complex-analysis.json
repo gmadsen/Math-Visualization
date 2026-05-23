@@ -33,6 +33,59 @@
           "html": "<section id=\"riemann-sphere\">\n<h2>2. Riemann sphere</h2>\n<p>For complex analysis the right ambient space is not $\\mathbb{C}$ but its one-point compactification, the <strong>Riemann sphere</strong> $\\hat{\\mathbb{C}} = \\mathbb{C}\\cup\\{\\infty\\}$. Place the sphere of radius $\\tfrac12$ tangent to the plane at the origin and project from the north pole; this is <em>stereographic projection</em>. The plane corresponds to the sphere minus the north pole, and the formal symbol $\\infty$ is the north pole itself.</p>\n<p>Two facts make stereographic projection the natural picture:</p>\n<p><span class=\"pill\">conformal</span> it preserves angles, and <span class=\"pill\">circles ↔ circles</span> it sends circles on the sphere to circles or lines in the plane (a line being a \"circle through $\\infty$\").</p>\n"
         },
         {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget",
+          "slug": "complex-analysis-riemann-sphere",
+          "params": {
+            "widgetId": "w-riemann-sphere",
+            "title": "Stereographic projection",
+            "hint": "set |z| and arg z; watch the image climb the sphere — |z|→∞ reaches the north pole",
+            "presets": [
+              {
+                "id": "one",
+                "label": "z = 1 (on the equator)",
+                "mod": 1,
+                "arg": 0
+              },
+              {
+                "id": "i",
+                "label": "z = i",
+                "mod": 1,
+                "arg": 1.5708
+              },
+              {
+                "id": "half",
+                "label": "z = 0.5 (southern hemisphere)",
+                "mod": 0.5,
+                "arg": 0.6
+              },
+              {
+                "id": "two",
+                "label": "z = 2 (northern hemisphere)",
+                "mod": 2,
+                "arg": 0.6
+              },
+              {
+                "id": "big",
+                "label": "|z| = 2.6 (climbing toward ∞)",
+                "mod": 2.6,
+                "arg": 0.6
+              }
+            ]
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-riemann-sphere"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
           "type": "quiz",
           "concept": "riemann-sphere",
           "html": "<div class=\"quiz\" data-concept=\"riemann-sphere\"></div>"
@@ -605,6 +658,61 @@
         {
           "type": "raw",
           "html": "<section id=\"singularity-classification\">\n<h2>18. Classification of singularities</h2>\n<p>An isolated singularity at $z_0$ is a point where $f$ is holomorphic on some punctured disk $0<|z-z_0|&lt;R$ but not at $z_0$ itself. The Laurent expansion (§17) sees three qualitatively different behaviours, distinguished entirely by the <em>principal part</em> $\\sum_{n<0} c_n(z-z_0)^n$:</p>\n<p><span class=\"pill\" style=\"color:var(--green)\">removable</span> all $c_{n}=0$ for $n<0$ — $f$ extends holomorphically across $z_0$ (Riemann's removable-singularity theorem: this happens iff $f$ is bounded near $z_0$).</p>\n<p><span class=\"pill\" style=\"color:var(--yellow)\">pole of order $k$</span> $c_{-k}\\ne 0$ but $c_n=0$ for $n<-k$ — $f$ blows up like $1/(z-z_0)^k$, and $\\lim_{z\\to z_0}|f(z)| = \\infty$ in every direction.</p>\n<p><span class=\"pill\" style=\"color:var(--pink)\">essential</span> infinitely many $c_n\\ne 0$ for $n<0$. Casorati–Weierstrass: $f$ comes arbitrarily close to every complex value in any neighbourhood of $z_0$. Picard sharpens this dramatically: $f$ <em>hits</em> every value (with at most one exception), infinitely often.</p>\n<p><strong><a href=\"./hamiltonians-classical-mechanics.html#applications\" data-auto-inline-link=\"1\" data-concept-id=\"hcm-applications\" data-blurb=\"The harmonic oscillator $H=\\tfrac12(p^2+\\omega^2 q^2)$ is the cleanest integrable system; its phase portrait is concentric ellipses. The Kepler problem $H=\\tfrac{|p|^2}{2m}-\\tfrac{k}{|q|}$ is super-integrable — angular momentum and the Laplace–Runge–Lenz vector pin orbits to closed conics. The free rigid body, geodesic flow on a Riemannian manifold, and convex billiards round out the canonical examples; the three-body problem is famously not integrable.\">Worked examples</a> around $z_0=0$.</strong> $\\dfrac{\\sin z}{z}$ has Laurent series $1 - \\frac{z^2}{6} + \\frac{z^4}{120} - \\cdots$ — no negative powers, so the singularity is removable; defining $f(0)=1$ gives an entire function. $\\dfrac{1}{z^3 - z^2}$ at $z_0=0$ behaves like $-\\frac{1}{z^2}$, a pole of order $2$. And $e^{1/z}$ has the Laurent series $\\sum_{n\\ge 0} \\frac{1}{n!\\,z^n}$ from §17 — infinitely many negative powers, an essential singularity. Picard guarantees $e^{1/z}$ hits every nonzero complex value infinitely often as $z\\to 0$ (the missing exception is $0$ itself).</p>\n<p><strong>Pole-vs-zero duality.</strong> $f$ has a pole of order $k$ at $z_0$ iff $1/f$ has a zero of order $k$ at $z_0$. This symmetry is what lets §20 count poles and zeros on equal footing in the argument principle.</p>\n<p>Singularities and their orders are exactly the data the residue theorem (§19) needs: the residue at a pole of order $k$ is $c_{-1}$, computable from the Taylor expansion of $(z-z_0)^k f(z)$ without ever finding the full Laurent series.</p>\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget",
+          "slug": "complex-analysis-singularity-zoo",
+          "params": {
+            "widgetId": "w-singularity-zoo",
+            "title": "Classify the singularity at 0",
+            "hint": "shrink r and watch the image of |z|=r: bounded, blowing up, or wild",
+            "functions": [
+              {
+                "id": "sinz",
+                "label": "sin(z)/z",
+                "kind": "sinz_z",
+                "type": "removable",
+                "laurent": "none (Taylor 1 − z²/6 + …); set f(0)=1",
+                "behavior": "Bounded as r→0 (Riemann’s removable-singularity theorem) — the image stays a small loop near f(0)=1."
+              },
+              {
+                "id": "pole1",
+                "label": "1/z",
+                "kind": "inv_z",
+                "type": "pole",
+                "laurent": "1/z (simple pole, k=1)",
+                "behavior": "|f| = 1/r on |z|=r → ∞; the image is the circle |w| = 1/r, growing as r shrinks."
+              },
+              {
+                "id": "pole2",
+                "label": "1/(z³ − z²)",
+                "kind": "inv_z2z",
+                "type": "pole",
+                "laurent": "≈ −1/z² near 0 (pole of order 2)",
+                "behavior": "|f| ~ 1/r² → ∞ even faster; near 0 the function behaves like −1/z²."
+              },
+              {
+                "id": "ess",
+                "label": "e^{1/z}",
+                "kind": "exp_invz",
+                "type": "essential",
+                "laurent": "Σ 1/(n! zⁿ), n ≥ 0 (infinitely many negative powers)",
+                "behavior": "Casorati–Weierstrass: the image is dense; Picard — e^{1/z} hits every nonzero value infinitely often as r→0."
+              }
+            ]
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-singularity-zoo"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
         },
         {
           "type": "quiz",
