@@ -11,6 +11,69 @@
           "html": "<section id=\"philosophy\">\n<h2>1. The philosophy: arithmetic on one side, analytic on the other</h2>\n\n<p>The Langlands program organises itself around two columns of objects, each with its own L-function machinery, and the conjecture that every L-function on the left equals an L-function on the right.</p>\n\n<svg viewBox=\"0 0 600 280\" width=\"600\" height=\"280\" style=\"margin:1rem auto\" role=\"img\" aria-labelledby=\"lang-svg-title lang-svg-desc\">\n  <title id=\"lang-svg-title\">The Langlands two-column picture</title>\n  <desc id=\"lang-svg-desc\">Two stacked columns: on the left, the arithmetic side — n-dimensional Galois representations of Gal(Q-bar/Q). On the right, the analytic side — automorphic representations of GL_n over the adeles. A horizontal arrow labeled \"L-functions match\" connects the columns at the bottom. The program is the conjecture that this matching is a bijection.</desc>\n  <text x=\"300\" y=\"22\" text-anchor=\"middle\" font-size=\"13\" fill=\"var(--mute)\" font-style=\"italic\">\n    The Langlands correspondence (informal picture)\n  </text>\n  <!-- Left column: arithmetic -->\n  <rect x=\"30\" y=\"46\" width=\"240\" height=\"158\" rx=\"10\" fill=\"color-mix(in srgb, var(--yellow) 10%, var(--panel))\" stroke=\"var(--yellow)\"/>\n  <text x=\"150\" y=\"74\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"600\" fill=\"var(--yellow)\">Arithmetic side</text>\n  <text x=\"150\" y=\"100\" text-anchor=\"middle\" font-size=\"12\" fill=\"var(--ink)\">n-dimensional</text>\n  <text x=\"150\" y=\"118\" text-anchor=\"middle\" font-size=\"12\" fill=\"var(--ink)\">Galois representations</text>\n  <text x=\"150\" y=\"138\" text-anchor=\"middle\" font-size=\"12\" fill=\"var(--mute)\" font-style=\"italic\">ρ : Gal(Q̄/Q) → GL_n(Q̄_ℓ)</text>\n  <text x=\"150\" y=\"166\" text-anchor=\"middle\" font-size=\"11\" fill=\"var(--mute)\">cohomology of varieties</text>\n  <text x=\"150\" y=\"184\" text-anchor=\"middle\" font-size=\"11\" fill=\"var(--mute)\">étale, crystalline, …</text>\n  <!-- Right column: automorphic -->\n  <rect x=\"330\" y=\"46\" width=\"240\" height=\"158\" rx=\"10\" fill=\"color-mix(in srgb, var(--cyan) 10%, var(--panel))\" stroke=\"var(--cyan)\"/>\n  <text x=\"450\" y=\"74\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"600\" fill=\"var(--cyan)\">Analytic side</text>\n  <text x=\"450\" y=\"100\" text-anchor=\"middle\" font-size=\"12\" fill=\"var(--ink)\">automorphic representations</text>\n  <text x=\"450\" y=\"118\" text-anchor=\"middle\" font-size=\"12\" fill=\"var(--ink)\">of GL_n(A_Q)</text>\n  <text x=\"450\" y=\"138\" text-anchor=\"middle\" font-size=\"12\" fill=\"var(--mute)\" font-style=\"italic\">π = ⊗_v π_v</text>\n  <text x=\"450\" y=\"166\" text-anchor=\"middle\" font-size=\"11\" fill=\"var(--mute)\">cusp forms / Maass forms</text>\n  <text x=\"450\" y=\"184\" text-anchor=\"middle\" font-size=\"11\" fill=\"var(--mute)\">Hecke eigenforms</text>\n  <!-- Bridge -->\n  <line x1=\"270\" y1=\"125\" x2=\"330\" y2=\"125\" stroke=\"var(--ink)\" stroke-width=\"1.5\"/>\n  <text x=\"300\" y=\"115\" text-anchor=\"middle\" font-size=\"11\" fill=\"var(--ink)\" font-style=\"italic\">L-functions match</text>\n  <text x=\"300\" y=\"142\" text-anchor=\"middle\" font-size=\"11\" fill=\"var(--mute)\">↔</text>\n  <!-- Footer -->\n  <text x=\"300\" y=\"234\" text-anchor=\"middle\" font-size=\"11\" fill=\"var(--mute)\">L(ρ, s) = L(π, s) — the Langlands correspondence</text>\n  <text x=\"300\" y=\"252\" text-anchor=\"middle\" font-size=\"11\" fill=\"var(--mute)\" font-style=\"italic\">(every reasonable L-function on the left is built from one on the right)</text>\n</svg>\n\n<p><b>What \"matches\" means.</b> Every $\\rho$ on the left has an L-function — for each unramified prime $p$, the local factor is</p>\n\n$$L_p(\\rho, s) = \\det\\!\\bigl(I_n - \\rho(\\Frob_p) p^{-s}\\bigr)^{-1},$$\n\n<p>and we form the global Euler product $L(\\rho, s) = \\prod_p L_p(\\rho, s)$. Every $\\pi$ on the right also has an L-function (Godement-Jacquet), built from the local Hecke eigenvalues at each unramified place. The Langlands correspondence asserts: for every $\\rho$ there is a unique $\\pi$ with $L(\\rho, s) = L(\\pi, s)$ at every place, and conversely — a bijection between (irreducible $n$-dim) Galois reps and (cuspidal automorphic) representations of $\\GL_n$, mediated by L-functions.</p>\n\n<p>The arithmetic side is rigid (algebraic, with prime-by-prime data). The analytic side is flexible (built from harmonic analysis on adelic groups, with a functional equation by general principles). The Langlands philosophy is that <em>arithmetic rigidity = analytic flexibility</em>; they are two views of the same underlying object, and L-functions are the testable shadow.</p>\n\n"
         },
         {
+          "type": "widget",
+          "slug": "langlands-reciprocity-dictionary",
+          "params": {
+            "widgetId": "w-langlands-dict",
+            "title": "The reciprocity dictionary",
+            "hint": "matched pairs across the two worlds — click a row to see what the correspondence claims",
+            "left": {
+              "header": "Arithmetic / Galois side",
+              "color": "--yellow"
+            },
+            "right": {
+              "header": "Automorphic side",
+              "color": "--cyan"
+            },
+            "rows": [
+              {
+                "id": "objects",
+                "left": "n-dim Galois rep ρ",
+                "right": "automorphic rep π of GL_n(𝔸)",
+                "detail": "The central bijection: every irreducible n-dimensional ρ of Gal(ℚ̄/ℚ) corresponds to a cuspidal automorphic representation π of GL_n over the adèles — and conversely."
+              },
+              {
+                "id": "local",
+                "left": "Frobenius ρ(Frob_p)",
+                "right": "Hecke / Satake parameters at p",
+                "detail": "Local–global compatibility: the eigenvalues of Frobenius at an unramified prime p equal the Satake (Hecke) parameters of the local component π_p. The two sides agree prime by prime."
+              },
+              {
+                "id": "lfn",
+                "left": "L(ρ, s)",
+                "right": "L(π, s)",
+                "detail": "Reciprocity: the Galois L-function L(ρ,s) — the Euler product ∏_p det(I − ρ(Frob_p)·p^(−s))^(−1) — equals the automorphic L-function L(π,s) (Godement–Jacquet) at every place. This equality IS the correspondence."
+              },
+              {
+                "id": "cond",
+                "left": "Artin conductor of ρ",
+                "right": "conductor of π",
+                "detail": "The ramification matches: the primes where ρ is ramified are exactly where π is non-spherical, and the Artin conductor of ρ equals the conductor of π."
+              },
+              {
+                "id": "gl1",
+                "left": "character of Gal(ℚ̄/ℚ)^ab",
+                "right": "Hecke character of 𝔸^×/ℚ^×",
+                "detail": "n = 1 is class field theory: characters of the abelianised Galois group correspond to Hecke (idèle-class) characters. Langlands for GL_1 is exactly Artin reciprocity."
+              },
+              {
+                "id": "gl2",
+                "left": "2-dim ρ_f → elliptic curve",
+                "right": "holomorphic newform f (GL_2)",
+                "detail": "n = 2 is the proven arithmetic case: a weight-2 newform f gives a 2-dimensional ρ_f (Deligne), and conversely every elliptic curve over ℚ is modular (Wiles, Taylor–Wiles, BCDT)."
+              }
+            ]
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-langlands-dict"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
           "type": "quiz",
           "concept": "langlands-philosophy",
           "html": "<div class=\"quiz\" data-concept=\"langlands-philosophy\"></div>"

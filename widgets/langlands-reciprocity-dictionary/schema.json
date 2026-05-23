@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/langlands-reciprocity-dictionary/schema.json",
+  "title": "langlands-reciprocity-dictionary widget params",
+  "description": "Interactive two-column dictionary for the Langlands correspondence. Each row pairs an object on the arithmetic/Galois side with its counterpart on the automorphic side; clicking a row highlights the matched pair and shows what the correspondence asserts about it (local-global compatibility, equal L-functions, GL_1 = class field theory, GL_2 = modularity, …). Data-driven: the column headers and the matched rows live in params, so a non-HTML frontend can rebuild the table from the schema alone.",
+  "meta": {
+    "family": "langlands-reciprocity-dictionary",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["widgetId", "title", "left", "right", "rows"],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\"> wrapper."
+    },
+    "title": { "type": "string", "description": "Display title rendered inside .hd > .ttl." },
+    "hint": { "type": "string", "description": "Optional short hint rendered inside .hd > .hint." },
+    "left": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["header", "color"],
+      "description": "Left column descriptor.",
+      "properties": {
+        "header": { "type": "string", "description": "Column header text." },
+        "color": {
+          "type": "string",
+          "enum": ["--cyan", "--green", "--pink", "--yellow", "--blue", "--violet", "--orange"],
+          "description": "CSS palette token for the column accent."
+        }
+      }
+    },
+    "right": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["header", "color"],
+      "description": "Right column descriptor.",
+      "properties": {
+        "header": { "type": "string", "description": "Column header text." },
+        "color": {
+          "type": "string",
+          "enum": ["--cyan", "--green", "--pink", "--yellow", "--blue", "--violet", "--orange"],
+          "description": "CSS palette token for the column accent."
+        }
+      }
+    },
+    "rows": {
+      "type": "array",
+      "minItems": 1,
+      "description": "The matched pairs, top to bottom.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "left", "right", "detail"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[A-Za-z0-9_-]+$", "description": "Stable row id." },
+          "left": { "type": "string", "description": "Short label for the left box (plain text, no LaTeX)." },
+          "right": { "type": "string", "description": "Short label for the right box (plain text, no LaTeX)." },
+          "detail": { "type": "string", "description": "What the correspondence asserts about this row — shown in the readout on click." }
+        }
+      }
+    }
+  }
+}

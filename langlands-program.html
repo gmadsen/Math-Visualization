@@ -308,6 +308,60 @@ $$L_p(\rho, s) = \det\!\bigl(I_n - \rho(\Frob_p) p^{-s}\bigr)^{-1},$$
 
 <p>The arithmetic side is rigid (algebraic, with prime-by-prime data). The analytic side is flexible (built from harmonic analysis on adelic groups, with a functional equation by general principles). The Langlands philosophy is that <em>arithmetic rigidity = analytic flexibility</em>; they are two views of the same underlying object, and L-functions are the testable shadow.</p>
 
+<div class="widget" id="w-langlands-dict">
+  <div class="hd"><div class="ttl">The reciprocity dictionary</div><div class="hint">matched pairs across the two worlds — click a row to see what the correspondence claims</div></div>
+  <svg id="w-langlands-dict-svg" viewBox="0 0 600 300" width="600" height="300" role="img" aria-label="Langlands correspondence dictionary"><title>Arithmetic ↔ automorphic dictionary</title></svg>
+  <div class="readout" id="w-langlands-dict-out"></div>
+</div><script>
+/* langlands-reciprocity-dictionary widget: w-langlands-dict */
+(function(){
+  var P = {"left":{"header":"Arithmetic / Galois side","color":"--yellow"},"right":{"header":"Automorphic side","color":"--cyan"},"rows":[{"id":"objects","left":"n-dim Galois rep ρ","right":"automorphic rep π of GL_n(𝔸)","detail":"The central bijection: every irreducible n-dimensional ρ of Gal(ℚ̄/ℚ) corresponds to a cuspidal automorphic representation π of GL_n over the adèles — and conversely."},{"id":"local","left":"Frobenius ρ(Frob_p)","right":"Hecke / Satake parameters at p","detail":"Local–global compatibility: the eigenvalues of Frobenius at an unramified prime p equal the Satake (Hecke) parameters of the local component π_p. The two sides agree prime by prime."},{"id":"lfn","left":"L(ρ, s)","right":"L(π, s)","detail":"Reciprocity: the Galois L-function L(ρ,s) — the Euler product ∏_p det(I − ρ(Frob_p)·p^(−s))^(−1) — equals the automorphic L-function L(π,s) (Godement–Jacquet) at every place. This equality IS the correspondence."},{"id":"cond","left":"Artin conductor of ρ","right":"conductor of π","detail":"The ramification matches: the primes where ρ is ramified are exactly where π is non-spherical, and the Artin conductor of ρ equals the conductor of π."},{"id":"gl1","left":"character of Gal(ℚ̄/ℚ)^ab","right":"Hecke character of 𝔸^×/ℚ^×","detail":"n = 1 is class field theory: characters of the abelianised Galois group correspond to Hecke (idèle-class) characters. Langlands for GL_1 is exactly Artin reciprocity."},{"id":"gl2","left":"2-dim ρ_f → elliptic curve","right":"holomorphic newform f (GL_2)","detail":"n = 2 is the proven arithmetic case: a weight-2 newform f gives a 2-dimensional ρ_f (Deligne), and conversely every elliptic curve over ℚ is modular (Wiles, Taylor–Wiles, BCDT)."}]};
+  var L = P.left, R = P.right, ROWS = P.rows;
+  var svg = document.getElementById('w-langlands-dict-svg');
+  var out = document.getElementById('w-langlands-dict-out');
+  if(!svg || !out) return;
+  var NS = 'http://www.w3.org/2000/svg';
+  function mk(tag, attrs, text){
+    var e = document.createElementNS(NS, tag);
+    for(var k in attrs){ e.setAttribute(k, attrs[k]); }
+    if(text != null) e.textContent = text;
+    return e;
+  }
+  var W = 600, boxW = 250, lx = 14, rx = W - 14 - boxW, midX = W/2, rowH = 34, top = 56, boxH = 28;
+  var picked = null;
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    // column headers
+    svg.appendChild(mk('text', {x:lx+boxW/2, y:30, 'text-anchor':'middle', 'font-size':13, 'font-weight':'600', fill:'var('+L.color+')'}, L.header));
+    svg.appendChild(mk('text', {x:rx+boxW/2, y:30, 'text-anchor':'middle', 'font-size':13, 'font-weight':'600', fill:'var('+R.color+')'}, R.header));
+    for(var i=0;i<ROWS.length;i++){
+      var row = ROWS[i];
+      var y = top + i*rowH;
+      var on = picked === row.id;
+      var g = mk('g', {'style':'cursor:pointer'});
+      // connecting line + symbol
+      g.appendChild(mk('line', {x1:lx+boxW, y1:y+boxH/2, x2:rx, y2:y+boxH/2, stroke:(on?'var(--ink)':'var(--line)'), 'stroke-width':(on?'1.4':'0.8')}));
+      g.appendChild(mk('text', {x:midX, y:y+boxH/2-5, 'text-anchor':'middle', 'font-size':12, fill:(on?'var(--ink)':'var(--mute)')}, '\u2194'));
+      // left box
+      g.appendChild(mk('rect', {x:lx, y:y, width:boxW, height:boxH, rx:6, fill:(on?'var('+L.color+')':'var(--panel2)'), 'fill-opacity':(on?'0.16':'1'), stroke:'var('+L.color+')', 'stroke-width':(on?'2':'1')}));
+      g.appendChild(mk('text', {x:lx+boxW/2, y:y+boxH/2+4, 'text-anchor':'middle', 'font-size':11.5, fill:'var(--ink)'}, row.left));
+      // right box
+      g.appendChild(mk('rect', {x:rx, y:y, width:boxW, height:boxH, rx:6, fill:(on?'var('+R.color+')':'var(--panel2)'), 'fill-opacity':(on?'0.16':'1'), stroke:'var('+R.color+')', 'stroke-width':(on?'2':'1')}));
+      g.appendChild(mk('text', {x:rx+boxW/2, y:y+boxH/2+4, 'text-anchor':'middle', 'font-size':11.5, fill:'var(--ink)'}, row.right));
+      (function(id){ g.addEventListener('click', function(){ picked = (picked===id)?null:id; draw(); }); })(row.id);
+      svg.appendChild(g);
+    }
+    if(picked){
+      var r = ROWS.filter(function(x){return x.id===picked;})[0];
+      out.textContent = r.left + '   \u2194   ' + r.right + '\n\n' + r.detail;
+    } else {
+      out.textContent = 'Each row is a matched pair: the Langlands correspondence is the claim that the two columns biject, with equal L-functions.\n\nclick a row to see what the correspondence asserts about it.';
+    }
+  }
+  draw();
+})();
+</script>
+
 <div class="quiz" data-concept="langlands-philosophy"></div><!-- callback-auto-begin -->
 <aside class="callback">
   <div class="ttl">See also</div>
