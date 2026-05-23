@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/schemes-stalk/schema.json",
+  "title": "schemes-stalk widget params",
+  "description": "Local-ring / stalk explorer on the affine line 𝔸¹. The reader slides a point a; the stalk O_a = k[x] localized at (x−a) is a LOCAL ring, and the widget shows for each sample function f whether it is a unit (f(a) ≠ 0) or lies in the unique maximal ideal m_a (f(a) = 0). As a slides past a root of f, that function flips from unit to non-unit. The residue field is k via f ↦ f(a). The polynomial eval is intrinsic; params carry the sample functions.",
+  "meta": {
+    "family": "schemes-stalk",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["widgetId", "title", "functions"],
+  "properties": {
+    "widgetId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id; the script derives -a/-svg/-out." },
+    "title": { "type": "string", "description": "Display title rendered inside .hd > .ttl." },
+    "hint": { "type": "string", "description": "Optional short hint rendered inside .hd > .hint." },
+    "functions": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 5,
+      "description": "Sample regular functions on the line.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "label", "coeffs"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[A-Za-z0-9_-]+$", "description": "Stable id." },
+          "label": { "type": "string", "description": "Plain-text label, e.g. 'x² − 2'." },
+          "coeffs": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 5,
+            "items": { "type": "number" },
+            "description": "Real coefficients in ASCENDING order a0, a1, … (constant term first)."
+          }
+        }
+      }
+    }
+  }
+}

@@ -16037,6 +16037,24 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "schemes-proj",
+    "family": "schemes-proj",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory",
+    "title": "schemes-proj widget params",
+    "description": "Proj / projective-line explorer. ℙ¹ = Proj k[x₀,x₁] is covered by two affine charts U₀ = {x₀≠0} with coordinate t = x₁/x₀ and U₁ = {x₁≠0} with coordinate s = x₀/x₁ = 1/t. The reader sweeps a point [x₀:x₁] = [cos θ : sin θ] around ℙ¹; the widget shows its coordinate in each chart and the transition t = 1/s on the overlap, including the two points each chart misses ([1:0] is the origin of U₀ but ∞ of U₁, and [0:1] vice versa). The geometry is intrinsic; params carry only chrome.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Proj / projective-line explorer, introduced on `schemes.html` §11. Bespoke semantic module — the geometry is intrinsic; params carry only chrome.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "schemes-residue-field",
     "family": "schemes-residue-field",
     "dimension": "2d",
@@ -16087,6 +16105,25 @@ window.__MVWidgets = [
       "edges"
     ],
     "readmeExcerpt": "Generic-points / specialization explorer, introduced on `schemes.html` §8. Bespoke semantic module — the poset (nodes + specialization edges) comes from params.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "schemes-stalk",
+    "family": "schemes-stalk",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory",
+    "title": "schemes-stalk widget params",
+    "description": "Local-ring / stalk explorer on the affine line 𝔸¹. The reader slides a point a; the stalk O_a = k[x] localized at (x−a) is a LOCAL ring, and the widget shows for each sample function f whether it is a unit (f(a) ≠ 0) or lies in the unique maximal ideal m_a (f(a) = 0). As a slides past a root of f, that function flips from unit to non-unit. The residue field is k via f ↦ f(a). The polynomial eval is intrinsic; params carry the sample functions.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "functions"
+    ],
+    "readmeExcerpt": "Local-ring / stalk explorer on the affine line, introduced on `schemes.html` §10. Bespoke semantic module — the polynomial eval is intrinsic; params carry the sample functions.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
