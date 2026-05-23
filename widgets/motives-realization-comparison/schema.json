@@ -61,8 +61,8 @@
         "required": ["key", "name", "coeff", "structure", "color"],
         "properties": {
           "key": { "type": "string", "pattern": "^[A-Za-z0-9_-]+$", "description": "Stable key; matches theoryNotes keys." },
-          "name": { "type": "string", "description": "Short theory name, e.g. 'Betti'." },
-          "coeff": { "type": "string", "description": "Coefficient category, e.g. 'ℚ-vector spaces'." },
+          "name": { "type": "string", "maxLength": 16, "description": "Short theory name, e.g. 'Betti'." },
+          "coeff": { "type": "string", "maxLength": 30, "description": "Coefficient category, e.g. 'ℚ-vector spaces'. Drawn on the card and wrapped to two lines, so it is length-bounded." },
           "structure": { "type": "string", "description": "The extra structure this realization carries." },
           "color": {
             "type": "string",

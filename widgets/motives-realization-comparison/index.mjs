@@ -102,7 +102,7 @@ export function renderScript(params) {
     `      g.appendChild(mk('text', {x:cxp+cardW/2, y:cy+24, 'text-anchor':'middle', 'font-size':13, 'font-weight':'600', fill:'var('+t.color+')'}, t.name));\n` +
     `      // coeff ring, wrapped to up to 2 lines\n` +
     `      var words = String(t.coeff).split(' '); var l1='', l2='';\n` +
-    `      for(var w=0;w<words.length;w++){ if((l1+' '+words[w]).trim().length<=18 && !l2) l1=(l1+' '+words[w]).trim(); else l2=(l2+' '+words[w]).trim(); }\n` +
+    `      for(var w=0;w<words.length;w++){ if(w===0 || ((l1+' '+words[w]).trim().length<=18 && !l2)) l1=(l1+' '+words[w]).trim(); else l2=(l2+' '+words[w]).trim(); }\n` +
     `      g.appendChild(mk('text', {x:cxp+cardW/2, y:cy+46, 'text-anchor':'middle', 'font-size':10.5, fill:'var(--ink)'}, l1));\n` +
     `      if(l2) g.appendChild(mk('text', {x:cxp+cardW/2, y:cy+60, 'text-anchor':'middle', 'font-size':10.5, fill:'var(--ink)'}, l2));\n` +
     `      g.appendChild(mk('text', {x:cxp+cardW/2, y:cy+cardH-10, 'text-anchor':'middle', 'font-size':9.5, 'font-style':'italic', fill:'var(--mute)'}, on?'\\u25c0 focused':'+ structure'));\n` +
