@@ -493,6 +493,42 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "algebra-field-tower",
+    "family": "algebra-field-tower",
+    "dimension": "2d",
+    "gesture": "select",
+    "role": "exploratory",
+    "title": "algebra-field-tower widget params",
+    "description": "Field-extension tower explorer. Four buttons (ℚ(√2), ℚ(√2,√3), ℚ(∛2), ℚ(i)) draw the extension over ℚ as a vertical tower with the step-degree on each edge, the total degree [K:ℚ] = product of steps (Tower Law), the minimal polynomial(s), and a ℚ-basis. Shows that the degree of a simple algebraic extension equals the degree of the minimal polynomial, and that ℚ(√2,√3) is degree 2·2=4. Extension data is intrinsic; params carry only chrome.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Field-extension tower explorer, introduced on `algebra.html` §8 (*Field extensions and minimal polynomials*). Bespoke semantic module — the extension data is intrinsic; params carry only chrome.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "algebra-ring-ideals",
+    "family": "algebra-ring-ideals",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory",
+    "title": "algebra-ring-ideals widget params",
+    "description": "Ideals-of-ℤ classifier. A slider n (0–12) classifies the ideal (n)⊆ℤ and the quotient ℤ/n with four ✓/✗ badges — (n) prime? (n) maximal? ℤ/n a domain? ℤ/n a field? — plus a zero-divisor witness for composite n. Encodes R/p domain ⇔ p prime and R/m field ⇔ m maximal: (n) is maximal ⇔ n prime (ℤ/p=F_p a field); (n) is prime ⇔ n=0 or n prime; composite n gives zero divisors a·b=n≡0. Arithmetic is intrinsic; params carry only chrome.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Ideals-of-$\\mathbb Z$ classifier, introduced on `algebra.html` §7 (*Ideals and quotient rings*). Bespoke semantic module — the arithmetic is intrinsic; params carry only chrome.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "algebraic-curves-canonical-embedding-scrubber",
     "family": "algebraic-curves-canonical-embedding-scrubber",
     "dimension": "2d",
