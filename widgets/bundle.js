@@ -9437,6 +9437,25 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "hodge-theory-hodge-class-cases",
+    "family": "hodge-theory-hodge-class-cases",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory",
+    "title": "hodge-theory-hodge-class-cases widget params",
+    "description": "Case browser for the status of the Hodge conjecture. The reader clicks a (variety, codimension) case and the readout reports whether the conjecture is known, partially known, open, or false there, and why (Lefschetz (1,1), dimension reasons, Deligne's absolute-Hodge theorem, the integral counterexamples, …). Data-driven: each case carries its status and explanation in params.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "cases"
+    ],
+    "readmeExcerpt": "Case browser for the status of the Hodge conjecture, introduced on `hodge-theory.html` §6. Bespoke semantic module — each case's status and explanation live in params.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "hodge-theory-hodge-diamond",
     "family": "hodge-theory-hodge-diamond",
     "dimension": "2d",
@@ -9469,6 +9488,24 @@ window.__MVWidgets = [
       "examples"
     ],
     "readmeExcerpt": "Explorer for Deligne's mixed Hodge structures, introduced on `hodge-theory.html` §5 (replacing the section's static \"stack of pure pieces\" SVG with an interactive one). Bespoke semantic module — each example carries its weight-graded pieces in params.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "hodge-theory-period-elliptic",
+    "family": "hodge-theory-period-elliptic",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory",
+    "title": "hodge-theory-period-elliptic widget params",
+    "description": "Period map for elliptic curves: the weight-1 period domain is the upper half-plane ℍ (= the Siegel space H_1). The reader moves a period τ in ℍ with Re/Im sliders (or jumps to a preset lattice); the widget shades the SL₂(ℤ) fundamental domain, reduces τ into it (the period map modulo monodromy), and computes the modular j-invariant — recovering the j-line. The computation (SL₂(ℤ) reduction, j q-series) is intrinsic; params only carry optional notable presets.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "The elliptic-curve period map, introduced on `hodge-theory.html` §7. Makes the abstract \"period domain + variation of Hodge structure\" concrete in the one case where the period domain is the familiar upper half-plane. Bespoke semantic module — the SL₂(ℤ) reduction and the $j$-invariant $q$-series are intrinsic; params carry only optional notable presets.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,

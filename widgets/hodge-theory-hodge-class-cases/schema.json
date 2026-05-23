@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/hodge-theory-hodge-class-cases/schema.json",
+  "title": "hodge-theory-hodge-class-cases widget params",
+  "description": "Case browser for the status of the Hodge conjecture. The reader clicks a (variety, codimension) case and the readout reports whether the conjecture is known, partially known, open, or false there, and why (Lefschetz (1,1), dimension reasons, Deligne's absolute-Hodge theorem, the integral counterexamples, …). Data-driven: each case carries its status and explanation in params.",
+  "meta": {
+    "family": "hodge-theory-hodge-class-cases",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["widgetId", "title", "cases"],
+  "properties": {
+    "widgetId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id; the script derives -svg/-out." },
+    "title": { "type": "string", "description": "Display title rendered inside .hd > .ttl." },
+    "hint": { "type": "string", "description": "Optional short hint rendered inside .hd > .hint." },
+    "cases": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 12,
+      "description": "The cases shown as clickable rows, top to bottom.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "variety", "codim", "status", "reason"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[A-Za-z0-9_-]+$", "description": "Stable row id." },
+          "variety": { "type": "string", "maxLength": 48, "description": "Plain-text variety / setting, e.g. 'K3 surface'." },
+          "codim": { "type": "string", "maxLength": 16, "description": "Codimension label, e.g. 'p = 1' or 'all p'." },
+          "status": {
+            "type": "string",
+            "enum": ["known", "partial", "open", "false"],
+            "description": "Status of the conjecture for this case: known / partial (selected cases) / open / false (the integral version)."
+          },
+          "reason": { "type": "string", "description": "Why — shown in the readout on click." }
+        }
+      }
+    }
+  }
+}

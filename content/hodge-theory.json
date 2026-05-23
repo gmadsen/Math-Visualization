@@ -481,6 +481,74 @@
           "html": "<section id=\"hodge-conjecture\">\n<h2>6. The Hodge conjecture</h2>\n\n<p>For $X$ smooth projective over $\\mathbb{C}$ and $0 \\le p \\le \\dim X$, the cycle-class map sends a codimension-$p$ algebraic cycle to a class in $H^{2p}(X; \\mathbb{Q})$:</p>\n\n$$\\mathrm{cl}\\colon \\CH^p(X) \\otimes \\mathbb{Q} \\;\\longrightarrow\\; H^{2p}(X; \\mathbb{Q}).$$\n\n<p>The image lands inside the <b>Hodge classes</b>: the rational classes of pure Hodge type $(p, p)$,</p>\n\n$$\\Hdg^p(X) := H^{2p}(X; \\mathbb{Q}) \\cap H^{p,p}(X) \\;\\subset\\; H^{2p}(X; \\mathbb{Q}).$$\n\n<p>The Hodge conjecture (1950) predicts that this is all of $\\Hdg^p(X)$ — every rational class of type $(p, p)$ comes from an algebraic cycle.</p>\n\n<aside class=\"bad\"><b>Open since 1950.</b> A Clay Millennium prize problem. Known for $p = 1$ (the <em>Lefschetz $(1,1)$-theorem</em>: every integral $(1,1)$-class is the cycle class of a divisor — comes from the exponential sequence and the de Rham comparison). Unconditionally known up to dimension $3$ (where Hodge classes appear only in codimensions $0, 1, 2, 3$, and the only nontrivial codimensions $1$ and $2$ follow from Lefschetz $(1,1)$ and hard Lefschetz/duality). In dimension $4$ the conjecture is known in selected cases (e.g. abelian fourfolds of CM type, certain hypersurface families) but is open in general — what is established for abelian varieties of all dimensions is Deligne's theorem (1982) that <em>every Hodge class is absolutely Hodge</em>, which is strictly weaker than algebraicity (it does not produce algebraic cycles). For Calabi-Yau threefolds many cases are known — but in general, we don't know how to produce algebraic cycles to match every Hodge class. Counterexamples to the integral version are known (Atiyah-Hirzebruch, Totaro); the rational version remains the live problem.</aside>\n\n<p>Equivalent reformulations make the conjecture more tractable in special cases:</p>\n<ul>\n  <li><b>Tannakian.</b> The Hodge realization $G_{\\mathrm{mot}}(\\mathbb{Q}) \\twoheadrightarrow \\MT(X)$ should be <em>surjective</em> — every Mumford-Tate-group symmetry of cohomology comes from a motivic symmetry. (This is the formulation that makes contact with <a href=\"./motives.html#motivic-galois\">motives</a>.)</li>\n  <li><b>Absolute.</b> Deligne's \"absolute Hodge classes\" — those that remain Hodge under all conjugates by automorphisms of $\\mathbb{C}$ — are conjecturally exactly the algebraic ones. Known for abelian varieties (Deligne).</li>\n</ul>\n\n"
         },
         {
+          "type": "widget",
+          "slug": "hodge-theory-hodge-class-cases",
+          "params": {
+            "widgetId": "w-hodge-classes",
+            "title": "Hodge conjecture — what is known where",
+            "hint": "click a case for its status and the reason",
+            "cases": [
+              {
+                "id": "p1",
+                "variety": "Any smooth projective X",
+                "codim": "p = 1",
+                "status": "known",
+                "reason": "Lefschetz (1,1) theorem: every rational (1,1)-class is the cycle class of a divisor — from the exponential sheaf sequence plus the de Rham comparison. The cornerstone proven case."
+              },
+              {
+                "id": "dim3",
+                "variety": "Any X with dim X ≤ 3",
+                "codim": "all p",
+                "status": "known",
+                "reason": "Hodge classes live only in codimensions 0,1,2,3; codim 1 is Lefschetz (1,1) and codim 2 follows by hard Lefschetz / Poincaré duality. So the conjecture holds unconditionally through dimension 3."
+              },
+              {
+                "id": "k3",
+                "variety": "K3 surface",
+                "codim": "p = 1",
+                "status": "known",
+                "reason": "H¹·¹ ∩ H²(X;ℚ) = NS(X) ⊗ ℚ, the Néron–Severi group — all algebraic (divisors), again Lefschetz (1,1)."
+              },
+              {
+                "id": "cm-ab",
+                "variety": "Abelian variety of CM type",
+                "codim": "all p",
+                "status": "partial",
+                "reason": "Algebraicity is known in many CM cases. For abelian varieties in general, Deligne (1982) proved every Hodge class is ABSOLUTELY Hodge — strictly weaker than algebraic (it produces no cycle)."
+              },
+              {
+                "id": "ab4",
+                "variety": "General abelian fourfold",
+                "codim": "p = 2",
+                "status": "open",
+                "reason": "The first genuinely open codimension: Hodge classes exist that no one knows how to realise by an algebraic cycle."
+              },
+              {
+                "id": "quintic",
+                "variety": "Quintic Calabi–Yau threefold",
+                "codim": "p = 2",
+                "status": "partial",
+                "reason": "Many cases established; the general case is open. Calabi–Yau threefolds are a major testing ground."
+              },
+              {
+                "id": "integral",
+                "variety": "Integral Hodge conjecture (any X)",
+                "codim": "—",
+                "status": "false",
+                "reason": "The integral version is FALSE — counterexamples by Atiyah–Hirzebruch (1962) and Totaro. Only the rational version, Hdg^p(X) ⊂ H^{2p}(X;ℚ), remains the live Clay problem."
+              }
+            ]
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-hodge-classes"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
           "type": "quiz",
           "concept": "hodge-conjecture",
           "html": "<div class=\"quiz\" data-concept=\"hodge-conjecture\"></div>"
@@ -505,6 +573,49 @@
         {
           "type": "raw",
           "html": "<section id=\"period-domains\">\n<h2>7. Period domains and variations of Hodge structure</h2>\n\n<p>A <em>family</em> of varieties $\\pi\\colon \\mathcal{X} \\to S$ over a base $S$ produces, for each $s \\in S$, a Hodge structure on $H^n(\\mathcal{X}_s; \\mathbb{Q})$. As $s$ varies, the $\\mathbb{Q}$-vector space stays constant locally (over a simply-connected base) but the Hodge filtration $F^\\bullet$ moves. The resulting object is a <b>variation of Hodge structure</b> (VHS) — a flat $\\mathbb{Q}$-bundle plus a holomorphically-varying Hodge filtration.</p>\n\n<p>The receiving space is the <b>period domain</b> $D$ — a complex manifold parametrising all polarised Hodge structures of the given type (weight, dimension, polarisation). For weight-$1$ Hodge structures of dimension $2g$ with the standard symplectic polarisation, $D$ is the Siegel upper half-space $\\mathfrak{H}_g$ — and the period domain for an abelian variety's $H^1$ is exactly this. For higher weight the period domain is no longer Hermitian symmetric in general, which is a major source of the difficulty.</p>\n\n<p><b>Griffiths transversality.</b> The derivative of the period map $S \\to D$ is constrained: $\\nabla F^p \\subset F^{p-1} \\otimes \\Omega^1_S$. So the period map cannot move freely — its differential drops at most one step in the Hodge filtration per direction. This is what makes the period map <em>locally injective</em> on most families, and what makes the global period map (after taking a quotient by the monodromy) often algebraic.</p>\n\n<aside class=\"note\"><b>Key examples.</b> The period map for elliptic curves $\\mathcal{E} \\to \\mathcal{M}_{1,1}$ recovers the classical <em>j</em>-line via the Weierstrass <em>℘</em>-function. The period map for K3 surfaces lands in a 20-dimensional period domain and is generically a local isomorphism (Torelli theorem for K3s). For a generic Calabi-Yau threefold the period map is dominant onto its image but with Griffiths transversality as the binding constraint.</aside>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "hodge-theory-period-elliptic",
+          "params": {
+            "widgetId": "w-period-elliptic",
+            "title": "The period map ℍ → j-line",
+            "hint": "move τ in the upper half-plane; it reduces into the SL₂(ℤ) fundamental domain and gives j(τ)",
+            "presets": [
+              {
+                "id": "i",
+                "label": "τ = i  (square lattice)",
+                "re": 0,
+                "im": 1
+              },
+              {
+                "id": "rho",
+                "label": "τ = ρ = e^(2πi/3)  (hexagonal)",
+                "re": -0.5,
+                "im": 0.8660254
+              },
+              {
+                "id": "twoi",
+                "label": "τ = 2i  (tall lattice)",
+                "re": 0,
+                "im": 2
+              },
+              {
+                "id": "gen",
+                "label": "τ = 0.3 + 0.9i  (generic)",
+                "re": 0.3,
+                "im": 0.9
+              }
+            ]
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-period-elliptic"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
         },
         {
           "type": "raw",
