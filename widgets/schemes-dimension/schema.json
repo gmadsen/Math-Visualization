@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/schemes-dimension/schema.json",
+  "title": "schemes-dimension widget params",
+  "description": "Krull-dimension explorer. The reader picks a ring and the widget draws a maximal chain of prime ideals p_0 ⊊ p_1 ⊊ … ⊊ p_d as a ladder, with each prime's geometric meaning (V(p_i) is a closed subscheme whose dimension drops by one down the chain). The Krull dimension is the length d of the longest such chain — the generic point (0) at the top has dimension d, the maximal ideal at the bottom is a dimension-0 point. The chain and geometry come from params.",
+  "meta": {
+    "family": "schemes-dimension",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["widgetId", "title", "rings"],
+  "properties": {
+    "widgetId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id; the script derives -sel/-svg/-out." },
+    "title": { "type": "string", "description": "Display title rendered inside .hd > .ttl." },
+    "hint": { "type": "string", "description": "Optional short hint rendered inside .hd > .hint." },
+    "rings": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 6,
+      "description": "Each ring offered in the dropdown.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "label", "chain", "geom"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[A-Za-z0-9_-]+$", "description": "Stable option value." },
+          "label": { "type": "string", "description": "Plain-text ring label." },
+          "chain": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 5,
+            "items": { "type": "string" },
+            "description": "The prime ideals p_0 ⊊ … ⊊ p_d, top (smallest, =(0)) to bottom (maximal). Krull dim = length-1."
+          },
+          "geom": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 5,
+            "items": { "type": "string" },
+            "description": "The geometric meaning of V(p_i), aligned with `chain` (same length)."
+          },
+          "note": { "type": "string", "maxLength": 130, "description": "Optional plain-text remark." }
+        }
+      }
+    }
+  }
+}

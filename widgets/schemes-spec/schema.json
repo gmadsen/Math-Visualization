@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/schemes-spec/schema.json",
+  "title": "schemes-spec widget params",
+  "description": "Prime-spectrum explorer for Spec ℤ. The points are the prime ideals: a closed point (p) for each prime, plus the generic point (0). The reader slides an integer n and the widget highlights the Zariski-closed set V(n) = {(p) : p | n} (the primes dividing n), showing that closed sets are finite sets of closed points while the generic point (0) sits in every nonempty open set (its closure is all of Spec ℤ). The prime arithmetic is intrinsic; params carry only chrome.",
+  "meta": {
+    "family": "schemes-spec",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["widgetId", "title"],
+  "properties": {
+    "widgetId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id; the script derives -n/-svg/-out." },
+    "title": { "type": "string", "description": "Display title rendered inside .hd > .ttl." },
+    "hint": { "type": "string", "description": "Optional short hint rendered inside .hd > .hint." }
+  }
+}

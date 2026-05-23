@@ -16018,6 +16018,43 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "schemes-dimension",
+    "family": "schemes-dimension",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory",
+    "title": "schemes-dimension widget params",
+    "description": "Krull-dimension explorer. The reader picks a ring and the widget draws a maximal chain of prime ideals p_0 ⊊ p_1 ⊊ … ⊊ p_d as a ladder, with each prime's geometric meaning (V(p_i) is a closed subscheme whose dimension drops by one down the chain). The Krull dimension is the length d of the longest such chain — the generic point (0) at the top has dimension d, the maximal ideal at the bottom is a dimension-0 point. The chain and geometry come from params.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "rings"
+    ],
+    "readmeExcerpt": "Krull-dimension explorer, introduced on `schemes.html` §13. Bespoke semantic module — the chain and geometry come from params.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "schemes-spec",
+    "family": "schemes-spec",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory",
+    "title": "schemes-spec widget params",
+    "description": "Prime-spectrum explorer for Spec ℤ. The points are the prime ideals: a closed point (p) for each prime, plus the generic point (0). The reader slides an integer n and the widget highlights the Zariski-closed set V(n) = {(p) : p | n} (the primes dividing n), showing that closed sets are finite sets of closed points while the generic point (0) sits in every nonempty open set (its closure is all of Spec ℤ). The prime arithmetic is intrinsic; params carry only chrome.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Prime-spectrum explorer for $\\operatorname{Spec}\\mathbb{Z}$, introduced on `schemes.html` §1. Bespoke semantic module — the prime arithmetic is intrinsic; params carry only chrome.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "schrodinger-figure",
     "family": "schrodinger-figure",
     "dimension": "2d",

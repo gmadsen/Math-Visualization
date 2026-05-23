@@ -12,6 +12,27 @@
         },
         {
           "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget",
+          "slug": "schemes-spec",
+          "params": {
+            "widgetId": "w-schemes-spec",
+            "title": "Spec ℤ: prime points, V(n), and the generic point",
+            "hint": "Slide n to light up V(n) = primes dividing n; (0) is the dense generic point."
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-schemes-spec"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "raw",
           "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./commutative-algebra.html#ideals\">Ideals and quotient rings</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {
@@ -701,6 +722,98 @@
         {
           "type": "raw",
           "html": "<section id=\"dimension\">\n<h2>13. Dimension of a scheme</h2>\n<p>The specialization picture from §5 already hints at a natural notion of dimension: chains of primes $\\mathfrak{p}_0\\subsetneq \\mathfrak{p}_1\\subsetneq\\cdots\\subsetneq \\mathfrak{p}_d$ in $R$ correspond to chains of specializations $\\mathfrak{p}_0\\leadsto \\mathfrak{p}_1\\leadsto\\cdots\\leadsto \\mathfrak{p}_d$ in $\\Spec{}R$. The <strong>dimension</strong> of $\\Spec{}R$ is the length of the longest such chain — by definition the <strong>Krull dimension</strong> of $R$.</p>\n<p>For a general scheme $X$, $\\dim X$ is the supremum of chain lengths of irreducible closed subsets, and it is a local property: $\\dim X = \\sup_{x\\in X}\\dim \\mathcal{O}_{X,x}$ when $X$ is finite-dimensional. On each affine chart $\\Spec{}R\\subseteq X$, this recovers the Krull dimension of $R$.</p>\n<p>Some examples that are good to keep in your head:</p>\n<ul>\n  <li>$\\dim \\Spec k = 0$ (only the zero ideal).</li>\n  <li>$\\dim \\Spec\\mathbb{Z} = 1$: chain $(0)\\subsetneq (p)$.</li>\n  <li>$\\dim \\Spec k[x_1,\\dots,x_n] = n$: chain $(0)\\subsetneq (x_1)\\subsetneq (x_1,x_2)\\subsetneq\\cdots\\subsetneq (x_1,\\dots,x_n)$.</li>\n  <li>$\\dim \\Spec\\mathbb{Z}[x_1,\\dots,x_n] = n+1$: one extra step for the $\\mathbb{Z}$ direction.</li>\n  <li>$\\dim \\mathbb{P}^n_k = n$ — gluing together $n+1$ copies of $\\mathbb{A}^n$ preserves dimension.</li>\n</ul>\n<p>Dimension is the scheme-theoretic version of \"how many independent coordinates do I need\". Height-one primes cut out codimension-one subschemes (divisors); height-$n$ primes in a regular local ring of dimension $n$ are closed points. The Krull dimension of the local ring $\\mathcal{O}_{X,x}$ — an <strong>invariant of the point</strong> — is the <em>local</em> dimension of $X$ at $x$.</p>\n<div class=\"note\">\n<p style=\"margin:.2rem 0\">Dimension can behave badly for pathological rings, but for finite-type schemes over a field (or $\\mathbb{Z}$) it is well-behaved and matches the geometric intuition. A variety is <em>equidimensional</em> if all irreducible components have the same dimension.</p>\n</div>\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget",
+          "slug": "schemes-dimension",
+          "params": {
+            "widgetId": "w-schemes-dimension",
+            "title": "Krull dimension = the longest chain of primes",
+            "hint": "Pick a ring: the chain length is the dimension, matching point ⊂ line ⊂ plane.",
+            "rings": [
+              {
+                "id": "k",
+                "label": "k (a field)",
+                "chain": [
+                  "(0)"
+                ],
+                "geom": [
+                  "the point Spec k"
+                ],
+                "note": "A field has only one prime, (0): dimension 0, a single point."
+              },
+              {
+                "id": "Z",
+                "label": "ℤ",
+                "chain": [
+                  "(0)",
+                  "(p)"
+                ],
+                "geom": [
+                  "all of Spec ℤ",
+                  "a prime point (p)"
+                ],
+                "note": "One step (0) ⊊ (p): ℤ is a 1-dimensional \"arithmetic line\"."
+              },
+              {
+                "id": "kx",
+                "label": "k[x]  (the affine line 𝔸¹)",
+                "chain": [
+                  "(0)",
+                  "(x−a)"
+                ],
+                "geom": [
+                  "the line 𝔸¹",
+                  "the point a"
+                ],
+                "note": "A PID: every nonzero prime is maximal, so dim = 1."
+              },
+              {
+                "id": "kxy",
+                "label": "k[x,y]  (the affine plane 𝔸²)",
+                "chain": [
+                  "(0)",
+                  "(x)",
+                  "(x,y)"
+                ],
+                "geom": [
+                  "the plane 𝔸²",
+                  "the line x=0",
+                  "the point (0,0)"
+                ],
+                "note": "plane ⊃ line ⊃ point: dimension 2."
+              },
+              {
+                "id": "kxyz",
+                "label": "k[x,y,z]  (𝔸³)",
+                "chain": [
+                  "(0)",
+                  "(x)",
+                  "(x,y)",
+                  "(x,y,z)"
+                ],
+                "geom": [
+                  "space 𝔸³",
+                  "the plane x=0",
+                  "the line x=y=0",
+                  "the origin"
+                ],
+                "note": "space ⊃ plane ⊃ line ⊃ point: dimension 3."
+              }
+            ]
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-schemes-dimension"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
         },
         {
           "type": "raw",
