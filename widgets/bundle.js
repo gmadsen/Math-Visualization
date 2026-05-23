@@ -3423,6 +3423,25 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "complex-analysis-argument-principle",
+    "family": "complex-analysis-argument-principle",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory",
+    "title": "complex-analysis-argument-principle widget params",
+    "description": "Argument-principle / winding-number visualizer. The reader picks a polynomial (given by its roots) and a contour radius R; the widget plots the circle |z|=R with the roots (those inside highlighted) and the image curve p(|z|=R) in the w-plane, which winds around 0 exactly (number of enclosed zeros, counting multiplicity) times. As R grows past a root's modulus the winding jumps — the heart of the argument principle and Rouché's theorem. The polynomial evaluation + winding count are intrinsic; params carry the root data.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "functions"
+    ],
+    "readmeExcerpt": "Argument-principle / winding-number visualizer, introduced on `complex-analysis.html` §rouche. Bespoke semantic module — polynomial evaluation and the winding count are intrinsic; params carry the root data.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "complex-analysis-conformal-map",
     "family": "complex-analysis-conformal-map",
     "dimension": "2d",
@@ -3436,6 +3455,24 @@ window.__MVWidgets = [
       "maps"
     ],
     "readmeExcerpt": "Conformal-map visualizer, introduced on `complex-analysis.html` §5 (Cauchy–Riemann). Bespoke semantic module — the function evaluation and grid plotting are intrinsic (selected by a `kind` enum); params carry the map menu.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "complex-analysis-disk-automorphism",
+    "family": "complex-analysis-disk-automorphism",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory",
+    "title": "complex-analysis-disk-automorphism widget params",
+    "description": "Visualizer for the conformal automorphisms of the unit disk, φ(z) = e^{iθ}(z−a)/(1−ā z). The reader sets a (the point sent to the centre) and the rotation θ; a polar grid in the disk (left) is mapped to its image (right), which still fills the disk — the boundary maps to the boundary and a↦0. Shows that these Blaschke maps are exactly the disk's holomorphic automorphisms. The map is intrinsic; params carry only the title/hint.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Visualizer for the conformal automorphisms of the unit disk, introduced on `complex-analysis.html` §disk-automorphisms. Bespoke semantic module — the Blaschke map and grid plotting are intrinsic; params carry only title/hint.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,

@@ -1111,6 +1111,77 @@ const C = {
 <p><strong>Worked example: FTA in one line.</strong> Let $p(z)=z^n + a_{n-1}z^{n-1}+\cdots+a_0$. Take $f(z)=z^n$ and $g(z)=p(z)$ on the circle $|z|=R$. For $R$ large, $|p(z)-z^n| = |a_{n-1}z^{n-1}+\cdots| \le C R^{n-1} < R^n = |z^n|$, so $p$ has the same number of zeros as $z^n$ inside, namely $n$.</p>
 <p><strong>Worked example: zeros of $z^4 - 6z + 3$.</strong> On $|z|=2$, take $f(z)=z^4$: then $|{-6z+3}|\le 15 < 16 = |z^4|$, so all four zeros lie inside $|z|<2$. On $|z|=1$, take $f(z)=-6z+3$: then $|z^4|=1 < |{-6z+3}|\ge 3$, so exactly one zero lies inside $|z|<1$. Three zeros sit in the annulus $1<|z|<2$ — without computing a single root.</p>
 <p>The strategy is always the same: pick a known $f$ whose zero count you already understand, choose a contour where one term dominates, then read off the count for the perturbation $g$. Rouché is the standard tool for ad-hoc location of zeros of polynomials and transcendental functions, and a recurring step in stability arguments — e.g. proving that a small holomorphic deformation of a function preserves the number of fixed points in a region. It is a strict refinement of the argument principle (§20) tailored for the comparison setting.</p>
+
+<div class="widget" id="w-argprinciple">
+  <div class="hd"><div class="ttl">Winding number = enclosed zeros</div><div class="hint">grow R; the image of |z|=R winds around 0 once per enclosed root</div></div>
+  <div class="row">
+    <label for="w-argprinciple-sel">p(z)</label>
+    <select id="w-argprinciple-sel">
+      <option value="z2m1" selected>z² − 1</option>
+      <option value="z3">z³</option>
+      <option value="z2p1">z² + 1</option>
+      <option value="tworeal">(z − 0.5)(z − 1.5)</option>
+      <option value="mixed">(z² + 0.25)(z − 1.2)</option>
+    </select>
+    <label for="w-argprinciple-r">radius $R$</label>
+    <input type="range" id="w-argprinciple-r" min="0.3" max="2.5" value="1.15" step="0.01">
+    <span class="pill" id="w-argprinciple-rval">R = 1.15</span>
+  </div>
+  <svg id="w-argprinciple-svg" viewBox="0 0 540 280" width="540" height="280" role="img" aria-label="A circle |z|=R and the winding of its polynomial image about 0"><title>Argument principle: the image of |z|=R winds around 0 once per enclosed zero</title></svg>
+  <div class="readout" id="w-argprinciple-out"></div>
+</div><script>
+/* complex-analysis-argument-principle widget: w-argprinciple */
+(function(){
+  var FNS = [{"id":"z2m1","label":"z² − 1","roots":[{"re":-1,"im":0},{"re":1,"im":0}]},{"id":"z3","label":"z³","roots":[{"re":0,"im":0,"mult":3}]},{"id":"z2p1","label":"z² + 1","roots":[{"re":0,"im":1},{"re":0,"im":-1}]},{"id":"tworeal","label":"(z − 0.5)(z − 1.5)","roots":[{"re":0.5,"im":0},{"re":1.5,"im":0}]},{"id":"mixed","label":"(z² + 0.25)(z − 1.2)","roots":[{"re":0,"im":0.5},{"re":0,"im":-0.5},{"re":1.2,"im":0}]}];
+  var byId = {}; FNS.forEach(function(g){ byId[g.id] = g; });
+  var sel = document.getElementById('w-argprinciple-sel');
+  var rIn = document.getElementById('w-argprinciple-r'), rL = document.getElementById('w-argprinciple-rval');
+  var svg = document.getElementById('w-argprinciple-svg');
+  var out = document.getElementById('w-argprinciple-out');
+  if(!sel || !rIn || !svg || !out) return;
+  var NS = 'http://www.w3.org/2000/svg';
+  function mk(tag, attrs, text){ var e = document.createElementNS(NS, tag); for(var k in attrs){ e.setAttribute(k, attrs[k]); } if(text!=null) e.textContent = text; return e; }
+  function cmul(p,q){ return [p[0]*q[0]-p[1]*q[1], p[0]*q[1]+p[1]*q[0]]; }
+  function evalP(roots, z){ var w=[1,0]; for(var i=0;i<roots.length;i++){ var m=roots[i].mult||1; var f=[z[0]-roots[i].re, z[1]-roots[i].im]; for(var j=0;j<m;j++) w=cmul(w,f); } return w; }
+  var LR = 80, LCX = 130, RCX = 400, CY = 150; // left: z-plane (fixed scale), right: w-plane (auto)
+  function draw(){
+    var g = byId[sel.value] || FNS[0], R = +rIn.value;
+    rL.textContent = 'R = ' + R.toFixed(2);
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    svg.appendChild(mk('text', {x:LCX, y:22, 'text-anchor':'middle', 'font-size':11, fill:'var(--mute)', 'font-style':'italic'}, 'z-plane: |z| = R + roots'));
+    svg.appendChild(mk('text', {x:RCX, y:22, 'text-anchor':'middle', 'font-size':11, fill:'var(--mute)', 'font-style':'italic'}, 'w-plane: image p(|z|=R)'));
+    // left: fixed scale so roots up to ~2.6 fit
+    var sL = LR/2.6;
+    function LX(re){ return LCX + re*sL; } function LY(im){ return CY - im*sL; }
+    svg.appendChild(mk('line', {x1:LCX-LR, y1:CY, x2:LCX+LR, y2:CY, stroke:'var(--line)', 'stroke-width':0.6}));
+    svg.appendChild(mk('line', {x1:LCX, y1:CY-LR, x2:LCX, y2:CY+LR, stroke:'var(--line)', 'stroke-width':0.6}));
+    svg.appendChild(mk('circle', {cx:LCX, cy:CY, r:R*sL, fill:'none', stroke:'var(--violet)', 'stroke-width':1.4}));
+    var inside = 0;
+    g.roots.forEach(function(rt){ var m=rt.mult||1, inq=(rt.re*rt.re+rt.im*rt.im) < R*R; if(inq) inside+=m; var col=inq?'var(--yellow)':'var(--mute)'; svg.appendChild(mk('text', {x:LX(rt.re), y:LY(rt.im)+4, 'text-anchor':'middle', 'font-size':14, fill:col}, '\u00d7')); if(m>1) svg.appendChild(mk('text', {x:LX(rt.re)+9, y:LY(rt.im)-5, 'font-size':9, fill:col}, '\u00d7'+m)); });
+    // right: image p(|z|=R), auto-scaled
+    var N=240, img=[], wmax=0;
+    for(var i=0;i<=N;i++){ var t=2*Math.PI*i/N, z=[R*Math.cos(t), R*Math.sin(t)], w=evalP(g.roots, z); img.push(w); var a=Math.hypot(w[0],w[1]); if(a>wmax) wmax=a; }
+    var sR = wmax>0 ? 92/wmax : 1;
+    function RX(re){ return RCX + re*sR; } function RY(im){ return CY - im*sR; }
+    svg.appendChild(mk('line', {x1:RCX-100, y1:CY, x2:RCX+100, y2:CY, stroke:'var(--line)', 'stroke-width':0.6}));
+    svg.appendChild(mk('line', {x1:RCX, y1:CY-100, x2:RCX, y2:CY+100, stroke:'var(--line)', 'stroke-width':0.6}));
+    var pts = img.map(function(w){ return RX(w[0]).toFixed(1)+','+RY(w[1]).toFixed(1); });
+    svg.appendChild(mk('polyline', {points:pts.join(' '), fill:'none', stroke:'var(--cyan)', 'stroke-width':1.4}));
+    svg.appendChild(mk('circle', {cx:RCX, cy:CY, r:3.5, fill:'var(--pink)'}));
+    svg.appendChild(mk('text', {x:RCX+7, y:CY-5, 'font-size':10, fill:'var(--pink)'}, '0'));
+    var onContour = g.roots.some(function(rt){ return Math.abs(Math.sqrt(rt.re*rt.re+rt.im*rt.im) - R) < 0.02; });
+    var lines = [];
+    if(onContour) lines.push('the contour |z| = ' + R.toFixed(2) + ' passes through a root \u2014 the image touches 0 and the winding is undefined here (nudge R).');
+    else lines.push('roots inside |z| = ' + R.toFixed(2) + ' (counting multiplicity):  ' + inside);
+    if(!onContour) lines.push('the image curve p(|z|=R) winds around 0 exactly ' + inside + ' time' + (inside===1?'':'s') + ' \u2014 the argument principle: winding = (zeros \u2212 poles) enclosed.');
+    lines.push('Slide R past a root\u2019s modulus and the winding jumps by its multiplicity. Rouché compares two such windings.');
+    out.textContent = lines.join('\n');
+  }
+  sel.addEventListener('change', draw); rIn.addEventListener('input', draw);
+  draw();
+})();
+</script>
+
 <div class="quiz" data-concept="rouche"></div>
 </section>
 
@@ -1153,6 +1224,72 @@ const C = {
 <p>$$\mathrm{Aut}(\mathbb{D}) = \left\{ z\mapsto e^{i\theta}\frac{z-a}{1-\bar a z} \;:\; \theta\in\mathbb{R},\, a\in\mathbb{D}\right\} \;\cong\; \mathrm{PSU}(1,1).$$</p>
 <p>This is the <em>isometry group of the hyperbolic plane</em>, with the Poincaré metric $ds^2 = \dfrac{4|dz|^2}{(1-|z|^2)^2}$.</p>
 <p>The Cayley transform $z\mapsto i\dfrac{1-z}{1+z}$ identifies the disk with the upper half-plane $\mathbb{H} = \{z : \mathrm{Im}\,z > 0\}$, whose automorphism group is $\mathrm{PSL}_2(\mathbb{R})$ acting by Möbius transformations with real coefficients.</p>
+
+<div class="widget" id="w-disk-auto">
+  <div class="hd"><div class="ttl">Automorphisms of the disk</div><div class="hint">set a (sent to the centre) and a rotation θ; the disk maps onto itself</div></div>
+  <div class="row">
+    <label for="w-disk-auto-mod">$|a|$</label>
+    <input type="range" id="w-disk-auto-mod" min="0" max="0.9" value="0.5" step="0.01">
+    <span class="pill" id="w-disk-auto-modval">|a| = 0.50</span>
+    <label for="w-disk-auto-arg">$\arg a$</label>
+    <input type="range" id="w-disk-auto-arg" min="0" max="6.283" value="0.5" step="0.02">
+    <span class="pill" id="w-disk-auto-argval">arg a = 0.50</span>
+    <label for="w-disk-auto-rot">$\theta$</label>
+    <input type="range" id="w-disk-auto-rot" min="0" max="6.283" value="0" step="0.02">
+    <span class="pill" id="w-disk-auto-rotval">θ = 0.00</span>
+  </div>
+  <svg id="w-disk-auto-svg" viewBox="0 0 540 290" width="540" height="290" role="img" aria-label="A polar grid in the unit disk and its image under a disk automorphism"><title>Disk automorphism: a Blaschke map sends the disk to itself</title></svg>
+  <div class="readout" id="w-disk-auto-out"></div>
+</div><script>
+/* complex-analysis-disk-automorphism widget: w-disk-auto */
+(function(){
+  var modIn = document.getElementById('w-disk-auto-mod'), modL = document.getElementById('w-disk-auto-modval');
+  var argIn = document.getElementById('w-disk-auto-arg'), argL = document.getElementById('w-disk-auto-argval');
+  var rotIn = document.getElementById('w-disk-auto-rot'), rotL = document.getElementById('w-disk-auto-rotval');
+  var svg = document.getElementById('w-disk-auto-svg');
+  var out = document.getElementById('w-disk-auto-out');
+  if(!modIn || !argIn || !rotIn || !svg || !out) return;
+  var NS = 'http://www.w3.org/2000/svg';
+  function mk(tag, attrs, text){ var e = document.createElementNS(NS, tag); for(var k in attrs){ e.setAttribute(k, attrs[k]); } if(text!=null) e.textContent = text; return e; }
+  function cmul(p,q){ return [p[0]*q[0]-p[1]*q[1], p[0]*q[1]+p[1]*q[0]]; }
+  function cdiv(p,q){ var d=q[0]*q[0]+q[1]*q[1]; return [(p[0]*q[0]+p[1]*q[1])/d, (p[1]*q[0]-p[0]*q[1])/d]; }
+  // phi(z) = e^{i theta} (z - a)/(1 - conj(a) z)
+  function phi(z, a, eit){ var num=[z[0]-a[0], z[1]-a[1]]; var az=[a[0]*z[0]+a[1]*z[1], a[0]*z[1]-a[1]*z[0]]; var den=[1-az[0], -az[1]]; return cmul(eit, cdiv(num, den)); }
+  var R = 95, LCX = 140, RCX = 400, CY = 150; // two disk panels of radius R
+  function L(z){ return [LCX + z[0]*R, CY - z[1]*R]; } function Rp(z){ return [RCX + z[0]*R, CY - z[1]*R]; }
+  function draw(){
+    var am = +modIn.value, aa = +argIn.value, th = +rotIn.value;
+    modL.textContent = '|a| = ' + am.toFixed(2); argL.textContent = 'arg a = ' + aa.toFixed(2); rotL.textContent = 'θ = ' + th.toFixed(2);
+    var a = [am*Math.cos(aa), am*Math.sin(aa)], eit = [Math.cos(th), Math.sin(th)];
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    svg.appendChild(mk('text', {x:LCX, y:24, 'text-anchor':'middle', 'font-size':11, fill:'var(--mute)', 'font-style':'italic'}, 'unit disk + polar grid'));
+    svg.appendChild(mk('text', {x:RCX, y:24, 'text-anchor':'middle', 'font-size':11, fill:'var(--mute)', 'font-style':'italic'}, 'image under φ'));
+    svg.appendChild(mk('text', {x:270, y:CY+4, 'text-anchor':'middle', 'font-size':16, fill:'var(--mute)'}, '\u2192'));
+    // boundary circles
+    svg.appendChild(mk('circle', {cx:LCX, cy:CY, r:R, fill:'none', stroke:'var(--line)', 'stroke-width':1.2}));
+    svg.appendChild(mk('circle', {cx:RCX, cy:CY, r:R, fill:'none', stroke:'var(--line)', 'stroke-width':1.2}));
+    // polar grid: concentric circles (cyan) + radial spokes (yellow), and their images
+    function curve(pts, proj, color){ var s=pts.map(function(z){ var p=proj(z); return p[0].toFixed(1)+','+p[1].toFixed(1); }); svg.appendChild(mk('polyline', {points:s.join(' '), fill:'none', stroke:color, 'stroke-width':0.9, 'stroke-opacity':0.85})); }
+    var rad=[0.2,0.4,0.6,0.8], spokes=8, M=60;
+    rad.forEach(function(rr){ var dom=[],imgc=[]; for(var i=0;i<=M;i++){ var t=2*Math.PI*i/M, z=[rr*Math.cos(t), rr*Math.sin(t)]; dom.push(z); imgc.push(phi(z,a,eit)); } curve(dom,L,'var(--cyan)'); curve(imgc,Rp,'var(--cyan)'); });
+    for(var k=0;k<spokes;k++){ var ang=2*Math.PI*k/spokes, dom=[],imgs=[]; for(var i=0;i<=M;i++){ var rr=0.92*i/M, z=[rr*Math.cos(ang), rr*Math.sin(ang)]; dom.push(z); imgs.push(phi(z,a,eit)); } curve(dom,L,'var(--yellow)'); curve(imgs,Rp,'var(--yellow)'); }
+    // mark a (left) -> 0 (right), and 0 (left) -> phi(0) (right)
+    var aL=L(a), zero=phi([0,0],a,eit), zeroR=Rp(zero);
+    svg.appendChild(mk('circle', {cx:aL[0], cy:aL[1], r:4, fill:'var(--pink)'}));
+    svg.appendChild(mk('text', {x:aL[0]+7, y:aL[1]+4, 'font-size':11, fill:'var(--pink)'}, 'a'));
+    var cR=Rp([0,0]); svg.appendChild(mk('circle', {cx:cR[0], cy:cR[1], r:4, fill:'var(--pink)'}));
+    svg.appendChild(mk('text', {x:cR[0]+7, y:cR[1]+4, 'font-size':11, fill:'var(--pink)'}, 'φ(a)=0'));
+    var lines = [];
+    lines.push('φ(z) = e^{iθ} (z − a)/(1 − ā z),  a = ' + a[0].toFixed(2) + ' + ' + a[1].toFixed(2) + 'i,  θ = ' + th.toFixed(2));
+    lines.push('φ sends the disk to itself, a ↦ 0, and the boundary circle to itself — these Blaschke maps ARE all the holomorphic automorphisms of 𝔻.');
+    lines.push('Being conformal, the image grid still meets at right angles; the rotation θ spins the whole picture about the new centre.');
+    out.textContent = lines.join('\n');
+  }
+  modIn.addEventListener('input', draw); argIn.addEventListener('input', draw); rotIn.addEventListener('input', draw);
+  draw();
+})();
+</script>
+
 <div class="quiz" data-concept="disk-automorphisms"></div><!-- backlinks-auto-begin -->
 <aside class="related">
   <div class="ttl">Used in</div>

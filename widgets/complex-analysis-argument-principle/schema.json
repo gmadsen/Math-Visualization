@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/complex-analysis-argument-principle/schema.json",
+  "title": "complex-analysis-argument-principle widget params",
+  "description": "Argument-principle / winding-number visualizer. The reader picks a polynomial (given by its roots) and a contour radius R; the widget plots the circle |z|=R with the roots (those inside highlighted) and the image curve p(|z|=R) in the w-plane, which winds around 0 exactly (number of enclosed zeros, counting multiplicity) times. As R grows past a root's modulus the winding jumps — the heart of the argument principle and Rouché's theorem. The polynomial evaluation + winding count are intrinsic; params carry the root data.",
+  "meta": {
+    "family": "complex-analysis-argument-principle",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["widgetId", "title", "functions"],
+  "properties": {
+    "widgetId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id; the script derives -sel/-r/-svg/-out." },
+    "title": { "type": "string", "description": "Display title rendered inside .hd > .ttl." },
+    "hint": { "type": "string", "description": "Optional short hint rendered inside .hd > .hint." },
+    "functions": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 8,
+      "description": "Polynomials offered in the dropdown, given by their roots.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "label", "roots"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[A-Za-z0-9_-]+$", "description": "Stable option value." },
+          "label": { "type": "string", "description": "Plain-text dropdown label, e.g. 'z² − 1'." },
+          "roots": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 8,
+            "description": "Roots of the polynomial; p(z) = ∏ (z − root)^mult.",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["re", "im"],
+              "properties": {
+                "re": { "type": "number", "description": "Real part of the root." },
+                "im": { "type": "number", "description": "Imaginary part of the root." },
+                "mult": { "type": "integer", "minimum": 1, "maximum": 6, "default": 1, "description": "Multiplicity." }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -931,6 +931,100 @@
           "html": "<section id=\"rouche\">\n<h2>21. Rouché's theorem</h2>\n<p>The argument principle counts zeros by winding number. Rouché's theorem turns that counting into a perturbation tool: if $g$ is a small enough wiggle of $f$ on the boundary, the count cannot change.</p>\n<div class=\"note\"><strong>Rouché's theorem.</strong> If $|f(z) - g(z)| < |f(z)|$ on a contour $\\gamma$, then $f$ and $g$ have the same number of zeros inside. Picture: the image $g(\\gamma)$ is \"less than $|f(\\gamma)|$ away\" from $f(\\gamma)$, so it cannot loop around $0$ a different number of times.</div>\n<p><strong>Worked example: FTA in one line.</strong> Let $p(z)=z^n + a_{n-1}z^{n-1}+\\cdots+a_0$. Take $f(z)=z^n$ and $g(z)=p(z)$ on the circle $|z|=R$. For $R$ large, $|p(z)-z^n| = |a_{n-1}z^{n-1}+\\cdots| \\le C R^{n-1} < R^n = |z^n|$, so $p$ has the same number of zeros as $z^n$ inside, namely $n$.</p>\n<p><strong>Worked example: zeros of $z^4 - 6z + 3$.</strong> On $|z|=2$, take $f(z)=z^4$: then $|{-6z+3}|\\le 15 < 16 = |z^4|$, so all four zeros lie inside $|z|<2$. On $|z|=1$, take $f(z)=-6z+3$: then $|z^4|=1 < |{-6z+3}|\\ge 3$, so exactly one zero lies inside $|z|<1$. Three zeros sit in the annulus $1<|z|<2$ — without computing a single root.</p>\n<p>The strategy is always the same: pick a known $f$ whose zero count you already understand, choose a contour where one term dominates, then read off the count for the perturbation $g$. Rouché is the standard tool for ad-hoc location of zeros of polynomials and transcendental functions, and a recurring step in stability arguments — e.g. proving that a small holomorphic deformation of a function preserves the number of fixed points in a region. It is a strict refinement of the argument principle (§20) tailored for the comparison setting.</p>\n"
         },
         {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget",
+          "slug": "complex-analysis-argument-principle",
+          "params": {
+            "widgetId": "w-argprinciple",
+            "title": "Winding number = enclosed zeros",
+            "hint": "grow R; the image of |z|=R winds around 0 once per enclosed root",
+            "functions": [
+              {
+                "id": "z2m1",
+                "label": "z² − 1",
+                "roots": [
+                  {
+                    "re": -1,
+                    "im": 0
+                  },
+                  {
+                    "re": 1,
+                    "im": 0
+                  }
+                ]
+              },
+              {
+                "id": "z3",
+                "label": "z³",
+                "roots": [
+                  {
+                    "re": 0,
+                    "im": 0,
+                    "mult": 3
+                  }
+                ]
+              },
+              {
+                "id": "z2p1",
+                "label": "z² + 1",
+                "roots": [
+                  {
+                    "re": 0,
+                    "im": 1
+                  },
+                  {
+                    "re": 0,
+                    "im": -1
+                  }
+                ]
+              },
+              {
+                "id": "tworeal",
+                "label": "(z − 0.5)(z − 1.5)",
+                "roots": [
+                  {
+                    "re": 0.5,
+                    "im": 0
+                  },
+                  {
+                    "re": 1.5,
+                    "im": 0
+                  }
+                ]
+              },
+              {
+                "id": "mixed",
+                "label": "(z² + 0.25)(z − 1.2)",
+                "roots": [
+                  {
+                    "re": 0,
+                    "im": 0.5
+                  },
+                  {
+                    "re": 0,
+                    "im": -0.5
+                  },
+                  {
+                    "re": 1.2,
+                    "im": 0
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-argprinciple"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
           "type": "quiz",
           "concept": "rouche",
           "html": "<div class=\"quiz\" data-concept=\"rouche\"></div>"
@@ -999,6 +1093,27 @@
         {
           "type": "raw",
           "html": "<section id=\"disk-automorphisms\">\n<h2>23. Disk automorphisms</h2>\n<p>The conformal automorphisms of the disk are exactly</p>\n<p>$$\\mathrm{Aut}(\\mathbb{D}) = \\left\\{ z\\mapsto e^{i\\theta}\\frac{z-a}{1-\\bar a z} \\;:\\; \\theta\\in\\mathbb{R},\\, a\\in\\mathbb{D}\\right\\} \\;\\cong\\; \\mathrm{PSU}(1,1).$$</p>\n<p>This is the <em>isometry group of the hyperbolic plane</em>, with the Poincaré metric $ds^2 = \\dfrac{4|dz|^2}{(1-|z|^2)^2}$.</p>\n<p>The Cayley transform $z\\mapsto i\\dfrac{1-z}{1+z}$ identifies the disk with the upper half-plane $\\mathbb{H} = \\{z : \\mathrm{Im}\\,z > 0\\}$, whose automorphism group is $\\mathrm{PSL}_2(\\mathbb{R})$ acting by Möbius transformations with real coefficients.</p>\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget",
+          "slug": "complex-analysis-disk-automorphism",
+          "params": {
+            "widgetId": "w-disk-auto",
+            "title": "Automorphisms of the disk",
+            "hint": "set a (sent to the centre) and a rotation θ; the disk maps onto itself"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-disk-auto"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
         },
         {
           "type": "quiz",
