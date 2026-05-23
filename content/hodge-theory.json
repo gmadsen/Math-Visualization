@@ -34,7 +34,153 @@
       "blocks": [
         {
           "type": "raw",
-          "html": "<section id=\"decomposition\">\n<h2>2. The Hodge decomposition theorem</h2>\n\n<p>The central theorem (Hodge, 1941) says: for $X$ a compact Kähler manifold of complex dimension $d$,</p>\n\n$$H^n(X; \\mathbb{C}) \\;=\\; \\bigoplus_{p+q=n} H^{p,q}(X), \\qquad H^{p,q}(X) := H^q(X, \\Omega^p_X),$$\n\n<p>and the conjugation symmetry $\\overline{H^{p,q}} = H^{q,p}$ holds (where the bar is complex conjugation on $H^n(X; \\mathbb{C})$ relative to the real subspace $H^n(X; \\mathbb{R})$).</p>\n\n<p>The numbers $h^{p,q}(X) := \\dim_\\mathbb{C} H^{p,q}(X)$ are the <b>Hodge numbers</b>. They sit in the <b>Hodge diamond</b>:</p>\n\n<svg viewBox=\"0 0 540 320\" width=\"540\" height=\"320\" style=\"margin:1rem auto\" role=\"img\" aria-labelledby=\"hd-svg-title hd-svg-desc\">\n  <title id=\"hd-svg-title\">Hodge diamond for a smooth projective surface</title>\n  <desc id=\"hd-svg-desc\">A diamond-shaped grid of Hodge numbers h^{p,q} for a complex surface (d=2): rows are total degree n=0,1,2,3,4 from top to bottom; entries are arranged so that conjugate-symmetric pairs sit symmetrically across the vertical axis. The top and bottom corners are h^{0,0}=h^{2,2}=1; the middle row carries h^{2,0}, h^{1,1}, h^{0,2} with h^{2,0}=h^{0,2} by Hodge symmetry.</desc>\n  <text x=\"270\" y=\"22\" text-anchor=\"middle\" font-size=\"13\" fill=\"var(--mute)\" font-style=\"italic\">\n    Hodge diamond for a smooth projective surface (d = 2)\n  </text>\n  <!-- Row 0: h^{0,0} = 1 -->\n  <circle cx=\"270\" cy=\"56\" r=\"22\" fill=\"var(--panel2)\" stroke=\"var(--cyan)\"/>\n  <text x=\"270\" y=\"61\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"600\">1</text>\n  <text x=\"270\" y=\"92\" text-anchor=\"middle\" font-size=\"11\" fill=\"var(--mute)\">h⁰ᐟ⁰</text>\n  <!-- Row 1: h^{1,0}, h^{0,1} -->\n  <circle cx=\"220\" cy=\"116\" r=\"22\" fill=\"var(--panel2)\" stroke=\"var(--green)\"/>\n  <text x=\"220\" y=\"121\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"600\">q</text>\n  <text x=\"220\" y=\"152\" text-anchor=\"middle\" font-size=\"11\" fill=\"var(--mute)\">h¹ᐟ⁰</text>\n  <circle cx=\"320\" cy=\"116\" r=\"22\" fill=\"var(--panel2)\" stroke=\"var(--green)\"/>\n  <text x=\"320\" y=\"121\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"600\">q</text>\n  <text x=\"320\" y=\"152\" text-anchor=\"middle\" font-size=\"11\" fill=\"var(--mute)\">h⁰ᐟ¹</text>\n  <!-- Row 2: h^{2,0}, h^{1,1}, h^{0,2} -->\n  <circle cx=\"170\" cy=\"176\" r=\"22\" fill=\"var(--panel2)\" stroke=\"var(--yellow)\"/>\n  <text x=\"170\" y=\"181\" text-anchor=\"middle\" font-size=\"13\" font-weight=\"600\">pɡ</text>\n  <text x=\"170\" y=\"212\" text-anchor=\"middle\" font-size=\"11\" fill=\"var(--mute)\">h²ᐟ⁰</text>\n  <circle cx=\"270\" cy=\"176\" r=\"22\" fill=\"var(--panel2)\" stroke=\"var(--yellow)\"/>\n  <text x=\"270\" y=\"181\" text-anchor=\"middle\" font-size=\"13\" font-weight=\"600\">h¹ᐟ¹</text>\n  <text x=\"270\" y=\"212\" text-anchor=\"middle\" font-size=\"11\" fill=\"var(--mute)\">middle</text>\n  <circle cx=\"370\" cy=\"176\" r=\"22\" fill=\"var(--panel2)\" stroke=\"var(--yellow)\"/>\n  <text x=\"370\" y=\"181\" text-anchor=\"middle\" font-size=\"13\" font-weight=\"600\">pɡ</text>\n  <text x=\"370\" y=\"212\" text-anchor=\"middle\" font-size=\"11\" fill=\"var(--mute)\">h⁰ᐟ²</text>\n  <!-- Row 3: h^{2,1}, h^{1,2} -->\n  <circle cx=\"220\" cy=\"236\" r=\"22\" fill=\"var(--panel2)\" stroke=\"var(--green)\"/>\n  <text x=\"220\" y=\"241\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"600\">q</text>\n  <text x=\"220\" y=\"272\" text-anchor=\"middle\" font-size=\"11\" fill=\"var(--mute)\">h²ᐟ¹</text>\n  <circle cx=\"320\" cy=\"236\" r=\"22\" fill=\"var(--panel2)\" stroke=\"var(--green)\"/>\n  <text x=\"320\" y=\"241\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"600\">q</text>\n  <text x=\"320\" y=\"272\" text-anchor=\"middle\" font-size=\"11\" fill=\"var(--mute)\">h¹ᐟ²</text>\n  <!-- Row 4: h^{2,2} = 1 -->\n  <circle cx=\"270\" cy=\"296\" r=\"22\" fill=\"var(--panel2)\" stroke=\"var(--cyan)\"/>\n  <text x=\"270\" y=\"301\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"600\">1</text>\n  <text x=\"430\" y=\"301\" text-anchor=\"start\" font-size=\"11\" fill=\"var(--mute)\">h²ᐟ² (Poincaré dual to h⁰ᐟ⁰)</text>\n</svg>\n\n<p>For a surface $X$ (so $d = 2$), the Hodge numbers fill out a $3 \\times 3$ array $h^{p,q}$ with $0 \\le p, q \\le 2$ — <a href=\"./calabi-yau-manifolds.html#hodge\" data-auto-inline-link=\"1\" data-concept-id=\"cy-hodge-numbers\" data-blurb=\"Hodge numbers $h^{p,q} = \\dim H^q(X, \\Omega^p)$ form a diamond. For a CY $n$-fold, triviality of $K_X$ gives $h^{n,0} = h^{0,0} = 1$, and Kähler / Serre duality forces $h^{p,q} = h^{q,p} = h^{n-p,n-q}$. For a CY 3-fold the only free entries are $h^{1,1}$ and $h^{2,1}$, and the Euler characteristic is $\\chi(X) = 2(h^{1,1} - h^{2,1})$.\">the Hodge diamond</a> — with two axes of symmetry: <b>Hodge symmetry</b> $h^{p,q} = h^{q,p}$ (from complex conjugation) and <b><a href=\"./cohomology-and-duality.html#poincare-duality\" data-auto-inline-link=\"1\" data-concept-id=\"cd-poincare-duality\" data-blurb=\"For a closed oriented $n$-manifold $M$, the cap product with the fundamental class $[M]\\in H_n(M)$ is an isomorphism $H^k(M)\\cong H_{n-k}(M)$. Lefschetz duality handles the case with boundary. Worked example: a genus-$g$ surface has $b_0=b_2=1$, $b_1=2g$.\">Poincaré duality</a></b> $h^{p,q} = h^{d-p, d-q}$. So a surface has at most three independent Hodge numbers: $h^{1,0} = q$ (the irregularity), $h^{2,0} = p_g$ (the geometric genus), and $h^{1,1}$.</p>\n\n<p>The Betti numbers fall out of the diamond by row sums: $b_n = \\sum_{p+q=n} h^{p,q}$.</p>\n\n"
+          "html": "<section id=\"decomposition\">\n<h2>2. The Hodge decomposition theorem</h2>\n\n<p>The central theorem (Hodge, 1941) says: for $X$ a compact Kähler manifold of complex dimension $d$,</p>\n\n$$H^n(X; \\mathbb{C}) \\;=\\; \\bigoplus_{p+q=n} H^{p,q}(X), \\qquad H^{p,q}(X) := H^q(X, \\Omega^p_X),$$\n\n<p>and the conjugation symmetry $\\overline{H^{p,q}} = H^{q,p}$ holds (where the bar is complex conjugation on $H^n(X; \\mathbb{C})$ relative to the real subspace $H^n(X; \\mathbb{R})$).</p>\n\n<p>The numbers $h^{p,q}(X) := \\dim_\\mathbb{C} H^{p,q}(X)$ are the <b>Hodge numbers</b>. They sit in the <b>Hodge diamond</b>:</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "hodge-theory-hodge-diamond",
+          "params": {
+            "widgetId": "w-hodge-diamond",
+            "title": "Hodge diamonds — pick a variety",
+            "hint": "rows are degree n = p+q; click an entry for its Hodge-conjugate (green) and Poincaré-dual (cyan) partners",
+            "varieties": [
+              {
+                "id": "p1",
+                "label": "P^1 — projective line (d = 1)",
+                "h": [
+                  [
+                    1,
+                    0
+                  ],
+                  [
+                    0,
+                    1
+                  ]
+                ],
+                "note": "All cohomology is (p,p)-type — a pure Tate (Hodge–Tate) variety."
+              },
+              {
+                "id": "genus2",
+                "label": "Genus-2 curve (d = 1)",
+                "h": [
+                  [
+                    1,
+                    2
+                  ],
+                  [
+                    2,
+                    1
+                  ]
+                ],
+                "note": "h¹⁰ = g = 2 is the genus; b₁ = 2g = 4."
+              },
+              {
+                "id": "p2",
+                "label": "P^2 — projective plane (d = 2)",
+                "h": [
+                  [
+                    1,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    1,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    1
+                  ]
+                ],
+                "note": "Diagonal diamond: hᵖᵖ = 1, the rest 0 — pure Tate type."
+              },
+              {
+                "id": "k3",
+                "label": "K3 surface (d = 2)",
+                "h": [
+                  [
+                    1,
+                    0,
+                    1
+                  ],
+                  [
+                    0,
+                    20,
+                    0
+                  ],
+                  [
+                    1,
+                    0,
+                    1
+                  ]
+                ],
+                "note": "h¹¹ = 20, h²⁰ = 1; Euler characteristic 24."
+              },
+              {
+                "id": "ab2",
+                "label": "Abelian surface (d = 2)",
+                "h": [
+                  [
+                    1,
+                    2,
+                    1
+                  ],
+                  [
+                    2,
+                    4,
+                    2
+                  ],
+                  [
+                    1,
+                    2,
+                    1
+                  ]
+                ],
+                "note": "hᵖ·q = C(2,p)·C(2,q) — the exterior algebra on H¹; χ = 0."
+              },
+              {
+                "id": "quintic",
+                "label": "Quintic Calabi–Yau 3-fold (d = 3)",
+                "h": [
+                  [
+                    1,
+                    0,
+                    0,
+                    1
+                  ],
+                  [
+                    0,
+                    1,
+                    101,
+                    0
+                  ],
+                  [
+                    0,
+                    101,
+                    1,
+                    0
+                  ],
+                  [
+                    1,
+                    0,
+                    0,
+                    1
+                  ]
+                ],
+                "note": "h¹¹ = 1, h²¹ = 101; χ = 2(h¹¹ − h²¹) = −200."
+              }
+            ]
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-hodge-diamond"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n<p>For a surface $X$ (so $d = 2$), the Hodge numbers fill out a $3 \\times 3$ array $h^{p,q}$ with $0 \\le p, q \\le 2$ — <a href=\"./calabi-yau-manifolds.html#hodge\" data-auto-inline-link=\"1\" data-concept-id=\"cy-hodge-numbers\" data-blurb=\"Hodge numbers $h^{p,q} = \\dim H^q(X, \\Omega^p)$ form a diamond. For a CY $n$-fold, triviality of $K_X$ gives $h^{n,0} = h^{0,0} = 1$, and Kähler / Serre duality forces $h^{p,q} = h^{q,p} = h^{n-p,n-q}$. For a CY 3-fold the only free entries are $h^{1,1}$ and $h^{2,1}$, and the Euler characteristic is $\\chi(X) = 2(h^{1,1} - h^{2,1})$.\">the Hodge diamond</a> — with two axes of symmetry: <b>Hodge symmetry</b> $h^{p,q} = h^{q,p}$ (from complex conjugation) and <b><a href=\"./cohomology-and-duality.html#poincare-duality\" data-auto-inline-link=\"1\" data-concept-id=\"cd-poincare-duality\" data-blurb=\"For a closed oriented $n$-manifold $M$, the cap product with the fundamental class $[M]\\in H_n(M)$ is an isomorphism $H^k(M)\\cong H_{n-k}(M)$. Lefschetz duality handles the case with boundary. Worked example: a genus-$g$ surface has $b_0=b_2=1$, $b_1=2g$.\">Poincaré duality</a></b> $h^{p,q} = h^{d-p, d-q}$. So a surface has at most three independent Hodge numbers: $h^{1,0} = q$ (the irregularity), $h^{2,0} = p_g$ (the geometric genus), and $h^{1,1}$.</p>\n\n<p>The Betti numbers fall out of the diamond by row sums: $b_n = \\sum_{p+q=n} h^{p,q}$.</p>\n\n"
         },
         {
           "type": "quiz",
