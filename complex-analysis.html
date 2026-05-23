@@ -1523,7 +1523,7 @@ const C = {
       lines.push('Open mapping theorem: a non-constant holomorphic map sends open sets to open sets. (No real-variable map like x\u00b2 does this \u2014 it is special to holomorphy.)');
       if(Math.abs(winding)>1) lines.push('Winding ' + Math.abs(winding) + ' means f is locally ' + Math.abs(winding) + '-to-1 here (a critical point), but the image is still open.');
     } else {
-      lines.push('The boundary image does NOT wind around f(z\u2080) (winding 0): f(z\u2080) sits on the boundary of the image, which is just a segment \u2014 it has empty interior in \u2102.');
+      lines.push('The image is just a segment \u2014 a 1-D set, which has EMPTY INTERIOR in \u2102. So no point of it (f(z\u2080) included) is an interior point, and the image is NOT open. (The boundary image doesn\u2019t enclose f(z\u2080): winding 0.)');
       lines.push('Re(z) and |z| are NOT holomorphic; they collapse the disk to a 1-D set and are not open maps. The open mapping theorem genuinely needs holomorphy.');
     }
     if(g.note) lines.push(g.note);
