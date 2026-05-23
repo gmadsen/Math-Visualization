@@ -717,9 +717,9 @@
               },
               {
                 "id": "cos",
-                "label": "cos(x)/(x²+1)",
+                "label": "e^{ix}/(x²+1)",
                 "result": "π/e ≈ 1.156",
-                "note": "Use e^{ix}/(x²+1) and take real parts; closing in the UHP, only z = i contributes, with residue e^{−1}/(2i).",
+                "note": "Closing in the upper half-plane, only z = i contributes (residue e^{−1}/(2i)). The value is already real (the sin part is odd), so taking real parts gives ∫ cos x/(x²+1) dx = π/e as well.",
                 "poles": [
                   {
                     "re": 0,

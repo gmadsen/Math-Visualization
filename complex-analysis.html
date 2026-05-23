@@ -838,7 +838,7 @@ const C = {
       <option value="inv-sq1" selected>1/(x²+1)</option>
       <option value="inv-sq2">1/(x²+1)²</option>
       <option value="quartic">1/(x⁴+1)</option>
-      <option value="cos">cos(x)/(x²+1)</option>
+      <option value="cos">e^{ix}/(x²+1)</option>
     </select>
   </div>
   <svg id="w-residue-real-svg" viewBox="0 0 560 250" width="560" height="250" role="img" aria-label="Upper-half-plane contour and the enclosed poles"><title>Real integral by residues: the upper-half-plane semicircle</title></svg>
@@ -846,7 +846,7 @@ const C = {
 </div><script>
 /* complex-analysis-residue-real-integral widget: w-residue-real */
 (function(){
-  var DATA = [{"id":"inv-sq1","label":"1/(x²+1)","result":"π","note":"The classic: one pole i inside, residue 1/(2i) = −i/2, so the integral is 2πi·(−i/2) = π.","poles":[{"re":0,"im":1,"resRe":0,"resIm":-0.5,"label":"i"},{"re":0,"im":-1,"resRe":0,"resIm":0,"label":"−i"}]},{"id":"inv-sq2","label":"1/(x²+1)²","result":"π/2","note":"A double pole at i; its residue is −i/4.","poles":[{"re":0,"im":1,"resRe":0,"resIm":-0.25,"label":"i (order 2)"},{"re":0,"im":-1,"resRe":0,"resIm":0}]},{"id":"quartic","label":"1/(x⁴+1)","result":"π/√2 ≈ 2.221","note":"Two enclosed poles: the primitive 8th roots e^{iπ/4} and e^{i3π/4}.","poles":[{"re":0.7071,"im":0.7071,"resRe":-0.176777,"resIm":-0.176777},{"re":-0.7071,"im":0.7071,"resRe":0.176777,"resIm":-0.176777},{"re":0.7071,"im":-0.7071,"resRe":0,"resIm":0},{"re":-0.7071,"im":-0.7071,"resRe":0,"resIm":0}]},{"id":"cos","label":"cos(x)/(x²+1)","result":"π/e ≈ 1.156","note":"Use e^{ix}/(x²+1) and take real parts; closing in the UHP, only z = i contributes, with residue e^{−1}/(2i).","poles":[{"re":0,"im":1,"resRe":0,"resIm":-0.18394,"label":"i"},{"re":0,"im":-1,"resRe":0,"resIm":0,"label":"−i"}]}];
+  var DATA = [{"id":"inv-sq1","label":"1/(x²+1)","result":"π","note":"The classic: one pole i inside, residue 1/(2i) = −i/2, so the integral is 2πi·(−i/2) = π.","poles":[{"re":0,"im":1,"resRe":0,"resIm":-0.5,"label":"i"},{"re":0,"im":-1,"resRe":0,"resIm":0,"label":"−i"}]},{"id":"inv-sq2","label":"1/(x²+1)²","result":"π/2","note":"A double pole at i; its residue is −i/4.","poles":[{"re":0,"im":1,"resRe":0,"resIm":-0.25,"label":"i (order 2)"},{"re":0,"im":-1,"resRe":0,"resIm":0}]},{"id":"quartic","label":"1/(x⁴+1)","result":"π/√2 ≈ 2.221","note":"Two enclosed poles: the primitive 8th roots e^{iπ/4} and e^{i3π/4}.","poles":[{"re":0.7071,"im":0.7071,"resRe":-0.176777,"resIm":-0.176777},{"re":-0.7071,"im":0.7071,"resRe":0.176777,"resIm":-0.176777},{"re":0.7071,"im":-0.7071,"resRe":0,"resIm":0},{"re":-0.7071,"im":-0.7071,"resRe":0,"resIm":0}]},{"id":"cos","label":"e^{ix}/(x²+1)","result":"π/e ≈ 1.156","note":"Closing in the upper half-plane, only z = i contributes (residue e^{−1}/(2i)). The value is already real (the sin part is odd), so taking real parts gives ∫ cos x/(x²+1) dx = π/e as well.","poles":[{"re":0,"im":1,"resRe":0,"resIm":-0.18394,"label":"i"},{"re":0,"im":-1,"resRe":0,"resIm":0,"label":"−i"}]}];
   var byId = {}; DATA.forEach(function(g){ byId[g.id] = g; });
   var sel = document.getElementById('w-residue-real-sel');
   var svg = document.getElementById('w-residue-real-svg');
