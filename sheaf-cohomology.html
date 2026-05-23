@@ -565,6 +565,62 @@ When $f$ is an affine morphism of schemes and $\mathcal{F}$ is quasi-coherent, $
   <li><strong>Soft/fine</strong> — for a paracompact Hausdorff $X$, any sheaf admits a fine resolution (tensor with smooth partitions of unity on manifolds); the de Rham complex of a smooth manifold is the canonical example. $H^p_{\mathrm{dR}}(X) = H^p(X, \underline{\mathbb{R}})$ follows from this with two lines of extra argument.</li>
   <li><strong>Čech / affine</strong> — for a scheme with an affine cover, apply Leray; the Čech complex <em>is</em> a resolution computed through the affines.</li>
 </ul>
+
+<div class="widget" id="w-sheaf-cohomology-acyclic">
+  <div class="hd"><div class="ttl">Any acyclic resolution computes Hⁱ</div><div class="hint">Godement, de Rham, or Čech — three Γ-acyclic resolutions, the same RⁱΓ.</div></div>
+  <div class="row">
+    <button type="button" id="w-sheaf-cohomology-acyclic-t0">Godement (flabby)</button>
+    <button type="button" id="w-sheaf-cohomology-acyclic-t1">de Rham (fine)</button>
+    <button type="button" id="w-sheaf-cohomology-acyclic-t2">Čech (affine)</button>
+  </div>
+  <svg id="w-sheaf-cohomology-acyclic-svg" viewBox="0 0 560 210" width="560" height="210" role="img" aria-label="Three flavours of acyclic resolution computing sheaf cohomology"><title>Any Γ-acyclic resolution computes H^i(X,F): Godement, de Rham, or Čech</title></svg>
+  <div class="readout" id="w-sheaf-cohomology-acyclic-out"></div>
+</div><script>
+/* sheaf-cohomology-acyclic widget: w-sheaf-cohomology-acyclic */
+(function(){
+  var svg=document.getElementById('w-sheaf-cohomology-acyclic-svg'), out=document.getElementById('w-sheaf-cohomology-acyclic-out');
+  var btns=[document.getElementById('w-sheaf-cohomology-acyclic-t0'), document.getElementById('w-sheaf-cohomology-acyclic-t1'), document.getElementById('w-sheaf-cohomology-acyclic-t2')];
+  if(!svg || !out || btns.some(function(b){ return !b; })) return;
+  var NS='http://www.w3.org/2000/svg';
+  function mk(tag, attrs, text){ var e=document.createElementNS(NS, tag); for(var k in attrs){ e.setAttribute(k, attrs[k]); } if(text!=null) e.textContent=text; return e; }
+  function txt(x,y,s,opt){ opt=opt||{}; svg.appendChild(mk('text', {x:x, y:y, 'text-anchor':opt.anchor||'middle', 'font-size':opt.size||12, fill:opt.fill||'var(--ink)', 'font-weight':opt.weight||'normal', 'font-style':opt.italic?'italic':'normal'}, s)); }
+  function cell(x,y,label,stroke){ var w=66,h=30; svg.appendChild(mk('rect', {x:x-w/2, y:y-h/2, width:w, height:h, rx:5, fill:'var(--panel2)', stroke:stroke, 'stroke-width':1.5})); txt(x, y+4, label, {size:12, fill:'var(--ink)'}); }
+  var SCEN=[
+    { aug:'F', chain:['G\u2070(F)','G\u00b9(F)','G\u00b2(F)'], col:'var(--yellow)',
+      note:'Godement: G\u1d4f(F) = \u220f over points of the stalks \u2014 FLABBY (every restriction surjects), hence \u0393-acyclic. Canonical and always exists; this is essentially the R\u2071\u0393 definition made concrete.',
+      computes:'H\u2071(X,F) = R\u2071\u0393(X,F)' },
+    { aug:'\u211d', chain:['\u03a9\u2070','\u03a9\u00b9','\u03a9\u00b2'], col:'var(--green)',
+      note:'On a smooth manifold the de Rham complex 0\u2192\u211d\u2192\u03a9\u2070\u2192\u03a9\u00b9\u2192\u22ef is a resolution (Poincar\u00e9 lemma); each \u03a9\u1d56 is FINE (partitions of unity) hence acyclic. Taking \u0393 gives global forms.',
+      computes:'H\u1d56_dR(X) = H\u1d56(X, \u211d)' },
+    { aug:'F', chain:['\u010c\u2070','\u010c\u00b9','\u010c\u00b2'], col:'var(--cyan)',
+      note:'For a scheme with an affine cover, each affine is \u0393-acyclic for quasi-coherent F (Serre). The \u010cech complex \u010c\u2022(U,F) IS the acyclic resolution (Leray), and is how you actually compute.',
+      computes:'H\u2071(X,F) = \u021e\u2071(U,F)' }
+  ];
+  var sel=0;
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    btns.forEach(function(b,i){ var on=(i===sel); b.classList.toggle('active', on); b.setAttribute('aria-pressed', on?'true':'false'); });
+    var S=SCEN[sel];
+    txt(280, 26, 'a \u0393-acyclic resolution of F:', {size:11, fill:S.col, weight:600});
+    // resolution chain: 0 -> aug -> A^0 -> A^1 -> A^2 -> ...
+    var xs=[70,180,300,420], y=66;
+    txt(28, y+4, '0 \u2192', {size:12, fill:'var(--mute)'});
+    cell(xs[0], y, S.aug, 'var(--mute)');
+    for(var k=0;k<3;k++){ txt((xs[k]+xs[k+1])/2, y+4, '\u2192', {size:14, fill:S.col}); cell(xs[k+1], y, S.chain[k], S.col); }
+    txt(500, y+4, '\u2192 \u22ef', {size:13, fill:'var(--mute)'});
+    txt(xs[0], y-26, 'F \u21aa', {size:10, fill:'var(--mute)'});
+    // apply Gamma
+    txt(280, 108, 'apply  \u0393(X, \u2212)   (left exact \u2014 the resulting complex is no longer exact)', {size:11, fill:'var(--mute)', italic:true});
+    txt(280, 134, '\u0393A\u2070 \u2192 \u0393A\u00b9 \u2192 \u0393A\u00b2 \u2192 \u22ef', {size:13, fill:'var(--ink)'});
+    // take cohomology
+    txt(280, 168, 'take cohomology  \u21d2  ' + S.computes, {size:14, fill:S.col, weight:600});
+    out.textContent = S.note + '\n\nAny resolution by \u0393-acyclic sheaves computes the same H\u2071: apply \u0393, then take cohomology. \u0393 is left exact, so R\u2070\u0393 = \u0393(F) (global sections); the higher R\u2071\u0393 measure the failure of right-exactness \u2014 e.g. \u00a71\u2019s exponential sequence, where \u0393(exp) is not surjective. The three tabs are three acyclic resolutions; all give the same intrinsic answer.';
+  }
+  btns.forEach(function(b,i){ b.addEventListener('click', function(){ sel=i; draw(); }); });
+  draw();
+})();
+</script>
+
 <!-- callback-auto-begin -->
 <aside class="callback">
   <div class="ttl">See also</div>
@@ -928,6 +984,74 @@ Combine with Serre duality ($H^1(L) \cong H^0(\omega_C \otimes L^{-1})^\vee$, $\
   <li>$d \leq -2$: $h^0 = 0$, $h^1 = -d - 1$. RR: $0 - (-d-1) = d + 1$. ✓</li>
 </ul>
 <p>The two sides match exactly the §3 and §7 computations.</p>
+
+<div class="widget" id="w-sheaf-cohomology-serre-duality">
+  <div class="hd"><div class="ttl">Serre duality: the reflection (i,d) ↦ (n−i, −d−n−1)</div><div class="hint">Hⁱ(O(d)) ≅ Hⁿ⁻ⁱ(O(−d−n−1))ᵛ on ℙⁿ. Pick n, d, i; watch the dual dim match.</div></div>
+  <div class="row">
+    <label for="w-sheaf-cohomology-serre-duality-n">$n$ (so $X=\mathbb{P}^n$)</label>
+    <input type="range" id="w-sheaf-cohomology-serre-duality-n" min="1" max="3" value="2" step="1">
+    <span class="pill" id="w-sheaf-cohomology-serre-duality-nval">n = 2</span>
+  </div>
+  <div class="row">
+    <label for="w-sheaf-cohomology-serre-duality-d">twist $d$ in $\mathcal{O}(d)$</label>
+    <input type="range" id="w-sheaf-cohomology-serre-duality-d" min="-9" max="9" value="-3" step="1">
+    <span class="pill" id="w-sheaf-cohomology-serre-duality-dval">d = -3</span>
+  </div>
+  <div class="row">
+    <label for="w-sheaf-cohomology-serre-duality-i">degree $i$</label>
+    <input type="range" id="w-sheaf-cohomology-serre-duality-i" min="0" max="3" value="2" step="1">
+    <span class="pill" id="w-sheaf-cohomology-serre-duality-ival">i = 2</span>
+  </div>
+  <svg id="w-sheaf-cohomology-serre-duality-svg" viewBox="0 0 560 230" width="560" height="230" role="img" aria-label="Serre duality pairing the cohomology of O(d) with its dual on projective space"><title>Serre duality: H^i(O(d)) is dual to H^{n-i}(O(-d-n-1)) on P^n</title></svg>
+  <div class="readout" id="w-sheaf-cohomology-serre-duality-out"></div>
+</div><script>
+/* sheaf-cohomology-serre-duality widget: w-sheaf-cohomology-serre-duality */
+(function(){
+  var nIn=document.getElementById('w-sheaf-cohomology-serre-duality-n'), dIn=document.getElementById('w-sheaf-cohomology-serre-duality-d'), iIn=document.getElementById('w-sheaf-cohomology-serre-duality-i');
+  var nL=document.getElementById('w-sheaf-cohomology-serre-duality-nval'), dL=document.getElementById('w-sheaf-cohomology-serre-duality-dval'), iL=document.getElementById('w-sheaf-cohomology-serre-duality-ival');
+  var svg=document.getElementById('w-sheaf-cohomology-serre-duality-svg'), out=document.getElementById('w-sheaf-cohomology-serre-duality-out');
+  if(!nIn||!dIn||!iIn||!nL||!dL||!iL||!svg||!out) return;
+  var NS='http://www.w3.org/2000/svg';
+  function mk(tag, attrs, text){ var e=document.createElementNS(NS, tag); for(var k in attrs){ e.setAttribute(k, attrs[k]); } if(text!=null) e.textContent=text; return e; }
+  function txt(x,y,s,opt){ opt=opt||{}; svg.appendChild(mk('text', {x:x, y:y, 'text-anchor':opt.anchor||'middle', 'font-size':opt.size||12, fill:opt.fill||'var(--ink)', 'font-weight':opt.weight||'normal', 'font-style':opt.italic?'italic':'normal'}, s)); }
+  function binom(a,b){ if(b<0||a<0||a<b) return 0; var r=1; for(var j=0;j<b;j++){ r=r*(a-j)/(j+1); } return Math.round(r); }
+  function h(i,d,n){ if(i===0) return d>=0 ? binom(n+d,n) : 0; if(i===n) return d<=-n-1 ? binom(-d-1,n) : 0; return 0; }
+  function box(x,y,w,lines,stroke,tcol){
+    svg.appendChild(mk('rect', {x:x-w/2, y:y, width:w, height:54, rx:6, fill:'var(--panel2)', stroke:stroke, 'stroke-width':1.6}));
+    txt(x, y+22, lines[0], {size:13, fill:tcol, weight:600}); txt(x, y+42, lines[1], {size:12, fill:'var(--ink)'}); }
+  function draw(){
+    var n=+nIn.value, d=+dIn.value, i=+iIn.value; if(i>n) i=n;
+    nL.textContent='n = '+n; dL.textContent='d = '+d; iL.textContent='i = '+i;
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    var dd = -d-n-1, ii = n-i;            // Serre-dual cell
+    var h1 = h(i,d,n), h2 = h(ii,dd,n);
+    txt(280, 24, 'canonical sheaf  \u03c9 = O(-(n+1)) = O(' + (-(n+1)) + ')      Serre:  H^i(O(d)) \u2245 H^{n-i}(O(-d-n-1))\u1d5b', {size:11, fill:'var(--mute)', italic:true});
+    box(140, 60, 220, ['H^' + i + '(\u2119^' + n + ', O(' + d + '))', 'dim = ' + h1], 'var(--yellow)', 'var(--yellow)');
+    box(420, 60, 220, ['H^' + ii + '(\u2119^' + n + ', O(' + dd + '))', 'dim = ' + h2], 'var(--cyan)', 'var(--cyan)');
+    txt(280, 82, '\u2245', {size:20, fill:'var(--pink)'});
+    txt(280, 100, '(dual)\u1d5b', {size:10, fill:'var(--pink)'});
+    var agree = (h1===h2);
+    txt(280, 150, agree ? ('\u2713  dims agree: ' + h1 + ' = ' + h2) : ('mismatch: ' + h1 + ' \u2260 ' + h2), {size:13, fill: agree?'var(--green)':'var(--pink)', weight:600});
+    // d number-line with the reflection about d = -(n+1)/2
+    var axis=-(n+1)/2, x0=60, x1=500, dmin=-9, dmax=9, sx=function(v){ return x0 + (v-dmin)/(dmax-dmin)*(x1-x0); };
+    svg.appendChild(mk('line', {x1:x0, y1:190, x2:x1, y2:190, stroke:'var(--line)', 'stroke-width':1}));
+    svg.appendChild(mk('line', {x1:sx(axis), y1:180, x2:sx(axis), y2:200, stroke:'var(--violet)', 'stroke-width':1.5, 'stroke-dasharray':'3 2'}));
+    txt(sx(axis), 214, 'reflect about d = ' + (axis) , {size:9, fill:'var(--violet)'});
+    svg.appendChild(mk('circle', {cx:sx(d), cy:190, r:5, fill:'var(--yellow)'})); txt(sx(d), 178, 'd=' + d, {size:9, fill:'var(--yellow)'});
+    svg.appendChild(mk('circle', {cx:sx(dd), cy:190, r:5, fill:'var(--cyan)'})); txt(sx(dd), 178, 'd\u2032=' + dd, {size:9, fill:'var(--cyan)'});
+    // readout
+    var lines=[];
+    lines.push('Serre duality on a smooth projective X of dim n: H^i(X,F) \u2245 H^{n-i}(X, F\u1d5b\u2297\u03c9_X)\u1d5b. On \u2119^' + n + ' with F=O(' + d + '), \u03c9=O(-(n+1))=O(' + (-(n+1)) + '), so the dual of H^' + i + '(O(' + d + ')) is H^' + ii + '(O(-d-n-1)) = H^' + ii + '(O(' + dd + '))\u1d5b.');
+    lines.push('Dimensions: dim H^' + i + '(\u2119^' + n + ',O(' + d + ')) = ' + h1 + ',   dim H^' + ii + '(\u2119^' + n + ',O(' + dd + ')) = ' + h2 + '. ' + (agree ? 'They agree \u2014 the reflection (i,d) \u21a6 (n-i, -d-n-1) is the symmetry of the \u00a77 dimension table.' : ''));
+    if(i!==0 && i!==n) lines.push('Here 0 < i < n, so both sides vanish (intermediate cohomology of O(d) on \u2119^n is always 0) \u2014 duality still holds, trivially 0 = 0.');
+    else lines.push('The nonzero classes live in the H^0 triangle (d \u2265 0) and the H^n triangle (d \u2264 -n-1); Serre duality reflects one onto the other through \u03c9 = O(-(n+1)).');
+    out.textContent=lines.join('\n');
+  }
+  nIn.addEventListener('input', draw); dIn.addEventListener('input', draw); iIn.addEventListener('input', draw);
+  draw();
+})();
+</script>
+
 <div class="quiz" data-concept="applications-picard-serre"></div><!-- backlinks-auto-begin -->
 <aside class="related">
   <div class="ttl">Used in</div>

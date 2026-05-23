@@ -16455,6 +16455,24 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "sheaf-cohomology-acyclic",
+    "family": "sheaf-cohomology-acyclic",
+    "dimension": "2d",
+    "gesture": "select",
+    "role": "exploratory",
+    "title": "sheaf-cohomology-acyclic widget params",
+    "description": "Acyclic-resolution explorer for derived-functor sheaf cohomology H^i(X,F)=R^iΓ. Three tabs show three flavours of Γ-acyclic resolution that all compute the same H^i: Godement (flabby, the canonical R^iΓ construction), de Rham (fine, on a manifold, giving H^p_dR=H^p(X,ℝ)), and Čech (affine cover, the Leray comparison, how you actually compute on schemes). Each tab draws the resolution chain F→A^0→A^1→A^2→⋯, the apply-Γ step (left-exact, exactness lost), and what taking cohomology computes. The readout notes R^0Γ=Γ(F) and that R^{>0}Γ measures the failure of right-exactness. Structural; params carry only chrome.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Acyclic-resolution explorer for derived-functor cohomology, introduced on `sheaf-cohomology.html` §4 (*Derived functor cohomology*). Bespoke semantic module — a structural diagram; params carry only chrome.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "sheaf-cohomology-leray",
     "family": "sheaf-cohomology-leray",
     "dimension": "2d",
@@ -16485,6 +16503,24 @@ window.__MVWidgets = [
       "title"
     ],
     "readmeExcerpt": "Nerve-of-a-cover explorer, introduced on `sheaf-cohomology.html` §2 (*Čech cohomology*). Bespoke semantic module — the combinatorics are intrinsic; params carry only chrome.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "sheaf-cohomology-serre-duality",
+    "family": "sheaf-cohomology-serre-duality",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory",
+    "title": "sheaf-cohomology-serre-duality widget params",
+    "description": "Serre-duality reflection explorer for O(d) on P^n. Sliders pick n, the twist d, and a degree i; the widget pairs the cell (i,d) with its Serre dual (n-i, -d-n-1) — since omega_{P^n}=O(-(n+1)) — and shows the two cohomology dimensions agree, realizing H^i(O(d)) ≅ H^{n-i}(O(-d-n-1))^∨. A reflected d-number-line marks d and d'=-d-n-1 about the axis d=-(n+1)/2. Distinct from the §7 dimension-table widget: this one foregrounds the duality pairing (the reflection symmetry), not the table itself. Dimensions are intrinsic (Serre's theorem); params carry only chrome.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Serre-duality reflection explorer, introduced on `sheaf-cohomology.html` §9 (*Serre duality and Kodaira vanishing*). Bespoke semantic module — the dimensions are intrinsic (Serre's theorem); params carry only chrome.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
