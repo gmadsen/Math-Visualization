@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/langlands-local-classification/schema.json",
+  "title": "langlands-local-classification widget params",
+  "description": "Local Langlands classification browser for GL_2(Q_p). The reader clicks a representation type on the automorphic side (unramified/ramified principal series, Steinberg, supercuspidal) and the readout shows its matching Weil–Deligne representation — including whether the monodromy operator N is zero — its conductor, and what it means arithmetically. Distinct from the global dictionary: this is the prime-by-prime local correspondence. Data-driven: each row carries both sides + the explanation in params.",
+  "meta": {
+    "family": "langlands-local-classification",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["widgetId", "title", "rows"],
+  "properties": {
+    "widgetId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id; the script derives -svg/-out." },
+    "title": { "type": "string", "description": "Display title rendered inside .hd > .ttl." },
+    "hint": { "type": "string", "description": "Optional short hint rendered inside .hd > .hint." },
+    "rows": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 10,
+      "description": "The representation types as clickable rows.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "autoType", "wdRep", "conductor", "kind", "detail"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[A-Za-z0-9_-]+$", "description": "Stable row id." },
+          "autoType": { "type": "string", "maxLength": 40, "description": "Automorphic-side representation type (plain text)." },
+          "wdRep": { "type": "string", "maxLength": 48, "description": "Matching Weil–Deligne representation (plain text)." },
+          "conductor": { "type": "string", "maxLength": 16, "description": "Conductor exponent, e.g. '0', '1', '≥ 2'." },
+          "kind": {
+            "type": "string",
+            "enum": ["principal", "steinberg", "supercuspidal"],
+            "description": "Family, used for the row colour."
+          },
+          "detail": { "type": "string", "description": "Arithmetic meaning — shown in the readout on click." }
+        }
+      }
+    }
+  }
+}

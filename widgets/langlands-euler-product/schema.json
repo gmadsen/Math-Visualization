@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/langlands-euler-product/schema.json",
+  "title": "langlands-euler-product widget params",
+  "description": "Euler-product bridge for the Langlands L-function. The reader picks an elliptic curve y²=x³+ax+b; the widget point-counts #E(F_p) at the first several good primes, derives a_p = p+1-#E(F_p), and shows the local factor (1 - a_p p^{-s} + p^{1-2s})^{-1}. The point: that automorphic factor (from the Hecke/Satake datum a_p) is identical to the Galois factor det(1 - ρ_E(Frob_p) p^{-s}) with Frobenius characteristic polynomial x² - a_p x + p — the two L-functions agree term by term. Computation is intrinsic; params carry the curve presets.",
+  "meta": {
+    "family": "langlands-euler-product",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title",
+    "curves"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id; the script derives -sel/-svg/-out."
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title rendered inside .hd > .ttl."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional short hint rendered inside .hd > .hint."
+    },
+    "maxPrimes": {
+      "type": "integer",
+      "minimum": 3,
+      "maximum": 10,
+      "default": 7,
+      "description": "How many good primes (p ≥ 5, p ∤ 4a³+27b²) to tabulate."
+    },
+    "curves": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 8,
+      "description": "Elliptic-curve presets y² = x³ + a x + b.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "label",
+          "a",
+          "b"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]+$",
+            "description": "Stable option value."
+          },
+          "label": {
+            "type": "string",
+            "description": "Plain-text dropdown label (no LaTeX)."
+          },
+          "a": {
+            "type": "integer",
+            "minimum": -10000,
+            "maximum": 10000,
+            "description": "Coefficient a in y² = x³ + a x + b (bounded so 4a³ stays within exact integer range)."
+          },
+          "b": {
+            "type": "integer",
+            "minimum": -10000,
+            "maximum": 10000,
+            "description": "Coefficient b in y² = x³ + a x + b."
+          }
+        }
+      }
+    }
+  }
+}

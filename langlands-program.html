@@ -397,6 +397,66 @@ $$L(\pi, s) = \prod_p L(\pi_p, s),$$
   <li><b>Strong multiplicity one.</b> An automorphic representation of $\GL_n$ is determined by its L-function — knowing the Euler factors at almost all places pins $\pi$ uniquely (Jacquet-Shalika). So the L-function is a complete invariant of an automorphic rep, and equality of L-functions on both sides really does identify Galois reps with automorphic reps.</li>
 </ul>
 
+<div class="widget" id="w-euler">
+  <div class="hd"><div class="ttl">The same Euler product, both sides</div><div class="hint">a_p is point-counted; it is both the Hecke eigenvalue and the Frobenius trace</div></div>
+  <div class="row">
+    <label for="w-euler-sel">curve $E$</label>
+    <select id="w-euler-sel">
+      <option value="cm" selected>y² = x³ − x  (CM, conductor 32)</option>
+      <option value="gen1">y² = x³ − x + 1</option>
+      <option value="gen2">y² = x³ + x + 1</option>
+    </select>
+  </div>
+  <svg id="w-euler-svg" viewBox="0 0 580 220" width="580" height="220" role="img" aria-label="Euler factors of the chosen elliptic curve at the first good primes"><title>Local Euler factors a_p assembling the L-function</title></svg>
+  <div class="readout" id="w-euler-out"></div>
+</div><script>
+/* langlands-euler-product widget: w-euler */
+(function(){
+  var CURVES = [{"id":"cm","label":"y² = x³ − x  (CM, conductor 32)","a":-1,"b":0},{"id":"gen1","label":"y² = x³ − x + 1","a":-1,"b":1},{"id":"gen2","label":"y² = x³ + x + 1","a":1,"b":1}], MAXP = 7;
+  var byId = {}; CURVES.forEach(function(c){ byId[c.id] = c; });
+  var sel = document.getElementById('w-euler-sel');
+  var svg = document.getElementById('w-euler-svg');
+  var out = document.getElementById('w-euler-out');
+  if(!sel || !svg || !out) return;
+  var NS = 'http://www.w3.org/2000/svg';
+  function mk(tag, attrs, text){ var e = document.createElementNS(NS, tag); for(var k in attrs){ e.setAttribute(k, attrs[k]); } if(text!=null) e.textContent = text; return e; }
+  function isPrime(n){ if(n<2) return false; for(var d=2; d*d<=n; d++){ if(n%d===0) return false; } return true; }
+  function modpow(base, exp, m){ var r=1; base=((base%m)+m)%m; while(exp>0){ if(exp&1) r=(r*base)%m; base=(base*base)%m; exp=Math.floor(exp/2); } return r; }
+  function legendre(n, p){ n=((n%p)+p)%p; if(n===0) return 0; var r=modpow(n,(p-1)/2,p); return r===1 ? 1 : -1; }
+  function apOf(a, b, p){ var s=0; for(var x=0;x<p;x++){ var f=(((x*x%p)*x%p) + a*x + b); f=((f%p)+p)%p; s += legendre(f,p); } return -s; }
+  function poly(ap, p){ var mid = ap===0 ? '' : (ap<0 ? ' + '+(-ap) : ' \u2212 '+ap) + 'T'; return '1' + mid + ' + ' + p + 'T\u00b2'; }
+  function draw(){
+    var c = byId[sel.value] || CURVES[0];
+    var disc4 = 4*c.a*c.a*c.a + 27*c.b*c.b;
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    // collect good primes p >= 5 with p does not divide disc4
+    var primes = [], n = 5;
+    while(primes.length < MAXP && n < 200){ if(isPrime(n) && disc4 % n !== 0) primes.push(n); n++; }
+    var top = 22, rowH = Math.min(22, (220 - top - 6)/(primes.length + 1));
+    var cols = [40, 120, 230, 360]; // p, a_p, #E(F_p), local factor 1 - a_p T + p T^2
+    var heads = ['p', 'a_p', '#E(\ud835\udd3d_p)', '1 \u2212 a_p T + p T\u00b2   (T = p\u207b\u02e2)'];
+    for(var h=0; h<cols.length; h++){ svg.appendChild(mk('text', {x:cols[h], y:14, 'text-anchor':'start', 'font-size':10.5, 'font-weight':'600', fill:'var(--mute)'}, heads[h])); }
+    for(var i=0;i<primes.length;i++){
+      var p = primes[i], ap = apOf(c.a, c.b, p), nE = p + 1 - ap, y = top + (i+1)*rowH;
+      svg.appendChild(mk('text', {x:cols[0], y:y, 'text-anchor':'start', 'font-size':12, fill:'var(--ink)'}, String(p)));
+      svg.appendChild(mk('text', {x:cols[1], y:y, 'text-anchor':'start', 'font-size':12, 'font-weight':'600', fill:'var(--yellow)'}, (ap>=0?'+':'') + ap));
+      svg.appendChild(mk('text', {x:cols[2], y:y, 'text-anchor':'start', 'font-size':12, fill:'var(--mute)'}, String(nE)));
+      svg.appendChild(mk('text', {x:cols[3], y:y, 'text-anchor':'start', 'font-size':11.5, fill:'var(--cyan)'}, poly(ap, p)));
+    }
+    var lines = [];
+    lines.push('a_p = p + 1 \u2212 #E(\ud835\udd3d_p)  is BOTH the Hecke eigenvalue of the weight-2 form (automorphic side)');
+    lines.push('and the trace of Frobenius tr \u03c1_E(Frob_p) (Galois side): the local factor is identical.');
+    lines.push('L(E,s) = \u220f_p (1 \u2212 a_p p\u207b\u02e2 + p\u00b9\u207b\u00b2\u02e2)\u207b\u00b9  =  \u220f_p det(1 \u2212 \u03c1_E(Frob_p) p\u207b\u02e2)\u207b\u00b9');
+    lines.push('Frobenius characteristic polynomial: x\u00b2 \u2212 a_p x + p   (eigenvalues of absolute value \u221ap).');
+    lines.push('');
+    lines.push('The equality of these Euler products IS the bridge; strong multiplicity one (Jacquet\u2013Shalika) makes L a complete invariant, and a functional equation pins it down \u2014 here \u039b(s) = \u00b1\u039b(2\u2212s) in the motivic normalization (centred at s = 1), the recentred form of \u00a72\u2019s unitary \u039b(s) = \u03b5\u039b(1\u2212s).');
+    out.textContent = lines.join('\n');
+  }
+  sel.addEventListener('change', draw);
+  draw();
+})();
+</script>
+
 <div class="quiz" data-concept="l-functions-langlands-bridge"></div><!-- callback-auto-begin -->
 <aside class="callback">
   <div class="ttl">See also</div>
@@ -427,6 +487,49 @@ $$L(\pi, s) = \prod_p L(\pi_p, s),$$
 <p>Concretely: a $W$-D representation packages $(\rho, N)$ with $\rho\colon W_{\mathbb{Q}_v} \to \GL_n(\mathbb{C})$ semisimple and $N$ a nilpotent matrix satisfying $\rho(\sigma) N \rho(\sigma)^{-1} = q^{-n(\sigma)} N$, where $n(\sigma)$ is the power of geometric Frobenius in $\sigma$ (so $N$ has weight $-1$ under Frobenius). On the automorphic side, smooth admissible reps of $\GL_n(\mathbb{Q}_v)$ are infinite-dimensional vector spaces with a continuous $\GL_n$-action; the irreducible ones are classified (Bernstein-Zelevinsky) into supercuspidal, principal, and Steinberg pieces.</p>
 
 <p><b>Status.</b> Local Langlands for $\GL_n$ over a $p$-adic field is proven (Harris-Taylor, Henniart, 2001). Over an archimedean local field ($\mathbb{R}$ or $\mathbb{C}$), it is the Langlands classification of admissible representations of real reductive groups (Langlands, 1973). For groups other than $\GL_n$ — orthogonal, symplectic, exceptional — local Langlands is partially proven and substantially harder.</p>
+
+<div class="widget" id="w-local-class">
+  <div class="hd"><div class="ttl">Local Langlands for GL₂(ℚ_p)</div><div class="hint">click a representation type; N ≠ 0 marks the Steinberg case</div></div>
+  <svg id="w-local-class-svg" viewBox="0 0 580 200" width="580" height="200" role="img" aria-label="Local Langlands classification for GL_2 over Q_p"><title>GL_2(Q_p) representations matched to Weil-Deligne representations</title></svg>
+  <div class="readout" id="w-local-class-out"></div>
+</div><script>
+/* langlands-local-classification widget: w-local-class */
+(function(){
+  var ROWS = [{"id":"unram-ps","autoType":"Unramified principal series","wdRep":"χ₁ ⊕ χ₂, both unramified (N = 0)","conductor":"0","kind":"principal","detail":"The spherical case: π has a GL₂(ℤ_p)-fixed vector. The Satake parameters χ₁(p), χ₂(p) are the Frobenius eigenvalues; the L-factor has degree 2. Local component at primes of good reduction."},{"id":"ram-ps","autoType":"Ramified principal series","wdRep":"χ₁ ⊕ χ₂, some χᵢ ramified (N = 0)","conductor":"a(χ₁)+a(χ₂)","kind":"principal","detail":"Still reducible on the Weil–Deligne side, but with ramified characters — no spherical vector. The conductor is the sum of the characters’ conductors."},{"id":"steinberg","autoType":"Steinberg (special)","wdRep":"indecomposable, N ≠ 0","conductor":"1","kind":"steinberg","detail":"The special representation. Its Weil–Deligne rep is the unique indecomposable one with NONZERO monodromy operator N — N encodes the unipotent ramification. Degree-1 L-factor. Local component at primes of multiplicative reduction."},{"id":"supercuspidal","autoType":"Supercuspidal","wdRep":"irreducible 2-dim ρ (N = 0)","conductor":"≥ 2","kind":"supercuspidal","detail":"The \"atoms\" — not induced from the Borel. They match irreducible 2-dimensional Weil–Deligne reps (induced from a character of a ramified quadratic extension). Trivial L-factor (= 1). Local component at additive-reduction primes."}];
+  var svg = document.getElementById('w-local-class-svg');
+  var out = document.getElementById('w-local-class-out');
+  if(!svg || !out) return;
+  var NS = 'http://www.w3.org/2000/svg';
+  var KIND = { principal:'--cyan', steinberg:'--yellow', supercuspidal:'--pink' };
+  function mk(tag, attrs, text){ var e = document.createElementNS(NS, tag); for(var k in attrs){ e.setAttribute(k, attrs[k]); } if(text!=null) e.textContent = text; return e; }
+  var W = 580, top = 40, rowH = Math.min(32, (200 - top - 8) / ROWS.length), rx0 = 14, rw = W - 28;
+  var picked = null;
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    svg.appendChild(mk('text', {x:rx0+12, y:24, 'text-anchor':'start', 'font-size':11, 'font-weight':'600', fill:'var(--cyan)'}, 'GL\u2082(\u211a_p) representation'));
+    svg.appendChild(mk('text', {x:rx0+260, y:24, 'text-anchor':'start', 'font-size':11, 'font-weight':'600', fill:'var(--yellow)'}, 'Weil\u2013Deligne representation'));
+    svg.appendChild(mk('text', {x:rx0+rw-8, y:24, 'text-anchor':'end', 'font-size':11, 'font-weight':'600', fill:'var(--mute)'}, 'cond.'));
+    for(var i=0;i<ROWS.length;i++){
+      var r = ROWS[i], y = top + i*rowH, on = picked === r.id;
+      var col = 'var(' + (KIND[r.kind] || '--mute') + ')';
+      var g = mk('g', {'style':'cursor:pointer'});
+      g.appendChild(mk('rect', {x:rx0, y:y, width:rw, height:rowH-6, rx:6, fill:(on?col:'var(--panel2)'), 'fill-opacity':(on?'0.16':'1'), stroke:col, 'stroke-width':(on?'2':'1'), 'stroke-opacity':(on?'1':'0.6')}));
+      g.appendChild(mk('text', {x:rx0+12, y:y+(rowH-6)/2+4, 'text-anchor':'start', 'font-size':11, fill:'var(--ink)'}, r.autoType));
+      g.appendChild(mk('text', {x:rx0+260, y:y+(rowH-6)/2+4, 'text-anchor':'start', 'font-size':10.5, fill:'var(--mute)'}, r.wdRep));
+      g.appendChild(mk('text', {x:rx0+rw-12, y:y+(rowH-6)/2+4, 'text-anchor':'end', 'font-size':11, 'font-weight':'600', fill:col}, r.conductor));
+      (function(id){ g.addEventListener('click', function(){ picked = (picked===id)?null:id; draw(); }); })(r.id);
+      svg.appendChild(g);
+    }
+    if(picked){
+      var r = ROWS.filter(function(x){return x.id===picked;})[0];
+      out.textContent = r.autoType + '   \u2194   ' + r.wdRep + '\nconductor exponent: ' + r.conductor + '\n\n' + r.detail;
+    } else {
+      out.textContent = 'Local Langlands for GL\u2082 (Harris\u2013Taylor, Henniart 2001): irreducible smooth representations of GL\u2082(\u211a_p) match 2-dimensional Frobenius-semisimple Weil\u2013Deligne representations. The monodromy operator N detects the Steinberg case.\n\nclick a representation type.';
+    }
+  }
+  draw();
+})();
+</script>
 
 <div class="quiz" data-concept="local-langlands-gl-n"></div><!-- backlinks-auto-begin -->
 <aside class="related">
