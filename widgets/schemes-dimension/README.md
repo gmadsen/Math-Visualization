@@ -24,7 +24,7 @@ plane ⊂ space) move in lockstep.
 | `widgetId` | string | DOM id; script derives `-sel/-svg/-out`. |
 | `title` | string | Header title. |
 | `hint` | string (optional) | Short hint. |
-| `rings` | array | Each: `id`, `label` (plain text), `chain` (primes top→bottom), `geom` (meaning of each $V(\mathfrak{p}_i)$), optional `note`. |
+| `rings` | array | Each: `id`, `label` (plain text), `steps` (the chain top→bottom; each step pairs `ideal` with the `geom` of $V(\mathfrak{p}_i)$, so they can't desync), optional `note`. |
 
 ## Usage
 

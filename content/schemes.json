@@ -738,69 +738,83 @@
               {
                 "id": "k",
                 "label": "k (a field)",
-                "chain": [
-                  "(0)"
-                ],
-                "geom": [
-                  "the point Spec k"
+                "steps": [
+                  {
+                    "ideal": "(0)",
+                    "geom": "the point Spec k"
+                  }
                 ],
                 "note": "A field has only one prime, (0): dimension 0, a single point."
               },
               {
                 "id": "Z",
                 "label": "ℤ",
-                "chain": [
-                  "(0)",
-                  "(p)"
-                ],
-                "geom": [
-                  "all of Spec ℤ",
-                  "a prime point (p)"
+                "steps": [
+                  {
+                    "ideal": "(0)",
+                    "geom": "all of Spec ℤ"
+                  },
+                  {
+                    "ideal": "(p)",
+                    "geom": "a prime point (p)"
+                  }
                 ],
                 "note": "One step (0) ⊊ (p): ℤ is a 1-dimensional \"arithmetic line\"."
               },
               {
                 "id": "kx",
                 "label": "k[x]  (the affine line 𝔸¹)",
-                "chain": [
-                  "(0)",
-                  "(x−a)"
-                ],
-                "geom": [
-                  "the line 𝔸¹",
-                  "the point a"
+                "steps": [
+                  {
+                    "ideal": "(0)",
+                    "geom": "the line 𝔸¹"
+                  },
+                  {
+                    "ideal": "(x−a)",
+                    "geom": "the point a"
+                  }
                 ],
                 "note": "A PID: every nonzero prime is maximal, so dim = 1."
               },
               {
                 "id": "kxy",
                 "label": "k[x,y]  (the affine plane 𝔸²)",
-                "chain": [
-                  "(0)",
-                  "(x)",
-                  "(x,y)"
-                ],
-                "geom": [
-                  "the plane 𝔸²",
-                  "the line x=0",
-                  "the point (0,0)"
+                "steps": [
+                  {
+                    "ideal": "(0)",
+                    "geom": "the plane 𝔸²"
+                  },
+                  {
+                    "ideal": "(x)",
+                    "geom": "the line x=0"
+                  },
+                  {
+                    "ideal": "(x,y)",
+                    "geom": "the point (0,0)"
+                  }
                 ],
                 "note": "plane ⊃ line ⊃ point: dimension 2."
               },
               {
                 "id": "kxyz",
                 "label": "k[x,y,z]  (𝔸³)",
-                "chain": [
-                  "(0)",
-                  "(x)",
-                  "(x,y)",
-                  "(x,y,z)"
-                ],
-                "geom": [
-                  "space 𝔸³",
-                  "the plane x=0",
-                  "the line x=y=0",
-                  "the origin"
+                "steps": [
+                  {
+                    "ideal": "(0)",
+                    "geom": "space 𝔸³"
+                  },
+                  {
+                    "ideal": "(x)",
+                    "geom": "the plane x=0"
+                  },
+                  {
+                    "ideal": "(x,y)",
+                    "geom": "the line x=y=0"
+                  },
+                  {
+                    "ideal": "(x,y,z)",
+                    "geom": "the origin"
+                  }
                 ],
                 "note": "space ⊃ plane ⊃ line ⊃ point: dimension 3."
               }

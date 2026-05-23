@@ -1627,7 +1627,7 @@ function drawNode(svg, x, y, label, opts={}){
 </div><script>
 /* schemes-dimension widget: w-schemes-dimension */
 (function(){
-  var RINGS = [{"id":"k","label":"k (a field)","chain":["(0)"],"geom":["the point Spec k"],"note":"A field has only one prime, (0): dimension 0, a single point."},{"id":"Z","label":"ℤ","chain":["(0)","(p)"],"geom":["all of Spec ℤ","a prime point (p)"],"note":"One step (0) ⊊ (p): ℤ is a 1-dimensional \"arithmetic line\"."},{"id":"kx","label":"k[x]  (the affine line 𝔸¹)","chain":["(0)","(x−a)"],"geom":["the line 𝔸¹","the point a"],"note":"A PID: every nonzero prime is maximal, so dim = 1."},{"id":"kxy","label":"k[x,y]  (the affine plane 𝔸²)","chain":["(0)","(x)","(x,y)"],"geom":["the plane 𝔸²","the line x=0","the point (0,0)"],"note":"plane ⊃ line ⊃ point: dimension 2."},{"id":"kxyz","label":"k[x,y,z]  (𝔸³)","chain":["(0)","(x)","(x,y)","(x,y,z)"],"geom":["space 𝔸³","the plane x=0","the line x=y=0","the origin"],"note":"space ⊃ plane ⊃ line ⊃ point: dimension 3."}];
+  var RINGS = [{"id":"k","label":"k (a field)","steps":[{"ideal":"(0)","geom":"the point Spec k"}],"note":"A field has only one prime, (0): dimension 0, a single point."},{"id":"Z","label":"ℤ","steps":[{"ideal":"(0)","geom":"all of Spec ℤ"},{"ideal":"(p)","geom":"a prime point (p)"}],"note":"One step (0) ⊊ (p): ℤ is a 1-dimensional \"arithmetic line\"."},{"id":"kx","label":"k[x]  (the affine line 𝔸¹)","steps":[{"ideal":"(0)","geom":"the line 𝔸¹"},{"ideal":"(x−a)","geom":"the point a"}],"note":"A PID: every nonzero prime is maximal, so dim = 1."},{"id":"kxy","label":"k[x,y]  (the affine plane 𝔸²)","steps":[{"ideal":"(0)","geom":"the plane 𝔸²"},{"ideal":"(x)","geom":"the line x=0"},{"ideal":"(x,y)","geom":"the point (0,0)"}],"note":"plane ⊃ line ⊃ point: dimension 2."},{"id":"kxyz","label":"k[x,y,z]  (𝔸³)","steps":[{"ideal":"(0)","geom":"space 𝔸³"},{"ideal":"(x)","geom":"the plane x=0"},{"ideal":"(x,y)","geom":"the line x=y=0"},{"ideal":"(x,y,z)","geom":"the origin"}],"note":"space ⊃ plane ⊃ line ⊃ point: dimension 3."}];
   var byId = {}; RINGS.forEach(function(g){ byId[g.id] = g; });
   var sel = document.getElementById('w-schemes-dimension-sel');
   var svg = document.getElementById('w-schemes-dimension-svg'), out = document.getElementById('w-schemes-dimension-out');
@@ -1635,7 +1635,7 @@ function drawNode(svg, x, y, label, opts={}){
   var NS='http://www.w3.org/2000/svg';
   function mk(tag, attrs, text){ var e=document.createElementNS(NS, tag); for(var k in attrs){ e.setAttribute(k, attrs[k]); } if(text!=null) e.textContent=text; return e; }
   function draw(){
-    var g = byId[sel.value] || RINGS[0], chain=g.chain, geom=g.geom, L=chain.length, d=L-1;
+    var g = byId[sel.value] || RINGS[0], steps=g.steps, L=steps.length, d=L-1;
     while(svg.firstChild) svg.removeChild(svg.firstChild);
     var LX=150, top=56, bot=232, step=(L>1)?(bot-top)/(L-1):0;
     // connecting spine
@@ -1645,15 +1645,15 @@ function drawNode(svg, x, y, label, opts={}){
       var r = 6 + dimHere*3;
       svg.appendChild(mk('circle', {cx:LX, cy:y, r:r, fill: i===0?'color-mix(in srgb, var(--violet) 22%, transparent)':'color-mix(in srgb, var(--cyan) 18%, transparent)', stroke: i===0?'var(--violet)':'var(--cyan)', 'stroke-width':1.5}));
       // prime label (left) + geometry (right)
-      svg.appendChild(mk('text', {x:LX-r-10, y:y+4, 'text-anchor':'end', 'font-size':12, fill: i===0?'var(--violet)':'var(--ink)'}, chain[i]));
-      svg.appendChild(mk('text', {x:LX+r+12, y:y+1, 'font-size':11, fill:'var(--ink)'}, 'V('+chain[i]+') = ' + (geom[i]||'\u2026')));
+      svg.appendChild(mk('text', {x:LX-r-10, y:y+4, 'text-anchor':'end', 'font-size':12, fill: i===0?'var(--violet)':'var(--ink)'}, steps[i].ideal));
+      svg.appendChild(mk('text', {x:LX+r+12, y:y+1, 'font-size':11, fill:'var(--ink)'}, 'V('+steps[i].ideal+') = ' + steps[i].geom));
       svg.appendChild(mk('text', {x:LX+r+12, y:y+14, 'font-size':9, fill:'var(--mute)'}, 'dim ' + dimHere));
       // ⊊ between rungs
       if(i<L-1) svg.appendChild(mk('text', {x:LX-12, y:y+step/2+4, 'text-anchor':'end', 'font-size':12, fill:'var(--mute)'}, '\u228a')); }
     svg.appendChild(mk('text', {x:LX, y:24, 'text-anchor':'middle', 'font-size':11, fill:'var(--mute)', 'font-style':'italic'}, 'a maximal chain of primes'));
     svg.appendChild(mk('text', {x:LX, y:bot+26, 'text-anchor':'middle', 'font-size':14, fill:'var(--yellow)'}, 'Krull dim R = ' + d));
     // readout
-    var chainStr = chain.join(' \u228a ');
+    var chainStr = steps.map(function(s){ return s.ideal; }).join(' \u228a ');
     var lines=[];
     lines.push('Krull dimension = the length of the longest chain of prime ideals p\u2080 \u228a \u2026 \u228a p_d. Here: ' + chainStr + ',  so dim R = ' + d + '.');
     lines.push('Going DOWN the chain, the primes grow and the closed sets V(p_i) shrink \u2014 each step drops the dimension by one, from the generic point (0) (dim ' + d + ') to a maximal ideal (a dim-0 point).');
