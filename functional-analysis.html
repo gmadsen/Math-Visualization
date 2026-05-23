@@ -1239,6 +1239,36 @@ spectrum lies in: ${selfAdj ? 'ℝ (self-adjoint)' : skewAdj ? 'iℝ (skew-adjoi
   <li><strong>Banach–Steinhaus</strong> → divergence of Fourier series at a dense $G_\delta$ of points (du Bois-Reymond), existence of pathological operators, resonance theorems.</li>
 </ul>
 
+
+<div class="widget" id="w-fa-bigfour">
+  <div class="hd"><div class="ttl">The big four theorems — input → output</div><div class="hint">Click a theorem to see what you feed it and what you get back.</div></div>
+  <div class="row" id="w-fa-bigfour-tabs">
+    <button data-i="0" class="active">Hahn–Banach</button>
+    <button data-i="1">Open Mapping</button>
+    <button data-i="2">Closed Graph</button>
+    <button data-i="3">Banach–Steinhaus</button>
+  </div>
+  <div class="note" id="w-fa-bigfour-body" style="min-height:5.5em"></div>
+</div><script>
+/* functional-analysis-bigfour widget: w-fa-bigfour */
+(function(){
+  var THMS = [{"id":"hb","name":"Hahn–Banach","input":"a bounded functional on a subspace M ⊆ X","output":"an extension to all of X with the same norm","statement":"A bounded linear functional on a subspace extends to the whole space without increasing its norm — so X* is always rich enough to separate points.","poweredBy":"Zorn's lemma"},{"id":"om","name":"Open Mapping","input":"a surjective bounded linear T : X → Y (X, Y Banach)","output":"T is an open map","statement":"A surjective bounded operator between Banach spaces sends open sets to open sets; in particular a bounded bijection has a bounded inverse.","poweredBy":"Baire category"},{"id":"cg","name":"Closed Graph","input":"a linear T : X → Y whose graph is closed","output":"T is bounded","statement":"For linear maps between Banach spaces, a closed graph already forces continuity — you need not check boundedness directly.","poweredBy":"Baire category (via Open Mapping)"},{"id":"bs","name":"Banach–Steinhaus","input":"a family {Tᵢ} that is pointwise bounded (sup ‖Tᵢ x‖ < ∞ ∀x)","output":"a uniform bound (sup ‖Tᵢ‖ < ∞)","statement":"The uniform boundedness principle: pointwise bounds on a family of operators upgrade to a single operator-norm bound.","poweredBy":"Baire category"}];
+  var tabs = document.getElementById('w-fa-bigfour-tabs');
+  var body = document.getElementById('w-fa-bigfour-body');
+  if(!tabs || !body) return;
+  function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+  var btns = tabs.querySelectorAll('button');
+  function show(i){
+    var t = THMS[i]; if(!t) return;
+    for(var k=0;k<btns.length;k++) btns[k].className = (k===i)?'active':'';
+    var pw = t.poweredBy ? ('<div style="font-size:.85em;color:var(--mute);margin-top:.4rem">powered by ' + esc(t.poweredBy) + '</div>') : '';
+    body.innerHTML = '<div style="margin-bottom:.4rem"><span style="color:var(--cyan)">given</span> ' + esc(t.input) + '  <span style="color:var(--mute)">\u2192</span>  <span style="color:var(--yellow)">then</span> ' + esc(t.output) + '</div><div>' + esc(t.statement) + '</div>' + pw;
+  }
+  for(var k=0;k<btns.length;k++){ (function(j){ btns[j].addEventListener('click', function(){ show(j); }); })(k); }
+  show(0);
+})();
+</script>
+
 <div class="quiz" data-concept="big-four-theorems"></div>
 </section>
 
@@ -2281,6 +2311,65 @@ note: ${d.note}`;
 <p><strong>Consequences.</strong> When $X$ is separable, $B_{X^*}$ is also <em>metrizable</em> in the weak-$*$ topology, so every bounded sequence in $X^*$ has a weakly-$*$ convergent subsequence. This is the bridge to existence theorems: minimizers of weakly-$*$ lower semicontinuous functionals on bounded sets, weak-$*$ limits of probability measures (Helly selection), and the construction of invariant measures via fixed points on $B_{X^*}$.</p>
 
 <p>Banach–Alaoglu and Kakutani's reflexivity criterion are the two compactness results that make infinite-dimensional analysis behave: one in the dual under the weak-$*$ topology (always), one in the original space under the weak topology (when reflexive).</p>
+
+
+<div class="widget" id="w-fa-banach-alaoglu">
+  <div class="hd"><div class="ttl">The dual ball lives inside a compact cube</div><div class="hint">Pick a norm: the dual ball is a closed subset of the compact product cube.</div></div>
+  <div class="row">
+    <label for="w-fa-banach-alaoglu-sel">norm on $X=\mathbb{R}^2$</label>
+    <select id="w-fa-banach-alaoglu-sel">
+      <option value="p1" selected>X = ℓ¹  ⟹  X* = ℓ^∞</option>
+      <option value="p2">X = ℓ²  ⟹  X* = ℓ²</option>
+      <option value="p32">X = ℓ^1.5  ⟹  X* = ℓ³</option>
+      <option value="pinf">X = ℓ^∞  ⟹  X* = ℓ¹</option>
+    </select>
+  </div>
+  <svg id="w-fa-banach-alaoglu-svg" viewBox="0 0 540 280" width="540" height="280" role="img" aria-label="The dual unit ball inside the compact product cube"><title>Banach–Alaoglu: the dual unit ball is a closed subset of a compact product, hence weak-* compact</title></svg>
+  <div class="readout" id="w-fa-banach-alaoglu-out"></div>
+</div><script>
+/* functional-analysis-banach-alaoglu widget: w-fa-banach-alaoglu */
+(function(){
+  var NORMS = [{"id":"p1","label":"X = ℓ¹  ⟹  X* = ℓ^∞","p":1,"q":99,"note":"The dual ball (ℓ^∞) fills the whole cube — it IS [−1,1]²."},{"id":"p2","label":"X = ℓ²  ⟹  X* = ℓ²","p":2,"q":2,"note":"Self-dual: the dual ball is the inscribed disk."},{"id":"p32","label":"X = ℓ^1.5  ⟹  X* = ℓ³","p":1.5,"q":3,"note":"Conjugate exponents 1/p + 1/q = 1."},{"id":"pinf","label":"X = ℓ^∞  ⟹  X* = ℓ¹","p":99,"q":1,"note":"The dual ball (ℓ¹) is the inscribed diamond."}];
+  var byId = {}; NORMS.forEach(function(g){ byId[g.id] = g; });
+  var sel = document.getElementById('w-fa-banach-alaoglu-sel');
+  var svg = document.getElementById('w-fa-banach-alaoglu-svg'), out = document.getElementById('w-fa-banach-alaoglu-out');
+  if(!sel || !svg || !out) return;
+  var NS='http://www.w3.org/2000/svg';
+  function mk(tag, attrs, text){ var e=document.createElementNS(NS, tag); for(var k in attrs){ e.setAttribute(k, attrs[k]); } if(text!=null) e.textContent=text; return e; }
+  var CX=270, CY=148, SC=104;
+  function PX(x){ return CX + x*SC; } function PY(y){ return CY - y*SC; }
+  // boundary of the ℓ^p unit ball: r(θ) = (|cosθ|^p + |sinθ|^p)^{-1/p};  p≥50 ⇒ ∞ (the square)
+  function ballPts(p){ var pts=[], i, th; for(i=0;i<=160;i++){ th=2*Math.PI*i/160; var c=Math.abs(Math.cos(th)), s=Math.abs(Math.sin(th)), r;
+    if(p>=50){ r=1/Math.max(c,s,1e-9); } else { r=Math.pow(Math.pow(c,p)+Math.pow(s,p), -1/p); }
+    pts.push([r*Math.cos(th), r*Math.sin(th)]); } return pts; }
+  function poly(pts, attrs){ var s=pts.map(function(q){ return PX(q[0]).toFixed(1)+','+PY(q[1]).toFixed(1); }); svg.appendChild(mk('polygon', Object.assign({points:s.join(' ')}, attrs))); }
+  function draw(){
+    var g = byId[sel.value] || NORMS[0];
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    // the compact cube ∏[−1,1]  (= [−‖e₁‖,‖e₁‖]×[−‖e₂‖,‖e₂‖], here ‖eᵢ‖=1)
+    svg.appendChild(mk('rect', {x:PX(-1), y:PY(1), width:(2*SC), height:(2*SC), fill:'none', stroke:'var(--mute)', 'stroke-width':1.4, 'stroke-dasharray':'5 4'}));
+    svg.appendChild(mk('text', {x:PX(1)+4, y:PY(1)+10, 'font-size':9, fill:'var(--mute)'}, 'cube \u220f[\u22121,1]'));
+    // axes
+    svg.appendChild(mk('line', {x1:PX(-1.25), y1:CY, x2:PX(1.25), y2:CY, stroke:'var(--line)'}));
+    svg.appendChild(mk('line', {x1:CX, y1:PY(1.25), x2:CX, y2:PY(-1.25), stroke:'var(--line)'}));
+    // X unit ball (ℓ^p), faint, for duality context
+    poly(ballPts(g.p), {fill:'none', stroke:'var(--violet)', 'stroke-width':1.2, 'stroke-dasharray':'3 3'});
+    // dual ball B_{X*} = ℓ^q ball (the compact set), filled
+    poly(ballPts(g.q), {fill:'color-mix(in srgb, var(--cyan) 16%, transparent)', stroke:'var(--cyan)', 'stroke-width':2});
+    svg.appendChild(mk('text', {x:CX, y:18, 'text-anchor':'middle', 'font-size':11, fill:'var(--cyan)', 'font-style':'italic'}, 'dual ball B(X*) (cyan) inside the cube'));
+    var pq=function(v){ return v>=50?'\u221e':(''+v); };
+    // readout
+    var lines=[];
+    lines.push('Banach\u2013Alaoglu: the closed unit ball B(X*) = {ℓ : ‖ℓ‖ \u2264 1} of the dual is compact in the weak-* topology.');
+    lines.push('Here X = (\u211d\u00b2, \u2113^' + pq(g.p) + '), so X* = \u2113^' + pq(g.q) + ' and B(X*) is the \u2113^' + pq(g.q) + ' ball (cyan). It embeds via ℓ \u21a6 (ℓ(e\u2081), ℓ(e\u2082)) into the cube [\u22121,1]\u00b2 = \u220f[\u2212‖eᵢ‖, ‖eᵢ‖], since |ℓ(eᵢ)| \u2264 ‖ℓ‖‖eᵢ‖ \u2264 1.');
+    lines.push('The cube is compact (Tychonoff) and B(X*) is a CLOSED subset of it \u2014 hence compact. In infinite dimensions the norm-ball is never compact, but this weak-* compactness still holds.');
+    if(g.note) lines.push(g.note);
+    out.textContent=lines.join('\n');
+  }
+  sel.addEventListener('change', draw);
+  draw();
+})();
+</script>
 
 <div class="quiz" data-concept="banach-alaoglu"></div><!-- backlinks-auto-begin -->
 <aside class="related">

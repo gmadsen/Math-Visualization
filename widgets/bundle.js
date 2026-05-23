@@ -7627,6 +7627,44 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "functional-analysis-banach-alaoglu",
+    "family": "functional-analysis-banach-alaoglu",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory",
+    "title": "functional-analysis-banach-alaoglu widget params",
+    "description": "Banach–Alaoglu explorer on (ℝ², ℓᵖ). The reader picks a norm; the widget draws the dual unit ball B_{X*} (the ℓq ball, q the conjugate exponent) sitting inside the compact 'cube' ∏[−‖eᵢ‖,‖eᵢ‖] = [−1,1]² into which the proof embeds it via ℓ ↦ (ℓ(eᵢ)). Being a closed subset of a compact product (Tychonoff), B_{X*} is compact — and Banach–Alaoglu is exactly the statement that this weak-* compactness survives into infinite dimensions, where the norm-ball is never compact. The ball geometry is intrinsic; params carry the norm menu.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "norms"
+    ],
+    "readmeExcerpt": "Banach–Alaoglu explorer, introduced on `functional-analysis.html` §14. Bespoke semantic module — the $\\ell^p$ ball geometry is intrinsic; params carry the norm menu.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "functional-analysis-bigfour",
+    "family": "functional-analysis-bigfour",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory",
+    "title": "functional-analysis-bigfour widget params",
+    "description": "Tab map of the big-four Banach-space theorems. The reader clicks a theorem and sees its input → output one-liner, its statement, and what powers it (Baire category or Zorn's lemma). Pure data widget — params carry the theorem cards.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "theorems"
+    ],
+    "readmeExcerpt": "Tab map of the big-four Banach-space theorems, introduced on `functional-analysis.html` §6. Bespoke data-only module — params carry the theorem cards; no math, just an orienting map.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "functional-analysis-bounded-continuous",
     "family": "functional-analysis-bounded-continuous",
     "dimension": "2d",

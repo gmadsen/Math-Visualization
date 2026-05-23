@@ -399,6 +399,61 @@
           "html": "<section id=\"bigfour\">\n<h2>6. The big four theorems</h2>\n<p>Four theorems, all ultimately powered by the <strong>Baire category theorem</strong> (a complete metric space is not a countable union of nowhere-dense sets) or by <strong>Zorn's lemma</strong>, organize Banach-space analysis.</p>\n\n<h3>A one-minute summary</h3>\n<table class=\"plain\">\n<thead><tr><th>theorem</th><th>input</th><th>output</th></tr></thead>\n<tbody>\n<tr><td>Hahn–Banach</td><td>functional on subspace</td><td>extension to whole space with same norm</td></tr>\n<tr><td>Open Mapping</td><td>surjective bounded linear</td><td>the map is open</td></tr>\n<tr><td>Closed Graph</td><td>closed-graph linear $T$</td><td>$T$ is bounded</td></tr>\n<tr><td>Banach–Steinhaus</td><td>family with pointwise bounds</td><td>uniform operator-norm bound</td></tr>\n</tbody>\n</table>\n\n<h3>Hahn–Banach (extension form)</h3>\n<div class=\"note\"><strong>Theorem (Hahn–Banach).</strong> Let $X$ be a real vector space, $p\\colon X\\to\\mathbb{R}$ a sublinear functional ($p(x+y)\\le p(x)+p(y),\\ p(\\alpha x)=\\alpha p(x)$ for $\\alpha\\ge 0$), and $\\ell\\colon M\\to\\mathbb{R}$ a linear functional on a subspace $M$ with $\\ell\\le p$ on $M$. Then $\\ell$ extends to $\\tilde\\ell\\colon X\\to\\mathbb{R}$ linear with $\\tilde\\ell\\le p$ on all of $X$.</div>\n\n<p>Corollary: on a normed space, every bounded linear functional on a subspace extends to $X$ with the same norm. Consequence: $X^*$ separates points. This is what gives duality traction — the existence of \"enough\" linear functionals is not automatic and requires choice.</p>\n\n<h3>Hahn–Banach (separation form)</h3>\n<div class=\"note\"><strong>Theorem.</strong> If $A, B$ are disjoint convex subsets of a normed space, $A$ open, then there is a continuous linear functional $\\ell$ and $c\\in\\mathbb{R}$ with $\\ell(a)&lt;c\\le\\ell(b)$ for $a\\in A, b\\in B$. If $A$ is compact and $B$ closed, one can separate <em>strictly</em>: $\\sup_A\\ell<\\inf_B\\ell$.</div>\n\n<p>Applications: existence of supporting hyperplanes, convex optimization duality, Mazur's theorem (weakly closed convex = strongly closed convex).</p>\n\n<h3>Open Mapping Theorem</h3>\n<div class=\"note\"><strong>Theorem (Banach).</strong> A surjective bounded linear map $T\\colon X\\to Y$ between Banach spaces is open: $T(U)$ is open for every open $U\\subset X$.</div>\n\n<p>Corollary (<strong>Inverse Mapping Theorem</strong>): a bijective bounded linear map between Banach spaces has a bounded inverse. So \"continuous and invertible\" automatically gives \"continuously invertible\" — no extra work. Application: an ODE operator that is bijective from $C^2[0,1]\\cap$(boundary conditions) to $C[0,1]$ automatically has bounded inverse (Green's function).</p>\n\n<h3>Closed Graph Theorem</h3>\n<div class=\"note\"><strong>Theorem.</strong> Let $T\\colon X\\to Y$ be linear, $X,Y$ Banach. If the graph $\\{(x,Tx):x\\in X\\}$ is closed in $X\\times Y$, then $T$ is bounded.</div>\n\n<p>The practical use is backwards from what one might guess: checking continuity of $T$ reduces to checking that $x_n\\to x$ and $Tx_n\\to y$ already forces $y=Tx$. You get the convergence $Tx_n\\to Tx$ for free from closedness.</p>\n\n<h3>Uniform boundedness (Banach–Steinhaus)</h3>\n<div class=\"note\"><strong>Theorem.</strong> Let $(T_\\alpha)_{\\alpha\\in A}\\subset B(X,Y)$ with $X$ Banach. If $\\sup_\\alpha\\|T_\\alpha x\\|<\\infty$ for <em>every</em> fixed $x\\in X$, then $\\sup_\\alpha\\|T_\\alpha\\|<\\infty$.</div>\n\n<p>\"Pointwise bounded ⇒ uniformly bounded\" in the Banach setting. This is the tool behind pointwise limits of operators being bounded, the convergence of Fourier series at \"enough\" points, and the Nikishin–Stein theory.</p>\n\n<div class=\"ok\"><strong>Proof sketch — all four from Baire.</strong> Pick the set $E_n=\\{x:\\sup_\\alpha\\|T_\\alpha x\\|\\le n\\}$; each $E_n$ is closed by continuity of $T_\\alpha$; their union is $X$ by hypothesis. Baire gives some $E_{n_0}$ with non-empty interior; a translation + dilation argument delivers the uniform bound. The Open Mapping and Closed Graph proofs run along parallel lines.</div>\n\n<h3>Where the big four actually get used</h3>\n<ul>\n  <li><strong>Hahn–Banach</strong> → existence of Green's functions, Lagrange multipliers in infinite dimensions, continuous extension of densely-defined functionals, and the entire theory of weak topologies.</li>\n  <li><strong>Open Mapping</strong> → boundedness of $T^{-1}$ without computing it; automatic continuity of inverse operators in PDE; Banach isomorphism theorem.</li>\n  <li><strong>Closed Graph</strong> → if an operator factors through a Banach space and each factor has closed graph, so does the composition. Used repeatedly to promote a-priori estimates into continuity.</li>\n  <li><strong>Banach–Steinhaus</strong> → divergence of Fourier series at a dense $G_\\delta$ of points (du Bois-Reymond), existence of pathological operators, resonance theorems.</li>\n</ul>\n\n"
         },
         {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget",
+          "slug": "functional-analysis-bigfour",
+          "params": {
+            "widgetId": "w-fa-bigfour",
+            "title": "The big four theorems — input → output",
+            "hint": "Click a theorem to see what you feed it and what you get back.",
+            "theorems": [
+              {
+                "id": "hb",
+                "name": "Hahn–Banach",
+                "input": "a bounded functional on a subspace M ⊆ X",
+                "output": "an extension to all of X with the same norm",
+                "statement": "A bounded linear functional on a subspace extends to the whole space without increasing its norm — so X* is always rich enough to separate points.",
+                "poweredBy": "Zorn's lemma"
+              },
+              {
+                "id": "om",
+                "name": "Open Mapping",
+                "input": "a surjective bounded linear T : X → Y (X, Y Banach)",
+                "output": "T is an open map",
+                "statement": "A surjective bounded operator between Banach spaces sends open sets to open sets; in particular a bounded bijection has a bounded inverse.",
+                "poweredBy": "Baire category"
+              },
+              {
+                "id": "cg",
+                "name": "Closed Graph",
+                "input": "a linear T : X → Y whose graph is closed",
+                "output": "T is bounded",
+                "statement": "For linear maps between Banach spaces, a closed graph already forces continuity — you need not check boundedness directly.",
+                "poweredBy": "Baire category (via Open Mapping)"
+              },
+              {
+                "id": "bs",
+                "name": "Banach–Steinhaus",
+                "input": "a family {Tᵢ} that is pointwise bounded (sup ‖Tᵢ x‖ < ∞ ∀x)",
+                "output": "a uniform bound (sup ‖Tᵢ‖ < ∞)",
+                "statement": "The uniform boundedness principle: pointwise bounds on a family of operators upgrade to a single operator-norm bound.",
+                "poweredBy": "Baire category"
+              }
+            ]
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-fa-bigfour"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
           "type": "quiz",
           "concept": "big-four-theorems",
           "html": "<div class=\"quiz\" data-concept=\"big-four-theorems\"></div>"
@@ -954,6 +1009,57 @@
         {
           "type": "raw",
           "html": "<section id=\"banach-alaoglu\">\n<h2>14. Banach–Alaoglu theorem</h2>\n\n<p>The norm-topology closed unit ball of an infinite-dimensional Banach space is famously not compact (the canonical basis of $\\ell^2$ has no Cauchy subsequence). The weak-$*$ topology fixes this on the <em>dual</em> side:</p>\n\n<div class=\"ok\"><strong>Banach–Alaoglu.</strong> Let $X$ be a normed space. The closed unit ball $B_{X^*} = \\{\\ell \\in X^* : \\|\\ell\\| \\le 1\\}$ is compact in the weak-$*$ topology.</div>\n\n<p><strong>Proof sketch.</strong> Embed $B_{X^*} \\hookrightarrow \\prod_{x \\in X} \\overline{D}_{\\|x\\|}$ by $\\ell \\mapsto (\\ell(x))_{x \\in X}$, where $\\overline{D}_r$ is the closed disk of radius $r$ in $\\mathbb{C}$. The product is compact by Tychonoff. The image of $B_{X^*}$ is closed in the product topology — being the intersection of the affine constraints $\\ell(\\alpha x + \\beta y) = \\alpha\\ell(x) + \\beta\\ell(y)$ — and a closed subset of a compact space is compact. The product topology on $\\prod_x \\overline{D}_{\\|x\\|}$ pulls back to the weak-$*$ topology on $B_{X^*}$.</p>\n\n<p><strong>Consequences.</strong> When $X$ is separable, $B_{X^*}$ is also <em>metrizable</em> in the weak-$*$ topology, so every bounded sequence in $X^*$ has a weakly-$*$ convergent subsequence. This is the bridge to existence theorems: minimizers of weakly-$*$ lower semicontinuous functionals on bounded sets, weak-$*$ limits of probability measures (Helly selection), and the construction of invariant measures via fixed points on $B_{X^*}$.</p>\n\n<p>Banach–Alaoglu and Kakutani's reflexivity criterion are the two compactness results that make infinite-dimensional analysis behave: one in the dual under the weak-$*$ topology (always), one in the original space under the weak topology (when reflexive).</p>\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget",
+          "slug": "functional-analysis-banach-alaoglu",
+          "params": {
+            "widgetId": "w-fa-banach-alaoglu",
+            "title": "The dual ball lives inside a compact cube",
+            "hint": "Pick a norm: the dual ball is a closed subset of the compact product cube.",
+            "norms": [
+              {
+                "id": "p1",
+                "label": "X = ℓ¹  ⟹  X* = ℓ^∞",
+                "p": 1,
+                "q": 99,
+                "note": "The dual ball (ℓ^∞) fills the whole cube — it IS [−1,1]²."
+              },
+              {
+                "id": "p2",
+                "label": "X = ℓ²  ⟹  X* = ℓ²",
+                "p": 2,
+                "q": 2,
+                "note": "Self-dual: the dual ball is the inscribed disk."
+              },
+              {
+                "id": "p32",
+                "label": "X = ℓ^1.5  ⟹  X* = ℓ³",
+                "p": 1.5,
+                "q": 3,
+                "note": "Conjugate exponents 1/p + 1/q = 1."
+              },
+              {
+                "id": "pinf",
+                "label": "X = ℓ^∞  ⟹  X* = ℓ¹",
+                "p": 99,
+                "q": 1,
+                "note": "The dual ball (ℓ¹) is the inscribed diamond."
+              }
+            ]
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-fa-banach-alaoglu"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
         },
         {
           "type": "quiz",
