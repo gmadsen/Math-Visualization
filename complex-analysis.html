@@ -796,6 +796,85 @@ const C = {
 <h2>13. Fundamental theorem of algebra</h2>
 <p><strong>Fundamental theorem of algebra.</strong> Every nonconstant polynomial $p(z)$ has a complex root. Proof 1: if $p$ never vanishes, $1/p$ is bounded entire (it tends to $0$ at infinity), hence constant by Liouville — absurd.</p>
 <div class="note"><strong>The geometric proof of FTA.</strong> Consider a circle of huge radius $R$. On it, $p(z)\sim a_n z^n$, so $p$ wraps $|z|=R$ around $0$ exactly $n$ times. Now shrink the circle to a point. At radius $0$, $p$ is constant $p(0)$, wrapping $0$ times. Winding number is integer-valued and varies continuously, so somewhere along the way it must cross zero — and that means $p$ hits $0$ at some intermediate $z$.</div>
+
+<div class="widget" id="w-fta">
+  <div class="hd"><div class="ttl">Fundamental theorem of algebra: the winding number of p(z)</div><div class="hint">Drag R; the image of |z|=R winds once around 0 per enclosed root.</div></div>
+  <div class="row">
+    <label for="w-fta-sel">polynomial $p(z)$</label>
+    <select id="w-fta-sel">
+      <option value="z2p1" selected>z² + 1</option>
+      <option value="z3m1">z³ − 1</option>
+      <option value="golden">z² − z − 1</option>
+      <option value="z4p1">z⁴ + 1</option>
+    </select>
+    <label for="w-fta-r">radius $R$</label>
+    <input type="range" id="w-fta-r" min="0.1" max="3" value="1.5" step="0.05">
+    <span class="pill" id="w-fta-rval">R = 1.50</span>
+  </div>
+  <svg id="w-fta-svg" viewBox="0 0 540 290" width="540" height="290" role="img" aria-label="The circle |z|=R and its image under p, with the winding number around 0"><title>Fundamental theorem of algebra: the image of |z|=R winds around 0 once per enclosed root</title></svg>
+  <div class="readout" id="w-fta-out"></div>
+</div><script>
+/* complex-analysis-fta widget: w-fta */
+(function(){
+  var CASES = [{"id":"z2p1","label":"z² + 1","coeffs":[1,0,1],"roots":[{"re":0,"im":1},{"re":0,"im":-1}],"note":"Roots ±i both have |z|=1, so they enter together as R passes 1."},{"id":"z3m1","label":"z³ − 1","coeffs":[-1,0,0,1],"roots":[{"re":1,"im":0},{"re":-0.5,"im":0.8660254},{"re":-0.5,"im":-0.8660254}],"note":"The three cube roots of unity sit on |z|=1; winding jumps 0→3 at R=1."},{"id":"golden","label":"z² − z − 1","coeffs":[-1,-1,1],"roots":[{"re":1.618034,"im":0},{"re":-0.618034,"im":0}],"note":"Real roots at radii 0.62 and 1.62: sweep R to watch the winding step 0→1→2."},{"id":"z4p1","label":"z⁴ + 1","coeffs":[1,0,0,0,1],"roots":[{"re":0.7071068,"im":0.7071068},{"re":-0.7071068,"im":0.7071068},{"re":-0.7071068,"im":-0.7071068},{"re":0.7071068,"im":-0.7071068}],"note":"Four roots on |z|=1 (primitive 8th roots of unity); winding climbs 0→4."}];
+  var byId = {}; CASES.forEach(function(c){ byId[c.id] = c; });
+  var sel = document.getElementById('w-fta-sel');
+  var rIn = document.getElementById('w-fta-r'), rL = document.getElementById('w-fta-rval');
+  var svg = document.getElementById('w-fta-svg');
+  var out = document.getElementById('w-fta-out');
+  if(!sel || !rIn || !svg || !out) return;
+  var NS = 'http://www.w3.org/2000/svg';
+  function mk(tag, attrs, text){ var e = document.createElementNS(NS, tag); for(var k in attrs){ e.setAttribute(k, attrs[k]); } if(text!=null) e.textContent = text; return e; }
+  function cmul(p,q){ return [p[0]*q[0]-p[1]*q[1], p[0]*q[1]+p[1]*q[0]]; }
+  function peval(a, z){ var r=[0,0], k; for(k=a.length-1;k>=0;k--){ r=cmul(r,z); r=[r[0]+a[k], r[1]]; } return r; }
+  var LCX=120, LCY=148, LSC=36;   // z-plane panel
+  var WCX=405, WCY=148, WR=92;    // w-plane panel (image), autoscaled
+  function draw(){
+    var c = byId[sel.value] || CASES[0], R = +rIn.value, n = c.coeffs.length-1;
+    rL.textContent = 'R = ' + R.toFixed(2);
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    // ----- left: z-plane -----
+    svg.appendChild(mk('line', {x1:LCX-118, y1:LCY, x2:LCX+118, y2:LCY, stroke:'var(--line)'}));
+    svg.appendChild(mk('line', {x1:LCX, y1:LCY-118, x2:LCX, y2:LCY+118, stroke:'var(--line)'}));
+    svg.appendChild(mk('circle', {cx:LCX, cy:LCY, r:R*LSC, fill:'none', stroke:'var(--cyan)', 'stroke-width':1.6, 'stroke-dasharray':'5 3'}));
+    var inside = 0;
+    c.roots.forEach(function(rt){ var d=Math.hypot(rt.re, rt.im), inq = d < R-1e-6; if(inq) inside++;
+      svg.appendChild(mk('circle', {cx:LCX+rt.re*LSC, cy:LCY-rt.im*LSC, r:4.5, fill: inq?'var(--yellow)':'var(--panel)', stroke:'var(--yellow)', 'stroke-width':1.4})); });
+    svg.appendChild(mk('text', {x:LCX, y:24, 'text-anchor':'middle', 'font-size':11, fill:'var(--mute)', 'font-style':'italic'}, 'z-plane:  circle |z| = R'));
+    // ----- right: image curve p(R e^{i th}) -----
+    var M=240, ws=[], maxMod=1e-9, minMod=Infinity, i, th, z, w, total=0, prev=null;
+    for(i=0;i<=M;i++){ th=2*Math.PI*i/M; z=[R*Math.cos(th), R*Math.sin(th)]; w=peval(c.coeffs, z); ws.push(w);
+      var m=Math.hypot(w[0],w[1]); if(m>maxMod) maxMod=m; if(m<minMod) minMod=m;
+      var ang=Math.atan2(w[1], w[0]); if(prev!==null){ var d=ang-prev; while(d>Math.PI)d-=2*Math.PI; while(d<=-Math.PI)d+=2*Math.PI; total+=d; } prev=ang; }
+    var winding = Math.round(total/(2*Math.PI));
+    var sc = WR/maxMod;
+    svg.appendChild(mk('line', {x1:WCX-100, y1:WCY, x2:WCX+100, y2:WCY, stroke:'var(--line)'}));
+    svg.appendChild(mk('line', {x1:WCX, y1:WCY-100, x2:WCX, y2:WCY+100, stroke:'var(--line)'}));
+    var pts = ws.map(function(w){ return (WCX+w[0]*sc).toFixed(1)+','+(WCY-w[1]*sc).toFixed(1); });
+    svg.appendChild(mk('polyline', {points:pts.join(' '), fill:'none', stroke:'var(--violet)', 'stroke-width':1.8}));
+    // mark image of theta=0 (start point on the curve)
+    svg.appendChild(mk('circle', {cx:WCX+ws[0][0]*sc, cy:WCY-ws[0][1]*sc, r:3, fill:'var(--violet)'}));
+    // the winding target w = 0
+    svg.appendChild(mk('circle', {cx:WCX, cy:WCY, r:3.5, fill:'var(--pink)'}));
+    svg.appendChild(mk('text', {x:WCX+7, y:WCY+13, 'font-size':9, fill:'var(--pink)'}, 'w = 0'));
+    svg.appendChild(mk('text', {x:WCX, y:24, 'text-anchor':'middle', 'font-size':11, fill:'var(--mute)', 'font-style':'italic'}, 'image  w = p(z)'));
+    svg.appendChild(mk('text', {x:WCX, y:280, 'text-anchor':'middle', 'font-size':12, fill:'var(--violet)'}, 'winding number = ' + winding));
+    // ----- readout -----
+    var onCircle = minMod < 0.04*maxMod;
+    var lines = [];
+    lines.push('p(z) = ' + c.label + ',   deg p = ' + n + '.');
+    lines.push('On |z| = R = ' + R.toFixed(2) + ':  ' + inside + ' of ' + n + ' root(s) lie inside.');
+    if(onCircle){ lines.push('The image passes through 0 \u2014 a root sits on |z| = R (winding undefined here; nudge R).'); }
+    else { lines.push('The image of the circle winds ' + winding + ' time(s) around 0 \u2014 exactly the number of enclosed roots.'); }
+    if(c.note) lines.push(c.note);
+    lines.push('Shrink R \u2192 0: winding \u2192 0.  Grow R past every root: winding \u2192 ' + n + '.  The count can only change when the image crosses 0, so p must vanish somewhere \u2014 the fundamental theorem of algebra.');
+    out.textContent = lines.join('\n');
+  }
+  sel.addEventListener('change', draw); rIn.addEventListener('input', draw);
+  draw();
+})();
+</script>
+
 <div class="quiz" data-concept="fta"></div><!-- backlinks-auto-begin -->
 <aside class="related">
   <div class="ttl">Used in</div>
@@ -1547,6 +1626,101 @@ const C = {
 <h2>26. Harmonic functions</h2>
 <p>If $f = u + iv$ is holomorphic, both $u$ and $v$ are <strong>harmonic</strong>: they satisfy Laplace's equation $\Delta u = u_{xx} + u_{yy} = 0$. Conversely, any harmonic function on a simply connected domain is the real part of some holomorphic $f$, unique up to a real additive constant. The imaginary part $v$ is the <em>harmonic conjugate</em> of $u$; you reconstruct it by integrating the Cauchy–Riemann equations.</p>
 <p>This identification is the bridge to potential theory: the steady-state heat distribution, the gravitational potential in vacuum, and the electrostatic potential in a charge-free region are all harmonic, hence locally real parts of holomorphic functions. Conformal maps then move boundary value problems between domains.</p>
+
+<div class="widget" id="w-harmonic">
+  <div class="hd"><div class="ttl">Harmonic functions: the mean-value property</div><div class="hint">Slide the circle; the boundary average always equals the center value.</div></div>
+  <div class="row">
+    <label for="w-harmonic-sel">harmonic $u = \operatorname{Re} f$</label>
+    <select id="w-harmonic-sel">
+      <option value="rez2" selected>Re(z²) = x² − y²</option>
+      <option value="rez3">Re(z³) = x³ − 3xy²</option>
+      <option value="reexp">Re(e^z) = e^x cos y</option>
+      <option value="rez">Re(z) = x</option>
+      <option value="reinv">Re(1/z) = x/(x²+y²)</option>
+    </select>
+    <label for="w-harmonic-cx">center $c_x$</label>
+    <input type="range" id="w-harmonic-cx" min="-1.4" max="1.4" value="0.5" step="0.05">
+    <label for="w-harmonic-r">radius $r$</label>
+    <input type="range" id="w-harmonic-r" min="0.3" max="1.2" value="0.7" step="0.05">
+    <span class="pill" id="w-harmonic-pill">c = 0.50,  r = 0.70</span>
+  </div>
+  <svg id="w-harmonic-svg" viewBox="0 0 540 270" width="540" height="270" role="img" aria-label="A circle in the plane and the values of a harmonic function along it"><title>Harmonic functions: the mean over any circle equals the value at the center</title></svg>
+  <div class="readout" id="w-harmonic-out"></div>
+</div><script>
+/* complex-analysis-harmonic widget: w-harmonic */
+(function(){
+  var CASES = [{"id":"rez2","label":"Re(z²) = x² − y²","kind":"re_z2","note":"A saddle: increasing in x, decreasing in y — no interior max or min."},{"id":"rez3","label":"Re(z³) = x³ − 3xy²","kind":"re_z3"},{"id":"reexp","label":"Re(e^z) = e^x cos y","kind":"re_exp"},{"id":"rez","label":"Re(z) = x","kind":"re_z","note":"Linear: the average over any centered circle is trivially the center value."},{"id":"reinv","label":"Re(1/z) = x/(x²+y²)","kind":"re_inv","note":"Harmonic except at 0; enclose the origin and the mean-value property breaks."}];
+  var byId = {}; CASES.forEach(function(c){ byId[c.id] = c; });
+  var sel = document.getElementById('w-harmonic-sel');
+  var cxIn = document.getElementById('w-harmonic-cx'), rIn = document.getElementById('w-harmonic-r');
+  var pill = document.getElementById('w-harmonic-pill');
+  var svg = document.getElementById('w-harmonic-svg');
+  var out = document.getElementById('w-harmonic-out');
+  if(!sel || !cxIn || !rIn || !svg || !out) return;
+  var NS = 'http://www.w3.org/2000/svg';
+  function mk(tag, attrs, text){ var e = document.createElementNS(NS, tag); for(var k in attrs){ e.setAttribute(k, attrs[k]); } if(text!=null) e.textContent = text; return e; }
+  function u(kind, x, y){
+    if(kind==='re_z2') return x*x - y*y;
+    if(kind==='re_z3') return x*x*x - 3*x*y*y;
+    if(kind==='re_exp') return Math.exp(x)*Math.cos(y);
+    if(kind==='re_inv'){ var d=x*x+y*y; return d<1e-9 ? NaN : x/d; }
+    return x; // re_z
+  }
+  var LCX=120, LCY=135, LSC=58;   // z-plane panel
+  var PX0=275, PY0=210, PW=240, PH=150; // u-vs-theta plot
+  function draw(){
+    var c = byId[sel.value] || CASES[0], cx = +cxIn.value, cy = 0, r = +rIn.value;
+    pill.textContent = 'c = ' + cx.toFixed(2) + ',  r = ' + r.toFixed(2);
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    var uc = u(c.kind, cx, cy);
+    // sample the circle
+    var N=360, i, th, vals=[], sum=0, vmin=Infinity, vmax=-Infinity;
+    for(i=0;i<N;i++){ th=2*Math.PI*i/N; var v=u(c.kind, cx+r*Math.cos(th), cy+r*Math.sin(th)); vals.push(v); sum+=v; if(v<vmin)vmin=v; if(v>vmax)vmax=v; }
+    var avg = sum/N;
+    var encloses0 = (c.kind==='re_inv') && (Math.hypot(cx,cy) < r);
+    // ----- left: z-plane circle + boundary signs -----
+    svg.appendChild(mk('line', {x1:LCX-110, y1:LCY, x2:LCX+110, y2:LCY, stroke:'var(--line)'}));
+    svg.appendChild(mk('line', {x1:LCX, y1:LCY-110, x2:LCX, y2:LCY+110, stroke:'var(--line)'}));
+    svg.appendChild(mk('circle', {cx:LCX+cx*LSC, cy:LCY-cy*LSC, r:r*LSC, fill:'none', stroke:'var(--mute)', 'stroke-width':1.4}));
+    var SB=36; for(i=0;i<SB;i++){ th=2*Math.PI*i/SB; var bx=cx+r*Math.cos(th), by=cy+r*Math.sin(th), bv=u(c.kind,bx,by);
+      var col = isNaN(bv) ? 'var(--mute)' : (bv>uc ? 'var(--cyan)' : 'var(--pink)');
+      svg.appendChild(mk('circle', {cx:LCX+bx*LSC, cy:LCY-by*LSC, r:3, fill:col})); }
+    svg.appendChild(mk('circle', {cx:LCX+cx*LSC, cy:LCY-cy*LSC, r:4, fill:'var(--yellow)'}));
+    svg.appendChild(mk('text', {x:LCX+cx*LSC+7, y:LCY-cy*LSC-6, 'font-size':10, fill:'var(--yellow)'}, 'center c'));
+    svg.appendChild(mk('text', {x:LCX, y:20, 'text-anchor':'middle', 'font-size':11, fill:'var(--mute)', 'font-style':'italic'}, 'circle |z \u2212 c| = r'));
+    if(c.kind==='re_inv'){ svg.appendChild(mk('circle', {cx:LCX, cy:LCY, r:2.5, fill:'var(--orange)'})); svg.appendChild(mk('text', {x:LCX+5, y:LCY+13, 'font-size':9, fill:'var(--orange)'}, '0')); }
+    // ----- right: u along the circle vs theta -----
+    var pad=(vmax-vmin)*0.15 || 1, lo=vmin-pad, hi=vmax+pad;
+    function PX(t){ return PX0 + t/(2*Math.PI)*PW; } function PY(v){ return PY0 - (v-lo)/(hi-lo)*PH; }
+    svg.appendChild(mk('line', {x1:PX0, y1:PY0, x2:PX0+PW, y2:PY0, stroke:'var(--line)'}));
+    svg.appendChild(mk('line', {x1:PX0, y1:PY0, x2:PX0, y2:PY0-PH, stroke:'var(--line)'}));
+    svg.appendChild(mk('text', {x:PX0+PW, y:PY0+15, 'text-anchor':'end', 'font-size':10, fill:'var(--mute)'}, '\u03b8: 0 \u2192 2\u03c0'));
+    svg.appendChild(mk('text', {x:PX0-6, y:PY0-PH+4, 'text-anchor':'end', 'font-size':10, fill:'var(--mute)'}, 'u'));
+    if(!isNaN(avg)){
+      var pts=[]; for(i=0;i<N;i++){ if(!isNaN(vals[i])) pts.push(PX(2*Math.PI*i/N).toFixed(1)+','+PY(vals[i]).toFixed(1)); }
+      svg.appendChild(mk('polyline', {points:pts.join(' '), fill:'none', stroke:'var(--green)', 'stroke-width':1.8}));
+      // average line
+      svg.appendChild(mk('line', {x1:PX0, y1:PY(avg), x2:PX0+PW, y2:PY(avg), stroke:'var(--yellow)', 'stroke-width':1.4, 'stroke-dasharray':'5 3'}));
+      svg.appendChild(mk('text', {x:PX0+PW, y:PY(avg)-4, 'text-anchor':'end', 'font-size':10, fill:'var(--yellow)'}, 'mean = u(c)'));
+    }
+    // ----- readout -----
+    var lines = [];
+    lines.push('u = ' + c.label + '  is harmonic:  \u0394u = u_xx + u_yy = 0.');
+    if(encloses0){
+      lines.push('This circle encloses the singularity at z = 0, where u is NOT harmonic \u2014 so the mean-value property need not hold here. Move the center out so 0 lies outside the disk.');
+    } else {
+      lines.push('Mean of u over the circle = ' + avg.toFixed(4) + '.   u at the center c = (' + cx.toFixed(2) + ', 0) is ' + uc.toFixed(4) + '.');
+      lines.push('They agree \u2014 the MEAN-VALUE property: a harmonic function equals the average of its boundary values.');
+      lines.push('Since u(c) is the average, the boundary always holds values both above (cyan) and below (pink) it: the center is neither a max nor a min. No interior extrema \u2014 the maximum principle.');
+    }
+    if(c.note) lines.push(c.note);
+    out.textContent = lines.join('\n');
+  }
+  sel.addEventListener('change', draw); cxIn.addEventListener('input', draw); rIn.addEventListener('input', draw);
+  draw();
+})();
+</script>
+
 <!-- callback-auto-begin -->
 <aside class="callback">
   <div class="ttl">See also</div>

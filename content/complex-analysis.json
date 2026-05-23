@@ -554,6 +554,124 @@
           "html": "<section id=\"fta\">\n<h2>13. Fundamental theorem of algebra</h2>\n<p><strong>Fundamental theorem of algebra.</strong> Every nonconstant polynomial $p(z)$ has a complex root. Proof 1: if $p$ never vanishes, $1/p$ is bounded entire (it tends to $0$ at infinity), hence constant by Liouville — absurd.</p>\n<div class=\"note\"><strong>The geometric proof of FTA.</strong> Consider a circle of huge radius $R$. On it, $p(z)\\sim a_n z^n$, so $p$ wraps $|z|=R$ around $0$ exactly $n$ times. Now shrink the circle to a point. At radius $0$, $p$ is constant $p(0)$, wrapping $0$ times. Winding number is integer-valued and varies continuously, so somewhere along the way it must cross zero — and that means $p$ hits $0$ at some intermediate $z$.</div>\n"
         },
         {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget",
+          "slug": "complex-analysis-fta",
+          "params": {
+            "widgetId": "w-fta",
+            "title": "Fundamental theorem of algebra: the winding number of p(z)",
+            "hint": "Drag R; the image of |z|=R winds once around 0 per enclosed root.",
+            "cases": [
+              {
+                "id": "z2p1",
+                "label": "z² + 1",
+                "coeffs": [
+                  1,
+                  0,
+                  1
+                ],
+                "roots": [
+                  {
+                    "re": 0,
+                    "im": 1
+                  },
+                  {
+                    "re": 0,
+                    "im": -1
+                  }
+                ],
+                "note": "Roots ±i both have |z|=1, so they enter together as R passes 1."
+              },
+              {
+                "id": "z3m1",
+                "label": "z³ − 1",
+                "coeffs": [
+                  -1,
+                  0,
+                  0,
+                  1
+                ],
+                "roots": [
+                  {
+                    "re": 1,
+                    "im": 0
+                  },
+                  {
+                    "re": -0.5,
+                    "im": 0.8660254
+                  },
+                  {
+                    "re": -0.5,
+                    "im": -0.8660254
+                  }
+                ],
+                "note": "The three cube roots of unity sit on |z|=1; winding jumps 0→3 at R=1."
+              },
+              {
+                "id": "golden",
+                "label": "z² − z − 1",
+                "coeffs": [
+                  -1,
+                  -1,
+                  1
+                ],
+                "roots": [
+                  {
+                    "re": 1.618034,
+                    "im": 0
+                  },
+                  {
+                    "re": -0.618034,
+                    "im": 0
+                  }
+                ],
+                "note": "Real roots at radii 0.62 and 1.62: sweep R to watch the winding step 0→1→2."
+              },
+              {
+                "id": "z4p1",
+                "label": "z⁴ + 1",
+                "coeffs": [
+                  1,
+                  0,
+                  0,
+                  0,
+                  1
+                ],
+                "roots": [
+                  {
+                    "re": 0.7071068,
+                    "im": 0.7071068
+                  },
+                  {
+                    "re": -0.7071068,
+                    "im": 0.7071068
+                  },
+                  {
+                    "re": -0.7071068,
+                    "im": -0.7071068
+                  },
+                  {
+                    "re": 0.7071068,
+                    "im": -0.7071068
+                  }
+                ],
+                "note": "Four roots on |z|=1 (primitive 8th roots of unity); winding climbs 0→4."
+              }
+            ]
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-fta"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
           "type": "quiz",
           "concept": "fta",
           "html": "<div class=\"quiz\" data-concept=\"fta\"></div>"
@@ -1330,6 +1448,57 @@
         {
           "type": "raw",
           "html": "<section id=\"harmonic-functions\">\n<h2>26. Harmonic functions</h2>\n<p>If $f = u + iv$ is holomorphic, both $u$ and $v$ are <strong>harmonic</strong>: they satisfy Laplace's equation $\\Delta u = u_{xx} + u_{yy} = 0$. Conversely, any harmonic function on a simply connected domain is the real part of some holomorphic $f$, unique up to a real additive constant. The imaginary part $v$ is the <em>harmonic conjugate</em> of $u$; you reconstruct it by integrating the Cauchy–Riemann equations.</p>\n<p>This identification is the bridge to potential theory: the steady-state heat distribution, the gravitational potential in vacuum, and the electrostatic potential in a charge-free region are all harmonic, hence locally real parts of holomorphic functions. Conformal maps then move boundary value problems between domains.</p>\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget",
+          "slug": "complex-analysis-harmonic",
+          "params": {
+            "widgetId": "w-harmonic",
+            "title": "Harmonic functions: the mean-value property",
+            "hint": "Slide the circle; the boundary average always equals the center value.",
+            "cases": [
+              {
+                "id": "rez2",
+                "label": "Re(z²) = x² − y²",
+                "kind": "re_z2",
+                "note": "A saddle: increasing in x, decreasing in y — no interior max or min."
+              },
+              {
+                "id": "rez3",
+                "label": "Re(z³) = x³ − 3xy²",
+                "kind": "re_z3"
+              },
+              {
+                "id": "reexp",
+                "label": "Re(e^z) = e^x cos y",
+                "kind": "re_exp"
+              },
+              {
+                "id": "rez",
+                "label": "Re(z) = x",
+                "kind": "re_z",
+                "note": "Linear: the average over any centered circle is trivially the center value."
+              },
+              {
+                "id": "reinv",
+                "label": "Re(1/z) = x/(x²+y²)",
+                "kind": "re_inv",
+                "note": "Harmonic except at 0; enclose the origin and the mean-value property breaks."
+              }
+            ]
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-harmonic"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
         },
         {
           "type": "raw",
