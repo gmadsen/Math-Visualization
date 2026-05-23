@@ -13163,6 +13163,26 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "motives-realization-comparison",
+    "family": "motives-realization-comparison",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory",
+    "title": "motives-realization-comparison widget params",
+    "description": "Interactive realization-functor explorer for the motives topic. The reader picks a smooth projective variety and sees that all four classical cohomology theories (Betti, algebraic de Rham, ℓ-adic étale, crystalline) assign the SAME Betti numbers b_i — the shared 'motivic skeleton' — while each carries different extra structure (Hodge structure, Hodge filtration, Galois action, Frobenius). Clicking a realization card focuses the readout on that theory's coefficient category and extra structure, with an optional per-variety datum. Data-driven: each variety carries its Betti vector and the four theories carry their descriptors in params, so a non-HTML frontend can rebuild the comparison from the schema alone.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "varieties",
+      "theories"
+    ],
+    "readmeExcerpt": "Interactive realization-functor explorer, introduced on `motives.html` §1 (the cohomology zoo) to give the page its first interactive widget. It complements the section's static factorization diagram (SmProj → Mot(k) → realizations): the diagram motivates *why* a universal cohomology should exist; this widget lets the reader poke concrete varieties and watch the punchline — every realization has the same Betti numbers, only the extra structure differs.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "ms-beta-posterior",
     "family": "ms-beta-posterior",
     "dimension": "2d",
