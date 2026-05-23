@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/functional-analysis-bigfour/schema.json",
+  "title": "functional-analysis-bigfour widget params",
+  "description": "Tab map of the big-four Banach-space theorems. The reader clicks a theorem and sees its input → output one-liner, its statement, and what powers it (Baire category or Zorn's lemma). Pure data widget — params carry the theorem cards.",
+  "meta": {
+    "family": "functional-analysis-bigfour",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["widgetId", "title", "theorems"],
+  "properties": {
+    "widgetId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id; the script derives -tabs/-body." },
+    "title": { "type": "string", "description": "Display title rendered inside .hd > .ttl." },
+    "hint": { "type": "string", "description": "Optional short hint rendered inside .hd > .hint." },
+    "theorems": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 6,
+      "description": "Each theorem card.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "name", "input", "output", "statement"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[A-Za-z0-9_-]+$", "description": "Stable option value." },
+          "name": { "type": "string", "description": "Plain-text theorem name (tab label)." },
+          "input": { "type": "string", "maxLength": 90, "description": "Plain-text hypothesis ('given …')." },
+          "output": { "type": "string", "maxLength": 90, "description": "Plain-text conclusion ('… then')." },
+          "statement": { "type": "string", "maxLength": 280, "description": "Plain-text one-to-two-line statement." },
+          "poweredBy": { "type": "string", "maxLength": 70, "description": "Optional: the engine behind it (e.g. Baire category, Zorn's lemma)." }
+        }
+      }
+    }
+  }
+}

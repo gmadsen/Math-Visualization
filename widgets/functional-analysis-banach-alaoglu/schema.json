@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/functional-analysis-banach-alaoglu/schema.json",
+  "title": "functional-analysis-banach-alaoglu widget params",
+  "description": "Banach–Alaoglu explorer on (ℝ², ℓᵖ). The reader picks a norm; the widget draws the dual unit ball B_{X*} (the ℓq ball, q the conjugate exponent) sitting inside the compact 'cube' ∏[−‖eᵢ‖,‖eᵢ‖] = [−1,1]² into which the proof embeds it via ℓ ↦ (ℓ(eᵢ)). Being a closed subset of a compact product (Tychonoff), B_{X*} is compact — and Banach–Alaoglu is exactly the statement that this weak-* compactness survives into infinite dimensions, where the norm-ball is never compact. The ball geometry is intrinsic; params carry the norm menu.",
+  "meta": {
+    "family": "functional-analysis-banach-alaoglu",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["widgetId", "title", "norms"],
+  "properties": {
+    "widgetId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id; the script derives -sel/-svg/-out." },
+    "title": { "type": "string", "description": "Display title rendered inside .hd > .ttl." },
+    "hint": { "type": "string", "description": "Optional short hint rendered inside .hd > .hint." },
+    "norms": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 6,
+      "description": "Each ℓᵖ norm on X = ℝ² offered in the dropdown.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "label", "p", "q"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[A-Za-z0-9_-]+$", "description": "Stable option value." },
+          "label": { "type": "string", "description": "Plain-text dropdown label." },
+          "p": { "type": "number", "minimum": 1, "description": "The exponent for X's ℓᵖ norm (use ≥ 50 to mean ∞)." },
+          "q": { "type": "number", "minimum": 1, "description": "The conjugate exponent for the dual ℓq norm (use ≥ 50 to mean ∞)." },
+          "note": { "type": "string", "maxLength": 130, "description": "Optional plain-text remark." }
+        }
+      }
+    }
+  }
+}
