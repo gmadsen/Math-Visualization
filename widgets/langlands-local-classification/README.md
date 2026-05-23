@@ -24,7 +24,7 @@ Weil–Deligne representations.
 | `widgetId` | string | DOM id; script derives `-svg/-out`. |
 | `title` | string | Header title. |
 | `hint` | string (optional) | Short hint. |
-| `rows` | array | Each: `id`, `autoType`, `wdRep`, `conductor`, `kind` (`principal`/`steinberg`/`supercuspidal`), `reason`→`detail` (shown on click). |
+| `rows` | array | Each: `id`, `autoType`, `wdRep`, `conductor`, `kind` (`principal`/`steinberg`/`supercuspidal`), `detail` (shown on click). |
 
 ## Usage
 
