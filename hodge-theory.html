@@ -668,13 +668,57 @@ $$\Hdg^p(X) := H^{2p}(X; \mathbb{Q}) \cap H^{p,p}(X) \;\subset\; H^{2p}(X; \math
 
 <p>The Hodge conjecture (1950) predicts that this is all of $\Hdg^p(X)$ — every rational class of type $(p, p)$ comes from an algebraic cycle.</p>
 
-<aside class="bad"><b>Open since 1950.</b> A Clay Millennium prize problem. Known for $p = 1$ (the <em>Lefschetz $(1,1)$-theorem</em>: every integral $(1,1)$-class is the cycle class of a divisor — comes from the exponential sequence and the de Rham comparison). Unconditionally known up to dimension $3$ (where Hodge classes appear only in codimensions $0, 1, 2, 3$, and the only nontrivial codimensions $1$ and $2$ follow from Lefschetz $(1,1)$ and hard Lefschetz/duality). In dimension $4$ the conjecture is known in selected cases (e.g. abelian fourfolds of CM type, certain hypersurface families) but is open in general — what is established for abelian varieties of all dimensions is Deligne's theorem (1982) that <em>every Hodge class is absolutely Hodge</em>, which is strictly weaker than algebraicity (it does not produce algebraic cycles). For Calabi-Yau threefolds many cases are known — but in general, we don't know how to produce algebraic cycles to match every Hodge class. Counterexamples to the integral version are known (Atiyah-Hirzebruch, Totaro); the rational version remains the live problem.</aside>
+<aside class="bad"><b>Open since 1950.</b> A Clay Millennium prize problem. Known for $p = 1$ (the <em>Lefschetz $(1,1)$-theorem</em>: every integral $(1,1)$-class is the cycle class of a divisor — comes from the exponential sequence and the de Rham comparison). Unconditionally known up to dimension $3$ (where Hodge classes appear only in codimensions $0, 1, 2, 3$, and the only nontrivial codimensions $1$ and $2$ follow from Lefschetz $(1,1)$ and hard Lefschetz/duality). In dimension $4$ the conjecture is known in selected cases (e.g. abelian fourfolds of CM type, certain hypersurface families) but is open in general — what is established for abelian varieties of all dimensions is Deligne's theorem (1982) that <em>every Hodge class is absolutely Hodge</em>, which is strictly weaker than algebraicity (it does not produce algebraic cycles). Calabi–Yau threefolds fall under the dimension-3 result; for Calabi–Yau fourfolds and beyond it is open in general — we don't know how to produce algebraic cycles to match every Hodge class. Counterexamples to the integral version are known (Atiyah-Hirzebruch, Totaro); the rational version remains the live problem.</aside>
 
 <p>Equivalent reformulations make the conjecture more tractable in special cases:</p>
 <ul>
   <li><b>Tannakian.</b> The Hodge realization $G_{\mathrm{mot}}(\mathbb{Q}) \twoheadrightarrow \MT(X)$ should be <em>surjective</em> — every Mumford-Tate-group symmetry of cohomology comes from a motivic symmetry. (This is the formulation that makes contact with <a href="./motives.html#motivic-galois">motives</a>.)</li>
   <li><b>Absolute.</b> Deligne's "absolute Hodge classes" — those that remain Hodge under all conjugates by automorphisms of $\mathbb{C}$ — are conjecturally exactly the algebraic ones. Known for abelian varieties (Deligne).</li>
 </ul>
+
+<div class="widget" id="w-hodge-classes">
+  <div class="hd"><div class="ttl">Hodge conjecture — what is known where</div><div class="hint">click a case for its status and the reason</div></div>
+  <svg id="w-hodge-classes-svg" viewBox="0 0 560 280" width="560" height="280" role="img" aria-label="Status of the Hodge conjecture across cases"><title>Hodge conjecture: known / partial / open / false, by case</title></svg>
+  <div class="readout" id="w-hodge-classes-out"></div>
+</div><script>
+/* hodge-theory-hodge-class-cases widget: w-hodge-classes */
+(function(){
+  var CASES = [{"id":"p1","variety":"Any smooth projective X","codim":"p = 1","status":"known","reason":"Lefschetz (1,1) theorem: every rational (1,1)-class is the cycle class of a divisor — from the exponential sheaf sequence plus the de Rham comparison. The cornerstone proven case."},{"id":"dim3","variety":"Any X with dim X ≤ 3","codim":"all p","status":"known","reason":"Hodge classes live only in codimensions 0,1,2,3; codim 1 is Lefschetz (1,1) and codim 2 follows by hard Lefschetz / Poincaré duality. So the conjecture holds unconditionally through dimension 3."},{"id":"k3","variety":"K3 surface","codim":"p = 1","status":"known","reason":"H¹·¹ ∩ H²(X;ℚ) = NS(X) ⊗ ℚ, the Néron–Severi group — all algebraic (divisors), again Lefschetz (1,1)."},{"id":"cm-ab","variety":"Abelian variety of CM type","codim":"all p","status":"partial","reason":"Algebraicity is known in many CM cases. For abelian varieties in general, Deligne (1982) proved every Hodge class is ABSOLUTELY Hodge — strictly weaker than algebraic (it produces no cycle)."},{"id":"ab4","variety":"General abelian fourfold","codim":"p = 2","status":"open","reason":"The first genuinely open codimension: Hodge classes exist that no one knows how to realise by an algebraic cycle."},{"id":"cy4","variety":"Calabi–Yau fourfold","codim":"p = 2","status":"open","reason":"Past the unconditional dim ≤ 3 range. For Calabi–Yau fourfolds the Hodge conjecture is open in general — a major testing ground for realising middle-codimension Hodge classes by algebraic cycles."},{"id":"integral","variety":"Integral Hodge conjecture (any X)","codim":"—","status":"false","reason":"The integral version is FALSE — counterexamples by Atiyah–Hirzebruch (1962) and Totaro. Only the rational version, Hdg^p(X) ⊂ H^{2p}(X;ℚ), remains the live Clay problem."}];
+  var svg = document.getElementById('w-hodge-classes-svg');
+  var out = document.getElementById('w-hodge-classes-out');
+  if(!svg || !out) return;
+  var NS = 'http://www.w3.org/2000/svg';
+  var STATUS = { known:{c:'--green',t:'known'}, partial:{c:'--cyan',t:'partial'}, open:{c:'--yellow',t:'OPEN'}, 'false':{c:'--pink',t:'FALSE'} };
+  function mk(tag, attrs, text){ var e = document.createElementNS(NS, tag); for(var k in attrs){ e.setAttribute(k, attrs[k]); } if(text!=null) e.textContent = text; return e; }
+  var W = 560, top = 16, rowH = Math.min(34, (280 - top - 8) / CASES.length), rx0 = 14, rw = W - 28;
+  var picked = null;
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    for(var i=0;i<CASES.length;i++){
+      var c = CASES[i], y = top + i*rowH, on = picked === c.id;
+      var st = STATUS[c.status] || STATUS.open, col = 'var(' + st.c + ')';
+      var g = mk('g', {'style':'cursor:pointer'});
+      g.appendChild(mk('rect', {x:rx0, y:y, width:rw, height:rowH-6, rx:6, fill:(on?col:'var(--panel2)'), 'fill-opacity':(on?'0.16':'1'), stroke:col, 'stroke-width':(on?'2':'1'), 'stroke-opacity':(on?'1':'0.7')}));
+      g.appendChild(mk('text', {x:rx0+12, y:y+(rowH-6)/2+4, 'text-anchor':'start', 'font-size':12, fill:'var(--ink)'}, c.variety));
+      g.appendChild(mk('text', {x:rx0+rw-150, y:y+(rowH-6)/2+4, 'text-anchor':'end', 'font-size':11, fill:'var(--mute)'}, c.codim));
+      // status badge
+      var bw = 96, bx = rx0+rw-bw-8, byy = y+3;
+      g.appendChild(mk('rect', {x:bx, y:byy, width:bw, height:rowH-12, rx:9, fill:'color-mix(in srgb, '+col+' 22%, var(--panel))', stroke:col, 'stroke-width':1}));
+      g.appendChild(mk('text', {x:bx+bw/2, y:byy+(rowH-12)/2+4, 'text-anchor':'middle', 'font-size':10.5, 'font-weight':'600', fill:col}, st.t));
+      (function(id){ g.addEventListener('click', function(){ picked = (picked===id)?null:id; draw(); }); })(c.id);
+      svg.appendChild(g);
+    }
+    if(picked){
+      var c = CASES.filter(function(x){return x.id===picked;})[0];
+      var st = STATUS[c.status] || STATUS.open;
+      out.textContent = c.variety + '   (' + c.codim + ')   \u2014   ' + st.t + '\n\n' + c.reason;
+    } else {
+      out.textContent = 'The Hodge conjecture: every rational class of type (p,p) is a combination of algebraic cycle classes. Proven for p=1 (Lefschetz), open in general.\n\nclick a case to see what is known and why.';
+    }
+  }
+  draw();
+})();
+</script>
 
 <div class="quiz" data-concept="hodge-conjecture"></div><!-- callback-auto-begin -->
 <aside class="callback">
@@ -703,6 +747,108 @@ $$\Hdg^p(X) := H^{2p}(X; \mathbb{Q}) \cap H^{p,p}(X) \;\subset\; H^{2p}(X; \math
 <p><b>Griffiths transversality.</b> The derivative of the period map $S \to D$ is constrained: $\nabla F^p \subset F^{p-1} \otimes \Omega^1_S$. So the period map cannot move freely — its differential drops at most one step in the Hodge filtration per direction. This is what makes the period map <em>locally injective</em> on most families, and what makes the global period map (after taking a quotient by the monodromy) often algebraic.</p>
 
 <aside class="note"><b>Key examples.</b> The period map for elliptic curves $\mathcal{E} \to \mathcal{M}_{1,1}$ recovers the classical <em>j</em>-line via the Weierstrass <em>℘</em>-function. The period map for K3 surfaces lands in a 20-dimensional period domain and is generically a local isomorphism (Torelli theorem for K3s). For a generic Calabi-Yau threefold the period map is dominant onto its image but with Griffiths transversality as the binding constraint.</aside>
+
+<div class="widget" id="w-period-elliptic">
+  <div class="hd"><div class="ttl">The period map ℍ → j-line</div><div class="hint">move τ in the upper half-plane; it reduces into the SL₂(ℤ) fundamental domain and gives j(τ)</div></div>
+  <div class="row">
+    <label for="w-period-elliptic-preset">jump to</label>
+    <select id="w-period-elliptic-preset">
+      <option value="i" selected>τ = i  (square lattice)</option>
+      <option value="rho">τ = ρ = e^(2πi/3)  (hexagonal)</option>
+      <option value="twoi">τ = 2i  (tall lattice)</option>
+      <option value="gen">τ = 0.3 + 0.9i  (generic)</option>
+    </select>
+  </div>
+  <div class="row">
+    <label for="w-period-elliptic-re">$\operatorname{Re}\tau$</label>
+    <input type="range" id="w-period-elliptic-re" min="-2" max="2" value="0" step="0.02">
+    <span class="pill" id="w-period-elliptic-reval">Re τ = 0</span>
+    <label for="w-period-elliptic-im">$\operatorname{Im}\tau$</label>
+    <input type="range" id="w-period-elliptic-im" min="0.12" max="2.5" value="1" step="0.02">
+    <span class="pill" id="w-period-elliptic-imval">Im τ = 1</span>
+  </div>
+  <svg id="w-period-elliptic-svg" viewBox="0 0 480 300" width="480" height="300" role="img" aria-label="The period τ in the upper half-plane and its fundamental-domain representative"><title>Period map: τ in ℍ, reduced into the SL₂(ℤ) fundamental domain</title></svg>
+  <div class="readout" id="w-period-elliptic-out"></div>
+</div><script>
+/* hodge-theory-period-elliptic widget: w-period-elliptic */
+(function(){
+  var PRESETS = [{"id":"i","label":"τ = i  (square lattice)","re":0,"im":1},{"id":"rho","label":"τ = ρ = e^(2πi/3)  (hexagonal)","re":-0.5,"im":0.8660254},{"id":"twoi","label":"τ = 2i  (tall lattice)","re":0,"im":2},{"id":"gen","label":"τ = 0.3 + 0.9i  (generic)","re":0.3,"im":0.9}];
+  var pById = {}; PRESETS.forEach(function(p){ pById[p.id] = p; });
+  var reIn = document.getElementById('w-period-elliptic-re'), reL = document.getElementById('w-period-elliptic-reval');
+  var imIn = document.getElementById('w-period-elliptic-im'), imL = document.getElementById('w-period-elliptic-imval');
+  var preset = document.getElementById('w-period-elliptic-preset');
+  var svg = document.getElementById('w-period-elliptic-svg');
+  var out = document.getElementById('w-period-elliptic-out');
+  if(!reIn || !imIn || !svg || !out) return;
+  var NS = 'http://www.w3.org/2000/svg';
+  function mk(tag, attrs, text){ var e = document.createElementNS(NS, tag); for(var k in attrs){ e.setAttribute(k, attrs[k]); } if(text!=null) e.textContent = text; return e; }
+  function X(re){ return 240 + re*110; }
+  function Y(im){ return 285 - im*100; }
+  function reduce(re, im){
+    var steps = 0;
+    for(var it=0; it<60; it++){
+      var t = re - Math.round(re); if(t !== re){ re = t; steps++; }
+      var n2 = re*re + im*im;
+      if(n2 < 1 - 1e-9){ re = -re/n2; im = im/n2; steps++; } else break;
+    }
+    return [re, im, steps];
+  }
+  function jInv(re, im){ // expects reduced tau (small |q|)
+    var qa = Math.exp(-2*Math.PI*im), th = 2*Math.PI*re;
+    var qre = qa*Math.cos(th), qim = qa*Math.sin(th), n2 = qre*qre + qim*qim;
+    if(n2 === 0) return [Infinity, 0];
+    var jre = qre/n2, jim = -qim/n2; jre += 744;
+    var coef = [196884, 21493760, 864299970, 20245856256, 333202640600];
+    var pre = qre, pim = qim;
+    for(var k=0;k<coef.length;k++){ jre += coef[k]*pre; jim += coef[k]*pim; var nr = pre*qre - pim*qim, ni = pre*qim + pim*qre; pre = nr; pim = ni; }
+    return [jre, jim];
+  }
+  var stRe = 0, stIm = 1; // exact period; decoupled from the sliders' coarse step
+  function clampY(y){ return Math.max(12, Math.min(295, y)); } // keep markers inside the frame
+  function draw(){
+    var re = stRe, im = stIm;
+    reL.textContent = 'Re τ = ' + re.toFixed(2); imL.textContent = 'Im τ = ' + im.toFixed(2);
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    // axes
+    svg.appendChild(mk('line', {x1:20, y1:Y(0), x2:460, y2:Y(0), stroke:'var(--line)'}));
+    // fundamental domain polygon: Re in [-1/2,1/2], above |tau|=1
+    var pts = [];
+    pts.push(X(-0.5)+','+Y(2.6)); pts.push(X(-0.5)+','+Y(Math.sqrt(0.75)));
+    for(var a=120; a>=60; a-=4){ var rad = a*Math.PI/180; pts.push(X(Math.cos(rad))+','+Y(Math.sin(rad))); }
+    pts.push(X(0.5)+','+Y(2.6));
+    svg.appendChild(mk('polygon', {points:pts.join(' '), fill:'color-mix(in srgb, var(--violet) 12%, transparent)', stroke:'var(--violet)', 'stroke-width':1, 'stroke-dasharray':'4 3'}));
+    svg.appendChild(mk('text', {x:X(0), y:Y(2.0), 'text-anchor':'middle', 'font-size':10.5, fill:'var(--violet)'}, 'fundamental domain'));
+    // unit circle (reference)
+    var cpts = []; for(var b=0;b<=180;b+=6){ var r2=b*Math.PI/180; cpts.push(X(Math.cos(r2))+','+Y(Math.sin(r2))); }
+    svg.appendChild(mk('polyline', {points:cpts.join(' '), fill:'none', stroke:'var(--line)', 'stroke-width':0.8}));
+    var red = reduce(re, im), rre = red[0], rim = red[1];
+    // dashed link tau -> reduced
+    var yStar = clampY(Y(rim)); // reduced Im can exceed the frame for small Im(τ); pin to the top edge
+    svg.appendChild(mk('line', {x1:X(re), y1:Y(im), x2:X(rre), y2:yStar, stroke:'var(--mute)', 'stroke-width':1, 'stroke-dasharray':'2 3'}));
+    // reduced point (green) and chosen tau (yellow)
+    svg.appendChild(mk('circle', {cx:X(rre), cy:yStar, r:5, fill:'var(--green)'}));
+    svg.appendChild(mk('text', {x:X(rre)+8, y:yStar+ (yStar<20?14:-6), 'font-size':10, fill:'var(--green)'}, 'τ*'));
+    svg.appendChild(mk('circle', {cx:X(re), cy:Y(im), r:5, fill:'var(--yellow)'}));
+    svg.appendChild(mk('text', {x:X(re)+8, y:Y(im)-6, 'font-size':10, fill:'var(--yellow)'}, 'τ'));
+    // readout
+    var j = jInv(rre, rim), jre = j[0], jim = j[1];
+    var jStr = (Math.abs(jim) < 0.5) ? String(Math.round(jre)) : (jre.toFixed(1) + ' + ' + jim.toFixed(1) + ' i');
+    var qa = Math.exp(-2*Math.PI*rim);
+    var lines = [];
+    lines.push('τ = ' + re.toFixed(3) + ' + ' + im.toFixed(3) + ' i      lattice  \u2124 + \u2124\u00b7τ');
+    lines.push('reduced into the fundamental domain:  τ* = ' + rre.toFixed(3) + ' + ' + rim.toFixed(3) + ' i   (' + red[2] + ' SL\u2082(\u2124) moves)');
+    lines.push('|q| = e^(\u22122\u03c0 Im τ*) = ' + qa.toExponential(2) + '      j(τ) \u2248 ' + jStr);
+    lines.push('');
+    lines.push('\u210d is the weight-1 period domain (Siegel H\u2081); the period map of the universal elliptic curve is \u210d / SL\u2082(\u2124) \u2192 the j-line. Griffiths transversality is automatic here (\u210d is Hermitian symmetric) \u2014 higher-weight period domains are not, which is the difficulty.');
+    out.textContent = lines.join('\n');
+  }
+  reIn.addEventListener('input', function(){ stRe = +reIn.value; if(preset) preset.selectedIndex = -1; draw(); });
+  imIn.addEventListener('input', function(){ stIm = +imIn.value; if(preset) preset.selectedIndex = -1; draw(); });
+  if(preset){ preset.addEventListener('change', function(){ var p = pById[preset.value]; if(p){ stRe = p.re; stIm = p.im; reIn.value = p.re; imIn.value = p.im; draw(); } }); }
+  if(preset && PRESETS.length){ var p0 = PRESETS[0]; stRe = p0.re; stIm = p0.im; reIn.value = p0.re; imIn.value = p0.im; }
+  draw();
+})();
+</script>
 
 <!-- callback-auto-begin -->
 <aside class="callback">
