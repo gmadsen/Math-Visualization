@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/complex-analysis-schwarz-lemma/schema.json",
+  "title": "complex-analysis-schwarz-lemma widget params",
+  "description": "Schwarz-lemma bound visualizer. For a holomorphic self-map f of the unit disk with f(0)=0, the lemma says |f(z)|≤|z|. The reader picks f and a ray direction; the widget plots |f(z)| against |z| along that ray together with the bound line |f|=|z|. Contractions (z², z³, a Blaschke product) stay strictly below; a rotation e^{iθ}z lies exactly on the line — the rigidity (equality ⇒ rotation). The evaluation is intrinsic (a `kind` enum); params carry the menu + |f'(0)| text.",
+  "meta": {
+    "family": "complex-analysis-schwarz-lemma",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["widgetId", "title", "functions"],
+  "properties": {
+    "widgetId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id; the script derives -sel/-dir/-svg/-out." },
+    "title": { "type": "string", "description": "Display title rendered inside .hd > .ttl." },
+    "hint": { "type": "string", "description": "Optional short hint rendered inside .hd > .hint." },
+    "functions": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 6,
+      "description": "Holomorphic self-maps of 𝔻 fixing 0, offered in the dropdown.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "label", "kind"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[A-Za-z0-9_-]+$", "description": "Stable option value." },
+          "label": { "type": "string", "description": "Plain-text dropdown label, e.g. 'z²'." },
+          "kind": {
+            "type": "string",
+            "enum": ["sq", "cube", "rot", "blaschke0"],
+            "description": "Which self-map: z², z³, e^{iπ/4}z (rotation), or z·(z−a)/(1−ā z) with a=0.5."
+          },
+          "fp0": { "type": "string", "maxLength": 24, "description": "Plain-text |f'(0)| for the readout." },
+          "note": { "type": "string", "maxLength": 90, "description": "Optional one-line remark." }
+        }
+      }
+    }
+  }
+}

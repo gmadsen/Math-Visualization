@@ -3479,6 +3479,25 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "complex-analysis-laurent",
+    "family": "complex-analysis-laurent",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory",
+    "title": "complex-analysis-laurent widget params",
+    "description": "Laurent-series annulus explorer. The reader picks a (function, annulus) case — e.g. 1/(z(z−1)) has DIFFERENT Laurent series on 0<|z|<1 and on |z|>1 — and a number of terms N; the widget shades the annulus, places a test point in it, and shows the partial Laurent sum converging to f there (and the series formula, regular + principal parts). The function eval + partial sums are intrinsic (a `kind`/`seriesKind` enum); params carry the menu + series text.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "cases"
+    ],
+    "readmeExcerpt": "Laurent-series annulus explorer, introduced on `complex-analysis.html` §17. Bespoke semantic module — the function eval and Laurent partial sums are intrinsic (kind/seriesKind enums); params carry the case menu + series text.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "complex-analysis-max-modulus",
     "family": "complex-analysis-max-modulus",
     "dimension": "2d",
@@ -3548,6 +3567,25 @@ window.__MVWidgets = [
       "title"
     ],
     "readmeExcerpt": "Stereographic-projection visualizer for the Riemann sphere, introduced on `complex-analysis.html` §2. Bespoke semantic module — stereographic projection and the fixed oblique 3-D drawing are intrinsic; params carry only optional presets.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "complex-analysis-schwarz-lemma",
+    "family": "complex-analysis-schwarz-lemma",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory",
+    "title": "complex-analysis-schwarz-lemma widget params",
+    "description": "Schwarz-lemma bound visualizer. For a holomorphic self-map f of the unit disk with f(0)=0, the lemma says |f(z)|≤|z|. The reader picks f and a ray direction; the widget plots |f(z)| against |z| along that ray together with the bound line |f|=|z|. Contractions (z², z³, a Blaschke product) stay strictly below; a rotation e^{iθ}z lies exactly on the line — the rigidity (equality ⇒ rotation). The evaluation is intrinsic (a `kind` enum); params carry the menu + |f'(0)| text.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "functions"
+    ],
+    "readmeExcerpt": "Schwarz-lemma bound visualizer, introduced on `complex-analysis.html` §16. Bespoke semantic module — the self-map evaluation and bound plot are intrinsic (a `kind` enum); params carry the menu.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
