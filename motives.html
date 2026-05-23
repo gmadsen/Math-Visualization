@@ -496,6 +496,68 @@ $$\beta \circ \alpha := (p_{XZ})_*\bigl((p_{XY})^*\alpha \cdot (p_{YZ})^*\beta\b
 
 <p>Whether these three categories actually coincide is the content of the <em>standard conjectures</em>; we return to this below.</p>
 
+<div class="widget" id="w-chow-decomp">
+  <div class="hd"><div class="ttl">Decompose the motive h(X)</div><div class="hint">cyan = Tate motives 𝕃ⁱ; yellow = the transcendental h¹ pieces</div></div>
+  <div class="row">
+    <label for="w-chow-decomp-sel">variety</label>
+    <select id="w-chow-decomp-sel">
+      <option value="p1" selected>P^1 — projective line</option>
+      <option value="p2">P^2 — projective plane</option>
+      <option value="ell">Elliptic curve E</option>
+      <option value="genus2">Genus-2 curve C</option>
+      <option value="p1p1">P^1 × P^1 — quadric surface</option>
+    </select>
+  </div>
+  <svg id="w-chow-decomp-svg" viewBox="0 0 580 180" width="580" height="180" role="img" aria-label="Chow-motive decomposition of the chosen variety"><title>h(X) decomposed into Tate motives and h^1 pieces</title></svg>
+  <div class="readout" id="w-chow-decomp-out"></div>
+</div><script>
+/* motives-chow-decomposition widget: w-chow-decomp */
+(function(){
+  var DATA = [{"id":"p1","label":"P^1 — projective line","note":"h(ℙ¹) = 𝟙 ⊕ 𝕃, split by the orthogonal projectors e₀ + e₂ = Δ.","pieces":[{"label":"𝟙","degree":0,"dim":1,"mult":1,"kind":"tate"},{"label":"𝕃","degree":2,"dim":1,"mult":1,"kind":"tate"}]},{"id":"p2","label":"P^2 — projective plane","note":"h(ℙⁿ) = 𝟙 ⊕ 𝕃 ⊕ ⋯ ⊕ 𝕃ⁿ — pure Tate, no transcendental part.","pieces":[{"label":"𝟙","degree":0,"dim":1,"mult":1,"kind":"tate"},{"label":"𝕃","degree":2,"dim":1,"mult":1,"kind":"tate"},{"label":"𝕃²","degree":4,"dim":1,"mult":1,"kind":"tate"}]},{"id":"ell","label":"Elliptic curve E","note":"h(E) = 𝟙 ⊕ h¹(E) ⊕ 𝕃; the weight-1 piece h¹(E) (the Jacobian) carries the arithmetic.","pieces":[{"label":"𝟙","degree":0,"dim":1,"mult":1,"kind":"tate"},{"label":"h¹(E)","degree":1,"dim":2,"mult":1,"kind":"transcendental"},{"label":"𝕃","degree":2,"dim":1,"mult":1,"kind":"tate"}]},{"id":"genus2","label":"Genus-2 curve C","note":"h(C) = 𝟙 ⊕ h¹(C) ⊕ 𝕃; dim h¹(C) = 2g = 4.","pieces":[{"label":"𝟙","degree":0,"dim":1,"mult":1,"kind":"tate"},{"label":"h¹(C)","degree":1,"dim":4,"mult":1,"kind":"transcendental"},{"label":"𝕃","degree":2,"dim":1,"mult":1,"kind":"tate"}]},{"id":"p1p1","label":"P^1 × P^1 — quadric surface","note":"Künneth: h(ℙ¹×ℙ¹) = 𝟙 ⊕ 𝕃^{⊕2} ⊕ 𝕃².","pieces":[{"label":"𝟙","degree":0,"dim":1,"mult":1,"kind":"tate"},{"label":"𝕃","degree":2,"dim":1,"mult":2,"kind":"tate"},{"label":"𝕃²","degree":4,"dim":1,"mult":1,"kind":"tate"}]}];
+  var byId = {}; DATA.forEach(function(v){ byId[v.id] = v; });
+  var sel = document.getElementById('w-chow-decomp-sel');
+  var svg = document.getElementById('w-chow-decomp-svg');
+  var out = document.getElementById('w-chow-decomp-out');
+  if(!sel || !svg || !out) return;
+  var NS = 'http://www.w3.org/2000/svg';
+  var SUP = ['\u2070','\u00b9','\u00b2','\u00b3','\u2074','\u2075','\u2076','\u2077','\u2078'];
+  function sup(k){ return (k>=0 && k<SUP.length) ? SUP[k] : '^'+k; }
+  function mk(tag, attrs, text){ var e = document.createElementNS(NS, tag); for(var k in attrs){ e.setAttribute(k, attrs[k]); } if(text!=null) e.textContent = text; return e; }
+  var W = 580;
+  function draw(){
+    var v = byId[sel.value] || DATA[0];
+    var pieces = v.pieces.slice().sort(function(a,b){ return a.degree - b.degree; });
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    var n = pieces.length, gap = 14, bw = Math.min(96, (W - 28 - (n-1)*gap)/n), bh = 64;
+    var totalW = n*bw + (n-1)*gap, sx = (W-totalW)/2, by = 30;
+    svg.appendChild(mk('text', {x:W/2, y:18, 'text-anchor':'middle', 'font-size':12, fill:'var(--mute)'}, 'h(X) = the direct sum below   (\u29f9 between pieces)'));
+    var betti = {};
+    for(var i=0;i<n;i++){
+      var pc = pieces[i], mult = pc.mult || 1, x = sx + i*(bw+gap);
+      var col = pc.kind === 'tate' ? 'var(--cyan)' : 'var(--yellow)';
+      betti[pc.degree] = (betti[pc.degree] || 0) + pc.dim*mult;
+      svg.appendChild(mk('rect', {x:x, y:by, width:bw, height:bh, rx:8, fill:'color-mix(in srgb, '+col+' 13%, var(--panel))', stroke:col, 'stroke-width':1.4}));
+      svg.appendChild(mk('text', {x:x+bw/2, y:by+27, 'text-anchor':'middle', 'font-size':17, 'font-weight':'600', fill:col}, pc.label + (mult>1 ? ('\u2295'+mult) : '')));
+      svg.appendChild(mk('text', {x:x+bw/2, y:by+46, 'text-anchor':'middle', 'font-size':10.5, fill:'var(--ink)'}, '\u2192 H' + sup(pc.degree)));
+      svg.appendChild(mk('text', {x:x+bw/2, y:by+59, 'text-anchor':'middle', 'font-size':9.5, fill:'var(--mute)'}, 'dim ' + (pc.dim*mult)));
+      if(i < n-1){ svg.appendChild(mk('text', {x:x+bw+gap/2, y:by+bh/2+6, 'text-anchor':'middle', 'font-size':16, fill:'var(--mute)'}, '\u2295')); }
+    }
+    var degs = Object.keys(betti).map(Number).sort(function(a,b){return a-b;});
+    var maxDeg = degs.length ? degs[degs.length-1] : 0;
+    var bstr = [];
+    for(var d=0; d<=maxDeg; d++){ bstr.push('b' + sup(d) + '=' + (betti[d]||0)); }
+    var lines = [];
+    lines.push('h(X) = ' + pieces.map(function(p){ return p.label + ((p.mult||1)>1 ? ('^{\u2295'+(p.mult)+'}') : ''); }).join(' \u2295 '));
+    lines.push('Tate motives 𝕃\u2071 = \u211a(\u2212i) are 1-dimensional of pure type (i,i); the h\u00b9 pieces carry the transcendental part.');
+    lines.push('Betti realization (dim per degree):  ' + bstr.join('  '));
+    if(v.note){ lines.push(''); lines.push(v.note); }
+    out.textContent = lines.join('\n');
+  }
+  sel.addEventListener('change', draw);
+  draw();
+})();
+</script>
+
 <div class="quiz" data-concept="pure-chow-motives"></div><!-- backlinks-auto-begin -->
 <aside class="related">
   <div class="ttl">Used in</div>
@@ -698,6 +760,49 @@ $$H^*_{\mathrm{dR}}(X/\mathbb{Q}) \otimes_\mathbb{Q} \mathbb{C} \;\cong\; H^*_B(
   <li><b>Voevodsky's triangulated category $\mathsf{DM}(k)$</b> (early 2000s) gives a robust mixed-motives theory, sufficient to prove the Bloch–Kato conjecture (Fields Medal work).</li>
   <li><b>$\mathbb{A}^1$-homotopy theory</b> (Morel–Voevodsky) embeds motives into a homotopical setting; motivic spectra carry $K$-theory, motivic cobordism, motivic cohomology as objects of one $\infty$-category.</li>
 </ul>
+
+<div class="widget" id="w-standard-conj">
+  <div class="hd"><div class="ttl">Standard conjectures — what is open, what is known</div><div class="hint">click an item for its statement and status</div></div>
+  <svg id="w-standard-conj-svg" viewBox="0 0 580 280" width="580" height="280" role="img" aria-label="Status of the standard conjectures and related results"><title>Standard conjectures: known / partial / open</title></svg>
+  <div class="readout" id="w-standard-conj-out"></div>
+</div><script>
+/* motives-standard-conjectures widget: w-standard-conj */
+(function(){
+  var ITEMS = [{"id":"B","name":"Lefschetz (B)","statement":"inverse of hard Lefschetz is algebraic","status":"partial","reason":"Open in general. Known for abelian varieties (Lieberman) and surfaces. (B) implies the Künneth conjecture (C)."},{"id":"C","name":"Künneth (C)","statement":"Künneth components of the diagonal are algebraic","status":"partial","reason":"Open in general; known for abelian varieties, curves, surfaces. Produces the Künneth projectors algebraically, so the motivic Galois group is graded. Implied by (B)."},{"id":"I","name":"Hodge standard (I)","statement":"the form on primitive classes is positive-definite","status":"partial","reason":"Known in characteristic 0 for divisors (the Hodge index theorem); open for higher codimension, and largely open in characteristic p."},{"id":"D","name":"num = hom (D)","statement":"numerical and homological equivalence agree","status":"open","reason":"Follows from (B) + (I) by Kleiman (1968); it makes Mot^hom = Mot^num, Tannakian, and lets the motivic Galois group exist. Open in general because (B), (I) are."},{"id":"jannsen","name":"Jannsen semisimplicity","statement":"numerical motives are abelian semisimple","status":"known","reason":"Proved unconditionally by Jannsen (1992) — no standard conjectures needed. The one part of the picture that is fully established."},{"id":"mixedtate","name":"Mixed Tate over ℤ","statement":"motivic Galois group realized; periods = MZVs","status":"known","reason":"Fully realized by Deligne–Goncharov and Brown. Periods include ζ(n) for n ≥ 2 and all multiple zeta values; the Galois action is explicit."},{"id":"voevodsky","name":"Voevodsky DM(k)","statement":"a robust triangulated category of mixed motives","status":"known","reason":"Constructed by Voevodsky (early 2000s); robust enough to prove the Bloch–Kato conjecture (Fields Medal work)."}];
+  var svg = document.getElementById('w-standard-conj-svg');
+  var out = document.getElementById('w-standard-conj-out');
+  if(!svg || !out) return;
+  var NS = 'http://www.w3.org/2000/svg';
+  var STATUS = { known:{c:'--green',t:'known'}, partial:{c:'--cyan',t:'partial'}, open:{c:'--yellow',t:'OPEN'} };
+  function mk(tag, attrs, text){ var e = document.createElementNS(NS, tag); for(var k in attrs){ e.setAttribute(k, attrs[k]); } if(text!=null) e.textContent = text; return e; }
+  var W = 580, top = 14, rowH = Math.min(34, (280 - top - 8) / ITEMS.length), rx0 = 14, rw = W - 28;
+  var picked = null;
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    for(var i=0;i<ITEMS.length;i++){
+      var it = ITEMS[i], y = top + i*rowH, on = picked === it.id;
+      var st = STATUS[it.status] || STATUS.open, col = 'var(' + st.c + ')';
+      var g = mk('g', {'style':'cursor:pointer'});
+      g.appendChild(mk('rect', {x:rx0, y:y, width:rw, height:rowH-6, rx:6, fill:(on?col:'var(--panel2)'), 'fill-opacity':(on?'0.16':'1'), stroke:col, 'stroke-width':(on?'2':'1'), 'stroke-opacity':(on?'1':'0.7')}));
+      g.appendChild(mk('text', {x:rx0+12, y:y+(rowH-6)/2+4, 'text-anchor':'start', 'font-size':12, 'font-weight':'600', fill:'var(--ink)'}, it.name));
+      g.appendChild(mk('text', {x:rx0+150, y:y+(rowH-6)/2+4, 'text-anchor':'start', 'font-size':10.5, fill:'var(--mute)'}, it.statement));
+      var bw = 84, bx = rx0+rw-bw-8, byy = y+3;
+      g.appendChild(mk('rect', {x:bx, y:byy, width:bw, height:rowH-12, rx:9, fill:'color-mix(in srgb, '+col+' 22%, var(--panel))', stroke:col, 'stroke-width':1}));
+      g.appendChild(mk('text', {x:bx+bw/2, y:byy+(rowH-12)/2+4, 'text-anchor':'middle', 'font-size':10.5, 'font-weight':'600', fill:col}, st.t));
+      (function(id){ g.addEventListener('click', function(){ picked = (picked===id)?null:id; draw(); }); })(it.id);
+      svg.appendChild(g);
+    }
+    if(picked){
+      var it = ITEMS.filter(function(x){return x.id===picked;})[0];
+      var st = STATUS[it.status] || STATUS.open;
+      out.textContent = it.name + '   \u2014   ' + st.t + '\n' + it.statement + '\n\n' + it.reason;
+    } else {
+      out.textContent = 'The standard conjectures (Grothendieck, 1968) are the specifications motives need — open in general for 60 years, but a surprising amount around them is known unconditionally.\n\nclick an item for its statement and status.';
+    }
+  }
+  draw();
+})();
+</script>
 
 <div class="quiz" data-concept="standard-conjectures"></div>
 </section>
