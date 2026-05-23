@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/motives-realization-comparison/schema.json",
+  "title": "motives-realization-comparison widget params",
+  "description": "Interactive realization-functor explorer for the motives topic. The reader picks a smooth projective variety and sees that all four classical cohomology theories (Betti, algebraic de Rham, ℓ-adic étale, crystalline) assign the SAME Betti numbers b_i — the shared 'motivic skeleton' — while each carries different extra structure (Hodge structure, Hodge filtration, Galois action, Frobenius). Clicking a realization card focuses the readout on that theory's coefficient category and extra structure, with an optional per-variety datum. Data-driven: each variety carries its Betti vector and the four theories carry their descriptors in params, so a non-HTML frontend can rebuild the comparison from the schema alone.",
+  "meta": {
+    "family": "motives-realization-comparison",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title",
+    "varieties",
+    "theories"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\"> wrapper."
+    },
+    "title": { "type": "string", "description": "Display title rendered inside .hd > .ttl." },
+    "hint": { "type": "string", "description": "Optional short hint rendered inside .hd > .hint." },
+    "varieties": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Case library shown in the dropdown.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "label", "betti"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[A-Za-z0-9_-]+$", "description": "Stable option value." },
+          "label": { "type": "string", "description": "Plain-text dropdown label (no LaTeX)." },
+          "betti": {
+            "type": "array",
+            "minItems": 1,
+            "description": "Betti numbers b_0 … b_{2d}, shared across all four realizations.",
+            "items": { "type": "integer", "minimum": 0 }
+          },
+          "note": { "type": "string", "description": "Optional one-line fact shown in the overview readout." },
+          "theoryNotes": {
+            "type": "object",
+            "description": "Optional per-theory datum keyed by theory key (e.g. ladic), shown when that card is focused.",
+            "additionalProperties": { "type": "string" }
+          }
+        }
+      }
+    },
+    "theories": {
+      "type": "array",
+      "minItems": 2,
+      "description": "The realization functors (constant across varieties). Order is left→right in the card row. A comparison needs at least two; the canonical motives set is the four classical realizations.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["key", "name", "coeff", "structure", "color"],
+        "properties": {
+          "key": { "type": "string", "pattern": "^[A-Za-z0-9_-]+$", "description": "Stable key; matches theoryNotes keys." },
+          "name": { "type": "string", "maxLength": 16, "description": "Short theory name, e.g. 'Betti'." },
+          "coeff": { "type": "string", "maxLength": 30, "description": "Coefficient category, e.g. 'ℚ-vector spaces'. Drawn on the card and wrapped to two lines, so it is length-bounded." },
+          "structure": { "type": "string", "description": "The extra structure this realization carries." },
+          "color": {
+            "type": "string",
+            "enum": ["--cyan", "--green", "--pink", "--yellow", "--blue", "--violet", "--orange"],
+            "description": "CSS palette token for the card accent."
+          }
+        }
+      }
+    }
+  }
+}

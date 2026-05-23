@@ -308,45 +308,104 @@ $$H^n(X; \mathbb{C}) \;=\; \bigoplus_{p+q=n} H^{p,q}(X), \qquad H^{p,q}(X) := H^
 
 <p>The numbers $h^{p,q}(X) := \dim_\mathbb{C} H^{p,q}(X)$ are the <b>Hodge numbers</b>. They sit in the <b>Hodge diamond</b>:</p>
 
-<svg viewBox="0 0 540 320" width="540" height="320" style="margin:1rem auto" role="img" aria-labelledby="hd-svg-title hd-svg-desc">
-  <title id="hd-svg-title">Hodge diamond for a smooth projective surface</title>
-  <desc id="hd-svg-desc">A diamond-shaped grid of Hodge numbers h^{p,q} for a complex surface (d=2): rows are total degree n=0,1,2,3,4 from top to bottom; entries are arranged so that conjugate-symmetric pairs sit symmetrically across the vertical axis. The top and bottom corners are h^{0,0}=h^{2,2}=1; the middle row carries h^{2,0}, h^{1,1}, h^{0,2} with h^{2,0}=h^{0,2} by Hodge symmetry.</desc>
-  <text x="270" y="22" text-anchor="middle" font-size="13" fill="var(--mute)" font-style="italic">
-    Hodge diamond for a smooth projective surface (d = 2)
-  </text>
-  <!-- Row 0: h^{0,0} = 1 -->
-  <circle cx="270" cy="56" r="22" fill="var(--panel2)" stroke="var(--cyan)"/>
-  <text x="270" y="61" text-anchor="middle" font-size="14" font-weight="600">1</text>
-  <text x="270" y="92" text-anchor="middle" font-size="11" fill="var(--mute)">h⁰ᐟ⁰</text>
-  <!-- Row 1: h^{1,0}, h^{0,1} -->
-  <circle cx="220" cy="116" r="22" fill="var(--panel2)" stroke="var(--green)"/>
-  <text x="220" y="121" text-anchor="middle" font-size="14" font-weight="600">q</text>
-  <text x="220" y="152" text-anchor="middle" font-size="11" fill="var(--mute)">h¹ᐟ⁰</text>
-  <circle cx="320" cy="116" r="22" fill="var(--panel2)" stroke="var(--green)"/>
-  <text x="320" y="121" text-anchor="middle" font-size="14" font-weight="600">q</text>
-  <text x="320" y="152" text-anchor="middle" font-size="11" fill="var(--mute)">h⁰ᐟ¹</text>
-  <!-- Row 2: h^{2,0}, h^{1,1}, h^{0,2} -->
-  <circle cx="170" cy="176" r="22" fill="var(--panel2)" stroke="var(--yellow)"/>
-  <text x="170" y="181" text-anchor="middle" font-size="13" font-weight="600">pɡ</text>
-  <text x="170" y="212" text-anchor="middle" font-size="11" fill="var(--mute)">h²ᐟ⁰</text>
-  <circle cx="270" cy="176" r="22" fill="var(--panel2)" stroke="var(--yellow)"/>
-  <text x="270" y="181" text-anchor="middle" font-size="13" font-weight="600">h¹ᐟ¹</text>
-  <text x="270" y="212" text-anchor="middle" font-size="11" fill="var(--mute)">middle</text>
-  <circle cx="370" cy="176" r="22" fill="var(--panel2)" stroke="var(--yellow)"/>
-  <text x="370" y="181" text-anchor="middle" font-size="13" font-weight="600">pɡ</text>
-  <text x="370" y="212" text-anchor="middle" font-size="11" fill="var(--mute)">h⁰ᐟ²</text>
-  <!-- Row 3: h^{2,1}, h^{1,2} -->
-  <circle cx="220" cy="236" r="22" fill="var(--panel2)" stroke="var(--green)"/>
-  <text x="220" y="241" text-anchor="middle" font-size="14" font-weight="600">q</text>
-  <text x="220" y="272" text-anchor="middle" font-size="11" fill="var(--mute)">h²ᐟ¹</text>
-  <circle cx="320" cy="236" r="22" fill="var(--panel2)" stroke="var(--green)"/>
-  <text x="320" y="241" text-anchor="middle" font-size="14" font-weight="600">q</text>
-  <text x="320" y="272" text-anchor="middle" font-size="11" fill="var(--mute)">h¹ᐟ²</text>
-  <!-- Row 4: h^{2,2} = 1 -->
-  <circle cx="270" cy="296" r="22" fill="var(--panel2)" stroke="var(--cyan)"/>
-  <text x="270" y="301" text-anchor="middle" font-size="14" font-weight="600">1</text>
-  <text x="430" y="301" text-anchor="start" font-size="11" fill="var(--mute)">h²ᐟ² (Poincaré dual to h⁰ᐟ⁰)</text>
-</svg>
+<div class="widget" id="w-hodge-diamond">
+  <div class="hd"><div class="ttl">Hodge diamonds — pick a variety</div><div class="hint">rows are degree n = p+q; click an entry for its Hodge-conjugate (green) and Poincaré-dual (cyan) partners</div></div>
+  <div class="row">
+    <label for="w-hodge-diamond-sel">variety</label>
+    <select id="w-hodge-diamond-sel">
+      <option value="p1" selected>P^1 — projective line (d = 1)</option>
+      <option value="genus2">Genus-2 curve (d = 1)</option>
+      <option value="p2">P^2 — projective plane (d = 2)</option>
+      <option value="k3">K3 surface (d = 2)</option>
+      <option value="ab2">Abelian surface (d = 2)</option>
+      <option value="quintic">Quintic Calabi–Yau 3-fold (d = 3)</option>
+    </select>
+  </div>
+  <svg id="w-hodge-diamond-svg" viewBox="0 0 560 380" width="560" height="380" role="img" aria-label="Hodge diamond"><title>Hodge diamond of the selected variety</title></svg>
+  <div class="readout" id="w-hodge-diamond-out"></div>
+</div><script>
+/* hodge-theory-hodge-diamond widget: w-hodge-diamond */
+(function(){
+  var DATA = [{"id":"p1","label":"P^1 — projective line (d = 1)","h":[[1,0],[0,1]],"note":"All cohomology is (p,p)-type — a pure Tate (Hodge–Tate) variety."},{"id":"genus2","label":"Genus-2 curve (d = 1)","h":[[1,2],[2,1]],"note":"h¹⁰ = g = 2 is the genus; b₁ = 2g = 4."},{"id":"p2","label":"P^2 — projective plane (d = 2)","h":[[1,0,0],[0,1,0],[0,0,1]],"note":"Diagonal diamond: hᵖᵖ = 1, the rest 0 — pure Tate type."},{"id":"k3","label":"K3 surface (d = 2)","h":[[1,0,1],[0,20,0],[1,0,1]],"note":"h¹¹ = 20, h²⁰ = 1; Euler characteristic 24."},{"id":"ab2","label":"Abelian surface (d = 2)","h":[[1,2,1],[2,4,2],[1,2,1]],"note":"hᵖ·q = C(2,p)·C(2,q) — the exterior algebra on H¹; χ = 0."},{"id":"quintic","label":"Quintic Calabi–Yau 3-fold (d = 3)","h":[[1,0,0,1],[0,1,101,0],[0,101,1,0],[1,0,0,1]],"note":"h¹¹ = 1, h²¹ = 101; χ = 2(h¹¹ − h²¹) = −200."}];
+  var byId = {}; DATA.forEach(function(v){ byId[v.id] = v; });
+  var sel = document.getElementById('w-hodge-diamond-sel');
+  var svg = document.getElementById('w-hodge-diamond-svg');
+  var out = document.getElementById('w-hodge-diamond-out');
+  if(!sel || !svg || !out) return;
+  var NS = 'http://www.w3.org/2000/svg';
+  var SUP = ['\u2070','\u00b9','\u00b2','\u00b3','\u2074','\u2075','\u2076','\u2077','\u2078'];
+  var SUB = ['\u2080','\u2081','\u2082','\u2083','\u2084','\u2085','\u2086','\u2087','\u2088'];
+  function pqLabel(p,q){ return 'h'+SUP[p]+'\u140f'+SUP[q]; }
+  function mk(tag, attrs, text){
+    var e = document.createElementNS(NS, tag);
+    for(var k in attrs){ e.setAttribute(k, attrs[k]); }
+    if(text != null) e.textContent = text;
+    return e;
+  }
+  var W = 560, H = 380;
+  var picked = null; // {p,q} of the clicked entry
+  function draw(){
+    var v = byId[sel.value] || DATA[0];
+    var h = v.h, d = h.length - 1; // dimension is derived from the matrix, never a separate field
+    function H(p,q){ return (h[p] && h[p][q] != null) ? h[p][q] : 0; } // guards ragged/short rows
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    var dn = Math.max(1, d);
+    var dx = Math.min(52, (W - 130) / (2 * dn));
+    var dy = Math.min(46, (H - 110) / (2 * dn));
+    var r  = Math.min(21, dx * 0.44, dy * 0.46);
+    var cx = W / 2;
+    var top = Math.max(34, (H - 2 * d * dy) / 2); // vertically centre the diamond
+    // partners of the picked entry: conjugate (q,p) and Poincare dual (d-p,d-q)
+    var conj = picked ? {p:picked.q, q:picked.p} : null;
+    var dual = picked ? {p:d-picked.p, q:d-picked.q} : null;
+    function same(a,b){ return a && b && a.p===b.p && a.q===b.q; }
+    for(var p=0; p<=d; p++){
+      for(var q=0; q<=d; q++){
+        var n = p+q;
+        var x = cx + (q - p) * dx;
+        var y = top + n * dy;
+        var here = {p:p,q:q};
+        var stroke = 'var(--line)', sw = '1';
+        if(same(here, picked)){ stroke = 'var(--yellow)'; sw = '2.4'; }
+        else if(same(here, conj)){ stroke = 'var(--green)'; sw = '2.2'; }
+        else if(same(here, dual)){ stroke = 'var(--cyan)'; sw = '2.2'; }
+        var g = mk('g', {'style':'cursor:pointer'});
+        g.setAttribute('data-p', p); g.setAttribute('data-q', q);
+        g.appendChild(mk('circle', {cx:x, cy:y, r:r, fill:'var(--panel2)', stroke:stroke, 'stroke-width':sw}));
+        g.appendChild(mk('text', {x:x, y:y+5, 'text-anchor':'middle', 'font-size':14, 'font-weight':'600', fill:'var(--ink)'}, String(H(p,q))));
+        g.appendChild(mk('text', {x:x, y:y+r+12, 'text-anchor':'middle', 'font-size':10, fill:'var(--mute)'}, pqLabel(p,q)));
+        (function(pp,qq){ g.addEventListener('click', function(){ picked = (picked && picked.p===pp && picked.q===qq) ? null : {p:pp,q:qq}; draw(); }); })(p,q);
+        svg.appendChild(g);
+      }
+    }
+    // readout
+    var betti = [];
+    for(var nn=0; nn<=2*d; nn++){ var s=0; for(var pp=0; pp<=d; pp++){ var qq=nn-pp; if(qq>=0 && qq<=d) s+=H(pp,qq); } betti.push(s); }
+    var total = betti.reduce(function(a,b){return a+b;},0);
+    var euler = betti.reduce(function(a,b,i){ return a + (i%2? -b : b); }, 0);
+    var bettiStr = betti.map(function(b,i){ return 'b'+SUB[i]+'='+b; }).join('  ');
+    // symmetry laws
+    var hodgeOK = true, dualOK = true;
+    for(var a=0; a<=d; a++){ for(var b=0; b<=d; b++){ if(H(a,b)!==H(b,a)) hodgeOK=false; if(H(a,b)!==H(d-a,d-b)) dualOK=false; } }
+    var lines = [];
+    lines.push('Betti numbers (row sums):  ' + bettiStr);
+    lines.push('total dim H* = ' + total + '     Euler characteristic = ' + euler);
+    lines.push('Hodge symmetry  h(p,q)=h(q,p): ' + (hodgeOK?'\u2713':'\u2717') + '     Poincare duality  h(p,q)=h(d\u2212p,d\u2212q): ' + (dualOK?'\u2713':'\u2717'));
+    if(v.note) lines.push(v.note);
+    if(picked){
+      var pv = H(picked.p,picked.q), cv = H(picked.q,picked.p), dv = H(d-picked.p,d-picked.q);
+      lines.push('');
+      lines.push('selected  h(' + picked.p + ',' + picked.q + ') = ' + pv + '   \u2022   conjugate h(' + picked.q + ',' + picked.p + ') = ' + cv + '   \u2022   Poincare-dual h(' + (d-picked.p) + ',' + (d-picked.q) + ') = ' + dv);
+    } else {
+      lines.push('');
+      lines.push('click an entry to light up its Hodge-conjugate (green) and Poincare-dual (cyan) partners');
+    }
+    out.textContent = lines.join('\n');
+  }
+  sel.addEventListener('change', function(){ picked = null; draw(); });
+  draw();
+})();
+</script>
 
 <p>For a surface $X$ (so $d = 2$), the Hodge numbers fill out a $3 \times 3$ array $h^{p,q}$ with $0 \le p, q \le 2$ — <a href="./calabi-yau-manifolds.html#hodge" data-auto-inline-link="1" data-concept-id="cy-hodge-numbers" data-blurb="Hodge numbers $h^{p,q} = \dim H^q(X, \Omega^p)$ form a diamond. For a CY $n$-fold, triviality of $K_X$ gives $h^{n,0} = h^{0,0} = 1$, and Kähler / Serre duality forces $h^{p,q} = h^{q,p} = h^{n-p,n-q}$. For a CY 3-fold the only free entries are $h^{1,1}$ and $h^{2,1}$, and the Euler characteristic is $\chi(X) = 2(h^{1,1} - h^{2,1})$.">the Hodge diamond</a> — with two axes of symmetry: <b>Hodge symmetry</b> $h^{p,q} = h^{q,p}$ (from complex conjugation) and <b><a href="./cohomology-and-duality.html#poincare-duality" data-auto-inline-link="1" data-concept-id="cd-poincare-duality" data-blurb="For a closed oriented $n$-manifold $M$, the cap product with the fundamental class $[M]\in H_n(M)$ is an isomorphism $H^k(M)\cong H_{n-k}(M)$. Lefschetz duality handles the case with boundary. Worked example: a genus-$g$ surface has $b_0=b_2=1$, $b_1=2g$.">Poincaré duality</a></b> $h^{p,q} = h^{d-p, d-q}$. So a surface has at most three independent Hodge numbers: $h^{1,0} = q$ (the irregularity), $h^{2,0} = p_g$ (the geometric genus), and $h^{1,1}$.</p>
 

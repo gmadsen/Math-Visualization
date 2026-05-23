@@ -9418,6 +9418,25 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "hodge-theory-hodge-diamond",
+    "family": "hodge-theory-hodge-diamond",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory",
+    "title": "hodge-theory-hodge-diamond widget params",
+    "description": "Interactive Hodge-diamond explorer. The reader picks a variety from a dropdown and its Hodge numbers h^{p,q} fill a rotated diamond grid; clicking an entry highlights its Hodge-conjugate (q,p) and Poincaré-dual (d-p,d-q) partners, and the readout reports the Betti numbers (row sums), total dimension, Euler characteristic, and a live check of the two symmetry laws. Fully data-driven: each variety carries its complex dimension and a (d+1)x(d+1) matrix of Hodge numbers, so a non-HTML frontend can rebuild the diamond from params alone.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "varieties"
+    ],
+    "readmeExcerpt": "Interactive Hodge-diamond explorer, introduced on `hodge-theory.html` §2 (the Hodge decomposition theorem) to replace the section's static illustrative diamond with a live, data-driven one. Bespoke semantic module — the diamond geometry, Betti/Euler arithmetic, and the two symmetry-law checks are all computed from the per-variety Hodge matrix in `params`, so a non-HTML frontend can rebuild it from the schema alone.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "homotopy-theory-w1",
     "family": "verbatim",
     "dimension": "2d",
@@ -13178,6 +13197,26 @@ window.__MVWidgets = [
       "bodyScript"
     ],
     "readmeExcerpt": "Bespoke widget for the mostow-rigidity topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "motives-realization-comparison",
+    "family": "motives-realization-comparison",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory",
+    "title": "motives-realization-comparison widget params",
+    "description": "Interactive realization-functor explorer for the motives topic. The reader picks a smooth projective variety and sees that all four classical cohomology theories (Betti, algebraic de Rham, ℓ-adic étale, crystalline) assign the SAME Betti numbers b_i — the shared 'motivic skeleton' — while each carries different extra structure (Hodge structure, Hodge filtration, Galois action, Frobenius). Clicking a realization card focuses the readout on that theory's coefficient category and extra structure, with an optional per-variety datum. Data-driven: each variety carries its Betti vector and the four theories carry their descriptors in params, so a non-HTML frontend can rebuild the comparison from the schema alone.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "varieties",
+      "theories"
+    ],
+    "readmeExcerpt": "Interactive realization-functor explorer, introduced on `motives.html` §1 (the cohomology zoo) to give the page its first interactive widget. It complements the section's static factorization diagram (SmProj → Mot(k) → realizations): the diagram motivates *why* a universal cohomology should exist; this widget lets the reader poke concrete varieties and watch the punchline — every realization has the same Betti numbers, only the extra structure differs.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
