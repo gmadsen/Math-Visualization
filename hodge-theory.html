@@ -326,7 +326,7 @@ $$H^n(X; \mathbb{C}) \;=\; \bigoplus_{p+q=n} H^{p,q}(X), \qquad H^{p,q}(X) := H^
 </div><script>
 /* hodge-theory-hodge-diamond widget: w-hodge-diamond */
 (function(){
-  var DATA = [{"id":"p1","label":"P^1 — projective line (d = 1)","d":1,"h":[[1,0],[0,1]],"note":"All cohomology is (p,p)-type — a pure Tate (Hodge–Tate) variety."},{"id":"genus2","label":"Genus-2 curve (d = 1)","d":1,"h":[[1,2],[2,1]],"note":"h¹⁰ = g = 2 is the genus; b₁ = 2g = 4."},{"id":"p2","label":"P^2 — projective plane (d = 2)","d":2,"h":[[1,0,0],[0,1,0],[0,0,1]],"note":"Diagonal diamond: hᵖᵖ = 1, the rest 0 — pure Tate type."},{"id":"k3","label":"K3 surface (d = 2)","d":2,"h":[[1,0,1],[0,20,0],[1,0,1]],"note":"h¹¹ = 20, h²⁰ = 1; Euler characteristic 24."},{"id":"ab2","label":"Abelian surface (d = 2)","d":2,"h":[[1,2,1],[2,4,2],[1,2,1]],"note":"hᵖq = C(2,p)·C(2,q) — the exterior algebra on H¹; χ = 0."},{"id":"quintic","label":"Quintic Calabi–Yau 3-fold (d = 3)","d":3,"h":[[1,0,0,1],[0,1,101,0],[0,101,1,0],[1,0,0,1]],"note":"h¹¹ = 1, h²¹ = 101; χ = 2(h¹¹ − h²¹) = −200."}];
+  var DATA = [{"id":"p1","label":"P^1 — projective line (d = 1)","h":[[1,0],[0,1]],"note":"All cohomology is (p,p)-type — a pure Tate (Hodge–Tate) variety."},{"id":"genus2","label":"Genus-2 curve (d = 1)","h":[[1,2],[2,1]],"note":"h¹⁰ = g = 2 is the genus; b₁ = 2g = 4."},{"id":"p2","label":"P^2 — projective plane (d = 2)","h":[[1,0,0],[0,1,0],[0,0,1]],"note":"Diagonal diamond: hᵖᵖ = 1, the rest 0 — pure Tate type."},{"id":"k3","label":"K3 surface (d = 2)","h":[[1,0,1],[0,20,0],[1,0,1]],"note":"h¹¹ = 20, h²⁰ = 1; Euler characteristic 24."},{"id":"ab2","label":"Abelian surface (d = 2)","h":[[1,2,1],[2,4,2],[1,2,1]],"note":"hᵖq = C(2,p)·C(2,q) — the exterior algebra on H¹; χ = 0."},{"id":"quintic","label":"Quintic Calabi–Yau 3-fold (d = 3)","h":[[1,0,0,1],[0,1,101,0],[0,101,1,0],[1,0,0,1]],"note":"h¹¹ = 1, h²¹ = 101; χ = 2(h¹¹ − h²¹) = −200."}];
   var byId = {}; DATA.forEach(function(v){ byId[v.id] = v; });
   var sel = document.getElementById('w-hodge-diamond-sel');
   var svg = document.getElementById('w-hodge-diamond-svg');
@@ -346,7 +346,8 @@ $$H^n(X; \mathbb{C}) \;=\; \bigoplus_{p+q=n} H^{p,q}(X), \qquad H^{p,q}(X) := H^
   var picked = null; // {p,q} of the clicked entry
   function draw(){
     var v = byId[sel.value] || DATA[0];
-    var d = v.d, h = v.h;
+    var h = v.h, d = h.length - 1; // dimension is derived from the matrix, never a separate field
+    function H(p,q){ return (h[p] && h[p][q] != null) ? h[p][q] : 0; } // guards ragged/short rows
     while(svg.firstChild) svg.removeChild(svg.firstChild);
     var dn = Math.max(1, d);
     var dx = Math.min(52, (W - 130) / (2 * dn));
@@ -371,7 +372,7 @@ $$H^n(X; \mathbb{C}) \;=\; \bigoplus_{p+q=n} H^{p,q}(X), \qquad H^{p,q}(X) := H^
         var g = mk('g', {'style':'cursor:pointer'});
         g.setAttribute('data-p', p); g.setAttribute('data-q', q);
         g.appendChild(mk('circle', {cx:x, cy:y, r:r, fill:'var(--panel2)', stroke:stroke, 'stroke-width':sw}));
-        g.appendChild(mk('text', {x:x, y:y+5, 'text-anchor':'middle', 'font-size':14, 'font-weight':'600', fill:'var(--ink)'}, String(h[p][q])));
+        g.appendChild(mk('text', {x:x, y:y+5, 'text-anchor':'middle', 'font-size':14, 'font-weight':'600', fill:'var(--ink)'}, String(H(p,q))));
         g.appendChild(mk('text', {x:x, y:y+r+12, 'text-anchor':'middle', 'font-size':10, fill:'var(--mute)'}, pqLabel(p,q)));
         (function(pp,qq){ g.addEventListener('click', function(){ picked = (picked && picked.p===pp && picked.q===qq) ? null : {p:pp,q:qq}; draw(); }); })(p,q);
         svg.appendChild(g);
@@ -379,20 +380,20 @@ $$H^n(X; \mathbb{C}) \;=\; \bigoplus_{p+q=n} H^{p,q}(X), \qquad H^{p,q}(X) := H^
     }
     // readout
     var betti = [];
-    for(var nn=0; nn<=2*d; nn++){ var s=0; for(var pp=0; pp<=d; pp++){ var qq=nn-pp; if(qq>=0 && qq<=d) s+=h[pp][qq]; } betti.push(s); }
+    for(var nn=0; nn<=2*d; nn++){ var s=0; for(var pp=0; pp<=d; pp++){ var qq=nn-pp; if(qq>=0 && qq<=d) s+=H(pp,qq); } betti.push(s); }
     var total = betti.reduce(function(a,b){return a+b;},0);
     var euler = betti.reduce(function(a,b,i){ return a + (i%2? -b : b); }, 0);
     var bettiStr = betti.map(function(b,i){ return 'b'+SUB[i]+'='+b; }).join('  ');
     // symmetry laws
     var hodgeOK = true, dualOK = true;
-    for(var a=0; a<=d; a++){ for(var b=0; b<=d; b++){ if(h[a][b]!==h[b][a]) hodgeOK=false; if(h[a][b]!==h[d-a][d-b]) dualOK=false; } }
+    for(var a=0; a<=d; a++){ for(var b=0; b<=d; b++){ if(H(a,b)!==H(b,a)) hodgeOK=false; if(H(a,b)!==H(d-a,d-b)) dualOK=false; } }
     var lines = [];
     lines.push('Betti numbers (row sums):  ' + bettiStr);
     lines.push('total dim H* = ' + total + '     Euler characteristic = ' + euler);
     lines.push('Hodge symmetry  h(p,q)=h(q,p): ' + (hodgeOK?'\u2713':'\u2717') + '     Poincare duality  h(p,q)=h(d\u2212p,d\u2212q): ' + (dualOK?'\u2713':'\u2717'));
     if(v.note) lines.push(v.note);
     if(picked){
-      var pv = h[picked.p][picked.q], cv = h[picked.q][picked.p], dv = h[d-picked.p][d-picked.q];
+      var pv = H(picked.p,picked.q), cv = H(picked.q,picked.p), dv = H(d-picked.p,d-picked.q);
       lines.push('');
       lines.push('selected  h(' + picked.p + ',' + picked.q + ') = ' + pv + '   \u2022   conjugate h(' + picked.q + ',' + picked.p + ') = ' + cv + '   \u2022   Poincare-dual h(' + (d-picked.p) + ',' + (d-picked.q) + ') = ' + dv);
     } else {

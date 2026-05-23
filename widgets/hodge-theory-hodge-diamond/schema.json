@@ -37,7 +37,7 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["id", "label", "d", "h"],
+        "required": ["id", "label", "h"],
         "properties": {
           "id": {
             "type": "string",
@@ -48,16 +48,10 @@
             "type": "string",
             "description": "Plain-text dropdown label (no LaTeX — native <option> renders as plain text)."
           },
-          "d": {
-            "type": "integer",
-            "minimum": 0,
-            "maximum": 4,
-            "description": "Complex dimension of the variety; the diamond is a (d+1)x(d+1) grid."
-          },
           "h": {
             "type": "array",
             "minItems": 1,
-            "description": "Hodge numbers as a (d+1)x(d+1) matrix h[p][q] = dim H^q(X, Omega^p). Row index is p, column index is q.",
+            "description": "Hodge numbers as a square matrix h[p][q] = dim H^q(X, Omega^p), row index p, column index q. The complex dimension d is derived as h.length - 1 (no separate d field, so the two cannot disagree); the matrix is expected square, each row having h.length entries.",
             "items": {
               "type": "array",
               "minItems": 1,

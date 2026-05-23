@@ -29,7 +29,7 @@ See [`schema.json`](./schema.json) for the authoritative shape. Required fields:
 | `widgetId` | string | DOM id for the outer `<div class="widget">`; the script derives `${widgetId}-sel/-svg/-out`. |
 | `title`    | string | Header title. |
 | `hint`     | string (optional) | Short hint next to the title. |
-| `varieties` | array | Case library. Each item: `id` (option value), `label` (plain-text dropdown label — no LaTeX), `d` (complex dimension), `h` (a `(d+1)×(d+1)` matrix `h[p][q]`), optional `note` (one-line fact shown in the readout). |
+| `varieties` | array | Case library. Each item: `id` (option value), `label` (plain-text dropdown label — no LaTeX), `h` (a square matrix `h[p][q]`; the complex dimension `d` is derived as `h.length - 1`), optional `note` (one-line fact shown in the readout). |
 
 ## Usage
 
@@ -42,7 +42,7 @@ Add a `widget` block plus a ref-based `widget-script` block to
     "title": "Hodge diamonds — pick a variety",
     "hint": "rows are degree n = p+q; click an entry for its symmetry partners",
     "varieties": [
-      { "id": "p1", "label": "ℙ¹ — projective line (d = 1)", "d": 1, "h": [[1,0],[0,1]], "note": "All cohomology is (p,p)-type — pure Tate." }
+      { "id": "p1", "label": "ℙ¹ — projective line (d = 1)", "h": [[1,0],[0,1]], "note": "All cohomology is (p,p)-type — pure Tate." }
     ] } },
 { "type": "widget-script", "ref": "w-hodge-diamond" }
 ```
