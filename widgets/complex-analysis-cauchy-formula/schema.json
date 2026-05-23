@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/complex-analysis-cauchy-formula/schema.json",
+  "title": "complex-analysis-cauchy-formula widget params",
+  "description": "Cauchy-integral-formula explorer. The reader picks a holomorphic f and slides a base point a along the real axis; the widget numerically evaluates (1/2πi)∮_C f(z)/(z−a) dz around a fixed circle C and shows it equals f(a) when a is INSIDE C and 0 when a is OUTSIDE — the contour integral reads off the value of f at the enclosed point. The function eval + numerical integral are intrinsic (a `kind` enum); params carry the case menu.",
+  "meta": {
+    "family": "complex-analysis-cauchy-formula",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["widgetId", "title", "functions"],
+  "properties": {
+    "widgetId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id; the script derives -sel/-a/-svg/-out." },
+    "title": { "type": "string", "description": "Display title rendered inside .hd > .ttl." },
+    "hint": { "type": "string", "description": "Optional short hint rendered inside .hd > .hint." },
+    "functions": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 6,
+      "description": "Each holomorphic function offered in the dropdown.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "label", "kind"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[A-Za-z0-9_-]+$", "description": "Stable option value." },
+          "label": { "type": "string", "description": "Plain-text dropdown label, e.g. 'e^z'." },
+          "kind": {
+            "type": "string",
+            "enum": ["z", "z2", "ez", "cosz"],
+            "description": "Which holomorphic f to evaluate (and recover via the formula)."
+          },
+          "note": { "type": "string", "maxLength": 110, "description": "Optional plain-text remark about this case." }
+        }
+      }
+    }
+  }
+}

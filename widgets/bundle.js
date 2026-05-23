@@ -3442,6 +3442,44 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "complex-analysis-cauchy-formula",
+    "family": "complex-analysis-cauchy-formula",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory",
+    "title": "complex-analysis-cauchy-formula widget params",
+    "description": "Cauchy-integral-formula explorer. The reader picks a holomorphic f and slides a base point a along the real axis; the widget numerically evaluates (1/2πi)∮_C f(z)/(z−a) dz around a fixed circle C and shows it equals f(a) when a is INSIDE C and 0 when a is OUTSIDE — the contour integral reads off the value of f at the enclosed point. The function eval + numerical integral are intrinsic (a `kind` enum); params carry the case menu.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "functions"
+    ],
+    "readmeExcerpt": "Cauchy-integral-formula explorer, introduced on `complex-analysis.html` §10. Bespoke semantic module — the function eval and the numerical Cauchy integral are intrinsic (a `kind` enum); params carry only the case menu.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "complex-analysis-cauchy-theorem",
+    "family": "complex-analysis-cauchy-theorem",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory",
+    "title": "complex-analysis-cauchy-theorem widget params",
+    "description": "Cauchy's-theorem contour-integral explorer. The reader picks a function f and a deformation amount that wobbles a closed contour C (keeping the origin enclosed); the widget numerically evaluates the contour integral ∮_C f dz and shows it (a) vanishes whenever f is holomorphic inside C, and (b) is invariant under deforming C within the holomorphic region. A pole inside (1/z → 2πi) and a pole outside (1/(z−1.6) → still 0) bracket the hypothesis. The function eval + numerical contour integral are intrinsic (a `kind` enum); params carry the case menu.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "functions"
+    ],
+    "readmeExcerpt": "Cauchy's-theorem contour-integral explorer, introduced on `complex-analysis.html` §9. Bespoke semantic module — the function eval and the numerical contour integral are intrinsic (a `kind` enum); params carry only the case menu.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "complex-analysis-conformal-map",
     "family": "complex-analysis-conformal-map",
     "dimension": "2d",

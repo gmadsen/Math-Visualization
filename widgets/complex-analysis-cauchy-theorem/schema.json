@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/complex-analysis-cauchy-theorem/schema.json",
+  "title": "complex-analysis-cauchy-theorem widget params",
+  "description": "Cauchy's-theorem contour-integral explorer. The reader picks a function f and a deformation amount that wobbles a closed contour C (keeping the origin enclosed); the widget numerically evaluates the contour integral ∮_C f dz and shows it (a) vanishes whenever f is holomorphic inside C, and (b) is invariant under deforming C within the holomorphic region. A pole inside (1/z → 2πi) and a pole outside (1/(z−1.6) → still 0) bracket the hypothesis. The function eval + numerical contour integral are intrinsic (a `kind` enum); params carry the case menu.",
+  "meta": {
+    "family": "complex-analysis-cauchy-theorem",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["widgetId", "title", "functions"],
+  "properties": {
+    "widgetId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id; the script derives -sel/-d/-svg/-out." },
+    "title": { "type": "string", "description": "Display title rendered inside .hd > .ttl." },
+    "hint": { "type": "string", "description": "Optional short hint rendered inside .hd > .hint." },
+    "functions": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 7,
+      "description": "Each function offered in the dropdown.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "label", "kind"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[A-Za-z0-9_-]+$", "description": "Stable option value." },
+          "label": { "type": "string", "description": "Plain-text dropdown label, e.g. 'e^z'." },
+          "kind": {
+            "type": "string",
+            "enum": ["z", "z2", "ez", "sinz", "inv_z", "inv_zm"],
+            "description": "Which f to evaluate. inv_z = 1/z (pole at 0, inside); inv_zm = 1/(z-1.6) (pole at 1.6, outside)."
+          },
+          "note": { "type": "string", "maxLength": 110, "description": "Optional plain-text remark about this case." }
+        }
+      }
+    }
+  }
+}
