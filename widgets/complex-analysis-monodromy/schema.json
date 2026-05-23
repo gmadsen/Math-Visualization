@@ -33,7 +33,7 @@
             "enum": ["sqrt", "cbrt", "log"],
             "description": "Which continuation: √z, z^{1/3}, or log z."
           },
-          "monodromy": { "type": "string", "maxLength": 80, "description": "Plain-text statement of the per-loop monodromy." }
+          "monodromy": { "type": "string", "maxLength": 110, "description": "Plain-text statement of the per-loop monodromy." }
         }
       }
     }
