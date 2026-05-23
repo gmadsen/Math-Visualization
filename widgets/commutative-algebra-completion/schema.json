@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/commutative-algebra-completion/schema.json",
+  "title": "commutative-algebra-completion widget params",
+  "description": "p-adic completion explorer realizing ℤ_p = lim ℤ/pⁿ. Pick a prime p ∈ {2,3,5,7} and an element (−1, 13, or 1/(1−p)); the widget shows the p-adic digit expansion Σ d_k pᵏ and the tower of coherent residues r_n = element mod pⁿ with r_{n+1} ≡ r_n (mod pⁿ). −1 is the all-(p−1) expansion, 1/(1−p)=1+p+p²+… is the all-1 expansion, and 13 is an ordinary integer whose tower stabilizes. Readout covers faithful flatness, Krull intersection, and Hensel's lemma. Arithmetic is intrinsic; params carry only chrome.",
+  "meta": {
+    "family": "commutative-algebra-completion",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id; the script derives -svg/-out and the prime/element button ids."
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title rendered inside .hd > .ttl."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional short hint rendered inside .hd > .hint."
+    }
+  }
+}
