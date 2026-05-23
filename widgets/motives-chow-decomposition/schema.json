@@ -39,7 +39,7 @@
               "required": ["label", "degree", "dim", "kind"],
               "properties": {
                 "label": { "type": "string", "maxLength": 16, "description": "Short plain-text name, e.g. '𝟙', '𝕃', '𝕃²', 'h¹(C)'." },
-                "degree": { "type": "integer", "minimum": 0, "description": "Cohomological degree H^degree this piece realizes into." },
+                "degree": { "type": "integer", "minimum": 0, "maximum": 16, "description": "Cohomological degree H^degree this piece realizes into (bounded so the Betti readout loop stays short)." },
                 "dim": { "type": "integer", "minimum": 1, "description": "Dimension of one copy of this piece." },
                 "mult": { "type": "integer", "minimum": 1, "default": 1, "description": "Multiplicity (number of copies in the decomposition)." },
                 "kind": { "type": "string", "enum": ["tate", "transcendental"], "description": "tate = a Tate motive 𝕃^i (type (i,i)); transcendental = an h^1-type piece." }
