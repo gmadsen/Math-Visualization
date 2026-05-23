@@ -3461,6 +3461,43 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "complex-analysis-riemann-sphere",
+    "family": "complex-analysis-riemann-sphere",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory",
+    "title": "complex-analysis-riemann-sphere widget params",
+    "description": "Stereographic-projection visualizer for the Riemann sphere. The unit-diameter sphere sits tangent to the plane at the origin; the reader moves a point z in the plane (modulus + argument sliders, or a preset), and the widget projects it from the north pole to its image on the sphere, drawn in a fixed oblique 3-D view. As |z|→∞ the image climbs to the north pole (= ∞); |z|=1 lands on the equator. The geometry is intrinsic; params carry only optional preset points.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Stereographic-projection visualizer for the Riemann sphere, introduced on `complex-analysis.html` §2. Bespoke semantic module — stereographic projection and the fixed oblique 3-D drawing are intrinsic; params carry only optional presets.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "complex-analysis-singularity-zoo",
+    "family": "complex-analysis-singularity-zoo",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory",
+    "title": "complex-analysis-singularity-zoo widget params",
+    "description": "Isolated-singularity classifier. The reader picks a function with a singularity at 0 (removable, a pole, or essential) and shrinks the radius r of a small circle |z|=r; the widget plots the image f(|z|=r) in the w-plane and tracks max|f| as r→0. Removable stays bounded, a pole grows like r^{-k}, and an essential singularity sweeps a wild, ever-widening curve (Casorati–Weierstrass / Picard). The function evaluation is intrinsic (a `kind` enum); params carry the menu and the per-function classification text.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "functions"
+    ],
+    "readmeExcerpt": "Isolated-singularity classifier, introduced on `complex-analysis.html` §18. Bespoke semantic module — complex evaluation + plotting are intrinsic (a `kind` enum); params carry the function menu and the classification text.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "complex-multiplication-w1",
     "family": "verbatim",
     "dimension": "2d",
