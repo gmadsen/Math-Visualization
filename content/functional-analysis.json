@@ -437,7 +437,7 @@
               {
                 "id": "bs",
                 "name": "Banach–Steinhaus",
-                "input": "a family {Tᵢ} that is pointwise bounded (sup ‖Tᵢ x‖ < ∞ ∀x)",
+                "input": "a family {Tᵢ} on a Banach space X, pointwise bounded (sup ‖Tᵢ x‖ < ∞ ∀x)",
                 "output": "a uniform bound (sup ‖Tᵢ‖ < ∞)",
                 "statement": "The uniform boundedness principle: pointwise bounds on a family of operators upgrade to a single operator-norm bound.",
                 "poweredBy": "Baire category"
