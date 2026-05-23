@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/complex-analysis-open-mapping/schema.json",
+  "title": "complex-analysis-open-mapping widget params",
+  "description": "Open-mapping-theorem explorer. A small disk around z0 is shown beside its image under f. For a non-constant holomorphic f the image of the disk's boundary winds around f(z0), so f(z0) lies in the INTERIOR of the image — the image is open. The widget reports that winding number. The non-holomorphic Re(z) and |z| collapse the disk to a segment (winding 0, f(z0) on the boundary) — they are not open maps, illustrating that the open-mapping theorem genuinely needs holomorphy. The function eval + winding count are intrinsic (a `kind` enum); params carry the case menu.",
+  "meta": {
+    "family": "complex-analysis-open-mapping",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["widgetId", "title", "functions"],
+  "properties": {
+    "widgetId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id; the script derives -sel/-c/-r/-svg/-out." },
+    "title": { "type": "string", "description": "Display title rendered inside .hd > .ttl." },
+    "hint": { "type": "string", "description": "Optional short hint rendered inside .hd > .hint." },
+    "functions": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 6,
+      "description": "Each map offered in the dropdown.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "label", "kind"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[A-Za-z0-9_-]+$", "description": "Stable option value." },
+          "label": { "type": "string", "description": "Plain-text dropdown label, e.g. 'z^2'." },
+          "kind": {
+            "type": "string",
+            "enum": ["z2", "z3", "ez", "re", "abs"],
+            "description": "Which map to apply. re = Re(z) and abs = |z| are not holomorphic (image collapses to a segment)."
+          },
+          "note": { "type": "string", "maxLength": 110, "description": "Optional plain-text remark about this case." }
+        }
+      }
+    }
+  }
+}

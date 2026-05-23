@@ -701,6 +701,109 @@ const C = {
 <p>exists, with the limit taken over <em>all</em> ways $h\to 0$ in $\mathbb{C}$. The single complex limit packs in every approach direction at once — the source of the rigidity. Equivalently (§5), $f = u+iv$ with $u_x = v_y$ and $u_y = -v_x$ (Cauchy–Riemann); equivalently again, $Df(z_0)$ is a rotation–scaling, the amplitwist.</p>
 <p><strong>Examples.</strong> Polynomials and power series are holomorphic on their disk of convergence; $e^z$, $\sin z$, $\cos z$ are entire; $1/z$ is holomorphic on $\mathbb{C}\setminus\{0\}$; the principal branch of $\log z$ is holomorphic on $\mathbb{C}\setminus(-\infty,0]$. <strong>Non-examples.</strong> $\bar z$, $|z|^2$, and $\Re z$ are smooth as maps $\mathbb{R}^2\to\mathbb{R}^2$ but fail Cauchy–Riemann; their differential at every point includes a reflection or projection, not a similarity.</p>
 <p>The amplitwist picture is what makes complex analysis qualitatively different from $\mathbb{R}^2$ analysis. Every theorem we are about to see is, in some sense, a topological consequence of "all infinitesimal motion is rotation + scaling." Cauchy's theorem (§9) says the closed-loop integral of a holomorphic function vanishes; the integral formula (§10) recovers interior values from boundary data; analyticity (§11) upgrades "once differentiable" to "infinitely differentiable, equal to its Taylor series." None of these have analogues for merely smooth $\mathbb{R}^2$-valued maps.</p>
+
+<div class="widget" id="w-conformal-grid">
+  <div class="hd"><div class="ttl">Holomorphic = conformal: the grid stays orthogonal</div><div class="hint">Holomorphic maps preserve angles; the image gridlines still cross at 90°.</div></div>
+  <div class="row">
+    <label for="w-conformal-grid-sel">map $f(z)$</label>
+    <select id="w-conformal-grid-sel">
+      <option value="z2" selected>z²</option>
+      <option value="ez">e^z</option>
+      <option value="inv_z">1/z</option>
+      <option value="conj">z̄  (conjugate)</option>
+      <option value="redouble">2·Re(z)</option>
+    </select>
+    <label for="w-conformal-grid-t">sample point</label>
+    <input type="range" id="w-conformal-grid-t" min="0" max="1" value="0.4" step="0.02">
+  </div>
+  <svg id="w-conformal-grid-svg" viewBox="0 0 540 280" width="540" height="280" role="img" aria-label="A grid in the z-plane and its image under f, with one crossing highlighted"><title>Conformality: a holomorphic map sends the orthogonal grid to a grid that still crosses at right angles</title></svg>
+  <div class="readout" id="w-conformal-grid-out"></div>
+</div><script>
+/* complex-analysis-conformal-grid widget: w-conformal-grid */
+(function(){
+  var FNS = [{"id":"z2","label":"z²","kind":"z2","note":"Holomorphic: the squared grid bends but every crossing stays a right angle."},{"id":"ez","label":"e^z","kind":"ez","note":"Holomorphic: vertical lines → circles, horizontal lines → rays, still orthogonal."},{"id":"inv_z","label":"1/z","kind":"inv_z","note":"Holomorphic away from 0: a Möbius-type map, conformal everywhere it is defined."},{"id":"conj","label":"z̄  (conjugate)","kind":"conj","note":"Anti-conformal: angle size preserved, orientation flipped — fails Cauchy–Riemann."},{"id":"redouble","label":"2·Re(z)","kind":"redouble","note":"Real-linear, not complex-differentiable: it flattens the grid onto a line."}];
+  var byId = {}; FNS.forEach(function(g){ byId[g.id] = g; });
+  var sel = document.getElementById('w-conformal-grid-sel');
+  var tIn = document.getElementById('w-conformal-grid-t');
+  var svg = document.getElementById('w-conformal-grid-svg');
+  var out = document.getElementById('w-conformal-grid-out');
+  if(!sel || !tIn || !svg || !out) return;
+  var NS = 'http://www.w3.org/2000/svg';
+  function mk(tag, attrs, text){ var e = document.createElementNS(NS, tag); for(var k in attrs){ e.setAttribute(k, attrs[k]); } if(text!=null) e.textContent = text; return e; }
+  function cmul(p,q){ return [p[0]*q[0]-p[1]*q[1], p[0]*q[1]+p[1]*q[0]]; }
+  function cdiv(p,q){ var d=q[0]*q[0]+q[1]*q[1]; return [(p[0]*q[0]+p[1]*q[1])/d, (p[1]*q[0]-p[0]*q[1])/d]; }
+  function cexp(p){ var e=Math.exp(p[0]); return [e*Math.cos(p[1]), e*Math.sin(p[1])]; }
+  function feval(kind, z){
+    if(kind==='z2') return cmul(z,z);
+    if(kind==='ez') return cexp(z);
+    if(kind==='inv_z') return cdiv([1,0], z);
+    if(kind==='conj') return [z[0], -z[1]];
+    if(kind==='redouble') return [2*z[0], 0];
+    return z;
+  }
+  var X0=0.4, X1=1.9, Y0=-0.75, Y1=0.75, NX=7, NY=7, SN=40;
+  var Lcx=136, Lcy=140, SCD=78;
+  function DX(x){ return Lcx + (x-(X0+X1)/2)*SCD; } function DY(y){ return Lcy - y*SCD; }
+  function vLine(x){ var pts=[], i, y; for(i=0;i<=SN;i++){ y=Y0+(Y1-Y0)*i/SN; pts.push([x,y]); } return pts; }
+  function hLine(y){ var pts=[], i, x; for(i=0;i<=SN;i++){ x=X0+(X1-X0)*i/SN; pts.push([x,y]); } return pts; }
+  function draw(){
+    var g = byId[sel.value] || FNS[0], t = +tIn.value;
+    var px = X0 + t*(X1-X0), py = Y0 + t*(Y1-Y0);
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    // collect all gridlines (domain space)
+    var V=[], H=[], i;
+    for(i=0;i<NX;i++) V.push(vLine(X0+(X1-X0)*i/(NX-1)));
+    for(i=0;i<NY;i++) H.push(hLine(Y0+(Y1-Y0)*i/(NY-1)));
+    // image points + bbox
+    var xmin=1e9, xmax=-1e9, ymin=1e9, ymax=-1e9;
+    function img(line){ return line.map(function(p){ var w=feval(g.kind, p); if(w[0]<xmin)xmin=w[0]; if(w[0]>xmax)xmax=w[0]; if(w[1]<ymin)ymin=w[1]; if(w[1]>ymax)ymax=w[1]; return w; }); }
+    var Vi=V.map(img), Hi=H.map(img);
+    var hpV = vLine(px), hpH = hLine(py); var hpVi=img(hpV), hpHi=img(hpH);
+    var w=Math.max(xmax-xmin, 1e-3), h=Math.max(ymax-ymin, 1e-3);
+    var SCI=Math.min(224/w, 150/h), Rcx=408, Rcy=140, cxI=(xmin+xmax)/2, cyI=(ymin+ymax)/2;
+    function IX(p){ return Rcx + (p[0]-cxI)*SCI; } function IY(p){ return Rcy - (p[1]-cyI)*SCI; }
+    function poly(line, tf, attrs){ var pts=line.map(function(p){ return tf===0?(DX(p[0]).toFixed(1)+','+DY(p[1]).toFixed(1)):(IX(p).toFixed(1)+','+IY(p).toFixed(1)); }); svg.appendChild(mk('polyline', Object.assign({points:pts.join(' '), fill:'none'}, attrs))); }
+    // faint grids
+    V.forEach(function(l){ poly(l, 0, {stroke:'var(--line)', 'stroke-width':1}); });
+    H.forEach(function(l){ poly(l, 0, {stroke:'var(--line)', 'stroke-width':1}); });
+    Vi.forEach(function(l){ poly(l, 1, {stroke:'var(--line)', 'stroke-width':1}); });
+    Hi.forEach(function(l){ poly(l, 1, {stroke:'var(--line)', 'stroke-width':1}); });
+    // highlighted lines
+    poly(hpV, 0, {stroke:'var(--yellow)', 'stroke-width':2}); poly(hpH, 0, {stroke:'var(--cyan)', 'stroke-width':2});
+    poly(hpVi, 1, {stroke:'var(--yellow)', 'stroke-width':2}); poly(hpHi, 1, {stroke:'var(--cyan)', 'stroke-width':2});
+    // crossing dots
+    var v=[px,py], vi=feval(g.kind, v);
+    svg.appendChild(mk('circle', {cx:DX(px), cy:DY(py), r:4, fill:'var(--pink)'}));
+    svg.appendChild(mk('circle', {cx:IX(vi), cy:IY(vi), r:4, fill:'var(--pink)'}));
+    svg.appendChild(mk('text', {x:136, y:18, 'text-anchor':'middle', 'font-size':11, fill:'var(--mute)', 'font-style':'italic'}, 'z-plane (grid)'));
+    svg.appendChild(mk('text', {x:408, y:18, 'text-anchor':'middle', 'font-size':11, fill:'var(--mute)', 'font-style':'italic'}, 'image under f'));
+    // measure image crossing angle via finite-difference tangents at v
+    var e=1e-4;
+    var th=[ (feval(g.kind,[px+e,py])[0]-feval(g.kind,[px-e,py])[0]), (feval(g.kind,[px+e,py])[1]-feval(g.kind,[px-e,py])[1]) ];
+    var tv=[ (feval(g.kind,[px,py+e])[0]-feval(g.kind,[px,py-e])[0]), (feval(g.kind,[px,py+e])[1]-feval(g.kind,[px,py-e])[1]) ];
+    var mh=Math.hypot(th[0],th[1]), mv=Math.hypot(tv[0],tv[1]);
+    var lines = [];
+    if(mh<1e-9 || mv<1e-9){
+      lines.push('The image collapses to a line: at least one grid direction is flattened, so angles are destroyed.');
+      lines.push('2\u00b7Re(z) is real-linear but NOT complex-differentiable \u2014 it is not holomorphic and not conformal.');
+    } else {
+      var cross=th[0]*tv[1]-th[1]*tv[0], dot=th[0]*tv[0]+th[1]*tv[1];
+      var ang=Math.atan2(cross, dot)*180/Math.PI;
+      lines.push('Domain: the gridlines cross at +90\u00b0.   Image: they cross at ' + ang.toFixed(1) + '\u00b0.');
+      if(g.kind==='conj'){
+        lines.push('\u2248 \u221290\u00b0: conjugation preserves the angle\u2019s SIZE but reverses orientation (anti-conformal). It fails the Cauchy\u2013Riemann equations \u2014 not holomorphic.');
+      } else {
+        lines.push('\u2248 +90\u00b0: f is holomorphic, hence CONFORMAL \u2014 it preserves angles and orientation. Near each point f acts as multiplication by f\u2032(z): a rotation by arg f\u2032 and a scaling by |f\u2032| (the amplitwist). That is the geometry of the Cauchy\u2013Riemann equations.');
+      }
+    }
+    if(g.note) lines.push(g.note);
+    out.textContent = lines.join('\n');
+  }
+  sel.addEventListener('change', draw); tIn.addEventListener('input', draw);
+  draw();
+})();
+</script>
+
 <div class="quiz" data-concept="holomorphic-function"></div><!-- backlinks-auto-begin -->
 <aside class="related">
   <div class="ttl">Used in</div>
@@ -1338,6 +1441,98 @@ const C = {
 </ul>
 
 <p>Open mapping plus maximum modulus together encode the rigidity of holomorphy at the topological / algebraic level: holomorphic maps either freeze (constant) or spread (open). No middle behavior. The same dichotomy reappears one variable up as Hartogs's extension theorem in <a href="./advanced-complex-analysis.html#scv">several complex variables</a> — extension is forced because the alternatives are too rigid.</p>
+
+
+<div class="widget" id="w-open-mapping">
+  <div class="hd"><div class="ttl">Open mapping: the image of a disk is open</div><div class="hint">For holomorphic f, f(z₀) lands in the interior of the image of any disk.</div></div>
+  <div class="row">
+    <label for="w-open-mapping-sel">map $f(z)$</label>
+    <select id="w-open-mapping-sel">
+      <option value="z2" selected>z²</option>
+      <option value="z3">z³</option>
+      <option value="ez">e^z</option>
+      <option value="re">Re(z)  (not holomorphic)</option>
+      <option value="abs">|z|  (not holomorphic)</option>
+    </select>
+    <label for="w-open-mapping-c">center $x$</label>
+    <input type="range" id="w-open-mapping-c" min="0.3" max="1.8" value="1" step="0.05">
+    <label for="w-open-mapping-r">radius</label>
+    <input type="range" id="w-open-mapping-r" min="0.1" max="0.5" value="0.3" step="0.02">
+  </div>
+  <svg id="w-open-mapping-svg" viewBox="0 0 540 280" width="540" height="280" role="img" aria-label="A disk around z0 and its image under f"><title>Open mapping theorem: a non-constant holomorphic map sends the open disk to an open set</title></svg>
+  <div class="readout" id="w-open-mapping-out"></div>
+</div><script>
+/* complex-analysis-open-mapping widget: w-open-mapping */
+(function(){
+  var FNS = [{"id":"z2","label":"z²","kind":"z2","note":"Holomorphic: the disk maps to an open blob with f(z₀) strictly inside."},{"id":"z3","label":"z³","kind":"z3"},{"id":"ez","label":"e^z","kind":"ez","note":"Holomorphic and locally injective: the image is an open region."},{"id":"re","label":"Re(z)  (not holomorphic)","kind":"re","note":"Projects the disk onto the real axis — a segment, not an open set."},{"id":"abs","label":"|z|  (not holomorphic)","kind":"abs","note":"Sends the disk to an interval of radii — again 1-dimensional, not open."}];
+  var byId = {}; FNS.forEach(function(g){ byId[g.id] = g; });
+  var sel = document.getElementById('w-open-mapping-sel');
+  var cIn = document.getElementById('w-open-mapping-c'), rIn = document.getElementById('w-open-mapping-r');
+  var svg = document.getElementById('w-open-mapping-svg');
+  var out = document.getElementById('w-open-mapping-out');
+  if(!sel || !cIn || !rIn || !svg || !out) return;
+  var NS = 'http://www.w3.org/2000/svg';
+  function mk(tag, attrs, text){ var e = document.createElementNS(NS, tag); for(var k in attrs){ e.setAttribute(k, attrs[k]); } if(text!=null) e.textContent = text; return e; }
+  function cmul(p,q){ return [p[0]*q[0]-p[1]*q[1], p[0]*q[1]+p[1]*q[0]]; }
+  function cexp(p){ var e=Math.exp(p[0]); return [e*Math.cos(p[1]), e*Math.sin(p[1])]; }
+  function feval(kind, z){
+    if(kind==='z2') return cmul(z,z);
+    if(kind==='z3') return cmul(cmul(z,z), z);
+    if(kind==='ez') return cexp(z);
+    if(kind==='re') return [z[0], 0];
+    if(kind==='abs') return [Math.hypot(z[0], z[1]), 0];
+    return z;
+  }
+  var CY0=0.4; // fixed imaginary part of the disk centre
+  var Lcx=130, Lcy=140, SCD=66;
+  function DX(x){ return Lcx + (x-1.05)*SCD; } function DY(y){ return Lcy - y*SCD; }
+  function draw(){
+    var g = byId[sel.value] || FNS[0], cx = +cIn.value, r = +rIn.value, c=[cx, CY0];
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    // ---- domain disk ----
+    svg.appendChild(mk('line', {x1:Lcx-105, y1:Lcy, x2:Lcx+105, y2:Lcy, stroke:'var(--line)'}));
+    svg.appendChild(mk('line', {x1:Lcx, y1:Lcy-105, x2:Lcx, y2:Lcy+105, stroke:'var(--line)'}));
+    svg.appendChild(mk('circle', {cx:DX(cx), cy:DY(CY0), r:r*SCD, fill:'color-mix(in srgb, var(--cyan) 12%, transparent)', stroke:'var(--cyan)', 'stroke-width':1.6}));
+    svg.appendChild(mk('circle', {cx:DX(cx), cy:DY(CY0), r:3.5, fill:'var(--yellow)'}));
+    svg.appendChild(mk('text', {x:DX(cx)+7, y:DY(CY0)-6, 'font-size':10, fill:'var(--yellow)'}, 'z\u2080'));
+    svg.appendChild(mk('text', {x:Lcx, y:18, 'text-anchor':'middle', 'font-size':11, fill:'var(--mute)', 'font-style':'italic'}, 'open disk around z\u2080'));
+    // ---- image of the boundary ----
+    var M=240, bd=[], i, th, z, w, xmin=1e9,xmax=-1e9,ymin=1e9,ymax=-1e9;
+    for(i=0;i<=M;i++){ th=2*Math.PI*i/M; z=[cx+r*Math.cos(th), CY0+r*Math.sin(th)]; w=feval(g.kind, z); bd.push(w); if(w[0]<xmin)xmin=w[0]; if(w[0]>xmax)xmax=w[0]; if(w[1]<ymin)ymin=w[1]; if(w[1]>ymax)ymax=w[1]; }
+    var fc = feval(g.kind, c);
+    if(fc[0]<xmin)xmin=fc[0]; if(fc[0]>xmax)xmax=fc[0]; if(fc[1]<ymin)ymin=fc[1]; if(fc[1]>ymax)ymax=fc[1];
+    var w0=Math.max(xmax-xmin,1e-3), h0=Math.max(ymax-ymin,1e-3);
+    var SCI=Math.min(210/w0, 200/h0), Rcx=410, Rcy=140, cxI=(xmin+xmax)/2, cyI=(ymin+ymax)/2;
+    function IX(p){ return Rcx + (p[0]-cxI)*SCI; } function IY(p){ return Rcy - (p[1]-cyI)*SCI; }
+    // winding of the boundary image around f(z0), plus how close the boundary comes to f(z0)
+    var total=0, prev=null, minR=1e9, maxR=0;
+    for(i=0;i<=M;i++){ var dx=bd[i][0]-fc[0], dy=bd[i][1]-fc[1], rr=Math.hypot(dx,dy); if(rr<minR)minR=rr; if(rr>maxR)maxR=rr; var ang=Math.atan2(dy, dx); if(prev!==null){ var d=ang-prev; while(d>Math.PI)d-=2*Math.PI; while(d<=-Math.PI)d+=2*Math.PI; total+=d; } prev=ang; }
+    // a degenerate (collapsed) image has its boundary passing through f(z0): the winding is then meaningless,
+    // so f(z0) is NOT an interior point. Re(z) and |z| collapse the disk to a segment and trip this.
+    var degenerate = (maxR < 1e-9) || (minR < 0.04*maxR);
+    var winding = degenerate ? 0 : Math.round(total/(2*Math.PI));
+    var pts=bd.map(function(p){ return IX(p).toFixed(1)+','+IY(p).toFixed(1); });
+    svg.appendChild(mk('polyline', {points:pts.join(' '), fill: winding!==0?'color-mix(in srgb, var(--violet) 14%, transparent)':'none', stroke:'var(--violet)', 'stroke-width':1.8}));
+    svg.appendChild(mk('circle', {cx:IX(fc), cy:IY(fc), r:4, fill:'var(--yellow)'}));
+    svg.appendChild(mk('text', {x:IX(fc)+7, y:IY(fc)-6, 'font-size':10, fill:'var(--yellow)'}, 'f(z\u2080)'));
+    svg.appendChild(mk('text', {x:Rcx, y:18, 'text-anchor':'middle', 'font-size':11, fill:'var(--mute)', 'font-style':'italic'}, 'image f(disk)'));
+    // ---- readout ----
+    var lines = [];
+    if(winding!==0){
+      lines.push('The image of the boundary winds ' + Math.abs(winding) + ' time(s) around f(z\u2080), so f(z\u2080) lies in the INTERIOR of f(disk): the image is an OPEN set.');
+      lines.push('Open mapping theorem: a non-constant holomorphic map sends open sets to open sets. (No real-variable map like x\u00b2 does this \u2014 it is special to holomorphy.)');
+      if(Math.abs(winding)>1) lines.push('Winding ' + Math.abs(winding) + ' means f is locally ' + Math.abs(winding) + '-to-1 here (a critical point), but the image is still open.');
+    } else {
+      lines.push('The image is just a segment \u2014 a 1-D set, which has EMPTY INTERIOR in \u2102. So no point of it (f(z\u2080) included) is an interior point, and the image is NOT open. (The boundary image doesn\u2019t enclose f(z\u2080): winding 0.)');
+      lines.push('Re(z) and |z| are NOT holomorphic; they collapse the disk to a 1-D set and are not open maps. The open mapping theorem genuinely needs holomorphy.');
+    }
+    if(g.note) lines.push(g.note);
+    out.textContent = lines.join('\n');
+  }
+  sel.addEventListener('change', draw); cIn.addEventListener('input', draw); rIn.addEventListener('input', draw);
+  draw();
+})();
+</script>
 
 <div class="quiz" data-concept="open-mapping-ca"></div>
 

@@ -3498,6 +3498,25 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "complex-analysis-conformal-grid",
+    "family": "complex-analysis-conformal-grid",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory",
+    "title": "complex-analysis-conformal-grid widget params",
+    "description": "Conformality explorer for holomorphic maps. A rectangular grid in the z-plane is shown beside its image under f, with one vertical and one horizontal gridline highlighted through a movable sample point. For a holomorphic f the image gridlines still cross at a right angle — the map is conformal (a local rotation+scale, the amplitwist), the geometric content of the Cauchy–Riemann equations. Conjugation z̄ preserves the angle's size but reverses orientation (anti-conformal, not holomorphic); 2·Re(z) collapses the grid to a line (degenerate). The widget measures the image crossing angle numerically. The function eval is intrinsic (a `kind` enum); params carry the case menu.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "functions"
+    ],
+    "readmeExcerpt": "Conformality explorer, introduced on `complex-analysis.html` §6. Bespoke semantic module — the function eval is intrinsic (a `kind` enum); params carry only the case menu.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "complex-analysis-conformal-map",
     "family": "complex-analysis-conformal-map",
     "dimension": "2d",
@@ -3643,6 +3662,25 @@ window.__MVWidgets = [
       "functions"
     ],
     "readmeExcerpt": "Monodromy visualizer for multivalued functions, introduced on `complex-analysis.html` §27 (analytic continuation). Bespoke semantic module — the analytic continuation along the loop is intrinsic; params carry the menu + monodromy text.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "complex-analysis-open-mapping",
+    "family": "complex-analysis-open-mapping",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory",
+    "title": "complex-analysis-open-mapping widget params",
+    "description": "Open-mapping-theorem explorer. A small disk around z0 is shown beside its image under f. For a non-constant holomorphic f the image of the disk's boundary winds around f(z0), so f(z0) lies in the INTERIOR of the image — the image is open. The widget reports that winding number. The non-holomorphic Re(z) and |z| collapse the disk to a segment (winding 0, f(z0) on the boundary) — they are not open maps, illustrating that the open-mapping theorem genuinely needs holomorphy. The function eval + winding count are intrinsic (a `kind` enum); params carry the case menu.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "functions"
+    ],
+    "readmeExcerpt": "Open-mapping-theorem explorer, introduced on `complex-analysis.html` §15. Bespoke semantic module — the function eval and the winding count are intrinsic (a `kind` enum); params carry only the case menu.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
