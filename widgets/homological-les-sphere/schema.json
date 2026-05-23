@@ -32,8 +32,8 @@
     "maxDim": {
       "type": "integer",
       "minimum": 3,
-      "maximum": 8,
-      "description": "Maximum sphere dimension on the slider (n ∈ 1..maxDim). Default 6."
+      "maximum": 6,
+      "description": "Maximum sphere dimension on the slider (n ∈ 1..maxDim). Default 6. Capped at 6 so the descent-ladder text fits the 560-wide viewBox."
     }
   }
 }

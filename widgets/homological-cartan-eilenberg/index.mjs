@@ -40,7 +40,7 @@ export function renderScript(params) {
     `  function box(cx, cy, label, stroke, fill, tcol){ var w=92, h=30;\n` +
     `    svg.appendChild(mk('rect', {x:cx-w/2, y:cy-h/2, width:w, height:h, rx:5, fill:fill, stroke:stroke, 'stroke-width':1.4}));\n` +
     `    svg.appendChild(mk('text', {x:cx, y:cy+4, 'text-anchor':'middle', 'font-size':12, fill:tcol}, label)); }\n` +
-    `  function arr(x1,y1,x2,y2,col,dashed,head){ var L=Math.hypot(x2-x1,y2-y1), ux=(x2-x1)/L, uy=(y2-y1)/L;\n` +
+    `  function arr(x1,y1,x2,y2,col,dashed,head){ var L=Math.hypot(x2-x1,y2-y1); if(!L) return; var ux=(x2-x1)/L, uy=(y2-y1)/L;\n` +
     `    var a={x1:x1, y1:y1, x2:x2, y2:y2, stroke:col, 'stroke-width':1.4}; if(dashed) a['stroke-dasharray']='4 3'; svg.appendChild(mk('line', a));\n` +
     `    if(head!==false){ var ex=x2, ey=y2; svg.appendChild(mk('path', {d:'M'+ex+' '+ey+' L'+(ex-7*ux+3*uy)+' '+(ey-7*uy-3*ux)+' L'+(ex-7*ux-3*uy)+' '+(ey-7*uy+3*ux)+' Z', fill:col})); } }\n` +
     `  function lab(x,y,s,col,sz,anch){ svg.appendChild(mk('text', {x:x, y:y, 'text-anchor':anch||'middle', 'font-size':sz||10, fill:col||'var(--mute)'}, s)); }\n` +

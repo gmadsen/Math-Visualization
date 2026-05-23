@@ -25,7 +25,7 @@ the base case $H_1(S^1)=\mathbb{Z}$ is shown directly.
 | `widgetId` | string | DOM id; script derives `-n/-svg/-out`. |
 | `title` | string | Header title. |
 | `hint` | string (optional) | Short hint. |
-| `maxDim` | integer (optional) | Slider max for $n$ (3–8). Default 6. |
+| `maxDim` | integer (optional) | Slider max for $n$ (3–6). Default 6. |
 
 ## Usage
 
