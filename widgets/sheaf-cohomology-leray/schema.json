@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/sheaf-cohomology-leray/schema.json",
+  "title": "sheaf-cohomology-leray widget params",
+  "description": "Leray / acyclic-cover explorer. Three scenario tabs show when the canonical comparison map Ȟ^p(U,F) → H^p(X,F) from Čech to derived-functor cohomology is an isomorphism. The affine covers of P^1 and P^2 have all finite intersections affine, hence F-acyclic (Serre), so they are Leray and the comparison is an iso. The trivial one-set cover {P^1} with F=O(-2) fails: the whole space is not acyclic (H^1(P^1,O(-2))=k≠0), the one-set Čech misses it, and one must refine. Each tab lists the intersections with acyclicity check/cross marks, the comparison map with ≅/≠, and a verdict. Structural; params carry only chrome.",
+  "meta": {
+    "family": "sheaf-cohomology-leray",
+    "dimension": "2d",
+    "gesture": "select",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id; the script derives -svg/-out and the three scenario-button ids."
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title rendered inside .hd > .ttl."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional short hint rendered inside .hd > .hint."
+    }
+  }
+}

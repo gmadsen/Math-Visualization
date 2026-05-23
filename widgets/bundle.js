@@ -16455,6 +16455,42 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "sheaf-cohomology-leray",
+    "family": "sheaf-cohomology-leray",
+    "dimension": "2d",
+    "gesture": "select",
+    "role": "exploratory",
+    "title": "sheaf-cohomology-leray widget params",
+    "description": "Leray / acyclic-cover explorer. Three scenario tabs show when the canonical comparison map Ȟ^p(U,F) → H^p(X,F) from Čech to derived-functor cohomology is an isomorphism. The affine covers of P^1 and P^2 have all finite intersections affine, hence F-acyclic (Serre), so they are Leray and the comparison is an iso. The trivial one-set cover {P^1} with F=O(-2) fails: the whole space is not acyclic (H^1(P^1,O(-2))=k≠0), the one-set Čech misses it, and one must refine. Each tab lists the intersections with acyclicity check/cross marks, the comparison map with ≅/≠, and a verdict. Structural; params carry only chrome.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Leray / acyclic-cover explorer, introduced on `sheaf-cohomology.html` §5 (*Comparison: Čech = derived for Leray covers*). Bespoke semantic module — a structural diagram; params carry only chrome.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "sheaf-cohomology-nerve",
+    "family": "sheaf-cohomology-nerve",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory",
+    "title": "sheaf-cohomology-nerve widget params",
+    "description": "Nerve-of-a-cover explorer. Draws a good cover of S^1 (or of a contractible interval) by N overlapping sets, its nerve simplicial complex (one vertex per set, one edge per pairwise overlap, no triple overlaps), and the Čech cohomology of the constant sheaf ℤ — which equals the simplicial cohomology of the nerve. For S^1 the nerve is a cycle graph (Ȟ⁰=ℤ, Ȟ¹=ℤ); for the interval it is a path/tree (Ȟ⁰=ℤ, Ȟ¹=0). Varying N leaves the cohomology unchanged, illustrating the nerve theorem (a good cover's nerve is homotopy-equivalent to the space). Combinatorics are intrinsic; params carry only chrome.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Nerve-of-a-cover explorer, introduced on `sheaf-cohomology.html` §2 (*Čech cohomology*). Bespoke semantic module — the combinatorics are intrinsic; params carry only chrome.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "shim-w1",
     "family": "verbatim",
     "dimension": "2d",
