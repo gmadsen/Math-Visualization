@@ -11,12 +11,32 @@
   },
   "type": "object",
   "additionalProperties": false,
-  "required": ["widgetId", "title", "curves"],
+  "required": [
+    "widgetId",
+    "title",
+    "curves"
+  ],
   "properties": {
-    "widgetId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id; the script derives -sel/-svg/-out." },
-    "title": { "type": "string", "description": "Display title rendered inside .hd > .ttl." },
-    "hint": { "type": "string", "description": "Optional short hint rendered inside .hd > .hint." },
-    "maxPrimes": { "type": "integer", "minimum": 3, "maximum": 10, "default": 7, "description": "How many good primes (p ≥ 5, p ∤ 4a³+27b²) to tabulate." },
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id; the script derives -sel/-svg/-out."
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title rendered inside .hd > .ttl."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional short hint rendered inside .hd > .hint."
+    },
+    "maxPrimes": {
+      "type": "integer",
+      "minimum": 3,
+      "maximum": 10,
+      "default": 7,
+      "description": "How many good primes (p ≥ 5, p ∤ 4a³+27b²) to tabulate."
+    },
     "curves": {
       "type": "array",
       "minItems": 1,
@@ -25,12 +45,34 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["id", "label", "a", "b"],
+        "required": [
+          "id",
+          "label",
+          "a",
+          "b"
+        ],
         "properties": {
-          "id": { "type": "string", "pattern": "^[A-Za-z0-9_-]+$", "description": "Stable option value." },
-          "label": { "type": "string", "description": "Plain-text dropdown label (no LaTeX)." },
-          "a": { "type": "integer", "description": "Coefficient a in y² = x³ + a x + b." },
-          "b": { "type": "integer", "description": "Coefficient b in y² = x³ + a x + b." }
+          "id": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]+$",
+            "description": "Stable option value."
+          },
+          "label": {
+            "type": "string",
+            "description": "Plain-text dropdown label (no LaTeX)."
+          },
+          "a": {
+            "type": "integer",
+            "minimum": -10000,
+            "maximum": 10000,
+            "description": "Coefficient a in y² = x³ + a x + b (bounded so 4a³ stays within exact integer range)."
+          },
+          "b": {
+            "type": "integer",
+            "minimum": -10000,
+            "maximum": 10000,
+            "description": "Coefficient b in y² = x³ + a x + b."
+          }
         }
       }
     }
