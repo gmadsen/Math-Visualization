@@ -9501,6 +9501,24 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "harmonic-schwartz",
+    "family": "harmonic-schwartz",
+    "dimension": "2d",
+    "gesture": "select",
+    "role": "exploratory",
+    "title": "harmonic-schwartz widget params",
+    "description": "Schwartz-space membership gallery. Five tabs (e^{-πx²}, x²e^{-πx²}, 1/(1+x²), e^{-|x|}, a smooth compactly-supported bump) each plot the function and show two badges — smooth (C∞)? and decays faster than every polynomial? — with the resulting verdict ∈S / ∉S. The Gaussian and bump are Schwartz; 1/(1+x²) is smooth but decays too slowly; e^{-|x|} decays fast but has a corner. Readout states the definition, the F:S→S iso with F⁴=id (the smoothness↔decay swap that makes both conditions necessary), and the extension to tempered distributions S′ (δ̂=1, 1̂=δ). The functions are intrinsic; params carry only chrome.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Schwartz-space membership gallery, introduced on `harmonic-analysis-fourier.html` §4 (*Schwartz space and tempered distributions*). Bespoke semantic module — the functions are intrinsic; params carry only chrome.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "harmonic-tent-transform",
     "family": "harmonic-tent-transform",
     "dimension": "2d",
