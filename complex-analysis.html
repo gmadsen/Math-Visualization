@@ -418,6 +418,95 @@ const C = {
 <p>For $f$ to be complex-differentiable, this Jacobian must commute with multiplication by $i$ — i.e.\ it must be a similarity matrix (a rotation composed with a scaling). A short calculation shows this is equivalent to the <strong>Cauchy–Riemann equations</strong></p>
 <p>$$u_x = v_y, \qquad u_y = -v_x,$$</p>
 <p>and then $f'(z_0) = u_x + i v_x = v_y - i u_y$.</p>
+
+<div class="widget" id="w-conformal">
+  <div class="hd"><div class="ttl">Holomorphic = conformal</div><div class="hint">a grid and its image; the image still meets at right angles where f′ ≠ 0</div></div>
+  <div class="row">
+    <label for="w-conformal-sel">map $w = f(z)$</label>
+    <select id="w-conformal-sel">
+      <option value="sq" selected>w = z²</option>
+      <option value="cube">w = z³</option>
+      <option value="exp">w = e^z</option>
+      <option value="inv">w = 1/z</option>
+      <option value="mobius">w = (z−1)/(z+1)</option>
+      <option value="joukowski">w = ½(z + 1/z)</option>
+    </select>
+  </div>
+  <svg id="w-conformal-svg" viewBox="0 0 580 310" width="580" height="310" role="img" aria-label="A grid in the z-plane and its conformal image"><title>Conformal map: a grid and its image under a holomorphic function</title></svg>
+  <div class="readout" id="w-conformal-out"></div>
+</div><script>
+/* complex-analysis-conformal-map widget: w-conformal */
+(function(){
+  var MAPS = [{"id":"sq","label":"w = z²","kind":"sq","deriv":"2z","critical":"critical point at z = 0 (angles double there)"},{"id":"cube","label":"w = z³","kind":"cube","deriv":"3z²","critical":"critical point at z = 0 (angles triple there)"},{"id":"exp","label":"w = e^z","kind":"exp","deriv":"e^z","critical":"no critical points (e^z is never 0) — conformal everywhere"},{"id":"inv","label":"w = 1/z","kind":"inv","deriv":"−1/z²","critical":"no finite critical points; z = 0 ↦ ∞"},{"id":"mobius","label":"w = (z−1)/(z+1)","kind":"mobius","deriv":"2/(z+1)²","critical":"a Möbius map — conformal on the whole Riemann sphere"},{"id":"joukowski","label":"w = ½(z + 1/z)","kind":"joukowski","deriv":"½(1 − 1/z²)","critical":"critical points at z = ±1"}];
+  var byId = {}; MAPS.forEach(function(m){ byId[m.id] = m; });
+  var sel = document.getElementById('w-conformal-sel');
+  var svg = document.getElementById('w-conformal-svg');
+  var out = document.getElementById('w-conformal-out');
+  if(!sel || !svg || !out) return;
+  var NS = 'http://www.w3.org/2000/svg';
+  function mk(tag, attrs, text){ var e = document.createElementNS(NS, tag); for(var k in attrs){ e.setAttribute(k, attrs[k]); } if(text!=null) e.textContent = text; return e; }
+  // f: returns [u,v] or null (blow-up / out of range)
+  function f(kind, x, y){
+    var r2 = x*x + y*y;
+    if(kind==='sq') return [x*x - y*y, 2*x*y];
+    if(kind==='cube') return [x*x*x - 3*x*y*y, 3*x*x*y - y*y*y];
+    if(kind==='exp'){ var e=Math.exp(x); return [e*Math.cos(y), e*Math.sin(y)]; }
+    if(kind==='inv'){ if(r2<0.04) return null; return [x/r2, -y/r2]; }
+    if(kind==='mobius'){ var c=x+1, d=y, den=c*c+d*d; if(den<0.04) return null; var a=x-1, b=y; return [(a*c+b*d)/den, (b*c-a*d)/den]; }
+    if(kind==='joukowski'){ if(r2<0.04) return null; return [0.5*(x + x/r2), 0.5*(y - y/r2)]; }
+    return [x, y];
+  }
+  var D = 1.3, NL = 7, M = 36, CLIP = 30;
+  // build grid lines as arrays of [x,y]; vertical (x const) + horizontal (y const)
+  function gridLines(){
+    var V = [], H = [], i, j;
+    for(i=0;i<NL;i++){ var xv = -D + 2*D*i/(NL-1), lv=[]; for(j=0;j<=M;j++){ lv.push([xv, -D + 2*D*j/M]); } V.push(lv); }
+    for(i=0;i<NL;i++){ var yh = -D + 2*D*i/(NL-1), lh=[]; for(j=0;j<=M;j++){ lh.push([-D + 2*D*j/M, yh]); } H.push(lh); }
+    return {V:V, H:H};
+  }
+  function draw(){
+    var m = byId[sel.value] || MAPS[0];
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    var g = gridLines();
+    // left panel: z-plane, center (145,155), scale sL
+    var sL = 110/D, lcx = 145, lcy = 155;
+    function LX(x){ return lcx + x*sL; } function LY(y){ return lcy - y*sL; }
+    // compute images, gather bbox (clipped)
+    var all = g.V.concat(g.H), images = [], wxmin=1e9, wxmax=-1e9, wymin=1e9, wymax=-1e9;
+    for(var a=0;a<all.length;a++){ var line=all[a], img=[]; for(var b=0;b<line.length;b++){ var w=f(m.kind, line[b][0], line[b][1]); if(w && isFinite(w[0]) && isFinite(w[1]) && Math.abs(w[0])<CLIP && Math.abs(w[1])<CLIP){ img.push(w); if(w[0]<wxmin)wxmin=w[0]; if(w[0]>wxmax)wxmax=w[0]; if(w[1]<wymin)wymin=w[1]; if(w[1]>wymax)wymax=w[1]; } else { img.push(null); } } images.push(img); }
+    var wcx=(wxmin+wxmax)/2, wcy=(wymin+wymax)/2, half=Math.max((wxmax-wxmin)/2,(wymax-wymin)/2,0.1), sR=105/half, rcx=435, rcy=155;
+    function RX(x){ return rcx + (x-wcx)*sR; } function RY(y){ return rcy - (y-wcy)*sR; }
+    // panel frames + labels
+    svg.appendChild(mk('rect', {x:30, y:36, width:230, height:240, rx:6, fill:'none', stroke:'var(--line)'}));
+    svg.appendChild(mk('rect', {x:320, y:36, width:230, height:240, rx:6, fill:'none', stroke:'var(--line)'}));
+    svg.appendChild(mk('text', {x:145, y:26, 'text-anchor':'middle', 'font-size':12, fill:'var(--mute)', 'font-style':'italic'}, 'z-plane (domain grid)'));
+    svg.appendChild(mk('text', {x:435, y:26, 'text-anchor':'middle', 'font-size':12, fill:'var(--mute)', 'font-style':'italic'}, 'w = f(z)  (image)'));
+    svg.appendChild(mk('text', {x:290, y:160, 'text-anchor':'middle', 'font-size':18, fill:'var(--mute)'}, '\u2192'));
+    // draw a line as segments, breaking at nulls; project chooses panel
+    function drawLine(pts, project, color, isImage){
+      var seg = [];
+      function flush(){ if(seg.length>1) svg.appendChild(mk('polyline', {points:seg.join(' '), fill:'none', stroke:color, 'stroke-width':1, 'stroke-opacity':0.85})); seg=[]; }
+      for(var b=0;b<pts.length;b++){ var p=pts[b]; if(p===null){ flush(); continue; } var pr=project(p); seg.push(pr[0].toFixed(1)+','+pr[1].toFixed(1)); }
+      flush();
+    }
+    var nV = g.V.length;
+    // domain grid (left): V cyan, H yellow
+    for(var v=0; v<g.V.length; v++) drawLine(g.V[v], function(p){ return [LX(p[0]), LY(p[1])]; }, 'var(--cyan)', false);
+    for(var h=0; h<g.H.length; h++) drawLine(g.H[h], function(p){ return [LX(p[0]), LY(p[1])]; }, 'var(--yellow)', false);
+    // image grid (right): same colour coding, from the precomputed images
+    for(var a2=0;a2<images.length;a2++){ var color = a2 < nV ? 'var(--cyan)' : 'var(--yellow)'; drawLine(images[a2], function(p){ return [RX(p[0]), RY(p[1])]; }, color, true); }
+    var lines = [];
+    lines.push('cyan = vertical lines (Re z const),  yellow = horizontal (Im z const).');
+    lines.push('Holomorphic \u21d2 conformal: the image curves still cross at right angles wherever f\u2032 \u2260 0.');
+    if(m.deriv) lines.push('f\u2032(z) = ' + m.deriv);
+    if(m.critical) lines.push(m.critical);
+    out.textContent = lines.join('\n');
+  }
+  sel.addEventListener('change', draw);
+  draw();
+})();
+</script>
+
 <div class="quiz" data-concept="cauchy-riemann"></div><!-- backlinks-auto-begin -->
 <aside class="related">
   <div class="ttl">Used in</div>
@@ -740,6 +829,71 @@ const C = {
 <div class="note"><strong>Residue theorem.</strong> Let $\gamma$ be a positively oriented simple closed contour bounding a region $D$, with $f$ holomorphic on a neighbourhood of $\overline D$ except for finitely many isolated singularities $z_k\in D$. Then $$\oint_\gamma f\,dz \;=\; 2\pi i\sum_k \operatorname{Res}(f, z_k).$$</div>
 <p>Real definite integrals fall to this, almost mechanically. Famous example: closing $\int_{-\infty}^\infty\frac{dx}{x^2+1}$ in the upper half-plane with a giant semicircle. The semicircular piece tends to $0$ (the integrand decays), the only pole inside is $z=i$ with residue $1/(2i)$, and so the integral is $2\pi i\cdot 1/(2i) = \pi$. Replace the integrand by $e^{ix}/(x^2+1)$ and the answer is $\pi/e$.</p>
 <p>Try it: the contour widget in §contour-integral above already computes $\oint f\,dz$ as $2\pi i \sum\mathrm{Res}$ for the enclosed poles. Drag a vertex over a pole to see the sum jump.</p>
+
+<div class="widget" id="w-residue-real">
+  <div class="hd"><div class="ttl">Real integrals by residues</div><div class="hint">close in the upper half-plane; ∫ = 2πi · Σ Res over the enclosed poles</div></div>
+  <div class="row">
+    <label for="w-residue-real-sel">integrand $f(x)$</label>
+    <select id="w-residue-real-sel">
+      <option value="inv-sq1" selected>1/(x²+1)</option>
+      <option value="inv-sq2">1/(x²+1)²</option>
+      <option value="quartic">1/(x⁴+1)</option>
+      <option value="cos">e^{ix}/(x²+1)</option>
+    </select>
+  </div>
+  <svg id="w-residue-real-svg" viewBox="0 0 560 250" width="560" height="250" role="img" aria-label="Upper-half-plane contour and the enclosed poles"><title>Real integral by residues: the upper-half-plane semicircle</title></svg>
+  <div class="readout" id="w-residue-real-out"></div>
+</div><script>
+/* complex-analysis-residue-real-integral widget: w-residue-real */
+(function(){
+  var DATA = [{"id":"inv-sq1","label":"1/(x²+1)","result":"π","note":"The classic: one pole i inside, residue 1/(2i) = −i/2, so the integral is 2πi·(−i/2) = π.","poles":[{"re":0,"im":1,"resRe":0,"resIm":-0.5,"label":"i"},{"re":0,"im":-1,"resRe":0,"resIm":0,"label":"−i"}]},{"id":"inv-sq2","label":"1/(x²+1)²","result":"π/2","note":"A double pole at i; its residue is −i/4.","poles":[{"re":0,"im":1,"resRe":0,"resIm":-0.25,"label":"i (order 2)"},{"re":0,"im":-1,"resRe":0,"resIm":0}]},{"id":"quartic","label":"1/(x⁴+1)","result":"π/√2 ≈ 2.221","note":"Two enclosed poles: the primitive 8th roots e^{iπ/4} and e^{i3π/4}.","poles":[{"re":0.7071,"im":0.7071,"resRe":-0.176777,"resIm":-0.176777},{"re":-0.7071,"im":0.7071,"resRe":0.176777,"resIm":-0.176777},{"re":0.7071,"im":-0.7071,"resRe":0,"resIm":0},{"re":-0.7071,"im":-0.7071,"resRe":0,"resIm":0}]},{"id":"cos","label":"e^{ix}/(x²+1)","result":"π/e ≈ 1.156","note":"Closing in the upper half-plane, only z = i contributes (residue e^{−1}/(2i)). The value is already real (the sin part is odd), so taking real parts gives ∫ cos x/(x²+1) dx = π/e as well.","poles":[{"re":0,"im":1,"resRe":0,"resIm":-0.18394,"label":"i"},{"re":0,"im":-1,"resRe":0,"resIm":0,"label":"−i"}]}];
+  var byId = {}; DATA.forEach(function(g){ byId[g.id] = g; });
+  var sel = document.getElementById('w-residue-real-sel');
+  var svg = document.getElementById('w-residue-real-svg');
+  var out = document.getElementById('w-residue-real-out');
+  if(!sel || !svg || !out) return;
+  var NS = 'http://www.w3.org/2000/svg';
+  function mk(tag, attrs, text){ var e = document.createElementNS(NS, tag); for(var k in attrs){ e.setAttribute(k, attrs[k]); } if(text!=null) e.textContent = text; return e; }
+  function fmt(x){ var r = Math.round(x*1000)/1000; return (r===0?0:r).toString(); }
+  var W = 560, cx = 280, axisY = 170, sc = 56; // pixels per unit; real axis at axisY
+  function PX(re){ return cx + re*sc; } function PY(im){ return axisY - im*sc; }
+  function draw(){
+    var g = byId[sel.value] || DATA[0];
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    // real axis
+    svg.appendChild(mk('line', {x1:20, y1:axisY, x2:W-20, y2:axisY, stroke:'var(--line)', 'stroke-width':1}));
+    svg.appendChild(mk('text', {x:W-22, y:axisY+16, 'text-anchor':'end', 'font-size':10, fill:'var(--mute)'}, 'Re'));
+    // UHP semicircle contour: segment along real axis + arc of radius R
+    var R = 2.2, arc = [];
+    for(var t=0; t<=60; t++){ var th = Math.PI*t/60; arc.push(PX(R*Math.cos(th))+','+PY(R*Math.sin(th))); }
+    svg.appendChild(mk('polyline', {points:arc.join(' '), fill:'none', stroke:'var(--violet)', 'stroke-width':1.6}));
+    svg.appendChild(mk('line', {x1:PX(-R), y1:axisY, x2:PX(R), y2:axisY, stroke:'var(--violet)', 'stroke-width':1.6}));
+    // shade UHP lightly
+    svg.appendChild(mk('text', {x:PX(0), y:PY(R)+ -6, 'text-anchor':'middle', 'font-size':10, 'font-style':'italic', fill:'var(--violet)'}, 'arc R \u2192 \u221e  (contribution \u2192 0)'));
+    // poles
+    var sumRe = 0, sumIm = 0, enclosed = 0;
+    for(var i=0;i<g.poles.length;i++){
+      var p = g.poles[i], up = p.im > 0, x = PX(p.re), y = PY(p.im);
+      var col = up ? 'var(--yellow)' : 'var(--mute)';
+      svg.appendChild(mk('text', {x:x, y:y+(up?-8:14), 'text-anchor':'middle', 'font-size':14, fill:col}, '\u00d7'));
+      if(p.label) svg.appendChild(mk('text', {x:x+10, y:y+(up?-8:14), 'text-anchor':'start', 'font-size':10, fill:col}, p.label));
+      if(up){ sumRe += p.resRe; sumIm += p.resIm; enclosed++; }
+    }
+    // 2*pi*i * (sumRe + i sumIm) = -2*pi*sumIm + i*2*pi*sumRe
+    var twoPi = 2*Math.PI, intRe = -twoPi*sumIm, intIm = twoPi*sumRe;
+    var intStr = (Math.abs(intIm) < 1e-9) ? fmt(intRe) : (fmt(intRe) + ' + ' + fmt(intIm) + 'i');
+    var lines = [];
+    lines.push('Close the contour in the upper half-plane. As R \u2192 \u221e the arc vanishes, so');
+    lines.push('\u222b\u208b\u221e\u207a\u221e f(x) dx = 2\u03c0i \u00b7 \u03a3 Res over the ' + enclosed + ' enclosed pole' + (enclosed===1?'':'s') + ' (yellow \u00d7, im > 0).');
+    lines.push('\u03a3 Res = ' + fmt(sumRe) + ' + ' + fmt(sumIm) + 'i      2\u03c0i\u00b7\u03a3 Res = ' + intStr + '   =   ' + g.result);
+    if(g.note){ lines.push(''); lines.push(g.note); }
+    out.textContent = lines.join('\n');
+  }
+  sel.addEventListener('change', draw);
+  draw();
+})();
+</script>
+
 <div class="quiz" data-concept="residue-theorem"></div><!-- backlinks-auto-begin -->
 <aside class="related">
   <div class="ttl">Used in</div>
