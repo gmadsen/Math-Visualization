@@ -1701,6 +1701,53 @@
         },
         {
           "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget",
+          "slug": "complex-analysis-normal-families",
+          "params": {
+            "widgetId": "w-normal-families",
+            "title": "Montel: uniformly bounded ⇒ a convergent subsequence",
+            "hint": "Bounded families are normal; step n and watch the terms settle (or escape).",
+            "families": [
+              {
+                "id": "zn",
+                "label": "f_n = z^n",
+                "kind": "zn",
+                "note": "Bounded by 1; converges to 0 on compacts. Normal — the whole sequence converges."
+              },
+              {
+                "id": "shrink",
+                "label": "f_n = z / n",
+                "kind": "shrink",
+                "note": "Shrinks uniformly to 0. Bounded and convergent — normal."
+              },
+              {
+                "id": "rot",
+                "label": "f_n = e^{i n} · z",
+                "kind": "rot",
+                "note": "Bounded ⇒ normal, but the full sequence never converges — only a subsequence does (Montel’s real content)."
+              },
+              {
+                "id": "unbounded",
+                "label": "f_n = n · z",
+                "kind": "unbounded",
+                "note": "Not uniformly bounded: |f_n| → ∞. Montel fails — not a normal family."
+              }
+            ]
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-normal-families"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "raw",
           "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./point-set-topology.html#compact\">Compactness</a></li>\n    <li><a href=\"./real-analysis.html#uniform-convergence\">Uniform convergence</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {
@@ -1724,6 +1771,53 @@
         {
           "type": "raw",
           "html": "<section id=\"riemann-mapping\">\n<h2>25. Riemann mapping theorem</h2>\n<p><strong>Riemann mapping theorem.</strong> Every simply connected proper open subset of $\\mathbb{C}$ is conformally equivalent to the open unit disk $\\mathbb{D}$. (And the equivalence is unique once you fix a base point and a tangent direction.)</p>\n<p>Topology says the disk and any other simply connected domain are homeomorphic; the Riemann mapping theorem says they are <em>holomorphically</em> equivalent. The proof is non-constructive — the equivalence is the unique normalized solution to an extremal problem (maximize $|f'(z_0)|$ among holomorphic injections into $\\mathbb{D}$).</p>\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget",
+          "slug": "complex-analysis-riemann-mapping",
+          "params": {
+            "widgetId": "w-riemann-mapping",
+            "title": "Riemann mapping: a region becomes the disk",
+            "hint": "Each simply-connected region maps conformally onto the unit disk.",
+            "regions": [
+              {
+                "id": "uhp",
+                "label": "upper half-plane",
+                "kind": "uhp",
+                "note": "The Cayley transform (z−i)/(z+i) carries the upper half-plane onto the disk."
+              },
+              {
+                "id": "rhp",
+                "label": "right half-plane",
+                "kind": "rhp",
+                "note": "(z−1)/(z+1) sends the right half-plane onto the disk."
+              },
+              {
+                "id": "quarter",
+                "label": "first quadrant",
+                "kind": "quarter",
+                "note": "Square the quadrant to a half-plane (z²), then apply the Cayley transform."
+              },
+              {
+                "id": "strip",
+                "label": "horizontal strip 0<Im z<π",
+                "kind": "strip",
+                "note": "e^z opens the strip into the upper half-plane; then Cayley to the disk."
+              }
+            ]
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-riemann-mapping"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
         },
         {
           "type": "quiz",

@@ -2146,6 +2146,86 @@ const C = {
 <p>The proof is Arzelà–Ascoli applied to the right object. Local boundedness combined with Cauchy's estimate $|f'(z)|\le M_K/\mathrm{dist}(z,\partial K)$ gives equicontinuity for free; Arzelà–Ascoli then extracts a uniformly convergent subsequence, and the locally uniform limit of holomorphic functions is holomorphic (Weierstrass). So local boundedness is the only hypothesis you have to check.</p>
 <p><strong>Why this matters.</strong> Normality is the engine behind two of the deepest results in complex analysis. The Riemann mapping theorem (next section) extracts the desired conformal map as a limit of a maximizing sequence in a locally bounded family. Picard's theorem and the Schottky bound use normality of families omitting two values to control the wild oscillation of essential singularities. In dynamics, the <em>Fatou set</em> is by definition the largest open set on which the iterates of a rational map form a normal family — the Julia set is its complement.</p>
 <p>Compare with the real-analytic situation: a uniformly bounded family of smooth functions need not be precompact, and there is no analogue of Cauchy's estimate to bound derivatives from values. Holomorphy is what makes the Heine–Borel-style miracle work.</p>
+
+<div class="widget" id="w-normal-families">
+  <div class="hd"><div class="ttl">Montel: uniformly bounded ⇒ a convergent subsequence</div><div class="hint">Bounded families are normal; step n and watch the terms settle (or escape).</div></div>
+  <div class="row">
+    <label for="w-normal-families-sel">sequence $(f_n)$</label>
+    <select id="w-normal-families-sel">
+      <option value="zn" selected>f_n = z^n</option>
+      <option value="shrink">f_n = z / n</option>
+      <option value="rot">f_n = e^{i n} · z</option>
+      <option value="unbounded">f_n = n · z</option>
+    </select>
+    <label for="w-normal-families-n">index $n$</label>
+    <input type="range" id="w-normal-families-n" min="1" max="20" value="4" step="1">
+    <span class="pill" id="w-normal-families-nval">n = 4</span>
+  </div>
+  <svg id="w-normal-families-svg" viewBox="0 0 540 250" width="540" height="250" role="img" aria-label="Re f_n plotted along a compact slice of the disk, with the uniform bound"><title>Montel's theorem: a uniformly bounded family of holomorphic functions is normal</title></svg>
+  <div class="readout" id="w-normal-families-out"></div>
+</div><script>
+/* complex-analysis-normal-families widget: w-normal-families */
+(function(){
+  var FAM = [{"id":"zn","label":"f_n = z^n","kind":"zn","note":"Bounded by 1; converges to 0 on compacts. Normal — the whole sequence converges."},{"id":"shrink","label":"f_n = z / n","kind":"shrink","note":"Shrinks uniformly to 0. Bounded and convergent — normal."},{"id":"rot","label":"f_n = e^{i n} · z","kind":"rot","note":"Bounded ⇒ normal, but the full sequence never converges — only a subsequence does (Montel’s real content)."},{"id":"unbounded","label":"f_n = n · z","kind":"unbounded","note":"Not uniformly bounded: |f_n| → ∞. Montel fails — not a normal family."}];
+  var byId = {}; FAM.forEach(function(g){ byId[g.id] = g; });
+  var sel = document.getElementById('w-normal-families-sel');
+  var nIn = document.getElementById('w-normal-families-n'), nL = document.getElementById('w-normal-families-nval');
+  var svg = document.getElementById('w-normal-families-svg');
+  var out = document.getElementById('w-normal-families-out');
+  if(!sel || !nIn || !nL || !svg || !out) return;
+  var NS = 'http://www.w3.org/2000/svg';
+  function mk(tag, attrs, text){ var e = document.createElementNS(NS, tag); for(var k in attrs){ e.setAttribute(k, attrs[k]); } if(text!=null) e.textContent = text; return e; }
+  // Re f_n at a real point x (the disk's diameter)
+  function reF(kind, x, n){
+    if(kind==='zn') return Math.pow(x, n);
+    if(kind==='shrink') return x/n;
+    if(kind==='rot') return x*Math.cos(n);
+    if(kind==='unbounded') return n*x;
+    return x;
+  }
+  var XR=0.9; // compact slice |x| <= 0.9 inside the unit disk
+  var PX0=55, PW=445, PYc=128, PHh=92;
+  function PX(x){ return PX0 + (x+XR)/(2*XR)*PW; }
+  function draw(){
+    var g = byId[sel.value] || FAM[0], n = +nIn.value;
+    nL.textContent = 'n = ' + n;
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    var unbounded = (g.kind==='unbounded');
+    var yMax = unbounded ? Math.max(1, n*XR*1.1) : 1;
+    function PY(v){ return PYc - v/yMax*PHh; }
+    // axes
+    svg.appendChild(mk('line', {x1:PX0, y1:PYc, x2:PX0+PW, y2:PYc, stroke:'var(--line)'}));
+    svg.appendChild(mk('line', {x1:PX(0), y1:PYc-PHh, x2:PX(0), y2:PYc+PHh, stroke:'var(--line)'}));
+    svg.appendChild(mk('text', {x:PX0+PW, y:PYc+16, 'text-anchor':'end', 'font-size':10, fill:'var(--mute)'}, 'x \u2208 [\u22120.9, 0.9]'));
+    svg.appendChild(mk('text', {x:PX0-6, y:PYc-PHh+4, 'text-anchor':'end', 'font-size':10, fill:'var(--mute)'}, 'Re f_n'));
+    // uniform bound (only meaningful for the bounded families)
+    if(!unbounded){
+      svg.appendChild(mk('line', {x1:PX0, y1:PY(XR), x2:PX0+PW, y2:PY(XR), stroke:'var(--pink)', 'stroke-width':1.2, 'stroke-dasharray':'4 3'}));
+      svg.appendChild(mk('line', {x1:PX0, y1:PY(-XR), x2:PX0+PW, y2:PY(-XR), stroke:'var(--pink)', 'stroke-width':1.2, 'stroke-dasharray':'4 3'}));
+      svg.appendChild(mk('text', {x:PX0+PW, y:PY(XR)-4, 'text-anchor':'end', 'font-size':10, fill:'var(--pink)'}, 'uniform bound |f_n| \u2264 0.9'));
+    }
+    function curve(nn, attrs){ var pts=[], i, x; for(i=0;i<=120;i++){ x=-XR+2*XR*i/120; pts.push(PX(x).toFixed(1)+','+PY(reF(g.kind,x,nn)).toFixed(1)); } svg.appendChild(mk('polyline', Object.assign({points:pts.join(' '), fill:'none'}, attrs))); }
+    // ghosts of earlier terms
+    var k; for(k=3;k>=1;k--){ if(n-k>=1) curve(n-k, {stroke:'var(--line)', 'stroke-width':1}); }
+    // current term
+    curve(n, {stroke:'var(--cyan)', 'stroke-width':2.2});
+    svg.appendChild(mk('text', {x:PX(0)+8, y:PYc-PHh+12, 'font-size':10, fill:'var(--cyan)'}, 'f_' + n + ' (earlier terms ghosted)'));
+    // readout
+    var lines = [];
+    lines.push('Montel: a family of holomorphic functions uniformly bounded on compact sets is NORMAL \u2014 every sequence has a locally-uniformly-convergent subsequence.');
+    lines.push('(The plot shows Re f_n on the real diameter |x| \u2264 0.9 \u2014 a faithful 1-D slice of the holomorphic f_n.)');
+    if(g.kind==='zn'){ lines.push('f_n = z^n: |f_n| \u2264 1 on the disk and \u2264 0.9 on |z|\u22640.9. The family is normal; the whole sequence converges to 0 on compacts.'); }
+    else if(g.kind==='shrink'){ lines.push('f_n = z/n: bounded by 0.9 on this slice and \u2192 0 uniformly. Normal; the whole sequence converges to 0.'); }
+    else if(g.kind==='rot'){ lines.push('f_n = e^{in} z: |f_n| = |z| \u2264 0.9, so bounded \u21d2 NORMAL by Montel \u2014 yet the FULL sequence does NOT converge (e^{in} circles the unit circle forever). Montel only promises a convergent SUBsequence: pick n_k with e^{i n_k} \u2192 1.'); }
+    else { lines.push('f_n = n\u00b7z is NOT uniformly bounded (|f_n(0.9)| = 0.9n \u2192 \u221e). Montel\u2019s hypothesis fails: no subsequence converges, so the family is NOT normal \u2014 watch the y-axis keep rescaling as the values run off to infinity.'); }
+    if(g.note) lines.push(g.note);
+    out.textContent = lines.join('\n');
+  }
+  sel.addEventListener('change', draw); nIn.addEventListener('input', draw);
+  draw();
+})();
+</script>
+
 <!-- callback-auto-begin -->
 <aside class="callback">
   <div class="ttl">See also</div>
@@ -2167,6 +2247,85 @@ const C = {
 <h2>25. Riemann mapping theorem</h2>
 <p><strong>Riemann mapping theorem.</strong> Every simply connected proper open subset of $\mathbb{C}$ is conformally equivalent to the open unit disk $\mathbb{D}$. (And the equivalence is unique once you fix a base point and a tangent direction.)</p>
 <p>Topology says the disk and any other simply connected domain are homeomorphic; the Riemann mapping theorem says they are <em>holomorphically</em> equivalent. The proof is non-constructive — the equivalence is the unique normalized solution to an extremal problem (maximize $|f'(z_0)|$ among holomorphic injections into $\mathbb{D}$).</p>
+
+<div class="widget" id="w-riemann-mapping">
+  <div class="hd"><div class="ttl">Riemann mapping: a region becomes the disk</div><div class="hint">Each simply-connected region maps conformally onto the unit disk.</div></div>
+  <div class="row">
+    <label for="w-riemann-mapping-sel">region $U$</label>
+    <select id="w-riemann-mapping-sel">
+      <option value="uhp" selected>upper half-plane</option>
+      <option value="rhp">right half-plane</option>
+      <option value="quarter">first quadrant</option>
+      <option value="strip">horizontal strip 0&lt;Im z&lt;π</option>
+    </select>
+  </div>
+  <svg id="w-riemann-mapping-svg" viewBox="0 0 540 280" width="540" height="280" role="img" aria-label="A simply-connected region and its conformal image filling the unit disk"><title>Riemann mapping theorem: every simply-connected proper open subset of C maps conformally onto the unit disk</title></svg>
+  <div class="readout" id="w-riemann-mapping-out"></div>
+</div><script>
+/* complex-analysis-riemann-mapping widget: w-riemann-mapping */
+(function(){
+  var REG = [{"id":"uhp","label":"upper half-plane","kind":"uhp","note":"The Cayley transform (z−i)/(z+i) carries the upper half-plane onto the disk."},{"id":"rhp","label":"right half-plane","kind":"rhp","note":"(z−1)/(z+1) sends the right half-plane onto the disk."},{"id":"quarter","label":"first quadrant","kind":"quarter","note":"Square the quadrant to a half-plane (z²), then apply the Cayley transform."},{"id":"strip","label":"horizontal strip 0<Im z<π","kind":"strip","note":"e^z opens the strip into the upper half-plane; then Cayley to the disk."}];
+  var byId = {}; REG.forEach(function(g){ byId[g.id] = g; });
+  var sel = document.getElementById('w-riemann-mapping-sel');
+  var svg = document.getElementById('w-riemann-mapping-svg');
+  var out = document.getElementById('w-riemann-mapping-out');
+  if(!sel || !svg || !out) return;
+  var NS = 'http://www.w3.org/2000/svg';
+  function mk(tag, attrs, text){ var e = document.createElementNS(NS, tag); for(var k in attrs){ e.setAttribute(k, attrs[k]); } if(text!=null) e.textContent = text; return e; }
+  function cmul(p,q){ return [p[0]*q[0]-p[1]*q[1], p[0]*q[1]+p[1]*q[0]]; }
+  function cdiv(p,q){ var d=q[0]*q[0]+q[1]*q[1]; return [(p[0]*q[0]+p[1]*q[1])/d, (p[1]*q[0]-p[0]*q[1])/d]; }
+  function cexp(p){ var e=Math.exp(p[0]); return [e*Math.cos(p[1]), e*Math.sin(p[1])]; }
+  function cayley(w){ return cdiv([w[0], w[1]-1], [w[0], w[1]+1]); } // (w-i)/(w+i): half-plane -> disk
+  function phi(kind, z){
+    if(kind==='uhp') return cayley(z);
+    if(kind==='rhp') return cdiv([z[0]-1, z[1]], [z[0]+1, z[1]]);
+    if(kind==='quarter') return cayley(cmul(z,z));
+    if(kind==='strip') return cayley(cexp(z));
+    return z;
+  }
+  // region domain bbox + base point (maps to centre 0) + formula text
+  var SPEC = {
+    uhp:     {X0:-2.2, X1:2.2, Y0:0.12, Y1:2.6,  z0:[0,1],                          f:'\u03c6(z) = (z \u2212 i)/(z + i)'},
+    rhp:     {X0:0.12, X1:2.6, Y0:-2.2, Y1:2.2,  z0:[1,0],                          f:'\u03c6(z) = (z \u2212 1)/(z + 1)'},
+    quarter: {X0:0.12, X1:2.1, Y0:0.12, Y1:2.1,  z0:[Math.SQRT1_2, Math.SQRT1_2],   f:'\u03c6(z) = (z\u00b2 \u2212 i)/(z\u00b2 + i)'},
+    strip:   {X0:-1.7, X1:1.7, Y0:0.12, Y1:Math.PI-0.12, z0:[0, Math.PI/2],         f:'\u03c6(z) = (e^z \u2212 i)/(e^z + i)'}
+  };
+  var NX=8, NY=8, SN=44;
+  var Lcx=130, Lcy=140, Rcx=406, Rcy=140, RDISK=104;
+  function draw(){
+    var g = byId[sel.value] || REG[0], s = SPEC[g.kind] || SPEC.uhp;
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    var SCD = Math.min(214/(s.X1-s.X0), 214/(s.Y1-s.Y0)), mx=(s.X0+s.X1)/2, my=(s.Y0+s.Y1)/2;
+    function DX(x){ return Lcx + (x-mx)*SCD; } function DY(y){ return Lcy - (y-my)*SCD; }
+    function IX(p){ return Rcx + p[0]*RDISK; } function IY(p){ return Rcy - p[1]*RDISK; }
+    function line(fixed, isV){ var pts=[], i, t; for(i=0;i<=SN;i++){ t=i/SN; var z = isV ? [fixed, s.Y0+(s.Y1-s.Y0)*t] : [s.X0+(s.X1-s.X0)*t, fixed]; pts.push(z); } return pts; }
+    function polyD(z, attrs){ var pts=z.map(function(p){ return DX(p[0]).toFixed(1)+','+DY(p[1]).toFixed(1); }); svg.appendChild(mk('polyline', Object.assign({points:pts.join(' '), fill:'none'}, attrs))); }
+    function polyI(z, attrs){ var pts=z.map(function(p){ var w=phi(g.kind,p); return IX(w).toFixed(1)+','+IY(w).toFixed(1); }); svg.appendChild(mk('polyline', Object.assign({points:pts.join(' '), fill:'none'}, attrs))); }
+    var i;
+    // unit disk on the right
+    svg.appendChild(mk('circle', {cx:Rcx, cy:Rcy, r:RDISK, fill:'color-mix(in srgb, var(--cyan) 7%, transparent)', stroke:'var(--cyan)', 'stroke-width':1.6}));
+    // grids
+    for(i=0;i<NX;i++){ var L=line(s.X0+(s.X1-s.X0)*i/(NX-1), true); polyD(L, {stroke:'var(--violet)', 'stroke-width':1, opacity:0.8}); polyI(L, {stroke:'var(--violet)', 'stroke-width':1, opacity:0.8}); }
+    for(i=0;i<NY;i++){ var H=line(s.Y0+(s.Y1-s.Y0)*i/(NY-1), false); polyD(H, {stroke:'var(--green)', 'stroke-width':1, opacity:0.8}); polyI(H, {stroke:'var(--green)', 'stroke-width':1, opacity:0.8}); }
+    // base point -> centre 0
+    svg.appendChild(mk('circle', {cx:DX(s.z0[0]), cy:DY(s.z0[1]), r:4, fill:'var(--yellow)'}));
+    svg.appendChild(mk('circle', {cx:IX([0,0]), cy:IY([0,0]), r:4, fill:'var(--yellow)'}));
+    svg.appendChild(mk('text', {x:DX(s.z0[0])+7, y:DY(s.z0[1])-5, 'font-size':10, fill:'var(--yellow)'}, 'z\u2080'));
+    svg.appendChild(mk('text', {x:IX([0,0])+7, y:IY([0,0])-5, 'font-size':10, fill:'var(--yellow)'}, '0'));
+    svg.appendChild(mk('text', {x:Lcx, y:18, 'text-anchor':'middle', 'font-size':11, fill:'var(--mute)', 'font-style':'italic'}, 'region U (grid)'));
+    svg.appendChild(mk('text', {x:Rcx, y:18, 'text-anchor':'middle', 'font-size':11, fill:'var(--mute)', 'font-style':'italic'}, '\u03c6(U) = unit disk'));
+    // readout
+    var lines = [];
+    lines.push('Riemann mapping theorem: every simply-connected proper open U \u228a \u2102 is conformally equivalent to the unit disk.');
+    lines.push('Here ' + s.f + ' is a conformal BIJECTION of the ' + g.label + ' onto the disk: the orthogonal grid stays orthogonal and z\u2080 \u2192 0. (The drawn grid is a finite patch of U, so it covers most \u2014 not quite all \u2014 of the disk.)');
+    if(g.note) lines.push(g.note);
+    out.textContent = lines.join('\n');
+  }
+  sel.addEventListener('change', draw);
+  draw();
+})();
+</script>
+
 <div class="quiz" data-concept="riemann-mapping"></div>
 </section>
 

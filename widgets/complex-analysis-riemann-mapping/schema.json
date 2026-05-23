@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/complex-analysis-riemann-mapping/schema.json",
+  "title": "complex-analysis-riemann-mapping widget params",
+  "description": "Riemann-mapping-theorem explorer. The reader picks a canonical simply-connected region (upper/right half-plane, first quadrant, horizontal strip) and the widget draws its grid beside the image under an explicit conformal map onto the unit disk. The grid stays orthogonal (the maps are conformal), the region fills the disk, and the marked base point maps to the centre 0 — a concrete instance of the Riemann mapping theorem: every simply-connected proper open subset of ℂ is conformally equivalent to the disk. The map eval is intrinsic (a `kind` enum); params carry the case menu.",
+  "meta": {
+    "family": "complex-analysis-riemann-mapping",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["widgetId", "title", "regions"],
+  "properties": {
+    "widgetId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id; the script derives -sel/-svg/-out." },
+    "title": { "type": "string", "description": "Display title rendered inside .hd > .ttl." },
+    "hint": { "type": "string", "description": "Optional short hint rendered inside .hd > .hint." },
+    "regions": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 6,
+      "description": "Each canonical region offered in the dropdown.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "label", "kind"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[A-Za-z0-9_-]+$", "description": "Stable option value." },
+          "label": { "type": "string", "description": "Plain-text dropdown label, e.g. 'upper half-plane'." },
+          "kind": {
+            "type": "string",
+            "enum": ["uhp", "rhp", "quarter", "strip"],
+            "description": "Which region + conformal map onto the disk: uhp=(z-i)/(z+i); rhp=(z-1)/(z+1); quarter via z^2 then Cayley; strip via e^z then Cayley."
+          },
+          "note": { "type": "string", "maxLength": 120, "description": "Optional plain-text remark about this region / map." }
+        }
+      }
+    }
+  }
+}
