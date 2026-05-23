@@ -79,8 +79,10 @@ export function renderScript(params) {
     `    for(var k=0;k<coef.length;k++){ jre += coef[k]*pre; jim += coef[k]*pim; var nr = pre*qre - pim*qim, ni = pre*qim + pim*qre; pre = nr; pim = ni; }\n` +
     `    return [jre, jim];\n` +
     `  }\n` +
+    `  var stRe = 0, stIm = 1; // exact period; decoupled from the sliders' coarse step\n` +
+    `  function clampY(y){ return Math.max(12, Math.min(295, y)); } // keep markers inside the frame\n` +
     `  function draw(){\n` +
-    `    var re = +reIn.value, im = +imIn.value;\n` +
+    `    var re = stRe, im = stIm;\n` +
     `    reL.textContent = 'Re τ = ' + re.toFixed(2); imL.textContent = 'Im τ = ' + im.toFixed(2);\n` +
     `    while(svg.firstChild) svg.removeChild(svg.firstChild);\n` +
     `    // axes\n` +
@@ -97,10 +99,11 @@ export function renderScript(params) {
     `    svg.appendChild(mk('polyline', {points:cpts.join(' '), fill:'none', stroke:'var(--line)', 'stroke-width':0.8}));\n` +
     `    var red = reduce(re, im), rre = red[0], rim = red[1];\n` +
     `    // dashed link tau -> reduced\n` +
-    `    svg.appendChild(mk('line', {x1:X(re), y1:Y(im), x2:X(rre), y2:Y(rim), stroke:'var(--mute)', 'stroke-width':1, 'stroke-dasharray':'2 3'}));\n` +
+    `    var yStar = clampY(Y(rim)); // reduced Im can exceed the frame for small Im(τ); pin to the top edge\n` +
+    `    svg.appendChild(mk('line', {x1:X(re), y1:Y(im), x2:X(rre), y2:yStar, stroke:'var(--mute)', 'stroke-width':1, 'stroke-dasharray':'2 3'}));\n` +
     `    // reduced point (green) and chosen tau (yellow)\n` +
-    `    svg.appendChild(mk('circle', {cx:X(rre), cy:Y(rim), r:5, fill:'var(--green)'}));\n` +
-    `    svg.appendChild(mk('text', {x:X(rre)+8, y:Y(rim)-6, 'font-size':10, fill:'var(--green)'}, 'τ*'));\n` +
+    `    svg.appendChild(mk('circle', {cx:X(rre), cy:yStar, r:5, fill:'var(--green)'}));\n` +
+    `    svg.appendChild(mk('text', {x:X(rre)+8, y:yStar+ (yStar<20?14:-6), 'font-size':10, fill:'var(--green)'}, 'τ*'));\n` +
     `    svg.appendChild(mk('circle', {cx:X(re), cy:Y(im), r:5, fill:'var(--yellow)'}));\n` +
     `    svg.appendChild(mk('text', {x:X(re)+8, y:Y(im)-6, 'font-size':10, fill:'var(--yellow)'}, 'τ'));\n` +
     `    // readout\n` +
@@ -115,10 +118,10 @@ export function renderScript(params) {
     `    lines.push('\\u210d is the weight-1 period domain (Siegel H\\u2081); the period map of the universal elliptic curve is \\u210d / SL\\u2082(\\u2124) \\u2192 the j-line. Griffiths transversality is automatic here (\\u210d is Hermitian symmetric) \\u2014 higher-weight period domains are not, which is the difficulty.');\n` +
     `    out.textContent = lines.join('\\n');\n` +
     `  }\n` +
-    `  reIn.addEventListener('input', function(){ if(preset) preset.selectedIndex = -1; draw(); });\n` +
-    `  imIn.addEventListener('input', function(){ if(preset) preset.selectedIndex = -1; draw(); });\n` +
-    `  if(preset){ preset.addEventListener('change', function(){ var p = pById[preset.value]; if(p){ reIn.value = p.re; imIn.value = p.im; draw(); } }); }\n` +
-    `  if(preset && PRESETS.length){ var p0 = PRESETS[0]; reIn.value = p0.re; imIn.value = p0.im; }\n` +
+    `  reIn.addEventListener('input', function(){ stRe = +reIn.value; if(preset) preset.selectedIndex = -1; draw(); });\n` +
+    `  imIn.addEventListener('input', function(){ stIm = +imIn.value; if(preset) preset.selectedIndex = -1; draw(); });\n` +
+    `  if(preset){ preset.addEventListener('change', function(){ var p = pById[preset.value]; if(p){ stRe = p.re; stIm = p.im; reIn.value = p.re; imIn.value = p.im; draw(); } }); }\n` +
+    `  if(preset && PRESETS.length){ var p0 = PRESETS[0]; stRe = p0.re; stIm = p0.im; reIn.value = p0.re; imIn.value = p0.im; }\n` +
     `  draw();\n` +
     `})();\n` +
     `</script>`
