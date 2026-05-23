@@ -32,7 +32,8 @@
           "seriesKind": { "type": "string", "enum": ["inner_zzm1", "outer_zzm1", "exp_invz"], "description": "Which Laurent partial-sum rule to use." },
           "rIn": { "type": "number", "minimum": 0, "description": "Inner radius of the annulus." },
           "rOut": { "type": "number", "exclusiveMinimum": 0, "description": "Outer radius for display (use a finite value for |z|>r annuli)." },
-          "series": { "type": "string", "maxLength": 60, "description": "Plain-text Laurent series for this annulus." }
+          "series": { "type": "string", "maxLength": 60, "description": "Plain-text Laurent series for this annulus." },
+          "converge": { "type": "string", "maxLength": 70, "description": "Optional plain-text region-of-convergence note (default: 'converges on the annulus, diverges outside it')." }
         }
       }
     }

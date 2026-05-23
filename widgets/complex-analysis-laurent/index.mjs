@@ -84,7 +84,7 @@ export function renderScript(params) {
     `    lines.push('Laurent series on this annulus:  f(z) = ' + c.series);\n` +
     `    lines.push('at the test point z = ' + z[0].toFixed(2) + ' + ' + z[1].toFixed(2) + 'i:');\n` +
     `    lines.push('  S_' + N + ' = ' + sN[0].toFixed(4) + ' + ' + sN[1].toFixed(4) + 'i      f = ' + fz[0].toFixed(4) + ' + ' + fz[1].toFixed(4) + 'i');\n` +
-    `    lines.push('  |f \\u2212 S_' + N + '| = ' + err.toExponential(2) + '   \\u2192 0 as N grows (converges on the annulus, diverges outside it).');\n` +
+    `    lines.push('  |f \\u2212 S_' + N + '| = ' + err.toExponential(2) + '   \\u2192 0 as N grows (' + (c.converge || 'converges on the annulus, diverges outside it') + ').');\n` +
     `    out.textContent = lines.join('\\n');\n` +
     `  }\n` +
     `  sel.addEventListener('change', draw); nIn.addEventListener('input', draw);\n` +

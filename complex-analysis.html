@@ -1033,7 +1033,7 @@ const C = {
 </div><script>
 /* complex-analysis-laurent widget: w-laurent */
 (function(){
-  var CASES = [{"id":"zzm1-inner","label":"1/(z(z−1)) on 0<|z|<1","kind":"inv_zzm1","seriesKind":"inner_zzm1","rIn":0,"rOut":1,"series":"−1/z − 1 − z − z² − z³ − …"},{"id":"zzm1-outer","label":"1/(z(z−1)) on |z|>1","kind":"inv_zzm1","seriesKind":"outer_zzm1","rIn":1,"rOut":5,"series":"z⁻² + z⁻³ + z⁻⁴ + …"},{"id":"exp","label":"e^(1/z) on |z|>0","kind":"exp_invz","seriesKind":"exp_invz","rIn":0,"rOut":5,"series":"1 + 1/z + 1/(2! z²) + 1/(3! z³) + …"}];
+  var CASES = [{"id":"zzm1-inner","label":"1/(z(z−1)) on 0<|z|<1","kind":"inv_zzm1","seriesKind":"inner_zzm1","rIn":0,"rOut":1,"series":"−1/z − 1 − z − z² − z³ − …"},{"id":"zzm1-outer","label":"1/(z(z−1)) on |z|>1","kind":"inv_zzm1","seriesKind":"outer_zzm1","rIn":1,"rOut":5,"series":"z⁻² + z⁻³ + z⁻⁴ + …"},{"id":"exp","label":"e^(1/z) on |z|>0","kind":"exp_invz","seriesKind":"exp_invz","rIn":0,"rOut":5,"series":"1 + 1/z + 1/(2! z²) + 1/(3! z³) + …","converge":"converges on the whole punctured plane — everywhere except z = 0"}];
   var byId = {}; CASES.forEach(function(c){ byId[c.id] = c; });
   var sel = document.getElementById('w-laurent-sel');
   var nIn = document.getElementById('w-laurent-n'), nL = document.getElementById('w-laurent-nval');
@@ -1079,7 +1079,7 @@ const C = {
     lines.push('Laurent series on this annulus:  f(z) = ' + c.series);
     lines.push('at the test point z = ' + z[0].toFixed(2) + ' + ' + z[1].toFixed(2) + 'i:');
     lines.push('  S_' + N + ' = ' + sN[0].toFixed(4) + ' + ' + sN[1].toFixed(4) + 'i      f = ' + fz[0].toFixed(4) + ' + ' + fz[1].toFixed(4) + 'i');
-    lines.push('  |f \u2212 S_' + N + '| = ' + err.toExponential(2) + '   \u2192 0 as N grows (converges on the annulus, diverges outside it).');
+    lines.push('  |f \u2212 S_' + N + '| = ' + err.toExponential(2) + '   \u2192 0 as N grows (' + (c.converge || 'converges on the annulus, diverges outside it') + ').');
     out.textContent = lines.join('\n');
   }
   sel.addEventListener('change', draw); nIn.addEventListener('input', draw);

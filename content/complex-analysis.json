@@ -773,7 +773,8 @@
                 "seriesKind": "exp_invz",
                 "rIn": 0,
                 "rOut": 5,
-                "series": "1 + 1/z + 1/(2! z²) + 1/(3! z³) + …"
+                "series": "1 + 1/z + 1/(2! z²) + 1/(3! z³) + …",
+                "converge": "converges on the whole punctured plane — everywhere except z = 0"
               }
             ]
           }
