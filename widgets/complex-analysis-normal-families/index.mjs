@@ -86,10 +86,11 @@ export function renderScript(params) {
     `    // readout\n` +
     `    var lines = [];\n` +
     `    lines.push('Montel: a family of holomorphic functions uniformly bounded on compact sets is NORMAL \\u2014 every sequence has a locally-uniformly-convergent subsequence.');\n` +
+    `    lines.push('(The plot shows Re f_n on the real diameter |x| \\u2264 0.9 \\u2014 a faithful 1-D slice of the holomorphic f_n.)');\n` +
     `    if(g.kind==='zn'){ lines.push('f_n = z^n: |f_n| \\u2264 1 on the disk and \\u2264 0.9 on |z|\\u22640.9. The family is normal; the whole sequence converges to 0 on compacts.'); }\n` +
     `    else if(g.kind==='shrink'){ lines.push('f_n = z/n: bounded by 0.9 on this slice and \\u2192 0 uniformly. Normal; the whole sequence converges to 0.'); }\n` +
     `    else if(g.kind==='rot'){ lines.push('f_n = e^{in} z: |f_n| = |z| \\u2264 0.9, so bounded \\u21d2 NORMAL by Montel \\u2014 yet the FULL sequence does NOT converge (e^{in} circles the unit circle forever). Montel only promises a convergent SUBsequence: pick n_k with e^{i n_k} \\u2192 1.'); }\n` +
-    `    else { lines.push('f_n = n\\u00b7z is NOT uniformly bounded (|f_n(0.9)| = 0.9n \\u2192 \\u221e). Montel\\u2019s hypothesis fails: no subsequence converges, so the family is NOT normal \\u2014 the curves march off the chart.'); }\n` +
+    `    else { lines.push('f_n = n\\u00b7z is NOT uniformly bounded (|f_n(0.9)| = 0.9n \\u2192 \\u221e). Montel\\u2019s hypothesis fails: no subsequence converges, so the family is NOT normal \\u2014 watch the y-axis keep rescaling as the values run off to infinity.'); }\n` +
     `    if(g.note) lines.push(g.note);\n` +
     `    out.textContent = lines.join('\\n');\n` +
     `  }\n` +

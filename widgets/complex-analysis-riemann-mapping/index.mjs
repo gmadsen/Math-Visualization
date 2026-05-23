@@ -89,7 +89,7 @@ export function renderScript(params) {
     `    // readout\n` +
     `    var lines = [];\n` +
     `    lines.push('Riemann mapping theorem: every simply-connected proper open U \\u228a \\u2102 is conformally equivalent to the unit disk.');\n` +
-    `    lines.push('Here ' + s.f + ' maps the ' + g.label + ' conformally ONTO the disk: the orthogonal grid stays orthogonal, U fills the disk, and z\\u2080 \\u2192 0.');\n` +
+    `    lines.push('Here ' + s.f + ' is a conformal BIJECTION of the ' + g.label + ' onto the disk: the orthogonal grid stays orthogonal and z\\u2080 \\u2192 0. (The drawn grid is a finite patch of U, so it covers most \\u2014 not quite all \\u2014 of the disk.)');\n` +
     `    if(g.note) lines.push(g.note);\n` +
     `    out.textContent = lines.join('\\n');\n` +
     `  }\n` +
