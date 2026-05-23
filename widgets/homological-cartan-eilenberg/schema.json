@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/homological-cartan-eilenberg/schema.json",
+  "title": "homological-cartan-eilenberg widget params",
+  "description": "Mode-tabbed diagram of a Cartan–Eilenberg resolution: a cochain complex C^• resolved by a double complex P^{•,•} of projectives. Three tabs reveal the construction in layers — (1) the complex C^• itself; (2) the column projective resolutions P^{p,•} ↠ C^p (each P^{p,q} projective); (3) the distinguishing third condition, that the horizontal cycles, boundaries, and homology Z^p, B^p, H^p of the double complex are themselves projective resolutions of Z^p(C), B^p(C), H^p(C). The readout names the active condition plus the two payoffs (hyper-derived functors and the Grothendieck spectral sequence). Structural diagram; params carry only chrome.",
+  "meta": {
+    "family": "homological-cartan-eilenberg",
+    "dimension": "2d",
+    "gesture": "select",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id; the script derives -svg/-out and per-mode button ids."
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title rendered inside .hd > .ttl."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional short hint rendered inside .hd > .hint."
+    }
+  }
+}

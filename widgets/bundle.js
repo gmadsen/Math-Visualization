@@ -10135,6 +10135,24 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "homological-cartan-eilenberg",
+    "family": "homological-cartan-eilenberg",
+    "dimension": "2d",
+    "gesture": "select",
+    "role": "exploratory",
+    "title": "homological-cartan-eilenberg widget params",
+    "description": "Mode-tabbed diagram of a Cartan–Eilenberg resolution: a cochain complex C^• resolved by a double complex P^{•,•} of projectives. Three tabs reveal the construction in layers — (1) the complex C^• itself; (2) the column projective resolutions P^{p,•} ↠ C^p (each P^{p,q} projective); (3) the distinguishing third condition, that the horizontal cycles, boundaries, and homology Z^p, B^p, H^p of the double complex are themselves projective resolutions of Z^p(C), B^p(C), H^p(C). The readout names the active condition plus the two payoffs (hyper-derived functors and the Grothendieck spectral sequence). Structural diagram; params carry only chrome.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Mode-tabbed diagram of a Cartan–Eilenberg resolution, introduced on `homological.html` §14. Bespoke semantic module — a structural diagram; params carry only chrome.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "homological-double-complex",
     "family": "homological-double-complex",
     "dimension": "2d",
@@ -10147,6 +10165,24 @@ window.__MVWidgets = [
       "title"
     ],
     "readmeExcerpt": "Double-complex / total-complex explorer, introduced on `homological.html` §12. Bespoke semantic module — the grid geometry is intrinsic; params carry the grid size and chrome.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "homological-les-sphere",
+    "family": "homological-les-sphere",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory",
+    "title": "homological-les-sphere widget params",
+    "description": "Mayer–Vietoris explorer for H_*(S^n), the flagship use of the long exact sequence in homology. Cover S^n by two contractible hemispheres U, V with U∩V ≃ S^{n-1}; the MV long exact sequence has H_k(U)⊕H_k(V)=0 for k≥1, so the connecting map ∂ becomes an isomorphism H_k(S^n) ≅ H_{k-1}(S^{n-1}) for 2≤k≤n. Iterating gives the descent ladder H_n(S^n) ≅ ⋯ ≅ H_1(S^1) ≅ ℤ, plus H_0(S^n)=ℤ by connectedness. The reader slides the sphere dimension n; the widget shows the active LES chunk, the descent ladder, and the resulting Betti table. The arithmetic is intrinsic; params carry only the slider bound and chrome.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Mayer–Vietoris explorer for $H_*(S^n)$, introduced on `homological.html` §5 (*The long exact sequence in homology*). Bespoke semantic module — the arithmetic is intrinsic; params carry only the slider bound and chrome.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,

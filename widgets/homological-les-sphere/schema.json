@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/homological-les-sphere/schema.json",
+  "title": "homological-les-sphere widget params",
+  "description": "Mayer–Vietoris explorer for H_*(S^n), the flagship use of the long exact sequence in homology. Cover S^n by two contractible hemispheres U, V with U∩V ≃ S^{n-1}; the MV long exact sequence has H_k(U)⊕H_k(V)=0 for k≥1, so the connecting map ∂ becomes an isomorphism H_k(S^n) ≅ H_{k-1}(S^{n-1}) for 2≤k≤n. Iterating gives the descent ladder H_n(S^n) ≅ ⋯ ≅ H_1(S^1) ≅ ℤ, plus H_0(S^n)=ℤ by connectedness. The reader slides the sphere dimension n; the widget shows the active LES chunk, the descent ladder, and the resulting Betti table. The arithmetic is intrinsic; params carry only the slider bound and chrome.",
+  "meta": {
+    "family": "homological-les-sphere",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id; the script derives -n/-svg/-out."
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title rendered inside .hd > .ttl."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional short hint rendered inside .hd > .hint."
+    },
+    "maxDim": {
+      "type": "integer",
+      "minimum": 3,
+      "maximum": 8,
+      "description": "Maximum sphere dimension on the slider (n ∈ 1..maxDim). Default 6."
+    }
+  }
+}
