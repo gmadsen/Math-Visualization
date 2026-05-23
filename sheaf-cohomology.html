@@ -357,6 +357,89 @@ over open covers ordered by refinement. For paracompact Hausdorff $X$ this agree
 
 <h3>Functoriality</h3>
 <p>A morphism of sheaves $\mathcal{F} \to \mathcal{G}$ induces $\check{C}^p(\mathcal{U}, \mathcal{F}) \to \check{C}^p(\mathcal{U}, \mathcal{G})$ by postcomposing each section. This commutes with $d$ and descends to $\check{H}^p$. A refinement of covers $\mathcal{V} \prec \mathcal{U}$ and a choice of refinement map $\tau\colon \mathrm{Ind}(\mathcal{V}) \to \mathrm{Ind}(\mathcal{U})$ induces $\check{C}^p(\mathcal{U},\mathcal{F}) \to \check{C}^p(\mathcal{V},\mathcal{F})$ by restricting sections; different choices of $\tau$ are chain-homotopic, so the map on $\check{H}^p$ is canonical. These pieces assemble into a bifunctor $\check{H}^p(-, -)$ in the cover and the sheaf separately.</p>
+
+<div class="widget" id="w-sheaf-cohomology-nerve">
+  <div class="hd"><div class="ttl">The nerve of a cover</div><div class="hint">Čech of a good cover = simplicial cohomology of the nerve. Circle → (ℤ,ℤ); interval → (ℤ,0).</div></div>
+  <div class="row">
+    <button type="button" id="w-sheaf-cohomology-nerve-circle">cover of $S^1$</button>
+    <button type="button" id="w-sheaf-cohomology-nerve-interval">cover of an interval</button>
+  </div>
+  <div class="row">
+    <label for="w-sheaf-cohomology-nerve-n">number of sets $N$</label>
+    <input type="range" id="w-sheaf-cohomology-nerve-n" min="3" max="6" value="4" step="1">
+    <span class="pill" id="w-sheaf-cohomology-nerve-nval">N = 4</span>
+  </div>
+  <svg id="w-sheaf-cohomology-nerve-svg" viewBox="0 0 560 300" width="560" height="300" role="img" aria-label="A good cover, its nerve simplicial complex, and the Čech cohomology of the constant sheaf"><title>The nerve of a cover: Čech cohomology of the constant sheaf equals simplicial cohomology of the nerve</title></svg>
+  <div class="readout" id="w-sheaf-cohomology-nerve-out"></div>
+</div><script>
+/* sheaf-cohomology-nerve widget: w-sheaf-cohomology-nerve */
+(function(){
+  var svg=document.getElementById('w-sheaf-cohomology-nerve-svg'), out=document.getElementById('w-sheaf-cohomology-nerve-out');
+  var nIn=document.getElementById('w-sheaf-cohomology-nerve-n'), nL=document.getElementById('w-sheaf-cohomology-nerve-nval');
+  var bC=document.getElementById('w-sheaf-cohomology-nerve-circle'), bI=document.getElementById('w-sheaf-cohomology-nerve-interval');
+  if(!svg || !out || !nIn || !nL || !bC || !bI) return;
+  var NS='http://www.w3.org/2000/svg';
+  var PAL=['var(--yellow)','var(--cyan)','var(--green)','var(--pink)','var(--violet)','var(--blue)'];
+  function mk(tag, attrs, text){ var e=document.createElementNS(NS, tag); for(var k in attrs){ e.setAttribute(k, attrs[k]); } if(text!=null) e.textContent=text; return e; }
+  function txt(x,y,s,opt){ opt=opt||{}; svg.appendChild(mk('text', {x:x, y:y, 'text-anchor':opt.anchor||'middle', 'font-size':opt.size||11, fill:opt.fill||'var(--ink)', 'font-weight':opt.weight||'normal', 'font-style':opt.italic?'italic':'normal'}, s)); }
+  function pc(cx,cy,R,a){ return [cx+R*Math.cos(a), cy+R*Math.sin(a)]; }
+  function arcPath(cx,cy,R,a1,a2){ var p1=pc(cx,cy,R,a1), p2=pc(cx,cy,R,a2); var large=(a2-a1)>Math.PI?1:0; return 'M'+p1[0]+' '+p1[1]+' A'+R+' '+R+' 0 '+large+' 1 '+p2[0]+' '+p2[1]; }
+  function zk(k){ return k===0 ? '0' : (k===1 ? '\u2124' : '\u2124^'+k); }
+  var topo='circle';
+  function draw(){
+    var N=+nIn.value; nL.textContent='N = '+N;
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    bC.classList.toggle('active', topo==='circle'); bC.setAttribute('aria-pressed', topo==='circle');
+    bI.classList.toggle('active', topo==='interval'); bI.setAttribute('aria-pressed', topo==='interval');
+    var E = (topo==='circle') ? N : (N-1);    // nerve edges: cyclic vs path
+    var b0 = 1, b1 = E - N + b0;               // Euler/Betti of the nerve graph
+    // ---- left: the cover ----
+    txt(120, 28, 'cover by '+N+' overlapping sets', {size:11, fill:'var(--mute)', italic:true});
+    if(topo==='circle'){
+      var cx=120, cy=150, R=72;
+      svg.appendChild(mk('circle', {cx:cx, cy:cy, r:R, fill:'none', stroke:'var(--line)', 'stroke-width':1, 'stroke-dasharray':'3 4'}));
+      for(var i=0;i<N;i++){ var mid=-Math.PI/2 + i*2*Math.PI/N, half=(Math.PI/N)*1.18;
+        svg.appendChild(mk('path', {d:arcPath(cx,cy,R, mid-half, mid+half), fill:'none', stroke:PAL[i%PAL.length], 'stroke-width':6, 'stroke-linecap':'round', opacity:0.85}));
+        var lp=pc(cx,cy,R+18, mid); txt(lp[0], lp[1]+3, 'U'+i, {size:10, fill:PAL[i%PAL.length]}); }
+    } else {
+      var x0=40, x1=200, yL=150, seg=(x1-x0)/N;
+      svg.appendChild(mk('line', {x1:x0, y1:yL, x2:x1, y2:yL, stroke:'var(--line)', 'stroke-width':1, 'stroke-dasharray':'3 4'}));
+      for(var j=0;j<N;j++){ var c=x0+(j+0.5)*seg, hl=seg*0.62, yy=yL+((j%2)?12:-12);
+        svg.appendChild(mk('line', {x1:c-hl, y1:yy, x2:c+hl, y2:yy, stroke:PAL[j%PAL.length], 'stroke-width':6, 'stroke-linecap':'round', opacity:0.85}));
+        txt(c, yy+((j%2)?16:-10), 'U'+j, {size:10, fill:PAL[j%PAL.length]}); }
+    }
+    // ---- right: the nerve graph ----
+    txt(410, 28, 'nerve N(U)', {size:11, fill:'var(--mute)', italic:true});
+    var VX=[], VY=[];
+    if(topo==='circle'){ var ncx=410, ncy=150, nR=70;
+      for(var v=0;v<N;v++){ var a=-Math.PI/2 + v*2*Math.PI/N; VX.push(ncx+nR*Math.cos(a)); VY.push(ncy+nR*Math.sin(a)); } }
+    else { var bx0=320, bx1=520, by=150; for(var v2=0;v2<N;v2++){ VX.push(bx0 + (N>1? v2*(bx1-bx0)/(N-1) : (bx0+bx1)/2)); VY.push(by); } }
+    // edges (1-simplices = pairwise overlaps)
+    function edge(a,b){ svg.appendChild(mk('line', {x1:VX[a], y1:VY[a], x2:VX[b], y2:VY[b], stroke:'var(--cyan)', 'stroke-width':2})); }
+    for(var e=0;e<N-1;e++) edge(e, e+1);
+    if(topo==='circle') edge(N-1, 0);
+    // vertices (0-simplices)
+    for(var w=0;w<N;w++){ svg.appendChild(mk('circle', {cx:VX[w], cy:VY[w], r:13, fill:'var(--panel2)', stroke:PAL[w%PAL.length], 'stroke-width':2}));
+      txt(VX[w], VY[w]+4, ''+w, {size:11, fill:PAL[w%PAL.length], weight:600}); }
+    // ---- bottom: the Čech complex + cohomology ----
+    txt(280, 250, '\u010cech complex of the constant sheaf \u2124:   \u010c\u2070 = ' + zk(N) + '  \u2192  \u010c\u00b9 = ' + zk(E) + '  \u2192  \u010c\u00b2 = 0', {size:12, fill:'var(--ink)'});
+    txt(280, 276, '\u021e\u2070 = ' + zk(b0) + '        \u021e\u00b9 = ' + zk(b1), {size:14, fill:'var(--yellow)', weight:600});
+    // ---- readout ----
+    var space = (topo==='circle') ? 'S\u00b9' : 'a contractible interval';
+    var lines=[];
+    lines.push('A good cover of ' + space + ' by ' + N + ' sets: each set overlaps only its neighbour(s) in a single contractible piece, and there are no triple overlaps, so \u010c\u00b2 = 0. The nerve N(U) has one vertex per set (' + N + ' of them) and one edge per nonempty pairwise overlap (' + E + ' of them).');
+    lines.push('\u010cech cohomology of the constant sheaf \u2124 IS the simplicial cohomology of the nerve. The nerve is a ' + (topo==='circle' ? 'cycle graph (b\u2080=1, b\u2081=1)' : 'path / tree (b\u2080=1, b\u2081=0)') + ', so \u021e\u2070(U,\u2124) = ' + zk(b0) + ' and \u021e\u00b9(U,\u2124) = ' + zk(b1) + '.');
+    if(topo==='circle') lines.push('This is exactly H*(S\u00b9; \u2124) = (\u2124, \u2124), and it does not change as you vary N: the nerve theorem says a good cover\u2019s nerve is homotopy-equivalent to the space, so \u010cech recovers singular cohomology independent of the cover.');
+    else lines.push('A contractible interval has H* = (\u2124, 0); its good covers have tree nerves, so \u021e\u00b9 = 0. Switch to S\u00b9 to see the loop appear as the single independent 1-cocycle.');
+    out.textContent=lines.join('\n');
+  }
+  bC.addEventListener('click', function(){ topo='circle'; draw(); });
+  bI.addEventListener('click', function(){ topo='interval'; draw(); });
+  nIn.addEventListener('input', draw);
+  draw();
+})();
+</script>
+
 <!-- callback-auto-begin -->
 <aside class="callback">
   <div class="ttl">See also</div>
@@ -536,6 +619,68 @@ has three, three, and one term (because $\binom{3}{1} = 3, \binom{3}{2} = 3, \bi
 
 <h3>Counterexample: bad covers</h3>
 <p>If the cover is <em>not</em> Leray, Čech can still produce the wrong answer. Take $X = S^1$ with a 2-open cover by <em>disjoint</em> arcs (not overlapping): $U_0 = $ open upper half, $U_1 = $ open lower half, $U_{01} = \emptyset$. Then $\check{C}^0 = \mathbb{Z}^2$, $\check{C}^1 = 0$, so $\check{H}^0 = \mathbb{Z}^2$ and $\check{H}^1 = 0$ — both wrong (should be $\mathbb{Z}$ and $\mathbb{Z}$). But the cover is not a cover! The overlap is empty, which isn't a Leray condition but does tell you the cover fails to cover. A proper cover with nonempty overlaps and contractible pieces gives the correct Čech answer; passing to the colimit over refinements always does.</p>
+
+
+<div class="widget" id="w-sheaf-cohomology-leray">
+  <div class="hd"><div class="ttl">When is Čech = derived? Acyclic covers</div><div class="hint">Pick a cover: if every finite intersection is acyclic, the comparison map is an isomorphism.</div></div>
+  <div class="row">
+    <button type="button" id="w-sheaf-cohomology-leray-s0">$\mathbb{P}^1$ affine cover</button>
+    <button type="button" id="w-sheaf-cohomology-leray-s1">$\mathbb{P}^2$ affine cover</button>
+    <button type="button" id="w-sheaf-cohomology-leray-s2">trivial cover $\{\mathbb{P}^1\}$</button>
+  </div>
+  <svg id="w-sheaf-cohomology-leray-svg" viewBox="0 0 540 280" width="540" height="280" role="img" aria-label="When the Čech-to-derived comparison map is an isomorphism: Leray acyclic covers"><title>Leray covers: the comparison map from Čech to derived cohomology is an isomorphism exactly when all intersections are acyclic</title></svg>
+  <div class="readout" id="w-sheaf-cohomology-leray-out"></div>
+</div><script>
+/* sheaf-cohomology-leray widget: w-sheaf-cohomology-leray */
+(function(){
+  var svg=document.getElementById('w-sheaf-cohomology-leray-svg'), out=document.getElementById('w-sheaf-cohomology-leray-out');
+  var btns=[document.getElementById('w-sheaf-cohomology-leray-s0'), document.getElementById('w-sheaf-cohomology-leray-s1'), document.getElementById('w-sheaf-cohomology-leray-s2')];
+  if(!svg || !out || btns.some(function(b){ return !b; })) return;
+  var NS='http://www.w3.org/2000/svg';
+  function mk(tag, attrs, text){ var e=document.createElementNS(NS, tag); for(var k in attrs){ e.setAttribute(k, attrs[k]); } if(text!=null) e.textContent=text; return e; }
+  function txt(x,y,s,opt){ opt=opt||{}; svg.appendChild(mk('text', {x:x, y:y, 'text-anchor':opt.anchor||'start', 'font-size':opt.size||12, fill:opt.fill||'var(--ink)', 'font-weight':opt.weight||'normal', 'font-style':opt.italic?'italic':'normal'}, s)); }
+  var SCEN=[
+    { space:'X = P^1,  F quasi-coherent', cover:'cover U = { U_0, U_1 }',
+      rows:[ {t:'U_0 = A^1   \u2014 affine', ok:true}, {t:'U_1 = A^1   \u2014 affine', ok:true}, {t:'U_0 \u2229 U_1 = G_m   \u2014 affine', ok:true} ],
+      leray:true,
+      verdict:'Leray: every set and intersection is affine, hence F-acyclic (Serre: H^i(affine, quasi-coherent) = 0 for i>0). The comparison map H^p(U,F) \u2192 H^p(X,F) is an ISOMORPHISM for every p, so the two-term \u010cech complex computes H*(P^1, O(d)) exactly \u2014 no refinement needed.' },
+    { space:'X = P^2,  F quasi-coherent', cover:'cover U = { U_0, U_1, U_2 }',
+      rows:[ {t:'U_i = A^2   \u2014 affine', ok:true}, {t:'U_i \u2229 U_j = A^1 x G_m   \u2014 affine', ok:true}, {t:'U_0 \u2229 U_1 \u2229 U_2 = G_m^2   \u2014 affine', ok:true} ],
+      leray:true,
+      verdict:'Leray: all pairwise and triple intersections are affine, hence acyclic. \u010cech on this 3-set cover computes H*(P^2); the top class H^2(O(d)) appears in the triple-overlap term \u010c^2.' },
+    { space:'X = P^1,  F = O(-2)', cover:'cover U = { P^1 }   (one set)',
+      rows:[ {t:'the only set is P^1 itself', ok:true}, {t:'H^1(P^1, O(-2)) = k \u2260 0   \u2014 NOT acyclic', ok:false} ],
+      leray:false,
+      verdict:'NOT Leray: the single set is the whole space, which is not O(-2)-acyclic. The one-set \u010cech complex gives H^0(U,F)=0 and H^p(U,F)=0 for p>0, missing the true H^1(P^1,O(-2)) = k. The comparison map is NOT an isomorphism \u2014 refine to the affine cover (first tab) to compute correctly.' }
+  ];
+  var sel=0;
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    btns.forEach(function(b,i){ var on=(i===sel); b.classList.toggle('active', on); b.setAttribute('aria-pressed', on?'true':'false'); });
+    var S=SCEN[sel];
+    txt(270, 26, S.space, {anchor:'middle', size:12, fill:'var(--ink)', weight:600});
+    txt(270, 46, S.cover, {anchor:'middle', size:11, fill:'var(--mute)', italic:true});
+    txt(40, 78, 'finite intersections and their acyclicity:', {size:11, fill:'var(--cyan)', weight:600});
+    S.rows.forEach(function(r,i){ var y=102+i*24;
+      svg.appendChild(mk('text', {x:48, y:y, 'font-size':14, fill: r.ok?'var(--green)':'var(--pink)'}, r.ok?'\u2713':'\u2717'));
+      txt(68, y, r.t, {size:12, fill:'var(--ink)'}); });
+    // comparison map
+    var cy=210;
+    txt(120, cy, 'H^p(U, F)', {anchor:'middle', size:13, fill:'var(--ink)', weight:600});
+    txt(270, cy, '\u2192', {anchor:'middle', size:18, fill: S.leray?'var(--green)':'var(--pink)'});
+    txt(270, cy-18, S.leray?'\u2245':'\u2260', {anchor:'middle', size:14, fill: S.leray?'var(--green)':'var(--pink)', weight:600});
+    txt(420, cy, 'H^p(X, F)', {anchor:'middle', size:13, fill:'var(--ink)', weight:600});
+    txt(120, cy+18, '\u010cech, w.r.t. cover U', {anchor:'middle', size:9, fill:'var(--mute)'});
+    txt(420, cy+18, 'derived functor', {anchor:'middle', size:9, fill:'var(--mute)'});
+    // verdict badge
+    var vb=S.leray?'LERAY \u2014 comparison is an isomorphism':'NOT LERAY \u2014 must refine';
+    txt(270, 252, vb, {anchor:'middle', size:12, fill: S.leray?'var(--green)':'var(--pink)', weight:600});
+    out.textContent=S.verdict;
+  }
+  btns.forEach(function(b,i){ b.addEventListener('click', function(){ sel=i; draw(); }); });
+  draw();
+})();
+</script>
 
 <div class="quiz" data-concept="leray-acyclic-covers"></div>
 </section>

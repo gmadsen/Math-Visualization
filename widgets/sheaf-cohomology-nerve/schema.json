@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/sheaf-cohomology-nerve/schema.json",
+  "title": "sheaf-cohomology-nerve widget params",
+  "description": "Nerve-of-a-cover explorer. Draws a good cover of S^1 (or of a contractible interval) by N overlapping sets, its nerve simplicial complex (one vertex per set, one edge per pairwise overlap, no triple overlaps), and the Čech cohomology of the constant sheaf ℤ — which equals the simplicial cohomology of the nerve. For S^1 the nerve is a cycle graph (Ȟ⁰=ℤ, Ȟ¹=ℤ); for the interval it is a path/tree (Ȟ⁰=ℤ, Ȟ¹=0). Varying N leaves the cohomology unchanged, illustrating the nerve theorem (a good cover's nerve is homotopy-equivalent to the space). Combinatorics are intrinsic; params carry only chrome.",
+  "meta": {
+    "family": "sheaf-cohomology-nerve",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id; the script derives -svg/-out/-n and the two topology-button ids."
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title rendered inside .hd > .ttl."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional short hint rendered inside .hd > .hint."
+    }
+  }
+}
