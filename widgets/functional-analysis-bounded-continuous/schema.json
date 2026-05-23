@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/functional-analysis-bounded-continuous/schema.json",
+  "title": "functional-analysis-bounded-continuous widget params",
+  "description": "Bounded-vs-continuous explorer. The reader picks a linear operator on a function space and steps a test family x_n (here sin(nx) on L²[0,π]); the widget plots the amplification ratio ‖T x_n‖/‖x_n‖ against n. A bounded operator caps the ratio (multiplication is flat at the constant, the Volterra integral decays to 0 — both continuous); the derivative d/dx grows the ratio like n without bound, so it is UNBOUNDED, hence DISCONTINUOUS — a phenomenon only possible in infinite dimensions. The norm ratios are computed in closed form (a `kind` enum); params carry the case menu.",
+  "meta": {
+    "family": "functional-analysis-bounded-continuous",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["widgetId", "title", "operators"],
+  "properties": {
+    "widgetId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id; the script derives -sel/-n/-svg/-out." },
+    "title": { "type": "string", "description": "Display title rendered inside .hd > .ttl." },
+    "hint": { "type": "string", "description": "Optional short hint rendered inside .hd > .hint." },
+    "operators": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 5,
+      "description": "Each linear operator offered in the dropdown.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "label", "kind"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[A-Za-z0-9_-]+$", "description": "Stable option value." },
+          "label": { "type": "string", "description": "Plain-text dropdown label." },
+          "kind": {
+            "type": "string",
+            "enum": ["mult", "volterra", "deriv"],
+            "description": "mult = ×2 (ratio 2, bounded); volterra = ∫₀ˣ (ratio √3/n → 0, bounded/compact); deriv = d/dx (ratio n → ∞, unbounded)."
+          },
+          "note": { "type": "string", "maxLength": 130, "description": "Optional plain-text remark." }
+        }
+      }
+    }
+  }
+}

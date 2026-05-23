@@ -258,22 +258,36 @@
         },
         {
           "type": "widget",
-          "slug": "functional-analysis-operator-norm",
+          "slug": "functional-analysis-bounded-continuous",
           "params": {
-            "widgetId": "w-fa-operator-norm",
-            "title": "The operator norm is the largest singular value",
-            "hint": "Drag the entries: T sends the unit circle to an ellipse; the major semi-axis is the operator norm.",
-            "m0": [
-              1.4,
-              0.5,
-              0,
-              0.9
+            "widgetId": "w-fa-bounded-continuous",
+            "title": "Bounded = continuous (and the derivative is neither)",
+            "hint": "Step n: bounded operators cap the amplification ratio; d/dx blows it up.",
+            "operators": [
+              {
+                "id": "mult",
+                "label": "T = 2·Id  (multiplication)",
+                "kind": "mult",
+                "note": "Ratio is exactly 2 for all n: bounded with ‖T‖ = 2, hence continuous."
+              },
+              {
+                "id": "volterra",
+                "label": "V f = ∫₀ˣ f  (Volterra integral)",
+                "kind": "volterra",
+                "note": "Ratio √3/n → 0: bounded (in fact compact), hence continuous."
+              },
+              {
+                "id": "deriv",
+                "label": "D = d/dx  (derivative)",
+                "kind": "deriv",
+                "note": "Ratio = n → ∞: unbounded, hence DISCONTINUOUS — sin(nx)/n → 0 but its derivative does not."
+              }
             ]
           }
         },
         {
           "type": "widget-script",
-          "ref": "w-fa-operator-norm"
+          "ref": "w-fa-bounded-continuous"
         },
         {
           "type": "raw",

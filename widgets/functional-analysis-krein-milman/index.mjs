@@ -78,7 +78,7 @@ export function renderScript(params) {
     `      svg.appendChild(mk('line', {x1:PX(x1[0]), y1:PY(x1[1]), x2:PX(x2[0]), y2:PY(x2[1]), stroke:'var(--yellow)', 'stroke-width':2}));\n` +
     `      [x1,x2].forEach(function(v){ svg.appendChild(mk('circle', {cx:PX(v[0]), cy:PY(v[1]), r:3.5, fill:'var(--yellow)'})); });\n` +
     `    }\n` +
-    `    svg.appendChild(mk('circle', {cx:PX(p[0]), cy:PY(p[1]), r:4.5, fill: b.ext?'var(--pink)':'var(--orange)', stroke:'#fff', 'stroke-width':1}));\n` +
+    `    svg.appendChild(mk('circle', {cx:PX(p[0]), cy:PY(p[1]), r:4.5, fill: b.ext?'var(--pink)':'var(--orange)', stroke:'var(--panel)', 'stroke-width':1.5}));\n` +
     `    svg.appendChild(mk('text', {x:CX, y:18, 'text-anchor':'middle', 'font-size':11, fill:'var(--mute)', 'font-style':'italic'}, 'extreme points in pink'));\n` +
     `    // readout\n` +
     `    var extDesc = sh.kind==='polygon' ? ('its ' + (sh.n||4) + ' vertices') : (sh.kind==='disk' ? 'its entire boundary circle' : 'the curved arc plus the two corners');\n` +
