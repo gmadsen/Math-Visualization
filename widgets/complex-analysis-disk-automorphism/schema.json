@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/complex-analysis-disk-automorphism/schema.json",
+  "title": "complex-analysis-disk-automorphism widget params",
+  "description": "Visualizer for the conformal automorphisms of the unit disk, φ(z) = e^{iθ}(z−a)/(1−ā z). The reader sets a (the point sent to the centre) and the rotation θ; a polar grid in the disk (left) is mapped to its image (right), which still fills the disk — the boundary maps to the boundary and a↦0. Shows that these Blaschke maps are exactly the disk's holomorphic automorphisms. The map is intrinsic; params carry only the title/hint.",
+  "meta": {
+    "family": "complex-analysis-disk-automorphism",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["widgetId", "title"],
+  "properties": {
+    "widgetId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id; the script derives -mod/-arg/-rot/-svg/-out." },
+    "title": { "type": "string", "description": "Display title rendered inside .hd > .ttl." },
+    "hint": { "type": "string", "description": "Optional short hint rendered inside .hd > .hint." }
+  }
+}
