@@ -9,7 +9,7 @@ When something ships, delete its bullet here. Don't keep a "Shipped recently" lo
 From `audits/coverage-stats.md` and `audits/starter-concepts.md`:
 
 - 207 topics, 1422 concepts, 34 capstones
-- 133 concepts lack a widget in their owning section
+- 131 concepts lack a widget in their owning section
 - 1468 widgets, 100% registry-driven. Interactive baseline gated via `audits/static-widgets-baseline.json`
 - Quiz tiers: v1 = 4222, hard = 1223, expert = 13 (intentionally bottom-of-list — see "Out of scope")
 - Tag coverage: 99.1% across all 12 populated sections; tagging effort effectively complete

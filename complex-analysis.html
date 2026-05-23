@@ -809,6 +809,73 @@ const C = {
 <p><strong>Morera.</strong> If $f$ is continuous on $U$ and $\oint_\Delta f = 0$ for every triangle $\Delta\subset U$, then $f$ is holomorphic. (Converse to Cauchy.)</p>
 <p><strong>Maximum modulus.</strong> If $f$ is holomorphic on $U$ and $|f|$ attains a local max at an interior point, $f$ is constant. (Hence on a compact domain, $|f|$ achieves its sup on the boundary.)</p>
 <p><strong>Open mapping.</strong> A nonconstant holomorphic map sends open sets to open sets. (One way to see it: $f-w_0$ has finitely many zeros, none on a small circle, and Rouché shows $f-w$ has the same number for all $w$ near $w_0$.)</p>
+
+<div class="widget" id="w-maxmod">
+  <div class="hd"><div class="ttl">Where |f| is largest</div><div class="hint">the heatmap of |f| over the disk — the maximum always sits on the boundary</div></div>
+  <div class="row">
+    <label for="w-maxmod-sel">f(z)</label>
+    <select id="w-maxmod-sel">
+      <option value="sq" selected>z²</option>
+      <option value="exp">e^z</option>
+      <option value="cube">z³ − z</option>
+      <option value="sinz">sin z</option>
+      <option value="poly">z² + z + 1</option>
+    </select>
+  </div>
+  <svg id="w-maxmod-svg" viewBox="0 0 540 270" width="540" height="270" role="img" aria-label="Heatmap of |f| over the unit disk with the boundary maximum"><title>Maximum modulus: |f| is largest on the boundary of the disk</title></svg>
+  <div class="readout" id="w-maxmod-out"></div>
+</div><script>
+/* complex-analysis-max-modulus widget: w-maxmod */
+(function(){
+  var FNS = [{"id":"sq","label":"z²","kind":"sq"},{"id":"exp","label":"e^z","kind":"exp"},{"id":"cube","label":"z³ − z","kind":"cube_m_z"},{"id":"sinz","label":"sin z","kind":"sinz"},{"id":"poly","label":"z² + z + 1","kind":"poly211"}];
+  var byId = {}; FNS.forEach(function(g){ byId[g.id] = g; });
+  var sel = document.getElementById('w-maxmod-sel');
+  var svg = document.getElementById('w-maxmod-svg');
+  var out = document.getElementById('w-maxmod-out');
+  if(!sel || !svg || !out) return;
+  var NS = 'http://www.w3.org/2000/svg';
+  function mk(tag, attrs, text){ var e = document.createElementNS(NS, tag); for(var k in attrs){ e.setAttribute(k, attrs[k]); } if(text!=null) e.textContent = text; return e; }
+  function cmul(p,q){ return [p[0]*q[0]-p[1]*q[1], p[0]*q[1]+p[1]*q[0]]; }
+  function cexp(p){ var e=Math.exp(p[0]); return [e*Math.cos(p[1]), e*Math.sin(p[1])]; }
+  function csin(p){ return [Math.sin(p[0])*Math.cosh(p[1]), Math.cos(p[0])*Math.sinh(p[1])]; }
+  function f(kind, z){
+    if(kind==='sq') return cmul(z,z);
+    if(kind==='exp') return cexp(z);
+    if(kind==='cube_m_z'){ var z2=cmul(z,z), z3=cmul(z2,z); return [z3[0]-z[0], z3[1]-z[1]]; }
+    if(kind==='sinz') return csin(z);
+    if(kind==='poly211'){ var z2=cmul(z,z); return [z2[0]+z[0]+1, z2[1]+z[1]]; }
+    return z;
+  }
+  function absf(kind, x, y){ var w=f(kind,[x,y]); return Math.hypot(w[0],w[1]); }
+  var CX=200, CY=140, Rpx=110; // disk centre + pixel radius
+  function draw(){
+    var g = byId[sel.value] || FNS[0];
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    var GN=26, cell=2*Rpx/GN, maxAbs=0, intMax=0;
+    // first pass: global max over the closed disk (boundary included)
+    for(var bi=0;bi<=240;bi++){ var th=2*Math.PI*bi/240, a=absf(g.kind, Math.cos(th), Math.sin(th)); if(a>maxAbs) maxAbs=a; }
+    // interior max (|z| <= 0.92) for comparison
+    for(var ix=0;ix<GN;ix++) for(var iy=0;iy<GN;iy++){ var x=-1+(ix+0.5)*2/GN, y=-1+(iy+0.5)*2/GN; if(x*x+y*y<=0.85){ var a2=absf(g.kind,x,y); if(a2>intMax) intMax=a2; } }
+    // heatmap cells over the disk
+    for(var jx=0;jx<GN;jx++) for(var jy=0;jy<GN;jy++){ var cx2=-1+(jx+0.5)*2/GN, cy2=-1+(jy+0.5)*2/GN; if(cx2*cx2+cy2*cy2>1) continue; var av=absf(g.kind,cx2,cy2), op=maxAbs>0?Math.pow(av/maxAbs,0.8):0; svg.appendChild(mk('rect', {x:CX+cx2*Rpx-cell/2, y:CY-cy2*Rpx-cell/2, width:cell+0.6, height:cell+0.6, fill:'var(--cyan)', 'fill-opacity':(0.08+0.85*op).toFixed(3)})); }
+    // boundary circle + max marker
+    svg.appendChild(mk('circle', {cx:CX, cy:CY, r:Rpx, fill:'none', stroke:'var(--line)', 'stroke-width':1.2}));
+    var bestTh=0, best=0; for(var k=0;k<720;k++){ var t2=2*Math.PI*k/720, a3=absf(g.kind, Math.cos(t2), Math.sin(t2)); if(a3>best){ best=a3; bestTh=t2; } }
+    var mx=Math.cos(bestTh), my=Math.sin(bestTh);
+    svg.appendChild(mk('circle', {cx:CX+mx*Rpx, cy:CY-my*Rpx, r:5, fill:'var(--yellow)'}));
+    svg.appendChild(mk('text', {x:CX+mx*Rpx+8, y:CY-my*Rpx+4, 'font-size':10, fill:'var(--yellow)'}, 'max |f|'));
+    svg.appendChild(mk('text', {x:CX, y:CY+Rpx+22, 'text-anchor':'middle', 'font-size':10, fill:'var(--mute)', 'font-style':'italic'}, 'brighter = larger |f|'));
+    var lines = [];
+    lines.push('max |f| over the closed disk = ' + maxAbs.toFixed(3) + ', attained on the boundary at z = e^{i·' + bestTh.toFixed(2) + '}.');
+    lines.push('largest |f| in the interior (|z| ≤ 0.92) = ' + intMax.toFixed(3) + '  <  ' + maxAbs.toFixed(3) + '.');
+    lines.push('Maximum modulus principle: a non-constant holomorphic f has no interior local max of |f| — the sup sits on the boundary.');
+    out.textContent = lines.join('\n');
+  }
+  sel.addEventListener('change', draw);
+  draw();
+})();
+</script>
+
 <div class="quiz" data-concept="maximum-modulus"></div><!-- backlinks-auto-begin -->
 <aside class="related">
   <div class="ttl">Used in</div>
@@ -1357,6 +1424,83 @@ const C = {
 <p><strong>Analytic continuation.</strong> A holomorphic function on a small disk has a unique extension to any simply connected domain containing the disk on which the extension exists. (Identity theorem: two holomorphic functions agreeing on a set with an accumulation point agree everywhere on the connected component.) The natural domain of $\sqrt{z}$ or $\log z$ is not $\mathbb{C}\setminus\{0\}$ but a bigger object — a <em>Riemann surface</em>. Walking $\log z$ around a loop encircling $0$ adds $2\pi i$; that increment is the <em>monodromy</em>.</p>
 <p>Riemann surfaces are the natural homes of multi-valued analytic functions. The compact ones are classified by genus; the simply connected ones by uniformization (every compact Riemann surface of genus $\ge 2$ is a quotient of the upper half-plane by a Fuchsian group). Modular forms — automorphic functions on the upper half-plane — pick up here. <em>Forward pointer: a future <code>modular-forms.html</code> will continue this thread.</em></p>
 <div class="ok">Holomorphic = locally rotation+scaling = locally a power series = $u,v$ harmonic conjugates = closed contour integrals vanish = boundary values determine interior. Six perspectives on one phenomenon.</div>
+
+<div class="widget" id="w-monodromy">
+  <div class="hd"><div class="ttl">Monodromy around a branch point</div><div class="hint">sweep the loop angle; watch the continued value fail to return after one turn</div></div>
+  <div class="row">
+    <label for="w-monodromy-sel">f(z)</label>
+    <select id="w-monodromy-sel">
+      <option value="sqrt" selected>√z</option>
+      <option value="cbrt">z^(1/3)</option>
+      <option value="log">log z</option>
+    </select>
+    <label for="w-monodromy-ang">angle swept</label>
+    <input type="range" id="w-monodromy-ang" min="0" max="12.566" value="3.6" step="0.05">
+    <span class="pill" id="w-monodromy-angval">0.57 loops</span>
+  </div>
+  <svg id="w-monodromy-svg" viewBox="0 0 540 270" width="540" height="270" role="img" aria-label="A loop around the branch point and the continued value"><title>Monodromy: continuing a multivalued function around the branch point 0</title></svg>
+  <div class="readout" id="w-monodromy-out"></div>
+</div><script>
+/* complex-analysis-monodromy widget: w-monodromy */
+(function(){
+  var FNS = [{"id":"sqrt","label":"√z","kind":"sqrt","monodromy":"After one loop √z ↦ −√z; it takes 2 loops (4π) to return — a 2-sheeted cover."},{"id":"cbrt","label":"z^(1/3)","kind":"cbrt","monodromy":"After one loop z^(1/3) rotates by 120°; 3 loops to return — a 3-sheeted cover."},{"id":"log","label":"log z","kind":"log","monodromy":"Each loop adds 2πi to log z — it never returns; the cover has infinitely many sheets (a helix)."}];
+  var byId = {}; FNS.forEach(function(g){ byId[g.id] = g; });
+  var sel = document.getElementById('w-monodromy-sel');
+  var ang = document.getElementById('w-monodromy-ang'), angL = document.getElementById('w-monodromy-angval');
+  var svg = document.getElementById('w-monodromy-svg');
+  var out = document.getElementById('w-monodromy-out');
+  if(!sel || !ang || !svg || !out) return;
+  var NS = 'http://www.w3.org/2000/svg';
+  function mk(tag, attrs, text){ var e = document.createElementNS(NS, tag); for(var k in attrs){ e.setAttribute(k, attrs[k]); } if(text!=null) e.textContent = text; return e; }
+  var Rz = 1.2; // loop radius around the branch point
+  // continued value at swept angle phi (NOT reduced mod 2pi — that is the whole point)
+  function fval(kind, phi){
+    if(kind==='sqrt'){ var m=Math.sqrt(Rz); return [m*Math.cos(phi/2), m*Math.sin(phi/2)]; }
+    if(kind==='cbrt'){ var m=Math.pow(Rz,1/3); return [m*Math.cos(phi/3), m*Math.sin(phi/3)]; }
+    if(kind==='log'){ return [Math.log(Rz), phi]; }
+    return [Math.cos(phi), Math.sin(phi)];
+  }
+  function draw(){
+    var g = byId[sel.value] || FNS[0], TH = +ang.value;
+    angL.textContent = (TH/(2*Math.PI)).toFixed(2) + ' loops';
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    // left panel: z-plane loop around 0
+    var LCX=130, CY=140, sL=70;
+    function LX(x){ return LCX + x*sL; } function LY(y){ return CY - y*sL; }
+    svg.appendChild(mk('text', {x:LCX, y:22, 'text-anchor':'middle', 'font-size':11, fill:'var(--mute)', 'font-style':'italic'}, 'z-plane: loop around 0'));
+    svg.appendChild(mk('text', {x:410, y:22, 'text-anchor':'middle', 'font-size':11, fill:'var(--mute)', 'font-style':'italic'}, 'w = f(z), continued'));
+    svg.appendChild(mk('line', {x1:LCX-90, y1:CY, x2:LCX+90, y2:CY, stroke:'var(--line)', 'stroke-width':0.6}));
+    svg.appendChild(mk('line', {x1:LCX-90, y1:CY, x2:LCX, y2:CY, stroke:'var(--pink)', 'stroke-width':1.4, 'stroke-dasharray':'3 3'}));
+    svg.appendChild(mk('circle', {cx:LCX, cy:CY, r:Rz*sL, fill:'none', stroke:'var(--line)', 'stroke-width':0.8}));
+    svg.appendChild(mk('circle', {cx:LCX, cy:CY, r:3, fill:'var(--pink)'}));
+    svg.appendChild(mk('text', {x:LCX+5, y:CY+14, 'font-size':10, fill:'var(--pink)'}, '0 (branch pt)'));
+    // swept arc 0..TH (mod 2pi visually but show the wrap)
+    var arc=[]; var steps=Math.max(2, Math.round(TH/0.1)); for(var i=0;i<=steps;i++){ var ph=TH*i/steps; arc.push(LX(Rz*Math.cos(ph))+','+LY(Rz*Math.sin(ph))); }
+    svg.appendChild(mk('polyline', {points:arc.join(' '), fill:'none', stroke:'var(--yellow)', 'stroke-width':1.6}));
+    var zc=[Rz*Math.cos(TH), Rz*Math.sin(TH)]; svg.appendChild(mk('circle', {cx:LX(zc[0]), cy:LY(zc[1]), r:4, fill:'var(--yellow)'}));
+    // right panel: continued value path + current value
+    var RCX=410;
+    var path=[], wmax=0; for(var j=0;j<=steps;j++){ var ph2=TH*j/steps, w=fval(g.kind, ph2); path.push(w); var a=Math.hypot(w[0],w[1]); if(a>wmax) wmax=a; }
+    var sR = wmax>0 ? 95/wmax : 1;
+    function RX(x){ return RCX + x*sR; } function RY(y){ return CY - y*sR; }
+    svg.appendChild(mk('line', {x1:RCX-100, y1:CY, x2:RCX+100, y2:CY, stroke:'var(--line)', 'stroke-width':0.6}));
+    svg.appendChild(mk('line', {x1:RCX, y1:CY-110, x2:RCX, y2:CY+110, stroke:'var(--line)', 'stroke-width':0.6}));
+    var start=fval(g.kind, 0); svg.appendChild(mk('circle', {cx:RX(start[0]), cy:RY(start[1]), r:3.5, fill:'var(--mute)'}));
+    svg.appendChild(mk('text', {x:RX(start[0])+6, y:RY(start[1])+12, 'font-size':9, fill:'var(--mute)'}, 'f(start)'));
+    svg.appendChild(mk('polyline', {points:path.map(function(w){ return RX(w[0]).toFixed(1)+','+RY(w[1]).toFixed(1); }).join(' '), fill:'none', stroke:'var(--cyan)', 'stroke-width':1.6}));
+    var wc=fval(g.kind, TH); svg.appendChild(mk('circle', {cx:RX(wc[0]), cy:RY(wc[1]), r:4.5, fill:'var(--yellow)'}));
+    var loops = TH/(2*Math.PI);
+    var lines = [];
+    lines.push('swept angle = ' + TH.toFixed(2) + ' rad = ' + loops.toFixed(2) + ' full loops around 0.');
+    lines.push('f(start) = ' + start[0].toFixed(2) + ' + ' + start[1].toFixed(2) + 'i      f(now) = ' + wc[0].toFixed(2) + ' + ' + wc[1].toFixed(2) + 'i');
+    lines.push(g.monodromy);
+    out.textContent = lines.join('\n');
+  }
+  sel.addEventListener('change', draw); ang.addEventListener('input', draw);
+  draw();
+})();
+</script>
+
 <div class="quiz" data-concept="analytic-continuation"></div><!-- backlinks-auto-begin -->
 <aside class="related">
   <div class="ttl">Used in</div>

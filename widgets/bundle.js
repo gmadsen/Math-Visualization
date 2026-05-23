@@ -3479,6 +3479,44 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "complex-analysis-max-modulus",
+    "family": "complex-analysis-max-modulus",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory",
+    "title": "complex-analysis-max-modulus widget params",
+    "description": "Maximum-modulus-principle heatmap. The reader picks a holomorphic f; the widget shades the closed unit disk by |f(z)| (brighter = larger) and marks where |f| is largest — always on the boundary. The readout compares the boundary maximum to the largest interior value, confirming a non-constant holomorphic function has no interior local maximum of |f|. The function evaluation is intrinsic (a `kind` enum); params carry the menu.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "functions"
+    ],
+    "readmeExcerpt": "Maximum-modulus-principle heatmap, introduced on `complex-analysis.html` §14. Bespoke semantic module — the |f| sampling and heatmap are intrinsic (a `kind` enum); params carry the function menu.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "complex-analysis-monodromy",
+    "family": "complex-analysis-monodromy",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory",
+    "title": "complex-analysis-monodromy widget params",
+    "description": "Monodromy visualizer for multivalued functions. The reader picks a function (√z, z^{1/3}, log z) and sweeps the angle of a point travelling around the branch point 0; the analytically continued value is traced in the w-plane. After one full loop √z returns negated, z^{1/3} rotated by 120°, and log z shifted by 2πi — the monodromy. The function continuation is intrinsic; params carry the menu + the monodromy text.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "functions"
+    ],
+    "readmeExcerpt": "Monodromy visualizer for multivalued functions, introduced on `complex-analysis.html` §27 (analytic continuation). Bespoke semantic module — the analytic continuation along the loop is intrinsic; params carry the menu + monodromy text.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "complex-analysis-residue-real-integral",
     "family": "complex-analysis-residue-real-integral",
     "dimension": "2d",
