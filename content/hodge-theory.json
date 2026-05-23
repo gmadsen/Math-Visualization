@@ -138,7 +138,7 @@
                     1
                   ]
                 ],
-                "note": "hᵖq = C(2,p)·C(2,q) — the exterior algebra on H¹; χ = 0."
+                "note": "hᵖ·q = C(2,p)·C(2,q) — the exterior algebra on H¹; χ = 0."
               },
               {
                 "id": "quintic",
