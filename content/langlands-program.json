@@ -100,6 +100,44 @@
           "html": "<section id=\"l-bridge\">\n<h2>2. L-functions: the bridge</h2>\n\n<p>L-functions sit in the centre of the Langlands picture because they are the only invariants that both sides produce in the same form. From a Galois representation $\\rho$ over $\\mathbb{Q}$:</p>\n\n$$L(\\rho, s) = \\prod_p \\det\\!\\bigl(I_n - \\rho(\\Frob_p)\\, p^{-s} \\big|\\, V_\\ell^{I_p}\\bigr)^{-1}, \\qquad \\Re(s) \\gg 0.$$\n\n<p>(Take inertia-invariants $V_\\ell^{I_p}$ at ramified primes; characteristic polynomial of geometric Frobenius elsewhere.) From an automorphic representation $\\pi = \\otimes_v \\pi_v$ of $\\GL_n(\\mathbb{A}_\\mathbb{Q})$:</p>\n\n$$L(\\pi, s) = \\prod_p L(\\pi_p, s),$$\n\n<p>where each $L(\\pi_p, s)$ is built from the Satake parameters of $\\pi_p$ — eigenvalues of a spherical Hecke operator at $p$. Two qualitative facts make L-functions the right invariant for the matching:</p>\n\n<ul>\n  <li><b>Functional equation.</b> Both sides predict $L(s)$ to extend to a meromorphic function on $\\mathbb{C}$ and satisfy $\\Lambda(s) = \\varepsilon \\cdot \\Lambda(1-s)$ for a completed L-function $\\Lambda$ that includes archimedean Gamma factors. On the automorphic side this is automatic from the transformation law of $\\pi$ (Tate's thesis pattern); on the Galois side it is conjectural until you can match $\\rho$ to some $\\pi$.</li>\n  <li><b>Strong multiplicity one.</b> An automorphic representation of $\\GL_n$ is determined by its L-function — knowing the Euler factors at almost all places pins $\\pi$ uniquely (Jacquet-Shalika). So the L-function is a complete invariant of an automorphic rep, and equality of L-functions on both sides really does identify Galois reps with automorphic reps.</li>\n</ul>\n\n"
         },
         {
+          "type": "widget",
+          "slug": "langlands-euler-product",
+          "params": {
+            "widgetId": "w-euler",
+            "title": "The same Euler product, both sides",
+            "hint": "a_p is point-counted; it is both the Hecke eigenvalue and the Frobenius trace",
+            "maxPrimes": 7,
+            "curves": [
+              {
+                "id": "cm",
+                "label": "y² = x³ − x  (CM, conductor 32)",
+                "a": -1,
+                "b": 0
+              },
+              {
+                "id": "gen1",
+                "label": "y² = x³ − x + 1",
+                "a": -1,
+                "b": 1
+              },
+              {
+                "id": "gen2",
+                "label": "y² = x³ + x + 1",
+                "a": 1,
+                "b": 1
+              }
+            ]
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-euler"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
           "type": "quiz",
           "concept": "l-functions-langlands-bridge",
           "html": "<div class=\"quiz\" data-concept=\"l-functions-langlands-bridge\"></div>"
@@ -124,6 +162,57 @@
         {
           "type": "raw",
           "html": "<section id=\"local\">\n<h2>3. Local Langlands for $\\GL_n$</h2>\n\n<p>The program splits prime-by-prime. <b>Local Langlands</b> at a finite place $v$ of $\\mathbb{Q}$ predicts a bijection between</p>\n\n<ul>\n  <li>$n$-dimensional <em>Frobenius-semisimple Weil-Deligne representations</em> of $W_{\\mathbb{Q}_v}$ (the Weil group of the local field $\\mathbb{Q}_v$, with a monodromy operator $N$ encoding ramification), and</li>\n  <li>irreducible smooth admissible representations of $\\GL_n(\\mathbb{Q}_v)$.</li>\n</ul>\n\n<p>Concretely: a $W$-D representation packages $(\\rho, N)$ with $\\rho\\colon W_{\\mathbb{Q}_v} \\to \\GL_n(\\mathbb{C})$ semisimple and $N$ a nilpotent matrix satisfying $\\rho(\\sigma) N \\rho(\\sigma)^{-1} = q^{-n(\\sigma)} N$, where $n(\\sigma)$ is the power of geometric Frobenius in $\\sigma$ (so $N$ has weight $-1$ under Frobenius). On the automorphic side, smooth admissible reps of $\\GL_n(\\mathbb{Q}_v)$ are infinite-dimensional vector spaces with a continuous $\\GL_n$-action; the irreducible ones are classified (Bernstein-Zelevinsky) into supercuspidal, principal, and Steinberg pieces.</p>\n\n<p><b>Status.</b> Local Langlands for $\\GL_n$ over a $p$-adic field is proven (Harris-Taylor, Henniart, 2001). Over an archimedean local field ($\\mathbb{R}$ or $\\mathbb{C}$), it is the Langlands classification of admissible representations of real reductive groups (Langlands, 1973). For groups other than $\\GL_n$ — orthogonal, symplectic, exceptional — local Langlands is partially proven and substantially harder.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "langlands-local-classification",
+          "params": {
+            "widgetId": "w-local-class",
+            "title": "Local Langlands for GL₂(ℚ_p)",
+            "hint": "click a representation type; N ≠ 0 marks the Steinberg case",
+            "rows": [
+              {
+                "id": "unram-ps",
+                "autoType": "Unramified principal series",
+                "wdRep": "χ₁ ⊕ χ₂, both unramified (N = 0)",
+                "conductor": "0",
+                "kind": "principal",
+                "detail": "The spherical case: π has a GL₂(ℤ_p)-fixed vector. The Satake parameters χ₁(p), χ₂(p) are the Frobenius eigenvalues; the L-factor has degree 2. Local component at primes of good reduction."
+              },
+              {
+                "id": "ram-ps",
+                "autoType": "Ramified principal series",
+                "wdRep": "χ₁ ⊕ χ₂, some χᵢ ramified (N = 0)",
+                "conductor": "a(χ₁)+a(χ₂)",
+                "kind": "principal",
+                "detail": "Still reducible on the Weil–Deligne side, but with ramified characters — no spherical vector. The conductor is the sum of the characters’ conductors."
+              },
+              {
+                "id": "steinberg",
+                "autoType": "Steinberg (special)",
+                "wdRep": "indecomposable, N ≠ 0",
+                "conductor": "1",
+                "kind": "steinberg",
+                "detail": "The special representation. Its Weil–Deligne rep is the unique indecomposable one with NONZERO monodromy operator N — N encodes the unipotent ramification. Degree-1 L-factor. Local component at primes of multiplicative reduction."
+              },
+              {
+                "id": "supercuspidal",
+                "autoType": "Supercuspidal",
+                "wdRep": "irreducible 2-dim ρ (N = 0)",
+                "conductor": "≥ 2",
+                "kind": "supercuspidal",
+                "detail": "The \"atoms\" — not induced from the Borel. They match irreducible 2-dimensional Weil–Deligne reps (induced from a character of a ramified quadratic extension). Trivial L-factor (= 1). Local component at additive-reduction primes."
+              }
+            ]
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-local-class"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
         },
         {
           "type": "quiz",

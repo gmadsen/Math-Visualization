@@ -11009,6 +11009,44 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "langlands-euler-product",
+    "family": "langlands-euler-product",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory",
+    "title": "langlands-euler-product widget params",
+    "description": "Euler-product bridge for the Langlands L-function. The reader picks an elliptic curve y²=x³+ax+b; the widget point-counts #E(F_p) at the first several good primes, derives a_p = p+1-#E(F_p), and shows the local factor (1 - a_p p^{-s} + p^{1-2s})^{-1}. The point: that automorphic factor (from the Hecke/Satake datum a_p) is identical to the Galois factor det(1 - ρ_E(Frob_p) p^{-s}) with Frobenius characteristic polynomial x² - a_p x + p — the two L-functions agree term by term. Computation is intrinsic; params carry the curve presets.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "curves"
+    ],
+    "readmeExcerpt": "Euler-product bridge widget, introduced on `langlands-program.html` §2. Makes \"the L-functions match\" concrete by point-counting. Bespoke semantic module — the point-counting and Euler-factor assembly are intrinsic; params carry the curve presets.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "langlands-local-classification",
+    "family": "langlands-local-classification",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory",
+    "title": "langlands-local-classification widget params",
+    "description": "Local Langlands classification browser for GL_2(Q_p). The reader clicks a representation type on the automorphic side (unramified/ramified principal series, Steinberg, supercuspidal) and the readout shows its matching Weil–Deligne representation — including whether the monodromy operator N is zero — its conductor, and what it means arithmetically. Distinct from the global dictionary: this is the prime-by-prime local correspondence. Data-driven: each row carries both sides + the explanation in params.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "rows"
+    ],
+    "readmeExcerpt": "Local Langlands classification browser for $\\mathrm{GL}_2(\\mathbb{Q}_p)$, introduced on `langlands-program.html` §3. Complements the §1 *global* reciprocity dictionary with the prime-by-prime *local* correspondence. Bespoke semantic module — each row's two sides and explanation live in params.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "langlands-reciprocity-dictionary",
     "family": "langlands-reciprocity-dictionary",
     "dimension": "2d",
