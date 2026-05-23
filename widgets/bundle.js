@@ -9418,6 +9418,25 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "hodge-theory-filtration-scrubber",
+    "family": "hodge-theory-filtration-scrubber",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory",
+    "title": "hodge-theory-filtration-scrubber widget params",
+    "description": "Scrubber for the Hodge filtration F^p H^n = ⊕_{p'≥p} H^{p',n-p'}. The reader picks a variety and a cohomological degree n, then scrubs the threshold p; the summands H^{p',q} of H^n split into the part inside F^p (p'≥p) and the complementary part, which is the conjugate of F^{n-p+1}, dramatising the recovery relation H^n = F^p ⊕ conj(F^{n-p+1}). Data-driven: each variety carries a square Hodge matrix h[p][q]; the complex dimension is derived as h.length-1.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "varieties"
+    ],
+    "readmeExcerpt": "Scrubber for the Hodge filtration, introduced on `hodge-theory.html` §3. Lets the reader see the abstract definition $F^p H^n = \\bigoplus_{p'\\ge p}H^{p',n-p'}$ as a concrete split of the degree-$n$ summands. Bespoke semantic module — each variety carries a square Hodge matrix; the complex dimension is derived as `h.length - 1`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "hodge-theory-hodge-diamond",
     "family": "hodge-theory-hodge-diamond",
     "dimension": "2d",
@@ -9431,6 +9450,25 @@ window.__MVWidgets = [
       "varieties"
     ],
     "readmeExcerpt": "Interactive Hodge-diamond explorer, introduced on `hodge-theory.html` §2 (the Hodge decomposition theorem) to replace the section's static illustrative diamond with a live, data-driven one. Bespoke semantic module — the diamond geometry, Betti/Euler arithmetic, and the two symmetry-law checks are all computed from the per-variety Hodge matrix in `params`, so a non-HTML frontend can rebuild it from the schema alone.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "hodge-theory-mixed-weight",
+    "family": "hodge-theory-mixed-weight",
+    "dimension": "2d",
+    "gesture": "step",
+    "role": "exploratory",
+    "title": "hodge-theory-mixed-weight widget params",
+    "description": "Explorer for Deligne's mixed Hodge structures. The reader picks an example (a smooth curve, ℂ*, an open elliptic curve, a nodal cubic) and sees the weight-graded pieces gr^W_n of its cohomology stacked by weight — each pure of weight n. The pure examples show that weight need not equal cohomological degree; the open-elliptic example shows a genuine two-step extension across weights. Data-driven: each example carries its ordered list of graded pieces in params.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "examples"
+    ],
+    "readmeExcerpt": "Explorer for Deligne's mixed Hodge structures, introduced on `hodge-theory.html` §5 (replacing the section's static \"stack of pure pieces\" SVG with an interactive one). Bespoke semantic module — each example carries its weight-graded pieces in params.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,

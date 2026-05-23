@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/hodge-theory-mixed-weight/schema.json",
+  "title": "hodge-theory-mixed-weight widget params",
+  "description": "Explorer for Deligne's mixed Hodge structures. The reader picks an example (a smooth curve, ℂ*, an open elliptic curve, a nodal cubic) and sees the weight-graded pieces gr^W_n of its cohomology stacked by weight — each pure of weight n. The pure examples show that weight need not equal cohomological degree; the open-elliptic example shows a genuine two-step extension across weights. Data-driven: each example carries its ordered list of graded pieces in params.",
+  "meta": {
+    "family": "hodge-theory-mixed-weight",
+    "dimension": "2d",
+    "gesture": "step",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["widgetId", "title", "examples"],
+  "properties": {
+    "widgetId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id; the script derives -sel/-svg/-out." },
+    "title": { "type": "string", "description": "Display title rendered inside .hd > .ttl." },
+    "hint": { "type": "string", "description": "Optional short hint rendered inside .hd > .hint." },
+    "examples": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Case library shown in the dropdown.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "label", "space", "pieces"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[A-Za-z0-9_-]+$", "description": "Stable option value." },
+          "label": { "type": "string", "description": "Plain-text dropdown label (no LaTeX)." },
+          "space": { "type": "string", "description": "Which cohomology group is being decomposed, e.g. 'H¹(E∖{p})'." },
+          "note": { "type": "string", "description": "One-line explanation of the example / its extension, shown in the readout." },
+          "pieces": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 8,
+            "description": "The weight-graded pieces gr^W_n, listed in any order (the widget sorts by weight, highest on top). Capped at 8 so the stacked bars stay legibly sized in the fixed-height SVG.",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["weight", "dim", "label"],
+              "properties": {
+                "weight": { "type": "integer", "description": "The weight n of this graded piece gr^W_n." },
+                "dim": { "type": "integer", "minimum": 1, "description": "Dimension of the graded piece." },
+                "label": { "type": "string", "description": "Short plain-text name for the piece, e.g. 'ℚ(−1)' or 'H¹(E)'." }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
