@@ -1488,7 +1488,7 @@ function drawNode(svg, x, y, label, opts={}){
     var lines=[];
     lines.push('A non-maximal prime p is a GENERIC POINT. Its closure in Spec R is V(p) = { q : p \u2286 q } \u2014 an entire irreducible subvariety, not a single point. p \u2933 q (\u201cp specializes to q\u201d) means q \u2208 closure{p}, i.e. p \u2286 q.');
     if(sel){ var n=byId[sel], cl2=closure(sel), names=NODES.filter(function(x){ return cl2[x.id]; }).map(function(x){ return x.label; });
-      lines.push('Selected p = ' + n.label + ' (V(p) = ' + n.geom + '). Its closure = { ' + names.join(', ') + ' } \u2014 ' + (names.length===1?'just itself (a closed point).':'p plus everything it specializes to.')); }
+      lines.push('Selected p = ' + n.label + ': its closure is V(p) = ' + n.geom + '. Among the points drawn here that is { ' + names.join(', ') + ' } \u2014 ' + (names.length===1?'just itself (a closed point).':'p plus the representative points it specializes to (each line really has infinitely many closed points).')); }
     else { lines.push('Click the top (generic) point: its closure is the whole space. Click a closed point: its closure is just itself.'); }
     out.textContent=lines.join('\n');
   }
@@ -1514,7 +1514,7 @@ function drawNode(svg, x, y, label, opts={}){
   <div class="hd"><div class="ttl">Evaluating f = n at the points of Spec ℤ</div><div class="hint">At (p) the value is n mod p in 𝔽_p; at (0) it is n in ℚ — different fields per point.</div></div>
   <div class="row">
     <label for="w-schemes-residue-field-n">function $f = n$</label>
-    <input type="range" id="w-schemes-residue-field-n" min="0" max="30" value="12" step="1">
+    <input type="range" id="w-schemes-residue-field-n" min="0" max="23" value="12" step="1">
     <span class="pill" id="w-schemes-residue-field-nval">n = 12</span>
   </div>
   <svg id="w-schemes-residue-field-svg" viewBox="0 0 540 180" width="540" height="180" role="img" aria-label="The value of an integer at each point of Spec ℤ, living in that point's residue field"><title>Residue fields: evaluating f at a point gives a value in κ(p), a different field at each point</title></svg>

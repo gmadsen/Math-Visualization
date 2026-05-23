@@ -63,7 +63,7 @@ export function renderScript(params) {
     `    var lines=[];\n` +
     `    lines.push('A non-maximal prime p is a GENERIC POINT. Its closure in Spec R is V(p) = { q : p \\u2286 q } \\u2014 an entire irreducible subvariety, not a single point. p \\u2933 q (\\u201cp specializes to q\\u201d) means q \\u2208 closure{p}, i.e. p \\u2286 q.');\n` +
     `    if(sel){ var n=byId[sel], cl2=closure(sel), names=NODES.filter(function(x){ return cl2[x.id]; }).map(function(x){ return x.label; });\n` +
-    `      lines.push('Selected p = ' + n.label + ' (V(p) = ' + n.geom + '). Its closure = { ' + names.join(', ') + ' } \\u2014 ' + (names.length===1?'just itself (a closed point).':'p plus everything it specializes to.')); }\n` +
+    `      lines.push('Selected p = ' + n.label + ': its closure is V(p) = ' + n.geom + '. Among the points drawn here that is { ' + names.join(', ') + ' } \\u2014 ' + (names.length===1?'just itself (a closed point).':'p plus the representative points it specializes to (each line really has infinitely many closed points).')); }\n` +
     `    else { lines.push('Click the top (generic) point: its closure is the whole space. Click a closed point: its closure is just itself.'); }\n` +
     `    out.textContent=lines.join('\\n');\n` +
     `  }\n` +

@@ -17,7 +17,7 @@ export function renderMarkup(params) {
     `  <div class="hd"><div class="ttl">${escapeHtml(title)}</div>${hintHtml}</div>\n` +
     `  <div class="row">\n` +
     `    <label for="${widgetId}-n">function $f = n$</label>\n` +
-    `    <input type="range" id="${widgetId}-n" min="0" max="30" value="12" step="1">\n` +
+    `    <input type="range" id="${widgetId}-n" min="0" max="23" value="12" step="1">\n` +
     `    <span class="pill" id="${widgetId}-nval">n = 12</span>\n` +
     `  </div>\n` +
     `  <svg id="${widgetId}-svg" viewBox="0 0 540 180" width="540" height="180" role="img" aria-label="The value of an integer at each point of Spec ℤ, living in that point's residue field"><title>Residue fields: evaluating f at a point gives a value in κ(p), a different field at each point</title></svg>\n` +
