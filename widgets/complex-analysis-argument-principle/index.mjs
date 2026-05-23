@@ -21,8 +21,8 @@ export function renderMarkup(params) {
     `    <label for="${widgetId}-sel">p(z)</label>\n` +
     `    <select id="${widgetId}-sel">\n${options}\n    </select>\n` +
     `    <label for="${widgetId}-r">radius $R$</label>\n` +
-    `    <input type="range" id="${widgetId}-r" min="0.3" max="2.5" value="1.2" step="0.01">\n` +
-    `    <span class="pill" id="${widgetId}-rval">R = 1.20</span>\n` +
+    `    <input type="range" id="${widgetId}-r" min="0.3" max="2.5" value="1.15" step="0.01">\n` +
+    `    <span class="pill" id="${widgetId}-rval">R = 1.15</span>\n` +
     `  </div>\n` +
     `  <svg id="${widgetId}-svg" viewBox="0 0 540 280" width="540" height="280" role="img" aria-label="A circle |z|=R and the winding of its polynomial image about 0"><title>Argument principle: the image of |z|=R winds around 0 once per enclosed zero</title></svg>\n` +
     `  <div class="readout" id="${widgetId}-out"></div>\n` +
@@ -74,9 +74,11 @@ export function renderScript(params) {
     `    svg.appendChild(mk('polyline', {points:pts.join(' '), fill:'none', stroke:'var(--cyan)', 'stroke-width':1.4}));\n` +
     `    svg.appendChild(mk('circle', {cx:RCX, cy:CY, r:3.5, fill:'var(--pink)'}));\n` +
     `    svg.appendChild(mk('text', {x:RCX+7, y:CY-5, 'font-size':10, fill:'var(--pink)'}, '0'));\n` +
+    `    var onContour = g.roots.some(function(rt){ return Math.abs(Math.sqrt(rt.re*rt.re+rt.im*rt.im) - R) < 0.02; });\n` +
     `    var lines = [];\n` +
-    `    lines.push('roots inside |z| = ' + R.toFixed(2) + ' (counting multiplicity):  ' + inside);\n` +
-    `    lines.push('the image curve p(|z|=R) winds around 0 exactly ' + inside + ' time' + (inside===1?'':'s') + ' \\u2014 the argument principle: winding = (zeros \\u2212 poles) enclosed.');\n` +
+    `    if(onContour) lines.push('the contour |z| = ' + R.toFixed(2) + ' passes through a root \\u2014 the image touches 0 and the winding is undefined here (nudge R).');\n` +
+    `    else lines.push('roots inside |z| = ' + R.toFixed(2) + ' (counting multiplicity):  ' + inside);\n` +
+    `    if(!onContour) lines.push('the image curve p(|z|=R) winds around 0 exactly ' + inside + ' time' + (inside===1?'':'s') + ' \\u2014 the argument principle: winding = (zeros \\u2212 poles) enclosed.');\n` +
     `    lines.push('Slide R past a root\\u2019s modulus and the winding jumps by its multiplicity. Rouché compares two such windings.');\n` +
     `    out.textContent = lines.join('\\n');\n` +
     `  }\n` +

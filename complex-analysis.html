@@ -1124,8 +1124,8 @@ const C = {
       <option value="mixed">(z² + 0.25)(z − 1.2)</option>
     </select>
     <label for="w-argprinciple-r">radius $R$</label>
-    <input type="range" id="w-argprinciple-r" min="0.3" max="2.5" value="1.2" step="0.01">
-    <span class="pill" id="w-argprinciple-rval">R = 1.20</span>
+    <input type="range" id="w-argprinciple-r" min="0.3" max="2.5" value="1.15" step="0.01">
+    <span class="pill" id="w-argprinciple-rval">R = 1.15</span>
   </div>
   <svg id="w-argprinciple-svg" viewBox="0 0 540 280" width="540" height="280" role="img" aria-label="A circle |z|=R and the winding of its polynomial image about 0"><title>Argument principle: the image of |z|=R winds around 0 once per enclosed zero</title></svg>
   <div class="readout" id="w-argprinciple-out"></div>
@@ -1169,9 +1169,11 @@ const C = {
     svg.appendChild(mk('polyline', {points:pts.join(' '), fill:'none', stroke:'var(--cyan)', 'stroke-width':1.4}));
     svg.appendChild(mk('circle', {cx:RCX, cy:CY, r:3.5, fill:'var(--pink)'}));
     svg.appendChild(mk('text', {x:RCX+7, y:CY-5, 'font-size':10, fill:'var(--pink)'}, '0'));
+    var onContour = g.roots.some(function(rt){ return Math.abs(Math.sqrt(rt.re*rt.re+rt.im*rt.im) - R) < 0.02; });
     var lines = [];
-    lines.push('roots inside |z| = ' + R.toFixed(2) + ' (counting multiplicity):  ' + inside);
-    lines.push('the image curve p(|z|=R) winds around 0 exactly ' + inside + ' time' + (inside===1?'':'s') + ' \u2014 the argument principle: winding = (zeros \u2212 poles) enclosed.');
+    if(onContour) lines.push('the contour |z| = ' + R.toFixed(2) + ' passes through a root \u2014 the image touches 0 and the winding is undefined here (nudge R).');
+    else lines.push('roots inside |z| = ' + R.toFixed(2) + ' (counting multiplicity):  ' + inside);
+    if(!onContour) lines.push('the image curve p(|z|=R) winds around 0 exactly ' + inside + ' time' + (inside===1?'':'s') + ' \u2014 the argument principle: winding = (zeros \u2212 poles) enclosed.');
     lines.push('Slide R past a root\u2019s modulus and the winding jumps by its multiplicity. Rouché compares two such windings.');
     out.textContent = lines.join('\n');
   }
