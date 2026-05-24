@@ -16,13 +16,13 @@ export function renderMarkup(params) {
     `<div class="widget" id="${widgetId}">\n` +
     `  <div class="hd"><div class="ttl">${escapeHtml(title)}</div>${hintHtml}</div>\n` +
     `  <div class="row" id="${widgetId}-fam" role="group" aria-label="parametric family">\n` +
-    `    <button type="button" data-fam="bern" class="on">Bernoulli($\\theta$)</button>\n` +
-    `    <button type="button" data-fam="gauss">Gaussian mean</button>\n` +
-    `    <button type="button" data-fam="pois">Poisson($\\lambda$)</button>\n` +
+    `    <button type="button" data-fam="bern" class="active" aria-pressed="true">Bernoulli($\\theta$)</button>\n` +
+    `    <button type="button" data-fam="gauss" aria-pressed="false">Gaussian mean</button>\n` +
+    `    <button type="button" data-fam="pois" aria-pressed="false">Poisson($\\lambda$)</button>\n` +
     `  </div>\n` +
     `  <div class="row">\n` +
-    `    <label for="${widgetId}-th" id="${widgetId}-thlab">parameter $\\theta$</label>\n` +
-    `    <input type="range" id="${widgetId}-th" min="0.1" max="0.9" value="0.3" step="0.05">\n` +
+    `    <label for="${widgetId}-th" id="${widgetId}-thlab">probability $\\theta$</label>\n` +
+    `    <input type="range" id="${widgetId}-th" min="0.05" max="0.95" value="0.3" step="0.05">\n` +
     `    <span class="pill" id="${widgetId}-thv">θ = 0.30</span>\n` +
     `  </div>\n` +
     `  <div class="row">\n` +
@@ -51,6 +51,9 @@ export function renderScript(params) {
     `  function mk(tag,attrs,text){ var e=document.createElementNS(NS,tag); for(var k in attrs){ e.setAttribute(k,attrs[k]); } if(text!=null) e.textContent=text; return e; }\n` +
     `  function txt(x,y,s,opt){ opt=opt||{}; svg.appendChild(mk('text',{x:x,y:y,'text-anchor':opt.anchor||'start','font-size':opt.size||12,fill:opt.fill||'var(--ink)','font-weight':opt.weight||'normal'},s)); }\n` +
     `  var family='bern';\n` +
+    // per-family slider range for the parameter: Bernoulli/Gaussian use theta, Poisson a rate lambda
+    `  var ranges={ bern:{min:0.05,max:0.95,step:0.05,def:0.3,label:'probability \\u03b8'}, gauss:{min:-3,max:3,step:0.5,def:0,label:'mean \\u03b8'}, pois:{min:0.25,max:6,step:0.25,def:2,label:'rate \\u03bb'} };\n` +
+    `  function applyRange(){ var r=ranges[family]; sth.min=r.min; sth.max=r.max; sth.step=r.step; sth.value=r.def; thlab.textContent=r.label; }\n` +
     // per-family: parameter symbol, Fisher info I(theta), and a one-line score formula
     `  function info(th){ if(family==='bern') return 1/(th*(1-th)); if(family==='gauss') return 1; return 1/th; }\n` +
     `  function psym(){ return family==='pois' ? '\\u03bb' : '\\u03b8'; }\n` +
@@ -62,7 +65,6 @@ export function renderScript(params) {
     `    while(svg.firstChild) svg.removeChild(svg.firstChild);\n` +
     `    var th=parseFloat(sth.value), n=parseInt(sn.value,10);\n` +
     `    thv.textContent=psym()+' = '+th.toFixed(2); nv.textContent='n = '+n;\n` +
-    `    thlab.textContent = family==='pois' ? 'rate \\u03bb' : (family==='gauss' ? 'mean \\u03b8' : 'parameter \\u03b8');\n` +
     `    var I=info(th), inv=1/I;\n` +
     `    var ymax=inv*1.08;\n` +
     `    function nx(k){ return PX0 + (k-1)/(NMAX-1)*(PX1-PX0); }\n` +
@@ -98,16 +100,16 @@ export function renderScript(params) {
     `    txt(TX, 180, '= '+cur.toFixed(4)+'  \\u2713', {size:12, fill:'var(--green)', weight:600});\n` +
     `    txt(TX, 197, 'efficient (on the floor)', {size:9, fill:'var(--mute)'});\n` +
     `    txt(TX, 223, 'single obs variance', {size:10, fill:'var(--mute)'});\n` +
-    `    txt(TX, 240, '= '+inv.toFixed(4)+'  (n\\u00d7 worse)', {size:11, fill:'var(--pink)'});\n` +
+    `    txt(TX, 240, '= '+inv.toFixed(4)+'  (n\\u00d7 the bound)', {size:11, fill:'var(--pink)'});\n` +
     `    out.textContent = 'The score is U('+psym()+') = \\u2202 log p / \\u2202'+psym()+'; the Fisher information I('+psym()+') = Var(U) = \\u2212E[\\u2202\\u00b2 log p] measures the curvature of the log-likelihood at the truth. For '+famName()+', I('+psym()+') = '+I.toFixed(3)+'. The Cram\\u00e9r\\u2013Rao inequality says every unbiased estimator from n i.i.d. samples obeys Var('+psym()+'\\u0302) \\u2265 1/(nI) = '+cur.toFixed(4)+' (yellow floor). The MLE here is the '+mleName()+', whose variance equals 1/(nI) exactly \\u2014 it is efficient, riding on the green dots along the floor and shrinking like 1/n. By contrast a naive estimator that throws away all but one observation has variance 1/I = '+inv.toFixed(4)+' (pink dashed): it never improves with n, sitting '+n+'\\u00d7 above the bound at the current sample size. Curvature is informativeness: the sharper the log-likelihood peak (larger I), the lower the achievable variance.';\n` +
     `  }\n` +
     `  Array.prototype.forEach.call(fam.querySelectorAll('button'), function(b){ b.addEventListener('click', function(){\n` +
     `    family=b.getAttribute('data-fam');\n` +
-    `    Array.prototype.forEach.call(fam.querySelectorAll('button'), function(x){ x.classList.toggle('on', x===b); });\n` +
-    `    draw();\n` +
+    `    Array.prototype.forEach.call(fam.querySelectorAll('button'), function(x){ var on=(x===b); x.classList.toggle('active', on); x.setAttribute('aria-pressed', on?'true':'false'); });\n` +
+    `    applyRange(); draw();\n` +
     `  }); });\n` +
     `  sth.addEventListener('input', draw); sn.addEventListener('input', draw);\n` +
-    `  draw();\n` +
+    `  applyRange(); draw();\n` +
     `})();\n` +
     `</script>`
   );

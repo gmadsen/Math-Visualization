@@ -10964,7 +10964,7 @@ window.__MVWidgets = [
       "widgetId",
       "title"
     ],
-    "readmeExcerpt": "Info aep typical set widget — scaffolded stub. Replace this paragraph with a short description of what the widget does, which topic page first introduced it, and whether it's a bespoke module or part of a shared family.",
+    "readmeExcerpt": "Bespoke module for **information-theory** §7 (Asymptotic equipartition property). Shows the AEP as a *concentration* statement: the per-symbol log-probability of a random source sequence narrows onto the entropy as the block length grows.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
@@ -10982,7 +10982,7 @@ window.__MVWidgets = [
       "widgetId",
       "title"
     ],
-    "readmeExcerpt": "Info cramer rao widget — scaffolded stub. Replace this paragraph with a short description of what the widget does, which topic page first introduced it, and whether it's a bespoke module or part of a shared family.",
+    "readmeExcerpt": "Bespoke module for **information-theory** §8 (Fisher information and the Cramér–Rao bound). Makes concrete that Fisher information is the curvature of the log-likelihood and that it sets a hard floor on estimator variance.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,

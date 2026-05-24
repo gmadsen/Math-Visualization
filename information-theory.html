@@ -1077,7 +1077,7 @@ Three facts pin its shape — the AEP package:</p>
     var p=parseFloat(sp.value), n=parseInt(sn.value,10); pv.textContent='p = '+p.toFixed(2); nv.textContent='n = '+n;
     var H=hbin(p);
     var s0=-log2(p), s1=-log2(1-p);
-    var emin=Math.min(s0,s1), emax=Math.max(s0,s1);
+    var emax=Math.max(s0,s1);
     var xmax=emax*1.05, xmin=0;
     function ex(e){ return PX0 + (e-xmin)/(xmax-xmin)*(PX1-PX0); }
     var probs=[], emp=[], maxpr=0, lp=Math.log(p), lq=Math.log(1-p), logC=0;
@@ -1153,13 +1153,13 @@ The sample mean $\bar X_n = \tfrac{1}{n}\sum X_i$ is unbiased with variance $\si
 <div class="widget" id="w-cramer-rao">
   <div class="hd"><div class="ttl">Fisher information and the Cramér–Rao floor</div><div class="hint">pick a family; the MLE rides the bound</div></div>
   <div class="row" id="w-cramer-rao-fam" role="group" aria-label="parametric family">
-    <button type="button" data-fam="bern" class="on">Bernoulli($\theta$)</button>
-    <button type="button" data-fam="gauss">Gaussian mean</button>
-    <button type="button" data-fam="pois">Poisson($\lambda$)</button>
+    <button type="button" data-fam="bern" class="active" aria-pressed="true">Bernoulli($\theta$)</button>
+    <button type="button" data-fam="gauss" aria-pressed="false">Gaussian mean</button>
+    <button type="button" data-fam="pois" aria-pressed="false">Poisson($\lambda$)</button>
   </div>
   <div class="row">
-    <label for="w-cramer-rao-th" id="w-cramer-rao-thlab">parameter $\theta$</label>
-    <input type="range" id="w-cramer-rao-th" min="0.1" max="0.9" value="0.3" step="0.05">
+    <label for="w-cramer-rao-th" id="w-cramer-rao-thlab">probability $\theta$</label>
+    <input type="range" id="w-cramer-rao-th" min="0.05" max="0.95" value="0.3" step="0.05">
     <span class="pill" id="w-cramer-rao-thv">θ = 0.30</span>
   </div>
   <div class="row">
@@ -1182,6 +1182,8 @@ The sample mean $\bar X_n = \tfrac{1}{n}\sum X_i$ is unbiased with variance $\si
   function mk(tag,attrs,text){ var e=document.createElementNS(NS,tag); for(var k in attrs){ e.setAttribute(k,attrs[k]); } if(text!=null) e.textContent=text; return e; }
   function txt(x,y,s,opt){ opt=opt||{}; svg.appendChild(mk('text',{x:x,y:y,'text-anchor':opt.anchor||'start','font-size':opt.size||12,fill:opt.fill||'var(--ink)','font-weight':opt.weight||'normal'},s)); }
   var family='bern';
+  var ranges={ bern:{min:0.05,max:0.95,step:0.05,def:0.3,label:'probability \u03b8'}, gauss:{min:-3,max:3,step:0.5,def:0,label:'mean \u03b8'}, pois:{min:0.25,max:6,step:0.25,def:2,label:'rate \u03bb'} };
+  function applyRange(){ var r=ranges[family]; sth.min=r.min; sth.max=r.max; sth.step=r.step; sth.value=r.def; thlab.textContent=r.label; }
   function info(th){ if(family==='bern') return 1/(th*(1-th)); if(family==='gauss') return 1; return 1/th; }
   function psym(){ return family==='pois' ? '\u03bb' : '\u03b8'; }
   function famName(){ return family==='bern' ? 'Bernoulli(\u03b8)' : (family==='gauss' ? 'N(\u03b8, 1)' : 'Poisson(\u03bb)'); }
@@ -1192,7 +1194,6 @@ The sample mean $\bar X_n = \tfrac{1}{n}\sum X_i$ is unbiased with variance $\si
     while(svg.firstChild) svg.removeChild(svg.firstChild);
     var th=parseFloat(sth.value), n=parseInt(sn.value,10);
     thv.textContent=psym()+' = '+th.toFixed(2); nv.textContent='n = '+n;
-    thlab.textContent = family==='pois' ? 'rate \u03bb' : (family==='gauss' ? 'mean \u03b8' : 'parameter \u03b8');
     var I=info(th), inv=1/I;
     var ymax=inv*1.08;
     function nx(k){ return PX0 + (k-1)/(NMAX-1)*(PX1-PX0); }
@@ -1222,16 +1223,16 @@ The sample mean $\bar X_n = \tfrac{1}{n}\sum X_i$ is unbiased with variance $\si
     txt(TX, 180, '= '+cur.toFixed(4)+'  \u2713', {size:12, fill:'var(--green)', weight:600});
     txt(TX, 197, 'efficient (on the floor)', {size:9, fill:'var(--mute)'});
     txt(TX, 223, 'single obs variance', {size:10, fill:'var(--mute)'});
-    txt(TX, 240, '= '+inv.toFixed(4)+'  (n\u00d7 worse)', {size:11, fill:'var(--pink)'});
+    txt(TX, 240, '= '+inv.toFixed(4)+'  (n\u00d7 the bound)', {size:11, fill:'var(--pink)'});
     out.textContent = 'The score is U('+psym()+') = \u2202 log p / \u2202'+psym()+'; the Fisher information I('+psym()+') = Var(U) = \u2212E[\u2202\u00b2 log p] measures the curvature of the log-likelihood at the truth. For '+famName()+', I('+psym()+') = '+I.toFixed(3)+'. The Cram\u00e9r\u2013Rao inequality says every unbiased estimator from n i.i.d. samples obeys Var('+psym()+'\u0302) \u2265 1/(nI) = '+cur.toFixed(4)+' (yellow floor). The MLE here is the '+mleName()+', whose variance equals 1/(nI) exactly \u2014 it is efficient, riding on the green dots along the floor and shrinking like 1/n. By contrast a naive estimator that throws away all but one observation has variance 1/I = '+inv.toFixed(4)+' (pink dashed): it never improves with n, sitting '+n+'\u00d7 above the bound at the current sample size. Curvature is informativeness: the sharper the log-likelihood peak (larger I), the lower the achievable variance.';
   }
   Array.prototype.forEach.call(fam.querySelectorAll('button'), function(b){ b.addEventListener('click', function(){
     family=b.getAttribute('data-fam');
-    Array.prototype.forEach.call(fam.querySelectorAll('button'), function(x){ x.classList.toggle('on', x===b); });
-    draw();
+    Array.prototype.forEach.call(fam.querySelectorAll('button'), function(x){ var on=(x===b); x.classList.toggle('active', on); x.setAttribute('aria-pressed', on?'true':'false'); });
+    applyRange(); draw();
   }); });
   sth.addEventListener('input', draw); sn.addEventListener('input', draw);
-  draw();
+  applyRange(); draw();
 })();
 </script>
 

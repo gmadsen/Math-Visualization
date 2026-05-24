@@ -54,7 +54,7 @@ export function renderScript(params) {
     `    var p=parseFloat(sp.value), n=parseInt(sn.value,10); pv.textContent='p = '+p.toFixed(2); nv.textContent='n = '+n;\n` +
     `    var H=hbin(p);\n` +
     `    var s0=-log2(p), s1=-log2(1-p);\n` + // surprise of a 1 and of a 0
-    `    var emin=Math.min(s0,s1), emax=Math.max(s0,s1);\n` +
+    `    var emax=Math.max(s0,s1);\n` +
     `    var xmax=emax*1.05, xmin=0;\n` +
     `    function ex(e){ return PX0 + (e-xmin)/(xmax-xmin)*(PX1-PX0); }\n` +
     // binomial pmf via incremental log-binomial
