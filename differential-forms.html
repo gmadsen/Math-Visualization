@@ -786,9 +786,9 @@ function drawNode(svg, x, y, label, opts={}){
 (function(){
   var PI=Math.PI;
   var FORMS=[
-    { name:'\u03c9 = dx', P:function(){return 1;}, Q:function(){return 0;}, exact:'x(end) \u2212 x(start)' },
-    { name:'\u03c9 = x dy', P:function(){return 0;}, Q:function(x){return x;}, exact:'signed area swept' },
-    { name:'\u03c9 = (\u2212y dx + x dy)/(x\u00b2+y\u00b2)  (angle form)', P:function(x,y){return -y/(x*x+y*y);}, Q:function(x,y){return x/(x*x+y*y);}, exact:'angle swept about the origin' }
+    { name:'\u03c9 = dx', P:function(){return 1;}, Q:function(){return 0;} },
+    { name:'\u03c9 = x dy', P:function(){return 0;}, Q:function(x){return x;} },
+    { name:'\u03c9 = (\u2212y dx + x dy)/(x\u00b2+y\u00b2)  (angle form)', P:function(x,y){return -y/(x*x+y*y);}, Q:function(x,y){return x/(x*x+y*y);} }
   ];
   var CURVES=[
     { name:'segment', g:function(t){return [-1+2.2*t, -0.6+1.4*t];}, gp:function(){return [2.2,1.4];}, loop:false },
@@ -831,17 +831,18 @@ function drawNode(svg, x, y, label, opts={}){
     txt(TX, 40, F.name, {size:12, fill:'var(--ink)', weight:600});
     txt(TX, 62, 'over '+C.name+(rev?'  (reversed)':''), {size:11, fill:'var(--violet)'});
     txt(TX, 92, '\u222b_\u03b3 \u03c9 = \u222b\u2080\u00b9 [P(\u03b3)x\u2032 + Q(\u03b3)y\u2032] dt', {size:11, fill:'var(--mute)'});
-    txt(TX, 120, '= '+(I<0?'\u2212':'')+Math.abs(I).toFixed(3), {size:16, fill:'var(--yellow)', weight:700});
+    var Idisp = Math.abs(I)<5e-4 ? 0 : I;
+    txt(TX, 120, '= '+(Idisp<0?'\u2212':'')+Math.abs(Idisp).toFixed(3), {size:16, fill:'var(--yellow)', weight:700});
     var nice='';
     if(fi===2 && ci===2) nice = rev?'= \u22122\u03c0  (winding \u22121)':'= 2\u03c0  (winding +1 about the origin)';
-    else if(fi===2 && ci===1) nice='\u2248 \u03c0  (half-turn of angle)';
-    else if(fi===1 && ci===2) nice='= \u03c0  (area of the unit disk)';
+    else if(fi===2 && ci===1) nice = rev?'\u2248 \u2212\u03c0  (half-turn, reversed)':'\u2248 \u03c0  (half-turn of angle)';
+    else if(fi===1 && ci===2) nice = rev?'= \u2212\u03c0  (\u2212area of the unit disk)':'= \u03c0  (area of the unit disk)';
     else if(fi===0) nice='= x(end) \u2212 x(start)  (dx is exact)';
     if(nice) txt(TX, 144, nice, {size:11, fill:'var(--green)'});
     txt(TX, 178, 'green tangent: \u03c9(\u03b3\u2032) \u2265 0', {size:10, fill:'var(--green)'});
     txt(TX, 194, 'pink tangent: \u03c9(\u03b3\u2032) < 0', {size:10, fill:'var(--pink)'});
     txt(TX, 222, 'reversing \u03b3 flips the sign', {size:10, fill:'var(--mute)', italic:true});
-    out.textContent = 'The integral of a 1-form over an oriented curve is defined by pullback to the parameter interval: \u222b_\u03b3 \u03c9 = \u222b\u2080\u00b9 \u03b3*\u03c9 = \u222b\u2080\u00b9 [P(\u03b3(t))\u00b7x\u2032(t) + Q(\u03b3(t))\u00b7y\u2032(t)] dt, the running sum of the form paired against the tangent \u03b3\u2032(t). Here '+F.name+' over the '+C.name+(rev?' (reversed)':'')+' gives '+(I<0?'\u2212':'')+Math.abs(I).toFixed(3)+'. '+(C.loop?'':'For an open curve only the endpoints and path matter; ')+'reversing the orientation negates the integral \u2014 that is the \u22121 coefficient on the chain. The angle form is closed but not exact, so its integral around a loop enclosing the origin is 2\u03c0 rather than 0: a first glimpse of de Rham cohomology.';
+    out.textContent = 'The integral of a 1-form over an oriented curve is defined by pullback to the parameter interval: \u222b_\u03b3 \u03c9 = \u222b\u2080\u00b9 \u03b3*\u03c9 = \u222b\u2080\u00b9 [P(\u03b3(t))\u00b7x\u2032(t) + Q(\u03b3(t))\u00b7y\u2032(t)] dt, the running sum of the form paired against the tangent \u03b3\u2032(t). Here '+F.name+' over the '+C.name+(rev?' (reversed)':'')+' gives '+(Idisp<0?'\u2212':'')+Math.abs(Idisp).toFixed(3)+'. '+(C.loop?'':'For an open curve only the endpoints and path matter; ')+'reversing the orientation negates the integral \u2014 that is the \u22121 coefficient on the chain. The angle form is closed but not exact, so its integral around a loop enclosing the origin is 2\u03c0 rather than 0: a first glimpse of de Rham cohomology.';
   }
   fB.forEach(function(b,i){ b.addEventListener('click', function(){ fi=i; draw(); }); });
   cB.forEach(function(b,i){ b.addEventListener('click', function(){ ci=i; draw(); }); });
@@ -947,12 +948,14 @@ function drawNode(svg, x, y, label, opts={}){
     axes(CXR, 'x', 'y');
     txt(CXR, 40, 'target (x, y)', {size:11, fill:'var(--ink)', anchor:'middle'});
     function R(a,b){ return [CXR+a*SC, CYL-b*SC]; }
-    var P=M.f(u,v); var c1=[J[0][0],J[1][0]], c2=[J[0][1],J[1][1]];
-    var img=[R(P[0],P[1]), R(P[0]+c1[0],P[1]+c1[1]), R(P[0]+c1[0]+c2[0],P[1]+c1[1]+c2[1]), R(P[0]+c2[0],P[1]+c2[1])];
+    var c1=[J[0][0],J[1][0]], c2=[J[0][1],J[1][1]];
+    var img=[R(0,0), R(c1[0],c1[1]), R(c1[0]+c2[0],c1[1]+c2[1]), R(c2[0],c2[1])];
     poly(img, {fill: det<0?'var(--pink)':'var(--yellow)','fill-opacity':0.18, stroke: det<0?'var(--pink)':'var(--yellow)','stroke-width':1.4});
-    arrow(R(P[0],P[1])[0],R(P[0],P[1])[1], R(P[0]+c1[0],P[1]+c1[1])[0],R(P[0]+c1[0],P[1]+c1[1])[1],'var(--green)');
-    arrow(R(P[0],P[1])[0],R(P[0],P[1])[1], R(P[0]+c2[0],P[1]+c2[1])[0],R(P[0]+c2[0],P[1]+c2[1])[1],'var(--cyan)');
-    var midI=R(P[0]+(c1[0]+c2[0])/2, P[1]+(c1[1]+c2[1])/2);
+    arrow(R(0,0)[0],R(0,0)[1], R(c1[0],c1[1])[0],R(c1[0],c1[1])[1],'var(--green)');
+    arrow(R(0,0)[0],R(0,0)[1], R(c2[0],c2[1])[0],R(c2[0],c2[1])[1],'var(--cyan)');
+    txt(R(c1[0],c1[1])[0]+4, R(c1[0],c1[1])[1], 'D\u03c6\u00b7du', {size:9, fill:'var(--green)'});
+    txt(R(c2[0],c2[1])[0]+4, R(c2[0],c2[1])[1], 'D\u03c6\u00b7dv', {size:9, fill:'var(--cyan)'});
+    var midI=R((c1[0]+c2[0])/2, (c1[1]+c2[1])/2);
     txt(midI[0], midI[1]+4, 'area '+Math.abs(det).toFixed(2), {size:9, fill:'var(--mute)', anchor:'middle'});
     var jstr='['+J[0][0].toFixed(2)+'  '+J[0][1].toFixed(2)+';  '+J[1][0].toFixed(2)+'  '+J[1][1].toFixed(2)+']';
     txt(CXL, CYL+128, M.name, {size:11, fill:'var(--violet)', anchor:'middle'});

@@ -88,12 +88,15 @@ export function renderScript(params) {
     `    axes(CXR, 'x', 'y');\n` +
     `    txt(CXR, 40, 'target (x, y)', {size:11, fill:'var(--ink)', anchor:'middle'});\n` +
     `    function R(a,b){ return [CXR+a*SC, CYL-b*SC]; }\n` +
-    `    var P=M.f(u,v); var c1=[J[0][0],J[1][0]], c2=[J[0][1],J[1][1]];\n` + // columns = images of du, dv
-    `    var img=[R(P[0],P[1]), R(P[0]+c1[0],P[1]+c1[1]), R(P[0]+c1[0]+c2[0],P[1]+c1[1]+c2[1]), R(P[0]+c2[0],P[1]+c2[1])];\n` +
+    `    var c1=[J[0][0],J[1][0]], c2=[J[0][1],J[1][1]];\n` + // columns of Dφ = images of the tangent vectors du, dv
+    // drawn from the target-plane origin (Dφ maps tangent vectors du,dv -> c1,c2); the span area is det regardless of where φ lands, so this stays in-frame for any base point
+    `    var img=[R(0,0), R(c1[0],c1[1]), R(c1[0]+c2[0],c1[1]+c2[1]), R(c2[0],c2[1])];\n` +
     `    poly(img, {fill: det<0?'var(--pink)':'var(--yellow)','fill-opacity':0.18, stroke: det<0?'var(--pink)':'var(--yellow)','stroke-width':1.4});\n` +
-    `    arrow(R(P[0],P[1])[0],R(P[0],P[1])[1], R(P[0]+c1[0],P[1]+c1[1])[0],R(P[0]+c1[0],P[1]+c1[1])[1],'var(--green)');\n` +
-    `    arrow(R(P[0],P[1])[0],R(P[0],P[1])[1], R(P[0]+c2[0],P[1]+c2[1])[0],R(P[0]+c2[0],P[1]+c2[1])[1],'var(--cyan)');\n` +
-    `    var midI=R(P[0]+(c1[0]+c2[0])/2, P[1]+(c1[1]+c2[1])/2);\n` +
+    `    arrow(R(0,0)[0],R(0,0)[1], R(c1[0],c1[1])[0],R(c1[0],c1[1])[1],'var(--green)');\n` +
+    `    arrow(R(0,0)[0],R(0,0)[1], R(c2[0],c2[1])[0],R(c2[0],c2[1])[1],'var(--cyan)');\n` +
+    `    txt(R(c1[0],c1[1])[0]+4, R(c1[0],c1[1])[1], 'D\\u03c6\\u00b7du', {size:9, fill:'var(--green)'});\n` +
+    `    txt(R(c2[0],c2[1])[0]+4, R(c2[0],c2[1])[1], 'D\\u03c6\\u00b7dv', {size:9, fill:'var(--cyan)'});\n` +
+    `    var midI=R((c1[0]+c2[0])/2, (c1[1]+c2[1])/2);\n` +
     `    txt(midI[0], midI[1]+4, 'area '+Math.abs(det).toFixed(2), {size:9, fill:'var(--mute)', anchor:'middle'});\n` +
     // readout (compact panel under planes)
     `    var jstr='['+J[0][0].toFixed(2)+'  '+J[0][1].toFixed(2)+';  '+J[1][0].toFixed(2)+'  '+J[1][1].toFixed(2)+']';\n` +

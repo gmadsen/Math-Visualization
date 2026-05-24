@@ -43,9 +43,9 @@ export function renderScript(params) {
     `(function(){\n` +
     `  var PI=Math.PI;\n` +
     `  var FORMS=[\n` +
-    `    { name:'\\u03c9 = dx', P:function(){return 1;}, Q:function(){return 0;}, exact:'x(end) \\u2212 x(start)' },\n` +
-    `    { name:'\\u03c9 = x dy', P:function(){return 0;}, Q:function(x){return x;}, exact:'signed area swept' },\n` +
-    `    { name:'\\u03c9 = (\\u2212y dx + x dy)/(x\\u00b2+y\\u00b2)  (angle form)', P:function(x,y){return -y/(x*x+y*y);}, Q:function(x,y){return x/(x*x+y*y);}, exact:'angle swept about the origin' }\n` +
+    `    { name:'\\u03c9 = dx', P:function(){return 1;}, Q:function(){return 0;} },\n` +
+    `    { name:'\\u03c9 = x dy', P:function(){return 0;}, Q:function(x){return x;} },\n` +
+    `    { name:'\\u03c9 = (\\u2212y dx + x dy)/(x\\u00b2+y\\u00b2)  (angle form)', P:function(x,y){return -y/(x*x+y*y);}, Q:function(x,y){return x/(x*x+y*y);} }\n` +
     `  ];\n` +
     `  var CURVES=[\n` +
     `    { name:'segment', g:function(t){return [-1+2.2*t, -0.6+1.4*t];}, gp:function(){return [2.2,1.4];}, loop:false },\n` +
@@ -94,17 +94,18 @@ export function renderScript(params) {
     `    txt(TX, 40, F.name, {size:12, fill:'var(--ink)', weight:600});\n` +
     `    txt(TX, 62, 'over '+C.name+(rev?'  (reversed)':''), {size:11, fill:'var(--violet)'});\n` +
     `    txt(TX, 92, '\\u222b_\\u03b3 \\u03c9 = \\u222b\\u2080\\u00b9 [P(\\u03b3)x\\u2032 + Q(\\u03b3)y\\u2032] dt', {size:11, fill:'var(--mute)'});\n` +
-    `    txt(TX, 120, '= '+(I<0?'\\u2212':'')+Math.abs(I).toFixed(3), {size:16, fill:'var(--yellow)', weight:700});\n` +
+    `    var Idisp = Math.abs(I)<5e-4 ? 0 : I;\n` + // snap floating-point dust so e.g. the closed loop of dx shows 0, not -0.000
+    `    txt(TX, 120, '= '+(Idisp<0?'\\u2212':'')+Math.abs(Idisp).toFixed(3), {size:16, fill:'var(--yellow)', weight:700});\n` +
     `    var nice='';\n` +
     `    if(fi===2 && ci===2) nice = rev?'= \\u22122\\u03c0  (winding \\u22121)':'= 2\\u03c0  (winding +1 about the origin)';\n` +
-    `    else if(fi===2 && ci===1) nice='\\u2248 \\u03c0  (half-turn of angle)';\n` +
-    `    else if(fi===1 && ci===2) nice='= \\u03c0  (area of the unit disk)';\n` +
+    `    else if(fi===2 && ci===1) nice = rev?'\\u2248 \\u2212\\u03c0  (half-turn, reversed)':'\\u2248 \\u03c0  (half-turn of angle)';\n` +
+    `    else if(fi===1 && ci===2) nice = rev?'= \\u2212\\u03c0  (\\u2212area of the unit disk)':'= \\u03c0  (area of the unit disk)';\n` +
     `    else if(fi===0) nice='= x(end) \\u2212 x(start)  (dx is exact)';\n` +
     `    if(nice) txt(TX, 144, nice, {size:11, fill:'var(--green)'});\n` +
     `    txt(TX, 178, 'green tangent: \\u03c9(\\u03b3\\u2032) \\u2265 0', {size:10, fill:'var(--green)'});\n` +
     `    txt(TX, 194, 'pink tangent: \\u03c9(\\u03b3\\u2032) < 0', {size:10, fill:'var(--pink)'});\n` +
     `    txt(TX, 222, 'reversing \\u03b3 flips the sign', {size:10, fill:'var(--mute)', italic:true});\n` +
-    `    out.textContent = 'The integral of a 1-form over an oriented curve is defined by pullback to the parameter interval: \\u222b_\\u03b3 \\u03c9 = \\u222b\\u2080\\u00b9 \\u03b3*\\u03c9 = \\u222b\\u2080\\u00b9 [P(\\u03b3(t))\\u00b7x\\u2032(t) + Q(\\u03b3(t))\\u00b7y\\u2032(t)] dt, the running sum of the form paired against the tangent \\u03b3\\u2032(t). Here '+F.name+' over the '+C.name+(rev?' (reversed)':'')+' gives '+(I<0?'\\u2212':'')+Math.abs(I).toFixed(3)+'. '+(C.loop?'':'For an open curve only the endpoints and path matter; ')+'reversing the orientation negates the integral \\u2014 that is the \\u22121 coefficient on the chain. The angle form is closed but not exact, so its integral around a loop enclosing the origin is 2\\u03c0 rather than 0: a first glimpse of de Rham cohomology.';\n` +
+    `    out.textContent = 'The integral of a 1-form over an oriented curve is defined by pullback to the parameter interval: \\u222b_\\u03b3 \\u03c9 = \\u222b\\u2080\\u00b9 \\u03b3*\\u03c9 = \\u222b\\u2080\\u00b9 [P(\\u03b3(t))\\u00b7x\\u2032(t) + Q(\\u03b3(t))\\u00b7y\\u2032(t)] dt, the running sum of the form paired against the tangent \\u03b3\\u2032(t). Here '+F.name+' over the '+C.name+(rev?' (reversed)':'')+' gives '+(Idisp<0?'\\u2212':'')+Math.abs(Idisp).toFixed(3)+'. '+(C.loop?'':'For an open curve only the endpoints and path matter; ')+'reversing the orientation negates the integral \\u2014 that is the \\u22121 coefficient on the chain. The angle form is closed but not exact, so its integral around a loop enclosing the origin is 2\\u03c0 rather than 0: a first glimpse of de Rham cohomology.';\n` +
     `  }\n` +
     `  fB.forEach(function(b,i){ b.addEventListener('click', function(){ fi=i; draw(); }); });\n` +
     `  cB.forEach(function(b,i){ b.addEventListener('click', function(){ ci=i; draw(); }); });\n` +
