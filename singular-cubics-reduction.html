@@ -1135,6 +1135,84 @@ This is Ogg's formula and the classification on Néron's list. The conductor $N(
 
 <p>The conductor is the single most important arithmetic invariant of $E/\mathbb{Q}$ after its $L$-function — modular forms of weight $2$ and level $N$ are (by modularity) in bijection with elliptic curves of conductor $N$, so the minimal model and its conductor are exactly the bridge between the geometric page above and the analytic picture on <a href="./modular-forms.html">modular-forms.html</a>.</p>
 
+<div class="widget" id="w-minmodel">
+  <div class="hd"><div class="ttl">Minimal models and the u¹² scaling</div><div class="hint">pick a curve and a scaling $u$; watch $\Delta = u^{12}\Delta_0$ and the spurious bad primes</div></div>
+  <div class="row" id="w-minmodel-btns">
+    <button type="button" data-k="a" class="active" aria-pressed="true">y² = x³ − x</button>
+    <button type="button" data-k="b" class="" aria-pressed="false">y² = x³ + 1</button>
+    <button type="button" data-k="c" class="" aria-pressed="false">y² = x³ − x + 1</button>
+  </div>
+  <div class="row">
+    <label for="w-minmodel-u">scaling $u$</label>
+    <input type="range" id="w-minmodel-u" min="1" max="6" value="1" step="1">
+    <span class="pill" id="w-minmodel-uv">u = 1</span>
+  </div>
+  <svg id="w-minmodel-svg" viewBox="0 0 560 320" width="560" height="320" role="img" aria-label="Per-prime stacked bar chart of the valuation of the discriminant, splitting intrinsic from spurious contributions under u^12 scaling"><title>v_p(Delta) for the scaled Weierstrass model: intrinsic v_p(Delta_0) plus the spurious 12 v_p(u) added by the change of variables (x,y) -> (u^2 x, u^3 y)</title></svg>
+  <div class="readout" id="w-minmodel-out"></div>
+</div>
+<script>
+/* singular-cubics-minimal-model widget: w-minmodel */
+(function(){
+  var svg=document.getElementById('w-minmodel-svg'), out=document.getElementById('w-minmodel-out');
+  var su=document.getElementById('w-minmodel-u'), uv=document.getElementById('w-minmodel-uv'), btns=document.getElementById('w-minmodel-btns');
+  if(!svg||!out||!su||!uv||!btns) return;
+  var NS='http://www.w3.org/2000/svg';
+  function mk(tag,attrs,text){ var e=document.createElementNS(NS,tag); for(var k in attrs){ e.setAttribute(k,attrs[k]); } if(text!=null) e.textContent=text; return e; }
+  function txt(x,y,s,opt){ opt=opt||{}; svg.appendChild(mk('text',{x:x,y:y,'text-anchor':opt.anchor||'start','font-size':opt.size||12,fill:opt.fill||'var(--ink)','font-weight':opt.weight||'normal'},s)); }
+  var CURVES={ a:{name:'y\u00b2 = x\u00b3 \u2212 x', A:-1, B:0}, b:{name:'y\u00b2 = x\u00b3 + 1', A:0, B:1}, c:{name:'y\u00b2 = x\u00b3 \u2212 x + 1', A:-1, B:1} };
+  function factor(n){ n=Math.abs(n); var f={}; for(var p=2;p*p<=n;p++){ while(n%p===0){ f[p]=(f[p]||0)+1; n/=p; } } if(n>1) f[n]=(f[n]||0)+1; return f; }
+  function vp(n,p){ if(n===0) return Infinity; n=Math.abs(n); var v=0; while(n%p===0){ v++; n/=p; } return v; }
+  var curKey='a';
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    var C=CURVES[curKey], A=C.A, B=C.B, u=parseInt(su.value,10); uv.textContent='u = '+u;
+    var D0=-16*(4*A*A*A+27*B*B);
+    var fD0=factor(D0), fu=factor(u);
+    // primes dividing the scaled discriminant Delta = u^12 * D0
+    var primes={}; Object.keys(fD0).forEach(function(p){ primes[p]=1; }); Object.keys(fu).forEach(function(p){ primes[p]=1; });
+    var plist=Object.keys(primes).map(Number).sort(function(x,y){ return x-y; });
+    var rows=plist.map(function(p){ var vi=fD0[p]||0, vs=12*(fu[p]||0); return {p:p, vi:vi, vs:vs, tot:vi+vs}; });
+    var vmax=Math.max.apply(null, rows.map(function(r){ return r.tot; }).concat([12]));
+    var BX0=70, BX1=420, BY=250, BTOP=60; var ph=BY-BTOP;
+    function Y(v){ return BY - (v/vmax)*ph; }
+    // axis
+    svg.appendChild(mk('line',{x1:BX0,y1:BY,x2:BX1,y2:BY,stroke:'var(--line)','stroke-width':1}));
+    svg.appendChild(mk('line',{x1:BX0,y1:BTOP,x2:BX0,y2:BY,stroke:'var(--line)','stroke-width':1}));
+    txt(BX0-6, BTOP-4, 'v_p(\u0394)', {anchor:'start', size:10, fill:'var(--mute)'});
+    // gridlines at multiples of 12 (one u-step)
+    for(var g=12; g<=vmax+0.001; g+=12){ var gy=Y(g); svg.appendChild(mk('line',{x1:BX0,y1:gy,x2:BX1,y2:gy,stroke:'var(--violet)','stroke-width':1,'stroke-dasharray':'3 3','stroke-opacity':0.5})); txt(BX0-6, gy+3, ''+g, {anchor:'end', size:9, fill:'var(--violet)'}); }
+    txt(BX0-6, Y(0)+3, '0', {anchor:'end', size:9, fill:'var(--mute)'});
+    // bars
+    var n=rows.length, bw=Math.min(54, (BX1-BX0)/(n+0.5)*0.6), gap=(BX1-BX0-n*bw)/(n+1);
+    rows.forEach(function(r,i){ var x=BX0+gap+i*(bw+gap);
+      var yi=Y(r.vi), y0=Y(0); if(r.vi>0) svg.appendChild(mk('rect',{x:x,y:yi,width:bw,height:Math.max(0,y0-yi),fill:'var(--cyan)','fill-opacity':0.85}));
+      var yt=Y(r.tot); if(r.vs>0) svg.appendChild(mk('rect',{x:x,y:yt,width:bw,height:Math.max(0,yi-yt),fill:'var(--pink)','fill-opacity':0.85}));
+      txt(x+bw/2, BY+14, 'p='+r.p, {anchor:'middle', size:10, fill:'var(--ink)'});
+      txt(x+bw/2, yt-5, ''+r.tot, {anchor:'middle', size:10, weight:700, fill: r.vs>0?'var(--pink)':'var(--cyan)'});
+      if(r.vs>0) txt(x+bw/2, BY+26, '('+r.vi+'+'+r.vs+')', {anchor:'middle', size:8, fill:'var(--mute)'}); });
+    // legend
+    svg.appendChild(mk('rect',{x:BX1+14,y:BTOP+6,width:11,height:11,fill:'var(--cyan)','fill-opacity':0.85})); txt(BX1+29, BTOP+15, 'intrinsic', {size:9, fill:'var(--mute)'});
+    svg.appendChild(mk('rect',{x:BX1+14,y:BTOP+24,width:11,height:11,fill:'var(--pink)','fill-opacity':0.85})); txt(BX1+29, BTOP+33, 'spurious', {size:9, fill:'var(--mute)'});
+    txt(BX1+14, BTOP+52, '12\u00b7v_p(u)', {size:8, fill:'var(--mute)'});
+    // model line at top
+    var Ap=A*Math.pow(u,4), Bp=B*Math.pow(u,6);
+    txt(BX0, 30, C.name+(u>1?'   \u2192  y\u00b2 = x\u00b3 + ('+Ap+')x + ('+Bp+')':'   (u = 1, the given model)'), {size:11, weight:700, fill:'var(--ink)'});
+    txt(BX0, 46, '\u0394 = u\u00b9\u00b2\u00b7\u0394\u2080 = '+(u>1?u+'\u00b9\u00b2\u00b7':'')+'('+D0+')'+(u>1?'':''), {size:10, fill:'var(--mute)'});
+    // readout
+    var spuriousPrimes=Object.keys(fu).map(Number).sort(function(x,y){return x-y;});
+    var verdict;
+    if(u===1){ verdict='This is the GLOBAL MINIMAL MODEL: \u0394_min = \u0394\u2080 = '+D0+', minimal at every prime, so its bad primes ('+(Object.keys(fD0).join(', '))+') are the genuine ones. '; }
+    else { verdict='This model is NON-MINIMAL exactly at the prime'+(spuriousPrimes.length>1?'s':'')+' dividing u: '+spuriousPrimes.join(', ')+'. Each contributes a SPURIOUS 12\u00b7v_p(u) to v_p(\u0394) (the pink blocks), a multiple of 12 that Tate\u2019s algorithm strips off by scaling back down via (x,y) \u2192 (x/u\u00b2, y/u\u00b3), recovering \u0394_min = '+D0+'. '; }
+    out.textContent='To reduce E/\u211a at a prime you first choose an integer Weierstrass model, and different models have different discriminants. The admissible change of variables (x,y) \u2192 (u\u00b2x, u\u00b3y) rescales the invariants by (c\u2084, c\u2086, \u0394) \u2192 (u\u2074c\u2084, u\u2076c\u2086, u\u00b9\u00b2\u0394) \u2014 same curve, discriminant multiplied by u\u00b9\u00b2. So v_p(\u0394) = v_p(\u0394\u2080) + 12\u00b7v_p(u) at every prime, and a factor of p in u inflates v_p(\u0394) by exactly 12 (the dashed violet gridlines). '+verdict+'A model is MINIMAL at p when v_p(\u0394) is smallest among all integer models; a global minimal model (minimal at every prime simultaneously) exists for every E/\u211a (N\u00e9ron) and \u0394_min is an invariant of the curve. The CONDUCTOR N, by contrast, records only the reduction TYPE at each genuine bad prime (1 for multiplicative, \u22652 for additive) \u2014 it is computed from the minimal model and is completely unaffected by u.';
+  }
+  su.addEventListener('input', draw);
+  btns.addEventListener('click', function(e){ var b=e.target.closest('button'); if(!b) return; curKey=b.getAttribute('data-k');
+    Array.prototype.forEach.call(btns.querySelectorAll('button'), function(x){ var on=x===b; x.classList.toggle('active', on); x.setAttribute('aria-pressed', on?'true':'false'); });
+    draw(); });
+  draw();
+})();
+</script>
+
 <!-- callback-auto-begin -->
 <aside class="callback">
   <div class="ttl">See also</div>
