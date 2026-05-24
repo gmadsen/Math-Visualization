@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/diff-forms-integration/schema.json",
+  "title": "diff-forms-integration widget params",
+  "description": "Integrating a 1-form over a 1-chain by pullback to the parameter interval. Pick a 1-form ω = P dx + Q dy and an oriented curve γ; the integral ∫_γ ω = ∫₀¹ [P(γ)x′ + Q(γ)y′] dt is the pullback γ*ω integrated over [0,1], shown as a Riemann sum with the form paired against the tangent γ′(t) at sample points (green where the pairing is positive, pink where negative). Reversing the orientation flips the sign — the ±1 coefficient on the chain — and the angle form ∮ = 2π around a loop enclosing the origin previews de Rham.",
+  "meta": {
+    "family": "diff-forms-integration",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\"> wrapper."
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title rendered inside .hd > .ttl."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional short hint rendered inside .hd > .hint."
+    }
+  }
+}

@@ -135,6 +135,27 @@
         },
         {
           "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget",
+          "slug": "diff-forms-integration",
+          "params": {
+            "widgetId": "w-df-integration",
+            "title": "Integrating a 1-form over an oriented curve",
+            "hint": "Pick a form and a curve; reversing the orientation flips the sign."
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-df-integration"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "raw",
           "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./algebraic-topology.html#homology\">Singular homology</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {
@@ -166,6 +187,27 @@
         {
           "type": "raw",
           "html": "<section id=\"pullback\">\n<h2>6. Pullback of forms (aside)</h2>\n<p>For a smooth map $f\\colon N\\to M$, the <strong>pullback</strong> $f^*\\colon\\Omega^k(M)\\to\\Omega^k(N)$ acts on $k$-forms contravariantly. On a decomposable form,</p>\n<p style=\"text-align:center\">$f^*(\\omega_1\\wedge\\cdots\\wedge\\omega_k)(v_1,\\ldots,v_k) \\;=\\; \\omega_1\\wedge\\cdots\\wedge\\omega_k\\bigl(df(v_1),\\ldots,df(v_k)\\bigr).$</p>\n<p>Two identities make pullback the \"right\" operation:</p>\n<ul>\n<li>$f^*(d\\omega) = d(f^*\\omega)$ — pullback commutes with the exterior derivative.</li>\n<li>$f^*(\\omega\\wedge\\eta) = (f^*\\omega)\\wedge(f^*\\eta)$ — pullback is a ring map.</li>\n</ul>\n<p>Together they say $f^*\\colon \\Omega^\\bullet(M)\\to\\Omega^\\bullet(N)$ is a map of differential graded algebras. This is why integration of forms is <em>coordinate-invariant</em>: changing coordinates is a pullback, and pulling back a top form along a diffeomorphism picks up the Jacobian determinant exactly once, giving the usual change-of-variables formula for free.</p>\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget",
+          "slug": "diff-forms-pullback",
+          "params": {
+            "widgetId": "w-df-pullback",
+            "title": "Pullback picks up the Jacobian determinant",
+            "hint": "Move the base point; the image parallelogram has area det(Dφ)."
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-df-pullback"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
         },
         {
           "type": "raw",
