@@ -244,6 +244,27 @@
           "html": "<section id=\"mirror\">\n<h2>6. Mirror symmetry preview</h2>\n<p>The most striking application of toric varieties to \"exotic\" geometry is Batyrev's construction of mirror Calabi-Yau pairs. The ingredients are mostly polytopes, and the output is two families of CY hypersurfaces whose Hodge numbers are <em>swapped</em> in a way that string theorists predicted on physical grounds.</p>\n\n<div class=\"note\">\n<p style=\"margin:.2rem 0\"><strong>Reflexive polytope.</strong> A lattice polytope $\\Delta \\subset M_\\mathbb{R}$ containing the origin in its interior is <em>reflexive</em> iff the polar dual</p>\n$$\\Delta^\\circ \\;=\\; \\{\\, v \\in N_\\mathbb{R} \\,:\\, \\langle v, m\\rangle \\ge -1 \\text{ for all } m \\in \\Delta\\,\\}$$\n<p style=\"margin:.2rem 0\">is itself a lattice polytope.</p>\n</div>\n\n<p>Equivalently, $0$ is the unique interior lattice point of $\\Delta$ and every facet of $\\Delta$ has lattice distance $1$ from the origin. <a href=\"./functional-analysis.html#reflexivity\" data-auto-inline-link=\"1\" data-concept-id=\"reflexivity\" data-blurb=\"X is reflexive when the canonical embedding X → X** is surjective; Lᵖ (1&lt;p&lt;∞) and Hilbert spaces qualify; L¹, L∞, C[0,1], c₀ do not.\">Reflexivity</a> is rare and rigid — there are exactly $16$ reflexive polygons in dimension $2$ (corresponding to the $16$ Gorenstein toric Fano surfaces), $4319$ in dimension $3$, and a famous Kreuzer-Skarke list of $473\\,800\\,776$ in dimension $4$.</p>\n\n<p><strong>Batyrev's construction.</strong> A reflexive polytope $\\Delta$ has a normal fan $\\Sigma_\\Delta$ (the rays are inner normals to facets, the maximal cones are normal cones at vertices). The toric variety $X_\\Delta := X_{\\Sigma_\\Delta}$ is a Gorenstein toric Fano variety. A generic anticanonical hypersurface in $X_\\Delta$ is a Calabi-Yau variety. Batyrev showed: the analogous hypersurface in $X_{\\Delta^\\circ}$ is the <em>mirror</em> Calabi-Yau, with Hodge numbers $h^{1,1}$ and $h^{n-1,1}$ swapped:</p>\n$$h^{1,1}\\!\\big(X_\\Delta^{\\mathrm{CY}}\\big) \\;=\\; h^{n-1,1}\\!\\big(X_{\\Delta^\\circ}^{\\mathrm{CY}}\\big), \\qquad h^{n-1,1}\\!\\big(X_\\Delta^{\\mathrm{CY}}\\big) \\;=\\; h^{1,1}\\!\\big(X_{\\Delta^\\circ}^{\\mathrm{CY}}\\big).$$\n\n<p>The quintic threefold $\\{f_5 = 0\\} \\subset \\mathbb{P}^4$ is the historical poster child: $\\mathbb{P}^4$ is $X_{\\Delta_4}$ for the $4$-simplex $\\Delta_4$ (a reflexive polytope), and $\\Delta_4^\\circ$ gives a different toric Fano whose generic anticanonical hypersurface is the mirror quintic, with the famous $h^{1,1}$/$h^{2,1}$ swap $(1, 101) \\leftrightarrow (101, 1)$.</p>\n\n<p class=\"small\">This combinatorial mirror was the first systematic recipe for producing mirror pairs and remains the single richest source of explicit examples. Going further — establishing mirror symmetry as an equivalence of categories (homological mirror symmetry) or matching enumerative invariants (Gromov-Witten = period integrals) — is the work of the next several pages.</p>\n\n<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./calabi-yau-manifolds.html#cy-mirror-pair\">Calabi–Yau manifolds</a> · Mirror pair statement</li>\n    <li><a href=\"./mirror-symmetry.html#ms-mirror-pair-statement\">Mirror symmetry</a> · Mirror pair statement</li>\n    <li><a href=\"./mirror-symmetry.html#ms-quintic-prediction\">Mirror symmetry</a> · Mirror quintic prediction</li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->\n\n"
         },
         {
+          "type": "widget",
+          "slug": "toric-varieties-reflexive-duality",
+          "params": {
+            "widgetId": "w-tv-reflexive",
+            "title": "Reflexive polygons and polar duality",
+            "hint": "pick a polygon; compare it with its polar dual $\\Delta^\\circ$ and check reflexivity"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-tv-reflexive"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
           "type": "quiz",
           "concept": "tv-mirror",
           "html": "<div class=\"quiz\" data-concept=\"tv-mirror\"></div>"

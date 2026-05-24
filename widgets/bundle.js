@@ -19295,6 +19295,24 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "toric-varieties-reflexive-duality",
+    "family": "toric-varieties-reflexive-duality",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "toric-varieties-reflexive-duality widget params",
+    "description": "Reflexive lattice polygons and Batyrev polar duality in dimension 2. A gallery of 2-D lattice polygons (the reflexive ones P^2, P^1xP^1, the square, the dP3 hexagon, plus a deliberately non-reflexive contrast) is shown alongside its polar dual Delta-circle = { v : <v,m> >= -1 for all m in Delta }, computed as the polygon whose vertices solve <v,m_i> = <v,m_{i+1}> = -1 for consecutive vertices of Delta. The widget verifies the reflexivity criterion live (0 is the unique interior lattice point AND the dual is again a lattice polygon), highlights the interior lattice point(s) and any non-integer dual vertex, and reports the vertex/lattice-point counts and the involution Delta-circle-circle = Delta. The readout ties this to Batyrev's mirror construction (reflexive Delta in dimension n gives a mirror Calabi-Yau pair with swapped Hodge numbers; 16 reflexive polygons in 2-D, 4319 in 3-D, 473,800,776 in 4-D). No numeric params beyond the standard widgetId/title/hint; the polygon gallery is fixed inside the renderer and selected by buttons.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Bespoke widget for `toric-varieties.html` (§6 *Mirror symmetry preview*, concept `tv-mirror`). It makes **reflexive polytopes** and **Batyrev polar duality** tangible in dimension 2, where everything is drawable on the integer lattice. Single module, not part of a shared family.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "toric-varieties-w1",
     "family": "verbatim",
     "dimension": "2d",
