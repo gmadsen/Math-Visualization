@@ -19,7 +19,7 @@ export function renderMarkup(params) {
     `  <div class="row">\n` +
     `    <span class="pill">stopping time $\\tau$</span>\n` +
     `    <button type="button" id="${widgetId}-r0">fixed time $N$</button>\n` +
-    `    <button type="button" id="${widgetId}-r1">exit $\\pm a$</button>\n` +
+    `    <button type="button" id="${widgetId}-r1">exit $\\pm 3$</button>\n` +
     `    <button type="button" id="${widgetId}-r2">first hit $+1$</button>\n` +
     `    <button type="button" id="${widgetId}-resample">resample</button>\n` +
     `  </div>\n` +
@@ -49,9 +49,9 @@ export function renderScript(params) {
     `  var rule=2;\n` + // default: first hit +1 (the cautionary example)
     // simulate one path's stopped value; also return a drawable prefix if asked
     `  function step(){ return Math.random()<0.5?1:-1; }\n` +
-    `  function simStopped(){ var s=0, n=0;\n` +
+    `  function simStopped(){ var s=0, n=0;\n` + // only the bounded rules 0 (fixed time) and 1 (two-sided exit); rule 2 uses its own hitting loop
     `    if(rule===0){ for(n=0;n<NFIX;n++) s+=step(); return s; }\n` +
-    `    while(n<CAP){ s+=step(); n++; if(rule===1 && Math.abs(s)>=AEXIT) return s; if(rule===2 && s>=1) return s; }\n` +
+    `    while(n<CAP){ s+=step(); n++; if(Math.abs(s)>=AEXIT) return s; }\n` +
     `    return s; }\n` +
     `  function simPath(){ var pts=[0], s=0, n=0, stopAt=-1;\n` + // up to MAXT for drawing
     `    for(n=1;n<=MAXT;n++){ s+=step(); pts.push(s);\n` +

@@ -37,13 +37,13 @@ export function renderScript(params) {
     // each example: which modes hold (as, Lp, prob, dist), the formula, and the lesson
     `  var EX=[\n` +
     `    { lab:'X_n = n\\u00b71_{(0,1/n)}', as:true, Lp:false, prob:true, dist:true,\n` +
-    `      note:'For each fixed \\u03c9 \\u2208 (0,1], X_n(\\u03c9) = 0 once 1/n < \\u03c9, so X_n \\u2192 0 ALMOST SURELY (hence in probability and in distribution). But \\u1d3c|X_n| = n\\u00b7(1/n) = 1 for all n, so X_n does NOT converge in L\\u00b9. Lesson: a.s. convergence does not imply L\\u1d56 convergence \\u2014 mass can escape to infinity.' },\n` +
+    `      note:'For each fixed \\u03c9 \\u2208 (0,1], X_n(\\u03c9) = 0 once 1/n < \\u03c9, so X_n \\u2192 0 ALMOST SURELY (hence in probability and in distribution). But E|X_n| = n\\u00b7(1/n) = 1 for all n, so X_n does NOT converge in L\\u00b9. Lesson: a.s. convergence does not imply L\\u1d56 convergence \\u2014 mass can escape to infinity.' },\n` +
     `    { lab:'typewriter:  X_n = 1_{I_n}', as:false, Lp:true, prob:true, dist:true,\n` +
-    `      note:'The intervals I_n sweep across [0,1] in blocks of shrinking length |I_n| \\u2192 0. Then \\u1d3c|X_n| = |I_n| \\u2192 0, so X_n \\u2192 0 in L\\u00b9 and in probability. But every \\u03c9 is hit infinitely often, so X_n(\\u03c9) does NOT converge for any \\u03c9 \\u2014 NOT almost surely. Lesson: in probability (even in L\\u1d56) does not imply a.s.' },\n` +
+    `      note:'The intervals I_n sweep across [0,1] in blocks of shrinking length |I_n| \\u2192 0. Then E|X_n| = |I_n| \\u2192 0, so X_n \\u2192 0 in L\\u00b9 and in probability. But every \\u03c9 is hit infinitely often, so X_n(\\u03c9) does NOT converge for any \\u03c9 \\u2014 NOT almost surely. Lesson: in probability (even in L\\u1d56) does not imply a.s.' },\n` +
     `    { lab:'X_n i.i.d. (e.g. N(0,1))', as:false, Lp:false, prob:false, dist:true,\n` +
     `      note:'If the X_n are i.i.d. with common law \\u03bc, then trivially X_n \\u2192 (that law) IN DISTRIBUTION \\u2014 every X_n already has law \\u03bc. But the values keep fluctuating: \\u2119(|X_n \\u2212 X_m| \\u2265 \\u03b5) does not vanish, so there is no convergence in probability (or a.s., or L\\u1d56) to any random variable. Lesson: in distribution is the weakest mode \\u2014 it constrains only the law, not the values.' },\n` +
     `    { lab:'X_n = X / n', as:true, Lp:true, prob:true, dist:true,\n` +
-    `      note:'For an integrable X, X_n = X/n \\u2192 0 in every mode at once: pointwise (a.s.), \\u1d3c|X/n| = \\u1d3c|X|/n \\u2192 0 (L\\u00b9), hence in probability and in distribution. When the limit is this well-behaved all four notions agree \\u2014 the modes only diverge on cleverly built counterexamples.' }\n` +
+    `      note:'For an integrable X, X_n = X/n \\u2192 0 in every mode at once: pointwise (a.s.), E|X/n| = E|X|/n \\u2192 0 (L\\u00b9), hence in probability and in distribution. When the limit is this well-behaved all four notions agree \\u2014 the modes only diverge on cleverly built counterexamples.' }\n` +
     `  ];\n` +
     `  var svg=document.getElementById('${widgetId}-svg'), out=document.getElementById('${widgetId}-out');\n` +
     `  var bt=[0,1,2,3].map(function(i){ return document.getElementById('${widgetId}-e'+i); });\n` +
@@ -72,7 +72,7 @@ export function renderScript(params) {
     `    node('as',E.as); node('Lp',E.Lp); node('prob',E.prob); node('dist',E.dist);\n` +
     `    txt(290, 36, E.lab, {size:13, fill:'var(--yellow)', weight:600, anchor:'middle'});\n` +
     // verdict strip at bottom
-    `    function chip(x,k){ var on=E[k]; svg.appendChild(mk('text',{x:x,y:272,'font-size':13,fill:on?'var(--green)':'var(--pink)'},on?'\\u2713':'\\u2717')); txt(x+16,272,NAME[k]==='L\\u1d56'?'L\\u1d56':NAME[k],{size:10,fill:'var(--ink)'}); }\n` +
+    `    function chip(x,k){ var on=E[k]; svg.appendChild(mk('text',{x:x,y:272,'font-size':13,fill:on?'var(--green)':'var(--pink)'},on?'\\u2713':'\\u2717')); txt(x+16,272,NAME[k],{size:10,fill:'var(--ink)'}); }\n` +
     `    chip(70,'as'); chip(170,'Lp'); chip(260,'prob'); chip(380,'dist');\n` +
     `    out.textContent = E.note + '\\n\\nThe implications a.s. \\u21d2 in probability \\u21d2 in distribution and L\\u1d56 \\u21d2 in probability always hold; none of the reverse arrows holds in general. Extra hypotheses bridge the gaps: dominated/uniformly-integrable families upgrade in-probability to L\\u1d56, a fast-enough rate (Borel\\u2013Cantelli, \\u03a3 \\u2119(|X_n\\u2212X|\\u2265\\u03b5) < \\u221e) upgrades in-probability to a.s., and a constant limit upgrades in-distribution to in-probability.';\n` +
     `  }\n` +

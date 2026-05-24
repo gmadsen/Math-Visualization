@@ -1152,13 +1152,13 @@ These are the canonical tools for proving a.s.\ statements.</p>
 (function(){
   var EX=[
     { lab:'X_n = n\u00b71_{(0,1/n)}', as:true, Lp:false, prob:true, dist:true,
-      note:'For each fixed \u03c9 \u2208 (0,1], X_n(\u03c9) = 0 once 1/n < \u03c9, so X_n \u2192 0 ALMOST SURELY (hence in probability and in distribution). But \u1d3c|X_n| = n\u00b7(1/n) = 1 for all n, so X_n does NOT converge in L\u00b9. Lesson: a.s. convergence does not imply L\u1d56 convergence \u2014 mass can escape to infinity.' },
+      note:'For each fixed \u03c9 \u2208 (0,1], X_n(\u03c9) = 0 once 1/n < \u03c9, so X_n \u2192 0 ALMOST SURELY (hence in probability and in distribution). But E|X_n| = n\u00b7(1/n) = 1 for all n, so X_n does NOT converge in L\u00b9. Lesson: a.s. convergence does not imply L\u1d56 convergence \u2014 mass can escape to infinity.' },
     { lab:'typewriter:  X_n = 1_{I_n}', as:false, Lp:true, prob:true, dist:true,
-      note:'The intervals I_n sweep across [0,1] in blocks of shrinking length |I_n| \u2192 0. Then \u1d3c|X_n| = |I_n| \u2192 0, so X_n \u2192 0 in L\u00b9 and in probability. But every \u03c9 is hit infinitely often, so X_n(\u03c9) does NOT converge for any \u03c9 \u2014 NOT almost surely. Lesson: in probability (even in L\u1d56) does not imply a.s.' },
+      note:'The intervals I_n sweep across [0,1] in blocks of shrinking length |I_n| \u2192 0. Then E|X_n| = |I_n| \u2192 0, so X_n \u2192 0 in L\u00b9 and in probability. But every \u03c9 is hit infinitely often, so X_n(\u03c9) does NOT converge for any \u03c9 \u2014 NOT almost surely. Lesson: in probability (even in L\u1d56) does not imply a.s.' },
     { lab:'X_n i.i.d. (e.g. N(0,1))', as:false, Lp:false, prob:false, dist:true,
       note:'If the X_n are i.i.d. with common law \u03bc, then trivially X_n \u2192 (that law) IN DISTRIBUTION \u2014 every X_n already has law \u03bc. But the values keep fluctuating: \u2119(|X_n \u2212 X_m| \u2265 \u03b5) does not vanish, so there is no convergence in probability (or a.s., or L\u1d56) to any random variable. Lesson: in distribution is the weakest mode \u2014 it constrains only the law, not the values.' },
     { lab:'X_n = X / n', as:true, Lp:true, prob:true, dist:true,
-      note:'For an integrable X, X_n = X/n \u2192 0 in every mode at once: pointwise (a.s.), \u1d3c|X/n| = \u1d3c|X|/n \u2192 0 (L\u00b9), hence in probability and in distribution. When the limit is this well-behaved all four notions agree \u2014 the modes only diverge on cleverly built counterexamples.' }
+      note:'For an integrable X, X_n = X/n \u2192 0 in every mode at once: pointwise (a.s.), E|X/n| = E|X|/n \u2192 0 (L\u00b9), hence in probability and in distribution. When the limit is this well-behaved all four notions agree \u2014 the modes only diverge on cleverly built counterexamples.' }
   ];
   var svg=document.getElementById('w-prob-conv-svg'), out=document.getElementById('w-prob-conv-out');
   var bt=[0,1,2,3].map(function(i){ return document.getElementById('w-prob-conv-e'+i); });
@@ -1184,7 +1184,7 @@ These are the canonical tools for proving a.s.\ statements.</p>
     arrow(NODE.prob[0],NODE.prob[1],NODE.dist[0],NODE.dist[1]);
     node('as',E.as); node('Lp',E.Lp); node('prob',E.prob); node('dist',E.dist);
     txt(290, 36, E.lab, {size:13, fill:'var(--yellow)', weight:600, anchor:'middle'});
-    function chip(x,k){ var on=E[k]; svg.appendChild(mk('text',{x:x,y:272,'font-size':13,fill:on?'var(--green)':'var(--pink)'},on?'\u2713':'\u2717')); txt(x+16,272,NAME[k]==='L\u1d56'?'L\u1d56':NAME[k],{size:10,fill:'var(--ink)'}); }
+    function chip(x,k){ var on=E[k]; svg.appendChild(mk('text',{x:x,y:272,'font-size':13,fill:on?'var(--green)':'var(--pink)'},on?'\u2713':'\u2717')); txt(x+16,272,NAME[k],{size:10,fill:'var(--ink)'}); }
     chip(70,'as'); chip(170,'Lp'); chip(260,'prob'); chip(380,'dist');
     out.textContent = E.note + '\n\nThe implications a.s. \u21d2 in probability \u21d2 in distribution and L\u1d56 \u21d2 in probability always hold; none of the reverse arrows holds in general. Extra hypotheses bridge the gaps: dominated/uniformly-integrable families upgrade in-probability to L\u1d56, a fast-enough rate (Borel\u2013Cantelli, \u03a3 \u2119(|X_n\u2212X|\u2265\u03b5) < \u221e) upgrades in-probability to a.s., and a constant limit upgrades in-distribution to in-probability.';
   }
@@ -1710,7 +1710,7 @@ using that $S_n$ is $\mathcal{F}_n$-measurable and $X_{n+1}$ is independent of $
   <div class="row">
     <span class="pill">stopping time $\tau$</span>
     <button type="button" id="w-prob-martingale-r0">fixed time $N$</button>
-    <button type="button" id="w-prob-martingale-r1">exit $\pm a$</button>
+    <button type="button" id="w-prob-martingale-r1">exit $\pm 3$</button>
     <button type="button" id="w-prob-martingale-r2">first hit $+1$</button>
     <button type="button" id="w-prob-martingale-resample">resample</button>
   </div>
@@ -1734,7 +1734,7 @@ using that $S_n$ is $\mathcal{F}_n$-measurable and $X_{n+1}$ is independent of $
   function step(){ return Math.random()<0.5?1:-1; }
   function simStopped(){ var s=0, n=0;
     if(rule===0){ for(n=0;n<NFIX;n++) s+=step(); return s; }
-    while(n<CAP){ s+=step(); n++; if(rule===1 && Math.abs(s)>=AEXIT) return s; if(rule===2 && s>=1) return s; }
+    while(n<CAP){ s+=step(); n++; if(Math.abs(s)>=AEXIT) return s; }
     return s; }
   function simPath(){ var pts=[0], s=0, n=0, stopAt=-1;
     for(n=1;n<=MAXT;n++){ s+=step(); pts.push(s);
