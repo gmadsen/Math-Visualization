@@ -60,13 +60,13 @@ export function renderScript(params) {
     `    RP:{nm:function(n,k){return 'RP'+sup(n);}, dim:function(n,k){return n;}, df:'n', built:'n+1 homogeneous-coordinate charts', cpt:true, con:function(){return true;}, ori:function(n){return {ok:(n%2===1),why:'orientable \\u21d4 n odd'};}},\n` +
     `    CP:{nm:function(n,k){return 'CP'+sup(n);}, dim:function(n,k){return 2*n;}, df:'2n', built:'n+1 charts (complex n-manifold)', cpt:true, con:function(){return true;}, ori:function(){return {ok:true,why:'complex \\u21d2 orientable'};}},\n` +
     `    T:{nm:function(n,k){return 'T'+sup(n);}, dim:function(n,k){return n;}, df:'n', built:'R\\u207f/Z\\u207f = (S\\u00b9)\\u207f', cpt:true, con:function(){return true;}, ori:function(){return {ok:true,why:'Lie group'};}},\n` +
-    `    GL:{nm:function(n,k){return 'GL'+sub(n)+'(R)';}, dim:function(n,k){return n*n;}, df:'n\\u00b2', built:'open { det\\u22600 } \\u2282 R^(n\\u00b2)', cpt:false, con:function(){return false;}, ori:function(){return {ok:true,why:'open in R^(n\\u00b2); 2 components'};}},\n` +
+    `    GL:{nm:function(n,k){return 'GL'+sub(n)+'(R)';}, dim:function(n,k){return n*n;}, df:'n\\u00b2', built:'open { det \\u2260 0 } in n\\u00d7n matrices', cpt:false, con:function(){return false;}, ori:function(){return {ok:true,why:'open in n\\u00d7n matrix space; 2 components'};}},\n` +
     `    SL:{nm:function(n,k){return 'SL'+sub(n)+'(R)';}, dim:function(n,k){return n*n-1;}, df:'n\\u00b2\\u22121', built:'det A = 1  (regular preimage)', cpt:false, con:function(){return true;}, ori:function(){return {ok:true,why:'Lie group'};}},\n` +
     `    O:{nm:function(n,k){return 'O('+n+')';}, dim:function(n,k){return n*(n-1)/2;}, df:'n(n\\u22121)/2', built:'A\\u1d40A = I', cpt:true, con:function(){return false;}, ori:function(){return {ok:true,why:'Lie group; 2 components'};}},\n` +
     `    SO:{nm:function(n,k){return 'SO('+n+')';}, dim:function(n,k){return n*(n-1)/2;}, df:'n(n\\u22121)/2', built:'A\\u1d40A = I, det = 1', cpt:true, con:function(){return true;}, ori:function(){return {ok:true,why:'Lie group'};}},\n` +
     `    U:{nm:function(n,k){return 'U('+n+')';}, dim:function(n,k){return n*n;}, df:'n\\u00b2', built:'A*A = I', cpt:true, con:function(){return true;}, ori:function(){return {ok:true,why:'Lie group'};}},\n` +
     `    SU:{nm:function(n,k){return 'SU('+n+')';}, dim:function(n,k){return n*n-1;}, df:'n\\u00b2\\u22121', built:'A*A = I, det = 1', cpt:true, con:function(){return true;}, ori:function(){return {ok:true,why:'Lie group'};}},\n` +
-    `    Gr:{nm:function(n,k){return 'Gr('+k+','+n+')';}, dim:function(n,k){return k*(n-k);}, df:'k(n\\u2212k)', built:'k(n\\u2212k) Grassmann charts', cpt:true, con:function(){return true;}, ori:function(n){return {ok:(n%2===0),why:'orientable \\u21d4 n even'};}, usesK:true}\n` +
+    `    Gr:{nm:function(n,k){return 'Gr('+k+','+n+')';}, dim:function(n,k){return k*(n-k);}, df:'k(n\\u2212k)', built:'graph-of-map charts, dim k(n\\u2212k)', cpt:true, con:function(){return true;}, ori:function(n){return {ok:(n%2===0),why:'orientable \\u21d4 n even'};}, usesK:true}\n` +
     `  };\n` +
     `  function sup(n){ var s=''+n,o=''; for(var i=0;i<s.length;i++) o+=(SUP[+s[i]]||('^'+s[i])); return o; }\n` +
     `  function sub(n){ var s=''+n,o=''; for(var i=0;i<s.length;i++) o+=(SUB[+s[i]]||('_'+s[i])); return o; }\n` +
@@ -74,7 +74,9 @@ export function renderScript(params) {
     `  function draw(){\n` +
     `    while(svg.firstChild) svg.removeChild(svg.firstChild);\n` +
     `    var D=DB[cur], n=parseInt(sn.value,10), k=parseInt(sk.value,10);\n` +
-    `    if(k>=n) k=Math.max(1,n-1);\n` +  // keep 1<=k<=n-1 for Grassmannian
+    `    if(D.usesK && n<2){ n=2; sn.value='2'; }\n` +  // Grassmannian needs n>=2 for a valid 1<=k<=n-1
+    `    if(k>=n) k=Math.max(1,n-1);\n` +
+    `    if(D.usesK) sk.value=''+k;\n` +  // sync the clamped k back to the slider thumb
     `    nv.textContent='n = '+n; kv.textContent='k = '+k;\n` +
     `    klab.style.opacity = D.usesK?'1':'0.4'; sk.disabled = !D.usesK; kv.style.opacity = D.usesK?'1':'0.4';\n` +
     `    var dim=D.dim(n,k), o=D.ori(n,k), conn=D.con(n);\n` +
