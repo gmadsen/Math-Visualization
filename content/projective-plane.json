@@ -369,6 +369,27 @@
           "html": "<section id=\"duality\">\n<h2>7. Projective duality</h2>\n<p>The equation $aX+bY+cZ=0$ that defines a line in $\\mathbb{P}^2$ is itself determined by a triple $[a:b:c]$ up to non-zero scalar. So <strong>lines in $\\mathbb{P}^2$ are parametrized by another copy of $\\mathbb{P}^2$</strong>, called the <em>dual projective plane</em> $(\\mathbb{P}^2)^*$. A point $[X_0:Y_0:Z_0]\\in\\mathbb{P}^2$ lies on the line $[a:b:c]\\in(\\mathbb{P}^2)^*$ exactly when\n$$a X_0 + b Y_0 + c Z_0 \\;=\\; 0,$$\nand this pairing is perfectly symmetric in the two variables. Fixing a point cuts out a line's worth of lines through it; fixing a line cuts out a line's worth of points on it. The resulting involution $\\mathbb{P}^2 \\leftrightarrow (\\mathbb{P}^2)^*$ is <strong>projective duality</strong>.</p>\n<p>Because the pairing is symmetric, every incidence theorem has a <strong>dual</strong> obtained by swapping \"point\" with \"line\" and \"lies on\" with \"passes through\". The most basic example is the axiom pair: \"any two distinct points determine a unique line\" dualizes to \"any two distinct lines meet in a unique point\" — the projective replacement for parallelism. A deeper example is <strong>Pascal</strong> (six points on a conic $\\Rightarrow$ three collinear points) dualizing to <strong>Brianchon</strong> (six tangents to a conic $\\Rightarrow$ three concurrent lines). Over $\\mathbb{F}_q$ the duality is visible at the level of counts: $|\\mathbb{P}^2(\\mathbb{F}_q)| = |(\\mathbb{P}^2)^*(\\mathbb{F}_q)| = q^2+q+1$, and for $q=2$ both sides equal $7$ — the Fano plane, self-dual with seven points and seven lines.</p>\n"
         },
         {
+          "type": "widget",
+          "slug": "pp-duality",
+          "params": {
+            "widgetId": "w-pp-duality",
+            "title": "Projective duality: pole and polar",
+            "hint": "drag A, B, C — collinear ⟺ concurrent"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-pp-duality"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
           "type": "quiz",
           "concept": "projective-duality",
           "html": "<div class=\"quiz\" data-concept=\"projective-duality\"></div>"
@@ -385,6 +406,27 @@
         {
           "type": "raw",
           "html": "<section id=\"cross-ratio\">\n<h2>8. The cross-ratio</h2>\n<p>Given four distinct collinear points $A,B,C,D$ on a projective line with affine coordinates $a,b,c,d$, their <strong>cross-ratio</strong> is\n$$[A,B;C,D] \\;=\\; \\frac{(a-c)(b-d)}{(a-d)(b-c)} \\;\\in\\; K \\cup\\{\\infty\\}.$$\nFor instance $[0,1;2,3] = \\dfrac{(-2)(-2)}{(-3)(-1)} = \\dfrac{4}{3}$. The cross-ratio is independent of the choice of affine chart on the line and, crucially, <strong>invariant under $\\mathrm{PGL}_2(K)$</strong>: a Möbius transformation $t\\mapsto(\\alpha t+\\beta)/(\\gamma t+\\delta)$ preserves it. It is, up to functional identities, the <em>unique</em> projective invariant of four points on a line — so two quadruples on two different lines are projectively equivalent iff their cross-ratios match.</p>\n<p>Permuting the four points changes the cross-ratio: only the Klein four-group $V_4\\subset S_4$ of double-transpositions fixes $\\lambda=[A,B;C,D]$. The remaining six cosets give the orbit $\\{\\lambda,\\,1-\\lambda,\\,1/\\lambda,\\,1/(1-\\lambda),\\,\\lambda/(\\lambda-1),\\,(\\lambda-1)/\\lambda\\}$, and the rational function $j(\\lambda) = \\dfrac{256(\\lambda^2-\\lambda+1)^3}{\\lambda^2(\\lambda-1)^2}$ is $S_4$-invariant — this is the same $j$ that will reappear as the $j$-invariant of an elliptic curve on <a href=\"./elliptic-curves.html\">elliptic-curves.html</a>, via the four ramification points of a hyperelliptic map. The cross-ratio is classical projective geometry's most portable computation: it lets you detect equivalence, construct harmonic conjugates ($\\lambda=-1$), and — on a conic — recover the conic's own parameter from four marked points.</p>\n"
+        },
+        {
+          "type": "widget",
+          "slug": "pp-cross-ratio",
+          "params": {
+            "widgetId": "w-pp-crossratio",
+            "title": "The cross-ratio is a projective invariant",
+            "hint": "slide the Möbius map; λ stays fixed"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-pp-crossratio"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
         },
         {
           "type": "raw",
