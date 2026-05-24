@@ -54,7 +54,7 @@ export function renderScript(params) {
     `    var y=88, prod=1, parts=[];\n` +
     `    ds.forEach(function(d){ var pd=P(d); var fac=Math.round(Math.pow(d,pd)); prod*=fac;\n` +
     `      var col = d===1?'var(--mute)':'var(--cyan)';\n` +
-    `      txt(40, y, ''+d, {size:11, fill:col, mono:true}); txt(150, y, ''+pd+(d===1?'  (trivial \\u03c7 \\u2192 unramified)':(pd>0?'':'')), {size:11, fill:col, mono:true}); txt(380, y, d+'^'+pd+' = '+fac, {size:11, fill:col, mono:true, weight: d===1?'normal':700});\n` +
+    `      txt(40, y, ''+d, {size:11, fill:col, mono:true}); txt(150, y, ''+pd+(d===1?'  (trivial \\u03c7 \\u2192 unramified)':''), {size:11, fill:col, mono:true}); txt(380, y, d+'^'+pd+' = '+fac, {size:11, fill:col, mono:true, weight: d===1?'normal':700});\n` +
     `      if(pd>0||d===1) parts.push(d+'^'+pd); y+=22; });\n` +
     `    var clo=closedAbs(n); var sign=(ph/2)%2===0?1:-1;\n` +
     `    svg.appendChild(mk('line',{x1:30,y1:y-4,x2:520,y2:y-4,stroke:'var(--line)','stroke-width':1})); y+=18;\n` +
