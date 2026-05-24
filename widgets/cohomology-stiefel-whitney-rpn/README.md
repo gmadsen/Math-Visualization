@@ -10,8 +10,8 @@ and the bespoke-vs-shared distinction.
 
 ## What it does
 
-The tangent bundle satisfies $T\mathbb{RP}^n\oplus\varepsilon^1 \cong (n{+}1)\,\bar\gamma$
-($\bar\gamma$ = canonical line bundle, total class $1+a$), so the Whitney sum formula —
+The tangent bundle satisfies $T\mathbb{RP}^n\oplus\varepsilon^1 \cong (n{+}1)\,\gamma$
+($\gamma$ = tautological line bundle, total class $1+a$), so the Whitney sum formula —
 $w(\xi\oplus\eta)=w(\xi)\smile w(\eta)$ — gives, in
 $H^\ast(\mathbb{RP}^n;\mathbb{Z}/2)=\mathbb{Z}/2[a]/(a^{n+1})$,
 
