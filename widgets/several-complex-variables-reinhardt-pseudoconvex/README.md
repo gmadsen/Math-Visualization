@@ -17,14 +17,17 @@ of $\omega$'s upper boundary:
 - **Bulged up** → $\omega$ is **convex** → $\Omega$ is pseudoconvex = a domain of holomorphy
   (it is its own holomorphic hull).
 - **Dented down** → $\omega$ is **non-convex**. The holomorphic hull is the *log-convex hull*,
-  so it fills the dented triangle: every $f\in\mathcal{O}(\Omega)$ is a convergent Laurent
-  series $\sum c_\alpha z^\alpha$, whose domain of convergence is automatically logarithmically
-  convex, so $f$ extends across the dent. Hence $\Omega$ is **not** a domain of holomorphy.
+  so it fills the dented triangle: every $f\in\mathcal{O}(\Omega)$ is a convergent power
+  series $\sum_{\alpha\ge0} c_\alpha z^\alpha$, whose domain of convergence is automatically
+  logarithmically convex, so $f$ extends across the dent. Hence $\Omega$ is **not** a domain of
+  holomorphy.
 
+The picture is the **complete** Reinhardt case ($\omega$ closed toward $(-\infty,-\infty)$, so
+functions are genuine power series), where "domain of holomorphy ⟺ $\omega$ convex" is exact.
 The widget shades $\omega$ and, in the dented case, the filled hull (the forced-extension
 region). The readout states the equivalence (domain of holomorphy ⟺ holomorphically convex,
-Cartan–Thullen ⟺ pseudoconvex, Oka), the Reinhardt log-convex characterization, and the
-Laurent-series argument.
+Cartan–Thullen ⟺ pseudoconvex, Oka), the log-convex characterization, and the power-series
+argument.
 
 ## Params
 
