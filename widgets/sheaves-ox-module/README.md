@@ -43,7 +43,7 @@ pick the multiplier $g$.
 Add a `widget` block plus its `widget-script` block to `content/sheaves.json`:
 
 ```json
-{ "type": "widget",        "slug": "sheaves-ox-module", "params": { "widgetId": "w-oxmod", "title": "𝒪_X-modules: multiply a section by a function, restriction-compatibly", "hint": "pick g ∈ 𝒪_X(U); compare (g·s)|_V with g|_V·s|_V" } },
+{ "type": "widget",        "slug": "sheaves-ox-module", "params": { "widgetId": "w-oxmod", "title": "O_X-modules: multiply a section by a function", "hint": "pick g ∈ O_X(U); compare (g·s)|_V with g|_V·s|_V" } },
 { "type": "widget-script", "ref": "w-oxmod" }
 ```
 
