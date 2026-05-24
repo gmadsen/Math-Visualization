@@ -11,6 +11,27 @@
           "html": "<section id=\"H\">\n<h2>1. $\\mathbb{H}$, the upper half-plane</h2>\n<p>Let</p>\n<p style=\"text-align:center\">$\\mathbb{H} \\;=\\; \\{\\, z = x + iy \\in \\mathbb{C} \\,:\\, y > 0 \\,\\}.$</p>\n<p>As a subset of $\\mathbb{C}$ this is nothing new — just the open upper half-plane, diffeomorphic to $\\mathbb{R}^2$. The interesting move is to equip it with a <em>different</em> Riemannian metric, one in which distances near the real axis blow up and the axis itself is pushed off to infinity. What looks flat suddenly has constant curvature $-1$.</p>\n<p>The model goes back to Beltrami, Klein, and Poincaré: it is one of the standard incarnations of <em>hyperbolic geometry</em> — Lobachevsky's non-Euclidean plane, the geometry in which Euclid's parallel postulate fails and through a point not on a line there are infinitely many lines that don't meet it.</p>\n<div class=\"note\"><strong>Preview.</strong> The modular group $\\mathrm{SL}_2(\\mathbb{Z})$ acts on $\\mathbb{H}$ by Möbius transformations; holomorphic functions on $\\mathbb{H}$ that transform nicely under this action are called <strong>modular forms</strong>. Everything on this page is the geometric substrate for that theory.</div>\n"
         },
         {
+          "type": "widget",
+          "slug": "uhp-parallel-postulate",
+          "params": {
+            "widgetId": "w-uhp-parallel",
+            "title": "The parallel postulate fails in $\\mathbb{H}$",
+            "hint": "rotate the line through P; every line in the pink wedge misses ℓ"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-uhp-parallel"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
           "type": "raw",
           "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./point-set-topology.html#continuity\">Continuity & homeomorphism</a></li>\n    <li><a href=\"./complex-analysis.html#complex-numbers\">Complex numbers</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },

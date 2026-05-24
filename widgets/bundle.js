@@ -19580,6 +19580,24 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "uhp-parallel-postulate",
+    "family": "uhp-parallel-postulate",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "uhp-parallel-postulate widget params",
+    "description": "The failure of Euclid's parallel postulate in the upper half-plane model ℍ of hyperbolic geometry. A hyperbolic line ℓ is drawn as a semicircle meeting the real axis at right angles, with a point P not on it. Hyperbolic lines (geodesics) through P are semicircles ⊥ to the axis; the widget draws a fan of them coloured by whether they cross ℓ, highlights the two limiting parallels (asymptotic to ℓ's endpoints on the boundary), and a slider rotates one test line through P so you can watch it flip between crossing and missing ℓ. Every direction in the wedge between the two limiting parallels misses ℓ — so infinitely many lines through P are parallel to ℓ, and the parallel postulate fails. ℍ has constant curvature −1.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Uhp parallel postulate widget — scaffolded stub. Replace this paragraph with a short description of what the widget does, which topic page first introduced it, and whether it's a bespoke module or part of a shared family.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "variational-brachistochrone",
     "family": "variational-brachistochrone",
     "dimension": "2d",
