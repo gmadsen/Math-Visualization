@@ -168,6 +168,27 @@
           "html": "<section id=\"supplementary\">\n<h2>4. The supplementary laws</h2>\n<p>Multiplicativity reduces any Legendre symbol to a product of symbols $\\left(\\tfrac{-1}{p}\\right)$, $\\left(\\tfrac{2}{p}\\right)$, and $\\left(\\tfrac{q}{p}\\right)$ for odd primes $q$. Reciprocity will handle the last kind. The first two are the <em>supplementary laws</em>:</p>\n\n<div class=\"note\">\n<strong>First supplement.</strong> $\\displaystyle \\left(\\frac{-1}{p}\\right) = (-1)^{(p-1)/2} = \\begin{cases} +1 & p\\equiv 1\\pmod 4,\\\\ -1 & p\\equiv 3\\pmod 4. \\end{cases}$\n</div>\n\n<p>Proof: by Euler, $\\left(\\tfrac{-1}{p}\\right) \\equiv (-1)^{(p-1)/2}$; both sides are $\\pm 1$, so they are equal as integers.</p>\n\n<div class=\"note\">\n<strong>Second supplement.</strong> $\\displaystyle \\left(\\frac{2}{p}\\right) = (-1)^{(p^2-1)/8} = \\begin{cases} +1 & p\\equiv \\pm 1\\pmod 8,\\\\ -1 & p\\equiv \\pm 3\\pmod 8. \\end{cases}$\n</div>\n\n<p>This one is proved by Gauss's lemma (next section) applied to $a=2$: count how many of $\\{2,4,6,\\ldots,p-1\\}$ reduce to the \"upper half\" $\\{(p+1)/2,\\ldots,p-1\\}$ mod $p$, and read off the sign. The count turns out to be $\\lfloor (p+1)/4 \\rfloor$ — equivalently $\\lfloor p/4\\rfloor$ when $p\\equiv 1\\pmod 4$ and $\\lfloor p/4\\rfloor + 1$ when $p\\equiv 3\\pmod 4$ — and its parity matches $(p^2-1)/8$, giving the displayed sign.</p>\n\n<p>Together with multiplicativity, these let us handle $-1$ and $2$ with a single glance at $p \\bmod 8$.</p>\n"
         },
         {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget",
+          "slug": "quad-recip-supplementary",
+          "params": {
+            "widgetId": "w-qr-supp",
+            "title": "The two supplementary laws",
+            "hint": "Slide p; (−1/p) depends on p mod 4, (2/p) on p mod 8 — checked against the squares."
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-qr-supp"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
           "type": "quiz",
           "concept": "supplementary-laws-qr",
           "html": "<div class=\"quiz\" data-concept=\"supplementary-laws-qr\"></div>"
@@ -397,6 +418,27 @@
         {
           "type": "raw",
           "html": "<section id=\"jacobi\">\n<h2>8. The Jacobi symbol</h2>\n<p>The Legendre symbol $\\left(\\tfrac{a}{p}\\right)$ needs $p$ prime. But the computation engine above was perfectly happy to push the \"bottom\" $p$ through non-prime intermediate values once reciprocity flipped the arguments. That is no accident: the natural home for reciprocity is a <em>multiplicative extension</em> of the Legendre symbol to all positive odd integers.</p>\n\n<p>For odd $n = p_1^{e_1}\\cdots p_k^{e_k} > 1$ and any integer $a$, define the <strong>Jacobi symbol</strong> by factoring the bottom:\n$$ \\left(\\frac{a}{n}\\right) = \\prod_{i=1}^{k}\\left(\\frac{a}{p_i}\\right)^{\\!e_i}. $$\nWhen $n$ is prime this is just the Legendre symbol, so no ambiguity arises. The symbol is multiplicative in <em>both</em> entries, vanishes iff $\\gcd(a,n)>1$, and otherwise equals $\\pm 1$.</p>\n\n<div class=\"note\"><strong>Caveat.</strong> $\\left(\\tfrac{a}{n}\\right)=+1$ <em>does not</em> imply $a$ is a square mod $n$. E.g. $\\left(\\tfrac{2}{15}\\right)=\\left(\\tfrac{2}{3}\\right)\\left(\\tfrac{2}{5}\\right)=(-1)(-1)=+1$, but $2$ is not a square mod $15$. Jacobi only tracks the parity of the number of prime factors where $a$ is a nonsquare. What survives is the <em>reciprocity identity</em>, not the squareness interpretation.</div>\n\n<p>The miracle is that reciprocity and both supplements extend verbatim. For odd positive coprime $m,n$:\n$$ \\left(\\frac{m}{n}\\right)\\left(\\frac{n}{m}\\right) = (-1)^{\\tfrac{m-1}{2}\\cdot\\tfrac{n-1}{2}}, \\qquad \\left(\\frac{-1}{n}\\right) = (-1)^{\\tfrac{n-1}{2}}, \\qquad \\left(\\frac{2}{n}\\right) = (-1)^{\\tfrac{n^2-1}{8}}. $$\nEach follows from the Legendre version by multiplicativity together with the identity $\\tfrac{mn-1}{2}\\equiv \\tfrac{m-1}{2}+\\tfrac{n-1}{2}\\pmod 2$ for odd $m,n$ (and its mod-8 cousin for the $(2/n)$ law). So the computation engine on section 7 <em>was</em> running the Jacobi algorithm — it never needed the intermediate bottoms to be prime. Dropping the primality test gives a Euclidean-style algorithm that runs in $O(\\log n)$ steps without ever factoring $n$.</p>\n\n<p>This matters for cryptography: Solovay–Strassen <a href=\"./computational-number-theory.html#primality\" data-auto-inline-link=\"1\" data-concept-id=\"cnt-primality\" data-blurb=\"Fermat&#39;s little theorem, the Miller–Rabin probabilistic test, and the AKS deterministic polynomial-time algorithm. Composite witnesses turn $a^{n-1}\\not\\equiv 1\\pmod n$ into a verifiable proof of compositeness; AKS removes randomness at the cost of a higher polynomial.\">primality testing</a> compares $\\left(\\tfrac{a}{n}\\right)$ with $a^{(n-1)/2}\\pmod n$, and the Jacobi symbol is the fast-to-compute side. More philosophically, the Jacobi symbol is the first glimpse of <em>characters of ray class groups</em>: the map $n\\mapsto \\left(\\tfrac{a}{n}\\right)$ is a Dirichlet character modulo $4|a|$, which is exactly the class-field-theory picture the next page develops.</p>\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget",
+          "slug": "quad-recip-jacobi",
+          "params": {
+            "widgetId": "w-qr-jacobi",
+            "title": "The Jacobi symbol — and why (a/n)=1 isn't enough",
+            "hint": "(a/n)=∏(a/pᵢ); +1 does not mean a is a square mod n."
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-qr-jacobi"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
         },
         {
           "type": "quiz",

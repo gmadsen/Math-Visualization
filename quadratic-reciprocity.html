@@ -524,6 +524,59 @@ $$ a^{(p-1)/2} \equiv \left(\frac{a}{p}\right) \pmod p. $$</div>
 <p>This one is proved by Gauss's lemma (next section) applied to $a=2$: count how many of $\{2,4,6,\ldots,p-1\}$ reduce to the "upper half" $\{(p+1)/2,\ldots,p-1\}$ mod $p$, and read off the sign. The count turns out to be $\lfloor (p+1)/4 \rfloor$ — equivalently $\lfloor p/4\rfloor$ when $p\equiv 1\pmod 4$ and $\lfloor p/4\rfloor + 1$ when $p\equiv 3\pmod 4$ — and its parity matches $(p^2-1)/8$, giving the displayed sign.</p>
 
 <p>Together with multiplicativity, these let us handle $-1$ and $2$ with a single glance at $p \bmod 8$.</p>
+
+<div class="widget" id="w-qr-supp">
+  <div class="hd"><div class="ttl">The two supplementary laws</div><div class="hint">Slide p; (−1/p) depends on p mod 4, (2/p) on p mod 8 — checked against the squares.</div></div>
+  <div class="row">
+    <label for="w-qr-supp-p">odd prime $p$</label>
+    <input type="range" id="w-qr-supp-p" min="0" max="13" value="4" step="1">
+    <span class="pill" id="w-qr-supp-pv">p = 13</span>
+  </div>
+  <svg id="w-qr-supp-svg" viewBox="0 0 580 320" width="580" height="320" role="img" aria-label="The first and second supplementary laws of quadratic reciprocity for the chosen prime, with period strips"><title>Supplementary laws: (-1/p) depends on p mod 4, (2/p) on p mod 8</title></svg>
+  <div class="readout" id="w-qr-supp-out"></div>
+</div><script>
+/* quad-recip-supplementary widget: w-qr-supp */
+(function(){
+  var PR=[3,5,7,11,13,17,19,23,29,31,37,41,43,47];
+  var svg=document.getElementById('w-qr-supp-svg'), out=document.getElementById('w-qr-supp-out');
+  var sp=document.getElementById('w-qr-supp-p'), pv=document.getElementById('w-qr-supp-pv');
+  if(!svg||!out||!sp||!pv) return;
+  var NS='http://www.w3.org/2000/svg';
+  function mk(tag,attrs,text){ var e=document.createElementNS(NS,tag); for(var k in attrs){ e.setAttribute(k,attrs[k]); } if(text!=null) e.textContent=text; return e; }
+  function txt(x,y,s,opt){ opt=opt||{}; svg.appendChild(mk('text',{x:x,y:y,'text-anchor':opt.anchor||'start','font-size':opt.size||12,fill:opt.fill||'var(--ink)','font-weight':opt.weight||'normal','font-style':opt.italic?'italic':'normal'},s)); }
+  function squares(p){ var s={}; for(var x=1;x<p;x++) s[(x*x)%p]=true; return s; }
+  function neg1law(p){ return (p%4===1)?1:-1; }
+  function twolaw(p){ var r=p%8; return (r===1||r===7)?1:-1; }
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    var idx=parseInt(sp.value,10), p=PR[idx]; pv.textContent='p = '+p;
+    var sq=squares(p), s1=neg1law(p), s2=twolaw(p);
+    var has_n1=!!sq[(p-1)%p], has_2=!!sq[2%p];
+    txt(36, 44, 'First supplement \u2014 (\u22121 / p)', {size:13, fill:'var(--ink)', weight:700});
+    txt(36, 68, 'p mod 4 = '+(p%4), {size:12, fill:'var(--cyan)'});
+    txt(36, 88, '(\u22121/p) = (\u22121)^((p\u22121)/2) = '+(s1>0?'+1':'\u22121'), {size:12, fill:'var(--yellow)', weight:600});
+    txt(36, 110, (s1>0?'\u22121 IS a QR mod p   (p \u2261 1 mod 4)':'\u22121 is NOT a QR mod p   (p \u2261 3 mod 4)'), {size:11, fill:s1>0?'var(--green)':'var(--pink)'});
+    svg.appendChild(mk('text',{x:36,y:130,'font-size':10,fill:'var(--mute)'},'check: \u22121\u2261'+(p-1)+' '+(has_n1?'IS':'is not')+' among the squares mod p  '+(((s1>0)===has_n1)?'\u2713':'\u2717')));
+    txt(310, 44, 'Second supplement \u2014 (2 / p)', {size:13, fill:'var(--ink)', weight:700});
+    txt(310, 68, 'p mod 8 = '+(p%8), {size:12, fill:'var(--cyan)'});
+    txt(310, 88, '(2/p) = (\u22121)^((p\u00b2\u22121)/8) = '+(s2>0?'+1':'\u22121'), {size:12, fill:'var(--yellow)', weight:600});
+    txt(310, 110, (s2>0?'2 IS a QR mod p   (p \u2261 \u00b11 mod 8)':'2 is NOT a QR mod p   (p \u2261 \u00b13 mod 8)'), {size:11, fill:s2>0?'var(--green)':'var(--pink)'});
+    svg.appendChild(mk('text',{x:310,y:130,'font-size':10,fill:'var(--mute)'},'check: 2 '+(has_2?'IS':'is not')+' among the squares mod p  '+(((s2>0)===has_2)?'\u2713':'\u2717')));
+    function strip(y, title, fn){ txt(36, y-8, title, {size:11, fill:'var(--mute)'});
+      var x0=36, cw=Math.min(36,(508)/PR.length);
+      PR.forEach(function(q,i){ var sgn=fn(q), on=(q===p); var cx=x0+i*cw;
+        svg.appendChild(mk('rect',{x:cx,y:y,width:cw-3,height:24,rx:3,fill:sgn>0?'var(--green)':'var(--pink)','fill-opacity':on?0.5:0.18,stroke:on?'var(--ink)':'none','stroke-width':on?1.4:0}));
+        txt(cx+(cw-3)/2, y+16, ''+q, {size:9, fill:'var(--ink)', anchor:'middle'}); }); }
+    strip(180, 'p \u21a6 (\u22121/p):  green +1 (p\u22611 mod 4), pink \u22121 (p\u22613 mod 4)', neg1law);
+    strip(238, 'p \u21a6 (2/p):  green +1 (p\u2261\u00b11 mod 8), pink \u22121 (p\u2261\u00b13 mod 8)', twolaw);
+    txt(36, 292, 'selected prime is outlined', {size:9, fill:'var(--mute)', italic:true});
+    out.textContent = 'Any Legendre symbol factors through (\u22121/p), (2/p), and odd-prime symbols (handled by reciprocity). The two SUPPLEMENTS settle the first two by a glance at p mod 8. For p = '+p+': (\u22121/p) = '+(s1>0?'+1':'\u22121')+' because p \u2261 '+(p%4)+' (mod 4) \u2014 so \u22121 '+(s1>0?'is':'is not')+' a square mod '+p+'; and (2/p) = '+(s2>0?'+1':'\u22121')+' because p \u2261 '+(p%8)+' (mod 8) \u2014 so 2 '+(s2>0?'is':'is not')+' a square mod '+p+'. Both match a direct scan of the squares mod p (the small checks). The first supplement has period 4 in p, the second has period 8 \u2014 visible as the repeating colour patterns in the strips.';
+  }
+  sp.addEventListener('input', draw);
+  draw();
+})();
+</script>
+
 <div class="quiz" data-concept="supplementary-laws-qr"></div>
 <!-- backlinks-auto-begin -->
 <aside class="related">
@@ -999,6 +1052,72 @@ $$ \left(\frac{m}{n}\right)\left(\frac{n}{m}\right) = (-1)^{\tfrac{m-1}{2}\cdot\
 Each follows from the Legendre version by multiplicativity together with the identity $\tfrac{mn-1}{2}\equiv \tfrac{m-1}{2}+\tfrac{n-1}{2}\pmod 2$ for odd $m,n$ (and its mod-8 cousin for the $(2/n)$ law). So the computation engine on section 7 <em>was</em> running the Jacobi algorithm — it never needed the intermediate bottoms to be prime. Dropping the primality test gives a Euclidean-style algorithm that runs in $O(\log n)$ steps without ever factoring $n$.</p>
 
 <p>This matters for cryptography: Solovay–Strassen <a href="./computational-number-theory.html#primality" data-auto-inline-link="1" data-concept-id="cnt-primality" data-blurb="Fermat&#39;s little theorem, the Miller–Rabin probabilistic test, and the AKS deterministic polynomial-time algorithm. Composite witnesses turn $a^{n-1}\not\equiv 1\pmod n$ into a verifiable proof of compositeness; AKS removes randomness at the cost of a higher polynomial.">primality testing</a> compares $\left(\tfrac{a}{n}\right)$ with $a^{(n-1)/2}\pmod n$, and the Jacobi symbol is the fast-to-compute side. More philosophically, the Jacobi symbol is the first glimpse of <em>characters of ray class groups</em>: the map $n\mapsto \left(\tfrac{a}{n}\right)$ is a Dirichlet character modulo $4|a|$, which is exactly the class-field-theory picture the next page develops.</p>
+
+
+<div class="widget" id="w-qr-jacobi">
+  <div class="hd"><div class="ttl">The Jacobi symbol — and why (a/n)=1 isn&#39;t enough</div><div class="hint">(a/n)=∏(a/pᵢ); +1 does not mean a is a square mod n.</div></div>
+  <div class="row">
+    <label for="w-qr-jacobi-a">numerator $a$</label>
+    <input type="range" id="w-qr-jacobi-a" min="2" max="15" value="2" step="1">
+    <span class="pill" id="w-qr-jacobi-av">a = 2</span>
+  </div>
+  <div class="row">
+    <span class="pill">odd $n$</span>
+    <button type="button" id="w-qr-jacobi-n9">9</button>
+    <button type="button" id="w-qr-jacobi-n15">15</button>
+    <button type="button" id="w-qr-jacobi-n21">21</button>
+    <button type="button" id="w-qr-jacobi-n25">25</button>
+    <button type="button" id="w-qr-jacobi-n35">35</button>
+    <button type="button" id="w-qr-jacobi-n45">45</button>
+  </div>
+  <svg id="w-qr-jacobi-svg" viewBox="0 0 580 280" width="580" height="280" role="img" aria-label="The Jacobi symbol computed by factoring the denominator, with a check of actual quadratic residue status"><title>The Jacobi symbol (a/n) is the product of Legendre symbols over the prime factors of n; it equals 1 does not imply a is a square mod n</title></svg>
+  <div class="readout" id="w-qr-jacobi-out"></div>
+</div><script>
+/* quad-recip-jacobi widget: w-qr-jacobi */
+(function(){
+  var NS_LIST=[9,15,21,25,35,45];
+  var svg=document.getElementById('w-qr-jacobi-svg'), out=document.getElementById('w-qr-jacobi-out');
+  var sa=document.getElementById('w-qr-jacobi-a'), av=document.getElementById('w-qr-jacobi-av');
+  var nB=NS_LIST.map(function(n){ return document.getElementById('w-qr-jacobi-n'+n); });
+  if(!svg||!out||!sa||!av||nB.some(function(b){return !b;})) return;
+  var NS='http://www.w3.org/2000/svg';
+  function mk(tag,attrs,text){ var e=document.createElementNS(NS,tag); for(var k in attrs){ e.setAttribute(k,attrs[k]); } if(text!=null) e.textContent=text; return e; }
+  function txt(x,y,s,opt){ opt=opt||{}; svg.appendChild(mk('text',{x:x,y:y,'text-anchor':opt.anchor||'start','font-size':opt.size||12,fill:opt.fill||'var(--ink)','font-weight':opt.weight||'normal','font-style':opt.italic?'italic':'normal'},s)); }
+  function gcd(a,b){ while(b){ var t=a%b; a=b; b=t; } return a; }
+  function powmod(b,e,m){ b%=m; var r=1; while(e>0){ if(e&1) r=(r*b)%m; b=(b*b)%m; e>>=1; } return r; }
+  function legendre(a,p){ a=((a%p)+p)%p; if(a===0) return 0; var r=powmod(a,(p-1)/2,p); return r===1?1:-1; }
+  function factor(n){ var f=[], d=2; while(d*d<=n){ if(n%d===0){ var e=0; while(n%d===0){ n=n/d; e++; } f.push([d,e]); } d++; } if(n>1) f.push([n,1]); return f; }
+  function isQR(a,n){ a=((a%n)+n)%n; if(a===0) return true; for(var x=1;x<n;x++){ if((x*x)%n===a) return true; } return false; }
+  var a=2, n=15;
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    a=parseInt(sa.value,10); av.textContent='a = '+a;
+    nB.forEach(function(b,i){ var on=(NS_LIST[i]===n); b.classList.toggle('active',on); b.setAttribute('aria-pressed',on?'true':'false'); });
+    var g=gcd(a,n), fac=factor(n);
+    var jac = g>1 ? 0 : fac.reduce(function(acc,pe){ return acc*Math.pow(legendre(a,pe[0]), pe[1]); }, 1);
+    var facStr=fac.map(function(pe){ return pe[1]>1? pe[0]+'^'+pe[1] : ''+pe[0]; }).join(' \u00b7 ');
+    txt(36, 44, '('+a+' / '+n+')   with  '+n+' = '+facStr, {size:14, fill:'var(--yellow)', weight:700});
+    if(g>1){
+      txt(36, 78, 'gcd('+a+', '+n+') = '+g+' > 1   \u21d2   ('+a+'/'+n+') = 0', {size:13, fill:'var(--mute)'});
+    } else {
+      var parts=fac.map(function(pe){ var L=legendre(a,pe[0]); var base='('+a+'/'+pe[0]+') = '+(L>0?'+1':'\u22121'); return pe[1]>1? base+'  (^'+pe[1]+')' : base; });
+      txt(36, 78, '('+a+'/'+n+') = '+fac.map(function(pe){ return '('+a+'/'+pe[0]+')'+(pe[1]>1?'^'+pe[1]:''); }).join(' \u00b7 '), {size:12, fill:'var(--ink)'});
+      parts.forEach(function(s,i){ txt(56, 104+i*20, s, {size:11, fill:'var(--cyan)'}); });
+      txt(36, 104+parts.length*20+8, '\u21d2  ('+a+'/'+n+') = '+(jac>0?'+1':'\u22121'), {size:14, fill:jac>0?'var(--green)':'var(--pink)', weight:700});
+    }
+    var qr=isQR(a,n);
+    var cy=200;
+    txt(36, cy, 'Is '+a+' actually a square mod '+n+'?   '+(qr?'YES':'NO'), {size:13, fill:qr?'var(--green)':'var(--pink)', weight:600});
+    if(g===1 && jac===1 && !qr){ txt(36, cy+24, 'CAVEAT: ('+a+'/'+n+') = +1  but  '+a+' is NOT a square mod '+n+'.', {size:12, fill:'var(--orange)', weight:600}); txt(36, cy+42, 'the \u22121 Legendre factors cancel in pairs \u2014 but a is a QR mod n only if EVERY (a/p\u1d62)=+1', {size:10, fill:'var(--mute)', italic:true}); }
+    else if(g===1 && jac===-1){ txt(36, cy+24, '(\u2212 sign \u21d2 at least one factor (a/p\u1d62) = \u22121 \u21d2 '+a+' is NOT a square mod '+n+')', {size:10, fill:'var(--mute)', italic:true}); }
+    else if(g===1 && jac===1 && qr){ txt(36, cy+24, '(here +1 and genuinely a square \u2014 but that agreement is not guaranteed)', {size:10, fill:'var(--mute)', italic:true}); }
+    out.textContent = 'The Jacobi symbol extends Legendre to odd composite denominators by factoring the bottom: ('+a+'/'+n+') = \u220f ('+a+'/p\u1d62)^{e\u1d62} over the prime power factorization '+n+' = '+facStr+'. '+(g>1? 'Here gcd('+a+','+n+') = '+g+', so the symbol is 0.' : 'It comes out '+(jac>0?'+1':'\u22121')+'. ')+(g===1?('A direct scan of the squares mod '+n+' shows '+a+' '+(qr?'IS':'is NOT')+' a quadratic residue. '+((jac===1&&!qr)?'This is the key caveat: (a/n) = +1 does NOT imply a is a square mod n. The symbol is (\u22121)^(sum of the exponents e\u1d62 over the primes where a is a nonsquare); that sum is even here, so the \u22121 factors cancel to +1 \u2014 yet a is a square mod n only when EVERY (a/p\u1d62) = +1, which fails.':'')) : '')+' What does survive verbatim from Legendre is the reciprocity identity (m/n)(n/m) = (\u22121)^{((m\u22121)/2)((n\u22121)/2)} and both supplements \u2014 which is exactly what makes the symbol the right tool for fast computation.';
+  }
+  sa.addEventListener('input', draw);
+  nB.forEach(function(b,i){ b.addEventListener('click', function(){ n=NS_LIST[i]; draw(); }); });
+  draw();
+})();
+</script>
 
 <div class="quiz" data-concept="jacobi-symbol-generalization"></div>
 </section>
