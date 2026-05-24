@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/rg-volume-form/schema.json",
+  "title": "rg-volume-form widget params",
+  "description": "The Riemannian volume form dvol_g = √det g · dx¹∧···∧dxⁿ. Pick a surface metric (round sphere, flat plane, embedded torus, hyperbolic band); the widget shades the coordinate domain by the area density √det g — so you see where the metric stretches or shrinks coordinate cells — marks the density at a sample point, and integrates it to the total area (e.g. ∫sin θ = 4π on the sphere). It also shows the divergence and Laplace–Beltrami operator Δ_g f = (1/√det g)∂_i(√det g g^{ij}∂_j f) built from the same factor.",
+  "meta": {
+    "family": "rg-volume-form",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\"> wrapper."
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title rendered inside .hd > .ttl."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional short hint rendered inside .hd > .hint."
+    }
+  }
+}

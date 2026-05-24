@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/rg-ricci-curvature/schema.json",
+  "title": "rg-ricci-curvature widget params",
+  "description": "Ricci curvature as average sectional curvature and as the control on geodesic-ball volume, on a constant-curvature model space. Sliders set the sectional curvature K, the dimension n, and a geodesic radius r. The widget draws the geodesic n-ball against the Euclidean ball of the same radius (the depicted disk area is the computed n-ball volume ratio), making visible that positive K gives smaller balls and negative K larger ones, and reports Ric(v,v)=(n−1)K, the scalar curvature S=n(n−1)K, the Einstein constant λ=Ric/g=(n−1)K=S/n, and the normal-coordinate expansion √det g ≈ 1 − (1/6)Ric_{ij}x^i x^j.",
+  "meta": {
+    "family": "rg-ricci-curvature",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\"> wrapper."
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title rendered inside .hd > .ttl."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional short hint rendered inside .hd > .hint."
+    }
+  }
+}

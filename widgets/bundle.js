@@ -16519,6 +16519,42 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "rg-ricci-curvature",
+    "family": "rg-ricci-curvature",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "rg-ricci-curvature widget params",
+    "description": "Ricci curvature as average sectional curvature and as the control on geodesic-ball volume, on a constant-curvature model space. Sliders set the sectional curvature K, the dimension n, and a geodesic radius r. The widget draws the geodesic n-ball against the Euclidean ball of the same radius (the depicted disk area is the computed n-ball volume ratio), making visible that positive K gives smaller balls and negative K larger ones, and reports Ric(v,v)=(n−1)K, the scalar curvature S=n(n−1)K, the Einstein constant λ=Ric/g=(n−1)K=S/n, and the normal-coordinate expansion √det g ≈ 1 − (1/6)Ric_{ij}x^i x^j.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Rg ricci curvature widget — scaffolded stub. Replace this paragraph with a short description of what the widget does, which topic page first introduced it, and whether it's a bespoke module or part of a shared family.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "rg-volume-form",
+    "family": "rg-volume-form",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "rg-volume-form widget params",
+    "description": "The Riemannian volume form dvol_g = √det g · dx¹∧···∧dxⁿ. Pick a surface metric (round sphere, flat plane, embedded torus, hyperbolic band); the widget shades the coordinate domain by the area density √det g — so you see where the metric stretches or shrinks coordinate cells — marks the density at a sample point, and integrates it to the total area (e.g. ∫sin θ = 4π on the sphere). It also shows the divergence and Laplace–Beltrami operator Δ_g f = (1/√det g)∂_i(√det g g^{ij}∂_j f) built from the same factor.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Rg volume form widget — scaffolded stub. Replace this paragraph with a short description of what the widget does, which topic page first introduced it, and whether it's a bespoke module or part of a shared family.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "ricci-blowup-rates",
     "family": "ricci-blowup-rates",
     "dimension": "2d",

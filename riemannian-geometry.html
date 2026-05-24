@@ -1907,6 +1907,66 @@ for some constant $\lambda\in\mathbb{R}$. Taking traces gives $\lambda = S/n$. E
 
 <p>Two recurring examples beyond constant curvature: the Fubini&ndash;Study metric on $\mathbb{CP}^n$ is Einstein with positive scalar curvature; Calabi&ndash;Yau manifolds are compact K&auml;hler manifolds with $\operatorname{Ric}=0$.</p>
 
+<div class="widget" id="w-rg-ricci">
+  <div class="hd"><div class="ttl">Ricci curvature, geodesic balls, and Einstein manifolds</div><div class="hint">K&gt;0 shrinks geodesic balls; Ric=(n−1)K</div></div>
+  <div class="row">
+    <label for="w-rg-ricci-k">sectional curvature $K$</label>
+    <input type="range" id="w-rg-ricci-k" min="-1" max="1" value="1" step="0.1">
+    <span class="pill" id="w-rg-ricci-kv">K = 1.0</span>
+  </div>
+  <div class="row">
+    <label for="w-rg-ricci-n">dimension $n$</label>
+    <input type="range" id="w-rg-ricci-n" min="2" max="5" value="3" step="1">
+    <span class="pill" id="w-rg-ricci-nv">n = 3</span>
+    <label for="w-rg-ricci-r">geodesic radius $r$</label>
+    <input type="range" id="w-rg-ricci-r" min="0.3" max="1.4" value="1" step="0.1">
+    <span class="pill" id="w-rg-ricci-rv">r = 1.0</span>
+  </div>
+  <svg id="w-rg-ricci-svg" viewBox="0 0 560 300" width="560" height="300" role="img" aria-label="The geodesic ball compared with the Euclidean ball of the same radius, and the Ricci and scalar curvatures"><title>Ricci curvature controls geodesic-ball volume: positive curvature makes balls smaller than Euclidean, negative makes them larger</title></svg>
+  <div class="readout" id="w-rg-ricci-out"></div>
+</div>
+<script>
+/* rg-ricci-curvature widget: w-rg-ricci */
+(function(){
+  var svg=document.getElementById('w-rg-ricci-svg'), out=document.getElementById('w-rg-ricci-out');
+  var sk=document.getElementById('w-rg-ricci-k'), sn=document.getElementById('w-rg-ricci-n'), sr=document.getElementById('w-rg-ricci-r');
+  var kv=document.getElementById('w-rg-ricci-kv'), nv=document.getElementById('w-rg-ricci-nv'), rv=document.getElementById('w-rg-ricci-rv');
+  if(!svg||!out||!sk||!sn||!sr) return;
+  var NS='http://www.w3.org/2000/svg';
+  function mk(tag,attrs,text){ var e=document.createElementNS(NS,tag); for(var k in attrs){ e.setAttribute(k,attrs[k]); } if(text!=null) e.textContent=text; return e; }
+  function txt(x,y,s,opt){ opt=opt||{}; svg.appendChild(mk('text',{x:x,y:y,'text-anchor':opt.anchor||'start','font-size':opt.size||12,fill:opt.fill||'var(--ink)','font-weight':opt.weight||'normal'},s)); }
+  function fmt(x){ var r=Math.round(x*1000)/1000; if(Math.abs(r)<1e-9) r=0; return ''+r; }
+  function sK(t,K){ if(Math.abs(K)<1e-9) return t; if(K>0){var a=Math.sqrt(K); return Math.sin(a*t)/a;} var b=Math.sqrt(-K); return Math.sinh(b*t)/b; }
+  function volRatio(K,n,r){ var N=400,h=r/N,acc=0; for(var i=0;i<=N;i++){ var t=i*h, w=(i===0||i===N)?1:(i%2?4:2); acc+=w*Math.pow(sK(t,K),n-1); } acc*=h/3; return acc/(Math.pow(r,n)/n); }
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    var K=parseFloat(sk.value), n=parseInt(sn.value,10), r=parseFloat(sr.value);
+    kv.textContent='K = '+K.toFixed(1); nv.textContent='n = '+n; rv.textContent='r = '+r.toFixed(1);
+    var ric=(n-1)*K, S=n*(n-1)*K, ratio=volRatio(K,n,r);
+    var cx=160, cy=150, RE=82, RG=RE*Math.sqrt(ratio);
+    svg.appendChild(mk('circle',{cx:cx,cy:cy,r:RE,fill:'none',stroke:'var(--mute)','stroke-width':1.4,'stroke-dasharray':'5 3'}));
+    var gcol = K>1e-9?'var(--yellow)':(K<-1e-9?'var(--cyan)':'var(--green)');
+    svg.appendChild(mk('circle',{cx:cx,cy:cy,r:RG,fill:gcol,'fill-opacity':0.16,stroke:gcol,'stroke-width':2}));
+    txt(cx, cy-RE-10, 'Euclidean ball B_r', {size:10, fill:'var(--mute)', anchor:'middle'});
+    txt(cx, cy+RE+18, 'geodesic ball B_r', {size:10, fill:gcol, anchor:'middle'});
+    txt(cx, cy+RE+32, '(disk area = n-ball volume ratio)', {size:8, fill:'var(--mute)', anchor:'middle'});
+    var TX=312, ty=44;
+    txt(TX, ty, 'constant curvature K = '+K.toFixed(1), {size:11, fill:gcol, weight:600}); ty+=24;
+    txt(TX, ty, 'Ric(v,v) = (n\u22121)K = '+fmt(ric), {size:12, fill:'var(--ink)', weight:600}); ty+=16;
+    txt(TX, ty, '(average of the n\u22121 sectional', {size:8, fill:'var(--mute)'}); ty+=11;
+    txt(TX, ty, ' curvatures of 2-planes through v)', {size:8, fill:'var(--mute)'}); ty+=22;
+    txt(TX, ty, 'scalar S = n(n\u22121)K = '+fmt(S), {size:12, fill:'var(--ink)', weight:600}); ty+=22;
+    txt(TX, ty, 'Einstein: Ric = \u03bb g,  \u03bb = S/n = '+fmt(ric), {size:11, fill:'var(--violet)'}); ty+=24;
+    txt(TX, ty, 'vol(geodesic B_r) / vol(Euclidean)', {size:10, fill:'var(--mute)'}); ty+=16;
+    txt(TX, ty, '= '+fmt(ratio)+'  '+(ratio<0.999?'(smaller \u2014 Ric>0)':(ratio>1.001?'(larger \u2014 Ric<0)':'(equal \u2014 flat)')), {size:12, fill:gcol, weight:600}); ty+=24;
+    txt(TX, ty, '\u221adet g \u2248 1 \u2212 (1/6)Ric\u00b7x\u00b2 = 1 \u2212 '+fmt(ric/6)+' r\u00b2', {size:9, fill:'var(--mute)'});
+    out.textContent = 'On a model space of constant sectional curvature K='+K.toFixed(1)+' in dimension n='+n+', every 2-plane has curvature K, so the Ricci curvature in a unit direction v is the sum of the n\u22121 sectional curvatures of planes through v: Ric(v,v) = (n\u22121)K = '+fmt(ric)+'. It is the directional AVERAGE that the full Riemann tensor refines. Tracing again gives the scalar curvature S = n(n\u22121)K = '+fmt(S)+'. Because Ric = \u03bb g with \u03bb = (n\u22121)K, every constant-curvature space is Einstein (\u03bb = S/n). Geometrically, in geodesic normal coordinates \u221adet g = 1 \u2212 (1/6)Ric_{ij}x\u2071x\u02b2 + O(|x|\u00b3), so positive Ricci shrinks the metric volume element and negative Ricci grows it: the geodesic ball of radius r='+r.toFixed(1)+' here has volume '+fmt(ratio)+'\u00d7 the Euclidean ball '+(ratio<0.999?'(smaller)':(ratio>1.001?'(larger)':'(equal)'))+'. This Ricci\u2013volume link is exactly what powers Bishop\u2013Gromov comparison and Bonnet\u2013Myers; Ricci-flat (Ric=0) is the source-free Einstein equation of general relativity.';
+  }
+  sk.addEventListener('input', draw); sn.addEventListener('input', draw); sr.addEventListener('input', draw);
+  draw();
+})();
+</script>
+
 <div class="quiz" data-concept="ricci-curvature"></div><!-- backlinks-auto-begin -->
 <aside class="related">
   <div class="ttl">Used in</div>
@@ -1933,6 +1993,72 @@ $$\Delta_g f \;=\; \operatorname{div}_g\operatorname{grad}_g f \;=\; \frac{1}{\s
 On Euclidean space ($g_{ij}=\delta_{ij}$) it collapses to the usual Laplacian $\sum_i \partial_i^2 f$. On a closed Riemannian manifold, $\Delta_g$ is symmetric and non-positive for $\int_M (\cdot)(\cdot)\,d\mathrm{vol}_g$; its eigenvalues encode spectral geometry (can you hear the shape of a drum?).</div>
 
 <p>Hodge duality for the metric identifies $k$-forms with $(n-k)$-forms via the Hodge star $\star$, uniquely determined by $\alpha\wedge\star\beta = g(\alpha,\beta)\,d\mathrm{vol}_g$. This packages $\operatorname{grad},\operatorname{div},\operatorname{curl}$ on $\mathbb{R}^3$ and more generally gives the adjoint of $d$, the codifferential $\delta = \pm\star d\star$, and the Hodge Laplacian $\Delta = d\delta + \delta d$ on forms &mdash; the starting point for Hodge theory on Riemannian manifolds.</p>
+
+<div class="widget" id="w-rg-volume">
+  <div class="hd"><div class="ttl">The Riemannian volume form √det g</div><div class="hint">shading = area density; integrate for total area</div></div>
+  <div class="row" id="w-rg-volume-metrics" role="group" aria-label="metric">
+    <button type="button" data-m="sphere" class="active" aria-pressed="true">round sphere</button>
+    <button type="button" data-m="flat" aria-pressed="false">flat plane</button>
+    <button type="button" data-m="torus" aria-pressed="false">torus</button>
+    <button type="button" data-m="hyp" aria-pressed="false">hyperbolic band</button>
+  </div>
+  <svg id="w-rg-volume-svg" viewBox="0 0 560 300" width="560" height="300" role="img" aria-label="The coordinate domain shaded by the area density sqrt det g, with the total integrated area"><title>Riemannian volume form: each coordinate cell is shaded by √det g, the local area density; integrating it gives the total area</title></svg>
+  <div class="readout" id="w-rg-volume-out"></div>
+</div>
+<script>
+/* rg-volume-form widget: w-rg-volume */
+(function(){
+  var svg=document.getElementById('w-rg-volume-svg'), out=document.getElementById('w-rg-volume-out');
+  var metricsBox=document.getElementById('w-rg-volume-metrics');
+  if(!svg||!out||!metricsBox) return;
+  var NS='http://www.w3.org/2000/svg', PI=Math.PI, E=Math.E;
+  function mk(tag,attrs,text){ var e=document.createElementNS(NS,tag); for(var k in attrs){ e.setAttribute(k,attrs[k]); } if(text!=null) e.textContent=text; return e; }
+  function txt(x,y,s,opt){ opt=opt||{}; svg.appendChild(mk('text',{x:x,y:y,'text-anchor':opt.anchor||'start','font-size':opt.size||12,fill:opt.fill||'var(--ink)','font-weight':opt.weight||'normal'},s)); }
+  var METRICS={
+    sphere:{u:[0,PI],v:[0,2*PI],ul:'\u03b8',vl:'\u03c6',sg:function(u,v){return Math.sin(u);},ds:'d\u03b8\u00b2 + sin\u00b2\u03b8 d\u03c6\u00b2',sgl:'\u221adet g = sin \u03b8',name:'round sphere S\u00b2',tot:'4\u03c0'},
+    flat:{u:[0,2*PI],v:[0,2*PI],ul:'x',vl:'y',sg:function(u,v){return 1;},ds:'dx\u00b2 + dy\u00b2',sgl:'\u221adet g = 1',name:'flat plane',tot:'4\u03c0\u00b2'},
+    torus:{u:[0,2*PI],v:[0,2*PI],ul:'u',vl:'v',sg:function(u,v){return 2+Math.cos(v);},ds:'(2+cos v)\u00b2 du\u00b2 + dv\u00b2',sgl:'\u221adet g = 2 + cos v',name:'torus (R=2, r=1)',tot:'8\u03c0\u00b2'},
+    hyp:{u:[0,2*PI],v:[1,E],ul:'x',vl:'y',sg:function(u,v){return 1/(v*v);},ds:'(dx\u00b2 + dy\u00b2)/y\u00b2',sgl:'\u221adet g = 1/y\u00b2',name:'hyperbolic band',tot:'2\u03c0(1\u22121/e)'}
+  };
+  var cur='sphere';
+  function total(M){ var Nu=120,Nv=120,du=(M.u[1]-M.u[0])/Nu,dv=(M.v[1]-M.v[0])/Nv,acc=0; for(var i=0;i<Nu;i++){ for(var j=0;j<Nv;j++){ acc+=M.sg(M.u[0]+(i+0.5)*du, M.v[0]+(j+0.5)*dv); } } return acc*du*dv; }
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    var M=METRICS[cur];
+    var gx0=44,gx1=348,gy0=46,gy1=248, cols=18,rows=12;
+    var cw=(gx1-gx0)/cols, ch=(gy1-gy0)/rows;
+    var maxg=1e-9; for(var i0=0;i0<cols;i0++){ for(var j0=0;j0<rows;j0++){ var uu=M.u[0]+(i0+0.5)/cols*(M.u[1]-M.u[0]), vv=M.v[0]+(j0+0.5)/rows*(M.v[1]-M.v[0]); var g=M.sg(uu,vv); if(g>maxg) maxg=g; } }
+    for(var i=0;i<cols;i++){ for(var j=0;j<rows;j++){
+      var u=M.u[0]+(i+0.5)/cols*(M.u[1]-M.u[0]), v=M.v[0]+(j+0.5)/rows*(M.v[1]-M.v[0]); var g=M.sg(u,v);
+      var op=0.06+0.82*(g/maxg);
+      svg.appendChild(mk('rect',{x:gx0+i*cw, y:gy0+j*ch, width:cw-0.6, height:ch-0.6, fill:'var(--cyan)','fill-opacity':op}));
+    }}
+    svg.appendChild(mk('rect',{x:gx0,y:gy0,width:gx1-gx0,height:gy1-gy0,fill:'none',stroke:'var(--line)','stroke-width':1}));
+    txt((gx0+gx1)/2, gy1+16, M.ul+'  \u2192', {size:10, fill:'var(--mute)', anchor:'middle'});
+    txt(gx0-8, (gy0+gy1)/2, M.vl, {size:10, fill:'var(--mute)', anchor:'end'});
+    txt((gx0+gx1)/2, gy0-8, 'darker = larger \u221adet g (more area per coordinate cell)', {size:9, fill:'var(--mute)', anchor:'middle'});
+    var um=(M.u[0]+M.u[1])/2, vm=(M.v[0]+M.v[1])/2, gm=M.sg(um,vm);
+    var px=gx0+(um-M.u[0])/(M.u[1]-M.u[0])*(gx1-gx0), py=gy0+(vm-M.v[0])/(M.v[1]-M.v[0])*(gy1-gy0);
+    svg.appendChild(mk('circle',{cx:px,cy:py,r:4,fill:'none',stroke:'var(--yellow)','stroke-width':2}));
+    var TX=368, ty=44;
+    txt(TX, ty, M.name, {size:12, fill:'var(--violet)', weight:600}); ty+=20;
+    txt(TX, ty, 'ds\u00b2 = '+M.ds, {size:10, fill:'var(--mute)'}); ty+=18;
+    txt(TX, ty, M.sgl, {size:12, fill:'var(--cyan)', weight:600}); ty+=24;
+    txt(TX, ty, 'at centre ('+M.ul+'='+um.toFixed(2)+'): \u221adet g = '+gm.toFixed(3), {size:9, fill:'var(--yellow)'}); ty+=24;
+    txt(TX, ty, 'total area = \u222b\u221adet g du dv', {size:10, fill:'var(--mute)'}); ty+=16;
+    txt(TX, ty, '= '+M.tot+' \u2248 '+total(M).toFixed(3), {size:13, fill:'var(--green)', weight:700}); ty+=28;
+    txt(TX, ty, 'Laplace\u2013Beltrami:', {size:9, fill:'var(--mute)'}); ty+=13;
+    txt(TX, ty, '\u0394_g f = (1/\u221adet g)\u2202\u1d62(\u221adet g g\u2071\u02b2\u2202\u2c7c f)', {size:9, fill:'var(--mute)'});
+    out.textContent = 'A Riemannian metric distinguishes a canonical top-form, the volume form dvol_g = \u221adet g\u00b7dx\u00b9\u2227\u00b7\u00b7\u00b7\u2227dx\u207f. The factor \u221adet g is the volume of the parallelepiped spanned by the coordinate basis as measured by g \u2014 the local area density. For the '+M.name+' with ds\u00b2 = '+M.ds+', '+M.sgl+': the shading shows where coordinate cells carry more area (darker). Integrating, \u222b\u221adet g du dv = '+M.tot+' \u2248 '+total(M).toFixed(3)+(cur==='sphere'?' \u2014 the familiar area of the unit sphere':'')+'. The same \u221adet g builds the divergence div_g X = (1/\u221adet g)\u2202\u1d62(\u221adet g X\u2071) and the Laplace\u2013Beltrami operator \u0394_g f = (1/\u221adet g)\u2202\u1d62(\u221adet g g\u2071\u02b2\u2202\u2c7c f), which collapses to the ordinary Laplacian when g\u1d62\u2c7c=\u03b4\u1d62\u2c7c; its eigenvalues are the spectral geometry of (M,g).';
+  }
+  Array.prototype.forEach.call(metricsBox.querySelectorAll('button'), function(b){ b.addEventListener('click', function(){
+    cur=b.getAttribute('data-m');
+    Array.prototype.forEach.call(metricsBox.querySelectorAll('button'), function(x){ var on=(x===b); x.classList.toggle('active',on); x.setAttribute('aria-pressed', on?'true':'false'); });
+    draw();
+  }); });
+  draw();
+})();
+</script>
 
 <!-- callback-auto-begin -->
 <aside class="callback">
