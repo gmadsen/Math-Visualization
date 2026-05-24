@@ -17685,6 +17685,24 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "singular-cubics-minimal-model",
+    "family": "singular-cubics-minimal-model",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "singular-cubics-minimal-model widget params",
+    "description": "Minimal Weierstrass models and the u^12 scaling of the discriminant. A gallery of globally minimal short Weierstrass curves (y^2 = x^3 + Ax + B, e.g. y^2=x^3-x, y^2=x^3+1, y^2=x^3-x+1) is rescaled by the admissible change of variables (x,y) -> (u^2 x, u^3 y), which sends (c4, c6, Delta) -> (u^4 c4, u^6 c6, u^12 Delta). A slider sets u; the widget shows the scaled model y^2 = x^3 + A u^4 x + B u^6, factors the discriminant Delta = u^12 * Delta_0, and draws a per-prime stacked bar of v_p(Delta) splitting the intrinsic part v_p(Delta_0) from the spurious part 12 * v_p(u) introduced by the scaling. The readout reports the minimality verdict (u=1 is the global minimal model with Delta_min = Delta_0; for u>1 the model is non-minimal exactly at the primes dividing u, where Tate's algorithm scales back down by u to clear the spurious 12*v_p(u)), and notes that the conductor depends only on the reduction types at the genuine bad primes and is unchanged by u. No numeric params beyond the standard widgetId/title/hint; the curve gallery is fixed inside the renderer.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Bespoke widget for `singular-cubics-reduction.html` (§8 *Minimal Weierstrass models and the conductor*, concept `minimal-weierstrass-model`). It makes the **`u¹²` scaling** of the discriminant — and therefore the notion of a *minimal* model — concrete. Single module, not part of a shared family.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "slider-svg-2d",
     "family": "slider-readout",
     "dimension": "2d",
