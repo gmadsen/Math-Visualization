@@ -20138,6 +20138,42 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "zeta-values-mahler-measure",
+    "family": "zeta-values-mahler-measure",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "zeta-values-mahler-measure widget params",
+    "description": "The (logarithmic) Mahler measure m(P) = integral over the unit circle of log|P(e^{2 pi i theta})| d theta, for one-variable polynomials, and its bridge to zeta values. Buttons pick a polynomial from a gallery (2x, the cyclotomic x^2+1, the golden x^2-x-1, and Lehmer's degree-10 polynomial); the widget plots the integrand log|P(e^{2 pi i theta})| over one period (its signed area is m(P)), computes m two ways -- Jensen's formula m = log|leading| + sum of log|root| over roots outside the unit circle (using precomputed roots), and the live trapezoidal torus integral -- and shows they agree. The readout states Jensen's formula, frames Lehmer's problem (Lehmer's number 1.17628... gives the smallest known Mahler measure above 1, with the open question of whether there is a gap above 1), and gives Smyth's multivariable bridge m(1+x+y+z) = (7/2 pi^2) zeta(3) and m(1+x+y) = (3 sqrt 3 / 4 pi) L(chi_-3, 2), where the Mahler measure of a simple polynomial is a special L-value. No numeric params beyond the standard widgetId/title/hint.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Bespoke widget for `zeta-values.html` (§7 *Zeta values and Mahler measure*, concept `zeta-mahler-measure`). It makes the (logarithmic) **Mahler measure** of one-variable polynomials concrete and gestures at its bridge to zeta/$L$-values. Single module, not part of a shared family.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "zeta-values-multiple-zeta",
+    "family": "zeta-values-multiple-zeta",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "zeta-values-multiple-zeta widget params",
+    "description": "Multiple zeta values (MZVs) and the double-shuffle relations, demonstrated numerically. An MZV is the nested sum zeta(s1,...,sk) = sum over n1 > ... > nk >= 1 of the product of n_i^{-s_i}; a truncation slider N computes zeta(2), zeta(3), zeta(5) and the weight-5 MZVs zeta(2,1), zeta(2,3), zeta(3,2), zeta(4,1) by direct summation. The widget bars the values and checks four identities live: Euler's zeta(2,1) = zeta(3); the STUFFLE product zeta(2) zeta(3) = zeta(2,3) + zeta(3,2) + zeta(5); the SHUFFLE product zeta(2) zeta(3) = zeta(2,3) + 3 zeta(3,2) + 6 zeta(4,1); and the resulting DOUBLE-SHUFFLE relation 2 zeta(3,2) + 6 zeta(4,1) = zeta(5). It also shows Zagier's dimension conjecture d_n = d_{n-2} + d_{n-3} against the naive 2^{n-2} count of weight-n MZVs. No numeric params beyond the standard widgetId/title/hint.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Bespoke widget for `zeta-values.html` (§6 *Multiple zeta values and their algebra*, concept `multiple-zeta-values`). It demonstrates the **double-shuffle relations** among multiple zeta values numerically. Single module, not part of a shared family.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "zfc-aleph-ladder",
     "family": "zfc-aleph-ladder",
     "dimension": "2d",
