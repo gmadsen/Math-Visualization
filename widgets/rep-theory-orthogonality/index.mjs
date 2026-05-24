@@ -84,7 +84,7 @@ export function renderScript(params) {
     `  function cmul(a,b){ return [a[0]*b[0]-a[1]*b[1], a[0]*b[1]+a[1]*b[0]]; }\n` +
     `  function cconj(a){ return [a[0], -a[1]]; }\n` +
     `  function fmt(c){ var re=Math.round(c[0]*1000)/1000, im=Math.round(c[1]*1000)/1000;\n` +
-    `    if(Math.abs(im)<1e-9) return ''+re;\n` +
+    `    if(Math.abs(im)<1e-9) return (re<0?'\\u2212'+Math.abs(re):''+re);\n` +
     `    if(Math.abs(re)<1e-9){ if(Math.abs(im-1)<1e-9) return 'i'; if(Math.abs(im+1)<1e-9) return '\\u2212i'; return (im<0?'\\u2212':'')+Math.abs(im)+'i'; }\n` +
     `    return re+(im<0?'\\u2212':'+')+(Math.abs(im-1)<1e-9||Math.abs(im+1)<1e-9?'':Math.abs(im))+'i'; }\n` +
     `  var gk='S3', li=0, mi=2;\n` +
@@ -118,7 +118,7 @@ export function renderScript(params) {
     `    txt(x0+8, iy+22, '= (1/'+G.order+') [ '+terms.join('  +  ')+' ]', {size:10, fill:'var(--mute)'});\n` +
     `    var res=[sum[0]/G.order, sum[1]/G.order];\n` +
     `    var isOne=Math.abs(res[0]-1)<1e-9 && Math.abs(res[1])<1e-9;\n` +
-    `    var verdict = '= '+fmt(res)+'  =  \\u03b4'+(li===mi?'  (\\u03bb = \\u03bc \\u2014 orthonormal)':'  (\\u03bb \\u2260 \\u03bc \\u2014 orthogonal)');\n` +
+    `    var verdict = '= '+fmt(res)+'  =  \\u03b4\\u03bb\\u03bc'+(li===mi?'  (\\u03bb = \\u03bc \\u2014 orthonormal)':'  (\\u03bb \\u2260 \\u03bc \\u2014 orthogonal)');\n` +
     `    txt(x0, iy+50, verdict, {size:14, fill:isOne?'var(--green)':(Math.abs(res[0])<1e-9&&Math.abs(res[1])<1e-9?'var(--pink)':'var(--orange)'), weight:700});\n` +
     // readout
     `    out.textContent = 'The character is a class function, so its values are listed per conjugacy class C (with multiplicity |C|). The first orthogonality relation says the irreducible characters are ORTHONORMAL for the Hermitian inner product \\u27e8f\\u2081,f\\u2082\\u27e9 = (1/|G|) \\u03a3_g f\\u2081(g) f\\u2082(g)\\u0305, grouped over classes as (1/|G|) \\u03a3_C |C| f\\u2081(C) f\\u2082(C)\\u0305. Here \\u27e8\\u03c7'+(li+1)+', \\u03c7'+(mi+1)+'\\u27e9 = '+fmt(res)+', i.e. '+(li===mi?'1 \\u2014 each irreducible character has norm 1':'0 \\u2014 distinct irreducibles are orthogonal')+'. '+(gk==='C4'?'C\\u2084 has complex characters (powers of i), so the conjugate on the second factor is essential: without it the \\u201cinner product\\u201d would not even be real.':'Equivalently \\u27e8\\u03c7\\u03bb,\\u03c7\\u03bc\\u27e9 = dim Hom_G(V\\u03bc,V\\u03bb), which Schur\\u2019s lemma evaluates as \\u03b4\\u03bb\\u03bc.')+' The irreducible characters form an orthonormal basis of the space of class functions, so the number of irreducibles equals the number of conjugacy classes.';\n` +

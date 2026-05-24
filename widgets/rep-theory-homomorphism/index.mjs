@@ -97,7 +97,7 @@ export function renderScript(params) {
     `    txt(TX, y1+30, '\\u03c7(h) = '+trace(Rh), {size:12, fill:'var(--cyan)'});\n` +
     `    txt(TX, y1+50, '\\u03c7(gh) = '+trace(Rgh), {size:12, fill:'var(--ink)'});\n` +
     `    txt(TX, y1+78, 'degree = dim V = '+Rg.length, {size:11, fill:'var(--mute)'});\n` +
-    `    var faithful = rep==='perm'; var kernelNote = rep==='triv'?'kernel = all of S\\u2083 (very unfaithful)':(rep==='sign'?'kernel = A\\u2083 (the 3-cycles)':'kernel = {e} (faithful)');\n` +
+    `    var kernelNote = rep==='triv'?'kernel = all of S\\u2083 (very unfaithful)':(rep==='sign'?'kernel = A\\u2083 (the 3-cycles)':'kernel = {e} (faithful)');\n` +
     `    txt(TX, y1+98, kernelNote, {size:11, fill:'var(--mute)'});\n` +
     // readout
     `    var repName = rep==='triv'?'trivial representation (every g \\u21a6 [1])':(rep==='sign'?'sign representation (g \\u21a6 [sgn g] = \\u00b11)':'permutation representation on \\u2102\\u00b3 (g permutes coordinates)');\n` +
