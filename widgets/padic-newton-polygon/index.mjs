@@ -94,7 +94,7 @@ export function renderScript(params) {
     `    var segs=[]; for(var j=0;j+1<hull.length;j++){ var dx=hull[j+1][0]-hull[j][0], dy=hull[j+1][1]-hull[j][1]; segs.push({len:dx, drop:-dy}); var mx=(X(hull[j][0])+X(hull[j+1][0]))/2, my=(Y(hull[j][1])+Y(hull[j+1][1]))/2; var slbl=(dy===0)?'0':('\\u2212'+frac(-dy,dx)); txt(mx, my-8, 'slope '+slbl, {size:9, fill:'var(--cyan)', anchor:'middle'}); }\n` +
     // panel
     `    var TX=418, ty=52;\n` +
-    `    txt(TX, ty, 'roots in Q\\u0304_p:', {size:10, fill:'var(--mute)'}); ty+=18;\n` +
+    `    txt(TX, ty, 'roots of f (in Q_p-bar):', {size:10, fill:'var(--mute)'}); ty+=18;\n` +
     `    segs.forEach(function(s){ txt(TX, ty, '\\u2022 '+s.len+' of val '+frac(s.drop,s.len), {size:11, fill:'var(--yellow)'}); ty+=16; });\n` +
     `    ty+=8; txt(TX, ty, 'total: '+n+' roots', {size:10, fill:'var(--mute)'});\n` +
     // irreducibility note (single segment, slope -h/n with gcd(h,n)=1, h/n not integer)
