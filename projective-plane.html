@@ -897,6 +897,85 @@ This is an algebraic group of dimension $9 - 1 = 8$ over $K$.</p>
 $$a X_0 + b Y_0 + c Z_0 \;=\; 0,$$
 and this pairing is perfectly symmetric in the two variables. Fixing a point cuts out a line's worth of lines through it; fixing a line cuts out a line's worth of points on it. The resulting involution $\mathbb{P}^2 \leftrightarrow (\mathbb{P}^2)^*$ is <strong>projective duality</strong>.</p>
 <p>Because the pairing is symmetric, every incidence theorem has a <strong>dual</strong> obtained by swapping "point" with "line" and "lies on" with "passes through". The most basic example is the axiom pair: "any two distinct points determine a unique line" dualizes to "any two distinct lines meet in a unique point" — the projective replacement for parallelism. A deeper example is <strong>Pascal</strong> (six points on a conic $\Rightarrow$ three collinear points) dualizing to <strong>Brianchon</strong> (six tangents to a conic $\Rightarrow$ three concurrent lines). Over $\mathbb{F}_q$ the duality is visible at the level of counts: $|\mathbb{P}^2(\mathbb{F}_q)| = |(\mathbb{P}^2)^*(\mathbb{F}_q)| = q^2+q+1$, and for $q=2$ both sides equal $7$ — the Fano plane, self-dual with seven points and seven lines.</p>
+<div class="widget" id="w-pp-duality">
+  <div class="hd"><div class="ttl">Projective duality: pole and polar</div><div class="hint">drag A, B, C — collinear ⟺ concurrent</div></div>
+  <div class="row">
+    <span class="note">Drag the three points $A,B,C$. Each point's polar line is drawn in the same colour.</span>
+    <button type="button" id="w-pp-duality-coll">make collinear</button>
+    <button type="button" id="w-pp-duality-reset">reset</button>
+  </div>
+  <svg id="w-pp-duality-svg" viewBox="0 0 560 320" width="560" height="320" role="img" aria-label="Three draggable points and their polar lines with respect to the unit circle, showing collinear points correspond to concurrent polars"><title>Pole–polar duality: a point maps to its polar line w.r.t. the unit circle; three collinear points have three concurrent polar lines</title></svg>
+  <div class="readout" id="w-pp-duality-out"></div>
+</div>
+<script>
+/* pp-duality widget: w-pp-duality */
+(function(){
+  var svg=document.getElementById('w-pp-duality-svg'), out=document.getElementById('w-pp-duality-out');
+  var bColl=document.getElementById('w-pp-duality-coll'), bReset=document.getElementById('w-pp-duality-reset');
+  if(!svg||!out) return;
+  var NS='http://www.w3.org/2000/svg';
+  function mk(tag,attrs,text){ var e=document.createElementNS(NS,tag); for(var k in attrs){ e.setAttribute(k,attrs[k]); } if(text!=null) e.textContent=text; return e; }
+  function txt(x,y,s,opt){ opt=opt||{}; svg.appendChild(mk('text',{x:x,y:y,'text-anchor':opt.anchor||'start','font-size':opt.size||12,fill:opt.fill||'var(--ink)','font-weight':opt.weight||'normal'},s)); }
+  var COL=['var(--cyan)','var(--yellow)','var(--pink)'], LBL=['A','B','C'];
+  var DEF=[[-1.05,0.62],[1.1,0.42],[0.05,-1.05]];
+  var P=DEF.map(function(p){ return p.slice(); });
+  var sc=66, cx0=190, cy0=160;
+  var XMIN=-2.3, XMAX=2.3, YMIN=-2.25, YMAX=2.25;
+  function X(x){ return cx0+x*sc; } function Y(y){ return cy0-y*sc; }
+  function dataFromEvent(ev){ var pt=svg.createSVGPoint(); pt.x=ev.clientX; pt.y=ev.clientY; var m=svg.getScreenCTM(); if(!m) return null; var loc=pt.matrixTransform(m.inverse()); return [ (loc.x-cx0)/sc, (cy0-loc.y)/sc ]; }
+  function clamp(v,lo,hi){ return v<lo?lo:(v>hi?hi:v); }
+  function clipLine(u,v,w){
+    var pts=[];
+    if(Math.abs(v)>1e-9){ [XMIN,XMAX].forEach(function(x){ var y=(w-u*x)/v; if(y>=YMIN-1e-9&&y<=YMAX+1e-9) pts.push([x,y]); }); }
+    if(Math.abs(u)>1e-9){ [YMIN,YMAX].forEach(function(y){ var x=(w-v*y)/u; if(x>=XMIN-1e-9&&x<=XMAX+1e-9) pts.push([x,y]); }); }
+    if(pts.length<2) return null;
+    return [pts[0], pts[pts.length-1]];
+  }
+  function det3(){ var a=P[0],b=P[1],c=P[2]; return a[0]*(b[1]-c[1]) - a[1]*(b[0]-c[0]) + (b[0]*c[1]-b[1]*c[0]); }
+  function fmt(x){ var r=Math.round(x*1000)/1000; if(Math.abs(r)<1e-9) r=0; return ''+r; }
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    svg.appendChild(mk('line',{x1:X(XMIN),y1:Y(0),x2:X(XMAX),y2:Y(0),stroke:'var(--line)','stroke-width':1}));
+    svg.appendChild(mk('line',{x1:X(0),y1:Y(YMIN),x2:X(0),y2:Y(YMAX),stroke:'var(--line)','stroke-width':1}));
+    svg.appendChild(mk('circle',{cx:X(0),cy:Y(0),r:sc,fill:'none',stroke:'var(--violet)','stroke-width':1.5,'stroke-dasharray':'3 3'}));
+    txt(X(0)+sc*0.71+4, Y(0)-sc*0.71, 'conic x\u00b2+y\u00b2=1', {size:9, fill:'var(--violet)'});
+    var D=det3(), conc=Math.abs(D)<0.04;
+    for(var i=0;i<3;i++){ var seg=clipLine(P[i][0],P[i][1],1);
+      if(seg) svg.appendChild(mk('line',{x1:X(seg[0][0]),y1:Y(seg[0][1]),x2:X(seg[1][0]),y2:Y(seg[1][1]),stroke:COL[i],'stroke-width':1.6,'stroke-opacity':0.85}));
+      else txt(X(P[i][0])+10, Y(P[i][1])+16, 'polar near \u221e', {size:8, fill:COL[i]}); }
+    if(conc){ var a=P[0],b=P[1]; var u=(b[1]-a[1]), v=(a[0]-b[0]), w=u*a[0]+v*a[1];
+      if(Math.abs(w)>1e-6){ var px=u/w, py=v/w; if(px>XMIN&&px<XMAX&&py>YMIN&&py<YMAX){ svg.appendChild(mk('circle',{cx:X(px),cy:Y(py),r:6,fill:'none',stroke:'var(--green)','stroke-width':2})); txt(X(px)+9,Y(py)-6,'pole of line ABC',{size:9,fill:'var(--green)'}); } } }
+    for(i=0;i<3;i++){ (function(i){
+      var h=mk('circle',{cx:X(P[i][0]),cy:Y(P[i][1]),r:7,fill:COL[i],stroke:'var(--bg)','stroke-width':1.5,style:'cursor:grab'});
+      h.addEventListener('pointerdown', function(ev){ drag=i; try{ h.setPointerCapture(ev.pointerId); }catch(e){} ev.preventDefault(); });
+      svg.appendChild(h);
+      txt(X(P[i][0])+10, Y(P[i][1])+4, LBL[i], {size:13, fill:COL[i], weight:700});
+    })(i); }
+    txt(372, 40, 'shared determinant', {size:10, fill:'var(--mute)'});
+    txt(372, 58, 'det[A;B;C; 1 1 1]', {size:9, fill:'var(--mute)'});
+    txt(372, 76, '= '+fmt(D), {size:13, fill: conc?'var(--green)':'var(--ink)', weight:700});
+    txt(372, 104, conc?'\u2248 0:':'\u2260 0:', {size:11, fill: conc?'var(--green)':'var(--mute)', weight:600});
+    txt(372, 122, conc?'points COLLINEAR':'points in general', {size:10, fill: conc?'var(--green)':'var(--ink)'});
+    txt(372, 138, conc?'polars CONCURRENT':'polars form a triangle', {size:10, fill: conc?'var(--green)':'var(--ink)'});
+    txt(372, 172, 'point (p\u2093,p\u1d67)', {size:10, fill:'var(--mute)'});
+    txt(372, 188, '\u2194 line p\u2093x+p\u1d67y=1', {size:10, fill:'var(--mute)'});
+    txt(372, 212, 'P on polar(Q)', {size:10, fill:'var(--cyan)'});
+    txt(372, 228, '\u21d4 Q on polar(P)', {size:10, fill:'var(--cyan)'});
+    out.textContent = 'Projective duality swaps points and lines of P\u00b2 while preserving incidence. Here it is realised concretely by the pole\u2013polar map of the conic x\u00b2+y\u00b2=1: the point (p\u2093,p\u1d67) corresponds to the line p\u2093x+p\u1d67y=1, and the pairing p\u2093X+p\u1d67Y=1 is symmetric, so P lies on the polar of Q exactly when Q lies on the polar of P. The 3\u00d73 determinant det[[A\u2093,A\u1d67,1],[B\u2093,B\u1d67,1],[C\u2093,C\u1d67,1]] = '+fmt(D)+' detects collinearity of A,B,C; the very same determinant detects concurrency of the three polar lines \u2014 so collinear points \u21d4 concurrent lines, exactly. Drag a point onto the line through the other two (or press \u201cmake collinear\u201d) and watch the three polars meet at one point: the pole of line ABC. This collinear\u2194concurrent swap is the prototype of every dual theorem \u2014 e.g. Pascal (six points on a conic \u21d2 three collinear) dualises to Brianchon (six tangents \u21d2 three concurrent).';
+  }
+  var drag=-1;
+  svg.addEventListener('pointermove', function(ev){ if(drag<0) return; var d=dataFromEvent(ev); if(!d) return; P[drag]=[clamp(d[0],XMIN+0.05,XMAX-0.05), clamp(d[1],YMIN+0.05,YMAX-0.05)]; draw(); });
+  function endDrag(){ drag=-1; }
+  svg.addEventListener('pointerup', endDrag); svg.addEventListener('pointercancel', endDrag); svg.addEventListener('pointerleave', endDrag);
+  if(bColl) bColl.addEventListener('click', function(){ var a=P[0],b=P[1], dx=b[0]-a[0], dy=b[1]-a[1];
+    function inBox(t){ var x=a[0]+t*dx, y=a[1]+t*dy; return x>=XMIN+0.05&&x<=XMAX-0.05&&y>=YMIN+0.05&&y<=YMAX-0.05; }
+    var t=1.55; while(t>0.55 && !inBox(t)) t-=0.05;
+    P[2]=[a[0]+t*dx, a[1]+t*dy]; draw(); });
+  if(bReset) bReset.addEventListener('click', function(){ P=DEF.map(function(p){ return p.slice(); }); draw(); });
+  draw();
+})();
+</script>
+
 <div class="quiz" data-concept="projective-duality"></div>
 </section>
 
@@ -906,6 +985,97 @@ and this pairing is perfectly symmetric in the two variables. Fixing a point cut
 $$[A,B;C,D] \;=\; \frac{(a-c)(b-d)}{(a-d)(b-c)} \;\in\; K \cup\{\infty\}.$$
 For instance $[0,1;2,3] = \dfrac{(-2)(-2)}{(-3)(-1)} = \dfrac{4}{3}$. The cross-ratio is independent of the choice of affine chart on the line and, crucially, <strong>invariant under $\mathrm{PGL}_2(K)$</strong>: a Möbius transformation $t\mapsto(\alpha t+\beta)/(\gamma t+\delta)$ preserves it. It is, up to functional identities, the <em>unique</em> projective invariant of four points on a line — so two quadruples on two different lines are projectively equivalent iff their cross-ratios match.</p>
 <p>Permuting the four points changes the cross-ratio: only the Klein four-group $V_4\subset S_4$ of double-transpositions fixes $\lambda=[A,B;C,D]$. The remaining six cosets give the orbit $\{\lambda,\,1-\lambda,\,1/\lambda,\,1/(1-\lambda),\,\lambda/(\lambda-1),\,(\lambda-1)/\lambda\}$, and the rational function $j(\lambda) = \dfrac{256(\lambda^2-\lambda+1)^3}{\lambda^2(\lambda-1)^2}$ is $S_4$-invariant — this is the same $j$ that will reappear as the $j$-invariant of an elliptic curve on <a href="./elliptic-curves.html">elliptic-curves.html</a>, via the four ramification points of a hyperelliptic map. The cross-ratio is classical projective geometry's most portable computation: it lets you detect equivalence, construct harmonic conjugates ($\lambda=-1$), and — on a conic — recover the conic's own parameter from four marked points.</p>
+<div class="widget" id="w-pp-crossratio">
+  <div class="hd"><div class="ttl">The cross-ratio is a projective invariant</div><div class="hint">slide the Möbius map; λ stays fixed</div></div>
+  <div class="row">
+    <label for="w-pp-crossratio-a">$a$</label>
+    <input type="range" id="w-pp-crossratio-a" min="-3" max="4.5" value="0" step="0.25">
+    <span class="pill" id="w-pp-crossratio-av">a = 0</span>
+    <label for="w-pp-crossratio-b">$b$</label>
+    <input type="range" id="w-pp-crossratio-b" min="-3" max="4.5" value="1" step="0.25">
+    <span class="pill" id="w-pp-crossratio-bv">b = 1</span>
+  </div>
+  <div class="row">
+    <label for="w-pp-crossratio-c">$c$</label>
+    <input type="range" id="w-pp-crossratio-c" min="-3" max="4.5" value="2" step="0.25">
+    <span class="pill" id="w-pp-crossratio-cv">c = 2</span>
+    <label for="w-pp-crossratio-d">$d$</label>
+    <input type="range" id="w-pp-crossratio-d" min="-3" max="4.5" value="3" step="0.25">
+    <span class="pill" id="w-pp-crossratio-dv">d = 3</span>
+  </div>
+  <div class="row">
+    <label for="w-pp-crossratio-s">Möbius map $t\mapsto\frac{t+s}{\gamma t+1}$</label>
+    <input type="range" id="w-pp-crossratio-s" min="-2" max="2" value="0" step="0.1">
+    <span class="pill" id="w-pp-crossratio-sv">s = 0.0</span>
+  </div>
+  <svg id="w-pp-crossratio-svg" viewBox="0 0 560 300" width="560" height="300" role="img" aria-label="Four points on a projective line and their image under a Möbius map, with the cross-ratio shown equal on both"><title>The cross-ratio of four collinear points is invariant under the projective (Möbius) map: the four images on the second line have the same cross-ratio</title></svg>
+  <div class="readout" id="w-pp-crossratio-out"></div>
+</div>
+<script>
+/* pp-cross-ratio widget: w-pp-crossratio */
+(function(){
+  var svg=document.getElementById('w-pp-crossratio-svg'), out=document.getElementById('w-pp-crossratio-out');
+  var ids=['a','b','c','d','s'], el={};
+  ids.forEach(function(k){ el[k]=document.getElementById('w-pp-crossratio-'+k); el[k+'v']=document.getElementById('w-pp-crossratio-'+k+'v'); });
+  if(!svg||!out||!el.a||!el.s) return;
+  var NS='http://www.w3.org/2000/svg';
+  function mk(tag,attrs,text){ var e=document.createElementNS(NS,tag); for(var k in attrs){ e.setAttribute(k,attrs[k]); } if(text!=null) e.textContent=text; return e; }
+  function txt(x,y,s,opt){ opt=opt||{}; svg.appendChild(mk('text',{x:x,y:y,'text-anchor':opt.anchor||'start','font-size':opt.size||12,fill:opt.fill||'var(--ink)','font-weight':opt.weight||'normal'},s)); }
+  var COL=['var(--cyan)','var(--yellow)','var(--green)','var(--pink)'], LBL=['A','B','C','D'];
+  function cross(p){ return ((p[0]-p[2])*(p[1]-p[3]))/((p[0]-p[3])*(p[1]-p[2])); }
+  function fmt(x){ if(isNaN(x)) return 'undefined'; if(!isFinite(x)) return '\u221e'; var r=Math.round(x*1000)/1000; if(Math.abs(r)<1e-9) r=0; return (''+r); }
+  var PX0=58, PX1=326;
+  function drawLine(y, dom, pts, labelLeft, lam){
+    var lo=dom[0], hi=dom[1]; if(hi-lo<1e-6){ hi=lo+1; }
+    function X(v){ return PX0 + (v-lo)/(hi-lo)*(PX1-PX0); }
+    svg.appendChild(mk('line',{x1:PX0,y1:y,x2:PX1,y2:y,stroke:'var(--line)','stroke-width':1.5}));
+    txt(PX0-8, y+4, labelLeft, {size:11, fill:'var(--mute)', anchor:'end'});
+    for(var i=0;i<4;i++){ var x=X(pts[i]);
+      svg.appendChild(mk('circle',{cx:x, cy:y, r:5, fill:COL[i], stroke:'var(--bg)','stroke-width':1}));
+      txt(x, y-12, LBL[i], {size:12, fill:COL[i], weight:700, anchor:'middle'});
+      txt(x, y+20, fmt(pts[i]), {size:9, fill:'var(--mute)', anchor:'middle'});
+    }
+    txt(PX1+8, y+4, '\u03bb = '+fmt(lam), {size:12, fill:'var(--ink)', weight:600});
+  }
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    var a=+el.a.value, b=+el.b.value, c=+el.c.value, d=+el.d.value, s=+el.s.value;
+    el.av.textContent='a = '+a; el.bv.textContent='b = '+b; el.cv.textContent='c = '+c; el.dv.textContent='d = '+d; el.sv.textContent='s = '+s.toFixed(1);
+    var P=[a,b,c,d];
+    var gamma=0.1*s;
+    function M(t){ return (t+s)/(gamma*t+1); }
+    var Q=P.map(M);
+    var lam=cross(P), lam2=cross(Q);
+    var distinct=true; for(var di=0;di<4;di++){ for(var dj=di+1;dj<4;dj++){ if(Math.abs(P[di]-P[dj])<1e-9) distinct=false; } }
+    drawLine(96, [-3,4.5], P, 'line \u2113', distinct?lam:NaN);
+    var lo=Math.min.apply(null,Q), hi=Math.max.apply(null,Q), pad=(hi-lo)*0.08||0.5;
+    drawLine(176, [lo-pad,hi+pad], Q, 'image', distinct?lam2:NaN);
+    txt(PX0, 210, 'Mobius image: t \u21a6 (t+'+fmt(s)+')/('+fmt(gamma)+'\u00b7t+1)  \u2014  a projective map of the line', {size:10, fill:'var(--mute)'});
+    var TX=448;
+    if(!distinct){
+      txt(PX0, 230, 'undefined cross-ratio \u2014 the four points A,B,C,D must be distinct', {size:11, fill:'var(--pink)', weight:600});
+      txt(TX, 36, '\u03bb = undefined', {size:13, fill:'var(--pink)', weight:700});
+      txt(TX, 56, '(two points coincide)', {size:9, fill:'var(--mute)'});
+      out.textContent = 'The cross-ratio [A,B;C,D] = (a\u2212c)(b\u2212d)/((a\u2212d)(b\u2212c)) is defined only for four DISTINCT collinear points. Two of the current points coincide, so the ratio degenerates (division by zero, or 0/0) and \u03bb, its orbit, and j are undefined \u2014 move the sliders so a, b, c, d are all different.';
+      return;
+    }
+    txt(PX0, 230, (Math.abs(lam-lam2)<1e-6 ? '\u2713 cross-ratio unchanged: \u03bb = '+fmt(lam)+' on both lines (PGL\u2082-invariant)' : 'difference '+fmt(lam-lam2)), {size:11, fill:'var(--green)', weight:600});
+    var orbit=[lam,1-lam,1/lam,1/(1-lam),lam/(lam-1),(lam-1)/lam];
+    txt(TX, 36, '\u03bb = '+fmt(lam), {size:13, fill:'var(--ink)', weight:700});
+    txt(TX, 56, 'S\u2084 orbit (6 values):', {size:9, fill:'var(--mute)'});
+    var oy=72; orbit.forEach(function(v,i){ txt(TX, oy+i*15, '\u2022 '+fmt(v), {size:10, fill:'var(--cyan)'}); });
+    var jv=256*Math.pow(lam*lam-lam+1,3)/(lam*lam*Math.pow(lam-1,2));
+    var jstr=(isFinite(jv)&&Math.abs(jv)>=1e5)?jv.toExponential(2):fmt(jv);
+    txt(TX, oy+6*15+8, 'j(\u03bb) = '+jstr, {size:10, fill:'var(--yellow)'});
+    var harm=Math.abs(lam+1)<1e-3;
+    if(harm) txt(TX, oy+6*15+26, '\u2713 harmonic (\u03bb = \u22121)', {size:10, fill:'var(--pink)', weight:600});
+    out.textContent = 'The cross-ratio of four collinear points A,B,C,D with coordinates a,b,c,d is [A,B;C,D] = (a\u2212c)(b\u2212d) / ((a\u2212d)(b\u2212c)) = '+fmt(lam)+'. Drag the s slider: the M\u00f6bius (projective) map t\u21a6(t+s)/(\u03b3t+1) moves all four image points on the second line, yet \u03bb is unchanged \u2014 the cross-ratio is the fundamental PGL\u2082(K)-invariant, so two quadruples are projectively equivalent iff their cross-ratios agree. Permuting the four points sends \u03bb through the six-value orbit {\u03bb, 1\u2212\u03bb, 1/\u03bb, 1/(1\u2212\u03bb), \u03bb/(\u03bb\u22121), (\u03bb\u22121)/\u03bb} (only the Klein four-group fixes \u03bb); the function j(\u03bb)=256(\u03bb\u00b2\u2212\u03bb+1)\u00b3/(\u03bb\u00b2(\u03bb\u22121)\u00b2)='+fmt(jv)+' is S\u2084-invariant and reappears as the j-invariant of an elliptic curve. The special value \u03bb=\u22121 is the harmonic configuration.';
+  }
+  ids.forEach(function(k){ el[k].addEventListener('input', draw); });
+  draw();
+})();
+</script>
+
 <!-- callback-auto-begin -->
 <aside class="callback">
   <div class="ttl">See also</div>

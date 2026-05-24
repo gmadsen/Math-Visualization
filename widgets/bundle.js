@@ -15465,6 +15465,42 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "pp-cross-ratio",
+    "family": "pp-cross-ratio",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "pp-cross-ratio widget params",
+    "description": "The cross-ratio [A,B;C,D] = (a−c)(b−d)/((a−d)(b−c)) of four collinear points as the fundamental PGL₂ invariant. Sliders set the positions a,b,c,d on a projective line; a one-parameter Möbius slider applies t↦(t+s)/(γt+1) to all four and draws their images on a second line, showing the cross-ratio is unchanged — the invariance that makes two quadruples projectively equivalent iff their cross-ratios match. The panel reports λ, the six-value permutation orbit {λ, 1−λ, 1/λ, 1/(1−λ), λ/(λ−1), (λ−1)/λ}, the S₄-invariant j(λ), and flags the harmonic configuration λ=−1.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Bespoke module for **projective-plane** §8 (The cross-ratio). Demonstrates the cross-ratio as the fundamental $\\mathrm{PGL}_2$ invariant of four collinear points.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "pp-duality",
+    "family": "pp-duality",
+    "dimension": "2d",
+    "gesture": "drag",
+    "role": "exploratory",
+    "title": "pp-duality widget params",
+    "description": "Projective duality made concrete by the pole–polar correspondence of a conic (the unit circle x²+y²=1): a point P=(px,py) corresponds to the line px·x+py·y=1, and the pairing is symmetric, so P lies on the polar of Q iff Q lies on the polar of P. Three points are dragged; their three polar lines are drawn. The 3×3 determinant that detects collinearity of the points is identical to the one detecting concurrency of the polars, so collinear points ⟺ concurrent lines exactly — the prototype of every dual incidence theorem (Pascal ↔ Brianchon). When the points are collinear the polars meet at the pole of that line.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Bespoke module for **projective-plane** §7 (Projective duality). Realises the point↔line duality of $\\mathbb{P}^2$ concretely as the pole–polar correspondence of a conic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "prob-convergence-modes",
     "family": "prob-convergence-modes",
     "dimension": "2d",

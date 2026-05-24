@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/pp-cross-ratio/schema.json",
+  "title": "pp-cross-ratio widget params",
+  "description": "The cross-ratio [A,B;C,D] = (a−c)(b−d)/((a−d)(b−c)) of four collinear points as the fundamental PGL₂ invariant. Sliders set the positions a,b,c,d on a projective line; a one-parameter Möbius slider applies t↦(t+s)/(γt+1) to all four and draws their images on a second line, showing the cross-ratio is unchanged — the invariance that makes two quadruples projectively equivalent iff their cross-ratios match. The panel reports λ, the six-value permutation orbit {λ, 1−λ, 1/λ, 1/(1−λ), λ/(λ−1), (λ−1)/λ}, the S₄-invariant j(λ), and flags the harmonic configuration λ=−1.",
+  "meta": {
+    "family": "pp-cross-ratio",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\"> wrapper."
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title rendered inside .hd > .ttl."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional short hint rendered inside .hd > .hint."
+    }
+  }
+}
