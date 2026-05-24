@@ -722,6 +722,52 @@
           "html": "<section id=\"positive\">\n<h2>12. Positive elements</h2>\n\n<p>An element $a$ of a $C^*$-algebra $A$ is <strong>positive</strong>, written $a\\ge 0$, if $a=b^*b$ for some $b\\in A$. Equivalently, $a$ is self-adjoint and its spectrum lies in $[0,\\infty)$. The positive elements form a closed cone $A_+ \\subseteq A_{\\mathrm{sa}}$ — closed under non-negative scaling and addition — and this cone induces a partial order on self-adjoints by $a\\le b\\iff b-a\\in A_+$. In $C(X)$ this is exactly the pointwise order $f\\ge 0\\iff f(x)\\ge 0$ for all $x$; in $B(H)$ it is the Löwner order $\\langle Tx,x\\rangle\\ge 0$.</p>\n\n<p>A <strong>state</strong> on a unital $C^*$-algebra $A$ is a positive linear functional $\\varphi\\colon A\\to\\mathbb{C}$ with $\\varphi(1)=1$. Positivity means $\\varphi(a^*a)\\ge 0$ for every $a\\in A$; when $A=C(X)$ the Riesz–Markov theorem identifies states with Borel probability measures on $X$, so states are the $C^*$-algebraic generalization of probability distributions. The <strong>state space</strong> $S(A)=\\{\\varphi\\colon\\varphi\\text{ state}\\}$ is weak-$*$ compact convex, and its extreme points — the <strong>pure states</strong> — play the role of points in the noncommutative geometry dictionary. The GNS construction turns each state into a cyclic $*$-representation $\\pi_\\varphi\\colon A\\to B(H_\\varphi)$ with $\\varphi(a)=\\langle\\pi_\\varphi(a)\\xi_\\varphi,\\xi_\\varphi\\rangle$, and taking the direct sum over all states yields the universal embedding $A\\hookrightarrow B(H)$ promised by Gelfand–Naimark.</p>\n\n"
         },
         {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget",
+          "slug": "operator-algebras-positive",
+          "params": {
+            "widgetId": "w-operator-algebras-positive",
+            "title": "The positive cone and the Löwner order",
+            "hint": "Slide the two values of a self-adjoint element; positive means both ≥ 0.",
+            "lo": -1.5,
+            "hi": 3,
+            "step": 0.25,
+            "presets": [
+              {
+                "label": "$1$",
+                "l1": 1,
+                "l2": 1
+              },
+              {
+                "label": "$p$",
+                "l1": 1,
+                "l2": 0
+              },
+              {
+                "label": "positive",
+                "l1": 2.25,
+                "l2": 0.75
+              },
+              {
+                "label": "indefinite",
+                "l1": 2,
+                "l2": -1
+              }
+            ]
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-operator-algebras-positive"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
           "type": "quiz",
           "concept": "positive-elements",
           "html": "<div class=\"quiz\" data-concept=\"positive-elements\"></div>"

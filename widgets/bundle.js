@@ -14711,6 +14711,24 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "operator-algebras-positive",
+    "family": "operator-algebras-positive",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "operator-algebras-positive widget params",
+    "description": "The commutative picture of positivity in a C*-algebra. Working in the self-adjoint part of C({1,2}) ≅ ℝ² (an element is its pair of eigenvalues / its two function values), the positive cone A₊ is the first quadrant, the Löwner order a≤b is the translated cone, the order interval [0,1] is the unit square, and the positive square root b=√a (functional calculus) is a second point. Two sliders move the element a=(λ₁,λ₂); preset buttons jump to canonical elements. The verdict panel checks the three equivalent characterizations a≥0 ⇔ self-adjoint ∧ σ(a)⊆[0,∞) ⇔ a=b*b.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Bespoke module for **operator-algebras** §12 (Positive elements). The commutative picture of positivity in a C\\*-algebra: working in the self-adjoint part of $C(\\{1,2\\}) \\cong \\mathbb{R}^2$, a self-adjoint element *is* its pair of eigenvalues / function values $(\\lambda_1,\\lambda_2)$, so the abstract order-theoretic structure becomes a plane picture.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "parametric-plot",
     "family": "parametric-plot",
     "dimension": "2d",
