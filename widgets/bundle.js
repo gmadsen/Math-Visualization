@@ -17409,6 +17409,42 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "sheaves-ox-module",
+    "family": "sheaves-ox-module",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "sheaves-ox-module widget params",
+    "description": "An O_X-module shown through its defining structure: at every open the sections form a module over the ring of functions, compatibly with restriction. On a line X with structure sheaf O_X = continuous functions, buttons pick a function g in O_X(U) and the widget multiplies it into a section s of an O_X-module F (the free rank-1 module O_X itself), plotting g, s, and the product g.s over the open U and its sub-open V. It then checks the compatibility square: restricting the product, (g.s)|V, equals multiplying the restrictions, g|V . s|V -- the module action commutes with restriction. The readout defines a ringed space (X, O_X) and an O_X-module (a sheaf of abelian groups with each F(U) an O_X(U)-module, the square commuting for V contained in U), and lists that Mod(O_X) is abelian with tensor products, plus the standard examples O_X, O_X^n, ideal sheaves, and the twisting sheaves O(n). No numeric params beyond the standard widgetId/title/hint.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Bespoke widget for `sheaves.html` (§8 *Sheaves of modules and $\\mathcal{O}_X$-modules*, concept `ox-modules`). It makes an $\\mathcal{O}_X$-module concrete through its defining structure: the module action of functions on sections, compatible with restriction. Single module, not part of a shared family.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "sheaves-presheaf-restriction",
+    "family": "sheaves-presheaf-restriction",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "sheaves-presheaf-restriction widget params",
+    "description": "A presheaf as a contravariant functor on the poset of opens, shown through the restriction of a section. On a line X the widget fixes a continuous section s (an element of F(U) for the presheaf of continuous functions) and a chain of nested opens U contains V contains W; two sliders move the endpoints of V and W. It plots s over X, highlights the portions over V and W as the restrictions s|V and s|W, and draws the poset diagram U -> V -> W with the restriction maps rho, illustrating the functor laws rho^U_U = id and rho^V_W . rho^U_V = rho^U_W (the two paths U -> V -> W and U -> W give the same s|W). The readout defines a presheaf F: Open(X)^op -> Set, sections and global sections, the examples (continuous and holomorphic functions, which are in fact sheaves), and notes the constant presheaf as a presheaf that fails the gluing axiom -- motivating sheaves. No numeric params beyond the standard widgetId/title/hint.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Bespoke widget for `sheaves.html` (§2 *Presheaves*, concept `presheaf-functor`). It makes a presheaf — a contravariant functor on the poset of opens — concrete through the restriction of a section. Single module, not part of a shared family.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "shim-w1",
     "family": "verbatim",
     "dimension": "2d",

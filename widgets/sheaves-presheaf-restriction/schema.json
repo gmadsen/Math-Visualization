@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/sheaves-presheaf-restriction/schema.json",
+  "title": "sheaves-presheaf-restriction widget params",
+  "description": "A presheaf as a contravariant functor on the poset of opens, shown through the restriction of a section. On a line X the widget fixes a continuous section s (an element of F(U) for the presheaf of continuous functions) and a chain of nested opens U contains V contains W; two sliders move the endpoints of V and W. It plots s over X, highlights the portions over V and W as the restrictions s|V and s|W, and draws the poset diagram U -> V -> W with the restriction maps rho, illustrating the functor laws rho^U_U = id and rho^V_W . rho^U_V = rho^U_W (the two paths U -> V -> W and U -> W give the same s|W). The readout defines a presheaf F: Open(X)^op -> Set, sections and global sections, the examples (continuous and holomorphic functions, which are in fact sheaves), and notes the constant presheaf as a presheaf that fails the gluing axiom -- motivating sheaves. No numeric params beyond the standard widgetId/title/hint.",
+  "meta": {
+    "family": "sheaves-presheaf-restriction",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\"> wrapper."
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title rendered inside .hd > .ttl."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional short hint rendered inside .hd > .hint."
+    }
+  }
+}

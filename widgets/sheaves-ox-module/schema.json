@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/sheaves-ox-module/schema.json",
+  "title": "sheaves-ox-module widget params",
+  "description": "An O_X-module shown through its defining structure: at every open the sections form a module over the ring of functions, compatibly with restriction. On a line X with structure sheaf O_X = continuous functions, buttons pick a function g in O_X(U) and the widget multiplies it into a section s of an O_X-module F (the free rank-1 module O_X itself), plotting g, s, and the product g.s over the open U and its sub-open V. It then checks the compatibility square: restricting the product, (g.s)|V, equals multiplying the restrictions, g|V . s|V -- the module action commutes with restriction. The readout defines a ringed space (X, O_X) and an O_X-module (a sheaf of abelian groups with each F(U) an O_X(U)-module, the square commuting for V contained in U), and lists that Mod(O_X) is abelian with tensor products, plus the standard examples O_X, O_X^n, ideal sheaves, and the twisting sheaves O(n). No numeric params beyond the standard widgetId/title/hint.",
+  "meta": {
+    "family": "sheaves-ox-module",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\"> wrapper."
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title rendered inside .hd > .ttl."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional short hint rendered inside .hd > .hint."
+    }
+  }
+}
