@@ -16530,7 +16530,7 @@ window.__MVWidgets = [
       "widgetId",
       "title"
     ],
-    "readmeExcerpt": "Rg ricci curvature widget — scaffolded stub. Replace this paragraph with a short description of what the widget does, which topic page first introduced it, and whether it's a bespoke module or part of a shared family.",
+    "readmeExcerpt": "Bespoke module for **riemannian-geometry** §9 (Ricci curvature and Einstein manifolds). Shows Ricci as average sectional curvature and as the control on geodesic-ball volume.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
@@ -16548,7 +16548,7 @@ window.__MVWidgets = [
       "widgetId",
       "title"
     ],
-    "readmeExcerpt": "Rg volume form widget — scaffolded stub. Replace this paragraph with a short description of what the widget does, which topic page first introduced it, and whether it's a bespoke module or part of a shared family.",
+    "readmeExcerpt": "Bespoke module for **riemannian-geometry** §10 (Riemannian volume form and divergence). Shows $\\sqrt{\\det g}$ as the local area density and integrates it to the total area.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,

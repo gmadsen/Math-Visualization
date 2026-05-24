@@ -57,18 +57,20 @@ export function renderScript(params) {
     `    kv.textContent='K = '+K.toFixed(1); nv.textContent='n = '+n; rv.textContent='r = '+r.toFixed(1);\n` +
     `    var ric=(n-1)*K, S=n*(n-1)*K, ratio=volRatio(K,n,r);\n` +
     // left: euclidean reference (dashed) vs geodesic (solid), area scaled by ratio
-    `    var cx=160, cy=150, RE=82, RG=RE*Math.sqrt(ratio);\n` +
+    // base radius 70 so even the largest ratio (K=-1,n=5,r=1.4 -> ratio~2.51, RG~111)
+    // keeps the disk + its labels inside the 300-tall viewBox and clear of the panel.
+    `    var cx=160, cy=146, RE=70, RG=RE*Math.sqrt(ratio), Rmax=Math.max(RE,RG);\n` +
     `    svg.appendChild(mk('circle',{cx:cx,cy:cy,r:RE,fill:'none',stroke:'var(--mute)','stroke-width':1.4,'stroke-dasharray':'5 3'}));\n` +
     `    var gcol = K>1e-9?'var(--yellow)':(K<-1e-9?'var(--cyan)':'var(--green)');\n` +
     `    svg.appendChild(mk('circle',{cx:cx,cy:cy,r:RG,fill:gcol,'fill-opacity':0.16,stroke:gcol,'stroke-width':2}));\n` +
-    `    txt(cx, cy-RE-10, 'Euclidean ball B_r', {size:10, fill:'var(--mute)', anchor:'middle'});\n` +
-    `    txt(cx, cy+RE+18, 'geodesic ball B_r', {size:10, fill:gcol, anchor:'middle'});\n` +
-    `    txt(cx, cy+RE+32, '(disk area = n-ball volume ratio)', {size:8, fill:'var(--mute)', anchor:'middle'});\n` +
+    `    txt(cx, cy-Rmax-10, 'Euclidean ball B_r (dashed)', {size:10, fill:'var(--mute)', anchor:'middle'});\n` +
+    `    txt(cx, cy+Rmax+16, 'geodesic ball B_r (solid)', {size:10, fill:gcol, anchor:'middle'});\n` +
+    `    txt(cx, cy+Rmax+30, '(disk area = n-ball volume ratio)', {size:8, fill:'var(--mute)', anchor:'middle'});\n` +
     // right panel
     `    var TX=312, ty=44;\n` +
     `    txt(TX, ty, 'constant curvature K = '+K.toFixed(1), {size:11, fill:gcol, weight:600}); ty+=24;\n` +
     `    txt(TX, ty, 'Ric(v,v) = (n\\u22121)K = '+fmt(ric), {size:12, fill:'var(--ink)', weight:600}); ty+=16;\n` +
-    `    txt(TX, ty, '(average of the n\\u22121 sectional', {size:8, fill:'var(--mute)'}); ty+=11;\n` +
+    `    txt(TX, ty, '(sum of the n\\u22121 sectional', {size:8, fill:'var(--mute)'}); ty+=11;\n` +
     `    txt(TX, ty, ' curvatures of 2-planes through v)', {size:8, fill:'var(--mute)'}); ty+=22;\n` +
     `    txt(TX, ty, 'scalar S = n(n\\u22121)K = '+fmt(S), {size:12, fill:'var(--ink)', weight:600}); ty+=22;\n` +
     `    txt(TX, ty, 'Einstein: Ric = \\u03bb g,  \\u03bb = S/n = '+fmt(ric), {size:11, fill:'var(--violet)'}); ty+=24;\n` +
