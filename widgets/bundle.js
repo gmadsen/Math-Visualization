@@ -12247,6 +12247,42 @@ window.__MVWidgets = [
     "exampleScript": "<script>\n(function(){\n  if(!window.MVLatticeVisualizer) return;\n  MVLatticeVisualizer.init('#w-lattice-visualizer-example', {\n    title: \"Hexagonal lattice and an index-4 sublattice\",\n    hint: \"drag the v₁/v₂ sliders to deform the basis · pink dots are the sublattice\",\n    viewBox: \"0 0 360 320\",\n    basis: {\"v1\":{\"x\":1,\"y\":0},\"v2\":{\"x\":0.5,\"y\":0.866}},\n    viewWindow: {\"xRange\":[-3,3],\"yRange\":[-3,3]},\n    sublattice: {\"matrix\":[[2,0],[0,2]]},\n  });\n})();\n</script>"
   },
   {
+    "slug": "lie-adjoint-killing",
+    "family": "lie-adjoint-killing",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "lie-adjoint-killing widget params",
+    "description": "The adjoint representation ad_X(Y) = [X,Y] and the Killing form B(X,Y) = tr(ad_X ad_Y). Pick a Lie algebra (so(3)≅su(2), compact; or sl(2,ℝ), split) and a basis element X; the widget shows ad_X as a matrix on the algebra, computes the full Killing-form matrix from the structure constants, and finds its eigenvalue signature. so(3) gives a negative-definite B (compact group), sl(2,ℝ) gives signature (2,1) (noncompact); both are non-degenerate, so by Cartan's criterion both are semisimple.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Bespoke module for **lie-groups** §6 (The adjoint representation). Builds the adjoint matrices and the Killing form of a small Lie algebra and reads off the signature — distinguishing compact from split real forms via Cartan's criterion.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "lie-algebra-tangent",
+    "family": "lie-algebra-tangent",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "lie-algebra-tangent widget params",
+    "description": "The Lie algebra g = T_e G is the set of matrices tangent to G at the identity — found by differentiating the defining equation along a curve A(t) with A(0)=I, A′(0)=X. Pick a matrix group (GL₂ℝ, SL₂ℝ, SO(2)); the widget shows its defining equation and the linearised condition on X (det A=1 → tr X=0; AᵀA=I → Xᵀ+X=0), then tests a panel of candidate 2×2 matrices, marking each one in or out of g, and reports dim g and a basis. It makes concrete that g is the solution set of the linearised constraint.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Bespoke module for **lie-groups** §2 (The Lie algebra: tangent space at the identity). Makes concrete that g = T_e G is the solution set of the *linearised* defining equation of G.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "lie-algebras-adjoint-vis",
     "family": "lie-algebras-adjoint-vis",
     "dimension": "2d",
