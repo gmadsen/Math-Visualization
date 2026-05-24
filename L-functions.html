@@ -1197,6 +1197,65 @@ Exponential decay of $f(iy)$ as $y\to\infty$ makes the second integral entire in
 
 <div class="note"><strong>No modularity, no continuation.</strong> The analytic continuation of $L(E,s)$ to all of $\mathbb{C}$ is not free from the Dirichlet series definition — a priori the series only knows about $\mathrm{Re}\,s>3/2$. Modularity ($L(E,s)=L(f,s)$) imports the continuation from $f$. This is one of the practical payoffs of the Modularity Theorem: it lets us talk about $L(E,1)$ at all.</div>
 
+<div class="widget" id="w-lfn-cont">
+  <div class="hd"><div class="ttl">Analytic continuation: the half-plane is an artifact</div><div class="hint">slide $N$; the Dirichlet partial sum diverges past $s=1$, but $\zeta$ continues</div></div>
+  <div class="row">
+    <label for="w-lfn-cont-N">Dirichlet partial sum $\sum_{n\le N} n^{-s}$</label>
+    <input type="range" id="w-lfn-cont-N" min="1" max="40" value="8" step="1">
+    <span class="pill" id="w-lfn-cont-Nv">N = …</span>
+  </div>
+  <svg id="w-lfn-cont-svg" viewBox="0 0 560 320" width="560" height="320" role="img" aria-label="The analytically continued Riemann zeta for real s, plotted against the truncated Dirichlet partial sum"><title>The continued zeta(s) for real s is finite everywhere except the pole at s=1; the Dirichlet partial sum tracks it only for s>1 and blows up for s<=1</title></svg>
+  <div class="readout" id="w-lfn-cont-out"></div>
+</div>
+<script>
+/* l-functions-zeta-continuation widget: w-lfn-cont */
+(function(){
+  var svg=document.getElementById('w-lfn-cont-svg'), out=document.getElementById('w-lfn-cont-out');
+  var sN=document.getElementById('w-lfn-cont-N'), Nv=document.getElementById('w-lfn-cont-Nv');
+  if(!svg||!out||!sN||!Nv) return;
+  var NS='http://www.w3.org/2000/svg';
+  function mk(tag,attrs,text){ var e=document.createElementNS(NS,tag); for(var k in attrs){ e.setAttribute(k,attrs[k]); } if(text!=null) e.textContent=text; return e; }
+  function txt(x,y,s,opt){ opt=opt||{}; svg.appendChild(mk('text',{x:x,y:y,'text-anchor':opt.anchor||'start','font-size':opt.size||12,fill:opt.fill||'var(--ink)','font-weight':opt.weight||'normal'},s)); }
+  var LG=[0.99999999999980993,676.5203681218851,-1259.1392167224028,771.32342877765313,-176.61502916214059,12.507343278686905,-0.13857109526572012,9.9843695780195716e-6,1.5056327351493116e-7];
+  function gamma(z){ if(z<0.5) return Math.PI/(Math.sin(Math.PI*z)*gamma(1-z)); z-=1; var x=LG[0]; for(var i=1;i<9;i++) x+=LG[i]/(z+i); var t=z+7.5; return Math.sqrt(2*Math.PI)*Math.pow(t,z+0.5)*Math.exp(-t)*x; }
+  function eta(s){ var n=32, d=Math.pow(3+Math.sqrt(8),n); d=(d+1/d)/2; var b=-1, cc=-d, sum=0; for(var k=0;k<n;k++){ cc=b-cc; sum+=cc*Math.pow(k+1,-s); b=(k+n)*(k-n)*b/((k+0.5)*(k+1)); } return sum/d; }
+  function zeta(s){ if(Math.abs(s-1)<1e-7) return null; if(Math.abs(s)<1e-12) return -0.5;
+    if(s>0) return eta(s)/(1-Math.pow(2,1-s));
+    return Math.pow(2,s)*Math.pow(Math.PI,s-1)*Math.sin(Math.PI*s/2)*gamma(1-s)*zeta(1-s); }
+  function partial(s,N){ var t=0; for(var n=1;n<=N;n++) t+=Math.pow(n,-s); return t; }
+  var SLO=-6, SHI=5, YLO=-2, YHI=3, PX0=54, PX1=506, PTOP=44, PBOT=250;
+  function SX(s){ return PX0 + (s-SLO)/(SHI-SLO)*(PX1-PX0); }
+  function YY(v){ return PBOT - (v-YLO)/(YHI-YLO)*(PBOT-PTOP); }
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    var N=parseInt(sN.value,10); Nv.textContent='N = '+N;
+    // grid: y=0 axis, x ticks, s=1 pole line
+    svg.appendChild(mk('line',{x1:PX0,y1:YY(0),x2:PX1,y2:YY(0),stroke:'var(--line)','stroke-width':1}));
+    for(var gi=-6;gi<=5;gi++){ var gx=SX(gi); svg.appendChild(mk('line',{x1:gx,y1:PBOT,x2:gx,y2:PBOT+4,stroke:'var(--line)','stroke-width':1})); if(gi%2===0||gi===1||gi===-1) txt(gx, PBOT+14, ''+gi, {anchor:'middle', size:8, fill:'var(--mute)'}); }
+    txt(PX0-4, YY(0)+3, '0', {anchor:'end', size:8, fill:'var(--mute)'}); txt(PX0-4, YY(2)+3, '2', {anchor:'end', size:8, fill:'var(--mute)'}); txt(PX0-4, YY(-1)+3, '\u22121', {anchor:'end', size:8, fill:'var(--mute)'});
+    txt(PX1, PBOT+26, 's (real axis)', {anchor:'end', size:9, fill:'var(--mute)'});
+    // pole at s=1
+    svg.appendChild(mk('line',{x1:SX(1),y1:PTOP,x2:SX(1),y2:PBOT,stroke:'var(--pink)','stroke-width':1,'stroke-dasharray':'2 3','stroke-opacity':0.6})); txt(SX(1)+3, PTOP+8, 'pole s=1', {size:8, fill:'var(--pink)'});
+    // Dirichlet partial sum (dashed yellow), clamped
+    var dp='', pen=false; for(var i=0;i<=440;i++){ var s=SLO+(SHI-SLO)*i/440; var v=partial(s,N); var cl=v>YHI?YHI:(v<YLO?YLO:v); var inside=(v<=YHI&&v>=YLO); dp+=(pen?'L ':'M ')+SX(s).toFixed(1)+' '+YY(cl).toFixed(1)+' '; pen=true; }
+    svg.appendChild(mk('path',{d:dp, fill:'none', stroke:'var(--yellow)','stroke-width':1.4,'stroke-dasharray':'4 3'}));
+    // continued zeta (cyan), break at pole and at clamp
+    var d='', pz=false; for(i=0;i<=600;i++){ var s2=SLO+(SHI-SLO)*i/600; if(Math.abs(s2-1)<0.04){ pz=false; continue; } var z=zeta(s2); if(z===null||z>YHI+0.5||z<YLO-0.5){ pz=false; continue; } var zz=z>YHI?YHI:(z<YLO?YLO:z); d+=(pz?'L ':'M ')+SX(s2).toFixed(1)+' '+YY(zz).toFixed(1)+' '; pz=(z<=YHI&&z>=YLO); }
+    svg.appendChild(mk('path',{d:d, fill:'none', stroke:'var(--cyan)','stroke-width':2}));
+    // special points
+    function dot(s,v,lab,col){ if(v<YLO||v>YHI) return; svg.appendChild(mk('circle',{cx:SX(s),cy:YY(v),r:3.5,fill:col})); txt(SX(s)+5, YY(v)-4, lab, {size:9, fill:col}); }
+    dot(0,-0.5,'\u03b6(0)=\u2212\u00bd','var(--green)'); dot(-1,-1/12,'\u03b6(\u22121)=\u2212\u00b9\u2044\u2081\u2082','var(--green)'); dot(2,Math.PI*Math.PI/6,'\u03b6(2)=\u03c0\u00b2\u20446','var(--violet)');
+    dot(-2,0,'','var(--mute)'); dot(-4,0,'','var(--mute)'); txt(SX(-4)-2, YY(0)-6, 'trivial zeros \u22122,\u22124,\u2026', {size:8, fill:'var(--mute)'});
+    // legend
+    svg.appendChild(mk('line',{x1:PX0+6,y1:PTOP+8,x2:PX0+22,y2:PTOP+8,stroke:'var(--cyan)','stroke-width':2})); txt(PX0+26, PTOP+11, 'continued \u03b6(s)', {size:9, fill:'var(--cyan)'});
+    svg.appendChild(mk('line',{x1:PX0+6,y1:PTOP+22,x2:PX0+22,y2:PTOP+22,stroke:'var(--yellow)','stroke-width':1.4,'stroke-dasharray':'4 3'})); txt(PX0+26, PTOP+25, '\u03a3_{n\u2264'+N+'} n\u207b\u02e2 (partial sum)', {size:9, fill:'var(--yellow)'});
+    out.textContent='A Dirichlet series \u03b6(s) = \u03a3 n\u207b\u02e2 only defines a function where it CONVERGES \u2014 for \u03b6 that is Re s > 1 (the yellow partial sum tracks \u03b6 there, but for s \u2264 1 it diverges, shooting off as you raise N). The content of \u201c\u03b6 is an L-function\u201d is that this half-plane is an ARTIFACT: the true object continues to a meromorphic function on all of \u2102 (cyan), with a single simple pole at s = 1. The mechanism is the Mellin transform: \u039b(s) = \u03c0^(\u2212s/2)\u0393(s/2)\u03b6(s) = \u222b\u2080^\u221e ((\u03b8(iy)\u22121)/2)\u00b7y^{s/2\u22121} dy, split at y = 1; Jacobi\u2019s theta relation \u03b8(i/y) = \u221ay\u00b7\u03b8(iy) folds the two halves into each other, proving the FUNCTIONAL EQUATION \u039b(s) = \u039b(1\u2212s) and the continuation in one stroke (the same y\u21a61/y trick works for cusp-form L-functions via f(i/y)=\u03b5 y^k f(iy)). Reading off the values the series could never see: \u03b6(0) = \u2212\u00bd, \u03b6(\u22121) = \u2212\u00b9\u2044\u2081\u2082 (the regularized 1+2+3+\u22ef), \u03b6(\u22122)=\u03b6(\u22124)=\u22ef=0 (the TRIVIAL ZEROS, from the sin(\u03c0s/2) factor), and on the convergent side \u03b6(2)=\u03c0\u00b2\u20446. The functional equation mirrors s\u2194 1\u2212s about the critical line Re s = \u00bd, where the Riemann Hypothesis lives.';
+  }
+  sN.addEventListener('input', draw);
+  draw();
+})();
+</script>
+
 <!-- callback-auto-begin -->
 <aside class="callback">
   <div class="ttl">See also</div>
@@ -1228,6 +1287,70 @@ where $h$ is the class number of $K$ and $w$ the number of roots of unity in $K$
 <p>For elliptic curves the center of the functional equation is $s=1$, and <strong>Birch–Swinnerton-Dyer</strong> predicts
 $$\mathrm{ord}_{s=1} L(E,s) \;=\; \mathrm{rank}\,E(\mathbb{Q}),$$
 with the leading Taylor coefficient at $s=1$ equal to an explicit product of the real period, the regulator, torsion, local Tamagawa numbers, and the order of Sha. In every case the slogan is the same: <em>special values of $L$-functions are where analysis sees arithmetic directly</em>. The existence of the continuation (previous section) is the prerequisite; the special-value identities are the payoff.</p>
+
+<div class="widget" id="w-lfn-cnf">
+  <div class="hd"><div class="ttl">The class number formula: $L(1,\chi_d)=2\pi h/(w\sqrt{|d|})$</div><div class="hint">pick an imaginary quadratic field; the $L$-value reads off its class number $h$</div></div>
+  <div class="row" id="w-lfn-cnf-btns">
+    <button type="button" data-k="-3" class="active" aria-pressed="true">d = −3</button>
+    <button type="button" data-k="-4" class="" aria-pressed="false">d = −4</button>
+    <button type="button" data-k="-7" class="" aria-pressed="false">d = −7</button>
+    <button type="button" data-k="-8" class="" aria-pressed="false">d = −8</button>
+    <button type="button" data-k="-11" class="" aria-pressed="false">d = −11</button>
+    <button type="button" data-k="-15" class="" aria-pressed="false">d = −15</button>
+    <button type="button" data-k="-20" class="" aria-pressed="false">d = −20</button>
+    <button type="button" data-k="-23" class="" aria-pressed="false">d = −23</button>
+    <button type="button" data-k="-24" class="" aria-pressed="false">d = −24</button>
+    <button type="button" data-k="-47" class="" aria-pressed="false">d = −47</button>
+  </div>
+  <svg id="w-lfn-cnf-svg" viewBox="0 0 560 320" width="560" height="320" role="img" aria-label="The Kronecker character of an imaginary quadratic field and the class number formula relating its L-value to the class number"><title>The class number formula L(1, chi_d) = 2 pi h / (w sqrt|d|): the Dirichlet L-series equals the closed form, reading off the class number h</title></svg>
+  <div class="readout" id="w-lfn-cnf-out"></div>
+</div>
+<script>
+/* l-functions-class-number widget: w-lfn-cnf */
+(function(){
+  var svg=document.getElementById('w-lfn-cnf-svg'), out=document.getElementById('w-lfn-cnf-out');
+  var btns=document.getElementById('w-lfn-cnf-btns');
+  if(!svg||!out||!btns) return;
+  var NS='http://www.w3.org/2000/svg';
+  function mk(tag,attrs,text){ var e=document.createElementNS(NS,tag); for(var k in attrs){ e.setAttribute(k,attrs[k]); } if(text!=null) e.textContent=text; return e; }
+  function txt(x,y,s,opt){ opt=opt||{}; svg.appendChild(mk('text',{x:x,y:y,'text-anchor':opt.anchor||'start','font-size':opt.size||12,fill:opt.fill||'var(--ink)','font-weight':opt.weight||'normal'},s)); }
+  function legendre(a,p){ a=((a%p)+p)%p; if(a===0) return 0; var r=1,e=(p-1)/2,b=a; while(e>0){ if(e&1) r=(r*b)%p; b=(b*b)%p; e>>=1; } return r===1?1:-1; }
+  function kron2(a){ a=((a%8)+8)%8; if(a%2===0) return 0; return (a===1||a===7)?1:-1; }
+  function kronecker(a,n){ if(n===0) return (a===1||a===-1)?1:0; var s=1; while(n%2===0){ n/=2; s*=kron2(a); } var m=n, prod=1; for(var p=3;p*p<=m;p+=2){ while(m%p===0){ m/=p; prod*=legendre(a,p); } } if(m>1) prod*=legendre(a,m); return s*prod; }
+  var FIELD={ '-3':{h:1,w:6}, '-4':{h:1,w:4}, '-7':{h:1,w:2}, '-8':{h:1,w:2}, '-11':{h:1,w:2}, '-15':{h:2,w:2}, '-20':{h:2,w:2}, '-23':{h:3,w:2}, '-24':{h:2,w:2}, '-47':{h:5,w:2} };
+  var curKey='-3';
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    var d=parseInt(curKey,10), ad=-d, F=FIELD[curKey], h=F.h, w=F.w;
+    var chi=[]; for(var r=0;r<ad;r++) chi.push(kronecker(d,r));
+    var Lser=0; for(var n=1;n<=40000;n++){ var c=chi[n%ad]; if(c) Lser+=c/n; }
+    var formula=2*Math.PI*h/(w*Math.sqrt(ad));
+    var hRead=Math.round(Lser*w*Math.sqrt(ad)/(2*Math.PI));
+    // character strip
+    txt(20, 40, 'Kronecker character \u03c7_d  (period |d| = '+ad+'):', {size:11, fill:'var(--mute)'});
+    var sx0=24, cw=Math.min(22, 480/ad), cy=52, ch=22;
+    for(r=0;r<ad;r++){ var x=sx0+r*cw, c=chi[r]; var col=c>0?'var(--green)':(c<0?'var(--pink)':'var(--line)');
+      svg.appendChild(mk('rect',{x:x.toFixed(1), y:cy, width:(cw-1).toFixed(1), height:ch, fill:col, 'fill-opacity':c?0.8:0.3}));
+      if(ad<=24){ txt(x+cw/2, cy+ch+10, ''+r, {anchor:'middle', size:7, fill:'var(--mute)'}); txt(x+cw/2, cy+14, c>0?'+':(c<0?'\u2212':'0'), {anchor:'middle', size:9, fill:'var(--bg)', weight:700}); } }
+    txt(sx0, cy+ch+(ad<=24?24:14), '\u03c7_d(n) = (d / n) Kronecker symbol; +1 green, \u22121 pink, 0 grey \u2014 a real character mod |d|', {size:8, fill:'var(--mute)'});
+    // L-value comparison
+    var ly=148;
+    txt(20, ly, 'Dirichlet L-series      L(1, \u03c7_d) = \u03a3 \u03c7_d(n)/n  =  '+Lser.toFixed(5), {size:12, fill:'var(--cyan)', weight:700}); ly+=24;
+    txt(20, ly, 'class number formula   2\u03c0h / (w\u221a|d|)  =  2\u03c0\u00b7'+h+' / ('+w+'\u00b7'+Math.sqrt(ad).toFixed(3)+')  =  '+formula.toFixed(5), {size:12, fill:'var(--yellow)', weight:700}); ly+=24;
+    var match=Math.abs(Lser-formula)<0.02;
+    txt(20, ly, (match?'\u2713 they agree':'\u2248')+'   \u21d2   class number  h = round( L(1,\u03c7_d)\u00b7w\u221a|d| / 2\u03c0 ) = '+hRead+'   (true h = '+h+')', {size:12, fill:'var(--green)', weight:700}); ly+=10;
+    // bar comparison
+    var by=ly+18, bx0=120, bxmax=470, vmax=2.6; function BW(v){ return (Math.min(v,vmax)/vmax)*(bxmax-bx0); }
+    txt(bx0-6, by+9, 'series', {anchor:'end', size:9, fill:'var(--cyan)'}); svg.appendChild(mk('rect',{x:bx0,y:by,width:BW(Lser).toFixed(1),height:12,fill:'var(--cyan)','fill-opacity':0.8}));
+    txt(bx0-6, by+27, 'formula', {anchor:'end', size:9, fill:'var(--yellow)'}); svg.appendChild(mk('rect',{x:bx0,y:by+18,width:BW(formula).toFixed(1),height:12,fill:'var(--yellow)','fill-opacity':0.8}));
+    out.textContent='Once an L-function is continued to \u2102, its values carry deep arithmetic. The cleanest case is an imaginary quadratic field K = \u211a(\u221ad) with d < 0 a fundamental discriminant, cut out by the Kronecker character \u03c7_d (a real Dirichlet character mod |d|, shown as the strip). The ANALYTIC CLASS NUMBER FORMULA says its L-value at s = 1 is L(1, \u03c7_d) = 2\u03c0h / (w\u221a|d|), where h is the CLASS NUMBER of K and w the number of roots of unity in K (the regulator R = 1 here, since the unit group is finite). For d = '+d+': summing the slowly-converging Dirichlet series gives L(1, \u03c7_d) = '+Lser.toFixed(5)+', the closed form 2\u03c0\u00b7'+h+'/('+w+'\u221a'+ad+') = '+formula.toFixed(5)+' \u2014 they agree, and inverting reads off h = '+hRead+'. This is the SHAPE every special value takes: a transcendental PERIOD (here 2\u03c0/\u221a|d|) times an ARITHMETIC invariant (the integer h). The same template runs through Euler\u2019s \u03b6(2k) = (\u22121)^{k+1}(2\u03c0)^{2k}B_{2k}/(2\u00b7(2k)!) [period \u03c0^{2k}, arithmetic B_{2k}] and \u03b6(1\u2212n) = \u2212B_n/n [pure rational], up to the Birch\u2013Swinnerton-Dyer conjecture, where L^{(r)}(E,1) packages the rank, regulator, and Tate\u2013Shafarevich group of an elliptic curve.';
+  }
+  btns.addEventListener('click', function(e){ var b=e.target.closest('button'); if(!b) return; curKey=b.getAttribute('data-k');
+    Array.prototype.forEach.call(btns.querySelectorAll('button'), function(x){ var on=x===b; x.classList.toggle('active', on); x.setAttribute('aria-pressed', on?'true':'false'); });
+    draw(); });
+  draw();
+})();
+</script>
 
 <div class="quiz" data-concept="special-values-lfunc"></div><!-- backlinks-auto-begin -->
 <aside class="related">

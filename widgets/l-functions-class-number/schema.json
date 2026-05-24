@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/l-functions-class-number/schema.json",
+  "title": "l-functions-class-number widget params",
+  "description": "The analytic class number formula L(1, chi_d) = 2 pi h / (w sqrt|d|) for imaginary quadratic fields, shown to hold numerically. Buttons pick a negative fundamental discriminant d (such as -3, -4, -7, -8, -11, -15, -20, -23, -24, -47); the widget builds the Kronecker character chi_d of period |d|, draws its values as a plus/minus/zero strip, sums the Dirichlet L-series L(1, chi_d) = sum chi_d(n)/n, and compares it with the closed form 2 pi h / (w sqrt|d|) using the field's known class number h and number of roots of unity w (the regulator is 1 since the unit group is finite). The two agree, so the purely analytic L-value reads off the arithmetic class number h. The readout frames this as the shape of all special values -- a transcendental period times an arithmetic invariant -- alongside Euler's zeta(2k) = rational times pi^{2k} and zeta(1-n) = -B_n/n. No numeric params beyond the standard widgetId/title/hint.",
+  "meta": {
+    "family": "l-functions-class-number",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\"> wrapper."
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title rendered inside .hd > .ttl."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional short hint rendered inside .hd > .hint."
+    }
+  }
+}
