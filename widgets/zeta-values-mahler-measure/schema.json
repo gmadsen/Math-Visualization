@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/zeta-values-mahler-measure/schema.json",
+  "title": "zeta-values-mahler-measure widget params",
+  "description": "The (logarithmic) Mahler measure m(P) = integral over the unit circle of log|P(e^{2 pi i theta})| d theta, for one-variable polynomials, and its bridge to zeta values. Buttons pick a polynomial from a gallery (2x, the cyclotomic x^2+1, the golden x^2-x-1, and Lehmer's degree-10 polynomial); the widget plots the integrand log|P(e^{2 pi i theta})| over one period (its signed area is m(P)), computes m two ways -- Jensen's formula m = log|leading| + sum of log|root| over roots outside the unit circle (using precomputed roots), and the live trapezoidal torus integral -- and shows they agree. The readout states Jensen's formula, frames Lehmer's problem (Lehmer's number 1.17628... is the smallest known MULTIPLICATIVE Mahler measure M(P) = exp(m(P)) above 1, equivalently the smallest logarithmic m(P) above 0, = 0.16236...; whether the infimum of positive measures is bounded away is open), and gives Smyth's multivariable bridge m(1+x+y+z) = (7/2 pi^2) zeta(3) and m(1+x+y) = (3 sqrt 3 / 4 pi) L(chi_-3, 2), where the Mahler measure of a simple polynomial is a special L-value. No numeric params beyond the standard widgetId/title/hint.",
+  "meta": {
+    "family": "zeta-values-mahler-measure",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\"> wrapper."
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title rendered inside .hd > .ttl."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional short hint rendered inside .hd > .hint."
+    }
+  }
+}

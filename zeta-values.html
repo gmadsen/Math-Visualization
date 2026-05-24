@@ -915,6 +915,64 @@ $$d_n \;=\; d_{n-2}+d_{n-3}, \qquad d_0=1,\ d_1=0,\ d_2=1.$$
 
 <div class="note"><strong>Why this matters.</strong> MZVs are Feynman-integral periods, periods of the motivic $\pi_1$ of $\mathbb{P}^1\setminus\{0,1,\infty\}$, and Drinfeld-associator coefficients — the dimension conjecture is, after RH, the most accessible-looking transcendence question in number theory.</div>
 
+<div class="widget" id="w-mzv">
+  <div class="hd"><div class="ttl">Multiple zeta values and the double-shuffle relations</div><div class="hint">slide the truncation $N$; watch the stuffle and shuffle products force a relation</div></div>
+  <div class="row">
+    <label for="w-mzv-N">truncation $N$ (sum to $n_1\le N$)</label>
+    <input type="range" id="w-mzv-N" min="20" max="50" value="34" step="1">
+    <span class="pill" id="w-mzv-Nv">N = …</span>
+  </div>
+  <svg id="w-mzv-svg" viewBox="0 0 560 320" width="560" height="320" role="img" aria-label="Multiple zeta values bar chart and the stuffle, shuffle, and double-shuffle relations checked numerically"><title>Multiple zeta values: the weight-5 values and the stuffle / shuffle / double-shuffle relations, computed by truncated summation</title></svg>
+  <div class="readout" id="w-mzv-out"></div>
+</div>
+<script>
+/* zeta-values-multiple-zeta widget: w-mzv */
+(function(){
+  var svg=document.getElementById('w-mzv-svg'), out=document.getElementById('w-mzv-out');
+  var sN=document.getElementById('w-mzv-N'), Nv=document.getElementById('w-mzv-Nv');
+  if(!svg||!out||!sN||!Nv) return;
+  var NS='http://www.w3.org/2000/svg';
+  function mk(tag,attrs,text){ var e=document.createElementNS(NS,tag); for(var k in attrs){ e.setAttribute(k,attrs[k]); } if(text!=null) e.textContent=text; return e; }
+  function txt(x,y,s,opt){ opt=opt||{}; svg.appendChild(mk('text',{x:x,y:y,'text-anchor':opt.anchor||'start','font-size':opt.size||12,fill:opt.fill||'var(--ink)','font-weight':opt.weight||'normal','font-family':opt.mono?'monospace':'inherit'},s)); }
+  function z1(s,N){ var t=0; for(var n=1;n<=N;n++) t+=Math.pow(n,-s); return t; }
+  function z2(s1,s2,N){ var t=0, pre=0; for(var n=1;n<=N;n++){ t+=Math.pow(n,-s1)*pre; pre+=Math.pow(n,-s2); } return t; }
+  function fmt(x){ return x.toFixed(4); }
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    var N=Math.round(Math.pow(10, parseInt(sN.value,10)/10)); Nv.textContent='N = '+N.toLocaleString(); sN.setAttribute('aria-valuetext','N = '+N.toLocaleString());
+    var Z2=z1(2,N), Z3=z1(3,N), Z5=z1(5,N);
+    var Z21=z2(2,1,N), Z23=z2(2,3,N), Z32=z2(3,2,N), Z41=z2(4,1,N);
+    // bar chart of weight-5 MZVs (+ zeta2, zeta3)
+    var bars=[['\u03b6(2)',Z2,'var(--mute)'],['\u03b6(3)',Z3,'var(--mute)'],['\u03b6(5)',Z5,'var(--cyan)'],['\u03b6(2,3)',Z23,'var(--green)'],['\u03b6(3,2)',Z32,'var(--green)'],['\u03b6(4,1)',Z41,'var(--green)']];
+    var BX0=50, BW=46, GAP=18, BBOT=150, BTOP=46, vmax=1.75;
+    txt(BX0-8, BTOP-6, 'value', {size:9, fill:'var(--mute)', anchor:'end'});
+    svg.appendChild(mk('line',{x1:BX0-8,y1:BBOT,x2:BX0+6*(BW+GAP),y2:BBOT,stroke:'var(--line)','stroke-width':1}));
+    bars.forEach(function(b,i){ var x=BX0+i*(BW+GAP); var h=(b[1]/vmax)*(BBOT-BTOP); var y=BBOT-h;
+      svg.appendChild(mk('rect',{x:x,y:y.toFixed(1),width:BW,height:h.toFixed(1),fill:b[2],'fill-opacity':0.8}));
+      txt(x+BW/2, y-4, b[1].toFixed(3), {anchor:'middle', size:9, fill:'var(--ink)'});
+      txt(x+BW/2, BBOT+13, b[0], {anchor:'middle', size:10, fill:'var(--ink)'}); });
+    // relations panel
+    var stuffleR=Z23+Z32+Z5, shuffleR=Z23+3*Z32+6*Z41, dblL=2*Z32+6*Z41;
+    function ok(a,b){ return Math.abs(a-b)<0.01; }
+    function chk(v){ return v?' \u2713':' \u2248'; }
+    var ry=182, rh=18;
+    txt(20, ry, 'relations (all hold as N\u2192\u221e; stuffle is exact at every N):', {size:10, fill:'var(--mute)'}); ry+=rh+2;
+    txt(24, ry, 'Euler   \u03b6(2,1) = '+fmt(Z21)+'   \u03b6(3) = '+fmt(Z3)+chk(ok(Z21,Z3)), {size:11, fill:'var(--ink)', mono:true}); ry+=rh;
+    txt(24, ry, 'stuffle \u03b6(2)\u03b6(3) = '+fmt(Z2*Z3)+' = \u03b6(2,3)+\u03b6(3,2)+\u03b6(5) = '+fmt(stuffleR)+chk(ok(Z2*Z3,stuffleR)), {size:11, fill:'var(--ink)', mono:true}); ry+=rh;
+    txt(24, ry, 'shuffle \u03b6(2)\u03b6(3) = '+fmt(Z2*Z3)+' = \u03b6(2,3)+3\u03b6(3,2)+6\u03b6(4,1) = '+fmt(shuffleR)+chk(ok(Z2*Z3,shuffleR)), {size:11, fill:'var(--ink)', mono:true}); ry+=rh;
+    txt(24, ry, 'double-shuffle  2\u03b6(3,2)+6\u03b6(4,1) = '+fmt(dblL)+' = \u03b6(5) = '+fmt(Z5)+chk(ok(dblL,Z5)), {size:11, weight:700, fill:'var(--green)', mono:true}); ry+=rh+4;
+    // Zagier dimension table
+    var d=[1,0,1]; for(var n=3;n<=8;n++) d.push(d[n-2]+d[n-3]);
+    txt(20, ry, 'Zagier:  d\u2099 = d\u2099\u208b\u2082 + d\u2099\u208b\u2083   vs naive 2\u207f\u207b\u00b2', {size:10, fill:'var(--mute)'}); ry+=14;
+    var cells=''; for(var nn=2;nn<=8;nn++){ cells+='  n='+nn+': d='+d[nn]+' ('+(Math.pow(2,nn-2))+')'; }
+    txt(24, ry, cells.trim(), {size:9, fill:'var(--violet)', mono:true});
+    out.textContent='A multiple zeta value nests the \u03b6-sum: \u03b6(s\u2081,\u2026,s\u2096) = \u03a3_{n\u2081>\u22ef>n\u2096\u22651} n\u2081^{\u2212s\u2081}\u22efn\u2096^{\u2212s\u2096} (depth k, weight w=\u03a3s\u1d62). The field opens with Euler\u2019s \u03b6(2,1)=\u03b6(3). Each MZV has TWO product structures. STUFFLE multiplies the nested sums and interleaves indices (with collisions where indices coincide and exponents add): \u03b6(2)\u03b6(3) = \u03b6(2,3)+\u03b6(3,2)+\u03b6(5) \u2014 this is an EXACT partial-sum identity, true at every truncation N. SHUFFLE writes each MZV as an iterated Chen integral in \u03c9\u2080=dt/t, \u03c9\u2081=dt/(1\u2212t) and shuffles the letters: \u03b6(2)\u03b6(3) = \u03b6(2,3)+3\u03b6(3,2)+6\u03b6(4,1). Subtracting the two expressions for \u03b6(2)\u03b6(3) kills the product and leaves the nontrivial DOUBLE-SHUFFLE relation 2\u03b6(3,2)+6\u03b6(4,1) = \u03b6(5) among weight-5 MZVs (the panel checks it: currently '+fmt(dblL)+' vs \u03b6(5)='+fmt(Z5)+'). Iterating double-shuffle across all weights generates the rich web of MZV identities, which collapses the \u211a-span far below the naive 2^{n\u22122} compositions: ZAGIER conjectured dim_\u211a Z_n = d_n with d_n = d_{n\u22122}+d_{n\u22123} (a Padovan-type recurrence; d\u2080..d\u2088 = 1,0,1,1,1,2,2,3,4), proved as an UPPER bound by Goncharov and Terasoma. Raise N to watch the slowly-converging values (\u03b6(2,1)\u2192\u03b6(3)) tighten.';
+  }
+  sN.addEventListener('input', draw);
+  draw();
+})();
+</script>
+
 
 <div class="quiz" data-concept="multiple-zeta-values"></div>
 </section>
@@ -952,6 +1010,76 @@ $$m(P) \;\stackrel{?}{=}\; r\,L'(E,0)$$
 <p>Why should $\log|P|$ on a torus know about an $L$-value? Deninger reframed it through Beilinson's regulator: $T^n$ is a real cycle on $V=\{P=0\}$, $\log|P|$ extends to a Deligne cohomology class, and pairing cycle with class is — by Beilinson's conjecture — a rational multiple of $L'(V,0)$. In a sentence: <em>Mahler measure is a height; the height is a regulator; the regulator is a special $L$-value.</em> This places Smyth and Boyd inside the same framework as BSD.</p>
 
 <div class="note"><strong>Numerical sanity check.</strong> Direct integration: $m(1+x+y)\approx 0.32307$; $L'(\chi_{-3},-1)\approx 0.32307\ldots$ Laptop-checkable to thousands of decimals; still no proof for most of Boyd's conjectures.</div>
+
+<div class="widget" id="w-mahler">
+  <div class="hd"><div class="ttl">Mahler measure: Jensen, Lehmer, and the bridge to ζ</div><div class="hint">pick a polynomial; compare Jensen&#39;s height with the torus integral</div></div>
+  <div class="row" id="w-mahler-btns">
+    <button type="button" data-k="twox" class="active" aria-pressed="true">2x</button>
+    <button type="button" data-k="cyclo" class="" aria-pressed="false">x² + 1</button>
+    <button type="button" data-k="golden" class="" aria-pressed="false">x² − x − 1</button>
+    <button type="button" data-k="lehmer" class="" aria-pressed="false">Lehmer L(x)</button>
+  </div>
+  <svg id="w-mahler-svg" viewBox="0 0 560 320" width="560" height="320" role="img" aria-label="The integrand log|P| over the unit circle, whose signed area is the Mahler measure m(P)"><title>The Mahler-measure integrand log|P(e^{2 pi i theta})| over one period; its signed area is m(P), which Jensen's formula also gives from the roots outside the unit circle</title></svg>
+  <div class="readout" id="w-mahler-out"></div>
+</div>
+<script>
+/* zeta-values-mahler-measure widget: w-mahler */
+(function(){
+  var svg=document.getElementById('w-mahler-svg'), out=document.getElementById('w-mahler-out');
+  var btns=document.getElementById('w-mahler-btns');
+  if(!svg||!out||!btns) return;
+  var NS='http://www.w3.org/2000/svg';
+  function mk(tag,attrs,text){ var e=document.createElementNS(NS,tag); for(var k in attrs){ e.setAttribute(k,attrs[k]); } if(text!=null) e.textContent=text; return e; }
+  function txt(x,y,s,opt){ opt=opt||{}; svg.appendChild(mk('text',{x:x,y:y,'text-anchor':opt.anchor||'start','font-size':opt.size||12,fill:opt.fill||'var(--ink)','font-weight':opt.weight||'normal'},s)); }
+  var POLY={
+    twox:{name:'2x', c:[0,2], lead:2, out:[], note:'one root at 0 (inside); leading coeff 2'},
+    cyclo:{name:'x\u00b2 + 1', c:[1,0,1], lead:1, out:[], note:'roots \u00b1i ON the unit circle'},
+    golden:{name:'x\u00b2 \u2212 x \u2212 1', c:[-1,-1,1], lead:1, out:[1.6180339887], note:'golden ratio \u03c6 = 1.618\u2026 (outside), \u22120.618 (inside)'},
+    lehmer:{name:'Lehmer L(x)', c:[1,1,0,-1,-1,-1,-1,-1,0,1,1], lead:1, out:[1.1762808183], note:'Lehmer\u2019s number 1.17628\u2026 (outside) + its reciprocal (inside); 8 roots ON the circle'}
+  };
+  function absP(re,im,c){ var ar=0,ai=0,zr=1,zi=0; for(var k=0;k<c.length;k++){ ar+=c[k]*zr; ai+=c[k]*zi; var nr=zr*re-zi*im, ni=zr*im+zi*re; zr=nr; zi=ni; } return Math.hypot(ar,ai); }
+  function jensen(P){ var m=Math.log(P.lead); for(var i=0;i<P.out.length;i++) m+=Math.log(P.out[i]); return m; }
+  function integral(P,M){ var s=0; for(var i=0;i<M;i++){ var th=2*Math.PI*(i+0.5)/M; var v=absP(Math.cos(th),Math.sin(th),P.c); s+=Math.log(Math.max(v,1e-12)); } return s/M; }
+  var PX0=58, PX1=500, PTOP=46, PBOT=212, YLO=-4, YHI=2.4;
+  function TX(t){ return PX0 + t*(PX1-PX0); }
+  function VY(v){ if(v>YHI)v=YHI; if(v<YLO)v=YLO; return PBOT - (v-YLO)/(YHI-YLO)*(PBOT-PTOP); }
+  var curKey='twox';
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    var P=POLY[curKey];
+    var mJ=jensen(P), mI=integral(P,4000);
+    // axes
+    var y0=VY(0);
+    svg.appendChild(mk('line',{x1:PX0,y1:y0,x2:PX1,y2:y0,stroke:'var(--line)','stroke-width':1}));
+    svg.appendChild(mk('line',{x1:PX0,y1:PTOP,x2:PX0,y2:PBOT,stroke:'var(--line)','stroke-width':1}));
+    txt(PX0-6, y0+3, '0', {anchor:'end', size:8, fill:'var(--mute)'});
+    txt(PX0-6, VY(2), '+2', {anchor:'end', size:8, fill:'var(--mute)'}); txt(PX0-6, VY(-3), '\u22123', {anchor:'end', size:8, fill:'var(--mute)'});
+    txt(PX0, PTOP-6, 'log |P(e\u00b2\u1d56\u2071\u1d52)|   \u2014   m = mean height (dashed line)', {size:9, fill:'var(--mute)'});
+    [0,0.25,0.5,0.75,1].forEach(function(t){ var x=TX(t); svg.appendChild(mk('line',{x1:x,y1:PBOT,x2:x,y2:PBOT+4,stroke:'var(--line)','stroke-width':1})); txt(x, PBOT+14, t===0?'\u03b8=0':(t===1?'1':''+t), {anchor:'middle', size:8, fill:'var(--mute)'}); });
+    // integrand curve (sampled; break at deep singularities)
+    var NSp=420, d='', pen=false;
+    for(var i=0;i<=NSp;i++){ var t=i/NSp; var v=absP(Math.cos(2*Math.PI*t),Math.sin(2*Math.PI*t),P.c); var L=Math.log(Math.max(v,1e-12));
+      var X=TX(t), Y=VY(L); d+=(pen?'L ':'M ')+X.toFixed(1)+' '+Y.toFixed(1)+' '; pen=(L>YLO+0.01); }
+    svg.appendChild(mk('path',{d:d, fill:'none', stroke:'var(--cyan)','stroke-width':2}));
+    // shade signed area between curve and 0 (light)
+    var area='M '+TX(0).toFixed(1)+' '+y0.toFixed(1)+' ';
+    for(i=0;i<=NSp;i++){ var t2=i/NSp; var v2=absP(Math.cos(2*Math.PI*t2),Math.sin(2*Math.PI*t2),P.c); area+='L '+TX(t2).toFixed(1)+' '+VY(Math.log(Math.max(v2,1e-12))).toFixed(1)+' '; }
+    area+='L '+TX(1).toFixed(1)+' '+y0.toFixed(1)+' Z';
+    svg.appendChild(mk('path',{d:area, fill:'var(--cyan)','fill-opacity':0.10, stroke:'none'}));
+    // m line marker (the average value m)
+    var ym=VY(mJ); svg.appendChild(mk('line',{x1:PX0,y1:ym,x2:PX1,y2:ym,stroke:'var(--yellow)','stroke-width':1.4,'stroke-dasharray':'5 3'}));
+    txt(PX1+3, ym+3, 'm = '+mJ.toFixed(4), {size:10, fill:'var(--yellow)', weight:700});
+    // readout-ish summary lines in svg
+    txt(PX0, PBOT+34, P.name+':  '+P.note, {size:10, fill:'var(--ink)'});
+    txt(PX0, PBOT+50, 'Jensen  m = log|lead| + \u03a3_{|\u03b1|>1} log|\u03b1| = '+mJ.toFixed(5)+'      torus integral \u2248 '+mI.toFixed(5), {size:10, fill:'var(--mute)'});
+    out.textContent='The (logarithmic) Mahler measure is m(P) = \u222b\u2080\u00b9 log|P(e\u00b2\u1d56\u2071\u1d4d)| d\u03b8 \u2014 the average of log|P| over the unit circle (the cyan curve; its mean value is m, the dashed line \u2014 where roots meet the circle the curve dips to log-singularities, clipped here for display but integrating to a finite value). In ONE variable Jensen\u2019s formula collapses the integral to a pure height: m(P) = log|a| + \u03a3_{|\u03b1\u2c7c|>1} log|\u03b1\u2c7c| over the leading coefficient a and the roots OUTSIDE the unit circle (roots on or inside contribute nothing). For '+P.name+': '+P.note+', so m = '+mJ.toFixed(5)+', matching the torus integral '+mI.toFixed(5)+' (roots ON the circle give log-singularities, so the integral converges slowly there). LEHMER\u2019S PROBLEM: among integer polynomials with m(P) > 0, is there a GAP above 0 \u2014 an infimum strictly positive? The smallest known value is Lehmer\u2019s m(L) = log(1.17628\u2026) = 0.162357\u2026, unbeaten since 1933; whether inf{m(P) : m(P)>0} > 0 is open. The bridge to \u03b6: in TWO+ variables no elementary evaluation exists, and Smyth (1981) found the Mahler measure computes special L-values \u2014 m(1+x+y) = (3\u221a3/4\u03c0) L(\u03c7\u208b\u2083, 2) and m(1+x+y+z) = (7/2\u03c0\u00b2) \u03b6(3) \u2248 0.4263, Ap\u00e9ry\u2019s constant again. Boyd then conjectured m(P) = r\u00b7L\u2032(E,0) for the elliptic curve P=0, tying these heights to the deepest L-value conjectures.';
+  }
+  btns.addEventListener('click', function(e){ var b=e.target.closest('button'); if(!b) return; curKey=b.getAttribute('data-k');
+    Array.prototype.forEach.call(btns.querySelectorAll('button'), function(x){ var on=x===b; x.classList.toggle('active', on); x.setAttribute('aria-pressed', on?'true':'false'); });
+    draw(); });
+  draw();
+})();
+</script>
 
 
 <!-- callback-auto-begin -->

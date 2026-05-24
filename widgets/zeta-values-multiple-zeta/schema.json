@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/zeta-values-multiple-zeta/schema.json",
+  "title": "zeta-values-multiple-zeta widget params",
+  "description": "Multiple zeta values (MZVs) and the double-shuffle relations, demonstrated numerically. An MZV is the nested sum zeta(s1,...,sk) = sum over n1 > ... > nk >= 1 of the product of n_i^{-s_i}; a truncation slider N computes zeta(2), zeta(3), zeta(5) and the weight-5 MZVs zeta(2,1), zeta(2,3), zeta(3,2), zeta(4,1) by direct summation. The widget bars the values and checks four identities live: Euler's zeta(2,1) = zeta(3); the STUFFLE product zeta(2) zeta(3) = zeta(2,3) + zeta(3,2) + zeta(5); the SHUFFLE product zeta(2) zeta(3) = zeta(2,3) + 3 zeta(3,2) + 6 zeta(4,1); and the resulting DOUBLE-SHUFFLE relation 2 zeta(3,2) + 6 zeta(4,1) = zeta(5). It also shows Zagier's dimension conjecture d_n = d_{n-2} + d_{n-3} against the naive 2^{n-2} count of weight-n MZVs. No numeric params beyond the standard widgetId/title/hint.",
+  "meta": {
+    "family": "zeta-values-multiple-zeta",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\"> wrapper."
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title rendered inside .hd > .ttl."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional short hint rendered inside .hd > .hint."
+    }
+  }
+}
