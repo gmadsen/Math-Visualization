@@ -3,10 +3,10 @@
 ## Corpus totals
 
 - Topics: **207**, concepts: **1422**
-- Widgets: **1560** (registry-driven: 1560, inline: 0)
+- Widgets: **1561** (registry-driven: 1561, inline: 0)
 - Quizzes: **5458** (v1: 4222, hard: 1223, expert: 13)
 - Quiz types: mcq: 3591, numeric: 1291, multi-select: 277, matching: 107, ordering: 85, spot-the-error: 53, complex: 29, proof-completion: 21, construction: 2, guess-my-rule: 2
-- Concepts lacking a widget in their section: **41**
+- Concepts lacking a widget in their section: **40**
 - Concepts lacking a hard-tier quiz: **984**
 
 ## Per-slug registry adoption
@@ -195,6 +195,7 @@ page has wired one in yet.
 | `cohomology-and-duality-w3` | verbatim | click | 2d | 1 | cohomology-and-duality |
 | `cohomology-and-duality-w4` | verbatim | click | 2d | 1 | cohomology-and-duality |
 | `cohomology-and-duality-w5` | verbatim | click | 2d | 1 | cohomology-and-duality |
+| `cohomology-stiefel-whitney-rpn` | cohomology-stiefel-whitney-rpn | slider | 2d | 1 | cohomology-and-duality |
 | `commutative-algebra-artinian-local` | parametric-plot | select | 2d | 1 | commutative-algebra |
 | `commutative-algebra-completion` | commutative-algebra-completion | interact | 2d | 1 | commutative-algebra |
 | `commutative-algebra-dedekind` | commutative-algebra-dedekind | select | 2d | 1 | commutative-algebra |
@@ -1042,10 +1043,10 @@ page has wired one in yet.
 ### Geometry & topology
 
 - Topics: **25**, concepts: **160**
-- Widgets: **174** (registry-driven: 174, inline: 0)
-  - by family: verbatim: 54, button-stepper: 34, slider-readout: 6, surface-viewer: 6, clickable-diagram: 4, clickable-graph: 2, svg-illustration: 2, mostow-rigidity-dial: 1, mostow-h3-fundamental-domain: 1, mostow-boundary-extension: 1, mostow-boundary-orbit: 1, mostow-rank-tower: 1, mostow-volume-spectrum: 1, symplectic-form-pairing: 1, symplectic-darboux-moser: 1, symplectic-harmonic-portrait: 1, symplectic-dirac-ladder: 1, symplectic-cotangent-lagrangians: 1, symplectic-floer-intersections: 1, knot-polynomials-gallery: 1, knot-polynomials-reidemeister: 1, knot-polynomials-alexander: 1, knot-polynomials-bracket: 1, knot-polynomials-homfly: 1, knot-polynomials-rmatrix: 1, ricci-einstein-flows: 1, ricci-deturck-trick: 1, ricci-blowup-rates: 1, ricci-soliton-zoo: 1, ricci-neckpinch-surgery: 1, ricci-extinction-timeline: 1, k-theory-grothendieck-builder: 1, k-theory-ses-relations: 1, k-theory-bott-periodicity: 1, k-theory-chern-character: 1, k-theory-low-k-groups: 1, k-theory-index-theorem: 1, atiyah-singer-index-family: 1, atiyah-singer-symbol: 1, atiyah-singer-ch-td: 1, atiyah-singer-cases: 1, atiyah-singer-dirac-sphere: 1, atiyah-singer-anomaly: 1, counterexample-explorer: 1, proof-scrubber: 1, sm-manifold-gallery: 1, diff-forms-integration: 1, diff-forms-pullback: 1, diff-geom-surface-patch: 1, diff-geom-fundamental-forms: 1, rg-ricci-curvature: 1, rg-volume-form: 1, lie-algebra-tangent: 1, lie-adjoint-killing: 1, riemann-surfaces-chart-atlas: 1, lattice-visualizer: 1, characteristic-classes-mobius-vs-cylinder: 1, characteristic-classes-w1-surfaces: 1, characteristic-classes-c1-clutching: 1, characteristic-classes-pontryagin-formulas: 1, characteristic-classes-poincare-hopf: 1, characteristic-classes-gauss-bonnet: 1, characteristic-classes-classifying-map: 1, characteristic-classes-signature-l-genus: 1, characteristic-classes-cpn-localisation: 1, morse-torus-height: 1, morse-handle-decomp: 1, morse-cw-cells: 1, morse-betti-counts: 1, morse-gradient-flow: 1, morse-sphere-vs-rp2: 1, morse-smale-saddle: 1, morse-cerf-birth-death: 1
-  - by dimension: 2d: 167, 3d: 7
-  - by gesture: click: 94, slider: 39, select: 14, drag: 11, button-stepper: 6, step: 3, pick: 2, static: 2, interact: 1, input: 1, timeline: 1
+- Widgets: **175** (registry-driven: 175, inline: 0)
+  - by family: verbatim: 54, button-stepper: 34, slider-readout: 6, surface-viewer: 6, clickable-diagram: 4, clickable-graph: 2, svg-illustration: 2, cohomology-stiefel-whitney-rpn: 1, mostow-rigidity-dial: 1, mostow-h3-fundamental-domain: 1, mostow-boundary-extension: 1, mostow-boundary-orbit: 1, mostow-rank-tower: 1, mostow-volume-spectrum: 1, symplectic-form-pairing: 1, symplectic-darboux-moser: 1, symplectic-harmonic-portrait: 1, symplectic-dirac-ladder: 1, symplectic-cotangent-lagrangians: 1, symplectic-floer-intersections: 1, knot-polynomials-gallery: 1, knot-polynomials-reidemeister: 1, knot-polynomials-alexander: 1, knot-polynomials-bracket: 1, knot-polynomials-homfly: 1, knot-polynomials-rmatrix: 1, ricci-einstein-flows: 1, ricci-deturck-trick: 1, ricci-blowup-rates: 1, ricci-soliton-zoo: 1, ricci-neckpinch-surgery: 1, ricci-extinction-timeline: 1, k-theory-grothendieck-builder: 1, k-theory-ses-relations: 1, k-theory-bott-periodicity: 1, k-theory-chern-character: 1, k-theory-low-k-groups: 1, k-theory-index-theorem: 1, atiyah-singer-index-family: 1, atiyah-singer-symbol: 1, atiyah-singer-ch-td: 1, atiyah-singer-cases: 1, atiyah-singer-dirac-sphere: 1, atiyah-singer-anomaly: 1, counterexample-explorer: 1, proof-scrubber: 1, sm-manifold-gallery: 1, diff-forms-integration: 1, diff-forms-pullback: 1, diff-geom-surface-patch: 1, diff-geom-fundamental-forms: 1, rg-ricci-curvature: 1, rg-volume-form: 1, lie-algebra-tangent: 1, lie-adjoint-killing: 1, riemann-surfaces-chart-atlas: 1, lattice-visualizer: 1, characteristic-classes-mobius-vs-cylinder: 1, characteristic-classes-w1-surfaces: 1, characteristic-classes-c1-clutching: 1, characteristic-classes-pontryagin-formulas: 1, characteristic-classes-poincare-hopf: 1, characteristic-classes-gauss-bonnet: 1, characteristic-classes-classifying-map: 1, characteristic-classes-signature-l-genus: 1, characteristic-classes-cpn-localisation: 1, morse-torus-height: 1, morse-handle-decomp: 1, morse-cw-cells: 1, morse-betti-counts: 1, morse-gradient-flow: 1, morse-sphere-vs-rp2: 1, morse-smale-saddle: 1, morse-cerf-birth-death: 1
+  - by dimension: 2d: 168, 3d: 7
+  - by gesture: click: 94, slider: 40, select: 14, drag: 11, button-stepper: 6, step: 3, pick: 2, static: 2, interact: 1, input: 1, timeline: 1
 - Quizzes: **622** (v1: 480, hard: 142, expert: 0)
   - by type: mcq: 410, numeric: 160, multi-select: 22, matching: 10, ordering: 7, complex: 7, spot-the-error: 3, proof-completion: 3
 
@@ -1186,7 +1187,7 @@ page has wired one in yet.
 - `semigroup-theory-evolution-equations` (Analysis) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `special-relativity` (Mathematical physics) — concepts=6, widgets=6 (slug=6), quiz=19 (v1=19, hard=0, expert=0)
 - `klein-gordon-equation` (Mathematical physics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `cohomology-and-duality` (Geometry & topology) — concepts=6, widgets=5 (slug=5), quiz=18 (v1=18, hard=0, expert=0)
+- `cohomology-and-duality` (Geometry & topology) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `dirac-equation` (Mathematical physics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `iwasawa-theory` (Number theory) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `quantum-field-theory` (Mathematical physics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
@@ -1347,12 +1348,12 @@ page has wired one in yet.
 - `gl2-modularity` (langlands-program)
 - `functoriality-langlands-group` (langlands-program)
 - `universal-reciprocity` (langlands-program)
-- `cd-characteristic-preview` (cohomology-and-duality)
 - `ros-applications` (resolution-of-singularities)
 - `kp-vassiliev-invariants` (knot-polynomials)
 - `kp-khovanov-homology` (knot-polynomials)
 - `simply-connected` (algebraic-topology)
 - `fundamental-group` (algebraic-topology)
+- `splitting-fields` (galois)
 
 ### Concepts missing a hard-tier quiz (top 20)
 
