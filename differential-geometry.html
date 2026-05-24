@@ -804,6 +804,88 @@ The matrix is skew-symmetric because $(T,N,B)$ is orthonormal. Curvature $\kappa
 
 <p>Most of what follows applies to any surface; we'll use these explicit parametrizations in the widgets so the formulas compute in closed form.</p>
 
+
+<div class="widget" id="w-dg-surface">
+  <div class="hd"><div class="ttl">A regular surface patch and its tangent plane</div><div class="hint">Pick a surface; x_u, x_v span the tangent plane and x_u×x_v gives the normal.</div></div>
+  <div class="row">
+    <span class="pill">surface $\mathbf{x}(u,v)$</span>
+    <button type="button" id="w-dg-surface-s0">sphere</button>
+    <button type="button" id="w-dg-surface-s1">cylinder</button>
+    <button type="button" id="w-dg-surface-s2">saddle</button>
+    <button type="button" id="w-dg-surface-s3">torus</button>
+  </div>
+  <svg id="w-dg-surface-svg" viewBox="0 0 580 320" width="580" height="320" role="img" aria-label="A surface wireframe with the tangent vectors x_u, x_v and unit normal at a marked point"><title>Regular surface patch: the partials x_u and x_v span the tangent plane, and their cross product gives the unit normal</title></svg>
+  <div class="readout" id="w-dg-surface-out"></div>
+</div><script>
+/* diff-geom-surface-patch widget: w-dg-surface */
+(function(){
+  var svg=document.getElementById('w-dg-surface-svg'), out=document.getElementById('w-dg-surface-out');
+  var bt=[0,1,2,3].map(function(i){ return document.getElementById('w-dg-surface-s'+i); });
+  if(!svg||!out||bt.some(function(b){return !b;})) return;
+  var NS='http://www.w3.org/2000/svg';
+  function mk(tag,attrs,text){ var e=document.createElementNS(NS,tag); for(var k in attrs){ e.setAttribute(k,attrs[k]); } if(text!=null) e.textContent=text; return e; }
+  function txt(x,y,s,opt){ opt=opt||{}; svg.appendChild(mk('text',{x:x,y:y,'text-anchor':opt.anchor||'start','font-size':opt.size||12,fill:opt.fill||'var(--ink)','font-weight':opt.weight||'normal','font-style':opt.italic?'italic':'normal'},s)); }
+  var TAU=2*Math.PI;
+  var SURF=[
+    { name:'unit sphere', f:function(u,v){ return [Math.sin(u)*Math.cos(v), Math.sin(u)*Math.sin(v), Math.cos(u)]; }, ur:[0.3,Math.PI-0.3], vr:[0,TAU], sc:78, pt:[1.05,0.9] },
+    { name:'cylinder (r=1)', f:function(u,v){ return [Math.cos(u), Math.sin(u), v]; }, ur:[0,TAU], vr:[-1.4,1.4], sc:66, pt:[0.9,0.3] },
+    { name:'saddle  z = \u00bd(u\u00b2\u2212v\u00b2)', f:function(u,v){ return [u, v, 0.5*(u*u-v*v)]; }, ur:[-1.3,1.3], vr:[-1.3,1.3], sc:64, pt:[0.6,0.5] },
+    { name:'torus (R=2, r=1)', f:function(u,v){ var R=2,r=1; return [(R+r*Math.cos(v))*Math.cos(u), (R+r*Math.cos(v))*Math.sin(u), r*Math.sin(v)]; }, ur:[0,TAU], vr:[0,TAU], sc:36, pt:[0.7,0.9] }
+  ];
+  var CX=160, CY=170;
+  function proj(p, sc){ return [CX + sc*(p[0] - 0.42*p[1]), CY - sc*(p[2] - 0.30*p[1])]; }
+  function sub(a,b){ return [a[0]-b[0],a[1]-b[1],a[2]-b[2]]; }
+  function cross(a,b){ return [a[1]*b[2]-a[2]*b[1], a[2]*b[0]-a[0]*b[2], a[0]*b[1]-a[1]*b[0]]; }
+  function norm(a){ return Math.sqrt(a[0]*a[0]+a[1]*a[1]+a[2]*a[2]); }
+  function scal(a,s){ return [a[0]*s,a[1]*s,a[2]*s]; }
+  function add(a,b){ return [a[0]+b[0],a[1]+b[1],a[2]+b[2]]; }
+  var sel=0;
+  function arrow(p0,p1,col,lbl){ svg.appendChild(mk('line',{x1:p0[0],y1:p0[1],x2:p1[0],y2:p1[1],stroke:col,'stroke-width':2}));
+    var a=Math.atan2(p1[1]-p0[1],p1[0]-p0[0]); svg.appendChild(mk('path',{d:'M '+p1[0]+' '+p1[1]+' L '+(p1[0]-8*Math.cos(a-0.4))+' '+(p1[1]-8*Math.sin(a-0.4))+' L '+(p1[0]-8*Math.cos(a+0.4))+' '+(p1[1]-8*Math.sin(a+0.4))+' Z',fill:col}));
+    if(lbl) txt(p1[0]+5,p1[1]-2,lbl,{size:11,fill:col,weight:600}); }
+  function wire(S){ var NU=12, NV=18, i, j;
+    for(i=0;i<=NU;i++){ var u=S.ur[0]+(S.ur[1]-S.ur[0])*i/NU, d='';
+      for(j=0;j<=NV;j++){ var v=S.vr[0]+(S.vr[1]-S.vr[0])*j/NV, q=proj(S.f(u,v),S.sc); d+=(j===0?'M ':'L ')+q[0].toFixed(1)+' '+q[1].toFixed(1)+' '; }
+      svg.appendChild(mk('path',{d:d,fill:'none',stroke:'var(--violet)','stroke-width':0.7,'stroke-opacity':0.45})); }
+    for(j=0;j<=NV;j+=2){ var v2=S.vr[0]+(S.vr[1]-S.vr[0])*j/NV, d2='';
+      for(i=0;i<=NU;i++){ var u2=S.ur[0]+(S.ur[1]-S.ur[0])*i/NU, q2=proj(S.f(u2,v2),S.sc); d2+=(i===0?'M ':'L ')+q2[0].toFixed(1)+' '+q2[1].toFixed(1)+' '; }
+      svg.appendChild(mk('path',{d:d2,fill:'none',stroke:'var(--violet)','stroke-width':0.7,'stroke-opacity':0.45})); } }
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    bt.forEach(function(b,i){ b.classList.toggle('active',i===sel); b.setAttribute('aria-pressed',i===sel?'true':'false'); });
+    var S=SURF[sel]; wire(S);
+    var u=S.pt[0], v=S.pt[1], h=1e-4;
+    var P=S.f(u,v);
+    var Xu=scal(sub(S.f(u+h,v),S.f(u-h,v)), 1/(2*h));
+    var Xv=scal(sub(S.f(u,v+h),S.f(u,v-h)), 1/(2*h));
+    var nrm=cross(Xu,Xv), nlen=norm(nrm), n=scal(nrm, 1/nlen);
+    function unitish(w){ var L=norm(w)||1; return scal(w, 0.7/L); }
+    var p2=proj(P,S.sc);
+    var eu=unitish(Xu), ev=unitish(Xv);
+    var c1=proj(add(P,scal(eu,0.9)),S.sc), c2=proj(add(add(P,scal(eu,0.9)),scal(ev,0.9)),S.sc), c3=proj(add(P,scal(ev,0.9)),S.sc);
+    svg.appendChild(mk('path',{d:'M '+p2[0]+' '+p2[1]+' L '+c1[0]+' '+c1[1]+' L '+c2[0]+' '+c2[1]+' L '+c3[0]+' '+c3[1]+' Z',fill:'var(--cyan)','fill-opacity':0.12,stroke:'var(--cyan)','stroke-width':0.8}));
+    svg.appendChild(mk('circle',{cx:p2[0],cy:p2[1],r:3,fill:'var(--ink)'}));
+    arrow(p2, proj(add(P,eu),S.sc), 'var(--green)', 'x_u');
+    arrow(p2, proj(add(P,ev),S.sc), 'var(--yellow)', 'x_v');
+    arrow(p2, proj(add(P,scal(n,0.9)),S.sc), 'var(--pink)', 'n');
+    var TX=360;
+    txt(TX, 44, S.name, {size:12, fill:'var(--violet)', weight:600});
+    txt(TX, 70, 'at the marked point:', {size:10, fill:'var(--mute)'});
+    txt(TX, 94, 'tangent plane T_pS = span{ x_u, x_v }', {size:11, fill:'var(--ink)'});
+    svg.appendChild(mk('text',{x:TX,y:120,'font-size':11,fill:'var(--green)'},'\u2014 x_u  (\u2202x/\u2202u)'));
+    svg.appendChild(mk('text',{x:TX,y:138,'font-size':11,fill:'var(--yellow)'},'\u2014 x_v  (\u2202x/\u2202v)'));
+    svg.appendChild(mk('text',{x:TX,y:156,'font-size':11,fill:'var(--pink)'},'\u2014 n = x_u \u00d7 x_v / |x_u \u00d7 x_v|'));
+    txt(TX, 188, '|x_u \u00d7 x_v| = '+(Math.round(nlen*1000)/1000), {size:12, fill:'var(--cyan)', weight:600});
+    txt(TX, 210, nlen>1e-6?'\u2260 0  \u21d2  regular (d x injective)':'= 0  \u21d2  singular point', {size:11, fill:nlen>1e-6?'var(--green)':'var(--pink)'});
+    txt(TX, 232, '|x_u \u00d7 x_v| = area of the', {size:9, fill:'var(--mute)', italic:true});
+    txt(TX, 244, 'tangent parallelogram = \u221a(EG\u2212F\u00b2)', {size:9, fill:'var(--mute)', italic:true});
+    out.textContent = 'A regular surface is locally a smooth map x(u,v) from a planar domain into \u211d\u00b3 whose differential is injective \u2014 equivalently, whose partial derivatives x_u = \u2202x/\u2202u and x_v = \u2202x/\u2202v are linearly independent, i.e. x_u \u00d7 x_v \u2260 0. Those two vectors span the tangent plane T_pS at each point (shown shaded), and their normalized cross product n = x_u\u00d7x_v / |x_u\u00d7x_v| is the unit normal (pink). Here on the '+S.name+', |x_u \u00d7 x_v| = '+(Math.round(nlen*1000)/1000)+' \u2260 0, so the parametrization is regular. The length |x_u \u00d7 x_v| = \u221a(EG\u2212F\u00b2) is exactly the area element \u2014 the bridge from this picture to the first fundamental form and surface integrals.';
+  }
+  bt.forEach(function(b,i){ b.addEventListener('click', function(){ sel=i; draw(); }); });
+  draw();
+})();
+</script>
+
 <!-- callback-auto-begin -->
 <aside class="callback">
   <div class="ttl">See also</div>
@@ -853,6 +935,82 @@ It is a positive-definite symmetric bilinear form on each tangent plane. It dete
 </ul>
 
 <p>Whenever you compute something on $S$ from $(E,F,G)$ alone, without referring to the embedding, that quantity is <strong>intrinsic</strong>. Length, angle, area, and (surprise!) Gaussian curvature are intrinsic. Mean curvature, principal curvatures, and the second fundamental form are not — they depend on how $S$ sits in $\mathbb{R}^3$.</p>
+
+
+<div class="widget" id="w-dg-forms">
+  <div class="hd"><div class="ttl">First and second fundamental forms</div><div class="hint">I is the metric, II the bending; K = det II / det I.</div></div>
+  <div class="row">
+    <span class="pill">surface</span>
+    <button type="button" id="w-dg-forms-s0">sphere</button>
+    <button type="button" id="w-dg-forms-s1">cylinder</button>
+    <button type="button" id="w-dg-forms-s2">saddle</button>
+    <button type="button" id="w-dg-forms-s3">plane</button>
+    <button type="button" id="w-dg-forms-s4">torus</button>
+  </div>
+  <svg id="w-dg-forms-svg" viewBox="0 0 580 300" width="580" height="300" role="img" aria-label="A surface sketch with its first and second fundamental forms and Gaussian and mean curvature"><title>First and second fundamental forms: the metric I and the shape II give the Gaussian curvature K = det II / det I and the mean curvature H</title></svg>
+  <div class="readout" id="w-dg-forms-out"></div>
+</div><script>
+/* diff-geom-fundamental-forms widget: w-dg-forms */
+(function(){
+  var svg=document.getElementById('w-dg-forms-svg'), out=document.getElementById('w-dg-forms-out');
+  var bt=[0,1,2,3,4].map(function(i){ return document.getElementById('w-dg-forms-s'+i); });
+  if(!svg||!out||bt.some(function(b){return !b;})) return;
+  var NS='http://www.w3.org/2000/svg';
+  function mk(tag,attrs,text){ var e=document.createElementNS(NS,tag); for(var k in attrs){ e.setAttribute(k,attrs[k]); } if(text!=null) e.textContent=text; return e; }
+  function txt(x,y,s,opt){ opt=opt||{}; svg.appendChild(mk('text',{x:x,y:y,'text-anchor':opt.anchor||'start','font-size':opt.size||12,fill:opt.fill||'var(--ink)','font-weight':opt.weight||'normal','font-style':opt.italic?'italic':'normal'},s)); }
+  var TAU=2*Math.PI;
+  var SURF=[
+    { name:'unit sphere', f:function(u,v){ return [Math.sin(u)*Math.cos(v), Math.sin(u)*Math.sin(v), Math.cos(u)]; }, ur:[0.3,Math.PI-0.3], vr:[0,TAU], sc:70,
+      EFG:[1,0,0.75], LMN:[1,0,0.75], ptlbl:'at latitude \u03b8 = 60\u00b0' },
+    { name:'cylinder (r=1)', f:function(u,v){ return [Math.cos(u), Math.sin(u), v]; }, ur:[0,TAU], vr:[-1.4,1.4], sc:62,
+      EFG:[1,0,1], LMN:[-1,0,0], ptlbl:'any point' },
+    { name:'saddle  z = \u00bd(u\u00b2 \u2212 v\u00b2)', f:function(u,v){ return [u, v, 0.5*(u*u-v*v)]; }, ur:[-1.3,1.3], vr:[-1.3,1.3], sc:58,
+      EFG:[1,0,1], LMN:[1,0,-1], ptlbl:'at the origin' },
+    { name:'plane', f:function(u,v){ return [u, v, 0]; }, ur:[-1.3,1.3], vr:[-1.3,1.3], sc:58,
+      EFG:[1,0,1], LMN:[0,0,0], ptlbl:'any point' },
+    { name:'torus (R=2, r=1)', f:function(u,v){ var R=2,r=1; return [(R+r*Math.cos(v))*Math.cos(u), (R+r*Math.cos(v))*Math.sin(u), r*Math.sin(v)]; }, ur:[0,TAU], vr:[0,TAU], sc:34,
+      EFG:[9,0,1], LMN:[3,0,1], ptlbl:'at the outer equator (v=0)' }
+  ];
+  var CX=150, CY=160;
+  function proj(p, sc){ return [CX + sc*(p[0] - 0.42*p[1]), CY - sc*(p[2] - 0.30*p[1])]; }
+  var sel=0;
+  function wire(S){ var NU=12, NV=18, i, j, lines=[];
+    for(i=0;i<=NU;i++){ var u=S.ur[0]+(S.ur[1]-S.ur[0])*i/NU, d='';
+      for(j=0;j<=NV;j++){ var v=S.vr[0]+(S.vr[1]-S.vr[0])*j/NV, q=proj(S.f(u,v),S.sc); d+=(j===0?'M ':'L ')+q[0].toFixed(1)+' '+q[1].toFixed(1)+' '; }
+      lines.push(d); }
+    for(j=0;j<=NV;j+=2){ var v2=S.vr[0]+(S.vr[1]-S.vr[0])*j/NV, d2='';
+      for(i=0;i<=NU;i++){ var u2=S.ur[0]+(S.ur[1]-S.ur[0])*i/NU, q2=proj(S.f(u2,v2),S.sc); d2+=(i===0?'M ':'L ')+q2[0].toFixed(1)+' '+q2[1].toFixed(1)+' '; }
+      lines.push(d2); }
+    lines.forEach(function(d){ svg.appendChild(mk('path',{d:d,fill:'none',stroke:'var(--violet)','stroke-width':0.7,'stroke-opacity':0.5})); }); }
+  function fmt(x){ return (Math.round(x*1000)/1000).toString(); }
+  function mat(x,y,a,b,c,d,col){ // 2x2 bracketed matrix
+    svg.appendChild(mk('path',{d:'M '+(x+5)+' '+y+' L '+x+' '+y+' L '+x+' '+(y+44)+' L '+(x+5)+' '+(y+44),stroke:col,'stroke-width':1.1,fill:'none'}));
+    svg.appendChild(mk('path',{d:'M '+(x+75)+' '+y+' L '+(x+80)+' '+y+' L '+(x+80)+' '+(y+44)+' L '+(x+75)+' '+(y+44),stroke:col,'stroke-width':1.1,fill:'none'}));
+    txt(x+24,y+17,fmt(a),{size:11,anchor:'middle'}); txt(x+58,y+17,fmt(b),{size:11,anchor:'middle'});
+    txt(x+24,y+38,fmt(c),{size:11,anchor:'middle'}); txt(x+58,y+38,fmt(d),{size:11,anchor:'middle'}); }
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    bt.forEach(function(b,i){ b.classList.toggle('active',i===sel); b.setAttribute('aria-pressed',i===sel?'true':'false'); });
+    var S=SURF[sel], E=S.EFG[0], F=S.EFG[1], G=S.EFG[2], L=S.LMN[0], M=S.LMN[1], N=S.LMN[2];
+    var detI=E*G-F*F, detII=L*N-M*M;
+    var K=detII/detI, H=(E*N-2*F*M+G*L)/(2*detI);
+    wire(S);
+    txt(CX, 286, S.name, {size:11, fill:'var(--violet)', anchor:'middle'});
+    var TX=320;
+    txt(TX, 40, 'first form I  '+S.ptlbl, {size:11, fill:'var(--mute)'});
+    mat(TX, 50, E,F,F,G, 'var(--cyan)'); txt(TX+92, 76, '= [[E,F],[F,G]]', {size:9, fill:'var(--mute)'});
+    txt(TX, 124, 'second form II', {size:11, fill:'var(--mute)'});
+    mat(TX, 134, L,M,M,N, 'var(--yellow)'); txt(TX+92, 160, '= [[L,M],[M,N]]', {size:9, fill:'var(--mute)'});
+    txt(TX, 208, 'K = (LN\u2212M\u00b2)/(EG\u2212F\u00b2) = '+fmt(K), {size:12, fill:'var(--green)', weight:600});
+    txt(TX, 230, 'H = (EN\u22122FM+GL)/2(EG\u2212F\u00b2) = '+fmt(H), {size:12, fill:'var(--pink)', weight:600});
+    var type = Math.abs(K)<1e-9?'parabolic / flat (K = 0)':(K>0?'elliptic  (K > 0): bowl-like':'hyperbolic  (K < 0): saddle-like');
+    txt(TX, 256, type, {size:12, fill:'var(--ink)', weight:600});
+    out.textContent = 'On '+S.name+' '+S.ptlbl+', the first fundamental form I = [[ '+fmt(E)+', '+fmt(F)+' ],[ '+fmt(F)+', '+fmt(G)+' ]] is the induced metric (E = x_u\u00b7x_u, F = x_u\u00b7x_v, G = x_v\u00b7x_v): it measures lengths, angles and areas of tangent vectors. The second fundamental form II = [[ '+fmt(L)+', '+fmt(M)+' ],[ '+fmt(M)+', '+fmt(N)+' ]] records how the unit normal turns (L = x_uu\u00b7n, etc.) \u2014 the bending into \u211d\u00b3. Their ratio of determinants is the Gaussian curvature K = (LN\u2212M\u00b2)/(EG\u2212F\u00b2) = '+fmt(K)+', and H = (EN\u22122FM+GL)/(2(EG\u2212F\u00b2)) = '+fmt(H)+' is the mean curvature. '+(Math.abs(K)<1e-9?'K = 0 here \u2014 the surface is flat in the Gaussian sense (a plane, or a developable like the cylinder which still bends, H \u2260 0).':(K>0?'K > 0 \u2014 the surface curves the same way in every direction (elliptic / bowl).':'K < 0 \u2014 it curves up one way and down another (hyperbolic / saddle).'))+' By Gauss\u2019s Theorema Egregium, K depends only on I \u2014 it is intrinsic \u2014 even though II is not.';
+  }
+  bt.forEach(function(b,i){ b.addEventListener('click', function(){ sel=i; draw(); }); });
+  draw();
+})();
+</script>
 
 <div class="quiz" data-concept="first-second-fundamental"></div>
 <!-- backlinks-auto-begin -->

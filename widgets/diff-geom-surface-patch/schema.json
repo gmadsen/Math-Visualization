@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/diff-geom-surface-patch/schema.json",
+  "title": "diff-geom-surface-patch widget params",
+  "description": "A regular parametrized surface patch and its tangent plane. Pick a surface (sphere, cylinder, saddle, torus); the widget draws the wireframe x(u,v) and, at a marked point, the partial-derivative tangent vectors x_u and x_v, the unit normal n = (x_u × x_v)/|x_u × x_v|, and the tangent plane they span. Regularity — d x injective, equivalently x_u × x_v ≠ 0 — is exactly the condition that the tangent plane is two-dimensional and the normal is well-defined.",
+  "meta": {
+    "family": "diff-geom-surface-patch",
+    "dimension": "3d",
+    "gesture": "click",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\"> wrapper."
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title rendered inside .hd > .ttl."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional short hint rendered inside .hd > .hint."
+    }
+  }
+}

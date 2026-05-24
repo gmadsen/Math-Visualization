@@ -88,6 +88,27 @@
         },
         {
           "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget",
+          "slug": "diff-geom-surface-patch",
+          "params": {
+            "widgetId": "w-dg-surface",
+            "title": "A regular surface patch and its tangent plane",
+            "hint": "Pick a surface; x_u, x_v span the tangent plane and x_u×x_v gives the normal."
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-dg-surface"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "raw",
           "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./smooth-manifolds.html#sub\">Immersions, submersions, and submanifolds</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {
@@ -119,6 +140,27 @@
         {
           "type": "raw",
           "html": "<section id=\"first\">\n<h2>4. The first fundamental form</h2>\n<p>The ambient Euclidean inner product on $\\mathbb{R}^3$, restricted to each tangent plane $T_pS$, gives the surface an intrinsic way to measure lengths of tangent vectors, angles between them, and areas. Expressed in a local chart $(u,v)$, with $E = \\mathbf{x}_u \\cdot \\mathbf{x}_u$, $F = \\mathbf{x}_u \\cdot \\mathbf{x}_v$, $G = \\mathbf{x}_v \\cdot \\mathbf{x}_v$, the restricted inner product on a tangent vector $a\\,\\mathbf{x}_u + b\\,\\mathbf{x}_v$ has squared length $Ea^2 + 2Fab + Gb^2$. Writing $du, dv$ for the dual basis of tangent covectors:</p>\n<div class=\"note\"><strong>First fundamental form.</strong>\n$$I = E\\,du^2 + 2F\\,du\\,dv + G\\,dv^2, \\qquad E = \\mathbf{x}_u\\cdot\\mathbf{x}_u,\\ F = \\mathbf{x}_u\\cdot\\mathbf{x}_v,\\ G = \\mathbf{x}_v\\cdot\\mathbf{x}_v.$$\nIt is a positive-definite symmetric bilinear form on each tangent plane. It determines lengths, angles, and areas on $S$ intrinsically — no reference to the ambient $\\mathbb{R}^3$ needed after $(E,F,G)$ are known as functions of $(u,v)$.</div>\n\n<p>Once you have $I$, the following are automatic:</p>\n<ul>\n  <li><strong>Length of a curve</strong> $\\gamma(t) = \\mathbf{x}(u(t), v(t))$ on $S$:\n  $$\\mathrm{length}(\\gamma) = \\int \\sqrt{E\\dot u^2 + 2F\\dot u\\dot v + G\\dot v^2}\\,dt.$$</li>\n  <li><strong>Angle</strong> between two tangent vectors $w_1, w_2 \\in T_pS$: $\\cos\\theta = I(w_1,w_2)/\\sqrt{I(w_1)I(w_2)}$.</li>\n  <li><strong>Area element</strong>: $dA = \\sqrt{EG - F^2}\\,du\\,dv$. Note $EG - F^2 = \\lVert \\mathbf{x}_u\\times\\mathbf{x}_v\\rVert^2$, so this matches the Euclidean area of the parallelogram spanned by $\\mathbf{x}_u, \\mathbf{x}_v$.</li>\n</ul>\n\n<p>Two surfaces $S_1, S_2$ are <strong>locally isometric</strong> at $p_1 \\in S_1$ and $p_2 \\in S_2$ if there exist charts $\\mathbf{x}_1$ of $S_1$ around $p_1$ and $\\mathbf{x}_2$ of $S_2$ around $p_2$ with the same first fundamental form (as functions of $(u,v)$). Equivalently, there is a local diffeomorphism $\\phi\\colon (S_1, p_1) \\to (S_2, p_2)$ preserving lengths of curves.</p>\n\n<p>Key examples of isometric surfaces:</p>\n<ul>\n  <li>Plane and cylinder. The cylinder $\\mathbf{x}(u,v) = (\\cos u, \\sin u, v)$ has $E = G = 1$ and $F = 0$ — the same first fundamental form as the flat plane. You can roll a piece of paper into a cylinder without stretching; this is why cylinders are <em>developable</em> surfaces.</li>\n  <li>Plane and cone. Cut a cone along a generator and unroll it; the first fundamental form in the rolled-out coordinates is flat.</li>\n  <li>Catenoid and helicoid. Two strikingly different-looking surfaces — one a surface of revolution, one a ruled surface — are in fact locally isometric (you can continuously deform one into the other through a family of isometric minimal surfaces).</li>\n  <li>Sphere and anything. The round sphere is <em>not</em> locally isometric to the plane — no flat map of the globe preserves distances. This fact is essentially Gauss's Theorema Egregium.</li>\n</ul>\n\n<p>Whenever you compute something on $S$ from $(E,F,G)$ alone, without referring to the embedding, that quantity is <strong>intrinsic</strong>. Length, angle, area, and (surprise!) Gaussian curvature are intrinsic. Mean curvature, principal curvatures, and the second fundamental form are not — they depend on how $S$ sits in $\\mathbb{R}^3$.</p>\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget",
+          "slug": "diff-geom-fundamental-forms",
+          "params": {
+            "widgetId": "w-dg-forms",
+            "title": "First and second fundamental forms",
+            "hint": "I is the metric, II the bending; K = det II / det I."
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-dg-forms"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
         },
         {
           "type": "quiz",
