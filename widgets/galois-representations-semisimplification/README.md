@@ -10,13 +10,20 @@ and the bespoke-vs-shared distinction.
 
 ## What it does
 
-The widget displays $\rho(\mathrm{Frob}_p)=\begin{pmatrix}a&b\\0&d\end{pmatrix}$ with fixed
-character values $a,d$ and a slider for the off-diagonal extension class $b$. The line
-$\langle e_1\rangle$ is always Galois-stable, so $\rho$ is **reducible** for every $b$; it is a
-direct sum — **semisimple** — only when $b=0$, where it equals the semisimplification
-$\rho^{\mathrm{ss}}=\operatorname{diag}(a,d)$. The trace $a+d$ and determinant $ad$ are
-independent of $b$, so two representations with the same $a,d$ but different $b$ (one
-semisimple, one not) have **identical** Frobenius traces.
+The widget displays $\rho(\mathrm{Frob}_p)=\begin{pmatrix}a&b\\0&a\end{pmatrix}$ with a fixed
+**repeated** eigenvalue $a$ and a slider for the off-diagonal extension class $b$. The line
+$\langle e_1\rangle$ is always Galois-stable, so $\rho$ is **reducible** for every $b$; for
+$b\neq 0$ it is a non-trivial **Jordan block** whose *only* invariant line is $\langle e_1\rangle$,
+so there is no invariant complement and $\rho$ is **indecomposable** — not semisimple. It is
+semisimple only at $b=0$, where it is the scalar $a\cdot I=$ its semisimplification
+$\rho^{\mathrm{ss}}=\operatorname{diag}(a,a)$.
+
+The repeated eigenvalue is deliberate: it makes the single on-screen matrix genuinely
+non-diagonalizable for $b\neq 0$. (With *distinct* eigenvalues a single matrix is always
+diagonalizable, and non-semisimplicity is only visible at the level of the whole homomorphism
+$g\mapsto\rho(g)$ — the readout notes that distinct-character case too.) The trace $2a$ and
+determinant $a^2$ are independent of $b$, so the non-semisimple $\rho$ and its
+semisimplification have **identical** Frobenius traces.
 
 The readout draws the consequence: traces are additive on short exact sequences, so
 $\operatorname{tr}\rho(\mathrm{Frob}_p)=\operatorname{tr}\rho^{\mathrm{ss}}(\mathrm{Frob}_p)$;
@@ -33,8 +40,8 @@ See [`schema.json`](./schema.json) for the authoritative shape. Required fields:
 | `title`    | string | Display title rendered in the header. |
 | `hint`     | string (optional) | Short hint rendered next to the title. |
 
-The diagonal values $a,d$ are fixed inside the renderer; the slider only moves the off-diagonal
-$b$.
+The repeated diagonal value $a$ is fixed inside the renderer; the slider only moves the
+off-diagonal $b\in[-4,4]$.
 
 ## Usage
 
