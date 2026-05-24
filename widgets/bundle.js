@@ -17773,6 +17773,24 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "sm-manifold-gallery",
+    "family": "sm-manifold-gallery",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "sm-manifold-gallery widget params",
+    "description": "A gallery of the canonical smooth manifolds — spheres Sⁿ, real and complex projective spaces ℝPⁿ/ℂPⁿ, tori Tⁿ, the matrix groups GLₙ, SLₙ, O(n), SO(n), U(n), SU(n), and Grassmannians Gr(k,n). Pick a family and slide n (and k for the Grassmannian); the widget reports the dimension as a formula and value, plots how the dimension grows with n, and lists the standard atlas or defining equations together with whether the manifold is compact, connected, and orientable (with the conditions, e.g. ℝPⁿ orientable iff n is odd, GL_n/O(n) having two components).",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Bespoke module for **smooth-manifolds** §2 (Examples: spheres, projective spaces, matrix groups). A zoo of the canonical smooth manifolds with their dimensions and properties.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "sm-occ",
     "family": "verbatim",
     "dimension": "2d",

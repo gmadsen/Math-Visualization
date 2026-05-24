@@ -89,6 +89,27 @@
           "html": "<section id=\"examples\">\n<h2>2. Examples</h2>\n\n<p>A short tour. For each, the smooth structure is determined by a natural atlas; verifying smoothness of transitions is an exercise in calculus.</p>\n\n<h3>Spheres $S^n$</h3>\n<p>$S^n = \\{x\\in\\mathbb{R}^{n+1} : \\|x\\|=1\\}$ with the two-chart stereographic atlas from the widget above. The transition map is inversion $x\\mapsto x/\\|x\\|^2$ of $\\mathbb{R}^n\\setminus\\{0\\}$, smooth on its domain.</p>\n\n<h3>Real and complex projective spaces</h3>\n<p>$\\mathbb{RP}^n$ is the set of lines through $0$ in $\\mathbb{R}^{n+1}$, equivalently $(\\mathbb{R}^{n+1}\\setminus\\{0\\})/{\\sim}$ where $x\\sim\\lambda x$ for $\\lambda\\neq 0$. Use homogeneous coordinates $[x^0:\\cdots:x^n]$; the $n+1$ charts are $U_i = \\{x^i\\neq 0\\}$ with $\\varphi_i([x]) = (x^0/x^i,\\ldots,\\widehat{x^i/x^i},\\ldots,x^n/x^i)\\in\\mathbb{R}^n$. Transitions are rational in the local coordinates — smooth. Same construction gives $\\mathbb{CP}^n$ as a $2n$-dimensional real manifold (or complex $n$-manifold).</p>\n\n<h3>Tori</h3>\n<p>$T^n = \\mathbb{R}^n/\\mathbb{Z}^n$. Charts are small open sets of $\\mathbb{R}^n$ whose image under the quotient is injective; transitions are translations by integer vectors — smooth. Equivalently $T^n \\cong S^1\\times\\cdots\\times S^1$.</p>\n\n<h3>Matrix groups</h3>\n<p>$\\mathrm{GL}_n(\\mathbb{R})$ is the open subset $\\{\\det A\\neq 0\\}$ of $\\mathbb{R}^{n^2}$, hence an $n^2$-dimensional manifold. Inside it sit Lie groups cut out by smooth regular equations:</p>\n<table class=\"plain\">\n<thead><tr><th>group</th><th>defining condition</th><th>dim</th></tr></thead>\n<tbody>\n<tr><td>$\\mathrm{SL}_n(\\mathbb{R})$</td><td>$\\det A = 1$</td><td>$n^2-1$</td></tr>\n<tr><td>$\\mathrm{O}(n)$</td><td>$A^\\top A = I$</td><td>$n(n-1)/2$</td></tr>\n<tr><td>$\\mathrm{SO}(n)$</td><td>orientation-preserving subset of $\\mathrm{O}(n)$</td><td>$n(n-1)/2$</td></tr>\n<tr><td>$\\mathrm{U}(n)$</td><td>$A^*A = I$</td><td>$n^2$</td></tr>\n<tr><td>$\\mathrm{SU}(n)$</td><td>$A^*A = I$, $\\det A = 1$</td><td>$n^2-1$</td></tr>\n</tbody>\n</table>\n<p>Each is cut out as a preimage of a regular value of a smooth map — section 8 explains why preimages of regular values are manifolds.</p>\n\n<h3>Grassmannians</h3>\n<p>$\\mathrm{Gr}(k,n)$ is the set of $k$-dimensional linear subspaces of $\\mathbb{R}^n$, a compact manifold of dimension $k(n-k)$ generalising $\\mathbb{RP}^{n-1} = \\mathrm{Gr}(1,n)$. Charts come from choosing a complement: near a subspace $W_0$, nearby $W$ are graphs of linear maps $W_0\\to W_0^\\perp$, which gives local coordinates.</p>\n\n<p class=\"note\">Every smooth manifold appearing in physics or geometry is built, usually, from these examples plus products, quotients, and preimages. There is no need to manufacture exotic cases to practise calculus — $S^2$, $T^2$, $\\mathrm{SO}(3)$, and $\\mathrm{SU}(2)$ already generate enough tangent planes for a career.</p>\n\n"
         },
         {
+          "type": "widget",
+          "slug": "sm-manifold-gallery",
+          "params": {
+            "widgetId": "w-sm-gallery",
+            "title": "A zoo of canonical smooth manifolds",
+            "hint": "pick a family; dimension formula, growth, and compact/connected/orientable"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-sm-gallery"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
           "type": "quiz",
           "concept": "smooth-manifold-examples",
           "html": "<div class=\"quiz\" data-concept=\"smooth-manifold-examples\"></div>"

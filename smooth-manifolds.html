@@ -478,6 +478,101 @@ $$\varphi_\beta\circ\varphi_\alpha^{-1}\colon \varphi_\alpha(U_\alpha\cap U_\bet
 
 <p class="note">Every smooth manifold appearing in physics or geometry is built, usually, from these examples plus products, quotients, and preimages. There is no need to manufacture exotic cases to practise calculus — $S^2$, $T^2$, $\mathrm{SO}(3)$, and $\mathrm{SU}(2)$ already generate enough tangent planes for a career.</p>
 
+<div class="widget" id="w-sm-gallery">
+  <div class="hd"><div class="ttl">A zoo of canonical smooth manifolds</div><div class="hint">pick a family; dimension formula, growth, and compact/connected/orientable</div></div>
+  <div class="row" id="w-sm-gallery-fam" role="group" aria-label="manifold family" style="flex-wrap:wrap">
+    <button type="button" data-f="S" class="active" aria-pressed="true">$S^n$</button>
+    <button type="button" data-f="RP" aria-pressed="false">$\mathbb{RP}^n$</button>
+    <button type="button" data-f="CP" aria-pressed="false">$\mathbb{CP}^n$</button>
+    <button type="button" data-f="T" aria-pressed="false">$T^n$</button>
+    <button type="button" data-f="GL" aria-pressed="false">$\mathrm{GL}_n$</button>
+    <button type="button" data-f="SL" aria-pressed="false">$\mathrm{SL}_n$</button>
+    <button type="button" data-f="O" aria-pressed="false">$\mathrm{O}(n)$</button>
+    <button type="button" data-f="SO" aria-pressed="false">$\mathrm{SO}(n)$</button>
+    <button type="button" data-f="U" aria-pressed="false">$\mathrm{U}(n)$</button>
+    <button type="button" data-f="SU" aria-pressed="false">$\mathrm{SU}(n)$</button>
+    <button type="button" data-f="Gr" aria-pressed="false">$\mathrm{Gr}(k,n)$</button>
+  </div>
+  <div class="row">
+    <label for="w-sm-gallery-n">$n$</label>
+    <input type="range" id="w-sm-gallery-n" min="1" max="7" value="3" step="1">
+    <span class="pill" id="w-sm-gallery-nv">n = 3</span>
+    <label for="w-sm-gallery-k" id="w-sm-gallery-klab">$k$ (Grassmannian)</label>
+    <input type="range" id="w-sm-gallery-k" min="1" max="6" value="2" step="1">
+    <span class="pill" id="w-sm-gallery-kv">k = 2</span>
+  </div>
+  <svg id="w-sm-gallery-svg" viewBox="0 0 560 300" width="560" height="300" role="img" aria-label="The dimension of the selected manifold family as a function of n, with its properties"><title>Canonical smooth manifolds: dimension as a function of n, with atlas, and compact/connected/orientable status</title></svg>
+  <div class="readout" id="w-sm-gallery-out"></div>
+</div>
+<script>
+/* sm-manifold-gallery widget: w-sm-gallery */
+(function(){
+  var svg=document.getElementById('w-sm-gallery-svg'), out=document.getElementById('w-sm-gallery-out');
+  var fam=document.getElementById('w-sm-gallery-fam');
+  var sn=document.getElementById('w-sm-gallery-n'), sk=document.getElementById('w-sm-gallery-k');
+  var nv=document.getElementById('w-sm-gallery-nv'), kv=document.getElementById('w-sm-gallery-kv'), klab=document.getElementById('w-sm-gallery-klab');
+  if(!svg||!out||!fam||!sn||!sk) return;
+  var NS='http://www.w3.org/2000/svg';
+  function mk(tag,attrs,text){ var e=document.createElementNS(NS,tag); for(var k in attrs){ e.setAttribute(k,attrs[k]); } if(text!=null) e.textContent=text; return e; }
+  function txt(x,y,s,opt){ opt=opt||{}; svg.appendChild(mk('text',{x:x,y:y,'text-anchor':opt.anchor||'start','font-size':opt.size||12,fill:opt.fill||'var(--ink)','font-weight':opt.weight||'normal'},s)); }
+  var SUP=['\u2070','\u00b9','\u00b2','\u00b3','\u2074','\u2075','\u2076','\u2077','\u2078','\u2079'];
+  var SUB=['\u2080','\u2081','\u2082','\u2083','\u2084','\u2085','\u2086','\u2087','\u2088','\u2089'];
+  var DB={
+    S:{nm:function(n,k){return 'S'+sup(n);}, dim:function(n,k){return n;}, df:'n', built:'2 stereographic charts', cpt:true, con:function(n){return n>=1;}, ori:function(n){return {ok:true,why:'always orientable'};}},
+    RP:{nm:function(n,k){return 'RP'+sup(n);}, dim:function(n,k){return n;}, df:'n', built:'n+1 homogeneous-coordinate charts', cpt:true, con:function(){return true;}, ori:function(n){return {ok:(n%2===1),why:'orientable \u21d4 n odd'};}},
+    CP:{nm:function(n,k){return 'CP'+sup(n);}, dim:function(n,k){return 2*n;}, df:'2n', built:'n+1 charts (complex n-manifold)', cpt:true, con:function(){return true;}, ori:function(){return {ok:true,why:'complex \u21d2 orientable'};}},
+    T:{nm:function(n,k){return 'T'+sup(n);}, dim:function(n,k){return n;}, df:'n', built:'R\u207f/Z\u207f = (S\u00b9)\u207f', cpt:true, con:function(){return true;}, ori:function(){return {ok:true,why:'Lie group'};}},
+    GL:{nm:function(n,k){return 'GL'+sub(n)+'(R)';}, dim:function(n,k){return n*n;}, df:'n\u00b2', built:'open { det\u22600 } \u2282 R^(n\u00b2)', cpt:false, con:function(){return false;}, ori:function(){return {ok:true,why:'open in R^(n\u00b2); 2 components'};}},
+    SL:{nm:function(n,k){return 'SL'+sub(n)+'(R)';}, dim:function(n,k){return n*n-1;}, df:'n\u00b2\u22121', built:'det A = 1  (regular preimage)', cpt:false, con:function(){return true;}, ori:function(){return {ok:true,why:'Lie group'};}},
+    O:{nm:function(n,k){return 'O('+n+')';}, dim:function(n,k){return n*(n-1)/2;}, df:'n(n\u22121)/2', built:'A\u1d40A = I', cpt:true, con:function(){return false;}, ori:function(){return {ok:true,why:'Lie group; 2 components'};}},
+    SO:{nm:function(n,k){return 'SO('+n+')';}, dim:function(n,k){return n*(n-1)/2;}, df:'n(n\u22121)/2', built:'A\u1d40A = I, det = 1', cpt:true, con:function(){return true;}, ori:function(){return {ok:true,why:'Lie group'};}},
+    U:{nm:function(n,k){return 'U('+n+')';}, dim:function(n,k){return n*n;}, df:'n\u00b2', built:'A*A = I', cpt:true, con:function(){return true;}, ori:function(){return {ok:true,why:'Lie group'};}},
+    SU:{nm:function(n,k){return 'SU('+n+')';}, dim:function(n,k){return n*n-1;}, df:'n\u00b2\u22121', built:'A*A = I, det = 1', cpt:true, con:function(){return true;}, ori:function(){return {ok:true,why:'Lie group'};}},
+    Gr:{nm:function(n,k){return 'Gr('+k+','+n+')';}, dim:function(n,k){return k*(n-k);}, df:'k(n\u2212k)', built:'k(n\u2212k) Grassmann charts', cpt:true, con:function(){return true;}, ori:function(n){return {ok:(n%2===0),why:'orientable \u21d4 n even'};}, usesK:true}
+  };
+  function sup(n){ var s=''+n,o=''; for(var i=0;i<s.length;i++) o+=(SUP[+s[i]]||('^'+s[i])); return o; }
+  function sub(n){ var s=''+n,o=''; for(var i=0;i<s.length;i++) o+=(SUB[+s[i]]||('_'+s[i])); return o; }
+  var cur='S';
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    var D=DB[cur], n=parseInt(sn.value,10), k=parseInt(sk.value,10);
+    if(k>=n) k=Math.max(1,n-1);
+    nv.textContent='n = '+n; kv.textContent='k = '+k;
+    klab.style.opacity = D.usesK?'1':'0.4'; sk.disabled = !D.usesK; kv.style.opacity = D.usesK?'1':'0.4';
+    var dim=D.dim(n,k), o=D.ori(n,k), conn=D.con(n);
+    var PX0=60, PX1=300, PYB=250, PY0=50; var ms=[1,2,3,4,5,6,7];
+    var vals=ms.map(function(m){ var kk=D.usesK?Math.min(k,m-1<1?1:m-1):k; if(D.usesK&&m<2) return 0; return D.dim(m,kk); });
+    var ymax=Math.max(1, Math.max.apply(null,vals))*1.1;
+    function X(m){ return PX0+(m-1)/6*(PX1-PX0); } function Y(v){ return PYB-(v/ymax)*(PYB-PY0); }
+    svg.appendChild(mk('line',{x1:PX0,y1:PYB,x2:PX1,y2:PYB,stroke:'var(--line)','stroke-width':1}));
+    svg.appendChild(mk('line',{x1:PX0,y1:PY0,x2:PX0,y2:PYB,stroke:'var(--line)','stroke-width':1}));
+    txt((PX0+PX1)/2,PYB+28,'n',{size:10,fill:'var(--mute)',anchor:'middle'}); txt(PX0-26,PY0-8,'dim',{size:10,fill:'var(--mute)'});
+    var d=''; for(var i=0;i<ms.length;i++){ d+=(i?'L ':'M ')+X(ms[i])+' '+Y(vals[i])+' '; }
+    svg.appendChild(mk('path',{d:d,fill:'none',stroke:'var(--cyan)','stroke-width':2}));
+    for(i=0;i<ms.length;i++){ var hl=(ms[i]===n); svg.appendChild(mk('circle',{cx:X(ms[i]),cy:Y(vals[i]),r:hl?5:3,fill:hl?'var(--yellow)':'var(--cyan)'})); txt(X(ms[i]),PYB+14,''+ms[i],{size:8,fill:'var(--mute)',anchor:'middle'}); }
+    txt(X(n),Y(dim)-10,''+dim,{size:10,fill:'var(--yellow)',weight:600,anchor:'middle'});
+    function chk(b){ return b?'\u2713':'\u2717'; } function cc(b){ return b?'var(--green)':'var(--pink)'; }
+    var TX=330, ty=58;
+    txt(TX,ty,D.nm(n,k),{size:16,fill:'var(--violet)',weight:700}); ty+=26;
+    txt(TX,ty,'dim = '+D.df+' = '+dim,{size:13,fill:'var(--ink)',weight:600}); ty+=24;
+    txt(TX,ty,'atlas / cut out by:',{size:9,fill:'var(--mute)'}); ty+=14;
+    txt(TX,ty,D.built,{size:10,fill:'var(--cyan)'}); ty+=26;
+    txt(TX,ty,chk(D.cpt)+' compact',{size:11,fill:cc(D.cpt)}); ty+=16;
+    txt(TX,ty,chk(conn)+' connected'+(conn?'':' (2 components)'),{size:11,fill:cc(conn)}); ty+=16;
+    txt(TX,ty,chk(o.ok)+' orientable',{size:11,fill:cc(o.ok)}); ty+=14;
+    txt(TX,ty,'   ('+o.why+')',{size:9,fill:'var(--mute)'});
+    out.textContent = 'The canonical smooth manifolds. '+D.nm(n,k)+' has dimension '+D.df+' = '+dim+(D.usesK?' (here n='+n+', k='+k+')':' (here n='+n+')')+', built from '+D.built+'. It is '+(D.cpt?'compact':'NON-compact')+', '+(conn?'connected':'disconnected ('+(cur==='GL'||cur==='O'?'two components':'')+')')+', and '+(o.ok?'orientable':'non-orientable')+' ('+o.why+'). Slide n to watch the dimension grow \u2014 linear in n for spheres, projective spaces and tori, quadratic (\u223cn\u00b2/2 or n\u00b2) for the matrix groups. Spheres carry a 2-chart stereographic atlas; projective spaces n+1 homogeneous-coordinate charts; the matrix subgroups SL_n, O(n), SO(n), U(n), SU(n) are preimages of regular values of smooth maps (det, A\u1d40A); Grassmannians Gr(k,n) use the graph-of-a-linear-map charts of dimension k(n\u2212k). These plus products, quotients, and regular preimages generate essentially every manifold met in geometry and physics.';
+  }
+  Array.prototype.forEach.call(fam.querySelectorAll('button'), function(b){ b.addEventListener('click', function(){
+    cur=b.getAttribute('data-f');
+    Array.prototype.forEach.call(fam.querySelectorAll('button'), function(x){ var on=(x===b); x.classList.toggle('active',on); x.setAttribute('aria-pressed', on?'true':'false'); });
+    draw();
+  }); });
+  sn.addEventListener('input', draw); sk.addEventListener('input', draw);
+  draw();
+})();
+</script>
+
 <div class="quiz" data-concept="smooth-manifold-examples"></div>
 </section>
 
