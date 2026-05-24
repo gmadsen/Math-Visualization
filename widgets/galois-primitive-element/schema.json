@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/galois-primitive-element/schema.json",
+  "title": "galois-primitive-element widget params",
+  "description": "The primitive element theorem on ℚ(√2,√3)=ℚ(√2+√3). Slide the coefficient c in θ = √2 + c√3; the widget shows the four conjugates ±√2 ± c√3 on a number line, the minimal polynomial (x²−3c²+2)²−8x² = x⁴−(4+6c²)x²+(2−3c²)², and its degree. For almost every c the four conjugates are distinct, the minimal polynomial has degree 4, and θ generates all of ℚ(√2,√3); only the bad value c=0 makes two pairs of conjugates collide, dropping the degree to 2. This is the theorem's proof in miniature: θ=α+cβ fails only when two conjugates coincide, which rules out finitely many c.",
+  "meta": {
+    "family": "galois-primitive-element",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\"> wrapper."
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title rendered inside .hd > .ttl."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional short hint rendered inside .hd > .hint."
+    }
+  }
+}

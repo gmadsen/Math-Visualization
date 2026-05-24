@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/galois-normal-separable/schema.json",
+  "title": "galois-normal-separable widget params",
+  "description": "Normal, separable, Galois — read off the roots. Pick an extension L/K; the widget plots the roots of a generating element's minimal polynomial in the complex plane, colouring those that lie in L. The extension is NORMAL iff every root lies in L (the polynomial splits), SEPARABLE iff the roots are distinct, and GALOIS iff both — equivalently iff |Gal(L/K)| = [L:K]. Examples include ℚ(∛2) (not normal: two roots escape to ℂ), its splitting field ℚ(∛2,ω) (Galois, |Gal|=6), and the inseparable 𝔽ₚ(t)/𝔽ₚ(tᵖ).",
+  "meta": {
+    "family": "galois-normal-separable",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\"> wrapper."
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title rendered inside .hd > .ttl."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional short hint rendered inside .hd > .hint."
+    }
+  }
+}

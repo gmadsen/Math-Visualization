@@ -7959,6 +7959,42 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "galois-normal-separable",
+    "family": "galois-normal-separable",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "galois-normal-separable widget params",
+    "description": "Normal, separable, Galois — read off the roots. Pick an extension L/K; the widget plots the roots of a generating element's minimal polynomial in the complex plane, colouring those that lie in L. The extension is NORMAL iff every root lies in L (the polynomial splits), SEPARABLE iff the roots are distinct, and GALOIS iff both — equivalently iff |Gal(L/K)| = [L:K]. Examples include ℚ(∛2) (not normal: two roots escape to ℂ), its splitting field ℚ(∛2,ω) (Galois, |Gal|=6), and the inseparable 𝔽ₚ(t)/𝔽ₚ(tᵖ).",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Bespoke module for **galois** §7 (Normal and separable extensions). Lets you read the normal / separable / Galois status of an extension straight off the roots of a minimal polynomial.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "galois-primitive-element",
+    "family": "galois-primitive-element",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "galois-primitive-element widget params",
+    "description": "The primitive element theorem on ℚ(√2,√3)=ℚ(√2+√3). Slide the coefficient c in θ = √2 + c√3; the widget shows the four conjugates ±√2 ± c√3 on a number line, the minimal polynomial (x²−3c²+2)²−8x² = x⁴−(4+6c²)x²+(2−3c²)², and its degree. For almost every c the four conjugates are distinct, the minimal polynomial has degree 4, and θ generates all of ℚ(√2,√3); only the bad value c=0 makes two pairs of conjugates collide, dropping the degree to 2. This is the theorem's proof in miniature: θ=α+cβ fails only when two conjugates coincide, which rules out finitely many c.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Bespoke module for **galois** §8 (Primitive element theorem). Demonstrates the theorem on the canonical example $\\mathbb{Q}(\\sqrt2,\\sqrt3) = \\mathbb{Q}(\\sqrt2+\\sqrt3)$, including its one-line proof idea.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "gb-buch",
     "family": "verbatim",
     "dimension": "2d",
