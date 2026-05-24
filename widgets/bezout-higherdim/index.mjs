@@ -24,7 +24,7 @@ export function renderMarkup(params) {
       `  <div class="row" id="${widgetId}-drow${i}">\n` +
       `    <label for="${widgetId}-d${i}">$d_{${i}}$</label>\n` +
       `    <input type="range" id="${widgetId}-d${i}" min="1" max="${maxDeg}" value="2" step="1">\n` +
-      `    <span class="pill" id="${widgetId}-d${i}v">d = 2</span>\n` +
+      `    <span class="pill" id="${widgetId}-d${i}v">d${'₁₂₃₄₅'.charAt(i - 1)} = 2</span>\n` +
       `  </div>\n`;
   }
   return (
@@ -59,6 +59,7 @@ export function renderScript(params) {
     `  function mk(tag,attrs,text){ var e=document.createElementNS(NS,tag); for(var k in attrs){ e.setAttribute(k,attrs[k]); } if(text!=null) e.textContent=text; return e; }\n` +
     `  function txt(x,y,s,opt){ opt=opt||{}; svg.appendChild(mk('text',{x:x,y:y,'text-anchor':opt.anchor||'start','font-size':opt.size||12,fill:opt.fill||'var(--ink)','font-weight':opt.weight||'normal','font-style':opt.italic?'italic':'normal'},s)); }\n` +
     `  var N=3;\n` + // ambient dimension; default 3 hypersurfaces in P^3
+    `  function cls(d){ return d===1 ? 'H' : d+'H'; }\n` + // a degree-1 hypersurface (hyperplane) has class H, not 1H
     `  function draw(){\n` +
     `    while(svg.firstChild) svg.removeChild(svg.firstChild);\n` +
     `    nB.forEach(function(b,i){ var on=(i+2===N); b.classList.toggle('active',on); b.setAttribute('aria-pressed',on?'true':'false'); });\n` +
@@ -73,13 +74,13 @@ export function renderScript(params) {
     `    for(var i=0;i<degs.length;i++){ var y=by+i*(bw+gap);\n` +
     `      svg.appendChild(mk('rect',{x:bx,y:y,width:degs[i]*unit,height:bw,rx:3,fill:'var(--cyan)','fill-opacity':0.25,stroke:'var(--cyan)','stroke-width':1}));\n` +
     `      txt(bx+5, y+bw-7, degs[i], {size:11, fill:'var(--cyan)', weight:600});\n` +
-    `      txt(lblX, y+bw-6, 'H_'+(i+1)+' :  degree '+degs[i]+'  \\u2192  class '+degs[i]+'H', {size:11, fill:'var(--ink)'}); }\n` +
+    `      txt(lblX, y+bw-6, 'H_'+(i+1)+' :  degree '+degs[i]+'  \\u2192  class '+cls(degs[i]), {size:11, fill:'var(--ink)'}); }\n` +
     `    var ey=by+degs.length*(bw+gap)+24;\n` +
     // the count line
     `    txt(bx, ey, '\\u220f d_i  =  '+degs.join(' \\u00b7 ')+'  =  '+prod, {size:14, fill:'var(--yellow)', weight:700});\n` +
     // Chow ring computation
     `    txt(bx, ey+30, 'In the Chow ring  A*(\\u2119^'+N+') = \\u2124[H]/(H^'+(N+1)+'):', {size:11, fill:'var(--mute)', italic:true});\n` +
-    `    txt(bx, ey+52, '[H\\u2081]\\u22ef[H_'+N+'] = ('+degs.join('H)(')+'H) = '+prod+'\\u00b7H^'+N+' = '+prod+'\\u00b7[pt]', {size:12, fill:'var(--violet)'});\n` +
+    `    txt(bx, ey+52, '[H\\u2081]\\u22ef[H_'+N+'] = ('+degs.map(cls).join(')(')+') = '+prod+'\\u00b7H^'+N+' = '+prod+'\\u00b7[pt]', {size:12, fill:'var(--violet)'});\n` +
     `    txt(bx, ey+72, 'since H^'+N+' = [pt]  and  H^'+(N+1)+' = 0', {size:10, fill:'var(--mute)'});\n` +
     // big answer
     `    txt(bx, ey+104, '\\u21d2  '+prod+' intersection points', {size:15, fill:'var(--green)', weight:700});\n` +

@@ -32,8 +32,8 @@
     "maxDegree": {
       "type": "integer",
       "minimum": 2,
-      "maximum": 6,
-      "description": "Highest degree offered for d and e (so the grid holds at most maxDegree² dots).",
+      "maximum": 4,
+      "description": "Highest degree offered for d and e (so the grid holds at most maxDegree² dots; capped at 4 so the de-dot grid stays readable and within the viewBox).",
       "default": 4
     }
   }

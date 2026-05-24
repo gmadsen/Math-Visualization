@@ -749,7 +749,7 @@ where $I_P(C,D)$ is the intersection multiplicity defined in §3. In particular,
     while(svg.firstChild) svg.removeChild(svg.firstChild);
     setActive(dB,d); setActive(eB,e); setToggle(hAlgB,hAlg); setToggle(hProjB,hProj); setToggle(hMultB,hMult);
     var N=d*e, allHold=hAlg&&hProj&&hMult;
-    var gx=70, gy=70, sp=Math.min(40, 300/(Math.max(d,e)+1));
+    var gx=70, gy=70, sp=40;
     var dotCol=allHold?'var(--green)':'var(--mute)';
     for(var r=0;r<e;r++){ for(var c=0;c<d;c++){
       var cx=gx+c*sp, cy=gy+r*sp;
@@ -766,10 +766,10 @@ where $I_P(C,D)$ is the intersection multiplicity defined in §3. In particular,
     function hyp(y,on,label){ svg.appendChild(mk('text',{x:TX,y:y,'font-size':13,fill:on?'var(--green)':'var(--pink)'},on?'\u2713':'\u2717')); txt(TX+17,y,label,{size:11,fill:on?'var(--ink)':'var(--mute)'}); }
     hyp(142, hAlg, 'k algebraically closed'); hyp(164, hProj, 'curves in \u2119\u00b2 (projective)'); hyp(186, hMult, 'count with multiplicity I_P');
     if(allHold){ txt(TX, 220, '= de = ' + N + '   (exact equality)', {size:14, fill:'var(--green)', weight:700}); }
-    else { txt(TX, 220, 'actual count  <  de = ' + N, {size:14, fill:'var(--orange)', weight:700}); txt(TX, 240, '(strict inequality \u2014 a hypothesis is dropped)', {size:10, fill:'var(--mute)', italic:true}); }
+    else { txt(TX, 220, 'actual count  \u2264  de = ' + N, {size:14, fill:'var(--orange)', weight:700}); txt(TX, 240, '(no longer pinned to de \u2014 equality can fail)', {size:10, fill:'var(--mute)', italic:true}); }
     var msg;
     if(allHold){ msg='With all three hypotheses, two plane curves with no common component and of degrees d=' + d + ', e=' + e + ' meet in EXACTLY de = ' + N + ' points. The grid shows those de points; over \u2102, in \u2119\u00b2, with each point weighted by its intersection multiplicity I_P, the total is pinned to the product of the degrees \u2014 independent of the particular curves.'; }
-    else { var parts=[]; if(!hAlg) parts.push('\u2022 algebraically closed: '+CE.alg); if(!hProj) parts.push('\u2022 projective \u2119\u00b2: '+CE.proj); if(!hMult) parts.push('\u2022 multiplicity I_P: '+CE.mult); msg='Drop a hypothesis and the equality ' + '\u2211 I_P = de' + ' weakens to a strict inequality \u2014 the de = ' + N + ' count is no longer pinned (dashed dots). Why each is needed:\n\n' + parts.join('\n\n'); }
+    else { var parts=[]; if(!hAlg) parts.push('\u2022 algebraically closed: '+CE.alg); if(!hProj) parts.push('\u2022 projective \u2119\u00b2: '+CE.proj); if(!hMult) parts.push('\u2022 multiplicity I_P: '+CE.mult); msg='Drop a hypothesis and the equality ' + '\u2211 I_P = de' + ' need no longer hold: the count is only bounded, \u2264 de = ' + N + ', and is no longer pinned to the product (dashed dots). Why each hypothesis is needed:\n\n' + parts.join('\n\n'); }
     out.textContent=msg;
   }
   dB.forEach(function(b,i){ b.addEventListener('click', function(){ d=i+1; draw(); }); });
@@ -1173,22 +1173,22 @@ The intersection pairing on Chow classes reproduces Bézout without mentioning p
   <div class="row" id="w-bezout-higherdim-drow1">
     <label for="w-bezout-higherdim-d1">$d_{1}$</label>
     <input type="range" id="w-bezout-higherdim-d1" min="1" max="4" value="2" step="1">
-    <span class="pill" id="w-bezout-higherdim-d1v">d = 2</span>
+    <span class="pill" id="w-bezout-higherdim-d1v">d₁ = 2</span>
   </div>
   <div class="row" id="w-bezout-higherdim-drow2">
     <label for="w-bezout-higherdim-d2">$d_{2}$</label>
     <input type="range" id="w-bezout-higherdim-d2" min="1" max="4" value="2" step="1">
-    <span class="pill" id="w-bezout-higherdim-d2v">d = 2</span>
+    <span class="pill" id="w-bezout-higherdim-d2v">d₂ = 2</span>
   </div>
   <div class="row" id="w-bezout-higherdim-drow3">
     <label for="w-bezout-higherdim-d3">$d_{3}$</label>
     <input type="range" id="w-bezout-higherdim-d3" min="1" max="4" value="2" step="1">
-    <span class="pill" id="w-bezout-higherdim-d3v">d = 2</span>
+    <span class="pill" id="w-bezout-higherdim-d3v">d₃ = 2</span>
   </div>
   <div class="row" id="w-bezout-higherdim-drow4">
     <label for="w-bezout-higherdim-d4">$d_{4}$</label>
     <input type="range" id="w-bezout-higherdim-d4" min="1" max="4" value="2" step="1">
-    <span class="pill" id="w-bezout-higherdim-d4v">d = 2</span>
+    <span class="pill" id="w-bezout-higherdim-d4v">d₄ = 2</span>
   </div>
   <svg id="w-bezout-higherdim-svg" viewBox="0 0 560 340" width="560" height="340" role="img" aria-label="Bezout in projective n-space: the product of the hypersurface degrees"><title>Bezout in P^n: n hypersurfaces of degrees d_1..d_n meet in the product d_1...d_n points, computed in the Chow ring as the product of hyperplane classes</title></svg>
   <div class="readout" id="w-bezout-higherdim-out"></div>
@@ -1205,6 +1205,7 @@ The intersection pairing on Chow classes reproduces Bézout without mentioning p
   function mk(tag,attrs,text){ var e=document.createElementNS(NS,tag); for(var k in attrs){ e.setAttribute(k,attrs[k]); } if(text!=null) e.textContent=text; return e; }
   function txt(x,y,s,opt){ opt=opt||{}; svg.appendChild(mk('text',{x:x,y:y,'text-anchor':opt.anchor||'start','font-size':opt.size||12,fill:opt.fill||'var(--ink)','font-weight':opt.weight||'normal','font-style':opt.italic?'italic':'normal'},s)); }
   var N=3;
+  function cls(d){ return d===1 ? 'H' : d+'H'; }
   function draw(){
     while(svg.firstChild) svg.removeChild(svg.firstChild);
     nB.forEach(function(b,i){ var on=(i+2===N); b.classList.toggle('active',on); b.setAttribute('aria-pressed',on?'true':'false'); });
@@ -1217,11 +1218,11 @@ The intersection pairing on Chow classes reproduces Bézout without mentioning p
     for(var i=0;i<degs.length;i++){ var y=by+i*(bw+gap);
       svg.appendChild(mk('rect',{x:bx,y:y,width:degs[i]*unit,height:bw,rx:3,fill:'var(--cyan)','fill-opacity':0.25,stroke:'var(--cyan)','stroke-width':1}));
       txt(bx+5, y+bw-7, degs[i], {size:11, fill:'var(--cyan)', weight:600});
-      txt(lblX, y+bw-6, 'H_'+(i+1)+' :  degree '+degs[i]+'  \u2192  class '+degs[i]+'H', {size:11, fill:'var(--ink)'}); }
+      txt(lblX, y+bw-6, 'H_'+(i+1)+' :  degree '+degs[i]+'  \u2192  class '+cls(degs[i]), {size:11, fill:'var(--ink)'}); }
     var ey=by+degs.length*(bw+gap)+24;
     txt(bx, ey, '\u220f d_i  =  '+degs.join(' \u00b7 ')+'  =  '+prod, {size:14, fill:'var(--yellow)', weight:700});
     txt(bx, ey+30, 'In the Chow ring  A*(\u2119^'+N+') = \u2124[H]/(H^'+(N+1)+'):', {size:11, fill:'var(--mute)', italic:true});
-    txt(bx, ey+52, '[H\u2081]\u22ef[H_'+N+'] = ('+degs.join('H)(')+'H) = '+prod+'\u00b7H^'+N+' = '+prod+'\u00b7[pt]', {size:12, fill:'var(--violet)'});
+    txt(bx, ey+52, '[H\u2081]\u22ef[H_'+N+'] = ('+degs.map(cls).join(')(')+') = '+prod+'\u00b7H^'+N+' = '+prod+'\u00b7[pt]', {size:12, fill:'var(--violet)'});
     txt(bx, ey+72, 'since H^'+N+' = [pt]  and  H^'+(N+1)+' = 0', {size:10, fill:'var(--mute)'});
     txt(bx, ey+104, '\u21d2  '+prod+' intersection points', {size:15, fill:'var(--green)', weight:700});
     var ex='';

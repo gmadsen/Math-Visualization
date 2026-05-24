@@ -74,7 +74,8 @@ export function renderScript(params) {
     `    setActive(dB,d); setActive(eB,e); setToggle(hAlgB,hAlg); setToggle(hProjB,hProj); setToggle(hMultB,hMult);\n` +
     `    var N=d*e, allHold=hAlg&&hProj&&hMult;\n` +
     // grid of de dots: d columns, e rows
-    `    var gx=70, gy=70, sp=Math.min(40, 300/(Math.max(d,e)+1));\n` +
+    `    var gx=70, gy=70, sp=40;\n` + // grid is sized for degrees <= 4 (maxDegree cap); at 4x4 the caption baseline sits at y=240, inside the 300-tall viewBox
+
     `    var dotCol=allHold?'var(--green)':'var(--mute)';\n` +
     `    for(var r=0;r<e;r++){ for(var c=0;c<d;c++){\n` +
     `      var cx=gx+c*sp, cy=gy+r*sp;\n` +
@@ -92,11 +93,11 @@ export function renderScript(params) {
     `    function hyp(y,on,label){ svg.appendChild(mk('text',{x:TX,y:y,'font-size':13,fill:on?'var(--green)':'var(--pink)'},on?'\\u2713':'\\u2717')); txt(TX+17,y,label,{size:11,fill:on?'var(--ink)':'var(--mute)'}); }\n` +
     `    hyp(142, hAlg, 'k algebraically closed'); hyp(164, hProj, 'curves in \\u2119\\u00b2 (projective)'); hyp(186, hMult, 'count with multiplicity I_P');\n` +
     `    if(allHold){ txt(TX, 220, '= de = ' + N + '   (exact equality)', {size:14, fill:'var(--green)', weight:700}); }\n` +
-    `    else { txt(TX, 220, 'actual count  <  de = ' + N, {size:14, fill:'var(--orange)', weight:700}); txt(TX, 240, '(strict inequality \\u2014 a hypothesis is dropped)', {size:10, fill:'var(--mute)', italic:true}); }\n` +
+    `    else { txt(TX, 220, 'actual count  \\u2264  de = ' + N, {size:14, fill:'var(--orange)', weight:700}); txt(TX, 240, '(no longer pinned to de \\u2014 equality can fail)', {size:10, fill:'var(--mute)', italic:true}); }\n` +
     // readout
     `    var msg;\n` +
     `    if(allHold){ msg='With all three hypotheses, two plane curves with no common component and of degrees d=' + d + ', e=' + e + ' meet in EXACTLY de = ' + N + ' points. The grid shows those de points; over \\u2102, in \\u2119\\u00b2, with each point weighted by its intersection multiplicity I_P, the total is pinned to the product of the degrees \\u2014 independent of the particular curves.'; }\n` +
-    `    else { var parts=[]; if(!hAlg) parts.push('\\u2022 algebraically closed: '+CE.alg); if(!hProj) parts.push('\\u2022 projective \\u2119\\u00b2: '+CE.proj); if(!hMult) parts.push('\\u2022 multiplicity I_P: '+CE.mult); msg='Drop a hypothesis and the equality ' + '\\u2211 I_P = de' + ' weakens to a strict inequality \\u2014 the de = ' + N + ' count is no longer pinned (dashed dots). Why each is needed:\\n\\n' + parts.join('\\n\\n'); }\n` +
+    `    else { var parts=[]; if(!hAlg) parts.push('\\u2022 algebraically closed: '+CE.alg); if(!hProj) parts.push('\\u2022 projective \\u2119\\u00b2: '+CE.proj); if(!hMult) parts.push('\\u2022 multiplicity I_P: '+CE.mult); msg='Drop a hypothesis and the equality ' + '\\u2211 I_P = de' + ' need no longer hold: the count is only bounded, \\u2264 de = ' + N + ', and is no longer pinned to the product (dashed dots). Why each hypothesis is needed:\\n\\n' + parts.join('\\n\\n'); }\n` +
     `    out.textContent=msg;\n` +
     `  }\n` +
     `  dB.forEach(function(b,i){ b.addEventListener('click', function(){ d=i+1; draw(); }); });\n` +

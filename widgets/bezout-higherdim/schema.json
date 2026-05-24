@@ -6,7 +6,7 @@
   "meta": {
     "family": "bezout-higherdim",
     "dimension": "2d",
-    "gesture": "click",
+    "gesture": "slider",
     "role": "exploratory"
   },
   "type": "object",
