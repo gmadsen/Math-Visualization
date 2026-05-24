@@ -78,11 +78,13 @@ export function renderScript(params) {
     `      // two origins, drawn split\n` +
     `      svg.appendChild(mk('circle',{cx:CX,cy:MIDY-9,r:4,fill:'var(--green)'})); txt(CX-8, MIDY-12, '0_L', {anchor:'end', size:9, fill:'var(--green)', weight:700});\n` +
     `      svg.appendChild(mk('circle',{cx:CX,cy:MIDY+9,r:4,fill:'var(--pink)'})); txt(CX-8, MIDY+16, '0_R', {anchor:'end', size:9, fill:'var(--pink)', weight:700});\n` +
-    `      // approaching point at x = t (from the right), shown twice (it lifts toward both origins)\n` +
+    `      // approaching point at x = t > 0: a SINGLE ordinary point (only the origin is doubled),\n` +
+    `      // with dashed arrows to both origins showing the two competing limits as t->0\n` +
     `      var SCALE2=(LX1-CX)/5; var px3=CX+t*SCALE2;\n` +
-    `      svg.appendChild(mk('circle',{cx:px3,cy:MIDY-9,r:3.5,fill:'var(--green)','fill-opacity':0.7}));\n` +
-    `      svg.appendChild(mk('circle',{cx:px3,cy:MIDY+9,r:3.5,fill:'var(--pink)','fill-opacity':0.7}));\n` +
-    `      txt(px3, MIDY-20, 'x = t = '+t.toFixed(2), {anchor:'middle', size:9, fill:'var(--ink)'});\n` +
+    `      svg.appendChild(mk('circle',{cx:px3,cy:MIDY,r:4.5,fill:'var(--ink)'}));\n` +
+    `      svg.appendChild(mk('line',{x1:px3,y1:MIDY,x2:CX+3,y2:MIDY-9,stroke:'var(--green)','stroke-width':1,'stroke-dasharray':'3 2'}));\n` +
+    `      svg.appendChild(mk('line',{x1:px3,y1:MIDY,x2:CX+3,y2:MIDY+9,stroke:'var(--pink)','stroke-width':1,'stroke-dasharray':'3 2'}));\n` +
+    `      txt(px3, MIDY-16, 'x = t = '+t.toFixed(2)+' (one point)', {anchor:'middle', size:9, fill:'var(--ink)'});\n` +
     `      txt(CX, MIDY+44, 'as t \\u2192 0 the family approaches BOTH origins \\u2014 TWO limits', {anchor:'middle', size:10, fill:'var(--ink)'});\n` +
     `      verdict='The line with doubled origin (two copies of A\\u00b9 glued along A\\u00b9\\u2216{0}) is NOT SEPARATED: the family t\\u21a6t has TWO limits as t\\u21920, the two origins 0_L and 0_R \\u2014 like a non-Hausdorff space with two limits of one sequence. Its diagonal \\u0394 fails to be closed: the pair (0_L, 0_R) lies in the closure of \\u0394(X) but not on \\u0394(X) itself.';\n` +
     `    }\n` +
