@@ -65,10 +65,14 @@ export function renderScript(params) {
     // conic (unit circle)
     `    svg.appendChild(mk('circle',{cx:X(0),cy:Y(0),r:sc,fill:'none',stroke:'var(--violet)','stroke-width':1.5,'stroke-dasharray':'3 3'}));\n` +
     `    txt(X(0)+sc*0.71+4, Y(0)-sc*0.71, 'conic x\\u00b2+y\\u00b2=1', {size:9, fill:'var(--violet)'});\n` +
+    // 0.04: visual tolerance on the shared determinant for reading "collinear/concurrent"
     `    var D=det3(), conc=Math.abs(D)<0.04;\n` +
     // polar lines
+    // a point near the centre has |P| small, so its polar p_x x+p_y y=1 sits far off-screen
+    // (near the line at infinity): clipLine returns null and we annotate instead of drawing nothing.
     `    for(var i=0;i<3;i++){ var seg=clipLine(P[i][0],P[i][1],1);\n` +
-    `      if(seg) svg.appendChild(mk('line',{x1:X(seg[0][0]),y1:Y(seg[0][1]),x2:X(seg[1][0]),y2:Y(seg[1][1]),stroke:COL[i],'stroke-width':1.6,'stroke-opacity':0.85})); }\n` +
+    `      if(seg) svg.appendChild(mk('line',{x1:X(seg[0][0]),y1:Y(seg[0][1]),x2:X(seg[1][0]),y2:Y(seg[1][1]),stroke:COL[i],'stroke-width':1.6,'stroke-opacity':0.85}));\n` +
+    `      else txt(X(P[i][0])+10, Y(P[i][1])+16, 'polar near \\u221e', {size:8, fill:COL[i]}); }\n` +
     // common point (pole of line ABC) when concurrent
     `    if(conc){ var a=P[0],b=P[1]; var u=(b[1]-a[1]), v=(a[0]-b[0]), w=u*a[0]+v*a[1];\n` +
     `      if(Math.abs(w)>1e-6){ var px=u/w, py=v/w; if(px>XMIN&&px<XMAX&&py>YMIN&&py<YMAX){ svg.appendChild(mk('circle',{cx:X(px),cy:Y(py),r:6,fill:'none',stroke:'var(--green)','stroke-width':2})); txt(X(px)+9,Y(py)-6,'pole of line ABC',{size:9,fill:'var(--green)'}); } } }\n` +

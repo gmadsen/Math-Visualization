@@ -89,7 +89,8 @@ export function renderScript(params) {
     `    txt(TX, 56, 'S\\u2084 orbit (6 values):', {size:9, fill:'var(--mute)'});\n` +
     `    var oy=72; orbit.forEach(function(v,i){ txt(TX, oy+i*15, '\\u2022 '+fmt(v), {size:10, fill:'var(--cyan)'}); });\n` +
     `    var jv=256*Math.pow(lam*lam-lam+1,3)/(lam*lam*Math.pow(lam-1,2));\n` +
-    `    txt(TX, oy+6*15+8, 'j(\\u03bb) = '+fmt(jv), {size:10, fill:'var(--yellow)'});\n` +
+    `    var jstr=(isFinite(jv)&&Math.abs(jv)>=1e5)?jv.toExponential(2):fmt(jv);\n` +
+    `    txt(TX, oy+6*15+8, 'j(\\u03bb) = '+jstr, {size:10, fill:'var(--yellow)'});\n` +
     `    var harm=Math.abs(lam+1)<1e-3;\n` +
     `    if(harm) txt(TX, oy+6*15+26, '\\u2713 harmonic (\\u03bb = \\u22121)', {size:10, fill:'var(--pink)', weight:600});\n` +
     `    out.textContent = 'The cross-ratio of four collinear points A,B,C,D with coordinates a,b,c,d is [A,B;C,D] = (a\\u2212c)(b\\u2212d) / ((a\\u2212d)(b\\u2212c)) = '+fmt(lam)+'. Drag the s slider: the M\\u00f6bius (projective) map t\\u21a6(t+s)/(\\u03b3t+1) moves all four image points on the second line, yet \\u03bb is unchanged \\u2014 the cross-ratio is the fundamental PGL\\u2082(K)-invariant, so two quadruples are projectively equivalent iff their cross-ratios agree. Permuting the four points sends \\u03bb through the six-value orbit {\\u03bb, 1\\u2212\\u03bb, 1/\\u03bb, 1/(1\\u2212\\u03bb), \\u03bb/(\\u03bb\\u22121), (\\u03bb\\u22121)/\\u03bb} (only the Klein four-group fixes \\u03bb); the function j(\\u03bb)=256(\\u03bb\\u00b2\\u2212\\u03bb+1)\\u00b3/(\\u03bb\\u00b2(\\u03bb\\u22121)\\u00b2)='+fmt(jv)+' is S\\u2084-invariant and reappears as the j-invariant of an elliptic curve. The special value \\u03bb=\\u22121 is the harmonic configuration.';\n` +

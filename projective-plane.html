@@ -941,7 +941,8 @@ and this pairing is perfectly symmetric in the two variables. Fixing a point cut
     txt(X(0)+sc*0.71+4, Y(0)-sc*0.71, 'conic x\u00b2+y\u00b2=1', {size:9, fill:'var(--violet)'});
     var D=det3(), conc=Math.abs(D)<0.04;
     for(var i=0;i<3;i++){ var seg=clipLine(P[i][0],P[i][1],1);
-      if(seg) svg.appendChild(mk('line',{x1:X(seg[0][0]),y1:Y(seg[0][1]),x2:X(seg[1][0]),y2:Y(seg[1][1]),stroke:COL[i],'stroke-width':1.6,'stroke-opacity':0.85})); }
+      if(seg) svg.appendChild(mk('line',{x1:X(seg[0][0]),y1:Y(seg[0][1]),x2:X(seg[1][0]),y2:Y(seg[1][1]),stroke:COL[i],'stroke-width':1.6,'stroke-opacity':0.85}));
+      else txt(X(P[i][0])+10, Y(P[i][1])+16, 'polar near \u221e', {size:8, fill:COL[i]}); }
     if(conc){ var a=P[0],b=P[1]; var u=(b[1]-a[1]), v=(a[0]-b[0]), w=u*a[0]+v*a[1];
       if(Math.abs(w)>1e-6){ var px=u/w, py=v/w; if(px>XMIN&&px<XMAX&&py>YMIN&&py<YMAX){ svg.appendChild(mk('circle',{cx:X(px),cy:Y(py),r:6,fill:'none',stroke:'var(--green)','stroke-width':2})); txt(X(px)+9,Y(py)-6,'pole of line ABC',{size:9,fill:'var(--green)'}); } } }
     for(i=0;i<3;i++){ (function(i){
@@ -1053,7 +1054,8 @@ For instance $[0,1;2,3] = \dfrac{(-2)(-2)}{(-3)(-1)} = \dfrac{4}{3}$. The cross-
     txt(TX, 56, 'S\u2084 orbit (6 values):', {size:9, fill:'var(--mute)'});
     var oy=72; orbit.forEach(function(v,i){ txt(TX, oy+i*15, '\u2022 '+fmt(v), {size:10, fill:'var(--cyan)'}); });
     var jv=256*Math.pow(lam*lam-lam+1,3)/(lam*lam*Math.pow(lam-1,2));
-    txt(TX, oy+6*15+8, 'j(\u03bb) = '+fmt(jv), {size:10, fill:'var(--yellow)'});
+    var jstr=(isFinite(jv)&&Math.abs(jv)>=1e5)?jv.toExponential(2):fmt(jv);
+    txt(TX, oy+6*15+8, 'j(\u03bb) = '+jstr, {size:10, fill:'var(--yellow)'});
     var harm=Math.abs(lam+1)<1e-3;
     if(harm) txt(TX, oy+6*15+26, '\u2713 harmonic (\u03bb = \u22121)', {size:10, fill:'var(--pink)', weight:600});
     out.textContent = 'The cross-ratio of four collinear points A,B,C,D with coordinates a,b,c,d is [A,B;C,D] = (a\u2212c)(b\u2212d) / ((a\u2212d)(b\u2212c)) = '+fmt(lam)+'. Drag the s slider: the M\u00f6bius (projective) map t\u21a6(t+s)/(\u03b3t+1) moves all four image points on the second line, yet \u03bb is unchanged \u2014 the cross-ratio is the fundamental PGL\u2082(K)-invariant, so two quadruples are projectively equivalent iff their cross-ratios agree. Permuting the four points sends \u03bb through the six-value orbit {\u03bb, 1\u2212\u03bb, 1/\u03bb, 1/(1\u2212\u03bb), \u03bb/(\u03bb\u22121), (\u03bb\u22121)/\u03bb} (only the Klein four-group fixes \u03bb); the function j(\u03bb)=256(\u03bb\u00b2\u2212\u03bb+1)\u00b3/(\u03bb\u00b2(\u03bb\u22121)\u00b2)='+fmt(jv)+' is S\u2084-invariant and reappears as the j-invariant of an elliptic curve. The special value \u03bb=\u22121 is the harmonic configuration.';
