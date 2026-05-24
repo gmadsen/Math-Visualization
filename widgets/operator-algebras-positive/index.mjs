@@ -22,8 +22,11 @@ const DEFAULT_PRESETS = [
 export function renderMarkup(params) {
   const { widgetId, title, hint } = params;
   const lo = params.lo != null ? params.lo : -1.5;
-  const hi = params.hi != null ? params.hi : 3;
+  let hi = params.hi != null ? params.hi : 3;
+  if (hi <= lo) hi = lo + 1; // mirror the runtime guard so emitted slider min/max are always valid
   const step = params.step != null ? params.step : 0.25;
+  const clamp = (v) => Math.max(lo, Math.min(hi, v));
+  const init1 = clamp(2.25), init2 = clamp(0.75); // start on the "positive" preset, clamped into range
   const presets = Array.isArray(params.presets) && params.presets.length ? params.presets : DEFAULT_PRESETS;
   const hintHtml = hint ? `<div class="hint">${escapeHtml(hint)}</div>` : '';
   const btns = presets.map((p, i) =>
@@ -37,13 +40,13 @@ export function renderMarkup(params) {
     `  </div>\n` +
     `  <div class="row">\n` +
     `    <label for="${widgetId}-l1">$\\lambda_1$ (value at point 1)</label>\n` +
-    `    <input type="range" id="${widgetId}-l1" min="${lo}" max="${hi}" value="2.25" step="${step}">\n` +
-    `    <span class="pill" id="${widgetId}-l1v">&#955;&#8321; = 2.25</span>\n` +
+    `    <input type="range" id="${widgetId}-l1" min="${lo}" max="${hi}" value="${init1}" step="${step}">\n` +
+    `    <span class="pill" id="${widgetId}-l1v">&#955;&#8321; = ${init1}</span>\n` +
     `  </div>\n` +
     `  <div class="row">\n` +
     `    <label for="${widgetId}-l2">$\\lambda_2$ (value at point 2)</label>\n` +
-    `    <input type="range" id="${widgetId}-l2" min="${lo}" max="${hi}" value="0.75" step="${step}">\n` +
-    `    <span class="pill" id="${widgetId}-l2v">&#955;&#8322; = 0.75</span>\n` +
+    `    <input type="range" id="${widgetId}-l2" min="${lo}" max="${hi}" value="${init2}" step="${step}">\n` +
+    `    <span class="pill" id="${widgetId}-l2v">&#955;&#8322; = ${init2}</span>\n` +
     `  </div>\n` +
     `  <svg id="${widgetId}-svg" viewBox="0 0 540 320" width="540" height="320" role="img" aria-label="The positive cone and Lowner order in the self-adjoint plane of C of a two-point space"><title>Positive elements of a C*-algebra: the positive cone is the first quadrant, the Lowner order is the translated cone, the order interval [0,1] is the unit square, and the positive square root is a second point</title></svg>\n` +
     `  <div class="readout" id="${widgetId}-out"></div>\n` +
