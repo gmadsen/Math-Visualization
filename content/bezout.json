@@ -217,6 +217,28 @@
           "html": "<section id=\"statement\">\n<h2>5. Statement of Bézout's theorem</h2>\n\n<div class=\"ok\"><strong>Theorem (Bézout).</strong> Let $k$ be an algebraically closed field and let $C, D\\subset\\mathbb{P}^2_k$ be projective plane curves of degrees $d,e\\ge 1$ with no common irreducible component. Then\n$$\\sum_{P\\in C\\cap D} I_P(C,D) \\;=\\; d\\,e,$$\nwhere $I_P(C,D)$ is the intersection multiplicity defined in §3. In particular, $C$ and $D$ meet in at most $de$ points, and in exactly $de$ points when counted with multiplicity.</div>\n\n<p>Three hypotheses cover the three refinements of §2:</p>\n<ol>\n  <li><em>$k$ algebraically closed</em> — so all common zeros are accounted for (refinement (a)).</li>\n  <li><em>Curves in $\\mathbb{P}^2$</em> — so no points escape to infinity (refinement (b)).</li>\n  <li><em>$I_P$ in the sum</em> — so tangencies and singular intersections are counted correctly (refinement (c)).</li>\n</ol>\n\n<p>The \"no common component\" hypothesis is essential: if $C$ and $D$ share a curve component, they meet in infinitely many points and the sum is meaningless. Dropping any other hypothesis yields strict inequality.</p>\n\n<h3>Sketch of the proof via resultants</h3>\n<p>Pick coordinates so that $[0:1:0]\\notin C\\cup D$. Form the resultant $R(X,Z)=\\mathrm{Res}_Y(F,G)$ where $F,G$ are the defining forms. Three facts — each a computation:</p>\n<ul>\n  <li>$R$ is a form of degree $de$ in $(X,Z)$, so it has $de$ roots in $\\mathbb{P}^1$ (with multiplicity).</li>\n  <li>A root $[X_0:Z_0]$ of $R$ corresponds to a line through $[0:1:0]$ that cuts both $C$ and $D$ in at least one common point — i.e. to a set of intersection points of $C$ and $D$ projecting to $[X_0:Z_0]$.</li>\n  <li>The $Y$-multiplicity of that root equals the sum of $I_P(C,D)$ over the points $P$ above it.</li>\n</ul>\n<p>Totalling: $\\sum_P I_P = \\deg R = de$. Done.</p>\n\n<h3>Formal properties of the symbol $I_P$</h3>\n<table class=\"plain\">\n<thead><tr><th>property</th><th>statement</th></tr></thead>\n<tbody>\n<tr><td>non-negativity</td><td>$I_P(f,g)\\ge 0$, and $=0$ iff one of $f,g$ is a unit at $P$</td></tr>\n<tr><td>symmetry</td><td>$I_P(f,g)=I_P(g,f)$</td></tr>\n<tr><td>transverse crossing</td><td>$I_P(x,y)=1$ (and more generally: $=1$ iff $f,g$ are smooth curves through $P$ with distinct tangents)</td></tr>\n<tr><td>bilinearity in factors</td><td>$I_P(f,gh)=I_P(f,g)+I_P(f,h)$</td></tr>\n<tr><td>ideal invariance</td><td>$I_P(f,g)$ depends only on the ideal $(f,g)\\subset\\mathcal{O}_P$</td></tr>\n<tr><td>finite iff isolated</td><td>$I_P(f,g)<\\infty$ iff $P$ is an isolated point of $V(f)\\cap V(g)$</td></tr>\n</tbody>\n</table>\n\n"
         },
         {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget",
+          "slug": "bezout-statement",
+          "params": {
+            "widgetId": "w-bezout-statement",
+            "title": "The de count and its three hypotheses",
+            "hint": "Pick degrees d, e; toggle a hypothesis off to see the equality become a strict inequality.",
+            "maxDegree": 4
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-bezout-statement"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
           "type": "quiz",
           "concept": "bezout-theorem-core",
           "html": "<div class=\"quiz\" data-concept=\"bezout-theorem-core\"></div>"
@@ -385,6 +407,29 @@
         {
           "type": "raw",
           "html": "<section id=\"higherdim\">\n<h2>8. Bézout in higher dimensions</h2>\n\n<p>Bézout's $\\mathbb{P}^2$ theorem is the shadow of a more general intersection-theoretic statement in $\\mathbb{P}^n$. The cleanest formulation:</p>\n\n<div class=\"ok\"><strong>Theorem (Bézout in $\\mathbb{P}^n$).</strong> Let $H_1,\\dots,H_n\\subset \\mathbb{P}^n_k$ be hypersurfaces of degrees $d_1,\\dots,d_n$, defined over an algebraically closed field $k$, meeting in a zero-dimensional set $Z$. Then\n$$\\sum_{P\\in Z} \\mathrm{length}_{\\mathcal{O}_{\\mathbb{P}^n,P}}\\!\\bigl(\\mathcal{O}_{\\mathbb{P}^n,P}/(f_1,\\dots,f_n)\\bigr) \\;=\\; d_1 d_2 \\cdots d_n.$$\n</div>\n\n<p>The $\\mathbb{P}^2$ theorem is the case $n=2$, where \"length\" collapses to $\\dim_k$. For $n=3$, three surfaces of degrees $d_1,d_2,d_3$ meet in $d_1 d_2 d_3$ points counted with multiplicity — e.g., three generic quadrics in $\\mathbb{P}^3$ meet in $2\\cdot 2\\cdot 2=8$ points. The key hypotheses are the same as in $\\mathbb{P}^2$: algebraically closed field, projective ambient, and count with multiplicity; and the same hypothesis needs stating anew — the intersection must be <em>zero-dimensional</em>, i.e. the $H_i$ must meet <em>properly</em>. If any two hypersurfaces share a positive-dimensional component, the total count is infinite.</p>\n\n<p>The modern formulation recasts this as a computation in the Chow ring $A^{\\ast}(\\mathbb{P}^n) = \\mathbb{Z}[H]/(H^{n+1})$, where $H$ is the hyperplane class. A hypersurface of degree $d_i$ has class $d_i H$, so\n$$[H_1]\\cdot [H_2]\\cdots [H_n] \\;=\\; d_1 d_2 \\cdots d_n \\cdot H^n \\;=\\; d_1 d_2 \\cdots d_n\\cdot [\\text{pt}].$$\nThe intersection pairing on Chow classes reproduces Bézout without mentioning polynomials.</p>\n\n<p>Two variations are useful. First, if the subvarieties have complementary codimensions summing to $n$ but are not cut out by single equations, the Chow-theoretic count still works via degrees of the subvarieties. Second, for positive-dimensional intersections, the right generalization is Fulton–MacPherson intersection theory, which attaches a well-defined <em>excess intersection class</em> supported on the intersection.</p>\n\n<div class=\"note\"><strong>Why the passage to $\\mathbb{P}^n$ is gentle.</strong> None of the three refinements from §2 change meaning: projectivize, take $\\bar k$, count length. What gets genuinely more subtle is the <em>proper intersection</em> hypothesis — in higher dimensions it is much easier for two subvarieties to share an excess component, and the naïve sum of local lengths can be infinite even when the degrees are small. A typical fix is to perturb (move one of the cycles to a rationally equivalent one in general position), which is what the Chow ring formalizes.</div>\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget",
+          "slug": "bezout-higherdim",
+          "params": {
+            "widgetId": "w-bezout-higherdim",
+            "title": "Bézout in higher dimensions: the product of degrees",
+            "hint": "Choose n and the degrees; the count is ∏dᵢ, one line in the Chow ring.",
+            "maxN": 4,
+            "maxDegree": 4
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-bezout-higherdim"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
         },
         {
           "type": "quiz",

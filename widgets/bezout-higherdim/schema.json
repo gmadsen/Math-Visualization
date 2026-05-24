@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/bezout-higherdim/schema.json",
+  "title": "bezout-higherdim widget params",
+  "description": "Bézout in ℙⁿ: n hypersurfaces of degrees d₁,…,dₙ meeting properly in a zero-dimensional set contain ∏dᵢ points (counted with multiplicity). Pick the ambient dimension n and each degree dᵢ; the widget shows the product ∏dᵢ and the equivalent Chow-ring computation [H₁]···[Hₙ] = (∏dᵢ)·Hⁿ = (∏dᵢ)·[pt] in A*(ℙⁿ)=ℤ[H]/(Hⁿ⁺¹), recovering the classical ℙ² statement as the case n=2.",
+  "meta": {
+    "family": "bezout-higherdim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\"> wrapper."
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title rendered inside .hd > .ttl."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional short hint rendered inside .hd > .hint."
+    },
+    "maxN": {
+      "type": "integer",
+      "minimum": 2,
+      "maximum": 5,
+      "description": "Largest ambient projective dimension n offered (n hypersurfaces in ℙⁿ).",
+      "default": 4
+    },
+    "maxDegree": {
+      "type": "integer",
+      "minimum": 2,
+      "maximum": 6,
+      "description": "Highest degree offered for each hypersurface dᵢ.",
+      "default": 4
+    }
+  }
+}
