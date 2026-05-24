@@ -1030,6 +1030,24 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "ant-waring-finiteness",
+    "family": "ant-waring-finiteness",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "ant-waring-finiteness widget params",
+    "description": "The Hilbert–Waring theorem made tangible: for a chosen exponent k, the widget computes by dynamic programming the minimum number of k-th powers needed to write each n≤100 as a sum, and plots those counts. The bars never exceed a fixed bound g(k) no matter how large n grows — that bound is exactly what Hilbert (1909) proved finite for every k. It marks the extremal n that attains g(k), shows its decomposition into k-th powers, and the formula g(k)=2^k+⌊(3/2)^k⌋−2 (g(2)=4 Lagrange, g(3)=9, g(4)=19).",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Bespoke module for **additive-number-theory** §10 (Hilbert–Waring theorem). Makes the *finiteness* of $g(k)$ — the heart of Hilbert's 1909 theorem — visible.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "ant-zero-free-region",
     "family": "ant-zero-free-region",
     "dimension": "2d",
