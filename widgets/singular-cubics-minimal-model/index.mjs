@@ -47,7 +47,6 @@ export function renderScript(params) {
     `  function txt(x,y,s,opt){ opt=opt||{}; svg.appendChild(mk('text',{x:x,y:y,'text-anchor':opt.anchor||'start','font-size':opt.size||12,fill:opt.fill||'var(--ink)','font-weight':opt.weight||'normal'},s)); }\n` +
     `  var CURVES={ a:{name:'y\\u00b2 = x\\u00b3 \\u2212 x', A:-1, B:0}, b:{name:'y\\u00b2 = x\\u00b3 + 1', A:0, B:1}, c:{name:'y\\u00b2 = x\\u00b3 \\u2212 x + 1', A:-1, B:1} };\n` +
     `  function factor(n){ n=Math.abs(n); var f={}; for(var p=2;p*p<=n;p++){ while(n%p===0){ f[p]=(f[p]||0)+1; n/=p; } } if(n>1) f[n]=(f[n]||0)+1; return f; }\n` +
-    `  function vp(n,p){ if(n===0) return Infinity; n=Math.abs(n); var v=0; while(n%p===0){ v++; n/=p; } return v; }\n` +
     `  var curKey='a';\n` +
     `  function draw(){\n` +
     `    while(svg.firstChild) svg.removeChild(svg.firstChild);\n` +
@@ -84,12 +83,12 @@ export function renderScript(params) {
     `    // model line at top\n` +
     `    var Ap=A*Math.pow(u,4), Bp=B*Math.pow(u,6);\n` +
     `    txt(BX0, 30, C.name+(u>1?'   \\u2192  y\\u00b2 = x\\u00b3 + ('+Ap+')x + ('+Bp+')':'   (u = 1, the given model)'), {size:11, weight:700, fill:'var(--ink)'});\n` +
-    `    txt(BX0, 46, '\\u0394 = u\\u00b9\\u00b2\\u00b7\\u0394\\u2080 = '+(u>1?u+'\\u00b9\\u00b2\\u00b7':'')+'('+D0+')'+(u>1?'':''), {size:10, fill:'var(--mute)'});\n` +
+    `    txt(BX0, 46, '\\u0394 = u\\u00b9\\u00b2\\u00b7\\u0394\\u2080 = '+(u>1?u+'\\u00b9\\u00b2\\u00b7':'')+'('+D0+')', {size:10, fill:'var(--mute)'});\n` +
     `    // readout\n` +
     `    var spuriousPrimes=Object.keys(fu).map(Number).sort(function(x,y){return x-y;});\n` +
     `    var verdict;\n` +
     `    if(u===1){ verdict='This is the GLOBAL MINIMAL MODEL: \\u0394_min = \\u0394\\u2080 = '+D0+', minimal at every prime, so its bad primes ('+(Object.keys(fD0).join(', '))+') are the genuine ones. '; }\n` +
-    `    else { verdict='This model is NON-MINIMAL exactly at the prime'+(spuriousPrimes.length>1?'s':'')+' dividing u: '+spuriousPrimes.join(', ')+'. Each contributes a SPURIOUS 12\\u00b7v_p(u) to v_p(\\u0394) (the pink blocks), a multiple of 12 that Tate\\u2019s algorithm strips off by scaling back down via (x,y) \\u2192 (x/u\\u00b2, y/u\\u00b3), recovering \\u0394_min = '+D0+'. '; }\n` +
+    `    else { verdict='This model is NON-MINIMAL exactly at the prime'+(spuriousPrimes.length>1?'s':'')+' dividing u: '+spuriousPrimes.join(', ')+'. Each contributes a SPURIOUS 12\\u00b7v_p(u) to v_p(\\u0394) (the pink blocks), a multiple of 12 that the single inverse change of variables (x,y) \\u2192 (x/u\\u00b2, y/u\\u00b3) \\u2014 the minimization step Tate\\u2019s algorithm detects and applies \\u2014 strips off, recovering \\u0394_min = '+D0+'. '; }\n` +
     `    out.textContent='To reduce E/\\u211a at a prime you first choose an integer Weierstrass model, and different models have different discriminants. The admissible change of variables (x,y) \\u2192 (u\\u00b2x, u\\u00b3y) rescales the invariants by (c\\u2084, c\\u2086, \\u0394) \\u2192 (u\\u2074c\\u2084, u\\u2076c\\u2086, u\\u00b9\\u00b2\\u0394) \\u2014 same curve, discriminant multiplied by u\\u00b9\\u00b2. So v_p(\\u0394) = v_p(\\u0394\\u2080) + 12\\u00b7v_p(u) at every prime, and a factor of p in u inflates v_p(\\u0394) by exactly 12 (the dashed violet gridlines). '+verdict+'A model is MINIMAL at p when v_p(\\u0394) is smallest among all integer models; a global minimal model (minimal at every prime simultaneously) exists for every E/\\u211a (N\\u00e9ron) and \\u0394_min is an invariant of the curve. The CONDUCTOR N, by contrast, records only the reduction TYPE at each genuine bad prime (1 for multiplicative, \\u22652 for additive) \\u2014 it is computed from the minimal model and is completely unaffected by u.';\n` +
     `  }\n` +
     `  su.addEventListener('input', draw);\n` +
