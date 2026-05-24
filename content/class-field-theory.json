@@ -371,6 +371,27 @@
           "html": "<section id=\"existence\">\n<h2>6. Takagi's existence theorem</h2>\n<p>Artin reciprocity gives, for each abelian $L/K$, a surjection from a ray class group (or from the idèle class group $C_K$) onto $\\Gal(L/K)$. Takagi's <strong>existence theorem</strong> provides the converse: it says the correspondence is a <em>bijection</em>, so any admissible congruence subgroup is actually the kernel of the Artin map for a genuine abelian extension.</p>\n\n<div class=\"ok\"><strong>Existence theorem (Takagi).</strong> Fix a number field $K$.\n<ul>\n<li><em>Classical form.</em> For every modulus $\\mathfrak{m}$ and every subgroup $H$ with $P_K^{\\mathfrak{m}}\\subseteq H\\subseteq I_K^{\\mathfrak{m}}$ of finite index, there is a unique finite abelian extension $L/K$, unramified outside $\\mathfrak{m}$, with $H = \\ker\\!\\bigl(I_K^{\\mathfrak{m}}\\to\\Gal(L/K)\\bigr)$. In particular $\\Gal(L/K)\\cong I_K^{\\mathfrak{m}}/H$.</li>\n<li><em>Idelic form.</em> Finite abelian extensions $L/K$ are in bijection with finite-index open subgroups $N\\subset C_K$, via $N=\\ker\\theta_{L/K}$. Under this bijection $L\\subseteq L'\\Leftrightarrow N\\supseteq N'$, so the lattice of abelian extensions is anti-isomorphic to the lattice of open finite-index subgroups of $C_K$.</li>\n</ul></div>\n\n<p>Combined with the reciprocity theorem, existence turns class field theory into an algorithm: to build the abelian extension of $K$ with Galois group $G$, find a finite-index subgroup $N\\subset C_K$ with $C_K/N\\cong G$ and read off the fixed field. For $K=\\mathbb{Q}$ this recovers Kronecker–Weber — every finite-index $N\\subset C_\\mathbb{Q}$ containing the connected component cuts out a subfield of some $\\mathbb{Q}(\\zeta_n)$ — and for imaginary quadratic $K$ it underlies the theory of complex multiplication.</p>\n\n"
         },
         {
+          "type": "widget",
+          "slug": "class-field-theory-existence",
+          "params": {
+            "widgetId": "w-existence",
+            "title": "Takagi existence: abelian extensions ↔ subgroups (anti-iso)",
+            "hint": "pick $m$; the subgroup lattice of $(\\mathbb{Z}/m)^\\times$ mirrors the subfield lattice of $\\mathbb{Q}(\\zeta_m)$, reversed"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-existence"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
           "type": "raw",
           "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./frobenius-and-reciprocity.html#strong\">Reciprocity toward Artin maps</a></li>\n    <li><a href=\"./adeles-and-ideles.html#ideles\">The idèle class group</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
@@ -395,6 +416,27 @@
         {
           "type": "raw",
           "html": "<section id=\"cond-disc\">\n<h2>7. The conductor-discriminant formula</h2>\n<p>Every character $\\chi:\\Gal(L/K)\\to\\mathbb{C}^\\times$ of a finite abelian extension has an <strong>Artin conductor</strong> $\\mathfrak{f}(\\chi)\\subset\\mathcal{O}_K$: the smallest modulus through which $\\chi$ factors on the ray class side, or equivalently the product over ramified primes $\\mathfrak{p}$ of $\\mathfrak{p}^{n(\\chi,\\mathfrak{p})}$ where $n(\\chi,\\mathfrak{p})$ measures how deeply $\\chi$ restricts to the higher ramification filtration of $\\mathfrak{p}$. The conductor of the extension itself is $\\mathfrak{f}(L/K)=\\operatorname{lcm}_\\chi \\mathfrak{f}(\\chi)$.</p>\n\n<p>The <strong>conductor-discriminant formula</strong> (Führerdiskriminantenproduktformel, Hasse) expresses the discriminant of $L/K$ as a product over characters:</p>\n$$\n\\mathfrak{d}_{L/K} \\;=\\; \\prod_{\\chi\\in \\widehat{\\Gal(L/K)}} \\mathfrak{f}(\\chi).\n$$\n<p>So ramification in $L/K$ is controlled character-by-character: an unramified prime contributes to no conductor and to no factor of the discriminant, a tamely ramified prime $\\mathfrak{p}$ contributes $\\mathfrak{p}$ to exactly the $\\chi$ that are non-trivial on inertia, and wildly ramified primes contribute with higher multiplicity via the Swan conductor. Specialising to $L=\\mathbb{Q}(\\zeta_n)/\\mathbb{Q}$ (for $n\\not\\equiv 2\\pmod 4$) recovers the classical formula\n$$\n\\operatorname{disc}\\bigl(\\mathbb{Q}(\\zeta_n)/\\mathbb{Q}\\bigr) \\;=\\; \\frac{(-1)^{\\varphi(n)/2}\\, n^{\\varphi(n)}}{\\prod_{p\\mid n} p^{\\,\\varphi(n)/(p-1)}}\n$$\nas the product over Dirichlet characters mod $n$ of their individual conductors.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "class-field-theory-conductor-discriminant",
+          "params": {
+            "widgetId": "w-conddisc",
+            "title": "Conductor-discriminant: disc(ℚ(ζₙ)) = ∏ f(χ)",
+            "hint": "pick $n$; the product of all character conductors equals the discriminant"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-conddisc"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
         },
         {
           "type": "raw",
