@@ -1946,7 +1946,7 @@ reaches the trivial group in finitely many steps, where $G'=[G,G]$ is generated 
       note:'Adjoining \u03c9 = e^{2\u03c0i/3} brings in all three cube roots, so x\u00b3\u22122 splits: L is the splitting field, hence normal. Separable (char 0), so Galois, with |Gal| = 6 = [L:\u211a] \u2014 the group is S\u2083.' },
     { lab:'\u211a(\u03b6\u2085) / \u211a', mp:'x\u2074 + x\u00b3 + x\u00b2 + x + 1', roots:[cis(1,TAU/5), cis(1,2*TAU/5), cis(1,3*TAU/5), cis(1,4*TAU/5)], inL:[true,true,true,true], sep:true, deg:4, gal:4,
       note:'The roots are the primitive 5th roots of unity \u03b6\u2085^k; each is a power of \u03b6\u2085, so all lie in \u211a(\u03b6\u2085). The cyclotomic field is normal and separable \u2014 Galois, with |Gal| = 4 = [L:\u211a], cyclic (\u2124/5)*.' },
-    { lab:'\u211d\u209a(t) / \u211d\u209a(t\u1d56)  (char p)', special:true, mp:'x\u1d56 \u2212 t\u1d56 = (x \u2212 t)\u1d56', sep:false, deg:'p', gal:1,
+    { lab:'F\u209a(t) / F\u209a(t\u1d56)  (char p)', special:true, mp:'x\u1d56 \u2212 t\u1d56 = (x \u2212 t)\u1d56', sep:false, deg:'p', gal:1,
       note:'Over a field of characteristic p, x\u1d56 \u2212 t\u1d56 = (x \u2212 t)\u1d56 by the Frobenius: a SINGLE root t with multiplicity p. The extension is normal (the polynomial splits) but INSEPARABLE \u2014 so not Galois. Its only automorphism is the identity, yet [L:K] = p, so |Gal| = 1 < p.' }
   ];
   var svg=document.getElementById('w-galois-normsep-svg'), out=document.getElementById('w-galois-normsep-out');
@@ -1965,7 +1965,7 @@ reaches the trivial group in finitely many steps, where $G'=[G,G]$ is generated 
     var normal = E.special ? true : E.inL.every(function(b){return b;});
     var galois = normal && E.sep;
     if(E.special){
-      txt(40, 90, 'minimal polynomial of t over \u211d\u209a(t\u1d56):', {size:12, fill:'var(--mute)'});
+      txt(40, 90, 'minimal polynomial of t over F\u209a(t\u1d56):', {size:12, fill:'var(--mute)'});
       txt(40, 122, E.mp, {size:18, fill:'var(--yellow)', weight:600});
       txt(40, 150, 'one root  t  with multiplicity p  (a repeated root)', {size:12, fill:'var(--pink)'});
     } else {
@@ -2066,13 +2066,13 @@ reaches the trivial group in finitely many steps, where $G'=[G,G]$ is generated 
       svg.appendChild(mk('line',{x1:x,y1:CY,x2:x,y2:CY+(up?-30:34),stroke:cols[i],'stroke-width':1,'stroke-opacity':0.5}));
       txt(x, CY+(up?-34:48), lbls[i], {size:9, fill:cols[i], anchor:'middle'}); });
     txt(40, CY+92, 'distinct conjugates: '+nDist+(primitive?'  (all four)':'  (a pair collided)'), {size:12, fill:primitive?'var(--green)':'var(--orange)', weight:600});
-    txt(40, CY+118, 'minimal polynomial  m_\u03b8(x) = '+(primitive?poly(c):'x\u00b2 \u2212 2'), {size:13, fill:'var(--yellow)', weight:600});
-    txt(40, CY+140, '[\u211a(\u03b8):\u211a] = deg m_\u03b8 = '+deg, {size:12, fill:'var(--cyan)'});
+    txt(40, CY+118, 'minimal polynomial of \u03b8:   '+(primitive?poly(c):'x\u00b2 \u2212 2'), {size:13, fill:'var(--yellow)', weight:600});
+    txt(40, CY+140, '[\u211a(\u03b8):\u211a] = its degree = '+deg, {size:12, fill:'var(--cyan)'});
     txt(40, CY+166, primitive ? '\u211a(\u03b8) = \u211a(\u221a2,\u221a3)  \u2014  \u03b8 is a PRIMITIVE element \u2713' : '\u211a(\u03b8) = \u211a(\u221a2) \u228a \u211a(\u221a2,\u221a3)  \u2014  not primitive', {size:13, fill:primitive?'var(--green)':'var(--pink)', weight:700});
     out.textContent = (primitive
       ? '\u03b8 = \u221a2 + c\u221a3 with c = '+c+' has four distinct conjugates \u00b1\u221a2 \u00b1 c\u221a3 (the Galois orbit, from independent sign flips on \u221a2 and \u221a3). Their product \u220f(x \u2212 conjugate) = (x\u00b2 \u2212 3c\u00b2 + 2)\u00b2 \u2212 8x\u00b2 = '+poly(c)+' is irreducible of degree 4 = [\u211a(\u221a2,\u221a3):\u211a], so \u211a(\u03b8) is the whole field: \u03b8 is a primitive element.'
       : '\u03b8 = \u221a2 + c\u221a3 with c = '+c+' collapses: with c = 0, \u03b8 = \u221a2 and the four conjugates \u00b1\u221a2 \u00b1 0 collide into just \u00b1\u221a2. The minimal polynomial drops to x\u00b2 \u2212 2 (degree 2), so \u211a(\u03b8) = \u211a(\u221a2) is a proper subfield \u2014 \u03b8 is not primitive.')
-      + '\n\nThe primitive element theorem: any finite separable extension L/K is simple, L = K(\u03b8). The proof is exactly this picture \u2014 for generators \u03b1, \u03b2 almost every \u03b8 = \u03b1 + c\u03b2 works, because \u03b8 fails to generate only when two of its conjugates coincide, and that happens for only finitely many c (here, the single value c = 0). So Galois theory over \u211a reduces to one irreducible polynomial: Gal acts by permuting its roots.';
+      + '\n\nThe primitive element theorem: any finite separable extension L/K is simple, L = K(\u03b8). The proof is exactly this picture \u2014 for generators \u03b1, \u03b2 almost every \u03b8 = \u03b1 + c\u03b2 works, because \u03b8 fails to generate only when two of its conjugates coincide, and that happens for only finitely many c (among the rational c here, the single value c = 0). So Galois theory over \u211a reduces to one irreducible polynomial: Gal acts by permuting its roots.';
   }
   sc.addEventListener('input', draw);
   draw();

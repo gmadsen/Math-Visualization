@@ -47,7 +47,7 @@ export function renderScript(params) {
     `      note:'Adjoining \\u03c9 = e^{2\\u03c0i/3} brings in all three cube roots, so x\\u00b3\\u22122 splits: L is the splitting field, hence normal. Separable (char 0), so Galois, with |Gal| = 6 = [L:\\u211a] \\u2014 the group is S\\u2083.' },\n` +
     `    { lab:'\\u211a(\\u03b6\\u2085) / \\u211a', mp:'x\\u2074 + x\\u00b3 + x\\u00b2 + x + 1', roots:[cis(1,TAU/5), cis(1,2*TAU/5), cis(1,3*TAU/5), cis(1,4*TAU/5)], inL:[true,true,true,true], sep:true, deg:4, gal:4,\n` +
     `      note:'The roots are the primitive 5th roots of unity \\u03b6\\u2085^k; each is a power of \\u03b6\\u2085, so all lie in \\u211a(\\u03b6\\u2085). The cyclotomic field is normal and separable \\u2014 Galois, with |Gal| = 4 = [L:\\u211a], cyclic (\\u2124/5)*.' },\n` +
-    `    { lab:'\\u211d\\u209a(t) / \\u211d\\u209a(t\\u1d56)  (char p)', special:true, mp:'x\\u1d56 \\u2212 t\\u1d56 = (x \\u2212 t)\\u1d56', sep:false, deg:'p', gal:1,\n` +
+    `    { lab:'F\\u209a(t) / F\\u209a(t\\u1d56)  (char p)', special:true, mp:'x\\u1d56 \\u2212 t\\u1d56 = (x \\u2212 t)\\u1d56', sep:false, deg:'p', gal:1,\n` +
     `      note:'Over a field of characteristic p, x\\u1d56 \\u2212 t\\u1d56 = (x \\u2212 t)\\u1d56 by the Frobenius: a SINGLE root t with multiplicity p. The extension is normal (the polynomial splits) but INSEPARABLE \\u2014 so not Galois. Its only automorphism is the identity, yet [L:K] = p, so |Gal| = 1 < p.' }\n` +
     `  ];\n` +
     `  var svg=document.getElementById('${widgetId}-svg'), out=document.getElementById('${widgetId}-out');\n` +
@@ -66,7 +66,7 @@ export function renderScript(params) {
     `    var normal = E.special ? true : E.inL.every(function(b){return b;});\n` +
     `    var galois = normal && E.sep;\n` +
     `    if(E.special){\n` +
-    `      txt(40, 90, 'minimal polynomial of t over \\u211d\\u209a(t\\u1d56):', {size:12, fill:'var(--mute)'});\n` +
+    `      txt(40, 90, 'minimal polynomial of t over F\\u209a(t\\u1d56):', {size:12, fill:'var(--mute)'});\n` +
     `      txt(40, 122, E.mp, {size:18, fill:'var(--yellow)', weight:600});\n` +
     `      txt(40, 150, 'one root  t  with multiplicity p  (a repeated root)', {size:12, fill:'var(--pink)'});\n` +
     `    } else {\n` +

@@ -66,14 +66,14 @@ export function renderScript(params) {
     `      txt(x, CY+(up?-34:48), lbls[i], {size:9, fill:cols[i], anchor:'middle'}); });\n` +
     // verdict / min poly
     `    txt(40, CY+92, 'distinct conjugates: '+nDist+(primitive?'  (all four)':'  (a pair collided)'), {size:12, fill:primitive?'var(--green)':'var(--orange)', weight:600});\n` +
-    `    txt(40, CY+118, 'minimal polynomial  m_\\u03b8(x) = '+(primitive?poly(c):'x\\u00b2 \\u2212 2'), {size:13, fill:'var(--yellow)', weight:600});\n` +
-    `    txt(40, CY+140, '[\\u211a(\\u03b8):\\u211a] = deg m_\\u03b8 = '+deg, {size:12, fill:'var(--cyan)'});\n` +
+    `    txt(40, CY+118, 'minimal polynomial of \\u03b8:   '+(primitive?poly(c):'x\\u00b2 \\u2212 2'), {size:13, fill:'var(--yellow)', weight:600});\n` +
+    `    txt(40, CY+140, '[\\u211a(\\u03b8):\\u211a] = its degree = '+deg, {size:12, fill:'var(--cyan)'});\n` +
     `    txt(40, CY+166, primitive ? '\\u211a(\\u03b8) = \\u211a(\\u221a2,\\u221a3)  \\u2014  \\u03b8 is a PRIMITIVE element \\u2713' : '\\u211a(\\u03b8) = \\u211a(\\u221a2) \\u228a \\u211a(\\u221a2,\\u221a3)  \\u2014  not primitive', {size:13, fill:primitive?'var(--green)':'var(--pink)', weight:700});\n` +
     // readout
     `    out.textContent = (primitive\n` +
     `      ? '\\u03b8 = \\u221a2 + c\\u221a3 with c = '+c+' has four distinct conjugates \\u00b1\\u221a2 \\u00b1 c\\u221a3 (the Galois orbit, from independent sign flips on \\u221a2 and \\u221a3). Their product \\u220f(x \\u2212 conjugate) = (x\\u00b2 \\u2212 3c\\u00b2 + 2)\\u00b2 \\u2212 8x\\u00b2 = '+poly(c)+' is irreducible of degree 4 = [\\u211a(\\u221a2,\\u221a3):\\u211a], so \\u211a(\\u03b8) is the whole field: \\u03b8 is a primitive element.'\n` +
     `      : '\\u03b8 = \\u221a2 + c\\u221a3 with c = '+c+' collapses: with c = 0, \\u03b8 = \\u221a2 and the four conjugates \\u00b1\\u221a2 \\u00b1 0 collide into just \\u00b1\\u221a2. The minimal polynomial drops to x\\u00b2 \\u2212 2 (degree 2), so \\u211a(\\u03b8) = \\u211a(\\u221a2) is a proper subfield \\u2014 \\u03b8 is not primitive.')\n` +
-    `      + '\\n\\nThe primitive element theorem: any finite separable extension L/K is simple, L = K(\\u03b8). The proof is exactly this picture \\u2014 for generators \\u03b1, \\u03b2 almost every \\u03b8 = \\u03b1 + c\\u03b2 works, because \\u03b8 fails to generate only when two of its conjugates coincide, and that happens for only finitely many c (here, the single value c = 0). So Galois theory over \\u211a reduces to one irreducible polynomial: Gal acts by permuting its roots.';\n` +
+    `      + '\\n\\nThe primitive element theorem: any finite separable extension L/K is simple, L = K(\\u03b8). The proof is exactly this picture \\u2014 for generators \\u03b1, \\u03b2 almost every \\u03b8 = \\u03b1 + c\\u03b2 works, because \\u03b8 fails to generate only when two of its conjugates coincide, and that happens for only finitely many c (among the rational c here, the single value c = 0). So Galois theory over \\u211a reduces to one irreducible polynomial: Gal acts by permuting its roots.';\n` +
     `  }\n` +
     `  sc.addEventListener('input', draw);\n` +
     `  draw();\n` +
