@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/lie-algebra-tangent/schema.json",
+  "title": "lie-algebra-tangent widget params",
+  "description": "The Lie algebra g = T_e G is the set of matrices tangent to G at the identity — found by differentiating the defining equation along a curve A(t) with A(0)=I, A′(0)=X. Pick a matrix group (GL₂ℝ, SL₂ℝ, SO(2)); the widget shows its defining equation and the linearised condition on X (det A=1 → tr X=0; AᵀA=I → Xᵀ+X=0), then tests a panel of candidate 2×2 matrices, marking each one in or out of g, and reports dim g and a basis. It makes concrete that g is the solution set of the linearised constraint.",
+  "meta": {
+    "family": "lie-algebra-tangent",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\"> wrapper."
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title rendered inside .hd > .ttl."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional short hint rendered inside .hd > .hint."
+    }
+  }
+}

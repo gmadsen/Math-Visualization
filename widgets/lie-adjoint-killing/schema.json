@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/lie-adjoint-killing/schema.json",
+  "title": "lie-adjoint-killing widget params",
+  "description": "The adjoint representation ad_X(Y) = [X,Y] and the Killing form B(X,Y) = tr(ad_X ad_Y). Pick a Lie algebra (so(3)≅su(2), compact; or sl(2,ℝ), split) and a basis element X; the widget shows ad_X as a matrix on the algebra, computes the full Killing-form matrix from the structure constants, and finds its eigenvalue signature. so(3) gives a negative-definite B (compact group), sl(2,ℝ) gives signature (2,1) (noncompact); both are non-degenerate, so by Cartan's criterion both are semisimple.",
+  "meta": {
+    "family": "lie-adjoint-killing",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\"> wrapper."
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title rendered inside .hd > .ttl."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional short hint rendered inside .hd > .hint."
+    }
+  }
+}

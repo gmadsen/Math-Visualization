@@ -88,6 +88,27 @@
           "html": "<section id=\"algebra\">\n<h2>2. The Lie algebra: tangent space at the identity</h2>\n\n<p>The <strong>Lie algebra</strong> of a Lie group $G$ is</p>\n$$\\mathfrak{g} = T_e G,$$\n<p>the tangent space at the identity element. Equivalently, it is the space of left-invariant vector fields on $G$. The bracket $[\\,,\\,]$ on $\\mathfrak{g}$ is the commutator of vector fields, restricted to $T_eG$; for matrix groups it is just $[X,Y] = XY-YX$.</p>\n\n<p>To compute $\\mathfrak{g}$ for a matrix group, differentiate the defining equation along a smooth curve $A(t)$ with $A(0) = I$, $A'(0) = X$:</p>\n\n<table class=\"plain\">\n<thead><tr><th>group $G$</th><th>defining equation</th><th>linearised at $I$</th><th>Lie algebra $\\mathfrak{g}$</th><th>$\\dim$</th></tr></thead>\n<tbody>\n<tr><td>$\\mathrm{GL}_n(\\mathbb{R})$</td><td>$\\det A\\ne 0$</td><td>(open condition)</td><td>$\\mathfrak{gl}_n = M_n(\\mathbb{R})$</td><td>$n^2$</td></tr>\n<tr><td>$\\mathrm{SL}_n$</td><td>$\\det A = 1$</td><td>$\\tr X = 0$</td><td>$\\mathfrak{sl}_n$ (traceless)</td><td>$n^2-1$</td></tr>\n<tr><td>$\\mathrm{O}(n)$</td><td>$A^\\top A = I$</td><td>$X^\\top + X = 0$</td><td>$\\mathfrak{so}(n)$ (skew-symmetric)</td><td>$\\binom{n}{2}$</td></tr>\n<tr><td>$\\mathrm{U}(n)$</td><td>$A^*A = I$</td><td>$X^* + X = 0$</td><td>$\\mathfrak{u}(n)$ (skew-Hermitian)</td><td>$n^2$</td></tr>\n<tr><td>$\\mathrm{SU}(n)$</td><td>$A^*A=I,\\ \\det A=1$</td><td>$X^*+X=0,\\ \\tr X = 0$</td><td>$\\mathfrak{su}(n)$</td><td>$n^2-1$</td></tr>\n<tr><td>$\\mathrm{Sp}(2n,\\mathbb{R})$</td><td>$A^\\top JA=J$</td><td>$X^\\top J + JX = 0$</td><td>$\\mathfrak{sp}(2n)$</td><td>$n(2n+1)$</td></tr>\n</tbody>\n</table>\n\n<p>For $\\mathrm{O}(n)$: differentiate $A(t)^\\top A(t) = I$ at $t=0$ to get $X^\\top + X = 0$. So $\\mathfrak{so}(n) = \\mathfrak{o}(n)$ is the space of $n\\times n$ skew-symmetric matrices, with the bracket $[X,Y] = XY - YX$ (one checks the result is again skew). Note that $\\mathfrak{o}(n) = \\mathfrak{so}(n)$ even though $\\mathrm{O}(n)\\ne\\mathrm{SO}(n)$: the disconnected piece carries no extra infinitesimal information.</p>\n\n<p>For $\\mathrm{SU}(n)$: the determinant condition $\\det A(t) = 1$ linearises (using $\\det e^{tX} = e^{t\\tr{}X}$) to $\\tr X = 0$. So $\\mathfrak{su}(n)$ consists of $n\\times n$ traceless skew-Hermitian matrices, and $\\dim_{\\mathbb{R}}\\mathfrak{su}(n) = n^2-1$. In particular $\\mathfrak{su}(2)$ is 3-dimensional with basis</p>\n$$\\frac{1}{2i}\\sigma_1,\\ \\frac{1}{2i}\\sigma_2,\\ \\frac{1}{2i}\\sigma_3,$$\n<p>where $\\sigma_k$ are the Pauli matrices.</p>\n\n<div class=\"note\"><strong>Two definitions, one object.</strong> Abstractly, a <em>Lie algebra</em> is a vector space $\\mathfrak{g}$ with a bilinear, antisymmetric bracket satisfying the Jacobi identity $[X,[Y,Z]] + [Y,[Z,X]] + [Z,[X,Y]] = 0$. Lie's three theorems say: every finite-dimensional real Lie algebra arises as $T_eG$ for some Lie group $G$, and the simply-connected $G$ realising a given $\\mathfrak{g}$ is unique. So Lie algebras and simply-connected Lie groups are essentially the same data.</div>\n\n<h3>The bracket on $\\mathfrak{so}(3)$</h3>\n<p>A skew-symmetric $3\\times3$ matrix has the form</p>\n$$X = \\begin{pmatrix} 0 & -c & b \\\\ c & 0 & -a \\\\ -b & a & 0 \\end{pmatrix},$$\n<p>and the map $X\\leftrightarrow(a,b,c)$ identifies $\\mathfrak{so}(3)$ with $\\mathbb{R}^3$ — write $X\\leftrightarrow\\vec v$, $Y\\leftrightarrow\\vec w$. Under this identification one computes $[X,Y]\\leftrightarrow \\vec v\\times \\vec w$, i.e., the Lie bracket on $\\mathfrak{so}(3)$ is the cross product on $\\mathbb{R}^3$. This is the prototype for everything in §6 — the adjoint action of a Lie group on its Lie algebra.</p>\n\n<h3>Why the left-invariant picture</h3>\n\n<p>There is a choice to make: a tangent vector at $e$ extends uniquely to a left-invariant vector field by $X^L_g = (dL_g)_e(X)$, where $L_g : h\\mapsto gh$ is left translation. This construction turns $\\mathfrak{g}$ into a Lie algebra of <em>vector fields</em> on $G$ — all invariant under left translation — and the bracket of vector fields restricts correctly to the tangent space at $e$.</p>\n\n<p>The slightly subtle sign convention: some texts use right-invariant fields, which produces the same $\\mathfrak{g}$ as a vector space but flips the bracket ($[X,Y]_{\\text{right}} = -[X,Y]_{\\text{left}}$). For matrix groups the matrix commutator corresponds to the <em>left</em>-invariant convention. Either choice is fine as long as you are consistent.</p>\n\n<h3>Sub-algebras, ideals, quotients</h3>\n\n<p>Just as for groups, $\\mathfrak{g}$ has a natural notion of sub-structure. A <em>subalgebra</em> is a vector subspace closed under $[\\,,\\,]$. An <em>ideal</em> $\\mathfrak{i}\\subset\\mathfrak{g}$ satisfies $[\\mathfrak{g},\\mathfrak{i}]\\subset\\mathfrak{i}$; the quotient $\\mathfrak{g}/\\mathfrak{i}$ inherits a Lie bracket. Ideals correspond to normal Lie subgroups by Lie's correspondence, and simple Lie algebras (no nontrivial ideals, $\\dim > 1$) correspond to simple Lie groups.</p>\n\n<p>Two structural ideals deserve names. The <strong>centre</strong> $Z(\\mathfrak{g}) = \\{X : [X,Y] = 0\\ \\forall Y\\}$ is the kernel of $\\ad$. The <strong>derived algebra</strong> $[\\mathfrak{g},\\mathfrak{g}]$ is the ideal generated by all brackets. A Lie algebra is <em>abelian</em> iff $[\\mathfrak{g},\\mathfrak{g}] = 0$, <em>perfect</em> iff $[\\mathfrak{g},\\mathfrak{g}] = \\mathfrak{g}$ (e.g., $\\mathfrak{sl}_n$ for $n\\ge 2$), and <em>semisimple</em> iff it has no nonzero abelian ideals.</p>\n\n"
         },
         {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget",
+          "slug": "lie-algebra-tangent",
+          "params": {
+            "widgetId": "w-lie-tangent",
+            "title": "The Lie algebra is the tangent space at the identity",
+            "hint": "Pick a group; its Lie algebra is the matrices satisfying the linearised defining equation."
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-lie-tangent"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
           "type": "quiz",
           "concept": "lie-algebra-tangent",
           "html": "<div class=\"quiz\" data-concept=\"lie-algebra-tangent\"></div>"
@@ -354,6 +375,27 @@
         {
           "type": "raw",
           "html": "<section id=\"adjoint\">\n<h2>6. The adjoint representation</h2>\n\n<p>A Lie group acts on its own Lie algebra by conjugation. For each $g\\in G$, define</p>\n$$\\mathrm{Ad}_g : \\mathfrak{g}\\to\\mathfrak{g}, \\qquad \\mathrm{Ad}_g(X) = g X g^{-1}$$\n<p>(for matrix groups; in general it is the differential of conjugation $h\\mapsto ghg^{-1}$ at $e$). This gives a homomorphism $\\mathrm{Ad} : G\\to\\mathrm{GL}(\\mathfrak{g})$, the <strong>adjoint representation</strong> of the group.</p>\n\n<p>Differentiate at the identity: $\\mathrm{Ad}_{\\exp(tX)}(Y) = e^{tX} Y e^{-tX}$, and</p>\n$$\\frac{d}{dt}\\bigg|_{t=0} e^{tX} Y e^{-tX} = XY - YX = [X,Y].$$\n<p>So the differential $d\\mathrm{Ad}_e : \\mathfrak{g}\\to\\mathrm{End}(\\mathfrak{g})$ is</p>\n$$\\ad_X(Y) = [X,Y],$$\n<p>the <strong>adjoint representation of the Lie algebra</strong>. Jacobi's identity is the statement that $\\ad_{[X,Y]} = [\\ad_X, \\ad_Y]$, i.e., $\\ad$ itself is a Lie algebra homomorphism $\\mathfrak{g}\\to\\mathfrak{gl}(\\mathfrak{g})$.</p>\n\n<h3>The Killing form</h3>\n\n<p>From $\\ad$ one builds a canonical symmetric bilinear form on $\\mathfrak{g}$, the <strong>Killing form</strong>:</p>\n$$B(X,Y) = \\tr\\!\\big(\\ad_X\\ad_Y\\big).$$\n<p>For $\\mathfrak{so}(3)$ the Killing form is negative definite (all eigenvalues of $\\ad_X$ are imaginary, square gives negatives); for $\\mathfrak{sl}_2(\\mathbb{R})$ it is indefinite of signature $(2,1)$. The sign tells you whether the corresponding compact group is compact ($B<0$) or not.</p>\n\n<p><strong>Cartan's criterion.</strong> A Lie algebra is <em>semisimple</em> iff its Killing form is non-degenerate. This single algebraic condition classifies an enormous class of Lie algebras and is the entry point to the root system theory of §7.</p>\n\n<div class=\"note\"><strong>Adjoint orbits.</strong> The orbits of $G$ on $\\mathfrak{g}$ under $\\mathrm{Ad}$ are remarkable submanifolds: for $G = \\mathrm{SU}(n)$ they are flag manifolds carrying $G$-invariant symplectic structures (Kirillov–Kostant–Souriau), and they parametrise the irreducible unitary representations of $G$ in a precise way (orbit method). For $G = \\mathrm{SO}(3)$ the orbits are concentric spheres in $\\mathbb{R}^3 = \\mathfrak{so}(3)$ — radius $r$ corresponds to the spin-$r$ phase space.</div>\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget",
+          "slug": "lie-adjoint-killing",
+          "params": {
+            "widgetId": "w-lie-killing",
+            "title": "The adjoint representation and the Killing form",
+            "hint": "ad_X = [X,·]; the Killing form B(X,Y)=tr(ad_X ad_Y) and its signature tell compact from split."
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-lie-killing"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
         },
         {
           "type": "raw",
