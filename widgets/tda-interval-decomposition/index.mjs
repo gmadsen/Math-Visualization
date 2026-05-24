@@ -34,12 +34,12 @@ export function renderScript(params) {
     `(function(){\n` +
     `  var svg=document.getElementById('${widgetId}-svg'), out=document.getElementById('${widgetId}-out');\n` +
     `  var st=document.getElementById('${widgetId}-t'), tv=document.getElementById('${widgetId}-tv');\n` +
-    `  if(!svg||!out||!st) return;\n` +
+    `  if(!svg||!out||!st||!tv) return;\n` +
     `  var NS='http://www.w3.org/2000/svg';\n` +
     `  function mk(tag,attrs,text){ var e=document.createElementNS(NS,tag); for(var k in attrs){ e.setAttribute(k,attrs[k]); } if(text!=null) e.textContent=text; return e; }\n` +
     `  function txt(x,y,s,opt){ opt=opt||{}; svg.appendChild(mk('text',{x:x,y:y,'text-anchor':opt.anchor||'start','font-size':opt.size||12,fill:opt.fill||'var(--ink)','font-weight':opt.weight||'normal'},s)); }\n` +
     // sampled 1-D function f
-    `  var N=90, f=[]; for(var i=0;i<N;i++){ var x=i/(N-1); f.push(0.5-0.20*Math.cos(4*Math.PI*x)-0.10*Math.cos(2*Math.PI*x)+0.08*x); }\n` +
+    `  var N=90, f=[]; for(var i=0;i<N;i++){ var x=i/(N-1); f.push(0.5+0.16*Math.cos(6*Math.PI*x)-0.06*Math.cos(2*Math.PI*x)+0.04*Math.cos(4*Math.PI*x)-0.08*x); }\n` +
     `  var fmin=Math.min.apply(null,f), fmax=Math.max.apply(null,f);\n` +
     // H0 sublevel persistence (union-find sweep, elder rule) -> bars [birth, death]
     `  function persistence(){ var ord=f.map(function(v,i){return i;}).sort(function(a,b){return f[a]-f[b];});\n` +
@@ -91,7 +91,7 @@ export function renderScript(params) {
     `    var byBot=BY0+10+BARS.length*rh;\n` +
     `    svg.appendChild(mk('line',{x1:BX(t),y1:BY0+2,x2:BX(t),y2:byBot,stroke:'var(--yellow)','stroke-width':1.2,'stroke-dasharray':'3 2'}));\n` +
     `    txt(BX(t), byBot+12, 't', {size:9, fill:'var(--yellow)', anchor:'middle'});\n` +
-    `    txt(PX1+30, BY0+10+0*rh+4, 'dim M_t = '+alive, {size:12, fill:'var(--green)', weight:700});\n` +
+    `    txt(PX1+30, BY0+14, 'dim M_t = '+alive, {size:12, fill:'var(--green)', weight:700});\n` +
     `    out.textContent = 'A persistence module here comes from the sublevel sets {f \\u2264 t} of a 1-D function as the threshold t rises. Each connected component of {f\\u2264t} is a class in H\\u2080; a new component is BORN at each local minimum and two components MERGE at a local maximum, where by the elder rule the younger one (higher birth) DIES. Recording (birth, death) for every component gives the barcode \\u2014 currently '+comps+' component'+(comps===1?'':'s')+' at t='+t.toFixed(2)+', so dim M_t = '+alive+'. The Structure Theorem (Crawley-Boevey, Zomorodian\\u2013Carlsson) says any pointwise-finite persistence module over a field decomposes UNIQUELY as a direct sum of interval modules M \\u2245 \\u2295\\u2090 I[b\\u2090,d\\u2090) \\u2014 each bar is one indecomposable summand I[b,d). So the barcode (the multiset of bars) is a COMPLETE invariant: two such modules are isomorphic iff their barcodes match. A bar\\u2019s length is the feature\\u2019s persistence \\u2014 the long bar (and the infinite one, the global minimum / connected whole) is a significant feature; very short bars are noise. The proof mirrors the structure theorem for finitely generated modules over the PID k[t]. (No analogue exists for multi-parameter persistence over \\u211d\\u00b2.)';\n` +
     `  }\n` +
     `  st.addEventListener('input', draw);\n` +
