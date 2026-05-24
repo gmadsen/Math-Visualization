@@ -3,10 +3,10 @@
 ## Corpus totals
 
 - Topics: **207**, concepts: **1422**
-- Widgets: **1539** (registry-driven: 1539, inline: 0)
+- Widgets: **1541** (registry-driven: 1541, inline: 0)
 - Quizzes: **5458** (v1: 4222, hard: 1223, expert: 13)
 - Quiz types: mcq: 3591, numeric: 1291, multi-select: 277, matching: 107, ordering: 85, spot-the-error: 53, complex: 29, proof-completion: 21, construction: 2, guess-my-rule: 2
-- Concepts lacking a widget in their section: **62**
+- Concepts lacking a widget in their section: **60**
 - Concepts lacking a hard-tier quiz: **984**
 
 ## Per-slug registry adoption
@@ -553,6 +553,8 @@ page has wired one in yet.
 | `infinity-topoi-presheaf-universal` | proof-scrubber | scrub | 2d | 1 | infinity-topoi |
 | `infinity-topoi-univalent-universes` | clickable-diagram | click | 2d | 1 | infinity-topoi |
 | `infinity-topoi-whitehead-internal` | proof-scrubber | scrub | 2d | 1 | infinity-topoi |
+| `info-aep-typical-set` | info-aep-typical-set | slider | 2d | 1 | information-theory |
+| `info-cramer-rao` | info-cramer-rao | slider | 2d | 1 | information-theory |
 | `information-bsc-capacity` | information-bsc-capacity | slider | 2d | 1 | information-theory |
 | `information-entropy` | information-entropy | slider | 2d | 1 | information-theory |
 | `information-huffman-builder` | information-huffman-builder | click | 2d | 1 | information-theory |
@@ -1011,10 +1013,10 @@ page has wired one in yet.
 ### Probability & statistics
 
 - Topics: **11**, concepts: **76**
-- Widgets: **74** (registry-driven: 74, inline: 0)
-  - by family: verbatim: 21, button-stepper: 10, ms-bias-variance: 1, ms-likelihood-curve: 1, ms-crlb-envelope: 1, ms-neyman-pearson: 1, ms-beta-posterior: 1, ms-wilks-theorem: 1, hdg-sphere-concentration-band: 1, hdg-dvoretzky-section: 1, hdg-jl-distortion-histogram: 1, hdg-talagrand-deviation: 1, hdg-isoperimetry-tail: 1, hdg-marchenko-pastur: 1, prob-convergence-modes: 1, prob-martingale-stopping: 1, stoch-proc-filtration-stopping: 1, stoch-proc-random-walk-martingale: 1, stoch-proc-gamblers-ruin: 1, stoch-proc-doob-decomposition: 1, stoch-proc-convergence-regimes: 1, stoch-proc-brownian-quadratic-variation: 1, stochastic-calc-ito-riemann-sums: 1, stochastic-calc-ito-formula-bsq: 1, stochastic-calc-geometric-brownian-motion: 1, stochastic-calc-girsanov-density: 1, stochastic-calc-feynman-kac-heat: 1, stochastic-calc-binomial-black-scholes: 1, random-walks-graph-step: 1, random-walks-matrix-power: 1, random-walks-tv-distance: 1, random-walks-eigenvalue-inspector: 1, random-walks-cycle-coupling: 1, random-walks-metropolis-hastings: 1, information-entropy: 1, information-mutual-info-venn: 1, information-kl-simplex: 1, information-huffman-builder: 1, information-bsc-capacity: 1, information-rate-distortion: 1, large-dev-cramer-tilt: 1, large-dev-rate-gallery: 1, large-dev-sanov-kl: 1, large-dev-gartner-ar1: 1, large-dev-schilder-paths: 1
-  - by dimension: 2d: 74
-  - by gesture: slider: 41, click: 25, step: 5, button: 2, toggle: 1
+- Widgets: **76** (registry-driven: 76, inline: 0)
+  - by family: verbatim: 21, button-stepper: 10, ms-bias-variance: 1, ms-likelihood-curve: 1, ms-crlb-envelope: 1, ms-neyman-pearson: 1, ms-beta-posterior: 1, ms-wilks-theorem: 1, hdg-sphere-concentration-band: 1, hdg-dvoretzky-section: 1, hdg-jl-distortion-histogram: 1, hdg-talagrand-deviation: 1, hdg-isoperimetry-tail: 1, hdg-marchenko-pastur: 1, prob-convergence-modes: 1, prob-martingale-stopping: 1, stoch-proc-filtration-stopping: 1, stoch-proc-random-walk-martingale: 1, stoch-proc-gamblers-ruin: 1, stoch-proc-doob-decomposition: 1, stoch-proc-convergence-regimes: 1, stoch-proc-brownian-quadratic-variation: 1, stochastic-calc-ito-riemann-sums: 1, stochastic-calc-ito-formula-bsq: 1, stochastic-calc-geometric-brownian-motion: 1, stochastic-calc-girsanov-density: 1, stochastic-calc-feynman-kac-heat: 1, stochastic-calc-binomial-black-scholes: 1, random-walks-graph-step: 1, random-walks-matrix-power: 1, random-walks-tv-distance: 1, random-walks-eigenvalue-inspector: 1, random-walks-cycle-coupling: 1, random-walks-metropolis-hastings: 1, information-entropy: 1, information-mutual-info-venn: 1, information-kl-simplex: 1, information-huffman-builder: 1, information-bsc-capacity: 1, information-rate-distortion: 1, info-aep-typical-set: 1, info-cramer-rao: 1, large-dev-cramer-tilt: 1, large-dev-rate-gallery: 1, large-dev-sanov-kl: 1, large-dev-gartner-ar1: 1, large-dev-schilder-paths: 1
+  - by dimension: 2d: 76
+  - by gesture: slider: 43, click: 25, step: 5, button: 2, toggle: 1
 - Quizzes: **265** (v1: 228, hard: 24, expert: 13)
   - by type: mcq: 167, numeric: 70, multi-select: 10, matching: 5, spot-the-error: 5, ordering: 3, proof-completion: 3, construction: 1, complex: 1
 
@@ -1240,7 +1242,7 @@ page has wired one in yet.
 - `stochastic-processes-and-martingales` (Probability & statistics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `stochastic-calculus` (Probability & statistics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `random-walks-and-mixing` (Probability & statistics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `information-theory` (Probability & statistics) — concepts=8, widgets=6 (slug=6), quiz=24 (v1=24, hard=0, expert=0)
+- `information-theory` (Probability & statistics) — concepts=8, widgets=8 (slug=8), quiz=24 (v1=24, hard=0, expert=0)
 - `large-deviations` (Probability & statistics) — concepts=5, widgets=5 (slug=5), quiz=15 (v1=15, hard=0, expert=0)
 - `point-set-topology` (Geometry & topology) — concepts=6, widgets=7 (slug=7), quiz=36 (v1=18, hard=18, expert=0)
 - `algebraic-topology` (Geometry & topology) — concepts=6, widgets=6 (slug=6), quiz=32 (v1=18, hard=14, expert=0)
