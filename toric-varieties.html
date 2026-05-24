@@ -1031,8 +1031,8 @@ $$\Delta^\circ \;=\; \{\, v \in N_\mathbb{R} \,:\, \langle v, m\rangle \ge -1 \t
 
 <p>Equivalently, $0$ is the unique interior lattice point of $\Delta$ and every facet of $\Delta$ has lattice distance $1$ from the origin. <a href="./functional-analysis.html#reflexivity" data-auto-inline-link="1" data-concept-id="reflexivity" data-blurb="X is reflexive when the canonical embedding X → X** is surjective; Lᵖ (1&lt;p&lt;∞) and Hilbert spaces qualify; L¹, L∞, C[0,1], c₀ do not.">Reflexivity</a> is rare and rigid — there are exactly $16$ reflexive polygons in dimension $2$ (corresponding to the $16$ Gorenstein toric Fano surfaces), $4319$ in dimension $3$, and a famous Kreuzer-Skarke list of $473\,800\,776$ in dimension $4$.</p>
 
-<p><strong>Batyrev's construction.</strong> A reflexive polytope $\Delta$ has a normal fan $\Sigma_\Delta$ (the rays are inner normals to facets, the maximal cones are normal cones at vertices). The toric variety $X_\Delta := X_{\Sigma_\Delta}$ is a Gorenstein toric Fano variety. A generic anticanonical hypersurface in $X_\Delta$ is a Calabi-Yau variety. Batyrev showed: the analogous hypersurface in $X_{\Delta^\circ}$ is the <em>mirror</em> Calabi-Yau, with Hodge numbers $h^{1,1}$ and $h^{n-1,1}$ swapped:</p>
-$$h^{1,1}\!\big(X_\Delta^{\mathrm{CY}}\big) \;=\; h^{n-1,1}\!\big(X_{\Delta^\circ}^{\mathrm{CY}}\big), \qquad h^{n-1,1}\!\big(X_\Delta^{\mathrm{CY}}\big) \;=\; h^{1,1}\!\big(X_{\Delta^\circ}^{\mathrm{CY}}\big).$$
+<p><strong>Batyrev's construction.</strong> A reflexive polytope $\Delta$ has a normal fan $\Sigma_\Delta$ (the rays are inner normals to facets, the maximal cones are normal cones at vertices). The toric variety $X_\Delta := X_{\Sigma_\Delta}$ is a Gorenstein toric Fano variety. A generic anticanonical hypersurface in $X_\Delta$ is a Calabi-Yau variety. Batyrev showed: the analogous hypersurface in $X_{\Delta^\circ}$ is the <em>mirror</em> Calabi-Yau, with Hodge numbers $h^{1,1}$ and $h^{n-2,1}$ swapped (here $n=\dim\Delta$, so the Calabi-Yau hypersurfaces have dimension $n-1$):</p>
+$$h^{1,1}\!\big(X_\Delta^{\mathrm{CY}}\big) \;=\; h^{n-2,1}\!\big(X_{\Delta^\circ}^{\mathrm{CY}}\big), \qquad h^{n-2,1}\!\big(X_\Delta^{\mathrm{CY}}\big) \;=\; h^{1,1}\!\big(X_{\Delta^\circ}^{\mathrm{CY}}\big).$$
 
 <p>The quintic threefold $\{f_5 = 0\} \subset \mathbb{P}^4$ is the historical poster child: $\mathbb{P}^4$ is $X_{\Delta_4}$ for the $4$-simplex $\Delta_4$ (a reflexive polytope), and $\Delta_4^\circ$ gives a different toric Fano whose generic anticanonical hypersurface is the mirror quintic, with the famous $h^{1,1}$/$h^{2,1}$ swap $(1, 101) \leftrightarrow (101, 1)$.</p>
 
@@ -1074,7 +1074,7 @@ $$h^{1,1}\!\big(X_\Delta^{\mathrm{CY}}\big) \;=\; h^{n-1,1}\!\big(X_{\Delta^\cir
     p2:{name:'\u2119\u00b2', dualName:'anticanonical cubic triangle', V:[[1,0],[0,1],[-1,-1]]},
     p1p1:{name:'\u2119\u00b9\u00d7\u2119\u00b9 (diamond)', dualName:'square', V:[[1,0],[0,1],[-1,0],[0,-1]]},
     square:{name:'square', dualName:'diamond', V:[[1,1],[-1,1],[-1,-1],[1,-1]]},
-    dp3:{name:'dP\u2083 (hexagon)', dualName:'hexagon (self-dual)', V:[[1,0],[1,1],[0,1],[-1,0],[-1,-1],[0,-1]]},
+    dp3:{name:'dP\u2083 (hexagon)', dualName:'hexagon (self-dual up to GL\u2082(\u2124))', V:[[1,0],[1,1],[0,1],[-1,0],[-1,-1],[0,-1]]},
     nonref:{name:'non-reflexive', dualName:'(not a lattice polygon)', V:[[2,0],[0,1],[-1,-1]]}
   };
   function dual(V){ var k=V.length, D=[];

@@ -47,7 +47,7 @@ export function renderScript(params) {
     `    p2:{name:'\\u2119\\u00b2', dualName:'anticanonical cubic triangle', V:[[1,0],[0,1],[-1,-1]]},\n` +
     `    p1p1:{name:'\\u2119\\u00b9\\u00d7\\u2119\\u00b9 (diamond)', dualName:'square', V:[[1,0],[0,1],[-1,0],[0,-1]]},\n` +
     `    square:{name:'square', dualName:'diamond', V:[[1,1],[-1,1],[-1,-1],[1,-1]]},\n` +
-    `    dp3:{name:'dP\\u2083 (hexagon)', dualName:'hexagon (self-dual)', V:[[1,0],[1,1],[0,1],[-1,0],[-1,-1],[0,-1]]},\n` +
+    `    dp3:{name:'dP\\u2083 (hexagon)', dualName:'hexagon (self-dual up to GL\\u2082(\\u2124))', V:[[1,0],[1,1],[0,1],[-1,0],[-1,-1],[0,-1]]},\n` +
     `    nonref:{name:'non-reflexive', dualName:'(not a lattice polygon)', V:[[2,0],[0,1],[-1,-1]]}\n` +
     `  };\n` +
     `  function dual(V){ var k=V.length, D=[];\n` +
