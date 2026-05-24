@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/bezout-cayley-bacharach/schema.json",
+  "title": "bezout-cayley-bacharach widget params",
+  "description": "Cayley–Bacharach via the dimension count. The nine points of a 3×3 grid are the complete intersection of two cubics (the three 'row' lines and the three 'column' lines), so they impose only EIGHT independent conditions on the ℙ⁹ of plane cubics — not nine. Click the points to toggle which are imposed; the widget live-computes the rank of the cubic-monomial evaluation matrix and reports the dimension of the cubic system, making visible that any 8 of the 9 already force the 9th (the rank never reaches 9). This rigidity is the engine behind associativity of the elliptic-curve group law.",
+  "meta": {
+    "family": "bezout-cayley-bacharach",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\"> wrapper."
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title rendered inside .hd > .ttl."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional short hint rendered inside .hd > .hint."
+    }
+  }
+}
