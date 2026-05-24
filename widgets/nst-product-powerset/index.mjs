@@ -63,7 +63,7 @@ export function renderScript(params) {
     `  function drawProduct(){\n` +
     `    var nA=parseInt(sa.value,10), nB=parseInt(sb.value,10);\n` +
     `    av.textContent='|A| = '+nA; bv.textContent='|B| = '+nB;\n` +
-    `    var ox=90, oy=64, cw=Math.min(64,440/nB), ch=Math.min(40,220/nA);\n` +
+    `    var ox=90, oy=56, cw=Math.min(64,440/nB), ch=Math.min(34,196/nA);\n` +
     `    txt(ox-44, oy+nA*ch/2, 'A', {size:13, fill:'var(--cyan)', weight:600, anchor:'middle'});\n` +
     `    txt(ox+nB*cw/2, oy-30, 'B', {size:13, fill:'var(--yellow)', weight:600, anchor:'middle'});\n` +
     `    txt(ox+nB*cw/2, oy-46, 'each cell is a pair (a, b)', {size:10, fill:'var(--mute)', anchor:'middle'});\n` +
@@ -74,8 +74,8 @@ export function renderScript(params) {
     `      svg.appendChild(mk('circle',{cx:ox+j*cw+cw/2, cy:oy+i*ch+ch/2, r:3.2, fill:'var(--violet)'}));\n` +
     `    }}\n` +
     `    var tot=nA*nB;\n` +
-    `    txt(ox, oy+nA*ch+34, '|A \\u00d7 B| = |A| \\u00b7 |B| = '+nA+' \\u00b7 '+nB+' = '+tot, {size:13, fill:'var(--ink)', weight:600});\n` +
-    `    txt(ox, oy+nA*ch+54, 'the product rule of counting \\u2014 one dot per ordered pair', {size:10, fill:'var(--mute)'});\n` +
+    `    txt(ox, oy+nA*ch+30, '|A \\u00d7 B| = |A| \\u00b7 |B| = '+nA+' \\u00b7 '+nB+' = '+tot, {size:13, fill:'var(--ink)', weight:600});\n` +
+    `    txt(ox, oy+nA*ch+48, 'the product rule of counting \\u2014 one dot per ordered pair', {size:10, fill:'var(--mute)'});\n` +
     `    out.textContent = 'The Cartesian product A\\u00d7B is the set of all ordered pairs (a,b) with a\\u2208A, b\\u2208B \\u2014 drawn here as a '+nA+'\\u00d7'+nB+' grid, one cell per pair. Counting cells gives |A\\u00d7B| = |A|\\u00b7|B| = '+nA+'\\u00b7'+nB+' = '+tot+', the product rule. The two projections \\u03c0\\u2081(a,b)=a and \\u03c0\\u2082(a,b)=b read off the row and column. A function X\\u2192A\\u00d7B is exactly a pair of functions (X\\u2192A, X\\u2192B): this universal property makes the product a limit in the category of sets. Cartesian powers A\\u1d4f are the special case A\\u00d7\\u00b7\\u00b7\\u00b7\\u00d7A \\u2014 the words of length k over the alphabet A.';\n` +
     `  }\n` +
     `  function drawPower(){\n` +
@@ -103,13 +103,13 @@ export function renderScript(params) {
     `      if(here) svg.appendChild(mk('rect',{x:x-4, y:y-11, width:colW-10, height:rh-1, rx:3, fill:'var(--green)','fill-opacity':0.22, stroke:'var(--green)','stroke-width':1.2}));\n` +
     `      txt(x, y, bits, {size:11, fill:here?'var(--ink)':weightColor(ww), weight:here?700:400});\n` +
     `    }\n` +
-    `    out.textContent = 'The power set P(A) is the set of all subsets of A. Each subset S corresponds to its indicator function 1_S\\u2236 A\\u2192{0,1} (1 on members, 0 elsewhere), and this correspondence S\\u2194 1_S is a bijection P(A)\\u2245{0,1}^A. So choosing a subset is n independent binary choices, one per element: |P(A)| = 2\\u207f = '+tot+' for n='+n+'. The chips build S = { '+(S.join(', ')||'\\u2205')+' }, indicator ('+ind.join('')+'), highlighted among all '+tot+' strings at right (coloured by |S|). Every topology and \\u03c3-algebra on A lives inside this P(A); a directed graph on A is a single element of P(A\\u00d7A).';\n` +
+    `    out.textContent = 'The power set P(A) is the set of all subsets of A. Each subset S corresponds to its indicator function 1_S: A\\u2192{0,1} (1 on members, 0 elsewhere), and this correspondence S\\u2194 1_S is a bijection P(A)\\u2245{0,1}^A. So choosing a subset is n independent binary choices, one per element: |P(A)| = 2\\u207f = '+tot+' for n='+n+'. The chips build S = { '+(S.join(', ')||'\\u2205')+' }, indicator ('+ind.join('')+'), highlighted among all '+tot+' strings at right (coloured by |S|). Every topology and \\u03c3-algebra on A lives inside this P(A); a directed graph on A is a single element of P(A\\u00d7A).';\n` +
     `  }\n` +
     `  function buildChips(){\n` +
     `    var n=parseInt(sn.value,10); chips.innerHTML='';\n` +
     `    for(var i=0;i<n;i++){ (function(i){\n` +
     `      var b=document.createElement('button'); b.type='button';\n` +
-    `      b.className='chip'+(member[i]?' active':''); b.setAttribute('aria-pressed', member[i]?'true':'false');\n` +
+    `      b.className='chip'; b.setAttribute('aria-pressed', member[i]?'true':'false');\n` +
     `      b.style.cssText='padding:.1rem .5rem;border-radius:6px;background:var(--panel2);cursor:pointer;font-size:12px;border:1px solid '+(member[i]?'var(--green)':'var(--line)')+';color:'+(member[i]?'var(--green)':'var(--mute)')+';font-weight:'+(member[i]?'700':'400');\n` +
     `      b.textContent='a'+sub(i+1); b.setAttribute('aria-label','toggle element a'+(i+1));\n` +
     `      b.addEventListener('click', function(){ member[i]=!member[i]; buildChips(); draw(); });\n` +

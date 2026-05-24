@@ -14647,7 +14647,7 @@ window.__MVWidgets = [
       "widgetId",
       "title"
     ],
-    "readmeExcerpt": "Nst axiom of choice widget — scaffolded stub. Replace this paragraph with a short description of what the widget does, which topic page first introduced it, and whether it's a bespoke module or part of a shared family.",
+    "readmeExcerpt": "Bespoke module for **naive-set-theory** §5 (The axiom of choice — intuition). Russell's shoes-versus-socks picture of where AC is and isn't needed.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
@@ -14665,7 +14665,7 @@ window.__MVWidgets = [
       "widgetId",
       "title"
     ],
-    "readmeExcerpt": "Nst product powerset widget — scaffolded stub. Replace this paragraph with a short description of what the widget does, which topic page first introduced it, and whether it's a bespoke module or part of a shared family.",
+    "readmeExcerpt": "Bespoke module for **naive-set-theory** §2 (Cartesian products and power sets). Two foundational constructions in one widget, switched by a mode toggle.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,

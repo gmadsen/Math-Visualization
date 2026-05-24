@@ -97,12 +97,11 @@ export function renderScript(params) {
     `      status = allDone ? '\\u2713 the rule \\u201cpick the left shoe\\u201d chose one from EVERY pair at once \\u2014 including the infinitely many. A choice function given by a formula. No axiom of choice needed.'\n` +
     `                       : 'Shoes are distinguishable. Click a shoe, or press the button to apply the rule \\u201cpick the left one\\u201d to all pairs at once.';\n` +
     `    } else {\n` +
-    `      status = infChosen ? ''\n` +
-    `             : (finiteDone ? 'You chose by hand from all '+n+' visible pairs \\u2014 fine for finitely many. But the socks are identical, so there is no rule, and the infinitely many pairs can never be exhausted by hand. The axiom of choice asserts a choice function exists anyway.'\n` +
-    `                           : 'Socks are indistinguishable \\u2014 no formula picks one. You can still choose by hand from each FINITE bin (click a sock). The dashed \\u221e bin has no rule: that is exactly where AC is needed.');\n` +
+    `      status = finiteDone ? 'You chose by hand from all '+n+' visible pairs \\u2014 fine for finitely many. But the socks are identical, so there is no rule, and the infinitely many pairs can never be exhausted by hand. The axiom of choice asserts a choice function exists anyway.'\n` +
+    `                          : 'Socks are indistinguishable \\u2014 no formula picks one. You can still choose by hand from each FINITE bin (click a sock). The dashed \\u221e bin has no rule: that is exactly where AC is needed.';\n` +
     `    }\n` +
     `    txt(280, 248, kind==='shoes' ? (allDone?'\\u2713 definable choice function \\u2014 no AC':'pick the left one')\n` +
-    `                                 : (infChosen?'':(finiteDone?'finite: done by hand \\u00b7 infinite: needs AC':'no uniform rule \\u2014 pick by hand')),\n` +
+    `                                 : (finiteDone?'finite: done by hand \\u00b7 infinite: needs AC':'no uniform rule \\u2014 pick by hand'),\n` +
     `         {size:11, fill: kind==='shoes' ? (allDone?'var(--green)':'var(--mute)') : (finiteDone?'var(--pink)':'var(--mute)'), weight:600});\n` +
     `    out.textContent = status + '  \\u2014  Formally, AC says: for any family {A\\u1d62} of non-empty sets the product \\u220fA\\u1d62 is non-empty, i.e. a choice function f with f(i)\\u2208A\\u1d62 exists. For shoes the function i\\u21a6(left shoe of A\\u1d62) is explicit; for socks no such formula exists, yet AC guarantees a choice function. AC is independent of ZF (G\\u00f6del 1938: consistent; Cohen 1963: its negation consistent) and is equivalent to Zorn\\u2019s lemma, the well-ordering theorem, and \\u201cevery vector space has a basis\\u201d; it underlies Tychonoff\\u2019s theorem and the Banach\\u2013Tarski paradox. Countable choice (I countable) already suffices for most of analysis.';\n` +
     `  }\n` +
