@@ -7830,7 +7830,7 @@ window.__MVWidgets = [
       "widgetId",
       "title"
     ],
-    "readmeExcerpt": "Fr decomposition widget — scaffolded stub. Replace this paragraph with a short description of what the widget does, which topic page first introduced it, and whether it's a bespoke module or part of a shared family.",
+    "readmeExcerpt": "Bespoke module for **frobenius-and-reciprocity** §5 (Decomposition and inertia groups). Shows the local Galois group at a prime, the inertia subgroup, and where Frobenius lives.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
@@ -7869,7 +7869,7 @@ window.__MVWidgets = [
       "widgetId",
       "title"
     ],
-    "readmeExcerpt": "Fr splitting types widget — scaffolded stub. Replace this paragraph with a short description of what the widget does, which topic page first introduced it, and whether it's a bespoke module or part of a shared family.",
+    "readmeExcerpt": "Bespoke module for **frobenius-and-reciprocity** §3 (Splitting types: completely split, inert, partially split). Shows the splitting type $(r,f)$ of an unramified prime and Frobenius as its cycle shape.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,

@@ -80,12 +80,16 @@ export function renderScript(params) {
     `    txt(TX,ty, unram?'D \\u2245 Z/'+f+' cyclic, Frob generates it':'Frob generates only D/I',{size:9,fill:'var(--mute)',anchor:'start'});\n` +
     `    out.textContent = 'Fix a prime P above p in a Galois extension K/Q with group G of order n = e\\u00b7f\\u00b7r = '+n+'. The decomposition group D(P) = {\\u03c3\\u2208G : \\u03c3P = P} is the stabiliser of P; by orbit\\u2013stabiliser |D| = |G|/r = ef = '+D+', since G permutes the r = '+r+' primes above p transitively. Each \\u03c3\\u2208D acts on the residue field O_K/P, giving D \\u2192 Gal(F_p^f/F_p) \\u2245 Z/f; its kernel is the inertia group I(P) of order e = '+e+', and the sequence 1\\u2192I\\u2192D\\u2192Z/f\\u21921 is exact. Fixed fields give the tower Q \\u2286 K^D \\u2286 K^I \\u2286 K of degrees r, f, e: p splits into r primes up to K^D, picks up residue degree f (where Frobenius lives) up to K^I, then ramifies with index e up to K. '+(unram?'Here e=1 (unramified): I is trivial, D \\u2245 Z/f is cyclic, and the Frobenius element \\u2014 the preimage of x\\u21a6x^p \\u2014 generates D.':'Here e>1 (ramified): inertia I is nontrivial and Frobenius generates only the quotient D/I.')+' Changing the prime above p conjugates D and Frob, so only the conjugacy class Frob_p \\u2282 G is canonical.';\n` +
     `  }\n` +
-    `  sr.addEventListener('input', draw); sf.addEventListener('input', draw); se.addEventListener('input', draw);\n` +
+    // clear preset highlight when a slider moves the config away from a preset
+    `  function clearPresets(){ Array.prototype.forEach.call(presets.querySelectorAll('button'), function(x){ x.classList.remove('active'); x.setAttribute('aria-pressed','false'); }); }\n` +
+    `  function onSlide(){ clearPresets(); draw(); }\n` +
+    `  sr.addEventListener('input', onSlide); sf.addEventListener('input', onSlide); se.addEventListener('input', onSlide);\n` +
     `  Array.prototype.forEach.call(presets.querySelectorAll('button'), function(b){ b.addEventListener('click', function(){\n` +
     `    var pre=b.getAttribute('data-pre');\n` +
     `    if(pre==='split'){ sr.value='4'; sf.value='1'; se.value='1'; }\n` +
     `    else if(pre==='inert'){ sr.value='1'; sf.value='4'; se.value='1'; }\n` +
     `    else if(pre==='ram'){ sr.value='2'; sf.value='1'; se.value='2'; }\n` +
+    `    Array.prototype.forEach.call(presets.querySelectorAll('button'), function(x){ var on=(x===b); x.classList.toggle('active',on); x.setAttribute('aria-pressed', on?'true':'false'); });\n` +
     `    draw();\n` +
     `  }); });\n` +
     `  draw();\n` +

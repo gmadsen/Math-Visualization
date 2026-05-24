@@ -695,9 +695,9 @@ has every prime sharing the same residue degree $f$: in a Galois extension the G
     var name = r===n ? 'completely split' : (r===1 ? 'inert' : 'partially split');
     var col  = r===n ? 'var(--green)' : (r===1 ? 'var(--pink)' : 'var(--cyan)');
     txt(280, 34, name+'   (r, f) = ('+r+', '+f+')', {size:14, fill:col, weight:700});
-    txt(280, 52, 'p\u00b7O_K = '+Array.from({length:r},function(_,i){return 'P'+sub(i+1);}).join(' ')+(r<n?'':'')+',   each residue degree f = '+f, {size:11, fill:'var(--mute)'});
+    txt(280, 52, 'p\u00b7O_K = '+Array.from({length:r},function(_,i){return 'P'+sub(i+1);}).join(' ')+',   each residue degree f = '+f, {size:11, fill:'var(--mute)'});
     var perRow=Math.min(r,4), rows=Math.ceil(r/perRow);
-    var cellW=440/perRow, cellH=Math.min(120,180/rows), x0=60, y0=110;
+    var cellW=440/perRow, cellH=Math.min(96,130/rows), x0=60, y0=110;
     var R=Math.min(cellW,cellH)/2-22; if(R<10) R=10;
     for(var i=0;i<r;i++){ var rr=Math.floor(i/perRow), cc=i%perRow; var cx=x0+cellW*cc+cellW/2, cy=y0+cellH*rr+cellH/2-6;
       drawCycle(cx,cy,R,f,col);
@@ -707,7 +707,7 @@ has every prime sharing the same residue degree $f$: in a Galois extension the G
     txt(280, by, 'Frobenius cycle shape on the '+n+' roots:  ('+Array(r).fill(f).join(', ')+')', {size:11, fill:'var(--ink)', weight:600});
     txt(280, by+20, 'f\u0304(x) \u2261 '+(r===1?'one irreducible of degree '+f:r+' distinct irreducibles of degree '+f)+'  (mod p)', {size:10, fill:'var(--mute)'});
     txt(280, by+38, 'order of Frob_p = lcm of cycle lengths = '+f, {size:10, fill:col});
-    out.textContent = 'For an unramified prime p in a Galois extension K/Q of degree n='+n+', p factors as p\u00b7O_K = P_1\u00b7\u00b7\u00b7P_'+r+' into r='+r+' primes, all of the SAME residue degree f='+f+' (the Galois group permutes them transitively), with rf=n. This is the splitting type ('+r+','+f+'): '+name+'. Frobenius acts on the n roots of f as r disjoint f-cycles \u2014 cycle shape ('+Array(r).fill(f).join(',')+') \u2014 so f\u0304(x) factors mod p into '+r+' distinct irreducible'+(r===1?'':'s')+' of degree '+f+', and Frob_p has order '+f+'. '+(r===n?'Completely split: f\u0304 splits into n linear factors, Frobenius is the identity \u2014 K looks like copies of F_p here.':(r===1?'Inert: p stays prime, f\u0304 is irreducible of degree n, Frobenius is a single n-cycle generating G \u2014 the most twisted prime.':'Partially split: an intermediate shape with 1<r<n.'))+' (Ramified primes, where some e_i>1 and p | disc, are the finite exceptional set where this dictionary breaks.)';
+    out.textContent = 'For an unramified prime p in a Galois extension K/Q of degree n='+n+', p factors as p\u00b7O_K = '+(r===1?'P_1':(r===2?'P_1\u00b7P_2':'P_1\u00b7\u00b7\u00b7P_'+r))+' into r='+r+' prime'+(r===1?'':'s')+', all of the SAME residue degree f='+f+' (the Galois group permutes them transitively), with rf=n. This is the splitting type ('+r+','+f+'): '+name+'. Frobenius acts on the n roots of f as r disjoint f-cycles \u2014 cycle shape ('+Array(r).fill(f).join(',')+') \u2014 so f\u0304(x) factors mod p into '+(r===1?'one irreducible':r+' distinct irreducibles')+' of degree '+f+', and Frob_p has order '+f+'. '+(r===n?'Completely split: f\u0304 splits into n linear factors, Frobenius is the identity \u2014 K looks like copies of F_p here.':(r===1?'Inert: p stays prime, f\u0304 is irreducible of degree n, Frobenius is a single n-cycle generating G \u2014 the most twisted prime.':'Partially split: an intermediate shape with 1<r<n.'))+' (Ramified primes, where some e_i>1 and p | disc, are the finite exceptional set where this dictionary breaks.)';
   }
   sn.addEventListener('input', function(){ n=parseInt(sn.value,10); ensureValid(); buildPairs(); draw(); });
   buildPairs(); draw();
@@ -926,12 +926,15 @@ At an <em>unramified</em> prime $I(\mathfrak{P})$ is trivial and $\pi_\mathfrak{
     txt(TX,ty, unram?'D \u2245 Z/'+f+' cyclic, Frob generates it':'Frob generates only D/I',{size:9,fill:'var(--mute)',anchor:'start'});
     out.textContent = 'Fix a prime P above p in a Galois extension K/Q with group G of order n = e\u00b7f\u00b7r = '+n+'. The decomposition group D(P) = {\u03c3\u2208G : \u03c3P = P} is the stabiliser of P; by orbit\u2013stabiliser |D| = |G|/r = ef = '+D+', since G permutes the r = '+r+' primes above p transitively. Each \u03c3\u2208D acts on the residue field O_K/P, giving D \u2192 Gal(F_p^f/F_p) \u2245 Z/f; its kernel is the inertia group I(P) of order e = '+e+', and the sequence 1\u2192I\u2192D\u2192Z/f\u21921 is exact. Fixed fields give the tower Q \u2286 K^D \u2286 K^I \u2286 K of degrees r, f, e: p splits into r primes up to K^D, picks up residue degree f (where Frobenius lives) up to K^I, then ramifies with index e up to K. '+(unram?'Here e=1 (unramified): I is trivial, D \u2245 Z/f is cyclic, and the Frobenius element \u2014 the preimage of x\u21a6x^p \u2014 generates D.':'Here e>1 (ramified): inertia I is nontrivial and Frobenius generates only the quotient D/I.')+' Changing the prime above p conjugates D and Frob, so only the conjugacy class Frob_p \u2282 G is canonical.';
   }
-  sr.addEventListener('input', draw); sf.addEventListener('input', draw); se.addEventListener('input', draw);
+  function clearPresets(){ Array.prototype.forEach.call(presets.querySelectorAll('button'), function(x){ x.classList.remove('active'); x.setAttribute('aria-pressed','false'); }); }
+  function onSlide(){ clearPresets(); draw(); }
+  sr.addEventListener('input', onSlide); sf.addEventListener('input', onSlide); se.addEventListener('input', onSlide);
   Array.prototype.forEach.call(presets.querySelectorAll('button'), function(b){ b.addEventListener('click', function(){
     var pre=b.getAttribute('data-pre');
     if(pre==='split'){ sr.value='4'; sf.value='1'; se.value='1'; }
     else if(pre==='inert'){ sr.value='1'; sf.value='4'; se.value='1'; }
     else if(pre==='ram'){ sr.value='2'; sf.value='1'; se.value='2'; }
+    Array.prototype.forEach.call(presets.querySelectorAll('button'), function(x){ var on=(x===b); x.classList.toggle('active',on); x.setAttribute('aria-pressed', on?'true':'false'); });
     draw();
   }); });
   draw();

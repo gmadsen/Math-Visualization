@@ -74,10 +74,10 @@ export function renderScript(params) {
     `    var name = r===n ? 'completely split' : (r===1 ? 'inert' : 'partially split');\n` +
     `    var col  = r===n ? 'var(--green)' : (r===1 ? 'var(--pink)' : 'var(--cyan)');\n` +
     `    txt(280, 34, name+'   (r, f) = ('+r+', '+f+')', {size:14, fill:col, weight:700});\n` +
-    `    txt(280, 52, 'p\\u00b7O_K = '+Array.from({length:r},function(_,i){return 'P'+sub(i+1);}).join(' ')+(r<n?'':'')+',   each residue degree f = '+f, {size:11, fill:'var(--mute)'});\n` +
+    `    txt(280, 52, 'p\\u00b7O_K = '+Array.from({length:r},function(_,i){return 'P'+sub(i+1);}).join(' ')+',   each residue degree f = '+f, {size:11, fill:'var(--mute)'});\n` +
     // r cycles in a row (wrap if many)
     `    var perRow=Math.min(r,4), rows=Math.ceil(r/perRow);\n` +
-    `    var cellW=440/perRow, cellH=Math.min(120,180/rows), x0=60, y0=110;\n` +
+    `    var cellW=440/perRow, cellH=Math.min(96,130/rows), x0=60, y0=110;\n` +
     `    var R=Math.min(cellW,cellH)/2-22; if(R<10) R=10;\n` +
     `    for(var i=0;i<r;i++){ var rr=Math.floor(i/perRow), cc=i%perRow; var cx=x0+cellW*cc+cellW/2, cy=y0+cellH*rr+cellH/2-6;\n` +
     `      drawCycle(cx,cy,R,f,col);\n` +
@@ -88,7 +88,7 @@ export function renderScript(params) {
     `    txt(280, by, 'Frobenius cycle shape on the '+n+' roots:  ('+Array(r).fill(f).join(', ')+')', {size:11, fill:'var(--ink)', weight:600});\n` +
     `    txt(280, by+20, 'f\\u0304(x) \\u2261 '+(r===1?'one irreducible of degree '+f:r+' distinct irreducibles of degree '+f)+'  (mod p)', {size:10, fill:'var(--mute)'});\n` +
     `    txt(280, by+38, 'order of Frob_p = lcm of cycle lengths = '+f, {size:10, fill:col});\n` +
-    `    out.textContent = 'For an unramified prime p in a Galois extension K/Q of degree n='+n+', p factors as p\\u00b7O_K = P_1\\u00b7\\u00b7\\u00b7P_'+r+' into r='+r+' primes, all of the SAME residue degree f='+f+' (the Galois group permutes them transitively), with rf=n. This is the splitting type ('+r+','+f+'): '+name+'. Frobenius acts on the n roots of f as r disjoint f-cycles \\u2014 cycle shape ('+Array(r).fill(f).join(',')+') \\u2014 so f\\u0304(x) factors mod p into '+r+' distinct irreducible'+(r===1?'':'s')+' of degree '+f+', and Frob_p has order '+f+'. '+(r===n?'Completely split: f\\u0304 splits into n linear factors, Frobenius is the identity \\u2014 K looks like copies of F_p here.':(r===1?'Inert: p stays prime, f\\u0304 is irreducible of degree n, Frobenius is a single n-cycle generating G \\u2014 the most twisted prime.':'Partially split: an intermediate shape with 1<r<n.'))+' (Ramified primes, where some e_i>1 and p | disc, are the finite exceptional set where this dictionary breaks.)';\n` +
+    `    out.textContent = 'For an unramified prime p in a Galois extension K/Q of degree n='+n+', p factors as p\\u00b7O_K = '+(r===1?'P_1':(r===2?'P_1\\u00b7P_2':'P_1\\u00b7\\u00b7\\u00b7P_'+r))+' into r='+r+' prime'+(r===1?'':'s')+', all of the SAME residue degree f='+f+' (the Galois group permutes them transitively), with rf=n. This is the splitting type ('+r+','+f+'): '+name+'. Frobenius acts on the n roots of f as r disjoint f-cycles \\u2014 cycle shape ('+Array(r).fill(f).join(',')+') \\u2014 so f\\u0304(x) factors mod p into '+(r===1?'one irreducible':r+' distinct irreducibles')+' of degree '+f+', and Frob_p has order '+f+'. '+(r===n?'Completely split: f\\u0304 splits into n linear factors, Frobenius is the identity \\u2014 K looks like copies of F_p here.':(r===1?'Inert: p stays prime, f\\u0304 is irreducible of degree n, Frobenius is a single n-cycle generating G \\u2014 the most twisted prime.':'Partially split: an intermediate shape with 1<r<n.'))+' (Ramified primes, where some e_i>1 and p | disc, are the finite exceptional set where this dictionary breaks.)';\n` +
     `  }\n` +
     `  sn.addEventListener('input', function(){ n=parseInt(sn.value,10); ensureValid(); buildPairs(); draw(); });\n` +
     `  buildPairs(); draw();\n` +
