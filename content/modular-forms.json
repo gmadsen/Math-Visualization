@@ -518,6 +518,27 @@
           "html": "<section id=\"petersson\">\n<h2>9. The Petersson inner product</h2>\n<p>The spaces $S_k$ of cusp forms are finite-dimensional, but so far we have no geometry on them — no notion of angle, length, or orthogonality. Petersson's observation is that the hyperbolic measure $d\\mu = y^{-2}\\,dx\\,dy$ on the upper half-plane, combined with the weight-$k$ factor, produces a genuinely $\\mathrm{SL}_2(\\mathbb{Z})$-invariant pairing. For $f, g \\in S_k$ define</p>\n$$\\langle f, g\\rangle \\;=\\; \\int_{\\Gamma\\backslash \\mathbb{H}} f(\\tau)\\,\\overline{g(\\tau)}\\; y^{k-2}\\,dx\\,dy, \\qquad \\tau = x + iy.$$\n<p>The integrand is well-defined on the fundamental domain because under $\\gamma = \\begin{pmatrix}a&b\\\\c&d\\end{pmatrix}\\in\\mathrm{SL}_2(\\mathbb{Z})$ the ratio $|c\\tau+d|^{-2k}$ in $|f|^2$ is exactly compensated by the transformation $y \\mapsto y / |c\\tau+d|^2$ of the imaginary part, leaving $|f|^2 y^{k}$ invariant and the measure $y^{-2}dx\\,dy$ invariant on its own.</p>\n\n<h3>Why the product converges on $S_k$</h3>\n<p>Near the cusp $i\\infty$, a cusp form $f$ decays like $|f(\\tau)| \\ll e^{-2\\pi y}$, so $|f|^2 y^{k-2}$ is integrable even though $y^{k-2}$ blows up; the exponential wins. At the elliptic points $\\rho, i$ of the fundamental domain the integrand is smooth. For non-cuspidal forms the integral diverges at $i\\infty$ — orthogonality is a phenomenon of $S_k$, and this is exactly why the Eisenstein subspace $E_k$ appears as its orthogonal complement in</p>\n$$M_k \\;=\\; S_k \\oplus E_k.$$\n\n<h3>Hecke eigenforms are orthogonal</h3>\n<p>Hecke operators $T_n$ with $(n, N)=1$ are <em>self-adjoint</em> for the Petersson product: $\\langle T_n f, g\\rangle = \\langle f, T_n g\\rangle$. Because the $T_n$ commute and are simultaneously diagonalizable, the spectral theorem gives an orthogonal basis of $S_k$ consisting of simultaneous Hecke eigenforms. If $f, g$ are two normalized eigenforms with distinct eigenvalue systems $\\{a_p\\}\\ne\\{b_p\\}$, then</p>\n$$\\langle f, g\\rangle \\;=\\; 0.$$\n<p>This is the input that makes the Euler-product decomposition of $L(f,s)$ a <em>canonical</em> factorization: eigenforms are not just convenient, they are the orthonormal frame picked out by the geometry.</p>\n\n<div class=\"note\"><strong>Looking forward.</strong> The Petersson norm $\\langle f, f\\rangle$ of a normalized eigenform appears in the completed $L$-function's functional equation constant and in period formulas; for a weight-$2$ newform attached to an elliptic curve $E/\\mathbb{Q}$, it is a modular analogue of the real period. These \"Petersson periods\" are the bridge from the Hilbert-space picture to the arithmetic of $L$-values.</div>\n\n"
         },
         {
+          "type": "widget",
+          "slug": "modular-forms-petersson-convergence",
+          "params": {
+            "widgetId": "w-petersson",
+            "title": "Why the Petersson product converges on cusp forms",
+            "hint": "slide the cutoff $Y$; watch $\\Delta$'s integral converge while $E_{12}$'s diverges"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-petersson"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
           "type": "quiz",
           "concept": "petersson-inner-product",
           "html": "<div class=\"quiz\" data-concept=\"petersson-inner-product\"></div>"

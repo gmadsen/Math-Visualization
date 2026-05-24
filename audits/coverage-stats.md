@@ -3,10 +3,10 @@
 ## Corpus totals
 
 - Topics: **207**, concepts: **1422**
-- Widgets: **1559** (registry-driven: 1559, inline: 0)
+- Widgets: **1560** (registry-driven: 1560, inline: 0)
 - Quizzes: **5458** (v1: 4222, hard: 1223, expert: 13)
 - Quiz types: mcq: 3591, numeric: 1291, multi-select: 277, matching: 107, ordering: 85, spot-the-error: 53, complex: 29, proof-completion: 21, construction: 2, guess-my-rule: 2
-- Concepts lacking a widget in their section: **42**
+- Concepts lacking a widget in their section: **41**
 - Concepts lacking a hard-tier quiz: **984**
 
 ## Per-slug registry adoption
@@ -701,6 +701,7 @@ page has wired one in yet.
 | `modular-curves-heegner-hypothesis` | modular-curves-heegner-hypothesis | step | 2d | 1 | modular-curves |
 | `modular-curves-lattice-cyclic-subgroup` | modular-curves-lattice-cyclic-subgroup | slider | 2d | 1 | modular-curves |
 | `modular-curves-mazur-torsion` | modular-curves-mazur-torsion | click | 2d | 1 | modular-curves |
+| `modular-forms-petersson-convergence` | modular-forms-petersson-convergence | slider | 2d | 1 | modular-forms |
 | `morse-betti-counts` | morse-betti-counts | slider | 2d | 1 | morse-theory |
 | `morse-cerf-birth-death` | morse-cerf-birth-death | slider | 2d | 1 | morse-theory |
 | `morse-cw-cells` | morse-cw-cells | click | 2d | 1 | morse-theory |
@@ -1061,10 +1062,10 @@ page has wired one in yet.
 ### Modular forms & L-functions
 
 - Topics: **19**, concepts: **116**
-- Widgets: **142** (registry-driven: 142, inline: 0)
-  - by family: button-stepper: 85, verbatim: 18, parametric-plot: 5, svg-illustration: 4, lattice-visualizer: 2, langlands-reciprocity-dictionary: 1, langlands-euler-product: 1, langlands-local-classification: 1, voa-mode-bookkeeping: 1, voa-axiom-map: 1, voa-virasoro-bracket: 1, voa-character-coeffs: 1, voa-mckay-thompson: 1, voa-construction-zoo: 1, uhp-parallel-postulate: 1, automorphic-restricted-product: 1, automorphic-strong-approximation: 1, automorphic-three-conditions: 1, automorphic-dictionary: 1, automorphic-satake-parameters: 1, automorphic-conductor-ladder: 1, automorphic-local-factor-builder: 1, automorphic-eisenstein-residue: 1, automorphic-functoriality-transfers: 1, modular-curves-fundamental-domain: 1, modular-curves-lattice-cyclic-subgroup: 1, modular-curves-hecke-summands: 1, modular-curves-eichler-shimura: 1, modular-curves-genus-growth: 1, modular-curves-cusps-and-wn: 1, modular-curves-atkin-lehner-newforms: 1, modular-curves-heegner-hypothesis: 1, modular-curves-mazur-torsion: 1
-  - by dimension: 2d: 142
-  - by gesture: click: 111, slider: 14, step: 8, static: 4, interact: 3, select: 2
+- Widgets: **143** (registry-driven: 143, inline: 0)
+  - by family: button-stepper: 85, verbatim: 18, parametric-plot: 5, svg-illustration: 4, lattice-visualizer: 2, langlands-reciprocity-dictionary: 1, langlands-euler-product: 1, langlands-local-classification: 1, voa-mode-bookkeeping: 1, voa-axiom-map: 1, voa-virasoro-bracket: 1, voa-character-coeffs: 1, voa-mckay-thompson: 1, voa-construction-zoo: 1, uhp-parallel-postulate: 1, modular-forms-petersson-convergence: 1, automorphic-restricted-product: 1, automorphic-strong-approximation: 1, automorphic-three-conditions: 1, automorphic-dictionary: 1, automorphic-satake-parameters: 1, automorphic-conductor-ladder: 1, automorphic-local-factor-builder: 1, automorphic-eisenstein-residue: 1, automorphic-functoriality-transfers: 1, modular-curves-fundamental-domain: 1, modular-curves-lattice-cyclic-subgroup: 1, modular-curves-hecke-summands: 1, modular-curves-eichler-shimura: 1, modular-curves-genus-growth: 1, modular-curves-cusps-and-wn: 1, modular-curves-atkin-lehner-newforms: 1, modular-curves-heegner-hypothesis: 1, modular-curves-mazur-torsion: 1
+  - by dimension: 2d: 143
+  - by gesture: click: 111, slider: 15, step: 8, static: 4, interact: 3, select: 2
 - Quizzes: **528** (v1: 348, hard: 180, expert: 0)
   - by type: mcq: 351, numeric: 158, multi-select: 12, matching: 4, ordering: 2, spot-the-error: 1
 
@@ -1284,7 +1285,7 @@ page has wired one in yet.
 - `heights-arithmetic-geometry` (Number theory) — concepts=10, widgets=10 (slug=10), quiz=30 (v1=30, hard=0, expert=0)
 - `analytic-number-theory` (Number theory) — concepts=10, widgets=10 (slug=10), quiz=30 (v1=30, hard=0, expert=0)
 - `upper-half-plane-hyperbolic` (Modular forms & L-functions) — concepts=5, widgets=8 (slug=8), quiz=30 (v1=15, hard=15, expert=0)
-- `modular-forms` (Modular forms & L-functions) — concepts=6, widgets=8 (slug=8), quiz=33 (v1=18, hard=15, expert=0)
+- `modular-forms` (Modular forms & L-functions) — concepts=6, widgets=9 (slug=9), quiz=33 (v1=18, hard=15, expert=0)
 - `theta-functions` (Modular forms & L-functions) — concepts=5, widgets=8 (slug=8), quiz=30 (v1=15, hard=15, expert=0)
 - `partitions-generating-functions` (Combinatorics & graph theory) — concepts=5, widgets=7 (slug=7), quiz=30 (v1=15, hard=15, expert=0)
 - `hecke-operators` (Modular forms & L-functions) — concepts=5, widgets=8 (slug=8), quiz=30 (v1=15, hard=15, expert=0)

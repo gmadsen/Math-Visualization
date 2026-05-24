@@ -14167,6 +14167,24 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "modular-forms-petersson-convergence",
+    "family": "modular-forms-petersson-convergence",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "modular-forms-petersson-convergence widget params",
+    "description": "Why the Petersson inner product converges on cusp forms but not on the whole space of modular forms, shown at weight 12. By Parseval the contribution of the cusp neighborhood to the norm is the integral over Im(tau)=y of the x-averaged integrand H(y) = (sum_{n>=0} |a_n|^2 e^{-4 pi n y}) * y^{k-2}. The widget plots log10 H(y) for the weight-12 cusp form Delta (constant term a_0 = 0) against the weight-12 Eisenstein series E_12 (a_0 = 1) over the fundamental-domain spine y in [sqrt(3)/2, 5], with a slider for the cutoff Y and the running integral from sqrt(3)/2 to Y for each. Delta's integrand decays like e^{-4 pi y} y^{k-2} so its integral plateaus (converges, ||Delta|| finite); E_12's integrand grows like y^{k-2} because a_0 != 0, so its integral diverges, which is exactly why E_12 is not a cusp form and the pairing is defined on S_k. The readout also records the SL_2(Z)-invariance of |f|^2 y^k and of the hyperbolic measure y^{-2} dx dy that makes the pairing well-defined, and that Hecke operators are self-adjoint for it. No numeric params beyond the standard widgetId/title/hint; the forms and weight are fixed inside the renderer.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Bespoke widget for `modular-forms.html` (§9 *The Petersson inner product*, concept `petersson-inner-product`). It makes the convergence half of the section — *why* the Petersson pairing is defined on cusp forms but not on all of $M_k$ — concrete and computable. Single module, not part of a shared family.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "morse-betti-counts",
     "family": "morse-betti-counts",
     "dimension": "2d",
