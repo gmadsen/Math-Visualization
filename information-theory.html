@@ -1042,6 +1042,79 @@ Three facts pin its shape — the AEP package:</p>
 
 <p>The same idea, applied to the <em>joint</em> source $(X,Y)$ over a channel, yields <strong>jointly typical decoding</strong>: the receiver looks for the unique codeword $x^n$ such that $(x^n, y^n)$ is jointly typical. If the rate is below $I(X;Y)$ this is unique with probability tending to $1$ — that's the achievability half of Shannon's noisy-channel theorem (§5).</p>
 
+<div class="widget" id="w-aep-typical">
+  <div class="hd"><div class="ttl">Typical sequences concentrate at the entropy</div><div class="hint">slide n: the spread collapses onto H</div></div>
+  <div class="row">
+    <label for="w-aep-typical-p">source bias $p = P(1)$</label>
+    <input type="range" id="w-aep-typical-p" min="0.05" max="0.95" value="0.2" step="0.05">
+    <span class="pill" id="w-aep-typical-pv">p = 0.20</span>
+  </div>
+  <div class="row">
+    <label for="w-aep-typical-n">block length $n$</label>
+    <input type="range" id="w-aep-typical-n" min="2" max="200" value="20" step="1">
+    <span class="pill" id="w-aep-typical-nv">n = 20</span>
+  </div>
+  <svg id="w-aep-typical-svg" viewBox="0 0 560 300" width="560" height="300" role="img" aria-label="The distribution of the per-symbol log-probability of a random source sequence, concentrating at the entropy"><title>AEP: -(1/n)log p(x^n) concentrates at the entropy H(X) as n grows; the typical set carries almost all the probability</title></svg>
+  <div class="readout" id="w-aep-typical-out"></div>
+</div>
+<script>
+/* info-aep-typical-set widget: w-aep-typical */
+(function(){
+  var svg=document.getElementById('w-aep-typical-svg'), out=document.getElementById('w-aep-typical-out');
+  var sp=document.getElementById('w-aep-typical-p'), sn=document.getElementById('w-aep-typical-n');
+  var pv=document.getElementById('w-aep-typical-pv'), nv=document.getElementById('w-aep-typical-nv');
+  if(!svg||!out||!sp||!sn||!pv||!nv) return;
+  var NS='http://www.w3.org/2000/svg';
+  function mk(tag,attrs,text){ var e=document.createElementNS(NS,tag); for(var k in attrs){ e.setAttribute(k,attrs[k]); } if(text!=null) e.textContent=text; return e; }
+  function txt(x,y,s,opt){ opt=opt||{}; svg.appendChild(mk('text',{x:x,y:y,'text-anchor':opt.anchor||'start','font-size':opt.size||12,fill:opt.fill||'var(--ink)','font-weight':opt.weight||'normal','font-style':opt.italic?'italic':'normal'},s)); }
+  var L2=Math.log(2);
+  function log2(x){ return Math.log(x)/L2; }
+  function hbin(p){ return -p*log2(p)-(1-p)*log2(1-p); }
+  var EPS=0.1;
+  var PX0=56, PX1=400, PY0=44, PYB=250;
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    var p=parseFloat(sp.value), n=parseInt(sn.value,10); pv.textContent='p = '+p.toFixed(2); nv.textContent='n = '+n;
+    var H=hbin(p);
+    var s0=-log2(p), s1=-log2(1-p);
+    var emin=Math.min(s0,s1), emax=Math.max(s0,s1);
+    var xmax=emax*1.05, xmin=0;
+    function ex(e){ return PX0 + (e-xmin)/(xmax-xmin)*(PX1-PX0); }
+    var probs=[], emp=[], maxpr=0, lp=Math.log(p), lq=Math.log(1-p), logC=0;
+    for(var k=0;k<=n;k++){ if(k>0) logC += Math.log((n-k+1)/k);
+      probs.push(Math.exp(logC + k*lp + (n-k)*lq));
+      emp.push((k/n)*s0 + ((n-k)/n)*s1); }
+    for(var k3=0;k3<=n;k3++){ if(probs[k3]>maxpr) maxpr=probs[k3]; }
+    var yh=PYB-PY0;
+    function py(pr){ return PYB - (pr/maxpr)*(yh-10); }
+    svg.appendChild(mk('line',{x1:PX0,y1:PYB,x2:PX1,y2:PYB,stroke:'var(--line)','stroke-width':1}));
+    for(var t=0;t<=Math.ceil(xmax);t++){ if(t>xmax) break; svg.appendChild(mk('line',{x1:ex(t),y1:PYB,x2:ex(t),y2:PYB+4,stroke:'var(--line)','stroke-width':1})); txt(ex(t),PYB+16,''+t,{size:9,fill:'var(--mute)',anchor:'middle'}); }
+    txt(PX1, PYB+28, 'bits/symbol  \u2212(1/n)log\u2082 p(x\u207f)', {size:10, fill:'var(--mute)', anchor:'end'});
+    var bx0=ex(Math.max(xmin,H-EPS)), bx1=ex(Math.min(xmax,H+EPS));
+    svg.appendChild(mk('rect',{x:bx0,y:PY0,width:bx1-bx0,height:PYB-PY0,fill:'var(--green)','fill-opacity':0.12}));
+    var d='M '+ex(emp[0])+' '+PYB+' '; for(var k4=0;k4<=n;k4++){ d+='L '+ex(emp[k4])+' '+py(probs[k4])+' '; } d+='L '+ex(emp[n])+' '+PYB+' Z';
+    svg.appendChild(mk('path',{d:d, fill:'var(--cyan)','fill-opacity':0.25, stroke:'var(--cyan)','stroke-width':1.4}));
+    svg.appendChild(mk('line',{x1:ex(H),y1:PY0,x2:ex(H),y2:PYB,stroke:'var(--yellow)','stroke-width':1.4,'stroke-dasharray':'4 3'}));
+    txt(ex(H), PY0-4, 'H = '+H.toFixed(3), {size:11, fill:'var(--yellow)', anchor:'middle'});
+    var ptyp=0; for(var k5=0;k5<=n;k5++){ if(Math.abs(emp[k5]-H)<EPS) ptyp+=probs[k5]; }
+    var TX=420;
+    txt(TX, 56, 'entropy  H(X) = h(p)', {size:11, fill:'var(--mute)'});
+    txt(TX, 74, '= '+H.toFixed(4)+' bits', {size:12, fill:'var(--yellow)', weight:600});
+    txt(TX, 104, 'P(typical set)', {size:11, fill:'var(--mute)'});
+    txt(TX, 122, '= '+(ptyp).toFixed(4), {size:13, fill:'var(--green)', weight:600});
+    txt(TX, 140, '(\u03b5 = '+EPS+', \u2192 1 as n\u2192\u221e)', {size:9, fill:'var(--mute)'});
+    txt(TX, 172, 'typical size \u2248 2^(nH)', {size:11, fill:'var(--cyan)'});
+    txt(TX, 190, '= 2^'+(n*H).toFixed(1), {size:11, fill:'var(--cyan)'});
+    txt(TX, 208, 'of total 2^n = 2^'+n, {size:11, fill:'var(--mute)'});
+    txt(TX, 226, 'fraction 2^(\u2212n(1\u2212H))', {size:9, fill:'var(--mute)'});
+    txt(TX, 240, '= '+Math.pow(2,-n*(1-H)).toExponential(1), {size:10, fill:'var(--pink)'});
+    out.textContent = 'Each symbol contributes surprise \u2212log\u2082 p(x\u1d62); averaging over a length-'+n+' sequence gives \u2212(1/n)log\u2082 p(x\u207f), a random variable equal to (k/n)\u00b7'+s0.toFixed(2)+' + (1\u2212k/n)\u00b7'+s1.toFixed(2)+' for k ones. By the law of large numbers k/n \u2192 p, so this concentrates at H(X) = h('+p.toFixed(2)+') = '+H.toFixed(3)+' bits (yellow line). The shaded green band is the typical set |\u2212(1/n)log\u2082 p \u2212 H| < '+EPS+'; it currently carries probability '+ptyp.toFixed(3)+', and \u2192 1 as n grows (slide n up to watch the cyan distribution spike onto H). So almost every emitted sequence has probability \u2248 2^(\u2212nH): the \u2248 2^(nH) typical sequences are nearly equiprobable, a vanishing fraction 2^(\u2212n(1\u2212H)) of all 2^n strings, yet they capture essentially all the mass \u2014 the basis of source coding at rate H.';
+  }
+  sp.addEventListener('input', draw); sn.addEventListener('input', draw);
+  draw();
+})();
+</script>
+
 <!-- callback-auto-begin -->
 <aside class="callback">
   <div class="ttl">See also</div>
@@ -1076,6 +1149,91 @@ The sample mean $\bar X_n = \tfrac{1}{n}\sum X_i$ is unbiased with variance $\si
 <div class="note"><strong>De Bruijn's identity.</strong> For a continuous random variable $X$ smoothed by independent Gaussian noise $\sqrt t\,Z$ with $Z\sim\mathcal{N}(0,1)$, the differential entropy $h(X+\sqrt t Z)$ obeys $\partial_t\,h(X+\sqrt t Z) = \tfrac{1}{2}J(X+\sqrt t Z)$, where $J$ is the Fisher information of the smoothed density with respect to a location parameter. Differential entropy and Fisher information are conjugate under heat-flow time — a deep link between information theory and the heat equation, and the engine behind Stam's inequality and the entropy-power inequality.</div>
 
 <p>Cramér–Rao is sharp but not always tight: biased estimators can beat $1/I(\theta)$ at the cost of bias (James–Stein, ridge); curved exponential families can have efficiency loss; and the bound assumes regularity (differentiability, support not depending on $\theta$). What it always gives is a clean statistical interpretation of $I(\theta)$ — a parameter is hard to estimate exactly when its likelihood is flat, easy when its likelihood is sharply peaked.</p>
+
+<div class="widget" id="w-cramer-rao">
+  <div class="hd"><div class="ttl">Fisher information and the Cramér–Rao floor</div><div class="hint">pick a family; the MLE rides the bound</div></div>
+  <div class="row" id="w-cramer-rao-fam" role="group" aria-label="parametric family">
+    <button type="button" data-fam="bern" class="on">Bernoulli($\theta$)</button>
+    <button type="button" data-fam="gauss">Gaussian mean</button>
+    <button type="button" data-fam="pois">Poisson($\lambda$)</button>
+  </div>
+  <div class="row">
+    <label for="w-cramer-rao-th" id="w-cramer-rao-thlab">parameter $\theta$</label>
+    <input type="range" id="w-cramer-rao-th" min="0.1" max="0.9" value="0.3" step="0.05">
+    <span class="pill" id="w-cramer-rao-thv">θ = 0.30</span>
+  </div>
+  <div class="row">
+    <label for="w-cramer-rao-n">sample size $n$</label>
+    <input type="range" id="w-cramer-rao-n" min="1" max="40" value="10" step="1">
+    <span class="pill" id="w-cramer-rao-nv">n = 10</span>
+  </div>
+  <svg id="w-cramer-rao-svg" viewBox="0 0 560 300" width="560" height="300" role="img" aria-label="Estimator variance versus sample size, with the Cramér–Rao bound as a lower floor"><title>Variance vs n: the Cramér–Rao bound 1/(nI) decays as 1/n, the MLE rides exactly on it (efficient), and a single-sample estimator stays pinned at 1/I far above</title></svg>
+  <div class="readout" id="w-cramer-rao-out"></div>
+</div>
+<script>
+/* info-cramer-rao widget: w-cramer-rao */
+(function(){
+  var svg=document.getElementById('w-cramer-rao-svg'), out=document.getElementById('w-cramer-rao-out');
+  var sth=document.getElementById('w-cramer-rao-th'), sn=document.getElementById('w-cramer-rao-n');
+  var thv=document.getElementById('w-cramer-rao-thv'), nv=document.getElementById('w-cramer-rao-nv');
+  var thlab=document.getElementById('w-cramer-rao-thlab'), fam=document.getElementById('w-cramer-rao-fam');
+  if(!svg||!out||!sth||!sn||!thv||!nv||!thlab||!fam) return;
+  var NS='http://www.w3.org/2000/svg';
+  function mk(tag,attrs,text){ var e=document.createElementNS(NS,tag); for(var k in attrs){ e.setAttribute(k,attrs[k]); } if(text!=null) e.textContent=text; return e; }
+  function txt(x,y,s,opt){ opt=opt||{}; svg.appendChild(mk('text',{x:x,y:y,'text-anchor':opt.anchor||'start','font-size':opt.size||12,fill:opt.fill||'var(--ink)','font-weight':opt.weight||'normal'},s)); }
+  var family='bern';
+  function info(th){ if(family==='bern') return 1/(th*(1-th)); if(family==='gauss') return 1; return 1/th; }
+  function psym(){ return family==='pois' ? '\u03bb' : '\u03b8'; }
+  function famName(){ return family==='bern' ? 'Bernoulli(\u03b8)' : (family==='gauss' ? 'N(\u03b8, 1)' : 'Poisson(\u03bb)'); }
+  function iForm(){ return family==='bern' ? 'I(\u03b8) = 1 / [\u03b8(1\u2212\u03b8)]' : (family==='gauss' ? 'I(\u03b8) = 1  (any mean)' : 'I(\u03bb) = 1 / \u03bb'); }
+  function mleName(){ return 'sample mean'; }
+  var PX0=58, PX1=380, PY0=40, PYB=250, NMAX=40;
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    var th=parseFloat(sth.value), n=parseInt(sn.value,10);
+    thv.textContent=psym()+' = '+th.toFixed(2); nv.textContent='n = '+n;
+    thlab.textContent = family==='pois' ? 'rate \u03bb' : (family==='gauss' ? 'mean \u03b8' : 'parameter \u03b8');
+    var I=info(th), inv=1/I;
+    var ymax=inv*1.08;
+    function nx(k){ return PX0 + (k-1)/(NMAX-1)*(PX1-PX0); }
+    function vy(v){ return PYB - (v/ymax)*(PYB-PY0); }
+    svg.appendChild(mk('line',{x1:PX0,y1:PYB,x2:PX1,y2:PYB,stroke:'var(--line)','stroke-width':1}));
+    svg.appendChild(mk('line',{x1:PX0,y1:PY0,x2:PX0,y2:PYB,stroke:'var(--line)','stroke-width':1}));
+    txt((PX0+PX1)/2, PYB+30, 'sample size  n', {size:11, fill:'var(--mute)', anchor:'middle'});
+    txt(PX0-6, PY0+2, 'Var', {size:11, fill:'var(--mute)', anchor:'end'});
+    [0, inv/2, inv].forEach(function(v){ svg.appendChild(mk('line',{x1:PX0-4,y1:vy(v),x2:PX0,y2:vy(v),stroke:'var(--line)','stroke-width':1})); txt(PX0-6, vy(v)+3, v.toFixed(3), {size:9, fill:'var(--mute)', anchor:'end'}); });
+    for(var g=10; g<=NMAX; g+=10){ svg.appendChild(mk('line',{x1:nx(g),y1:PYB,x2:nx(g),y2:PYB+4,stroke:'var(--line)','stroke-width':1})); txt(nx(g),PYB+16,''+g,{size:9,fill:'var(--mute)',anchor:'middle'}); }
+    svg.appendChild(mk('line',{x1:nx(1),y1:vy(inv),x2:nx(NMAX),y2:vy(inv),stroke:'var(--pink)','stroke-width':1.4,'stroke-dasharray':'5 3'}));
+    txt(nx(NMAX), vy(inv)-6, 'single obs:  1/I (flat)', {size:10, fill:'var(--pink)', anchor:'end'});
+    var d='M '; for(var k=1;k<=NMAX;k++){ d+=(k>1?'L ':'')+nx(k)+' '+vy(1/(k*I))+' '; }
+    svg.appendChild(mk('path',{d:d, fill:'none', stroke:'var(--yellow)','stroke-width':2}));
+    txt(nx(NMAX), vy(1/(NMAX*I))-8, 'CR bound  1/(nI)', {size:10, fill:'var(--yellow)', anchor:'end'});
+    for(var k2=2;k2<=NMAX;k2+=3){ svg.appendChild(mk('circle',{cx:nx(k2),cy:vy(1/(k2*I)),r:2.6,fill:'var(--green)'})); }
+    txt(nx(14), vy(1/(14*I))-10, 'MLE ('+mleName()+')', {size:10, fill:'var(--green)'});
+    var cur=1/(n*I); svg.appendChild(mk('circle',{cx:nx(n),cy:vy(cur),r:4.5,fill:'none',stroke:'var(--cyan)','stroke-width':2}));
+    svg.appendChild(mk('line',{x1:nx(n),y1:vy(cur),x2:nx(n),y2:PYB,stroke:'var(--cyan)','stroke-width':1,'stroke-dasharray':'2 2'}));
+    var TX=400;
+    txt(TX, 52, famName(), {size:11, fill:'var(--violet)', weight:600});
+    txt(TX, 74, iForm(), {size:10, fill:'var(--mute)'});
+    txt(TX, 92, 'I('+psym()+') = '+I.toFixed(3), {size:13, fill:'var(--yellow)', weight:600});
+    txt(TX, 120, 'CR bound at n='+n, {size:10, fill:'var(--mute)'});
+    txt(TX, 137, '1/(nI) = '+cur.toFixed(4), {size:12, fill:'var(--cyan)', weight:600});
+    txt(TX, 163, 'MLE variance', {size:10, fill:'var(--mute)'});
+    txt(TX, 180, '= '+cur.toFixed(4)+'  \u2713', {size:12, fill:'var(--green)', weight:600});
+    txt(TX, 197, 'efficient (on the floor)', {size:9, fill:'var(--mute)'});
+    txt(TX, 223, 'single obs variance', {size:10, fill:'var(--mute)'});
+    txt(TX, 240, '= '+inv.toFixed(4)+'  (n\u00d7 worse)', {size:11, fill:'var(--pink)'});
+    out.textContent = 'The score is U('+psym()+') = \u2202 log p / \u2202'+psym()+'; the Fisher information I('+psym()+') = Var(U) = \u2212E[\u2202\u00b2 log p] measures the curvature of the log-likelihood at the truth. For '+famName()+', I('+psym()+') = '+I.toFixed(3)+'. The Cram\u00e9r\u2013Rao inequality says every unbiased estimator from n i.i.d. samples obeys Var('+psym()+'\u0302) \u2265 1/(nI) = '+cur.toFixed(4)+' (yellow floor). The MLE here is the '+mleName()+', whose variance equals 1/(nI) exactly \u2014 it is efficient, riding on the green dots along the floor and shrinking like 1/n. By contrast a naive estimator that throws away all but one observation has variance 1/I = '+inv.toFixed(4)+' (pink dashed): it never improves with n, sitting '+n+'\u00d7 above the bound at the current sample size. Curvature is informativeness: the sharper the log-likelihood peak (larger I), the lower the achievable variance.';
+  }
+  Array.prototype.forEach.call(fam.querySelectorAll('button'), function(b){ b.addEventListener('click', function(){
+    family=b.getAttribute('data-fam');
+    Array.prototype.forEach.call(fam.querySelectorAll('button'), function(x){ x.classList.toggle('on', x===b); });
+    draw();
+  }); });
+  sth.addEventListener('input', draw); sn.addEventListener('input', draw);
+  draw();
+})();
+</script>
 
 <!-- callback-auto-begin -->
 <aside class="callback">

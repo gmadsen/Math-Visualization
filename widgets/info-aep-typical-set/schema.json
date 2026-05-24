@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/info-aep-typical-set/schema.json",
+  "title": "info-aep-typical-set widget params",
+  "description": "The asymptotic equipartition property as a concentration statement. For an i.i.d. binary source with P(1)=p, the per-symbol log-probability −(1/n)log₂ p(xⁿ) of a length-n sequence is a random variable whose distribution (over the binomial number of ones) concentrates at the entropy H=h(p) as n grows. Slide p and n; the widget plots that distribution, marks H and the typical band [H−ε,H+ε], and reports P(typical)→1 and the typical-set size ≈2^{nH} against the total 2^{n}.",
+  "meta": {
+    "family": "info-aep-typical-set",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\"> wrapper."
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title rendered inside .hd > .ttl."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional short hint rendered inside .hd > .hint."
+    }
+  }
+}

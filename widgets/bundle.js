@@ -10953,6 +10953,42 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "info-aep-typical-set",
+    "family": "info-aep-typical-set",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "info-aep-typical-set widget params",
+    "description": "The asymptotic equipartition property as a concentration statement. For an i.i.d. binary source with P(1)=p, the per-symbol log-probability −(1/n)log₂ p(xⁿ) of a length-n sequence is a random variable whose distribution (over the binomial number of ones) concentrates at the entropy H=h(p) as n grows. Slide p and n; the widget plots that distribution, marks H and the typical band [H−ε,H+ε], and reports P(typical)→1 and the typical-set size ≈2^{nH} against the total 2^{n}.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Info aep typical set widget — scaffolded stub. Replace this paragraph with a short description of what the widget does, which topic page first introduced it, and whether it's a bespoke module or part of a shared family.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "info-cramer-rao",
+    "family": "info-cramer-rao",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "info-cramer-rao widget params",
+    "description": "Fisher information and the Cramér–Rao bound. Pick a one-parameter family (Bernoulli(θ), Gaussian mean N(θ,1), Poisson(λ)) and slide the parameter and the sample size n. The widget reports the Fisher information I(θ) = Var(score) = −E[∂²ₜ log p] — the curvature of the log-likelihood — and the Cramér–Rao bound Var(θ̂) ≥ 1/(n·I(θ)). It plots variance against n: the bound's 1/n decay, the MLE (sample mean) sitting exactly on the bound (an efficient estimator), and a naive single-observation estimator pinned at 1/I(θ) far above the floor.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Info cramer rao widget — scaffolded stub. Replace this paragraph with a short description of what the widget does, which topic page first introduced it, and whether it's a bespoke module or part of a shared family.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "information-bsc-capacity",
     "family": "information-bsc-capacity",
     "dimension": "2d",

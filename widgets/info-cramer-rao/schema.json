@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/info-cramer-rao/schema.json",
+  "title": "info-cramer-rao widget params",
+  "description": "Fisher information and the Cramér–Rao bound. Pick a one-parameter family (Bernoulli(θ), Gaussian mean N(θ,1), Poisson(λ)) and slide the parameter and the sample size n. The widget reports the Fisher information I(θ) = Var(score) = −E[∂²ₜ log p] — the curvature of the log-likelihood — and the Cramér–Rao bound Var(θ̂) ≥ 1/(n·I(θ)). It plots variance against n: the bound's 1/n decay, the MLE (sample mean) sitting exactly on the bound (an efficient estimator), and a naive single-observation estimator pinned at 1/I(θ) far above the floor.",
+  "meta": {
+    "family": "info-cramer-rao",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\"> wrapper."
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title rendered inside .hd > .ttl."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional short hint rendered inside .hd > .hint."
+    }
+  }
+}
