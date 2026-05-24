@@ -43,7 +43,7 @@ export function renderScript(params) {
     `  function fmt(x){ return x.toFixed(4); }\n` +
     `  function draw(){\n` +
     `    while(svg.firstChild) svg.removeChild(svg.firstChild);\n` +
-    `    var N=Math.round(Math.pow(10, parseInt(sN.value,10)/10)); Nv.textContent='N = '+N.toLocaleString();\n` +
+    `    var N=Math.round(Math.pow(10, parseInt(sN.value,10)/10)); Nv.textContent='N = '+N.toLocaleString(); sN.setAttribute('aria-valuetext','N = '+N.toLocaleString());\n` +
     `    var Z2=z1(2,N), Z3=z1(3,N), Z5=z1(5,N);\n` +
     `    var Z21=z2(2,1,N), Z23=z2(2,3,N), Z32=z2(3,2,N), Z41=z2(4,1,N);\n` +
     `    // bar chart of weight-5 MZVs (+ zeta2, zeta3)\n` +

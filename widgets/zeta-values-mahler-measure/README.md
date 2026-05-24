@@ -21,8 +21,9 @@ degree-10 polynomial. The widget plots the integrand $\log|P(e^{2\pi i\theta})|$
   circle make the integral converge slowly).
 
 The readout states Jensen's formula, frames **Lehmer's problem** (Lehmer's number
-$1.17628\dots$ gives the smallest known Mahler measure above $1$; whether there is a gap above
-$1$ is open), and gives Smyth's **multivariable bridge** $m(1+x+y+z)=\frac{7}{2\pi^2}\zeta(3)$
+$1.17628\dots$ is the smallest known *multiplicative* Mahler measure $M(P)=e^{m(P)}$ above $1$,
+equivalently the smallest logarithmic $m(P)$ above $0$, $=0.16236\dots$; whether the infimum of
+positive measures is bounded away is open), and gives Smyth's **multivariable bridge** $m(1+x+y+z)=\frac{7}{2\pi^2}\zeta(3)$
 and $m(1+x+y)=\frac{3\sqrt3}{4\pi}L(\chi_{-3},2)$ — the Mahler measure of a simple polynomial is
 a special zeta/$L$-value.
 
