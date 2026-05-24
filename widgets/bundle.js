@@ -1041,7 +1041,7 @@ window.__MVWidgets = [
       "widgetId",
       "title"
     ],
-    "readmeExcerpt": "Bespoke module for **additive-number-theory** §9 (Hilbert–Waring theorem). Makes the *finiteness* of $g(k)$ — the heart of Hilbert's 1909 theorem — visible.",
+    "readmeExcerpt": "Bespoke module for **additive-number-theory** §10 (Hilbert–Waring theorem). Makes the *finiteness* of $g(k)$ — the heart of Hilbert's 1909 theorem — visible.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,

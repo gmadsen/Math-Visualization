@@ -1,6 +1,6 @@
 # ant-waring-finiteness
 
-Bespoke module for **additive-number-theory** §9 (Hilbert–Waring theorem).
+Bespoke module for **additive-number-theory** §10 (Hilbert–Waring theorem).
 Makes the *finiteness* of $g(k)$ — the heart of Hilbert's 1909 theorem — visible.
 
 See [../README.md](../README.md) for the registry contract (schema + pure
