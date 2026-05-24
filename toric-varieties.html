@@ -1031,8 +1031,8 @@ $$\Delta^\circ \;=\; \{\, v \in N_\mathbb{R} \,:\, \langle v, m\rangle \ge -1 \t
 
 <p>Equivalently, $0$ is the unique interior lattice point of $\Delta$ and every facet of $\Delta$ has lattice distance $1$ from the origin. <a href="./functional-analysis.html#reflexivity" data-auto-inline-link="1" data-concept-id="reflexivity" data-blurb="X is reflexive when the canonical embedding X → X** is surjective; Lᵖ (1&lt;p&lt;∞) and Hilbert spaces qualify; L¹, L∞, C[0,1], c₀ do not.">Reflexivity</a> is rare and rigid — there are exactly $16$ reflexive polygons in dimension $2$ (corresponding to the $16$ Gorenstein toric Fano surfaces), $4319$ in dimension $3$, and a famous Kreuzer-Skarke list of $473\,800\,776$ in dimension $4$.</p>
 
-<p><strong>Batyrev's construction.</strong> A reflexive polytope $\Delta$ has a normal fan $\Sigma_\Delta$ (the rays are inner normals to facets, the maximal cones are normal cones at vertices). The toric variety $X_\Delta := X_{\Sigma_\Delta}$ is a Gorenstein toric Fano variety. A generic anticanonical hypersurface in $X_\Delta$ is a Calabi-Yau variety. Batyrev showed: the analogous hypersurface in $X_{\Delta^\circ}$ is the <em>mirror</em> Calabi-Yau, with Hodge numbers $h^{1,1}$ and $h^{n-1,1}$ swapped:</p>
-$$h^{1,1}\!\big(X_\Delta^{\mathrm{CY}}\big) \;=\; h^{n-1,1}\!\big(X_{\Delta^\circ}^{\mathrm{CY}}\big), \qquad h^{n-1,1}\!\big(X_\Delta^{\mathrm{CY}}\big) \;=\; h^{1,1}\!\big(X_{\Delta^\circ}^{\mathrm{CY}}\big).$$
+<p><strong>Batyrev's construction.</strong> A reflexive polytope $\Delta$ has a normal fan $\Sigma_\Delta$ (the rays are inner normals to facets, the maximal cones are normal cones at vertices). The toric variety $X_\Delta := X_{\Sigma_\Delta}$ is a Gorenstein toric Fano variety. A generic anticanonical hypersurface in $X_\Delta$ is a Calabi-Yau variety. Batyrev showed: the analogous hypersurface in $X_{\Delta^\circ}$ is the <em>mirror</em> Calabi-Yau, with Hodge numbers $h^{1,1}$ and $h^{n-2,1}$ swapped (here $n=\dim\Delta$, so the Calabi-Yau hypersurfaces have dimension $n-1$):</p>
+$$h^{1,1}\!\big(X_\Delta^{\mathrm{CY}}\big) \;=\; h^{n-2,1}\!\big(X_{\Delta^\circ}^{\mathrm{CY}}\big), \qquad h^{n-2,1}\!\big(X_\Delta^{\mathrm{CY}}\big) \;=\; h^{1,1}\!\big(X_{\Delta^\circ}^{\mathrm{CY}}\big).$$
 
 <p>The quintic threefold $\{f_5 = 0\} \subset \mathbb{P}^4$ is the historical poster child: $\mathbb{P}^4$ is $X_{\Delta_4}$ for the $4$-simplex $\Delta_4$ (a reflexive polytope), and $\Delta_4^\circ$ gives a different toric Fano whose generic anticanonical hypersurface is the mirror quintic, with the famous $h^{1,1}$/$h^{2,1}$ swap $(1, 101) \leftrightarrow (101, 1)$.</p>
 
@@ -1048,6 +1048,95 @@ $$h^{1,1}\!\big(X_\Delta^{\mathrm{CY}}\big) \;=\; h^{n-1,1}\!\big(X_{\Delta^\cir
   </ul>
 </aside>
 <!-- callback-auto-end -->
+
+<div class="widget" id="w-tv-reflexive">
+  <div class="hd"><div class="ttl">Reflexive polygons and polar duality</div><div class="hint">pick a polygon; compare it with its polar dual $\Delta^\circ$ and check reflexivity</div></div>
+  <div class="row" id="w-tv-reflexive-btns">
+    <button type="button" data-k="p2" class="active" aria-pressed="true">ℙ²</button>
+    <button type="button" data-k="p1p1" class="" aria-pressed="false">ℙ¹×ℙ¹</button>
+    <button type="button" data-k="square" class="" aria-pressed="false">square</button>
+    <button type="button" data-k="dp3" class="" aria-pressed="false">dP₃ hexagon</button>
+    <button type="button" data-k="nonref" class="" aria-pressed="false">non-reflexive</button>
+  </div>
+  <svg id="w-tv-reflexive-svg" viewBox="0 0 560 320" width="560" height="320" role="img" aria-label="A lattice polygon and its polar dual side by side, with a live reflexivity check"><title>A reflexive lattice polygon Delta and its polar dual Delta-circle; reflexive iff 0 is the unique interior lattice point and the dual is a lattice polygon</title></svg>
+  <div class="readout" id="w-tv-reflexive-out"></div>
+</div>
+<script>
+/* toric-varieties-reflexive-duality widget: w-tv-reflexive */
+(function(){
+  var svg=document.getElementById('w-tv-reflexive-svg'), out=document.getElementById('w-tv-reflexive-out');
+  var btns=document.getElementById('w-tv-reflexive-btns');
+  if(!svg||!out||!btns) return;
+  var NS='http://www.w3.org/2000/svg';
+  function mk(tag,attrs,text){ var e=document.createElementNS(NS,tag); for(var k in attrs){ e.setAttribute(k,attrs[k]); } if(text!=null) e.textContent=text; return e; }
+  function txt(x,y,s,opt){ opt=opt||{}; svg.appendChild(mk('text',{x:x,y:y,'text-anchor':opt.anchor||'start','font-size':opt.size||12,fill:opt.fill||'var(--ink)','font-weight':opt.weight||'normal'},s)); }
+  var POLY={
+    p2:{name:'\u2119\u00b2', dualName:'anticanonical cubic triangle', V:[[1,0],[0,1],[-1,-1]]},
+    p1p1:{name:'\u2119\u00b9\u00d7\u2119\u00b9 (diamond)', dualName:'square', V:[[1,0],[0,1],[-1,0],[0,-1]]},
+    square:{name:'square', dualName:'diamond', V:[[1,1],[-1,1],[-1,-1],[1,-1]]},
+    dp3:{name:'dP\u2083 (hexagon)', dualName:'hexagon (self-dual up to GL\u2082(\u2124))', V:[[1,0],[1,1],[0,1],[-1,0],[-1,-1],[0,-1]]},
+    nonref:{name:'non-reflexive', dualName:'(not a lattice polygon)', V:[[2,0],[0,1],[-1,-1]]}
+  };
+  function dual(V){ var k=V.length, D=[];
+    for(var i=0;i<k;i++){ var a=V[i], b=V[(i+1)%k]; var det=a[0]*b[1]-a[1]*b[0];
+      if(Math.abs(det)<1e-9) return null;
+      var vx=(-1*b[1]-a[1]*-1)/det, vy=(a[0]*-1 - -1*b[0])/det; D.push([vx,vy]); }
+    return D; }
+  function isInt(p){ return Math.abs(p[0]-Math.round(p[0]))<1e-9 && Math.abs(p[1]-Math.round(p[1]))<1e-9; }
+  function interiorLattice(V){ var xs=V.map(function(p){return p[0];}), ys=V.map(function(p){return p[1];}); var pts=[];
+    var x0=Math.min.apply(null,xs), x1=Math.max.apply(null,xs), y0=Math.min.apply(null,ys), y1=Math.max.apply(null,ys);
+    for(var x=x0;x<=x1;x++) for(var y=y0;y<=y1;y++){ var inside=true, onb=false;
+      for(var i=0;i<V.length;i++){ var a=V[i], b=V[(i+1)%V.length]; var cr=(b[0]-a[0])*(y-a[1])-(b[1]-a[1])*(x-a[0]);
+        if(cr<-1e-9){ inside=false; break; } if(Math.abs(cr)<1e-9) onb=true; }
+      if(inside&&!onb) pts.push([x,y]); }
+    return pts; }
+  function boundaryLatticeCount(V){ var c=0; for(var i=0;i<V.length;i++){ var a=V[i], b=V[(i+1)%V.length]; c+=gcd(Math.abs(b[0]-a[0]),Math.abs(b[1]-a[1])); } return c; }
+  function gcd(a,b){ a=Math.abs(a); b=Math.abs(b); while(b){ var t=b; b=a%b; a=t; } return a; }
+  var WIN=3.2, PR=80, LCX=148, RCX=412, CY=158;
+  var SC=PR/WIN;
+  function grid(cx,col){
+    for(var x=-3;x<=3;x++) for(var y=-3;y<=3;y++){ svg.appendChild(mk('circle',{cx:cx+x*SC,cy:CY-y*SC,r:1,fill:'var(--mute)','fill-opacity':0.5})); }
+    svg.appendChild(mk('line',{x1:cx-PR,y1:CY,x2:cx+PR,y2:CY,stroke:'var(--line)','stroke-width':1}));
+    svg.appendChild(mk('line',{x1:cx,y1:CY-PR,x2:cx,y2:CY+PR,stroke:'var(--line)','stroke-width':1}));
+  }
+  function poly(cx,V,col,integral){
+    var d=''; for(var i=0;i<V.length;i++){ d+=(i?'L ':'M ')+(cx+V[i][0]*SC)+' '+(CY-V[i][1]*SC)+' '; } d+='Z';
+    svg.appendChild(mk('path',{d:d, fill:col, 'fill-opacity':0.13, stroke:col, 'stroke-width':2, 'stroke-dasharray': integral?'':'5 3'}));
+    for(i=0;i<V.length;i++){ var ix=isInt(V[i]); svg.appendChild(mk('circle',{cx:cx+V[i][0]*SC, cy:CY-V[i][1]*SC, r:ix?3.5:4, fill:ix?col:'var(--pink)'}));
+      if(!ix) txt(cx+V[i][0]*SC+6, CY-V[i][1]*SC-6, '('+V[i][0].toFixed(1)+','+V[i][1].toFixed(1)+')', {size:8, fill:'var(--pink)'}); }
+  }
+  var curKey='p2';
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    var P=POLY[curKey], V=P.V, D=dual(V);
+    var dualInt = D && D.every(isInt);
+    var interior=interiorLattice(V);
+    var uniqueOrigin = interior.length===1 && interior[0][0]===0 && interior[0][1]===0;
+    var reflexive = dualInt && uniqueOrigin;
+    grid(LCX); grid(RCX);
+    txt(LCX, CY-PR-22, '\u0394 \u2282 M\u211d', {anchor:'middle', size:12, weight:700, fill:'var(--cyan)'});
+    txt(LCX, CY-PR-9, P.name, {anchor:'middle', size:9, fill:'var(--mute)'});
+    txt(RCX, CY-PR-22, '\u0394\u00b0 \u2282 N\u211d  (polar dual)', {anchor:'middle', size:12, weight:700, fill:'var(--yellow)'});
+    txt(RCX, CY-PR-9, dualInt?P.dualName:'NOT a lattice polygon', {anchor:'middle', size:9, fill: dualInt?'var(--mute)':'var(--pink)'});
+    poly(LCX, V, 'var(--cyan)', true);
+    if(D) poly(RCX, D, 'var(--yellow)', dualInt);
+    // interior lattice points of Delta
+    interior.forEach(function(p){ var isO=p[0]===0&&p[1]===0; svg.appendChild(mk('circle',{cx:LCX+p[0]*SC, cy:CY-p[1]*SC, r:4, fill: isO?'var(--green)':'var(--pink)'})); });
+    // origin marker in dual plane
+    svg.appendChild(mk('circle',{cx:RCX, cy:CY, r:3, fill:'var(--green)'}));
+    // duality arrow
+    var gm=(LCX+PR+RCX-PR)/2;
+    svg.appendChild(mk('line',{x1:LCX+PR+6,y1:CY,x2:RCX-PR-6,y2:CY,stroke:'var(--mute)','stroke-width':1,'stroke-dasharray':'2 2'}));
+    txt(gm, CY-6, '\u00b0', {anchor:'middle', size:16, fill:'var(--mute)', weight:700});
+    var vc=V.length, dvc=D?D.length:0, bdy=boundaryLatticeCount(V), allLat=bdy+interior.length;
+    out.textContent='A lattice polytope \u0394 with 0 in its interior is REFLEXIVE iff its polar dual \u0394\u00b0 = { v : \u27e8v, m\u27e9 \u2265 \u22121 for all m \u2208 \u0394 } is again a lattice polytope \u2014 equivalently, 0 is the unique interior lattice point of \u0394 and every facet sits at lattice distance 1 from 0. In 2-D the dual is computed vertex-pair by vertex-pair: each edge (m\u1d62, m\u1d62\u208a\u2081) of \u0394 gives the dual vertex v solving \u27e8v,m\u1d62\u27e9 = \u27e8v,m\u1d62\u208a\u2081\u27e9 = \u22121. Current polygon: '+P.name+', with '+vc+' vertices and '+allLat+' lattice points ('+interior.length+' interior, '+bdy+' on the boundary). Interior lattice points: '+JSON.stringify(interior)+' \u2014 '+(uniqueOrigin?'just the origin \u2713':'NOT a single interior point \u2717')+'. Its dual \u0394\u00b0 has '+dvc+' vertices'+(D?(dualInt?', all integral \u2713':', and at least one is NON-integral \u2717 (e.g. '+D.filter(function(p){return !isInt(p);}).map(function(p){return '('+p[0].toFixed(1)+','+p[1].toFixed(1)+')';})[0]+')'):'')+'. VERDICT: \u0394 is '+(reflexive?'REFLEXIVE':'NOT reflexive')+'. '+(reflexive?'Polar duality is an involution, \u0394\u00b0\u00b0 = \u0394, and it swaps vertices of \u0394 with facets of \u0394\u00b0. ':'')+'Batyrev: a reflexive \u0394 of dimension n yields a MIRROR Calabi\u2013Yau pair \u2014 the CY hypersurfaces from \u0394 and \u0394\u00b0 have their Hodge numbers h^{1,1} and h^{n\u22122,1} swapped, the mirror phenomenon string theorists predicted. Reflexivity is rare and rigid: exactly 16 reflexive polygons in 2-D (the 16 Gorenstein toric Fano surfaces), 4319 in 3-D, and 473,800,776 in 4-D (Kreuzer\u2013Skarke). In 2-D the CY hypersurface is just an elliptic curve, so this is a preview of the dimension-4 quintic-type story.';
+  }
+  btns.addEventListener('click', function(e){ var b=e.target.closest('button'); if(!b) return; curKey=b.getAttribute('data-k');
+    Array.prototype.forEach.call(btns.querySelectorAll('button'), function(x){ var on=x===b; x.classList.toggle('active', on); x.setAttribute('aria-pressed', on?'true':'false'); });
+    draw(); });
+  draw();
+})();
+</script>
 
 <div class="quiz" data-concept="tv-mirror"></div>
 </section>
