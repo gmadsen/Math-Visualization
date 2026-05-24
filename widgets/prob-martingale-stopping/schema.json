@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/prob-martingale-stopping/schema.json",
+  "title": "prob-martingale-stopping widget params",
+  "description": "Optional stopping on the simplest martingale — symmetric simple random walk Sₙ (a fair game, E[Sₙ₊₁|ℱₙ]=Sₙ). The widget simulates many walks, draws a sample of paths, and reports the empirical E[S_τ] against the theoretical value for three stopping rules: a fixed time τ=N (bounded ⇒ E[S_τ]=0), a two-sided exit τ=inf{n:|Sₙ|=a} (bounded in mean ⇒ 0), and τ=inf{n:Sₙ=1} (finite a.s. but NOT uniformly integrable ⇒ E[S_τ]=1≠0). The last is Doob's cautionary example that optional stopping needs a hypothesis.",
+  "meta": {
+    "family": "prob-martingale-stopping",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\"> wrapper."
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title rendered inside .hd > .ttl."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional short hint rendered inside .hd > .hint."
+    }
+  }
+}

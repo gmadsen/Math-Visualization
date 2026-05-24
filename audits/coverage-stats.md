@@ -3,10 +3,10 @@
 ## Corpus totals
 
 - Topics: **207**, concepts: **1422**
-- Widgets: **1531** (registry-driven: 1531, inline: 0)
+- Widgets: **1533** (registry-driven: 1533, inline: 0)
 - Quizzes: **5458** (v1: 4222, hard: 1223, expert: 13)
 - Quiz types: mcq: 3591, numeric: 1291, multi-select: 277, matching: 107, ordering: 85, spot-the-error: 53, complex: 29, proof-completion: 21, construction: 2, guess-my-rule: 2
-- Concepts lacking a widget in their section: **70**
+- Concepts lacking a widget in their section: **68**
 - Concepts lacking a hard-tier quiz: **984**
 
 ## Per-slug registry adoption
@@ -753,6 +753,8 @@ page has wired one in yet.
 | `positivity-and-ample-line-bundles-w4` | verbatim | click | 2d | 1 | positivity-and-ample-line-bundles |
 | `positivity-and-ample-line-bundles-w5` | verbatim | click | 2d | 1 | positivity-and-ample-line-bundles |
 | `positivity-and-ample-line-bundles-w6` | verbatim | click | 2d | 1 | positivity-and-ample-line-bundles |
+| `prob-convergence-modes` | prob-convergence-modes | click | 2d | 1 | probability-theory |
+| `prob-martingale-stopping` | prob-martingale-stopping | click | 2d | 1 | probability-theory |
 | `probabilistic-method-alterations` | probabilistic-method-alterations | click | 2d | 1 | probabilistic-method |
 | `probabilistic-method-concentration` | probabilistic-method-concentration | slider | 2d | 1 | probabilistic-method |
 | `probabilistic-method-existence` | probabilistic-method-existence | click | 2d | 1 | probabilistic-method |
@@ -1003,10 +1005,10 @@ page has wired one in yet.
 ### Probability & statistics
 
 - Topics: **11**, concepts: **76**
-- Widgets: **72** (registry-driven: 72, inline: 0)
-  - by family: verbatim: 21, button-stepper: 10, ms-bias-variance: 1, ms-likelihood-curve: 1, ms-crlb-envelope: 1, ms-neyman-pearson: 1, ms-beta-posterior: 1, ms-wilks-theorem: 1, hdg-sphere-concentration-band: 1, hdg-dvoretzky-section: 1, hdg-jl-distortion-histogram: 1, hdg-talagrand-deviation: 1, hdg-isoperimetry-tail: 1, hdg-marchenko-pastur: 1, stoch-proc-filtration-stopping: 1, stoch-proc-random-walk-martingale: 1, stoch-proc-gamblers-ruin: 1, stoch-proc-doob-decomposition: 1, stoch-proc-convergence-regimes: 1, stoch-proc-brownian-quadratic-variation: 1, stochastic-calc-ito-riemann-sums: 1, stochastic-calc-ito-formula-bsq: 1, stochastic-calc-geometric-brownian-motion: 1, stochastic-calc-girsanov-density: 1, stochastic-calc-feynman-kac-heat: 1, stochastic-calc-binomial-black-scholes: 1, random-walks-graph-step: 1, random-walks-matrix-power: 1, random-walks-tv-distance: 1, random-walks-eigenvalue-inspector: 1, random-walks-cycle-coupling: 1, random-walks-metropolis-hastings: 1, information-entropy: 1, information-mutual-info-venn: 1, information-kl-simplex: 1, information-huffman-builder: 1, information-bsc-capacity: 1, information-rate-distortion: 1, large-dev-cramer-tilt: 1, large-dev-rate-gallery: 1, large-dev-sanov-kl: 1, large-dev-gartner-ar1: 1, large-dev-schilder-paths: 1
-  - by dimension: 2d: 72
-  - by gesture: slider: 41, click: 23, step: 5, button: 2, toggle: 1
+- Widgets: **74** (registry-driven: 74, inline: 0)
+  - by family: verbatim: 21, button-stepper: 10, ms-bias-variance: 1, ms-likelihood-curve: 1, ms-crlb-envelope: 1, ms-neyman-pearson: 1, ms-beta-posterior: 1, ms-wilks-theorem: 1, hdg-sphere-concentration-band: 1, hdg-dvoretzky-section: 1, hdg-jl-distortion-histogram: 1, hdg-talagrand-deviation: 1, hdg-isoperimetry-tail: 1, hdg-marchenko-pastur: 1, prob-convergence-modes: 1, prob-martingale-stopping: 1, stoch-proc-filtration-stopping: 1, stoch-proc-random-walk-martingale: 1, stoch-proc-gamblers-ruin: 1, stoch-proc-doob-decomposition: 1, stoch-proc-convergence-regimes: 1, stoch-proc-brownian-quadratic-variation: 1, stochastic-calc-ito-riemann-sums: 1, stochastic-calc-ito-formula-bsq: 1, stochastic-calc-geometric-brownian-motion: 1, stochastic-calc-girsanov-density: 1, stochastic-calc-feynman-kac-heat: 1, stochastic-calc-binomial-black-scholes: 1, random-walks-graph-step: 1, random-walks-matrix-power: 1, random-walks-tv-distance: 1, random-walks-eigenvalue-inspector: 1, random-walks-cycle-coupling: 1, random-walks-metropolis-hastings: 1, information-entropy: 1, information-mutual-info-venn: 1, information-kl-simplex: 1, information-huffman-builder: 1, information-bsc-capacity: 1, information-rate-distortion: 1, large-dev-cramer-tilt: 1, large-dev-rate-gallery: 1, large-dev-sanov-kl: 1, large-dev-gartner-ar1: 1, large-dev-schilder-paths: 1
+  - by dimension: 2d: 74
+  - by gesture: slider: 41, click: 25, step: 5, button: 2, toggle: 1
 - Quizzes: **265** (v1: 228, hard: 24, expert: 13)
   - by type: mcq: 167, numeric: 70, multi-select: 10, matching: 5, spot-the-error: 5, ordering: 3, proof-completion: 3, construction: 1, complex: 1
 
@@ -1228,7 +1230,7 @@ page has wired one in yet.
 - `partial-differential-equations` (Analysis) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `harmonic-functions` (Analysis) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `spectral-theory` (Analysis) — concepts=9, widgets=9 (slug=9), quiz=27 (v1=27, hard=0, expert=0)
-- `probability-theory` (Probability & statistics) — concepts=12, widgets=10 (slug=10), quiz=73 (v1=36, hard=24, expert=13)
+- `probability-theory` (Probability & statistics) — concepts=12, widgets=12 (slug=12), quiz=73 (v1=36, hard=24, expert=13)
 - `stochastic-processes-and-martingales` (Probability & statistics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `stochastic-calculus` (Probability & statistics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `random-walks-and-mixing` (Probability & statistics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)

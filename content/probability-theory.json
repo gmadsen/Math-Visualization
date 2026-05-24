@@ -494,6 +494,27 @@
         },
         {
           "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget",
+          "slug": "prob-convergence-modes",
+          "params": {
+            "widgetId": "w-prob-conv",
+            "title": "Four modes of convergence — and which implications are one-way",
+            "hint": "Pick an example; the diagram colours which modes hold and which reverse arrow fails."
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-prob-conv"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "raw",
           "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./measure-theory.html#convergence\">Monotone and dominated convergence</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {
@@ -761,6 +782,27 @@
         {
           "type": "raw",
           "html": "<section id=\"martingales\">\n<h2>11. Martingales</h2>\n\n<p>A <strong>filtration</strong> $(\\mathcal{F}_n)_{n\\ge 0}$ is an increasing sequence of sub-$\\sigma$-algebras of $\\mathcal{F}$: $\\mathcal{F}_0\\subseteq\\mathcal{F}_1\\subseteq\\cdots\\subseteq\\mathcal{F}$. Intuitively, $\\mathcal{F}_n$ is the information available at time $n$.</p>\n\n<p>A stochastic process $(M_n)_{n\\ge 0}$ is <strong>adapted</strong> to $(\\mathcal{F}_n)$ if $M_n$ is $\\mathcal{F}_n$-measurable for each $n$.</p>\n\n<p>An adapted, $L^1$ process $(M_n)$ is a <strong>martingale</strong> if\n$$\\mathbb{E}[M_{n+1}\\mid\\mathcal{F}_n]=M_n\\quad\\forall n.$$\nReplace $=$ with $\\ge$ for a <em>submartingale</em>, with $\\le$ for a <em>supermartingale</em>. The defining identity is the formal expression of \"fair game\": the best predictor of the next value, given all past information, is the current value.</p>\n\n<p><strong>Stopping times.</strong> A random time $\\tau\\colon\\Omega\\to\\{0,1,\\ldots,\\infty\\}$ is a <em>stopping time</em> w.r.t.\\ $(\\mathcal{F}_n)$ if $\\{\\tau\\le n\\}\\in\\mathcal{F}_n$ for each $n$: at time $n$, we can decide from the data so far whether to stop.</p>\n\n<p><strong>Doob's optional-stopping theorem.</strong> If $M$ is a martingale and $\\tau$ a stopping time, then $\\mathbb{E}[M_\\tau]=\\mathbb{E}[M_0]$ provided <em>at least one</em> of the following holds:\n<ol>\n  <li>$\\tau$ is bounded;</li>\n  <li>$M$ is uniformly integrable (UI); or</li>\n  <li>$\\tau<\\infty$ a.s.\\ and $(M_{n\\wedge\\tau})$ is uniformly bounded.</li>\n</ol>\nWithout such a hypothesis optional-stopping fails: simple symmetric random walk stopped at $\\tau=\\inf\\{n:S_n=1\\}$ satisfies $\\tau<\\infty$ a.s.\\ but $\\mathbb{E}[S_\\tau]=1\\ne 0=\\mathbb{E}[S_0]$.</p>\n\n<p><strong>Doob's martingale convergence theorem.</strong> If $\\sup_n\\mathbb{E}|M_n|<\\infty$, then $M_n\\to M_\\infty$ a.s.\\ for some $M_\\infty\\in L^1$. If additionally $M$ is UI, then $M_n\\to M_\\infty$ in $L^1$ as well. <em>$L^1$-bounded without UI</em> is a genuinely weaker condition — e.g.\\ the product martingale $M_n=\\prod_{i=1}^n X_i$ with $\\mathbb{P}(X_i=2)=\\mathbb{P}(X_i=0)=1/2$ has $\\mathbb{E}[M_n]=1$ for all $n$ but $M_n\\to 0$ a.s.</p>\n\n<div class=\"note\"><strong>Doob's maximal inequality.</strong> For a non-negative submartingale, $\\mathbb{P}(\\max_{k\\le n}M_k\\ge\\lambda)\\le\\mathbb{E}[M_n]/\\lambda$. The $L^p$ version: $\\|\\max_{k\\le n}M_k\\|_p\\le(p/(p-1))\\|M_n\\|_p$ for $p>1$. These are the two most-used inequalities in the whole subject.</div>\n\n<p><strong>Worked example: random walk is a martingale.</strong> $S_n=\\sum_{i=1}^n X_i$ with $X_i$ i.i.d., $\\mathbb{E}[X_i]=0$, and $\\mathcal{F}_n=\\sigma(X_1,\\ldots,X_n)$. Then\n$$\\mathbb{E}[S_{n+1}\\mid\\mathcal{F}_n]=\\mathbb{E}[S_n+X_{n+1}\\mid\\mathcal{F}_n]=S_n+\\mathbb{E}[X_{n+1}]=S_n,$$\nusing that $S_n$ is $\\mathcal{F}_n$-measurable and $X_{n+1}$ is independent of $\\mathcal{F}_n$. So $(S_n)$ is a martingale. Consequently, $\\mathbb{E}[S_n]=\\mathbb{E}[S_0]=0$ for all $n$ (a fact obvious by linearity, but here illustrating the machinery).</p>\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget",
+          "slug": "prob-martingale-stopping",
+          "params": {
+            "widgetId": "w-prob-martingale",
+            "title": "Optional stopping on a fair random walk",
+            "hint": "Bounded τ keeps E[S_τ]=0; stopping at the first hit of +1 breaks it."
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-prob-martingale"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
         },
         {
           "type": "quiz",

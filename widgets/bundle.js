@@ -15321,6 +15321,42 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "prob-convergence-modes",
+    "family": "prob-convergence-modes",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "prob-convergence-modes widget params",
+    "description": "The four modes of convergence of random variables and the one-directional implications between them. The widget draws the implication diagram — almost surely ⇒ in probability ⇒ in distribution, and Lᵖ ⇒ in probability — and colours each node green/pink for a chosen example sequence: the spike n·1₍₀,₁/ₙ₎ (a.s. but not L¹), the typewriter sequence (in probability but not a.s.), an i.i.d. sequence (in distribution but not in probability), and X/n (all four). Selecting an example shows which reverse implication it breaks.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Bespoke module for **probability-theory** §7 (Modes of convergence). Visualizes the one-directional implications between the four modes of convergence of random variables.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "prob-martingale-stopping",
+    "family": "prob-martingale-stopping",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "prob-martingale-stopping widget params",
+    "description": "Optional stopping on the simplest martingale — symmetric simple random walk Sₙ (a fair game, E[Sₙ₊₁|ℱₙ]=Sₙ). The widget simulates many walks, draws a sample of paths, and reports the empirical E[S_τ] against the theoretical value for three stopping rules: a fixed time τ=N (bounded ⇒ E[S_τ]=0), a two-sided exit τ=inf{n:|Sₙ|=a} (bounded in mean ⇒ 0), and τ=inf{n:Sₙ=1} (finite a.s. but NOT uniformly integrable ⇒ E[S_τ]=1≠0). The last is Doob's cautionary example that optional stopping needs a hypothesis.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Bespoke module for **probability-theory** §11 (Martingales). Demonstrates Doob's optional-stopping theorem — and its failure without a hypothesis — on the simplest martingale, symmetric simple random walk.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "probabilistic-method-alterations",
     "family": "probabilistic-method-alterations",
     "dimension": "2d",
