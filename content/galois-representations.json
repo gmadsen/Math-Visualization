@@ -487,6 +487,19 @@
           "html": "<section id=\"ss\">\n<h2>8. Irreducibility and semisimplification</h2>\n<p>A Galois representation $\\rho: G_\\mathbb{Q} \\to \\mathrm{GL}_n(K)$ is <strong>irreducible</strong> if $K^n$ has no proper non-zero $G_\\mathbb{Q}$-stable subspace, and <strong>semisimple</strong> if it decomposes as a direct sum of irreducibles. As with finite-group representations, not every representation is semisimple — an upper-triangular $\\rho = \\begin{pmatrix}\\chi_1 & *\\\\ 0 & \\chi_2\\end{pmatrix}$ with non-zero extension class is reducible but not a direct sum. The <strong>semisimplification</strong> $\\rho^{\\mathrm{ss}} = \\chi_1 \\oplus \\chi_2$ is obtained by throwing away the off-diagonal cocycle.</p>\n<p>Because traces are additive on short <a href=\"./homological.html#exact\" data-auto-inline-link=\"1\" data-concept-id=\"exact-sequences\" data-blurb=\"Exactness at B means im f = ker g; short exact sequences 0→A→B→C→0 are the atomic building blocks of homological algebra.\">exact sequences</a>, $\\tr\\rho(\\mathrm{Frob}_p) = \\tr\\rho^{\\mathrm{ss}}(\\mathrm{Frob}_p)$ at every unramified prime. So <em>Frobenius traces only ever see the semisimplification</em>. By the <strong>Brauer–Nesbitt / Chebotarev</strong> combination, two semisimple $\\ell$-adic representations of $G_\\mathbb{Q}$ are isomorphic iff their traces of Frobenius agree at a density-one set of primes — a dramatic rigidity statement. For $\\rho_{E,\\ell}$ from a <strong>non-CM</strong> elliptic curve, Serre's open-image theorem guarantees irreducibility (in fact surjectivity onto $\\mathrm{GL}_2(\\mathbb{Z}_\\ell)$) for all but finitely many $\\ell$, so the semisimplification is just $\\rho_{E,\\ell}$ itself. For CM curves the picture is different: $\\rho_{E,\\ell}$ becomes reducible after restriction to $G_K$ (where $K$ is the CM field) at every $\\ell$ that splits in $K$, decomposing as a sum of two Hecke characters.</p>\n\n"
         },
         {
+          "type": "widget",
+          "slug": "galois-representations-semisimplification",
+          "params": {
+            "widgetId": "w-ssrep",
+            "title": "Semisimplification: Frobenius traces don’t see the off-diagonal",
+            "hint": "slide the extension b; trace and det are unchanged, so ρ and ρ^ss are trace-equal"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
           "type": "raw",
           "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./representation-theory.html#schur\">Schur's lemma</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
@@ -511,6 +524,19 @@
         {
           "type": "raw",
           "html": "<section id=\"ram\">\n<h2>9. Inertia, ramification, and the conductor</h2>\n<p>Fix a prime $p$ and an embedding $\\bar{\\mathbb{Q}} \\hookrightarrow \\bar{\\mathbb{Q}}_p$. Inside the decomposition group $D_p \\subset G_\\mathbb{Q}$ sits the <strong>inertia subgroup</strong> $I_p$, the kernel of $D_p \\twoheadrightarrow \\Gal(\\bar{\\mathbb{F}}_p/\\mathbb{F}_p)$. A representation $\\rho: G_\\mathbb{Q} \\to \\mathrm{GL}_n(K)$ is <strong>unramified at $p$</strong> when $\\rho(I_p) = 1$; only in that case does $\\rho(\\mathrm{Frob}_p)$ make sense as a well-defined conjugacy class, so the Frobenius machinery of §5 only applies at unramified primes.</p>\n<p>For the bad primes, the <strong>Artin conductor exponent</strong> $f_p(\\rho) = \\dim(V) - \\dim(V^{I_p}) + \\text{(wild term)}$ quantifies how badly $\\rho$ is ramified at $p$: the first piece counts missing inertia invariants (the tame drop), the wild term measures higher ramification. The global <strong>conductor</strong> is the product $N(\\rho) = \\prod_p p^{f_p(\\rho)}$, supported on the finitely many ramified primes. For an elliptic curve $E/\\mathbb{Q}$ the conductor $N_E$ satisfies $f_p = 1$ at primes of multiplicative reduction and $f_p \\ge 2$ at primes of additive reduction, matching the conductor that appears in the $L$-function of $E$.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "galois-representations-conductor",
+          "params": {
+            "widgetId": "w-grcond",
+            "title": "Inertia and the conductor: f_p = dim V − dim V^{I_p} + wild",
+            "hint": "pick a curve; reduction type at each bad prime fixes f_p and the conductor N"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
         },
         {
           "type": "raw",
@@ -596,6 +622,22 @@
         {
           "type": "widget-script",
           "ref": "w-deligne"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-ssrep"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-grcond"
         },
         {
           "type": "raw",

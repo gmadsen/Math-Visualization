@@ -8139,6 +8139,42 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "galois-representations-conductor",
+    "family": "galois-representations-conductor",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "galois-representations-conductor widget params",
+    "description": "Inertia, ramification, and the Artin conductor of a Galois representation, made concrete on elliptic curves. A representation rho is unramified at p when rho fixes the inertia subgroup I_p, in which case Frob_p is a well-defined conjugacy class; the Artin conductor exponent f_p = dim V - dim V^{I_p} + (wild term) measures how badly rho ramifies, and the global conductor is N = product of p^{f_p} over the finitely many bad primes. Buttons pick an elliptic curve from a gallery (11a, 14a, 20a, 27a, 32a); the widget tabulates each bad prime with its reduction type (good = unramified, f=0; multiplicative = tame, dim V^{I_p}=1, f=1; additive = dim V^{I_p}=0, f=2 plus a wild term at p=2,3), the inertia-invariant dimension, the exponent f_p, and the product N = product p^{f_p}, matching the conductor in the curve's L-function. The readout defines the decomposition and inertia groups, the unramified condition, the conductor exponent, and the multiplicative-vs-additive dichotomy. No numeric params beyond the standard widgetId/title/hint.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Bespoke widget for `galois-representations.html` (§9 *Inertia, ramification, and the conductor*, concept `ramification-galois-rep`). It makes the **Artin conductor** concrete on elliptic curves: each bad prime's reduction type fixes the inertia-invariant dimension, hence the conductor exponent. Single module, not part of a shared family.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "galois-representations-semisimplification",
+    "family": "galois-representations-semisimplification",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "galois-representations-semisimplification widget params",
+    "description": "Why Frobenius traces of a Galois representation see only its semisimplification, shown on a 2-by-2 upper-triangular representation. The widget displays rho(Frob_p) = [[a, b],[0, d]] with two fixed character values a, d on the diagonal and a slider for the off-diagonal extension class b. The line spanned by e_1 is always Galois-stable, so rho is REDUCIBLE for every b; it is a direct sum -- SEMISIMPLE -- only when b = 0, in which case it equals the semisimplification rho^ss = diag(a, d). The trace a + d and determinant a*d are independent of b, so two representations with the same a, d but different b (one semisimple, one not) have identical Frobenius traces at every prime. The readout draws the consequence: traces are additive on short exact sequences, so tr rho(Frob_p) = tr rho^ss(Frob_p); by Brauer-Nesbitt plus Chebotarev two semisimple l-adic representations are isomorphic iff their Frobenius traces agree on a density-one set of primes. No numeric params beyond the standard widgetId/title/hint.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Bespoke widget for `galois-representations.html` (§8 *Irreducibility and semisimplification*, concept `semisimple-decomposition`). It shows why **Frobenius traces see only the semisimplification**, on a 2×2 upper-triangular representation. Single module, not part of a shared family.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "gb-buch",
     "family": "verbatim",
     "dimension": "2d",
