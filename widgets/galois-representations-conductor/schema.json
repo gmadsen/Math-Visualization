@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/galois-representations-conductor/schema.json",
+  "title": "galois-representations-conductor widget params",
+  "description": "Inertia, ramification, and the Artin conductor of a Galois representation, made concrete on elliptic curves. A representation rho is unramified at p when rho fixes the inertia subgroup I_p, in which case Frob_p is a well-defined conjugacy class; the Artin conductor exponent f_p = dim V - dim V^{I_p} + (wild term) measures how badly rho ramifies, and the global conductor is N = product of p^{f_p} over the finitely many bad primes. Buttons pick an elliptic curve from a gallery (11a, 14a, 20a, 27a, 32a); the widget tabulates each bad prime with its reduction type (good = unramified, f=0; multiplicative = tame, dim V^{I_p}=1, f=1; additive = dim V^{I_p}=0, f=2 plus a wild term at p=2,3), the inertia-invariant dimension, the exponent f_p, and the product N = product p^{f_p}, matching the conductor in the curve's L-function. The readout defines the decomposition and inertia groups, the unramified condition, the conductor exponent, and the multiplicative-vs-additive dichotomy. No numeric params beyond the standard widgetId/title/hint.",
+  "meta": {
+    "family": "galois-representations-conductor",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\"> wrapper."
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title rendered inside .hd > .ttl."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional short hint rendered inside .hd > .hint."
+    }
+  }
+}

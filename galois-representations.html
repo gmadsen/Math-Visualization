@@ -598,6 +598,17 @@ $$ \tr\rho_{f,\lambda}(\mathrm{Frob}_p) \;=\; a_p(f), \qquad \det\rho_{f,\lambda
 <p>A Galois representation $\rho: G_\mathbb{Q} \to \mathrm{GL}_n(K)$ is <strong>irreducible</strong> if $K^n$ has no proper non-zero $G_\mathbb{Q}$-stable subspace, and <strong>semisimple</strong> if it decomposes as a direct sum of irreducibles. As with finite-group representations, not every representation is semisimple — an upper-triangular $\rho = \begin{pmatrix}\chi_1 & *\\ 0 & \chi_2\end{pmatrix}$ with non-zero extension class is reducible but not a direct sum. The <strong>semisimplification</strong> $\rho^{\mathrm{ss}} = \chi_1 \oplus \chi_2$ is obtained by throwing away the off-diagonal cocycle.</p>
 <p>Because traces are additive on short <a href="./homological.html#exact" data-auto-inline-link="1" data-concept-id="exact-sequences" data-blurb="Exactness at B means im f = ker g; short exact sequences 0→A→B→C→0 are the atomic building blocks of homological algebra.">exact sequences</a>, $\tr\rho(\mathrm{Frob}_p) = \tr\rho^{\mathrm{ss}}(\mathrm{Frob}_p)$ at every unramified prime. So <em>Frobenius traces only ever see the semisimplification</em>. By the <strong>Brauer–Nesbitt / Chebotarev</strong> combination, two semisimple $\ell$-adic representations of $G_\mathbb{Q}$ are isomorphic iff their traces of Frobenius agree at a density-one set of primes — a dramatic rigidity statement. For $\rho_{E,\ell}$ from a <strong>non-CM</strong> elliptic curve, Serre's open-image theorem guarantees irreducibility (in fact surjectivity onto $\mathrm{GL}_2(\mathbb{Z}_\ell)$) for all but finitely many $\ell$, so the semisimplification is just $\rho_{E,\ell}$ itself. For CM curves the picture is different: $\rho_{E,\ell}$ becomes reducible after restriction to $G_K$ (where $K$ is the CM field) at every $\ell$ that splits in $K$, decomposing as a sum of two Hecke characters.</p>
 
+<div class="widget" id="w-ssrep">
+  <div class="hd"><div class="ttl">Semisimplification: Frobenius traces don’t see the off-diagonal</div><div class="hint">slide the extension b; trace and det are unchanged, so ρ and ρ^ss are trace-equal</div></div>
+  <div class="row">
+    <label for="w-ssrep-b">extension class $b$ (off-diagonal)</label>
+    <input type="range" id="w-ssrep-b" min="-4" max="4" value="2" step="0.1">
+    <span class="pill" id="w-ssrep-bv">b = …</span>
+  </div>
+  <svg id="w-ssrep-svg" viewBox="0 0 560 320" width="560" height="320" role="img" aria-label="A 2x2 upper-triangular Galois representation with a repeated eigenvalue, its only invariant line, and its semisimplification; trace and determinant are independent of the off-diagonal"><title>An upper-triangular rho(Frob_p)=[[a,b],[0,a]] with a repeated eigenvalue is reducible for all b but semisimple only at b=0 (where it is the scalar a times I); for b nonzero it is a Jordan block whose only invariant line is the span of e1, so there is no invariant complement. Its trace 2a and determinant a squared do not depend on b, so Frobenius traces see only the semisimplification diag(a,a)</title></svg>
+  <div class="readout" id="w-ssrep-out"></div>
+</div>
+
 <!-- callback-auto-begin -->
 <aside class="callback">
   <div class="ttl">See also</div>
@@ -614,6 +625,19 @@ $$ \tr\rho_{f,\lambda}(\mathrm{Frob}_p) \;=\; a_p(f), \qquad \det\rho_{f,\lambda
 <h2>9. Inertia, ramification, and the conductor</h2>
 <p>Fix a prime $p$ and an embedding $\bar{\mathbb{Q}} \hookrightarrow \bar{\mathbb{Q}}_p$. Inside the decomposition group $D_p \subset G_\mathbb{Q}$ sits the <strong>inertia subgroup</strong> $I_p$, the kernel of $D_p \twoheadrightarrow \Gal(\bar{\mathbb{F}}_p/\mathbb{F}_p)$. A representation $\rho: G_\mathbb{Q} \to \mathrm{GL}_n(K)$ is <strong>unramified at $p$</strong> when $\rho(I_p) = 1$; only in that case does $\rho(\mathrm{Frob}_p)$ make sense as a well-defined conjugacy class, so the Frobenius machinery of §5 only applies at unramified primes.</p>
 <p>For the bad primes, the <strong>Artin conductor exponent</strong> $f_p(\rho) = \dim(V) - \dim(V^{I_p}) + \text{(wild term)}$ quantifies how badly $\rho$ is ramified at $p$: the first piece counts missing inertia invariants (the tame drop), the wild term measures higher ramification. The global <strong>conductor</strong> is the product $N(\rho) = \prod_p p^{f_p(\rho)}$, supported on the finitely many ramified primes. For an elliptic curve $E/\mathbb{Q}$ the conductor $N_E$ satisfies $f_p = 1$ at primes of multiplicative reduction and $f_p \ge 2$ at primes of additive reduction, matching the conductor that appears in the $L$-function of $E$.</p>
+
+<div class="widget" id="w-grcond">
+  <div class="hd"><div class="ttl">Inertia and the conductor: f_p = dim V − dim V^{I_p} + wild</div><div class="hint">pick a curve; reduction type at each bad prime fixes f_p and the conductor N</div></div>
+  <div class="row" id="w-grcond-btns">
+    <button type="button" data-c="11a" class="active" aria-pressed="true">11a</button>
+    <button type="button" data-c="14a" class="" aria-pressed="false">14a</button>
+    <button type="button" data-c="20a" class="" aria-pressed="false">20a</button>
+    <button type="button" data-c="27a" class="" aria-pressed="false">27a</button>
+    <button type="button" data-c="32a" class="" aria-pressed="false">32a</button>
+  </div>
+  <svg id="w-grcond-svg" viewBox="0 0 560 320" width="560" height="320" role="img" aria-label="Bad primes of an elliptic curve with their reduction type, inertia-invariant dimension, and conductor exponent, multiplying to the conductor N"><title>For each elliptic curve, a table of its bad primes p with reduction type, dim V to the I_p, conductor exponent f_p = 2 minus dim V to the I_p plus a wild term, and the product N = prod p to the f_p</title></svg>
+  <div class="readout" id="w-grcond-out"></div>
+</div>
 
 <!-- callback-auto-begin -->
 <aside class="callback">
@@ -1391,6 +1415,103 @@ $$ \tr\rho_{f,\lambda}(\mathrm{Frob}_p) \;=\; a_p(f), \qquad \det\rho_{f,\lambda
 
   fSel.addEventListener('change', render);
   render();
+})();
+</script>
+
+<script>
+/* galois-representations-semisimplification widget: w-ssrep */
+(function(){
+  var svg=document.getElementById('w-ssrep-svg'), out=document.getElementById('w-ssrep-out');
+  var sb=document.getElementById('w-ssrep-b'), bv=document.getElementById('w-ssrep-bv');
+  if(!svg||!out||!sb||!bv) return;
+  var NS='http://www.w3.org/2000/svg';
+  function mk(tag,attrs,text){ var e=document.createElementNS(NS,tag); for(var k in attrs){ e.setAttribute(k,attrs[k]); } if(text!=null) e.textContent=text; return e; }
+  function txt(x,y,s,opt){ opt=opt||{}; svg.appendChild(mk('text',{x:x,y:y,'text-anchor':opt.anchor||'start','font-size':opt.size||12,fill:opt.fill||'var(--ink)','font-weight':opt.weight||'normal','font-family':opt.mono?'monospace':'inherit'},s)); }
+  var A=1;
+  var CX=150, CY=180, U=34;
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    var b=parseFloat(sb.value); if(!isFinite(b)) b=0; bv.textContent='b = '+b.toFixed(1); sb.setAttribute('aria-valuetext','b = '+b.toFixed(1));
+    var ss=(Math.abs(b)<1e-9);
+    // matrix display (right column)
+    txt(300, 60, '\u03c1(Frob_p) =', {size:13, fill:'var(--ink)'});
+    txt(432, 52, 'a   b', {size:13, mono:true, fill:'var(--ink)'}); txt(432, 72, '0   a', {size:13, mono:true, fill:'var(--ink)'});
+    svg.appendChild(mk('line',{x1:420,y1:38,x2:420,y2:78,stroke:'var(--ink)','stroke-width':1.4})); svg.appendChild(mk('line',{x1:502,y1:38,x2:502,y2:78,stroke:'var(--ink)','stroke-width':1.4}));
+    txt(300, 96, '= [['+A+', '+b.toFixed(1)+'], [0, '+A+']]', {size:12, mono:true, fill:'var(--cyan)'});
+    txt(300, 124, 'trace = 2a = '+(2*A)+'   (constant in b)', {size:12, fill:'var(--green)', weight:700});
+    txt(300, 146, 'det = a\u00b2 = '+(A*A)+'   (constant in b)', {size:12, fill:'var(--green)', weight:700});
+    txt(300, 176, ss?'b = 0:  scalar a\u00b7I  \u2192  SEMISIMPLE':'b \u2260 0:  Jordan block  \u2192  NOT semisimple', {size:12, fill: ss?'var(--green)':'var(--pink)', weight:700});
+    txt(300, 196, '\u03c1\u02e2\u02e2 = diag(a, a) = diag('+A+', '+A+')', {size:11, fill:'var(--violet)'});
+    txt(300, 230, 'same trace '+(2*A)+' for every b \u21d2', {size:10, fill:'var(--mute)'});
+    txt(300, 246, 'Frobenius can\u2019t tell \u03c1 from \u03c1\u02e2\u02e2.', {size:10, fill:'var(--mute)'});
+    // basis-vector action picture (left): e1 stable, e2 -> (b, a)
+    svg.appendChild(mk('line',{x1:CX-3.2*U,y1:CY,x2:CX+3.2*U,y2:CY,stroke:'var(--line)','stroke-width':1}));
+    svg.appendChild(mk('line',{x1:CX,y1:CY-2.4*U,x2:CX,y2:CY+1.6*U,stroke:'var(--line)','stroke-width':1}));
+    txt(CX+3.2*U+2, CY+4, 'e\u2081', {size:9, fill:'var(--mute)'}); txt(CX+4, CY-2.4*U+2, 'e\u2082', {size:9, fill:'var(--mute)'});
+    // stable line span(e1) highlighted
+    svg.appendChild(mk('line',{x1:CX-3.2*U,y1:CY,x2:CX+3.2*U,y2:CY,stroke:'var(--green)','stroke-width':2.5,'stroke-opacity':0.5}));
+    txt(CX-3.2*U, CY+18, 'invariant line \u27e8e\u2081\u27e9 (always)', {size:8, fill:'var(--green)'});
+    var defs=mk('defs',{}); var m=mk('marker',{id:'w-ssrep-ar',viewBox:'0 0 10 10',refX:8,refY:5,markerWidth:6,markerHeight:6,orient:'auto'}); m.appendChild(mk('path',{d:'M0 0 L10 5 L0 10 z',fill:'var(--ink)'})); defs.appendChild(m); svg.appendChild(defs);
+    function vec(vx,vy,col,lab,dy){ var x2=CX+vx*U, y2=CY-vy*U; svg.appendChild(mk('line',{x1:CX,y1:CY,x2:x2,y2:y2,stroke:col,'stroke-width':2,'marker-end':'url(#w-ssrep-ar)'})); var lx=Math.max(30,Math.min(286,x2)); txt(lx, y2+dy, lab, {anchor:'middle', size:9, fill:col}); }
+    vec(A,0,'var(--cyan)','\u03c1(e\u2081)=(a,0)', 16);
+    vec(b,A,'var(--pink)','\u03c1(e\u2082)=(b,a)', -7);
+    txt(CX, CY+2.6*U+10, ss?'every line is invariant \u2192 \u2102\u00b2=\u27e8e\u2081\u27e9\u2295\u27e8e\u2082\u27e9':'\u27e8e\u2081\u27e9 is the only invariant line \u2192 no complement', {anchor:'middle', size:9, fill: ss?'var(--green)':'var(--pink)'});
+    out.textContent='A Galois representation \u03c1: G_\u211a \u2192 GL\u2099(K) is IRREDUCIBLE if K\u207f has no proper non-zero G_\u211a-stable subspace, and SEMISIMPLE if it is a direct sum of irreducibles. Not every reducible representation is semisimple. Take the upper-triangular \u03c1(Frob_p) = [[a, b],[0, a]] with a REPEATED eigenvalue a: it always fixes the line \u27e8e\u2081\u27e9 (so it is REDUCIBLE), but for b \u2260 0 it is a non-trivial Jordan block whose ONLY invariant line is \u27e8e\u2081\u27e9 itself \u2014 there is no invariant complement, so \u03c1 is INDECOMPOSABLE and not semisimple. (With a repeated eigenvalue the only semisimple matrices are the scalars a\u00b7I, reached here exactly at b = 0.) Its SEMISIMPLIFICATION is \u03c1\u02e2\u02e2 = diag(a, a), which discards the off-diagonal extension class b. The crucial point: trace = 2a and det = a\u00b2 do NOT depend on b (the picture: 2a = '+(2*A)+' and a\u00b2 = '+(A*A)+' at every slider position), because the trace is ADDITIVE on the short exact sequence 0 \u2192 \u27e8e\u2081\u27e9 \u2192 \u03c1 \u2192 \u03c1/\u27e8e\u2081\u27e9 \u2192 0. So tr \u03c1(Frob_p) = tr \u03c1\u02e2\u02e2(Frob_p) at every unramified prime \u2014 Frobenius traces only ever see the semisimplification. (The same trace-blindness holds for DISTINCT characters \u03c7\u2081 \u2260 \u03c7\u2082: a non-split extension 0 \u2192 \u03c7\u2081 \u2192 \u03c1 \u2192 \u03c7\u2082 \u2192 0, with class in Ext\u00b9(\u03c7\u2082,\u03c7\u2081) = H\u00b9(G_\u211a, \u03c7\u2081\u03c7\u2082\u207b\u00b9), is reducible but indecomposable \u2014 there each single \u03c1(g) is diagonalizable, yet no one basis diagonalizes the whole family, and \u03c1 still shares all traces with \u03c7\u2081 \u2295 \u03c7\u2082.) Combined with BRAUER\u2013NESBITT (a semisimple representation is determined by its characteristic polynomials) and CHEBOTAREV (Frobenius classes are equidistributed), this gives a dramatic rigidity: two semisimple \u2113-adic representations of G_\u211a are ISOMORPHIC iff their Frobenius traces agree on a density-one set of primes. (For \u03c1_{E,\u2113} from a non-CM elliptic curve, Serre\u2019s open-image theorem makes \u03c1 irreducible \u2014 in fact surjective onto GL\u2082(\u2124_\u2113) for all but finitely many \u2113 \u2014 so there is no off-diagonal to discard.)';
+  }
+  sb.addEventListener('input', draw);
+  draw();
+})();
+</script>
+
+<script>
+/* galois-representations-conductor widget: w-grcond */
+(function(){
+  var svg=document.getElementById('w-grcond-svg'), out=document.getElementById('w-grcond-out');
+  var btns=document.getElementById('w-grcond-btns');
+  if(!svg||!out||!btns) return;
+  var NS='http://www.w3.org/2000/svg';
+  function mk(tag,attrs,text){ var e=document.createElementNS(NS,tag); for(var k in attrs){ e.setAttribute(k,attrs[k]); } if(text!=null) e.textContent=text; return e; }
+  function txt(x,y,s,opt){ opt=opt||{}; svg.appendChild(mk('text',{x:x,y:y,'text-anchor':opt.anchor||'start','font-size':opt.size||12,fill:opt.fill||'var(--ink)','font-weight':opt.weight||'normal','font-family':opt.mono?'monospace':'inherit'},s)); }
+  var CURVES={
+    '11a':{N:11, bad:[{p:11,t:'split multiplicative',dv:1,w:0}]},
+    '14a':{N:14, bad:[{p:2,t:'multiplicative',dv:1,w:0},{p:7,t:'multiplicative',dv:1,w:0}]},
+    '20a':{N:20, bad:[{p:2,t:'additive',dv:0,w:0},{p:5,t:'multiplicative',dv:1,w:0}]},
+    '27a':{N:27, bad:[{p:3,t:'additive (wild)',dv:0,w:1}]},
+    '32a':{N:32, bad:[{p:2,t:'additive (wild)',dv:0,w:3}]}
+  };
+  var cur='11a';
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    var C=CURVES[cur];
+    txt(20, 32, 'E = '+cur+',   \u2113-adic Tate module representation \u03c1_{E,\u2113}: G_\u211a \u2192 GL\u2082(\u2124_\u2113)', {size:12, fill:'var(--ink)', weight:700});
+    txt(20, 52, 'good primes p \u2224 N: \u03c1(I_p) = 1 (unramified), f_p = 0 \u2014 only the bad primes below contribute', {size:10, fill:'var(--mute)'});
+    txt(28, 84, 'p', {size:10, fill:'var(--mute)', weight:700, mono:true});
+    txt(62, 84, 'reduction type', {size:10, fill:'var(--mute)', weight:700});
+    txt(250, 84, 'dim V^{I_p}', {size:10, fill:'var(--mute)', weight:700});
+    txt(340, 84, '\u03b5=2\u2212dim V^{I_p}', {size:10, fill:'var(--mute)', weight:700});
+    txt(452, 84, '\u03b4', {size:10, fill:'var(--mute)', weight:700});
+    txt(486, 84, 'f_p', {size:10, fill:'var(--mute)', weight:700});
+    var y=110, prod=1, parts=[];
+    C.bad.forEach(function(b){ var eps=2-b.dv, f=eps+b.w, pf=Math.pow(b.p,f); prod*=pf; parts.push(b.p+'^'+f);
+      var col = b.w>0?'var(--pink)':(b.dv===1?'var(--cyan)':'var(--violet)');
+      txt(28, y, ''+b.p, {size:11, fill:col, mono:true, weight:700});
+      txt(62, y, b.t, {size:11, fill:col});
+      txt(262, y, ''+b.dv, {size:11, fill:col, mono:true});
+      txt(372, y, ''+eps, {size:11, fill:col, mono:true});
+      txt(452, y, ''+b.w, {size:11, fill:col, mono:true});
+      txt(486, y, ''+f, {size:11, fill:col, mono:true, weight:700});
+      txt(512, y, '(p^'+f+'='+pf+')', {size:9, fill:'var(--mute)', mono:true});
+      y+=26; });
+    svg.appendChild(mk('line',{x1:20,y1:y-6,x2:540,y2:y-6,stroke:'var(--line)','stroke-width':1})); y+=18;
+    txt(28, y, 'N = \u220f_p p^{f_p} = '+parts.join(' \u00b7 ')+' = '+prod, {size:13, fill:'var(--green)', weight:700, mono:true}); y+=24;
+    txt(28, y, 'conductor of E = '+C.N+'   '+(prod===C.N?'\u2713 matches':'\u2260'), {size:12, fill: prod===C.N?'var(--green)':'var(--pink)', weight:700, mono:true}); y+=26;
+    txt(28, y, 'f_p = 1 \u21d4 multiplicative (tame);   f_p \u2265 2 \u21d4 additive  (\u03b4>0 only at p=2,3, wild)', {size:10, fill:'var(--mute)'});
+    out.textContent='At a prime p, the decomposition group D_p \u2282 G_\u211a (the Galois group of the local field \u211a_p) contains the INERTIA group I_p, and the quotient D_p / I_p is generated by Frobenius. A representation \u03c1 is UNRAMIFIED at p when \u03c1(I_p) = 1 \u2014 then \u03c1(Frob_p) is a well-defined conjugacy class, which is what the Euler factor at p sees. The ARTIN CONDUCTOR EXPONENT f_p = (dim V \u2212 dim V^{I_p}) + \u03b4_p measures the failure (here dim V = 2, the rank of the \u2113-adic Tate module, so the table\u2019s tame column is \u03b5 = 2 \u2212 dim V^{I_p}): the first (TAME) part counts the coordinates inertia moves, and the SWAN term \u03b4_p (non-zero only in WILD ramification, where p divides the order of \u03c1(I_p), so only at p = 2, 3 for elliptic curves) counts higher inertia. For \u03c1_{E,\u2113} (\u2113 \u2260 p) the reduction type of E at p reads it off directly: GOOD reduction \u2192 unramified, V^{I_p} = V, f_p = 0; MULTIPLICATIVE reduction \u2192 inertia acts by a single unipotent block, dim V^{I_p} = 1, f_p = 1 (tame); ADDITIVE reduction \u2192 dim V^{I_p} = 0, f_p = 2 (tame, p \u2265 5) or f_p \u2265 2 with a wild term (p = 2, 3). The global conductor N(E) = \u220f_p p^{f_p} is exactly the level appearing in the curve\u2019s L-function and \u2014 by modularity \u2014 the level of its weight-2 newform; for E = '+cur+' the bad primes multiply to N = '+prod+'. (Ogg\u2019s formula f_p = v_p(\u0394_min) + 1 \u2212 m_p ties \u03b4_p to the minimal discriminant and the number of components of the N\u00e9ron special fibre, so this is computable, not folklore.)';
+  }
+  btns.addEventListener('click', function(e){ var b=e.target.closest('button'); if(!b) return; cur=b.getAttribute('data-c');
+    Array.prototype.forEach.call(btns.querySelectorAll('button'), function(x){ var on=x===b; x.classList.toggle('active', on); x.setAttribute('aria-pressed', on?'true':'false'); });
+    draw(); });
+  draw();
 })();
 </script>
 

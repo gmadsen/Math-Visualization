@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/galois-representations-semisimplification/schema.json",
+  "title": "galois-representations-semisimplification widget params",
+  "description": "Why Frobenius traces of a Galois representation see only its semisimplification, shown on a 2-by-2 upper-triangular representation with a REPEATED eigenvalue. The widget displays rho(Frob_p) = [[a, b],[0, a]] with a fixed repeated diagonal value a and a slider for the off-diagonal extension class b. The line spanned by e_1 is always Galois-stable, so rho is REDUCIBLE for every b; for b nonzero it is a non-trivial Jordan block whose ONLY invariant line is span(e_1), so there is no invariant complement and rho is indecomposable and NOT semisimple. It is semisimple only at b = 0, where it is the scalar a*I = its semisimplification rho^ss = diag(a, a). (Using a repeated eigenvalue is what makes the single on-screen matrix genuinely non-diagonalizable for b != 0; with distinct eigenvalues a single matrix is always diagonalizable and non-semisimplicity is only visible at the level of the whole homomorphism.) The trace 2a and determinant a^2 are independent of b, so the non-semisimple rho and its semisimplification have identical Frobenius traces at every prime. The readout draws the consequence: traces are additive on short exact sequences, so tr rho(Frob_p) = tr rho^ss(Frob_p); by Brauer-Nesbitt plus Chebotarev two semisimple l-adic representations are isomorphic iff their Frobenius traces agree on a density-one set of primes. No numeric params beyond the standard widgetId/title/hint.",
+  "meta": {
+    "family": "galois-representations-semisimplification",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\"> wrapper."
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title rendered inside .hd > .ttl."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional short hint rendered inside .hd > .hint."
+    }
+  }
+}

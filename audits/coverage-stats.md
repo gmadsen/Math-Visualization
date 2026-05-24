@@ -3,10 +3,10 @@
 ## Corpus totals
 
 - Topics: **207**, concepts: **1422**
-- Widgets: **1572** (registry-driven: 1572, inline: 0)
+- Widgets: **1574** (registry-driven: 1574, inline: 0)
 - Quizzes: **5458** (v1: 4222, hard: 1223, expert: 13)
 - Quiz types: mcq: 3591, numeric: 1291, multi-select: 277, matching: 107, ordering: 85, spot-the-error: 53, complex: 29, proof-completion: 21, construction: 2, guess-my-rule: 2
-- Concepts lacking a widget in their section: **29**
+- Concepts lacking a widget in their section: **27**
 - Concepts lacking a hard-tier quiz: **984**
 
 ## Per-slug registry adoption
@@ -415,6 +415,8 @@ page has wired one in yet.
 | `gal-three-impossibilities` | verbatim | static | 2d | 1 | galois |
 | `galois-normal-separable` | galois-normal-separable | click | 2d | 1 | galois |
 | `galois-primitive-element` | galois-primitive-element | slider | 2d | 1 | galois |
+| `galois-representations-conductor` | galois-representations-conductor | click | 2d | 1 | galois-representations |
+| `galois-representations-semisimplification` | galois-representations-semisimplification | slider | 2d | 1 | galois-representations |
 | `gb-buch` | verbatim | click | 2d | 1 | groebner-bases |
 | `gb-elim` | verbatim | click | 2d | 1 | groebner-bases |
 | `gb-monorder` | verbatim | select | 2d | 1 | groebner-bases |
@@ -1064,10 +1066,10 @@ page has wired one in yet.
 ### Number theory
 
 - Topics: **19**, concepts: **128**
-- Widgets: **160** (registry-driven: 160, inline: 0)
-  - by family: button-stepper: 66, verbatim: 39, clickable-diagram: 4, modular-arithmetic-clock: 4, input-form: 4, inline-code-cell: 4, declarative-host: 2, parametric-plot: 2, crypto-totient-units: 1, crypto-rsa-toy: 1, crypto-diffie-hellman: 1, crypto-ecc-points: 1, crypto-lwe-samples: 1, crypto-schnorr-protocol: 1, branching-proof-scrubber: 1, galois-normal-separable: 1, galois-primitive-element: 1, quad-recip-supplementary: 1, quad-recip-jacobi: 1, ant-waring-finiteness: 1, padic-newton-polygon: 1, padic-ramification-tower: 1, clickable-graph: 1, fr-splitting-types: 1, fr-decomposition: 1, class-field-theory-existence: 1, class-field-theory-conductor-discriminant: 1, svg-illustration: 1, heights-naive-calculator: 1, heights-northcott-enumerator: 1, heights-weil-pullback: 1, heights-tate-averaging: 1, heights-mahler-measure: 1, heights-genus-growth: 1, heights-arakelov-decomposition: 1, counterexample-explorer: 1, ant-pnt-comparison: 1, ant-explicit-formula: 1, ant-zero-free-region: 1, ant-dirichlet-residue-wheel: 1, ant-sieve-truncation: 1, ant-bombieri-vinogradov: 1, proof-scrubber: 1
-  - by dimension: 2d: 160
-  - by gesture: click: 107, slider: 26, input: 8, select: 5, edit: 4, interactive: 2, interact: 2, drag: 1, button: 1, static: 1, branching-timeline: 1, read: 1, timeline: 1
+- Widgets: **162** (registry-driven: 162, inline: 0)
+  - by family: button-stepper: 66, verbatim: 39, clickable-diagram: 4, modular-arithmetic-clock: 4, input-form: 4, inline-code-cell: 4, declarative-host: 2, parametric-plot: 2, crypto-totient-units: 1, crypto-rsa-toy: 1, crypto-diffie-hellman: 1, crypto-ecc-points: 1, crypto-lwe-samples: 1, crypto-schnorr-protocol: 1, branching-proof-scrubber: 1, galois-normal-separable: 1, galois-primitive-element: 1, quad-recip-supplementary: 1, quad-recip-jacobi: 1, ant-waring-finiteness: 1, padic-newton-polygon: 1, padic-ramification-tower: 1, clickable-graph: 1, fr-splitting-types: 1, fr-decomposition: 1, class-field-theory-existence: 1, class-field-theory-conductor-discriminant: 1, svg-illustration: 1, heights-naive-calculator: 1, heights-northcott-enumerator: 1, heights-weil-pullback: 1, heights-tate-averaging: 1, heights-mahler-measure: 1, heights-genus-growth: 1, heights-arakelov-decomposition: 1, counterexample-explorer: 1, ant-pnt-comparison: 1, ant-explicit-formula: 1, ant-zero-free-region: 1, ant-dirichlet-residue-wheel: 1, ant-sieve-truncation: 1, ant-bombieri-vinogradov: 1, proof-scrubber: 1, galois-representations-semisimplification: 1, galois-representations-conductor: 1
+  - by dimension: 2d: 162
+  - by gesture: click: 108, slider: 27, input: 8, select: 5, edit: 4, interactive: 2, interact: 2, drag: 1, button: 1, static: 1, branching-timeline: 1, read: 1, timeline: 1
 - Quizzes: **564** (v1: 381, hard: 183, expert: 0)
   - by type: mcq: 375, numeric: 164, multi-select: 11, matching: 5, ordering: 4, complex: 3, spot-the-error: 1, guess-my-rule: 1
 
@@ -1305,7 +1307,7 @@ page has wired one in yet.
 - `analytic-continuation` (Modular forms & L-functions) — concepts=5, widgets=6 (slug=6), quiz=30 (v1=15, hard=15, expert=0)
 - `zeta-values` (Modular forms & L-functions) — concepts=7, widgets=7 (slug=7), quiz=36 (v1=21, hard=15, expert=0)
 - `L-functions` (Modular forms & L-functions) — concepts=5, widgets=11 (slug=11), quiz=30 (v1=15, hard=15, expert=0)
-- `galois-representations` (Number theory) — concepts=5, widgets=9 (slug=9), quiz=30 (v1=15, hard=15, expert=0)
+- `galois-representations` (Number theory) — concepts=5, widgets=11 (slug=11), quiz=30 (v1=15, hard=15, expert=0)
 - `moonshine` (Modular forms & L-functions) — concepts=8, widgets=8 (slug=8), quiz=39 (v1=24, hard=15, expert=0)
 - `automorphic-forms-adelic` (Modular forms & L-functions) — concepts=9, widgets=9 (slug=9), quiz=27 (v1=27, hard=0, expert=0)
 - `modular-curves` (Modular forms & L-functions) — concepts=9, widgets=9 (slug=9), quiz=27 (v1=27, hard=0, expert=0)
