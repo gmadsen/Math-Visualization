@@ -651,6 +651,120 @@ where $\mathbf{1}_S\colon A\to\{0,1\}$ is the <em>indicator function</em> sendin
 
 <p>A small sanity check that uses both constructions: the set of functions from a two-element set $\{0,1\}$ to $A$ is in bijection with $A\times A$ (send $f$ to $(f(0),f(1))$). Equivalently $A^{\{0,1\}} \cong A^2$, matching the cardinal identity $|A|^2 = |A|\cdot|A|$. Cartesian powers <em>are</em> the function spaces on finite index sets.</p>
 
+<div class="widget" id="w-nst-prodpow">
+  <div class="hd"><div class="ttl">Cartesian products and power sets</div><div class="hint">switch construction; click chips to build a subset</div></div>
+  <div class="row" id="w-nst-prodpow-mode" role="group" aria-label="construction">
+    <button type="button" data-mode="prod" class="active" aria-pressed="true">Cartesian product $A\times B$</button>
+    <button type="button" data-mode="pow" aria-pressed="false">Power set $\mathcal{P}(A)$</button>
+  </div>
+  <div class="row" id="w-nst-prodpow-prodctl">
+    <label for="w-nst-prodpow-a">$|A|$</label>
+    <input type="range" id="w-nst-prodpow-a" min="1" max="6" value="3" step="1">
+    <span class="pill" id="w-nst-prodpow-av">|A| = 3</span>
+    <label for="w-nst-prodpow-b">$|B|$</label>
+    <input type="range" id="w-nst-prodpow-b" min="1" max="6" value="4" step="1">
+    <span class="pill" id="w-nst-prodpow-bv">|B| = 4</span>
+  </div>
+  <div class="row" id="w-nst-prodpow-powctl" style="display:none">
+    <label for="w-nst-prodpow-n">$n = |A|$</label>
+    <input type="range" id="w-nst-prodpow-n" min="1" max="5" value="3" step="1">
+    <span class="pill" id="w-nst-prodpow-nv">n = 3</span>
+    <span class="note" id="w-nst-prodpow-chips" style="display:inline-flex;gap:.3rem;flex-wrap:wrap"></span>
+  </div>
+  <svg id="w-nst-prodpow-svg" viewBox="0 0 560 320" width="560" height="320" role="img" aria-label="A grid of ordered pairs for the Cartesian product, or the indicator strings of all subsets for the power set"><title>Cartesian product A×B as a rectangle of |A|·|B| pairs, and the power set as the 2^n indicator strings in {0,1}^A</title></svg>
+  <div class="readout" id="w-nst-prodpow-out"></div>
+</div>
+<script>
+/* nst-product-powerset widget: w-nst-prodpow */
+(function(){
+  var svg=document.getElementById('w-nst-prodpow-svg'), out=document.getElementById('w-nst-prodpow-out');
+  var modeBox=document.getElementById('w-nst-prodpow-mode');
+  var prodCtl=document.getElementById('w-nst-prodpow-prodctl'), powCtl=document.getElementById('w-nst-prodpow-powctl');
+  var sa=document.getElementById('w-nst-prodpow-a'), sb=document.getElementById('w-nst-prodpow-b'), sn=document.getElementById('w-nst-prodpow-n');
+  var av=document.getElementById('w-nst-prodpow-av'), bv=document.getElementById('w-nst-prodpow-bv'), nv=document.getElementById('w-nst-prodpow-nv');
+  var chips=document.getElementById('w-nst-prodpow-chips');
+  if(!svg||!out||!modeBox||!sa||!sb||!sn||!chips) return;
+  var NS='http://www.w3.org/2000/svg';
+  function mk(tag,attrs,text){ var e=document.createElementNS(NS,tag); for(var k in attrs){ e.setAttribute(k,attrs[k]); } if(text!=null) e.textContent=text; return e; }
+  function txt(x,y,s,opt){ opt=opt||{}; svg.appendChild(mk('text',{x:x,y:y,'text-anchor':opt.anchor||'start','font-size':opt.size||12,fill:opt.fill||'var(--ink)','font-weight':opt.weight||'normal'},s)); }
+  var SUB=['\u2081','\u2082','\u2083','\u2084','\u2085','\u2086'];
+  function sub(i){ return SUB[i-1]||(''+i); }
+  var mode='prod';
+  var member=[true,false,true,false,false];
+  function weightColor(w){ var cols=['var(--mute)','var(--cyan)','var(--green)','var(--yellow)','var(--pink)','var(--violet)']; return cols[Math.min(w,cols.length-1)]; }
+  function drawProduct(){
+    var nA=parseInt(sa.value,10), nB=parseInt(sb.value,10);
+    av.textContent='|A| = '+nA; bv.textContent='|B| = '+nB;
+    var ox=90, oy=56, cw=Math.min(64,440/nB), ch=Math.min(34,196/nA);
+    txt(ox-44, oy+nA*ch/2, 'A', {size:13, fill:'var(--cyan)', weight:600, anchor:'middle'});
+    txt(ox+nB*cw/2, oy-30, 'B', {size:13, fill:'var(--yellow)', weight:600, anchor:'middle'});
+    txt(ox+nB*cw/2, oy-46, 'each cell is a pair (a, b)', {size:10, fill:'var(--mute)', anchor:'middle'});
+    for(var i=0;i<nA;i++){ txt(ox-14, oy+i*ch+ch/2+4, 'a'+sub(i+1), {size:11, fill:'var(--cyan)', anchor:'end'}); }
+    for(var j=0;j<nB;j++){ txt(ox+j*cw+cw/2, oy-10, 'b'+sub(j+1), {size:11, fill:'var(--yellow)', anchor:'middle'}); }
+    for(i=0;i<nA;i++){ for(j=0;j<nB;j++){
+      svg.appendChild(mk('rect',{x:ox+j*cw+3, y:oy+i*ch+3, width:cw-6, height:ch-6, rx:5, fill:'var(--panel2)', stroke:'var(--line)','stroke-width':1}));
+      svg.appendChild(mk('circle',{cx:ox+j*cw+cw/2, cy:oy+i*ch+ch/2, r:3.2, fill:'var(--violet)'}));
+    }}
+    var tot=nA*nB;
+    txt(ox, oy+nA*ch+30, '|A \u00d7 B| = |A| \u00b7 |B| = '+nA+' \u00b7 '+nB+' = '+tot, {size:13, fill:'var(--ink)', weight:600});
+    txt(ox, oy+nA*ch+48, 'the product rule of counting \u2014 one dot per ordered pair', {size:10, fill:'var(--mute)'});
+    out.textContent = 'The Cartesian product A\u00d7B is the set of all ordered pairs (a,b) with a\u2208A, b\u2208B \u2014 drawn here as a '+nA+'\u00d7'+nB+' grid, one cell per pair. Counting cells gives |A\u00d7B| = |A|\u00b7|B| = '+nA+'\u00b7'+nB+' = '+tot+', the product rule. The two projections \u03c0\u2081(a,b)=a and \u03c0\u2082(a,b)=b read off the row and column. A function X\u2192A\u00d7B is exactly a pair of functions (X\u2192A, X\u2192B): this universal property makes the product a limit in the category of sets. Cartesian powers A\u1d4f are the special case A\u00d7\u00b7\u00b7\u00b7\u00d7A \u2014 the words of length k over the alphabet A.';
+  }
+  function drawPower(){
+    var n=parseInt(sn.value,10); nv.textContent='n = '+n;
+    var S=[], ind=[]; for(var i=0;i<n;i++){ ind.push(member[i]?1:0); if(member[i]) S.push('a'+sub(i+1)); }
+    var w=S.length, tot=Math.pow(2,n);
+    txt(24, 40, 'current subset', {size:11, fill:'var(--mute)'});
+    txt(24, 60, 'S = { '+(S.join(', ')||'\u2205')+' }', {size:13, fill:'var(--green)', weight:600});
+    txt(24, 86, 'indicator  1_S \u2208 {0,1}\u207f', {size:11, fill:'var(--mute)'});
+    txt(24, 106, '( '+ind.join(', ')+' )', {size:14, fill:'var(--cyan)', weight:600});
+    txt(24, 128, '|S| = '+w+' element'+(w===1?'':'s'), {size:10, fill:weightColor(w)});
+    txt(24, 168, 'click the chips above to', {size:10, fill:'var(--mute)'});
+    txt(24, 182, 'toggle a\u1d62 in or out of S', {size:10, fill:'var(--mute)'});
+    txt(24, 222, '|P(A)| = 2\u207f = 2^'+n+' = '+tot, {size:13, fill:'var(--ink)', weight:600});
+    txt(24, 240, 'one subset per binary string', {size:10, fill:'var(--mute)'});
+    var curIdx=0; for(i=0;i<n;i++){ if(member[i]) curIdx += (1<<(n-1-i)); }
+    var perCol=16, cols=Math.ceil(tot/perCol);
+    var bx=300, by=44, rh=Math.min(17,260/Math.min(tot,perCol)), colW=Math.max(72,250/cols);
+    txt(bx, by-16, 'all 2\u207f indicator strings {0,1}\u207f', {size:10, fill:'var(--mute)'});
+    for(var s=0;s<tot;s++){
+      var col=Math.floor(s/perCol), row=s%perCol;
+      var x=bx+col*colW, y=by+row*rh;
+      var bits=''; var ww=0; for(var k=0;k<n;k++){ var bit=(s>>(n-1-k))&1; bits+=bit; ww+=bit; }
+      var here=(s===curIdx);
+      if(here) svg.appendChild(mk('rect',{x:x-4, y:y-11, width:colW-10, height:rh-1, rx:3, fill:'var(--green)','fill-opacity':0.22, stroke:'var(--green)','stroke-width':1.2}));
+      txt(x, y, bits, {size:11, fill:here?'var(--ink)':weightColor(ww), weight:here?700:400});
+    }
+    out.textContent = 'The power set P(A) is the set of all subsets of A. Each subset S corresponds to its indicator function 1_S: A\u2192{0,1} (1 on members, 0 elsewhere), and this correspondence S\u2194 1_S is a bijection P(A)\u2245{0,1}^A. So choosing a subset is n independent binary choices, one per element: |P(A)| = 2\u207f = '+tot+' for n='+n+'. The chips build S = { '+(S.join(', ')||'\u2205')+' }, indicator ('+ind.join('')+'), highlighted among all '+tot+' strings at right (coloured by |S|). Every topology and \u03c3-algebra on A lives inside this P(A); a directed graph on A is a single element of P(A\u00d7A).';
+  }
+  function buildChips(){
+    var n=parseInt(sn.value,10); chips.innerHTML='';
+    for(var i=0;i<n;i++){ (function(i){
+      var b=document.createElement('button'); b.type='button';
+      b.className='chip'; b.setAttribute('aria-pressed', member[i]?'true':'false');
+      b.style.cssText='padding:.1rem .5rem;border-radius:6px;background:var(--panel2);cursor:pointer;font-size:12px;border:1px solid '+(member[i]?'var(--green)':'var(--line)')+';color:'+(member[i]?'var(--green)':'var(--mute)')+';font-weight:'+(member[i]?'700':'400');
+      b.textContent='a'+sub(i+1); b.setAttribute('aria-label','toggle element a'+(i+1));
+      b.addEventListener('click', function(){ member[i]=!member[i]; buildChips(); draw(); });
+      chips.appendChild(b);
+    })(i); }
+  }
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    if(mode==='prod') drawProduct(); else drawPower();
+  }
+  Array.prototype.forEach.call(modeBox.querySelectorAll('button'), function(b){ b.addEventListener('click', function(){
+    mode=b.getAttribute('data-mode');
+    Array.prototype.forEach.call(modeBox.querySelectorAll('button'), function(x){ var on=(x===b); x.classList.toggle('active',on); x.setAttribute('aria-pressed', on?'true':'false'); });
+    prodCtl.style.display = mode==='prod' ? '' : 'none';
+    powCtl.style.display = mode==='pow' ? '' : 'none';
+    draw();
+  }); });
+  sa.addEventListener('input', draw); sb.addEventListener('input', draw);
+  sn.addEventListener('input', function(){ buildChips(); draw(); });
+  buildChips(); draw();
+})();
+</script>
+
 <div class="quiz" data-concept="cartesian-product-powerset"></div>
 <!-- backlinks-auto-begin -->
 <aside class="related">
@@ -1010,7 +1124,7 @@ $$d_n := 1 - s_n(n).$$
 
 <div class="note"><strong>Axiom of choice (AC).</strong> For any family $\{A_i\}_{i\in I}$ of non-empty sets, the product $\prod_{i\in I} A_i$ is non-empty. Equivalently, there exists a <em>choice function</em> $f\colon I\to\bigcup_i A_i$ with $f(i)\in A_i$ for every $i$.</div>
 
-<p>For a <em>finite</em> $I$ this is obvious: one picks $a_1\in A_1$, then $a_2\in A_2$, and so on, $|I|$ many times. The difficulty arrives when $I$ is uncountable, because there may be no uniform rule that picks an element of each $A_i$. Bertrand Russell's cartoon: if you have infinitely many pairs of <em>shoes</em>, you can always pick the left one — no AC needed. But if you have infinitely many pairs of <em>socks</em>, indistinguishable within each pair, there is no rule. AC is the assertion that a choice function still exists.</p>
+<p>For a <em>finite</em> $I$ this is obvious: one picks $a_1\in A_1$, then $a_2\in A_2$, and so on, $|I|$ many times. The difficulty arrives when $I$ is infinite, because there may be no uniform rule that picks an element of each $A_i$. Bertrand Russell's cartoon: if you have infinitely many pairs of <em>shoes</em>, you can always pick the left one — no AC needed. But if you have infinitely many pairs of <em>socks</em>, indistinguishable within each pair, there is no rule. AC is the assertion that a choice function still exists.</p>
 
 <p>AC is <em>independent</em> of the other axioms of set theory (ZF): Gödel (1938) showed it is consistent with ZF, Cohen (1963) showed its negation is also consistent. So you can work with or without it, and the standard mathematical universe ZFC takes it on board. Almost all of analysis, algebra, and topology implicitly use it:</p>
 
@@ -1031,6 +1145,106 @@ These are the forms you meet in practice. Zorn's lemma in particular is the work
 </ul>
 
 <p>Many mathematicians reserve the right to flag when a proof uses AC (or a weaker form like <em>countable choice</em>, which suffices for most of analysis). In this notebook we use AC freely — every time we pass to a maximal ideal, pick a basis, or invoke <a href="./point-set-topology.html#compact" data-auto-inline-link="1" data-concept-id="compactness" data-blurb="Every open cover has a finite subcover; preserved under continuous images; Heine–Borel, sequential compactness, and why compact Hausdorff is the right target category.">compactness</a> of $[0,1]^{\mathbb{N}}$, we are spending AC. Knowing where it sits gives you a clean answer to "why can I do this?" when a proof seems to wave its hands over an infinite choice.</p>
+
+<div class="widget" id="w-nst-choice">
+  <div class="hd"><div class="ttl">Shoes, socks, and the axiom of choice</div><div class="hint">shoes obey a rule; socks need AC</div></div>
+  <div class="row" id="w-nst-choice-mode" role="group" aria-label="kind of pair">
+    <button type="button" data-kind="shoes" class="active" aria-pressed="true">Shoes (distinguishable)</button>
+    <button type="button" data-kind="socks" aria-pressed="false">Socks (indistinguishable)</button>
+  </div>
+  <div class="row">
+    <label for="w-nst-choice-n">visible pairs</label>
+    <input type="range" id="w-nst-choice-n" min="2" max="6" value="4" step="1">
+    <span class="pill" id="w-nst-choice-nv">4</span>
+    <button type="button" id="w-nst-choice-act">Pick the left one</button>
+    <button type="button" id="w-nst-choice-reset">reset</button>
+  </div>
+  <svg id="w-nst-choice-svg" viewBox="0 0 560 300" width="560" height="300" role="img" aria-label="A row of pairs of shoes or socks, plus a bin for the infinitely many remaining pairs, with one item selected per bin"><title>Choosing one item from each pair: a left/right rule works for shoes (and reaches the infinite family) but no rule exists for indistinguishable socks — that is where the axiom of choice is needed</title></svg>
+  <div class="readout" id="w-nst-choice-out"></div>
+</div>
+<script>
+/* nst-axiom-of-choice widget: w-nst-choice */
+(function(){
+  var svg=document.getElementById('w-nst-choice-svg'), out=document.getElementById('w-nst-choice-out');
+  var modeBox=document.getElementById('w-nst-choice-mode');
+  var sn=document.getElementById('w-nst-choice-n'), nv=document.getElementById('w-nst-choice-nv');
+  var act=document.getElementById('w-nst-choice-act'), reset=document.getElementById('w-nst-choice-reset');
+  if(!svg||!out||!modeBox||!sn||!act||!reset) return;
+  var NS='http://www.w3.org/2000/svg';
+  function mk(tag,attrs,text){ var e=document.createElementNS(NS,tag); for(var k in attrs){ e.setAttribute(k,attrs[k]); } if(text!=null) e.textContent=text; return e; }
+  function txt(x,y,s,opt){ opt=opt||{}; var t=mk('text',{x:x,y:y,'text-anchor':opt.anchor||'middle','font-size':opt.size||12,fill:opt.fill||'var(--ink)','font-weight':opt.weight||'normal'},s); svg.appendChild(t); return t; }
+  var SUB=['\u2081','\u2082','\u2083','\u2084','\u2085','\u2086'];
+  function sub(i){ return SUB[i-1]||(''+i); }
+  var kind='shoes';
+  var n=4;
+  var chosen=[];          // chosen[i] = 0 (left) | 1 (right) | -1 (none) for finite bins
+  var infChosen=false;    // is the infinite bin resolved?
+  function resetState(){ chosen=[]; for(var i=0;i<n;i++) chosen.push(-1); infChosen=false; }
+  function drawItem(cx,cy,which,sel){
+    var base = kind==='shoes' ? (which===0?'var(--cyan)':'var(--pink)') : 'var(--mute)';
+    svg.appendChild(mk('ellipse',{cx:cx, cy:cy, rx:13, ry:17, fill:'var(--panel2)', stroke:sel?'var(--green)':base, 'stroke-width':sel?3:2}));
+    if(kind==='shoes'){ svg.appendChild(mk('text',{x:cx,y:cy+4,'text-anchor':'middle','font-size':12,fill:base,'font-weight':700}, which===0?'L':'R')); }
+    else { svg.appendChild(mk('circle',{cx:cx, cy:cy, r:4, fill:sel?'var(--green)':'var(--mute)'})); }
+    if(sel){ svg.appendChild(mk('text',{x:cx+12,y:cy-12,'text-anchor':'middle','font-size':12,fill:'var(--green)','font-weight':700}, '\u2713')); }
+  }
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    nv.textContent=''+n;
+    var slots=n+1, gap=540/slots, x0=10, binW=Math.min(74,gap-8), by=92, bh=92;
+    txt(280, 26, kind==='shoes' ? 'each pair has a left and a right \u2014 distinguishable'
+                                : 'the two socks in a pair are identical \u2014 indistinguishable', {size:11, fill:'var(--mute)'});
+    for(var i=0;i<n;i++){ (function(i){
+      var cx=x0+gap*i+gap/2;
+      var g=mk('rect',{x:cx-binW/2, y:by, width:binW, height:bh, rx:9, fill:'var(--panel)', stroke:'var(--line)','stroke-width':1.2, style:'cursor:pointer'});
+      svg.appendChild(g);
+      txt(cx, by-8, 'A'+sub(i+1), {size:12, fill:'var(--ink)', weight:600});
+      drawItem(cx-15, by+bh/2, 0, chosen[i]===0);
+      drawItem(cx+15, by+bh/2, 1, chosen[i]===1);
+      var hitL=mk('rect',{x:cx-binW/2, y:by, width:binW/2, height:bh, fill:'transparent', style:'cursor:pointer'});
+      var hitR=mk('rect',{x:cx, y:by, width:binW/2, height:bh, fill:'transparent', style:'cursor:pointer'});
+      hitL.addEventListener('click', function(){ chosen[i]=0; draw(); });
+      hitR.addEventListener('click', function(){ chosen[i]=1; draw(); });
+      svg.appendChild(hitL); svg.appendChild(hitR);
+    })(i); }
+    var icx=x0+gap*n+gap/2;
+    svg.appendChild(mk('rect',{x:icx-binW/2, y:by, width:binW, height:bh, rx:9, fill:'var(--panel)', stroke:infChosen?'var(--green)':'var(--violet)','stroke-width':1.4,'stroke-dasharray':'5 3'}));
+    txt(icx, by-8, 'A\u1d62, i\u2192\u221e', {size:11, fill:'var(--violet)', weight:600});
+    if(kind==='shoes'){ drawItem(icx-15, by+bh/2, 0, infChosen); drawItem(icx+15, by+bh/2, 1, false); }
+    else { txt(icx, by+bh/2-4, '\u22ef', {size:20, fill:'var(--mute)'}); txt(icx, by+bh/2+18, infChosen?'?':'no rule', {size:9, fill:infChosen?'var(--mute)':'var(--pink)'}); }
+    txt(icx, by+bh+16, '(infinitely many', {size:9, fill:'var(--mute)'});
+    txt(icx, by+bh+28, 'more pairs)', {size:9, fill:'var(--mute)'});
+    var finiteDone=chosen.every(function(c){ return c>=0; });
+    var allDone=finiteDone && infChosen;
+    var status;
+    if(kind==='shoes'){
+      status = allDone ? '\u2713 the rule \u201cpick the left shoe\u201d chose one from EVERY pair at once \u2014 including the infinitely many. A choice function given by a formula. No axiom of choice needed.'
+                       : 'Shoes are distinguishable. Click a shoe, or press the button to apply the rule \u201cpick the left one\u201d to all pairs at once.';
+    } else {
+      status = finiteDone ? 'You chose by hand from all '+n+' visible pairs \u2014 fine for finitely many. But the socks are identical, so there is no rule, and the infinitely many pairs can never be exhausted by hand. The axiom of choice asserts a choice function exists anyway.'
+                          : 'Socks are indistinguishable \u2014 no formula picks one. You can still choose by hand from each FINITE bin (click a sock). The dashed \u221e bin has no rule: that is exactly where AC is needed.';
+    }
+    txt(280, 248, kind==='shoes' ? (allDone?'\u2713 definable choice function \u2014 no AC':'pick the left one')
+                                 : (finiteDone?'finite: done by hand \u00b7 infinite: needs AC':'no uniform rule \u2014 pick by hand'),
+         {size:11, fill: kind==='shoes' ? (allDone?'var(--green)':'var(--mute)') : (finiteDone?'var(--pink)':'var(--mute)'), weight:600});
+    out.textContent = status + '  \u2014  Formally, AC says: for any family {A\u1d62} of non-empty sets the product \u220fA\u1d62 is non-empty, i.e. a choice function f with f(i)\u2208A\u1d62 exists. For shoes the function i\u21a6(left shoe of A\u1d62) is explicit; for socks no such formula exists, yet AC guarantees a choice function. AC is independent of ZF (G\u00f6del 1938: consistent; Cohen 1963: its negation consistent) and is equivalent to Zorn\u2019s lemma, the well-ordering theorem, and \u201cevery vector space has a basis\u201d; it underlies Tychonoff\u2019s theorem and the Banach\u2013Tarski paradox. Countable choice (I countable) already suffices for most of analysis.';
+  }
+  function doAction(){
+    if(kind==='shoes'){ for(var i=0;i<n;i++) chosen[i]=0; infChosen=true; }
+    else { for(var j=0;j<n;j++) chosen[j]=Math.random()<0.5?0:1; infChosen=false; }
+    draw();
+  }
+  act.addEventListener('click', doAction);
+  reset.addEventListener('click', function(){ resetState(); draw(); });
+  Array.prototype.forEach.call(modeBox.querySelectorAll('button'), function(b){ b.addEventListener('click', function(){
+    kind=b.getAttribute('data-kind');
+    Array.prototype.forEach.call(modeBox.querySelectorAll('button'), function(x){ var on=(x===b); x.classList.toggle('active',on); x.setAttribute('aria-pressed', on?'true':'false'); });
+    act.textContent = kind==='shoes' ? 'Pick the left one' : 'Pick by hand (random)';
+    resetState(); draw();
+  }); });
+  sn.addEventListener('input', function(){ n=parseInt(sn.value,10); resetState(); draw(); });
+  resetState(); draw();
+})();
+</script>
 
 <div class="quiz" data-concept="axiom-of-choice-intuition"></div>
 <!-- backlinks-auto-begin -->

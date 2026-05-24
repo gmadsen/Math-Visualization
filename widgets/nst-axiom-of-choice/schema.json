@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/nst-axiom-of-choice/schema.json",
+  "title": "nst-axiom-of-choice widget params",
+  "description": "Russell's shoes-versus-socks picture of the axiom of choice. A family of non-empty pairs A_i is shown as a row of bins plus one bin standing for the infinitely many remaining pairs. In shoes mode the two items are distinguishable (left/right), so 'pick the left one' is an explicit formula — a choice function defined uniformly on the whole family at once, no AC needed. In socks mode the two items are indistinguishable, so no rule exists: you can still choose by hand from finitely many bins, but the infinite family can never be exhausted, and AC is exactly the assertion that a choice function f with f(i)∈A_i exists anyway (equivalently ∏A_i≠∅). A slider sets the number of visible finite pairs.",
+  "meta": {
+    "family": "nst-axiom-of-choice",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\"> wrapper."
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title rendered inside .hd > .ttl."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional short hint rendered inside .hd > .hint."
+    }
+  }
+}

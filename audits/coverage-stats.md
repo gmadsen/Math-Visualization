@@ -3,10 +3,10 @@
 ## Corpus totals
 
 - Topics: **207**, concepts: **1422**
-- Widgets: **1541** (registry-driven: 1541, inline: 0)
+- Widgets: **1543** (registry-driven: 1543, inline: 0)
 - Quizzes: **5458** (v1: 4222, hard: 1223, expert: 13)
 - Quiz types: mcq: 3591, numeric: 1291, multi-select: 277, matching: 107, ordering: 85, spot-the-error: 53, complex: 29, proof-completion: 21, construction: 2, guess-my-rule: 2
-- Concepts lacking a widget in their section: **60**
+- Concepts lacking a widget in their section: **58**
 - Concepts lacking a hard-tier quiz: **984**
 
 ## Per-slug registry adoption
@@ -722,6 +722,8 @@ page has wired one in yet.
 | `ms-neyman-pearson` | ms-neyman-pearson | slider | 2d | 1 | mathematical-statistics |
 | `ms-wilks-theorem` | ms-wilks-theorem | slider | 2d | 1 | mathematical-statistics |
 | `natural-transformation-explorer` | naturality-square | slider+click | 2d | 1 | category-theory |
+| `nst-axiom-of-choice` | nst-axiom-of-choice | click | 2d | 1 | naive-set-theory |
+| `nst-product-powerset` | nst-product-powerset | click | 2d | 1 | naive-set-theory |
 | `numerical-fem-hat-basis` | numerical-fem-hat-basis | slider | 2d | 1 | numerical-analysis |
 | `numerical-fp-cancellation` | numerical-fp-cancellation | slider | 2d | 1 | numerical-analysis |
 | `numerical-ftcs-stability` | numerical-ftcs-stability | slider | 2d | 1 | numerical-analysis |
@@ -973,10 +975,10 @@ page has wired one in yet.
 ### Logic & Foundations
 
 - Topics: **8**, concepts: **49**
-- Widgets: **48** (registry-driven: 48, inline: 0)
-  - by family: clickable-diagram: 3, button-stepper: 1, fol-term-tree: 1, fol-model-checker: 1, fol-modus-ponens-closure: 1, fol-henkin-construction: 1, fol-compactness-finite-sat: 1, fol-skolem-paradox: 1, fol-dlo-quantifier-elimination: 1, zfc-cumulative-hierarchy: 1, zfc-ordinal-picket-fence: 1, zfc-ordinal-calculator: 1, zfc-aleph-ladder: 1, zfc-choice-picker: 1, zfc-continuum-locator: 1, zfc-large-cardinal-tower: 1, model-theory-signature-explorer: 1, model-theory-equivalence-prober: 1, model-theory-back-and-forth: 1, model-theory-types-explorer: 1, model-theory-ef-games: 1, model-theory-ax-grothendieck: 1, computability-turing-increment: 1, computability-recursion-tracer: 1, computability-halting-diagonal: 1, computability-rec-vs-re-venn: 1, computability-reduction-graph: 1, computability-godel-encoding: 1, complexity-growth-rates: 1, complexity-sat-verifier: 1, complexity-cook-levin-tableau: 1, complexity-karp-reduction: 1, complexity-savitch-recursion: 1, complexity-hierarchy-diagonal: 1, type-theory-context-builder: 1, type-theory-lambda-reduction: 1, type-theory-path-space: 1, type-theory-univalence-toggle: 1, type-theory-circle-winding: 1, type-theory-infty-groupoid: 1, forcing-poset: 1, forcing-generic-filter: 1, forcing-truth-table: 1, forcing-cohen-real: 1, forcing-continuum-landing: 1, forcing-dependency-map: 1
-  - by dimension: 2d: 48
-  - by gesture: click: 21, step: 13, slider: 3, toggle: 3, stepper: 2, type: 1, input: 1, graph-walk: 1, drag: 1, table: 1, diagram: 1
+- Widgets: **50** (registry-driven: 50, inline: 0)
+  - by family: clickable-diagram: 3, button-stepper: 1, nst-product-powerset: 1, nst-axiom-of-choice: 1, fol-term-tree: 1, fol-model-checker: 1, fol-modus-ponens-closure: 1, fol-henkin-construction: 1, fol-compactness-finite-sat: 1, fol-skolem-paradox: 1, fol-dlo-quantifier-elimination: 1, zfc-cumulative-hierarchy: 1, zfc-ordinal-picket-fence: 1, zfc-ordinal-calculator: 1, zfc-aleph-ladder: 1, zfc-choice-picker: 1, zfc-continuum-locator: 1, zfc-large-cardinal-tower: 1, model-theory-signature-explorer: 1, model-theory-equivalence-prober: 1, model-theory-back-and-forth: 1, model-theory-types-explorer: 1, model-theory-ef-games: 1, model-theory-ax-grothendieck: 1, computability-turing-increment: 1, computability-recursion-tracer: 1, computability-halting-diagonal: 1, computability-rec-vs-re-venn: 1, computability-reduction-graph: 1, computability-godel-encoding: 1, complexity-growth-rates: 1, complexity-sat-verifier: 1, complexity-cook-levin-tableau: 1, complexity-karp-reduction: 1, complexity-savitch-recursion: 1, complexity-hierarchy-diagonal: 1, type-theory-context-builder: 1, type-theory-lambda-reduction: 1, type-theory-path-space: 1, type-theory-univalence-toggle: 1, type-theory-circle-winding: 1, type-theory-infty-groupoid: 1, forcing-poset: 1, forcing-generic-filter: 1, forcing-truth-table: 1, forcing-cohen-real: 1, forcing-continuum-landing: 1, forcing-dependency-map: 1
+  - by dimension: 2d: 50
+  - by gesture: click: 23, step: 13, slider: 3, toggle: 3, stepper: 2, type: 1, input: 1, graph-walk: 1, drag: 1, table: 1, diagram: 1
 - Quizzes: **162** (v1: 147, hard: 15, expert: 0)
   - by type: mcq: 128, numeric: 34
 
@@ -1203,7 +1205,7 @@ page has wired one in yet.
 - `ricci-flow` (Geometry & topology) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `k-theory` (Geometry & topology) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `atiyah-singer-index-theorem` (Geometry & topology) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `naive-set-theory` (Logic & Foundations) — concepts=5, widgets=4 (slug=4), quiz=30 (v1=15, hard=15, expert=0)
+- `naive-set-theory` (Logic & Foundations) — concepts=5, widgets=6 (slug=6), quiz=30 (v1=15, hard=15, expert=0)
 - `first-order-logic-and-completeness` (Logic & Foundations) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
 - `zfc-and-ordinals` (Logic & Foundations) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
 - `model-theory-basics` (Logic & Foundations) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)

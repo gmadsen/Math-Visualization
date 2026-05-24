@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/nst-product-powerset/schema.json",
+  "title": "nst-product-powerset widget params",
+  "description": "Two foundational set constructions side by side. In Cartesian-product mode, sliders set |A| and |B| and the widget draws the grid of all ordered pairs (a,b), making |A×B|=|A|·|B| visible as a rectangle of dots. In power-set mode, a slider sets n=|A| and clickable element chips build a subset S⊆A; the widget shows S, its indicator vector 1_S∈{0,1}ⁿ, and a column of all 2ⁿ indicator strings (coloured by how many elements they contain) with the current one highlighted — the bijection 𝒫(A)≅{0,1}^A that explains |𝒫(A)|=2ⁿ.",
+  "meta": {
+    "family": "nst-product-powerset",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\"> wrapper."
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title rendered inside .hd > .ttl."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional short hint rendered inside .hd > .hint."
+    }
+  }
+}
