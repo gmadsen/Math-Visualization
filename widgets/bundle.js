@@ -12136,6 +12136,42 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "l-functions-class-number",
+    "family": "l-functions-class-number",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "l-functions-class-number widget params",
+    "description": "The analytic class number formula L(1, chi_d) = 2 pi h / (w sqrt|d|) for imaginary quadratic fields, shown to hold numerically. Buttons pick a negative fundamental discriminant d (such as -3, -4, -7, -8, -11, -15, -20, -23, -24, -47); the widget builds the Kronecker character chi_d of period |d|, draws its values as a plus/minus/zero strip, sums the Dirichlet L-series L(1, chi_d) = sum chi_d(n)/n, and compares it with the closed form 2 pi h / (w sqrt|d|) using the field's known class number h and number of roots of unity w (the regulator is 1 since the unit group is finite). The two agree, so the purely analytic L-value reads off the arithmetic class number h. The readout frames this as the shape of all special values -- a transcendental period times an arithmetic invariant -- alongside Euler's zeta(2k) = rational times pi^{2k} and zeta(1-n) = -B_n/n. No numeric params beyond the standard widgetId/title/hint.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Bespoke widget for `L-functions.html` (§9 *Special values and arithmetic*, concept `special-values-lfunc`). It shows the **analytic class number formula** holding numerically: the special value $L(1,\\chi_d)$ of a Dirichlet $L$-function reads off the class number of an imaginary quadratic field. Single module, not part of a shared family.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "l-functions-zeta-continuation",
+    "family": "l-functions-zeta-continuation",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "l-functions-zeta-continuation widget params",
+    "description": "Analytic continuation of the Riemann zeta function past the half-plane where its Dirichlet series converges. The widget plots the continued zeta(s) for real s in about [-6, 5] -- computed by the Cohen-Villegas-Zagier accelerated eta-series for s>0 (zeta = eta/(1-2^{1-s})) and by the functional equation zeta(s) = 2^s pi^{s-1} sin(pi s/2) Gamma(1-s) zeta(1-s) for s<0 (Lanczos Gamma), with zeta(0) = -1/2 -- and overlays the truncated Dirichlet partial sum sum_{n<=N} n^{-s} (slider N). The partial sum tracks zeta only for s>1 and blows up for s<=1, making visible that the half-plane of convergence is an artifact: zeta continues to a meromorphic function on C with a simple pole at s=1, trivial zeros at s=-2,-4,-6, and the special values zeta(0)=-1/2, zeta(-1)=-1/12. The readout explains the Mellin/theta mechanism and the functional equation s <-> 1-s. No numeric params beyond the standard widgetId/title/hint.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Bespoke widget for `L-functions.html` (§8 *Analytic continuation of $L$-functions*, concept `analytic-continuation-lfunc`). It makes \"the half-plane of convergence is an artifact\" visible for the Riemann zeta function. Single module, not part of a shared family.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "langlands-euler-product",
     "family": "langlands-euler-product",
     "dimension": "2d",

@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/l-functions-zeta-continuation/schema.json",
+  "title": "l-functions-zeta-continuation widget params",
+  "description": "Analytic continuation of the Riemann zeta function past the half-plane where its Dirichlet series converges. The widget plots the continued zeta(s) for real s in about [-6, 5] -- computed by the Cohen-Villegas-Zagier accelerated eta-series for s>0 (zeta = eta/(1-2^{1-s})) and by the functional equation zeta(s) = 2^s pi^{s-1} sin(pi s/2) Gamma(1-s) zeta(1-s) for s<0 (Lanczos Gamma), with zeta(0) = -1/2 -- and overlays the truncated Dirichlet partial sum sum_{n<=N} n^{-s} (slider N). The partial sum tracks zeta only for s>1 and blows up for s<=1, making visible that the half-plane of convergence is an artifact: zeta continues to a meromorphic function on C with a simple pole at s=1, trivial zeros at s=-2,-4,-6, and the special values zeta(0)=-1/2, zeta(-1)=-1/12. The readout explains the Mellin/theta mechanism and the functional equation s <-> 1-s. No numeric params beyond the standard widgetId/title/hint.",
+  "meta": {
+    "family": "l-functions-zeta-continuation",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\"> wrapper."
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title rendered inside .hd > .ttl."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional short hint rendered inside .hd > .hint."
+    }
+  }
+}
