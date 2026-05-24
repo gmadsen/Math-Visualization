@@ -345,6 +345,70 @@ commutes. The restrictions $\rho^F, \rho^G$ are the presheaf restrictions. For p
 
 <h3>The functor of points, in passing</h3>
 <p>The functor-of-points perspective inverts the picture: a scheme $X$ is determined by its functor $h_X = \Hom(-, X)\colon \mathsf{Sch}^{\mathrm{op}} \to \mathsf{Set}$. A natural way to package geometric data on $X$ is then as a sheaf on the site of $X$-schemes (or on a small subcategory thereof). Sheaves on $\mathrm{Open}(X)$ are the special case of taking $\mathcal{C} = \mathrm{Open}(X)$ with covers = open covers.</p>
+<div class="widget" id="w-presheaf">
+  <div class="hd"><div class="ttl">Presheaf = contravariant functor: restriction and functoriality</div><div class="hint">shrink $V$ and $W$; the section restricts, and the two paths to $W$ agree</div></div>
+  <div class="row">
+    <label for="w-presheaf-v">open $V$ half-width</label>
+    <input type="range" id="w-presheaf-v" min="20" max="55" value="42" step="1">
+    <span class="pill" id="w-presheaf-vv">V</span>
+  </div>
+  <div class="row">
+    <label for="w-presheaf-w">open $W$ half-width</label>
+    <input type="range" id="w-presheaf-w" min="5" max="55" value="22" step="1">
+    <span class="pill" id="w-presheaf-wv">W</span>
+  </div>
+  <svg id="w-presheaf-svg" viewBox="0 0 560 320" width="560" height="320" role="img" aria-label="A continuous section restricted to nested open sets U, V, W, with the restriction-map poset diagram"><title>A presheaf section s over U restricted to nested opens V and W; the two paths U to V to W and U to W give the same s|W (functoriality)</title></svg>
+  <div class="readout" id="w-presheaf-out"></div>
+</div>
+<script>
+/* sheaves-presheaf-restriction widget: w-presheaf */
+(function(){
+  var svg=document.getElementById('w-presheaf-svg'), out=document.getElementById('w-presheaf-out');
+  var sv=document.getElementById('w-presheaf-v'), sw=document.getElementById('w-presheaf-w'), vv=document.getElementById('w-presheaf-vv'), wv=document.getElementById('w-presheaf-wv');
+  if(!svg||!out||!sv||!sw||!vv||!wv) return;
+  var NS='http://www.w3.org/2000/svg';
+  function mk(tag,attrs,text){ var e=document.createElementNS(NS,tag); for(var k in attrs){ e.setAttribute(k,attrs[k]); } if(text!=null) e.textContent=text; return e; }
+  function txt(x,y,s,opt){ opt=opt||{}; svg.appendChild(mk('text',{x:x,y:y,'text-anchor':opt.anchor||'start','font-size':opt.size||12,fill:opt.fill||'var(--ink)','font-weight':opt.weight||'normal'},s)); }
+  var XL=0, XR=12, PX0=44, PX1=516, PTOP=46, AXISY=176;
+  function PX(x){ return PX0+(x-XL)/(XR-XL)*(PX1-PX0); }
+  function sFn(x){ return 2.4 + 1.25*Math.sin(0.85*x) + 0.55*Math.cos(2.15*x+0.6); }
+  function PY(v){ return AXISY - v/5*(AXISY-PTOP); }
+  function curve(x0,x1,col,wd,op){ var d='', n=120; for(var i=0;i<=n;i++){ var x=x0+(x1-x0)*i/n; d+=(i?'L ':'M ')+PX(x).toFixed(1)+' '+PY(sFn(x)).toFixed(1)+' '; } svg.appendChild(mk('path',{d:d, fill:'none', stroke:col, 'stroke-width':wd, 'stroke-opacity':op==null?1:op})); }
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    var vH=parseInt(sv.value,10)/10, wH=parseInt(sw.value,10)/10; if(wH>vH-0.3) wH=vH-0.3; sw.value=Math.round(wH*10);
+    var C=6, Ua=0.3,Ub=11.7, Va=C-vH,Vb=C+vH, Wa=C-wH,Wb=C+wH;
+    vv.textContent='V=['+Va.toFixed(1)+','+Vb.toFixed(1)+']'; wv.textContent='W=['+Wa.toFixed(1)+','+Wb.toFixed(1)+']';
+    // axis
+    svg.appendChild(mk('line',{x1:PX0,y1:AXISY,x2:PX1,y2:AXISY,stroke:'var(--line)','stroke-width':1}));
+    txt(PX1, AXISY+14, 'X (a line)', {anchor:'end', size:9, fill:'var(--mute)'});
+    txt(PX0-4, PTOP+2, 's', {anchor:'end', size:11, fill:'var(--mute)'});
+    // the section over U (full, faint), then over V (cyan), W (green)
+    curve(Ua,Ub,'var(--mute)',1.4,0.5);
+    curve(Va,Vb,'var(--cyan)',2.4,1);
+    curve(Wa,Wb,'var(--green)',3,1);
+    // open-set bars under the axis
+    function bar(a,b,y,col,lab){ svg.appendChild(mk('line',{x1:PX(a),y1:y,x2:PX(b),y2:y,stroke:col,'stroke-width':5,'stroke-linecap':'round'})); txt(PX((a+b)/2), y-6, lab, {anchor:'middle', size:10, fill:col, weight:700}); }
+    bar(Ua,Ub,AXISY+30,'var(--mute)','U'); bar(Va,Vb,AXISY+50,'var(--cyan)','V'); bar(Wa,Wb,AXISY+70,'var(--green)','W');
+    // poset diagram with restriction maps (right side)
+    var dx=300, dy=AXISY+34; 
+    function node(x,y,t,col){ svg.appendChild(mk('circle',{cx:x,cy:y,r:11,fill:'var(--panel2)',stroke:col,'stroke-width':1.5})); txt(x,y+4,t,{anchor:'middle',size:11,fill:col,weight:700}); }
+    var ux=300+120, vx=300+170, wx=300+220, ny=AXISY+58;
+    txt(ux-40, ny+4, 'Open(X)^op:', {anchor:'end', size:9, fill:'var(--mute)'});
+    node(ux,ny,'U','var(--mute)'); node(vx,ny,'V','var(--cyan)'); node(wx,ny,'W','var(--green)');
+    svg.appendChild(mk('path',{d:'M '+(ux+11)+' '+(ny-4)+' Q '+((ux+vx)/2)+' '+(ny-22)+' '+(vx-11)+' '+(ny-4), fill:'none', stroke:'var(--ink)','stroke-width':1}));
+    svg.appendChild(mk('path',{d:'M '+(vx+11)+' '+(ny-4)+' Q '+((vx+wx)/2)+' '+(ny-22)+' '+(wx-11)+' '+(ny-4), fill:'none', stroke:'var(--ink)','stroke-width':1}));
+    svg.appendChild(mk('path',{d:'M '+(ux+9)+' '+(ny+9)+' Q '+((ux+wx)/2)+' '+(ny+34)+' '+(wx-9)+' '+(ny+9), fill:'none', stroke:'var(--violet)','stroke-width':1.2,'stroke-dasharray':'4 3'}));
+    txt((ux+vx)/2, ny-24, '\u03c1', {anchor:'middle', size:9, fill:'var(--mute)'});
+    txt((vx+wx)/2, ny-24, '\u03c1', {anchor:'middle', size:9, fill:'var(--mute)'});
+    txt((ux+wx)/2, ny+40, '\u03c1(U\u2192W) = \u03c1(V\u2192W)\u2218\u03c1(U\u2192V)', {anchor:'middle', size:8, fill:'var(--violet)'});
+    out.textContent='A PRESHEAF on a space X is a contravariant functor F: Open(X)^op \u2192 Set: to each open U it assigns a set F(U) (its SECTIONS, also written \u0393(U,F)), and to each inclusion V \u2286 U a RESTRICTION map \u03c1(U\u2192V): F(U) \u2192 F(V), s \u21a6 s|_V. The functor laws are \u03c1(U\u2192U) = id and \u03c1(V\u2192W) \u2218 \u03c1(U\u2192V) = \u03c1(U\u2192W) for W \u2286 V \u2286 U \u2014 restricting U\u2192V\u2192W equals restricting U\u2192W in one step (the dashed violet arrow). Here F = C\u2070_X, continuous functions, and s is the fixed section above: restricting it to the smaller opens V (cyan) then W (green) just forgets its values outside, and the two paths to W land on the SAME s|_W \u2014 that is functoriality, visible. The same definition with Set replaced by Ab, Ring, or R-Mod gives presheaves of groups, rings, modules; sections over X itself are GLOBAL sections \u0393(X,F). Continuous and holomorphic functions are in fact SHEAVES, but a presheaf need not be one: the constant presheaf (F(U)=A for every nonempty U, all restrictions the identity) is a perfectly good functor that FAILS to glue two different constants on disjoint opens \u2014 which is exactly the gluing axiom the next section adds.';
+  }
+  sv.addEventListener('input', draw); sw.addEventListener('input', draw);
+  draw();
+})();
+</script>
+
 <div class="quiz" data-concept="presheaf-functor"></div>
 <!-- callback-auto-begin -->
 <aside class="callback">
@@ -1481,6 +1545,73 @@ commutes for $V \subseteq U$. The category $\mathsf{Mod}(\mathcal{O}_X)$ is abel
 
 <h3>Tensor product and $\mathcal{H}\!om$</h3>
 <p>For $\mathcal{F}, \mathcal{G}$ $\mathcal{O}_X$-modules: $\mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{G}$ is the sheafification of $U \mapsto \mathcal{F}(U) \otimes_{\mathcal{O}_X(U)} \mathcal{G}(U)$, and its stalks are $\mathcal{F}_x \otimes_{\mathcal{O}_{X,x}} \mathcal{G}_x$. The internal hom $\mathcal{H}\!om_{\mathcal{O}_X}(\mathcal{F}, \mathcal{G})$ is the sheaf $U \mapsto \Hom_{\mathcal{O}_X|_U}(\mathcal{F}|_U, \mathcal{G}|_U)$ — already a sheaf without sheafification. These satisfy the expected tensor-hom adjunction.</p>
+
+<div class="widget" id="w-oxmod">
+  <div class="hd"><div class="ttl">O_X-modules: multiply a section by a function</div><div class="hint">pick $g\in\mathcal{O}_X(U)$; compare $(g\cdot s)|_V$ with $g|_V\cdot s|_V$</div></div>
+  <div class="row" id="w-oxmod-btns">
+    <span class="pill">g ∈ O_X(U):</span>
+    <button type="button" data-k="two" class="active" aria-pressed="true">g = 2</button>
+    <button type="button" data-k="ramp" class="" aria-pressed="false">g = x/3</button>
+    <button type="button" data-k="cos" class="" aria-pressed="false">g = cos x</button>
+    <button type="button" data-k="bump" class="" aria-pressed="false">g = (x−5)²⁄8</button>
+  </div>
+  <svg id="w-oxmod-svg" viewBox="0 0 560 320" width="560" height="320" role="img" aria-label="A function g, a section s, and their product g times s over an open and a sub-open, showing the module action commutes with restriction"><title>An O_X-module: the section g.s over U restricted to V equals the product of the restrictions g|V . s|V — the module action is compatible with restriction</title></svg>
+  <div class="readout" id="w-oxmod-out"></div>
+</div>
+<script>
+/* sheaves-ox-module widget: w-oxmod */
+(function(){
+  var svg=document.getElementById('w-oxmod-svg'), out=document.getElementById('w-oxmod-out');
+  var btns=document.getElementById('w-oxmod-btns');
+  if(!svg||!out||!btns) return;
+  var NS='http://www.w3.org/2000/svg';
+  function mk(tag,attrs,text){ var e=document.createElementNS(NS,tag); for(var k in attrs){ e.setAttribute(k,attrs[k]); } if(text!=null) e.textContent=text; return e; }
+  function txt(x,y,s,opt){ opt=opt||{}; svg.appendChild(mk('text',{x:x,y:y,'text-anchor':opt.anchor||'start','font-size':opt.size||12,fill:opt.fill||'var(--ink)','font-weight':opt.weight||'normal'},s)); }
+  var XL=0, XR=10, PX0=44, PX1=420, PTOP=46, PBOT=210, YLO=-2.5, YHI=7;
+  var Va=3, Vb=7;
+  function PX(x){ return PX0+(x-XL)/(XR-XL)*(PX1-PX0); }
+  function PY(v){ if(v>YHI)v=YHI; if(v<YLO)v=YLO; return PBOT-(v-YLO)/(YHI-YLO)*(PBOT-PTOP); }
+  function sFn(x){ return 1.4 + 0.7*Math.cos(0.85*x); }
+  var GS={ two:{f:function(x){return 2;}, lab:'2'}, ramp:{f:function(x){return x/3;}, lab:'x/3'}, cos:{f:function(x){return Math.cos(x);}, lab:'cos x'}, bump:{f:function(x){return (x-5)*(x-5)/8;}, lab:'(x\u22125)\u00b2/8'} };
+  function curve(fn,a,b,col,wd,dash){ var d='',n=120; for(var i=0;i<=n;i++){ var x=a+(b-a)*i/n; d+=(i?'L ':'M ')+PX(x).toFixed(1)+' '+PY(fn(x)).toFixed(1)+' '; } svg.appendChild(mk('path',{d:d,fill:'none',stroke:col,'stroke-width':wd,'stroke-dasharray':dash||''})); }
+  var curKey='two';
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    var G=GS[curKey], g=G.f; var gs=function(x){ return g(x)*sFn(x); };
+    // V band
+    svg.appendChild(mk('rect',{x:PX(Va).toFixed(1),y:PTOP,width:(PX(Vb)-PX(Va)).toFixed(1),height:PBOT-PTOP,fill:'var(--violet)','fill-opacity':0.08}));
+    txt((PX(Va)+PX(Vb))/2, PTOP+10, 'sub-open V=[3,7]', {anchor:'middle', size:8, fill:'var(--violet)'});
+    // axes
+    svg.appendChild(mk('line',{x1:PX0,y1:PY(0),x2:PX1,y2:PY(0),stroke:'var(--line)','stroke-width':1}));
+    txt(PX1, PY(0)+12, 'X (open U=[0,10])', {anchor:'end', size:8, fill:'var(--mute)'});
+    // curves over U: g, s, g.s
+    curve(g,XL,XR,'var(--cyan)',1.6,'3 2'); curve(sFn,XL,XR,'var(--green)',1.6,'3 2'); curve(gs,XL,XR,'var(--yellow)',2.6);
+    // emphasize g.s over V (the restriction)
+    curve(gs,Va,Vb,'var(--pink)',3.4);
+    // legend
+    txt(PX0+4, PTOP+10, 'g (function)', {size:9, fill:'var(--cyan)'}); txt(PX0+4, PTOP+22, 's (section of F)', {size:9, fill:'var(--green)'}); txt(PX0+4, PTOP+34, 'g\u00b7s', {size:9, fill:'var(--yellow)', weight:700});
+    // commuting-square diagram (right)
+    var bx=438, ty=70, bw=104, rh=44;
+    txt(bx+bw/2, ty-14, 'module action', {anchor:'middle', size:9, fill:'var(--mute)'});
+    txt(bx, ty, 'O(U)\u00d7F(U)', {size:9, fill:'var(--ink)'}); txt(bx+bw, ty, 'F(U)', {anchor:'end', size:9, fill:'var(--ink)'});
+    txt(bx, ty+rh, 'O(V)\u00d7F(V)', {size:9, fill:'var(--ink)'}); txt(bx+bw, ty+rh, 'F(V)', {anchor:'end', size:9, fill:'var(--ink)'});
+    svg.appendChild(mk('path',{d:'M '+(bx+44)+' '+(ty-4)+' L '+(bx+bw-22)+' '+(ty-4), fill:'none', stroke:'var(--ink)','stroke-width':1, 'marker-end':'url(#w-oxmod-a)'}));
+    svg.appendChild(mk('path',{d:'M '+(bx+44)+' '+(ty+rh-4)+' L '+(bx+bw-22)+' '+(ty+rh-4), fill:'none', stroke:'var(--ink)','stroke-width':1, 'marker-end':'url(#w-oxmod-a)'}));
+    svg.appendChild(mk('path',{d:'M '+(bx+18)+' '+(ty+6)+' L '+(bx+18)+' '+(ty+rh-14), fill:'none', stroke:'var(--violet)','stroke-width':1, 'marker-end':'url(#w-oxmod-a)'})); txt(bx+22, ty+rh/2+4, 'res', {size:7, fill:'var(--violet)'});
+    svg.appendChild(mk('path',{d:'M '+(bx+bw)+' '+(ty+6)+' L '+(bx+bw)+' '+(ty+rh-14), fill:'none', stroke:'var(--violet)','stroke-width':1, 'marker-end':'url(#w-oxmod-a)'})); txt(bx+bw+4, ty+rh/2+4, 'res', {size:7, fill:'var(--violet)'});
+    var defs=mk('defs',{}); var m=mk('marker',{id:'w-oxmod-a',viewBox:'0 0 10 10',refX:8,refY:5,markerWidth:6,markerHeight:6,orient:'auto'}); m.appendChild(mk('path',{d:'M0 0 L10 5 L0 10 z',fill:'var(--ink)'})); defs.appendChild(m); svg.appendChild(defs);
+    txt(bx, ty+rh+20, 'commutes \u2713', {size:10, fill:'var(--green)', weight:700});
+    // numeric check at x0=5
+    var x0=5, lhs=gs(x0), rhs=g(x0)*sFn(x0);
+    txt(20, PBOT+30, '(g\u00b7s)|_V at x=5  =  '+lhs.toFixed(3)+'      g|_V(5)\u00b7s|_V(5)  =  '+g(x0).toFixed(3)+'\u00b7'+sFn(x0).toFixed(3)+'  =  '+rhs.toFixed(3)+'   \u2713', {size:10, fill:'var(--ink)'});
+    out.textContent='A RINGED SPACE is a pair (X, O_X) with O_X a sheaf of (commutative, unital) rings \u2014 here O_X = C\u2070_X, continuous functions, the ring you can multiply by. An O_X-MODULE F is a sheaf of abelian groups in which every F(U) is a module over the ring O_X(U), COMPATIBLY with restriction: the square O(U)\u00d7F(U)\u2192F(U) over O(V)\u00d7F(V)\u2192F(V) commutes for V \u2286 U. Concretely (the picture, with F = O_X itself, the free rank-1 module): take a function g \u2208 O_X(U) = '+G.lab+' and a section s \u2208 F(U); their product g\u00b7s (yellow) is again a section. Restricting g\u00b7s to V (pink) gives the SAME thing as multiplying the restrictions g|_V\u00b7s|_V \u2014 because multiplication is pointwise, the module action commutes with restriction (checked at x=5: '+lhs.toFixed(3)+' either way). For this free module F = O_X the square commutes AUTOMATICALLY \u2014 but for a general O_X-module the action O_X(U)\u00d7F(U)\u2192F(U) is extra data, and this commuting square is the genuine axiom it must satisfy. That compatibility is exactly what upgrades \u201ca module at each open\u201d into an honest sheaf of modules. The category Mod(O_X) is ABELIAN and carries a tensor product F \u2297_{O_X} G; the workhorse examples are O_X (rank 1), O_X\u207f (free rank n / trivial bundle), IDEAL sheaves F \u2286 O_X cutting out closed subschemes, and the TWISTING sheaves O(n) on projective space whose global sections are the degree-n forms.';
+  }
+  btns.addEventListener('click', function(e){ var b=e.target.closest('button'); if(!b) return; curKey=b.getAttribute('data-k');
+    Array.prototype.forEach.call(btns.querySelectorAll('button'), function(x){ var on=x===b; x.classList.toggle('active', on); x.setAttribute('aria-pressed', on?'true':'false'); });
+    draw(); });
+  draw();
+})();
+</script>
 
 <div class="quiz" data-concept="ox-modules"></div>
 
