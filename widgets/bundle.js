@@ -17157,6 +17157,24 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "several-complex-variables-reinhardt-pseudoconvex",
+    "family": "several-complex-variables-reinhardt-pseudoconvex",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "several-complex-variables-reinhardt-pseudoconvex widget params",
+    "description": "Pseudoconvexity made concrete for Reinhardt domains, where the abstract characterizations of a domain of holomorphy collapse to plane convexity. A Reinhardt domain in C^2 is drawn through its log image omega = { (log|z1|, log|z2|) } in the (s,t) plane; a slider raises or lowers the middle of its upper boundary. When the boundary bulges up the log image is CONVEX, so the domain is pseudoconvex = a domain of holomorphy (its own holomorphic hull). When the slider dents the boundary down, the log image is non-convex: the holomorphic hull is the log-convex hull, so it fills the dented triangle (every holomorphic function on a complete Reinhardt domain is a convergent power series in z1,z2, which automatically extends there), and the domain is NOT a domain of holomorphy. The widget shades omega and, in the dented case, the filled hull, and the readout states the equivalence domain of holomorphy <=> holomorphically convex (Cartan-Thullen) <=> pseudoconvex, plus the Reinhardt log-convex characterization and the power-series extension argument. No numeric params beyond the standard widgetId/title/hint.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Bespoke widget for `several-complex-variables.html` (§4 *Domains of holomorphy and Levi pseudoconvexity*, concept `scv-pseudoconvex`). It makes the equivalence **domain of holomorphy ⟺ holomorphically convex ⟺ pseudoconvex** concrete on **Reinhardt domains**, where all three reduce to plane convexity. Single module, not part of a shared family.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "sg-analytic",
     "family": "verbatim",
     "dimension": "2d",
