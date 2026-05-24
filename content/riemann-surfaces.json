@@ -11,6 +11,27 @@
           "html": "<section id=\"intro\">\n<h2>1. What is a Riemann surface?</h2>\n<p>A <strong>Riemann surface</strong> $X$ is a connected Hausdorff space equipped with an atlas of charts $\\varphi_\\alpha\\colon U_\\alpha\\to V_\\alpha\\subset\\mathbb{C}$ whose transition maps $\\varphi_\\beta\\circ\\varphi_\\alpha^{-1}$ are biholomorphic wherever defined. Since a biholomorphism of open sets in $\\mathbb{C}\\cong\\mathbb{R}^2$ is in particular a smooth orientation-preserving diffeomorphism, every Riemann surface is canonically an oriented real $2$-manifold.</p>\n\n<p>Two perspectives sit on top of this definition and will not go away:</p>\n<ul>\n  <li><strong>Analytic.</strong> A Riemann surface is exactly the natural domain for multi-valued holomorphic functions: the locus where $\\sqrt{z}$, $\\log z$, or $\\wp$-inverses become single-valued and well-behaved.</li>\n  <li><strong>Algebraic.</strong> A compact Riemann surface is the same thing as a smooth projective algebraic curve over $\\mathbb{C}$. The functor from one to the other is an equivalence of categories; in either direction, meromorphic functions correspond to rational functions.</li>\n</ul>\n\n<p>The miracle that makes the subject work is that on a compact Riemann surface, the complex-analytic structure rigidifies the topology: the Riemann-surface structures on a surface of genus $g\\ge 2$ form a finite-dimensional family (Teichmüller's theorem: a $(6g-6)$-real-dimensional moduli space), but the genus itself is a pure topological invariant, computed by $\\chi = 2 - 2g$.</p>\n\n<div class=\"note\">The right mental image of a Riemann surface is a donut (or pretzel, or sphere) that <em>knows</em> what it means for a function on it to be holomorphic. Almost every deep theorem in the subject is about how this local notion of holomorphy pins down global data: cohomology, degrees of line bundles, dimensions of spaces of meromorphic functions.</div>\n\n<h3>Why the term \"complex curve\"?</h3>\n<p>Complex dimension $1$ is real dimension $2$, so when algebraic geometers call it a <em>curve</em> they mean the complex-analytic dimension. A genus-$2$ surface — a two-holed donut to a topologist — is a \"curve\" to an algebraic geometer. Live with the terminology; it rewards you.</p>\n\n<h3>The basic invariants and where they live</h3>\n<p>For a compact Riemann surface $X$ of genus $g$ the fundamental invariants we will compute or cite below are:</p>\n<table class=\"plain\">\n<thead><tr><th>invariant</th><th>value</th><th>character</th></tr></thead>\n<tbody>\n<tr><td>genus $g$</td><td>$g \\ge 0$</td><td>topological (and hence conformal)</td></tr>\n<tr><td>Euler characteristic $\\chi$</td><td>$2-2g$</td><td>topological</td></tr>\n<tr><td>$\\dim H^0(X,\\Omega^1)$</td><td>$g$</td><td>complex-analytic (Hodge)</td></tr>\n<tr><td>$\\deg K_X$</td><td>$2g-2$</td><td>algebro-geometric (canonical divisor)</td></tr>\n<tr><td>$\\dim \\mathcal{M}_g$ (for $g\\ge 2$)</td><td>$3g-3$ (complex)</td><td>moduli-theoretic</td></tr>\n</tbody>\n</table>\n\n<p>The pattern you should notice: every single complex-analytic number is a function of the topological invariant $g$ alone. Everything below is machinery to make that statement precise, and to turn it into effective computations.</p>\n\n"
         },
         {
+          "type": "widget",
+          "slug": "riemann-surfaces-chart-atlas",
+          "params": {
+            "widgetId": "w-rs-atlas",
+            "title": "Two-chart atlas of the Riemann sphere",
+            "hint": "slide $|z|$ and $\\arg z$; watch the point in both charts and the transition $w=1/z$"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-rs-atlas"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
           "type": "raw",
           "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./smooth-manifolds.html#intro\">Smooth manifolds and atlases</a></li>\n    <li><a href=\"./complex-analysis.html#holomorphic-function\">Holomorphic functions</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },

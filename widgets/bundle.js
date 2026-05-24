@@ -16717,6 +16717,24 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "riemann-surfaces-chart-atlas",
+    "family": "riemann-surfaces-chart-atlas",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "riemann-surfaces-chart-atlas widget params",
+    "description": "Makes the definition of a Riemann surface concrete on the Riemann sphere CP^1 = C u {infinity}, covered by a two-chart holomorphic atlas: U0 with coordinate z (everything but the north pole) and U-infinity with coordinate w = 1/z (everything but the south pole). Two modulus/argument sliders place a point on the overlap U0 n U-infinity = C*; the widget plots that point in both coordinate planes and reports the transition map phi = w = 1/z together with its derivative dw/dz = -1/z^2, which is nonzero on the overlap, so the transition is biholomorphic and the two charts glue into a Riemann surface. The readout connects the |z||w| = 1, arg z + arg w = 0 inversion to orientation-preserving biholomorphy and names the two poles (z = 0 only in U0, w = 0 i.e. z = infinity only in U-infinity). No numeric params beyond the standard widgetId/title/hint; the atlas is fixed inside the renderer.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Bespoke widget for `riemann-surfaces.html` (§1 *What is a Riemann surface?*, concept `riemann-surface-definition`). It makes the **definition** tangible — a Riemann surface is a space with a holomorphic atlas whose transition maps are biholomorphic — on the smallest non-trivial example, the Riemann sphere $\\mathbb{CP}^1$. Single module, not part of a shared family.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "rmt-w1",
     "family": "verbatim",
     "dimension": "2d",
