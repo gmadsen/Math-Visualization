@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/morphisms-scheme-morphism/schema.json",
+  "title": "morphisms-scheme-morphism widget params",
+  "description": "A morphism of schemes is more than a continuous map: it carries a pullback map on regular functions that is LOCAL on stalks. The widget realizes this on a polynomial map f from the affine line to itself, A^1 to A^1, given by a ring homomorphism phi from k[y] to k[x], y to f(x). A slider moves a point a in the source; it maps to b = f(a) in the target. The widget plots f, marks a and b, picks a regular function g(y) on the target, pulls it back to phi(g) = g(f(x)) on the source, and verifies the LOCAL condition: a function g vanishing at b (an element of the maximal ideal m_b of the stalk at b) pulls back to a function vanishing at a (in m_a), so the stalk map O_{Y,b} to O_{X,a} is a LOCAL ring homomorphism, m_b mapping into m_a. The readout defines a scheme morphism as a continuous map plus a sheaf map f-sharp: O_Y to f_* O_X that is local on stalks, explains that this local condition is exactly what upgrades a morphism of ringed spaces to a morphism of locally ringed spaces (the affine case being the anti-equivalence Spec A to Spec B corresponds to ring maps B to A), and notes the vanishing/pullback intuition. No numeric params beyond the standard widgetId/title/hint.",
+  "meta": {
+    "family": "morphisms-scheme-morphism",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\"> wrapper."
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title rendered inside .hd > .ttl."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional short hint rendered inside .hd > .hint."
+    }
+  }
+}

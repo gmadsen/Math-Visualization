@@ -314,6 +314,60 @@ must be a <strong>local ring homomorphism</strong>: it sends the maximal ideal $
 
 <p>One more piece of intuition before we dive into affines. The slogan "points of $X$ correspond to maps into $X$" has a useful partial refinement: for any scheme $X$ and any field $k$, the <em>$k$-rational points</em> of $X$ are the morphisms $\Spec k\to X$. These form a set $X(k) = \Hom_{\mathsf{Sch}}(\Spec k, X)$. The functor $k\mapsto X(k)$ (valued in sets) is called the <em>functor of points</em> of $X$, and by Yoneda's lemma it determines $X$ up to unique isomorphism. Whenever we specialize the capstone family to a specific value of $a_0\in k$ and ask for roots $x$ of $x^2 = a_0$ in $k$, we're computing $X(k)$ at that specialization.</p>
 
+<div class="widget" id="w-schmor">
+  <div class="hd"><div class="ttl">Scheme morphism: the local-on-stalks condition</div><div class="hint">drag $a$; watch $b=f(a)$, the pullback $g(f(x))$, and $\mathfrak{m}_b\to\mathfrak{m}_a$</div></div>
+  <div class="row">
+    <label for="w-schmor-a">source point $a \in X = \mathbb{A}^1$</label>
+    <input type="range" id="w-schmor-a" min="-220" max="220" value="130" step="1">
+    <span class="pill" id="w-schmor-av">a = …</span>
+  </div>
+  <svg id="w-schmor-svg" viewBox="0 0 560 320" width="560" height="320" role="img" aria-label="The map f(x)=x^2-1 from the affine line to itself, with a point a mapping to b=f(a) and the fiber over b"><title>A scheme morphism A^1 -> A^1, y=f(x): a point a maps to b=f(a), and a function vanishing at b pulls back to one vanishing at a (the local-on-stalks condition)</title></svg>
+  <div class="readout" id="w-schmor-out"></div>
+</div>
+<script>
+/* morphisms-scheme-morphism widget: w-schmor */
+(function(){
+  var svg=document.getElementById('w-schmor-svg'), out=document.getElementById('w-schmor-out');
+  var sa=document.getElementById('w-schmor-a'), av=document.getElementById('w-schmor-av');
+  if(!svg||!out||!sa||!av) return;
+  var NS='http://www.w3.org/2000/svg';
+  function mk(tag,attrs,text){ var e=document.createElementNS(NS,tag); for(var k in attrs){ e.setAttribute(k,attrs[k]); } if(text!=null) e.textContent=text; return e; }
+  function txt(x,y,s,opt){ opt=opt||{}; svg.appendChild(mk('text',{x:x,y:y,'text-anchor':opt.anchor||'start','font-size':opt.size||12,fill:opt.fill||'var(--ink)','font-weight':opt.weight||'normal'},s)); }
+  function f(x){ return x*x-1; }
+  var XL=-2.5, XR=2.5, YB=-1.6, YT=4.2, PX0=92, PX1=470, PTOP=40, PBOT=250;
+  function PX(x){ return PX0+(x-XL)/(XR-XL)*(PX1-PX0); }
+  function PY(y){ return PBOT-(y-YB)/(YT-YB)*(PBOT-PTOP); }
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    var a=parseInt(sa.value,10)/100; var b=f(a); av.textContent='a = '+a.toFixed(2)+'  \u21a6  b = f(a) = '+b.toFixed(2);
+    // axes
+    svg.appendChild(mk('line',{x1:PX0,y1:PY(0),x2:PX1,y2:PY(0),stroke:'var(--line)','stroke-width':1}));
+    svg.appendChild(mk('line',{x1:PX(0),y1:PTOP,x2:PX(0),y2:PBOT,stroke:'var(--line)','stroke-width':1}));
+    txt(PX1-2, PY(0)-4, 'X = A\u00b9 (coord x)', {anchor:'end', size:9, fill:'var(--mute)'});
+    txt(PX(0)+4, PTOP+8, 'Y = A\u00b9 (coord y)', {size:9, fill:'var(--mute)'});
+    // parabola y = f(x)
+    var d=''; for(var i=0;i<=120;i++){ var x=XL+(XR-XL)*i/120; d+=(i?'L ':'M ')+PX(x).toFixed(1)+' '+PY(f(x)).toFixed(1)+' '; } svg.appendChild(mk('path',{d:d,fill:'none',stroke:'var(--cyan)','stroke-width':2}));
+    txt(PX(XR)-6, PY(f(XR-0.05))-6, 'y = x\u00b2\u22121', {anchor:'end', size:9, fill:'var(--cyan)'});
+    // fiber over b: horizontal line y=b, preimages x=\u00b1\u221a(b+1)
+    var r=Math.sqrt(b+1);
+    svg.appendChild(mk('line',{x1:PX0,y1:PY(b),x2:PX1,y2:PY(b),stroke:'var(--yellow)','stroke-width':1,'stroke-dasharray':'4 3'}));
+    txt(PX0+2, PY(b)-3, 'g = y\u2212b vanishes here (y=b)', {size:8, fill:'var(--yellow)'});
+    // map arrows: a on x-axis -> up to parabola -> across to b on y-axis
+    svg.appendChild(mk('line',{x1:PX(a),y1:PY(0),x2:PX(a),y2:PY(b),stroke:'var(--green)','stroke-width':1.2,'stroke-dasharray':'2 2'}));
+    svg.appendChild(mk('line',{x1:PX(a),y1:PY(b),x2:PX(0),y2:PY(b),stroke:'var(--green)','stroke-width':1.2,'stroke-dasharray':'2 2'}));
+    // fiber points on x-axis (preimages)
+    [r,-r].forEach(function(xr){ svg.appendChild(mk('circle',{cx:PX(xr),cy:PY(0),r:3.5,fill: Math.abs(xr-a)<1e-6?'var(--pink)':'var(--mute)'})); });
+    svg.appendChild(mk('circle',{cx:PX(a),cy:PY(0),r:4.5,fill:'var(--pink)'})); txt(PX(a), PY(0)+15, 'a', {anchor:'middle', size:10, fill:'var(--pink)', weight:700});
+    svg.appendChild(mk('circle',{cx:PX(0),cy:PY(b),r:4,fill:'var(--yellow)'})); txt(PX(0)-8, PY(b)+3, 'b', {anchor:'end', size:10, fill:'var(--yellow)', weight:700});
+    txt(PX(-r), PY(0)+15, 'f\u207b\u00b9(b) = {\u00b1\u221a(b+1)}', {anchor:'middle', size:8, fill:'var(--mute)'});
+    var fpg=f(a)-b;
+    out.textContent='A morphism of schemes f: X \u2192 Y is more than a continuous map of spaces: it is a continuous map |X| \u2192 |Y| TOGETHER with a map of structure sheaves f\u0023: O_Y \u2192 f_*O_X \u2014 \u201cpull back regular functions\u201d \u2014 subject to a LOCAL condition on stalks. Here X = Y = A\u00b9 and f is the ring map \u03c6: k[y] \u2192 k[x], y \u21a6 x\u00b2\u22121, so on points x = a \u21a6 y = f(a) = a\u00b2\u22121 (the parabola); the fiber over b is f\u207b\u00b9(b) = {\u00b1\u221a(b+1)}. Pull back a regular function g(y) by composing: f\u0023(g) = g \u2218 f = g(x\u00b2\u22121). THE LOCAL CONDITION: for x = a with image b = f(a), the stalk map f\u0023\u2093: O_{Y,b} \u2192 O_{X,a} must be a LOCAL ring homomorphism \u2014 it must send the maximal ideal m_b into m_a, i.e. a function VANISHING at b must pull back to one VANISHING at a. Take g(y) = y \u2212 b (the dashed line; g(b)=0, so g \u2208 m_b). Its pullback is f\u0023(g) = f(x) \u2212 b = x\u00b2 \u2212 1 \u2212 b, which vanishes exactly on the fiber {\u00b1\u221a(b+1)} \u2014 in particular at a: (f\u0023g)(a) = f(a) \u2212 b = '+b.toFixed(2)+' \u2212 '+b.toFixed(2)+' = '+fpg.toFixed(2)+' = 0. \u2713 So m_b \u2192 m_a, the map is local. This local-on-stalks condition is exactly what upgrades a morphism of ringed spaces to a morphism of LOCALLY ringed spaces; on affine schemes it makes Hom(Spec A, Spec B) = Hom_{ring}(B, A) (the contravariant Spec anti-equivalence).';
+  }
+  sa.addEventListener('input', draw);
+  draw();
+})();
+</script>
+
 <!-- callback-auto-begin -->
 <aside class="callback">
   <div class="ttl">See also</div>
@@ -1802,6 +1856,80 @@ admits a <em>unique</em> lift $\Spec R\to X$. "Points defined generically extend
 <p>In particular, "proper over a field" is stable under all the constructions of the preceding sections. Moduli spaces want to be proper (so that limits of families exist), and modern algebraic geometry is largely about finding the right proper compactification of a given open moduli problem — e.g., $\overline{M}_{g,n}$ is the properification of $M_{g,n}$ by adding stable nodal curves, exactly so that the <a href="./moduli-spaces.html">moduli functor</a> extends across the boundary.</p>
 
 <div class="note"><strong>Slogan.</strong> Separated replaces Hausdorff; proper replaces compact-plus-Hausdorff. The valuative criterion is the scheme-theoretic incarnation of "a sequence has at most one limit, and always has one." Together they pin down what "a family without escape routes to infinity" means for schemes.</div>
+
+<div class="widget" id="w-sepprop">
+  <div class="hd"><div class="ttl">Separated vs proper: the diagonal and the valuative criterion</div><div class="hint">run $t\to0$ on $\mathbb{A}^1$, $\mathbb{P}^1$, and the doubled-origin line</div></div>
+  <div class="row" id="w-sepprop-btns">
+    <button type="button" data-k="a1" class="active" aria-pressed="true">A¹ (affine line)</button>
+    <button type="button" data-k="p1" class="" aria-pressed="false">P¹ (projective line)</button>
+    <button type="button" data-k="dbl" class="" aria-pressed="false">doubled-origin line</button>
+  </div>
+  <div class="row">
+    <label for="w-sepprop-t">family parameter $t \to 0$</label>
+    <input type="range" id="w-sepprop-t" min="6" max="200" value="120" step="1">
+    <span class="pill" id="w-sepprop-tv">t = …</span>
+  </div>
+  <svg id="w-sepprop-svg" viewBox="0 0 560 320" width="560" height="320" role="img" aria-label="A one-parameter family approaching a limit on the affine line, projective line, and doubled-origin line, showing separatedness and properness"><title>Separated vs proper: a one-parameter limit has no limit on A^1 (not proper), a unique limit on P^1 (proper), and two limits on the doubled-origin line (not separated)</title></svg>
+  <div class="readout" id="w-sepprop-out"></div>
+</div>
+<script>
+/* morphisms-separated-proper widget: w-sepprop */
+(function(){
+  var svg=document.getElementById('w-sepprop-svg'), out=document.getElementById('w-sepprop-out');
+  var st=document.getElementById('w-sepprop-t'), tv=document.getElementById('w-sepprop-tv'), btns=document.getElementById('w-sepprop-btns');
+  if(!svg||!out||!st||!tv||!btns) return;
+  var NS='http://www.w3.org/2000/svg';
+  function mk(tag,attrs,text){ var e=document.createElementNS(NS,tag); for(var k in attrs){ e.setAttribute(k,attrs[k]); } if(text!=null) e.textContent=text; return e; }
+  function txt(x,y,s,opt){ opt=opt||{}; svg.appendChild(mk('text',{x:x,y:y,'text-anchor':opt.anchor||'start','font-size':opt.size||12,fill:opt.fill||'var(--ink)','font-weight':opt.weight||'normal'},s)); }
+  var CX=280, MIDY=150, LX0=70, LX1=490, R=90;
+  var curKey='a1';
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    var t=parseInt(st.value,10)/100; tv.textContent='t = '+t.toFixed(2);
+    var verdict='';
+    if(curKey==='a1'){
+      // A^1: a line; family u = 1/t escapes to +infinity (off the right end) as t->0
+      var u=1/t; svg.appendChild(mk('line',{x1:LX0,y1:MIDY,x2:LX1,y2:MIDY,stroke:'var(--cyan)','stroke-width':2}));
+      txt(LX0-4, MIDY+4, '(\u221e missing)', {anchor:'end', size:8, fill:'var(--mute)'}); txt(LX1+4, MIDY+4, '(\u221e missing)', {size:8, fill:'var(--mute)'});
+      // map u in [0,5] to [CX, LX1]; beyond 5, clamp at edge with arrow
+      var SCALE=(LX1-CX)/5; var px=CX+u*SCALE; var off=px>LX1;
+      txt(CX, MIDY+18, '0', {anchor:'middle', size:9, fill:'var(--mute)'}); svg.appendChild(mk('circle',{cx:CX,cy:MIDY,r:2.5,fill:'var(--mute)'}));
+      if(off){ svg.appendChild(mk('path',{d:'M '+(LX1-10)+' '+(MIDY-6)+' L '+(LX1+2)+' '+MIDY+' L '+(LX1-10)+' '+(MIDY+6)+' Z', fill:'var(--pink)'})); txt(LX1-14, MIDY-12, 'point = 1/t = '+u.toFixed(1)+' \u2192 escapes', {anchor:'end', size:9, fill:'var(--pink)'}); }
+      else { svg.appendChild(mk('circle',{cx:px,cy:MIDY,r:5,fill:'var(--pink)'})); txt(px, MIDY-10, '1/t = '+u.toFixed(2), {anchor:'middle', size:9, fill:'var(--pink)'}); }
+      txt(CX, MIDY+44, 'the family t \u21a6 1/t runs off the end \u2014 NO limit in A\u00b9', {anchor:'middle', size:10, fill:'var(--ink)'});
+      verdict='A\u00b9 is SEPARATED (its diagonal is closed) but NOT PROPER: the family t\u21a61/t has no limit as t\u21920 \u2014 it escapes to infinity, which A\u00b9 is missing. The valuative criterion fails (a limit need not exist).';
+    } else if(curKey==='p1'){
+      // P^1 as a circle; 0 at bottom, infinity at top; point u=1/t at angle 2 atan(u)
+      var u2=1/t; var al=2*Math.atan(u2); var px2=CX+R*Math.sin(al), py2=MIDY+R*Math.cos(al);
+      svg.appendChild(mk('circle',{cx:CX,cy:MIDY,r:R,fill:'none',stroke:'var(--cyan)','stroke-width':2}));
+      svg.appendChild(mk('circle',{cx:CX,cy:MIDY+R,r:3,fill:'var(--mute)'})); txt(CX, MIDY+R+14, '0', {anchor:'middle', size:9, fill:'var(--mute)'});
+      svg.appendChild(mk('circle',{cx:CX,cy:MIDY-R,r:3,fill:'var(--green)'})); txt(CX, MIDY-R-6, '\u221e (the added point)', {anchor:'middle', size:9, fill:'var(--green)'});
+      svg.appendChild(mk('circle',{cx:px2,cy:py2,r:5,fill:'var(--pink)'})); txt(px2+ (px2>CX?8:-8), py2, '1/t = '+u2.toFixed(2), {anchor:px2>CX?'start':'end', size:9, fill:'var(--pink)'});
+      txt(CX, MIDY+R+40, 'as t \u2192 0, the point limits to \u221e \u2014 a UNIQUE limit in P\u00b9', {anchor:'middle', size:10, fill:'var(--ink)'});
+      verdict='P\u00b9 is SEPARATED and PROPER: every one-parameter family has a limit (here t\u21a61/t \u2192 \u221e as t\u21920), and the limit is UNIQUE. That is exactly the valuative criterion of properness \u2014 P\u00b9 is complete, the model compact variety.';
+    } else {
+      // doubled-origin line: a line with two origins at x=0
+      svg.appendChild(mk('line',{x1:LX0,y1:MIDY,x2:LX1,y2:MIDY,stroke:'var(--cyan)','stroke-width':2}));
+      // two origins, drawn split
+      svg.appendChild(mk('circle',{cx:CX,cy:MIDY-9,r:4,fill:'var(--green)'})); txt(CX-8, MIDY-12, '0_L', {anchor:'end', size:9, fill:'var(--green)', weight:700});
+      svg.appendChild(mk('circle',{cx:CX,cy:MIDY+9,r:4,fill:'var(--pink)'})); txt(CX-8, MIDY+16, '0_R', {anchor:'end', size:9, fill:'var(--pink)', weight:700});
+      // approaching point at x = t (from the right), shown twice (it lifts toward both origins)
+      var SCALE2=(LX1-CX)/5; var px3=CX+t*SCALE2;
+      svg.appendChild(mk('circle',{cx:px3,cy:MIDY-9,r:3.5,fill:'var(--green)','fill-opacity':0.7}));
+      svg.appendChild(mk('circle',{cx:px3,cy:MIDY+9,r:3.5,fill:'var(--pink)','fill-opacity':0.7}));
+      txt(px3, MIDY-20, 'x = t = '+t.toFixed(2), {anchor:'middle', size:9, fill:'var(--ink)'});
+      txt(CX, MIDY+44, 'as t \u2192 0 the family approaches BOTH origins \u2014 TWO limits', {anchor:'middle', size:10, fill:'var(--ink)'});
+      verdict='The line with doubled origin (two copies of A\u00b9 glued along A\u00b9\u2216{0}) is NOT SEPARATED: the family t\u21a6t has TWO limits as t\u21920, the two origins 0_L and 0_R \u2014 like a non-Hausdorff space with two limits of one sequence. Its diagonal \u0394 fails to be closed: the pair (0_L, 0_R) lies in the closure of \u0394(X) but not on \u0394(X) itself.';
+    }
+    out.textContent='Once you have fiber products, the key adjectives are defined by pulling a condition through a diagonal or base-change square. SEPARATED: the diagonal \u0394_f: X \u2192 X \u00d7_S X (always a locally closed immersion) is a CLOSED immersion \u2014 the scheme-theoretic analog of the Hausdorff condition (in a Hausdorff space the diagonal is closed in the product). PROPER: separated + finite type + universally closed, captured by the VALUATIVE CRITERION \u2014 for every map from the punctured spectrum of a DVR (a one-parameter family / punctured disk), the limit point exists (proper) and is unique (separated). '+verdict+' Run the slider t \u2192 0 to watch the family seek its limit(s); switch spaces to compare. The three cases are the canonical zoo: A\u00b9 separated-not-proper, P\u00b9 separated-and-proper (complete), and the doubled-origin line not-separated.';
+  }
+  st.addEventListener('input', draw);
+  btns.addEventListener('click', function(e){ var b=e.target.closest('button'); if(!b) return; curKey=b.getAttribute('data-k');
+    Array.prototype.forEach.call(btns.querySelectorAll('button'), function(x){ var on=x===b; x.classList.toggle('active', on); x.setAttribute('aria-pressed', on?'true':'false'); });
+    draw(); });
+  draw();
+})();
+</script>
 
 <div class="quiz" data-concept="separated-proper-morphisms"></div><!-- backlinks-auto-begin -->
 <aside class="related">

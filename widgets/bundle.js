@@ -14239,6 +14239,42 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "morphisms-scheme-morphism",
+    "family": "morphisms-scheme-morphism",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "morphisms-scheme-morphism widget params",
+    "description": "A morphism of schemes is more than a continuous map: it carries a pullback map on regular functions that is LOCAL on stalks. The widget realizes this on a polynomial map f from the affine line to itself, A^1 to A^1, given by a ring homomorphism phi from k[y] to k[x], y to f(x). A slider moves a point a in the source; it maps to b = f(a) in the target. The widget plots f, marks a and b, picks a regular function g(y) on the target, pulls it back to phi(g) = g(f(x)) on the source, and verifies the LOCAL condition: a function g vanishing at b (an element of the maximal ideal m_b of the stalk at b) pulls back to a function vanishing at a (in m_a), so the stalk map O_{Y,b} to O_{X,a} is a LOCAL ring homomorphism, m_b mapping into m_a. The readout defines a scheme morphism as a continuous map plus a sheaf map f-sharp: O_Y to f_* O_X that is local on stalks, explains that this local condition is exactly what upgrades a morphism of ringed spaces to a morphism of locally ringed spaces (the affine case being the anti-equivalence Spec A to Spec B corresponds to ring maps B to A), and notes the vanishing/pullback intuition. No numeric params beyond the standard widgetId/title/hint.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Bespoke widget for `morphisms-fiber-products.html` (§1 *What is a morphism of schemes?*, concept `scheme-morphisms`). It makes the defining **local-on-stalks** condition of a scheme morphism concrete on a polynomial map of affine lines. Single module, not part of a shared family.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "morphisms-separated-proper",
+    "family": "morphisms-separated-proper",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "morphisms-separated-proper widget params",
+    "description": "Separated and proper morphisms via the diagonal and the valuative criterion. Buttons pick a target space -- the affine line A^1 (separated, not proper), the projective line P^1 (separated AND proper), and the line with doubled origin (NOT separated) -- and a slider runs a one-parameter family (a parameter t approaching a limit) so the widget shows the limit behaviour: on P^1 every one-parameter limit exists and is unique (proper); on A^1 a family escaping to infinity has NO limit (separated but not proper); on the doubled-origin line a family approaching 0 has TWO limits, the two origins (not separated). The readout defines SEPARATED via the diagonal Delta_f: X to X times_S X being a closed immersion (the scheme analog of the Hausdorff condition, the diagonal closed in the product), exhibits the doubled-origin line as the prototype non-separated scheme whose diagonal fails to be closed at the pair (left origin, right origin), and defines PROPER as separated + finite type + universally closed, captured by the valuative criterion (limits along a DVR / punctured disk exist, and uniquely). No numeric params beyond the standard widgetId/title/hint.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Bespoke widget for `morphisms-fiber-products.html` (§8 *Separated and proper morphisms*, concept `separated-proper-morphisms`). It makes separatedness (diagonal closed) and properness (valuative criterion) concrete by running one-parameter limits on three model spaces. Single module, not part of a shared family.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "morse-betti-counts",
     "family": "morse-betti-counts",
     "dimension": "2d",
