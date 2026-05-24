@@ -1492,6 +1492,42 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "bezout-higherdim",
+    "family": "bezout-higherdim",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "bezout-higherdim widget params",
+    "description": "Bézout in ℙⁿ: n hypersurfaces of degrees d₁,…,dₙ meeting properly in a zero-dimensional set contain ∏dᵢ points (counted with multiplicity). Pick the ambient dimension n and each degree dᵢ; the widget shows the product ∏dᵢ and the equivalent Chow-ring computation [H₁]···[Hₙ] = (∏dᵢ)·Hⁿ = (∏dᵢ)·[pt] in A*(ℙⁿ)=ℤ[H]/(Hⁿ⁺¹), recovering the classical ℙ² statement as the case n=2.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Bespoke module for **bezout** §8 (Bézout in higher dimensions). Shows that $n$ hypersurfaces of degrees $d_1,\\dots,d_n$ in $\\mathbb{P}^n$, meeting properly, intersect in $\\prod d_i$ points — and that this is one line in the Chow ring.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "bezout-statement",
+    "family": "bezout-statement",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "bezout-statement widget params",
+    "description": "Visualizes why Bézout's count of intersection points of two plane curves is EXACTLY de — and what each of the theorem's three hypotheses buys. Pick degrees d and e; the widget draws the d×e grid of de intersection points and a verdict ∑_P I_P(C,D) = de. Three toggles turn off each hypothesis (algebraically closed field, projective ambient ℙ², counting with intersection multiplicity); dropping any one breaks the equality into a strict inequality, with a canonical counterexample named in the readout.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Bespoke module for **bezout** §5 (Statement of Bézout's theorem). Makes the headline equality $\\sum_{P} I_P(C,D) = de$ tangible and shows what each of the theorem's three hypotheses buys.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "bn-w1",
     "family": "verbatim",
     "dimension": "2d",

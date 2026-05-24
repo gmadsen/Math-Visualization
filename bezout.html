@@ -700,6 +700,87 @@ where $I_P(C,D)$ is the intersection multiplicity defined in §3. In particular,
 </tbody>
 </table>
 
+
+<div class="widget" id="w-bezout-statement">
+  <div class="hd"><div class="ttl">The de count and its three hypotheses</div><div class="hint">Pick degrees d, e; toggle a hypothesis off to see the equality become a strict inequality.</div></div>
+  <div class="row">
+    <span class="pill">degree $d$</span>
+    <button type="button" id="w-bezout-statement-d1">1</button>
+    <button type="button" id="w-bezout-statement-d2">2</button>
+    <button type="button" id="w-bezout-statement-d3">3</button>
+    <button type="button" id="w-bezout-statement-d4">4</button>
+  </div>
+  <div class="row">
+    <span class="pill">degree $e$</span>
+    <button type="button" id="w-bezout-statement-e1">1</button>
+    <button type="button" id="w-bezout-statement-e2">2</button>
+    <button type="button" id="w-bezout-statement-e3">3</button>
+    <button type="button" id="w-bezout-statement-e4">4</button>
+  </div>
+  <div class="row">
+    <span class="pill">hypotheses</span>
+    <button type="button" id="w-bezout-statement-hAlg">$k=\bar k$ (alg. closed)</button>
+    <button type="button" id="w-bezout-statement-hProj">$C,D\subset\mathbb{P}^2$</button>
+    <button type="button" id="w-bezout-statement-hMult">count $I_P$</button>
+  </div>
+  <svg id="w-bezout-statement-svg" viewBox="0 0 540 300" width="540" height="300" role="img" aria-label="The d-by-e grid of Bezout intersection points and the three hypotheses"><title>Bezout's theorem: two plane curves of degrees d and e meet in exactly de points when counted over an algebraically closed field, in the projective plane, with intersection multiplicity</title></svg>
+  <div class="readout" id="w-bezout-statement-out"></div>
+</div><script>
+/* bezout-statement widget: w-bezout-statement */
+(function(){
+  var MAX=4;
+  var svg=document.getElementById('w-bezout-statement-svg'), out=document.getElementById('w-bezout-statement-out');
+  var dB=[], eB=[];
+  for(var i=1;i<=MAX;i++){ dB.push(document.getElementById('w-bezout-statement-d'+i)); eB.push(document.getElementById('w-bezout-statement-e'+i)); }
+  var hAlgB=document.getElementById('w-bezout-statement-hAlg'), hProjB=document.getElementById('w-bezout-statement-hProj'), hMultB=document.getElementById('w-bezout-statement-hMult');
+  if(!svg||!out||!hAlgB||!hProjB||!hMultB||dB.some(function(b){return !b;})||eB.some(function(b){return !b;})) return;
+  var NS='http://www.w3.org/2000/svg';
+  function mk(tag,attrs,text){ var e=document.createElementNS(NS,tag); for(var k in attrs){ e.setAttribute(k,attrs[k]); } if(text!=null) e.textContent=text; return e; }
+  function txt(x,y,s,opt){ opt=opt||{}; svg.appendChild(mk('text',{x:x,y:y,'text-anchor':opt.anchor||'start','font-size':opt.size||12,fill:opt.fill||'var(--ink)','font-weight':opt.weight||'normal','font-style':opt.italic?'italic':'normal'},s)); }
+  var d=Math.min(2, MAX), e=Math.min(3, MAX), hAlg=true, hProj=true, hMult=true;
+  var CE={
+    alg:'Over a field that is not algebraically closed (e.g. \u211d) some of the de intersections are complex and invisible. Two disjoint real circles (d=e=2, de=4) meet in 4 points over \u2102 \u2014 two complex finite points and the two circular points [1:\u00b1i:0] at infinity \u2014 but in 0 real affine points.',
+    proj:'In the affine plane A\u00b2 some intersections escape to the line at infinity. Two parallel lines (d=e=1, de=1) meet only at their shared point at infinity, giving 0 affine intersections; a hyperbola and one of its asymptotes lose a point the same way.',
+    mult:'Without intersection multiplicity, tangencies and singular contacts undercount. A line tangent to a conic (de=2) meets it in a single point, but that point carries I_P = 2; counting points naively gives 1 < 2.'
+  };
+  function setActive(btns,sel){ btns.forEach(function(b,i){ var on=(i+1===sel); b.classList.toggle('active',on); b.setAttribute('aria-pressed',on?'true':'false'); }); }
+  function setToggle(btn,on){ btn.classList.toggle('active',on); btn.setAttribute('aria-pressed',on?'true':'false'); }
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    setActive(dB,d); setActive(eB,e); setToggle(hAlgB,hAlg); setToggle(hProjB,hProj); setToggle(hMultB,hMult);
+    var N=d*e, allHold=hAlg&&hProj&&hMult;
+    var gx=70, gy=70, sp=40;
+    var dotCol=allHold?'var(--green)':'var(--mute)';
+    for(var r=0;r<e;r++){ for(var c=0;c<d;c++){
+      var cx=gx+c*sp, cy=gy+r*sp;
+      if(allHold) svg.appendChild(mk('circle',{cx:cx,cy:cy,r:6,fill:dotCol}));
+      else svg.appendChild(mk('circle',{cx:cx,cy:cy,r:6,fill:'none',stroke:dotCol,'stroke-width':1.4,'stroke-dasharray':'2 2'}));
+    } }
+    txt(gx-14, gy+(e-1)*sp/2, 'e', {size:13, fill:'var(--cyan)', italic:true, anchor:'end'});
+    txt(gx+(d-1)*sp/2, gy+(e-1)*sp+30, 'd', {size:13, fill:'var(--yellow)', italic:true, anchor:'middle'});
+    txt(gx, gy+(e-1)*sp+50, 'a degree-d curve C  \u2229  a degree-e curve D', {size:11, fill:'var(--mute)'});
+    var TX=320;
+    txt(TX, 56, 'Bézout\u2019s theorem', {size:13, fill:'var(--ink)', weight:700});
+    txt(TX, 86, '\u2211 I_P(C,D) = d\u00b7e', {size:14, fill:'var(--yellow)', weight:600});
+    txt(TX, 110, '= ' + d + ' \u00b7 ' + e + ' = ' + N + (N===1?' point':' points'), {size:13, fill:'var(--cyan)'});
+    function hyp(y,on,label){ svg.appendChild(mk('text',{x:TX,y:y,'font-size':13,fill:on?'var(--green)':'var(--pink)'},on?'\u2713':'\u2717')); txt(TX+17,y,label,{size:11,fill:on?'var(--ink)':'var(--mute)'}); }
+    hyp(142, hAlg, 'k algebraically closed'); hyp(164, hProj, 'curves in \u2119\u00b2 (projective)'); hyp(186, hMult, 'count with multiplicity I_P');
+    if(allHold){ txt(TX, 220, '= de = ' + N + '   (exact equality)', {size:14, fill:'var(--green)', weight:700}); }
+    else { txt(TX, 220, 'actual count  \u2264  de = ' + N, {size:14, fill:'var(--orange)', weight:700}); txt(TX, 240, '(no longer pinned to de \u2014 equality can fail)', {size:10, fill:'var(--mute)', italic:true}); }
+    var msg;
+    if(allHold){ msg='With all three hypotheses, two plane curves with no common component and of degrees d=' + d + ', e=' + e + ' meet in EXACTLY de = ' + N + ' points. The grid shows those de points; over \u2102, in \u2119\u00b2, with each point weighted by its intersection multiplicity I_P, the total is pinned to the product of the degrees \u2014 independent of the particular curves.'; }
+    else { var parts=[]; if(!hAlg) parts.push('\u2022 algebraically closed: '+CE.alg); if(!hProj) parts.push('\u2022 projective \u2119\u00b2: '+CE.proj); if(!hMult) parts.push('\u2022 multiplicity I_P: '+CE.mult); msg='Drop a hypothesis and the equality ' + '\u2211 I_P = de' + ' need no longer hold: the count is only bounded, \u2264 de = ' + N + ', and is no longer pinned to the product (dashed dots). Why each hypothesis is needed:\n\n' + parts.join('\n\n'); }
+    out.textContent=msg;
+  }
+  dB.forEach(function(b,i){ b.addEventListener('click', function(){ d=i+1; draw(); }); });
+  eB.forEach(function(b,i){ b.addEventListener('click', function(){ e=i+1; draw(); }); });
+  hAlgB.addEventListener('click', function(){ hAlg=!hAlg; draw(); });
+  hProjB.addEventListener('click', function(){ hProj=!hProj; draw(); });
+  hMultB.addEventListener('click', function(){ hMult=!hMult; draw(); });
+  draw();
+})();
+</script>
+
 <div class="quiz" data-concept="bezout-theorem-core"></div>
 <!-- backlinks-auto-begin -->
 <aside class="related">
@@ -1079,6 +1160,81 @@ The intersection pairing on Chow classes reproduces Bézout without mentioning p
 <p>Two variations are useful. First, if the subvarieties have complementary codimensions summing to $n$ but are not cut out by single equations, the Chow-theoretic count still works via degrees of the subvarieties. Second, for positive-dimensional intersections, the right generalization is Fulton–MacPherson intersection theory, which attaches a well-defined <em>excess intersection class</em> supported on the intersection.</p>
 
 <div class="note"><strong>Why the passage to $\mathbb{P}^n$ is gentle.</strong> None of the three refinements from §2 change meaning: projectivize, take $\bar k$, count length. What gets genuinely more subtle is the <em>proper intersection</em> hypothesis — in higher dimensions it is much easier for two subvarieties to share an excess component, and the naïve sum of local lengths can be infinite even when the degrees are small. A typical fix is to perturb (move one of the cycles to a rationally equivalent one in general position), which is what the Chow ring formalizes.</div>
+
+
+<div class="widget" id="w-bezout-higherdim">
+  <div class="hd"><div class="ttl">Bézout in higher dimensions: the product of degrees</div><div class="hint">Choose n and the degrees; the count is ∏dᵢ, one line in the Chow ring.</div></div>
+  <div class="row">
+    <span class="pill">ambient $\mathbb{P}^n$, $n =$</span>
+    <button type="button" id="w-bezout-higherdim-n2">2</button>
+    <button type="button" id="w-bezout-higherdim-n3">3</button>
+    <button type="button" id="w-bezout-higherdim-n4">4</button>
+  </div>
+  <div class="row" id="w-bezout-higherdim-drow1">
+    <label for="w-bezout-higherdim-d1">$d_{1}$</label>
+    <input type="range" id="w-bezout-higherdim-d1" min="1" max="4" value="2" step="1">
+    <span class="pill" id="w-bezout-higherdim-d1v">d₁ = 2</span>
+  </div>
+  <div class="row" id="w-bezout-higherdim-drow2">
+    <label for="w-bezout-higherdim-d2">$d_{2}$</label>
+    <input type="range" id="w-bezout-higherdim-d2" min="1" max="4" value="2" step="1">
+    <span class="pill" id="w-bezout-higherdim-d2v">d₂ = 2</span>
+  </div>
+  <div class="row" id="w-bezout-higherdim-drow3">
+    <label for="w-bezout-higherdim-d3">$d_{3}$</label>
+    <input type="range" id="w-bezout-higherdim-d3" min="1" max="4" value="2" step="1">
+    <span class="pill" id="w-bezout-higherdim-d3v">d₃ = 2</span>
+  </div>
+  <div class="row" id="w-bezout-higherdim-drow4">
+    <label for="w-bezout-higherdim-d4">$d_{4}$</label>
+    <input type="range" id="w-bezout-higherdim-d4" min="1" max="4" value="2" step="1">
+    <span class="pill" id="w-bezout-higherdim-d4v">d₄ = 2</span>
+  </div>
+  <svg id="w-bezout-higherdim-svg" viewBox="0 0 560 340" width="560" height="340" role="img" aria-label="Bezout in projective n-space: the product of the hypersurface degrees"><title>Bezout in P^n: n hypersurfaces of degrees d_1..d_n meet in the product d_1...d_n points, computed in the Chow ring as the product of hyperplane classes</title></svg>
+  <div class="readout" id="w-bezout-higherdim-out"></div>
+</div><script>
+/* bezout-higherdim widget: w-bezout-higherdim */
+(function(){
+  var MAXN=4, MAXDEG=4;
+  var svg=document.getElementById('w-bezout-higherdim-svg'), out=document.getElementById('w-bezout-higherdim-out');
+  var nB=[]; for(var n=2;n<=MAXN;n++){ nB.push(document.getElementById('w-bezout-higherdim-n'+n)); }
+  var dS=[], dV=[], dRow=[];
+  for(var i=1;i<=MAXN;i++){ dS.push(document.getElementById('w-bezout-higherdim-d'+i)); dV.push(document.getElementById('w-bezout-higherdim-d'+i+'v')); dRow.push(document.getElementById('w-bezout-higherdim-drow'+i)); }
+  if(!svg||!out||nB.some(function(b){return !b;})||dS.some(function(b){return !b;})) return;
+  var NS='http://www.w3.org/2000/svg';
+  function mk(tag,attrs,text){ var e=document.createElementNS(NS,tag); for(var k in attrs){ e.setAttribute(k,attrs[k]); } if(text!=null) e.textContent=text; return e; }
+  function txt(x,y,s,opt){ opt=opt||{}; svg.appendChild(mk('text',{x:x,y:y,'text-anchor':opt.anchor||'start','font-size':opt.size||12,fill:opt.fill||'var(--ink)','font-weight':opt.weight||'normal','font-style':opt.italic?'italic':'normal'},s)); }
+  var N=Math.min(3, MAXN);
+  function cls(d){ return d===1 ? 'H' : d+'H'; }
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    nB.forEach(function(b,i){ var on=(i+2===N); b.classList.toggle('active',on); b.setAttribute('aria-pressed',on?'true':'false'); });
+    var degs=[];
+    for(var i=0;i<MAXN;i++){ var active=(i<N); dRow[i].style.opacity=active?'1':'0.35'; dS[i].disabled=!active; var di=parseInt(dS[i].value,10)||1; dV[i].textContent='d'+'\u2081\u2082\u2083\u2084\u2085'.charAt(i)+' = '+di; if(active) degs.push(di); }
+    var prod=degs.reduce(function(a,b){return a*b;},1);
+    var bx=40, by=44, bw=22, gap=10, unit=26;
+    txt(bx, by-14, N+' hypersurfaces H\u2081,\u2026,H_'+N+' in \u2119^'+N+'  (meeting properly)', {size:12, fill:'var(--ink)', weight:600});
+    var lblX=bx+MAXDEG*unit+14;
+    for(var i=0;i<degs.length;i++){ var y=by+i*(bw+gap);
+      svg.appendChild(mk('rect',{x:bx,y:y,width:degs[i]*unit,height:bw,rx:3,fill:'var(--cyan)','fill-opacity':0.25,stroke:'var(--cyan)','stroke-width':1}));
+      txt(bx+5, y+bw-7, degs[i], {size:11, fill:'var(--cyan)', weight:600});
+      txt(lblX, y+bw-6, 'H_'+(i+1)+' :  degree '+degs[i]+'  \u2192  class '+cls(degs[i]), {size:11, fill:'var(--ink)'}); }
+    var ey=by+degs.length*(bw+gap)+24;
+    txt(bx, ey, '\u220f d_i  =  '+degs.join(' \u00b7 ')+'  =  '+prod, {size:14, fill:'var(--yellow)', weight:700});
+    txt(bx, ey+30, 'In the Chow ring  A*(\u2119^'+N+') = \u2124[H]/(H^'+(N+1)+'):', {size:11, fill:'var(--mute)', italic:true});
+    txt(bx, ey+52, '[H\u2081]\u22ef[H_'+N+'] = ('+degs.map(cls).join(')(')+') = '+prod+'\u00b7H^'+N+' = '+prod+'\u00b7[pt]', {size:12, fill:'var(--violet)'});
+    txt(bx, ey+72, 'since H^'+N+' = [pt]  and  H^'+(N+1)+' = 0', {size:10, fill:'var(--mute)'});
+    txt(bx, ey+104, '\u21d2  '+prod+' intersection points', {size:15, fill:'var(--green)', weight:700});
+    var ex='';
+    if(N===2) ex=' This is the classical \u2119\u00b2 Bézout theorem: two plane curves of degrees '+degs[0]+' and '+degs[1]+' meet in '+prod+' points.';
+    else if(degs.every(function(d){return d===2;})) ex=' E.g. '+N+' generic quadrics in \u2119^'+N+' meet in 2^'+N+' = '+prod+' points.';
+    out.textContent='In \u2119^'+N+', '+N+' hypersurfaces of degrees '+degs.join(', ')+' that meet PROPERLY (in a zero-dimensional set) intersect in '+prod+' points, counted with multiplicity \u2014 the product of the degrees.'+ex+'\n\nThe modern proof is one line in the Chow ring A*(\u2119^'+N+') = \u2124[H]/(H^'+(N+1)+'): a degree-d hypersurface has class dH, so the product of the n classes is ('+degs.join('\u00b7')+')\u00b7H^'+N+' = '+prod+'\u00b7[pt]. The hypotheses match the \u2119\u00b2 case (algebraically closed field, projective ambient, count with multiplicity) plus one stated anew: the hypersurfaces must meet properly \u2014 if any two share a positive-dimensional component the count is infinite.';
+  }
+  nB.forEach(function(b,i){ b.addEventListener('click', function(){ N=i+2; draw(); }); });
+  dS.forEach(function(s){ s.addEventListener('input', draw); });
+  draw();
+})();
+</script>
 
 <div class="quiz" data-concept="higher-dim-bezout"></div><!-- backlinks-auto-begin -->
 <aside class="related">

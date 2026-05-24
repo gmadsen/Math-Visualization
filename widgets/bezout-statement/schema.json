@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/bezout-statement/schema.json",
+  "title": "bezout-statement widget params",
+  "description": "Visualizes why Bézout's count of intersection points of two plane curves is EXACTLY de — and what each of the theorem's three hypotheses buys. Pick degrees d and e; the widget draws the d×e grid of de intersection points and a verdict ∑_P I_P(C,D) = de. Three toggles turn off each hypothesis (algebraically closed field, projective ambient ℙ², counting with intersection multiplicity); dropping any one breaks the equality into a strict inequality, with a canonical counterexample named in the readout.",
+  "meta": {
+    "family": "bezout-statement",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\"> wrapper."
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title rendered inside .hd > .ttl."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional short hint rendered inside .hd > .hint."
+    },
+    "maxDegree": {
+      "type": "integer",
+      "minimum": 2,
+      "maximum": 4,
+      "description": "Highest degree offered for d and e (so the grid holds at most maxDegree² dots; capped at 4 so the de-dot grid stays readable and within the viewBox).",
+      "default": 4
+    }
+  }
+}
