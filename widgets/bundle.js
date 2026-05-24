@@ -14712,7 +14712,7 @@ window.__MVWidgets = [
   },
   {
     "slug": "operator-algebras-positive",
-    "family": "analysis",
+    "family": "operator-algebras-positive",
     "dimension": "2d",
     "gesture": "slider",
     "role": "exploratory",
@@ -14722,7 +14722,7 @@ window.__MVWidgets = [
       "widgetId",
       "title"
     ],
-    "readmeExcerpt": "Operator algebras positive widget — scaffolded stub. Replace this paragraph with a short description of what the widget does, which topic page first introduced it, and whether it's a bespoke module or part of a shared family.",
+    "readmeExcerpt": "Bespoke module for **operator-algebras** §12 (Positive elements). The commutative picture of positivity in a C\\*-algebra: working in the self-adjoint part of $C(\\{1,2\\}) \\cong \\mathbb{R}^2$, a self-adjoint element *is* its pair of eigenvalues / function values $(\\lambda_1,\\lambda_2)$, so the abstract order-theoretic structure becomes a plane picture.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,

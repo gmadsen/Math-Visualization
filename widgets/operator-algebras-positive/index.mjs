@@ -78,19 +78,21 @@ export function renderScript(params) {
     `  function sy(l){ return PY0 - (l-lo)/(hi-lo)*(PY0-PY1); }\n` +
     `  function clampX(x){ return Math.max(PX0,Math.min(PX1,x)); }\n` +
     `  function clampY(y){ return Math.max(PY1,Math.min(PY0,y)); }\n` +
+    // rect from two data-derived pixel corners, clamped to the plot box and normalised to non-negative w/h (robust to any lo/hi)
+    `  function crect(xa,ya,xb,yb,attrs){ var x0=clampX(xa),x1=clampX(xb),y0=clampY(ya),y1=clampY(yb); attrs.x=Math.min(x0,x1); attrs.y=Math.min(y0,y1); attrs.width=Math.abs(x1-x0); attrs.height=Math.abs(y1-y0); return mk('rect',attrs); }\n` +
     `  var EPS=1e-9;\n` +
     `  function draw(){\n` +
     `    while(svg.firstChild) svg.removeChild(svg.firstChild);\n` +
     `    var l1=parseFloat(s1.value), l2=parseFloat(s2.value);\n` +
     `    v1.innerHTML='\\u03bb\\u2081 = '+l1; v2.innerHTML='\\u03bb\\u2082 = '+l2;\n` +
     `    pbtns.forEach(function(b,i){ var on=Math.abs(P.presets[i].l1-l1)<1e-6 && Math.abs(P.presets[i].l2-l2)<1e-6; b.classList.toggle('active',on); b.setAttribute('aria-pressed',on?'true':'false'); });\n` +
-    `    if(hi>0){ svg.appendChild(mk('rect',{x:sx(0),y:sy(hi),width:sx(hi)-sx(0),height:sy(0)-sy(hi),fill:'var(--green)','fill-opacity':0.12})); }\n` +
+    `    if(hi>0){ svg.appendChild(crect(sx(0),sy(hi),sx(hi),sy(0),{fill:'var(--green)','fill-opacity':0.12})); }\n` +
     `    var ucx=clampX(sx(l1)), ucy=clampY(sy(l2));\n` +
     `    svg.appendChild(mk('rect',{x:ucx,y:PY1,width:PX1-ucx,height:ucy-PY1,fill:'var(--violet)','fill-opacity':0.13}));\n` +
     `    svg.appendChild(mk('line',{x1:ucx,y1:ucy,x2:PX1,y2:ucy,stroke:'var(--violet)','stroke-width':1,'stroke-dasharray':'3 3'}));\n` +
     `    svg.appendChild(mk('line',{x1:ucx,y1:ucy,x2:ucx,y2:PY1,stroke:'var(--violet)','stroke-width':1,'stroke-dasharray':'3 3'}));\n` +
-    `    svg.appendChild(mk('rect',{x:sx(0),y:sy(1),width:sx(1)-sx(0),height:sy(0)-sy(1),fill:'none',stroke:'var(--cyan)','stroke-width':1.2,'stroke-dasharray':'4 3'}));\n` +
-    `    txt(sx(0)+4, sy(1)-4, '[0,1]', {size:10, fill:'var(--cyan)'});\n` +
+    `    svg.appendChild(crect(sx(0),sy(1),sx(1),sy(0),{fill:'none',stroke:'var(--cyan)','stroke-width':1.2,'stroke-dasharray':'4 3'}));\n` +
+    `    txt(clampX(sx(0))+4, clampY(sy(1))-4, '[0,1]', {size:10, fill:'var(--cyan)'});\n` +
     `    for(var t=Math.ceil(lo); t<=Math.floor(hi); t++){ if(t===0) continue;\n` +
     `      svg.appendChild(mk('line',{x1:sx(t),y1:PY1,x2:sx(t),y2:PY0,stroke:'var(--line)','stroke-width':0.5,'stroke-opacity':0.5}));\n` +
     `      svg.appendChild(mk('line',{x1:PX0,y1:sy(t),x2:PX1,y2:sy(t),stroke:'var(--line)','stroke-width':0.5,'stroke-opacity':0.5}));\n` +
