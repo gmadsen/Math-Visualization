@@ -14999,6 +14999,42 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "padic-newton-polygon",
+    "family": "padic-newton-polygon",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "padic-newton-polygon widget params",
+    "description": "The Newton polygon of f(x)=a_0+a_1x+...+a_nx^n over Q_p. The reader sets the p-adic valuation v_p(a_i) of each coefficient (or marks it zero, height +∞) with per-coefficient cyclers; the widget plots the points (i, v_p(a_i)), draws their lower convex hull, and labels each segment with its slope −m_j and horizontal length ℓ_j. By the Newton-polygon theorem the (negated) slopes are the valuations of the roots and the lengths count them, so f has ℓ_j roots of valuation m_j. A single segment of slope −1/n with the right coprimality is the Eisenstein irreducibility test. Presets: x³−x−p, an Eisenstein polynomial, and a two-slope example.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Bespoke module for **p-adic-numbers** §8 (Newton polygons). Reads the $p$-adic valuations of the roots of a polynomial off the slopes of the lower convex hull of its coefficient valuations.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "padic-ramification-tower",
+    "family": "padic-ramification-tower",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "padic-ramification-tower widget params",
+    "description": "The ramification data of a finite extension L/Q_p. Pick the prime p and the two invariants — ramification index e and residue degree f — with steppers; the widget draws the canonical tower Q_p ⊆ L^ur ⊆ L, where L^ur is the maximal unramified subextension (degree f, residue field F_{p^f}) and L/L^ur is totally ramified of degree e (Eisenstein uniformizer π). It reports the fundamental identity ef=[L:Q_p], the residue field, and classifies the extension as tamely ramified (gcd(e,p)=1) or wildly ramified (p∣e). Presets show an unramified, a tamely totally-ramified, and a wild (Q_2(i)-type) example.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Bespoke module for **p-adic-numbers** §9 (Extensions of $\\mathbb{Q}_p$ and ramification). Visualises the canonical unramified-then-totally-ramified tower and the tame/wild dichotomy.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "parametric-plot",
     "family": "parametric-plot",
     "dimension": "2d",
