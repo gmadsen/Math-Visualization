@@ -60,7 +60,8 @@ export function renderScript(params) {
     `  var NS='http://www.w3.org/2000/svg';\n` +
     `  function mk(tag,attrs,text){ var e=document.createElementNS(NS,tag); for(var k in attrs){ e.setAttribute(k,attrs[k]); } if(text!=null) e.textContent=text; return e; }\n` +
     `  function txt(x,y,s,opt){ opt=opt||{}; svg.appendChild(mk('text',{x:x,y:y,'text-anchor':opt.anchor||'start','font-size':opt.size||12,fill:opt.fill||'var(--ink)','font-weight':opt.weight||'normal','font-style':opt.italic?'italic':'normal'},s)); }\n` +
-    `  var d=2, e=3, hAlg=true, hProj=true, hMult=true;\n` +
+    `  var d=Math.min(2, MAX), e=Math.min(3, MAX), hAlg=true, hProj=true, hMult=true;\n` + // defaults clamped to the configured maxDegree
+
     // canonical counterexamples for each dropped hypothesis (fixed math facts)
     `  var CE={\n` +
     `    alg:'Over a field that is not algebraically closed (e.g. \\u211d) some of the de intersections are complex and invisible. Two disjoint real circles (d=e=2, de=4) meet in 4 points over \\u2102 \\u2014 two complex finite points and the two circular points [1:\\u00b1i:0] at infinity \\u2014 but in 0 real affine points.',\n` +

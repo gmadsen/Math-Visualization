@@ -58,7 +58,8 @@ export function renderScript(params) {
     `  var NS='http://www.w3.org/2000/svg';\n` +
     `  function mk(tag,attrs,text){ var e=document.createElementNS(NS,tag); for(var k in attrs){ e.setAttribute(k,attrs[k]); } if(text!=null) e.textContent=text; return e; }\n` +
     `  function txt(x,y,s,opt){ opt=opt||{}; svg.appendChild(mk('text',{x:x,y:y,'text-anchor':opt.anchor||'start','font-size':opt.size||12,fill:opt.fill||'var(--ink)','font-weight':opt.weight||'normal','font-style':opt.italic?'italic':'normal'},s)); }\n` +
-    `  var N=3;\n` + // ambient dimension; default 3 hypersurfaces in P^3
+    `  var N=Math.min(3, MAXN);\n` + // default 3 hypersurfaces in P^3, clamped to the configured maxN
+
     `  function cls(d){ return d===1 ? 'H' : d+'H'; }\n` + // a degree-1 hypersurface (hyperplane) has class H, not 1H
     `  function draw(){\n` +
     `    while(svg.firstChild) svg.removeChild(svg.firstChild);\n` +
