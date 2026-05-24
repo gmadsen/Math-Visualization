@@ -1178,7 +1178,7 @@ $$B(X,Y) = \tr\!\big(\ad_X\ad_Y\big).$$
   var NS='http://www.w3.org/2000/svg';
   function mk(tag,attrs,text){ var e=document.createElementNS(NS,tag); for(var k in attrs){ e.setAttribute(k,attrs[k]); } if(text!=null) e.textContent=text; return e; }
   function txt(x,y,s,opt){ opt=opt||{}; svg.appendChild(mk('text',{x:x,y:y,'text-anchor':opt.anchor||'start','font-size':opt.size||12,fill:opt.fill||'var(--ink)','font-weight':opt.weight||'normal','font-style':opt.italic?'italic':'normal'},s)); }
-  function mat3(x,y,M,col,lbls){ var cw=34,rh=22;
+  function mat3(x,y,M,col){ var cw=34,rh=22;
     svg.appendChild(mk('path',{d:'M '+(x+5)+' '+y+' L '+x+' '+y+' L '+x+' '+(y+3*rh)+' L '+(x+5)+' '+(y+3*rh),stroke:col,'stroke-width':1.1,fill:'none'}));
     svg.appendChild(mk('path',{d:'M '+(x+5+3*cw)+' '+y+' L '+(x+10+3*cw)+' '+y+' L '+(x+10+3*cw)+' '+(y+3*rh)+' L '+(x+5+3*cw)+' '+(y+3*rh),stroke:col,'stroke-width':1.1,fill:'none'}));
     for(var i=0;i<3;i++) for(var j=0;j<3;j++) txt(x+10+j*cw+cw/2, y+i*rh+15, ''+(Math.round(M[i][j]*100)/100), {size:11, anchor:'middle'}); }
@@ -1198,7 +1198,7 @@ $$B(X,Y) = \tr\!\big(\ad_X\ad_Y\big).$$
     txt(36, 196, 'eigenvalues of B:  '+ev.map(function(e){return ''+(Math.round(e*100)/100);}).join(',  '), {size:12, fill:'var(--ink)'});
     txt(36, 218, 'signature ('+pos+' +, '+neg+' \u2212'+(zero?', '+zero+' 0':'')+')', {size:13, fill:'var(--yellow)', weight:700});
     var defNeg=(neg===3), nondeg=(zero===0);
-    txt(36, 244, 'B is '+(defNeg?'NEGATIVE-DEFINITE \u21d2 compact group':(pos&&neg?'INDEFINITE \u21d2 noncompact (split) group':'degenerate')), {size:12, fill:defNeg?'var(--green)':'var(--orange)', weight:600});
+    txt(36, 244, 'B is '+(defNeg?'NEGATIVE-DEFINITE \u21d2 compact group':(pos===3?'POSITIVE-DEFINITE':(zero>0?'DEGENERATE \u21d2 not semisimple':'INDEFINITE \u21d2 noncompact (split) group'))), {size:12, fill:defNeg?'var(--green)':(zero>0?'var(--pink)':'var(--orange)'), weight:600});
     txt(36, 266, 'B '+(nondeg?'non-degenerate \u21d2 semisimple (Cartan\u2019s criterion) \u2713':'degenerate \u21d2 NOT semisimple'), {size:11, fill:nondeg?'var(--green)':'var(--pink)'});
     out.textContent = 'The group acts on its algebra by conjugation Ad_g(X)=gXg\u207b\u00b9; differentiating gives ad_X(Y) = [X,Y], the adjoint representation of the algebra (shown left for X = '+A.lbl[xi]+'). Tracing products of these gives the Killing form B(X,Y) = tr(ad_X ad_Y) (right). For '+A.name+', B has eigenvalues '+ev.map(function(e){return ''+(Math.round(e*100)/100);}).join(', ')+' \u2014 signature ('+pos+','+neg+'). '+(defNeg?'Negative-definite, so the associated group is COMPACT (rotations).':'Indefinite of signature ('+pos+','+neg+'), so the group is noncompact \u2014 the split real form.')+' Either way B is non-degenerate, so by Cartan\u2019s criterion the algebra is SEMISIMPLE. Jacobi\u2019s identity is exactly the statement that ad is itself a Lie-algebra homomorphism, ad_{[X,Y]} = [ad_X, ad_Y].';
   }

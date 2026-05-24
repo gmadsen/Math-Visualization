@@ -55,7 +55,8 @@ export function renderScript(params) {
     `  function killing(c){ var B=[[0,0,0],[0,0,0],[0,0,0]]; for(var i=0;i<3;i++)for(var j=0;j<3;j++){ B[i][j]=trace(matmul(adGen(c,basisvec(i)), adGen(c,basisvec(j)))); } return B; }\n` +
     `  function basisvec(i){ var v=[0,0,0]; v[i]=1; return v; }\n` +
     // symmetric eigenvalues via Jacobi rotations
-    `  function eigsym(A){ var n=3, a=A.map(function(r){return r.slice();});\n` +
+    `  function eigsym(A){ var n=3, a=A.map(function(r){return r.slice();});\n` + // classic Jacobi; exact for the two hardcoded Killing forms (converges to ~1e-16)
+
     `    for(var sweep=0;sweep<60;sweep++){ var p=0,q=1,mx=0,i,j;\n` +
     `      for(i=0;i<n;i++) for(j=i+1;j<n;j++){ if(Math.abs(a[i][j])>mx){ mx=Math.abs(a[i][j]); p=i; q=j; } }\n` +
     `      if(mx<1e-11) break; var th=0.5*Math.atan2(2*a[p][q], a[p][p]-a[q][q]); var co=Math.cos(th), si=Math.sin(th);\n` +
@@ -69,7 +70,7 @@ export function renderScript(params) {
     `  var NS='http://www.w3.org/2000/svg';\n` +
     `  function mk(tag,attrs,text){ var e=document.createElementNS(NS,tag); for(var k in attrs){ e.setAttribute(k,attrs[k]); } if(text!=null) e.textContent=text; return e; }\n` +
     `  function txt(x,y,s,opt){ opt=opt||{}; svg.appendChild(mk('text',{x:x,y:y,'text-anchor':opt.anchor||'start','font-size':opt.size||12,fill:opt.fill||'var(--ink)','font-weight':opt.weight||'normal','font-style':opt.italic?'italic':'normal'},s)); }\n` +
-    `  function mat3(x,y,M,col,lbls){ var cw=34,rh=22;\n` +
+    `  function mat3(x,y,M,col){ var cw=34,rh=22;\n` +
     `    svg.appendChild(mk('path',{d:'M '+(x+5)+' '+y+' L '+x+' '+y+' L '+x+' '+(y+3*rh)+' L '+(x+5)+' '+(y+3*rh),stroke:col,'stroke-width':1.1,fill:'none'}));\n` +
     `    svg.appendChild(mk('path',{d:'M '+(x+5+3*cw)+' '+y+' L '+(x+10+3*cw)+' '+y+' L '+(x+10+3*cw)+' '+(y+3*rh)+' L '+(x+5+3*cw)+' '+(y+3*rh),stroke:col,'stroke-width':1.1,fill:'none'}));\n` +
     `    for(var i=0;i<3;i++) for(var j=0;j<3;j++) txt(x+10+j*cw+cw/2, y+i*rh+15, ''+(Math.round(M[i][j]*100)/100), {size:11, anchor:'middle'}); }\n` +
@@ -89,7 +90,7 @@ export function renderScript(params) {
     `    txt(36, 196, 'eigenvalues of B:  '+ev.map(function(e){return ''+(Math.round(e*100)/100);}).join(',  '), {size:12, fill:'var(--ink)'});\n` +
     `    txt(36, 218, 'signature ('+pos+' +, '+neg+' \\u2212'+(zero?', '+zero+' 0':'')+')', {size:13, fill:'var(--yellow)', weight:700});\n` +
     `    var defNeg=(neg===3), nondeg=(zero===0);\n` +
-    `    txt(36, 244, 'B is '+(defNeg?'NEGATIVE-DEFINITE \\u21d2 compact group':(pos&&neg?'INDEFINITE \\u21d2 noncompact (split) group':'degenerate')), {size:12, fill:defNeg?'var(--green)':'var(--orange)', weight:600});\n` +
+    `    txt(36, 244, 'B is '+(defNeg?'NEGATIVE-DEFINITE \\u21d2 compact group':(pos===3?'POSITIVE-DEFINITE':(zero>0?'DEGENERATE \\u21d2 not semisimple':'INDEFINITE \\u21d2 noncompact (split) group'))), {size:12, fill:defNeg?'var(--green)':(zero>0?'var(--pink)':'var(--orange)'), weight:600});\n` +
     `    txt(36, 266, 'B '+(nondeg?'non-degenerate \\u21d2 semisimple (Cartan\\u2019s criterion) \\u2713':'degenerate \\u21d2 NOT semisimple'), {size:11, fill:nondeg?'var(--green)':'var(--pink)'});\n` +
     `    out.textContent = 'The group acts on its algebra by conjugation Ad_g(X)=gXg\\u207b\\u00b9; differentiating gives ad_X(Y) = [X,Y], the adjoint representation of the algebra (shown left for X = '+A.lbl[xi]+'). Tracing products of these gives the Killing form B(X,Y) = tr(ad_X ad_Y) (right). For '+A.name+', B has eigenvalues '+ev.map(function(e){return ''+(Math.round(e*100)/100);}).join(', ')+' \\u2014 signature ('+pos+','+neg+'). '+(defNeg?'Negative-definite, so the associated group is COMPACT (rotations).':'Indefinite of signature ('+pos+','+neg+'), so the group is noncompact \\u2014 the split real form.')+' Either way B is non-degenerate, so by Cartan\\u2019s criterion the algebra is SEMISIMPLE. Jacobi\\u2019s identity is exactly the statement that ad is itself a Lie-algebra homomorphism, ad_{[X,Y]} = [ad_X, ad_Y].';\n` +
     `  }\n` +
