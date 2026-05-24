@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/rep-theory-orthogonality/schema.json",
+  "title": "rep-theory-orthogonality widget params",
+  "description": "The first orthogonality relation for irreducible characters, ⟨χλ, χμ⟩ = δλμ. Pick a finite group (S₃ or the cyclic group C₄) and two of its irreducible characters; the widget shows the character table and computes the class-weighted Hermitian inner product (1/|G|)·Σ_classes |C|·χλ(C)·conj(χμ(C)) term by term, landing on 1 when the two irreps coincide and 0 otherwise. C₄ has genuinely complex characters, so the conjugate in the inner product is essential — the widget makes that visible.",
+  "meta": {
+    "family": "rep-theory-orthogonality",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\"> wrapper."
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title rendered inside .hd > .ttl."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional short hint rendered inside .hd > .hint."
+    }
+  }
+}

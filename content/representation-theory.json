@@ -12,6 +12,27 @@
         },
         {
           "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget",
+          "slug": "rep-theory-homomorphism",
+          "params": {
+            "widgetId": "w-rep-homomorphism",
+            "title": "A representation is a homomorphism G → GL(V)",
+            "hint": "Pick g and h; watch ρ(g)ρ(h) = ρ(gh) hold matrix-by-matrix."
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-rep-homomorphism"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "raw",
           "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./algebra.html#cayley\">Cayley tables and subgroups</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {
@@ -205,6 +226,27 @@
         {
           "type": "raw",
           "html": "<section id=\"characters\">\n<h2>6. Characters and orthogonality</h2>\n\n<p>Given a rep $\\rho\\colon G\\to\\mathrm{GL}(V)$, the <strong>character</strong> is</p>\n<p style=\"text-align:center\">$\\chi_\\rho(g) \\;=\\; \\tr\\,\\rho(g)$.</p>\n\n<p>Three immediate facts: $\\chi_\\rho(e) = \\dim V$; $\\chi_{\\rho\\oplus\\sigma} = \\chi_\\rho + \\chi_\\sigma$ and $\\chi_{\\rho\\otimes\\sigma} = \\chi_\\rho\\chi_\\sigma$; and because traces are conjugation-invariant, $\\chi_\\rho(hgh^{-1})=\\chi_\\rho(g)$. The character is a <strong>class function</strong>.</p>\n\n<p>Let $\\mathrm{CF}(G) = \\{f\\colon G\\to\\mathbb{C} : f\\text{ constant on conjugacy classes}\\}$, a vector space of dimension $=$ number of conjugacy classes of $G$. Equip it with the inner product</p>\n<p style=\"text-align:center\">$\\displaystyle \\langle f_1,f_2\\rangle \\;=\\; \\frac{1}{|G|}\\sum_{g\\in G} f_1(g)\\,\\overline{f_2(g)}$.</p>\n\n<p><strong>First orthogonality (row orthogonality).</strong> Let $\\chi_\\lambda$ range over the characters of the irreducible representations. Then</p>\n<p style=\"text-align:center\">$\\langle \\chi_\\lambda,\\chi_\\mu\\rangle \\;=\\; \\delta_{\\lambda\\mu}$.</p>\n\n<p><em>Proof idea.</em> Using the averaging operator $P = \\tfrac{1}{|G|}\\sum_g\\rho(g)$ with values in $\\Hom(V_\\mu,V_\\lambda)$: its image is $\\Hom_G(V_\\mu,V_\\lambda)$, which by Schur is $0$ if $\\lambda\\ne\\mu$ and $\\mathbb{C}$ if $\\lambda=\\mu$. Taking trace gives the identity. Equivalently: the quantity $\\langle \\chi_\\lambda,\\chi_\\mu\\rangle$ equals $\\dim\\Hom_G(V_\\mu,V_\\lambda)$, and Schur evaluates this. $\\blacksquare$</p>\n\n<p><strong>Corollary.</strong> The irreducible characters form an orthonormal basis of $\\mathrm{CF}(G)$. Therefore:</p>\n<ul>\n<li>The number of irreducible reps of $G$ equals the number of conjugacy classes.</li>\n<li>Every class function is uniquely a $\\mathbb{C}$-combination of irreducible characters — if the combination is with non-negative integer coefficients, it is a genuine character.</li>\n</ul>\n\n<p><strong>Second orthogonality (column orthogonality).</strong> For conjugacy classes $C_1,C_2$ with representatives $g_1,g_2$,</p>\n<p style=\"text-align:center\">$\\displaystyle \\sum_{\\lambda}\\chi_\\lambda(g_1)\\,\\overline{\\chi_\\lambda(g_2)} \\;=\\; \\begin{cases}|C_G(g_1)| & g_1\\sim g_2\\\\ 0 & \\text{else}.\\end{cases}$</p>\n<p>Equivalently: the columns of the character table (after normalization by $\\sqrt{|C_G(g)|}$) are orthonormal.</p>\n\n<p><strong>Decomposition formula.</strong> For any rep $V$ with character $\\chi_V$,</p>\n<p style=\"text-align:center\">$V \\;\\cong\\; \\bigoplus_\\lambda\\,\\langle\\chi_V,\\chi_\\lambda\\rangle\\cdot V_\\lambda$, </p>\n<p>so the multiplicity of $V_\\lambda$ in $V$ is $m_\\lambda = \\langle\\chi_V,\\chi_\\lambda\\rangle$, directly computable from the table.</p>\n\n<p><strong>Character criteria:</strong></p>\n<ul>\n<li>$V$ is irreducible $\\iff$ $\\langle \\chi_V,\\chi_V\\rangle = 1$.</li>\n<li>$V\\cong W$ $\\iff$ $\\chi_V = \\chi_W$. So characters are a complete invariant.</li>\n</ul>\n\n<p>Built-in redundancies: the character is real-valued on real classes; $\\chi_{V^*}(g) = \\overline{\\chi_V(g)} = \\chi_V(g^{-1})$; $\\chi_V(g^k)$ is a sum of $k$th powers of eigenvalues of $\\rho(g)$, which ties $\\rho(g^k)$ to $\\rho(g)$ via power-sum $\\to$ elementary-symmetric-function identities (Newton's identities).</p>\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget",
+          "slug": "rep-theory-orthogonality",
+          "params": {
+            "widgetId": "w-rep-orthogonality",
+            "title": "Orthogonality of irreducible characters",
+            "hint": "Pick two irreducible characters; the class-weighted inner product is δλμ."
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-rep-orthogonality"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
         },
         {
           "type": "quiz",

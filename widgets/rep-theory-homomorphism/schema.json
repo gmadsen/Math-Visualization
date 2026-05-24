@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/rep-theory-homomorphism/schema.json",
+  "title": "rep-theory-homomorphism widget params",
+  "description": "A representation is a group homomorphism ρ: G → GL(V). Working with S₃ and three of its representations (trivial, sign, the 3-dimensional permutation representation on ℂ³), pick two elements g, h and watch the defining identity ρ(g)ρ(h) = ρ(gh) hold matrix-by-matrix, with the character χ(g) = tr ρ(g) read off the diagonal. The permutation representation uses clean 0/1 matrices, making the homomorphism property concrete.",
+  "meta": {
+    "family": "rep-theory-homomorphism",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\"> wrapper."
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title rendered inside .hd > .ttl."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional short hint rendered inside .hd > .hint."
+    }
+  }
+}
