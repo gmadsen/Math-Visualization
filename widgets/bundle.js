@@ -19591,7 +19591,7 @@ window.__MVWidgets = [
       "widgetId",
       "title"
     ],
-    "readmeExcerpt": "Uhp parallel postulate widget — scaffolded stub. Replace this paragraph with a short description of what the widget does, which topic page first introduced it, and whether it's a bespoke module or part of a shared family.",
+    "readmeExcerpt": "Bespoke module for **upper-half-plane-hyperbolic** §1 (ℍ, the upper half-plane). Demonstrates the failure of Euclid's parallel postulate — the defining feature of hyperbolic geometry.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
