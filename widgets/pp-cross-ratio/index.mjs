@@ -52,7 +52,7 @@ export function renderScript(params) {
     `  function txt(x,y,s,opt){ opt=opt||{}; svg.appendChild(mk('text',{x:x,y:y,'text-anchor':opt.anchor||'start','font-size':opt.size||12,fill:opt.fill||'var(--ink)','font-weight':opt.weight||'normal'},s)); }\n` +
     `  var COL=['var(--cyan)','var(--yellow)','var(--green)','var(--pink)'], LBL=['A','B','C','D'];\n` +
     `  function cross(p){ return ((p[0]-p[2])*(p[1]-p[3]))/((p[0]-p[3])*(p[1]-p[2])); }\n` +
-    `  function fmt(x){ if(!isFinite(x)) return '\\u221e'; var r=Math.round(x*1000)/1000; if(Math.abs(r)<1e-9) r=0; return (''+r); }\n` +
+    `  function fmt(x){ if(isNaN(x)) return 'undefined'; if(!isFinite(x)) return '\\u221e'; var r=Math.round(x*1000)/1000; if(Math.abs(r)<1e-9) r=0; return (''+r); }\n` +
     `  var PX0=58, PX1=326;\n` +
     `  function drawLine(y, dom, pts, labelLeft, lam){\n` +
     `    var lo=dom[0], hi=dom[1]; if(hi-lo<1e-6){ hi=lo+1; }\n` +
@@ -75,15 +75,23 @@ export function renderScript(params) {
     `    function M(t){ return (t+s)/(gamma*t+1); }\n` +
     `    var Q=P.map(M);\n` +
     `    var lam=cross(P), lam2=cross(Q);\n` +
+    // the cross-ratio is defined only for four DISTINCT points; coincidence -> 0/0 or div-by-zero
+    `    var distinct=true; for(var di=0;di<4;di++){ for(var dj=di+1;dj<4;dj++){ if(Math.abs(P[di]-P[dj])<1e-9) distinct=false; } }\n` +
     // line 1: fixed domain matching slider range
-    `    drawLine(96, [-3,4.5], P, 'line \\u2113', lam);\n` +
+    `    drawLine(96, [-3,4.5], P, 'line \\u2113', distinct?lam:NaN);\n` +
     // line 2: autoscaled to images
     `    var lo=Math.min.apply(null,Q), hi=Math.max.apply(null,Q), pad=(hi-lo)*0.08||0.5;\n` +
-    `    drawLine(176, [lo-pad,hi+pad], Q, 'image', lam2);\n` +
+    `    drawLine(176, [lo-pad,hi+pad], Q, 'image', distinct?lam2:NaN);\n` +
     `    txt(PX0, 210, 'Mobius image: t \\u21a6 (t+'+fmt(s)+')/('+fmt(gamma)+'\\u00b7t+1)  \\u2014  a projective map of the line', {size:10, fill:'var(--mute)'});\n` +
-    `    txt(PX0, 230, (Math.abs(lam-lam2)<1e-6 ? '\\u2713 cross-ratio unchanged: \\u03bb = '+fmt(lam)+' on both lines (PGL\\u2082-invariant)' : 'difference '+fmt(lam-lam2)), {size:11, fill:'var(--green)', weight:600});\n` +
-    // right panel: orbit + j + harmonic
     `    var TX=448;\n` +
+    `    if(!distinct){\n` +
+    `      txt(PX0, 230, 'undefined cross-ratio \\u2014 the four points A,B,C,D must be distinct', {size:11, fill:'var(--pink)', weight:600});\n` +
+    `      txt(TX, 36, '\\u03bb = undefined', {size:13, fill:'var(--pink)', weight:700});\n` +
+    `      txt(TX, 56, '(two points coincide)', {size:9, fill:'var(--mute)'});\n` +
+    `      out.textContent = 'The cross-ratio [A,B;C,D] = (a\\u2212c)(b\\u2212d)/((a\\u2212d)(b\\u2212c)) is defined only for four DISTINCT collinear points. Two of the current points coincide, so the ratio degenerates (division by zero, or 0/0) and \\u03bb, its orbit, and j are undefined \\u2014 move the sliders so a, b, c, d are all different.';\n` +
+    `      return;\n` +
+    `    }\n` +
+    `    txt(PX0, 230, (Math.abs(lam-lam2)<1e-6 ? '\\u2713 cross-ratio unchanged: \\u03bb = '+fmt(lam)+' on both lines (PGL\\u2082-invariant)' : 'difference '+fmt(lam-lam2)), {size:11, fill:'var(--green)', weight:600});\n` +
     `    var orbit=[lam,1-lam,1/lam,1/(1-lam),lam/(lam-1),(lam-1)/lam];\n` +
     `    txt(TX, 36, '\\u03bb = '+fmt(lam), {size:13, fill:'var(--ink)', weight:700});\n` +
     `    txt(TX, 56, 'S\\u2084 orbit (6 values):', {size:9, fill:'var(--mute)'});\n` +

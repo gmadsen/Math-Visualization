@@ -967,7 +967,10 @@ and this pairing is perfectly symmetric in the two variables. Fixing a point cut
   svg.addEventListener('pointermove', function(ev){ if(drag<0) return; var d=dataFromEvent(ev); if(!d) return; P[drag]=[clamp(d[0],XMIN+0.05,XMAX-0.05), clamp(d[1],YMIN+0.05,YMAX-0.05)]; draw(); });
   function endDrag(){ drag=-1; }
   svg.addEventListener('pointerup', endDrag); svg.addEventListener('pointercancel', endDrag); svg.addEventListener('pointerleave', endDrag);
-  if(bColl) bColl.addEventListener('click', function(){ var a=P[0],b=P[1]; P[2]=[a[0]+1.55*(b[0]-a[0]), a[1]+1.55*(b[1]-a[1])]; P[2]=[clamp(P[2][0],XMIN+0.05,XMAX-0.05),clamp(P[2][1],YMIN+0.05,YMAX-0.05)]; draw(); });
+  if(bColl) bColl.addEventListener('click', function(){ var a=P[0],b=P[1], dx=b[0]-a[0], dy=b[1]-a[1];
+    function inBox(t){ var x=a[0]+t*dx, y=a[1]+t*dy; return x>=XMIN+0.05&&x<=XMAX-0.05&&y>=YMIN+0.05&&y<=YMAX-0.05; }
+    var t=1.55; while(t>0.55 && !inBox(t)) t-=0.05;
+    P[2]=[a[0]+t*dx, a[1]+t*dy]; draw(); });
   if(bReset) bReset.addEventListener('click', function(){ P=DEF.map(function(p){ return p.slice(); }); draw(); });
   draw();
 })();
@@ -1020,7 +1023,7 @@ For instance $[0,1;2,3] = \dfrac{(-2)(-2)}{(-3)(-1)} = \dfrac{4}{3}$. The cross-
   function txt(x,y,s,opt){ opt=opt||{}; svg.appendChild(mk('text',{x:x,y:y,'text-anchor':opt.anchor||'start','font-size':opt.size||12,fill:opt.fill||'var(--ink)','font-weight':opt.weight||'normal'},s)); }
   var COL=['var(--cyan)','var(--yellow)','var(--green)','var(--pink)'], LBL=['A','B','C','D'];
   function cross(p){ return ((p[0]-p[2])*(p[1]-p[3]))/((p[0]-p[3])*(p[1]-p[2])); }
-  function fmt(x){ if(!isFinite(x)) return '\u221e'; var r=Math.round(x*1000)/1000; if(Math.abs(r)<1e-9) r=0; return (''+r); }
+  function fmt(x){ if(isNaN(x)) return 'undefined'; if(!isFinite(x)) return '\u221e'; var r=Math.round(x*1000)/1000; if(Math.abs(r)<1e-9) r=0; return (''+r); }
   var PX0=58, PX1=326;
   function drawLine(y, dom, pts, labelLeft, lam){
     var lo=dom[0], hi=dom[1]; if(hi-lo<1e-6){ hi=lo+1; }
@@ -1043,12 +1046,20 @@ For instance $[0,1;2,3] = \dfrac{(-2)(-2)}{(-3)(-1)} = \dfrac{4}{3}$. The cross-
     function M(t){ return (t+s)/(gamma*t+1); }
     var Q=P.map(M);
     var lam=cross(P), lam2=cross(Q);
-    drawLine(96, [-3,4.5], P, 'line \u2113', lam);
+    var distinct=true; for(var di=0;di<4;di++){ for(var dj=di+1;dj<4;dj++){ if(Math.abs(P[di]-P[dj])<1e-9) distinct=false; } }
+    drawLine(96, [-3,4.5], P, 'line \u2113', distinct?lam:NaN);
     var lo=Math.min.apply(null,Q), hi=Math.max.apply(null,Q), pad=(hi-lo)*0.08||0.5;
-    drawLine(176, [lo-pad,hi+pad], Q, 'image', lam2);
+    drawLine(176, [lo-pad,hi+pad], Q, 'image', distinct?lam2:NaN);
     txt(PX0, 210, 'Mobius image: t \u21a6 (t+'+fmt(s)+')/('+fmt(gamma)+'\u00b7t+1)  \u2014  a projective map of the line', {size:10, fill:'var(--mute)'});
-    txt(PX0, 230, (Math.abs(lam-lam2)<1e-6 ? '\u2713 cross-ratio unchanged: \u03bb = '+fmt(lam)+' on both lines (PGL\u2082-invariant)' : 'difference '+fmt(lam-lam2)), {size:11, fill:'var(--green)', weight:600});
     var TX=448;
+    if(!distinct){
+      txt(PX0, 230, 'undefined cross-ratio \u2014 the four points A,B,C,D must be distinct', {size:11, fill:'var(--pink)', weight:600});
+      txt(TX, 36, '\u03bb = undefined', {size:13, fill:'var(--pink)', weight:700});
+      txt(TX, 56, '(two points coincide)', {size:9, fill:'var(--mute)'});
+      out.textContent = 'The cross-ratio [A,B;C,D] = (a\u2212c)(b\u2212d)/((a\u2212d)(b\u2212c)) is defined only for four DISTINCT collinear points. Two of the current points coincide, so the ratio degenerates (division by zero, or 0/0) and \u03bb, its orbit, and j are undefined \u2014 move the sliders so a, b, c, d are all different.';
+      return;
+    }
+    txt(PX0, 230, (Math.abs(lam-lam2)<1e-6 ? '\u2713 cross-ratio unchanged: \u03bb = '+fmt(lam)+' on both lines (PGL\u2082-invariant)' : 'difference '+fmt(lam-lam2)), {size:11, fill:'var(--green)', weight:600});
     var orbit=[lam,1-lam,1/lam,1/(1-lam),lam/(lam-1),(lam-1)/lam];
     txt(TX, 36, '\u03bb = '+fmt(lam), {size:13, fill:'var(--ink)', weight:700});
     txt(TX, 56, 'S\u2084 orbit (6 values):', {size:9, fill:'var(--mute)'});

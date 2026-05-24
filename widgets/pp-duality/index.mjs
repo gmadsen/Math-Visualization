@@ -100,7 +100,12 @@ export function renderScript(params) {
     `  svg.addEventListener('pointermove', function(ev){ if(drag<0) return; var d=dataFromEvent(ev); if(!d) return; P[drag]=[clamp(d[0],XMIN+0.05,XMAX-0.05), clamp(d[1],YMIN+0.05,YMAX-0.05)]; draw(); });\n` +
     `  function endDrag(){ drag=-1; }\n` +
     `  svg.addEventListener('pointerup', endDrag); svg.addEventListener('pointercancel', endDrag); svg.addEventListener('pointerleave', endDrag);\n` +
-    `  if(bColl) bColl.addEventListener('click', function(){ var a=P[0],b=P[1]; P[2]=[a[0]+1.55*(b[0]-a[0]), a[1]+1.55*(b[1]-a[1])]; P[2]=[clamp(P[2][0],XMIN+0.05,XMAX-0.05),clamp(P[2][1],YMIN+0.05,YMAX-0.05)]; draw(); });\n` +
+    // place C exactly on line AB; shrink the parameter t (NOT clamp x/y independently,
+    // which would knock C off the line near the viewport edge) until C is inside the box.
+    `  if(bColl) bColl.addEventListener('click', function(){ var a=P[0],b=P[1], dx=b[0]-a[0], dy=b[1]-a[1];\n` +
+    `    function inBox(t){ var x=a[0]+t*dx, y=a[1]+t*dy; return x>=XMIN+0.05&&x<=XMAX-0.05&&y>=YMIN+0.05&&y<=YMAX-0.05; }\n` +
+    `    var t=1.55; while(t>0.55 && !inBox(t)) t-=0.05;\n` +
+    `    P[2]=[a[0]+t*dx, a[1]+t*dy]; draw(); });\n` +
     `  if(bReset) bReset.addEventListener('click', function(){ P=DEF.map(function(p){ return p.slice(); }); draw(); });\n` +
     `  draw();\n` +
     `})();\n` +
