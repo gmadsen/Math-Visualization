@@ -6305,6 +6305,42 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "diff-geom-fundamental-forms",
+    "family": "diff-geom-fundamental-forms",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "diff-geom-fundamental-forms widget params",
+    "description": "The first and second fundamental forms of a surface, and the curvatures they produce. Pick a surface (sphere, cylinder, saddle, plane, torus); the widget sketches it and, at a representative point, shows the first fundamental form I = [[E,F],[F,G]] (the induced metric, E=x_u·x_u etc.) and the second II = [[L,M],[M,N]] (the normal curvature, L=x_uu·n etc.), then computes the Gaussian curvature K = (LN−M²)/(EG−F²) and the mean curvature H = (EN−2FM+GL)/(2(EG−F²)), classifying the point as elliptic (K>0), hyperbolic (K<0), or parabolic/flat (K=0).",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Bespoke module for **differential-geometry** §4 (The first fundamental form, and the second). Reads the metric and the bending off a surface and turns them into the Gaussian and mean curvatures.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "diff-geom-surface-patch",
+    "family": "diff-geom-surface-patch",
+    "dimension": "3d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "diff-geom-surface-patch widget params",
+    "description": "A regular parametrized surface patch and its tangent plane. Pick a surface (sphere, cylinder, saddle, torus); the widget draws the wireframe x(u,v) and, at a marked point, the partial-derivative tangent vectors x_u and x_v, the unit normal n = (x_u × x_v)/|x_u × x_v|, and the tangent plane they span. Regularity — d x injective, equivalently x_u × x_v ≠ 0 — is exactly the condition that the tangent plane is two-dimensional and the normal is well-defined.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Bespoke module for **differential-geometry** §3 (Surfaces in ℝ³). Shows what a regular parametrized surface is, and how its tangent plane and normal arise.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "dirac-clifford",
     "family": "verbatim",
     "dimension": "2d",

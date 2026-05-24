@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/diff-geom-fundamental-forms/schema.json",
+  "title": "diff-geom-fundamental-forms widget params",
+  "description": "The first and second fundamental forms of a surface, and the curvatures they produce. Pick a surface (sphere, cylinder, saddle, plane, torus); the widget sketches it and, at a representative point, shows the first fundamental form I = [[E,F],[F,G]] (the induced metric, E=x_u·x_u etc.) and the second II = [[L,M],[M,N]] (the normal curvature, L=x_uu·n etc.), then computes the Gaussian curvature K = (LN−M²)/(EG−F²) and the mean curvature H = (EN−2FM+GL)/(2(EG−F²)), classifying the point as elliptic (K>0), hyperbolic (K<0), or parabolic/flat (K=0).",
+  "meta": {
+    "family": "diff-geom-fundamental-forms",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\"> wrapper."
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title rendered inside .hd > .ttl."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional short hint rendered inside .hd > .hint."
+    }
+  }
+}
