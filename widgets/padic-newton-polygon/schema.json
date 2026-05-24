@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/padic-newton-polygon/schema.json",
+  "title": "padic-newton-polygon widget params",
+  "description": "The Newton polygon of f(x)=a_0+a_1x+...+a_nx^n over Q_p. The reader sets the p-adic valuation v_p(a_i) of each coefficient (or marks it zero, height +∞) with per-coefficient cyclers; the widget plots the points (i, v_p(a_i)), draws their lower convex hull, and labels each segment with its slope −m_j and horizontal length ℓ_j. By the Newton-polygon theorem the (negated) slopes are the valuations of the roots and the lengths count them, so f has ℓ_j roots of valuation m_j. A single segment of slope −1/n with the right coprimality is the Eisenstein irreducibility test. Presets: x³−x−p, an Eisenstein polynomial, and a two-slope example.",
+  "meta": {
+    "family": "padic-newton-polygon",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\"> wrapper."
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title rendered inside .hd > .ttl."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional short hint rendered inside .hd > .hint."
+    }
+  }
+}

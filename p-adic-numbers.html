@@ -972,6 +972,98 @@ Since $f'(x_n)$ is a unit mod $p$, this is well-defined in $\mathbb{Z}_p$; a Tay
 
 <div class="note"><strong>Use cases.</strong> Newton polygons factor a polynomial over $\mathbb{Q}_p$ into pieces whose roots share a common valuation, classify ramification of the resulting extensions, and feed directly into the next section. They also detect irreducibility (single slope with $\gcd(\text{numerator},n)=1$) and locate $p$-adic roots without computing them.</div>
 
+<div class="widget" id="w-padic-newton">
+  <div class="hd"><div class="ttl">The Newton polygon reads root valuations off its slopes</div><div class="hint">set each v_p(a_i); the lower-hull slopes give the root valuations</div></div>
+  <div class="row" id="w-padic-newton-presets" role="group" aria-label="preset polynomial">
+    <button type="button" data-pre="cubic" class="active" aria-pressed="true">$x^3-x-p$</button>
+    <button type="button" data-pre="eis" aria-pressed="false">Eisenstein</button>
+    <button type="button" data-pre="two" aria-pressed="false">two slopes</button>
+  </div>
+  <div class="row">
+    <label for="w-padic-newton-n">degree $n$</label>
+    <input type="range" id="w-padic-newton-n" min="2" max="5" value="3" step="1">
+    <span class="pill" id="w-padic-newton-nv">n = 3</span>
+  </div>
+  <div class="row"><span class="note">valuation $v_p(a_i)$ &mdash; click a chip to cycle (endpoints $a_0,a_n\ne0$):</span></div>
+  <div class="row" id="w-padic-newton-chips" style="display:flex;gap:.35rem;flex-wrap:wrap"></div>
+  <svg id="w-padic-newton-svg" viewBox="0 0 560 300" width="560" height="300" role="img" aria-label="The points (i, valuation of a_i) and the lower convex hull whose slopes give the root valuations"><title>Newton polygon: the lower convex hull of (i, v_p(a_i)); each segment's negated slope is a root valuation and its horizontal length counts those roots</title></svg>
+  <div class="readout" id="w-padic-newton-out"></div>
+</div>
+<script>
+/* padic-newton-polygon widget: w-padic-newton */
+(function(){
+  var svg=document.getElementById('w-padic-newton-svg'), out=document.getElementById('w-padic-newton-out');
+  var sn=document.getElementById('w-padic-newton-n'), nv=document.getElementById('w-padic-newton-nv');
+  var chips=document.getElementById('w-padic-newton-chips'), presets=document.getElementById('w-padic-newton-presets');
+  if(!svg||!out||!sn||!chips||!presets) return;
+  var NS='http://www.w3.org/2000/svg';
+  function mk(tag,attrs,text){ var e=document.createElementNS(NS,tag); for(var k in attrs){ e.setAttribute(k,attrs[k]); } if(text!=null) e.textContent=text; return e; }
+  function txt(x,y,s,opt){ opt=opt||{}; svg.appendChild(mk('text',{x:x,y:y,'text-anchor':opt.anchor||'start','font-size':opt.size||12,fill:opt.fill||'var(--ink)','font-weight':opt.weight||'normal'},s)); }
+  var INF=Infinity;
+  var val=[1,0,INF,0];
+  var CYC=[0,1,2,3,INF];
+  function gcd(a,b){ a=Math.abs(a); b=Math.abs(b); while(b){ var t=b; b=a%b; a=t; } return a; }
+  function lowerHull(pts){ var h=[]; for(var k=0;k<pts.length;k++){ while(h.length>=2){ var a=h[h.length-2],b=h[h.length-1],c=pts[k]; var cr=(b[0]-a[0])*(c[1]-a[1])-(b[1]-a[1])*(c[0]-a[0]); if(cr<=0) h.pop(); else break; } h.push(pts[k]); } return h; }
+  function buildChips(){
+    var n=parseInt(sn.value,10); chips.innerHTML='';
+    for(var i=0;i<=n;i++){ (function(i){
+      var endpoint=(i===0||i===n);
+      var b=document.createElement('button'); b.type='button';
+      var fin=isFinite(val[i]);
+      b.style.cssText='padding:.12rem .5rem;border-radius:6px;background:var(--panel2);cursor:pointer;font-size:12px;border:1px solid '+(fin?'var(--cyan)':'var(--line)')+';color:'+(fin?'var(--cyan)':'var(--mute)');
+      b.innerHTML = fin ? ('v(a<sub>'+i+'</sub>)='+val[i]) : ('a<sub>'+i+'</sub>=0');
+      b.setAttribute('aria-label','cycle valuation of coefficient a'+i);
+      b.addEventListener('click', function(){
+        var cur=CYC.indexOf(val[i]); var nx=CYC[(cur+1)%CYC.length];
+        if(endpoint && nx===INF) nx=CYC[(cur+2)%CYC.length];
+        val[i]=nx; buildChips(); draw();
+      });
+      chips.appendChild(b);
+    })(i); }
+  }
+  function frac(num,den){ var g=gcd(num,den)||1; var nn=num/g, dd=den/g; return dd===1 ? (''+nn) : (nn+'/'+dd); }
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    var n=parseInt(sn.value,10); nv.textContent='n = '+n;
+    var pts=[], maxv=2; for(var i=0;i<=n;i++){ if(isFinite(val[i])){ pts.push([i,val[i]]); if(val[i]>maxv) maxv=val[i]; } }
+    var PX0=56, PX1=400, PY0=44, PYB=246;
+    function X(i){ return PX0 + i/n*(PX1-PX0); }
+    function Y(v){ return PYB - v/maxv*(PYB-PY0); }
+    svg.appendChild(mk('line',{x1:PX0,y1:PYB,x2:PX1,y2:PYB,stroke:'var(--line)','stroke-width':1}));
+    svg.appendChild(mk('line',{x1:PX0,y1:PY0,x2:PX0,y2:PYB,stroke:'var(--line)','stroke-width':1}));
+    for(var gi=0;gi<=n;gi++){ txt(X(gi), PYB+16, ''+gi, {size:9, fill:'var(--mute)', anchor:'middle'}); }
+    for(var gv=0;gv<=maxv;gv++){ txt(PX0-8, Y(gv)+3, ''+gv, {size:9, fill:'var(--mute)', anchor:'end'}); svg.appendChild(mk('line',{x1:PX0-3,y1:Y(gv),x2:PX0,y2:Y(gv),stroke:'var(--line)','stroke-width':1})); }
+    txt((PX0+PX1)/2, PYB+30, 'i  (coefficient index)', {size:10, fill:'var(--mute)', anchor:'middle'});
+    txt(PX0-30, PY0-8, 'v_p(a_i)', {size:10, fill:'var(--mute)', anchor:'start'});
+    for(i=0;i<=n;i++){ if(isFinite(val[i])){ svg.appendChild(mk('circle',{cx:X(i),cy:Y(val[i]),r:3.5,fill:'var(--mute)'})); } else { txt(X(i), PY0-2, '\u221e', {size:11, fill:'var(--line)', anchor:'middle'}); } }
+    var hull=lowerHull(pts);
+    var d=''; for(var hI=0;hI<hull.length;hI++){ d+=(hI?'L ':'M ')+X(hull[hI][0])+' '+Y(hull[hI][1])+' '; }
+    svg.appendChild(mk('path',{d:d, fill:'none', stroke:'var(--cyan)','stroke-width':2.4}));
+    for(hI=0;hI<hull.length;hI++){ svg.appendChild(mk('circle',{cx:X(hull[hI][0]),cy:Y(hull[hI][1]),r:5,fill:'var(--yellow)',stroke:'var(--bg)','stroke-width':1})); }
+    var segs=[]; for(var j=0;j+1<hull.length;j++){ var dx=hull[j+1][0]-hull[j][0], dy=hull[j+1][1]-hull[j][1]; segs.push({len:dx, drop:-dy}); var mx=(X(hull[j][0])+X(hull[j+1][0]))/2, my=(Y(hull[j][1])+Y(hull[j+1][1]))/2; var slbl=(dy===0)?'0':('\u2212'+frac(-dy,dx)); txt(mx, my-8, 'slope '+slbl, {size:9, fill:'var(--cyan)', anchor:'middle'}); }
+    var TX=418, ty=52;
+    txt(TX, ty, 'roots in Q\u0304_p:', {size:10, fill:'var(--mute)'}); ty+=18;
+    segs.forEach(function(s){ txt(TX, ty, '\u2022 '+s.len+' of val '+frac(s.drop,s.len), {size:11, fill:'var(--yellow)'}); ty+=16; });
+    ty+=8; txt(TX, ty, 'total: '+n+' roots', {size:10, fill:'var(--mute)'});
+    var note='', eisen=false;
+    if(segs.length===1){ var s0=segs[0]; if(s0.len===n && s0.drop>0 && (s0.drop % n !==0) && gcd(s0.drop,n)===1){ eisen=true; note='Single slope \u2212'+frac(s0.drop,n)+' with gcd('+s0.drop+','+n+')=1: all roots share valuation '+frac(s0.drop,n)+' \u2209 \u2124, so f is irreducible over Q_p (Eisenstein-type).'; } }
+    out.textContent = 'Plot (i, v_p(a_i)) for each coefficient and take the LOWER convex hull (cyan, vertices yellow): that is the Newton polygon of f. Each segment of (geometric) slope \u2212m and horizontal length \u2113 corresponds to exactly \u2113 roots of f in the algebraic closure of valuation m \u2014 the slopes read off the root valuations without solving f. '+(segs.map(function(s){return s.len+' root'+(s.len===1?'':'s')+' of valuation '+frac(s.drop,s.len);}).join('; '))+'. '+(eisen?note:'A single segment from (0,h) to (n,0) of slope \u22121/n gives the Eisenstein irreducibility test.')+' Newton polygons factor f over Q_p by valuation strata and feed the e,f ramification computation in the next section.';
+  }
+  function applyPreset(p){
+    if(p==='cubic'){ sn.value='3'; val=[1,0,INF,0]; }
+    else if(p==='eis'){ sn.value='4'; val=[1,1,2,1,0]; }
+    else if(p==='two'){ sn.value='4'; val=[2,1,0,0,0]; }
+    buildChips(); draw();
+  }
+  Array.prototype.forEach.call(presets.querySelectorAll('button'), function(b){ b.addEventListener('click', function(){
+    Array.prototype.forEach.call(presets.querySelectorAll('button'), function(x){ var on=(x===b); x.classList.toggle('active',on); x.setAttribute('aria-pressed', on?'true':'false'); });
+    applyPreset(b.getAttribute('data-pre'));
+  }); });
+  sn.addEventListener('input', function(){ var n=parseInt(sn.value,10); while(val.length<=n) val.push(0); val=val.slice(0,n+1); if(!isFinite(val[0])) val[0]=1; if(!isFinite(val[n])) val[n]=0; buildChips(); draw(); });
+  buildChips(); draw();
+})();
+</script>
+
 <div class="quiz" data-concept="newton-polygons"></div><!-- callback-auto-begin -->
 <aside class="callback">
   <div class="ttl">See also</div>
@@ -1000,6 +1092,93 @@ Since $f'(x_n)$ is a unit mod $p$, this is well-defined in $\mathbb{Z}_p$; a Tay
 <p><strong>Krasner's lemma.</strong> If $\alpha\in\overline{\mathbb{Q}_p}$ has conjugates $\alpha=\alpha_1,\ldots,\alpha_n$ over $\mathbb{Q}_p$ and $\beta$ satisfies $|\beta-\alpha|<|\alpha-\alpha_i|$ for $i\ge 2$, then $\mathbb{Q}_p(\alpha)\subseteq \mathbb{Q}_p(\beta)$. The corollary used everywhere: two Eisenstein polynomials of the same degree whose coefficients are sufficiently close $p$-adically define the <em>same</em> extension. Roots are continuous in coefficients, and the assignment polynomial $\mapsto$ extension factors through a small open ball.</p>
 
 <div class="note"><strong>Looking ahead.</strong> Local class field theory packages all abelian extensions of $\mathbb{Q}_p$ into the units $\mathbb{Z}_p^\times$ via the local reciprocity map $\mathbb{Q}_p^\times \to \Gal(\mathbb{Q}_p^{ab}/\mathbb{Q}_p)$. Newton polygons and the $e,f$ decomposition are the local computations that feed it.</div>
+
+<div class="widget" id="w-padic-ram">
+  <div class="hd"><div class="ttl">Ramification of extensions of $\mathbb{Q}_p$</div><div class="hint">set e and f; tame ⟺ gcd(e,p)=1</div></div>
+  <div class="row" id="w-padic-ram-pbox" role="group" aria-label="prime p">
+    <span class="note">prime $p$:</span>
+    <button type="button" data-p="2" class="active" aria-pressed="true">2</button>
+    <button type="button" data-p="3" aria-pressed="false">3</button>
+    <button type="button" data-p="5" aria-pressed="false">5</button>
+  </div>
+  <div class="row">
+    <label for="w-padic-ram-e">ramification index $e$</label>
+    <input type="range" id="w-padic-ram-e" min="1" max="6" value="2" step="1">
+    <span class="pill" id="w-padic-ram-ev">e = 2</span>
+    <label for="w-padic-ram-f">residue degree $f$</label>
+    <input type="range" id="w-padic-ram-f" min="1" max="4" value="1" step="1">
+    <span class="pill" id="w-padic-ram-fv">f = 1</span>
+  </div>
+  <div class="row" id="w-padic-ram-presets" role="group" aria-label="preset extension">
+    <button type="button" data-pre="unram">unramified</button>
+    <button type="button" data-pre="tame">tame totally ramified</button>
+    <button type="button" data-pre="wild">wild ($\mathbb{Q}_2(i)$)</button>
+  </div>
+  <svg id="w-padic-ram-svg" viewBox="0 0 560 300" width="560" height="300" role="img" aria-label="The tower Q_p inside L-unramified inside L, with the unramified degree f and totally ramified degree e"><title>Extension tower Q_p ⊆ L^ur ⊆ L: an unramified step of degree f then a totally ramified step of degree e, with ef the total degree</title></svg>
+  <div class="readout" id="w-padic-ram-out"></div>
+</div>
+<script>
+/* padic-ramification-tower widget: w-padic-ram */
+(function(){
+  var svg=document.getElementById('w-padic-ram-svg'), out=document.getElementById('w-padic-ram-out');
+  var se=document.getElementById('w-padic-ram-e'), sf=document.getElementById('w-padic-ram-f');
+  var ev=document.getElementById('w-padic-ram-ev'), fv=document.getElementById('w-padic-ram-fv');
+  var pbox=document.getElementById('w-padic-ram-pbox'), presets=document.getElementById('w-padic-ram-presets');
+  if(!svg||!out||!se||!sf||!pbox||!presets) return;
+  var NS='http://www.w3.org/2000/svg';
+  function mk(tag,attrs,text){ var e=document.createElementNS(NS,tag); for(var k in attrs){ e.setAttribute(k,attrs[k]); } if(text!=null) e.textContent=text; return e; }
+  function txt(x,y,s,opt){ opt=opt||{}; svg.appendChild(mk('text',{x:x,y:y,'text-anchor':opt.anchor||'middle','font-size':opt.size||12,fill:opt.fill||'var(--ink)','font-weight':opt.weight||'normal'},s)); }
+  var SUP=['\u2070','\u00b9','\u00b2','\u00b3','\u2074','\u2075','\u2076','\u2077','\u2078','\u2079'];
+  function sup(n){ var s=''+n, o=''; for(var i=0;i<s.length;i++) o+=SUP[+s[i]]; return o; }
+  var p=2;
+  function gcd(a,b){ while(b){ var t=b; b=a%b; a=t; } return a; }
+  function node(cx,cy,w,label,fill){ svg.appendChild(mk('rect',{x:cx-w/2,y:cy-15,width:w,height:30,rx:7,fill:'var(--panel)',stroke:fill,'stroke-width':1.6})); txt(cx,cy+5,label,{size:13,fill:fill,weight:600}); }
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    var e=parseInt(se.value,10), f=parseInt(sf.value,10);
+    ev.textContent='e = '+e; fv.textContent='f = '+f;
+    var n=e*f, wild=(e%p===0), tame=!wild;
+    var cx=180, yB=246, yM=150, yT=54;
+    svg.appendChild(mk('line',{x1:cx,y1:yB-15,x2:cx,y2:yM+15,stroke:(f>1?'var(--cyan)':'var(--line)'),'stroke-width':(f>1?2.2:1.2)}));
+    svg.appendChild(mk('line',{x1:cx,y1:yM-15,x2:cx,y2:yT+15,stroke:(e>1?'var(--pink)':'var(--line)'),'stroke-width':(e>1?2.2:1.2)}));
+    txt(cx+70, (yB+yM)/2, 'degree f = '+f, {size:11, fill:'var(--cyan)', anchor:'start'});
+    txt(cx+70, (yB+yM)/2+15, f===1?'(unramified: trivial)':'unramified', {size:9, fill:'var(--mute)', anchor:'start'});
+    txt(cx+70, (yM+yT)/2, 'degree e = '+e, {size:11, fill:'var(--pink)', anchor:'start'});
+    txt(cx+70, (yM+yT)/2+15, e===1?'(totally ramified: trivial)':'totally ramified', {size:9, fill:'var(--mute)', anchor:'start'});
+    node(cx, yB, 80, 'Q_p', 'var(--ink)');
+    node(cx, yM, 120, 'L^ur', 'var(--cyan)');
+    node(cx, yT, 80, 'L', 'var(--pink)');
+    txt(cx, yB+34, 'residue F_p', {size:9, fill:'var(--mute)'});
+    txt(cx, yM+34, 'residue F_p'+(f>1?sup(f):''), {size:9, fill:'var(--cyan)'});
+    txt(cx, yT-26, 'uniformizer \u03c0'+(e>1?', \u03c0'+sup(e)+'~p':''), {size:9, fill:'var(--pink)'});
+    var TX=350, ty=44;
+    txt(TX, ty, '[L : Q_p] = e\u00b7f', {size:11, fill:'var(--mute)', anchor:'start'}); ty+=20;
+    txt(TX, ty, '= '+e+'\u00b7'+f+' = '+n, {size:14, fill:'var(--ink)', weight:700, anchor:'start'}); ty+=28;
+    txt(TX, ty, 'residue field F_p'+(f>1?sup(f):''), {size:11, fill:'var(--cyan)', anchor:'start'}); ty+=18;
+    txt(TX, ty, 'ram. index e = v_L(p) = '+e, {size:10, fill:'var(--mute)', anchor:'start'}); ty+=28;
+    txt(TX, ty, tame?'TAMELY ramified':'WILDLY ramified', {size:13, fill: tame?'var(--green)':'var(--pink)', weight:700, anchor:'start'}); ty+=18;
+    txt(TX, ty, 'gcd(e,p) = gcd('+e+','+p+') = '+gcd(e,p), {size:10, fill:'var(--mute)', anchor:'start'}); ty+=15;
+    txt(TX, ty, tame?'(p does not divide e)':'(p divides e)', {size:9, fill:'var(--mute)', anchor:'start'});
+    var cls = e===1 ? 'unramified (e=1): L = L^ur is the unramified extension of degree f, gotten by lifting the residue extension F_p'+sup(f)+'/F_p.' : (f===1 ? 'totally ramified (f=1): L/Q_p is generated by an Eisenstein uniformizer \u03c0 with \u03c0'+sup(e)+' ~ p.' : 'mixed: an unramified step of degree '+f+' followed by a totally ramified step of degree '+e+'.');
+    out.textContent = 'A finite extension L/Q_p has a ramification index e = v_L(p) and a residue degree f = [residue field : F_p], satisfying ef = [L:Q_p] = '+n+'. It factors canonically as Q_p \u2286 L^ur \u2286 L: the maximal unramified subextension L^ur has degree f (residue field F_p'+sup(f)+', lifted from F_p'+sup(f)+'/F_p), and L/L^ur is totally ramified of degree e, generated by an Eisenstein uniformizer. '+cls+' The extension is '+(tame?'TAMELY ramified because gcd(e,p)=1':'WILDLY ramified because p='+p+' divides e='+e)+'. Wild ramification is genuinely p-adic \u2014 e.g. Q_p(\u03b6_{p\u207f})/Q_p is totally ramified of degree p^(n\u22121)(p\u22121) and wild for n\u22652.';
+  }
+  Array.prototype.forEach.call(pbox.querySelectorAll('button'), function(b){ b.addEventListener('click', function(){
+    p=parseInt(b.getAttribute('data-p'),10);
+    Array.prototype.forEach.call(pbox.querySelectorAll('button'), function(x){ var on=(x===b); x.classList.toggle('active',on); x.setAttribute('aria-pressed', on?'true':'false'); });
+    draw();
+  }); });
+  function setP(np){ p=np; Array.prototype.forEach.call(pbox.querySelectorAll('button'), function(x){ var on=(+x.getAttribute('data-p')===np); x.classList.toggle('active',on); x.setAttribute('aria-pressed', on?'true':'false'); }); }
+  Array.prototype.forEach.call(presets.querySelectorAll('button'), function(b){ b.addEventListener('click', function(){
+    var pre=b.getAttribute('data-pre');
+    if(pre==='unram'){ setP(3); se.value='1'; sf.value='2'; }
+    else if(pre==='tame'){ setP(5); se.value='3'; sf.value='1'; }
+    else if(pre==='wild'){ setP(2); se.value='2'; sf.value='1'; }
+    draw();
+  }); });
+  se.addEventListener('input', draw); sf.addEventListener('input', draw);
+  draw();
+})();
+</script>
 
 <!-- callback-auto-begin -->
 <aside class="callback">

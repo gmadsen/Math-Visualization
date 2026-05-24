@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/padic-ramification-tower/schema.json",
+  "title": "padic-ramification-tower widget params",
+  "description": "The ramification data of a finite extension L/Q_p. Pick the prime p and the two invariants — ramification index e and residue degree f — with steppers; the widget draws the canonical tower Q_p ⊆ L^ur ⊆ L, where L^ur is the maximal unramified subextension (degree f, residue field F_{p^f}) and L/L^ur is totally ramified of degree e (Eisenstein uniformizer π). It reports the fundamental identity ef=[L:Q_p], the residue field, and classifies the extension as tamely ramified (gcd(e,p)=1) or wildly ramified (p∣e). Presets show an unramified, a tamely totally-ramified, and a wild (Q_2(i)-type) example.",
+  "meta": {
+    "family": "padic-ramification-tower",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\"> wrapper."
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title rendered inside .hd > .ttl."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional short hint rendered inside .hd > .hint."
+    }
+  }
+}
