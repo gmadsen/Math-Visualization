@@ -3,10 +3,10 @@
 ## Corpus totals
 
 - Topics: **207**, concepts: **1422**
-- Widgets: **1555** (registry-driven: 1555, inline: 0)
+- Widgets: **1556** (registry-driven: 1556, inline: 0)
 - Quizzes: **5458** (v1: 4222, hard: 1223, expert: 13)
 - Quiz types: mcq: 3591, numeric: 1291, multi-select: 277, matching: 107, ordering: 85, spot-the-error: 53, complex: 29, proof-completion: 21, construction: 2, guess-my-rule: 2
-- Concepts lacking a widget in their section: **46**
+- Concepts lacking a widget in their section: **45**
 - Concepts lacking a hard-tier quiz: **984**
 
 ## Per-slug registry adoption
@@ -926,6 +926,7 @@ page has wired one in yet.
 | `symplectic-floer-intersections` | symplectic-floer-intersections | drag | 2d | 1 | symplectic-manifolds |
 | `symplectic-form-pairing` | symplectic-form-pairing | drag | 2d | 1 | symplectic-manifolds |
 | `symplectic-harmonic-portrait` | symplectic-harmonic-portrait | slider | 2d | 1 | symplectic-manifolds |
+| `tda-interval-decomposition` | tda-interval-decomposition | slider | 2d | 1 | topological-data-analysis |
 | `tda-w1` | verbatim | slider | 2d | 1 | topological-data-analysis |
 | `tda-w2` | verbatim | interact | 2d | 1 | topological-data-analysis |
 | `tda-w3` | verbatim | slider | 2d | 1 | topological-data-analysis |
@@ -1107,10 +1108,10 @@ page has wired one in yet.
 ### Learning theory & data science
 
 - Topics: **9**, concepts: **56**
-- Widgets: **55** (registry-driven: 55, inline: 0)
-  - by family: parametric-plot: 42, slider-readout: 7, verbatim: 6
-  - by dimension: 2d: 55
-  - by gesture: slider: 53, interact: 1, click: 1
+- Widgets: **56** (registry-driven: 56, inline: 0)
+  - by family: parametric-plot: 42, slider-readout: 7, verbatim: 6, tda-interval-decomposition: 1
+  - by dimension: 2d: 56
+  - by gesture: slider: 54, interact: 1, click: 1
 - Quizzes: **166** (v1: 166, hard: 0, expert: 0)
   - by type: mcq: 117, numeric: 25, multi-select: 17, ordering: 6, matching: 1
 
@@ -1132,7 +1133,7 @@ page has wired one in yet.
 - `positive-characteristic-ag` (Algebraic geometry) — concepts=7, widgets=9 (slug=9), quiz=21 (v1=21, hard=0, expert=0)
 - `convex-optimization` (Control theory & optimization) — concepts=7, widgets=8 (slug=8), quiz=21 (v1=21, hard=0, expert=0)
 - `convex-geometry` (Geometry & topology) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
-- `topological-data-analysis` (Learning theory & data science) — concepts=7, widgets=6 (slug=6), quiz=21 (v1=21, hard=0, expert=0)
+- `topological-data-analysis` (Learning theory & data science) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
 - `mathematical-chaos` (Analysis) — concepts=7, widgets=9 (slug=9), quiz=21 (v1=21, hard=0, expert=0)
 - `kalman-filtering-and-state-estimation` (Control theory & optimization) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `statistical-learning-theory` (Learning theory & data science) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
@@ -1328,7 +1329,6 @@ page has wired one in yet.
 
 ### Concepts missing a widget in their owning section (top 20)
 
-- `structure-theorem-decomposition` (topological-data-analysis)
 - `scv-pseudoconvex` (several-complex-variables)
 - `algebraic-correspondences` (motives)
 - `tate-twist` (motives)
@@ -1348,6 +1348,7 @@ page has wired one in yet.
 - `ros-applications` (resolution-of-singularities)
 - `kp-vassiliev-invariants` (knot-polynomials)
 - `kp-khovanov-homology` (knot-polynomials)
+- `simply-connected` (algebraic-topology)
 
 ### Concepts missing a hard-tier quiz (top 20)
 

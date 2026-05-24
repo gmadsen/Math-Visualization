@@ -179,6 +179,27 @@
           "html": "<section id=\"decomposition\">\n<h2>5. Structure theorem — barcodes are the complete invariant</h2>\n\n<p>What does a persistence module <em>look like</em> as an algebraic object? The classification is clean.</p>\n\n<p>For each interval $[b, d) \\subset \\mathbb{R}$ (allowing $d = +\\infty$), the <strong>interval module</strong> $\\mathbb{I}[b,d)$ is the persistence module that assigns $k$ to every $t \\in [b,d)$ and $0$ elsewhere, with all transition maps either the identity or zero. Pictorially, $\\mathbb{I}[b,d)$ is a single bar from $b$ to $d$.</p>\n\n<div class=\"note\"><strong>Structure theorem (Crawley-Boevey, Zomorodian–Carlsson).</strong> Every <em>pointwise-finite-dimensional</em> persistence module $M$ over a field decomposes uniquely (up to reordering) as a direct sum of interval modules:\n$$M \\;\\cong\\; \\bigoplus_{\\alpha} \\mathbb{I}[b_\\alpha, d_\\alpha).$$\nThe multiset $\\{(b_\\alpha, d_\\alpha)\\}$ is the persistence diagram of $M$.</div>\n\n<p>The persistence diagram is therefore a <strong>complete invariant</strong>: two pointwise-finite persistence modules are isomorphic iff their diagrams are equal as multisets. No hidden algebraic data beyond the bars.</p>\n\n<p>The proof goes via the category of finitely-presented graded modules over $k[t]$ — the same machinery as the structure theorem for finitely generated modules over a PID. The algebraic punchline is that $k[t]$ is a PID, and the indecomposable summands of a finitely generated graded $k[t]$-module are exactly the interval modules.</p>\n\n<p>The multi-parameter generalization is genuinely harder: a persistence module indexed by $\\mathbb{R}^2$ (e.g. density + scale) does not decompose into rectangles — there is no analogous structure theorem in two or more parameters. This is the active <strong>multi-parameter persistence</strong> frontier.</p>\n\n"
         },
         {
+          "type": "widget",
+          "slug": "tda-interval-decomposition",
+          "params": {
+            "widgetId": "w-tda-decomp",
+            "title": "Structure theorem: the barcode as a complete invariant",
+            "hint": "drag the threshold; watch components born/merge and the bars grow"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-tda-decomp"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
           "type": "quiz",
           "concept": "structure-theorem-decomposition",
           "html": "<div class=\"quiz\" data-concept=\"structure-theorem-decomposition\"></div>"

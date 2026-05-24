@@ -19007,6 +19007,24 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "tda-interval-decomposition",
+    "family": "tda-interval-decomposition",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "tda-interval-decomposition widget params",
+    "description": "The structure theorem for persistence modules, made concrete by H₀ sublevel-set persistence of a 1-D function. As a threshold t sweeps upward, the sublevel set {f≤t} gains a connected component at each local minimum and loses one at each local maximum (the younger component dies — the elder rule). The widget plots f with the sweeping threshold and the current sublevel components, and builds the barcode: the multiset of birth–death intervals. By the structure theorem (Crawley-Boevey, Zomorodian–Carlsson) the persistence module decomposes uniquely as ⊕𝕀[b,d), so the barcode is a complete invariant; dim M_t equals the number of bars alive at t, and a bar's length is the feature's persistence (long = significant, short = noise).",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Bespoke widget for `topological-data-analysis.html` (§5 *Structure theorem — barcodes are the complete invariant*, concept `structure-theorem-decomposition`). It makes the structure theorem for persistence modules concrete through **H₀ sublevel-set persistence** of a fixed 1-D function. Single module, not part of a shared family.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "tda-w1",
     "family": "verbatim",
     "dimension": "2d",

@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/tda-interval-decomposition/schema.json",
+  "title": "tda-interval-decomposition widget params",
+  "description": "The structure theorem for persistence modules, made concrete by H₀ sublevel-set persistence of a 1-D function. As a threshold t sweeps upward, the sublevel set {f≤t} gains a connected component at each local minimum and loses one at each local maximum (the younger component dies — the elder rule). The widget plots f with the sweeping threshold and the current sublevel components, and builds the barcode: the multiset of birth–death intervals. By the structure theorem (Crawley-Boevey, Zomorodian–Carlsson) the persistence module decomposes uniquely as ⊕𝕀[b,d), so the barcode is a complete invariant; dim M_t equals the number of bars alive at t, and a bar's length is the feature's persistence (long = significant, short = noise).",
+  "meta": {
+    "family": "tda-interval-decomposition",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\"> wrapper."
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title rendered inside .hd > .ttl."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional short hint rendered inside .hd > .hint."
+    }
+  }
+}
