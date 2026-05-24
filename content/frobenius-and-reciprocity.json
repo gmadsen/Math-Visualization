@@ -115,6 +115,27 @@
           "html": "<section id=\"splitting\">\n<h2>3. Splitting types: completely split, inert, partially split</h2>\n<p>Before we name the group-theoretic reason, let us name the patterns. For an unramified rational prime $p$ in a Galois extension $K/\\mathbb{Q}$ of degree $n=[K:\\mathbb{Q}]$, the factorisation\n$$ p\\,\\mathcal{O}_K \\;=\\; \\mathfrak{P}_1\\,\\mathfrak{P}_2\\cdots \\mathfrak{P}_r, \\qquad f := [\\mathcal{O}_K/\\mathfrak{P}_i : \\mathbb{F}_p], \\qquad r f = n $$\nhas every prime sharing the same residue degree $f$: in a Galois extension the Galois group $G$ permutes the primes above $p$ transitively, so $r$ and $f$ are the same for all $i$. The pair $(r,f)$ with $rf=n$ is the <strong>splitting type</strong> of $p$ in $K$.</p>\n\n<p>Three qualitative cases, each with its own name and flavour:</p>\n<ul>\n  <li><strong>Completely split:</strong> $r=n,\\ f=1$. The polynomial $\\bar f(x)$ factors into $n$ distinct linear factors over $\\mathbb{F}_p$; cycle shape $(1,1,\\dots,1)$. Frobenius is the identity.</li>\n  <li><strong>Inert:</strong> $r=1,\\ f=n$. The prime $p$ stays prime in $\\mathcal{O}_K$; $\\bar f(x)$ is irreducible of degree $n$; cycle shape $(n)$. Frobenius is an $n$-cycle, of order $n$ in $G$.</li>\n  <li><strong>Partially split:</strong> $1 < r < n$, any intermediate shape compatible with $rf=n$.</li>\n  <li><strong>Ramified:</strong> one or more $e_i>1$, i.e. $p\\mid\\operatorname{disc}(f)$. The cycle-shape dictionary breaks; a finite set of exceptional primes.</li>\n</ul>\n\n<div class=\"note\">A useful mnemonic: completely split primes are the \"visible\" primes — they carry no Galois twist, so the field $K$ looks, at those primes, just like copies of $\\mathbb{F}_p$. Inert primes are the most \"twisted\" — the full Galois action at $p$ is realised by a single Frobenius generator of order $n$.</div>\n\n"
         },
         {
+          "type": "widget",
+          "slug": "fr-splitting-types",
+          "params": {
+            "widgetId": "w-fr-splitting",
+            "title": "Splitting types: split, inert, partially split",
+            "hint": "pick (r,f) with rf=n; Frobenius is r f-cycles"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-fr-splitting"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
           "type": "raw",
           "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./algebraic-number-theory.html#ramification\">Ideal factorization and ramification</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
@@ -272,6 +293,27 @@
         {
           "type": "raw",
           "html": "<section id=\"decomposition\">\n<h2>5. Decomposition and inertia groups</h2>\n<p>Frobenius did not fall out of the sky — it came from a subgroup. Fix a prime $\\mathfrak{P}\\subset\\mathcal{O}_K$ above $p$. Its <strong>decomposition group</strong> is the stabiliser\n$$ D(\\mathfrak{P}) \\;=\\; \\{\\, \\sigma \\in G : \\sigma(\\mathfrak{P}) = \\mathfrak{P}\\,\\} \\;\\le\\; G. $$\nBy the orbit–stabiliser theorem, $|D(\\mathfrak{P})| = |G|/r = ef$, where $r$ is the number of primes above $p$, $e$ is the ramification index, and $f$ is the residue degree. Every $\\sigma\\in D(\\mathfrak{P})$ descends to an automorphism of the residue field $\\mathcal{O}_K/\\mathfrak{P}$ over $\\mathbb{F}_p$, giving a natural map\n$$ \\pi_\\mathfrak{P}:\\ D(\\mathfrak{P}) \\;\\to\\; \\Gal\\!\\left((\\mathcal{O}_K/\\mathfrak{P})/\\mathbb{F}_p\\right) \\;\\cong\\; \\mathbb{Z}/f. $$\nThe kernel $I(\\mathfrak{P}) = \\ker \\pi_\\mathfrak{P}$ is the <strong>inertia subgroup</strong> at $\\mathfrak{P}$, of order $e$.</p>\n\n<p>Putting the two together yields a short exact sequence\n$$ 1 \\to I(\\mathfrak{P}) \\to D(\\mathfrak{P}) \\xrightarrow{\\ \\pi_\\mathfrak{P}\\ } \\Gal(\\mathbb{F}_{p^f}/\\mathbb{F}_p) \\to 1. $$\nAt an <em>unramified</em> prime $I(\\mathfrak{P})$ is trivial and $\\pi_\\mathfrak{P}$ is an isomorphism, so $D(\\mathfrak{P})$ is cyclic of order $f$. The <strong>Frobenius element</strong> $\\mathrm{Frob}_\\mathfrak{P}$ is exactly the preimage under $\\pi_\\mathfrak{P}$ of the $p$-power map $x\\mapsto x^p$ — the canonical generator of the residue-field Galois group. Conjugating by $g\\in G$ sends $\\mathfrak{P}$ to $g\\mathfrak{P}$ and carries $D(\\mathfrak{P})\\to D(g\\mathfrak{P})$, so changing the prime above $p$ conjugates both $D$ and Frobenius; only the conjugacy class $\\mathrm{Frob}_p\\subset G$ is canonical.</p>\n\n<div class=\"ok\">Summary: $D(\\mathfrak{P})$ is the local Galois group at $\\mathfrak{P}$, $I(\\mathfrak{P})$ measures ramification, and the quotient $D/I$ is the place where Frobenius lives. Cycle shapes, residue degrees, and decomposition subgroups are three views of the same data.</div>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "fr-decomposition",
+          "params": {
+            "widgetId": "w-fr-decomp",
+            "title": "Decomposition and inertia groups",
+            "hint": "set e, f, r; the tower and the SES 1→I→D→ℤ/f→1"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-fr-decomp"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
         },
         {
           "type": "raw",

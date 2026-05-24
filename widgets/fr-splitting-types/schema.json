@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/fr-splitting-types/schema.json",
+  "title": "fr-splitting-types widget params",
+  "description": "The splitting type of an unramified prime p in a Galois extension K/Q of degree n. Pick n and a divisor pair (r,f) with rf=n; the widget shows the factorization pO_K = P_1···P_r into r primes each of residue degree f, draws Frobenius as r disjoint f-cycles (its cycle shape on the n roots), and reports the factorization of f-bar(x) into r distinct degree-f irreducibles over F_p, the order f of Frobenius, and the name: completely split (r=n,f=1, Frob=identity), inert (r=1,f=n, Frob an n-cycle), or partially split.",
+  "meta": {
+    "family": "fr-splitting-types",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\"> wrapper."
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title rendered inside .hd > .ttl."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional short hint rendered inside .hd > .hint."
+    }
+  }
+}

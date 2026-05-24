@@ -3,10 +3,10 @@
 ## Corpus totals
 
 - Topics: **207**, concepts: **1422**
-- Widgets: **1547** (registry-driven: 1547, inline: 0)
+- Widgets: **1549** (registry-driven: 1549, inline: 0)
 - Quizzes: **5458** (v1: 4222, hard: 1223, expert: 13)
 - Quiz types: mcq: 3591, numeric: 1291, multi-select: 277, matching: 107, ordering: 85, spot-the-error: 53, complex: 29, proof-completion: 21, construction: 2, guess-my-rule: 2
-- Concepts lacking a widget in their section: **54**
+- Concepts lacking a widget in their section: **52**
 - Concepts lacking a hard-tier quiz: **984**
 
 ## Per-slug registry adoption
@@ -398,7 +398,9 @@ page has wired one in yet.
 | `fpt-lf` | verbatim | select | 2d | 1 | fixed-point-theorems |
 | `fpt-pl` | verbatim | slider | 2d | 1 | fixed-point-theorems |
 | `fpt-sc` | verbatim | click | 2d | 1 | fixed-point-theorems |
+| `fr-decomposition` | fr-decomposition | slider | 2d | 1 | frobenius-and-reciprocity |
 | `fr-dict` | verbatim | interact | 2d | 1 | frobenius-and-reciprocity |
+| `fr-splitting-types` | fr-splitting-types | click | 2d | 1 | frobenius-and-reciprocity |
 | `fr-tower` | verbatim | interact | 2d | 1 | frobenius-and-reciprocity |
 | `functional-analysis-banach-alaoglu` | functional-analysis-banach-alaoglu | interact | 2d | 1 | functional-analysis |
 | `functional-analysis-bigfour` | functional-analysis-bigfour | interact | 2d | 1 | functional-analysis |
@@ -1039,10 +1041,10 @@ page has wired one in yet.
 ### Number theory
 
 - Topics: **19**, concepts: **128**
-- Widgets: **155** (registry-driven: 155, inline: 0)
-  - by family: button-stepper: 66, verbatim: 39, clickable-diagram: 4, modular-arithmetic-clock: 4, input-form: 4, inline-code-cell: 4, declarative-host: 2, parametric-plot: 2, crypto-totient-units: 1, crypto-rsa-toy: 1, crypto-diffie-hellman: 1, crypto-ecc-points: 1, crypto-lwe-samples: 1, crypto-schnorr-protocol: 1, branching-proof-scrubber: 1, galois-normal-separable: 1, galois-primitive-element: 1, quad-recip-supplementary: 1, quad-recip-jacobi: 1, padic-newton-polygon: 1, padic-ramification-tower: 1, clickable-graph: 1, svg-illustration: 1, heights-naive-calculator: 1, heights-northcott-enumerator: 1, heights-weil-pullback: 1, heights-tate-averaging: 1, heights-mahler-measure: 1, heights-genus-growth: 1, heights-arakelov-decomposition: 1, counterexample-explorer: 1, ant-pnt-comparison: 1, ant-explicit-formula: 1, ant-zero-free-region: 1, ant-dirichlet-residue-wheel: 1, ant-sieve-truncation: 1, ant-bombieri-vinogradov: 1, proof-scrubber: 1
-  - by dimension: 2d: 155
-  - by gesture: click: 103, slider: 25, input: 8, select: 5, edit: 4, interactive: 2, interact: 2, drag: 1, button: 1, static: 1, branching-timeline: 1, read: 1, timeline: 1
+- Widgets: **157** (registry-driven: 157, inline: 0)
+  - by family: button-stepper: 66, verbatim: 39, clickable-diagram: 4, modular-arithmetic-clock: 4, input-form: 4, inline-code-cell: 4, declarative-host: 2, parametric-plot: 2, crypto-totient-units: 1, crypto-rsa-toy: 1, crypto-diffie-hellman: 1, crypto-ecc-points: 1, crypto-lwe-samples: 1, crypto-schnorr-protocol: 1, branching-proof-scrubber: 1, galois-normal-separable: 1, galois-primitive-element: 1, quad-recip-supplementary: 1, quad-recip-jacobi: 1, padic-newton-polygon: 1, padic-ramification-tower: 1, clickable-graph: 1, fr-splitting-types: 1, fr-decomposition: 1, svg-illustration: 1, heights-naive-calculator: 1, heights-northcott-enumerator: 1, heights-weil-pullback: 1, heights-tate-averaging: 1, heights-mahler-measure: 1, heights-genus-growth: 1, heights-arakelov-decomposition: 1, counterexample-explorer: 1, ant-pnt-comparison: 1, ant-explicit-formula: 1, ant-zero-free-region: 1, ant-dirichlet-residue-wheel: 1, ant-sieve-truncation: 1, ant-bombieri-vinogradov: 1, proof-scrubber: 1
+  - by dimension: 2d: 157
+  - by gesture: click: 104, slider: 26, input: 8, select: 5, edit: 4, interactive: 2, interact: 2, drag: 1, button: 1, static: 1, branching-timeline: 1, read: 1, timeline: 1
 - Quizzes: **564** (v1: 381, hard: 183, expert: 0)
   - by type: mcq: 375, numeric: 164, multi-select: 11, matching: 5, ordering: 4, complex: 3, spot-the-error: 1, guess-my-rule: 1
 
@@ -1267,7 +1269,7 @@ page has wired one in yet.
 - `algebraic-number-theory` (Number theory) — concepts=5, widgets=6 (slug=6), quiz=30 (v1=15, hard=15, expert=0)
 - `p-adic-numbers` (Number theory) — concepts=7, widgets=12 (slug=12), quiz=36 (v1=21, hard=15, expert=0)
 - `adeles-and-ideles` (Number theory) — concepts=5, widgets=5 (slug=5), quiz=30 (v1=15, hard=15, expert=0)
-- `frobenius-and-reciprocity` (Number theory) — concepts=5, widgets=9 (slug=9), quiz=30 (v1=15, hard=15, expert=0)
+- `frobenius-and-reciprocity` (Number theory) — concepts=5, widgets=11 (slug=11), quiz=30 (v1=15, hard=15, expert=0)
 - `class-field-theory` (Number theory) — concepts=6, widgets=8 (slug=8), quiz=36 (v1=18, hard=18, expert=0)
 - `heights-arithmetic-geometry` (Number theory) — concepts=10, widgets=10 (slug=10), quiz=30 (v1=30, hard=0, expert=0)
 - `analytic-number-theory` (Number theory) — concepts=10, widgets=10 (slug=10), quiz=30 (v1=30, hard=0, expert=0)

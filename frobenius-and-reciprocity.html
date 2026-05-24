@@ -641,6 +641,79 @@ has every prime sharing the same residue degree $f$: in a Galois extension the G
 
 <div class="note">A useful mnemonic: completely split primes are the "visible" primes — they carry no Galois twist, so the field $K$ looks, at those primes, just like copies of $\mathbb{F}_p$. Inert primes are the most "twisted" — the full Galois action at $p$ is realised by a single Frobenius generator of order $n$.</div>
 
+<div class="widget" id="w-fr-splitting">
+  <div class="hd"><div class="ttl">Splitting types: split, inert, partially split</div><div class="hint">pick (r,f) with rf=n; Frobenius is r f-cycles</div></div>
+  <div class="row">
+    <label for="w-fr-splitting-n">degree $n=[K:\mathbb{Q}]$</label>
+    <input type="range" id="w-fr-splitting-n" min="2" max="8" value="6" step="1">
+    <span class="pill" id="w-fr-splitting-nv">n = 6</span>
+  </div>
+  <div class="row"><span class="note">splitting type $(r,f)$ with $rf=n$:</span>
+    <span id="w-fr-splitting-pairs" style="display:inline-flex;gap:.35rem;flex-wrap:wrap"></span>
+  </div>
+  <svg id="w-fr-splitting-svg" viewBox="0 0 560 320" width="560" height="320" role="img" aria-label="The r primes above p drawn as r disjoint f-cycles of Frobenius"><title>Splitting type (r,f): p splits into r primes of residue degree f, and Frobenius acts as r disjoint f-cycles on the n roots</title></svg>
+  <div class="readout" id="w-fr-splitting-out"></div>
+</div>
+<script>
+/* fr-splitting-types widget: w-fr-splitting */
+(function(){
+  var svg=document.getElementById('w-fr-splitting-svg'), out=document.getElementById('w-fr-splitting-out');
+  var sn=document.getElementById('w-fr-splitting-n'), nv=document.getElementById('w-fr-splitting-nv');
+  var pairsBox=document.getElementById('w-fr-splitting-pairs');
+  if(!svg||!out||!sn||!pairsBox) return;
+  var NS='http://www.w3.org/2000/svg';
+  function mk(tag,attrs,text){ var e=document.createElementNS(NS,tag); for(var k in attrs){ e.setAttribute(k,attrs[k]); } if(text!=null) e.textContent=text; return e; }
+  function txt(x,y,s,opt){ opt=opt||{}; svg.appendChild(mk('text',{x:x,y:y,'text-anchor':opt.anchor||'middle','font-size':opt.size||12,fill:opt.fill||'var(--ink)','font-weight':opt.weight||'normal'},s)); }
+  var SUB=['\u2080','\u2081','\u2082','\u2083','\u2084','\u2085','\u2086','\u2087','\u2088'];
+  function sub(i){ var s=''+i,o=''; for(var k=0;k<s.length;k++) o+=SUB[+s[k]]; return o; }
+  var n=6, ri=2;
+  function divisors(m){ var o=[]; for(var d=1;d<=m;d++) if(m%d===0) o.push(d); return o; }
+  function ensureValid(){ if(n%ri!==0){ var ds=divisors(n); ri=ds[0]; } }
+  function buildPairs(){
+    pairsBox.innerHTML=''; var ds=divisors(n);
+    ds.forEach(function(r){ var f=n/r;
+      var b=document.createElement('button'); b.type='button'; var on=(r===ri);
+      b.style.cssText='padding:.1rem .5rem;border-radius:6px;background:var(--panel2);cursor:pointer;font-size:12px;border:1px solid '+(on?'var(--yellow)':'var(--line)')+';color:'+(on?'var(--yellow)':'var(--mute)')+';font-weight:'+(on?'700':'400');
+      b.textContent='('+r+','+f+')'; b.setAttribute('aria-pressed', on?'true':'false'); b.setAttribute('aria-label','splitting type r='+r+' f='+f);
+      b.addEventListener('click', function(){ ri=r; buildPairs(); draw(); });
+      pairsBox.appendChild(b);
+    });
+  }
+  function drawCycle(cx,cy,R,f,col){
+    if(f===1){ svg.appendChild(mk('circle',{cx:cx,cy:cy,r:4,fill:col})); return; }
+    var pos=[]; for(var k=0;k<f;k++){ var a=-Math.PI/2 + k*2*Math.PI/f; pos.push([cx+R*Math.cos(a), cy+R*Math.sin(a)]); }
+    for(k=0;k<f;k++){ var p0=pos[k], p1=pos[(k+1)%f];
+      var mx=(p0[0]+p1[0])/2, my=(p0[1]+p1[1])/2; var dx=p1[0]-p0[0], dy=p1[1]-p0[1], L=Math.hypot(dx,dy)||1; var ux=dx/L, uy=dy/L;
+      svg.appendChild(mk('line',{x1:p0[0],y1:p0[1],x2:p1[0],y2:p1[1],stroke:col,'stroke-width':1.3,'stroke-opacity':0.8}));
+      svg.appendChild(mk('path',{d:'M '+(mx)+' '+(my)+' L '+(mx-6*ux+3*uy)+' '+(my-6*uy-3*ux)+' L '+(mx-6*ux-3*uy)+' '+(my-6*uy+3*ux)+' Z', fill:col}));
+    }
+    for(k=0;k<f;k++){ svg.appendChild(mk('circle',{cx:pos[k][0],cy:pos[k][1],r:3.5,fill:col})); }
+  }
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    ensureValid(); nv.textContent='n = '+n; var r=ri, f=n/r;
+    var name = r===n ? 'completely split' : (r===1 ? 'inert' : 'partially split');
+    var col  = r===n ? 'var(--green)' : (r===1 ? 'var(--pink)' : 'var(--cyan)');
+    txt(280, 34, name+'   (r, f) = ('+r+', '+f+')', {size:14, fill:col, weight:700});
+    txt(280, 52, 'p\u00b7O_K = '+Array.from({length:r},function(_,i){return 'P'+sub(i+1);}).join(' ')+',   each residue degree f = '+f, {size:11, fill:'var(--mute)'});
+    var perRow=Math.min(r,4), rows=Math.ceil(r/perRow);
+    var cellW=440/perRow, cellH=Math.min(96,130/rows), x0=60, y0=110;
+    var R=Math.min(cellW,cellH)/2-22; if(R<10) R=10;
+    for(var i=0;i<r;i++){ var rr=Math.floor(i/perRow), cc=i%perRow; var cx=x0+cellW*cc+cellW/2, cy=y0+cellH*rr+cellH/2-6;
+      drawCycle(cx,cy,R,f,col);
+      txt(cx, cy+cellH/2-2, 'P'+sub(i+1)+' (f='+f+')', {size:10, fill:'var(--ink)'});
+    }
+    var by=y0+rows*cellH+18;
+    txt(280, by, 'Frobenius cycle shape on the '+n+' roots:  ('+Array(r).fill(f).join(', ')+')', {size:11, fill:'var(--ink)', weight:600});
+    txt(280, by+20, 'f\u0304(x) \u2261 '+(r===1?'one irreducible of degree '+f:r+' distinct irreducibles of degree '+f)+'  (mod p)', {size:10, fill:'var(--mute)'});
+    txt(280, by+38, 'order of Frob_p = lcm of cycle lengths = '+f, {size:10, fill:col});
+    out.textContent = 'For an unramified prime p in a Galois extension K/Q of degree n='+n+', p factors as p\u00b7O_K = '+(r===1?'P_1':(r===2?'P_1\u00b7P_2':'P_1\u00b7\u00b7\u00b7P_'+r))+' into r='+r+' prime'+(r===1?'':'s')+', all of the SAME residue degree f='+f+' (the Galois group permutes them transitively), with rf=n. This is the splitting type ('+r+','+f+'): '+name+'. Frobenius acts on the n roots of f as r disjoint f-cycles \u2014 cycle shape ('+Array(r).fill(f).join(',')+') \u2014 so f\u0304(x) factors mod p into '+(r===1?'one irreducible':r+' distinct irreducibles')+' of degree '+f+', and Frob_p has order '+f+'. '+(r===n?'Completely split: f\u0304 splits into n linear factors, Frobenius is the identity \u2014 K looks like copies of F_p here.':(r===1?'Inert: p stays prime, f\u0304 is irreducible of degree n, Frobenius is a single n-cycle generating G \u2014 the most twisted prime.':'Partially split: an intermediate shape with 1<r<n.'))+' (Ramified primes, where some e_i>1 and p | disc, are the finite exceptional set where this dictionary breaks.)';
+  }
+  sn.addEventListener('input', function(){ n=parseInt(sn.value,10); ensureValid(); buildPairs(); draw(); });
+  buildPairs(); draw();
+})();
+</script>
+
 <!-- callback-auto-begin -->
 <aside class="callback">
   <div class="ttl">See also</div>
@@ -791,6 +864,82 @@ $$ 1 \to I(\mathfrak{P}) \to D(\mathfrak{P}) \xrightarrow{\ \pi_\mathfrak{P}\ } 
 At an <em>unramified</em> prime $I(\mathfrak{P})$ is trivial and $\pi_\mathfrak{P}$ is an isomorphism, so $D(\mathfrak{P})$ is cyclic of order $f$. The <strong>Frobenius element</strong> $\mathrm{Frob}_\mathfrak{P}$ is exactly the preimage under $\pi_\mathfrak{P}$ of the $p$-power map $x\mapsto x^p$ — the canonical generator of the residue-field Galois group. Conjugating by $g\in G$ sends $\mathfrak{P}$ to $g\mathfrak{P}$ and carries $D(\mathfrak{P})\to D(g\mathfrak{P})$, so changing the prime above $p$ conjugates both $D$ and Frobenius; only the conjugacy class $\mathrm{Frob}_p\subset G$ is canonical.</p>
 
 <div class="ok">Summary: $D(\mathfrak{P})$ is the local Galois group at $\mathfrak{P}$, $I(\mathfrak{P})$ measures ramification, and the quotient $D/I$ is the place where Frobenius lives. Cycle shapes, residue degrees, and decomposition subgroups are three views of the same data.</div>
+
+<div class="widget" id="w-fr-decomp">
+  <div class="hd"><div class="ttl">Decomposition and inertia groups</div><div class="hint">set e, f, r; the tower and the SES 1→I→D→ℤ/f→1</div></div>
+  <div class="row">
+    <label for="w-fr-decomp-r">$r$</label>
+    <input type="range" id="w-fr-decomp-r" min="1" max="4" value="2" step="1">
+    <span class="pill" id="w-fr-decomp-rv">r = 2</span>
+    <label for="w-fr-decomp-f">$f$</label>
+    <input type="range" id="w-fr-decomp-f" min="1" max="4" value="2" step="1">
+    <span class="pill" id="w-fr-decomp-fv">f = 2</span>
+    <label for="w-fr-decomp-e">$e$</label>
+    <input type="range" id="w-fr-decomp-e" min="1" max="4" value="1" step="1">
+    <span class="pill" id="w-fr-decomp-ev">e = 1</span>
+  </div>
+  <div class="row" id="w-fr-decomp-presets" role="group" aria-label="preset">
+    <button type="button" data-pre="split">completely split</button>
+    <button type="button" data-pre="inert">inert</button>
+    <button type="button" data-pre="ram">ramified</button>
+  </div>
+  <svg id="w-fr-decomp-svg" viewBox="0 0 560 320" width="560" height="320" role="img" aria-label="The fixed-field tower Q, K^D, K^I, K and the short exact sequence relating inertia, decomposition, and the residue Galois group"><title>Decomposition tower Q ⊆ K^D ⊆ K^I ⊆ K with degrees r, f, e, and the exact sequence 1→I→D→Gal(F_{p^f}/F_p)→1</title></svg>
+  <div class="readout" id="w-fr-decomp-out"></div>
+</div>
+<script>
+/* fr-decomposition widget: w-fr-decomp */
+(function(){
+  var svg=document.getElementById('w-fr-decomp-svg'), out=document.getElementById('w-fr-decomp-out');
+  var sr=document.getElementById('w-fr-decomp-r'), sf=document.getElementById('w-fr-decomp-f'), se=document.getElementById('w-fr-decomp-e');
+  var rv=document.getElementById('w-fr-decomp-rv'), fv=document.getElementById('w-fr-decomp-fv'), ev=document.getElementById('w-fr-decomp-ev');
+  var presets=document.getElementById('w-fr-decomp-presets');
+  if(!svg||!out||!sr||!sf||!se) return;
+  var NS='http://www.w3.org/2000/svg';
+  function mk(tag,attrs,text){ var e=document.createElementNS(NS,tag); for(var k in attrs){ e.setAttribute(k,attrs[k]); } if(text!=null) e.textContent=text; return e; }
+  function txt(x,y,s,opt){ opt=opt||{}; svg.appendChild(mk('text',{x:x,y:y,'text-anchor':opt.anchor||'middle','font-size':opt.size||12,fill:opt.fill||'var(--ink)','font-weight':opt.weight||'normal'},s)); }
+  var SUP=['\u2070','\u00b9','\u00b2','\u00b3','\u2074'];
+  function node(cx,cy,w,label,col){ svg.appendChild(mk('rect',{x:cx-w/2,y:cy-14,width:w,height:28,rx:7,fill:'var(--panel)',stroke:col,'stroke-width':1.6})); txt(cx,cy+5,label,{size:12,fill:col,weight:600}); }
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    var r=parseInt(sr.value,10), f=parseInt(sf.value,10), e=parseInt(se.value,10);
+    rv.textContent='r = '+r; fv.textContent='f = '+f; ev.textContent='e = '+e;
+    var n=e*f*r, D=e*f, unram=(e===1);
+    var cx=130, yQ=270, yD=198, yI=126, yK=54;
+    svg.appendChild(mk('line',{x1:cx,y1:yQ-14,x2:cx,y2:yD+14,stroke:'var(--violet)','stroke-width':(r>1?2.2:1.2)}));
+    svg.appendChild(mk('line',{x1:cx,y1:yD-14,x2:cx,y2:yI+14,stroke:'var(--cyan)','stroke-width':(f>1?2.2:1.2)}));
+    svg.appendChild(mk('line',{x1:cx,y1:yI-14,x2:cx,y2:yK+14,stroke:'var(--pink)','stroke-width':(e>1?2.2:1.2)}));
+    node(cx,yQ,56,'Q','var(--ink)'); node(cx,yD,70,'K^D','var(--violet)'); node(cx,yI,68,'K^I','var(--cyan)'); node(cx,yK,52,'K','var(--pink)');
+    txt(cx+74,(yQ+yD)/2,'r = '+r,{size:11,fill:'var(--violet)',anchor:'start'}); txt(cx+74,(yQ+yD)/2+14,'(p splits into r)',{size:8,fill:'var(--mute)',anchor:'start'});
+    txt(cx+74,(yD+yI)/2,'f = '+f,{size:11,fill:'var(--cyan)',anchor:'start'}); txt(cx+74,(yD+yI)/2+14,'(residue / Frob)',{size:8,fill:'var(--mute)',anchor:'start'});
+    txt(cx+74,(yI+yK)/2,'e = '+e,{size:11,fill:'var(--pink)',anchor:'start'}); txt(cx+74,(yI+yK)/2+14,'(inertia / ramif.)',{size:8,fill:'var(--mute)',anchor:'start'});
+    txt(cx,yK-24,'fixed-field tower',{size:9,fill:'var(--mute)'});
+    var TX=300, ty=44;
+    txt(TX,ty,'|G| = n = e\u00b7f\u00b7r = '+e+'\u00b7'+f+'\u00b7'+r+' = '+n,{size:12,fill:'var(--ink)',weight:700,anchor:'start'}); ty+=26;
+    txt(TX,ty,'decomposition group D(P) = Stab_G(P)',{size:10,fill:'var(--mute)',anchor:'start'}); ty+=16;
+    txt(TX,ty,'|D| = e\u00b7f = |G|/r = '+D,{size:12,fill:'var(--violet)',weight:600,anchor:'start'}); ty+=14;
+    txt(TX,ty,'(orbit\u2013stabiliser: r = [G:D] primes)',{size:8,fill:'var(--mute)',anchor:'start'}); ty+=26;
+    txt(TX,ty,'inertia I(P) = ker(D \u2192 residue Gal)',{size:10,fill:'var(--mute)',anchor:'start'}); ty+=16;
+    txt(TX,ty,'|I| = e = '+e,{size:12,fill:'var(--pink)',weight:600,anchor:'start'}); ty+=24;
+    txt(TX,ty,'1 \u2192 I \u2192 D \u2192 Gal(F_p'+(f>1?SUP[f]||('^'+f):'')+'/F_p) \u2192 1',{size:11,fill:'var(--cyan)',anchor:'start'}); ty+=14;
+    txt(TX,ty,'with D/I \u2245 Z/'+f+' = where Frob lives',{size:9,fill:'var(--mute)',anchor:'start'}); ty+=24;
+    txt(TX,ty, unram?'\u2713 unramified (e=1): I trivial,':'ramified (e>1): I nontrivial,',{size:10,fill: unram?'var(--green)':'var(--pink)',weight:600,anchor:'start'}); ty+=14;
+    txt(TX,ty, unram?'D \u2245 Z/'+f+' cyclic, Frob generates it':'Frob generates only D/I',{size:9,fill:'var(--mute)',anchor:'start'});
+    out.textContent = 'Fix a prime P above p in a Galois extension K/Q with group G of order n = e\u00b7f\u00b7r = '+n+'. The decomposition group D(P) = {\u03c3\u2208G : \u03c3P = P} is the stabiliser of P; by orbit\u2013stabiliser |D| = |G|/r = ef = '+D+', since G permutes the r = '+r+' primes above p transitively. Each \u03c3\u2208D acts on the residue field O_K/P, giving D \u2192 Gal(F_p^f/F_p) \u2245 Z/f; its kernel is the inertia group I(P) of order e = '+e+', and the sequence 1\u2192I\u2192D\u2192Z/f\u21921 is exact. Fixed fields give the tower Q \u2286 K^D \u2286 K^I \u2286 K of degrees r, f, e: p splits into r primes up to K^D, picks up residue degree f (where Frobenius lives) up to K^I, then ramifies with index e up to K. '+(unram?'Here e=1 (unramified): I is trivial, D \u2245 Z/f is cyclic, and the Frobenius element \u2014 the preimage of x\u21a6x^p \u2014 generates D.':'Here e>1 (ramified): inertia I is nontrivial and Frobenius generates only the quotient D/I.')+' Changing the prime above p conjugates D and Frob, so only the conjugacy class Frob_p \u2282 G is canonical.';
+  }
+  function clearPresets(){ Array.prototype.forEach.call(presets.querySelectorAll('button'), function(x){ x.classList.remove('active'); x.setAttribute('aria-pressed','false'); }); }
+  function onSlide(){ clearPresets(); draw(); }
+  sr.addEventListener('input', onSlide); sf.addEventListener('input', onSlide); se.addEventListener('input', onSlide);
+  Array.prototype.forEach.call(presets.querySelectorAll('button'), function(b){ b.addEventListener('click', function(){
+    var pre=b.getAttribute('data-pre');
+    if(pre==='split'){ sr.value='4'; sf.value='1'; se.value='1'; }
+    else if(pre==='inert'){ sr.value='1'; sf.value='4'; se.value='1'; }
+    else if(pre==='ram'){ sr.value='2'; sf.value='1'; se.value='2'; }
+    Array.prototype.forEach.call(presets.querySelectorAll('button'), function(x){ var on=(x===b); x.classList.toggle('active',on); x.setAttribute('aria-pressed', on?'true':'false'); });
+    draw();
+  }); });
+  draw();
+})();
+</script>
 
 <!-- callback-auto-begin -->
 <aside class="callback">
