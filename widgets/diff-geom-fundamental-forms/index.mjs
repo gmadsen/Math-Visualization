@@ -46,15 +46,15 @@ export function renderScript(params) {
     `  var TAU=2*Math.PI;\n` +
     `  var SURF=[\n` +
     `    { name:'unit sphere', f:function(u,v){ return [Math.sin(u)*Math.cos(v), Math.sin(u)*Math.sin(v), Math.cos(u)]; }, ur:[0.3,Math.PI-0.3], vr:[0,TAU], sc:70,\n` +
-    `      EFG:[1,0,0.75], LMN:[1,0,0.75], ptlbl:'at latitude \\u03b8 = 60\\u00b0' },\n` +
+    `      EFG:[1,0,0.75], LMN:[-1,0,-0.75], ptlbl:'at latitude \\u03b8 = 60\\u00b0' },\n` +
     `    { name:'cylinder (r=1)', f:function(u,v){ return [Math.cos(u), Math.sin(u), v]; }, ur:[0,TAU], vr:[-1.4,1.4], sc:62,\n` +
     `      EFG:[1,0,1], LMN:[-1,0,0], ptlbl:'any point' },\n` +
-    `    { name:'saddle  z = \\u00bd(u\\u00b2 \\u2212 v\\u00b2)', f:function(u,v){ return [u, v, 0.5*(u*u-v*v)]; }, ur:[-1.3,1.3], vr:[-1.3,1.3], sc:58,\n` +
-    `      EFG:[1,0,1], LMN:[1,0,-1], ptlbl:'at the origin' },\n` +
+    `    { name:'saddle  z = u\\u00b2 \\u2212 v\\u00b2', f:function(u,v){ return [u, v, u*u-v*v]; }, ur:[-1.15,1.15], vr:[-1.15,1.15], sc:46,\n` +
+    `      EFG:[1,0,1], LMN:[2,0,-2], ptlbl:'at the origin' },\n` +
     `    { name:'plane', f:function(u,v){ return [u, v, 0]; }, ur:[-1.3,1.3], vr:[-1.3,1.3], sc:58,\n` +
     `      EFG:[1,0,1], LMN:[0,0,0], ptlbl:'any point' },\n` +
     `    { name:'torus (R=2, r=1)', f:function(u,v){ var R=2,r=1; return [(R+r*Math.cos(v))*Math.cos(u), (R+r*Math.cos(v))*Math.sin(u), r*Math.sin(v)]; }, ur:[0,TAU], vr:[0,TAU], sc:34,\n` +
-    `      EFG:[9,0,1], LMN:[3,0,1], ptlbl:'at the outer equator (v=0)' }\n` +
+    `      EFG:[9,0,1], LMN:[-3,0,-1], ptlbl:'at the outer equator (v=0)' }\n` +
     `  ];\n` +
     // oblique projection: x right, z up, y receding (down-left)
     `  var CX=150, CY=160;\n` +
@@ -68,7 +68,7 @@ export function renderScript(params) {
     `      for(i=0;i<=NU;i++){ var u2=S.ur[0]+(S.ur[1]-S.ur[0])*i/NU, q2=proj(S.f(u2,v2),S.sc); d2+=(i===0?'M ':'L ')+q2[0].toFixed(1)+' '+q2[1].toFixed(1)+' '; }\n` +
     `      lines.push(d2); }\n` +
     `    lines.forEach(function(d){ svg.appendChild(mk('path',{d:d,fill:'none',stroke:'var(--violet)','stroke-width':0.7,'stroke-opacity':0.5})); }); }\n` +
-    `  function fmt(x){ return (Math.round(x*1000)/1000).toString(); }\n` +
+    `  function fmt(x){ var r=Math.round(x*1000)/1000; if(r===0) r=0; return (r<0?'\\u2212':'')+Math.abs(r); }\n` +
     `  function mat(x,y,a,b,c,d,col){ // 2x2 bracketed matrix\n` +
     `    svg.appendChild(mk('path',{d:'M '+(x+5)+' '+y+' L '+x+' '+y+' L '+x+' '+(y+44)+' L '+(x+5)+' '+(y+44),stroke:col,'stroke-width':1.1,fill:'none'}));\n` +
     `    svg.appendChild(mk('path',{d:'M '+(x+75)+' '+y+' L '+(x+80)+' '+y+' L '+(x+80)+' '+(y+44)+' L '+(x+75)+' '+(y+44),stroke:col,'stroke-width':1.1,fill:'none'}));\n` +
@@ -89,10 +89,10 @@ export function renderScript(params) {
     `    txt(TX, 124, 'second form II', {size:11, fill:'var(--mute)'});\n` +
     `    mat(TX, 134, L,M,M,N, 'var(--yellow)'); txt(TX+92, 160, '= [[L,M],[M,N]]', {size:9, fill:'var(--mute)'});\n` +
     `    txt(TX, 208, 'K = (LN\\u2212M\\u00b2)/(EG\\u2212F\\u00b2) = '+fmt(K), {size:12, fill:'var(--green)', weight:600});\n` +
-    `    txt(TX, 230, 'H = (EN\\u22122FM+GL)/2(EG\\u2212F\\u00b2) = '+fmt(H), {size:12, fill:'var(--pink)', weight:600});\n` +
+    `    txt(TX, 230, 'H = (EN\\u22122FM+GL)/(2(EG\\u2212F\\u00b2)) = '+fmt(H), {size:12, fill:'var(--pink)', weight:600});\n` +
     `    var type = Math.abs(K)<1e-9?'parabolic / flat (K = 0)':(K>0?'elliptic  (K > 0): bowl-like':'hyperbolic  (K < 0): saddle-like');\n` +
     `    txt(TX, 256, type, {size:12, fill:'var(--ink)', weight:600});\n` +
-    `    out.textContent = 'On '+S.name+' '+S.ptlbl+', the first fundamental form I = [[ '+fmt(E)+', '+fmt(F)+' ],[ '+fmt(F)+', '+fmt(G)+' ]] is the induced metric (E = x_u\\u00b7x_u, F = x_u\\u00b7x_v, G = x_v\\u00b7x_v): it measures lengths, angles and areas of tangent vectors. The second fundamental form II = [[ '+fmt(L)+', '+fmt(M)+' ],[ '+fmt(M)+', '+fmt(N)+' ]] records how the unit normal turns (L = x_uu\\u00b7n, etc.) \\u2014 the bending into \\u211d\\u00b3. Their ratio of determinants is the Gaussian curvature K = (LN\\u2212M\\u00b2)/(EG\\u2212F\\u00b2) = '+fmt(K)+', and H = (EN\\u22122FM+GL)/(2(EG\\u2212F\\u00b2)) = '+fmt(H)+' is the mean curvature. '+(Math.abs(K)<1e-9?'K = 0 here \\u2014 the surface is flat in the Gaussian sense (a plane, or a developable like the cylinder which still bends, H \\u2260 0).':(K>0?'K > 0 \\u2014 the surface curves the same way in every direction (elliptic / bowl).':'K < 0 \\u2014 it curves up one way and down another (hyperbolic / saddle).'))+' By Gauss\\u2019s Theorema Egregium, K depends only on I \\u2014 it is intrinsic \\u2014 even though II is not.';\n` +
+    `    out.textContent = 'On '+S.name+' '+S.ptlbl+', the first fundamental form I = [[ '+fmt(E)+', '+fmt(F)+' ],[ '+fmt(F)+', '+fmt(G)+' ]] is the induced metric (E = x_u\\u00b7x_u, F = x_u\\u00b7x_v, G = x_v\\u00b7x_v): it measures lengths, angles and areas of tangent vectors. The second fundamental form II = [[ '+fmt(L)+', '+fmt(M)+' ],[ '+fmt(M)+', '+fmt(N)+' ]] records how the unit normal turns (L = x_uu\\u00b7n, etc.) \\u2014 the bending into \\u211d\\u00b3. Their ratio of determinants is the Gaussian curvature K = (LN\\u2212M\\u00b2)/(EG\\u2212F\\u00b2) = '+fmt(K)+', and H = (EN\\u22122FM+GL)/(2(EG\\u2212F\\u00b2)) = '+fmt(H)+' is the mean curvature. '+(Math.abs(K)<1e-9?'K = 0 here \\u2014 the surface is flat in the Gaussian sense (a plane, or a developable like the cylinder which still bends, H \\u2260 0).':(K>0?'K > 0 \\u2014 the surface curves the same way in every direction (elliptic / bowl).':'K < 0 \\u2014 it curves up one way and down another (hyperbolic / saddle).'))+' By Gauss\\u2019s Theorema Egregium, K depends only on I \\u2014 it is intrinsic \\u2014 even though II is not. (Sign convention: II and H are taken with the outward unit normal n = x_u\\u00d7x_v, matching \\u00a73; choosing the inward normal flips the sign of II and H \\u2014 but never of K.)';\n` +
     `  }\n` +
     `  bt.forEach(function(b,i){ b.addEventListener('click', function(){ sel=i; draw(); }); });\n` +
     `  draw();\n` +

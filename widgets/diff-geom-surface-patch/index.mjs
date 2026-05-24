@@ -44,7 +44,7 @@ export function renderScript(params) {
     `  var SURF=[\n` +
     `    { name:'unit sphere', f:function(u,v){ return [Math.sin(u)*Math.cos(v), Math.sin(u)*Math.sin(v), Math.cos(u)]; }, ur:[0.3,Math.PI-0.3], vr:[0,TAU], sc:78, pt:[1.05,0.9] },\n` +
     `    { name:'cylinder (r=1)', f:function(u,v){ return [Math.cos(u), Math.sin(u), v]; }, ur:[0,TAU], vr:[-1.4,1.4], sc:66, pt:[0.9,0.3] },\n` +
-    `    { name:'saddle  z = \\u00bd(u\\u00b2\\u2212v\\u00b2)', f:function(u,v){ return [u, v, 0.5*(u*u-v*v)]; }, ur:[-1.3,1.3], vr:[-1.3,1.3], sc:64, pt:[0.6,0.5] },\n` +
+    `    { name:'saddle  z = u\\u00b2\\u2212v\\u00b2', f:function(u,v){ return [u, v, u*u-v*v]; }, ur:[-1.1,1.1], vr:[-1.1,1.1], sc:52, pt:[0.5,0.4] },\n` +
     `    { name:'torus (R=2, r=1)', f:function(u,v){ var R=2,r=1; return [(R+r*Math.cos(v))*Math.cos(u), (R+r*Math.cos(v))*Math.sin(u), r*Math.sin(v)]; }, ur:[0,TAU], vr:[0,TAU], sc:36, pt:[0.7,0.9] }\n` +
     `  ];\n` +
     `  var CX=160, CY=170;\n` +
