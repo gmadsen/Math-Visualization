@@ -1135,6 +1135,64 @@ These are the canonical tools for proving a.s.\ statements.</p>
 
 <p><strong>Worked example: $X_n\to 0$ a.s.\ via Borel–Cantelli.</strong> Let $X_n=n\cdot\mathbf{1}_{A_n}$ with $\mathbb{P}(A_n)=1/n^2$. Then $\sum\mathbb{P}(A_n)=\pi^2/6<\infty$, so by the first Borel-Cantelli lemma, $\mathbb{P}(A_n\text{ i.o.})=0$: a.s., $A_n$ occurs only finitely often. Hence $X_n=0$ eventually a.s., so $X_n\to 0$ a.s.</p>
 
+
+<div class="widget" id="w-prob-conv">
+  <div class="hd"><div class="ttl">Four modes of convergence — and which implications are one-way</div><div class="hint">Pick an example; the diagram colours which modes hold and which reverse arrow fails.</div></div>
+  <div class="row">
+    <span class="pill">example $X_n$</span>
+    <button type="button" id="w-prob-conv-e0">spike $n\mathbf{1}_{(0,1/n)}$</button>
+    <button type="button" id="w-prob-conv-e1">typewriter</button>
+    <button type="button" id="w-prob-conv-e2">i.i.d.</button>
+    <button type="button" id="w-prob-conv-e3">$X/n$</button>
+  </div>
+  <svg id="w-prob-conv-svg" viewBox="0 0 580 300" width="580" height="300" role="img" aria-label="The implication diagram between the four modes of convergence, coloured for the selected example"><title>Modes of convergence: almost surely and Lp each imply in probability, which implies in distribution; the reverse implications can fail</title></svg>
+  <div class="readout" id="w-prob-conv-out"></div>
+</div><script>
+/* prob-convergence-modes widget: w-prob-conv */
+(function(){
+  var EX=[
+    { lab:'X_n = n\u00b71_{(0,1/n)}', as:true, Lp:false, prob:true, dist:true,
+      note:'For each fixed \u03c9 \u2208 (0,1], X_n(\u03c9) = 0 once 1/n < \u03c9, so X_n \u2192 0 ALMOST SURELY (hence in probability and in distribution). But \u1d3c|X_n| = n\u00b7(1/n) = 1 for all n, so X_n does NOT converge in L\u00b9. Lesson: a.s. convergence does not imply L\u1d56 convergence \u2014 mass can escape to infinity.' },
+    { lab:'typewriter:  X_n = 1_{I_n}', as:false, Lp:true, prob:true, dist:true,
+      note:'The intervals I_n sweep across [0,1] in blocks of shrinking length |I_n| \u2192 0. Then \u1d3c|X_n| = |I_n| \u2192 0, so X_n \u2192 0 in L\u00b9 and in probability. But every \u03c9 is hit infinitely often, so X_n(\u03c9) does NOT converge for any \u03c9 \u2014 NOT almost surely. Lesson: in probability (even in L\u1d56) does not imply a.s.' },
+    { lab:'X_n i.i.d. (e.g. N(0,1))', as:false, Lp:false, prob:false, dist:true,
+      note:'If the X_n are i.i.d. with common law \u03bc, then trivially X_n \u2192 (that law) IN DISTRIBUTION \u2014 every X_n already has law \u03bc. But the values keep fluctuating: \u2119(|X_n \u2212 X_m| \u2265 \u03b5) does not vanish, so there is no convergence in probability (or a.s., or L\u1d56) to any random variable. Lesson: in distribution is the weakest mode \u2014 it constrains only the law, not the values.' },
+    { lab:'X_n = X / n', as:true, Lp:true, prob:true, dist:true,
+      note:'For an integrable X, X_n = X/n \u2192 0 in every mode at once: pointwise (a.s.), \u1d3c|X/n| = \u1d3c|X|/n \u2192 0 (L\u00b9), hence in probability and in distribution. When the limit is this well-behaved all four notions agree \u2014 the modes only diverge on cleverly built counterexamples.' }
+  ];
+  var svg=document.getElementById('w-prob-conv-svg'), out=document.getElementById('w-prob-conv-out');
+  var bt=[0,1,2,3].map(function(i){ return document.getElementById('w-prob-conv-e'+i); });
+  if(!svg||!out||bt.some(function(b){return !b;})) return;
+  var NS='http://www.w3.org/2000/svg';
+  function mk(tag,attrs,text){ var e=document.createElementNS(NS,tag); for(var k in attrs){ e.setAttribute(k,attrs[k]); } if(text!=null) e.textContent=text; return e; }
+  function txt(x,y,s,opt){ opt=opt||{}; svg.appendChild(mk('text',{x:x,y:y,'text-anchor':opt.anchor||'start','font-size':opt.size||12,fill:opt.fill||'var(--ink)','font-weight':opt.weight||'normal','font-style':opt.italic?'italic':'normal'},s)); }
+  function arrow(x1,y1,x2,y2){ var a=Math.atan2(y2-y1,x2-x1), x2b=x2-22*Math.cos(a), y2b=y2-22*Math.sin(a), x1b=x1+22*Math.cos(a), y1b=y1+22*Math.sin(a);
+    svg.appendChild(mk('line',{x1:x1b,y1:y1b,x2:x2b,y2:y2b,stroke:'var(--mute)','stroke-width':1.5}));
+    svg.appendChild(mk('path',{d:'M '+x2b+' '+y2b+' L '+(x2b-8*Math.cos(a-0.4))+' '+(y2b-8*Math.sin(a-0.4))+' L '+(x2b-8*Math.cos(a+0.4))+' '+(y2b-8*Math.sin(a+0.4))+' Z',fill:'var(--mute)'}));
+    txt((x1+x2)/2,(y1+y2)/2-6,'\u21d2',{size:13,fill:'var(--mute)',anchor:'middle'}); }
+  var sel=0;
+  var NODE={ as:[120,80], Lp:[120,210], prob:[300,145], dist:[470,145] };
+  var NAME={ as:'a.s.', Lp:'L\u1d56', prob:'in prob.', dist:'in dist.' };
+  function node(k,holds){ var p=NODE[k]; svg.appendChild(mk('ellipse',{cx:p[0],cy:p[1],rx:46,ry:24,fill:holds?'var(--green)':'var(--pink)','fill-opacity':0.16,stroke:holds?'var(--green)':'var(--pink)','stroke-width':1.6}));
+    txt(p[0],p[1]+4,NAME[k],{size:13,anchor:'middle',fill:holds?'var(--green)':'var(--pink)',weight:600}); }
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    bt.forEach(function(b,i){ b.classList.toggle('active',i===sel); b.setAttribute('aria-pressed',i===sel?'true':'false'); });
+    var E=EX[sel];
+    arrow(NODE.as[0],NODE.as[1],NODE.prob[0],NODE.prob[1]);
+    arrow(NODE.Lp[0],NODE.Lp[1],NODE.prob[0],NODE.prob[1]);
+    arrow(NODE.prob[0],NODE.prob[1],NODE.dist[0],NODE.dist[1]);
+    node('as',E.as); node('Lp',E.Lp); node('prob',E.prob); node('dist',E.dist);
+    txt(290, 36, E.lab, {size:13, fill:'var(--yellow)', weight:600, anchor:'middle'});
+    function chip(x,k){ var on=E[k]; svg.appendChild(mk('text',{x:x,y:272,'font-size':13,fill:on?'var(--green)':'var(--pink)'},on?'\u2713':'\u2717')); txt(x+16,272,NAME[k]==='L\u1d56'?'L\u1d56':NAME[k],{size:10,fill:'var(--ink)'}); }
+    chip(70,'as'); chip(170,'Lp'); chip(260,'prob'); chip(380,'dist');
+    out.textContent = E.note + '\n\nThe implications a.s. \u21d2 in probability \u21d2 in distribution and L\u1d56 \u21d2 in probability always hold; none of the reverse arrows holds in general. Extra hypotheses bridge the gaps: dominated/uniformly-integrable families upgrade in-probability to L\u1d56, a fast-enough rate (Borel\u2013Cantelli, \u03a3 \u2119(|X_n\u2212X|\u2265\u03b5) < \u221e) upgrades in-probability to a.s., and a constant limit upgrades in-distribution to in-probability.';
+  }
+  bt.forEach(function(b,i){ b.addEventListener('click', function(){ sel=i; draw(); }); });
+  draw();
+})();
+</script>
+
 <!-- callback-auto-begin -->
 <aside class="callback">
   <div class="ttl">See also</div>
@@ -1645,6 +1703,87 @@ Without such a hypothesis optional-stopping fails: simple symmetric random walk 
 <p><strong>Worked example: random walk is a martingale.</strong> $S_n=\sum_{i=1}^n X_i$ with $X_i$ i.i.d., $\mathbb{E}[X_i]=0$, and $\mathcal{F}_n=\sigma(X_1,\ldots,X_n)$. Then
 $$\mathbb{E}[S_{n+1}\mid\mathcal{F}_n]=\mathbb{E}[S_n+X_{n+1}\mid\mathcal{F}_n]=S_n+\mathbb{E}[X_{n+1}]=S_n,$$
 using that $S_n$ is $\mathcal{F}_n$-measurable and $X_{n+1}$ is independent of $\mathcal{F}_n$. So $(S_n)$ is a martingale. Consequently, $\mathbb{E}[S_n]=\mathbb{E}[S_0]=0$ for all $n$ (a fact obvious by linearity, but here illustrating the machinery).</p>
+
+
+<div class="widget" id="w-prob-martingale">
+  <div class="hd"><div class="ttl">Optional stopping on a fair random walk</div><div class="hint">Bounded τ keeps E[S_τ]=0; stopping at the first hit of +1 breaks it.</div></div>
+  <div class="row">
+    <span class="pill">stopping time $\tau$</span>
+    <button type="button" id="w-prob-martingale-r0">fixed time $N$</button>
+    <button type="button" id="w-prob-martingale-r1">exit $\pm a$</button>
+    <button type="button" id="w-prob-martingale-r2">first hit $+1$</button>
+    <button type="button" id="w-prob-martingale-resample">resample</button>
+  </div>
+  <svg id="w-prob-martingale-svg" viewBox="0 0 580 320" width="580" height="320" role="img" aria-label="Sample paths of a symmetric random walk stopped by the chosen rule, and the average stopped value"><title>Optional stopping: the mean stopped value E[S_tau] equals E[S_0]=0 for a bounded stopping time, but equals 1 for tau = first hit of +1</title></svg>
+  <div class="readout" id="w-prob-martingale-out"></div>
+</div><script>
+/* prob-martingale-stopping widget: w-prob-martingale */
+(function(){
+  var svg=document.getElementById('w-prob-martingale-svg'), out=document.getElementById('w-prob-martingale-out');
+  var rB=[0,1,2].map(function(i){ return document.getElementById('w-prob-martingale-r'+i); });
+  var resB=document.getElementById('w-prob-martingale-resample');
+  if(!svg||!out||!resB||rB.some(function(b){return !b;})) return;
+  var NS='http://www.w3.org/2000/svg';
+  function mk(tag,attrs,text){ var e=document.createElementNS(NS,tag); for(var k in attrs){ e.setAttribute(k,attrs[k]); } if(text!=null) e.textContent=text; return e; }
+  function txt(x,y,s,opt){ opt=opt||{}; svg.appendChild(mk('text',{x:x,y:y,'text-anchor':opt.anchor||'start','font-size':opt.size||12,fill:opt.fill||'var(--ink)','font-weight':opt.weight||'normal','font-style':opt.italic?'italic':'normal'},s)); }
+  var K=2000, NFIX=40, AEXIT=3, CAP=6000, DRAW=18, MAXT=64, YR=7;
+  var PX0=50, PX1=410, PY=40, PYB=276;
+  function tx(t){ return PX0 + t/MAXT*(PX1-PX0); }
+  function vy(v){ return (PY+PYB)/2 - v/YR*((PYB-PY)/2); }
+  var rule=2;
+  function step(){ return Math.random()<0.5?1:-1; }
+  function simStopped(){ var s=0, n=0;
+    if(rule===0){ for(n=0;n<NFIX;n++) s+=step(); return s; }
+    while(n<CAP){ s+=step(); n++; if(rule===1 && Math.abs(s)>=AEXIT) return s; if(rule===2 && s>=1) return s; }
+    return s; }
+  function simPath(){ var pts=[0], s=0, n=0, stopAt=-1;
+    for(n=1;n<=MAXT;n++){ s+=step(); pts.push(s);
+      if(stopAt<0){ if(rule===0 && n>=NFIX) stopAt=n; else if(rule===1 && Math.abs(s)>=AEXIT) stopAt=n; else if(rule===2 && s>=1) stopAt=n; } }
+    return {pts:pts, stopAt:stopAt}; }
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    rB.forEach(function(b,i){ b.classList.toggle('active',i===rule); b.setAttribute('aria-pressed',i===rule?'true':'false'); });
+    svg.appendChild(mk('line',{x1:PX0,y1:vy(0),x2:PX1,y2:vy(0),stroke:'var(--line)','stroke-width':1}));
+    svg.appendChild(mk('line',{x1:PX0,y1:PY,x2:PX0,y2:PYB,stroke:'var(--line)','stroke-width':1}));
+    txt(PX0-6, vy(0)+3, '0', {size:9, fill:'var(--mute)', anchor:'end'});
+    txt(PX1, PYB+14, 'time n', {size:10, fill:'var(--mute)', anchor:'end'});
+    txt(PX0-6, vy(1)+3, '1', {size:9, fill:'var(--green)', anchor:'end'});
+    svg.appendChild(mk('line',{x1:PX0,y1:vy(1),x2:PX1,y2:vy(1),stroke:'var(--green)','stroke-width':0.5,'stroke-dasharray':'2 3'}));
+    if(rule===1){ [AEXIT,-AEXIT].forEach(function(a){ svg.appendChild(mk('line',{x1:PX0,y1:vy(a),x2:PX1,y2:vy(a),stroke:'var(--pink)','stroke-width':0.6,'stroke-dasharray':'4 3'})); txt(PX1+2,vy(a)+3,(a>0?'+':'')+a,{size:9,fill:'var(--pink)'}); }); }
+    if(rule===0){ svg.appendChild(mk('line',{x1:tx(NFIX),y1:PY,x2:tx(NFIX),y2:PYB,stroke:'var(--pink)','stroke-width':0.6,'stroke-dasharray':'4 3'})); txt(tx(NFIX),PY-4,'N='+NFIX,{size:9,fill:'var(--pink)',anchor:'middle'}); }
+    for(var p=0;p<DRAW;p++){ var P=simPath(), d='', i, last=(P.stopAt<0?MAXT:P.stopAt);
+      for(i=0;i<=last;i++){ d+=(i===0?'M ':'L ')+tx(i)+' '+vy(Math.max(-YR,Math.min(YR,P.pts[i])))+' '; }
+      svg.appendChild(mk('path',{d:d,fill:'none',stroke:'var(--violet)','stroke-width':1,'stroke-opacity':0.4}));
+      if(P.stopAt>=0){ var sv=P.pts[P.stopAt]; svg.appendChild(mk('circle',{cx:tx(P.stopAt),cy:vy(Math.max(-YR,Math.min(YR,sv))),r:2.5,fill:'var(--yellow)'})); } }
+    var TX=430, holds=(rule!==2);
+    var ruleName=['\u03c4 = N = '+NFIX+'  (fixed time)','\u03c4 = inf{n : |S\u2099| = '+AEXIT+'}','\u03c4 = inf{n : S\u2099 = +1}'][rule];
+    txt(TX, 44, ruleName, {size:11, fill:'var(--ink)', weight:600});
+    txt(TX, 70, 'E[S\u2080] = 0', {size:12, fill:'var(--mute)'});
+    if(rule!==2){
+      var sum=0; for(var q=0;q<K;q++) sum+=simStopped(); var emp=sum/K;
+      txt(TX, 96, 'E[S_\u03c4]  \u2248  '+emp.toFixed(3), {size:13, fill:'var(--yellow)', weight:600});
+      txt(TX, 114, '(exact 0, over '+K+' walks)', {size:9, fill:'var(--mute)'});
+      txt(TX, 148, 'optional stopping HOLDS', {size:13, fill:'var(--green)', weight:700});
+      txt(TX, 168, 'E[S_\u03c4] = E[S\u2080] = 0', {size:11, fill:'var(--green)'});
+      txt(TX, 196, rule===0?'\u03c4 is bounded \u2713':'S_{n\u2227\u03c4} stays bounded \u2713', {size:10, fill:'var(--mute)', italic:true});
+    } else {
+      var nhit=0; for(var q2=0;q2<K;q2++){ var s=0,n=0; while(n<CAP){ s+=step(); n++; if(s>=1){ nhit++; break; } } }
+      var frac=nhit/K;
+      txt(TX, 96, 'reached +1 within '+CAP+' steps:', {size:10, fill:'var(--mute)'});
+      txt(TX, 112, (frac*100).toFixed(0)+'%   (\u2192 100% a.s.)', {size:13, fill:'var(--yellow)', weight:600});
+      txt(TX, 134, 'each stops at +1:  E[S_\u03c4] = 1', {size:11, fill:'var(--cyan)'});
+      txt(TX, 164, 'optional stopping FAILS', {size:13, fill:'var(--pink)', weight:700});
+      txt(TX, 184, 'E[S_\u03c4] = 1 \u2260 0 = E[S\u2080]', {size:11, fill:'var(--pink)'});
+      txt(TX, 210, '\u03c4 < \u221e a.s. but E[\u03c4] = \u221e', {size:10, fill:'var(--mute)', italic:true});
+      txt(TX, 224, '(not uniformly integrable)', {size:10, fill:'var(--mute)', italic:true});
+    }
+    out.textContent = 'Symmetric simple random walk S\u2099 (\u00b11 steps, each \u00bd) is a martingale: E[S\u2099\u208a\u2081 | \u2131\u2099] = S\u2099, a fair game. Doob\u2019s optional-stopping theorem gives E[S_\u03c4] = E[S\u2080] = 0 PROVIDED \u03c4 is bounded, or S is uniformly integrable, or \u03c4 < \u221e a.s. with S_{n\u2227\u03c4} bounded. '+(holds ? 'Here \u03c4 = '+(rule===0?('the fixed time N = '+NFIX+' \u2014 bounded'):('the exit time of \u00b1'+AEXIT+', under which S_{n\u2227\u03c4} stays in [\u2212'+AEXIT+','+AEXIT+']'))+', so a hypothesis holds and the simulated mean lands near 0.' : 'For \u03c4 = inf{n : S\u2099 = 1} the walk reaches +1 with probability 1 (a.s. finite), and every path stops exactly at +1, so E[S_\u03c4] = 1 \u2260 0 \u2014 optional stopping FAILS. The catch: E[\u03c4] = \u221e and S is not uniformly integrable. (Tellingly, you cannot see this by averaging: for any finite horizon n the truncated value S_{n\u2227\u03c4} is still a martingale with mean exactly 0 \u2014 the rare paths that have wandered deep below cancel the many already at +1. The mean only jumps to 1 \u201cat infinity\u201d, which is precisely the failure.)');
+  }
+  rB.forEach(function(b,i){ b.addEventListener('click', function(){ rule=i; draw(); }); });
+  resB.addEventListener('click', draw);
+  draw();
+})();
+</script>
 
 <div class="quiz" data-concept="martingales"></div>
 <!-- backlinks-auto-begin -->

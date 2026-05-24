@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/prob-convergence-modes/schema.json",
+  "title": "prob-convergence-modes widget params",
+  "description": "The four modes of convergence of random variables and the one-directional implications between them. The widget draws the implication diagram — almost surely ⇒ in probability ⇒ in distribution, and Lᵖ ⇒ in probability — and colours each node green/pink for a chosen example sequence: the spike n·1₍₀,₁/ₙ₎ (a.s. but not L¹), the typewriter sequence (in probability but not a.s.), an i.i.d. sequence (in distribution but not in probability), and X/n (all four). Selecting an example shows which reverse implication it breaks.",
+  "meta": {
+    "family": "prob-convergence-modes",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\"> wrapper."
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title rendered inside .hd > .ttl."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional short hint rendered inside .hd > .hint."
+    }
+  }
+}
