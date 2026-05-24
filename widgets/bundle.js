@@ -15718,6 +15718,42 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "quad-recip-jacobi",
+    "family": "quad-recip-jacobi",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "quad-recip-jacobi widget params",
+    "description": "The Jacobi symbol (a/n) for odd n, defined by factoring the denominator: (a/n) = ∏(a/pᵢ)^eᵢ. Pick a numerator a (slider) and an odd composite n (buttons); the widget factors n, evaluates each Legendre factor (a/pᵢ) by Euler's criterion, multiplies to (a/n), and then checks whether a is actually a square mod n by scanning the residues. The headline lesson is the caveat: (a/n)=+1 does NOT imply a is a QR mod n — e.g. (2/15)=(2/3)(2/5)=(−1)(−1)=+1 yet 2 is a nonsquare mod 15.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Bespoke module for **quadratic-reciprocity** §8 (The Jacobi symbol). Computes the Jacobi symbol by factoring the denominator, and drives home the caveat that it does **not** detect quadratic residues.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "quad-recip-supplementary",
+    "family": "quad-recip-supplementary",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "quad-recip-supplementary widget params",
+    "description": "The two supplementary laws of quadratic reciprocity. Slide an odd prime p; the widget evaluates the first supplement (−1/p) = (−1)^((p−1)/2) (so −1 is a QR mod p iff p≡1 mod 4) and the second supplement (2/p) = (−1)^((p²−1)/8) (so 2 is a QR mod p iff p≡±1 mod 8), showing the residue p mod 4 and p mod 8, the sign, and a direct check against the actual squares mod p. A strip of primes coloured by each symbol makes the period-4 and period-8 patterns visible.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Bespoke module for **quadratic-reciprocity** §4 (The supplementary laws). Evaluates the two supplements $(-1/p)$ and $(2/p)$ and exposes their periodic dependence on $p \\bmod 4$ and $p \\bmod 8$.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "quantum-groups-applications-map",
     "family": "quantum-groups-applications-map",
     "dimension": "2d",

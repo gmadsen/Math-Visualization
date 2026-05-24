@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/quad-recip-supplementary/schema.json",
+  "title": "quad-recip-supplementary widget params",
+  "description": "The two supplementary laws of quadratic reciprocity. Slide an odd prime p; the widget evaluates the first supplement (−1/p) = (−1)^((p−1)/2) (so −1 is a QR mod p iff p≡1 mod 4) and the second supplement (2/p) = (−1)^((p²−1)/8) (so 2 is a QR mod p iff p≡±1 mod 8), showing the residue p mod 4 and p mod 8, the sign, and a direct check against the actual squares mod p. A strip of primes coloured by each symbol makes the period-4 and period-8 patterns visible.",
+  "meta": {
+    "family": "quad-recip-supplementary",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\"> wrapper."
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title rendered inside .hd > .ttl."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional short hint rendered inside .hd > .hint."
+    }
+  }
+}

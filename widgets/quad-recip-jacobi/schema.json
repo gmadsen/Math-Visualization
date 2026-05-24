@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/quad-recip-jacobi/schema.json",
+  "title": "quad-recip-jacobi widget params",
+  "description": "The Jacobi symbol (a/n) for odd n, defined by factoring the denominator: (a/n) = ∏(a/pᵢ)^eᵢ. Pick a numerator a (slider) and an odd composite n (buttons); the widget factors n, evaluates each Legendre factor (a/pᵢ) by Euler's criterion, multiplies to (a/n), and then checks whether a is actually a square mod n by scanning the residues. The headline lesson is the caveat: (a/n)=+1 does NOT imply a is a QR mod n — e.g. (2/15)=(2/3)(2/5)=(−1)(−1)=+1 yet 2 is a nonsquare mod 15.",
+  "meta": {
+    "family": "quad-recip-jacobi",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\"> wrapper."
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title rendered inside .hd > .ttl."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional short hint rendered inside .hd > .hint."
+    }
+  }
+}
