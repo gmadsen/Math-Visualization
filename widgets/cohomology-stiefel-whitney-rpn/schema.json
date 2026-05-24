@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/cohomology-stiefel-whitney-rpn/schema.json",
+  "title": "cohomology-stiefel-whitney-rpn widget params",
+  "description": "The Stiefel-Whitney classes of real projective space RP^n, computed from the Whitney sum formula as an (n+1)-fold cup product. Because T(RP^n) (+) trivial line = (n+1) copies of the canonical line bundle (each with total class 1+a), the Whitney sum formula gives w(T RP^n) = (1+a)^{n+1} in the mod-2 cohomology ring H*(RP^n; Z/2) = Z/2[a]/(a^{n+1}), so w_i = C(n+1, i) mod 2. A slider sets n; the widget draws Pascal's triangle mod 2 (the Sierpinski pattern) up to row n+1, highlights that row and boxes its first n+1 entries (the surviving classes w_0..w_n, with the a^{n+1} entry crossed out by the truncation), and prints the total class w(T RP^n) explicitly. The readout reads off the consequences: RP^n is orientable iff w_1 = (n+1) mod 2 = 0 iff n is odd, and the total class is trivial (a necessary condition for parallelizability / stable triviality) iff n+1 is a power of 2 -- recovering that RP^1, RP^3, RP^7 are the parallelizable ones. No numeric params beyond the standard widgetId/title/hint.",
+  "meta": {
+    "family": "cohomology-stiefel-whitney-rpn",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\"> wrapper."
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title rendered inside .hd > .ttl."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional short hint rendered inside .hd > .hint."
+    }
+  }
+}
