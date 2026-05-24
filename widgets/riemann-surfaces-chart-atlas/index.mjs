@@ -17,7 +17,7 @@ export function renderMarkup(params) {
     `  <div class="hd"><div class="ttl">${escapeHtml(title)}</div>${hintHtml}</div>\n` +
     `  <div class="row">\n` +
     `    <label for="${widgetId}-r">modulus $|z|$</label>\n` +
-    `    <input type="range" id="${widgetId}-r" min="0" max="100" value="62" step="1">\n` +
+    `    <input type="range" id="${widgetId}-r" min="0" max="100" value="58" step="1">\n` +
     `    <span class="pill" id="${widgetId}-rv">|z| = …</span>\n` +
     `  </div>\n` +
     `  <div class="row">\n` +
@@ -44,7 +44,7 @@ export function renderScript(params) {
     `  var NS='http://www.w3.org/2000/svg';\n` +
     `  function mk(tag,attrs,text){ var e=document.createElementNS(NS,tag); for(var k in attrs){ e.setAttribute(k,attrs[k]); } if(text!=null) e.textContent=text; return e; }\n` +
     `  function txt(x,y,s,opt){ opt=opt||{}; svg.appendChild(mk('text',{x:x,y:y,'text-anchor':opt.anchor||'start','font-size':opt.size||12,fill:opt.fill||'var(--ink)','font-weight':opt.weight||'normal'},s)); }\n` +
-    `  var RMIN=0.2, RMAX=5, DMAX=5.2, PR=84, CY=152, L=150, R=410;\n` +
+    `  var RMIN=1/12, RMAX=12, DMAX=5.2, PR=84, CY=152, L=150, R=410;\n` +
     `  var SC=PR/DMAX;\n` +
     `  function fmtC(re,im){ var a=Math.abs(re)<0.005?0:re, b=Math.abs(im)<0.005?0:im;\n` +
     `    if(a===0&&b===0) return '0';\n` +
@@ -90,7 +90,9 @@ export function renderScript(params) {
     `    txt(gm, CY+14, 'overlap', {anchor:'middle', size:8, fill:'var(--mute)'});\n` +
     `    txt(gm, CY+24, 'U\\u2080 \\u2229 U\\u221e = C*', {anchor:'middle', size:8, fill:'var(--mute)'});\n` +
     `    var dwdz=1/(r*r);\n` +
-    `    out.textContent='A Riemann surface is a Hausdorff space with an atlas of charts \\u03c6\\u03b1: U\\u03b1 \\u2192 C whose transition maps are biholomorphic. The Riemann sphere CP\\u00b9 = C \\u222a {\\u221e} is the genus-0 model, covered by just two charts: U\\u2080 with coordinate z (all but the north pole \\u221e) and U\\u221e with coordinate w = 1/z (all but the south pole 0). On the overlap U\\u2080 \\u2229 U\\u221e = C* the transition is \\u03c6\\u221e \\u2218 \\u03c6\\u2080\\u207b\\u00b9(z) = 1/z. Here z = '+fmtC(zre,zim)+'  (|z| = '+r.toFixed(2)+', arg z = '+thDeg+'\\u00b0), so w = 1/z = '+fmtC(wre,wim)+'  (|w| = '+wr.toFixed(2)+', arg w = '+(-thDeg)+'\\u00b0). The inversion satisfies |z|\\u00b7|w| = '+(r*wr).toFixed(2)+' = 1 and arg z + arg w = 0\\u00b0. The transition is BIHOLOMORPHIC: dw/dz = \\u22121/z\\u00b2 is holomorphic and nonzero on C* (here |dw/dz| = 1/|z|\\u00b2 = '+dwdz.toFixed(3)+'), with holomorphic inverse z = 1/w. A biholomorphism of plane domains is in particular orientation-preserving, so the two charts glue into a canonically oriented real 2-manifold. The two poles each live in exactly ONE chart: z = 0 (south pole) only in U\\u2080, and w = 0, i.e. z = \\u221e (north pole), only in U\\u221e \\u2014 neither is in the overlap.';\n` +
+    `    var offZ=(Math.abs(zre)>DMAX||Math.abs(zim)>DMAX), offW=(Math.abs(wre)>DMAX||Math.abs(wim)>DMAX);\n` +
+    `    var note = offZ ? ' Right now |z| is large: z runs off U\\u2080\\u2019s window toward the north pole \\u221e, yet w = 1/z sits comfortably near 0 in U\\u221e \\u2014 exactly why the second chart is needed to cover \\u221e.' : offW ? ' Right now |z| is small: z is near the south pole 0, and w = 1/z runs off U\\u221e\\u2019s window toward \\u221e, yet z stays finite in U\\u2080.' : '';\n` +
+    `    out.textContent='A Riemann surface is a Hausdorff space with an atlas of charts \\u03c6\\u03b1: U\\u03b1 \\u2192 C whose transition maps are biholomorphic. The Riemann sphere CP\\u00b9 = C \\u222a {\\u221e} is the genus-0 model, covered by just two charts: U\\u2080 with coordinate z (all but the north pole \\u221e) and U\\u221e with coordinate w = 1/z (all but the south pole 0). On the overlap U\\u2080 \\u2229 U\\u221e = C* the transition is \\u03c6\\u221e \\u2218 \\u03c6\\u2080\\u207b\\u00b9(z) = 1/z. Here z = '+fmtC(zre,zim)+'  (|z| = '+r.toFixed(2)+', arg z = '+thDeg+'\\u00b0), so w = 1/z = '+fmtC(wre,wim)+'  (|w| = '+wr.toFixed(2)+', arg w = '+(-thDeg)+'\\u00b0). The inversion satisfies |z|\\u00b7|w| = '+(r*wr).toFixed(2)+' = 1 and arg z + arg w = 0\\u00b0 (mod 360\\u00b0). The transition is BIHOLOMORPHIC: dw/dz = \\u22121/z\\u00b2 is holomorphic and nonzero on C* (here |dw/dz| = 1/|z|\\u00b2 = '+dwdz.toFixed(3)+'), with holomorphic inverse z = 1/w. A biholomorphism of plane domains is in particular orientation-preserving, so the two charts glue into a canonically oriented real 2-manifold. The two poles each live in exactly ONE chart: z = 0 (south pole) only in U\\u2080, and w = 0, i.e. z = \\u221e (north pole), only in U\\u221e \\u2014 neither is in the overlap.'+note;\n` +
     `  }\n` +
     `  sr.addEventListener('input', draw); sth.addEventListener('input', draw);\n` +
     `  draw();\n` +
