@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/morphisms-separated-proper/schema.json",
+  "title": "morphisms-separated-proper widget params",
+  "description": "Separated and proper morphisms via the diagonal and the valuative criterion. Buttons pick a target space -- the affine line A^1 (separated, not proper), the projective line P^1 (separated AND proper), and the line with doubled origin (NOT separated) -- and a slider runs a one-parameter family (a parameter t approaching a limit) so the widget shows the limit behaviour: on P^1 every one-parameter limit exists and is unique (proper); on A^1 a family escaping to infinity has NO limit (separated but not proper); on the doubled-origin line a family approaching 0 has TWO limits, the two origins (not separated). The readout defines SEPARATED via the diagonal Delta_f: X to X times_S X being a closed immersion (the scheme analog of the Hausdorff condition, the diagonal closed in the product), exhibits the doubled-origin line as the prototype non-separated scheme whose diagonal fails to be closed at the pair (left origin, right origin), and defines PROPER as separated + finite type + universally closed, captured by the valuative criterion (limits along a DVR / punctured disk exist, and uniquely). No numeric params beyond the standard widgetId/title/hint.",
+  "meta": {
+    "family": "morphisms-separated-proper",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\"> wrapper."
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title rendered inside .hd > .ttl."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional short hint rendered inside .hd > .hint."
+    }
+  }
+}
