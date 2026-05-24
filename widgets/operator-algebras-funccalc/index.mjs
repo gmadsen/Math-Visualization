@@ -50,7 +50,7 @@ export function renderScript(params) {
     `  var sel=0;\n` +
     `  function axis(y, vals, lo, hi, col, labels){ var x0=70, x1=500, sx=function(v){ return x0 + (v-lo)/(hi-lo)*(x1-x0); };\n` +
     `    svg.appendChild(mk('line',{x1:x0-10,y1:y,x2:x1+10,y2:y,stroke:'var(--line)','stroke-width':1}));\n` +
-    `    for(var i=0;i<vals.length;i++){ svg.appendChild(mk('circle',{cx:sx(vals[i]),cy:y,r:4,fill:col})); txt(sx(vals[i]), y-9, labels[i], {size:10, fill:col}); }\n` +
+    `    for(var i=0;i<vals.length;i++){ svg.appendChild(mk('circle',{cx:sx(vals[i]),cy:y,r:4,fill:col})); txt(sx(vals[i]), y-9-((i%2)?12:0), labels[i], {size:10, fill:col}); }\n` +
     `    return sx; }\n` +
     `  function draw(){\n` +
     `    while(svg.firstChild) svg.removeChild(svg.firstChild);\n` +
