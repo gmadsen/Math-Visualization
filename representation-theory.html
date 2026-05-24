@@ -311,6 +311,99 @@ function cfmt(a){
 
 <div class="note">Throughout this page: "rep" means finite-dimensional complex representation of a finite group $G$, unless stated otherwise. Most statements hold with $\mathbb{C}$ replaced by any algebraically closed field of characteristic coprime to $|G|$.</div>
 
+
+<div class="widget" id="w-rep-homomorphism">
+  <div class="hd"><div class="ttl">A representation is a homomorphism G → GL(V)</div><div class="hint">Pick g and h; watch ρ(g)ρ(h) = ρ(gh) hold matrix-by-matrix.</div></div>
+  <div class="row">
+    <span class="pill">representation</span>
+    <button type="button" id="w-rep-homomorphism-rtriv">trivial</button>
+    <button type="button" id="w-rep-homomorphism-rsign">sign</button>
+    <button type="button" id="w-rep-homomorphism-rperm">permutation (deg 3)</button>
+  </div>
+  <div class="row">
+    <span class="pill">$g$</span>
+    <button type="button" id="w-rep-homomorphism-g0">e</button>
+    <button type="button" id="w-rep-homomorphism-g1">(1 2)</button>
+    <button type="button" id="w-rep-homomorphism-g2">(1 3)</button>
+    <button type="button" id="w-rep-homomorphism-g3">(2 3)</button>
+    <button type="button" id="w-rep-homomorphism-g4">(1 2 3)</button>
+    <button type="button" id="w-rep-homomorphism-g5">(1 3 2)</button>
+  </div>
+  <div class="row">
+    <span class="pill">$h$</span>
+    <button type="button" id="w-rep-homomorphism-h0">e</button>
+    <button type="button" id="w-rep-homomorphism-h1">(1 2)</button>
+    <button type="button" id="w-rep-homomorphism-h2">(1 3)</button>
+    <button type="button" id="w-rep-homomorphism-h3">(2 3)</button>
+    <button type="button" id="w-rep-homomorphism-h4">(1 2 3)</button>
+    <button type="button" id="w-rep-homomorphism-h5">(1 3 2)</button>
+  </div>
+  <svg id="w-rep-homomorphism-svg" viewBox="0 0 580 300" width="580" height="300" role="img" aria-label="The matrices of a representation of S3, showing that rho of g times rho of h equals rho of gh"><title>A representation is a homomorphism: the matrix product rho(g)rho(h) equals rho(gh), and the character is the trace</title></svg>
+  <div class="readout" id="w-rep-homomorphism-out"></div>
+</div><script>
+/* rep-theory-homomorphism widget: w-rep-homomorphism */
+(function(){
+  var ELS=[{lbl:'e',p:[0,1,2],sgn:1},{lbl:'(1 2)',p:[1,0,2],sgn:-1},{lbl:'(1 3)',p:[2,1,0],sgn:-1},{lbl:'(2 3)',p:[0,2,1],sgn:-1},{lbl:'(1 2 3)',p:[1,2,0],sgn:1},{lbl:'(1 3 2)',p:[2,0,1],sgn:1}];
+  var svg=document.getElementById('w-rep-homomorphism-svg'), out=document.getElementById('w-rep-homomorphism-out');
+  var rB={triv:document.getElementById('w-rep-homomorphism-rtriv'), sign:document.getElementById('w-rep-homomorphism-rsign'), perm:document.getElementById('w-rep-homomorphism-rperm')};
+  var gB=[], hB=[]; for(var i=0;i<6;i++){ gB.push(document.getElementById('w-rep-homomorphism-g'+i)); hB.push(document.getElementById('w-rep-homomorphism-h'+i)); }
+  if(!svg||!out||!rB.triv||!rB.sign||!rB.perm||gB.some(function(b){return !b;})||hB.some(function(b){return !b;})) return;
+  var NS='http://www.w3.org/2000/svg';
+  function mk(tag,attrs,text){ var e=document.createElementNS(NS,tag); for(var k in attrs){ e.setAttribute(k,attrs[k]); } if(text!=null) e.textContent=text; return e; }
+  function txt(x,y,s,opt){ opt=opt||{}; svg.appendChild(mk('text',{x:x,y:y,'text-anchor':opt.anchor||'start','font-size':opt.size||12,fill:opt.fill||'var(--ink)','font-weight':opt.weight||'normal','font-style':opt.italic?'italic':'normal'},s)); }
+  function compose(a,b){ var r=[]; for(var i=0;i<3;i++) r[i]=a[b[i]]; return r; }
+  function idxOf(p){ for(var k=0;k<6;k++){ if(ELS[k].p[0]===p[0]&&ELS[k].p[1]===p[1]&&ELS[k].p[2]===p[2]) return k; } return -1; }
+  function rho(el){ if(rep==='triv') return [[1]]; if(rep==='sign') return [[el.sgn]];
+    var M=[[0,0,0],[0,0,0],[0,0,0]]; for(var i=0;i<3;i++) M[el.p[i]][i]=1; return M; }
+  function matmul(A,B){ var n=A.length, m=B[0].length, k=B.length, C=[]; for(var i=0;i<n;i++){ C[i]=[]; for(var j=0;j<m;j++){ var s=0; for(var t=0;t<k;t++) s+=A[i][t]*B[t][j]; C[i][j]=s; } } return C; }
+  function trace(M){ var s=0; for(var i=0;i<M.length;i++) s+=M[i][i]; return s; }
+  function eq(A,B){ if(A.length!==B.length||A[0].length!==B[0].length) return false; for(var i=0;i<A.length;i++) for(var j=0;j<A[0].length;j++) if(A[i][j]!==B[i][j]) return false; return true; }
+  function drawMat(x,y,M,col){ var rows=M.length, cols=M[0].length, cell=24, w=cols*cell, h=rows*cell;
+    svg.appendChild(mk('path',{d:'M '+(x+6)+' '+y+' L '+x+' '+y+' L '+x+' '+(y+h)+' L '+(x+6)+' '+(y+h),stroke:col||'var(--ink)','stroke-width':1.2,fill:'none'}));
+    svg.appendChild(mk('path',{d:'M '+(x+w-6)+' '+y+' L '+(x+w)+' '+y+' L '+(x+w)+' '+(y+h)+' L '+(x+w-6)+' '+(y+h),stroke:col||'var(--ink)','stroke-width':1.2,fill:'none'}));
+    for(var r=0;r<rows;r++) for(var c=0;c<cols;c++) txt(x+c*cell+cell/2, y+r*cell+cell/2+4, ''+M[r][c], {size:12, anchor:'middle', fill:M[r][c]?'var(--ink)':'var(--mute)'});
+    return {w:w,h:h}; }
+  var rep='perm', gi=4, hi=1;
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    rB.triv.classList.toggle('active',rep==='triv'); rB.triv.setAttribute('aria-pressed',rep==='triv'?'true':'false');
+    rB.sign.classList.toggle('active',rep==='sign'); rB.sign.setAttribute('aria-pressed',rep==='sign'?'true':'false');
+    rB.perm.classList.toggle('active',rep==='perm'); rB.perm.setAttribute('aria-pressed',rep==='perm'?'true':'false');
+    gB.forEach(function(b,i){ b.classList.toggle('active',i===gi); b.setAttribute('aria-pressed',i===gi?'true':'false'); });
+    hB.forEach(function(b,i){ b.classList.toggle('active',i===hi); b.setAttribute('aria-pressed',i===hi?'true':'false'); });
+    var g=ELS[gi], h=ELS[hi], ghp=compose(g.p,h.p), gh=ELS[idxOf(ghp)];
+    var Rg=rho(g), Rh=rho(h), prod=matmul(Rg,Rh), Rgh=rho(gh), ok=eq(prod,Rgh);
+    var y1=58;
+    txt(40, y1-14, '\u03c1(g)', {size:12, fill:'var(--yellow)', weight:600}); var d1=drawMat(40, y1, Rg, 'var(--yellow)');
+    txt(40+d1.w+18, y1+d1.h/2+4, '\u00b7', {size:18, fill:'var(--mute)'});
+    var x2=40+d1.w+36; txt(x2, y1-14, '\u03c1(h)', {size:12, fill:'var(--cyan)', weight:600}); var d2=drawMat(x2, y1, Rh, 'var(--cyan)');
+    var x3=x2+d2.w+18; txt(x3, y1+d2.h/2+4, '=', {size:16, fill:'var(--mute)'});
+    var x4=x3+22; txt(x4, y1-14, '\u03c1(g)\u03c1(h)', {size:12, fill:'var(--ink)', weight:600}); var d3=drawMat(x4, y1, prod, 'var(--ink)');
+    var y2=y1+Math.max(d1.h,72)+44;
+    txt(40, y2-14, 'g\u00b7h = '+g.lbl+' \u00b7 '+h.lbl+' = '+gh.lbl+'   \u21d2   \u03c1(gh)', {size:12, fill:'var(--ink)'});
+    var d4=drawMat(40, y2, Rgh, ok?'var(--green)':'var(--pink)');
+    svg.appendChild(mk('text',{x:40+d4.w+22,y:y2+d4.h/2+5,'font-size':15,fill:ok?'var(--green)':'var(--pink)','font-weight':700}, ok?'\u2713':'\u2717'));
+    txt(40+d4.w+44, y2+d4.h/2+5, ok?'\u03c1(gh) = \u03c1(g)\u03c1(h)  \u2014  homomorphism':'mismatch', {size:12, fill:ok?'var(--green)':'var(--pink)'});
+    var TX=380;
+    txt(TX, y1-14, 'character  \u03c7(g) = tr \u03c1(g)', {size:12, fill:'var(--ink)', weight:600});
+    txt(TX, y1+10, '\u03c7(g) = '+trace(Rg), {size:12, fill:'var(--yellow)'});
+    txt(TX, y1+30, '\u03c7(h) = '+trace(Rh), {size:12, fill:'var(--cyan)'});
+    txt(TX, y1+50, '\u03c7(gh) = '+trace(Rgh), {size:12, fill:'var(--ink)'});
+    txt(TX, y1+78, 'degree = dim V = '+Rg.length, {size:11, fill:'var(--mute)'});
+    var kernelNote = rep==='triv'?'kernel = all of S\u2083 (very unfaithful)':(rep==='sign'?'kernel = A\u2083 (the 3-cycles)':'kernel = {e} (faithful)');
+    txt(TX, y1+98, kernelNote, {size:11, fill:'var(--mute)'});
+    var repName = rep==='triv'?'trivial representation (every g \u21a6 [1])':(rep==='sign'?'sign representation (g \u21a6 [sgn g] = \u00b11)':'permutation representation on \u2102\u00b3 (g permutes coordinates)');
+    out.textContent = 'A representation of G is a homomorphism \u03c1: G \u2192 GL(V): each group element becomes an invertible matrix, and group multiplication becomes matrix multiplication, \u03c1(gh) = \u03c1(g)\u03c1(h). Shown: the '+repName+' of S\u2083, with g = '+g.lbl+' and h = '+h.lbl+', so gh = '+gh.lbl+'. The product \u03c1(g)\u03c1(h) '+(ok?'equals':'does NOT equal')+' \u03c1(gh) \u2014 that identity, holding for every pair, is exactly what makes \u03c1 a representation. The character \u03c7(g) = tr \u03c1(g) is constant on conjugacy classes; for the permutation rep it counts the points g fixes. '+kernelNote+'.';
+  }
+  rB.triv.addEventListener('click', function(){ rep='triv'; draw(); });
+  rB.sign.addEventListener('click', function(){ rep='sign'; draw(); });
+  rB.perm.addEventListener('click', function(){ rep='perm'; draw(); });
+  gB.forEach(function(b,i){ b.addEventListener('click', function(){ gi=i; draw(); }); });
+  hB.forEach(function(b,i){ b.addEventListener('click', function(){ hi=i; draw(); }); });
+  draw();
+})();
+</script>
+
 <!-- callback-auto-begin -->
 <aside class="callback">
   <div class="ttl">See also</div>
@@ -571,6 +664,85 @@ function cfmt(a){
 </ul>
 
 <p>Built-in redundancies: the character is real-valued on real classes; $\chi_{V^*}(g) = \overline{\chi_V(g)} = \chi_V(g^{-1})$; $\chi_V(g^k)$ is a sum of $k$th powers of eigenvalues of $\rho(g)$, which ties $\rho(g^k)$ to $\rho(g)$ via power-sum $\to$ elementary-symmetric-function identities (Newton's identities).</p>
+
+
+<div class="widget" id="w-rep-orthogonality">
+  <div class="hd"><div class="ttl">Orthogonality of irreducible characters</div><div class="hint">Pick two irreducible characters; the class-weighted inner product is δλμ.</div></div>
+  <div class="row">
+    <span class="pill">group</span>
+    <button type="button" id="w-rep-orthogonality-gS3">$S_3$</button>
+    <button type="button" id="w-rep-orthogonality-gC4">$C_4$</button>
+  </div>
+  <div class="row">
+    <span class="pill">character $\chi_\lambda$ (row)</span>
+    <button type="button" id="w-rep-orthogonality-l0">1</button>
+    <button type="button" id="w-rep-orthogonality-l1">2</button>
+    <button type="button" id="w-rep-orthogonality-l2">3</button>
+    <button type="button" id="w-rep-orthogonality-l3">4</button>
+  </div>
+  <div class="row">
+    <span class="pill">character $\chi_\mu$ (row)</span>
+    <button type="button" id="w-rep-orthogonality-m0">1</button>
+    <button type="button" id="w-rep-orthogonality-m1">2</button>
+    <button type="button" id="w-rep-orthogonality-m2">3</button>
+    <button type="button" id="w-rep-orthogonality-m3">4</button>
+  </div>
+  <svg id="w-rep-orthogonality-svg" viewBox="0 0 580 340" width="580" height="340" role="img" aria-label="A character table and the weighted inner product of two irreducible characters"><title>First orthogonality relation: the inner product of two irreducible characters, weighted by conjugacy-class size, is 1 if the characters agree and 0 otherwise</title></svg>
+  <div class="readout" id="w-rep-orthogonality-out"></div>
+</div><script>
+/* rep-theory-orthogonality widget: w-rep-orthogonality */
+(function(){
+  var GROUPS={"S3":{"name":"S₃","order":6,"classes":[{"lbl":"e","size":1},{"lbl":"(a b)","size":3},{"lbl":"(a b c)","size":2}],"irreps":[{"lbl":"trivial","ch":[[1,0],[1,0],[1,0]]},{"lbl":"sign","ch":[[1,0],[-1,0],[1,0]]},{"lbl":"standard","ch":[[2,0],[0,0],[-1,0]]}]},"C4":{"name":"C₄","order":4,"classes":[{"lbl":"e","size":1},{"lbl":"g","size":1},{"lbl":"g²","size":1},{"lbl":"g³","size":1}],"irreps":[{"lbl":"χ₀","ch":[[1,0],[1,0],[1,0],[1,0]]},{"lbl":"χ₁","ch":[[1,0],[0,1],[-1,0],[0,-1]]},{"lbl":"χ₂","ch":[[1,0],[-1,0],[1,0],[-1,0]]},{"lbl":"χ₃","ch":[[1,0],[0,-1],[-1,0],[0,1]]}]}};
+  var svg=document.getElementById('w-rep-orthogonality-svg'), out=document.getElementById('w-rep-orthogonality-out');
+  var gS3=document.getElementById('w-rep-orthogonality-gS3'), gC4=document.getElementById('w-rep-orthogonality-gC4');
+  var lB=[], mB=[]; for(var i=0;i<4;i++){ lB.push(document.getElementById('w-rep-orthogonality-l'+i)); mB.push(document.getElementById('w-rep-orthogonality-m'+i)); }
+  if(!svg||!out||!gS3||!gC4||lB.some(function(b){return !b;})||mB.some(function(b){return !b;})) return;
+  var NS='http://www.w3.org/2000/svg';
+  function mk(tag,attrs,text){ var e=document.createElementNS(NS,tag); for(var k in attrs){ e.setAttribute(k,attrs[k]); } if(text!=null) e.textContent=text; return e; }
+  function txt(x,y,s,opt){ opt=opt||{}; svg.appendChild(mk('text',{x:x,y:y,'text-anchor':opt.anchor||'start','font-size':opt.size||12,fill:opt.fill||'var(--ink)','font-weight':opt.weight||'normal','font-style':opt.italic?'italic':'normal'},s)); }
+  function cmul(a,b){ return [a[0]*b[0]-a[1]*b[1], a[0]*b[1]+a[1]*b[0]]; }
+  function cconj(a){ return [a[0], -a[1]]; }
+  function fmt(c){ var re=Math.round(c[0]*1000)/1000, im=Math.round(c[1]*1000)/1000;
+    if(Math.abs(im)<1e-9) return (re<0?'\u2212'+Math.abs(re):''+re);
+    if(Math.abs(re)<1e-9){ if(Math.abs(im-1)<1e-9) return 'i'; if(Math.abs(im+1)<1e-9) return '\u2212i'; return (im<0?'\u2212':'')+Math.abs(im)+'i'; }
+    return re+(im<0?'\u2212':'+')+(Math.abs(im-1)<1e-9||Math.abs(im+1)<1e-9?'':Math.abs(im))+'i'; }
+  var gk='S3', li=0, mi=2;
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    var G=GROUPS[gk], nC=G.classes.length, nI=G.irreps.length;
+    if(li>=nI) li=0; if(mi>=nI) mi=nI-1;
+    gS3.classList.toggle('active',gk==='S3'); gS3.setAttribute('aria-pressed',gk==='S3'?'true':'false');
+    gC4.classList.toggle('active',gk==='C4'); gC4.setAttribute('aria-pressed',gk==='C4'?'true':'false');
+    lB.forEach(function(b,i){ b.style.display=(i<nI)?'':'none'; b.classList.toggle('active',i===li); b.setAttribute('aria-pressed',i===li?'true':'false'); });
+    mB.forEach(function(b,i){ b.style.display=(i<nI)?'':'none'; b.classList.toggle('active',i===mi); b.setAttribute('aria-pressed',i===mi?'true':'false'); });
+    var x0=40, cw=Math.min(92,(380)/(nC)), rh=26, y0=64;
+    var colX=function(c){ return x0+120+c*cw; };
+    txt(x0, y0-22, 'character table of '+G.name, {size:12, fill:'var(--ink)', weight:600});
+    for(var c=0;c<nC;c++){ txt(colX(c)+cw/2, y0-4, G.classes[c].lbl, {size:11, fill:'var(--violet)', anchor:'middle'}); txt(colX(c)+cw/2, y0+9, '|C|='+G.classes[c].size, {size:9, fill:'var(--mute)', anchor:'middle'}); }
+    function rowY(i){ return y0+18+i*rh; }
+    if(li===mi){ svg.appendChild(mk('rect',{x:x0-4,y:rowY(li)-1,width:120+nC*cw+8,height:rh,fill:'var(--green)','fill-opacity':0.14})); }
+    else { svg.appendChild(mk('rect',{x:x0-4,y:rowY(li)-1,width:120+nC*cw+8,height:rh,fill:'var(--yellow)','fill-opacity':0.13})); svg.appendChild(mk('rect',{x:x0-4,y:rowY(mi)-1,width:120+nC*cw+8,height:rh,fill:'var(--cyan)','fill-opacity':0.13})); }
+    for(var r=0;r<nI;r++){ txt(x0, rowY(r)+rh-10, G.irreps[r].lbl, {size:11, fill:(r===li?'var(--yellow)':(r===mi?'var(--cyan)':'var(--ink)')), weight:(r===li||r===mi)?600:400});
+      for(var cc=0;cc<nC;cc++){ txt(colX(cc)+cw/2, rowY(r)+rh-10, fmt(G.irreps[r].ch[cc]), {size:12, fill:'var(--ink)', anchor:'middle'}); } }
+    var iy=rowY(nI)+24;
+    var lam=G.irreps[li], mu=G.irreps[mi];
+    txt(x0, iy, '\u27e8\u03c7'+(li+1)+', \u03c7'+(mi+1)+'\u27e9 = (1/'+G.order+') \u03a3 |C|\u00b7\u03c7'+(li+1)+'(C)\u00b7\u03c7'+(mi+1)+'(C)\u0305', {size:12, fill:'var(--ink)'});
+    var terms=[], sum=[0,0];
+    for(var c2=0;c2<nC;c2++){ var t=cmul([G.classes[c2].size,0], cmul(lam.ch[c2], cconj(mu.ch[c2]))); sum=[sum[0]+t[0], sum[1]+t[1]]; terms.push(G.classes[c2].size+'\u00b7('+fmt(lam.ch[c2])+')('+fmt(cconj(mu.ch[c2]))+')'); }
+    txt(x0+8, iy+22, '= (1/'+G.order+') [ '+terms.join('  +  ')+' ]', {size:10, fill:'var(--mute)'});
+    var res=[sum[0]/G.order, sum[1]/G.order];
+    var isOne=Math.abs(res[0]-1)<1e-9 && Math.abs(res[1])<1e-9;
+    var verdict = '= '+fmt(res)+'  =  \u03b4\u03bb\u03bc'+(li===mi?'  (\u03bb = \u03bc \u2014 orthonormal)':'  (\u03bb \u2260 \u03bc \u2014 orthogonal)');
+    txt(x0, iy+50, verdict, {size:14, fill:isOne?'var(--green)':(Math.abs(res[0])<1e-9&&Math.abs(res[1])<1e-9?'var(--pink)':'var(--orange)'), weight:700});
+    out.textContent = 'The character is a class function, so its values are listed per conjugacy class C (with multiplicity |C|). The first orthogonality relation says the irreducible characters are ORTHONORMAL for the Hermitian inner product \u27e8f\u2081,f\u2082\u27e9 = (1/|G|) \u03a3_g f\u2081(g) f\u2082(g)\u0305, grouped over classes as (1/|G|) \u03a3_C |C| f\u2081(C) f\u2082(C)\u0305. Here \u27e8\u03c7'+(li+1)+', \u03c7'+(mi+1)+'\u27e9 = '+fmt(res)+', i.e. '+(li===mi?'1 \u2014 each irreducible character has norm 1':'0 \u2014 distinct irreducibles are orthogonal')+'. '+(gk==='C4'?'C\u2084 has complex characters (powers of i), so the conjugate on the second factor is essential: without it the \u201cinner product\u201d would not even be real.':'Equivalently \u27e8\u03c7\u03bb,\u03c7\u03bc\u27e9 = dim Hom_G(V\u03bc,V\u03bb), which Schur\u2019s lemma evaluates as \u03b4\u03bb\u03bc.')+' The irreducible characters form an orthonormal basis of the space of class functions, so the number of irreducibles equals the number of conjugacy classes.';
+  }
+  gS3.addEventListener('click', function(){ gk='S3'; draw(); });
+  gC4.addEventListener('click', function(){ gk='C4'; draw(); });
+  lB.forEach(function(b,i){ b.addEventListener('click', function(){ li=i; draw(); }); });
+  mB.forEach(function(b,i){ b.addEventListener('click', function(){ mi=i; draw(); }); });
+  draw();
+})();
+</script>
 
 <div class="quiz" data-concept="characters-orthogonality"></div>
 <!-- backlinks-auto-begin -->

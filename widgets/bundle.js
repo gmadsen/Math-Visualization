@@ -15982,6 +15982,42 @@ window.__MVWidgets = [
     "exampleScript": "<script>\n(function(){\n  if(!window.MVRecurrencePlotter) return;\n  MVRecurrencePlotter.init('#w-logistic-map-example', {\n    kind: \"logistic\",\n    title: \"Logistic map: x_{n+1} = r·x_n·(1 − x_n)\",\n    hint: \"drag r through the period-doubling cascade · cobweb on left · trajectory on right\",\n    viewBox: \"0 0 480 220\",\n    params: {\"r\":3.5,\"x0\":0.4,\"n\":80},\n  });\n})();\n</script>"
   },
   {
+    "slug": "rep-theory-homomorphism",
+    "family": "rep-theory-homomorphism",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "rep-theory-homomorphism widget params",
+    "description": "A representation is a group homomorphism ρ: G → GL(V). Working with S₃ and three of its representations (trivial, sign, the 3-dimensional permutation representation on ℂ³), pick two elements g, h and watch the defining identity ρ(g)ρ(h) = ρ(gh) hold matrix-by-matrix, with the character χ(g) = tr ρ(g) read off the diagonal. The permutation representation uses clean 0/1 matrices, making the homomorphism property concrete.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Bespoke module for **representation-theory** §1 (What is a representation?). Makes the defining property of a representation — that it is a group *homomorphism* $\\rho: G \\to \\mathrm{GL}(V)$ — concrete and checkable.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "rep-theory-orthogonality",
+    "family": "rep-theory-orthogonality",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "rep-theory-orthogonality widget params",
+    "description": "The first orthogonality relation for irreducible characters, ⟨χλ, χμ⟩ = δλμ. Pick a finite group (S₃ or the cyclic group C₄) and two of its irreducible characters; the widget shows the character table and computes the class-weighted Hermitian inner product (1/|G|)·Σ_classes |C|·χλ(C)·conj(χμ(C)) term by term, landing on 1 when the two irreps coincide and 0 otherwise. C₄ has genuinely complex characters, so the conjugate in the inner product is essential — the widget makes that visible.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Bespoke module for **representation-theory** §6 (Characters and orthogonality). Demonstrates the first orthogonality relation, $\\langle\\chi_\\lambda,\\chi_\\mu\\rangle = \\delta_{\\lambda\\mu}$, by direct computation on a character table. Distinct from §7's character-table *explorer* — this widget is about the inner product, not the table.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "resolution-ade-dynkin",
     "family": "resolution-ade-dynkin",
     "dimension": "2d",
