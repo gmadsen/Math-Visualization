@@ -2468,6 +2468,42 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "class-field-theory-conductor-discriminant",
+    "family": "class-field-theory-conductor-discriminant",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "class-field-theory-conductor-discriminant widget params",
+    "description": "The conductor-discriminant formula for cyclotomic fields, computed character by character. The Galois group of Q(zeta_n)/Q is (Z/n)^x, and its characters are exactly the Dirichlet characters mod n; the conductor-discriminant formula says |disc(Q(zeta_n)/Q)| equals the product over all characters chi of their conductors f(chi). Grouping characters by conductor, this is the product over divisors d of n of d raised to P(d), where P(d) is the number of characters of conductor exactly d -- the number of primitive Dirichlet characters mod d, given by the Mobius convolution P = mu * phi. Buttons pick n; the widget tabulates each divisor d of n with P(d) and the factor d^P(d), forms the product, and checks it against the closed-form discriminant. The trivial character has conductor 1 and contributes the factor 1 (an unramified prime sits in no conductor and no factor of the discriminant); ramified primes contribute through the characters non-trivial on their inertia. No numeric params beyond the standard widgetId/title/hint.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Bespoke widget for `class-field-theory.html` (§7 *The conductor-discriminant formula*, concept `conductor-discriminant`). It computes $\\operatorname{disc}(\\mathbb{Q}(\\zeta_n)/\\mathbb{Q})$ character by character via the conductor-discriminant (Führerdiskriminantenproduktformel). Single module, not part of a shared family.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "class-field-theory-existence",
+    "family": "class-field-theory-existence",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "class-field-theory-existence widget params",
+    "description": "Takagi's existence theorem as a lattice anti-isomorphism, on cyclotomic examples. Artin reciprocity gives a surjection from the idele class group (here the unit group (Z/m)^x = Gal(Q(zeta_m)/Q)) onto each Galois group; Takagi's existence theorem makes the correspondence a bijection: finite abelian extensions L/K correspond to finite-index subgroups H, with the lattice of extensions ANTI-isomorphic to the lattice of subgroups (L contained in L' iff H contains H'). Buttons pick m (8 or 12, where (Z/m)^x is the Klein four-group); the widget draws the subgroup lattice of (Z/m)^x beside the subfield lattice of Q(zeta_m), connected by the bijection H <-> fixed field, with the order-reversal made visible (the whole group fixes Q, the trivial subgroup fixes all of Q(zeta_m), and each index-2 subgroup -- the kernel of a quadratic Dirichlet character -- fixes one quadratic subfield). Each level shows Gal(L/Q) = (Z/m)^x / H. The readout states the classical and idelic forms of the existence theorem and notes that reciprocity plus existence turns class field theory into an algorithm. No numeric params beyond the standard widgetId/title/hint.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Bespoke widget for `class-field-theory.html` (§6 *Takagi's existence theorem*, concept `existence-theorem-cft`). It shows the existence theorem as the **lattice anti-isomorphism** between abelian extensions and finite-index subgroups, on cyclotomic examples. Single module, not part of a shared family.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "class-field-theory-reciprocity-dictionary",
     "family": "svg-illustration",
     "dimension": "2d",

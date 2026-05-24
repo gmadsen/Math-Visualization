@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/class-field-theory-existence/schema.json",
+  "title": "class-field-theory-existence widget params",
+  "description": "Takagi's existence theorem as a lattice anti-isomorphism, on cyclotomic examples. Artin reciprocity gives a surjection from the idele class group (here the unit group (Z/m)^x = Gal(Q(zeta_m)/Q)) onto each Galois group; Takagi's existence theorem makes the correspondence a bijection: finite abelian extensions L/K correspond to finite-index subgroups H, with the lattice of extensions ANTI-isomorphic to the lattice of subgroups (L contained in L' iff H contains H'). Buttons pick m (8 or 12, where (Z/m)^x is the Klein four-group); the widget draws the subgroup lattice of (Z/m)^x beside the subfield lattice of Q(zeta_m), connected by the bijection H <-> fixed field, with the order-reversal made visible (the whole group fixes Q, the trivial subgroup fixes all of Q(zeta_m), and each index-2 subgroup -- the kernel of a quadratic Dirichlet character -- fixes one quadratic subfield). Each level shows Gal(L/Q) = (Z/m)^x / H. The readout states the classical and idelic forms of the existence theorem and notes that reciprocity plus existence turns class field theory into an algorithm. No numeric params beyond the standard widgetId/title/hint.",
+  "meta": {
+    "family": "class-field-theory-existence",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\"> wrapper."
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title rendered inside .hd > .ttl."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional short hint rendered inside .hd > .hint."
+    }
+  }
+}

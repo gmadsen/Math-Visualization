@@ -993,6 +993,56 @@ divisors of ${n}: ${divs.join(', ')}  — each corresponds to a subfield`;
 
 <p>Combined with the reciprocity theorem, existence turns class field theory into an algorithm: to build the abelian extension of $K$ with Galois group $G$, find a finite-index subgroup $N\subset C_K$ with $C_K/N\cong G$ and read off the fixed field. For $K=\mathbb{Q}$ this recovers Kronecker–Weber — every finite-index $N\subset C_\mathbb{Q}$ containing the connected component cuts out a subfield of some $\mathbb{Q}(\zeta_n)$ — and for imaginary quadratic $K$ it underlies the theory of complex multiplication.</p>
 
+<div class="widget" id="w-existence">
+  <div class="hd"><div class="ttl">Takagi existence: abelian extensions ↔ subgroups (anti-iso)</div><div class="hint">pick $m$; the subgroup lattice of $(\mathbb{Z}/m)^\times$ mirrors the subfield lattice of $\mathbb{Q}(\zeta_m)$, reversed</div></div>
+  <div class="row" id="w-existence-btns">
+    <button type="button" data-m="8" class="active" aria-pressed="true">m = 8</button>
+    <button type="button" data-m="12" class="" aria-pressed="false">m = 12</button>
+  </div>
+  <svg id="w-existence-svg" viewBox="0 0 560 320" width="560" height="320" role="img" aria-label="The lattice of subgroups of the unit group versus the lattice of subfields of the cyclotomic field, related by the Galois correspondence"><title>Takagi existence: subgroups H of (Z/m)^x correspond bijectively to subfields of Q(zeta_m), the lattice of fields anti-isomorphic to the lattice of subgroups</title></svg>
+  <div class="readout" id="w-existence-out"></div>
+</div>
+<script>
+/* class-field-theory-existence widget: w-existence */
+(function(){
+  var svg=document.getElementById('w-existence-svg'), out=document.getElementById('w-existence-out');
+  var btns=document.getElementById('w-existence-btns');
+  if(!svg||!out||!btns) return;
+  var NS='http://www.w3.org/2000/svg';
+  function mk(tag,attrs,text){ var e=document.createElementNS(NS,tag); for(var k in attrs){ e.setAttribute(k,attrs[k]); } if(text!=null) e.textContent=text; return e; }
+  function txt(x,y,s,opt){ opt=opt||{}; svg.appendChild(mk('text',{x:x,y:y,'text-anchor':opt.anchor||'middle','font-size':opt.size||12,fill:opt.fill||'var(--ink)','font-weight':opt.weight||'normal'},s)); }
+  var DATA={
+    8:{ unit:'{1,3,5,7}', zeta:'\u211a(\u03b6\u2088)', mid:[{H:'{1,5}',F:'\u211a(i)'},{H:'{1,7}',F:'\u211a(\u221a2)'},{H:'{1,3}',F:'\u211a(\u221a\u22122)'}] },
+    12:{ unit:'{1,5,7,11}', zeta:'\u211a(\u03b6\u2081\u2082)', mid:[{H:'{1,5}',F:'\u211a(i)'},{H:'{1,7}',F:'\u211a(\u221a\u22123)'},{H:'{1,11}',F:'\u211a(\u221a3)'}] }
+  };
+  var curM=8;
+  function node(x,y,line1,line2,col){ var w=104,h=34; svg.appendChild(mk('rect',{x:(x-w/2).toFixed(1),y:(y-h/2).toFixed(1),width:w,height:h,rx:5,fill:'var(--panel2)',stroke:col,'stroke-width':1.4}));
+    txt(x, y-3, line1, {size:10, fill:col, weight:700}); txt(x, y+11, line2, {size:8, fill:'var(--mute)'}); }
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    var m=curM, D=DATA[m]; var cx=280, topY=66, midY=168, botY=272, sp=170;
+    txt(cx, 36, 'Galois correspondence for \u211a(\u03b6\u2098)/\u211a:  subgroups H \u2286 (\u2124/'+m+')\u00d7  \u27f7  subfields, ANTI-isomorphically', {size:10, fill:'var(--mute)'});
+    var midX=[cx-sp, cx, cx+sp];
+    // edges (drawn first): bottom {1} to each mid, each mid to top G
+    midX.forEach(function(mx){ svg.appendChild(mk('line',{x1:cx,y1:botY-17,x2:mx,y2:midY+17,stroke:'var(--line)','stroke-width':1})); svg.appendChild(mk('line',{x1:mx,y1:midY-17,x2:cx,y2:topY+17,stroke:'var(--line)','stroke-width':1})); });
+    // top: whole group G  <->  Q  (deg 1)
+    node(cx, topY, 'H = (\u2124/'+m+')\u00d7', 'Fix = \u211a   [L:\u211a]=1', 'var(--mute)');
+    // middle: three index-2 subgroups <-> three quadratic subfields (deg 2)
+    D.mid.forEach(function(nd,i){ node(midX[i], midY, 'H = '+nd.H, 'Fix = '+nd.F+'   [L:\u211a]=2', 'var(--cyan)'); });
+    // bottom: trivial {1} <-> Q(zeta_m)  (deg phi(m)=4)
+    node(cx, botY, 'H = {1}', 'Fix = '+D.zeta+'   [L:\u211a]=4', 'var(--green)');
+    // anti-iso annotation
+    txt(cx-sp-58, topY, 'small field', {anchor:'middle', size:8, fill:'var(--mute)'}); txt(cx-sp-58, topY+12, '(big H)', {anchor:'middle', size:8, fill:'var(--mute)'});
+    txt(cx-sp-58, botY, 'big field', {anchor:'middle', size:8, fill:'var(--green)'}); txt(cx-sp-58, botY+12, '(H = {1})', {anchor:'middle', size:8, fill:'var(--green)'});
+    out.textContent='Artin reciprocity IDENTIFIES the unit group (\u2124/'+m+')\u00d7 with Gal(\u211a(\u03b6\u2098)/\u211a) (the Artin map sending a prime p\u2224'+m+' to the Frobenius, i.e. to p mod '+m+'); for each abelian L inside \u211a(\u03b6\u2098), Galois restriction then gives a SURJECTION Gal(\u211a(\u03b6\u2098)/\u211a) \u21a0 Gal(L/\u211a). TAKAGI\u2019S EXISTENCE THEOREM makes the resulting correspondence a BIJECTION: every (admissible) finite-index subgroup H is the kernel of the Artin map for a genuine abelian extension, so finite abelian extensions L are in bijection with finite-index (open) subgroups H, via H = ker(\u2192 Gal(L/\u211a)) and L = Fix(H), with Gal(L/\u211a) \u2245 (\u2124/'+m+')\u00d7 / H. The bijection is ORDER-REVERSING: L \u2286 L\u2032 \u21d4 H \u2287 H\u2032, so the lattice of subfields is ANTI-isomorphic to the lattice of subgroups \u2014 the whole group fixes the smallest field \u211a, the trivial subgroup {1} fixes all of '+D.zeta+', and each index-2 subgroup (the kernel of a quadratic Dirichlet character) fixes one quadratic subfield. Here (\u2124/'+m+')\u00d7 = '+D.unit+' is the Klein four-group, so the diamond has five nodes on each side. Idelically the same statement reads: finite abelian L/K \u27f7 finite-index open subgroups N \u2282 C_K of the id\u00e8le class group, N = ker \u03b8_{L/K}. Reciprocity (the map) plus existence (its surjectivity onto all subgroups) turns class field theory into an ALGORITHM: to build the abelian extension realizing a target Galois group, find the matching subgroup.';
+  }
+  btns.addEventListener('click', function(e){ var b=e.target.closest('button'); if(!b) return; curM=parseInt(b.getAttribute('data-m'),10);
+    Array.prototype.forEach.call(btns.querySelectorAll('button'), function(x){ var on=x===b; x.classList.toggle('active', on); x.setAttribute('aria-pressed', on?'true':'false'); });
+    draw(); });
+  draw();
+})();
+</script>
+
 <!-- callback-auto-begin -->
 <aside class="callback">
   <div class="ttl">See also</div>
@@ -1019,6 +1069,59 @@ $$
 \operatorname{disc}\bigl(\mathbb{Q}(\zeta_n)/\mathbb{Q}\bigr) \;=\; \frac{(-1)^{\varphi(n)/2}\, n^{\varphi(n)}}{\prod_{p\mid n} p^{\,\varphi(n)/(p-1)}}
 $$
 as the product over Dirichlet characters mod $n$ of their individual conductors.</p>
+
+<div class="widget" id="w-conddisc">
+  <div class="hd"><div class="ttl">Conductor-discriminant: disc(ℚ(ζₙ)) = ∏ f(χ)</div><div class="hint">pick $n$; the product of all character conductors equals the discriminant</div></div>
+  <div class="row" id="w-conddisc-btns">
+    <button type="button" data-n="5" class="active" aria-pressed="true">n = 5</button>
+    <button type="button" data-n="7" class="" aria-pressed="false">n = 7</button>
+    <button type="button" data-n="8" class="" aria-pressed="false">n = 8</button>
+    <button type="button" data-n="9" class="" aria-pressed="false">n = 9</button>
+    <button type="button" data-n="12" class="" aria-pressed="false">n = 12</button>
+    <button type="button" data-n="15" class="" aria-pressed="false">n = 15</button>
+  </div>
+  <svg id="w-conddisc-svg" viewBox="0 0 560 320" width="560" height="320" role="img" aria-label="The conductor-discriminant product for the cyclotomic field Q(zeta_n), broken down by the conductor of each character"><title>disc(Q(zeta_n)) as the product over divisors d of n of d to the power P(d), the number of Dirichlet characters mod n of conductor d</title></svg>
+  <div class="readout" id="w-conddisc-out"></div>
+</div>
+<script>
+/* class-field-theory-conductor-discriminant widget: w-conddisc */
+(function(){
+  var svg=document.getElementById('w-conddisc-svg'), out=document.getElementById('w-conddisc-out');
+  var btns=document.getElementById('w-conddisc-btns');
+  if(!svg||!out||!btns) return;
+  var NS='http://www.w3.org/2000/svg';
+  function mk(tag,attrs,text){ var e=document.createElementNS(NS,tag); for(var k in attrs){ e.setAttribute(k,attrs[k]); } if(text!=null) e.textContent=text; return e; }
+  function txt(x,y,s,opt){ opt=opt||{}; svg.appendChild(mk('text',{x:x,y:y,'text-anchor':opt.anchor||'start','font-size':opt.size||12,fill:opt.fill||'var(--ink)','font-weight':opt.weight||'normal','font-family':opt.mono?'monospace':'inherit'},s)); }
+  function phi(n){ var r=n,m=n; for(var p=2;p*p<=m;p++){ if(m%p===0){ while(m%p===0)m/=p; r-=r/p; } } if(m>1) r-=r/m; return r; }
+  function mu(n){ if(n===1)return 1; var c=0,m=n; for(var p=2;p*p<=m;p++){ if(m%p===0){ m/=p; if(m%p===0)return 0; c++; } } if(m>1)c++; return c%2?-1:1; }
+  function divisors(n){ var d=[]; for(var i=1;i<=n;i++) if(n%i===0)d.push(i); return d; }
+  function P(d){ var s=0; divisors(d).forEach(function(e){ s+=mu(d/e)*phi(e); }); return s; }
+  function primes(n){ var ps=[]; for(var p=2;p<=n;p++){ if(n%p===0){ var pr=true; for(var i=2;i*i<=p;i++) if(p%i===0){pr=false;break;} if(pr)ps.push(p); } } return ps; }
+  function closedAbs(n){ var ph=phi(n), v=Math.pow(n,ph); primes(n).forEach(function(p){ v/=Math.pow(p, ph/(p-1)); }); return Math.round(v); }
+  function factorStr(n){ if(n===1) return '1'; var fs=[],m=n; for(var p=2;p<=m;p++){ var e=0; while(m%p===0){m/=p;e++;} if(e) fs.push(e===1?(''+p):(p+'^'+e)); } return fs.join('\u00b7'); }
+  var cur=5;
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    var n=cur, ph=phi(n), ds=divisors(n);
+    txt(20, 36, 'Gal(\u211a(\u03b6\u2099)/\u211a) = (\u2124/'+n+')\u00d7,  order \u03c6('+n+') = '+ph+'  \u2014  its \u03c6('+n+') characters are the Dirichlet characters mod '+n, {size:11, fill:'var(--mute)'});
+    txt(40, 64, 'd | n', {size:10, fill:'var(--mute)', weight:700}); txt(150, 64, 'P(d) = # \u03c7 of conductor d', {size:10, fill:'var(--mute)', weight:700}); txt(380, 64, 'factor d^{P(d)}', {size:10, fill:'var(--mute)', weight:700});
+    var y=88, prod=1, parts=[];
+    ds.forEach(function(d){ var pd=P(d); var fac=Math.round(Math.pow(d,pd)); prod*=fac;
+      var col = d===1?'var(--mute)':'var(--cyan)';
+      txt(40, y, ''+d, {size:11, fill:col, mono:true}); txt(150, y, ''+pd+(d===1?'  (trivial \u03c7 \u2192 unramified)':''), {size:11, fill:col, mono:true}); txt(380, y, d+'^'+pd+' = '+fac, {size:11, fill:col, mono:true, weight: d===1?'normal':700});
+      if(pd>0||d===1) parts.push(d+'^'+pd); y+=22; });
+    var clo=closedAbs(n); var sign=(ph/2)%2===0?1:-1;
+    svg.appendChild(mk('line',{x1:30,y1:y-4,x2:520,y2:y-4,stroke:'var(--line)','stroke-width':1})); y+=18;
+    txt(40, y, '\u220f d^{P(d)} = '+parts.join(' \u00b7 ')+' = '+prod, {size:12, fill:'var(--green)', weight:700, mono:true}); y+=24;
+    txt(40, y, '|disc(\u211a(\u03b6\u2099))| = '+factorStr(clo)+' = '+clo+'   '+(prod===clo?'\u2713 matches':'\u2260'), {size:12, fill: prod===clo?'var(--green)':'var(--pink)', weight:700, mono:true});
+    out.textContent='The Galois group of \u211a(\u03b6\u2099)/\u211a is (\u2124/'+n+')\u00d7, and its characters are exactly the Dirichlet characters mod '+n+'. Each character \u03c7 has an Artin CONDUCTOR f(\u03c7) \u2014 the smallest modulus through which it factors \u2014 and the CONDUCTOR-DISCRIMINANT FORMULA (F\u00fchrerdiskriminantenproduktformel, Hasse) writes the discriminant as a product over all characters: |disc(\u211a(\u03b6\u2099)/\u211a)| = \u220f_\u03c7 f(\u03c7). Grouping the characters by conductor, this is \u220f_{d|'+n+'} d^{P(d)}, where P(d) is the number of characters of conductor exactly d \u2014 i.e. the number of PRIMITIVE Dirichlet characters mod d, given by the M\u00f6bius convolution P = \u03bc * \u03c6 (so \u03c6 = \u03a3_{e|d} P(e), every character induced from a unique primitive one). For n = '+n+' the table gives \u220f d^{P(d)} = '+prod+', matching the closed form |disc| = '+factorStr(clo)+' (the actual disc carries a sign ('+(-1==sign?'\u2212':'+')+') from (\u22121)^{\u03c6(n)/2}). Ramification is thus controlled CHARACTER BY CHARACTER: the trivial character has conductor 1 and contributes the factor 1 (an unramified prime lies in no conductor); a prime p|n ramifies precisely through the characters non-trivial on its inertia, tamely contributing one power of p per such character, wildly more (via the Swan conductor).';
+  }
+  btns.addEventListener('click', function(e){ var b=e.target.closest('button'); if(!b) return; cur=parseInt(b.getAttribute('data-n'),10);
+    Array.prototype.forEach.call(btns.querySelectorAll('button'), function(x){ var on=x===b; x.classList.toggle('active', on); x.setAttribute('aria-pressed', on?'true':'false'); });
+    draw(); });
+  draw();
+})();
+</script>
 
 <!-- callback-auto-begin -->
 <aside class="callback">

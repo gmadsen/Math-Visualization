@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/class-field-theory-conductor-discriminant/schema.json",
+  "title": "class-field-theory-conductor-discriminant widget params",
+  "description": "The conductor-discriminant formula for cyclotomic fields, computed character by character. The Galois group of Q(zeta_n)/Q is (Z/n)^x, and its characters are exactly the Dirichlet characters mod n; the conductor-discriminant formula says |disc(Q(zeta_n)/Q)| equals the product over all characters chi of their conductors f(chi). Grouping characters by conductor, this is the product over divisors d of n of d raised to P(d), where P(d) is the number of characters of conductor exactly d -- the number of primitive Dirichlet characters mod d, given by the Mobius convolution P = mu * phi. Buttons pick n; the widget tabulates each divisor d of n with P(d) and the factor d^P(d), forms the product, and checks it against the closed-form discriminant. The trivial character has conductor 1 and contributes the factor 1 (an unramified prime sits in no conductor and no factor of the discriminant); ramified primes contribute through the characters non-trivial on their inertia. No numeric params beyond the standard widgetId/title/hint.",
+  "meta": {
+    "family": "class-field-theory-conductor-discriminant",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\"> wrapper."
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title rendered inside .hd > .ttl."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional short hint rendered inside .hd > .hint."
+    }
+  }
+}
