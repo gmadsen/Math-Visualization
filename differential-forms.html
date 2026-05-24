@@ -763,6 +763,93 @@ function drawNode(svg, x, y, label, opts={}){
 <p style="text-align:center">$\displaystyle \int_\sigma \omega \;:=\; \int_{\Delta^k} \sigma^*\omega,\qquad \int_{\sum n_i\sigma_i}\omega \;:=\; \sum n_i \int_{\sigma_i}\omega.$</p>
 <p>Pullback-invariance is what makes this well-defined: reparametrizing $\sigma$ by an orientation-preserving diffeomorphism of $\Delta^k$ leaves the integral unchanged (Jacobian = $+1$ at the form level), while an orientation-reversing reparametrization flips the sign, matching the $\pm 1$ coefficient on $\sigma$ in the chain.</p>
 <p>This is the bridge between §4 and §7 below: integrating a $(k{-}1)$-form over the boundary chain $\partial M$ and integrating $d\omega$ over the bulk $k$-chain $M$ are both defined via the same pullback mechanism — the only question is whether they agree. They do, and that statement is Stokes.</p>
+
+<div class="widget" id="w-df-integration">
+  <div class="hd"><div class="ttl">Integrating a 1-form over an oriented curve</div><div class="hint">Pick a form and a curve; reversing the orientation flips the sign.</div></div>
+  <div class="row">
+    <span class="pill">1-form $\omega$</span>
+    <button type="button" id="w-df-integration-f0">$dx$</button>
+    <button type="button" id="w-df-integration-f1">$x\,dy$</button>
+    <button type="button" id="w-df-integration-f2">angle form</button>
+  </div>
+  <div class="row">
+    <span class="pill">curve $\gamma$</span>
+    <button type="button" id="w-df-integration-c0">segment</button>
+    <button type="button" id="w-df-integration-c1">semicircle</button>
+    <button type="button" id="w-df-integration-c2">full circle</button>
+    <button type="button" id="w-df-integration-rev">reverse orientation</button>
+  </div>
+  <svg id="w-df-integration-svg" viewBox="0 0 560 300" width="560" height="300" role="img" aria-label="An oriented curve with a 1-form paired against its tangent vectors, and the line integral"><title>Integration of a 1-form over an oriented 1-chain: the integral is the Riemann sum of the form paired with the tangent along the curve</title></svg>
+  <div class="readout" id="w-df-integration-out"></div>
+</div><script>
+/* diff-forms-integration widget: w-df-integration */
+(function(){
+  var PI=Math.PI;
+  var FORMS=[
+    { name:'\u03c9 = dx', P:function(){return 1;}, Q:function(){return 0;}, exact:'x(end) \u2212 x(start)' },
+    { name:'\u03c9 = x dy', P:function(){return 0;}, Q:function(x){return x;}, exact:'signed area swept' },
+    { name:'\u03c9 = (\u2212y dx + x dy)/(x\u00b2+y\u00b2)  (angle form)', P:function(x,y){return -y/(x*x+y*y);}, Q:function(x,y){return x/(x*x+y*y);}, exact:'angle swept about the origin' }
+  ];
+  var CURVES=[
+    { name:'segment', g:function(t){return [-1+2.2*t, -0.6+1.4*t];}, gp:function(){return [2.2,1.4];}, loop:false },
+    { name:'upper semicircle', g:function(t){return [Math.cos(PI*t), Math.sin(PI*t)];}, gp:function(t){return [-PI*Math.sin(PI*t), PI*Math.cos(PI*t)];}, loop:false },
+    { name:'full circle', g:function(t){return [Math.cos(2*PI*t), Math.sin(2*PI*t)];}, gp:function(t){return [-2*PI*Math.sin(2*PI*t), 2*PI*Math.cos(2*PI*t)];}, loop:true }
+  ];
+  var svg=document.getElementById('w-df-integration-svg'), out=document.getElementById('w-df-integration-out');
+  var fB=[0,1,2].map(function(i){return document.getElementById('w-df-integration-f'+i);});
+  var cB=[0,1,2].map(function(i){return document.getElementById('w-df-integration-c'+i);});
+  var revB=document.getElementById('w-df-integration-rev');
+  if(!svg||!out||!revB||fB.some(function(b){return !b;})||cB.some(function(b){return !b;})) return;
+  var NS='http://www.w3.org/2000/svg';
+  function mk(tag,attrs,text){ var e=document.createElementNS(NS,tag); for(var k in attrs){ e.setAttribute(k,attrs[k]); } if(text!=null) e.textContent=text; return e; }
+  function txt(x,y,s,opt){ opt=opt||{}; svg.appendChild(mk('text',{x:x,y:y,'text-anchor':opt.anchor||'start','font-size':opt.size||12,fill:opt.fill||'var(--ink)','font-weight':opt.weight||'normal','font-style':opt.italic?'italic':'normal'},s)); }
+  var CX=175, CY=150, SC=58;
+  function X(x){ return CX+x*SC; } function Y(y){ return CY-y*SC; }
+  function arrow(x1,y1,x2,y2,col,w){ svg.appendChild(mk('line',{x1:x1,y1:y1,x2:x2,y2:y2,stroke:col,'stroke-width':w||2})); var a=Math.atan2(y2-y1,x2-x1); svg.appendChild(mk('path',{d:'M '+x2+' '+y2+' L '+(x2-7*Math.cos(a-0.4))+' '+(y2-7*Math.sin(a-0.4))+' L '+(x2-7*Math.cos(a+0.4))+' '+(y2-7*Math.sin(a+0.4))+' Z',fill:col})); }
+  var fi=2, ci=2, rev=false;
+  function pt(t){ return rev ? CURVES[ci].g(1-t) : CURVES[ci].g(t); }
+  function tan(t){ var d=CURVES[ci].gp(rev?1-t:t); return rev?[-d[0],-d[1]]:[d[0],d[1]]; }
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    fB.forEach(function(b,i){ b.classList.toggle('active',i===fi); b.setAttribute('aria-pressed',i===fi?'true':'false'); });
+    cB.forEach(function(b,i){ b.classList.toggle('active',i===ci); b.setAttribute('aria-pressed',i===ci?'true':'false'); });
+    revB.classList.toggle('active',rev); revB.setAttribute('aria-pressed',rev?'true':'false');
+    var F=FORMS[fi], C=CURVES[ci];
+    svg.appendChild(mk('line',{x1:CX-130,y1:CY,x2:CX+130,y2:CY,stroke:'var(--line)','stroke-width':1}));
+    svg.appendChild(mk('line',{x1:CX,y1:CY-120,x2:CX,y2:CY+120,stroke:'var(--line)','stroke-width':1}));
+    if(fi===2) svg.appendChild(mk('circle',{cx:X(0),cy:Y(0),r:3,fill:'var(--pink)'}));
+    var N=240, dpath='', i;
+    for(i=0;i<=120;i++){ var t=i/120, p=pt(t); dpath+=(i===0?'M ':'L ')+X(p[0])+' '+Y(p[1])+' '; }
+    svg.appendChild(mk('path',{d:dpath,fill:'none',stroke:'var(--violet)','stroke-width':2}));
+    [0.25,0.55,0.85].forEach(function(t){ var p=pt(t), q=pt(t+0.012); arrow(X(p[0]),Y(p[1]),X(q[0]),Y(q[1]),'var(--violet)',0); });
+    var I=0, dt=1/N;
+    for(i=0;i<N;i++){ var t=(i+0.5)*dt, p=pt(t), d=tan(t); I += (F.P(p[0],p[1])*d[0] + F.Q(p[0],p[1])*d[1])*dt; }
+    var samples=C.loop?[0.05,0.3,0.55,0.8]:[0.1,0.35,0.6,0.85];
+    samples.forEach(function(t){ var p=pt(t), d=tan(t), L=Math.hypot(d[0],d[1])||1; var ux=d[0]/L, uy=d[1]/L; var pair=F.P(p[0],p[1])*d[0]+F.Q(p[0],p[1])*d[1]; var col=pair>=0?'var(--green)':'var(--pink)';
+      arrow(X(p[0]),Y(p[1]), X(p[0])+ux*0.55*SC, Y(p[1])-uy*0.55*SC, col,1.6); });
+    var TX=330;
+    txt(TX, 40, F.name, {size:12, fill:'var(--ink)', weight:600});
+    txt(TX, 62, 'over '+C.name+(rev?'  (reversed)':''), {size:11, fill:'var(--violet)'});
+    txt(TX, 92, '\u222b_\u03b3 \u03c9 = \u222b\u2080\u00b9 [P(\u03b3)x\u2032 + Q(\u03b3)y\u2032] dt', {size:11, fill:'var(--mute)'});
+    txt(TX, 120, '= '+(I<0?'\u2212':'')+Math.abs(I).toFixed(3), {size:16, fill:'var(--yellow)', weight:700});
+    var nice='';
+    if(fi===2 && ci===2) nice = rev?'= \u22122\u03c0  (winding \u22121)':'= 2\u03c0  (winding +1 about the origin)';
+    else if(fi===2 && ci===1) nice='\u2248 \u03c0  (half-turn of angle)';
+    else if(fi===1 && ci===2) nice='= \u03c0  (area of the unit disk)';
+    else if(fi===0) nice='= x(end) \u2212 x(start)  (dx is exact)';
+    if(nice) txt(TX, 144, nice, {size:11, fill:'var(--green)'});
+    txt(TX, 178, 'green tangent: \u03c9(\u03b3\u2032) \u2265 0', {size:10, fill:'var(--green)'});
+    txt(TX, 194, 'pink tangent: \u03c9(\u03b3\u2032) < 0', {size:10, fill:'var(--pink)'});
+    txt(TX, 222, 'reversing \u03b3 flips the sign', {size:10, fill:'var(--mute)', italic:true});
+    out.textContent = 'The integral of a 1-form over an oriented curve is defined by pullback to the parameter interval: \u222b_\u03b3 \u03c9 = \u222b\u2080\u00b9 \u03b3*\u03c9 = \u222b\u2080\u00b9 [P(\u03b3(t))\u00b7x\u2032(t) + Q(\u03b3(t))\u00b7y\u2032(t)] dt, the running sum of the form paired against the tangent \u03b3\u2032(t). Here '+F.name+' over the '+C.name+(rev?' (reversed)':'')+' gives '+(I<0?'\u2212':'')+Math.abs(I).toFixed(3)+'. '+(C.loop?'':'For an open curve only the endpoints and path matter; ')+'reversing the orientation negates the integral \u2014 that is the \u22121 coefficient on the chain. The angle form is closed but not exact, so its integral around a loop enclosing the origin is 2\u03c0 rather than 0: a first glimpse of de Rham cohomology.';
+  }
+  fB.forEach(function(b,i){ b.addEventListener('click', function(){ fi=i; draw(); }); });
+  cB.forEach(function(b,i){ b.addEventListener('click', function(){ ci=i; draw(); }); });
+  revB.addEventListener('click', function(){ rev=!rev; draw(); });
+  draw();
+})();
+</script>
+
 <!-- callback-auto-begin -->
 <aside class="callback">
   <div class="ttl">See also</div>
@@ -795,6 +882,89 @@ function drawNode(svg, x, y, label, opts={}){
 <li>$f^*(\omega\wedge\eta) = (f^*\omega)\wedge(f^*\eta)$ — pullback is a ring map.</li>
 </ul>
 <p>Together they say $f^*\colon \Omega^\bullet(M)\to\Omega^\bullet(N)$ is a map of differential graded algebras. This is why integration of forms is <em>coordinate-invariant</em>: changing coordinates is a pullback, and pulling back a top form along a diffeomorphism picks up the Jacobian determinant exactly once, giving the usual change-of-variables formula for free.</p>
+
+<div class="widget" id="w-df-pullback">
+  <div class="hd"><div class="ttl">Pullback picks up the Jacobian determinant</div><div class="hint">Move the base point; the image parallelogram has area det(Dφ).</div></div>
+  <div class="row">
+    <span class="pill">map $\varphi$</span>
+    <button type="button" id="w-df-pullback-m0">scaling</button>
+    <button type="button" id="w-df-pullback-m1">shear</button>
+    <button type="button" id="w-df-pullback-m2">stretch (det varies)</button>
+  </div>
+  <div class="row">
+    <label for="w-df-pullback-u">base point $u$</label>
+    <input type="range" id="w-df-pullback-u" min="-1.5" max="1.5" value="0.5" step="0.25">
+    <span class="pill" id="w-df-pullback-uv">u = 0.5</span>
+  </div>
+  <div class="row">
+    <label for="w-df-pullback-v">base point $v$</label>
+    <input type="range" id="w-df-pullback-v" min="-1.5" max="1.5" value="0.5" step="0.25">
+    <span class="pill" id="w-df-pullback-vv">v = 0.5</span>
+  </div>
+  <svg id="w-df-pullback-svg" viewBox="0 0 580 300" width="580" height="300" role="img" aria-label="A unit square in the source plane and its image parallelogram in the target plane, with area equal to the Jacobian determinant"><title>Pullback of the area form: the unit du-dv square maps to the parallelogram spanned by the Jacobian columns, of area det(Dphi)</title></svg>
+  <div class="readout" id="w-df-pullback-out"></div>
+</div><script>
+/* diff-forms-pullback widget: w-df-pullback */
+(function(){
+  var MAPS=[
+    { name:'scaling  \u03c6(u,v) = (1.5u, 0.6v)', f:function(u,v){return [1.5*u,0.6*v];}, J:function(){return [[1.5,0],[0,0.6]];} },
+    { name:'shear  \u03c6(u,v) = (u + 0.7v, v)', f:function(u,v){return [u+0.7*v,v];}, J:function(){return [[1,0.7],[0,1]];} },
+    { name:'stretch  \u03c6(u,v) = (u, v(1 + 0.5u))', f:function(u,v){return [u, v*(1+0.5*u)];}, J:function(u,v){return [[1,0],[0.5*v,1+0.5*u]];} }
+  ];
+  var svg=document.getElementById('w-df-pullback-svg'), out=document.getElementById('w-df-pullback-out');
+  var mB=[0,1,2].map(function(i){ return document.getElementById('w-df-pullback-m'+i); });
+  var su=document.getElementById('w-df-pullback-u'), sv=document.getElementById('w-df-pullback-v');
+  var uv=document.getElementById('w-df-pullback-uv'), vv=document.getElementById('w-df-pullback-vv');
+  if(!svg||!out||!su||!sv||!uv||!vv||mB.some(function(b){return !b;})) return;
+  var NS='http://www.w3.org/2000/svg';
+  function mk(tag,attrs,text){ var e=document.createElementNS(NS,tag); for(var k in attrs){ e.setAttribute(k,attrs[k]); } if(text!=null) e.textContent=text; return e; }
+  function txt(x,y,s,opt){ opt=opt||{}; svg.appendChild(mk('text',{x:x,y:y,'text-anchor':opt.anchor||'start','font-size':opt.size||12,fill:opt.fill||'var(--ink)','font-weight':opt.weight||'normal','font-style':opt.italic?'italic':'normal'},s)); }
+  var SC=34, CYL=158, CXL=150, CXR=430;
+  function axes(cx, lblX, lblY){
+    svg.appendChild(mk('line',{x1:cx-110,y1:CYL,x2:cx+110,y2:CYL,stroke:'var(--line)','stroke-width':1}));
+    svg.appendChild(mk('line',{x1:cx,y1:CYL-110,x2:cx,y2:CYL+110,stroke:'var(--line)','stroke-width':1}));
+    txt(cx+112, CYL+4, lblX, {size:11, fill:'var(--mute)', italic:true});
+    txt(cx-4, CYL-112, lblY, {size:11, fill:'var(--mute)', italic:true, anchor:'middle'}); }
+  function poly(pts, attrs){ var d='M '+pts.map(function(p){return p[0]+' '+p[1];}).join(' L ')+' Z'; svg.appendChild(mk('path', Object.assign({d:d}, attrs))); }
+  function arrow(x1,y1,x2,y2,col){ svg.appendChild(mk('line',{x1:x1,y1:y1,x2:x2,y2:y2,stroke:col,'stroke-width':2})); var a=Math.atan2(y2-y1,x2-x1); svg.appendChild(mk('path',{d:'M '+x2+' '+y2+' L '+(x2-7*Math.cos(a-0.4))+' '+(y2-7*Math.sin(a-0.4))+' L '+(x2-7*Math.cos(a+0.4))+' '+(y2-7*Math.sin(a+0.4))+' Z',fill:col})); }
+  var mi=0;
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    var u=parseFloat(su.value), v=parseFloat(sv.value);
+    uv.textContent='u = '+u; vv.textContent='v = '+v;
+    mB.forEach(function(b,i){ b.classList.toggle('active',i===mi); b.setAttribute('aria-pressed',i===mi?'true':'false'); });
+    var M=MAPS[mi], J=M.J(u,v), det=J[0][0]*J[1][1]-J[0][1]*J[1][0];
+    axes(CXL, 'u', 'v');
+    txt(CXL, 40, 'source (u, v)', {size:11, fill:'var(--ink)', anchor:'middle'});
+    function L(a,b){ return [CXL+a*SC, CYL-b*SC]; }
+    var sq=[L(u,v),L(u+1,v),L(u+1,v+1),L(u,v+1)];
+    poly(sq, {fill:'var(--yellow)','fill-opacity':0.18, stroke:'var(--yellow)','stroke-width':1.4});
+    arrow(L(u,v)[0],L(u,v)[1],L(u+1,v)[0],L(u+1,v)[1],'var(--green)');
+    arrow(L(u,v)[0],L(u,v)[1],L(u,v+1)[0],L(u,v+1)[1],'var(--cyan)');
+    txt(L(u+0.5,v-0.18)[0], L(u+0.5,v-0.18)[1], 'du', {size:10, fill:'var(--green)', anchor:'middle'});
+    txt(L(u-0.28,v+0.5)[0], L(u-0.28,v+0.5)[1], 'dv', {size:10, fill:'var(--cyan)', anchor:'middle'});
+    txt(L(u+0.5,v+0.5)[0], L(u+0.5,v+0.5)[1]+4, 'area 1', {size:9, fill:'var(--mute)', anchor:'middle'});
+    axes(CXR, 'x', 'y');
+    txt(CXR, 40, 'target (x, y)', {size:11, fill:'var(--ink)', anchor:'middle'});
+    function R(a,b){ return [CXR+a*SC, CYL-b*SC]; }
+    var P=M.f(u,v); var c1=[J[0][0],J[1][0]], c2=[J[0][1],J[1][1]];
+    var img=[R(P[0],P[1]), R(P[0]+c1[0],P[1]+c1[1]), R(P[0]+c1[0]+c2[0],P[1]+c1[1]+c2[1]), R(P[0]+c2[0],P[1]+c2[1])];
+    poly(img, {fill: det<0?'var(--pink)':'var(--yellow)','fill-opacity':0.18, stroke: det<0?'var(--pink)':'var(--yellow)','stroke-width':1.4});
+    arrow(R(P[0],P[1])[0],R(P[0],P[1])[1], R(P[0]+c1[0],P[1]+c1[1])[0],R(P[0]+c1[0],P[1]+c1[1])[1],'var(--green)');
+    arrow(R(P[0],P[1])[0],R(P[0],P[1])[1], R(P[0]+c2[0],P[1]+c2[1])[0],R(P[0]+c2[0],P[1]+c2[1])[1],'var(--cyan)');
+    var midI=R(P[0]+(c1[0]+c2[0])/2, P[1]+(c1[1]+c2[1])/2);
+    txt(midI[0], midI[1]+4, 'area '+Math.abs(det).toFixed(2), {size:9, fill:'var(--mute)', anchor:'middle'});
+    var jstr='['+J[0][0].toFixed(2)+'  '+J[0][1].toFixed(2)+';  '+J[1][0].toFixed(2)+'  '+J[1][1].toFixed(2)+']';
+    txt(CXL, CYL+128, M.name, {size:11, fill:'var(--violet)', anchor:'middle'});
+    txt(CXR, CYL+128, 'D\u03c6 = '+jstr+',  det = '+det.toFixed(2), {size:11, fill:'var(--ink)', anchor:'middle'});
+    out.textContent = 'The map \u03c6 sends the unit du\u2227dv square (left, area 1) to the parallelogram spanned by the columns of the Jacobian D\u03c6 (right). Pulling back the area form \u03c9 = dx\u2227dy gives \u03c6*\u03c9 = det(D\u03c6)\u00b7du\u2227dv = '+det.toFixed(2)+'\u00b7du\u2227dv, so the image parallelogram has signed area det(D\u03c6) = '+det.toFixed(2)+'. '+(Math.abs(det-1)<1e-9?'Here det = 1, so this map preserves area (a shear).':(mi===2?'For this map det = 1 + 0.5u depends on the base point \u2014 slide u and watch the area change.':'det is constant for this linear map.'))+' This is exactly why a change of coordinates in an integral picks up the Jacobian determinant once: \u222b_{\u03c6(R)} dx\u2227dy = \u222b_R det(D\u03c6) du\u2227dv.';
+  }
+  mB.forEach(function(b,i){ b.addEventListener('click', function(){ mi=i; draw(); }); });
+  su.addEventListener('input', draw); sv.addEventListener('input', draw);
+  draw();
+})();
+</script>
+
 <!-- callback-auto-begin -->
 <aside class="callback">
   <div class="ttl">See also</div>

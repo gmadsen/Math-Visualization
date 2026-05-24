@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/diff-forms-pullback/schema.json",
+  "title": "diff-forms-pullback widget params",
+  "description": "The pullback of a top form picks up the Jacobian determinant. For a map φ: (u,v) ↦ (x,y) and the area form ω = dx∧dy on the target, the pullback is φ*ω = det(Dφ)·du∧dv. Move the base point and pick a map; the widget shows the unit (du,dv) square in the source plane and its image — the parallelogram spanned by the columns of the Jacobian Dφ — in the target plane, whose signed area is exactly det(Dφ). This is why a change of coordinates picks up the Jacobian exactly once.",
+  "meta": {
+    "family": "diff-forms-pullback",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\"> wrapper."
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title rendered inside .hd > .ttl."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional short hint rendered inside .hd > .hint."
+    }
+  }
+}
