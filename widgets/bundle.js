@@ -14636,6 +14636,42 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "nst-axiom-of-choice",
+    "family": "nst-axiom-of-choice",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "nst-axiom-of-choice widget params",
+    "description": "Russell's shoes-versus-socks picture of the axiom of choice. A family of non-empty pairs A_i is shown as a row of bins plus one bin standing for the infinitely many remaining pairs. In shoes mode the two items are distinguishable (left/right), so 'pick the left one' is an explicit formula — a choice function defined uniformly on the whole family at once, no AC needed. In socks mode the two items are indistinguishable, so no rule exists: you can still choose by hand from finitely many bins, but the infinite family can never be exhausted, and AC is exactly the assertion that a choice function f with f(i)∈A_i exists anyway (equivalently ∏A_i≠∅). A slider sets the number of visible finite pairs.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Nst axiom of choice widget — scaffolded stub. Replace this paragraph with a short description of what the widget does, which topic page first introduced it, and whether it's a bespoke module or part of a shared family.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "nst-product-powerset",
+    "family": "nst-product-powerset",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "nst-product-powerset widget params",
+    "description": "Two foundational set constructions side by side. In Cartesian-product mode, sliders set |A| and |B| and the widget draws the grid of all ordered pairs (a,b), making |A×B|=|A|·|B| visible as a rectangle of dots. In power-set mode, a slider sets n=|A| and clickable element chips build a subset S⊆A; the widget shows S, its indicator vector 1_S∈{0,1}ⁿ, and a column of all 2ⁿ indicator strings (coloured by how many elements they contain) with the current one highlighted — the bijection 𝒫(A)≅{0,1}^A that explains |𝒫(A)|=2ⁿ.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Nst product powerset widget — scaffolded stub. Replace this paragraph with a short description of what the widget does, which topic page first introduced it, and whether it's a bespoke module or part of a shared family.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "numerical-fem-hat-basis",
     "family": "numerical-fem-hat-basis",
     "dimension": "2d",
