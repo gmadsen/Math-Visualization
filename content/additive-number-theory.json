@@ -634,6 +634,27 @@
           "html": "<section id=\"hilbert\">\n<h2>10. Hilbert–Waring: finiteness</h2>\n<p>For 140 years after Waring no one could prove even that $g(k)<\\infty$ in general. Then:</p>\n\n<div class=\"ok\"><strong>Theorem (Hilbert, 1909).</strong> For every $k\\ge 1$, $g(k)$ is finite.</div>\n\n<p>Hilbert's proof was an <em>algebraic identity</em>, not an analytic estimate. The crucial input is a polynomial identity of the form\n$$\\Bigl(x_1^2+x_2^2+\\cdots+x_r^2\\Bigr)^k = \\sum_{j=1}^{M} c_j\\bigl(a_{j,1} x_1 + \\cdots + a_{j,r} x_r\\bigr)^{2k}$$\nwith $c_j>0$ rationals and $a_{j,i}\\in\\mathbb{Z}$. (Such an identity, later made constructive by Hausdorff, exists for every $k\\ge 1$; the proof uses a lattice-point counting argument in $\\mathbb{R}^r$ for $r$ sufficiently large.) Given this, take $r=4$ and use Lagrange: every $n$ is $x_1^2+\\cdots+x_4^2$ for some integers, so\n$$n^k = \\sum_{j=1}^M c_j L_j^{2k},\\qquad L_j\\in\\mathbb{Z}.$$\nClearing denominators (replace $n$ by a large multiple), one gets every sufficiently large integer of the form $c\\, n^k$ as a sum of boundedly many $(2k)$-th powers. An induction on $k$ then descends to every integer.</p>\n\n<div class=\"note\"><strong>The idea in one slogan.</strong> Lagrange handles squares. An algebraic identity converts <em>$k$-th powers of squares</em> into <em>sums of $(2k)$-th powers</em>. Iterating, every integer becomes a bounded sum of $(2^m k)$-th powers for every $m$ — enough to cover every exponent inductively.</div>\n\n<p>Hilbert's method is non-constructive: the implicit $g(k)$ is astronomically large. For example, the first explicit bounds of the form $g(k)\\le (2k+1)\\cdot 2^k$ came only decades later. The circle method of Hardy–Littlewood (1920–25), which replaced algebra with analysis, brought the estimates down to essentially optimal.</p>\n\n"
         },
         {
+          "type": "widget",
+          "slug": "ant-waring-finiteness",
+          "params": {
+            "widgetId": "w-ant-waring",
+            "title": "Hilbert–Waring: g(k) is finite",
+            "hint": "every n needs ≤ g(k) k-th powers — a bound independent of n"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-ant-waring"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
           "type": "quiz",
           "concept": "hilbert-waring-theorem",
           "html": "<div class=\"quiz\" data-concept=\"hilbert-waring-theorem\"></div>"
