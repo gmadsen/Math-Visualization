@@ -96,7 +96,8 @@ export function renderScript(params) {
     `  }\n` +
     `  function supr(n){ var S={'0':'\\u2070','1':'\\u00b9','2':'\\u00b2','3':'\\u00b3','4':'\\u2074','5':'\\u2075','6':'\\u2076','7':'\\u2077','8':'\\u2078','9':'\\u2079'}; return (''+n).split('').map(function(c){return S[c]||c;}).join(''); }\n` +
     `  svg.addEventListener('click', function(ev){ var t=ev.target; if(t && t.hasAttribute && t.hasAttribute('data-k')){ var k=+t.getAttribute('data-k'); imposed[k]=!imposed[k]; draw(); } });\n` +
-    `  b8.addEventListener('click', function(){ imposed=[true,true,true,true,true,true,true,true,false]; draw(); });\n` +
+    `  b8.addEventListener('click', function(){ var free=Math.floor(Math.random()*9); imposed=[]; for(var k=0;k<9;k++) imposed[k]=(k!==free); draw(); });\n` + // drop a RANDOM point each click, so "any 8" genuinely shows any 8 force the 9th
+
     `  b9.addEventListener('click', function(){ imposed=[true,true,true,true,true,true,true,true,true]; draw(); });\n` +
     `  bc.addEventListener('click', function(){ imposed=[false,false,false,false,false,false,false,false,false]; draw(); });\n` +
     `  draw();\n` +

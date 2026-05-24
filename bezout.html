@@ -1194,7 +1194,7 @@ where $X\ast Y$ is the "third intersection of line $\overline{XY}$ with $E$." Co
   }
   function supr(n){ var S={'0':'\u2070','1':'\u00b9','2':'\u00b2','3':'\u00b3','4':'\u2074','5':'\u2075','6':'\u2076','7':'\u2077','8':'\u2078','9':'\u2079'}; return (''+n).split('').map(function(c){return S[c]||c;}).join(''); }
   svg.addEventListener('click', function(ev){ var t=ev.target; if(t && t.hasAttribute && t.hasAttribute('data-k')){ var k=+t.getAttribute('data-k'); imposed[k]=!imposed[k]; draw(); } });
-  b8.addEventListener('click', function(){ imposed=[true,true,true,true,true,true,true,true,false]; draw(); });
+  b8.addEventListener('click', function(){ var free=Math.floor(Math.random()*9); imposed=[]; for(var k=0;k<9;k++) imposed[k]=(k!==free); draw(); });
   b9.addEventListener('click', function(){ imposed=[true,true,true,true,true,true,true,true,true]; draw(); });
   bc.addEventListener('click', function(){ imposed=[false,false,false,false,false,false,false,false,false]; draw(); });
   draw();
