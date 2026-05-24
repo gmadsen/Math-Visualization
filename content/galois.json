@@ -553,6 +553,27 @@
         },
         {
           "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget",
+          "slug": "galois-normal-separable",
+          "params": {
+            "widgetId": "w-galois-normsep",
+            "title": "Normal, separable, Galois — read it off the roots",
+            "hint": "Pick an extension; normal ⟺ every root lies in L, separable ⟺ distinct roots."
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-galois-normsep"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "raw",
           "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./algebra.html#finite\">Quotients and finite fields</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {
@@ -584,6 +605,27 @@
         {
           "type": "raw",
           "html": "<section id=\"primitive\">\n<h2>8. Primitive element theorem</h2>\n<p>Once separability is in hand, a striking simplification appears: <strong>every finite separable extension is simple</strong>. That is, if $L/K$ is finite and separable, there exists a single $\\theta\\in L$ — a <em>primitive element</em> — such that $L=K(\\theta)$. So the seemingly multi-generator extension $\\mathbb{Q}(\\sqrt{2},\\sqrt{3})$ collapses to $\\mathbb{Q}(\\sqrt{2}+\\sqrt{3})$: one checks that $\\theta=\\sqrt{2}+\\sqrt{3}$ satisfies the degree-$4$ polynomial $\\theta^4-10\\theta^2+1=0$, whose splitting field is exactly $\\mathbb{Q}(\\sqrt{2},\\sqrt{3})$.</p>\n\n<p>The proof sketch (for infinite $K$): given generators $\\alpha,\\beta$, almost every $K$-linear combination $\\theta=\\alpha+c\\beta$ works — only finitely many values of $c$ can fail, because a failure forces two conjugates of $\\theta$ to coincide, and there are only finitely many pairs of conjugates. Computationally, this means Galois theory for characteristic-zero fields reduces to the study of a single irreducible polynomial $m_\\theta(x)\\in K[x]$ of degree $[L:K]$: the $\\Gal(L/K)$-action is just the permutation action on the roots of $m_\\theta$.</p>\n\n<div class=\"note\"><strong>Primitive element theorem (Steinitz).</strong> If $L/K$ is a finite separable extension then $L=K(\\theta)$ for some $\\theta\\in L$. In particular every finite extension of $\\mathbb{Q}$ (or of any characteristic-zero field) is simple.</div>\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget",
+          "slug": "galois-primitive-element",
+          "params": {
+            "widgetId": "w-galois-primitive",
+            "title": "Primitive element: ℚ(√2,√3) = ℚ(√2+√3)",
+            "hint": "Slide c in θ=√2+c√3; four distinct conjugates ⟺ degree 4 ⟺ primitive."
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-galois-primitive"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
         },
         {
           "type": "quiz",
