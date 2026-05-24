@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/operator-algebras-funccalc/schema.json",
+  "title": "operator-algebras-funccalc widget params",
+  "description": "Continuous-functional-calculus / spectral-mapping explorer. For a self-adjoint element a with fixed spectrum σ(a)={0.5,1,2,3}, four buttons (√t, t², 1/t, eᵗ) apply a continuous f via Φ_a: C(σ(a))→A, and the widget draws σ(a) and σ(f(a))=f(σ(a)) on two number lines with arrows λ↦f(λ) — the spectral mapping theorem. The readout covers Φ_a as the unique isometric *-homomorphism onto C*(a,1)≅C(σ(a)), and the payoffs (√a for a≥0, |a|=√(a*a), polar decomposition). The spectrum is intrinsic; params carry only chrome.",
+  "meta": {
+    "family": "operator-algebras-funccalc",
+    "dimension": "2d",
+    "gesture": "select",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id; the script derives -svg/-out and the four function-button ids."
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title rendered inside .hd > .ttl."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional short hint rendered inside .hd > .hint."
+    }
+  }
+}

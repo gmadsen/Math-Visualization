@@ -14675,6 +14675,42 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "operator-algebras-cstar",
+    "family": "operator-algebras-cstar",
+    "dimension": "2d",
+    "gesture": "select",
+    "role": "exploratory",
+    "title": "operator-algebras-cstar widget params",
+    "description": "C*-algebra example gallery. Five buttons (ℂ, C(X), Mₙ(ℂ), B(H), 𝒦(H)) show, per example, the involution a*, whether it is commutative and unital, and the instance of the C*-identity ‖a*a‖=‖a‖². Spans the one-dimensional ℂ, the commutative C(X) (all commutative unital C*-algebras, by Gelfand), the finite-dimensional Mₙ(ℂ), the universal B(H), and the key non-unital 𝒦(H). Examples are intrinsic; params carry only chrome.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "C*-algebra example gallery, introduced on `operator-algebras.html` §2 (*Banach *-algebras and C*-algebras*). Bespoke semantic module — the examples are intrinsic; params carry only chrome.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "operator-algebras-funccalc",
+    "family": "operator-algebras-funccalc",
+    "dimension": "2d",
+    "gesture": "select",
+    "role": "exploratory",
+    "title": "operator-algebras-funccalc widget params",
+    "description": "Continuous-functional-calculus / spectral-mapping explorer. For a self-adjoint element a with fixed spectrum σ(a)={0.5,1,2,3}, four buttons (√t, t², 1/t, eᵗ) apply a continuous f via Φ_a: C(σ(a))→A, and the widget draws σ(a) and σ(f(a))=f(σ(a)) on two number lines with arrows λ↦f(λ) — the spectral mapping theorem. The readout covers Φ_a as the unique isometric *-homomorphism onto C*(a,1)≅C(σ(a)), and the payoffs (√a for a≥0, |a|=√(a*a), polar decomposition). The spectrum is intrinsic; params carry only chrome.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Continuous-functional-calculus explorer, introduced on `operator-algebras.html` §4 (*Continuous functional calculus*). Bespoke semantic module — the spectrum is intrinsic; params carry only chrome.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "parametric-plot",
     "family": "parametric-plot",
     "dimension": "2d",

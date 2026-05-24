@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/operator-algebras-cstar/schema.json",
+  "title": "operator-algebras-cstar widget params",
+  "description": "C*-algebra example gallery. Five buttons (ℂ, C(X), Mₙ(ℂ), B(H), 𝒦(H)) show, per example, the involution a*, whether it is commutative and unital, and the instance of the C*-identity ‖a*a‖=‖a‖². Spans the one-dimensional ℂ, the commutative C(X) (all commutative unital C*-algebras, by Gelfand), the finite-dimensional Mₙ(ℂ), the universal B(H), and the key non-unital 𝒦(H). Examples are intrinsic; params carry only chrome.",
+  "meta": {
+    "family": "operator-algebras-cstar",
+    "dimension": "2d",
+    "gesture": "select",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id; the script derives -svg/-out and the five example-button ids."
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title rendered inside .hd > .ttl."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional short hint rendered inside .hd > .hint."
+    }
+  }
+}
