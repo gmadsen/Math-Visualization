@@ -596,6 +596,61 @@ is itself compact in $\Omega$.</div>
 </tbody>
 </table>
 
+<div class="widget" id="w-scv-reinhardt">
+  <div class="hd"><div class="ttl">Reinhardt domains: pseudoconvex ⟺ log-convex</div><div class="hint">raise/lower the boundary&#39;s middle; a dent is filled by the holomorphic hull</div></div>
+  <div class="row">
+    <label for="w-scv-reinhardt-m">boundary middle height</label>
+    <input type="range" id="w-scv-reinhardt-m" min="-26" max="6" value="2" step="1">
+    <span class="pill" id="w-scv-reinhardt-mv">…</span>
+  </div>
+  <svg id="w-scv-reinhardt-svg" viewBox="0 0 560 320" width="560" height="320" role="img" aria-label="The log image of a Reinhardt domain in the (log|z1|, log|z2|) plane; convex means pseudoconvex, a dent is filled by the holomorphic hull"><title>A Reinhardt domain is a domain of holomorphy iff its log image is convex; a dented (non-convex) log image is filled by the log-convex holomorphic hull, forcing holomorphic functions to extend</title></svg>
+  <div class="readout" id="w-scv-reinhardt-out"></div>
+</div>
+<script>
+/* several-complex-variables-reinhardt-pseudoconvex widget: w-scv-reinhardt */
+(function(){
+  var svg=document.getElementById('w-scv-reinhardt-svg'), out=document.getElementById('w-scv-reinhardt-out');
+  var sm=document.getElementById('w-scv-reinhardt-m'), mv=document.getElementById('w-scv-reinhardt-mv');
+  if(!svg||!out||!sm||!mv) return;
+  var NS='http://www.w3.org/2000/svg';
+  function mk(tag,attrs,text){ var e=document.createElementNS(NS,tag); for(var k in attrs){ e.setAttribute(k,attrs[k]); } if(text!=null) e.textContent=text; return e; }
+  function txt(x,y,s,opt){ opt=opt||{}; svg.appendChild(mk('text',{x:x,y:y,'text-anchor':opt.anchor||'start','font-size':opt.size||12,fill:opt.fill||'var(--ink)','font-weight':opt.weight||'normal'},s)); }
+  var WMIN=-4, WMAX=0.7, PX0=92, PX1=372, PTOP=44, PBOT=276;
+  function SX(s){ return PX0 + (s-WMIN)/(WMAX-WMIN)*(PX1-PX0); }
+  function TY(t){ return PBOT - (t-WMIN)/(WMAX-WMIN)*(PBOT-PTOP); }
+  var s0=-3.5, s1=0.3, smid=-1.6, fL=0.3, fR=-1.5, TB=-3.8;
+  var chordMid = fL + (fR-fL)*(smid-s0)/(s1-s0);
+  function pt(s,t){ return SX(s).toFixed(1)+' '+TY(t).toFixed(1); }
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    var fM=parseInt(sm.value,10)/10; mv.textContent='mid t = '+fM.toFixed(1);
+    var dented = fM < chordMid - 1e-9;
+    svg.appendChild(mk('line',{x1:PX0,y1:TY(0),x2:PX1,y2:TY(0),stroke:'var(--line)','stroke-width':1}));
+    svg.appendChild(mk('line',{x1:SX(0),y1:PTOP,x2:SX(0),y2:PBOT,stroke:'var(--line)','stroke-width':1}));
+    txt(PX1-2, TY(0)-4, 's = log|z\u2081|', {anchor:'end', size:9, fill:'var(--mute)'});
+    txt(SX(0)+4, PTOP+8, 't = log|z\u2082|', {size:9, fill:'var(--mute)'});
+    txt(SX(0)+3, TY(0)+11, '0', {size:8, fill:'var(--mute)'});
+    txt(SX(0)-14, TY(0)+11, '|z|=1', {size:7, fill:'var(--mute)'});
+    var d='M '+pt(s0,TB)+' L '+pt(s0,fL)+' L '+pt(smid,fM)+' L '+pt(s1,fR)+' L '+pt(s1,TB)+' Z';
+    svg.appendChild(mk('path',{d:d, fill:'var(--cyan)','fill-opacity':0.16, stroke:'var(--cyan)','stroke-width':2}));
+    if(dented){ var tri='M '+pt(s0,fL)+' L '+pt(smid,fM)+' L '+pt(s1,fR)+' Z';
+      svg.appendChild(mk('path',{d:tri, fill:'var(--pink)','fill-opacity':0.28, stroke:'none'}));
+      svg.appendChild(mk('line',{x1:SX(s0),y1:TY(fL),x2:SX(s1),y2:TY(fR),stroke:'var(--pink)','stroke-width':1.6,'stroke-dasharray':'5 3'}));
+      txt(SX(smid), TY(fM)-26, 'hull fills this', {anchor:'middle', size:9, fill:'var(--pink)', weight:700}); }
+    svg.appendChild(mk('circle',{cx:SX(smid), cy:TY(fM), r:4, fill:'var(--yellow)'}));
+    txt(SX(-2.1), TY(-2.2), '\u03c9 = log image', {anchor:'middle', size:10, fill:'var(--cyan)', weight:700});
+    var convex = !dented;
+    txt(PX1+14, PTOP+12, convex?'CONVEX':'NOT convex', {size:12, weight:700, fill: convex?'var(--green)':'var(--pink)'});
+    txt(PX1+14, PTOP+30, convex?'\u21d2 pseudoconvex':'\u21d2 hull \u2295 dent', {size:9, fill:'var(--mute)'});
+    txt(PX1+14, PTOP+44, convex?'\u21d2 domain of':'\u21d2 NOT a domain', {size:9, fill:'var(--mute)'});
+    txt(PX1+14, PTOP+56, convex?'   holomorphy':'   of holomorphy', {size:9, fill:'var(--mute)'});
+    out.textContent='In one variable every open set carries a function that does not extend (so \u201cdomain of holomorphy\u201d is vacuous), but in \u2102\u207f (n\u22652) Hartogs shows most domains have forced extensions \u2014 the ones that do NOT are the domains of holomorphy, and by Cartan\u2013Thullen + Oka these are exactly the holomorphically convex = pseudoconvex domains. For a REINHARDT domain \u03a9 (invariant under (z\u2081,z\u2082) \u21a6 (e^{i\u03b8\u2081}z\u2081, e^{i\u03b8\u2082}z\u2082)) all of this becomes plane geometry: \u03a9 is a domain of holomorphy \u21d4 its LOG IMAGE \u03c9 = {(log|z\u2081|, log|z\u2082|)} is CONVEX. The reason is the Laurent series: every f \u2208 \u03a9(\u03a9) expands as \u03a3 c\u03b1 z\u2081^{\u03b1\u2081} z\u2082^{\u03b1\u2082}, and a monomial\u2019s region of convergence is a half-plane in (s,t) = (log|z\u2081|, log|z\u2082|), so the common domain of convergence \u2014 hence the holomorphic hull \u2014 is always the CONVEX hull of \u03c9. '+(convex ? 'Here \u03c9 is convex: \u03a9 equals its own holomorphic hull, so it IS a domain of holomorphy (pseudoconvex, Levi form \u22650 on the boundary). Lower the middle of the boundary to break convexity.' : 'Here \u03c9 is dented (non-convex): the holomorphic hull is the log-convex hull, which fills the pink triangle. Every holomorphic function on \u03a9 automatically converges \u2014 hence extends \u2014 there, so \u03a9 is NOT a domain of holomorphy; the dented boundary is the Levi-CONCAVE part where extension is forced, the higher-dimensional shadow of the Hartogs phenomenon.');
+  }
+  sm.addEventListener('input', draw);
+  draw();
+})();
+</script>
+
 <div class="quiz" data-concept="scv-pseudoconvex"></div><!-- backlinks-auto-begin -->
 <aside class="related">
   <div class="ttl">Used in</div>
