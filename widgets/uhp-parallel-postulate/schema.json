@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/uhp-parallel-postulate/schema.json",
+  "title": "uhp-parallel-postulate widget params",
+  "description": "The failure of Euclid's parallel postulate in the upper half-plane model ℍ of hyperbolic geometry. A hyperbolic line ℓ is drawn as a semicircle meeting the real axis at right angles, with a point P not on it. Hyperbolic lines (geodesics) through P are semicircles ⊥ to the axis; the widget draws a fan of them coloured by whether they cross ℓ, highlights the two limiting parallels (asymptotic to ℓ's endpoints on the boundary), and a slider rotates one test line through P so you can watch it flip between crossing and missing ℓ. Every direction in the wedge between the two limiting parallels misses ℓ — so infinitely many lines through P are parallel to ℓ, and the parallel postulate fails. ℍ has constant curvature −1.",
+  "meta": {
+    "family": "uhp-parallel-postulate",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\"> wrapper."
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title rendered inside .hd > .ttl."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional short hint rendered inside .hd > .hint."
+    }
+  }
+}
