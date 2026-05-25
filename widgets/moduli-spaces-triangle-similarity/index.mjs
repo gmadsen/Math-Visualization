@@ -24,9 +24,9 @@ export function renderMarkup(params) {
     `    <input type="range" id="${widgetId}-im" min="0.2" max="2.8" value="1.4" step="0.1">\n` +
     `    <label for="${widgetId}-th">rotate &#952;</label>\n` +
     `    <input type="range" id="${widgetId}-th" min="0" max="350" value="0" step="10">\n` +
-    `    <span class="pill" id="${widgetId}-tv">&#964; = …</span>\n` +
+    `    <span class="pill" id="${widgetId}-tv">&#964; = &#8230;</span>\n` +
     `  </div>\n` +
-    `  <svg id="${widgetId}-svg" viewBox="0 0 560 320" width="560" height="320" role="img" aria-label="A labeled triangle and its shape parameter tau plotted in the moduli space of triangles up to similarity"><title>Left: a labeled triangle A B C, rotatable by a similarity. Right: the moduli space (the upper half plane / C minus R) with the shape parameter tau = (C-A)/(B-A) plotted. Rotating the triangle leaves tau fixed; changing the shape moves tau. Triangles up to similarity are in bijection with C minus R, a fine moduli space paralleling the j-line of elliptic curves.</title></svg>\n` +
+    `  <svg id="${widgetId}-svg" viewBox="0 0 560 320" width="560" height="320" role="img" aria-label="A labeled triangle and its shape parameter tau plotted in the moduli space of triangles up to similarity"><title>Left: a labeled triangle A B C, rotatable by a similarity. Right: the moduli space (C minus R) with the shape parameter tau = (C-A)/(B-A) plotted. Rotating the triangle leaves tau fixed; changing the shape moves tau. Triangles up to similarity are in bijection with C minus R, a fine moduli space paralleling the j-line of elliptic curves.</title></svg>\n` +
     `  <div class="readout" id="${widgetId}-out"></div>\n` +
     `</div>`
   );

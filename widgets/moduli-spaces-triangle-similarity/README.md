@@ -26,7 +26,7 @@ The demonstration: moving $\theta$ changes the **picture** but not $\tau$ (simil
 one moduli point), while moving the shape sliders moves the moduli point. This is a **fine** moduli
 space (labeled oriented triangles have no automorphisms), in bijection with $\mathbb{C}\setminus
 \mathbb{R}$ — exactly paralleling the $j$-invariant bijection $\{\text{elliptic curves}\}/\cong\;
-\xrightarrow{\sim}\mathbb{C}$. A family of triangles over a base ↦ a **path** in the moduli space.
+\xrightarrow{\sim}\mathbb{C}$. A family of triangles over a base ↦ a **map** to the moduli space.
 The equilateral triangle is the special point $\tau=e^{i\pi/3}=(0.5,\,0.866)$.
 
 ## Params
