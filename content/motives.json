@@ -148,6 +148,27 @@
           "html": "<section id=\"correspondences\">\n<h2>2. Correspondences as morphisms</h2>\n\n<p>The first hard idea is that morphisms in $\\mathsf{Mot}_k$ are not the regular morphisms of varieties — they are <em>algebraic correspondences</em>: formal $\\mathbb{Q}$-linear combinations of subvarieties of products.</p>\n\n<p>For smooth projective varieties $X$ and $Y$ over $k$ of dimensions $d_X$ and $d_Y$, an algebraic correspondence of degree $r$ from $X$ to $Y$ is an element of</p>\n\n$$\\mathrm{Corr}^r(X, Y) := \\mathrm{CH}^{d_X + r}(X \\times Y) \\otimes \\mathbb{Q},$$\n\n<p>where $\\mathrm{CH}^*$ is the Chow group — algebraic cycles modulo rational equivalence. Composition is a pushforward / pullback formula on triple products: for $\\alpha \\in \\mathrm{Corr}(X, Y)$ and $\\beta \\in \\mathrm{Corr}(Y, Z)$,</p>\n\n$$\\beta \\circ \\alpha := (p_{XZ})_*\\bigl((p_{XY})^*\\alpha \\cdot (p_{YZ})^*\\beta\\bigr) \\in \\mathrm{Corr}(X, Z),$$\n\n<p>where the $p_{ij}$ are the projections from $X \\times Y \\times Z$ and \"$\\cdot$\" is intersection product on $\\mathrm{CH}^*$.</p>\n\n<p>Two correspondences worth seeing concretely:</p>\n\n<ul>\n  <li><b>Graphs of morphisms.</b> Any regular morphism $f\\colon X \\to Y$ has a graph $\\Gamma_f \\subset X \\times Y$, which is a degree-$0$ correspondence. Composition of graphs is the graph of the composition: $\\Gamma_g \\circ \\Gamma_f = \\Gamma_{g \\circ f}$. So the category of varieties embeds into the category of correspondences.</li>\n  <li><b>The transposed identity.</b> The diagonal $\\Delta_X \\subset X \\times X$ is the identity correspondence on $X$. Its <em>transpose</em> $\\Delta_X^t$ — viewed as a map $X \\to X$ — is also $\\Delta_X$, but viewed in $\\mathrm{Corr}^*(X, X)$ in the opposite direction. The transpose operation is what makes $\\mathsf{Mot}_k$ a category with duals.</li>\n</ul>\n\n<p>The crucial generalisation over morphisms: every cohomology theory turns a correspondence $\\alpha \\in \\mathrm{Corr}^r(X, Y)$ into a linear map $\\alpha_*\\colon H^*(X) \\to H^{*+2r}(Y)$ by $\\alpha_*(\\xi) = (p_Y)_*(\\mathrm{cl}(\\alpha) \\cdot p_X^*\\xi)$ where $\\mathrm{cl}$ is the cycle-class map. <em>That</em> is what motives need: a class of \"morphisms\" each cohomology theory can interpret consistently.</p>\n\n"
         },
         {
+          "type": "widget",
+          "slug": "motives-correspondences",
+          "params": {
+            "widgetId": "w-corr",
+            "title": "Correspondences are the morphisms: composition = counting paths (matrix product)",
+            "hint": "pick a scenario; β∘α counts weighted paths through Y"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-corr"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
           "type": "quiz",
           "concept": "algebraic-correspondences",
           "html": "<div class=\"quiz\" data-concept=\"algebraic-correspondences\"></div>"
