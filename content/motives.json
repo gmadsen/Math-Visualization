@@ -417,7 +417,7 @@
           "params": {
             "widgetId": "w-tann",
             "title": "Tannakian categories: Rep(G)’s fusion table remembers the group",
-            "hint": "pick G; the tensor (Clebsch–Gordan) table + fiber functor recover G = Aut⊗(ω)"
+            "hint": "pick G; the tensor (Clebsch–Gordan) table + fiber functor recover G = Aut^⊗(ω)"
           }
         },
         {

@@ -740,7 +740,7 @@ $$\mathcal{T} \;\simeq\; \mathsf{Rep}_k\bigl(\underline{\mathrm{Aut}}^\otimes(\o
 </ul>
 
 <div class="widget" id="w-tann">
-  <div class="hd"><div class="ttl">Tannakian categories: Rep(G)’s fusion table remembers the group</div><div class="hint">pick G; the tensor (Clebsch–Gordan) table + fiber functor recover G = Aut⊗(ω)</div></div>
+  <div class="hd"><div class="ttl">Tannakian categories: Rep(G)’s fusion table remembers the group</div><div class="hint">pick G; the tensor (Clebsch–Gordan) table + fiber functor recover G = Aut^⊗(ω)</div></div>
   <div class="row" id="w-tann-btns">
     <label>G =</label>
     <button type="button" data-k="Z3" class="active" aria-pressed="true">&#8484;/3</button>
@@ -791,7 +791,7 @@ $$\mathcal{T} \;\simeq\; \mathsf{Rep}_k\bigl(\underline{\mathrm{Aut}}^\otimes(\o
     // fiber functor + reconstruction
     var fy=y0+(N+1)*ch+24;
     txt(280, fy, 'fiber functor  \u03c9: Rep('+G.name+') \u2192 Vect,   \u03c9(V) = underlying space;   dims:  '+G.irr.map(function(n,i){return n+'\u21a6k'+(G.dim[i]>1?('^'+G.dim[i]):'');}).join(',  '), {size:10, fill:'var(--cyan)'});
-    txt(280, fy+20, 'reconstruction:  G  =  Aut\u2297(\u03c9)  \u2014  the \u2297-automorphisms of \u03c9 recover the \u201cinvisible\u201d group', {size:10.5, fill:'var(--yellow)', weight:600});
+    txt(280, fy+20, 'reconstruction:  G  =  Aut^\u2297(\u03c9)  \u2014  the \u2297-automorphisms of \u03c9 recover the \u201cinvisible\u201d group', {size:10.5, fill:'var(--yellow)', weight:600});
     out.textContent='The structural payoff of motives runs through the TANNAKIAN FORMALISM. A NEUTRAL TANNAKIAN CATEGORY over k is a k-linear, RIGID (every object has a dual), ABELIAN, SYMMETRIC MONOIDAL (\u2297 with a commutativity constraint) category T together with a faithful exact tensor functor \u03c9: T \u2192 Vect_k \u2014 the FIBER FUNCTOR. The fundamental theorem (Tannaka\u2013Krein, Saavedra, Deligne) says such a T is equivalent to Rep(G) for a uniquely determined affine group scheme G = Aut^\u2297(\u03c9), the group of tensor-natural automorphisms of \u03c9: the category REMEMBERS an invisible group. The prototype is Rep(G) itself, shown here for a finite G. Its objects tensor by the CLEBSCH\u2013GORDAN rule \u2014 the fusion table above \u2014 and the fiber functor just forgets a representation to its underlying vector space. For \u2124/3 the table is the group\u2019s own addition (characters multiply by adding indices); for S\u2083 the only interesting entry is std \u2297 std = triv \u2295 sign \u2295 std, and the 2-dimensional std is exactly the representation through which S\u2083 sits inside GL\u2082, recovered as \u2297-automorphisms of \u03c9. This is the engine of §6: the category Mot_k^{num} of numerical motives is (by Jannsen, and modulo the standard conjectures, as a Tannakian category) Rep of an affine group scheme \u2014 the MOTIVIC GALOIS GROUP G_mot = Aut^\u2297(\u03c9_B) for the Betti fiber functor. Motives become representations of one pro-algebraic group, and the realizations (Betti, de Rham, \u2113-adic, crystalline) are different fiber functors / forgetful functors out of it \u2014 the universal symmetry group of all of cohomology.';
   }
   btns.addEventListener('click', function(e){ var b=e.target.closest('button'); if(!b||!b.getAttribute('data-k')) return; cur=b.getAttribute('data-k');
