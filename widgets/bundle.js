@@ -10675,6 +10675,24 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "hodge-theory-why-refinement",
+    "family": "hodge-theory-why-refinement",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "hodge-theory-why-refinement widget params",
+    "description": "Why Hodge structures: the complex structure refines the Betti numbers into Hodge numbers. For a smooth projective variety over C, a topologist sees only the singular cohomology H^n(X) as a Q-vector space of dimension b_n; but X is also a complex manifold, so each H^n(X;C) decomposes (Hodge) as a direct sum over p+q=n of Dolbeault pieces H^{p,q} = H^q(X, Omega^p) of dimension h^{p,q}, and b_n = sum of h^{p,q}. Buttons pick a variety (elliptic curve, genus-2 curve, projective plane P^2, K3 surface); a topological/Hodge toggle draws, for each degree n, a fixed-width bar that in topological mode is a single block labelled by the Betti number b_n and in Hodge mode splits into coloured segments proportional to the Hodge numbers h^{p,q} with the (p,q) breakdown. The point: the same space H^n acquires an internal (p,q) grading from the complex structure that the Betti number alone does not see. The readout gives the Betti-vs-Dolbeault contrast, the identity b_n = sum_{p+q=n} h^{p,q}, the conjugation symmetry, and that this extra grading carries arithmetic/geometric information (e.g. it distinguishes varieties and detects which classes can be algebraic). No numeric params beyond the standard widgetId/title/hint.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Bespoke widget for `hodge-theory.html` (§1 *Why Hodge structures?*, concept `why-hodge`). It makes the **motivation** concrete: the complex structure refines the topological Betti numbers into Hodge numbers. Single module, not part of a shared family.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "homological-cartan-eilenberg",
     "family": "homological-cartan-eilenberg",
     "dimension": "2d",
