@@ -782,6 +782,68 @@ with $\tilde X$ smooth, such that $\pi$ is an isomorphism over the smooth locus 
   <li><strong>Open frontier — characteristic $p$.</strong> Abhyankar settled char $p$ for surfaces, Cossart–Piltant for threefolds. Dimension $\ge 4$ remains open. de Jong's <em>alterations</em> give a generically finite cover by a smooth variety in any characteristic — a strictly weaker substitute that nevertheless suffices for many applications (étale cohomology, Bertini).</li>
 </ul>
 
+<div class="widget" id="w-rosapps">
+  <div class="hd"><div class="ttl">What resolution unlocks: a map of applications and the open frontier</div><div class="hint">click a spoke — MMP, motivic integration, weak factorisation, log resolution, char p</div></div>
+  <div class="row" id="w-rosapps-btns">
+    <button type="button" data-k="overview" class="active" aria-pressed="true">Overview</button>
+    <button type="button" data-k="mmp" class="" aria-pressed="false">MMP</button>
+    <button type="button" data-k="motivic" class="" aria-pressed="false">Motivic integration</button>
+    <button type="button" data-k="weakfact" class="" aria-pressed="false">Weak factorisation</button>
+    <button type="button" data-k="logres" class="" aria-pressed="false">Log resolution</button>
+    <button type="button" data-k="charp" class="" aria-pressed="false">char-p frontier</button>
+  </div>
+  <svg id="w-rosapps-svg" viewBox="0 0 560 300" width="560" height="300" role="img" aria-label="A hub-and-spoke map of resolution of singularities and its applications: the minimal model program, motivic integration, weak factorisation, log resolution, and the characteristic-p frontier"><title>A central hub (the resolution pi from Y to X, Y smooth) with five spokes: the minimal model program, motivic integration, weak factorisation, log resolution, and the open characteristic-p frontier. Selecting a spoke explains how resolution of singularities feeds that area.</title></svg>
+  <div class="readout" id="w-rosapps-out"></div>
+</div>
+
+<script>
+/* resolution-applications-map widget: w-rosapps */
+(function(){
+  var svg=document.getElementById('w-rosapps-svg'), out=document.getElementById('w-rosapps-out');
+  var btns=document.getElementById('w-rosapps-btns');
+  if(!svg||!out||!btns) return;
+  var NS='http://www.w3.org/2000/svg';
+  function mk(tag,attrs,text){ var e=document.createElementNS(NS,tag); for(var k in attrs){ e.setAttribute(k,attrs[k]); } if(text!=null) e.textContent=text; return e; }
+  function txt(x,y,s,opt){ opt=opt||{}; svg.appendChild(mk('text',{x:x,y:y,'text-anchor':opt.anchor||'middle','font-size':opt.size||12,fill:opt.fill||'var(--ink)','font-weight':opt.weight||'normal','font-family':opt.mono?'monospace':'inherit'},s)); }
+  var NODES=[
+    {k:'mmp', short:'MMP (Mori)',
+      desc:'MINIMAL MODEL PROGRAM (Mori). Starting from a smooth projective Y, contract K-negative extremal rays \u2014 and perform flips where a contraction is too drastic \u2014 to reach a MINIMAL or CANONICAL model. This bridges the birational classification of varieties to the geometry of the canonical bundle K_X, and resolution is the smooth starting point the program runs from. (See the Minimal models & birational geometry topic.)'},
+    {k:'motivic', short:'Motivic integration',
+      desc:'MOTIVIC INTEGRATION (Kontsevich). Integrals over the ARC SPACE of a singular variety are pulled back along a LOG RESOLUTION; the change-of-variables formula produces a STRINGY EULER CHARACTERISTIC that agrees for any two crepant resolutions \u2014 the first hint of the McKay correspondence in arbitrary dimension.'},
+    {k:'weakfact', short:'Weak factorisation',
+      desc:'WEAK FACTORISATION (W\u0142odarczyk; Abramovich\u2013Karu\u2013Matsuki\u2013W\u0142odarczyk). Any birational map between two SMOOTH projective varieties factors as a finite sequence of smooth BLOW-UPS and BLOW-DOWNS. The proof runs through log resolution \u2014 a structural payoff of being able to resolve.'},
+    {k:'logres', short:'Log resolution',
+      desc:'LOG RESOLUTION. Resolve a PAIR (X, D) so that the total transform \u03c0\u207b\u00b9(D) \u222a Exc(\u03c0) is a SIMPLE NORMAL CROSSING divisor (smooth components meeting transversally). This is the standing technical hypothesis under which most of modern birational geometry \u2014 discrepancies, log canonical thresholds, vanishing theorems \u2014 is set up.'},
+    {k:'charp', short:'char-p frontier',
+      desc:'OPEN FRONTIER \u2014 CHARACTERISTIC p. Hironaka (1964) resolved singularities in ALL dimensions in characteristic 0. In characteristic p the picture is incomplete: SURFACES were settled by Abhyankar and THREEFOLDS by Cossart\u2013Piltant, but DIMENSION \u2265 4 remains OPEN. de Jong\u2019s ALTERATIONS give a weaker, generically-finite substitute (a proper generically-finite cover by a smooth variety) in all characteristics and dimensions.'},
+  ];
+  var OVERVIEW='Resolution of singularities is a FOUNDATIONAL TOOL: a proper birational \u03c0: Y \u2192 X with Y smooth and \u03c0 an isomorphism over the smooth locus lets a theorem proved for smooth varieties extend to singular ones by passage through Y. Click a spoke to see where it feeds: the minimal model program, motivic integration, weak factorisation, log resolution, and the still-open characteristic-p frontier.';
+  var cur='overview';
+  var cx=280, cy=150, R=110;
+  var POS=NODES.map(function(n,i){ var a=(90-i*72)*Math.PI/180; return [cx+R*Math.cos(a), cy-R*Math.sin(a)]; });
+  function box(x,y,w,h,sel,col){ svg.appendChild(mk('rect',{x:x-w/2,y:y-h/2,width:w,height:h,rx:7,fill: sel?col:'var(--panel2)',stroke:col,'stroke-width': sel?2.4:1.4,'fill-opacity': sel?0.22:1})); }
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    // spokes
+    NODES.forEach(function(n,i){ var sel=(cur===n.k); svg.appendChild(mk('line',{x1:cx,y1:cy,x2:POS[i][0],y2:POS[i][1],stroke: sel?'var(--yellow)':'var(--line)','stroke-width': sel?2:1})); });
+    // hub
+    var hubSel=(cur==='overview'); box(cx,cy,116,40,hubSel,'var(--violet)');
+    txt(cx,cy-3,'resolution',{size:11,fill:'var(--violet)',weight:700}); txt(cx,cy+12,'\u03c0: Y \u2192 X  (Y smooth)',{size:10,fill:'var(--ink)'});
+    // node boxes
+    NODES.forEach(function(n,i){ var sel=(cur===n.k); var col= n.k==='charp'?'var(--pink)':'var(--cyan)';
+      box(POS[i][0],POS[i][1],128,30,sel,col);
+      txt(POS[i][0],POS[i][1]+4,n.short,{size:10,fill: sel?col:'var(--ink)',weight: sel?700:500});
+    });
+    var n=null; for(var i=0;i<NODES.length;i++) if(NODES[i].k===cur) n=NODES[i];
+    out.textContent = n ? n.desc : OVERVIEW;
+  }
+  btns.addEventListener('click', function(e){ var b=e.target.closest('button'); if(!b) return; cur=b.getAttribute('data-k');
+    Array.prototype.forEach.call(btns.querySelectorAll('button'), function(x){ var on=x===b; x.classList.toggle('active', on); x.setAttribute('aria-pressed', on?'true':'false'); });
+    draw(); });
+  draw();
+})();
+</script>
+
 <div class="quiz" data-concept="ros-applications"></div>
 </section>
 

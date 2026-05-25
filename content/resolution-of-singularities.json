@@ -252,6 +252,27 @@
           "html": "<section id=\"applications\">\n<h2>6. Applications and frontiers</h2>\n\n<p>Resolution of singularities is a foundational tool for working with arbitrary projective varieties: it lets a theorem proved for smooth varieties extend to singular ones by passage through $\\tilde X$.</p>\n\n<ul>\n  <li><strong>Minimal model program (Mori).</strong> Start from a smooth projective $\\tilde X$, then run a sequence of contractions of $K$-negative extremal rays (and flips) to reach a minimal or canonical model. Bridges birational classification to the geometry of the canonical bundle.</li>\n  <li><strong>Motivic integration (Kontsevich).</strong> Integrals over arc spaces of singular varieties are pulled back to log resolutions; the change-of-variables formula gives a stringy Euler characteristic that agrees on crepant resolutions — first hints of the McKay correspondence in arbitrary dimension.</li>\n  <li><strong>Weak factorisation.</strong> Any birational map between smooth projective varieties factors as a sequence of smooth blow-ups and blow-downs — proven via log resolution by Włodarczyk and Abramovich–Karu–Matsuki–Włodarczyk.</li>\n  <li><strong>Log resolution.</strong> Resolves a pair $(X, D)$ so that the total transform $\\pi^{-1}(D) \\cup \\mathrm{Exc}(\\pi)$ is a simple normal crossing divisor — the technical hypothesis under which most modern birational geometry operates.</li>\n  <li><strong>Open frontier — characteristic $p$.</strong> Abhyankar settled char $p$ for surfaces, Cossart–Piltant for threefolds. Dimension $\\ge 4$ remains open. de Jong's <em>alterations</em> give a generically finite cover by a smooth variety in any characteristic — a strictly weaker substitute that nevertheless suffices for many applications (étale cohomology, Bertini).</li>\n</ul>\n\n"
         },
         {
+          "type": "widget",
+          "slug": "resolution-applications-map",
+          "params": {
+            "widgetId": "w-rosapps",
+            "title": "What resolution unlocks: a map of applications and the open frontier",
+            "hint": "click a spoke — MMP, motivic integration, weak factorisation, log resolution, char p"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-rosapps"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
           "type": "quiz",
           "concept": "ros-applications",
           "html": "<div class=\"quiz\" data-concept=\"ros-applications\"></div>"

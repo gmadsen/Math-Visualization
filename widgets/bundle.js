@@ -16723,6 +16723,24 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "resolution-applications-map",
+    "family": "resolution-applications-map",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "resolution-applications-map widget params",
+    "description": "A clickable thread-map of the applications and open frontiers of resolution of singularities, hung around a central hub (the resolution pi: Y -> X, Y smooth). Buttons (Overview + five spokes) select a node and the readout explains it: the Minimal Model Program (Mori) running K-negative contractions and flips to a minimal/canonical model; motivic integration (Kontsevich), arc-space integrals pulled back to a log resolution giving a stringy Euler characteristic that agrees on crepant resolutions; weak factorisation (Wlodarczyk; Abramovich-Karu-Matsuki-Wlodarczyk), every birational map of smooth projectives as a sequence of smooth blow-ups and blow-downs; log resolution of a pair (X, D) to a simple normal crossing divisor; and the characteristic-p frontier (Hironaka resolved all dimensions in char 0; surfaces by Abhyankar and threefolds by Cossart-Piltant in char p; dimension >= 4 open; de Jong alterations a weaker substitute in all characteristics). A survey/landscape navigation widget for a section that resists a single computational toy. No numeric params beyond the standard widgetId/title/hint.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Bespoke widget for `resolution-of-singularities.html` (§6 *Applications and frontiers*, concept `ros-applications`). A **clickable thread-map** of the applications and open frontiers of resolution of singularities — the survey/landscape navigation pattern for a section that resists a single computational toy (cf. `advanced-complex-analysis-landscape`, `functional-analysis-bigfour`). Single module, not part of a shared family.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "resolution-curve-normalization",
     "family": "resolution-curve-normalization",
     "dimension": "2d",
