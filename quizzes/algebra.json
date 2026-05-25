@@ -293,15 +293,16 @@
         },
         {
           "type": "mcq",
-          "q": "A prime ideal $\\mathfrak{p}$ in a commutative ring $R$ satisfies: $ab\\in\\mathfrak{p}\\Rightarrow a\\in\\mathfrak{p}$ or $b\\in\\mathfrak{p}$. Which is a correct counterexample showing a prime ideal need not be maximal?",
+          "q": "In the ring $\\mathbb{Z}[x]$, the ideal $(2, x)$ is:",
           "choices": [
-            "$(0)$ in $\\mathbb{Z}$: $\\mathbb{Z}/(0)\\cong\\mathbb{Z}$ is an integral domain but not a field, so $(0)$ is prime but not maximal",
-            "$(2)$ in $\\mathbb{Z}$: $\\mathbb{Z}/(2)\\cong\\mathbb{F}_2$ is a field, so $(2)$ is both prime and maximal",
-            "$(x)$ in $\\mathbb{Z}[x]/(x^2)$: $(x)$ is prime in this ring",
-            "Every prime ideal is maximal in any Noetherian ring"
+            "maximal but not principal",
+            "principal",
+            "prime but not maximal",
+            "the unit ideal $(1)$"
           ],
           "answer": 0,
-          "explain": "$(0)\\subset\\mathbb{Z}$ is prime because $\\mathbb{Z}$ is a domain ($ab=0\\Rightarrow a=0$ or $b=0$), but $(0)$ is not maximal since it is properly contained in $(2),(3),(5),\\ldots$ This shows prime $\\not\\Rightarrow$ maximal in general. Option B gives a maximal-prime example (not a counterexample). Option C is wrong: $(x)$ in $\\mathbb{Z}[x]/(x^2)$ is not prime since $x\\cdot x=x^2=0\\in(x)$ but $x\\notin(0)$."
+          "explain": "$\\mathbb{Z}[x]/(2,x)\\cong\\mathbb{F}_2$ is a field, so $(2,x)$ is maximal; but no single element generates it, so it is not principal — $\\mathbb{Z}[x]$ is not a PID.",
+          "hint": "Compute the quotient $\\mathbb{Z}[x]/(2,x)$."
         }
       ]
     },
@@ -931,15 +932,16 @@
       "questions": [
         {
           "type": "mcq",
-          "q": "Which characterization of solvability is <em>equivalent</em> to the derived series $G \\supseteq G' \\supseteq G'' \\supseteq \\cdots$ terminating at $\\{e\\}$?",
+          "q": "Which of these groups is NOT solvable?",
           "choices": [
-            "Every composition factor of $G$ is cyclic of prime order.",
-            "$G$ is abelian.",
-            "$G$ has a normal Sylow $p$-subgroup for every prime $p \\mid |G|$.",
-            "$G$ has prime order."
+            "$A_5$",
+            "$S_3$",
+            "$\\mathbb{Z}/6$",
+            "the dihedral group $D_4$"
           ],
           "answer": 0,
-          "explain": "A finite group is solvable iff its composition factors are all cyclic of prime order, iff the derived series terminates at $\\{e\\}$, iff there is a subnormal abelian-factor series — these are equivalent characterizations. Abelian (option B) is sufficient but not necessary: $S_3$ is solvable but not abelian. \"Normal Sylow for every $p$\" (option C) is the *nilpotent* condition, strictly stronger than solvable (covered in §18). Prime order (option D) is far stronger still — every cyclic-of-prime-order group is abelian and trivially solvable, but most solvable groups aren't of prime order."
+          "explain": "$A_5$ is simple and nonabelian, so it appears as its own composition factor — not solvable. $S_3$, $\\mathbb{Z}/6$, and $D_4$ all have abelian composition factors.",
+          "hint": "The smallest nonabelian simple group is the obstruction."
         },
         {
           "type": "ordering",

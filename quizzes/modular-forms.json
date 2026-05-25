@@ -25,15 +25,16 @@
         },
         {
           "type": "mcq",
-          "q": "Which of the following pairs is a valid $\\mathbb{Z}$-basis for the standard lattice $\\mathbb{Z}^2 \\subset \\mathbb{R}^2$?",
+          "q": "Two lattices $\\Lambda,\\Lambda'\\subset\\mathbb{C}$ give isomorphic complex tori $\\mathbb{C}/\\Lambda\\cong\\mathbb{C}/\\Lambda'$ exactly when:",
           "choices": [
-            "$(1,0)$ and $(2,0)$",
-            "$(2,1)$ and $(1,1)$",
-            "$(2,0)$ and $(0,2)$",
-            "$(1,1)$ and $(2,2)$"
+            "$\\Lambda'=\\alpha\\Lambda$ for some $\\alpha\\in\\mathbb{C}^\\times$ (homothety)",
+            "$\\Lambda=\\Lambda'$ identically",
+            "they have the same covolume",
+            "they share a shortest vector"
           ],
-          "answer": 1,
-          "explain": "A pair generates $\\mathbb{Z}^2$ iff the determinant of the matrix with those columns is $\\pm 1$. Option A has $\\det = 0$ (collinear). Option C has $\\det = 4$, so it generates only the index-$4$ sublattice $2\\mathbb{Z}\\times 2\\mathbb{Z}$. Option D has $\\det = 0$ (collinear). Option B has $\\det\\begin{pmatrix}2&1\\\\1&1\\end{pmatrix} = 2-1 = 1$, so it is a valid basis."
+          "answer": 0,
+          "explain": "A holomorphic isomorphism of tori lifts to multiplication by some $\\alpha\\in\\mathbb{C}^\\times$, so $\\Lambda'=\\alpha\\Lambda$. This homothety equivalence is why the moduli of tori is $\\mathbb{H}/\\mathrm{SL}_2(\\mathbb{Z})$ via $\\tau=\\omega_2/\\omega_1$.",
+          "hint": "An isomorphism of tori is multiplication by a complex scalar."
         }
       ]
     },
@@ -42,15 +43,16 @@
       "questions": [
         {
           "type": "mcq",
-          "q": "Which pair of matrices generates $SL_2(\\mathbb{Z})$?",
+          "q": "The group $\\mathrm{SL}_2(\\mathbb{Z})$ acts on the upper half-plane $\\mathbb{H}$ by:",
           "choices": [
-            "$T=\\begin{pmatrix}1&1\\\\0&1\\end{pmatrix}$ and $S=\\begin{pmatrix}0&-1\\\\1&0\\end{pmatrix}$",
-            "$T^2=\\begin{pmatrix}1&2\\\\0&1\\end{pmatrix}$ and $S=\\begin{pmatrix}0&-1\\\\1&0\\end{pmatrix}$",
-            "$T=\\begin{pmatrix}1&1\\\\0&1\\end{pmatrix}$ and $-I=\\begin{pmatrix}-1&0\\\\0&-1\\end{pmatrix}$",
-            "$T=\\begin{pmatrix}1&1\\\\0&1\\end{pmatrix}$ alone"
+            "$\\tau\\mapsto\\dfrac{a\\tau+b}{c\\tau+d}$ for the matrix with rows $(a,b),(c,d)$",
+            "$\\tau\\mapsto a\\tau+b$",
+            "$\\tau\\mapsto\\tau+1$ only",
+            "matrix multiplication on $\\tau$ as a column vector"
           ],
           "answer": 0,
-          "explain": "The classical generators are $T:\\tau\\mapsto\\tau+1$ and $S:\\tau\\mapsto -1/\\tau$, satisfying $S^4=I$ and $(ST)^6=I$. Option B uses $T^2$, which only generates the index-$2$ subgroup of even translations together with $S$ (you cannot reach $T$ itself). Option C generates only the abelian subgroup $\\{\\pm T^n:n\\in\\mathbb{Z}\\}$, which is far from all of $SL_2(\\mathbb{Z})$. Option D (translations only) misses $S$ entirely."
+          "explain": "Fractional-linear (Möbius) transformations; $\\operatorname{Im}(\\gamma\\tau)=\\operatorname{Im}(\\tau)/|c\\tau+d|^2>0$ preserves $\\mathbb{H}$. Since $-I$ acts trivially, the faithful action is by $\\mathrm{PSL}_2(\\mathbb{Z})$.",
+          "hint": "Möbius transformations of the half-plane."
         },
         {
           "type": "numeric",

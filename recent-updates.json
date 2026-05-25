@@ -1,6 +1,30 @@
 {
-  "generated": "2026-05-25T21:33:07.668Z",
+  "generated": "2026-05-25T21:46:06.108Z",
   "entries": [
+    {
+      "slug": "algebra",
+      "title": "Abstract algebra",
+      "color": "y",
+      "tag": "",
+      "date": "2026-05-25",
+      "message": "fix(quizzes): author real questions for 13 more placeholder stubs (9 banks)"
+    },
+    {
+      "slug": "cluster-algebras",
+      "title": "Cluster algebras",
+      "color": "y",
+      "tag": "",
+      "date": "2026-05-25",
+      "message": "fix(quizzes): author real questions for 13 more placeholder stubs (9 banks)"
+    },
+    {
+      "slug": "commutative-algebra",
+      "title": "Commutative algebra",
+      "color": "g",
+      "tag": "",
+      "date": "2026-05-25",
+      "message": "fix(quizzes): author real questions for 13 more placeholder stubs (9 banks)"
+    },
     {
       "slug": "complex-analysis",
       "title": "Complex analysis",
@@ -10,12 +34,60 @@
       "message": "fix(quizzes): author real v1 questions for 23 placeholder-stub concepts (#356)"
     },
     {
+      "slug": "deformation-theory",
+      "title": "Deformation theory",
+      "color": "p",
+      "tag": "",
+      "date": "2026-05-25",
+      "message": "fix(quizzes): author real questions for 13 more placeholder stubs (9 banks)"
+    },
+    {
+      "slug": "elementary-topos-theory",
+      "title": "Elementary topos theory",
+      "color": "y",
+      "tag": "",
+      "date": "2026-05-25",
+      "message": "fix(quizzes): author real questions for 13 more placeholder stubs (9 banks)"
+    },
+    {
       "slug": "galois",
       "title": "Galois theory & the quintic",
       "color": "v",
       "tag": "",
       "date": "2026-05-25",
       "message": "fix(quizzes): author real v1 questions for 23 placeholder-stub concepts (#356)"
+    },
+    {
+      "slug": "grothendieck-topologies-sites",
+      "title": "Grothendieck topologies & sites",
+      "color": "c",
+      "tag": "",
+      "date": "2026-05-25",
+      "message": "fix(quizzes): author real questions for 13 more placeholder stubs (9 banks)"
+    },
+    {
+      "slug": "homological",
+      "title": "Homological algebra",
+      "color": "p",
+      "tag": "",
+      "date": "2026-05-25",
+      "message": "fix(quizzes): author real questions for 13 more placeholder stubs (9 banks)"
+    },
+    {
+      "slug": "modular-forms",
+      "title": "Modular forms",
+      "color": "v",
+      "tag": "",
+      "date": "2026-05-25",
+      "message": "fix(quizzes): author real questions for 13 more placeholder stubs (9 banks)"
+    },
+    {
+      "slug": "topological-data-analysis",
+      "title": "Topological data analysis",
+      "color": "b",
+      "tag": "",
+      "date": "2026-05-25",
+      "message": "fix(quizzes): author real questions for 13 more placeholder stubs (9 banks)"
     },
     {
       "slug": "algebraic-combinatorics",
@@ -146,14 +218,6 @@
       "message": "feat: statistical-learning-theory — first topic of section 13 (#249)"
     },
     {
-      "slug": "algebra",
-      "title": "Abstract algebra",
-      "color": "y",
-      "tag": "",
-      "date": "2026-05-20",
-      "message": "fix(math): sweep CLASS A math-rendering leaks to zero + CI gate + select-option fix (#247)"
-    },
-    {
       "slug": "additive-number-theory",
       "title": "Additive number theory",
       "color": "y",
@@ -173,14 +237,6 @@
       "slug": "algebraic-number-theory",
       "title": "Algebraic number theory",
       "color": "g",
-      "tag": "",
-      "date": "2026-05-20",
-      "message": "fix(math): sweep CLASS A math-rendering leaks to zero + CI gate + select-option fix (#247)"
-    },
-    {
-      "slug": "cluster-algebras",
-      "title": "Cluster algebras",
-      "color": "y",
       "tag": "",
       "date": "2026-05-20",
       "message": "fix(math): sweep CLASS A math-rendering leaks to zero + CI gate + select-option fix (#247)"
@@ -410,14 +466,6 @@
       "message": "fixup: review findings on PR #190"
     },
     {
-      "slug": "elementary-topos-theory",
-      "title": "Elementary topos theory",
-      "color": "y",
-      "tag": "",
-      "date": "2026-05-15",
-      "message": "fixup: review findings on PR #190"
-    },
-    {
       "slug": "infinity-categories",
       "title": "∞-categories (quasi-categories)",
       "color": "c",
@@ -472,14 +520,6 @@
       "tag": "",
       "date": "2026-05-14",
       "message": "fix: math-correctness audit pass — third batch (15 more topics)"
-    },
-    {
-      "slug": "commutative-algebra",
-      "title": "Commutative algebra",
-      "color": "g",
-      "tag": "",
-      "date": "2026-05-14",
-      "message": "fix: math-correctness audit pass — 75 topics across all 12 sections"
     },
     {
       "slug": "complex-multiplication",
@@ -586,14 +626,6 @@
       "message": "fix: math-correctness audit pass — 75 topics across all 12 sections"
     },
     {
-      "slug": "grothendieck-topologies-sites",
-      "title": "Grothendieck topologies & sites",
-      "color": "c",
-      "tag": "",
-      "date": "2026-05-14",
-      "message": "fix: math-correctness audit pass — 75 topics across all 12 sections"
-    },
-    {
       "slug": "group-cohomology",
       "title": "Group cohomology",
       "color": "y",
@@ -613,14 +645,6 @@
       "slug": "heyting-algebras-toposes",
       "title": "Heyting algebras & intuitionist logic",
       "color": "v",
-      "tag": "",
-      "date": "2026-05-14",
-      "message": "fix: math-correctness audit pass — 75 topics across all 12 sections"
-    },
-    {
-      "slug": "homological",
-      "title": "Homological algebra",
-      "color": "p",
       "tag": "",
       "date": "2026-05-14",
       "message": "fix: math-correctness audit pass — 75 topics across all 12 sections"
@@ -768,14 +792,6 @@
       "tag": "",
       "date": "2026-05-13",
       "message": "New topic: Convex optimization (Control theory & optimization) (#179)"
-    },
-    {
-      "slug": "topological-data-analysis",
-      "title": "Topological data analysis",
-      "color": "b",
-      "tag": "",
-      "date": "2026-05-13",
-      "message": "New topics rollup: Convex geometry + TDA + Mathematical chaos (#181)"
     },
     {
       "slug": "combinatorial-optimization",
@@ -1330,14 +1346,6 @@
       "message": "Content + structure expansion: 22 new topics, 156 new concepts, full review pass (#35)"
     },
     {
-      "slug": "deformation-theory",
-      "title": "Deformation theory",
-      "color": "p",
-      "tag": "",
-      "date": "2026-04-26",
-      "message": "Content + structure expansion: 22 new topics, 156 new concepts, full review pass (#35)"
-    },
-    {
       "slug": "derived-categories",
       "title": "Derived categories",
       "color": "y",
@@ -1480,14 +1488,6 @@
       "tag": "",
       "date": "2026-04-26",
       "message": "round 1: spectral-graph-theory + matroid-theory + julia-playground + tags.html"
-    },
-    {
-      "slug": "modular-forms",
-      "title": "Modular forms",
-      "color": "v",
-      "tag": "",
-      "date": "2026-04-26",
-      "message": "Content + structure expansion: 22 new topics, 156 new concepts, full review pass (#35)"
     },
     {
       "slug": "modularity-and-flt",

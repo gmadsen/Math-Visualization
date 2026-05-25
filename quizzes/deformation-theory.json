@@ -148,16 +148,16 @@
       "hard": [
         {
           "type": "mcq",
-          "q": "A Calabi–Yau threefold $X$ has $H^2(X, T_X)$ generally <em>non-zero</em>. Why are its deformations nonetheless unobstructed?",
+          "q": "For deformations of a smooth variety $X_0$ (first-order deformations $H^1(X_0,T_{X_0})$, obstructions in $H^2(X_0,T_{X_0})$), if $H^2(X_0,T_{X_0})=0$ then:",
           "choices": [
-            "Calabi–Yau threefolds are rigid, so the obstruction question is vacuous",
-            "Bogomolov–Tian–Todorov: a holomorphic volume form forces the obstruction map $\\mathrm{ob}_n \\colon H^1(T_X) \\to H^2(T_X)$ to vanish at every order, despite $H^2 \\ne 0$",
-            "$H^2(T_X) = 0$ for Calabi–Yau threefolds — the question is wrong",
-            "Their deformation theory is purely classical and uses only $\\Omega^1$"
+            "the deformation functor is unobstructed (smooth) of dimension $\\dim H^1$",
+            "there are no first-order deformations",
+            "$X_0$ is rigid",
+            "$X_0$ must be singular"
           ],
-          "answer": 1,
-          "explain": "BTT (Bogomolov–Tian–Todorov), via Ran's $T^1$-lifting, shows that a non-vanishing holomorphic volume form (the trivial canonical bundle $K_X = 0$ defining Calabi–Yau) makes every obstruction class trivial even though the codomain $H^2(T_X)$ is non-zero. So Calabi–Yau threefolds have unobstructed but very interesting moduli.",
-          "hint": "Bogomolov–Tian–Todorov."
+          "answer": 0,
+          "explain": "An empty obstruction space means every first-order deformation lifts to all orders, so the deformation space is smooth of dimension $\\dim H^1(X_0,T_{X_0})$.",
+          "hint": "What does a vanishing obstruction space do to lifting deformations?"
         },
         {
           "type": "mcq",

@@ -34,7 +34,11 @@
             "$\\mathrm{VR}_\\epsilon$ has the same homotopy type as $\\bigcup_i B(x_i,\\epsilon)$ for every $\\epsilon$.",
             "$\\mathrm{VR}_\\epsilon$ depends only on the matrix of pairwise distances of $X$."
           ],
-          "answer": [0, 1, 3],
+          "answer": [
+            0,
+            1,
+            3
+          ],
           "explain": "(0) Larger $\\epsilon$ means a weaker diameter condition — every simplex stays. (1) Once $\\epsilon\\ge \\mathrm{diam}(X)/2$ all simplices are in. (3) Rips depends only on distances. (2) is the Čech statement (Nerve Theorem); Rips is only homotopy-equivalent to $\\bigcup B$ up to the $\\check C_\\epsilon \\subseteq \\mathrm{VR}_\\epsilon \\subseteq \\check C_{\\sqrt 2\\epsilon}$ interleaving, not equality.",
           "hint": "Which statement is actually about the Čech complex, not the Rips complex?"
         }
@@ -73,7 +77,10 @@
             "$AB + BC + CA$",
             "$AB + CA$"
           ],
-          "answer": [0, 2],
+          "answer": [
+            0,
+            2
+          ],
           "explain": "Over $\\mathbb{F}_2$, $\\partial(AB+BC+CA) = (A+B)+(B+C)+(C+A) = 2A+2B+2C = 0$. The empty chain is trivially a cycle. $\\partial(AB) = A+B\\ne 0$ and $\\partial(AB+CA) = (A+B)+(C+A) = B+C\\ne 0$, so those are not cycles.",
           "hint": "Compute $\\partial c$ for each choice over $\\mathbb{F}_2$ (so $+1 = -1$ and the alternating signs vanish)."
         }
@@ -112,7 +119,12 @@
             "More edges fill in but the cycle remains a generator of $H_1$",
             "A triangle (or chain of triangles) is added whose boundary realises the cycle — the class dies"
           ],
-          "answer": [0, 1, 2, 3],
+          "answer": [
+            0,
+            1,
+            2,
+            3
+          ],
           "explain": "Filtrations grow monotonically: vertices first, then edges (some of which create cycles), then 2-simplices (some of which kill cycles by exhibiting them as boundaries). The bar $[b, d)$ records the second and fourth events.",
           "hint": "Filtrations add lower-dimensional simplices before higher-dimensional ones; cycles need edges to be born and triangles to die."
         }
@@ -213,7 +225,12 @@
             "Cluster the preimage $f^{-1}(U_i)\\cap X$ within each cover element.",
             "Build the nerve: clusters are nodes; edges record cluster overlaps."
           ],
-          "answer": [0, 1, 2, 3],
+          "answer": [
+            0,
+            1,
+            2,
+            3
+          ],
           "explain": "Mapper: filter, cover, cluster, nerve. Each step has tuning choices (which $f$, what overlap, which clusterer) that the user must justify — Mapper is a hypothesis-generating tool, not a unique invariant.",
           "hint": "You can't cover the range before choosing the filter, can't cluster before fixing the cover, etc."
         },
@@ -239,7 +256,11 @@
             "A degree-$\\ge 3$ node in the graph suggests a branching in the data not visible from one-dimensional projection.",
             "Mapper graphs are nerve constructions, so they are full simplicial complexes (with higher-simplex faces for triple intersections), but practitioners often display only the 1-skeleton."
           ],
-          "answer": [1, 2, 3],
+          "answer": [
+            1,
+            2,
+            3
+          ],
           "explain": "Mapper is <em>not</em> a topological invariant — change the filter and you change the graph. (1) is the warning every TDA practitioner repeats. (2) is what Mapper is for: surfacing structure beyond what $f$ alone reveals. (3) is the technical truth that the graph is the 1-skeleton of the nerve.",
           "hint": "Which statement would imply you don't need to justify your filter choice?"
         }
@@ -263,16 +284,16 @@
         },
         {
           "type": "mcq",
-          "q": "Zigzag persistence generalises persistence by allowing:",
+          "q": "Persistent cohomology over a field yields the same barcode as persistent homology because:",
           "choices": [
-            "Negative birth times.",
-            "Filtrations that reverse direction: $K_0\\to K_1\\leftarrow K_2\\to\\cdots$",
-            "Persistence modules over $\\mathbb{R}^2$ instead of $\\mathbb{R}$.",
-            "Persistence modules with non-finite-dimensional vector spaces at each scale."
+            "over a field $H^k\\cong\\mathrm{Hom}(H_k,k)$ has equal dimension in each degree, and the persistence structure dualizes",
+            "cohomology never has torsion",
+            "they are literally the same functor",
+            "zigzag modules are always trivial"
           ],
-          "answer": 1,
-          "explain": "Zigzag persistence (Carlsson–de Silva, 2010) is the persistence theory for arrows that may point either direction — modelling time-varying point clouds, merges between two filtrations, etc. The Gabriel-quiver classification of $A_n$-representations still gives a barcode. Multi-parameter is a different generalisation (option C) and remains open.",
-          "hint": "Which generalisation still admits a barcode decomposition?"
+          "answer": 0,
+          "explain": "Field coefficients make $H^k$ the dual of $H_k$ (same dimension), and the persistence module dualizes, so barcodes coincide. Software (Ripser etc.) computes cohomology because it is computationally faster.",
+          "hint": "Field coefficients make homology and cohomology dual."
         },
         {
           "type": "multi-select",
@@ -283,7 +304,11 @@
             "Dionysus (Morozov)",
             "PersistencePro (commercial; bundled with Matlab Statistics Toolbox)"
           ],
-          "answer": [0, 1, 2],
+          "answer": [
+            0,
+            1,
+            2
+          ],
           "explain": "Ripser, GUDHI, and Dionysus are the canonical open-source TDA libraries. Ripser is the speed champion for Rips persistence on moderate-scale clouds; GUDHI is the most complete C++/Python library (Rips, Čech, Alpha, Mapper, multi-parameter, Wasserstein); Dionysus emphasises zigzag and cohomology research features. \"PersistencePro\" is fabricated — there is no commercial TDA toolbox in Matlab; legitimate Python wrappers are scikit-tda and giotto-tda.",
           "hint": "Three of these are open-source research libraries; one is a plausible-sounding invention."
         }

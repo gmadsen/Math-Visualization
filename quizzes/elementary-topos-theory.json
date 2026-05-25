@@ -79,16 +79,16 @@
         },
         {
           "type": "mcq",
-          "q": "Which property uniquely characterises $\\Omega$ up to canonical isomorphism in $\\mathcal{E}$?",
+          "q": "In the topos $\\mathbf{Set}$, the subobject classifier $\\Omega$ is:",
           "choices": [
-            "$\\Omega$ is the largest object of $\\mathcal{E}$.",
-            "$\\Omega$ represents the contravariant subobject functor $\\mathrm{Sub}\\colon \\mathcal{E}^{\\mathrm{op}} \\to \\mathbf{Set}$.",
-            "$\\Omega$ has exactly two global elements $1 \\to \\Omega$.",
-            "$\\Omega$ is initial in $\\mathcal{E}$."
+            "the two-element set $\\{\\bot,\\top\\}$",
+            "the empty set",
+            "the set of natural numbers",
+            "a one-element set"
           ],
-          "answer": 1,
-          "explain": "$\\Omega$ represents $\\mathrm{Sub}(-)$: there is a natural bijection $\\mathrm{Sub}(X) \\cong \\Hom(X, \\Omega)$. By Yoneda this determines $\\Omega$ up to canonical iso. Counter-examples: in non-classical toposes $\\Omega$ may have more than two global sections (e.g. presheaf toposes), so option C fails.",
-          "hint": "Yoneda: a representable functor determines its representing object up to unique iso."
+          "answer": 0,
+          "explain": "Subobjects of $X$ in $\\mathbf{Set}$ are subsets, classified by characteristic functions $X\\to\\{0,1\\}$, so $\\Omega=\\{\\bot,\\top\\}=2$ with $\\top:1\\to\\Omega$ naming 'true'.",
+          "hint": "Characteristic functions land in which set?"
         },
         {
           "type": "mcq",
@@ -107,16 +107,16 @@
       "hard": [
         {
           "type": "mcq",
-          "q": "Why does $\\mathbf{Ab}$ (the category of abelian groups) fail to have a subobject classifier?",
+          "q": "In a presheaf topos $\\mathbf{Set}^{C^{\\mathrm{op}}}$, the subobject classifier $\\Omega$ assigns to each object $c$:",
           "choices": [
-            "Because $\\mathbf{Ab}$ is not finitely complete.",
-            "Because $\\mathbf{Ab}$ has no terminal object.",
-            "Because every monomorphism in $\\mathbf{Ab}$ is the kernel of a unique map, so subobjects of $X$ are classified by $\\Hom(X, X/S)$ — varying with $S$, hence not by a single object.",
-            "Because in $\\mathbf{Ab}$ subobjects of $X$ correspond to quotients $X \\twoheadrightarrow X/S$, and the family of quotient maps is parameterised by $S$ itself rather than by maps to a fixed $\\Omega$. A representing $\\Omega$ would have to be additive, forcing the only candidate ($\\mathbb{Z}/2$) to fail the universal pullback property."
+            "the set of sieves on $c$",
+            "a fixed two-element set",
+            "the hom-set $\\mathrm{Hom}(c,c)$",
+            "the empty set"
           ],
-          "answer": 3,
-          "explain": "Subobjects in $\\mathbf{Ab}$ are kernels, named by quotient maps $X \\to X/S$ — and the codomain depends on $S$, so they cannot all be classified by a single $X \\to \\Omega$. Concretely, any candidate $\\Omega$ in $\\mathbf{Ab}$ would be an abelian group, with maps to it given by abelian group homomorphisms, which is far too restrictive. Option C is partially right but misstates the symptom; D is the cleanest articulation.",
-          "hint": "Think about how subobjects in $\\mathbf{Ab}$ are usually 'named.'"
+          "answer": 0,
+          "explain": "$\\Omega(c)=\\{\\text{sieves on }c\\}$ — subfunctors of the representable $\\mathrm{Hom}(-,c)$. For $C=1$ this recovers $\\Omega=2$ in $\\mathbf{Set}$.",
+          "hint": "Subobjects of representables are sieves."
         },
         {
           "type": "mcq",
