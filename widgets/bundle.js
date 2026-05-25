@@ -6856,20 +6856,22 @@ window.__MVWidgets = [
   },
   {
     "slug": "ec-j",
-    "family": "verbatim",
+    "family": "ec-j",
     "dimension": "2d",
     "gesture": "slider",
     "role": "interactive",
     "title": "ec-j widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"$j$-invariant calculator\" widget on the elliptic-curves topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs and re-derived meta by scripts/fixup-verbatim-widget-meta.mjs.",
+    "description": "The j-invariant calculator on the elliptic-curves topic, migrated from a verbatim slug to a semantic renderer. Two sliders a, b drive j = 1728 * 4a^3 / (4a^3 + 27 b^2) for y^2 = x^3 + a x + b, with the discriminant and CM annotations (j=0: CM by Z[omega]; j=1728: CM by Z[i]). A gallery of preset buttons jumps to famous complex-multiplication curves. Slider ranges/defaults, header title/hint, the DOM id prefix, and the preset list (a, b, label) are now inspectable, AJV-validated params.",
     "requiredParams": [
       "widgetId",
       "title",
       "hint",
-      "bodyMarkup",
-      "bodyScript"
+      "idPrefix",
+      "a",
+      "b",
+      "presets"
     ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"$j$-invariant calculator\" widget on `elliptic-curves`.",
+    "readmeExcerpt": "Bespoke semantic renderer for the **$j$-invariant calculator** on `elliptic-curves`.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
