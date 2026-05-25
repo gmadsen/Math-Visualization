@@ -11,6 +11,27 @@
           "html": "<section id=\"what\">\n<h2>1. What is a moduli problem?</h2>\n<p>Informally, a <strong>moduli problem</strong> asks: <em>is there a space whose points are the objects of type $X$, up to isomorphism?</em> The word \"space\" is deliberately vague — we will sharpen it. The running example here is</p>\n<p>$$\\text{type } X \\;=\\; \\text{elliptic curves over } \\mathbb{C}, \\qquad \\text{isomorphism} \\;=\\; \\text{isomorphism of algebraic curves with marked origin.}$$</p>\n<p>The set of such curves, up to iso, is huge — but it admits a remarkably tidy parameter. Over $\\mathbb{C}$, the $j$-invariant gives a bijection</p>\n<p>$$j\\colon \\{\\text{elliptic curves}/\\mathbb{C}\\}/\\!\\cong \\;\\xrightarrow{\\;\\sim\\;}\\; \\mathbb{A}^1(\\mathbb{C}) = \\mathbb{C}.$$</p>\n<p>So the <em>set</em> of iso classes is in bijection with the <em>set</em> of <a href=\"./complex-analysis.html#complex-numbers\" data-auto-inline-link=\"1\" data-concept-id=\"complex-numbers\" data-blurb=\"Arithmetic on $\\mathbb{C} = \\mathbb{R}^2$ with multiplication; polar form $z = re^{i\\theta}$ and the one-point compactification to the Riemann sphere $\\hat{\\mathbb{C}}$ via stereographic projection.\">complex numbers</a>. The moduli problem asks more: can we do this <em>geometrically</em>, so that the parameter space \"feels\" like a variety, and so that a family of curves over a base $B$ corresponds to a morphism $B \\to \\mathbb{A}^1$?</p>\n\n<div class=\"note\"><strong>Point-of-view shift.</strong> Classical geometry starts with a space and asks about its points. Moduli theory starts with a <em>class of objects</em> and tries to <em>build</em> a space whose points are those objects. Whether such a space exists, and in what category, is the subtle part.</div>\n\n<p>Formally, we attach to the moduli problem a <em>functor</em>\n$$\\mathcal{M}\\colon \\mathrm{Sch}^{\\mathrm{op}} \\to \\mathrm{Set}, \\qquad \\mathcal{M}(S) = \\{\\text{families of objects of type } X \\text{ over } S\\} / \\cong_S.$$\nA <em>family over $S$</em> is a flat, proper morphism $E \\to S$ whose geometric fibres are objects of type $X$. The moduli problem is <strong>representable</strong> if there is a scheme $M$ with $\\mathcal{M}(-) \\cong h_M(-) = \\Hom(-,M)$. This is the gold standard; we call $M$ a <em>fine</em> moduli space.</p>\n\n"
         },
         {
+          "type": "widget",
+          "slug": "moduli-spaces-triangle-similarity",
+          "params": {
+            "widgetId": "w-trimoduli",
+            "title": "A warm-up moduli space: triangles up to similarity ↔ a shape parameter τ",
+            "hint": "shape sliders move the moduli point; rotation changes the picture, not τ"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-trimoduli"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
           "type": "raw",
           "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./functor-of-points.html#repr\">Representability and moduli functors</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
