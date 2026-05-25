@@ -11,6 +11,27 @@
           "html": "<section id=\"why-hodge\">\n<h2>1. Why Hodge structures? — cohomology gets refinement from complex structure</h2>\n\n<p>Take a smooth projective variety $X$ over $\\mathbb{C}$ and consider its singular cohomology $H^n(X; \\mathbb{Q})$ — a finite-dimensional $\\mathbb{Q}$-vector space. As a topologist sees it, that's the whole story: the data is \"$X$ has these Betti numbers, here are the cup products.\" But two facts make this incomplete.</p>\n\n<p><b>Fact 1.</b> $X(\\mathbb{C})$ is also a complex manifold. So $X$ has a sheaf $\\Omega^1_X$ of holomorphic 1-forms, and exterior powers $\\Omega^p_X$ of holomorphic $p$-forms. Sheaf cohomology $H^q(X, \\Omega^p_X)$ is a finite-dimensional $\\mathbb{C}$-vector space — the <em>Dolbeault cohomology</em> in bidegree $(p, q)$.</p>\n\n<p><b>Fact 2.</b> A complex projective variety is in particular a Kähler manifold (the Fubini–Study metric on $\\mathbb{P}^N$ restricts). On a Kähler manifold the Laplacian $\\Delta$ on differential forms commutes with the type decomposition $\\Omega^k_\\mathbb{C} = \\bigoplus_{p+q=k} \\Omega^{p,q}$, so harmonic forms decompose by type:</p>\n\n$$\\mathcal{H}^k(X; \\mathbb{C}) = \\bigoplus_{p+q=k} \\mathcal{H}^{p,q}(X).$$\n\n<p>And by Hodge theory on Riemannian manifolds, harmonic forms compute cohomology: $\\mathcal{H}^k \\cong H^k(X; \\mathbb{C})$. The two facts together force the Hodge decomposition: $H^n(X; \\mathbb{C}) = \\bigoplus_{p+q=n} H^{p,q}(X)$, with $H^{p,q} = H^q(X, \\Omega^p_X)$.</p>\n\n<aside class=\"note\"><b>Slogan.</b> A topologist sees a $\\mathbb{Q}$-vector space; an algebraic geometer sees the same vector space sliced into $(p, q)$ pieces by complex structure; the slicing is forced by Kähler geometry and rigid under continuous variation. <em>That extra rigidity is what makes Hodge theory more than topology with bookkeeping.</em></aside>\n\n<p>The data of \"rational vector space + Hodge decomposition of its complexification\" is what we abstract into a <em>Hodge structure</em>. The next several sections unpack what's in that data, what's preserved under varying $X$ in a family, and what the open questions are.</p>\n\n"
         },
         {
+          "type": "widget",
+          "slug": "hodge-theory-why-refinement",
+          "params": {
+            "widgetId": "w-whyhodge",
+            "title": "Why Hodge structures? The complex structure refines the Betti numbers into Hodge numbers",
+            "hint": "toggle topological ↔ Hodge: each Betti number b_n splits into a sum of h^{p,q}"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-whyhodge"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
           "type": "quiz",
           "concept": "why-hodge",
           "html": "<div class=\"quiz\" data-concept=\"why-hodge\"></div>"

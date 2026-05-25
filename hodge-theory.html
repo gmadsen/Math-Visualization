@@ -281,6 +281,74 @@ $$\mathcal{H}^k(X; \mathbb{C}) = \bigoplus_{p+q=k} \mathcal{H}^{p,q}(X).$$
 
 <p>The data of "rational vector space + Hodge decomposition of its complexification" is what we abstract into a <em>Hodge structure</em>. The next several sections unpack what's in that data, what's preserved under varying $X$ in a family, and what the open questions are.</p>
 
+<div class="widget" id="w-whyhodge">
+  <div class="hd"><div class="ttl">Why Hodge structures? The complex structure refines the Betti numbers into Hodge numbers</div><div class="hint">toggle topological ↔ Hodge: each Betti number b_n splits into a sum of h^{p,q}</div></div>
+  <div class="row" id="w-whyhodge-btns">
+    <button type="button" data-v="E" class="active" aria-pressed="true">elliptic curve</button>
+    <button type="button" data-v="C2" class="" aria-pressed="false">genus-2 curve</button>
+    <button type="button" data-v="P2" class="" aria-pressed="false">&#8473;&#178;</button>
+    <button type="button" data-v="K3" class="" aria-pressed="false">K3 surface</button>
+  </div>
+  <div class="row" id="w-whyhodge-mode">
+    <label>view:</label>
+    <button type="button" data-m="top" class="active" aria-pressed="true">topological</button>
+    <button type="button" data-m="hodge" class="" aria-pressed="false">Hodge</button>
+  </div>
+  <svg id="w-whyhodge-svg" viewBox="0 0 560 300" width="560" height="300" role="img" aria-label="For each cohomological degree, a bar that is a single block of size the Betti number in topological view and splits into coloured Hodge-number pieces in Hodge view"><title>For a smooth projective variety, each degree n has a bar of fixed width representing the cohomology H^n. In topological view it is one block labelled by the Betti number b_n; in Hodge view it splits into coloured segments proportional to the Hodge numbers h^{p,q} for p+q=n, since b_n equals the sum of those Hodge numbers.</title></svg>
+  <div class="readout" id="w-whyhodge-out"></div>
+</div>
+
+<script>
+/* hodge-theory-why-refinement widget: w-whyhodge */
+(function(){
+  var svg=document.getElementById('w-whyhodge-svg'), out=document.getElementById('w-whyhodge-out');
+  var bt=document.getElementById('w-whyhodge-btns'), md=document.getElementById('w-whyhodge-mode');
+  if(!svg||!out||!bt||!md) return;
+  var NS='http://www.w3.org/2000/svg';
+  function mk(tag,attrs,text){ var e=document.createElementNS(NS,tag); for(var k in attrs){ e.setAttribute(k,attrs[k]); } if(text!=null) e.textContent=text; return e; }
+  function txt(x,y,s,opt){ opt=opt||{}; svg.appendChild(mk('text',{x:x,y:y,'text-anchor':opt.anchor||'start','font-size':opt.size||12,fill:opt.fill||'var(--ink)','font-weight':opt.weight||'normal','font-family':opt.mono?'monospace':'inherit'},s)); }
+  var PAL=['var(--cyan)','var(--yellow)','var(--violet)','var(--green)','var(--pink)'];
+  var VARS=[
+    {k:'E', nm:'elliptic curve E', deg:[{n:0,b:1,h:[[0,0,1]]},{n:1,b:2,h:[[1,0,1],[0,1,1]]},{n:2,b:1,h:[[1,1,1]]}]},
+    {k:'C2', nm:'a genus-2 curve', deg:[{n:0,b:1,h:[[0,0,1]]},{n:1,b:4,h:[[1,0,2],[0,1,2]]},{n:2,b:1,h:[[1,1,1]]}]},
+    {k:'P2', nm:'the projective plane \u2119\u00b2', deg:[{n:0,b:1,h:[[0,0,1]]},{n:1,b:0,h:[]},{n:2,b:1,h:[[1,1,1]]},{n:3,b:0,h:[]},{n:4,b:1,h:[[2,2,1]]}]},
+    {k:'K3', nm:'a K3 surface', deg:[{n:0,b:1,h:[[0,0,1]]},{n:1,b:0,h:[]},{n:2,b:22,h:[[2,0,1],[1,1,20],[0,2,1]]},{n:3,b:0,h:[]},{n:4,b:1,h:[[2,2,1]]}]},
+  ];
+  var cur='E', mode='top';
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    var V=null; for(var i=0;i<VARS.length;i++) if(VARS[i].k===cur) V=VARS[i];
+    if(!V) return;
+    txt(20, 22, (mode==='top')?('topological view: only the Betti numbers b\u2099 = dim H\u207f(X) are visible'):('Hodge view: the complex structure splits H\u207f(X;\u2102) = \u2295_{p+q=n} H^{p,q}'), {size:11, fill:(mode==='top')?'var(--mute)':'var(--violet)', weight:600});
+    var X0=70, W=200, rows=V.deg.length, rh=Math.min(44,(262-44)/rows), y0=52;
+    V.deg.forEach(function(d,i){ var yc=y0+i*rh+rh/2;
+      txt(20, yc+4, 'H'+sup(d.n), {size:12, fill:'var(--ink)', weight:700});
+      if(d.b===0){ txt(X0, yc+4, '0   (no cohomology in this degree)', {size:10, fill:'var(--mute)'}); return; }
+      if(mode==='top'){
+        svg.appendChild(mk('rect',{x:X0,y:yc-9,width:W,height:18,rx:3,fill:'var(--cyan)','fill-opacity':0.5,stroke:'var(--cyan)','stroke-width':1.4}));
+        txt(X0+W+10, yc+4, 'b'+sub(d.n)+' = '+d.b, {size:11, fill:'var(--cyan)', weight:700});
+      } else {
+        var cx=X0; d.h.forEach(function(pc,j){ var w=W*pc[2]/d.b; var col=PAL[j%PAL.length];
+          svg.appendChild(mk('rect',{x:cx,y:yc-9,width:w,height:18,rx:2,fill:col,'fill-opacity':0.55,stroke:col,'stroke-width':1.2}));
+          if(w>26) txt(cx+w/2, yc+4, '('+pc[0]+','+pc[1]+')', {anchor:'middle', size:8.5, fill:'var(--ink)'});
+          cx+=w; });
+        var bd=d.h.map(function(pc){ return 'h^{'+pc[0]+','+pc[1]+'}='+pc[2]; }).join('  ');
+        txt(X0+W+10, yc+4, '= '+bd, {size:9.5, fill:'var(--ink)'});
+      }
+    });
+    txt(20, 286, (mode==='top')?'\u2014 the topologist stops here. Toggle to Hodge view \u2192':'b\u2099 = \u03a3_{p+q=n} h^{p,q}: the same space, now graded by the complex structure.', {size:10, fill:(mode==='top')?'var(--mute)':'var(--violet)'});
+    out.textContent='Take a smooth projective variety X over \u2102 and its singular cohomology H\u207f(X;\u211a). A TOPOLOGIST sees only a finite-dimensional \u211a-vector space: the data is \u201cX has Betti numbers b\u2099 = dim H\u207f, with these cup products.\u201d But X(\u2102) is also a COMPLEX MANIFOLD, so it carries the sheaves \u03a9\u1d56 of holomorphic p-forms, and the Dolbeault cohomology H^{p,q}(X) := H^q(X, \u03a9\u1d56_X) is a genuine \u2102-vector space attached to each bidegree (p,q). The HODGE DECOMPOSITION (for compact K\u00e4hler, hence smooth projective, X) assembles these into H\u207f(X;\u2102) = \u2295_{p+q=n} H^{p,q}, so each Betti number REFINES into Hodge numbers: b\u2099 = \u03a3_{p+q=n} h^{p,q}, with the conjugation symmetry h^{p,q} = h^{q,p}. The bars show this: in topological view H\u207f is one undivided block of size b\u2099; toggle to Hodge view and the SAME block splits into its (p,q) pieces. The split is real extra structure, not bookkeeping: it is invisible to the underlying topological space (two varieties can share all Betti numbers yet differ in their Hodge numbers), it tells you which cohomology classes can be represented by holomorphic data, and \u2014 via the (p,p) part \u2014 which classes are candidates to be ALGEBRAIC (the Hodge conjecture). For the elliptic curve, b\u2081 = 2 splits as h^{1,0} = h^{0,1} = 1 (the holomorphic form dz and its conjugate); for a K3 surface, b\u2082 = 22 splits as 1 + 20 + 1, the lone h^{2,0} (a holomorphic 2-form) being exactly what makes K3 surfaces special. This refinement is the entire subject: a pure Hodge structure is precisely a \u211a-vector space carrying such a decomposition.';
+  }
+  function sup(d){ var M={'0':'\u2070','1':'\u00b9','2':'\u00b2','3':'\u00b3','4':'\u2074','-':'\u207b'}; return (''+d).split('').map(function(c){return M[c]||c;}).join(''); }
+  function sub(d){ var M={'0':'\u2080','1':'\u2081','2':'\u2082','3':'\u2083','4':'\u2084'}; return (''+d).split('').map(function(c){return M[c]||c;}).join(''); }
+  bt.addEventListener('click', function(e){ var b=e.target.closest('button'); if(!b||!b.getAttribute('data-v')) return; cur=b.getAttribute('data-v');
+    Array.prototype.forEach.call(bt.querySelectorAll('button'), function(x){ var on=x===b; x.classList.toggle('active', on); x.setAttribute('aria-pressed', on?'true':'false'); }); draw(); });
+  md.addEventListener('click', function(e){ var b=e.target.closest('button'); if(!b||!b.getAttribute('data-m')) return; mode=b.getAttribute('data-m');
+    Array.prototype.forEach.call(md.querySelectorAll('button'), function(x){ var on=x===b; x.classList.toggle('active', on); x.setAttribute('aria-pressed', on?'true':'false'); }); draw(); });
+  draw();
+})();
+</script>
+
 <div class="quiz" data-concept="why-hodge"></div><!-- callback-auto-begin -->
 <aside class="callback">
   <div class="ttl">See also</div>
