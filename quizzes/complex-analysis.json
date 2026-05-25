@@ -385,16 +385,16 @@
       "questions": [
         {
           "type": "mcq",
-          "q": "TODO: question stem for Riemann sphere.",
+          "q": "The map $f(z)=1/z$ extends to an automorphism of the Riemann sphere $\\hat{\\mathbb{C}}=\\mathbb{C}\\cup\\{\\infty\\}$. What are $f(0)$ and $f(\\infty)$?",
           "choices": [
-            "option A",
-            "option B",
-            "option C",
-            "option D"
+            "$f(0)=\\infty,\\ f(\\infty)=0$",
+            "$f(0)=0,\\ f(\\infty)=\\infty$",
+            "both are undefined",
+            "$f(0)=\\infty,\\ f(\\infty)=\\infty$"
           ],
           "answer": 0,
-          "explain": "TODO: 1–2 sentence explanation.",
-          "hint": "TODO: nudge that does not give away the answer."
+          "explain": "On $\\hat{\\mathbb{C}}$ the Möbius map $1/z$ swaps $0$ and $\\infty$, so it is a holomorphic automorphism of the sphere.",
+          "hint": "What happens to $1/z$ as $z\\to 0$ and as $z\\to\\infty$?"
         }
       ]
     },
@@ -403,16 +403,16 @@
       "questions": [
         {
           "type": "mcq",
-          "q": "TODO: question stem for Holomorphic functions.",
+          "q": "A function $f$ is holomorphic on an open set $U$ when it is:",
           "choices": [
-            "option A",
-            "option B",
-            "option C",
-            "option D"
+            "complex-differentiable at every point of $U$",
+            "continuous and real-differentiable on $U$",
+            "a solution of $\\Delta f=0$",
+            "bounded on every compact subset"
           ],
           "answer": 0,
-          "explain": "TODO: 1–2 sentence explanation.",
-          "hint": "TODO: nudge that does not give away the answer."
+          "explain": "Holomorphy means complex-differentiability in a neighbourhood of each point — far stronger than mere real-differentiability.",
+          "hint": "The defining property is about the complex derivative existing."
         }
       ]
     },
@@ -421,16 +421,16 @@
       "questions": [
         {
           "type": "mcq",
-          "q": "TODO: question stem for Domain coloring.",
+          "q": "In domain coloring (hue $=\\arg f$, brightness $=|f|$), a zero of order $2$ appears as a point where:",
           "choices": [
-            "option A",
-            "option B",
-            "option C",
-            "option D"
+            "the full hue wheel is traversed twice as you circle the point",
+            "there is a dark spot with no hue rotation",
+            "the colors reverse as at a pole",
+            "a branch cut begins"
           ],
           "answer": 0,
-          "explain": "TODO: 1–2 sentence explanation.",
-          "hint": "TODO: nudge that does not give away the answer."
+          "explain": "Near a zero of order $n$ the argument increases by $2\\pi n$ around it, so the hue cycles $n$ times; brightness drops to $0$ at the zero.",
+          "hint": "How fast does $\\arg f$ wind around a zero of order $n$?"
         }
       ]
     },
@@ -439,16 +439,16 @@
       "questions": [
         {
           "type": "mcq",
-          "q": "TODO: question stem for Contour integrals.",
+          "q": "What is $\\displaystyle\\oint_{|z|=1}\\frac{dz}{z}$?",
           "choices": [
-            "option A",
-            "option B",
-            "option C",
-            "option D"
+            "$2\\pi i$",
+            "$0$",
+            "$\\pi i$",
+            "$1$"
           ],
           "answer": 0,
-          "explain": "TODO: 1–2 sentence explanation.",
-          "hint": "TODO: nudge that does not give away the answer."
+          "explain": "With $z=e^{i\\theta}$, $\\int_0^{2\\pi}\\frac{i e^{i\\theta}}{e^{i\\theta}}\\,d\\theta=2\\pi i$ — the prototype nonzero contour integral.",
+          "hint": "Parametrize the unit circle as $z=e^{i\\theta}$."
         }
       ]
     },
@@ -457,16 +457,16 @@
       "questions": [
         {
           "type": "mcq",
-          "q": "TODO: question stem for Cauchy's theorem.",
+          "q": "Cauchy's theorem guarantees $\\displaystyle\\oint_\\gamma f\\,dz=0$ when:",
           "choices": [
-            "option A",
-            "option B",
-            "option C",
-            "option D"
+            "$f$ is holomorphic on a simply connected region containing $\\gamma$",
+            "$f$ is merely continuous along $\\gamma$",
+            "$\\gamma$ is a straight segment",
+            "$f$ has a pole enclosed by $\\gamma$"
           ],
           "answer": 0,
-          "explain": "TODO: 1–2 sentence explanation.",
-          "hint": "TODO: nudge that does not give away the answer."
+          "explain": "Holomorphy on a simply connected domain (no enclosed singularities) forces every closed-contour integral to vanish.",
+          "hint": "Two ingredients: holomorphy and no holes/singularities inside."
         }
       ]
     },
@@ -475,16 +475,16 @@
       "questions": [
         {
           "type": "mcq",
-          "q": "TODO: question stem for Cauchy integral formula.",
+          "q": "By Cauchy's integral formula, $\\displaystyle\\frac{1}{2\\pi i}\\oint_{|z|=2}\\frac{e^z}{z-1}\\,dz=$ ?",
           "choices": [
-            "option A",
-            "option B",
-            "option C",
-            "option D"
+            "$e$",
+            "$0$",
+            "$2\\pi i\\,e$",
+            "$1$"
           ],
           "answer": 0,
-          "explain": "TODO: 1–2 sentence explanation.",
-          "hint": "TODO: nudge that does not give away the answer."
+          "explain": "$f(z)=e^z$ is holomorphic and $z=1$ lies inside $|z|=2$, so the formula returns $f(1)=e$.",
+          "hint": "The formula evaluates the numerator at the pole inside the contour."
         }
       ]
     },
@@ -493,16 +493,16 @@
       "questions": [
         {
           "type": "mcq",
-          "q": "TODO: question stem for Analyticity = holomorphy.",
+          "q": "A function holomorphic on an open set is automatically:",
           "choices": [
-            "option A",
-            "option B",
-            "option C",
-            "option D"
+            "analytic — locally equal to its convergent Taylor series",
+            "only once complex-differentiable",
+            "real-analytic but not complex-analytic",
+            "bounded"
           ],
           "answer": 0,
-          "explain": "TODO: 1–2 sentence explanation.",
-          "hint": "TODO: nudge that does not give away the answer."
+          "explain": "In the complex setting holomorphy implies infinite differentiability and a local power-series expansion — the rigidity has no real-variable analogue.",
+          "hint": "Complex differentiability once secretly gives you infinitely many derivatives."
         }
       ]
     },
@@ -511,16 +511,16 @@
       "questions": [
         {
           "type": "mcq",
-          "q": "TODO: question stem for Liouville's theorem.",
+          "q": "Liouville's theorem states that a bounded entire function must be:",
           "choices": [
-            "option A",
-            "option B",
-            "option C",
-            "option D"
+            "constant",
+            "a polynomial",
+            "holomorphic only on a disk",
+            "unbounded near $\\infty$"
           ],
           "answer": 0,
-          "explain": "TODO: 1–2 sentence explanation.",
-          "hint": "TODO: nudge that does not give away the answer."
+          "explain": "Cauchy's estimates with a uniform bound kill every Taylor coefficient beyond the constant term.",
+          "hint": "Bound the derivative on circles of growing radius."
         }
       ]
     },
@@ -529,16 +529,16 @@
       "questions": [
         {
           "type": "mcq",
-          "q": "TODO: question stem for Fundamental theorem of algebra.",
+          "q": "The proof of the fundamental theorem of algebra via Liouville assumes a nonconstant polynomial $p$ has no root and derives a contradiction because then:",
           "choices": [
-            "option A",
-            "option B",
-            "option C",
-            "option D"
+            "$1/p$ is bounded and entire, hence constant",
+            "$p$ becomes unbounded",
+            "$p$ acquires a pole",
+            "$1/p$ is a polynomial"
           ],
           "answer": 0,
-          "explain": "TODO: 1–2 sentence explanation.",
-          "hint": "TODO: nudge that does not give away the answer."
+          "explain": "No roots make $1/p$ entire; since $|p|\\to\\infty$, $1/p$ is bounded, so Liouville forces it constant — impossible for nonconstant $p$.",
+          "hint": "What does the absence of roots let you say about $1/p$?"
         }
       ]
     },
@@ -547,16 +547,16 @@
       "questions": [
         {
           "type": "mcq",
-          "q": "TODO: question stem for Maximum modulus principle.",
+          "q": "By the maximum modulus principle, a nonconstant holomorphic function on a bounded domain attains the maximum of $|f|$:",
           "choices": [
-            "option A",
-            "option B",
-            "option C",
-            "option D"
+            "on the boundary, never at an interior point",
+            "at an interior critical point",
+            "at a zero of $f$",
+            "nowhere"
           ],
           "answer": 0,
-          "explain": "TODO: 1–2 sentence explanation.",
-          "hint": "TODO: nudge that does not give away the answer."
+          "explain": "An interior maximum of $|f|$ would force $f$ to be constant, so for nonconstant $f$ the maximum is on the boundary.",
+          "hint": "Could $|f|$ peak strictly inside without $f$ being constant?"
         }
       ]
     },
@@ -565,16 +565,16 @@
       "questions": [
         {
           "type": "mcq",
-          "q": "TODO: question stem for Schwarz lemma.",
+          "q": "Schwarz's lemma: if $f:\\mathbb{D}\\to\\mathbb{D}$ is holomorphic with $f(0)=0$, then for all $z$:",
           "choices": [
-            "option A",
-            "option B",
-            "option C",
-            "option D"
+            "$|f(z)|\\le|z|$ and $|f'(0)|\\le 1$",
+            "$|f(z)|\\ge|z|$",
+            "$f$ is a polynomial",
+            "$f$ is constant"
           ],
           "answer": 0,
-          "explain": "TODO: 1–2 sentence explanation.",
-          "hint": "TODO: nudge that does not give away the answer."
+          "explain": "Applying the maximum modulus principle to $g(z)=f(z)/z$ gives $|f(z)|\\le|z|$; equality $|f'(0)|=1$ forces a rotation $f(z)=e^{i\\theta}z$.",
+          "hint": "Consider the auxiliary function $f(z)/z$."
         }
       ]
     },
@@ -583,16 +583,16 @@
       "questions": [
         {
           "type": "mcq",
-          "q": "TODO: question stem for Laurent series.",
+          "q": "A Laurent series differs from a Taylor series in that it:",
           "choices": [
-            "option A",
-            "option B",
-            "option C",
-            "option D"
+            "includes negative powers $(z-z_0)^{-n}$ and converges on an annulus",
+            "always converges on a disk",
+            "has only finitely many terms",
+            "requires $f$ to be entire"
           ],
           "answer": 0,
-          "explain": "TODO: 1–2 sentence explanation.",
-          "hint": "TODO: nudge that does not give away the answer."
+          "explain": "Around an isolated singularity $f=\\sum_{n=-\\infty}^{\\infty}a_n(z-z_0)^n$ on an annulus; the coefficient $a_{-1}$ is the residue.",
+          "hint": "Negative powers encode the behaviour near a singularity."
         }
       ]
     },
@@ -601,16 +601,16 @@
       "questions": [
         {
           "type": "mcq",
-          "q": "TODO: question stem for Classification of singularities.",
+          "q": "An isolated singularity at which the Laurent expansion has infinitely many nonzero negative-power coefficients is:",
           "choices": [
-            "option A",
-            "option B",
-            "option C",
-            "option D"
+            "an essential singularity",
+            "removable",
+            "a pole of finite order",
+            "a branch point"
           ],
           "answer": 0,
-          "explain": "TODO: 1–2 sentence explanation.",
-          "hint": "TODO: nudge that does not give away the answer."
+          "explain": "Removable = no negative terms; a pole of order $m$ stops at $(z-z_0)^{-m}$; infinitely many negative terms (e.g. $e^{1/z}$) means essential.",
+          "hint": "How far down do the negative powers go for each type?"
         }
       ]
     },
@@ -619,16 +619,16 @@
       "questions": [
         {
           "type": "mcq",
-          "q": "TODO: question stem for Argument principle.",
+          "q": "For $f$ meromorphic inside a contour $\\gamma$ (no zeros/poles on $\\gamma$), $\\displaystyle\\frac{1}{2\\pi i}\\oint_\\gamma\\frac{f'(z)}{f(z)}\\,dz$ equals:",
           "choices": [
-            "option A",
-            "option B",
-            "option C",
-            "option D"
+            "$Z-P$, the zeros minus poles inside (with multiplicity)",
+            "the number of poles only",
+            "$\\oint_\\gamma f\\,dz$",
+            "the residue of $f$ at $\\infty$"
           ],
           "answer": 0,
-          "explain": "TODO: 1–2 sentence explanation.",
-          "hint": "TODO: nudge that does not give away the answer."
+          "explain": "$f'/f$ has residue $+1$ at each zero and $-1$ at each pole, counted with multiplicity.",
+          "hint": "What are the residues of the logarithmic derivative at a zero and at a pole?"
         }
       ]
     },
@@ -637,16 +637,16 @@
       "questions": [
         {
           "type": "mcq",
-          "q": "TODO: question stem for Rouché's theorem.",
+          "q": "Rouché's theorem: if $|g(z)|<|f(z)|$ everywhere on a contour $\\gamma$, then inside $\\gamma$ the functions $f$ and $f+g$ have:",
           "choices": [
-            "option A",
-            "option B",
-            "option C",
-            "option D"
+            "the same number of zeros, counted with multiplicity",
+            "the same poles",
+            "equal residues",
+            "no zeros at all"
           ],
           "answer": 0,
-          "explain": "TODO: 1–2 sentence explanation.",
-          "hint": "TODO: nudge that does not give away the answer."
+          "explain": "The strict inequality keeps the winding number of $f+g$ about $0$ equal to that of $f$, so by the argument principle their zero counts match.",
+          "hint": "Think about how the dominant term controls the winding number."
         }
       ]
     },
@@ -655,16 +655,16 @@
       "questions": [
         {
           "type": "mcq",
-          "q": "TODO: question stem for Conformal maps.",
+          "q": "A holomorphic map $f$ is conformal (angle-preserving) at $z_0$ exactly when:",
           "choices": [
-            "option A",
-            "option B",
-            "option C",
-            "option D"
+            "$f'(z_0)\\ne 0$",
+            "$f(z_0)=0$",
+            "$f''(z_0)=0$",
+            "$f$ is bounded near $z_0$"
           ],
           "answer": 0,
-          "explain": "TODO: 1–2 sentence explanation.",
-          "hint": "TODO: nudge that does not give away the answer."
+          "explain": "A nonzero derivative makes the local action an amplitwist (rotation by $\\arg f'$, scaling by $|f'|$), which preserves angles; where $f'=0$ angles are multiplied.",
+          "hint": "Conformality is about the local linear part being a nonzero rotation-scaling."
         }
       ]
     },
@@ -673,16 +673,16 @@
       "questions": [
         {
           "type": "mcq",
-          "q": "TODO: question stem for Disk automorphisms.",
+          "q": "Every holomorphic automorphism of the unit disk $\\mathbb{D}$ has the form:",
           "choices": [
-            "option A",
-            "option B",
-            "option C",
-            "option D"
+            "$\\displaystyle e^{i\\theta}\\frac{z-a}{1-\\bar a z}$ with $|a|<1$",
+            "$az+b$ with $a\\ne 0$",
+            "$1/z$",
+            "$e^{z}$"
           ],
           "answer": 0,
-          "explain": "TODO: 1–2 sentence explanation.",
-          "hint": "TODO: nudge that does not give away the answer."
+          "explain": "These Möbius (Blaschke) maps are precisely $\\mathrm{Aut}(\\mathbb{D})$; they preserve the disk and act transitively on it.",
+          "hint": "It must fix the disk and be invertible holomorphically."
         }
       ]
     },
@@ -691,16 +691,16 @@
       "questions": [
         {
           "type": "mcq",
-          "q": "TODO: question stem for Normal families (Montel).",
+          "q": "Montel's theorem says a family of holomorphic functions on a domain is normal if it is:",
           "choices": [
-            "option A",
-            "option B",
-            "option C",
-            "option D"
+            "locally uniformly bounded",
+            "pointwise convergent",
+            "equicontinuous only on the boundary",
+            "uniformly Lipschitz"
           ],
           "answer": 0,
-          "explain": "TODO: 1–2 sentence explanation.",
-          "hint": "TODO: nudge that does not give away the answer."
+          "explain": "Local uniform boundedness gives, via Cauchy's estimates, local equicontinuity, and Arzelà–Ascoli yields locally uniformly convergent subsequences.",
+          "hint": "A single boundedness hypothesis suffices in the holomorphic world."
         }
       ]
     },
@@ -709,16 +709,16 @@
       "questions": [
         {
           "type": "mcq",
-          "q": "TODO: question stem for Riemann mapping theorem.",
+          "q": "The Riemann mapping theorem: every nonempty, proper, simply connected open subset $\\Omega\\subsetneq\\mathbb{C}$ is conformally equivalent to:",
           "choices": [
-            "option A",
-            "option B",
-            "option C",
-            "option D"
+            "the open unit disk $\\mathbb{D}$",
+            "the whole plane $\\mathbb{C}$",
+            "the Riemann sphere $\\hat{\\mathbb{C}}$",
+            "only an upper half-plane"
           ],
           "answer": 0,
-          "explain": "TODO: 1–2 sentence explanation.",
-          "hint": "TODO: nudge that does not give away the answer."
+          "explain": "Any such $\\Omega$ is biholomorphic to $\\mathbb{D}$; the plane $\\mathbb{C}$ itself is excluded (otherwise Liouville would be violated).",
+          "hint": "Up to conformal equivalence there is essentially one proper simply connected domain."
         }
       ]
     },
@@ -727,16 +727,16 @@
       "questions": [
         {
           "type": "mcq",
-          "q": "TODO: question stem for Harmonic functions.",
+          "q": "If $f=u+iv$ is holomorphic, then its real and imaginary parts $u,v$ are:",
           "choices": [
-            "option A",
-            "option B",
-            "option C",
-            "option D"
+            "harmonic ($\\Delta u=\\Delta v=0$) and harmonic conjugates",
+            "both constant",
+            "harmonic only when $f$ is bounded",
+            "never harmonic"
           ],
           "answer": 0,
-          "explain": "TODO: 1–2 sentence explanation.",
-          "hint": "TODO: nudge that does not give away the answer."
+          "explain": "Differentiating the Cauchy–Riemann equations gives $\\Delta u=\\Delta v=0$, and $v$ is the harmonic conjugate of $u$.",
+          "hint": "Cross-differentiate the Cauchy–Riemann equations."
         }
       ]
     },
@@ -745,16 +745,16 @@
       "questions": [
         {
           "type": "mcq",
-          "q": "TODO: question stem for Analytic continuation.",
+          "q": "If two holomorphic functions on a connected domain agree on a subset that has a limit point inside the domain, then:",
           "choices": [
-            "option A",
-            "option B",
-            "option C",
-            "option D"
+            "they agree on the entire domain (identity theorem)",
+            "they agree only on that subset",
+            "one of them must be constant",
+            "they differ by a polynomial"
           ],
           "answer": 0,
-          "explain": "TODO: 1–2 sentence explanation.",
-          "hint": "TODO: nudge that does not give away the answer."
+          "explain": "The identity theorem makes analytic continuation unique: the zeros of $f-g$ accumulate in the domain, forcing $f\\equiv g$.",
+          "hint": "Accumulating zeros of a holomorphic function are very restrictive."
         }
       ]
     },
