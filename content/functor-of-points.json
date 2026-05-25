@@ -358,6 +358,27 @@
           "html": "<section id=\"stacks\">\n<h2>7. Preview: the fix is to target groupoids</h2>\n\n<p>The moral: if your objects have automorphisms, sets are the wrong target. The answer is to replace</p>\n\n$$\\mathrm{CRing} \\to \\mathsf{Set}$$\n\n<p>by</p>\n\n$$\\mathrm{CRing} \\to \\mathsf{Grpd},$$\n\n<p>sending $R$ to the <em>groupoid</em> of elliptic curves over $R$ with their isomorphisms. A lax-functorial, sheafy version of this is an <strong>algebraic stack</strong>. The scheme / functor-of-points story is the special case where every object has trivial automorphism groupoid.</p>\n\n<div class=\"note\">\n<strong>Sketch.</strong> An algebraic stack is a category fibered in groupoids $\\mathcal{X} \\to \\mathsf{Sch}$ satisfying a descent condition plus a representability / smoothness condition on the diagonal. Morphisms $S \\to \\mathcal{X}$ are not \"elements of a set\" but <em>objects</em> of the groupoid fiber $\\mathcal{X}(S)$, and two such morphisms are equal when they are isomorphic. The isomorphisms <em>are</em> now encoded, so the sheaf condition returns.\n</div>\n\n<p>The twist widget above is the key picture: the \"twisted family\" and the \"product family\" had the same classes at each point, but they are distinct objects of the groupoid fiber, because gluing by $[-1]$ is a different 2-arrow from gluing by $\\mathrm{id}$. Upgrading the target category captures exactly that information.</p>\n\n<p>The functor-of-points perspective is then the base camp from which stacks become a modest and natural extension — not a new abstraction, but the same game played in a 2-category.</p>\n\n"
         },
         {
+          "type": "widget",
+          "slug": "functor-of-points-groupoid-target",
+          "params": {
+            "widgetId": "w-grpdtarget",
+            "title": "If objects have automorphisms, Set is the wrong target — use Grpd",
+            "hint": "toggle the target: Set forgets automorphisms (not a sheaf); Grpd is a stack"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-grpdtarget"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
           "type": "quiz",
           "concept": "stacky-obstructions",
           "html": "<div class=\"quiz\" data-concept=\"stacky-obstructions\"></div>"
