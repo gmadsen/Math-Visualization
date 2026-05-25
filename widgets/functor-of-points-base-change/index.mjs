@@ -48,7 +48,7 @@ export function renderScript(params) {
     `  function fiber(field,a){ // returns {sols:[numbers or labels], n, type}\n` +
     `    if(field.p>0){ var p=field.p, aa=((a%p)+p)%p, s=[]; for(var x=0;x<p;x++) if((x*x)%p===aa) s.push(x); return {sols:s, n:s.length, aa:aa}; }\n` +
     `    if(a>0){ return {sols:[-Math.sqrt(a),Math.sqrt(a)], n:2, aa:a}; } if(a===0){ return {sols:[0], n:1, aa:0}; } return {sols:[], n:0, aa:a}; }\n` +
-    `  function applyRange(){ var f=FIELDS[cur]; sa.min=f.min; sa.max=f.max; sa.step=1; var v=parseInt(sa.value,10); if(isNaN(v)||v<f.min||v>f.max) sa.value=(f.p>0?1:1); }\n` +
+    `  function applyRange(){ var f=FIELDS[cur]; var v=parseInt(sa.value,10); if(isNaN(v)) v=f.min; v=Math.max(f.min, Math.min(f.max, v)); sa.min=f.min; sa.max=f.max; sa.step=1; sa.value=v; }\n` +
     `  function draw(){\n` +
     `    while(svg.firstChild) svg.removeChild(svg.firstChild);\n` +
     `    var f=FIELDS[cur]; var a=parseInt(sa.value,10); if(isNaN(a)) a=0; av.textContent='a = '+a; sa.setAttribute('aria-valuetext','a = '+a);\n` +
