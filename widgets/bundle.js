@@ -14804,6 +14804,24 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "motives-motivic-galois",
+    "family": "motives-motivic-galois",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "motives-motivic-galois widget params",
+    "description": "The motivic Galois group as the universal symmetry, realized as a hub-and-spoke diagram (matching the section's prose). G_mot(k) = Aut-tensor(omega_B) is the Tannakian fundamental group of the category of numerical pure motives (Jannsen: Q-linear, abelian, semisimple; modulo the standard conjectures Tannakian and pro-reductive), and motives over k are exactly the finite-dimensional Q-representations of G_mot. The widget draws G_mot at a central hub with three quotient arrows descending to the classical groups, each a realization: the absolute Galois group G_Q via the etale realization, the Mumford-Tate group via the Hodge realization, and the crystalline Frobenius via the crystalline realization. Buttons (Overview + the three spokes) drive a readout that explains each quotient with concrete anchors: the Tate motives generate a copy of G_m (the weight grading) inside G_mot; Artin motives make G_mot generalize the absolute Galois group; an elliptic curve has Mumford-Tate group GL_2 (non-CM) or a rank-2 torus (CM); and the crystalline Frobenius is the same phi acting by p^{-n} on the Tate twist. No numeric params beyond the standard widgetId/title/hint.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Bespoke widget for `motives.html` (§6 *The motivic Galois group*, concept `motivic-galois-group`). It realizes the section's prose-prescribed figure: the motivic Galois group as a central hub with three realization-quotient spokes. Single module, not part of a shared family.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "motives-realization-comparison",
     "family": "motives-realization-comparison",
     "dimension": "2d",
