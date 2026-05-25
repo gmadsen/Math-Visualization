@@ -1316,7 +1316,7 @@ The cokernel is the <em>Selmer group</em>, a subtle finite-dimensional $\mathbb{
   It is known for rank $\le 1$ (Kolyvagin, Gross–Zagier) and in the full analytic form is a Clay Millennium Problem. It is the canonical example of the "arithmetic = analytic" duality that dominates modern number theory.
 </div>
 
-<div class="widget">
+<div class="widget" id="ec-mw">
 <div class="hd"><span class="ttl">Rank &amp; torsion gallery</span><span class="hint">known results from the LMFDB and Cremona tables</span></div>
 <div class="row">
   <label>curve <select id="mw-sel">
@@ -1337,16 +1337,7 @@ The cokernel is the <em>Selmer group</em>, a subtle finite-dimensional $\mathbb{
 (function(){
   const sel = document.getElementById('mw-sel');
   const out = document.getElementById('mw-out');
-  const DATA = [
-    {eq:'y² + y = x³ − x', rank:1, tors:'trivial', note:'Cremona label 37a1 — smallest conductor with rank 1; generator P = (0,0), infinite order.'},
-    {eq:'y² = x³ − x', rank:0, tors:'Z/2 ⊕ Z/2', note:'Four rational points total: O, (0,0), (1,0), (-1,0). All 2-torsion. j = 1728.'},
-    {eq:'y² = x³ + 1', rank:0, tors:'Z/6', note:'Six points: O, (-1,0), (0,±1), (2,±3). CM by Z[ω]. j = 0.'},
-    {eq:'y² + y = x³', rank:0, tors:'Z/6', note:'Cremona 27a3, CM by Z[ω]. Six rational points.'},
-    {eq:'y² = x³ − 43x + 166', rank:0, tors:'Z/7', note:'First instance of 7-torsion over Q; maximal cyclic torsion allowed by Mazur for odd prime p.'},
-    {eq:'y² + 7xy = x³ + 16x', rank:0, tors:'Z/10', note:'Mazur’s theorem allows cyclic orders 1–10 and 12 (but not 11) over Q; this curve realizes Z/10.'},
-    {eq:'y² + xy + y = x³ − x² − 14x + 29', rank:0, tors:'Z/4', note:'Long-Weierstrass form; 4-torsion subgroup.'},
-    {eq:'y² = x³ + 877x', rank:1, tors:'trivial', note:'Bremner–Cassels: the smallest x-coordinate generator has numerator 375494528127162193105504069942092792346201. Rank computation is a multi-step descent; even writing down the generator is nontrivial.'}
-  ];
+  const DATA = [{"eq":"y² + y = x³ − x","rank":1,"tors":"trivial","note":"Cremona label 37a1 — smallest conductor with rank 1; generator P = (0,0), infinite order."},{"eq":"y² = x³ − x","rank":0,"tors":"Z/2 ⊕ Z/2","note":"Four rational points total: O, (0,0), (1,0), (-1,0). All 2-torsion. j = 1728."},{"eq":"y² = x³ + 1","rank":0,"tors":"Z/6","note":"Six points: O, (-1,0), (0,±1), (2,±3). CM by Z[ω]. j = 0."},{"eq":"y² + y = x³","rank":0,"tors":"Z/6","note":"Cremona 27a3, CM by Z[ω]. Six rational points."},{"eq":"y² = x³ − 43x + 166","rank":0,"tors":"Z/7","note":"First instance of 7-torsion over Q; maximal cyclic torsion allowed by Mazur for odd prime p."},{"eq":"y² + 7xy = x³ + 16x","rank":0,"tors":"Z/10","note":"Mazur’s theorem allows cyclic orders 1–10 and 12 (but not 11) over Q; this curve realizes Z/10."},{"eq":"y² + xy + y = x³ − x² − 14x + 29","rank":0,"tors":"Z/4","note":"Long-Weierstrass form; 4-torsion subgroup."},{"eq":"y² = x³ + 877x","rank":1,"tors":"trivial","note":"Bremner–Cassels: the smallest x-coordinate generator has numerator 375494528127162193105504069942092792346201. Rank computation is a multi-step descent; even writing down the generator is nontrivial."}];
   function upd(){
     const d = DATA[+sel.value];
     out.textContent =
