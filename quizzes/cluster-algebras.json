@@ -33,7 +33,11 @@
             "$B$ is skew-symmetric: $B = -B^T$.",
             "$B$ is invertible over $\\mathbb{Z}$."
           ],
-          "answer": [0, 1, 3],
+          "answer": [
+            0,
+            1,
+            3
+          ],
           "explain": "The exchange matrix is skew-symmetric (equivalently, encodes a quiver) with integer entries. It need not be invertible — type $A_2$ already has $\\det B = 1$ but type $A_3$ has $\\det B = 0$ in some orientations."
         }
       ]
@@ -68,7 +72,11 @@
             "Identify vertex $k$ and read off the signs of the entries in column $k$ of the exchange matrix $B$.",
             "Update the exchange matrix $B\\mapsto B'$ by negating row $k$ and column $k$, and adjusting all other entries by $b'_{ij}=b_{ij}+\\mathrm{sgn}(b_{ik})\\max(b_{ik}b_{kj},0)$."
           ],
-          "answer": [1, 0, 2],
+          "answer": [
+            1,
+            0,
+            2
+          ],
           "explain": "Mutation is a recipe in three movements: locate the vertex, exchange the cluster variable via the binomial relation, then update the exchange matrix. Doing the matrix step before the variable step is an equally valid presentation, but the canonical order is read $B$ → exchange variable → update $B$."
         }
       ]
@@ -144,7 +152,11 @@
             "Triangulations of a once-punctured $n$-gon with tagged arcs (Fomin–Shapiro–Thurston); exchange graph is the type-$D$ generalized associahedron of Fomin–Reading.",
             "Exceptional cluster algebras with no surface model; first defined by Fomin–Zelevinsky from the corresponding Dynkin diagrams; $42, 70, 128$ cluster variables (= almost positive roots) respectively, with $833, 4160, 25080$ clusters."
           ],
-          "answer": [0, 1, 2],
+          "answer": [
+            0,
+            1,
+            2
+          ],
           "explain": "Type $A_n$ ↔ unpunctured polygon, exchange polytope = Stasheff associahedron. Type $D_n$ ↔ once-punctured polygon with tagged arcs (FST 2008), exchange polytope = type-$D$ generalized associahedron of Fomin–Reading. (The cyclohedron is the type $B_n/C_n$ generalized associahedron, not type $D_n$.) The exceptional types $E_{6,7,8}$ admit no surface model: they have $42, 70, 128$ cluster variables (= almost positive roots) and $833, 4160, 25080$ clusters respectively, with cluster counts given by the Catalan-like product $\\prod_i (h+e_i+1)/(e_i+1)$ over the exponents of the root system."
         }
       ]
@@ -154,15 +166,16 @@
       "questions": [
         {
           "type": "mcq",
-          "q": "Buan, Marsh, Reineke, Reiten and Todorov defined the cluster category $\\mathcal{C}_Q$ associated with a Dynkin quiver $Q$ as which quotient?",
+          "q": "In the cluster category $\\mathcal{C}_Q$, the cluster-tilting objects correspond bijectively to:",
           "choices": [
-            "$D^b(\\mathrm{mod}\\,kQ)/\\langle \\tau \\rangle$, the quotient by the Auslander–Reiten translation.",
-            "$D^b(\\mathrm{mod}\\,kQ)/\\tau^{-1}[1]$, the orbit category by the autoequivalence $\\tau^{-1}[1]$.",
-            "$D^b(\\mathrm{mod}\\,kQ)/[2]$, the orbit category by the shift squared.",
-            "The bounded homotopy category $K^b(\\mathrm{proj}\\,kQ)$ of finitely generated projective $kQ$-modules."
+            "the clusters (seeds) of the associated cluster algebra",
+            "the simple modules",
+            "the projective modules only",
+            "the vertices of the quiver $Q$"
           ],
-          "answer": 1,
-          "explain": "$\\mathcal{C}_Q := D^b(\\mathrm{mod}\\,kQ)/\\tau^{-1}[1]$ is the orbit category by the autoequivalence $\\tau^{-1}\\circ[1]$ where $\\tau$ is the AR-translation and $[1]$ is the suspension. Keller showed this orbit category is again triangulated; it is moreover 2-Calabi–Yau, and indecomposable rigid objects biject with cluster variables of the corresponding $\\mathcal{A}_Q$."
+          "answer": 0,
+          "explain": "The cluster category (Buan–Marsh–Reineke–Reiten–Todorov) categorifies the cluster algebra: indecomposable rigid objects $\\leftrightarrow$ cluster variables, and cluster-tilting objects $\\leftrightarrow$ clusters.",
+          "hint": "Cluster-tilting objects categorify the combinatorial 'clusters'."
         },
         {
           "type": "numeric",
@@ -173,16 +186,20 @@
         },
         {
           "type": "multi-select",
-          "q": "Select every property of the cluster category $\\mathcal{C}_Q$ for $Q$ a Dynkin quiver.",
+          "q": "Which statements about mutation and $\\tau$-tilting are true? (select all)",
           "choices": [
-            "$\\mathcal{C}_Q$ is triangulated.",
-            "$\\mathcal{C}_Q$ is $2$-Calabi–Yau: $\\mathrm{Ext}^1_{\\mathcal{C}}(X,Y)\\cong D\\,\\mathrm{Ext}^1_{\\mathcal{C}}(Y,X)$ functorially.",
-            "Indecomposable rigid objects (those with $\\mathrm{Ext}^1(X,X)=0$) biject with cluster variables of $\\mathcal{A}_Q$.",
-            "Cluster-tilting objects biject with seeds of $\\mathcal{A}_Q$.",
-            "$\\mathcal{C}_Q$ is hereditary (every short exact sequence splits)."
+            "a basic cluster-tilting object can be mutated at each of its indecomposable summands",
+            "support $\\tau$-tilting modules are in bijection with functorially finite torsion classes (Adachi–Iyama–Reiten)",
+            "every object of the cluster category is rigid",
+            "mutation at a fixed summand is an involution"
           ],
-          "answer": [0, 1, 2, 3],
-          "explain": "All four are theorems of Buan–Marsh–Reineke–Reiten–Todorov / Keller. The cluster category is NOT hereditary — it is triangulated 2-CY, and almost-split triangles (Iyama–Yoshino exchange triangles) play the role of mutation."
+          "answer": [
+            0,
+            1,
+            3
+          ],
+          "explain": "Cluster-tilting / support $\\tau$-tilting objects mutate in each summand direction, and mutation there is an involution; AIR give the bijection with functorially finite torsion classes. Not every object is rigid (rigid = no self-extensions).",
+          "hint": "Three of these are foundational mutation facts; one over-claims rigidity."
         }
       ]
     },
@@ -218,7 +235,12 @@
             "Donaldson–Thomas invariants of quivers and the wall-crossing formulas of Kontsevich–Soibelman.",
             "The classification of finite simple groups."
           ],
-          "answer": [0, 1, 2, 3],
+          "answer": [
+            0,
+            1,
+            2,
+            3
+          ],
           "explain": "Cluster combinatorics surface across total positivity, higher Teichmüller theory, scattering diagrams / mirror symmetry, and DT-theory wall-crossing. They have NOT (so far!) entered the classification of finite simple groups in any essential way."
         }
       ]

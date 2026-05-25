@@ -2589,15 +2589,16 @@ window.MVQuizBank = {
           },
           {
             "type": "mcq",
-            "q": "A prime ideal $\\mathfrak{p}$ in a commutative ring $R$ satisfies: $ab\\in\\mathfrak{p}\\Rightarrow a\\in\\mathfrak{p}$ or $b\\in\\mathfrak{p}$. Which is a correct counterexample showing a prime ideal need not be maximal?",
+            "q": "In the ring $\\mathbb{Z}[x]$, the ideal $(2, x)$ is:",
             "choices": [
-              "$(0)$ in $\\mathbb{Z}$: $\\mathbb{Z}/(0)\\cong\\mathbb{Z}$ is an integral domain but not a field, so $(0)$ is prime but not maximal",
-              "$(2)$ in $\\mathbb{Z}$: $\\mathbb{Z}/(2)\\cong\\mathbb{F}_2$ is a field, so $(2)$ is both prime and maximal",
-              "$(x)$ in $\\mathbb{Z}[x]/(x^2)$: $(x)$ is prime in this ring",
-              "Every prime ideal is maximal in any Noetherian ring"
+              "maximal but not principal",
+              "principal",
+              "prime but not maximal",
+              "the unit ideal $(1)$"
             ],
             "answer": 0,
-            "explain": "$(0)\\subset\\mathbb{Z}$ is prime because $\\mathbb{Z}$ is a domain ($ab=0\\Rightarrow a=0$ or $b=0$), but $(0)$ is not maximal since it is properly contained in $(2),(3),(5),\\ldots$ This shows prime $\\not\\Rightarrow$ maximal in general. Option B gives a maximal-prime example (not a counterexample). Option C is wrong: $(x)$ in $\\mathbb{Z}[x]/(x^2)$ is not prime since $x\\cdot x=x^2=0\\in(x)$ but $x\\notin(0)$."
+            "explain": "$\\mathbb{Z}[x]/(2,x)\\cong\\mathbb{F}_2$ is a field, so $(2,x)$ is maximal; but no single element generates it, so it is not principal — $\\mathbb{Z}[x]$ is not a PID.",
+            "hint": "Compute the quotient $\\mathbb{Z}[x]/(2,x)$."
           }
         ]
       },
@@ -3227,15 +3228,16 @@ window.MVQuizBank = {
         "questions": [
           {
             "type": "mcq",
-            "q": "Which characterization of solvability is <em>equivalent</em> to the derived series $G \\supseteq G' \\supseteq G'' \\supseteq \\cdots$ terminating at $\\{e\\}$?",
+            "q": "Which of these groups is NOT solvable?",
             "choices": [
-              "Every composition factor of $G$ is cyclic of prime order.",
-              "$G$ is abelian.",
-              "$G$ has a normal Sylow $p$-subgroup for every prime $p \\mid |G|$.",
-              "$G$ has prime order."
+              "$A_5$",
+              "$S_3$",
+              "$\\mathbb{Z}/6$",
+              "the dihedral group $D_4$"
             ],
             "answer": 0,
-            "explain": "A finite group is solvable iff its composition factors are all cyclic of prime order, iff the derived series terminates at $\\{e\\}$, iff there is a subnormal abelian-factor series — these are equivalent characterizations. Abelian (option B) is sufficient but not necessary: $S_3$ is solvable but not abelian. \"Normal Sylow for every $p$\" (option C) is the *nilpotent* condition, strictly stronger than solvable (covered in §18). Prime order (option D) is far stronger still — every cyclic-of-prime-order group is abelian and trivially solvable, but most solvable groups aren't of prime order."
+            "explain": "$A_5$ is simple and nonabelian, so it appears as its own composition factor — not solvable. $S_3$, $\\mathbb{Z}/6$, and $D_4$ all have abelian composition factors.",
+            "hint": "The smallest nonabelian simple group is the obstruction."
           },
           {
             "type": "ordering",
@@ -10760,15 +10762,16 @@ window.MVQuizBank = {
         "questions": [
           {
             "type": "mcq",
-            "q": "Buan, Marsh, Reineke, Reiten and Todorov defined the cluster category $\\mathcal{C}_Q$ associated with a Dynkin quiver $Q$ as which quotient?",
+            "q": "In the cluster category $\\mathcal{C}_Q$, the cluster-tilting objects correspond bijectively to:",
             "choices": [
-              "$D^b(\\mathrm{mod}\\,kQ)/\\langle \\tau \\rangle$, the quotient by the Auslander–Reiten translation.",
-              "$D^b(\\mathrm{mod}\\,kQ)/\\tau^{-1}[1]$, the orbit category by the autoequivalence $\\tau^{-1}[1]$.",
-              "$D^b(\\mathrm{mod}\\,kQ)/[2]$, the orbit category by the shift squared.",
-              "The bounded homotopy category $K^b(\\mathrm{proj}\\,kQ)$ of finitely generated projective $kQ$-modules."
+              "the clusters (seeds) of the associated cluster algebra",
+              "the simple modules",
+              "the projective modules only",
+              "the vertices of the quiver $Q$"
             ],
-            "answer": 1,
-            "explain": "$\\mathcal{C}_Q := D^b(\\mathrm{mod}\\,kQ)/\\tau^{-1}[1]$ is the orbit category by the autoequivalence $\\tau^{-1}\\circ[1]$ where $\\tau$ is the AR-translation and $[1]$ is the suspension. Keller showed this orbit category is again triangulated; it is moreover 2-Calabi–Yau, and indecomposable rigid objects biject with cluster variables of the corresponding $\\mathcal{A}_Q$."
+            "answer": 0,
+            "explain": "The cluster category (Buan–Marsh–Reineke–Reiten–Todorov) categorifies the cluster algebra: indecomposable rigid objects $\\leftrightarrow$ cluster variables, and cluster-tilting objects $\\leftrightarrow$ clusters.",
+            "hint": "Cluster-tilting objects categorify the combinatorial 'clusters'."
           },
           {
             "type": "numeric",
@@ -10779,21 +10782,20 @@ window.MVQuizBank = {
           },
           {
             "type": "multi-select",
-            "q": "Select every property of the cluster category $\\mathcal{C}_Q$ for $Q$ a Dynkin quiver.",
+            "q": "Which statements about mutation and $\\tau$-tilting are true? (select all)",
             "choices": [
-              "$\\mathcal{C}_Q$ is triangulated.",
-              "$\\mathcal{C}_Q$ is $2$-Calabi–Yau: $\\mathrm{Ext}^1_{\\mathcal{C}}(X,Y)\\cong D\\,\\mathrm{Ext}^1_{\\mathcal{C}}(Y,X)$ functorially.",
-              "Indecomposable rigid objects (those with $\\mathrm{Ext}^1(X,X)=0$) biject with cluster variables of $\\mathcal{A}_Q$.",
-              "Cluster-tilting objects biject with seeds of $\\mathcal{A}_Q$.",
-              "$\\mathcal{C}_Q$ is hereditary (every short exact sequence splits)."
+              "a basic cluster-tilting object can be mutated at each of its indecomposable summands",
+              "support $\\tau$-tilting modules are in bijection with functorially finite torsion classes (Adachi–Iyama–Reiten)",
+              "every object of the cluster category is rigid",
+              "mutation at a fixed summand is an involution"
             ],
             "answer": [
               0,
               1,
-              2,
               3
             ],
-            "explain": "All four are theorems of Buan–Marsh–Reineke–Reiten–Todorov / Keller. The cluster category is NOT hereditary — it is triangulated 2-CY, and almost-split triangles (Iyama–Yoshino exchange triangles) play the role of mutation."
+            "explain": "Cluster-tilting / support $\\tau$-tilting objects mutate in each summand direction, and mutation there is an involution; AIR give the bijection with functorially finite torsion classes. Not every object is rigid (rigid = no self-extensions).",
+            "hint": "Three of these are foundational mutation facts; one over-claims rigidity."
           }
         ]
       },
@@ -12679,18 +12681,20 @@ window.MVQuizBank = {
           },
           {
             "type": "multi-select",
-            "q": "Select all rings $A$ for which $\\mathrm{nil}(A) = \\mathrm{Jac}(A)$.",
+            "q": "Which statements about the nilradical $\\mathfrak{N}$ and Jacobson radical $\\mathfrak{J}$ of a commutative ring are true? (select all)",
             "choices": [
-              "Any Artinian ring",
-              "$\\mathbb{Z}$",
-              "$k[x]$ for a field $k$",
-              "Any Jacobson ring (e.g. finitely generated $k$-algebra)"
+              "$\\mathfrak{N}$ equals the intersection of all prime ideals",
+              "$\\mathfrak{J}$ equals the intersection of all maximal ideals",
+              "$\\mathfrak{N}\\subseteq\\mathfrak{J}$ always",
+              "$\\mathfrak{J}$ is always nilpotent"
             ],
             "answer": [
               0,
-              3
+              1,
+              2
             ],
-            "explain": "In Artinian rings, every prime is maximal, so the two intersections agree. Jacobson rings are defined by $\\mathrm{nil}(A/I)=\\mathrm{Jac}(A/I)$ for every $I$, in particular for $I=0$. For $\\mathbb{Z}$: $\\mathrm{nil}=(0)$, $\\mathrm{Jac}=\\bigcap(p)=(0)$ — equal! But $k[x]$: $\\mathrm{nil}=(0)$, $\\mathrm{Jac}=\\bigcap(f)=(0)$... actually these are both $(0)$ for one-dimensional Jacobson domains. Option B is valid too; but stricter rings like $\\mathbb{Z}_{(p)}$ fail."
+            "explain": "$\\mathfrak{N}=\\bigcap_{\\mathfrak p}\\mathfrak p$ and $\\mathfrak{J}=\\bigcap_{\\mathfrak m}\\mathfrak m$; since maximals are prime, $\\mathfrak{N}\\subseteq\\mathfrak{J}$. But $\\mathfrak{J}$ need not be nil — e.g. $\\mathbb{Z}_{(p)}$ has $\\mathfrak{J}=(p)$, not nilpotent.",
+            "hint": "Maximal ideals are prime; is the Jacobson radical ever non-nil?"
           },
           {
             "type": "numeric",
@@ -17958,16 +17962,16 @@ window.MVQuizBank = {
         "hard": [
           {
             "type": "mcq",
-            "q": "A Calabi–Yau threefold $X$ has $H^2(X, T_X)$ generally <em>non-zero</em>. Why are its deformations nonetheless unobstructed?",
+            "q": "For deformations of a smooth variety $X_0$ (first-order deformations $H^1(X_0,T_{X_0})$, obstructions in $H^2(X_0,T_{X_0})$), if $H^2(X_0,T_{X_0})=0$ then:",
             "choices": [
-              "Calabi–Yau threefolds are rigid, so the obstruction question is vacuous",
-              "Bogomolov–Tian–Todorov: a holomorphic volume form forces the obstruction map $\\mathrm{ob}_n \\colon H^1(T_X) \\to H^2(T_X)$ to vanish at every order, despite $H^2 \\ne 0$",
-              "$H^2(T_X) = 0$ for Calabi–Yau threefolds — the question is wrong",
-              "Their deformation theory is purely classical and uses only $\\Omega^1$"
+              "the deformation functor is unobstructed (smooth) of dimension $\\dim H^1$",
+              "there are no first-order deformations",
+              "$X_0$ is rigid",
+              "$X_0$ must be singular"
             ],
-            "answer": 1,
-            "explain": "BTT (Bogomolov–Tian–Todorov), via Ran's $T^1$-lifting, shows that a non-vanishing holomorphic volume form (the trivial canonical bundle $K_X = 0$ defining Calabi–Yau) makes every obstruction class trivial even though the codomain $H^2(T_X)$ is non-zero. So Calabi–Yau threefolds have unobstructed but very interesting moduli.",
-            "hint": "Bogomolov–Tian–Todorov."
+            "answer": 0,
+            "explain": "An empty obstruction space means every first-order deformation lifts to all orders, so the deformation space is smooth of dimension $\\dim H^1(X_0,T_{X_0})$.",
+            "hint": "What does a vanishing obstruction space do to lifting deformations?"
           },
           {
             "type": "mcq",
@@ -22012,16 +22016,16 @@ window.MVQuizBank = {
           },
           {
             "type": "mcq",
-            "q": "Which property uniquely characterises $\\Omega$ up to canonical isomorphism in $\\mathcal{E}$?",
+            "q": "In the topos $\\mathbf{Set}$, the subobject classifier $\\Omega$ is:",
             "choices": [
-              "$\\Omega$ is the largest object of $\\mathcal{E}$.",
-              "$\\Omega$ represents the contravariant subobject functor $\\mathrm{Sub}\\colon \\mathcal{E}^{\\mathrm{op}} \\to \\mathbf{Set}$.",
-              "$\\Omega$ has exactly two global elements $1 \\to \\Omega$.",
-              "$\\Omega$ is initial in $\\mathcal{E}$."
+              "the two-element set $\\{\\bot,\\top\\}$",
+              "the empty set",
+              "the set of natural numbers",
+              "a one-element set"
             ],
-            "answer": 1,
-            "explain": "$\\Omega$ represents $\\mathrm{Sub}(-)$: there is a natural bijection $\\mathrm{Sub}(X) \\cong \\Hom(X, \\Omega)$. By Yoneda this determines $\\Omega$ up to canonical iso. Counter-examples: in non-classical toposes $\\Omega$ may have more than two global sections (e.g. presheaf toposes), so option C fails.",
-            "hint": "Yoneda: a representable functor determines its representing object up to unique iso."
+            "answer": 0,
+            "explain": "Subobjects of $X$ in $\\mathbf{Set}$ are subsets, classified by characteristic functions $X\\to\\{0,1\\}$, so $\\Omega=\\{\\bot,\\top\\}=2$ with $\\top:1\\to\\Omega$ naming 'true'.",
+            "hint": "Characteristic functions land in which set?"
           },
           {
             "type": "mcq",
@@ -22040,16 +22044,16 @@ window.MVQuizBank = {
         "hard": [
           {
             "type": "mcq",
-            "q": "Why does $\\mathbf{Ab}$ (the category of abelian groups) fail to have a subobject classifier?",
+            "q": "In a presheaf topos $\\mathbf{Set}^{C^{\\mathrm{op}}}$, the subobject classifier $\\Omega$ assigns to each object $c$:",
             "choices": [
-              "Because $\\mathbf{Ab}$ is not finitely complete.",
-              "Because $\\mathbf{Ab}$ has no terminal object.",
-              "Because every monomorphism in $\\mathbf{Ab}$ is the kernel of a unique map, so subobjects of $X$ are classified by $\\Hom(X, X/S)$ — varying with $S$, hence not by a single object.",
-              "Because in $\\mathbf{Ab}$ subobjects of $X$ correspond to quotients $X \\twoheadrightarrow X/S$, and the family of quotient maps is parameterised by $S$ itself rather than by maps to a fixed $\\Omega$. A representing $\\Omega$ would have to be additive, forcing the only candidate ($\\mathbb{Z}/2$) to fail the universal pullback property."
+              "the set of sieves on $c$",
+              "a fixed two-element set",
+              "the hom-set $\\mathrm{Hom}(c,c)$",
+              "the empty set"
             ],
-            "answer": 3,
-            "explain": "Subobjects in $\\mathbf{Ab}$ are kernels, named by quotient maps $X \\to X/S$ — and the codomain depends on $S$, so they cannot all be classified by a single $X \\to \\Omega$. Concretely, any candidate $\\Omega$ in $\\mathbf{Ab}$ would be an abelian group, with maps to it given by abelian group homomorphisms, which is far too restrictive. Option C is partially right but misstates the symptom; D is the cleanest articulation.",
-            "hint": "Think about how subobjects in $\\mathbf{Ab}$ are usually 'named.'"
+            "answer": 0,
+            "explain": "$\\Omega(c)=\\{\\text{sieves on }c\\}$ — subfunctors of the representable $\\mathrm{Hom}(-,c)$. For $C=1$ this recovers $\\Omega=2$ in $\\mathbf{Set}$.",
+            "hint": "Subobjects of representables are sieves."
           },
           {
             "type": "mcq",
@@ -30354,16 +30358,16 @@ window.MVQuizBank = {
           },
           {
             "type": "mcq",
-            "q": "What is $\\mathrm{Sh}(\\Spec k)$ for $k$ a separably closed field, on the étale site?",
+            "q": "The category $\\mathrm{Sh}(C,J)$ of sheaves on a site is:",
             "choices": [
-              "Equivalent to $\\mathsf{Set}$ — the étale site collapses to a point.",
-              "Equivalent to $\\Gal(k^{\\mathrm{sep}}/k)\\text{-}\\mathsf{Set}_{\\mathrm{cts}}$.",
-              "Equivalent to $\\mathsf{Vect}_k$.",
-              "Equivalent to the topos of locally constant sheaves on $|\\Spec k|$."
+              "a Grothendieck topos — a left-exact reflective subcategory of presheaves",
+              "never a topos",
+              "always equivalent to $\\mathbf{Set}$",
+              "the category of all presheaves"
             ],
             "answer": 0,
-            "explain": "When $k$ is separably closed, $\\Gal(k^{\\mathrm{sep}}/k)$ is trivial, so $\\Gal(k^{\\mathrm{sep}}/k)\\text{-}\\mathsf{Set}_{\\mathrm{cts}} \\cong \\mathsf{Set}$. The étale site of $\\Spec k$ has no nontrivial covers (every connected étale cover is a separable extension, and there are none), so sheaves on it are just sets. For a general field, $\\mathrm{Sh}_\\text{ét}(\\Spec k) \\simeq \\Gal(k^{\\mathrm{sep}}/k)\\text{-}\\mathsf{Set}_{\\mathrm{cts}}$ — option B is correct only for non-separably-closed $k$.",
-            "hint": "Galois theory: what is the absolute Galois group of a separably closed field?"
+            "explain": "Sheafification is a left-exact left adjoint to the inclusion $\\mathrm{Sh}(C,J)\\hookrightarrow\\mathrm{PSh}(C)$, making sheaves a left-exact reflective subcategory — i.e. a Grothendieck topos.",
+            "hint": "What adjunction defines sheafification?"
           },
           {
             "type": "multi-select",
@@ -34268,15 +34272,16 @@ window.MVQuizBank = {
         "hard": [
           {
             "type": "mcq",
-            "q": "Which of the following is a valid chain complex over $\\mathbb{Z}$?",
+            "q": "A chain map inducing isomorphisms on all homology is a quasi-isomorphism. Which is true over a general ring?",
             "choices": [
-              "$\\cdots\\to\\mathbb{Z}\\xrightarrow{2}\\mathbb{Z}\\xrightarrow{3}\\mathbb{Z}\\to\\cdots$",
-              "$\\cdots\\to\\mathbb{Z}\\xrightarrow{2}\\mathbb{Z}\\xrightarrow{0}\\mathbb{Z}\\to\\cdots$",
-              "$\\cdots\\to\\mathbb{Z}\\xrightarrow{\\mathrm{id}}\\mathbb{Z}\\xrightarrow{\\mathrm{id}}\\mathbb{Z}\\to\\cdots$",
-              "$\\cdots\\to\\mathbb{Z}\\xrightarrow{3}\\mathbb{Z}\\xrightarrow{2}\\mathbb{Z}\\to\\cdots$"
+              "a quasi-isomorphism need not be a chain-homotopy equivalence",
+              "every quasi-isomorphism is an invertible chain map",
+              "quasi-isomorphisms exist only between exact complexes",
+              "a quasi-isomorphism must preserve the underlying modules"
             ],
-            "answer": 1,
-            "explain": "We need $\\partial_{n-1}\\circ\\partial_n=0$. For option B: $0\\circ 2=0$. For A: $3\\circ 2=6\\ne 0$. For C: $\\mathrm{id}\\circ\\mathrm{id}=\\mathrm{id}\\ne 0$. For D: $2\\circ 3=6\\ne 0$."
+            "answer": 0,
+            "explain": "Over a general ring a quasi-isomorphism is invertible only after formally inverting quasi-isos to form the derived category; it need not be a homotopy equivalence (these coincide for bounded complexes of projectives).",
+            "hint": "Why must one localize to build the derived category?"
           },
           {
             "type": "numeric",
@@ -46082,15 +46087,16 @@ window.MVQuizBank = {
           },
           {
             "type": "mcq",
-            "q": "Which of the following pairs is a valid $\\mathbb{Z}$-basis for the standard lattice $\\mathbb{Z}^2 \\subset \\mathbb{R}^2$?",
+            "q": "Two lattices $\\Lambda,\\Lambda'\\subset\\mathbb{C}$ give isomorphic complex tori $\\mathbb{C}/\\Lambda\\cong\\mathbb{C}/\\Lambda'$ exactly when:",
             "choices": [
-              "$(1,0)$ and $(2,0)$",
-              "$(2,1)$ and $(1,1)$",
-              "$(2,0)$ and $(0,2)$",
-              "$(1,1)$ and $(2,2)$"
+              "$\\Lambda'=\\alpha\\Lambda$ for some $\\alpha\\in\\mathbb{C}^\\times$ (homothety)",
+              "$\\Lambda=\\Lambda'$ identically",
+              "they have the same covolume",
+              "they share a shortest vector"
             ],
-            "answer": 1,
-            "explain": "A pair generates $\\mathbb{Z}^2$ iff the determinant of the matrix with those columns is $\\pm 1$. Option A has $\\det = 0$ (collinear). Option C has $\\det = 4$, so it generates only the index-$4$ sublattice $2\\mathbb{Z}\\times 2\\mathbb{Z}$. Option D has $\\det = 0$ (collinear). Option B has $\\det\\begin{pmatrix}2&1\\\\1&1\\end{pmatrix} = 2-1 = 1$, so it is a valid basis."
+            "answer": 0,
+            "explain": "A holomorphic isomorphism of tori lifts to multiplication by some $\\alpha\\in\\mathbb{C}^\\times$, so $\\Lambda'=\\alpha\\Lambda$. This homothety equivalence is why the moduli of tori is $\\mathbb{H}/\\mathrm{SL}_2(\\mathbb{Z})$ via $\\tau=\\omega_2/\\omega_1$.",
+            "hint": "An isomorphism of tori is multiplication by a complex scalar."
           }
         ]
       },
@@ -46099,15 +46105,16 @@ window.MVQuizBank = {
         "questions": [
           {
             "type": "mcq",
-            "q": "Which pair of matrices generates $SL_2(\\mathbb{Z})$?",
+            "q": "The group $\\mathrm{SL}_2(\\mathbb{Z})$ acts on the upper half-plane $\\mathbb{H}$ by:",
             "choices": [
-              "$T=\\begin{pmatrix}1&1\\\\0&1\\end{pmatrix}$ and $S=\\begin{pmatrix}0&-1\\\\1&0\\end{pmatrix}$",
-              "$T^2=\\begin{pmatrix}1&2\\\\0&1\\end{pmatrix}$ and $S=\\begin{pmatrix}0&-1\\\\1&0\\end{pmatrix}$",
-              "$T=\\begin{pmatrix}1&1\\\\0&1\\end{pmatrix}$ and $-I=\\begin{pmatrix}-1&0\\\\0&-1\\end{pmatrix}$",
-              "$T=\\begin{pmatrix}1&1\\\\0&1\\end{pmatrix}$ alone"
+              "$\\tau\\mapsto\\dfrac{a\\tau+b}{c\\tau+d}$ for the matrix with rows $(a,b),(c,d)$",
+              "$\\tau\\mapsto a\\tau+b$",
+              "$\\tau\\mapsto\\tau+1$ only",
+              "matrix multiplication on $\\tau$ as a column vector"
             ],
             "answer": 0,
-            "explain": "The classical generators are $T:\\tau\\mapsto\\tau+1$ and $S:\\tau\\mapsto -1/\\tau$, satisfying $S^4=I$ and $(ST)^6=I$. Option B uses $T^2$, which only generates the index-$2$ subgroup of even translations together with $S$ (you cannot reach $T$ itself). Option C generates only the abelian subgroup $\\{\\pm T^n:n\\in\\mathbb{Z}\\}$, which is far from all of $SL_2(\\mathbb{Z})$. Option D (translations only) misses $S$ entirely."
+            "explain": "Fractional-linear (Möbius) transformations; $\\operatorname{Im}(\\gamma\\tau)=\\operatorname{Im}(\\tau)/|c\\tau+d|^2>0$ preserves $\\mathbb{H}$. Since $-I$ acts trivially, the faithful action is by $\\mathrm{PSL}_2(\\mathbb{Z})$.",
+            "hint": "Möbius transformations of the half-plane."
           },
           {
             "type": "numeric",
@@ -70439,16 +70446,16 @@ window.MVQuizBank = {
           },
           {
             "type": "mcq",
-            "q": "Zigzag persistence generalises persistence by allowing:",
+            "q": "Persistent cohomology over a field yields the same barcode as persistent homology because:",
             "choices": [
-              "Negative birth times.",
-              "Filtrations that reverse direction: $K_0\\to K_1\\leftarrow K_2\\to\\cdots$",
-              "Persistence modules over $\\mathbb{R}^2$ instead of $\\mathbb{R}$.",
-              "Persistence modules with non-finite-dimensional vector spaces at each scale."
+              "over a field $H^k\\cong\\mathrm{Hom}(H_k,k)$ has equal dimension in each degree, and the persistence structure dualizes",
+              "cohomology never has torsion",
+              "they are literally the same functor",
+              "zigzag modules are always trivial"
             ],
-            "answer": 1,
-            "explain": "Zigzag persistence (Carlsson–de Silva, 2010) is the persistence theory for arrows that may point either direction — modelling time-varying point clouds, merges between two filtrations, etc. The Gabriel-quiver classification of $A_n$-representations still gives a barcode. Multi-parameter is a different generalisation (option C) and remains open.",
-            "hint": "Which generalisation still admits a barcode decomposition?"
+            "answer": 0,
+            "explain": "Field coefficients make $H^k$ the dual of $H_k$ (same dimension), and the persistence module dualizes, so barcodes coincide. Software (Ripser etc.) computes cohomology because it is computationally faster.",
+            "hint": "Field coefficients make homology and cohomology dual."
           },
           {
             "type": "multi-select",

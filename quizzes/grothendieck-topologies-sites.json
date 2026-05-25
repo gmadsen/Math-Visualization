@@ -13,7 +13,12 @@
             "$\\{x \\to t,\\ y \\to t\\}$ — both legs but not $\\mathrm{id}_t$",
             "$\\varnothing$ — the empty sieve"
           ],
-          "answer": [0, 1, 2, 3],
+          "answer": [
+            0,
+            1,
+            2,
+            3
+          ],
           "explain": "Every arrow into $t$ has source $x$, $y$, or $t$. Since the only arrows out of $x$, $y$, $t$ that land in $\\{x, y, t\\}$ via composition are themselves identities, every set listed is precomposition-closed. In a poset, sieves on $c$ are exactly down-sets of objects $\\leq c$, and all four sets correspond to legitimate down-sets.",
           "hint": "A sieve is closed under precomposition; in a poset there are no nontrivial composable predecessors to worry about."
         },
@@ -78,7 +83,11 @@
             "A reflective subcategory of $\\widehat{C}$ whose reflector preserves finite limits.",
             "A functor $C \\to \\mathsf{Top}$ landing in topological spaces."
           ],
-          "answer": [0, 1, 2],
+          "answer": [
+            0,
+            1,
+            2
+          ],
           "explain": "Grothendieck topologies on $C$, Lawvere–Tierney topologies on $\\widehat{C}$, and left-exact-reflective (geometric) subcategories of $\\widehat{C}$ are all in bijection — this is the unification at the heart of the elementary/Grothendieck topos correspondence. A functor to $\\mathsf{Top}$ is unrelated.",
           "hint": "Three of the four phrase the same data — sheafification adjunction, internal classifier, axiomatic — and the fourth is a red herring."
         }
@@ -124,7 +133,11 @@
             "An fppf $\\underline{\\mathbb{Z}/3}$-torsor — étale-locally trivial (since $\\underline{\\mathbb{Z}/3}$ is étale on $\\mathbb{Q}$).",
             "$\\mu_2$ over $\\Spec \\mathbb{F}_2$ — étale-locally trivial."
           ],
-          "answer": [0, 1, 2],
+          "answer": [
+            0,
+            1,
+            2
+          ],
           "explain": "Line bundles are Zariski-locally trivial by the definition of locally free of rank 1. $\\mu_3$ over $\\mathbb{Q}$ is NOT Zariski-locally trivial because $\\mathbb{Q}$ has no primitive cube root of $1$ and $\\Spec \\mathbb{Q}$ has only the trivial Zariski cover; it does become trivial étale-locally after adjoining $\\zeta_3$, which is a separable extension since $3$ is invertible. For $\\underline{\\mathbb{Z}/3}$-torsors, étale and fppf cohomology agree because $\\underline{\\mathbb{Z}/3}$ is étale over a $\\mathbb{Z}[1/3]$-base. The trap is (d): in characteristic $2$, $\\mu_2 = \\Spec \\mathbb{F}_2[T]/(T-1)^2$ is the non-reduced Frobenius kernel — an infinitesimal group scheme of length $2$ that is NEVER étale-locally constant, because étale base change preserves reducedness and cannot turn one fat point into two reduced points. Trivializing $\\mu_2$ in characteristic $2$ requires an fppf cover, not étale.",
           "hint": "A line bundle is Zariski-locally trivial by definition. For $\\mu_n$, the rule is: étale-locally trivial iff $n$ is invertible on the base; if $p \\mid n$ in characteristic $p$, $\\mu_n$ is infinitesimal and étale covers cannot trivialize it."
         },
@@ -168,7 +181,11 @@
             "$U \\mapsto A$ for a fixed abelian group $A$ — the constant presheaf.",
             "$U \\mapsto A^{\\pi_0(U)}$ — the locally constant sheaf."
           ],
-          "answer": [0, 1, 3],
+          "answer": [
+            0,
+            1,
+            3
+          ],
           "explain": "Structure-sheaf sections, representables, and locally constant sheaves all glue. The constant presheaf fails on disconnected $U$: a matching family $(a_1, a_2)$ over $U = U_1 \\sqcup U_2$ has no amalgamation in $A$ unless $a_1 = a_2$. Sheafifying gives the locally constant sheaf, which is a sheaf.",
           "hint": "Disconnected covers are the test that distinguishes constant presheaf from locally constant sheaf."
         },
@@ -222,7 +239,11 @@
             "Arbitrary colimits in presheaves: $F, G$ sheaves $\\Rightarrow F \\sqcup G$ a sheaf in $\\widehat{C}$.",
             "Postcomposition with sheafification $a$: $aF$ is a sheaf."
           ],
-          "answer": [0, 1, 3],
+          "answer": [
+            0,
+            1,
+            3
+          ],
           "explain": "Finite limits (products, equalisers) are computed pointwise and preserve sheaves. Filtered colimits preserve the sheaf condition on a coherent site (where coverings can be chosen finite) — this is a key fact behind cohomology with coefficients in directed systems. Sheafification by definition lands in sheaves. But arbitrary colimits in presheaves do NOT preserve sheaves: e.g. the coproduct of two sheaves in $\\widehat{C}$ is rarely a sheaf — you have to sheafify.",
           "hint": "Limits behave well; colimits are the trouble — but specific colimits (filtered, on coherent sites) are exceptions."
         }
@@ -246,16 +267,16 @@
         },
         {
           "type": "mcq",
-          "q": "What is $\\mathrm{Sh}(\\Spec k)$ for $k$ a separably closed field, on the étale site?",
+          "q": "The category $\\mathrm{Sh}(C,J)$ of sheaves on a site is:",
           "choices": [
-            "Equivalent to $\\mathsf{Set}$ — the étale site collapses to a point.",
-            "Equivalent to $\\Gal(k^{\\mathrm{sep}}/k)\\text{-}\\mathsf{Set}_{\\mathrm{cts}}$.",
-            "Equivalent to $\\mathsf{Vect}_k$.",
-            "Equivalent to the topos of locally constant sheaves on $|\\Spec k|$."
+            "a Grothendieck topos — a left-exact reflective subcategory of presheaves",
+            "never a topos",
+            "always equivalent to $\\mathbf{Set}$",
+            "the category of all presheaves"
           ],
           "answer": 0,
-          "explain": "When $k$ is separably closed, $\\Gal(k^{\\mathrm{sep}}/k)$ is trivial, so $\\Gal(k^{\\mathrm{sep}}/k)\\text{-}\\mathsf{Set}_{\\mathrm{cts}} \\cong \\mathsf{Set}$. The étale site of $\\Spec k$ has no nontrivial covers (every connected étale cover is a separable extension, and there are none), so sheaves on it are just sets. For a general field, $\\mathrm{Sh}_\\text{ét}(\\Spec k) \\simeq \\Gal(k^{\\mathrm{sep}}/k)\\text{-}\\mathsf{Set}_{\\mathrm{cts}}$ — option B is correct only for non-separably-closed $k$.",
-          "hint": "Galois theory: what is the absolute Galois group of a separably closed field?"
+          "explain": "Sheafification is a left-exact left adjoint to the inclusion $\\mathrm{Sh}(C,J)\\hookrightarrow\\mathrm{PSh}(C)$, making sheaves a left-exact reflective subcategory — i.e. a Grothendieck topos.",
+          "hint": "What adjunction defines sheafification?"
         },
         {
           "type": "multi-select",
@@ -266,7 +287,11 @@
             "$\\mathsf{Top}$ — topological spaces.",
             "$\\widehat{C} = [C^{\\mathrm{op}}, \\mathsf{Set}]$ — presheaves on a small category $C$."
           ],
-          "answer": [0, 1, 3],
+          "answer": [
+            0,
+            1,
+            3
+          ],
           "explain": "$\\mathsf{Set}$, $G\\text{-}\\mathsf{Set}$, and presheaf categories are all Grothendieck toposes (the third is sheaves for the trivial topology). $\\mathsf{Top}$ is NOT a topos — it lacks exponentials in general, e.g. $Y^X$ doesn't exist for arbitrary $X, Y$. (The convenient cartesian-closed subcategory of compactly generated spaces is closer, but $\\mathsf{Top}$ itself isn't.)",
           "hint": "Three of the four are toposes; the fourth is famously NOT cartesian closed."
         }
