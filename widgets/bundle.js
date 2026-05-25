@@ -18733,6 +18733,42 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "stacks-dm-vs-artin",
+    "family": "stacks-dm-vs-artin",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "stacks-dm-vs-artin widget params",
+    "description": "Deligne-Mumford versus Artin (algebraic) stacks, classified by the dimension of their automorphism groups, on a gallery of standard examples. Buttons pick an example: the affine line A^1 (a scheme), B(Z/2), the reflection quotient [A^1/(Z/2)], the moduli stack M_{1,1} of elliptic curves (all Deligne-Mumford), and B G_m and the scaling quotient [A^1/G_m] (Artin but not DM). The widget places the chosen example as a marker in a nested-ring diagram Schemes (trivial automorphisms) inside Deligne-Mumford (finite automorphism groups, etale atlas, unramified diagonal) inside Artin (any affine algebraic-group stabilizers, smooth atlas), colour-coded by the dimension of the automorphism group, and shows a compact panel with the automorphism group, its dimension, the atlas type (etale for DM, smooth-only for Artin), and the diagonal condition. The readout gives the side-by-side definitions and the single discriminator: a stack is Deligne-Mumford exactly when its automorphism groups are finite (equivalently an etale atlas exists, equivalently the diagonal is unramified), while a genuinely Artin stack allows positive-dimensional stabilizers and only a smooth atlas. No numeric params beyond the standard widgetId/title/hint.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Bespoke widget for `stacks.html` (§8 *Deligne–Mumford vs. Artin*, concept `deligne-mumford-vs-artin`). It classifies a gallery of standard stacks by the **dimension of their automorphism groups** and places each in a nested-ring **Schemes ⊂ Deligne–Mumford ⊂ Artin** diagram. Single module, not part of a shared family.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "stacks-quotient-stack",
+    "family": "stacks-quotient-stack",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "stacks-quotient-stack widget params",
+    "description": "The quotient stack [X/G] made concrete through its action groupoid (G x X => X), on a gallery of finite group actions. Buttons pick an action: the trivial action of Z/2 on a point ([pt/(Z/2)] = B(Z/2)), Z/2 swapping two points (free), Z/2 reflecting {-1,0,1} (one fixed point), Z/3 rotating three points (free), and Z/3 rotating three points while fixing a fourth. The widget draws the objects of X grouped into G-orbits, with each orbit's stabilizer (the automorphism group of the corresponding point of the stack) shown as a self-loop badge, then the points of [X/G] = orbits below, marking the stacky points (nontrivial automorphism group) versus the honest ones. It reads off the three structural facts: the points of [X/G] are the G-orbits, the automorphism group of a point is the stabilizer of any representative, and the groupoid cardinality sum over orbits of 1/|Stab| equals |X|/|G|. Special cases are flagged live: X a point gives BG (one stacky point with Aut = G), a free action gives an honest scheme quotient X/G (all stabilizers trivial), and the trivial group gives [X/{e}] = X. No numeric params beyond the standard widgetId/title/hint.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Bespoke widget for `stacks.html` (§6 *Quotient stacks $[X/G]$*, concept `quotient-stack`). It makes $[X/G]$ concrete through its **action groupoid** $(G\\times X\\rightrightarrows X)$ on a gallery of finite group actions. Single module, not part of a shared family.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "stoch-proc-brownian-quadratic-variation",
     "family": "stoch-proc-brownian-quadratic-variation",
     "dimension": "2d",
