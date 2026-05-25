@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/stacks-quotient-stack/schema.json",
+  "title": "stacks-quotient-stack widget params",
+  "description": "The quotient stack [X/G] made concrete through its action groupoid (G x X => X), on a gallery of finite group actions. Buttons pick an action: the trivial action of Z/2 on a point ([pt/(Z/2)] = B(Z/2)), Z/2 swapping two points (free), Z/2 reflecting {-1,0,1} (one fixed point), Z/3 rotating three points (free), and Z/3 rotating three points while fixing a fourth. The widget draws the objects of X grouped into G-orbits, with each orbit's stabilizer (the automorphism group of the corresponding point of the stack) shown as a self-loop badge, then the points of [X/G] = orbits below, marking the stacky points (nontrivial automorphism group) versus the honest ones. It reads off the three structural facts: the points of [X/G] are the G-orbits, the automorphism group of a point is the stabilizer of any representative, and the groupoid cardinality sum over orbits of 1/|Stab| equals |X|/|G|. Special cases are flagged live: X a point gives BG (one stacky point with Aut = G), a free action gives an honest scheme quotient X/G (all stabilizers trivial), and the trivial group gives [X/{e}] = X. No numeric params beyond the standard widgetId/title/hint.",
+  "meta": {
+    "family": "stacks-quotient-stack",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\"> wrapper."
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title rendered inside .hd > .ttl."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional short hint rendered inside .hd > .hint."
+    }
+  }
+}
