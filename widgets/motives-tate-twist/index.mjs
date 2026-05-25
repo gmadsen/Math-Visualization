@@ -52,7 +52,7 @@ export function renderScript(params) {
     `    txt(28, 76, 'realization', {size:10, fill:'var(--mute)', weight:700}); txt(150, 76, 'incarnation of \\u211a('+fmtm(n)+')', {size:10, fill:'var(--mute)', weight:700});\n` +
     `    var rows=[\n` +
     `      ['Betti', '(2\\u03c0i)'+sup(n)+' \\u00b7 \\u211a   \\u2014   Hodge type ('+fmtm(-n)+', '+fmtm(-n)+')'],\n` +
-    `      ['de Rham', '\\u211a, Hodge filtration jumps at p = '+fmtm(-n)],\n` +
+    `      ['de Rham', '\\u211a, Hodge filtration jumps in degree '+fmtm(-n)],\n` +
     `      ['\\u2113-adic', '\\u211a_\\u2113(n) = \\u03c7_cyc'+sup(n)+'   (the cyclotomic character to the n)'],\n` +
     `      ['crystalline', '\\u03c6-module \\u211a_p,  \\u03c6 = \\u00d7 p'+sup(-n)+',  Newton slope '+fmtm(-n)],\n` +
     `      ['point count', 'the measure sends L \\u21a6 q, so \\u211a(n) contributes q'+sup(-n)],\n` +
