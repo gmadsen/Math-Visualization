@@ -3,10 +3,10 @@
 ## Corpus totals
 
 - Topics: **207**, concepts: **1422**
-- Widgets: **1589** (registry-driven: 1589, inline: 0)
+- Widgets: **1590** (registry-driven: 1590, inline: 0)
 - Quizzes: **5458** (v1: 4222, hard: 1223, expert: 13)
 - Quiz types: mcq: 3591, numeric: 1291, multi-select: 277, matching: 107, ordering: 85, spot-the-error: 53, complex: 29, proof-completion: 21, construction: 2, guess-my-rule: 2
-- Concepts lacking a widget in their section: **12**
+- Concepts lacking a widget in their section: **11**
 - Concepts lacking a hard-tier quiz: **984**
 
 ## Per-slug registry adoption
@@ -620,6 +620,7 @@ page has wired one in yet.
 | `knot-polynomials-vassiliev` | knot-polynomials-vassiliev | click | 2d | 1 | knot-polynomials |
 | `l-functions-class-number` | l-functions-class-number | click | 2d | 1 | L-functions |
 | `l-functions-zeta-continuation` | l-functions-zeta-continuation | slider | 2d | 1 | L-functions |
+| `langlands-cft-gl1` | langlands-cft-gl1 | click | 2d | 1 | langlands-program |
 | `langlands-euler-product` | langlands-euler-product | interact | 2d | 1 | langlands-program |
 | `langlands-gl2-modularity` | langlands-gl2-modularity | click | 2d | 1 | langlands-program |
 | `langlands-local-classification` | langlands-local-classification | interact | 2d | 1 | langlands-program |
@@ -1091,10 +1092,10 @@ page has wired one in yet.
 ### Modular forms & L-functions
 
 - Topics: **19**, concepts: **116**
-- Widgets: **148** (registry-driven: 148, inline: 0)
-  - by family: button-stepper: 85, verbatim: 18, parametric-plot: 5, svg-illustration: 4, lattice-visualizer: 2, langlands-reciprocity-dictionary: 1, langlands-euler-product: 1, langlands-local-classification: 1, langlands-gl2-modularity: 1, voa-mode-bookkeeping: 1, voa-axiom-map: 1, voa-virasoro-bracket: 1, voa-character-coeffs: 1, voa-mckay-thompson: 1, voa-construction-zoo: 1, uhp-parallel-postulate: 1, modular-forms-petersson-convergence: 1, zeta-values-multiple-zeta: 1, zeta-values-mahler-measure: 1, l-functions-zeta-continuation: 1, l-functions-class-number: 1, automorphic-restricted-product: 1, automorphic-strong-approximation: 1, automorphic-three-conditions: 1, automorphic-dictionary: 1, automorphic-satake-parameters: 1, automorphic-conductor-ladder: 1, automorphic-local-factor-builder: 1, automorphic-eisenstein-residue: 1, automorphic-functoriality-transfers: 1, modular-curves-fundamental-domain: 1, modular-curves-lattice-cyclic-subgroup: 1, modular-curves-hecke-summands: 1, modular-curves-eichler-shimura: 1, modular-curves-genus-growth: 1, modular-curves-cusps-and-wn: 1, modular-curves-atkin-lehner-newforms: 1, modular-curves-heegner-hypothesis: 1, modular-curves-mazur-torsion: 1
-  - by dimension: 2d: 148
-  - by gesture: click: 114, slider: 17, step: 8, static: 4, interact: 3, select: 2
+- Widgets: **149** (registry-driven: 149, inline: 0)
+  - by family: button-stepper: 85, verbatim: 18, parametric-plot: 5, svg-illustration: 4, lattice-visualizer: 2, langlands-reciprocity-dictionary: 1, langlands-euler-product: 1, langlands-local-classification: 1, langlands-cft-gl1: 1, langlands-gl2-modularity: 1, voa-mode-bookkeeping: 1, voa-axiom-map: 1, voa-virasoro-bracket: 1, voa-character-coeffs: 1, voa-mckay-thompson: 1, voa-construction-zoo: 1, uhp-parallel-postulate: 1, modular-forms-petersson-convergence: 1, zeta-values-multiple-zeta: 1, zeta-values-mahler-measure: 1, l-functions-zeta-continuation: 1, l-functions-class-number: 1, automorphic-restricted-product: 1, automorphic-strong-approximation: 1, automorphic-three-conditions: 1, automorphic-dictionary: 1, automorphic-satake-parameters: 1, automorphic-conductor-ladder: 1, automorphic-local-factor-builder: 1, automorphic-eisenstein-residue: 1, automorphic-functoriality-transfers: 1, modular-curves-fundamental-domain: 1, modular-curves-lattice-cyclic-subgroup: 1, modular-curves-hecke-summands: 1, modular-curves-eichler-shimura: 1, modular-curves-genus-growth: 1, modular-curves-cusps-and-wn: 1, modular-curves-atkin-lehner-newforms: 1, modular-curves-heegner-hypothesis: 1, modular-curves-mazur-torsion: 1
+  - by dimension: 2d: 149
+  - by gesture: click: 115, slider: 17, step: 8, static: 4, interact: 3, select: 2
 - Quizzes: **528** (v1: 348, hard: 180, expert: 0)
   - by type: mcq: 351, numeric: 158, multi-select: 12, matching: 4, ordering: 2, spot-the-error: 1
 
@@ -1209,7 +1210,7 @@ page has wired one in yet.
 - `model-categories` (Algebra & homological) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `condensed-mathematics` (Algebra & homological) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `hodge-theory` (Algebraic geometry) — concepts=8, widgets=7 (slug=7), quiz=24 (v1=24, hard=0, expert=0)
-- `langlands-program` (Modular forms & L-functions) — concepts=8, widgets=4 (slug=4), quiz=24 (v1=24, hard=0, expert=0)
+- `langlands-program` (Modular forms & L-functions) — concepts=8, widgets=5 (slug=5), quiz=24 (v1=24, hard=0, expert=0)
 - `microlocal-analysis` (Analysis) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `geometric-measure-theory` (Analysis) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `semigroup-theory-evolution-equations` (Analysis) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
@@ -1365,7 +1366,6 @@ page has wired one in yet.
 - `realization-functors` (motives)
 - `hodge-as-realization` (hodge-theory)
 - `global-langlands-gl-n` (langlands-program)
-- `cft-as-langlands` (langlands-program)
 - `functoriality-langlands-group` (langlands-program)
 - `universal-reciprocity` (langlands-program)
 - `kp-khovanov-homology` (knot-polynomials)

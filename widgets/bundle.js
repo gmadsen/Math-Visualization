@@ -12352,6 +12352,24 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "langlands-cft-gl1",
+    "family": "langlands-cft-gl1",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "langlands-cft-gl1 widget params",
+    "description": "The GL_1 case of Langlands — class field theory — made concrete on cyclotomic fields. Pick a modulus N (5, 8, 12); the Galois group Gal(Q(zeta_N)/Q) is canonically (Z/N)^x via the cyclotomic character, and the Artin reciprocity map sends a prime p (not dividing N) to its Frobenius Frob_p = (p mod N) in (Z/N)^x. The widget tabulates, for the first several good primes, Frob_p = p mod N, the residue degree f = order of (p mod N), the number of primes g = phi(N)/f above p, and (for a selected Dirichlet character chi mod N) the value chi(Frob_p) = chi(p). The four Dirichlet characters mod N ARE the characters of Gal, i.e. the 1-dimensional Galois representations; the order-2 ones cut out the quadratic subfields of Q(zeta_N) (N=8: Q(i)/Q(sqrt2)/Q(sqrt-2); N=12: Q(i)/Q(sqrt-3)/Q(sqrt3); N=5: Q(sqrt5)), and chi(p)=+1 iff p splits in that subfield. p splits completely in Q(zeta_N) iff p = 1 mod N iff Frob_p = 1. This is exactly Artin's reciprocity isomorphism (Galois^ab characters = Hecke characters, L(chi,s) = L(chi^Hecke,s)) at finite cyclotomic level — the abelian prototype of the whole Langlands program, proven by Artin in the 1920s. Frobenius is computed live by modular arithmetic; the small character tables are intrinsic. No numeric params beyond the standard widgetId/title/hint.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Bespoke widget for `langlands-program.html` (§5 *Class field theory as Langlands for $\\GL_1$*, concept `cft-as-langlands`). Single module, not part of a shared family.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "langlands-euler-product",
     "family": "langlands-euler-product",
     "dimension": "2d",
