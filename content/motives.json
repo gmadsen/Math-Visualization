@@ -348,6 +348,27 @@
           "html": "<section id=\"tate-twist\">\n<h2>4. The Tate twist $\\mathbb{Q}(n)$</h2>\n\n<p>The simplest non-trivial motive after $\\mathbf{1}$ (the motive of a point) is the <b>Lefschetz motive</b> $\\mathbb{L} = h^2(\\mathbb{P}^1)$ — the \"top piece\" of the projective line. Its inverse is the <b>Tate motive</b> $\\mathbb{Q}(1) := \\mathbb{L}^{-1}$. Iterating, we have $\\mathbb{Q}(n) := \\mathbb{Q}(1)^{\\otimes n}$ for $n \\in \\mathbb{Z}$.</p>\n\n<p>Tate motives are the <em>building blocks</em> of all \"Tate-type\" structure in cohomology. Their realizations are:</p>\n\n<table class=\"plain\">\n  <thead><tr><th>Realization</th><th>$\\mathbb{Q}(1)$ becomes</th></tr></thead>\n  <tbody>\n    <tr><td>Betti</td><td>$2\\pi i \\cdot \\mathbb{Q} \\subset \\mathbb{C}$ — a rank-1 $\\mathbb{Q}$-Hodge structure of weight $-2$, type $(-1, -1)$</td></tr>\n    <tr><td>de Rham</td><td>$\\mathbb{Q}$, with Hodge filtration $F^{-1} = $ everything, $F^0 = 0$</td></tr>\n    <tr><td>$\\ell$-adic</td><td>$\\mathbb{Q}_\\ell(1) = \\varprojlim \\mu_{\\ell^n}$, the cyclotomic character $\\chi_\\ell\\colon G_\\mathbb{Q} \\to \\mathbb{Z}_\\ell^\\times$</td></tr>\n    <tr><td>Crystalline</td><td>$\\mathbb{Q}_p$ as the underlying $\\varphi$-module, with Frobenius $\\varphi$ acting by multiplication by $\\tfrac{1}{p}$ (so $\\mathbb{Q}_p(1)$ has Newton slope $-1$)</td></tr>\n  </tbody>\n</table>\n\n<p>That last column hides the punchline: <em>every cohomology theory has its own incarnation of \"$2\\pi i$\" and they all agree as motives, even though their realizations are scattered across vector spaces, Galois reps, and Frobenius modules.</em> The number $2\\pi i$ is the period integral $\\int_{S^1} dz/z$ that pairs the Betti and de Rham realizations of $\\mathbb{Q}(1)$ — and it is transcendental over $\\mathbb{Q}$ (Hermite–Lindemann).</p>\n\n<aside class=\"note\"><b>Periods of $\\mathbb{Q}(n)$.</b> The <b>period matrix</b> of $\\mathbb{Q}(n)$ in the Betti-vs-de-Rham comparison is the scalar $(2\\pi i)^n$. Multiple zeta values $\\zeta(n_1, \\ldots, n_r)$ are periods of mixed Tate motives over $\\mathbb{Z}$ (Goncharov, Brown) — and the conjectural motivic Galois group of that subcategory acts on them, predicting every relation among MZVs from representation theory alone.</aside>\n\n"
         },
         {
+          "type": "widget",
+          "slug": "motives-tate-twist",
+          "params": {
+            "widgetId": "w-mtate",
+            "title": "The Tate twist ℚ(n): one twist, every realization’s incarnation",
+            "hint": "slide n; ℚ(n) = L⁻ⁿ has weight −2n and Frobenius eigenvalue q⁻ⁿ"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-mtate"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
           "type": "quiz",
           "concept": "tate-twist",
           "html": "<div class=\"quiz\" data-concept=\"tate-twist\"></div>"

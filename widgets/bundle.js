@@ -14825,6 +14825,24 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "motives-tate-twist",
+    "family": "motives-tate-twist",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "motives-tate-twist widget params",
+    "description": "The Tate twist Q(n) as a motive, seen through every realization: one twist, many incarnations. The Lefschetz motive L = h^2(P^1) is the top piece of the projective line; the Tate motive Q(1) := L^{-1}, and Q(n) := Q(1)^{tensor n} for integer n. A slider sets n, and the widget tabulates how Q(n) appears in each realization: Betti as (2*pi*i)^n times Q, a rank-1 Hodge structure of weight -2n and type (-n,-n); de Rham as Q with the Hodge filtration jumping at -n; l-adic as Q_l(n) = the n-th power of the cyclotomic character; crystalline as a phi-module with Frobenius acting by p^{-n} (Newton slope -n); and, through the point-counting motivic measure that sends L to q, with geometric Frobenius eigenvalue q^{-n}. A weight number-line places Q(n) at -2n, the unit Q(0) at 0, and the Lefschetz motive L = Q(-1) at +2, so each Tate twist shifts the weight by -2. The readout explains the Lefschetz/Tate motives, the realization incarnations, and the role of Q(n) in normalizing weights and shifting L-functions. No numeric params beyond the standard widgetId/title/hint.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Bespoke widget for `motives.html` (§4 *The Tate twist $\\mathbb{Q}(n)$*, concept `tate-twist`). It shows the Tate twist $\\mathbb{Q}(n)$ **as a motive, through every realization** — one twist, many incarnations. Single module, not part of a shared family.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "ms-beta-posterior",
     "family": "ms-beta-posterior",
     "dimension": "2d",
