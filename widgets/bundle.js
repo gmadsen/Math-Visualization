@@ -12916,90 +12916,6 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "mathbio-w1",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "mathbio-w1 widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Allele-frequency trajectories\" widget on the mathematical-biology topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Allele-frequency trajectories\" widget on `mathematical-biology`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "mathbio-w2",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "mathbio-w2 widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Moran: fixation vs selection\" widget on the mathematical-biology topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Moran: fixation vs selection\" widget on `mathematical-biology`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "mathbio-w3",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "mathbio-w3 widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Kimura's fixation curve\" widget on the mathematical-biology topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Kimura's fixation curve\" widget on `mathematical-biology`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "mathbio-w4",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "mathbio-w4 widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Sample a coalescent tree\" widget on the mathematical-biology topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Sample a coalescent tree\" widget on `mathematical-biology`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "mathbio-w5",
     "family": "verbatim",
     "dimension": "2d",
@@ -13036,27 +12952,6 @@ window.__MVWidgets = [
       "bodyScript"
     ],
     "readmeExcerpt": "Bespoke verbatim slug for the \"Replicator on the 2-simplex\" widget on `mathematical-biology`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "mathbio-w7",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "mathbio-w7 widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Mutation–selection equilibrium\" widget on the mathematical-biology topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Mutation–selection equilibrium\" widget on `mathematical-biology`.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
