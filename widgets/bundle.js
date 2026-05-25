@@ -8100,6 +8100,24 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "functor-of-points-groupoid-target",
+    "family": "functor-of-points-groupoid-target",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "functor-of-points-groupoid-target widget params",
+    "description": "Why a moduli functor with automorphisms needs a groupoid-valued target instead of a set-valued one (the functor-of-points reason for stacks). A toggle switches the target of the moduli functor M of elliptic curves between Set and Grpd, evaluated on a field R containing i and a cube root of unity. With target Set, M(R) records only the SET of isomorphism classes (three sample curves: a generic one with Aut = Z/2, the j = 1728 curve y^2 = x^3 + x with Aut = Z/4, and the j = 0 curve y^2 = x^3 + 1 with Aut = Z/6), forgetting the automorphisms; the widget greys out the automorphism loops and notes that this functor is not a sheaf, because a family that is locally trivial but globally twisted by an automorphism is invisible to it, so M is not representable. With target Grpd, M(R) is the GROUPOID of curves with their isomorphisms, drawing each object with its automorphism self-loop; remembering the isomorphisms restores descent and makes M an algebraic stack. The scheme / ordinary functor-of-points story is the special case where every object has trivial automorphism group (a discrete groupoid), so Set loses nothing. No numeric params beyond the standard widgetId/title/hint.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Bespoke widget for `functor-of-points.html` (§7 *Preview: the fix is to target groupoids*, concept `stacky-obstructions`). It shows **why a moduli functor with automorphisms needs a groupoid-valued target** — the functor-of-points reason for stacks. Single module, not part of a shared family.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "functor-of-points-yoneda",
     "family": "functor-of-points-yoneda",
     "dimension": "2d",
