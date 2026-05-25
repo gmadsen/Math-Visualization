@@ -194,7 +194,7 @@
           "type": "widget",
           "slug": "ec-j",
           "params": {
-            "widgetId": "j",
+            "widgetId": "ec-j",
             "title": "$j$-invariant calculator",
             "hint": "and famous curves",
             "idPrefix": "j",
@@ -240,7 +240,7 @@
         },
         {
           "type": "widget-script",
-          "ref": "j"
+          "ref": "ec-j"
         },
         {
           "type": "raw",
