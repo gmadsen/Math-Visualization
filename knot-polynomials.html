@@ -590,7 +590,7 @@ function drawNode(svg, x, y, label, opts={}){
 
 <p>Fix an oriented diagram $D$ with $n_+$ positive and $n_-$ negative crossings. Each crossing has a <em>$0$-smoothing</em> and a <em>$1$-smoothing</em>; picking one at every crossing gives a <em>state</em> $s \in \{0,1\}^n$ whose smoothed diagram is a union of $c(s)$ circles. Replace each circle by a 2-dim graded space $A = \mathbb{Q}\langle 1, X\rangle$ with $\deg(1) = 1$, $\deg(X) = -1$:</p>
 
-<p>$$\widetilde{C}^{i,j}(D) \;=\; \bigoplus_{|s| - n_- = i} A^{\otimes c(s)}\{j - i + n_+ - 2n_-\}.$$</p>
+<p>$$\widetilde{C}^{i,j}(D) \;=\; \bigoplus_{|s| - n_- = i} A^{\otimes c(s)}\{|s| + n_+ - 2n_-\}.$$</p>
 
 <p>The differential $d: C^{i,j} \to C^{i+1,j}$ comes from flipping one $0$ to a $1$: a merge of two circles uses multiplication $A \otimes A \to A$ (with $X^2 = 0$); a split uses comultiplication $A \to A \otimes A$. Then $d^2 = 0$, and $H^{i,j}(L)$ is invariant under R1, R2, R3 up to bigraded chain-homotopy equivalence.</p>
 
