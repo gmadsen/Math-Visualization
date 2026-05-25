@@ -92,9 +92,11 @@ export function renderScript(params) {
     `      txt(cx, yPt+30, stacky?('stacky \\u00b7 Aut '+o.aut):'honest', {size:10, fill:col, weight: stacky?700:400});\n` +
     `    });\n` +
     `    // ---- groupoid cardinality ----\n` +
-    `    var num=A.pts.length, den=A.Gord, g=gcd(num,den);\n` +
-    `    var sumStr=A.orbits.map(function(o){return '1/'+o.stab;}).join(' + ');\n` +
-    `    txt(280, 312, 'groupoid cardinality  \\u03a3 1/|Stab|  =  '+sumStr+'  =  '+(num/g)+'/'+(den/g)+'  =  |X|/|G|', {size:11, fill:'var(--cyan)', weight:600});\n` +
+    `    var rawNum=A.pts.length, rawDen=A.Gord, g=gcd(rawNum,rawDen);\n` +
+    `    var sumStr=A.orbits.map(function(o){return o.stab===1?'1':'1/'+o.stab;}).join(' + ');\n` +
+    `    var redStr=(rawDen/g===1)?(''+(rawNum/g)):((rawNum/g)+'/'+(rawDen/g));\n` +
+    `    var mid=(sumStr===redStr)?'':(' = '+redStr);\n` +
+    `    txt(280, 312, 'groupoid cardinality  \\u03a3 1/|Stab|  =  '+sumStr+mid+'  =  |X|/|G|  =  '+rawNum+'/'+rawDen, {size:11, fill:'var(--cyan)', weight:600});\n` +
     `    out.textContent='The QUOTIENT STACK [X/G] is presented by the ACTION GROUPOID G \\u00d7 X \\u21c9 X: its objects are the points of X and it has one arrow x \\u2192 g\\u00b7x for each g in G. Three things you read straight off the groupoid: (1) the POINTS of [X/G] are the G-ORBITS \\u2014 its coarse space is the ordinary quotient X/G; (2) the AUTOMORPHISM GROUP of the point [x] is the STABILIZER Stab_G(x) of any representative (well-defined up to conjugacy), so a point is \\u201cstacky\\u201d exactly when its stabilizer is nontrivial; (3) the GROUPOID CARDINALITY \\u03a3_{orbits} 1/|Stab| equals |X|/|G| by orbit\\u2013stabilizer (each orbit has |G|/|Stab| elements). Two special cases bound the picture: when X is a point, the equivariant map carries no data and [pt/G] = BG, a single point with automorphism group G (never a scheme for nontrivial G); when G acts FREELY, all stabilizers are trivial and [X/G] = X/G is an honest scheme. (And [X/{e}] = X.) '+A.note;\n` +
     `  }\n` +
     `  btns.addEventListener('click', function(e){ var b=e.target.closest('button'); if(!b) return; cur=b.getAttribute('data-k');\n` +

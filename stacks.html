@@ -676,9 +676,11 @@ $$ G\times X \;\rightrightarrows\; X, \qquad (g,x)\mapsto x \text{ and } (g,x)\m
       txt(cx, yPt+30, stacky?('stacky \u00b7 Aut '+o.aut):'honest', {size:10, fill:col, weight: stacky?700:400});
     });
     // ---- groupoid cardinality ----
-    var num=A.pts.length, den=A.Gord, g=gcd(num,den);
-    var sumStr=A.orbits.map(function(o){return '1/'+o.stab;}).join(' + ');
-    txt(280, 312, 'groupoid cardinality  \u03a3 1/|Stab|  =  '+sumStr+'  =  '+(num/g)+'/'+(den/g)+'  =  |X|/|G|', {size:11, fill:'var(--cyan)', weight:600});
+    var rawNum=A.pts.length, rawDen=A.Gord, g=gcd(rawNum,rawDen);
+    var sumStr=A.orbits.map(function(o){return o.stab===1?'1':'1/'+o.stab;}).join(' + ');
+    var redStr=(rawDen/g===1)?(''+(rawNum/g)):((rawNum/g)+'/'+(rawDen/g));
+    var mid=(sumStr===redStr)?'':(' = '+redStr);
+    txt(280, 312, 'groupoid cardinality  \u03a3 1/|Stab|  =  '+sumStr+mid+'  =  |X|/|G|  =  '+rawNum+'/'+rawDen, {size:11, fill:'var(--cyan)', weight:600});
     out.textContent='The QUOTIENT STACK [X/G] is presented by the ACTION GROUPOID G \u00d7 X \u21c9 X: its objects are the points of X and it has one arrow x \u2192 g\u00b7x for each g in G. Three things you read straight off the groupoid: (1) the POINTS of [X/G] are the G-ORBITS \u2014 its coarse space is the ordinary quotient X/G; (2) the AUTOMORPHISM GROUP of the point [x] is the STABILIZER Stab_G(x) of any representative (well-defined up to conjugacy), so a point is \u201cstacky\u201d exactly when its stabilizer is nontrivial; (3) the GROUPOID CARDINALITY \u03a3_{orbits} 1/|Stab| equals |X|/|G| by orbit\u2013stabilizer (each orbit has |G|/|Stab| elements). Two special cases bound the picture: when X is a point, the equivariant map carries no data and [pt/G] = BG, a single point with automorphism group G (never a scheme for nontrivial G); when G acts FREELY, all stabilizers are trivial and [X/G] = X/G is an honest scheme. (And [X/{e}] = X.) '+A.note;
   }
   btns.addEventListener('click', function(e){ var b=e.target.closest('button'); if(!b) return; cur=b.getAttribute('data-k');
@@ -788,7 +790,7 @@ A one-line slogan: DM ⇔ Artin with $\dim \mathrm{Aut}(x) = 0$ at every geometr
   <div class="row" id="w-dmartin-btns">
     <button type="button" data-k="A1" class="active" aria-pressed="true">A&#185;</button>
     <button type="button" data-k="Bmu2" class="" aria-pressed="false">B&#8484;/2</button>
-    <button type="button" data-k="A1mu2" class="" aria-pressed="false">[A&#185;/&#8484;2]</button>
+    <button type="button" data-k="A1mu2" class="" aria-pressed="false">[A&#185;/(&#8484;/2)]</button>
     <button type="button" data-k="M11" class="" aria-pressed="false">M&#8321;,&#8321;</button>
     <button type="button" data-k="Bgm" class="" aria-pressed="false">B G_m</button>
     <button type="button" data-k="A1gm" class="" aria-pressed="false">[A&#185;/G_m]</button>

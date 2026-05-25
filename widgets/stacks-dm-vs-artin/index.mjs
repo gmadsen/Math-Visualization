@@ -19,7 +19,7 @@ export function renderMarkup(params) {
     `<div class="widget" id="${widgetId}">\n` +
     `  <div class="hd"><div class="ttl">${escapeHtml(title)}</div>${hintHtml}</div>\n` +
     `  <div class="row" id="${widgetId}-btns">\n` +
-    `    ${btn('A1', 'A&#185;', true)}\n    ${btn('Bmu2', 'B&#8484;/2', false)}\n    ${btn('A1mu2', '[A&#185;/&#8484;2]', false)}\n    ${btn('M11', 'M&#8321;,&#8321;', false)}\n    ${btn('Bgm', 'B G_m', false)}\n    ${btn('A1gm', '[A&#185;/G_m]', false)}\n` +
+    `    ${btn('A1', 'A&#185;', true)}\n    ${btn('Bmu2', 'B&#8484;/2', false)}\n    ${btn('A1mu2', '[A&#185;/(&#8484;/2)]', false)}\n    ${btn('M11', 'M&#8321;,&#8321;', false)}\n    ${btn('Bgm', 'B G_m', false)}\n    ${btn('A1gm', '[A&#185;/G_m]', false)}\n` +
     `  </div>\n` +
     `  <svg id="${widgetId}-svg" viewBox="0 0 560 320" width="560" height="320" role="img" aria-label="A gallery of stacks placed in nested rings Schemes inside Deligne-Mumford inside Artin, classified by the dimension of their automorphism groups"><title>Each example stack is marked in nested rings: Schemes (trivial automorphisms) inside Deligne-Mumford (finite automorphism groups, etale atlas) inside Artin (positive-dimensional stabilizers allowed, smooth atlas), with its automorphism group, that group's dimension, the atlas type, and the diagonal condition</title></svg>\n` +
     `  <div class="readout" id="${widgetId}-out"></div>\n` +
