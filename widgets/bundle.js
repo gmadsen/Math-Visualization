@@ -10657,6 +10657,24 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "hodge-theory-pure-structure",
+    "family": "hodge-theory-pure-structure",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "hodge-theory-pure-structure widget params",
+    "description": "Pure Hodge structures as a category, with the Tate twist as the central operation. A pure rational Hodge structure of weight n is a finite-dimensional Q-vector space V_Q whose complexification decomposes as a direct sum of pieces V^{p,q} over p+q=n with the conjugation symmetry conj(V^{p,q}) = V^{q,p}. Buttons pick an object from a small gallery: the unit Q(0) (weight 0, type (0,0)); the Tate twist Q(1) (weight -2, type (-1,-1)); H^1 of an elliptic curve (weight 1, h^{1,0}=h^{0,1}=1); and H^2 of a K3 surface (weight 2, h^{2,0}=1, h^{1,1}=20, h^{0,2}=1). A slider applies the Tate twist V -> V(m): every piece shifts (p,q) -> (p-m, q-m) and the weight n -> n-2m, leaving the Hodge numbers unchanged. The widget plots the pieces on the (p,q) lattice (dots labelled by h^{p,q}), marks the conjugation diagonal p=q and the weight antidiagonal p+q=n, and reports the weight and type list. The readout gives the definition, the category structure (morphisms respect the decomposition; tensor and dual stay pure; the unit is Q(0)), the Tate twist (Q(1) has weight -2, its Hodge realization is 2*pi*i*Q), polarisability implying semisimplicity, and the neutral Tannakian framing whose group is the Mumford-Tate group. No numeric params beyond the standard widgetId/title/hint.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Bespoke widget for `hodge-theory.html` (§4 *Pure Hodge structures as a category*, concept `pure-hodge-structure`). It presents a pure Hodge structure as an abstract object and makes the **Tate twist** the central interaction — the categorical operation absent from the §2 variety-diamond widget. Single module, not part of a shared family.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "homological-cartan-eilenberg",
     "family": "homological-cartan-eilenberg",
     "dimension": "2d",

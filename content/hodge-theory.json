@@ -357,6 +357,27 @@
           "html": "<section id=\"pure-hodge\">\n<h2>4. Pure Hodge structures as a category</h2>\n\n<p>Strip away the variety: a <b>pure $\\mathbb{Q}$-Hodge structure of weight $n$</b> is a finite-dimensional $\\mathbb{Q}$-vector space $V_\\mathbb{Q}$ together with a decomposition</p>\n\n$$V_\\mathbb{C} := V_\\mathbb{Q} \\otimes_\\mathbb{Q} \\mathbb{C} \\;=\\; \\bigoplus_{p+q=n} V^{p,q}, \\qquad \\overline{V^{p,q}} = V^{q,p}.$$\n\n<p>Equivalently, it is $V_\\mathbb{Q}$ with a finite decreasing filtration $F^\\bullet V_\\mathbb{C}$ on the complexification, satisfying $V_\\mathbb{C} = F^p \\oplus \\overline{F^{n-p+1}}$ for every $p$. The cohomology of a smooth projective variety is the canonical example, with $H^n(X; \\mathbb{Q})$ as $V_\\mathbb{Q}$.</p>\n\n<p>Pure Hodge structures form a category $\\HS_\\mathbb{Q}^{\\mathrm{pure}}$ with morphisms that respect the decomposition (equivalently, the filtration). Tensor products and duals of Hodge structures stay pure. The unit $\\mathbb{Q}(0)$ has weight $0$ and type $(0,0)$. The Tate twist $\\mathbb{Q}(1)$ has weight $-2$ and type $(-1,-1)$ — same Tate twist that organises the motivic story; the Hodge realization of $\\mathbb{Q}(1)$ is $2\\pi i \\cdot \\mathbb{Q} \\subset \\mathbb{C}$.</p>\n\n<p>Polarisation upgrades a pure Hodge structure to a \"polarised\" one: a $(-1)^n$-symmetric bilinear form $V_\\mathbb{Q} \\times V_\\mathbb{Q} \\to \\mathbb{Q}$ that is positive on the primitive part. Cup product against the Kähler class gives polarisation on $H^n(X; \\mathbb{Q})$ for compact Kähler $X$. The category $\\HS_\\mathbb{Q}^{\\mathrm{pol}}$ of polarisable pure Hodge structures is <em>semisimple</em> — every short exact sequence splits.</p>\n\n<aside class=\"note\"><b>Tannakian frame.</b> $\\HS_\\mathbb{Q}$ is a neutral Tannakian category over $\\mathbb{Q}$ (with the forgetful $V \\mapsto V_\\mathbb{Q}$ as fiber functor), so it has a Tannakian fundamental group — <em>the Mumford-Tate group of all Hodge structures</em>. The Mumford-Tate group of a single Hodge structure $V$ is the Tannakian group of the smallest sub-Tannakian category containing $V$.</aside>\n\n"
         },
         {
+          "type": "widget",
+          "slug": "hodge-theory-pure-structure",
+          "params": {
+            "widgetId": "w-purehs",
+            "title": "Pure Hodge structures: the category, and the Tate twist V ↦ V(m)",
+            "hint": "pick an object; the Tate twist shifts (p,q)↦(p−m,q−m) and weight n↦n−2m"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-purehs"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
           "type": "quiz",
           "concept": "pure-hodge-structure",
           "html": "<div class=\"quiz\" data-concept=\"pure-hodge-structure\"></div>"
