@@ -1,6 +1,22 @@
 {
-  "generated": "2026-05-25T21:23:21.897Z",
+  "generated": "2026-05-25T21:33:07.668Z",
   "entries": [
+    {
+      "slug": "complex-analysis",
+      "title": "Complex analysis",
+      "color": "y",
+      "tag": "",
+      "date": "2026-05-25",
+      "message": "fix(quizzes): author real v1 questions for 23 placeholder-stub concepts (#356)"
+    },
+    {
+      "slug": "galois",
+      "title": "Galois theory & the quintic",
+      "color": "v",
+      "tag": "",
+      "date": "2026-05-25",
+      "message": "fix(quizzes): author real v1 questions for 23 placeholder-stub concepts (#356)"
+    },
     {
       "slug": "algebraic-combinatorics",
       "title": "Algebraic combinatorics",
@@ -461,14 +477,6 @@
       "slug": "commutative-algebra",
       "title": "Commutative algebra",
       "color": "g",
-      "tag": "",
-      "date": "2026-05-14",
-      "message": "fix: math-correctness audit pass — 75 topics across all 12 sections"
-    },
-    {
-      "slug": "complex-analysis",
-      "title": "Complex analysis",
-      "color": "y",
       "tag": "",
       "date": "2026-05-14",
       "message": "fix: math-correctness audit pass — 75 topics across all 12 sections"
@@ -936,14 +944,6 @@
       "tag": "",
       "date": "2026-05-04",
       "message": "Semigroup theory & evolution equations topic (C0 / Hille-Yosida / analytic / Cauchy / apps) (#111)"
-    },
-    {
-      "slug": "galois",
-      "title": "Galois theory & the quintic",
-      "color": "v",
-      "tag": "",
-      "date": "2026-05-02",
-      "message": "Prereq backfill: real-analysis (+4 concepts) and algebra (+4 concepts) (#50)"
     },
     {
       "slug": "gauge-theory",
