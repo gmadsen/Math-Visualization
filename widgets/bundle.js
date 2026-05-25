@@ -6827,7 +6827,7 @@ window.__MVWidgets = [
       "a",
       "b"
     ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Discriminant watch\" widget on `elliptic-curves`.",
+    "readmeExcerpt": "Bespoke semantic renderer for the **\"Discriminant watch\"** widget on `elliptic-curves` (§1 intro).",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
