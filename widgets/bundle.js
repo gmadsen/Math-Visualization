@@ -14365,6 +14365,24 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "moduli-spaces-triangle-similarity",
+    "family": "moduli-spaces-triangle-similarity",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "moduli-spaces-triangle-similarity widget params",
+    "description": "What a moduli problem is, on a warm-up example with no algebraic geometry: labeled triangles up to orientation-preserving similarity. A triangle with ordered vertices A, B, C, taken up to translation, rotation, and scaling, is completely described by the single complex shape parameter tau = (C - A)/(B - A); normalizing A = 0 and B = 1 makes tau = C. Sliders set the shape (Re tau and Im tau > 0) and a separate rotation theta applies a similarity to the drawn triangle. The left panel draws the triangle (rotated by theta, then scaled and centered to fit); the right panel is the moduli space C minus R (non-degenerate triangles have tau not real), with tau plotted as a point. The key demonstration: moving theta changes the picture but NOT tau (similar triangles map to the same moduli point), while moving the shape sliders moves the moduli point. This is a fine moduli space (labeled oriented triangles have no automorphisms), in bijection with C minus R, exactly paralleling the j-invariant bijection between isomorphism classes of elliptic curves and C; a family of triangles over a base corresponds to a map to the moduli space. The readout states the moduli point of view, the equilateral special point tau = e^{i pi/3} = (0.5, 0.866), and the family-as-morphism idea. No numeric params beyond the standard widgetId/title/hint.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Bespoke widget for `moduli-spaces.html` (§1 *What is a moduli problem?*, concept `moduli-problem`). It introduces the **moduli idea** on a warm-up with no algebraic geometry: **labeled triangles up to orientation-preserving similarity**. Single module, not part of a shared family.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "morphisms-scheme-morphism",
     "family": "morphisms-scheme-morphism",
     "dimension": "2d",
