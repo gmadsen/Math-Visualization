@@ -74,9 +74,9 @@ export function renderScript(params) {
     `    if(A[1]>=pmin && A[1]<=pmax && B[1]>=pmin && B[1]<=pmax){ svg.appendChild(mk('line',{x1:sx(A[0]),y1:sy(A[1]),x2:sx(B[0]),y2:sy(B[1]),stroke:'var(--yellow)','stroke-width':1.4,'stroke-opacity':0.7})); }\n` +
     `    txt(px0+2, qtop+12, 'weight antidiagonal  p+q = '+wt, {size:9, fill:'var(--yellow)'});\n` +
     `    // pieces\n` +
-    `    pcs.forEach(function(pc){ var x=sx(pc[0]), y=sy(pc[1]);\n` +
+    `    pcs.forEach(function(pc){ var x=sx(pc[0]), y=sy(pc[1]); var lft=(x>225);\n` +
     `      svg.appendChild(mk('circle',{cx:x,cy:y,r:7,fill:'var(--cyan)',stroke:'var(--ink)','stroke-width':1.2}));\n` +
-    `      txt(x+10, y-7, 'h^{'+pc[0]+','+pc[1]+'}='+pc[2], {size:9.5, fill:'var(--cyan)', weight:700});\n` +
+    `      txt(lft?(x-10):(x+10), y-7, 'h^{'+pc[0]+','+pc[1]+'}='+pc[2], {anchor: lft?'end':'start', size:9.5, fill:'var(--cyan)', weight:700});\n` +
     `    });\n` +
     `    // info panel (right)\n` +
     `    var ix=330, iy=80;\n` +
