@@ -12262,6 +12262,24 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "knot-polynomials-vassiliev",
+    "family": "knot-polynomials-vassiliev",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "knot-polynomials-vassiliev widget params",
+    "description": "Vassiliev (finite-type) invariants and the simplest one, v_2. A knot invariant is extended to singular knots by the Vassiliev skein rule v(K_x) = v(K_+) - v(K_-) (K_x has a double point, K_+ and K_- its two crossing resolutions); the invariant has finite type of order at most n if it vanishes on every knot with at least n+1 double points. The first non-trivial Vassiliev invariant is v_2, of order 2, equal to a_2, the coefficient of z^2 in the Conway polynomial. Buttons pick a small knot from a gallery (unknot, trefoil 3_1, figure-eight 4_1, cinquefoil 5_1, and 5_2); the widget shows that knot's Conway polynomial and reads off v_2 = a_2 (0, 1, -1, 3, 2 respectively), plotting all five v_2 values as a signed bar chart, and draws the unique order-2 chord diagram (two crossing chords) that generates the one-dimensional space of order-2 weight systems and corresponds to v_2. The readout gives the finite-type definition, the v_2 = Conway-a_2 identity (with a_2 mod 2 = the Arf invariant), and the chord-diagram / weight-system picture. No numeric params beyond the standard widgetId/title/hint.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Bespoke widget for `knot-polynomials.html` (§7 *Vassiliev (finite-type) invariants*, concept `kp-vassiliev-invariants`). It introduces finite-type invariants and the simplest one, $v_2$, on a gallery of small knots. Single module, not part of a shared family.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "l-functions-class-number",
     "family": "l-functions-class-number",
     "dimension": "2d",
