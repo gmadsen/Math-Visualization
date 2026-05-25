@@ -6813,20 +6813,21 @@ window.__MVWidgets = [
   },
   {
     "slug": "ec-disc",
-    "family": "verbatim",
+    "family": "ec-disc",
     "dimension": "2d",
     "gesture": "slider",
     "role": "interactive",
     "title": "ec-disc widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Discriminant watch\" widget on the elliptic-curves topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs and re-derived meta by scripts/fixup-verbatim-widget-meta.mjs.",
+    "description": "The \"Discriminant watch\" widget on the elliptic-curves topic, migrated from a verbatim (opaque bodyMarkup/bodyScript) slug to a semantic renderer. Two sliders a, b drive the discriminant of y^2 = x^3 + a x + b, Delta = -16(4a^3 + 27 b^2); the readout reports the value and classifies the real locus (Delta>0: oval + unbounded component; Delta<0: one unbounded component; Delta~0: node/cusp). Slider ranges, defaults, the header title/hint, and the DOM id prefix are now inspectable params (AJV-validated) rather than buried in an opaque markup string.",
     "requiredParams": [
       "widgetId",
       "title",
       "hint",
-      "bodyMarkup",
-      "bodyScript"
+      "idPrefix",
+      "a",
+      "b"
     ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Discriminant watch\" widget on `elliptic-curves`.",
+    "readmeExcerpt": "Bespoke semantic renderer for the **\"Discriminant watch\"** widget on `elliptic-curves` (§1 intro).",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
