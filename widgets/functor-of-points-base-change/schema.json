@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/functor-of-points-base-change/schema.json",
+  "title": "functor-of-points-base-change widget params",
+  "description": "Base change as a pullback of functors of points, made concrete on the family x^2 = t over the affine line. Because representable functors preserve limits, fiber products of schemes are computed pointwise: (X x_S Y)(T) = X(T) x_{S(T)} Y(T). The widget takes the family X = V(x^2 - t) projecting to S = A^1_t and forms the fiber over a point t = a by base change along Spec k -> A^1, t -> a, so the fiber X_a = X x_{A^1} {a} has k-points exactly { x in k : x^2 = a }. Buttons pick the base field k (F_5, F_7, or R) and a slider picks a; the widget draws the solutions on an x-axis and classifies the fiber: a a nonzero square gives two reduced points, a = 0 gives a single (non-reduced, x^2 = 0) point, and a a non-square gives the empty fiber. The readout states the pointwise fiber-product identity and explains the fiber as the pullback of functors. No numeric params beyond the standard widgetId/title/hint.",
+  "meta": {
+    "family": "functor-of-points-base-change",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\"> wrapper."
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title rendered inside .hd > .ttl."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional short hint rendered inside .hd > .hint."
+    }
+  }
+}

@@ -8082,6 +8082,42 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "functor-of-points-base-change",
+    "family": "functor-of-points-base-change",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "functor-of-points-base-change widget params",
+    "description": "Base change as a pullback of functors of points, made concrete on the family x^2 = t over the affine line. Because representable functors preserve limits, fiber products of schemes are computed pointwise: (X x_S Y)(T) = X(T) x_{S(T)} Y(T). The widget takes the family X = V(x^2 - t) projecting to S = A^1_t and forms the fiber over a point t = a by base change along Spec k -> A^1, t -> a, so the fiber X_a = X x_{A^1} {a} has k-points exactly { x in k : x^2 = a }. Buttons pick the base field k (F_5, F_7, or R) and a slider picks a; the widget draws the solutions on an x-axis and classifies the fiber: a a nonzero square gives two reduced points, a = 0 gives a single (non-reduced, x^2 = 0) point, and a a non-square gives the empty fiber. The readout states the pointwise fiber-product identity and explains the fiber as the pullback of functors. No numeric params beyond the standard widgetId/title/hint.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Bespoke widget for `functor-of-points.html` (§9 *Base change as pullback of functors*, concept `base-change-interpretation`). It makes the pointwise fiber-product identity $(X\\times_S Y)(T)=X(T)\\times_{S(T)}Y(T)$ concrete on the family $x^2=t$. Single module, not part of a shared family.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "functor-of-points-yoneda",
+    "family": "functor-of-points-yoneda",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "functor-of-points-yoneda widget params",
+    "description": "The Yoneda embedding for schemes made concrete: a scheme is completely determined by its functor of points R -> X(R) = Hom(A, R). Buttons pick an affine scheme X = Spec A from a gallery (the affine line A^1 = Spec Z[x], the cube roots of unity mu_3 = Spec Z[x]/(x^3-1), the multiplicative group G_m = Spec Z[x, x^-1], Spec Z[x]/(x^2+1), and the terminal Spec Z); the widget tabulates X(R) over a row of test rings R (the finite fields F_2, F_3, F_5, F_7 with their explicit solution sets, plus Q and C) and reads off |X(R)|. The point: the assignment R -> X(R), natural in R, IS the scheme. The embedding h_(-): Sch -> Fun(Sch^op, Set), X -> Hom(-, X), is fully faithful (the representable form of the Yoneda lemma Nat(h_X, F) = F(X)), so Nat(h_X, h_Y) = Hom(X, Y) and two schemes with naturally isomorphic point functors are isomorphic. No numeric params beyond the standard widgetId/title/hint.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Bespoke widget for `functor-of-points.html` (§8 *The Yoneda embedding for schemes*, concept `yoneda-embedding-ag`). It makes concrete the slogan **a scheme is its functor of points**, by tabulating $X(R)=\\operatorname{Hom}(A,R)$ over a gallery of test rings. Single module, not part of a shared family.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "gal-three-impossibilities",
     "family": "verbatim",
     "dimension": "2d",
