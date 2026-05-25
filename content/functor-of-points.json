@@ -384,6 +384,27 @@
           "html": "<section id=\"yoneda-embedding\">\n<h2>8. The Yoneda embedding for schemes</h2>\n\n<p>The functor-of-points reframe of §1 is justified by a single theorem: the assignment</p>\n\n$$h_{(-)}: \\mathsf{Sch} \\to \\mathrm{Fun}(\\mathsf{Sch}^{\\mathrm{op}}, \\mathsf{Set}), \\qquad X \\longmapsto h_X = \\Hom_{\\mathsf{Sch}}(-, X)$$\n\n<p>is <strong>fully faithful</strong>. This is the Yoneda lemma in its representable form: for any presheaf $F$ on $\\mathsf{Sch}$, $\\mathrm{Nat}(h_X, F) \\cong F(X)$ naturally in $X$, with the isomorphism sending a natural transformation $\\eta$ to $\\eta_X(\\mathrm{id}_X) \\in F(X)$. Taking $F = h_Y$ yields $\\mathrm{Nat}(h_X, h_Y) \\cong \\Hom_{\\mathsf{Sch}}(X,Y)$, so a natural transformation between representable functors is the same data as a scheme morphism — no more, no less.</p>\n\n<p>Two consequences make this workhorse. First, to define a morphism $X \\to Y$ you may equivalently give a rule that to each test ring $R$ assigns a function $X(R) \\to Y(R)$ natural in $R$; second, to define a scheme at all it is sometimes cleaner to write down the functor $R \\mapsto X(R)$ directly and then <em>prove</em> representability by exhibiting a representing scheme. The identity $\\mathrm{id}_X \\in h_X(X)$ is the universal element: every $R$-point $x \\in X(R)$ is the pushforward of $\\mathrm{id}_X$ along the classifying map $\\Spec\\,R \\to X$, and every natural transformation out of $h_X$ is determined by its value there.</p>\n\n<div class=\"note\">\n<strong>Why \"embedding\".</strong> Full faithfulness means $\\mathsf{Sch}$ sits inside presheaves on rings as a reflective subcategory. Presheaves that land in that subcategory are exactly the representable ones — equivalently, those satisfying Zariski (or fppf, fpqc, …) descent plus a local representability condition. Objects that satisfy descent but are not representable are precisely the <em>algebraic spaces</em> and <em>stacks</em> from §7: the embedding picture tells you where the generalization lives.\n</div>\n\n"
         },
         {
+          "type": "widget",
+          "slug": "functor-of-points-yoneda",
+          "params": {
+            "widgetId": "w-yoneda",
+            "title": "A scheme is its functor of points: R ↦ X(R) determines X",
+            "hint": "pick a scheme; its R-points over every ring determine it (Yoneda)"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-yoneda"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
           "type": "raw",
           "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./category-theory.html#univ\">Universal properties and representability</a></li>\n    <li><a href=\"./category-theory.html#yoneda-deep\">The Yoneda lemma</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
@@ -408,6 +429,27 @@
         {
           "type": "raw",
           "html": "<section id=\"base-change\">\n<h2>9. Base change as pullback of functors</h2>\n\n<p>Representable functors preserve limits, so fiber products of schemes are computed pointwise on their functors of points:</p>\n\n$$(X \\times_S Y)(T) \\;=\\; X(T) \\times_{S(T)} Y(T).$$\n\n<p>Nothing about this equality is subtle — both sides are sets and it is an identity of sets, natural in the test scheme $T$. But the consequences for <strong>base change</strong> are immediate. Given $X \\to S$ and a morphism $S' \\to S$, the base-changed scheme $X_{S'} = X \\times_S S'$ has functor of points $X_{S'}(T) = X(T) \\times_{S(T)} S'(T)$; for affine $T = \\Spec\\,R$ and $S = \\Spec\\,k$ this simplifies to $X_k(R) = X(R)$ where $R$ is regarded with its given $k$-algebra structure. Extending scalars is literally restricting the functor to a slice category.</p>\n\n<p>Three practical payoffs. (i) <em>Computing fibers.</em> The fiber $X_s$ of $X \\to S$ over a point $s: \\Spec\\,\\kappa(s) \\to S$ has $X_s(R) = \\{x \\in X(R) : x \\text{ maps to } s\\}$ — exactly solving the original equations over the residue field. (ii) <em>Weil restriction.</em> If $L/k$ is a finite extension and $X$ is an $L$-scheme, the Weil restriction $\\mathrm{Res}_{L/k} X$ represents the functor $R \\mapsto X(R \\otimes_k L)$; the functor of points makes this <em>definition</em>, not a theorem. (iii) <em>Twists and descent.</em> Base-change agreement between two schemes over $L$ that become isomorphic over $\\bar k$ is exactly equality of their functors restricted to $\\bar k$-algebras, with Galois descent controlling when the common functor descends to a $k$-scheme.</p>\n\n<div class=\"note\">\n<strong>Worked fiber.</strong> Let $X = \\Spec\\,\\mathbb{Z}[x]/(x^2 - p)$ with the obvious map to $\\Spec\\,\\mathbb{Z}$. For a prime $\\ell \\ne p$ with $p$ a square mod $\\ell$, the fiber $X_{\\mathbb{F}_\\ell}$ has $X_{\\mathbb{F}_\\ell}(\\mathbb{F}_\\ell) = \\{\\pm\\sqrt{p}\\} \\subset \\mathbb{F}_\\ell$, two points; for $\\ell = p$ it has the single fat point $\\Spec\\,\\mathbb{F}_p[x]/(x^2)$. The functor of points reads these off without setting up any sheaves.\n</div>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "functor-of-points-base-change",
+          "params": {
+            "widgetId": "w-basechange",
+            "title": "Base change pointwise: the fiber X_a is { x : x² = a }",
+            "hint": "pick a base field and a value a; the fiber is computed pointwise on functors"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-basechange"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
         },
         {
           "type": "raw",

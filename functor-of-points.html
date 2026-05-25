@@ -1117,6 +1117,64 @@ $$h_{(-)}: \mathsf{Sch} \to \mathrm{Fun}(\mathsf{Sch}^{\mathrm{op}}, \mathsf{Set
 <strong>Why "embedding".</strong> Full faithfulness means $\mathsf{Sch}$ sits inside presheaves on rings as a reflective subcategory. Presheaves that land in that subcategory are exactly the representable ones — equivalently, those satisfying Zariski (or fppf, fpqc, …) descent plus a local representability condition. Objects that satisfy descent but are not representable are precisely the <em>algebraic spaces</em> and <em>stacks</em> from §7: the embedding picture tells you where the generalization lives.
 </div>
 
+<div class="widget" id="w-yoneda">
+  <div class="hd"><div class="ttl">A scheme is its functor of points: R ↦ X(R) determines X</div><div class="hint">pick a scheme; its R-points over every ring determine it (Yoneda)</div></div>
+  <div class="row" id="w-yoneda-btns">
+    <button type="button" data-k="A1" class="active" aria-pressed="true">A&#185;</button>
+    <button type="button" data-k="mu3" class="" aria-pressed="false">&#956;&#8323;</button>
+    <button type="button" data-k="Gm" class="" aria-pressed="false">G_m</button>
+    <button type="button" data-k="i" class="" aria-pressed="false">&#8484;[x]/(x&#178;+1)</button>
+    <button type="button" data-k="pt" class="" aria-pressed="false">Spec &#8484;</button>
+  </div>
+  <svg id="w-yoneda-svg" viewBox="0 0 560 320" width="560" height="320" role="img" aria-label="The functor of points of a scheme: a table of X(R) = Hom(A,R) over several test rings, showing the scheme is determined by its R-points"><title>For each chosen affine scheme X = Spec A, a table of its R-points X(R) = Hom(A,R) over the test rings F_2, F_3, F_5, F_7, Q, C, illustrating that the rule sending R to X(R) determines the scheme (the Yoneda embedding is fully faithful)</title></svg>
+  <div class="readout" id="w-yoneda-out"></div>
+</div>
+
+<script>
+/* functor-of-points-yoneda widget: w-yoneda */
+(function(){
+  var svg=document.getElementById('w-yoneda-svg'), out=document.getElementById('w-yoneda-out');
+  var btns=document.getElementById('w-yoneda-btns');
+  if(!svg||!out||!btns) return;
+  var NS='http://www.w3.org/2000/svg';
+  function mk(tag,attrs,text){ var e=document.createElementNS(NS,tag); for(var k in attrs){ e.setAttribute(k,attrs[k]); } if(text!=null) e.textContent=text; return e; }
+  function txt(x,y,s,opt){ opt=opt||{}; svg.appendChild(mk('text',{x:x,y:y,'text-anchor':opt.anchor||'start','font-size':opt.size||12,fill:opt.fill||'var(--ink)','font-weight':opt.weight||'normal','font-family':opt.mono?'monospace':'inherit'},s)); }
+  var SCHEMES=[
+    {k:'A1', name:'A\u00b9 = Spec \u2124[x]', fr:'X(R) = R  (every element)', rows:[['F\u2082','{0, 1}','2'],['F\u2083','{0, 1, 2}','3'],['F\u2085','{0, \u2026, 4}','5'],['F\u2087','{0, \u2026, 6}','7'],['\u211a','all of \u211a','\u221e'],['\u2102','all of \u2102','\u221e']]},
+    {k:'mu3', name:'\u03bc\u2083 = Spec \u2124[x]/(x\u00b3\u22121)', fr:'X(R) = { r : r\u00b3 = 1 }', rows:[['F\u2082','{1}','1'],['F\u2083','{1}','1'],['F\u2085','{1}','1'],['F\u2087','{1, 2, 4}','3'],['\u211a','{1}','1'],['\u2102','{1, \u03c9, \u03c9\u00b2}','3']]},
+    {k:'Gm', name:'G_m = Spec \u2124[x, x\u207b\u00b9]', fr:'X(R) = R\u00d7  (units)', rows:[['F\u2082','{1}','1'],['F\u2083','{1, 2}','2'],['F\u2085','{1, 2, 3, 4}','4'],['F\u2087','{1, \u2026, 6}','6'],['\u211a','\u211a\u00d7','\u221e'],['\u2102','\u2102\u00d7','\u221e']]},
+    {k:'i', name:'Spec \u2124[x]/(x\u00b2+1)', fr:'X(R) = { r : r\u00b2 = \u22121 }', rows:[['F\u2082','{1}','1'],['F\u2083','{ }','0'],['F\u2085','{2, 3}','2'],['F\u2087','{ }','0'],['\u211a','{ }','0'],['\u2102','{ i, \u2212i }','2']]},
+    {k:'pt', name:'Spec \u2124  (terminal object)', fr:'X(R) = { \u2217 }  (the unique \u2124 \u2192 R)', rows:[['F\u2082','{\u2217}','1'],['F\u2083','{\u2217}','1'],['F\u2085','{\u2217}','1'],['F\u2087','{\u2217}','1'],['\u211a','{\u2217}','1'],['\u2102','{\u2217}','1']]},
+  ];
+  var cur='A1';
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    var S=null; for(var i=0;i<SCHEMES.length;i++) if(SCHEMES[i].k===cur) S=SCHEMES[i];
+    if(!S) return;
+    txt(20, 28, 'X = '+S.name, {size:14, weight:700, fill:'var(--ink)'});
+    txt(20, 48, S.fr, {size:12, fill:'var(--cyan)', mono:true});
+    txt(40, 80, 'test ring R', {size:10, fill:'var(--mute)', weight:700});
+    txt(150, 80, 'X(R) = Hom(A, R)', {size:10, fill:'var(--mute)', weight:700});
+    txt(470, 80, '|X(R)|', {size:10, fill:'var(--mute)', weight:700});
+    var y=106;
+    S.rows.forEach(function(r){ var fin=(r[2]!=='\u221e'); var col=fin?'var(--ink)':'var(--mute)';
+      txt(40, y, r[0], {size:12, mono:true, fill: r[0].charCodeAt(0)===70?'var(--violet)':'var(--blue)', weight:700});
+      txt(150, y, r[1], {size:12, mono:true, fill:col});
+      txt(478, y, r[2], {size:12, mono:true, fill: r[2]==='0'?'var(--pink)':'var(--green)', weight:700, anchor:'end'});
+      // small bar for finite counts (cap at 7)
+      var n=parseInt(r[2],10); if(fin && !isNaN(n)){ svg.appendChild(mk('rect',{x:496,y:y-9,width:Math.max(2,n*8),height:11,rx:2,fill:'var(--green)','fill-opacity':0.30})); }
+      y+=27; });
+    svg.appendChild(mk('line',{x1:20,y1:y-6,x2:540,y2:y-6,stroke:'var(--line)','stroke-width':1})); y+=16;
+    txt(20, y, 'the rule  R \u21a6 X(R)  (natural in R)  IS the scheme X \u2014 Yoneda:  Nat(h_X, h_Y) = Hom(X, Y)', {size:10.5, fill:'var(--yellow)'});
+    out.textContent='Instead of a space with a structure sheaf, think of a scheme X as the FUNCTOR OF POINTS it represents: the rule sending each ring R to the set X(R) = Hom(A, R) of its R-points (for X = Spec A), together with the restriction maps along ring homomorphisms. The table shows this functor for X = '+S.name.replace(/\s+/g," ")+': over a field k, an R-point is exactly a solution of the defining equations in k, so |X(F_p)| just counts solutions mod p (e.g. x\u00b2 = \u22121 has 2 solutions when p \u2261 1 mod 4, none when p \u2261 3 mod 4; x\u00b3 = 1 has 3 cube roots only when p \u2261 1 mod 3). The YONEDA EMBEDDING h_(\u2212): Sch \u2192 Fun(Sch^op, Set), X \u21a6 h_X = Hom(\u2212, X), is FULLY FAITHFUL: this is the representable Yoneda lemma Nat(h_X, F) \u2245 F(X) (a natural transformation \u03b7 is determined by its universal element \u03b7_X(id_X) \u2208 F(X)). Taking F = h_Y gives Nat(h_X, h_Y) \u2245 Hom(X, Y) \u2014 so a morphism of schemes is THE SAME THING as a natural family of maps X(R) \u2192 Y(R), and two schemes with naturally isomorphic functors of points are isomorphic. That is the precise sense in which a scheme is nothing more nor less than its functor of points; the rest of the functor-of-points story (representability, moduli problems, base change) is built on this one fully-faithfulness theorem.';
+  }
+  btns.addEventListener('click', function(e){ var b=e.target.closest('button'); if(!b) return; cur=b.getAttribute('data-k');
+    Array.prototype.forEach.call(btns.querySelectorAll('button'), function(x){ var on=x===b; x.classList.toggle('active', on); x.setAttribute('aria-pressed', on?'true':'false'); });
+    draw(); });
+  draw();
+})();
+</script>
+
 <!-- callback-auto-begin -->
 <aside class="callback">
   <div class="ttl">See also</div>
@@ -1145,6 +1203,75 @@ $$(X \times_S Y)(T) \;=\; X(T) \times_{S(T)} Y(T).$$
 <div class="note">
 <strong>Worked fiber.</strong> Let $X = \Spec\,\mathbb{Z}[x]/(x^2 - p)$ with the obvious map to $\Spec\,\mathbb{Z}$. For a prime $\ell \ne p$ with $p$ a square mod $\ell$, the fiber $X_{\mathbb{F}_\ell}$ has $X_{\mathbb{F}_\ell}(\mathbb{F}_\ell) = \{\pm\sqrt{p}\} \subset \mathbb{F}_\ell$, two points; for $\ell = p$ it has the single fat point $\Spec\,\mathbb{F}_p[x]/(x^2)$. The functor of points reads these off without setting up any sheaves.
 </div>
+
+<div class="widget" id="w-basechange">
+  <div class="hd"><div class="ttl">Base change pointwise: the fiber X_a is { x : x² = a }</div><div class="hint">pick a base field and a value a; the fiber is computed pointwise on functors</div></div>
+  <div class="row" id="w-basechange-btns">
+    <label>base field k:</label>
+    <button type="button" data-k="F5" class="active" aria-pressed="true">F&#8325;</button>
+    <button type="button" data-k="F7" class="" aria-pressed="false">F&#8327;</button>
+    <button type="button" data-k="R" class="" aria-pressed="false">&#8477;</button>
+  </div>
+  <div class="row">
+    <label for="w-basechange-a">fiber location  t = a</label>
+    <input type="range" id="w-basechange-a" min="0" max="4" value="1" step="1">
+    <span class="pill" id="w-basechange-av">a = …</span>
+  </div>
+  <svg id="w-basechange-svg" viewBox="0 0 560 300" width="560" height="300" role="img" aria-label="The fiber of the family x squared equals t over a point t = a, drawn as the solutions of x squared equals a in the chosen base field"><title>For the family x^2 = t projecting to the affine line, the fiber over t = a is the set of x in the base field k with x^2 = a; a nonzero square gives two points, a = 0 gives one non-reduced point, a non-square gives the empty fiber</title></svg>
+  <div class="readout" id="w-basechange-out"></div>
+</div>
+
+<script>
+/* functor-of-points-base-change widget: w-basechange */
+(function(){
+  var svg=document.getElementById('w-basechange-svg'), out=document.getElementById('w-basechange-out');
+  var btns=document.getElementById('w-basechange-btns'), sa=document.getElementById('w-basechange-a'), av=document.getElementById('w-basechange-av');
+  if(!svg||!out||!btns||!sa||!av) return;
+  var NS='http://www.w3.org/2000/svg';
+  function mk(tag,attrs,text){ var e=document.createElementNS(NS,tag); for(var k in attrs){ e.setAttribute(k,attrs[k]); } if(text!=null) e.textContent=text; return e; }
+  function txt(x,y,s,opt){ opt=opt||{}; svg.appendChild(mk('text',{x:x,y:y,'text-anchor':opt.anchor||'start','font-size':opt.size||12,fill:opt.fill||'var(--ink)','font-weight':opt.weight||'normal','font-family':opt.mono?'monospace':'inherit'},s)); }
+  var FIELDS={ F5:{p:5,name:'F\u2085',min:0,max:4}, F7:{p:7,name:'F\u2087',min:0,max:6}, R:{p:0,name:'\u211d',min:-3,max:3} };
+  var cur='F5';
+  function fiber(field,a){ // returns {sols:[numbers or labels], n, type}
+    if(field.p>0){ var p=field.p, aa=((a%p)+p)%p, s=[]; for(var x=0;x<p;x++) if((x*x)%p===aa) s.push(x); return {sols:s, n:s.length, aa:aa}; }
+    if(a>0){ return {sols:[-Math.sqrt(a),Math.sqrt(a)], n:2, aa:a}; } if(a===0){ return {sols:[0], n:1, aa:0}; } return {sols:[], n:0, aa:a}; }
+  function applyRange(){ var f=FIELDS[cur]; sa.min=f.min; sa.max=f.max; sa.step=1; var v=parseInt(sa.value,10); if(isNaN(v)||v<f.min||v>f.max) sa.value=(f.p>0?1:1); }
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    var f=FIELDS[cur]; var a=parseInt(sa.value,10); if(isNaN(a)) a=0; av.textContent='a = '+a; sa.setAttribute('aria-valuetext','a = '+a);
+    var fb=fiber(f,a);
+    txt(20, 26, 'family  X : x\u00b2 = t   \u2192   S = A\u00b9   (project to t);   base field k = '+f.name, {size:13, weight:700, fill:'var(--ink)'});
+    txt(20, 48, 'base change along  Spec '+f.name+' \u2192 A\u00b9,  t \u21a6 a:   fiber  X\u2090 = X \u00d7_{A\u00b9} {a} = { x \u2208 '+f.name+' : x\u00b2 = a }', {size:11, fill:'var(--mute)'});
+    // ---- x-axis with the fiber solutions ----
+    var y0=130, xL=60, xR=500;
+    svg.appendChild(mk('line',{x1:xL,y1:y0,x2:xR,y2:y0,stroke:'var(--line)','stroke-width':1.4,'marker-end':'url(#w-basechange-ar)'}));
+    var defs=mk('defs',{}); var m=mk('marker',{id:'w-basechange-ar',viewBox:'0 0 10 10',refX:8,refY:5,markerWidth:6,markerHeight:6,orient:'auto'}); m.appendChild(mk('path',{d:'M0 0 L10 5 L0 10 z',fill:'var(--line)'})); defs.appendChild(m); svg.appendChild(defs);
+    txt(xR+4, y0+4, 'x', {size:11, fill:'var(--mute)'});
+    if(f.p>0){ var p=f.p; for(var x=0;x<p;x++){ var px=xL+(xR-xL-30)*x/(p-1);
+        var sol=fb.sols.indexOf(x)>=0;
+        svg.appendChild(mk('circle',{cx:px,cy:y0,r:sol?7:3.5,fill:sol?'var(--green)':'var(--panel2)',stroke:sol?'var(--green)':'var(--line)','stroke-width':1.5}));
+        txt(px, y0+22, ''+x, {anchor:'middle', size:10, fill: sol?'var(--green)':'var(--mute)', weight: sol?700:400}); } }
+    else { // R: continuous axis [-3,3]
+      for(var t=-3;t<=3;t++){ var px=xL+(xR-xL-30)*(t+3)/6; svg.appendChild(mk('line',{x1:px,y1:y0-4,x2:px,y2:y0+4,stroke:'var(--line)','stroke-width':1})); txt(px,y0+22,''+t,{anchor:'middle',size:10,fill:'var(--mute)'}); }
+      fb.sols.forEach(function(s){ var px=xL+(xR-xL-30)*(s+3)/6; svg.appendChild(mk('circle',{cx:px,cy:y0,r:7,fill:'var(--green)',stroke:'var(--green)','stroke-width':1.5})); }); }
+    // ---- verdict ----
+    var solStr, typ, tc;
+    if(fb.n===0){ solStr='{ }  (empty fiber)'; typ = (f.p>0?('a = '+fb.aa+' is a non-square mod '+f.p):'a < 0: no real square root'); tc='var(--pink)'; }
+    else if(fb.n===1){ solStr='{ 0 }'; typ='a = 0: ONE point, but NON-REDUCED \u2014 the fiber is Spec k[x]/(x\u00b2), a double point'; tc='var(--yellow)'; }
+    else { var ss = (f.p>0)? ('{ '+fb.sols.join(', ')+' }') : ('{ \u2212\u221a'+fb.aa+', \u221a'+fb.aa+' }'); solStr=ss; typ=(f.p>0?('a = '+fb.aa+' is a nonzero square mod '+f.p):'a > 0: two real square roots')+': TWO reduced points'; tc='var(--green)'; }
+    txt(20, 188, 'fiber  X\u2090('+f.name+')  =  '+solStr, {size:13, mono:true, fill:tc, weight:700});
+    txt(20, 210, typ, {size:11, fill:tc});
+    txt(20, 246, 'Why pointwise:  (X \u00d7_S Y)(T) = X(T) \u00d7_{S(T)} Y(T)   \u2014 representable functors preserve limits,', {size:10.5, fill:'var(--cyan)'});
+    txt(20, 264, 'so the fiber X\u2090 = X \u00d7_{A\u00b9} {a} is computed on R-points by intersecting with t = a.', {size:10.5, fill:'var(--cyan)'});
+    out.textContent='A morphism X \u2192 S of schemes is a family of fibers; base change forms a particular fiber. The key identity is that fiber products of schemes are computed POINTWISE on functors of points: since a representable functor h_X preserves limits, (X \u00d7_S Y)(T) = X(T) \u00d7_{S(T)} Y(T) as an identity of sets, natural in the test scheme T. Here the family is X = V(x\u00b2 \u2212 t) over S = A\u00b9 (the projection (x,t) \u21a6 t), and base change along the inclusion of a point Spec k \u2192 A\u00b9, t \u21a6 a, produces the FIBER X\u2090 = X \u00d7_{A\u00b9} {a}, whose k-points are X\u2090(k) = X(k) \u00d7_{A\u00b9(k)} {a} = { x \u2208 k : x\u00b2 = a }. So the fiber is literally the solution set of x\u00b2 = a in k, and its shape depends on both a and k: over a field where a is a nonzero square there are TWO points; over a where a is a non-square the fiber is EMPTY (e.g. x\u00b2 = 2 has no point over F\u2085, two points over F\u2087); and at a = 0 there is one point but the fiber scheme is Spec k[x]/(x\u00b2), a NON-REDUCED double point \u2014 the family degenerates there. The functor-of-points viewpoint makes all of this a one-line computation: pull back the equations, then solve over each test ring.';
+  }
+  btns.addEventListener('click', function(e){ var b=e.target.closest('button'); if(!b) return; cur=b.getAttribute('data-k');
+    Array.prototype.forEach.call(btns.querySelectorAll('button'), function(x){ var on=x===b; x.classList.toggle('active', on); x.setAttribute('aria-pressed', on?'true':'false'); });
+    applyRange(); draw(); });
+  sa.addEventListener('input', draw);
+  applyRange(); draw();
+})();
+</script>
 
 <!-- callback-auto-begin -->
 <aside class="callback">
