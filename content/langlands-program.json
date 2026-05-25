@@ -259,6 +259,27 @@
           "html": "<section id=\"cft-as-gl1\">\n<h2>5. Class field theory as Langlands for $\\GL_1$</h2>\n\n<p>The abelian case is fully proven and worth seeing as the prototype. Class field theory says: continuous characters of the Galois group $\\Gal(\\overline{\\mathbb{Q}}/\\mathbb{Q})^{\\mathrm{ab}}$ correspond bijectively to continuous characters of <a href=\"./adeles-and-ideles.html#ideles\" data-auto-inline-link=\"1\" data-concept-id=\"idele-class-group\" data-blurb=\"The idèles $\\mathbb{A}_\\mathbb{Q}^\\times$ are invertible adèles with the restricted-product topology on units; the idèle class group $C_\\mathbb{Q} = \\mathbb{A}_\\mathbb{Q}^\\times/\\mathbb{Q}^\\times$ packages archimedean and $p$-adic data globally.\">the idèle class group</a> $\\mathbb{A}_\\mathbb{Q}^\\times / \\mathbb{Q}^\\times$.</p>\n\n<p>From the Langlands viewpoint:</p>\n<ul>\n  <li>$\\Gal(\\overline{\\mathbb{Q}}/\\mathbb{Q})^{\\mathrm{ab}}$ is the group of $\\mathbb{C}^\\times$-valued (i.e. $1$-dim) Galois reps. So Galois reps for $n = 1$ are abelianised characters.</li>\n  <li>$\\GL_1(\\mathbb{A}_\\mathbb{Q}) = \\mathbb{A}_\\mathbb{Q}^\\times$. Cuspidal automorphic representations of this group are continuous characters $\\chi\\colon \\mathbb{A}_\\mathbb{Q}^\\times / \\mathbb{Q}^\\times \\to \\mathbb{C}^\\times$ — i.e. <em>Hecke characters</em>.</li>\n  <li>The Langlands correspondence between them is exactly Artin's reciprocity isomorphism: $\\Gal(\\overline{\\mathbb{Q}}/\\mathbb{Q})^{\\mathrm{ab}} \\cong \\widehat{\\mathbb{A}_\\mathbb{Q}^\\times / \\mathbb{Q}^\\times}$ (where $\\widehat{\\phantom{X}}$ is the Pontryagin dual, identifying the discrete group with its character group).</li>\n</ul>\n\n<p>And the L-function matching: an Artin L-function $L(\\chi, s)$ for an abelian Galois character $\\chi$ equals the Hecke L-function $L(\\chi^{\\mathrm{Hecke}}, s)$ for the corresponding Hecke character. This is what Artin proved in the 1920s — long before the term \"Langlands program\" existed.</p>\n\n<aside class=\"note\"><b>Slogan.</b> Class field theory is Langlands for $\\GL_1$. Modularity is Langlands for $\\GL_2$ (over $\\mathbb{Q}$, semistable case). The general program is Langlands for $\\GL_n$ — and beyond, with the Langlands group $L_F$ as the predicted universal symmetry.</aside>\n\n"
         },
         {
+          "type": "widget",
+          "slug": "langlands-cft-gl1",
+          "params": {
+            "widgetId": "w-cft-gl1",
+            "title": "GL_1 = class field theory: Frobenius is just p mod N",
+            "hint": "pick N and a Dirichlet character — Frob_p = p mod N, and χ(p)=+1 ⟺ p splits in its subfield"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-cft-gl1"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
           "type": "quiz",
           "concept": "cft-as-langlands",
           "html": "<div class=\"quiz\" data-concept=\"cft-as-langlands\"></div>"
