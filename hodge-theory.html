@@ -556,6 +556,84 @@ $$V_\mathbb{C} := V_\mathbb{Q} \otimes_\mathbb{Q} \mathbb{C} \;=\; \bigoplus_{p+
 
 <aside class="note"><b>Tannakian frame.</b> $\HS_\mathbb{Q}$ is a neutral Tannakian category over $\mathbb{Q}$ (with the forgetful $V \mapsto V_\mathbb{Q}$ as fiber functor), so it has a Tannakian fundamental group — <em>the Mumford-Tate group of all Hodge structures</em>. The Mumford-Tate group of a single Hodge structure $V$ is the Tannakian group of the smallest sub-Tannakian category containing $V$.</aside>
 
+<div class="widget" id="w-purehs">
+  <div class="hd"><div class="ttl">Pure Hodge structures: the category, and the Tate twist V ↦ V(m)</div><div class="hint">pick an object; the Tate twist shifts (p,q)↦(p−m,q−m) and weight n↦n−2m</div></div>
+  <div class="row" id="w-purehs-btns">
+    <button type="button" data-k="Q0" class="" aria-pressed="false">&#8474;(0)</button>
+    <button type="button" data-k="Q1" class="" aria-pressed="false">&#8474;(1)</button>
+    <button type="button" data-k="H1E" class="active" aria-pressed="true">H&#185;(E)</button>
+    <button type="button" data-k="K3" class="" aria-pressed="false">H&#178;(K3)</button>
+  </div>
+  <div class="row">
+    <label for="w-purehs-m">Tate twist  V &#8614; V(m),  m =</label>
+    <input type="range" id="w-purehs-m" min="-2" max="2" value="0" step="1">
+    <span class="pill" id="w-purehs-mv">m = 0</span>
+  </div>
+  <svg id="w-purehs-svg" viewBox="0 0 560 320" width="560" height="320" role="img" aria-label="The Hodge pieces of a pure Hodge structure plotted on the (p,q) lattice, with a Tate twist that shifts them along the diagonal and changes the weight"><title>A pure Hodge structure plotted on the (p,q) lattice: dots at each type (p,q) labelled by the Hodge number h to the p,q, lying on the weight antidiagonal p+q=n and symmetric across the conjugation diagonal p=q. The Tate twist V to V(m) shifts every piece by minus m along the diagonal and changes the weight from n to n minus 2m.</title></svg>
+  <div class="readout" id="w-purehs-out"></div>
+</div>
+
+<script>
+/* hodge-theory-pure-structure widget: w-purehs */
+(function(){
+  var svg=document.getElementById('w-purehs-svg'), out=document.getElementById('w-purehs-out');
+  var btns=document.getElementById('w-purehs-btns'), sm=document.getElementById('w-purehs-m'), mv=document.getElementById('w-purehs-mv');
+  if(!svg||!out||!btns||!sm||!mv) return;
+  var NS='http://www.w3.org/2000/svg';
+  function mk(tag,attrs,text){ var e=document.createElementNS(NS,tag); for(var k in attrs){ e.setAttribute(k,attrs[k]); } if(text!=null) e.textContent=text; return e; }
+  function txt(x,y,s,opt){ opt=opt||{}; svg.appendChild(mk('text',{x:x,y:y,'text-anchor':opt.anchor||'start','font-size':opt.size||12,fill:opt.fill||'var(--ink)','font-weight':opt.weight||'normal','font-family':opt.mono?'monospace':'inherit'},s)); }
+  var GAL=[
+    {k:'Q0', nm:'\u211a(0)', wt:0, pcs:[[0,0,1]], note:'the unit object'},
+    {k:'Q1', nm:'\u211a(1)', wt:-2, pcs:[[-1,-1,1]], note:'the Tate twist; Hodge realization 2\u03c0i\u00b7\u211a'},
+    {k:'H1E', nm:'H\u00b9(E)', wt:1, pcs:[[1,0,1],[0,1,1]], note:'an elliptic curve E: h\u00b9\u2070=h\u2070\u00b9=1'},
+    {k:'K3', nm:'H\u00b2(K3)', wt:2, pcs:[[2,0,1],[1,1,20],[0,2,1]], note:'a K3 surface: h\u00b2\u2070=1, h\u00b9\u00b9=20, h\u2070\u00b2=1 (b\u2082=22)'},
+  ];
+  var cur='H1E';
+  var pmin=-3, pmax=4, px0=58, px1=292, qbot=290, qtop=58;
+  function sx(p){ return px0 + (p-pmin)/(pmax-pmin)*(px1-px0); }
+  function sy(q){ return qbot - (q-pmin)/(pmax-pmin)*(qbot-qtop); }
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    var V=null; for(var i=0;i<GAL.length;i++) if(GAL[i].k===cur) V=GAL[i];
+    if(!V) return;
+    var m=parseInt(sm.value,10); if(isNaN(m)) m=0; mv.textContent='m = '+m; sm.setAttribute('aria-valuetext','m = '+m);
+    var wt=V.wt-2*m;
+    var pcs=V.pcs.map(function(p){ return [p[0]-m, p[1]-m, p[2]]; });
+    // grid
+    for(var g=pmin; g<=pmax; g++){ svg.appendChild(mk('line',{x1:sx(g),y1:qtop,x2:sx(g),y2:qbot,stroke:'var(--line)','stroke-width':0.5,'stroke-opacity':0.5})); svg.appendChild(mk('line',{x1:px0,y1:sy(g),x2:px1,y2:sy(g),stroke:'var(--line)','stroke-width':0.5,'stroke-opacity':0.5})); }
+    // axes p (q=0) and q (p=0)
+    svg.appendChild(mk('line',{x1:px0,y1:sy(0),x2:px1,y2:sy(0),stroke:'var(--mute)','stroke-width':1})); svg.appendChild(mk('line',{x1:sx(0),y1:qtop,x2:sx(0),y2:qbot,stroke:'var(--mute)','stroke-width':1}));
+    txt(px1+2, sy(0)+4, 'p', {size:11, fill:'var(--mute)'}); txt(sx(0)+4, qtop-2, 'q', {size:11, fill:'var(--mute)'});
+    // conjugation diagonal p=q
+    svg.appendChild(mk('line',{x1:sx(pmin),y1:sy(pmin),x2:sx(pmax),y2:sy(pmax),stroke:'var(--violet)','stroke-width':1,'stroke-dasharray':'3 3','stroke-opacity':0.6}));
+    txt(sx(pmax)-44, sy(pmax)+12, 'p = q', {size:8.5, fill:'var(--violet)'});
+    // weight antidiagonal p+q=wt (clamped endpoints)
+    var A=[Math.max(pmin,wt-pmax), 0]; A[1]=wt-A[0]; var B=[Math.min(pmax,wt-pmin),0]; B[1]=wt-B[0];
+    if(A[1]>=pmin && A[1]<=pmax && B[1]>=pmin && B[1]<=pmax){ svg.appendChild(mk('line',{x1:sx(A[0]),y1:sy(A[1]),x2:sx(B[0]),y2:sy(B[1]),stroke:'var(--yellow)','stroke-width':1.4,'stroke-opacity':0.7})); }
+    txt(px0+2, qtop+12, 'weight antidiagonal  p+q = '+wt, {size:9, fill:'var(--yellow)'});
+    // pieces
+    pcs.forEach(function(pc){ var x=sx(pc[0]), y=sy(pc[1]); var lft=(x>225);
+      svg.appendChild(mk('circle',{cx:x,cy:y,r:7,fill:'var(--cyan)',stroke:'var(--ink)','stroke-width':1.2}));
+      txt(lft?(x-10):(x+10), y-7, 'h^{'+pc[0]+','+pc[1]+'}='+pc[2], {anchor: lft?'end':'start', size:9.5, fill:'var(--cyan)', weight:700});
+    });
+    // info panel (right)
+    var ix=330, iy=80;
+    txt(ix, iy, (m===0?V.nm:V.nm+'('+m+')'), {size:14, fill:'var(--ink)', weight:700}); iy+=22;
+    txt(ix, iy, 'weight n = '+wt, {size:12, fill:'var(--yellow)', weight:700}); iy+=20;
+    txt(ix, iy, 'type: '+pcs.map(function(p){return '('+p[0]+','+p[1]+')';}).join(' + '), {size:10, fill:'var(--mute)'}); iy+=18;
+    txt(ix, iy, 'dim_\u211a = '+pcs.reduce(function(s,p){return s+p[2];},0), {size:10, fill:'var(--mute)'}); iy+=18;
+    txt(ix, iy, 'conj symmetry: h^{p,q}=h^{q,p}', {size:9.5, fill:'var(--violet)'}); iy+=24;
+    txt(ix, iy, V.note, {size:9.5, fill:'var(--mute)'});
+    out.textContent='Strip away the variety: a PURE \u211a-HODGE STRUCTURE of weight n is a finite-dimensional \u211a-vector space V_\u211a together with a decomposition of its complexification V_\u2102 = \u2295_{p+q=n} V^{p,q} satisfying the CONJUGATION SYMMETRY conj(V^{p,q}) = V^{q,p} (equivalently, a decreasing Hodge filtration F\u2022 with V_\u2102 = F^p \u2295 conj(F^{n-p+1})). The cohomology H^n(X) of a smooth projective variety is the canonical example, but the notion is purely linear-algebraic. These objects form a CATEGORY HS_\u211a: morphisms are \u211a-linear maps respecting the decomposition; tensor products and duals of pure Hodge structures stay pure, with the UNIT \u211a(0) of weight 0 and type (0,0). The TATE TWIST \u211a(1) has weight \u22122 and type (\u22121,\u22121) (its Hodge realization is 2\u03c0i\u00b7\u211a \u2282 \u2102) \u2014 the same Tate twist that organizes the motivic story. Twisting V \u21a6 V(m) = V \u2297 \u211a(1)^{\u2297m} shifts every Hodge type (p,q) \u21a6 (p\u2212m, q\u2212m) and the weight n \u21a6 n\u22122m, leaving the Hodge numbers h^{p,q} unchanged \u2014 you see the whole diagram slide along the conjugation diagonal as you move the slider, landing on a new weight antidiagonal. POLARISABILITY (a (\u22121)^n-symmetric form positive on the primitive part, supplied by cup product with the K\u00e4hler class on H^n(X)) upgrades a pure Hodge structure to a polarised one, and the category of polarisable pure Hodge structures is SEMISIMPLE \u2014 every short exact sequence splits. Finally HS_\u211a is a NEUTRAL TANNAKIAN category over \u211a (fiber functor V \u21a6 V_\u211a), so it has a Tannakian fundamental group: the MUMFORD\u2013TATE group, which packages all the linear-algebraic symmetries of Hodge structures as the representations of one (pro)algebraic group.';
+  }
+  btns.addEventListener('click', function(e){ var b=e.target.closest('button'); if(!b) return; cur=b.getAttribute('data-k');
+    Array.prototype.forEach.call(btns.querySelectorAll('button'), function(x){ var on=x===b; x.classList.toggle('active', on); x.setAttribute('aria-pressed', on?'true':'false'); });
+    draw(); });
+  sm.addEventListener('input', draw);
+  draw();
+})();
+</script>
+
 <div class="quiz" data-concept="pure-hodge-structure"></div><!-- callback-auto-begin -->
 <aside class="callback">
   <div class="ttl">See also</div>

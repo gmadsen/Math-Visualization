@@ -3,10 +3,10 @@
 ## Corpus totals
 
 - Topics: **207**, concepts: **1422**
-- Widgets: **1582** (registry-driven: 1582, inline: 0)
+- Widgets: **1583** (registry-driven: 1583, inline: 0)
 - Quizzes: **5458** (v1: 4222, hard: 1223, expert: 13)
 - Quiz types: mcq: 3591, numeric: 1291, multi-select: 277, matching: 107, ordering: 85, spot-the-error: 53, complex: 29, proof-completion: 21, construction: 2, guess-my-rule: 2
-- Concepts lacking a widget in their section: **19**
+- Concepts lacking a widget in their section: **18**
 - Concepts lacking a hard-tier quiz: **984**
 
 ## Per-slug registry adoption
@@ -538,6 +538,7 @@ page has wired one in yet.
 | `hodge-theory-hodge-diamond` | hodge-theory-hodge-diamond | interact | 2d | 1 | hodge-theory |
 | `hodge-theory-mixed-weight` | hodge-theory-mixed-weight | step | 2d | 1 | hodge-theory |
 | `hodge-theory-period-elliptic` | hodge-theory-period-elliptic | interact | 2d | 1 | hodge-theory |
+| `hodge-theory-pure-structure` | hodge-theory-pure-structure | slider | 2d | 1 | hodge-theory |
 | `homological-cartan-eilenberg` | homological-cartan-eilenberg | select | 2d | 1 | homological |
 | `homological-double-complex` | homological-double-complex | interact | 2d | 1 | homological |
 | `homological-les-sphere` | homological-les-sphere | interact | 2d | 1 | homological |
@@ -1094,10 +1095,10 @@ page has wired one in yet.
 ### Algebraic geometry
 
 - Topics: **35**, concepts: **213**
-- Widgets: **259** (registry-driven: 259, inline: 0)
-  - by family: verbatim: 79, button-stepper: 61, clickable-diagram: 23, proof-scrubber: 7, clickable-graph: 6, declarative-host: 6, parametric-plot: 4, modular-arithmetic-clock: 2, svg-illustration: 2, motives-realization-comparison: 1, motives-chow-decomposition: 1, motives-standard-conjectures: 1, hodge-theory-hodge-diamond: 1, hodge-theory-filtration-scrubber: 1, hodge-theory-mixed-weight: 1, hodge-theory-hodge-class-cases: 1, hodge-theory-period-elliptic: 1, toric-varieties-reflexive-duality: 1, calabi-yau-canonical-degree: 1, calabi-yau-hodge-diamond: 1, calabi-yau-hypersurface-zoo: 1, calabi-yau-periods: 1, calabi-yau-mirror-swap: 1, calabi-yau-syz-fibration: 1, mirror-hodge-diamond: 1, mirror-quintic-counts: 1, mirror-stable-map: 1, mirror-quintic-periods: 1, mirror-hms-pairing: 1, mirror-syz-fibration: 1, resolution-cusp-node-visualizer: 1, resolution-cuspidal-blowup: 1, resolution-tower-of-blowups: 1, resolution-curve-normalization: 1, resolution-ade-dynkin: 1, resolution-applications-map: 1, pp-duality: 1, pp-cross-ratio: 1, bezout-statement: 1, bezout-cayley-bacharach: 1, bezout-higherdim: 1, schemes-spec: 1, schemes-specialization: 1, schemes-residue-field: 1, schemes-stalk: 1, schemes-proj: 1, schemes-dimension: 1, sheaves-presheaf-restriction: 1, sheaves-ox-module: 1, morphisms-scheme-morphism: 1, morphisms-separated-proper: 1, functor-of-points-groupoid-target: 1, functor-of-points-yoneda: 1, functor-of-points-base-change: 1, lattice-visualizer: 1, singular-cubics-minimal-model: 1, algebraic-curves-riemann-hurwitz-cover: 1, algebraic-curves-jacobian-lattice: 1, algebraic-curves-riemann-roch-scrubber: 1, algebraic-curves-canonical-embedding-scrubber: 1, algebraic-curves-hyperelliptic-cover: 1, algebraic-curves-moduli-boundary: 1, sheaf-cohomology-nerve: 1, sheaf-cohomology-acyclic: 1, sheaf-cohomology-leray: 1, sheaf-cohomology-serre-duality: 1, algebraic-de-rham-kahler-scrubber: 1, algebraic-de-rham-complex-scrubber: 1, algebraic-de-rham-betti-comparison-scrubber: 1, algebraic-de-rham-hodge-filtration-scrubber: 1, algebraic-de-rham-hodge-diamond-clickgraph: 1, algebraic-de-rham-hodge-pn-explorer: 1, algebraic-de-rham-curve-clickable: 1, algebraic-de-rham-hodge-sandbox: 1, moduli-spaces-triangle-similarity: 1, stacks-quotient-stack: 1, stacks-dm-vs-artin: 1, counterexample-explorer: 1
-  - by dimension: 2d: 259
-  - by gesture: click: 165, interact: 34, slider: 29, select: 14, scrub: 7, inspect: 5, drag: 3, step: 1, slide: 1
+- Widgets: **260** (registry-driven: 260, inline: 0)
+  - by family: verbatim: 79, button-stepper: 61, clickable-diagram: 23, proof-scrubber: 7, clickable-graph: 6, declarative-host: 6, parametric-plot: 4, modular-arithmetic-clock: 2, svg-illustration: 2, motives-realization-comparison: 1, motives-chow-decomposition: 1, motives-standard-conjectures: 1, hodge-theory-hodge-diamond: 1, hodge-theory-filtration-scrubber: 1, hodge-theory-pure-structure: 1, hodge-theory-mixed-weight: 1, hodge-theory-hodge-class-cases: 1, hodge-theory-period-elliptic: 1, toric-varieties-reflexive-duality: 1, calabi-yau-canonical-degree: 1, calabi-yau-hodge-diamond: 1, calabi-yau-hypersurface-zoo: 1, calabi-yau-periods: 1, calabi-yau-mirror-swap: 1, calabi-yau-syz-fibration: 1, mirror-hodge-diamond: 1, mirror-quintic-counts: 1, mirror-stable-map: 1, mirror-quintic-periods: 1, mirror-hms-pairing: 1, mirror-syz-fibration: 1, resolution-cusp-node-visualizer: 1, resolution-cuspidal-blowup: 1, resolution-tower-of-blowups: 1, resolution-curve-normalization: 1, resolution-ade-dynkin: 1, resolution-applications-map: 1, pp-duality: 1, pp-cross-ratio: 1, bezout-statement: 1, bezout-cayley-bacharach: 1, bezout-higherdim: 1, schemes-spec: 1, schemes-specialization: 1, schemes-residue-field: 1, schemes-stalk: 1, schemes-proj: 1, schemes-dimension: 1, sheaves-presheaf-restriction: 1, sheaves-ox-module: 1, morphisms-scheme-morphism: 1, morphisms-separated-proper: 1, functor-of-points-groupoid-target: 1, functor-of-points-yoneda: 1, functor-of-points-base-change: 1, lattice-visualizer: 1, singular-cubics-minimal-model: 1, algebraic-curves-riemann-hurwitz-cover: 1, algebraic-curves-jacobian-lattice: 1, algebraic-curves-riemann-roch-scrubber: 1, algebraic-curves-canonical-embedding-scrubber: 1, algebraic-curves-hyperelliptic-cover: 1, algebraic-curves-moduli-boundary: 1, sheaf-cohomology-nerve: 1, sheaf-cohomology-acyclic: 1, sheaf-cohomology-leray: 1, sheaf-cohomology-serre-duality: 1, algebraic-de-rham-kahler-scrubber: 1, algebraic-de-rham-complex-scrubber: 1, algebraic-de-rham-betti-comparison-scrubber: 1, algebraic-de-rham-hodge-filtration-scrubber: 1, algebraic-de-rham-hodge-diamond-clickgraph: 1, algebraic-de-rham-hodge-pn-explorer: 1, algebraic-de-rham-curve-clickable: 1, algebraic-de-rham-hodge-sandbox: 1, moduli-spaces-triangle-similarity: 1, stacks-quotient-stack: 1, stacks-dm-vs-artin: 1, counterexample-explorer: 1
+  - by dimension: 2d: 260
+  - by gesture: click: 165, interact: 34, slider: 30, select: 14, scrub: 7, inspect: 5, drag: 3, step: 1, slide: 1
 - Quizzes: **884** (v1: 639, hard: 245, expert: 0)
   - by type: mcq: 591, numeric: 221, multi-select: 36, matching: 18, ordering: 7, spot-the-error: 7, complex: 3, proof-completion: 1
 
@@ -1201,7 +1202,7 @@ page has wired one in yet.
 - `algebraic-k-theory-foundations` (Algebra & homological) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `model-categories` (Algebra & homological) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `condensed-mathematics` (Algebra & homological) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `hodge-theory` (Algebraic geometry) — concepts=8, widgets=5 (slug=5), quiz=24 (v1=24, hard=0, expert=0)
+- `hodge-theory` (Algebraic geometry) — concepts=8, widgets=6 (slug=6), quiz=24 (v1=24, hard=0, expert=0)
 - `langlands-program` (Modular forms & L-functions) — concepts=8, widgets=3 (slug=3), quiz=24 (v1=24, hard=0, expert=0)
 - `microlocal-analysis` (Analysis) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `geometric-measure-theory` (Analysis) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
@@ -1361,7 +1362,6 @@ page has wired one in yet.
 - `motivic-galois-group` (motives)
 - `realization-functors` (motives)
 - `why-hodge` (hodge-theory)
-- `pure-hodge-structure` (hodge-theory)
 - `hodge-as-realization` (hodge-theory)
 - `global-langlands-gl-n` (langlands-program)
 - `cft-as-langlands` (langlands-program)
