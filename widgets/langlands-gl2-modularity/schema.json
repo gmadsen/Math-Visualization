@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/langlands-gl2-modularity/schema.json",
+  "title": "langlands-gl2-modularity widget params",
+  "description": "The proven GL_2 case of global Langlands over Q, made arithmetic: pick an elliptic curve E/Q of prime conductor N (11a, 19a, 37a), and the widget point-counts a_p(E) = p+1 - #E(F_p) live for each good prime p and shows it equals the q-expansion coefficient a_p(f) of the weight-2 newform f in S_2(Gamma_0(N)) attached to E. The Modularity Theorem (Wiles for semistable, Taylor-Wiles, Breuil-Conrad-Diamond-Taylor in general) is exactly the statement that these two sequences agree for all p, equivalently L(E,s) = L(f,s); on the Galois side it is the assertion that the 2-dimensional l-adic representation rho_{E,l}: Gal(Q-bar/Q) -> GL_2(Q_l) on the Tate module matches the cuspidal automorphic representation pi_f of GL_2(A_Q). The newform coefficients are taken from LMFDB (labels 11.2.a.a, 19.2.a.a, 37.2.a.a) and the curve-side a_p are computed by genuine point-counting in the browser, so the visible match is two independent computations agreeing. The conductor prime p=N (bad multiplicative reduction) is excluded from the point-counting table. No numeric params beyond the standard widgetId/title/hint.",
+  "meta": {
+    "family": "langlands-gl2-modularity",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\"> wrapper."
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title rendered inside .hd > .ttl."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional short hint rendered inside .hd > .hint."
+    }
+  }
+}
