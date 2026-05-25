@@ -380,11 +380,68 @@
           "type": "widget",
           "slug": "ec-mw",
           "params": {
-            "widgetId": "mw",
-            "title": "",
-            "hint": "",
-            "bodyMarkup": "<div class=\"widget\">\n<div class=\"hd\"><span class=\"ttl\">Rank &amp; torsion gallery</span><span class=\"hint\">known results from the LMFDB and Cremona tables</span></div>\n<div class=\"row\">\n  <label>curve <select id=\"mw-sel\">\n    <option value=\"0\">y² + y = x³ − x   (Cremona 37a1; rank 1, tors trivial)</option>\n    <option value=\"1\">y² = x³ − x   (rank 0, tors Z/2 ⊕ Z/2)</option>\n    <option value=\"2\">y² = x³ + 1   (rank 0, tors Z/6)</option>\n    <option value=\"3\">y² + y = x³   (rank 0, tors Z/6)</option>\n    <option value=\"4\">y² = x³ − 43x + 166   (rank 0, tors Z/7)</option>\n    <option value=\"5\">y² + 7xy = x³ + 16x   (rank 0, tors Z/10)</option>\n    <option value=\"6\">y² + xy + y = x³ − x² − 14x + 29   (rank 0, tors Z/4)</option>\n    <option value=\"7\">y² = x³ + 877x   (rank 1; generator has enormous height)</option>\n  </select></label>\n</div>\n<div id=\"mw-out\" class=\"readout\"></div>\n</div>",
-            "bodyScript": "<script>\n(function(){\n  const sel = document.getElementById('mw-sel');\n  const out = document.getElementById('mw-out');\n  const DATA = [\n    {eq:'y² + y = x³ − x', rank:1, tors:'trivial', note:'Cremona label 37a1 — smallest conductor with rank 1; generator P = (0,0), infinite order.'},\n    {eq:'y² = x³ − x', rank:0, tors:'Z/2 ⊕ Z/2', note:'Four rational points total: O, (0,0), (1,0), (-1,0). All 2-torsion. j = 1728.'},\n    {eq:'y² = x³ + 1', rank:0, tors:'Z/6', note:'Six points: O, (-1,0), (0,±1), (2,±3). CM by Z[ω]. j = 0.'},\n    {eq:'y² + y = x³', rank:0, tors:'Z/6', note:'Cremona 27a3, CM by Z[ω]. Six rational points.'},\n    {eq:'y² = x³ − 43x + 166', rank:0, tors:'Z/7', note:'First instance of 7-torsion over Q; maximal cyclic torsion allowed by Mazur for odd prime p.'},\n    {eq:'y² + 7xy = x³ + 16x', rank:0, tors:'Z/10', note:'Mazur’s theorem allows cyclic orders 1–10 and 12 (but not 11) over Q; this curve realizes Z/10.'},\n    {eq:'y² + xy + y = x³ − x² − 14x + 29', rank:0, tors:'Z/4', note:'Long-Weierstrass form; 4-torsion subgroup.'},\n    {eq:'y² = x³ + 877x', rank:1, tors:'trivial', note:'Bremner–Cassels: the smallest x-coordinate generator has numerator 375494528127162193105504069942092792346201. Rank computation is a multi-step descent; even writing down the generator is nontrivial.'}\n  ];\n  function upd(){\n    const d = DATA[+sel.value];\n    out.textContent =\n      'E : '+d.eq+'\\n'+\n      'rank r = '+d.rank+'\\n'+\n      'torsion subgroup: '+d.tors+'\\n'+\n      '—\\n'+d.note;\n  }\n  sel.addEventListener('change', upd);\n  upd();\n})();\n</script>"
+            "widgetId": "ec-mw",
+            "title": "Rank & torsion gallery",
+            "hint": "known results from the LMFDB and Cremona tables",
+            "idPrefix": "mw",
+            "curves": [
+              {
+                "label": "y² + y = x³ − x   (Cremona 37a1; rank 1, tors trivial)",
+                "eq": "y² + y = x³ − x",
+                "rank": 1,
+                "tors": "trivial",
+                "note": "Cremona label 37a1 — smallest conductor with rank 1; generator P = (0,0), infinite order."
+              },
+              {
+                "label": "y² = x³ − x   (rank 0, tors Z/2 ⊕ Z/2)",
+                "eq": "y² = x³ − x",
+                "rank": 0,
+                "tors": "Z/2 ⊕ Z/2",
+                "note": "Four rational points total: O, (0,0), (1,0), (-1,0). All 2-torsion. j = 1728."
+              },
+              {
+                "label": "y² = x³ + 1   (rank 0, tors Z/6)",
+                "eq": "y² = x³ + 1",
+                "rank": 0,
+                "tors": "Z/6",
+                "note": "Six points: O, (-1,0), (0,±1), (2,±3). CM by Z[ω]. j = 0."
+              },
+              {
+                "label": "y² + y = x³   (rank 0, tors Z/6)",
+                "eq": "y² + y = x³",
+                "rank": 0,
+                "tors": "Z/6",
+                "note": "Cremona 27a3, CM by Z[ω]. Six rational points."
+              },
+              {
+                "label": "y² = x³ − 43x + 166   (rank 0, tors Z/7)",
+                "eq": "y² = x³ − 43x + 166",
+                "rank": 0,
+                "tors": "Z/7",
+                "note": "First instance of 7-torsion over Q; maximal cyclic torsion allowed by Mazur for odd prime p."
+              },
+              {
+                "label": "y² + 7xy = x³ + 16x   (rank 0, tors Z/10)",
+                "eq": "y² + 7xy = x³ + 16x",
+                "rank": 0,
+                "tors": "Z/10",
+                "note": "Mazur’s theorem allows cyclic orders 1–10 and 12 (but not 11) over Q; this curve realizes Z/10."
+              },
+              {
+                "label": "y² + xy + y = x³ − x² − 14x + 29   (rank 0, tors Z/4)",
+                "eq": "y² + xy + y = x³ − x² − 14x + 29",
+                "rank": 0,
+                "tors": "Z/4",
+                "note": "Long-Weierstrass form; 4-torsion subgroup."
+              },
+              {
+                "label": "y² = x³ + 877x   (rank 1; generator has enormous height)",
+                "eq": "y² = x³ + 877x",
+                "rank": 1,
+                "tors": "trivial",
+                "note": "Bremner–Cassels: the smallest x-coordinate generator has numerator 375494528127162193105504069942092792346201. Rank computation is a multi-step descent; even writing down the generator is nontrivial."
+              }
+            ]
           }
         },
         {
@@ -393,7 +450,7 @@
         },
         {
           "type": "widget-script",
-          "ref": "mw"
+          "ref": "ec-mw"
         },
         {
           "type": "raw",

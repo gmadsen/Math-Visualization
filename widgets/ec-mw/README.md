@@ -1,7 +1,16 @@
 # `ec-mw`
 
-Bespoke verbatim slug for the "Rank &amp; torsion gallery" widget on `elliptic-curves`.
+Bespoke semantic renderer for the **"Rank & torsion gallery"** widget on `elliptic-curves`.
 
-Migrated from inline `<div class="widget">` markup (Type A: raw HTML buried in a `raw` block) by `scripts/migrate-inline-widgets-typea.mjs`. Uses the shared renderer at `widgets/_shared/verbatim-renderer.mjs` — `bodyMarkup` and `bodyScript` are emitted verbatim. See `schema.json` for the param shape.
+A dropdown selects one of a gallery of elliptic curves (known LMFDB/Cremona data); the readout
+shows the Weierstrass equation, Mordell–Weil rank, torsion subgroup, and a note (e.g. 37a1 the
+smallest rank-1 conductor; Mazur's torsion bound realized by $\mathbb{Z}/10$; the Bremner–Cassels
+huge-height generator of $y^2 = x^3 + 877x$).
 
-A future deeper migration could hoist this widget's semantic params (slider ranges, etc.) out of the opaque body strings into typed schema fields.
+Migrated from a verbatim slug to this semantic renderer (PLAN.md verbatim→semantic program). The
+**curve dataset** (`params.curves` = `{label, eq, rank, tors, note}[]`), header `title`/`hint`, and
+DOM `idPrefix` are now inspectable, AJV-validated params; the select/readout wiring is the renderer's
+intrinsic behavior. Output is visually/behaviorally identical to the pre-migration widget (the host
+div gained `id="ec-mw"`, slug-prefixed to avoid colliding with section anchors).
+
+See [`schema.json`](./schema.json) for the param shape.

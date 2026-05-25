@@ -6900,20 +6900,20 @@ window.__MVWidgets = [
   },
   {
     "slug": "ec-mw",
-    "family": "verbatim",
+    "family": "ec-mw",
     "dimension": "2d",
     "gesture": "select",
     "role": "interactive",
     "title": "ec-mw widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Rank &amp; torsion gallery\" widget on the elliptic-curves topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs and re-derived meta by scripts/fixup-verbatim-widget-meta.mjs.",
+    "description": "The \"Rank & torsion gallery\" widget on the elliptic-curves topic, migrated from a verbatim slug to a semantic renderer. A dropdown selects one of a gallery of elliptic curves (known LMFDB/Cremona data); the readout shows the Weierstrass equation, Mordell-Weil rank, torsion subgroup, and a note. The full curve dataset (params.curves = {label, eq, rank, tors, note}[]), header title/hint, and DOM id prefix are now inspectable, AJV-validated params instead of being buried in an opaque markup/script string.",
     "requiredParams": [
       "widgetId",
       "title",
       "hint",
-      "bodyMarkup",
-      "bodyScript"
+      "idPrefix",
+      "curves"
     ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Rank &amp; torsion gallery\" widget on `elliptic-curves`.",
+    "readmeExcerpt": "Bespoke semantic renderer for the **\"Rank & torsion gallery\"** widget on `elliptic-curves`.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,

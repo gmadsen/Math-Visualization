@@ -2,45 +2,45 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://math-vis.local/widgets/ec-mw/schema.json",
   "title": "ec-mw widget params",
-  "description": "Bespoke verbatim-renderer slug for the \"Rank &amp; torsion gallery\" widget on the elliptic-curves topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs and re-derived meta by scripts/fixup-verbatim-widget-meta.mjs.",
+  "description": "The \"Rank & torsion gallery\" widget on the elliptic-curves topic, migrated from a verbatim slug to a semantic renderer. A dropdown selects one of a gallery of elliptic curves (known LMFDB/Cremona data); the readout shows the Weierstrass equation, Mordell-Weil rank, torsion subgroup, and a note. The full curve dataset (params.curves = {label, eq, rank, tors, note}[]), header title/hint, and DOM id prefix are now inspectable, AJV-validated params instead of being buried in an opaque markup/script string.",
   "meta": {
-    "family": "verbatim",
+    "family": "ec-mw",
     "dimension": "2d",
     "gesture": "select",
     "role": "interactive"
   },
   "type": "object",
   "additionalProperties": false,
-  "required": [
-    "widgetId",
-    "title",
-    "hint",
-    "bodyMarkup",
-    "bodyScript"
-  ],
+  "required": ["widgetId", "title", "hint", "idPrefix", "curves"],
   "properties": {
     "widgetId": {
       "type": "string",
       "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
-      "description": "DOM id for the widget root, or empty string when the original markup carried no id."
+      "description": "DOM id for the widget root div (slug-prefixed to avoid colliding with section anchors)."
     },
-    "title": {
+    "title": { "type": "string", "description": "Header title (.hd > .ttl)." },
+    "hint": { "type": "string", "description": "Header hint (.hd > .hint)." },
+    "idPrefix": {
       "type": "string",
-      "description": "Header title (rendered inside .hd > .ttl by the original markup)."
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "Prefix for the widget's DOM ids (e.g. 'mw' -> mw-sel, mw-out)."
     },
-    "hint": {
-      "type": "string",
-      "description": "Header hint (rendered inside .hd > .hint)."
-    },
-    "bodyMarkup": {
-      "type": "string",
-      "description": "Verbatim markup for the widget — the full `<div class=\"widget\">…</div>` block as it appears in the source HTML.",
-      "x-artifact": true
-    },
-    "bodyScript": {
-      "type": "string",
-      "description": "Verbatim driving `<script>…</script>` block, or empty string when the widget has no driving script.",
-      "x-artifact": true
+    "curves": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Gallery of elliptic curves with known rank/torsion data.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["label", "eq", "rank", "tors", "note"],
+        "properties": {
+          "label": { "type": "string", "description": "Dropdown <option> text (summary)." },
+          "eq": { "type": "string", "description": "Weierstrass equation, shown in the readout." },
+          "rank": { "type": "integer", "minimum": 0, "description": "Mordell-Weil rank." },
+          "tors": { "type": "string", "description": "Torsion subgroup description." },
+          "note": { "type": "string", "description": "Explanatory note shown in the readout." }
+        }
+      }
     }
   }
 }
