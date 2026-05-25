@@ -290,6 +290,19 @@
           "html": "<section id=\"khovanov\">\n<h2>8. Khovanov homology</h2>\n<p>The Jones polynomial $V_L(q)$ assigns an integer to each power of $q$. Khovanov's idea (1999) is to upgrade those integers to <em>vector spaces</em> and the formal $\\pm$ signs in the Kauffman state sum to a <em>differential</em>, producing a bigraded chain complex whose chain-homotopy type is a link invariant. Decategorifying — taking graded Euler characteristic — recovers Jones, but the upgrade is strict: Khovanov sees pairs of links Jones cannot.</p>\n\n<p>Fix an oriented diagram $D$ with $n_+$ positive and $n_-$ negative crossings. Each crossing has a <em>$0$-smoothing</em> and a <em>$1$-smoothing</em>; picking one at every crossing gives a <em>state</em> $s \\in \\{0,1\\}^n$ whose smoothed diagram is a union of $c(s)$ circles. Replace each circle by a 2-dim graded space $A = \\mathbb{Q}\\langle 1, X\\rangle$ with $\\deg(1) = 1$, $\\deg(X) = -1$:</p>\n\n<p>$$\\widetilde{C}^{i,j}(D) \\;=\\; \\bigoplus_{|s| - n_- = i} A^{\\otimes c(s)}\\{j - i + n_+ - 2n_-\\}.$$</p>\n\n<p>The differential $d: C^{i,j} \\to C^{i+1,j}$ comes from flipping one $0$ to a $1$: a merge of two circles uses multiplication $A \\otimes A \\to A$ (with $X^2 = 0$); a split uses comultiplication $A \\to A \\otimes A$. Then $d^2 = 0$, and $H^{i,j}(L)$ is invariant under R1, R2, R3 up to bigraded chain-homotopy equivalence.</p>\n\n<div class=\"ok\"><strong>Decategorification.</strong> $\\sum_{i,j} (-1)^i q^j \\dim H^{i,j}(L) = (q + q^{-1})\\, V_L(q^2)$, the unnormalised Jones polynomial. Each graded slice of the state sum has been replaced by a vector space; the $\\pm 1$ signs by $(-1)^i$.</div>\n\n<p>What does categorification gain? Three headline applications:</p>\n\n<ul>\n  <li><strong>Strictly stronger than Jones.</strong> Bar-Natan's tables exhibit pairs of knots with identical $V_L(q)$ but different $H^{*,*}(L)$.</li>\n  <li><strong>Unknot detection (Kronheimer–Mrowka, 2010).</strong> $H^{*,*}(L) \\cong \\mathbb{Q}[X]/X^2$ iff $L$ is the unknot. Whether Jones detects the unknot remains a celebrated open problem; Khovanov resolves it.</li>\n  <li><strong>Functoriality under cobordism.</strong> An oriented surface cobordism $\\Sigma: L_0 \\to L_1 \\subset \\mathbb{R}^3 \\times [0,1]$ induces a map $H^{*,*}(L_0) \\to H^{*,*}(L_1)$ of bidegree $(0, \\chi(\\Sigma))$, well-defined up to sign. Jones has no such 4-dimensional refinement.</li>\n</ul>\n\n<p>Khovanov homology was the first <em>link homology</em> and the start of a flood: Lee homology and Rasmussen's $s$-invariant (a combinatorial proof of the Milnor torus-knot conjecture), knot Floer homology, $\\mathfrak{sl}_n$ Khovanov–Rozansky theories, HOMFLY homology. The slogan is <strong>every quantum invariant should be the Euler characteristic of a homology theory</strong> — categorification (Crane–Frenkel) lifts polynomial invariants to functors out of a cobordism category.</p>\n\n"
         },
         {
+          "type": "widget",
+          "slug": "knot-polynomials-khovanov",
+          "params": {
+            "widgetId": "w-khovanov",
+            "title": "Khovanov homology: the table whose Euler characteristic is Jones",
+            "hint": "pick a knot — the alternating sum of the bigraded table recovers the Jones polynomial"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
           "type": "raw",
           "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./homological.html#complexes\">Chain complexes</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
@@ -361,6 +374,14 @@
         {
           "type": "widget-script",
           "ref": "w-vass"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-khovanov"
         },
         {
           "type": "raw",
