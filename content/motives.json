@@ -412,6 +412,27 @@
           "html": "<section id=\"tannakian\">\n<h2>5. Tannakian categories — representations of an invisible group</h2>\n\n<p>The structural payoff of motives requires one more piece of category theory: the <em>Tannakian formalism</em>. A neutral Tannakian category over $k$ is a $k$-linear rigid abelian symmetric monoidal category $\\mathcal{T}$ together with a faithful exact tensor functor $\\omega\\colon \\mathcal{T} \\to \\mathsf{Vect}_k$ (the \"fiber functor\"), satisfying enough axioms that $\\mathcal{T}$ is equivalent to the category of finite-dimensional representations of an affine group scheme:</p>\n\n$$\\mathcal{T} \\;\\simeq\\; \\mathsf{Rep}_k\\bigl(\\underline{\\mathrm{Aut}}^\\otimes(\\omega)\\bigr).$$\n\n<p>The right-hand side names the group $G = \\underline{\\mathrm{Aut}}^\\otimes(\\omega)$ — the <em>Tannakian <a href=\"./algebraic-topology.html#pi1\" data-auto-inline-link=\"1\" data-concept-id=\"fundamental-group\" data-blurb=\"π₁(X,x₀): loop classes under concatenation. π₁(S¹)=ℤ, basepoint-change, functoriality.\">fundamental group</a></em> — as the automorphism scheme of the fiber functor: it remembers everything about $\\mathcal{T}$ as the symmetries of one realization. Choose a different fiber functor and you get an isomorphic group; choose two fiber functors and you get a torsor between the corresponding groups.</p>\n\n<aside class=\"note\"><b>Slogan (rephrased).</b> A Tannakian category is \"the category of representations of a group you haven't computed yet.\" Solving the category $\\Leftrightarrow$ solving the group.</aside>\n\n<p>Examples:</p>\n<ul>\n  <li>$\\mathsf{Vect}_k$ itself — Tannakian with $G = 1$.</li>\n  <li>Finite-dimensional $\\mathbb{Q}$-Hodge structures — Tannakian, with $G$ the <b>Mumford-Tate group</b>.</li>\n  <li>Finite-dimensional $\\mathbb{Q}_\\ell$-representations of $\\Gal(\\overline{\\mathbb{Q}}/\\mathbb{Q})$ — Tannakian, with $G$ the <em>algebraic envelope</em> (Zariski closure of the image inside $\\mathrm{GL}(V)$, taken as an affine $\\mathbb{Q}_\\ell$-group scheme), not a quotient of $G_\\mathbb{Q}$ itself: the absolute Galois group is profinite, while the Tannakian fundamental group is its associated algebraic group of $\\otimes$-symmetries.</li>\n  <li>Finite-dimensional $D$-modules with regular singularities on a complex variety — Tannakian, with $G$ a differential-Galois group.</li>\n</ul>\n\n"
         },
         {
+          "type": "widget",
+          "slug": "motives-tannakian",
+          "params": {
+            "widgetId": "w-tann",
+            "title": "Tannakian categories: Rep(G)’s fusion table remembers the group",
+            "hint": "pick G; the tensor (Clebsch–Gordan) table + fiber functor recover G = Aut⊗(ω)"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-tann"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
           "type": "quiz",
           "concept": "tannakian-categories",
           "html": "<div class=\"quiz\" data-concept=\"tannakian-categories\"></div>"

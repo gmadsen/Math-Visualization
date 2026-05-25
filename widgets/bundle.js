@@ -14843,6 +14843,24 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "motives-tannakian",
+    "family": "motives-tannakian",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "motives-tannakian widget params",
+    "description": "The Tannakian formalism made concrete on its prototype, the representation category Rep(G) of a finite group. A neutral Tannakian category is a k-linear rigid abelian symmetric monoidal category with a faithful exact tensor functor omega (the fiber functor) to vector spaces, and Tannakian reconstruction recovers the group as the tensor-automorphisms of omega. Buttons pick a small group (Z/3 or S_3); the widget draws the Clebsch-Gordan FUSION TABLE of its irreducible representations (each cell V_i tensor V_j decomposed into irreducibles), lists the fiber-functor dimensions omega(V_i) = k to the dim, and states the reconstruction. For Z/3 the three 1-dimensional characters tensor by adding indices mod 3, so the fusion table is literally the group table; for S_3 the only non-abelian fusion is std tensor std = triv + sign + std (dimension 4 = 1+1+2). The readout explains the formalism (rigid abelian symmetric monoidal category plus fiber functor), the reconstruction G = Aut-tensor(omega), and how this is the engine behind the motivic Galois group (the Tannakian group of the category of numerical motives, with the Betti realization as fiber functor). No numeric params beyond the standard widgetId/title/hint.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Bespoke widget for `motives.html` (§5 *Tannakian categories — representations of an invisible group*, concept `tannakian-categories`). It makes the Tannakian formalism concrete on its prototype, **Rep(G)** for a finite group $G$. Single module, not part of a shared family.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "motives-tate-twist",
     "family": "motives-tate-twist",
     "dimension": "2d",
