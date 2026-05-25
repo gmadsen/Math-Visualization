@@ -15,10 +15,21 @@
           "slug": "ec-disc",
           "params": {
             "widgetId": "disc",
-            "title": "",
-            "hint": "",
-            "bodyMarkup": "<div class=\"widget\">\n<div class=\"hd\"><span class=\"ttl\">Discriminant watch</span><span class=\"hint\">slide to see smoothness boundary</span></div>\n<div class=\"row\">\n  <label>$a$ \n<input type=\"range\" id=\"disc-a\" min=\"-4\" max=\"4\" step=\"0.05\" value=\"-3\"></label>\n  <span id=\"disc-aval\" class=\"small\">-3</span>\n</div>\n<div class=\"row\">\n  <label>$b$ <input type=\"range\" id=\"disc-b\" min=\"-4\" max=\"4\" step=\"0.05\" value=\"2\"></label>\n  <span id=\"disc-bval\" class=\"small\">2</span>\n</div>\n<div id=\"disc-out\" class=\"readout\"></div>\n</div>",
-            "bodyScript": "<script>\n(function(){\n  const A = document.getElementById('disc-a');\n  const B = document.getElementById('disc-b');\n  const Av = document.getElementById('disc-aval');\n  const Bv = document.getElementById('disc-bval');\n  const out = document.getElementById('disc-out');\n  function upd(){\n    const a = +A.value, b = +B.value;\n    Av.textContent = a.toFixed(2);\n    Bv.textContent = b.toFixed(2);\n    const d = -16*(4*a*a*a + 27*b*b);\n    let msg = 'Delta = -16(4a^3 + 27 b^2) = ' + d.toFixed(4);\n    if(Math.abs(d) < 1e-3) msg += '\\nnear-singular: curve has a node or cusp.';\n    else if(d > 0) msg += '\\nsmooth; real locus has two components (oval + unbounded).';\n    else msg += '\\nsmooth; real locus has one unbounded component.';\n    out.textContent = msg;\n  }\n  A.addEventListener('input', upd);\n  B.addEventListener('input', upd);\n  upd();\n})();\n</script>"
+            "title": "Discriminant watch",
+            "hint": "slide to see smoothness boundary",
+            "idPrefix": "disc",
+            "a": {
+              "min": -4,
+              "max": 4,
+              "step": 0.05,
+              "value": -3
+            },
+            "b": {
+              "min": -4,
+              "max": 4,
+              "step": 0.05,
+              "value": 2
+            }
           }
         },
         {
