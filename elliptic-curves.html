@@ -971,7 +971,7 @@ A direct check: $a \mapsto u^4 a$ sends $a^3 \mapsto u^{12} a^3$, $b \mapsto u^6
   <tr><td>$y^2 = x^3 - 9504 x + 365904$</td><td>$-9504$</td><td>$365904$</td><td>$-32768$</td><td>CM by $\mathbb{Q}(\sqrt{-11})$</td></tr>
 </table>
 
-<div class="widget">
+<div class="widget" id="ec-j">
 <div class="hd"><span class="ttl">$j$-invariant calculator</span><span class="hint">and famous curves</span></div>
 <div class="row">
   <label>$a$ <input type="range" id="j-a" min="-8" max="8" step="0.1" value="-1"></label>
@@ -1020,7 +1020,6 @@ A direct check: $a \mapsto u^4 a$ sends $a^3 \mapsto u^{12} a^3$, $b \mapsto u^6
   document.querySelectorAll('button[data-ab]').forEach(btn=>{
     btn.addEventListener('click', ()=>{
       const [a,b] = btn.dataset.ab.split(',').map(Number);
-      // Compute directly from preset (sliders may clamp large CM values).
       compute(a, b);
     });
   });

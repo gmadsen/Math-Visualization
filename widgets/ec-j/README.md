@@ -1,7 +1,16 @@
 # `ec-j`
 
-Bespoke verbatim slug for the "$j$-invariant calculator" widget on `elliptic-curves`.
+Bespoke semantic renderer for the **$j$-invariant calculator** on `elliptic-curves`.
 
-Migrated from inline `<div class="widget">` markup (Type A: raw HTML buried in a `raw` block) by `scripts/migrate-inline-widgets-typea.mjs`. Uses the shared renderer at `widgets/_shared/verbatim-renderer.mjs` — `bodyMarkup` and `bodyScript` are emitted verbatim. See `schema.json` for the param shape.
+Two sliders $a,b$ drive $j = 1728\,\dfrac{4a^3}{4a^3 + 27b^2}$ for $y^2 = x^3 + ax + b$; the readout
+shows $\Delta$, $j$, and CM annotations ($j=0$: CM by $\mathbb{Z}[\omega]$; $j=1728$: CM by
+$\mathbb{Z}[i]$). A gallery of preset buttons jumps to famous complex-multiplication curves
+($j = 0, 1728, -3375, -32768$).
 
-A future deeper migration could hoist this widget's semantic params (slider ranges, etc.) out of the opaque body strings into typed schema fields.
+Migrated from a verbatim slug to this semantic renderer (PLAN.md verbatim→semantic program). The
+slider ranges/defaults (`params.a`, `params.b`), header `title`/`hint`, DOM `idPrefix`, and the
+**preset gallery** (`params.presets` = `{a, b, label}[]`) are now inspectable, AJV-validated params;
+the $j$-invariant formula and CM annotations are the renderer's intrinsic behavior. Output is
+visually/behaviorally identical to the pre-migration widget (the host div gained an `id`).
+
+See [`schema.json`](./schema.json) for the param shape.

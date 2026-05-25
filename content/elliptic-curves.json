@@ -194,11 +194,44 @@
           "type": "widget",
           "slug": "ec-j",
           "params": {
-            "widgetId": "j",
-            "title": "",
-            "hint": "",
-            "bodyMarkup": "<div class=\"widget\">\n<div class=\"hd\"><span class=\"ttl\">$j$-invariant calculator</span><span class=\"hint\">and famous curves</span></div>\n<div class=\"row\">\n  <label>$a$ <input type=\"range\" id=\"j-a\" min=\"-8\" max=\"8\" step=\"0.1\" value=\"-1\"></label>\n  <span id=\"j-aval\" class=\"small\">-1</span>\n  <label>$b$ <input type=\"range\" id=\"j-b\" min=\"-8\" max=\"8\" step=\"0.1\" value=\"0\"></label>\n  <span id=\"j-bval\" class=\"small\">0</span>\n</div>\n<div class=\"row\">\n  <button data-ab=\"0,1\">$j = 0$ (CM ω)</button>\n  <button data-ab=\"-1,0\">$j = 1728$ (CM i)</button>\n  <button data-ab=\"-35,98\">$j = -3375$ (CM √−7)</button>\n  <button data-ab=\"-9504,365904\">$j = -32768$ (CM √−11)</button>\n</div>\n<div id=\"j-out\" class=\"readout\"></div>\n</div>",
-            "bodyScript": "<script>\n(function(){\n  const A = document.getElementById('j-a');\n  const B = document.getElementById('j-b');\n  const Av = document.getElementById('j-aval');\n  const Bv = document.getElementById('j-bval');\n  const out = document.getElementById('j-out');\n  function compute(a, b){\n    Av.textContent = a.toFixed(2);\n    Bv.textContent = b.toFixed(2);\n    const D = -16*(4*a*a*a + 27*b*b);\n    const numer = 4*a*a*a;\n    const denom = 4*a*a*a + 27*b*b;\n    let msg;\n    if(Math.abs(denom) < 1e-9){\n      msg = 'Δ = 0 (singular); j undefined (or ∞)';\n    } else {\n      const j = 1728 * numer / denom;\n      msg = 'a = '+a+',  b = '+b+'\\n'+\n            'Δ = -16(4a³+27b²) = '+D+'\\n'+\n            'j = 1728 · 4a³/(4a³+27b²) = '+j;\n      if(Math.abs(j) < 1e-6) msg += '\\nj = 0: CM by Z[ω], endomorphism e^(2πi/3).';\n      else if(Math.abs(j - 1728) < 1e-3) msg += '\\nj = 1728: CM by Z[i], endomorphism i.';\n    }\n    out.textContent = msg;\n  }\n  function updFromSliders(){ compute(+A.value, +B.value); }\n  A.addEventListener('input', updFromSliders);\n  B.addEventListener('input', updFromSliders);\n  document.querySelectorAll('button[data-ab]').forEach(btn=>{\n    btn.addEventListener('click', ()=>{\n      const [a,b] = btn.dataset.ab.split(',').map(Number);\n      // Compute directly from preset (sliders may clamp large CM values).\n      compute(a, b);\n    });\n  });\n  updFromSliders();\n})();\n</script>"
+            "widgetId": "ec-j",
+            "title": "$j$-invariant calculator",
+            "hint": "and famous curves",
+            "idPrefix": "j",
+            "a": {
+              "min": -8,
+              "max": 8,
+              "step": 0.1,
+              "value": -1
+            },
+            "b": {
+              "min": -8,
+              "max": 8,
+              "step": 0.1,
+              "value": 0
+            },
+            "presets": [
+              {
+                "a": 0,
+                "b": 1,
+                "label": "$j = 0$ (CM ω)"
+              },
+              {
+                "a": -1,
+                "b": 0,
+                "label": "$j = 1728$ (CM i)"
+              },
+              {
+                "a": -35,
+                "b": 98,
+                "label": "$j = -3375$ (CM √−7)"
+              },
+              {
+                "a": -9504,
+                "b": 365904,
+                "label": "$j = -32768$ (CM √−11)"
+              }
+            ]
           }
         },
         {
@@ -207,7 +240,7 @@
         },
         {
           "type": "widget-script",
-          "ref": "j"
+          "ref": "ec-j"
         },
         {
           "type": "raw",
