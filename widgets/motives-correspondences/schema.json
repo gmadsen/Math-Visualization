@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/motives-correspondences/schema.json",
+  "title": "motives-correspondences widget params",
+  "description": "Algebraic correspondences as the morphisms of the category of motives, made concrete on 0-dimensional varieties (finite sets of points), where a correspondence is a matrix and composition is matrix multiplication / path-counting. A correspondence from X to Y is a Q-linear combination of subvarieties of X x Y (an element of the Chow group of X x Y); composition beta . alpha = (p_XZ)_* ( (p_XY)^* alpha . (p_YZ)^* beta ) on the triple product. For finite point sets this composition formula is exactly the weighted count of paths through Y, i.e. the product of the multiplicity matrices. Buttons pick a scenario on columns X, Y, Z of points: graphs of honest maps f, g (whose composite correspondence is the graph of g . f); a multivalued Hecke-type correspondence (where composition produces multiplicities by counting paths); and the diagonal Delta_X as the identity correspondence (beta . Delta = beta). The widget draws the bipartite diagrams with edge multiplicities and the composite X -> Z edges labelled by their path counts, and the readout explains that morphisms in Mot_k are correspondences not maps (a map embeds via its graph), the pushforward-pullback composition law, the transpose, and the diagonal as identity. No numeric params beyond the standard widgetId/title/hint.",
+  "meta": {
+    "family": "motives-correspondences",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\"> wrapper."
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title rendered inside .hd > .ttl."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional short hint rendered inside .hd > .hint."
+    }
+  }
+}

@@ -457,6 +457,71 @@ $$\beta \circ \alpha := (p_{XZ})_*\bigl((p_{XY})^*\alpha \cdot (p_{YZ})^*\beta\b
 
 <p>The crucial generalisation over morphisms: every cohomology theory turns a correspondence $\alpha \in \mathrm{Corr}^r(X, Y)$ into a linear map $\alpha_*\colon H^*(X) \to H^{*+2r}(Y)$ by $\alpha_*(\xi) = (p_Y)_*(\mathrm{cl}(\alpha) \cdot p_X^*\xi)$ where $\mathrm{cl}$ is the cycle-class map. <em>That</em> is what motives need: a class of "morphisms" each cohomology theory can interpret consistently.</p>
 
+<div class="widget" id="w-corr">
+  <div class="hd"><div class="ttl">Correspondences are the morphisms: composition = counting paths (matrix product)</div><div class="hint">pick a scenario; β∘α counts weighted paths through Y</div></div>
+  <div class="row" id="w-corr-btns">
+    <button type="button" data-k="graphs" class="active" aria-pressed="true">graphs of maps</button>
+    <button type="button" data-k="hecke" class="" aria-pressed="false">multivalued (Hecke-type)</button>
+    <button type="button" data-k="id" class="" aria-pressed="false">diagonal = identity</button>
+  </div>
+  <svg id="w-corr-svg" viewBox="0 0 560 320" width="560" height="320" role="img" aria-label="Correspondences between finite point sets drawn as bipartite diagrams, with the composite correspondence computed by counting weighted paths"><title>Columns of points X, Y, Z. A correspondence alpha from X to Y and beta from Y to Z are drawn as edges with multiplicities; the composite beta after alpha from X to Z is shown with each edge labelled by the number of weighted paths through Y, which is the pushforward-pullback composition law and equals the product of the multiplicity matrices.</title></svg>
+  <div class="readout" id="w-corr-out"></div>
+</div>
+
+<script>
+/* motives-correspondences widget: w-corr */
+(function(){
+  var svg=document.getElementById('w-corr-svg'), out=document.getElementById('w-corr-out');
+  var btns=document.getElementById('w-corr-btns');
+  if(!svg||!out||!btns) return;
+  var NS='http://www.w3.org/2000/svg';
+  function mk(tag,attrs,text){ var e=document.createElementNS(NS,tag); for(var k in attrs){ e.setAttribute(k,attrs[k]); } if(text!=null) e.textContent=text; return e; }
+  function txt(x,y,s,opt){ opt=opt||{}; svg.appendChild(mk('text',{x:x,y:y,'text-anchor':opt.anchor||'middle','font-size':opt.size||12,fill:opt.fill||'var(--ink)','font-weight':opt.weight||'normal','font-family':opt.mono?'monospace':'inherit'},s)); }
+  // a = alpha (Y x X), b = beta (Z x Y); sizes inferred from matrices
+  var SC=[
+    {k:'graphs', nx:2, ny:3, nz:2, a:[[1,0],[0,0],[0,1]], b:[[1,1,0],[0,0,1]],
+      note:'When \u03b1 = graph(f) and \u03b2 = graph(g) are the graphs of honest maps (one edge out of each source point), the composite \u03b2\u2218\u03b1 is the graph of g\u2218f. So ordinary composition of maps is the special case \u2014 a morphism of varieties f: X \u2192 Y enters Mot_k as its GRAPH \u0393_f \u2282 X\u00d7Y, and Var embeds into the category of correspondences.'},
+    {k:'hecke', nx:2, ny:3, nz:2, a:[[1,0],[1,1],[0,1]], b:[[1,1,0],[0,1,1]],
+      note:'A correspondence need not be a graph: here each point spreads to several (a MULTIVALUED, Hecke-type correspondence). Composition COUNTS WEIGHTED PATHS through Y \u2014 \u03b2\u2218\u03b1(x,z) = \u03a3_y \u03b1(x,y)\u00b7\u03b2(y,z) \u2014 producing multiplicities (a 2 wherever two paths exist). This path-count IS the pushforward\u2013pullback formula, and it is how Hecke operators and the Frobenius correspondence act on cohomology.'},
+    {k:'id', nx:2, ny:2, nz:2, a:[[1,0],[0,1]], b:[[1,1],[0,1]],
+      note:'The DIAGONAL \u0394_X \u2282 X\u00d7X (the graph of the identity map) is the IDENTITY morphism: \u03b2\u2218\u0394 = \u03b2 for every \u03b2. With composition the pushforward\u2013pullback law and \u0394 the unit, smooth projective varieties and correspondences form a category \u2014 the starting point for pure motives (one then cuts by projectors p = p\u2218p).'},
+  ];
+  var cur='graphs';
+  function mul(B,A){ var Z=B.length, Y=A.length, X=A[0].length, R=[]; for(var z=0;z<Z;z++){ R[z]=[]; for(var x=0;x<X;x++){ var s=0; for(var y=0;y<Y;y++) s+=B[z][y]*A[y][x]; R[z][x]=s; } } return R; }
+  function col(n,yTop,yBot){ var ys=[]; for(var i=0;i<n;i++) ys.push(yTop+(i+0.5)*(yBot-yTop)/n); return ys; }
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    var S=null; for(var i=0;i<SC.length;i++) if(SC[i].k===cur) S=SC[i];
+    if(!S) return;
+    var C=mul(S.b,S.a);
+    var xX=55, xY=180, xZ=305, xX2=410, xZ2=510, yTop=64, yBot=224;
+    var YX=col(S.nx,yTop,yBot), YY=col(S.ny,yTop,yBot), YZ=col(S.nz,yTop,yBot);
+    var YX2=col(S.nx,yTop,yBot), YZ2=col(S.nz,yTop,yBot);
+    txt((xX+xZ)/2,34,'\u03b1 (X \u22a2 Y, cyan)   \u00b7   \u03b2 (Y \u22a2 Z, violet)',{size:9.5,fill:'var(--mute)'});
+    txt(xX,54,'X',{size:12,fill:'var(--mute)',weight:700}); txt(xY,54,'Y',{size:12,fill:'var(--mute)',weight:700}); txt(xZ,54,'Z',{size:12,fill:'var(--mute)',weight:700});
+    txt((xX2+xZ2)/2,54,'\u03b2\u2218\u03b1 : X \u22a2 Z',{size:10,fill:'var(--green)',weight:700});
+    function edge(x1,y1,x2,y2,m,colr){ if(m<=0) return; svg.appendChild(mk('line',{x1:x1,y1:y1,x2:x2,y2:y2,stroke:colr,'stroke-width':1+0.8*Math.min(m,3),'stroke-opacity':0.8})); if(m>1) txt((x1+x2)/2,(y1+y2)/2-3,'\u00d7'+m,{size:8.5,fill:colr,weight:700}); }
+    function dot(x,y,col){ svg.appendChild(mk('circle',{cx:x,cy:y,r:6,fill:'var(--panel2)',stroke:col,'stroke-width':1.6})); }
+    // alpha edges (Y x X)
+    for(var x=0;x<S.nx;x++) for(var y=0;y<S.ny;y++) edge(xX,YX[x],xY,YY[y],S.a[y][x],'var(--cyan)');
+    // beta edges (Z x Y)
+    for(var y=0;y<S.ny;y++) for(var z=0;z<S.nz;z++) edge(xY,YY[y],xZ,YZ[z],S.b[z][y],'var(--violet)');
+    YX.forEach(function(yy){ dot(xX,yy,'var(--cyan)'); }); YY.forEach(function(yy){ dot(xY,yy,'var(--ink)'); }); YZ.forEach(function(yy){ dot(xZ,yy,'var(--violet)'); });
+    // composite
+    for(var x2=0;x2<S.nx;x2++) for(var z2=0;z2<S.nz;z2++) edge(xX2,YX2[x2],xZ2,YZ2[z2],C[z2][x2],'var(--green)');
+    YX2.forEach(function(yy){ dot(xX2,yy,'var(--green)'); }); YZ2.forEach(function(yy){ dot(xZ2,yy,'var(--green)'); });
+    // composition law line
+    txt(280, 264, '\u03b2\u2218\u03b1(x, z) = \u03a3_y \u03b1(x, y)\u00b7\u03b2(y, z)   (weighted paths through Y)   =   the pushforward\u2013pullback formula', {size:10, fill:'var(--cyan)'});
+    txt(280, 282, 'on 0-dimensional varieties this is exactly the product of the multiplicity matrices', {size:9.5, fill:'var(--mute)'});
+    out.textContent='In the category of motives Mot_k, the MORPHISMS are not maps of varieties \u2014 they are ALGEBRAIC CORRESPONDENCES: \u211a-linear combinations of subvarieties of a product. For smooth projective X, Y of dimensions d_X, d_Y, a correspondence of degree r from X to Y is an element of Corr\u02b3(X,Y) = CH^{d_X+r}(X\u00d7Y)\u2297\u211a, where CH* is the Chow group (algebraic cycles modulo rational equivalence). Two correspondences compose by a pushforward\u2013pullback on the triple product: \u03b2\u2218\u03b1 = (p_{XZ})_*( (p_{XY})*\u03b1 \u00b7 (p_{YZ})*\u03b2 ), the \u201c\u00b7\u201d being the intersection product. The cleanest place to SEE this is on 0-dimensional varieties (finite sets of points): there a correspondence is just a MATRIX of multiplicities, the intersection-and-pushforward collapses to \u03b2\u2218\u03b1(x,z) = \u03a3_y \u03b1(x,y)\u00b7\u03b2(y,z), and composition is literally MATRIX MULTIPLICATION \u2014 the weighted count of paths x \u2192 y \u2192 z through the middle. Three things the picture makes plain: (1) an ordinary map f: X \u2192 Y is a special correspondence, its GRAPH \u0393_f, and composing graphs reproduces composing maps (the graphs scenario) \u2014 so Var embeds into correspondences; (2) most correspondences are NOT graphs (the multivalued scenario): a point can spread to several, and composition then carries MULTIPLICITIES \u2014 this extra freedom is exactly what lets Hecke operators, the Frobenius correspondence, and projectors live as endomorphisms of a variety; (3) the DIAGONAL \u0394_X is the identity (\u03b2\u2218\u0394 = \u03b2), and the TRANSPOSE of \u03b1 (swapping the two factors of X\u00d7Y) reverses source and target. With these, smooth projective varieties and correspondences form a category; pure motives are then built by splitting objects along idempotent correspondences p = p\u2218p (projectors), e.g. carving h\u00b9(C) out of a curve C.';
+  }
+  btns.addEventListener('click', function(e){ var b=e.target.closest('button'); if(!b) return; cur=b.getAttribute('data-k');
+    Array.prototype.forEach.call(btns.querySelectorAll('button'), function(x){ var on=x===b; x.classList.toggle('active', on); x.setAttribute('aria-pressed', on?'true':'false'); });
+    draw(); });
+  draw();
+})();
+</script>
+
 <div class="quiz" data-concept="algebraic-correspondences"></div><!-- callback-auto-begin -->
 <aside class="callback">
   <div class="ttl">See also</div>

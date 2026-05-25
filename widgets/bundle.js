@@ -14786,6 +14786,24 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "motives-correspondences",
+    "family": "motives-correspondences",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "motives-correspondences widget params",
+    "description": "Algebraic correspondences as the morphisms of the category of motives, made concrete on 0-dimensional varieties (finite sets of points), where a correspondence is a matrix and composition is matrix multiplication / path-counting. A correspondence from X to Y is a Q-linear combination of subvarieties of X x Y (an element of the Chow group of X x Y); composition beta . alpha = (p_XZ)_* ( (p_XY)^* alpha . (p_YZ)^* beta ) on the triple product. For finite point sets this composition formula is exactly the weighted count of paths through Y, i.e. the product of the multiplicity matrices. Buttons pick a scenario on columns X, Y, Z of points: graphs of honest maps f, g (whose composite correspondence is the graph of g . f); a multivalued Hecke-type correspondence (where composition produces multiplicities by counting paths); and the diagonal Delta_X as the identity correspondence (beta . Delta = beta). The widget draws the bipartite diagrams with edge multiplicities and the composite X -> Z edges labelled by their path counts, and the readout explains that morphisms in Mot_k are correspondences not maps (a map embeds via its graph), the pushforward-pullback composition law, the transpose, and the diagonal as identity. No numeric params beyond the standard widgetId/title/hint.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Bespoke widget for `motives.html` (§2 *Correspondences as morphisms*, concept `algebraic-correspondences`). It makes the morphisms of $\\mathsf{Mot}_k$ concrete on 0-dimensional varieties, where a correspondence is a **matrix** and composition is **matrix multiplication / path-counting**. Single module, not part of a shared family.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "motives-realization-comparison",
     "family": "motives-realization-comparison",
     "dimension": "2d",
