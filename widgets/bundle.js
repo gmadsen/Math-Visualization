@@ -12256,6 +12256,24 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "knot-polynomials-khovanov",
+    "family": "knot-polynomials-khovanov",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "knot-polynomials-khovanov widget params",
+    "description": "Khovanov homology Kh^{i,j}(K) displayed as a bigraded table (homological degree i across, quantum degree j up) for the unknot, the right-handed trefoil 3_1, and the figure-eight 4_1, with rational (unreduced) coefficients so each cell is a dimension. The widget computes the graded Euler characteristic sum_{i,j} (-1)^i q^j dim Kh^{i,j} live from the table and shows it equals (q + q^{-1}) V_L(q^2), the unnormalised Jones polynomial — the decategorification that makes Khovanov homology a categorification of Jones. The table and the polynomial are two independent computations shown to agree. The readout explains the construction (each circle of a Kauffman smoothing gets A = Q<1,X>, deg 1 = +1, deg X = -1; merges use multiplication with X^2 = 0, splits use comultiplication; d^2 = 0; invariant under Reidemeister up to chain homotopy), decategorification, and that Khovanov homology is strictly stronger and functorial (Rasmussen s-invariant, unknot detection). Tables are the standard Knot Atlas / Bar-Natan rational ranks. No numeric params beyond the standard widgetId/title/hint.",
+    "requiredParams": [
+      "widgetId",
+      "title"
+    ],
+    "readmeExcerpt": "Bespoke widget for `knot-polynomials.html` (§8 *Khovanov homology*, concept `kp-khovanov-homology`). Single module, not part of a shared family.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "knot-polynomials-reidemeister",
     "family": "knot-polynomials-reidemeister",
     "dimension": "2d",
