@@ -1480,48 +1480,6 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "bn-w5",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "bn-w5 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the brill-noether topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `brill-noether` topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "bn-w7",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "bn-w7 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the brill-noether topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `brill-noether` topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "branching-proof-scrubber",
     "family": "branching-proof-scrubber",
     "dimension": "2d",
@@ -5930,90 +5888,6 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "dtgw-w2",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "dtgw-w2 widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Virtual dimension on a CY3-fold\" widget on the donaldson-thomas-and-gw-invariants topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Virtual dimension on a CY3-fold\" widget on `donaldson-thomas-and-gw-invariants`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "dtgw-w4",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "dtgw-w4 widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Genus expansion vs. DT $q$-series\" widget on the donaldson-thomas-and-gw-invariants topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Genus expansion vs. DT $q$-series\" widget on `donaldson-thomas-and-gw-invariants`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "dtgw-w5",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "dtgw-w5 widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"MNOP change of variables — step through the substitution\" widget on the donaldson-thomas-and-gw-invariants topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"MNOP change of variables — step through the substitution\" widget on `donaldson-thomas-and-gw-invariants`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "dtgw-w6",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "dtgw-w6 widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Topological vertex — click an example geometry\" widget on the donaldson-thomas-and-gw-invariants topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Topological vertex — click an example geometry\" widget on `donaldson-thomas-and-gw-invariants`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "ec-disc",
     "family": "ec-disc",
     "dimension": "2d",
@@ -7890,90 +7764,6 @@ window.__MVWidgets = [
       "bodyScript"
     ],
     "readmeExcerpt": "Bespoke widget for the general-relativity topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "git-w1",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "git-w1 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the geometric-invariant-theory topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `geometric-invariant-theory` topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "git-w3",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "git-w3 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the geometric-invariant-theory topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `geometric-invariant-theory` topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "git-w4",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "git-w4 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the geometric-invariant-theory topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `geometric-invariant-theory` topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "git-w5",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "git-w5 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the geometric-invariant-theory topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `geometric-invariant-theory` topic.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
@@ -11404,27 +11194,6 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "mathbio-w6",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "mathbio-w6 widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Replicator on the 2-simplex\" widget on the mathematical-biology topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Replicator on the 2-simplex\" widget on `mathematical-biology`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "matroid-axiom-checker",
     "family": "matroid-axiom-checker",
     "dimension": "2d",
@@ -12019,27 +11788,6 @@ window.__MVWidgets = [
     "gesture": "click",
     "role": "interactive",
     "title": "mmp-and-birational-geometry-w3 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the mmp-and-birational-geometry topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `mmp-and-birational-geometry` topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "mmp-and-birational-geometry-w6",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "mmp-and-birational-geometry-w6 widget params",
     "description": "Verbatim-renderer slug for an inline widget on the mmp-and-birational-geometry topic.",
     "requiredParams": [
       "widgetId",
@@ -14872,90 +14620,6 @@ window.__MVWidgets = [
       "title"
     ],
     "readmeExcerpt": "Bespoke widget for `riemann-surfaces.html` (§1 *What is a Riemann surface?*, concept `riemann-surface-definition`). It makes the **definition** tangible — a Riemann surface is a space with a holomorphic atlas whose transition maps are biholomorphic — on the smallest non-trivial example, the Riemann sphere $\\mathbb{CP}^1$. Single module, not part of a shared family.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "rmt-w1",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "rmt-w1 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the random-matrix-theory topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `random-matrix-theory` topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "rmt-w4",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "rmt-w4 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the random-matrix-theory topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `random-matrix-theory` topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "rmt-w6",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "rmt-w6 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the random-matrix-theory topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `random-matrix-theory` topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "rmt-w7",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "rmt-w7 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the random-matrix-theory topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `random-matrix-theory` topic.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
