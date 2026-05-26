@@ -254,19 +254,15 @@ $$\|T(t)\|_{B(X)} \;\le\; M\,e^{\omega t} \qquad \text{for all } t\ge 0.$$
     <button id="sg-c0-heat" class="active">heat $T(t)=e^{t\Delta}$</button>
     <button id="sg-c0-wave">wave (1D, traveling)</button>
     <button id="sg-c0-schro">Schrödinger $T(t)=e^{-it\Delta}$</button>
-  </div>
-  <div class="row">
     <label for="sg-c0-t">$t$:</label>
-    <input id="sg-c0-t" type="range" min="0" max="1" step="0.02" value="0.4">
+    <input type="range" id="sg-c0-t" min="0" max="1" step="0.02" value="0.4">
     <span id="sg-c0-t-out" class="small"></span>
-  </div>
-  <div class="row">
     <label for="sg-c0-s">$s$:</label>
-    <input id="sg-c0-s" type="range" min="0" max="1" step="0.02" value="0.3">
+    <input type="range" id="sg-c0-s" min="0" max="1" step="0.02" value="0.3">
     <span id="sg-c0-s-out" class="small"></span>
   </div>
   <svg id="sg-c0-svg" viewBox="-260 -150 520 280" width="100%" height="320"><title>Semigroup law: applying T(s) to T(t)u equals T(s+t)u</title></svg>
-  <div id="sg-c0-out" class="readout"></div>
+  <div class="readout" id="sg-c0-out"></div>
 </div><script>
 (function(){
   const svg = document.getElementById('sg-c0-svg');
@@ -491,14 +487,12 @@ $$\frac{d}{dt}T(t)x \;=\; A\,T(t)x \;=\; T(t)\,A x \qquad \text{for }x\in D(A),\
   <div class="row">
     <button id="sg-gen-smooth" class="active">u smooth (in D(A))</button>
     <button id="sg-gen-rough">u rough (jump, not in D(A))</button>
-  </div>
-  <div class="row">
     <label for="sg-gen-h">$h$:</label>
-    <input id="sg-gen-h" type="range" min="0.005" max="0.5" step="0.005" value="0.1">
+    <input type="range" id="sg-gen-h" min="0.005" max="0.5" step="0.005" value="0.1">
     <span id="sg-gen-h-out" class="small"></span>
   </div>
   <svg id="sg-gen-svg" viewBox="-260 -150 520 280" width="100%" height="320"><title>Difference quotient (T(h)u-u)/h converges to Au as h goes to zero</title></svg>
-  <div id="sg-gen-out" class="readout"></div>
+  <div class="readout" id="sg-gen-out"></div>
 </div><script>
 (function(){
   const svg = document.getElementById('sg-gen-svg');
@@ -629,14 +623,12 @@ $$A_n \;=\; n\,A\,(n - A)^{-1} \;=\; n^2(n-A)^{-1} - n\,I,$$
   <div class="row">
     <button id="sg-hy-diss" class="active">dissipative A = ∂² (heat-type)</button>
     <button id="sg-hy-bad">non-dissipative A = +1·I (growing)</button>
-  </div>
-  <div class="row">
     <label for="sg-hy-l">$\lambda$:</label>
-    <input id="sg-hy-l" type="range" min="0.2" max="6" step="0.1" value="1.5">
+    <input type="range" id="sg-hy-l" min="0.2" max="6" step="0.1" value="1.5">
     <span id="sg-hy-l-out" class="small"></span>
   </div>
   <svg id="sg-hy-svg" viewBox="-260 -150 520 280" width="100%" height="320"><title>Resolvent on a step, with Hille-Yosida bound check</title></svg>
-  <div id="sg-hy-out" class="readout"></div>
+  <div class="readout" id="sg-hy-out"></div>
 </div><script>
 (function(){
   const svg = document.getElementById('sg-hy-svg');
@@ -782,14 +774,12 @@ $$\bigl\|\,(\lambda - A)^{-1}\,\bigr\| \;\le\; \frac{M}{|\lambda|}\qquad \text{o
     <button id="sg-an-heat" class="active">heat: $T(t) = e^{t\Delta}$ (analytic)</button>
     <button id="sg-an-wave">wave: $u_{tt} = u_{xx}$ (not analytic)</button>
     <button id="sg-an-schro">Schrödinger: $T(t) = e^{-it\Delta}$ (not analytic)</button>
-  </div>
-  <div class="row">
     <label for="sg-an-t">$t$:</label>
-    <input id="sg-an-t" type="range" min="0" max="0.6" step="0.005" value="0.04">
+    <input type="range" id="sg-an-t" min="0" max="0.6" step="0.005" value="0.04">
     <span id="sg-an-t-out" class="small"></span>
   </div>
   <svg id="sg-an-svg" viewBox="-260 -150 520 280" width="100%" height="320"><title>Step initial datum under three semigroups</title></svg>
-  <div id="sg-an-out" class="readout"></div>
+  <div class="readout" id="sg-an-out"></div>
 </div><script>
 (function(){
   const svg = document.getElementById('sg-an-svg');
@@ -929,14 +919,12 @@ $$u(t) \;=\; T(t)\,u_0 \;+\; \int_0^t T(t-s)\,f(s)\,ds.$$
     <button id="sg-d-fno" class="active">f ≡ 0 (homogeneous)</button>
     <button id="sg-d-fpulse">f(s,x) = δ(s-0.2)·g(x) (impulse forcing at s=0.2)</button>
     <button id="sg-d-fconst">f(s,x) = g(x) (constant-in-time forcing)</button>
-  </div>
-  <div class="row">
     <label for="sg-d-t">$t$:</label>
-    <input id="sg-d-t" type="range" min="0" max="1.5" step="0.01" value="0.5">
+    <input type="range" id="sg-d-t" min="0" max="1.5" step="0.01" value="0.5">
     <span id="sg-d-t-out" class="small"></span>
   </div>
   <svg id="sg-d-svg" viewBox="-260 -150 520 280" width="100%" height="320"><title>Heat-equation Duhamel decomposition</title></svg>
-  <div id="sg-d-out" class="readout"></div>
+  <div class="readout" id="sg-d-out"></div>
 </div><script>
 (function(){
   const svg = document.getElementById('sg-d-svg');
@@ -1063,21 +1051,17 @@ $$Af(x)\;=\;\tfrac{1}{2}\sum_{i,j}(\sigma\sigma^\top)_{ij}(x)\,\partial_i\partia
   <div class="hd"><div class="ttl">Heat-equation control: drive u₀ to u_T using a control on ω</div><div class="hint">drag the control window ω; the widget reports the cost of an LQR-style control</div></div>
   <div class="row">
     <label for="sg-ctl-w">control window center $x_\omega$:</label>
-    <input id="sg-ctl-w" type="range" min="-2.5" max="2.5" step="0.1" value="0">
+    <input type="range" id="sg-ctl-w" min="-2.5" max="2.5" step="0.1" value="0">
     <span id="sg-ctl-w-out" class="small"></span>
-  </div>
-  <div class="row">
     <label for="sg-ctl-r">control window radius:</label>
-    <input id="sg-ctl-r" type="range" min="0.2" max="1.5" step="0.05" value="0.6">
+    <input type="range" id="sg-ctl-r" min="0.2" max="1.5" step="0.05" value="0.6">
     <span id="sg-ctl-r-out" class="small"></span>
-  </div>
-  <div class="row">
     <label for="sg-ctl-T">final time $T$:</label>
-    <input id="sg-ctl-T" type="range" min="0.1" max="2" step="0.05" value="0.6">
+    <input type="range" id="sg-ctl-T" min="0.1" max="2" step="0.05" value="0.6">
     <span id="sg-ctl-T-out" class="small"></span>
   </div>
   <svg id="sg-ctl-svg" viewBox="-260 -150 520 280" width="100%" height="320"><title>1D heat-equation control: window omega drives u0 to u_T</title></svg>
-  <div id="sg-ctl-out" class="readout"></div>
+  <div class="readout" id="sg-ctl-out"></div>
 </div><script>
 (function(){
   const svg = document.getElementById('sg-ctl-svg');
