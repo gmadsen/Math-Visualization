@@ -30,12 +30,21 @@ const __filename = fileURLToPath(import.meta.url);
 const repoRoot = resolve(dirname(__filename), '..');
 
 const argv = process.argv.slice(2);
-if (argv.length < 2) {
-  console.error('Usage: node scripts/migrate-to-slider-svg-2d.mjs <topic> <verbatim-slug> [...]');
+// --normalize: re-point widgets onto slider-svg-2d's STANDARD layout instead
+// of requiring byte-identity. Used for slider widgets whose hand-authored chrome
+// differs (svg-first, multiple rows, note-div). Output is intentionally the
+// uniform standard layout (controls row -> svg -> readout -> caption), so the
+// byte-identity guard is skipped; behavior must be browser-verified (control
+// ids are preserved, so the driving script still binds). Chosen by the user
+// 2026-05-25 over a brittle byte-exact layout engine.
+const NORMALIZE = argv.includes('--normalize');
+const positional = argv.filter((a) => a !== '--normalize');
+if (positional.length < 2) {
+  console.error('Usage: node scripts/migrate-to-slider-svg-2d.mjs [--normalize] <topic> <verbatim-slug> [...]');
   process.exit(2);
 }
-const topicSlug = argv[0];
-const wantSlugs = new Set(argv.slice(1));
+const topicSlug = positional[0];
+const wantSlugs = new Set(positional.slice(1));
 
 // ---------------------------------------------------------------------------
 // Parse a verbatim bodyMarkup string into slider-svg-2d typed params.
@@ -259,7 +268,7 @@ function parseControls(rowInner) {
   return controls;
 }
 
-function parseVerbatimMarkup(bodyMarkup) {
+function parseVerbatimMarkup(bodyMarkup, normalize) {
   // Expected shapes (canonical + variations):
   // <div class="widget"[ id="WIDGETID"]>
   //   <div class="hd"><div class="ttl">{title}</div><div class="hint">{hint}</div></div>
@@ -287,13 +296,31 @@ function parseVerbatimMarkup(bodyMarkup) {
 
   // Find <div class="row"> ... </div> block — be careful with nested divs:
   // these widgets' rows contain only <label>, <button>, <span> (no nested divs).
-  const rowStart = bodyMarkup.indexOf('<div class="row">');
-  if (rowStart < 0) throw new Error('missing <div class="row">');
-  const rowOpenEnd = rowStart + '<div class="row">'.length;
-  const rowEnd = bodyMarkup.indexOf('</div>', rowOpenEnd);
-  if (rowEnd < 0) throw new Error('unterminated <div class="row">');
-  const rowInner = bodyMarkup.slice(rowOpenEnd, rowEnd).trim();
-  const controls = parseControls(rowInner);
+  let controls = [];
+  if (normalize) {
+    // Normalize mode: gather controls from EVERY <div class="row"> — some
+    // widgets split sliders across multiple rows; they collapse into the
+    // single standard row on output. (Rows contain only label/input/button/
+    // span, never nested divs, so indexOf('</div>') finds each row's close.)
+    let scan = 0;
+    while (true) {
+      const rs = bodyMarkup.indexOf('<div class="row">', scan);
+      if (rs < 0) break;
+      const oe = rs + '<div class="row">'.length;
+      const re = bodyMarkup.indexOf('</div>', oe);
+      if (re < 0) throw new Error('unterminated <div class="row">');
+      controls = controls.concat(parseControls(bodyMarkup.slice(oe, re).trim()));
+      scan = re + '</div>'.length;
+    }
+    if (controls.length === 0) throw new Error('missing <div class="row">');
+  } else {
+    const rowStart = bodyMarkup.indexOf('<div class="row">');
+    if (rowStart < 0) throw new Error('missing <div class="row">');
+    const rowOpenEnd = rowStart + '<div class="row">'.length;
+    const rowEnd = bodyMarkup.indexOf('</div>', rowOpenEnd);
+    if (rowEnd < 0) throw new Error('unterminated <div class="row">');
+    controls = parseControls(bodyMarkup.slice(rowOpenEnd, rowEnd).trim());
+  }
 
   const svgMatch = bodyMarkup.match(
     /<svg\s+id="([^"]+)"\s+viewBox="([^"]+)"\s+width="([^"]+)"\s+height="([^"]+)">/
@@ -370,6 +397,13 @@ function parseVerbatimMarkup(bodyMarkup) {
       const m = trailingRegion.match(/<p class="small">([\s\S]*?)<\/p>/);
       if (m) trailingProse = m[1];
     }
+    if (normalize && trailingProse === null) {
+      // Normalize: a trailing <div class="note…">…</div> becomes the standard
+      // <p class="small"> caption. (Note bodies are plain text/inline markup,
+      // no nested divs, so the non-greedy </div> match is safe.)
+      const nm = trailingRegion.match(/<div class="note[^"]*">([\s\S]*?)<\/div>/);
+      if (nm) trailingProse = nm[1];
+    }
   }
 
   return { title, hint, controls, svg, readout, wrapperWidgetId, trailingProse };
@@ -392,7 +426,7 @@ for (const section of doc.sections) {
     }
     let typed;
     try {
-      typed = parseVerbatimMarkup(old.bodyMarkup);
+      typed = parseVerbatimMarkup(old.bodyMarkup, NORMALIZE);
     } catch (e) {
       // Surface enough context for the developer to know WHICH widget on
       // WHICH topic and at WHICH section the parser tripped — and reprint
@@ -432,8 +466,12 @@ for (const section of doc.sections) {
     if (typed.trailingProse !== null) newParams.trailingProse = typed.trailingProse;
 
     // Safety: re-render and require byte-identity vs original bodyMarkup.
+    // In --normalize mode the output is intentionally the uniform standard
+    // layout (not byte-identical), so the guard is skipped — behavior is
+    // browser-verified instead, and control ids are preserved so the driving
+    // script still binds.
     const rendered = renderSliderSvg2d(newParams);
-    if (rendered !== old.bodyMarkup) {
+    if (!NORMALIZE && rendered !== old.bodyMarkup) {
       console.error(`  ${block.slug}: byte-identity check FAILED — refusing to migrate`);
       console.error('--- expected ---');
       console.error(old.bodyMarkup);
