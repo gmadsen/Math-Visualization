@@ -123,13 +123,59 @@
         },
         {
           "type": "widget",
-          "slug": "maass-forms-w4",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-eisen",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-eisen\">\n  <div class=\"hd\"><div class=\"ttl\">Eisenstein series along the critical line</div><div class=\"hint\">$E(z, \\tfrac12+ir)$ — a Laplacian eigenfunction with eigenvalue $\\tfrac14+r^2$</div></div>\n  <div class=\"row\">\n    <label for=\"es-r\">spectral parameter $r$</label>\n    <input type=\"range\" id=\"es-r\" min=\"0\" max=\"20\" step=\"0.1\" value=\"6\">\n    <span class=\"readout\" id=\"es-r-out\" style=\"min-width:3.5em;display:inline-block\">6</span>\n    <label for=\"es-x\">$x = \\Re z$</label>\n    <input type=\"range\" id=\"es-x\" min=\"-0.5\" max=\"0.5\" step=\"0.01\" value=\"0\">\n    <span class=\"readout\" id=\"es-x-out\" style=\"min-width:3.5em;display:inline-block\">0</span>\n  </div>\n  <svg id=\"es-svg\" viewBox=\"0 0 640 240\" width=\"640\" height=\"240\" aria-label=\"Eisenstein series real part vs height\"><title>Real part of $E(z, 1/2 + ir)$ vs. height $y$</title></svg>\n  <div class=\"readout small\" id=\"es-out\">drag $r$ to change the eigenvalue; drag $x$ to slice horizontally</div>\n</div>",
-            "bodyScript": "",
             "title": "Eisenstein series along the critical line",
-            "hint": "$E(z, \\tfrac12+ir)$ — a Laplacian eigenfunction with eigenvalue $\\tfrac14+r^2$"
+            "hint": "$E(z, \\tfrac12+ir)$ — a Laplacian eigenfunction with eigenvalue $\\tfrac14+r^2$",
+            "controls": [
+              {
+                "type": "slider",
+                "id": "es-r",
+                "label": "spectral parameter $r$",
+                "min": 0,
+                "max": 20,
+                "value": 6,
+                "format": "separate",
+                "step": 0.1
+              },
+              {
+                "type": "span",
+                "id": "es-r-out",
+                "class": "readout",
+                "text": "6"
+              },
+              {
+                "type": "slider",
+                "id": "es-x",
+                "label": "$x = \\Re z$",
+                "min": -0.5,
+                "max": 0.5,
+                "value": 0,
+                "format": "separate",
+                "step": 0.01
+              },
+              {
+                "type": "span",
+                "id": "es-x-out",
+                "class": "readout",
+                "text": "0"
+              }
+            ],
+            "svg": {
+              "id": "es-svg",
+              "viewBox": "0 0 640 240",
+              "width": 640,
+              "height": 240,
+              "ariaLabel": "Eisenstein series real part vs height",
+              "title": "Real part of $E(z, 1/2 + ir)$ vs. height $y$"
+            },
+            "readout": {
+              "id": "es-out",
+              "class": "readout small"
+            },
+            "bodyScript": "",
+            "wrapperHasId": true
           }
         },
         {
@@ -164,13 +210,59 @@
         },
         {
           "type": "widget",
-          "slug": "maass-forms-w5",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-bessel",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-bessel\">\n  <div class=\"hd\"><div class=\"ttl\">$K$-Bessel decay and the Whittaker model</div><div class=\"hint\">$\\sqrt{y}\\,K_{ir}(2\\pi n y)$ — Maass-form Fourier modes</div></div>\n  <div class=\"row\">\n    <label for=\"bk-r\">spectral parameter $r$</label>\n    <input type=\"range\" id=\"bk-r\" min=\"1\" max=\"20\" step=\"0.1\" value=\"9.5\">\n    <span class=\"readout\" id=\"bk-r-out\" style=\"min-width:3.5em;display:inline-block\">9.5</span>\n    <label for=\"bk-n\">frequency $n$</label>\n    <input type=\"range\" id=\"bk-n\" min=\"1\" max=\"6\" step=\"1\" value=\"1\">\n    <span class=\"readout\" id=\"bk-n-out\" style=\"min-width:2.5em;display:inline-block\">1</span>\n  </div>\n  <svg id=\"bk-svg\" viewBox=\"0 0 640 240\" width=\"640\" height=\"240\" aria-label=\"Bessel function K_ir profile\"><title>$\\sqrt{y}\\,K_{ir}(2\\pi n y)$ vs $y$</title></svg>\n  <div class=\"readout small\" id=\"bk-out\">drag $r$ and $n$ to see the radial profile…</div>\n</div>",
-            "bodyScript": "",
             "title": "$K$-Bessel decay and the Whittaker model",
-            "hint": "$\\sqrt{y}\\,K_{ir}(2\\pi n y)$ — Maass-form Fourier modes"
+            "hint": "$\\sqrt{y}\\,K_{ir}(2\\pi n y)$ — Maass-form Fourier modes",
+            "controls": [
+              {
+                "type": "slider",
+                "id": "bk-r",
+                "label": "spectral parameter $r$",
+                "min": 1,
+                "max": 20,
+                "value": 9.5,
+                "format": "separate",
+                "step": 0.1
+              },
+              {
+                "type": "span",
+                "id": "bk-r-out",
+                "class": "readout",
+                "text": "9.5"
+              },
+              {
+                "type": "slider",
+                "id": "bk-n",
+                "label": "frequency $n$",
+                "min": 1,
+                "max": 6,
+                "value": 1,
+                "format": "separate",
+                "step": 1
+              },
+              {
+                "type": "span",
+                "id": "bk-n-out",
+                "class": "readout",
+                "text": "1"
+              }
+            ],
+            "svg": {
+              "id": "bk-svg",
+              "viewBox": "0 0 640 240",
+              "width": 640,
+              "height": 240,
+              "ariaLabel": "Bessel function K_ir profile",
+              "title": "$\\sqrt{y}\\,K_{ir}(2\\pi n y)$ vs $y$"
+            },
+            "readout": {
+              "id": "bk-out",
+              "class": "readout small"
+            },
+            "bodyScript": "",
+            "wrapperHasId": true
           }
         },
         {
@@ -201,13 +293,42 @@
         },
         {
           "type": "widget",
-          "slug": "maass-forms-w6",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-weyl",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-weyl\">\n  <div class=\"hd\"><div class=\"ttl\">Weyl law for the modular surface</div><div class=\"hint\">$N(T)\\sim\\mathrm{vol}/(4\\pi)\\cdot T = T/12$</div></div>\n  <div class=\"row\">\n    <label for=\"wl-T\">cutoff $T$</label>\n    <input type=\"range\" id=\"wl-T\" min=\"100\" max=\"6000\" step=\"50\" value=\"1500\">\n    <span class=\"readout\" id=\"wl-T-out\" style=\"min-width:4em;display:inline-block\">1500</span>\n  </div>\n  <svg id=\"wl-svg\" viewBox=\"0 0 640 240\" width=\"640\" height=\"240\" aria-label=\"Weyl law step function vs linear asymptotic\"><title>$N(T)$ approximated by Weyl's $T/12$</title></svg>\n  <div class=\"readout\" id=\"wl-out\">drag $T$…</div>\n</div>",
-            "bodyScript": "",
             "title": "Weyl law for the modular surface",
-            "hint": "$N(T)\\sim\\mathrm{vol}/(4\\pi)\\cdot T = T/12$"
+            "hint": "$N(T)\\sim\\mathrm{vol}/(4\\pi)\\cdot T = T/12$",
+            "controls": [
+              {
+                "type": "slider",
+                "id": "wl-T",
+                "label": "cutoff $T$",
+                "min": 100,
+                "max": 6000,
+                "value": 1500,
+                "format": "separate",
+                "step": 50
+              },
+              {
+                "type": "span",
+                "id": "wl-T-out",
+                "class": "readout",
+                "text": "1500"
+              }
+            ],
+            "svg": {
+              "id": "wl-svg",
+              "viewBox": "0 0 640 240",
+              "width": 640,
+              "height": 240,
+              "ariaLabel": "Weyl law step function vs linear asymptotic",
+              "title": "$N(T)$ approximated by Weyl's $T/12$"
+            },
+            "readout": {
+              "id": "wl-out"
+            },
+            "bodyScript": "",
+            "wrapperHasId": true
           }
         },
         {
