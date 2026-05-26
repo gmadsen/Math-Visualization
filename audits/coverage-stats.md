@@ -21,7 +21,7 @@ page has wired one in yet.
 | `button-stepper` | button-stepper | click | 2d | 343 | L-functions, additive-number-theory, adeles-and-ideles, algebra, algebraic-number-theory, algebraic-topology, analytic-continuation, bezout, bsd, category-theory, class-field-theory, complex-analysis, differential-geometry, dirichlet-series-euler-products, dynamical-systems, etale-cohomology, frobenius-and-reciprocity, functional-analysis, functor-of-points, galois, galois-representations, hecke-operators, homological, lie-groups, measure-theory, modular-forms, modularity-and-flt, moduli-spaces, moonshine, morphisms-fiber-products, naive-set-theory, operator-algebras, p-adic-numbers, partitions-generating-functions, point-set-topology, probability-theory, projective-plane, quadratic-forms-genus-theory, quadratic-reciprocity, representation-theory, riemann-surfaces, riemannian-geometry, sato-tate, schemes, sheaf-cohomology, sheaves, singular-cubics-reduction, smooth-manifolds, stacks, theta-functions, upper-half-plane-hyperbolic, zeta-values |
 | `parametric-plot` | parametric-plot | slider | 2d | 107 | algebraic-combinatorics, analytic-continuation, analytic-number-theory, causal-inference, deep-learning-theory, diffusion-and-score-based-models, expanders, game-theory, graph-theory-fundamentals, information-geometry, kernel-methods-and-rkhs, markov-decision-processes, order-theory-and-lattices, polytopes-and-ehrhart, pomdps-and-belief-states, probabilistic-graphical-models, ramsey-theory, reinforcement-learning, statistical-learning-theory |
 | `clickable-diagram` | clickable-diagram | click | 2d | 79 | algebra, algebraic-number-theory, algebraic-topology, bezout, category-theory, fixed-point-theorems, frobenius-and-reciprocity, functional-analysis, functor-of-points, galois, homological, measure-theory, morphisms-fiber-products, naive-set-theory, operator-algebras, quadratic-reciprocity, real-analysis, riemannian-geometry, schemes, sheaves, stacks, wavelets |
-| `slider-svg-2d` | slider-readout | slider | 2d | 62 | brill-noether, conformal-and-cr-geometry, convex-optimization, kahler-geometry, mathematical-biology, optimal-control-and-dynamic-programming, semigroup-theory-evolution-equations, spectral-methods-data, spectral-theory, statistical-mechanics, string-theory |
+| `slider-svg-2d` | slider-readout | slider | 2d | 77 | brill-noether, conformal-and-cr-geometry, convex-optimization, homotopy-theory, kahler-geometry, kalman-filtering-and-state-estimation, klein-gordon-equation, mathematical-biology, optimal-control-and-dynamic-programming, semigroup-theory-evolution-equations, spectral-methods-data, spectral-theory, statistical-mechanics, string-theory |
 | `schrodinger-figure` | schrodinger-figure | slider | 2d | 7 | schrodinger-equation |
 | `clickable-graph` | clickable-graph | click | 2d | 6 | adeles-and-ideles, riemannian-geometry, schemes, sheaves |
 | `hamiltonians-figure` | hamiltonians-figure | interact | 2d | 6 | hamiltonians-classical-mechanics |
@@ -529,12 +529,7 @@ page has wired one in yet.
 | `homological-double-complex` | homological-double-complex | interact | 2d | 1 | homological |
 | `homological-les-sphere` | homological-les-sphere | interact | 2d | 1 | homological |
 | `homological-tor-symmetry` | homological-tor-symmetry | interact | 2d | 1 | homological |
-| `homotopy-theory-w1` | verbatim | click | 2d | 1 | homotopy-theory |
 | `homotopy-theory-w2` | verbatim | click | 2d | 1 | homotopy-theory |
-| `homotopy-theory-w3` | verbatim | click | 2d | 1 | homotopy-theory |
-| `homotopy-theory-w4` | verbatim | click | 2d | 1 | homotopy-theory |
-| `homotopy-theory-w5` | verbatim | click | 2d | 1 | homotopy-theory |
-| `homotopy-theory-w6` | verbatim | click | 2d | 1 | homotopy-theory |
 | `infinity-categories-adjunction-triangles` | clickable-diagram | click | 2d | 1 | infinity-categories |
 | `infinity-categories-cone` | clickable-diagram | click | 2d | 1 | infinity-categories |
 | `infinity-categories-functor-levels` | clickable-diagram | click | 2d | 1 | infinity-categories |
@@ -578,18 +573,8 @@ page has wired one in yet.
 | `k-theory-index-theorem` | k-theory-index-theorem | click | 2d | 1 | k-theory |
 | `k-theory-low-k-groups` | k-theory-low-k-groups | click | 2d | 1 | k-theory |
 | `k-theory-ses-relations` | k-theory-ses-relations | click | 2d | 1 | k-theory |
-| `kf-cycle` | verbatim | slider | 2d | 1 | kalman-filtering-and-state-estimation |
 | `kf-ellipse` | verbatim | slider | 2d | 1 | kalman-filtering-and-state-estimation |
-| `kf-fusion` | verbatim | slider | 2d | 1 | kalman-filtering-and-state-estimation |
-| `kf-gain` | verbatim | slider | 2d | 1 | kalman-filtering-and-state-estimation |
-| `kf-setup` | verbatim | slider | 2d | 1 | kalman-filtering-and-state-estimation |
-| `kf-track` | verbatim | slider | 2d | 1 | kalman-filtering-and-state-estimation |
 | `kg-anti` | verbatim | click | 2d | 1 | klein-gordon-equation |
-| `kg-curr` | verbatim | slider | 2d | 1 | klein-gordon-equation |
-| `kg-deriv` | verbatim | slider | 2d | 1 | klein-gordon-equation |
-| `kg-disp` | verbatim | slider | 2d | 1 | klein-gordon-equation |
-| `kg-nrl` | verbatim | slider | 2d | 1 | klein-gordon-equation |
-| `kg-wave` | verbatim | slider | 2d | 1 | klein-gordon-equation |
 | `khov-w1` | verbatim | click | 2d | 1 | khovanov-homology |
 | `khov-w2` | verbatim | click | 2d | 1 | khovanov-homology |
 | `khov-w3` | verbatim | click | 2d | 1 | khovanov-homology |
@@ -1032,9 +1017,9 @@ page has wired one in yet.
 
 - Topics: **25**, concepts: **160**
 - Widgets: **177** (registry-driven: 177, inline: 0)
-  - by family: verbatim: 54, button-stepper: 34, slider-readout: 6, surface-viewer: 6, clickable-diagram: 4, clickable-graph: 2, svg-illustration: 2, cohomology-stiefel-whitney-rpn: 1, mostow-rigidity-dial: 1, mostow-h3-fundamental-domain: 1, mostow-boundary-extension: 1, mostow-boundary-orbit: 1, mostow-rank-tower: 1, mostow-volume-spectrum: 1, symplectic-form-pairing: 1, symplectic-darboux-moser: 1, symplectic-harmonic-portrait: 1, symplectic-dirac-ladder: 1, symplectic-cotangent-lagrangians: 1, symplectic-floer-intersections: 1, knot-polynomials-gallery: 1, knot-polynomials-reidemeister: 1, knot-polynomials-alexander: 1, knot-polynomials-bracket: 1, knot-polynomials-homfly: 1, knot-polynomials-rmatrix: 1, knot-polynomials-vassiliev: 1, knot-polynomials-khovanov: 1, ricci-einstein-flows: 1, ricci-deturck-trick: 1, ricci-blowup-rates: 1, ricci-soliton-zoo: 1, ricci-neckpinch-surgery: 1, ricci-extinction-timeline: 1, k-theory-grothendieck-builder: 1, k-theory-ses-relations: 1, k-theory-bott-periodicity: 1, k-theory-chern-character: 1, k-theory-low-k-groups: 1, k-theory-index-theorem: 1, atiyah-singer-index-family: 1, atiyah-singer-symbol: 1, atiyah-singer-ch-td: 1, atiyah-singer-cases: 1, atiyah-singer-dirac-sphere: 1, atiyah-singer-anomaly: 1, counterexample-explorer: 1, proof-scrubber: 1, sm-manifold-gallery: 1, diff-forms-integration: 1, diff-forms-pullback: 1, diff-geom-surface-patch: 1, diff-geom-fundamental-forms: 1, rg-ricci-curvature: 1, rg-volume-form: 1, lie-algebra-tangent: 1, lie-adjoint-killing: 1, riemann-surfaces-chart-atlas: 1, lattice-visualizer: 1, characteristic-classes-mobius-vs-cylinder: 1, characteristic-classes-w1-surfaces: 1, characteristic-classes-c1-clutching: 1, characteristic-classes-pontryagin-formulas: 1, characteristic-classes-poincare-hopf: 1, characteristic-classes-gauss-bonnet: 1, characteristic-classes-classifying-map: 1, characteristic-classes-signature-l-genus: 1, characteristic-classes-cpn-localisation: 1, morse-torus-height: 1, morse-handle-decomp: 1, morse-cw-cells: 1, morse-betti-counts: 1, morse-gradient-flow: 1, morse-sphere-vs-rp2: 1, morse-smale-saddle: 1, morse-cerf-birth-death: 1
+  - by family: verbatim: 49, button-stepper: 34, slider-readout: 11, surface-viewer: 6, clickable-diagram: 4, clickable-graph: 2, svg-illustration: 2, cohomology-stiefel-whitney-rpn: 1, mostow-rigidity-dial: 1, mostow-h3-fundamental-domain: 1, mostow-boundary-extension: 1, mostow-boundary-orbit: 1, mostow-rank-tower: 1, mostow-volume-spectrum: 1, symplectic-form-pairing: 1, symplectic-darboux-moser: 1, symplectic-harmonic-portrait: 1, symplectic-dirac-ladder: 1, symplectic-cotangent-lagrangians: 1, symplectic-floer-intersections: 1, knot-polynomials-gallery: 1, knot-polynomials-reidemeister: 1, knot-polynomials-alexander: 1, knot-polynomials-bracket: 1, knot-polynomials-homfly: 1, knot-polynomials-rmatrix: 1, knot-polynomials-vassiliev: 1, knot-polynomials-khovanov: 1, ricci-einstein-flows: 1, ricci-deturck-trick: 1, ricci-blowup-rates: 1, ricci-soliton-zoo: 1, ricci-neckpinch-surgery: 1, ricci-extinction-timeline: 1, k-theory-grothendieck-builder: 1, k-theory-ses-relations: 1, k-theory-bott-periodicity: 1, k-theory-chern-character: 1, k-theory-low-k-groups: 1, k-theory-index-theorem: 1, atiyah-singer-index-family: 1, atiyah-singer-symbol: 1, atiyah-singer-ch-td: 1, atiyah-singer-cases: 1, atiyah-singer-dirac-sphere: 1, atiyah-singer-anomaly: 1, counterexample-explorer: 1, proof-scrubber: 1, sm-manifold-gallery: 1, diff-forms-integration: 1, diff-forms-pullback: 1, diff-geom-surface-patch: 1, diff-geom-fundamental-forms: 1, rg-ricci-curvature: 1, rg-volume-form: 1, lie-algebra-tangent: 1, lie-adjoint-killing: 1, riemann-surfaces-chart-atlas: 1, lattice-visualizer: 1, characteristic-classes-mobius-vs-cylinder: 1, characteristic-classes-w1-surfaces: 1, characteristic-classes-c1-clutching: 1, characteristic-classes-pontryagin-formulas: 1, characteristic-classes-poincare-hopf: 1, characteristic-classes-gauss-bonnet: 1, characteristic-classes-classifying-map: 1, characteristic-classes-signature-l-genus: 1, characteristic-classes-cpn-localisation: 1, morse-torus-height: 1, morse-handle-decomp: 1, morse-cw-cells: 1, morse-betti-counts: 1, morse-gradient-flow: 1, morse-sphere-vs-rp2: 1, morse-smale-saddle: 1, morse-cerf-birth-death: 1
   - by dimension: 2d: 170, 3d: 7
-  - by gesture: click: 96, slider: 40, select: 14, drag: 11, button-stepper: 6, step: 3, pick: 2, static: 2, interact: 1, input: 1, timeline: 1
+  - by gesture: click: 91, slider: 45, select: 14, drag: 11, button-stepper: 6, step: 3, pick: 2, static: 2, interact: 1, input: 1, timeline: 1
 - Quizzes: **622** (v1: 480, hard: 142, expert: 0)
   - by type: mcq: 410, numeric: 160, multi-select: 22, matching: 10, ordering: 7, complex: 7, spot-the-error: 3, proof-completion: 3
 
@@ -1082,7 +1067,7 @@ page has wired one in yet.
 
 - Topics: **11**, concepts: **69**
 - Widgets: **70** (registry-driven: 70, inline: 0)
-  - by family: verbatim: 34, slider-readout: 11, schrodinger-figure: 7, hamiltonians-figure: 6, general-relativity-light-cones: 1, general-relativity-einstein: 1, general-relativity-schwarzschild: 1, general-relativity-kerr: 1, general-relativity-cosmology: 1, general-relativity-gw: 1, three-body-nbody-simulator: 1, three-body-lagrange-points: 1, three-body-special-solutions: 1, three-body-horseshoe: 1, three-body-kam-tori: 1, three-body-halo-orbits: 1
+  - by family: verbatim: 29, slider-readout: 16, schrodinger-figure: 7, hamiltonians-figure: 6, general-relativity-light-cones: 1, general-relativity-einstein: 1, general-relativity-schwarzschild: 1, general-relativity-kerr: 1, general-relativity-cosmology: 1, general-relativity-gw: 1, three-body-nbody-simulator: 1, three-body-lagrange-points: 1, three-body-special-solutions: 1, three-body-horseshoe: 1, three-body-kam-tori: 1, three-body-halo-orbits: 1
   - by dimension: 2d: 70
   - by gesture: slider: 47, click: 14, interact: 7, drag: 1, select: 1
 - Quizzes: **208** (v1: 208, hard: 0, expert: 0)
@@ -1092,7 +1077,7 @@ page has wired one in yet.
 
 - Topics: **9**, concepts: **58**
 - Widgets: **59** (registry-driven: 59, inline: 0)
-  - by family: verbatim: 24, parametric-plot: 24, slider-readout: 10, inline-code-cell: 1
+  - by family: parametric-plot: 24, verbatim: 19, slider-readout: 15, inline-code-cell: 1
   - by dimension: 2d: 59
   - by gesture: slider: 50, click: 5, select: 2, scrub: 1, edit: 1
 - Quizzes: **174** (v1: 174, hard: 0, expert: 0)

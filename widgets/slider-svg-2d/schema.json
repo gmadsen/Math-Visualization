@@ -96,12 +96,14 @@
     "svg": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["id", "viewBox", "width", "height"],
+      "required": ["id", "viewBox"],
       "properties": {
         "id":      { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
         "viewBox": { "type": "string", "pattern": "^-?\\d+(?:\\.\\d+)? -?\\d+(?:\\.\\d+)? [1-9]\\d*(?:\\.\\d+)? [1-9]\\d*(?:\\.\\d+)?$", "description": "SVG viewBox `min-x min-y width height` — origin coordinates may be negative, but width and height must be positive (zero-sized SVG would be invisible)." },
-        "width":   { "anyOf": [ { "type": "number", "exclusiveMinimum": 0 }, { "type": "string", "pattern": "^[1-9]\\d*%$" } ], "description": "Positive number (px) or a percent string like \"100%\" (responsive-width widgets). The renderer emits it verbatim into the `width` attribute." },
-        "height":  { "anyOf": [ { "type": "number", "exclusiveMinimum": 0 }, { "type": "string", "pattern": "^[1-9]\\d*%$" } ], "description": "Positive number (px) or a percent string like \"100%\"." },
+        "width":   { "anyOf": [ { "type": "number", "exclusiveMinimum": 0 }, { "type": "string", "pattern": "^[1-9]\\d*%$" } ], "description": "Optional. Positive number (px) or a percent string like \"100%\". Legacy widgets pin an explicit size; modern responsive widgets omit width/height entirely and size from viewBox + CSS max-width:100%. When omitted, the renderer leaves the attribute off." },
+        "height":  { "anyOf": [ { "type": "number", "exclusiveMinimum": 0 }, { "type": "string", "pattern": "^[1-9]\\d*%$" } ], "description": "Optional. Positive number (px) or a percent string like \"100%\". Omit alongside width for a responsive viewBox-only SVG." },
+        "role":    { "type": "string", "enum": ["img"], "description": "Optional ARIA role for the SVG (corpus convention is `img` when set, paired with aria-label). Round-tripped from pages that set it; omitted otherwise." },
+        "ariaLabel": { "type": "string", "description": "Optional `aria-label` accessibility name on the SVG element itself (distinct from the `<title>` child). Round-tripped from pages that set it. HTML-escaped by the renderer." },
         "title":   { "type": "string", "description": "Optional override for the SVG's `<title>` accessibility name. When omitted, the renderer uses the header `title` field (the canonical convention — every spectral-theory widget matches). Many corpus widgets give the SVG a more specific accessibility label than the page header (e.g. header `$(p,q)$-bigrading explorer` vs SVG title `bidegree summands`); preserve that distinction through migration. HTML-escaped by the renderer." }
       }
     },

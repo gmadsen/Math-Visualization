@@ -322,34 +322,50 @@ function parseVerbatimMarkup(bodyMarkup, normalize) {
     controls = parseControls(bodyMarkup.slice(rowOpenEnd, rowEnd).trim());
   }
 
-  const svgMatch = bodyMarkup.match(
-    /<svg\s+id="([^"]+)"\s+viewBox="([^"]+)"\s+width="([^"]+)"\s+height="([^"]+)">/
-  );
-  if (!svgMatch) throw new Error('could not parse <svg> open tag');
+  // Parse the <svg> open tag attribute-by-attribute (order-agnostic). Legacy
+  // widgets carry `id viewBox width height`; modern responsive ones carry only
+  // `id viewBox` (+ optional role/aria-label) and size from CSS max-width:100%.
+  // id + viewBox are required; width/height/role/aria-label are optional.
+  const unescapeHtml = (s) => s
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'");
+  const svgOpenMatch = bodyMarkup.match(/<svg\b([^>]*)>/);
+  if (!svgOpenMatch) throw new Error('could not parse <svg> open tag');
+  const svgAttrStr = svgOpenMatch[1];
+  const svgAttr = (name) => {
+    const m = svgAttrStr.match(new RegExp(`\\b${name}="([^"]*)"`));
+    return m ? m[1] : undefined;
+  };
+  const svgId = svgAttr('id');
+  const svgViewBox = svgAttr('viewBox');
+  if (!svgId) throw new Error('<svg> open tag missing id');
+  if (!svgViewBox) throw new Error('<svg> open tag missing viewBox');
   // width/height: numeric px OR a responsive percent string ("100%"). Keep the
   // original string when it isn't a clean round-trippable number, so byte-identity
   // holds for both `width="360"` and `width="100%"` (schema allows number|percent).
-  const dim = (s) => { const n = Number(s); return (Number.isFinite(n) && String(n) === s) ? n : s; };
+  const dim = (s) => { if (s == null) return undefined; const n = Number(s); return (Number.isFinite(n) && String(n) === s) ? n : s; };
+  const svgWidth = dim(svgAttr('width'));
+  const svgHeight = dim(svgAttr('height'));
+  const svgRole = svgAttr('role');
+  const svgAriaLabel = svgAttr('aria-label');
   const svg = {
-    id: svgMatch[1],
-    viewBox: svgMatch[2],
-    width: dim(svgMatch[3]),
-    height: dim(svgMatch[4]),
+    id: svgId,
+    viewBox: svgViewBox,
+    ...(svgWidth != null ? { width: svgWidth } : {}),
+    ...(svgHeight != null ? { height: svgHeight } : {}),
+    ...(svgRole === 'img' ? { role: svgRole } : {}),
+    ...(svgAriaLabel != null ? { ariaLabel: unescapeHtml(svgAriaLabel) } : {}),
   };
   // Extract the SVG <title>...</title> text; preserve as override when
   // it differs from the page header title (corpus convention — see
   // renderer comment on svg.title for examples).
-  const svgTitleMatch = bodyMarkup.slice(svgMatch.index).match(/<title>([\s\S]*?)<\/title>/);
+  const svgTitleMatch = bodyMarkup.slice(svgOpenMatch.index).match(/<title>([\s\S]*?)<\/title>/);
   if (svgTitleMatch) {
-    const svgTitleText = svgTitleMatch[1];
-    // Reverse the renderer's HTML escape: only the 5 escaped chars need
-    // unescaping for round-trip fidelity. Most corpus titles are plain.
-    const unescaped = svgTitleText
-      .replace(/&amp;/g, '&')
-      .replace(/&lt;/g, '<')
-      .replace(/&gt;/g, '>')
-      .replace(/&quot;/g, '"')
-      .replace(/&#39;/g, "'");
+    // Reverse the renderer's HTML escape for round-trip fidelity.
+    const unescaped = unescapeHtml(svgTitleMatch[1]);
     if (unescaped !== title) svg.title = unescaped;
   }
 
