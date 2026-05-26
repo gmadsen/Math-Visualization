@@ -84,12 +84,56 @@
         },
         {
           "type": "widget",
-          "slug": "ec-gl",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "gl",
-            "title": "",
-            "hint": "",
-            "bodyMarkup": "<div class=\"widget\">\n<div class=\"hd\"><span class=\"ttl\">Weierstrass curve + group law</span><span class=\"hint\">click twice to place $P$, $Q$; see $P+Q$</span></div>\n<div class=\"row\">\n  <label>$a$ <input type=\"range\" id=\"gl-a\" min=\"-3\" max=\"3\" step=\"0.05\" value=\"-2\"></label>\n  <span id=\"gl-aval\" class=\"small\">-2</span>\n  <label>$b$ <input type=\"range\" id=\"gl-b\" min=\"-3\" max=\"3\" step=\"0.05\" value=\"1\"></label>\n  <span id=\"gl-bval\" class=\"small\">1</span>\n  <button id=\"gl-reset\">reset pts</button>\n</div>\n<svg id=\"gl-svg\" viewBox=\"0 0 560 400\" width=\"560\" height=\"400\" style=\"background:#0b0f16;border:1px solid var(--line);border-radius:6px;cursor:crosshair\"><title>Weierstrass curve + group law</title></svg>\n<div id=\"gl-out\" class=\"readout\"></div>\n</div>",
+            "title": "Weierstrass curve + group law",
+            "hint": "click twice to place $P$, $Q$; see $P+Q$",
+            "controls": [
+              {
+                "type": "slider",
+                "id": "gl-a",
+                "label": "$a$",
+                "min": -3,
+                "max": 3,
+                "value": -2,
+                "step": 0.05
+              },
+              {
+                "type": "span",
+                "id": "gl-aval",
+                "text": "-2"
+              },
+              {
+                "type": "slider",
+                "id": "gl-b",
+                "label": "$b$",
+                "min": -3,
+                "max": 3,
+                "value": 1,
+                "step": 0.05
+              },
+              {
+                "type": "span",
+                "id": "gl-bval",
+                "text": "1"
+              },
+              {
+                "type": "button",
+                "id": "gl-reset",
+                "text": "reset pts"
+              }
+            ],
+            "svg": {
+              "id": "gl-svg",
+              "viewBox": "0 0 560 400",
+              "width": 560,
+              "height": 400,
+              "style": "background:#0b0f16;border:1px solid var(--line);border-radius:6px;cursor:crosshair"
+            },
+            "readout": {
+              "id": "gl-out"
+            },
             "bodyScript": "<script>\n(function(){\n  const svg = document.getElementById('gl-svg');\n  const A = document.getElementById('gl-a');\n  const B = document.getElementById('gl-b');\n  const Av = document.getElementById('gl-aval');\n  const Bv = document.getElementById('gl-bval');\n  const out = document.getElementById('gl-out');\n  const reset = document.getElementById('gl-reset');\n\n  const XMIN=-3, XMAX=3, YMIN=-4, YMAX=4;\n  const W = 560, H = 400;\n  const PADX = 20, PADY = 20;\n  function sx(x){ return PADX + (x - XMIN)/(XMAX - XMIN) * (W - 2*PADX); }\n  function sy(y){ return H - PADY - (y - YMIN)/(YMAX - YMIN) * (H - 2*PADY); }\n  function ix(px){ return XMIN + (px - PADX)/(W - 2*PADX) * (XMAX - XMIN); }\n  function iy(py){ return YMIN + (H - PADY - py)/(H - 2*PADY) * (YMAX - YMIN); }\n\n  let P = null, Q = null;\n\n  function onCurve(x, y, a, b){\n    return Math.abs(y*y - (x*x*x + a*x + b));\n  }\n\n  function projectToCurve(mx, my, a, b){\n    // mouse coord to mathematical, then snap (x,y) to nearest curve point.\n    const x0 = ix(mx), y0 = iy(my);\n    // For a grid of x, find y = ±sqrt(x^3+ax+b) and pick closest.\n    let best = null, bestD = Infinity;\n    const N = 2000;\n    for(let i=0;i<=N;i++){\n      const x = XMIN + (XMAX-XMIN)*i/N;\n      const rhs = x*x*x + a*x + b;\n      if(rhs < 0) continue;\n      const y1 = Math.sqrt(rhs), y2 = -y1;\n      const d1 = (x-x0)**2 + (y1-y0)**2;\n      const d2 = (x-x0)**2 + (y2-y0)**2;\n      if(d1 < bestD){ bestD=d1; best=[x,y1]; }\n      if(d2 < bestD){ bestD=d2; best=[x,y2]; }\n    }\n    return best;\n  }\n\n  function addPoints(Px, Py, Qx, Qy, a, b){\n    // returns {sum:[x,y], third:[x,y], lambda}\n    if(Px === null || Qx === null) return null;\n    let lambda;\n    if(Math.abs(Px - Qx) < 1e-9 && Math.abs(Py - Qy) < 1e-9){\n      // doubling\n      if(Math.abs(Py) < 1e-9) return {sum:null, third:null, infinity:true};\n      lambda = (3*Px*Px + a)/(2*Py);\n    } else if(Math.abs(Px - Qx) < 1e-9){\n      // P + (-P) = O\n      return {sum:null, third:null, infinity:true};\n    } else {\n      lambda = (Qy - Py)/(Qx - Px);\n    }\n    const x3 = lambda*lambda - Px - Qx;\n    const y3neg = lambda*(Px - x3) - Py; // this is -y3 after reflection? actually this is the third intersection y\n    // Third intersection y-coord on line: y = lambda*(x - Px) + Py\n    const thirdY = lambda*(x3 - Px) + Py;\n    // sum is reflection across x-axis\n    return {sum:[x3, -thirdY], third:[x3, thirdY], lambda};\n  }\n\n  function plotCurve(a, b){\n    // return array of paths (two components if disconnected)\n    const pts = [];\n    const N = 600;\n    let upper = [], lower = [];\n    for(let i=0;i<=N;i++){\n      const x = XMIN + (XMAX-XMIN)*i/N;\n      const rhs = x*x*x + a*x + b;\n      if(rhs >= 0){\n        upper.push([x, Math.sqrt(rhs)]);\n        lower.push([x, -Math.sqrt(rhs)]);\n      } else {\n        if(upper.length) pts.push(upper), pts.push(lower), upper=[], lower=[];\n      }\n    }\n    if(upper.length){ pts.push(upper); pts.push(lower); }\n    return pts;\n  }\n\n  function render(){\n    const a = +A.value, b = +B.value;\n    Av.textContent = a.toFixed(2);\n    Bv.textContent = b.toFixed(2);\n    svg.innerHTML = '';\n\n    // axes\n    const ax0 = sx(0), ay0 = sy(0);\n    svg.appendChild(SVG('line',{x1:PADX, y1:ay0, x2:W-PADX, y2:ay0, stroke:'#2a3242','stroke-width':1}));\n    svg.appendChild(SVG('line',{x1:ax0, y1:PADY, x2:ax0, y2:H-PADY, stroke:'#2a3242','stroke-width':1}));\n    // ticks\n    for(let k=XMIN;k<=XMAX;k++){\n      if(k===0) continue;\n      svg.appendChild(SVG('line',{x1:sx(k),y1:ay0-3,x2:sx(k),y2:ay0+3,stroke:'#3a4258'}));\n    }\n    for(let k=YMIN;k<=YMAX;k++){\n      if(k===0) continue;\n      svg.appendChild(SVG('line',{x1:ax0-3,y1:sy(k),x2:ax0+3,y2:sy(k),stroke:'#3a4258'}));\n    }\n\n    // curve\n    const branches = plotCurve(a, b);\n    for(const br of branches){\n      let d = '';\n      br.forEach((p,i)=>{ d += (i?' L ':'M ') + sx(p[0]) + ' ' + sy(p[1]); });\n      svg.appendChild(SVG('path',{d, fill:'none', stroke:'var(--yellow)','stroke-width':1.8}));\n    }\n\n    // discriminant readout\n    const D = -16*(4*a*a*a + 27*b*b);\n    let msg = 'y^2 = x^3 + ('+a.toFixed(2)+') x + ('+b.toFixed(2)+')\\nDelta = ' + D.toFixed(4);\n    if(Math.abs(D) < 1e-2){\n      msg += '  [NEAR-SINGULAR]';\n      svg.appendChild(SVG('rect',{x:4, y:4, width:140, height:22, fill:'#2a1a18', stroke:'var(--pink)'}));\n      const t = SVG('text',{x:10, y:20, fill:'var(--pink)','font-size':12});\n      t.textContent = 'Δ ≈ 0 : singular';\n      svg.appendChild(t);\n    }\n\n    // group-law construction\n    if(P && Q){\n      const add = addPoints(P[0], P[1], Q[0], Q[1], a, b);\n      if(add && add.infinity){\n        msg += '\\nP + Q = O  (point at infinity; vertical line)';\n        // draw vertical\n        svg.appendChild(SVG('line',{x1:sx(P[0]),y1:sy(YMIN+0.1),x2:sx(P[0]),y2:sy(YMAX-0.1),\n          stroke:'var(--cyan)','stroke-width':1,'stroke-dasharray':'4 4'}));\n      } else if(add){\n        const [x3, y3] = add.sum;\n        const [tx, ty] = add.third;\n        const lam = add.lambda;\n        // line through P, Q (or tangent)\n        const xA = XMIN, yA = lam*(XMIN - P[0]) + P[1];\n        const xB = XMAX, yB = lam*(XMAX - P[0]) + P[1];\n        svg.appendChild(SVG('line',{x1:sx(xA),y1:sy(yA),x2:sx(xB),y2:sy(yB),\n          stroke:'var(--blue)','stroke-width':1.2,'stroke-dasharray':'3 3'}));\n        // vertical dashed to reflected sum\n        svg.appendChild(SVG('line',{x1:sx(tx),y1:sy(ty),x2:sx(x3),y2:sy(y3),\n          stroke:'var(--cyan)','stroke-width':1,'stroke-dasharray':'4 4'}));\n        // third intersection (greyed)\n        svg.appendChild(SVG('circle',{cx:sx(tx), cy:sy(ty), r:4, fill:'var(--mute)'}));\n        // sum point\n        svg.appendChild(SVG('circle',{cx:sx(x3), cy:sy(y3), r:5, fill:'var(--green)'}));\n        const lbl = SVG('text',{x:sx(x3)+8, y:sy(y3)-6,'font-size':12, fill:'var(--green)'});\n        lbl.textContent = 'P+Q';\n        svg.appendChild(lbl);\n        msg += '\\nP+Q = (' + x3.toFixed(3) + ', ' + y3.toFixed(3) + ')';\n      }\n    }\n\n    // P and Q dots\n    if(P){\n      svg.appendChild(SVG('circle',{cx:sx(P[0]), cy:sy(P[1]), r:5, fill:'var(--pink)'}));\n      const t = SVG('text',{x:sx(P[0])+8, y:sy(P[1])+4,'font-size':12, fill:'var(--pink)'});\n      t.textContent = 'P'; svg.appendChild(t);\n    }\n    if(Q){\n      svg.appendChild(SVG('circle',{cx:sx(Q[0]), cy:sy(Q[1]), r:5, fill:'var(--violet)'}));\n      const t = SVG('text',{x:sx(Q[0])+8, y:sy(Q[1])+4,'font-size':12, fill:'var(--violet)'});\n      t.textContent = 'Q'; svg.appendChild(t);\n    }\n\n    out.textContent = msg;\n  }\n\n  svg.addEventListener('click', (e)=>{\n    const rect = svg.getBoundingClientRect();\n    const mx = (e.clientX - rect.left) * (W/rect.width);\n    const my = (e.clientY - rect.top) * (H/rect.height);\n    const a = +A.value, b = +B.value;\n    const pt = projectToCurve(mx, my, a, b);\n    if(!pt) return;\n    if(!P) P = pt;\n    else if(!Q) Q = pt;\n    else { P = pt; Q = null; }\n    render();\n  });\n\n  A.addEventListener('input', render);\n  B.addEventListener('input', render);\n  reset.addEventListener('click', ()=>{ P = null; Q = null; render(); });\n\n  render();\n})();\n</script>"
           }
         },

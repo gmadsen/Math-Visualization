@@ -288,11 +288,19 @@ function parseVerbatimMarkup(bodyMarkup, normalize) {
   }
   const wrapperWidgetId = wrapperOpenMatch[1] || null;
 
-  const titleMatch = bodyMarkup.match(/<div class="ttl">([\s\S]*?)<\/div>/);
-  const hintMatch  = bodyMarkup.match(/<div class="hint">([\s\S]*?)<\/div>/);
+  // Header title/hint. Most widgets wrap these in `<div class="ttl">` /
+  // `<div class="hint">`, but a handful use `<span class="ttl">` /
+  // `<span class="hint">` (e.g. differential-forms df-closed-not-exact,
+  // elliptic-curves ec-gl). Accept either tag via a backreference so the
+  // open/close tags match. The renderer always emits the canonical `<div>`
+  // form, so div-header widgets round-trip byte-identically and span-header
+  // ones are normalized to div (an accepted cosmetic delta under the
+  // normalize-to-one-layout decision — .ttl/.hint CSS applies to both).
+  const titleMatch = bodyMarkup.match(/<(div|span) class="ttl">([\s\S]*?)<\/\1>/);
+  const hintMatch  = bodyMarkup.match(/<(div|span) class="hint">([\s\S]*?)<\/\1>/);
   if (!titleMatch || !hintMatch) throw new Error('could not parse .hd > .ttl/.hint');
-  const title = titleMatch[1];
-  const hint  = hintMatch[1];
+  const title = titleMatch[2];
+  const hint  = hintMatch[2];
 
   // Find <div class="row"> ... </div> block — be careful with nested divs:
   // these widgets' rows contain only <label>, <button>, <span> (no nested divs).
@@ -351,6 +359,11 @@ function parseVerbatimMarkup(bodyMarkup, normalize) {
   const svgHeight = dim(svgAttr('height'));
   const svgRole = svgAttr('role');
   const svgAriaLabel = svgAttr('aria-label');
+  // Inline `style` on the <svg> (verbatim machine CSS). Some widgets set a dark
+  // plotting canvas / border / `cursor:crosshair` directly on the element; without
+  // capturing it the affordance is silently lost (e.g. ec-gl's click-to-place
+  // crosshair). The renderer emits it verbatim (no HTML-escape).
+  const svgStyle = svgAttr('style');
   const svg = {
     id: svgId,
     viewBox: svgViewBox,
@@ -358,6 +371,7 @@ function parseVerbatimMarkup(bodyMarkup, normalize) {
     ...(svgHeight != null ? { height: svgHeight } : {}),
     ...(svgRole === 'img' ? { role: svgRole } : {}),
     ...(svgAriaLabel != null ? { ariaLabel: unescapeHtml(svgAriaLabel) } : {}),
+    ...(svgStyle != null ? { style: svgStyle } : {}),
   };
   // Extract the SVG <title>...</title> text; preserve as override when
   // it differs from the page header title (corpus convention — see

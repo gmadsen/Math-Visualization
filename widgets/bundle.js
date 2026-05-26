@@ -6036,27 +6036,6 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "ec-gl",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "ec-gl widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Weierstrass curve + group law\" widget on the elliptic-curves topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs and re-derived meta by scripts/fixup-verbatim-widget-meta.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Weierstrass curve + group law\" widget on `elliptic-curves`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "ec-j",
     "family": "ec-j",
     "dimension": "2d",
