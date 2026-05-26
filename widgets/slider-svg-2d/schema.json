@@ -100,8 +100,8 @@
       "properties": {
         "id":      { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
         "viewBox": { "type": "string", "pattern": "^-?\\d+(?:\\.\\d+)? -?\\d+(?:\\.\\d+)? [1-9]\\d*(?:\\.\\d+)? [1-9]\\d*(?:\\.\\d+)?$", "description": "SVG viewBox `min-x min-y width height` — origin coordinates may be negative, but width and height must be positive (zero-sized SVG would be invisible)." },
-        "width":   { "type": "number", "exclusiveMinimum": 0 },
-        "height":  { "type": "number", "exclusiveMinimum": 0 },
+        "width":   { "anyOf": [ { "type": "number", "exclusiveMinimum": 0 }, { "type": "string", "pattern": "^[1-9]\\d*%$" } ], "description": "Positive number (px) or a percent string like \"100%\" (responsive-width widgets). The renderer emits it verbatim into the `width` attribute." },
+        "height":  { "anyOf": [ { "type": "number", "exclusiveMinimum": 0 }, { "type": "string", "pattern": "^[1-9]\\d*%$" } ], "description": "Positive number (px) or a percent string like \"100%\"." },
         "title":   { "type": "string", "description": "Optional override for the SVG's `<title>` accessibility name. When omitted, the renderer uses the header `title` field (the canonical convention — every spectral-theory widget matches). Many corpus widgets give the SVG a more specific accessibility label than the page header (e.g. header `$(p,q)$-bigrading explorer` vs SVG title `bidegree summands`); preserve that distinction through migration. HTML-escaped by the renderer." }
       }
     },

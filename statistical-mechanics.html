@@ -296,13 +296,13 @@ Ergodicity is delicate (KAM theory shows that integrable Hamiltonians are <em>no
 
 <div class="widget" id="w-phase">
   <div class="hd"><div class="ttl">Phase portrait of a harmonic oscillator</div><div class="hint">slide energy — the shell is an ellipse</div></div>
-  <svg id="phase-svg" viewBox="-180 -130 360 260" width="100%" height="260"><title>Phase-space ellipses of constant energy for a harmonic oscillator</title></svg>
   <div class="row">
     <label for="phase-E">energy $E$:</label>
-    <input id="phase-E" type="range" min="0.1" max="3" step="0.05" value="1.0" />
+    <input type="range" id="phase-E" min="0.1" max="3" step="0.05" value="1.0">
     <span id="phase-Eval" class="small">1.00</span>
   </div>
-  <div class="readout" id="phase-out">slide $E$ to change the energy shell…</div>
+  <svg id="phase-svg" viewBox="-180 -130 360 260" width="100%" height="260"><title>Phase-space ellipses of constant energy for a harmonic oscillator</title></svg>
+  <div class="readout" id="phase-out"></div>
 </div>
 <p class="small">For $H = \tfrac{1}{2}p^2 + \tfrac{1}{2}\omega^2 q^2$, energy shells are ellipses; the flow rotates points around the origin at angular frequency $\omega$, preserving area (Liouville). The microcanonical ensemble at energy $E$ is the uniform measure on the shell — a 1D circle in this 2D phase space. Density $\Omega(E)$ grows linearly with $E$ here; for $N$ oscillators it grows as $E^{N-1}/(N-1)!$, giving $S(E) = N k_B(\log(E/N\hbar\omega) + 1)$ in the thermodynamic limit.</p>
 
@@ -418,13 +418,13 @@ where the partition function $Z$ is the normalization. For a discrete spectrum, 
 
 <div class="widget" id="w-boltz">
   <div class="hd"><div class="ttl">Boltzmann distribution on a 4-level system</div><div class="hint">slide $\beta$ — populations redistribute</div></div>
-  <svg id="boltz-svg" viewBox="0 0 360 220" width="100%" height="220"><title>Bar chart of Boltzmann probabilities at varying temperature</title></svg>
   <div class="row">
     <label for="boltz-beta">$\beta$ ($1/k_BT$):</label>
-    <input id="boltz-beta" type="range" min="0.05" max="3" step="0.05" value="1.0" />
+    <input type="range" id="boltz-beta" min="0.05" max="3" step="0.05" value="1.0">
     <span id="boltz-bval" class="small">1.00</span>
   </div>
-  <div class="readout" id="boltz-out">slide $\beta$…</div>
+  <svg id="boltz-svg" viewBox="0 0 360 220" width="100%" height="220"><title>Bar chart of Boltzmann probabilities at varying temperature</title></svg>
+  <div class="readout" id="boltz-out"></div>
 </div>
 <p class="small">The four levels have energies $E = (0, 1, 2, 3)$ in arbitrary units. At $\beta\to 0$ (high $T$) all populations equalize; at $\beta\to\infty$ (low $T$) the system collapses into the ground state. The crossover $\beta\sim 1/\Delta E$ is where energy gaps first matter — the Schottky regime.</p>
 
@@ -527,21 +527,17 @@ where $\beta$ is the Lagrange multiplier conjugate to $U$, determined implicitly
   <div class="hd"><div class="ttl">Maximum-entropy fitting</div><div class="hint">slide a 4-bin distribution; entropy and the implied $\beta$ update live</div></div>
   <div class="row">
     <label for="g-p1">$p_1$ (E=0):</label>
-    <input id="g-p1" type="range" min="0.01" max="0.97" step="0.01" value="0.4" />
+    <input type="range" id="g-p1" min="0.01" max="0.97" step="0.01" value="0.4">
     <span id="g-p1v" class="small">0.40</span>
-  </div>
-  <div class="row">
     <label for="g-p2">$p_2$ (E=1):</label>
-    <input id="g-p2" type="range" min="0.01" max="0.97" step="0.01" value="0.3" />
+    <input type="range" id="g-p2" min="0.01" max="0.97" step="0.01" value="0.3">
     <span id="g-p2v" class="small">0.30</span>
-  </div>
-  <div class="row">
     <label for="g-p3">$p_3$ (E=2):</label>
-    <input id="g-p3" type="range" min="0.01" max="0.97" step="0.01" value="0.2" />
+    <input type="range" id="g-p3" min="0.01" max="0.97" step="0.01" value="0.2">
     <span id="g-p3v" class="small">0.20</span>
   </div>
   <svg id="g-svg" viewBox="0 0 360 200" width="100%" height="200"><title>Probability bars compared with the canonical distribution at the matching β</title></svg>
-  <div class="readout" id="g-out">adjust the sliders…</div>
+  <div class="readout" id="g-out"></div>
 </div>
 <p class="small">The orange empirical bars are your distribution $\{p_i\}$ (the slider for $p_4$ is forced by normalization). The thin yellow bars overlay the canonical distribution at the unique $\beta$ matching your $\langle E\rangle$. The bigger the gap between the two, the further your distribution is from the maximum-entropy fit at the same mean energy.</p>
 
@@ -666,16 +662,16 @@ $$\Xi \;=\; \prod_k \Xi_k, \qquad \Xi_k = \sum_{n=0}^{n_{\max}} e^{-\beta(\epsil
 
 <div class="widget" id="w-occ">
   <div class="hd"><div class="ttl">Ideal-gas occupation curves</div><div class="hint">slide $T$ and $\mu$ — Fermi/Bose/MB compared</div></div>
-  <svg id="occ-svg" viewBox="0 0 360 220" width="100%" height="240"><title>Fermi, Bose, and Maxwell-Boltzmann occupation as a function of energy</title></svg>
   <div class="row">
     <label for="occ-T">$T$:</label>
-    <input id="occ-T" type="range" min="0.05" max="2" step="0.02" value="0.3" />
+    <input type="range" id="occ-T" min="0.05" max="2" step="0.02" value="0.3">
     <span id="occ-Tval" class="small">0.30</span>
     <label for="occ-mu">$\mu$:</label>
-    <input id="occ-mu" type="range" min="-2" max="2" step="0.02" value="0.5" />
+    <input type="range" id="occ-mu" min="-2" max="2" step="0.02" value="0.5">
     <span id="occ-muval" class="small">0.50</span>
   </div>
-  <div class="readout" id="occ-out">slide…</div>
+  <svg id="occ-svg" viewBox="0 0 360 220" width="100%" height="240"><title>Fermi, Bose, and Maxwell-Boltzmann occupation as a function of energy</title></svg>
+  <div class="readout" id="occ-out"></div>
 </div>
 <p class="small">Cyan: Fermi-Dirac, capped at $1$. Pink: Bose-Einstein, divergent as $\epsilon\to\mu^+$. Yellow: Maxwell-Boltzmann, $e^{-\beta(\epsilon-\mu)}$. The three converge at $\epsilon\gg\mu+k_BT$ (classical limit). The Fermi distribution sharpens to a step function as $T\to 0$; the Bose-Einstein distribution diverges at $\mu$.</p>
 
@@ -797,15 +793,15 @@ At $h = 0$, this has only the trivial solution $m = 0$ for $\beta qJ \le 1$, but
 
 <div class="widget" id="w-ising">
   <div class="hd"><div class="ttl">2D Ising — Metropolis</div><div class="hint">slide $T$ — domains form below $T_c\approx 2.27 J$</div></div>
-  <svg id="ising-svg" viewBox="0 0 320 320" width="100%" height="320"><title>Live 24×24 Ising lattice with magnetization readout</title></svg>
   <div class="row">
     <label for="ising-T">$T/J$:</label>
-    <input id="ising-T" type="range" min="0.5" max="5" step="0.05" value="2.27" />
+    <input type="range" id="ising-T" min="0.5" max="5" step="0.05" value="2.27">
     <span id="ising-Tval" class="small">2.27</span>
     <button id="ising-reset">randomize</button>
     <button id="ising-pause">pause</button>
   </div>
-  <div class="readout" id="ising-out">running…</div>
+  <svg id="ising-svg" viewBox="0 0 320 320" width="100%" height="320"><title>Live 24×24 Ising lattice with magnetization readout</title></svg>
+  <div class="readout" id="ising-out"></div>
 </div>
 <p class="small">A $24\times 24$ square lattice with periodic boundary conditions, $J = 1$, $h = 0$. Each frame performs $\sim N$ Metropolis updates. Below $T_c\approx 2.27$ the system spontaneously magnetizes — large monochrome domains form. Above $T_c$ the spins look uncorrelated. Watch the magnetization fluctuate near $T_c$ — those critical fluctuations are what mean-field misses.</p>
 
@@ -1081,14 +1077,14 @@ $$\delta\langle A\rangle \;=\; h\,\beta\bigl(\langle AB\rangle_0 - \langle A\ran
 
 <div class="widget" id="w-cramer">
   <div class="hd"><div class="ttl">Cramér rate function for Bernoulli($p=1/2$)</div><div class="hint">slide $n$ — histogram concentrates at the mean</div></div>
-  <svg id="cramer-svg" viewBox="0 0 360 230" width="100%" height="230"><title>Empirical mean of n Bernoulli(1/2) draws vs Cramér rate function</title></svg>
   <div class="row">
     <label for="cramer-n">$n$:</label>
-    <input id="cramer-n" type="range" min="2" max="200" step="1" value="20" />
+    <input type="range" id="cramer-n" min="2" max="200" step="1" value="20">
     <span id="cramer-nval" class="small">20</span>
     <button id="cramer-resample">resample 5000</button>
   </div>
-  <div class="readout" id="cramer-out">slide $n$…</div>
+  <svg id="cramer-svg" viewBox="0 0 360 230" width="100%" height="230"><title>Empirical mean of n Bernoulli(1/2) draws vs Cramér rate function</title></svg>
+  <div class="readout" id="cramer-out"></div>
 </div>
 <p class="small">5000 samples of $\bar X_n$, the empirical mean of $n$ Bernoulli$(1/2)$ draws. The cyan histogram is the empirical distribution of $\bar X_n$; the yellow Cramér curve is the prediction $\propto e^{-n I(x)}$ with $I(x) = x\log(2x) + (1-x)\log(2(1-x))$ (the entropy of a $\mathrm{Ber}(x)$ relative to $\mathrm{Ber}(1/2)$). Near the mean $1/2$ the histogram is approximately Gaussian; in the tails the Cramér rate dominates.</p>
 
