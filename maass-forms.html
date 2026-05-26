@@ -428,13 +428,13 @@ Crucially, $\phi(s)$ is an explicit rational expression in completed $\zeta$ val
   <div class="row">
     <label for="es-r">spectral parameter $r$</label>
     <input type="range" id="es-r" min="0" max="20" step="0.1" value="6">
-    <span class="readout" id="es-r-out" style="min-width:3.5em;display:inline-block">6</span>
+    <span id="es-r-out" class="readout">6</span>
     <label for="es-x">$x = \Re z$</label>
     <input type="range" id="es-x" min="-0.5" max="0.5" step="0.01" value="0">
-    <span class="readout" id="es-x-out" style="min-width:3.5em;display:inline-block">0</span>
+    <span id="es-x-out" class="readout">0</span>
   </div>
   <svg id="es-svg" viewBox="0 0 640 240" width="640" height="240" aria-label="Eisenstein series real part vs height"><title>Real part of $E(z, 1/2 + ir)$ vs. height $y$</title></svg>
-  <div class="readout small" id="es-out">drag $r$ to change the eigenvalue; drag $x$ to slice horizontally</div>
+  <div class="readout small" id="es-out"></div>
 </div>
 
 <p>The plot shows $\Re E(x+iy, \tfrac12+ir)$ as a function of $y\in[0.5, 6]$ for the chosen $r$ and $x$. The constant-term piece $y^{1/2+ir} + \phi(\tfrac12+ir)y^{1/2-ir}$ dominates as $y\to\infty$; it is a sum of two complex-conjugate plane waves on a logarithmic scale and produces the visible oscillations. The non-constant Fourier modes decay exponentially in $y$.</p>
@@ -499,13 +499,13 @@ For the holomorphic-form version this was proved by Deligne via étale cohomolog
   <div class="row">
     <label for="bk-r">spectral parameter $r$</label>
     <input type="range" id="bk-r" min="1" max="20" step="0.1" value="9.5">
-    <span class="readout" id="bk-r-out" style="min-width:3.5em;display:inline-block">9.5</span>
+    <span id="bk-r-out" class="readout">9.5</span>
     <label for="bk-n">frequency $n$</label>
     <input type="range" id="bk-n" min="1" max="6" step="1" value="1">
-    <span class="readout" id="bk-n-out" style="min-width:2.5em;display:inline-block">1</span>
+    <span id="bk-n-out" class="readout">1</span>
   </div>
   <svg id="bk-svg" viewBox="0 0 640 240" width="640" height="240" aria-label="Bessel function K_ir profile"><title>$\sqrt{y}\,K_{ir}(2\pi n y)$ vs $y$</title></svg>
-  <div class="readout small" id="bk-out">drag $r$ and $n$ to see the radial profile…</div>
+  <div class="readout small" id="bk-out"></div>
 </div>
 
 <p>For $y\gg r/(2\pi n)$ the Bessel function decays exponentially: $K_{ir}(t)\sim\sqrt{\pi/(2t)}\,e^{-t}$. For $y\ll r/(2\pi n)$ it oscillates — the so-called <em>transition region</em> at $t\sim r$ is where most of the analytic-number-theory weight of $L(s,f)$ concentrates.</p>
@@ -537,10 +537,10 @@ For $\mathrm{SL}_2(\mathbb{Z})$ this gives $N(T)\sim T/12$ — the cusp form spe
   <div class="row">
     <label for="wl-T">cutoff $T$</label>
     <input type="range" id="wl-T" min="100" max="6000" step="50" value="1500">
-    <span class="readout" id="wl-T-out" style="min-width:4em;display:inline-block">1500</span>
+    <span id="wl-T-out" class="readout">1500</span>
   </div>
-  <svg id="wl-svg" viewBox="0 0 640 240" width="640" height="240" aria-label="Weyl law step function vs linear asymptotic"><title>$N(T)$ approximated by Weyl's $T/12$</title></svg>
-  <div class="readout" id="wl-out">drag $T$…</div>
+  <svg id="wl-svg" viewBox="0 0 640 240" width="640" height="240" aria-label="Weyl law step function vs linear asymptotic"><title>$N(T)$ approximated by Weyl&#39;s $T/12$</title></svg>
+  <div class="readout" id="wl-out"></div>
 </div>
 
 <p>The orange step plot is a synthetic "Maass eigenvalue counting function" using the first dozen real eigenvalues plus a Weyl-density tail; the dashed cyan line is the Weyl asymptote $T/12$. The ratio approaches $1$ as $T$ grows.</p>

@@ -288,13 +288,13 @@ $$\kappa(X) \;=\; \begin{cases} -\infty & \text{if } h^0(X, K_X^{\otimes m}) = 0
 
 <div class="widget" id="w-kodaira-curves">
   <div class="hd"><div class="ttl">Kodaira dimension of curves</div><div class="hint">slide $g$ — see $h^0(K^{\otimes m})$ growth</div></div>
-  <svg id="kc-svg" viewBox="0 0 720 280" width="720" height="280"><title>Pluricanonical growth on a smooth projective curve</title></svg>
   <div class="row">
     <label for="kc-g">genus $g$ =</label>
-    <input type="range" id="kc-g" min="0" max="6" step="1" value="2" />
+    <input type="range" id="kc-g" min="0" max="6" step="1" value="2">
     <span id="kc-gv" class="pill">g = 2</span>
   </div>
-  <div class="readout" id="kc-out">Pick a genus. The plot shows $h^0(C, K_C^{\otimes m})$ as a function of $m$ for $m = 0, 1, \ldots, 8$, and reads off the Kodaira dimension from the growth rate.</div>
+  <svg id="kc-svg" viewBox="0 0 720 280" width="720" height="280"><title>Pluricanonical growth on a smooth projective curve</title></svg>
+  <div class="readout" id="kc-out"></div>
 </div>
 <script>
 (function(){
@@ -683,13 +683,13 @@ $$\overline{NE}(X) \;=\; \overline{NE}(X)_{K_X \ge 0} \;+\; \sum_{i \in I} \math
 
 <div class="widget" id="w-flip">
   <div class="hd"><div class="ttl">Threefold flip schematic</div><div class="hint">drag the slider — watch the contracted curve change sides</div></div>
-  <svg id="fl-svg" viewBox="0 0 720 320" width="720" height="320"><title>Schematic of a 3-fold flip</title></svg>
   <div class="row">
     <label for="fl-t">flip parameter $t$ =</label>
-    <input type="range" id="fl-t" min="0" max="1" step="0.01" value="0" />
+    <input type="range" id="fl-t" min="0" max="1" step="0.01" value="0">
     <span id="fl-tv" class="pill">t = 0</span>
   </div>
-  <div class="readout" id="fl-out">$t = 0$: original $X$ with curve $C$ ($K_X \cdot C < 0$). $t \in (0,1)$: contraction to singular $Y$. $t = 1$: flipped $X^+$ with $K_{X^+} \cdot C^+ > 0$.</div>
+  <svg id="fl-svg" viewBox="0 0 720 320" width="720" height="320"><title>Schematic of a 3-fold flip</title></svg>
+  <div class="readout" id="fl-out"></div>
 </div>
 <script>
 (function(){
@@ -802,13 +802,13 @@ $$K_Y \;=\; f^*(K_X + \Delta) \;+\; \sum_E a_E(X, \Delta)\, E,$$
 
 <div class="widget" id="w-discrep">
   <div class="hd"><div class="ttl">Discrepancy of $\mathbb{A}^2/\mathbb{Z}_n$ ($A_{n-1}$ singularity)</div><div class="hint">slide $n$ — see the discrepancies of the resolved chain of $\mathbb{P}^1$'s</div></div>
-  <svg id="dc-svg" viewBox="0 0 720 280" width="720" height="280"><title>Discrepancies of an A_n singularity</title></svg>
   <div class="row">
     <label for="dc-n">$n$ =</label>
-    <input type="range" id="dc-n" min="2" max="8" step="1" value="3" />
+    <input type="range" id="dc-n" min="2" max="8" step="1" value="3">
     <span id="dc-nv" class="pill">n = 3</span>
   </div>
-  <div class="readout" id="dc-out">$\mathbb{A}^2/\mathbb{Z}_n$ resolves to a chain of $n-1$ exceptional $\mathbb{P}^1$'s with self-intersection $-2$ each. All discrepancies are $0$ — these are the canonical singularities.</div>
+  <svg id="dc-svg" viewBox="0 0 720 280" width="720" height="280"><title>Discrepancies of an A_n singularity</title></svg>
+  <div class="readout" id="dc-out"></div>
 </div>
 <script>
 (function(){

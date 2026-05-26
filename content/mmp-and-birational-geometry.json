@@ -12,13 +12,41 @@
         },
         {
           "type": "widget",
-          "slug": "mmp-and-birational-geometry-w1",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-kodaira-curves",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-kodaira-curves\">\n  <div class=\"hd\"><div class=\"ttl\">Kodaira dimension of curves</div><div class=\"hint\">slide $g$ — see $h^0(K^{\\otimes m})$ growth</div></div>\n  <svg id=\"kc-svg\" viewBox=\"0 0 720 280\" width=\"720\" height=\"280\"><title>Pluricanonical growth on a smooth projective curve</title></svg>\n  <div class=\"row\">\n    <label for=\"kc-g\">genus $g$ =</label>\n    <input type=\"range\" id=\"kc-g\" min=\"0\" max=\"6\" step=\"1\" value=\"2\" />\n    <span id=\"kc-gv\" class=\"pill\">g = 2</span>\n  </div>\n  <div class=\"readout\" id=\"kc-out\">Pick a genus. The plot shows $h^0(C, K_C^{\\otimes m})$ as a function of $m$ for $m = 0, 1, \\ldots, 8$, and reads off the Kodaira dimension from the growth rate.</div>\n</div>",
-            "bodyScript": "\n<script>\n(function(){\n  const G = $(\"#kc-g\"), Gv = $(\"#kc-gv\"), svg = $(\"#kc-svg\"), out = $(\"#kc-out\");\n  const W = 720, H = 280;\n  const PADL = 60, PADR = 40, PADT = 24, PADB = 50;\n  const M_MAX = 8;\n  function render(){\n    const g = +G.value;\n    Gv.textContent = \"g = \" + g;\n    svg.innerHTML = \"\";\n    // h^0(K^m) on a curve of genus g: by RR, deg(mK) = m(2g-2). For m = 0, h^0 = 1.\n    // For m >= 1: if 2g-2 < 0, h^0 = 0; if 2g-2 = 0 (g=1), h^0 = 1; if 2g-2 > 0, h^0 = m(2g-2) - g + 1 for m large; for m=1, h^0(K) = g.\n    const vals = [];\n    for(let m = 0; m <= M_MAX; m++){\n      let h;\n      if(m === 0) h = 1;\n      else if(g === 0) h = 0;\n      else if(g === 1) h = 1;\n      else if(m === 1) h = g;\n      else h = m * (2 * g - 2) - g + 1;\n      vals.push(h);\n    }\n    const yMax = Math.max(8, ...vals);\n    const sx = m => PADL + (W - PADL - PADR) * m / M_MAX;\n    const sy = v => H - PADB - (H - PADT - PADB) * v / yMax;\n    // axes\n    svg.appendChild(SVG(\"line\", {x1: PADL, y1: H - PADB, x2: W - PADR, y2: H - PADB, stroke: \"var(--mute)\"}));\n    svg.appendChild(SVG(\"line\", {x1: PADL, y1: H - PADB, x2: PADL, y2: PADT, stroke: \"var(--mute)\"}));\n    // axis labels\n    const xl = SVG(\"text\", {x: (PADL + W - PADR)/2, y: H - 14, \"text-anchor\": \"middle\", \"font-size\": 13, fill: \"var(--mute)\"});\n    xl.textContent = \"m\"; svg.appendChild(xl);\n    const yl = SVG(\"text\", {x: 16, y: (PADT + H - PADB)/2, \"text-anchor\": \"middle\", \"font-size\": 13, fill: \"var(--mute)\", transform: `rotate(-90 16 ${(PADT + H - PADB)/2})`});\n    yl.textContent = \"h^0(K^m)\"; svg.appendChild(yl);\n    // ticks\n    for(let m = 0; m <= M_MAX; m++){\n      const t = SVG(\"text\", {x: sx(m), y: H - PADB + 16, \"text-anchor\": \"middle\", \"font-size\": 11, fill: \"var(--mute)\"});\n      t.textContent = m; svg.appendChild(t);\n    }\n    // bars\n    for(let m = 0; m <= M_MAX; m++){\n      const v = vals[m];\n      if(v <= 0){\n        // mark as zero\n        svg.appendChild(SVG(\"circle\", {cx: sx(m), cy: H - PADB, r: 3, fill: \"var(--pink)\"}));\n        continue;\n      }\n      const x1 = sx(m) - 12, x2 = sx(m) + 12;\n      const y1 = sy(v), y2 = H - PADB;\n      svg.appendChild(SVG(\"rect\", {x: x1, y: y1, width: x2-x1, height: y2-y1, fill: \"var(--yellow)\", opacity: .85}));\n      const lbl = SVG(\"text\", {x: sx(m), y: y1 - 4, \"text-anchor\": \"middle\", \"font-size\": 11, fill: \"var(--ink)\"});\n      lbl.textContent = v; svg.appendChild(lbl);\n    }\n    // verdict\n    let kappa, regime;\n    if(g === 0){ kappa = \"−∞\"; regime = \"rational curve — no pluricanonical sections.\"; }\n    else if(g === 1){ kappa = \"0\"; regime = \"elliptic curve — K is trivial, h^0 constant at 1.\"; }\n    else { kappa = \"1\"; regime = `genus ${g} — h^0(K^m) grows linearly: m·(2g-2) − g + 1.`; }\n    out.textContent = `g = ${g}: κ(C) = ${kappa}. ${regime}`;\n  }\n  G.addEventListener(\"input\", render);\n  render();\n})();\n</script>",
             "title": "Kodaira dimension of curves",
-            "hint": "slide $g$ — see $h^0(K^{\\otimes m})$ growth"
+            "hint": "slide $g$ — see $h^0(K^{\\otimes m})$ growth",
+            "controls": [
+              {
+                "type": "slider",
+                "id": "kc-g",
+                "label": "genus $g$ =",
+                "min": 0,
+                "max": 6,
+                "value": 2,
+                "format": "separate",
+                "step": 1
+              },
+              {
+                "type": "span",
+                "id": "kc-gv",
+                "class": "pill",
+                "text": "g = 2"
+              }
+            ],
+            "svg": {
+              "id": "kc-svg",
+              "viewBox": "0 0 720 280",
+              "width": 720,
+              "height": 280,
+              "title": "Pluricanonical growth on a smooth projective curve"
+            },
+            "readout": {
+              "id": "kc-out"
+            },
+            "bodyScript": "\n<script>\n(function(){\n  const G = $(\"#kc-g\"), Gv = $(\"#kc-gv\"), svg = $(\"#kc-svg\"), out = $(\"#kc-out\");\n  const W = 720, H = 280;\n  const PADL = 60, PADR = 40, PADT = 24, PADB = 50;\n  const M_MAX = 8;\n  function render(){\n    const g = +G.value;\n    Gv.textContent = \"g = \" + g;\n    svg.innerHTML = \"\";\n    // h^0(K^m) on a curve of genus g: by RR, deg(mK) = m(2g-2). For m = 0, h^0 = 1.\n    // For m >= 1: if 2g-2 < 0, h^0 = 0; if 2g-2 = 0 (g=1), h^0 = 1; if 2g-2 > 0, h^0 = m(2g-2) - g + 1 for m large; for m=1, h^0(K) = g.\n    const vals = [];\n    for(let m = 0; m <= M_MAX; m++){\n      let h;\n      if(m === 0) h = 1;\n      else if(g === 0) h = 0;\n      else if(g === 1) h = 1;\n      else if(m === 1) h = g;\n      else h = m * (2 * g - 2) - g + 1;\n      vals.push(h);\n    }\n    const yMax = Math.max(8, ...vals);\n    const sx = m => PADL + (W - PADL - PADR) * m / M_MAX;\n    const sy = v => H - PADB - (H - PADT - PADB) * v / yMax;\n    // axes\n    svg.appendChild(SVG(\"line\", {x1: PADL, y1: H - PADB, x2: W - PADR, y2: H - PADB, stroke: \"var(--mute)\"}));\n    svg.appendChild(SVG(\"line\", {x1: PADL, y1: H - PADB, x2: PADL, y2: PADT, stroke: \"var(--mute)\"}));\n    // axis labels\n    const xl = SVG(\"text\", {x: (PADL + W - PADR)/2, y: H - 14, \"text-anchor\": \"middle\", \"font-size\": 13, fill: \"var(--mute)\"});\n    xl.textContent = \"m\"; svg.appendChild(xl);\n    const yl = SVG(\"text\", {x: 16, y: (PADT + H - PADB)/2, \"text-anchor\": \"middle\", \"font-size\": 13, fill: \"var(--mute)\", transform: `rotate(-90 16 ${(PADT + H - PADB)/2})`});\n    yl.textContent = \"h^0(K^m)\"; svg.appendChild(yl);\n    // ticks\n    for(let m = 0; m <= M_MAX; m++){\n      const t = SVG(\"text\", {x: sx(m), y: H - PADB + 16, \"text-anchor\": \"middle\", \"font-size\": 11, fill: \"var(--mute)\"});\n      t.textContent = m; svg.appendChild(t);\n    }\n    // bars\n    for(let m = 0; m <= M_MAX; m++){\n      const v = vals[m];\n      if(v <= 0){\n        // mark as zero\n        svg.appendChild(SVG(\"circle\", {cx: sx(m), cy: H - PADB, r: 3, fill: \"var(--pink)\"}));\n        continue;\n      }\n      const x1 = sx(m) - 12, x2 = sx(m) + 12;\n      const y1 = sy(v), y2 = H - PADB;\n      svg.appendChild(SVG(\"rect\", {x: x1, y: y1, width: x2-x1, height: y2-y1, fill: \"var(--yellow)\", opacity: .85}));\n      const lbl = SVG(\"text\", {x: sx(m), y: y1 - 4, \"text-anchor\": \"middle\", \"font-size\": 11, fill: \"var(--ink)\"});\n      lbl.textContent = v; svg.appendChild(lbl);\n    }\n    // verdict\n    let kappa, regime;\n    if(g === 0){ kappa = \"−∞\"; regime = \"rational curve — no pluricanonical sections.\"; }\n    else if(g === 1){ kappa = \"0\"; regime = \"elliptic curve — K is trivial, h^0 constant at 1.\"; }\n    else { kappa = \"1\"; regime = `genus ${g} — h^0(K^m) grows linearly: m·(2g-2) − g + 1.`; }\n    out.textContent = `g = ${g}: κ(C) = ${kappa}. ${regime}`;\n  }\n  G.addEventListener(\"input\", render);\n  render();\n})();\n</script>",
+            "wrapperHasId": true
           }
         },
         {
@@ -143,13 +171,41 @@
         },
         {
           "type": "widget",
-          "slug": "mmp-and-birational-geometry-w4",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-flip",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-flip\">\n  <div class=\"hd\"><div class=\"ttl\">Threefold flip schematic</div><div class=\"hint\">drag the slider — watch the contracted curve change sides</div></div>\n  <svg id=\"fl-svg\" viewBox=\"0 0 720 320\" width=\"720\" height=\"320\"><title>Schematic of a 3-fold flip</title></svg>\n  <div class=\"row\">\n    <label for=\"fl-t\">flip parameter $t$ =</label>\n    <input type=\"range\" id=\"fl-t\" min=\"0\" max=\"1\" step=\"0.01\" value=\"0\" />\n    <span id=\"fl-tv\" class=\"pill\">t = 0</span>\n  </div>\n  <div class=\"readout\" id=\"fl-out\">$t = 0$: original $X$ with curve $C$ ($K_X \\cdot C < 0$). $t \\in (0,1)$: contraction to singular $Y$. $t = 1$: flipped $X^+$ with $K_{X^+} \\cdot C^+ > 0$.</div>\n</div>",
-            "bodyScript": "\n<script>\n(function(){\n  const T = $(\"#fl-t\"), Tv = $(\"#fl-tv\"), svg = $(\"#fl-svg\"), out = $(\"#fl-out\");\n  const W = 720, H = 320;\n  function render(){\n    const t = +T.value;\n    Tv.textContent = \"t = \" + t.toFixed(2);\n    svg.innerHTML = \"\";\n    // three blobs: X (left), Y (centre, possibly singular), X+ (right)\n    const blob = (cx, cy, fill, label, sub) => {\n      svg.appendChild(SVG(\"ellipse\", {cx, cy, rx: 90, ry: 60, fill, opacity: .35, stroke: \"var(--ink)\", \"stroke-width\": 1}));\n      const t1 = SVG(\"text\", {x: cx, y: cy - 6, \"text-anchor\": \"middle\", \"font-size\": 18, fill: \"var(--ink)\", \"font-weight\": 600});\n      t1.textContent = label; svg.appendChild(t1);\n      const t2 = SVG(\"text\", {x: cx, y: cy + 14, \"text-anchor\": \"middle\", \"font-size\": 11, fill: \"var(--mute)\"});\n      t2.textContent = sub; svg.appendChild(t2);\n    };\n    blob(120, 160, \"var(--cyan)\", \"X\", \"smooth\");\n    blob(360, 160, \"var(--violet)\", \"Y\", t > 0.05 && t < 0.95 ? \"singular\" : \"\");\n    blob(600, 160, \"var(--green)\", \"X⁺\", \"smooth (flipped)\");\n    // contracted curve in X (a small loop) — opacity decreases as t -> 1\n    const opL = Math.max(0, 1 - 2*t);\n    const opR = Math.max(0, 2*t - 1);\n    if(opL > 0){\n      svg.appendChild(SVG(\"ellipse\", {cx: 120, cy: 195, rx: 35, ry: 8, fill: \"none\", stroke: \"var(--yellow)\", \"stroke-width\": 2.5, opacity: opL}));\n      const cl = SVG(\"text\", {x: 120, y: 222, \"text-anchor\": \"middle\", \"font-size\": 12, fill: \"var(--yellow)\", opacity: opL});\n      cl.textContent = \"C  (K·C < 0)\"; svg.appendChild(cl);\n    }\n    // singular point in Y — visible 0 < t < 1\n    const opY = (t > 0.05 && t < 0.95) ? 1 : 0;\n    if(opY > 0){\n      svg.appendChild(SVG(\"polygon\", {points: \"356,168 360,160 364,168 368,160 372,168\", stroke: \"var(--pink)\", fill: \"none\", \"stroke-width\": 2, opacity: opY}));\n      const yl = SVG(\"text\", {x: 360, y: 222, \"text-anchor\": \"middle\", \"font-size\": 12, fill: \"var(--pink)\", opacity: opY});\n      yl.textContent = \"image of C\"; svg.appendChild(yl);\n    }\n    // contracted curve in X+ (a small loop in different orientation) — opacity increases\n    if(opR > 0){\n      svg.appendChild(SVG(\"ellipse\", {cx: 600, cy: 145, rx: 8, ry: 35, fill: \"none\", stroke: \"var(--green)\", \"stroke-width\": 2.5, opacity: opR}));\n      const cr = SVG(\"text\", {x: 600, y: 222, \"text-anchor\": \"middle\", \"font-size\": 12, fill: \"var(--green)\", opacity: opR});\n      cr.textContent = \"C⁺  (K·C⁺ > 0)\"; svg.appendChild(cr);\n    }\n    // arrows\n    drawArrow(svg, [210, 160], [270, 160], {color: \"var(--mute)\", markerId:\"flarr1\", label: \"φ\", labelSide: 1});\n    drawArrow(svg, [510, 160], [450, 160], {color: \"var(--mute)\", markerId:\"flarr2\", label: \"φ⁺\", labelSide: 0});\n    // dashed birational arrow X --> X+\n    drawArrow(svg, [210, 80], [510, 80], {color: \"var(--yellow)\", curve: -28, markerId:\"flarr3\", label: \"flip\", dash: \"5,4\"});\n    // panel labels\n    const pn = SVG(\"text\", {x: 120, y: 50, \"text-anchor\": \"middle\", \"font-size\": 12, fill: \"var(--cyan)\", \"font-weight\": 600});\n    pn.textContent = \"K_X · C < 0\"; svg.appendChild(pn);\n    const pn2 = SVG(\"text\", {x: 600, y: 50, \"text-anchor\": \"middle\", \"font-size\": 12, fill: \"var(--green)\", \"font-weight\": 600});\n    pn2.textContent = \"K_{X⁺} · C⁺ > 0\"; svg.appendChild(pn2);\n    // narration\n    let msg;\n    if(t < 0.05) msg = \"Initial state: smooth X with K_X-negative extremal curve C (yellow loop). The contraction φ : X → Y is small.\";\n    else if(t > 0.95) msg = \"Flipped state: X⁺ has the same singular contraction target Y, but the strict transform C⁺ now has K_{X⁺} · C⁺ > 0. The Picard number is preserved.\";\n    else if(t < 0.5) msg = \"Contracting: the curve C shrinks to a singular point of Y. K_Y is not Q-Cartier here — that is why we can't simply continue the MMP on Y.\";\n    else msg = \"Resolving the singular Y on the right: replace the contraction by φ⁺ : X⁺ → Y, with a different small modification on top.\";\n    out.textContent = msg;\n  }\n  T.addEventListener(\"input\", render);\n  render();\n})();\n</script>",
             "title": "Threefold flip schematic",
-            "hint": "drag the slider — watch the contracted curve change sides"
+            "hint": "drag the slider — watch the contracted curve change sides",
+            "controls": [
+              {
+                "type": "slider",
+                "id": "fl-t",
+                "label": "flip parameter $t$ =",
+                "min": 0,
+                "max": 1,
+                "value": 0,
+                "format": "separate",
+                "step": 0.01
+              },
+              {
+                "type": "span",
+                "id": "fl-tv",
+                "class": "pill",
+                "text": "t = 0"
+              }
+            ],
+            "svg": {
+              "id": "fl-svg",
+              "viewBox": "0 0 720 320",
+              "width": 720,
+              "height": 320,
+              "title": "Schematic of a 3-fold flip"
+            },
+            "readout": {
+              "id": "fl-out"
+            },
+            "bodyScript": "\n<script>\n(function(){\n  const T = $(\"#fl-t\"), Tv = $(\"#fl-tv\"), svg = $(\"#fl-svg\"), out = $(\"#fl-out\");\n  const W = 720, H = 320;\n  function render(){\n    const t = +T.value;\n    Tv.textContent = \"t = \" + t.toFixed(2);\n    svg.innerHTML = \"\";\n    // three blobs: X (left), Y (centre, possibly singular), X+ (right)\n    const blob = (cx, cy, fill, label, sub) => {\n      svg.appendChild(SVG(\"ellipse\", {cx, cy, rx: 90, ry: 60, fill, opacity: .35, stroke: \"var(--ink)\", \"stroke-width\": 1}));\n      const t1 = SVG(\"text\", {x: cx, y: cy - 6, \"text-anchor\": \"middle\", \"font-size\": 18, fill: \"var(--ink)\", \"font-weight\": 600});\n      t1.textContent = label; svg.appendChild(t1);\n      const t2 = SVG(\"text\", {x: cx, y: cy + 14, \"text-anchor\": \"middle\", \"font-size\": 11, fill: \"var(--mute)\"});\n      t2.textContent = sub; svg.appendChild(t2);\n    };\n    blob(120, 160, \"var(--cyan)\", \"X\", \"smooth\");\n    blob(360, 160, \"var(--violet)\", \"Y\", t > 0.05 && t < 0.95 ? \"singular\" : \"\");\n    blob(600, 160, \"var(--green)\", \"X⁺\", \"smooth (flipped)\");\n    // contracted curve in X (a small loop) — opacity decreases as t -> 1\n    const opL = Math.max(0, 1 - 2*t);\n    const opR = Math.max(0, 2*t - 1);\n    if(opL > 0){\n      svg.appendChild(SVG(\"ellipse\", {cx: 120, cy: 195, rx: 35, ry: 8, fill: \"none\", stroke: \"var(--yellow)\", \"stroke-width\": 2.5, opacity: opL}));\n      const cl = SVG(\"text\", {x: 120, y: 222, \"text-anchor\": \"middle\", \"font-size\": 12, fill: \"var(--yellow)\", opacity: opL});\n      cl.textContent = \"C  (K·C < 0)\"; svg.appendChild(cl);\n    }\n    // singular point in Y — visible 0 < t < 1\n    const opY = (t > 0.05 && t < 0.95) ? 1 : 0;\n    if(opY > 0){\n      svg.appendChild(SVG(\"polygon\", {points: \"356,168 360,160 364,168 368,160 372,168\", stroke: \"var(--pink)\", fill: \"none\", \"stroke-width\": 2, opacity: opY}));\n      const yl = SVG(\"text\", {x: 360, y: 222, \"text-anchor\": \"middle\", \"font-size\": 12, fill: \"var(--pink)\", opacity: opY});\n      yl.textContent = \"image of C\"; svg.appendChild(yl);\n    }\n    // contracted curve in X+ (a small loop in different orientation) — opacity increases\n    if(opR > 0){\n      svg.appendChild(SVG(\"ellipse\", {cx: 600, cy: 145, rx: 8, ry: 35, fill: \"none\", stroke: \"var(--green)\", \"stroke-width\": 2.5, opacity: opR}));\n      const cr = SVG(\"text\", {x: 600, y: 222, \"text-anchor\": \"middle\", \"font-size\": 12, fill: \"var(--green)\", opacity: opR});\n      cr.textContent = \"C⁺  (K·C⁺ > 0)\"; svg.appendChild(cr);\n    }\n    // arrows\n    drawArrow(svg, [210, 160], [270, 160], {color: \"var(--mute)\", markerId:\"flarr1\", label: \"φ\", labelSide: 1});\n    drawArrow(svg, [510, 160], [450, 160], {color: \"var(--mute)\", markerId:\"flarr2\", label: \"φ⁺\", labelSide: 0});\n    // dashed birational arrow X --> X+\n    drawArrow(svg, [210, 80], [510, 80], {color: \"var(--yellow)\", curve: -28, markerId:\"flarr3\", label: \"flip\", dash: \"5,4\"});\n    // panel labels\n    const pn = SVG(\"text\", {x: 120, y: 50, \"text-anchor\": \"middle\", \"font-size\": 12, fill: \"var(--cyan)\", \"font-weight\": 600});\n    pn.textContent = \"K_X · C < 0\"; svg.appendChild(pn);\n    const pn2 = SVG(\"text\", {x: 600, y: 50, \"text-anchor\": \"middle\", \"font-size\": 12, fill: \"var(--green)\", \"font-weight\": 600});\n    pn2.textContent = \"K_{X⁺} · C⁺ > 0\"; svg.appendChild(pn2);\n    // narration\n    let msg;\n    if(t < 0.05) msg = \"Initial state: smooth X with K_X-negative extremal curve C (yellow loop). The contraction φ : X → Y is small.\";\n    else if(t > 0.95) msg = \"Flipped state: X⁺ has the same singular contraction target Y, but the strict transform C⁺ now has K_{X⁺} · C⁺ > 0. The Picard number is preserved.\";\n    else if(t < 0.5) msg = \"Contracting: the curve C shrinks to a singular point of Y. K_Y is not Q-Cartier here — that is why we can't simply continue the MMP on Y.\";\n    else msg = \"Resolving the singular Y on the right: replace the contraction by φ⁺ : X⁺ → Y, with a different small modification on top.\";\n    out.textContent = msg;\n  }\n  T.addEventListener(\"input\", render);\n  render();\n})();\n</script>",
+            "wrapperHasId": true
           }
         },
         {
@@ -188,13 +244,41 @@
         },
         {
           "type": "widget",
-          "slug": "mmp-and-birational-geometry-w5",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-discrep",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-discrep\">\n  <div class=\"hd\"><div class=\"ttl\">Discrepancy of $\\mathbb{A}^2/\\mathbb{Z}_n$ ($A_{n-1}$ singularity)</div><div class=\"hint\">slide $n$ — see the discrepancies of the resolved chain of $\\mathbb{P}^1$'s</div></div>\n  <svg id=\"dc-svg\" viewBox=\"0 0 720 280\" width=\"720\" height=\"280\"><title>Discrepancies of an A_n singularity</title></svg>\n  <div class=\"row\">\n    <label for=\"dc-n\">$n$ =</label>\n    <input type=\"range\" id=\"dc-n\" min=\"2\" max=\"8\" step=\"1\" value=\"3\" />\n    <span id=\"dc-nv\" class=\"pill\">n = 3</span>\n  </div>\n  <div class=\"readout\" id=\"dc-out\">$\\mathbb{A}^2/\\mathbb{Z}_n$ resolves to a chain of $n-1$ exceptional $\\mathbb{P}^1$'s with self-intersection $-2$ each. All discrepancies are $0$ — these are the canonical singularities.</div>\n</div>",
-            "bodyScript": "\n<script>\n(function(){\n  const N = $(\"#dc-n\"), Nv = $(\"#dc-nv\"), svg = $(\"#dc-svg\"), out = $(\"#dc-out\");\n  const W = 720, H = 280;\n  function render(){\n    const n = +N.value;\n    Nv.textContent = \"n = \" + n;\n    svg.innerHTML = \"\";\n    // Top: image of singularity (a cone tip).\n    // Bottom: chain of n-1 ℙ¹'s, each labelled with discrepancy 0 (canonical).\n    // header\n    const ht = SVG(\"text\", {x: 360, y: 30, \"text-anchor\": \"middle\", \"font-size\": 14, fill: \"var(--mute)\"});\n    ht.textContent = `A_{${n-1}} singularity: 𝔸²/ℤ_${n} (cyclic quotient of order ${n})`;\n    svg.appendChild(ht);\n    // bottom: n-1 circles for exceptional ℙ¹'s\n    const k = n - 1;\n    const startX = 80, endX = 640;\n    const cy = 170;\n    const xs = [];\n    for(let i = 0; i < k; i++){\n      const x = k === 1 ? (startX + endX)/2 : startX + (endX - startX) * i / (k - 1);\n      xs.push(x);\n    }\n    // chain segments\n    for(let i = 0; i < k - 1; i++){\n      svg.appendChild(SVG(\"line\", {x1: xs[i], y1: cy, x2: xs[i+1], y2: cy, stroke: \"var(--violet)\", \"stroke-width\": 2, opacity: 0.5}));\n    }\n    // circles\n    for(let i = 0; i < k; i++){\n      svg.appendChild(SVG(\"circle\", {cx: xs[i], cy, r: 18, fill: \"var(--violet)\", opacity: .4, stroke: \"var(--violet)\", \"stroke-width\": 1.5}));\n      const lbl = SVG(\"text\", {x: xs[i], y: cy + 5, \"text-anchor\": \"middle\", \"font-size\": 11, fill: \"var(--ink)\"});\n      lbl.textContent = `E_${i+1}`; svg.appendChild(lbl);\n      // discrepancy below\n      const d = SVG(\"text\", {x: xs[i], y: cy + 38, \"text-anchor\": \"middle\", \"font-size\": 12, fill: \"var(--green)\"});\n      d.textContent = \"a = 0\"; svg.appendChild(d);\n      const sq = SVG(\"text\", {x: xs[i], y: cy + 56, \"text-anchor\": \"middle\", \"font-size\": 10, fill: \"var(--mute)\"});\n      sq.textContent = \"E² = −2\"; svg.appendChild(sq);\n    }\n    // headers\n    const ht2 = SVG(\"text\", {x: 360, y: 95, \"text-anchor\": \"middle\", \"font-size\": 12, fill: \"var(--mute)\"});\n    ht2.textContent = `Resolution Y → X: chain of ${k} exceptional ℙ¹'s with intersection graph A_${k} (Dynkin)`;\n    svg.appendChild(ht2);\n    // verdict\n    const verdict = SVG(\"text\", {x: 360, y: 252, \"text-anchor\": \"middle\", \"font-size\": 13, fill: \"var(--cyan)\", \"font-weight\": 600});\n    verdict.textContent = \"All discrepancies = 0 ⇒ canonical singularity ⇒ klt.\";\n    svg.appendChild(verdict);\n    out.textContent = `A_${k} = 𝔸²/ℤ_${n} (cyclic quotient of order ${n}). Resolution: ${k} exceptional ℙ¹'s, each E_i² = -2. K_Y = π* K_X (no correction term — pluricanonical sections lift), so a_{E_i} = 0 for every i. Class: canonical (in particular klt). On surfaces, canonical = ADE = rational double point.`;\n  }\n  N.addEventListener(\"input\", render);\n  render();\n})();\n</script>",
             "title": "Discrepancy of $\\mathbb{A}^2/\\mathbb{Z}_n$ ($A_{n-1}$ singularity)",
-            "hint": "slide $n$ — see the discrepancies of the resolved chain of $\\mathbb{P}^1$'s"
+            "hint": "slide $n$ — see the discrepancies of the resolved chain of $\\mathbb{P}^1$'s",
+            "controls": [
+              {
+                "type": "slider",
+                "id": "dc-n",
+                "label": "$n$ =",
+                "min": 2,
+                "max": 8,
+                "value": 3,
+                "format": "separate",
+                "step": 1
+              },
+              {
+                "type": "span",
+                "id": "dc-nv",
+                "class": "pill",
+                "text": "n = 3"
+              }
+            ],
+            "svg": {
+              "id": "dc-svg",
+              "viewBox": "0 0 720 280",
+              "width": 720,
+              "height": 280,
+              "title": "Discrepancies of an A_n singularity"
+            },
+            "readout": {
+              "id": "dc-out"
+            },
+            "bodyScript": "\n<script>\n(function(){\n  const N = $(\"#dc-n\"), Nv = $(\"#dc-nv\"), svg = $(\"#dc-svg\"), out = $(\"#dc-out\");\n  const W = 720, H = 280;\n  function render(){\n    const n = +N.value;\n    Nv.textContent = \"n = \" + n;\n    svg.innerHTML = \"\";\n    // Top: image of singularity (a cone tip).\n    // Bottom: chain of n-1 ℙ¹'s, each labelled with discrepancy 0 (canonical).\n    // header\n    const ht = SVG(\"text\", {x: 360, y: 30, \"text-anchor\": \"middle\", \"font-size\": 14, fill: \"var(--mute)\"});\n    ht.textContent = `A_{${n-1}} singularity: 𝔸²/ℤ_${n} (cyclic quotient of order ${n})`;\n    svg.appendChild(ht);\n    // bottom: n-1 circles for exceptional ℙ¹'s\n    const k = n - 1;\n    const startX = 80, endX = 640;\n    const cy = 170;\n    const xs = [];\n    for(let i = 0; i < k; i++){\n      const x = k === 1 ? (startX + endX)/2 : startX + (endX - startX) * i / (k - 1);\n      xs.push(x);\n    }\n    // chain segments\n    for(let i = 0; i < k - 1; i++){\n      svg.appendChild(SVG(\"line\", {x1: xs[i], y1: cy, x2: xs[i+1], y2: cy, stroke: \"var(--violet)\", \"stroke-width\": 2, opacity: 0.5}));\n    }\n    // circles\n    for(let i = 0; i < k; i++){\n      svg.appendChild(SVG(\"circle\", {cx: xs[i], cy, r: 18, fill: \"var(--violet)\", opacity: .4, stroke: \"var(--violet)\", \"stroke-width\": 1.5}));\n      const lbl = SVG(\"text\", {x: xs[i], y: cy + 5, \"text-anchor\": \"middle\", \"font-size\": 11, fill: \"var(--ink)\"});\n      lbl.textContent = `E_${i+1}`; svg.appendChild(lbl);\n      // discrepancy below\n      const d = SVG(\"text\", {x: xs[i], y: cy + 38, \"text-anchor\": \"middle\", \"font-size\": 12, fill: \"var(--green)\"});\n      d.textContent = \"a = 0\"; svg.appendChild(d);\n      const sq = SVG(\"text\", {x: xs[i], y: cy + 56, \"text-anchor\": \"middle\", \"font-size\": 10, fill: \"var(--mute)\"});\n      sq.textContent = \"E² = −2\"; svg.appendChild(sq);\n    }\n    // headers\n    const ht2 = SVG(\"text\", {x: 360, y: 95, \"text-anchor\": \"middle\", \"font-size\": 12, fill: \"var(--mute)\"});\n    ht2.textContent = `Resolution Y → X: chain of ${k} exceptional ℙ¹'s with intersection graph A_${k} (Dynkin)`;\n    svg.appendChild(ht2);\n    // verdict\n    const verdict = SVG(\"text\", {x: 360, y: 252, \"text-anchor\": \"middle\", \"font-size\": 13, fill: \"var(--cyan)\", \"font-weight\": 600});\n    verdict.textContent = \"All discrepancies = 0 ⇒ canonical singularity ⇒ klt.\";\n    svg.appendChild(verdict);\n    out.textContent = `A_${k} = 𝔸²/ℤ_${n} (cyclic quotient of order ${n}). Resolution: ${k} exceptional ℙ¹'s, each E_i² = -2. K_Y = π* K_X (no correction term — pluricanonical sections lift), so a_{E_i} = 0 for every i. Class: canonical (in particular klt). On surfaces, canonical = ADE = rational double point.`;\n  }\n  N.addEventListener(\"input\", render);\n  render();\n})();\n</script>",
+            "wrapperHasId": true
           }
         },
         {

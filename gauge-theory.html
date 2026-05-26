@@ -291,13 +291,13 @@ The horizontal subspace at $p$ is then $H_p = \ker A_p$.</div>
 
 <div class="widget" id="w-hopf">
   <div class="hd"><div class="ttl">$U(1)$ bundle: horizontal lift of a circle</div><div class="hint">slide the connection strength — the lifted path tilts</div></div>
-  <svg id="hopf-svg" viewBox="-180 -180 360 360" width="100%" height="360"><title>Horizontal lift on a U(1) bundle</title></svg>
   <div class="row">
     <label for="hopf-A">connection strength $A_0$:</label>
-    <input id="hopf-A" type="range" min="-2" max="2" step="0.05" value="1.0" />
+    <input type="range" id="hopf-A" min="-2" max="2" step="0.05" value="1.0">
     <span id="hopf-Aval" class="small">1.00</span>
   </div>
-  <div class="readout" id="hopf-out">drag to tilt the connection…</div>
+  <svg id="hopf-svg" viewBox="-180 -180 360 360" width="100%" height="360"><title>Horizontal lift on a U(1) bundle</title></svg>
+  <div class="readout" id="hopf-out"></div>
 </div>
 <p class="small">Below is a base loop $\gamma\subset M$ (the projected ellipse). Each gray vertical line is a fiber circle $G = U(1)$, drawn edge-on so we see only the lift's height. The yellow path is the horizontal lift of $\gamma$ under $A = A_0\,d\theta$ — when $A_0\ne 0$ the lift fails to close up, and the vertical gap is the holonomy phase $e^{i\oint_\gamma A}$.</p>
 
@@ -537,14 +537,14 @@ $$W_R(\gamma) \;=\; \tr_V\bigl(R(\mathrm{Hol}_A(\gamma))\bigr),$$
 
 <div class="widget" id="w-wilson">
   <div class="hd"><div class="ttl">$U(1)$ Wilson loop around a flux tube</div><div class="hint">drag the loop to enclose more or less flux</div></div>
-  <svg id="wilson-svg" viewBox="-180 -120 360 240" width="100%" height="260"><title>Wilson loop encircling a magnetic flux tube</title></svg>
   <div class="row">
     <label for="wilson-radius">loop radius:</label>
-    <input id="wilson-radius" type="range" min="20" max="140" step="1" value="80" />
+    <input type="range" id="wilson-radius" min="20" max="140" step="1" value="80">
     <label for="wilson-cx">center x:</label>
-    <input id="wilson-cx" type="range" min="-100" max="100" step="1" value="0" />
+    <input type="range" id="wilson-cx" min="-100" max="100" step="1" value="0">
   </div>
-  <div class="readout" id="wilson-out">drag sliders to adjust the loop…</div>
+  <svg id="wilson-svg" viewBox="-180 -120 360 240" width="100%" height="260"><title>Wilson loop encircling a magnetic flux tube</title></svg>
+  <div class="readout" id="wilson-out"></div>
 </div>
 <p class="small">The pink disk is a localized region of constant magnetic flux $F = B\,dx\wedge dy$. The blue solid circle is the Wilson loop $\gamma$. The holonomy phase is $e^{i\Phi}$ where $\Phi$ is the flux through the part of the disk enclosed by $\gamma$ — when the loop misses the flux tube the phase is $1$; when it fully encloses the tube the phase is $e^{i\Phi_{\mathrm{total}}}$.</p>
 
@@ -641,13 +641,13 @@ $$|F|^2(x) \;=\; \frac{96\,\rho^4}{(|x|^2 + \rho^2)^4},$$
 
 <div class="widget" id="w-bpst">
   <div class="hd"><div class="ttl">BPST instanton density</div><div class="hint">slide $\rho$ — the lump localizes or spreads</div></div>
-  <svg id="bpst-svg" viewBox="-180 -120 360 240" width="100%" height="260"><title>BPST instanton energy density</title></svg>
   <div class="row">
     <label for="bpst-rho">size $\rho$:</label>
-    <input id="bpst-rho" type="range" min="0.3" max="3.0" step="0.05" value="1.0" />
+    <input type="range" id="bpst-rho" min="0.3" max="3.0" step="0.05" value="1.0">
     <span id="bpst-rval" class="small">1.00</span>
   </div>
-  <div class="readout" id="bpst-out">slide $\rho$ to change the instanton size…</div>
+  <svg id="bpst-svg" viewBox="-180 -120 360 240" width="100%" height="260"><title>BPST instanton energy density</title></svg>
+  <div class="readout" id="bpst-out"></div>
 </div>
 <p class="small">The radial profile $|F|^2(r) = 96\rho^4/(r^2+\rho^2)^4$ is plotted along a slice through the center. The total $\int|F|^2 = 16\pi^2$ (so $S_{YM} = \tfrac{1}{2}\int|F|^2 = 8\pi^2$, saturating the Bogomolny bound for $k=1$) is independent of $\rho$ — a characteristic feature of conformal field configurations: the instanton has the same total action whether it's a tight spike or a broad shoulder.</p>
 
@@ -899,15 +899,15 @@ $$S_W \;=\; \beta\sum_p\,\mathrm{Re}\,\tr(\mathbb{1} - U_p)\;\approx\;\frac{\bet
 
 <div class="widget" id="w-lattice">
   <div class="hd"><div class="ttl">2D $U(1)$ lattice gauge — Metropolis Monte Carlo</div><div class="hint">click "step" to evolve; raise $\beta$ to drive ordering</div></div>
-  <svg id="lat-svg" viewBox="-180 -120 360 240" width="100%" height="280"><title>2D U(1) lattice with link phases and plaquette colors</title></svg>
   <div class="row">
     <label for="lat-beta">$\beta$:</label>
-    <input id="lat-beta" type="range" min="0.1" max="6" step="0.1" value="2.0" />
+    <input type="range" id="lat-beta" min="0.1" max="6" step="0.1" value="2.0">
     <span id="lat-bval" class="small">2.0</span>
     <button id="lat-step">step ×500</button>
     <button id="lat-reset">reset</button>
   </div>
-  <div class="readout" id="lat-out">click step to run Metropolis…</div>
+  <svg id="lat-svg" viewBox="-180 -120 360 240" width="100%" height="280"><title>2D U(1) lattice with link phases and plaquette colors</title></svg>
+  <div class="readout" id="lat-out"></div>
 </div>
 <p class="small">Each link carries a $U(1)$ phase $\theta_{xy}\in[-\pi,\pi)$ ($U_{xy} = e^{i\theta_{xy}}$). Plaquette holonomy is the sum of phases around the square; cell color encodes $\cos(\theta_p)$ (cyan = ordered, near $1$; pink = disordered, near $0$ or $-1$). Metropolis updates a random link with $\Delta\theta\sim\mathcal{U}(-\pi/4,\pi/4)$, accepting with probability $\min(1, e^{-\beta\Delta S})$.</p>
 

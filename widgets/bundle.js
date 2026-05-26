@@ -8802,27 +8802,6 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "gt-bpst",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "gt-bpst widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"BPST instanton density\" widget on the gauge-theory topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs and re-derived meta by scripts/fixup-verbatim-widget-meta.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"BPST instanton density\" widget on `gauge-theory`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "gt-cs",
     "family": "verbatim",
     "dimension": "2d",
@@ -8865,48 +8844,6 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "gt-hopf",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "gt-hopf widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"$U(1)$ bundle: horizontal lift of a circle\" widget on the gauge-theory topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs and re-derived meta by scripts/fixup-verbatim-widget-meta.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"$U(1)$ bundle: horizontal lift of a circle\" widget on `gauge-theory`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "gt-lattice",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "gt-lattice widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"2D $U(1)$ lattice gauge — Metropolis Monte Carlo\" widget on the gauge-theory topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs and re-derived meta by scripts/fixup-verbatim-widget-meta.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"2D $U(1)$ lattice gauge — Metropolis Monte Carlo\" widget on `gauge-theory`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "gt-sw",
     "family": "verbatim",
     "dimension": "2d",
@@ -8922,27 +8859,6 @@ window.__MVWidgets = [
       "bodyScript"
     ],
     "readmeExcerpt": "Bespoke verbatim slug for the \"SW invariants of small 4-manifolds (curated table)\" widget on `gauge-theory`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "gt-wilson",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "gt-wilson widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"$U(1)$ Wilson loop around a flux tube\" widget on the gauge-theory topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs and re-derived meta by scripts/fixup-verbatim-widget-meta.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"$U(1)$ Wilson loop around a flux tube\" widget on `gauge-theory`.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
@@ -11887,69 +11803,6 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "maass-forms-w4",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "maass-forms-w4 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the maass-forms topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `maass-forms` topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "maass-forms-w5",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "maass-forms-w5 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the maass-forms topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `maass-forms` topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "maass-forms-w6",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "maass-forms-w6 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the maass-forms topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `maass-forms` topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "mathbio-w5",
     "family": "verbatim",
     "dimension": "2d",
@@ -12580,27 +12433,6 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "mmp-and-birational-geometry-w1",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "mmp-and-birational-geometry-w1 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the mmp-and-birational-geometry topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `mmp-and-birational-geometry` topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "mmp-and-birational-geometry-w2",
     "family": "verbatim",
     "dimension": "2d",
@@ -12628,48 +12460,6 @@ window.__MVWidgets = [
     "gesture": "click",
     "role": "interactive",
     "title": "mmp-and-birational-geometry-w3 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the mmp-and-birational-geometry topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `mmp-and-birational-geometry` topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "mmp-and-birational-geometry-w4",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "mmp-and-birational-geometry-w4 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the mmp-and-birational-geometry topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `mmp-and-birational-geometry` topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "mmp-and-birational-geometry-w5",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "mmp-and-birational-geometry-w5 widget params",
     "description": "Verbatim-renderer slug for an inline widget on the mmp-and-birational-geometry topic.",
     "requiredParams": [
       "widgetId",
@@ -18170,27 +17960,6 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "wav-den",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "wav-den widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Soft-threshold denoiser\" widget on the wavelets topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs and re-derived meta by scripts/fixup-verbatim-widget-meta.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Soft-threshold denoiser\" widget on `wavelets`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "wav-dwt",
     "family": "verbatim",
     "dimension": "2d",
@@ -18206,48 +17975,6 @@ window.__MVWidgets = [
       "bodyScript"
     ],
     "readmeExcerpt": "Bespoke verbatim slug for the \"DWT pyramid (Haar)\" widget on `wavelets`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "wav-haar",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "wav-haar widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Haar coefficient\" widget on the wavelets topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs and re-derived meta by scripts/fixup-verbatim-widget-meta.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Haar coefficient\" widget on `wavelets`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "wav-mra",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "wav-mra widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"MRA tower\" widget on the wavelets topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs and re-derived meta by scripts/fixup-verbatim-widget-meta.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"MRA tower\" widget on `wavelets`.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,

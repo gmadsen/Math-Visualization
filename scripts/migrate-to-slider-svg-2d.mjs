@@ -379,16 +379,30 @@ function parseVerbatimMarkup(bodyMarkup, normalize) {
   // Normalize also tolerates id-before-class attr order (`<div id="x" class="readout">`)
   // via lookaheads — the renderer always emits the canonical class-first form, so
   // this only matters for FINDING the readout div + its id, not reproducing it.
-  const readoutMatch = normalize
-    ? bodyMarkup.match(/<div\s+(?=[^>]*\bclass="readout")(?=[^>]*\bid="([^"]+)")[^>]*>[\s\S]*?<\/div>/)
-    : bodyMarkup.match(/<div class="readout" id="([^"]+)"><\/div>/);
+  // It also tolerates MULTI-CLASS readouts (`class="readout small"`) — several
+  // corpus widgets give the bottom readout an extra `small` (or similar) class.
+  // The bare `class="readout"` lookahead would miss those (the closing `"` can't
+  // follow `readout` when more classes trail it) and silently set readout=false,
+  // dropping the div — a script that binds to it then no-ops or warns. We capture
+  // the full class value so the renderer's `{ id, class }` readout form preserves
+  // it; only the canonical single `readout` class collapses to the boolean form.
+  let readoutId, readoutClass;
+  if (normalize) {
+    const m = bodyMarkup.match(/<div\s+(?=[^>]*\bclass="(readout(?:\s[^"]*)?)")(?=[^>]*\bid="([^"]+)")[^>]*>[\s\S]*?<\/div>/);
+    if (m) { readoutClass = m[1]; readoutId = m[2]; }
+  } else {
+    const m = bodyMarkup.match(/<div class="readout" id="([^"]+)"><\/div>/);
+    if (m) { readoutClass = 'readout'; readoutId = m[1]; }
+  }
   let readout = false;
-  if (readoutMatch) {
+  if (readoutId) {
     const expectedId = svg.id.endsWith('-svg') ? svg.id.slice(0, -4) + '-readout' : null;
-    if (expectedId === readoutMatch[1]) {
+    if (readoutClass === 'readout' && expectedId === readoutId) {
       readout = true;
+    } else if (readoutClass === 'readout') {
+      readout = { id: readoutId };
     } else {
-      readout = { id: readoutMatch[1] };
+      readout = { id: readoutId, class: readoutClass };
     }
   }
 
