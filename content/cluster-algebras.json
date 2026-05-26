@@ -57,14 +57,49 @@
         },
         {
           "type": "widget",
-          "slug": "cluster-w2",
+          "slug": "button-stepper",
           "params": {
             "widgetId": "cl-mutate",
             "title": "Type $A_2$ pentagon — mutate alternately at 1 then 2",
+            "layout": [
+              {
+                "kind": "row",
+                "buttons": [
+                  {
+                    "id": "cl-mut-1",
+                    "label": "mutate at 1"
+                  },
+                  {
+                    "id": "cl-mut-2",
+                    "label": "mutate at 2"
+                  },
+                  {
+                    "id": "cl-mut-reset",
+                    "label": "reset"
+                  }
+                ]
+              },
+              {
+                "kind": "svg",
+                "id": "cl-mut-svg",
+                "viewBox": "0 0 720 280",
+                "width": 720,
+                "height": 280,
+                "ariaLabel": "A2 mutation pentagon",
+                "titleText": "Mutation pentagon"
+              },
+              {
+                "kind": "readout",
+                "id": "cl-mut-out"
+              }
+            ],
             "hint": "click \"mutate at 1\" or \"mutate at 2\"; trace the 5-cycle",
-            "bodyMarkup": "<div class=\"widget\" id=\"cl-mutate\">\n  <div class=\"hd\"><div class=\"ttl\">Type $A_2$ pentagon — mutate alternately at 1 then 2</div><div class=\"hint\">click \"mutate at 1\" or \"mutate at 2\"; trace the 5-cycle</div></div>\n  <div class=\"row\">\n    <button id=\"cl-mut-1\">mutate at 1</button>\n    <button id=\"cl-mut-2\">mutate at 2</button>\n    <button id=\"cl-mut-reset\">reset</button>\n  </div>\n  <svg id=\"cl-mut-svg\" viewBox=\"0 0 720 280\" width=\"720\" height=\"280\" aria-label=\"A2 mutation pentagon\"><title>Mutation pentagon</title></svg>\n  <div class=\"readout\" id=\"cl-mut-out\"></div>\n</div>",
-            "bodyScript": "\n<script>\n(function(){\n  const svg = document.querySelector('#cl-mut-svg');\n  const out = document.querySelector('#cl-mut-out');\n  const b1 = document.querySelector('#cl-mut-1');\n  const b2 = document.querySelector('#cl-mut-2');\n  const br = document.querySelector('#cl-mut-reset');\n  if(!svg || !out) return;\n  // Pre-computed five seeds of A2 starting at (x1, x2) with quiver 1->2.\n  // Mutation alternates direction of the arrow.\n  const seeds = [\n    {x:['x_1','x_2'],            arrow:'→', label:'(x_1, x_2)'},\n    {x:['(1+x_2)/x_1','x_2'],    arrow:'←', label:'((1+x_2)/x_1, x_2)'},\n    {x:['(1+x_2)/x_1','(1+x_1+x_2)/(x_1 x_2)'], arrow:'→', label:'((1+x_2)/x_1, (1+x_1+x_2)/(x_1 x_2))'},\n    {x:['(1+x_1)/x_2','(1+x_1+x_2)/(x_1 x_2)'], arrow:'←', label:'((1+x_1)/x_2, (1+x_1+x_2)/(x_1 x_2))'},\n    {x:['(1+x_1)/x_2','x_1'],    arrow:'→', label:'((1+x_1)/x_2, x_1)'}\n  ];\n  // Vertices of the pentagon for the seed graph\n  const cx = 360, cy = 145, R = 95;\n  const pent = [];\n  for(let k=0;k<5;k++){\n    const ang = -Math.PI/2 + 2*Math.PI*k/5;\n    pent.push({x:cx + R*Math.cos(ang), y:cy + R*Math.sin(ang)});\n  }\n  let cur = 0;\n\n  function draw(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    // edges of the pentagon (each is a mutation step)\n    for(let k=0;k<5;k++){\n      const a = pent[k], b = pent[(k+1)%5];\n      const isCur = (cur===k);\n      svg.appendChild(SVG('line',{x1:a.x, y1:a.y, x2:b.x, y2:b.y,\n        stroke: isCur ? 'var(--yellow)' : 'var(--line)', 'stroke-width': isCur?3:1.4}));\n      // label the edge with which vertex was mutated\n      const mx = (a.x+b.x)/2, my = (a.y+b.y)/2;\n      const lbl = SVG('text',{x:mx + 8*Math.sign(mx-cx)*0.7, y:my + 8*Math.sign(my-cy)*0.7,\n        'text-anchor':'middle','font-size':12, fill:'var(--mute)'});\n      lbl.textContent = (k%2===0) ? 'μ₁' : 'μ₂';\n      svg.appendChild(lbl);\n    }\n    // pentagon vertices\n    pent.forEach((p,k) => {\n      const isCur = (k===cur);\n      svg.appendChild(SVG('circle',{cx:p.x, cy:p.y, r: isCur?14:10,\n        fill: isCur ? 'var(--yellow)' : 'var(--panel2)',\n        stroke: isCur ? 'var(--yellow)' : 'var(--blue)', 'stroke-width':2}));\n      const t = SVG('text',{x:p.x, y:p.y+4, 'text-anchor':'middle',\n        'font-size':12, fill: isCur?'#111':'var(--ink)','font-weight':600});\n      t.textContent = String(k+1);\n      svg.appendChild(t);\n    });\n    // legend / current seed\n    const lg = SVG('text',{x:24, y:28, 'font-size':13, fill:'var(--mute)'});\n    lg.textContent = 'Cluster sequence: each vertex of the pentagon is a seed; each edge is one mutation.';\n    svg.appendChild(lg);\n  }\n\n  function update(){\n    draw();\n    const s = seeds[cur];\n    out.textContent =\n      `Seed #${cur+1}\\n` +\n      `   cluster:  (${s.x[0]},  ${s.x[1]})\\n` +\n      `   quiver:   1 ${s.arrow} 2`;\n  }\n\n  b1.addEventListener('click', () => {\n    // mutate at 1: this is the edge taken at even steps; the arrow points 1->2 there\n    cur = (cur + 1) % 5;\n    if(cur % 2 === 0) cur = (cur + 4) % 5; // step back if we'd take the wrong edge\n    // simplest: alternate buttons; just always advance and see — actually\n    // for A2 with this seed labeling, μ1 advances when current arrow is →, μ2 when ←\n    // but we want the user to feel both buttons; let's force the rule:\n    // (rebuild cur from the button press)\n    update();\n  });\n  // Cleanest impl: just alternate and let either button advance; force 5-cycle.\n  b1.replaceWith(b1.cloneNode(true));\n  b2.replaceWith(b2.cloneNode(true));\n  const nb1 = document.querySelector('#cl-mut-1');\n  const nb2 = document.querySelector('#cl-mut-2');\n  function step(which){\n    const expected = (cur % 2 === 0) ? 1 : 2;\n    if(which !== expected){\n      out.textContent = `At seed #${cur+1} the next mutation is μ${expected}, not μ${which}. (Mutating at the same vertex twice in a row would just go back where you came from.)`;\n      return;\n    }\n    cur = (cur + 1) % 5;\n    update();\n  }\n  nb1.addEventListener('click', () => step(1));\n  nb2.addEventListener('click', () => step(2));\n  br.addEventListener('click', () => { cur = 0; update(); });\n\n  update();\n})();\n</script>"
+            "bodyScript": "  const svg = document.querySelector('#cl-mut-svg');\n  const out = document.querySelector('#cl-mut-out');\n  const b1 = document.querySelector('#cl-mut-1');\n  const b2 = document.querySelector('#cl-mut-2');\n  const br = document.querySelector('#cl-mut-reset');\n  if(!svg || !out) return;\n  // Pre-computed five seeds of A2 starting at (x1, x2) with quiver 1->2.\n  // Mutation alternates direction of the arrow.\n  const seeds = [\n    {x:['x_1','x_2'],            arrow:'→', label:'(x_1, x_2)'},\n    {x:['(1+x_2)/x_1','x_2'],    arrow:'←', label:'((1+x_2)/x_1, x_2)'},\n    {x:['(1+x_2)/x_1','(1+x_1+x_2)/(x_1 x_2)'], arrow:'→', label:'((1+x_2)/x_1, (1+x_1+x_2)/(x_1 x_2))'},\n    {x:['(1+x_1)/x_2','(1+x_1+x_2)/(x_1 x_2)'], arrow:'←', label:'((1+x_1)/x_2, (1+x_1+x_2)/(x_1 x_2))'},\n    {x:['(1+x_1)/x_2','x_1'],    arrow:'→', label:'((1+x_1)/x_2, x_1)'}\n  ];\n  // Vertices of the pentagon for the seed graph\n  const cx = 360, cy = 145, R = 95;\n  const pent = [];\n  for(let k=0;k<5;k++){\n    const ang = -Math.PI/2 + 2*Math.PI*k/5;\n    pent.push({x:cx + R*Math.cos(ang), y:cy + R*Math.sin(ang)});\n  }\n  let cur = 0;\n\n  function draw(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    // edges of the pentagon (each is a mutation step)\n    for(let k=0;k<5;k++){\n      const a = pent[k], b = pent[(k+1)%5];\n      const isCur = (cur===k);\n      svg.appendChild(SVG('line',{x1:a.x, y1:a.y, x2:b.x, y2:b.y,\n        stroke: isCur ? 'var(--yellow)' : 'var(--line)', 'stroke-width': isCur?3:1.4}));\n      // label the edge with which vertex was mutated\n      const mx = (a.x+b.x)/2, my = (a.y+b.y)/2;\n      const lbl = SVG('text',{x:mx + 8*Math.sign(mx-cx)*0.7, y:my + 8*Math.sign(my-cy)*0.7,\n        'text-anchor':'middle','font-size':12, fill:'var(--mute)'});\n      lbl.textContent = (k%2===0) ? 'μ₁' : 'μ₂';\n      svg.appendChild(lbl);\n    }\n    // pentagon vertices\n    pent.forEach((p,k) => {\n      const isCur = (k===cur);\n      svg.appendChild(SVG('circle',{cx:p.x, cy:p.y, r: isCur?14:10,\n        fill: isCur ? 'var(--yellow)' : 'var(--panel2)',\n        stroke: isCur ? 'var(--yellow)' : 'var(--blue)', 'stroke-width':2}));\n      const t = SVG('text',{x:p.x, y:p.y+4, 'text-anchor':'middle',\n        'font-size':12, fill: isCur?'#111':'var(--ink)','font-weight':600});\n      t.textContent = String(k+1);\n      svg.appendChild(t);\n    });\n    // legend / current seed\n    const lg = SVG('text',{x:24, y:28, 'font-size':13, fill:'var(--mute)'});\n    lg.textContent = 'Cluster sequence: each vertex of the pentagon is a seed; each edge is one mutation.';\n    svg.appendChild(lg);\n  }\n\n  function update(){\n    draw();\n    const s = seeds[cur];\n    out.textContent =\n      `Seed #${cur+1}\\n` +\n      `   cluster:  (${s.x[0]},  ${s.x[1]})\\n` +\n      `   quiver:   1 ${s.arrow} 2`;\n  }\n\n  b1.addEventListener('click', () => {\n    // mutate at 1: this is the edge taken at even steps; the arrow points 1->2 there\n    cur = (cur + 1) % 5;\n    if(cur % 2 === 0) cur = (cur + 4) % 5; // step back if we'd take the wrong edge\n    // simplest: alternate buttons; just always advance and see — actually\n    // for A2 with this seed labeling, μ1 advances when current arrow is →, μ2 when ←\n    // but we want the user to feel both buttons; let's force the rule:\n    // (rebuild cur from the button press)\n    update();\n  });\n  // Cleanest impl: just alternate and let either button advance; force 5-cycle.\n  b1.replaceWith(b1.cloneNode(true));\n  b2.replaceWith(b2.cloneNode(true));\n  const nb1 = document.querySelector('#cl-mut-1');\n  const nb2 = document.querySelector('#cl-mut-2');\n  function step(which){\n    const expected = (cur % 2 === 0) ? 1 : 2;\n    if(which !== expected){\n      out.textContent = `At seed #${cur+1} the next mutation is μ${expected}, not μ${which}. (Mutating at the same vertex twice in a row would just go back where you came from.)`;\n      return;\n    }\n    cur = (cur + 1) % 5;\n    update();\n  }\n  nb1.addEventListener('click', () => step(1));\n  nb2.addEventListener('click', () => step(2));\n  br.addEventListener('click', () => { cur = 0; update(); });\n\n  update();"
           }
+        },
+        {
+          "type": "raw",
+          "html": "\n"
         },
         {
           "type": "widget-script",

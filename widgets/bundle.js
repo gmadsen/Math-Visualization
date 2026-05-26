@@ -1754,27 +1754,6 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "ccr-w4",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "ccr-w4 widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"GJMS operators — the order-2k family\" widget on the conformal-and-cr-geometry topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"GJMS operators — the order-2k family\" widget on `conformal-and-cr-geometry`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "ccr-w7",
     "family": "verbatim",
     "dimension": "2d",
@@ -2213,27 +2192,6 @@ window.__MVWidgets = [
     "gesture": "click",
     "role": "interactive",
     "title": "cluster-w1 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the cluster-algebras topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `cluster-algebras` topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "cluster-w2",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "cluster-w2 widget params",
     "description": "Verbatim-renderer slug for an inline widget on the cluster-algebras topic.",
     "requiredParams": [
       "widgetId",
@@ -4252,48 +4210,6 @@ window.__MVWidgets = [
       "bodyScript"
     ],
     "readmeExcerpt": "Bespoke verbatim slug for the \"LP rounding playground\" widget on `combinatorial-optimization`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "copt-flow",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "copt-flow widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Max-flow / min-cut\" widget on the combinatorial-optimization topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Max-flow / min-cut\" widget on `combinatorial-optimization`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "copt-matching",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "copt-matching widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Bipartite matching via augmenting paths\" widget on the combinatorial-optimization topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Bipartite matching via augmenting paths\" widget on `combinatorial-optimization`.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,

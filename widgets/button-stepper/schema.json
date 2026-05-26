@@ -147,6 +147,10 @@
           "type": "string",
           "description": "Optional class attribute (commonly 'active' for the default-selected button)."
         },
+        "type": {
+          "type": "string",
+          "description": "Optional `type` attribute (e.g. \"button\") emitted between id and class. Round-tripped from widgets that set it explicitly; omitted otherwise."
+        },
         "action": {
           "type": "string",
           "description": "Portable intent marker: one of 'step' | 'reset' | 'next' | 'prev' | <custom>. Consumed by portable frontends; vanilla markup is unaffected."
@@ -191,6 +195,10 @@
             "titleText": {
               "type": "string",
               "description": "Override for the <title> element's text content. Defaults to the widget's `title` when omitted."
+            },
+            "ariaLabel": {
+              "type": "string",
+              "description": "Optional `aria-label` on the <svg> (emitted verbatim after height). Round-tripped from svgs that set one in addition to <title>; omitted otherwise."
             }
           }
         },
@@ -233,6 +241,14 @@
             "id": {
               "type": "string",
               "pattern": "^[A-Za-z][A-Za-z0-9_-]*$"
+            },
+            "className": {
+              "type": "string",
+              "description": "CSS class for the readout div. Defaults to \"readout\"; set to e.g. \"readout small\" to round-trip a multi-class readout."
+            },
+            "style": {
+              "type": "string",
+              "description": "Optional inline `style` emitted (verbatim, after id) on the readout div. Round-tripped from widgets that set one; omitted otherwise."
             },
             "content": {
               "type": "string",

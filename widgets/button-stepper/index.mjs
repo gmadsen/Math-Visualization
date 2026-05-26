@@ -47,6 +47,8 @@ function renderButtonAttrs(btn) {
   //   class="…"                  (when className is set)
   const parts = [];
   if (btn.id) parts.push(`id="${btn.id}"`);
+  // `type` (e.g. type="button") sits between id and class in the corpus order.
+  if (btn.type) parts.push(`type="${btn.type}"`);
   if (btn.dataAttr) parts.push(`${btn.dataAttr.name}="${btn.dataAttr.value}"`);
   if (btn.className) parts.push(`class="${btn.className}"`);
   return parts.length ? ' ' + parts.join(' ') : '';
@@ -85,21 +87,27 @@ function renderRowBlock(block) {
 }
 
 function renderSvgBlock(block, widgetTitle) {
-  // <svg id="…" viewBox="…" width="…" height="…"><title>…</title></svg>
-  // titleText defaults to the widget's own title.
+  // <svg id="…" viewBox="…" width="…" height="…"[ aria-label="…"]><title>…</title></svg>
+  // titleText defaults to the widget's own title. `ariaLabel` is optional and
+  // emitted (verbatim, after height) only when the source set one.
   const titleText = typeof block.titleText === 'string'
     ? block.titleText
     : widgetTitle;
+  const ariaAttr = typeof block.ariaLabel === 'string' ? ` aria-label="${block.ariaLabel}"` : '';
   return (
     `  <svg id="${block.id}" viewBox="${block.viewBox}" ` +
-    `width="${block.width}" height="${block.height}">` +
+    `width="${block.width}" height="${block.height}"${ariaAttr}>` +
     `<title>${titleText}</title></svg>`
   );
 }
 
 function renderReadoutBlock(block) {
   const content = typeof block.content === 'string' ? block.content : '';
-  return `  <div class="readout" id="${block.id}">${content}</div>`;
+  // `className` defaults to "readout"; some readouts carry an extra class
+  // (e.g. "readout small"). `style` is an optional inline style (after id).
+  const cls = typeof block.className === 'string' ? block.className : 'readout';
+  const styleAttr = typeof block.style === 'string' ? ` style="${block.style}"` : '';
+  return `  <div class="${cls}" id="${block.id}"${styleAttr}>${content}</div>`;
 }
 
 function renderRawBlock(block) {
