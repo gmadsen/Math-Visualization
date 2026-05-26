@@ -284,10 +284,10 @@ $$\boxed{\;(\Box + m^2)\,\phi \;=\; 0.\;}$$
   <div class="hd"><div class="ttl">Schrödinger vs Klein-Gordon: side-by-side</div><div class="hint">slide $m$; watch the $m=0$ limit reduce to a wave equation</div></div>
   <div class="row">
     <label for="deriv-m">$m$ (natural units)</label>
-    <input id="deriv-m" type="range" min="0" max="2" step="0.01" value="1.0">
+    <input type="range" id="deriv-m" min="0" max="2" step="0.01" value="1.0">
   </div>
   <svg id="deriv-svg" viewBox="-220 -110 440 220" width="100%" height="240"><title>Schrödinger vs Klein-Gordon operator card</title></svg>
-  <div id="deriv-out" class="readout"></div>
+  <div class="readout" id="deriv-out"></div>
 </div>
 
 <script>
@@ -358,14 +358,12 @@ $$\boxed{\;(\Box + m^2)\,\phi(x) \;=\; 0,\qquad \Box \;\equiv\; \eta^{\mu\nu}\,\
   <div class="hd"><div class="ttl">A 1+1d wave packet evolving</div><div class="hint">$m=0$ stays narrow; $m>0$ spreads</div></div>
   <div class="row">
     <label for="wave-m">$m$ (natural units)</label>
-    <input id="wave-m" type="range" min="0" max="1.5" step="0.01" value="0.6">
-  </div>
-  <div class="row">
+    <input type="range" id="wave-m" min="0" max="1.5" step="0.01" value="0.6">
     <label for="wave-t">$t$</label>
-    <input id="wave-t" type="range" min="0" max="20" step="0.1" value="0">
+    <input type="range" id="wave-t" min="0" max="20" step="0.1" value="0">
   </div>
   <svg id="wave-svg" viewBox="-220 -110 440 220" width="100%" height="240"><title>Klein-Gordon wave packet at successive times</title></svg>
-  <div id="wave-out" class="readout"></div>
+  <div class="readout" id="wave-out"></div>
 </div>
 
 <script>
@@ -472,14 +470,12 @@ $$v_g \;=\; \frac{dE}{d|\vec p|} \;=\; \frac{|\vec p|}{\sqrt{|\vec p|^2+m^2}} \;
   <div class="hd"><div class="ttl">Dispersion relation $E^2 = p^2 + m^2$</div><div class="hint">slide $m$; both branches plotted; group velocity at a marker</div></div>
   <div class="row">
     <label for="disp-m">$m$ (natural units)</label>
-    <input id="disp-m" type="range" min="0" max="2.0" step="0.01" value="0.8">
-  </div>
-  <div class="row">
+    <input type="range" id="disp-m" min="0" max="2.0" step="0.01" value="0.8">
     <label for="disp-p">$p$</label>
-    <input id="disp-p" type="range" min="-3" max="3" step="0.05" value="1.0">
+    <input type="range" id="disp-p" min="-3" max="3" step="0.05" value="1.0">
   </div>
   <svg id="disp-svg" viewBox="-220 -130 440 260" width="100%" height="280"><title>Klein-Gordon dispersion E² = p² + m²</title></svg>
-  <div id="disp-out" class="readout"></div>
+  <div class="readout" id="disp-out"></div>
 </div>
 
 <script>
@@ -673,14 +669,12 @@ $$\phi(t,x) \;=\; A\,e^{-i(Et-px)} + B\,e^{+i(Et-px)}\quad\text{(positive- + neg
   <div class="hd"><div class="ttl">$j^0$ for a $\phi_+ + \phi_-$ superposition</div><div class="hint">slide the relative weight; watch $j^0$ go negative</div></div>
   <div class="row">
     <label for="curr-r">$|B|/|A|$ — antiparticle weight</label>
-    <input id="curr-r" type="range" min="0" max="2" step="0.01" value="0.6">
-  </div>
-  <div class="row">
+    <input type="range" id="curr-r" min="0" max="2" step="0.01" value="0.6">
     <label for="curr-phi">relative phase $\arg(B/A)$</label>
-    <input id="curr-phi" type="range" min="0" max="6.28" step="0.02" value="0">
+    <input type="range" id="curr-phi" min="0" max="6.28" step="0.02" value="0">
   </div>
   <svg id="curr-svg" viewBox="-220 -110 440 220" width="100%" height="240"><title>j^0 for a Klein-Gordon superposition</title></svg>
-  <div id="curr-out" class="readout"></div>
+  <div class="readout" id="curr-out"></div>
 </div>
 
 <script>
@@ -806,10 +800,10 @@ $$\boxed{\;i\hbar\,\partial_t\psi \;=\; -\frac{\hbar^2}{2m}\,\nabla^2\psi.\;}$$
   <div class="hd"><div class="ttl">KG vs Schrödinger kinetic energy</div><div class="hint">they merge at low $|p|$, the difference grows once $|p| \gtrsim m$</div></div>
   <div class="row">
     <label for="nrl-p">$p$ (in units of $m$)</label>
-    <input id="nrl-p" type="range" min="0" max="3" step="0.01" value="0.3">
+    <input type="range" id="nrl-p" min="0" max="3" step="0.01" value="0.3">
   </div>
   <svg id="nrl-svg" viewBox="-220 -130 440 220" width="100%" height="240"><title>KG vs Schrödinger kinetic-energy comparison</title></svg>
-  <div id="nrl-out" class="readout"></div>
+  <div class="readout" id="nrl-out"></div>
 </div>
 
 <script>

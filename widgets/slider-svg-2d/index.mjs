@@ -114,6 +114,19 @@ export function renderMarkup(params) {
   const svgTitleText = (typeof svg.title === 'string') ? svg.title : title;
   const svgInner = `<title>${escapeHtml(svgTitleText)}</title>`;
 
+  // SVG open-tag attributes. `width`/`height` are optional: modern responsive
+  // widgets size purely from `viewBox` + CSS `max-width:100%`, so forcing px
+  // attributes would pin the aspect ratio and distort on narrow screens. When
+  // present they're emitted (legacy convention); when absent they're omitted.
+  // `role`/`ariaLabel` round-trip the accessibility hints some pages set on the
+  // SVG in addition to `<title>`. Order is fixed (id viewBox width height role
+  // aria-label) so output is deterministic.
+  const svgAttrs = `id="${svg.id}" viewBox="${svg.viewBox}"` +
+    (svg.width  != null ? ` width="${svg.width}"` : '') +
+    (svg.height != null ? ` height="${svg.height}"` : '') +
+    (svg.role ? ` role="${svg.role}"` : '') +
+    (svg.ariaLabel != null ? ` aria-label="${escapeHtml(svg.ariaLabel)}"` : '');
+
   // Wrapper id: opt-in via `wrapperHasId: true`. Two distinct uses of
   // widgetId across the corpus require this split:
   //
@@ -158,7 +171,7 @@ export function renderMarkup(params) {
     `  <div class="row">\n` +
     `    ${controlsMarkup}\n` +
     `  </div>\n` +
-    `  <svg id="${svg.id}" viewBox="${svg.viewBox}" width="${svg.width}" height="${svg.height}">${svgInner}</svg>` +
+    `  <svg ${svgAttrs}>${svgInner}</svg>` +
     readoutMarkup +
     trailingMarkup + '\n' +
     `</div>`

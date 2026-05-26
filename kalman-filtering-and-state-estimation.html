@@ -274,7 +274,7 @@ function drawNode(svg, x, y, label, opts={}){
   <div class="hd"><div class="ttl">A noisy sensor over a smooth state</div><div class="hint">Drag <em>sensor noise</em> to see the observations shake free of the truth.</div></div>
   <div class="row">
     <label for="setup-R">sensor noise $R$</label>
-    <input id="setup-R" type="range" min="0.05" max="3" step="0.05" value="0.7">
+    <input type="range" id="setup-R" min="0.05" max="3" step="0.05" value="0.7">
     <span id="setup-Rv" class="pill"></span>
   </div>
   <svg id="setup-svg" viewBox="0 0 760 240" role="img" aria-label="True hidden state and the noisy observations of it"><title>True hidden state and the noisy observations of it</title></svg>
@@ -367,15 +367,13 @@ $$\frac{1}{\sigma^2} = \frac{1}{\sigma_1^2}+\frac{1}{\sigma_2^2},\qquad \mu = \s
   <div class="hd"><div class="ttl">Two Gaussians multiply into a sharper Gaussian</div><div class="hint">Shrink either standard deviation; watch the posterior snap toward that witness.</div></div>
   <div class="row">
     <label for="fus-m1">$\mu_1$</label>
-    <input id="fus-m1" type="range" min="-4" max="0" step="0.05" value="-1.5">
+    <input type="range" id="fus-m1" min="-4" max="0" step="0.05" value="-1.5">
     <label for="fus-s1">$\sigma_1$</label>
-    <input id="fus-s1" type="range" min="0.2" max="2.5" step="0.05" value="1.2">
-  </div>
-  <div class="row">
+    <input type="range" id="fus-s1" min="0.2" max="2.5" step="0.05" value="1.2">
     <label for="fus-m2">$\mu_2$</label>
-    <input id="fus-m2" type="range" min="0" max="4" step="0.05" value="1.5">
+    <input type="range" id="fus-m2" min="0" max="4" step="0.05" value="1.5">
     <label for="fus-s2">$\sigma_2$</label>
-    <input id="fus-s2" type="range" min="0.2" max="2.5" step="0.05" value="0.6">
+    <input type="range" id="fus-s2" min="0.2" max="2.5" step="0.05" value="0.6">
   </div>
   <svg id="fus-svg" viewBox="0 0 720 260" role="img" aria-label="Two Gaussian priors and their Bayesian posterior product"><title>Two Gaussian priors and their Bayesian posterior product</title></svg>
   <div class="readout" id="fus-out"></div>
@@ -476,9 +474,9 @@ $$\frac{1}{\sigma^2} = \frac{1}{\sigma_1^2}+\frac{1}{\sigma_2^2},\qquad \mu = \s
   <div class="hd"><div class="ttl">Step through a 1D filter</div><div class="hint">Press <em>step</em> to alternate predict / update. The error bar puffs then snaps.</div></div>
   <div class="row">
     <label for="cyc-q">process $q$</label>
-    <input id="cyc-q" type="range" min="0.01" max="0.6" step="0.01" value="0.15">
+    <input type="range" id="cyc-q" min="0.01" max="0.6" step="0.01" value="0.15">
     <label for="cyc-r">sensor $r$</label>
-    <input id="cyc-r" type="range" min="0.01" max="1.5" step="0.01" value="0.4">
+    <input type="range" id="cyc-r" min="0.01" max="1.5" step="0.01" value="0.4">
     <button id="cyc-step">step</button>
     <button id="cyc-reset">reset</button>
   </div>
@@ -809,7 +807,7 @@ $$\Sigma_{t+1\mid t} = F\,\Sigma_{t\mid t}\,F^\top + Q,\qquad \Sigma_{t+1\mid t+
   <div class="hd"><div class="ttl">How the gain mixes prior and observation</div><div class="hint">Sweep $R$ from sharp to noisy; watch $K$ shrink and $\Sigma_{\mathrm{post}}$ expand.</div></div>
   <div class="row">
     <label for="gain-R">observation noise $R$</label>
-    <input id="gain-R" type="range" min="0.02" max="3" step="0.01" value="0.3">
+    <input type="range" id="gain-R" min="0.02" max="3" step="0.01" value="0.3">
     <span id="gain-Rv" class="pill"></span>
   </div>
   <svg id="gain-svg" viewBox="-180 -180 360 360" role="img" aria-label="Prior ellipse and posterior ellipse as observation noise R varies"><title>Prior ellipse and posterior ellipse as observation noise R varies</title></svg>
@@ -919,9 +917,9 @@ $$F\Sigma_0 F^\top = \begin{pmatrix}\sigma_p^2 + \Delta t^2\sigma_v^2 & \Delta t
   <div class="hd"><div class="ttl">A Kalman tracker following a wobbly trajectory</div><div class="hint">Press <em>play</em>. Crank $R$ and watch the ellipses balloon.</div></div>
   <div class="row">
     <label for="trk-q">process $q$</label>
-    <input id="trk-q" type="range" min="0.001" max="0.04" step="0.001" value="0.008">
+    <input type="range" id="trk-q" min="0.001" max="0.04" step="0.001" value="0.008">
     <label for="trk-r">sensor $R$</label>
-    <input id="trk-r" type="range" min="0.005" max="0.4" step="0.005" value="0.05">
+    <input type="range" id="trk-r" min="0.005" max="0.4" step="0.005" value="0.05">
     <button id="trk-play">play</button>
     <button id="trk-reset">reset</button>
   </div>

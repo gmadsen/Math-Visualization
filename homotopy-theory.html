@@ -305,8 +305,8 @@ function drawNode(svg, x, y, label, opts={}){
   <div class="hd"><div class="ttl">Brouwer degree of $z\mapsto z^d$ on $S^1$</div><div class="hint">drag $d$ to see the winding number</div></div>
   <div class="row">
     <label for="deg-d">$d =$</label>
-    <input type="range" id="deg-d" min="-3" max="3" value="2" step="1">
-    <span class="pill" id="deg-d-out">$d=2$</span>
+    <input type="range" id="deg-d" min="-3" max="3" step="1" value="2">
+    <span id="deg-d-out" class="pill">$d=2$</span>
   </div>
   <svg id="deg-svg" viewBox="0 0 720 280" width="720" height="280"><title>Brouwer degree as winding number</title></svg>
   <div class="readout" id="deg-out"></div>
@@ -428,8 +428,8 @@ naturally in $X$, where $[-,-]_*$ denotes based homotopy classes. The cohomology
   <div class="hd"><div class="ttl">Postnikov tower of $S^2$</div><div class="hint">scrub the truncation level</div></div>
   <div class="row">
     <label for="em-n">truncate at $\pi_n$, $n=$</label>
-    <input type="range" id="em-n" min="2" max="6" value="3" step="1">
-    <span class="pill" id="em-n-out">$n=3$</span>
+    <input type="range" id="em-n" min="2" max="6" step="1" value="3">
+    <span id="em-n-out" class="pill">$n=3$</span>
   </div>
   <svg id="em-svg" viewBox="0 0 720 320" width="720" height="320"><title>Postnikov tower of S^2</title></svg>
   <div class="readout" id="em-out"></div>
@@ -489,8 +489,8 @@ $$\pi_k^s \;=\; \mathrm{colim}_n\,\pi_{k+n}(S^n).$$</div>
   <div class="hd"><div class="ttl">Stabilising $\pi_{n+k}(S^n)$</div><div class="hint">slide $k$, watch the $n$-axis stabilise</div></div>
   <div class="row">
     <label for="st-k">$k =$</label>
-    <input type="range" id="st-k" min="0" max="6" value="1" step="1">
-    <span class="pill" id="st-k-out">$k=1$</span>
+    <input type="range" id="st-k" min="0" max="6" step="1" value="1">
+    <span id="st-k-out" class="pill">$k=1$</span>
   </div>
   <svg id="st-svg" viewBox="0 0 720 280" width="720" height="280"><title>Stabilisation of homotopy groups of spheres</title></svg>
   <div class="readout" id="st-out"></div>
@@ -548,8 +548,8 @@ $$\pi_k^s \;=\; \mathrm{colim}_n\,\pi_{k+n}(S^n).$$</div>
   <div class="hd"><div class="ttl">Rational homotopy of $S^n$</div><div class="hint">scrub $n$, see Serre's pattern</div></div>
   <div class="row">
     <label for="rat-n">$n =$</label>
-    <input type="range" id="rat-n" min="2" max="8" value="2" step="1">
-    <span class="pill" id="rat-n-out">$n=2$</span>
+    <input type="range" id="rat-n" min="2" max="8" step="1" value="2">
+    <span id="rat-n-out" class="pill">$n=2$</span>
   </div>
   <svg id="rat-svg" viewBox="0 0 720 240" width="720" height="240"><title>Rational homotopy of spheres</title></svg>
   <div class="readout" id="rat-out"></div>
@@ -606,8 +606,8 @@ Equivalently, $\pi_n\mathrm{U}$ is $2$-periodic and $\pi_n\mathrm{O}$ is $8$-per
   <div class="hd"><div class="ttl">Bott clock — periodicity of $\pi_n(\mathrm{O})$ and $\pi_n(\mathrm{U})$</div><div class="hint">step around the clock</div></div>
   <div class="row">
     <label for="bott-n">$n =$</label>
-    <input type="range" id="bott-n" min="0" max="15" value="3" step="1">
-    <span class="pill" id="bott-n-out">$n=3$</span>
+    <input type="range" id="bott-n" min="0" max="15" step="1" value="3">
+    <span id="bott-n-out" class="pill">$n=3$</span>
   </div>
   <svg id="bott-svg" viewBox="0 0 720 320" width="720" height="320"><title>Bott periodicity clock</title></svg>
   <div class="readout" id="bott-out"></div>

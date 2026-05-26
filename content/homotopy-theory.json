@@ -12,13 +12,42 @@
         },
         {
           "type": "widget",
-          "slug": "homotopy-theory-w1",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-degree",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-degree\">\n  <div class=\"hd\"><div class=\"ttl\">Brouwer degree of $z\\mapsto z^d$ on $S^1$</div><div class=\"hint\">drag $d$ to see the winding number</div></div>\n  <div class=\"row\">\n    <label for=\"deg-d\">$d =$</label>\n    <input type=\"range\" id=\"deg-d\" min=\"-3\" max=\"3\" value=\"2\" step=\"1\">\n    <span class=\"pill\" id=\"deg-d-out\">$d=2$</span>\n  </div>\n  <svg id=\"deg-svg\" viewBox=\"0 0 720 280\" width=\"720\" height=\"280\"><title>Brouwer degree as winding number</title></svg>\n  <div class=\"readout\" id=\"deg-out\"></div>\n  <p class=\"small\">The map $z\\mapsto z^d$ on $S^1\\subset\\mathbb{C}$ has degree $d$ — its homotopy class in $\\pi_1(S^1)=\\mathbb{Z}$ is exactly $d$. The same construction in higher dimensions gives self-maps of $S^n$ realising every integer in $\\pi_n(S^n)=\\mathbb{Z}$.</p>\n</div>",
-            "bodyScript": "",
             "title": "Brouwer degree of $z\\mapsto z^d$ on $S^1$",
-            "hint": "drag $d$ to see the winding number"
+            "hint": "drag $d$ to see the winding number",
+            "controls": [
+              {
+                "type": "slider",
+                "id": "deg-d",
+                "label": "$d =$",
+                "min": -3,
+                "max": 3,
+                "value": 2,
+                "format": "separate",
+                "step": 1
+              },
+              {
+                "type": "span",
+                "id": "deg-d-out",
+                "class": "pill",
+                "text": "$d=2$"
+              }
+            ],
+            "svg": {
+              "id": "deg-svg",
+              "viewBox": "0 0 720 280",
+              "width": 720,
+              "height": 280,
+              "title": "Brouwer degree as winding number"
+            },
+            "readout": {
+              "id": "deg-out"
+            },
+            "bodyScript": "",
+            "wrapperHasId": true,
+            "trailingProse": "The map $z\\mapsto z^d$ on $S^1\\subset\\mathbb{C}$ has degree $d$ — its homotopy class in $\\pi_1(S^1)=\\mathbb{Z}$ is exactly $d$. The same construction in higher dimensions gives self-maps of $S^n$ realising every integer in $\\pi_n(S^n)=\\mathbb{Z}$."
           }
         },
         {
@@ -94,13 +123,42 @@
         },
         {
           "type": "widget",
-          "slug": "homotopy-theory-w3",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-em",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-em\">\n  <div class=\"hd\"><div class=\"ttl\">Postnikov tower of $S^2$</div><div class=\"hint\">scrub the truncation level</div></div>\n  <div class=\"row\">\n    <label for=\"em-n\">truncate at $\\pi_n$, $n=$</label>\n    <input type=\"range\" id=\"em-n\" min=\"2\" max=\"6\" value=\"3\" step=\"1\">\n    <span class=\"pill\" id=\"em-n-out\">$n=3$</span>\n  </div>\n  <svg id=\"em-svg\" viewBox=\"0 0 720 320\" width=\"720\" height=\"320\"><title>Postnikov tower of S^2</title></svg>\n  <div class=\"readout\" id=\"em-out\"></div>\n  <p class=\"small\">$S^2$ has $\\pi_2=\\mathbb{Z},\\pi_3=\\mathbb{Z},\\pi_4=\\mathbb{Z}/2,\\pi_5=\\mathbb{Z}/2,\\pi_6=\\mathbb{Z}/12,\\ldots$ The $n$-th Postnikov section $X_n$ is built by killing $\\pi_{n+1}$ and above. The $k$-invariant connecting $X_n$ to $X_{n-1}$ lives in $H^{n+1}(X_{n-1};\\pi_n)$; for $S^2$ the first non-trivial $k$-invariant captures the Hopf map.</p>\n</div>",
-            "bodyScript": "",
             "title": "Postnikov tower of $S^2$",
-            "hint": "scrub the truncation level"
+            "hint": "scrub the truncation level",
+            "controls": [
+              {
+                "type": "slider",
+                "id": "em-n",
+                "label": "truncate at $\\pi_n$, $n=$",
+                "min": 2,
+                "max": 6,
+                "value": 3,
+                "format": "separate",
+                "step": 1
+              },
+              {
+                "type": "span",
+                "id": "em-n-out",
+                "class": "pill",
+                "text": "$n=3$"
+              }
+            ],
+            "svg": {
+              "id": "em-svg",
+              "viewBox": "0 0 720 320",
+              "width": 720,
+              "height": 320,
+              "title": "Postnikov tower of S^2"
+            },
+            "readout": {
+              "id": "em-out"
+            },
+            "bodyScript": "",
+            "wrapperHasId": true,
+            "trailingProse": "$S^2$ has $\\pi_2=\\mathbb{Z},\\pi_3=\\mathbb{Z},\\pi_4=\\mathbb{Z}/2,\\pi_5=\\mathbb{Z}/2,\\pi_6=\\mathbb{Z}/12,\\ldots$ The $n$-th Postnikov section $X_n$ is built by killing $\\pi_{n+1}$ and above. The $k$-invariant connecting $X_n$ to $X_{n-1}$ lives in $H^{n+1}(X_{n-1};\\pi_n)$; for $S^2$ the first non-trivial $k$-invariant captures the Hopf map."
           }
         },
         {
@@ -135,13 +193,42 @@
         },
         {
           "type": "widget",
-          "slug": "homotopy-theory-w4",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-stable",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-stable\">\n  <div class=\"hd\"><div class=\"ttl\">Stabilising $\\pi_{n+k}(S^n)$</div><div class=\"hint\">slide $k$, watch the $n$-axis stabilise</div></div>\n  <div class=\"row\">\n    <label for=\"st-k\">$k =$</label>\n    <input type=\"range\" id=\"st-k\" min=\"0\" max=\"6\" value=\"1\" step=\"1\">\n    <span class=\"pill\" id=\"st-k-out\">$k=1$</span>\n  </div>\n  <svg id=\"st-svg\" viewBox=\"0 0 720 280\" width=\"720\" height=\"280\"><title>Stabilisation of homotopy groups of spheres</title></svg>\n  <div class=\"readout\" id=\"st-out\"></div>\n  <p class=\"small\">For each fixed $k$, the sequence $\\pi_{n+k}(S^n)$ becomes constant for $n>k+1$ (Freudenthal), reaching the stable group $\\pi_k^s$. Stable values: $\\pi_0^s=\\mathbb{Z}$, $\\pi_1^s=\\mathbb{Z}/2$, $\\pi_2^s=\\mathbb{Z}/2$, $\\pi_3^s=\\mathbb{Z}/24$, $\\pi_4^s=0$, $\\pi_5^s=0$, $\\pi_6^s=\\mathbb{Z}/2$.</p>\n</div>",
-            "bodyScript": "",
             "title": "Stabilising $\\pi_{n+k}(S^n)$",
-            "hint": "slide $k$, watch the $n$-axis stabilise"
+            "hint": "slide $k$, watch the $n$-axis stabilise",
+            "controls": [
+              {
+                "type": "slider",
+                "id": "st-k",
+                "label": "$k =$",
+                "min": 0,
+                "max": 6,
+                "value": 1,
+                "format": "separate",
+                "step": 1
+              },
+              {
+                "type": "span",
+                "id": "st-k-out",
+                "class": "pill",
+                "text": "$k=1$"
+              }
+            ],
+            "svg": {
+              "id": "st-svg",
+              "viewBox": "0 0 720 280",
+              "width": 720,
+              "height": 280,
+              "title": "Stabilisation of homotopy groups of spheres"
+            },
+            "readout": {
+              "id": "st-out"
+            },
+            "bodyScript": "",
+            "wrapperHasId": true,
+            "trailingProse": "For each fixed $k$, the sequence $\\pi_{n+k}(S^n)$ becomes constant for $n>k+1$ (Freudenthal), reaching the stable group $\\pi_k^s$. Stable values: $\\pi_0^s=\\mathbb{Z}$, $\\pi_1^s=\\mathbb{Z}/2$, $\\pi_2^s=\\mathbb{Z}/2$, $\\pi_3^s=\\mathbb{Z}/24$, $\\pi_4^s=0$, $\\pi_5^s=0$, $\\pi_6^s=\\mathbb{Z}/2$."
           }
         },
         {
@@ -172,13 +259,42 @@
         },
         {
           "type": "widget",
-          "slug": "homotopy-theory-w5",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-rational",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-rational\">\n  <div class=\"hd\"><div class=\"ttl\">Rational homotopy of $S^n$</div><div class=\"hint\">scrub $n$, see Serre's pattern</div></div>\n  <div class=\"row\">\n    <label for=\"rat-n\">$n =$</label>\n    <input type=\"range\" id=\"rat-n\" min=\"2\" max=\"8\" value=\"2\" step=\"1\">\n    <span class=\"pill\" id=\"rat-n-out\">$n=2$</span>\n  </div>\n  <svg id=\"rat-svg\" viewBox=\"0 0 720 240\" width=\"720\" height=\"240\"><title>Rational homotopy of spheres</title></svg>\n  <div class=\"readout\" id=\"rat-out\"></div>\n  <p class=\"small\">Odd-dim spheres are rationally formal in one degree only; even-dim spheres get an extra rational class in degree $2n-1$ — the rational shadow of the Hopf class. The minimal Sullivan model has one generator for odd $n$, two for even $n$.</p>\n</div>",
-            "bodyScript": "",
             "title": "Rational homotopy of $S^n$",
-            "hint": "scrub $n$, see Serre's pattern"
+            "hint": "scrub $n$, see Serre's pattern",
+            "controls": [
+              {
+                "type": "slider",
+                "id": "rat-n",
+                "label": "$n =$",
+                "min": 2,
+                "max": 8,
+                "value": 2,
+                "format": "separate",
+                "step": 1
+              },
+              {
+                "type": "span",
+                "id": "rat-n-out",
+                "class": "pill",
+                "text": "$n=2$"
+              }
+            ],
+            "svg": {
+              "id": "rat-svg",
+              "viewBox": "0 0 720 240",
+              "width": 720,
+              "height": 240,
+              "title": "Rational homotopy of spheres"
+            },
+            "readout": {
+              "id": "rat-out"
+            },
+            "bodyScript": "",
+            "wrapperHasId": true,
+            "trailingProse": "Odd-dim spheres are rationally formal in one degree only; even-dim spheres get an extra rational class in degree $2n-1$ — the rational shadow of the Hopf class. The minimal Sullivan model has one generator for odd $n$, two for even $n$."
           }
         },
         {
@@ -209,13 +325,42 @@
         },
         {
           "type": "widget",
-          "slug": "homotopy-theory-w6",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-bott",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-bott\">\n  <div class=\"hd\"><div class=\"ttl\">Bott clock — periodicity of $\\pi_n(\\mathrm{O})$ and $\\pi_n(\\mathrm{U})$</div><div class=\"hint\">step around the clock</div></div>\n  <div class=\"row\">\n    <label for=\"bott-n\">$n =$</label>\n    <input type=\"range\" id=\"bott-n\" min=\"0\" max=\"15\" value=\"3\" step=\"1\">\n    <span class=\"pill\" id=\"bott-n-out\">$n=3$</span>\n  </div>\n  <svg id=\"bott-svg\" viewBox=\"0 0 720 320\" width=\"720\" height=\"320\"><title>Bott periodicity clock</title></svg>\n  <div class=\"readout\" id=\"bott-out\"></div>\n  <p class=\"small\">$\\pi_n(\\mathrm{O})$ has period $8$ with the pattern $\\mathbb{Z}/2,\\mathbb{Z}/2,0,\\mathbb{Z},0,0,0,\\mathbb{Z}$. $\\pi_n(\\mathrm{U})$ has period $2$ with pattern $0,\\mathbb{Z}$ (starting at $n=0$, since $\\mathrm{U}$ is connected). The clocks visualise the periodic recurrence — the Atiyah–Singer index theorem and the structure of $KO,KU$ rest on these eight (resp. two) values.</p>\n</div>",
-            "bodyScript": "",
             "title": "Bott clock — periodicity of $\\pi_n(\\mathrm{O})$ and $\\pi_n(\\mathrm{U})$",
-            "hint": "step around the clock"
+            "hint": "step around the clock",
+            "controls": [
+              {
+                "type": "slider",
+                "id": "bott-n",
+                "label": "$n =$",
+                "min": 0,
+                "max": 15,
+                "value": 3,
+                "format": "separate",
+                "step": 1
+              },
+              {
+                "type": "span",
+                "id": "bott-n-out",
+                "class": "pill",
+                "text": "$n=3$"
+              }
+            ],
+            "svg": {
+              "id": "bott-svg",
+              "viewBox": "0 0 720 320",
+              "width": 720,
+              "height": 320,
+              "title": "Bott periodicity clock"
+            },
+            "readout": {
+              "id": "bott-out"
+            },
+            "bodyScript": "",
+            "wrapperHasId": true,
+            "trailingProse": "$\\pi_n(\\mathrm{O})$ has period $8$ with the pattern $\\mathbb{Z}/2,\\mathbb{Z}/2,0,\\mathbb{Z},0,0,0,\\mathbb{Z}$. $\\pi_n(\\mathrm{U})$ has period $2$ with pattern $0,\\mathbb{Z}$ (starting at $n=0$, since $\\mathrm{U}$ is connected). The clocks visualise the periodic recurrence — the Atiyah–Singer index theorem and the structure of $KO,KU$ rest on these eight (resp. two) values."
           }
         },
         {
