@@ -1564,117 +1564,12 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "bn-w1",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "bn-w1 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the brill-noether topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `brill-noether` topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "bn-w2",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "bn-w2 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the brill-noether topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `brill-noether` topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "bn-w3",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "bn-w3 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the brill-noether topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `brill-noether` topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "bn-w4",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "bn-w4 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the brill-noether topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `brill-noether` topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "bn-w5",
     "family": "verbatim",
     "dimension": "2d",
     "gesture": "click",
     "role": "interactive",
     "title": "bn-w5 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the brill-noether topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `brill-noether` topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "bn-w6",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "bn-w6 widget params",
     "description": "Verbatim-renderer slug for an inline widget on the brill-noether topic.",
     "requiredParams": [
       "widgetId",
@@ -1985,69 +1880,6 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "ccr-w1",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "ccr-w1 widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Conformal stretch\" widget on the conformal-and-cr-geometry topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Conformal stretch\" widget on `conformal-and-cr-geometry`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "ccr-w2",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "ccr-w2 widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Conformal Laplacian — weight calibration\" widget on the conformal-and-cr-geometry topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Conformal Laplacian — weight calibration\" widget on `conformal-and-cr-geometry`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "ccr-w3",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "ccr-w3 widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Yamabe — the four-step program\" widget on the conformal-and-cr-geometry topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Yamabe — the four-step program\" widget on `conformal-and-cr-geometry`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "ccr-w4",
     "family": "verbatim",
     "dimension": "2d",
@@ -2063,48 +1895,6 @@ window.__MVWidgets = [
       "bodyScript"
     ],
     "readmeExcerpt": "Bespoke verbatim slug for the \"GJMS operators — the order-2k family\" widget on `conformal-and-cr-geometry`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "ccr-w5",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "ccr-w5 widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Heisenberg multiplication\" widget on the conformal-and-cr-geometry topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Heisenberg multiplication\" widget on `conformal-and-cr-geometry`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "ccr-w6",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "ccr-w6 widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Levi form of an ellipsoid in $\\mathbb{C}^2$\" widget on the conformal-and-cr-geometry topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Levi form of an ellipsoid in $\\mathbb{C}^2$\" widget on `conformal-and-cr-geometry`.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
@@ -15116,69 +14906,6 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "oc-hjb",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "oc-hjb widget params",
-    "description": "HJB value function: target-reaching in 1D. Verbatim-renderer slug for an inline widget on the optimal-control-and-dynamic-programming topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "HJB value function: target-reaching in 1D.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "oc-lqr",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "oc-lqr widget params",
-    "description": "1D LQR: Riccati ODE phase and closed-loop spectrum. Verbatim-renderer slug for an inline widget on the optimal-control-and-dynamic-programming topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "1D LQR: Riccati ODE phase and closed-loop spectrum.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "oc-merton",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "oc-merton widget params",
-    "description": "Merton optimal risky fraction widget. Verbatim-renderer slug for an inline widget on the optimal-control-and-dynamic-programming topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Merton optimal risky fraction widget.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "oc-pmp",
     "family": "verbatim",
     "dimension": "2d",
@@ -15194,48 +14921,6 @@ window.__MVWidgets = [
       "bodyScript"
     ],
     "readmeExcerpt": "Pontryagin maximum principle proof scrubber.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "oc-reach",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "oc-reach widget params",
-    "description": "Reachable-set widget for the double-integrator under bounded control. Verbatim-renderer slug for an inline widget on the optimal-control-and-dynamic-programming topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Reachable-set widget for the double-integrator under bounded control.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "oc-vi",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "oc-vi widget params",
-    "description": "Value iteration on a 5x5 grid world. Verbatim-renderer slug for an inline widget on the optimal-control-and-dynamic-programming topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Value iteration on a 5x5 grid world.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,

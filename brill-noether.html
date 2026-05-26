@@ -284,16 +284,14 @@ function drawNode(svg, x, y, label, opts={}){
   <div class="hd"><div class="ttl">Effective divisors in a linear series</div><div class="hint">drag the slider; the section moves through $|D|$ and its zeros trace a $g^r_d$</div></div>
   <div class="row">
     <label for="ls-dim">$\dim V = r+1$:</label>
-    <input id="ls-dim" type="range" min="1" max="4" step="1" value="2">
+    <input type="range" id="ls-dim" min="1" max="4" step="1" value="2">
     <span id="ls-dimval" class="pill">r+1 = 2</span>
-  </div>
-  <div class="row">
     <label for="ls-lambda">parameter $\lambda$:</label>
-    <input id="ls-lambda" type="range" min="-2" max="2" step="0.04" value="0.3">
+    <input type="range" id="ls-lambda" min="-2" max="2" step="0.04" value="0.3">
     <span id="ls-lamval" class="pill">λ = 0.30</span>
   </div>
   <svg id="ls-svg" viewBox="0 0 720 260" width="720" height="260"><title>Effective divisors in a linear series</title></svg>
-  <div class="readout" id="ls-out">drag the parameter slider; the yellow zero dots on the curve are the $d$ zeros of $s_\lambda=\sum\lambda_i s_i$…</div>
+  <div class="readout" id="ls-out"></div>
   <p class="small">Sections $s_0,\ldots,s_r$ span a $g^r_d$ of degree $d=6$. Varying $\lambda\in\mathbb{P}^r$ moves through the effective divisors $\mathrm{div}(s_\lambda)$, each a sum of $d$ points (with multiplicity). The <em>base locus</em> is the intersection of all zero divisors — points where every section vanishes. A base-point-free $g^r_d$ defines a morphism $\varphi\colon C\to\mathbb{P}^r$.</p>
 </div>
 <script>
@@ -427,16 +425,14 @@ function drawNode(svg, x, y, label, opts={}){
   <div class="hd"><div class="ttl">Riemann–Roch dimension explorer</div><div class="hint">slide $d$; the bars compare the forced floor $d-g+1$ against actual $h^0$ for a typical $D$</div></div>
   <div class="row">
     <label for="rr-g">genus $g$:</label>
-    <input id="rr-g" type="range" min="2" max="10" step="1" value="5">
+    <input type="range" id="rr-g" min="2" max="10" step="1" value="5">
     <span id="rr-gval" class="pill">g = 5</span>
-  </div>
-  <div class="row">
     <label for="rr-d">degree $d$:</label>
-    <input id="rr-d" type="range" min="0" max="20" step="1" value="6">
+    <input type="range" id="rr-d" min="0" max="20" step="1" value="6">
     <span id="rr-dval" class="pill">d = 6</span>
   </div>
   <svg id="rr-svg" viewBox="0 0 720 240" width="720" height="240"><title>Riemann–Roch dimension explorer</title></svg>
-  <div class="readout" id="rr-out">slide $g$ and $d$; the bars show $h^0(D)$ vs the Riemann–Roch floor $d-g+1$…</div>
+  <div class="readout" id="rr-out"></div>
   <p class="small">Cyan bar = Riemann–Roch lower bound $\max(0,d-g+1)$. Yellow bar = a "generic" $h^0(D)$ for $D$ of degree $d$: equal to the cyan in the non-special range $d\ge 2g-1$, and bumped above it by $h^0(K-D)$ in the special range. Pink shading = special range $0\le d\le 2g-2$, where Brill–Noether theory lives.</p>
 </div>
 <script>
@@ -569,21 +565,17 @@ function drawNode(svg, x, y, label, opts={}){
   <div class="hd"><div class="ttl">Brill–Noether number $\rho(g,r,d)$ explorer</div><div class="hint">slide $g,r,d$; positive $\rho$ predicts existence, negative predicts emptiness</div></div>
   <div class="row">
     <label for="rho-g">genus $g$:</label>
-    <input id="rho-g" type="range" min="2" max="20" step="1" value="6">
+    <input type="range" id="rho-g" min="2" max="20" step="1" value="6">
     <span id="rho-gval" class="pill">g = 6</span>
-  </div>
-  <div class="row">
     <label for="rho-r">rank $r$:</label>
-    <input id="rho-r" type="range" min="1" max="6" step="1" value="1">
+    <input type="range" id="rho-r" min="1" max="6" step="1" value="1">
     <span id="rho-rval" class="pill">r = 1</span>
-  </div>
-  <div class="row">
     <label for="rho-d">degree $d$:</label>
-    <input id="rho-d" type="range" min="1" max="30" step="1" value="4">
+    <input type="range" id="rho-d" min="1" max="30" step="1" value="4">
     <span id="rho-dval" class="pill">d = 4</span>
   </div>
   <svg id="rho-svg" viewBox="0 0 720 260" width="720" height="260"><title>Brill–Noether number ρ explorer</title></svg>
-  <div class="readout" id="rho-out">slide the sliders; the table tracks $\rho$ on a $(d,r)$-grid for the chosen $g$…</div>
+  <div class="readout" id="rho-out"></div>
   <p class="small">For each cell $(d,r)$ in the grid, the colour shows the sign of $\rho(g,r,d)=g-(r+1)(g-d+r)$. Green: $\rho\ge 0$ (a $g^r_d$ exists on a general curve, expected dim $=\rho$). Pink: $\rho&lt;0$ (no $g^r_d$ on a generic curve — the locus $W^r_d$ is empty). Yellow border: the current $(d,r)$. The Brill–Noether locus $W^r_d(C)$ jumps from empty to non-empty exactly at $\rho=0$.</p>
 </div>
 <script>
@@ -707,22 +699,18 @@ function drawNode(svg, x, y, label, opts={}){
   <div class="hd"><div class="ttl">Determinantal stratification of $\Pic^d(C)$</div><div class="hint">click a stratum; see the nested $W^0\supset W^1\supset W^2\supset\cdots$ filtration</div></div>
   <div class="row">
     <label for="wrd-g">genus $g$:</label>
-    <input id="wrd-g" type="range" min="3" max="10" step="1" value="6">
+    <input type="range" id="wrd-g" min="3" max="10" step="1" value="6">
     <span id="wrd-gval" class="pill">g = 6</span>
-  </div>
-  <div class="row">
     <label for="wrd-d">degree $d$:</label>
-    <input id="wrd-d" type="range" min="2" max="15" step="1" value="5">
+    <input type="range" id="wrd-d" min="2" max="15" step="1" value="5">
     <span id="wrd-dval" class="pill">d = 5</span>
-  </div>
-  <div class="row">
     <button id="wrd-r0" class="active">W⁰_d</button>
     <button id="wrd-r1">W¹_d</button>
     <button id="wrd-r2">W²_d</button>
     <button id="wrd-r3">W³_d</button>
   </div>
   <svg id="wrd-svg" viewBox="0 0 720 260" width="720" height="260"><title>W^r_d filtration on Pic^d</title></svg>
-  <div class="readout" id="wrd-out">click a stratum: see its expected codimension and how it nests inside $\Pic^d(C)$…</div>
+  <div class="readout" id="wrd-out"></div>
   <p class="small">The Brill–Noether loci form a chain $\Pic^d(C)=W^{-1}\supseteq W^0_d\supseteq W^1_d\supseteq W^2_d\supseteq\cdots$. Each inclusion is a determinantal cut by one extra rank condition; the expected codimension increases by $g-d+r$ at each step. When $\rho(g,r,d)\ge 0$, the locus is non-empty of expected dimension; when negative, it's empty (generic curve).</p>
 </div>
 <script>
@@ -953,21 +941,17 @@ function drawNode(svg, x, y, label, opts={}){
   <div class="hd"><div class="ttl">The Petri map $\mu_0$</div><div class="hint">vary the genus and degree; watch $\dim$ domain vs codomain — and the tangent space to $W^r_d$</div></div>
   <div class="row">
     <label for="pe-g">genus $g$:</label>
-    <input id="pe-g" type="range" min="3" max="12" step="1" value="6">
+    <input type="range" id="pe-g" min="3" max="12" step="1" value="6">
     <span id="pe-gval" class="pill">g = 6</span>
-  </div>
-  <div class="row">
     <label for="pe-d">degree $d$:</label>
-    <input id="pe-d" type="range" min="2" max="20" step="1" value="5">
+    <input type="range" id="pe-d" min="2" max="20" step="1" value="5">
     <span id="pe-dval" class="pill">d = 5</span>
-  </div>
-  <div class="row">
     <label for="pe-r">rank $r$:</label>
-    <input id="pe-r" type="range" min="1" max="5" step="1" value="1">
+    <input type="range" id="pe-r" min="1" max="5" step="1" value="1">
     <span id="pe-rval" class="pill">r = 1</span>
   </div>
   <svg id="pe-svg" viewBox="0 0 720 260" width="720" height="260"><title>Petri map dimension diagram</title></svg>
-  <div class="readout" id="pe-out">slide $g,r,d$; watch how $\dim H^0(L)\otimes H^0(K\otimes L^{-1})$ compares to $\dim H^0(K)=g$…</div>
+  <div class="readout" id="pe-out"></div>
   <p class="small">Tangent space: $T_L W^r_d=\operatorname{coker}(\mu_0)^*$, of dimension $g-\operatorname{rk}\mu_0$. Petri injectivity means $\operatorname{rk}\mu_0$ is maximal $=(r+1)(g-d+r)$, so $\dim T_L W^r_d=g-(r+1)(g-d+r)=\rho$ — the expected dimension. Failure of injectivity at $L$ means $W^r_d$ has an obstruction at $L$; on a non-general curve, failures live on a closed subset.</p>
 </div>
 <script>

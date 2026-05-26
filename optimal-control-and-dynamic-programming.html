@@ -284,19 +284,17 @@ $$u^*(\cdot) \;=\; \operatorname*{arg\,min}_{u(\cdot)\,\in\,\mathcal{U}_{\rm ad}
 
 <div class="widget" id="w-reach">
   <div class="hd"><div class="ttl">Reachable set of a double integrator</div><div class="hint">drag T &amp; bound · watch the funnel sweep</div></div>
-  <svg id="reach-svg" viewBox="0 0 580 320" width="580" height="320"><title>Reachable set in (position, velocity) of a double integrator with bounded control</title></svg>
   <div class="row">
     <label for="reach-T">horizon $T$</label>
     <input type="range" id="reach-T" min="0.5" max="3" step="0.05" value="1.5">
-    <span class="readout" id="reach-T-out" style="min-width:90px;flex:0 0 auto">T = 1.50</span>
-  </div>
-  <div class="row">
+    <span id="reach-T-out" class="readout">T = 1.50</span>
     <label for="reach-U">bound $|u|\le u_{\max}$</label>
     <input type="range" id="reach-U" min="0.2" max="2" step="0.05" value="1">
-    <span class="readout" id="reach-U-out" style="min-width:90px;flex:0 0 auto">u_max = 1.00</span>
+    <span id="reach-U-out" class="readout">u_max = 1.00</span>
   </div>
+  <svg id="reach-svg" viewBox="0 0 580 320" width="580" height="320"><title>Reachable set in (position, velocity) of a double integrator with bounded control</title></svg>
   <div class="readout" id="reach-out"></div>
-  <div class="note small">Plant $\ddot q = u$, $|u|\le u_{\max}$, started at the origin. The reachable set in $(q,\dot q)$ at time $T$ is a parallelogram-like region traced by all admissible inputs. The two extremal corners come from bang-bang controls $u\equiv +u_{\max}$ and $u\equiv -u_{\max}$ (Pontryagin already at work). The yellow filled region is $\mathcal{R}_T(0)$ sampled by random piecewise-constant $u(\cdot)$; the cyan outline is the exact boundary (a quadratic curve in $(q,\dot q)$).</div>
+  <p class="small">Plant $\ddot q = u$, $|u|\le u_{\max}$, started at the origin. The reachable set in $(q,\dot q)$ at time $T$ is a parallelogram-like region traced by all admissible inputs. The two extremal corners come from bang-bang controls $u\equiv +u_{\max}$ and $u\equiv -u_{\max}$ (Pontryagin already at work). The yellow filled region is $\mathcal{R}_T(0)$ sampled by random piecewise-constant $u(\cdot)$; the cyan outline is the exact boundary (a quadratic curve in $(q,\dot q)$).</p>
 </div>
 
 <!-- callback-auto-begin -->
@@ -457,19 +455,17 @@ $$u^*(x,t) \;=\; \operatorname*{arg\,min}_{u\in U}\Big\{ L(x,u,t) + \partial_x V
 
 <div class="widget" id="w-hjb">
   <div class="hd"><div class="ttl">HJB value function: target-reaching in 1D</div><div class="hint">slide $T$ · watch $V(x,t)$ propagate backward</div></div>
-  <svg id="hjb-svg" viewBox="0 0 580 320" width="580" height="320"><title>HJB value function plotted versus state x for various times t</title></svg>
   <div class="row">
     <label for="hjb-T">horizon $T$</label>
     <input type="range" id="hjb-T" min="0.3" max="2.5" step="0.05" value="1">
-    <span class="readout" id="hjb-T-out" style="min-width:90px;flex:0 0 auto">T = 1.00</span>
-  </div>
-  <div class="row">
+    <span id="hjb-T-out" class="readout">T = 1.00</span>
     <label for="hjb-t">time slice $t$</label>
     <input type="range" id="hjb-t" min="0" max="1" step="0.02" value="0">
-    <span class="readout" id="hjb-t-out" style="min-width:90px;flex:0 0 auto">t/T = 0.00</span>
+    <span id="hjb-t-out" class="readout">t/T = 0.00</span>
   </div>
+  <svg id="hjb-svg" viewBox="0 0 580 320" width="580" height="320"><title>HJB value function plotted versus state x for various times t</title></svg>
   <div class="readout" id="hjb-out"></div>
-  <div class="note small">Plant $\dot x=u$, $u\in[-1,1]$. Running cost $L=u^2/2$, terminal cost $\Phi(x)=x^2/2$. The HJB equation $-V_t = \min_u\{L + V_x u\} = -V_x^2/2$ on $|V_x|\le 1$ has closed form $V(x,t)=x^2/(2(1+(T-t)))$. Yellow: $V(x,t)$ at the selected slice. Cyan dashed: $V(x,T)=\Phi(x)$. The curve flattens as $t$ moves away from $T$ — every state becomes cheap when you have more horizon to spend.</div>
+  <p class="small">Plant $\dot x=u$, $u\in[-1,1]$. Running cost $L=u^2/2$, terminal cost $\Phi(x)=x^2/2$. The HJB equation $-V_t = \min_u\{L + V_x u\} = -V_x^2/2$ on $|V_x|\le 1$ has closed form $V(x,t)=x^2/(2(1+(T-t)))$. Yellow: $V(x,t)$ at the selected slice. Cyan dashed: $V(x,T)=\Phi(x)$. The curve flattens as $t$ moves away from $T$ — every state becomes cheap when you have more horizon to spend.</p>
 </div>
 
 <!-- callback-auto-begin -->
@@ -514,24 +510,20 @@ $$A^\top \bar P + \bar P A - \bar P B R^{-1}B^\top \bar P + Q = 0,$$
 
 <div class="widget" id="w-lqr">
   <div class="hd"><div class="ttl">1D LQR: Riccati ODE phase &amp; closed-loop spectrum</div><div class="hint">slide $q,r$ · watch the Riccati flow and the feedback gain</div></div>
-  <svg id="lqr-svg" viewBox="0 0 580 320" width="580" height="320"><title>Riccati ODE solution and closed-loop pole for 1D LQR</title></svg>
   <div class="row">
     <label for="lqr-a">$A$ (drift)</label>
     <input type="range" id="lqr-a" min="-2" max="2" step="0.05" value="0.5">
-    <span class="readout" id="lqr-a-out" style="min-width:60px;flex:0 0 auto">A = 0.50</span>
-  </div>
-  <div class="row">
+    <span id="lqr-a-out" class="readout">A = 0.50</span>
     <label for="lqr-q">$Q$ (state weight)</label>
     <input type="range" id="lqr-q" min="0.1" max="5" step="0.1" value="1">
-    <span class="readout" id="lqr-q-out" style="min-width:60px;flex:0 0 auto">Q = 1.0</span>
-  </div>
-  <div class="row">
+    <span id="lqr-q-out" class="readout">Q = 1.0</span>
     <label for="lqr-r">$R$ (control cost)</label>
     <input type="range" id="lqr-r" min="0.05" max="5" step="0.05" value="1">
-    <span class="readout" id="lqr-r-out" style="min-width:60px;flex:0 0 auto">R = 1.0</span>
+    <span id="lqr-r-out" class="readout">R = 1.0</span>
   </div>
+  <svg id="lqr-svg" viewBox="0 0 580 320" width="580" height="320"><title>Riccati ODE solution and closed-loop pole for 1D LQR</title></svg>
   <div class="readout" id="lqr-out"></div>
-  <div class="note small">Scalar plant $\dot x = Ax + u$, cost $\int (Qx^2 + Ru^2)/2\,dt$. Riccati: $-\dot P = 2AP - P^2/R + Q$. Yellow: backward-integrated $P(t)$ from $P(T)=0$; the curve always converges to the algebraic-Riccati root $\bar P = R(A + \sqrt{A^2+Q/R})$. Cyan: closed-loop pole $A_{\rm cl} = A - \bar P / R$ on the real line (always strictly negative ⇒ stable, as promised).</div>
+  <p class="small">Scalar plant $\dot x = Ax + u$, cost $\int (Qx^2 + Ru^2)/2\,dt$. Riccati: $-\dot P = 2AP - P^2/R + Q$. Yellow: backward-integrated $P(t)$ from $P(T)=0$; the curve always converges to the algebraic-Riccati root $\bar P = R(A + \sqrt{A^2+Q/R})$. Cyan: closed-loop pole $A_{\rm cl} = A - \bar P / R$ on the real line (always strictly negative ⇒ stable, as promised).</p>
 </div>
 
 <div class="quiz" data-concept="oc-lqr"></div>
@@ -565,13 +557,13 @@ $$TV(x) - TV'(x) \;\le\; \gamma\bigl(V(f(x,u^*)) - V'(f(x,u^*))\bigr) \;\le\; \g
   <div class="row">
     <label for="vi-iters">iterations</label>
     <input type="range" id="vi-iters" min="0" max="40" step="1" value="0">
-    <span class="readout" id="vi-iters-out" style="min-width:60px;flex:0 0 auto">k = 0</span>
+    <span id="vi-iters-out" class="readout">k = 0</span>
     <button id="vi-step">step</button>
     <button id="vi-reset">reset</button>
   </div>
   <svg id="vi-svg" viewBox="0 0 580 320" width="580" height="320"><title>Value iteration on a 5x5 grid world with one goal and one obstacle</title></svg>
   <div class="readout" id="vi-out"></div>
-  <div class="note small">Agent moves N/S/E/W with cost 1, falls off the grid is forbidden (move ignored). The outer yellow square is the goal (reward 0, absorbing); the dark square is an obstacle (cost 10 to enter). Discount $\gamma=0.95$. Click "step" to apply the Bellman operator once: $V_{k+1}(x)\leftarrow\min_u\{c+\gamma V_k(x')\}$. Watch the value front sweep out from the goal, shaped by the obstacle. After ~25 iterations $V$ stabilises; arrows show the greedy policy.</div>
+  <p class="small">Agent moves N/S/E/W with cost 1, falls off the grid is forbidden (move ignored). The outer yellow square is the goal (reward 0, absorbing); the dark square is an obstacle (cost 10 to enter). Discount $\gamma=0.95$. Click "step" to apply the Bellman operator once: $V_{k+1}(x)\leftarrow\min_u\{c+\gamma V_k(x')\}$. Watch the value front sweep out from the goal, shaped by the obstacle. After ~25 iterations $V$ stabilises; arrows show the greedy policy.</p>
 </div>
 
 <div class="quiz" data-concept="oc-dp"></div><!-- backlinks-auto-begin -->
@@ -609,24 +601,20 @@ $$u^* \;=\; \frac{\mu - r}{\gamma\,\sigma^2},\qquad c^* = \text{constant fractio
 
 <div class="widget" id="w-merton">
   <div class="hd"><div class="ttl">Merton's optimal risky fraction</div><div class="hint">slide drift, vol, risk aversion · the formula updates</div></div>
-  <svg id="merton-svg" viewBox="0 0 580 240" width="580" height="240"><title>Merton optimal risky fraction as function of drift, vol, and risk aversion</title></svg>
   <div class="row">
     <label for="mer-mu">drift $\mu-r$ (excess return)</label>
     <input type="range" id="mer-mu" min="0" max="0.15" step="0.005" value="0.06">
-    <span class="readout" id="mer-mu-out" style="min-width:60px;flex:0 0 auto">μ−r = 0.06</span>
-  </div>
-  <div class="row">
+    <span id="mer-mu-out" class="readout">μ−r = 0.06</span>
     <label for="mer-sig">volatility $\sigma$</label>
     <input type="range" id="mer-sig" min="0.05" max="0.4" step="0.01" value="0.18">
-    <span class="readout" id="mer-sig-out" style="min-width:60px;flex:0 0 auto">σ = 0.18</span>
-  </div>
-  <div class="row">
+    <span id="mer-sig-out" class="readout">σ = 0.18</span>
     <label for="mer-gam">risk aversion $\gamma$</label>
     <input type="range" id="mer-gam" min="0.5" max="6" step="0.1" value="2">
-    <span class="readout" id="mer-gam-out" style="min-width:60px;flex:0 0 auto">γ = 2.0</span>
+    <span id="mer-gam-out" class="readout">γ = 2.0</span>
   </div>
+  <svg id="merton-svg" viewBox="0 0 580 240" width="580" height="240"><title>Merton optimal risky fraction as function of drift, vol, and risk aversion</title></svg>
   <div class="readout" id="mer-out"></div>
-  <div class="note small">Yellow curve: simulated wealth path under $u^*=(\mu-r)/(\gamma\sigma^2)$ on $[0,T=5]$ years, 250 steps. Cyan curve: a passive 100%-risky path for comparison. The optimal fraction $u^*$ is the value at upper-right; tweaking $\gamma$ shows the variance-aversion trade-off — high $\gamma$ shrinks the risky position even when the Sharpe is generous.</div>
+  <p class="small">Yellow curve: simulated wealth path under $u^*=(\mu-r)/(\gamma\sigma^2)$ on $[0,T=5]$ years, 250 steps. Cyan curve: a passive 100%-risky path for comparison. The optimal fraction $u^*$ is the value at upper-right; tweaking $\gamma$ shows the variance-aversion trade-off — high $\gamma$ shrinks the risky position even when the Sharpe is generous.</p>
 </div>
 
 <!-- callback-auto-begin -->
