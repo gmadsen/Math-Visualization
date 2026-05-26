@@ -624,15 +624,14 @@ $$ \beta_S(n) \;=\; \#\, B_n. $$
 <p><strong>Gromov's theorem (1981).</strong> A finitely-generated group has polynomial growth if and only if it is <em>virtually nilpotent</em> (contains a finite-index nilpotent subgroup). The $(\Leftarrow)$ direction is classical (Bass, Wolf, Guivarc'h); the $(\Rightarrow)$ direction is Gromov's tour de force, using a limit argument that extracts a Lie group from the asymptotic cone of $G$ via the Montgomery–Zippin solution to Hilbert's fifth problem. It's the prototype "geometry forces algebra" theorem of the field.</p>
 
 <div class="widget">
-  <div class="hd"><div class="ttl">Growth-function plot</div>
-    <div class="hint">Toggle linear/log $y$-axis to see polynomial vs. exponential.</div></div>
+  <div class="hd"><div class="ttl">Growth-function plot</div><div class="hint">Toggle linear/log $y$-axis to see polynomial vs. exponential.</div></div>
   <div class="row">
     <button id="grow-linear" class="active">linear $y$</button>
     <button id="grow-log">log $y$</button>
-    <label style="margin-left:1rem">$n$ up to <input id="grow-N" type="range" min="6" max="20" step="1" value="14"></label>
+    <label style="margin-left:1rem">$n$ up to<input id="grow-N" type="range" min="6" max="20" step="1" value="14"></label>
   </div>
   <svg id="grow-svg" viewBox="0 0 480 300" width="540" height="340"><title>Growth-function plot</title></svg>
-  <div id="grow-readout" class="readout"></div>
+  <div class="readout" id="grow-readout"></div>
 </div>
 
 <script>
@@ -720,15 +719,14 @@ $$ \beta_S(n) \;=\; \#\, B_n. $$
 <p><strong>Consequences.</strong> Word and conjugacy problems solvable in linear time (Dehn's algorithm). Finitely many conjugacy classes of torsion. A natural compactification by the <em>boundary at infinity</em> $\partial G$, on which $G$ acts as a "convergence group". Quasi-isometric rigidity: in many cases, two hyperbolic groups quasi-isometric to each other are commensurable.</p>
 
 <div class="widget">
-  <div class="hd"><div class="ttl">Thin triangles: hyperbolic vs. Euclidean</div>
-    <div class="hint">Drag the slider to fatten the triangle; watch the $\delta$-neighborhood width track curvature.</div></div>
+  <div class="hd"><div class="ttl">Thin triangles: hyperbolic vs. Euclidean</div><div class="hint">Drag the slider to fatten the triangle; watch the $\delta$-neighborhood width track curvature.</div></div>
   <div class="row">
     <button id="hyp-euc" class="active">Euclidean</button>
     <button id="hyp-hyp">hyperbolic (Poincaré disk)</button>
-    <label style="margin-left:1rem">size <input id="hyp-size" type="range" min="20" max="180" step="2" value="120"></label>
+    <label style="margin-left:1rem">size<input id="hyp-size" type="range" min="20" max="180" step="2" value="120"></label>
   </div>
   <svg id="hyp-svg" viewBox="-200 -160 400 320" width="500" height="400"><title>Thin triangles: hyperbolic vs. Euclidean</title></svg>
-  <div id="hyp-readout" class="readout"></div>
+  <div class="readout" id="hyp-readout"></div>
 </div>
 
 <script>

@@ -57,13 +57,67 @@
         },
         {
           "type": "widget",
-          "slug": "ak-k1",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "ak-k1",
             "title": "$K_1$: from $GL_n$ to abelianized stable matrices",
             "hint": "apply elementary row ops to a 2×2; watch the K₁ class collapse to the determinant",
-            "bodyMarkup": "<div class=\"widget\" id=\"ak-k1\">\n  <div class=\"hd\"><div class=\"ttl\">$K_1$: from $GL_n$ to abelianized stable matrices</div><div class=\"hint\">apply elementary row ops to a 2×2; watch the K₁ class collapse to the determinant</div></div>\n  <div class=\"row\">\n    <label for=\"ak-k1-a\">$a$ (off-diag scalar):</label>\n    <input id=\"ak-k1-a\" type=\"range\" min=\"-3\" max=\"3\" step=\"1\" value=\"1\">\n    <span id=\"ak-k1-a-out\" class=\"small\"></span>\n  </div>\n  <div class=\"row\">\n    <label for=\"ak-k1-b\">$b$ (off-diag scalar):</label>\n    <input id=\"ak-k1-b\" type=\"range\" min=\"-3\" max=\"3\" step=\"1\" value=\"2\">\n    <span id=\"ak-k1-b-out\" class=\"small\"></span>\n  </div>\n  <div class=\"row\">\n    <label for=\"ak-k1-d\">$d = \\det$:</label>\n    <input id=\"ak-k1-d\" type=\"range\" min=\"-1\" max=\"1\" step=\"1\" value=\"1\">\n    <span id=\"ak-k1-d-out\" class=\"small\"></span>\n  </div>\n  <svg id=\"ak-k1-svg\" viewBox=\"-260 -130 520 260\" width=\"100%\" height=\"300\"><title>Whitehead lemma: elementary row operations on a 2x2 collapse to det(A) in K1</title></svg>\n  <div id=\"ak-k1-out\" class=\"readout\"></div>\n</div>",
-            "bodyScript": "<script>\n(function(){\n  const svg = document.getElementById('ak-k1-svg');\n  const out = document.getElementById('ak-k1-out');\n  const aS = document.getElementById('ak-k1-a');\n  const bS = document.getElementById('ak-k1-b');\n  const dS = document.getElementById('ak-k1-d');\n  const aO = document.getElementById('ak-k1-a-out');\n  const bO = document.getElementById('ak-k1-b-out');\n  const dO = document.getElementById('ak-k1-d-out');\n  function fmtMat(A){\n    return '[ '+(''+A[0][0]).padStart(3)+' '+(''+A[0][1]).padStart(3)+' ]\\n[ '+(''+A[1][0]).padStart(3)+' '+(''+A[1][1]).padStart(3)+' ]';\n  }\n  function det2(A){ return A[0][0]*A[1][1] - A[0][1]*A[1][0]; }\n  function mmul(A,B){\n    return [\n      [A[0][0]*B[0][0]+A[0][1]*B[1][0], A[0][0]*B[0][1]+A[0][1]*B[1][1]],\n      [A[1][0]*B[0][0]+A[1][1]*B[1][0], A[1][0]*B[0][1]+A[1][1]*B[1][1]]\n    ];\n  }\n  function draw(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const a = +aS.value, b = +bS.value, d = +dS.value;\n    aO.textContent = 'a = '+a;\n    bO.textContent = 'b = '+b;\n    dO.textContent = 'det = '+d;\n    const Ea = [[1,a],[0,1]];\n    const Eb = [[1,b],[0,1]];\n    const D = [[d,0],[0,1]];\n    const A = mmul(Ea, mmul(D, Eb));\n    const detA = det2(A);\n    function box(x,y,w,h,col){\n      svg.appendChild(SVG('rect',{x,y,width:w,height:h,fill:'var(--panel2)',stroke:col,'stroke-width':1.5,rx:6}));\n    }\n    function lbl(x,y,t,col,sz){\n      const e = SVG('text',{x,y,'text-anchor':'middle','font-size':sz||11,fill:col,'font-family':'ui-monospace,monospace'});\n      e.textContent = t; svg.appendChild(e);\n    }\n    box(-220,-90,130,90,'var(--blue)');\n    lbl(-155,-72,'A = E(a) D(d) E(b)','var(--blue)',10);\n    lbl(-155,-50,fmtMat(A).split('\\n')[0],'var(--ink)',10);\n    lbl(-155,-35,fmtMat(A).split('\\n')[1],'var(--ink)',10);\n    lbl(-155,-12,'det = '+detA,'var(--mute)',9);\n    box(-50,-90,130,90,'var(--violet)');\n    lbl(15,-72,'mod E(R) (kill electrons)','var(--violet)',10);\n    lbl(15,-48,'= diag(det A, 1, 1, ...)','var(--cyan)',11);\n    lbl(15,-26,'in stable GL(Z)/E(Z)','var(--mute)',9);\n    box(120,-90,130,90,'var(--yellow)');\n    lbl(185,-72,'class in K1(Z)','var(--yellow)',10);\n    lbl(185,-48,'= det(A) in Z* = {+/-1}','var(--cyan)',11);\n    lbl(185,-26, detA === 1 ? '= +1' : detA === -1 ? '= -1' : 'NOT a unit -- not in K1','var(--mute)',9);\n    drawArrow(svg, [-90,-45],[-50,-45],{color:'var(--mute)',markerId:'k1arr1'});\n    drawArrow(svg, [80,-45],[120,-45],{color:'var(--mute)',markerId:'k1arr2'});\n    lbl(-200, 30, 'Whitehead lemma:', 'var(--green)', 11);\n    lbl(-90, 30, 'I + a*e_{12}  =  [ I + a*e_{13},  I + e_{32} ]', 'var(--mute)', 11);\n    lbl(-200, 50, '(any nontrivial transvection is a commutator', 'var(--mute)', 10);\n    lbl(-200, 65, 'after stabilizing to size >= 3)', 'var(--mute)', 10);\n    out.textContent = 'Step-by-step computation:\\n' +\n      'A = E(' + a + ') * diag(' + d + ',1) * E(' + b + ') over Z.\\n' +\n      'A explicit:\\n' + fmtMat(A) + '\\n' +\n      'det A = ' + detA + '.\\n\\n' +\n      'In K1(Z): the elementary factors E(' + a + '), E(' + b + ') in E(Z) are commutators (Whitehead lemma) and hence killed in the abelianization GL/[GL,GL]. What survives is diag(det A, 1, ...), whose class in K1(Z) = Z* = {+/-1} is just det A = ' + detA + '.\\n\\n' +\n      'For Z, K1(Z) = {+/-1} (Bass-Milnor-Serre: SK1(Z) = 0). If det A = +/-1, the class is in K1(Z); otherwise A is not in GL(Z) (det must be a unit).\\n\\n' +\n      'Try: a=1, b=0, d=1 -> A = [[1,1],[0,1]], det 1. Pure elementary, K1 class = +1 = trivial.\\n' +\n      'Try: a=0, b=0, d=-1 -> A = diag(-1,1), det -1, K1 class = -1 (nontrivial).';\n  }\n  aS.addEventListener('input', draw);\n  bS.addEventListener('input', draw);\n  dS.addEventListener('input', draw);\n  draw();\n})();\n</script>"
+            "controls": [
+              {
+                "type": "slider",
+                "id": "ak-k1-a",
+                "label": "$a$ (off-diag scalar):",
+                "min": -3,
+                "max": 3,
+                "value": 1,
+                "format": "separate",
+                "step": 1
+              },
+              {
+                "type": "span",
+                "id": "ak-k1-a-out"
+              },
+              {
+                "type": "slider",
+                "id": "ak-k1-b",
+                "label": "$b$ (off-diag scalar):",
+                "min": -3,
+                "max": 3,
+                "value": 2,
+                "format": "separate",
+                "step": 1
+              },
+              {
+                "type": "span",
+                "id": "ak-k1-b-out"
+              },
+              {
+                "type": "slider",
+                "id": "ak-k1-d",
+                "label": "$d = \\det$:",
+                "min": -1,
+                "max": 1,
+                "value": 1,
+                "format": "separate",
+                "step": 1
+              },
+              {
+                "type": "span",
+                "id": "ak-k1-d-out"
+              }
+            ],
+            "svg": {
+              "id": "ak-k1-svg",
+              "viewBox": "-260 -130 520 260",
+              "width": "100%",
+              "height": 300,
+              "title": "Whitehead lemma: elementary row operations on a 2x2 collapse to det(A) in K1"
+            },
+            "readout": {
+              "id": "ak-k1-out"
+            },
+            "bodyScript": "<script>\n(function(){\n  const svg = document.getElementById('ak-k1-svg');\n  const out = document.getElementById('ak-k1-out');\n  const aS = document.getElementById('ak-k1-a');\n  const bS = document.getElementById('ak-k1-b');\n  const dS = document.getElementById('ak-k1-d');\n  const aO = document.getElementById('ak-k1-a-out');\n  const bO = document.getElementById('ak-k1-b-out');\n  const dO = document.getElementById('ak-k1-d-out');\n  function fmtMat(A){\n    return '[ '+(''+A[0][0]).padStart(3)+' '+(''+A[0][1]).padStart(3)+' ]\\n[ '+(''+A[1][0]).padStart(3)+' '+(''+A[1][1]).padStart(3)+' ]';\n  }\n  function det2(A){ return A[0][0]*A[1][1] - A[0][1]*A[1][0]; }\n  function mmul(A,B){\n    return [\n      [A[0][0]*B[0][0]+A[0][1]*B[1][0], A[0][0]*B[0][1]+A[0][1]*B[1][1]],\n      [A[1][0]*B[0][0]+A[1][1]*B[1][0], A[1][0]*B[0][1]+A[1][1]*B[1][1]]\n    ];\n  }\n  function draw(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const a = +aS.value, b = +bS.value, d = +dS.value;\n    aO.textContent = 'a = '+a;\n    bO.textContent = 'b = '+b;\n    dO.textContent = 'det = '+d;\n    const Ea = [[1,a],[0,1]];\n    const Eb = [[1,b],[0,1]];\n    const D = [[d,0],[0,1]];\n    const A = mmul(Ea, mmul(D, Eb));\n    const detA = det2(A);\n    function box(x,y,w,h,col){\n      svg.appendChild(SVG('rect',{x,y,width:w,height:h,fill:'var(--panel2)',stroke:col,'stroke-width':1.5,rx:6}));\n    }\n    function lbl(x,y,t,col,sz){\n      const e = SVG('text',{x,y,'text-anchor':'middle','font-size':sz||11,fill:col,'font-family':'ui-monospace,monospace'});\n      e.textContent = t; svg.appendChild(e);\n    }\n    box(-220,-90,130,90,'var(--blue)');\n    lbl(-155,-72,'A = E(a) D(d) E(b)','var(--blue)',10);\n    lbl(-155,-50,fmtMat(A).split('\\n')[0],'var(--ink)',10);\n    lbl(-155,-35,fmtMat(A).split('\\n')[1],'var(--ink)',10);\n    lbl(-155,-12,'det = '+detA,'var(--mute)',9);\n    box(-50,-90,130,90,'var(--violet)');\n    lbl(15,-72,'mod E(R) (kill electrons)','var(--violet)',10);\n    lbl(15,-48,'= diag(det A, 1, 1, ...)','var(--cyan)',11);\n    lbl(15,-26,'in stable GL(Z)/E(Z)','var(--mute)',9);\n    box(120,-90,130,90,'var(--yellow)');\n    lbl(185,-72,'class in K1(Z)','var(--yellow)',10);\n    lbl(185,-48,'= det(A) in Z* = {+/-1}','var(--cyan)',11);\n    lbl(185,-26, detA === 1 ? '= +1' : detA === -1 ? '= -1' : 'NOT a unit -- not in K1','var(--mute)',9);\n    drawArrow(svg, [-90,-45],[-50,-45],{color:'var(--mute)',markerId:'k1arr1'});\n    drawArrow(svg, [80,-45],[120,-45],{color:'var(--mute)',markerId:'k1arr2'});\n    lbl(-200, 30, 'Whitehead lemma:', 'var(--green)', 11);\n    lbl(-90, 30, 'I + a*e_{12}  =  [ I + a*e_{13},  I + e_{32} ]', 'var(--mute)', 11);\n    lbl(-200, 50, '(any nontrivial transvection is a commutator', 'var(--mute)', 10);\n    lbl(-200, 65, 'after stabilizing to size >= 3)', 'var(--mute)', 10);\n    out.textContent = 'Step-by-step computation:\\n' +\n      'A = E(' + a + ') * diag(' + d + ',1) * E(' + b + ') over Z.\\n' +\n      'A explicit:\\n' + fmtMat(A) + '\\n' +\n      'det A = ' + detA + '.\\n\\n' +\n      'In K1(Z): the elementary factors E(' + a + '), E(' + b + ') in E(Z) are commutators (Whitehead lemma) and hence killed in the abelianization GL/[GL,GL]. What survives is diag(det A, 1, ...), whose class in K1(Z) = Z* = {+/-1} is just det A = ' + detA + '.\\n\\n' +\n      'For Z, K1(Z) = {+/-1} (Bass-Milnor-Serre: SK1(Z) = 0). If det A = +/-1, the class is in K1(Z); otherwise A is not in GL(Z) (det must be a unit).\\n\\n' +\n      'Try: a=1, b=0, d=1 -> A = [[1,1],[0,1]], det 1. Pure elementary, K1 class = +1 = trivial.\\n' +\n      'Try: a=0, b=0, d=-1 -> A = diag(-1,1), det -1, K1 class = -1 (nontrivial).';\n  }\n  aS.addEventListener('input', draw);\n  bS.addEventListener('input', draw);\n  dS.addEventListener('input', draw);\n  draw();\n})();\n</script>",
+            "wrapperHasId": true
           }
         },
         {
@@ -180,13 +234,39 @@
         },
         {
           "type": "widget",
-          "slug": "ak-loc",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "ak-loc",
             "title": "Localization sequence: $\\mathbb{Z}\\to\\mathbb{Q}$ in low degrees",
-            "hint": "slide $n$ to step through degrees of the long exact sequence; the readout names $K_n(\\mathbb{Z})$, $K_n(\\mathbb{Q})$, the residue map, and the comparison map at each $n$",
-            "bodyMarkup": "<div class=\"widget\" id=\"ak-loc\">\n  <div class=\"hd\"><div class=\"ttl\">Localization sequence: $\\mathbb{Z}\\to\\mathbb{Q}$ in low degrees</div><div class=\"hint\">slide $n$ to walk along the long exact sequence; verify exactness at each term</div></div>\n  <div class=\"row\">\n    <label for=\"ak-loc-n\">degree $n$:</label>\n    <input id=\"ak-loc-n\" type=\"range\" min=\"0\" max=\"3\" step=\"1\" value=\"1\">\n    <span id=\"ak-loc-n-out\" class=\"small\"></span>\n  </div>\n  <svg id=\"ak-loc-svg\" viewBox=\"-280 -140 560 280\" width=\"100%\" height=\"320\"><title>Localization long exact sequence for Z to Q in degrees 0 through 3</title></svg>\n  <div id=\"ak-loc-out\" class=\"readout\"></div>\n</div>",
-            "bodyScript": "<script>\n(function(){\n  const svg = document.getElementById('ak-loc-svg');\n  const out = document.getElementById('ak-loc-out');\n  const nS = document.getElementById('ak-loc-n');\n  const nO = document.getElementById('ak-loc-n-out');\n  const data = {\n    0: { Kn_Z: 'Z', Kn_Q: 'Z', Kn_Fp: '0  (all p)', residue: 'no residue (tail)', map: 'rank: =' },\n    1: { Kn_Z: '{+/-1}', Kn_Q: 'Q* = sum_p <p> x {+/-1}', Kn_Fp: 'Z  (all p, via K_0(F_p) = Z)', residue: 'a |-> (v_p(a))_p', map: 'inclusion {+/-1} -> Q*' },\n    2: { Kn_Z: 'Z/2  (gen. {-1,-1})', Kn_Q: 'see Matsumoto', Kn_Fp: 'F_p*  (cyclic)', residue: 'tame symbol {a,b} -> (-1)^{v_p(a)v_p(b)} a^{v_p(b)}/b^{v_p(a)}', map: 'kernel of tame: K_2(Z) included in K_2(Q)' },\n    3: { Kn_Z: 'Z/48  (Lee-Szczarba)', Kn_Q: 'Borel: rank 0 (r_2 = 0 for Q)', Kn_Fp: '0', residue: 'd = 0 vacuously, since K_2(F_p) = 0 (Quillen)', map: 'K_3(Z) -> K_3(Q): injective, lands in finite torsion piece' }\n  };\n  function draw(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const n = +nS.value;\n    nO.textContent = 'n = ' + n;\n    const d = data[n];\n    function box(x, y, w, h, col, lblText, valText){\n      svg.appendChild(SVG('rect',{x,y,width:w,height:h,fill:'var(--panel2)',stroke:col,'stroke-width':1.5,rx:6}));\n      const t1 = SVG('text',{x:x+w/2,y:y+18,'text-anchor':'middle','font-size':10,fill:col,'font-weight':600});\n      t1.textContent = lblText; svg.appendChild(t1);\n      const t2 = SVG('text',{x:x+w/2,y:y+38,'text-anchor':'middle','font-size':10,fill:'var(--ink)','font-family':'ui-monospace,monospace'});\n      t2.textContent = valText; svg.appendChild(t2);\n    }\n    box(-260, -50, 110, 60, 'var(--blue)', 'K_'+n+'(Z)', d.Kn_Z);\n    box(-130, -50, 130, 60, 'var(--cyan)', 'K_'+n+'(Q)', d.Kn_Q.length > 22 ? d.Kn_Q.slice(0,21)+'...' : d.Kn_Q);\n    box(20, -50, 130, 60, 'var(--violet)', 'sum_p K_'+(n-1)+'(F_p)', d.Kn_Fp);\n    box(170, -50, 90, 60, 'var(--blue)', 'K_'+(n-1)+'(Z)', n>0 ? data[n-1].Kn_Z : '...');\n    drawArrow(svg, [-150, -20], [-130, -20], {color:'var(--mute)', markerId:'la1', pad1:0,pad2:0});\n    drawArrow(svg, [0, -20], [20, -20], {color:'var(--yellow)', markerId:'la2', pad1:0,pad2:0});\n    drawArrow(svg, [150, -20], [170, -20], {color:'var(--mute)', markerId:'la3', pad1:0,pad2:0});\n    const resLbl = SVG('text',{x:85, y:-58,'text-anchor':'middle','font-size':10, fill:'var(--yellow)'});\n    resLbl.textContent = 'residue d';\n    svg.appendChild(resLbl);\n    const desc = SVG('text',{x:0,y:50,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n    desc.textContent = 'd: ' + d.residue;\n    svg.appendChild(desc);\n    const mapLbl = SVG('text',{x:0,y:75,'text-anchor':'middle','font-size':11,fill:'var(--green)'});\n    mapLbl.textContent = 'K_' + n + '(Z) -> K_' + n + '(Q): ' + d.map;\n    svg.appendChild(mapLbl);\n    const seq = SVG('text',{x:0,y:110,'text-anchor':'middle','font-size':11,fill:'var(--mute)','font-style':'italic'});\n    seq.textContent = '... -> K_{n+1}(Q) -d> sum_p K_n(F_p) -> K_n(Z) -> K_n(Q) -d> sum_p K_{n-1}(F_p) -> K_{n-1}(Z) -> ...';\n    svg.appendChild(seq);\n    let lines = [];\n    lines.push('Localization long exact sequence at  Z -> Q,  degree n = ' + n + '.');\n    lines.push('');\n    lines.push('K_' + n + '(Z)              = ' + d.Kn_Z);\n    lines.push('K_' + n + '(Q)              = ' + d.Kn_Q);\n    lines.push('sum_p K_' + (n-1) + '(F_p)       = ' + d.Kn_Fp);\n    lines.push('residue map d:        ' + d.residue);\n    lines.push('comparison map:       ' + d.map);\n    lines.push('');\n    if(n === 0){\n      lines.push('At n=0:  K_0(Z) -> K_0(Q) is rank, isomorphism. The \"before\" K_1(Q) -> sum_p Z is surjective (every vector of valuations is realized by prod p^{v_p}). Thus K_0(Z) =~ Z.');\n    } else if(n === 1){\n      lines.push('At n=1:  K_1(Q) = Q* decomposes as prod_p Z x {+/-1}. The residue d(a) = (v_p(a))_p hits the lattice; the kernel = {a : forall p, v_p(a) = 0} = Z* = {+/-1} = K_1(Z). Exactness checks.');\n    } else if(n === 2){\n      lines.push('At n=2:  Tate tame symbol map K_2(Q) -> sum_p F_p^* has kernel K_2(Z) = Z/2 = {1, {-1,-1}}. Quadratic reciprocity emerges as the sum-of-Hilbert-symbols formula in the cokernel. Borel: K_2(Q) tensor Q = 0 (no rational rank).');\n    } else {\n      lines.push('At n=3:  K_3(Z) = Z/48 (Lee-Szczarba). The localization sequence in higher degrees gets harder to control directly; Borel rank computation and Bloch-Kato (Voevodsky) take over.');\n    }\n    out.textContent = lines.join('\\n');\n  }\n  nS.addEventListener('input', draw);\n  draw();\n})();\n</script>"
+            "hint": "slide $n$ to walk along the long exact sequence; verify exactness at each term",
+            "controls": [
+              {
+                "type": "slider",
+                "id": "ak-loc-n",
+                "label": "degree $n$:",
+                "min": 0,
+                "max": 3,
+                "value": 1,
+                "format": "separate",
+                "step": 1
+              },
+              {
+                "type": "span",
+                "id": "ak-loc-n-out"
+              }
+            ],
+            "svg": {
+              "id": "ak-loc-svg",
+              "viewBox": "-280 -140 560 280",
+              "width": "100%",
+              "height": 320,
+              "title": "Localization long exact sequence for Z to Q in degrees 0 through 3"
+            },
+            "readout": {
+              "id": "ak-loc-out"
+            },
+            "bodyScript": "<script>\n(function(){\n  const svg = document.getElementById('ak-loc-svg');\n  const out = document.getElementById('ak-loc-out');\n  const nS = document.getElementById('ak-loc-n');\n  const nO = document.getElementById('ak-loc-n-out');\n  const data = {\n    0: { Kn_Z: 'Z', Kn_Q: 'Z', Kn_Fp: '0  (all p)', residue: 'no residue (tail)', map: 'rank: =' },\n    1: { Kn_Z: '{+/-1}', Kn_Q: 'Q* = sum_p <p> x {+/-1}', Kn_Fp: 'Z  (all p, via K_0(F_p) = Z)', residue: 'a |-> (v_p(a))_p', map: 'inclusion {+/-1} -> Q*' },\n    2: { Kn_Z: 'Z/2  (gen. {-1,-1})', Kn_Q: 'see Matsumoto', Kn_Fp: 'F_p*  (cyclic)', residue: 'tame symbol {a,b} -> (-1)^{v_p(a)v_p(b)} a^{v_p(b)}/b^{v_p(a)}', map: 'kernel of tame: K_2(Z) included in K_2(Q)' },\n    3: { Kn_Z: 'Z/48  (Lee-Szczarba)', Kn_Q: 'Borel: rank 0 (r_2 = 0 for Q)', Kn_Fp: '0', residue: 'd = 0 vacuously, since K_2(F_p) = 0 (Quillen)', map: 'K_3(Z) -> K_3(Q): injective, lands in finite torsion piece' }\n  };\n  function draw(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const n = +nS.value;\n    nO.textContent = 'n = ' + n;\n    const d = data[n];\n    function box(x, y, w, h, col, lblText, valText){\n      svg.appendChild(SVG('rect',{x,y,width:w,height:h,fill:'var(--panel2)',stroke:col,'stroke-width':1.5,rx:6}));\n      const t1 = SVG('text',{x:x+w/2,y:y+18,'text-anchor':'middle','font-size':10,fill:col,'font-weight':600});\n      t1.textContent = lblText; svg.appendChild(t1);\n      const t2 = SVG('text',{x:x+w/2,y:y+38,'text-anchor':'middle','font-size':10,fill:'var(--ink)','font-family':'ui-monospace,monospace'});\n      t2.textContent = valText; svg.appendChild(t2);\n    }\n    box(-260, -50, 110, 60, 'var(--blue)', 'K_'+n+'(Z)', d.Kn_Z);\n    box(-130, -50, 130, 60, 'var(--cyan)', 'K_'+n+'(Q)', d.Kn_Q.length > 22 ? d.Kn_Q.slice(0,21)+'...' : d.Kn_Q);\n    box(20, -50, 130, 60, 'var(--violet)', 'sum_p K_'+(n-1)+'(F_p)', d.Kn_Fp);\n    box(170, -50, 90, 60, 'var(--blue)', 'K_'+(n-1)+'(Z)', n>0 ? data[n-1].Kn_Z : '...');\n    drawArrow(svg, [-150, -20], [-130, -20], {color:'var(--mute)', markerId:'la1', pad1:0,pad2:0});\n    drawArrow(svg, [0, -20], [20, -20], {color:'var(--yellow)', markerId:'la2', pad1:0,pad2:0});\n    drawArrow(svg, [150, -20], [170, -20], {color:'var(--mute)', markerId:'la3', pad1:0,pad2:0});\n    const resLbl = SVG('text',{x:85, y:-58,'text-anchor':'middle','font-size':10, fill:'var(--yellow)'});\n    resLbl.textContent = 'residue d';\n    svg.appendChild(resLbl);\n    const desc = SVG('text',{x:0,y:50,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n    desc.textContent = 'd: ' + d.residue;\n    svg.appendChild(desc);\n    const mapLbl = SVG('text',{x:0,y:75,'text-anchor':'middle','font-size':11,fill:'var(--green)'});\n    mapLbl.textContent = 'K_' + n + '(Z) -> K_' + n + '(Q): ' + d.map;\n    svg.appendChild(mapLbl);\n    const seq = SVG('text',{x:0,y:110,'text-anchor':'middle','font-size':11,fill:'var(--mute)','font-style':'italic'});\n    seq.textContent = '... -> K_{n+1}(Q) -d> sum_p K_n(F_p) -> K_n(Z) -> K_n(Q) -d> sum_p K_{n-1}(F_p) -> K_{n-1}(Z) -> ...';\n    svg.appendChild(seq);\n    let lines = [];\n    lines.push('Localization long exact sequence at  Z -> Q,  degree n = ' + n + '.');\n    lines.push('');\n    lines.push('K_' + n + '(Z)              = ' + d.Kn_Z);\n    lines.push('K_' + n + '(Q)              = ' + d.Kn_Q);\n    lines.push('sum_p K_' + (n-1) + '(F_p)       = ' + d.Kn_Fp);\n    lines.push('residue map d:        ' + d.residue);\n    lines.push('comparison map:       ' + d.map);\n    lines.push('');\n    if(n === 0){\n      lines.push('At n=0:  K_0(Z) -> K_0(Q) is rank, isomorphism. The \"before\" K_1(Q) -> sum_p Z is surjective (every vector of valuations is realized by prod p^{v_p}). Thus K_0(Z) =~ Z.');\n    } else if(n === 1){\n      lines.push('At n=1:  K_1(Q) = Q* decomposes as prod_p Z x {+/-1}. The residue d(a) = (v_p(a))_p hits the lattice; the kernel = {a : forall p, v_p(a) = 0} = Z* = {+/-1} = K_1(Z). Exactness checks.');\n    } else if(n === 2){\n      lines.push('At n=2:  Tate tame symbol map K_2(Q) -> sum_p F_p^* has kernel K_2(Z) = Z/2 = {1, {-1,-1}}. Quadratic reciprocity emerges as the sum-of-Hilbert-symbols formula in the cokernel. Borel: K_2(Q) tensor Q = 0 (no rational rank).');\n    } else {\n      lines.push('At n=3:  K_3(Z) = Z/48 (Lee-Szczarba). The localization sequence in higher degrees gets harder to control directly; Borel rank computation and Bloch-Kato (Voevodsky) take over.');\n    }\n    out.textContent = lines.join('\\n');\n  }\n  nS.addEventListener('input', draw);\n  draw();\n})();\n</script>",
+            "wrapperHasId": true
           }
         },
         {
