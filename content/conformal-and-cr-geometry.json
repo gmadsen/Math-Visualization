@@ -239,14 +239,57 @@
         },
         {
           "type": "widget",
-          "slug": "ccr-w4",
+          "slug": "button-stepper",
           "params": {
             "widgetId": "w-q-curvature",
             "title": "GJMS operators — the order-2k family",
+            "layout": [
+              {
+                "kind": "row",
+                "buttons": [
+                  {
+                    "id": "qc-step-1",
+                    "type": "button",
+                    "className": "active",
+                    "label": "k=1 (L_g)"
+                  },
+                  {
+                    "id": "qc-step-2",
+                    "type": "button",
+                    "label": "k=2 (Paneitz)"
+                  },
+                  {
+                    "id": "qc-step-3",
+                    "type": "button",
+                    "label": "k=3"
+                  },
+                  {
+                    "id": "qc-step-k",
+                    "type": "button",
+                    "label": "k=k"
+                  }
+                ]
+              },
+              {
+                "kind": "svg",
+                "id": "qc-svg",
+                "viewBox": "0 0 620 280",
+                "width": 620,
+                "height": 280,
+                "titleText": "GJMS conformally covariant operators — weights and critical dimensions"
+              },
+              {
+                "kind": "readout",
+                "id": "qc-out"
+              }
+            ],
             "hint": "step through the conformally covariant operator family from L_g up to P_{2k}",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-q-curvature\">\n  <div class=\"hd\"><div class=\"ttl\">GJMS operators — the order-2k family</div><div class=\"hint\">step through the conformally covariant operator family from L_g up to P_{2k}</div></div>\n  <div class=\"row\">\n    <button id=\"qc-step-1\" type=\"button\" class=\"active\">k=1 (L_g)</button>\n    <button id=\"qc-step-2\" type=\"button\">k=2 (Paneitz)</button>\n    <button id=\"qc-step-3\" type=\"button\">k=3</button>\n    <button id=\"qc-step-k\" type=\"button\">k=k</button>\n  </div>\n  <svg id=\"qc-svg\" viewBox=\"0 0 620 280\" width=\"620\" height=\"280\"><title>GJMS conformally covariant operators — weights and critical dimensions</title></svg>\n  <div class=\"readout\" id=\"qc-out\"></div>\n</div>",
-            "bodyScript": "\n<script>\n(function(){\n  const svg = $('#qc-svg'), out = $('#qc-out');\n  const btns = [$('#qc-step-1'), $('#qc-step-2'), $('#qc-step-3'), $('#qc-step-k')];\n  const data = [\n    {k:1, name:'L_g (conformal Laplacian)', order:2, sym:'−Δ', curv:'R_g (scalar curvature)', crit:'n=2 (linearizes)', invariant:'Yamabe constant'},\n    {k:2, name:'P_g (Paneitz)', order:4, sym:'Δ²', curv:'Q_g (Q-curvature)', crit:'n=4 (∫Q dV is conformal invariant)', invariant:'∫Q dV = 8π²χ(M) − ∫|W|² (n=4)'},\n    {k:3, name:'P_6 (Branson-Gover)', order:6, sym:'Δ³', curv:'Q_6', crit:'n=6', invariant:'∫Q_6 dV (n=6)'},\n    {k:'k', name:'P_{2k} (GJMS)', order:'2k', sym:'Δ^k', curv:'Q_{2k}', crit:'n=2k', invariant:'∫Q_{2k} dV (n=2k)'},\n  ];\n  let active = 0;\n  function render(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    svg.appendChild(SVG('rect',{x:0,y:0,width:620,height:280,fill:'var(--bg)'}));\n    btns.forEach((b,i)=>b.classList.toggle('active', i===active));\n    const d = data[active];\n    // Visualize order and weights as a number line.\n    const cx = 60, cy = 80;\n    svg.appendChild(SVG('text',{x:cx, y:30, 'font-size':13, fill:'var(--ink)', 'font-weight':600})).textContent = d.name;\n    svg.appendChild(SVG('text',{x:cx, y:50, 'font-size':12, fill:'var(--mute)'})).textContent = `order: ${d.order}    leading symbol: ${d.sym}`;\n    // weight diagram\n    const wY = 130;\n    svg.appendChild(SVG('line',{x1:60, y1:wY, x2:560, y2:wY, stroke:'var(--mute)', 'stroke-width':1}));\n    svg.appendChild(SVG('text',{x:50, y:wY+4, 'font-size':10, fill:'var(--mute)'})).textContent = '0';\n    svg.appendChild(SVG('text',{x:560, y:wY+4, 'font-size':10, fill:'var(--mute)'})).textContent = 'n';\n    // input weight (n-2k)/2  vs  output weight (n+2k)/2 — schematic on a normalized [0,n] axis\n    const inputFrac = 0.30;\n    const outputFrac = 0.70;\n    const inX = 60 + inputFrac*500;\n    const outX = 60 + outputFrac*500;\n    svg.appendChild(SVG('circle',{cx:inX, cy:wY, r:6, fill:'var(--cyan)'}));\n    svg.appendChild(SVG('text',{x:inX-32, y:wY-12, 'font-size':11, fill:'var(--cyan)'})).textContent = `(n−${d.order})/2`;\n    svg.appendChild(SVG('text',{x:inX-20, y:wY+22, 'font-size':10, fill:'var(--cyan)'})).textContent = 'input weight';\n    svg.appendChild(SVG('circle',{cx:outX, cy:wY, r:6, fill:'var(--pink)'}));\n    svg.appendChild(SVG('text',{x:outX-32, y:wY-12, 'font-size':11, fill:'var(--pink)'})).textContent = `(n+${d.order})/2`;\n    svg.appendChild(SVG('text',{x:outX-22, y:wY+22, 'font-size':10, fill:'var(--pink)'})).textContent = 'output weight';\n    // bracket below\n    svg.appendChild(SVG('path',{d:`M ${inX} ${wY+38} Q ${(inX+outX)/2} ${wY+58} ${outX} ${wY+38}`, fill:'none', stroke:'var(--yellow)', 'stroke-width':1.4}));\n    svg.appendChild(SVG('text',{x:(inX+outX)/2-32, y:wY+70, 'font-size':11, fill:'var(--yellow)'})).textContent = `difference = ${d.order}`;\n\n    // Critical dimension\n    svg.appendChild(SVG('text',{x:60, y:230, 'font-size':12, fill:'var(--violet)'})).textContent = 'critical dimension: ' + d.crit;\n    svg.appendChild(SVG('text',{x:60, y:250, 'font-size':12, fill:'var(--green)'})).textContent = 'conformal invariant: ' + d.invariant;\n\n    out.textContent =\n      `${d.name}\\n` +\n      `  order = ${d.order}\\n` +\n      `  conformal weights:   input (n−${d.order})/2,   output (n+${d.order})/2\\n` +\n      `  critical dimension: ${d.crit}\\n` +\n      `  associated curvature: ${d.curv}\\n` +\n      `  associated conformal invariant: ${d.invariant}`;\n  }\n  btns.forEach((b,i)=>b.addEventListener('click', ()=>{ active = i; render(); }));\n  render();\n})();\n</script>"
+            "bodyScript": "  const svg = $('#qc-svg'), out = $('#qc-out');\n  const btns = [$('#qc-step-1'), $('#qc-step-2'), $('#qc-step-3'), $('#qc-step-k')];\n  const data = [\n    {k:1, name:'L_g (conformal Laplacian)', order:2, sym:'−Δ', curv:'R_g (scalar curvature)', crit:'n=2 (linearizes)', invariant:'Yamabe constant'},\n    {k:2, name:'P_g (Paneitz)', order:4, sym:'Δ²', curv:'Q_g (Q-curvature)', crit:'n=4 (∫Q dV is conformal invariant)', invariant:'∫Q dV = 8π²χ(M) − ∫|W|² (n=4)'},\n    {k:3, name:'P_6 (Branson-Gover)', order:6, sym:'Δ³', curv:'Q_6', crit:'n=6', invariant:'∫Q_6 dV (n=6)'},\n    {k:'k', name:'P_{2k} (GJMS)', order:'2k', sym:'Δ^k', curv:'Q_{2k}', crit:'n=2k', invariant:'∫Q_{2k} dV (n=2k)'},\n  ];\n  let active = 0;\n  function render(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    svg.appendChild(SVG('rect',{x:0,y:0,width:620,height:280,fill:'var(--bg)'}));\n    btns.forEach((b,i)=>b.classList.toggle('active', i===active));\n    const d = data[active];\n    // Visualize order and weights as a number line.\n    const cx = 60, cy = 80;\n    svg.appendChild(SVG('text',{x:cx, y:30, 'font-size':13, fill:'var(--ink)', 'font-weight':600})).textContent = d.name;\n    svg.appendChild(SVG('text',{x:cx, y:50, 'font-size':12, fill:'var(--mute)'})).textContent = `order: ${d.order}    leading symbol: ${d.sym}`;\n    // weight diagram\n    const wY = 130;\n    svg.appendChild(SVG('line',{x1:60, y1:wY, x2:560, y2:wY, stroke:'var(--mute)', 'stroke-width':1}));\n    svg.appendChild(SVG('text',{x:50, y:wY+4, 'font-size':10, fill:'var(--mute)'})).textContent = '0';\n    svg.appendChild(SVG('text',{x:560, y:wY+4, 'font-size':10, fill:'var(--mute)'})).textContent = 'n';\n    // input weight (n-2k)/2  vs  output weight (n+2k)/2 — schematic on a normalized [0,n] axis\n    const inputFrac = 0.30;\n    const outputFrac = 0.70;\n    const inX = 60 + inputFrac*500;\n    const outX = 60 + outputFrac*500;\n    svg.appendChild(SVG('circle',{cx:inX, cy:wY, r:6, fill:'var(--cyan)'}));\n    svg.appendChild(SVG('text',{x:inX-32, y:wY-12, 'font-size':11, fill:'var(--cyan)'})).textContent = `(n−${d.order})/2`;\n    svg.appendChild(SVG('text',{x:inX-20, y:wY+22, 'font-size':10, fill:'var(--cyan)'})).textContent = 'input weight';\n    svg.appendChild(SVG('circle',{cx:outX, cy:wY, r:6, fill:'var(--pink)'}));\n    svg.appendChild(SVG('text',{x:outX-32, y:wY-12, 'font-size':11, fill:'var(--pink)'})).textContent = `(n+${d.order})/2`;\n    svg.appendChild(SVG('text',{x:outX-22, y:wY+22, 'font-size':10, fill:'var(--pink)'})).textContent = 'output weight';\n    // bracket below\n    svg.appendChild(SVG('path',{d:`M ${inX} ${wY+38} Q ${(inX+outX)/2} ${wY+58} ${outX} ${wY+38}`, fill:'none', stroke:'var(--yellow)', 'stroke-width':1.4}));\n    svg.appendChild(SVG('text',{x:(inX+outX)/2-32, y:wY+70, 'font-size':11, fill:'var(--yellow)'})).textContent = `difference = ${d.order}`;\n\n    // Critical dimension\n    svg.appendChild(SVG('text',{x:60, y:230, 'font-size':12, fill:'var(--violet)'})).textContent = 'critical dimension: ' + d.crit;\n    svg.appendChild(SVG('text',{x:60, y:250, 'font-size':12, fill:'var(--green)'})).textContent = 'conformal invariant: ' + d.invariant;\n\n    out.textContent =\n      `${d.name}\\n` +\n      `  order = ${d.order}\\n` +\n      `  conformal weights:   input (n−${d.order})/2,   output (n+${d.order})/2\\n` +\n      `  critical dimension: ${d.crit}\\n` +\n      `  associated curvature: ${d.curv}\\n` +\n      `  associated conformal invariant: ${d.invariant}`;\n  }\n  btns.forEach((b,i)=>b.addEventListener('click', ()=>{ active = i; render(); }));\n  render();"
           }
+        },
+        {
+          "type": "raw",
+          "html": "\n"
         },
         {
           "type": "widget-script",

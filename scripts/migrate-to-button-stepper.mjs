@@ -102,12 +102,13 @@ function parseButton(openAttrs, label) {
     const value = m[2];
     if (name === 'id') btn.id = value;
     else if (name === 'class') btn.className = value;
+    else if (name === 'type') btn.type = value;
     else if (name.startsWith('data-')) {
       if (sawData) throw new Error(`button has multiple data-* attrs (only one supported): ${openAttrs}`);
       btn.dataAttr = { name, value };
       sawData = true;
     } else {
-      throw new Error(`button has unsupported attribute "${name}" (only id, class, single data-*): ${openAttrs}`);
+      throw new Error(`button has unsupported attribute "${name}" (only id, type, class, single data-*): ${openAttrs}`);
     }
   }
   btn.label = label;
@@ -162,6 +163,8 @@ function parseSvg(svgTag, svgInner) {
   }
   const num = (s) => (/^\d+$/.test(s) ? Number(s) : s);
   const block = { kind: 'svg', id, viewBox, width: num(width), height: num(height) };
+  const ariaLabel = attr('aria-label');
+  if (ariaLabel !== undefined) block.ariaLabel = ariaLabel;
   const titleMatch = svgInner.match(/^<title>([\s\S]*?)<\/title>$/);
   if (!titleMatch) throw new Error('svg inner is not exactly a single <title> (extra children defer)');
   block.titleText = titleMatch[1];
@@ -196,10 +199,18 @@ function parseBody(body) {
       if (closeIdx < 0) throw new Error('unterminated <svg>');
       layout.push(parseSvg(svgTag, slice.slice(mm[0].length, closeIdx)));
       i += closeIdx + '</svg>'.length;
-    } else if ((mm = slice.match(/^<div class="readout" id="([^"]+)">/))) {
-      const id = mm[1];
+    } else if ((mm = slice.match(/^<div class="(readout(?:\s[^"]*)?)" id="([^"]+)"( style="[^"]*")?>/))) {
+      // Class-first readout (button-stepper's canonical order). Captures the
+      // full class (so "readout small" round-trips via className) and an
+      // optional inline style. id-first readouts (`<div id=… class="readout">`)
+      // don't match here and defer — button-stepper emits class-first.
+      const cls = mm[1];
+      const id = mm[2];
+      const styleAttr = mm[3]; // ` style="…"` or undefined
       const { innerStart, closeStart, end } = matchDivClose(body, i);
       const block = { kind: 'readout', id };
+      if (cls !== 'readout') block.className = cls;
+      if (styleAttr) block.style = styleAttr.match(/ style="([^"]*)"/)[1];
       const content = body.slice(innerStart, closeStart);
       if (content !== '') block.content = content;
       layout.push(block);
