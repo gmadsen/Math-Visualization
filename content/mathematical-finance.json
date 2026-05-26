@@ -12,13 +12,75 @@
         },
         {
           "type": "widget",
-          "slug": "mf-w1",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-gbm-paths",
             "title": "Geometric Brownian motion",
             "hint": "drift $\\mu$ · vol $\\sigma$ · paths fan out around the mean",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-gbm-paths\">\n  <div class=\"hd\"><div class=\"ttl\">Geometric Brownian motion</div><div class=\"hint\">drift $\\mu$ · vol $\\sigma$ · paths fan out around the mean</div></div>\n  <div class=\"row\">\n    <label for=\"gbm-mu\">$\\mu$</label>\n    <input id=\"gbm-mu\" type=\"range\" min=\"-0.2\" max=\"0.3\" step=\"0.01\" value=\"0.08\">\n    <span id=\"gbm-muv\" class=\"small\">μ = 0.08</span>\n    <label for=\"gbm-sig\">$\\sigma$</label>\n    <input id=\"gbm-sig\" type=\"range\" min=\"0.05\" max=\"0.6\" step=\"0.01\" value=\"0.20\">\n    <span id=\"gbm-sigv\" class=\"small\">σ = 0.20</span>\n    <label for=\"gbm-K\">paths</label>\n    <input id=\"gbm-K\" type=\"range\" min=\"3\" max=\"40\" step=\"1\" value=\"16\">\n    <span id=\"gbm-Kv\" class=\"small\">K = 16</span>\n    <button id=\"gbm-new\">new sample</button>\n  </div>\n  <svg id=\"gbm-svg\" viewBox=\"0 0 760 320\" width=\"760\" height=\"320\"><title>Sample geometric Brownian motion paths around the mean and median curves</title></svg>\n  <div class=\"readout\" id=\"gbm-out\"></div>\n</div>",
-            "bodyScript": "<script>\n/* §1 — Geometric Brownian motion ensemble */\n(function(){\n  const svg=$('#gbm-svg'), out=$('#gbm-out');\n  const muIn=$('#gbm-mu'), sigIn=$('#gbm-sig'), KIn=$('#gbm-K');\n  const muV=$('#gbm-muv'), sigV=$('#gbm-sigv'), KV=$('#gbm-Kv');\n  const W=760, H=320, x0=60, x1=W-30, y0=30, y1=H-40;\n  const T=2.0, N=400, s0=1.0;\n  let seeds=null;\n  function genSeeds(K){\n    const arr=[];\n    for(let k=0;k<K;k++){\n      const z=new Float64Array(N);\n      for(let i=0;i<N;i++) z[i]=randn();\n      arr.push(z);\n    }\n    return arr;\n  }\n  function path(z, mu, sig){\n    const dt=T/N; const Xp=new Float64Array(N+1); Xp[0]=s0;\n    for(let i=1;i<=N;i++){\n      Xp[i] = Xp[i-1]*Math.exp((mu-0.5*sig*sig)*dt + sig*Math.sqrt(dt)*z[i-1]);\n    }\n    return Xp;\n  }\n  function draw(){\n    const mu=+muIn.value, sig=+sigIn.value, K=+KIn.value;\n    muV.textContent='μ = '+mu.toFixed(2);\n    sigV.textContent='σ = '+sig.toFixed(2);\n    KV.textContent='K = '+K;\n    if(!seeds || seeds.length<K) seeds=genSeeds(Math.max(K,40));\n    const paths=[];\n    for(let k=0;k<K;k++) paths.push(path(seeds[k], mu, sig));\n    svg.innerHTML='';\n    let mn=Infinity, mx=-Infinity;\n    for(const p of paths) for(const v of p){ if(v<mn)mn=v; if(v>mx)mx=v; }\n    mn=Math.max(0, mn-0.08*(mx-mn));\n    mx=mx+0.10*(mx-mn);\n    const X=i=>x0 + (i/N)*(x1-x0);\n    const Y=v=>y1 - (v-mn)/(mx-mn)*(y1-y0);\n    svg.appendChild(SVG('line',{x1:x0,y1:y1,x2:x1,y2:y1,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x0,y2:y1,stroke:'var(--line)'}));\n    for(let k=0;k<K;k++){\n      let d='';\n      for(let i=0;i<=N;i++){ d += (i===0?'M':'L')+X(i)+','+Y(paths[k][i])+' '; }\n      svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--violet)','stroke-width':0.7,'stroke-opacity':0.5}));\n    }\n    let dm='';\n    for(let i=0;i<=N;i++){ const t=i/N*T; dm+=(i===0?'M':'L')+X(i)+','+Y(s0*Math.exp(mu*t))+' '; }\n    svg.appendChild(SVG('path',{d:dm,fill:'none',stroke:'var(--pink)','stroke-width':2}));\n    let dmd='';\n    for(let i=0;i<=N;i++){ const t=i/N*T; dmd+=(i===0?'M':'L')+X(i)+','+Y(s0*Math.exp((mu-0.5*sig*sig)*t))+' '; }\n    svg.appendChild(SVG('path',{d:dmd,fill:'none',stroke:'var(--cyan)','stroke-width':2,'stroke-dasharray':'4 3'}));\n    const lg=SVG('g',{transform:'translate(80,40)'});\n    function le(yy,col,dash,lab){\n      const ln=SVG('line',{x1:0,y1:yy,x2:18,y2:yy,stroke:col,'stroke-width':2});\n      if(dash) ln.setAttribute('stroke-dasharray',dash);\n      lg.appendChild(ln);\n      const t=SVG('text',{x:24,y:yy+4,'font-size':12,fill:col}); t.textContent=lab; lg.appendChild(t);\n    }\n    le(0,'var(--violet)',null,'sample paths');\n    le(16,'var(--pink)',null,'mean  𝔼[Sₜ] = S₀ exp(μt)');\n    le(32,'var(--cyan)','4 3','median');\n    svg.appendChild(lg);\n    for(let k=0;k<=4;k++){\n      const xp=X(k*N/4);\n      svg.appendChild(SVG('line',{x1:xp,y1:y1,x2:xp,y2:y1+4,stroke:'var(--mute)'}));\n      const t=SVG('text',{x:xp,y:y1+18,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n      t.textContent=(k/4*T).toFixed(1); svg.appendChild(t);\n    }\n    let s=0, ss=0;\n    for(let k=0;k<K;k++){ const v=paths[k][N]; s+=v; ss+=v*v; }\n    const m=s/K, va=ss/K - m*m;\n    const meanTh=s0*Math.exp(mu*T);\n    const medTh=s0*Math.exp((mu-0.5*sig*sig)*T);\n    out.textContent =\n      `dSₜ = μ Sₜ dt + σ Sₜ dBₜ,  S₀ = ${s0},  T = ${T}\\n`+\n      `closed form:  Sₜ = S₀ exp((μ−σ²/2) t + σ Bₜ)\\n\\n`+\n      `at t = T:   theory mean = ${meanTh.toFixed(3)},  theory median = ${medTh.toFixed(3)}\\n`+\n      `              volatility drag (mean − median) = ${(meanTh-medTh).toFixed(3)}\\n`+\n      `   empirical mean (K=${K}) = ${m.toFixed(3)},  empirical var = ${va.toFixed(3)}`;\n  }\n  muIn.addEventListener('input', draw);\n  sigIn.addEventListener('input', draw);\n  KIn.addEventListener('input', draw);\n  $('#gbm-new').addEventListener('click',()=>{seeds=null; draw();});\n  draw();\n})();\n</script>"
+            "controls": [
+              {
+                "type": "slider",
+                "id": "gbm-mu",
+                "label": "$\\mu$",
+                "min": -0.2,
+                "max": 0.3,
+                "value": 0.08,
+                "format": "separate",
+                "step": 0.01
+              },
+              {
+                "type": "span",
+                "id": "gbm-muv",
+                "text": "μ = 0.08"
+              },
+              {
+                "type": "slider",
+                "id": "gbm-sig",
+                "label": "$\\sigma$",
+                "min": 0.05,
+                "max": 0.6,
+                "value": "0.20",
+                "format": "separate",
+                "step": 0.01
+              },
+              {
+                "type": "span",
+                "id": "gbm-sigv",
+                "text": "σ = 0.20"
+              },
+              {
+                "type": "slider",
+                "id": "gbm-K",
+                "label": "paths",
+                "min": 3,
+                "max": 40,
+                "value": 16,
+                "format": "separate",
+                "step": 1
+              },
+              {
+                "type": "span",
+                "id": "gbm-Kv",
+                "text": "K = 16"
+              },
+              {
+                "type": "button",
+                "id": "gbm-new",
+                "text": "new sample"
+              }
+            ],
+            "svg": {
+              "id": "gbm-svg",
+              "viewBox": "0 0 760 320",
+              "width": 760,
+              "height": 320,
+              "title": "Sample geometric Brownian motion paths around the mean and median curves"
+            },
+            "readout": {
+              "id": "gbm-out"
+            },
+            "bodyScript": "<script>\n/* §1 — Geometric Brownian motion ensemble */\n(function(){\n  const svg=$('#gbm-svg'), out=$('#gbm-out');\n  const muIn=$('#gbm-mu'), sigIn=$('#gbm-sig'), KIn=$('#gbm-K');\n  const muV=$('#gbm-muv'), sigV=$('#gbm-sigv'), KV=$('#gbm-Kv');\n  const W=760, H=320, x0=60, x1=W-30, y0=30, y1=H-40;\n  const T=2.0, N=400, s0=1.0;\n  let seeds=null;\n  function genSeeds(K){\n    const arr=[];\n    for(let k=0;k<K;k++){\n      const z=new Float64Array(N);\n      for(let i=0;i<N;i++) z[i]=randn();\n      arr.push(z);\n    }\n    return arr;\n  }\n  function path(z, mu, sig){\n    const dt=T/N; const Xp=new Float64Array(N+1); Xp[0]=s0;\n    for(let i=1;i<=N;i++){\n      Xp[i] = Xp[i-1]*Math.exp((mu-0.5*sig*sig)*dt + sig*Math.sqrt(dt)*z[i-1]);\n    }\n    return Xp;\n  }\n  function draw(){\n    const mu=+muIn.value, sig=+sigIn.value, K=+KIn.value;\n    muV.textContent='μ = '+mu.toFixed(2);\n    sigV.textContent='σ = '+sig.toFixed(2);\n    KV.textContent='K = '+K;\n    if(!seeds || seeds.length<K) seeds=genSeeds(Math.max(K,40));\n    const paths=[];\n    for(let k=0;k<K;k++) paths.push(path(seeds[k], mu, sig));\n    svg.innerHTML='';\n    let mn=Infinity, mx=-Infinity;\n    for(const p of paths) for(const v of p){ if(v<mn)mn=v; if(v>mx)mx=v; }\n    mn=Math.max(0, mn-0.08*(mx-mn));\n    mx=mx+0.10*(mx-mn);\n    const X=i=>x0 + (i/N)*(x1-x0);\n    const Y=v=>y1 - (v-mn)/(mx-mn)*(y1-y0);\n    svg.appendChild(SVG('line',{x1:x0,y1:y1,x2:x1,y2:y1,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x0,y2:y1,stroke:'var(--line)'}));\n    for(let k=0;k<K;k++){\n      let d='';\n      for(let i=0;i<=N;i++){ d += (i===0?'M':'L')+X(i)+','+Y(paths[k][i])+' '; }\n      svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--violet)','stroke-width':0.7,'stroke-opacity':0.5}));\n    }\n    let dm='';\n    for(let i=0;i<=N;i++){ const t=i/N*T; dm+=(i===0?'M':'L')+X(i)+','+Y(s0*Math.exp(mu*t))+' '; }\n    svg.appendChild(SVG('path',{d:dm,fill:'none',stroke:'var(--pink)','stroke-width':2}));\n    let dmd='';\n    for(let i=0;i<=N;i++){ const t=i/N*T; dmd+=(i===0?'M':'L')+X(i)+','+Y(s0*Math.exp((mu-0.5*sig*sig)*t))+' '; }\n    svg.appendChild(SVG('path',{d:dmd,fill:'none',stroke:'var(--cyan)','stroke-width':2,'stroke-dasharray':'4 3'}));\n    const lg=SVG('g',{transform:'translate(80,40)'});\n    function le(yy,col,dash,lab){\n      const ln=SVG('line',{x1:0,y1:yy,x2:18,y2:yy,stroke:col,'stroke-width':2});\n      if(dash) ln.setAttribute('stroke-dasharray',dash);\n      lg.appendChild(ln);\n      const t=SVG('text',{x:24,y:yy+4,'font-size':12,fill:col}); t.textContent=lab; lg.appendChild(t);\n    }\n    le(0,'var(--violet)',null,'sample paths');\n    le(16,'var(--pink)',null,'mean  𝔼[Sₜ] = S₀ exp(μt)');\n    le(32,'var(--cyan)','4 3','median');\n    svg.appendChild(lg);\n    for(let k=0;k<=4;k++){\n      const xp=X(k*N/4);\n      svg.appendChild(SVG('line',{x1:xp,y1:y1,x2:xp,y2:y1+4,stroke:'var(--mute)'}));\n      const t=SVG('text',{x:xp,y:y1+18,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n      t.textContent=(k/4*T).toFixed(1); svg.appendChild(t);\n    }\n    let s=0, ss=0;\n    for(let k=0;k<K;k++){ const v=paths[k][N]; s+=v; ss+=v*v; }\n    const m=s/K, va=ss/K - m*m;\n    const meanTh=s0*Math.exp(mu*T);\n    const medTh=s0*Math.exp((mu-0.5*sig*sig)*T);\n    out.textContent =\n      `dSₜ = μ Sₜ dt + σ Sₜ dBₜ,  S₀ = ${s0},  T = ${T}\\n`+\n      `closed form:  Sₜ = S₀ exp((μ−σ²/2) t + σ Bₜ)\\n\\n`+\n      `at t = T:   theory mean = ${meanTh.toFixed(3)},  theory median = ${medTh.toFixed(3)}\\n`+\n      `              volatility drag (mean − median) = ${(meanTh-medTh).toFixed(3)}\\n`+\n      `   empirical mean (K=${K}) = ${m.toFixed(3)},  empirical var = ${va.toFixed(3)}`;\n  }\n  muIn.addEventListener('input', draw);\n  sigIn.addEventListener('input', draw);\n  KIn.addEventListener('input', draw);\n  $('#gbm-new').addEventListener('click',()=>{seeds=null; draw();});\n  draw();\n})();\n</script>",
+            "wrapperHasId": true
           }
         },
         {
@@ -61,13 +123,85 @@
         },
         {
           "type": "widget",
-          "slug": "mf-w2",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-bs-surface",
             "title": "Black–Scholes call price as a function of $(S,t)$",
             "hint": "slider varies $\\sigma$ and time-to-maturity · cyan dashed = payoff $\\max(S-K,0)$",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-bs-surface\">\n  <div class=\"hd\"><div class=\"ttl\">Black–Scholes call price as a function of $(S,t)$</div><div class=\"hint\">slider varies $\\sigma$ and time-to-maturity · cyan dashed = payoff $\\max(S-K,0)$</div></div>\n  <div class=\"row\">\n    <label for=\"bss-K\">strike $K$</label>\n    <input id=\"bss-K\" type=\"range\" min=\"60\" max=\"160\" step=\"2\" value=\"100\">\n    <span id=\"bss-Kv\" class=\"small\">K = 100</span>\n    <label for=\"bss-sig\">$\\sigma$</label>\n    <input id=\"bss-sig\" type=\"range\" min=\"0.05\" max=\"0.8\" step=\"0.01\" value=\"0.25\">\n    <span id=\"bss-sigv\" class=\"small\">σ = 0.25</span>\n  </div>\n  <div class=\"row\">\n    <label for=\"bss-r\">$r$</label>\n    <input id=\"bss-r\" type=\"range\" min=\"-0.02\" max=\"0.10\" step=\"0.005\" value=\"0.03\">\n    <span id=\"bss-rv\" class=\"small\">r = 0.030</span>\n    <label for=\"bss-tau\">$T-t$</label>\n    <input id=\"bss-tau\" type=\"range\" min=\"0.0\" max=\"2.0\" step=\"0.02\" value=\"1.0\">\n    <span id=\"bss-tauv\" class=\"small\">T−t = 1.00</span>\n  </div>\n  <svg id=\"bss-svg\" viewBox=\"0 0 760 320\" width=\"760\" height=\"320\"><title>Black–Scholes call price as a function of spot, with kink-rounding into a smooth curve as maturity recedes</title></svg>\n  <div class=\"readout\" id=\"bss-out\"></div>\n</div>",
-            "bodyScript": "<script>\n/* §2 — Black–Scholes call price as function of spot */\n(function(){\n  const svg=$('#bss-svg'), out=$('#bss-out');\n  const KIn=$('#bss-K'), sigIn=$('#bss-sig'), rIn=$('#bss-r'), tauIn=$('#bss-tau');\n  const KV=$('#bss-Kv'), sigV=$('#bss-sigv'), rV=$('#bss-rv'), tauV=$('#bss-tauv');\n  const W=760, H=320, xL=60, xR=W-30, yT=30, yB=H-40;\n  function bsCall(S,K,r,sig,tau){\n    if(tau<=1e-9) return Math.max(S-K,0);\n    const sst=sig*Math.sqrt(tau);\n    const d1=(Math.log(S/K)+(r+sig*sig/2)*tau)/sst;\n    const d2=d1-sst;\n    return S*normCdf(d1)-K*Math.exp(-r*tau)*normCdf(d2);\n  }\n  function draw(){\n    const K=+KIn.value, sig=+sigIn.value, r=+rIn.value, tau=+tauIn.value;\n    KV.textContent='K = '+K;\n    sigV.textContent='σ = '+sig.toFixed(2);\n    rV.textContent='r = '+r.toFixed(3);\n    tauV.textContent='T−t = '+tau.toFixed(2);\n    svg.innerHTML='';\n    const Smin=Math.max(1, K*0.4), Smax=K*1.8;\n    const X=s=>xL + (s-Smin)/(Smax-Smin)*(xR-xL);\n    let Cmax=0;\n    for(let i=0;i<=200;i++){\n      const s=Smin+(i/200)*(Smax-Smin);\n      const c=bsCall(s,K,r,sig,tau);\n      if(c>Cmax) Cmax=c;\n    }\n    const Cax=Math.max(Cmax, K*0.5)*1.1;\n    const Y=c=>yB - (c/Cax)*(yB-yT);\n    svg.appendChild(SVG('line',{x1:xL,y1:yB,x2:xR,y2:yB,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:xL,y1:yT,x2:xL,y2:yB,stroke:'var(--line)'}));\n    // strike line\n    svg.appendChild(SVG('line',{x1:X(K),y1:yT,x2:X(K),y2:yB,stroke:'var(--yellow)','stroke-dasharray':'3 4','stroke-width':1}));\n    const tk=SVG('text',{x:X(K),y:yT-6,'text-anchor':'middle','font-size':11,fill:'var(--yellow)'});\n    tk.textContent='K='+K; svg.appendChild(tk);\n    // payoff curve\n    let dp='';\n    for(let i=0;i<=200;i++){\n      const s=Smin+(i/200)*(Smax-Smin);\n      const c=Math.max(s-K,0);\n      dp += (i===0?'M':'L')+X(s)+','+Y(c)+' ';\n    }\n    svg.appendChild(SVG('path',{d:dp,fill:'none',stroke:'var(--cyan)','stroke-width':1.3,'stroke-dasharray':'4 3'}));\n    // BS price curve\n    let db='';\n    for(let i=0;i<=200;i++){\n      const s=Smin+(i/200)*(Smax-Smin);\n      const c=bsCall(s,K,r,sig,tau);\n      db += (i===0?'M':'L')+X(s)+','+Y(c)+' ';\n    }\n    svg.appendChild(SVG('path',{d:db,fill:'none',stroke:'var(--pink)','stroke-width':2}));\n    // x-axis ticks: S\n    for(let i=0;i<=4;i++){\n      const s=Smin+(i/4)*(Smax-Smin);\n      const xp=X(s);\n      svg.appendChild(SVG('line',{x1:xp,y1:yB,x2:xp,y2:yB+4,stroke:'var(--mute)'}));\n      const t=SVG('text',{x:xp,y:yB+18,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n      t.textContent=s.toFixed(0); svg.appendChild(t);\n    }\n    // y-axis label\n    const xl=SVG('text',{x:(xL+xR)/2,y:H-4,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});\n    xl.textContent='spot S'; svg.appendChild(xl);\n    const yl=SVG('text',{x:14,y:yT+(yB-yT)/2,'text-anchor':'middle','font-size':12,fill:'var(--mute)',transform:`rotate(-90 14 ${yT+(yB-yT)/2})`});\n    yl.textContent='call value V(S,t)'; svg.appendChild(yl);\n    // legend (viewport coords)\n    const lg=SVG('g',{transform:'translate(90,40)'});\n    function le(yy,col,dash,lab){\n      const ln=SVG('line',{x1:0,y1:yy,x2:18,y2:yy,stroke:col,'stroke-width':2});\n      if(dash) ln.setAttribute('stroke-dasharray',dash);\n      lg.appendChild(ln);\n      const t=SVG('text',{x:24,y:yy+4,'font-size':12,fill:col}); t.textContent=lab; lg.appendChild(t);\n    }\n    le(0,'var(--pink)',null,'Black–Scholes V(S,t)');\n    le(16,'var(--cyan)','4 3','payoff max(S−K,0)');\n    svg.appendChild(lg);\n    // readout: ATM price\n    const atm = bsCall(K, K, r, sig, tau);\n    const thumb = 0.4*K*sig*Math.sqrt(Math.max(tau,1e-9));\n    out.textContent =\n      `parameters:  K = ${K},  σ = ${sig.toFixed(2)},  r = ${r.toFixed(3)},  T−t = ${tau.toFixed(2)}\\n`+\n      `ATM call price  C(K,t) = ${atm.toFixed(3)}\\n`+\n      `thumb rule  0.4 · K · σ · √(T−t) = ${thumb.toFixed(3)}\\n\\n`+\n      `As T−t → 0 the smooth pink curve collapses onto the cyan kinked payoff — the BS PDE's terminal condition.`;\n  }\n  KIn.addEventListener('input', draw);\n  sigIn.addEventListener('input', draw);\n  rIn.addEventListener('input', draw);\n  tauIn.addEventListener('input', draw);\n  draw();\n})();\n</script>"
+            "controls": [
+              {
+                "type": "slider",
+                "id": "bss-K",
+                "label": "strike $K$",
+                "min": 60,
+                "max": 160,
+                "value": 100,
+                "format": "separate",
+                "step": 2
+              },
+              {
+                "type": "span",
+                "id": "bss-Kv",
+                "text": "K = 100"
+              },
+              {
+                "type": "slider",
+                "id": "bss-sig",
+                "label": "$\\sigma$",
+                "min": 0.05,
+                "max": 0.8,
+                "value": 0.25,
+                "format": "separate",
+                "step": 0.01
+              },
+              {
+                "type": "span",
+                "id": "bss-sigv",
+                "text": "σ = 0.25"
+              },
+              {
+                "type": "slider",
+                "id": "bss-r",
+                "label": "$r$",
+                "min": -0.02,
+                "max": "0.10",
+                "value": 0.03,
+                "format": "separate",
+                "step": 0.005
+              },
+              {
+                "type": "span",
+                "id": "bss-rv",
+                "text": "r = 0.030"
+              },
+              {
+                "type": "slider",
+                "id": "bss-tau",
+                "label": "$T-t$",
+                "min": "0.0",
+                "max": "2.0",
+                "value": "1.0",
+                "format": "separate",
+                "step": 0.02
+              },
+              {
+                "type": "span",
+                "id": "bss-tauv",
+                "text": "T−t = 1.00"
+              }
+            ],
+            "svg": {
+              "id": "bss-svg",
+              "viewBox": "0 0 760 320",
+              "width": 760,
+              "height": 320,
+              "title": "Black–Scholes call price as a function of spot, with kink-rounding into a smooth curve as maturity recedes"
+            },
+            "readout": {
+              "id": "bss-out"
+            },
+            "bodyScript": "<script>\n/* §2 — Black–Scholes call price as function of spot */\n(function(){\n  const svg=$('#bss-svg'), out=$('#bss-out');\n  const KIn=$('#bss-K'), sigIn=$('#bss-sig'), rIn=$('#bss-r'), tauIn=$('#bss-tau');\n  const KV=$('#bss-Kv'), sigV=$('#bss-sigv'), rV=$('#bss-rv'), tauV=$('#bss-tauv');\n  const W=760, H=320, xL=60, xR=W-30, yT=30, yB=H-40;\n  function bsCall(S,K,r,sig,tau){\n    if(tau<=1e-9) return Math.max(S-K,0);\n    const sst=sig*Math.sqrt(tau);\n    const d1=(Math.log(S/K)+(r+sig*sig/2)*tau)/sst;\n    const d2=d1-sst;\n    return S*normCdf(d1)-K*Math.exp(-r*tau)*normCdf(d2);\n  }\n  function draw(){\n    const K=+KIn.value, sig=+sigIn.value, r=+rIn.value, tau=+tauIn.value;\n    KV.textContent='K = '+K;\n    sigV.textContent='σ = '+sig.toFixed(2);\n    rV.textContent='r = '+r.toFixed(3);\n    tauV.textContent='T−t = '+tau.toFixed(2);\n    svg.innerHTML='';\n    const Smin=Math.max(1, K*0.4), Smax=K*1.8;\n    const X=s=>xL + (s-Smin)/(Smax-Smin)*(xR-xL);\n    let Cmax=0;\n    for(let i=0;i<=200;i++){\n      const s=Smin+(i/200)*(Smax-Smin);\n      const c=bsCall(s,K,r,sig,tau);\n      if(c>Cmax) Cmax=c;\n    }\n    const Cax=Math.max(Cmax, K*0.5)*1.1;\n    const Y=c=>yB - (c/Cax)*(yB-yT);\n    svg.appendChild(SVG('line',{x1:xL,y1:yB,x2:xR,y2:yB,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:xL,y1:yT,x2:xL,y2:yB,stroke:'var(--line)'}));\n    // strike line\n    svg.appendChild(SVG('line',{x1:X(K),y1:yT,x2:X(K),y2:yB,stroke:'var(--yellow)','stroke-dasharray':'3 4','stroke-width':1}));\n    const tk=SVG('text',{x:X(K),y:yT-6,'text-anchor':'middle','font-size':11,fill:'var(--yellow)'});\n    tk.textContent='K='+K; svg.appendChild(tk);\n    // payoff curve\n    let dp='';\n    for(let i=0;i<=200;i++){\n      const s=Smin+(i/200)*(Smax-Smin);\n      const c=Math.max(s-K,0);\n      dp += (i===0?'M':'L')+X(s)+','+Y(c)+' ';\n    }\n    svg.appendChild(SVG('path',{d:dp,fill:'none',stroke:'var(--cyan)','stroke-width':1.3,'stroke-dasharray':'4 3'}));\n    // BS price curve\n    let db='';\n    for(let i=0;i<=200;i++){\n      const s=Smin+(i/200)*(Smax-Smin);\n      const c=bsCall(s,K,r,sig,tau);\n      db += (i===0?'M':'L')+X(s)+','+Y(c)+' ';\n    }\n    svg.appendChild(SVG('path',{d:db,fill:'none',stroke:'var(--pink)','stroke-width':2}));\n    // x-axis ticks: S\n    for(let i=0;i<=4;i++){\n      const s=Smin+(i/4)*(Smax-Smin);\n      const xp=X(s);\n      svg.appendChild(SVG('line',{x1:xp,y1:yB,x2:xp,y2:yB+4,stroke:'var(--mute)'}));\n      const t=SVG('text',{x:xp,y:yB+18,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n      t.textContent=s.toFixed(0); svg.appendChild(t);\n    }\n    // y-axis label\n    const xl=SVG('text',{x:(xL+xR)/2,y:H-4,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});\n    xl.textContent='spot S'; svg.appendChild(xl);\n    const yl=SVG('text',{x:14,y:yT+(yB-yT)/2,'text-anchor':'middle','font-size':12,fill:'var(--mute)',transform:`rotate(-90 14 ${yT+(yB-yT)/2})`});\n    yl.textContent='call value V(S,t)'; svg.appendChild(yl);\n    // legend (viewport coords)\n    const lg=SVG('g',{transform:'translate(90,40)'});\n    function le(yy,col,dash,lab){\n      const ln=SVG('line',{x1:0,y1:yy,x2:18,y2:yy,stroke:col,'stroke-width':2});\n      if(dash) ln.setAttribute('stroke-dasharray',dash);\n      lg.appendChild(ln);\n      const t=SVG('text',{x:24,y:yy+4,'font-size':12,fill:col}); t.textContent=lab; lg.appendChild(t);\n    }\n    le(0,'var(--pink)',null,'Black–Scholes V(S,t)');\n    le(16,'var(--cyan)','4 3','payoff max(S−K,0)');\n    svg.appendChild(lg);\n    // readout: ATM price\n    const atm = bsCall(K, K, r, sig, tau);\n    const thumb = 0.4*K*sig*Math.sqrt(Math.max(tau,1e-9));\n    out.textContent =\n      `parameters:  K = ${K},  σ = ${sig.toFixed(2)},  r = ${r.toFixed(3)},  T−t = ${tau.toFixed(2)}\\n`+\n      `ATM call price  C(K,t) = ${atm.toFixed(3)}\\n`+\n      `thumb rule  0.4 · K · σ · √(T−t) = ${thumb.toFixed(3)}\\n\\n`+\n      `As T−t → 0 the smooth pink curve collapses onto the cyan kinked payoff — the BS PDE's terminal condition.`;\n  }\n  KIn.addEventListener('input', draw);\n  sigIn.addEventListener('input', draw);\n  rIn.addEventListener('input', draw);\n  tauIn.addEventListener('input', draw);\n  draw();\n})();\n</script>",
+            "wrapperHasId": true
           }
         },
         {
@@ -159,13 +293,85 @@
         },
         {
           "type": "widget",
-          "slug": "mf-w4",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-merton",
             "title": "Merton fraction explorer",
             "hint": "$\\pi^*$ vs. risk aversion $\\gamma$ · vertical bar marks current $\\gamma$",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-merton\">\n  <div class=\"hd\"><div class=\"ttl\">Merton fraction explorer</div><div class=\"hint\">$\\pi^*$ vs. risk aversion $\\gamma$ · vertical bar marks current $\\gamma$</div></div>\n  <div class=\"row\">\n    <label for=\"mer-mu\">$\\mu$</label>\n    <input id=\"mer-mu\" type=\"range\" min=\"-0.05\" max=\"0.20\" step=\"0.005\" value=\"0.08\">\n    <span id=\"mer-muv\" class=\"small\">μ = 0.080</span>\n    <label for=\"mer-r\">$r$</label>\n    <input id=\"mer-r\" type=\"range\" min=\"-0.02\" max=\"0.08\" step=\"0.005\" value=\"0.02\">\n    <span id=\"mer-rv\" class=\"small\">r = 0.020</span>\n  </div>\n  <div class=\"row\">\n    <label for=\"mer-sig\">$\\sigma$</label>\n    <input id=\"mer-sig\" type=\"range\" min=\"0.05\" max=\"0.50\" step=\"0.01\" value=\"0.20\">\n    <span id=\"mer-sigv\" class=\"small\">σ = 0.20</span>\n    <label for=\"mer-gam\">$\\gamma$ (risk aversion)</label>\n    <input id=\"mer-gam\" type=\"range\" min=\"0.5\" max=\"6.0\" step=\"0.1\" value=\"2.0\">\n    <span id=\"mer-gamv\" class=\"small\">γ = 2.0</span>\n  </div>\n  <svg id=\"mer-svg\" viewBox=\"0 0 760 320\" width=\"760\" height=\"320\"><title>Merton portfolio fraction as a function of risk aversion gamma, with current parameter point highlighted</title></svg>\n  <div class=\"readout\" id=\"mer-out\"></div>\n</div>",
-            "bodyScript": "<script>\n/* §4 — Merton fraction sweep */\n(function(){\n  const svg=$('#mer-svg'), out=$('#mer-out');\n  const muIn=$('#mer-mu'), rIn=$('#mer-r'), sigIn=$('#mer-sig'), gamIn=$('#mer-gam');\n  const muV=$('#mer-muv'), rV=$('#mer-rv'), sigV=$('#mer-sigv'), gamV=$('#mer-gamv');\n  const W=760, H=320, xL=60, xR=W-30, yT=30, yB=H-40;\n  function draw(){\n    const mu=+muIn.value, r=+rIn.value, sig=+sigIn.value, gam=+gamIn.value;\n    muV.textContent='μ = '+mu.toFixed(3);\n    rV.textContent='r = '+r.toFixed(3);\n    sigV.textContent='σ = '+sig.toFixed(2);\n    gamV.textContent='γ = '+gam.toFixed(1);\n    svg.innerHTML='';\n    // sweep gamma from 0.5 to 6 with fixed mu, r, sig\n    const gMin=0.5, gMax=6.0;\n    const X=g=>xL+(g-gMin)/(gMax-gMin)*(xR-xL);\n    // find pi-range to scale\n    const excess=mu-r;\n    const piAt=g=>excess/(g*sig*sig);\n    let piMax=Math.max(piAt(gMin), piAt(gMax), 0)*1.1;\n    let piMin=Math.min(piAt(gMin), piAt(gMax), 0)*1.1;\n    if(piMax-piMin<0.4){ const c=(piMax+piMin)/2; piMax=c+0.2; piMin=c-0.2; }\n    const Y=p=>yB-(p-piMin)/(piMax-piMin)*(yB-yT);\n    // axes\n    svg.appendChild(SVG('line',{x1:xL,y1:yB,x2:xR,y2:yB,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:xL,y1:yT,x2:xL,y2:yB,stroke:'var(--line)'}));\n    // zero line + π=1 reference\n    if(piMin<0 && piMax>0){\n      const y0=Y(0);\n      svg.appendChild(SVG('line',{x1:xL,y1:y0,x2:xR,y2:y0,stroke:'var(--mute)','stroke-dasharray':'2 4'}));\n    }\n    if(piMin<1 && piMax>1){\n      const y1ref=Y(1);\n      svg.appendChild(SVG('line',{x1:xL,y1:y1ref,x2:xR,y2:y1ref,stroke:'var(--mute)','stroke-dasharray':'1 3'}));\n      const t=SVG('text',{x:xR+2,y:y1ref+4,'font-size':10,fill:'var(--mute)'}); t.textContent='π=1 (fully invested)'; svg.appendChild(t);\n    }\n    // curve\n    let d='';\n    for(let i=0;i<=200;i++){\n      const g=gMin+(i/200)*(gMax-gMin);\n      const p=piAt(g);\n      d += (i===0?'M':'L')+X(g)+','+Y(p)+' ';\n    }\n    svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--pink)','stroke-width':2}));\n    // current gamma marker\n    const xc=X(gam), yc=Y(piAt(gam));\n    svg.appendChild(SVG('line',{x1:xc,y1:yT,x2:xc,y2:yB,stroke:'var(--yellow)','stroke-dasharray':'3 4','stroke-width':1}));\n    svg.appendChild(SVG('circle',{cx:xc,cy:yc,r:5,fill:'var(--yellow)',stroke:'var(--ink)','stroke-width':1}));\n    // x ticks\n    for(let i=0;i<=5;i++){\n      const g=gMin+(i/5)*(gMax-gMin);\n      const xp=X(g);\n      svg.appendChild(SVG('line',{x1:xp,y1:yB,x2:xp,y2:yB+4,stroke:'var(--mute)'}));\n      const t=SVG('text',{x:xp,y:yB+18,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n      t.textContent=g.toFixed(1); svg.appendChild(t);\n    }\n    // y ticks\n    const ny=5;\n    for(let i=0;i<=ny;i++){\n      const pv=piMin+(i/ny)*(piMax-piMin);\n      const yp=Y(pv);\n      svg.appendChild(SVG('line',{x1:xL-4,y1:yp,x2:xL,y2:yp,stroke:'var(--mute)'}));\n      const t=SVG('text',{x:xL-8,y:yp+4,'text-anchor':'end','font-size':10,fill:'var(--mute)'});\n      t.textContent=pv.toFixed(2); svg.appendChild(t);\n    }\n    const xl=SVG('text',{x:(xL+xR)/2,y:H-4,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});\n    xl.textContent='risk aversion γ'; svg.appendChild(xl);\n    const yl=SVG('text',{x:14,y:yT+(yB-yT)/2,'text-anchor':'middle','font-size':12,fill:'var(--mute)',transform:`rotate(-90 14 ${yT+(yB-yT)/2})`});\n    yl.textContent='π* = (μ−r)/(γσ²)'; svg.appendChild(yl);\n    // readout\n    const piStar=piAt(gam);\n    const sharpe=excess/sig;\n    out.textContent =\n      `parameters:  μ=${mu.toFixed(3)}, r=${r.toFixed(3)}, σ=${sig.toFixed(2)}, γ=${gam.toFixed(1)}\\n`+\n      `excess return  μ−r = ${excess.toFixed(3)}    Sharpe ratio (μ−r)/σ = ${sharpe.toFixed(3)}\\n`+\n      `Merton fraction  π* = ${piStar.toFixed(3)}    (allocate ${(piStar*100).toFixed(1)}% to risky, ${((1-piStar)*100).toFixed(1)}% to bond)\\n`+\n      (piStar>1 ? '   π*>1 means borrow at r and lever up.\\n' : '')+\n      (piStar<0 ? '   π*<0 means short the risky asset.\\n' : '')+\n      '\\nclosed form independent of wealth W: a CRRA-utility hallmark.';\n  }\n  for(const sl of [muIn,rIn,sigIn,gamIn]) sl.addEventListener('input', draw);\n  draw();\n})();\n</script>"
+            "controls": [
+              {
+                "type": "slider",
+                "id": "mer-mu",
+                "label": "$\\mu$",
+                "min": -0.05,
+                "max": "0.20",
+                "value": 0.08,
+                "format": "separate",
+                "step": 0.005
+              },
+              {
+                "type": "span",
+                "id": "mer-muv",
+                "text": "μ = 0.080"
+              },
+              {
+                "type": "slider",
+                "id": "mer-r",
+                "label": "$r$",
+                "min": -0.02,
+                "max": 0.08,
+                "value": 0.02,
+                "format": "separate",
+                "step": 0.005
+              },
+              {
+                "type": "span",
+                "id": "mer-rv",
+                "text": "r = 0.020"
+              },
+              {
+                "type": "slider",
+                "id": "mer-sig",
+                "label": "$\\sigma$",
+                "min": 0.05,
+                "max": "0.50",
+                "value": "0.20",
+                "format": "separate",
+                "step": 0.01
+              },
+              {
+                "type": "span",
+                "id": "mer-sigv",
+                "text": "σ = 0.20"
+              },
+              {
+                "type": "slider",
+                "id": "mer-gam",
+                "label": "$\\gamma$ (risk aversion)",
+                "min": 0.5,
+                "max": "6.0",
+                "value": "2.0",
+                "format": "separate",
+                "step": 0.1
+              },
+              {
+                "type": "span",
+                "id": "mer-gamv",
+                "text": "γ = 2.0"
+              }
+            ],
+            "svg": {
+              "id": "mer-svg",
+              "viewBox": "0 0 760 320",
+              "width": 760,
+              "height": 320,
+              "title": "Merton portfolio fraction as a function of risk aversion gamma, with current parameter point highlighted"
+            },
+            "readout": {
+              "id": "mer-out"
+            },
+            "bodyScript": "<script>\n/* §4 — Merton fraction sweep */\n(function(){\n  const svg=$('#mer-svg'), out=$('#mer-out');\n  const muIn=$('#mer-mu'), rIn=$('#mer-r'), sigIn=$('#mer-sig'), gamIn=$('#mer-gam');\n  const muV=$('#mer-muv'), rV=$('#mer-rv'), sigV=$('#mer-sigv'), gamV=$('#mer-gamv');\n  const W=760, H=320, xL=60, xR=W-30, yT=30, yB=H-40;\n  function draw(){\n    const mu=+muIn.value, r=+rIn.value, sig=+sigIn.value, gam=+gamIn.value;\n    muV.textContent='μ = '+mu.toFixed(3);\n    rV.textContent='r = '+r.toFixed(3);\n    sigV.textContent='σ = '+sig.toFixed(2);\n    gamV.textContent='γ = '+gam.toFixed(1);\n    svg.innerHTML='';\n    // sweep gamma from 0.5 to 6 with fixed mu, r, sig\n    const gMin=0.5, gMax=6.0;\n    const X=g=>xL+(g-gMin)/(gMax-gMin)*(xR-xL);\n    // find pi-range to scale\n    const excess=mu-r;\n    const piAt=g=>excess/(g*sig*sig);\n    let piMax=Math.max(piAt(gMin), piAt(gMax), 0)*1.1;\n    let piMin=Math.min(piAt(gMin), piAt(gMax), 0)*1.1;\n    if(piMax-piMin<0.4){ const c=(piMax+piMin)/2; piMax=c+0.2; piMin=c-0.2; }\n    const Y=p=>yB-(p-piMin)/(piMax-piMin)*(yB-yT);\n    // axes\n    svg.appendChild(SVG('line',{x1:xL,y1:yB,x2:xR,y2:yB,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:xL,y1:yT,x2:xL,y2:yB,stroke:'var(--line)'}));\n    // zero line + π=1 reference\n    if(piMin<0 && piMax>0){\n      const y0=Y(0);\n      svg.appendChild(SVG('line',{x1:xL,y1:y0,x2:xR,y2:y0,stroke:'var(--mute)','stroke-dasharray':'2 4'}));\n    }\n    if(piMin<1 && piMax>1){\n      const y1ref=Y(1);\n      svg.appendChild(SVG('line',{x1:xL,y1:y1ref,x2:xR,y2:y1ref,stroke:'var(--mute)','stroke-dasharray':'1 3'}));\n      const t=SVG('text',{x:xR+2,y:y1ref+4,'font-size':10,fill:'var(--mute)'}); t.textContent='π=1 (fully invested)'; svg.appendChild(t);\n    }\n    // curve\n    let d='';\n    for(let i=0;i<=200;i++){\n      const g=gMin+(i/200)*(gMax-gMin);\n      const p=piAt(g);\n      d += (i===0?'M':'L')+X(g)+','+Y(p)+' ';\n    }\n    svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--pink)','stroke-width':2}));\n    // current gamma marker\n    const xc=X(gam), yc=Y(piAt(gam));\n    svg.appendChild(SVG('line',{x1:xc,y1:yT,x2:xc,y2:yB,stroke:'var(--yellow)','stroke-dasharray':'3 4','stroke-width':1}));\n    svg.appendChild(SVG('circle',{cx:xc,cy:yc,r:5,fill:'var(--yellow)',stroke:'var(--ink)','stroke-width':1}));\n    // x ticks\n    for(let i=0;i<=5;i++){\n      const g=gMin+(i/5)*(gMax-gMin);\n      const xp=X(g);\n      svg.appendChild(SVG('line',{x1:xp,y1:yB,x2:xp,y2:yB+4,stroke:'var(--mute)'}));\n      const t=SVG('text',{x:xp,y:yB+18,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n      t.textContent=g.toFixed(1); svg.appendChild(t);\n    }\n    // y ticks\n    const ny=5;\n    for(let i=0;i<=ny;i++){\n      const pv=piMin+(i/ny)*(piMax-piMin);\n      const yp=Y(pv);\n      svg.appendChild(SVG('line',{x1:xL-4,y1:yp,x2:xL,y2:yp,stroke:'var(--mute)'}));\n      const t=SVG('text',{x:xL-8,y:yp+4,'text-anchor':'end','font-size':10,fill:'var(--mute)'});\n      t.textContent=pv.toFixed(2); svg.appendChild(t);\n    }\n    const xl=SVG('text',{x:(xL+xR)/2,y:H-4,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});\n    xl.textContent='risk aversion γ'; svg.appendChild(xl);\n    const yl=SVG('text',{x:14,y:yT+(yB-yT)/2,'text-anchor':'middle','font-size':12,fill:'var(--mute)',transform:`rotate(-90 14 ${yT+(yB-yT)/2})`});\n    yl.textContent='π* = (μ−r)/(γσ²)'; svg.appendChild(yl);\n    // readout\n    const piStar=piAt(gam);\n    const sharpe=excess/sig;\n    out.textContent =\n      `parameters:  μ=${mu.toFixed(3)}, r=${r.toFixed(3)}, σ=${sig.toFixed(2)}, γ=${gam.toFixed(1)}\\n`+\n      `excess return  μ−r = ${excess.toFixed(3)}    Sharpe ratio (μ−r)/σ = ${sharpe.toFixed(3)}\\n`+\n      `Merton fraction  π* = ${piStar.toFixed(3)}    (allocate ${(piStar*100).toFixed(1)}% to risky, ${((1-piStar)*100).toFixed(1)}% to bond)\\n`+\n      (piStar>1 ? '   π*>1 means borrow at r and lever up.\\n' : '')+\n      (piStar<0 ? '   π*<0 means short the risky asset.\\n' : '')+\n      '\\nclosed form independent of wealth W: a CRRA-utility hallmark.';\n  }\n  for(const sl of [muIn,rIn,sigIn,gamIn]) sl.addEventListener('input', draw);\n  draw();\n})();\n</script>",
+            "wrapperHasId": true
           }
         },
         {
@@ -208,13 +414,50 @@
         },
         {
           "type": "widget",
-          "slug": "mf-w5",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-hjb-tree",
             "title": "HJB on a binomial state tree",
             "hint": "discrete-time DP unfolding · step through Bellman recursion",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-hjb-tree\">\n  <div class=\"hd\"><div class=\"ttl\">HJB on a binomial state tree</div><div class=\"hint\">discrete-time DP unfolding · step through Bellman recursion</div></div>\n  <div class=\"row\">\n    <label for=\"hjb-rho\">discount $\\beta$</label>\n    <input id=\"hjb-rho\" type=\"range\" min=\"0.85\" max=\"1.00\" step=\"0.005\" value=\"0.97\">\n    <span id=\"hjb-rhov\" class=\"small\">β = 0.970</span>\n    <button id=\"hjb-step\">step Bellman ▶</button>\n    <button id=\"hjb-reset\">reset</button>\n  </div>\n  <svg id=\"hjb-svg\" viewBox=\"0 0 760 360\" width=\"760\" height=\"360\"><title>Recombining binomial state tree showing Bellman-recursion values filling in backward from leaves</title></svg>\n  <div class=\"readout\" id=\"hjb-out\"></div>\n</div>",
-            "bodyScript": "<script>\n/* §5 — discrete-time HJB on a binomial tree */\n(function(){\n  const svg=$('#hjb-svg'), out=$('#hjb-out');\n  const rhoIn=$('#hjb-rho'), rhoV=$('#hjb-rhov');\n  const W=760, H=360, xL=60, xR=W-30, yT=40, yB=H-40;\n  const N=5; // depth\n  // states: at time i, nodes 0..i, i+1 total\n  // payoff at terminal: g(i, j) = j - i/2 (signed deviation, optimization is over up/down moves with values v[i][j]; here we just maximize a CRRA-like reward)\n  // We'll do a *value-iteration* visualization: at each step, fill backward from leaves.\n  let stepIdx=N+1; // start: only leaves shown\n  function reset(){ stepIdx=N+1; render(); }\n  function step(){ if(stepIdx>0) stepIdx--; render(); }\n  function nodeXY(i,j){\n    const x=xL + (i/N)*(xR-xL);\n    const y=yT + ((j+0.5)/(i+1))*(yB-yT);\n    return {x,y};\n  }\n  // value function: terminal g(j) = sqrt(j+1) (concave utility-like)\n  // backward: V(i,j) = max_action ( beta * (V(i+1,j) + V(i+1,j+1))/2 ) — here action is implicit, the max over up/down has been absorbed since they're equivalent in this toy.\n  // To make the \"max\" visible we compute two candidate actions:\n  //   action A: take the up move only -> V(i+1,j+1)\n  //   action B: take the down move only -> V(i+1,j)\n  //   action C: mix 50/50 -> (V(i+1,j)+V(i+1,j+1))/2\n  // Then V(i,j) = beta * max(A,B,C).  For monotone g, C is rarely optimal — but we keep all three so the user sees the sup_u operator at work.\n  function recompute(){\n    const beta=+rhoIn.value;\n    const V=[];\n    for(let i=0;i<=N;i++){ V.push(new Array(i+1).fill(NaN)); }\n    // leaves\n    for(let j=0;j<=N;j++) V[N][j]=Math.sqrt(j+1);\n    // fill backward only up to stepIdx\n    for(let i=N-1;i>=stepIdx;i--){\n      for(let j=0;j<=i;j++){\n        const a=V[i+1][j+1];\n        const b=V[i+1][j];\n        const c=0.5*(a+b);\n        V[i][j]=beta*Math.max(a,b,c);\n      }\n    }\n    return {V, beta};\n  }\n  function render(){\n    const {V, beta}=recompute();\n    rhoV.textContent='β = '+beta.toFixed(3);\n    svg.innerHTML='';\n    // edges\n    for(let i=0;i<N;i++){\n      for(let j=0;j<=i;j++){\n        const p=nodeXY(i,j), pu=nodeXY(i+1,j+1), pd=nodeXY(i+1,j);\n        svg.appendChild(SVG('line',{x1:p.x,y1:p.y,x2:pu.x,y2:pu.y,stroke:'var(--mute)','stroke-width':0.8,opacity:0.5}));\n        svg.appendChild(SVG('line',{x1:p.x,y1:p.y,x2:pd.x,y2:pd.y,stroke:'var(--mute)','stroke-width':0.8,opacity:0.5}));\n      }\n    }\n    // nodes\n    for(let i=0;i<=N;i++){\n      for(let j=0;j<=i;j++){\n        const p=nodeXY(i,j);\n        const v=V[i][j];\n        const filled = !isNaN(v);\n        const isLeaf = i===N;\n        const fill = filled ? (isLeaf?'var(--cyan)':'var(--pink)') : 'var(--panel2)';\n        const stroke = filled ? 'var(--ink)' : 'var(--mute)';\n        svg.appendChild(SVG('circle',{cx:p.x,cy:p.y,r:14,fill,stroke,'stroke-width':1.0,opacity:0.85}));\n        if(filled){\n          const t=SVG('text',{x:p.x,y:p.y+4,'text-anchor':'middle','font-size':10,fill:'var(--ink)','font-weight':600});\n          t.textContent=v.toFixed(2); svg.appendChild(t);\n        } else {\n          const t=SVG('text',{x:p.x,y:p.y+4,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n          t.textContent='?'; svg.appendChild(t);\n        }\n      }\n    }\n    // x-axis labels: time\n    for(let i=0;i<=N;i++){\n      const p=nodeXY(i,0);\n      const t=SVG('text',{x:p.x,y:yB+20,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n      t.textContent='t='+i; svg.appendChild(t);\n    }\n    // status\n    let status;\n    if(stepIdx>N) status='terminal leaves V(N,j)=√(j+1).  click \"step Bellman\" to fill backward.';\n    else if(stepIdx===0) status='fully solved.  the root value V(0,0) is the optimal expected utility.';\n    else status='filled rows '+stepIdx+'..'+N+'.  next step computes V('+(stepIdx-1)+',·) = β · max( upper, lower, mix ).';\n    const root = V[0][0];\n    const display = isNaN(root) ? '— (compute backward to reach root)' : root.toFixed(3);\n    out.textContent =\n      'binomial tree, depth N='+N+', discount β='+beta.toFixed(3)+'\\n'+\n      'terminal utility g(j) = √(j+1)   (concave, mimics CRRA)\\n\\n'+\n      'Bellman recursion:\\n'+\n      '   V(i,j) = β · sup_u 𝔼[ V(i+1, j+a(u)) ]   with three candidate actions u: always-up, always-down, mix.\\n\\n'+\n      status+'\\n\\nroot value V(0,0) = '+display;\n  }\n  rhoIn.addEventListener('input', render);\n  $('#hjb-step').addEventListener('click', step);\n  $('#hjb-reset').addEventListener('click', reset);\n  render();\n})();\n</script>"
+            "controls": [
+              {
+                "type": "slider",
+                "id": "hjb-rho",
+                "label": "discount $\\beta$",
+                "min": 0.85,
+                "max": "1.00",
+                "value": 0.97,
+                "format": "separate",
+                "step": 0.005
+              },
+              {
+                "type": "span",
+                "id": "hjb-rhov",
+                "text": "β = 0.970"
+              },
+              {
+                "type": "button",
+                "id": "hjb-step",
+                "text": "step Bellman ▶"
+              },
+              {
+                "type": "button",
+                "id": "hjb-reset",
+                "text": "reset"
+              }
+            ],
+            "svg": {
+              "id": "hjb-svg",
+              "viewBox": "0 0 760 360",
+              "width": 760,
+              "height": 360,
+              "title": "Recombining binomial state tree showing Bellman-recursion values filling in backward from leaves"
+            },
+            "readout": {
+              "id": "hjb-out"
+            },
+            "bodyScript": "<script>\n/* §5 — discrete-time HJB on a binomial tree */\n(function(){\n  const svg=$('#hjb-svg'), out=$('#hjb-out');\n  const rhoIn=$('#hjb-rho'), rhoV=$('#hjb-rhov');\n  const W=760, H=360, xL=60, xR=W-30, yT=40, yB=H-40;\n  const N=5; // depth\n  // states: at time i, nodes 0..i, i+1 total\n  // payoff at terminal: g(i, j) = j - i/2 (signed deviation, optimization is over up/down moves with values v[i][j]; here we just maximize a CRRA-like reward)\n  // We'll do a *value-iteration* visualization: at each step, fill backward from leaves.\n  let stepIdx=N+1; // start: only leaves shown\n  function reset(){ stepIdx=N+1; render(); }\n  function step(){ if(stepIdx>0) stepIdx--; render(); }\n  function nodeXY(i,j){\n    const x=xL + (i/N)*(xR-xL);\n    const y=yT + ((j+0.5)/(i+1))*(yB-yT);\n    return {x,y};\n  }\n  // value function: terminal g(j) = sqrt(j+1) (concave utility-like)\n  // backward: V(i,j) = max_action ( beta * (V(i+1,j) + V(i+1,j+1))/2 ) — here action is implicit, the max over up/down has been absorbed since they're equivalent in this toy.\n  // To make the \"max\" visible we compute two candidate actions:\n  //   action A: take the up move only -> V(i+1,j+1)\n  //   action B: take the down move only -> V(i+1,j)\n  //   action C: mix 50/50 -> (V(i+1,j)+V(i+1,j+1))/2\n  // Then V(i,j) = beta * max(A,B,C).  For monotone g, C is rarely optimal — but we keep all three so the user sees the sup_u operator at work.\n  function recompute(){\n    const beta=+rhoIn.value;\n    const V=[];\n    for(let i=0;i<=N;i++){ V.push(new Array(i+1).fill(NaN)); }\n    // leaves\n    for(let j=0;j<=N;j++) V[N][j]=Math.sqrt(j+1);\n    // fill backward only up to stepIdx\n    for(let i=N-1;i>=stepIdx;i--){\n      for(let j=0;j<=i;j++){\n        const a=V[i+1][j+1];\n        const b=V[i+1][j];\n        const c=0.5*(a+b);\n        V[i][j]=beta*Math.max(a,b,c);\n      }\n    }\n    return {V, beta};\n  }\n  function render(){\n    const {V, beta}=recompute();\n    rhoV.textContent='β = '+beta.toFixed(3);\n    svg.innerHTML='';\n    // edges\n    for(let i=0;i<N;i++){\n      for(let j=0;j<=i;j++){\n        const p=nodeXY(i,j), pu=nodeXY(i+1,j+1), pd=nodeXY(i+1,j);\n        svg.appendChild(SVG('line',{x1:p.x,y1:p.y,x2:pu.x,y2:pu.y,stroke:'var(--mute)','stroke-width':0.8,opacity:0.5}));\n        svg.appendChild(SVG('line',{x1:p.x,y1:p.y,x2:pd.x,y2:pd.y,stroke:'var(--mute)','stroke-width':0.8,opacity:0.5}));\n      }\n    }\n    // nodes\n    for(let i=0;i<=N;i++){\n      for(let j=0;j<=i;j++){\n        const p=nodeXY(i,j);\n        const v=V[i][j];\n        const filled = !isNaN(v);\n        const isLeaf = i===N;\n        const fill = filled ? (isLeaf?'var(--cyan)':'var(--pink)') : 'var(--panel2)';\n        const stroke = filled ? 'var(--ink)' : 'var(--mute)';\n        svg.appendChild(SVG('circle',{cx:p.x,cy:p.y,r:14,fill,stroke,'stroke-width':1.0,opacity:0.85}));\n        if(filled){\n          const t=SVG('text',{x:p.x,y:p.y+4,'text-anchor':'middle','font-size':10,fill:'var(--ink)','font-weight':600});\n          t.textContent=v.toFixed(2); svg.appendChild(t);\n        } else {\n          const t=SVG('text',{x:p.x,y:p.y+4,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n          t.textContent='?'; svg.appendChild(t);\n        }\n      }\n    }\n    // x-axis labels: time\n    for(let i=0;i<=N;i++){\n      const p=nodeXY(i,0);\n      const t=SVG('text',{x:p.x,y:yB+20,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n      t.textContent='t='+i; svg.appendChild(t);\n    }\n    // status\n    let status;\n    if(stepIdx>N) status='terminal leaves V(N,j)=√(j+1).  click \"step Bellman\" to fill backward.';\n    else if(stepIdx===0) status='fully solved.  the root value V(0,0) is the optimal expected utility.';\n    else status='filled rows '+stepIdx+'..'+N+'.  next step computes V('+(stepIdx-1)+',·) = β · max( upper, lower, mix ).';\n    const root = V[0][0];\n    const display = isNaN(root) ? '— (compute backward to reach root)' : root.toFixed(3);\n    out.textContent =\n      'binomial tree, depth N='+N+', discount β='+beta.toFixed(3)+'\\n'+\n      'terminal utility g(j) = √(j+1)   (concave, mimics CRRA)\\n\\n'+\n      'Bellman recursion:\\n'+\n      '   V(i,j) = β · sup_u 𝔼[ V(i+1, j+a(u)) ]   with three candidate actions u: always-up, always-down, mix.\\n\\n'+\n      status+'\\n\\nroot value V(0,0) = '+display;\n  }\n  rhoIn.addEventListener('input', render);\n  $('#hjb-step').addEventListener('click', step);\n  $('#hjb-reset').addEventListener('click', reset);\n  render();\n})();\n</script>",
+            "wrapperHasId": true
           }
         },
         {
