@@ -12,13 +12,41 @@
         },
         {
           "type": "widget",
-          "slug": "positivity-and-ample-line-bundles-w1",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-divisor-explorer",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-divisor-explorer\">\n  <div class=\"hd\"><div class=\"ttl\">Linear systems on $\\mathbb{P}^1$</div><div class=\"hint\">drag the slider — count the sections of $\\mathcal{O}(d)$</div></div>\n  <svg id=\"div-svg\" viewBox=\"0 0 720 240\" width=\"720\" height=\"240\"><title>Linear systems on the projective line</title></svg>\n  <div class=\"row\">\n    <label for=\"div-d\">$d$ =</label>\n    <input type=\"range\" id=\"div-d\" min=\"-3\" max=\"6\" step=\"1\" value=\"2\" />\n    <span id=\"div-d-val\" class=\"pill\">d = 2</span>\n  </div>\n  <div class=\"readout\" id=\"div-out\">Pick a degree $d$. The widget displays a basis of $H^0(\\mathbb{P}^1, \\mathcal{O}(d))$ and the divisor of a generic section.</div>\n</div>",
-            "bodyScript": "\n\n<script>\n(function(){\n  const svg = document.getElementById('div-svg');\n  const slider = document.getElementById('div-d');\n  const dval = document.getElementById('div-d-val');\n  const out = document.getElementById('div-out');\n\n  function render(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const d = parseInt(slider.value, 10);\n    dval.textContent = 'd = ' + d;\n\n    // axis: real line representing P^1 minus a point\n    const W = 720, H = 240, y0 = 140;\n    svg.appendChild(SVG('line', {x1:60, y1:y0, x2:660, y2:y0, stroke:'var(--line)', 'stroke-width':1.5}));\n    // tick marks at 5 sample points\n    for(let k=0;k<=10;k++){\n      const x = 60 + k*60;\n      svg.appendChild(SVG('line', {x1:x, y1:y0-4, x2:x, y2:y0+4, stroke:'var(--mute)'}));\n    }\n    const lab = SVG('text', {x:680, y:y0+5, 'font-size':14, fill:'var(--mute)'});\n    lab.textContent = '∞';\n    svg.appendChild(lab);\n\n    // section count\n    let h0;\n    if(d < 0){\n      h0 = 0;\n    } else {\n      h0 = d + 1;\n    }\n\n    // header text\n    const t1 = SVG('text', {x:60, y:40, 'font-size':16, fill:'var(--ink)', 'font-weight':600});\n    t1.textContent = 'Line bundle: O(' + d + ')';\n    svg.appendChild(t1);\n\n    const t2 = SVG('text', {x:60, y:64, 'font-size':14, fill:'var(--cyan)'});\n    t2.textContent = 'h^0 = dim H^0(P^1, O(' + d + ')) = ' + h0;\n    svg.appendChild(t2);\n\n    // Display sections list (homogeneous monomials of degree d in two vars)\n    if(d >= 0){\n      const t3 = SVG('text', {x:60, y:90, 'font-size':13, fill:'var(--mute)'});\n      let basis = [];\n      for(let i=0;i<=d;i++){\n        if(i === 0) basis.push('y^' + d);\n        else if(i === d) basis.push('x^' + d);\n        else basis.push('x^' + i + ' y^' + (d-i));\n      }\n      // reduce visual clutter:\n      let label = 'basis: ' + basis.join(', ').replace(/\\^1\\b/g,'').replace(/y\\^0/g,'').replace(/x\\^0/g,'');\n      // simpler: just show the count\n      if(d <= 3){\n        if(d === 0) label = 'basis: 1';\n        else if(d === 1) label = 'basis: x, y';\n        else if(d === 2) label = 'basis: x^2, xy, y^2';\n        else if(d === 3) label = 'basis: x^3, x^2 y, x y^2, y^3';\n      } else {\n        label = 'basis: x^' + d + ', x^' + (d-1) + 'y, ..., y^' + d + '  (' + h0 + ' monomials)';\n      }\n      t3.textContent = label;\n      svg.appendChild(t3);\n    }\n\n    // Effective divisor of a generic section: d distinct points (if d >= 0)\n    const t4 = SVG('text', {x:60, y:y0-22, 'font-size':12, fill:'var(--yellow)', 'font-style':'italic'});\n    t4.textContent = d >= 0\n      ? 'div(generic section) = sum of ' + d + ' point' + (d===1?'':'s') + ' (effective, degree ' + d + ')'\n      : 'no nonzero sections — every effective divisor of degree ' + d + ' would have negative degree';\n    svg.appendChild(t4);\n\n    if(d > 0){\n      // place d roots evenly along the visible line\n      const xs = [];\n      for(let k=0;k<d;k++){\n        const x = 100 + (k+0.5) * (520 / d);\n        xs.push(x);\n        svg.appendChild(SVG('circle', {cx:x, cy:y0, r:6, fill:'var(--yellow)', stroke:'var(--bg)', 'stroke-width':1}));\n      }\n    }\n\n    let msg;\n    if(d < 0) msg = 'Negative-degree line bundles on P^1 have no nonzero sections: O(d) is \"smaller\" than O — there\\'s no room for any function.';\n    else if(d === 0) msg = 'O(0) = O is trivial: the only sections are constants. h^0 = 1.';\n    else msg = 'O(' + d + ') is very ample for every d ≥ 1 on P^1 — the sections embed P^1 into P^' + d + ' as a rational normal curve of degree ' + d + '.';\n    out.textContent = msg;\n  }\n\n  slider.addEventListener('input', render);\n  render();\n})();\n</script>",
             "title": "Linear systems on $\\mathbb{P}^1$",
-            "hint": "drag the slider — count the sections of $\\mathcal{O}(d)$"
+            "hint": "drag the slider — count the sections of $\\mathcal{O}(d)$",
+            "controls": [
+              {
+                "type": "slider",
+                "id": "div-d",
+                "label": "$d$ =",
+                "min": -3,
+                "max": 6,
+                "value": 2,
+                "format": "separate",
+                "step": 1
+              },
+              {
+                "type": "span",
+                "id": "div-d-val",
+                "class": "pill",
+                "text": "d = 2"
+              }
+            ],
+            "svg": {
+              "id": "div-svg",
+              "viewBox": "0 0 720 240",
+              "width": 720,
+              "height": 240,
+              "title": "Linear systems on the projective line"
+            },
+            "readout": {
+              "id": "div-out"
+            },
+            "bodyScript": "\n\n<script>\n(function(){\n  const svg = document.getElementById('div-svg');\n  const slider = document.getElementById('div-d');\n  const dval = document.getElementById('div-d-val');\n  const out = document.getElementById('div-out');\n\n  function render(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const d = parseInt(slider.value, 10);\n    dval.textContent = 'd = ' + d;\n\n    // axis: real line representing P^1 minus a point\n    const W = 720, H = 240, y0 = 140;\n    svg.appendChild(SVG('line', {x1:60, y1:y0, x2:660, y2:y0, stroke:'var(--line)', 'stroke-width':1.5}));\n    // tick marks at 5 sample points\n    for(let k=0;k<=10;k++){\n      const x = 60 + k*60;\n      svg.appendChild(SVG('line', {x1:x, y1:y0-4, x2:x, y2:y0+4, stroke:'var(--mute)'}));\n    }\n    const lab = SVG('text', {x:680, y:y0+5, 'font-size':14, fill:'var(--mute)'});\n    lab.textContent = '∞';\n    svg.appendChild(lab);\n\n    // section count\n    let h0;\n    if(d < 0){\n      h0 = 0;\n    } else {\n      h0 = d + 1;\n    }\n\n    // header text\n    const t1 = SVG('text', {x:60, y:40, 'font-size':16, fill:'var(--ink)', 'font-weight':600});\n    t1.textContent = 'Line bundle: O(' + d + ')';\n    svg.appendChild(t1);\n\n    const t2 = SVG('text', {x:60, y:64, 'font-size':14, fill:'var(--cyan)'});\n    t2.textContent = 'h^0 = dim H^0(P^1, O(' + d + ')) = ' + h0;\n    svg.appendChild(t2);\n\n    // Display sections list (homogeneous monomials of degree d in two vars)\n    if(d >= 0){\n      const t3 = SVG('text', {x:60, y:90, 'font-size':13, fill:'var(--mute)'});\n      let basis = [];\n      for(let i=0;i<=d;i++){\n        if(i === 0) basis.push('y^' + d);\n        else if(i === d) basis.push('x^' + d);\n        else basis.push('x^' + i + ' y^' + (d-i));\n      }\n      // reduce visual clutter:\n      let label = 'basis: ' + basis.join(', ').replace(/\\^1\\b/g,'').replace(/y\\^0/g,'').replace(/x\\^0/g,'');\n      // simpler: just show the count\n      if(d <= 3){\n        if(d === 0) label = 'basis: 1';\n        else if(d === 1) label = 'basis: x, y';\n        else if(d === 2) label = 'basis: x^2, xy, y^2';\n        else if(d === 3) label = 'basis: x^3, x^2 y, x y^2, y^3';\n      } else {\n        label = 'basis: x^' + d + ', x^' + (d-1) + 'y, ..., y^' + d + '  (' + h0 + ' monomials)';\n      }\n      t3.textContent = label;\n      svg.appendChild(t3);\n    }\n\n    // Effective divisor of a generic section: d distinct points (if d >= 0)\n    const t4 = SVG('text', {x:60, y:y0-22, 'font-size':12, fill:'var(--yellow)', 'font-style':'italic'});\n    t4.textContent = d >= 0\n      ? 'div(generic section) = sum of ' + d + ' point' + (d===1?'':'s') + ' (effective, degree ' + d + ')'\n      : 'no nonzero sections — every effective divisor of degree ' + d + ' would have negative degree';\n    svg.appendChild(t4);\n\n    if(d > 0){\n      // place d roots evenly along the visible line\n      const xs = [];\n      for(let k=0;k<d;k++){\n        const x = 100 + (k+0.5) * (520 / d);\n        xs.push(x);\n        svg.appendChild(SVG('circle', {cx:x, cy:y0, r:6, fill:'var(--yellow)', stroke:'var(--bg)', 'stroke-width':1}));\n      }\n    }\n\n    let msg;\n    if(d < 0) msg = 'Negative-degree line bundles on P^1 have no nonzero sections: O(d) is \"smaller\" than O — there\\'s no room for any function.';\n    else if(d === 0) msg = 'O(0) = O is trivial: the only sections are constants. h^0 = 1.';\n    else msg = 'O(' + d + ') is very ample for every d ≥ 1 on P^1 — the sections embed P^1 into P^' + d + ' as a rational normal curve of degree ' + d + '.';\n    out.textContent = msg;\n  }\n\n  slider.addEventListener('input', render);\n  render();\n})();\n</script>",
+            "wrapperHasId": true
           }
         },
         {
@@ -188,13 +216,41 @@
         },
         {
           "type": "widget",
-          "slug": "positivity-and-ample-line-bundles-w5",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-kodaira",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-kodaira\">\n  <div class=\"hd\"><div class=\"ttl\">Kodaira map for $\\mathbb{P}^1$</div><div class=\"hint\">drag $n$ — see how high a power is needed for a clean embedding</div></div>\n  <svg id=\"kod-svg\" viewBox=\"0 0 720 280\" width=\"720\" height=\"280\"><title>Kodaira map for the projective line</title></svg>\n  <div class=\"row\">\n    <label for=\"kod-n\">$n =$</label>\n    <input type=\"range\" id=\"kod-n\" min=\"1\" max=\"6\" step=\"1\" value=\"2\" />\n    <span id=\"kod-n-val\" class=\"pill\">n = 2</span>\n  </div>\n  <div class=\"readout\" id=\"kod-out\">For $L = \\mathcal{O}(1)$ on $\\mathbb{P}^1$, the map $\\varphi_{L^{\\otimes n}}$ embeds $\\mathbb{P}^1$ as a degree-$n$ curve in $\\mathbb{P}^n$.</div>\n</div>",
-            "bodyScript": "\n\n<script>\n(function(){\n  const svg = document.getElementById('kod-svg');\n  const slider = document.getElementById('kod-n');\n  const nval = document.getElementById('kod-n-val');\n  const out = document.getElementById('kod-out');\n\n  function render(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const n = parseInt(slider.value, 10);\n    nval.textContent = 'n = ' + n;\n\n    // h^0 = n+1 sections\n    const h0 = n + 1;\n\n    const t1 = SVG('text', {x:30, y:40, 'font-size':14, fill:'var(--ink)'});\n    t1.textContent = 'L = O(1) on P^1, twist L^⊗' + n + ' = O(' + n + ')';\n    svg.appendChild(t1);\n\n    const t2 = SVG('text', {x:30, y:65, 'font-size':14, fill:'var(--cyan)'});\n    t2.textContent = 'h^0 = ' + h0 + '   →   φ: P^1 → P^' + n;\n    svg.appendChild(t2);\n\n    // Draw n+1 sections as basis vectors\n    const t3 = SVG('text', {x:30, y:100, 'font-size':13, fill:'var(--mute)'});\n    let sects = [];\n    for(let k=0;k<=n;k++){\n      if(k===0) sects.push('y^' + n);\n      else if(k===n) sects.push('x^' + n);\n      else sects.push('x^' + k + 'y^' + (n-k));\n    }\n    if(n <= 4){\n      t3.textContent = 'sections: ' + sects.join(', ');\n    } else {\n      t3.textContent = 'sections: x^' + n + ', x^' + (n-1) + 'y, ..., y^' + n + '   (' + h0 + ' total)';\n    }\n    svg.appendChild(t3);\n\n    // Draw a parametric curve (rational normal curve) — schematic projection to 2D\n    // For n=1 it's a line; n=2 a conic; n=3 a twisted cubic; etc.\n    const cx = 460, cy = 160, R = 90;\n    const path = [];\n    const NPTS = 80;\n    for(let k=0;k<=NPTS;k++){\n      const t = k/NPTS;\n      const u = (t - 0.5) * 2.5;\n      // schematic projection: x = u, y = u^n (clamped)\n      const x = cx + R * u * 0.8;\n      const sgn = (u<0 && n%2===0) ? -1 : 1;  // make symmetric for even n\n      let yv = Math.pow(Math.abs(u), n);\n      if(u < 0) yv *= (n%2===0 ? 1 : -1);\n      const y = cy - R * Math.max(-1.2, Math.min(1.2, yv * 0.7));\n      path.push(`${k===0?'M':'L'} ${x.toFixed(1)} ${y.toFixed(1)}`);\n    }\n    svg.appendChild(SVG('path', {d:path.join(' '), fill:'none', stroke:'var(--yellow)', 'stroke-width':2.5}));\n\n    // axes\n    svg.appendChild(SVG('line', {x1:cx-R*1.2, y1:cy, x2:cx+R*1.3, y2:cy, stroke:'var(--line)'}));\n    svg.appendChild(SVG('line', {x1:cx, y1:cy-R*1.2, x2:cx, y2:cy+R*1.2, stroke:'var(--line)'}));\n\n    const lab = SVG('text', {x:cx+R*1.4, y:cy+5, 'font-size':12, fill:'var(--mute)'});\n    lab.textContent = 'image in P^' + n + ' (schematic 2D)';\n    svg.appendChild(lab);\n\n    // verdict\n    let msg;\n    if(n === 1) msg = 'φ: P^1 → P^1 is the identity. Degree-1 rational normal curve = a line.';\n    else if(n === 2) msg = 'φ: P^1 → P^2 is the Veronese embedding as the conic xz = y^2.';\n    else if(n === 3) msg = 'φ: P^1 → P^3 is the twisted cubic — minimal-degree non-planar curve.';\n    else msg = 'φ: P^1 → P^' + n + ' is the rational normal curve of degree ' + n + ' — image of all monomial sections.';\n    out.textContent = msg;\n  }\n\n  slider.addEventListener('input', render);\n  render();\n})();\n</script>",
             "title": "Kodaira map for $\\mathbb{P}^1$",
-            "hint": "drag $n$ — see how high a power is needed for a clean embedding"
+            "hint": "drag $n$ — see how high a power is needed for a clean embedding",
+            "controls": [
+              {
+                "type": "slider",
+                "id": "kod-n",
+                "label": "$n =$",
+                "min": 1,
+                "max": 6,
+                "value": 2,
+                "format": "separate",
+                "step": 1
+              },
+              {
+                "type": "span",
+                "id": "kod-n-val",
+                "class": "pill",
+                "text": "n = 2"
+              }
+            ],
+            "svg": {
+              "id": "kod-svg",
+              "viewBox": "0 0 720 280",
+              "width": 720,
+              "height": 280,
+              "title": "Kodaira map for the projective line"
+            },
+            "readout": {
+              "id": "kod-out"
+            },
+            "bodyScript": "\n\n<script>\n(function(){\n  const svg = document.getElementById('kod-svg');\n  const slider = document.getElementById('kod-n');\n  const nval = document.getElementById('kod-n-val');\n  const out = document.getElementById('kod-out');\n\n  function render(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const n = parseInt(slider.value, 10);\n    nval.textContent = 'n = ' + n;\n\n    // h^0 = n+1 sections\n    const h0 = n + 1;\n\n    const t1 = SVG('text', {x:30, y:40, 'font-size':14, fill:'var(--ink)'});\n    t1.textContent = 'L = O(1) on P^1, twist L^⊗' + n + ' = O(' + n + ')';\n    svg.appendChild(t1);\n\n    const t2 = SVG('text', {x:30, y:65, 'font-size':14, fill:'var(--cyan)'});\n    t2.textContent = 'h^0 = ' + h0 + '   →   φ: P^1 → P^' + n;\n    svg.appendChild(t2);\n\n    // Draw n+1 sections as basis vectors\n    const t3 = SVG('text', {x:30, y:100, 'font-size':13, fill:'var(--mute)'});\n    let sects = [];\n    for(let k=0;k<=n;k++){\n      if(k===0) sects.push('y^' + n);\n      else if(k===n) sects.push('x^' + n);\n      else sects.push('x^' + k + 'y^' + (n-k));\n    }\n    if(n <= 4){\n      t3.textContent = 'sections: ' + sects.join(', ');\n    } else {\n      t3.textContent = 'sections: x^' + n + ', x^' + (n-1) + 'y, ..., y^' + n + '   (' + h0 + ' total)';\n    }\n    svg.appendChild(t3);\n\n    // Draw a parametric curve (rational normal curve) — schematic projection to 2D\n    // For n=1 it's a line; n=2 a conic; n=3 a twisted cubic; etc.\n    const cx = 460, cy = 160, R = 90;\n    const path = [];\n    const NPTS = 80;\n    for(let k=0;k<=NPTS;k++){\n      const t = k/NPTS;\n      const u = (t - 0.5) * 2.5;\n      // schematic projection: x = u, y = u^n (clamped)\n      const x = cx + R * u * 0.8;\n      const sgn = (u<0 && n%2===0) ? -1 : 1;  // make symmetric for even n\n      let yv = Math.pow(Math.abs(u), n);\n      if(u < 0) yv *= (n%2===0 ? 1 : -1);\n      const y = cy - R * Math.max(-1.2, Math.min(1.2, yv * 0.7));\n      path.push(`${k===0?'M':'L'} ${x.toFixed(1)} ${y.toFixed(1)}`);\n    }\n    svg.appendChild(SVG('path', {d:path.join(' '), fill:'none', stroke:'var(--yellow)', 'stroke-width':2.5}));\n\n    // axes\n    svg.appendChild(SVG('line', {x1:cx-R*1.2, y1:cy, x2:cx+R*1.3, y2:cy, stroke:'var(--line)'}));\n    svg.appendChild(SVG('line', {x1:cx, y1:cy-R*1.2, x2:cx, y2:cy+R*1.2, stroke:'var(--line)'}));\n\n    const lab = SVG('text', {x:cx+R*1.4, y:cy+5, 'font-size':12, fill:'var(--mute)'});\n    lab.textContent = 'image in P^' + n + ' (schematic 2D)';\n    svg.appendChild(lab);\n\n    // verdict\n    let msg;\n    if(n === 1) msg = 'φ: P^1 → P^1 is the identity. Degree-1 rational normal curve = a line.';\n    else if(n === 2) msg = 'φ: P^1 → P^2 is the Veronese embedding as the conic xz = y^2.';\n    else if(n === 3) msg = 'φ: P^1 → P^3 is the twisted cubic — minimal-degree non-planar curve.';\n    else msg = 'φ: P^1 → P^' + n + ' is the rational normal curve of degree ' + n + ' — image of all monomial sections.';\n    out.textContent = msg;\n  }\n\n  slider.addEventListener('input', render);\n  render();\n})();\n</script>",
+            "wrapperHasId": true
           }
         },
         {
@@ -229,13 +285,57 @@
         },
         {
           "type": "widget",
-          "slug": "positivity-and-ample-line-bundles-w6",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-vanishing",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-vanishing\">\n  <div class=\"hd\"><div class=\"ttl\">Kodaira vanishing on $\\mathbb{P}^n$</div><div class=\"hint\">$K_{\\mathbb{P}^n} = \\mathcal{O}(-n-1)$ — pick $n, d$, see the table</div></div>\n  <div class=\"row\">\n    <label for=\"v-n\">dim $n$ =</label>\n    <input type=\"range\" id=\"v-n\" min=\"1\" max=\"5\" step=\"1\" value=\"2\" />\n    <span id=\"v-n-val\" class=\"pill\">n = 2</span>\n    <label for=\"v-d\">degree $d$ =</label>\n    <input type=\"range\" id=\"v-d\" min=\"-3\" max=\"6\" step=\"1\" value=\"1\" />\n    <span id=\"v-d-val\" class=\"pill\">d = 1</span>\n  </div>\n  <svg id=\"van-svg\" viewBox=\"0 0 720 200\" width=\"720\" height=\"200\"><title>Kodaira vanishing table on projective space</title></svg>\n  <div class=\"readout\" id=\"van-out\">Choose $n$ and $d$. The cohomology $H^i(\\mathbb{P}^n, K \\otimes \\mathcal{O}(d))$ is highlighted. Green means Kodaira applies and the entry vanishes.</div>\n</div>",
-            "bodyScript": "\n\n<script>\n(function(){\n  const sn = document.getElementById('v-n');\n  const sd = document.getElementById('v-d');\n  const lN = document.getElementById('v-n-val');\n  const lD = document.getElementById('v-d-val');\n  const svg = document.getElementById('van-svg');\n  const out = document.getElementById('van-out');\n\n  // Cohomology of O_{P^n}(k):\n  // h^0(O(k)) = binom(k+n, n) for k >= 0, else 0\n  // h^n(O(k)) = binom(-k-1, n) for k <= -n-1, else 0  [via Serre duality]\n  // h^i = 0 otherwise\n  function bc(a, b){\n    if(b < 0 || a < b) return 0;\n    let r = 1;\n    for(let k=0;k<b;k++) r = r * (a - k) / (k + 1);\n    return Math.round(r);\n  }\n  function hPn(n, k){\n    const arr = new Array(n+1).fill(0);\n    if(k >= 0) arr[0] = bc(k + n, n);\n    if(k <= -n - 1) arr[n] = bc(-k - 1, n);\n    return arr;\n  }\n\n  function render(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const n = parseInt(sn.value, 10);\n    const d = parseInt(sd.value, 10);\n    lN.textContent = 'n = ' + n;\n    lD.textContent = 'd = ' + d;\n\n    // K_{P^n} = O(-n-1), so K + O(d) = O(d - n - 1)\n    const k = d - n - 1;\n    const h = hPn(n, k);\n    const ample = d >= 1;\n\n    // Header\n    const t1 = SVG('text', {x:30, y:30, 'font-size':14, fill:'var(--ink)'});\n    t1.textContent = 'X = P^' + n + ',  L = O(' + d + ')' + (ample?' ✓ ample':' ✗ NOT ample (need d ≥ 1)');\n    svg.appendChild(t1);\n\n    const t2 = SVG('text', {x:30, y:54, 'font-size':14, fill:'var(--mute)'});\n    t2.textContent = 'K_X ⊗ L = O(-' + (n+1) + ' + ' + d + ') = O(' + k + ')';\n    svg.appendChild(t2);\n\n    // Cohomology row\n    const startX = 90;\n    const colW = (720 - 2*startX) / (n + 1);\n    for(let i=0;i<=n;i++){\n      const cx = startX + i * colW + colW/2;\n      // header\n      const head = SVG('text', {x:cx, y:90, 'font-size':13, fill:'var(--mute)', 'text-anchor':'middle'});\n      head.textContent = 'H^' + i;\n      svg.appendChild(head);\n\n      const v = h[i];\n      const isKodaira = ample && i > 0;  // green if Kodaira applies\n      const isVanishing = v === 0;\n      const fillCol = isKodaira\n        ? (isVanishing ? 'var(--green)' : 'var(--pink)')\n        : (i > 0 && isVanishing ? 'var(--cyan)' : i === 0 ? 'var(--cyan)' : 'var(--violet)');\n\n      svg.appendChild(SVG('rect', {x:cx-30, y:115, width:60, height:36, rx:5,\n        fill:'var(--panel2)', stroke:fillCol, 'stroke-width':2}));\n      const txt = SVG('text', {x:cx, y:139, 'font-size':16, fill:fillCol, 'text-anchor':'middle', 'font-weight':600});\n      txt.textContent = v;\n      svg.appendChild(txt);\n    }\n\n    // Verdict\n    let msg;\n    if(ample){\n      const allHigherZero = h.slice(1).every(v => v === 0);\n      if(allHigherZero) msg = 'L = O(' + d + ') is ample (d ≥ 1). Kodaira: H^i(X, K + L) = 0 for i > 0. ✓ confirmed in the table.';\n      else msg = 'Cohomology table conflicts with Kodaira vanishing — check the inputs are valid.';\n    } else {\n      const violation = h.slice(1).some(v => v !== 0);\n      if(violation) msg = 'L is NOT ample, and indeed Kodaira can fail: there is nonzero higher cohomology in the table.';\n      else msg = 'L is not ample, but the cohomology happens to vanish anyway. (Kodaira is sufficient but not necessary.)';\n    }\n    out.textContent = msg;\n  }\n\n  sn.addEventListener('input', render);\n  sd.addEventListener('input', render);\n  render();\n})();\n</script>",
             "title": "Kodaira vanishing on $\\mathbb{P}^n$",
-            "hint": "$K_{\\mathbb{P}^n} = \\mathcal{O}(-n-1)$ — pick $n, d$, see the table"
+            "hint": "$K_{\\mathbb{P}^n} = \\mathcal{O}(-n-1)$ — pick $n, d$, see the table",
+            "controls": [
+              {
+                "type": "slider",
+                "id": "v-n",
+                "label": "dim $n$ =",
+                "min": 1,
+                "max": 5,
+                "value": 2,
+                "format": "separate",
+                "step": 1
+              },
+              {
+                "type": "span",
+                "id": "v-n-val",
+                "class": "pill",
+                "text": "n = 2"
+              },
+              {
+                "type": "slider",
+                "id": "v-d",
+                "label": "degree $d$ =",
+                "min": -3,
+                "max": 6,
+                "value": 1,
+                "format": "separate",
+                "step": 1
+              },
+              {
+                "type": "span",
+                "id": "v-d-val",
+                "class": "pill",
+                "text": "d = 1"
+              }
+            ],
+            "svg": {
+              "id": "van-svg",
+              "viewBox": "0 0 720 200",
+              "width": 720,
+              "height": 200,
+              "title": "Kodaira vanishing table on projective space"
+            },
+            "readout": {
+              "id": "van-out"
+            },
+            "bodyScript": "\n\n<script>\n(function(){\n  const sn = document.getElementById('v-n');\n  const sd = document.getElementById('v-d');\n  const lN = document.getElementById('v-n-val');\n  const lD = document.getElementById('v-d-val');\n  const svg = document.getElementById('van-svg');\n  const out = document.getElementById('van-out');\n\n  // Cohomology of O_{P^n}(k):\n  // h^0(O(k)) = binom(k+n, n) for k >= 0, else 0\n  // h^n(O(k)) = binom(-k-1, n) for k <= -n-1, else 0  [via Serre duality]\n  // h^i = 0 otherwise\n  function bc(a, b){\n    if(b < 0 || a < b) return 0;\n    let r = 1;\n    for(let k=0;k<b;k++) r = r * (a - k) / (k + 1);\n    return Math.round(r);\n  }\n  function hPn(n, k){\n    const arr = new Array(n+1).fill(0);\n    if(k >= 0) arr[0] = bc(k + n, n);\n    if(k <= -n - 1) arr[n] = bc(-k - 1, n);\n    return arr;\n  }\n\n  function render(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const n = parseInt(sn.value, 10);\n    const d = parseInt(sd.value, 10);\n    lN.textContent = 'n = ' + n;\n    lD.textContent = 'd = ' + d;\n\n    // K_{P^n} = O(-n-1), so K + O(d) = O(d - n - 1)\n    const k = d - n - 1;\n    const h = hPn(n, k);\n    const ample = d >= 1;\n\n    // Header\n    const t1 = SVG('text', {x:30, y:30, 'font-size':14, fill:'var(--ink)'});\n    t1.textContent = 'X = P^' + n + ',  L = O(' + d + ')' + (ample?' ✓ ample':' ✗ NOT ample (need d ≥ 1)');\n    svg.appendChild(t1);\n\n    const t2 = SVG('text', {x:30, y:54, 'font-size':14, fill:'var(--mute)'});\n    t2.textContent = 'K_X ⊗ L = O(-' + (n+1) + ' + ' + d + ') = O(' + k + ')';\n    svg.appendChild(t2);\n\n    // Cohomology row\n    const startX = 90;\n    const colW = (720 - 2*startX) / (n + 1);\n    for(let i=0;i<=n;i++){\n      const cx = startX + i * colW + colW/2;\n      // header\n      const head = SVG('text', {x:cx, y:90, 'font-size':13, fill:'var(--mute)', 'text-anchor':'middle'});\n      head.textContent = 'H^' + i;\n      svg.appendChild(head);\n\n      const v = h[i];\n      const isKodaira = ample && i > 0;  // green if Kodaira applies\n      const isVanishing = v === 0;\n      const fillCol = isKodaira\n        ? (isVanishing ? 'var(--green)' : 'var(--pink)')\n        : (i > 0 && isVanishing ? 'var(--cyan)' : i === 0 ? 'var(--cyan)' : 'var(--violet)');\n\n      svg.appendChild(SVG('rect', {x:cx-30, y:115, width:60, height:36, rx:5,\n        fill:'var(--panel2)', stroke:fillCol, 'stroke-width':2}));\n      const txt = SVG('text', {x:cx, y:139, 'font-size':16, fill:fillCol, 'text-anchor':'middle', 'font-weight':600});\n      txt.textContent = v;\n      svg.appendChild(txt);\n    }\n\n    // Verdict\n    let msg;\n    if(ample){\n      const allHigherZero = h.slice(1).every(v => v === 0);\n      if(allHigherZero) msg = 'L = O(' + d + ') is ample (d ≥ 1). Kodaira: H^i(X, K + L) = 0 for i > 0. ✓ confirmed in the table.';\n      else msg = 'Cohomology table conflicts with Kodaira vanishing — check the inputs are valid.';\n    } else {\n      const violation = h.slice(1).some(v => v !== 0);\n      if(violation) msg = 'L is NOT ample, and indeed Kodaira can fail: there is nonzero higher cohomology in the table.';\n      else msg = 'L is not ample, but the cohomology happens to vanish anyway. (Kodaira is sufficient but not necessary.)';\n    }\n    out.textContent = msg;\n  }\n\n  sn.addEventListener('input', render);\n  sd.addEventListener('input', render);\n  render();\n})();\n</script>",
+            "wrapperHasId": true
           }
         },
         {

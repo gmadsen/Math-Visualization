@@ -374,21 +374,17 @@ function drawNode(svg, x, y, label, opts={}){
   <div class="hd"><div class="ttl">$K_1$: from $GL_n$ to abelianized stable matrices</div><div class="hint">apply elementary row ops to a 2×2; watch the K₁ class collapse to the determinant</div></div>
   <div class="row">
     <label for="ak-k1-a">$a$ (off-diag scalar):</label>
-    <input id="ak-k1-a" type="range" min="-3" max="3" step="1" value="1">
+    <input type="range" id="ak-k1-a" min="-3" max="3" step="1" value="1">
     <span id="ak-k1-a-out" class="small"></span>
-  </div>
-  <div class="row">
     <label for="ak-k1-b">$b$ (off-diag scalar):</label>
-    <input id="ak-k1-b" type="range" min="-3" max="3" step="1" value="2">
+    <input type="range" id="ak-k1-b" min="-3" max="3" step="1" value="2">
     <span id="ak-k1-b-out" class="small"></span>
-  </div>
-  <div class="row">
     <label for="ak-k1-d">$d = \det$:</label>
-    <input id="ak-k1-d" type="range" min="-1" max="1" step="1" value="1">
+    <input type="range" id="ak-k1-d" min="-1" max="1" step="1" value="1">
     <span id="ak-k1-d-out" class="small"></span>
   </div>
   <svg id="ak-k1-svg" viewBox="-260 -130 520 260" width="100%" height="300"><title>Whitehead lemma: elementary row operations on a 2x2 collapse to det(A) in K1</title></svg>
-  <div id="ak-k1-out" class="readout"></div>
+  <div class="readout" id="ak-k1-out"></div>
 </div><script>
 (function(){
   const svg = document.getElementById('ak-k1-svg');
@@ -844,11 +840,11 @@ $$K_n(\mathcal{O}_F)\otimes\mathbb{Q} \cong \begin{cases} \mathbb{Q}^{r_1+r_2-1}
   <div class="hd"><div class="ttl">Localization sequence: $\mathbb{Z}\to\mathbb{Q}$ in low degrees</div><div class="hint">slide $n$ to walk along the long exact sequence; verify exactness at each term</div></div>
   <div class="row">
     <label for="ak-loc-n">degree $n$:</label>
-    <input id="ak-loc-n" type="range" min="0" max="3" step="1" value="1">
+    <input type="range" id="ak-loc-n" min="0" max="3" step="1" value="1">
     <span id="ak-loc-n-out" class="small"></span>
   </div>
   <svg id="ak-loc-svg" viewBox="-280 -140 560 280" width="100%" height="320"><title>Localization long exact sequence for Z to Q in degrees 0 through 3</title></svg>
-  <div id="ak-loc-out" class="readout"></div>
+  <div class="readout" id="ak-loc-out"></div>
 </div><script>
 (function(){
   const svg = document.getElementById('ak-loc-svg');

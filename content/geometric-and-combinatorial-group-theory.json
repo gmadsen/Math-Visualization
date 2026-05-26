@@ -159,12 +159,41 @@
         },
         {
           "type": "widget",
-          "slug": "gcg-grow",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "grow",
-            "title": "",
-            "hint": "",
-            "bodyMarkup": "<div class=\"widget\">\n  <div class=\"hd\"><div class=\"ttl\">Growth-function plot</div>\n    <div class=\"hint\">Toggle linear/log $y$-axis to see polynomial vs. exponential.</div></div>\n  <div class=\"row\">\n    <button id=\"grow-linear\" class=\"active\">linear $y$</button>\n    <button id=\"grow-log\">log $y$</button>\n    <label style=\"margin-left:1rem\">$n$ up to <input id=\"grow-N\" type=\"range\" min=\"6\" max=\"20\" step=\"1\" value=\"14\"></label>\n  </div>\n  <svg id=\"grow-svg\" viewBox=\"0 0 480 300\" width=\"540\" height=\"340\"><title>Growth-function plot</title></svg>\n  <div id=\"grow-readout\" class=\"readout\"></div>\n</div>",
+            "title": "Growth-function plot",
+            "hint": "Toggle linear/log $y$-axis to see polynomial vs. exponential.",
+            "controls": [
+              {
+                "type": "button",
+                "id": "grow-linear",
+                "text": "linear $y$",
+                "class": "active"
+              },
+              {
+                "type": "button",
+                "id": "grow-log",
+                "text": "log $y$"
+              },
+              {
+                "type": "slider",
+                "id": "grow-N",
+                "label": "$n$ up to",
+                "min": 6,
+                "max": 20,
+                "value": 14,
+                "step": 1,
+                "labelAttrs": " style=\"margin-left:1rem\""
+              }
+            ],
+            "svg": {
+              "id": "grow-svg",
+              "viewBox": "0 0 480 300",
+              "width": 540,
+              "height": 340
+            },
+            "readout": true,
             "bodyScript": "<script>\n(function(){\n  const svg = document.getElementById(\"grow-svg\");\n  const out = document.getElementById(\"grow-readout\");\n  const blin = document.getElementById(\"grow-linear\");\n  const blog = document.getElementById(\"grow-log\");\n  const N = document.getElementById(\"grow-N\");\n  let logmode = false;\n\n  function betaZ(n){ return 2*n+1; }                                  // ℤ\n  function betaZ2(n){ return 2*n*n + 2*n + 1; }                       // ℤ² (l1 ball)\n  function betaF2(n){ if(n===0) return 1; return 1 + 4*(Math.pow(3,n)-1)/2; } // 4-regular tree\n\n  function draw(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const w=480, h=300, margin=36;\n    const nmax = parseInt(N.value);\n    const series = [\n      {color:\"var(--blue)\",   name:\"ℤ ~ 2n+1\",       f:betaZ},\n      {color:\"var(--green)\",  name:\"ℤ² ~ 2n²+2n+1\",  f:betaZ2},\n      {color:\"var(--pink)\",   name:\"F₂ ~ 1+2(3ⁿ−1)\", f:betaF2},\n    ];\n    const ymax = Math.max(...series.map(s=>s.f(nmax)));\n    const sx = (n)=> margin + n/nmax*(w-2*margin);\n    const sy = (y)=> {\n      if(logmode){\n        const ly = Math.log(Math.max(1,y));\n        const lmax = Math.log(Math.max(1,ymax));\n        return h - margin - ly/lmax*(h-2*margin);\n      }\n      return h - margin - y/ymax*(h-2*margin);\n    };\n    // axes\n    svg.appendChild(SVG(\"line\",{x1:margin,y1:h-margin,x2:w-margin,y2:h-margin,stroke:\"var(--line)\"}));\n    svg.appendChild(SVG(\"line\",{x1:margin,y1:margin,x2:margin,y2:h-margin,stroke:\"var(--line)\"}));\n    const xl = SVG(\"text\",{x:w-margin,y:h-margin+18,\"text-anchor\":\"end\",\"font-size\":11,fill:\"var(--mute)\"});\n    xl.textContent = \"n\"; svg.appendChild(xl);\n    const yl = SVG(\"text\",{x:margin-6,y:margin,\"text-anchor\":\"end\",\"font-size\":11,fill:\"var(--mute)\"});\n    yl.textContent = logmode ? \"log β(n)\" : \"β(n)\"; svg.appendChild(yl);\n\n    // legend + curves\n    series.forEach((s,i)=>{\n      const pts = [];\n      for(let n=0;n<=nmax;n++){\n        pts.push(sx(n)+\",\"+sy(s.f(n)));\n      }\n      svg.appendChild(SVG(\"polyline\",{points:pts.join(\" \"),fill:\"none\",stroke:s.color,\"stroke-width\":2}));\n      const ly = margin + 14 + i*16;\n      svg.appendChild(SVG(\"line\",{x1:w-160,y1:ly,x2:w-140,y2:ly,stroke:s.color,\"stroke-width\":2}));\n      const t = SVG(\"text\",{x:w-135,y:ly+4,\"font-size\":11,fill:\"var(--mute)\"});\n      t.textContent = s.name; svg.appendChild(t);\n    });\n\n    out.textContent = \"n = \" + nmax + \":  β_ℤ = \" + betaZ(nmax) +\n      \"   β_ℤ² = \" + betaZ2(nmax) +\n      \"   β_F₂ = \" + betaF2(nmax) +\n      \"\\n\" + (logmode\n        ? \"log scale: exponential becomes a straight line; polynomials curve down.\"\n        : \"linear scale: F₂ blasts off, polynomials look flat by comparison.\");\n  }\n  blin.addEventListener(\"click\", ()=>{ logmode=false; blin.classList.add(\"active\"); blog.classList.remove(\"active\"); draw(); });\n  blog.addEventListener(\"click\", ()=>{ logmode=true; blog.classList.add(\"active\"); blin.classList.remove(\"active\"); draw(); });\n  N.addEventListener(\"input\", draw);\n  draw();\n})();\n</script>"
           }
         },
@@ -204,12 +233,41 @@
         },
         {
           "type": "widget",
-          "slug": "gcg-hyp",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "hyp",
-            "title": "",
-            "hint": "",
-            "bodyMarkup": "<div class=\"widget\">\n  <div class=\"hd\"><div class=\"ttl\">Thin triangles: hyperbolic vs. Euclidean</div>\n    <div class=\"hint\">Drag the slider to fatten the triangle; watch the $\\delta$-neighborhood width track curvature.</div></div>\n  <div class=\"row\">\n    <button id=\"hyp-euc\" class=\"active\">Euclidean</button>\n    <button id=\"hyp-hyp\">hyperbolic (Poincaré disk)</button>\n    <label style=\"margin-left:1rem\">size <input id=\"hyp-size\" type=\"range\" min=\"20\" max=\"180\" step=\"2\" value=\"120\"></label>\n  </div>\n  <svg id=\"hyp-svg\" viewBox=\"-200 -160 400 320\" width=\"500\" height=\"400\"><title>Thin triangles: hyperbolic vs. Euclidean</title></svg>\n  <div id=\"hyp-readout\" class=\"readout\"></div>\n</div>",
+            "title": "Thin triangles: hyperbolic vs. Euclidean",
+            "hint": "Drag the slider to fatten the triangle; watch the $\\delta$-neighborhood width track curvature.",
+            "controls": [
+              {
+                "type": "button",
+                "id": "hyp-euc",
+                "text": "Euclidean",
+                "class": "active"
+              },
+              {
+                "type": "button",
+                "id": "hyp-hyp",
+                "text": "hyperbolic (Poincaré disk)"
+              },
+              {
+                "type": "slider",
+                "id": "hyp-size",
+                "label": "size",
+                "min": 20,
+                "max": 180,
+                "value": 120,
+                "step": 2,
+                "labelAttrs": " style=\"margin-left:1rem\""
+              }
+            ],
+            "svg": {
+              "id": "hyp-svg",
+              "viewBox": "-200 -160 400 320",
+              "width": 500,
+              "height": 400
+            },
+            "readout": true,
             "bodyScript": "<script>\n(function(){\n  const svg = document.getElementById(\"hyp-svg\");\n  const out = document.getElementById(\"hyp-readout\");\n  const beuc = document.getElementById(\"hyp-euc\");\n  const bhyp = document.getElementById(\"hyp-hyp\");\n  const size = document.getElementById(\"hyp-size\");\n  let mode = \"euc\";\n\n  // Poincaré disk geodesic between two points inside unit disk:\n  // it's the arc of the circle through them perpendicular to the boundary.\n  // For drawing, we approximate by sampling the geodesic.\n  function geodHyp(p1, p2, R){\n    // Convert to disk-normalized coordinates ([-1,1]).\n    const a = [p1[0]/R, p1[1]/R], b = [p2[0]/R, p2[1]/R];\n    // Möbius transformation that sends a to 0; geodesic becomes straight line through 0.\n    function mob(z, c){\n      // (z - c) / (1 - conj(c) z); operating on R^2 as complex.\n      const cz = z[0]-c[0], cw = z[1]-c[1];\n      const dx = 1 - (c[0]*z[0] + c[1]*z[1]);\n      const dy = c[0]*z[1] - c[1]*z[0];\n      const den = dx*dx + dy*dy;\n      return [(cz*dx + cw*dy)/den, (cw*dx - cz*dy)/den];\n    }\n    function unmob(z, c){\n      // inverse: (z + c)/(1 + conj(c) z)\n      const cz = z[0]+c[0], cw = z[1]+c[1];\n      const dx = 1 + (c[0]*z[0] + c[1]*z[1]);\n      const dy = -c[0]*z[1] + c[1]*z[0];\n      const den = dx*dx + dy*dy;\n      return [(cz*dx + cw*dy)/den, (cw*dx - cz*dy)/den];\n    }\n    const bp = mob(b, a);\n    const pts = [];\n    for(let t=0;t<=1;t+=0.025){\n      const z = [bp[0]*t, bp[1]*t];\n      const w = unmob(z, a);\n      pts.push([w[0]*R, w[1]*R]);\n    }\n    return pts;\n  }\n\n  function draw(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const s = parseFloat(size.value);\n    if(mode===\"hyp\"){\n      // boundary circle\n      const R = 150;\n      svg.appendChild(SVG(\"circle\",{cx:0,cy:0,r:R,fill:\"none\",stroke:\"var(--line)\",\"stroke-dasharray\":\"3 4\"}));\n      // three vertices on disk\n      const r = Math.min(s/220 * R, R*0.85);\n      const A = [r*Math.cos(-Math.PI/2), r*Math.sin(-Math.PI/2)];\n      const B = [r*Math.cos(-Math.PI/2 + 2*Math.PI/3), r*Math.sin(-Math.PI/2 + 2*Math.PI/3)];\n      const C = [r*Math.cos(-Math.PI/2 + 4*Math.PI/3), r*Math.sin(-Math.PI/2 + 4*Math.PI/3)];\n      const ab = geodHyp(A,B,R), bc = geodHyp(B,C,R), ca = geodHyp(C,A,R);\n      const sides = [\n        {pts:ab, color:\"var(--yellow)\"},\n        {pts:bc, color:\"var(--blue)\"},\n        {pts:ca, color:\"var(--pink)\"},\n      ];\n      sides.forEach(side=>{\n        svg.appendChild(SVG(\"polyline\",{\n          points: side.pts.map(p=>p.join(\",\")).join(\" \"),\n          fill:\"none\", stroke:side.color, \"stroke-width\":2.5\n        }));\n      });\n      // δ-neighborhood: rough visualization — shade a ribbon of fixed Euclidean width 14 around two sides\n      // (illustrative only — actual hyperbolic neighborhood would scale by 1/(1-|z|²))\n      const delta = 14;\n      // bc and ca are raw point arrays (geodHyp returns []), not the\n      // {pts,color} side objects above — iterate them directly.\n      [bc, ca].forEach(pts=>{\n        for(let i=0;i<pts.length;i++){\n          svg.appendChild(SVG(\"circle\",{cx:pts[i][0],cy:pts[i][1],r:delta,\n            fill:\"var(--cyan)\",\"fill-opacity\":\"0.05\",\"stroke\":\"none\"}));\n        }\n      });\n      [A,B,C].forEach((P,i)=>{\n        svg.appendChild(SVG(\"circle\",{cx:P[0],cy:P[1],r:5,fill:\"#fff\",stroke:\"var(--ink)\"}));\n      });\n      out.textContent = \"Poincaré disk: geodesics are circular arcs perpendicular to the boundary. As triangle scales up, sides bow inward — the third side stays within a uniform δ ≈ log(1+√2) of the union of the other two.\";\n    } else {\n      const A = [0, -s/2];\n      const B = [-s*Math.sqrt(3)/2 + 0, s/2 - s/2 + s/2 * 0]; // ugh, just compute\n      const Bx = -s*Math.cos(Math.PI/6), By = s*Math.sin(Math.PI/6);\n      const Cx =  s*Math.cos(Math.PI/6), Cy = s*Math.sin(Math.PI/6);\n      const sides = [\n        {p:[A,[Bx,By]], color:\"var(--yellow)\"},\n        {p:[[Bx,By],[Cx,Cy]], color:\"var(--blue)\"},\n        {p:[[Cx,Cy],A], color:\"var(--pink)\"},\n      ];\n      // shade δ-neighborhood of two sides as fixed-width strip\n      const delta = 14;\n      [sides[1], sides[2]].forEach(side=>{\n        const [p,q] = side.p;\n        const dx=q[0]-p[0], dy=q[1]-p[1];\n        const L = Math.hypot(dx,dy);\n        const ux=dx/L, uy=dy/L;\n        const nx=-uy, ny=ux;\n        const poly = [\n          [p[0]+nx*delta,p[1]+ny*delta],\n          [q[0]+nx*delta,q[1]+ny*delta],\n          [q[0]-nx*delta,q[1]-ny*delta],\n          [p[0]-nx*delta,p[1]-ny*delta],\n        ];\n        svg.appendChild(SVG(\"polygon\",{points:poly.map(z=>z.join(\",\")).join(\" \"),\n          fill:\"var(--cyan)\",\"fill-opacity\":\"0.07\",stroke:\"none\"}));\n      });\n      sides.forEach(side=>{\n        const [p,q] = side.p;\n        svg.appendChild(SVG(\"line\",{x1:p[0],y1:p[1],x2:q[0],y2:q[1],stroke:side.color,\"stroke-width\":2.5}));\n      });\n      [A,[Bx,By],[Cx,Cy]].forEach(P=>{\n        svg.appendChild(SVG(\"circle\",{cx:P[0],cy:P[1],r:5,fill:\"#fff\",stroke:\"var(--ink)\"}));\n      });\n      // mark the midpoint of side 0 — it can be far from the other two sides\n      const mid = [(A[0]+Bx)/2, (A[1]+By)/2];\n      svg.appendChild(SVG(\"circle\",{cx:mid[0],cy:mid[1],r:4,fill:\"var(--yellow)\"}));\n      // distance from mid to nearest point on bottom side (between B and C)\n      const distToBC = Math.abs(mid[1] - By); // since BC is horizontal at y=By\n      const arrow = SVG(\"line\",{x1:mid[0],y1:mid[1],x2:mid[0],y2:By,\n        stroke:\"var(--mute)\",\"stroke-dasharray\":\"3 3\",\"stroke-width\":1});\n      svg.appendChild(arrow);\n      const t = SVG(\"text\",{x:mid[0]+8,y:mid[1]+15,\"font-size\":11,fill:\"var(--mute)\"});\n      t.textContent = \"gap ≈ \" + distToBC.toFixed(0) + \" px\";\n      svg.appendChild(t);\n      out.textContent = \"Euclidean: as the triangle grows, the gap between the midpoint of one side and the other two sides grows linearly. No uniform δ works — ℝ² is not hyperbolic.\";\n    }\n  }\n  beuc.addEventListener(\"click\", ()=>{ mode=\"euc\"; beuc.classList.add(\"active\"); bhyp.classList.remove(\"active\"); draw(); });\n  bhyp.addEventListener(\"click\", ()=>{ mode=\"hyp\"; bhyp.classList.add(\"active\"); beuc.classList.remove(\"active\"); draw(); });\n  size.addEventListener(\"input\", draw);\n  draw();\n})();\n</script>"
           }
         },

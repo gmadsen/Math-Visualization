@@ -479,13 +479,13 @@ $$\{\text{flat connections on } X\} \;\xleftrightarrow{\sim}\; \{\text{local sys
 
 <div class="widget" id="w-rh-circle">
   <div class="hd"><div class="ttl">Riemann-Hilbert on $\mathbb{C}^*$</div><div class="hint">drag — watch monodromy of $z^\alpha$ around the puncture</div></div>
-  <svg id="rh-svg" viewBox="0 0 720 360" width="720" height="360"><title>Monodromy of z^alpha on C*</title></svg>
   <div class="row">
     <label for="rh-a">$\alpha$ =</label>
-    <input type="range" id="rh-a" min="-2" max="2" step="0.05" value="0.33" />
+    <input type="range" id="rh-a" min="-2" max="2" step="0.05" value="0.33">
     <span id="rh-av" class="pill">$\alpha = 0.33$</span>
   </div>
-  <div class="readout" id="rh-out">$M = \mathcal{O}_{\mathbb{C}^*} \cdot z^\alpha$ as a $\mathcal{D}$-module: rank $1$, regular at $0, \infty$. The corresponding local system on $\mathbb{C}^*$ has monodromy $e^{2\pi i \alpha}$. Slide $\alpha$ to see the monodromy phase rotate.</div>
+  <svg id="rh-svg" viewBox="0 0 720 360" width="720" height="360"><title>Monodromy of z^alpha on C*</title></svg>
+  <div class="readout" id="rh-out"></div>
 </div>
 
 <p>On a higher-dimensional $X$ the equivalence is genuinely structural: not every perverse sheaf is a local system shifted (in fact the IC sheaf of a singular subvariety is perverse but not locally constant), and not every regular holonomic D-module comes from a connection — the simple objects are <em>conormal</em> to closed subvarieties, with a local system on the smooth locus. The correspondence is the precise statement that the data on each side is the same.</p>
@@ -535,16 +535,16 @@ $$M_{a,b,c} \;=\; \mathcal{D}_U / \mathcal{D}_U \cdot P_{a,b,c},$$
 
 <div class="widget" id="w-hyper">
   <div class="hd"><div class="ttl">Hypergeometric monodromy on $\mathbb{P}^1 \setminus \{0,1,\infty\}$</div><div class="hint">slide $a, c$ — see the eigenvalues at $0$ and $\infty$</div></div>
-  <svg id="hg-svg" viewBox="0 0 720 320" width="720" height="320"><title>Monodromy eigenvalues for the hypergeometric local system</title></svg>
   <div class="row">
     <label for="hg-a">$a$ =</label>
-    <input type="range" id="hg-a" min="-1" max="1" step="0.05" value="0.25" />
+    <input type="range" id="hg-a" min="-1" max="1" step="0.05" value="0.25">
     <span id="hg-av" class="pill">$a = 0.25$</span>
-    <label for="hg-c" style="margin-left:1rem">$c$ =</label>
-    <input type="range" id="hg-c" min="0.05" max="2" step="0.05" value="0.75" />
+    <label style="margin-left:1rem" for="hg-c">$c$ =</label>
+    <input type="range" id="hg-c" min="0.05" max="2" step="0.05" value="0.75">
     <span id="hg-cv" class="pill">$c = 0.75$</span>
   </div>
-  <div class="readout" id="hg-out">Fix $b = 1/2$. The plot shows the unit circle and marks the four eigenvalues of $\rho(\gamma_0), \rho(\gamma_\infty)$. When all four are distinct from $1$, the local system is irreducible.</div>
+  <svg id="hg-svg" viewBox="0 0 720 320" width="720" height="320"><title>Monodromy eigenvalues for the hypergeometric local system</title></svg>
+  <div class="readout" id="hg-out"></div>
 </div>
 
 <p>The hypergeometric example is the prototype of a vast machinery. Higher-rank generalisations include the <strong>GKZ hypergeometric system</strong> (Gelfand-Kapranov-Zelevinsky) attached to a polytope and the <strong>KZ system</strong> (Knizhnik-Zamolodchikov) attached to a Lie algebra and a configuration space. Both are holonomic D-modules whose solutions are integral representations, and Riemann-Hilbert turns them into representations of braid groups, mapping class groups, or the symmetric group.</p>

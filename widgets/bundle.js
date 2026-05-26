@@ -409,27 +409,6 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "ak-k1",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "ak-k1 widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"$K_1$: from $GL_n$ to abelianized stable matrices\" widget on the algebraic-k-theory-foundations topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"$K_1$: from $GL_n$ to abelianized stable matrices\" widget on `algebraic-k-theory-foundations`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "ak-k2",
     "family": "verbatim",
     "dimension": "2d",
@@ -445,27 +424,6 @@ window.__MVWidgets = [
       "bodyScript"
     ],
     "readmeExcerpt": "Bespoke verbatim slug for the \"$K_2$ symbol calculator: Steinberg relations on $\\mathbb{Q}^\\times$\" widget on `algebraic-k-theory-foundations`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "ak-loc",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "ak-loc widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Localization sequence: $\\mathbb{Z}\\to\\mathbb{Q}$ in low degrees\" widget on the algebraic-k-theory-foundations topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Localization sequence: $\\mathbb{Z}\\to\\mathbb{Q}$ in low degrees\" widget on `algebraic-k-theory-foundations`.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
@@ -1069,27 +1027,6 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "as-w1",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "as-w1 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the arithmetic-statistics topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `arithmetic-statistics` topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "as-w2",
     "family": "verbatim",
     "dimension": "2d",
@@ -1117,27 +1054,6 @@ window.__MVWidgets = [
     "gesture": "click",
     "role": "interactive",
     "title": "as-w3 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the arithmetic-statistics topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `arithmetic-statistics` topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "as-w4",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "as-w4 widget params",
     "description": "Verbatim-renderer slug for an inline widget on the arithmetic-statistics topic.",
     "requiredParams": [
       "widgetId",
@@ -4489,27 +4405,6 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "copt-duality",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "copt-duality widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Weak &amp; strong duality\" widget on the combinatorial-optimization topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Weak &amp; strong duality\" widget on `combinatorial-optimization`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "copt-flow",
     "family": "verbatim",
     "dimension": "2d",
@@ -4525,27 +4420,6 @@ window.__MVWidgets = [
       "bodyScript"
     ],
     "readmeExcerpt": "Bespoke verbatim slug for the \"Max-flow / min-cut\" widget on `combinatorial-optimization`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "copt-lp-poly",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "copt-lp-poly widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"2D feasibility polytope\" widget on the combinatorial-optimization topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"2D feasibility polytope\" widget on `combinatorial-optimization`.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
@@ -5221,48 +5095,6 @@ window.__MVWidgets = [
     "gesture": "click",
     "role": "interactive",
     "title": "d-modules-w3 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the d-modules topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `d-modules` topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "d-modules-w4",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "d-modules-w4 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the d-modules topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `d-modules` topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "d-modules-w5",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "d-modules-w5 widget params",
     "description": "Verbatim-renderer slug for an inline widget on the d-modules topic.",
     "requiredParams": [
       "widgetId",
@@ -8037,48 +7869,6 @@ window.__MVWidgets = [
       "bodyScript"
     ],
     "readmeExcerpt": "Bespoke verbatim slug for the \"Decision-problem solvability map\" widget on `geometric-and-combinatorial-group-theory`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "gcg-grow",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "gcg-grow widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Growth-function plot\" widget on the geometric-and-combinatorial-group-theory topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs and re-derived meta by scripts/fixup-verbatim-widget-meta.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Growth-function plot\" widget on `geometric-and-combinatorial-group-theory`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "gcg-hyp",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "gcg-hyp widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Thin triangles: hyperbolic vs. Euclidean\" widget on the geometric-and-combinatorial-group-theory topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs and re-derived meta by scripts/fixup-verbatim-widget-meta.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Thin triangles: hyperbolic vs. Euclidean\" widget on `geometric-and-combinatorial-group-theory`.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
@@ -14160,27 +13950,6 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "positivity-and-ample-line-bundles-w1",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "positivity-and-ample-line-bundles-w1 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the positivity-and-ample-line-bundles topic. Carries opaque bodyMarkup + bodyScript strings so byte-identical round-trip stays intact.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `positivity-and-ample-line-bundles` topic. Uses the shared verbatim renderer at `widgets/_shared/verbatim-renderer.mjs`; `bodyMarkup` + `bodyScript` are full opaque strings.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "positivity-and-ample-line-bundles-w2",
     "family": "verbatim",
     "dimension": "2d",
@@ -14229,48 +13998,6 @@ window.__MVWidgets = [
     "gesture": "click",
     "role": "interactive",
     "title": "positivity-and-ample-line-bundles-w4 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the positivity-and-ample-line-bundles topic. Carries opaque bodyMarkup + bodyScript strings so byte-identical round-trip stays intact.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `positivity-and-ample-line-bundles` topic. Uses the shared verbatim renderer at `widgets/_shared/verbatim-renderer.mjs`; `bodyMarkup` + `bodyScript` are full opaque strings.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "positivity-and-ample-line-bundles-w5",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "positivity-and-ample-line-bundles-w5 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the positivity-and-ample-line-bundles topic. Carries opaque bodyMarkup + bodyScript strings so byte-identical round-trip stays intact.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `positivity-and-ample-line-bundles` topic. Uses the shared verbatim renderer at `widgets/_shared/verbatim-renderer.mjs`; `bodyMarkup` + `bodyScript` are full opaque strings.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "positivity-and-ample-line-bundles-w6",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "positivity-and-ample-line-bundles-w6 widget params",
     "description": "Verbatim-renderer slug for an inline widget on the positivity-and-ample-line-bundles topic. Carries opaque bodyMarkup + bodyScript strings so byte-identical round-trip stays intact.",
     "requiredParams": [
       "widgetId",

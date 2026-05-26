@@ -131,13 +131,41 @@
         },
         {
           "type": "widget",
-          "slug": "d-modules-w4",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-rh-circle",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-rh-circle\">\n  <div class=\"hd\"><div class=\"ttl\">Riemann-Hilbert on $\\mathbb{C}^*$</div><div class=\"hint\">drag — watch monodromy of $z^\\alpha$ around the puncture</div></div>\n  <svg id=\"rh-svg\" viewBox=\"0 0 720 360\" width=\"720\" height=\"360\"><title>Monodromy of z^alpha on C*</title></svg>\n  <div class=\"row\">\n    <label for=\"rh-a\">$\\alpha$ =</label>\n    <input type=\"range\" id=\"rh-a\" min=\"-2\" max=\"2\" step=\"0.05\" value=\"0.33\" />\n    <span id=\"rh-av\" class=\"pill\">$\\alpha = 0.33$</span>\n  </div>\n  <div class=\"readout\" id=\"rh-out\">$M = \\mathcal{O}_{\\mathbb{C}^*} \\cdot z^\\alpha$ as a $\\mathcal{D}$-module: rank $1$, regular at $0, \\infty$. The corresponding local system on $\\mathbb{C}^*$ has monodromy $e^{2\\pi i \\alpha}$. Slide $\\alpha$ to see the monodromy phase rotate.</div>\n</div>",
-            "bodyScript": "",
             "title": "Riemann-Hilbert on $\\mathbb{C}^*$",
-            "hint": "drag — watch monodromy of $z^\\alpha$ around the puncture"
+            "hint": "drag — watch monodromy of $z^\\alpha$ around the puncture",
+            "controls": [
+              {
+                "type": "slider",
+                "id": "rh-a",
+                "label": "$\\alpha$ =",
+                "min": -2,
+                "max": 2,
+                "value": 0.33,
+                "format": "separate",
+                "step": 0.05
+              },
+              {
+                "type": "span",
+                "id": "rh-av",
+                "class": "pill",
+                "text": "$\\alpha = 0.33$"
+              }
+            ],
+            "svg": {
+              "id": "rh-svg",
+              "viewBox": "0 0 720 360",
+              "width": 720,
+              "height": 360,
+              "title": "Monodromy of z^alpha on C*"
+            },
+            "readout": {
+              "id": "rh-out"
+            },
+            "bodyScript": "",
+            "wrapperHasId": true
           }
         },
         {
@@ -172,13 +200,58 @@
         },
         {
           "type": "widget",
-          "slug": "d-modules-w5",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-hyper",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-hyper\">\n  <div class=\"hd\"><div class=\"ttl\">Hypergeometric monodromy on $\\mathbb{P}^1 \\setminus \\{0,1,\\infty\\}$</div><div class=\"hint\">slide $a, c$ — see the eigenvalues at $0$ and $\\infty$</div></div>\n  <svg id=\"hg-svg\" viewBox=\"0 0 720 320\" width=\"720\" height=\"320\"><title>Monodromy eigenvalues for the hypergeometric local system</title></svg>\n  <div class=\"row\">\n    <label for=\"hg-a\">$a$ =</label>\n    <input type=\"range\" id=\"hg-a\" min=\"-1\" max=\"1\" step=\"0.05\" value=\"0.25\" />\n    <span id=\"hg-av\" class=\"pill\">$a = 0.25$</span>\n    <label for=\"hg-c\" style=\"margin-left:1rem\">$c$ =</label>\n    <input type=\"range\" id=\"hg-c\" min=\"0.05\" max=\"2\" step=\"0.05\" value=\"0.75\" />\n    <span id=\"hg-cv\" class=\"pill\">$c = 0.75$</span>\n  </div>\n  <div class=\"readout\" id=\"hg-out\">Fix $b = 1/2$. The plot shows the unit circle and marks the four eigenvalues of $\\rho(\\gamma_0), \\rho(\\gamma_\\infty)$. When all four are distinct from $1$, the local system is irreducible.</div>\n</div>",
-            "bodyScript": "",
             "title": "Hypergeometric monodromy on $\\mathbb{P}^1 \\setminus \\{0,1,\\infty\\}$",
-            "hint": "slide $a, c$ — see the eigenvalues at $0$ and $\\infty$"
+            "hint": "slide $a, c$ — see the eigenvalues at $0$ and $\\infty$",
+            "controls": [
+              {
+                "type": "slider",
+                "id": "hg-a",
+                "label": "$a$ =",
+                "min": -1,
+                "max": 1,
+                "value": 0.25,
+                "format": "separate",
+                "step": 0.05
+              },
+              {
+                "type": "span",
+                "id": "hg-av",
+                "class": "pill",
+                "text": "$a = 0.25$"
+              },
+              {
+                "type": "slider",
+                "id": "hg-c",
+                "label": "$c$ =",
+                "min": 0.05,
+                "max": 2,
+                "value": 0.75,
+                "format": "separate",
+                "step": 0.05,
+                "labelAttrs": " style=\"margin-left:1rem\""
+              },
+              {
+                "type": "span",
+                "id": "hg-cv",
+                "class": "pill",
+                "text": "$c = 0.75$"
+              }
+            ],
+            "svg": {
+              "id": "hg-svg",
+              "viewBox": "0 0 720 320",
+              "width": 720,
+              "height": 320,
+              "title": "Monodromy eigenvalues for the hypergeometric local system"
+            },
+            "readout": {
+              "id": "hg-out"
+            },
+            "bodyScript": "",
+            "wrapperHasId": true
           }
         },
         {

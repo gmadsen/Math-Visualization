@@ -276,13 +276,13 @@ $$H^0(X, \mathcal{O}_X(D)) \;=\; \{\, f \in k(X)^\times : \mathrm{div}(f) + D \g
 
 <div class="widget" id="w-divisor-explorer">
   <div class="hd"><div class="ttl">Linear systems on $\mathbb{P}^1$</div><div class="hint">drag the slider — count the sections of $\mathcal{O}(d)$</div></div>
-  <svg id="div-svg" viewBox="0 0 720 240" width="720" height="240"><title>Linear systems on the projective line</title></svg>
   <div class="row">
     <label for="div-d">$d$ =</label>
-    <input type="range" id="div-d" min="-3" max="6" step="1" value="2" />
+    <input type="range" id="div-d" min="-3" max="6" step="1" value="2">
     <span id="div-d-val" class="pill">d = 2</span>
   </div>
-  <div class="readout" id="div-out">Pick a degree $d$. The widget displays a basis of $H^0(\mathbb{P}^1, \mathcal{O}(d))$ and the divisor of a generic section.</div>
+  <svg id="div-svg" viewBox="0 0 720 240" width="720" height="240"><title>Linear systems on the projective line</title></svg>
+  <div class="readout" id="div-out"></div>
 </div>
 
 <p>The Picard group is the foundation: from here, every positivity notion is a constraint we can place on a class $[L] \in \mathrm{Pic}(X)$.</p>
@@ -909,13 +909,13 @@ $$\varphi_{L^{\otimes n}}\colon X \to \mathbb{P}\bigl(H^0(X, L^{\otimes n})^\vee
 
 <div class="widget" id="w-kodaira">
   <div class="hd"><div class="ttl">Kodaira map for $\mathbb{P}^1$</div><div class="hint">drag $n$ — see how high a power is needed for a clean embedding</div></div>
-  <svg id="kod-svg" viewBox="0 0 720 280" width="720" height="280"><title>Kodaira map for the projective line</title></svg>
   <div class="row">
     <label for="kod-n">$n =$</label>
-    <input type="range" id="kod-n" min="1" max="6" step="1" value="2" />
+    <input type="range" id="kod-n" min="1" max="6" step="1" value="2">
     <span id="kod-n-val" class="pill">n = 2</span>
   </div>
-  <div class="readout" id="kod-out">For $L = \mathcal{O}(1)$ on $\mathbb{P}^1$, the map $\varphi_{L^{\otimes n}}$ embeds $\mathbb{P}^1$ as a degree-$n$ curve in $\mathbb{P}^n$.</div>
+  <svg id="kod-svg" viewBox="0 0 720 280" width="720" height="280"><title>Kodaira map for the projective line</title></svg>
+  <div class="readout" id="kod-out"></div>
 </div>
 
 <p>Kodaira's theorem is the deepest reason "ample" is the right notion. Algebraic ampleness was defined by counting sections; complex-analytic positivity was defined by curvature; both measure the same thing. The proof, originally Kodaira's, runs through the vanishing theorem of the next section: a positive line bundle has enough sections precisely because its higher cohomology can be killed.</p>
@@ -1038,14 +1038,14 @@ $$H^i(X, K_X + \lceil L \rceil) \;=\; 0 \quad \text{for all } i > 0.$$
   <div class="hd"><div class="ttl">Kodaira vanishing on $\mathbb{P}^n$</div><div class="hint">$K_{\mathbb{P}^n} = \mathcal{O}(-n-1)$ — pick $n, d$, see the table</div></div>
   <div class="row">
     <label for="v-n">dim $n$ =</label>
-    <input type="range" id="v-n" min="1" max="5" step="1" value="2" />
+    <input type="range" id="v-n" min="1" max="5" step="1" value="2">
     <span id="v-n-val" class="pill">n = 2</span>
     <label for="v-d">degree $d$ =</label>
-    <input type="range" id="v-d" min="-3" max="6" step="1" value="1" />
+    <input type="range" id="v-d" min="-3" max="6" step="1" value="1">
     <span id="v-d-val" class="pill">d = 1</span>
   </div>
   <svg id="van-svg" viewBox="0 0 720 200" width="720" height="200"><title>Kodaira vanishing table on projective space</title></svg>
-  <div class="readout" id="van-out">Choose $n$ and $d$. The cohomology $H^i(\mathbb{P}^n, K \otimes \mathcal{O}(d))$ is highlighted. Green means Kodaira applies and the entry vanishes.</div>
+  <div class="readout" id="van-out"></div>
 </div>
 
 <p>The applications cascade. Kodaira's vanishing immediately implies: surjectivity of restriction maps for ample line bundles (reading off the long exact sequence of $0 \to L \otimes \mathcal{O}(-D) \to L \to L|_D \to 0$); base-point-freeness for sufficiently positive $L$ (Reider's theorem on surfaces, Fujita conjecture in higher dimensions); and the entire engine of the MMP, where every contraction step is justified by a vanishing application that controls how cohomology behaves under birational moves.</p>
