@@ -326,11 +326,15 @@ function parseVerbatimMarkup(bodyMarkup, normalize) {
     /<svg\s+id="([^"]+)"\s+viewBox="([^"]+)"\s+width="([^"]+)"\s+height="([^"]+)">/
   );
   if (!svgMatch) throw new Error('could not parse <svg> open tag');
+  // width/height: numeric px OR a responsive percent string ("100%"). Keep the
+  // original string when it isn't a clean round-trippable number, so byte-identity
+  // holds for both `width="360"` and `width="100%"` (schema allows number|percent).
+  const dim = (s) => { const n = Number(s); return (Number.isFinite(n) && String(n) === s) ? n : s; };
   const svg = {
     id: svgMatch[1],
     viewBox: svgMatch[2],
-    width: Number(svgMatch[3]),
-    height: Number(svgMatch[4]),
+    width: dim(svgMatch[3]),
+    height: dim(svgMatch[4]),
   };
   // Extract the SVG <title>...</title> text; preserve as override when
   // it differs from the page header title (corpus convention — see
@@ -350,7 +354,15 @@ function parseVerbatimMarkup(bodyMarkup, normalize) {
   }
 
   // Readout: either `<div class="readout" id="...-readout"></div>` or absent.
-  const readoutMatch = bodyMarkup.match(/<div class="readout" id="([^"]+)"><\/div>/);
+  // Readout div. Strict mode: must be EMPTY (the renderer emits an empty
+  // readout, so initial text could never round-trip byte-identically).
+  // Normalize mode: also accept a readout with placeholder text — the
+  // renderer emits it empty and the driving script repopulates it on first
+  // draw, so the text is a discardable placeholder; what matters is the div
+  // (with its id) exists for the script to bind.
+  const readoutMatch = normalize
+    ? bodyMarkup.match(/<div class="readout" id="([^"]+)">[\s\S]*?<\/div>/)
+    : bodyMarkup.match(/<div class="readout" id="([^"]+)"><\/div>/);
   let readout = false;
   if (readoutMatch) {
     const expectedId = svg.id.endsWith('-svg') ? svg.id.slice(0, -4) + '-readout' : null;

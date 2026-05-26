@@ -21,7 +21,7 @@ page has wired one in yet.
 | `button-stepper` | button-stepper | click | 2d | 343 | L-functions, additive-number-theory, adeles-and-ideles, algebra, algebraic-number-theory, algebraic-topology, analytic-continuation, bezout, bsd, category-theory, class-field-theory, complex-analysis, differential-geometry, dirichlet-series-euler-products, dynamical-systems, etale-cohomology, frobenius-and-reciprocity, functional-analysis, functor-of-points, galois, galois-representations, hecke-operators, homological, lie-groups, measure-theory, modular-forms, modularity-and-flt, moduli-spaces, moonshine, morphisms-fiber-products, naive-set-theory, operator-algebras, p-adic-numbers, partitions-generating-functions, point-set-topology, probability-theory, projective-plane, quadratic-forms-genus-theory, quadratic-reciprocity, representation-theory, riemann-surfaces, riemannian-geometry, sato-tate, schemes, sheaf-cohomology, sheaves, singular-cubics-reduction, smooth-manifolds, stacks, theta-functions, upper-half-plane-hyperbolic, zeta-values |
 | `parametric-plot` | parametric-plot | slider | 2d | 107 | algebraic-combinatorics, analytic-continuation, analytic-number-theory, causal-inference, deep-learning-theory, diffusion-and-score-based-models, expanders, game-theory, graph-theory-fundamentals, information-geometry, kernel-methods-and-rkhs, markov-decision-processes, order-theory-and-lattices, polytopes-and-ehrhart, pomdps-and-belief-states, probabilistic-graphical-models, ramsey-theory, reinforcement-learning, statistical-learning-theory |
 | `clickable-diagram` | clickable-diagram | click | 2d | 79 | algebra, algebraic-number-theory, algebraic-topology, bezout, category-theory, fixed-point-theorems, frobenius-and-reciprocity, functional-analysis, functor-of-points, galois, homological, measure-theory, morphisms-fiber-products, naive-set-theory, operator-algebras, quadratic-reciprocity, real-analysis, riemannian-geometry, schemes, sheaves, stacks, wavelets |
-| `slider-svg-2d` | slider-readout | slider | 2d | 30 | convex-optimization, kahler-geometry, mathematical-biology, spectral-methods-data, spectral-theory |
+| `slider-svg-2d` | slider-readout | slider | 2d | 36 | convex-optimization, kahler-geometry, mathematical-biology, spectral-methods-data, spectral-theory, statistical-mechanics |
 | `schrodinger-figure` | schrodinger-figure | slider | 2d | 7 | schrodinger-equation |
 | `clickable-graph` | clickable-graph | click | 2d | 6 | adeles-and-ideles, riemannian-geometry, schemes, sheaves |
 | `hamiltonians-figure` | hamiltonians-figure | interact | 2d | 6 | hamiltonians-classical-mechanics |
@@ -885,13 +885,7 @@ page has wired one in yet.
 | `simplicial-sets-nerve-2simplex` | clickable-diagram | click | 2d | 1 | simplicial-sets-and-nerve |
 | `simplicial-sets-realization-stepper` | button-stepper | step | 2d | 1 | simplicial-sets-and-nerve |
 | `singular-cubics-minimal-model` | singular-cubics-minimal-model | slider | 2d | 1 | singular-cubics-reduction |
-| `sm-boltz` | verbatim | slider | 2d | 1 | statistical-mechanics |
-| `sm-cramer` | verbatim | slider | 2d | 1 | statistical-mechanics |
-| `sm-gibbs` | verbatim | slider | 2d | 1 | statistical-mechanics |
-| `sm-ising` | verbatim | slider | 2d | 1 | statistical-mechanics |
 | `sm-manifold-gallery` | sm-manifold-gallery | click | 2d | 1 | smooth-manifolds |
-| `sm-occ` | verbatim | slider | 2d | 1 | statistical-mechanics |
-| `sm-phase` | verbatim | slider | 2d | 1 | statistical-mechanics |
 | `sm-rg` | verbatim | click | 2d | 1 | statistical-mechanics |
 | `sobolev-embedding-exponent` | sobolev-embedding-exponent | slider | 2d | 1 | sobolev-spaces-distributions |
 | `sobolev-fractional-power` | sobolev-fractional-power | slider | 2d | 1 | sobolev-spaces-distributions |
@@ -1114,7 +1108,7 @@ page has wired one in yet.
 
 - Topics: **11**, concepts: **69**
 - Widgets: **70** (registry-driven: 70, inline: 0)
-  - by family: verbatim: 45, schrodinger-figure: 7, hamiltonians-figure: 6, general-relativity-light-cones: 1, general-relativity-einstein: 1, general-relativity-schwarzschild: 1, general-relativity-kerr: 1, general-relativity-cosmology: 1, general-relativity-gw: 1, three-body-nbody-simulator: 1, three-body-lagrange-points: 1, three-body-special-solutions: 1, three-body-horseshoe: 1, three-body-kam-tori: 1, three-body-halo-orbits: 1
+  - by family: verbatim: 39, schrodinger-figure: 7, slider-readout: 6, hamiltonians-figure: 6, general-relativity-light-cones: 1, general-relativity-einstein: 1, general-relativity-schwarzschild: 1, general-relativity-kerr: 1, general-relativity-cosmology: 1, general-relativity-gw: 1, three-body-nbody-simulator: 1, three-body-lagrange-points: 1, three-body-special-solutions: 1, three-body-horseshoe: 1, three-body-kam-tori: 1, three-body-halo-orbits: 1
   - by dimension: 2d: 70
   - by gesture: slider: 47, click: 14, interact: 7, drag: 1, select: 1
 - Quizzes: **208** (v1: 208, hard: 0, expert: 0)

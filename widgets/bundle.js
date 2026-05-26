@@ -18022,90 +18022,6 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "sm-boltz",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "sm-boltz widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Boltzmann distribution on a 4-level system\" widget on the statistical-mechanics topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs and re-derived meta by scripts/fixup-verbatim-widget-meta.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Boltzmann distribution on a 4-level system\" widget on `statistical-mechanics`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "sm-cramer",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "sm-cramer widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Cramér rate function for Bernoulli($p=1/2$)\" widget on the statistical-mechanics topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs and re-derived meta by scripts/fixup-verbatim-widget-meta.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Cramér rate function for Bernoulli($p=1/2$)\" widget on `statistical-mechanics`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "sm-gibbs",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "sm-gibbs widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Maximum-entropy fitting\" widget on the statistical-mechanics topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs and re-derived meta by scripts/fixup-verbatim-widget-meta.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Maximum-entropy fitting\" widget on `statistical-mechanics`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "sm-ising",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "sm-ising widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"2D Ising — Metropolis\" widget on the statistical-mechanics topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs and re-derived meta by scripts/fixup-verbatim-widget-meta.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"2D Ising — Metropolis\" widget on `statistical-mechanics`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "sm-manifold-gallery",
     "family": "sm-manifold-gallery",
     "dimension": "2d",
@@ -18118,48 +18034,6 @@ window.__MVWidgets = [
       "title"
     ],
     "readmeExcerpt": "Bespoke module for **smooth-manifolds** §2 (Examples: spheres, projective spaces, matrix groups). A zoo of the canonical smooth manifolds with their dimensions and properties.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "sm-occ",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "sm-occ widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Ideal-gas occupation curves\" widget on the statistical-mechanics topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs and re-derived meta by scripts/fixup-verbatim-widget-meta.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Ideal-gas occupation curves\" widget on `statistical-mechanics`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "sm-phase",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "sm-phase widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Phase portrait of a harmonic oscillator\" widget on the statistical-mechanics topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs and re-derived meta by scripts/fixup-verbatim-widget-meta.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Phase portrait of a harmonic oscillator\" widget on `statistical-mechanics`.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
