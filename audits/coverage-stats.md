@@ -21,7 +21,7 @@ page has wired one in yet.
 | `button-stepper` | button-stepper | click | 2d | 343 | L-functions, additive-number-theory, adeles-and-ideles, algebra, algebraic-number-theory, algebraic-topology, analytic-continuation, bezout, bsd, category-theory, class-field-theory, complex-analysis, differential-geometry, dirichlet-series-euler-products, dynamical-systems, etale-cohomology, frobenius-and-reciprocity, functional-analysis, functor-of-points, galois, galois-representations, hecke-operators, homological, lie-groups, measure-theory, modular-forms, modularity-and-flt, moduli-spaces, moonshine, morphisms-fiber-products, naive-set-theory, operator-algebras, p-adic-numbers, partitions-generating-functions, point-set-topology, probability-theory, projective-plane, quadratic-forms-genus-theory, quadratic-reciprocity, representation-theory, riemann-surfaces, riemannian-geometry, sato-tate, schemes, sheaf-cohomology, sheaves, singular-cubics-reduction, smooth-manifolds, stacks, theta-functions, upper-half-plane-hyperbolic, zeta-values |
 | `parametric-plot` | parametric-plot | slider | 2d | 107 | algebraic-combinatorics, analytic-continuation, analytic-number-theory, causal-inference, deep-learning-theory, diffusion-and-score-based-models, expanders, game-theory, graph-theory-fundamentals, information-geometry, kernel-methods-and-rkhs, markov-decision-processes, order-theory-and-lattices, polytopes-and-ehrhart, pomdps-and-belief-states, probabilistic-graphical-models, ramsey-theory, reinforcement-learning, statistical-learning-theory |
 | `clickable-diagram` | clickable-diagram | click | 2d | 79 | algebra, algebraic-number-theory, algebraic-topology, bezout, category-theory, fixed-point-theorems, frobenius-and-reciprocity, functional-analysis, functor-of-points, galois, homological, measure-theory, morphisms-fiber-products, naive-set-theory, operator-algebras, quadratic-reciprocity, real-analysis, riemannian-geometry, schemes, sheaves, stacks, wavelets |
-| `slider-svg-2d` | slider-readout | slider | 2d | 25 | kahler-geometry, mathematical-biology, spectral-methods-data, spectral-theory |
+| `slider-svg-2d` | slider-readout | slider | 2d | 30 | convex-optimization, kahler-geometry, mathematical-biology, spectral-methods-data, spectral-theory |
 | `schrodinger-figure` | schrodinger-figure | slider | 2d | 7 | schrodinger-equation |
 | `clickable-graph` | clickable-graph | click | 2d | 6 | adeles-and-ideles, riemannian-geometry, schemes, sheaves |
 | `hamiltonians-figure` | hamiltonians-figure | interact | 2d | 6 | hamiltonians-classical-mechanics |
@@ -287,13 +287,8 @@ page has wired one in yet.
 | `ct-w5` | verbatim | click | 2d | 1 | coding-theory |
 | `ct-w6` | verbatim | click | 2d | 1 | coding-theory |
 | `ct-w7` | verbatim | click | 2d | 1 | coding-theory |
-| `cv-w-central` | verbatim | slider | 2d | 1 | convex-optimization |
 | `cv-w-epigraph` | verbatim | slider | 2d | 1 | convex-optimization |
-| `cv-w-gw` | verbatim | slider | 2d | 1 | convex-optimization |
-| `cv-w-kkt` | verbatim | slider | 2d | 1 | convex-optimization |
-| `cv-w-sgd` | verbatim | slider | 2d | 1 | convex-optimization |
 | `cv-w-slater` | verbatim | slider | 2d | 1 | convex-optimization |
-| `cv-w-subgrad` | verbatim | slider | 2d | 1 | convex-optimization |
 | `d-modules-w1` | verbatim | click | 2d | 1 | d-modules |
 | `d-modules-w2` | verbatim | click | 2d | 1 | d-modules |
 | `d-modules-w3` | verbatim | click | 2d | 1 | d-modules |
@@ -1129,7 +1124,7 @@ page has wired one in yet.
 
 - Topics: **9**, concepts: **58**
 - Widgets: **59** (registry-driven: 59, inline: 0)
-  - by family: verbatim: 34, parametric-plot: 24, inline-code-cell: 1
+  - by family: verbatim: 29, parametric-plot: 24, slider-readout: 5, inline-code-cell: 1
   - by dimension: 2d: 59
   - by gesture: slider: 49, click: 6, select: 2, scrub: 1, edit: 1
 - Quizzes: **174** (v1: 174, hard: 0, expert: 0)
