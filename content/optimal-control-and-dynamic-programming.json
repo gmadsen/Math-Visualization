@@ -12,13 +12,58 @@
         },
         {
           "type": "widget",
-          "slug": "oc-reach",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-reach",
             "title": "Reachable set of a double integrator",
             "hint": "drag T &amp; bound · watch the funnel sweep",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-reach\">\n  <div class=\"hd\"><div class=\"ttl\">Reachable set of a double integrator</div><div class=\"hint\">drag T &amp; bound · watch the funnel sweep</div></div>\n  <svg id=\"reach-svg\" viewBox=\"0 0 580 320\" width=\"580\" height=\"320\"><title>Reachable set in (position, velocity) of a double integrator with bounded control</title></svg>\n  <div class=\"row\">\n    <label for=\"reach-T\">horizon $T$</label>\n    <input type=\"range\" id=\"reach-T\" min=\"0.5\" max=\"3\" step=\"0.05\" value=\"1.5\">\n    <span class=\"readout\" id=\"reach-T-out\" style=\"min-width:90px;flex:0 0 auto\">T = 1.50</span>\n  </div>\n  <div class=\"row\">\n    <label for=\"reach-U\">bound $|u|\\le u_{\\max}$</label>\n    <input type=\"range\" id=\"reach-U\" min=\"0.2\" max=\"2\" step=\"0.05\" value=\"1\">\n    <span class=\"readout\" id=\"reach-U-out\" style=\"min-width:90px;flex:0 0 auto\">u_max = 1.00</span>\n  </div>\n  <div class=\"readout\" id=\"reach-out\"></div>\n  <div class=\"note small\">Plant $\\ddot q = u$, $|u|\\le u_{\\max}$, started at the origin. The reachable set in $(q,\\dot q)$ at time $T$ is a parallelogram-like region traced by all admissible inputs. The two extremal corners come from bang-bang controls $u\\equiv +u_{\\max}$ and $u\\equiv -u_{\\max}$ (Pontryagin already at work). The yellow filled region is $\\mathcal{R}_T(0)$ sampled by random piecewise-constant $u(\\cdot)$; the cyan outline is the exact boundary (a quadratic curve in $(q,\\dot q)$).</div>\n</div>",
-            "bodyScript": "<script>\n/* ============================ §1 reachable-set widget ============================ */\n(function(){\n  const svg = $(\"#reach-svg\"), TS=$(\"#reach-T\"), TO=$(\"#reach-T-out\"),\n        US=$(\"#reach-U\"), UO=$(\"#reach-U-out\"), out=$(\"#reach-out\");\n  const W=580, H=320, padL=46, padR=20, padT=20, padB=40;\n  function plant(T, umax){\n    // double integrator with |u|<=umax, x(0)=0, xdot(0)=0\n    // reachable set boundary: for x = (q, qdot)\n    // Apply bang-bang u=+/-umax over a fraction s of the horizon, then switch.\n    // Resulting (q, qdot) sweeps the boundary as the switch time varies.\n    const pts = [];\n    const N = 60;\n    for(let i=0;i<=N;i++){\n      const s = i/N; // switch fraction\n      // u = +umax on [0, sT], -umax on [sT, T]: qdot(T) = umax*sT - umax*(T-sT) = umax*(2s-1)*T\n      // q(T) = ... computed below\n      const t1 = s*T, t2 = T - t1;\n      // segment 1: qdot = umax*t, q = umax*t^2/2; ends at (q1, qdot1)\n      const q1 = umax*t1*t1/2, qd1 = umax*t1;\n      // segment 2: qdot = qd1 - umax*tau, q = q1 + qd1*tau - umax*tau^2/2; tau in [0,t2]\n      const q2 = q1 + qd1*t2 - umax*t2*t2/2;\n      const qd2 = qd1 - umax*t2;\n      pts.push([q2, qd2]);\n    }\n    // mirror by swapping signs of u (symmetric boundary)\n    const all = pts.concat(pts.slice().reverse().map(p=>[-p[0],-p[1]]));\n    return all;\n  }\n  function sample(T, umax){\n    // sample interior with piecewise-constant random u\n    const pts = [];\n    for(let k=0;k<200;k++){\n      let q=0, qd=0;\n      const steps = 8;\n      const dt = T/steps;\n      for(let i=0;i<steps;i++){\n        const u = umax*(2*Math.random()-1);\n        q += qd*dt + 0.5*u*dt*dt;\n        qd += u*dt;\n      }\n      pts.push([q,qd]);\n    }\n    return pts;\n  }\n  function render(){\n    svg.innerHTML = \"\";\n    const T = parseFloat(TS.value), umax = parseFloat(US.value);\n    TO.textContent = `T = ${T.toFixed(2)}`;\n    UO.textContent = `u_max = ${umax.toFixed(2)}`;\n    const bnd = plant(T, umax);\n    const smp = sample(T, umax);\n    // determine plot range from boundary\n    let xmin=Infinity, xmax=-Infinity, ymin=Infinity, ymax=-Infinity;\n    for(const p of bnd){\n      if(p[0]<xmin) xmin=p[0]; if(p[0]>xmax) xmax=p[0];\n      if(p[1]<ymin) ymin=p[1]; if(p[1]>ymax) ymax=p[1];\n    }\n    const pad = 0.2;\n    const dx=(xmax-xmin)||1, dy=(ymax-ymin)||1;\n    xmin -= pad*dx; xmax += pad*dx; ymin -= pad*dy; ymax += pad*dy;\n    const sx = x => padL + (x-xmin)/(xmax-xmin)*(W-padL-padR);\n    const sy = y => padT + (ymax-y)/(ymax-ymin)*(H-padT-padB);\n    // frame\n    svg.appendChild(SVG(\"rect\",{x:padL,y:padT,width:W-padL-padR,height:H-padT-padB,\n      fill:\"none\",stroke:\"var(--line)\"}));\n    // axes through origin\n    svg.appendChild(SVG(\"line\",{x1:padL,y1:sy(0),x2:W-padR,y2:sy(0),\n      stroke:\"var(--line)\",\"stroke-dasharray\":\"2,3\"}));\n    svg.appendChild(SVG(\"line\",{x1:sx(0),y1:padT,x2:sx(0),y2:H-padB,\n      stroke:\"var(--line)\",\"stroke-dasharray\":\"2,3\"}));\n    // axis labels\n    const xl = SVG(\"text\",{x:W-padR-6, y:sy(0)-6, \"text-anchor\":\"end\",\"font-size\":11,fill:\"var(--mute)\"});\n    xl.textContent = \"position q\"; svg.appendChild(xl);\n    const yl = SVG(\"text\",{x:sx(0)+6, y:padT+12, \"text-anchor\":\"start\",\"font-size\":11,fill:\"var(--mute)\"});\n    yl.textContent = \"velocity dq/dt\"; svg.appendChild(yl);\n    // sampled interior\n    const g = SVG(\"g\",{fill:\"var(--yellow)\",\"fill-opacity\":0.35});\n    for(const p of smp){\n      g.appendChild(SVG(\"circle\",{cx:sx(p[0]),cy:sy(p[1]),r:1.8}));\n    }\n    svg.appendChild(g);\n    // boundary\n    const d = bnd.map((p,i)=>`${i===0?\"M\":\"L\"}${sx(p[0])} ${sy(p[1])}`).join(\" \")+\" Z\";\n    svg.appendChild(SVG(\"path\",{d, fill:\"none\", stroke:\"var(--cyan)\",\"stroke-width\":1.8}));\n    // legend\n    const lg = SVG(\"text\",{x:padL+10,y:padT+16,\"font-size\":11,fill:\"var(--cyan)\"});\n    lg.textContent = \"boundary ∂R_T(0)\"; svg.appendChild(lg);\n    const lg2 = SVG(\"text\",{x:padL+10,y:padT+30,\"font-size\":11,fill:\"var(--yellow)\"});\n    lg2.textContent = \"sampled interior\"; svg.appendChild(lg2);\n    out.textContent = `reachable set at T=${T.toFixed(2)}: q ∈ [${xmin.toFixed(2)}, ${xmax.toFixed(2)}], dq/dt ∈ [${ymin.toFixed(2)}, ${ymax.toFixed(2)}]    corners reached by bang-bang u = ±u_max`;\n  }\n  TS.addEventListener(\"input\", render);\n  US.addEventListener(\"input\", render);\n  render();\n})();\n</script>"
+            "controls": [
+              {
+                "type": "slider",
+                "id": "reach-T",
+                "label": "horizon $T$",
+                "min": 0.5,
+                "max": 3,
+                "value": 1.5,
+                "format": "separate",
+                "step": 0.05
+              },
+              {
+                "type": "span",
+                "id": "reach-T-out",
+                "class": "readout",
+                "text": "T = 1.50"
+              },
+              {
+                "type": "slider",
+                "id": "reach-U",
+                "label": "bound $|u|\\le u_{\\max}$",
+                "min": 0.2,
+                "max": 2,
+                "value": 1,
+                "format": "separate",
+                "step": 0.05
+              },
+              {
+                "type": "span",
+                "id": "reach-U-out",
+                "class": "readout",
+                "text": "u_max = 1.00"
+              }
+            ],
+            "svg": {
+              "id": "reach-svg",
+              "viewBox": "0 0 580 320",
+              "width": 580,
+              "height": 320,
+              "title": "Reachable set in (position, velocity) of a double integrator with bounded control"
+            },
+            "readout": {
+              "id": "reach-out"
+            },
+            "bodyScript": "<script>\n/* ============================ §1 reachable-set widget ============================ */\n(function(){\n  const svg = $(\"#reach-svg\"), TS=$(\"#reach-T\"), TO=$(\"#reach-T-out\"),\n        US=$(\"#reach-U\"), UO=$(\"#reach-U-out\"), out=$(\"#reach-out\");\n  const W=580, H=320, padL=46, padR=20, padT=20, padB=40;\n  function plant(T, umax){\n    // double integrator with |u|<=umax, x(0)=0, xdot(0)=0\n    // reachable set boundary: for x = (q, qdot)\n    // Apply bang-bang u=+/-umax over a fraction s of the horizon, then switch.\n    // Resulting (q, qdot) sweeps the boundary as the switch time varies.\n    const pts = [];\n    const N = 60;\n    for(let i=0;i<=N;i++){\n      const s = i/N; // switch fraction\n      // u = +umax on [0, sT], -umax on [sT, T]: qdot(T) = umax*sT - umax*(T-sT) = umax*(2s-1)*T\n      // q(T) = ... computed below\n      const t1 = s*T, t2 = T - t1;\n      // segment 1: qdot = umax*t, q = umax*t^2/2; ends at (q1, qdot1)\n      const q1 = umax*t1*t1/2, qd1 = umax*t1;\n      // segment 2: qdot = qd1 - umax*tau, q = q1 + qd1*tau - umax*tau^2/2; tau in [0,t2]\n      const q2 = q1 + qd1*t2 - umax*t2*t2/2;\n      const qd2 = qd1 - umax*t2;\n      pts.push([q2, qd2]);\n    }\n    // mirror by swapping signs of u (symmetric boundary)\n    const all = pts.concat(pts.slice().reverse().map(p=>[-p[0],-p[1]]));\n    return all;\n  }\n  function sample(T, umax){\n    // sample interior with piecewise-constant random u\n    const pts = [];\n    for(let k=0;k<200;k++){\n      let q=0, qd=0;\n      const steps = 8;\n      const dt = T/steps;\n      for(let i=0;i<steps;i++){\n        const u = umax*(2*Math.random()-1);\n        q += qd*dt + 0.5*u*dt*dt;\n        qd += u*dt;\n      }\n      pts.push([q,qd]);\n    }\n    return pts;\n  }\n  function render(){\n    svg.innerHTML = \"\";\n    const T = parseFloat(TS.value), umax = parseFloat(US.value);\n    TO.textContent = `T = ${T.toFixed(2)}`;\n    UO.textContent = `u_max = ${umax.toFixed(2)}`;\n    const bnd = plant(T, umax);\n    const smp = sample(T, umax);\n    // determine plot range from boundary\n    let xmin=Infinity, xmax=-Infinity, ymin=Infinity, ymax=-Infinity;\n    for(const p of bnd){\n      if(p[0]<xmin) xmin=p[0]; if(p[0]>xmax) xmax=p[0];\n      if(p[1]<ymin) ymin=p[1]; if(p[1]>ymax) ymax=p[1];\n    }\n    const pad = 0.2;\n    const dx=(xmax-xmin)||1, dy=(ymax-ymin)||1;\n    xmin -= pad*dx; xmax += pad*dx; ymin -= pad*dy; ymax += pad*dy;\n    const sx = x => padL + (x-xmin)/(xmax-xmin)*(W-padL-padR);\n    const sy = y => padT + (ymax-y)/(ymax-ymin)*(H-padT-padB);\n    // frame\n    svg.appendChild(SVG(\"rect\",{x:padL,y:padT,width:W-padL-padR,height:H-padT-padB,\n      fill:\"none\",stroke:\"var(--line)\"}));\n    // axes through origin\n    svg.appendChild(SVG(\"line\",{x1:padL,y1:sy(0),x2:W-padR,y2:sy(0),\n      stroke:\"var(--line)\",\"stroke-dasharray\":\"2,3\"}));\n    svg.appendChild(SVG(\"line\",{x1:sx(0),y1:padT,x2:sx(0),y2:H-padB,\n      stroke:\"var(--line)\",\"stroke-dasharray\":\"2,3\"}));\n    // axis labels\n    const xl = SVG(\"text\",{x:W-padR-6, y:sy(0)-6, \"text-anchor\":\"end\",\"font-size\":11,fill:\"var(--mute)\"});\n    xl.textContent = \"position q\"; svg.appendChild(xl);\n    const yl = SVG(\"text\",{x:sx(0)+6, y:padT+12, \"text-anchor\":\"start\",\"font-size\":11,fill:\"var(--mute)\"});\n    yl.textContent = \"velocity dq/dt\"; svg.appendChild(yl);\n    // sampled interior\n    const g = SVG(\"g\",{fill:\"var(--yellow)\",\"fill-opacity\":0.35});\n    for(const p of smp){\n      g.appendChild(SVG(\"circle\",{cx:sx(p[0]),cy:sy(p[1]),r:1.8}));\n    }\n    svg.appendChild(g);\n    // boundary\n    const d = bnd.map((p,i)=>`${i===0?\"M\":\"L\"}${sx(p[0])} ${sy(p[1])}`).join(\" \")+\" Z\";\n    svg.appendChild(SVG(\"path\",{d, fill:\"none\", stroke:\"var(--cyan)\",\"stroke-width\":1.8}));\n    // legend\n    const lg = SVG(\"text\",{x:padL+10,y:padT+16,\"font-size\":11,fill:\"var(--cyan)\"});\n    lg.textContent = \"boundary ∂R_T(0)\"; svg.appendChild(lg);\n    const lg2 = SVG(\"text\",{x:padL+10,y:padT+30,\"font-size\":11,fill:\"var(--yellow)\"});\n    lg2.textContent = \"sampled interior\"; svg.appendChild(lg2);\n    out.textContent = `reachable set at T=${T.toFixed(2)}: q ∈ [${xmin.toFixed(2)}, ${xmax.toFixed(2)}], dq/dt ∈ [${ymin.toFixed(2)}, ${ymax.toFixed(2)}]    corners reached by bang-bang u = ±u_max`;\n  }\n  TS.addEventListener(\"input\", render);\n  US.addEventListener(\"input\", render);\n  render();\n})();\n</script>",
+            "wrapperHasId": true,
+            "trailingProse": "Plant $\\ddot q = u$, $|u|\\le u_{\\max}$, started at the origin. The reachable set in $(q,\\dot q)$ at time $T$ is a parallelogram-like region traced by all admissible inputs. The two extremal corners come from bang-bang controls $u\\equiv +u_{\\max}$ and $u\\equiv -u_{\\max}$ (Pontryagin already at work). The yellow filled region is $\\mathcal{R}_T(0)$ sampled by random piecewise-constant $u(\\cdot)$; the cyan outline is the exact boundary (a quadratic curve in $(q,\\dot q)$)."
           }
         },
         {
@@ -135,13 +180,58 @@
         },
         {
           "type": "widget",
-          "slug": "oc-hjb",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-hjb",
             "title": "HJB value function: target-reaching in 1D",
             "hint": "slide $T$ · watch $V(x,t)$ propagate backward",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-hjb\">\n  <div class=\"hd\"><div class=\"ttl\">HJB value function: target-reaching in 1D</div><div class=\"hint\">slide $T$ · watch $V(x,t)$ propagate backward</div></div>\n  <svg id=\"hjb-svg\" viewBox=\"0 0 580 320\" width=\"580\" height=\"320\"><title>HJB value function plotted versus state x for various times t</title></svg>\n  <div class=\"row\">\n    <label for=\"hjb-T\">horizon $T$</label>\n    <input type=\"range\" id=\"hjb-T\" min=\"0.3\" max=\"2.5\" step=\"0.05\" value=\"1\">\n    <span class=\"readout\" id=\"hjb-T-out\" style=\"min-width:90px;flex:0 0 auto\">T = 1.00</span>\n  </div>\n  <div class=\"row\">\n    <label for=\"hjb-t\">time slice $t$</label>\n    <input type=\"range\" id=\"hjb-t\" min=\"0\" max=\"1\" step=\"0.02\" value=\"0\">\n    <span class=\"readout\" id=\"hjb-t-out\" style=\"min-width:90px;flex:0 0 auto\">t/T = 0.00</span>\n  </div>\n  <div class=\"readout\" id=\"hjb-out\"></div>\n  <div class=\"note small\">Plant $\\dot x=u$, $u\\in[-1,1]$. Running cost $L=u^2/2$, terminal cost $\\Phi(x)=x^2/2$. The HJB equation $-V_t = \\min_u\\{L + V_x u\\} = -V_x^2/2$ on $|V_x|\\le 1$ has closed form $V(x,t)=x^2/(2(1+(T-t)))$. Yellow: $V(x,t)$ at the selected slice. Cyan dashed: $V(x,T)=\\Phi(x)$. The curve flattens as $t$ moves away from $T$ — every state becomes cheap when you have more horizon to spend.</div>\n</div>",
-            "bodyScript": "<script>\n/* ============================ §4 HJB value-function widget ============================ */\n(function(){\n  const svg = $(\"#hjb-svg\"), TS=$(\"#hjb-T\"), TO=$(\"#hjb-T-out\"),\n        tS=$(\"#hjb-t\"), tO=$(\"#hjb-t-out\"), out=$(\"#hjb-out\");\n  const W=580, H=320, padL=46, padR=20, padT=20, padB=40;\n  function V(x, t, T){\n    // closed-form HJB solution for: xdot=u, |u|<=1, L=u^2/2, Phi(x)=x^2/2\n    // V(x,t) = x^2 / (2 * (1 + (T-t)))  on its quadratic regime\n    const tau = T - t;\n    return x*x/(2*(1+tau));\n  }\n  function render(){\n    svg.innerHTML = \"\";\n    const T = parseFloat(TS.value);\n    const frac = parseFloat(tS.value);\n    const t = frac*T;\n    TO.textContent = `T = ${T.toFixed(2)}`;\n    tO.textContent = `t/T = ${frac.toFixed(2)}`;\n    const xmin=-3, xmax=3, ymin=0, ymax=4.5;\n    const sx = x => padL + (x-xmin)/(xmax-xmin)*(W-padL-padR);\n    const sy = y => padT + (ymax-y)/(ymax-ymin)*(H-padT-padB);\n    svg.appendChild(SVG(\"rect\",{x:padL,y:padT,width:W-padL-padR,height:H-padT-padB,\n      fill:\"none\",stroke:\"var(--line)\"}));\n    svg.appendChild(SVG(\"line\",{x1:padL,y1:sy(0),x2:W-padR,y2:sy(0),stroke:\"var(--line)\",\"stroke-dasharray\":\"2,3\"}));\n    svg.appendChild(SVG(\"line\",{x1:sx(0),y1:padT,x2:sx(0),y2:H-padB,stroke:\"var(--line)\",\"stroke-dasharray\":\"2,3\"}));\n    // terminal V(x,T) = Phi\n    let d1 = \"\";\n    for(let i=0;i<=120;i++){\n      const x = xmin + i*(xmax-xmin)/120;\n      const v = V(x, T, T); // = x^2/2\n      d1 += (i===0?\"M\":\"L\") + sx(x) + \" \" + sy(v) + \" \";\n    }\n    svg.appendChild(SVG(\"path\",{d:d1,fill:\"none\",stroke:\"var(--cyan)\",\"stroke-width\":1.5,\"stroke-dasharray\":\"5,3\"}));\n    // intermediate slices (faint)\n    for(let kk=1;kk<5;kk++){\n      const tk = T*(1-kk*0.2);\n      let dk = \"\";\n      for(let i=0;i<=120;i++){\n        const x = xmin + i*(xmax-xmin)/120;\n        const v = V(x, tk, T);\n        dk += (i===0?\"M\":\"L\") + sx(x) + \" \" + sy(v) + \" \";\n      }\n      svg.appendChild(SVG(\"path\",{d:dk,fill:\"none\",stroke:\"var(--violet)\",\"stroke-width\":1,\"stroke-opacity\":0.35}));\n    }\n    // current V(x, t)\n    let d2 = \"\";\n    for(let i=0;i<=120;i++){\n      const x = xmin + i*(xmax-xmin)/120;\n      const v = V(x, t, T);\n      d2 += (i===0?\"M\":\"L\") + sx(x) + \" \" + sy(v) + \" \";\n    }\n    svg.appendChild(SVG(\"path\",{d:d2,fill:\"none\",stroke:\"var(--yellow)\",\"stroke-width\":2.2}));\n    // legend\n    const l1 = SVG(\"text\",{x:padL+10,y:padT+16,\"font-size\":11,fill:\"var(--yellow)\"});\n    l1.textContent = `V(x, t)  at t = ${t.toFixed(2)}`; svg.appendChild(l1);\n    const l2 = SVG(\"text\",{x:padL+10,y:padT+30,\"font-size\":11,fill:\"var(--cyan)\"});\n    l2.textContent = \"V(x, T) = Φ(x) = x²/2\"; svg.appendChild(l2);\n    const l3 = SVG(\"text\",{x:padL+10,y:padT+44,\"font-size\":11,fill:\"var(--violet)\"});\n    l3.textContent = \"intermediate slices\"; svg.appendChild(l3);\n    // x-axis labels\n    for(const xt of [-3,-2,-1,0,1,2,3]){\n      svg.appendChild(SVG(\"line\",{x1:sx(xt),y1:H-padB,x2:sx(xt),y2:H-padB+4,stroke:\"var(--mute)\"}));\n      const tk = SVG(\"text\",{x:sx(xt),y:H-padB+16,\"text-anchor\":\"middle\",\"font-size\":11,fill:\"var(--mute)\"});\n      tk.textContent = xt; svg.appendChild(tk);\n    }\n    const xl = SVG(\"text\",{x:W-padR-6,y:sy(0)-6,\"text-anchor\":\"end\",\"font-size\":11,fill:\"var(--mute)\"});\n    xl.textContent = \"state x\"; svg.appendChild(xl);\n    const yl = SVG(\"text\",{x:sx(0)+6,y:padT+12,\"font-size\":11,fill:\"var(--mute)\"});\n    yl.textContent = \"value V\"; svg.appendChild(yl);\n    const u_at_1 = -V(1, t, T)*2/(1+0.0001)*0; // optimal u = -V_x = -x/(1+(T-t)) (clipped to [-1,1])\n    const optU = function(x){ const raw = -x/(1+(T-t)); return Math.max(-1,Math.min(1,raw)); };\n    out.textContent = `V(0, t) = 0    V(±1, t) = ${V(1,t,T).toFixed(4)}    V(±2, t) = ${V(2,t,T).toFixed(4)}    u*(x=1, t) = ${optU(1).toFixed(4)}    u*(x=2, t) = ${optU(2).toFixed(4)}`;\n  }\n  TS.addEventListener(\"input\", render);\n  tS.addEventListener(\"input\", render);\n  render();\n})();\n</script>"
+            "controls": [
+              {
+                "type": "slider",
+                "id": "hjb-T",
+                "label": "horizon $T$",
+                "min": 0.3,
+                "max": 2.5,
+                "value": 1,
+                "format": "separate",
+                "step": 0.05
+              },
+              {
+                "type": "span",
+                "id": "hjb-T-out",
+                "class": "readout",
+                "text": "T = 1.00"
+              },
+              {
+                "type": "slider",
+                "id": "hjb-t",
+                "label": "time slice $t$",
+                "min": 0,
+                "max": 1,
+                "value": 0,
+                "format": "separate",
+                "step": 0.02
+              },
+              {
+                "type": "span",
+                "id": "hjb-t-out",
+                "class": "readout",
+                "text": "t/T = 0.00"
+              }
+            ],
+            "svg": {
+              "id": "hjb-svg",
+              "viewBox": "0 0 580 320",
+              "width": 580,
+              "height": 320,
+              "title": "HJB value function plotted versus state x for various times t"
+            },
+            "readout": {
+              "id": "hjb-out"
+            },
+            "bodyScript": "<script>\n/* ============================ §4 HJB value-function widget ============================ */\n(function(){\n  const svg = $(\"#hjb-svg\"), TS=$(\"#hjb-T\"), TO=$(\"#hjb-T-out\"),\n        tS=$(\"#hjb-t\"), tO=$(\"#hjb-t-out\"), out=$(\"#hjb-out\");\n  const W=580, H=320, padL=46, padR=20, padT=20, padB=40;\n  function V(x, t, T){\n    // closed-form HJB solution for: xdot=u, |u|<=1, L=u^2/2, Phi(x)=x^2/2\n    // V(x,t) = x^2 / (2 * (1 + (T-t)))  on its quadratic regime\n    const tau = T - t;\n    return x*x/(2*(1+tau));\n  }\n  function render(){\n    svg.innerHTML = \"\";\n    const T = parseFloat(TS.value);\n    const frac = parseFloat(tS.value);\n    const t = frac*T;\n    TO.textContent = `T = ${T.toFixed(2)}`;\n    tO.textContent = `t/T = ${frac.toFixed(2)}`;\n    const xmin=-3, xmax=3, ymin=0, ymax=4.5;\n    const sx = x => padL + (x-xmin)/(xmax-xmin)*(W-padL-padR);\n    const sy = y => padT + (ymax-y)/(ymax-ymin)*(H-padT-padB);\n    svg.appendChild(SVG(\"rect\",{x:padL,y:padT,width:W-padL-padR,height:H-padT-padB,\n      fill:\"none\",stroke:\"var(--line)\"}));\n    svg.appendChild(SVG(\"line\",{x1:padL,y1:sy(0),x2:W-padR,y2:sy(0),stroke:\"var(--line)\",\"stroke-dasharray\":\"2,3\"}));\n    svg.appendChild(SVG(\"line\",{x1:sx(0),y1:padT,x2:sx(0),y2:H-padB,stroke:\"var(--line)\",\"stroke-dasharray\":\"2,3\"}));\n    // terminal V(x,T) = Phi\n    let d1 = \"\";\n    for(let i=0;i<=120;i++){\n      const x = xmin + i*(xmax-xmin)/120;\n      const v = V(x, T, T); // = x^2/2\n      d1 += (i===0?\"M\":\"L\") + sx(x) + \" \" + sy(v) + \" \";\n    }\n    svg.appendChild(SVG(\"path\",{d:d1,fill:\"none\",stroke:\"var(--cyan)\",\"stroke-width\":1.5,\"stroke-dasharray\":\"5,3\"}));\n    // intermediate slices (faint)\n    for(let kk=1;kk<5;kk++){\n      const tk = T*(1-kk*0.2);\n      let dk = \"\";\n      for(let i=0;i<=120;i++){\n        const x = xmin + i*(xmax-xmin)/120;\n        const v = V(x, tk, T);\n        dk += (i===0?\"M\":\"L\") + sx(x) + \" \" + sy(v) + \" \";\n      }\n      svg.appendChild(SVG(\"path\",{d:dk,fill:\"none\",stroke:\"var(--violet)\",\"stroke-width\":1,\"stroke-opacity\":0.35}));\n    }\n    // current V(x, t)\n    let d2 = \"\";\n    for(let i=0;i<=120;i++){\n      const x = xmin + i*(xmax-xmin)/120;\n      const v = V(x, t, T);\n      d2 += (i===0?\"M\":\"L\") + sx(x) + \" \" + sy(v) + \" \";\n    }\n    svg.appendChild(SVG(\"path\",{d:d2,fill:\"none\",stroke:\"var(--yellow)\",\"stroke-width\":2.2}));\n    // legend\n    const l1 = SVG(\"text\",{x:padL+10,y:padT+16,\"font-size\":11,fill:\"var(--yellow)\"});\n    l1.textContent = `V(x, t)  at t = ${t.toFixed(2)}`; svg.appendChild(l1);\n    const l2 = SVG(\"text\",{x:padL+10,y:padT+30,\"font-size\":11,fill:\"var(--cyan)\"});\n    l2.textContent = \"V(x, T) = Φ(x) = x²/2\"; svg.appendChild(l2);\n    const l3 = SVG(\"text\",{x:padL+10,y:padT+44,\"font-size\":11,fill:\"var(--violet)\"});\n    l3.textContent = \"intermediate slices\"; svg.appendChild(l3);\n    // x-axis labels\n    for(const xt of [-3,-2,-1,0,1,2,3]){\n      svg.appendChild(SVG(\"line\",{x1:sx(xt),y1:H-padB,x2:sx(xt),y2:H-padB+4,stroke:\"var(--mute)\"}));\n      const tk = SVG(\"text\",{x:sx(xt),y:H-padB+16,\"text-anchor\":\"middle\",\"font-size\":11,fill:\"var(--mute)\"});\n      tk.textContent = xt; svg.appendChild(tk);\n    }\n    const xl = SVG(\"text\",{x:W-padR-6,y:sy(0)-6,\"text-anchor\":\"end\",\"font-size\":11,fill:\"var(--mute)\"});\n    xl.textContent = \"state x\"; svg.appendChild(xl);\n    const yl = SVG(\"text\",{x:sx(0)+6,y:padT+12,\"font-size\":11,fill:\"var(--mute)\"});\n    yl.textContent = \"value V\"; svg.appendChild(yl);\n    const u_at_1 = -V(1, t, T)*2/(1+0.0001)*0; // optimal u = -V_x = -x/(1+(T-t)) (clipped to [-1,1])\n    const optU = function(x){ const raw = -x/(1+(T-t)); return Math.max(-1,Math.min(1,raw)); };\n    out.textContent = `V(0, t) = 0    V(±1, t) = ${V(1,t,T).toFixed(4)}    V(±2, t) = ${V(2,t,T).toFixed(4)}    u*(x=1, t) = ${optU(1).toFixed(4)}    u*(x=2, t) = ${optU(2).toFixed(4)}`;\n  }\n  TS.addEventListener(\"input\", render);\n  tS.addEventListener(\"input\", render);\n  render();\n})();\n</script>",
+            "wrapperHasId": true,
+            "trailingProse": "Plant $\\dot x=u$, $u\\in[-1,1]$. Running cost $L=u^2/2$, terminal cost $\\Phi(x)=x^2/2$. The HJB equation $-V_t = \\min_u\\{L + V_x u\\} = -V_x^2/2$ on $|V_x|\\le 1$ has closed form $V(x,t)=x^2/(2(1+(T-t)))$. Yellow: $V(x,t)$ at the selected slice. Cyan dashed: $V(x,T)=\\Phi(x)$. The curve flattens as $t$ moves away from $T$ — every state becomes cheap when you have more horizon to spend."
           }
         },
         {
@@ -176,13 +266,74 @@
         },
         {
           "type": "widget",
-          "slug": "oc-lqr",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-lqr",
             "title": "1D LQR: Riccati ODE phase &amp; closed-loop spectrum",
             "hint": "slide $q,r$ · watch the Riccati flow and the feedback gain",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-lqr\">\n  <div class=\"hd\"><div class=\"ttl\">1D LQR: Riccati ODE phase &amp; closed-loop spectrum</div><div class=\"hint\">slide $q,r$ · watch the Riccati flow and the feedback gain</div></div>\n  <svg id=\"lqr-svg\" viewBox=\"0 0 580 320\" width=\"580\" height=\"320\"><title>Riccati ODE solution and closed-loop pole for 1D LQR</title></svg>\n  <div class=\"row\">\n    <label for=\"lqr-a\">$A$ (drift)</label>\n    <input type=\"range\" id=\"lqr-a\" min=\"-2\" max=\"2\" step=\"0.05\" value=\"0.5\">\n    <span class=\"readout\" id=\"lqr-a-out\" style=\"min-width:60px;flex:0 0 auto\">A = 0.50</span>\n  </div>\n  <div class=\"row\">\n    <label for=\"lqr-q\">$Q$ (state weight)</label>\n    <input type=\"range\" id=\"lqr-q\" min=\"0.1\" max=\"5\" step=\"0.1\" value=\"1\">\n    <span class=\"readout\" id=\"lqr-q-out\" style=\"min-width:60px;flex:0 0 auto\">Q = 1.0</span>\n  </div>\n  <div class=\"row\">\n    <label for=\"lqr-r\">$R$ (control cost)</label>\n    <input type=\"range\" id=\"lqr-r\" min=\"0.05\" max=\"5\" step=\"0.05\" value=\"1\">\n    <span class=\"readout\" id=\"lqr-r-out\" style=\"min-width:60px;flex:0 0 auto\">R = 1.0</span>\n  </div>\n  <div class=\"readout\" id=\"lqr-out\"></div>\n  <div class=\"note small\">Scalar plant $\\dot x = Ax + u$, cost $\\int (Qx^2 + Ru^2)/2\\,dt$. Riccati: $-\\dot P = 2AP - P^2/R + Q$. Yellow: backward-integrated $P(t)$ from $P(T)=0$; the curve always converges to the algebraic-Riccati root $\\bar P = R(A + \\sqrt{A^2+Q/R})$. Cyan: closed-loop pole $A_{\\rm cl} = A - \\bar P / R$ on the real line (always strictly negative ⇒ stable, as promised).</div>\n</div>",
-            "bodyScript": "<script>\n/* ============================ §5 LQR Riccati widget ============================ */\n(function(){\n  const svg = $(\"#lqr-svg\"), aS=$(\"#lqr-a\"), aO=$(\"#lqr-a-out\"),\n        qS=$(\"#lqr-q\"), qO=$(\"#lqr-q-out\"),\n        rS=$(\"#lqr-r\"), rO=$(\"#lqr-r-out\"), out=$(\"#lqr-out\");\n  const W=580, H=320, padL=50, padR=20, padT=20, padB=80;\n  function render(){\n    svg.innerHTML = \"\";\n    const A = parseFloat(aS.value), Q = parseFloat(qS.value), R = parseFloat(rS.value);\n    aO.textContent = `A = ${A.toFixed(2)}`;\n    qO.textContent = `Q = ${Q.toFixed(1)}`;\n    rO.textContent = `R = ${R.toFixed(1)}`;\n    // Riccati: -dP/dt = 2AP - P^2/R + Q, P(T)=0, T=4.\n    // Reparametrise with s = T - t (elapsed time); ds = -dt gives dP/ds = +(2AP - P^2/R + Q),\n    // and P(T)=0 becomes P(s=0)=0 — a standard forward IVP in s. Plot is P vs s.\n    const T = 4, N = 400, ds = T/N;\n    const Ps = [0];\n    let P = 0;\n    for(let i=0;i<N;i++){\n      // forward step in s = T − t: dP/ds = 2AP - P^2/R + Q\n      const rhs = 2*A*P - P*P/R + Q;\n      // Heun (improved Euler)\n      const Pmid = P + rhs*ds;\n      const rhs2 = 2*A*Pmid - Pmid*Pmid/R + Q;\n      P = P + ds*(rhs + rhs2)/2;\n      Ps.push(P);\n    }\n    const Pbar = R*(A + Math.sqrt(A*A + Q/R));\n    const Acl = A - Pbar/R;\n    // plot Ps vs integration time (so it starts at 0 and approaches Pbar)\n    const pmax = Math.max(Pbar*1.1, ...Ps)+0.01;\n    const pmin = 0;\n    const sx = t => padL + t/T*(W-padL-padR);\n    const sy = p => padT + (pmax-p)/(pmax-pmin)*(H-padT-padB);\n    svg.appendChild(SVG(\"rect\",{x:padL,y:padT,width:W-padL-padR,height:H-padT-padB,\n      fill:\"none\",stroke:\"var(--line)\"}));\n    // axis ticks\n    for(let i=0;i<=4;i++){\n      const tt = i*T/4;\n      svg.appendChild(SVG(\"line\",{x1:sx(tt),y1:H-padB,x2:sx(tt),y2:H-padB+4,stroke:\"var(--mute)\"}));\n      const tk = SVG(\"text\",{x:sx(tt),y:H-padB+16,\"text-anchor\":\"middle\",\"font-size\":11,fill:\"var(--mute)\"});\n      tk.textContent = tt.toFixed(1); svg.appendChild(tk);\n    }\n    const xl = SVG(\"text\",{x:W-padR-6,y:H-padB+30,\"text-anchor\":\"end\",\"font-size\":11,fill:\"var(--mute)\"});\n    xl.textContent = \"integration time (T − t)\"; svg.appendChild(xl);\n    // Pbar dashed line\n    svg.appendChild(SVG(\"line\",{x1:padL,y1:sy(Pbar),x2:W-padR,y2:sy(Pbar),\n      stroke:\"var(--cyan)\",\"stroke-width\":1,\"stroke-dasharray\":\"4,3\"}));\n    const lc = SVG(\"text\",{x:W-padR-6,y:sy(Pbar)-4,\"font-size\":11,fill:\"var(--cyan)\",\"text-anchor\":\"end\"});\n    lc.textContent = `P̄ = ${Pbar.toFixed(4)}`; svg.appendChild(lc);\n    // P(s) curve, s = T − t\n    let d = \"\";\n    for(let i=0;i<Ps.length;i++){\n      const ss = i*ds;\n      d += (i===0?\"M\":\"L\") + sx(ss) + \" \" + sy(Ps[i]) + \" \";\n    }\n    svg.appendChild(SVG(\"path\",{d,fill:\"none\",stroke:\"var(--yellow)\",\"stroke-width\":2}));\n    const ly = SVG(\"text\",{x:padL+10,y:padT+16,\"font-size\":11,fill:\"var(--yellow)\"});\n    ly.textContent = \"P(s) from P(s=0)=0,  s = T − t\"; svg.appendChild(ly);\n    // closed-loop pole panel\n    const panelY = H-padB+44;\n    svg.appendChild(SVG(\"text\",{x:padL,y:panelY,\"font-size\":11,fill:\"var(--mute)\"})).textContent = \"closed-loop pole on the real line:\";\n    const lineY = panelY+18;\n    svg.appendChild(SVG(\"line\",{x1:padL+10,y1:lineY,x2:W-padR-10,y2:lineY,stroke:\"var(--line)\"}));\n    // origin tick\n    const origin = (padL+10 + (W-padR-10))/2;\n    svg.appendChild(SVG(\"line\",{x1:origin,y1:lineY-4,x2:origin,y2:lineY+4,stroke:\"var(--mute)\"}));\n    svg.appendChild(SVG(\"text\",{x:origin,y:lineY+18,\"text-anchor\":\"middle\",\"font-size\":10,fill:\"var(--mute)\"})).textContent = \"0\";\n    // map Acl to the line: pad out range to [-3, 3]\n    const scale = ((W-padR-10) - (padL+10))/6; // 6 units wide\n    const polX = origin + Acl*scale;\n    svg.appendChild(SVG(\"circle\",{cx:polX,cy:lineY,r:5,fill:\"var(--pink)\"}));\n    svg.appendChild(SVG(\"text\",{x:polX,y:lineY-8,\"text-anchor\":\"middle\",\"font-size\":10,fill:\"var(--pink)\"})).textContent = `A_cl = ${Acl.toFixed(3)}`;\n    out.textContent = `Riccati root P̄ = ${Pbar.toFixed(4)}    feedback gain K = P̄/R = ${(Pbar/R).toFixed(4)}    closed-loop pole A_cl = A − K = ${Acl.toFixed(4)}    (stable iff A_cl < 0)`;\n  }\n  aS.addEventListener(\"input\", render);\n  qS.addEventListener(\"input\", render);\n  rS.addEventListener(\"input\", render);\n  render();\n})();\n</script>"
+            "controls": [
+              {
+                "type": "slider",
+                "id": "lqr-a",
+                "label": "$A$ (drift)",
+                "min": -2,
+                "max": 2,
+                "value": 0.5,
+                "format": "separate",
+                "step": 0.05
+              },
+              {
+                "type": "span",
+                "id": "lqr-a-out",
+                "class": "readout",
+                "text": "A = 0.50"
+              },
+              {
+                "type": "slider",
+                "id": "lqr-q",
+                "label": "$Q$ (state weight)",
+                "min": 0.1,
+                "max": 5,
+                "value": 1,
+                "format": "separate",
+                "step": 0.1
+              },
+              {
+                "type": "span",
+                "id": "lqr-q-out",
+                "class": "readout",
+                "text": "Q = 1.0"
+              },
+              {
+                "type": "slider",
+                "id": "lqr-r",
+                "label": "$R$ (control cost)",
+                "min": 0.05,
+                "max": 5,
+                "value": 1,
+                "format": "separate",
+                "step": 0.05
+              },
+              {
+                "type": "span",
+                "id": "lqr-r-out",
+                "class": "readout",
+                "text": "R = 1.0"
+              }
+            ],
+            "svg": {
+              "id": "lqr-svg",
+              "viewBox": "0 0 580 320",
+              "width": 580,
+              "height": 320,
+              "title": "Riccati ODE solution and closed-loop pole for 1D LQR"
+            },
+            "readout": {
+              "id": "lqr-out"
+            },
+            "bodyScript": "<script>\n/* ============================ §5 LQR Riccati widget ============================ */\n(function(){\n  const svg = $(\"#lqr-svg\"), aS=$(\"#lqr-a\"), aO=$(\"#lqr-a-out\"),\n        qS=$(\"#lqr-q\"), qO=$(\"#lqr-q-out\"),\n        rS=$(\"#lqr-r\"), rO=$(\"#lqr-r-out\"), out=$(\"#lqr-out\");\n  const W=580, H=320, padL=50, padR=20, padT=20, padB=80;\n  function render(){\n    svg.innerHTML = \"\";\n    const A = parseFloat(aS.value), Q = parseFloat(qS.value), R = parseFloat(rS.value);\n    aO.textContent = `A = ${A.toFixed(2)}`;\n    qO.textContent = `Q = ${Q.toFixed(1)}`;\n    rO.textContent = `R = ${R.toFixed(1)}`;\n    // Riccati: -dP/dt = 2AP - P^2/R + Q, P(T)=0, T=4.\n    // Reparametrise with s = T - t (elapsed time); ds = -dt gives dP/ds = +(2AP - P^2/R + Q),\n    // and P(T)=0 becomes P(s=0)=0 — a standard forward IVP in s. Plot is P vs s.\n    const T = 4, N = 400, ds = T/N;\n    const Ps = [0];\n    let P = 0;\n    for(let i=0;i<N;i++){\n      // forward step in s = T − t: dP/ds = 2AP - P^2/R + Q\n      const rhs = 2*A*P - P*P/R + Q;\n      // Heun (improved Euler)\n      const Pmid = P + rhs*ds;\n      const rhs2 = 2*A*Pmid - Pmid*Pmid/R + Q;\n      P = P + ds*(rhs + rhs2)/2;\n      Ps.push(P);\n    }\n    const Pbar = R*(A + Math.sqrt(A*A + Q/R));\n    const Acl = A - Pbar/R;\n    // plot Ps vs integration time (so it starts at 0 and approaches Pbar)\n    const pmax = Math.max(Pbar*1.1, ...Ps)+0.01;\n    const pmin = 0;\n    const sx = t => padL + t/T*(W-padL-padR);\n    const sy = p => padT + (pmax-p)/(pmax-pmin)*(H-padT-padB);\n    svg.appendChild(SVG(\"rect\",{x:padL,y:padT,width:W-padL-padR,height:H-padT-padB,\n      fill:\"none\",stroke:\"var(--line)\"}));\n    // axis ticks\n    for(let i=0;i<=4;i++){\n      const tt = i*T/4;\n      svg.appendChild(SVG(\"line\",{x1:sx(tt),y1:H-padB,x2:sx(tt),y2:H-padB+4,stroke:\"var(--mute)\"}));\n      const tk = SVG(\"text\",{x:sx(tt),y:H-padB+16,\"text-anchor\":\"middle\",\"font-size\":11,fill:\"var(--mute)\"});\n      tk.textContent = tt.toFixed(1); svg.appendChild(tk);\n    }\n    const xl = SVG(\"text\",{x:W-padR-6,y:H-padB+30,\"text-anchor\":\"end\",\"font-size\":11,fill:\"var(--mute)\"});\n    xl.textContent = \"integration time (T − t)\"; svg.appendChild(xl);\n    // Pbar dashed line\n    svg.appendChild(SVG(\"line\",{x1:padL,y1:sy(Pbar),x2:W-padR,y2:sy(Pbar),\n      stroke:\"var(--cyan)\",\"stroke-width\":1,\"stroke-dasharray\":\"4,3\"}));\n    const lc = SVG(\"text\",{x:W-padR-6,y:sy(Pbar)-4,\"font-size\":11,fill:\"var(--cyan)\",\"text-anchor\":\"end\"});\n    lc.textContent = `P̄ = ${Pbar.toFixed(4)}`; svg.appendChild(lc);\n    // P(s) curve, s = T − t\n    let d = \"\";\n    for(let i=0;i<Ps.length;i++){\n      const ss = i*ds;\n      d += (i===0?\"M\":\"L\") + sx(ss) + \" \" + sy(Ps[i]) + \" \";\n    }\n    svg.appendChild(SVG(\"path\",{d,fill:\"none\",stroke:\"var(--yellow)\",\"stroke-width\":2}));\n    const ly = SVG(\"text\",{x:padL+10,y:padT+16,\"font-size\":11,fill:\"var(--yellow)\"});\n    ly.textContent = \"P(s) from P(s=0)=0,  s = T − t\"; svg.appendChild(ly);\n    // closed-loop pole panel\n    const panelY = H-padB+44;\n    svg.appendChild(SVG(\"text\",{x:padL,y:panelY,\"font-size\":11,fill:\"var(--mute)\"})).textContent = \"closed-loop pole on the real line:\";\n    const lineY = panelY+18;\n    svg.appendChild(SVG(\"line\",{x1:padL+10,y1:lineY,x2:W-padR-10,y2:lineY,stroke:\"var(--line)\"}));\n    // origin tick\n    const origin = (padL+10 + (W-padR-10))/2;\n    svg.appendChild(SVG(\"line\",{x1:origin,y1:lineY-4,x2:origin,y2:lineY+4,stroke:\"var(--mute)\"}));\n    svg.appendChild(SVG(\"text\",{x:origin,y:lineY+18,\"text-anchor\":\"middle\",\"font-size\":10,fill:\"var(--mute)\"})).textContent = \"0\";\n    // map Acl to the line: pad out range to [-3, 3]\n    const scale = ((W-padR-10) - (padL+10))/6; // 6 units wide\n    const polX = origin + Acl*scale;\n    svg.appendChild(SVG(\"circle\",{cx:polX,cy:lineY,r:5,fill:\"var(--pink)\"}));\n    svg.appendChild(SVG(\"text\",{x:polX,y:lineY-8,\"text-anchor\":\"middle\",\"font-size\":10,fill:\"var(--pink)\"})).textContent = `A_cl = ${Acl.toFixed(3)}`;\n    out.textContent = `Riccati root P̄ = ${Pbar.toFixed(4)}    feedback gain K = P̄/R = ${(Pbar/R).toFixed(4)}    closed-loop pole A_cl = A − K = ${Acl.toFixed(4)}    (stable iff A_cl < 0)`;\n  }\n  aS.addEventListener(\"input\", render);\n  qS.addEventListener(\"input\", render);\n  rS.addEventListener(\"input\", render);\n  render();\n})();\n</script>",
+            "wrapperHasId": true,
+            "trailingProse": "Scalar plant $\\dot x = Ax + u$, cost $\\int (Qx^2 + Ru^2)/2\\,dt$. Riccati: $-\\dot P = 2AP - P^2/R + Q$. Yellow: backward-integrated $P(t)$ from $P(T)=0$; the curve always converges to the algebraic-Riccati root $\\bar P = R(A + \\sqrt{A^2+Q/R})$. Cyan: closed-loop pole $A_{\\rm cl} = A - \\bar P / R$ on the real line (always strictly negative ⇒ stable, as promised)."
           }
         },
         {
@@ -209,13 +360,52 @@
         },
         {
           "type": "widget",
-          "slug": "oc-vi",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-vi",
             "title": "Value iteration on a 5×5 grid world",
             "hint": "edit the code · hit Run · watch $V$ converge",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-vi\">\n  <div class=\"hd\"><div class=\"ttl\">Value iteration on a 5×5 grid world</div><div class=\"hint\">edit the code · hit Run · watch $V$ converge</div></div>\n  <div class=\"row\">\n    <label for=\"vi-iters\">iterations</label>\n    <input type=\"range\" id=\"vi-iters\" min=\"0\" max=\"40\" step=\"1\" value=\"0\">\n    <span class=\"readout\" id=\"vi-iters-out\" style=\"min-width:60px;flex:0 0 auto\">k = 0</span>\n    <button id=\"vi-step\">step</button>\n    <button id=\"vi-reset\">reset</button>\n  </div>\n  <svg id=\"vi-svg\" viewBox=\"0 0 580 320\" width=\"580\" height=\"320\"><title>Value iteration on a 5x5 grid world with one goal and one obstacle</title></svg>\n  <div class=\"readout\" id=\"vi-out\"></div>\n  <div class=\"note small\">Agent moves N/S/E/W with cost 1, falls off the grid is forbidden (move ignored). The outer yellow square is the goal (reward 0, absorbing); the dark square is an obstacle (cost 10 to enter). Discount $\\gamma=0.95$. Click \"step\" to apply the Bellman operator once: $V_{k+1}(x)\\leftarrow\\min_u\\{c+\\gamma V_k(x')\\}$. Watch the value front sweep out from the goal, shaped by the obstacle. After ~25 iterations $V$ stabilises; arrows show the greedy policy.</div>\n</div>",
-            "bodyScript": "<script>\n/* ============================ §6 value-iteration grid widget ============================ */\n(function(){\n  const svg = $(\"#vi-svg\"), itS=$(\"#vi-iters\"), itO=$(\"#vi-iters-out\"),\n        bStep=$(\"#vi-step\"), bReset=$(\"#vi-reset\"), out=$(\"#vi-out\");\n  const W=580, H=320, GRID=5;\n  const cellW = 240/GRID, cellH = 240/GRID;\n  const ox = 30, oy = 30;\n  const goal = [4,4];\n  const obstacle = [2,2];\n  const gamma = 0.95;\n  let V = null;\n  let k = 0;\n  function reset(){\n    V = [];\n    for(let r=0;r<GRID;r++){\n      const row = [];\n      for(let c=0;c<GRID;c++) row.push(r===goal[0] && c===goal[1] ? 0 : 0);\n      V.push(row);\n    }\n    k = 0;\n  }\n  function step(){\n    const Vn = [];\n    for(let r=0;r<GRID;r++){\n      const row = [];\n      for(let c=0;c<GRID;c++){\n        if(r===goal[0] && c===goal[1]){ row.push(0); continue; }\n        // four actions: up, down, left, right\n        const nb = [[r-1,c],[r+1,c],[r,c-1],[r,c+1]];\n        let best = Infinity;\n        for(const [r2,c2] of nb){\n          if(r2<0||r2>=GRID||c2<0||c2>=GRID) continue;\n          // cost: 1 to move; +10 to enter obstacle\n          const isObs = (r2===obstacle[0] && c2===obstacle[1]);\n          const cost = 1 + (isObs ? 10 : 0);\n          const val = cost + gamma*V[r2][c2];\n          if(val < best) best = val;\n        }\n        row.push(best===Infinity ? 0 : best);\n      }\n      Vn.push(row);\n    }\n    V = Vn;\n    k++;\n  }\n  function greedyAction(r,c){\n    if(r===goal[0] && c===goal[1]) return null;\n    const nb = [[\"↑\",r-1,c],[\"↓\",r+1,c],[\"←\",r,c-1],[\"→\",r,c+1]];\n    let best = Infinity, choice = null;\n    for(const [s,r2,c2] of nb){\n      if(r2<0||r2>=GRID||c2<0||c2>=GRID) continue;\n      const isObs = (r2===obstacle[0] && c2===obstacle[1]);\n      const cost = 1 + (isObs ? 10 : 0);\n      const val = cost + gamma*V[r2][c2];\n      if(val < best){ best = val; choice = s; }\n    }\n    return choice;\n  }\n  function render(){\n    svg.innerHTML = \"\";\n    // grid\n    let vmax = 0;\n    for(let r=0;r<GRID;r++) for(let c=0;c<GRID;c++) if(V[r][c]>vmax) vmax=V[r][c];\n    if(vmax===0) vmax = 1;\n    for(let r=0;r<GRID;r++){\n      for(let c=0;c<GRID;c++){\n        const x = ox + c*cellW, y = oy + r*cellH;\n        const isGoal = (r===goal[0] && c===goal[1]);\n        const isObs = (r===obstacle[0] && c===obstacle[1]);\n        let fill = \"var(--panel2)\";\n        const a = Math.min(1, V[r][c]/vmax);\n        // value as a yellow tint\n        if(!isGoal && !isObs){\n          fill = `color-mix(in srgb, var(--yellow) ${(a*40).toFixed(0)}%, var(--panel2))`;\n        }\n        if(isGoal) fill = \"var(--yellow)\";\n        if(isObs) fill = \"var(--bg)\";\n        svg.appendChild(SVG(\"rect\",{x,y,width:cellW,height:cellH,fill,stroke:\"var(--line)\",\"stroke-width\":1}));\n        if(isObs){\n          svg.appendChild(SVG(\"text\",{x:x+cellW/2,y:y+cellH/2+5,\"text-anchor\":\"middle\",\"font-size\":14,fill:\"var(--pink)\",\"font-weight\":600})).textContent = \"✕\";\n        } else if(isGoal){\n          svg.appendChild(SVG(\"text\",{x:x+cellW/2,y:y+cellH/2+5,\"text-anchor\":\"middle\",\"font-size\":14,fill:\"#111\",\"font-weight\":700})).textContent = \"G\";\n        } else {\n          svg.appendChild(SVG(\"text\",{x:x+cellW/2,y:y+cellH/2+5,\"text-anchor\":\"middle\",\"font-size\":11,fill:\"var(--ink)\"})).textContent = V[r][c].toFixed(1);\n          // greedy action arrow\n          if(k>0){\n            const a = greedyAction(r,c);\n            if(a){\n              svg.appendChild(SVG(\"text\",{x:x+cellW-8,y:y+cellH-8,\"text-anchor\":\"end\",\"font-size\":12,fill:\"var(--cyan)\"})).textContent = a;\n            }\n          }\n        }\n      }\n    }\n    // right panel: values\n    const rx = ox + GRID*cellW + 20;\n    svg.appendChild(SVG(\"text\",{x:rx,y:oy+10,\"font-size\":12,fill:\"var(--mute)\"})).textContent = \"value heatmap\";\n    svg.appendChild(SVG(\"text\",{x:rx,y:oy+30,\"font-size\":11,fill:\"var(--yellow)\"})).textContent = \"yellow = goal\";\n    svg.appendChild(SVG(\"text\",{x:rx,y:oy+46,\"font-size\":11,fill:\"var(--pink)\"})).textContent = \"✕ = obstacle (cost 10)\";\n    svg.appendChild(SVG(\"text\",{x:rx,y:oy+62,\"font-size\":11,fill:\"var(--cyan)\"})).textContent = \"arrow = greedy action\";\n    svg.appendChild(SVG(\"text\",{x:rx,y:oy+80,\"font-size\":11,fill:\"var(--mute)\"})).textContent = `iteration k = ${k}`;\n    svg.appendChild(SVG(\"text\",{x:rx,y:oy+96,\"font-size\":11,fill:\"var(--mute)\"})).textContent = `γ = ${gamma}`;\n    itO.textContent = `k = ${k}`;\n    let total = 0;\n    for(let r=0;r<GRID;r++) for(let c=0;c<GRID;c++) total += V[r][c];\n    out.textContent = `Σ V across cells = ${total.toFixed(2)}    iteration k = ${k}    converged ≈ k=25 (γ=0.95 contraction)`;\n  }\n  bStep.addEventListener(\"click\", () => { step(); render(); });\n  bReset.addEventListener(\"click\", () => { reset(); render(); });\n  itS.addEventListener(\"input\", () => {\n    const target = parseInt(itS.value);\n    if(target < k){ reset(); }\n    while(k < target) step();\n    render();\n  });\n  reset();\n  render();\n})();\n</script>"
+            "controls": [
+              {
+                "type": "slider",
+                "id": "vi-iters",
+                "label": "iterations",
+                "min": 0,
+                "max": 40,
+                "value": 0,
+                "format": "separate",
+                "step": 1
+              },
+              {
+                "type": "span",
+                "id": "vi-iters-out",
+                "class": "readout",
+                "text": "k = 0"
+              },
+              {
+                "type": "button",
+                "id": "vi-step",
+                "text": "step"
+              },
+              {
+                "type": "button",
+                "id": "vi-reset",
+                "text": "reset"
+              }
+            ],
+            "svg": {
+              "id": "vi-svg",
+              "viewBox": "0 0 580 320",
+              "width": 580,
+              "height": 320,
+              "title": "Value iteration on a 5x5 grid world with one goal and one obstacle"
+            },
+            "readout": {
+              "id": "vi-out"
+            },
+            "bodyScript": "<script>\n/* ============================ §6 value-iteration grid widget ============================ */\n(function(){\n  const svg = $(\"#vi-svg\"), itS=$(\"#vi-iters\"), itO=$(\"#vi-iters-out\"),\n        bStep=$(\"#vi-step\"), bReset=$(\"#vi-reset\"), out=$(\"#vi-out\");\n  const W=580, H=320, GRID=5;\n  const cellW = 240/GRID, cellH = 240/GRID;\n  const ox = 30, oy = 30;\n  const goal = [4,4];\n  const obstacle = [2,2];\n  const gamma = 0.95;\n  let V = null;\n  let k = 0;\n  function reset(){\n    V = [];\n    for(let r=0;r<GRID;r++){\n      const row = [];\n      for(let c=0;c<GRID;c++) row.push(r===goal[0] && c===goal[1] ? 0 : 0);\n      V.push(row);\n    }\n    k = 0;\n  }\n  function step(){\n    const Vn = [];\n    for(let r=0;r<GRID;r++){\n      const row = [];\n      for(let c=0;c<GRID;c++){\n        if(r===goal[0] && c===goal[1]){ row.push(0); continue; }\n        // four actions: up, down, left, right\n        const nb = [[r-1,c],[r+1,c],[r,c-1],[r,c+1]];\n        let best = Infinity;\n        for(const [r2,c2] of nb){\n          if(r2<0||r2>=GRID||c2<0||c2>=GRID) continue;\n          // cost: 1 to move; +10 to enter obstacle\n          const isObs = (r2===obstacle[0] && c2===obstacle[1]);\n          const cost = 1 + (isObs ? 10 : 0);\n          const val = cost + gamma*V[r2][c2];\n          if(val < best) best = val;\n        }\n        row.push(best===Infinity ? 0 : best);\n      }\n      Vn.push(row);\n    }\n    V = Vn;\n    k++;\n  }\n  function greedyAction(r,c){\n    if(r===goal[0] && c===goal[1]) return null;\n    const nb = [[\"↑\",r-1,c],[\"↓\",r+1,c],[\"←\",r,c-1],[\"→\",r,c+1]];\n    let best = Infinity, choice = null;\n    for(const [s,r2,c2] of nb){\n      if(r2<0||r2>=GRID||c2<0||c2>=GRID) continue;\n      const isObs = (r2===obstacle[0] && c2===obstacle[1]);\n      const cost = 1 + (isObs ? 10 : 0);\n      const val = cost + gamma*V[r2][c2];\n      if(val < best){ best = val; choice = s; }\n    }\n    return choice;\n  }\n  function render(){\n    svg.innerHTML = \"\";\n    // grid\n    let vmax = 0;\n    for(let r=0;r<GRID;r++) for(let c=0;c<GRID;c++) if(V[r][c]>vmax) vmax=V[r][c];\n    if(vmax===0) vmax = 1;\n    for(let r=0;r<GRID;r++){\n      for(let c=0;c<GRID;c++){\n        const x = ox + c*cellW, y = oy + r*cellH;\n        const isGoal = (r===goal[0] && c===goal[1]);\n        const isObs = (r===obstacle[0] && c===obstacle[1]);\n        let fill = \"var(--panel2)\";\n        const a = Math.min(1, V[r][c]/vmax);\n        // value as a yellow tint\n        if(!isGoal && !isObs){\n          fill = `color-mix(in srgb, var(--yellow) ${(a*40).toFixed(0)}%, var(--panel2))`;\n        }\n        if(isGoal) fill = \"var(--yellow)\";\n        if(isObs) fill = \"var(--bg)\";\n        svg.appendChild(SVG(\"rect\",{x,y,width:cellW,height:cellH,fill,stroke:\"var(--line)\",\"stroke-width\":1}));\n        if(isObs){\n          svg.appendChild(SVG(\"text\",{x:x+cellW/2,y:y+cellH/2+5,\"text-anchor\":\"middle\",\"font-size\":14,fill:\"var(--pink)\",\"font-weight\":600})).textContent = \"✕\";\n        } else if(isGoal){\n          svg.appendChild(SVG(\"text\",{x:x+cellW/2,y:y+cellH/2+5,\"text-anchor\":\"middle\",\"font-size\":14,fill:\"#111\",\"font-weight\":700})).textContent = \"G\";\n        } else {\n          svg.appendChild(SVG(\"text\",{x:x+cellW/2,y:y+cellH/2+5,\"text-anchor\":\"middle\",\"font-size\":11,fill:\"var(--ink)\"})).textContent = V[r][c].toFixed(1);\n          // greedy action arrow\n          if(k>0){\n            const a = greedyAction(r,c);\n            if(a){\n              svg.appendChild(SVG(\"text\",{x:x+cellW-8,y:y+cellH-8,\"text-anchor\":\"end\",\"font-size\":12,fill:\"var(--cyan)\"})).textContent = a;\n            }\n          }\n        }\n      }\n    }\n    // right panel: values\n    const rx = ox + GRID*cellW + 20;\n    svg.appendChild(SVG(\"text\",{x:rx,y:oy+10,\"font-size\":12,fill:\"var(--mute)\"})).textContent = \"value heatmap\";\n    svg.appendChild(SVG(\"text\",{x:rx,y:oy+30,\"font-size\":11,fill:\"var(--yellow)\"})).textContent = \"yellow = goal\";\n    svg.appendChild(SVG(\"text\",{x:rx,y:oy+46,\"font-size\":11,fill:\"var(--pink)\"})).textContent = \"✕ = obstacle (cost 10)\";\n    svg.appendChild(SVG(\"text\",{x:rx,y:oy+62,\"font-size\":11,fill:\"var(--cyan)\"})).textContent = \"arrow = greedy action\";\n    svg.appendChild(SVG(\"text\",{x:rx,y:oy+80,\"font-size\":11,fill:\"var(--mute)\"})).textContent = `iteration k = ${k}`;\n    svg.appendChild(SVG(\"text\",{x:rx,y:oy+96,\"font-size\":11,fill:\"var(--mute)\"})).textContent = `γ = ${gamma}`;\n    itO.textContent = `k = ${k}`;\n    let total = 0;\n    for(let r=0;r<GRID;r++) for(let c=0;c<GRID;c++) total += V[r][c];\n    out.textContent = `Σ V across cells = ${total.toFixed(2)}    iteration k = ${k}    converged ≈ k=25 (γ=0.95 contraction)`;\n  }\n  bStep.addEventListener(\"click\", () => { step(); render(); });\n  bReset.addEventListener(\"click\", () => { reset(); render(); });\n  itS.addEventListener(\"input\", () => {\n    const target = parseInt(itS.value);\n    if(target < k){ reset(); }\n    while(k < target) step();\n    render();\n  });\n  reset();\n  render();\n})();\n</script>",
+            "wrapperHasId": true,
+            "trailingProse": "Agent moves N/S/E/W with cost 1, falls off the grid is forbidden (move ignored). The outer yellow square is the goal (reward 0, absorbing); the dark square is an obstacle (cost 10 to enter). Discount $\\gamma=0.95$. Click \"step\" to apply the Bellman operator once: $V_{k+1}(x)\\leftarrow\\min_u\\{c+\\gamma V_k(x')\\}$. Watch the value front sweep out from the goal, shaped by the obstacle. After ~25 iterations $V$ stabilises; arrows show the greedy policy."
           }
         },
         {
@@ -246,13 +436,74 @@
         },
         {
           "type": "widget",
-          "slug": "oc-merton",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-merton",
             "title": "Merton's optimal risky fraction",
             "hint": "slide drift, vol, risk aversion · the formula updates",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-merton\">\n  <div class=\"hd\"><div class=\"ttl\">Merton's optimal risky fraction</div><div class=\"hint\">slide drift, vol, risk aversion · the formula updates</div></div>\n  <svg id=\"merton-svg\" viewBox=\"0 0 580 240\" width=\"580\" height=\"240\"><title>Merton optimal risky fraction as function of drift, vol, and risk aversion</title></svg>\n  <div class=\"row\">\n    <label for=\"mer-mu\">drift $\\mu-r$ (excess return)</label>\n    <input type=\"range\" id=\"mer-mu\" min=\"0\" max=\"0.15\" step=\"0.005\" value=\"0.06\">\n    <span class=\"readout\" id=\"mer-mu-out\" style=\"min-width:60px;flex:0 0 auto\">μ−r = 0.06</span>\n  </div>\n  <div class=\"row\">\n    <label for=\"mer-sig\">volatility $\\sigma$</label>\n    <input type=\"range\" id=\"mer-sig\" min=\"0.05\" max=\"0.4\" step=\"0.01\" value=\"0.18\">\n    <span class=\"readout\" id=\"mer-sig-out\" style=\"min-width:60px;flex:0 0 auto\">σ = 0.18</span>\n  </div>\n  <div class=\"row\">\n    <label for=\"mer-gam\">risk aversion $\\gamma$</label>\n    <input type=\"range\" id=\"mer-gam\" min=\"0.5\" max=\"6\" step=\"0.1\" value=\"2\">\n    <span class=\"readout\" id=\"mer-gam-out\" style=\"min-width:60px;flex:0 0 auto\">γ = 2.0</span>\n  </div>\n  <div class=\"readout\" id=\"mer-out\"></div>\n  <div class=\"note small\">Yellow curve: simulated wealth path under $u^*=(\\mu-r)/(\\gamma\\sigma^2)$ on $[0,T=5]$ years, 250 steps. Cyan curve: a passive 100%-risky path for comparison. The optimal fraction $u^*$ is the value at upper-right; tweaking $\\gamma$ shows the variance-aversion trade-off — high $\\gamma$ shrinks the risky position even when the Sharpe is generous.</div>\n</div>",
-            "bodyScript": "<script>\n/* ============================ §7 Merton portfolio widget ============================ */\n(function(){\n  const svg = $(\"#merton-svg\"), muS=$(\"#mer-mu\"), muO=$(\"#mer-mu-out\"),\n        sgS=$(\"#mer-sig\"), sgO=$(\"#mer-sig-out\"),\n        gmS=$(\"#mer-gam\"), gmO=$(\"#mer-gam-out\"), out=$(\"#mer-out\");\n  const W=580, H=240, padL=46, padR=20, padT=20, padB=40;\n  function simulate(mu, sigma, r, gamma, u, T, N){\n    // Geometric Brownian wealth under fixed u (mix risky), no consumption\n    // dX = (r + u(mu-r))X dt + u sigma X dW\n    let X = 1;\n    const xs = [1];\n    const dt = T/N;\n    for(let i=0;i<N;i++){\n      const dW = Math.sqrt(dt)*gaussian();\n      const drift = (r + u*(mu - r))*X*dt;\n      const diff = u*sigma*X*dW;\n      X = X + drift + diff;\n      X = Math.max(X, 0.01);\n      xs.push(X);\n    }\n    return xs;\n  }\n  function gaussian(){\n    let u=0, v=0;\n    while(u===0) u = Math.random();\n    while(v===0) v = Math.random();\n    return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v);\n  }\n  function render(){\n    svg.innerHTML = \"\";\n    const muMinusR = parseFloat(muS.value); // excess return\n    const sigma = parseFloat(sgS.value);\n    const gamma = parseFloat(gmS.value);\n    const r = 0.02;\n    const mu = r + muMinusR;\n    muO.textContent = `μ−r = ${muMinusR.toFixed(3)}`;\n    sgO.textContent = `σ = ${sigma.toFixed(2)}`;\n    gmO.textContent = `γ = ${gamma.toFixed(1)}`;\n    const uStar = (mu - r)/(gamma*sigma*sigma);\n    const T = 5, N = 250;\n    // use a fixed seed-ish path by deriving multiple paths and showing one\n    const path1 = simulate(mu, sigma, r, gamma, uStar, T, N);\n    const path2 = simulate(mu, sigma, r, gamma, 1.0, T, N);\n    const all = path1.concat(path2);\n    let ymin=Infinity, ymax=-Infinity;\n    for(const v of all){ if(v<ymin) ymin=v; if(v>ymax) ymax=v; }\n    ymin = Math.min(ymin, 0.5); ymax = Math.max(ymax, 2.0);\n    const sx = t => padL + t/T*(W-padL-padR);\n    const sy = y => padT + (ymax-y)/(ymax-ymin)*(H-padT-padB);\n    svg.appendChild(SVG(\"rect\",{x:padL,y:padT,width:W-padL-padR,height:H-padT-padB,fill:\"none\",stroke:\"var(--line)\"}));\n    svg.appendChild(SVG(\"line\",{x1:padL,y1:sy(1),x2:W-padR,y2:sy(1),stroke:\"var(--line)\",\"stroke-dasharray\":\"2,3\"}));\n    function plot(xs, color){\n      let d = \"\";\n      for(let i=0;i<xs.length;i++){\n        const t = i*T/N;\n        d += (i===0?\"M\":\"L\") + sx(t) + \" \" + sy(xs[i]) + \" \";\n      }\n      svg.appendChild(SVG(\"path\",{d,fill:\"none\",stroke:color,\"stroke-width\":1.8}));\n    }\n    plot(path2, \"var(--cyan)\");\n    plot(path1, \"var(--yellow)\");\n    const l1 = SVG(\"text\",{x:padL+10,y:padT+16,\"font-size\":11,fill:\"var(--yellow)\"});\n    l1.textContent = `Merton u* = ${uStar.toFixed(3)}`; svg.appendChild(l1);\n    const l2 = SVG(\"text\",{x:padL+10,y:padT+30,\"font-size\":11,fill:\"var(--cyan)\"});\n    l2.textContent = \"passive u = 1.0 (100% risky)\"; svg.appendChild(l2);\n    const xl = SVG(\"text\",{x:W-padR-6,y:sy(1)-6,\"text-anchor\":\"end\",\"font-size\":11,fill:\"var(--mute)\"});\n    xl.textContent = \"t (years)\"; svg.appendChild(xl);\n    const yl = SVG(\"text\",{x:padL+4,y:padT+10,\"font-size\":11,fill:\"var(--mute)\"});\n    yl.textContent = \"wealth X\"; svg.appendChild(yl);\n    out.textContent = `Merton optimal risky fraction  u* = (μ−r)/(γσ²)  =  ${muMinusR.toFixed(3)}/(${gamma.toFixed(1)}·${(sigma*sigma).toFixed(4)})  =  ${uStar.toFixed(4)}    (independent of wealth, horizon — the CRRA gift)`;\n  }\n  muS.addEventListener(\"input\", render);\n  sgS.addEventListener(\"input\", render);\n  gmS.addEventListener(\"input\", render);\n  render();\n})();\n</script>"
+            "controls": [
+              {
+                "type": "slider",
+                "id": "mer-mu",
+                "label": "drift $\\mu-r$ (excess return)",
+                "min": 0,
+                "max": 0.15,
+                "value": 0.06,
+                "format": "separate",
+                "step": 0.005
+              },
+              {
+                "type": "span",
+                "id": "mer-mu-out",
+                "class": "readout",
+                "text": "μ−r = 0.06"
+              },
+              {
+                "type": "slider",
+                "id": "mer-sig",
+                "label": "volatility $\\sigma$",
+                "min": 0.05,
+                "max": 0.4,
+                "value": 0.18,
+                "format": "separate",
+                "step": 0.01
+              },
+              {
+                "type": "span",
+                "id": "mer-sig-out",
+                "class": "readout",
+                "text": "σ = 0.18"
+              },
+              {
+                "type": "slider",
+                "id": "mer-gam",
+                "label": "risk aversion $\\gamma$",
+                "min": 0.5,
+                "max": 6,
+                "value": 2,
+                "format": "separate",
+                "step": 0.1
+              },
+              {
+                "type": "span",
+                "id": "mer-gam-out",
+                "class": "readout",
+                "text": "γ = 2.0"
+              }
+            ],
+            "svg": {
+              "id": "merton-svg",
+              "viewBox": "0 0 580 240",
+              "width": 580,
+              "height": 240,
+              "title": "Merton optimal risky fraction as function of drift, vol, and risk aversion"
+            },
+            "readout": {
+              "id": "mer-out"
+            },
+            "bodyScript": "<script>\n/* ============================ §7 Merton portfolio widget ============================ */\n(function(){\n  const svg = $(\"#merton-svg\"), muS=$(\"#mer-mu\"), muO=$(\"#mer-mu-out\"),\n        sgS=$(\"#mer-sig\"), sgO=$(\"#mer-sig-out\"),\n        gmS=$(\"#mer-gam\"), gmO=$(\"#mer-gam-out\"), out=$(\"#mer-out\");\n  const W=580, H=240, padL=46, padR=20, padT=20, padB=40;\n  function simulate(mu, sigma, r, gamma, u, T, N){\n    // Geometric Brownian wealth under fixed u (mix risky), no consumption\n    // dX = (r + u(mu-r))X dt + u sigma X dW\n    let X = 1;\n    const xs = [1];\n    const dt = T/N;\n    for(let i=0;i<N;i++){\n      const dW = Math.sqrt(dt)*gaussian();\n      const drift = (r + u*(mu - r))*X*dt;\n      const diff = u*sigma*X*dW;\n      X = X + drift + diff;\n      X = Math.max(X, 0.01);\n      xs.push(X);\n    }\n    return xs;\n  }\n  function gaussian(){\n    let u=0, v=0;\n    while(u===0) u = Math.random();\n    while(v===0) v = Math.random();\n    return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v);\n  }\n  function render(){\n    svg.innerHTML = \"\";\n    const muMinusR = parseFloat(muS.value); // excess return\n    const sigma = parseFloat(sgS.value);\n    const gamma = parseFloat(gmS.value);\n    const r = 0.02;\n    const mu = r + muMinusR;\n    muO.textContent = `μ−r = ${muMinusR.toFixed(3)}`;\n    sgO.textContent = `σ = ${sigma.toFixed(2)}`;\n    gmO.textContent = `γ = ${gamma.toFixed(1)}`;\n    const uStar = (mu - r)/(gamma*sigma*sigma);\n    const T = 5, N = 250;\n    // use a fixed seed-ish path by deriving multiple paths and showing one\n    const path1 = simulate(mu, sigma, r, gamma, uStar, T, N);\n    const path2 = simulate(mu, sigma, r, gamma, 1.0, T, N);\n    const all = path1.concat(path2);\n    let ymin=Infinity, ymax=-Infinity;\n    for(const v of all){ if(v<ymin) ymin=v; if(v>ymax) ymax=v; }\n    ymin = Math.min(ymin, 0.5); ymax = Math.max(ymax, 2.0);\n    const sx = t => padL + t/T*(W-padL-padR);\n    const sy = y => padT + (ymax-y)/(ymax-ymin)*(H-padT-padB);\n    svg.appendChild(SVG(\"rect\",{x:padL,y:padT,width:W-padL-padR,height:H-padT-padB,fill:\"none\",stroke:\"var(--line)\"}));\n    svg.appendChild(SVG(\"line\",{x1:padL,y1:sy(1),x2:W-padR,y2:sy(1),stroke:\"var(--line)\",\"stroke-dasharray\":\"2,3\"}));\n    function plot(xs, color){\n      let d = \"\";\n      for(let i=0;i<xs.length;i++){\n        const t = i*T/N;\n        d += (i===0?\"M\":\"L\") + sx(t) + \" \" + sy(xs[i]) + \" \";\n      }\n      svg.appendChild(SVG(\"path\",{d,fill:\"none\",stroke:color,\"stroke-width\":1.8}));\n    }\n    plot(path2, \"var(--cyan)\");\n    plot(path1, \"var(--yellow)\");\n    const l1 = SVG(\"text\",{x:padL+10,y:padT+16,\"font-size\":11,fill:\"var(--yellow)\"});\n    l1.textContent = `Merton u* = ${uStar.toFixed(3)}`; svg.appendChild(l1);\n    const l2 = SVG(\"text\",{x:padL+10,y:padT+30,\"font-size\":11,fill:\"var(--cyan)\"});\n    l2.textContent = \"passive u = 1.0 (100% risky)\"; svg.appendChild(l2);\n    const xl = SVG(\"text\",{x:W-padR-6,y:sy(1)-6,\"text-anchor\":\"end\",\"font-size\":11,fill:\"var(--mute)\"});\n    xl.textContent = \"t (years)\"; svg.appendChild(xl);\n    const yl = SVG(\"text\",{x:padL+4,y:padT+10,\"font-size\":11,fill:\"var(--mute)\"});\n    yl.textContent = \"wealth X\"; svg.appendChild(yl);\n    out.textContent = `Merton optimal risky fraction  u* = (μ−r)/(γσ²)  =  ${muMinusR.toFixed(3)}/(${gamma.toFixed(1)}·${(sigma*sigma).toFixed(4)})  =  ${uStar.toFixed(4)}    (independent of wealth, horizon — the CRRA gift)`;\n  }\n  muS.addEventListener(\"input\", render);\n  sgS.addEventListener(\"input\", render);\n  gmS.addEventListener(\"input\", render);\n  render();\n})();\n</script>",
+            "wrapperHasId": true,
+            "trailingProse": "Yellow curve: simulated wealth path under $u^*=(\\mu-r)/(\\gamma\\sigma^2)$ on $[0,T=5]$ years, 250 steps. Cyan curve: a passive 100%-risky path for comparison. The optimal fraction $u^*$ is the value at upper-right; tweaking $\\gamma$ shows the variance-aversion trade-off — high $\\gamma$ shrinks the risky position even when the Sharpe is generous."
           }
         },
         {
