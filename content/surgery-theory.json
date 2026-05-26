@@ -233,13 +233,41 @@
         },
         {
           "type": "widget",
-          "slug": "surg-w6",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-theta",
             "title": "$\\Theta_n$ · exotic-sphere counter",
             "hint": "slide $n$, see $|\\Theta_n|$",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-theta\">\n  <div class=\"hd\"><div class=\"ttl\">$\\Theta_n$ · exotic-sphere counter</div><div class=\"hint\">slide $n$, see $|\\Theta_n|$</div></div>\n  <div class=\"row\">\n    <label for=\"th-n\">$n$:</label>\n    <input type=\"range\" id=\"th-n\" min=\"3\" max=\"14\" step=\"1\" value=\"7\" />\n    <span class=\"pill\" id=\"th-n-val\">n = 7</span>\n  </div>\n  <svg id=\"th-svg\" viewBox=\"0 0 720 220\" width=\"100%\" height=\"220\"><title>Theta_n bar chart</title></svg>\n  <div class=\"readout\" id=\"th-out\"></div>\n</div>",
-            "bodyScript": ""
+            "controls": [
+              {
+                "type": "slider",
+                "id": "th-n",
+                "label": "$n$:",
+                "min": 3,
+                "max": 14,
+                "value": 7,
+                "format": "separate",
+                "step": 1
+              },
+              {
+                "type": "span",
+                "id": "th-n-val",
+                "class": "pill",
+                "text": "n = 7"
+              }
+            ],
+            "svg": {
+              "id": "th-svg",
+              "viewBox": "0 0 720 220",
+              "width": "100%",
+              "height": 220,
+              "title": "Theta_n bar chart"
+            },
+            "readout": {
+              "id": "th-out"
+            },
+            "bodyScript": "",
+            "wrapperHasId": true
           }
         },
         {

@@ -1859,27 +1859,6 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "cg-dvor",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "cg-dvor widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Dvoretzky dimension vs $n$\" widget on the convex-geometry topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Dvoretzky dimension vs $n$\" widget on `convex-geometry`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "cg-john",
     "family": "verbatim",
     "dimension": "2d",
@@ -2564,27 +2543,6 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "cmb-w3",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "cmb-w3 widget params",
-    "description": "Bespoke verbatim-renderer slug for one widget on the computational-molecular-biology topic. Carries opaque bodyMarkup + bodyScript strings; uses the shared verbatim renderer (widgets/_shared/verbatim-renderer.mjs).",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Cmb w3 widget — scaffolded stub. Replace this paragraph with a short description of what the widget does, which topic page first introduced it, and whether it's a bespoke module or part of a shared family.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "cmb-w4",
     "family": "verbatim",
     "dimension": "2d",
@@ -2600,27 +2558,6 @@ window.__MVWidgets = [
       "bodyScript"
     ],
     "readmeExcerpt": "Cmb w4 widget — scaffolded stub. Replace this paragraph with a short description of what the widget does, which topic page first introduced it, and whether it's a bespoke module or part of a shared family.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "cmb-w5",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "cmb-w5 widget params",
-    "description": "Bespoke verbatim-renderer slug for one widget on the computational-molecular-biology topic. Carries opaque bodyMarkup + bodyScript strings; uses the shared verbatim renderer (widgets/_shared/verbatim-renderer.mjs).",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Cmb w5 widget — scaffolded stub. Replace this paragraph with a short description of what the widget does, which topic page first introduced it, and whether it's a bespoke module or part of a shared family.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
@@ -2705,27 +2642,6 @@ window.__MVWidgets = [
       "bodyScript"
     ],
     "readmeExcerpt": "Bespoke verbatim slug for the \"Square-and-multiply\" widget on `computational-number-theory`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "cnt-lll",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "cnt-lll widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"LLL on a 2D lattice\" widget on the computational-number-theory topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs and re-derived meta by scripts/fixup-verbatim-widget-meta.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"LLL on a 2D lattice\" widget on `computational-number-theory`.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
@@ -4306,27 +4222,6 @@ window.__MVWidgets = [
     "gesture": "click",
     "role": "interactive",
     "title": "continued-fractions-w3 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the continued-fractions topic. Carries opaque bodyMarkup + bodyScript strings so byte-identical round-trip stays intact.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `continued-fractions` topic. Uses the shared verbatim renderer at `widgets/_shared/verbatim-renderer.mjs`; `bodyMarkup` + `bodyScript` are full opaque strings.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "continued-fractions-w4",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "continued-fractions-w4 widget params",
     "description": "Verbatim-renderer slug for an inline widget on the continued-fractions topic. Carries opaque bodyMarkup + bodyScript strings so byte-identical round-trip stays intact.",
     "requiredParams": [
       "widgetId",
@@ -7117,27 +7012,6 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "fpt-kk",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "fpt-kk widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Set-valued map on $[0,1]$\" widget on the fixed-point-theorems topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs and re-derived meta by scripts/fixup-verbatim-widget-meta.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Set-valued map on $[0,1]$\" widget on `fixed-point-theorems`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "fpt-lf",
     "family": "verbatim",
     "dimension": "2d",
@@ -9495,27 +9369,6 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "hf-d-invariant",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "hf-d-invariant widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"$d$-invariants of $L(p,1)$\" widget on the heegaard-floer topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"$d$-invariants of $L(p,1)$\" widget on `heegaard-floer`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "hf-knot-floer",
     "family": "verbatim",
     "dimension": "2d",
@@ -9531,27 +9384,6 @@ window.__MVWidgets = [
       "bodyScript"
     ],
     "readmeExcerpt": "Bespoke verbatim slug for the \"Knot Floer bigrading lattice\" widget on `heegaard-floer`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "hf-lagrangian-floer",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "hf-lagrangian-floer widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Lagrangian Floer · annulus model\" widget on the heegaard-floer topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Lagrangian Floer · annulus model\" widget on `heegaard-floer`.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
@@ -11593,27 +11425,6 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "mathbio-w5",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "mathbio-w5 widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Lotka–Volterra phase portrait\" widget on the mathematical-biology topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Lotka–Volterra phase portrait\" widget on `mathematical-biology`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "mathbio-w6",
     "family": "verbatim",
     "dimension": "2d",
@@ -11881,27 +11692,6 @@ window.__MVWidgets = [
       "bodyScript"
     ],
     "readmeExcerpt": "Bespoke verbatim slug for the \"$|\\cdot| \\dashv \\mathrm{Sing}$: round-tripping through CW realization\" widget on `model-categories`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "mc-replace",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "mc-replace widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Iterating cofibrant replacement: build a projective resolution step-by-step\" widget on the model-categories topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Iterating cofibrant replacement: build a projective resolution step-by-step\" widget on `model-categories`.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
@@ -15516,27 +15306,6 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "shim-w3",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "shim-w3 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the shimura-varieties topic. Carries opaque bodyMarkup + bodyScript strings so byte-identical round-trip stays intact.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `shimura-varieties` topic. Uses the shared verbatim renderer at `widgets/_shared/verbatim-renderer.mjs`; `bodyMarkup` + `bodyScript` are full opaque strings.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "shim-w4",
     "family": "verbatim",
     "dimension": "2d",
@@ -16715,27 +16484,6 @@ window.__MVWidgets = [
     "gesture": "select",
     "role": "interactive",
     "title": "surg-w5 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the surgery-theory topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an interactive widget on the surgery-theory topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "surg-w6",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "select",
-    "role": "interactive",
-    "title": "surg-w6 widget params",
     "description": "Verbatim-renderer slug for an inline widget on the surgery-theory topic.",
     "requiredParams": [
       "widgetId",

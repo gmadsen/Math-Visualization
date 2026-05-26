@@ -347,13 +347,13 @@ function drawNode(svg, x, y, label, opts={}){
 <div class="widget">
   <div class="hd"><div class="ttl">LLL on a 2D lattice</div><div class="hint">Drag the slider — apply size reduction and swap repeatedly until stable.</div></div>
   <div class="row">
-    <label>basis skew <input type="range" id="lll-skew" min="0" max="40" value="20" step="1"></label>
+    <label>basis skew<input id="lll-skew" type="range" min="0" max="40" step="1" value="20"></label>
     <button id="lll-step">Reduce one step</button>
     <button id="lll-full">Run LLL</button>
     <button id="lll-reset">Reset</button>
   </div>
   <svg id="lll-svg" viewBox="0 0 760 320" width="100%"><title>LLL on a 2D lattice</title></svg>
-  <div class="readout" id="lll-out">Initial basis loaded.</div>
+  <div class="readout" id="lll-out"></div>
 </div>
 
 <p><strong>Coppersmith's theorem.</strong> Given a polynomial $f(x)\in\mathbb{Z}[x]$ of degree $d$ and a modulus $N$, all integer roots of $f \bmod N$ with $|x|&lt;N^{1/d}$ can be recovered in polynomial time by building a lattice from shifted multiples of $f$ and applying LLL. This breaks low-exponent RSA whenever the message has stereotyped structure.</p>

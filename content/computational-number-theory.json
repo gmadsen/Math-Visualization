@@ -90,12 +90,45 @@
         },
         {
           "type": "widget",
-          "slug": "cnt-lll",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "lll",
             "title": "LLL on a 2D lattice",
             "hint": "Drag the slider — apply size reduction and swap repeatedly until stable.",
-            "bodyMarkup": "<div class=\"widget\">\n  <div class=\"hd\"><div class=\"ttl\">LLL on a 2D lattice</div><div class=\"hint\">Drag the slider — apply size reduction and swap repeatedly until stable.</div></div>\n  <div class=\"row\">\n    <label>basis skew <input type=\"range\" id=\"lll-skew\" min=\"0\" max=\"40\" value=\"20\" step=\"1\"></label>\n    <button id=\"lll-step\">Reduce one step</button>\n    <button id=\"lll-full\">Run LLL</button>\n    <button id=\"lll-reset\">Reset</button>\n  </div>\n  <svg id=\"lll-svg\" viewBox=\"0 0 760 320\" width=\"100%\"><title>LLL on a 2D lattice</title></svg>\n  <div class=\"readout\" id=\"lll-out\">Initial basis loaded.</div>\n</div>",
+            "controls": [
+              {
+                "type": "slider",
+                "id": "lll-skew",
+                "label": "basis skew",
+                "min": 0,
+                "max": 40,
+                "value": 20,
+                "step": 1
+              },
+              {
+                "type": "button",
+                "id": "lll-step",
+                "text": "Reduce one step"
+              },
+              {
+                "type": "button",
+                "id": "lll-full",
+                "text": "Run LLL"
+              },
+              {
+                "type": "button",
+                "id": "lll-reset",
+                "text": "Reset"
+              }
+            ],
+            "svg": {
+              "id": "lll-svg",
+              "viewBox": "0 0 760 320",
+              "width": "100%"
+            },
+            "readout": {
+              "id": "lll-out"
+            },
             "bodyScript": ""
           }
         },

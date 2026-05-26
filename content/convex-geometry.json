@@ -258,13 +258,58 @@
         },
         {
           "type": "widget",
-          "slug": "cg-dvor",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-dvor",
             "title": "Dvoretzky dimension vs $n$",
             "hint": "slide $\\varepsilon$ — watch $k(\\varepsilon,n)$ grow logarithmically",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-dvor\">\n  <div class=\"hd\"><div class=\"ttl\">Dvoretzky dimension vs $n$</div><div class=\"hint\">slide $\\varepsilon$ — watch $k(\\varepsilon,n)$ grow logarithmically</div></div>\n  <div class=\"row\">\n    <label for=\"dv-eps\">distortion $\\varepsilon$</label>\n    <input id=\"dv-eps\" type=\"range\" min=\"0.05\" max=\"0.5\" step=\"0.005\" value=\"0.2\">\n    <span id=\"dv-eps-out\" class=\"pill\">ε=0.20</span>\n    <label for=\"dv-c\">constant $c$</label>\n    <input id=\"dv-c\" type=\"range\" min=\"0.1\" max=\"2.0\" step=\"0.05\" value=\"0.5\">\n    <span id=\"dv-c-out\" class=\"pill\">c=0.50</span>\n  </div>\n  <svg id=\"dv-svg\" viewBox=\"0 0 640 320\" width=\"100%\" height=\"320\" aria-label=\"Dvoretzky guaranteed section dimension vs ambient dimension\"><title>k(ε, n) = c·ε²·log(n)</title></svg>\n  <div class=\"readout\" id=\"dv-out\"></div>\n</div>",
-            "bodyScript": "<script>\n/* ====================== §7 Dvoretzky dimension ====================== */\n(function(){\n  const svg = $('#dv-svg'), out = $('#dv-out');\n  const epsIn = $('#dv-eps'), epsOut = $('#dv-eps-out');\n  const cIn = $('#dv-c'), cOut = $('#dv-c-out');\n  const W = 640, H = 320, padL = 60, padR = 30, padT = 30, padB = 50;\n  function px(n){ return padL + (Math.log(n) - Math.log(2)) / (Math.log(10000) - Math.log(2)) * (W - padL - padR); }\n  function py(k, kMax){ return H - padB - (k/kMax)*(H - padT - padB); }\n  function draw(){\n    const eps = parseFloat(epsIn.value), c = parseFloat(cIn.value);\n    epsOut.textContent = `ε=${eps.toFixed(3)}`;\n    cOut.textContent = `c=${c.toFixed(2)}`;\n    svg.innerHTML = '';\n    const samples = 200;\n    const points = [];\n    let kMax = 0;\n    for(let i=0;i<=samples;i++){\n      const logn = Math.log(2) + (Math.log(10000) - Math.log(2)) * i / samples;\n      const n = Math.exp(logn);\n      const k = c * eps*eps * Math.log(n);\n      if(k > kMax) kMax = k;\n      points.push([n, k]);\n    }\n    /* axes */\n    svg.appendChild(SVG('line',{x1:padL,y1:H-padB,x2:W-padR,y2:H-padB,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:padL,y1:padT,x2:padL,y2:H-padB,stroke:'var(--line)'}));\n    /* x-axis labels (log scale) */\n    [2,10,100,1000,10000].forEach(n=>{\n      svg.appendChild(SVG('line',{x1:px(n),y1:H-padB,x2:px(n),y2:H-padB+4,stroke:'var(--mute)'}));\n      const t = SVG('text',{x:px(n),y:H-padB+18,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n      t.textContent = n; svg.appendChild(t);\n    });\n    let xl = SVG('text',{x:W-padR,y:H-padB+34,'text-anchor':'end','font-size':12,fill:'var(--mute)'});\n    xl.textContent = 'ambient dimension n (log scale)'; svg.appendChild(xl);\n    /* y-axis labels */\n    for(let kk = 0; kk <= kMax; kk += Math.max(1, Math.round(kMax/5))){\n      svg.appendChild(SVG('line',{x1:padL-4,y1:py(kk,kMax),x2:padL,y2:py(kk,kMax),stroke:'var(--mute)'}));\n      const t = SVG('text',{x:padL-8,y:py(kk,kMax)+4,'text-anchor':'end','font-size':10,fill:'var(--mute)'});\n      t.textContent = kk.toFixed(1); svg.appendChild(t);\n    }\n    let yl = SVG('text',{x:padL-6,y:padT+10,'text-anchor':'end','font-size':12,fill:'var(--mute)'});\n    yl.textContent = 'guaranteed k(ε, n)'; svg.appendChild(yl);\n    /* curve */\n    let d = '';\n    for(const p of points) d += (d?'L':'M') + px(p[0]) + ' ' + py(p[1], kMax) + ' ';\n    svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--yellow)','stroke-width':2.5}));\n    /* sample readout for n = 100, 1000, 10000 */\n    [10, 100, 1000, 10000].forEach(n=>{\n      const k = c * eps*eps * Math.log(n);\n      svg.appendChild(SVG('circle',{cx:px(n),cy:py(k,kMax),r:4,fill:'var(--cyan)','stroke':'var(--ink)','stroke-width':1}));\n    });\n    /* legend */\n    const lg = SVG('g',{transform:'translate(360, 50)'});\n    lg.appendChild(SVG('rect',{x:-6,y:-12,width:240,height:46,fill:'var(--panel2)',stroke:'var(--line)',rx:4}));\n    svg.appendChild(lg);\n    let t1 = SVG('text',{x:360,y:60,'font-size':12,fill:'var(--ink)'});\n    t1.textContent = `k(ε, n) = c · ε² · log n`; svg.appendChild(t1);\n    let t2 = SVG('text',{x:360,y:78,'font-size':11,fill:'var(--mute)'});\n    t2.textContent = 'cyan dots: n = 10, 100, 1000, 10000'; svg.appendChild(t2);\n    out.textContent =\n      `Dvoretzky guarantees an almost-Euclidean section of dimension at least k(ε, n) = c · ε² · log(n).\\n` +\n      `At ε = ${eps.toFixed(2)}, c = ${c.toFixed(2)}:\\n` +\n      `  n =      10  →  k ≥ ${(c*eps*eps*Math.log(10)).toFixed(3)}\\n` +\n      `  n =     100  →  k ≥ ${(c*eps*eps*Math.log(100)).toFixed(3)}\\n` +\n      `  n =   10000  →  k ≥ ${(c*eps*eps*Math.log(10000)).toFixed(3)}\\n` +\n      `The log-growth is sharp: cube and cross-polytope ⊂ ℝⁿ have ≤ O(log n)-dim Euclidean sections.`;\n  }\n  epsIn.addEventListener('input', draw);\n  cIn.addEventListener('input', draw);\n  draw();\n})();\n</script>"
+            "controls": [
+              {
+                "type": "slider",
+                "id": "dv-eps",
+                "label": "distortion $\\varepsilon$",
+                "min": 0.05,
+                "max": 0.5,
+                "value": 0.2,
+                "format": "separate",
+                "step": 0.005
+              },
+              {
+                "type": "span",
+                "id": "dv-eps-out",
+                "class": "pill",
+                "text": "ε=0.20"
+              },
+              {
+                "type": "slider",
+                "id": "dv-c",
+                "label": "constant $c$",
+                "min": 0.1,
+                "max": "2.0",
+                "value": 0.5,
+                "format": "separate",
+                "step": 0.05
+              },
+              {
+                "type": "span",
+                "id": "dv-c-out",
+                "class": "pill",
+                "text": "c=0.50"
+              }
+            ],
+            "svg": {
+              "id": "dv-svg",
+              "viewBox": "0 0 640 320",
+              "width": "100%",
+              "height": 320,
+              "ariaLabel": "Dvoretzky guaranteed section dimension vs ambient dimension",
+              "title": "k(ε, n) = c·ε²·log(n)"
+            },
+            "readout": {
+              "id": "dv-out"
+            },
+            "bodyScript": "<script>\n/* ====================== §7 Dvoretzky dimension ====================== */\n(function(){\n  const svg = $('#dv-svg'), out = $('#dv-out');\n  const epsIn = $('#dv-eps'), epsOut = $('#dv-eps-out');\n  const cIn = $('#dv-c'), cOut = $('#dv-c-out');\n  const W = 640, H = 320, padL = 60, padR = 30, padT = 30, padB = 50;\n  function px(n){ return padL + (Math.log(n) - Math.log(2)) / (Math.log(10000) - Math.log(2)) * (W - padL - padR); }\n  function py(k, kMax){ return H - padB - (k/kMax)*(H - padT - padB); }\n  function draw(){\n    const eps = parseFloat(epsIn.value), c = parseFloat(cIn.value);\n    epsOut.textContent = `ε=${eps.toFixed(3)}`;\n    cOut.textContent = `c=${c.toFixed(2)}`;\n    svg.innerHTML = '';\n    const samples = 200;\n    const points = [];\n    let kMax = 0;\n    for(let i=0;i<=samples;i++){\n      const logn = Math.log(2) + (Math.log(10000) - Math.log(2)) * i / samples;\n      const n = Math.exp(logn);\n      const k = c * eps*eps * Math.log(n);\n      if(k > kMax) kMax = k;\n      points.push([n, k]);\n    }\n    /* axes */\n    svg.appendChild(SVG('line',{x1:padL,y1:H-padB,x2:W-padR,y2:H-padB,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:padL,y1:padT,x2:padL,y2:H-padB,stroke:'var(--line)'}));\n    /* x-axis labels (log scale) */\n    [2,10,100,1000,10000].forEach(n=>{\n      svg.appendChild(SVG('line',{x1:px(n),y1:H-padB,x2:px(n),y2:H-padB+4,stroke:'var(--mute)'}));\n      const t = SVG('text',{x:px(n),y:H-padB+18,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n      t.textContent = n; svg.appendChild(t);\n    });\n    let xl = SVG('text',{x:W-padR,y:H-padB+34,'text-anchor':'end','font-size':12,fill:'var(--mute)'});\n    xl.textContent = 'ambient dimension n (log scale)'; svg.appendChild(xl);\n    /* y-axis labels */\n    for(let kk = 0; kk <= kMax; kk += Math.max(1, Math.round(kMax/5))){\n      svg.appendChild(SVG('line',{x1:padL-4,y1:py(kk,kMax),x2:padL,y2:py(kk,kMax),stroke:'var(--mute)'}));\n      const t = SVG('text',{x:padL-8,y:py(kk,kMax)+4,'text-anchor':'end','font-size':10,fill:'var(--mute)'});\n      t.textContent = kk.toFixed(1); svg.appendChild(t);\n    }\n    let yl = SVG('text',{x:padL-6,y:padT+10,'text-anchor':'end','font-size':12,fill:'var(--mute)'});\n    yl.textContent = 'guaranteed k(ε, n)'; svg.appendChild(yl);\n    /* curve */\n    let d = '';\n    for(const p of points) d += (d?'L':'M') + px(p[0]) + ' ' + py(p[1], kMax) + ' ';\n    svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--yellow)','stroke-width':2.5}));\n    /* sample readout for n = 100, 1000, 10000 */\n    [10, 100, 1000, 10000].forEach(n=>{\n      const k = c * eps*eps * Math.log(n);\n      svg.appendChild(SVG('circle',{cx:px(n),cy:py(k,kMax),r:4,fill:'var(--cyan)','stroke':'var(--ink)','stroke-width':1}));\n    });\n    /* legend */\n    const lg = SVG('g',{transform:'translate(360, 50)'});\n    lg.appendChild(SVG('rect',{x:-6,y:-12,width:240,height:46,fill:'var(--panel2)',stroke:'var(--line)',rx:4}));\n    svg.appendChild(lg);\n    let t1 = SVG('text',{x:360,y:60,'font-size':12,fill:'var(--ink)'});\n    t1.textContent = `k(ε, n) = c · ε² · log n`; svg.appendChild(t1);\n    let t2 = SVG('text',{x:360,y:78,'font-size':11,fill:'var(--mute)'});\n    t2.textContent = 'cyan dots: n = 10, 100, 1000, 10000'; svg.appendChild(t2);\n    out.textContent =\n      `Dvoretzky guarantees an almost-Euclidean section of dimension at least k(ε, n) = c · ε² · log(n).\\n` +\n      `At ε = ${eps.toFixed(2)}, c = ${c.toFixed(2)}:\\n` +\n      `  n =      10  →  k ≥ ${(c*eps*eps*Math.log(10)).toFixed(3)}\\n` +\n      `  n =     100  →  k ≥ ${(c*eps*eps*Math.log(100)).toFixed(3)}\\n` +\n      `  n =   10000  →  k ≥ ${(c*eps*eps*Math.log(10000)).toFixed(3)}\\n` +\n      `The log-growth is sharp: cube and cross-polytope ⊂ ℝⁿ have ≤ O(log n)-dim Euclidean sections.`;\n  }\n  epsIn.addEventListener('input', draw);\n  cIn.addEventListener('input', draw);\n  draw();\n})();\n</script>",
+            "wrapperHasId": true
           }
         },
         {
