@@ -281,16 +281,14 @@ $$I_n(X,\beta) \;=\; \{\mathcal{I}_Z \subset \mathcal{O}_X \;:\; \mathrm{ch}_2 =
   <div class="hd"><div class="ttl">Length-$n$ subschemes of $\mathbb{C}^2$ near the origin</div><div class="hint">drag the slider; watch points collide into fat clusters with multiplicity</div></div>
   <div class="row">
     <label for="hilb-spread">spread $s$:</label>
-    <input id="hilb-spread" type="range" min="0" max="1" step="0.005" value="0.7">
+    <input type="range" id="hilb-spread" min="0" max="1" step="0.005" value="0.7">
     <span id="hilb-sval" class="pill">s = 0.70</span>
-  </div>
-  <div class="row">
     <label for="hilb-n">number of points $n$:</label>
-    <input id="hilb-n" type="range" min="1" max="6" step="1" value="4">
+    <input type="range" id="hilb-n" min="1" max="6" step="1" value="4">
     <span id="hilb-nval" class="pill">n = 4</span>
   </div>
   <svg id="hilb-svg" viewBox="0 0 720 280" width="720" height="280"><title>Hilbert scheme limits</title></svg>
-  <div class="readout" id="hilb-out">slide spread toward zero to see the fat-point limit…</div>
+  <div class="readout" id="hilb-out"></div>
   <p class="small">As $s \to 0$, $n$ distinct points collide at the origin and the ideal $(x-a_1,y-b_1) \cap \cdots \cap (x-a_n,y-b_n)$ flows toward a non-reduced ideal of <em>colength $n$</em> — e.g.\ $(x^n, y)$ or $(x^2, xy, y^2)$ for $n = 3$. Distinct points and fat points sit in the <em>same</em> moduli space $\mathrm{Hilb}^n$, which therefore has positive dimension at every fat-point boundary.</p>
 </div>
 <script>
@@ -546,16 +544,14 @@ $$M(q) \;=\; \prod_{k \ge 1} \frac{1}{(1-q^k)^k} \;=\; 1 + q + 3q^2 + 6q^3 + 13q
   <div class="hd"><div class="ttl">MacMahon partition function</div><div class="hint">slide the truncation; the coefficients are 3D-partition counts</div></div>
   <div class="row">
     <label for="mm-N">truncation $N$ (terms shown):</label>
-    <input id="mm-N" type="range" min="3" max="20" step="1" value="10">
+    <input type="range" id="mm-N" min="3" max="20" step="1" value="10">
     <span id="mm-Nval" class="pill">N = 10</span>
-  </div>
-  <div class="row">
     <label for="mm-q">numerical $q$ (for evaluation):</label>
-    <input id="mm-q" type="range" min="0.01" max="0.6" step="0.005" value="0.25">
+    <input type="range" id="mm-q" min="0.01" max="0.6" step="0.005" value="0.25">
     <span id="mm-qval" class="pill">q = 0.250</span>
   </div>
   <svg id="mm-svg" viewBox="0 0 720 240" width="720" height="240"><title>MacMahon partition coefficients</title></svg>
-  <div class="readout" id="mm-out">drag truncation to expand $M(q)$; the bar heights are 3D-partition counts $p_3(n)$…</div>
+  <div class="readout" id="mm-out"></div>
   <p class="small">Coefficient of $q^n$ in $M(q)$ is the number of plane partitions of size $n$. $M(q)$ has radius of convergence $1$ but grows extremely fast in the coefficients ($\log p_3(n) \sim c \, n^{2/3}$ as $n \to \infty$).</p>
 </div>
 <script>
@@ -1021,11 +1017,11 @@ $$C_{\emptyset\emptyset\emptyset}(q) \;=\; M(q) \;=\; \prod_{k\ge 1}(1-q^k)^{-k}
   <div class="hd"><div class="ttl">Stability manifold and a wall — drag the parameter</div><div class="hint">cross the dashed wall, watch DT counts jump</div></div>
   <div class="row">
     <label for="wc-sigma">stability parameter $\sigma \in \mathbb{R}$:</label>
-    <input id="wc-sigma" type="range" min="-2.5" max="2.5" step="0.02" value="-1.5">
+    <input type="range" id="wc-sigma" min="-2.5" max="2.5" step="0.02" value="-1.5">
     <span id="wc-sval" class="pill">σ = −1.50</span>
   </div>
   <svg id="wc-svg" viewBox="0 0 720 280" width="720" height="280"><title>Wall-crossing diagram</title></svg>
-  <div class="readout" id="wc-out">drag the slider; watch DT(α) jump as you cross the wall…</div>
+  <div class="readout" id="wc-out"></div>
   <p class="small">Toy model with a single object $E$ of class $\alpha = \alpha_1 + \alpha_2$, where $\alpha_i$ are sub-classes. Across the wall (at $\sigma = 0$ here) the phases swap: $\phi(\alpha_1) > \phi(\alpha_2)$ vs.\ $\phi(\alpha_1) < \phi(\alpha_2)$. Semistability of $E$ in class $\alpha$ flips, and Joyce / KS gives the universal jump formula.</p>
 </div>
 <script>

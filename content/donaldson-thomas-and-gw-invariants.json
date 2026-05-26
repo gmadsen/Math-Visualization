@@ -12,13 +12,58 @@
         },
         {
           "type": "widget",
-          "slug": "dtgw-w1",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-hilbert",
             "title": "Length-$n$ subschemes of $\\mathbb{C}^2$ near the origin",
             "hint": "drag the slider; watch points collide into fat clusters with multiplicity",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-hilbert\">\n  <div class=\"hd\"><div class=\"ttl\">Length-$n$ subschemes of $\\mathbb{C}^2$ near the origin</div><div class=\"hint\">drag the slider; watch points collide into fat clusters with multiplicity</div></div>\n  <div class=\"row\">\n    <label for=\"hilb-spread\">spread $s$:</label>\n    <input id=\"hilb-spread\" type=\"range\" min=\"0\" max=\"1\" step=\"0.005\" value=\"0.7\">\n    <span id=\"hilb-sval\" class=\"pill\">s = 0.70</span>\n  </div>\n  <div class=\"row\">\n    <label for=\"hilb-n\">number of points $n$:</label>\n    <input id=\"hilb-n\" type=\"range\" min=\"1\" max=\"6\" step=\"1\" value=\"4\">\n    <span id=\"hilb-nval\" class=\"pill\">n = 4</span>\n  </div>\n  <svg id=\"hilb-svg\" viewBox=\"0 0 720 280\" width=\"720\" height=\"280\"><title>Hilbert scheme limits</title></svg>\n  <div class=\"readout\" id=\"hilb-out\">slide spread toward zero to see the fat-point limit…</div>\n  <p class=\"small\">As $s \\to 0$, $n$ distinct points collide at the origin and the ideal $(x-a_1,y-b_1) \\cap \\cdots \\cap (x-a_n,y-b_n)$ flows toward a non-reduced ideal of <em>colength $n$</em> — e.g.\\ $(x^n, y)$ or $(x^2, xy, y^2)$ for $n = 3$. Distinct points and fat points sit in the <em>same</em> moduli space $\\mathrm{Hilb}^n$, which therefore has positive dimension at every fat-point boundary.</p>\n</div>",
-            "bodyScript": "\n<script>\n(function(){\n  const svg=$('#hilb-svg'), out=$('#hilb-out');\n  const sval=$('#hilb-sval'), nval=$('#hilb-nval');\n  const sIn=$('#hilb-spread'), nIn=$('#hilb-n');\n  const W=720, H=280;\n  function draw(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const s=parseFloat(sIn.value);\n    const n=parseInt(nIn.value,10);\n    // axes around (200,140)\n    const cx=200, cy=140, R=110;\n    svg.appendChild(SVG('circle',{cx,cy,r:R,fill:'none',stroke:'var(--line)','stroke-width':0.6,'stroke-dasharray':'3 3'}));\n    svg.appendChild(SVG('line',{x1:cx-R,y1:cy,x2:cx+R,y2:cy,stroke:'var(--mute)','stroke-width':0.5}));\n    svg.appendChild(SVG('line',{x1:cx,y1:cy-R,x2:cx,y2:cy+R,stroke:'var(--mute)','stroke-width':0.5}));\n    const lbl=SVG('text',{x:cx+R+6,y:cy+4,'font-size':10,fill:'var(--mute)'});\n    lbl.textContent='x'; svg.appendChild(lbl);\n    const lbl2=SVG('text',{x:cx-3,y:cy-R-4,'font-size':10,fill:'var(--mute)','text-anchor':'middle'});\n    lbl2.textContent='y'; svg.appendChild(lbl2);\n    // fixed-seed pseudorandom locations\n    const seedX=[0.7,-0.5,0.2,-0.7,0.6,-0.2];\n    const seedY=[0.3,0.6,-0.5,-0.2,-0.6,0.7];\n    const pts=[];\n    for(let i=0;i<n;i++){\n      const px = cx + seedX[i]*R*s;\n      const py = cy + seedY[i]*R*s;\n      pts.push([px,py]);\n    }\n    // draw \"fat point\" cluster shading\n    if(s<0.3){\n      const cluster=SVG('circle',{cx,cy,r:8+22*s,fill:'rgba(225,154,79,0.16)',stroke:'var(--orange,#ffb74d)','stroke-width':0.8,'stroke-dasharray':'2 2'});\n      svg.appendChild(cluster);\n    }\n    for(const [px,py] of pts){\n      svg.appendChild(SVG('circle',{cx:px,cy:py,r:4.5,fill:'var(--yellow)',stroke:'#000','stroke-width':0.6}));\n    }\n    // right panel: ideal-theoretic description\n    const rx=520, ry=60;\n    const t1=SVG('text',{x:rx,y:ry-8,'font-size':12,fill:'var(--mute)','text-anchor':'middle'});\n    t1.textContent='ideal of the subscheme'; svg.appendChild(t1);\n    let txt;\n    if(s>0.55){\n      txt = '$\\\\mathcal{I}_Z = \\\\bigcap_{i=1}^{'+n+'} (x-a_i, y-b_i)$\\n('+n+' distinct simple points)';\n    } else if(s>0.15){\n      txt = '$\\\\mathcal{I}_Z \\\\to$ ideal with overlapping primary components\\nintermediate clustering';\n    } else {\n      // fat point limit\n      const formulas = {\n        1:'$(x,y)$',\n        2:'$(x^2, xy, y^2)$ or $(x, y^2)$',\n        3:'$(x^2, xy, y^3)$ or $(x^3, y)$',\n        4:'$(x^2, y^2, xy)$ plus a tangent direction',\n        5:'colength-5 monomial ideal',\n        6:'colength-6 monomial ideal'\n      };\n      txt = 'fat point: $\\\\mathcal{I}_Z \\\\subset (x,y)$\\ncolength = '+n+' ⇒ '+formulas[n];\n    }\n    // render the readout text outside svg\n    out.textContent = 'spread s = '+s.toFixed(2)+' · n = '+n+'\\n'+txt.replace(/\\$/g,'').replace(/\\\\\\\\/g,'').replace(/\\\\to/g,'→').replace(/\\\\bigcap_\\{i=1\\}\\^\\{[0-9]+\\}/g,'∩').replace(/\\\\mathcal\\{I\\}_Z/g,'I_Z').replace(/\\\\subset/g,'⊂');\n    // dimension hint\n    const dimNote=SVG('text',{x:520,y:200,'font-size':11,fill:'var(--mute)','text-anchor':'middle'});\n    dimNote.textContent='dim Hilb^n(C^2) = 2n'; svg.appendChild(dimNote);\n    const dimNote2=SVG('text',{x:520,y:218,'font-size':11,fill:'var(--cyan)','text-anchor':'middle'});\n    dimNote2.textContent='— smooth; for n='+n+' the dimension is '+(2*n); svg.appendChild(dimNote2);\n    sval.textContent = 's = '+s.toFixed(2);\n    nval.textContent = 'n = '+n;\n  }\n  sIn.addEventListener('input', draw);\n  nIn.addEventListener('input', draw);\n  draw();\n})();\n</script>"
+            "controls": [
+              {
+                "type": "slider",
+                "id": "hilb-spread",
+                "label": "spread $s$:",
+                "min": 0,
+                "max": 1,
+                "value": 0.7,
+                "format": "separate",
+                "step": 0.005
+              },
+              {
+                "type": "span",
+                "id": "hilb-sval",
+                "class": "pill",
+                "text": "s = 0.70"
+              },
+              {
+                "type": "slider",
+                "id": "hilb-n",
+                "label": "number of points $n$:",
+                "min": 1,
+                "max": 6,
+                "value": 4,
+                "format": "separate",
+                "step": 1
+              },
+              {
+                "type": "span",
+                "id": "hilb-nval",
+                "class": "pill",
+                "text": "n = 4"
+              }
+            ],
+            "svg": {
+              "id": "hilb-svg",
+              "viewBox": "0 0 720 280",
+              "width": 720,
+              "height": 280,
+              "title": "Hilbert scheme limits"
+            },
+            "readout": {
+              "id": "hilb-out"
+            },
+            "bodyScript": "\n<script>\n(function(){\n  const svg=$('#hilb-svg'), out=$('#hilb-out');\n  const sval=$('#hilb-sval'), nval=$('#hilb-nval');\n  const sIn=$('#hilb-spread'), nIn=$('#hilb-n');\n  const W=720, H=280;\n  function draw(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const s=parseFloat(sIn.value);\n    const n=parseInt(nIn.value,10);\n    // axes around (200,140)\n    const cx=200, cy=140, R=110;\n    svg.appendChild(SVG('circle',{cx,cy,r:R,fill:'none',stroke:'var(--line)','stroke-width':0.6,'stroke-dasharray':'3 3'}));\n    svg.appendChild(SVG('line',{x1:cx-R,y1:cy,x2:cx+R,y2:cy,stroke:'var(--mute)','stroke-width':0.5}));\n    svg.appendChild(SVG('line',{x1:cx,y1:cy-R,x2:cx,y2:cy+R,stroke:'var(--mute)','stroke-width':0.5}));\n    const lbl=SVG('text',{x:cx+R+6,y:cy+4,'font-size':10,fill:'var(--mute)'});\n    lbl.textContent='x'; svg.appendChild(lbl);\n    const lbl2=SVG('text',{x:cx-3,y:cy-R-4,'font-size':10,fill:'var(--mute)','text-anchor':'middle'});\n    lbl2.textContent='y'; svg.appendChild(lbl2);\n    // fixed-seed pseudorandom locations\n    const seedX=[0.7,-0.5,0.2,-0.7,0.6,-0.2];\n    const seedY=[0.3,0.6,-0.5,-0.2,-0.6,0.7];\n    const pts=[];\n    for(let i=0;i<n;i++){\n      const px = cx + seedX[i]*R*s;\n      const py = cy + seedY[i]*R*s;\n      pts.push([px,py]);\n    }\n    // draw \"fat point\" cluster shading\n    if(s<0.3){\n      const cluster=SVG('circle',{cx,cy,r:8+22*s,fill:'rgba(225,154,79,0.16)',stroke:'var(--orange,#ffb74d)','stroke-width':0.8,'stroke-dasharray':'2 2'});\n      svg.appendChild(cluster);\n    }\n    for(const [px,py] of pts){\n      svg.appendChild(SVG('circle',{cx:px,cy:py,r:4.5,fill:'var(--yellow)',stroke:'#000','stroke-width':0.6}));\n    }\n    // right panel: ideal-theoretic description\n    const rx=520, ry=60;\n    const t1=SVG('text',{x:rx,y:ry-8,'font-size':12,fill:'var(--mute)','text-anchor':'middle'});\n    t1.textContent='ideal of the subscheme'; svg.appendChild(t1);\n    let txt;\n    if(s>0.55){\n      txt = '$\\\\mathcal{I}_Z = \\\\bigcap_{i=1}^{'+n+'} (x-a_i, y-b_i)$\\n('+n+' distinct simple points)';\n    } else if(s>0.15){\n      txt = '$\\\\mathcal{I}_Z \\\\to$ ideal with overlapping primary components\\nintermediate clustering';\n    } else {\n      // fat point limit\n      const formulas = {\n        1:'$(x,y)$',\n        2:'$(x^2, xy, y^2)$ or $(x, y^2)$',\n        3:'$(x^2, xy, y^3)$ or $(x^3, y)$',\n        4:'$(x^2, y^2, xy)$ plus a tangent direction',\n        5:'colength-5 monomial ideal',\n        6:'colength-6 monomial ideal'\n      };\n      txt = 'fat point: $\\\\mathcal{I}_Z \\\\subset (x,y)$\\ncolength = '+n+' ⇒ '+formulas[n];\n    }\n    // render the readout text outside svg\n    out.textContent = 'spread s = '+s.toFixed(2)+' · n = '+n+'\\n'+txt.replace(/\\$/g,'').replace(/\\\\\\\\/g,'').replace(/\\\\to/g,'→').replace(/\\\\bigcap_\\{i=1\\}\\^\\{[0-9]+\\}/g,'∩').replace(/\\\\mathcal\\{I\\}_Z/g,'I_Z').replace(/\\\\subset/g,'⊂');\n    // dimension hint\n    const dimNote=SVG('text',{x:520,y:200,'font-size':11,fill:'var(--mute)','text-anchor':'middle'});\n    dimNote.textContent='dim Hilb^n(C^2) = 2n'; svg.appendChild(dimNote);\n    const dimNote2=SVG('text',{x:520,y:218,'font-size':11,fill:'var(--cyan)','text-anchor':'middle'});\n    dimNote2.textContent='— smooth; for n='+n+' the dimension is '+(2*n); svg.appendChild(dimNote2);\n    sval.textContent = 's = '+s.toFixed(2);\n    nval.textContent = 'n = '+n;\n  }\n  sIn.addEventListener('input', draw);\n  nIn.addEventListener('input', draw);\n  draw();\n})();\n</script>",
+            "wrapperHasId": true,
+            "trailingProse": "As $s \\to 0$, $n$ distinct points collide at the origin and the ideal $(x-a_1,y-b_1) \\cap \\cdots \\cap (x-a_n,y-b_n)$ flows toward a non-reduced ideal of <em>colength $n$</em> — e.g.\\ $(x^n, y)$ or $(x^2, xy, y^2)$ for $n = 3$. Distinct points and fat points sit in the <em>same</em> moduli space $\\mathrm{Hilb}^n$, which therefore has positive dimension at every fat-point boundary."
           }
         },
         {
@@ -102,13 +147,58 @@
         },
         {
           "type": "widget",
-          "slug": "dtgw-w3",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-macmahon",
             "title": "MacMahon partition function",
             "hint": "slide the truncation; the coefficients are 3D-partition counts",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-macmahon\">\n  <div class=\"hd\"><div class=\"ttl\">MacMahon partition function</div><div class=\"hint\">slide the truncation; the coefficients are 3D-partition counts</div></div>\n  <div class=\"row\">\n    <label for=\"mm-N\">truncation $N$ (terms shown):</label>\n    <input id=\"mm-N\" type=\"range\" min=\"3\" max=\"20\" step=\"1\" value=\"10\">\n    <span id=\"mm-Nval\" class=\"pill\">N = 10</span>\n  </div>\n  <div class=\"row\">\n    <label for=\"mm-q\">numerical $q$ (for evaluation):</label>\n    <input id=\"mm-q\" type=\"range\" min=\"0.01\" max=\"0.6\" step=\"0.005\" value=\"0.25\">\n    <span id=\"mm-qval\" class=\"pill\">q = 0.250</span>\n  </div>\n  <svg id=\"mm-svg\" viewBox=\"0 0 720 240\" width=\"720\" height=\"240\"><title>MacMahon partition coefficients</title></svg>\n  <div class=\"readout\" id=\"mm-out\">drag truncation to expand $M(q)$; the bar heights are 3D-partition counts $p_3(n)$…</div>\n  <p class=\"small\">Coefficient of $q^n$ in $M(q)$ is the number of plane partitions of size $n$. $M(q)$ has radius of convergence $1$ but grows extremely fast in the coefficients ($\\log p_3(n) \\sim c \\, n^{2/3}$ as $n \\to \\infty$).</p>\n</div>",
-            "bodyScript": "\n<script>\n(function(){\n  const svg=$('#mm-svg'), out=$('#mm-out');\n  const Nval=$('#mm-Nval'), qval=$('#mm-qval');\n  const Nin=$('#mm-N'), qin=$('#mm-q');\n  // Compute MacMahon coefficients up to degree N via Euler-style expansion of ∏(1-q^k)^{-k}.\n  function macmahonCoeffs(N){\n    const c = new Array(N+1).fill(0);\n    c[0] = 1;\n    for(let k=1; k<=N; k++){\n      // multiply current c by (1-q^k)^{-k} = sum_{m>=0} C(m+k-1, k-1) q^{km}\n      const nC = new Array(N+1).fill(0);\n      for(let i=0;i<=N;i++){\n        if(c[i]===0) continue;\n        let binom = 1;\n        for(let m=0; m*k+i<=N; m++){\n          nC[m*k+i] += c[i]*binom;\n          // next binom = C(m+k, k-1)\n          binom = binom*(m+k)/(m+1);\n        }\n      }\n      for(let i=0;i<=N;i++) c[i]=nC[i];\n    }\n    return c;\n  }\n  function draw(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const N=parseInt(Nin.value,10);\n    const q=parseFloat(qin.value);\n    const coeffs=macmahonCoeffs(N);\n    // bar chart of log(1+coeff) for visibility\n    const W=720, H=240;\n    const x0=46, y0=200, x1=W-30, y1=20;\n    const bw = (x1-x0)/(N+1) - 4;\n    let maxLog = 1;\n    for(let i=0;i<=N;i++) maxLog = Math.max(maxLog, Math.log10(1+coeffs[i]));\n    // axes\n    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x1,y2:y0,stroke:'var(--mute)','stroke-width':0.6}));\n    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x0,y2:y1,stroke:'var(--mute)','stroke-width':0.6}));\n    // bars\n    for(let i=0;i<=N;i++){\n      const h = (y0-y1) * (Math.log10(1+coeffs[i])/maxLog);\n      const bx = x0 + i*((x1-x0)/(N+1)) + 4;\n      svg.appendChild(SVG('rect',{x:bx,y:y0-h,width:bw,height:h,fill:'var(--cyan)',opacity:0.7,stroke:'var(--cyan)','stroke-width':0.5}));\n      const lbl=SVG('text',{x:bx+bw/2,y:y0+12,'font-size':9,fill:'var(--mute)','text-anchor':'middle'});\n      lbl.textContent=String(i); svg.appendChild(lbl);\n      if(i<=8){\n        const cnt=SVG('text',{x:bx+bw/2,y:y0-h-3,'font-size':9,fill:'var(--cyan)','text-anchor':'middle'});\n        cnt.textContent=String(coeffs[i]); svg.appendChild(cnt);\n      }\n    }\n    // axis label\n    const xlab=SVG('text',{x:(x0+x1)/2,y:y0+26,'font-size':10,fill:'var(--mute)','text-anchor':'middle'});\n    xlab.textContent='degree n (coefficient of q^n in M(q))'; svg.appendChild(xlab);\n    const ylab=SVG('text',{x:x0-32,y:(y0+y1)/2,'font-size':10,fill:'var(--mute)','text-anchor':'middle',transform:`rotate(-90 ${x0-32} ${(y0+y1)/2})`});\n    ylab.textContent='log10(1 + p_3(n))'; svg.appendChild(ylab);\n    // numerical sum\n    let sum = 0;\n    for(let i=0;i<=N;i++) sum += coeffs[i]*Math.pow(q,i);\n    out.textContent = 'M(q) ≈ ' +\n      coeffs.slice(0,Math.min(9,N+1)).map((c,i)=>{\n        if(c===0) return '';\n        if(i===0) return '1';\n        if(c===1) return 'q^'+i;\n        return c+'·q^'+i;\n      }).filter(x=>x).join(' + ') +\n      ' + …\\n' +\n      'p_3(' + Math.min(N,9) + ') = ' + coeffs[Math.min(N,9)] + '\\n' +\n      'M(' + q.toFixed(3) + ') ≈ ' + sum.toFixed(4);\n    Nval.textContent = 'N = '+N;\n    qval.textContent = 'q = '+q.toFixed(3);\n  }\n  Nin.addEventListener('input', draw);\n  qin.addEventListener('input', draw);\n  draw();\n})();\n</script>"
+            "controls": [
+              {
+                "type": "slider",
+                "id": "mm-N",
+                "label": "truncation $N$ (terms shown):",
+                "min": 3,
+                "max": 20,
+                "value": 10,
+                "format": "separate",
+                "step": 1
+              },
+              {
+                "type": "span",
+                "id": "mm-Nval",
+                "class": "pill",
+                "text": "N = 10"
+              },
+              {
+                "type": "slider",
+                "id": "mm-q",
+                "label": "numerical $q$ (for evaluation):",
+                "min": 0.01,
+                "max": 0.6,
+                "value": 0.25,
+                "format": "separate",
+                "step": 0.005
+              },
+              {
+                "type": "span",
+                "id": "mm-qval",
+                "class": "pill",
+                "text": "q = 0.250"
+              }
+            ],
+            "svg": {
+              "id": "mm-svg",
+              "viewBox": "0 0 720 240",
+              "width": 720,
+              "height": 240,
+              "title": "MacMahon partition coefficients"
+            },
+            "readout": {
+              "id": "mm-out"
+            },
+            "bodyScript": "\n<script>\n(function(){\n  const svg=$('#mm-svg'), out=$('#mm-out');\n  const Nval=$('#mm-Nval'), qval=$('#mm-qval');\n  const Nin=$('#mm-N'), qin=$('#mm-q');\n  // Compute MacMahon coefficients up to degree N via Euler-style expansion of ∏(1-q^k)^{-k}.\n  function macmahonCoeffs(N){\n    const c = new Array(N+1).fill(0);\n    c[0] = 1;\n    for(let k=1; k<=N; k++){\n      // multiply current c by (1-q^k)^{-k} = sum_{m>=0} C(m+k-1, k-1) q^{km}\n      const nC = new Array(N+1).fill(0);\n      for(let i=0;i<=N;i++){\n        if(c[i]===0) continue;\n        let binom = 1;\n        for(let m=0; m*k+i<=N; m++){\n          nC[m*k+i] += c[i]*binom;\n          // next binom = C(m+k, k-1)\n          binom = binom*(m+k)/(m+1);\n        }\n      }\n      for(let i=0;i<=N;i++) c[i]=nC[i];\n    }\n    return c;\n  }\n  function draw(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const N=parseInt(Nin.value,10);\n    const q=parseFloat(qin.value);\n    const coeffs=macmahonCoeffs(N);\n    // bar chart of log(1+coeff) for visibility\n    const W=720, H=240;\n    const x0=46, y0=200, x1=W-30, y1=20;\n    const bw = (x1-x0)/(N+1) - 4;\n    let maxLog = 1;\n    for(let i=0;i<=N;i++) maxLog = Math.max(maxLog, Math.log10(1+coeffs[i]));\n    // axes\n    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x1,y2:y0,stroke:'var(--mute)','stroke-width':0.6}));\n    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x0,y2:y1,stroke:'var(--mute)','stroke-width':0.6}));\n    // bars\n    for(let i=0;i<=N;i++){\n      const h = (y0-y1) * (Math.log10(1+coeffs[i])/maxLog);\n      const bx = x0 + i*((x1-x0)/(N+1)) + 4;\n      svg.appendChild(SVG('rect',{x:bx,y:y0-h,width:bw,height:h,fill:'var(--cyan)',opacity:0.7,stroke:'var(--cyan)','stroke-width':0.5}));\n      const lbl=SVG('text',{x:bx+bw/2,y:y0+12,'font-size':9,fill:'var(--mute)','text-anchor':'middle'});\n      lbl.textContent=String(i); svg.appendChild(lbl);\n      if(i<=8){\n        const cnt=SVG('text',{x:bx+bw/2,y:y0-h-3,'font-size':9,fill:'var(--cyan)','text-anchor':'middle'});\n        cnt.textContent=String(coeffs[i]); svg.appendChild(cnt);\n      }\n    }\n    // axis label\n    const xlab=SVG('text',{x:(x0+x1)/2,y:y0+26,'font-size':10,fill:'var(--mute)','text-anchor':'middle'});\n    xlab.textContent='degree n (coefficient of q^n in M(q))'; svg.appendChild(xlab);\n    const ylab=SVG('text',{x:x0-32,y:(y0+y1)/2,'font-size':10,fill:'var(--mute)','text-anchor':'middle',transform:`rotate(-90 ${x0-32} ${(y0+y1)/2})`});\n    ylab.textContent='log10(1 + p_3(n))'; svg.appendChild(ylab);\n    // numerical sum\n    let sum = 0;\n    for(let i=0;i<=N;i++) sum += coeffs[i]*Math.pow(q,i);\n    out.textContent = 'M(q) ≈ ' +\n      coeffs.slice(0,Math.min(9,N+1)).map((c,i)=>{\n        if(c===0) return '';\n        if(i===0) return '1';\n        if(c===1) return 'q^'+i;\n        return c+'·q^'+i;\n      }).filter(x=>x).join(' + ') +\n      ' + …\\n' +\n      'p_3(' + Math.min(N,9) + ') = ' + coeffs[Math.min(N,9)] + '\\n' +\n      'M(' + q.toFixed(3) + ') ≈ ' + sum.toFixed(4);\n    Nval.textContent = 'N = '+N;\n    qval.textContent = 'q = '+q.toFixed(3);\n  }\n  Nin.addEventListener('input', draw);\n  qin.addEventListener('input', draw);\n  draw();\n})();\n</script>",
+            "wrapperHasId": true,
+            "trailingProse": "Coefficient of $q^n$ in $M(q)$ is the number of plane partitions of size $n$. $M(q)$ has radius of convergence $1$ but grows extremely fast in the coefficients ($\\log p_3(n) \\sim c \\, n^{2/3}$ as $n \\to \\infty$)."
           }
         },
         {
@@ -270,13 +360,42 @@
         },
         {
           "type": "widget",
-          "slug": "dtgw-w7",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-wallcrossing",
             "title": "Stability manifold and a wall — drag the parameter",
             "hint": "cross the dashed wall, watch DT counts jump",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-wallcrossing\">\n  <div class=\"hd\"><div class=\"ttl\">Stability manifold and a wall — drag the parameter</div><div class=\"hint\">cross the dashed wall, watch DT counts jump</div></div>\n  <div class=\"row\">\n    <label for=\"wc-sigma\">stability parameter $\\sigma \\in \\mathbb{R}$:</label>\n    <input id=\"wc-sigma\" type=\"range\" min=\"-2.5\" max=\"2.5\" step=\"0.02\" value=\"-1.5\">\n    <span id=\"wc-sval\" class=\"pill\">σ = −1.50</span>\n  </div>\n  <svg id=\"wc-svg\" viewBox=\"0 0 720 280\" width=\"720\" height=\"280\"><title>Wall-crossing diagram</title></svg>\n  <div class=\"readout\" id=\"wc-out\">drag the slider; watch DT(α) jump as you cross the wall…</div>\n  <p class=\"small\">Toy model with a single object $E$ of class $\\alpha = \\alpha_1 + \\alpha_2$, where $\\alpha_i$ are sub-classes. Across the wall (at $\\sigma = 0$ here) the phases swap: $\\phi(\\alpha_1) > \\phi(\\alpha_2)$ vs.\\ $\\phi(\\alpha_1) < \\phi(\\alpha_2)$. Semistability of $E$ in class $\\alpha$ flips, and Joyce / KS gives the universal jump formula.</p>\n</div>",
-            "bodyScript": "\n<script>\n(function(){\n  const svg=$('#wc-svg'), out=$('#wc-out');\n  const sIn=$('#wc-sigma'), sval=$('#wc-sval');\n  function draw(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const s=parseFloat(sIn.value);\n    // axes for stability space\n    const W=720, H=280;\n    const ax0=60, ay0=140, ax1=440, ay1=140;\n    svg.appendChild(SVG('line',{x1:ax0,y1:ay0,x2:ax1,y2:ay1,stroke:'var(--mute)','stroke-width':0.7}));\n    // wall at sigma = 0\n    const wallX = ax0 + (0-(-2.5))/5 * (ax1-ax0);\n    svg.appendChild(SVG('line',{x1:wallX,y1:50,x2:wallX,y2:230,stroke:'var(--pink)','stroke-width':1.4,'stroke-dasharray':'5 4'}));\n    const wlab=SVG('text',{x:wallX,y:42,'text-anchor':'middle','font-size':11,fill:'var(--pink)','font-style':'italic'});\n    wlab.textContent='wall'; svg.appendChild(wlab);\n    // chambers\n    const chambL=SVG('rect',{x:ax0,y:90,width:wallX-ax0,height:100,fill:'rgba(125,224,214,0.06)',stroke:'none'});\n    svg.appendChild(chambL);\n    const chambR=SVG('rect',{x:wallX,y:90,width:ax1-wallX,height:100,fill:'rgba(255,216,102,0.06)',stroke:'none'});\n    svg.appendChild(chambR);\n    const cL=SVG('text',{x:(ax0+wallX)/2,y:78,'text-anchor':'middle','font-size':11,fill:'var(--cyan)'});\n    cL.textContent='chamber C−   DT(α) = N_C−'; svg.appendChild(cL);\n    const cR=SVG('text',{x:(wallX+ax1)/2,y:78,'text-anchor':'middle','font-size':11,fill:'var(--yellow)'});\n    cR.textContent='chamber C+   DT(α) = N_C+'; svg.appendChild(cR);\n    // sigma marker\n    const px = ax0 + (s-(-2.5))/5 * (ax1-ax0);\n    svg.appendChild(SVG('circle',{cx:px,cy:ay0,r:6,fill: s<0?'var(--cyan)':'var(--yellow)',stroke:'#000','stroke-width':1.2}));\n    const slab=SVG('text',{x:px,y:ay0+22,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n    slab.textContent='σ = '+s.toFixed(2); svg.appendChild(slab);\n    // axis ticks\n    for(let v=-2;v<=2;v++){\n      const xx = ax0 + (v-(-2.5))/5 * (ax1-ax0);\n      svg.appendChild(SVG('line',{x1:xx,y1:ay0-3,x2:xx,y2:ay0+3,stroke:'var(--mute)','stroke-width':0.6}));\n      const tk=SVG('text',{x:xx,y:ay0+38,'text-anchor':'middle','font-size':9,fill:'var(--mute)'});\n      tk.textContent=String(v); svg.appendChild(tk);\n    }\n    // central charge picture on the right\n    const cx=580, cy=140;\n    svg.appendChild(SVG('circle',{cx,cy,r:64,fill:'none',stroke:'var(--line)','stroke-width':0.6}));\n    svg.appendChild(SVG('line',{x1:cx-80,y1:cy,x2:cx+80,y2:cy,stroke:'var(--mute)','stroke-width':0.5}));\n    svg.appendChild(SVG('line',{x1:cx,y1:cy-80,x2:cx,y2:cy+80,stroke:'var(--mute)','stroke-width':0.5}));\n    const xax=SVG('text',{x:cx+82,y:cy+4,'font-size':10,fill:'var(--mute)'});\n    xax.textContent='Re Z'; svg.appendChild(xax);\n    const yax=SVG('text',{x:cx+4,y:cy-82,'font-size':10,fill:'var(--mute)'});\n    yax.textContent='Im Z'; svg.appendChild(yax);\n    // ray for α1\n    const ang1 = s<0 ? Math.PI*0.7 : Math.PI*0.55;\n    const ang2 = s<0 ? Math.PI*0.55 : Math.PI*0.7;\n    const r=55;\n    svg.appendChild(SVG('line',{x1:cx,y1:cy,x2:cx+r*Math.cos(ang1),y2:cy-r*Math.sin(ang1),stroke:'var(--cyan)','stroke-width':1.8,'marker-end':'none'}));\n    svg.appendChild(SVG('line',{x1:cx,y1:cy,x2:cx+r*Math.cos(ang2),y2:cy-r*Math.sin(ang2),stroke:'var(--yellow)','stroke-width':1.8}));\n    const lab1=SVG('text',{x:cx+r*Math.cos(ang1)+4,y:cy-r*Math.sin(ang1)-4,'font-size':10,fill:'var(--cyan)'});\n    lab1.textContent='Z(α₁)'; svg.appendChild(lab1);\n    const lab2=SVG('text',{x:cx+r*Math.cos(ang2)+4,y:cy-r*Math.sin(ang2)-4,'font-size':10,fill:'var(--yellow)'});\n    lab2.textContent='Z(α₂)'; svg.appendChild(lab2);\n    const ccap=SVG('text',{x:cx,y:cy+95,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n    ccap.textContent='central charge Z: K(X) → C'; svg.appendChild(ccap);\n    const sw=SVG('text',{x:cx,y:cy+108,'text-anchor':'middle','font-size':10,fill:s<0?'var(--cyan)':'var(--yellow)','font-style':'italic'});\n    sw.textContent= s<0?'phase α₁ > α₂':'phase α₁ < α₂'; svg.appendChild(sw);\n\n    out.textContent = 'σ = '+s.toFixed(2)+' · '+(s<0?'chamber C−':'chamber C+')+'\\n'+\n      'phases: '+(s<0?'φ(α₁) > φ(α₂)':'φ(α₁) < φ(α₂)')+'\\n'+\n      'Joyce / KS wall-crossing: ∏ U_α^{DT_-(α)} = ∏ U_α^{DT_+(α)}  in the motivic Hall algebra,\\n'+\n      'products taken over rays of Z, sorted by phase. DT integers on each side are tied by this identity.';\n    sval.textContent = 'σ = '+s.toFixed(2);\n  }\n  sIn.addEventListener('input', draw);\n  draw();\n})();\n</script>"
+            "controls": [
+              {
+                "type": "slider",
+                "id": "wc-sigma",
+                "label": "stability parameter $\\sigma \\in \\mathbb{R}$:",
+                "min": -2.5,
+                "max": 2.5,
+                "value": -1.5,
+                "format": "separate",
+                "step": 0.02
+              },
+              {
+                "type": "span",
+                "id": "wc-sval",
+                "class": "pill",
+                "text": "σ = −1.50"
+              }
+            ],
+            "svg": {
+              "id": "wc-svg",
+              "viewBox": "0 0 720 280",
+              "width": 720,
+              "height": 280,
+              "title": "Wall-crossing diagram"
+            },
+            "readout": {
+              "id": "wc-out"
+            },
+            "bodyScript": "\n<script>\n(function(){\n  const svg=$('#wc-svg'), out=$('#wc-out');\n  const sIn=$('#wc-sigma'), sval=$('#wc-sval');\n  function draw(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const s=parseFloat(sIn.value);\n    // axes for stability space\n    const W=720, H=280;\n    const ax0=60, ay0=140, ax1=440, ay1=140;\n    svg.appendChild(SVG('line',{x1:ax0,y1:ay0,x2:ax1,y2:ay1,stroke:'var(--mute)','stroke-width':0.7}));\n    // wall at sigma = 0\n    const wallX = ax0 + (0-(-2.5))/5 * (ax1-ax0);\n    svg.appendChild(SVG('line',{x1:wallX,y1:50,x2:wallX,y2:230,stroke:'var(--pink)','stroke-width':1.4,'stroke-dasharray':'5 4'}));\n    const wlab=SVG('text',{x:wallX,y:42,'text-anchor':'middle','font-size':11,fill:'var(--pink)','font-style':'italic'});\n    wlab.textContent='wall'; svg.appendChild(wlab);\n    // chambers\n    const chambL=SVG('rect',{x:ax0,y:90,width:wallX-ax0,height:100,fill:'rgba(125,224,214,0.06)',stroke:'none'});\n    svg.appendChild(chambL);\n    const chambR=SVG('rect',{x:wallX,y:90,width:ax1-wallX,height:100,fill:'rgba(255,216,102,0.06)',stroke:'none'});\n    svg.appendChild(chambR);\n    const cL=SVG('text',{x:(ax0+wallX)/2,y:78,'text-anchor':'middle','font-size':11,fill:'var(--cyan)'});\n    cL.textContent='chamber C−   DT(α) = N_C−'; svg.appendChild(cL);\n    const cR=SVG('text',{x:(wallX+ax1)/2,y:78,'text-anchor':'middle','font-size':11,fill:'var(--yellow)'});\n    cR.textContent='chamber C+   DT(α) = N_C+'; svg.appendChild(cR);\n    // sigma marker\n    const px = ax0 + (s-(-2.5))/5 * (ax1-ax0);\n    svg.appendChild(SVG('circle',{cx:px,cy:ay0,r:6,fill: s<0?'var(--cyan)':'var(--yellow)',stroke:'#000','stroke-width':1.2}));\n    const slab=SVG('text',{x:px,y:ay0+22,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n    slab.textContent='σ = '+s.toFixed(2); svg.appendChild(slab);\n    // axis ticks\n    for(let v=-2;v<=2;v++){\n      const xx = ax0 + (v-(-2.5))/5 * (ax1-ax0);\n      svg.appendChild(SVG('line',{x1:xx,y1:ay0-3,x2:xx,y2:ay0+3,stroke:'var(--mute)','stroke-width':0.6}));\n      const tk=SVG('text',{x:xx,y:ay0+38,'text-anchor':'middle','font-size':9,fill:'var(--mute)'});\n      tk.textContent=String(v); svg.appendChild(tk);\n    }\n    // central charge picture on the right\n    const cx=580, cy=140;\n    svg.appendChild(SVG('circle',{cx,cy,r:64,fill:'none',stroke:'var(--line)','stroke-width':0.6}));\n    svg.appendChild(SVG('line',{x1:cx-80,y1:cy,x2:cx+80,y2:cy,stroke:'var(--mute)','stroke-width':0.5}));\n    svg.appendChild(SVG('line',{x1:cx,y1:cy-80,x2:cx,y2:cy+80,stroke:'var(--mute)','stroke-width':0.5}));\n    const xax=SVG('text',{x:cx+82,y:cy+4,'font-size':10,fill:'var(--mute)'});\n    xax.textContent='Re Z'; svg.appendChild(xax);\n    const yax=SVG('text',{x:cx+4,y:cy-82,'font-size':10,fill:'var(--mute)'});\n    yax.textContent='Im Z'; svg.appendChild(yax);\n    // ray for α1\n    const ang1 = s<0 ? Math.PI*0.7 : Math.PI*0.55;\n    const ang2 = s<0 ? Math.PI*0.55 : Math.PI*0.7;\n    const r=55;\n    svg.appendChild(SVG('line',{x1:cx,y1:cy,x2:cx+r*Math.cos(ang1),y2:cy-r*Math.sin(ang1),stroke:'var(--cyan)','stroke-width':1.8,'marker-end':'none'}));\n    svg.appendChild(SVG('line',{x1:cx,y1:cy,x2:cx+r*Math.cos(ang2),y2:cy-r*Math.sin(ang2),stroke:'var(--yellow)','stroke-width':1.8}));\n    const lab1=SVG('text',{x:cx+r*Math.cos(ang1)+4,y:cy-r*Math.sin(ang1)-4,'font-size':10,fill:'var(--cyan)'});\n    lab1.textContent='Z(α₁)'; svg.appendChild(lab1);\n    const lab2=SVG('text',{x:cx+r*Math.cos(ang2)+4,y:cy-r*Math.sin(ang2)-4,'font-size':10,fill:'var(--yellow)'});\n    lab2.textContent='Z(α₂)'; svg.appendChild(lab2);\n    const ccap=SVG('text',{x:cx,y:cy+95,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n    ccap.textContent='central charge Z: K(X) → C'; svg.appendChild(ccap);\n    const sw=SVG('text',{x:cx,y:cy+108,'text-anchor':'middle','font-size':10,fill:s<0?'var(--cyan)':'var(--yellow)','font-style':'italic'});\n    sw.textContent= s<0?'phase α₁ > α₂':'phase α₁ < α₂'; svg.appendChild(sw);\n\n    out.textContent = 'σ = '+s.toFixed(2)+' · '+(s<0?'chamber C−':'chamber C+')+'\\n'+\n      'phases: '+(s<0?'φ(α₁) > φ(α₂)':'φ(α₁) < φ(α₂)')+'\\n'+\n      'Joyce / KS wall-crossing: ∏ U_α^{DT_-(α)} = ∏ U_α^{DT_+(α)}  in the motivic Hall algebra,\\n'+\n      'products taken over rays of Z, sorted by phase. DT integers on each side are tied by this identity.';\n    sval.textContent = 'σ = '+s.toFixed(2);\n  }\n  sIn.addEventListener('input', draw);\n  draw();\n})();\n</script>",
+            "wrapperHasId": true,
+            "trailingProse": "Toy model with a single object $E$ of class $\\alpha = \\alpha_1 + \\alpha_2$, where $\\alpha_i$ are sub-classes. Across the wall (at $\\sigma = 0$ here) the phases swap: $\\phi(\\alpha_1) > \\phi(\\alpha_2)$ vs.\\ $\\phi(\\alpha_1) < \\phi(\\alpha_2)$. Semistability of $E$ in class $\\alpha$ flips, and Joyce / KS gives the universal jump formula."
           }
         },
         {

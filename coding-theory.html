@@ -276,15 +276,13 @@ Codes meeting this bound with equality are <strong>maximum distance separable</s
 <div class="widget" id="w-distance">
   <div class="hd"><div class="ttl">Distance &amp; correction radius</div><div class="hint">choose $n$, $d$ — see correction radius and Singleton ceiling on $k$</div></div>
   <div class="row">
-    <label>length $n$ <input id="dist-n" type="range" min="3" max="31" step="1" value="7"></label>
+    <label>length $n$<input id="dist-n" type="range" min="3" max="31" step="1" value="7"></label>
     <span id="dist-n-out" class="pill">n=7</span>
-  </div>
-  <div class="row">
-    <label>min distance $d$ <input id="dist-d" type="range" min="1" max="15" step="1" value="3"></label>
+    <label>min distance $d$<input id="dist-d" type="range" min="1" max="15" step="1" value="3"></label>
     <span id="dist-d-out" class="pill">d=3</span>
   </div>
   <svg id="dist-svg" viewBox="0 0 640 220" width="100%" height="220" aria-label="ball-packing schematic"><title>Hamming balls of correction radius around two codewords</title></svg>
-  <div id="dist-out" class="readout">— set the sliders above —</div>
+  <div class="readout" id="dist-out"></div>
 </div>
 <script>
 (function(){
@@ -987,21 +985,17 @@ measures how tightly they pack.</p>
 
 <div class="widget" id="w-lattice">
   <div class="hd"><div class="ttl">2D lattice — basis sliders &amp; packing density</div><div class="hint">tweak $v_1,v_2$ — covolume and shortest-vector circle update live</div></div>
-  <p class="small" style="margin:.2rem 0 .4rem">Square lattice maximises density iff $v_1\perp v_2$ with equal length; the hexagonal $A_2$ at $60^\circ$ is the true 2D optimum.</p>
   <div class="row">
-    <label>$v_1.x$ <input id="lat-v1x" type="range" min="-2" max="2" step="0.05" value="1"></label>
-    <label>$v_1.y$ <input id="lat-v1y" type="range" min="-2" max="2" step="0.05" value="0"></label>
-  </div>
-  <div class="row">
-    <label>$v_2.x$ <input id="lat-v2x" type="range" min="-2" max="2" step="0.05" value="0"></label>
-    <label>$v_2.y$ <input id="lat-v2y" type="range" min="-2" max="2" step="0.05" value="1"></label>
-  </div>
-  <svg id="lat-svg" viewBox="0 0 640 360" width="100%" height="360" aria-label="2D lattice with packing circles"><title>Two-dimensional lattice with disjoint circles of radius half the shortest vector</title></svg>
-  <div id="lat-out" class="readout">— move sliders —</div>
-  <div class="row">
+    <label>$v_1.x$<input id="lat-v1x" type="range" min="-2" max="2" step="0.05" value="1"></label>
+    <label>$v_1.y$<input id="lat-v1y" type="range" min="-2" max="2" step="0.05" value="0"></label>
+    <label>$v_2.x$<input id="lat-v2x" type="range" min="-2" max="2" step="0.05" value="0"></label>
+    <label>$v_2.y$<input id="lat-v2y" type="range" min="-2" max="2" step="0.05" value="1"></label>
     <button id="lat-square">square</button>
     <button id="lat-hex">hexagonal A₂</button>
   </div>
+  <svg id="lat-svg" viewBox="0 0 640 360" width="100%" height="360" aria-label="2D lattice with packing circles"><title>Two-dimensional lattice with disjoint circles of radius half the shortest vector</title></svg>
+  <div class="readout" id="lat-out"></div>
+  <p class="small">Square lattice maximises density iff $v_1\perp v_2$ with equal length; the hexagonal $A_2$ at $60^\circ$ is the true 2D optimum.</p>
 </div>
 <script>
 (function(){
