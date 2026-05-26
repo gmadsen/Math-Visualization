@@ -8610,27 +8610,6 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "gmt-bv",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "gmt-bv widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"BV decomposition: absolutely continuous + jump + Cantor\" widget on the geometric-measure-theory topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"BV decomposition: absolutely continuous + jump + Cantor\" widget on `geometric-measure-theory`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "gmt-coarea",
     "family": "verbatim",
     "dimension": "2d",
@@ -8667,69 +8646,6 @@ window.__MVWidgets = [
       "bodyScript"
     ],
     "readmeExcerpt": "Bespoke verbatim slug for the \"Build an oriented chain; watch boundary and mass\" widget on `geometric-measure-theory`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "gmt-perim",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "gmt-perim widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Perimeter as boundary roughness varies\" widget on the geometric-measure-theory topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Perimeter as boundary roughness varies\" widget on `geometric-measure-theory`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "gmt-plateau",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "drag",
-    "role": "interactive",
-    "title": "gmt-plateau widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Plateau in 2D / Mumford-Shah toggle\" widget on the geometric-measure-theory topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Plateau in 2D / Mumford-Shah toggle\" widget on `geometric-measure-theory`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "gmt-rect",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "gmt-rect widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Rectifiable vs purely unrectifiable: project onto a rotating line\" widget on the geometric-measure-theory topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Rectifiable vs purely unrectifiable: project onto a rotating line\" widget on `geometric-measure-theory`.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
@@ -13120,111 +13036,6 @@ window.__MVWidgets = [
       "bodyScript"
     ],
     "readmeExcerpt": "Bespoke widget for the mirror-symmetry topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "ml-elliptic",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "ml-elliptic widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Bootstrap from parametrix: gain $m$ derivatives where $P$ is elliptic\" widget on the microlocal-analysis topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Bootstrap from parametrix: gain $m$ derivatives where $P$ is elliptic\" widget on `microlocal-analysis`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "ml-fio-canon",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "ml-fio-canon widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"FIO as wavefront mover: a Lagrangian relation between $T^*Y$ and $T^*X$\" widget on the microlocal-analysis topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"FIO as wavefront mover: a Lagrangian relation between $T^*Y$ and $T^*X$\" widget on `microlocal-analysis`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "ml-prop",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "ml-prop widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Singularity propagation by null bicharacteristic flow\" widget on the microlocal-analysis topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Singularity propagation by null bicharacteristic flow\" widget on `microlocal-analysis`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "ml-radon",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "ml-radon widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Radon canonical relation: which directions detect which edges\" widget on the microlocal-analysis topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Radon canonical relation: which directions detect which edges\" widget on `microlocal-analysis`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "ml-symbol",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "ml-symbol widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Symbol estimates and composition\" widget on the microlocal-analysis topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Symbol estimates and composition\" widget on `microlocal-analysis`.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
@@ -17641,27 +17452,6 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "sr-boost",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "sr-boost widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Boost: how spacetime axes tilt\" widget on the special-relativity topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Boost: how spacetime axes tilt\" widget on `special-relativity`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "sr-cone",
     "family": "verbatim",
     "dimension": "2d",
@@ -17677,90 +17467,6 @@ window.__MVWidgets = [
       "bodyScript"
     ],
     "readmeExcerpt": "Bespoke verbatim slug for the \"Light cone &amp; vector classification\" widget on `special-relativity`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "sr-em",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "sr-em widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Energy: relativistic vs Newtonian\" widget on the special-relativity topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Energy: relativistic vs Newtonian\" widget on `special-relativity`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "sr-gamma",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "sr-gamma widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Lorentz factor: γ as β grows\" widget on the special-relativity topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Lorentz factor: γ as β grows\" widget on `special-relativity`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "sr-sim",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "sr-sim widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Two flashes — simultaneous in whose frame?\" widget on the special-relativity topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Two flashes — simultaneous in whose frame?\" widget on `special-relativity`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "sr-vadd",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "sr-vadd widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Velocity addition: Galilean vs Einstein\" widget on the special-relativity topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Velocity addition: Galilean vs Einstein\" widget on `special-relativity`.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,

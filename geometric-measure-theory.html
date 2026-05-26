@@ -280,21 +280,17 @@ $$Du \;=\; \nabla u\,\mathcal{L}^n \;+\; (u^+-u^-)\,\nu_u\,\mathcal{H}^{n-1}\res
   <div class="hd"><div class="ttl">BV decomposition: absolutely continuous + jump + Cantor</div><div class="hint">slide jump amplitude and Cantor weight; the readout splits $|Du|$ three ways</div></div>
   <div class="row">
     <label for="gmt-bv-jumps">number of jumps:</label>
-    <input id="gmt-bv-jumps" type="range" min="0" max="6" step="1" value="2">
+    <input type="range" id="gmt-bv-jumps" min="0" max="6" step="1" value="2">
     <span id="gmt-bv-jumps-out" class="small"></span>
-  </div>
-  <div class="row">
     <label for="gmt-bv-amp">jump amplitude:</label>
-    <input id="gmt-bv-amp" type="range" min="0" max="1.2" step="0.05" value="0.5">
+    <input type="range" id="gmt-bv-amp" min="0" max="1.2" step="0.05" value="0.5">
     <span id="gmt-bv-amp-out" class="small"></span>
-  </div>
-  <div class="row">
     <label for="gmt-bv-cantor">Cantor staircase weight:</label>
-    <input id="gmt-bv-cantor" type="range" min="0" max="1" step="0.05" value="0.3">
+    <input type="range" id="gmt-bv-cantor" min="0" max="1" step="0.05" value="0.3">
     <span id="gmt-bv-cantor-out" class="small"></span>
   </div>
   <svg id="gmt-bv-svg" viewBox="-260 -150 520 280" width="100%" height="320"><title>BV function on [0,1] with adjustable AC, jump, and Cantor parts</title></svg>
-  <div id="gmt-bv-out" class="readout"></div>
+  <div class="readout" id="gmt-bv-out"></div>
 </div><script>
 (function(){
   const svg = document.getElementById('gmt-bv-svg');
@@ -546,15 +542,13 @@ $$P(E)\;=\;\mathcal{H}^{n-1}(\partial^*E),\qquad D\chi_E\;=\;-\nu_E\,\mathcal{H}
   <div class="hd"><div class="ttl">Perimeter as boundary roughness varies</div><div class="hint">slider drives Koch-style refinement; slider→∞ shows $P\to\infty$ with area bounded</div></div>
   <div class="row">
     <label for="gmt-perim-depth">refinement depth $k$:</label>
-    <input id="gmt-perim-depth" type="range" min="0" max="5" step="1" value="2">
+    <input type="range" id="gmt-perim-depth" min="0" max="5" step="1" value="2">
     <span id="gmt-perim-depth-out" class="small"></span>
-  </div>
-  <div class="row">
     <button id="gmt-perim-square" class="active">smooth start: square</button>
     <button id="gmt-perim-disk">smooth start: disk (16-gon approx)</button>
   </div>
   <svg id="gmt-perim-svg" viewBox="-260 -150 520 280" width="100%" height="320"><title>Set of finite perimeter as fractal refinement depth grows</title></svg>
-  <div id="gmt-perim-out" class="readout"></div>
+  <div class="readout" id="gmt-perim-out"></div>
 </div><script>
 (function(){
   const svg = document.getElementById('gmt-perim-svg');
@@ -710,14 +704,12 @@ $$S\;\subset\;S_0\,\cup\,\bigcup_{j=1}^\infty f_j(A_j),\qquad \mathcal{H}^k(S_0)
   <div class="row">
     <button id="gmt-rect-circle" class="active">smooth curve (unit circle)</button>
     <button id="gmt-rect-cantor">4-corner Cantor (purely unrectifiable)</button>
-  </div>
-  <div class="row">
     <label for="gmt-rect-theta">projection angle $\theta$:</label>
-    <input id="gmt-rect-theta" type="range" min="0" max="3.14159" step="0.01" value="0.6">
+    <input type="range" id="gmt-rect-theta" min="0" max="3.14159" step="0.01" value="0.6">
     <span id="gmt-rect-theta-out" class="small"></span>
   </div>
   <svg id="gmt-rect-svg" viewBox="-260 -150 520 280" width="100%" height="320"><title>Rectifiable vs purely unrectifiable set under a rotating projection</title></svg>
-  <div id="gmt-rect-out" class="readout"></div>
+  <div class="readout" id="gmt-rect-out"></div>
 </div><script>
 (function(){
   const svg = document.getElementById('gmt-rect-svg');
@@ -1440,19 +1432,15 @@ $$\mathcal{E}(u,K)\;=\;\int_{\Omega\setminus K}(u-g)^2\,dx \;+\;\alpha\int_{\Ome
   <div class="row">
     <button id="gmt-plat-plateau" class="active">Plateau: minimize length over chains with fixed boundary</button>
     <button id="gmt-plat-ms">Mumford-Shah: edge-set $K$ on a 1D signal</button>
-  </div>
-  <div class="row">
     <label for="gmt-plat-noise">noise level (MS only):</label>
-    <input id="gmt-plat-noise" type="range" min="0" max="0.6" step="0.02" value="0.15">
+    <input type="range" id="gmt-plat-noise" min="0" max="0.6" step="0.02" value="0.15">
     <span id="gmt-plat-noise-out" class="small"></span>
-  </div>
-  <div class="row">
     <label for="gmt-plat-beta">edge penalty $\beta$ (MS only):</label>
-    <input id="gmt-plat-beta" type="range" min="0.01" max="0.6" step="0.01" value="0.12">
+    <input type="range" id="gmt-plat-beta" min="0.01" max="0.6" step="0.01" value="0.12">
     <span id="gmt-plat-beta-out" class="small"></span>
   </div>
   <svg id="gmt-plat-svg" viewBox="-260 -150 520 280" width="100%" height="320"><title>Plateau-style minimal chain or Mumford-Shah edge set</title></svg>
-  <div id="gmt-plat-out" class="readout"></div>
+  <div class="readout" id="gmt-plat-out"></div>
 </div><script>
 (function(){
   const svg = document.getElementById('gmt-plat-svg');
