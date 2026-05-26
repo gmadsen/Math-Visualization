@@ -359,6 +359,11 @@ function parseVerbatimMarkup(bodyMarkup, normalize) {
   const svgHeight = dim(svgAttr('height'));
   const svgRole = svgAttr('role');
   const svgAriaLabel = svgAttr('aria-label');
+  // Inline `style` on the <svg> (verbatim machine CSS). Some widgets set a dark
+  // plotting canvas / border / `cursor:crosshair` directly on the element; without
+  // capturing it the affordance is silently lost (e.g. ec-gl's click-to-place
+  // crosshair). The renderer emits it verbatim (no HTML-escape).
+  const svgStyle = svgAttr('style');
   const svg = {
     id: svgId,
     viewBox: svgViewBox,
@@ -366,6 +371,7 @@ function parseVerbatimMarkup(bodyMarkup, normalize) {
     ...(svgHeight != null ? { height: svgHeight } : {}),
     ...(svgRole === 'img' ? { role: svgRole } : {}),
     ...(svgAriaLabel != null ? { ariaLabel: unescapeHtml(svgAriaLabel) } : {}),
+    ...(svgStyle != null ? { style: svgStyle } : {}),
   };
   // Extract the SVG <title>...</title> text; preserve as override when
   // it differs from the page header title (corpus convention — see

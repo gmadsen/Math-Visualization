@@ -125,7 +125,12 @@ export function renderMarkup(params) {
     (svg.width  != null ? ` width="${svg.width}"` : '') +
     (svg.height != null ? ` height="${svg.height}"` : '') +
     (svg.role ? ` role="${svg.role}"` : '') +
-    (svg.ariaLabel != null ? ` aria-label="${escapeHtml(svg.ariaLabel)}"` : '');
+    (svg.ariaLabel != null ? ` aria-label="${escapeHtml(svg.ariaLabel)}"` : '') +
+    // `style` is emitted verbatim (machine CSS, not human text — no HTML-escaping,
+    // matching the source attribute exactly). Round-trips inline SVG styling some
+    // widgets set directly on the element: a dark plotting canvas, a border, or
+    // `cursor:crosshair` (the affordance for click-to-place widgets like ec-gl).
+    (svg.style != null ? ` style="${svg.style}"` : '');
 
   // Wrapper id: opt-in via `wrapperHasId: true`. Two distinct uses of
   // widgetId across the corpus require this split:

@@ -128,7 +128,8 @@
               "id": "gl-svg",
               "viewBox": "0 0 560 400",
               "width": 560,
-              "height": 400
+              "height": 400,
+              "style": "background:#0b0f16;border:1px solid var(--line);border-radius:6px;cursor:crosshair"
             },
             "readout": {
               "id": "gl-out"
