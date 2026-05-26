@@ -525,14 +525,12 @@ $$\emptyset\;\xrightarrow{\;\text{cof}\;}\;QX\;\xrightarrow{\;\sim\;}\;X,\qquad 
     <button id="mc-rep-zmod2" class="active">$M = \mathbb{Z}/2$</button>
     <button id="mc-rep-zmod6">$M = \mathbb{Z}/6$</button>
     <button id="mc-rep-q">$M = \mathbb{Q}$</button>
-  </div>
-  <div class="row">
     <label for="mc-rep-depth">resolution depth $n$:</label>
-    <input id="mc-rep-depth" type="range" min="0" max="5" step="1" value="2">
+    <input type="range" id="mc-rep-depth" min="0" max="5" step="1" value="2">
     <span id="mc-rep-d-out" class="small"></span>
   </div>
   <svg id="mc-rep-svg" viewBox="-280 -150 560 300" width="100%" height="300"><title>Step-by-step projective resolution as iterated cofibrant replacement</title></svg>
-  <div id="mc-rep-out" class="readout"></div>
+  <div class="readout" id="mc-rep-out"></div>
 </div>
 <script>
 (function(){
