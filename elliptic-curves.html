@@ -391,16 +391,16 @@ giving $P + Q = (x_3, y_3)$.</p>
 </div>
 
 <div class="widget">
-<div class="hd"><span class="ttl">Weierstrass curve + group law</span><span class="hint">click twice to place $P$, $Q$; see $P+Q$</span></div>
-<div class="row">
-  <label>$a$ <input type="range" id="gl-a" min="-3" max="3" step="0.05" value="-2"></label>
-  <span id="gl-aval" class="small">-2</span>
-  <label>$b$ <input type="range" id="gl-b" min="-3" max="3" step="0.05" value="1"></label>
-  <span id="gl-bval" class="small">1</span>
-  <button id="gl-reset">reset pts</button>
-</div>
-<svg id="gl-svg" viewBox="0 0 560 400" width="560" height="400" style="background:#0b0f16;border:1px solid var(--line);border-radius:6px;cursor:crosshair"><title>Weierstrass curve + group law</title></svg>
-<div id="gl-out" class="readout"></div>
+  <div class="hd"><div class="ttl">Weierstrass curve + group law</div><div class="hint">click twice to place $P$, $Q$; see $P+Q$</div></div>
+  <div class="row">
+    <label>$a$<input id="gl-a" type="range" min="-3" max="3" step="0.05" value="-2"></label>
+    <span id="gl-aval" class="small">-2</span>
+    <label>$b$<input id="gl-b" type="range" min="-3" max="3" step="0.05" value="1"></label>
+    <span id="gl-bval" class="small">1</span>
+    <button id="gl-reset">reset pts</button>
+  </div>
+  <svg id="gl-svg" viewBox="0 0 560 400" width="560" height="400"><title>Weierstrass curve + group law</title></svg>
+  <div class="readout" id="gl-out"></div>
 </div>
 
 <script>
