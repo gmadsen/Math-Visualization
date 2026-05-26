@@ -2900,75 +2900,12 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "cobordism-w2",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "cobordism-w2 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the cobordism topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `cobordism` topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "cobordism-w3",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "cobordism-w3 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the cobordism topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `cobordism` topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "cobordism-w4",
     "family": "verbatim",
     "dimension": "2d",
     "gesture": "click",
     "role": "interactive",
     "title": "cobordism-w4 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the cobordism topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `cobordism` topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "cobordism-w5",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "cobordism-w5 widget params",
     "description": "Verbatim-renderer slug for an inline widget on the cobordism topic.",
     "requiredParams": [
       "widgetId",
@@ -6119,27 +6056,6 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "dirac-current",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "dirac-current widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"$j^0$ comparison: Klein-Gordon vs Dirac\" widget on the dirac-equation topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"$j^0$ comparison: Klein-Gordon vs Dirac\" widget on `dirac-equation`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "dirac-gamma-matrices",
     "family": "verbatim",
     "dimension": "2d",
@@ -6155,27 +6071,6 @@ window.__MVWidgets = [
       "bodyScript"
     ],
     "readmeExcerpt": "Bespoke verbatim slug for the \"$\\gamma$-matrix grid: pick two and watch the Clifford relation appear\" widget on `dirac-equation`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "dirac-pauli",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "dirac-pauli widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Lower-spinor decimation: $|\\chi|/|\\varphi|$ vs boost\" widget on the dirac-equation topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Lower-spinor decimation: $|\\chi|/|\\varphi|$ vs boost\" widget on `dirac-equation`.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
@@ -12643,48 +12538,6 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "mchaos-w1",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "interactive",
-    "role": "interactive",
-    "title": "mchaos-w1 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the mathematical-chaos topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `mathematical-chaos` topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "mchaos-w2",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "interactive",
-    "role": "interactive",
-    "title": "mchaos-w2 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the mathematical-chaos topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `mathematical-chaos` topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "mchaos-w3",
     "family": "verbatim",
     "dimension": "2d",
@@ -12706,54 +12559,12 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "mchaos-w4",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "interactive",
-    "role": "interactive",
-    "title": "mchaos-w4 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the mathematical-chaos topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `mathematical-chaos` topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "mchaos-w5",
     "family": "verbatim",
     "dimension": "2d",
     "gesture": "interactive",
     "role": "interactive",
     "title": "mchaos-w5 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the mathematical-chaos topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `mathematical-chaos` topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "mchaos-w6",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "interactive",
-    "role": "interactive",
-    "title": "mchaos-w6 widget params",
     "description": "Verbatim-renderer slug for an inline widget on the mathematical-chaos topic.",
     "requiredParams": [
       "widgetId",
@@ -16272,96 +16083,12 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "scv-w1",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "scv-w1 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the several-complex-variables topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for one inline widget on `several-complex-variables.html`. Body markup and script are stored opaquely in `params.bodyMarkup`/`params.bodyScript`; future migration could hoist semantic params (slider ranges, color tokens) out of the strings.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "scv-w2",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "scv-w2 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the several-complex-variables topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for one inline widget on `several-complex-variables.html`. Body markup and script are stored opaquely in `params.bodyMarkup`/`params.bodyScript`; future migration could hoist semantic params (slider ranges, color tokens) out of the strings.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "scv-w3",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "scv-w3 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the several-complex-variables topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for one inline widget on `several-complex-variables.html`. Body markup and script are stored opaquely in `params.bodyMarkup`/`params.bodyScript`; future migration could hoist semantic params (slider ranges, color tokens) out of the strings.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "scv-w4",
     "family": "verbatim",
     "dimension": "2d",
     "gesture": "click",
     "role": "interactive",
     "title": "scv-w4 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the several-complex-variables topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for one inline widget on `several-complex-variables.html`. Body markup and script are stored opaquely in `params.bodyMarkup`/`params.bodyScript`; future migration could hoist semantic params (slider ranges, color tokens) out of the strings.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "scv-w5",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "scv-w5 widget params",
     "description": "Verbatim-renderer slug for an inline widget on the several-complex-variables topic.",
     "requiredParams": [
       "widgetId",

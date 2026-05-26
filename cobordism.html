@@ -351,8 +351,8 @@ function drawNode(svg, x, y, label, opts={}){
   <div class="hd"><div class="ttl">SW numbers compute $[\mathbb{RP}^n]$</div><div class="hint">read off $(1+a)^{n+1}$</div></div>
   <div class="row">
     <label for="num-n">$n =$</label>
-    <input type="range" id="num-n" min="1" max="6" value="2" step="1">
-    <span class="pill" id="num-n-out">$n=2$</span>
+    <input type="range" id="num-n" min="1" max="6" step="1" value="2">
+    <span id="num-n-out" class="pill">$n=2$</span>
   </div>
   <svg id="num-svg" viewBox="0 0 720 280" width="720" height="280"><title>Stiefel-Whitney numbers of RP^n</title></svg>
   <div class="readout" id="num-out"></div>
@@ -404,8 +404,8 @@ The reverse map sends a homotopy class $f\colon S^{n+k}\to MO(k)$ to the preimag
   <div class="hd"><div class="ttl">$\dim_{\mathbb{F}_2}\Omega_n^{O}$ — partition counts</div><div class="hint">slide $n$ to see the rank</div></div>
   <div class="row">
     <label for="om-n">$n =$</label>
-    <input type="range" id="om-n" min="0" max="12" value="4" step="1">
-    <span class="pill" id="om-n-out">$n=4$</span>
+    <input type="range" id="om-n" min="0" max="12" step="1" value="4">
+    <span id="om-n-out" class="pill">$n=4$</span>
   </div>
   <svg id="om-svg" viewBox="0 0 720 240" width="720" height="240"><title>Dimensions of unoriented bordism groups</title></svg>
   <div class="readout" id="om-out"></div>
@@ -522,11 +522,11 @@ The reverse map sends a homotopy class $f\colon S^{n+k}\to MO(k)$ to the preimag
   <div class="hd"><div class="ttl">Surgery on $S^n$ via $S^p\times D^q$</div><div class="hint">pick the indices and watch the result</div></div>
   <div class="row">
     <label for="sg-p">$p =$</label>
-    <input type="range" id="sg-p" min="0" max="3" value="0" step="1">
-    <span class="pill" id="sg-p-out">$p=0$</span>
+    <input type="range" id="sg-p" min="0" max="3" step="1" value="0">
+    <span id="sg-p-out" class="pill">$p=0$</span>
     <label for="sg-q">$q =$</label>
-    <input type="range" id="sg-q" min="1" max="3" value="3" step="1">
-    <span class="pill" id="sg-q-out">$q=3$</span>
+    <input type="range" id="sg-q" min="1" max="3" step="1" value="3">
+    <span id="sg-q-out" class="pill">$q=3$</span>
   </div>
   <svg id="sg-svg" viewBox="0 0 720 280" width="720" height="280"><title>Surgery on a sphere</title></svg>
   <div class="readout" id="sg-out"></div>

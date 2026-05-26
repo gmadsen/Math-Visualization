@@ -53,13 +53,42 @@
         },
         {
           "type": "widget",
-          "slug": "cobordism-w2",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-numbers",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-numbers\">\n  <div class=\"hd\"><div class=\"ttl\">SW numbers compute $[\\mathbb{RP}^n]$</div><div class=\"hint\">read off $(1+a)^{n+1}$</div></div>\n  <div class=\"row\">\n    <label for=\"num-n\">$n =$</label>\n    <input type=\"range\" id=\"num-n\" min=\"1\" max=\"6\" value=\"2\" step=\"1\">\n    <span class=\"pill\" id=\"num-n-out\">$n=2$</span>\n  </div>\n  <svg id=\"num-svg\" viewBox=\"0 0 720 280\" width=\"720\" height=\"280\"><title>Stiefel-Whitney numbers of RP^n</title></svg>\n  <div class=\"readout\" id=\"num-out\"></div>\n  <p class=\"small\">$w(T\\mathbb{RP}^n) = (1+a)^{n+1}$ in $\\mathbb{Z}/2[a]/(a^{n+1})$ — read off $w_i$ as the binomial coefficient $\\binom{n+1}{i}\\bmod 2$. The top SW number $\\langle w_n,[\\mathbb{RP}^n]\\rangle = \\binom{n+1}{n}\\bmod 2 = (n+1)\\bmod 2$. So $\\mathbb{RP}^n$ is null-cobordant iff $n$ is odd (and one has to check higher SW numbers, but for the top one this is the gating obstruction).</p>\n</div>",
-            "bodyScript": "",
             "title": "SW numbers compute $[\\mathbb{RP}^n]$",
-            "hint": "read off $(1+a)^{n+1}$"
+            "hint": "read off $(1+a)^{n+1}$",
+            "controls": [
+              {
+                "type": "slider",
+                "id": "num-n",
+                "label": "$n =$",
+                "min": 1,
+                "max": 6,
+                "value": 2,
+                "format": "separate",
+                "step": 1
+              },
+              {
+                "type": "span",
+                "id": "num-n-out",
+                "class": "pill",
+                "text": "$n=2$"
+              }
+            ],
+            "svg": {
+              "id": "num-svg",
+              "viewBox": "0 0 720 280",
+              "width": 720,
+              "height": 280,
+              "title": "Stiefel-Whitney numbers of RP^n"
+            },
+            "readout": {
+              "id": "num-out"
+            },
+            "bodyScript": "",
+            "wrapperHasId": true,
+            "trailingProse": "$w(T\\mathbb{RP}^n) = (1+a)^{n+1}$ in $\\mathbb{Z}/2[a]/(a^{n+1})$ — read off $w_i$ as the binomial coefficient $\\binom{n+1}{i}\\bmod 2$. The top SW number $\\langle w_n,[\\mathbb{RP}^n]\\rangle = \\binom{n+1}{n}\\bmod 2 = (n+1)\\bmod 2$. So $\\mathbb{RP}^n$ is null-cobordant iff $n$ is odd (and one has to check higher SW numbers, but for the top one this is the gating obstruction)."
           }
         },
         {
@@ -94,13 +123,42 @@
         },
         {
           "type": "widget",
-          "slug": "cobordism-w3",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-omega",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-omega\">\n  <div class=\"hd\"><div class=\"ttl\">$\\dim_{\\mathbb{F}_2}\\Omega_n^{O}$ — partition counts</div><div class=\"hint\">slide $n$ to see the rank</div></div>\n  <div class=\"row\">\n    <label for=\"om-n\">$n =$</label>\n    <input type=\"range\" id=\"om-n\" min=\"0\" max=\"12\" value=\"4\" step=\"1\">\n    <span class=\"pill\" id=\"om-n-out\">$n=4$</span>\n  </div>\n  <svg id=\"om-svg\" viewBox=\"0 0 720 240\" width=\"720\" height=\"240\"><title>Dimensions of unoriented bordism groups</title></svg>\n  <div class=\"readout\" id=\"om-out\"></div>\n  <p class=\"small\">$\\dim_{\\mathbb{F}_2}\\Omega_n^{O}$ counts monomials of total degree $n$ in $\\mathbb{F}_2[x_2,x_4,x_5,x_6,x_8,\\ldots]$. First few: $1, 0, 1, 0, 2, 1, 3, 1, 5, 3, 8, 5, 12, 9, 18,\\ldots$. The Mersenne integers $1, 3, 7, 15, \\ldots$ are excluded as <em>generator degrees</em>, not as $\\Omega$-vanishing degrees: $\\Omega_1^{O}=\\Omega_3^{O}=0$ only because no monomial reaches those small totals, but already $\\Omega_7^{O}\\ne 0$ (e.g. $x_5\\,x_2$).</p>\n</div>",
-            "bodyScript": "",
             "title": "$\\dim_{\\mathbb{F}_2}\\Omega_n^{O}$ — partition counts",
-            "hint": "slide $n$ to see the rank"
+            "hint": "slide $n$ to see the rank",
+            "controls": [
+              {
+                "type": "slider",
+                "id": "om-n",
+                "label": "$n =$",
+                "min": 0,
+                "max": 12,
+                "value": 4,
+                "format": "separate",
+                "step": 1
+              },
+              {
+                "type": "span",
+                "id": "om-n-out",
+                "class": "pill",
+                "text": "$n=4$"
+              }
+            ],
+            "svg": {
+              "id": "om-svg",
+              "viewBox": "0 0 720 240",
+              "width": 720,
+              "height": 240,
+              "title": "Dimensions of unoriented bordism groups"
+            },
+            "readout": {
+              "id": "om-out"
+            },
+            "bodyScript": "",
+            "wrapperHasId": true,
+            "trailingProse": "$\\dim_{\\mathbb{F}_2}\\Omega_n^{O}$ counts monomials of total degree $n$ in $\\mathbb{F}_2[x_2,x_4,x_5,x_6,x_8,\\ldots]$. First few: $1, 0, 1, 0, 2, 1, 3, 1, 5, 3, 8, 5, 12, 9, 18,\\ldots$. The Mersenne integers $1, 3, 7, 15, \\ldots$ are excluded as <em>generator degrees</em>, not as $\\Omega$-vanishing degrees: $\\Omega_1^{O}=\\Omega_3^{O}=0$ only because no monomial reaches those small totals, but already $\\Omega_7^{O}\\ne 0$ (e.g. $x_5\\,x_2$)."
           }
         },
         {
@@ -172,13 +230,58 @@
         },
         {
           "type": "widget",
-          "slug": "cobordism-w5",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-surgery",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-surgery\">\n  <div class=\"hd\"><div class=\"ttl\">Surgery on $S^n$ via $S^p\\times D^q$</div><div class=\"hint\">pick the indices and watch the result</div></div>\n  <div class=\"row\">\n    <label for=\"sg-p\">$p =$</label>\n    <input type=\"range\" id=\"sg-p\" min=\"0\" max=\"3\" value=\"0\" step=\"1\">\n    <span class=\"pill\" id=\"sg-p-out\">$p=0$</span>\n    <label for=\"sg-q\">$q =$</label>\n    <input type=\"range\" id=\"sg-q\" min=\"1\" max=\"3\" value=\"3\" step=\"1\">\n    <span class=\"pill\" id=\"sg-q-out\">$q=3$</span>\n  </div>\n  <svg id=\"sg-svg\" viewBox=\"0 0 720 280\" width=\"720\" height=\"280\"><title>Surgery on a sphere</title></svg>\n  <div class=\"readout\" id=\"sg-out\"></div>\n  <p class=\"small\">Starting from $S^{p+q}$, surgery along an embedded $S^p\\times D^q$ produces a manifold whose homotopy type tracks the change. The simplest case is $p=0,q=3$: surgery on two points in $S^3$ removes two balls and glues in $D^1\\times S^2$, the result $S^1\\times S^2$ — an explicit cobordism $S^3\\rightsquigarrow S^1\\times S^2$ via a single $1$-handle.</p>\n</div>",
-            "bodyScript": "",
             "title": "Surgery on $S^n$ via $S^p\\times D^q$",
-            "hint": "pick the indices and watch the result"
+            "hint": "pick the indices and watch the result",
+            "controls": [
+              {
+                "type": "slider",
+                "id": "sg-p",
+                "label": "$p =$",
+                "min": 0,
+                "max": 3,
+                "value": 0,
+                "format": "separate",
+                "step": 1
+              },
+              {
+                "type": "span",
+                "id": "sg-p-out",
+                "class": "pill",
+                "text": "$p=0$"
+              },
+              {
+                "type": "slider",
+                "id": "sg-q",
+                "label": "$q =$",
+                "min": 1,
+                "max": 3,
+                "value": 3,
+                "format": "separate",
+                "step": 1
+              },
+              {
+                "type": "span",
+                "id": "sg-q-out",
+                "class": "pill",
+                "text": "$q=3$"
+              }
+            ],
+            "svg": {
+              "id": "sg-svg",
+              "viewBox": "0 0 720 280",
+              "width": 720,
+              "height": 280,
+              "title": "Surgery on a sphere"
+            },
+            "readout": {
+              "id": "sg-out"
+            },
+            "bodyScript": "",
+            "wrapperHasId": true,
+            "trailingProse": "Starting from $S^{p+q}$, surgery along an embedded $S^p\\times D^q$ produces a manifold whose homotopy type tracks the change. The simplest case is $p=0,q=3$: surgery on two points in $S^3$ removes two balls and glues in $D^1\\times S^2$, the result $S^1\\times S^2$ — an explicit cobordism $S^3\\rightsquigarrow S^1\\times S^2$ via a single $1$-handle."
           }
         },
         {

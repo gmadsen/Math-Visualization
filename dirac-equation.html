@@ -693,14 +693,12 @@ $$j^0 \;=\; \bar\psi\,\gamma^0\,\psi \;=\; \psi^\dagger\,\gamma^0\,\gamma^0\,\ps
   <div class="hd"><div class="ttl">$j^0$ comparison: Klein-Gordon vs Dirac</div><div class="hint">slide weight / phase; KG dips negative, Dirac never does</div></div>
   <div class="row">
     <label for="cur-r">$|B|/|A|$ — antiparticle weight</label>
-    <input id="cur-r" type="range" min="0" max="2" step="0.01" value="0.7">
-  </div>
-  <div class="row">
+    <input type="range" id="cur-r" min="0" max="2" step="0.01" value="0.7">
     <label for="cur-phi">relative phase $\arg(B/A)$</label>
-    <input id="cur-phi" type="range" min="0" max="6.28" step="0.02" value="0.5">
+    <input type="range" id="cur-phi" min="0" max="6.28" step="0.02" value="0.5">
   </div>
   <svg id="cur-svg" viewBox="-220 -130 440 260" width="100%" height="280"><title>j^0 for KG and Dirac superpositions</title></svg>
-  <div id="cur-out" class="readout"></div>
+  <div class="readout" id="cur-out"></div>
 </div><script>
 (function(){
   const svg = document.getElementById('cur-svg');
@@ -965,10 +963,10 @@ $$\boxed{\;i\partial_t\tilde\varphi \;=\; \biggl[\,\frac{(\vec p - e\vec A)^2}{2
   <div class="hd"><div class="ttl">Lower-spinor decimation: $|\chi|/|\varphi|$ vs boost</div><div class="hint">slide $\beta = v/c$; $\chi$ vanishes as $\beta \to 0$ — Pauli emerges</div></div>
   <div class="row">
     <label for="pauli-beta">$\beta = v/c$</label>
-    <input id="pauli-beta" type="range" min="0" max="0.99" step="0.005" value="0.4">
+    <input type="range" id="pauli-beta" min="0" max="0.99" step="0.005" value="0.4">
   </div>
   <svg id="pauli-svg" viewBox="-220 -130 440 280" width="100%" height="320"><title>Lower-spinor amplitude vs boost</title></svg>
-  <div id="pauli-out" class="readout"></div>
+  <div class="readout" id="pauli-out"></div>
 </div><script>
 (function(){
   const svg = document.getElementById('pauli-svg');

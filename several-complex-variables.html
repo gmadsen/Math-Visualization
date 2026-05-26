@@ -277,8 +277,8 @@ $$H_r \;=\; \bigl\{|z_1|<1,\, r<|z_2|<1\bigr\}\,\cup\,\bigl\{r<|z_1|<1,\, |z_2|<
   <div class="hd"><div class="ttl">Hartogs figure</div><div class="hint">slide the inner shell radius; the pink hole is the forced-extension target</div></div>
   <div class="row">
     <label for="hg-r">inner shell radius $r$:</label>
-    <input type="range" id="hg-r" min="0.05" max="0.85" step="0.02" value="0.45" />
-    <span class="readout" id="hg-r-out" style="min-width:3em;display:inline-block">0.45</span>
+    <input type="range" id="hg-r" min="0.05" max="0.85" step="0.02" value="0.45">
+    <span id="hg-r-out" class="readout">0.45</span>
   </div>
   <svg id="hg-svg" viewBox="0 0 620 320" width="620" height="320"><title>Hartogs figure: shell of polydisk and the forced-extension interior</title></svg>
   <div class="readout" id="hg-out"></div>
@@ -372,8 +372,8 @@ $$\bigl(\partial\bar\partial u\bigr)_{j\bar k} \;=\; \frac{\partial^2 u}{\partia
   <div class="hd"><div class="ttl">Levi form: defining function explorer</div><div class="hint">tilt the model boundary; watch the Levi form's eigenvalue at the marked tangent direction flip sign</div></div>
   <div class="row">
     <label for="lv-a">tilt parameter $a$:</label>
-    <input type="range" id="lv-a" min="-1.6" max="1.6" step="0.04" value="0.4" />
-    <span class="readout" id="lv-a-out" style="min-width:3em;display:inline-block">0.40</span>
+    <input type="range" id="lv-a" min="-1.6" max="1.6" step="0.04" value="0.4">
+    <span id="lv-a-out" class="readout">0.40</span>
   </div>
   <svg id="lv-svg" viewBox="0 0 620 320" width="620" height="320"><title>Levi form: tangent direction at boundary point versus complex Hessian eigenvalue sign</title></svg>
   <div class="readout" id="lv-out"></div>
@@ -483,13 +483,11 @@ $$\int_\Omega |u|^2 e^{-\varphi}\,dV \;\le\; \int_\Omega |\alpha|^2_{i\partial\b
   <div class="hd"><div class="ttl">Hörmander cost: tune the weight</div><div class="hint">strict PSH weight $\varphi(z) = c|z|^2$; raising $c$ shrinks the solution norm but raises the cost ratio</div></div>
   <div class="row">
     <label for="db-c">weight curvature $c$:</label>
-    <input type="range" id="db-c" min="0.1" max="3.0" step="0.05" value="1.0" />
-    <span class="readout" id="db-c-out" style="min-width:3em;display:inline-block">1.00</span>
-  </div>
-  <div class="row">
+    <input type="range" id="db-c" min="0.1" max="3.0" step="0.05" value="1.0">
+    <span id="db-c-out" class="readout">1.00</span>
     <label for="db-r">disk radius $R$:</label>
-    <input type="range" id="db-r" min="0.5" max="2.5" step="0.05" value="1.5" />
-    <span class="readout" id="db-r-out" style="min-width:3em;display:inline-block">1.50</span>
+    <input type="range" id="db-r" min="0.5" max="2.5" step="0.05" value="1.5">
+    <span id="db-r-out" class="readout">1.50</span>
   </div>
   <svg id="db-svg" viewBox="0 0 620 280" width="620" height="280"><title>Hörmander L^2 ratio as a function of weight curvature</title></svg>
   <div class="readout" id="db-out"></div>
@@ -814,8 +812,8 @@ $$\mathrm{Pic}(\Omega) \;\cong\; H^2(\Omega,\mathbb{Z}).$$
   <div class="hd"><div class="ttl">Cousin obstructions on $\mathbb{CP}^1$</div><div class="hint">toggle the divisor's homology class; second Cousin solves iff Chern class = 0</div></div>
   <div class="row">
     <label for="co-d">divisor degree $d$:</label>
-    <input type="range" id="co-d" min="-3" max="3" step="1" value="0" />
-    <span class="readout" id="co-d-out" style="min-width:3em;display:inline-block">0</span>
+    <input type="range" id="co-d" min="-3" max="3" step="1" value="0">
+    <span id="co-d-out" class="readout">0</span>
   </div>
   <svg id="co-svg" viewBox="0 0 620 280" width="620" height="280"><title>Second Cousin obstruction lives in H^2(\Omega, Z); zero degree class is solvable</title></svg>
   <div class="readout" id="co-out"></div>
