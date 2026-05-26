@@ -330,11 +330,11 @@ function drawNode(svg, x, y, label, opts={}){
   <div class="hd"><div class="ttl">Bifurcation diagram of $f_r(x)=rx(1-x)$</div><div class="hint">drag the slider — vertical strip marks the current $r$; below shows the orbit</div></div>
   <div class="row">
     <label for="bif-r">$r$</label>
-    <input id="bif-r" type="range" min="2.5" max="4.0" step="0.001" value="3.5"/>
-    <span class="small" id="bif-rval">r = 3.500</span>
+    <input type="range" id="bif-r" min="2.5" max="4.0" step="0.001" value="3.5">
+    <span id="bif-rval" class="small">r = 3.500</span>
   </div>
   <svg id="bif-svg" viewBox="0 0 720 320" width="720" height="320"><title>Logistic bifurcation diagram</title></svg>
-  <div class="readout" id="bif-out">drag r to read off the orbit structure…</div>
+  <div class="readout" id="bif-out"></div>
   <p class="small">Each column is one $r$ value; the dots are the long-term iterates of a single seed (after a 400-step burn-in). The black vertical bar marks your $r$. Notice the period-doubling cascade on the left, the chaos band on the right, and the bright period-3 window opening at $r\approx 3.8284$.</p>
 </div>
 <script>
@@ -456,12 +456,12 @@ function drawNode(svg, x, y, label, opts={}){
   <div class="hd"><div class="ttl">Lorenz system, projected to the $(x,z)$ plane</div><div class="hint">drag $\rho$ — quiet below ≈14, periodic transient, chaotic above $\rho_H\approx 24.74$</div></div>
   <div class="row">
     <label for="lz-rho">$\rho$</label>
-    <input id="lz-rho" type="range" min="0.5" max="50" step="0.1" value="28"/>
-    <span class="small" id="lz-rhoval">ρ = 28.0</span>
+    <input type="range" id="lz-rho" min="0.5" max="50" step="0.1" value="28">
+    <span id="lz-rhoval" class="small">ρ = 28.0</span>
     <button id="lz-reset">reseed</button>
   </div>
   <svg id="lz-svg" viewBox="0 0 720 360" width="720" height="360"><title>Lorenz attractor projection</title></svg>
-  <div class="readout" id="lz-out">drag ρ to watch the basin and attractor reorganize…</div>
+  <div class="readout" id="lz-out"></div>
   <p class="small">$\sigma=10,\ \beta=8/3$ throughout. Below the subcritical Hopf $\rho_H = \sigma(\sigma+\beta+3)/(\sigma-\beta-1)\approx 24.74$ the symmetric pair $C_\pm$ is stable and trajectories spiral into one wing or the other. Above $\rho_H$ they are unstable saddle-foci; trajectories oscillate around each, then unpredictably switch wings. Two trajectories with initial separation $10^{-9}$ diverge to macroscopic distance after $\approx 25$ time units — the maximal Lyapunov exponent is $\approx 0.906$.</p>
 </div>
 <script>
@@ -672,14 +672,14 @@ function drawNode(svg, x, y, label, opts={}){
   <div class="hd"><div class="ttl">Symbolic dynamics: doubling map ↔ 2-shift</div><div class="hint">drag $x_0$ — the binary expansion IS the itinerary; entropy = $\log 2$</div></div>
   <div class="row">
     <label for="sd-x0">$x_0$</label>
-    <input id="sd-x0" type="range" min="0.001" max="0.999" step="0.001" value="0.3625"/>
-    <span class="small" id="sd-x0val">x0 = 0.3625</span>
+    <input type="range" id="sd-x0" min="0.001" max="0.999" step="0.001" value="0.3625">
+    <span id="sd-x0val" class="small">x0 = 0.3625</span>
     <label for="sd-n">steps</label>
-    <input id="sd-n" type="range" min="4" max="20" step="1" value="10"/>
-    <span class="small" id="sd-nval">n = 10</span>
+    <input type="range" id="sd-n" min="4" max="20" step="1" value="10">
+    <span id="sd-nval" class="small">n = 10</span>
   </div>
   <svg id="sd-svg" viewBox="0 0 720 220" width="720" height="220"><title>Doubling map symbolic itinerary</title></svg>
-  <div class="readout" id="sd-out">drag $x_0$ — the binary expansion of $x_0$ IS its itinerary…</div>
+  <div class="readout" id="sd-out"></div>
   <p class="small">The doubling map $D(x)=2x\bmod 1$ takes $x = 0.s_1 s_2 s_3\ldots_2$ (binary) to $0.s_2 s_3 s_4\ldots_2$ — it literally shifts the binary expansion. Coding $D^n(x)$ by whether it lies in $[0,1/2)$ ($s=0$) or $[1/2,1)$ ($s=1$) recovers the original bits in order. So $D$ on $[0,1)$ is measurably conjugate to the full 2-shift $(\{0,1\}^{\mathbb{N}},\sigma)$.</p>
 </div>
 <script>
@@ -855,12 +855,12 @@ function drawNode(svg, x, y, label, opts={}){
   <div class="hd"><div class="ttl">Chirikov standard map: $p_{n+1}=p_n+K\sin\theta_n$, $\theta_{n+1}=\theta_n+p_{n+1}$</div><div class="hint">drag $K$ from 0 (clean tori) to past $K_c\approx 0.97$ (chaos sea spans the cylinder)</div></div>
   <div class="row">
     <label for="sm-K">$K$</label>
-    <input id="sm-K" type="range" min="0" max="3" step="0.01" value="0.5"/>
-    <span class="small" id="sm-Kval">K = 0.50</span>
+    <input type="range" id="sm-K" min="0" max="3" step="0.01" value="0.5">
+    <span id="sm-Kval" class="small">K = 0.50</span>
     <button id="sm-reseed">reseed</button>
   </div>
   <svg id="sm-svg" viewBox="0 0 720 360" width="720" height="360"><title>Standard map phase portrait</title></svg>
-  <div class="readout" id="sm-out">drag K — watch invariant circles erode and chaos seas grow…</div>
+  <div class="readout" id="sm-out"></div>
   <p class="small">Twelve initial conditions are iterated 1500 times each; each orbit's $(\theta,p)$ points are plotted on the cylinder $[0,2\pi)\times[-\pi,\pi]$. At small $K$ each is an invariant circle (Diophantine $\omega$); at large $K$ they become indistinguishable noise of the chaos sea. The transition at the golden circle $K_c\approx 0.9716$ (Greene's residue criterion, Mather's variational proof) is one of the few exact thresholds in Hamiltonian chaos.</p>
 </div>
 <script>

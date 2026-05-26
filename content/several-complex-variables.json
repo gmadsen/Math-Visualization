@@ -12,13 +12,41 @@
         },
         {
           "type": "widget",
-          "slug": "scv-w1",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-hartogs",
             "title": "Hartogs figure",
             "hint": "slide the inner shell radius; the pink hole is the forced-extension target",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-hartogs\">\n  <div class=\"hd\"><div class=\"ttl\">Hartogs figure</div><div class=\"hint\">slide the inner shell radius; the pink hole is the forced-extension target</div></div>\n  <div class=\"row\">\n    <label for=\"hg-r\">inner shell radius $r$:</label>\n    <input type=\"range\" id=\"hg-r\" min=\"0.05\" max=\"0.85\" step=\"0.02\" value=\"0.45\" />\n    <span class=\"readout\" id=\"hg-r-out\" style=\"min-width:3em;display:inline-block\">0.45</span>\n  </div>\n  <svg id=\"hg-svg\" viewBox=\"0 0 620 320\" width=\"620\" height=\"320\"><title>Hartogs figure: shell of polydisk and the forced-extension interior</title></svg>\n  <div class=\"readout\" id=\"hg-out\"></div>\n</div>",
-            "bodyScript": "\n<script>\n(function(){\n  const svg = $('#hg-svg'), rIn = $('#hg-r'), rOut = $('#hg-r-out'), out = $('#hg-out');\n  const W = 620, H = 320;\n  function render(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    svg.appendChild(SVG(\"rect\",{x:0,y:0,width:W,height:H,fill:\"var(--bg)\"}));\n    const r = +rIn.value;\n    rOut.textContent = r.toFixed(2);\n    const hd = SVG(\"text\",{x:30, y:32, \"font-size\":14, fill:\"var(--ink)\"});\n    hd.textContent = \"Hartogs figure in ℂ²: 2D schematic of the polydisk slice\";\n    svg.appendChild(hd);\n    const cx = W/2, cy = 180, S = 110;\n    svg.appendChild(SVG(\"rect\",{x:cx-S, y:cy-S, width:2*S, height:2*S, fill:\"none\", stroke:\"var(--mute)\", \"stroke-width\":1.5, \"stroke-dasharray\":\"5 4\"}));\n    const olbl = SVG(\"text\",{x:cx-S, y:cy-S-8, \"font-size\":12, fill:\"var(--mute)\"});\n    olbl.textContent = \"polydisk \\u{1D53B}² (full domain)\";\n    svg.appendChild(olbl);\n    const s = S * r;\n    svg.appendChild(SVG(\"rect\",{x:cx-S, y:cy-S, width:2*S, height:2*S, fill:\"var(--cyan)\", opacity:0.18}));\n    svg.appendChild(SVG(\"rect\",{x:cx-s, y:cy-s, width:2*s, height:2*s, fill:\"var(--bg)\"}));\n    svg.appendChild(SVG(\"rect\",{x:cx-s, y:cy-s, width:2*s, height:2*s, fill:\"var(--pink)\", opacity:0.32, stroke:\"var(--pink)\", \"stroke-width\":1.5, \"stroke-dasharray\":\"4 3\"}));\n    svg.appendChild(SVG(\"rect\",{x:cx-S, y:cy-S, width:2*S, height:2*S, fill:\"none\", stroke:\"var(--cyan)\", \"stroke-width\":1.6}));\n    svg.appendChild(SVG(\"rect\",{x:30, y:280, width:14, height:10, fill:\"var(--cyan)\", opacity:0.5}));\n    const l1 = SVG(\"text\",{x:50, y:289, \"font-size\":12, fill:\"var(--ink)\"}); l1.textContent = \"shell: f given holomorphic\"; svg.appendChild(l1);\n    svg.appendChild(SVG(\"rect\",{x:240, y:280, width:14, height:10, fill:\"var(--pink)\", opacity:0.5}));\n    const l2 = SVG(\"text\",{x:260, y:289, \"font-size\":12, fill:\"var(--ink)\"}); l2.textContent = \"hole: extension forced (Hartogs)\"; svg.appendChild(l2);\n    let defs = SVG(\"defs\");\n    const m = SVG(\"marker\",{id:\"hg-arrow\", viewBox:\"0 0 10 10\", refX:9, refY:5, markerWidth:6, markerHeight:6, orient:\"auto\"});\n    m.appendChild(SVG(\"path\",{d:\"M0,0 L10,5 L0,10 z\", fill:\"var(--yellow)\"}));\n    defs.appendChild(m); svg.appendChild(defs);\n    const arr = SVG(\"path\",{d:`M ${cx + s + 16} ${cy} L ${cx + s - 8} ${cy}`, stroke:\"var(--yellow)\", \"stroke-width\":1.6, fill:\"none\", \"marker-end\":\"url(#hg-arrow)\"});\n    svg.appendChild(arr);\n    const v4 = Math.pow(r, 4);\n    const bm = Math.pow(r, 3);\n    out.textContent =\n      `inner radius r = ${r.toFixed(2)}\\ninner 4-volume / full polydisk = r⁴ ≈ ${v4.toFixed(3)}\\nshell 4-volume / full polydisk = 1 − r⁴ ≈ ${(1 - v4).toFixed(3)}\\nBochner–Martinelli boundary measure on ∂K scales ∼ r³ ≈ ${bm.toFixed(3)}\\nAny holomorphic f on the cyan shell extends uniquely to the pink hole — isolated singularities are forbidden in ℂ².`;\n  }\n  rIn.addEventListener(\"input\", render);\n  render();\n})();\n</script>"
+            "controls": [
+              {
+                "type": "slider",
+                "id": "hg-r",
+                "label": "inner shell radius $r$:",
+                "min": 0.05,
+                "max": 0.85,
+                "value": 0.45,
+                "format": "separate",
+                "step": 0.02
+              },
+              {
+                "type": "span",
+                "id": "hg-r-out",
+                "class": "readout",
+                "text": "0.45"
+              }
+            ],
+            "svg": {
+              "id": "hg-svg",
+              "viewBox": "0 0 620 320",
+              "width": 620,
+              "height": 320,
+              "title": "Hartogs figure: shell of polydisk and the forced-extension interior"
+            },
+            "readout": {
+              "id": "hg-out"
+            },
+            "bodyScript": "\n<script>\n(function(){\n  const svg = $('#hg-svg'), rIn = $('#hg-r'), rOut = $('#hg-r-out'), out = $('#hg-out');\n  const W = 620, H = 320;\n  function render(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    svg.appendChild(SVG(\"rect\",{x:0,y:0,width:W,height:H,fill:\"var(--bg)\"}));\n    const r = +rIn.value;\n    rOut.textContent = r.toFixed(2);\n    const hd = SVG(\"text\",{x:30, y:32, \"font-size\":14, fill:\"var(--ink)\"});\n    hd.textContent = \"Hartogs figure in ℂ²: 2D schematic of the polydisk slice\";\n    svg.appendChild(hd);\n    const cx = W/2, cy = 180, S = 110;\n    svg.appendChild(SVG(\"rect\",{x:cx-S, y:cy-S, width:2*S, height:2*S, fill:\"none\", stroke:\"var(--mute)\", \"stroke-width\":1.5, \"stroke-dasharray\":\"5 4\"}));\n    const olbl = SVG(\"text\",{x:cx-S, y:cy-S-8, \"font-size\":12, fill:\"var(--mute)\"});\n    olbl.textContent = \"polydisk \\u{1D53B}² (full domain)\";\n    svg.appendChild(olbl);\n    const s = S * r;\n    svg.appendChild(SVG(\"rect\",{x:cx-S, y:cy-S, width:2*S, height:2*S, fill:\"var(--cyan)\", opacity:0.18}));\n    svg.appendChild(SVG(\"rect\",{x:cx-s, y:cy-s, width:2*s, height:2*s, fill:\"var(--bg)\"}));\n    svg.appendChild(SVG(\"rect\",{x:cx-s, y:cy-s, width:2*s, height:2*s, fill:\"var(--pink)\", opacity:0.32, stroke:\"var(--pink)\", \"stroke-width\":1.5, \"stroke-dasharray\":\"4 3\"}));\n    svg.appendChild(SVG(\"rect\",{x:cx-S, y:cy-S, width:2*S, height:2*S, fill:\"none\", stroke:\"var(--cyan)\", \"stroke-width\":1.6}));\n    svg.appendChild(SVG(\"rect\",{x:30, y:280, width:14, height:10, fill:\"var(--cyan)\", opacity:0.5}));\n    const l1 = SVG(\"text\",{x:50, y:289, \"font-size\":12, fill:\"var(--ink)\"}); l1.textContent = \"shell: f given holomorphic\"; svg.appendChild(l1);\n    svg.appendChild(SVG(\"rect\",{x:240, y:280, width:14, height:10, fill:\"var(--pink)\", opacity:0.5}));\n    const l2 = SVG(\"text\",{x:260, y:289, \"font-size\":12, fill:\"var(--ink)\"}); l2.textContent = \"hole: extension forced (Hartogs)\"; svg.appendChild(l2);\n    let defs = SVG(\"defs\");\n    const m = SVG(\"marker\",{id:\"hg-arrow\", viewBox:\"0 0 10 10\", refX:9, refY:5, markerWidth:6, markerHeight:6, orient:\"auto\"});\n    m.appendChild(SVG(\"path\",{d:\"M0,0 L10,5 L0,10 z\", fill:\"var(--yellow)\"}));\n    defs.appendChild(m); svg.appendChild(defs);\n    const arr = SVG(\"path\",{d:`M ${cx + s + 16} ${cy} L ${cx + s - 8} ${cy}`, stroke:\"var(--yellow)\", \"stroke-width\":1.6, fill:\"none\", \"marker-end\":\"url(#hg-arrow)\"});\n    svg.appendChild(arr);\n    const v4 = Math.pow(r, 4);\n    const bm = Math.pow(r, 3);\n    out.textContent =\n      `inner radius r = ${r.toFixed(2)}\\ninner 4-volume / full polydisk = r⁴ ≈ ${v4.toFixed(3)}\\nshell 4-volume / full polydisk = 1 − r⁴ ≈ ${(1 - v4).toFixed(3)}\\nBochner–Martinelli boundary measure on ∂K scales ∼ r³ ≈ ${bm.toFixed(3)}\\nAny holomorphic f on the cyan shell extends uniquely to the pink hole — isolated singularities are forbidden in ℂ².`;\n  }\n  rIn.addEventListener(\"input\", render);\n  render();\n})();\n</script>",
+            "wrapperHasId": true
           }
         },
         {
@@ -57,13 +85,41 @@
         },
         {
           "type": "widget",
-          "slug": "scv-w2",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-levi",
             "title": "Levi form: defining function explorer",
             "hint": "tilt the model boundary; watch the Levi form's eigenvalue at the marked tangent direction flip sign",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-levi\">\n  <div class=\"hd\"><div class=\"ttl\">Levi form: defining function explorer</div><div class=\"hint\">tilt the model boundary; watch the Levi form's eigenvalue at the marked tangent direction flip sign</div></div>\n  <div class=\"row\">\n    <label for=\"lv-a\">tilt parameter $a$:</label>\n    <input type=\"range\" id=\"lv-a\" min=\"-1.6\" max=\"1.6\" step=\"0.04\" value=\"0.4\" />\n    <span class=\"readout\" id=\"lv-a-out\" style=\"min-width:3em;display:inline-block\">0.40</span>\n  </div>\n  <svg id=\"lv-svg\" viewBox=\"0 0 620 320\" width=\"620\" height=\"320\"><title>Levi form: tangent direction at boundary point versus complex Hessian eigenvalue sign</title></svg>\n  <div class=\"readout\" id=\"lv-out\"></div>\n</div>",
-            "bodyScript": "\n<script>\n(function(){\n  const svg = $('#lv-svg'), aIn = $('#lv-a'), aOut = $('#lv-a-out'), out = $('#lv-out');\n  const W = 620, H = 320;\n  function render(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    svg.appendChild(SVG(\"rect\",{x:0,y:0,width:W,height:H,fill:\"var(--bg)\"}));\n    const a = +aIn.value;\n    aOut.textContent = a.toFixed(2);\n    const cx = W/2, cy = H/2;\n    // Sketch a 2D slice of the boundary surface rho(z) = |z|^2 - 1 + a*|z2|^2 (toy)\n    // The Levi form has eigenvalues 1 and 1 + a in our coordinate; positive iff a > -1.\n    // Strictly pseudoconvex when 1+a > 0; degenerate at a = -1; non-pseudoconvex below.\n    // Draw a rough domain curve.\n    const xs = [];\n    for (let i = -120; i <= 120; i++) {\n      const t = i / 120;\n      // rho = x^2 - (1-a*t^2) = 0  -> x = sqrt(1 - a*t^2) when meaningful\n      const inside = 1 - a * t * t;\n      if (inside <= 0) continue;\n      const x = Math.sqrt(inside);\n      xs.push([cx + 90 * x, cy - 130 * t]);\n      xs.push([cx - 90 * x, cy - 130 * t]);\n    }\n    xs.sort((p, q) => p[1] - q[1] || p[0] - q[0]);\n    const path = \"M \" + xs.map(p => p[0] + \" \" + p[1]).join(\" L \");\n    svg.appendChild(SVG(\"path\", {d: path, fill: \"none\", stroke: \"var(--cyan)\", \"stroke-width\": 1.4, opacity: 0.8}));\n    // Boundary point and marked tangent\n    const px = cx, py = cy - 130 * 0.0; // top centre\n    const pxR = cx + 90, pyR = cy;       // right point\n    svg.appendChild(SVG(\"circle\", {cx: pxR, cy: pyR, r: 5, fill: \"var(--yellow)\"}));\n    const tlbl = SVG(\"text\", {x: pxR + 10, y: pyR + 4, \"font-size\": 12, fill: \"var(--yellow)\"});\n    tlbl.textContent = \"p ∈ ∂Ω\"; svg.appendChild(tlbl);\n    // Tangent arrow at p (pointing along the boundary)\n    const arrowEnd = [pxR, pyR - 60];\n    svg.appendChild(SVG(\"line\", {x1: pxR, y1: pyR, x2: arrowEnd[0], y2: arrowEnd[1], stroke: \"var(--violet)\", \"stroke-width\": 1.6}));\n    const tlab = SVG(\"text\", {x: pxR + 12, y: pyR - 30, \"font-size\": 12, fill: \"var(--violet)\"});\n    tlab.textContent = \"tangent T¹⁻°∂Ω\"; svg.appendChild(tlab);\n    // Title\n    const hd = SVG(\"text\", {x: 30, y: 30, \"font-size\": 13, fill: \"var(--ink)\"});\n    hd.textContent = \"Toy domain: ρ(z) = |z|² − 1 + a·|z₂|²  (slice)\"; svg.appendChild(hd);\n    const eigen = 1 + a;\n    const sign = eigen > 0.001 ? \"strictly pseudoconvex\" : (eigen < -0.001 ? \"Levi-NEGATIVE — fails pseudoconvex\" : \"degenerate (eigenvalue = 0)\");\n    const color = eigen > 0.001 ? \"var(--green)\" : (eigen < -0.001 ? \"var(--pink)\" : \"var(--yellow)\");\n    svg.appendChild(SVG(\"rect\", {x: 28, y: 250, width: 14, height: 10, fill: color}));\n    const sl = SVG(\"text\", {x: 50, y: 260, \"font-size\": 12, fill: \"var(--ink)\"});\n    sl.textContent = \"Levi eigenvalue at p along marked tangent = 1 + a = \" + eigen.toFixed(2);\n    svg.appendChild(sl);\n    out.textContent =\n      `tilt a = ${a.toFixed(2)}  →  Levi eigenvalue 1 + a = ${eigen.toFixed(2)}\\n` +\n      `boundary status: ${sign}\\n` +\n      `(at a = -1 the second eigenvalue collapses; below that the boundary fails to be Levi pseudoconvex.)`;\n  }\n  aIn.addEventListener(\"input\", render);\n  render();\n})();\n</script>"
+            "controls": [
+              {
+                "type": "slider",
+                "id": "lv-a",
+                "label": "tilt parameter $a$:",
+                "min": -1.6,
+                "max": 1.6,
+                "value": 0.4,
+                "format": "separate",
+                "step": 0.04
+              },
+              {
+                "type": "span",
+                "id": "lv-a-out",
+                "class": "readout",
+                "text": "0.40"
+              }
+            ],
+            "svg": {
+              "id": "lv-svg",
+              "viewBox": "0 0 620 320",
+              "width": 620,
+              "height": 320,
+              "title": "Levi form: tangent direction at boundary point versus complex Hessian eigenvalue sign"
+            },
+            "readout": {
+              "id": "lv-out"
+            },
+            "bodyScript": "\n<script>\n(function(){\n  const svg = $('#lv-svg'), aIn = $('#lv-a'), aOut = $('#lv-a-out'), out = $('#lv-out');\n  const W = 620, H = 320;\n  function render(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    svg.appendChild(SVG(\"rect\",{x:0,y:0,width:W,height:H,fill:\"var(--bg)\"}));\n    const a = +aIn.value;\n    aOut.textContent = a.toFixed(2);\n    const cx = W/2, cy = H/2;\n    // Sketch a 2D slice of the boundary surface rho(z) = |z|^2 - 1 + a*|z2|^2 (toy)\n    // The Levi form has eigenvalues 1 and 1 + a in our coordinate; positive iff a > -1.\n    // Strictly pseudoconvex when 1+a > 0; degenerate at a = -1; non-pseudoconvex below.\n    // Draw a rough domain curve.\n    const xs = [];\n    for (let i = -120; i <= 120; i++) {\n      const t = i / 120;\n      // rho = x^2 - (1-a*t^2) = 0  -> x = sqrt(1 - a*t^2) when meaningful\n      const inside = 1 - a * t * t;\n      if (inside <= 0) continue;\n      const x = Math.sqrt(inside);\n      xs.push([cx + 90 * x, cy - 130 * t]);\n      xs.push([cx - 90 * x, cy - 130 * t]);\n    }\n    xs.sort((p, q) => p[1] - q[1] || p[0] - q[0]);\n    const path = \"M \" + xs.map(p => p[0] + \" \" + p[1]).join(\" L \");\n    svg.appendChild(SVG(\"path\", {d: path, fill: \"none\", stroke: \"var(--cyan)\", \"stroke-width\": 1.4, opacity: 0.8}));\n    // Boundary point and marked tangent\n    const px = cx, py = cy - 130 * 0.0; // top centre\n    const pxR = cx + 90, pyR = cy;       // right point\n    svg.appendChild(SVG(\"circle\", {cx: pxR, cy: pyR, r: 5, fill: \"var(--yellow)\"}));\n    const tlbl = SVG(\"text\", {x: pxR + 10, y: pyR + 4, \"font-size\": 12, fill: \"var(--yellow)\"});\n    tlbl.textContent = \"p ∈ ∂Ω\"; svg.appendChild(tlbl);\n    // Tangent arrow at p (pointing along the boundary)\n    const arrowEnd = [pxR, pyR - 60];\n    svg.appendChild(SVG(\"line\", {x1: pxR, y1: pyR, x2: arrowEnd[0], y2: arrowEnd[1], stroke: \"var(--violet)\", \"stroke-width\": 1.6}));\n    const tlab = SVG(\"text\", {x: pxR + 12, y: pyR - 30, \"font-size\": 12, fill: \"var(--violet)\"});\n    tlab.textContent = \"tangent T¹⁻°∂Ω\"; svg.appendChild(tlab);\n    // Title\n    const hd = SVG(\"text\", {x: 30, y: 30, \"font-size\": 13, fill: \"var(--ink)\"});\n    hd.textContent = \"Toy domain: ρ(z) = |z|² − 1 + a·|z₂|²  (slice)\"; svg.appendChild(hd);\n    const eigen = 1 + a;\n    const sign = eigen > 0.001 ? \"strictly pseudoconvex\" : (eigen < -0.001 ? \"Levi-NEGATIVE — fails pseudoconvex\" : \"degenerate (eigenvalue = 0)\");\n    const color = eigen > 0.001 ? \"var(--green)\" : (eigen < -0.001 ? \"var(--pink)\" : \"var(--yellow)\");\n    svg.appendChild(SVG(\"rect\", {x: 28, y: 250, width: 14, height: 10, fill: color}));\n    const sl = SVG(\"text\", {x: 50, y: 260, \"font-size\": 12, fill: \"var(--ink)\"});\n    sl.textContent = \"Levi eigenvalue at p along marked tangent = 1 + a = \" + eigen.toFixed(2);\n    svg.appendChild(sl);\n    out.textContent =\n      `tilt a = ${a.toFixed(2)}  →  Levi eigenvalue 1 + a = ${eigen.toFixed(2)}\\n` +\n      `boundary status: ${sign}\\n` +\n      `(at a = -1 the second eigenvalue collapses; below that the boundary fails to be Levi pseudoconvex.)`;\n  }\n  aIn.addEventListener(\"input\", render);\n  render();\n})();\n</script>",
+            "wrapperHasId": true
           }
         },
         {
@@ -102,13 +158,57 @@
         },
         {
           "type": "widget",
-          "slug": "scv-w3",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-dbar",
             "title": "Hörmander cost: tune the weight",
             "hint": "strict PSH weight $\\varphi(z) = c|z|^2$; raising $c$ shrinks the solution norm but raises the cost ratio",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-dbar\">\n  <div class=\"hd\"><div class=\"ttl\">Hörmander cost: tune the weight</div><div class=\"hint\">strict PSH weight $\\varphi(z) = c|z|^2$; raising $c$ shrinks the solution norm but raises the cost ratio</div></div>\n  <div class=\"row\">\n    <label for=\"db-c\">weight curvature $c$:</label>\n    <input type=\"range\" id=\"db-c\" min=\"0.1\" max=\"3.0\" step=\"0.05\" value=\"1.0\" />\n    <span class=\"readout\" id=\"db-c-out\" style=\"min-width:3em;display:inline-block\">1.00</span>\n  </div>\n  <div class=\"row\">\n    <label for=\"db-r\">disk radius $R$:</label>\n    <input type=\"range\" id=\"db-r\" min=\"0.5\" max=\"2.5\" step=\"0.05\" value=\"1.5\" />\n    <span class=\"readout\" id=\"db-r-out\" style=\"min-width:3em;display:inline-block\">1.50</span>\n  </div>\n  <svg id=\"db-svg\" viewBox=\"0 0 620 280\" width=\"620\" height=\"280\"><title>Hörmander L^2 ratio as a function of weight curvature</title></svg>\n  <div class=\"readout\" id=\"db-out\"></div>\n</div>",
-            "bodyScript": "\n<script>\n(function(){\n  const svg = $('#db-svg'), cIn = $('#db-c'), rIn = $('#db-r'), cOut = $('#db-c-out'), rOut = $('#db-r-out'), out = $('#db-out');\n  const W = 620, H = 280;\n  function render(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    svg.appendChild(SVG(\"rect\",{x:0,y:0,width:W,height:H,fill:\"var(--bg)\"}));\n    const c = +cIn.value, R = +rIn.value;\n    cOut.textContent = c.toFixed(2);\n    rOut.textContent = R.toFixed(2);\n    // Plot ratio = 1/c on a log scale on a horizontal bar\n    const ratio = 1 / c;\n    const xMin = 60, xMax = W - 40, y0 = 130;\n    svg.appendChild(SVG(\"line\", {x1: xMin, y1: y0, x2: xMax, y2: y0, stroke: \"var(--mute)\", \"stroke-width\": 1}));\n    // Tick marks for c = 0.1, 0.5, 1, 2, 3\n    [0.1, 0.5, 1, 2, 3].forEach(cv => {\n      const x = xMin + (xMax - xMin) * (cv - 0.1) / 2.9;\n      svg.appendChild(SVG(\"line\", {x1: x, y1: y0 - 4, x2: x, y2: y0 + 4, stroke: \"var(--mute)\", \"stroke-width\": 1}));\n      const t = SVG(\"text\", {x: x, y: y0 + 18, \"font-size\": 11, fill: \"var(--mute)\", \"text-anchor\": \"middle\"});\n      t.textContent = \"c=\" + cv; svg.appendChild(t);\n    });\n    // Marker at current c\n    const xMark = xMin + (xMax - xMin) * (c - 0.1) / 2.9;\n    svg.appendChild(SVG(\"circle\", {cx: xMark, cy: y0, r: 6, fill: \"var(--yellow)\"}));\n    // Bar showing ratio\n    const barTop = 50, barH = 50;\n    const barW = Math.min(xMax - xMin, (xMax - xMin) * Math.min(1, ratio));\n    svg.appendChild(SVG(\"rect\", {x: xMin, y: barTop, width: barW, height: barH, fill: \"var(--cyan)\", opacity: 0.4}));\n    const lbl = SVG(\"text\", {x: xMin, y: barTop - 6, \"font-size\": 12, fill: \"var(--ink)\"});\n    lbl.textContent = \"Hörmander ratio  ‖u‖² / ‖α‖²  ≤  1 / c   (best constant for φ = c|z|²)\";\n    svg.appendChild(lbl);\n    // Header title\n    const hd = SVG(\"text\", {x: 30, y: 30, \"font-size\": 13, fill: \"var(--ink)\"});\n    hd.textContent = \"Bounded disk |z| < R  with weight φ(z) = c|z|²\"; svg.appendChild(hd);\n    // Footer note\n    const fn = SVG(\"text\", {x: xMin, y: H - 30, \"font-size\": 12, fill: \"var(--mute)\"});\n    fn.textContent = \"Higher c → smaller solution norm but exp(−φ) decay penalises far-from-origin data.\"; svg.appendChild(fn);\n    out.textContent =\n      `weight curvature c = ${c.toFixed(2)}, disk radius R = ${R.toFixed(2)}\\n` +\n      `i∂̄∂φ = c · (standard Hermitian metric); inverse → 1/c\\n` +\n      `Hörmander L² ratio ‖u‖² / ‖α‖² ≤ 1/c ≈ ${ratio.toFixed(3)}\\n` +\n      `effective weighted volume e^{−cR²} · (πR²) ≈ ${(Math.exp(-c*R*R) * Math.PI * R * R).toFixed(4)}`;\n  }\n  cIn.addEventListener(\"input\", render);\n  rIn.addEventListener(\"input\", render);\n  render();\n})();\n</script>"
+            "controls": [
+              {
+                "type": "slider",
+                "id": "db-c",
+                "label": "weight curvature $c$:",
+                "min": 0.1,
+                "max": "3.0",
+                "value": "1.0",
+                "format": "separate",
+                "step": 0.05
+              },
+              {
+                "type": "span",
+                "id": "db-c-out",
+                "class": "readout",
+                "text": "1.00"
+              },
+              {
+                "type": "slider",
+                "id": "db-r",
+                "label": "disk radius $R$:",
+                "min": 0.5,
+                "max": 2.5,
+                "value": 1.5,
+                "format": "separate",
+                "step": 0.05
+              },
+              {
+                "type": "span",
+                "id": "db-r-out",
+                "class": "readout",
+                "text": "1.50"
+              }
+            ],
+            "svg": {
+              "id": "db-svg",
+              "viewBox": "0 0 620 280",
+              "width": 620,
+              "height": 280,
+              "title": "Hörmander L^2 ratio as a function of weight curvature"
+            },
+            "readout": {
+              "id": "db-out"
+            },
+            "bodyScript": "\n<script>\n(function(){\n  const svg = $('#db-svg'), cIn = $('#db-c'), rIn = $('#db-r'), cOut = $('#db-c-out'), rOut = $('#db-r-out'), out = $('#db-out');\n  const W = 620, H = 280;\n  function render(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    svg.appendChild(SVG(\"rect\",{x:0,y:0,width:W,height:H,fill:\"var(--bg)\"}));\n    const c = +cIn.value, R = +rIn.value;\n    cOut.textContent = c.toFixed(2);\n    rOut.textContent = R.toFixed(2);\n    // Plot ratio = 1/c on a log scale on a horizontal bar\n    const ratio = 1 / c;\n    const xMin = 60, xMax = W - 40, y0 = 130;\n    svg.appendChild(SVG(\"line\", {x1: xMin, y1: y0, x2: xMax, y2: y0, stroke: \"var(--mute)\", \"stroke-width\": 1}));\n    // Tick marks for c = 0.1, 0.5, 1, 2, 3\n    [0.1, 0.5, 1, 2, 3].forEach(cv => {\n      const x = xMin + (xMax - xMin) * (cv - 0.1) / 2.9;\n      svg.appendChild(SVG(\"line\", {x1: x, y1: y0 - 4, x2: x, y2: y0 + 4, stroke: \"var(--mute)\", \"stroke-width\": 1}));\n      const t = SVG(\"text\", {x: x, y: y0 + 18, \"font-size\": 11, fill: \"var(--mute)\", \"text-anchor\": \"middle\"});\n      t.textContent = \"c=\" + cv; svg.appendChild(t);\n    });\n    // Marker at current c\n    const xMark = xMin + (xMax - xMin) * (c - 0.1) / 2.9;\n    svg.appendChild(SVG(\"circle\", {cx: xMark, cy: y0, r: 6, fill: \"var(--yellow)\"}));\n    // Bar showing ratio\n    const barTop = 50, barH = 50;\n    const barW = Math.min(xMax - xMin, (xMax - xMin) * Math.min(1, ratio));\n    svg.appendChild(SVG(\"rect\", {x: xMin, y: barTop, width: barW, height: barH, fill: \"var(--cyan)\", opacity: 0.4}));\n    const lbl = SVG(\"text\", {x: xMin, y: barTop - 6, \"font-size\": 12, fill: \"var(--ink)\"});\n    lbl.textContent = \"Hörmander ratio  ‖u‖² / ‖α‖²  ≤  1 / c   (best constant for φ = c|z|²)\";\n    svg.appendChild(lbl);\n    // Header title\n    const hd = SVG(\"text\", {x: 30, y: 30, \"font-size\": 13, fill: \"var(--ink)\"});\n    hd.textContent = \"Bounded disk |z| < R  with weight φ(z) = c|z|²\"; svg.appendChild(hd);\n    // Footer note\n    const fn = SVG(\"text\", {x: xMin, y: H - 30, \"font-size\": 12, fill: \"var(--mute)\"});\n    fn.textContent = \"Higher c → smaller solution norm but exp(−φ) decay penalises far-from-origin data.\"; svg.appendChild(fn);\n    out.textContent =\n      `weight curvature c = ${c.toFixed(2)}, disk radius R = ${R.toFixed(2)}\\n` +\n      `i∂̄∂φ = c · (standard Hermitian metric); inverse → 1/c\\n` +\n      `Hörmander L² ratio ‖u‖² / ‖α‖² ≤ 1/c ≈ ${ratio.toFixed(3)}\\n` +\n      `effective weighted volume e^{−cR²} · (πR²) ≈ ${(Math.exp(-c*R*R) * Math.PI * R * R).toFixed(4)}`;\n  }\n  cIn.addEventListener(\"input\", render);\n  rIn.addEventListener(\"input\", render);\n  render();\n})();\n</script>",
+            "wrapperHasId": true
           }
         },
         {
@@ -235,13 +335,41 @@
         },
         {
           "type": "widget",
-          "slug": "scv-w5",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-cousin",
             "title": "Cousin obstructions on $\\mathbb{CP}^1$",
             "hint": "toggle the divisor's homology class; second Cousin solves iff Chern class = 0",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-cousin\">\n  <div class=\"hd\"><div class=\"ttl\">Cousin obstructions on $\\mathbb{CP}^1$</div><div class=\"hint\">toggle the divisor's homology class; second Cousin solves iff Chern class = 0</div></div>\n  <div class=\"row\">\n    <label for=\"co-d\">divisor degree $d$:</label>\n    <input type=\"range\" id=\"co-d\" min=\"-3\" max=\"3\" step=\"1\" value=\"0\" />\n    <span class=\"readout\" id=\"co-d-out\" style=\"min-width:3em;display:inline-block\">0</span>\n  </div>\n  <svg id=\"co-svg\" viewBox=\"0 0 620 280\" width=\"620\" height=\"280\"><title>Second Cousin obstruction lives in H^2(\\Omega, Z); zero degree class is solvable</title></svg>\n  <div class=\"readout\" id=\"co-out\"></div>\n</div>",
-            "bodyScript": "\n<script>\n(function(){\n  const svg = $('#co-svg'), dIn = $('#co-d'), dOut = $('#co-d-out'), out = $('#co-out');\n  const W = 620, H = 280;\n  function render(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    svg.appendChild(SVG(\"rect\",{x:0,y:0,width:W,height:H,fill:\"var(--bg)\"}));\n    const d = +dIn.value;\n    dOut.textContent = \"\" + d;\n    const cx = W / 2, cy = H / 2;\n    // Draw two open sets / a cylinder\n    svg.appendChild(SVG(\"ellipse\", {cx: cx - 130, cy: cy, rx: 110, ry: 70, fill: \"var(--cyan)\", opacity: 0.18, stroke: \"var(--cyan)\", \"stroke-width\": 1.4}));\n    svg.appendChild(SVG(\"ellipse\", {cx: cx + 130, cy: cy, rx: 110, ry: 70, fill: \"var(--violet)\", opacity: 0.18, stroke: \"var(--violet)\", \"stroke-width\": 1.4}));\n    const lU1 = SVG(\"text\", {x: cx - 220, y: cy - 80, \"font-size\": 12, fill: \"var(--cyan)\"}); lU1.textContent = \"U₁\"; svg.appendChild(lU1);\n    const lU2 = SVG(\"text\", {x: cx + 200, y: cy - 80, \"font-size\": 12, fill: \"var(--violet)\"}); lU2.textContent = \"U₂\"; svg.appendChild(lU2);\n    // Overlap label\n    const lO = SVG(\"text\", {x: cx - 25, y: cy - 80, \"font-size\": 12, fill: \"var(--mute)\"}); lO.textContent = \"U₁ ∩ U₂\"; svg.appendChild(lO);\n    // Cocycle label\n    const lab = SVG(\"text\", {x: cx, y: cy + 5, \"font-size\": 14, fill: \"var(--yellow)\", \"text-anchor\": \"middle\", \"font-weight\": 600});\n    lab.textContent = \"f₁ / f₂ = z^\" + d + \"  (transition cocycle)\";\n    svg.appendChild(lab);\n    // Status\n    const ok = d === 0;\n    const colour = ok ? \"var(--green)\" : \"var(--pink)\";\n    const stxt = ok ? \"Chern class = 0 → second Cousin SOLVABLE\" : \"Chern class = \" + d + \" ≠ 0 → second Cousin OBSTRUCTED\";\n    svg.appendChild(SVG(\"rect\", {x: 30, y: H - 50, width: 14, height: 10, fill: colour}));\n    const stl = SVG(\"text\", {x: 50, y: H - 41, \"font-size\": 12, fill: \"var(--ink)\"}); stl.textContent = stxt; svg.appendChild(stl);\n    const hd = SVG(\"text\", {x: 30, y: 30, \"font-size\": 13, fill: \"var(--ink)\"});\n    hd.textContent = \"Toy: U₁ = neighbourhood of ‘zero', U₂ = neighbourhood of ‘infinity', overlap an annulus.\";\n    svg.appendChild(hd);\n    out.textContent =\n      `divisor degree d = ${d}\\n` +\n      `transition cocycle f₁/f₂ = z^${d} on U₁ ∩ U₂\\n` +\n      `class in H²(Ω, ℤ) = ${d}\\n` +\n      (ok\n        ? `→ second Cousin solvable: f exists on Ω with prescribed divisor.`\n        : `→ second Cousin obstructed: no global f realises this divisor (degree ${d} cocycle is not a coboundary).`);\n  }\n  dIn.addEventListener(\"input\", render);\n  render();\n})();\n</script>"
+            "controls": [
+              {
+                "type": "slider",
+                "id": "co-d",
+                "label": "divisor degree $d$:",
+                "min": -3,
+                "max": 3,
+                "value": 0,
+                "format": "separate",
+                "step": 1
+              },
+              {
+                "type": "span",
+                "id": "co-d-out",
+                "class": "readout",
+                "text": "0"
+              }
+            ],
+            "svg": {
+              "id": "co-svg",
+              "viewBox": "0 0 620 280",
+              "width": 620,
+              "height": 280,
+              "title": "Second Cousin obstruction lives in H^2(\\Omega, Z); zero degree class is solvable"
+            },
+            "readout": {
+              "id": "co-out"
+            },
+            "bodyScript": "\n<script>\n(function(){\n  const svg = $('#co-svg'), dIn = $('#co-d'), dOut = $('#co-d-out'), out = $('#co-out');\n  const W = 620, H = 280;\n  function render(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    svg.appendChild(SVG(\"rect\",{x:0,y:0,width:W,height:H,fill:\"var(--bg)\"}));\n    const d = +dIn.value;\n    dOut.textContent = \"\" + d;\n    const cx = W / 2, cy = H / 2;\n    // Draw two open sets / a cylinder\n    svg.appendChild(SVG(\"ellipse\", {cx: cx - 130, cy: cy, rx: 110, ry: 70, fill: \"var(--cyan)\", opacity: 0.18, stroke: \"var(--cyan)\", \"stroke-width\": 1.4}));\n    svg.appendChild(SVG(\"ellipse\", {cx: cx + 130, cy: cy, rx: 110, ry: 70, fill: \"var(--violet)\", opacity: 0.18, stroke: \"var(--violet)\", \"stroke-width\": 1.4}));\n    const lU1 = SVG(\"text\", {x: cx - 220, y: cy - 80, \"font-size\": 12, fill: \"var(--cyan)\"}); lU1.textContent = \"U₁\"; svg.appendChild(lU1);\n    const lU2 = SVG(\"text\", {x: cx + 200, y: cy - 80, \"font-size\": 12, fill: \"var(--violet)\"}); lU2.textContent = \"U₂\"; svg.appendChild(lU2);\n    // Overlap label\n    const lO = SVG(\"text\", {x: cx - 25, y: cy - 80, \"font-size\": 12, fill: \"var(--mute)\"}); lO.textContent = \"U₁ ∩ U₂\"; svg.appendChild(lO);\n    // Cocycle label\n    const lab = SVG(\"text\", {x: cx, y: cy + 5, \"font-size\": 14, fill: \"var(--yellow)\", \"text-anchor\": \"middle\", \"font-weight\": 600});\n    lab.textContent = \"f₁ / f₂ = z^\" + d + \"  (transition cocycle)\";\n    svg.appendChild(lab);\n    // Status\n    const ok = d === 0;\n    const colour = ok ? \"var(--green)\" : \"var(--pink)\";\n    const stxt = ok ? \"Chern class = 0 → second Cousin SOLVABLE\" : \"Chern class = \" + d + \" ≠ 0 → second Cousin OBSTRUCTED\";\n    svg.appendChild(SVG(\"rect\", {x: 30, y: H - 50, width: 14, height: 10, fill: colour}));\n    const stl = SVG(\"text\", {x: 50, y: H - 41, \"font-size\": 12, fill: \"var(--ink)\"}); stl.textContent = stxt; svg.appendChild(stl);\n    const hd = SVG(\"text\", {x: 30, y: 30, \"font-size\": 13, fill: \"var(--ink)\"});\n    hd.textContent = \"Toy: U₁ = neighbourhood of ‘zero', U₂ = neighbourhood of ‘infinity', overlap an annulus.\";\n    svg.appendChild(hd);\n    out.textContent =\n      `divisor degree d = ${d}\\n` +\n      `transition cocycle f₁/f₂ = z^${d} on U₁ ∩ U₂\\n` +\n      `class in H²(Ω, ℤ) = ${d}\\n` +\n      (ok\n        ? `→ second Cousin solvable: f exists on Ω with prescribed divisor.`\n        : `→ second Cousin obstructed: no global f realises this divisor (degree ${d} cocycle is not a coboundary).`);\n  }\n  dIn.addEventListener(\"input\", render);\n  render();\n})();\n</script>",
+            "wrapperHasId": true
           }
         },
         {
