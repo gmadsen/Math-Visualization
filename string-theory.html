@@ -289,13 +289,13 @@ function drawNode(svg, x, y, label, opts={}){
 
 <div class="widget" id="w-worldsheet">
   <div class="hd"><div class="ttl">World-sheet of an open string</div><div class="hint">drag time slider; toggle animation</div></div>
-  <svg id="ws-svg" viewBox="0 0 620 320" width="620" height="320"><title>World-sheet swept out by an open string in 3D embedding space</title></svg>
   <div class="row">
     <label for="ws-tau">time $\tau$:</label>
     <input type="range" id="ws-tau" min="0" max="100" value="60">
     <button id="ws-play">▶ animate</button>
-    <button id="ws-mode" data-mode="open">open string</button>
+    <button id="ws-mode">open string</button>
   </div>
+  <svg id="ws-svg" viewBox="0 0 620 320" width="620" height="320"><title>World-sheet swept out by an open string in 3D embedding space</title></svg>
   <div class="readout" id="ws-out"></div>
 </div>
 <p class="small">The open string (endpoints free) sweeps out a 2D strip; the closed string (endpoints joined) sweeps out a tube. In either case it is a 2D surface $\Sigma$ embedded in spacetime. The Polyakov action computes the (signed) area of $\Sigma$ using its own intrinsic metric.</p>
@@ -425,13 +425,11 @@ function drawNode(svg, x, y, label, opts={}){
   <div class="hd"><div class="ttl">Virasoro spectrum & states at level $N$</div><div class="hint">$L_0$-eigenvalue ladder; click level for a state count</div></div>
   <div class="row">
     <label for="vir-c">central charge $c$:</label>
-    <input type="range" id="vir-c" min="1" max="30" value="26" step="1">
-    <span id="vir-cval" class="readout" style="display:inline-block;min-width:5em;padding:.25rem .5rem;min-height:0">c = 26</span>
-  </div>
-  <div class="row">
+    <input type="range" id="vir-c" min="1" max="30" step="1" value="26">
+    <span id="vir-cval" class="readout">c = 26</span>
     <label for="vir-N">level $N = L_0$ eigenvalue:</label>
-    <input type="range" id="vir-N" min="0" max="6" value="2" step="1">
-    <span id="vir-Nval" class="readout" style="display:inline-block;min-width:4em;padding:.25rem .5rem;min-height:0">N = 2</span>
+    <input type="range" id="vir-N" min="0" max="6" step="1" value="2">
+    <span id="vir-Nval" class="readout">N = 2</span>
   </div>
   <svg id="vir-svg" viewBox="0 0 620 280" width="620" height="280"><title>Virasoro state ladder; the $L_{-n}$ creation modes build states at level $N$</title></svg>
   <div class="readout" id="vir-out"></div>
@@ -528,10 +526,10 @@ function drawNode(svg, x, y, label, opts={}){
   <div class="hd"><div class="ttl">Mass spectrum at varying $D$</div><div class="hint">find the $D$ that puts $M^2 = 0$ at level 1</div></div>
   <div class="row">
     <label for="cd-D">spacetime dim $D$:</label>
-    <input type="range" id="cd-D" min="4" max="40" value="26" step="1">
-    <span id="cd-Dval" class="readout" style="display:inline-block;min-width:6em;padding:.25rem .5rem;min-height:0">D = 26</span>
+    <input type="range" id="cd-D" min="4" max="40" step="1" value="26">
+    <span id="cd-Dval" class="readout">D = 26</span>
   </div>
-  <svg id="cd-svg" viewBox="0 0 620 300" width="620" height="300"><title>Open-string $\alpha' M^2 = N - (D-2)/24$ for the lowest few levels</title></svg>
+  <svg id="cd-svg" viewBox="0 0 620 300" width="620" height="300"><title>Open-string $\alpha&#39; M^2 = N - (D-2)/24$ for the lowest few levels</title></svg>
   <div class="readout" id="cd-out"></div>
 </div>
 <p class="small">The yellow horizontal at $\alpha'M^2 = 0$ is the massless line; for the lightest <em>massless</em> level to occur exactly at $N=1$ (the level holding the gauge boson / graviton) you need $a = 1$, i.e. $D = 26$. At any other $D$ the spectrum is either tachyonic at $N=1$ or massless at the wrong level.</p>
@@ -643,8 +641,8 @@ function drawNode(svg, x, y, label, opts={}){
   <div class="hd"><div class="ttl">Bosonic vs superstring anomaly cancellation</div><div class="hint">slide $D$; the line that hits zero is the critical dimension</div></div>
   <div class="row">
     <label for="sd-D">spacetime dim $D$:</label>
-    <input type="range" id="sd-D" min="2" max="32" value="10" step="1">
-    <span id="sd-Dval" class="readout" style="display:inline-block;min-width:6em;padding:.25rem .5rem;min-height:0">D = 10</span>
+    <input type="range" id="sd-D" min="2" max="32" step="1" value="10">
+    <span id="sd-Dval" class="readout">D = 10</span>
   </div>
   <svg id="sd-svg" viewBox="0 0 620 280" width="620" height="280"><title>Total central charge $c_{\mathrm{matter}} + c_{\mathrm{ghost}}$ vs $D$ for bosonic and super strings</title></svg>
   <div class="readout" id="sd-out"></div>
@@ -882,10 +880,10 @@ The two non-trivial entries are $h^{1,1}(X)$ (Kähler / size moduli) and $h^{2,1
   <div class="hd"><div class="ttl">T-duality on a circle: momentum vs winding</div><div class="hint">slide the radius and watch which mode is light</div></div>
   <div class="row">
     <label for="td-R">radius $R / \sqrt{\alpha'}$:</label>
-    <input type="range" id="td-R" min="20" max="500" value="100" step="1">
-    <span id="td-Rval" class="readout" style="display:inline-block;min-width:7em;padding:.25rem .5rem;min-height:0">R = 1.00</span>
+    <input type="range" id="td-R" min="20" max="500" step="1" value="100">
+    <span id="td-Rval" class="readout">R = 1.00</span>
   </div>
-  <svg id="td-svg" viewBox="0 0 620 300" width="620" height="300"><title>Closed-string Kaluza–Klein spectrum on a circle: momentum modes ($n/R$) and winding modes ($mR/\alpha'$)</title></svg>
+  <svg id="td-svg" viewBox="0 0 620 300" width="620" height="300"><title>Closed-string Kaluza–Klein spectrum on a circle: momentum modes ($n/R$) and winding modes ($mR/\alpha&#39;$)</title></svg>
   <div class="readout" id="td-out"></div>
 </div>
 <p class="small">Cyan dots: pure-momentum states $n/R$. Pink dots: pure-winding states $mR/\alpha'$. As $R$ shrinks below $\sqrt{\alpha'}$ the momentum tower gets heavy and the winding tower gets light — physically equivalent to a large dual circle. The two towers cross at $R = \sqrt{\alpha'}$.</p>

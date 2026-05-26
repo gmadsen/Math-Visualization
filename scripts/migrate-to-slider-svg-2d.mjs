@@ -360,8 +360,11 @@ function parseVerbatimMarkup(bodyMarkup, normalize) {
   // renderer emits it empty and the driving script repopulates it on first
   // draw, so the text is a discardable placeholder; what matters is the div
   // (with its id) exists for the script to bind.
+  // Normalize also tolerates id-before-class attr order (`<div id="x" class="readout">`)
+  // via lookaheads — the renderer always emits the canonical class-first form, so
+  // this only matters for FINDING the readout div + its id, not reproducing it.
   const readoutMatch = normalize
-    ? bodyMarkup.match(/<div class="readout" id="([^"]+)">[\s\S]*?<\/div>/)
+    ? bodyMarkup.match(/<div\s+(?=[^>]*\bclass="readout")(?=[^>]*\bid="([^"]+)")[^>]*>[\s\S]*?<\/div>/)
     : bodyMarkup.match(/<div class="readout" id="([^"]+)"><\/div>/);
   let readout = false;
   if (readoutMatch) {
