@@ -12,13 +12,56 @@
         },
         {
           "type": "widget",
-          "slug": "ct-w1",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-distance",
-            "title": "Distance & correction radius",
-            "hint": "choose n, d — see correction radius and Singleton ceiling on k",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-distance\">\n  <div class=\"hd\"><div class=\"ttl\">Distance &amp; correction radius</div><div class=\"hint\">choose $n$, $d$ — see correction radius and Singleton ceiling on $k$</div></div>\n  <div class=\"row\">\n    <label>length $n$ <input id=\"dist-n\" type=\"range\" min=\"3\" max=\"31\" step=\"1\" value=\"7\"></label>\n    <span id=\"dist-n-out\" class=\"pill\">n=7</span>\n  </div>\n  <div class=\"row\">\n    <label>min distance $d$ <input id=\"dist-d\" type=\"range\" min=\"1\" max=\"15\" step=\"1\" value=\"3\"></label>\n    <span id=\"dist-d-out\" class=\"pill\">d=3</span>\n  </div>\n  <svg id=\"dist-svg\" viewBox=\"0 0 640 220\" width=\"100%\" height=\"220\" aria-label=\"ball-packing schematic\"><title>Hamming balls of correction radius around two codewords</title></svg>\n  <div id=\"dist-out\" class=\"readout\">— set the sliders above —</div>\n</div>",
-            "bodyScript": "\n<script>\n(function(){\n  const svg=$('#dist-svg'), out=$('#dist-out');\n  const nIn=$('#dist-n'), dIn=$('#dist-d');\n  const nOut=$('#dist-n-out'), dOut=$('#dist-d-out');\n  function vol(n,t){\n    let v=0, c=1;\n    for(let i=0;i<=t;i++){ v+=c; c=c*(n-i)/(i+1); }\n    return v;\n  }\n  function draw(){\n    const n=+nIn.value, d=Math.min(+dIn.value, n);\n    const t=Math.floor((d-1)/2);\n    nOut.textContent='n='+n;\n    dOut.textContent='d='+d;\n    dIn.max=String(n);\n    svg.innerHTML='';\n    const cx1=170, cx2=470, cy=110;\n    // radius scaled by pixel-units\n    const Rmax=130, R = Math.min(Rmax, 18*Math.max(t,0)+8);\n    const sep = Math.hypot(cx2-cx1,0);\n    const overlap = (2*R > sep);\n    // codeword 1 ball\n    svg.appendChild(SVG('circle',{cx:cx1,cy,r:R,fill:'color-mix(in srgb, var(--cyan) 18%, transparent)',stroke:'var(--cyan)','stroke-width':1.3}));\n    svg.appendChild(SVG('circle',{cx:cx2,cy,r:R,fill:'color-mix(in srgb, var(--pink) 18%, transparent)',stroke:'var(--pink)','stroke-width':1.3}));\n    // codeword dots\n    svg.appendChild(SVG('circle',{cx:cx1,cy,r:5,fill:'var(--cyan)'}));\n    svg.appendChild(SVG('circle',{cx:cx2,cy,r:5,fill:'var(--pink)'}));\n    // labels\n    let t1=SVG('text',{x:cx1,y:cy-R-8,'text-anchor':'middle','font-size':12,fill:'var(--cyan)'}); t1.textContent='codeword c'; svg.appendChild(t1);\n    let t2=SVG('text',{x:cx2,y:cy-R-8,'text-anchor':'middle','font-size':12,fill:'var(--pink)'}); t2.textContent=\"codeword c'\"; svg.appendChild(t2);\n    let t3=SVG('text',{x:cx1,y:cy+R+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'}); t3.textContent='ball of radius t = '+t; svg.appendChild(t3);\n    let t4=SVG('text',{x:cx2,y:cy+R+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'}); t4.textContent='ball of radius t = '+t; svg.appendChild(t4);\n    // distance line\n    const dl=SVG('line',{x1:cx1,y1:cy+R+34,x2:cx2,y2:cy+R+34,stroke:'var(--mute)','stroke-dasharray':'4 4'}); svg.appendChild(dl);\n    let t5=SVG('text',{x:(cx1+cx2)/2,y:cy+R+50,'text-anchor':'middle','font-size':11,fill:'var(--mute)'}); t5.textContent='Hamming distance ≥ '+d; svg.appendChild(t5);\n    // readout\n    const kMax = n-d+1;\n    const V = vol(n,t);\n    const hbound = Math.pow(2,n)/V;\n    const hboundK = Math.floor(Math.log2(hbound)*1000)/1000;\n    out.textContent = 't = ⌊(d-1)/2⌋ = '+t+\n      '   |   Singleton: k ≤ n-d+1 = '+kMax+\n      '   |   Hamming/sphere-packing (q=2): |C| ≤ 2^n / V₂(n,t) = '+hbound.toFixed(2)+'  (log₂ ≈ '+hboundK.toFixed(3)+')'+\n      (overlap ? '   ⚠ balls overlap — distance too small to correct t errors' : '   ✓ balls disjoint — decoding unambiguous up to t errors');\n  }\n  nIn.addEventListener('input',draw);\n  dIn.addEventListener('input',draw);\n  draw();\n})();\n</script>"
+            "title": "Distance &amp; correction radius",
+            "hint": "choose $n$, $d$ — see correction radius and Singleton ceiling on $k$",
+            "controls": [
+              {
+                "type": "slider",
+                "id": "dist-n",
+                "label": "length $n$",
+                "min": 3,
+                "max": 31,
+                "value": 7,
+                "step": 1
+              },
+              {
+                "type": "span",
+                "id": "dist-n-out",
+                "class": "pill",
+                "text": "n=7"
+              },
+              {
+                "type": "slider",
+                "id": "dist-d",
+                "label": "min distance $d$",
+                "min": 1,
+                "max": 15,
+                "value": 3,
+                "step": 1
+              },
+              {
+                "type": "span",
+                "id": "dist-d-out",
+                "class": "pill",
+                "text": "d=3"
+              }
+            ],
+            "svg": {
+              "id": "dist-svg",
+              "viewBox": "0 0 640 220",
+              "width": "100%",
+              "height": 220,
+              "ariaLabel": "ball-packing schematic",
+              "title": "Hamming balls of correction radius around two codewords"
+            },
+            "readout": {
+              "id": "dist-out"
+            },
+            "bodyScript": "\n<script>\n(function(){\n  const svg=$('#dist-svg'), out=$('#dist-out');\n  const nIn=$('#dist-n'), dIn=$('#dist-d');\n  const nOut=$('#dist-n-out'), dOut=$('#dist-d-out');\n  function vol(n,t){\n    let v=0, c=1;\n    for(let i=0;i<=t;i++){ v+=c; c=c*(n-i)/(i+1); }\n    return v;\n  }\n  function draw(){\n    const n=+nIn.value, d=Math.min(+dIn.value, n);\n    const t=Math.floor((d-1)/2);\n    nOut.textContent='n='+n;\n    dOut.textContent='d='+d;\n    dIn.max=String(n);\n    svg.innerHTML='';\n    const cx1=170, cx2=470, cy=110;\n    // radius scaled by pixel-units\n    const Rmax=130, R = Math.min(Rmax, 18*Math.max(t,0)+8);\n    const sep = Math.hypot(cx2-cx1,0);\n    const overlap = (2*R > sep);\n    // codeword 1 ball\n    svg.appendChild(SVG('circle',{cx:cx1,cy,r:R,fill:'color-mix(in srgb, var(--cyan) 18%, transparent)',stroke:'var(--cyan)','stroke-width':1.3}));\n    svg.appendChild(SVG('circle',{cx:cx2,cy,r:R,fill:'color-mix(in srgb, var(--pink) 18%, transparent)',stroke:'var(--pink)','stroke-width':1.3}));\n    // codeword dots\n    svg.appendChild(SVG('circle',{cx:cx1,cy,r:5,fill:'var(--cyan)'}));\n    svg.appendChild(SVG('circle',{cx:cx2,cy,r:5,fill:'var(--pink)'}));\n    // labels\n    let t1=SVG('text',{x:cx1,y:cy-R-8,'text-anchor':'middle','font-size':12,fill:'var(--cyan)'}); t1.textContent='codeword c'; svg.appendChild(t1);\n    let t2=SVG('text',{x:cx2,y:cy-R-8,'text-anchor':'middle','font-size':12,fill:'var(--pink)'}); t2.textContent=\"codeword c'\"; svg.appendChild(t2);\n    let t3=SVG('text',{x:cx1,y:cy+R+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'}); t3.textContent='ball of radius t = '+t; svg.appendChild(t3);\n    let t4=SVG('text',{x:cx2,y:cy+R+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'}); t4.textContent='ball of radius t = '+t; svg.appendChild(t4);\n    // distance line\n    const dl=SVG('line',{x1:cx1,y1:cy+R+34,x2:cx2,y2:cy+R+34,stroke:'var(--mute)','stroke-dasharray':'4 4'}); svg.appendChild(dl);\n    let t5=SVG('text',{x:(cx1+cx2)/2,y:cy+R+50,'text-anchor':'middle','font-size':11,fill:'var(--mute)'}); t5.textContent='Hamming distance ≥ '+d; svg.appendChild(t5);\n    // readout\n    const kMax = n-d+1;\n    const V = vol(n,t);\n    const hbound = Math.pow(2,n)/V;\n    const hboundK = Math.floor(Math.log2(hbound)*1000)/1000;\n    out.textContent = 't = ⌊(d-1)/2⌋ = '+t+\n      '   |   Singleton: k ≤ n-d+1 = '+kMax+\n      '   |   Hamming/sphere-packing (q=2): |C| ≤ 2^n / V₂(n,t) = '+hbound.toFixed(2)+'  (log₂ ≈ '+hboundK.toFixed(3)+')'+\n      (overlap ? '   ⚠ balls overlap — distance too small to correct t errors' : '   ✓ balls disjoint — decoding unambiguous up to t errors');\n  }\n  nIn.addEventListener('input',draw);\n  dIn.addEventListener('input',draw);\n  draw();\n})();\n</script>",
+            "wrapperHasId": true
           }
         },
         {
@@ -254,13 +297,72 @@
         },
         {
           "type": "widget",
-          "slug": "ct-w7",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-lattice",
-            "title": "2D lattice — basis sliders & packing density",
-            "hint": "tweak v1, v2 — covolume and shortest-vector circle update live",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-lattice\">\n  <div class=\"hd\"><div class=\"ttl\">2D lattice — basis sliders &amp; packing density</div><div class=\"hint\">tweak $v_1,v_2$ — covolume and shortest-vector circle update live</div></div>\n  <p class=\"small\" style=\"margin:.2rem 0 .4rem\">Square lattice maximises density iff $v_1\\perp v_2$ with equal length; the hexagonal $A_2$ at $60^\\circ$ is the true 2D optimum.</p>\n  <div class=\"row\">\n    <label>$v_1.x$ <input id=\"lat-v1x\" type=\"range\" min=\"-2\" max=\"2\" step=\"0.05\" value=\"1\"></label>\n    <label>$v_1.y$ <input id=\"lat-v1y\" type=\"range\" min=\"-2\" max=\"2\" step=\"0.05\" value=\"0\"></label>\n  </div>\n  <div class=\"row\">\n    <label>$v_2.x$ <input id=\"lat-v2x\" type=\"range\" min=\"-2\" max=\"2\" step=\"0.05\" value=\"0\"></label>\n    <label>$v_2.y$ <input id=\"lat-v2y\" type=\"range\" min=\"-2\" max=\"2\" step=\"0.05\" value=\"1\"></label>\n  </div>\n  <svg id=\"lat-svg\" viewBox=\"0 0 640 360\" width=\"100%\" height=\"360\" aria-label=\"2D lattice with packing circles\"><title>Two-dimensional lattice with disjoint circles of radius half the shortest vector</title></svg>\n  <div id=\"lat-out\" class=\"readout\">— move sliders —</div>\n  <div class=\"row\">\n    <button id=\"lat-square\">square</button>\n    <button id=\"lat-hex\">hexagonal A₂</button>\n  </div>\n</div>",
-            "bodyScript": "\n<script>\n(function(){\n  const svg=$('#lat-svg'), out=$('#lat-out');\n  const inputs={\n    v1x:$('#lat-v1x'), v1y:$('#lat-v1y'),\n    v2x:$('#lat-v2x'), v2y:$('#lat-v2y')\n  };\n  for(const k of Object.keys(inputs)) inputs[k].addEventListener('input',draw);\n  $('#lat-square').addEventListener('click',()=>{\n    inputs.v1x.value=1; inputs.v1y.value=0;\n    inputs.v2x.value=0; inputs.v2y.value=1;\n    draw();\n  });\n  $('#lat-hex').addEventListener('click',()=>{\n    inputs.v1x.value=1; inputs.v1y.value=0;\n    inputs.v2x.value=0.5; inputs.v2y.value=Math.sqrt(3)/2;\n    draw();\n  });\n  function draw(){\n    const v1=[+inputs.v1x.value,+inputs.v1y.value];\n    const v2=[+inputs.v2x.value,+inputs.v2y.value];\n    const det=v1[0]*v2[1]-v1[1]*v2[0];\n    const absdet=Math.abs(det);\n    svg.innerHTML='';\n    const cx=320, cy=180, scale=70;\n    // grid background\n    for(let i=-6;i<=6;i++){\n      svg.appendChild(SVG('line',{x1:0,y1:cy+i*30,x2:640,y2:cy+i*30,stroke:'var(--line)','stroke-width':0.4,opacity:0.4}));\n      svg.appendChild(SVG('line',{x1:cx+i*30,y1:0,x2:cx+i*30,y2:360,stroke:'var(--line)','stroke-width':0.4,opacity:0.4}));\n    }\n    // collect lattice points within a generous radius\n    const range=4;\n    const points=[];\n    let minLen=Infinity;\n    for(let i=-range;i<=range;i++) for(let j=-range;j<=range;j++){\n      if(i===0&&j===0) continue;\n      const x=i*v1[0]+j*v2[0], y=i*v1[1]+j*v2[1];\n      const L=Math.hypot(x,y);\n      if(L<minLen) minLen=L;\n      points.push({i,j,x,y,L});\n    }\n    if(!isFinite(minLen)||minLen<0.01) minLen=0.01;\n    // packing radius\n    const r=minLen/2;\n    // fundamental parallelogram\n    if(absdet>0.05){\n      const fp=`M ${cx} ${cy} L ${cx+v1[0]*scale} ${cy-v1[1]*scale} L ${cx+(v1[0]+v2[0])*scale} ${cy-(v1[1]+v2[1])*scale} L ${cx+v2[0]*scale} ${cy-v2[1]*scale} Z`;\n      svg.appendChild(SVG('path',{d:fp,fill:'color-mix(in srgb, var(--cyan) 12%, transparent)',stroke:'var(--cyan)','stroke-width':1.4}));\n    }\n    // packing circles around each lattice point in view\n    for(const p of points){\n      const X=cx+p.x*scale, Y=cy-p.y*scale;\n      if(X<-30||X>670||Y<-30||Y>390) continue;\n      svg.appendChild(SVG('circle',{cx:X,cy:Y,r:r*scale,fill:'color-mix(in srgb, var(--yellow) 14%, transparent)',stroke:'var(--yellow)','stroke-width':0.8,opacity:0.7}));\n    }\n    // origin & lattice points\n    for(const p of points){\n      const X=cx+p.x*scale, Y=cy-p.y*scale;\n      if(X<-10||X>650||Y<-10||Y>370) continue;\n      svg.appendChild(SVG('circle',{cx:X,cy:Y,r:3.5,fill:'var(--ink)'}));\n    }\n    svg.appendChild(SVG('circle',{cx:cx,cy:cy,r:5,fill:'var(--pink)'}));\n    // basis vectors\n    function arrow(x,y,color,label){\n      svg.appendChild(SVG('line',{x1:cx,y1:cy,x2:cx+x*scale,y2:cy-y*scale,stroke:color,'stroke-width':2,'marker-end':'url(#lat-arr)'}));\n      const t=SVG('text',{x:cx+x*scale+10*Math.sign(x||1),y:cy-y*scale-6,'font-size':12,fill:color,'font-weight':600}); t.textContent=label; svg.appendChild(t);\n    }\n    // arrow def\n    const defs=SVG('defs'); const mk=SVG('marker',{id:'lat-arr',viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'}); mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:'var(--green)'})); defs.appendChild(mk); svg.appendChild(defs);\n    arrow(v1[0],v1[1],'var(--green)','v₁');\n    arrow(v2[0],v2[1],'var(--green)','v₂');\n    // density (2D)\n    const density = Math.PI*r*r/absdet;\n    out.textContent='covolume |det| = '+absdet.toFixed(4)+\n      '   |   shortest vector λ₁ = '+minLen.toFixed(4)+\n      '   |   packing density Δ = π r² / covol = '+(isFinite(density)?density.toFixed(4):'∞')+\n      '   |   maximum 2D density: π/(2√3) ≈ 0.9069 (hexagonal lattice A₂)';\n  }\n  draw();\n})();\n</script>"
+            "title": "2D lattice — basis sliders &amp; packing density",
+            "hint": "tweak $v_1,v_2$ — covolume and shortest-vector circle update live",
+            "controls": [
+              {
+                "type": "slider",
+                "id": "lat-v1x",
+                "label": "$v_1.x$",
+                "min": -2,
+                "max": 2,
+                "value": 1,
+                "step": 0.05
+              },
+              {
+                "type": "slider",
+                "id": "lat-v1y",
+                "label": "$v_1.y$",
+                "min": -2,
+                "max": 2,
+                "value": 0,
+                "step": 0.05
+              },
+              {
+                "type": "slider",
+                "id": "lat-v2x",
+                "label": "$v_2.x$",
+                "min": -2,
+                "max": 2,
+                "value": 0,
+                "step": 0.05
+              },
+              {
+                "type": "slider",
+                "id": "lat-v2y",
+                "label": "$v_2.y$",
+                "min": -2,
+                "max": 2,
+                "value": 1,
+                "step": 0.05
+              },
+              {
+                "type": "button",
+                "id": "lat-square",
+                "text": "square"
+              },
+              {
+                "type": "button",
+                "id": "lat-hex",
+                "text": "hexagonal A₂"
+              }
+            ],
+            "svg": {
+              "id": "lat-svg",
+              "viewBox": "0 0 640 360",
+              "width": "100%",
+              "height": 360,
+              "ariaLabel": "2D lattice with packing circles",
+              "title": "Two-dimensional lattice with disjoint circles of radius half the shortest vector"
+            },
+            "readout": {
+              "id": "lat-out"
+            },
+            "bodyScript": "\n<script>\n(function(){\n  const svg=$('#lat-svg'), out=$('#lat-out');\n  const inputs={\n    v1x:$('#lat-v1x'), v1y:$('#lat-v1y'),\n    v2x:$('#lat-v2x'), v2y:$('#lat-v2y')\n  };\n  for(const k of Object.keys(inputs)) inputs[k].addEventListener('input',draw);\n  $('#lat-square').addEventListener('click',()=>{\n    inputs.v1x.value=1; inputs.v1y.value=0;\n    inputs.v2x.value=0; inputs.v2y.value=1;\n    draw();\n  });\n  $('#lat-hex').addEventListener('click',()=>{\n    inputs.v1x.value=1; inputs.v1y.value=0;\n    inputs.v2x.value=0.5; inputs.v2y.value=Math.sqrt(3)/2;\n    draw();\n  });\n  function draw(){\n    const v1=[+inputs.v1x.value,+inputs.v1y.value];\n    const v2=[+inputs.v2x.value,+inputs.v2y.value];\n    const det=v1[0]*v2[1]-v1[1]*v2[0];\n    const absdet=Math.abs(det);\n    svg.innerHTML='';\n    const cx=320, cy=180, scale=70;\n    // grid background\n    for(let i=-6;i<=6;i++){\n      svg.appendChild(SVG('line',{x1:0,y1:cy+i*30,x2:640,y2:cy+i*30,stroke:'var(--line)','stroke-width':0.4,opacity:0.4}));\n      svg.appendChild(SVG('line',{x1:cx+i*30,y1:0,x2:cx+i*30,y2:360,stroke:'var(--line)','stroke-width':0.4,opacity:0.4}));\n    }\n    // collect lattice points within a generous radius\n    const range=4;\n    const points=[];\n    let minLen=Infinity;\n    for(let i=-range;i<=range;i++) for(let j=-range;j<=range;j++){\n      if(i===0&&j===0) continue;\n      const x=i*v1[0]+j*v2[0], y=i*v1[1]+j*v2[1];\n      const L=Math.hypot(x,y);\n      if(L<minLen) minLen=L;\n      points.push({i,j,x,y,L});\n    }\n    if(!isFinite(minLen)||minLen<0.01) minLen=0.01;\n    // packing radius\n    const r=minLen/2;\n    // fundamental parallelogram\n    if(absdet>0.05){\n      const fp=`M ${cx} ${cy} L ${cx+v1[0]*scale} ${cy-v1[1]*scale} L ${cx+(v1[0]+v2[0])*scale} ${cy-(v1[1]+v2[1])*scale} L ${cx+v2[0]*scale} ${cy-v2[1]*scale} Z`;\n      svg.appendChild(SVG('path',{d:fp,fill:'color-mix(in srgb, var(--cyan) 12%, transparent)',stroke:'var(--cyan)','stroke-width':1.4}));\n    }\n    // packing circles around each lattice point in view\n    for(const p of points){\n      const X=cx+p.x*scale, Y=cy-p.y*scale;\n      if(X<-30||X>670||Y<-30||Y>390) continue;\n      svg.appendChild(SVG('circle',{cx:X,cy:Y,r:r*scale,fill:'color-mix(in srgb, var(--yellow) 14%, transparent)',stroke:'var(--yellow)','stroke-width':0.8,opacity:0.7}));\n    }\n    // origin & lattice points\n    for(const p of points){\n      const X=cx+p.x*scale, Y=cy-p.y*scale;\n      if(X<-10||X>650||Y<-10||Y>370) continue;\n      svg.appendChild(SVG('circle',{cx:X,cy:Y,r:3.5,fill:'var(--ink)'}));\n    }\n    svg.appendChild(SVG('circle',{cx:cx,cy:cy,r:5,fill:'var(--pink)'}));\n    // basis vectors\n    function arrow(x,y,color,label){\n      svg.appendChild(SVG('line',{x1:cx,y1:cy,x2:cx+x*scale,y2:cy-y*scale,stroke:color,'stroke-width':2,'marker-end':'url(#lat-arr)'}));\n      const t=SVG('text',{x:cx+x*scale+10*Math.sign(x||1),y:cy-y*scale-6,'font-size':12,fill:color,'font-weight':600}); t.textContent=label; svg.appendChild(t);\n    }\n    // arrow def\n    const defs=SVG('defs'); const mk=SVG('marker',{id:'lat-arr',viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'}); mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:'var(--green)'})); defs.appendChild(mk); svg.appendChild(defs);\n    arrow(v1[0],v1[1],'var(--green)','v₁');\n    arrow(v2[0],v2[1],'var(--green)','v₂');\n    // density (2D)\n    const density = Math.PI*r*r/absdet;\n    out.textContent='covolume |det| = '+absdet.toFixed(4)+\n      '   |   shortest vector λ₁ = '+minLen.toFixed(4)+\n      '   |   packing density Δ = π r² / covol = '+(isFinite(density)?density.toFixed(4):'∞')+\n      '   |   maximum 2D density: π/(2√3) ≈ 0.9069 (hexagonal lattice A₂)';\n  }\n  draw();\n})();\n</script>",
+            "wrapperHasId": true
           }
         },
         {

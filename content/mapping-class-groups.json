@@ -61,13 +61,41 @@
         },
         {
           "type": "widget",
-          "slug": "mcg-w2",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-twist",
             "title": "Dehn twist visualizer",
             "hint": "drag the slider to apply $T_\\gamma^{n}$",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-twist\">\n  <div class=\"hd\"><div class=\"ttl\">Dehn twist visualizer</div><div class=\"hint\">drag the slider to apply $T_\\gamma^{n}$</div></div>\n  <div class=\"row\">\n    <label for=\"tw-n\">twist count $n$:</label>\n    <input id=\"tw-n\" type=\"range\" min=\"-3\" max=\"3\" step=\"0.05\" value=\"0\" />\n    <span id=\"tw-n-out\" class=\"pill\">$n=0$</span>\n  </div>\n  <svg id=\"tw-svg\" viewBox=\"0 0 720 280\" width=\"100%\" height=\"280\"><title>Annular Dehn twist</title></svg>\n  <div class=\"readout\" id=\"tw-out\"></div>\n</div>",
-            "bodyScript": "<script>\n// ═════ §2 widget · Dehn twist visualizer ═════\n(function(){\n  const slider = $('#tw-n'), out = $('#tw-out'), label = $('#tw-n-out'), svg = $('#tw-svg');\n  if(!svg) return;\n  const W=720, H=280, cx=W/2, cy=H/2;\n  const ax=240, ay=80; // annulus half-axes\n  function render(){\n    const n = parseFloat(slider.value);\n    label.innerHTML = `n=${n.toFixed(2)}`;\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    // outer annulus boundary (two ellipses)\n    svg.appendChild(SVG('ellipse',{cx,cy,rx:ax,ry:ay,fill:'none',stroke:'var(--mute)','stroke-width':1.0}));\n    svg.appendChild(SVG('ellipse',{cx,cy,rx:ax*0.45,ry:ay*0.45,fill:'none',stroke:'var(--mute)','stroke-width':1.0}));\n    // central curve gamma\n    svg.appendChild(SVG('ellipse',{cx,cy,rx:ax*0.72,ry:ay*0.72,fill:'none',stroke:'var(--violet)','stroke-width':2}));\n    const lblg = SVG('text',{x:cx + ax*0.72 + 14, y:cy+5,'font-size':14,fill:'var(--violet)','font-style':'italic'});\n    lblg.textContent = 'γ'; svg.appendChild(lblg);\n    // sample radial line + its twisted image\n    const NS = 24;\n    for(let s=0;s<NS;s++){\n      const phi = (s/NS)*2*Math.PI;\n      // points along the radius from inner to outer\n      const M = 30;\n      let pts = '';\n      for(let i=0;i<=M;i++){\n        const t = i/M; // 0=inner, 1=outer\n        const r = 0.45 + t*(1 - 0.45);\n        const theta = phi + n*2*Math.PI*t; // twist by 2π·n at outer, 0 at inner\n        const x = cx + ax*r*Math.cos(theta);\n        const y = cy + ay*r*Math.sin(theta);\n        pts += `${i===0?'M':'L'}${x.toFixed(2)} ${y.toFixed(2)} `;\n      }\n      const col = s===0 ? 'var(--cyan)' : 'var(--blue)';\n      const wid = s===0 ? 2.5 : 1.0;\n      svg.appendChild(SVG('path',{d:pts,fill:'none',stroke:col,'stroke-width':wid,opacity: s===0 ? 1 : 0.55}));\n    }\n    // arrow indicating twist direction\n    const arrTxt = SVG('text',{x:cx, y:cy + ay + 32,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});\n    arrTxt.textContent = n>0 ? '→ positive twist (Dehn convention)' : (n<0 ? '← negative twist' : 'identity (n=0)');\n    svg.appendChild(arrTxt);\n    out.textContent =\n      `T_γ^n applied with n = ${n.toFixed(2)}\\n` +\n      `outer boundary rotated by 2π·n = ${(n*360).toFixed(0)}°\\n` +\n      `inner boundary fixed (identity).\\n\\n` +\n      (Math.abs(n - Math.round(n)) < 1e-6\n        ? `Integer twist: maps to a self-homeomorphism (extends by identity outside the annulus).`\n        : `Fractional state: at n∉ℤ this is not a self-homeomorphism — only T_γ^k for k∈ℤ lies in Mod(S).`);\n  }\n  slider.addEventListener('input', render);\n  render();\n})();\n</script>"
+            "controls": [
+              {
+                "type": "slider",
+                "id": "tw-n",
+                "label": "twist count $n$:",
+                "min": -3,
+                "max": 3,
+                "value": 0,
+                "format": "separate",
+                "step": 0.05
+              },
+              {
+                "type": "span",
+                "id": "tw-n-out",
+                "class": "pill",
+                "text": "$n=0$"
+              }
+            ],
+            "svg": {
+              "id": "tw-svg",
+              "viewBox": "0 0 720 280",
+              "width": "100%",
+              "height": 280,
+              "title": "Annular Dehn twist"
+            },
+            "readout": {
+              "id": "tw-out"
+            },
+            "bodyScript": "<script>\n// ═════ §2 widget · Dehn twist visualizer ═════\n(function(){\n  const slider = $('#tw-n'), out = $('#tw-out'), label = $('#tw-n-out'), svg = $('#tw-svg');\n  if(!svg) return;\n  const W=720, H=280, cx=W/2, cy=H/2;\n  const ax=240, ay=80; // annulus half-axes\n  function render(){\n    const n = parseFloat(slider.value);\n    label.innerHTML = `n=${n.toFixed(2)}`;\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    // outer annulus boundary (two ellipses)\n    svg.appendChild(SVG('ellipse',{cx,cy,rx:ax,ry:ay,fill:'none',stroke:'var(--mute)','stroke-width':1.0}));\n    svg.appendChild(SVG('ellipse',{cx,cy,rx:ax*0.45,ry:ay*0.45,fill:'none',stroke:'var(--mute)','stroke-width':1.0}));\n    // central curve gamma\n    svg.appendChild(SVG('ellipse',{cx,cy,rx:ax*0.72,ry:ay*0.72,fill:'none',stroke:'var(--violet)','stroke-width':2}));\n    const lblg = SVG('text',{x:cx + ax*0.72 + 14, y:cy+5,'font-size':14,fill:'var(--violet)','font-style':'italic'});\n    lblg.textContent = 'γ'; svg.appendChild(lblg);\n    // sample radial line + its twisted image\n    const NS = 24;\n    for(let s=0;s<NS;s++){\n      const phi = (s/NS)*2*Math.PI;\n      // points along the radius from inner to outer\n      const M = 30;\n      let pts = '';\n      for(let i=0;i<=M;i++){\n        const t = i/M; // 0=inner, 1=outer\n        const r = 0.45 + t*(1 - 0.45);\n        const theta = phi + n*2*Math.PI*t; // twist by 2π·n at outer, 0 at inner\n        const x = cx + ax*r*Math.cos(theta);\n        const y = cy + ay*r*Math.sin(theta);\n        pts += `${i===0?'M':'L'}${x.toFixed(2)} ${y.toFixed(2)} `;\n      }\n      const col = s===0 ? 'var(--cyan)' : 'var(--blue)';\n      const wid = s===0 ? 2.5 : 1.0;\n      svg.appendChild(SVG('path',{d:pts,fill:'none',stroke:col,'stroke-width':wid,opacity: s===0 ? 1 : 0.55}));\n    }\n    // arrow indicating twist direction\n    const arrTxt = SVG('text',{x:cx, y:cy + ay + 32,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});\n    arrTxt.textContent = n>0 ? '→ positive twist (Dehn convention)' : (n<0 ? '← negative twist' : 'identity (n=0)');\n    svg.appendChild(arrTxt);\n    out.textContent =\n      `T_γ^n applied with n = ${n.toFixed(2)}\\n` +\n      `outer boundary rotated by 2π·n = ${(n*360).toFixed(0)}°\\n` +\n      `inner boundary fixed (identity).\\n\\n` +\n      (Math.abs(n - Math.round(n)) < 1e-6\n        ? `Integer twist: maps to a self-homeomorphism (extends by identity outside the annulus).`\n        : `Fractional state: at n∉ℤ this is not a self-homeomorphism — only T_γ^k for k∈ℤ lies in Mod(S).`);\n  }\n  slider.addEventListener('input', render);\n  render();\n})();\n</script>",
+            "wrapperHasId": true
           }
         },
         {
@@ -110,13 +138,41 @@
         },
         {
           "type": "widget",
-          "slug": "mcg-w3",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-pa",
             "title": "Pseudo-Anosov · dilatation slider",
             "hint": "stretch one foliation, compress the other",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-pa\">\n  <div class=\"hd\"><div class=\"ttl\">Pseudo-Anosov · dilatation slider</div><div class=\"hint\">stretch one foliation, compress the other</div></div>\n  <div class=\"row\">\n    <label for=\"pa-l\">dilatation $\\lambda$:</label>\n    <input id=\"pa-l\" type=\"range\" min=\"1.05\" max=\"3.5\" step=\"0.05\" value=\"1.62\" />\n    <span id=\"pa-l-out\" class=\"pill\">$\\lambda=1.62$</span>\n  </div>\n  <svg id=\"pa-svg\" viewBox=\"0 0 720 280\" width=\"100%\" height=\"280\"><title>Pseudo-Anosov foliations</title></svg>\n  <div class=\"readout\" id=\"pa-out\"></div>\n</div>",
-            "bodyScript": "<script>\n// ═════ §3 widget · pseudo-Anosov dilatation ═════\n(function(){\n  const slider = $('#pa-l'), out = $('#pa-out'), label = $('#pa-l-out'), svg = $('#pa-svg');\n  if(!svg) return;\n  const W=720, H=280, cx=W/2, cy=H/2;\n  function render(){\n    const lam = parseFloat(slider.value);\n    label.innerHTML = `λ=${lam.toFixed(2)}`;\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    // background torus rectangle\n    const RX = 280, RY = 100;\n    svg.appendChild(SVG('rect',{x:cx-RX,y:cy-RY,width:RX*2,height:RY*2,fill:'none',stroke:'var(--mute)','stroke-width':1,'stroke-dasharray':'4 4'}));\n    // unstable foliation: nearly horizontal lines, density inversely proportional to lambda\n    const NU = Math.max(8, Math.round(28/lam));\n    for(let i=-NU;i<=NU;i++){\n      const y = cy + (i/NU)*RY*0.95;\n      svg.appendChild(SVG('line',{x1:cx-RX,y1:y,x2:cx+RX,y2:y,stroke:'var(--cyan)','stroke-width':1.0,opacity:0.85}));\n    }\n    // stable foliation: vertical lines, density proportional to lambda\n    const NS = Math.min(48, Math.round(20*lam));\n    for(let i=-NS;i<=NS;i++){\n      const x = cx + (i/NS)*RX*0.97;\n      svg.appendChild(SVG('line',{x1:x,y1:cy-RY,x2:x,y2:cy+RY,stroke:'var(--pink)','stroke-width':0.9,opacity:0.65}));\n    }\n    // legend\n    const lg1 = SVG('text',{x:cx-RX,y:cy-RY-12,'font-size':12,fill:'var(--cyan)'});\n    lg1.textContent = `unstable Fᵘ — stretched by λ = ${lam.toFixed(2)}`;\n    svg.appendChild(lg1);\n    const lg2 = SVG('text',{x:cx+RX,y:cy+RY+22,'font-size':12,fill:'var(--pink)','text-anchor':'end'});\n    lg2.textContent = `stable Fˢ — compressed by 1/λ = ${(1/lam).toFixed(3)}`;\n    svg.appendChild(lg2);\n    out.textContent =\n      `Dilatation λ = ${lam.toFixed(2)}\\n` +\n      `Topological entropy h(φ) = log λ = ${Math.log(lam).toFixed(3)}\\n` +\n      `Volume contraction φ*: ${lam.toFixed(2)} × ${(1/lam).toFixed(3)} = 1 (area-preserving)\\n\\n` +\n      (lam < 1.18 ? 'Below the conjectural lower bound — likely arithmetic obstruction.' :\n       lam < 1.85 ? 'Genus-2 minimum dilatation regime: ≈ 1.7221 (Lanneau-Thiffeault).' :\n       'Generic pseudo-Anosov: dilatation Perron, in particular irrational.');\n  }\n  slider.addEventListener('input', render);\n  render();\n})();\n</script>"
+            "controls": [
+              {
+                "type": "slider",
+                "id": "pa-l",
+                "label": "dilatation $\\lambda$:",
+                "min": 1.05,
+                "max": 3.5,
+                "value": 1.62,
+                "format": "separate",
+                "step": 0.05
+              },
+              {
+                "type": "span",
+                "id": "pa-l-out",
+                "class": "pill",
+                "text": "$\\lambda=1.62$"
+              }
+            ],
+            "svg": {
+              "id": "pa-svg",
+              "viewBox": "0 0 720 280",
+              "width": "100%",
+              "height": 280,
+              "title": "Pseudo-Anosov foliations"
+            },
+            "readout": {
+              "id": "pa-out"
+            },
+            "bodyScript": "<script>\n// ═════ §3 widget · pseudo-Anosov dilatation ═════\n(function(){\n  const slider = $('#pa-l'), out = $('#pa-out'), label = $('#pa-l-out'), svg = $('#pa-svg');\n  if(!svg) return;\n  const W=720, H=280, cx=W/2, cy=H/2;\n  function render(){\n    const lam = parseFloat(slider.value);\n    label.innerHTML = `λ=${lam.toFixed(2)}`;\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    // background torus rectangle\n    const RX = 280, RY = 100;\n    svg.appendChild(SVG('rect',{x:cx-RX,y:cy-RY,width:RX*2,height:RY*2,fill:'none',stroke:'var(--mute)','stroke-width':1,'stroke-dasharray':'4 4'}));\n    // unstable foliation: nearly horizontal lines, density inversely proportional to lambda\n    const NU = Math.max(8, Math.round(28/lam));\n    for(let i=-NU;i<=NU;i++){\n      const y = cy + (i/NU)*RY*0.95;\n      svg.appendChild(SVG('line',{x1:cx-RX,y1:y,x2:cx+RX,y2:y,stroke:'var(--cyan)','stroke-width':1.0,opacity:0.85}));\n    }\n    // stable foliation: vertical lines, density proportional to lambda\n    const NS = Math.min(48, Math.round(20*lam));\n    for(let i=-NS;i<=NS;i++){\n      const x = cx + (i/NS)*RX*0.97;\n      svg.appendChild(SVG('line',{x1:x,y1:cy-RY,x2:x,y2:cy+RY,stroke:'var(--pink)','stroke-width':0.9,opacity:0.65}));\n    }\n    // legend\n    const lg1 = SVG('text',{x:cx-RX,y:cy-RY-12,'font-size':12,fill:'var(--cyan)'});\n    lg1.textContent = `unstable Fᵘ — stretched by λ = ${lam.toFixed(2)}`;\n    svg.appendChild(lg1);\n    const lg2 = SVG('text',{x:cx+RX,y:cy+RY+22,'font-size':12,fill:'var(--pink)','text-anchor':'end'});\n    lg2.textContent = `stable Fˢ — compressed by 1/λ = ${(1/lam).toFixed(3)}`;\n    svg.appendChild(lg2);\n    out.textContent =\n      `Dilatation λ = ${lam.toFixed(2)}\\n` +\n      `Topological entropy h(φ) = log λ = ${Math.log(lam).toFixed(3)}\\n` +\n      `Volume contraction φ*: ${lam.toFixed(2)} × ${(1/lam).toFixed(3)} = 1 (area-preserving)\\n\\n` +\n      (lam < 1.18 ? 'Below the conjectural lower bound — likely arithmetic obstruction.' :\n       lam < 1.85 ? 'Genus-2 minimum dilatation regime: ≈ 1.7221 (Lanneau-Thiffeault).' :\n       'Generic pseudo-Anosov: dilatation Perron, in particular irrational.');\n  }\n  slider.addEventListener('input', render);\n  render();\n})();\n</script>",
+            "wrapperHasId": true
           }
         },
         {
@@ -155,13 +211,85 @@
         },
         {
           "type": "widget",
-          "slug": "mcg-w4",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-fn",
             "title": "Fenchel–Nielsen coordinates · genus 2",
             "hint": "three pants curves, three lengths and three twists",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-fn\">\n  <div class=\"hd\"><div class=\"ttl\">Fenchel–Nielsen coordinates · genus 2</div><div class=\"hint\">three pants curves, three lengths and three twists</div></div>\n  <div class=\"row\">\n    <label for=\"fn-l1\">$\\ell_1$:</label><input id=\"fn-l1\" type=\"range\" min=\"0.4\" max=\"3\" step=\"0.05\" value=\"1.2\"/>\n    <label for=\"fn-t1\">$\\tau_1$:</label><input id=\"fn-t1\" type=\"range\" min=\"-2\" max=\"2\" step=\"0.05\" value=\"0\"/>\n  </div>\n  <div class=\"row\">\n    <label for=\"fn-l2\">$\\ell_2$:</label><input id=\"fn-l2\" type=\"range\" min=\"0.4\" max=\"3\" step=\"0.05\" value=\"1.0\"/>\n    <label for=\"fn-t2\">$\\tau_2$:</label><input id=\"fn-t2\" type=\"range\" min=\"-2\" max=\"2\" step=\"0.05\" value=\"0\"/>\n  </div>\n  <div class=\"row\">\n    <label for=\"fn-l3\">$\\ell_3$:</label><input id=\"fn-l3\" type=\"range\" min=\"0.4\" max=\"3\" step=\"0.05\" value=\"1.4\"/>\n    <label for=\"fn-t3\">$\\tau_3$:</label><input id=\"fn-t3\" type=\"range\" min=\"-2\" max=\"2\" step=\"0.05\" value=\"0\"/>\n  </div>\n  <svg id=\"fn-svg\" viewBox=\"0 0 720 240\" width=\"100%\" height=\"240\"><title>Pants decomposition of genus-2 surface</title></svg>\n  <div class=\"readout\" id=\"fn-out\"></div>\n</div>",
-            "bodyScript": "<script>\n// ═════ §4 widget · Fenchel-Nielsen pants ═════\n(function(){\n  const ids = ['fn-l1','fn-t1','fn-l2','fn-t2','fn-l3','fn-t3'];\n  const inputs = ids.map(id => $('#'+id));\n  const out = $('#fn-out'), svg = $('#fn-svg');\n  if(!svg) return;\n  function render(){\n    const [l1,t1,l2,t2,l3,t3] = inputs.map(i => parseFloat(i.value));\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const W=720, H=240, cy=H/2;\n    // two pants joined along three curves; show schematic with adjustable curve thicknesses\n    // pants 1 on the left, pants 2 on the right\n    const cx1 = W*0.28, cx2 = W*0.72;\n    function pant(cx, twist, label){\n      // central body\n      svg.appendChild(SVG('ellipse',{cx,cy,rx:90,ry:62,fill:'none',stroke:'var(--violet)','stroke-width':1.4}));\n      // three boundary circles\n      svg.appendChild(SVG('circle',{cx:cx-65,cy:cy-30,r:14,fill:'none',stroke:'var(--cyan)','stroke-width':1.2 + Math.max(0,Math.min(2,Math.abs(twist)))}));\n      svg.appendChild(SVG('circle',{cx:cx-65,cy:cy+30,r:14,fill:'none',stroke:'var(--cyan)','stroke-width':1.2}));\n      svg.appendChild(SVG('circle',{cx:cx+75,cy:cy,r:18,fill:'none',stroke:'var(--cyan)','stroke-width':1.2}));\n      const tt = SVG('text',{x:cx,y:cy+5,'text-anchor':'middle','font-size':11,fill:'var(--mute)','font-style':'italic'});\n      tt.textContent = label; svg.appendChild(tt);\n    }\n    pant(cx1, t1, 'pant 1');\n    pant(cx2, t2, 'pant 2');\n    // labels for the three gluing curves\n    const lbl = (x,y,name,len,tw) => {\n      const t = SVG('text',{x,y,'text-anchor':'middle','font-size':12,fill:'var(--cyan)'});\n      t.textContent = `γ${name}  ℓ=${len.toFixed(2)}  τ=${tw.toFixed(2)}`;\n      svg.appendChild(t);\n    };\n    lbl(W/2, cy-65, '₁', l1, t1);\n    lbl(W/2, cy,    '₂', l2, t2);\n    lbl(W/2, cy+78, '₃', l3, t3);\n    // central connector lines\n    svg.appendChild(SVG('line',{x1:cx1+90,y1:cy-30,x2:cx2-90,y2:cy-30,stroke:'var(--violet)','stroke-width':1.0,'stroke-dasharray':'3 3'}));\n    svg.appendChild(SVG('line',{x1:cx1+90,y1:cy,   x2:cx2-90,y2:cy,   stroke:'var(--violet)','stroke-width':1.0,'stroke-dasharray':'3 3'}));\n    svg.appendChild(SVG('line',{x1:cx1+90,y1:cy+30,x2:cx2-90,y2:cy+30,stroke:'var(--violet)','stroke-width':1.0,'stroke-dasharray':'3 3'}));\n    const totL = l1+l2+l3, totT = t1+t2+t3;\n    const wp = Math.sqrt(l1*l1 + l2*l2 + l3*l3 + t1*t1 + t2*t2 + t3*t3);\n    out.textContent =\n      `Fenchel-Nielsen point in T(Σ_2):\\n` +\n      `  ℓ = (${l1.toFixed(2)}, ${l2.toFixed(2)}, ${l3.toFixed(2)})\\n` +\n      `  τ = (${t1.toFixed(2)}, ${t2.toFixed(2)}, ${t3.toFixed(2)})\\n` +\n      `Total length parameter Σℓ = ${totL.toFixed(2)}\\n` +\n      `Total twist Στ = ${totT.toFixed(2)}\\n` +\n      `Crude WP-style norm = ${wp.toFixed(2)}\\n\\n` +\n      `Dehn twist T_{γ₁} acts by τ₁ ↦ τ₁ + ℓ₁; orbit under <T_{γ_i}> covers each ℝ-twist axis.`;\n  }\n  inputs.forEach(i => i.addEventListener('input', render));\n  render();\n})();\n</script>"
+            "controls": [
+              {
+                "type": "slider",
+                "id": "fn-l1",
+                "label": "$\\ell_1$:",
+                "min": 0.4,
+                "max": 3,
+                "value": 1.2,
+                "format": "separate",
+                "step": 0.05
+              },
+              {
+                "type": "slider",
+                "id": "fn-t1",
+                "label": "$\\tau_1$:",
+                "min": -2,
+                "max": 2,
+                "value": 0,
+                "format": "separate",
+                "step": 0.05
+              },
+              {
+                "type": "slider",
+                "id": "fn-l2",
+                "label": "$\\ell_2$:",
+                "min": 0.4,
+                "max": 3,
+                "value": "1.0",
+                "format": "separate",
+                "step": 0.05
+              },
+              {
+                "type": "slider",
+                "id": "fn-t2",
+                "label": "$\\tau_2$:",
+                "min": -2,
+                "max": 2,
+                "value": 0,
+                "format": "separate",
+                "step": 0.05
+              },
+              {
+                "type": "slider",
+                "id": "fn-l3",
+                "label": "$\\ell_3$:",
+                "min": 0.4,
+                "max": 3,
+                "value": 1.4,
+                "format": "separate",
+                "step": 0.05
+              },
+              {
+                "type": "slider",
+                "id": "fn-t3",
+                "label": "$\\tau_3$:",
+                "min": -2,
+                "max": 2,
+                "value": 0,
+                "format": "separate",
+                "step": 0.05
+              }
+            ],
+            "svg": {
+              "id": "fn-svg",
+              "viewBox": "0 0 720 240",
+              "width": "100%",
+              "height": 240,
+              "title": "Pants decomposition of genus-2 surface"
+            },
+            "readout": {
+              "id": "fn-out"
+            },
+            "bodyScript": "<script>\n// ═════ §4 widget · Fenchel-Nielsen pants ═════\n(function(){\n  const ids = ['fn-l1','fn-t1','fn-l2','fn-t2','fn-l3','fn-t3'];\n  const inputs = ids.map(id => $('#'+id));\n  const out = $('#fn-out'), svg = $('#fn-svg');\n  if(!svg) return;\n  function render(){\n    const [l1,t1,l2,t2,l3,t3] = inputs.map(i => parseFloat(i.value));\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const W=720, H=240, cy=H/2;\n    // two pants joined along three curves; show schematic with adjustable curve thicknesses\n    // pants 1 on the left, pants 2 on the right\n    const cx1 = W*0.28, cx2 = W*0.72;\n    function pant(cx, twist, label){\n      // central body\n      svg.appendChild(SVG('ellipse',{cx,cy,rx:90,ry:62,fill:'none',stroke:'var(--violet)','stroke-width':1.4}));\n      // three boundary circles\n      svg.appendChild(SVG('circle',{cx:cx-65,cy:cy-30,r:14,fill:'none',stroke:'var(--cyan)','stroke-width':1.2 + Math.max(0,Math.min(2,Math.abs(twist)))}));\n      svg.appendChild(SVG('circle',{cx:cx-65,cy:cy+30,r:14,fill:'none',stroke:'var(--cyan)','stroke-width':1.2}));\n      svg.appendChild(SVG('circle',{cx:cx+75,cy:cy,r:18,fill:'none',stroke:'var(--cyan)','stroke-width':1.2}));\n      const tt = SVG('text',{x:cx,y:cy+5,'text-anchor':'middle','font-size':11,fill:'var(--mute)','font-style':'italic'});\n      tt.textContent = label; svg.appendChild(tt);\n    }\n    pant(cx1, t1, 'pant 1');\n    pant(cx2, t2, 'pant 2');\n    // labels for the three gluing curves\n    const lbl = (x,y,name,len,tw) => {\n      const t = SVG('text',{x,y,'text-anchor':'middle','font-size':12,fill:'var(--cyan)'});\n      t.textContent = `γ${name}  ℓ=${len.toFixed(2)}  τ=${tw.toFixed(2)}`;\n      svg.appendChild(t);\n    };\n    lbl(W/2, cy-65, '₁', l1, t1);\n    lbl(W/2, cy,    '₂', l2, t2);\n    lbl(W/2, cy+78, '₃', l3, t3);\n    // central connector lines\n    svg.appendChild(SVG('line',{x1:cx1+90,y1:cy-30,x2:cx2-90,y2:cy-30,stroke:'var(--violet)','stroke-width':1.0,'stroke-dasharray':'3 3'}));\n    svg.appendChild(SVG('line',{x1:cx1+90,y1:cy,   x2:cx2-90,y2:cy,   stroke:'var(--violet)','stroke-width':1.0,'stroke-dasharray':'3 3'}));\n    svg.appendChild(SVG('line',{x1:cx1+90,y1:cy+30,x2:cx2-90,y2:cy+30,stroke:'var(--violet)','stroke-width':1.0,'stroke-dasharray':'3 3'}));\n    const totL = l1+l2+l3, totT = t1+t2+t3;\n    const wp = Math.sqrt(l1*l1 + l2*l2 + l3*l3 + t1*t1 + t2*t2 + t3*t3);\n    out.textContent =\n      `Fenchel-Nielsen point in T(Σ_2):\\n` +\n      `  ℓ = (${l1.toFixed(2)}, ${l2.toFixed(2)}, ${l3.toFixed(2)})\\n` +\n      `  τ = (${t1.toFixed(2)}, ${t2.toFixed(2)}, ${t3.toFixed(2)})\\n` +\n      `Total length parameter Σℓ = ${totL.toFixed(2)}\\n` +\n      `Total twist Στ = ${totT.toFixed(2)}\\n` +\n      `Crude WP-style norm = ${wp.toFixed(2)}\\n\\n` +\n      `Dehn twist T_{γ₁} acts by τ₁ ↦ τ₁ + ℓ₁; orbit under <T_{γ_i}> covers each ℝ-twist axis.`;\n  }\n  inputs.forEach(i => i.addEventListener('input', render));\n  render();\n})();\n</script>",
+            "wrapperHasId": true
           }
         },
         {

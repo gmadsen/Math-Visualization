@@ -394,7 +394,7 @@ $$(\theta, t) \;\longmapsto\; (\theta + 2\pi t,\; t).$$
   <div class="hd"><div class="ttl">Dehn twist visualizer</div><div class="hint">drag the slider to apply $T_\gamma^{n}$</div></div>
   <div class="row">
     <label for="tw-n">twist count $n$:</label>
-    <input id="tw-n" type="range" min="-3" max="3" step="0.05" value="0" />
+    <input type="range" id="tw-n" min="-3" max="3" step="0.05" value="0">
     <span id="tw-n-out" class="pill">$n=0$</span>
   </div>
   <svg id="tw-svg" viewBox="0 0 720 280" width="100%" height="280"><title>Annular Dehn twist</title></svg>
@@ -513,7 +513,7 @@ $$(\theta, t) \;\longmapsto\; (\theta + 2\pi t,\; t).$$
   <div class="hd"><div class="ttl">Pseudo-Anosov · dilatation slider</div><div class="hint">stretch one foliation, compress the other</div></div>
   <div class="row">
     <label for="pa-l">dilatation $\lambda$:</label>
-    <input id="pa-l" type="range" min="1.05" max="3.5" step="0.05" value="1.62" />
+    <input type="range" id="pa-l" min="1.05" max="3.5" step="0.05" value="1.62">
     <span id="pa-l-out" class="pill">$\lambda=1.62$</span>
   </div>
   <svg id="pa-svg" viewBox="0 0 720 280" width="100%" height="280"><title>Pseudo-Anosov foliations</title></svg>
@@ -604,16 +604,18 @@ $$(\ell_1,\tau_1, \dots, \ell_{3g-3}, \tau_{3g-3}) \;\in\; \mathbb{R}_{>0}^{3g-3
 <div class="widget" id="w-fn">
   <div class="hd"><div class="ttl">Fenchel–Nielsen coordinates · genus 2</div><div class="hint">three pants curves, three lengths and three twists</div></div>
   <div class="row">
-    <label for="fn-l1">$\ell_1$:</label><input id="fn-l1" type="range" min="0.4" max="3" step="0.05" value="1.2"/>
-    <label for="fn-t1">$\tau_1$:</label><input id="fn-t1" type="range" min="-2" max="2" step="0.05" value="0"/>
-  </div>
-  <div class="row">
-    <label for="fn-l2">$\ell_2$:</label><input id="fn-l2" type="range" min="0.4" max="3" step="0.05" value="1.0"/>
-    <label for="fn-t2">$\tau_2$:</label><input id="fn-t2" type="range" min="-2" max="2" step="0.05" value="0"/>
-  </div>
-  <div class="row">
-    <label for="fn-l3">$\ell_3$:</label><input id="fn-l3" type="range" min="0.4" max="3" step="0.05" value="1.4"/>
-    <label for="fn-t3">$\tau_3$:</label><input id="fn-t3" type="range" min="-2" max="2" step="0.05" value="0"/>
+    <label for="fn-l1">$\ell_1$:</label>
+    <input type="range" id="fn-l1" min="0.4" max="3" step="0.05" value="1.2">
+    <label for="fn-t1">$\tau_1$:</label>
+    <input type="range" id="fn-t1" min="-2" max="2" step="0.05" value="0">
+    <label for="fn-l2">$\ell_2$:</label>
+    <input type="range" id="fn-l2" min="0.4" max="3" step="0.05" value="1.0">
+    <label for="fn-t2">$\tau_2$:</label>
+    <input type="range" id="fn-t2" min="-2" max="2" step="0.05" value="0">
+    <label for="fn-l3">$\ell_3$:</label>
+    <input type="range" id="fn-l3" min="0.4" max="3" step="0.05" value="1.4">
+    <label for="fn-t3">$\tau_3$:</label>
+    <input type="range" id="fn-t3" min="-2" max="2" step="0.05" value="0">
   </div>
   <svg id="fn-svg" viewBox="0 0 720 240" width="100%" height="240"><title>Pants decomposition of genus-2 surface</title></svg>
   <div class="readout" id="fn-out"></div>
