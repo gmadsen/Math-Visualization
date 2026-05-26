@@ -12,13 +12,45 @@
         },
         {
           "type": "widget",
-          "slug": "sr-vadd",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-vadd",
             "title": "Velocity addition: Galilean vs Einstein",
             "hint": "slide each speed; both formulas are plotted",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-vadd\">\n  <div class=\"hd\"><div class=\"ttl\">Velocity addition: Galilean vs Einstein</div><div class=\"hint\">slide each speed; both formulas are plotted</div></div>\n  <div class=\"row\">\n    <label for=\"vadd-u\">$u/c$ (object in frame S′)</label>\n    <input id=\"vadd-u\" type=\"range\" min=\"-0.99\" max=\"0.99\" step=\"0.01\" value=\"0.6\">\n  </div>\n  <div class=\"row\">\n    <label for=\"vadd-v\">$v/c$ (frame S′ vs S)</label>\n    <input id=\"vadd-v\" type=\"range\" min=\"-0.99\" max=\"0.99\" step=\"0.01\" value=\"0.6\">\n  </div>\n  <svg id=\"vadd-svg\" viewBox=\"-200 -130 420 220\" width=\"100%\" height=\"240\"><title>Galilean vs Einstein velocity addition</title></svg>\n  <div id=\"vadd-out\" class=\"readout\"></div>\n</div>",
-            "bodyScript": "\n\n<script>\n(function(){\n  const svg = document.getElementById('vadd-svg');\n  const out = document.getElementById('vadd-out');\n  const uIn = document.getElementById('vadd-u');\n  const vIn = document.getElementById('vadd-v');\n  const W = 180, H = 90;\n  function draw(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    // axes — horizontal axis = u/c, vertical axis = composed velocity / c\n    svg.appendChild(SVG('line',{x1:-W,y1:0,x2:W,y2:0,stroke:'var(--line)','stroke-width':1}));\n    svg.appendChild(SVG('line',{x1:0,y1:-H,x2:0,y2:H,stroke:'var(--line)','stroke-width':1}));\n    // axis labels\n    const lx = SVG('text',{x:W-4,y:-6,'text-anchor':'end','font-size':11,fill:'var(--mute)'}); lx.textContent = 'u/c'; svg.appendChild(lx);\n    const ly = SVG('text',{x:6,y:-H+12,'font-size':11,fill:'var(--mute)'}); ly.textContent = 'composed / c'; svg.appendChild(ly);\n    // ±1 reference lines (light-speed bounds)\n    svg.appendChild(SVG('line',{x1:-W,y1:-H+10,x2:W,y2:-H+10,stroke:'var(--yellow)','stroke-dasharray':'3 3','stroke-width':1,'stroke-opacity':.5}));\n    svg.appendChild(SVG('line',{x1:-W,y1:H-10,x2:W,y2:H-10,stroke:'var(--yellow)','stroke-dasharray':'3 3','stroke-width':1,'stroke-opacity':.5}));\n    const tc = SVG('text',{x:-W+4,y:-H+22,'font-size':10,fill:'var(--yellow)'}); tc.textContent = 'c'; svg.appendChild(tc);\n    const tcm = SVG('text',{x:-W+4,y:H-12,'font-size':10,fill:'var(--yellow)'}); tcm.textContent = '−c'; svg.appendChild(tcm);\n    // current v\n    const v = parseFloat(vIn.value);\n    // Galilean curve: w = u + v   (clamped for plotting only)\n    const galPath = [];\n    const einPath = [];\n    for(let i=-100;i<=100;i++){\n      const u = i/100 * 0.999;\n      const wg = u + v;\n      const we = (u + v) / (1 + u*v);\n      const sx = (u/0.999) * W;\n      const syG = -Math.max(-1.4, Math.min(1.4, wg)) * (H-10);\n      const syE = -we * (H-10);\n      galPath.push(`${i===-100?'M':'L'}${sx.toFixed(1)} ${syG.toFixed(1)}`);\n      einPath.push(`${i===-100?'M':'L'}${sx.toFixed(1)} ${syE.toFixed(1)}`);\n    }\n    svg.appendChild(SVG('path',{d:galPath.join(' '),fill:'none',stroke:'var(--mute)','stroke-width':1.4,'stroke-dasharray':'4 3'}));\n    svg.appendChild(SVG('path',{d:einPath.join(' '),fill:'none',stroke:'var(--cyan)','stroke-width':2.2}));\n    // current u marker\n    const u = parseFloat(uIn.value);\n    const wG = u + v;\n    const wE = (u + v) / (1 + u*v);\n    const sx = (u/0.999) * W;\n    const syG = -Math.max(-1.4, Math.min(1.4, wG)) * (H-10);\n    const syE = -wE * (H-10);\n    svg.appendChild(SVG('circle',{cx:sx,cy:syG,r:4,fill:'var(--mute)'}));\n    svg.appendChild(SVG('circle',{cx:sx,cy:syE,r:5,fill:'var(--cyan)','stroke':'var(--ink)','stroke-width':1}));\n    // legend\n    const lg = SVG('g',{transform:`translate(${W-110},${-H+8})`});\n    lg.appendChild(SVG('line',{x1:0,y1:0,x2:18,y2:0,stroke:'var(--mute)','stroke-dasharray':'4 3','stroke-width':1.4}));\n    const lgG = SVG('text',{x:24,y:4,'font-size':11,fill:'var(--mute)'}); lgG.textContent='Galilean u+v'; lg.appendChild(lgG);\n    lg.appendChild(SVG('line',{x1:0,y1:14,x2:18,y2:14,stroke:'var(--cyan)','stroke-width':2}));\n    const lgE = SVG('text',{x:24,y:18,'font-size':11,fill:'var(--cyan)'}); lgE.textContent='Einstein (u+v)/(1+uv/c²)'; lg.appendChild(lgE);\n    svg.appendChild(lg);\n    out.textContent = `u/c = ${u.toFixed(2)}    v/c = ${v.toFixed(2)}    Galilean (u+v)/c = ${wG.toFixed(3)}    Einstein = ${wE.toFixed(3)}    ${Math.abs(wE)<1 ? '|composed| < c ✓' : '|composed| ≥ c (impossible — Galilean overshoot)'}`;\n  }\n  uIn.addEventListener('input', draw);\n  vIn.addEventListener('input', draw);\n  draw();\n})();\n</script>"
+            "controls": [
+              {
+                "type": "slider",
+                "id": "vadd-u",
+                "label": "$u/c$ (object in frame S′)",
+                "min": -0.99,
+                "max": 0.99,
+                "value": 0.6,
+                "format": "separate",
+                "step": 0.01
+              },
+              {
+                "type": "slider",
+                "id": "vadd-v",
+                "label": "$v/c$ (frame S′ vs S)",
+                "min": -0.99,
+                "max": 0.99,
+                "value": 0.6,
+                "format": "separate",
+                "step": 0.01
+              }
+            ],
+            "svg": {
+              "id": "vadd-svg",
+              "viewBox": "-200 -130 420 220",
+              "width": "100%",
+              "height": 240,
+              "title": "Galilean vs Einstein velocity addition"
+            },
+            "readout": {
+              "id": "vadd-out"
+            },
+            "bodyScript": "\n\n<script>\n(function(){\n  const svg = document.getElementById('vadd-svg');\n  const out = document.getElementById('vadd-out');\n  const uIn = document.getElementById('vadd-u');\n  const vIn = document.getElementById('vadd-v');\n  const W = 180, H = 90;\n  function draw(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    // axes — horizontal axis = u/c, vertical axis = composed velocity / c\n    svg.appendChild(SVG('line',{x1:-W,y1:0,x2:W,y2:0,stroke:'var(--line)','stroke-width':1}));\n    svg.appendChild(SVG('line',{x1:0,y1:-H,x2:0,y2:H,stroke:'var(--line)','stroke-width':1}));\n    // axis labels\n    const lx = SVG('text',{x:W-4,y:-6,'text-anchor':'end','font-size':11,fill:'var(--mute)'}); lx.textContent = 'u/c'; svg.appendChild(lx);\n    const ly = SVG('text',{x:6,y:-H+12,'font-size':11,fill:'var(--mute)'}); ly.textContent = 'composed / c'; svg.appendChild(ly);\n    // ±1 reference lines (light-speed bounds)\n    svg.appendChild(SVG('line',{x1:-W,y1:-H+10,x2:W,y2:-H+10,stroke:'var(--yellow)','stroke-dasharray':'3 3','stroke-width':1,'stroke-opacity':.5}));\n    svg.appendChild(SVG('line',{x1:-W,y1:H-10,x2:W,y2:H-10,stroke:'var(--yellow)','stroke-dasharray':'3 3','stroke-width':1,'stroke-opacity':.5}));\n    const tc = SVG('text',{x:-W+4,y:-H+22,'font-size':10,fill:'var(--yellow)'}); tc.textContent = 'c'; svg.appendChild(tc);\n    const tcm = SVG('text',{x:-W+4,y:H-12,'font-size':10,fill:'var(--yellow)'}); tcm.textContent = '−c'; svg.appendChild(tcm);\n    // current v\n    const v = parseFloat(vIn.value);\n    // Galilean curve: w = u + v   (clamped for plotting only)\n    const galPath = [];\n    const einPath = [];\n    for(let i=-100;i<=100;i++){\n      const u = i/100 * 0.999;\n      const wg = u + v;\n      const we = (u + v) / (1 + u*v);\n      const sx = (u/0.999) * W;\n      const syG = -Math.max(-1.4, Math.min(1.4, wg)) * (H-10);\n      const syE = -we * (H-10);\n      galPath.push(`${i===-100?'M':'L'}${sx.toFixed(1)} ${syG.toFixed(1)}`);\n      einPath.push(`${i===-100?'M':'L'}${sx.toFixed(1)} ${syE.toFixed(1)}`);\n    }\n    svg.appendChild(SVG('path',{d:galPath.join(' '),fill:'none',stroke:'var(--mute)','stroke-width':1.4,'stroke-dasharray':'4 3'}));\n    svg.appendChild(SVG('path',{d:einPath.join(' '),fill:'none',stroke:'var(--cyan)','stroke-width':2.2}));\n    // current u marker\n    const u = parseFloat(uIn.value);\n    const wG = u + v;\n    const wE = (u + v) / (1 + u*v);\n    const sx = (u/0.999) * W;\n    const syG = -Math.max(-1.4, Math.min(1.4, wG)) * (H-10);\n    const syE = -wE * (H-10);\n    svg.appendChild(SVG('circle',{cx:sx,cy:syG,r:4,fill:'var(--mute)'}));\n    svg.appendChild(SVG('circle',{cx:sx,cy:syE,r:5,fill:'var(--cyan)','stroke':'var(--ink)','stroke-width':1}));\n    // legend\n    const lg = SVG('g',{transform:`translate(${W-110},${-H+8})`});\n    lg.appendChild(SVG('line',{x1:0,y1:0,x2:18,y2:0,stroke:'var(--mute)','stroke-dasharray':'4 3','stroke-width':1.4}));\n    const lgG = SVG('text',{x:24,y:4,'font-size':11,fill:'var(--mute)'}); lgG.textContent='Galilean u+v'; lg.appendChild(lgG);\n    lg.appendChild(SVG('line',{x1:0,y1:14,x2:18,y2:14,stroke:'var(--cyan)','stroke-width':2}));\n    const lgE = SVG('text',{x:24,y:18,'font-size':11,fill:'var(--cyan)'}); lgE.textContent='Einstein (u+v)/(1+uv/c²)'; lg.appendChild(lgE);\n    svg.appendChild(lg);\n    out.textContent = `u/c = ${u.toFixed(2)}    v/c = ${v.toFixed(2)}    Galilean (u+v)/c = ${wG.toFixed(3)}    Einstein = ${wE.toFixed(3)}    ${Math.abs(wE)<1 ? '|composed| < c ✓' : '|composed| ≥ c (impossible — Galilean overshoot)'}`;\n  }\n  uIn.addEventListener('input', draw);\n  vIn.addEventListener('input', draw);\n  draw();\n})();\n</script>",
+            "wrapperHasId": true
           }
         },
         {
@@ -57,13 +89,35 @@
         },
         {
           "type": "widget",
-          "slug": "sr-boost",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-boost",
             "title": "Boost: how spacetime axes tilt",
             "hint": "slide $\\beta$ to watch $S'$ axes scissor in",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-boost\">\n  <div class=\"hd\"><div class=\"ttl\">Boost: how spacetime axes tilt</div><div class=\"hint\">slide $\\beta$ to watch $S'$ axes scissor in</div></div>\n  <div class=\"row\">\n    <label for=\"boost-b\">$\\beta = v/c$</label>\n    <input id=\"boost-b\" type=\"range\" min=\"-0.95\" max=\"0.95\" step=\"0.01\" value=\"0.6\">\n  </div>\n  <svg id=\"boost-svg\" viewBox=\"-180 -160 360 320\" width=\"100%\" height=\"320\"><title>Lorentz boost on spacetime axes</title></svg>\n  <div id=\"boost-out\" class=\"readout\"></div>\n</div>",
-            "bodyScript": "\n\n<script>\n(function(){\n  const svg = document.getElementById('boost-svg');\n  const out = document.getElementById('boost-out');\n  const bIn = document.getElementById('boost-b');\n  const W = 150;\n  function draw(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const beta = parseFloat(bIn.value);\n    const gamma = 1/Math.sqrt(1-beta*beta);\n    // S axes (t up = -y, x right) — shaded grid\n    for(let k=-3;k<=3;k++){\n      svg.appendChild(SVG('line',{x1:-W,y1:k*30,x2:W,y2:k*30,stroke:'var(--line)','stroke-width':k===0?1.4:0.5}));\n      svg.appendChild(SVG('line',{x1:k*30,y1:-W,x2:k*30,y2:W,stroke:'var(--line)','stroke-width':k===0?1.4:0.5}));\n    }\n    // light cone (45° lines)\n    svg.appendChild(SVG('line',{x1:-W,y1:-W,x2:W,y2:W,stroke:'var(--yellow)','stroke-dasharray':'4 3','stroke-width':1,'stroke-opacity':.7}));\n    svg.appendChild(SVG('line',{x1:-W,y1:W,x2:W,y2:-W,stroke:'var(--yellow)','stroke-dasharray':'4 3','stroke-width':1,'stroke-opacity':.7}));\n    // S' t' axis: x = β t  ⇒ slope dt/dx = 1/β; tilted toward light cone as |β|→1\n    // t' axis maps (t,0) → in S coords with c=1: x = β t, t = t (event with x'=0 at S′ time t' has S coords (γt', βγt'))\n    // Direction of t' axis in S: (Δx, Δt) ∝ (β, 1).\n    const tx = beta*W, ty = -W;\n    svg.appendChild(SVG('line',{x1:-tx,y1:-ty,x2:tx,y2:ty,stroke:'var(--cyan)','stroke-width':2.2}));\n    // x' axis: t = β x, direction (1, β)\n    const xx = W, xy = -beta*W;\n    svg.appendChild(SVG('line',{x1:-xx,y1:-xy,x2:xx,y2:xy,stroke:'var(--pink)','stroke-width':2.2}));\n    // axis labels\n    const lt = SVG('text',{x:6,y:-W+12,'font-size':11,fill:'var(--ink)'}); lt.textContent='t'; svg.appendChild(lt);\n    const lx = SVG('text',{x:W-12,y:-6,'font-size':11,fill:'var(--ink)','text-anchor':'end'}); lx.textContent='x'; svg.appendChild(lx);\n    const ltp = SVG('text',{x:tx+6,y:ty+14,'font-size':11,fill:'var(--cyan)'}); ltp.textContent=\"t′\"; svg.appendChild(ltp);\n    const lxp = SVG('text',{x:xx-12,y:xy-4,'font-size':11,fill:'var(--pink)','text-anchor':'end'}); lxp.textContent=\"x′\"; svg.appendChild(lxp);\n    out.textContent = `β = ${beta.toFixed(2)}    γ = ${gamma.toFixed(3)}    The S′ axes (t′,x′) are scissored toward the light-cone diagonal: as β→1 they collapse onto the same null line, encoding the speed-of-light limit.`;\n  }\n  bIn.addEventListener('input', draw);\n  draw();\n})();\n</script>"
+            "controls": [
+              {
+                "type": "slider",
+                "id": "boost-b",
+                "label": "$\\beta = v/c$",
+                "min": -0.95,
+                "max": 0.95,
+                "value": 0.6,
+                "format": "separate",
+                "step": 0.01
+              }
+            ],
+            "svg": {
+              "id": "boost-svg",
+              "viewBox": "-180 -160 360 320",
+              "width": "100%",
+              "height": 320,
+              "title": "Lorentz boost on spacetime axes"
+            },
+            "readout": {
+              "id": "boost-out"
+            },
+            "bodyScript": "\n\n<script>\n(function(){\n  const svg = document.getElementById('boost-svg');\n  const out = document.getElementById('boost-out');\n  const bIn = document.getElementById('boost-b');\n  const W = 150;\n  function draw(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const beta = parseFloat(bIn.value);\n    const gamma = 1/Math.sqrt(1-beta*beta);\n    // S axes (t up = -y, x right) — shaded grid\n    for(let k=-3;k<=3;k++){\n      svg.appendChild(SVG('line',{x1:-W,y1:k*30,x2:W,y2:k*30,stroke:'var(--line)','stroke-width':k===0?1.4:0.5}));\n      svg.appendChild(SVG('line',{x1:k*30,y1:-W,x2:k*30,y2:W,stroke:'var(--line)','stroke-width':k===0?1.4:0.5}));\n    }\n    // light cone (45° lines)\n    svg.appendChild(SVG('line',{x1:-W,y1:-W,x2:W,y2:W,stroke:'var(--yellow)','stroke-dasharray':'4 3','stroke-width':1,'stroke-opacity':.7}));\n    svg.appendChild(SVG('line',{x1:-W,y1:W,x2:W,y2:-W,stroke:'var(--yellow)','stroke-dasharray':'4 3','stroke-width':1,'stroke-opacity':.7}));\n    // S' t' axis: x = β t  ⇒ slope dt/dx = 1/β; tilted toward light cone as |β|→1\n    // t' axis maps (t,0) → in S coords with c=1: x = β t, t = t (event with x'=0 at S′ time t' has S coords (γt', βγt'))\n    // Direction of t' axis in S: (Δx, Δt) ∝ (β, 1).\n    const tx = beta*W, ty = -W;\n    svg.appendChild(SVG('line',{x1:-tx,y1:-ty,x2:tx,y2:ty,stroke:'var(--cyan)','stroke-width':2.2}));\n    // x' axis: t = β x, direction (1, β)\n    const xx = W, xy = -beta*W;\n    svg.appendChild(SVG('line',{x1:-xx,y1:-xy,x2:xx,y2:xy,stroke:'var(--pink)','stroke-width':2.2}));\n    // axis labels\n    const lt = SVG('text',{x:6,y:-W+12,'font-size':11,fill:'var(--ink)'}); lt.textContent='t'; svg.appendChild(lt);\n    const lx = SVG('text',{x:W-12,y:-6,'font-size':11,fill:'var(--ink)','text-anchor':'end'}); lx.textContent='x'; svg.appendChild(lx);\n    const ltp = SVG('text',{x:tx+6,y:ty+14,'font-size':11,fill:'var(--cyan)'}); ltp.textContent=\"t′\"; svg.appendChild(ltp);\n    const lxp = SVG('text',{x:xx-12,y:xy-4,'font-size':11,fill:'var(--pink)','text-anchor':'end'}); lxp.textContent=\"x′\"; svg.appendChild(lxp);\n    out.textContent = `β = ${beta.toFixed(2)}    γ = ${gamma.toFixed(3)}    The S′ axes (t′,x′) are scissored toward the light-cone diagonal: as β→1 they collapse onto the same null line, encoding the speed-of-light limit.`;\n  }\n  bIn.addEventListener('input', draw);\n  draw();\n})();\n</script>",
+            "wrapperHasId": true
           }
         },
         {
@@ -147,13 +201,35 @@
         },
         {
           "type": "widget",
-          "slug": "sr-gamma",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-gamma",
             "title": "Lorentz factor: γ as β grows",
             "hint": "slide β; γ blows up at $c$",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-gamma\">\n  <div class=\"hd\"><div class=\"ttl\">Lorentz factor: γ as β grows</div><div class=\"hint\">slide β; γ blows up at $c$</div></div>\n  <div class=\"row\">\n    <label for=\"gam-b\">$\\beta = v/c$</label>\n    <input id=\"gam-b\" type=\"range\" min=\"0\" max=\"0.999\" step=\"0.001\" value=\"0.6\">\n  </div>\n  <svg id=\"gam-svg\" viewBox=\"-200 -130 420 220\" width=\"100%\" height=\"240\"><title>Lorentz factor γ vs β</title></svg>\n  <div id=\"gam-out\" class=\"readout\"></div>\n</div>",
-            "bodyScript": "\n\n<script>\n(function(){\n  const svg = document.getElementById('gam-svg');\n  const out = document.getElementById('gam-out');\n  const bIn = document.getElementById('gam-b');\n  const W = 180, H = 90;\n  function draw(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    // axes\n    svg.appendChild(SVG('line',{x1:-W,y1:H-10,x2:W,y2:H-10,stroke:'var(--line)','stroke-width':1}));\n    svg.appendChild(SVG('line',{x1:-W,y1:-H+10,x2:-W,y2:H-10,stroke:'var(--line)','stroke-width':1}));\n    // gamma curve over β ∈ [0,0.999]\n    const path = [];\n    for(let i=0;i<=200;i++){\n      const beta = i/200 * 0.999;\n      const g = 1/Math.sqrt(1-beta*beta);\n      const sx = -W + (beta/0.999) * 2*W;\n      const sy = (H-10) - Math.min(g, 8) * 18;\n      path.push(`${i===0?'M':'L'}${sx.toFixed(1)} ${sy.toFixed(1)}`);\n    }\n    svg.appendChild(SVG('path',{d:path.join(' '),fill:'none',stroke:'var(--cyan)','stroke-width':2.2}));\n    // current marker\n    const beta = parseFloat(bIn.value);\n    const g = 1/Math.sqrt(1-beta*beta);\n    const sx = -W + (beta/0.999) * 2*W;\n    const sy = (H-10) - Math.min(g, 8) * 18;\n    svg.appendChild(SVG('line',{x1:sx,y1:H-10,x2:sx,y2:sy,stroke:'var(--mute)','stroke-dasharray':'3 3'}));\n    svg.appendChild(SVG('circle',{cx:sx,cy:sy,r:5,fill:'var(--cyan)','stroke':'var(--ink)','stroke-width':1}));\n    // ticks\n    for(const k of [1,2,4,8]){\n      const ty = (H-10) - Math.min(k,8)*18;\n      svg.appendChild(SVG('line',{x1:-W,y1:ty,x2:-W+5,y2:ty,stroke:'var(--mute)','stroke-width':1}));\n      const tt = SVG('text',{x:-W-4,y:ty+3,'font-size':10,fill:'var(--mute)','text-anchor':'end'}); tt.textContent = `γ=${k}`; svg.appendChild(tt);\n    }\n    // β tick labels\n    for(const b of [0,0.5,0.9,0.99]){\n      const tx = -W + (b/0.999) * 2*W;\n      const tt = SVG('text',{x:tx,y:H+6,'font-size':10,fill:'var(--mute)','text-anchor':'middle'}); tt.textContent = `β=${b}`; svg.appendChild(tt);\n    }\n    out.textContent = `β = ${beta.toFixed(3)}    γ = ${g.toFixed(3)}    Δt/Δτ = γ ≈ ${g.toFixed(2)}    L/L₀ = 1/γ ≈ ${(1/g).toFixed(2)}    γ→∞ as β→1: time dilation and length contraction become unbounded.`;\n  }\n  bIn.addEventListener('input', draw);\n  draw();\n})();\n</script>"
+            "controls": [
+              {
+                "type": "slider",
+                "id": "gam-b",
+                "label": "$\\beta = v/c$",
+                "min": 0,
+                "max": 0.999,
+                "value": 0.6,
+                "format": "separate",
+                "step": 0.001
+              }
+            ],
+            "svg": {
+              "id": "gam-svg",
+              "viewBox": "-200 -130 420 220",
+              "width": "100%",
+              "height": 240,
+              "title": "Lorentz factor γ vs β"
+            },
+            "readout": {
+              "id": "gam-out"
+            },
+            "bodyScript": "\n\n<script>\n(function(){\n  const svg = document.getElementById('gam-svg');\n  const out = document.getElementById('gam-out');\n  const bIn = document.getElementById('gam-b');\n  const W = 180, H = 90;\n  function draw(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    // axes\n    svg.appendChild(SVG('line',{x1:-W,y1:H-10,x2:W,y2:H-10,stroke:'var(--line)','stroke-width':1}));\n    svg.appendChild(SVG('line',{x1:-W,y1:-H+10,x2:-W,y2:H-10,stroke:'var(--line)','stroke-width':1}));\n    // gamma curve over β ∈ [0,0.999]\n    const path = [];\n    for(let i=0;i<=200;i++){\n      const beta = i/200 * 0.999;\n      const g = 1/Math.sqrt(1-beta*beta);\n      const sx = -W + (beta/0.999) * 2*W;\n      const sy = (H-10) - Math.min(g, 8) * 18;\n      path.push(`${i===0?'M':'L'}${sx.toFixed(1)} ${sy.toFixed(1)}`);\n    }\n    svg.appendChild(SVG('path',{d:path.join(' '),fill:'none',stroke:'var(--cyan)','stroke-width':2.2}));\n    // current marker\n    const beta = parseFloat(bIn.value);\n    const g = 1/Math.sqrt(1-beta*beta);\n    const sx = -W + (beta/0.999) * 2*W;\n    const sy = (H-10) - Math.min(g, 8) * 18;\n    svg.appendChild(SVG('line',{x1:sx,y1:H-10,x2:sx,y2:sy,stroke:'var(--mute)','stroke-dasharray':'3 3'}));\n    svg.appendChild(SVG('circle',{cx:sx,cy:sy,r:5,fill:'var(--cyan)','stroke':'var(--ink)','stroke-width':1}));\n    // ticks\n    for(const k of [1,2,4,8]){\n      const ty = (H-10) - Math.min(k,8)*18;\n      svg.appendChild(SVG('line',{x1:-W,y1:ty,x2:-W+5,y2:ty,stroke:'var(--mute)','stroke-width':1}));\n      const tt = SVG('text',{x:-W-4,y:ty+3,'font-size':10,fill:'var(--mute)','text-anchor':'end'}); tt.textContent = `γ=${k}`; svg.appendChild(tt);\n    }\n    // β tick labels\n    for(const b of [0,0.5,0.9,0.99]){\n      const tx = -W + (b/0.999) * 2*W;\n      const tt = SVG('text',{x:tx,y:H+6,'font-size':10,fill:'var(--mute)','text-anchor':'middle'}); tt.textContent = `β=${b}`; svg.appendChild(tt);\n    }\n    out.textContent = `β = ${beta.toFixed(3)}    γ = ${g.toFixed(3)}    Δt/Δτ = γ ≈ ${g.toFixed(2)}    L/L₀ = 1/γ ≈ ${(1/g).toFixed(2)}    γ→∞ as β→1: time dilation and length contraction become unbounded.`;\n  }\n  bIn.addEventListener('input', draw);\n  draw();\n})();\n</script>",
+            "wrapperHasId": true
           }
         },
         {
@@ -184,13 +260,35 @@
         },
         {
           "type": "widget",
-          "slug": "sr-em",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-em",
             "title": "Energy: relativistic vs Newtonian",
             "hint": "$E_\\text{rel}/(mc^2)$ vs $1+\\frac12\\beta^2$",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-em\">\n  <div class=\"hd\"><div class=\"ttl\">Energy: relativistic vs Newtonian</div><div class=\"hint\">$E_\\text{rel}/(mc^2)$ vs $1+\\frac12\\beta^2$</div></div>\n  <div class=\"row\">\n    <label for=\"em-b\">$\\beta = v/c$</label>\n    <input id=\"em-b\" type=\"range\" min=\"0\" max=\"0.99\" step=\"0.005\" value=\"0.5\">\n  </div>\n  <svg id=\"em-svg\" viewBox=\"-200 -130 420 220\" width=\"100%\" height=\"240\"><title>Relativistic vs Newtonian energy</title></svg>\n  <div id=\"em-out\" class=\"readout\"></div>\n</div>",
-            "bodyScript": "\n\n<script>\n(function(){\n  const svg = document.getElementById('em-svg');\n  const out = document.getElementById('em-out');\n  const bIn = document.getElementById('em-b');\n  const W = 180, H = 90;\n  function draw(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    svg.appendChild(SVG('line',{x1:-W,y1:H-10,x2:W,y2:H-10,stroke:'var(--line)','stroke-width':1}));\n    svg.appendChild(SVG('line',{x1:-W,y1:-H+10,x2:-W,y2:H-10,stroke:'var(--line)','stroke-width':1}));\n    // E_rel(β)/mc² = γ\n    const relPath = [];\n    const newPath = [];\n    for(let i=0;i<=200;i++){\n      const beta = i/200 * 0.99;\n      const g = 1/Math.sqrt(1-beta*beta);\n      const sx = -W + (beta/0.99) * 2*W;\n      const syR = (H-10) - Math.min(g, 8) * 18;\n      const syN = (H-10) - Math.min(1 + 0.5*beta*beta, 8) * 18;\n      relPath.push(`${i===0?'M':'L'}${sx.toFixed(1)} ${syR.toFixed(1)}`);\n      newPath.push(`${i===0?'M':'L'}${sx.toFixed(1)} ${syN.toFixed(1)}`);\n    }\n    svg.appendChild(SVG('path',{d:newPath.join(' '),fill:'none',stroke:'var(--mute)','stroke-width':1.4,'stroke-dasharray':'4 3'}));\n    svg.appendChild(SVG('path',{d:relPath.join(' '),fill:'none',stroke:'var(--pink)','stroke-width':2.2}));\n    const beta = parseFloat(bIn.value);\n    const g = 1/Math.sqrt(1-beta*beta);\n    const newt = 1 + 0.5*beta*beta;\n    const sx = -W + (beta/0.99) * 2*W;\n    const syR = (H-10) - Math.min(g, 8) * 18;\n    const syN = (H-10) - Math.min(newt, 8) * 18;\n    svg.appendChild(SVG('circle',{cx:sx,cy:syR,r:5,fill:'var(--pink)',stroke:'var(--ink)','stroke-width':1}));\n    svg.appendChild(SVG('circle',{cx:sx,cy:syN,r:4,fill:'var(--mute)'}));\n    // legend\n    const lg = SVG('g',{transform:`translate(${-W+8},${-H+8})`});\n    lg.appendChild(SVG('line',{x1:0,y1:0,x2:18,y2:0,stroke:'var(--pink)','stroke-width':2}));\n    const lgR = SVG('text',{x:24,y:4,'font-size':11,fill:'var(--pink)'}); lgR.textContent='E_rel/mc² = γ'; lg.appendChild(lgR);\n    lg.appendChild(SVG('line',{x1:0,y1:14,x2:18,y2:14,stroke:'var(--mute)','stroke-dasharray':'4 3','stroke-width':1.4}));\n    const lgN = SVG('text',{x:24,y:18,'font-size':11,fill:'var(--mute)'}); lgN.textContent='Newtonian 1 + ½β²'; lg.appendChild(lgN);\n    svg.appendChild(lg);\n    out.textContent = `β = ${beta.toFixed(2)}    E_rel/(mc²) = γ = ${g.toFixed(3)}    Newtonian 1 + ½β² = ${newt.toFixed(3)}    discrepancy ${((g-newt)/newt*100).toFixed(1)}%    (Newtonian undershoots; gap grows without bound as β→1)`;\n  }\n  bIn.addEventListener('input', draw);\n  draw();\n})();\n</script>"
+            "controls": [
+              {
+                "type": "slider",
+                "id": "em-b",
+                "label": "$\\beta = v/c$",
+                "min": 0,
+                "max": 0.99,
+                "value": 0.5,
+                "format": "separate",
+                "step": 0.005
+              }
+            ],
+            "svg": {
+              "id": "em-svg",
+              "viewBox": "-200 -130 420 220",
+              "width": "100%",
+              "height": 240,
+              "title": "Relativistic vs Newtonian energy"
+            },
+            "readout": {
+              "id": "em-out"
+            },
+            "bodyScript": "\n\n<script>\n(function(){\n  const svg = document.getElementById('em-svg');\n  const out = document.getElementById('em-out');\n  const bIn = document.getElementById('em-b');\n  const W = 180, H = 90;\n  function draw(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    svg.appendChild(SVG('line',{x1:-W,y1:H-10,x2:W,y2:H-10,stroke:'var(--line)','stroke-width':1}));\n    svg.appendChild(SVG('line',{x1:-W,y1:-H+10,x2:-W,y2:H-10,stroke:'var(--line)','stroke-width':1}));\n    // E_rel(β)/mc² = γ\n    const relPath = [];\n    const newPath = [];\n    for(let i=0;i<=200;i++){\n      const beta = i/200 * 0.99;\n      const g = 1/Math.sqrt(1-beta*beta);\n      const sx = -W + (beta/0.99) * 2*W;\n      const syR = (H-10) - Math.min(g, 8) * 18;\n      const syN = (H-10) - Math.min(1 + 0.5*beta*beta, 8) * 18;\n      relPath.push(`${i===0?'M':'L'}${sx.toFixed(1)} ${syR.toFixed(1)}`);\n      newPath.push(`${i===0?'M':'L'}${sx.toFixed(1)} ${syN.toFixed(1)}`);\n    }\n    svg.appendChild(SVG('path',{d:newPath.join(' '),fill:'none',stroke:'var(--mute)','stroke-width':1.4,'stroke-dasharray':'4 3'}));\n    svg.appendChild(SVG('path',{d:relPath.join(' '),fill:'none',stroke:'var(--pink)','stroke-width':2.2}));\n    const beta = parseFloat(bIn.value);\n    const g = 1/Math.sqrt(1-beta*beta);\n    const newt = 1 + 0.5*beta*beta;\n    const sx = -W + (beta/0.99) * 2*W;\n    const syR = (H-10) - Math.min(g, 8) * 18;\n    const syN = (H-10) - Math.min(newt, 8) * 18;\n    svg.appendChild(SVG('circle',{cx:sx,cy:syR,r:5,fill:'var(--pink)',stroke:'var(--ink)','stroke-width':1}));\n    svg.appendChild(SVG('circle',{cx:sx,cy:syN,r:4,fill:'var(--mute)'}));\n    // legend\n    const lg = SVG('g',{transform:`translate(${-W+8},${-H+8})`});\n    lg.appendChild(SVG('line',{x1:0,y1:0,x2:18,y2:0,stroke:'var(--pink)','stroke-width':2}));\n    const lgR = SVG('text',{x:24,y:4,'font-size':11,fill:'var(--pink)'}); lgR.textContent='E_rel/mc² = γ'; lg.appendChild(lgR);\n    lg.appendChild(SVG('line',{x1:0,y1:14,x2:18,y2:14,stroke:'var(--mute)','stroke-dasharray':'4 3','stroke-width':1.4}));\n    const lgN = SVG('text',{x:24,y:18,'font-size':11,fill:'var(--mute)'}); lgN.textContent='Newtonian 1 + ½β²'; lg.appendChild(lgN);\n    svg.appendChild(lg);\n    out.textContent = `β = ${beta.toFixed(2)}    E_rel/(mc²) = γ = ${g.toFixed(3)}    Newtonian 1 + ½β² = ${newt.toFixed(3)}    discrepancy ${((g-newt)/newt*100).toFixed(1)}%    (Newtonian undershoots; gap grows without bound as β→1)`;\n  }\n  bIn.addEventListener('input', draw);\n  draw();\n})();\n</script>",
+            "wrapperHasId": true
           }
         },
         {
@@ -229,13 +327,35 @@
         },
         {
           "type": "widget",
-          "slug": "sr-sim",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-sim",
             "title": "Two flashes — simultaneous in whose frame?",
             "hint": "drag β; watch the simultaneity slice tilt",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-sim\">\n  <div class=\"hd\"><div class=\"ttl\">Two flashes — simultaneous in whose frame?</div><div class=\"hint\">drag β; watch the simultaneity slice tilt</div></div>\n  <div class=\"row\">\n    <label for=\"sim-b\">$\\beta$ for boosted frame</label>\n    <input id=\"sim-b\" type=\"range\" min=\"-0.9\" max=\"0.9\" step=\"0.01\" value=\"0.5\">\n  </div>\n  <svg id=\"sim-svg\" viewBox=\"-180 -160 360 320\" width=\"100%\" height=\"320\"><title>Simultaneity slices in two frames</title></svg>\n  <div id=\"sim-out\" class=\"readout\"></div>\n</div>",
-            "bodyScript": "\n\n<script>\n(function(){\n  const svg = document.getElementById('sim-svg');\n  const out = document.getElementById('sim-out');\n  const bIn = document.getElementById('sim-b');\n  const W = 150;\n  // Two events: A at (x=-80, t=0), B at (x=+80, t=0) — simultaneous in S\n  const A = [-80, 0], B = [80, 0];\n  function draw(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const beta = parseFloat(bIn.value);\n    // grid\n    for(let k=-3;k<=3;k++){\n      svg.appendChild(SVG('line',{x1:-W,y1:k*30,x2:W,y2:k*30,stroke:'var(--line)','stroke-width':k===0?1.4:0.5,'stroke-opacity':.6}));\n      svg.appendChild(SVG('line',{x1:k*30,y1:-W,x2:k*30,y2:W,stroke:'var(--line)','stroke-width':k===0?1.4:0.5,'stroke-opacity':.6}));\n    }\n    // light cone\n    svg.appendChild(SVG('line',{x1:-W,y1:-W,x2:W,y2:W,stroke:'var(--yellow)','stroke-dasharray':'4 3','stroke-width':1,'stroke-opacity':.7}));\n    svg.appendChild(SVG('line',{x1:-W,y1:W,x2:W,y2:-W,stroke:'var(--yellow)','stroke-dasharray':'4 3','stroke-width':1,'stroke-opacity':.7}));\n    // S simultaneity slice = horizontal line t=0\n    svg.appendChild(SVG('line',{x1:-W,y1:0,x2:W,y2:0,stroke:'var(--cyan)','stroke-width':2,'stroke-opacity':.7}));\n    const ls = SVG('text',{x:W-4,y:-6,'font-size':11,fill:'var(--cyan)','text-anchor':'end'}); ls.textContent=\"S: t = 0\"; svg.appendChild(ls);\n    // S' simultaneity slice = line t = β x  (in our (x→sx, t→-y) display, that's y = -β x)\n    const x1 = -W, y1 = beta*W;\n    const x2 = W, y2 = -beta*W;\n    svg.appendChild(SVG('line',{x1,y1,x2,y2,stroke:'var(--pink)','stroke-width':2,'stroke-opacity':.85}));\n    const lp = SVG('text',{x:x2-4,y:y2-6,'font-size':11,fill:'var(--pink)','text-anchor':'end'}); lp.textContent=\"S': t' = 0\"; svg.appendChild(lp);\n    // events\n    for(const [P,name,col] of [[A,'A','var(--green)'],[B,'B','var(--violet)']]){\n      svg.appendChild(SVG('circle',{cx:P[0],cy:-P[1],r:6,fill:col,stroke:'var(--ink)','stroke-width':1}));\n      const t = SVG('text',{x:P[0]+10,y:-P[1]-8,'font-size':12,fill:col,'font-weight':600}); t.textContent=name; svg.appendChild(t);\n    }\n    // axis labels\n    const lt = SVG('text',{x:6,y:-W+12,'font-size':11,fill:'var(--mute)'}); lt.textContent='ct'; svg.appendChild(lt);\n    const lx = SVG('text',{x:W-4,y:14,'font-size':11,fill:'var(--mute)','text-anchor':'end'}); lx.textContent='x'; svg.appendChild(lx);\n    // S' time of A and B\n    // t' = γ(t - β x). At A=(t=0, x=-80): t'_A = -γ β · -80 = 80 γ β; at B: t'_B = -80 γ β\n    const gamma = 1/Math.sqrt(1-beta*beta);\n    const tpA = -gamma * beta * A[0];\n    const tpB = -gamma * beta * B[0];\n    const dt = tpB - tpA;\n    const order = Math.abs(beta) < 1e-3 ? 'A and B simultaneous in S′ too' :\n      (dt > 0 ? 'in S′, A happens BEFORE B' : 'in S′, B happens BEFORE A');\n    out.textContent = `Frame S: A and B simultaneous (both at t=0). Boost β=${beta.toFixed(2)}    γ=${gamma.toFixed(3)}    t'(A)=${tpA.toFixed(0)},  t'(B)=${tpB.toFixed(0)}    Δt' = ${dt.toFixed(0)}    ⇒  ${order}`;\n  }\n  bIn.addEventListener('input', draw);\n  draw();\n})();\n</script>"
+            "controls": [
+              {
+                "type": "slider",
+                "id": "sim-b",
+                "label": "$\\beta$ for boosted frame",
+                "min": -0.9,
+                "max": 0.9,
+                "value": 0.5,
+                "format": "separate",
+                "step": 0.01
+              }
+            ],
+            "svg": {
+              "id": "sim-svg",
+              "viewBox": "-180 -160 360 320",
+              "width": "100%",
+              "height": 320,
+              "title": "Simultaneity slices in two frames"
+            },
+            "readout": {
+              "id": "sim-out"
+            },
+            "bodyScript": "\n\n<script>\n(function(){\n  const svg = document.getElementById('sim-svg');\n  const out = document.getElementById('sim-out');\n  const bIn = document.getElementById('sim-b');\n  const W = 150;\n  // Two events: A at (x=-80, t=0), B at (x=+80, t=0) — simultaneous in S\n  const A = [-80, 0], B = [80, 0];\n  function draw(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const beta = parseFloat(bIn.value);\n    // grid\n    for(let k=-3;k<=3;k++){\n      svg.appendChild(SVG('line',{x1:-W,y1:k*30,x2:W,y2:k*30,stroke:'var(--line)','stroke-width':k===0?1.4:0.5,'stroke-opacity':.6}));\n      svg.appendChild(SVG('line',{x1:k*30,y1:-W,x2:k*30,y2:W,stroke:'var(--line)','stroke-width':k===0?1.4:0.5,'stroke-opacity':.6}));\n    }\n    // light cone\n    svg.appendChild(SVG('line',{x1:-W,y1:-W,x2:W,y2:W,stroke:'var(--yellow)','stroke-dasharray':'4 3','stroke-width':1,'stroke-opacity':.7}));\n    svg.appendChild(SVG('line',{x1:-W,y1:W,x2:W,y2:-W,stroke:'var(--yellow)','stroke-dasharray':'4 3','stroke-width':1,'stroke-opacity':.7}));\n    // S simultaneity slice = horizontal line t=0\n    svg.appendChild(SVG('line',{x1:-W,y1:0,x2:W,y2:0,stroke:'var(--cyan)','stroke-width':2,'stroke-opacity':.7}));\n    const ls = SVG('text',{x:W-4,y:-6,'font-size':11,fill:'var(--cyan)','text-anchor':'end'}); ls.textContent=\"S: t = 0\"; svg.appendChild(ls);\n    // S' simultaneity slice = line t = β x  (in our (x→sx, t→-y) display, that's y = -β x)\n    const x1 = -W, y1 = beta*W;\n    const x2 = W, y2 = -beta*W;\n    svg.appendChild(SVG('line',{x1,y1,x2,y2,stroke:'var(--pink)','stroke-width':2,'stroke-opacity':.85}));\n    const lp = SVG('text',{x:x2-4,y:y2-6,'font-size':11,fill:'var(--pink)','text-anchor':'end'}); lp.textContent=\"S': t' = 0\"; svg.appendChild(lp);\n    // events\n    for(const [P,name,col] of [[A,'A','var(--green)'],[B,'B','var(--violet)']]){\n      svg.appendChild(SVG('circle',{cx:P[0],cy:-P[1],r:6,fill:col,stroke:'var(--ink)','stroke-width':1}));\n      const t = SVG('text',{x:P[0]+10,y:-P[1]-8,'font-size':12,fill:col,'font-weight':600}); t.textContent=name; svg.appendChild(t);\n    }\n    // axis labels\n    const lt = SVG('text',{x:6,y:-W+12,'font-size':11,fill:'var(--mute)'}); lt.textContent='ct'; svg.appendChild(lt);\n    const lx = SVG('text',{x:W-4,y:14,'font-size':11,fill:'var(--mute)','text-anchor':'end'}); lx.textContent='x'; svg.appendChild(lx);\n    // S' time of A and B\n    // t' = γ(t - β x). At A=(t=0, x=-80): t'_A = -γ β · -80 = 80 γ β; at B: t'_B = -80 γ β\n    const gamma = 1/Math.sqrt(1-beta*beta);\n    const tpA = -gamma * beta * A[0];\n    const tpB = -gamma * beta * B[0];\n    const dt = tpB - tpA;\n    const order = Math.abs(beta) < 1e-3 ? 'A and B simultaneous in S′ too' :\n      (dt > 0 ? 'in S′, A happens BEFORE B' : 'in S′, B happens BEFORE A');\n    out.textContent = `Frame S: A and B simultaneous (both at t=0). Boost β=${beta.toFixed(2)}    γ=${gamma.toFixed(3)}    t'(A)=${tpA.toFixed(0)},  t'(B)=${tpB.toFixed(0)}    Δt' = ${dt.toFixed(0)}    ⇒  ${order}`;\n  }\n  bIn.addEventListener('input', draw);\n  draw();\n})();\n</script>",
+            "wrapperHasId": true
           }
         },
         {

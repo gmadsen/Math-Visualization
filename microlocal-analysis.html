@@ -461,20 +461,16 @@ $$\bigl|\,\partial^\alpha_x\,\partial^\beta_\xi\, p(x,\xi)\,\bigr| \;\le\; C_{\a
   <div class="hd"><div class="ttl">Symbol estimates and composition</div><div class="hint">slide order m; compose two symbols; principal symbol multiplies, lower-order remainder appears</div></div>
   <div class="row">
     <label for="ml-sym-m1">order $m_1$:</label>
-    <input id="ml-sym-m1" type="range" min="-2" max="3" step="1" value="2">
+    <input type="range" id="ml-sym-m1" min="-2" max="3" step="1" value="2">
     <span id="ml-sym-m1-out" class="small"></span>
-  </div>
-  <div class="row">
     <label for="ml-sym-m2">order $m_2$:</label>
-    <input id="ml-sym-m2" type="range" min="-2" max="3" step="1" value="-1">
+    <input type="range" id="ml-sym-m2" min="-2" max="3" step="1" value="-1">
     <span id="ml-sym-m2-out" class="small"></span>
-  </div>
-  <div class="row">
     <button id="ml-sym-classical" class="active">homogeneous (admits expansion $p\sim p_m+p_{m-1}+\cdots$)</button>
     <button id="ml-sym-noncl">oscillatory perturbation (still in $S^m_{1,0}$)</button>
   </div>
   <svg id="ml-sym-svg" viewBox="-260 -150 520 280" width="100%" height="320"><title>Symbol-class decay and composition</title></svg>
-  <div id="ml-sym-out" class="readout"></div>
+  <div class="readout" id="ml-sym-out"></div>
 </div><script>
 (function(){
   const svg = document.getElementById('ml-sym-svg');
@@ -598,18 +594,14 @@ $$X_{p_m} \;=\; \sum_j\Bigl(\frac{\partial p_m}{\partial\xi_j}\partial_{x_j} - \
   <div class="hd"><div class="ttl">Singularity propagation by null bicharacteristic flow</div><div class="hint">slide t; the conormal of the initial edge propagates along light rays</div></div>
   <div class="row">
     <label for="ml-prop-t">time $t$:</label>
-    <input id="ml-prop-t" type="range" min="0" max="3" step="0.05" value="1.0">
+    <input type="range" id="ml-prop-t" min="0" max="3" step="0.05" value="1.0">
     <span id="ml-prop-t-out" class="small"></span>
-  </div>
-  <div class="row">
     <button id="ml-prop-pt" class="active">point initial datum (δ at origin)</button>
     <button id="ml-prop-edge">straight-edge initial datum</button>
-  </div>
-  <div class="row">
     <button id="ml-prop-singvswf">show singular support vs wavefront</button>
   </div>
   <svg id="ml-prop-svg" viewBox="-260 -150 520 280" width="100%" height="320"><title>Wavefront propagation along light rays</title></svg>
-  <div id="ml-prop-out" class="readout"></div>
+  <div class="readout" id="ml-prop-out"></div>
 </div><script>
 (function(){
   const svg = document.getElementById('ml-prop-svg');
@@ -724,20 +716,16 @@ $$f\in H^s_{\mathrm{loc}}\;\Longrightarrow\; u\in H^{s+m}_{\mathrm{loc}}.$$
   <div class="hd"><div class="ttl">Bootstrap from parametrix: gain $m$ derivatives where $P$ is elliptic</div><div class="hint">slide source smoothness s; click character to test elliptic vs characteristic point</div></div>
   <div class="row">
     <label for="ml-ell-s">source smoothness $s$ (so $f \in H^s$):</label>
-    <input id="ml-ell-s" type="range" min="-2" max="6" step="0.5" value="1.0">
+    <input type="range" id="ml-ell-s" min="-2" max="6" step="0.5" value="1.0">
     <span id="ml-ell-s-out" class="small"></span>
-  </div>
-  <div class="row">
     <label for="ml-ell-m">order $m$ of $P$:</label>
-    <input id="ml-ell-m" type="range" min="1" max="4" step="1" value="2">
+    <input type="range" id="ml-ell-m" min="1" max="4" step="1" value="2">
     <span id="ml-ell-m-out" class="small"></span>
-  </div>
-  <div class="row">
     <button id="ml-ell-elliptic" class="active">elliptic point: $p_m \ne 0$</button>
     <button id="ml-ell-char">characteristic point: $p_m = 0$</button>
   </div>
   <svg id="ml-ell-svg" viewBox="-260 -150 520 280" width="100%" height="320"><title>Parametrix bootstrap on Sobolev scale</title></svg>
-  <div id="ml-ell-out" class="readout"></div>
+  <div class="readout" id="ml-ell-out"></div>
 </div><script>
 (function(){
   const svg = document.getElementById('ml-ell-svg');
@@ -834,14 +822,12 @@ $$\Lambda \;=\; \bigl\{\,(x,d_x\phi;\,y,-d_y\phi)\,:\,(x,y,\xi)\in C_\phi\,\bigr
     <button id="ml-fio-shift" class="active">translation: x = y + t</button>
     <button id="ml-fio-scale">dilation: x = λ y</button>
     <button id="ml-fio-rot">rotation: x = R_θ y</button>
-  </div>
-  <div class="row">
     <label for="ml-fio-param">parameter:</label>
-    <input id="ml-fio-param" type="range" min="-2" max="2" step="0.05" value="0.6">
+    <input type="range" id="ml-fio-param" min="-2" max="2" step="0.05" value="0.6">
     <span id="ml-fio-param-out" class="small"></span>
   </div>
   <svg id="ml-fio-svg" viewBox="-260 -150 520 280" width="100%" height="320"><title>Canonical transformation between two cotangent bundles</title></svg>
-  <div id="ml-fio-out" class="readout"></div>
+  <div class="readout" id="ml-fio-out"></div>
 </div><script>
 (function(){
   const svg = document.getElementById('ml-fio-svg');
@@ -949,18 +935,14 @@ $$\Lambda \;=\; \bigl\{\,(x,d_x\phi;\,y,-d_y\phi)\,:\,(x,y,\xi)\in C_\phi\,\bigr
   <div class="hd"><div class="ttl">Radon canonical relation: which directions detect which edges</div><div class="hint">drag a point inside the phantom; only lines perpendicular to its conormal can resolve it</div></div>
   <div class="row">
     <label for="ml-radon-theta">edge conormal angle $\theta$:</label>
-    <input id="ml-radon-theta" type="range" min="0" max="3.14159" step="0.02" value="0.7">
+    <input type="range" id="ml-radon-theta" min="0" max="3.14159" step="0.02" value="0.7">
     <span id="ml-radon-theta-out" class="small"></span>
-  </div>
-  <div class="row">
     <button id="ml-radon-circle" class="active">disk phantom (smooth boundary)</button>
     <button id="ml-radon-square">square phantom (corners)</button>
-  </div>
-  <div class="row">
     <button id="ml-radon-limit">limited-angle: lines only in [−π/4, π/4]</button>
   </div>
   <svg id="ml-radon-svg" viewBox="-260 -150 520 280" width="100%" height="320"><title>Radon canonical relation and limited-angle visibility</title></svg>
-  <div id="ml-radon-out" class="readout"></div>
+  <div class="readout" id="ml-radon-out"></div>
 </div><script>
 (function(){
   const svg = document.getElementById('ml-radon-svg');

@@ -285,14 +285,12 @@ function drawNode(svg, x, y, label, opts={}){
   <div class="hd"><div class="ttl">Velocity addition: Galilean vs Einstein</div><div class="hint">slide each speed; both formulas are plotted</div></div>
   <div class="row">
     <label for="vadd-u">$u/c$ (object in frame S′)</label>
-    <input id="vadd-u" type="range" min="-0.99" max="0.99" step="0.01" value="0.6">
-  </div>
-  <div class="row">
+    <input type="range" id="vadd-u" min="-0.99" max="0.99" step="0.01" value="0.6">
     <label for="vadd-v">$v/c$ (frame S′ vs S)</label>
-    <input id="vadd-v" type="range" min="-0.99" max="0.99" step="0.01" value="0.6">
+    <input type="range" id="vadd-v" min="-0.99" max="0.99" step="0.01" value="0.6">
   </div>
   <svg id="vadd-svg" viewBox="-200 -130 420 220" width="100%" height="240"><title>Galilean vs Einstein velocity addition</title></svg>
-  <div id="vadd-out" class="readout"></div>
+  <div class="readout" id="vadd-out"></div>
 </div>
 
 <script>
@@ -394,10 +392,10 @@ $$v_3 \;=\; \frac{v_1 + v_2}{1 + v_1 v_2/c^2},$$
   <div class="hd"><div class="ttl">Boost: how spacetime axes tilt</div><div class="hint">slide $\beta$ to watch $S'$ axes scissor in</div></div>
   <div class="row">
     <label for="boost-b">$\beta = v/c$</label>
-    <input id="boost-b" type="range" min="-0.95" max="0.95" step="0.01" value="0.6">
+    <input type="range" id="boost-b" min="-0.95" max="0.95" step="0.01" value="0.6">
   </div>
   <svg id="boost-svg" viewBox="-180 -160 360 320" width="100%" height="320"><title>Lorentz boost on spacetime axes</title></svg>
-  <div id="boost-out" class="readout"></div>
+  <div class="readout" id="boost-out"></div>
 </div>
 
 <script>
@@ -580,10 +578,10 @@ $$\boxed{\;L \;=\; L_0/\gamma\;}\qquad (L \le L_0).$$
   <div class="hd"><div class="ttl">Lorentz factor: γ as β grows</div><div class="hint">slide β; γ blows up at $c$</div></div>
   <div class="row">
     <label for="gam-b">$\beta = v/c$</label>
-    <input id="gam-b" type="range" min="0" max="0.999" step="0.001" value="0.6">
+    <input type="range" id="gam-b" min="0" max="0.999" step="0.001" value="0.6">
   </div>
   <svg id="gam-svg" viewBox="-200 -130 420 220" width="100%" height="240"><title>Lorentz factor γ vs β</title></svg>
-  <div id="gam-out" class="readout"></div>
+  <div class="readout" id="gam-out"></div>
 </div>
 
 <script>
@@ -660,10 +658,10 @@ $$E \;=\; \gamma m c^2 \;\approx\; m c^2 + \tfrac12 m v^2 + O(v^4/c^2),$$
   <div class="hd"><div class="ttl">Energy: relativistic vs Newtonian</div><div class="hint">$E_\text{rel}/(mc^2)$ vs $1+\frac12\beta^2$</div></div>
   <div class="row">
     <label for="em-b">$\beta = v/c$</label>
-    <input id="em-b" type="range" min="0" max="0.99" step="0.005" value="0.5">
+    <input type="range" id="em-b" min="0" max="0.99" step="0.005" value="0.5">
   </div>
   <svg id="em-svg" viewBox="-200 -130 420 220" width="100%" height="240"><title>Relativistic vs Newtonian energy</title></svg>
-  <div id="em-out" class="readout"></div>
+  <div class="readout" id="em-out"></div>
 </div>
 
 <script>
@@ -747,10 +745,10 @@ $$E \;=\; \gamma m c^2 \;\approx\; m c^2 + \tfrac12 m v^2 + O(v^4/c^2),$$
   <div class="hd"><div class="ttl">Two flashes — simultaneous in whose frame?</div><div class="hint">drag β; watch the simultaneity slice tilt</div></div>
   <div class="row">
     <label for="sim-b">$\beta$ for boosted frame</label>
-    <input id="sim-b" type="range" min="-0.9" max="0.9" step="0.01" value="0.5">
+    <input type="range" id="sim-b" min="-0.9" max="0.9" step="0.01" value="0.5">
   </div>
   <svg id="sim-svg" viewBox="-180 -160 360 320" width="100%" height="320"><title>Simultaneity slices in two frames</title></svg>
-  <div id="sim-out" class="readout"></div>
+  <div class="readout" id="sim-out"></div>
 </div>
 
 <script>

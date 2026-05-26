@@ -20,8 +20,8 @@ page has wired one in yet.
 |---|---|---|---|---:|---|
 | `button-stepper` | button-stepper | click | 2d | 343 | L-functions, additive-number-theory, adeles-and-ideles, algebra, algebraic-number-theory, algebraic-topology, analytic-continuation, bezout, bsd, category-theory, class-field-theory, complex-analysis, differential-geometry, dirichlet-series-euler-products, dynamical-systems, etale-cohomology, frobenius-and-reciprocity, functional-analysis, functor-of-points, galois, galois-representations, hecke-operators, homological, lie-groups, measure-theory, modular-forms, modularity-and-flt, moduli-spaces, moonshine, morphisms-fiber-products, naive-set-theory, operator-algebras, p-adic-numbers, partitions-generating-functions, point-set-topology, probability-theory, projective-plane, quadratic-forms-genus-theory, quadratic-reciprocity, representation-theory, riemann-surfaces, riemannian-geometry, sato-tate, schemes, sheaf-cohomology, sheaves, singular-cubics-reduction, smooth-manifolds, stacks, theta-functions, upper-half-plane-hyperbolic, zeta-values |
 | `parametric-plot` | parametric-plot | slider | 2d | 107 | algebraic-combinatorics, analytic-continuation, analytic-number-theory, causal-inference, deep-learning-theory, diffusion-and-score-based-models, expanders, game-theory, graph-theory-fundamentals, information-geometry, kernel-methods-and-rkhs, markov-decision-processes, order-theory-and-lattices, polytopes-and-ehrhart, pomdps-and-belief-states, probabilistic-graphical-models, ramsey-theory, reinforcement-learning, statistical-learning-theory |
+| `slider-svg-2d` | slider-readout | slider | 2d | 91 | brill-noether, conformal-and-cr-geometry, convex-optimization, geometric-measure-theory, homotopy-theory, kahler-geometry, kalman-filtering-and-state-estimation, klein-gordon-equation, mathematical-biology, microlocal-analysis, optimal-control-and-dynamic-programming, semigroup-theory-evolution-equations, special-relativity, spectral-methods-data, spectral-theory, statistical-mechanics, string-theory |
 | `clickable-diagram` | clickable-diagram | click | 2d | 79 | algebra, algebraic-number-theory, algebraic-topology, bezout, category-theory, fixed-point-theorems, frobenius-and-reciprocity, functional-analysis, functor-of-points, galois, homological, measure-theory, morphisms-fiber-products, naive-set-theory, operator-algebras, quadratic-reciprocity, real-analysis, riemannian-geometry, schemes, sheaves, stacks, wavelets |
-| `slider-svg-2d` | slider-readout | slider | 2d | 77 | brill-noether, conformal-and-cr-geometry, convex-optimization, homotopy-theory, kahler-geometry, kalman-filtering-and-state-estimation, klein-gordon-equation, mathematical-biology, optimal-control-and-dynamic-programming, semigroup-theory-evolution-equations, spectral-methods-data, spectral-theory, statistical-mechanics, string-theory |
 | `schrodinger-figure` | schrodinger-figure | slider | 2d | 7 | schrodinger-equation |
 | `clickable-graph` | clickable-graph | click | 2d | 6 | adeles-and-ideles, riemannian-geometry, schemes, sheaves |
 | `hamiltonians-figure` | hamiltonians-figure | interact | 2d | 6 | hamiltonians-classical-mechanics |
@@ -438,12 +438,8 @@ page has wired one in yet.
 | `git-w5` | verbatim | click | 2d | 1 | geometric-invariant-theory |
 | `git-w6` | verbatim | click | 2d | 1 | geometric-invariant-theory |
 | `git-w7` | verbatim | click | 2d | 1 | geometric-invariant-theory |
-| `gmt-bv` | verbatim | slider | 2d | 1 | geometric-measure-theory |
 | `gmt-coarea` | verbatim | slider | 2d | 1 | geometric-measure-theory |
 | `gmt-currents` | verbatim | click | 2d | 1 | geometric-measure-theory |
-| `gmt-perim` | verbatim | slider | 2d | 1 | geometric-measure-theory |
-| `gmt-plateau` | verbatim | drag | 2d | 1 | geometric-measure-theory |
-| `gmt-rect` | verbatim | slider | 2d | 1 | geometric-measure-theory |
 | `grothendieck-topologies-sites-axioms-scrub` | declarative-host | click | 2d | 1 | grothendieck-topologies-sites |
 | `grothendieck-topologies-sites-geom-comp` | declarative-host | click | 2d | 1 | grothendieck-topologies-sites |
 | `grothendieck-topologies-sites-giraud` | declarative-host | click | 2d | 1 | grothendieck-topologies-sites |
@@ -655,11 +651,6 @@ page has wired one in yet.
 | `mirror-quintic-periods` | mirror-quintic-periods | slider | 2d | 1 | mirror-symmetry |
 | `mirror-stable-map` | mirror-stable-map | slider | 2d | 1 | mirror-symmetry |
 | `mirror-syz-fibration` | mirror-syz-fibration | slider | 2d | 1 | mirror-symmetry |
-| `ml-elliptic` | verbatim | slider | 2d | 1 | microlocal-analysis |
-| `ml-fio-canon` | verbatim | slider | 2d | 1 | microlocal-analysis |
-| `ml-prop` | verbatim | slider | 2d | 1 | microlocal-analysis |
-| `ml-radon` | verbatim | slider | 2d | 1 | microlocal-analysis |
-| `ml-symbol` | verbatim | slider | 2d | 1 | microlocal-analysis |
 | `ml-wf` | verbatim | select | 2d | 1 | microlocal-analysis |
 | `mmp-and-birational-geometry-w1` | verbatim | click | 2d | 1 | mmp-and-birational-geometry |
 | `mmp-and-birational-geometry-w2` | verbatim | click | 2d | 1 | mmp-and-birational-geometry |
@@ -867,12 +858,7 @@ page has wired one in yet.
 | `spectral-graph-theory-components` | spectral-graph-theory-components | click | 2d | 1 | spectral-graph-theory |
 | `spectral-graph-theory-fiedler` | spectral-graph-theory-fiedler | click | 2d | 1 | spectral-graph-theory |
 | `spectral-graph-theory-random-walk` | spectral-graph-theory-random-walk | step | 2d | 1 | spectral-graph-theory |
-| `sr-boost` | verbatim | slider | 2d | 1 | special-relativity |
 | `sr-cone` | verbatim | interact | 2d | 1 | special-relativity |
-| `sr-em` | verbatim | slider | 2d | 1 | special-relativity |
-| `sr-gamma` | verbatim | slider | 2d | 1 | special-relativity |
-| `sr-sim` | verbatim | slider | 2d | 1 | special-relativity |
-| `sr-vadd` | verbatim | slider | 2d | 1 | special-relativity |
 | `st-cy-moduli` | verbatim | slider | 2d | 1 | string-theory |
 | `st-string-math` | verbatim | click | 2d | 1 | string-theory |
 | `stacks-dm-vs-artin` | stacks-dm-vs-artin | click | 2d | 1 | stacks |
@@ -997,9 +983,9 @@ page has wired one in yet.
 
 - Topics: **22**, concepts: **211**
 - Widgets: **224** (registry-driven: 224, inline: 0)
-  - by family: clickable-diagram: 41, verbatim: 39, button-stepper: 37, slider-readout: 18, aca-figure: 5, recurrence-plotter: 2, advanced-complex-analysis-picard: 2, inline-code-cell: 1, proof-scrubber: 1, several-complex-variables-reinhardt-pseudoconvex: 1, advanced-complex-analysis-landscape: 1, advanced-complex-analysis-weierstrass: 1, advanced-complex-analysis-mittag-leffler: 1, advanced-complex-analysis-phragmen-lindelof: 1, advanced-complex-analysis-three-circles: 1, advanced-complex-analysis-hardy-spaces: 1, numerical-fp-cancellation: 1, numerical-newton-iteration: 1, numerical-quadrature-error: 1, numerical-hilbert-conditioning: 1, numerical-ftcs-stability: 1, numerical-fem-hat-basis: 1, variational-fdiff: 1, variational-brachistochrone: 1, variational-direct-method: 1, variational-mountain-pass: 1, variational-isoperimetric: 1, variational-sphere-geodesic: 1, constraint-bifurcation-explorer: 1, mt-sigma-algebra: 1, complex-analysis-arithmetic: 1, complex-analysis-riemann-sphere: 1, complex-analysis-conformal-map: 1, complex-analysis-conformal-grid: 1, complex-analysis-cauchy-theorem: 1, complex-analysis-cauchy-formula: 1, complex-analysis-liouville: 1, complex-analysis-fta: 1, complex-analysis-max-modulus: 1, complex-analysis-open-mapping: 1, complex-analysis-schwarz-lemma: 1, complex-analysis-laurent: 1, complex-analysis-singularity-zoo: 1, complex-analysis-residue-real-integral: 1, complex-analysis-argument-principle: 1, complex-analysis-disk-automorphism: 1, complex-analysis-normal-families: 1, complex-analysis-riemann-mapping: 1, complex-analysis-harmonic: 1, complex-analysis-monodromy: 1, functional-analysis-bounded-continuous: 1, functional-analysis-bigfour: 1, functional-analysis-riesz: 1, functional-analysis-weak-convergence: 1, functional-analysis-banach-alaoglu: 1, functional-analysis-krein-milman: 1, operator-algebras-cstar: 1, operator-algebras-funccalc: 1, operator-algebras-positive: 1, julia-playground: 1, sobolev-pairing: 1, sobolev-weak-derivative: 1, sobolev-fractional-power: 1, sobolev-embedding-exponent: 1, sobolev-trace: 1, sobolev-newtonian-potential: 1, sobolev-variational: 1, harmonic-partial-sum: 1, harmonic-tent-transform: 1, harmonic-convolution: 1, harmonic-schwartz: 1, harmonic-uncertainty: 1, harmonic-poisson: 1, harmonic-heat-evolution: 1, harmonic-pontryagin: 1, pde-classifier: 1, pde-heat-kernel: 1, pde-wave-dalembert: 1, pde-poisson-disk: 1, pde-weak-test: 1, pde-sobolev-embedding: 1, harmonic-functions-laplacian-heatmap: 1, harmonic-functions-mvp-circle: 1, harmonic-functions-maximum-locator: 1, harmonic-functions-poisson-extension: 1, harmonic-functions-harnack-corridor: 1, harmonic-functions-perron-supremum: 1
+  - by family: clickable-diagram: 41, button-stepper: 37, verbatim: 30, slider-readout: 27, aca-figure: 5, recurrence-plotter: 2, advanced-complex-analysis-picard: 2, inline-code-cell: 1, proof-scrubber: 1, several-complex-variables-reinhardt-pseudoconvex: 1, advanced-complex-analysis-landscape: 1, advanced-complex-analysis-weierstrass: 1, advanced-complex-analysis-mittag-leffler: 1, advanced-complex-analysis-phragmen-lindelof: 1, advanced-complex-analysis-three-circles: 1, advanced-complex-analysis-hardy-spaces: 1, numerical-fp-cancellation: 1, numerical-newton-iteration: 1, numerical-quadrature-error: 1, numerical-hilbert-conditioning: 1, numerical-ftcs-stability: 1, numerical-fem-hat-basis: 1, variational-fdiff: 1, variational-brachistochrone: 1, variational-direct-method: 1, variational-mountain-pass: 1, variational-isoperimetric: 1, variational-sphere-geodesic: 1, constraint-bifurcation-explorer: 1, mt-sigma-algebra: 1, complex-analysis-arithmetic: 1, complex-analysis-riemann-sphere: 1, complex-analysis-conformal-map: 1, complex-analysis-conformal-grid: 1, complex-analysis-cauchy-theorem: 1, complex-analysis-cauchy-formula: 1, complex-analysis-liouville: 1, complex-analysis-fta: 1, complex-analysis-max-modulus: 1, complex-analysis-open-mapping: 1, complex-analysis-schwarz-lemma: 1, complex-analysis-laurent: 1, complex-analysis-singularity-zoo: 1, complex-analysis-residue-real-integral: 1, complex-analysis-argument-principle: 1, complex-analysis-disk-automorphism: 1, complex-analysis-normal-families: 1, complex-analysis-riemann-mapping: 1, complex-analysis-harmonic: 1, complex-analysis-monodromy: 1, functional-analysis-bounded-continuous: 1, functional-analysis-bigfour: 1, functional-analysis-riesz: 1, functional-analysis-weak-convergence: 1, functional-analysis-banach-alaoglu: 1, functional-analysis-krein-milman: 1, operator-algebras-cstar: 1, operator-algebras-funccalc: 1, operator-algebras-positive: 1, julia-playground: 1, sobolev-pairing: 1, sobolev-weak-derivative: 1, sobolev-fractional-power: 1, sobolev-embedding-exponent: 1, sobolev-trace: 1, sobolev-newtonian-potential: 1, sobolev-variational: 1, harmonic-partial-sum: 1, harmonic-tent-transform: 1, harmonic-convolution: 1, harmonic-schwartz: 1, harmonic-uncertainty: 1, harmonic-poisson: 1, harmonic-heat-evolution: 1, harmonic-pontryagin: 1, pde-classifier: 1, pde-heat-kernel: 1, pde-wave-dalembert: 1, pde-poisson-disk: 1, pde-weak-test: 1, pde-sobolev-embedding: 1, harmonic-functions-laplacian-heatmap: 1, harmonic-functions-mvp-circle: 1, harmonic-functions-maximum-locator: 1, harmonic-functions-poisson-extension: 1, harmonic-functions-harnack-corridor: 1, harmonic-functions-perron-supremum: 1
   - by dimension: 2d: 223, 3d: 1
-  - by gesture: click: 95, slider: 69, interact: 36, select: 8, interactive: 6, drag: 6, edit: 1, timeline: 1, step: 1, static: 1
+  - by gesture: click: 95, slider: 70, interact: 36, select: 8, interactive: 6, drag: 5, edit: 1, timeline: 1, step: 1, static: 1
 - Quizzes: **777** (v1: 592, hard: 185, expert: 0)
   - by type: mcq: 487, numeric: 162, multi-select: 40, matching: 29, ordering: 22, complex: 14, spot-the-error: 11, proof-completion: 10, construction: 1, guess-my-rule: 1
 
@@ -1067,7 +1053,7 @@ page has wired one in yet.
 
 - Topics: **11**, concepts: **69**
 - Widgets: **70** (registry-driven: 70, inline: 0)
-  - by family: verbatim: 29, slider-readout: 16, schrodinger-figure: 7, hamiltonians-figure: 6, general-relativity-light-cones: 1, general-relativity-einstein: 1, general-relativity-schwarzschild: 1, general-relativity-kerr: 1, general-relativity-cosmology: 1, general-relativity-gw: 1, three-body-nbody-simulator: 1, three-body-lagrange-points: 1, three-body-special-solutions: 1, three-body-horseshoe: 1, three-body-kam-tori: 1, three-body-halo-orbits: 1
+  - by family: verbatim: 24, slider-readout: 21, schrodinger-figure: 7, hamiltonians-figure: 6, general-relativity-light-cones: 1, general-relativity-einstein: 1, general-relativity-schwarzschild: 1, general-relativity-kerr: 1, general-relativity-cosmology: 1, general-relativity-gw: 1, three-body-nbody-simulator: 1, three-body-lagrange-points: 1, three-body-special-solutions: 1, three-body-horseshoe: 1, three-body-kam-tori: 1, three-body-halo-orbits: 1
   - by dimension: 2d: 70
   - by gesture: slider: 47, click: 14, interact: 7, drag: 1, select: 1
 - Quizzes: **208** (v1: 208, hard: 0, expert: 0)
