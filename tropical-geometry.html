@@ -276,22 +276,18 @@ function drawNode(svg, x, y, label, opts={}){
 
 <div class="widget" id="w-trop-poly">
   <div class="hd"><div class="ttl">Tropical polynomial plotter</div><div class="hint">slide the coefficients of $f(x) = \min(c_0,\, c_1+x,\, c_2+2x)$ — corner locus marked</div></div>
-  <svg id="svg-trop-poly" viewBox="0 0 720 320" width="720" height="320"><title>Lower-envelope plot of a tropical quadratic polynomial with adjustable coefficients.</title></svg>
   <div class="row">
     <label for="tp-c0">$c_0$</label>
     <input type="range" id="tp-c0" min="-4" max="6" step="0.5" value="3">
-    <span class="small" id="tp-c0-val">c_0 = 3</span>
-  </div>
-  <div class="row">
+    <span id="tp-c0-val" class="small">c_0 = 3</span>
     <label for="tp-c1">$c_1$</label>
     <input type="range" id="tp-c1" min="-4" max="6" step="0.5" value="0">
-    <span class="small" id="tp-c1-val">c_1 = 0</span>
-  </div>
-  <div class="row">
+    <span id="tp-c1-val" class="small">c_1 = 0</span>
     <label for="tp-c2">$c_2$</label>
     <input type="range" id="tp-c2" min="-4" max="6" step="0.5" value="-2">
-    <span class="small" id="tp-c2-val">c_2 = -2</span>
+    <span id="tp-c2-val" class="small">c_2 = -2</span>
   </div>
+  <svg id="svg-trop-poly" viewBox="0 0 720 320" width="720" height="320"><title>Lower-envelope plot of a tropical quadratic polynomial with adjustable coefficients.</title></svg>
   <div class="readout" id="out-trop-poly"></div>
 </div>
 <script>
@@ -574,22 +570,18 @@ function drawNode(svg, x, y, label, opts={}){
 
 <div class="widget" id="w-newton-dual">
   <div class="hd"><div class="ttl">Newton polytope ↔ tropical curve</div><div class="hint">slide the lift heights of a degree-2 curve — watch the dual subdivision and tropical conic move</div></div>
-  <svg id="svg-newton" viewBox="0 0 720 380" width="720" height="380"><title>Newton triangle of a degree-2 polynomial with adjustable height function and the dual tropical curve.</title></svg>
   <div class="row">
     <label for="nd-h00">$v(c_{00})$</label>
     <input type="range" id="nd-h00" min="0" max="6" step="0.5" value="0">
-    <span class="small" id="nd-h00-val">0</span>
-  </div>
-  <div class="row">
+    <span id="nd-h00-val" class="small">0</span>
     <label for="nd-h11">$v(c_{11})$</label>
     <input type="range" id="nd-h11" min="0" max="6" step="0.5" value="0">
-    <span class="small" id="nd-h11-val">0</span>
-  </div>
-  <div class="row">
+    <span id="nd-h11-val" class="small">0</span>
     <label for="nd-h20">$v(c_{20})$</label>
     <input type="range" id="nd-h20" min="0" max="6" step="0.5" value="0">
-    <span class="small" id="nd-h20-val">0</span>
+    <span id="nd-h20-val" class="small">0</span>
   </div>
+  <svg id="svg-newton" viewBox="0 0 720 380" width="720" height="380"><title>Newton triangle of a degree-2 polynomial with adjustable height function and the dual tropical curve.</title></svg>
   <div class="readout" id="out-newton"></div>
 </div>
 <script>
@@ -724,22 +716,18 @@ function drawNode(svg, x, y, label, opts={}){
 
 <div class="widget" id="w-trop-bezout">
   <div class="hd"><div class="ttl">Tropical Bézout calculator</div><div class="hint">pick degrees $(d_1,d_2)$; drag the slider to translate $C_2$ and watch the count stabilize</div></div>
-  <svg id="svg-bezout" viewBox="0 0 720 360" width="720" height="360"><title>Two tropical curves with adjustable degrees and translation, displaying their stable intersection count.</title></svg>
   <div class="row">
     <label for="bz-d1">degree $d_1$</label>
     <input type="range" id="bz-d1" min="1" max="4" step="1" value="2">
-    <span class="small" id="bz-d1-val">d_1 = 2</span>
-  </div>
-  <div class="row">
+    <span id="bz-d1-val" class="small">d_1 = 2</span>
     <label for="bz-d2">degree $d_2$</label>
     <input type="range" id="bz-d2" min="1" max="4" step="1" value="2">
-    <span class="small" id="bz-d2-val">d_2 = 2</span>
-  </div>
-  <div class="row">
+    <span id="bz-d2-val" class="small">d_2 = 2</span>
     <label for="bz-eps">translation $\varepsilon$</label>
     <input type="range" id="bz-eps" min="-2" max="2" step="0.1" value="0.7">
-    <span class="small" id="bz-eps-val">ε = 0.70</span>
+    <span id="bz-eps-val" class="small">ε = 0.70</span>
   </div>
+  <svg id="svg-bezout" viewBox="0 0 720 360" width="720" height="360"><title>Two tropical curves with adjustable degrees and translation, displaying their stable intersection count.</title></svg>
   <div class="readout" id="out-bezout"></div>
 </div>
 <script>
@@ -1053,12 +1041,12 @@ function drawNode(svg, x, y, label, opts={}){
 
 <div class="widget" id="w-mikhalkin">
   <div class="hd"><div class="ttl">Mikhalkin counts $N_d$</div><div class="hint">slide $d$ — see required points $3d-1$ and the GW count $N_d$ from the tropical sum</div></div>
-  <svg id="svg-mikh" viewBox="0 0 720 280" width="720" height="280"><title>Bar chart of genus-0 Gromov-Witten invariants N_d of P^2 vs degree d.</title></svg>
   <div class="row">
     <label for="mk-d">degree $d$</label>
     <input type="range" id="mk-d" min="1" max="4" step="1" value="2">
-    <span class="small" id="mk-d-val">d = 2</span>
+    <span id="mk-d-val" class="small">d = 2</span>
   </div>
+  <svg id="svg-mikh" viewBox="0 0 720 280" width="720" height="280"><title>Bar chart of genus-0 Gromov-Witten invariants N_d of P^2 vs degree d.</title></svg>
   <div class="readout" id="out-mikh"></div>
 </div>
 <script>

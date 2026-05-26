@@ -300,13 +300,13 @@ and $\Phi$ the standard-normal CDF. <strong>The formula does not depend on $\mu$
   <div class="hd"><div class="ttl">Geometric Brownian motion</div><div class="hint">drift $\mu$ · vol $\sigma$ · paths fan out around the mean</div></div>
   <div class="row">
     <label for="gbm-mu">$\mu$</label>
-    <input id="gbm-mu" type="range" min="-0.2" max="0.3" step="0.01" value="0.08">
+    <input type="range" id="gbm-mu" min="-0.2" max="0.3" step="0.01" value="0.08">
     <span id="gbm-muv" class="small">μ = 0.08</span>
     <label for="gbm-sig">$\sigma$</label>
-    <input id="gbm-sig" type="range" min="0.05" max="0.6" step="0.01" value="0.20">
+    <input type="range" id="gbm-sig" min="0.05" max="0.6" step="0.01" value="0.20">
     <span id="gbm-sigv" class="small">σ = 0.20</span>
     <label for="gbm-K">paths</label>
-    <input id="gbm-K" type="range" min="3" max="40" step="1" value="16">
+    <input type="range" id="gbm-K" min="3" max="40" step="1" value="16">
     <span id="gbm-Kv" class="small">K = 16</span>
     <button id="gbm-new">new sample</button>
   </div>
@@ -438,18 +438,16 @@ with terminal condition $V(T,S)=(S-K)^+$ for a call. The second derivation is vi
   <div class="hd"><div class="ttl">Black–Scholes call price as a function of $(S,t)$</div><div class="hint">slider varies $\sigma$ and time-to-maturity · cyan dashed = payoff $\max(S-K,0)$</div></div>
   <div class="row">
     <label for="bss-K">strike $K$</label>
-    <input id="bss-K" type="range" min="60" max="160" step="2" value="100">
+    <input type="range" id="bss-K" min="60" max="160" step="2" value="100">
     <span id="bss-Kv" class="small">K = 100</span>
     <label for="bss-sig">$\sigma$</label>
-    <input id="bss-sig" type="range" min="0.05" max="0.8" step="0.01" value="0.25">
+    <input type="range" id="bss-sig" min="0.05" max="0.8" step="0.01" value="0.25">
     <span id="bss-sigv" class="small">σ = 0.25</span>
-  </div>
-  <div class="row">
     <label for="bss-r">$r$</label>
-    <input id="bss-r" type="range" min="-0.02" max="0.10" step="0.005" value="0.03">
+    <input type="range" id="bss-r" min="-0.02" max="0.10" step="0.005" value="0.03">
     <span id="bss-rv" class="small">r = 0.030</span>
     <label for="bss-tau">$T-t$</label>
-    <input id="bss-tau" type="range" min="0.0" max="2.0" step="0.02" value="1.0">
+    <input type="range" id="bss-tau" min="0.0" max="2.0" step="0.02" value="1.0">
     <span id="bss-tauv" class="small">T−t = 1.00</span>
   </div>
   <svg id="bss-svg" viewBox="0 0 760 320" width="760" height="320"><title>Black–Scholes call price as a function of spot, with kink-rounding into a smooth curve as maturity recedes</title></svg>
@@ -729,18 +727,16 @@ $$\boxed{\;\pi^* \;=\; \frac{\mu - r}{\gamma\,\sigma^2}\;}$$
   <div class="hd"><div class="ttl">Merton fraction explorer</div><div class="hint">$\pi^*$ vs. risk aversion $\gamma$ · vertical bar marks current $\gamma$</div></div>
   <div class="row">
     <label for="mer-mu">$\mu$</label>
-    <input id="mer-mu" type="range" min="-0.05" max="0.20" step="0.005" value="0.08">
+    <input type="range" id="mer-mu" min="-0.05" max="0.20" step="0.005" value="0.08">
     <span id="mer-muv" class="small">μ = 0.080</span>
     <label for="mer-r">$r$</label>
-    <input id="mer-r" type="range" min="-0.02" max="0.08" step="0.005" value="0.02">
+    <input type="range" id="mer-r" min="-0.02" max="0.08" step="0.005" value="0.02">
     <span id="mer-rv" class="small">r = 0.020</span>
-  </div>
-  <div class="row">
     <label for="mer-sig">$\sigma$</label>
-    <input id="mer-sig" type="range" min="0.05" max="0.50" step="0.01" value="0.20">
+    <input type="range" id="mer-sig" min="0.05" max="0.50" step="0.01" value="0.20">
     <span id="mer-sigv" class="small">σ = 0.20</span>
     <label for="mer-gam">$\gamma$ (risk aversion)</label>
-    <input id="mer-gam" type="range" min="0.5" max="6.0" step="0.1" value="2.0">
+    <input type="range" id="mer-gam" min="0.5" max="6.0" step="0.1" value="2.0">
     <span id="mer-gamv" class="small">γ = 2.0</span>
   </div>
   <svg id="mer-svg" viewBox="0 0 760 320" width="760" height="320"><title>Merton portfolio fraction as a function of risk aversion gamma, with current parameter point highlighted</title></svg>
@@ -868,7 +864,7 @@ with $\mathcal{L}^u V = b\cdot\nabla V + \tfrac{1}{2}\tr\bigl(\sigma\sigma^\top 
   <div class="hd"><div class="ttl">HJB on a binomial state tree</div><div class="hint">discrete-time DP unfolding · step through Bellman recursion</div></div>
   <div class="row">
     <label for="hjb-rho">discount $\beta$</label>
-    <input id="hjb-rho" type="range" min="0.85" max="1.00" step="0.005" value="0.97">
+    <input type="range" id="hjb-rho" min="0.85" max="1.00" step="0.005" value="0.97">
     <span id="hjb-rhov" class="small">β = 0.970</span>
     <button id="hjb-step">step Bellman ▶</button>
     <button id="hjb-reset">reset</button>

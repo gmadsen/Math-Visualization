@@ -20,7 +20,7 @@ page has wired one in yet.
 |---|---|---|---|---:|---|
 | `button-stepper` | button-stepper | click | 2d | 343 | L-functions, additive-number-theory, adeles-and-ideles, algebra, algebraic-number-theory, algebraic-topology, analytic-continuation, bezout, bsd, category-theory, class-field-theory, complex-analysis, differential-geometry, dirichlet-series-euler-products, dynamical-systems, etale-cohomology, frobenius-and-reciprocity, functional-analysis, functor-of-points, galois, galois-representations, hecke-operators, homological, lie-groups, measure-theory, modular-forms, modularity-and-flt, moduli-spaces, moonshine, morphisms-fiber-products, naive-set-theory, operator-algebras, p-adic-numbers, partitions-generating-functions, point-set-topology, probability-theory, projective-plane, quadratic-forms-genus-theory, quadratic-reciprocity, representation-theory, riemann-surfaces, riemannian-geometry, sato-tate, schemes, sheaf-cohomology, sheaves, singular-cubics-reduction, smooth-manifolds, stacks, theta-functions, upper-half-plane-hyperbolic, zeta-values |
 | `parametric-plot` | parametric-plot | slider | 2d | 107 | algebraic-combinatorics, analytic-continuation, analytic-number-theory, causal-inference, deep-learning-theory, diffusion-and-score-based-models, expanders, game-theory, graph-theory-fundamentals, information-geometry, kernel-methods-and-rkhs, markov-decision-processes, order-theory-and-lattices, polytopes-and-ehrhart, pomdps-and-belief-states, probabilistic-graphical-models, ramsey-theory, reinforcement-learning, statistical-learning-theory |
-| `slider-svg-2d` | slider-readout | slider | 2d | 91 | brill-noether, conformal-and-cr-geometry, convex-optimization, geometric-measure-theory, homotopy-theory, kahler-geometry, kalman-filtering-and-state-estimation, klein-gordon-equation, mathematical-biology, microlocal-analysis, optimal-control-and-dynamic-programming, semigroup-theory-evolution-equations, special-relativity, spectral-methods-data, spectral-theory, statistical-mechanics, string-theory |
+| `slider-svg-2d` | slider-readout | slider | 2d | 106 | brill-noether, conformal-and-cr-geometry, convex-optimization, geometric-measure-theory, homotopy-theory, kahler-geometry, kalman-filtering-and-state-estimation, klein-gordon-equation, mathematical-biology, mathematical-finance, microlocal-analysis, optimal-control-and-dynamic-programming, quantum-field-theory, semigroup-theory-evolution-equations, special-relativity, spectral-methods-data, spectral-theory, statistical-mechanics, string-theory, topological-data-analysis, tropical-geometry |
 | `clickable-diagram` | clickable-diagram | click | 2d | 79 | algebra, algebraic-number-theory, algebraic-topology, bezout, category-theory, fixed-point-theorems, frobenius-and-reciprocity, functional-analysis, functor-of-points, galois, homological, measure-theory, morphisms-fiber-products, naive-set-theory, operator-algebras, quadratic-reciprocity, real-analysis, riemannian-geometry, schemes, sheaves, stacks, wavelets |
 | `schrodinger-figure` | schrodinger-figure | slider | 2d | 7 | schrodinger-equation |
 | `clickable-graph` | clickable-graph | click | 2d | 6 | adeles-and-ideles, riemannian-geometry, schemes, sheaves |
@@ -638,11 +638,7 @@ page has wired one in yet.
 | `mchaos-w4` | verbatim | interactive | 2d | 1 | mathematical-chaos |
 | `mchaos-w5` | verbatim | interactive | 2d | 1 | mathematical-chaos |
 | `mchaos-w6` | verbatim | interactive | 2d | 1 | mathematical-chaos |
-| `mf-w1` | verbatim | slider | 2d | 1 | mathematical-finance |
-| `mf-w2` | verbatim | slider | 2d | 1 | mathematical-finance |
 | `mf-w3` | verbatim | slider | 2d | 1 | mathematical-finance |
-| `mf-w4` | verbatim | slider | 2d | 1 | mathematical-finance |
-| `mf-w5` | verbatim | slider | 2d | 1 | mathematical-finance |
 | `mf-w6` | verbatim | click | 2d | 1 | mathematical-finance |
 | `mf-w7` | verbatim | click | 2d | 1 | mathematical-finance |
 | `mirror-hms-pairing` | mirror-hms-pairing | click | 2d | 1 | mirror-symmetry |
@@ -753,11 +749,7 @@ page has wired one in yet.
 | `probabilistic-method-lll` | probabilistic-method-lll | slider | 2d | 1 | probabilistic-method |
 | `probabilistic-method-ramsey` | probabilistic-method-ramsey | slider | 2d | 1 | probabilistic-method |
 | `probabilistic-method-threshold` | probabilistic-method-threshold | slider | 2d | 1 | probabilistic-method |
-| `qft-diagrams` | verbatim | slider | 2d | 1 | quantum-field-theory |
 | `qft-fock` | verbatim | click | 2d | 1 | quantum-field-theory |
-| `qft-modes` | verbatim | slider | 2d | 1 | quantum-field-theory |
-| `qft-paths` | verbatim | slider | 2d | 1 | quantum-field-theory |
-| `qft-rg-flow` | verbatim | slider | 2d | 1 | quantum-field-theory |
 | `qft-sm-fields` | verbatim | click | 2d | 1 | quantum-field-theory |
 | `quad-recip-jacobi` | quad-recip-jacobi | click | 2d | 1 | quadratic-reciprocity |
 | `quad-recip-supplementary` | quad-recip-supplementary | slider | 2d | 1 | quadratic-reciprocity |
@@ -888,11 +880,8 @@ page has wired one in yet.
 | `symplectic-form-pairing` | symplectic-form-pairing | drag | 2d | 1 | symplectic-manifolds |
 | `symplectic-harmonic-portrait` | symplectic-harmonic-portrait | slider | 2d | 1 | symplectic-manifolds |
 | `tda-interval-decomposition` | tda-interval-decomposition | slider | 2d | 1 | topological-data-analysis |
-| `tda-w1` | verbatim | slider | 2d | 1 | topological-data-analysis |
 | `tda-w2` | verbatim | interact | 2d | 1 | topological-data-analysis |
-| `tda-w3` | verbatim | slider | 2d | 1 | topological-data-analysis |
 | `tda-w4` | verbatim | slider | 2d | 1 | topological-data-analysis |
-| `tda-w5` | verbatim | slider | 2d | 1 | topological-data-analysis |
 | `tda-w6` | verbatim | click | 2d | 1 | topological-data-analysis |
 | `three-body-halo-orbits` | three-body-halo-orbits | click | 2d | 1 | three-body-problem |
 | `three-body-horseshoe` | three-body-horseshoe | click | 2d | 1 | three-body-problem |
@@ -906,12 +895,8 @@ page has wired one in yet.
 | `toric-varieties-w3` | verbatim | click | 2d | 1 | toric-varieties |
 | `toric-varieties-w4` | verbatim | click | 2d | 1 | toric-varieties |
 | `toric-varieties-w5` | verbatim | click | 2d | 1 | toric-varieties |
-| `trop-w1` | verbatim | slider | 2d | 1 | tropical-geometry |
 | `trop-w2` | verbatim | select | 2d | 1 | tropical-geometry |
-| `trop-w3` | verbatim | slider | 2d | 1 | tropical-geometry |
-| `trop-w4` | verbatim | slider | 2d | 1 | tropical-geometry |
 | `trop-w5` | verbatim | select | 2d | 1 | tropical-geometry |
-| `trop-w6` | verbatim | slider | 2d | 1 | tropical-geometry |
 | `type-theory-circle-winding` | type-theory-circle-winding | click | 2d | 1 | type-theory-and-hott |
 | `type-theory-context-builder` | type-theory-context-builder | click | 2d | 1 | type-theory-and-hott |
 | `type-theory-infty-groupoid` | type-theory-infty-groupoid | click | 2d | 1 | type-theory-and-hott |
@@ -1033,7 +1018,7 @@ page has wired one in yet.
 
 - Topics: **35**, concepts: **213**
 - Widgets: **265** (registry-driven: 265, inline: 0)
-  - by family: verbatim: 71, button-stepper: 61, clickable-diagram: 23, proof-scrubber: 7, clickable-graph: 6, declarative-host: 6, slider-readout: 5, parametric-plot: 4, modular-arithmetic-clock: 2, svg-illustration: 2, motives-realization-comparison: 1, motives-correspondences: 1, motives-chow-decomposition: 1, motives-tate-twist: 1, motives-tannakian: 1, motives-motivic-galois: 1, motives-standard-conjectures: 1, hodge-theory-why-refinement: 1, hodge-theory-hodge-diamond: 1, hodge-theory-filtration-scrubber: 1, hodge-theory-pure-structure: 1, hodge-theory-mixed-weight: 1, hodge-theory-hodge-class-cases: 1, hodge-theory-period-elliptic: 1, toric-varieties-reflexive-duality: 1, calabi-yau-canonical-degree: 1, calabi-yau-hodge-diamond: 1, calabi-yau-hypersurface-zoo: 1, calabi-yau-periods: 1, calabi-yau-mirror-swap: 1, calabi-yau-syz-fibration: 1, mirror-hodge-diamond: 1, mirror-quintic-counts: 1, mirror-stable-map: 1, mirror-quintic-periods: 1, mirror-hms-pairing: 1, mirror-syz-fibration: 1, resolution-cusp-node-visualizer: 1, resolution-cuspidal-blowup: 1, resolution-tower-of-blowups: 1, resolution-curve-normalization: 1, resolution-ade-dynkin: 1, resolution-applications-map: 1, pp-duality: 1, pp-cross-ratio: 1, bezout-statement: 1, bezout-cayley-bacharach: 1, bezout-higherdim: 1, schemes-spec: 1, schemes-specialization: 1, schemes-residue-field: 1, schemes-stalk: 1, schemes-proj: 1, schemes-dimension: 1, sheaves-presheaf-restriction: 1, sheaves-ox-module: 1, morphisms-scheme-morphism: 1, morphisms-separated-proper: 1, functor-of-points-groupoid-target: 1, functor-of-points-yoneda: 1, functor-of-points-base-change: 1, ec-disc: 1, ec-j: 1, lattice-visualizer: 1, ec-mw: 1, singular-cubics-minimal-model: 1, algebraic-curves-riemann-hurwitz-cover: 1, algebraic-curves-jacobian-lattice: 1, algebraic-curves-riemann-roch-scrubber: 1, algebraic-curves-canonical-embedding-scrubber: 1, algebraic-curves-hyperelliptic-cover: 1, algebraic-curves-moduli-boundary: 1, sheaf-cohomology-nerve: 1, sheaf-cohomology-acyclic: 1, sheaf-cohomology-leray: 1, sheaf-cohomology-serre-duality: 1, algebraic-de-rham-kahler-scrubber: 1, algebraic-de-rham-complex-scrubber: 1, algebraic-de-rham-betti-comparison-scrubber: 1, algebraic-de-rham-hodge-filtration-scrubber: 1, algebraic-de-rham-hodge-diamond-clickgraph: 1, algebraic-de-rham-hodge-pn-explorer: 1, algebraic-de-rham-curve-clickable: 1, algebraic-de-rham-hodge-sandbox: 1, moduli-spaces-triangle-similarity: 1, stacks-quotient-stack: 1, stacks-dm-vs-artin: 1, counterexample-explorer: 1
+  - by family: verbatim: 67, button-stepper: 61, clickable-diagram: 23, slider-readout: 9, proof-scrubber: 7, clickable-graph: 6, declarative-host: 6, parametric-plot: 4, modular-arithmetic-clock: 2, svg-illustration: 2, motives-realization-comparison: 1, motives-correspondences: 1, motives-chow-decomposition: 1, motives-tate-twist: 1, motives-tannakian: 1, motives-motivic-galois: 1, motives-standard-conjectures: 1, hodge-theory-why-refinement: 1, hodge-theory-hodge-diamond: 1, hodge-theory-filtration-scrubber: 1, hodge-theory-pure-structure: 1, hodge-theory-mixed-weight: 1, hodge-theory-hodge-class-cases: 1, hodge-theory-period-elliptic: 1, toric-varieties-reflexive-duality: 1, calabi-yau-canonical-degree: 1, calabi-yau-hodge-diamond: 1, calabi-yau-hypersurface-zoo: 1, calabi-yau-periods: 1, calabi-yau-mirror-swap: 1, calabi-yau-syz-fibration: 1, mirror-hodge-diamond: 1, mirror-quintic-counts: 1, mirror-stable-map: 1, mirror-quintic-periods: 1, mirror-hms-pairing: 1, mirror-syz-fibration: 1, resolution-cusp-node-visualizer: 1, resolution-cuspidal-blowup: 1, resolution-tower-of-blowups: 1, resolution-curve-normalization: 1, resolution-ade-dynkin: 1, resolution-applications-map: 1, pp-duality: 1, pp-cross-ratio: 1, bezout-statement: 1, bezout-cayley-bacharach: 1, bezout-higherdim: 1, schemes-spec: 1, schemes-specialization: 1, schemes-residue-field: 1, schemes-stalk: 1, schemes-proj: 1, schemes-dimension: 1, sheaves-presheaf-restriction: 1, sheaves-ox-module: 1, morphisms-scheme-morphism: 1, morphisms-separated-proper: 1, functor-of-points-groupoid-target: 1, functor-of-points-yoneda: 1, functor-of-points-base-change: 1, ec-disc: 1, ec-j: 1, lattice-visualizer: 1, ec-mw: 1, singular-cubics-minimal-model: 1, algebraic-curves-riemann-hurwitz-cover: 1, algebraic-curves-jacobian-lattice: 1, algebraic-curves-riemann-roch-scrubber: 1, algebraic-curves-canonical-embedding-scrubber: 1, algebraic-curves-hyperelliptic-cover: 1, algebraic-curves-moduli-boundary: 1, sheaf-cohomology-nerve: 1, sheaf-cohomology-acyclic: 1, sheaf-cohomology-leray: 1, sheaf-cohomology-serre-duality: 1, algebraic-de-rham-kahler-scrubber: 1, algebraic-de-rham-complex-scrubber: 1, algebraic-de-rham-betti-comparison-scrubber: 1, algebraic-de-rham-hodge-filtration-scrubber: 1, algebraic-de-rham-hodge-diamond-clickgraph: 1, algebraic-de-rham-hodge-pn-explorer: 1, algebraic-de-rham-curve-clickable: 1, algebraic-de-rham-hodge-sandbox: 1, moduli-spaces-triangle-similarity: 1, stacks-quotient-stack: 1, stacks-dm-vs-artin: 1, counterexample-explorer: 1
   - by dimension: 2d: 265
   - by gesture: click: 164, slider: 36, interact: 34, select: 14, scrub: 7, inspect: 5, drag: 3, step: 1, slide: 1
 - Quizzes: **884** (v1: 639, hard: 245, expert: 0)
@@ -1053,7 +1038,7 @@ page has wired one in yet.
 
 - Topics: **11**, concepts: **69**
 - Widgets: **70** (registry-driven: 70, inline: 0)
-  - by family: verbatim: 24, slider-readout: 21, schrodinger-figure: 7, hamiltonians-figure: 6, general-relativity-light-cones: 1, general-relativity-einstein: 1, general-relativity-schwarzschild: 1, general-relativity-kerr: 1, general-relativity-cosmology: 1, general-relativity-gw: 1, three-body-nbody-simulator: 1, three-body-lagrange-points: 1, three-body-special-solutions: 1, three-body-horseshoe: 1, three-body-kam-tori: 1, three-body-halo-orbits: 1
+  - by family: slider-readout: 25, verbatim: 20, schrodinger-figure: 7, hamiltonians-figure: 6, general-relativity-light-cones: 1, general-relativity-einstein: 1, general-relativity-schwarzschild: 1, general-relativity-kerr: 1, general-relativity-cosmology: 1, general-relativity-gw: 1, three-body-nbody-simulator: 1, three-body-lagrange-points: 1, three-body-special-solutions: 1, three-body-horseshoe: 1, three-body-kam-tori: 1, three-body-halo-orbits: 1
   - by dimension: 2d: 70
   - by gesture: slider: 47, click: 14, interact: 7, drag: 1, select: 1
 - Quizzes: **208** (v1: 208, hard: 0, expert: 0)
@@ -1063,7 +1048,7 @@ page has wired one in yet.
 
 - Topics: **9**, concepts: **58**
 - Widgets: **59** (registry-driven: 59, inline: 0)
-  - by family: parametric-plot: 24, verbatim: 19, slider-readout: 15, inline-code-cell: 1
+  - by family: parametric-plot: 24, slider-readout: 19, verbatim: 15, inline-code-cell: 1
   - by dimension: 2d: 59
   - by gesture: slider: 50, click: 5, select: 2, scrub: 1, edit: 1
 - Quizzes: **174** (v1: 174, hard: 0, expert: 0)
@@ -1073,7 +1058,7 @@ page has wired one in yet.
 
 - Topics: **9**, concepts: **56**
 - Widgets: **56** (registry-driven: 56, inline: 0)
-  - by family: parametric-plot: 42, slider-readout: 7, verbatim: 6, tda-interval-decomposition: 1
+  - by family: parametric-plot: 42, slider-readout: 10, verbatim: 3, tda-interval-decomposition: 1
   - by dimension: 2d: 56
   - by gesture: slider: 54, interact: 1, click: 1
 - Quizzes: **166** (v1: 166, hard: 0, expert: 0)

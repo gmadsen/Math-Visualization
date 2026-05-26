@@ -12769,48 +12769,6 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "mf-w1",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "mf-w1 widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Geometric Brownian motion\" widget on the mathematical-finance topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Geometric Brownian motion\" widget on `mathematical-finance`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "mf-w2",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "mf-w2 widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Black–Scholes call price as a function of $(S,t)$\" widget on the mathematical-finance topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Black–Scholes call price as a function of $(S,t)$\" widget on `mathematical-finance`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "mf-w3",
     "family": "verbatim",
     "dimension": "2d",
@@ -12826,48 +12784,6 @@ window.__MVWidgets = [
       "bodyScript"
     ],
     "readmeExcerpt": "Bespoke verbatim slug for the \"Monte Carlo European call vs. Black–Scholes\" widget on `mathematical-finance`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "mf-w4",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "mf-w4 widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Merton fraction explorer\" widget on the mathematical-finance topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Merton fraction explorer\" widget on `mathematical-finance`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "mf-w5",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "mf-w5 widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"HJB on a binomial state tree\" widget on the mathematical-finance topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"HJB on a binomial state tree\" widget on `mathematical-finance`.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
@@ -15250,27 +15166,6 @@ window.__MVWidgets = [
     "exampleScript": "<script>\n(function(){\n  if(!window.MVProofScrubber) return;\n  MVProofScrubber.init('#w-proof-scrubber-example', {\n    title: \"Pythagorean theorem — geometric proof\",\n    hint: \"drag the slider · or press play\",\n    viewBox: \"0 0 240 240\",\n    autoplayMs: 2000,\n    steps: [\n      {\n        title: \"The claim\",\n        body: \"For a right triangle with legs $a$, $b$ and hypotenuse $c$: $a^2 + b^2 = c^2$.\",\n        svgInner: \"<polygon points='40,200 200,200 200,40' fill='var(--panel2)' stroke='var(--ink)' stroke-width='1.5'/><text x='115' y='220' text-anchor='middle' font-size='14' fill='var(--mute)'>a</text><text x='215' y='125' text-anchor='middle' font-size='14' fill='var(--mute)'>b</text><text x='100' y='110' text-anchor='middle' font-size='14' fill='var(--yellow)'>c</text>\",\n      },\n      {\n        title: \"Tile a square of side $a+b$ two ways\",\n        body: \"Take a big square of side length $a+b$ and place four copies of the right triangle in two arrangements. The leftover area must agree across both arrangements.\",\n        svgInner: \"<rect x='40' y='40' width='160' height='160' fill='none' stroke='var(--ink)' stroke-width='1.5'/><line x1='40' y1='80' x2='200' y2='80' stroke='var(--mute)' stroke-dasharray='4 3'/><line x1='160' y1='40' x2='160' y2='200' stroke='var(--mute)' stroke-dasharray='4 3'/>\",\n      },\n      {\n        title: \"Arrangement A: two squares $a^2 + b^2$\",\n        body: \"In the first arrangement the leftover region is a square of side $a$ plus a square of side $b$ — total area $a^2 + b^2$.\",\n        svgInner: \"<rect x='40' y='40' width='40' height='40' fill='color-mix(in srgb, var(--blue) 25%, var(--panel2))' stroke='var(--blue)'/><rect x='80' y='80' width='120' height='120' fill='color-mix(in srgb, var(--green) 25%, var(--panel2))' stroke='var(--green)'/><text x='60' y='65' text-anchor='middle' font-size='14' fill='var(--ink)'>a²</text><text x='140' y='145' text-anchor='middle' font-size='14' fill='var(--ink)'>b²</text>\",\n      },\n      {\n        title: \"Arrangement B: one square $c^2$\",\n        body: \"In the second arrangement the leftover region is a single tilted square whose side is the hypotenuse $c$ — total area $c^2$.\",\n        svgInner: \"<polygon points='80,40 200,80 160,200 40,160' fill='color-mix(in srgb, var(--yellow) 25%, var(--panel2))' stroke='var(--yellow)' stroke-width='1.5'/><text x='120' y='128' text-anchor='middle' font-size='16' fill='var(--ink)'>c²</text>\",\n      },\n      {\n        title: \"Equate\",\n        body: \"Both arrangements have the same total area $(a+b)^2$ and the same four triangles removed, so the leftover regions are equal: $a^2 + b^2 = c^2$.\",\n        svgInner: \"<text x='120' y='130' text-anchor='middle' font-size='22' fill='var(--yellow)' font-weight='600'>a² + b² = c²</text>\",\n      },\n    ],\n  });\n})();\n</script>"
   },
   {
-    "slug": "qft-diagrams",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "qft-diagrams widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Feynman amplitude assembly: $e^+e^- \\to \\mu^+\\mu^-$ tree, plus a one-loop correction\" widget on the quantum-field-theory topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Feynman amplitude assembly: $e^+e^- \\to \\mu^+\\mu^-$ tree, plus a one-loop correction\" widget on `quantum-field-theory`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "qft-fock",
     "family": "verbatim",
     "dimension": "2d",
@@ -15286,69 +15181,6 @@ window.__MVWidgets = [
       "bodyScript"
     ],
     "readmeExcerpt": "Bespoke verbatim slug for the \"Spin-statistics on display: drag particles to swap\" widget on `quantum-field-theory`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "qft-modes",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "qft-modes widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Quantum field as a stack of harmonic oscillators\" widget on the quantum-field-theory topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Quantum field as a stack of harmonic oscillators\" widget on `quantum-field-theory`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "qft-paths",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "qft-paths widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Sum over paths: classical limit by stationary phase\" widget on the quantum-field-theory topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Sum over paths: classical limit by stationary phase\" widget on `quantum-field-theory`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "qft-rg-flow",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "qft-rg-flow widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"RG running: $\\alpha_{\\mathrm{QED}}$ grows, $\\alpha_s$ shrinks with energy\" widget on the quantum-field-theory topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"RG running: $\\alpha_{\\mathrm{QED}}$ grows, $\\alpha_s$ shrinks with energy\" widget on `quantum-field-theory`.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
@@ -18113,27 +17945,6 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "tda-w1",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "tda-w1 widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Vietoris–Rips filtration of a noisy circle\" widget on the topological-data-analysis topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Vietoris–Rips filtration of a noisy circle\" widget on `topological-data-analysis`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "tda-w2",
     "family": "verbatim",
     "dimension": "2d",
@@ -18155,27 +17966,6 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "tda-w3",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "tda-w3 widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Persistence barcode of a noisy circle\" widget on the topological-data-analysis topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Persistence barcode of a noisy circle\" widget on `topological-data-analysis`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "tda-w4",
     "family": "verbatim",
     "dimension": "2d",
@@ -18191,27 +17981,6 @@ window.__MVWidgets = [
       "bodyScript"
     ],
     "readmeExcerpt": "Bespoke verbatim slug for the \"Stability proof — sketch in three slides\" widget on `topological-data-analysis`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "tda-w5",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "tda-w5 widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Mapper on a Y-shaped point cloud\" widget on the topological-data-analysis topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Mapper on a Y-shaped point cloud\" widget on `topological-data-analysis`.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
@@ -18488,27 +18257,6 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "trop-w1",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "trop-w1 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the tropical-geometry topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Tropical polynomial corner-locus plotter for `tropical-geometry` §1. Slider-driven coefficients of the tropical polynomial $f(x,y)=\\min(x,y,c_0)$ trace the resulting tropical line / hypersurface live in $\\mathbb{R}^2$.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "trop-w2",
     "family": "verbatim",
     "dimension": "2d",
@@ -18530,48 +18278,6 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "trop-w3",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "trop-w3 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the tropical-geometry topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Newton-polytope ↔ tropical-curve duality scrubber for `tropical-geometry` §3. Adjust the tropical coefficients of a degree-$d$ polynomial; the regular subdivision of its Newton polytope shifts in lockstep with the dual tropical curve.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "trop-w4",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "trop-w4 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the tropical-geometry topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Tropical Bézout / mixed-volume calculator for `tropical-geometry` §4. Pick degrees $(d_1,d_2)$ for two tropical curves; read off $\\mathrm{MV}(\\Delta_{d_1},\\Delta_{d_2}) = d_1 d_2$ and watch the stable intersection points emerge under translation.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "trop-w5",
     "family": "verbatim",
     "dimension": "2d",
@@ -18587,27 +18293,6 @@ window.__MVWidgets = [
       "bodyScript"
     ],
     "readmeExcerpt": "Baker–Norine chip-firing explorer for `tropical-geometry` §5. Pick a metric graph (theta, banana, dumbbell, $K_4$); fire chips at vertices and watch the divisor's tropical rank update against the Riemann–Roch identity $r(D) - r(K - D) = \\deg D - g + 1$.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "trop-w6",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "trop-w6 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the tropical-geometry topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Mikhalkin correspondence counter for `tropical-geometry` §6. Slide the degree $d$ from $1$ to $4$; the widget displays the number $3d-1$ of generic points required, the matching tropical curve count $N_d^{\\mathrm{trop}}$, and confirms agreement with the Gromov–Witten invariant of $\\mathbb{P}^2$.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,

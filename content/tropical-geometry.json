@@ -12,13 +12,70 @@
         },
         {
           "type": "widget",
-          "slug": "trop-w1",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-trop-poly",
             "title": "Tropical polynomial plotter",
             "hint": "slide the coefficients of $f(x) = \\min(c_0,\\, c_1+x,\\, c_2+2x)$ — corner locus marked",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-trop-poly\">\n  <div class=\"hd\"><div class=\"ttl\">Tropical polynomial plotter</div><div class=\"hint\">slide the coefficients of $f(x) = \\min(c_0,\\, c_1+x,\\, c_2+2x)$ — corner locus marked</div></div>\n  <svg id=\"svg-trop-poly\" viewBox=\"0 0 720 320\" width=\"720\" height=\"320\"><title>Lower-envelope plot of a tropical quadratic polynomial with adjustable coefficients.</title></svg>\n  <div class=\"row\">\n    <label for=\"tp-c0\">$c_0$</label>\n    <input type=\"range\" id=\"tp-c0\" min=\"-4\" max=\"6\" step=\"0.5\" value=\"3\">\n    <span class=\"small\" id=\"tp-c0-val\">c_0 = 3</span>\n  </div>\n  <div class=\"row\">\n    <label for=\"tp-c1\">$c_1$</label>\n    <input type=\"range\" id=\"tp-c1\" min=\"-4\" max=\"6\" step=\"0.5\" value=\"0\">\n    <span class=\"small\" id=\"tp-c1-val\">c_1 = 0</span>\n  </div>\n  <div class=\"row\">\n    <label for=\"tp-c2\">$c_2$</label>\n    <input type=\"range\" id=\"tp-c2\" min=\"-4\" max=\"6\" step=\"0.5\" value=\"-2\">\n    <span class=\"small\" id=\"tp-c2-val\">c_2 = -2</span>\n  </div>\n  <div class=\"readout\" id=\"out-trop-poly\"></div>\n</div>",
-            "bodyScript": "\n<script>\n(function(){\n  const svg = $('#svg-trop-poly');\n  const out = $('#out-trop-poly');\n  if(!svg) return;\n  const c0El = $('#tp-c0'), c1El = $('#tp-c1'), c2El = $('#tp-c2');\n  const c0Val = $('#tp-c0-val'), c1Val = $('#tp-c1-val'), c2Val = $('#tp-c2-val');\n  const W = 720, H = 320, padL = 56, padR = 24, padT = 30, padB = 50;\n  const xMin = -4, xMax = 4;\n  function draw(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const c0 = +c0El.value, c1 = +c1El.value, c2 = +c2El.value;\n    c0Val.textContent = 'c_0 = ' + c0;\n    c1Val.textContent = 'c_1 = ' + c1;\n    c2Val.textContent = 'c_2 = ' + c2;\n    // sample f\n    const N = 400;\n    const xs = [], ys = [];\n    let yMin = Infinity, yMax = -Infinity;\n    for(let i=0;i<=N;i++){\n      const x = xMin + (xMax-xMin)*i/N;\n      const a = c0, b = c1+x, c = c2+2*x;\n      const y = Math.min(a,b,c);\n      xs.push(x); ys.push(y);\n      if(y<yMin) yMin = y;\n      if(y>yMax) yMax = y;\n    }\n    const yPad = (yMax-yMin)*0.18 + 1;\n    const yLo = yMin - yPad, yHi = yMax + yPad;\n    const X = (x)=> padL + (W - padL - padR) * (x - xMin) / (xMax - xMin);\n    const Y = (y)=> padT + (H - padT - padB) * (1 - (y - yLo) / (yHi - yLo));\n    // background + axes\n    svg.appendChild(SVG('rect',{x:0,y:0,width:W,height:H,fill:'var(--panel2)',stroke:'var(--line)',rx:8}));\n    // axes lines\n    svg.appendChild(SVG('line',{x1:padL,y1:H-padB,x2:W-padR,y2:H-padB,stroke:'var(--mute)','stroke-width':1}));\n    svg.appendChild(SVG('line',{x1:padL,y1:padT,x2:padL,y2:H-padB,stroke:'var(--mute)','stroke-width':1}));\n    // x ticks\n    for(let xt=Math.ceil(xMin); xt<=Math.floor(xMax); xt++){\n      const xx = X(xt);\n      svg.appendChild(SVG('line',{x1:xx,y1:H-padB,x2:xx,y2:H-padB+5,stroke:'var(--mute)'}));\n      const t = SVG('text',{x:xx,y:H-padB+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n      t.textContent = xt; svg.appendChild(t);\n    }\n    // axis labels\n    const xlab = SVG('text',{x:W-padR-4,y:H-padB-6,'text-anchor':'end','font-size':12,fill:'var(--mute)'}); xlab.textContent='x'; svg.appendChild(xlab);\n    const ylab = SVG('text',{x:padL+6,y:padT+12,'text-anchor':'start','font-size':12,fill:'var(--mute)'}); ylab.textContent='f(x)'; svg.appendChild(ylab);\n    // draw the three monomial lines lightly\n    function plotLine(slope, intercept, color){\n      const x1=xMin, y1=intercept+slope*xMin;\n      const x2=xMax, y2=intercept+slope*xMax;\n      svg.appendChild(SVG('line',{x1:X(x1),y1:Y(y1),x2:X(x2),y2:Y(y2),stroke:color,'stroke-width':1,'stroke-dasharray':'4 3',opacity:0.55}));\n    }\n    plotLine(0, c0, 'var(--blue)');\n    plotLine(1, c1, 'var(--green)');\n    plotLine(2, c2, 'var(--violet)');\n    // envelope polyline\n    let d = '';\n    for(let i=0;i<=N;i++){\n      d += (i===0?'M':'L')+X(xs[i])+' '+Y(ys[i])+' ';\n    }\n    svg.appendChild(SVG('path',{d, fill:'none',stroke:'var(--yellow)','stroke-width':2.4}));\n    // corner points: where two of {c0, c1+x, c2+2x} are equal AND ≤ third\n    // c0 = c1+x  => x = c0 - c1; valid if c0 ≤ c2+2x i.e. c0-c2 ≤ 2x i.e. x ≥ (c0-c2)/2\n    // c1+x = c2+2x => x = c1-c2; valid if c1+x ≤ c0\n    // c0 = c2+2x => x = (c0-c2)/2; valid if c0 ≤ c1+x\n    const corners = [];\n    function tryCorner(x, yEval){\n      if(x<xMin || x>xMax) return;\n      const a = c0, b = c1+x, c = c2+2*x;\n      const m = Math.min(a,b,c);\n      if(Math.abs(yEval - m) < 1e-7) corners.push({x,y:m});\n    }\n    tryCorner(c0 - c1, c0);\n    tryCorner(c1 - c2, c1 + (c1-c2));\n    tryCorner((c0 - c2)/2, c0);\n    // dedupe\n    const seen = new Set();\n    const uniqCorners = corners.filter(p=>{ const k=p.x.toFixed(4); if(seen.has(k)) return false; seen.add(k); return true; });\n    for(const p of uniqCorners){\n      svg.appendChild(SVG('circle',{cx:X(p.x),cy:Y(p.y),r:5,fill:'var(--pink)',stroke:'var(--ink)','stroke-width':1.5}));\n    }\n    // legend\n    function legend(x,y,color,text){\n      svg.appendChild(SVG('rect',{x,y,width:14,height:3,fill:color}));\n      const t = SVG('text',{x:x+18,y:y+5,'font-size':11,fill:'var(--mute)'}); t.textContent=text; svg.appendChild(t);\n    }\n    legend(W-180, padT-8, 'var(--blue)', 'c_0 (slope 0)');\n    legend(W-180, padT+8, 'var(--green)', 'c_1 + x (slope 1)');\n    legend(W-180, padT+24, 'var(--violet)', 'c_2 + 2x (slope 2)');\n    legend(W-180, padT+40, 'var(--yellow)', 'tropical f(x)');\n    // readout\n    const cornersTxt = uniqCorners.length === 0 ? 'no corner in range — single monomial dominates' : uniqCorners.map(p=>'x = '+p.x.toFixed(2)).join(', ');\n    out.textContent = 'f(x) = min(c_0, c_1 + x, c_2 + 2x) with c_0='+c0+', c_1='+c1+', c_2='+c2+'.   corner locus V(f): '+cornersTxt+'.   ('+uniqCorners.length+' point'+(uniqCorners.length===1?'':'s')+').';\n  }\n  c0El.addEventListener('input', draw);\n  c1El.addEventListener('input', draw);\n  c2El.addEventListener('input', draw);\n  draw();\n})();\n</script>"
+            "controls": [
+              {
+                "type": "slider",
+                "id": "tp-c0",
+                "label": "$c_0$",
+                "min": -4,
+                "max": 6,
+                "value": 3,
+                "format": "separate",
+                "step": 0.5
+              },
+              {
+                "type": "span",
+                "id": "tp-c0-val",
+                "text": "c_0 = 3"
+              },
+              {
+                "type": "slider",
+                "id": "tp-c1",
+                "label": "$c_1$",
+                "min": -4,
+                "max": 6,
+                "value": 0,
+                "format": "separate",
+                "step": 0.5
+              },
+              {
+                "type": "span",
+                "id": "tp-c1-val",
+                "text": "c_1 = 0"
+              },
+              {
+                "type": "slider",
+                "id": "tp-c2",
+                "label": "$c_2$",
+                "min": -4,
+                "max": 6,
+                "value": -2,
+                "format": "separate",
+                "step": 0.5
+              },
+              {
+                "type": "span",
+                "id": "tp-c2-val",
+                "text": "c_2 = -2"
+              }
+            ],
+            "svg": {
+              "id": "svg-trop-poly",
+              "viewBox": "0 0 720 320",
+              "width": 720,
+              "height": 320,
+              "title": "Lower-envelope plot of a tropical quadratic polynomial with adjustable coefficients."
+            },
+            "readout": {
+              "id": "out-trop-poly"
+            },
+            "bodyScript": "\n<script>\n(function(){\n  const svg = $('#svg-trop-poly');\n  const out = $('#out-trop-poly');\n  if(!svg) return;\n  const c0El = $('#tp-c0'), c1El = $('#tp-c1'), c2El = $('#tp-c2');\n  const c0Val = $('#tp-c0-val'), c1Val = $('#tp-c1-val'), c2Val = $('#tp-c2-val');\n  const W = 720, H = 320, padL = 56, padR = 24, padT = 30, padB = 50;\n  const xMin = -4, xMax = 4;\n  function draw(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const c0 = +c0El.value, c1 = +c1El.value, c2 = +c2El.value;\n    c0Val.textContent = 'c_0 = ' + c0;\n    c1Val.textContent = 'c_1 = ' + c1;\n    c2Val.textContent = 'c_2 = ' + c2;\n    // sample f\n    const N = 400;\n    const xs = [], ys = [];\n    let yMin = Infinity, yMax = -Infinity;\n    for(let i=0;i<=N;i++){\n      const x = xMin + (xMax-xMin)*i/N;\n      const a = c0, b = c1+x, c = c2+2*x;\n      const y = Math.min(a,b,c);\n      xs.push(x); ys.push(y);\n      if(y<yMin) yMin = y;\n      if(y>yMax) yMax = y;\n    }\n    const yPad = (yMax-yMin)*0.18 + 1;\n    const yLo = yMin - yPad, yHi = yMax + yPad;\n    const X = (x)=> padL + (W - padL - padR) * (x - xMin) / (xMax - xMin);\n    const Y = (y)=> padT + (H - padT - padB) * (1 - (y - yLo) / (yHi - yLo));\n    // background + axes\n    svg.appendChild(SVG('rect',{x:0,y:0,width:W,height:H,fill:'var(--panel2)',stroke:'var(--line)',rx:8}));\n    // axes lines\n    svg.appendChild(SVG('line',{x1:padL,y1:H-padB,x2:W-padR,y2:H-padB,stroke:'var(--mute)','stroke-width':1}));\n    svg.appendChild(SVG('line',{x1:padL,y1:padT,x2:padL,y2:H-padB,stroke:'var(--mute)','stroke-width':1}));\n    // x ticks\n    for(let xt=Math.ceil(xMin); xt<=Math.floor(xMax); xt++){\n      const xx = X(xt);\n      svg.appendChild(SVG('line',{x1:xx,y1:H-padB,x2:xx,y2:H-padB+5,stroke:'var(--mute)'}));\n      const t = SVG('text',{x:xx,y:H-padB+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n      t.textContent = xt; svg.appendChild(t);\n    }\n    // axis labels\n    const xlab = SVG('text',{x:W-padR-4,y:H-padB-6,'text-anchor':'end','font-size':12,fill:'var(--mute)'}); xlab.textContent='x'; svg.appendChild(xlab);\n    const ylab = SVG('text',{x:padL+6,y:padT+12,'text-anchor':'start','font-size':12,fill:'var(--mute)'}); ylab.textContent='f(x)'; svg.appendChild(ylab);\n    // draw the three monomial lines lightly\n    function plotLine(slope, intercept, color){\n      const x1=xMin, y1=intercept+slope*xMin;\n      const x2=xMax, y2=intercept+slope*xMax;\n      svg.appendChild(SVG('line',{x1:X(x1),y1:Y(y1),x2:X(x2),y2:Y(y2),stroke:color,'stroke-width':1,'stroke-dasharray':'4 3',opacity:0.55}));\n    }\n    plotLine(0, c0, 'var(--blue)');\n    plotLine(1, c1, 'var(--green)');\n    plotLine(2, c2, 'var(--violet)');\n    // envelope polyline\n    let d = '';\n    for(let i=0;i<=N;i++){\n      d += (i===0?'M':'L')+X(xs[i])+' '+Y(ys[i])+' ';\n    }\n    svg.appendChild(SVG('path',{d, fill:'none',stroke:'var(--yellow)','stroke-width':2.4}));\n    // corner points: where two of {c0, c1+x, c2+2x} are equal AND ≤ third\n    // c0 = c1+x  => x = c0 - c1; valid if c0 ≤ c2+2x i.e. c0-c2 ≤ 2x i.e. x ≥ (c0-c2)/2\n    // c1+x = c2+2x => x = c1-c2; valid if c1+x ≤ c0\n    // c0 = c2+2x => x = (c0-c2)/2; valid if c0 ≤ c1+x\n    const corners = [];\n    function tryCorner(x, yEval){\n      if(x<xMin || x>xMax) return;\n      const a = c0, b = c1+x, c = c2+2*x;\n      const m = Math.min(a,b,c);\n      if(Math.abs(yEval - m) < 1e-7) corners.push({x,y:m});\n    }\n    tryCorner(c0 - c1, c0);\n    tryCorner(c1 - c2, c1 + (c1-c2));\n    tryCorner((c0 - c2)/2, c0);\n    // dedupe\n    const seen = new Set();\n    const uniqCorners = corners.filter(p=>{ const k=p.x.toFixed(4); if(seen.has(k)) return false; seen.add(k); return true; });\n    for(const p of uniqCorners){\n      svg.appendChild(SVG('circle',{cx:X(p.x),cy:Y(p.y),r:5,fill:'var(--pink)',stroke:'var(--ink)','stroke-width':1.5}));\n    }\n    // legend\n    function legend(x,y,color,text){\n      svg.appendChild(SVG('rect',{x,y,width:14,height:3,fill:color}));\n      const t = SVG('text',{x:x+18,y:y+5,'font-size':11,fill:'var(--mute)'}); t.textContent=text; svg.appendChild(t);\n    }\n    legend(W-180, padT-8, 'var(--blue)', 'c_0 (slope 0)');\n    legend(W-180, padT+8, 'var(--green)', 'c_1 + x (slope 1)');\n    legend(W-180, padT+24, 'var(--violet)', 'c_2 + 2x (slope 2)');\n    legend(W-180, padT+40, 'var(--yellow)', 'tropical f(x)');\n    // readout\n    const cornersTxt = uniqCorners.length === 0 ? 'no corner in range — single monomial dominates' : uniqCorners.map(p=>'x = '+p.x.toFixed(2)).join(', ');\n    out.textContent = 'f(x) = min(c_0, c_1 + x, c_2 + 2x) with c_0='+c0+', c_1='+c1+', c_2='+c2+'.   corner locus V(f): '+cornersTxt+'.   ('+uniqCorners.length+' point'+(uniqCorners.length===1?'':'s')+').';\n  }\n  c0El.addEventListener('input', draw);\n  c1El.addEventListener('input', draw);\n  c2El.addEventListener('input', draw);\n  draw();\n})();\n</script>",
+            "wrapperHasId": true
           }
         },
         {
@@ -94,13 +151,70 @@
         },
         {
           "type": "widget",
-          "slug": "trop-w3",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-newton-dual",
             "title": "Newton polytope ↔ tropical curve",
             "hint": "slide the lift heights of a degree-2 curve — watch the dual subdivision and tropical conic move",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-newton-dual\">\n  <div class=\"hd\"><div class=\"ttl\">Newton polytope ↔ tropical curve</div><div class=\"hint\">slide the lift heights of a degree-2 curve — watch the dual subdivision and tropical conic move</div></div>\n  <svg id=\"svg-newton\" viewBox=\"0 0 720 380\" width=\"720\" height=\"380\"><title>Newton triangle of a degree-2 polynomial with adjustable height function and the dual tropical curve.</title></svg>\n  <div class=\"row\">\n    <label for=\"nd-h00\">$v(c_{00})$</label>\n    <input type=\"range\" id=\"nd-h00\" min=\"0\" max=\"6\" step=\"0.5\" value=\"0\">\n    <span class=\"small\" id=\"nd-h00-val\">0</span>\n  </div>\n  <div class=\"row\">\n    <label for=\"nd-h11\">$v(c_{11})$</label>\n    <input type=\"range\" id=\"nd-h11\" min=\"0\" max=\"6\" step=\"0.5\" value=\"0\">\n    <span class=\"small\" id=\"nd-h11-val\">0</span>\n  </div>\n  <div class=\"row\">\n    <label for=\"nd-h20\">$v(c_{20})$</label>\n    <input type=\"range\" id=\"nd-h20\" min=\"0\" max=\"6\" step=\"0.5\" value=\"0\">\n    <span class=\"small\" id=\"nd-h20-val\">0</span>\n  </div>\n  <div class=\"readout\" id=\"out-newton\"></div>\n</div>",
-            "bodyScript": "\n<script>\n(function(){\n  const svg = $('#svg-newton'), out = $('#out-newton');\n  if(!svg) return;\n  const h00El = $('#nd-h00'), h11El = $('#nd-h11'), h20El = $('#nd-h20');\n  const h00V = $('#nd-h00-val'), h11V = $('#nd-h11-val'), h20V = $('#nd-h20-val');\n  const W = 720, H = 380;\n  // 6 lattice points of the degree-2 Newton triangle: (0,0),(1,0),(2,0),(0,1),(1,1),(0,2)\n  // Their default valuations are all 0. We expose v(c_{00}), v(c_{11}), v(c_{20}) as the\n  // three slider knobs; the other three (10, 01, 02) are pinned at 0.\n  function draw(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const h00 = +h00El.value, h11 = +h11El.value, h20 = +h20El.value;\n    h00V.textContent = h00; h11V.textContent = h11; h20V.textContent = h20;\n    svg.appendChild(SVG('rect',{x:0,y:0,width:W,height:H,fill:'var(--panel2)',stroke:'var(--line)',rx:8}));\n    // ===== left panel: Newton polytope with regular subdivision =====\n    const Lx = 30, Ly = 50, Ls = 130; // lattice cell size 60\n    const cell = 70;\n    // points: dictionary index -> (i,j, v)\n    const pts = {\n      '00':{i:0,j:0,v:h00},'10':{i:1,j:0,v:0},'20':{i:2,j:0,v:h20},\n      '01':{i:0,j:1,v:0},'11':{i:1,j:1,v:h11},'02':{i:0,j:2,v:0}\n    };\n    function P(i,j){ return [Lx + i*cell + 30, Ly + (2-j)*cell + 30]; }\n    // outer triangle\n    const T = SVG('polygon',{points:[P(0,0),P(2,0),P(0,2)].map(p=>p.join(',')).join(' '),fill:'var(--panel)',stroke:'var(--mute)','stroke-width':1.5});\n    svg.appendChild(T);\n    // regular subdivision: among the 4 small triangles ((00,10,11),(10,20,11),(00,11,01),(01,11,02)),\n    // each appears in the lower hull only if the average height of its vertices is \"low enough\"\n    // For our purposes we draw all 4 if any non-zero heights, else just the outer triangle.\n    const hasLifts = (h00>0 || h11>0 || h20>0);\n    const subdivs = hasLifts ? [\n      ['00','10','11'],['10','20','11'],['00','11','01'],['01','11','02']\n    ] : [];\n    for(const tri of subdivs){\n      const pts2 = tri.map(k=>P(pts[k].i, pts[k].j));\n      svg.appendChild(SVG('polygon',{points:pts2.map(p=>p.join(',')).join(' '),fill:'none',stroke:'var(--cyan)','stroke-width':1.4,'stroke-dasharray':'3 2'}));\n    }\n    // lattice points\n    for(const k in pts){\n      const p = pts[k];\n      const [px,py] = P(p.i, p.j);\n      svg.appendChild(SVG('circle',{cx:px,cy:py,r:5,fill:'var(--yellow)',stroke:'var(--ink)','stroke-width':1}));\n      const tlab = SVG('text',{x:px,y:py-9,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n      tlab.textContent = `(${p.i},${p.j})`+(p.v>0?` ↑${p.v}`:'');\n      svg.appendChild(tlab);\n    }\n    // panel header\n    const hdr1 = SVG('text',{x:Lx+90,y:Ly+18,'text-anchor':'middle','font-size':12,fill:'var(--cyan)','font-weight':600});\n    hdr1.textContent = 'Newton triangle (lifted)'; svg.appendChild(hdr1);\n    // ===== right panel: tropical curve in R^2 =====\n    const Rx = 360, Ry = 50, Rs = 280;\n    svg.appendChild(SVG('rect',{x:Rx,y:Ry,width:Rs,height:Rs,fill:'var(--panel)',stroke:'var(--line)','stroke-width':1,rx:6}));\n    const hdr2 = SVG('text',{x:Rx+Rs/2,y:Ry+18,'text-anchor':'middle','font-size':12,fill:'var(--yellow)','font-weight':600});\n    hdr2.textContent = 'Tropical curve V(trop f) ⊂ ℝ²'; svg.appendChild(hdr2);\n    // sample\n    const N = 220;\n    const xMin = -3, xMax = 3, yMin = -3, yMax = 3;\n    function val(x,y){\n      // monomials with coefs (h00,0,h20, 0,h11, 0) — we use min over all 6 lattice points\n      const m = [\n        h00 + 0*x + 0*y,\n        0   + 1*x + 0*y,\n        h20 + 2*x + 0*y,\n        0   + 0*x + 1*y,\n        h11 + 1*x + 1*y,\n        0   + 0*x + 2*y\n      ];\n      m.sort((a,b)=>a-b);\n      return [m[0], m[1]];\n    }\n    // for each grid cell, mark if min1 ≈ min2 (corner locus)\n    const eps = 0.18;\n    const ptsCorner = [];\n    for(let i=0;i<N;i++){\n      for(let j=0;j<N;j++){\n        const x = xMin + (xMax-xMin)*i/(N-1);\n        const y = yMin + (yMax-yMin)*j/(N-1);\n        const [m1,m2] = val(x,y);\n        if(m2 - m1 < eps){\n          ptsCorner.push([x,y]);\n        }\n      }\n    }\n    const Xp = (x)=> Rx + 12 + (Rs-24)*(x-xMin)/(xMax-xMin);\n    const Yp = (y)=> Ry + Rs - 12 - (Rs-24)*(y-yMin)/(yMax-yMin);\n    // axes\n    svg.appendChild(SVG('line',{x1:Rx+12,y1:Yp(0),x2:Rx+Rs-12,y2:Yp(0),stroke:'var(--mute)',opacity:0.4}));\n    svg.appendChild(SVG('line',{x1:Xp(0),y1:Ry+18,x2:Xp(0),y2:Ry+Rs-12,stroke:'var(--mute)',opacity:0.4}));\n    for(const [x,y] of ptsCorner){\n      svg.appendChild(SVG('rect',{x:Xp(x)-1.5,y:Yp(y)-1.5,width:3,height:3,fill:'var(--yellow)',opacity:0.7}));\n    }\n    // duality line\n    svg.appendChild(SVG('line',{x1:Lx+200,y1:Ly+Ls+5,x2:Rx-10,y2:Ry+Rs/2,stroke:'var(--violet)','stroke-dasharray':'5 4',opacity:0.5}));\n    const dt = SVG('text',{x:(Lx+200+Rx)/2,y:(Ly+Ls+Ry+Rs/2)/2,'text-anchor':'middle','font-size':11,fill:'var(--violet)','font-style':'italic'});\n    dt.textContent = 'dual'; svg.appendChild(dt);\n    // readout\n    const numComp = subdivs.length === 0 ? 1 : 4;\n    out.textContent = 'Lifted Newton triangle: '+(hasLifts?'subdivided into '+numComp+' small triangles':'no subdivision (all heights = 0)')+'.   Tropical curve: '+(hasLifts?'three trivalent vertices and 6 unbounded rays — generic tropical conic':'a single 4-valent vertex (degenerate)')+'.   v(c_{00})='+h00+', v(c_{11})='+h11+', v(c_{20})='+h20+'.';\n  }\n  h00El.addEventListener('input', draw);\n  h11El.addEventListener('input', draw);\n  h20El.addEventListener('input', draw);\n  draw();\n})();\n</script>"
+            "controls": [
+              {
+                "type": "slider",
+                "id": "nd-h00",
+                "label": "$v(c_{00})$",
+                "min": 0,
+                "max": 6,
+                "value": 0,
+                "format": "separate",
+                "step": 0.5
+              },
+              {
+                "type": "span",
+                "id": "nd-h00-val",
+                "text": "0"
+              },
+              {
+                "type": "slider",
+                "id": "nd-h11",
+                "label": "$v(c_{11})$",
+                "min": 0,
+                "max": 6,
+                "value": 0,
+                "format": "separate",
+                "step": 0.5
+              },
+              {
+                "type": "span",
+                "id": "nd-h11-val",
+                "text": "0"
+              },
+              {
+                "type": "slider",
+                "id": "nd-h20",
+                "label": "$v(c_{20})$",
+                "min": 0,
+                "max": 6,
+                "value": 0,
+                "format": "separate",
+                "step": 0.5
+              },
+              {
+                "type": "span",
+                "id": "nd-h20-val",
+                "text": "0"
+              }
+            ],
+            "svg": {
+              "id": "svg-newton",
+              "viewBox": "0 0 720 380",
+              "width": 720,
+              "height": 380,
+              "title": "Newton triangle of a degree-2 polynomial with adjustable height function and the dual tropical curve."
+            },
+            "readout": {
+              "id": "out-newton"
+            },
+            "bodyScript": "\n<script>\n(function(){\n  const svg = $('#svg-newton'), out = $('#out-newton');\n  if(!svg) return;\n  const h00El = $('#nd-h00'), h11El = $('#nd-h11'), h20El = $('#nd-h20');\n  const h00V = $('#nd-h00-val'), h11V = $('#nd-h11-val'), h20V = $('#nd-h20-val');\n  const W = 720, H = 380;\n  // 6 lattice points of the degree-2 Newton triangle: (0,0),(1,0),(2,0),(0,1),(1,1),(0,2)\n  // Their default valuations are all 0. We expose v(c_{00}), v(c_{11}), v(c_{20}) as the\n  // three slider knobs; the other three (10, 01, 02) are pinned at 0.\n  function draw(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const h00 = +h00El.value, h11 = +h11El.value, h20 = +h20El.value;\n    h00V.textContent = h00; h11V.textContent = h11; h20V.textContent = h20;\n    svg.appendChild(SVG('rect',{x:0,y:0,width:W,height:H,fill:'var(--panel2)',stroke:'var(--line)',rx:8}));\n    // ===== left panel: Newton polytope with regular subdivision =====\n    const Lx = 30, Ly = 50, Ls = 130; // lattice cell size 60\n    const cell = 70;\n    // points: dictionary index -> (i,j, v)\n    const pts = {\n      '00':{i:0,j:0,v:h00},'10':{i:1,j:0,v:0},'20':{i:2,j:0,v:h20},\n      '01':{i:0,j:1,v:0},'11':{i:1,j:1,v:h11},'02':{i:0,j:2,v:0}\n    };\n    function P(i,j){ return [Lx + i*cell + 30, Ly + (2-j)*cell + 30]; }\n    // outer triangle\n    const T = SVG('polygon',{points:[P(0,0),P(2,0),P(0,2)].map(p=>p.join(',')).join(' '),fill:'var(--panel)',stroke:'var(--mute)','stroke-width':1.5});\n    svg.appendChild(T);\n    // regular subdivision: among the 4 small triangles ((00,10,11),(10,20,11),(00,11,01),(01,11,02)),\n    // each appears in the lower hull only if the average height of its vertices is \"low enough\"\n    // For our purposes we draw all 4 if any non-zero heights, else just the outer triangle.\n    const hasLifts = (h00>0 || h11>0 || h20>0);\n    const subdivs = hasLifts ? [\n      ['00','10','11'],['10','20','11'],['00','11','01'],['01','11','02']\n    ] : [];\n    for(const tri of subdivs){\n      const pts2 = tri.map(k=>P(pts[k].i, pts[k].j));\n      svg.appendChild(SVG('polygon',{points:pts2.map(p=>p.join(',')).join(' '),fill:'none',stroke:'var(--cyan)','stroke-width':1.4,'stroke-dasharray':'3 2'}));\n    }\n    // lattice points\n    for(const k in pts){\n      const p = pts[k];\n      const [px,py] = P(p.i, p.j);\n      svg.appendChild(SVG('circle',{cx:px,cy:py,r:5,fill:'var(--yellow)',stroke:'var(--ink)','stroke-width':1}));\n      const tlab = SVG('text',{x:px,y:py-9,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n      tlab.textContent = `(${p.i},${p.j})`+(p.v>0?` ↑${p.v}`:'');\n      svg.appendChild(tlab);\n    }\n    // panel header\n    const hdr1 = SVG('text',{x:Lx+90,y:Ly+18,'text-anchor':'middle','font-size':12,fill:'var(--cyan)','font-weight':600});\n    hdr1.textContent = 'Newton triangle (lifted)'; svg.appendChild(hdr1);\n    // ===== right panel: tropical curve in R^2 =====\n    const Rx = 360, Ry = 50, Rs = 280;\n    svg.appendChild(SVG('rect',{x:Rx,y:Ry,width:Rs,height:Rs,fill:'var(--panel)',stroke:'var(--line)','stroke-width':1,rx:6}));\n    const hdr2 = SVG('text',{x:Rx+Rs/2,y:Ry+18,'text-anchor':'middle','font-size':12,fill:'var(--yellow)','font-weight':600});\n    hdr2.textContent = 'Tropical curve V(trop f) ⊂ ℝ²'; svg.appendChild(hdr2);\n    // sample\n    const N = 220;\n    const xMin = -3, xMax = 3, yMin = -3, yMax = 3;\n    function val(x,y){\n      // monomials with coefs (h00,0,h20, 0,h11, 0) — we use min over all 6 lattice points\n      const m = [\n        h00 + 0*x + 0*y,\n        0   + 1*x + 0*y,\n        h20 + 2*x + 0*y,\n        0   + 0*x + 1*y,\n        h11 + 1*x + 1*y,\n        0   + 0*x + 2*y\n      ];\n      m.sort((a,b)=>a-b);\n      return [m[0], m[1]];\n    }\n    // for each grid cell, mark if min1 ≈ min2 (corner locus)\n    const eps = 0.18;\n    const ptsCorner = [];\n    for(let i=0;i<N;i++){\n      for(let j=0;j<N;j++){\n        const x = xMin + (xMax-xMin)*i/(N-1);\n        const y = yMin + (yMax-yMin)*j/(N-1);\n        const [m1,m2] = val(x,y);\n        if(m2 - m1 < eps){\n          ptsCorner.push([x,y]);\n        }\n      }\n    }\n    const Xp = (x)=> Rx + 12 + (Rs-24)*(x-xMin)/(xMax-xMin);\n    const Yp = (y)=> Ry + Rs - 12 - (Rs-24)*(y-yMin)/(yMax-yMin);\n    // axes\n    svg.appendChild(SVG('line',{x1:Rx+12,y1:Yp(0),x2:Rx+Rs-12,y2:Yp(0),stroke:'var(--mute)',opacity:0.4}));\n    svg.appendChild(SVG('line',{x1:Xp(0),y1:Ry+18,x2:Xp(0),y2:Ry+Rs-12,stroke:'var(--mute)',opacity:0.4}));\n    for(const [x,y] of ptsCorner){\n      svg.appendChild(SVG('rect',{x:Xp(x)-1.5,y:Yp(y)-1.5,width:3,height:3,fill:'var(--yellow)',opacity:0.7}));\n    }\n    // duality line\n    svg.appendChild(SVG('line',{x1:Lx+200,y1:Ly+Ls+5,x2:Rx-10,y2:Ry+Rs/2,stroke:'var(--violet)','stroke-dasharray':'5 4',opacity:0.5}));\n    const dt = SVG('text',{x:(Lx+200+Rx)/2,y:(Ly+Ls+Ry+Rs/2)/2,'text-anchor':'middle','font-size':11,fill:'var(--violet)','font-style':'italic'});\n    dt.textContent = 'dual'; svg.appendChild(dt);\n    // readout\n    const numComp = subdivs.length === 0 ? 1 : 4;\n    out.textContent = 'Lifted Newton triangle: '+(hasLifts?'subdivided into '+numComp+' small triangles':'no subdivision (all heights = 0)')+'.   Tropical curve: '+(hasLifts?'three trivalent vertices and 6 unbounded rays — generic tropical conic':'a single 4-valent vertex (degenerate)')+'.   v(c_{00})='+h00+', v(c_{11})='+h11+', v(c_{20})='+h20+'.';\n  }\n  h00El.addEventListener('input', draw);\n  h11El.addEventListener('input', draw);\n  h20El.addEventListener('input', draw);\n  draw();\n})();\n</script>",
+            "wrapperHasId": true
           }
         },
         {
@@ -135,13 +249,70 @@
         },
         {
           "type": "widget",
-          "slug": "trop-w4",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-trop-bezout",
             "title": "Tropical Bézout calculator",
             "hint": "pick degrees $(d_1,d_2)$; drag the slider to translate $C_2$ and watch the count stabilize",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-trop-bezout\">\n  <div class=\"hd\"><div class=\"ttl\">Tropical Bézout calculator</div><div class=\"hint\">pick degrees $(d_1,d_2)$; drag the slider to translate $C_2$ and watch the count stabilize</div></div>\n  <svg id=\"svg-bezout\" viewBox=\"0 0 720 360\" width=\"720\" height=\"360\"><title>Two tropical curves with adjustable degrees and translation, displaying their stable intersection count.</title></svg>\n  <div class=\"row\">\n    <label for=\"bz-d1\">degree $d_1$</label>\n    <input type=\"range\" id=\"bz-d1\" min=\"1\" max=\"4\" step=\"1\" value=\"2\">\n    <span class=\"small\" id=\"bz-d1-val\">d_1 = 2</span>\n  </div>\n  <div class=\"row\">\n    <label for=\"bz-d2\">degree $d_2$</label>\n    <input type=\"range\" id=\"bz-d2\" min=\"1\" max=\"4\" step=\"1\" value=\"2\">\n    <span class=\"small\" id=\"bz-d2-val\">d_2 = 2</span>\n  </div>\n  <div class=\"row\">\n    <label for=\"bz-eps\">translation $\\varepsilon$</label>\n    <input type=\"range\" id=\"bz-eps\" min=\"-2\" max=\"2\" step=\"0.1\" value=\"0.7\">\n    <span class=\"small\" id=\"bz-eps-val\">ε = 0.70</span>\n  </div>\n  <div class=\"readout\" id=\"out-bezout\"></div>\n</div>",
-            "bodyScript": "\n<script>\n(function(){\n  const svg = $('#svg-bezout'), out = $('#out-bezout');\n  if(!svg) return;\n  const d1El = $('#bz-d1'), d2El = $('#bz-d2'), epsEl = $('#bz-eps');\n  const d1V = $('#bz-d1-val'), d2V = $('#bz-d2-val'), epsV = $('#bz-eps-val');\n  const W = 720, H = 360;\n  // We model each tropical curve of degree d as a fan-shaped union of d^2 cells.\n  // Concretely we evaluate trop(f) where f is the standard \"honest\" generic tropical\n  // poly of degree d centered at the origin; the corner locus is sampled.\n  function computeTropPoints(d, shiftX, shiftY, sampleN){\n    // standard tropical poly of degree d: coefficients chosen so that the curve has\n    // d^2 \"boxes\" — concretely v(c_{ij}) = h(i,j) where h is a strictly concave function\n    // of (i,j); we pick h(i,j) = -(i^2 + j^2)/4 (any strictly concave choice works).\n    const monos = [];\n    for(let i=0;i<=d;i++) for(let j=0;j+i<=d;j++){\n      const v = -(i*i + j*j)/4;\n      monos.push({i,j,v});\n    }\n    function trop(x,y){\n      let m1 = Infinity, m2 = Infinity;\n      for(const m of monos){\n        const val = m.v + m.i*(x-shiftX) + m.j*(y-shiftY);\n        if(val < m1){ m2 = m1; m1 = val; }\n        else if(val < m2){ m2 = val; }\n      }\n      return m2 - m1;\n    }\n    const xMin=-3, xMax=3, yMin=-3, yMax=3;\n    const eps = 0.12;\n    const pts = [];\n    for(let i=0;i<sampleN;i++){\n      for(let j=0;j<sampleN;j++){\n        const x = xMin + (xMax-xMin)*i/(sampleN-1);\n        const y = yMin + (yMax-yMin)*j/(sampleN-1);\n        if(trop(x,y) < eps) pts.push([x,y]);\n      }\n    }\n    return pts;\n  }\n  function draw(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const d1 = +d1El.value, d2 = +d2El.value, eps = +epsEl.value;\n    d1V.textContent = 'd_1 = ' + d1;\n    d2V.textContent = 'd_2 = ' + d2;\n    epsV.textContent = 'ε = ' + eps.toFixed(2);\n    svg.appendChild(SVG('rect',{x:0,y:0,width:W,height:H,fill:'var(--panel2)',stroke:'var(--line)',rx:8}));\n    const pad = 30;\n    const xMin=-3, xMax=3, yMin=-3, yMax=3;\n    const Xp = (x)=> pad + (W - 2*pad) * (x - xMin) / (xMax - xMin);\n    const Yp = (y)=> H - pad - (H - 2*pad) * (y - yMin) / (yMax - yMin);\n    // axes\n    svg.appendChild(SVG('line',{x1:pad,y1:Yp(0),x2:W-pad,y2:Yp(0),stroke:'var(--mute)',opacity:0.4}));\n    svg.appendChild(SVG('line',{x1:Xp(0),y1:pad,x2:Xp(0),y2:H-pad,stroke:'var(--mute)',opacity:0.4}));\n    // C1 (anchored at origin) — sample density depends on degree to avoid runaway\n    const N1 = 140;\n    const c1 = computeTropPoints(d1, 0, 0, N1);\n    for(const [x,y] of c1){\n      svg.appendChild(SVG('rect',{x:Xp(x)-1,y:Yp(y)-1,width:2,height:2,fill:'var(--yellow)'}));\n    }\n    // C2 translated by (eps, eps*0.7)\n    const sx = eps, sy = eps*0.7;\n    const c2 = computeTropPoints(d2, sx, sy, N1);\n    for(const [x,y] of c2){\n      svg.appendChild(SVG('rect',{x:Xp(x)-1,y:Yp(y)-1,width:2,height:2,fill:'var(--cyan)'}));\n    }\n    // intersection points: a point of c1 within tolerance of a point of c2\n    const tol = 0.07;\n    const intersections = [];\n    for(const [x,y] of c1){\n      for(const [x2,y2] of c2){\n        if(Math.abs(x-x2) < tol && Math.abs(y-y2) < tol){\n          intersections.push([(x+x2)/2,(y+y2)/2]);\n          break;\n        }\n      }\n    }\n    // cluster: collapse intersections within 0.25 of each other to one point\n    const clusters = [];\n    for(const p of intersections){\n      let merged = false;\n      for(const c of clusters){\n        if(Math.hypot(p[0]-c[0], p[1]-c[1]) < 0.25){\n          c[0] = (c[0]+p[0])/2; c[1] = (c[1]+p[1])/2; c[2]++;\n          merged = true; break;\n        }\n      }\n      if(!merged) clusters.push([p[0], p[1], 1]);\n    }\n    // mixed volume = d1*d2 (for plane curves). Display as ground truth.\n    for(const [x,y] of clusters){\n      svg.appendChild(SVG('circle',{cx:Xp(x),cy:Yp(y),r:6,fill:'var(--pink)',stroke:'#fff','stroke-width':1.5}));\n    }\n    // legend\n    const lx = W - 180, ly = pad+8;\n    svg.appendChild(SVG('rect',{x:lx,y:ly,width:14,height:3,fill:'var(--yellow)'}));\n    const lt1 = SVG('text',{x:lx+18,y:ly+6,'font-size':11,fill:'var(--mute)'}); lt1.textContent='C_1 (deg '+d1+')'; svg.appendChild(lt1);\n    svg.appendChild(SVG('rect',{x:lx,y:ly+16,width:14,height:3,fill:'var(--cyan)'}));\n    const lt2 = SVG('text',{x:lx+18,y:ly+22,'font-size':11,fill:'var(--mute)'}); lt2.textContent='C_2 (deg '+d2+', shifted)'; svg.appendChild(lt2);\n    svg.appendChild(SVG('circle',{cx:lx+7,cy:ly+38,r:5,fill:'var(--pink)'}));\n    const lt3 = SVG('text',{x:lx+18,y:ly+42,'font-size':11,fill:'var(--mute)'}); lt3.textContent='intersection point'; svg.appendChild(lt3);\n    const expected = d1*d2;\n    out.innerHTML = '<strong>Mixed volume MV(Δ_'+d1+', Δ_'+d2+') = '+expected+'</strong> &nbsp; · &nbsp; visible cluster count: '+clusters.length+'.<br>'+\n      'Bernstein–Kushnirenko: a generic plane system of degrees ('+d1+', '+d2+') has '+expected+' solutions in (ℂ*)². ' +\n      (Math.abs(eps) < 0.15 ? 'At ε ≈ 0 the curves overlap and the naive count is unstable — slide ε to see the stable count.' : 'Stable count is '+expected+'; the visible-cluster count above approximates this from sampled points.');\n  }\n  d1El.addEventListener('input', draw);\n  d2El.addEventListener('input', draw);\n  epsEl.addEventListener('input', draw);\n  draw();\n})();\n</script>"
+            "controls": [
+              {
+                "type": "slider",
+                "id": "bz-d1",
+                "label": "degree $d_1$",
+                "min": 1,
+                "max": 4,
+                "value": 2,
+                "format": "separate",
+                "step": 1
+              },
+              {
+                "type": "span",
+                "id": "bz-d1-val",
+                "text": "d_1 = 2"
+              },
+              {
+                "type": "slider",
+                "id": "bz-d2",
+                "label": "degree $d_2$",
+                "min": 1,
+                "max": 4,
+                "value": 2,
+                "format": "separate",
+                "step": 1
+              },
+              {
+                "type": "span",
+                "id": "bz-d2-val",
+                "text": "d_2 = 2"
+              },
+              {
+                "type": "slider",
+                "id": "bz-eps",
+                "label": "translation $\\varepsilon$",
+                "min": -2,
+                "max": 2,
+                "value": 0.7,
+                "format": "separate",
+                "step": 0.1
+              },
+              {
+                "type": "span",
+                "id": "bz-eps-val",
+                "text": "ε = 0.70"
+              }
+            ],
+            "svg": {
+              "id": "svg-bezout",
+              "viewBox": "0 0 720 360",
+              "width": 720,
+              "height": 360,
+              "title": "Two tropical curves with adjustable degrees and translation, displaying their stable intersection count."
+            },
+            "readout": {
+              "id": "out-bezout"
+            },
+            "bodyScript": "\n<script>\n(function(){\n  const svg = $('#svg-bezout'), out = $('#out-bezout');\n  if(!svg) return;\n  const d1El = $('#bz-d1'), d2El = $('#bz-d2'), epsEl = $('#bz-eps');\n  const d1V = $('#bz-d1-val'), d2V = $('#bz-d2-val'), epsV = $('#bz-eps-val');\n  const W = 720, H = 360;\n  // We model each tropical curve of degree d as a fan-shaped union of d^2 cells.\n  // Concretely we evaluate trop(f) where f is the standard \"honest\" generic tropical\n  // poly of degree d centered at the origin; the corner locus is sampled.\n  function computeTropPoints(d, shiftX, shiftY, sampleN){\n    // standard tropical poly of degree d: coefficients chosen so that the curve has\n    // d^2 \"boxes\" — concretely v(c_{ij}) = h(i,j) where h is a strictly concave function\n    // of (i,j); we pick h(i,j) = -(i^2 + j^2)/4 (any strictly concave choice works).\n    const monos = [];\n    for(let i=0;i<=d;i++) for(let j=0;j+i<=d;j++){\n      const v = -(i*i + j*j)/4;\n      monos.push({i,j,v});\n    }\n    function trop(x,y){\n      let m1 = Infinity, m2 = Infinity;\n      for(const m of monos){\n        const val = m.v + m.i*(x-shiftX) + m.j*(y-shiftY);\n        if(val < m1){ m2 = m1; m1 = val; }\n        else if(val < m2){ m2 = val; }\n      }\n      return m2 - m1;\n    }\n    const xMin=-3, xMax=3, yMin=-3, yMax=3;\n    const eps = 0.12;\n    const pts = [];\n    for(let i=0;i<sampleN;i++){\n      for(let j=0;j<sampleN;j++){\n        const x = xMin + (xMax-xMin)*i/(sampleN-1);\n        const y = yMin + (yMax-yMin)*j/(sampleN-1);\n        if(trop(x,y) < eps) pts.push([x,y]);\n      }\n    }\n    return pts;\n  }\n  function draw(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const d1 = +d1El.value, d2 = +d2El.value, eps = +epsEl.value;\n    d1V.textContent = 'd_1 = ' + d1;\n    d2V.textContent = 'd_2 = ' + d2;\n    epsV.textContent = 'ε = ' + eps.toFixed(2);\n    svg.appendChild(SVG('rect',{x:0,y:0,width:W,height:H,fill:'var(--panel2)',stroke:'var(--line)',rx:8}));\n    const pad = 30;\n    const xMin=-3, xMax=3, yMin=-3, yMax=3;\n    const Xp = (x)=> pad + (W - 2*pad) * (x - xMin) / (xMax - xMin);\n    const Yp = (y)=> H - pad - (H - 2*pad) * (y - yMin) / (yMax - yMin);\n    // axes\n    svg.appendChild(SVG('line',{x1:pad,y1:Yp(0),x2:W-pad,y2:Yp(0),stroke:'var(--mute)',opacity:0.4}));\n    svg.appendChild(SVG('line',{x1:Xp(0),y1:pad,x2:Xp(0),y2:H-pad,stroke:'var(--mute)',opacity:0.4}));\n    // C1 (anchored at origin) — sample density depends on degree to avoid runaway\n    const N1 = 140;\n    const c1 = computeTropPoints(d1, 0, 0, N1);\n    for(const [x,y] of c1){\n      svg.appendChild(SVG('rect',{x:Xp(x)-1,y:Yp(y)-1,width:2,height:2,fill:'var(--yellow)'}));\n    }\n    // C2 translated by (eps, eps*0.7)\n    const sx = eps, sy = eps*0.7;\n    const c2 = computeTropPoints(d2, sx, sy, N1);\n    for(const [x,y] of c2){\n      svg.appendChild(SVG('rect',{x:Xp(x)-1,y:Yp(y)-1,width:2,height:2,fill:'var(--cyan)'}));\n    }\n    // intersection points: a point of c1 within tolerance of a point of c2\n    const tol = 0.07;\n    const intersections = [];\n    for(const [x,y] of c1){\n      for(const [x2,y2] of c2){\n        if(Math.abs(x-x2) < tol && Math.abs(y-y2) < tol){\n          intersections.push([(x+x2)/2,(y+y2)/2]);\n          break;\n        }\n      }\n    }\n    // cluster: collapse intersections within 0.25 of each other to one point\n    const clusters = [];\n    for(const p of intersections){\n      let merged = false;\n      for(const c of clusters){\n        if(Math.hypot(p[0]-c[0], p[1]-c[1]) < 0.25){\n          c[0] = (c[0]+p[0])/2; c[1] = (c[1]+p[1])/2; c[2]++;\n          merged = true; break;\n        }\n      }\n      if(!merged) clusters.push([p[0], p[1], 1]);\n    }\n    // mixed volume = d1*d2 (for plane curves). Display as ground truth.\n    for(const [x,y] of clusters){\n      svg.appendChild(SVG('circle',{cx:Xp(x),cy:Yp(y),r:6,fill:'var(--pink)',stroke:'#fff','stroke-width':1.5}));\n    }\n    // legend\n    const lx = W - 180, ly = pad+8;\n    svg.appendChild(SVG('rect',{x:lx,y:ly,width:14,height:3,fill:'var(--yellow)'}));\n    const lt1 = SVG('text',{x:lx+18,y:ly+6,'font-size':11,fill:'var(--mute)'}); lt1.textContent='C_1 (deg '+d1+')'; svg.appendChild(lt1);\n    svg.appendChild(SVG('rect',{x:lx,y:ly+16,width:14,height:3,fill:'var(--cyan)'}));\n    const lt2 = SVG('text',{x:lx+18,y:ly+22,'font-size':11,fill:'var(--mute)'}); lt2.textContent='C_2 (deg '+d2+', shifted)'; svg.appendChild(lt2);\n    svg.appendChild(SVG('circle',{cx:lx+7,cy:ly+38,r:5,fill:'var(--pink)'}));\n    const lt3 = SVG('text',{x:lx+18,y:ly+42,'font-size':11,fill:'var(--mute)'}); lt3.textContent='intersection point'; svg.appendChild(lt3);\n    const expected = d1*d2;\n    out.innerHTML = '<strong>Mixed volume MV(Δ_'+d1+', Δ_'+d2+') = '+expected+'</strong> &nbsp; · &nbsp; visible cluster count: '+clusters.length+'.<br>'+\n      'Bernstein–Kushnirenko: a generic plane system of degrees ('+d1+', '+d2+') has '+expected+' solutions in (ℂ*)². ' +\n      (Math.abs(eps) < 0.15 ? 'At ε ≈ 0 the curves overlap and the naive count is unstable — slide ε to see the stable count.' : 'Stable count is '+expected+'; the visible-cluster count above approximates this from sampled points.');\n  }\n  d1El.addEventListener('input', draw);\n  d2El.addEventListener('input', draw);\n  epsEl.addEventListener('input', draw);\n  draw();\n})();\n</script>",
+            "wrapperHasId": true
           }
         },
         {
@@ -221,13 +392,40 @@
         },
         {
           "type": "widget",
-          "slug": "trop-w6",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-mikhalkin",
             "title": "Mikhalkin counts $N_d$",
             "hint": "slide $d$ — see required points $3d-1$ and the GW count $N_d$ from the tropical sum",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-mikhalkin\">\n  <div class=\"hd\"><div class=\"ttl\">Mikhalkin counts $N_d$</div><div class=\"hint\">slide $d$ — see required points $3d-1$ and the GW count $N_d$ from the tropical sum</div></div>\n  <svg id=\"svg-mikh\" viewBox=\"0 0 720 280\" width=\"720\" height=\"280\"><title>Bar chart of genus-0 Gromov-Witten invariants N_d of P^2 vs degree d.</title></svg>\n  <div class=\"row\">\n    <label for=\"mk-d\">degree $d$</label>\n    <input type=\"range\" id=\"mk-d\" min=\"1\" max=\"4\" step=\"1\" value=\"2\">\n    <span class=\"small\" id=\"mk-d-val\">d = 2</span>\n  </div>\n  <div class=\"readout\" id=\"out-mikh\"></div>\n</div>",
-            "bodyScript": "\n<script>\n(function(){\n  const svg = $('#svg-mikh'), out = $('#out-mikh');\n  if(!svg) return;\n  const dEl = $('#mk-d'), dV = $('#mk-d-val');\n  const W=720, H=280;\n  // Genus-0 GW invariants of P^2 (Kontsevich's recursive formula): N_1=1, N_2=1, N_3=12, N_4=620.\n  const N = {1:1, 2:1, 3:12, 4:620};\n  function draw(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const d = +dEl.value;\n    dV.textContent = 'd = ' + d;\n    svg.appendChild(SVG('rect',{x:0,y:0,width:W,height:H,fill:'var(--panel2)',stroke:'var(--line)',rx:8}));\n    // bar chart: log scale of N_d\n    const ds = [1,2,3,4];\n    const Nmax = Math.log10(N[4]+10);\n    const padL = 70, padB = 60, padT = 40;\n    const cw = (W - padL - 50) / ds.length;\n    for(let i=0;i<ds.length;i++){\n      const di = ds[i];\n      const Ni = N[di];\n      const h = (Math.log10(Ni+1)/Nmax)*(H - padT - padB);\n      const x = padL + i*cw + 20;\n      const y = H - padB - h;\n      const fill = (di===d) ? 'var(--yellow)' : 'var(--violet)';\n      svg.appendChild(SVG('rect',{x,y,width:cw-30,height:h,fill,stroke:'var(--ink)','stroke-width': di===d ? 2 : 1}));\n      const lab = SVG('text',{x:x+(cw-30)/2,y:H-padB+18,'text-anchor':'middle','font-size':12,fill:'var(--ink)'});\n      lab.textContent = 'd = '+di; svg.appendChild(lab);\n      const need = 3*di - 1;\n      const lab2 = SVG('text',{x:x+(cw-30)/2,y:H-padB+34,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n      lab2.textContent = '('+need+' pts)'; svg.appendChild(lab2);\n      const labN = SVG('text',{x:x+(cw-30)/2,y:y-8,'text-anchor':'middle','font-size':14,fill:'var(--ink)','font-weight':600});\n      labN.textContent = 'N = '+Ni; svg.appendChild(labN);\n    }\n    // header\n    const hdr = SVG('text',{x:W/2,y:24,'text-anchor':'middle','font-size':13,fill:'var(--ink)','font-weight':600});\n    hdr.textContent = 'Genus-0 GW invariants N_d of ℙ² (log-height bars)'; svg.appendChild(hdr);\n    // axis\n    svg.appendChild(SVG('line',{x1:padL,y1:H-padB,x2:W-30,y2:H-padB,stroke:'var(--mute)'}));\n    out.innerHTML = '<strong>Degree '+d+':</strong> '+(3*d-1)+' generic points required; N_'+d+' = '+N[d]+'.<br>'+\n      'Mikhalkin: N_d = Σ μ(T) over rational tropical curves of degree d through the tropicalized points.<br>'+\n      'For d='+d+', the matching tropical sum reproduces N_'+d+' exactly. Kontsevich\\'s recursion gives N_5 = 87304, N_6 = 26312976, …';\n  }\n  dEl.addEventListener('input', draw);\n  draw();\n})();\n</script>"
+            "controls": [
+              {
+                "type": "slider",
+                "id": "mk-d",
+                "label": "degree $d$",
+                "min": 1,
+                "max": 4,
+                "value": 2,
+                "format": "separate",
+                "step": 1
+              },
+              {
+                "type": "span",
+                "id": "mk-d-val",
+                "text": "d = 2"
+              }
+            ],
+            "svg": {
+              "id": "svg-mikh",
+              "viewBox": "0 0 720 280",
+              "width": 720,
+              "height": 280,
+              "title": "Bar chart of genus-0 Gromov-Witten invariants N_d of P^2 vs degree d."
+            },
+            "readout": {
+              "id": "out-mikh"
+            },
+            "bodyScript": "\n<script>\n(function(){\n  const svg = $('#svg-mikh'), out = $('#out-mikh');\n  if(!svg) return;\n  const dEl = $('#mk-d'), dV = $('#mk-d-val');\n  const W=720, H=280;\n  // Genus-0 GW invariants of P^2 (Kontsevich's recursive formula): N_1=1, N_2=1, N_3=12, N_4=620.\n  const N = {1:1, 2:1, 3:12, 4:620};\n  function draw(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const d = +dEl.value;\n    dV.textContent = 'd = ' + d;\n    svg.appendChild(SVG('rect',{x:0,y:0,width:W,height:H,fill:'var(--panel2)',stroke:'var(--line)',rx:8}));\n    // bar chart: log scale of N_d\n    const ds = [1,2,3,4];\n    const Nmax = Math.log10(N[4]+10);\n    const padL = 70, padB = 60, padT = 40;\n    const cw = (W - padL - 50) / ds.length;\n    for(let i=0;i<ds.length;i++){\n      const di = ds[i];\n      const Ni = N[di];\n      const h = (Math.log10(Ni+1)/Nmax)*(H - padT - padB);\n      const x = padL + i*cw + 20;\n      const y = H - padB - h;\n      const fill = (di===d) ? 'var(--yellow)' : 'var(--violet)';\n      svg.appendChild(SVG('rect',{x,y,width:cw-30,height:h,fill,stroke:'var(--ink)','stroke-width': di===d ? 2 : 1}));\n      const lab = SVG('text',{x:x+(cw-30)/2,y:H-padB+18,'text-anchor':'middle','font-size':12,fill:'var(--ink)'});\n      lab.textContent = 'd = '+di; svg.appendChild(lab);\n      const need = 3*di - 1;\n      const lab2 = SVG('text',{x:x+(cw-30)/2,y:H-padB+34,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n      lab2.textContent = '('+need+' pts)'; svg.appendChild(lab2);\n      const labN = SVG('text',{x:x+(cw-30)/2,y:y-8,'text-anchor':'middle','font-size':14,fill:'var(--ink)','font-weight':600});\n      labN.textContent = 'N = '+Ni; svg.appendChild(labN);\n    }\n    // header\n    const hdr = SVG('text',{x:W/2,y:24,'text-anchor':'middle','font-size':13,fill:'var(--ink)','font-weight':600});\n    hdr.textContent = 'Genus-0 GW invariants N_d of ℙ² (log-height bars)'; svg.appendChild(hdr);\n    // axis\n    svg.appendChild(SVG('line',{x1:padL,y1:H-padB,x2:W-30,y2:H-padB,stroke:'var(--mute)'}));\n    out.innerHTML = '<strong>Degree '+d+':</strong> '+(3*d-1)+' generic points required; N_'+d+' = '+N[d]+'.<br>'+\n      'Mikhalkin: N_d = Σ μ(T) over rational tropical curves of degree d through the tropicalized points.<br>'+\n      'For d='+d+', the matching tropical sum reproduces N_'+d+' exactly. Kontsevich\\'s recursion gives N_5 = 87304, N_6 = 26312976, …';\n  }\n  dEl.addEventListener('input', draw);\n  draw();\n})();\n</script>",
+            "wrapperHasId": true
           }
         },
         {
